@@ -631,7 +631,7 @@ gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 											_("Gdb (debugger) commands"),
 											actions_gdb,
 											sizeof(actions_gdb)/sizeof(GtkActionEntry),
-											plugin);
+											GETTEXT_PACKAGE, plugin);
 	/* Add UI */
 	gdb_plugin->merge_id = anjuta_ui_merge (ui, UI_FILE);
 	

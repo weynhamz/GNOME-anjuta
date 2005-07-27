@@ -311,7 +311,7 @@ activate_plugin (AnjutaPlugin *plugin)
 					_("Subversion operations"),
 					actions_subversion,
 					G_N_ELEMENTS (actions_subversion),
-					plugin);
+					GETTEXT_PACKAGE, plugin);
 	subversion->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	/* Add watches */

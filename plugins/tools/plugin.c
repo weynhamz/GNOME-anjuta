@@ -185,7 +185,7 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 					_("Tool operations"),
 					actions_tools,
 					G_N_ELEMENTS (actions_tools),
-					plugin);
+					GETTEXT_PACKAGE, plugin);
 	this->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 	/* Load tools */

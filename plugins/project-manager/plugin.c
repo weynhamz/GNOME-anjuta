@@ -1121,14 +1121,15 @@ activate_plugin (AnjutaPlugin *plugin)
 											"ActionGroupProjectManager",
 											_("Project manager actions"),
 											pm_actions,
-											G_N_ELEMENTS(pm_actions), plugin);
+											G_N_ELEMENTS(pm_actions),
+											GETTEXT_PACKAGE, plugin);
 	pm_plugin->popup_action_group = 
 		anjuta_ui_add_action_group_entries (pm_plugin->ui,
 											"ActionGroupProjectManagerPopup",
 											_("Project manager popup actions"),
 											popup_actions,
 											G_N_ELEMENTS (popup_actions),
-											plugin);
+											GETTEXT_PACKAGE, plugin);
 	/* Merge UI */
 	pm_plugin->merge_id = 
 		anjuta_ui_merge (pm_plugin->ui, UI_FILE);

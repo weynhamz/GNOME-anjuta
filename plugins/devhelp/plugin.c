@@ -525,7 +525,7 @@ activate_plugin (AnjutaPlugin *plugin)
 										_("Devhelp navigation operations"),
 										actions,
 										G_N_ELEMENTS (actions),
-										devhelp_plugin);
+										GETTEXT_PACKAGE, devhelp_plugin);
 	action = anjuta_ui_get_action (ui, "ActionGroupDevhelp",
 								   "ActionHelpContext");
 	g_object_set (G_OBJECT (action), "short-label", _("Help"), NULL);

@@ -125,9 +125,10 @@ main (int argc, char *argv[])
 	char *im_file;
 	
 #ifdef ENABLE_NLS
-	bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
-	bind_textdomain_codeset(PACKAGE, "UTF-8");
-	textdomain (PACKAGE);
+	setlocale (LC_ALL, "");
+	bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
+	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+	textdomain (GETTEXT_PACKAGE);
 #endif
 	
 	data_dir = g_strdup (PACKAGE_DATA_DIR);

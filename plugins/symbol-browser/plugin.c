@@ -865,7 +865,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("Symbol browser popup actions"),
 											popup_actions,
 											G_N_ELEMENTS (popup_actions),
-											plugin);
+											GETTEXT_PACKAGE, plugin);
 	group = gtk_action_group_new ("ActionGroupSymbolNavigation");
 
 	/* create a new combobox in style of libegg... */

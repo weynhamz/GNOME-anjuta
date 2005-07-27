@@ -454,26 +454,30 @@ anjuta_app_instance_init (AnjutaApp *app)
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
 										menu_entries_file,
-										G_N_ELEMENTS (menu_entries_file), app);
+										G_N_ELEMENTS (menu_entries_file),
+										GETTEXT_PACKAGE, app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupEdit", _("Edit"),
 										menu_entries_edit,
-										G_N_ELEMENTS (menu_entries_edit), app);
+										G_N_ELEMENTS (menu_entries_edit),
+										GETTEXT_PACKAGE, app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupView", _("View"),
 										menu_entries_view,
-										G_N_ELEMENTS (menu_entries_view), app);
+										G_N_ELEMENTS (menu_entries_view),
+										GETTEXT_PACKAGE, app);
 	anjuta_ui_add_toggle_action_group_entries (app->ui, "ActionGroupToggleView",
 										_("Toggle View"),
 										menu_entries_toggle_view,
 										G_N_ELEMENTS (menu_entries_toggle_view),
-										app);
+										GETTEXT_PACKAGE, app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupSettings",
 										_("Settings"),
 										menu_entries_settings,
 										G_N_ELEMENTS (menu_entries_settings),
-										app);
+										GETTEXT_PACKAGE, app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupHelp", _("Help"),
 										menu_entries_help,
-										G_N_ELEMENTS (menu_entries_help), app);
+										G_N_ELEMENTS (menu_entries_help),
+										GETTEXT_PACKAGE, app);
 
 	/* Merge UI */
 	merge_id = anjuta_ui_merge (app->ui, UI_FILE);

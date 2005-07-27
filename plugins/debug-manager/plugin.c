@@ -674,7 +674,7 @@ activate_plugin (AnjutaPlugin* plugin)
 											_("Debugger operations"),
 											actions_debug,
 											G_N_ELEMENTS (actions_debug),
-											plugin);
+											GETTEXT_PACKAGE, plugin);
 	debug_manager_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	/* Add watches */

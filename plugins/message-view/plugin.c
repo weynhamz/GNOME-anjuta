@@ -149,7 +149,8 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupGotoMessages",
 											_("Next/Prev Message"),
 											actions_goto,
-											G_N_ELEMENTS (actions_goto), plugin);
+											G_N_ELEMENTS (actions_goto),
+											GETTEXT_PACKAGE, plugin);
 	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	if (!initialized)
 	{

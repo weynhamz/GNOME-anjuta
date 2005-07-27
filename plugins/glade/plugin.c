@@ -641,7 +641,7 @@ activate_plugin (AnjutaPlugin *plugin)
 										_("Glade operations"),
 										actions,
 										G_N_ELEMENTS (actions),
-										glade_plugin);
+										GETTEXT_PACKAGE, glade_plugin);
 	/* Add UI */
 	priv->uiid = anjuta_ui_merge (ui, UI_FILE);
 	

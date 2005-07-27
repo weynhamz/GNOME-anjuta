@@ -163,7 +163,8 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_ui_add_action_group_entries (fm_plugin->ui,
 											"ActionGroupFileManager",
 											_("File manager popup actions"),
-											popup_actions, 1, plugin);
+											popup_actions, 1,
+											GETTEXT_PACKAGE, plugin);
 	/* Add UI */
 	fm_plugin->merge_id = 
 		anjuta_ui_merge (fm_plugin->ui, UI_FILE);

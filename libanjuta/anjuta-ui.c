@@ -375,6 +375,8 @@ anjuta_ui_new (void)
  * @action_group_label: Translated label of the action group.
  * @entries: An array of action entries.
  * @num_entries: Number of elements in the action entries array.
+ * @translation_domain: The translation domain used to translated the entries.
+ * It is usually the GETTEXT_PACKAGE macro in a project.
  * @user_data: User data to pass to action objects. This is the data that
  * will come as user_data in "activate" signal of the actions.
  * 
@@ -397,6 +399,7 @@ anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 									const gchar *action_group_label,
 									GtkActionEntry *entries,
 									gint num_entries,
+									const gchar *translation_domain,
 									gpointer user_data)
 {
 	GtkActionGroup *action_group;
@@ -406,6 +409,8 @@ anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 	g_return_val_if_fail (action_group_name != NULL, NULL);
 	
 	action_group = gtk_action_group_new (action_group_name);
+	
+	gtk_action_group_set_translation_domain (action_group, translation_domain);
 	gtk_action_group_add_actions (action_group, entries, num_entries,
 								  user_data);
 	anjuta_ui_add_action_group (ui, action_group_name,
@@ -421,6 +426,8 @@ anjuta_ui_add_action_group_entries (AnjutaUI *ui,
  * @action_group_label: Translated label of the action group.
  * @entries: An array of action entries.
  * @num_entries: Number of elements in the action entries array.
+ * @translation_domain: The translation domain used to translated the entries.
+ * It is usually the GETTEXT_PACKAGE macro in a project.
  * @user_data: User data to pass to action objects. This is the data that
  * will come as user_data in "activate" signal of the actions.
  * 
@@ -435,6 +442,7 @@ anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
 									const gchar *action_group_label,
 									GtkToggleActionEntry *entries,
 									gint num_entries,
+									const gchar *translation_domain,
 									gpointer user_data)
 {
 	GtkActionGroup *action_group;
@@ -444,6 +452,7 @@ anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
 	g_return_val_if_fail (action_group_name != NULL, NULL);
 	
 	action_group = gtk_action_group_new (action_group_name);
+	gtk_action_group_set_translation_domain (action_group, translation_domain);
 	gtk_action_group_add_toggle_actions (action_group, entries, num_entries,
 										 user_data);
 	anjuta_ui_add_action_group (ui, action_group_name,

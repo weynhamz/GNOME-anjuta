@@ -187,7 +187,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("File wizard operations"),
 											actions_insert,
 											G_N_ELEMENTS(actions_insert),
-											plugin);
+											GETTEXT_PACKAGE, plugin);
 	/* Merge UI */
 	w_plugin->merge_id = 
 		anjuta_ui_merge (w_plugin->ui, UI_FILE);

@@ -79,7 +79,7 @@ sample_plugin_activate_plugin (AnjutaPlugin *plugin)
 										_("Sample file operations"),
 										actions_file,
 										G_N_ELEMENTS (actions_file),
-										plugin);
+										GETTEXT_PACKAGE, plugin);
 	sample_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, wid,
 							 "AnjutaSamplePlugin", _("SamplePlugin"), NULL,

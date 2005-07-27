@@ -261,7 +261,7 @@ default_profile_plugin_activate_plugin (AnjutaPlugin *plugin)
 											_("Profile actions"),
 											pf_actions,
 											G_N_ELEMENTS (pf_actions),
-											plugin);
+											GETTEXT_PACKAGE, plugin);
 	/* Merge UI */
 	pf_plugin->merge_id = anjuta_ui_merge (ui, UI_FILE);
 	update_ui (pf_plugin);

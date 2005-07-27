@@ -111,7 +111,7 @@ activate_plugin (AnjutaPlugin * plugin)
 					    _("Macro operations"),
 					    actions_macro,
 					    G_N_ELEMENTS (actions_macro),
-					    plugin);
+					    GETTEXT_PACKAGE, plugin);
 	macro_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 	macro_plugin->editor_watch_id =

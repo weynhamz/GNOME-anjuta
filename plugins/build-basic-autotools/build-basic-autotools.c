@@ -1576,7 +1576,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("Build commands"),
 											build_actions,
 											sizeof(build_actions)/sizeof(GtkActionEntry),
-											plugin);
+											GETTEXT_PACKAGE, plugin);
 	/* Add UI */
 	ba_plugin->build_merge_id = anjuta_ui_merge (ui, UI_FILE);
 

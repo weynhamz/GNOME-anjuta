@@ -1150,7 +1150,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("File Loader"),
 											actions_file,
 											G_N_ELEMENTS (actions_file),
-											plugin);
+											GETTEXT_PACKAGE, plugin);
 	saction = g_object_new (EGG_TYPE_SUBMENU_ACTION,
 							"name", "ActionFileWizard",
 							"label", _("_Wizard"),

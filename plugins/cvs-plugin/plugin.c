@@ -356,7 +356,7 @@ activate_plugin (AnjutaPlugin *plugin)
 					_("CVS operations"),
 					actions_cvs,
 					G_N_ELEMENTS (actions_cvs),
-					plugin);
+					GETTEXT_PACKAGE, plugin);
 	cvs_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	/* Add watches */

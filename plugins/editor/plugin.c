@@ -1132,7 +1132,7 @@ activate_plugin (AnjutaPlugin *plugin)
 													_(action_groups[i].label),
 													action_groups[i].group,
 													action_groups[i].size,
-													plugin);
+													GETTEXT_PACKAGE, plugin);
 		editor_plugin->action_groups =
 			g_list_prepend (editor_plugin->action_groups, group);
 		actions = gtk_action_group_list_actions (group);
@@ -1153,7 +1153,7 @@ activate_plugin (AnjutaPlugin *plugin)
 												_(action_toggle_groups[i].label),
 												action_toggle_groups[i].group,
 												action_toggle_groups[i].size,
-												plugin);
+												GETTEXT_PACKAGE, plugin);
 		editor_plugin->action_groups =
 			g_list_prepend (editor_plugin->action_groups, group);
 		actions = gtk_action_group_list_actions (group);

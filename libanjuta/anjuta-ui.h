@@ -69,6 +69,7 @@ GtkActionGroup* anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 											const gchar *action_group_label,
 											GtkActionEntry *entries,
 											gint num_entries,
+											const gchar *translation_domain,
 											gpointer user_data);
 
 GtkActionGroup* anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
@@ -76,6 +77,7 @@ GtkActionGroup* anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
 											const gchar *action_group_label,
 											GtkToggleActionEntry *entries,
 											gint num_entries,
+											const gchar *translation_domain,
 											gpointer user_data);
 
 void anjuta_ui_add_action_group (AnjutaUI *ui,
