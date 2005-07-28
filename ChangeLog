@@ -1,3 +1,26 @@
+2005-07-28  Naba Kumar  <naba@gnome.org>
+
+	* scintilla/*: Updated scintilla from their latest CVS.
+
+2005-07-27  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-ui.c, libanjuta/anjuta-ui.h,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/cvs-plugin/plugin.c, plugins/debug-manager/plugin.c,
+	plugins/devhelp/plugin.c, plugins/editor/plugin.c,
+	plugins/file-loader/plugin.c, plugins/file-manager/plugin.c,
+	plugins/file-wizard/plugin.c, plugins/gdb/plugin.c,
+	plugins/glade/plugin.c, plugins/gtodo/plugin.c, plugins/macro/plugin.c,
+	plugins/message-view/plugin.c, plugins/patch/plugin.c,
+	plugins/profile-default/plugin.c, plugins/project-manager/plugin.c,
+	plugins/sample1/plugin.c, plugins/subversion/plugin.c,
+	plugins/symbol-browser/plugin.c, plugins/tools/plugin.c,
+	src/anjuta-app.c, src/main.c, src/shell.c: Added 'translation_domain'
+	argument to anjuta_ui_add_action_group_entries() and
+	anjuta_ui_add_toggle_action_group_entries() and set the translation domain.
+	Fixed all plugins to pass translation domain. This fixes untranslated
+	UI bugs. 
+
 2005-07-27  Naba Kumar  <naba@gnome.org>
 
 	* plugins/class-inheritance/class-callbacks.c,

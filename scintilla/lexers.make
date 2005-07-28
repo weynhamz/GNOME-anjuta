@@ -9,18 +9,23 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexAVE.o\
 	$(top_srcdir)/scintilla/LexBaan.o\
 	$(top_srcdir)/scintilla/LexBash.o\
+	$(top_srcdir)/scintilla/LexBasic.o\
 	$(top_srcdir)/scintilla/LexBullant.o\
+	$(top_srcdir)/scintilla/LexCaml.o\
 	$(top_srcdir)/scintilla/LexCLW.o\
 	$(top_srcdir)/scintilla/LexConf.o\
 	$(top_srcdir)/scintilla/LexCPP.o\
 	$(top_srcdir)/scintilla/LexCrontab.o\
+	$(top_srcdir)/scintilla/LexCsound.o\
 	$(top_srcdir)/scintilla/LexCSS.o\
 	$(top_srcdir)/scintilla/LexEiffel.o\
 	$(top_srcdir)/scintilla/LexErlang.o\
 	$(top_srcdir)/scintilla/LexEScript.o\
+	$(top_srcdir)/scintilla/LexFlagship.o\
 	$(top_srcdir)/scintilla/LexForth.o\
 	$(top_srcdir)/scintilla/LexFortran.o\
 	$(top_srcdir)/scintilla/LexGui4Cli.o\
+	$(top_srcdir)/scintilla/LexHaskell.o\
 	$(top_srcdir)/scintilla/LexHTML.o\
 	$(top_srcdir)/scintilla/LexKix.o\
 	$(top_srcdir)/scintilla/LexLisp.o\
@@ -39,10 +44,13 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexPOV.o\
 	$(top_srcdir)/scintilla/LexPS.o\
 	$(top_srcdir)/scintilla/LexPython.o\
+	$(top_srcdir)/scintilla/LexRebol.o\
 	$(top_srcdir)/scintilla/LexRuby.o\
 	$(top_srcdir)/scintilla/LexScriptol.o\
+	$(top_srcdir)/scintilla/LexSmalltalk.o\
 	$(top_srcdir)/scintilla/LexSpecman.o\
 	$(top_srcdir)/scintilla/LexSQL.o\
+	$(top_srcdir)/scintilla/LexTADS3.o\
 	$(top_srcdir)/scintilla/LexTeX.o\
 	$(top_srcdir)/scintilla/LexVB.o\
 	$(top_srcdir)/scintilla/LexVerilog.o\
@@ -58,18 +66,23 @@ LEXER_SRCS = \
 	LexAVE.cxx\
 	LexBaan.cxx\
 	LexBash.cxx\
+	LexBasic.cxx\
 	LexBullant.cxx\
+	LexCaml.cxx\
 	LexCLW.cxx\
 	LexConf.cxx\
 	LexCPP.cxx\
 	LexCrontab.cxx\
+	LexCsound.cxx\
 	LexCSS.cxx\
 	LexEiffel.cxx\
 	LexErlang.cxx\
 	LexEScript.cxx\
+	LexFlagship.cxx\
 	LexForth.cxx\
 	LexFortran.cxx\
 	LexGui4Cli.cxx\
+	LexHaskell.cxx\
 	LexHTML.cxx\
 	LexKix.cxx\
 	LexLisp.cxx\
@@ -88,10 +101,13 @@ LEXER_SRCS = \
 	LexPOV.cxx\
 	LexPS.cxx\
 	LexPython.cxx\
+	LexRebol.cxx\
 	LexRuby.cxx\
 	LexScriptol.cxx\
+	LexSmalltalk.cxx\
 	LexSpecman.cxx\
 	LexSQL.cxx\
+	LexTADS3.cxx\
 	LexTeX.cxx\
 	LexVB.cxx\
 	LexVerilog.cxx\

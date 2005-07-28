@@ -29,6 +29,37 @@
 #include "Document.h"
 #include "Editor.h"
 
+/*
+	return whether this modification represents an operation that
+	may reasonably be deferred (not done now OR [possibly] at all)
+*/
+static bool CanDeferToLastStep(const DocModification& mh) {
+	if (mh.modificationType & (SC_MOD_BEFOREINSERT|SC_MOD_BEFOREDELETE))
+		return true;	// CAN skip
+	if (!(mh.modificationType & (SC_PERFORMED_UNDO|SC_PERFORMED_REDO)))
+		return false;	// MUST do
+	if (mh.modificationType & SC_MULTISTEPUNDOREDO)
+		return true;	// CAN skip
+	return false;		// PRESUMABLY must do
+}
+
+static bool CanEliminate(const DocModification& mh) {
+	return
+		(mh.modificationType & (SC_MOD_BEFOREINSERT|SC_MOD_BEFOREDELETE)) != 0;
+}
+
+/*
+	return whether this modification represents the FINAL step
+	in a [possibly lengthy] multi-step Undo/Redo sequence
+*/
+static bool IsLastStep(const DocModification& mh) {
+	return 
+		(mh.modificationType & (SC_PERFORMED_UNDO|SC_PERFORMED_REDO)) != 0
+		&& (mh.modificationType & SC_MULTISTEPUNDOREDO) != 0
+		&& (mh.modificationType & SC_LASTSTEPINUNDOREDO) != 0
+		&& (mh.modificationType & SC_MULTILINEUNDOREDO) != 0;
+}
+
 Caret::Caret() :
 active(false), on(false), period(500) {}
 
@@ -344,6 +375,7 @@ Editor::Editor() {
 	scrollWidth = 2000;
 	verticalScrollBarVisible = true;
 	endAtLastLine = true;
+	caretSticky = false;
 
 	pixmapLine = Surface::Allocate();
 	pixmapSelMargin = Surface::Allocate();
@@ -361,7 +393,7 @@ Editor::Editor() {
 	topLine = 0;
 	posTopLine = 0;
 
-	lengthForEncode = 0;
+	lengthForEncode = -1;
 
 	needUpdateUI = true;
 	braces[0] = invalidPosition;
@@ -420,6 +452,7 @@ void Editor::DropGraphics() {
 	pixmapSelMargin->Release();
 	pixmapSelPattern->Release();
 	pixmapIndentGuide->Release();
+	pixmapIndentGuideHighlight->Release();
 }
 
 void Editor::InvalidateStyleData() {
@@ -899,6 +932,13 @@ int Editor::SelectionEnd() {
 	return Platform::Maximum(currentPos, anchor);
 }
 
+void Editor::SetRectangularRange() {
+	if (selType == selRectangle) {
+		xStartSelect = XFromPosition(anchor);
+		xEndSelect = XFromPosition(currentPos);
+	}
+}
+
 void Editor::InvalidateSelection(int currentPos_, int anchor_) {
 	int firstAffected = anchor;
 	if (firstAffected > currentPos)
@@ -926,10 +966,7 @@ void Editor::SetSelection(int currentPos_, int anchor_) {
 		currentPos = currentPos_;
 		anchor = anchor_;
 	}
-	if (selType == selRectangle) {
-		xStartSelect = XFromPosition(anchor);
-		xEndSelect = XFromPosition(currentPos);
-	}
+	SetRectangularRange();
 	ClaimSelection();
 }
 
@@ -939,10 +976,7 @@ void Editor::SetSelection(int currentPos_) {
 		InvalidateSelection(currentPos_, currentPos_);
 		currentPos = currentPos_;
 	}
-	if (selType == selRectangle) {
-		xStartSelect = XFromPosition(anchor);
-		xEndSelect = XFromPosition(currentPos);
-	}
+	SetRectangularRange();
 	ClaimSelection();
 }
 
@@ -2063,7 +2097,12 @@ void Editor::LayoutLine(int line, Surface *surface, ViewStyle &vstyle, LineLayou
 					continue;
 				}
 				if (p > 0) {
-					if (ll->styles[p] != ll->styles[p - 1]) {
+					if (wrapState == eWrapChar){
+						lastGoodBreak = pdoc->MovePositionOutsideChar(p + posLineStart, -1)
+												- posLineStart;
+						p = pdoc->MovePositionOutsideChar(p + 1 + posLineStart, 1) - posLineStart;
+						continue;
+					} else if (ll->styles[p] != ll->styles[p - 1]) {
 						lastGoodBreak = p;
 					} else if (IsSpaceOrTab(ll->chars[p - 1]) && !IsSpaceOrTab(ll->chars[p])) {
 						lastGoodBreak = p;
@@ -2530,35 +2569,34 @@ void Editor::DrawLine(Surface *surface, ViewStyle &vsDraw, int line, int lineVis
 	}
 
 	// Draw indicators
-	int indStart[INDIC_MAX + 1] = {0};
-	for (int indica = 0; indica <= INDIC_MAX; indica++)
-		indStart[indica] = 0;
-
-	for (int indicPos = lineStart; indicPos <= lineEnd; indicPos++) {
-		if ((indicPos == lineStart) || (indicPos == lineEnd) ||
-			(ll->indicators[indicPos] != ll->indicators[indicPos + 1])) {
-			int mask = 1 << pdoc->stylingBits;
-			for (int indicnum = 0; mask < 0x100; indicnum++) {
-				if ((indicPos == lineStart) || (indicPos == lineEnd)) {
-					indStart[indicnum] = ll->positions[indicPos];
-				} else if ((ll->indicators[indicPos + 1] & mask) && !(ll->indicators[indicPos] & mask)) {
-					indStart[indicnum] = ll->positions[indicPos + 1];
-				}
-				if ((ll->indicators[indicPos] & mask) &&
-					((indicPos == lineEnd) || !(ll->indicators[indicPos + 1] & mask))) {
-					int endIndicator = indicPos;
-					if (endIndicator >= lineEnd)
-						endIndicator = lineEnd-1;
+	// foreach indicator...
+	for (int indicnum = 0, mask = 1 << pdoc->stylingBits; mask < 0x100; indicnum++) {
+		int startPos = -1;
+		// foreach style pos in line...
+		for (int indicPos = lineStart; indicPos <= lineEnd; indicPos++) {
+			// look for starts...
+			if (startPos < 0) {
+				// NOT in indicator run, looking for START
+				if (indicPos < lineEnd && (ll->indicators[indicPos] & mask))
+					startPos = indicPos;
+			}
+			// ... or ends
+			if (startPos >= 0) {
+				// IN indicator run, looking for END
+				if (indicPos >= lineEnd || !(ll->indicators[indicPos] & mask)) {
+					// AT end of indicator run, DRAW it!
 					PRectangle rcIndic(
-						indStart[indicnum] + xStart - subLineStart,
+						ll->positions[startPos] + xStart - subLineStart,
 						rcLine.top + vsDraw.maxAscent,
-						ll->positions[endIndicator + 1] + xStart - subLineStart,
+						ll->positions[indicPos] + xStart - subLineStart,
 						rcLine.top + vsDraw.maxAscent + 3);
 					vsDraw.indicators[indicnum].Draw(surface, rcIndic, rcLine);
+					// RESET control var
+					startPos = -1;
 				}
-				mask = mask << 1;
 			}
 		}
+		mask <<= 1;
 	}
 	// End of the drawing of the current line
 	if (!twoPhaseDraw) {
@@ -3164,6 +3202,9 @@ void Editor::SetScrollBars() {
 	int nMax = MaxScrollPos();
 	int nPage = LinesOnScreen();
 	bool modified = ModifyScrollBars(nMax + nPage - 1, nPage);
+	if (modified) {
+		DwellEnd(true);
+	}
 
 	// TODO: ensure always showing as many lines as possible
 	// May not be, if, for example, window made larger
@@ -3203,9 +3244,12 @@ void Editor::AddChar(char ch) {
 void Editor::AddCharUTF(char *s, unsigned int len, bool treatAsDBCS) {
 	bool wasSelection = currentPos != anchor;
 	ClearSelection();
+	bool charReplaceAction = false;
 	if (inOverstrike && !wasSelection && !RangeContainsProtected(currentPos, currentPos + 1)) {
 		if (currentPos < (pdoc->Length())) {
 			if (!IsEOLChar(pdoc->CharAt(currentPos))) {
+				charReplaceAction = true;
+				pdoc->BeginUndoAction();
 				pdoc->DelChar(currentPos);
 			}
 		}
@@ -3213,10 +3257,15 @@ void Editor::AddCharUTF(char *s, unsigned int len, bool treatAsDBCS) {
 	if (pdoc->InsertString(currentPos, s, len)) {
 		SetEmptySelection(currentPos + len);
 	}
+	if (charReplaceAction) {
+		pdoc->EndUndoAction();
+	}
 	EnsureCaretVisible();
 	// Avoid blinking during rapid typing:
 	ShowCaretAtCurrentPosition();
-	SetLastXChosen();
+	if (!caretSticky) {
+		SetLastXChosen();
+	}
 
 	if (treatAsDBCS) {
 		NotifyChar((static_cast<unsigned char>(s[0]) << 8) |
@@ -3296,6 +3345,7 @@ void Editor::ClearAll() {
 	currentPos = 0;
 	SetTopLine(0);
 	SetVerticalScrollPos();
+	InvalidateStyleRedraw();
 }
 
 void Editor::ClearDocumentStyle() {
@@ -3374,7 +3424,8 @@ void Editor::Undo() {
 	if (pdoc->CanUndo()) {
 		InvalidateCaret();
 		int newPos = pdoc->Undo();
-		SetEmptySelection(newPos);
+		if (newPos >= 0)
+			SetEmptySelection(newPos);
 		EnsureCaretVisible();
 	}
 }
@@ -3382,7 +3433,8 @@ void Editor::Undo() {
 void Editor::Redo() {
 	if (pdoc->CanRedo()) {
 		int newPos = pdoc->Redo();
-		SetEmptySelection(newPos);
+		if (newPos >= 0)
+			SetEmptySelection(newPos);
 		EnsureCaretVisible();
 	}
 }
@@ -3428,7 +3480,7 @@ void Editor::DelCharBack(bool allowLineStartDeletion) {
 void Editor::NotifyFocus(bool) {}
 
 void Editor::NotifyStyleToNeeded(int endStyleNeeded) {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_STYLENEEDED;
 	scn.position = endStyleNeeded;
 	NotifyParent(scn);
@@ -3439,7 +3491,7 @@ void Editor::NotifyStyleNeeded(Document*, void *, int endStyleNeeded) {
 }
 
 void Editor::NotifyChar(int ch) {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_CHARADDED;
 	scn.ch = ch;
 	NotifyParent(scn);
@@ -3452,7 +3504,7 @@ void Editor::NotifyChar(int ch) {
 }
 
 void Editor::NotifySavePoint(bool isSavePoint) {
-	SCNotification scn;
+	SCNotification scn = {0};
 	if (isSavePoint) {
 		scn.nmhdr.code = SCN_SAVEPOINTREACHED;
 	} else {
@@ -3462,19 +3514,19 @@ void Editor::NotifySavePoint(bool isSavePoint) {
 }
 
 void Editor::NotifyModifyAttempt() {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_MODIFYATTEMPTRO;
 	NotifyParent(scn);
 }
 
 void Editor::NotifyDoubleClick(Point, bool) {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_DOUBLECLICK;
 	NotifyParent(scn);
 }
 
 void Editor::NotifyHotSpotDoubleClicked(int position, bool shift, bool ctrl, bool alt) {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_HOTSPOTDOUBLECLICK;
 	scn.position = position;
 	scn.modifiers = (shift ? SCI_SHIFT : 0) | (ctrl ? SCI_CTRL : 0) |
@@ -3483,7 +3535,7 @@ void Editor::NotifyHotSpotDoubleClicked(int position, bool shift, bool ctrl, boo
 }
 
 void Editor::NotifyHotSpotClicked(int position, bool shift, bool ctrl, bool alt) {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_HOTSPOTCLICK;
 	scn.position = position;
 	scn.modifiers = (shift ? SCI_SHIFT : 0) | (ctrl ? SCI_CTRL : 0) |
@@ -3492,13 +3544,13 @@ void Editor::NotifyHotSpotClicked(int position, bool shift, bool ctrl, bool alt)
 }
 
 void Editor::NotifyUpdateUI() {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_UPDATEUI;
 	NotifyParent(scn);
 }
 
 void Editor::NotifyPainted() {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_PAINTED;
 	NotifyParent(scn);
 }
@@ -3512,7 +3564,7 @@ bool Editor::NotifyMarginClick(Point pt, bool shift, bool ctrl, bool alt) {
 		x += vs.ms[margin].width;
 	}
 	if ((marginClicked >= 0) && vs.ms[marginClicked].sensitive) {
-		SCNotification scn;
+		SCNotification scn = {0};
 		scn.nmhdr.code = SCN_MARGINCLICK;
 		scn.modifiers = (shift ? SCI_SHIFT : 0) | (ctrl ? SCI_CTRL : 0) |
 		                (alt ? SCI_ALT : 0);
@@ -3526,7 +3578,7 @@ bool Editor::NotifyMarginClick(Point pt, bool shift, bool ctrl, bool alt) {
 }
 
 void Editor::NotifyNeedShown(int pos, int len) {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_NEEDSHOWN;
 	scn.position = pos;
 	scn.length = len;
@@ -3534,7 +3586,7 @@ void Editor::NotifyNeedShown(int pos, int len) {
 }
 
 void Editor::NotifyDwelling(Point pt, bool state) {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = state ? SCN_DWELLSTART : SCN_DWELLEND;
 	scn.position = PositionFromLocationClose(pt);
 	scn.x = pt.x;
@@ -3543,7 +3595,7 @@ void Editor::NotifyDwelling(Point pt, bool state) {
 }
 
 void Editor::NotifyZoom() {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_ZOOM;
 	NotifyParent(scn);
 }
@@ -3555,7 +3607,7 @@ void Editor::NotifyModifyAttempt(Document*, void *) {
 }
 
 void Editor::NotifyMove(int position) {
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_POSCHANGED;
 	scn.position = position;
 	NotifyParent(scn);
@@ -3567,8 +3619,7 @@ void Editor::NotifySavePoint(Document*, void *, bool atSavePoint) {
 }
 
 void Editor::CheckModificationForWrap(DocModification mh) {
-	if ((mh.modificationType & SC_MOD_INSERTTEXT) ||
-	        (mh.modificationType & SC_MOD_DELETETEXT)) {
+	if (mh.modificationType & (SC_MOD_INSERTTEXT|SC_MOD_DELETETEXT)) {
 		llc.Invalidate(LineLayout::llCheckTextAndStyle);
 		if (wrapState != eWrapNone) {
 			int lineDoc = pdoc->LineFromPosition(mh.position);
@@ -3644,7 +3695,7 @@ void Editor::NotifyModified(Document*, DocModification mh, void *) {
 			// Some lines are hidden so may need shown.
 			// TODO: check if the modified area is hidden.
 			if (mh.modificationType & SC_MOD_BEFOREINSERT) {
-				NotifyNeedShown(mh.position, mh.length);
+				NotifyNeedShown(mh.position, 0);
 			} else if (mh.modificationType & SC_MOD_BEFOREDELETE) {
 				NotifyNeedShown(mh.position, mh.length);
 			}
@@ -3662,7 +3713,7 @@ void Editor::NotifyModified(Document*, DocModification mh, void *) {
 		CheckModificationForWrap(mh);
 		if (mh.linesAdded != 0) {
 			// Avoid scrolling of display if change before current display
-			if (mh.position < posTopLine) {
+			if (mh.position < posTopLine && !CanDeferToLastStep(mh)) {
 				int newTop = Platform::Clamp(topLine + mh.linesAdded, 0, MaxScrollPos());
 				if (newTop != topLine) {
 					SetTopLine(newTop);
@@ -3673,19 +3724,19 @@ void Editor::NotifyModified(Document*, DocModification mh, void *) {
 			//Platform::DebugPrintf("** %x Doc Changed\n", this);
 			// TODO: could invalidate from mh.startModification to end of screen
 			//InvalidateRange(mh.position, mh.position + mh.length);
-			if (paintState == notPainting) {
+			if (paintState == notPainting && !CanDeferToLastStep(mh)) {
 				Redraw();
 			}
 		} else {
 			//Platform::DebugPrintf("** %x Line Changed %d .. %d\n", this,
 			//	mh.position, mh.position + mh.length);
-			if (paintState == notPainting) {
+			if (paintState == notPainting && mh.length && !CanEliminate(mh)) {
 				InvalidateRange(mh.position, mh.position + mh.length);
 			}
 		}
 	}
 
-	if (mh.linesAdded != 0) {
+	if (mh.linesAdded != 0 && !CanDeferToLastStep(mh)) {
 		SetScrollBars();
 	}
 
@@ -3695,6 +3746,12 @@ void Editor::NotifyModified(Document*, DocModification mh, void *) {
 		}
 	}
 
+	// NOW pay the piper WRT "deferred" visual updates
+	if (IsLastStep(mh)) {
+		SetScrollBars();
+		Redraw();
+	}
+
 	// If client wants to see this modification
 	if (mh.modificationType & modEventMask) {
 		if ((mh.modificationType & SC_MOD_CHANGESTYLE) == 0) {
@@ -3702,7 +3759,7 @@ void Editor::NotifyModified(Document*, DocModification mh, void *) {
 			NotifyChange();	// Send EN_CHANGE
 		}
 
-		SCNotification scn;
+		SCNotification scn = {0};
 		scn.nmhdr.code = SCN_MODIFIED;
 		scn.position = mh.position;
 		scn.modificationType = mh.modificationType;
@@ -3832,7 +3889,7 @@ void Editor::NotifyMacroRecord(unsigned int iMessage, unsigned long wParam, long
 	}
 
 	// Send notification
-	SCNotification scn;
+	SCNotification scn = {0};
 	scn.nmhdr.code = SCN_MACRORECORD;
 	scn.message = iMessage;
 	scn.wParam = wParam;
@@ -3966,6 +4023,8 @@ void Editor::NewLine() {
 	}
 	SetLastXChosen();
 	EnsureCaretVisible();
+	// Avoid blinking during rapid typing:
+	ShowCaretAtCurrentPosition();
 }
 
 void Editor::CursorUpOrDown(int direction, selTypes sel) {
@@ -3984,6 +4043,22 @@ void Editor::CursorUpOrDown(int direction, selTypes sel) {
 		}
 	}
 	MovePositionTo(posNew, sel);
+}
+
+void Editor::ParaUpOrDown(int direction, selTypes sel) {
+	int lineDoc, savedPos = currentPos;
+	do {
+		MovePositionTo(direction > 0 ? pdoc->ParaDown(currentPos) : pdoc->ParaUp(currentPos), sel);
+		lineDoc = pdoc->LineFromPosition(currentPos);
+		if (direction > 0) {
+			if (currentPos >= pdoc->Length() && !cs.GetVisible(lineDoc)) {
+				if (sel == noSel) {
+					MovePositionTo(pdoc->LineEndPosition(savedPos));
+				}
+				break;
+			}
+		}
+	} while (!cs.GetVisible(lineDoc));
 }
 
 int Editor::StartEndDisplayLine(int pos, bool start) {
@@ -4030,10 +4105,10 @@ int Editor::KeyCommand(unsigned int iMessage) {
 		CursorUpOrDown(1, selRectangle);
 		break;
 	case SCI_PARADOWN:
-		MovePositionTo(pdoc->ParaDown(currentPos));
+		ParaUpOrDown(1);
 		break;
 	case SCI_PARADOWNEXTEND:
-		MovePositionTo(pdoc->ParaDown(currentPos), selStream);
+		ParaUpOrDown(1, selStream);
 		break;
 	case SCI_LINESCROLLDOWN:
 		ScrollTo(topLine + 1);
@@ -4049,10 +4124,10 @@ int Editor::KeyCommand(unsigned int iMessage) {
 		CursorUpOrDown(-1, selRectangle);
 		break;
 	case SCI_PARAUP:
-		MovePositionTo(pdoc->ParaUp(currentPos));
+		ParaUpOrDown(-1);
 		break;
 	case SCI_PARAUPEXTEND:
-		MovePositionTo(pdoc->ParaUp(currentPos), selStream);
+		ParaUpOrDown(-1, selStream);
 		break;
 	case SCI_LINESCROLLUP:
 		ScrollTo(topLine - 1);
@@ -4242,22 +4317,30 @@ int Editor::KeyCommand(unsigned int iMessage) {
 		break;
 	case SCI_DELETEBACK:
 		DelCharBack(true);
-		SetLastXChosen();
+		if (!caretSticky) {
+			SetLastXChosen();
+		}
 		EnsureCaretVisible();
 		break;
 	case SCI_DELETEBACKNOTLINE:
 		DelCharBack(false);
-		SetLastXChosen();
+		if (!caretSticky) {
+			SetLastXChosen();
+		}
 		EnsureCaretVisible();
 		break;
 	case SCI_TAB:
 		Indent(true);
-		SetLastXChosen();
+		if (!caretSticky) {
+			SetLastXChosen();
+		}
 		EnsureCaretVisible();
 		break;
 	case SCI_BACKTAB:
 		Indent(false);
-		SetLastXChosen();
+		if (!caretSticky) {
+			SetLastXChosen();
+		}
 		EnsureCaretVisible();
 		break;
 	case SCI_NEWLINE:
@@ -4995,9 +5078,9 @@ void Editor::ButtonDown(Point pt, unsigned int curTime, bool shift, bool ctrl, b
 					SetEmptySelection(newPos);
 				}
 				selType = alt ? selRectangle : selStream;
-				xStartSelect = xEndSelect = pt.x - vs.fixedColumnWidth + xOffset;
 				selectionType = selChar;
 				originalAnchorPos = currentPos;
+				SetRectangularRange();
 			}
 		}
 	}
@@ -5191,9 +5274,7 @@ void Editor::ButtonUp(Point pt, unsigned int curTime, bool ctrl) {
 				SetSelection(newPos);
 			}
 		}
-		// Now we rely on the current pos to compute rectangular selection
-		xStartSelect = XFromPosition(anchor);
-		xEndSelect = XFromPosition(currentPos);
+		SetRectangularRange();
 		lastClickTime = curTime;
 		lastClick = pt;
 		lastXChosen = pt.x;
@@ -5424,8 +5505,8 @@ void Editor::SetDocPointer(Document *document) {
 	NeedWrapping();
 
 	pdoc->AddWatcher(this, 0);
-	Redraw();
 	SetScrollBars();
+	Redraw();
 }
 
 /**
@@ -5561,6 +5642,18 @@ int Editor::CodePage() const {
 		return 0;
 }
 
+int Editor::WrapCount(int line) {
+	AutoSurface surface(this);
+	AutoLineLayout ll(llc, RetrieveLineLayout(line));
+
+	if (surface && ll) {
+		LayoutLine(line, surface, vs, ll, wrapWidth);
+		return ll->lines;
+	} else {
+		return 1;
+	}
+}
+
 static bool ValidMargin(unsigned long wParam) {
 	return wParam < ViewStyle::margins;
 }
@@ -5624,7 +5717,9 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 
 	case SCI_PASTE:
 		Paste();
-		SetLastXChosen();
+		if (!caretSticky) {
+			SetLastXChosen();
+		}
 		EnsureCaretVisible();
 		break;
 
@@ -5640,7 +5735,7 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 		break;
 
 	case SCI_CANUNDO:
-		return pdoc->CanUndo() ? 1 : 0;
+		return (pdoc->CanUndo() && !pdoc->IsReadOnly()) ? 1 : 0;
 
 	case SCI_EMPTYUNDOBUFFER:
 		pdoc->DeleteUndoHistory();
@@ -6069,7 +6164,7 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 		}
 
 	case SCI_CANREDO:
-		return pdoc->CanRedo() ? 1 : 0;
+		return (pdoc->CanRedo() && !pdoc->IsReadOnly()) ? 1 : 0;
 
 	case SCI_MARKERLINEFROMHANDLE:
 		return pdoc->LineFromHandle(wParam);
@@ -6228,7 +6323,17 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 		return pdoc->ExtendWordSelect(wParam, 1, lParam != 0);
 
 	case SCI_SETWRAPMODE:
-		wrapState = (wParam == SC_WRAP_WORD) ? eWrapWord : eWrapNone;
+		switch(wParam){
+			case SC_WRAP_WORD:
+				wrapState = eWrapWord;
+				break;
+			case SC_WRAP_CHAR:
+				wrapState = eWrapChar;
+				break;
+			default:
+				wrapState = eWrapNone;
+				break;
+		}
 		xOffset = 0;
 		InvalidateStyleRedraw();
 		ReconfigureScrollBars();
@@ -6313,6 +6418,20 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 
 	case SCI_GETENDATLASTLINE:
 		return endAtLastLine;
+
+	case SCI_SETCARETSTICKY:
+		PLATFORM_ASSERT((wParam == 0) || (wParam == 1));
+		if (caretSticky != (wParam != 0)) {
+			caretSticky = wParam != 0;
+		}
+		break;
+
+	case SCI_GETCARETSTICKY:
+		return caretSticky;
+
+	case SCI_TOGGLECARETSTICKY:
+		caretSticky = !caretSticky;
+		break;
 
 	case SCI_GETCOLUMN:
 		return pdoc->GetColumn(wParam);
@@ -6620,6 +6739,9 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 
 	case SCI_DOCLINEFROMVISIBLE:
 		return cs.DocFromDisplay(wParam);
+
+	case SCI_WRAPCOUNT:
+		return WrapCount(wParam);
 
 	case SCI_SETFOLDLEVEL: {
 			int prev = pdoc->SetLevel(wParam, lParam);

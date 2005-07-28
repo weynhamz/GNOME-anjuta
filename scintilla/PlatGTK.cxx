@@ -286,6 +286,8 @@ static const char *CharacterSetName(int characterSet) {
 		return "*-*";
 	case SC_CHARSET_RUSSIAN:
 		return "*-r";
+	case SC_CHARSET_CYRILLIC:
+		return "*-cp1251";
 	case SC_CHARSET_SHIFTJIS:
 		return "jisx0208.1983-*";
 	case SC_CHARSET_SYMBOL:
@@ -302,6 +304,8 @@ static const char *CharacterSetName(int characterSet) {
 		return "*-*";
 	case SC_CHARSET_THAI:
 		return "*-1";
+	case SC_CHARSET_8859_15:
+		return "iso8859-15";
 	default:
 		return "*-*";
 	}
@@ -742,6 +746,8 @@ const char *CharacterSetID(int characterSet) {
 		return "ASCII";
 	case SC_CHARSET_RUSSIAN:
 		return "KOI8-R";
+	case SC_CHARSET_CYRILLIC:
+		return "CP1251";
 	case SC_CHARSET_SHIFTJIS:
 		return "SHIFT-JIS";
 	case SC_CHARSET_SYMBOL:
@@ -758,6 +764,8 @@ const char *CharacterSetID(int characterSet) {
 		return "";
 	case SC_CHARSET_THAI:
 		return "ISO-8859-1";
+	case SC_CHARSET_8859_15:
+		return "ISO-8859-15";
 	default:
 		return "";
 	}
@@ -1463,10 +1471,12 @@ int SurfaceImpl::WidthChar(Font &font_, char ch) {
 // rarely used in code.
 
 // This string contains a good range of characters to test for size.
-const char largeSizeString[] = "бцед `~!@#$%^&*()-_=+\\|[]{};:\"\'<,>.?/1234567890"
-                               "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//const char largeSizeString[] = "бцед `~!@#$%^&*()-_=+\\|[]{};:\"\'<,>.?/1234567890"
+//                               "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+#ifndef FAST_WAY
 const char sizeString[] = "`~!@#$%^&*()-_=+\\|[]{};:\"\'<,>.?/1234567890"
                           "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+#endif
 
 int SurfaceImpl::Ascent(Font &font_) {
 	if (!(font_.GetID()))
@@ -1716,8 +1726,9 @@ void Window::SetCursor(Cursor curs) {
 		cursorLast = cursorArrow;
 		break;
 	}
+
 	if (PWidget(id)->window)
-	    gdk_window_set_cursor(PWidget(id)->window, gdkCurs);
+		gdk_window_set_cursor(PWidget(id)->window, gdkCurs);
 	gdk_cursor_destroy(gdkCurs);
 }
 
@@ -1793,9 +1804,10 @@ public:
 		}
 	}
 	virtual void SetFont(Font &font);
-	virtual void Create(Window &parent, int ctrlID, int lineHeight_, bool unicodeMode_);
+	virtual void Create(Window &parent, int ctrlID, Point location_, int lineHeight_, bool unicodeMode_);
 	virtual void SetAverageCharWidth(int width);
 	virtual void SetVisibleRows(int rows);
+	virtual int GetVisibleRows() const;
 	virtual PRectangle GetDesiredRect();
 	virtual int CaretFromEdge();
 	virtual void Clear();
@@ -1811,6 +1823,7 @@ public:
 		doubleClickAction = action;
 		doubleClickActionData = data;
 	}
+	virtual void SetList(const char* list, char separator, char typesep);
 };
 
 ListBox *ListBox::Allocate() {
@@ -1841,7 +1854,7 @@ static gboolean ButtonPress(GtkWidget *, GdkEventButton* ev, gpointer p) {
 	return FALSE;
 }
 
-void ListBoxX::Create(Window &, int, int, bool) {
+void ListBoxX::Create(Window &, int, Point, int, bool) {
 	id = gtk_window_new(GTK_WINDOW_POPUP);
 
 	GtkWidget *frame = gtk_frame_new(NULL);
@@ -1933,6 +1946,10 @@ void ListBoxX::SetAverageCharWidth(int width) {
 
 void ListBoxX::SetVisibleRows(int rows) {
 	desiredVisibleRows = rows;
+}
+
+int ListBoxX::GetVisibleRows() const {
+	return desiredVisibleRows;
 }
 
 PRectangle ListBoxX::GetDesiredRect() {
@@ -2279,6 +2296,36 @@ void ListBoxX::ClearRegisteredImages() {
 	xset.Clear();
 }
 
+void ListBoxX::SetList(const char* list, char separator, char typesep) {
+	Clear();
+	int count = strlen(list) + 1;
+	char *words = new char[count];
+	if (words) {
+		memcpy(words, list, count);
+		char *startword = words;
+		char *numword = NULL;
+		int i = 0;
+		for (; words[i]; i++) {
+			if (words[i] == separator) {
+				words[i] = '\0';
+				if (numword)
+					*numword = '\0';
+				Append(startword, numword?atoi(numword + 1):-1);
+				startword = words + i + 1;
+				numword = NULL;
+			} else if (words[i] == typesep) {
+				numword = words + i;
+			}
+		}
+		if (startword) {
+			if (numword)
+				*numword = '\0';
+			Append(startword, numword?atoi(numword + 1):-1);
+		}
+		delete []words;
+	}
+}
+
 Menu::Menu() : id(0) {}
 
 void Menu::CreatePopUp() {
@@ -2306,7 +2353,12 @@ void Menu::Show(Point pt, Window &) {
 	if ((pt.y + requisition.height) > screenHeight) {
 		pt.y = screenHeight - requisition.height;
 	}
-	gtk_item_factory_popup(factory, pt.x - 4, pt.y, 3, 0);
+#if GTK_MAJOR_VERSION >= 2
+	gtk_item_factory_popup(factory, pt.x - 4, pt.y - 4, 3, 
+		gtk_get_current_event_time());
+#else
+	gtk_item_factory_popup(factory, pt.x - 4, pt.y - 4, 3, 0);
+#endif
 }
 
 ElapsedTime::ElapsedTime() {

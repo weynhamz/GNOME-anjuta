@@ -254,13 +254,14 @@ void LineVector::Remove(int pos) {
 		linesData[i] = linesData[i + 1];
 	}
 	if (levels) {
-		// Level information merges back onto previous line
-		int posAbove = pos - 1;
-		if (posAbove < 0)
-			posAbove = 0;
-		for (int j = posAbove; j < lines; j++) {
+		// Move up following lines but merge header flag from this line
+		// to line before to avoid a temporary disappearence causing expansion.
+		int firstHeader = levels[pos] & SC_FOLDLEVELHEADERFLAG;
+		for (int j = pos; j < lines; j++) {
 			levels[j] = levels[j + 1];
 		}
+		if (pos > 0)
+			levels[pos-1] |= firstHeader;
 	}
 	lines--;
 }
@@ -1028,7 +1029,7 @@ void CellBuffer::DeleteUndoHistory() {
 }
 
 bool CellBuffer::CanUndo() {
-	return (!readOnly) && (uh.CanUndo());
+	return uh.CanUndo();
 }
 
 int CellBuffer::StartUndo() {
@@ -1056,7 +1057,7 @@ void CellBuffer::PerformUndoStep() {
 }
 
 bool CellBuffer::CanRedo() {
-	return (!readOnly) && (uh.CanRedo());
+	return uh.CanRedo();
 }
 
 int CellBuffer::StartRedo() {
