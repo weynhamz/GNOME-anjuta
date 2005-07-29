@@ -1,3 +1,8 @@
+2005-07-27 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/tools/execute.c:
+	Correct a crash if editor is closed while a tool still use it.
+
 2005-07-28  Naba Kumar  <naba@gnome.org>
 
 	* scintilla/*: Updated scintilla from their latest CVS.

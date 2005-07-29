@@ -433,7 +433,10 @@ atp_output_context_print (ATPOutputContext *this, const gchar* text)
 		break;
 	case ATP_TOUT_NEW_BUFFER:
 	case ATP_TOUT_REPLACE_BUFFER:
-		ianjuta_editor_append (this->editor, text, strlen(text), NULL);
+		if (this->editor)
+		{
+			ianjuta_editor_append (this->editor, text, strlen(text), NULL);
+		}
 		break;
 	case ATP_TOUT_INSERT_BUFFER:
 	case ATP_TOUT_APPEND_BUFFER:
@@ -527,20 +530,29 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 		/* Do nothing  */
 		break;
 	case ATP_TOUT_INSERT_BUFFER:
-		ianjuta_editor_insert (this->editor, this->position, this->buffer->str,
+		if (this->editor)
+		{
+			ianjuta_editor_insert (this->editor, this->position, this->buffer->str,
 							   this->buffer->len, NULL);
+		}
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
 		break;
 	case ATP_TOUT_APPEND_BUFFER:
-		ianjuta_editor_append (this->editor, this->buffer->str,
+		if (this->editor)
+		{
+			ianjuta_editor_append (this->editor, this->buffer->str,
 							   this->buffer->len, NULL);
+		}
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
 		break;
 	case ATP_TOUT_REPLACE_SELECTION:
-		ianjuta_editor_replace_selection (this->editor, this->buffer->str,
-										  this->buffer->len, NULL);
+		if (this->editor)
+		{
+			ianjuta_editor_replace_selection (this->editor, this->buffer->str,
+								  this->buffer->len, NULL);
+		}
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
 		break;
@@ -591,6 +603,7 @@ atp_output_context_initialize (ATPOutputContext *this,
 		this->editor = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
 		if (this->editor != NULL)
 		{
+			g_object_add_weak_pointer (G_OBJECT (this->editor), (gpointer *)&this->editor);
 			ianjuta_editor_erase_all (this->editor, NULL);
 			break;
 		}
@@ -603,6 +616,7 @@ atp_output_context_initialize (ATPOutputContext *this,
 			anjuta_util_dialog_warning (GTK_WINDOW (this->execution->plugin->shell), _("Unable to create a buffer, command aborted"));
 			return NULL;
 		}
+		g_object_add_weak_pointer (G_OBJECT (this->editor), (gpointer *)&this->editor);
 		break;
 	case ATP_TOUT_INSERT_BUFFER:
 	case ATP_TOUT_APPEND_BUFFER:
@@ -614,6 +628,7 @@ atp_output_context_initialize (ATPOutputContext *this,
 			anjuta_util_dialog_warning (GTK_WINDOW (this->execution->plugin->shell), _("No document currently open, command aborted"));
 			return NULL;
 		}
+		g_object_add_weak_pointer (G_OBJECT (this->editor), (gpointer *)&this->editor);
 		this->position = ianjuta_editor_get_position (this->editor, NULL);
 		/* No break, need a buffer too */
 	case ATP_TOUT_POPUP_DIALOG:
