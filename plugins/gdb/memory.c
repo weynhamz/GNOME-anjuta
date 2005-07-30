@@ -86,7 +86,6 @@ static void on_button_quit_clicked (GtkButton *button, MemApp *memapp);
 #define MEMORY_DIALOG "dialog_memory"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-gdb.glade"
 
-gboolean timeout = TRUE;
 
 GtkWidget*
 memory_info_new (Debugger *debugger, GtkWindow *parent, guchar *ptr)
@@ -328,6 +327,19 @@ convert_ascii_print (gchar c)
 		return ".";
 }
 
+static gboolean
+address_is_accessible(gchar* ptr)
+{
+	gint i = 0;
+	while(*(ptr++))
+		i++;
+	if (i <16)
+		return FALSE;
+	else
+		return TRUE;		
+}
+
+
 static void
 debugger_memory_cbs (Debugger *debugger, const GDBMIValue *mi_results,
 					 const GList* list, gpointer user_data)
@@ -342,8 +354,12 @@ debugger_memory_cbs (Debugger *debugger, const GDBMIValue *mi_results,
 	GtkWidget *win_mem;
 	MemApp *memapp;
 	
+	g_return_if_fail(list);
+	if (!address_is_accessible(list->data))
+		return;
+
 	memapp = (MemApp*) user_data;
-	
+
 	if (memapp->new_window)
 	{
 		win_mem = memory_info_new (debugger, NULL, memapp->adr);
@@ -401,26 +417,6 @@ debugger_memory_cbs (Debugger *debugger, const GDBMIValue *mi_results,
 }
 
 static gboolean
-memory_timeout (MemApp * memapp)
-{
-	if (debugger_is_ready (memapp->debugger))
-		/*  Accessible address  */
-		gtk_label_set_text (GTK_LABEL (memapp->memory_label), 
-						_("Enter a Hexa address or Select one in the data"));
-	else
-	{
-		/*  Non Accessible address  */
-		memapp->adr = memapp->start_adr;
-		/* debugger_set_ready (TRUE); */
-		gtk_label_set_text (GTK_LABEL (memapp->memory_label),
-							_("Non accessible address !"));
-	}
-	timeout = TRUE;
-	
-	return FALSE;
-}
-
-static gboolean
 inspect_memory (gchar *adr, MemApp * memapp)
 {
 	gchar *cmd;
@@ -438,10 +434,7 @@ inspect_memory (gchar *adr, MemApp * memapp)
 	g_free (cmd);
 	g_free (address);
 	g_free (nb_car);
-	
-	/* No answer from gdb after 500ms ==> memory non accessible */
-	g_timeout_add (500, (void*) memory_timeout, memapp);
-	
+
 	return FALSE;
 }
 
@@ -461,11 +454,6 @@ remove_space_nl (gchar * string)
 	*ptr = '\0';
 }
 
-static gboolean
-dummy (GtkWidget *widget, GdkEventButton *event, MemApp *memapp)
-{
-	return FALSE;
-}
 
 static void
 select_new_data (MemApp *memapp, GtkTextIter *start, GtkTextIter *end)
@@ -478,9 +466,6 @@ select_new_data (MemApp *memapp, GtkTextIter *start, GtkTextIter *end)
 
 	gtk_text_buffer_apply_tag_by_name (memapp->data_buffer, "data_select",
 									   start, end);
-	gtk_signal_emit_by_name (GTK_OBJECT (memapp->data_textview),
-							 "button_press_event",
-							 GTK_SIGNAL_FUNC (dummy), memapp);
 }
 
 static gboolean
@@ -541,7 +526,7 @@ on_text_data_button_release_event (GtkWidget *widget,
 		gtk_widget_grab_focus (memapp->adr_entry);
 		
 		g_free (select);
-	}
+	 }
 
 	return FALSE;
 }
@@ -566,49 +551,33 @@ on_button_inspect_clicked (GtkButton *button, MemApp *memapp)
 static void
 mem_move_up (MemApp *memapp)
 {
-	if (timeout)
-	{
 		memapp->adr -= 16;
 		memapp->new_window = FALSE;
 		inspect_memory (memapp->adr, memapp );
-		timeout = FALSE;
-	}
 }
 
 static void
 mem_move_page_up (MemApp *memapp)
 {
-	if (timeout)
-	{
 		memapp->adr -= 16 * MEM_NB_LINES / 2;
 		memapp->new_window = FALSE;
 		inspect_memory (memapp->adr, memapp );
-		timeout = FALSE;
-	}
 }
 
 static void
 mem_move_down (MemApp *memapp)
 {
-	if (timeout)
-	{
 		memapp->adr += 16;
 		memapp->new_window = FALSE;
 		inspect_memory (memapp->adr, memapp );
-		timeout = FALSE;
-	}
 }
 
 static void
 mem_move_page_down (MemApp *memapp)
 {
-	if (timeout)
-	{
 		memapp->adr += 16 * MEM_NB_LINES / 2;
 		memapp->new_window = FALSE;
 		inspect_memory (memapp->adr, memapp );
-		timeout = FALSE;
-	}
 }
 
 static gboolean

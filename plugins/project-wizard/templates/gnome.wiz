@@ -5,7 +5,7 @@
 	<category>C</category>
 </project-wizard>
 
-<page name="basic" _label="Basic information" _description="General Project Infromation">
+<page name="basic" _label="Basic information" _description="General Project Information">
 	<property type="string" name="Name" _label="Project Name:" _description="project name" default="gnome-foobar" summary="yes" mandatory="yes"/>
 	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
 	<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>

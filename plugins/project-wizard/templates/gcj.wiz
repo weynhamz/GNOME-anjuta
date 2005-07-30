@@ -5,7 +5,7 @@
 	<category>Java</category>
 </project-wizard>
 
-<page name="basic" _label="Basic information" _description="General Project Infromation">
+<page name="basic" _label="Basic information" _description="General Project Information">
 	<property type="string" name="Name" _label="Project Name:" _description="project name" default="gcj-foobar" summary="yes" mandatory="yes"/>
 	<property type="string" name="MainClass" _label="Main Class:" _description="GCJ needs to know which class contains the main() function" default="MainApp" mandatory="yes"/>
 	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>

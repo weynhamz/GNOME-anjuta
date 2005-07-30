@@ -1,3 +1,15 @@
+2005-07-30  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* plugins/gdb/memory.c : Fixed bug 305082.
+	
+	* plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gcj.wiz,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/python.wiz,
+	plugins/project-wizard/templates/wxwin.wiz,
+	plugins/project-wizard/templates/xlib-dock.wiz : Spelling fixes.
+
 2005-07-27 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/tools/execute.c:
