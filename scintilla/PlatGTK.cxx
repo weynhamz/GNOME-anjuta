@@ -1273,14 +1273,15 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 				pango_layout_set_text(layout, s, len);
 				PangoLayoutIter *iter = pango_layout_get_iter (layout);
 				int i = 0;
-				while (pango_layout_iter_next_cluster (iter)) {
+				do {
 					pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
-					int position = PANGO_PIXELS(pos.x);
+					int position = PANGO_PIXELS(pos.x + pos.width);
 					int curIndex = pango_layout_iter_get_index (iter);
-					while (i < curIndex) {
+					while (i <= curIndex) {
 						positions[i++] = position;
 					}
-				}
+				} while (pango_layout_iter_next_cluster (iter));
+
 				pango_layout_iter_free (iter);
 			} else {
 				int positionsCalculated = 0;
@@ -1296,11 +1297,11 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 						int i = 0;
 						int utfIndex = 0;
 						PangoLayoutIter *iter = pango_layout_get_iter (layout);
-						while (pango_layout_iter_next_cluster (iter)) {
+						do {
 							pango_layout_iter_get_cluster_extents (iter, NULL, &pos);
-							int position = PANGO_PIXELS(pos.x);
+							int position = PANGO_PIXELS(pos.x + pos.width);
 							int utfIndexNext = pango_layout_iter_get_index (iter);
-							while (utfIndex < utfIndexNext) {
+							while (utfIndex <= utfIndexNext) {
 								size_t lenChar = MultiByteLenFromIconv(convMeasure, s+i, len-i);
 								//size_t lenChar = mblen(s+i, MB_CUR_MAX);
 								while (lenChar--) {
@@ -1309,7 +1310,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 								}
 								utfIndex += UTF8CharLength(utfForm+utfIndex);
 							}
-						}
+						} while (pango_layout_iter_next_cluster (iter));
 						pango_layout_iter_free (iter);
 						delete []utfForm;
 					}
@@ -1325,10 +1326,10 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 					pango_layout_set_text(layout, utfForm, len);
 					int i = 0;
 					PangoLayoutIter *iter = pango_layout_get_iter (layout);
-					while (pango_layout_iter_next_cluster (iter)) {
+					do {
 						pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
-						positions[i++] = PANGO_PIXELS(pos.x);
-					}
+						positions[i++] = PANGO_PIXELS(pos.x + pos.width);
+					} while (pango_layout_iter_next_cluster (iter));
 					pango_layout_iter_free(iter);
 					if (useGFree) {
 						g_free(utfForm);
