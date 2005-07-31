@@ -1,9 +1,14 @@
+2005-07-31  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/gdb/debug_tree.c : Inspect memory from locals window.
+
 2005-07-31  Naba Kumar  <naba@gnome.org>
 
 	* scintilla/PlatGTK.cxx, patches/pango-1.8.patch: Fixed text rendering
 	messup with pango 1.8. Fixed bug #311846.
 
 2005-07-30  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
 	* plugins/gdb/memory.c : Fixed bug 305082.
 	
 	* plugins/project-wizard/templates/anjuta-plugin.wiz,

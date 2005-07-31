@@ -1411,7 +1411,6 @@ on_inspect_memory_clicked (GtkMenuItem * menu_item, gpointer data)
 		gtk_widget_show (memory);
 		g_free (hexa);
 	}
-	g_free (buf);
 }
 
 /* parse debugger output into the debug tree */
