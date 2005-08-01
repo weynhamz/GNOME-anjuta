@@ -1277,7 +1277,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 					pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
 					int position = PANGO_PIXELS(pos.x + pos.width);
 					int curIndex = pango_layout_iter_get_index (iter);
-					while (i <= curIndex) {
+					while (i <= curIndex && i < len) {
 						positions[i++] = position;
 					}
 				} while (pango_layout_iter_next_cluster (iter));
@@ -1305,7 +1305,8 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 								size_t lenChar = MultiByteLenFromIconv(convMeasure, s+i, len-i);
 								//size_t lenChar = mblen(s+i, MB_CUR_MAX);
 								while (lenChar--) {
-									positions[i++] = position;
+									if (i < len)
+										positions[i++] = position;
 									positionsCalculated++;
 								}
 								utfIndex += UTF8CharLength(utfForm+utfIndex);
@@ -1328,7 +1329,8 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 					PangoLayoutIter *iter = pango_layout_get_iter (layout);
 					do {
 						pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
-						positions[i++] = PANGO_PIXELS(pos.x + pos.width);
+						if (i < len)
+							positions[i++] = PANGO_PIXELS(pos.x + pos.width);
 					} while (pango_layout_iter_next_cluster (iter));
 					pango_layout_iter_free(iter);
 					if (useGFree) {
