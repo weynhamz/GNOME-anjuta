@@ -78,6 +78,7 @@ User Interface manager
 @action_group_label: 
 @entries: 
 @num_entries: 
+@translation_domain: 
 @user_data: 
 @Returns: 
 <!-- # Unused Parameters # -->
@@ -95,6 +96,7 @@ User Interface manager
 @action_group_label: 
 @entries: 
 @num_entries: 
+@translation_domain: 
 @user_data: 
 @Returns: 
 

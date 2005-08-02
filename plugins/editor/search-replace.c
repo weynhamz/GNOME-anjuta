@@ -111,7 +111,7 @@ AnjutaUtilStringMap search_target_strings[] = {
 	{SR_FUNCTION, "Current Function"},
 	{SR_OPEN_BUFFERS, "All Open Buffers"},
 	{SR_PROJECT, "All Project Files"},
-	{SR_VARIABLE, "Specify File List"},
+/*	{SR_VARIABLE, "Specify File List"},*/
 	{SR_FILES, "Specify File Patterns"},
 	{-1, NULL}
 };
@@ -609,7 +609,7 @@ search_replace_next_previous(SearchDirection dir)
 		save_direction = sr->search.range.direction;
 		sr->search.range.direction = dir;	
 		if (save_type == SR_OPEN_BUFFERS || save_type == SR_PROJECT ||
-				save_type == SR_VARIABLE || save_type == SR_FILES)
+				save_type == SR_FILES)
 			sr->search.range.direction = SR_BUFFER;
 		sr->search.action = SA_SELECT;
 		
@@ -722,7 +722,7 @@ search_direction_changed(SearchDirection dir)
 	tgt = search_get_item_combo_name(SEARCH_TARGET, search_target_strings);
 	if (dir != SD_BEGINNING)
 	{
-		if (tgt == SR_OPEN_BUFFERS || tgt == SR_PROJECT || tgt == SR_VARIABLE
+		if (tgt == SR_OPEN_BUFFERS || tgt == SR_PROJECT
 				   || tgt == SR_FILES)
 			search_set_target(SR_BUFFER);
 	}
@@ -983,9 +983,6 @@ populate_value(SEARCH_BASIC, &(sr->search.basic_search));
 		case SR_BLOCK:
 			if (flag_select)
 				sr->search.range.type = SR_SELECTION;
-			break;
-		case SR_VARIABLE:
-			populate_value(SEARCH_VAR, &(sr->search.range.var));
 			break;
 		case SR_FILES:
 			POP_LIST(MATCH_FILES, match_files);
@@ -1426,14 +1423,14 @@ on_search_action_changed (GtkEditable *editable, gpointer user_data)
 		case SA_SELECT:
 			search_show_replace(FALSE);
 			modify_label_image_button(SEARCH_BUTTON, _("Search"), GTK_STOCK_FIND);
-			if (rt == SR_OPEN_BUFFERS || rt == SR_PROJECT || rt == SR_VARIABLE ||
+			if (rt == SR_OPEN_BUFFERS || rt == SR_PROJECT ||
 					rt == SR_FILES)
 				search_set_target(SR_BUFFER);
 			break;
 		case SA_REPLACE:
 			search_show_replace(TRUE);
 			modify_label_image_button(SEARCH_BUTTON, _("Search"), GTK_STOCK_FIND);
-			if (rt == SR_OPEN_BUFFERS || rt == SR_PROJECT || rt == SR_VARIABLE ||
+			if (rt == SR_OPEN_BUFFERS || rt == SR_PROJECT || 
 					rt == SR_FILES)
 				search_set_target(SR_BUFFER);
 			break;
@@ -1465,10 +1462,6 @@ on_search_target_changed(GtkEditable *editable, gpointer user_data)
 			gtk_widget_hide(search_var_frame);
 			gtk_widget_show(file_filter_frame);
 			break;
-		case SR_VARIABLE:
-			gtk_widget_show(search_var_frame);
-			gtk_widget_hide(file_filter_frame);
-			break;
 		default:
 			gtk_widget_hide(search_var_frame);
 			gtk_widget_hide(file_filter_frame);
@@ -1486,7 +1479,7 @@ on_search_target_changed(GtkEditable *editable, gpointer user_data)
 			search_set_toggle_direction(SD_FORWARD);
 		}
 	}
-	if (tgt == SR_OPEN_BUFFERS || tgt == SR_PROJECT || tgt == SR_VARIABLE ||
+	if (tgt == SR_OPEN_BUFFERS || tgt == SR_PROJECT ||
 			tgt == SR_FILES)
 	{
 		search_set_direction(SD_BEGINNING);

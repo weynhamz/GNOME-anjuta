@@ -20,6 +20,7 @@
 #include <subversion-1/svn_pools.h>
 #include "svn-backend-priv.h"
 #include "svn-auth.h"
+#include "plugin.h"
 
 /* User authentication prompts handlers */
 static svn_error_t*
@@ -27,30 +28,46 @@ svn_auth_simple_prompt_func_cb (svn_auth_cred_simple_t **cred, void *baton,
 								const char *realm, const char *username,
 								svn_boolean_t may_save, apr_pool_t *pool)
 {
-	SVN *svn = (SVN*)baton;
+	/*SVN *svn = (SVN*)baton;*/
 	
-	/* FIXME: Prompt the user for username && password.
-	 * I think we need to be thread safe at this point if gtk is called.
-	 * May be we can also create a new gtk main context and use it here.
+	/* Prompt the user for username && password.
+	 * No need to be thread safe at this point as we are in the main thread.
+	 * The svn thread will start later!
 	 * 
 	 * We must prompt the user at this point, pre-filling the username field
 	 * with the passed 'username' string. The dialog will have 'Remeber
 	 * password' checkbox, which should be insensitive if the passed 'may_save'
 	 * value is FALSE.
-	 * 
-	 * Then the dialog is prompted to user and when user clicks ok, the
+	 */ 
+	 
+	
+	GladeXML* gxml = glade_xml_new(GLADE_FILE, "svn_user_auth", NULL);
+	GtkWidget* svn_user_auth = glade_xml_get_widget(gxml, "svn_user_auth");
+	GtkWidget* username_entry = glade_xml_get_widget(gxml, "username_entry");
+	GtkWidget* password_entry = glade_xml_get_widget(gxml, "password_entry");
+	GtkWidget* remember_pwd = glade_xml_get_widget(gxml, "remember_pwd");
+		
+	if (!may_save)
+		gtk_widget_set_sensitive(remember_pwd, FALSE);
+		
+	/* Then the dialog is prompted to user and when user clicks ok, the
 	 * values entered, i.e username, password and remember password (true
 	 * by default) should be used to initialized the memebers below. If the
 	 * user cancels the dialog, I think we return an error struct
 	 * appropriately initialized. -- naba
-	 *
-	
-	*cred = apr_pcalloc (pool, sizeof(*cred));
-	(*cred)->username = NULL;
-	(*cred)->password = NULL;
-	(*cred)->may_save = TRUE;
-	
-	*/
+	 */
+	 
+ 	switch (gtk_dialog_run(GTK_DIALOG(svn_user_auth)))
+	{
+		case GTK_RESPONSE_OK:
+			*cred = apr_pcalloc (pool, sizeof(*cred));
+			(*cred)->username = g_strdup(gtk_entry_get_text(GTK_ENTRY(username_entry)));
+			(*cred)->password = g_strdup(gtk_entry_get_text(GTK_ENTRY(password_entry)));
+			(*cred)->may_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(remember_pwd));
+			break;
+		default:
+			break;
+	}
 	return NULL;
 }
 

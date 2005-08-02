@@ -53,7 +53,6 @@ typedef enum _SearchRangeType
 	SR_FUNCTION, /* Current function */
 	SR_OPEN_BUFFERS, /* All open buffers */
 	SR_PROJECT, /* All project files */
-	SR_VARIABLE, /* A string specifying file names (expanded with prop_expand() */
 	SR_FILES /* A set of patterns specifying which files to search */
 } SearchRangeType;
 

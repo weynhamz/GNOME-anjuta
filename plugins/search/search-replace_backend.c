@@ -327,46 +327,6 @@ create_search_files_list(SearchFiles *sf, const char *top_dir)
 	return files;
 }
 
-/* Create a list of files to search in from a user specified list. Variables
- * should be expanded so that the user can use strings like:
- * '$(module.source.files)', '$(module.include.files)', etc.
- */
-/*FIXME: How to access project from here??*/
-#if 0
-static GList *
-expand_search_file_list(const char *top_dir, const char *str)
-{
-	gchar *dir;
-	GList *names;
-	GList *files = NULL;
-	GList *tmp;
-	char path[PATH_MAX];
-	struct stat s;
-	gchar *files_str = prop_expand(app->project_dbase->props, str);
-	if (top_dir)
-		dir = prop_expand(app->project_dbase->props, top_dir);
-	else if (app->project_dbase->project_is_open)
-		dir = g_strdup(app->project_dbase->top_proj_dir);
-	else
-		dir = g_strdup(".");
-	names = anjuta_util_glist_from_string(files_str);
-	names = NULL;
-	for (tmp = names; tmp; tmp = g_list_next(tmp))
-	{
-		snprintf(path, PATH_MAX, "%s/%s", dir, (char *) tmp->data);
-		if ((0 == stat(path, &s)) && (S_ISREG(s.st_mode)))
-		{
-			files = g_list_prepend(files, tm_get_real_path(path));
-		}
-	}
-	g_free(files_str);
-	g_free(dir);
-	anjuta_util_glist_strings_free(names);
-	files = g_list_reverse(files);
-	return files;
-}
-#endif
-
 /* Get a list of all project files */
 static GList *
 get_project_file_list(void)
@@ -734,24 +694,24 @@ GList
 			entries = g_list_reverse(entries);
 			break;
 		case SR_FILES:
-		case SR_VARIABLE:
 		case SR_PROJECT:
 		{
 			GList *files = NULL;
 			gchar *dir;
 			
-			//FIXME : Get Top project directory
-			//~ if (!app->project_dbase->top_proj_dir)
+			anjuta_shell_get (ANJUTA_DOCMAN(sr->docman)->shell,
+					  "project_root_uri", G_TYPE_STRING,
+					  &dir, NULL);
+			
+			if (!dir)
+			{
+				if (SR_PROJECT == s->range.type)
+					s->range.type = SR_FILES;
 				dir = g_get_current_dir();
-			//~ else
-				//~ dir = g_strdup(app->project_dbase->top_proj_dir);
+			}
 			
 			if (SR_FILES == s->range.type)
-				//;
 				files = create_search_files_list(&(s->range.files), dir);
-			else if (SR_VARIABLE == s->range.type)
-				;
-				//~ files = expand_search_file_list(dir, s->range.var);
 			else /* if (SR_PROJECT == s->range.type) */
 				files = get_project_file_list();	
 			
@@ -833,11 +793,7 @@ clear_search_replace_instance(void)
 	g_free (sr->search.expr.search_str);
 	g_free (sr->search.expr.re);
 	FREE_FN(pcre_info_free, sr->search.expr.re);
-	if (SR_VARIABLE == sr->search.range.type)
-	{
-		g_free (sr->search.range.var);
-	}
-	else if (SR_FILES == sr->search.range.type)
+	if (SR_FILES == sr->search.range.type)
 	{
 		FREE_FN(anjuta_util_glist_strings_free, sr->search.range.files.match_files);
 		FREE_FN(anjuta_util_glist_strings_free, sr->search.range.files.ignore_files);
