@@ -65,11 +65,11 @@ libanjuta_scintilla_la_LIBADD = \
 	$(GTK_LIBS)
 
 noinst_PROGRAMS = test-scintilla
+test_scintilla_DEPENDENCIES = libanjuta-scintilla.la
+
 test_scintilla_CXXFLAGS = -DGTK
 test_scintilla_SOURCES = test-scintilla.cxx
-test_scintilla_LDADD = \
-	$(top_builddir)/scintilla/libanjuta-scintilla.la
-test_scintilla_DEPENDENCIES = $(top_builddir)/scintilla/libanjuta-scintilla.la
+test_scintilla_LDADD = libanjuta-scintilla.la
 
 update-scintilla:
 	cp $(srcdir)/scintilla/gtk/*.cxx $(srcdir)/

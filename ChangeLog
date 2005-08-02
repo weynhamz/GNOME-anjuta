@@ -1,3 +1,7 @@
+2005-08-02  Philip Van Hoof  <pvanhoof@gnome.org>
+
+	* scintilla/Makefile.am: Fixed a make -j x bug
+	
 2005-08-02  Johannes Schmid <jhs@gnome.org>
 	
 	* plugins/subversion/svn-auth.c: Added username/password 
