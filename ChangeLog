@@ -1,4 +1,4 @@
-2005-08-03 naba  <naba@localhost.localdomain>
+2005-08-03  Naba Kumar  <naba@gnome.org>
 
 	* plugins/glade/plugin.c: Proper names for plugin widgets.
 	
