@@ -1,3 +1,8 @@
+2005-08-02  Naba Kumar  <naba@gnome.org>
+
+	* scintilla/PlatGTK.cxx, patches/pango-1.8.patch: Better fix
+	for pango-1.8 rendering bug.
+	
 2005-08-02  Philip Van Hoof  <pvanhoof@gnome.org>
 
 	* scintilla/Makefile.am: Fixed a make -j x bug
