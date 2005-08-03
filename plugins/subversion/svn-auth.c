@@ -28,8 +28,6 @@ svn_auth_simple_prompt_func_cb (svn_auth_cred_simple_t **cred, void *baton,
 								const char *realm, const char *username,
 								svn_boolean_t may_save, apr_pool_t *pool)
 {
-	/*SVN *svn = (SVN*)baton;*/
-	
 	/* Prompt the user for username && password.
 	 * No need to be thread safe at this point as we are in the main thread.
 	 * The svn thread will start later!
@@ -39,14 +37,25 @@ svn_auth_simple_prompt_func_cb (svn_auth_cred_simple_t **cred, void *baton,
 	 * password' checkbox, which should be insensitive if the passed 'may_save'
 	 * value is FALSE.
 	 */ 
-	 
 	
+	/* SVN *svn = (SVN*)baton; */
 	GladeXML* gxml = glade_xml_new(GLADE_FILE, "svn_user_auth", NULL);
 	GtkWidget* svn_user_auth = glade_xml_get_widget(gxml, "svn_user_auth");
+	GtkWidget* auth_realm = glade_xml_get_widget(gxml, "auth_realm");
 	GtkWidget* username_entry = glade_xml_get_widget(gxml, "username_entry");
 	GtkWidget* password_entry = glade_xml_get_widget(gxml, "password_entry");
 	GtkWidget* remember_pwd = glade_xml_get_widget(gxml, "remember_pwd");
-		
+	svn_error_t *err = NULL;
+	
+	gtk_dialog_set_default_response (GTK_DIALOG (svn_user_auth), GTK_RESPONSE_OK);
+	
+	if (realm)
+		gtk_label_set_text (GTK_LABEL (auth_realm), realm);
+	if (username)
+	{
+		gtk_entry_set_text (GTK_ENTRY (username_entry), username);
+		gtk_widget_grab_focus (password_entry);
+	}
 	if (!may_save)
 		gtk_widget_set_sensitive(remember_pwd, FALSE);
 		
@@ -61,14 +70,21 @@ svn_auth_simple_prompt_func_cb (svn_auth_cred_simple_t **cred, void *baton,
 	{
 		case GTK_RESPONSE_OK:
 			*cred = apr_pcalloc (pool, sizeof(*cred));
-			(*cred)->username = g_strdup(gtk_entry_get_text(GTK_ENTRY(username_entry)));
-			(*cred)->password = g_strdup(gtk_entry_get_text(GTK_ENTRY(password_entry)));
-			(*cred)->may_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(remember_pwd));
+			(*cred)->username = apr_pstrdup (pool,
+								 gtk_entry_get_text(GTK_ENTRY(username_entry)));
+			(*cred)->password = apr_pstrdup (pool,
+								 gtk_entry_get_text(GTK_ENTRY(password_entry)));
+			(*cred)->may_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+															 (remember_pwd));
 			break;
 		default:
+			err = svn_error_create (SVN_ERR_AUTHN_CREDS_UNAVAILABLE, NULL,
+									_("Authentication canceled"));
+									 
 			break;
 	}
-	return NULL;
+	gtk_widget_destroy (svn_user_auth);
+	return err;
 }
 
 #if 0

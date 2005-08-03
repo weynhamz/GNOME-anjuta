@@ -1,3 +1,13 @@
+2005-08-03 naba  <naba@localhost.localdomain>
+
+	* plugins/glade/plugin.c: Proper names for plugin widgets.
+	
+	* plugins/subversion/anjuta-subversion.glade,
+	plugins/subversion/svn-auth.c: Fixed authentication dialog and
+	string allocations. Use passed default values when available.
+	Set proper focus and dialog default response. Destroy dialog after use.
+	Return error when appropriate.
+
 2005-08-02  Naba Kumar  <naba@gnome.org>
 
 	* scintilla/PlatGTK.cxx, patches/pango-1.8.patch: Better fix

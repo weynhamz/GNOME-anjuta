@@ -648,17 +648,17 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Add widgets */
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 							 GTK_WIDGET (glade_app_get_palette (priv->gpw)),
-							 "AnjutaGladePalette", "Glade Palette",
+							 "AnjutaGladePalette", _("Palette"),
 							 "glade-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 							 GTK_WIDGET (priv->view_box),
-							 "AnjutaGladeTree", "Glade Tree",
+							 "AnjutaGladeTree", _("Widgets"),
 							 "glade-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 							 GTK_WIDGET (glade_app_get_editor (priv->gpw)),
-							 "AnjutaGladeEditor", "Glade Editor",
+							 "AnjutaGladeEditor", _("Properties"),
 							 "glade-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 	/* Connect to save session */
