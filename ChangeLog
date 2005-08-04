@@ -1,3 +1,8 @@
+2005-08-04  Naba Kumar  <naba@gnome.org>
+
+	* scintilla/PlatGTK.cxx, patches/pango-1.8.patch: Better fix
+	for pango-1.8 rendering bug.
+	
 2005-08-03  Naba Kumar  <naba@gnome.org>
 
 	* plugins/glade/plugin.c: Proper names for plugin widgets.

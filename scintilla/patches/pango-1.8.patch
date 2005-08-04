@@ -1,6 +1,19 @@
---- PlatGTK.cxx	2005-07-18 06:30:55.000000000 +0530
-+++ PlatGTK.cxx	2005-08-03 11:43:38.000017192 +0530
-@@ -1272,6 +1272,7 @@
+Index: PlatGTK.cxx
+===================================================================
+RCS file: /cvsroot/scintilla/scintilla/gtk/PlatGTK.cxx,v
+retrieving revision 1.104
+diff -u -r1.104 PlatGTK.cxx
+--- PlatGTK.cxx	18 Jul 2005 01:00:55 -0000	1.104
++++ PlatGTK.cxx	4 Aug 2005 04:33:19 -0000
+@@ -1258,6 +1258,7 @@
+ 	if (font_.GetID()) {
+ 		int totalWidth = 0;
+ #ifdef USE_PANGO
++		const int lenPositions = len;
+ 		if (PFont(font_)->pfd) {
+ 			if (len == 1) {
+ 				int width = PFont(font_)->CharWidth(*s, et);
+@@ -1272,6 +1273,7 @@
  				// Simple and direct as UTF-8 is native Pango encoding
  				pango_layout_set_text(layout, s, len);
  				PangoLayoutIter *iter = pango_layout_get_iter (layout);
@@ -8,16 +21,18 @@
  				int i = 0;
  				while (pango_layout_iter_next_cluster (iter)) {
  					pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
-@@ -1281,6 +1282,8 @@
+@@ -1281,7 +1283,10 @@
  						positions[i++] = position;
  					}
  				}
-+				while (i < len)
-+					positions[i++] = PANGO_PIXELS (pos.x + pos.width);
++				while (i < lenPositions)
++					positions[i++] = PANGO_PIXELS(pos.x + pos.width);
  				pango_layout_iter_free (iter);
++				PLATFORM_ASSERT(i == lenPositions);
  			} else {
  				int positionsCalculated = 0;
-@@ -1296,6 +1299,7 @@
+ 				if (et == dbcs) {
+@@ -1296,6 +1301,7 @@
  						int i = 0;
  						int utfIndex = 0;
  						PangoLayoutIter *iter = pango_layout_get_iter (layout);
@@ -25,16 +40,19 @@
  						while (pango_layout_iter_next_cluster (iter)) {
  							pango_layout_iter_get_cluster_extents (iter, NULL, &pos);
  							int position = PANGO_PIXELS(pos.x);
-@@ -1310,6 +1314,8 @@
+@@ -1310,8 +1316,11 @@
  								utfIndex += UTF8CharLength(utfForm+utfIndex);
  							}
  						}
-+						while (i < len)
-+							positions[i++] = PANGO_PIXELS (pos.x + pos.width);
++						while (i < lenPositions)
++							positions[i++] = PANGO_PIXELS(pos.x + pos.width);
  						pango_layout_iter_free (iter);
  						delete []utfForm;
++						PLATFORM_ASSERT(i == lenPositions);
  					}
-@@ -1325,10 +1331,13 @@
+ 				}
+ 				if (positionsCalculated < 1 ) {
+@@ -1325,16 +1334,20 @@
  					pango_layout_set_text(layout, utfForm, len);
  					int i = 0;
  					PangoLayoutIter *iter = pango_layout_get_iter (layout);
@@ -43,8 +61,15 @@
  						pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
  						positions[i++] = PANGO_PIXELS(pos.x);
  					}
-+					while (i < len)
++					while (i < lenPositions)
 +						positions[i++] = PANGO_PIXELS(pos.x + pos.width);
  					pango_layout_iter_free(iter);
  					if (useGFree) {
  						g_free(utfForm);
+ 					} else {
+ 						delete []utfForm;
+ 					}
++					PLATFORM_ASSERT(i == lenPositions);
+ 				}
+ 			}
+ 			if (len == 1) {

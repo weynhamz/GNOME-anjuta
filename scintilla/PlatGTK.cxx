@@ -1258,6 +1258,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 	if (font_.GetID()) {
 		int totalWidth = 0;
 #ifdef USE_PANGO
+		const int lenPositions = len;
 		if (PFont(font_)->pfd) {
 			if (len == 1) {
 				int width = PFont(font_)->CharWidth(*s, et);
@@ -1282,9 +1283,10 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 						positions[i++] = position;
 					}
 				}
-				while (i < len)
-					positions[i++] = PANGO_PIXELS (pos.x + pos.width);
+				while (i < lenPositions)
+					positions[i++] = PANGO_PIXELS(pos.x + pos.width);
 				pango_layout_iter_free (iter);
+				PLATFORM_ASSERT(i == lenPositions);
 			} else {
 				int positionsCalculated = 0;
 				if (et == dbcs) {
@@ -1314,10 +1316,11 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 								utfIndex += UTF8CharLength(utfForm+utfIndex);
 							}
 						}
-						while (i < len)
-							positions[i++] = PANGO_PIXELS (pos.x + pos.width);
+						while (i < lenPositions)
+							positions[i++] = PANGO_PIXELS(pos.x + pos.width);
 						pango_layout_iter_free (iter);
 						delete []utfForm;
+						PLATFORM_ASSERT(i == lenPositions);
 					}
 				}
 				if (positionsCalculated < 1 ) {
@@ -1336,7 +1339,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 						pango_layout_iter_get_cluster_extents(iter, NULL, &pos);
 						positions[i++] = PANGO_PIXELS(pos.x);
 					}
-					while (i < len)
+					while (i < lenPositions)
 						positions[i++] = PANGO_PIXELS(pos.x + pos.width);
 					pango_layout_iter_free(iter);
 					if (useGFree) {
@@ -1344,6 +1347,7 @@ void SurfaceImpl::MeasureWidths(Font &font_, const char *s, int len, int *positi
 					} else {
 						delete []utfForm;
 					}
+					PLATFORM_ASSERT(i == lenPositions);
 				}
 			}
 			if (len == 1) {
