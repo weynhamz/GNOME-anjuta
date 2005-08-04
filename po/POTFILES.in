@@ -132,6 +132,7 @@ plugins/sample1/plugin.c
 plugins/subversion/anjuta-subversion.glade
 plugins/subversion/plugin.c
 plugins/subversion/subversion-callbacks.c
+plugins/subversion/svn-auth.c
 plugins/subversion/svn-notify.c
 plugins/subversion/svn-thread.c
 plugins/symbol-browser/an_symbol_info.c
