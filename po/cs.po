@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-05 10:36+0000\n"
-"PO-Revision-Date: 2005-07-05 19:41+0200\n"
+"POT-Creation-Date: 2005-08-05 02:36+0000\n"
+"PO-Revision-Date: 2005-08-05 11:50+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgid "Anjuta IDE"
 msgstr "IDE Anjuta"
 
 #: ../anjuta.desktop.in.in.h:2 ../src/about.c:178 ../src/about.c:190
-#: ../src/main.c:141
+#: ../src/main.c:142
 msgid "Integrated Development Environment"
 msgstr "Integrované vývojové prostředí"
 
@@ -39,6 +39,7 @@ msgstr "    "
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../src/anjuta.glade.h:1
@@ -146,8 +147,8 @@ msgstr "Automaticky sestavit prohlížeč symbolů"
 msgid "CPU Registers"
 msgstr "Registry CPU"
 
-#: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:237
-#: ../plugins/cvs-plugin/cvs-execute.c:241
+#: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:231
+#: ../plugins/cvs-plugin/cvs-execute.c:235
 #: ../plugins/editor/anjuta-document-manager.glade.h:40
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
 #: ../plugins/macro/macros.xml.h:9
@@ -188,7 +189,7 @@ msgstr "Kombinovaný rozbalovací seznam:"
 msgid "Command Line Parameters"
 msgstr "Parametry na příkazovém řádku"
 
-#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:384
+#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:464
 msgid "Command line parameters"
 msgstr "Parametry na příkazovém řádku"
 
@@ -279,7 +280,7 @@ msgstr "Příště dialog Začít s nezobrazovat."
 msgid "Document module Makefile.am"
 msgstr "Makefile.am modulu dokumentů"
 
-#: ../anjuta.glade.h:56 ../src/anjuta-app.c:458
+#: ../anjuta.glade.h:56 ../src/anjuta-app.c:459
 msgid "Edit"
 msgstr "Úpravy"
 
@@ -314,7 +315,7 @@ msgid "Execute Program"
 msgstr "Spustit program"
 
 #. Register actions
-#: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:665
+#: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:710
 #: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:566
 #: ../src/anjuta-app.c:455
 msgid "File"
@@ -599,9 +600,9 @@ msgid "Programs"
 msgstr "Programy"
 
 #. gtk_widget_destroy (progress_win);
-#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1031
-#: ../plugins/project-manager/plugin.c:1051
-#: ../plugins/project-manager/plugin.c:1129
+#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1042
+#: ../plugins/project-manager/plugin.c:1062
+#: ../plugins/project-manager/plugin.c:1141
 #: ../plugins/project-manager/project_dbase_gui.c:581
 msgid "Project"
 msgstr "Projekt"
@@ -682,7 +683,7 @@ msgstr "Skripty na konci Makefile.am nejvyšší úrovně"
 msgid "Set Signal Property"
 msgstr "Nastavit vlastnost signálu"
 
-#: ../anjuta.glade.h:140 ../src/anjuta-app.c:470
+#: ../anjuta.glade.h:140 ../src/anjuta-app.c:473
 msgid "Settings"
 msgstr "Nastavení"
 
@@ -764,7 +765,7 @@ msgstr "Makefile.am nejvyšší úrovně"
 #: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:931
 #: ../plugins/gdb/registers.c:227 ../plugins/gdb/sharedlib.c:128
 #: ../plugins/gdb/signals.c:288 ../plugins/gdb/stack_trace.c:459
-#: ../plugins/subversion/svn-notify.c:118
+#: ../plugins/subversion/svn-notify.c:119
 msgid "Update"
 msgstr "Aktualizovat"
 
@@ -793,7 +794,7 @@ msgstr "Jméno uživatele."
 msgid "Version:"
 msgstr "Verze:"
 
-#: ../anjuta.glade.h:164 ../src/anjuta-app.c:461
+#: ../anjuta.glade.h:164 ../src/anjuta-app.c:463
 msgid "View"
 msgstr "Zobrazení"
 
@@ -1046,11 +1047,11 @@ msgstr "Standardní kódování"
 msgid "Supported Encodings"
 msgstr "Podporovaná kódování"
 
-#: ../libanjuta/anjuta-launcher.c:729
+#: ../libanjuta/anjuta-launcher.c:735
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Chyba při čtení pty potomka\n"
 
-#: ../libanjuta/anjuta-launcher.c:910 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:919 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -1090,19 +1091,19 @@ msgid "Anjuta Preferences"
 msgstr "Nastavení Anjuty"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:795
+#: ../libanjuta/anjuta-ui.c:804
 msgid "Action"
 msgstr "Akce"
 
-#: ../libanjuta/anjuta-ui.c:813
+#: ../libanjuta/anjuta-ui.c:822
 msgid "Visible"
 msgstr "Viditelný"
 
-#: ../libanjuta/anjuta-ui.c:824
+#: ../libanjuta/anjuta-ui.c:833
 msgid "Sensitive"
 msgstr "Citlivá"
 
-#: ../libanjuta/anjuta-ui.c:833
+#: ../libanjuta/anjuta-ui.c:842
 msgid "Shortcut"
 msgstr "Zkratka"
 
@@ -1405,10 +1406,10 @@ msgstr "_Zamknout položky doku"
 
 #: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:270
 #: ../plugins/editor/plugin.c:1183 ../plugins/editor/search-replace.c:793
-#: ../plugins/editor/search-replace.c:1428
-#: ../plugins/editor/search-replace.c:1435
-#: ../plugins/editor/search-replace.c:1447
-#: ../plugins/editor/search-replace.c:1751
+#: ../plugins/editor/search-replace.c:1425
+#: ../plugins/editor/search-replace.c:1432
+#: ../plugins/editor/search-replace.c:1444
+#: ../plugins/editor/search-replace.c:1744
 #: ../plugins/symbol-browser/plugin.c:841
 msgid "Search"
 msgstr "Hledat"
@@ -1463,7 +1464,7 @@ msgstr "Dokončeno ... neúspěšně"
 msgid "Completed ... successful\n"
 msgstr "Dokončeno...úspěšně\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:513
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:516
 msgid "Completed ... successful"
 msgstr "Dokončeno...úspěšně"
 
@@ -2149,7 +2150,7 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Podrobnosti o modulu:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
 msgid "<b>Options:</b>"
 msgstr "<b>Možnosti:</b>"
 
@@ -2224,12 +2225,12 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to add:"
 msgstr "Zvolte soubor nebo adresář, který přidat:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to commit:"
 msgstr "Zvolte soubor nebo adresář, který potvrdit:"
 
@@ -2246,12 +2247,12 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Zvolte soubor nebo adresář, jehož stav získat:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to remove:"
 msgstr "Zvolte soubor nebo adresář, který odstranit:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Choose file or directory to update:"
 msgstr "Zvolte soubor nebo adresář, který aktualizovat:"
 
@@ -2268,7 +2269,7 @@ msgid "Delete empty directories"
 msgstr "Odstranit prázdné adresáře"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "Do not act recursively"
 msgstr "Nepracovat rekurzivně"
 
@@ -2291,7 +2292,7 @@ msgstr ""
 "Server s heslem (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Log message:"
 msgstr "Zpráva záznamu:"
 
@@ -2336,7 +2337,7 @@ msgid "Unified format instead of context format"
 msgstr "Unifikovaný formát místo kontextového formátu"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "Use revision/tag: "
 msgstr "Použit revizi/tag: "
 
@@ -2345,6 +2346,7 @@ msgid "Use revision: "
 msgstr "Použít revizi: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
 msgid "Username: "
 msgstr "Jméno uživatele: "
 
@@ -2353,7 +2355,7 @@ msgid "Vendor tag:"
 msgstr "Tag dodavatele:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Whole project"
 msgstr "Celý projekt"
 
@@ -2366,7 +2368,7 @@ msgid "start"
 msgstr "začátek"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
-#: ../plugins/subversion/subversion-callbacks.c:55
+#: ../plugins/subversion/subversion-callbacks.c:56
 msgid "Please enter a filename!"
 msgstr "Zadejte prosím název souboru!"
 
@@ -2385,7 +2387,7 @@ msgstr "Nemohu odstranit soubor"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:454
-#: ../plugins/subversion/subversion-callbacks.c:242
+#: ../plugins/subversion/subversion-callbacks.c:243
 msgid "Are you sure that you do not want a log message?"
 msgstr "Opravdu nechcete zprávu záznamu?"
 
@@ -2409,26 +2411,18 @@ msgstr "Release"
 msgid "Directory"
 msgstr "Adresář"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:136
+#: ../plugins/cvs-plugin/cvs-execute.c:128
 msgid "CVS command failed! - See above for details"
 msgstr "Příkaz CVS selhal! - Viz podrobnosti výše"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:141
+#: ../plugins/cvs-plugin/cvs-execute.c:133
 #, c-format
 msgid "CVS command successful! - Time taken %ld secs."
 msgstr "Příkaz CVS úspěšný! - Trval %ld sekund."
 
-#: ../plugins/cvs-plugin/cvs-execute.c:230
+#: ../plugins/cvs-plugin/cvs-execute.c:223
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "Běží příkaz CVS - počkejte prosím, než skončí!"
-
-#: ../plugins/cvs-plugin/cvs-execute.c:300
-msgid "cvs.diff"
-msgstr "cvs.diff"
-
-#: ../plugins/cvs-plugin/cvs-execute.c:313
-msgid "cvs.log"
-msgstr "cvs.log"
 
 #. Action name
 #. Stock icon, if any
@@ -2716,7 +2710,7 @@ msgstr "Poznámky"
 #. 9
 #: ../plugins/devhelp/plugin.c:304 ../plugins/devhelp/plugin.c:531
 #: ../plugins/devhelp/plugin.c:544
-#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:474
+#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:477
 msgid "Help"
 msgstr "Nápověda"
 
@@ -3412,22 +3406,18 @@ msgid "Sorted in opening order"
 msgstr "Setřízeny v pořadí otevírání"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:141
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "Seznam vzorů názvů adresářů, které ignorovat, oddělený mezerami"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:142
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "Seznam vzorů názvů adresářů, které hledat, oddělený mezerami"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:143
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "Seznam vzorů názvů souborů, které ignorovat, oddělený mezerami"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:144
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr "Seznam vzorů názvů souborů, které hledat, oddělený mezerami"
 
@@ -4241,7 +4231,7 @@ msgid "Replace"
 msgstr "Nahradit"
 
 #: ../plugins/editor/search-replace.c:796
-#: ../plugins/editor/search-replace.c:1442
+#: ../plugins/editor/search-replace.c:1439
 msgid "Replace All"
 msgstr "Nahradit vše"
 
@@ -4264,7 +4254,7 @@ msgstr "Byl dosažen maximální počet výsledků."
 msgid "%d matches have been replaced."
 msgstr "Bylo nahrazeno %d výsledků."
 
-#: ../plugins/editor/search-replace.c:1040
+#: ../plugins/editor/search-replace.c:1037
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Nemohu sestavit uživatelské rozhraní pro Hledat a nahradit"
 
@@ -4279,23 +4269,23 @@ msgstr ""
 "aktuální buffer.\n"
 "Chcete jej znovu načíst?"
 
-#: ../plugins/editor/text_editor.c:1194
+#: ../plugins/editor/text_editor.c:1195
 msgid "Could not get file info"
 msgstr "Nemohu získat informace o souboru"
 
-#: ../plugins/editor/text_editor.c:1201
+#: ../plugins/editor/text_editor.c:1202
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Tento soubor je příliš velký. Nemohu alokovat paměť."
 
-#: ../plugins/editor/text_editor.c:1208
+#: ../plugins/editor/text_editor.c:1209
 msgid "Could not open file"
 msgstr "Nemohu otevřít soubor"
 
-#: ../plugins/editor/text_editor.c:1216
+#: ../plugins/editor/text_editor.c:1217
 msgid "Error while reading from file"
 msgstr "Chyba při čtení ze souboru"
 
-#: ../plugins/editor/text_editor.c:1252
+#: ../plugins/editor/text_editor.c:1253
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4305,7 +4295,7 @@ msgstr ""
 "podporováno. Zkontrolujte prosím, jestli je kódování souboru v seznamu "
 "podporovaných kódování. Pokud není, přidejte ji v nastavení."
 
-#: ../plugins/editor/text_editor.c:1417
+#: ../plugins/editor/text_editor.c:1418
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4316,26 +4306,26 @@ msgstr ""
 "\n"
 "Detaily: %s"
 
-#: ../plugins/editor/text_editor.c:1464
+#: ../plugins/editor/text_editor.c:1465
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nemohu uložit soubor: %s."
 
-#: ../plugins/editor/text_editor.c:1640
+#: ../plugins/editor/text_editor.c:1641
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Automatické formátování je momentálně zakázáno. Změňte to v Nastavení."
 
-#: ../plugins/editor/text_editor.c:1659
+#: ../plugins/editor/text_editor.c:1660
 msgid "Error in auto formatting ..."
 msgstr "Chyba při automatickém formátování ..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1675
+#: ../plugins/editor/text_editor.c:1676
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta nezná %s!"
 
-#: ../plugins/editor/text_editor.c:1700
+#: ../plugins/editor/text_editor.c:1701
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4344,7 +4334,7 @@ msgstr ""
 "Chyba při automatickém formátování ...\n"
 "Detaily: %s"
 
-#: ../plugins/editor/text_editor.c:1945
+#: ../plugins/editor/text_editor.c:1946
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4451,7 +4441,7 @@ msgstr "Vyjmout"
 
 #. 1
 #: ../plugins/editor/text_editor_menu.c:248
-#: ../plugins/subversion/svn-notify.c:73
+#: ../plugins/subversion/svn-notify.c:74
 msgid "Copy"
 msgstr "Zkopírovat"
 
@@ -4639,14 +4629,14 @@ msgstr "Otevřít"
 msgid "Open recent file"
 msgstr "Otevřít nedávný soubor"
 
-#: ../plugins/file-manager/an_file_view.c:388
-#: ../plugins/file-manager/an_file_view.c:551
-#: ../plugins/file-manager/an_file_view.c:819
+#: ../plugins/file-manager/an_file_view.c:428
+#: ../plugins/file-manager/an_file_view.c:596
+#: ../plugins/file-manager/an_file_view.c:864
 #: ../plugins/symbol-browser/an_symbol_view.c:513
 msgid "Loading ..."
 msgstr "Načítám ..."
 
-#: ../plugins/file-manager/an_file_view.c:679
+#: ../plugins/file-manager/an_file_view.c:724
 msgid "Rev"
 msgstr "Rev"
 
@@ -4675,22 +4665,42 @@ msgid "Directory "
 msgstr "Adresář "
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
+msgid "Do not show files ignored by version control"
+msgstr "Nezobrazovat soubory ignorované správou verzí"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
 msgid "Do not show hidden directories"
 msgstr "Nezobrazovat skryté adresáře"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
 msgid "Do not show hidden files"
 msgstr "Nezobrazovat skryté soubory"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
 msgid "Ignore directories"
 msgstr "Ignorované adresáře"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 msgid "Ignore files"
 msgstr "Ignorované soubory"
 
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
+msgid "Space-separated list of directory name patterns to ignore"
+msgstr "Seznam vzorů názvů adresářů, které ignorovat, oddělený mezerami"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
+msgid "Space-separated list of directory name patterns to match"
+msgstr "Seznam vzorů názvů adresářů, které hledat, oddělený mezerami"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
+msgid "Space-separated list of file name patterns to ignore"
+msgstr "Seznam vzorů názvů souborů, které ignorovat, oddělený mezerami"
+
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
+msgid "Space-separated list of file name patterns to match"
+msgstr "Seznam vzorů názvů souborů, které hledat, oddělený mezerami"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:23
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
 msgid "dialog3"
 msgstr "dialog3"
@@ -4704,11 +4714,11 @@ msgstr "_Obnovit"
 msgid "Refresh file manager tree"
 msgstr "Obnovit strom správce souborů"
 
-#: ../plugins/file-manager/plugin.c:164
+#: ../plugins/file-manager/plugin.c:165
 msgid "File manager popup actions"
 msgstr "Kontextové akce správce souborů"
 
-#: ../plugins/file-manager/plugin.c:172
+#: ../plugins/file-manager/plugin.c:174
 msgid "Files"
 msgstr "Soubory"
 
@@ -5069,35 +5079,35 @@ msgstr "Hodnota"
 msgid "Local Variables"
 msgstr "Lokální proměnné"
 
-#: ../plugins/gdb/debug_tree.c:1527
+#: ../plugins/gdb/debug_tree.c:1526
 msgid "Default format"
 msgstr "Implicitní formát"
 
-#: ../plugins/gdb/debug_tree.c:1531
+#: ../plugins/gdb/debug_tree.c:1530
 msgid "Binary"
 msgstr "Binární"
 
-#: ../plugins/gdb/debug_tree.c:1534
+#: ../plugins/gdb/debug_tree.c:1533
 msgid "Octal"
 msgstr "Osmičkový"
 
-#: ../plugins/gdb/debug_tree.c:1537
+#: ../plugins/gdb/debug_tree.c:1536
 msgid "Signed decimal"
 msgstr "Desítkový se znaménkem"
 
-#: ../plugins/gdb/debug_tree.c:1540
+#: ../plugins/gdb/debug_tree.c:1539
 msgid "Unsigned decimal"
 msgstr "Desítkový bez znaménka"
 
-#: ../plugins/gdb/debug_tree.c:1543
+#: ../plugins/gdb/debug_tree.c:1542
 msgid "Hex"
 msgstr "Šestnáctkový"
 
-#: ../plugins/gdb/debug_tree.c:1546
+#: ../plugins/gdb/debug_tree.c:1545
 msgid "Char"
 msgstr "Znak"
 
-#: ../plugins/gdb/debug_tree.c:1551
+#: ../plugins/gdb/debug_tree.c:1550
 msgid "Inspect memory"
 msgstr "Zkoumat paměť"
 
@@ -5255,17 +5265,9 @@ msgstr "Chyba při signalizaci procesu."
 msgid "Information"
 msgstr "Informace"
 
-#: ../plugins/gdb/memory.c:102
+#: ../plugins/gdb/memory.c:101
 msgid "Unable to build user interface for Memory\n"
 msgstr "Nemohu sestavit uživatelské rozhraní pro paměť\n"
-
-#: ../plugins/gdb/memory.c:409
-msgid "Enter a Hexa address or Select one in the data"
-msgstr "Zadejte šestnáctkovou adresu nebo ji vyberte v datech"
-
-#: ../plugins/gdb/memory.c:416
-msgid "Non accessible address !"
-msgstr "Nepřístupná adresa !"
 
 #. Action name
 #. Stock icon, if any
@@ -5774,6 +5776,18 @@ msgstr "Zavřít aktuální projekt glade"
 #: ../plugins/glade/plugin.c:641
 msgid "Glade operations"
 msgstr "Operace glade"
+
+#: ../plugins/glade/plugin.c:651
+msgid "Palette"
+msgstr "Paleta"
+
+#: ../plugins/glade/plugin.c:656
+msgid "Widgets"
+msgstr "Widgety"
+
+#: ../plugins/glade/plugin.c:661
+msgid "Properties"
+msgstr "Vlastnosti"
 
 #: ../plugins/glade/plugin.c:770
 #, c-format
@@ -6510,7 +6524,7 @@ msgstr "--new"
 msgid "When you delete the category \"%s\", all containing items are lost"
 msgstr "Když odstraníte kategorii \"%s\", všechny položky v ní budou ztraceny"
 
-#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:78
+#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:79
 msgid "Delete"
 msgstr "Odstranit"
 
@@ -7036,7 +7050,7 @@ msgid "No message details"
 msgstr "Žádní podrobnosti o zprávě"
 
 #: ../plugins/message-view/message-view.c:640
-#: ../plugins/message-view/plugin.c:167
+#: ../plugins/message-view/plugin.c:168
 msgid "Messages"
 msgstr "Zprávy"
 
@@ -7387,25 +7401,25 @@ msgstr "Odstranit z projektu"
 msgid "Loading project. Please wait ..."
 msgstr "Načítám projekt. Čekejte prosím ..."
 
-#: ../plugins/project-manager/plugin.c:990
+#: ../plugins/project-manager/plugin.c:1001
 #, c-format
 msgid "Loading project: %s"
 msgstr "Načítám projekt: %s"
 
-#: ../plugins/project-manager/plugin.c:998
+#: ../plugins/project-manager/plugin.c:1009
 msgid "Created project view ..."
 msgstr "Vytvořen pohled na projekt..."
 
-#: ../plugins/project-manager/plugin.c:1011
+#: ../plugins/project-manager/plugin.c:1022
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Nemohu načíst projekt %s: %s"
 
-#: ../plugins/project-manager/plugin.c:1111
+#: ../plugins/project-manager/plugin.c:1122
 msgid "Project manager actions"
 msgstr "Akce správce projektu"
 
-#: ../plugins/project-manager/plugin.c:1117
+#: ../plugins/project-manager/plugin.c:1129
 msgid "Project manager popup actions"
 msgstr "Kontextové akce správce projektu"
 
@@ -8146,41 +8160,61 @@ msgstr "Ukázkové operace se soubory"
 msgid "SamplePlugin"
 msgstr "UkázkovýZásuvnýModul"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Možnosti Subversion</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "Force"
 msgstr "Donutit"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
+msgid "Password:"
+msgstr "Heslo:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "Realm:"
+msgstr "Realm:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "Recurse"
 msgstr "Rekurzivně"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
+msgid "Remember Password"
+msgstr "Zapamatovat si heslo"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "Repository authorization"
+msgstr "Autorizace repository"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "Subversion Preferences"
 msgstr "Nastavení Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Přidat soubor/adresář"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "Subversion: Commit file/directory"
 msgstr "Subversion: Potvrdit soubor/adresář"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Odstranit soubor/adresář"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:15
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: Aktualizovat soubor/adresář"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "TODO!"
 msgstr "TODO!"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
+msgid "realm"
+msgstr "realm"
 
 #. Action name
 #. Stock icon, if any
@@ -8222,91 +8256,95 @@ msgstr "Diff místního stromu s repository"
 msgid "Subversion operations"
 msgstr "Operace Subversion"
 
-#: ../plugins/subversion/subversion-callbacks.c:71
+#: ../plugins/subversion/subversion-callbacks.c:72
 msgid "Subversion command is running! Please wait until it is finished!"
 msgstr "Běží příkaz Subversion! Počkejte prosím, než skončí!"
 
-#: ../plugins/subversion/subversion-callbacks.c:297
+#: ../plugins/subversion/subversion-callbacks.c:298
 msgid "svn.diff"
 msgstr "svn.diff"
 
-#: ../plugins/subversion/svn-notify.c:68
+#: ../plugins/subversion/svn-auth.c:82
+msgid "Authentication canceled"
+msgstr "Autentizace zrušena"
+
+#: ../plugins/subversion/svn-notify.c:69
 msgid "Add"
 msgstr "Přidat"
 
-#: ../plugins/subversion/svn-notify.c:83
+#: ../plugins/subversion/svn-notify.c:84
 msgid "Restore"
 msgstr "Obnovit"
 
-#: ../plugins/subversion/svn-notify.c:88
+#: ../plugins/subversion/svn-notify.c:89
 msgid "Revert"
 msgstr "Vrátit"
 
-#: ../plugins/subversion/svn-notify.c:93
+#: ../plugins/subversion/svn-notify.c:94
 msgid "Revert failed"
 msgstr "Vracení selhalo"
 
-#: ../plugins/subversion/svn-notify.c:98
+#: ../plugins/subversion/svn-notify.c:99
 msgid "Resolved"
 msgstr "Vyřešeno"
 
-#: ../plugins/subversion/svn-notify.c:103
+#: ../plugins/subversion/svn-notify.c:104
 msgid "Skip"
 msgstr "Přeskočit"
 
-#: ../plugins/subversion/svn-notify.c:108
+#: ../plugins/subversion/svn-notify.c:109
 msgid "Update delete"
 msgstr "Aktualizovat odstranit"
 
-#: ../plugins/subversion/svn-notify.c:113
+#: ../plugins/subversion/svn-notify.c:114
 msgid "Update add"
 msgstr "Aktualizovat přidat"
 
-#: ../plugins/subversion/svn-notify.c:123
+#: ../plugins/subversion/svn-notify.c:124
 msgid "Update completed"
 msgstr "Aktualizace dokončena"
 
-#: ../plugins/subversion/svn-notify.c:128
+#: ../plugins/subversion/svn-notify.c:129
 msgid "Update external"
 msgstr "Aktualizovat externí"
 
-#: ../plugins/subversion/svn-notify.c:133
+#: ../plugins/subversion/svn-notify.c:134
 msgid "Status completed"
 msgstr "Stav dokončen"
 
-#: ../plugins/subversion/svn-notify.c:138
+#: ../plugins/subversion/svn-notify.c:139
 msgid "Status external"
 msgstr "Stav externí"
 
-#: ../plugins/subversion/svn-notify.c:143
+#: ../plugins/subversion/svn-notify.c:144
 msgid "Commit modified"
 msgstr "Potvrdit změněné"
 
-#: ../plugins/subversion/svn-notify.c:148
+#: ../plugins/subversion/svn-notify.c:149
 msgid "Commit added"
 msgstr "Potvrdit přidané"
 
-#: ../plugins/subversion/svn-notify.c:153
+#: ../plugins/subversion/svn-notify.c:154
 msgid "Commit deleted"
 msgstr "Potvrdit odstraněné"
 
-#: ../plugins/subversion/svn-notify.c:158
+#: ../plugins/subversion/svn-notify.c:159
 msgid "Commit replaced"
 msgstr "Potvrdit nahrazené"
 
-#: ../plugins/subversion/svn-notify.c:163
+#: ../plugins/subversion/svn-notify.c:164
 msgid "Commit postfix"
 msgstr "Potvrdit příponu"
 
-#: ../plugins/subversion/svn-notify.c:168
+#: ../plugins/subversion/svn-notify.c:169
 msgid "Blame revision"
 msgstr "Blame revize"
 
-#: ../plugins/subversion/svn-thread.c:72 ../plugins/subversion/svn-thread.c:77
+#: ../plugins/subversion/svn-thread.c:73 ../plugins/subversion/svn-thread.c:78
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/svn-thread.c:154
+#: ../plugins/subversion/svn-thread.c:155
 msgid "Subversion command finished!"
 msgstr "Příkaz Subversion dokončen!"
 
@@ -8462,11 +8500,11 @@ msgstr "přepnout"
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "Opravdu chcete odstranit nástroj '%s'?"
 
-#: ../plugins/tools/dialog.c:337
+#: ../plugins/tools/dialog.c:340
 msgid "Unable to build user interface for tool list"
 msgstr "Nemohu sestavit uživatelské rozhraní pro seznam nástrojů"
 
-#: ../plugins/tools/dialog.c:357
+#: ../plugins/tools/dialog.c:360
 msgid "Tool"
 msgstr "Nástroj"
 
@@ -8537,23 +8575,23 @@ msgstr "(výstup)"
 msgid "(error)"
 msgstr "(chyba)"
 
-#: ../plugins/tools/execute.c:467
+#: ../plugins/tools/execute.c:470
 msgid "Running command: "
 msgstr "Spouštím příkaz: "
 
-#: ../plugins/tools/execute.c:507
+#: ../plugins/tools/execute.c:510
 msgid "Completed ... unsuccessful with "
 msgstr "Dokončeno ... neúspěšně s "
 
-#: ../plugins/tools/execute.c:603
+#: ../plugins/tools/execute.c:616
 msgid "Unable to create a buffer, command aborted"
 msgstr "Nemohu vytvořit buffer, příkaz přerušen"
 
-#: ../plugins/tools/execute.c:614
+#: ../plugins/tools/execute.c:628
 msgid "No document currently open, command aborted"
 msgstr "Momentálně není otevřen žádný dokument, příkaz přerušen"
 
-#: ../plugins/tools/execute.c:987
+#: ../plugins/tools/execute.c:1002
 #, c-format
 msgid "Unable to open input file %s, Command aborted"
 msgstr "Nemohu otevřít vstupní soubor %s, příkaz přerušen"
@@ -8791,11 +8829,11 @@ msgstr "O externích _zásuvných modulech"
 msgid "About third party Anjuta plugins"
 msgstr "O zásuvných modulech Anjuty od třetích stran"
 
-#: ../src/anjuta-app.c:465
+#: ../src/anjuta-app.c:468
 msgid "Toggle View"
 msgstr "Přepnout zobrazení"
 
-#: ../src/anjuta-app.c:718 ../src/shell.c:213
+#: ../src/anjuta-app.c:722 ../src/shell.c:213
 msgid "Value doesn't exist"
 msgstr "Hodnota neexistuje"
 
@@ -8851,6 +8889,12 @@ msgstr "Skupina akcí testovacího shellu"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Testovací shell Anjuty"
+
+#~ msgid "Enter a Hexa address or Select one in the data"
+#~ msgstr "Zadejte šestnáctkovou adresu nebo ji vyberte v datech"
+
+#~ msgid "Non accessible address !"
+#~ msgstr "Nepřístupná adresa !"
 
 #~ msgid "* Base Class Name:"
 #~ msgstr "* Název rodičovské třídy:"
@@ -9059,17 +9103,8 @@ msgstr "Testovací shell Anjuty"
 #~ msgid "Add file"
 #~ msgstr "Přidat soubor"
 
-#~ msgid "Add the current file to the repository"
-#~ msgstr "Přidat aktuální soubor do úložiště"
-
-#~ msgid "Remove the current file from the repository"
-#~ msgstr "Odstranit aktuální soubor z úložiště"
-
 #~ msgid "Diff file"
 #~ msgstr "Diff soubor"
-
-#~ msgid "Create a diff between the working copy and the repository"
-#~ msgstr "Vytvořit diff mezi pracovní kopií a úložištěm"
 
 #~ msgid "Refresh"
 #~ msgstr "Obnovit"
