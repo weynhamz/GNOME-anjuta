@@ -15,21 +15,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-18 18:36+0000\n"
-"PO-Revision-Date: 2005-07-18 23:06-0300\n"
+"POT-Creation-Date: 2005-08-04 02:36+0000\n"
+"PO-Revision-Date: 2005-08-06 18:16-0300\n"
 "Last-Translator: Afonso Celso Medina <afmedina@uol.com.br>\n"
-"Language-Team: Português/Brasil <gnome-l10n-br@listas.cipsga.org.br>\n"
+"Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
 #: ../anjuta.desktop.in.in.h:2 ../src/about.c:178 ../src/about.c:190
-#: ../src/main.c:141
+#: ../src/main.c:142
 msgid "Integrated Development Environment"
 msgstr "Ambiente de Desenvolvimento Integrado (IDE)"
 
@@ -47,6 +46,7 @@ msgstr "    "
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../src/anjuta.glade.h:1
@@ -156,8 +156,8 @@ msgstr "Construir o navegador de símbolos automaticamente"
 msgid "CPU Registers"
 msgstr "Registradores de CPU"
 
-#: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:237
-#: ../plugins/cvs-plugin/cvs-execute.c:241
+#: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:231
+#: ../plugins/cvs-plugin/cvs-execute.c:235
 #: ../plugins/editor/anjuta-document-manager.glade.h:40
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
 #: ../plugins/macro/macros.xml.h:9
@@ -198,7 +198,7 @@ msgstr "Caixa de Combinação:"
 msgid "Command Line Parameters"
 msgstr "Parâmetros da Linha de Comando"
 
-#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:384
+#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:464
 msgid "Command line parameters"
 msgstr "Parâmetros da linha de comando"
 
@@ -289,7 +289,7 @@ msgstr "Não inciar o Anjuta com este diálogo novamente."
 msgid "Document module Makefile.am"
 msgstr "Makefile.am do módulo de documentação"
 
-#: ../anjuta.glade.h:56 ../src/anjuta-app.c:458
+#: ../anjuta.glade.h:56 ../src/anjuta-app.c:459
 msgid "Edit"
 msgstr "Editar"
 
@@ -396,7 +396,8 @@ msgstr "Ocultar parâ_metros de processo"
 
 #: ../anjuta.glade.h:76
 msgid "High-Level Optimization (Functions inlined wherever possible)"
-msgstr "Otimização de Alto Nível (utilizar funções inlined sempre que possível)"
+msgstr ""
+"Otimização de Alto Nível (utilizar funções inlined sempre que possível)"
 
 #: ../anjuta.glade.h:77
 msgid "History sizes"
@@ -612,7 +613,7 @@ msgstr "Programas"
 #. gtk_widget_destroy (progress_win);
 #: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1042
 #: ../plugins/project-manager/plugin.c:1062
-#: ../plugins/project-manager/plugin.c:1140
+#: ../plugins/project-manager/plugin.c:1141
 #: ../plugins/project-manager/project_dbase_gui.c:581
 msgid "Project"
 msgstr "Projeto"
@@ -695,7 +696,7 @@ msgstr "Scripts ao final do arquivo Makefile.am do diretório raíz"
 msgid "Set Signal Property"
 msgstr "Definir Propriedades do Sinal"
 
-#: ../anjuta.glade.h:140 ../src/anjuta-app.c:470
+#: ../anjuta.glade.h:140 ../src/anjuta-app.c:473
 msgid "Settings"
 msgstr "Definições"
 
@@ -780,7 +781,7 @@ msgstr "Makefile.am do diretório raíz"
 #: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:931
 #: ../plugins/gdb/registers.c:227 ../plugins/gdb/sharedlib.c:128
 #: ../plugins/gdb/signals.c:288 ../plugins/gdb/stack_trace.c:459
-#: ../plugins/subversion/svn-notify.c:118
+#: ../plugins/subversion/svn-notify.c:119
 msgid "Update"
 msgstr "Atualizar"
 
@@ -809,7 +810,7 @@ msgstr "Nome do usuário:"
 msgid "Version:"
 msgstr "Versão:"
 
-#: ../anjuta.glade.h:164 ../src/anjuta-app.c:461
+#: ../anjuta.glade.h:164 ../src/anjuta-app.c:463
 msgid "View"
 msgstr "Vista"
 
@@ -1062,11 +1063,11 @@ msgstr "Codificações Armazenadas"
 msgid "Supported Encodings"
 msgstr "Codificações Suportadas"
 
-#: ../libanjuta/anjuta-launcher.c:729
+#: ../libanjuta/anjuta-launcher.c:735
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "laucher.c: Erro enquanto lia child pty\n"
 
-#: ../libanjuta/anjuta-launcher.c:910 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:919 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -1106,19 +1107,19 @@ msgid "Anjuta Preferences"
 msgstr "Preferências do Anjuta"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:795
+#: ../libanjuta/anjuta-ui.c:804
 msgid "Action"
 msgstr "Ação"
 
-#: ../libanjuta/anjuta-ui.c:813
+#: ../libanjuta/anjuta-ui.c:822
 msgid "Visible"
 msgstr "Visível"
 
-#: ../libanjuta/anjuta-ui.c:824
+#: ../libanjuta/anjuta-ui.c:833
 msgid "Sensitive"
 msgstr "Sensível à capitalização"
 
-#: ../libanjuta/anjuta-ui.c:833
+#: ../libanjuta/anjuta-ui.c:842
 msgid "Shortcut"
 msgstr "Atalho"
 
@@ -1420,10 +1421,10 @@ msgstr "_Travar itens docados"
 
 #: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:270
 #: ../plugins/editor/plugin.c:1183 ../plugins/editor/search-replace.c:793
-#: ../plugins/editor/search-replace.c:1428
-#: ../plugins/editor/search-replace.c:1435
-#: ../plugins/editor/search-replace.c:1447
-#: ../plugins/editor/search-replace.c:1751
+#: ../plugins/editor/search-replace.c:1425
+#: ../plugins/editor/search-replace.c:1432
+#: ../plugins/editor/search-replace.c:1444
+#: ../plugins/editor/search-replace.c:1744
 #: ../plugins/symbol-browser/plugin.c:841
 msgid "Search"
 msgstr "Procurar"
@@ -1452,7 +1453,8 @@ msgstr "O executável está atualizado, não é necessário construí-lo novamen
 
 #: ../plugins/build/build_file.c:88
 msgid "No build command has been specified for this type of file."
-msgstr "Não foi especificado nenhum comando de construção para este tipo de arquivo."
+msgstr ""
+"Não foi especificado nenhum comando de construção para este tipo de arquivo."
 
 #: ../plugins/build/build_file.c:104
 #, c-format
@@ -1480,7 +1482,7 @@ msgstr "Concluído... sem sucesso"
 msgid "Completed ... successful\n"
 msgstr "Concluído... com sucesso\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:513
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:516
 msgid "Completed ... successful"
 msgstr "Concluído... com sucesso"
 
@@ -1575,11 +1577,13 @@ msgstr "O arquivo não foi salvo. Salve-o primeiro e então compile."
 
 #: ../plugins/build/compile.c:128
 msgid "The object file is up-to-date, there is no need to compile it again."
-msgstr "O arquivo objeto está atualizado, não é necessário compilá-lo novamente."
+msgstr ""
+"O arquivo objeto está atualizado, não é necessário compilá-lo novamente."
 
 #: ../plugins/build/compile.c:140
 msgid "No compile command has been specified for this type of file."
-msgstr "Nenhum comando de compilação foi especificado para este tipo de arquivo."
+msgstr ""
+"Nenhum comando de compilação foi especificado para este tipo de arquivo."
 
 #: ../plugins/build/compile.c:153
 msgid "Compile"
@@ -1980,14 +1984,16 @@ msgid "* Output Source File:"
 msgstr "* Arquivo Fonte de Saída:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
-msgid "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
+msgid ""
+"<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 msgstr ""
 "<span size=\"large\" weight=\"bold\">Construtor de Modelo de Classe GObject</"
 "span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "<span size=\"large\" weight=\"bold\">Generic C++ Class Builder</span>"
-msgstr "<span size=\"large\" weight=\"bold\">Construtor de Classe C++ Genérica</span>"
+msgstr ""
+"<span size=\"large\" weight=\"bold\">Construtor de Classe C++ Genérica</span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
 msgid "Add to Repository"
@@ -2163,7 +2169,7 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Detalhes do Módulo: </b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
 msgid "<b>Options:</b>"
 msgstr "<b>Opções:</b>"
 
@@ -2239,12 +2245,12 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to add:"
 msgstr "Escolha o arquivo ou diretório a ser adicionado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to commit:"
 msgstr "Escolha o arquivo ou diretório para commit:"
 
@@ -2261,12 +2267,12 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Escolha o arquivo ou diretório de onde obter o estado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to remove:"
 msgstr "Escolha o arquivo ou diretório a ser removido:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Choose file or directory to update:"
 msgstr "Escolha o arquivo ou diretório a ser atualizado:"
 
@@ -2283,7 +2289,7 @@ msgid "Delete empty directories"
 msgstr "Exclui diretórios vazios"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "Do not act recursively"
 msgstr "Não agir recursivamente"
 
@@ -2306,7 +2312,7 @@ msgstr ""
 "Senha do servidor (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Log message:"
 msgstr "Mensagem de log:"
 
@@ -2351,7 +2357,7 @@ msgid "Unified format instead of context format"
 msgstr "Formato especial ao invés de formato de contexto"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "Use revision/tag: "
 msgstr "Utilizar revisão/tag: "
 
@@ -2360,6 +2366,7 @@ msgid "Use revision: "
 msgstr "Utilizar revisão: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
 msgid "Username: "
 msgstr "Nome do usuário: "
 
@@ -2368,7 +2375,7 @@ msgid "Vendor tag:"
 msgstr "Tag do vendedor:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Whole project"
 msgstr "Todo o projeto"
 
@@ -2381,7 +2388,7 @@ msgid "start"
 msgstr "início"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
-#: ../plugins/subversion/subversion-callbacks.c:55
+#: ../plugins/subversion/subversion-callbacks.c:56
 msgid "Please enter a filename!"
 msgstr "Por favor, entre com um nome de arquivo!"
 
@@ -2400,7 +2407,7 @@ msgstr "Impossível excluir arquivo"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:454
-#: ../plugins/subversion/subversion-callbacks.c:242
+#: ../plugins/subversion/subversion-callbacks.c:243
 msgid "Are you sure that you do not want a log message?"
 msgstr "Você tem certeza de que não deseja uma mensagem de log?"
 
@@ -2424,26 +2431,18 @@ msgstr "Versão"
 msgid "Directory"
 msgstr "Diretório"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:136
+#: ../plugins/cvs-plugin/cvs-execute.c:128
 msgid "CVS command failed! - See above for details"
 msgstr "O comando CVS falhou! - Veja os detalhes abaixo"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:141
+#: ../plugins/cvs-plugin/cvs-execute.c:133
 #, c-format
 msgid "CVS command successful! - Time taken %ld secs."
 msgstr "O comando CVS teve sucesso! - Tempo decorrido %ld segundos."
 
-#: ../plugins/cvs-plugin/cvs-execute.c:230
+#: ../plugins/cvs-plugin/cvs-execute.c:223
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "O comando CVS está em execução - por favor, aguarde sua finalização!"
-
-#: ../plugins/cvs-plugin/cvs-execute.c:300
-msgid "cvs.diff"
-msgstr "cvs.diff"
-
-#: ../plugins/cvs-plugin/cvs-execute.c:313
-msgid "cvs.log"
-msgstr "cvs.log"
 
 #. Action name
 #. Stock icon, if any
@@ -2731,7 +2730,7 @@ msgstr "Conteúdo"
 #. 9
 #: ../plugins/devhelp/plugin.c:304 ../plugins/devhelp/plugin.c:531
 #: ../plugins/devhelp/plugin.c:544
-#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:474
+#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:477
 msgid "Help"
 msgstr "Ajuda"
 
@@ -2837,7 +2836,8 @@ msgstr "Não existe linha número %d em \"%s\"."
 
 #: ../plugins/editor/action-callbacks.c:1203
 msgid "No matches. Wrap search around the document?"
-msgstr "Nenhuma equivalência. Continuar a busca a partir do início do documento?"
+msgstr ""
+"Nenhuma equivalência. Continuar a busca a partir do início do documento?"
 
 #: ../plugins/editor/action-callbacks.c:1213
 #, c-format
@@ -3711,8 +3711,10 @@ msgid "Find and R_eplace ..."
 msgstr "Procurar e Su_bstituir ..."
 
 #: ../plugins/editor/plugin.c:220
-msgid "Search for and replace a string or regular expression with another string"
-msgstr "Procura e substitui uma expressão ou expressão regular por outra expressão"
+msgid ""
+"Search for and replace a string or regular expression with another string"
+msgstr ""
+"Procura e substitui uma expressão ou expressão regular por outra expressão"
 
 #: ../plugins/editor/plugin.c:222
 msgid "Advanced Search And Replace"
@@ -4260,7 +4262,7 @@ msgid "Replace"
 msgstr "Substituir"
 
 #: ../plugins/editor/search-replace.c:796
-#: ../plugins/editor/search-replace.c:1442
+#: ../plugins/editor/search-replace.c:1439
 msgid "Replace All"
 msgstr "Substituir Tudo"
 
@@ -4285,7 +4287,7 @@ msgstr "O número máximo de resultados foi alcançado."
 msgid "%d matches have been replaced."
 msgstr "%d equivalências foram substituidas."
 
-#: ../plugins/editor/search-replace.c:1040
+#: ../plugins/editor/search-replace.c:1037
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Impossível criar interface de usuário para Procurar e Substituir"
 
@@ -4473,7 +4475,7 @@ msgstr "Cortar"
 
 #. 1
 #: ../plugins/editor/text_editor_menu.c:248
-#: ../plugins/subversion/svn-notify.c:73
+#: ../plugins/subversion/svn-notify.c:74
 msgid "Copy"
 msgstr "Copiar"
 
@@ -4758,7 +4760,7 @@ msgstr "Atualizando a árvore do gerenciador de arquivo"
 msgid "File manager popup actions"
 msgstr "Ações de popup do gerenciador de arquivos"
 
-#: ../plugins/file-manager/plugin.c:173
+#: ../plugins/file-manager/plugin.c:174
 msgid "Files"
 msgstr "Arquivos"
 
@@ -5088,7 +5090,8 @@ msgstr "Disp"
 
 #: ../plugins/gdb/breakpoints.c:500
 msgid "You must give a valid location to set the breakpoint."
-msgstr "Você deve fornecer um local válido para definir o ponto de interrupção."
+msgstr ""
+"Você deve fornecer um local válido para definir o ponto de interrupção."
 
 #: ../plugins/gdb/breakpoints.c:1591
 msgid "All breakpoints disabled.\n"
@@ -5120,35 +5123,35 @@ msgstr "Valor"
 msgid "Local Variables"
 msgstr "Variáveis Locais"
 
-#: ../plugins/gdb/debug_tree.c:1527
+#: ../plugins/gdb/debug_tree.c:1526
 msgid "Default format"
 msgstr "Formato padrão"
 
-#: ../plugins/gdb/debug_tree.c:1531
+#: ../plugins/gdb/debug_tree.c:1530
 msgid "Binary"
 msgstr "Binário"
 
-#: ../plugins/gdb/debug_tree.c:1534
+#: ../plugins/gdb/debug_tree.c:1533
 msgid "Octal"
 msgstr "Octal"
 
-#: ../plugins/gdb/debug_tree.c:1537
+#: ../plugins/gdb/debug_tree.c:1536
 msgid "Signed decimal"
 msgstr "Decimal com sinal"
 
-#: ../plugins/gdb/debug_tree.c:1540
+#: ../plugins/gdb/debug_tree.c:1539
 msgid "Unsigned decimal"
 msgstr "Decimal sem sinal"
 
-#: ../plugins/gdb/debug_tree.c:1543
+#: ../plugins/gdb/debug_tree.c:1542
 msgid "Hex"
 msgstr "Hexa"
 
-#: ../plugins/gdb/debug_tree.c:1546
+#: ../plugins/gdb/debug_tree.c:1545
 msgid "Char"
 msgstr "Caractere"
 
-#: ../plugins/gdb/debug_tree.c:1551
+#: ../plugins/gdb/debug_tree.c:1550
 msgid "Inspect memory"
 msgstr "Inspeciona a memória"
 
@@ -5305,17 +5308,9 @@ msgstr "Erro no momento em que sinalizava o processo."
 msgid "Information"
 msgstr "Informações"
 
-#: ../plugins/gdb/memory.c:102
+#: ../plugins/gdb/memory.c:101
 msgid "Unable to build user interface for Memory\n"
 msgstr "Impossível criar interface de usuário para a Memória\n"
-
-#: ../plugins/gdb/memory.c:409
-msgid "Enter a Hexa address or Select one in the data"
-msgstr "Forneça um endereço Hexadecimal ou Selecione um a partir dos dados"
-
-#: ../plugins/gdb/memory.c:416
-msgid "Non accessible address !"
-msgstr "Endereço não acessível!"
 
 #. Action name
 #. Stock icon, if any
@@ -5825,6 +5820,18 @@ msgstr "Fecha o Projeto atual do Glade"
 msgid "Glade operations"
 msgstr "Operações com o Glade"
 
+#: ../plugins/glade/plugin.c:651
+msgid "Palette"
+msgstr "Paleta"
+
+#: ../plugins/glade/plugin.c:656
+msgid "Widgets"
+msgstr "Widgets (componentes)"
+
+#: ../plugins/glade/plugin.c:661
+msgid "Properties"
+msgstr "Propriedades"
+
 #: ../plugins/glade/plugin.c:770
 #, c-format
 msgid "Not local file: %s"
@@ -6326,7 +6333,7 @@ msgstr "/Ver/Ocultar Itens Completados"
 #: ../plugins/gtodo/gtodo.c:151 ../plugins/gtodo/gtodo.c:198
 #: ../plugins/gtodo/preferences.c:366
 msgid "/View/Hide Items that Are Past Due Date"
-msgstr "/Ver/Ocultar Itens que são de Data de Término já Passada"
+msgstr "/Ver/Ocultar Itens que são de Data de Término Vencida"
 
 #. "/schemas
 #. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items without an end date"))), settings.hide_nodate);
@@ -6559,9 +6566,10 @@ msgstr "--new"
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
-msgstr "Quando você deleta a categoria \"%s\", todos os itens contidos são eliminados"
+msgstr ""
+"Quando você deleta a categoria \"%s\", todos os itens contidos são eliminados"
 
-#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:78
+#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:79
 msgid "Delete"
 msgstr "Excluir"
 
@@ -7088,7 +7096,7 @@ msgid "No message details"
 msgstr "Sem detalhes de mensagens"
 
 #: ../plugins/message-view/message-view.c:640
-#: ../plugins/message-view/plugin.c:167
+#: ../plugins/message-view/plugin.c:168
 msgid "Messages"
 msgstr "Mensagens"
 
@@ -7458,7 +7466,7 @@ msgstr "Falha ao carregar o Projeto %s: %s"
 msgid "Project manager actions"
 msgstr "Ações do gerenciador de Projeto"
 
-#: ../plugins/project-manager/plugin.c:1128
+#: ../plugins/project-manager/plugin.c:1129
 msgid "Project manager popup actions"
 msgstr "Ações de popup do gerenciador de Projeto"
 
@@ -8205,41 +8213,61 @@ msgstr "Operações de arquivo de exemplo"
 msgid "SamplePlugin"
 msgstr "SamplePlugin"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Opções de Subversion</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "Force"
 msgstr "Força"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
+msgid "Password:"
+msgstr "Senha:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "Realm:"
+msgstr "Domínio:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "Recurse"
 msgstr "Recursivo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
+msgid "Remember Password"
+msgstr "Lembrar Senha"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "Repository authorization"
+msgstr "Autorização do repositório"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "Subversion Preferences"
 msgstr "Preferências de Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Adicionar arquivo/diretório"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "Subversion: Commit file/directory"
 msgstr "Subversion: CVS: Commit arquivo/diretório"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Remover arquivo/diretório"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:15
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: CVS: Atualizar arquivo/diretório"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "TODO!"
 msgstr "TAREFAS!"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
+msgid "realm"
+msgstr "domínio"
 
 #. Action name
 #. Stock icon, if any
@@ -8281,93 +8309,93 @@ msgstr "Diff da árvore local com o repositório"
 msgid "Subversion operations"
 msgstr "Operações do Subversion"
 
-#: ../plugins/subversion/subversion-callbacks.c:71
+#: ../plugins/subversion/subversion-callbacks.c:72
 msgid "Subversion command is running! Please wait until it is finished!"
 msgstr ""
 "Um comando do Subversion está em execução - por favor, aguarde sua "
 "finalização!"
 
-#: ../plugins/subversion/subversion-callbacks.c:297
+#: ../plugins/subversion/subversion-callbacks.c:298
 msgid "svn.diff"
 msgstr "svn.diff"
 
-#: ../plugins/subversion/svn-notify.c:68
+#: ../plugins/subversion/svn-notify.c:69
 msgid "Add"
 msgstr "Adicionar"
 
-#: ../plugins/subversion/svn-notify.c:83
+#: ../plugins/subversion/svn-notify.c:84
 msgid "Restore"
 msgstr "Recuperar"
 
-#: ../plugins/subversion/svn-notify.c:88
+#: ../plugins/subversion/svn-notify.c:89
 msgid "Revert"
 msgstr "Reverter"
 
-#: ../plugins/subversion/svn-notify.c:93
+#: ../plugins/subversion/svn-notify.c:94
 msgid "Revert failed"
 msgstr "Falha ao reverter"
 
-#: ../plugins/subversion/svn-notify.c:98
+#: ../plugins/subversion/svn-notify.c:99
 msgid "Resolved"
 msgstr "Resolvido"
 
-#: ../plugins/subversion/svn-notify.c:103
+#: ../plugins/subversion/svn-notify.c:104
 msgid "Skip"
 msgstr "Pular"
 
-#: ../plugins/subversion/svn-notify.c:108
+#: ../plugins/subversion/svn-notify.c:109
 msgid "Update delete"
 msgstr "Atualizar exclusão"
 
-#: ../plugins/subversion/svn-notify.c:113
+#: ../plugins/subversion/svn-notify.c:114
 msgid "Update add"
 msgstr "Atualizar adicionado"
 
-#: ../plugins/subversion/svn-notify.c:123
+#: ../plugins/subversion/svn-notify.c:124
 msgid "Update completed"
 msgstr "Atualizar completado"
 
-#: ../plugins/subversion/svn-notify.c:128
+#: ../plugins/subversion/svn-notify.c:129
 msgid "Update external"
 msgstr "Atualizar externo"
 
-#: ../plugins/subversion/svn-notify.c:133
+#: ../plugins/subversion/svn-notify.c:134
 msgid "Status completed"
 msgstr "Estado completado"
 
-#: ../plugins/subversion/svn-notify.c:138
+#: ../plugins/subversion/svn-notify.c:139
 msgid "Status external"
 msgstr "Estado externo"
 
-#: ../plugins/subversion/svn-notify.c:143
+#: ../plugins/subversion/svn-notify.c:144
 msgid "Commit modified"
 msgstr "Submeter modificado"
 
-#: ../plugins/subversion/svn-notify.c:148
+#: ../plugins/subversion/svn-notify.c:149
 msgid "Commit added"
 msgstr "Submeter adicionado"
 
-#: ../plugins/subversion/svn-notify.c:153
+#: ../plugins/subversion/svn-notify.c:154
 msgid "Commit deleted"
 msgstr "Submeter excluído"
 
-#: ../plugins/subversion/svn-notify.c:158
+#: ../plugins/subversion/svn-notify.c:159
 msgid "Commit replaced"
 msgstr "Submeter substituído"
 
-#: ../plugins/subversion/svn-notify.c:163
+#: ../plugins/subversion/svn-notify.c:164
 msgid "Commit postfix"
 msgstr "Submeter postfix"
 
-#: ../plugins/subversion/svn-notify.c:168
+#: ../plugins/subversion/svn-notify.c:169
 msgid "Blame revision"
 msgstr "Responsável pela revisão"
 
-#: ../plugins/subversion/svn-thread.c:72 ../plugins/subversion/svn-thread.c:77
+#: ../plugins/subversion/svn-thread.c:73 ../plugins/subversion/svn-thread.c:78
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/svn-thread.c:154
+#: ../plugins/subversion/svn-thread.c:155
 msgid "Subversion command finished!"
 msgstr "O comando do Subversion terminou!"
 
@@ -8522,11 +8550,11 @@ msgstr "alternar"
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "Você tem certeza de que deseja excluir a ferramenta '%s'?"
 
-#: ../plugins/tools/dialog.c:337
+#: ../plugins/tools/dialog.c:340
 msgid "Unable to build user interface for tool list"
 msgstr "Impossível criar interface de usuário para a lista de ferramentas"
 
-#: ../plugins/tools/dialog.c:357
+#: ../plugins/tools/dialog.c:360
 msgid "Tool"
 msgstr "Ferramenta"
 
@@ -8597,23 +8625,23 @@ msgstr "(saída)"
 msgid "(error)"
 msgstr "(erro)"
 
-#: ../plugins/tools/execute.c:467
+#: ../plugins/tools/execute.c:470
 msgid "Running command: "
 msgstr "Comando de Execução: "
 
-#: ../plugins/tools/execute.c:507
+#: ../plugins/tools/execute.c:510
 msgid "Completed ... unsuccessful with "
 msgstr "Concluído... sem sucesso com "
 
-#: ../plugins/tools/execute.c:603
+#: ../plugins/tools/execute.c:616
 msgid "Unable to create a buffer, command aborted"
 msgstr "Impossível criar um buffer, comando abortado"
 
-#: ../plugins/tools/execute.c:614
+#: ../plugins/tools/execute.c:628
 msgid "No document currently open, command aborted"
 msgstr "Nenhum documento está aberto atualmente, comando abortado"
 
-#: ../plugins/tools/execute.c:987
+#: ../plugins/tools/execute.c:1002
 #, c-format
 msgid "Unable to open input file %s, Command aborted"
 msgstr "Impossível abrir o arquivo de entrada %s, Comando abortado"
@@ -8718,7 +8746,7 @@ msgstr "_Redefinir o Layout de Docagem"
 
 #: ../src/anjuta-actions.h:37
 msgid "Reset the widgets docking layout to default"
-msgstr "Redefine os componentes de docagem para o padrão"
+msgstr "Redefine o layout dos componentes de docagem para o padrão"
 
 #: ../src/anjuta-actions.h:39
 msgid "_Toolbars"
@@ -8856,11 +8884,11 @@ msgstr "Sobre _Plugins Externos do Anjuta"
 msgid "About third party Anjuta plugins"
 msgstr "Sobre plugins do Anjuta de terceiros"
 
-#: ../src/anjuta-app.c:465
+#: ../src/anjuta-app.c:468
 msgid "Toggle View"
 msgstr "Alternar Vistas"
 
-#: ../src/anjuta-app.c:718 ../src/shell.c:213
+#: ../src/anjuta-app.c:722 ../src/shell.c:213
 msgid "Value doesn't exist"
 msgstr "O valor não existe"
 
@@ -8883,7 +8911,7 @@ msgid ""
 "Do you still want to exit?"
 msgstr ""
 "Um ou mais arquivos não foram salvos.\n"
-"Deseja sair assim mesmo?"
+"Deseja sair mesmo assim?"
 
 #: ../src/main.c:54
 msgid "Specify the size and location of the main window"
@@ -8899,7 +8927,8 @@ msgstr "Não exibir a tela de logotipo"
 
 #: ../src/main.c:66
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr "Desligando o anjuta corretamente liberando todos os recursos (para depuração)"
+msgstr ""
+"Desligando o anjuta corretamente liberando todos os recursos (para depuração)"
 
 #: ../src/shell.c:85
 msgid "Quit Anjuta Test Shell"
@@ -8917,3 +8946,14 @@ msgstr "Testa o grupo de ação do shell"
 msgid "Anjuta test shell"
 msgstr "Shell de teste do Anjuta"
 
+#~ msgid "cvs.diff"
+#~ msgstr "cvs.diff"
+
+#~ msgid "cvs.log"
+#~ msgstr "cvs.log"
+
+#~ msgid "Enter a Hexa address or Select one in the data"
+#~ msgstr "Forneça um endereço Hexadecimal ou Selecione um a partir dos dados"
+
+#~ msgid "Non accessible address !"
+#~ msgstr "Endereço não acessível!"
