@@ -698,10 +698,12 @@ GList
 		{
 			GList *files = NULL;
 			gchar *dir;
-			
+			gchar *dir_uri;			
 			anjuta_shell_get (ANJUTA_DOCMAN(sr->docman)->shell,
 					  "project_root_uri", G_TYPE_STRING,
-					  &dir, NULL);
+					  &dir_uri, NULL);
+// FIXME : Replace Standard UNIX IO functions by gnome-vfs 
+			dir = gnome_vfs_get_local_path_from_uri(dir_uri);
 			
 			if (!dir)
 			{
@@ -709,7 +711,7 @@ GList
 					s->range.type = SR_FILES;
 				dir = g_get_current_dir();
 			}
-			
+
 			if (SR_FILES == s->range.type)
 				files = create_search_files_list(&(s->range.files), dir);
 			else /* if (SR_PROJECT == s->range.type) */
@@ -732,6 +734,7 @@ GList
 				entries = g_list_reverse(entries);
 			}
 			g_free(dir);
+			g_free(dir_uri);
 			break;
 		}
 	}	

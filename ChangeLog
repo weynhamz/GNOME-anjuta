@@ -1,6 +1,11 @@
+2005-08-09  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/editor/search-replace_backend.c :
+	Fixed search in File Patterns.
+
 2005-08-09  Philip Van Hoof  <pvanhoof@gnome.org>
 
-        * plugins/gdb/Makefile.am: Fixed a make -j x bug
+	* plugins/gdb/Makefile.am: Fixed a make -j x bug
 	
 2005-08-04  Naba Kumar  <naba@gnome.org>
 
