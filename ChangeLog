@@ -1,3 +1,7 @@
+2005-08-09  Philip Van Hoof  <pvanhoof@gnome.org>
+
+        * plugins/gdb/Makefile.am: Fixed a make -j x bug
+	
 2005-08-04  Naba Kumar  <naba@gnome.org>
 
 	* scintilla/PlatGTK.cxx, patches/pango-1.8.patch: Better fix
