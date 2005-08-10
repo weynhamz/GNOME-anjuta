@@ -320,7 +320,22 @@ void on_editor_command_eol_cr_activate (GtkAction * action, gpointer data)
 
 void on_editor_command_select_all_activate (GtkAction * action, gpointer data)
 {
+
+	GtkWidget *widget=NULL;
+	GtkWidget *main_window=NULL;
+	
+	main_window= (GtkWidget*) gtk_window_list_toplevels ()->data;
+    widget = gtk_window_get_focus (GTK_WINDOW(main_window));
+   
+	if (widget && GTK_IS_EDITABLE (widget))
+	{
+		gtk_editable_select_region (GTK_EDITABLE (widget), 0, -1);
+	}
+	else
+    {
 	on_editor_command_activate (action, ANE_SELECTALL, data);
+}
+
 }
 
 void on_editor_command_select_to_brace_activate (GtkAction * action, gpointer data)
@@ -350,22 +365,91 @@ void on_editor_command_redo_activate (GtkAction * action, gpointer data)
 
 void on_editor_command_cut_activate (GtkAction * action, gpointer data)
 {
+
+	GtkWidget *widget=NULL;
+	GtkWidget *main_window=NULL;
+	
+	main_window= (GtkWidget*) gtk_window_list_toplevels ()->data;
+	widget = gtk_window_get_focus (GTK_WINDOW(main_window));
+
+	if (widget && GTK_IS_EDITABLE (widget))
+	{
+		gtk_editable_cut_clipboard (GTK_EDITABLE (widget));
+	}
+	else
+	{
 	on_editor_command_activate (action, ANE_CUT, data);
+}
+
 }
 
 void on_editor_command_copy_activate (GtkAction * action, gpointer data)
 {
+
+	GtkWidget *widget=NULL;
+	GtkWidget *main_window=NULL;
+	
+	main_window= (GtkWidget*) gtk_window_list_toplevels ()->data;
+	widget = gtk_window_get_focus (GTK_WINDOW(main_window));
+
+	if (widget && GTK_IS_EDITABLE (widget))
+	{
+		gtk_editable_copy_clipboard (GTK_EDITABLE (widget));
+	}
+	else
+	{
 	on_editor_command_activate (action, ANE_COPY, data);
+}
+
 }
 
 void on_editor_command_paste_activate (GtkAction * action, gpointer data)
 {
+
+	GtkWidget *widget=NULL;
+	GtkWidget *main_window=NULL;
+	
+	main_window= (GtkWidget*) gtk_window_list_toplevels ()->data;
+	widget = gtk_window_get_focus (GTK_WINDOW(main_window));
+
+	if (widget && GTK_IS_EDITABLE (widget))
+	{
+		gtk_editable_paste_clipboard (GTK_EDITABLE (widget));
+	}
+	else
+	{
 	on_editor_command_activate (action, ANE_PASTE, data);
+}
+
 }
 
 void on_editor_command_clear_activate (GtkAction * action, gpointer data)
 {
+
+	GtkWidget *widget=NULL;
+	GtkWidget *main_window=NULL;
+	gint start, end;
+	
+	main_window= (GtkWidget*) gtk_window_list_toplevels ()->data;
+	widget = gtk_window_get_focus (GTK_WINDOW(main_window));
+
+	if (widget && GTK_IS_EDITABLE (widget))
+	{
+	
+		if (!gtk_editable_get_selection_bounds (GTK_EDITABLE (widget), &start, &end))
+		{
+			start=gtk_editable_get_position (GTK_EDITABLE (widget));
+			end=start+1;
+		}
+
+		gtk_editable_delete_text (GTK_EDITABLE (widget), start, end);
+
+	}
+	else
+	{
 	on_editor_command_activate (action, ANE_CLEAR, data);
+}
+
 }
 
 void on_editor_command_complete_word_activate (GtkAction * action, gpointer data)

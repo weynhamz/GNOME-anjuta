@@ -1,3 +1,11 @@
+2005-08-10  Naba Kumar  <naba@gnome.org>
+
+	* src/about.c: Clean up.
+	
+	Patch from: Jochen Baier  Jochen.Baier@stud.uni-karlsruhe.de
+	* plugins/editor/action-callbacks.c: Fixed edit shortcuts for
+	entry boxes.
+	
 2005-08-09  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/editor/search-replace_backend.c :

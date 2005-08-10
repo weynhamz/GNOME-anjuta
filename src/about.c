@@ -127,12 +127,15 @@ about_read_file(void)
 		do
 		{
 			line = g_strchomp(line);
-			if (g_str_has_suffix(line, "Developer:") || g_str_has_suffix(line, "Developers:") ||
-				g_str_has_suffix(line, "Contributors:") || g_str_has_suffix(line, "Note:"))
+			if (g_str_has_suffix(line, "Developer:") ||
+				g_str_has_suffix(line, "Developers:") ||
+				g_str_has_suffix(line, "Contributors:") ||
+				g_str_has_suffix(line, "Note:"))
 			{
 				line = about_read_developers(fp, line, &i_auth, authors);
 			}
-			else if (g_str_has_suffix(line, "Website:") || g_str_has_suffix(line, "Documenters:") )
+			else if (g_str_has_suffix(line, "Website:") ||
+					 g_str_has_suffix(line, "Documenters:") )
 			{
 				line = read_documenters(fp, line, &i_doc, documenters);
 			}
@@ -172,7 +175,8 @@ about_box_new ()
 	/*  Parse AUTHORS file  */
 	about_read_file();
 	
-	pix = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ANJUTA_PIXMAP_LOGO, NULL);
+	pix = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ANJUTA_PIXMAP_LOGO,
+									NULL);
 	dialog = gnome_about_new ("Anjuta", VERSION, 
 							  _("Copyright (c) Naba Kumar"),
 							  _("Integrated Development Environment"),
