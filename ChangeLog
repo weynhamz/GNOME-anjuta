@@ -1,5 +1,8 @@
 2005-08-10  Naba Kumar  <naba@gnome.org>
 
+	* plugins/build-basic-autotools/build-basic-autotools.c: Added F3
+	as shortcut key for execute.
+
 	* src/about.c: Clean up.
 	
 	Patch from: Jochen Baier  Jochen.Baier@stud.uni-karlsruhe.de
