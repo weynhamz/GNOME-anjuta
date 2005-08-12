@@ -17,7 +17,7 @@ from within the IDE and to initialize a terminal for a debugging session.
 Output version information and exit.
 .TP
 \fB\-\-__debug_terminal\fR
-Initalize a terminal for a debugging session. With this options, the second
+Initialize a terminal for a debugging session. With this options, the second
 parameter is a temporary file where the name of the tty/terminal is written
 to.
 .SH "AUTHORS"

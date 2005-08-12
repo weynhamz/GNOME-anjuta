@@ -1,3 +1,10 @@
+2005-08-12  Naba Kumar  <naba@gnome.org>
+	
+	* doc/anjuta_launcher.1: Fixed typo.
+	* data/properties/php.properties: Removed hard coded colors.
+	* src/main_menubar_def.h: Fixed bug reporting URLs.
+	* scintilla/PlatGTK.cxx: Fixed pango > 1.8.1 rendering issues.
+
 2005-05-12  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* AUTHORS, src/about.c: Added James Ligett to constributors

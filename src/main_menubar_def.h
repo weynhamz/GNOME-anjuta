@@ -1855,19 +1855,19 @@ static GnomeUIInfo help1_menu_uiinfo[NUM_HELP_SUBMENUS+1] = {
 	{/*15*/
 	 GNOME_APP_UI_ITEM, N_("Report _Bugs"),
 	 N_("Submit a bug report for Anjuta"),
-	 on_url_activate, "http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse", NULL,
+	 on_url_activate, "http://bugzilla.gnome.org/simple-bug-guide.cgi?product=anjuta", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*16*/
 	 GNOME_APP_UI_ITEM, N_("Request _Features"),
 	 N_("Submit a feature request for Anjuta"),
-	 on_url_activate, "http://sourceforge.net/tracker/?atid=364222&group_id=14222&func=browse", NULL,
+	 on_url_activate, "http://sourceforge.net/tracker/?atid=114222&group_id=14222&func=browse", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*17*/
 	 GNOME_APP_UI_ITEM, N_("Submit _patches"),
 	 N_("Submit patches for Anjuta"),
-	 on_url_activate, "http://sourceforge.net/tracker/?atid=314222&group_id=14222&func=browse", NULL,
+	 on_url_activate, "http://bugzilla.gnome.org/reports/patch-report.cgi?product=anjuta", NULL,
 	 GNOME_APP_PIXMAP_NONE, NULL,
 	 0, 0, NULL},
 	{/*18*/
