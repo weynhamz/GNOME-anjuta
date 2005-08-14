@@ -2,6 +2,7 @@
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Jens Georg <mail@jensgeorg>, 2001.
 # Hendrik Richter <hendi@gnome-de.org>, 2005.
+# Jens Seidel <jseidel@cvs.gnome.org>, 2005.
 #
 # folgende Kommentare:
 # ?? keinen Plan wie zu übersetzen
@@ -1977,12 +1978,11 @@ msgstr "Beispiel Plug-in"
 
 #: plugins/sample1/plugin-sample1.c:62
 msgid "This is a sample plugin"
-msgstr "Dies is ein Beispiel Plug-in"
+msgstr "Dies ist ein Beispiel Plug-in"
 
 #: printing/print.c:535
-#, fuzzy
 msgid "No file to print!"
-msgstr "Keine Datei oder Projekt geöffnet."
+msgstr "Keine Datei zu drucken!"
 
 #: printing/print.c:558
 #, fuzzy
@@ -3775,7 +3775,7 @@ msgstr "N_eues Projekt ..."
 #: src/main_menubar_def.h:79
 #, fuzzy
 msgid "Create a Project using the Application Wizard"
-msgstr "Ein Projekt mit dem Application-Wizzard erstellen"
+msgstr "Ein Projekt mit dem Application-Wizard erstellen"
 
 #. 10
 #: src/main_menubar_def.h:84
@@ -4002,7 +4002,7 @@ msgstr "Header Datei Template"
 
 #: src/main_menubar_def.h:258
 msgid "Insert a standard header file template"
-msgstr "Standart Header Datei Template einfügen"
+msgstr "Standard-Headerdatei-Template einfügen"
 
 #. 6
 #: src/main_menubar_def.h:263
@@ -4016,22 +4016,22 @@ msgstr ""
 #: src/main_menubar_def.h:275
 #, fuzzy
 msgid "Insert a switch template"
-msgstr "Standart Header Datei Template einfügen"
+msgstr "Standard-Headerdatei-Template einfügen"
 
 #: src/main_menubar_def.h:281
 #, fuzzy
 msgid "Insert a for template"
-msgstr "Standart Header Datei Template einfügen"
+msgstr "Standard-Headerdatei-Template einfügen"
 
 #: src/main_menubar_def.h:287
 #, fuzzy
 msgid "Insert a while template"
-msgstr "Standart Header Datei Template einfügen"
+msgstr "Standard-Headerdatei-Template einfügen"
 
 #: src/main_menubar_def.h:293
 #, fuzzy
 msgid "Insert an if...else template"
-msgstr "Standart Header Datei Template einfügen"
+msgstr "Standard-Headerdatei-Template einfügen"
 
 #: src/main_menubar_def.h:304
 msgid "Insert the CVS Author keyword (author of the change)"
@@ -5156,7 +5156,7 @@ msgstr "Aktuelle Textfaltung im Editor öffnen/schließen"
 #. 10
 #: src/main_menubar_def.h:1225
 msgid "D_etach Current Document"
-msgstr "Aktuelles Dukument herauslösen"
+msgstr "Aktuelles Dokument herauslösen"
 
 #: src/main_menubar_def.h:1226
 #, fuzzy
@@ -6127,8 +6127,8 @@ msgid ""
 msgstr ""
 "Konnte globale Konfigurationsdateien und Vorgaben nicht laden:\n"
 "%s.\n"
-"Dies kann falsches Verhalten und instabilitäten zur Folge haben.\n"
-"Anjuta fällt auch die (begrenzten) Standarteinstellungen zurück"
+"Dies kann falsches Verhalten und Instabilitäten zur Folge haben.\n"
+"Anjuta fällt auch die (begrenzten) Standardeinstellungen zurück"
 
 #: src/preferences.c:969
 #, fuzzy
@@ -7459,9 +7459,8 @@ msgid "Add expression to watch"
 msgstr "Einen zu überwachenden Ausdruck hinzufügen"
 
 #: src/watch_gui.c:248
-#, fuzzy
 msgid "Modify Watch Expression"
-msgstr "Überwachten Ausdruck hinzufügen"
+msgstr "Überwachten Ausdruck verändern"
 
 #: src/watch_gui.c:258
 #, fuzzy
@@ -8522,7 +8521,7 @@ msgstr ""
 #~ msgstr "GNOME-- basiertes Projekt"
 
 #~ msgid "Application Wizard:     Page 1 of 6"
-#~ msgstr "Anwendungssdruide:     Seite 1 von 6"
+#~ msgstr "Anwendungsdruide:     Seite 1 von 6"
 
 #~ msgid "Application Wizard:     Page 2 of 6"
 #~ msgstr "Anwendungsdruide:     Seite 2 von 6"
@@ -8537,7 +8536,7 @@ msgstr ""
 #~ msgstr "Anwendungsdruide:     Seite 5 von 6"
 
 #~ msgid "Application Wizard:     Page 6 of 6"
-#~ msgstr "Anwendungssdruide:     Seite 6 von 6"
+#~ msgstr "Anwendungsdruide:     Seite 6 von 6"
 
 #~ msgid "You FOOL! I can not attach to myself."
 #~ msgstr "Anjuta kann nicht an sich selbst angehängt werden."
