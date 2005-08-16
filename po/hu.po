@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-05 02:36+0000\n"
-"PO-Revision-Date: 2005-07-05 18:11+0200\n"
+"POT-Creation-Date: 2005-08-16 10:36+0000\n"
+"PO-Revision-Date: 2005-08-16 16:37+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -23,8 +23,8 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: ../anjuta.desktop.in.in.h:2 ../src/about.c:178 ../src/about.c:190
-#: ../src/main.c:141
+#: ../anjuta.desktop.in.in.h:2 ../src/about.c:182 ../src/about.c:194
+#: ../src/main.c:142
 msgid "Integrated Development Environment"
 msgstr "Integrált fejlesztői környezet"
 
@@ -42,6 +42,7 @@ msgstr "    "
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../src/anjuta.glade.h:1
@@ -149,8 +150,8 @@ msgstr "Szimbólum böngésző automatikus elkészítése"
 msgid "CPU Registers"
 msgstr "CPU regiszterek"
 
-#: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:237
-#: ../plugins/cvs-plugin/cvs-execute.c:241
+#: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:231
+#: ../plugins/cvs-plugin/cvs-execute.c:235
 #: ../plugins/editor/anjuta-document-manager.glade.h:40
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
 #: ../plugins/macro/macros.xml.h:9
@@ -191,7 +192,7 @@ msgstr "Legördülő lista:"
 msgid "Command Line Parameters"
 msgstr "Parancssori paraméterek"
 
-#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:384
+#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:464
 msgid "Command line parameters"
 msgstr "Parancssori paraméterek"
 
@@ -282,7 +283,7 @@ msgstr "Ne mutassa az indítási párbeszédablakot legközelebb."
 msgid "Document module Makefile.am"
 msgstr "Dokumentum modul Makefile.am"
 
-#: ../anjuta.glade.h:56 ../src/anjuta-app.c:458
+#: ../anjuta.glade.h:56 ../src/anjuta-app.c:459
 msgid "Edit"
 msgstr "Szerkesztés"
 
@@ -317,7 +318,7 @@ msgid "Execute Program"
 msgstr "Program futtatása"
 
 #. Register actions
-#: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:665
+#: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:710
 #: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:566
 #: ../src/anjuta-app.c:455
 msgid "File"
@@ -603,9 +604,9 @@ msgid "Programs"
 msgstr "Programok"
 
 #. gtk_widget_destroy (progress_win);
-#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1031
-#: ../plugins/project-manager/plugin.c:1051
-#: ../plugins/project-manager/plugin.c:1129
+#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1042
+#: ../plugins/project-manager/plugin.c:1062
+#: ../plugins/project-manager/plugin.c:1141
 #: ../plugins/project-manager/project_dbase_gui.c:581
 msgid "Project"
 msgstr "Projekt"
@@ -686,7 +687,7 @@ msgstr "Parancsfájlok a legfelső szintű 'Makefile.am' végére"
 msgid "Set Signal Property"
 msgstr "Szignál tulajdonságainak beállítása"
 
-#: ../anjuta.glade.h:140 ../src/anjuta-app.c:470
+#: ../anjuta.glade.h:140 ../src/anjuta-app.c:473
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -769,7 +770,7 @@ msgstr "Legfelső szintű 'Makefile.am'"
 #: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:931
 #: ../plugins/gdb/registers.c:227 ../plugins/gdb/sharedlib.c:128
 #: ../plugins/gdb/signals.c:288 ../plugins/gdb/stack_trace.c:459
-#: ../plugins/subversion/svn-notify.c:118
+#: ../plugins/subversion/svn-notify.c:119
 msgid "Update"
 msgstr "Frissítés"
 
@@ -798,7 +799,7 @@ msgstr "Felhasználó neve:"
 msgid "Version:"
 msgstr "Verzió:"
 
-#: ../anjuta.glade.h:164 ../src/anjuta-app.c:461
+#: ../anjuta.glade.h:164 ../src/anjuta-app.c:463
 msgid "View"
 msgstr "Nézet"
 
@@ -1053,11 +1054,11 @@ msgstr "Alap kódolások"
 msgid "Supported Encodings"
 msgstr "Támogatott kódolások"
 
-#: ../libanjuta/anjuta-launcher.c:729
+#: ../libanjuta/anjuta-launcher.c:735
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Hiba a gyermek pty olvasása közben\n"
 
-#: ../libanjuta/anjuta-launcher.c:910 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:919 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -1097,19 +1098,19 @@ msgid "Anjuta Preferences"
 msgstr "Anjuta tulajdonságai"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:795
+#: ../libanjuta/anjuta-ui.c:804
 msgid "Action"
 msgstr "Művelet"
 
-#: ../libanjuta/anjuta-ui.c:813
+#: ../libanjuta/anjuta-ui.c:822
 msgid "Visible"
 msgstr "Látható"
 
-#: ../libanjuta/anjuta-ui.c:824
+#: ../libanjuta/anjuta-ui.c:833
 msgid "Sensitive"
 msgstr "Érzékeny"
 
-#: ../libanjuta/anjuta-ui.c:833
+#: ../libanjuta/anjuta-ui.c:842
 msgid "Shortcut"
 msgstr "Gyorsbillentyű"
 
@@ -1415,10 +1416,10 @@ msgstr "Dokkelemek _zárolása"
 
 #: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:270
 #: ../plugins/editor/plugin.c:1183 ../plugins/editor/search-replace.c:793
-#: ../plugins/editor/search-replace.c:1428
-#: ../plugins/editor/search-replace.c:1435
-#: ../plugins/editor/search-replace.c:1447
-#: ../plugins/editor/search-replace.c:1751
+#: ../plugins/editor/search-replace.c:1425
+#: ../plugins/editor/search-replace.c:1432
+#: ../plugins/editor/search-replace.c:1444
+#: ../plugins/editor/search-replace.c:1744
 #: ../plugins/symbol-browser/plugin.c:841
 msgid "Search"
 msgstr "Keresés"
@@ -1473,7 +1474,7 @@ msgstr "Befejezve ... sikertelenül"
 msgid "Completed ... successful\n"
 msgstr "Befejezve ... sikeresen\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:513
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:516
 msgid "Completed ... successful"
 msgstr "Befejezve ... sikeresen"
 
@@ -2169,7 +2170,7 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Modul részletei:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
 msgid "<b>Options:</b>"
 msgstr "<b>Beállítások:</b>"
 
@@ -2245,12 +2246,12 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to add:"
 msgstr "Válassza ki a hozzáadandó fájlt/könyvtárt:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to commit:"
 msgstr "Válassza ki a véglegesítendő fájlt/könyvtárt:"
 
@@ -2267,12 +2268,12 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Válassza ki a fájlt/könyvtárt az állapot kinyeréséhez:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to remove:"
 msgstr "Válassza ki a törlendő fájlt/könyvtárt:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Choose file or directory to update:"
 msgstr "Válassza ki a frissítendő fájlt/könyvtárt:"
 
@@ -2289,7 +2290,7 @@ msgid "Delete empty directories"
 msgstr "Üres könyvtárak törlése"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "Do not act recursively"
 msgstr "Ne működjön rekurzívan"
 
@@ -2312,7 +2313,7 @@ msgstr ""
 "Jelszókiszolgáló (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Log message:"
 msgstr "Naplóüzenet:"
 
@@ -2357,7 +2358,7 @@ msgid "Unified format instead of context format"
 msgstr "Kontextusformátum helyett egységesített formátum"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "Use revision/tag: "
 msgstr "Verzió/címke használata: "
 
@@ -2366,6 +2367,7 @@ msgid "Use revision: "
 msgstr "Verzió használata: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
 msgid "Username: "
 msgstr "Felhasználónév: "
 
@@ -2374,7 +2376,7 @@ msgid "Vendor tag:"
 msgstr "Gyártó címke:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Whole project"
 msgstr "Teljes projekt"
 
@@ -2387,7 +2389,7 @@ msgid "start"
 msgstr "kezdet"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
-#: ../plugins/subversion/subversion-callbacks.c:55
+#: ../plugins/subversion/subversion-callbacks.c:56
 msgid "Please enter a filename!"
 msgstr "Kérem adjon meg egy fájlnevet!"
 
@@ -2406,7 +2408,7 @@ msgstr "A fájl nem törölhető"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:454
-#: ../plugins/subversion/subversion-callbacks.c:242
+#: ../plugins/subversion/subversion-callbacks.c:243
 msgid "Are you sure that you do not want a log message?"
 msgstr "Biztosan nem akar naplóüzenetet?"
 
@@ -2430,26 +2432,18 @@ msgstr "Kiadás"
 msgid "Directory"
 msgstr "Könyvtár"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:136
+#: ../plugins/cvs-plugin/cvs-execute.c:128
 msgid "CVS command failed! - See above for details"
 msgstr "A CVS parancs sikertelen! - A részleteket lásd fentebb"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:141
+#: ../plugins/cvs-plugin/cvs-execute.c:133
 #, c-format
 msgid "CVS command successful! - Time taken %ld secs."
 msgstr "A CVS parancs sikeres! - Eltelt idő: %ld másodperc."
 
-#: ../plugins/cvs-plugin/cvs-execute.c:230
+#: ../plugins/cvs-plugin/cvs-execute.c:223
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "A CVS parancs még fut - kérem várjon, amíg befejeződik!"
-
-#: ../plugins/cvs-plugin/cvs-execute.c:300
-msgid "cvs.diff"
-msgstr "cvs.diff"
-
-#: ../plugins/cvs-plugin/cvs-execute.c:313
-msgid "cvs.log"
-msgstr "cvs.log"
 
 #. Action name
 #. Stock icon, if any
@@ -2737,7 +2731,7 @@ msgstr "Tartalom"
 #. 9
 #: ../plugins/devhelp/plugin.c:304 ../plugins/devhelp/plugin.c:531
 #: ../plugins/devhelp/plugin.c:544
-#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:474
+#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:477
 msgid "Help"
 msgstr "Súgó"
 
@@ -2836,16 +2830,16 @@ msgstr ""
 msgid "_Reload"
 msgstr "_Újratöltés"
 
-#: ../plugins/editor/action-callbacks.c:706
+#: ../plugins/editor/action-callbacks.c:790
 #, c-format
 msgid "There is no line number %d in \"%s\"."
 msgstr "Nincs %d számú sor ebben: \"%s\"."
 
-#: ../plugins/editor/action-callbacks.c:1203
+#: ../plugins/editor/action-callbacks.c:1287
 msgid "No matches. Wrap search around the document?"
 msgstr "Nincs találat. Folytassam a dokumentum elejétől?"
 
-#: ../plugins/editor/action-callbacks.c:1213
+#: ../plugins/editor/action-callbacks.c:1297
 #, c-format
 msgid ""
 "Incremental search for '%s' failed. Press Enter or click Find to continue "
@@ -2854,7 +2848,7 @@ msgstr ""
 "\"%s\" növekményes keresése sikertelen. Nyomja meg az entert vagy kattintson "
 "a Keresés gombra a keresés folytatásához az elejétől."
 
-#: ../plugins/editor/action-callbacks.c:1220
+#: ../plugins/editor/action-callbacks.c:1304
 #, c-format
 msgid "Incremental search for '%s' (continued at top) failed."
 msgstr "\"%s\" növekményes keresése (az elejétől folytatva) sikertelen."
@@ -3433,22 +3427,18 @@ msgid "Sorted in opening order"
 msgstr "Rendezés a megnyitás sorrendjében"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:141
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "A kihagyandó könyvtárnevek (-minták) szóközzel elválasztott listája"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:142
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "A vizsgálandó könyvtárnevek (-minták) szóközzel elválasztott listája"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:143
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "A kihagyandó fájlnevek (-minták) szóközzel elválasztott listája"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:144
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr "A vizsgálandó fájlnevek (-minták) szóközzel elválasztott listája"
 
@@ -4264,7 +4254,7 @@ msgid "Replace"
 msgstr "Csere"
 
 #: ../plugins/editor/search-replace.c:796
-#: ../plugins/editor/search-replace.c:1442
+#: ../plugins/editor/search-replace.c:1439
 msgid "Replace All"
 msgstr "Mindent cserél"
 
@@ -4287,7 +4277,7 @@ msgstr "Elérte az eredmények legnagyobb számát."
 msgid "%d matches have been replaced."
 msgstr "%d találat cserélve."
 
-#: ../plugins/editor/search-replace.c:1040
+#: ../plugins/editor/search-replace.c:1037
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Nem lehetséges felhasználói felület felépítése a Keresés és csere ablakhoz"
 
@@ -4301,23 +4291,23 @@ msgstr ""
 "A(z) %s fájl a lemezen frissebb, mint a jelenlegi pufferben.\n"
 "Újratöltsem?"
 
-#: ../plugins/editor/text_editor.c:1194
+#: ../plugins/editor/text_editor.c:1195
 msgid "Could not get file info"
 msgstr "Nem érhető el fájlinformáció"
 
-#: ../plugins/editor/text_editor.c:1201
+#: ../plugins/editor/text_editor.c:1202
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Ez a fájl túl nagy. Nem lehet memóriát foglalni."
 
-#: ../plugins/editor/text_editor.c:1208
+#: ../plugins/editor/text_editor.c:1209
 msgid "Could not open file"
 msgstr "Nem lehet megnyitni a fájlt"
 
-#: ../plugins/editor/text_editor.c:1216
+#: ../plugins/editor/text_editor.c:1217
 msgid "Error while reading from file"
 msgstr "Hiba a fájlból való olvasás közben"
 
-#: ../plugins/editor/text_editor.c:1252
+#: ../plugins/editor/text_editor.c:1253
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4327,7 +4317,7 @@ msgstr ""
 "támogatott kódolások listáját. Ha nincs rajta, akkor adja hozzá a "
 "tulajdonságoknál."
 
-#: ../plugins/editor/text_editor.c:1417
+#: ../plugins/editor/text_editor.c:1418
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4338,28 +4328,28 @@ msgstr ""
 "\n"
 "Részletek: %s"
 
-#: ../plugins/editor/text_editor.c:1464
+#: ../plugins/editor/text_editor.c:1465
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nem lehet menteni a fájlt: %s."
 
-#: ../plugins/editor/text_editor.c:1640
+#: ../plugins/editor/text_editor.c:1641
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Az automatikus formázás jelenleg ki van kapcsolva. Változtassa meg a "
 "beállításoknál."
 
-#: ../plugins/editor/text_editor.c:1659
+#: ../plugins/editor/text_editor.c:1660
 msgid "Error in auto formatting ..."
 msgstr "Hiba az automatikus formázás közben..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1675
+#: ../plugins/editor/text_editor.c:1676
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Az Anjuta nem ismeri ezt: %s!"
 
-#: ../plugins/editor/text_editor.c:1700
+#: ../plugins/editor/text_editor.c:1701
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4368,7 +4358,7 @@ msgstr ""
 "Hiba az automatikus formázás közben...\n"
 "Részletek: %s"
 
-#: ../plugins/editor/text_editor.c:1945
+#: ../plugins/editor/text_editor.c:1946
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4475,7 +4465,7 @@ msgstr "Kivágás"
 
 #. 1
 #: ../plugins/editor/text_editor_menu.c:248
-#: ../plugins/subversion/svn-notify.c:73
+#: ../plugins/subversion/svn-notify.c:74
 msgid "Copy"
 msgstr "Másolás"
 
@@ -4663,14 +4653,14 @@ msgstr "Megnyitás"
 msgid "Open recent file"
 msgstr "Legutóbbi fájl megnyitása"
 
-#: ../plugins/file-manager/an_file_view.c:388
-#: ../plugins/file-manager/an_file_view.c:551
-#: ../plugins/file-manager/an_file_view.c:819
+#: ../plugins/file-manager/an_file_view.c:428
+#: ../plugins/file-manager/an_file_view.c:596
+#: ../plugins/file-manager/an_file_view.c:864
 #: ../plugins/symbol-browser/an_symbol_view.c:513
 msgid "Loading ..."
 msgstr "Betöltés ..."
 
-#: ../plugins/file-manager/an_file_view.c:679
+#: ../plugins/file-manager/an_file_view.c:724
 msgid "Rev"
 msgstr "Ver."
 
@@ -4699,22 +4689,42 @@ msgid "Directory "
 msgstr "Könyvtár "
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
+msgid "Do not show files ignored by version control"
+msgstr "Ne mutassa a verziókövetés által mellőzött fájlokat"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
 msgid "Do not show hidden directories"
 msgstr "Ne mutassa a rejtett könyvtárakat"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
 msgid "Do not show hidden files"
 msgstr "Ne mutassa a rejtett fájlokat"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
 msgid "Ignore directories"
 msgstr "Könyvtárak mellőzése"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 msgid "Ignore files"
 msgstr "Fájlok mellőzése"
 
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
+msgid "Space-separated list of directory name patterns to ignore"
+msgstr "A kihagyandó könyvtárnév-minták szóközzel elválasztott listája"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
+msgid "Space-separated list of directory name patterns to match"
+msgstr "A vizsgálandó könyvtárnév-minták szóközzel elválasztott listája"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
+msgid "Space-separated list of file name patterns to ignore"
+msgstr "A kihagyandó fájlnévminták szóközzel elválasztott listája"
+
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
+msgid "Space-separated list of file name patterns to match"
+msgstr "A vizsgálandó fájlnévminták szóközzel elválasztott listája"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:23
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
 msgid "dialog3"
 msgstr "dialog3"
@@ -4728,11 +4738,11 @@ msgstr "_Frissítés"
 msgid "Refresh file manager tree"
 msgstr "Fájlkezelő-fa frissítése"
 
-#: ../plugins/file-manager/plugin.c:164
+#: ../plugins/file-manager/plugin.c:165
 msgid "File manager popup actions"
 msgstr "Fájlkezelő felbukkanó műveletek"
 
-#: ../plugins/file-manager/plugin.c:172
+#: ../plugins/file-manager/plugin.c:174
 msgid "Files"
 msgstr "Fájlok"
 
@@ -5094,35 +5104,35 @@ msgstr "Érték"
 msgid "Local Variables"
 msgstr "Helyi változók"
 
-#: ../plugins/gdb/debug_tree.c:1527
+#: ../plugins/gdb/debug_tree.c:1526
 msgid "Default format"
 msgstr "Alapértelmezett formátum"
 
-#: ../plugins/gdb/debug_tree.c:1531
+#: ../plugins/gdb/debug_tree.c:1530
 msgid "Binary"
 msgstr "Bináris"
 
-#: ../plugins/gdb/debug_tree.c:1534
+#: ../plugins/gdb/debug_tree.c:1533
 msgid "Octal"
 msgstr "Oktális"
 
-#: ../plugins/gdb/debug_tree.c:1537
+#: ../plugins/gdb/debug_tree.c:1536
 msgid "Signed decimal"
 msgstr "Előjeles decimális"
 
-#: ../plugins/gdb/debug_tree.c:1540
+#: ../plugins/gdb/debug_tree.c:1539
 msgid "Unsigned decimal"
 msgstr "Előjel nélküli decimális"
 
-#: ../plugins/gdb/debug_tree.c:1543
+#: ../plugins/gdb/debug_tree.c:1542
 msgid "Hex"
 msgstr "Hexa"
 
-#: ../plugins/gdb/debug_tree.c:1546
+#: ../plugins/gdb/debug_tree.c:1545
 msgid "Char"
 msgstr "Kar."
 
-#: ../plugins/gdb/debug_tree.c:1551
+#: ../plugins/gdb/debug_tree.c:1550
 msgid "Inspect memory"
 msgstr "Memória vizsgálata"
 
@@ -5281,17 +5291,9 @@ msgstr "Hiba a folyamatnak való szignálküldés közben."
 msgid "Information"
 msgstr "Információ"
 
-#: ../plugins/gdb/memory.c:102
+#: ../plugins/gdb/memory.c:101
 msgid "Unable to build user interface for Memory\n"
 msgstr "Nem lehetséges felhasználói felület felépítése a Memóriához\n"
-
-#: ../plugins/gdb/memory.c:409
-msgid "Enter a Hexa address or Select one in the data"
-msgstr "Adjon meg egy hexa címet vagy válasszon egyet az adatokból"
-
-#: ../plugins/gdb/memory.c:416
-msgid "Non accessible address !"
-msgstr "Nem férhet hozzá a címhez!"
 
 #. Action name
 #. Stock icon, if any
@@ -5802,6 +5804,18 @@ msgstr "Jelenlegi glade projekt bezárása"
 #: ../plugins/glade/plugin.c:641
 msgid "Glade operations"
 msgstr "Glade műveletek"
+
+#: ../plugins/glade/plugin.c:651
+msgid "Palette"
+msgstr "Paletta"
+
+#: ../plugins/glade/plugin.c:656
+msgid "Widgets"
+msgstr "Felületi elemek"
+
+#: ../plugins/glade/plugin.c:661
+msgid "Properties"
+msgstr "Tulajdonságok"
 
 #: ../plugins/glade/plugin.c:770
 #, c-format
@@ -6539,7 +6553,7 @@ msgstr "--new"
 msgid "When you delete the category \"%s\", all containing items are lost"
 msgstr "Ha törli a(z) \"%s\" kategóriát, minden benne lévő elem elvész"
 
-#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:78
+#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:79
 msgid "Delete"
 msgstr "Törlés"
 
@@ -7063,7 +7077,7 @@ msgid "No message details"
 msgstr "Az üzenetnek nincsenek részletei"
 
 #: ../plugins/message-view/message-view.c:640
-#: ../plugins/message-view/plugin.c:167
+#: ../plugins/message-view/plugin.c:168
 msgid "Messages"
 msgstr "Üzenetek"
 
@@ -7413,25 +7427,25 @@ msgstr "Eltávolítás a projektből"
 msgid "Loading project. Please wait ..."
 msgstr "Projekt betöltése. Kérem várjon ..."
 
-#: ../plugins/project-manager/plugin.c:990
+#: ../plugins/project-manager/plugin.c:1001
 #, c-format
 msgid "Loading project: %s"
 msgstr "Projekt betöltése: %s"
 
-#: ../plugins/project-manager/plugin.c:998
+#: ../plugins/project-manager/plugin.c:1009
 msgid "Created project view ..."
 msgstr "Projektnézet létrehozva ..."
 
-#: ../plugins/project-manager/plugin.c:1011
+#: ../plugins/project-manager/plugin.c:1022
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "A(z) %s projekt betöltése sikertelen: %s"
 
-#: ../plugins/project-manager/plugin.c:1111
+#: ../plugins/project-manager/plugin.c:1122
 msgid "Project manager actions"
 msgstr "Projektkezelő műveletek"
 
-#: ../plugins/project-manager/plugin.c:1117
+#: ../plugins/project-manager/plugin.c:1129
 msgid "Project manager popup actions"
 msgstr "Projektkezelő felbukkanó műveletek"
 
@@ -8174,41 +8188,61 @@ msgstr "Minta fájlműveletek"
 msgid "SamplePlugin"
 msgstr "Mintabővítmény"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Subversion beállításai</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "Force"
 msgstr "Kényszerítés"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
+msgid "Password:"
+msgstr "Jelszó:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "Realm:"
+msgstr "Tartomány:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "Recurse"
 msgstr "Rekurzió"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
+msgid "Remember Password"
+msgstr "Jelszó megjegyzése"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "Repository authorization"
+msgstr "Tároló hitelesítés"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "Subversion Preferences"
 msgstr "Subversion tulajdonságai"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Fájl/könyvtár hozzáadása"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "Subversion: Commit file/directory"
 msgstr "Subversion: Fájl/könyvtár véglegesítése"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Fájl/könyvtár eltávolítása"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:15
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: Fájl/könyvtár frissítése"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "TODO!"
 msgstr "TODO!"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
+msgid "realm"
+msgstr "tartomány"
 
 #. Action name
 #. Stock icon, if any
@@ -8250,91 +8284,95 @@ msgstr "Helyi fa diff-elése a tárolóval"
 msgid "Subversion operations"
 msgstr "Subversion műveletek"
 
-#: ../plugins/subversion/subversion-callbacks.c:71
+#: ../plugins/subversion/subversion-callbacks.c:72
 msgid "Subversion command is running! Please wait until it is finished!"
 msgstr "A Subversion parancs még fut! Kérem várjon, amíg befejeződik!"
 
-#: ../plugins/subversion/subversion-callbacks.c:297
+#: ../plugins/subversion/subversion-callbacks.c:298
 msgid "svn.diff"
 msgstr "svn.diff"
 
-#: ../plugins/subversion/svn-notify.c:68
+#: ../plugins/subversion/svn-auth.c:82
+msgid "Authentication canceled"
+msgstr "Hitelesítés megszakítva"
+
+#: ../plugins/subversion/svn-notify.c:69
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: ../plugins/subversion/svn-notify.c:83
+#: ../plugins/subversion/svn-notify.c:84
 msgid "Restore"
 msgstr "Helyreállítás"
 
-#: ../plugins/subversion/svn-notify.c:88
+#: ../plugins/subversion/svn-notify.c:89
 msgid "Revert"
 msgstr "Visszavonás"
 
-#: ../plugins/subversion/svn-notify.c:93
+#: ../plugins/subversion/svn-notify.c:94
 msgid "Revert failed"
 msgstr "A visszavonás sikertelen"
 
-#: ../plugins/subversion/svn-notify.c:98
+#: ../plugins/subversion/svn-notify.c:99
 msgid "Resolved"
 msgstr "Feloldva"
 
-#: ../plugins/subversion/svn-notify.c:103
+#: ../plugins/subversion/svn-notify.c:104
 msgid "Skip"
 msgstr "Kihagyás"
 
-#: ../plugins/subversion/svn-notify.c:108
+#: ../plugins/subversion/svn-notify.c:109
 msgid "Update delete"
 msgstr "Törlések frissítése"
 
-#: ../plugins/subversion/svn-notify.c:113
+#: ../plugins/subversion/svn-notify.c:114
 msgid "Update add"
 msgstr "Hozzáadások frissítése"
 
-#: ../plugins/subversion/svn-notify.c:123
+#: ../plugins/subversion/svn-notify.c:124
 msgid "Update completed"
 msgstr "Frissítés befejezve"
 
-#: ../plugins/subversion/svn-notify.c:128
+#: ../plugins/subversion/svn-notify.c:129
 msgid "Update external"
 msgstr "Külső frissítése"
 
-#: ../plugins/subversion/svn-notify.c:133
+#: ../plugins/subversion/svn-notify.c:134
 msgid "Status completed"
 msgstr "Befejezettek állapota"
 
-#: ../plugins/subversion/svn-notify.c:138
+#: ../plugins/subversion/svn-notify.c:139
 msgid "Status external"
 msgstr "Külső állapota"
 
-#: ../plugins/subversion/svn-notify.c:143
+#: ../plugins/subversion/svn-notify.c:144
 msgid "Commit modified"
 msgstr "Módosított véglegesítése"
 
-#: ../plugins/subversion/svn-notify.c:148
+#: ../plugins/subversion/svn-notify.c:149
 msgid "Commit added"
 msgstr "Hozzáadott véglegesítése"
 
-#: ../plugins/subversion/svn-notify.c:153
+#: ../plugins/subversion/svn-notify.c:154
 msgid "Commit deleted"
 msgstr "Törölt véglegesítése"
 
-#: ../plugins/subversion/svn-notify.c:158
+#: ../plugins/subversion/svn-notify.c:159
 msgid "Commit replaced"
 msgstr "Lecseréltek véglegesítése"
 
-#: ../plugins/subversion/svn-notify.c:163
+#: ../plugins/subversion/svn-notify.c:164
 msgid "Commit postfix"
 msgstr "Postfix véglegesítés"
 
-#: ../plugins/subversion/svn-notify.c:168
+#: ../plugins/subversion/svn-notify.c:169
 msgid "Blame revision"
 msgstr "Verzió blame-elése"
 
-#: ../plugins/subversion/svn-thread.c:72 ../plugins/subversion/svn-thread.c:77
+#: ../plugins/subversion/svn-thread.c:73 ../plugins/subversion/svn-thread.c:78
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/svn-thread.c:154
+#: ../plugins/subversion/svn-thread.c:155
 msgid "Subversion command finished!"
 msgstr "A Subversion parancs befejeződött!"
 
@@ -8489,11 +8527,11 @@ msgstr "átváltás"
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "Valóban törölni akarja a(z) %s eszközt?"
 
-#: ../plugins/tools/dialog.c:337
+#: ../plugins/tools/dialog.c:340
 msgid "Unable to build user interface for tool list"
 msgstr "Nem lehetséges felhasználói felület felépítése a lista eszközhöz"
 
-#: ../plugins/tools/dialog.c:357
+#: ../plugins/tools/dialog.c:360
 msgid "Tool"
 msgstr "Segédeszköz"
 
@@ -8564,23 +8602,23 @@ msgstr "(kimenet)"
 msgid "(error)"
 msgstr "(hiba)"
 
-#: ../plugins/tools/execute.c:467
+#: ../plugins/tools/execute.c:470
 msgid "Running command: "
 msgstr "Parancs futtatása: "
 
-#: ../plugins/tools/execute.c:507
+#: ../plugins/tools/execute.c:510
 msgid "Completed ... unsuccessful with "
 msgstr "Befejezve ... sikertelenül "
 
-#: ../plugins/tools/execute.c:603
+#: ../plugins/tools/execute.c:616
 msgid "Unable to create a buffer, command aborted"
 msgstr "Nem hozható létre puffer, a parancs félbeszakítva"
 
-#: ../plugins/tools/execute.c:614
+#: ../plugins/tools/execute.c:628
 msgid "No document currently open, command aborted"
 msgstr "Jelenleg nincs megnyitva dokumentum, a parancs megszakítva"
 
-#: ../plugins/tools/execute.c:987
+#: ../plugins/tools/execute.c:1002
 #, c-format
 msgid "Unable to open input file %s, Command aborted"
 msgstr "A(z) %s bemeneti fájl nem nyitható meg, a parancs félbeszakítva"
@@ -8621,15 +8659,15 @@ msgstr "Külső eszközök beállítása"
 msgid "Tool operations"
 msgstr "Eszközműveletek"
 
-#: ../src/about.c:177 ../src/about.c:188
+#: ../src/about.c:181 ../src/about.c:192
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
-#: ../src/about.c:192
+#: ../src/about.c:196
 msgid "GNU General Public License"
 msgstr "GNU General Public License"
 
-#: ../src/about.c:236
+#: ../src/about.c:240
 msgid "Anjuta plugin"
 msgstr "Anjuta bővítmény"
 
@@ -8823,11 +8861,11 @@ msgstr "Külső _bővítmények névjegye"
 msgid "About third party Anjuta plugins"
 msgstr "Harmadik féltől származó Anjuta bővítmények névjegye"
 
-#: ../src/anjuta-app.c:465
+#: ../src/anjuta-app.c:468
 msgid "Toggle View"
 msgstr "Nézet átváltása"
 
-#: ../src/anjuta-app.c:718 ../src/shell.c:213
+#: ../src/anjuta-app.c:722 ../src/shell.c:213
 msgid "Value doesn't exist"
 msgstr "Az érték nem létezik"
 
