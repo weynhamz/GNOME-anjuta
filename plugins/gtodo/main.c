@@ -131,7 +131,7 @@ int main(int argc, char **argv){
 					GTK_DIALOG_DESTROY_WITH_PARENT,
 					GTK_MESSAGE_ERROR,
 					GTK_BUTTONS_CLOSE,
-					"The following error occured while opening:\n<i>%s</i>",
+					"The following error occurred while opening:\n<i>%s</i>",
 					error->message);
 			gtk_widget_show_all(dialog);
 			gtk_dialog_run(GTK_DIALOG(dialog));

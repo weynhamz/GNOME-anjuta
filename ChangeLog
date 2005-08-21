@@ -1,3 +1,7 @@
+2005-08-21  Jens Seidel  <jseidel@cvs.gnome.org>
+
+	* plugins/gtodo/main.c: Typo fix: s/occured/occurred/.
+
 2005-08-10  Naba Kumar  <naba@gnome.org>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c: Added F3
