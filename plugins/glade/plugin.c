@@ -598,6 +598,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	register_stock_icons (plugin);
 	priv->gpw = glade_app_new();
 	glade_app_set_window (priv->gpw, GTK_WIDGET (ANJUTA_PLUGIN(plugin)->shell));
+    glade_app_set_transient_parent (priv->gpw, GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
 	glade_default_app_set (priv->gpw);
 	
 	/* Create a view for us */

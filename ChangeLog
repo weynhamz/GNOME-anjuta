@@ -1,3 +1,8 @@
+2005-08-31  Naba Kumar  <naba@gnome.org>
+
+	* plugins/glade/plugin.c: Set transient window for the widget
+	dialogs.
+	
 2005-08-21  Jens Seidel  <jseidel@cvs.gnome.org>
 
 	* plugins/gtodo/main.c: Typo fix: s/occured/occurred/.
