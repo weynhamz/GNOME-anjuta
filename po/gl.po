@@ -1,3 +1,4 @@
+# translation of gl.po to Galego
 # translation of anjuta.HEAD.po to Galego
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
@@ -5,23 +6,23 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.HEAD\n"
+"Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-28 17:39+0200\n"
-"PO-Revision-Date: 2005-07-24 17:15+0200\n"
+"POT-Creation-Date: 2005-09-05 20:02+0200\n"
+"PO-Revision-Date: 2005-09-05 20:01+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: ../anjuta.desktop.in.in.h:2 ../src/about.c:178 ../src/about.c:190
+#: ../anjuta.desktop.in.in.h:2 ../src/about.c:182 ../src/about.c:194
 #: ../src/main.c:142
 msgid "Integrated Development Environment"
 msgstr "Entorno Integrado de Desenvolvemento"
@@ -40,6 +41,7 @@ msgstr "    "
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../src/anjuta.glade.h:1
@@ -1412,10 +1414,10 @@ msgstr "_Bloquear elementos empotrables"
 
 #: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:270
 #: ../plugins/editor/plugin.c:1183 ../plugins/editor/search-replace.c:793
-#: ../plugins/editor/search-replace.c:1428
-#: ../plugins/editor/search-replace.c:1435
-#: ../plugins/editor/search-replace.c:1447
-#: ../plugins/editor/search-replace.c:1751
+#: ../plugins/editor/search-replace.c:1425
+#: ../plugins/editor/search-replace.c:1432
+#: ../plugins/editor/search-replace.c:1444
+#: ../plugins/editor/search-replace.c:1744
 #: ../plugins/symbol-browser/plugin.c:841
 msgid "Search"
 msgstr "Buscar"
@@ -1471,7 +1473,7 @@ msgstr "Completado ... incorrectamente"
 msgid "Completed ... successful\n"
 msgstr "Completado ... correctamente\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:513
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:516
 msgid "Completed ... successful"
 msgstr "Completado ... correctamente"
 
@@ -2156,7 +2158,7 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Detalles do módulo:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
 msgid "<b>Options:</b>"
 msgstr "<b>Opcións:</b>"
 
@@ -2232,12 +2234,12 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to add:"
 msgstr "Escolla o ficheiro ou directorio a engadir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to commit:"
 msgstr "Escolla o ficheiro ou directorio a efectuar:"
 
@@ -2254,12 +2256,12 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Escolla un ficheiro ou directorio do que obter o estado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to remove:"
 msgstr "Escolla un ficheiro ou directorio a eliminar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Choose file or directory to update:"
 msgstr "Escolla un ficheiro ou directorio a actualizar:"
 
@@ -2276,7 +2278,7 @@ msgid "Delete empty directories"
 msgstr "Borrar directorios baleiros"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "Do not act recursively"
 msgstr "Non actuar recursivamente"
 
@@ -2299,7 +2301,7 @@ msgstr ""
 "Servidor de contrasinais (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Log message:"
 msgstr "Mensaxe de rexistro:"
 
@@ -2344,7 +2346,7 @@ msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "Use revision/tag: "
 msgstr "Usar revisión/etiqueta: "
 
@@ -2353,6 +2355,7 @@ msgid "Use revision: "
 msgstr "Usar revisión: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
 msgid "Username: "
 msgstr "Nome de usuario: "
 
@@ -2361,7 +2364,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta do fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Whole project"
 msgstr "Proxecto completo"
 
@@ -2815,16 +2818,16 @@ msgstr ""
 msgid "_Reload"
 msgstr "_Recargar"
 
-#: ../plugins/editor/action-callbacks.c:706
+#: ../plugins/editor/action-callbacks.c:790
 #, c-format
 msgid "There is no line number %d in \"%s\"."
 msgstr "Non hai número de liña %d en \"%s\"."
 
-#: ../plugins/editor/action-callbacks.c:1203
+#: ../plugins/editor/action-callbacks.c:1287
 msgid "No matches. Wrap search around the document?"
 msgstr "Non se atopou nada. Quere buscar desde o principio do documento?"
 
-#: ../plugins/editor/action-callbacks.c:1213
+#: ../plugins/editor/action-callbacks.c:1297
 #, c-format
 msgid ""
 "Incremental search for '%s' failed. Press Enter or click Find to continue "
@@ -2833,7 +2836,7 @@ msgstr ""
 "A busca incremental de '%s' fallou. Prema Intro ou prema Buscar para "
 "continuar buscando desde enriba."
 
-#: ../plugins/editor/action-callbacks.c:1220
+#: ../plugins/editor/action-callbacks.c:1304
 #, c-format
 msgid "Incremental search for '%s' (continued at top) failed."
 msgstr "A busca incremental de '%s' (continuada desde o principio) fallou."
@@ -4240,7 +4243,7 @@ msgid "Replace"
 msgstr "Remprazar"
 
 #: ../plugins/editor/search-replace.c:796
-#: ../plugins/editor/search-replace.c:1442
+#: ../plugins/editor/search-replace.c:1439
 msgid "Replace All"
 msgstr "Remprazar todo"
 
@@ -4265,7 +4268,7 @@ msgstr "O máximo número de resultados acanzouse."
 msgid "%d matches have been replaced."
 msgstr "Remprazáronse %d coincidencias."
 
-#: ../plugins/editor/search-replace.c:1040
+#: ../plugins/editor/search-replace.c:1037
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Non se puido construir a interface de usuario para Buscar e Remprazar"
 
@@ -5095,35 +5098,35 @@ msgstr "Valor"
 msgid "Local Variables"
 msgstr "Variables locais"
 
-#: ../plugins/gdb/debug_tree.c:1527
+#: ../plugins/gdb/debug_tree.c:1526
 msgid "Default format"
 msgstr "Formato por defecto"
 
-#: ../plugins/gdb/debug_tree.c:1531
+#: ../plugins/gdb/debug_tree.c:1530
 msgid "Binary"
 msgstr "Binario"
 
-#: ../plugins/gdb/debug_tree.c:1534
+#: ../plugins/gdb/debug_tree.c:1533
 msgid "Octal"
 msgstr "Octal"
 
-#: ../plugins/gdb/debug_tree.c:1537
+#: ../plugins/gdb/debug_tree.c:1536
 msgid "Signed decimal"
 msgstr "Decimal con signo"
 
-#: ../plugins/gdb/debug_tree.c:1540
+#: ../plugins/gdb/debug_tree.c:1539
 msgid "Unsigned decimal"
 msgstr "Decimal sen signo"
 
-#: ../plugins/gdb/debug_tree.c:1543
+#: ../plugins/gdb/debug_tree.c:1542
 msgid "Hex"
 msgstr "Hex"
 
-#: ../plugins/gdb/debug_tree.c:1546
+#: ../plugins/gdb/debug_tree.c:1545
 msgid "Char"
 msgstr "Carácter"
 
-#: ../plugins/gdb/debug_tree.c:1551
+#: ../plugins/gdb/debug_tree.c:1550
 msgid "Inspect memory"
 msgstr "Inspeccionar memoria"
 
@@ -5281,17 +5284,9 @@ msgstr "Erro ao enviar o sinal ao proceso."
 msgid "Information"
 msgstr "Información"
 
-#: ../plugins/gdb/memory.c:102
+#: ../plugins/gdb/memory.c:101
 msgid "Unable to build user interface for Memory\n"
 msgstr "Non se puido construir a interface de usuario para Memory\n"
-
-#: ../plugins/gdb/memory.c:409
-msgid "Enter a Hexa address or Select one in the data"
-msgstr "Introduza un enderezo Hexa ou seleccione un nos datos"
-
-#: ../plugins/gdb/memory.c:416
-msgid "Non accessible address !"
-msgstr "Enderezo non accesible!"
 
 #. Action name
 #. Stock icon, if any
@@ -5797,21 +5792,33 @@ msgstr "P_echar"
 msgid "Close current glade project"
 msgstr "Pecha o proxecto glade actual"
 
-#: ../plugins/glade/plugin.c:641
+#: ../plugins/glade/plugin.c:642
 msgid "Glade operations"
 msgstr "Operacións de glade"
 
-#: ../plugins/glade/plugin.c:770
+#: ../plugins/glade/plugin.c:652
+msgid "Palette"
+msgstr "Paleta"
+
+#: ../plugins/glade/plugin.c:657
+msgid "Widgets"
+msgstr "Widgets"
+
+#: ../plugins/glade/plugin.c:662
+msgid "Properties"
+msgstr "Propiedades"
+
+#: ../plugins/glade/plugin.c:771
 #, c-format
 msgid "Not local file: %s"
 msgstr "Ficheiro non local: %s"
 
-#: ../plugins/glade/plugin.c:778
+#: ../plugins/glade/plugin.c:779
 #, c-format
 msgid "Could not open: %s"
 msgstr "Non se puido abrir: %s"
 
-#: ../plugins/glade/plugin.c:809
+#: ../plugins/glade/plugin.c:810
 msgid "Could not create a new glade project."
 msgstr "Non se puido crear un novo proxecto glade."
 
@@ -8178,41 +8185,61 @@ msgstr "Operacións de ficheiro de exemplo"
 msgid "SamplePlugin"
 msgstr "Complemento de exemplo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Opción de subversion</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "Force"
 msgstr "Forzar"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
+msgid "Password:"
+msgstr "Constrasinal:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "Realm:"
+msgstr "Reino:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "Recurse"
 msgstr "Recursivo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
+msgid "Remember Password"
+msgstr "Recordar contrasinal"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "Repository authorization"
+msgstr "Autorización do repositorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "Subversion Preferences"
 msgstr "Preferencias de Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Engadir ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "Subversion: Commit file/directory"
 msgstr "Subversion: Efectuar ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Eliminar ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:15
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: Actualizar ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "TODO!"
 msgstr "PENDENTE!"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
+msgid "realm"
+msgstr "reino"
 
 #. Action name
 #. Stock icon, if any
@@ -8262,6 +8289,10 @@ msgstr ""
 #: ../plugins/subversion/subversion-callbacks.c:298
 msgid "svn.diff"
 msgstr "svn.diff"
+
+#: ../plugins/subversion/svn-auth.c:82
+msgid "Authentication canceled"
+msgstr "Autenticación cancelada"
 
 #: ../plugins/subversion/svn-notify.c:69
 msgid "Add"
@@ -8572,23 +8603,23 @@ msgstr "(saída)"
 msgid "(error)"
 msgstr "(erro)"
 
-#: ../plugins/tools/execute.c:467
+#: ../plugins/tools/execute.c:470
 msgid "Running command: "
 msgstr "Comando en execución: "
 
-#: ../plugins/tools/execute.c:507
+#: ../plugins/tools/execute.c:510
 msgid "Completed ... unsuccessful with "
 msgstr "Completado ... incorrectamente"
 
-#: ../plugins/tools/execute.c:603
+#: ../plugins/tools/execute.c:616
 msgid "Unable to create a buffer, command aborted"
 msgstr "Non se puido crear un búfer, comando abortado"
 
-#: ../plugins/tools/execute.c:614
+#: ../plugins/tools/execute.c:628
 msgid "No document currently open, command aborted"
 msgstr "Non hai ningún documento aberto actualmente, orde abortada"
 
-#: ../plugins/tools/execute.c:987
+#: ../plugins/tools/execute.c:1002
 #, c-format
 msgid "Unable to open input file %s, Command aborted"
 msgstr "Non se puido abrir o ficheiro de entrada %s, comando abortado"
@@ -8629,15 +8660,15 @@ msgstr "Configurar ferramentas externas"
 msgid "Tool operations"
 msgstr "Operacións con ferramentas"
 
-#: ../src/about.c:177 ../src/about.c:188
+#: ../src/about.c:181 ../src/about.c:192
 msgid "Copyright (c) Naba Kumar"
 msgstr "Dereitos de copia (c) Naba Kumar"
 
-#: ../src/about.c:192
+#: ../src/about.c:196
 msgid "GNU General Public License"
 msgstr "Licencia Pública Xeral de GNU"
 
-#: ../src/about.c:236
+#: ../src/about.c:240
 msgid "Anjuta plugin"
 msgstr "Complemento de Anjuta"
 
