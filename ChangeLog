@@ -1,4 +1,9 @@
 2005-09-09 Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/cvs-plugin/cvs-interface.c: Handly empty log 
+	messages correctly.a
+
+2005-09-09 Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* scintilla/Makefile.am: Changed scintilla library to noinst
 	* pixmaps/Makefile.am: Install password.png

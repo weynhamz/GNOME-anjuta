@@ -33,6 +33,7 @@
 #include <string.h>
 #include <time.h>
 #include <glib/gi18n.h>
+#include <glib.h>
 
 #include <libgnome/gnome-macros.h>
 
@@ -480,8 +481,7 @@ static void
 anjuta_launcher_check_password_real (AnjutaLauncher *launcher,
 									 const gchar* last_line)
 {
-	gchar *prompt = "assword: ";
-	const gchar *prompt_index;
+	gchar *prompt = "ass";
 	
 	if (anjuta_launcher_is_busy (launcher) == FALSE) return;
 	
@@ -490,8 +490,8 @@ anjuta_launcher_check_password_real (AnjutaLauncher *launcher,
 		/* DEBUG_PRINT ("(In password) Last line = %s", last_line); */
 		if (strlen (last_line) < strlen (prompt))
 			return;
-		prompt_index = &last_line[strlen (last_line) - strlen (prompt)];
-		if (g_ascii_strcasecmp (prompt_index, prompt) == 0) {
+		if (g_strstr_len(last_line, 80, prompt) != NULL
+			&& g_strstr_len(last_line, 80, ":") != NULL) {
 			/* Password prompt detected */
 			GtkWidget* dialog;
 			gint button;

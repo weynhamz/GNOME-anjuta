@@ -2,7 +2,7 @@
 
 SUBDIRS = include
 
-lib_LTLIBRARIES = libanjuta-scintilla.la
+noinst_LTLIBRARIES = libanjuta-scintilla.la
 
 INCLUDES = \
 	$(GTK_CFLAGS) \

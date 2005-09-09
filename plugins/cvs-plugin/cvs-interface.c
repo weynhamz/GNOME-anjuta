@@ -127,7 +127,11 @@ void anjuta_cvs_commit (AnjutaPlugin *obj, const gchar* filename, const gchar* l
 	CVSPlugin* plugin = (CVSPlugin*) obj;
 	gchar* command;	
 	
-	g_string_printf(options, "-m '%s'", log);
+	if (strlen(log))
+		g_string_printf(options, "-m '%s'", log);
+	else
+		g_string_printf(options, "-m 'no log message'", log);
+	
 	if (strlen(rev))
 	{
 		g_string_append_printf(options, " -r %s", rev);

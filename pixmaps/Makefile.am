@@ -47,7 +47,8 @@ anjuta_pixmaps_DATA = \
 	debug.xpm \
 	dock.xpm \
 	directory.png \
-	directory-accept.png
+	directory-accept.png \
+	password.png
 
 #	frame.xpm \
 #	handle_hide.xpm \
@@ -67,7 +68,6 @@ anjuta_pixmaps_DATA = \
 #	mini_term.xpm \
 #	new_folder.xpm \
 #	open_project.png \
-#	password.png \
 #	pointer.xpm \
 #	preferences-build.png\
 #	preferences-encodings.png\
