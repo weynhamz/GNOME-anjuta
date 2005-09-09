@@ -38,7 +38,7 @@ function anjuta_tags {
     
     if [ $FILES_COUNT -gt 0 ] ; then
 	rm -f $OUTPUT_FILE
-	$ANJUTA_TAGS_BIN $OUTPUT_FILE $FILES 2>/dev/null
+	$ANJUTA_TAGS_BIN $OUTPUT_FILE $FILES 2>log.txt
 	
     # If global tags file could not be generated
 	if [ ! -e $OUTPUT_FILE ] ; then

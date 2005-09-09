@@ -1,3 +1,10 @@
+2005-09-09 Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* scintilla/Makefile.am: Changed scintilla library to noinst
+	* pixmaps/Makefile.am: Install password.png
+	* libanjuta/anjuta-launcher.c: Changed password detection
+	to be able to access GNOME CVS with ssh.
+	
 2005-08-31  Naba Kumar  <naba@gnome.org>
 
 	* plugins/glade/plugin.c: Set transient window for the widget
