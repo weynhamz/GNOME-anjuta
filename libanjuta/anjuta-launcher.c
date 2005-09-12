@@ -128,6 +128,8 @@ static gboolean anjuta_launcher_check_for_execution_done (gpointer data);
 static void anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 													gboolean emit_signal);
 
+static gboolean is_password_prompt(const gchar* line);
+
 static guint launcher_signals[LAST_SIGNAL] = { 0 };
 static AnjutaLauncherClass *parent_class;
 
@@ -481,17 +483,12 @@ static void
 anjuta_launcher_check_password_real (AnjutaLauncher *launcher,
 									 const gchar* last_line)
 {
-	gchar *prompt = "ass";
-	
 	if (anjuta_launcher_is_busy (launcher) == FALSE) return;
 	
 	if (last_line) {
 
 		/* DEBUG_PRINT ("(In password) Last line = %s", last_line); */
-		if (strlen (last_line) < strlen (prompt))
-			return;
-		if (g_strstr_len(last_line, 80, prompt) != NULL
-			&& g_strstr_len(last_line, 80, ":") != NULL) {
+		if (is_password_prompt(last_line)) {
 			/* Password prompt detected */
 			GtkWidget* dialog;
 			gint button;
@@ -543,6 +540,32 @@ anjuta_launcher_check_password (AnjutaLauncher *launcher, const gchar *chars)
 		anjuta_launcher_check_password_real (launcher, last_line);
 		g_free (last_line);
 	}
+}
+
+gboolean is_password_prompt(const gchar* line)
+{
+	gchar* password = "assword";
+	gchar* passphrase = "assphrase";
+	
+	if (strlen (line) < strlen (password)
+		|| strlen (line) < strlen (passphrase))
+			return FALSE;
+	
+	if (g_strstr_len(line, 80, password) != NULL
+		|| g_strstr_len(line, 80, passphrase) != NULL)
+	{
+		int i;
+		for (i = strlen(line) - 1; i != 0; --i)
+		{
+			if (line[i] == ':')
+					return TRUE;
+			if (g_ascii_isspace(line[i]))
+				continue;
+			else
+				return FALSE;
+		}
+	}
+	return FALSE;
 }
 
 static void

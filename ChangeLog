@@ -1,3 +1,7 @@
+2005-09-12 Johannes Schmid <jhs@cvs.gnome.org>
+
+	* libanjuta/anjuta-launcher.c: Reduced false password detections
+
 2005-09-09 Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/cvs-plugin/cvs-interface.c: Handly empty log 
