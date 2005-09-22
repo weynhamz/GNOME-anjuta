@@ -959,6 +959,7 @@ plugins/tools/scripts/Makefile
 plugins/tools/scripts/tools-2.xml
 plugins/class-inheritance/Makefile
 plugins/project-import/Makefile
+plugins/project-mkfile-import/Makefile
 plugins/project-wizard/templates/Makefile
 plugins/project-wizard/templates/terminal/Makefile
 plugins/project-wizard/templates/terminal/src/Makefile
@@ -983,6 +984,9 @@ plugins/project-wizard/templates/java/po/Makefile
 plugins/project-wizard/templates/python/Makefile
 plugins/project-wizard/templates/python/src/Makefile
 plugins/project-wizard/templates/python/po/Makefile
+plugins/project-wizard/templates/mkfile/Makefile
+plugins/project-wizard/templates/mkfile/src/Makefile
+plugins/project-wizard/templates/mkfile/po/Makefile
 plugins/project-wizard/templates/wxwin/Makefile
 plugins/project-wizard/templates/wxwin/src/Makefile
 plugins/project-wizard/templates/wxwin/po/Makefile

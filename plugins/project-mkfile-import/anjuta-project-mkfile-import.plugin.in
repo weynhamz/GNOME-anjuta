@@ -1,0 +1,13 @@
+[Anjuta Plugin]
+_Name=Makefile Project Import Wizard
+_Description=Import an existing Makefile project into anjuta
+Location=anjuta-project-mkfile-import:AnjutaProjectMkfileImportPlugin
+Icon=anjuta-project-mkfile-import-plugin.png
+UserActivatable=no
+Interfaces=IAnjutaWizard,IAnjutaFile
+
+[File Loader]
+SupportedMimeTypes=application/x-anjuta-old
+
+[Wizard]
+_Title=Import existing Makefile project

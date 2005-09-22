@@ -985,7 +985,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 		return;
 	}
 	
-	DEBUG_PRINT ("Creating new gbf-am project\n");
+	DEBUG_PRINT ("Creating new gbf project\n");
 	
 	/* pm_plugin->project = gbf_backend_new_project (backend->id); */
 	if (!pm_plugin->project)

@@ -7,4 +7,4 @@ Interfaces=IAnjutaProjectManager
 UserActivatable=no
 
 [Project]
-Supported-Project-Types=automake
+Supported-Project-Types=automake,make

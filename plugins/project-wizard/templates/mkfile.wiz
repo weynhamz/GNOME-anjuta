@@ -1,0 +1,24 @@
+<project-wizard>
+	<name>Makefile project</name>
+	<description>Makefile-based project</description>
+	<icon>mkfile-logo.png</icon>
+	<category>C</category>
+</project-wizard>
+
+<page name="options" _label="Project options" _description="Project directory, output file etc.">
+	<property type="string" name="Name" _label="Project name:" _description="" default="myproject" mandatory="yes" summary="yes"/>
+	<property type="directory" name="Destination" _label="Project directory:" _description="" default="~/myproject" mandatory="yes" exist="no" summary="yes"/>
+</page>
+
+<content>
+	<directory source="mkfile" destination="[+Destination+]">
+		<file source="project.sh" executable="yes"/>
+		<file destination="[+Destination+]/[+Name+].anjuta" source="project.anjuta"/>
+		<file destination="[+Destination+]/[+Name+].c" source="src/main.c"/>
+		<file destination="[+Destination+]/Makefile" source="src/Makefile.tpl"/>
+  	</directory>
+</content>
+
+<action>
+	<open file="[+Destination+]/[+Name+].anjuta"/>
+</action>

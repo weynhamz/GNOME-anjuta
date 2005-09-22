@@ -1,3 +1,38 @@
+2005-09-22  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Eric Greveson  <ejg45@cam.ac.uk>:
+
+	* configure.in,  plugins/Makefile.am
+	plugins/project-manager/anjuta-project-manager.plugin.in,
+	plugins/project-manager/plugin.c,
+	(added) plugins/project-mkfile-import/.cvsignore,
+	(added) plugins/project-mkfile-import/Makefile.am,
+	(added) plugins/project-mkfile-import/
+	    anjuta-project-mkfile-import-plugin.png,
+	(added) plugins/project-mkfile-import/
+	    anjuta-project-mkfile-import.glade,
+	(added) plugins/project-mkfile-import/
+	    anjuta-project-mkfile-import.plugin.in,
+	(added) plugins/project-mkfile-import/plugin.c,
+	(added) plugins/project-mkfile-import/plugin.h,
+	(added) plugins/project-mkfile-import/project-mkfile-import.c,
+	(added) plugins/project-mkfile-import/project-mkfile-import.h,
+	plugins/project-wizard/templates/Makefile.am,
+	(added) plugins/project-wizard/templates/mkfile-logo.png,
+	(added) plugins/project-wizard/templates/mkfile.wiz,
+	(added) plugins/project-wizard/templates/mkfile/.cvsignore,
+	(added) plugins/project-wizard/templates/mkfile/Makefile.am,
+	(added) plugins/project-wizard/templates/mkfile/project.anjuta,
+	(added) plugins/project-wizard/templates/mkfile/po/.cvsignore,
+	(added) plugins/project-wizard/templates/mkfile/po/ChangeLog,
+	(added) plugins/project-wizard/templates/mkfile/po/Makefile.am,
+	(added) plugins/project-wizard/templates/mkfile/po/POTFILES.in,
+	(added) plugins/project-wizard/templates/mkfile/src/.cvsignore,
+	(added) plugins/project-wizard/templates/mkfile/src/Makefile.am,
+	(added) plugins/project-wizard/templates/mkfile/src/Makefile.tpl,
+	(added) plugins/project-wizard/templates/mkfile/src/main.c:
+	Added makefile based project import wizard and wizard template.
+
 2005-09-12 Johannes Schmid <jhs@cvs.gnome.org>
 
 	* libanjuta/anjuta-launcher.c: Reduced false password detections

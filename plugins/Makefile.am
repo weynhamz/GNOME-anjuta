@@ -23,6 +23,7 @@ SUBDIRS = . \
 	patch \
 	subversion \
 	project-import \
+	project-mkfile-import \
 	glade \
 	tools \
 	class-inheritance
