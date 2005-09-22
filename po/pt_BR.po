@@ -15,19 +15,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-04 02:36+0000\n"
+"POT-Creation-Date: 2005-09-22 14:47+0200\n"
 "PO-Revision-Date: 2005-08-06 18:16-0300\n"
 "Last-Translator: Afonso Celso Medina <afmedina@uol.com.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: ../anjuta.desktop.in.in.h:2 ../src/about.c:178 ../src/about.c:190
+#: ../anjuta.desktop.in.in.h:2 ../src/about.c:182 ../src/about.c:194
 #: ../src/main.c:142
 msgid "Integrated Development Environment"
 msgstr "Ambiente de Desenvolvimento Integrado (IDE)"
@@ -1063,11 +1063,11 @@ msgstr "Codificações Armazenadas"
 msgid "Supported Encodings"
 msgstr "Codificações Suportadas"
 
-#: ../libanjuta/anjuta-launcher.c:735
+#: ../libanjuta/anjuta-launcher.c:758
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "laucher.c: Erro enquanto lia child pty\n"
 
-#: ../libanjuta/anjuta-launcher.c:919 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:942 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -2825,21 +2825,21 @@ msgstr ""
 "Todas as informações não gravadas serão perdidas."
 
 #: ../plugins/editor/action-callbacks.c:238
-#: ../plugins/editor/text_editor.c:323
+#: ../plugins/editor/text_editor.c:326
 msgid "_Reload"
 msgstr "_Recarregar"
 
-#: ../plugins/editor/action-callbacks.c:706
+#: ../plugins/editor/action-callbacks.c:790
 #, c-format
 msgid "There is no line number %d in \"%s\"."
 msgstr "Não existe linha número %d em \"%s\"."
 
-#: ../plugins/editor/action-callbacks.c:1203
+#: ../plugins/editor/action-callbacks.c:1287
 msgid "No matches. Wrap search around the document?"
 msgstr ""
 "Nenhuma equivalência. Continuar a busca a partir do início do documento?"
 
-#: ../plugins/editor/action-callbacks.c:1213
+#: ../plugins/editor/action-callbacks.c:1297
 #, c-format
 msgid ""
 "Incremental search for '%s' failed. Press Enter or click Find to continue "
@@ -2848,7 +2848,7 @@ msgstr ""
 "A procura incremental falhou para '%s. Pressione Enter ou clique Procurar "
 "para continuar a procura a partir do topo."
 
-#: ../plugins/editor/action-callbacks.c:1220
+#: ../plugins/editor/action-callbacks.c:1304
 #, c-format
 msgid "Incremental search for '%s' (continued at top) failed."
 msgstr "Procura incremental para '%s' (continuada a partir do topo) falhou."
@@ -4291,7 +4291,7 @@ msgstr "%d equivalências foram substituidas."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Impossível criar interface de usuário para Procurar e Substituir"
 
-#: ../plugins/editor/text_editor.c:309
+#: ../plugins/editor/text_editor.c:312
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4302,23 +4302,23 @@ msgstr ""
 "disponível no buffer atualmente.\n"
 "Deseja recarregá-lo?"
 
-#: ../plugins/editor/text_editor.c:1195
+#: ../plugins/editor/text_editor.c:1198
 msgid "Could not get file info"
 msgstr "Impossível obter as informações do arquivo"
 
-#: ../plugins/editor/text_editor.c:1202
+#: ../plugins/editor/text_editor.c:1205
 msgid "This file is too big. Unable to allocate memory."
 msgstr "O arquivo é muito grande. Impossível alocar memória."
 
-#: ../plugins/editor/text_editor.c:1209
+#: ../plugins/editor/text_editor.c:1212
 msgid "Could not open file"
 msgstr "Impossível abrir o arquivo"
 
-#: ../plugins/editor/text_editor.c:1217
+#: ../plugins/editor/text_editor.c:1220
 msgid "Error while reading from file"
 msgstr "Erro ao ler o arquivo"
 
-#: ../plugins/editor/text_editor.c:1253
+#: ../plugins/editor/text_editor.c:1256
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4329,7 +4329,7 @@ msgstr ""
 "relação de codificações. Se ela não for suportada, você deve adicioná-la a "
 "partir de preferências."
 
-#: ../plugins/editor/text_editor.c:1418
+#: ../plugins/editor/text_editor.c:1421
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4340,26 +4340,26 @@ msgstr ""
 "\n"
 "Detalhes: %s"
 
-#: ../plugins/editor/text_editor.c:1465
+#: ../plugins/editor/text_editor.c:1468
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Impossível salvar o arquivo: %s."
 
-#: ../plugins/editor/text_editor.c:1641
+#: ../plugins/editor/text_editor.c:1644
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "A autoformatação está desabilitada. Altere os padrões em Preferências."
 
-#: ../plugins/editor/text_editor.c:1660
+#: ../plugins/editor/text_editor.c:1663
 msgid "Error in auto formatting ..."
 msgstr "Erro na autoformatação..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1676
+#: ../plugins/editor/text_editor.c:1679
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "O Anjuta não conhece %s!"
 
-#: ../plugins/editor/text_editor.c:1701
+#: ../plugins/editor/text_editor.c:1704
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4368,7 +4368,7 @@ msgstr ""
 "Erro na autoformatação...\n"
 "Detalhes: %s"
 
-#: ../plugins/editor/text_editor.c:1946
+#: ../plugins/editor/text_editor.c:1949
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -5816,33 +5816,33 @@ msgstr "F_echar"
 msgid "Close current glade project"
 msgstr "Fecha o Projeto atual do Glade"
 
-#: ../plugins/glade/plugin.c:641
+#: ../plugins/glade/plugin.c:642
 msgid "Glade operations"
 msgstr "Operações com o Glade"
 
-#: ../plugins/glade/plugin.c:651
+#: ../plugins/glade/plugin.c:652
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:656
+#: ../plugins/glade/plugin.c:657
 msgid "Widgets"
 msgstr "Widgets (componentes)"
 
-#: ../plugins/glade/plugin.c:661
+#: ../plugins/glade/plugin.c:662
 msgid "Properties"
 msgstr "Propriedades"
 
-#: ../plugins/glade/plugin.c:770
+#: ../plugins/glade/plugin.c:771
 #, c-format
 msgid "Not local file: %s"
 msgstr "Não é um arquivo local: %s"
 
-#: ../plugins/glade/plugin.c:778
+#: ../plugins/glade/plugin.c:779
 #, c-format
 msgid "Could not open: %s"
 msgstr "Impossível abrir: %s"
 
-#: ../plugins/glade/plugin.c:809
+#: ../plugins/glade/plugin.c:810
 msgid "Could not create a new glade project."
 msgstr "Impossível criar um novo Projeto do Glade."
 
@@ -8319,6 +8319,10 @@ msgstr ""
 msgid "svn.diff"
 msgstr "svn.diff"
 
+#: ../plugins/subversion/svn-auth.c:82
+msgid "Authentication canceled"
+msgstr ""
+
 #: ../plugins/subversion/svn-notify.c:69
 msgid "Add"
 msgstr "Adicionar"
@@ -8682,15 +8686,15 @@ msgstr "Configurar ferramentas externas"
 msgid "Tool operations"
 msgstr "Operações com ferramentas"
 
-#: ../src/about.c:177 ../src/about.c:188
+#: ../src/about.c:181 ../src/about.c:192
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/about.c:192
+#: ../src/about.c:196
 msgid "GNU General Public License"
 msgstr "GNU General Public License"
 
-#: ../src/about.c:236
+#: ../src/about.c:240
 msgid "Anjuta plugin"
 msgstr "Plugin do Anjuta"
 
@@ -8945,15 +8949,3 @@ msgstr "Testa o grupo de ação do shell"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Shell de teste do Anjuta"
-
-#~ msgid "cvs.diff"
-#~ msgstr "cvs.diff"
-
-#~ msgid "cvs.log"
-#~ msgstr "cvs.log"
-
-#~ msgid "Enter a Hexa address or Select one in the data"
-#~ msgstr "Forneça um endereço Hexadecimal ou Selecione um a partir dos dados"
-
-#~ msgid "Non accessible address !"
-#~ msgstr "Endereço não acessível!"

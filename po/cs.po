@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-05 02:36+0000\n"
+"POT-Creation-Date: 2005-09-22 14:47+0200\n"
 "PO-Revision-Date: 2005-08-05 11:50+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "IDE Anjuta"
 
-#: ../anjuta.desktop.in.in.h:2 ../src/about.c:178 ../src/about.c:190
+#: ../anjuta.desktop.in.in.h:2 ../src/about.c:182 ../src/about.c:194
 #: ../src/main.c:142
 msgid "Integrated Development Environment"
 msgstr "Integrované vývojové prostředí"
@@ -1047,11 +1047,11 @@ msgstr "Standardní kódování"
 msgid "Supported Encodings"
 msgstr "Podporovaná kódování"
 
-#: ../libanjuta/anjuta-launcher.c:735
+#: ../libanjuta/anjuta-launcher.c:758
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Chyba při čtení pty potomka\n"
 
-#: ../libanjuta/anjuta-launcher.c:919 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:942 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -2805,20 +2805,20 @@ msgstr ""
 "Neuložené změny budou ztraceny."
 
 #: ../plugins/editor/action-callbacks.c:238
-#: ../plugins/editor/text_editor.c:323
+#: ../plugins/editor/text_editor.c:326
 msgid "_Reload"
 msgstr "_Znovu načíst"
 
-#: ../plugins/editor/action-callbacks.c:706
+#: ../plugins/editor/action-callbacks.c:790
 #, c-format
 msgid "There is no line number %d in \"%s\"."
 msgstr "V \"%2$s\" není řádek číslo %1$d."
 
-#: ../plugins/editor/action-callbacks.c:1203
+#: ../plugins/editor/action-callbacks.c:1287
 msgid "No matches. Wrap search around the document?"
 msgstr "Žádný výsledek. Hledat od druhého konce dokumentu?"
 
-#: ../plugins/editor/action-callbacks.c:1213
+#: ../plugins/editor/action-callbacks.c:1297
 #, c-format
 msgid ""
 "Incremental search for '%s' failed. Press Enter or click Find to continue "
@@ -2827,7 +2827,7 @@ msgstr ""
 "Inkrementální hledání '%s' selhalo. Pokračujte hledání od začátku stisknutím "
 "Enter nebo kliknutím na Hledat."
 
-#: ../plugins/editor/action-callbacks.c:1220
+#: ../plugins/editor/action-callbacks.c:1304
 #, c-format
 msgid "Incremental search for '%s' (continued at top) failed."
 msgstr "Inkrementální hledání '%s' (pokračující od začátku) selhalo."
@@ -4258,7 +4258,7 @@ msgstr "Bylo nahrazeno %d výsledků."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Nemohu sestavit uživatelské rozhraní pro Hledat a nahradit"
 
-#: ../plugins/editor/text_editor.c:309
+#: ../plugins/editor/text_editor.c:312
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4269,23 +4269,23 @@ msgstr ""
 "aktuální buffer.\n"
 "Chcete jej znovu načíst?"
 
-#: ../plugins/editor/text_editor.c:1195
+#: ../plugins/editor/text_editor.c:1198
 msgid "Could not get file info"
 msgstr "Nemohu získat informace o souboru"
 
-#: ../plugins/editor/text_editor.c:1202
+#: ../plugins/editor/text_editor.c:1205
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Tento soubor je příliš velký. Nemohu alokovat paměť."
 
-#: ../plugins/editor/text_editor.c:1209
+#: ../plugins/editor/text_editor.c:1212
 msgid "Could not open file"
 msgstr "Nemohu otevřít soubor"
 
-#: ../plugins/editor/text_editor.c:1217
+#: ../plugins/editor/text_editor.c:1220
 msgid "Error while reading from file"
 msgstr "Chyba při čtení ze souboru"
 
-#: ../plugins/editor/text_editor.c:1253
+#: ../plugins/editor/text_editor.c:1256
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4295,7 +4295,7 @@ msgstr ""
 "podporováno. Zkontrolujte prosím, jestli je kódování souboru v seznamu "
 "podporovaných kódování. Pokud není, přidejte ji v nastavení."
 
-#: ../plugins/editor/text_editor.c:1418
+#: ../plugins/editor/text_editor.c:1421
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4306,26 +4306,26 @@ msgstr ""
 "\n"
 "Detaily: %s"
 
-#: ../plugins/editor/text_editor.c:1465
+#: ../plugins/editor/text_editor.c:1468
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nemohu uložit soubor: %s."
 
-#: ../plugins/editor/text_editor.c:1641
+#: ../plugins/editor/text_editor.c:1644
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Automatické formátování je momentálně zakázáno. Změňte to v Nastavení."
 
-#: ../plugins/editor/text_editor.c:1660
+#: ../plugins/editor/text_editor.c:1663
 msgid "Error in auto formatting ..."
 msgstr "Chyba při automatickém formátování ..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1676
+#: ../plugins/editor/text_editor.c:1679
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta nezná %s!"
 
-#: ../plugins/editor/text_editor.c:1701
+#: ../plugins/editor/text_editor.c:1704
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4334,7 +4334,7 @@ msgstr ""
 "Chyba při automatickém formátování ...\n"
 "Detaily: %s"
 
-#: ../plugins/editor/text_editor.c:1946
+#: ../plugins/editor/text_editor.c:1949
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -5773,33 +5773,33 @@ msgstr "_Zavřít"
 msgid "Close current glade project"
 msgstr "Zavřít aktuální projekt glade"
 
-#: ../plugins/glade/plugin.c:641
+#: ../plugins/glade/plugin.c:642
 msgid "Glade operations"
 msgstr "Operace glade"
 
-#: ../plugins/glade/plugin.c:651
+#: ../plugins/glade/plugin.c:652
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:656
+#: ../plugins/glade/plugin.c:657
 msgid "Widgets"
 msgstr "Widgety"
 
-#: ../plugins/glade/plugin.c:661
+#: ../plugins/glade/plugin.c:662
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: ../plugins/glade/plugin.c:770
+#: ../plugins/glade/plugin.c:771
 #, c-format
 msgid "Not local file: %s"
 msgstr "Není místní soubor: %s"
 
-#: ../plugins/glade/plugin.c:778
+#: ../plugins/glade/plugin.c:779
 #, c-format
 msgid "Could not open: %s"
 msgstr "Nemohu otevřít: %s"
 
-#: ../plugins/glade/plugin.c:809
+#: ../plugins/glade/plugin.c:810
 msgid "Could not create a new glade project."
 msgstr "Nemohu vytvořit nový projekt glade."
 
@@ -8632,15 +8632,15 @@ msgstr "Nastavit externí nástroje"
 msgid "Tool operations"
 msgstr "Operace nástrojů"
 
-#: ../src/about.c:177 ../src/about.c:188
+#: ../src/about.c:181 ../src/about.c:192
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright © Naba Kumar"
 
-#: ../src/about.c:192
+#: ../src/about.c:196
 msgid "GNU General Public License"
 msgstr "GNU General Public License"
 
-#: ../src/about.c:236
+#: ../src/about.c:240
 msgid "Anjuta plugin"
 msgstr "Zásuvný modul Anjuty"
 
@@ -8889,581 +8889,3 @@ msgstr "Skupina akcí testovacího shellu"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Testovací shell Anjuty"
-
-#~ msgid "Enter a Hexa address or Select one in the data"
-#~ msgstr "Zadejte šestnáctkovou adresu nebo ji vyberte v datech"
-
-#~ msgid "Non accessible address !"
-#~ msgstr "Nepřístupná adresa !"
-
-#~ msgid "* Base Class Name:"
-#~ msgstr "* Název rodičovské třídy:"
-
-#~ msgid "* GObject Type Prefix:"
-#~ msgstr "* Předpona typu GObject:"
-
-#~ msgid "Add to CVS"
-#~ msgstr "Přidat do CVS"
-
-#~ msgid "File Wizard"
-#~ msgstr "Kouzelník souborů"
-
-#~ msgid "Restoring last session ..."
-#~ msgstr "Obnovuji poslední sezení..."
-
-#~ msgid "<b>New Project Wizard Options</b>"
-#~ msgstr "<b>Možnosti kouzelníka nového projektu</b>"
-
-#~ msgid "Patch level (-p)"
-#~ msgstr "Úroveň patche (-p)"
-
-#~ msgid "Patch Plugin"
-#~ msgstr "Zásuvný modul patch"
-
-#~ msgid "Cancel"
-#~ msgstr "Zrušit"
-
-#~ msgid "Selected directory to patch"
-#~ msgstr "Vybraný adresář, který patchovat"
-
-#~ msgid "Selected patch file"
-#~ msgstr "Vybraný soubor patche"
-
-#~ msgid "Crazy boy style"
-#~ msgstr "Styl šílený kluk"
-
-#~ msgid "Hello World style"
-#~ msgstr "Styl Ahoj světe"
-
-#~ msgid "A tool with the name '%s' already exists!"
-#~ msgstr "Nástroj s názvem '%s' již existuje!"
-
-#~ msgid "Unable to build user interface for tool help"
-#~ msgstr "Nemohu sestavit uživatelské rozhraní pro nápovědu nástrojů"
-
-#~ msgid "Unable to build user interface for tool parameters"
-#~ msgstr "Nemohu sestavit uživatelské rozhraní pro parametry nástroje"
-
-#~ msgid "%s: Command line parameters"
-#~ msgstr "%s: Parametry na příkazovém řádku"
-
-#~ msgid "The executable is not up-to-date."
-#~ msgstr "Spustitelný soubor není aktuální."
-
-#~ msgid "Debugger is not running. Start it first."
-#~ msgstr "Debugger neběží. Nejdříve jej spusťte."
-
-#~ msgid "Error: "
-#~ msgstr "Chyba: "
-
-#~ msgid "Warning: No debug terminal. Redirecting stdio to /dev/null.\n"
-#~ msgstr ""
-#~ "Varování: Žádný ladicí terminál. Přesměrovávám stdio do /dev/null.\n"
-
-#~ msgid "Running program ..."
-#~ msgstr "Spouštím program ..."
-
-#~ msgid "Decimal"
-#~ msgstr "Desítkově"
-
-#~ msgid "Error getting selection\n"
-#~ msgstr "Chyba při získávání výběru\n"
-
-#~ msgid "Error getting source location from stack frame"
-#~ msgstr "Chyba při získávání umístění zdroje z aktivačního záznamu"
-
-#~ msgid "Frame set"
-#~ msgstr "Nastavení aktivačního záznamu"
-
-#~ msgid "Frame args"
-#~ msgstr "Argumenty aktivačního záznamu"
-
-#~ msgid "Count"
-#~ msgstr "Počet"
-
-#~ msgid "Toggle enable"
-#~ msgstr "Přepnout povolení"
-
-#~ msgid "launcher.c: Failed to set channel encoding!"
-#~ msgstr "launcher.c: Nemohu nastavit kódování kanálu!"
-
-#~ msgid "Class name not valid"
-#~ msgstr "Název třídy není platný"
-
-#~ msgid "Base class name not valid"
-#~ msgstr "Název rodičovské třídy není platný"
-
-#~ msgid "Declaration file name not valid"
-#~ msgstr "Jméno souboru deklarací není platné"
-
-#~ msgid "Implementation file name not valid"
-#~ msgstr "Jméno souboru implementace není platné"
-
-#~ msgid "Class Builder"
-#~ msgstr "Tvůrce tříd"
-
-#~ msgid "Finish"
-#~ msgstr "Dokončit"
-
-#~ msgid "Enter the declaration file name."
-#~ msgstr "Zadejte jméno souboru deklarací."
-
-#~ msgid "Enter the implementation file name."
-#~ msgstr "Zadejte jméno souboru implementace."
-
-#~ msgid ""
-#~ "This plugin will create a class of the type you specify and add it to "
-#~ "your project. "
-#~ msgstr ""
-#~ "Tento zásuvný modul vytvoří typu, který určíte, a přidá ji do vašeho "
-#~ "projektu."
-
-#~ msgid "Header file:  "
-#~ msgstr "Hlavičkový soubor: "
-
-#~ msgid "Source file:  "
-#~ msgstr "Zdrojový soubor:   "
-
-#~ msgid ""
-#~ "If checked, the plugin will generate both the declaration and "
-#~ "implementation in the header file and will not create a source file."
-#~ msgstr ""
-#~ "Je-li zaškrtnuto, vygeneruje zásuvný modul deklaraci i implementaci v "
-#~ "hlavičkovém souboru a nebude generovat zdrojový soubor."
-
-#~ msgid "By:  Dave Huseby <huseby@linuxprogrammer.org>"
-#~ msgstr "Od:  Dave Huseby <huseby@linuxprogrammer.org>"
-
-#~ msgid "V 0.0.2 (June 11, 2002)"
-#~ msgstr "V 0.0.2 (11. června 2002)"
-
-#~ msgid ""
-#~ "TODO: add the ability to declare member functions and their parameters "
-#~ "here."
-#~ msgstr ""
-#~ "TODO: přidat možnost deklarovat zde členské funkce a jejich parametry."
-
-#~ msgid "Welcome to the Anjuta Class Builder. "
-#~ msgstr "Vítejte v Tvůrci tříd Anjuta. "
-
-#~ msgid "Class type:   "
-#~ msgstr "Typ třídy:"
-
-#~ msgid "Choose the type of inheritence from the base class."
-#~ msgstr "Zvolte typ dědění z rodičovské třídy."
-
-#~ msgid "If checked, the destructor of your class will be declared virtual."
-#~ msgstr "Je-li zaškrtnuto, bude destruktor vaší třídy deklarován virtuální."
-
-#~ msgid "Select the type of class you would like to create."
-#~ msgstr "Zvolte typ třídy, kterou chcete vytvořit."
-
-#~ msgid "A project must be open before creating a class"
-#~ msgstr "Před vytvářením třídy musí být otevřen projekt"
-
-#~ msgid "Can not execute command: \"%s\""
-#~ msgstr "Nemohu spustit příkaz: \"%s\""
-
-#~ msgid "Failling Overwrapped I-Search: %s."
-#~ msgstr "I-hledání od druhého konce selhalo: %s."
-
-#~ msgid "Force _Highlight Style"
-#~ msgstr "Vnutit _styl zvýraznění"
-
-#~ msgid "Autoformat _settings"
-#~ msgstr "_Nastavení automatického formátování"
-
-#~ msgid "Autoformat settings"
-#~ msgstr "Nastavení automatického formátování"
-
-#~ msgid "_Increase Indent"
-#~ msgstr "Z_většit odsazení"
-
-#~ msgid "Increase indentation of line/selection"
-#~ msgstr "Zvětšit odsazení řádku/výběru"
-
-#~ msgid "_Decrease Indent"
-#~ msgstr "Z_menšit odsazení"
-
-#~ msgid "Decrease indentation of line/selection"
-#~ msgstr "Zmenšit odsazení řádku/výběru"
-
-#~ msgid "Update current working copy"
-#~ msgstr "Aktualizovat současnou pracovní kopii"
-
-#~ msgid "Print the status of the current file"
-#~ msgstr "Vytisknout status současného souboru"
-
-#~ msgid "Get file log"
-#~ msgstr "Získat záznam souboru"
-
-#~ msgid "Print the CVS log for the current file"
-#~ msgstr "Vytisknout záznam CVS pro aktuální soubor"
-
-#~ msgid "Add file"
-#~ msgstr "Přidat soubor"
-
-#~ msgid "Diff file"
-#~ msgstr "Diff soubor"
-
-#~ msgid "Refresh"
-#~ msgstr "Obnovit"
-
-#~ msgid "Dock/Undock the Project Window"
-#~ msgstr "Zadokovat/oddokovat okno projektu"
-
-#~ msgid "Customize"
-#~ msgstr "Upravit"
-
-#~ msgid "Customize the file browser"
-#~ msgstr "Upravit prohlížeč souborů"
-
-#~ msgid "Date_Y"
-#~ msgstr "Datum_R"
-
-#~ msgid "Date_Ymd"
-#~ msgstr "Datum_Rmd"
-
-#~ msgid "EXPAND"
-#~ msgstr "ROZBALIT"
-
-#~ msgid "Email"
-#~ msgstr "E-mail"
-
-#~ msgid "File_Name"
-#~ msgstr "Název_souboru"
-
-#~ msgid "Layout manager"
-#~ msgstr "Správce rozložení"
-
-#~ msgid "Manipulate layout manager items"
-#~ msgstr "Manipulovat s položkami správce rozložení"
-
-#~ msgid "Unable to create settings directory.\n"
-#~ msgstr "Nemohu vytvořit adresář nastavení.\n"
-
-#~ msgid "Navigate"
-#~ msgstr "Navigovat"
-
-#~ msgid "Recent Files    "
-#~ msgstr "Nedávné soubory "
-
-#~ msgid "No tags"
-#~ msgstr "Žádné značky"
-
-#~ msgid ""
-#~ "Warning: Can not generate c/c++ source code.\n"
-#~ "Warning: It is because either glade (for gtk/gnome projects) or glademm "
-#~ "(for gtkmm/gnomemm projects) is not installed.\n"
-#~ "Warning: Your generated project will still be fine, though.\n"
-#~ msgstr ""
-#~ "Varování: Nemohu vygenerovat zdrojový kód v c/c++.\n"
-#~ "Varování: To je způsobeno tím, že buď glade (pro projekty gtk/gnome) nebo "
-#~ "glademm (pro projekty gtkmm/gnomemm) není nainstalováno.\n"
-#~ "Varování: Váš vygenerovaný projekt bude přesto v pořádku.\n"
-
-#~ msgid "Cannot fork glade."
-#~ msgstr "Nemohu fork glade."
-
-#~ msgid "Cannot fork glade--."
-#~ msgstr "Nemohu fork glade--."
-
-#~ msgid "Cannot fork glade-2."
-#~ msgstr "Nemohu fork glade-2."
-
-#~ msgid "launcher.c: Error while reading child stdout\n"
-#~ msgstr "launcher.c: Chyba při čtení stdout potomka\n"
-
-#~ msgid "launcher.c: STDOUT pipe closed"
-#~ msgstr "launcher.c: roura STDOUT zavřena"
-
-#~ msgid "launcher.c: Error while reading child stderr"
-#~ msgstr "launcher.c: Chyba při čtení stderr potomka"
-
-#~ msgid "launcher.c: STDERR pipe closed"
-#~ msgstr "launcher.c: roura STDERR zavřena"
-
-#~ msgid "launcher.c: PTY pipe error!"
-#~ msgstr "launcher.c: chyba roury PTY!"
-
-#~ msgid "Cannot execute command shell"
-#~ msgstr "Nemohu spustit shell příkazů"
-
-#~ msgid "Couldn't find pixmap file: %s"
-#~ msgstr "Nemohu nalézt soubor pixmapy: %s"
-
-#~ msgid "Detach"
-#~ msgstr "Odpojit"
-
-#~ msgid "Detach the current page"
-#~ msgstr "Odpojit aktuální stranu"
-
-#~ msgid "Search for the given string in the current file"
-#~ msgstr "Hledat zadaný řetězec v aktuálním souboru"
-
-#~ msgid "Enter the string to search for"
-#~ msgstr "Zadejte řetězec, který hledat"
-
-#~ msgid "Go to the given line number in the current file"
-#~ msgstr "Jít na dané číslo řádku v aktuálním souboru"
-
-#~ msgid "Enter the line number to go to"
-#~ msgstr "Zadejte číslo řádku, na které jít"
-
-#~ msgid "Show/Hide the Project window"
-#~ msgstr "Zobrazit/skrýt okno projektu"
-
-#~ msgid "Show/Hide the Message window"
-#~ msgstr "Zobrazit/skrýt okno zpráv"
-
-#~ msgid "Context sensitive help"
-#~ msgstr "Kontextově citlivá nápověda"
-
-#~ msgid "Open a Project"
-#~ msgstr "Otevřít projekt"
-
-#~ msgid "Save Project"
-#~ msgstr "Uložit projekt"
-
-#~ msgid "Close Project"
-#~ msgstr "Zavřít projekt"
-
-#~ msgid "Close the current Project"
-#~ msgstr "Zavřít aktuální projekt"
-
-#~ msgid "Compile the current file"
-#~ msgstr "Přeložit aktuální soubor"
-
-#~ msgid "Run configure"
-#~ msgstr "Spustit configure"
-
-#~ msgid "Build current file, or build the source directory of the Project"
-#~ msgstr "Sestavit aktuální soubor, nebo sestavit zdrojový adresář projektu"
-
-#~ msgid "Build_all"
-#~ msgstr "Sestavit _vše"
-
-#~ msgid "Build from the top directory of the Project"
-#~ msgstr "Sestavit z nejvyššího adresáře projektu"
-
-#~ msgid "Execute the program"
-#~ msgstr "Spustit program"
-
-#~ msgid "Start the Debugger"
-#~ msgstr "Spustit debugger"
-
-#~ msgid "Stop/interrupt compile or build"
-#~ msgstr "Zastavit/přerušit překlad nebo sestavení"
-
-#~ msgid "Toggle bookmark at current location"
-#~ msgstr "Přepnout záložku na aktuální pozici"
-
-#~ msgid "Goto first bookmark in this document"
-#~ msgstr "Jít na první záložku v tomto dokumentu"
-
-#~ msgid "Goto previous bookmark in this document"
-#~ msgstr "Jít na předchozí záložku v tomto dokumentu"
-
-#~ msgid "Goto next bookmark in this document"
-#~ msgstr "Jít na následující záložku v tomto dokumentu"
-
-#~ msgid "Goto last bookmark in this document"
-#~ msgstr "Jít na poslední záložku v tomto dokumentu"
-
-#~ msgid "Prev"
-#~ msgstr "Předch"
-
-#~ msgid "Goto previous message in this document"
-#~ msgstr "Jít na předchozí zprávu v tomto dokumentu"
-
-#~ msgid "Next"
-#~ msgstr "Násl"
-
-#~ msgid "Goto next message in this document"
-#~ msgstr "Jít na následující zprávu v tomto dokumentu"
-
-#~ msgid "Start"
-#~ msgstr "Začátek"
-
-#~ msgid "Goto start of current code block"
-#~ msgstr "Jít na začátek aktuálního bloku kódu"
-
-#~ msgid "Goto end of current code block"
-#~ msgstr "Jít na konec aktuálního bloku kódu"
-
-#~ msgid "Tags:"
-#~ msgstr "Tagy:"
-
-#~ msgid "Search for the given tag in the current file"
-#~ msgstr "Hledat daný tag v aktuálním souboru"
-
-#~ msgid "Enter the tag to jump to"
-#~ msgstr "Zadejte tag, na který skočit"
-
-#~ msgid "Go or continue execution"
-#~ msgstr "Spustit nebo pokračovat v provádění"
-
-#~ msgid "Run"
-#~ msgstr "Spustit"
-
-#~ msgid "Single step in execution"
-#~ msgstr "Jeden krok v provádění"
-
-#~ msgid "Step Over"
-#~ msgstr "Krok přes"
-
-#~ msgid "Step over the function"
-#~ msgstr "Krok přes funkci"
-
-#~ msgid "Step Out"
-#~ msgstr "Krok ven"
-
-#~ msgid "Step out of the function"
-#~ msgstr "Krok ven z funkce"
-
-#~ msgid "Toggle breakpoint at cursor"
-#~ msgstr "Přepnout breakpoint u kurzoru"
-
-#~ msgid "Inspect or evaluate an expression"
-#~ msgstr "Zkoumat nebo vyhodnotit výraz"
-
-#~ msgid "Display the current frame information"
-#~ msgstr "Zobrazit informace o aktuálním aktivačním záznamu"
-
-#~ msgid "Signals"
-#~ msgstr "Signály"
-
-#~ msgid "kernel signals of the program"
-#~ msgstr "signály jádra programu"
-
-#~ msgid "CPU registers and their contents"
-#~ msgstr "Registry CPU a jejich obsah"
-
-#~ msgid "End the debugging session"
-#~ msgstr "Ukončit ladicí sezení"
-
-#~ msgid "Toggle current code fold hide/show"
-#~ msgstr "Přepnout zobrazení/skrytí aktuálního složení kódu"
-
-#~ msgid "Close all"
-#~ msgstr "Zavřít vše"
-
-#~ msgid "Close all code folds in this document"
-#~ msgstr "Zavřít všechna složení kódu v tomto dokumentu"
-
-#~ msgid "Open all"
-#~ msgstr "Otevřít vše"
-
-#~ msgid "Open all code folds in this document"
-#~ msgstr "Otevřít všechna složení kódu v tomto dokumentu"
-
-#~ msgid "Select"
-#~ msgstr "Vybrat"
-
-#~ msgid "Select current code block"
-#~ msgstr "Vybrat aktuální blok kódu"
-
-#~ msgid "Indent inc"
-#~ msgstr "Zvětšit ods"
-
-#~ msgid "Increase indentation of block/line"
-#~ msgstr "Zvětšit odsazení bloku/řádku"
-
-#~ msgid "Indent dcr"
-#~ msgstr "Zmenšit ods"
-
-#~ msgid "Decrease indentation of block/line"
-#~ msgstr "Zmenšit odsazení bloku/řádku"
-
-#~ msgid "Autoformat"
-#~ msgstr "Autoformát"
-
-#~ msgid "Automatically format the code"
-#~ msgstr "Automaticky zformátovat kód"
-
-#~ msgid "Format style"
-#~ msgstr "Styl formátování"
-
-#~ msgid "Configure style to use for auto format"
-#~ msgstr "Nastavit styl, který použít pro automatické formátování"
-
-#~ msgid "Show Calltip"
-#~ msgstr "Zobrazit calltip"
-
-#~ msgid "Autocomplete"
-#~ msgstr "Autodoplnit"
-
-#~ msgid "Autocomplete word"
-#~ msgstr "Autodoplnit slovo"
-
-#~ msgid "Looking up symbol"
-#~ msgstr "Vyhledávám symbol"
-
-#~ msgid "Finding in Files ....\n"
-#~ msgstr "Hledám v souborech ....\n"
-
-#~ msgid "Load Executable File"
-#~ msgstr "Načíst spustitelný soubor"
-
-#~ msgid "Load Core File"
-#~ msgstr "Načíst soubor core"
-
-#~ msgid "Load a core file to dissect"
-#~ msgstr "Načíst soubor core, který analyzovat"
-
-#~ msgid "C++: // comment"
-#~ msgstr "C++: // komentář"
-
-#~ msgid "Comment Style:"
-#~ msgstr "Styl komentářů:"
-
-#~ msgid "Shell: # comment"
-#~ msgstr "Shell: # komentář"
-
-#~ msgid "_C: /* comment */"
-#~ msgstr "_C: /* komentář */"
-
-#~ msgid "Interface to patch Projects or individual files"
-#~ msgstr "Rozhraní pro patchování projektů nebo jednotlivých souborů"
-
-#~ msgid "Patch plugin"
-#~ msgstr "Zásuvný modul patch"
-
-#~ msgid "The patch plugin"
-#~ msgstr "Zásuvný modul patch"
-
-#~ msgid "Classes"
-#~ msgstr "Třídy"
-
-#~ msgid "Structs"
-#~ msgstr "Struktury"
-
-#~ msgid "Browse _Man Pages"
-#~ msgstr "Procházet stránky _man"
-
-#~ msgid "The good old manual pages"
-#~ msgstr "Staré dobré manuálové stránky"
-
-#~ msgid "Browse _Info Pages"
-#~ msgstr "Procházet stránky _info"
-
-#~ msgid "The good info pages"
-#~ msgstr "Staré dobré stránky info"
-
-#~ msgid "Report _Bugs"
-#~ msgstr "Nahlásit _chyby"
-
-#~ msgid "Submit a bug report for Anjuta"
-#~ msgstr "Poslat hlášení o chybě Anjuty"
-
-#~ msgid "Request _Features"
-#~ msgstr "Žádat o _vlastnosti"
-
-#~ msgid "Submit _patches"
-#~ msgstr "Poslat _patche"
-
-#~ msgid "Submit patches for Anjuta"
-#~ msgstr "Poslat patche pro Anjutu"
-
-#~ msgid "Copying %s to %s"
-#~ msgstr "Kopíruji %s do %s"

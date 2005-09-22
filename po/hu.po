@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-16 10:36+0000\n"
+"POT-Creation-Date: 2005-09-22 14:47+0200\n"
 "PO-Revision-Date: 2005-08-16 16:37+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
@@ -390,7 +390,8 @@ msgstr "Folyamat para_métereinek elrejtése"
 
 #: ../anjuta.glade.h:76
 msgid "High-Level Optimization (Functions inlined wherever possible)"
-msgstr "Magas szintű optimalizálás (beágyazott függvények használata, ahol lehet)"
+msgstr ""
+"Magas szintű optimalizálás (beágyazott függvények használata, ahol lehet)"
 
 #: ../anjuta.glade.h:77
 msgid "History sizes"
@@ -645,7 +646,8 @@ msgstr "Legutóbbi projektek:"
 
 #: ../anjuta.glade.h:131
 msgid "Reset all sticky tags during update (looses branch) [-A]"
-msgstr "Minden ragadós címke visszaállítása frissítés közben (ág elvesztése) [-A]"
+msgstr ""
+"Minden ragadós címke visszaállítása frissítés közben (ág elvesztése) [-A]"
 
 #: ../anjuta.glade.h:132
 msgid "Run Configure Script"
@@ -1054,11 +1056,11 @@ msgstr "Alap kódolások"
 msgid "Supported Encodings"
 msgstr "Támogatott kódolások"
 
-#: ../libanjuta/anjuta-launcher.c:735
+#: ../libanjuta/anjuta-launcher.c:758
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Hiba a gyermek pty olvasása közben\n"
 
-#: ../libanjuta/anjuta-launcher.c:919 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:942 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -1480,7 +1482,8 @@ msgstr "Befejezve ... sikeresen"
 
 #: ../plugins/build/build_project.c:76 ../plugins/build/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
-msgstr "Nem készíthető el a modul. Ellenőrizze a Beállítások menü Parancsok pontját."
+msgstr ""
+"Nem készíthető el a modul. Ellenőrizze a Beállítások menü Parancsok pontját."
 
 #: ../plugins/build/build_project.c:95 ../plugins/build/build_project.c:160
 #: ../plugins/build/compile.c:74
@@ -1990,12 +1993,15 @@ msgid "* Output Source File:"
 msgstr "* Kimeneti forrásfájl:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
-msgid "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
-msgstr "<span size=\"large\" weight=\"bold\">GObject osztálysablon-készítő</span>"
+msgid ""
+"<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
+msgstr ""
+"<span size=\"large\" weight=\"bold\">GObject osztálysablon-készítő</span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "<span size=\"large\" weight=\"bold\">Generic C++ Class Builder</span>"
-msgstr "<span size=\"large\" weight=\"bold\">Általános C++ osztálykészítő</span>"
+msgstr ""
+"<span size=\"large\" weight=\"bold\">Általános C++ osztálykészítő</span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
 msgid "Add to Repository"
@@ -2826,7 +2832,7 @@ msgstr ""
 "A nem mentett változtatások elvesznek."
 
 #: ../plugins/editor/action-callbacks.c:238
-#: ../plugins/editor/text_editor.c:323
+#: ../plugins/editor/text_editor.c:326
 msgid "_Reload"
 msgstr "_Újratöltés"
 
@@ -3703,7 +3709,8 @@ msgid "Find and R_eplace ..."
 msgstr "Keresés és _csere ..."
 
 #: ../plugins/editor/plugin.c:220
-msgid "Search for and replace a string or regular expression with another string"
+msgid ""
+"Search for and replace a string or regular expression with another string"
 msgstr ""
 "Egy karakterlánc vagy reguláris kifejezés keresése és cseréje egy másik "
 "karakterlánccal"
@@ -4279,9 +4286,10 @@ msgstr "%d találat cserélve."
 
 #: ../plugins/editor/search-replace.c:1037
 msgid "Unable to build user interface for Search And Replace"
-msgstr "Nem lehetséges felhasználói felület felépítése a Keresés és csere ablakhoz"
+msgstr ""
+"Nem lehetséges felhasználói felület felépítése a Keresés és csere ablakhoz"
 
-#: ../plugins/editor/text_editor.c:309
+#: ../plugins/editor/text_editor.c:312
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4291,23 +4299,23 @@ msgstr ""
 "A(z) %s fájl a lemezen frissebb, mint a jelenlegi pufferben.\n"
 "Újratöltsem?"
 
-#: ../plugins/editor/text_editor.c:1195
+#: ../plugins/editor/text_editor.c:1198
 msgid "Could not get file info"
 msgstr "Nem érhető el fájlinformáció"
 
-#: ../plugins/editor/text_editor.c:1202
+#: ../plugins/editor/text_editor.c:1205
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Ez a fájl túl nagy. Nem lehet memóriát foglalni."
 
-#: ../plugins/editor/text_editor.c:1209
+#: ../plugins/editor/text_editor.c:1212
 msgid "Could not open file"
 msgstr "Nem lehet megnyitni a fájlt"
 
-#: ../plugins/editor/text_editor.c:1217
+#: ../plugins/editor/text_editor.c:1220
 msgid "Error while reading from file"
 msgstr "Hiba a fájlból való olvasás közben"
 
-#: ../plugins/editor/text_editor.c:1253
+#: ../plugins/editor/text_editor.c:1256
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4317,7 +4325,7 @@ msgstr ""
 "támogatott kódolások listáját. Ha nincs rajta, akkor adja hozzá a "
 "tulajdonságoknál."
 
-#: ../plugins/editor/text_editor.c:1418
+#: ../plugins/editor/text_editor.c:1421
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4328,28 +4336,28 @@ msgstr ""
 "\n"
 "Részletek: %s"
 
-#: ../plugins/editor/text_editor.c:1465
+#: ../plugins/editor/text_editor.c:1468
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nem lehet menteni a fájlt: %s."
 
-#: ../plugins/editor/text_editor.c:1641
+#: ../plugins/editor/text_editor.c:1644
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Az automatikus formázás jelenleg ki van kapcsolva. Változtassa meg a "
 "beállításoknál."
 
-#: ../plugins/editor/text_editor.c:1660
+#: ../plugins/editor/text_editor.c:1663
 msgid "Error in auto formatting ..."
 msgstr "Hiba az automatikus formázás közben..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1676
+#: ../plugins/editor/text_editor.c:1679
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Az Anjuta nem ismeri ezt: %s!"
 
-#: ../plugins/editor/text_editor.c:1701
+#: ../plugins/editor/text_editor.c:1704
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4358,7 +4366,7 @@ msgstr ""
 "Hiba az automatikus formázás közben...\n"
 "Részletek: %s"
 
-#: ../plugins/editor/text_editor.c:1946
+#: ../plugins/editor/text_editor.c:1949
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -5801,33 +5809,33 @@ msgstr "_Bezárás"
 msgid "Close current glade project"
 msgstr "Jelenlegi glade projekt bezárása"
 
-#: ../plugins/glade/plugin.c:641
+#: ../plugins/glade/plugin.c:642
 msgid "Glade operations"
 msgstr "Glade műveletek"
 
-#: ../plugins/glade/plugin.c:651
+#: ../plugins/glade/plugin.c:652
 msgid "Palette"
 msgstr "Paletta"
 
-#: ../plugins/glade/plugin.c:656
+#: ../plugins/glade/plugin.c:657
 msgid "Widgets"
 msgstr "Felületi elemek"
 
-#: ../plugins/glade/plugin.c:661
+#: ../plugins/glade/plugin.c:662
 msgid "Properties"
 msgstr "Tulajdonságok"
 
-#: ../plugins/glade/plugin.c:770
+#: ../plugins/glade/plugin.c:771
 #, c-format
 msgid "Not local file: %s"
 msgstr "%s nem helyi fájl"
 
-#: ../plugins/glade/plugin.c:778
+#: ../plugins/glade/plugin.c:779
 #, c-format
 msgid "Could not open: %s"
 msgstr "Nem lehet megnyitni: %s"
 
-#: ../plugins/glade/plugin.c:809
+#: ../plugins/glade/plugin.c:810
 msgid "Could not create a new glade project."
 msgstr "Nem lehet új glade projektet létrehozni."
 
@@ -8904,7 +8912,8 @@ msgstr "Ne mutassa az indítóképet"
 
 #: ../src/main.c:66
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr "Az anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
+msgstr ""
+"Az anjuta teljes leállítása minden erőforrás elengedésével (hibakereséshez)"
 
 #: ../src/shell.c:85
 msgid "Quit Anjuta Test Shell"
@@ -8921,4 +8930,3 @@ msgstr "Teszt-héj akció csoport"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Anjuta teszt-héj"
-

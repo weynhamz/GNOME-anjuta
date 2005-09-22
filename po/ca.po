@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-07 22:09+0200\n"
+"POT-Creation-Date: 2005-09-22 14:47+0200\n"
 "PO-Revision-Date: 2005-07-07 22:11+0200\n"
 "Last-Translator: Xavier A. Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -20,8 +20,8 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "EID Anjuta"
 
-#: ../anjuta.desktop.in.in.h:2 ../src/about.c:178 ../src/about.c:190
-#: ../src/main.c:141
+#: ../anjuta.desktop.in.in.h:2 ../src/about.c:182 ../src/about.c:194
+#: ../src/main.c:142
 msgid "Integrated Development Environment"
 msgstr "Entorn integrat de desenvolupament"
 
@@ -39,6 +39,7 @@ msgstr "    "
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../src/anjuta.glade.h:1
@@ -148,8 +149,8 @@ msgstr "Construeix el navegador de símbols automàticament"
 msgid "CPU Registers"
 msgstr "Registres de la CPU"
 
-#: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:237
-#: ../plugins/cvs-plugin/cvs-execute.c:241
+#: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:231
+#: ../plugins/cvs-plugin/cvs-execute.c:235
 #: ../plugins/editor/anjuta-document-manager.glade.h:40
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
 #: ../plugins/macro/macros.xml.h:9
@@ -192,7 +193,7 @@ msgstr "Entrades d'un quadre desplegable:"
 msgid "Command Line Parameters"
 msgstr "Paràmetres de la línia d'ordres"
 
-#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:384
+#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:464
 msgid "Command line parameters"
 msgstr "Paràmetres de l'ordre"
 
@@ -292,7 +293,7 @@ msgid "Document module Makefile.am"
 msgstr "Mòdul de documentació de Makefile.am"
 
 # Winrar 2.9->Menu:rarlng.dll
-#: ../anjuta.glade.h:56 ../src/anjuta-app.c:458
+#: ../anjuta.glade.h:56 ../src/anjuta-app.c:459
 msgid "Edit"
 msgstr "Edita"
 
@@ -328,7 +329,7 @@ msgid "Execute Program"
 msgstr "Executa el programa"
 
 #. Register actions
-#: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:665
+#: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:710
 #: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:566
 #: ../src/anjuta-app.c:455
 msgid "File"
@@ -642,9 +643,9 @@ msgstr "Programes"
 # source\misc\mediatyp.src string STR_SVT_MIMETYPE_CNT_PUBLBOX
 # Projecte_Open_Office_1.1 [svtools.po]
 #. gtk_widget_destroy (progress_win);
-#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1031
-#: ../plugins/project-manager/plugin.c:1051
-#: ../plugins/project-manager/plugin.c:1129
+#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1042
+#: ../plugins/project-manager/plugin.c:1062
+#: ../plugins/project-manager/plugin.c:1141
 #: ../plugins/project-manager/project_dbase_gui.c:581
 msgid "Project"
 msgstr "Projecte"
@@ -729,7 +730,7 @@ msgid "Set Signal Property"
 msgstr "Estableix propietats del senyal"
 
 # Winrar 2.9->String:rarlng.dll
-#: ../anjuta.glade.h:140 ../src/anjuta-app.c:470
+#: ../anjuta.glade.h:140 ../src/anjuta-app.c:473
 msgid "Settings"
 msgstr "Paràmetres"
 
@@ -819,7 +820,7 @@ msgstr "Makefile.am de nivell superior"
 #: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:931
 #: ../plugins/gdb/registers.c:227 ../plugins/gdb/sharedlib.c:128
 #: ../plugins/gdb/signals.c:288 ../plugins/gdb/stack_trace.c:459
-#: ../plugins/subversion/svn-notify.c:118
+#: ../plugins/subversion/svn-notify.c:119
 msgid "Update"
 msgstr "Actualitza"
 
@@ -851,7 +852,7 @@ msgid "Version:"
 msgstr "Versió:"
 
 # Winrar 2.9->Menu:rarlng.dll
-#: ../anjuta.glade.h:164 ../src/anjuta-app.c:461
+#: ../anjuta.glade.h:164 ../src/anjuta-app.c:463
 msgid "View"
 msgstr "Visualitza"
 
@@ -1123,11 +1124,11 @@ msgstr "Codificacions per defecte"
 msgid "Supported Encodings"
 msgstr "Codificacions disponibles"
 
-#: ../libanjuta/anjuta-launcher.c:729
+#: ../libanjuta/anjuta-launcher.c:758
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: s'ha produït un error en llegir de la pty filla\n"
 
-#: ../libanjuta/anjuta-launcher.c:910 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:942 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -1171,22 +1172,22 @@ msgstr "Preferències d'Anjuta"
 # source\dialog\cfg.src #define FIXEDTEXT_TEXT_FUNCTION
 # Projecte_Open_Office_1.1 [sfx2.po]
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:795
+#: ../libanjuta/anjuta-ui.c:804
 msgid "Action"
 msgstr "Acció"
 
 # Mozilla 1.3->styleVar.label
-#: ../libanjuta/anjuta-ui.c:813
+#: ../libanjuta/anjuta-ui.c:822
 msgid "Visible"
 msgstr "Visible"
 
-#: ../libanjuta/anjuta-ui.c:824
+#: ../libanjuta/anjuta-ui.c:833
 msgid "Sensitive"
 msgstr "Sensible"
 
 #
 # Projecte_Gnome_2.2 [gnome-control-center.gnome-2-0.ca.po]
-#: ../libanjuta/anjuta-ui.c:833
+#: ../libanjuta/anjuta-ui.c:842
 msgid "Shortcut"
 msgstr "Drecera"
 
@@ -1504,10 +1505,10 @@ msgstr "B_loca els elements enganxables"
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
 #: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:270
 #: ../plugins/editor/plugin.c:1183 ../plugins/editor/search-replace.c:793
-#: ../plugins/editor/search-replace.c:1428
-#: ../plugins/editor/search-replace.c:1435
-#: ../plugins/editor/search-replace.c:1447
-#: ../plugins/editor/search-replace.c:1751
+#: ../plugins/editor/search-replace.c:1425
+#: ../plugins/editor/search-replace.c:1432
+#: ../plugins/editor/search-replace.c:1444
+#: ../plugins/editor/search-replace.c:1744
 #: ../plugins/symbol-browser/plugin.c:841
 msgid "Search"
 msgstr "Cerca"
@@ -1563,7 +1564,7 @@ msgstr "S'ha completat incorrectament"
 msgid "Completed ... successful\n"
 msgstr "S'ha completat correctament\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:513
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:516
 msgid "Completed ... successful"
 msgstr "S'ha completat correctament"
 
@@ -2280,7 +2281,7 @@ msgstr "<b>Detalls dels mòduls:</b>"
 
 # Winrar 2.9->Menu:rarlng.dll
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
 msgid "<b>Options:</b>"
 msgstr "<b>Opcions:</b>"
 
@@ -2361,12 +2362,12 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to add:"
 msgstr "Escolliu el fitxer o directori a afegir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to commit:"
 msgstr "Escolliu el fitxer o directori a pujar-ne els canvis:"
 
@@ -2383,12 +2384,12 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Escolliu de quin fitxer o directori obtenir-ne l'estat:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to remove:"
 msgstr "Escolliu quin fitxer o directori suprimir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Choose file or directory to update:"
 msgstr "Escolliu el fitxer o directori a actualitzar:"
 
@@ -2407,7 +2408,7 @@ msgid "Delete empty directories"
 msgstr "Suprimeix directoris buits"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "Do not act recursively"
 msgstr "No ho facis recursivament"
 
@@ -2430,7 +2431,7 @@ msgstr ""
 "Servidor de contrasenyes (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Log message:"
 msgstr "Missatge de registre:"
 
@@ -2478,7 +2479,7 @@ msgid "Unified format instead of context format"
 msgstr "Format unificat en comptes del contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "Use revision/tag: "
 msgstr "Usa revisió/etiqueta: "
 
@@ -2487,6 +2488,7 @@ msgid "Use revision: "
 msgstr "Usa la revisió: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
 msgid "Username: "
 msgstr "Nom d'usuari: "
 
@@ -2495,7 +2497,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta del proveïdor:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Whole project"
 msgstr "Tot el projecte"
 
@@ -2511,7 +2513,7 @@ msgid "start"
 msgstr "inici"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
-#: ../plugins/subversion/subversion-callbacks.c:55
+#: ../plugins/subversion/subversion-callbacks.c:56
 msgid "Please enter a filename!"
 msgstr "Introduïu un nom de fitxer:"
 
@@ -2530,7 +2532,7 @@ msgstr "No es pot suprimir el fitxer"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:454
-#: ../plugins/subversion/subversion-callbacks.c:242
+#: ../plugins/subversion/subversion-callbacks.c:243
 msgid "Are you sure that you do not want a log message?"
 msgstr "Esteu segur que no voleu un missatge de registre?"
 
@@ -2557,26 +2559,18 @@ msgstr "Versió"
 msgid "Directory"
 msgstr "Directori"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:136
+#: ../plugins/cvs-plugin/cvs-execute.c:128
 msgid "CVS command failed! - See above for details"
 msgstr "Ha fallat l'ordre del CVS. Veieu adalt els detalls"
 
-#: ../plugins/cvs-plugin/cvs-execute.c:141
+#: ../plugins/cvs-plugin/cvs-execute.c:133
 #, c-format
 msgid "CVS command successful! - Time taken %ld secs."
 msgstr "L'ordre CVS s'ha executat correctament. S'ha trigat %ld segons."
 
-#: ../plugins/cvs-plugin/cvs-execute.c:230
+#: ../plugins/cvs-plugin/cvs-execute.c:223
 msgid "CVS command is running - please wait until it finishes!"
 msgstr "S'està executant l'ordre del CVS. Espereu fins que hagi acabat"
-
-#: ../plugins/cvs-plugin/cvs-execute.c:300
-msgid "cvs.diff"
-msgstr "cvs.diff"
-
-#: ../plugins/cvs-plugin/cvs-execute.c:313
-msgid "cvs.log"
-msgstr "cvs.log"
 
 #. Action name
 #. Stock icon, if any
@@ -2879,7 +2873,7 @@ msgstr "Contingut"
 #. 9
 #: ../plugins/devhelp/plugin.c:304 ../plugins/devhelp/plugin.c:531
 #: ../plugins/devhelp/plugin.c:544
-#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:474
+#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:477
 msgid "Help"
 msgstr "Ajuda"
 
@@ -2979,20 +2973,20 @@ msgstr ""
 
 # Netscape_4.7->Menu:RESDLL.DLL
 #: ../plugins/editor/action-callbacks.c:238
-#: ../plugins/editor/text_editor.c:323
+#: ../plugins/editor/text_editor.c:326
 msgid "_Reload"
 msgstr "Ac_tualitza"
 
-#: ../plugins/editor/action-callbacks.c:706
+#: ../plugins/editor/action-callbacks.c:790
 #, c-format
 msgid "There is no line number %d in \"%s\"."
 msgstr "No existeix la línia %d en \"%s\"."
 
-#: ../plugins/editor/action-callbacks.c:1203
+#: ../plugins/editor/action-callbacks.c:1287
 msgid "No matches. Wrap search around the document?"
 msgstr "No hi ha concordànces. Voleu començar la cerca des del principi?"
 
-#: ../plugins/editor/action-callbacks.c:1213
+#: ../plugins/editor/action-callbacks.c:1297
 #, c-format
 msgid ""
 "Incremental search for '%s' failed. Press Enter or click Find to continue "
@@ -3001,7 +2995,7 @@ msgstr ""
 "Ha fallat la cerca incremental per a '%s'. Premeu la tecla de retorn o feu "
 "clic a Cerca per continuar des del principi."
 
-#: ../plugins/editor/action-callbacks.c:1220
+#: ../plugins/editor/action-callbacks.c:1304
 #, c-format
 msgid "Incremental search for '%s' (continued at top) failed."
 msgstr "Ha fallat la cerca incremental per a '%s' (des del començament)."
@@ -3612,28 +3606,24 @@ msgid "Sorted in opening order"
 msgstr "Ordenats com es van obrir"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:141
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr ""
 "Llista de patrons de nom de directori, separats per espais, que no es "
 "tindran en compte"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:142
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 msgid "Space-seperated list of directory name patterns to match"
 msgstr ""
 "Llista de patrons de nom de directoris, separats per espais, per cercar una "
 "coincidència"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:143
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr ""
 "Llista de patrons de nom de fitxer, separats per espais, que no es tindran "
 "en compte"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:144
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 msgid "Space-seperated list of file name patterns to match"
 msgstr ""
 "Llista de patrons de nom de fitxer, separats per espais, per cercar una "
@@ -4488,7 +4478,7 @@ msgstr "Reemplaça"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
 #: ../plugins/editor/search-replace.c:796
-#: ../plugins/editor/search-replace.c:1442
+#: ../plugins/editor/search-replace.c:1439
 msgid "Replace All"
 msgstr "Reemplaça'ls tots"
 
@@ -4511,11 +4501,11 @@ msgstr "S'ha obtingut el nombre màxim de resultats."
 msgid "%d matches have been replaced."
 msgstr "s'han reeemplaçat %d concordances."
 
-#: ../plugins/editor/search-replace.c:1040
+#: ../plugins/editor/search-replace.c:1037
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No es pot construir la interfície d'usuari per a cercar i reemplaçar"
 
-#: ../plugins/editor/text_editor.c:309
+#: ../plugins/editor/text_editor.c:312
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4526,24 +4516,24 @@ msgstr ""
 "el carregat a la memòria.\n"
 "Desitgeu actualitzar-lo?"
 
-#: ../plugins/editor/text_editor.c:1194
+#: ../plugins/editor/text_editor.c:1198
 msgid "Could not get file info"
 msgstr "No es pot obtenir la informació del fitxer"
 
-#: ../plugins/editor/text_editor.c:1201
+#: ../plugins/editor/text_editor.c:1205
 msgid "This file is too big. Unable to allocate memory."
 msgstr "El fitxer és massa gran. No es pot obtenir la memòria necessària."
 
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
-#: ../plugins/editor/text_editor.c:1208
+#: ../plugins/editor/text_editor.c:1212
 msgid "Could not open file"
 msgstr "No s'ha pogut obrir el fitxer"
 
-#: ../plugins/editor/text_editor.c:1216
+#: ../plugins/editor/text_editor.c:1220
 msgid "Error while reading from file"
 msgstr "S'ha produït un error en llegir del fitxer"
 
-#: ../plugins/editor/text_editor.c:1252
+#: ../plugins/editor/text_editor.c:1256
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4554,7 +4544,7 @@ msgstr ""
 "codificacions disponibles. En cas contrari, afegiu-la a les preferències."
 
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
-#: ../plugins/editor/text_editor.c:1417
+#: ../plugins/editor/text_editor.c:1421
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4565,27 +4555,27 @@ msgstr ""
 "\n"
 "Motius: %s"
 
-#: ../plugins/editor/text_editor.c:1464
+#: ../plugins/editor/text_editor.c:1468
 #, c-format
 msgid "Could not save file: %s."
 msgstr "No es pot desar el fitxer: %s."
 
-#: ../plugins/editor/text_editor.c:1640
+#: ../plugins/editor/text_editor.c:1644
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "El format automàtic està desactivat. Canvieu la configuració a Preferències."
 
-#: ../plugins/editor/text_editor.c:1659
+#: ../plugins/editor/text_editor.c:1663
 msgid "Error in auto formatting ..."
 msgstr "S'ha produït un error en formatar automàticament..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1675
+#: ../plugins/editor/text_editor.c:1679
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "L'Anjuta no coneix %s"
 
-#: ../plugins/editor/text_editor.c:1700
+#: ../plugins/editor/text_editor.c:1704
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4594,7 +4584,7 @@ msgstr ""
 "S'ha produït un error en formatar automàticament...\n"
 "Motius: %s"
 
-#: ../plugins/editor/text_editor.c:1945
+#: ../plugins/editor/text_editor.c:1949
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4708,7 +4698,7 @@ msgstr "Retalla"
 # Winrar 2.9->String:rarlng.dll
 #. 1
 #: ../plugins/editor/text_editor_menu.c:248
-#: ../plugins/subversion/svn-notify.c:73
+#: ../plugins/subversion/svn-notify.c:74
 msgid "Copy"
 msgstr "Copia"
 
@@ -4904,14 +4894,14 @@ msgstr "Obre"
 msgid "Open recent file"
 msgstr "Obre un fitxer recent"
 
-#: ../plugins/file-manager/an_file_view.c:388
-#: ../plugins/file-manager/an_file_view.c:551
-#: ../plugins/file-manager/an_file_view.c:819
+#: ../plugins/file-manager/an_file_view.c:428
+#: ../plugins/file-manager/an_file_view.c:596
+#: ../plugins/file-manager/an_file_view.c:864
 #: ../plugins/symbol-browser/an_symbol_view.c:513
 msgid "Loading ..."
 msgstr "S'està carregant..."
 
-#: ../plugins/file-manager/an_file_view.c:679
+#: ../plugins/file-manager/an_file_view.c:724
 msgid "Rev"
 msgstr "Rev"
 
@@ -4940,22 +4930,54 @@ msgid "Directory "
 msgstr "Directori "
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
+msgid "Do not show files ignored by version control"
+msgstr ""
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
 msgid "Do not show hidden directories"
 msgstr "No mostris els directoris ocults"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
 msgid "Do not show hidden files"
 msgstr "No mostris els fitxers ocults"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
 msgid "Ignore directories"
 msgstr "Ignora els directoris"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
 msgid "Ignore files"
 msgstr "Ignora els fitxers"
 
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
+#, fuzzy
+msgid "Space-separated list of directory name patterns to ignore"
+msgstr ""
+"Llista de patrons de nom de directori, separats per espais, que no es "
+"tindran en compte"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
+#, fuzzy
+msgid "Space-separated list of directory name patterns to match"
+msgstr ""
+"Llista de patrons de nom de directoris, separats per espais, per cercar una "
+"coincidència"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
+#, fuzzy
+msgid "Space-separated list of file name patterns to ignore"
+msgstr ""
+"Llista de patrons de nom de fitxer, separats per espais, que no es tindran "
+"en compte"
+
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
+#, fuzzy
+msgid "Space-separated list of file name patterns to match"
+msgstr ""
+"Llista de patrons de nom de fitxer, separats per espais, per cercar una "
+"coincidència"
+
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:23
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
 msgid "dialog3"
 msgstr "diàleg3"
@@ -4969,12 +4991,12 @@ msgstr "_Actualitza"
 msgid "Refresh file manager tree"
 msgstr "Actualitza l'arbre del gestor de fitxers"
 
-#: ../plugins/file-manager/plugin.c:164
+#: ../plugins/file-manager/plugin.c:165
 msgid "File manager popup actions"
 msgstr "Accions emergents del gestor de fitxers"
 
 # Mozilla 1.3->sidebar.files.label
-#: ../plugins/file-manager/plugin.c:172
+#: ../plugins/file-manager/plugin.c:174
 msgid "Files"
 msgstr "Fitxers"
 
@@ -5361,40 +5383,40 @@ msgstr "Valor"
 msgid "Local Variables"
 msgstr "Variables locals"
 
-#: ../plugins/gdb/debug_tree.c:1527
+#: ../plugins/gdb/debug_tree.c:1526
 msgid "Default format"
 msgstr "Format per defecte"
 
 # Projecte_Gnome_2.2 [ghex.HEAD.ca.po]
-#: ../plugins/gdb/debug_tree.c:1531
+#: ../plugins/gdb/debug_tree.c:1530
 msgid "Binary"
 msgstr "Binari"
 
 # Projecte_Gnome_2.2 [ghex.HEAD.ca.po]
-#: ../plugins/gdb/debug_tree.c:1534
+#: ../plugins/gdb/debug_tree.c:1533
 msgid "Octal"
 msgstr "Octal"
 
-#: ../plugins/gdb/debug_tree.c:1537
+#: ../plugins/gdb/debug_tree.c:1536
 msgid "Signed decimal"
 msgstr "Decimal amb signe"
 
-#: ../plugins/gdb/debug_tree.c:1540
+#: ../plugins/gdb/debug_tree.c:1539
 msgid "Unsigned decimal"
 msgstr "Decimal sense signe"
 
 # Projecte_Gnome_2.2 [ghex.HEAD.ca.po]
-#: ../plugins/gdb/debug_tree.c:1543
+#: ../plugins/gdb/debug_tree.c:1542
 msgid "Hex"
 msgstr "Hexadecimal"
 
 #
 # Projecte_Gnome_2.2 [gedit.gnome-2-0.ca.po]
-#: ../plugins/gdb/debug_tree.c:1546
+#: ../plugins/gdb/debug_tree.c:1545
 msgid "Char"
 msgstr "Caràcter"
 
-#: ../plugins/gdb/debug_tree.c:1551
+#: ../plugins/gdb/debug_tree.c:1550
 msgid "Inspect memory"
 msgstr "Inspecciona la memòria"
 
@@ -5557,17 +5579,9 @@ msgstr "Hi ha hagut un error quan s'enviava el senyal al procés."
 msgid "Information"
 msgstr "Informació"
 
-#: ../plugins/gdb/memory.c:102
+#: ../plugins/gdb/memory.c:101
 msgid "Unable to build user interface for Memory\n"
 msgstr "No es pot construir la interfície d'usuari per a la memòria\n"
-
-#: ../plugins/gdb/memory.c:409
-msgid "Enter a Hexa address or Select one in the data"
-msgstr "Introduïu una adreça hexadecimal o seleccioneu una a les dades"
-
-#: ../plugins/gdb/memory.c:416
-msgid "Non accessible address !"
-msgstr "No es permet accedir a aquesta adreça"
 
 #. Action name
 #. Stock icon, if any
@@ -6096,21 +6110,37 @@ msgstr "_Tanca"
 msgid "Close current glade project"
 msgstr "Tanca el projecte actual de glade"
 
-#: ../plugins/glade/plugin.c:641
+#: ../plugins/glade/plugin.c:642
 msgid "Glade operations"
 msgstr "Opcions del glade"
 
-#: ../plugins/glade/plugin.c:770
+# Netscape_4.7->String:RESDLL.DLL
+#: ../plugins/glade/plugin.c:652
+#, fuzzy
+msgid "Palette"
+msgstr "Enganxa"
+
+#: ../plugins/glade/plugin.c:657
+#, fuzzy
+msgid "Widgets"
+msgstr "Amplada"
+
+#: ../plugins/glade/plugin.c:662
+#, fuzzy
+msgid "Properties"
+msgstr "_Propietats"
+
+#: ../plugins/glade/plugin.c:771
 #, fuzzy, c-format
 msgid "Not local file: %s"
 msgstr "No és un fitxer: %s."
 
-#: ../plugins/glade/plugin.c:778
+#: ../plugins/glade/plugin.c:779
 #, c-format
 msgid "Could not open: %s"
 msgstr "No es pot obrir: %s"
 
-#: ../plugins/glade/plugin.c:809
+#: ../plugins/glade/plugin.c:810
 msgid "Could not create a new glade project."
 msgstr "No es pot crear un nou projecte del glade."
 
@@ -6864,7 +6894,7 @@ msgstr "--new"
 msgid "When you delete the category \"%s\", all containing items are lost"
 msgstr "Quan suprimiu la categoria \"%s\", tots els seus elements es perdran"
 
-#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:78
+#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:79
 msgid "Delete"
 msgstr "Suprimeix"
 
@@ -7436,7 +7466,7 @@ msgstr "Cap detall dels missatges"
 
 # Netscape_4.7->Menu:RESDLL.DLL
 #: ../plugins/message-view/message-view.c:640
-#: ../plugins/message-view/plugin.c:167
+#: ../plugins/message-view/plugin.c:168
 msgid "Messages"
 msgstr "Missatges"
 
@@ -7801,26 +7831,26 @@ msgstr "Suprimeix del projecte"
 msgid "Loading project. Please wait ..."
 msgstr "S'està carregant el projecte. Espereu..."
 
-#: ../plugins/project-manager/plugin.c:990
+#: ../plugins/project-manager/plugin.c:1001
 #, c-format
 msgid "Loading project: %s"
 msgstr "S'està carregant el projecte: %s"
 
-#: ../plugins/project-manager/plugin.c:998
+#: ../plugins/project-manager/plugin.c:1009
 #, fuzzy
 msgid "Created project view ..."
 msgstr "Desa el projecte glade..."
 
-#: ../plugins/project-manager/plugin.c:1011
+#: ../plugins/project-manager/plugin.c:1022
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "No es pot carregar el projecte %s: %s"
 
-#: ../plugins/project-manager/plugin.c:1111
+#: ../plugins/project-manager/plugin.c:1122
 msgid "Project manager actions"
 msgstr "Accions del gestor de projectes"
 
-#: ../plugins/project-manager/plugin.c:1117
+#: ../plugins/project-manager/plugin.c:1129
 msgid "Project manager popup actions"
 msgstr "Accions emergents del gestor de projectes"
 
@@ -8543,7 +8573,8 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:817
 msgid "Unable to build project wizard user interface"
-msgstr "No es pot construir la interfície d'usuari per a l'assistent del projecte"
+msgstr ""
+"No es pot construir la interfície d'usuari per a l'assistent del projecte"
 
 #: ../plugins/project-wizard/install.c:379
 msgid "New project has been created successfully"
@@ -8598,43 +8629,68 @@ msgstr "Exemple d'operacions de fitxers"
 msgid "SamplePlugin"
 msgstr "Exemple de connector"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Opcions de subversion</b>"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "Force"
 msgstr "Força"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+# Netscape_4.7->Dialog Caption:NSMAILUI.DLL
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#, fuzzy
+msgid "Password:"
+msgstr "Contrasenya: "
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "Realm:"
+msgstr ""
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "Recurse"
 msgstr "Recursivament"
 
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
+msgid "Remember Password"
+msgstr ""
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "Repository authorization"
+msgstr ""
+
 # Netscape_4.7->Menu:RESDLL.DLL
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "Subversion Preferences"
 msgstr "Preferències del subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: afegeix fitxer/directori"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "Subversion: Commit file/directory"
 msgstr "Subversion: pugeu els canvis al fitxer/directori"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: suprimeix fitxer/directori"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:15
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: actualitza fitxer/directori"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "TODO!"
 msgstr "Per fer"
+
+# source\ui\app\app.src string STR_FRAME_DEFNAME
+# Projecte_Open_Office_1.1 [sw.po]
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#, fuzzy
+msgid "realm"
+msgstr "Marc"
 
 # Projecte_Mandrake [xmms-ca.po]
 #. Action name
@@ -8677,98 +8733,102 @@ msgstr ""
 msgid "Subversion operations"
 msgstr "Operacions de subversion"
 
-#: ../plugins/subversion/subversion-callbacks.c:71
+#: ../plugins/subversion/subversion-callbacks.c:72
 msgid "Subversion command is running! Please wait until it is finished!"
 msgstr "L'ordre subversion s'està executant. Espereu fins que hagi acabat"
 
-#: ../plugins/subversion/subversion-callbacks.c:297
+#: ../plugins/subversion/subversion-callbacks.c:298
 #, fuzzy
 msgid "svn.diff"
 msgstr "cvs.diff"
 
+#: ../plugins/subversion/svn-auth.c:82
+msgid "Authentication canceled"
+msgstr ""
+
 # Winrar 2.9->Dialog Box Control:rarlng.dll
-#: ../plugins/subversion/svn-notify.c:68
+#: ../plugins/subversion/svn-notify.c:69
 msgid "Add"
 msgstr "Afegeix"
 
 # source\dialog\register.src pushbutton RID_REGISTER_DLG BTN_REGISTER
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: ../plugins/subversion/svn-notify.c:83
+#: ../plugins/subversion/svn-notify.c:84
 msgid "Restore"
 msgstr "Restaura"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/subversion/svn-notify.c:88
+#: ../plugins/subversion/svn-notify.c:89
 msgid "Revert"
 msgstr "Torna a l'estat anterior"
 
-#: ../plugins/subversion/svn-notify.c:93
+#: ../plugins/subversion/svn-notify.c:94
 msgid "Revert failed"
 msgstr "No s'ha pogut tornar a l'estat anterior"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/subversion/svn-notify.c:98
+#: ../plugins/subversion/svn-notify.c:99
 msgid "Resolved"
 msgstr "Resolt"
 
-#: ../plugins/subversion/svn-notify.c:103
+#: ../plugins/subversion/svn-notify.c:104
 msgid "Skip"
 msgstr "Ignora"
 
-#: ../plugins/subversion/svn-notify.c:108
+#: ../plugins/subversion/svn-notify.c:109
 msgid "Update delete"
 msgstr ""
 
-#: ../plugins/subversion/svn-notify.c:113
+#: ../plugins/subversion/svn-notify.c:114
 msgid "Update add"
 msgstr ""
 
-#: ../plugins/subversion/svn-notify.c:123
+#: ../plugins/subversion/svn-notify.c:124
 msgid "Update completed"
 msgstr "Actualització completada"
 
-#: ../plugins/subversion/svn-notify.c:128
+#: ../plugins/subversion/svn-notify.c:129
 msgid "Update external"
 msgstr "Actualització externa"
 
-#: ../plugins/subversion/svn-notify.c:133
+#: ../plugins/subversion/svn-notify.c:134
 msgid "Status completed"
 msgstr "Estat completat"
 
-#: ../plugins/subversion/svn-notify.c:138
+#: ../plugins/subversion/svn-notify.c:139
 msgid "Status external"
 msgstr "Estat extern"
 
-#: ../plugins/subversion/svn-notify.c:143
+#: ../plugins/subversion/svn-notify.c:144
 msgid "Commit modified"
 msgstr "Canvis pujats modificats"
 
-#: ../plugins/subversion/svn-notify.c:148
+#: ../plugins/subversion/svn-notify.c:149
 msgid "Commit added"
 msgstr "Canvis pujats afegits"
 
-#: ../plugins/subversion/svn-notify.c:153
+#: ../plugins/subversion/svn-notify.c:154
 msgid "Commit deleted"
 msgstr "Canvis pujats suprimits"
 
-#: ../plugins/subversion/svn-notify.c:158
+#: ../plugins/subversion/svn-notify.c:159
 msgid "Commit replaced"
 msgstr "Canvis pujats reemplaçats"
 
-#: ../plugins/subversion/svn-notify.c:163
+#: ../plugins/subversion/svn-notify.c:164
 msgid "Commit postfix"
 msgstr ""
 
-#: ../plugins/subversion/svn-notify.c:168
+#: ../plugins/subversion/svn-notify.c:169
 msgid "Blame revision"
 msgstr "Rebutja la revisió"
 
 # Projecte_Mandrake [xmms-ca.po]
-#: ../plugins/subversion/svn-thread.c:72 ../plugins/subversion/svn-thread.c:77
+#: ../plugins/subversion/svn-thread.c:73 ../plugins/subversion/svn-thread.c:78
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/svn-thread.c:154
+#: ../plugins/subversion/svn-thread.c:155
 msgid "Subversion command finished!"
 msgstr "L'ordre subversion ha acabat"
 
@@ -8947,11 +9007,11 @@ msgstr "commuta"
 msgid "Are you sure you want to delete the '%s' tool?"
 msgstr "Esteu segur que voleu esborrar l'eina '%s'?"
 
-#: ../plugins/tools/dialog.c:337
+#: ../plugins/tools/dialog.c:340
 msgid "Unable to build user interface for tool list"
 msgstr "No es pot construir la interfície d'usuari per a la lista d'eines"
 
-#: ../plugins/tools/dialog.c:357
+#: ../plugins/tools/dialog.c:360
 msgid "Tool"
 msgstr "Eina"
 
@@ -9029,23 +9089,23 @@ msgstr "(sorida)"
 msgid "(error)"
 msgstr "(error)"
 
-#: ../plugins/tools/execute.c:467
+#: ../plugins/tools/execute.c:470
 msgid "Running command: "
 msgstr "Ordre per a executar: "
 
-#: ../plugins/tools/execute.c:507
+#: ../plugins/tools/execute.c:510
 msgid "Completed ... unsuccessful with "
 msgstr "No s'ha completat correctament. S'ha fet servir "
 
-#: ../plugins/tools/execute.c:603
+#: ../plugins/tools/execute.c:616
 msgid "Unable to create a buffer, command aborted"
 msgstr "No es pot crear la memòria intermitja. S'ha anul·lat l'ordre"
 
-#: ../plugins/tools/execute.c:614
+#: ../plugins/tools/execute.c:628
 msgid "No document currently open, command aborted"
 msgstr "No hi ha cap document obert. S'ha anul·lat l'ordre"
 
-#: ../plugins/tools/execute.c:987
+#: ../plugins/tools/execute.c:1002
 #, c-format
 msgid "Unable to open input file %s, Command aborted"
 msgstr "No es pot obrir el fitxer d'entrada %s. S'ha anul·lat l'ordre"
@@ -9087,15 +9147,15 @@ msgstr "Configura eines externes"
 msgid "Tool operations"
 msgstr "Operacions d'eina"
 
-#: ../src/about.c:177 ../src/about.c:188
+#: ../src/about.c:181 ../src/about.c:192
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/about.c:192
+#: ../src/about.c:196
 msgid "GNU General Public License"
 msgstr "Llicència Pública General GNU"
 
-#: ../src/about.c:236
+#: ../src/about.c:240
 msgid "Anjuta plugin"
 msgstr "Connector de l'Anjuta"
 
@@ -9298,11 +9358,11 @@ msgstr "_Quant als connectors externs"
 msgid "About third party Anjuta plugins"
 msgstr "Quant als connectors externs d'Anjuta"
 
-#: ../src/anjuta-app.c:465
+#: ../src/anjuta-app.c:468
 msgid "Toggle View"
 msgstr "Commuta la visualització"
 
-#: ../src/anjuta-app.c:718 ../src/shell.c:213
+#: ../src/anjuta-app.c:722 ../src/shell.c:213
 msgid "Value doesn't exist"
 msgstr "No existeix el valor"
 
@@ -9360,36 +9420,3 @@ msgstr "Prova el grup d'accions de l'entorn"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Entorn de proves d'Anjuta"
-
-#~ msgid "* Base Class Name:"
-#~ msgstr "* Nom de la classe base:"
-
-#~ msgid "* GObject Type Prefix:"
-#~ msgstr "* Prefix del tipus GObject:"
-
-#~ msgid "Add to CVS"
-#~ msgstr "Afegeix al CVS"
-
-#~ msgid "File Wizard"
-#~ msgstr "Assistent de fitxers"
-
-#~ msgid "Patch level (-p)"
-#~ msgstr "Nivell del pedaç (-p)"
-
-#~ msgid "Patch Plugin"
-#~ msgstr "Connector per aplicar un pedaç"
-
-#~ msgid "Cancel"
-#~ msgstr "Cancel·la"
-
-#~ msgid "Selected directory to patch"
-#~ msgstr "Directori seleccionat per aplicar el pedaç"
-
-#~ msgid "Selected patch file"
-#~ msgstr "Fitxer seleccionat amb el pedaç"
-
-#~ msgid "Restoring last session ..."
-#~ msgstr "S'està restaurant la darrera sessió..."
-
-#~ msgid "<b>New Project Wizard Options</b>"
-#~ msgstr "<B>Opcions de l'assistent per als nous projectes</b>"

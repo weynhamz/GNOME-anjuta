@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-05 20:02+0200\n"
+"POT-Creation-Date: 2005-09-22 14:47+0200\n"
 "PO-Revision-Date: 2005-09-05 20:01+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego\n"
@@ -1056,11 +1056,11 @@ msgstr "Codificacións dispoñibles"
 msgid "Supported Encodings"
 msgstr "Codificacións soportadas"
 
-#: ../libanjuta/anjuta-launcher.c:735
+#: ../libanjuta/anjuta-launcher.c:758
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Erro ao ler pty fillo\n"
 
-#: ../libanjuta/anjuta-launcher.c:919 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:942 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -2814,7 +2814,7 @@ msgstr ""
 "Perderá as modificacións sen gardar."
 
 #: ../plugins/editor/action-callbacks.c:238
-#: ../plugins/editor/text_editor.c:323
+#: ../plugins/editor/text_editor.c:326
 msgid "_Reload"
 msgstr "_Recargar"
 
@@ -4272,7 +4272,7 @@ msgstr "Remprazáronse %d coincidencias."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "Non se puido construir a interface de usuario para Buscar e Remprazar"
 
-#: ../plugins/editor/text_editor.c:309
+#: ../plugins/editor/text_editor.c:312
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4283,24 +4283,24 @@ msgstr ""
 "que o búfer actual.\n"
 "Quere recargalo?"
 
-#: ../plugins/editor/text_editor.c:1195
+#: ../plugins/editor/text_editor.c:1198
 msgid "Could not get file info"
 msgstr "Non se puido obter a información do ficheiro"
 
-#: ../plugins/editor/text_editor.c:1202
+#: ../plugins/editor/text_editor.c:1205
 msgid "This file is too big. Unable to allocate memory."
 msgstr ""
 "Este ficheiro é demasiado grande. Non se pode reservar suficiente memoria."
 
-#: ../plugins/editor/text_editor.c:1209
+#: ../plugins/editor/text_editor.c:1212
 msgid "Could not open file"
 msgstr "Non se puido abrir o ficheiro"
 
-#: ../plugins/editor/text_editor.c:1217
+#: ../plugins/editor/text_editor.c:1220
 msgid "Error while reading from file"
 msgstr "Erro ao ler desde o ficheiro"
 
-#: ../plugins/editor/text_editor.c:1253
+#: ../plugins/editor/text_editor.c:1256
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4310,7 +4310,7 @@ msgstr ""
 "non está soportada. Verifique que a codificación do ficheiro está soportada "
 "pola lista de codificacións. Se non, engádaa desde as preferencias."
 
-#: ../plugins/editor/text_editor.c:1418
+#: ../plugins/editor/text_editor.c:1421
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4321,27 +4321,27 @@ msgstr ""
 "\n"
 "Detalles: %s"
 
-#: ../plugins/editor/text_editor.c:1465
+#: ../plugins/editor/text_editor.c:1468
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Non se puido gardar o ficheiro: %s."
 
-#: ../plugins/editor/text_editor.c:1641
+#: ../plugins/editor/text_editor.c:1644
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Auto formato desactivado actualmente. Se quere pode activalo en Preferencias."
 
-#: ../plugins/editor/text_editor.c:1660
+#: ../plugins/editor/text_editor.c:1663
 msgid "Error in auto formatting ..."
 msgstr "Erro autoformatando ..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1676
+#: ../plugins/editor/text_editor.c:1679
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta non coñece %s!"
 
-#: ../plugins/editor/text_editor.c:1701
+#: ../plugins/editor/text_editor.c:1704
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4350,7 +4350,7 @@ msgstr ""
 "Erro autoformatando ...\n"
 "Detalles: %s"
 
-#: ../plugins/editor/text_editor.c:1946
+#: ../plugins/editor/text_editor.c:1949
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-05 16:54+0200\n"
+"POT-Creation-Date: 2005-09-22 14:47+0200\n"
 "PO-Revision-Date: 2005-09-05 16:57+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -1058,11 +1058,11 @@ msgstr "Codificaciones soportadas"
 msgid "Supported Encodings"
 msgstr "Codificaciones soportadas"
 
-#: ../libanjuta/anjuta-launcher.c:735
+#: ../libanjuta/anjuta-launcher.c:758
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: error al leer pty hija\n"
 
-#: ../libanjuta/anjuta-launcher.c:919 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:942 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -2818,7 +2818,7 @@ msgstr ""
 "Perderá todas las modificaciones sin guardar."
 
 #: ../plugins/editor/action-callbacks.c:238
-#: ../plugins/editor/text_editor.c:323
+#: ../plugins/editor/text_editor.c:326
 msgid "_Reload"
 msgstr "_Recargar"
 
@@ -4277,7 +4277,7 @@ msgstr "Se han reemplazado %d coincidencias."
 msgid "Unable to build user interface for Search And Replace"
 msgstr "No se pudo compilar el interfaz de usuario para «Buscar y reemplazar»"
 
-#: ../plugins/editor/text_editor.c:309
+#: ../plugins/editor/text_editor.c:312
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4288,24 +4288,24 @@ msgstr ""
 "que el búfer actual.\n"
 "¿Desea recargarlo?"
 
-#: ../plugins/editor/text_editor.c:1195
+#: ../plugins/editor/text_editor.c:1198
 msgid "Could not get file info"
 msgstr "No se pudo obtener la información del archivo"
 
-#: ../plugins/editor/text_editor.c:1202
+#: ../plugins/editor/text_editor.c:1205
 msgid "This file is too big. Unable to allocate memory."
 msgstr ""
 "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
-#: ../plugins/editor/text_editor.c:1209
+#: ../plugins/editor/text_editor.c:1212
 msgid "Could not open file"
 msgstr "No se pudo abrir el archivo para escritura"
 
-#: ../plugins/editor/text_editor.c:1217
+#: ../plugins/editor/text_editor.c:1220
 msgid "Error while reading from file"
 msgstr "Error al leer desde el archivo"
 
-#: ../plugins/editor/text_editor.c:1253
+#: ../plugins/editor/text_editor.c:1256
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4315,7 +4315,7 @@ msgstr ""
 "no está soportada. Verifique que la codificación del archivo está soportada  "
 "por la lista de codificaciones. Si no, añádala desde las preferencias."
 
-#: ../plugins/editor/text_editor.c:1418
+#: ../plugins/editor/text_editor.c:1421
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4326,26 +4326,26 @@ msgstr ""
 "\n"
 "Detalles: %s"
 
-#: ../plugins/editor/text_editor.c:1465
+#: ../plugins/editor/text_editor.c:1468
 #, c-format
 msgid "Could not save file: %s."
 msgstr "No se puede guardar: %s."
 
-#: ../plugins/editor/text_editor.c:1641
+#: ../plugins/editor/text_editor.c:1644
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Autoformato desactivado. Si lo desea, actívelo en Preferencias."
 
-#: ../plugins/editor/text_editor.c:1660
+#: ../plugins/editor/text_editor.c:1663
 msgid "Error in auto formatting ..."
 msgstr "Error al autoformatear ..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1676
+#: ../plugins/editor/text_editor.c:1679
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta no sabe %s"
 
-#: ../plugins/editor/text_editor.c:1701
+#: ../plugins/editor/text_editor.c:1704
 #, c-format
 msgid ""
 "Error in auto formatting ...\n"
@@ -4354,7 +4354,7 @@ msgstr ""
 "Error al autoformatear ...\n"
 "Detalles: %s"
 
-#: ../plugins/editor/text_editor.c:1946
+#: ../plugins/editor/text_editor.c:1949
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4706,19 +4706,24 @@ msgstr "Ignorar archivos"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 msgid "Space-separated list of directory name patterns to ignore"
-msgstr "Lista separada por espacios de patrones de nombres de directorio que ignorar"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de directorio que ignorar"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 msgid "Space-separated list of directory name patterns to match"
-msgstr "Lista separada por espacios de patrones de nombres de directorio que coincidir"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de directorio que "
+"coincidir"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 msgid "Space-separated list of file name patterns to ignore"
-msgstr "Lista separada por espacios de patrones de nombres de archivo que ignorar"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de archivo que ignorar"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
 msgid "Space-separated list of file name patterns to match"
-msgstr "Lista separada por espacios de patrones de nombres de archivo que coincidir"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de archivo que coincidir"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:23
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
@@ -8928,54 +8933,3 @@ msgstr "Grupo de acción de la shell de pruebas"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Shell de pruebas de Anjuta"
-
-#~ msgid "cvs.diff"
-#~ msgstr "cvs.diff"
-
-#~ msgid "cvs.log"
-#~ msgstr "cvs.log"
-
-#~ msgid "Enter a Hexa address or Select one in the data"
-#~ msgstr "Introduzca una dirección Hex o seleccione una en los datos"
-
-#~ msgid "Non accessible address !"
-#~ msgstr "Dirección no accesible."
-
-#~ msgid "* Base Class Name:"
-#~ msgstr "* Nombre de la clase base:"
-
-#~ msgid "* GObject Type Prefix:"
-#~ msgstr "Prefigo del tipo GObject:"
-
-#~ msgid "Crazy boy style"
-#~ msgstr "Estilo loco"
-
-#~ msgid "Hello World style"
-#~ msgstr "Estilo Hola mundo"
-
-#~ msgid "Add to CVS"
-#~ msgstr "Añadir al CVS"
-
-#~ msgid "File Wizard"
-#~ msgstr "Asistente para archivos"
-
-#~ msgid "Patch level (-p)"
-#~ msgstr "Nivel de parcheo (-p)"
-
-#~ msgid "Patch Plugin"
-#~ msgstr "Complemento de parcheo"
-
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgid "Selected directory to patch"
-#~ msgstr "Directorio seleccionado para parchear"
-
-#~ msgid "Selected patch file"
-#~ msgstr "Parche seleccionado"
-
-#~ msgid "Restoring last session ..."
-#~ msgstr "Restaurarando la última sesión..."
-
-#~ msgid "<b>New Project Wizard Options</b>"
-#~ msgstr "<b>Opciones del asistente de proyectos nuevos</b>"
