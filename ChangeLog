@@ -1,3 +1,9 @@
+2005-09-26  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/subversion/svn_auth.c
+	plugins/subversion/anjuta_subversion.glade:
+	Implemented svn_auth_ssl_server_trust_prompt_func_cb (untested)
+
 2005-09-22  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Eric Greveson  <ejg45@cam.ac.uk>:

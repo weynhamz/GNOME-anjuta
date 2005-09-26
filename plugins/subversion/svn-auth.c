@@ -93,12 +93,51 @@ svn_auth_username_prompt_func_cb (svn_auth_cred_username_t **cred,
 								  void *baton, const char *realm,
 								  svn_boolean_t may_save, apr_pool_t *pool)
 {
-	SVN *svn = (SVN*)baton;
+	/* SVN *svn = (SVN*)baton; */
+	GladeXML* gxml = glade_xml_new(GLADE_FILE, "svn_user_auth", NULL);
+	GtkWidget* svn_user_auth = glade_xml_get_widget(gxml, "svn_user_auth");
+	GtkWidget* auth_realm = glade_xml_get_widget(gxml, "auth_realm");
+	GtkWidget* username_entry = glade_xml_get_widget(gxml, "username_entry");
+	GtkWidget* password_entry = glade_xml_get_widget(gxml, "password_entry");
+	GtkWidget* remember_pwd = glade_xml_get_widget(gxml, "remember_pwd");
+	svn_error_t *err = NULL;
 	
-	/* Prompt for username only. This provider may not be necessary. */
-	return NULL;
+	gtk_widget_set_sensitive(password_entry, FALSE);
+	
+	gtk_dialog_set_default_response (GTK_DIALOG (svn_user_auth), GTK_RESPONSE_OK);
+	
+	if (realm)
+		gtk_label_set_text (GTK_LABEL (auth_realm), realm);
+	if (!may_save)
+		gtk_widget_set_sensitive(remember_pwd, FALSE);
+		
+	/* Then the dialog is prompted to user and when user clicks ok, the
+	 * values entered, i.e username, password and remember password (true
+	 * by default) should be used to initialized the memebers below. If the
+	 * user cancels the dialog, I think we return an error struct
+	 * appropriately initialized. -- naba
+	 */
+	 
+ 	switch (gtk_dialog_run(GTK_DIALOG(svn_user_auth)))
+	{
+		case GTK_RESPONSE_OK:
+			*cred = apr_pcalloc (pool, sizeof(*cred));
+			(*cred)->username = apr_pstrdup (pool,
+								 gtk_entry_get_text(GTK_ENTRY(username_entry)));
+			(*cred)->may_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+															 (remember_pwd));
+			break;
+		default:
+			err = svn_error_create (SVN_ERR_AUTHN_CREDS_UNAVAILABLE, NULL,
+									_("Authentication canceled"));
+									 
+			break;
+	}
+	gtk_widget_destroy (svn_user_auth);
+	return err;
 }
 #endif
+
 
 static svn_error_t*
 svn_auth_ssl_server_trust_prompt_func_cb (svn_auth_cred_ssl_server_trust_t **cred,
@@ -108,13 +147,49 @@ svn_auth_ssl_server_trust_prompt_func_cb (svn_auth_cred_ssl_server_trust_t **cre
 										  svn_boolean_t may_save,
 										  apr_pool_t *pool)
 {
-	SVN *svn = (SVN*)baton;
+	/* SVN *svn = (SVN*)baton; */
 	
-	/* Ask user if he trusts this server. Optionally, can ask for some accepted
-	 * trust failures, that when encountered later, will not bring up this
-	 * prompt again.
-	 */
-	return NULL;
+	GladeXML* gxml = glade_xml_new(GLADE_FILE, "svn_server_trust", NULL);
+	GtkWidget* svn_server_trust = glade_xml_get_widget(gxml, "svn_server_trust");
+	GtkWidget* auth_realm = glade_xml_get_widget(gxml, "realm_label");
+	GtkWidget* server_info = glade_xml_get_widget(gxml, "server_info_label");
+	GtkWidget* remember_check = glade_xml_get_widget(gxml, "remember_check");
+	svn_error_t *err = NULL;
+	gchar* info;
+	
+	if (realm)
+		gtk_label_set_text (GTK_LABEL (auth_realm), realm);
+	
+	info = g_strconcat(_("Hostname: "), cert_info->hostname, "\n",
+					   _("Fingerprint: "), cert_info->fingerprint, "\n",
+					   _("Valid from: "), cert_info->valid_from, "\n",
+					   _("Valid until: "), cert_info->valid_until, "\n",
+					   _("Issuer DN: "), cert_info->issuer_dname, "\n",
+					   _("DER certificate: "), cert_info->ascii_cert, "\n",
+					   NULL);
+	gtk_label_set_text (GTK_LABEL (server_info), info);
+	
+	if (!may_save)
+		gtk_widget_set_sensitive(remember_check, FALSE);
+	
+	gtk_dialog_set_default_response (GTK_DIALOG (svn_server_trust), GTK_RESPONSE_YES);
+
+	
+	switch (gtk_dialog_run(GTK_DIALOG(svn_server_trust)))
+	{
+		case GTK_RESPONSE_YES:
+			*cred = apr_pcalloc (pool, sizeof(*cred));
+			(*cred)->may_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+															 (remember_check));
+		/* TODO: Set bitmask for accepted_failures */
+			break;
+		default:
+			err = svn_error_create (SVN_ERR_AUTHN_CREDS_UNAVAILABLE, NULL,
+									_("Authentication canceled"));									 
+			break;
+	}
+	gtk_widget_destroy (svn_server_trust);
+	return err;
 }
 
 static svn_error_t*
