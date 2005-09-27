@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-22 14:47+0200\n"
-"PO-Revision-Date: 2005-09-05 20:01+0200\n"
+"POT-Creation-Date: 2005-09-28 00:01+0200\n"
+"PO-Revision-Date: 2005-09-28 00:04+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,6 @@ msgstr "    "
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../src/anjuta.glade.h:1
@@ -97,8 +96,7 @@ msgstr "Cargar automaticamente o último proxecto"
 
 #: ../anjuta.glade.h:14
 msgid "Autosave editor files before build starts"
-msgstr ""
-"Autogardar os ficheiros do editor antes de que se inicie a construcción"
+msgstr "Autogardar os ficheiros do editor antes de que se inicie a construcción"
 
 #: ../anjuta.glade.h:15
 msgid "Beep on job complete"
@@ -646,8 +644,7 @@ msgstr "Proxectos recentes:"
 
 #: ../anjuta.glade.h:131
 msgid "Reset all sticky tags during update (looses branch) [-A]"
-msgstr ""
-"Restablecer todas as etiquetas adhesivas ao actualizar (perde a rama) [-A]"
+msgstr "Restablecer todas as etiquetas adhesivas ao actualizar (perde a rama) [-A]"
 
 #: ../anjuta.glade.h:132
 msgid "Run Configure Script"
@@ -1444,8 +1441,7 @@ msgstr "O executable está actualizado, non necesita ser construido de novo."
 
 #: ../plugins/build/build_file.c:88
 msgid "No build command has been specified for this type of file."
-msgstr ""
-"Non se especificou un comando de construcción para este tipo de ficheiro."
+msgstr "Non se especificou un comando de construcción para este tipo de ficheiro."
 
 #: ../plugins/build/build_file.c:104
 #, c-format
@@ -1973,16 +1969,14 @@ msgid "* Output Source File:"
 msgstr "* Ficheiro de código fonte de saída:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
-msgid ""
-"<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
+msgid "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 msgstr ""
 "<span size=\"large\" weight=\"bold\">Constructor de Modelos de Clase "
 "GObject</span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "<span size=\"large\" weight=\"bold\">Generic C++ Class Builder</span>"
-msgstr ""
-"<span size=\"large\" weight=\"bold\">Constructor de Clases de C++</span>"
+msgstr "<span size=\"large\" weight=\"bold\">Constructor de Clases de C++</span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
 msgid "Add to Repository"
@@ -2158,7 +2152,7 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Detalles do módulo:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Options:</b>"
 msgstr "<b>Opcións:</b>"
 
@@ -2234,12 +2228,12 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "Choose file or directory to add:"
 msgstr "Escolla o ficheiro ou directorio a engadir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to commit:"
 msgstr "Escolla o ficheiro ou directorio a efectuar:"
 
@@ -2256,12 +2250,12 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Escolla un ficheiro ou directorio do que obter o estado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to remove:"
 msgstr "Escolla un ficheiro ou directorio a eliminar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to update:"
 msgstr "Escolla un ficheiro ou directorio a actualizar:"
 
@@ -2278,7 +2272,7 @@ msgid "Delete empty directories"
 msgstr "Borrar directorios baleiros"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Do not act recursively"
 msgstr "Non actuar recursivamente"
 
@@ -2301,7 +2295,7 @@ msgstr ""
 "Servidor de contrasinais (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "Log message:"
 msgstr "Mensaxe de rexistro:"
 
@@ -2346,7 +2340,7 @@ msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:22
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Use revision/tag: "
 msgstr "Usar revisión/etiqueta: "
 
@@ -2355,7 +2349,7 @@ msgid "Use revision: "
 msgstr "Usar revisión: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:23
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Username: "
 msgstr "Nome de usuario: "
 
@@ -2364,7 +2358,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta do fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
-#: ../plugins/subversion/anjuta-subversion.glade.h:24
+#: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Whole project"
 msgstr "Proxecto completo"
 
@@ -3416,13 +3410,11 @@ msgstr "Ordenados en orde de apertura"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:141
 msgid "Space-seperated list of directory name patterns to ignore"
-msgstr ""
-"Lista separada por espacios de patróns de nomes de directorio a ignorar"
+msgstr "Lista separada por espacios de patróns de nomes de directorio a ignorar"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:142
 msgid "Space-seperated list of directory name patterns to match"
-msgstr ""
-"Lista separada por espacios de patróns de nomes de directorio a coincidir"
+msgstr "Lista separada por espacios de patróns de nomes de directorio a coincidir"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:143
 msgid "Space-seperated list of file name patterns to ignore"
@@ -3430,8 +3422,7 @@ msgstr "Lista separada por espacios de patróns de nomes de ficheiro a ignorar"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:144
 msgid "Space-seperated list of file name patterns to match"
-msgstr ""
-"Lista separada por espacios de patróns de nomes de ficheiro a coincidir"
+msgstr "Lista separada por espacios de patróns de nomes de ficheiro a coincidir"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:145
 msgid "Squares"
@@ -3633,8 +3624,7 @@ msgstr "Converter caracteres EOL a maioría de EOL"
 
 #: ../plugins/editor/plugin.c:188
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr ""
-"Converte os caracteres de fin de liña á maioría dos EOL atopados no ficheiro"
+msgstr "Converte os caracteres de fin de liña á maioría dos EOL atopados no ficheiro"
 
 #: ../plugins/editor/plugin.c:193
 msgid "_Select"
@@ -3693,8 +3683,7 @@ msgid "Find and R_eplace ..."
 msgstr "Buscar e r_emprazar ..."
 
 #: ../plugins/editor/plugin.c:220
-msgid ""
-"Search for and replace a string or regular expression with another string"
+msgid "Search for and replace a string or regular expression with another string"
 msgstr "Buscar e remprazar unha cadea ou expresión con outra cadea"
 
 #: ../plugins/editor/plugin.c:222
@@ -4289,8 +4278,7 @@ msgstr "Non se puido obter a información do ficheiro"
 
 #: ../plugins/editor/text_editor.c:1205
 msgid "This file is too big. Unable to allocate memory."
-msgstr ""
-"Este ficheiro é demasiado grande. Non se pode reservar suficiente memoria."
+msgstr "Este ficheiro é demasiado grande. Non se pode reservar suficiente memoria."
 
 #: ../plugins/editor/text_editor.c:1212
 msgid "Could not open file"
@@ -4328,8 +4316,7 @@ msgstr "Non se puido gardar o ficheiro: %s."
 
 #: ../plugins/editor/text_editor.c:1644
 msgid "Auto format is currently disabled. Change the setting in Preferences."
-msgstr ""
-"Auto formato desactivado actualmente. Se quere pode activalo en Preferencias."
+msgstr "Auto formato desactivado actualmente. Se quere pode activalo en Preferencias."
 
 #: ../plugins/editor/text_editor.c:1663
 msgid "Error in auto formatting ..."
@@ -4701,13 +4688,11 @@ msgstr "Ignorar ficheiros"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 msgid "Space-separated list of directory name patterns to ignore"
-msgstr ""
-"Lista separada por espacios de patróns de nomes de directorio a ignorar"
+msgstr "Lista separada por espacios de patróns de nomes de directorio a ignorar"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 msgid "Space-separated list of directory name patterns to match"
-msgstr ""
-"Lista separada por espacios de patróns de nomes de directorio a coincidir"
+msgstr "Lista separada por espacios de patróns de nomes de directorio a coincidir"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 msgid "Space-separated list of file name patterns to ignore"
@@ -4715,8 +4700,7 @@ msgstr "Lista separada por espacios de patróns de nomes de ficheiro a ignorar"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
 msgid "Space-separated list of file name patterns to match"
-msgstr ""
-"Lista separada por espacios de patróns de nomes de ficheiro a coincidir"
+msgstr "Lista separada por espacios de patróns de nomes de ficheiro a coincidir"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:23
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
@@ -5159,8 +5143,7 @@ msgstr "Non se especificou o executable.\n"
 
 #: ../plugins/gdb/debugger.c:665
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr ""
-"Abrir un executable ou adxuntar a un proceso para iniciar depuración.\n"
+msgstr "Abrir un executable ou adxuntar a un proceso para iniciar depuración.\n"
 
 #: ../plugins/gdb/debugger.c:674
 msgid "There was an error whilst launching the debugger.\n"
@@ -5932,8 +5915,7 @@ msgstr "Está seguro de que quere eliminar o elemento pendente seleccionado?"
 
 #: ../plugins/gtodo/callback.c:98
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr ""
-"Está seguro que quere eliminar todos os elementos pendentes completados?"
+msgstr "Está seguro que quere eliminar todos os elementos pendentes completados?"
 
 #: ../plugins/gtodo/callback.c:99
 #, c-format
@@ -6391,8 +6373,7 @@ msgstr "<span size=\"xx-large\"><b>gToDo %s</b></span>"
 
 #: ../plugins/gtodo/interface.c:270
 msgid "gToDo is a small and simple todo list written in gtk+-2.0"
-msgstr ""
-"gToDo é unha lista de tarefas pendentes pequena e simple escrita en gtk+-2.0"
+msgstr "gToDo é unha lista de tarefas pendentes pequena e simple escrita en gtk+-2.0"
 
 #: ../plugins/gtodo/interface.c:273
 msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
@@ -6706,8 +6687,7 @@ msgstr "<b>Notificación</b>"
 #: ../plugins/gtodo/preferences.c:179
 #, c-format
 msgid "Allow to do items to notifiy me when they are due in %i minutes"
-msgstr ""
-"Permitir aos elementos pendentes notificarme cando venzan en %i minutos"
+msgstr "Permitir aos elementos pendentes notificarme cando venzan en %i minutos"
 
 #: ../plugins/gtodo/preferences.c:186
 msgid "Show Notification Tray Icon"
@@ -8185,21 +8165,25 @@ msgstr "Operacións de ficheiro de exemplo"
 msgid "SamplePlugin"
 msgstr "Complemento de exemplo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Opción de subversion</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "Force"
 msgstr "Forzar"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Password:"
 msgstr "Constrasinal:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
 msgid "Realm:"
 msgstr "Reino:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "Realm: "
+msgstr "Reino: "
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "Recurse"
@@ -8210,34 +8194,42 @@ msgid "Remember Password"
 msgstr "Recordar contrasinal"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "Remember this decision"
+msgstr "Recordar esta decisión"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "Repository authorization"
 msgstr "Autorización do repositorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "Subversion Preferences"
 msgstr "Preferencias de Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Engadir ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Subversion: Commit file/directory"
 msgstr "Subversion: Efectuar ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:19
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Eliminar ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:20
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: Actualizar ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:21
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "TODO!"
 msgstr "PENDENTE!"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
+msgid "Trust server"
+msgstr "Servidor verdadeiro"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "realm"
 msgstr "reino"
 
@@ -8283,16 +8275,40 @@ msgstr "Operacións de Subversion"
 
 #: ../plugins/subversion/subversion-callbacks.c:72
 msgid "Subversion command is running! Please wait until it is finished!"
-msgstr ""
-"Hay un comando Subversion en execución! Por favor, agarde ata que remate!"
+msgstr "Hay un comando Subversion en execución! Por favor, agarde ata que remate!"
 
 #: ../plugins/subversion/subversion-callbacks.c:298
 msgid "svn.diff"
 msgstr "svn.diff"
 
-#: ../plugins/subversion/svn-auth.c:82
+#: ../plugins/subversion/svn-auth.c:82 ../plugins/subversion/svn-auth.c:132
+#: ../plugins/subversion/svn-auth.c:188
 msgid "Authentication canceled"
 msgstr "Autenticación cancelada"
+
+#: ../plugins/subversion/svn-auth.c:163
+msgid "Hostname: "
+msgstr "Nome de anfitrión: "
+
+#: ../plugins/subversion/svn-auth.c:164
+msgid "Fingerprint: "
+msgstr "Pegada: "
+
+#: ../plugins/subversion/svn-auth.c:165
+msgid "Valid from: "
+msgstr "Válido desde: "
+
+#: ../plugins/subversion/svn-auth.c:166
+msgid "Valid until: "
+msgstr "Válido ata: "
+
+#: ../plugins/subversion/svn-auth.c:167
+msgid "Issuer DN: "
+msgstr "DN expedido: "
+
+#: ../plugins/subversion/svn-auth.c:168
+msgid "DER certificate: "
+msgstr "Certificado DER: "
 
 #: ../plugins/subversion/svn-notify.c:69
 msgid "Add"
@@ -8527,8 +8543,7 @@ msgstr "Está seguro de que quere eliminar a ferramenta '%s'?"
 
 #: ../plugins/tools/dialog.c:340
 msgid "Unable to build user interface for tool list"
-msgstr ""
-"Non se puido construir a interface de usuario para a lista de ferramentas"
+msgstr "Non se puido construir a interface de usuario para a lista de ferramentas"
 
 #: ../plugins/tools/dialog.c:360
 msgid "Tool"
@@ -8544,8 +8559,7 @@ msgstr "indefinido"
 
 #: ../plugins/tools/editor.c:443
 msgid "Unable to build user interface for tool variable"
-msgstr ""
-"Non se puido construir a interface de usuario para a ferramenta de variable"
+msgstr "Non se puido construir a interface de usuario para a ferramenta de variable"
 
 #: ../plugins/tools/editor.c:459
 msgid "Meaning"
@@ -8581,8 +8595,7 @@ msgstr "Acelerador novo..."
 
 #: ../plugins/tools/editor.c:974
 msgid "Unable to build user interface for tool editor"
-msgstr ""
-"Non se puido construir a interface de usuario para o editor de ferramentas"
+msgstr "Non se puido construir a interface de usuario para o editor de ferramentas"
 
 #: ../plugins/tools/execute.c:322
 #, c-format
@@ -8904,8 +8917,7 @@ msgstr "Non mostrar a pantalla de inicio"
 
 #: ../src/main.c:66
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr ""
-"Deter anjuta apropiadamente soltando todos os recursos (para depuración)"
+msgstr "Deter anjuta apropiadamente soltando todos os recursos (para depuración)"
 
 #: ../src/shell.c:85
 msgid "Quit Anjuta Test Shell"
@@ -8922,3 +8934,4 @@ msgstr "Grupo de acción da shell de probas"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Shell de probas de Anjuta"
+
