@@ -1,3 +1,7 @@
+2005-09-29  Alexander Shopov  <ash@contact.bg>
+
+	* configure.in: Added "bg" (Bulgarian) to ALL_LINGUAS
+
 2005-09-26  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/subversion/svn_auth.c
