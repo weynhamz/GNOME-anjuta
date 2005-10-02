@@ -15,13 +15,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-22 14:47+0200\n"
-"PO-Revision-Date: 2005-08-06 18:16-0300\n"
+"POT-Creation-Date: 2005-09-29 18:02+0200\n"
+"PO-Revision-Date: 2005-09-30 12:10-0300\n"
 "Last-Translator: Afonso Celso Medina <afmedina@uol.com.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -46,7 +46,6 @@ msgstr "    "
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../src/anjuta.glade.h:1
@@ -2169,7 +2168,7 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Detalhes do Módulo: </b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Options:</b>"
 msgstr "<b>Opções:</b>"
 
@@ -2245,12 +2244,12 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "Choose file or directory to add:"
 msgstr "Escolha o arquivo ou diretório a ser adicionado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to commit:"
 msgstr "Escolha o arquivo ou diretório para commit:"
 
@@ -2267,12 +2266,12 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Escolha o arquivo ou diretório de onde obter o estado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to remove:"
 msgstr "Escolha o arquivo ou diretório a ser removido:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to update:"
 msgstr "Escolha o arquivo ou diretório a ser atualizado:"
 
@@ -2289,7 +2288,7 @@ msgid "Delete empty directories"
 msgstr "Exclui diretórios vazios"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Do not act recursively"
 msgstr "Não agir recursivamente"
 
@@ -2312,7 +2311,7 @@ msgstr ""
 "Senha do servidor (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "Log message:"
 msgstr "Mensagem de log:"
 
@@ -2357,7 +2356,7 @@ msgid "Unified format instead of context format"
 msgstr "Formato especial ao invés de formato de contexto"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:22
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Use revision/tag: "
 msgstr "Utilizar revisão/tag: "
 
@@ -2366,7 +2365,7 @@ msgid "Use revision: "
 msgstr "Utilizar revisão: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:23
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Username: "
 msgstr "Nome do usuário: "
 
@@ -2375,7 +2374,7 @@ msgid "Vendor tag:"
 msgstr "Tag do vendedor:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
-#: ../plugins/subversion/anjuta-subversion.glade.h:24
+#: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Whole project"
 msgstr "Todo o projeto"
 
@@ -7263,10 +7262,12 @@ msgstr ""
 "ser encontrado):"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:2
+#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:2
 msgid "Enter the project name:"
 msgstr "Entre com o nome do Projeto:"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:3
+#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:3
 msgid "Import Project"
 msgstr "Importar Projeto"
 
@@ -7279,6 +7280,7 @@ msgstr ""
 "automake/autoconf para o anjuta."
 
 #: ../plugins/project-import/project-import.c:89
+#: ../plugins/project-mkfile-import/project-mkfile-import.c:84
 msgid ""
 "This does not look like a project root dir!\n"
 "Continue anyway?"
@@ -7287,6 +7289,7 @@ msgstr ""
 "Continuar mesmo assim?"
 
 #: ../plugins/project-import/project-import.c:113
+#: ../plugins/project-mkfile-import/project-mkfile-import.c:106
 #, c-format
 msgid ""
 "Project name: %s\n"
@@ -7296,6 +7299,7 @@ msgstr ""
 "Caminho do Projeto: %s\n"
 
 #: ../plugins/project-import/project-import.c:284
+#: ../plugins/project-mkfile-import/project-mkfile-import.c:276
 #, c-format
 msgid ""
 "Generation of project file failed. Please check if you have write access to "
@@ -8078,6 +8082,18 @@ msgstr "Erro ao escrever em: %s."
 msgid "Source Paths"
 msgstr "Caminhos de Código"
 
+#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:1
+msgid "Enter the base path of your project (where the Makefile can be found):"
+msgstr ""
+"Entre com o caminho base para seu Projeto (onde o arquivo Makefile pode "
+"ser encontrado):"
+
+#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:4
+msgid ""
+"This wizard will help you to import an existing Makefile project into anjuta."
+msgstr ""
+"O assistente irá ajudá-lo a importar um Makefile de projeto existende para o anjuta."
+
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 msgid "<b>Project description:</b>"
 msgstr "<b>Descrição do Projeto:</b>"
@@ -8213,21 +8229,25 @@ msgstr "Operações de arquivo de exemplo"
 msgid "SamplePlugin"
 msgstr "SamplePlugin"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Opções de Subversion</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "Force"
 msgstr "Força"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Password:"
 msgstr "Senha:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
 msgid "Realm:"
 msgstr "Domínio:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "Realm: "
+msgstr "Domínio: "
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "Recurse"
@@ -8238,34 +8258,42 @@ msgid "Remember Password"
 msgstr "Lembrar Senha"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "Remember this decision"
+msgstr "Lembrar esta decisão"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "Repository authorization"
 msgstr "Autorização do repositório"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "Subversion Preferences"
 msgstr "Preferências de Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Adicionar arquivo/diretório"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Subversion: Commit file/directory"
 msgstr "Subversion: CVS: Commit arquivo/diretório"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:19
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Remover arquivo/diretório"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:20
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: CVS: Atualizar arquivo/diretório"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:21
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "TODO!"
 msgstr "TAREFAS!"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
+msgid "Trust server"
+msgstr "Servidor confiável"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "realm"
 msgstr "domínio"
 
@@ -8319,9 +8347,34 @@ msgstr ""
 msgid "svn.diff"
 msgstr "svn.diff"
 
-#: ../plugins/subversion/svn-auth.c:82
+#: ../plugins/subversion/svn-auth.c:82 ../plugins/subversion/svn-auth.c:132
+#: ../plugins/subversion/svn-auth.c:188
 msgid "Authentication canceled"
-msgstr ""
+msgstr "Autenticação cancelada"
+
+#: ../plugins/subversion/svn-auth.c:163
+msgid "Hostname: "
+msgstr "Hostname: "
+
+#: ../plugins/subversion/svn-auth.c:164
+msgid "Fingerprint: "
+msgstr "Impressão digital: "
+
+#: ../plugins/subversion/svn-auth.c:165
+msgid "Valid from: "
+msgstr "Válido de: "
+
+#: ../plugins/subversion/svn-auth.c:166
+msgid "Valid until: "
+msgstr "Válido até:"
+
+#: ../plugins/subversion/svn-auth.c:167
+msgid "Issuer DN: "
+msgstr "Issuer DN: "
+
+#: ../plugins/subversion/svn-auth.c:168
+msgid "DER certificate: "
+msgstr "Certificado DER: "
 
 #: ../plugins/subversion/svn-notify.c:69
 msgid "Add"
@@ -8949,3 +9002,4 @@ msgstr "Testa o grupo de ação do shell"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Shell de teste do Anjuta"
+
