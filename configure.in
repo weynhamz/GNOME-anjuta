@@ -27,7 +27,7 @@ PCRE_REQUIRED=3.9
 LIBDEVHELP_REQUIRED=0.9
 GDL_REQUIRED=0.5.0
 GNOMEBUILD_REQUIRED=0.1.2
-LIBGLADEUI_REQUIRED=3.0.0
+LIBGLADEUI_REQUIRED=2.90.0
 LIBGRAPHVIZ_REQUIRED=2.2.1
 NEON_REQUIRED=0.24.5
 SUBVERSION_REQUIRED=1.0.2
@@ -1021,7 +1021,7 @@ if [ test x$libgladeui_found = xyes ]; then
         echo "Building glade plugin: .................................YES"
 else
         echo "Building glade plugin: .................................NO"
-		echo "        Requires glade-3 (>= 3.0.0); CVS cvs.gnome.org, module glade-3"
+		echo "        Requires glade-3 (>= 2.90.0); CVS cvs.gnome.org, module glade-3"
 fi
 
 if [ test x$libgraphviz_found = xyes ]; then
