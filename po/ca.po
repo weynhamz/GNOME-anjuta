@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-22 14:47+0200\n"
-"PO-Revision-Date: 2005-07-07 22:11+0200\n"
+"POT-Creation-Date: 2005-10-04 10:02+0200\n"
+"PO-Revision-Date: 2005-10-09 22:11+0200\n"
 "Last-Translator: Xavier A. Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,6 @@ msgstr "    "
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../src/anjuta.glade.h:1
@@ -1794,9 +1793,8 @@ msgid "Arguments: "
 msgstr "Arguments: "
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
-#, fuzzy
 msgid "Select execution program and args"
-msgstr "Seleccioneu el programa d'execució"
+msgstr "Seleccioneu el programa a executar i els paràmetres"
 
 #. FIXME: What about translations in the following sscanf strings
 #. The translations should match that of 'make' program
@@ -2064,7 +2062,6 @@ msgid "* Class Function Prefix:"
 msgstr "* Prefix de funció de la classe:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
-#, fuzzy
 msgid "* Class Name:"
 msgstr "* Nom de classe:"
 
@@ -2073,9 +2070,8 @@ msgid "* Class name:"
 msgstr "* Nom de classe:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
-#, fuzzy
 msgid "* GObject Prefix and Type:"
-msgstr "* Tipus GObject:"
+msgstr "* Prefix del GObject i el tipus:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:6
 msgid "* Output Header File:"
@@ -2100,7 +2096,7 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
 msgid "Add to Repository"
-msgstr "Afegeix al repositori"
+msgstr "Afegeix al magatzem"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
 msgid "Add to current Project?"
@@ -2218,7 +2214,7 @@ msgstr "Destructor virtual"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:37
 msgid "_TYPE_"
-msgstr ""
+msgstr "_TIPUS_"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:38
 msgid ""
@@ -2281,7 +2277,7 @@ msgstr "<b>Detalls dels mòduls:</b>"
 
 # Winrar 2.9->Menu:rarlng.dll
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Options:</b>"
 msgstr "<b>Opcions:</b>"
 
@@ -2306,7 +2302,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
 msgid "<b>Repository: </b>"
-msgstr "<b>Repositori: </b>"
+msgstr "<b>Magatzem: </b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
 msgid "Be verbose"
@@ -2362,12 +2358,12 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "Choose file or directory to add:"
 msgstr "Escolliu el fitxer o directori a afegir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to commit:"
 msgstr "Escolliu el fitxer o directori a pujar-ne els canvis:"
 
@@ -2384,12 +2380,12 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Escolliu de quin fitxer o directori obtenir-ne l'estat:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to remove:"
 msgstr "Escolliu quin fitxer o directori suprimir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to update:"
 msgstr "Escolliu el fitxer o directori a actualitzar:"
 
@@ -2408,7 +2404,7 @@ msgid "Delete empty directories"
 msgstr "Suprimeix directoris buits"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Do not act recursively"
 msgstr "No ho facis recursivament"
 
@@ -2431,7 +2427,7 @@ msgstr ""
 "Servidor de contrasenyes (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "Log message:"
 msgstr "Missatge de registre:"
 
@@ -2479,7 +2475,7 @@ msgid "Unified format instead of context format"
 msgstr "Format unificat en comptes del contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:22
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Use revision/tag: "
 msgstr "Usa revisió/etiqueta: "
 
@@ -2488,7 +2484,7 @@ msgid "Use revision: "
 msgstr "Usa la revisió: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:23
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Username: "
 msgstr "Nom d'usuari: "
 
@@ -2497,7 +2493,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta del proveïdor:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
-#: ../plugins/subversion/anjuta-subversion.glade.h:24
+#: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Whole project"
 msgstr "Tot el projecte"
 
@@ -2829,14 +2825,12 @@ msgstr "Avança fins el final de la funció"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:521
-#, fuzzy
 msgid "Step _Out"
-msgstr "Avança "
+msgstr "_Avança "
 
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/plugin.c:523
-#, fuzzy
 msgid "Single step out of the function"
 msgstr "Avança al final de la funció"
 
@@ -4931,7 +4925,7 @@ msgstr "Directori "
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
 msgid "Do not show files ignored by version control"
-msgstr ""
+msgstr "No mostris els fitxers ignorats pel control de versió"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
 msgid "Do not show hidden directories"
@@ -4950,28 +4944,24 @@ msgid "Ignore files"
 msgstr "Ignora els fitxers"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
-#, fuzzy
 msgid "Space-separated list of directory name patterns to ignore"
 msgstr ""
 "Llista de patrons de nom de directori, separats per espais, que no es "
 "tindran en compte"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
-#, fuzzy
 msgid "Space-separated list of directory name patterns to match"
 msgstr ""
 "Llista de patrons de nom de directoris, separats per espais, per cercar una "
 "coincidència"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
-#, fuzzy
 msgid "Space-separated list of file name patterns to ignore"
 msgstr ""
 "Llista de patrons de nom de fitxer, separats per espais, que no es tindran "
 "en compte"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
-#, fuzzy
 msgid "Space-separated list of file name patterns to match"
 msgstr ""
 "Llista de patrons de nom de fitxer, separats per espais, per cercar una "
@@ -5018,9 +5008,8 @@ msgid "Add License Information"
 msgstr "Afegeix informació de llicència"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:6
-#, fuzzy
 msgid "Add to repository"
-msgstr "Afegeix al repositori"
+msgstr "Afegeix al magatzem"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:7
 msgid "Create corresponding header file"
@@ -5531,9 +5520,8 @@ msgstr "No es pot iniciar el terminal per depurar."
 
 # Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
 #: ../plugins/gdb/debugger.c:1473
-#, fuzzy
 msgid "Program arguments"
-msgstr "Nom del programa:"
+msgstr "Paràmetres del programa"
 
 #: ../plugins/gdb/debugger.c:1507
 #, c-format
@@ -5755,7 +5743,7 @@ msgstr "Pausa l'execució del programa"
 
 #: ../plugins/gdb/plugin.c:220
 msgid "Si_gnal to Process"
-msgstr "Envia un senyal a un procés"
+msgstr "Envia un sen_yal a un procés"
 
 #: ../plugins/gdb/plugin.c:222
 msgid "Send a kernel signal to the process being debugged"
@@ -5763,7 +5751,7 @@ msgstr "Envia un senyal del nucli al procés en depuració"
 
 #: ../plugins/gdb/plugin.c:228
 msgid "Ins_pect/Evaluate ..."
-msgstr "Inspecciona/avalua..."
+msgstr "Ins_pecciona/avalua..."
 
 #: ../plugins/gdb/plugin.c:230
 msgid "Inspect or evaluate an expression or variable"
@@ -6116,24 +6104,21 @@ msgstr "Opcions del glade"
 
 # Netscape_4.7->String:RESDLL.DLL
 #: ../plugins/glade/plugin.c:652
-#, fuzzy
 msgid "Palette"
-msgstr "Enganxa"
+msgstr "Paleta"
 
 #: ../plugins/glade/plugin.c:657
-#, fuzzy
 msgid "Widgets"
-msgstr "Amplada"
+msgstr "Ginys"
 
 #: ../plugins/glade/plugin.c:662
-#, fuzzy
 msgid "Properties"
-msgstr "_Propietats"
+msgstr "Propietats"
 
 #: ../plugins/glade/plugin.c:771
-#, fuzzy, c-format
+#, c-format
 msgid "Not local file: %s"
-msgstr "No és un fitxer: %s."
+msgstr "No és un fitxer local: %s."
 
 #: ../plugins/glade/plugin.c:779
 #, c-format
@@ -6562,11 +6547,11 @@ msgstr "/_Per fer"
 
 #: ../plugins/gtodo/gtodo.c:122
 msgid "/ToDo/_New Task List"
-msgstr "/_Per fer/_Nova llista de tasques"
+msgstr "/Per fer/_Nova llista de tasques"
 
 #: ../plugins/gtodo/gtodo.c:123
 msgid "/ToDo/_Open Task List"
-msgstr "/_Per fer/_Obre una llista de tasques"
+msgstr "/Per fer/_Obre una llista de tasques"
 
 #: ../plugins/gtodo/gtodo.c:124
 msgid "/ToDo/_Export to"
@@ -7505,7 +7490,6 @@ msgid "Next/Prev Message"
 msgstr "Anterior/següent missatge"
 
 #: ../plugins/patch/patch-plugin.c:67 ../plugins/patch/patch-plugin.c:77
-#, fuzzy
 msgid "File/Directory to patch"
 msgstr "Fitxer/directori on aplicar el pedaç"
 
@@ -7570,18 +7554,16 @@ msgstr "Tanca el projecte"
 
 #: ../plugins/profile-default/plugin.c:261
 msgid "Profile actions"
-msgstr ""
+msgstr "Accions del perfil"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #: ../plugins/profile-default/plugin.c:493
-#, fuzzy
 msgid "Loaded: "
-msgstr "Carrega"
+msgstr "Carregat: "
 
 #: ../plugins/profile-default/plugin.c:493
-#, fuzzy
 msgid " ..."
-msgstr "_Nou..."
+msgstr " ..."
 
 # Projecte_Mandrake [tm-mandrake.po]
 #: ../plugins/profile-default/plugin.c:546
@@ -7621,19 +7603,17 @@ msgstr ""
 "No sembla un projecte d'Anjuta vàlid."
 
 #: ../plugins/profile-default/plugin.c:898
-#, fuzzy
 msgid "Loaded default profile ..."
-msgstr "Desa el fitxer glade..."
+msgstr "S'ha carregat el perfil per defecte..."
 
 #: ../plugins/profile-default/plugin.c:948
 #: ../plugins/profile-default/plugin.c:1075
-#, fuzzy
 msgid "Loaded Profile ..."
-msgstr "Desa el fitxer glade..."
+msgstr "S'ha carregat el peril..."
 
 #: ../plugins/profile-default/plugin.c:1045
 msgid "Loaded Project ... Initializing"
-msgstr ""
+msgstr "S'ha carregat el projecte ... S'està inicialitzant"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:1
 msgid "Enter the base path of your project (where configure.in can be found):"
@@ -7641,10 +7621,12 @@ msgstr ""
 "Introduïu el camí base del vostre projecte (on es troba el configure.in):"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:2
+#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:2
 msgid "Enter the project name:"
 msgstr "Introduïu el nom del projecte:"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:3
+#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:3
 msgid "Import Project"
 msgstr "Importa un projecte"
 
@@ -7657,6 +7639,7 @@ msgstr ""
 "automake/autoconf a l'Anjuta."
 
 #: ../plugins/project-import/project-import.c:89
+#: ../plugins/project-mkfile-import/project-mkfile-import.c:84
 msgid ""
 "This does not look like a project root dir!\n"
 "Continue anyway?"
@@ -7665,6 +7648,7 @@ msgstr ""
 "Voleu continuar igualment?"
 
 #: ../plugins/project-import/project-import.c:113
+#: ../plugins/project-mkfile-import/project-mkfile-import.c:106
 #, c-format
 msgid ""
 "Project name: %s\n"
@@ -7674,6 +7658,7 @@ msgstr ""
 "Nom del camí: %s\n"
 
 #: ../plugins/project-import/project-import.c:284
+#: ../plugins/project-mkfile-import/project-mkfile-import.c:276
 #, c-format
 msgid ""
 "Generation of project file failed. Please check if you have write access to "
@@ -7683,9 +7668,9 @@ msgstr ""
 "escriure al directori del projecte: %s"
 
 #: ../plugins/project-manager/plugin.c:217
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to refresh project: %s"
-msgstr "No es pot carregar el projecte %s: %s"
+msgstr "No es pot actualitzar el projecte %s:"
 
 #: ../plugins/project-manager/plugin.c:240
 #: ../plugins/project-manager/plugin.c:611
@@ -7695,21 +7680,19 @@ msgstr "Propietats del projecte"
 #: ../plugins/project-manager/plugin.c:255
 #: ../plugins/project-manager/plugin.c:343
 msgid "No properties available for this target"
-msgstr ""
+msgstr "No hi ha propietats disponibles per a aquest objectiu"
 
 #: ../plugins/project-manager/plugin.c:328
-#, fuzzy
 msgid "Target properties"
-msgstr "Propietats del projecte"
+msgstr "Propietats de l'objectiu"
 
 #: ../plugins/project-manager/plugin.c:357
-#, fuzzy
 msgid "Group properties"
-msgstr "Propietats del projecte"
+msgstr "Propietats del grup"
 
 #: ../plugins/project-manager/plugin.c:372
 msgid "No properties available for this group"
-msgstr ""
+msgstr "No hi ha propietats disponibles per a aquest grup"
 
 #: ../plugins/project-manager/plugin.c:454
 #, c-format
@@ -7745,20 +7728,20 @@ msgid ""
 msgstr "Esteu segur que voleu esborrar els següents elements del projecte?\n"
 
 #: ../plugins/project-manager/plugin.c:515
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Failed to remove '%s':\n"
 "%s"
-msgstr "No es pot carregar el projecte %s: %s"
+msgstr "No es pot suprimir «%s»: %s"
 
 #: ../plugins/project-manager/plugin.c:570
 msgid "URI is link"
-msgstr ""
+msgstr "L'URI és un enllaç"
 
 #: ../plugins/project-manager/plugin.c:572
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to retried URI info of %s: %s"
-msgstr "No es pot activar el connector: %s."
+msgstr ""
 
 # source\misc\mediatyp.src string STR_SVT_MIMETYPE_CNT_FSYSFLD
 # source\misc\mediatyp.src string STR_SVT_MIMETYPE_CNT_FSYSFILE
@@ -7837,9 +7820,8 @@ msgid "Loading project: %s"
 msgstr "S'està carregant el projecte: %s"
 
 #: ../plugins/project-manager/plugin.c:1009
-#, fuzzy
 msgid "Created project view ..."
-msgstr "Desa el projecte glade..."
+msgstr "Visualització del projecte creat..."
 
 #: ../plugins/project-manager/plugin.c:1022
 #, c-format
@@ -8491,6 +8473,18 @@ msgstr "S'ha produït un error en escriure a: %s."
 msgid "Source Paths"
 msgstr "Camin_s de codis font"
 
+#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:1
+msgid "Enter the base path of your project (where the Makefile can be found):"
+msgstr ""
+"Introduïu el camí base del vostre projecte (on es troba el Makefile):"
+
+#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:4
+msgid ""
+"This wizard will help you to import an existing Makefile project into anjuta."
+msgstr ""
+"Aquest assistent us ajudarà a importar a l'Anjuta un projecte existent gestionat amb "
+"Makefile."
+
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 msgid "<b>Project description:</b>"
 msgstr "<b>Descripció del projecte:</b>"
@@ -8629,24 +8623,29 @@ msgstr "Exemple d'operacions de fitxers"
 msgid "SamplePlugin"
 msgstr "Exemple de connector"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Opcions de subversion</b>"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "Force"
 msgstr "Força"
 
 # Netscape_4.7->Dialog Caption:NSMAILUI.DLL
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
-#, fuzzy
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Password:"
-msgstr "Contrasenya: "
+msgstr "Contrasenya:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
 msgid "Realm:"
-msgstr ""
+msgstr "Regne:"
+
+# source\ui\app\app.src string STR_FRAME_DEFNAME
+# Projecte_Open_Office_1.1 [sw.po]
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "Realm: "
+msgstr "Regne:  "
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "Recurse"
@@ -8654,43 +8653,50 @@ msgstr "Recursivament"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:14
 msgid "Remember Password"
-msgstr ""
+msgstr "Recorda la contrasenya"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "Remember this decision"
+msgstr "Recorda aquesta decissió"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "Repository authorization"
-msgstr ""
+msgstr "Autorització del magatzem"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "Subversion Preferences"
 msgstr "Preferències del subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: afegeix fitxer/directori"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Subversion: Commit file/directory"
 msgstr "Subversion: pugeu els canvis al fitxer/directori"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:19
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: suprimeix fitxer/directori"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:20
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: actualitza fitxer/directori"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:21
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "TODO!"
 msgstr "Per fer"
 
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
+msgid "Trust server"
+msgstr "Confieu en el servidor"
+
 # source\ui\app\app.src string STR_FRAME_DEFNAME
 # Projecte_Open_Office_1.1 [sw.po]
-#: ../plugins/subversion/anjuta-subversion.glade.h:25
-#, fuzzy
+#: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "realm"
-msgstr "Marc"
+msgstr "regne"
 
 # Projecte_Mandrake [xmms-ca.po]
 #. Action name
@@ -8727,7 +8733,7 @@ msgstr "Sincronitzeu la vostra còpia local amb l'arbre de subversion"
 #. short-cut
 #: ../plugins/subversion/plugin.c:86
 msgid "Diff local tree with repositry"
-msgstr ""
+msgstr "Feu les diferències de l'arbre local amb el magatzem"
 
 #: ../plugins/subversion/plugin.c:311
 msgid "Subversion operations"
@@ -8738,13 +8744,37 @@ msgid "Subversion command is running! Please wait until it is finished!"
 msgstr "L'ordre subversion s'està executant. Espereu fins que hagi acabat"
 
 #: ../plugins/subversion/subversion-callbacks.c:298
-#, fuzzy
 msgid "svn.diff"
-msgstr "cvs.diff"
+msgstr "svn.diff"
 
-#: ../plugins/subversion/svn-auth.c:82
+#: ../plugins/subversion/svn-auth.c:82 ../plugins/subversion/svn-auth.c:132
+#: ../plugins/subversion/svn-auth.c:188
 msgid "Authentication canceled"
-msgstr ""
+msgstr "S'ha cancel·lat l'autenticació"
+
+#: ../plugins/subversion/svn-auth.c:163
+msgid "Hostname: "
+msgstr "Nom de màquina: "
+
+#: ../plugins/subversion/svn-auth.c:164
+msgid "Fingerprint: "
+msgstr "Emprenta: "
+
+#: ../plugins/subversion/svn-auth.c:165
+msgid "Valid from: "
+msgstr "Vàlid des de: "
+
+#: ../plugins/subversion/svn-auth.c:166
+msgid "Valid until: "
+msgstr "Vàlid fins: "
+
+#: ../plugins/subversion/svn-auth.c:167
+msgid "Issuer DN: "
+msgstr "DN de l'emissor: "
+
+#: ../plugins/subversion/svn-auth.c:168
+msgid "DER certificate: "
+msgstr "Certificat DER: "
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
 #: ../plugins/subversion/svn-notify.c:69
@@ -8777,11 +8807,11 @@ msgstr "Ignora"
 
 #: ../plugins/subversion/svn-notify.c:109
 msgid "Update delete"
-msgstr ""
+msgstr "Actualitza l'esborrat"
 
 #: ../plugins/subversion/svn-notify.c:114
 msgid "Update add"
-msgstr ""
+msgstr "Actualitza l'afegit"
 
 #: ../plugins/subversion/svn-notify.c:124
 msgid "Update completed"
@@ -8870,7 +8900,7 @@ msgstr "Afegeix directori"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
 msgid "Crea_te"
-msgstr "Crea"
+msgstr "C_rea"
 
 #: ../plugins/symbol-browser/plugin.c:273
 msgid "Tag _Definition"
@@ -8912,7 +8942,7 @@ msgstr "Actualitza l'arbre del navegador de símbols"
 
 #: ../plugins/symbol-browser/plugin.c:384
 msgid "Created sysmbols ..."
-msgstr ""
+msgstr "Símbols creats..."
 
 # Netscape_4.7->String:RESDLL.DLL
 #: ../plugins/symbol-browser/plugin.c:815
@@ -8967,11 +8997,11 @@ msgstr "Terminal"
 
 #: ../plugins/tools/anjuta-tools.glade.h:2
 msgid "Edit as script"
-msgstr ""
+msgstr "Edita com a fitxer de seqüència"
 
 #: ../plugins/tools/anjuta-tools.glade.h:3
 msgid "Edit command in Anjuta on close"
-msgstr ""
+msgstr "Editeu l'ordre a l'Anjuta en tancar"
 
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Menu Items:"
@@ -9052,9 +9082,8 @@ msgstr ""
 "conservar-la igualment?"
 
 #: ../plugins/tools/editor.c:813
-#, fuzzy
 msgid "Unable to edit script"
-msgstr "No es pot trobar el fitxer de seqüència d'ordres %s per a importar"
+msgstr "No es pot editar el fitxer de seqüència d'ordres"
 
 #: ../plugins/tools/editor.c:949
 msgid "New accelerator..."
@@ -9066,16 +9095,15 @@ msgstr "No es pot construir la interfície d'usuari per a l'editor d'eines"
 
 # Mozilla 1.3->hr
 #: ../plugins/tools/execute.c:322
-#, fuzzy, c-format
+#, c-format
 msgid "Opening %s"
-msgstr "S'està creant %s"
+msgstr "S'està obrint %s"
 
 # src/trans.h:117
 # Projecte_Gnome_2.2 [galeon.HEAD.ca.po]
 #: ../plugins/tools/execute.c:343
-#, fuzzy
 msgid "error:"
-msgstr "Errors:"
+msgstr "errors:"
 
 #. Only for output data
 #: ../plugins/tools/execute.c:414
@@ -9173,14 +9201,12 @@ msgstr ""
 "d'Anjuta està instal·lat. El podeu descarregar d'http://anjuta.org"
 
 #: ../src/anjuta.c:199
-#, fuzzy
 msgid "Loaded Session ..."
-msgstr "Darrera sessió..."
+msgstr "Sessió carregada ..."
 
 #: ../src/anjuta.glade.h:2
-#, fuzzy
 msgid "<b>General Information:</b>"
-msgstr "<b>Opcions del terminal</b>"
+msgstr "<b>Informació general:</b>"
 
 # source\euro\euro.src string MESSAGES+1
 # Projecte_Open_Office_1.1 [wizards.po]
@@ -9211,7 +9237,7 @@ msgstr "Surt de l'EID Anjuta"
 
 #: ../src/anjuta-actions.h:36
 msgid "_Reset Dock Layout"
-msgstr "Reinicia la disposició enganxable"
+msgstr "_Reinicia la disposició enganxable"
 
 #: ../src/anjuta-actions.h:37
 msgid "Reset the widgets docking layout to default"
@@ -9221,7 +9247,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:39
 msgid "_Toolbars"
-msgstr "Barres d'eines"
+msgstr "_Barres d'eines"
 
 #: ../src/anjuta-actions.h:44
 msgid "_Full Screen"
@@ -9233,7 +9259,7 @@ msgstr "Commuta a mode de pantalla completa"
 
 #: ../src/anjuta-actions.h:48
 msgid "_Lock Dock Layout"
-msgstr "Bloca la disposició"
+msgstr "Bloca _la disposició"
 
 #: ../src/anjuta-actions.h:49
 msgid "Lock the current dock layout so that widgets cannot be moved"
@@ -9285,7 +9311,7 @@ msgstr "_Ajuda"
 
 #: ../src/anjuta-actions.h:76
 msgid "_Users manual"
-msgstr "Manual dels usuaris"
+msgstr "Manual dels _usuaris"
 
 #: ../src/anjuta-actions.h:77
 msgid "Anjuta users manual"
