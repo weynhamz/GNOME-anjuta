@@ -1,4 +1,7 @@
 2005-10-13  Naba Kumar  <naba@gnome.org>
+	
+	* plugins/project-mkfile-import/*: Removed separate import wizard for
+	makefile based projects (because single widzard handles all wizards).
 
 	* plugins/project-import/project-import.c: Made wizard window
 	transient to main window.
