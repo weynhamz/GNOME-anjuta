@@ -231,6 +231,8 @@ project_import_new(AnjutaPlugin* plugin)
 	obj = PROJECT_IMPORT(g_object_new(PROJECT_IMPORT_TYPE, NULL));
 	
 	obj->plugin = plugin;
+	gtk_window_set_transient_for (GTK_WINDOW (obj->window),
+								  GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell));
 	
 	return obj;
 }
