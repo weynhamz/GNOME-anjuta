@@ -959,7 +959,6 @@ plugins/tools/scripts/Makefile
 plugins/tools/scripts/tools-2.xml
 plugins/class-inheritance/Makefile
 plugins/project-import/Makefile
-plugins/project-mkfile-import/Makefile
 plugins/project-wizard/templates/Makefile
 plugins/project-wizard/templates/terminal/Makefile
 plugins/project-wizard/templates/terminal/src/Makefile

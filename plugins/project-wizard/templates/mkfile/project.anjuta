@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <anjuta>
-	<plugin name="Makefile Project Manager"
+	<plugin name="GBF Project Manager"
 		url="http://anjuta.org/plugins/"
 		mandatory="yes">
 		<require group="Anjuta Plugin"

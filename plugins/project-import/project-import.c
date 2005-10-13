@@ -22,14 +22,13 @@
 
 #include <config.h>
 
+#include <gbf/gbf-backend.h>
+
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-project-import.glade"
-#define PROJECT_FILE PACKAGE_DATA_DIR"/project/terminal/project.anjuta"
+#define AM_PROJECT_FILE PACKAGE_DATA_DIR"/project/terminal/project.anjuta"
+#define MKFILE_PROJECT_FILE PACKAGE_DATA_DIR"/project/mkfile/project.anjuta"
 
 static GObjectClass *parent_class = NULL;
-
-#define CONFIGURE_IN "configure.in"
-#define CONFIGURE_AC "configure.ac"
-#define MAKEFILE_AM "Makefile.am"
 
 static void
 on_import_cancel(GnomeDruid* druid, ProjectImport* pi)
@@ -51,73 +50,82 @@ on_import_key_press_event(GtkWidget *widget, GdkEventKey *event,
 
 static gboolean
 on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
-{	
-	gchar* configure_path;
-	gchar* make_am_path;
-
-	GnomeVFSURI* conf_uri;
-	GnomeVFSURI* make_uri;
+{
+	GSList* l;
+	GbfBackend* backend = NULL;
+	GbfProject* proj;
 	
 	const gchar* name = gtk_entry_get_text(GTK_ENTRY(pi->import_name));
 	const gchar* path = gtk_entry_get_text(GTK_ENTRY(pi->import_path));
 	
-	gchar* summary;
-	
 	if (!strlen(name) || !strlen(path))
 		return TRUE;
 	
-	configure_path = g_strconcat(path, "/", CONFIGURE_IN, NULL);
-	make_am_path = g_strconcat(path, "/", MAKEFILE_AM, NULL);
+	gbf_backend_init();
 	
-	conf_uri = gnome_vfs_uri_new(configure_path);
-	make_uri = gnome_vfs_uri_new(make_am_path);
-	if (!gnome_vfs_uri_exists(conf_uri))
-	{
-		g_free(configure_path);
-		configure_path = g_strconcat(path, "/", CONFIGURE_AC, NULL);
-		gnome_vfs_uri_unref(conf_uri);
-		conf_uri = gnome_vfs_uri_new(configure_path);
-	}
-	
-	if (!gnome_vfs_uri_exists(conf_uri)
-		|| !gnome_vfs_uri_exists(make_uri))
-	{
-		GtkDialog* question = GTK_DIALOG(gtk_message_dialog_new(GTK_WINDOW(pi->window),
-													 GTK_DIALOG_DESTROY_WITH_PARENT,
-													 GTK_MESSAGE_QUESTION,
-													 GTK_BUTTONS_YES_NO,
-													 _("This does not look like "
-													   "a project root dir!\n"
-													   "Continue anyway?")));
-		switch(gtk_dialog_run(question))
+	for (l = gbf_backend_get_backends (); l; l = l->next) {
+		backend = l->data;
+		if (!backend)
 		{
-			case GTK_RESPONSE_YES:
-			{
-				gtk_widget_destroy(GTK_WIDGET(question));
-				break;
-			}
-			case GTK_RESPONSE_NO:
-			{
-				gnome_vfs_uri_unref(conf_uri);
-				gnome_vfs_uri_unref(make_uri);
-				g_free(make_am_path);
-				g_free(configure_path);
-				gtk_widget_destroy(GTK_WIDGET(question));
-				return TRUE;
-			}
-			default:
-				break;
+			g_warning("Backend appears empty!");
+			continue;
 		}
+		
+		/* Probe the backend to find out if the project directory is OK */
+		/* If probe() returns TRUE then we have a valid backend */
+		
+		proj = gbf_backend_new_project(backend->id);
+		if (proj)
+		{
+			if (gbf_project_probe(proj, path, NULL))
+			{
+				/* This is a valid backend for this root directory */
+				/* FIXME: Possibility of more than one valid backend? */
+				g_object_unref(proj);
+				break;
+			}
+			g_object_unref(proj);
+		}
+		backend = NULL;
+	}	
+
+	if (!backend)
+	{
+		gchar* message_text =
+		g_strdup_printf(_("Could not find a valid project backend for the "
+						  "directory given (%s). Please select a different "
+						  "directory, or try upgrading to a newer version of "
+						  "the Gnome Build Framework."), path);
+		
+		GtkDialog* message = 
+		GTK_DIALOG(gtk_message_dialog_new(GTK_WINDOW(pi->window),
+										  GTK_DIALOG_DESTROY_WITH_PARENT,
+										  GTK_MESSAGE_ERROR,
+										  GTK_BUTTONS_CLOSE,
+										  message_text));
+		
+		g_free(message_text);
+	
+		gtk_dialog_run(message);
+		gtk_widget_destroy(GTK_WIDGET(message));
+		return TRUE;
 	}
+	
+	gchar* summary;
 	
 	summary = g_strdup_printf(_("Project name: %s\n"
+								"Project type: %s\n"
 								"Project path: %s\n"),
-								name, path);
+								name, backend->name, path);
 	gnome_druid_page_edge_set_text(GNOME_DRUID_PAGE_EDGE(pi->import_finish),
 								   summary);
-	gnome_vfs_uri_unref(conf_uri);
-	gnome_vfs_uri_unref(make_uri);
+
 	g_free(summary);
+	
+	if (pi->backend_id)
+		g_free(pi->backend_id);
+	pi->backend_id = g_strdup(backend->id);
+	
 	return FALSE;							   
 }
 
@@ -162,6 +170,8 @@ project_import_init(ProjectImport *pi)
 	pi->import_path = glade_xml_get_widget(gxml, "import_path");
 	pi->import_finish = glade_xml_get_widget(gxml, "import_finish");
 	
+	pi->backend_id = NULL;
+	
 	import_page = glade_xml_get_widget(gxml, "import_page");
 	g_signal_connect(G_OBJECT(import_page), "next", 
 					 G_CALLBACK(on_import_next), pi);
@@ -171,7 +181,7 @@ project_import_init(ProjectImport *pi)
 					 G_CALLBACK(on_import_cancel), pi);
 	g_signal_connect(G_OBJECT(pi->druid), "key-press-event",
 			G_CALLBACK(on_import_key_press_event), pi);
-	
+
 	g_object_unref(G_OBJECT(gxml));
 	gtk_widget_show_all(pi->window);
 }
@@ -181,6 +191,9 @@ project_import_finalize(GObject *object)
 {
 	ProjectImport *cobj;
 	cobj = PROJECT_IMPORT(object);
+	
+	if (cobj->backend_id)
+		g_free(cobj->backend_id);
 	
 	gtk_widget_destroy(cobj->window);
 	
@@ -262,7 +275,32 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 	and check which plugins are really needed but for now we just
 	take a default project file. */
 	
-	GnomeVFSURI* source_uri = gnome_vfs_uri_new(PROJECT_FILE);
+	GnomeVFSURI* source_uri;
+	if (!strcmp (pi->backend_id, "gbf-am:GbfAmProject"))
+		source_uri = gnome_vfs_uri_new(AM_PROJECT_FILE);
+	else if (!strcmp (pi->backend_id, "gbf-mkfile:GbfMkfileProject"))
+		source_uri = gnome_vfs_uri_new(MKFILE_PROJECT_FILE);
+	else
+	{
+		/* We shouldn't get here, unless someone has upgraded their GBF */
+		/* but not Anjuta.                                              */
+		
+		GtkWidget *dlg;
+		
+		dlg = gtk_message_dialog_new(GTK_WINDOW(pi->window), 
+									 GTK_DIALOG_DESTROY_WITH_PARENT,
+									 GTK_MESSAGE_ERROR, 
+									 GTK_BUTTONS_CLOSE,
+									 _("Generation of project file failed. Cannot "
+									   "find an appropriate project template to "
+									   "use. Please make sure your version of "
+									   "Anjuta is up to date."));
+		
+		gtk_dialog_run(GTK_DIALOG(dlg));
+		gtk_widget_destroy (dlg);
+		return FALSE;
+	}
+	
 	GnomeVFSURI* dest_uri = gnome_vfs_uri_new(prjfile);
 	
 	GnomeVFSResult error = gnome_vfs_xfer_uri (source_uri,

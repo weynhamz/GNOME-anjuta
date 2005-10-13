@@ -2,7 +2,24 @@
 
 	* plugins/project-import/project-import.c: Made wizard window
 	transient to main window.
+
+	Patch from: Eric Greveson  <ejg45@cam.ac.uk>
 	
+	* AUTHORS: Added Eric's name in contributors list.
+	
+	* configure.in, plugins/Makefile.am,
+	plugins/project-import/Makefile.am,
+	plugins/project-import/anjuta-project-import.glade,
+	plugins/project-import/project-import.c,
+	plugins/project-import/project-import.h: Import wizard now detects
+	both makefile and automake projects together instead of separate wizard.
+	
+	* plugins/project-wizard/templates/java/project.anjuta,
+	plugins/project-wizard/templates/mkfile/project.anjuta,
+	plugins/project-wizard/templates/python/project.anjuta,
+	plugins/project-wizard/templates/terminal/project.anjuta: Renamed plugin
+	name to make it appropriate.
+
 2005-10-11  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Fixed glade3 version requirement.

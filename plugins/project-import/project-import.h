@@ -43,6 +43,8 @@ struct _ProjectImport
 	GtkWidget* import_path;
 	GtkWidget* import_finish;
 	
+	gchar* backend_id;
+	
 	AnjutaPlugin* plugin;
 	
 };

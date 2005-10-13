@@ -20,9 +20,11 @@ plugin_LTLIBRARIES = libanjuta-project-import.la
 INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
+	$(PLUGIN_GNOMEBUILD_CFLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
 libanjuta_project_import_la_LIBADD = \
+	$(PLUGIN_GNOMEBUILD_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_project_import_la_SOURCES= \
