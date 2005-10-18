@@ -123,8 +123,6 @@ plugins/project-manager/project_import_cbs.c
 plugins/project-manager/project_import_gui.c
 plugins/project-manager/source.c
 plugins/project-manager/src_paths.c
-plugins/project-mkfile-import/anjuta-project-mkfile-import.glade
-plugins/project-mkfile-import/project-mkfile-import.c
 plugins/project-wizard/anjuta-project-wizard.glade
 plugins/project-wizard/druid.c
 plugins/project-wizard/install.c

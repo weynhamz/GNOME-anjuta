@@ -1,3 +1,8 @@
+2005-10-18  Funda Wang  <fundawang@linux.net.cn>
+
+	* POTFILES.in: Removed the obsoleted files in order to make the
+	statistiscs page happier.
+
 2005-10-10  Jordi Mallach  <jordi@sindominio.net>
 
 	* ca.po: Updated Catalan translation by
