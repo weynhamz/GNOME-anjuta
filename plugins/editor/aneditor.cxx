@@ -931,6 +931,8 @@ bool AnEditor::CanBeCommented(bool box_stream) {
 	char linebuf[1000]; 
 	size_t selectionStart = SendEditor(SCI_GETSELECTIONSTART);
 	size_t selectionEnd = SendEditor(SCI_GETSELECTIONEND);
+	if (selectionStart == selectionEnd)
+		return FALSE;
 	int line = SendEditor(SCI_LINEFROMPOSITION, selectionStart);
 	if (line < 0)
 		return FALSE;
