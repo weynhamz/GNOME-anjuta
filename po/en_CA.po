@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-28 21:18-0400\n"
+"POT-Creation-Date: 2005-10-19 14:20-0400\n"
 "PO-Revision-Date: 2005-08-03 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -7126,48 +7126,52 @@ msgid "Loaded Project ... Initializing"
 msgstr "Loaded Project ... Initializing"
 
 #: plugins/project-import/anjuta-project-import.glade.h:1
-msgid "Enter the base path of your project (where configure.in can be found):"
-msgstr "Enter the base path of your project (where configure.in can be found):"
+msgid "Enter the base path of your project:"
+msgstr "Enter the base path of your project:"
 
 #: plugins/project-import/anjuta-project-import.glade.h:2
-#: plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:2
 msgid "Enter the project name:"
 msgstr "Enter the project name:"
 
 #: plugins/project-import/anjuta-project-import.glade.h:3
-#: plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:3
 msgid "Import Project"
 msgstr "Import Project"
 
 #: plugins/project-import/anjuta-project-import.glade.h:4
-msgid ""
-"This wizard will help you to import an existing automake/autoconf managed "
-"project into anjuta."
-msgstr ""
-"This wizard will help you to import an existing automake/autoconf-managed "
-"project into anjuta."
+msgid "This wizard will help you to import an existing project into anjuta."
+msgstr "This wizard will help you to import an existing project into anjuta."
 
-#: plugins/project-import/project-import.c:89
-#: plugins/project-mkfile-import/project-mkfile-import.c:84
+#: plugins/project-import/project-import.c:95
+#, c-format
 msgid ""
-"This does not look like a project root dir!\n"
-"Continue anyway?"
+"Could not find a valid project backend for the directory given (%s). Please "
+"select a different directory, or try upgrading to a newer version of the "
+"Gnome Build Framework."
 msgstr ""
-"This does not look like a project root dir!\n"
-"Continue anyway?"
+"Could not find a valid project backend for the directory given (%s). Please "
+"select a different directory, or try upgrading to a newer version of the "
+"Gnome Build Framework."
 
-#: plugins/project-import/project-import.c:113
-#: plugins/project-mkfile-import/project-mkfile-import.c:106
+#: plugins/project-import/project-import.c:116
 #, c-format
 msgid ""
 "Project name: %s\n"
+"Project type: %s\n"
 "Project path: %s\n"
 msgstr ""
 "Project name: %s\n"
+"Project type: %s\n"
 "Project path: %s\n"
 
-#: plugins/project-import/project-import.c:284
-#: plugins/project-mkfile-import/project-mkfile-import.c:276
+#: plugins/project-import/project-import.c:294
+msgid ""
+"Generation of project file failed. Cannot find an appropriate project "
+"template to use. Please make sure your version of Anjuta is up to date."
+msgstr ""
+"Generation of project file failed. Cannot find an appropriate project "
+"template to use. Please make sure your version of Anjuta is up to date."
+
+#: plugins/project-import/project-import.c:324
 #, c-format
 msgid ""
 "Generation of project file failed. Please check if you have write access to "
@@ -7935,16 +7939,6 @@ msgstr "Error writing to: %s."
 #: plugins/project-manager/src_paths.c:263
 msgid "Source Paths"
 msgstr "Source Paths"
-
-#: plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:1
-msgid "Enter the base path of your project (where the Makefile can be found):"
-msgstr "Enter the base path of your project (where the Makefile can be found):"
-
-#: plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:4
-msgid ""
-"This wizard will help you to import an existing Makefile project into anjuta."
-msgstr ""
-"This wizard will help you to import an existing Makefile project into anjuta."
 
 #: plugins/project-wizard/anjuta-project-wizard.glade.h:2
 msgid "<b>Project description:</b>"
