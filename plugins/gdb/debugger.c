@@ -1498,20 +1498,33 @@ debugger_start_program (Debugger *debugger)
 }
 
 static void
+debugger_attach_process_finish (Debugger *debugger, const GDBMIValue *mi_results,
+								const GList *cli_results, gpointer data)
+{
+	DEBUG_PRINT ("Program attach finished");
+	debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
+									 _("Program attached\n"),
+									 debugger->priv->output_user_data);
+	debugger->priv->prog_is_attached = TRUE;
+	debugger->priv->prog_is_running = TRUE;
+	g_signal_emit_by_name (debugger, "program-stopped", mi_results);
+}
+
+static void
 debugger_attach_process_real (Debugger *debugger, pid_t pid)
 {
 	gchar *buf;
 
 	DEBUG_PRINT ("In function: debugger_attach_process_real()");
 	
-	buf = g_strdup_printf (_("Attaching to process: %d\n"), pid);
+	buf = g_strdup_printf (_("Attaching to process: %d ...\n"), pid);
 	debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
 							   buf, debugger->priv->output_user_data);
 	g_free (buf);
 	
 	buf = g_strdup_printf ("attach %d", pid);
-	debugger->priv->prog_is_attached = TRUE;
-	debugger_queue_command (debugger, buf, FALSE, NULL, NULL);
+	debugger_queue_command (debugger, buf, FALSE,
+							debugger_attach_process_finish, NULL);
 	g_free (buf);
 }
 
@@ -1598,6 +1611,19 @@ debugger_stop_program (Debugger *debugger)
 	}
 }
 
+static void
+debugger_detach_process_finish (Debugger *debugger, const GDBMIValue *mi_results,
+								const GList *cli_results, gpointer data)
+{
+	DEBUG_PRINT ("Program detach finished");
+	debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
+									 _("Program detached\n"),
+									 debugger->priv->output_user_data);
+	debugger->priv->prog_is_attached = FALSE;
+	debugger->priv->prog_is_running = FALSE;
+	g_signal_emit_by_name (debugger, "program-exited", mi_results);
+}
+
 void
 debugger_detach_process (Debugger *debugger)
 {
@@ -1607,12 +1633,13 @@ debugger_detach_process (Debugger *debugger)
 	
 	g_return_if_fail (debugger->priv->prog_is_attached == TRUE);
 	
-	buff = g_strdup_printf (_("Detaching the process\n"));
+	buff = g_strdup_printf (_("Detaching the process ...\n"));
 	debugger->priv->output_callback (debugger, DEBUGGER_OUTPUT_NORMAL,
 							   buff, debugger->priv->output_user_data);
 	g_free (buff);
 	
-	debugger_queue_command (debugger, "detach", FALSE, NULL, NULL);
+	debugger_queue_command (debugger, "detach", FALSE,
+							debugger_detach_process_finish, NULL);
 	debugger->priv->prog_is_attached = FALSE;
 }
 

@@ -1,3 +1,8 @@
+2005-10-20  Naba Kumar  <naba@gnome.org>
+
+	* plugins/gdb/debugger.c: Fixed attach/detach process to
+	updated UI properly.
+	
 2005-10-18  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/aneditor.cxx: Fixed bug #172442 (and possibly
