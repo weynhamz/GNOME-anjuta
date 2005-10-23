@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-19 14:20-0400\n"
+"POT-Creation-Date: 2005-10-23 01:51-0400\n"
 "PO-Revision-Date: 2005-08-03 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -5147,12 +5147,16 @@ msgstr "Cannot start terminal for debugging."
 msgid "Program arguments"
 msgstr "Program arguments"
 
-#: plugins/gdb/debugger.c:1507
-#, c-format
-msgid "Attaching to process: %d\n"
-msgstr "Attaching to process: %d\n"
+#: plugins/gdb/debugger.c:1506
+msgid "Program attached\n"
+msgstr "Program attached\n"
 
-#: plugins/gdb/debugger.c:1531
+#: plugins/gdb/debugger.c:1520
+#, c-format
+msgid "Attaching to process: %d ...\n"
+msgstr "Attaching to process: %d...\n"
+
+#: plugins/gdb/debugger.c:1544
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -5160,28 +5164,32 @@ msgstr ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 
-#: plugins/gdb/debugger.c:1548
+#: plugins/gdb/debugger.c:1561
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta is unable to attach to itself."
 
-#: plugins/gdb/debugger.c:1595
+#: plugins/gdb/debugger.c:1608
 msgid "Program terminated\n"
 msgstr "Program terminated\n"
 
-#: plugins/gdb/debugger.c:1610
-msgid "Detaching the process\n"
-msgstr "Detaching the process\n"
+#: plugins/gdb/debugger.c:1620
+msgid "Program detached\n"
+msgstr "Program detached\n"
 
-#: plugins/gdb/debugger.c:1628
+#: plugins/gdb/debugger.c:1636
+msgid "Detaching the process ...\n"
+msgstr "Detaching the process...\n"
+
+#: plugins/gdb/debugger.c:1655
 msgid "Interrupting the process\n"
 msgstr "Interrupting the process\n"
 
-#: plugins/gdb/debugger.c:1816
+#: plugins/gdb/debugger.c:1843
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Sending signal %s to the process: %d"
 
-#: plugins/gdb/debugger.c:1842
+#: plugins/gdb/debugger.c:1869
 msgid "Error whilst signaling the process."
 msgstr "Error while signalling the process."
 
