@@ -106,7 +106,7 @@ project_import_start (const gchar *topleveldir, ProjectImportWizard * piw)
 	an_message_manager_clear (app->messages, MESSAGE_BUILD);
 	if (ret)
 	{
-		tmp = g_strdup_printf (_("Importing Project from %s ...\n"),
+		tmp = g_strdup_printf (_("Importing Project from %s...\n"),
 				       topleveldir);
 		an_message_manager_append (app->messages, tmp,
 					       MESSAGE_BUILD);
@@ -127,7 +127,7 @@ project_import_start (const gchar *topleveldir, ProjectImportWizard * piw)
 	gtk_progress_set_activity_mode (GTK_PROGRESS
 					(piw->widgets.progressbar), TRUE);
 	gtk_label_set_text (GTK_LABEL (piw->widgets.label),
-			    _("Importing Project...please wait"));
+			    _("Importing Project... please wait"));
 	piw->progress_timer_id = gtk_timeout_add (AN_IMPORT_TIMEOUT,
 											  progressbar_timeout,
 								 GTK_PROGRESS_BAR (piw->widgets.progressbar));
@@ -178,16 +178,16 @@ on_import_terminated (AnjutaLauncher *launcher,
 	if (status)
 	{
 		an_message_manager_append (app->messages,
-					       _("Project import completed...unsuccessful\n"),
+					       _("Project import completed... unsuccessful\n"),
 					       MESSAGE_BUILD);
-		anjuta_status (_("Project import completed...unsuccessful"));
+		anjuta_status (_("Project import completed... unsuccessful"));
 	}
 	else
 	{
 		an_message_manager_append (app->messages,
-					       _("Project import completed...successful\n"),
+					       _("Project import completed... successful\n"),
 					       MESSAGE_BUILD);
-		anjuta_status (_("Project import completed...successful"));
+		anjuta_status (_("Project import completed... successful"));
 	}
 	buff = g_strdup_printf (_("Total time taken: %lu secs\n"), time_taken);
 	an_message_manager_append (app->messages, buff, MESSAGE_BUILD);
@@ -210,7 +210,7 @@ on_import_terminated (AnjutaLauncher *launcher,
 	full_path = g_strdup_printf ("%s/%s", piw->directory, piw->filename);
 
 	gtk_label_set_text (GTK_LABEL (piw->widgets.label),
-						_("Opening Project...please wait"));
+						_("Opening Project... please wait"));
 	if (!project_import_load_project_values (piw, full_path))
 	{
 		anjuta_error (_("Could not open generated Project file"));

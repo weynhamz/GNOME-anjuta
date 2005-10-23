@@ -515,12 +515,12 @@ on_build_terminated (AnjutaLauncher *launcher,
 		if (status)
 		{
 			ianjuta_message_view_buffer_append (context->message_view,
-									_("Completed ... unsuccessful\n"), NULL);
+									_("Completed... unsuccessful\n"), NULL);
 		}
 		else
 		{
 			ianjuta_message_view_buffer_append (context->message_view,
-									   _("Completed ... successful\n"), NULL);
+									   _("Completed... successful\n"), NULL);
 		}
 		ianjuta_message_view_buffer_append (context->message_view, buff1, NULL);
 		/*
@@ -984,13 +984,13 @@ static GtkActionEntry build_actions[] =
 	},
 	{
 		"ActionBuildConfigure", NULL,
-		N_("Run C_onfigure ..."), NULL,
+		N_("Run C_onfigure..."), NULL,
 		N_("Configure project"),
 		G_CALLBACK (build_configure_project)
 	},
 	{
 		"ActionBuildAutogen", NULL,
-		N_("Run _Autogenerate ..."), NULL,
+		N_("Run _Autogenerate..."), NULL,
 		N_("Autogenrate project files"),
 		G_CALLBACK (build_autogen_project)
 	},

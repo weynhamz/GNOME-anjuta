@@ -490,7 +490,7 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 			icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
 									 icon_filename, NULL);
 			// DEBUG_PRINT ("Icon: %s", icon_path);
-			label = g_strconcat (_("Loaded: "), title, _(" ..."), NULL);
+			label = g_strconcat (_("Loaded: "), title, _("..."), NULL);
 			icon_pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
 			if (!icon_pixbuf)
 				g_warning ("Plugin does not define Icon: No such file %s",
@@ -895,7 +895,7 @@ default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 		selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
 	}
 	default_profile_plugin_load (plugin, selected_plugins, err);
-	anjuta_status_progress_tick (status, NULL, _("Loaded default profile ..."));
+	anjuta_status_progress_tick (status, NULL, _("Loaded default profile..."));
 	
 	g_slist_free (selected_plugins);
 	g_free (session_plugins);
@@ -945,7 +945,7 @@ iprofile_load (IAnjutaProfile *profile, GError **err)
 	plugin->default_profile = g_strdup (DEFAULT_PROFILE);
 	default_profile_plugin_load_default (plugin, err);
 	
-	anjuta_status_progress_tick (status, NULL, _("Loaded Profile ..."));
+	anjuta_status_progress_tick (status, NULL, _("Loaded Profile..."));
 }
 
 static void
@@ -1042,7 +1042,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	
 	g_free (plugin->project_uri);
 	plugin->project_uri = g_strdup (uri);
-	anjuta_status_progress_tick (status, NULL, _("Loaded Project ... Initializing"));
+	anjuta_status_progress_tick (status, NULL, _("Loaded Project... Initializing"));
 	
 	anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
 							"project_root_uri",
@@ -1072,7 +1072,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 		plugin->session_by_me = FALSE;
 		g_free (session_dir);
 	}
-	anjuta_status_progress_tick (status, NULL, _("Loaded Profile ..."));
+	anjuta_status_progress_tick (status, NULL, _("Loaded Profile..."));
 }
 
 static gchar*

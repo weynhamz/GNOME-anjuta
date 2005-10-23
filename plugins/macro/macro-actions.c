@@ -120,7 +120,7 @@ on_menu_insert_macro (GtkAction * action, MacroPlugin * plugin)
 	
 	GtkWidget* window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	GtkWidget* entry = gtk_entry_new_with_max_length(1);
-	GtkWidget* label = gtk_label_new_with_mnemonic(_("Press macro shortcut ..."));
+	GtkWidget* label = gtk_label_new_with_mnemonic(_("Press macro shortcut..."));
 	GtkWidget* hbox = gtk_hbox_new (FALSE, 0);	
 	
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 10);

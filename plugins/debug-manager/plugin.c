@@ -470,7 +470,7 @@ static GtkActionEntry actions_debug[] =
 	{
 		"ActionDebuggerLoad",                     /* Action name */
 		NULL,                                     /* Stock icon, if any */
-		N_("Load debugging target ..."),          /* Display label */
+		N_("Load debugging target..."),          /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Open the target for debugging"),      /* Tooltip */
 		G_CALLBACK (on_load_target_action_activate) /* action callback */
@@ -478,7 +478,7 @@ static GtkActionEntry actions_debug[] =
 	{
 		"ActionDebuggerAttachToProcess",          /* Action name */
 		"debugger-detach",                        /* Stock icon, if any */
-		N_("_Attach to Process ..."),             /* Display label */
+		N_("_Attach to Process..."),             /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Attach to a running program"),        /* Tooltip */
 		G_CALLBACK (on_attach_to_project_action_activate) /* action callback */
@@ -658,7 +658,7 @@ activate_plugin (AnjutaPlugin* plugin)
 	DebugManagerPlugin *debug_manager_plugin;
 	static gboolean initialized = FALSE;
 	
-	DEBUG_PRINT ("DebugManagerPlugin: Activating Debug Manager plugin ...");
+	DEBUG_PRINT ("DebugManagerPlugin: Activating Debug Manager plugin...");
 	debug_manager_plugin = (DebugManagerPlugin*) plugin;
 	
 	if (!initialized)
@@ -696,7 +696,7 @@ deactivate_plugin (AnjutaPlugin* plugin)
 	DebugManagerPlugin *dplugin;
 	AnjutaUI *ui;
 
-	DEBUG_PRINT ("DebugManagerPlugin: Deactivating Debug Manager plugin ...");
+	DEBUG_PRINT ("DebugManagerPlugin: Deactivating Debug Manager plugin...");
 	
 	dplugin = (DebugManagerPlugin *) plugin;
 	

@@ -77,7 +77,7 @@ compile_file_with_make ()
 				 MESSAGE_BUILD);
 		prj_name = project_dbase_get_proj_name (app->project_dbase);
 		an_message_manager_append (app->messages, prj_name, MESSAGE_BUILD);
-		an_message_manager_append (app->messages, " ...\n", MESSAGE_BUILD);
+		an_message_manager_append (app->messages, "...\n", MESSAGE_BUILD);
 		an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
 		an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
 		an_message_manager_show (app->messages, MESSAGE_BUILD);
@@ -152,7 +152,7 @@ compile_file (gboolean use_make)
 	}
 	anjuta_update_app_status (TRUE, _("Compile"));
 	an_message_manager_clear (app->messages, MESSAGE_BUILD);
-	buff = g_strdup_printf (_("Compiling file: %s ...\n"), te->filename);
+	buff = g_strdup_printf (_("Compiling file: %s...\n"), te->filename);
 	an_message_manager_append (app->messages, buff, MESSAGE_BUILD);
 	an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
 	an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);

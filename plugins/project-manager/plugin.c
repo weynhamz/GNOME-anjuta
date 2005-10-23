@@ -207,7 +207,7 @@ on_refresh_idle (gpointer user_data)
 	plugin = (ProjectManagerPlugin *)user_data;
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	anjuta_status_push (status, "Refreshing symbol tree ...");
+	anjuta_status_push (status, "Refreshing symbol tree...");
 	anjuta_status_busy_push (status);
 	
 	gbf_project_refresh (GBF_PROJECT (plugin->project), &err);
@@ -1006,7 +1006,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	 * was loaded successfully */
 	gbf_project_load (pm_plugin->project, dirname, &error);
 	
-	anjuta_status_progress_tick (status, NULL, _("Created project view ..."));
+	anjuta_status_progress_tick (status, NULL, _("Created project view..."));
 	
 	if (error)
 	{
@@ -1073,7 +1073,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* GladeXML *gxml; */
 	ProjectManagerPlugin *pm_plugin;
 	
-	DEBUG_PRINT ("ProjectManagerPlugin: Activating Project Manager plugin ...");
+	DEBUG_PRINT ("ProjectManagerPlugin: Activating Project Manager plugin...");
 	
 	if (!initialized)
 		register_stock_icons (plugin);

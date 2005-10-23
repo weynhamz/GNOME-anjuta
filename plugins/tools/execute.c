@@ -507,13 +507,13 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 		{
 			if (error)
 			{
-				ok = atp_output_context_print (this, _("Completed ... unsuccessful with "));
+				ok = atp_output_context_print (this, _("Completed... unsuccessful with "));
 				sprintf (buffer, "%d", error);
 				ok &= atp_output_context_print (this, buffer);
 			}
 			else
 			{
-				ok = atp_output_context_print (this, _("Completed ... successful"));
+				ok = atp_output_context_print (this, _("Completed... successful"));
 			}
 			ok &= atp_output_context_print (this, "\n");
 			if (this->view)

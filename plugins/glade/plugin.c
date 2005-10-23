@@ -231,7 +231,7 @@ on_save_activated (GtkAction *action, GladePlugin *plugin)
 	}
 
 	/* If instead we dont have a path yet, fire up a file selector */
-	filechooser = glade_util_file_dialog_new (_("Save glade file ..."),
+	filechooser = glade_util_file_dialog_new (_("Save glade file..."),
 									GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 											  GLADE_FILE_DIALOG_ACTION_SAVE);
 	
@@ -258,7 +258,7 @@ on_save_as_activated (GtkAction *action, GladePlugin *plugin)
 	gpw = plugin->priv->gpw;
 	project = glade_app_get_active_project (GLADE_APP (gpw));
 
-	filechooser = glade_util_file_dialog_new (_("Save glade file as ..."),
+	filechooser = glade_util_file_dialog_new (_("Save glade file as..."),
 									GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 											  GLADE_FILE_DIALOG_ACTION_SAVE);
 
@@ -499,7 +499,7 @@ static GtkActionEntry actions[] = {
 	{
 		"ActionGladeSaveAs",
 		GTK_STOCK_SAVE_AS,
-		N_("Save _As ..."),
+		N_("Save _As..."),
 		"",
 		N_("Save as glade project"),
 		G_CALLBACK (on_save_as_activated)
@@ -588,7 +588,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkListStore *store;
 	GtkCellRenderer *renderer;
 	
-	DEBUG_PRINT ("GladePlugin: Activating Glade plugin ...");
+	DEBUG_PRINT ("GladePlugin: Activating Glade plugin...");
 	
 	glade_plugin = (GladePlugin*) plugin;
 	
@@ -677,7 +677,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	DEBUG_PRINT ("GladePlugin: Dectivating Glade plugin ...");
+	DEBUG_PRINT ("GladePlugin: Dectivating Glade plugin...");
 	
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_save), plugin);

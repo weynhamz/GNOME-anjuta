@@ -425,7 +425,7 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 				g_object_unref (pixbuf);
 				gtk_tree_store_append (store, &sub_iter, &iter);
 				gtk_tree_store_set (store, &sub_iter,
-							FILENAME_COLUMN, _("Loading ..."),
+							FILENAME_COLUMN, _("Loading..."),
 							REV_COLUMN, "",
 							-1);
 			} else {
@@ -593,7 +593,7 @@ on_file_view_row_collapsed (GtkTreeView *view,
 	gtk_tree_store_append (store, &child2, &child);
 	gtk_tree_store_set (store, &child2,
 						PIXBUF_COLUMN, NULL,
-						FILENAME_COLUMN, _("Loading ..."),
+						FILENAME_COLUMN, _("Loading..."),
 						REV_COLUMN, "", -1);
 
 	/* Delete the referenced rows */
@@ -861,7 +861,7 @@ fv_refresh (FileManagerPlugin *fv)
 	gtk_tree_store_append (store, &sub_iter, &iter);
 	gtk_tree_store_set (store, &sub_iter,
 				PIXBUF_COLUMN, NULL,
-				FILENAME_COLUMN, _("Loading ..."),
+				FILENAME_COLUMN, _("Loading..."),
 				REV_COLUMN, "",
 				-1);
 

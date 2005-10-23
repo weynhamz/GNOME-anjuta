@@ -510,7 +510,7 @@ anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
 				/* Append a dummy children node */
 				gtk_tree_store_append (store, &child_iter, &sub_iter);
 				gtk_tree_store_set (store, &child_iter,
-									NAME_COLUMN, _("Loading ..."),
+									NAME_COLUMN, _("Loading..."),
 									-1);
 			}			
 			anjuta_symbol_info_free (sfile);
@@ -546,7 +546,7 @@ anjuta_symbol_view_refresh_tree (AnjutaSymbolView *sv)
 	
 	sv->priv->symbols_need_update = FALSE;
 	
-	DEBUG_PRINT ("Populating symbol view: Creating symbol view ...");
+	DEBUG_PRINT ("Populating symbol view: Creating symbol view...");
 	
 	if (!sv->priv->symbols->info.children
 	    || (0 == sv->priv->symbols->info.children->len))
@@ -574,14 +574,14 @@ anjuta_symbol_view_open (AnjutaSymbolView * sv, const gchar * root_dir)
 	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
 	g_return_if_fail (root_dir != NULL);
 	
-	DEBUG_PRINT ("Populating symbol view: Loading tag database ...");
+	DEBUG_PRINT ("Populating symbol view: Loading tag database...");
 
 	/* make sure we clear anjuta_symbol_view from previous data */
 	anjuta_symbol_view_clear (sv);
 	
 	sv->priv->tm_project = tm_project_new (root_dir, NULL, NULL, FALSE);
 	
-	DEBUG_PRINT ("Populating symbol view: Creating symbol tree ...");
+	DEBUG_PRINT ("Populating symbol view: Creating symbol tree...");
 	
 	if (sv->priv->tm_project &&
 	    sv->priv->tm_project->tags_array &&

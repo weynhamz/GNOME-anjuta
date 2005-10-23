@@ -1411,7 +1411,7 @@ text_editor_load_file (TextEditor * te)
 		return FALSE;
 	if (IS_SCINTILLA (te->scintilla) == FALSE)
 		return FALSE;
-	// FIXME: anjuta_status (_("Loading file ..."));
+	// FIXME: anjuta_status (_("Loading file..."));
 	text_editor_freeze (te);
 	// te->modified_time = time (NULL);
 	text_editor_update_monitor (te, FALSE);
@@ -1455,7 +1455,7 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	text_editor_freeze (te);
 	text_editor_set_line_number_width(te);
 	
-	// FIXME: anjuta_status (_("Saving file ..."));
+	// FIXME: anjuta_status (_("Saving file..."));
 	
 	text_editor_update_monitor (te, TRUE);
 	
@@ -1647,7 +1647,7 @@ text_editor_autoformat (TextEditor * te)
 	if (te == NULL)
 		return;
 
-	// FIXME: anjuta_status (_("Auto formatting ..."));
+	// FIXME: anjuta_status (_("Auto formatting..."));
 	// FIXME: anjuta_set_busy ();
 	text_editor_freeze (te);
 	file = anjuta_util_get_a_tmp_file ();
@@ -1660,7 +1660,7 @@ text_editor_autoformat (TextEditor * te)
 		// FIXME: anjuta_set_active ();
 		parent = gtk_widget_get_toplevel(GTK_WIDGET (te));
 		anjuta_util_dialog_warning (GTK_WINDOW (parent),
-									_("Error in auto formatting ..."));
+									_("Error in auto formatting..."));
 		return;
 	}
 
@@ -1701,7 +1701,7 @@ text_editor_autoformat (TextEditor * te)
 		GtkWidget *parent;
 		parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
 		anjuta_util_dialog_warning (GTK_WINDOW (parent),
-									_("Error in auto formatting ...\nDetails: %s"), err);
+									_("Error in auto formatting...\nDetails: %s"), err);
 		g_free (err);
 	}
 	else

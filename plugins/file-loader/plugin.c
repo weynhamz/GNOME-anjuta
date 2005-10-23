@@ -798,7 +798,7 @@ static GtkActionEntry actions_file[] = {
 	{
 		"ActionFileNew",
 		GTK_STOCK_NEW,
-		N_("_New ..."),
+		N_("_New..."),
 		"<control>n",
 		N_("New empty editor."),
 		G_CALLBACK (on_new_activate)
@@ -806,7 +806,7 @@ static GtkActionEntry actions_file[] = {
 	{
 		"ActionFileOpen",
 		GTK_STOCK_OPEN,
-		N_("_Open ..."),
+		N_("_Open..."),
 		"<control>o",
 		N_("Open file"),
 		G_CALLBACK (on_open_activate)
@@ -1140,7 +1140,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	loader_plugin = (AnjutaFileLoaderPlugin*)plugin;
 	
-	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Activating File Loader plugin ...");
+	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Activating File Loader plugin...");
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -1218,7 +1218,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	loader_plugin = (AnjutaFileLoaderPlugin*)plugin;
 	
-	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Deactivating File Loader plugin ...");
+	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Deactivating File Loader plugin...");
 	
 	/* Disconnect session */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),

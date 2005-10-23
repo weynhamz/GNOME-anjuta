@@ -138,7 +138,7 @@ static ShortcutMapping global_keymap[] = {
 static GtkActionEntry actions_file[] = {
   { "ActionFileSave", N_("_Save"), GTK_STOCK_SAVE, "<control>s",
 	N_("Save current file"), G_CALLBACK (on_save1_activate)},
-  { "ActionFileSaveAs", N_("Save _As ..."), GTK_STOCK_SAVE_AS, NULL,
+  { "ActionFileSaveAs", N_("Save _As..."), GTK_STOCK_SAVE_AS, NULL,
 	N_("Save the current file with a different name"),
     G_CALLBACK (on_save_as1_activate)},
   { "ActionFileSaveAll", N_("Save A_ll"),  NULL, NULL,
@@ -205,7 +205,7 @@ static GtkActionEntry actions_select[] = {
 
 static GtkActionEntry actions_search[] = {
   { "ActionMenuEditSearch", N_("_Search"), NULL, NULL, NULL, NULL},
-  { "ActionEditSearchFind", N_("_Find ..."), GTK_STOCK_FIND, "<control>f",
+  { "ActionEditSearchFind", N_("_Find..."), GTK_STOCK_FIND, "<control>f",
 	N_("Search for a string or regular expression in the editor"),
     G_CALLBACK (on_find1_activate)},
   { "ActionEditSearchFindNext", N_("Find _Next"), GTK_STOCK_FIND, "<control>g",
@@ -215,7 +215,7 @@ static GtkActionEntry actions_search[] = {
 	GTK_STOCK_FIND, "<control><shift>g",
 	N_("Repeat the last Find command"),
 	G_CALLBACK (on_findprevious1_activate)},
-  { "ActionEditSearchReplace", N_("Find and R_eplace ..."),
+  { "ActionEditSearchReplace", N_("Find and R_eplace..."),
 	GTK_STOCK_FIND_AND_REPLACE, "<shift><control>f",
 	N_("Search for and replace a string or regular expression with another string"),
     G_CALLBACK (on_find_and_replace1_activate)},
@@ -227,7 +227,7 @@ static GtkActionEntry actions_search[] = {
 	NULL, "<control>e",
 	N_("Enter the selected text as the search target"),
     G_CALLBACK (on_enterselection)},
-  { "ActionEditSearchInFiles", N_("Fin_d in Files ..."), NULL, NULL,
+  { "ActionEditSearchInFiles", N_("Fin_d in Files..."), NULL, NULL,
 	N_("Search for a string in multiple files or directories"),
     G_CALLBACK (on_find_in_files1_activate)},
 };
@@ -251,7 +251,7 @@ static GtkActionEntry actions_navigation[] = {
 	GTK_STOCK_JUMP_TO, NULL,
 	N_("Go to a particular line in the editor"),
     G_CALLBACK (on_goto_activate)},
-  { "ActionEditGotoLine", N_("_Line number ..."),
+  { "ActionEditGotoLine", N_("_Line number..."),
 	GTK_STOCK_JUMP_TO, "<control><alt>g",
 	N_("Go to a particular line in the editor"),
     G_CALLBACK (on_goto_line_no1_activate)},
@@ -1078,7 +1078,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkWidget *highlight_submenu, *highlight_menu;
 	static gboolean initialized = FALSE;
 	
-	DEBUG_PRINT ("EditorPlugin: Activating Editor plugin ...");
+	DEBUG_PRINT ("EditorPlugin: Activating Editor plugin...");
 	
 	editor_plugin = (EditorPlugin*) plugin;
 	editor_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -1243,7 +1243,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaStatus *status;
 	GList *node;
 	
-	DEBUG_PRINT ("EditorPlugin: Dectivating Editor plugin ...");
+	DEBUG_PRINT ("EditorPlugin: Dectivating Editor plugin...");
 	
 	eplugin = (EditorPlugin*)plugin;
 

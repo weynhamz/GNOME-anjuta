@@ -608,7 +608,7 @@ anjuta_print_new_page (PrintJobInfo *pji)
 	
 	gnome_print_showpage (pji->pc);
 	
-	DEBUG_PRINT ("Printing new page ...");
+	DEBUG_PRINT ("Printing new page...");
 	
 	pji->current_page++;
 	sprintf(page, "%d", pji->current_page);
@@ -867,7 +867,7 @@ anjuta_print_progress_start(PrintJobInfo * pji)
 	GtkWidget *window;
 
 	window = gtk_widget_get_toplevel (pji->te->scintilla);
-	dialog = gtk_dialog_new_with_buttons (_("Printing .."),
+	dialog = gtk_dialog_new_with_buttons (_("Printing..."),
 										  GTK_WINDOW (window),
 										  GTK_DIALOG_DESTROY_WITH_PARENT,
 										  GTK_STOCK_CANCEL,
@@ -879,7 +879,7 @@ anjuta_print_progress_start(PrintJobInfo * pji)
 	pji->progress_dialog = dialog;
 	gtk_widget_show (dialog);
 	
-	label = gtk_label_new (_("Printing ..."));
+	label = gtk_label_new (_("Printing..."));
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(dialog)->vbox),
 								 label, FALSE, FALSE, 0);

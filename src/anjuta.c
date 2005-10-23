@@ -70,7 +70,7 @@ on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 	gchar *argv[] = { "rm",	"-rf", NULL};
 	const gchar *prefix;
 	
-	DEBUG_PRINT ("Going to save session ...");
+	DEBUG_PRINT ("Going to save session...");
 
 	prefix = gnome_client_get_config_prefix (client);
 	argv[2] = gnome_config_get_real_path (prefix);
@@ -196,6 +196,6 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	/* Restore session */
 	anjuta_shell_session_load (ANJUTA_SHELL (app), session_dir, NULL);
 	g_free (session_dir);
-	anjuta_status_progress_tick (status, NULL, _("Loaded Session ..."));
+	anjuta_status_progress_tick (status, NULL, _("Loaded Session..."));
 	return app;
 }

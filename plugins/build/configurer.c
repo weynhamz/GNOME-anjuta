@@ -188,7 +188,7 @@ on_configurer_response (GtkDialog* dialog, gint res, gpointer user_data)
 		g_free (tmp);
 		anjuta_update_app_status (TRUE, _("Configure"));
 		an_message_manager_clear (app->messages, MESSAGE_BUILD);
-		an_message_manager_append (app->messages, _("Configuring the Project ....\n"), MESSAGE_BUILD);
+		an_message_manager_append (app->messages, _("Configuring the Project...\n"), MESSAGE_BUILD);
 		an_message_manager_show (app->messages, MESSAGE_BUILD);
 	}
 	gtk_widget_destroy (GTK_WIDGET (dialog));

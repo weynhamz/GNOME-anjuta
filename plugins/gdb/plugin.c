@@ -73,7 +73,7 @@ static GtkActionEntry actions_gdb[] =
 	{
 		"ActionGdbSetBreakpoint",                 /* Action name */
 		NULL,                                     /* Stock icon, if any */
-		N_("Set Breakpoint ..."),                 /* Display label */
+		N_("Set Breakpoint..."),                 /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Set a breakpoint"),                   /* Tooltip */
 		G_CALLBACK (on_set_breakpoint_activate)   /* action callback */
@@ -81,7 +81,7 @@ static GtkActionEntry actions_gdb[] =
 	{
 		"ActionGdbBreakpoints",                   /* Action name */
 		NULL,                                     /* Stock icon, if any */
-		N_("_Breakpoints ..."),                   /* Display label */
+		N_("_Breakpoints..."),                   /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Edit breakpoints"),                   /* Tooltip */
 		G_CALLBACK (on_show_breakpoints_activate) /* action callback */
@@ -225,7 +225,7 @@ static GtkActionEntry actions_gdb[] =
 	{
 		"ActionGdbInspect",
 		GTK_STOCK_DIALOG_INFO,
-		N_("Ins_pect/Evaluate ..."),
+		N_("Ins_pect/Evaluate..."),
 		NULL,
 		N_("Inspect or evaluate an expression or variable"),
 		G_CALLBACK (on_debugger_inspect_activate)
@@ -233,7 +233,7 @@ static GtkActionEntry actions_gdb[] =
 	{
 		"ActionGdbAddWatch",
 		NULL,
-		N_("Add Expression in _Watch ..."),
+		N_("Add Expression in _Watch..."),
 		NULL,
 		N_("Add expression or variable to the watch"),
 		G_CALLBACK (on_debugger_add_watch_activate)
@@ -241,7 +241,7 @@ static GtkActionEntry actions_gdb[] =
 	{
 		"ActionGdbCommand",
 		NULL,
-		N_("Debugger command ..."),
+		N_("Debugger command..."),
 		NULL,
 		N_("Custom debugger command"),
 		G_CALLBACK (on_debugger_custom_command_activate)
@@ -249,7 +249,7 @@ static GtkActionEntry actions_gdb[] =
 	{
 		"ActionGdbViewRegisters",
 		NULL,
-		N_("Registers ..."),
+		N_("Registers..."),
 		NULL,
 		N_("Show CPU register contents"),
 		G_CALLBACK (on_debugger_registers_activate)
@@ -257,7 +257,7 @@ static GtkActionEntry actions_gdb[] =
 	{
 		"ActionGdbViewSharedlibs",
 		NULL,
-		N_("Shared Libraries ..."),
+		N_("Shared Libraries..."),
 		NULL,
 		N_("Show shared libraries mappings"),
 		G_CALLBACK (on_debugger_sharedlibs_activate)
@@ -265,7 +265,7 @@ static GtkActionEntry actions_gdb[] =
 	{
 		"ActionGdbViewSignals",
 		NULL,
-		N_("Kernel Signals ..."),
+		N_("Kernel Signals..."),
 		NULL,
 		N_("Show kernel signals"),
 		G_CALLBACK (on_debugger_signals_activate)
@@ -615,7 +615,7 @@ gdb_plugin_activate_plugin (AnjutaPlugin* plugin)
 	GdbPlugin *gdb_plugin = (GdbPlugin *) plugin;
 	static gboolean initialized = FALSE;
 
-	DEBUG_PRINT ("GdbPlugin: Activating Gdb plugin ...");
+	DEBUG_PRINT ("GdbPlugin: Activating Gdb plugin...");
 
 	if (!initialized)
 	{
@@ -656,7 +656,7 @@ gdb_plugin_deactivate_plugin (AnjutaPlugin* plugin)
 	GdbPlugin *gdb_plugin;
 	AnjutaUI *ui;
 	
-	DEBUG_PRINT ("GdbPlugin: Deactivating Gdb plugin ...");
+	DEBUG_PRINT ("GdbPlugin: Deactivating Gdb plugin...");
 
 	gdb_plugin = (GdbPlugin*)plugin;
 	

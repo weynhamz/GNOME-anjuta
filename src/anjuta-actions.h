@@ -53,7 +53,7 @@ static GtkToggleActionEntry menu_entries_toggle_view[] = {
 static GtkActionEntry menu_entries_settings[] = {
   { "ActionMenuSettings", NULL, N_("_Settings")},
   { "ActionSettingsPreferences", GTK_STOCK_PROPERTIES, 
-	N_("_Preferences ..."), NULL,
+	N_("_Preferences..."), NULL,
 	N_("Do you prefer coffee to tea? Check it out."),
     G_CALLBACK (on_set_preferences1_activate)},
   { "ActionSettingsDefaults", GTK_STOCK_PROPERTIES,

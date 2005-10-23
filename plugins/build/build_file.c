@@ -101,7 +101,7 @@ build_file ()
 	}
 	anjuta_update_app_status (TRUE, _("Build"));
 	an_message_manager_clear (app->messages, MESSAGE_BUILD);
-	buff = g_strdup_printf (_("Building file: %s ...\n"), te->filename);
+	buff = g_strdup_printf (_("Building file: %s...\n"), te->filename);
 	an_message_manager_append (app->messages, buff, MESSAGE_BUILD);
 	an_message_manager_append (app->messages, cmd, MESSAGE_BUILD);
 	an_message_manager_append (app->messages, "\n", MESSAGE_BUILD);
@@ -133,20 +133,20 @@ on_build_terminated (AnjutaLauncher *launcher,
 	if (status)
 	{
 		an_message_manager_append (app->messages,
-								   _("Completed ... unsuccessful\n"),
+								   _("Completed... unsuccessful\n"),
 								   MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_warning (_("Completed ... unsuccessful"));
+			anjuta_warning (_("Completed... unsuccessful"));
 	}
 	else
 	{
 		an_message_manager_append (app->messages,
-								   _("Completed ... successful\n"),
+								   _("Completed... successful\n"),
 								   MESSAGE_BUILD);
 		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
 										DIALOG_ON_BUILD_COMPLETE))
-			anjuta_status (_("Completed ... successful"));
+			anjuta_status (_("Completed... successful"));
 	}
 	an_message_manager_append (app->messages, buff1, MESSAGE_BUILD);
 	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),

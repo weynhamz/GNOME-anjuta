@@ -216,7 +216,7 @@ on_refresh_idle (gpointer user_data)
 	g_return_val_if_fail (pm != NULL, FALSE);
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (sv_plugin)->shell, NULL);
-	anjuta_status_push (status, "Refreshing symbol tree ...");
+	anjuta_status_push (status, "Refreshing symbol tree...");
 	anjuta_status_busy_push (status);
 	
 	source_uris = source_files = NULL;
@@ -381,7 +381,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			
 			/* Current editor symbol model may have changed */
 			update_editor_symbol_model (sv_plugin);
-			anjuta_status_progress_tick (status, NULL, _("Created sysmbols ..."));
+			anjuta_status_progress_tick (status, NULL, _("Created sysmbols..."));
 			trees_signals_unblock (sv_plugin);
 			g_free (root_dir);
 		}
@@ -796,7 +796,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkAction *action;
 	SymbolBrowserPlugin *sv_plugin;
 	
-	DEBUG_PRINT ("SymbolBrowserPlugin: Activating Symbol Manager plugin ...");
+	DEBUG_PRINT ("SymbolBrowserPlugin: Activating Symbol Manager plugin...");
 	
 	register_stock_icons (plugin);
 	
