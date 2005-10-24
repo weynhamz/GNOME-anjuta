@@ -1,3 +1,7 @@
+2005-10-23 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* tagmanager/tm_symbol.c: Fixed bug #315218
+
 2005-10-23  Adam Weinberger  <adamw@gnome.org>
 
 	* plugins/build/build_file.c

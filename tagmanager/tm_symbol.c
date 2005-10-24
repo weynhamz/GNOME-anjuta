@@ -178,6 +178,10 @@ static void check_children_symbols(TMSymbol *sym, const char *name)
       for (j=0; j < scope_tags->len; ++j)
 		  {
         tag = TM_TAG(scope_tags->pdata[j]);
+	if (strcmp(tag->name, sym->tag->name) == 0)
+	{
+		continue; /* Avoid recursive definition */
+	}
         SYM_NEW(sym1);
 			  sym1->tag = tag;
         sym1->parent = sym;
