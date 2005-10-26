@@ -1,3 +1,4 @@
+# translation of es.po to 
 # Spanish translation of es
 # translation of es.po to
 # translation of es.po to
@@ -11,15 +12,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-19 20:13+0200\n"
-"PO-Revision-Date: 2005-10-19 23:29+0200\n"
-"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
-"Language-Team: Spanish <traductores@es.gnome.org>\n"
+"POT-Creation-Date: 2005-10-27 00:02+0200\n"
+"PO-Revision-Date: 2005-10-27 00:09+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "serrador@hispalinux.es>\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../anjuta.desktop.in.in.h:1
@@ -114,13 +115,13 @@ msgstr "Marcador"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:4
 #: ../plugins/gdb/anjuta-gdb.glade.h:3
 msgid "Breakpoint properties"
-msgstr "Propiedades de los puntos de ruptura"
+msgstr "Propiedades de los puntos de parada"
 
 #: ../anjuta.glade.h:18
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
-msgstr "Puntos de ruptura"
+msgstr "Puntos de parada"
 
 #: ../anjuta.glade.h:19 ../plugins/build/build_file.c:102
 msgid "Build"
@@ -1049,11 +1050,11 @@ msgstr "Vietnamita"
 msgid "Thai"
 msgstr "Tailandés"
 
-#: ../libanjuta/anjuta-encodings.c:702
+#: ../libanjuta/anjuta-encodings.c:724
 msgid "Stock Encodings"
 msgstr "Codificaciones soportadas"
 
-#: ../libanjuta/anjuta-encodings.c:721
+#: ../libanjuta/anjuta-encodings.c:743
 msgid "Supported Encodings"
 msgstr "Codificaciones soportadas"
 
@@ -1449,7 +1450,7 @@ msgstr "No se ha especificado un comando de construcción para este tipo de arch
 
 #: ../plugins/build/build_file.c:104
 #, c-format
-msgid "Building file: %s ...\n"
+msgid "Building file: %s...\n"
 msgstr "Construyendo el archivo: %s…\n"
 
 #: ../plugins/build/build_file.c:132
@@ -1461,20 +1462,20 @@ msgstr "Tiempo total empleado: %lu segundos\n"
 
 #: ../plugins/build/build_file.c:136
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:518
-msgid "Completed ... unsuccessful\n"
+msgid "Completed... unsuccessful\n"
 msgstr "Completado… incorrectamente\n"
 
 #: ../plugins/build/build_file.c:140
-msgid "Completed ... unsuccessful"
+msgid "Completed... unsuccessful"
 msgstr "Completado… incorrectamente"
 
 #: ../plugins/build/build_file.c:145
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:523
-msgid "Completed ... successful\n"
-msgstr "Completado…. correctamente\n"
+msgid "Completed... successful\n"
+msgstr "Completado… correctamente\n"
 
 #: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:516
-msgid "Completed ... successful"
+msgid "Completed... successful"
 msgstr "Completado… correctamente"
 
 #: ../plugins/build/build_project.c:76 ../plugins/build/compile.c:61
@@ -1580,7 +1581,7 @@ msgstr "Compilar"
 
 #: ../plugins/build/compile.c:155
 #, c-format
-msgid "Compiling file: %s ...\n"
+msgid "Compiling file: %s...\n"
 msgstr "Compilando archivo: %s…\n"
 
 #: ../plugins/build/compiler_options.c:503
@@ -1648,7 +1649,7 @@ msgid "Configure"
 msgstr "Configure"
 
 #: ../plugins/build/configurer.c:191
-msgid "Configuring the Project ....\n"
+msgid "Configuring the Project...\n"
 msgstr "Configurando el proyecto…\n"
 
 #: ../plugins/build/executer.c:54
@@ -1773,7 +1774,7 @@ msgid "Clean whole project"
 msgstr "Limpia todo el proyecto"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:987
-msgid "Run C_onfigure ..."
+msgid "Run C_onfigure..."
 msgstr "Ejecutar _configuración…"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:988
@@ -1781,7 +1782,7 @@ msgid "Configure project"
 msgstr "Configura el proyecto"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:993
-msgid "Run _Autogenerate ..."
+msgid "Run _Autogenerate..."
 msgstr "Ejecutar _autogeneración…"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:994
@@ -2613,7 +2614,7 @@ msgstr "Iniciar la sesión de depuración"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:473
-msgid "Load debugging target ..."
+msgid "Load debugging target..."
 msgstr "Cargar el objetivo de depuración…"
 
 #. Display label
@@ -2625,7 +2626,7 @@ msgstr "Abrir el objetivo para depuración"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:481
-msgid "_Attach to Process ..."
+msgid "_Attach to Process..."
 msgstr "_Adjuntar a proceso…"
 
 #. Display label
@@ -3513,7 +3514,7 @@ msgid "Save current file"
 msgstr "Guarda el archivo actual"
 
 #: ../plugins/editor/plugin.c:141 ../plugins/glade/plugin.c:502
-msgid "Save _As ..."
+msgid "Save _As..."
 msgstr "Guardar _como…"
 
 #: ../plugins/editor/plugin.c:142
@@ -3666,7 +3667,7 @@ msgid "_Search"
 msgstr "_Buscar"
 
 #: ../plugins/editor/plugin.c:208
-msgid "_Find ..."
+msgid "_Find..."
 msgstr "_Buscar…"
 
 #: ../plugins/editor/plugin.c:209
@@ -3686,7 +3687,7 @@ msgid "Find _Previous"
 msgstr "Buscar _anterior"
 
 #: ../plugins/editor/plugin.c:218
-msgid "Find and R_eplace ..."
+msgid "Find and R_eplace..."
 msgstr "Buscar y _reemplazar…"
 
 #: ../plugins/editor/plugin.c:220
@@ -3710,7 +3711,7 @@ msgid "Enter the selected text as the search target"
 msgstr "Introduzca el texto seleccionado como objetivo de la búsqueda"
 
 #: ../plugins/editor/plugin.c:230
-msgid "Fin_d in Files ..."
+msgid "Fin_d in Files..."
 msgstr "_Buscar en archivos…"
 
 #: ../plugins/editor/plugin.c:231
@@ -3754,7 +3755,7 @@ msgid "Go to a particular line in the editor"
 msgstr "Ir a un número de línea en el editor"
 
 #: ../plugins/editor/plugin.c:254
-msgid "_Line number ..."
+msgid "_Line number..."
 msgstr "_Número de línea…"
 
 #: ../plugins/editor/plugin.c:258
@@ -4205,12 +4206,8 @@ msgstr "Archivo: %s"
 msgid "%d"
 msgstr "%d"
 
-#: ../plugins/editor/print.c:870
-msgid "Printing .."
-msgstr "Imprimiendo…"
-
-#: ../plugins/editor/print.c:882
-msgid "Printing ..."
+#: ../plugins/editor/print.c:870 ../plugins/editor/print.c:882
+msgid "Printing..."
 msgstr "Imprimiendo…"
 
 #: ../plugins/editor/print.c:1029 ../plugins/gdb/signals.c:354
@@ -4326,7 +4323,7 @@ msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Autoformato desactivado. Si lo desea, actívelo en Preferencias."
 
 #: ../plugins/editor/text_editor.c:1663
-msgid "Error in auto formatting ..."
+msgid "Error in auto formatting..."
 msgstr "Error al autoformatear…"
 
 #. FIXME: anjuta_set_active ();
@@ -4338,7 +4335,7 @@ msgstr "Anjuta no sabe %s"
 #: ../plugins/editor/text_editor.c:1704
 #, c-format
 msgid ""
-"Error in auto formatting ...\n"
+"Error in auto formatting...\n"
 "Details: %s"
 msgstr ""
 "Error al autoformatear…\n"
@@ -4352,7 +4349,8 @@ msgid ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
-"No se pueden cargar valores predeterminados y archivos de configuración globales:\n"
+"No se pueden cargar valores predeterminados y archivos de configuración "
+"globales:\n"
 "%s.\n"
 "Esto puede provocar comportamientos inapropiados e inestabilidades.\n"
 "Anjuta utilizará los valores integrados para casos de fallo (más limitados)"
@@ -4592,7 +4590,7 @@ msgid "Failed to activate plugin: %s"
 msgstr "Falló al activar el complemento: %s"
 
 #: ../plugins/file-loader/plugin.c:801
-msgid "_New ..."
+msgid "_New..."
 msgstr "_Nuevo…"
 
 #: ../plugins/file-loader/plugin.c:803
@@ -4600,7 +4598,7 @@ msgid "New empty editor."
 msgstr "Editot nuevo vacío."
 
 #: ../plugins/file-loader/plugin.c:809
-msgid "_Open ..."
+msgid "_Open..."
 msgstr "_Abrir…"
 
 #: ../plugins/file-loader/plugin.c:817 ../plugins/file-loader/plugin.c:830
@@ -4643,7 +4641,7 @@ msgstr "Abrir archivo reciente"
 #: ../plugins/file-manager/an_file_view.c:596
 #: ../plugins/file-manager/an_file_view.c:864
 #: ../plugins/symbol-browser/an_symbol_view.c:513
-msgid "Loading ..."
+msgid "Loading..."
 msgstr "Cargando…"
 
 #: ../plugins/file-manager/an_file_view.c:724
@@ -5064,19 +5062,19 @@ msgstr "Debe proporcionar una posición válida para situar el punto de parada."
 
 #: ../plugins/gdb/breakpoints.c:1591
 msgid "All breakpoints disabled.\n"
-msgstr "Desactivados todos los puntos de ruptura.\n"
+msgstr "Desactivados todos los puntos de parada.\n"
 
 #: ../plugins/gdb/breakpoints.c:1622
 msgid "All breakpoints enabled.\n"
-msgstr "Activados todos los puntos de ruptura.\n"
+msgstr "Activados todos los puntos de parada.\n"
 
 #: ../plugins/gdb/breakpoints.c:1633
 msgid "Are you sure you want to delete all the breakpoints?"
-msgstr "¿Está seguro de que quiere borrar todos los puntos de ruptura?"
+msgstr "¿Está seguro de que quiere borrar todos los puntos de parada?"
 
 #: ../plugins/gdb/breakpoints.c:1648
 msgid "All breakpoints removed.\n"
-msgstr "Eliminados todos los puntos de ruptura.\n"
+msgstr "Eliminados todos los puntos de parada.\n"
 
 #: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/watch_gui.c:122
 #: ../plugins/tools/editor.c:456
@@ -5144,7 +5142,7 @@ msgstr ""
 "Asegúrese de haber instalado Anjuta correctamente."
 
 #: ../plugins/gdb/debugger.c:647
-msgid "Getting ready to start debugging session ...\n"
+msgid "Getting ready to start debugging session...\n"
 msgstr "Preparándose para iniciar la sesión de depuración…\n"
 
 #: ../plugins/gdb/debugger.c:662
@@ -5235,12 +5233,16 @@ msgstr "No se puede iniciar el terminal para depuración."
 msgid "Program arguments"
 msgstr "Argumentos del programa:"
 
-#: ../plugins/gdb/debugger.c:1507
-#, c-format
-msgid "Attaching to process: %d\n"
-msgstr "Adjuntando a proceso: %d\n"
+#: ../plugins/gdb/debugger.c:1506
+msgid "Program attached\n"
+msgstr "Programa adjuntado\n"
 
-#: ../plugins/gdb/debugger.c:1531
+#: ../plugins/gdb/debugger.c:1520
+#, c-format
+msgid "Attaching to process: %d...\n"
+msgstr "Adjuntando a proceso: %d…\n"
+
+#: ../plugins/gdb/debugger.c:1544
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -5248,28 +5250,32 @@ msgstr ""
 "Ya existe un proceso ejecutándose.\n"
 "¿Desea terminarlo y adjuntarse al proceso nuevo?"
 
-#: ../plugins/gdb/debugger.c:1548
+#: ../plugins/gdb/debugger.c:1561
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede adjuntarse a sí mismo."
 
-#: ../plugins/gdb/debugger.c:1595
+#: ../plugins/gdb/debugger.c:1608
 msgid "Program terminated\n"
 msgstr "Programa terminado\n"
 
-#: ../plugins/gdb/debugger.c:1610
-msgid "Detaching the process\n"
-msgstr "Separando el proceso\n"
+#: ../plugins/gdb/debugger.c:1620
+msgid "Program detached\n"
+msgstr "Programa separado\n"
 
-#: ../plugins/gdb/debugger.c:1628
+#: ../plugins/gdb/debugger.c:1636
+msgid "Detaching the process...\n"
+msgstr "Separando el proceso…\n"
+
+#: ../plugins/gdb/debugger.c:1655
 msgid "Interrupting the process\n"
-msgstr "Interrumpiendo el proceso\n"
+msgstr "Interrumpiendo el proceso…\n"
 
-#: ../plugins/gdb/debugger.c:1816
+#: ../plugins/gdb/debugger.c:1843
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviando señal %s al proceso: %d"
 
-#: ../plugins/gdb/debugger.c:1842
+#: ../plugins/gdb/debugger.c:1869
 msgid "Error whilst signaling the process."
 msgstr "Hubo un error al enviar la señal al proceso."
 
@@ -5285,7 +5291,7 @@ msgstr "No se pudo construir el interfaz de usuario para Memory\n"
 #. Stock icon, if any
 #: ../plugins/gdb/plugin.c:60
 msgid "_Breakpoints"
-msgstr "Punt_os de ruptura"
+msgstr "Punt_os de parada"
 
 #. Display label
 #. short-cut
@@ -5296,26 +5302,26 @@ msgstr "Cambiar punto de parada en la posición actual"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/gdb/plugin.c:76
-msgid "Set Breakpoint ..."
-msgstr "Establecer…"
+msgid "Set Breakpoint..."
+msgstr "Establecer punto de parada…"
 
 #. Display label
 #. short-cut
 #: ../plugins/gdb/plugin.c:78
 msgid "Set a breakpoint"
-msgstr "Establecer un punto de parada"
+msgstr "Establece un punto de parada"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/gdb/plugin.c:84
-msgid "_Breakpoints ..."
-msgstr "_Puntos de ruptura…"
+msgid "_Breakpoints..."
+msgstr "_Puntos de parada…"
 
 #. Display label
 #. short-cut
 #: ../plugins/gdb/plugin.c:86
 msgid "Edit breakpoints"
-msgstr "Editar puntos de ruptura"
+msgstr "Editar puntos de parada"
 
 #. Action name
 #. Stock icon, if any
@@ -5460,7 +5466,7 @@ msgid "Send a kernel signal to the process being debugged"
 msgstr "Enviar una señal del núcleo a un proceso de depuración"
 
 #: ../plugins/gdb/plugin.c:228
-msgid "Ins_pect/Evaluate ..."
+msgid "Ins_pect/Evaluate..."
 msgstr "Ins_peccionar/Evaluar…"
 
 #: ../plugins/gdb/plugin.c:230
@@ -5468,15 +5474,15 @@ msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspeccionar o evaluar una expresión o variable"
 
 #: ../plugins/gdb/plugin.c:236
-msgid "Add Expression in _Watch ..."
-msgstr "Añadir expresión a _vigilar…"
+msgid "Add Expression in _Watch..."
+msgstr "Añadir expresión al _centinela…"
 
 #: ../plugins/gdb/plugin.c:238
 msgid "Add expression or variable to the watch"
-msgstr "Añadir una expresión o variable en el vigilante"
+msgstr "Añadir una expresión o variable en el centinela"
 
 #: ../plugins/gdb/plugin.c:244
-msgid "Debugger command ..."
+msgid "Debugger command..."
 msgstr "Comando de depuración…"
 
 #: ../plugins/gdb/plugin.c:246
@@ -5484,7 +5490,7 @@ msgid "Custom debugger command"
 msgstr "Comando personalizado de depuración"
 
 #: ../plugins/gdb/plugin.c:252
-msgid "Registers ..."
+msgid "Registers..."
 msgstr "Registros…"
 
 #: ../plugins/gdb/plugin.c:254
@@ -5492,7 +5498,7 @@ msgid "Show CPU register contents"
 msgstr "Mostrar el contenido de los registros de la CPU"
 
 #: ../plugins/gdb/plugin.c:260
-msgid "Shared Libraries ..."
+msgid "Shared Libraries..."
 msgstr "Bibliotecas compartidas…"
 
 #: ../plugins/gdb/plugin.c:262
@@ -5500,7 +5506,7 @@ msgid "Show shared libraries mappings"
 msgstr "Mostrar mapas de bibliotecas compartidas"
 
 #: ../plugins/gdb/plugin.c:268
-msgid "Kernel Signals ..."
+msgid "Kernel Signals..."
 msgstr "Señales del núcleo…"
 
 #: ../plugins/gdb/plugin.c:270
@@ -5699,11 +5705,11 @@ msgstr "Proyecto Glade «%s» guardado"
 
 #. If instead we dont have a path yet, fire up a file selector
 #: ../plugins/glade/plugin.c:234
-msgid "Save glade file ..."
+msgid "Save glade file..."
 msgstr "Guardar archivo glade…"
 
 #: ../plugins/glade/plugin.c:261
-msgid "Save glade file as ..."
+msgid "Save glade file as..."
 msgstr "Guardar archivo glade como…"
 
 #: ../plugins/glade/plugin.c:289
@@ -6777,7 +6783,7 @@ msgid "Shortcut:"
 msgstr "Tecla rápida:"
 
 #: ../plugins/macro/macro-actions.c:123
-msgid "Press macro shortcut ..."
+msgid "Press macro shortcut..."
 msgstr "Presionar combinación de teclas de macro…"
 
 #: ../plugins/macro/macro-actions.c:130
@@ -6953,7 +6959,7 @@ msgid "Macros"
 msgstr "Macros"
 
 #: ../plugins/macro/plugin.c:41
-msgid "_Insert Macro ..."
+msgid "_Insert Macro..."
 msgstr "_Insertar macro…"
 
 #: ../plugins/macro/plugin.c:43
@@ -6961,7 +6967,7 @@ msgid "Insert a macro using a shortcut"
 msgstr "Insertar una macro usando una combinación de teclas"
 
 #: ../plugins/macro/plugin.c:48
-msgid "_Add Macro ..."
+msgid "_Add Macro..."
 msgstr "_Añadir macro…"
 
 #: ../plugins/macro/plugin.c:50
@@ -6969,7 +6975,7 @@ msgid "Add a macro"
 msgstr "Añade una macro"
 
 #: ../plugins/macro/plugin.c:55
-msgid "Macros ..."
+msgid "Macros..."
 msgstr "Macros…"
 
 #: ../plugins/macro/plugin.c:57
@@ -7174,7 +7180,7 @@ msgid "Loaded: "
 msgstr "Cargado:"
 
 #: ../plugins/profile-default/plugin.c:493
-msgid " ..."
+msgid "..."
 msgstr "…"
 
 #: ../plugins/profile-default/plugin.c:546
@@ -7214,16 +7220,16 @@ msgstr ""
 "No parece que sea un proyecto de Anjuta."
 
 #: ../plugins/profile-default/plugin.c:898
-msgid "Loaded default profile ..."
+msgid "Loaded default profile..."
 msgstr "Cargado perfil predeterminado…"
 
 #: ../plugins/profile-default/plugin.c:948
 #: ../plugins/profile-default/plugin.c:1075
-msgid "Loaded Profile ..."
+msgid "Loaded Profile..."
 msgstr "Perfil cargado…"
 
 #: ../plugins/profile-default/plugin.c:1045
-msgid "Loaded Project ... Initializing"
+msgid "Loaded Project... Initializing"
 msgstr "Proyecto cargado… Inicializando"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:1
@@ -7240,7 +7246,9 @@ msgstr "Importar un proyecto"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
 msgid "This wizard will help you to import an existing project into anjuta."
-msgstr "Este asistente le ayudará a importar un proyecto ya existente dentro de Anjuta."
+msgstr ""
+"Este asistente le ayudará a importar un proyecto ya existente dentro de "
+"Anjuta."
 
 #: ../plugins/project-import/project-import.c:95
 #, c-format
@@ -7249,8 +7257,9 @@ msgid ""
 "select a different directory, or try upgrading to a newer version of the "
 "Gnome Build Framework."
 msgstr ""
-"No se pudo encontrar un backend válido del proyecto para el directorio dado (%s). Seleccione un directorio diferente, o intente actualizar a una versión más moderna "
-"del marco de compilación de Gnome."
+"No se pudo encontrar un backend válido del proyecto para el directorio dado "
+"(%s). Seleccione un directorio diferente, o intente actualizar a una versión "
+"más moderna del marco de compilación de Gnome."
 
 #: ../plugins/project-import/project-import.c:116
 #, c-format
@@ -7267,7 +7276,10 @@ msgstr ""
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
-msgstr "Ha fallado la generación del archivo del proyecto. No se puede encontrar una plantilla de proyecto apropiada para usar. Asegúrese de que su versión de Anjuta está actualizada."
+msgstr ""
+"Ha fallado la generación del archivo del proyecto. No se puede encontrar una "
+"plantilla de proyecto apropiada para usar. Asegúrese de que su versión de "
+"Anjuta está actualizada."
 
 #: ../plugins/project-import/project-import.c:324
 #, c-format
@@ -7428,7 +7440,7 @@ msgid "Loading project: %s"
 msgstr "Cargando proyecto: %s"
 
 #: ../plugins/project-manager/plugin.c:1009
-msgid "Created project view ..."
+msgid "Created project view..."
 msgstr "Vista de proyecto creada…"
 
 #: ../plugins/project-manager/plugin.c:1022
@@ -7900,7 +7912,7 @@ msgstr "%s: No es un archivo regular"
 
 #: ../plugins/project-manager/project_import.c:109
 #, c-format
-msgid "Importing Project from %s ...\n"
+msgid "Importing Project from %s...\n"
 msgstr "Importar proyecto desde %s…\n"
 
 #: ../plugins/project-manager/project_import.c:119
@@ -7908,31 +7920,31 @@ msgid "Could not launch script!\n"
 msgstr "¡No se puede ejecutar script!\n"
 
 #: ../plugins/project-manager/project_import.c:130
-msgid "Importing Project...please wait"
-msgstr "Importando proyecto…espere un momento"
+msgid "Importing Project... please wait"
+msgstr "Importando proyecto… espere un momento"
 
 #: ../plugins/project-manager/project_import.c:181
-msgid "Project import completed...unsuccessful\n"
+msgid "Project import completed... unsuccessful\n"
 msgstr "La importación del proyecto terminó…incorrectamente\n"
 
 #: ../plugins/project-manager/project_import.c:183
-msgid "Project import completed...unsuccessful"
-msgstr "La importación del proyecto terminó…incorrectamente"
+msgid "Project import completed... unsuccessful"
+msgstr "La importación del proyecto terminó… incorrectamente"
 
 #: ../plugins/project-manager/project_import.c:188
-msgid "Project import completed...successful\n"
-msgstr "Importar proyecto terminó…correctamente\n"
+msgid "Project import completed... successful\n"
+msgstr "Importar proyecto terminó… correctamente\n"
 
 #: ../plugins/project-manager/project_import.c:190
-msgid "Project import completed...successful"
-msgstr "Importar proyecto terminó…correctamente"
+msgid "Project import completed... successful"
+msgstr "Importar proyecto terminó… correctamente"
 
 #: ../plugins/project-manager/project_import.c:206
 msgid "Could not import Project: no project file found!"
 msgstr "No se puede importar el proyecto: No se encontró el archivo del proyecto."
 
 #: ../plugins/project-manager/project_import.c:213
-msgid "Opening Project...please wait"
+msgid "Opening Project... please wait"
 msgstr "Abriendo proyecto… espere"
 
 #: ../plugins/project-manager/project_import.c:216
@@ -8482,7 +8494,7 @@ msgid "Refresh symbol browser tree"
 msgstr "Refrescar el árbol del explorador de símbolos"
 
 #: ../plugins/symbol-browser/plugin.c:384
-msgid "Created sysmbols ..."
+msgid "Created sysmbols..."
 msgstr "Símbolos creados…"
 
 #: ../plugins/symbol-browser/plugin.c:815
@@ -8638,8 +8650,8 @@ msgid "Running command: "
 msgstr "Comando en ejecución:"
 
 #: ../plugins/tools/execute.c:510
-msgid "Completed ... unsuccessful with "
-msgstr "Completado… incorrectamente"
+msgid "Completed... unsuccessful with "
+msgstr "Completado… incorrectamente con"
 
 #: ../plugins/tools/execute.c:616
 msgid "Unable to create a buffer, command aborted"
@@ -8716,7 +8728,7 @@ msgstr ""
 "de Anjuta está instalado. Puede ser descargado desde http://anjuta.org"
 
 #: ../src/anjuta.c:199
-msgid "Loaded Session ..."
+msgid "Loaded Session..."
 msgstr "Sesión cargada…"
 
 #: ../src/anjuta.glade.h:2
@@ -8782,7 +8794,7 @@ msgid "_Settings"
 msgstr "_Opciones"
 
 #: ../src/anjuta-actions.h:56 ../src/shell.c:91
-msgid "_Preferences ..."
+msgid "_Preferences..."
 msgstr "_Preferencias…"
 
 #: ../src/anjuta-actions.h:57
@@ -8951,11 +8963,4 @@ msgstr "Grupo de acción de la shell de pruebas"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Shell de pruebas de Anjuta"
-
-#~ msgid ""
-#~ "This does not look like a project root dir!\n"
-#~ "Continue anyway?"
-#~ msgstr ""
-#~ "Esto no parece el directorio raíz de un proyecto\n"
-#~ "¿Quiere continuar de todas formas?"
 
