@@ -1,3 +1,8 @@
+2005-10-26  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-encodings.c: Save changed supported encodings
+	list. Fixed bug #316731.
+	
 2005-10-23 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* tagmanager/tm_symbol.c: Fixed bug #315218

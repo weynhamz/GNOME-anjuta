@@ -249,6 +249,8 @@ static AnjutaEncoding encodings [] = {
     "WINDOWS-1258", N_("Vietnamese") }
 };
 
+static void save_property (void);
+
 static void
 anjuta_encoding_lazy_init (void)
 {
@@ -490,6 +492,7 @@ on_add_encodings (GtkButton *button)
 			node = g_slist_next (node);
 		}
 		g_slist_free (encs);
+		save_property ();
 	}
 }
 
@@ -507,6 +510,7 @@ on_remove_encodings (GtkButton *button)
 		gtk_tree_selection_get_selected (selection, &model, &iter))
 	{
 		gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
+		save_property ();
 	}
 }
 
@@ -533,6 +537,7 @@ on_up_encoding (GtkButton *button)
 			gtk_list_store_swap (GTK_LIST_STORE (model), &prev_iter, &iter);
 		}
 		gtk_tree_path_free (path);
+		save_property ();
 	}
 }
 
@@ -553,6 +558,7 @@ on_down_encoding (GtkButton *button)
 		if (gtk_tree_model_iter_next (model, &next_iter))
 		{
 			gtk_list_store_swap (GTK_LIST_STORE (model), &iter, &next_iter);
+			save_property ();
 		}
 	}
 }
@@ -597,7 +603,7 @@ on_supported_selection_changed (GtkTreeSelection *selection)
 }
 
 static gchar *
-get_property (AnjutaProperty *prop)
+get_current_value (GtkWidget *tree_view)
 {
 	GtkTreeView *treeview;
 	GString *str;
@@ -606,7 +612,7 @@ get_property (AnjutaProperty *prop)
 	gboolean valid;
 	gchar *value;
 	
-	treeview = GTK_TREE_VIEW (anjuta_property_get_widget (prop));
+	treeview = GTK_TREE_VIEW (tree_view);
 	
 	str = g_string_new ("");
 	
@@ -624,6 +630,12 @@ get_property (AnjutaProperty *prop)
 	}
 	value = g_string_free (str, FALSE);
 	return value;
+}
+
+static gchar *
+get_property (AnjutaProperty *prop)
+{
+	return get_current_value (anjuta_property_get_widget (prop));
 }
 
 static void
@@ -662,6 +674,16 @@ set_property (AnjutaProperty *prop, const gchar *value)
 		node = g_list_next (node);
 	}
 	anjuta_util_glist_strings_free (list);
+}
+
+static void
+save_property (void)
+{
+	gchar *value = get_current_value (anjuta_encodings_dialog->supported_treeview);
+	anjuta_preferences_set (anjuta_encodings_dialog->pref, 
+							SUPPORTED_ENCODINGS,
+							value);
+	g_free (value);
 }
 
 void
