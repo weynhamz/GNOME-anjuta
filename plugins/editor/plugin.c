@@ -34,6 +34,8 @@
 #include "aneditor.h"
 #include "lexer.h"
 #include "search-replace.h"
+#include "indent-util.h"
+#include "indent-dialog.h"
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-document-manager.ui"
@@ -454,6 +456,8 @@ static struct ActionToggleGroupInfo action_toggle_groups[] = {
 	{ actions_view, G_N_ELEMENTS (actions_view), "ActionGroupEditorView", N_("Editor view settings") }
 };
 
+// void pref_set_style_combo(EditorPlugin *plugin);
+
 /* FIXME: There was a change in data representation in GtkActionEntry from
 EggActionGroupEntry. The actual entries should be fixed and this hack removed */
 static void
@@ -801,6 +805,24 @@ on_edit_editor_styles (GtkWidget *button, EditorPlugin *plugin)
 	style_editor_show (plugin->style_editor);
 }
 
+static void
+on_edit_editor_indent (GtkWidget *button, EditorPlugin *plugin)
+{
+	IndentData *idt = plugin->idt;
+
+	if (idt->dialog == NULL)
+		idt->dialog = create_dialog(idt);
+	gtk_widget_show(idt->dialog);
+
+}
+
+static void
+on_style_combo_changed (GtkComboBox *combo, EditorPlugin *plugin)
+{
+	IndentData *idt = plugin->idt;
+
+	pref_style_combo_changed(combo, idt);
+}
 
 static gint
 on_window_key_press_event (GtkWidget   *widget,
@@ -988,6 +1010,7 @@ prefs_init (EditorPlugin *ep)
 	editor_plugin_set_tab_pos (ep);
 	REGISTER_NOTIFY (EDITOR_TABS_HIDE, on_gconf_notify_prefs);
 	REGISTER_NOTIFY (EDITOR_TABS_POS, on_gconf_notify_prefs);
+
 }
 
 static void
@@ -1102,6 +1125,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	if (!initialized)
 	{
 		GtkWidget *style_button;
+		GtkWidget *indent_button;
+		GtkWidget *indent_combo;
+		GtkWidget *indent_entry;
 		
 		ANJUTA_DOCMAN(docman)->shell = plugin->shell;
 		
@@ -1112,10 +1138,24 @@ activate_plugin (AnjutaPlugin *plugin)
 		style_button = glade_xml_get_widget (gxml, "edit_style_button");
 		g_signal_connect (G_OBJECT (style_button), "clicked",
 						  G_CALLBACK (on_edit_editor_styles), plugin);
+		indent_button = glade_xml_get_widget (gxml, "set_indent_button");
+		g_signal_connect (G_OBJECT (indent_button), "clicked",
+						  G_CALLBACK (on_edit_editor_indent), plugin);
 		
 		anjuta_preferences_add_page (editor_plugin->prefs,
 									 gxml, "Editor", ICON_FILE);
 		anjuta_encodings_init (editor_plugin->prefs, gxml);
+		/*  */
+		indent_combo = glade_xml_get_widget (gxml, "pref_indent_style_combobox");
+		((EditorPlugin*)plugin)->idt->pref_indent_combo = indent_combo;
+		g_signal_connect (G_OBJECT (indent_combo), "changed",
+						  G_CALLBACK (on_style_combo_changed), plugin);
+		
+		
+		indent_entry = glade_xml_get_widget (gxml, "preferences_style_entry");
+		((EditorPlugin*)plugin)->idt->pref_indent_options = indent_entry;
+		((EditorPlugin*)plugin)->idt->prefs = ((EditorPlugin*)plugin)->prefs;
+		indent_init_load_style(((EditorPlugin*)plugin)->idt);
 		g_object_unref (G_OBJECT (gxml));
 	}
 	prefs_init (editor_plugin);
@@ -1231,6 +1271,9 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_session_save), plugin);
 	
 	initialized = TRUE;
+	/*    */
+	pref_set_style_combo(((EditorPlugin*)plugin)->idt);  //**//
+	
 	return TRUE;
 }
 
@@ -1312,6 +1355,7 @@ editor_plugin_instance_init (GObject *obj)
 	plugin->style_editor = NULL;
 	plugin->g_tabbing = FALSE;
 	plugin->gconf_notify_ids = NULL;
+	plugin->idt = indent_init(plugin->prefs);
 }
 
 static void

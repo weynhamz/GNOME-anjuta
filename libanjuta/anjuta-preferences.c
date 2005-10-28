@@ -922,6 +922,52 @@ anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
 }
 
 /**
+ * anjuta_preferences_get_list:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ * @list_type: Type of each list element
+ *
+ * Gets the list of @key.
+ *
+ * Return value: Key list or NULL if the key is not defined.
+ */
+inline GSList *
+anjuta_preferences_get_list (AnjutaPreferences *pr, const gchar *key,
+                             GConfValueType list_type)
+{
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
+	g_return_val_if_fail (key != NULL, NULL);
+
+	return gconf_client_get_list(pr->priv->gclient, build_key (key), list_type, NULL);
+}
+
+/**
+ * anjuta_preferences_get_pair:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ * @car_type: Desired type of the pair's first field (car).
+ * @cdr_type: Desired type of the pair's second field (cdr).
+ * @car_retloc: Address of a return location for the car.
+ * @cdr_retloc: Address of a return location for the cdr.
+ *
+ * Gets the pair of @key.
+ *
+ * Return value: TRUE or FALSE.
+ */
+inline gboolean
+anjuta_preferences_get_pair (AnjutaPreferences *pr, const gchar *key,
+                             GConfValueType car_type, GConfValueType cdr_type,
+                             gpointer car_retloc, gpointer cdr_retloc)
+{
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
+	g_return_val_if_fail (key != NULL, FALSE);
+
+	return gconf_client_get_pair(pr->priv->gclient, build_key (key),
+                                 car_type, cdr_type,
+                                 car_retloc, cdr_retloc, NULL);
+}
+
+/**
  * anjuta_preferences_get_int:
  * @pr: A #AnjutaPreferences object
  * @key: Property key
@@ -1086,6 +1132,51 @@ anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
 	{
 		gconf_client_set_string (pr->priv->gclient, build_key (key), "", NULL);
 	}
+}
+
+/**
+ * anjuta_preferences_set_list:
+ * @pr: A #AnjutaPreferences object.
+ * @key: Property key.
+ * @list_type: Type of each element.
+ * @list: New value of the key.
+ *
+ * Sets a list in current session.
+ */
+inline void
+anjuta_preferences_set_list (AnjutaPreferences *pr, const gchar *key,
+					         GConfValueType list_type, GSList *list)
+{
+	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
+	g_return_if_fail (key != NULL);
+
+	gconf_client_set_list(pr->priv->gclient, build_key (key), 
+		                      list_type, list, NULL);
+}
+
+/**
+ * anjuta_preferences_set_pair:
+ * @pr: A #AnjutaPreferences object.
+ * @key: Property key.
+ * @car_type: Type of the pair's first field (car).
+ * @cdr_type: Type of the pair's second field (cdr).
+ * @address_of_car: Address of the car.
+ * @address_of_cdr: Address of the cdr.
+ *
+ */
+inline gboolean
+anjuta_preferences_set_pair (AnjutaPreferences *pr, const gchar *key,
+					         GConfValueType car_type, GConfValueType cdr_type,
+                             gconstpointer address_of_car,
+                             gconstpointer address_of_cdr)
+{
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
+	g_return_val_if_fail (key != NULL, FALSE);
+
+	return gconf_client_set_pair (pr->priv->gclient, build_key (key),
+                                  car_type, cdr_type,
+                                  address_of_car, address_of_cdr,
+                                  NULL);
 }
 
 /**
@@ -1515,4 +1606,55 @@ const gchar*
 anjuta_preferences_get_prefix (AnjutaPreferences *pr)
 {
 	return PREFERENCE_PROPERTY_PREFIX;
+}
+
+/**
+ * anjuta_preferences_dir_exists:
+ * @pr: A #AnjutaPreferences object.
+ * @dir: Directory to checkfor.
+ *
+ * Returns TRUE if dir exists.
+ */
+inline gboolean
+anjuta_preferences_dir_exists (AnjutaPreferences *pr, const gchar *dir)
+{
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
+	g_return_val_if_fail (dir != NULL, FALSE);
+
+	return gconf_client_dir_exists(pr->priv->gclient, build_key (dir), NULL);
+}
+
+/**
+ * anjuta_preferences_add_dir:
+ * @pr: A #AnjutaPreferences object.
+ * @dir: Directory to add to the list.
+ * @preload: Degree of preload.
+ *
+ * Add a directory to the list of directories the GConfClient.
+ */
+inline void
+anjuta_preferences_add_dir (AnjutaPreferences *pr, const gchar *dir, 
+                               GConfClientPreloadType preload)
+{
+	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
+	g_return_if_fail (dir != NULL);
+
+	gconf_client_add_dir(pr->priv->gclient, build_key (dir), 
+	                     preload, NULL);
+}
+
+/**
+ * anjuta_preferences_remove_dir:
+ * @pr: A #AnjutaPreferences object.
+ * @dir: Directory to remove from the list.
+ *
+ * Remove a directory from the list of directories.
+ */
+inline void
+anjuta_preferences_remove_dir (AnjutaPreferences *pr, const gchar *dir)
+{
+	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
+	g_return_if_fail (dir != NULL);
+
+	gconf_client_remove_dir(pr->priv->gclient, build_key (dir), NULL);
 }

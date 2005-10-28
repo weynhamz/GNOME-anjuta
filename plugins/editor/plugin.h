@@ -4,6 +4,7 @@
 #include <libanjuta/anjuta-ui.h>
 
 #include "style-editor.h"
+#include "indent-util.h"
 
 typedef struct _EditorPlugin EditorPlugin;
 typedef struct _EditorPluginClass EditorPluginClass;
@@ -20,6 +21,8 @@ struct _EditorPlugin{
 	gboolean g_tabbing;
 	
 	StyleEditor *style_editor;
+	
+	IndentData *idt;
 	
 	GList *gconf_notify_ids;
 };

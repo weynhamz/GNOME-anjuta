@@ -165,6 +165,16 @@ inline void anjuta_preferences_set (AnjutaPreferences *pr,
 									const gchar *key,
 									const gchar *value);
 
+/* Sets the list of a key */
+inline void anjuta_preferences_set_list (AnjutaPreferences *pr, const gchar *key,
+					                    GConfValueType list_type, GSList *list);
+										
+/* Sets the pair of a key */
+inline gboolean anjuta_preferences_set_pair (AnjutaPreferences *pr, const gchar *key,
+					         GConfValueType car_type, GConfValueType cdr_type,
+                             gconstpointer address_of_car,
+                             gconstpointer address_of_cdr);
+							 
 /* Sets the value (int) of a key */
 inline void anjuta_preferences_set_int (AnjutaPreferences *pr,
 										const gchar *key,
@@ -174,6 +184,15 @@ inline void anjuta_preferences_set_int (AnjutaPreferences *pr,
 /* Must free the return string */
 inline gchar * anjuta_preferences_get (AnjutaPreferences *pr,
 									   const gchar *key);
+
+/* Gets the list of a key */
+inline GSList *anjuta_preferences_get_list (AnjutaPreferences *pr, const gchar *key,
+                                           GConfValueType list_type);
+
+/* Gets the pair of a key */
+inline gboolean anjuta_preferences_get_pair (AnjutaPreferences *pr, const gchar *key,
+                             GConfValueType car_type, GConfValueType cdr_type,
+                             gpointer car_retloc, gpointer cdr_retloc);										   
 
 /* Gets the value (int) of a key. If not found, 0 is returned */
 inline gint anjuta_preferences_get_int (AnjutaPreferences *pr,
@@ -199,6 +218,13 @@ guint anjuta_preferences_notify_add (AnjutaPreferences *pr,
 void anjuta_preferences_notify_remove (AnjutaPreferences *pr, guint notify_id);
 
 const gchar* anjuta_preferences_get_prefix (AnjutaPreferences *pr);
+
+inline gboolean anjuta_preferences_dir_exists (AnjutaPreferences *pr, const gchar *dir);
+
+inline void anjuta_preferences_add_dir (AnjutaPreferences *pr, const gchar *dir, 
+                                       GConfClientPreloadType preload);
+
+inline void anjuta_preferences_remove_dir (AnjutaPreferences *pr, const gchar *dir);
 
 #ifdef __cplusplus
 };

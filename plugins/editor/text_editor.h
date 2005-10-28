@@ -23,7 +23,6 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libgnomevfs/gnome-vfs-monitor.h>
 
-// #include "global.h"
 #include "text_editor_menu.h"
 #include "aneditor.h"
 
@@ -241,8 +240,9 @@ void text_editor_scintilla_command (TextEditor *te, gint command,
 #define SAVE_SESSION_TIMER         "save.session.timer"
 
 #define AUTOFORMAT_DISABLE         "autoformat.disable"
-#define AUTOFORMAT_CUSTOM_STYLE    "autoformat.custom.style"
 #define AUTOFORMAT_STYLE           "autoformat.style"
+#define AUTOFORMAT_LIST_STYLE      "autoformat.list.style"
+#define AUTOFORMAT_OPTS            "autoformat.opts"
 
 #define FOLD_SYMBOLS               "fold.symbols"
 #define FOLD_UNDERLINE             "fold.underline"

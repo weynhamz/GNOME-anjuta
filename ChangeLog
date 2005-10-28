@@ -1,3 +1,18 @@
+2005-10-28  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	*CVS: Modified Files:
+	libanjuta/anjuta-preferences.c libanjuta/anjuta-preferences.h
+	plugins/editor/Makefile.am
+	plugins/editor/anjuta-document-manager.glade
+	plugins/editor/plugin.c plugins/editor/plugin.h
+	plugins/editor/text_editor.c plugins/editor/text_editor.h
+	*CVS: Added Files:
+	plugins/editor/indent-dialog.c plugins/editor/indent-dialog.h
+	plugins/editor/indent-util.c plugins/editor/indent-util.h
+	plugins/editor/indent_test.c :
+	Set and Preview indent preferences parameters.
+	Saved indent user parameters.
+
 2005-10-27  Naba Kumar  <naba@gnome.org>
 
 	Patch from Flavio daCosta  <flavio.dacosta@gmail.com>

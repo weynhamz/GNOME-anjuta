@@ -6,6 +6,10 @@ editor_glade_DATA = anjuta-document-manager.glade
 editor_uidir = $(anjuta_ui_dir)
 editor_ui_DATA = anjuta-document-manager.ui
 
+# Test file for anjuta indent
+editor_datadir = $(anjuta_data_dir)
+editor_data_DATA = indent_test.c
+
 # Plugin pixmaps
 editor_pixmapsdir = $(anjuta_image_dir)
 editor_pixmaps_DATA = \
@@ -105,7 +109,11 @@ libanjuta_editor_la_SOURCES= \
 	style-editor.c \
 	style-editor.h \
 	editor-tooltips.c \
-	editor-tooltips.h 
+	editor-tooltips.h \
+	indent-dialog.c \
+	indent-dialog.h \
+	indent-util.c \
+	indent-util.h
 
 EXTRA_DIST = \
 	$(editor_pixmaps_DATA) \

@@ -1598,39 +1598,13 @@ text_editor_get_selection (TextEditor * te)
 	return tr.lpstrText;
 }
 
-static gchar *
-get_indent_style(AnjutaPreferences *pr, const gchar *name_style)
-{
-	typedef struct _IndentStyle{
-		gchar *name;
-		gchar *style;
-	}IndentStyle;
-	
-	static struct _IndentStyle indentstyle[] = {
-		{"GNU coding style", " -gnu"},
-		{"Kernighan and Ritchie style", " -kr"},
-		{"Original Berkeley style", " -orig"},
-		{"Anjuta coding style", " -l80 -lc80 -ts4 -i4 -sc -bli0 -bl0 -cbi0 -ss"},
-		{"Style of Kangleipak", " -i8 -sc -bli0 -bl0 -cbi0 -ss"},
-		{"Hello World style", " -gnu -i0 -bli0 -cbi0 -cdb -sc -bl0 -ss"},
-		{"Crazy boy style", " "}
-	};
-	
-	gint n;
-	if (g_ascii_strcasecmp (name_style, "Custom style") == 0)
-		return anjuta_preferences_get (pr, AUTOFORMAT_CUSTOM_STYLE);
-	for (n=0; n < (sizeof(indentstyle)/sizeof(IndentStyle)); n++)
-	{
-		if (g_ascii_strcasecmp (name_style, (indentstyle[n].name)) == 0)
-			return g_strdup(indentstyle[n].style);
-	}
-	return NULL;
-}
 
 void
 text_editor_autoformat (TextEditor * te)
 {
-	gchar *cmd, *file, *fopts, *dir;
+	gchar *cmd, *file, *dir;
+	gchar *indent_style = NULL;
+	gchar *fopts = NULL;
 	pid_t pid;
 	int status;
 	gchar *err;
@@ -1663,10 +1637,12 @@ text_editor_autoformat (TextEditor * te)
 									_("Error in auto formatting..."));
 		return;
 	}
-
-	fopts = get_indent_style(te->preferences, 
-							 anjuta_preferences_get (te->preferences,
-													 AUTOFORMAT_STYLE));
+	
+	if (!anjuta_preferences_get_pair (te->preferences, AUTOFORMAT_STYLE,
+                                 GCONF_VALUE_STRING, GCONF_VALUE_STRING,
+                                 &indent_style, &fopts))
+		return;
+	
 	if (!fopts)
 	{
 		gchar *msg;
@@ -1676,8 +1652,7 @@ text_editor_autoformat (TextEditor * te)
 		g_free (file);
 		text_editor_thaw (te);
 		// FIXME: anjuta_set_active ();
-		msg = g_strdup_printf (_("Anjuta does not know %s!"),
-			anjuta_preferences_get (te->preferences, AUTOFORMAT_STYLE));
+		msg = g_strdup_printf (_("Anjuta does not know %s!"), indent_style);
 		parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
 		anjuta_util_dialog_warning (GTK_WINDOW (parent), msg);
 		g_free(msg);
