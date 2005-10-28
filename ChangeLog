@@ -1,3 +1,9 @@
+2005-10-27  Naba Kumar  <naba@gnome.org>
+
+	Patch from Flavio daCosta  <flavio.dacosta@gmail.com>
+	* plugins/editor/anjuta-docman.c: Restore tab color to normal
+	theme color for saved documents.
+	
 2005-10-26  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-encodings.c: Save changed supported encodings

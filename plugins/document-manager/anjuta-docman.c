@@ -940,7 +940,7 @@ anjuta_docman_show_editor (AnjutaDocman *docman, GtkWidget* te)
 static void
 anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te_widget)
 {
-	GdkColor tmpcolor;
+	GdkColor tmpcolor, *colorp;
 	AnjutaDocmanPage *page;
 	gchar *basename;
 	TextEditor *te;
@@ -955,18 +955,21 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te_widget)
 	
 	if (text_editor_is_saved(te))
 	{
-		gdk_color_parse("black",&tmpcolor);
+		/* setting GdkColor value in gtk_widget_modify_fg to NULL will 
+		 * reset it to the default colors */
+		colorp = NULL;
 	}
 	else
 	{
-		gdk_color_parse("red",&tmpcolor);
+		gdk_color_parse("red", &tmpcolor);
+		colorp = &tmpcolor;
 	}
-	gtk_widget_modify_fg (page->label, GTK_STATE_NORMAL, &tmpcolor);
-	gtk_widget_modify_fg (page->label, GTK_STATE_INSENSITIVE, &tmpcolor);
-	gtk_widget_modify_fg (page->label, GTK_STATE_ACTIVE, &tmpcolor);
-	gtk_widget_modify_fg (page->label, GTK_STATE_PRELIGHT, &tmpcolor);
-	gtk_widget_modify_fg (page->label, GTK_STATE_SELECTED, &tmpcolor);
-	
+	gtk_widget_modify_fg (page->label, GTK_STATE_NORMAL, colorp);
+	gtk_widget_modify_fg (page->label, GTK_STATE_INSENSITIVE, colorp);
+	gtk_widget_modify_fg (page->label, GTK_STATE_ACTIVE, colorp);
+	gtk_widget_modify_fg (page->label, GTK_STATE_PRELIGHT, colorp);
+	gtk_widget_modify_fg (page->label, GTK_STATE_SELECTED, colorp);
+
 	if (te->uri)
 	{
 		basename = g_path_get_basename (te->uri);
