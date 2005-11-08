@@ -28,6 +28,8 @@
 
 #include "tm_tagmanager.h"
 
+#include <libanjuta/anjuta-status.h>
+
 #define TEXT_EDITOR_FIND_SCOPE_WHOLE 1
 #define TEXT_EDITOR_FIND_SCOPE_CURRENT 2
 #define TEXT_EDITOR_FIND_SCOPE_SELECTION 3
@@ -48,6 +50,8 @@ struct _TextEditor
 	gchar *filename;
 	gchar *uri;
 	GnomeVFSMonitorHandle *monitor;
+	
+	AnjutaStatus *status;
 	
 	/* File extension that will be used to force hilite type */
 	gchar *force_hilite;
@@ -96,7 +100,7 @@ struct _TextEditorClass
 GType text_editor_get_type (void);
 
 /* New instance of TextEditor */
-GtkWidget* text_editor_new (AnjutaPreferences * pr, const gchar *uri,
+GtkWidget* text_editor_new (AnjutaStatus *status, AnjutaPreferences * pr, const gchar *uri,
 							const gchar *tab_name);
 
 /* Freeze and thaw editor */

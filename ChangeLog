@@ -1,12 +1,19 @@
+2005-11-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* libanjuta/anjuta-status.[ch],
+	plugins/editor/text_editor.[ch], plugins/editor/text_editor_cbs.c,
+	plugins/editor/anjuta-docman.c :
+	New anjuta-status procedure.
+
 2005-10-28  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
-	*CVS: Modified Files:
+	*Modified Files:
 	libanjuta/anjuta-preferences.c libanjuta/anjuta-preferences.h
 	plugins/editor/Makefile.am
 	plugins/editor/anjuta-document-manager.glade
 	plugins/editor/plugin.c plugins/editor/plugin.h
 	plugins/editor/text_editor.c plugins/editor/text_editor.h
-	*CVS: Added Files:
+	*Added Files:
 	plugins/editor/indent-dialog.c plugins/editor/indent-dialog.h
 	plugins/editor/indent-util.c plugins/editor/indent-util.h
 	plugins/editor/indent_test.c :

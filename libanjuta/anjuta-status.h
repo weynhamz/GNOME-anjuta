@@ -60,6 +60,7 @@ void anjuta_status_busy_pop (AnjutaStatus *status);
 void anjuta_status_set_default (AnjutaStatus *status, const gchar *label,
 								const gchar *value_format, ...);
 void anjuta_status_add_widget (AnjutaStatus *status, GtkWidget *widget);
+void anjuta_status(AnjutaStatus *status, gchar *mesg, gint timeout);
 
 /* Status bar progress manipulation */
 void anjuta_status_progress_set_splash (AnjutaStatus *status, const gchar *splash_file, gint splash_progress_position);
@@ -68,4 +69,5 @@ void anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks);
 void anjuta_status_progress_tick (AnjutaStatus *status,
 								  GdkPixbuf *icon, const gchar *text);
 void anjuta_status_progress_reset (AnjutaStatus *status);
+
 #endif

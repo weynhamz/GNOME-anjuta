@@ -415,5 +415,24 @@ anjuta_status_progress_reset (AnjutaStatus *status)
 	gnome_appbar_refresh (GNOME_APPBAR(status));
 }
 
+static gboolean
+anjuta_status_timeout(AnjutaStatus *status)
+{
+	anjuta_status_pop(status);
+	return FALSE;
+}
+
+/* Display message in status until timeout (secondes) */
+void
+anjuta_status(AnjutaStatus *status, gchar *mesg, gint timeout)
+{
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	g_return_if_fail (mesg != NULL);
+	anjuta_status_push(status, mesg);
+	g_timeout_add (timeout * 1000, (void*) anjuta_status_timeout, status);
+	
+}
+
+
 ANJUTA_TYPE_BEGIN(AnjutaStatus, anjuta_status, GNOME_TYPE_APPBAR);
 ANJUTA_TYPE_END;

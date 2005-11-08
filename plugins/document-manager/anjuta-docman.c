@@ -618,9 +618,12 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 	gchar *ruri;
 	EditorTooltips *tooltips = NULL;
 	AnjutaDocmanPage *page;
+	AnjutaStatus *status;
 	
-	te = text_editor_new (ANJUTA_PREFERENCES (docman->priv->preferences),
+	status = anjuta_shell_get_status (docman->shell, NULL);
+	te = text_editor_new (status, ANJUTA_PREFERENCES (docman->priv->preferences),
 						  uri, name);
+	
 	/* File cannot be loaded, texteditor brings up an error dialog */
 	if (te == NULL)
 	{

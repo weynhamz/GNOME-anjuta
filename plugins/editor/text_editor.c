@@ -367,10 +367,12 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 }
 
 GtkWidget *
-text_editor_new (AnjutaPreferences *eo, const gchar *uri, const gchar *name)
+text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 {
 	static guint new_file_count;
 	TextEditor *te = TEXT_EDITOR (gtk_widget_new (TYPE_TEXT_EDITOR, NULL));
+	
+	te->status = status; 
 	
 	te->preferences = eo;
 	te->props_base = text_editor_get_props();
@@ -1411,7 +1413,7 @@ text_editor_load_file (TextEditor * te)
 		return FALSE;
 	if (IS_SCINTILLA (te->scintilla) == FALSE)
 		return FALSE;
-	// FIXME: anjuta_status (_("Loading file..."));
+	anjuta_status (te->status, _("Loading file..."), 5); 
 	text_editor_freeze (te);
 	// te->modified_time = time (NULL);
 	text_editor_update_monitor (te, FALSE);
@@ -1433,12 +1435,13 @@ text_editor_load_file (TextEditor * te)
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_EMPTYUNDOBUFFER, 0, 0);
 	text_editor_set_hilite_type (te, NULL);
-	if (anjuta_preferences_get_int (te->preferences, FOLD_ON_OPEN))
+	if (anjuta_preferences_get_int (te->preferences
+, FOLD_ON_OPEN))
 	{
 		aneditor_command (te->editor_id, ANE_CLOSE_FOLDALL, 0, 0);
 	}
 	text_editor_set_line_number_width(te);
-	// FIXME: anjuta_status (_("File loaded successfully"));
+	anjuta_status (te->status, _("File loaded successfully"), 5); 
 	return TRUE;
 }
 
@@ -1455,8 +1458,7 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	text_editor_freeze (te);
 	text_editor_set_line_number_width(te);
 	
-	// FIXME: anjuta_status (_("Saving file..."));
-	
+	anjuta_status (te->status, _("Saving file..."), 5); 
 	text_editor_update_monitor (te, TRUE);
 	
 	if (save_to_file (te, te->uri) == FALSE)
@@ -1476,7 +1478,7 @@ text_editor_save_file (TextEditor * te, gboolean update)
 		scintilla_send_message (SCINTILLA (te->scintilla),
 					SCI_SETSAVEPOINT, 0, 0);
 		g_signal_emit_by_name (G_OBJECT (te), "saved", te->uri);
-		//FIXME: anjuta_status (_("File saved successfully"));
+		anjuta_status (te->status, _("File saved successfully"), 5);
 		ret = TRUE;
 	}
 	text_editor_update_monitor (te, FALSE);
@@ -1621,7 +1623,7 @@ text_editor_autoformat (TextEditor * te)
 	if (te == NULL)
 		return;
 
-	// FIXME: anjuta_status (_("Auto formatting..."));
+	anjuta_status (te->status, _("Auto formatting..."), 5);
 	// FIXME: anjuta_set_busy ();
 	text_editor_freeze (te);
 	file = anjuta_util_get_a_tmp_file ();
@@ -1683,7 +1685,7 @@ text_editor_autoformat (TextEditor * te)
 	{
 		text_editor_hilite (te, FALSE);
 		gtk_widget_queue_draw (te->scintilla);
-		// FIXME: anjuta_status (_("Auto formatting completed"));
+		anjuta_status (te->status, _("Auto formatting completed"), 5);
 	}
 	remove (file);
 	g_free (file);

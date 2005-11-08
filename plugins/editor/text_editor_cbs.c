@@ -116,7 +116,10 @@ gboolean on_text_editor_auto_save (gpointer data)
 		return TRUE;
 	if (text_editor_save_file (te, TRUE))
 	{
-		//FIXME: anjuta_status (_("Autosaved \"%s\""), te->filename);
+		gchar *mesg = NULL;
+		mesg = g_strdup_printf(_("Autosaved \"%s\""), te->filename);                                          
+		anjuta_status (te->status, mesg, 3);
+		g_free(mesg);
 	}
 	else
 	{
