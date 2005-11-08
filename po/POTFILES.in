@@ -50,6 +50,7 @@ plugins/editor/action-callbacks.c
 plugins/editor/anjuta-docman.c
 plugins/editor/anjuta-document-manager.glade
 plugins/editor/goto_line.c
+plugins/editor/indent-dialog.c
 plugins/editor/plugin.c
 plugins/editor/print.c
 plugins/editor/search_preferences.c

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-31 14:38-0500\n"
+"POT-Creation-Date: 2005-11-08 17:04-0500\n"
 "PO-Revision-Date: 2005-08-03 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -2765,7 +2765,7 @@ msgstr "Incremental search for '%s' (continued at top) failed."
 msgid "Save file as"
 msgstr "Save file as"
 
-#: plugins/editor/anjuta-docman.c:644
+#: plugins/editor/anjuta-docman.c:647
 msgid "Path:"
 msgstr "Path:"
 
@@ -3782,6 +3782,18 @@ msgstr "_Save Theme As"
 msgid "<b>Go to Line number:</b>"
 msgstr "<b>Go to Line number:</b>"
 
+#: plugins/editor/indent-dialog.c:402 plugins/editor/indent-dialog.c:429
+msgid "indent parameter not known !"
+msgstr "Indent parameter not known!"
+
+#: plugins/editor/indent-dialog.c:467
+msgid "A Style has already this name !"
+msgstr "A Style has already this name!"
+
+#: plugins/editor/indent-dialog.c:496 plugins/editor/indent-dialog.c:527
+msgid "This Style is not modifiable !"
+msgstr "This Style cannot be modified!"
+
 #: plugins/editor/plugin.c:141 plugins/glade/plugin.c:494
 msgid "_Save"
 msgstr "_Save"
@@ -4553,23 +4565,23 @@ msgstr ""
 "the current buffer.\n"
 "Do you want to reload it?"
 
-#: plugins/editor/text_editor.c:1198
+#: plugins/editor/text_editor.c:1200
 msgid "Could not get file info"
 msgstr "Could not get file info"
 
-#: plugins/editor/text_editor.c:1205
+#: plugins/editor/text_editor.c:1207
 msgid "This file is too big. Unable to allocate memory."
 msgstr "This file is too big. Unable to allocate memory."
 
-#: plugins/editor/text_editor.c:1212
+#: plugins/editor/text_editor.c:1214
 msgid "Could not open file"
 msgstr "Could not open file"
 
-#: plugins/editor/text_editor.c:1220
+#: plugins/editor/text_editor.c:1222
 msgid "Error while reading from file"
 msgstr "Error while reading from file"
 
-#: plugins/editor/text_editor.c:1256
+#: plugins/editor/text_editor.c:1258
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4579,7 +4591,11 @@ msgstr ""
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
 
-#: plugins/editor/text_editor.c:1421
+#: plugins/editor/text_editor.c:1416
+msgid "Loading file..."
+msgstr "Loading file..."
+
+#: plugins/editor/text_editor.c:1423
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4590,26 +4606,42 @@ msgstr ""
 "\n"
 "Details: %s"
 
-#: plugins/editor/text_editor.c:1468
+#: plugins/editor/text_editor.c:1444
+msgid "File loaded successfully"
+msgstr "File loaded successfully"
+
+#: plugins/editor/text_editor.c:1461
+msgid "Saving file..."
+msgstr "Saving file..."
+
+#: plugins/editor/text_editor.c:1470
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Could not save file: %s."
 
-#: plugins/editor/text_editor.c:1618
+#: plugins/editor/text_editor.c:1481
+msgid "File saved successfully"
+msgstr "File saved successfully"
+
+#: plugins/editor/text_editor.c:1620
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Auto format is currently disabled. Change the setting in Preferences."
 
-#: plugins/editor/text_editor.c:1637
+#: plugins/editor/text_editor.c:1626
+msgid "Auto formatting..."
+msgstr "Auto formatting..."
+
+#: plugins/editor/text_editor.c:1639
 msgid "Error in auto formatting..."
 msgstr "Error in auto formatting..."
 
 #. FIXME: anjuta_set_active ();
-#: plugins/editor/text_editor.c:1655
+#: plugins/editor/text_editor.c:1657
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta does not know %s!"
 
-#: plugins/editor/text_editor.c:1679
+#: plugins/editor/text_editor.c:1681
 #, c-format
 msgid ""
 "Error in auto formatting...\n"
@@ -4618,7 +4650,11 @@ msgstr ""
 "Error in auto formatting...\n"
 "Details: %s"
 
-#: plugins/editor/text_editor.c:1924
+#: plugins/editor/text_editor.c:1688
+msgid "Auto formatting completed"
+msgstr "Auto formatting completed"
+
+#: plugins/editor/text_editor.c:1926
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4631,7 +4667,12 @@ msgstr ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 
-#: plugins/editor/text_editor_cbs.c:126
+#: plugins/editor/text_editor_cbs.c:120
+#, c-format
+msgid "Autosaved \"%s\""
+msgstr "Autosaved \"%s\""
+
+#: plugins/editor/text_editor_cbs.c:129
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Autosave \"%s\" -- Failed"
