@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-29 15:18+0200\n"
-"PO-Revision-Date: 2005-10-29 15:33+0200\n"
+"PO-Revision-Date: 2005-11-11 22:52+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3302,7 +3302,7 @@ msgstr "Fuerza un espacio entre un «for» y el siguiente paréntesis (predeterm
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:113
 msgid "Force a space between a 'while' and the following parenthesis (default)."
-msgstr ""
+msgstr "Forzar un espacio entre un 'while' y el siguiente paréntesis (predeterminado)"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:114
 msgid "Fore color:"
@@ -3310,11 +3310,11 @@ msgstr "Color texto:"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:115
 msgid "Format comments which begin after the first column."
-msgstr ""
+msgstr "Formatear comentarios que comienzan después de la primera columna."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:116
 msgid "Format comments which begin in column one."
-msgstr ""
+msgstr "Formatear comentarios que empiezan en la columna uno."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:117
 #: ../plugins/editor/text_editor_menu.c:85
@@ -3427,7 +3427,7 @@ msgid ""
 "Line up continuation line to start at the character position just after the "
 "left parenthesis if a line has a left parenthesis which is not closed on "
 "that line."
-msgstr ""
+msgstr "Alinear la línea de continuación para empezar en la posición del caracter justo antes del paréntesis izquierdo si una línea tiene un paréntesis izquierdo que no está cerrado en esa línea."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:144
 #: ../plugins/editor/print.c:1038 ../plugins/gdb/info.c:126
@@ -3484,6 +3484,8 @@ msgid ""
 "New\n"
 "Style"
 msgstr ""
+"Estilo\n"
+"Nuevo"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:158
 msgid "New Name:"
@@ -3527,11 +3529,11 @@ msgstr "Colocar la llave en la línea del test if."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:169
 msgid "Place the comment delimiters on blank lines."
-msgstr ""
+msgstr "Colocar los delimitadores de comentario en líneas en blanco."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:170
 msgid "Place the type of a procedure beeing defined on the previous line."
-msgstr ""
+msgstr "Colocar el tipo del procedimiento siendo definido en la línea anterior."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:171
 msgid "Plus/Minus"
@@ -3543,7 +3545,7 @@ msgstr "Posición:"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:173
 msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
-msgstr ""
+msgstr "Preferir romper líneas largas antes de los operadores booleanos '&&' y '||'."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:174
 msgid "Pressing backspace un-indents"
@@ -3563,7 +3565,7 @@ msgstr "Impresión"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:178
 msgid "Procnames start lines"
-msgstr ""
+msgstr "Líneas de comienzo de los nombres de procedimiento"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:179
 msgid "Regular Expression"
@@ -3696,15 +3698,15 @@ msgstr "Lista separada por espacios de patrones de nombres de archivo a coincidi
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:211
 msgid "Specify an amount by which comments are moved to the left."
-msgstr ""
+msgstr "Especificar una cantidad por la que los comentario se mueven a la izquierda."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:212
 msgid "Specify how many spaces to indent type declarations."
-msgstr ""
+msgstr "Especificar cuántos espacios sangrar las declaraciones de tipo."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:213
 msgid "Specify the column for comments following code."
-msgstr ""
+msgstr "Especifique la columna para los comentarios siguiendo el código."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:214
 msgid "Specify the column for comments following declarations."
@@ -3732,11 +3734,11 @@ msgstr ""
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:219
 msgid "Specify the number o spaces for a TAB (default 8)."
-msgstr ""
+msgstr "Especificar el número de espacios para un TAB (8 por omisión)."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:220
 msgid "Specify the number of spaces by which braces are indented."
-msgstr ""
+msgstr "Especificar el número de espacios que las llaves se sangran."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:221
 msgid ""
@@ -3754,7 +3756,7 @@ msgstr "Cuadrados"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:224
 msgid "Star Left Side"
-msgstr ""
+msgstr "Estrella en el lado izquierdo"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:225
 msgid "Strip trailling spaces on file save"
@@ -3770,7 +3772,7 @@ msgstr ""
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:228
 msgid "Tab Size      "
-msgstr ""
+msgstr "Tamaño de tabulador"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:229
 msgid "Tab size in spaces:"
