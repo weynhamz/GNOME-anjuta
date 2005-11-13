@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-29 15:18+0200\n"
-"PO-Revision-Date: 2005-11-11 22:52+0100\n"
+"POT-Creation-Date: 2005-11-13 18:42+0100\n"
+"PO-Revision-Date: 2005-11-13 18:53+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,8 @@ msgstr "Cargar automáticamente el último proyecto"
 
 #: ../anjuta.glade.h:14
 msgid "Autosave editor files before build starts"
-msgstr "Autoguardar los archivos del editor antes de que se inicie la construcción"
+msgstr ""
+"Autoguardar los archivos del editor antes de que se inicie la construcción"
 
 #: ../anjuta.glade.h:15
 msgid "Beep on job complete"
@@ -650,7 +651,8 @@ msgstr "Proyectos recientes:"
 
 #: ../anjuta.glade.h:131
 msgid "Reset all sticky tags during update (looses branch) [-A]"
-msgstr "Restablecer todas las etiquetas adhesivas al actualizar (pierde la rama) [-A]"
+msgstr ""
+"Restablecer todas las etiquetas adhesivas al actualizar (pierde la rama) [-A]"
 
 #: ../anjuta.glade.h:132
 msgid "Run Configure Script"
@@ -1447,7 +1449,8 @@ msgstr "El ejecutable está actualizado, no necesita ser construido de nuevo."
 
 #: ../plugins/build/build_file.c:88
 msgid "No build command has been specified for this type of file."
-msgstr "No se ha especificado un comando de construcción para este tipo de archivo."
+msgstr ""
+"No se ha especificado un comando de construcción para este tipo de archivo."
 
 #: ../plugins/build/build_file.c:104
 #, c-format
@@ -1976,7 +1979,8 @@ msgid "* Output Source File:"
 msgstr "* Archivo de código fuente de salida:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
-msgid "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
+msgid ""
+"<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 msgstr ""
 "<span size=\"large\" weight=\"bold\">Constructor de Plantillas de Clase "
 "GObject</span>"
@@ -2849,7 +2853,7 @@ msgstr "La búsqueda incremental de «%s» (continuada desde el principio) fall�
 msgid "Save file as"
 msgstr "Guardar archivo como"
 
-#: ../plugins/editor/anjuta-docman.c:644
+#: ../plugins/editor/anjuta-docman.c:647
 msgid "Path:"
 msgstr "Ruta:"
 
@@ -3016,7 +3020,8 @@ msgid ""
 "Read the info page for 'indent' for more details"
 msgstr ""
 "El argumento asociado con el estilo seleccionado de autoformato. \n"
-"Seleccione el botón «Configurar sangría» para gestionar los estilos de autoformato.\n"
+"Seleccione el botón «Configurar sangría» para gestionar los estilos de "
+"autoformato.\n"
 "Lea la página info de «indent» para más detalles"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:43
@@ -3149,15 +3154,18 @@ msgstr "Continuar en la pareja"
 msgid ""
 "Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
 "parameters by default)."
-msgstr "Crear un estilo nuevo definido en la entrada «Estilo nuevo» («-gnu» por omisión)."
+msgstr ""
+"Crear un estilo nuevo definido en la entrada «Estilo nuevo» («-gnu» por "
+"omisión)."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:76
 msgid "Cuddle Else"
-msgstr ""
+msgstr "Arrimar Else"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:77
-msgid "Cuddle up to the immediately preceding '}' in an if-then-else construct."
-msgstr ""
+msgid ""
+"Cuddle up to the immediately preceding '}' in an if-then-else construct."
+msgstr "Arrimarse al '}' inmediatamente precedente en una construcción if-then-else."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:78
 msgid "Declaration  "
@@ -3189,7 +3197,8 @@ msgstr "Desactivar resaltado de sintaxis"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:85
 msgid "Display the indent output according the selected parameters."
-msgstr "Muestra la salida de indent de acuerdo con los parámetros seleccionados."
+msgstr ""
+"Muestra la salida de indent de acuerdo con los parámetros seleccionados."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:86
 msgid "Do not show tabs"
@@ -3270,7 +3279,7 @@ msgstr "Primera columna"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:105
 msgid "Foece a space between an 'if' and the following parenthesis (default)."
-msgstr ""
+msgstr "Forzar un espacio entre un 'if' y los siguientes paréntesos (predet.)"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:106
 msgid "Fold style:"
@@ -3298,11 +3307,14 @@ msgstr "Fuerza una línea en blanco después de cada coma en una declaración"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:112
 msgid "Force a space between a 'for' and the following parenthesis (default)."
-msgstr "Fuerza un espacio entre un «for» y el siguiente paréntesis (predeterminado)."
+msgstr ""
+"Fuerza un espacio entre un «for» y el siguiente paréntesis (predeterminado)."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:113
-msgid "Force a space between a 'while' and the following parenthesis (default)."
-msgstr "Forzar un espacio entre un 'while' y el siguiente paréntesis (predeterminado)"
+msgid ""
+"Force a space between a 'while' and the following parenthesis (default)."
+msgstr ""
+"Forzar un espacio entre un 'while' y el siguiente paréntesis (predeterminado)"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:114
 msgid "Fore color:"
@@ -3331,11 +3343,11 @@ msgstr "Coincidencia voraz"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:120
 msgid "Honour Newlines"
-msgstr ""
+msgstr "Respetar en líneas nuevas"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:121
 msgid "Honour newlines by giving them the highest possible priority."
-msgstr ""
+msgstr "Respetar las líneas nuevas dándoles la máxima prioridad posible."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:122
 msgid "Ignore Binary Files"
@@ -3427,7 +3439,10 @@ msgid ""
 "Line up continuation line to start at the character position just after the "
 "left parenthesis if a line has a left parenthesis which is not closed on "
 "that line."
-msgstr "Alinear la línea de continuación para empezar en la posición del caracter justo antes del paréntesis izquierdo si una línea tiene un paréntesis izquierdo que no está cerrado en esa línea."
+msgstr ""
+"Alinear la línea de continuación para empezar en la posición del caracter "
+"justo antes del paréntesis izquierdo si una línea tiene un paréntesis "
+"izquierdo que no está cerrado en esa línea."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:144
 #: ../plugins/editor/print.c:1038 ../plugins/gdb/info.c:126
@@ -3504,8 +3519,10 @@ msgid "Place a space after a cast operator."
 msgstr "Colocar un espacio antes de un operador cast."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:163
-msgid "Place a space between the name of the procedure being called and the '('."
-msgstr "Coloca un espacio entre el nombre del procedimiento que se llama y el '('."
+msgid ""
+"Place a space between the name of the procedure being called and the '('."
+msgstr ""
+"Coloca un espacio entre el nombre del procedimiento que se llama y el '('."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:164
 msgid "Place stars at the beginning of multi-line comments."
@@ -3513,7 +3530,8 @@ msgstr "Colocar estrellas al comienzo de comentarios multilínea."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:165
 msgid "Place the '{' following a 'struct' declaration on the next line."
-msgstr "Colocar el '{' siguiendo una declaración 'struct' en la siguiente línea."
+msgstr ""
+"Colocar el '{' siguiendo una declaración 'struct' en la siguiente línea."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:166
 msgid "Place the '{' following a 'struct' declaration on the same line."
@@ -3533,7 +3551,8 @@ msgstr "Colocar los delimitadores de comentario en líneas en blanco."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:170
 msgid "Place the type of a procedure beeing defined on the previous line."
-msgstr "Colocar el tipo del procedimiento siendo definido en la línea anterior."
+msgstr ""
+"Colocar el tipo del procedimiento siendo definido en la línea anterior."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:171
 msgid "Plus/Minus"
@@ -3545,7 +3564,8 @@ msgstr "Posición:"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:173
 msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
-msgstr "Preferir romper líneas largas antes de los operadores booleanos '&&' y '||'."
+msgstr ""
+"Preferir romper líneas largas antes de los operadores booleanos '&&' y '||'."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:174
 msgid "Pressing backspace un-indents"
@@ -3682,23 +3702,28 @@ msgstr "Espacio antes de while"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:207
 msgid "Space-seperated list of directory name patterns to ignore"
-msgstr "Lista separada por espacios de patrones de nombres de directorio a ignorar"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de directorio a ignorar"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:208
 msgid "Space-seperated list of directory name patterns to match"
-msgstr "Lista separada por espacios de patrones de nombres de directorio a coincidir"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de directorio a coincidir"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:209
 msgid "Space-seperated list of file name patterns to ignore"
-msgstr "Lista separada por espacios de patrones de nombres de archivo a ignorar"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de archivo a ignorar"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:210
 msgid "Space-seperated list of file name patterns to match"
-msgstr "Lista separada por espacios de patrones de nombres de archivo a coincidir"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de archivo a coincidir"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:211
 msgid "Specify an amount by which comments are moved to the left."
-msgstr "Especificar una cantidad por la que los comentario se mueven a la izquierda."
+msgstr ""
+"Especificar una cantidad por la que los comentario se mueven a la izquierda."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:212
 msgid "Specify how many spaces to indent type declarations."
@@ -3710,27 +3735,27 @@ msgstr "Especifique la columna para los comentarios siguiendo el código."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:214
 msgid "Specify the column for comments following declarations."
-msgstr ""
+msgstr "Especificar la columna para los comentarios siguiendo declaraciones."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:215
 msgid "Specify the column for comments following preprocessor directives."
-msgstr ""
+msgstr "Especificar la columna para los comentarios siguiendo directivas de preprocesador."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:216
 msgid "Specify the column of identifiers."
-msgstr ""
+msgstr "Especificar la columna de los identificadores."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:217
 msgid ""
 "Specify the indentation level when a statement is broken across two lines "
 "(default 0)."
-msgstr ""
+msgstr "Especificar el nivel de sangría cuando una sentencia se rompe a través de dos líneas (predet 0)."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:218
 msgid ""
 "Specify the maximum length of a line of C code, not including possible "
 "comments that follow it."
-msgstr ""
+msgstr "Especifique la longitud máxima de una línea de código C, no incluyendo los comentarios posibles que la sigan."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:219
 msgid "Specify the number o spaces for a TAB (default 8)."
@@ -3744,11 +3769,11 @@ msgstr "Especificar el número de espacios que las llaves se sangran."
 msgid ""
 "Specify the number of spaces that 'case' labels should be indented to the "
 "right of the containing 'switch' statement."
-msgstr ""
+msgstr "Especifique el número de espacios que las etiquetas 'case' deberían ser sangradas a la derecha de la sentencia 'switch' que las contiene."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:222
 msgid "Specify the value of indentation for each level."
-msgstr ""
+msgstr "Especifique el valor de sangría para cada nivel."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:223
 msgid "Squares"
@@ -3764,11 +3789,11 @@ msgstr "Eliminar espacios finales al guardar"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:226
 msgid "Swallow Optional"
-msgstr ""
+msgstr "Consumir opcionales"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:227
 msgid "Swallow optional blank lines."
-msgstr ""
+msgstr "Consumir las líneas en blanco opcionales."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:228
 msgid "Tab Size      "
@@ -3837,6 +3862,9 @@ msgid ""
 "using the above buttons or by editing them \n"
 "directly (See indent manual)."
 msgstr ""
+"Puede modificar los parámetros o usando\n"
+"los botones de encima o editandolos\n"
+"directamente (vea el manual de indent)"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:246
 msgid "_Save Theme As"
@@ -3845,6 +3873,18 @@ msgstr "G_uardar tema como"
 #: ../plugins/editor/goto_line.c:126
 msgid "<b>Go to Line number:</b>"
 msgstr "<b>Ir a línea nº:</b>"
+
+#: ../plugins/editor/indent-dialog.c:402 ../plugins/editor/indent-dialog.c:429
+msgid "indent parameter not known !"
+msgstr "parámetro de indent no conocido"
+
+#: ../plugins/editor/indent-dialog.c:467
+msgid "A Style has already this name !"
+msgstr "Ya hay un estilo con ese nombre."
+
+#: ../plugins/editor/indent-dialog.c:496 ../plugins/editor/indent-dialog.c:527
+msgid "This Style is not modifiable !"
+msgstr "Este estilo no es modificable"
 
 #: ../plugins/editor/plugin.c:141 ../plugins/glade/plugin.c:494
 msgid "_Save"
@@ -3973,7 +4013,8 @@ msgstr "Convertir caracteres EOL a mayoría de EOL"
 
 #: ../plugins/editor/plugin.c:190
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
+msgstr ""
+"Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
 
 #: ../plugins/editor/plugin.c:195
 msgid "_Select"
@@ -4032,7 +4073,8 @@ msgid "Find and R_eplace..."
 msgstr "Buscar y _reemplazar…"
 
 #: ../plugins/editor/plugin.c:222
-msgid "Search for and replace a string or regular expression with another string"
+msgid ""
+"Search for and replace a string or regular expression with another string"
 msgstr "Busca y reemplaza una cadena o expresión regular con otra cadena"
 
 #: ../plugins/editor/plugin.c:224
@@ -4617,23 +4659,24 @@ msgstr ""
 "que el búfer actual.\n"
 "¿Desea recargarlo?"
 
-#: ../plugins/editor/text_editor.c:1198
+#: ../plugins/editor/text_editor.c:1200
 msgid "Could not get file info"
 msgstr "No se pudo obtener la información del archivo"
 
-#: ../plugins/editor/text_editor.c:1205
+#: ../plugins/editor/text_editor.c:1207
 msgid "This file is too big. Unable to allocate memory."
-msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
+msgstr ""
+"Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
-#: ../plugins/editor/text_editor.c:1212
+#: ../plugins/editor/text_editor.c:1214
 msgid "Could not open file"
 msgstr "No se pudo abrir el archivo"
 
-#: ../plugins/editor/text_editor.c:1220
+#: ../plugins/editor/text_editor.c:1222
 msgid "Error while reading from file"
 msgstr "Error al leer desde el archivo"
 
-#: ../plugins/editor/text_editor.c:1256
+#: ../plugins/editor/text_editor.c:1258
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4643,7 +4686,11 @@ msgstr ""
 "no está soportada. Verifique que la codificación del archivo esté soportada  "
 "por la lista de codificaciones. Si no, añádala desde las preferencias."
 
-#: ../plugins/editor/text_editor.c:1421
+#: ../plugins/editor/text_editor.c:1416
+msgid "Loading file..."
+msgstr "Cargando archivo…"
+
+#: ../plugins/editor/text_editor.c:1423
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4654,26 +4701,42 @@ msgstr ""
 "\n"
 "Detalles: %s"
 
-#: ../plugins/editor/text_editor.c:1468
+#: ../plugins/editor/text_editor.c:1444
+msgid "File loaded successfully"
+msgstr "Archivo cargado correctamente"
+
+#: ../plugins/editor/text_editor.c:1461
+msgid "Saving file..."
+msgstr "Guardando archivo…"
+
+#: ../plugins/editor/text_editor.c:1470
 #, c-format
 msgid "Could not save file: %s."
 msgstr "No se puede guardar: %s."
 
-#: ../plugins/editor/text_editor.c:1618
+#: ../plugins/editor/text_editor.c:1481
+msgid "File saved successfully"
+msgstr "Archivo guardado correctamente"
+
+#: ../plugins/editor/text_editor.c:1620
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr "Autoformato desactivado. Si lo desea, actívelo en Preferencias."
 
-#: ../plugins/editor/text_editor.c:1637
+#: ../plugins/editor/text_editor.c:1626
+msgid "Auto formatting..."
+msgstr "Autoformato…"
+
+#: ../plugins/editor/text_editor.c:1639
 msgid "Error in auto formatting..."
 msgstr "Error al autoformatear…"
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1655
+#: ../plugins/editor/text_editor.c:1657
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Anjuta no sabe %s"
 
-#: ../plugins/editor/text_editor.c:1679
+#: ../plugins/editor/text_editor.c:1681
 #, c-format
 msgid ""
 "Error in auto formatting...\n"
@@ -4682,7 +4745,11 @@ msgstr ""
 "Error al autoformatear…\n"
 "Detalles: %s"
 
-#: ../plugins/editor/text_editor.c:1924
+#: ../plugins/editor/text_editor.c:1688
+msgid "Auto formatting completed"
+msgstr "Autoformateado terminado"
+
+#: ../plugins/editor/text_editor.c:1926
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4696,7 +4763,12 @@ msgstr ""
 "Esto puede provocar comportamientos inapropiados e inestabilidades.\n"
 "Anjuta utilizará los valores integrados para casos de fallo (más limitados)"
 
-#: ../plugins/editor/text_editor_cbs.c:126
+#: ../plugins/editor/text_editor_cbs.c:120
+#, c-format
+msgid "Autosaved \"%s\""
+msgstr "Autoguardado de «%s»"
+
+#: ../plugins/editor/text_editor_cbs.c:129
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "Falló el autoguardado de «%s»"
@@ -5035,7 +5107,8 @@ msgstr "Ignorar archivos"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
 msgid "Space-separated list of directory name patterns to ignore"
-msgstr "Lista separada por espacios de patrones de nombres de directorio que ignorar"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de directorio que ignorar"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
 msgid "Space-separated list of directory name patterns to match"
@@ -5045,11 +5118,13 @@ msgstr ""
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
 msgid "Space-separated list of file name patterns to ignore"
-msgstr "Lista separada por espacios de patrones de nombres de archivo que ignorar"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de archivo que ignorar"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
 msgid "Space-separated list of file name patterns to match"
-msgstr "Lista separada por espacios de patrones de nombres de archivo que coincidir"
+msgstr ""
+"Lista separada por espacios de patrones de nombres de archivo que coincidir"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:23
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
@@ -5698,7 +5773,8 @@ msgstr "Información de archivos _objetivo"
 
 #: ../plugins/gdb/plugin.c:118
 msgid "Display information on the files the debugger is active with"
-msgstr "Mostrar información de los archivos con los que el depurador está trabajando"
+msgstr ""
+"Mostrar información de los archivos con los que el depurador está trabajando"
 
 #: ../plugins/gdb/plugin.c:124
 msgid "Info _Program"
@@ -6266,7 +6342,8 @@ msgstr "<i>iniciado: %s \tdetenido: %s</i>"
 
 #: ../plugins/gtodo/callback.c:12
 msgid "You need to select a todo item before you can remove it"
-msgstr "Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
+msgstr ""
+"Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
 
 #: ../plugins/gtodo/callback.c:15
 msgid "Are you sure you want to remove the selected todo item?"
@@ -6274,7 +6351,8 @@ msgstr "¿Seguro que quiere eliminar el elemento pendiente seleccionado?"
 
 #: ../plugins/gtodo/callback.c:98
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr "¿Seguro que quiere eliminar todos los elementos pendientes completados?"
+msgstr ""
+"¿Seguro que quiere eliminar todos los elementos pendientes completados?"
 
 #: ../plugins/gtodo/callback.c:99
 #, c-format
@@ -6732,7 +6810,8 @@ msgstr "<span size=\"xx-large\"><b>gToDo %s</b></span>"
 
 #: ../plugins/gtodo/interface.c:270
 msgid "gToDo is a small and simple todo list written in gtk+-2.0"
-msgstr "gToDo es una lista de tareas pendientes pequeña y simple escrita en gtk+-2.0"
+msgstr ""
+"gToDo es una lista de tareas pendientes pequeña y simple escrita en gtk+-2.0"
 
 #: ../plugins/gtodo/interface.c:273
 msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
@@ -6884,7 +6963,8 @@ msgstr "--new"
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
-msgstr "Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
+msgstr ""
+"Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
 
 #: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:79
 msgid "Delete"
@@ -7047,7 +7127,8 @@ msgstr "<b>Notificación</b>"
 #: ../plugins/gtodo/preferences.c:179
 #, c-format
 msgid "Allow to do items to notifiy me when they are due in %i minutes"
-msgstr "Permitir a los elementos pendientes notificarme cuando venzan en %i minutos"
+msgstr ""
+"Permitir a los elementos pendientes notificarme cuando venzan en %i minutos"
 
 #: ../plugins/gtodo/preferences.c:186
 msgid "Show Notification Tray Icon"
@@ -8282,7 +8363,8 @@ msgstr "Importar proyecto terminó… correctamente"
 
 #: ../plugins/project-manager/project_import.c:206
 msgid "Could not import Project: no project file found!"
-msgstr "No se puede importar el proyecto: No se encontró el archivo del proyecto."
+msgstr ""
+"No se puede importar el proyecto: No se encontró el archivo del proyecto."
 
 #: ../plugins/project-manager/project_import.c:213
 msgid "Opening Project... please wait"
@@ -8645,7 +8727,8 @@ msgstr "Operaciones de Subversion"
 
 #: ../plugins/subversion/subversion-callbacks.c:72
 msgid "Subversion command is running! Please wait until it is finished!"
-msgstr "Hay un comando Subversion en ejecución - por favor, espere hasta que termine."
+msgstr ""
+"Hay un comando Subversion en ejecución - por favor, espere hasta que termine."
 
 #: ../plugins/subversion/subversion-callbacks.c:298
 msgid "svn.diff"
@@ -8913,7 +8996,8 @@ msgstr "¿Está seguro de querer borrar la herramienta «%s»?"
 
 #: ../plugins/tools/dialog.c:340
 msgid "Unable to build user interface for tool list"
-msgstr "No se pudo construir el interfaz de usuario para la lista de herramientas"
+msgstr ""
+"No se pudo construir el interfaz de usuario para la lista de herramientas"
 
 #: ../plugins/tools/dialog.c:360
 msgid "Tool"
@@ -8929,7 +9013,8 @@ msgstr "indefinido"
 
 #: ../plugins/tools/editor.c:443
 msgid "Unable to build user interface for tool variable"
-msgstr "No se pudo construir el interfaz de usuario para la  herramienta de variable"
+msgstr ""
+"No se pudo construir el interfaz de usuario para la  herramienta de variable"
 
 #: ../plugins/tools/editor.c:459
 msgid "Meaning"
@@ -8965,7 +9050,8 @@ msgstr "Acelerador nuevo…"
 
 #: ../plugins/tools/editor.c:974
 msgid "Unable to build user interface for tool editor"
-msgstr "No se pudo construir el interfaz de usuario para el editor de herramientas"
+msgstr ""
+"No se pudo construir el interfaz de usuario para el editor de herramientas"
 
 #: ../plugins/tools/execute.c:322
 #, c-format
@@ -9287,7 +9373,8 @@ msgstr "No mostrar la pantalla de inicio"
 
 #: ../src/main.c:66
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr "Detener anjuta apropiadamente soltando todos los recursos (para depuración)"
+msgstr ""
+"Detener anjuta apropiadamente soltando todos los recursos (para depuración)"
 
 #: ../src/shell.c:85
 msgid "Quit Anjuta Test Shell"
@@ -9304,4 +9391,3 @@ msgstr "Grupo de acción de la shell de pruebas"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Shell de pruebas de Anjuta"
-
