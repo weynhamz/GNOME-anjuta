@@ -1,8 +1,3 @@
-# translation of es.po to 
-# translation of es.po to
-# Spanish translation of es
-# translation of es.po to
-# translation of es.po to
 # traducción de Anjuta al Español
 # Copyright © 2001-2003 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
@@ -14,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-13 18:42+0100\n"
-"PO-Revision-Date: 2005-11-13 18:53+0100\n"
+"PO-Revision-Date: 2005-11-19 03:07+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2999,7 +2994,7 @@ msgstr "Añadir cabecera de página"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:36
 msgid "After Declarations"
-msgstr "Antes de las declaraciones"
+msgstr "Después de las declaraciones"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:37
 msgid "After Procedures"
@@ -3067,11 +3062,11 @@ msgstr "Llave"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:53
 msgid "Braces after IF Line"
-msgstr "Llaves antes de línea IF"
+msgstr "Llaves después de línea IF"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:54
 msgid "Braces after Struct"
-msgstr "Llaves antes de struct"
+msgstr "Llaves después de struct"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:55
 msgid "Braces on IF line"
@@ -3424,7 +3419,7 @@ msgstr "Sangría de línea"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:140
 msgid "Line after Commas"
-msgstr "Línea antes de comas"
+msgstr "Línea después de comas"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:141
 msgid "Line before Box "
@@ -3439,10 +3434,7 @@ msgid ""
 "Line up continuation line to start at the character position just after the "
 "left parenthesis if a line has a left parenthesis which is not closed on "
 "that line."
-msgstr ""
-"Alinear la línea de continuación para empezar en la posición del caracter "
-"justo antes del paréntesis izquierdo si una línea tiene un paréntesis "
-"izquierdo que no está cerrado en esa línea."
+msgstr "Alinear la línea de continuación para empezar en la posición del caracter justo después del paréntesis izquierdo si una línea tiene un paréntesis izquierdo que no está cerrado en esa línea."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:144
 #: ../plugins/editor/print.c:1038 ../plugins/gdb/info.c:126
@@ -3516,7 +3508,7 @@ msgstr "Parámetro"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:162
 msgid "Place a space after a cast operator."
-msgstr "Colocar un espacio antes de un operador cast."
+msgstr "Colocar un espacio después de un operador cast."
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:163
 msgid ""
@@ -3682,23 +3674,23 @@ msgstr "Ordenadas en orden de apertura"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:202
 msgid "Space after Cast"
-msgstr "Espacio antes de cast"
+msgstr "Espacio después de cast"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:203
 msgid "Space after FOR"
-msgstr "Espacio antes de for"
+msgstr "Espacio después de for"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:204
 msgid "Space after IF"
-msgstr "Espacio antes de if"
+msgstr "Espacio después de if"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:205
 msgid "Space after Proc Call"
-msgstr "Espacio antes de llamada a procedimiento"
+msgstr "Espacio después de llamada a procedimiento"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:206
 msgid "Space after WHILE"
-msgstr "Espacio antes de while"
+msgstr "Espacio después de while"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:207
 msgid "Space-seperated list of directory name patterns to ignore"
