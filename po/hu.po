@@ -7,16 +7,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.HEAD\n"
+"Project-Id-Version: anjuta.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-22 14:47+0200\n"
-"PO-Revision-Date: 2005-08-16 16:37+0200\n"
+"POT-Creation-Date: 2005-11-21 18:02+0100\n"
+"PO-Revision-Date: 2005-11-21 22:39+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.1\n"
+"X-Generator: KBabel 1.10.2\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
 
 #: ../anjuta.desktop.in.in.h:1
@@ -37,12 +37,11 @@ msgstr "    "
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:1
-#: ../plugins/editor/anjuta-document-manager.glade.h:2
+#: ../plugins/editor/anjuta-document-manager.glade.h:3
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../src/anjuta.glade.h:1
@@ -152,7 +151,7 @@ msgstr "CPU regiszterek"
 
 #: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:231
 #: ../plugins/cvs-plugin/cvs-execute.c:235
-#: ../plugins/editor/anjuta-document-manager.glade.h:40
+#: ../plugins/editor/anjuta-document-manager.glade.h:58
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
 #: ../plugins/macro/macros.xml.h:9
 msgid "CVS"
@@ -524,7 +523,7 @@ msgstr "Új fájl"
 msgid "No Optimization"
 msgstr "Nincs optimalizáció"
 
-#: ../anjuta.glade.h:106 ../plugins/editor/anjuta-document-manager.glade.h:112
+#: ../anjuta.glade.h:106 ../plugins/editor/anjuta-document-manager.glade.h:160
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -854,7 +853,7 @@ msgstr "_Feltétel:"
 msgid "_Disable all"
 msgstr "Összes _letiltása"
 
-#: ../anjuta.glade.h:173 ../plugins/editor/plugin.c:289
+#: ../anjuta.glade.h:173 ../plugins/editor/plugin.c:291
 #: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:18
 #: ../src/anjuta-actions.h:30 ../src/shell.c:76
 msgid "_Edit"
@@ -1048,11 +1047,11 @@ msgstr "Vietnami"
 msgid "Thai"
 msgstr "Thai"
 
-#: ../libanjuta/anjuta-encodings.c:702
+#: ../libanjuta/anjuta-encodings.c:724
 msgid "Stock Encodings"
 msgstr "Alap kódolások"
 
-#: ../libanjuta/anjuta-encodings.c:721
+#: ../libanjuta/anjuta-encodings.c:743
 msgid "Supported Encodings"
 msgstr "Támogatott kódolások"
 
@@ -1083,7 +1082,7 @@ msgstr "Kategória"
 msgid "Anjuta Preferences Dialog"
 msgstr "Anjuta tulajdonságai párbeszédablak"
 
-#: ../libanjuta/anjuta-preferences.c:1159
+#: ../libanjuta/anjuta-preferences.c:1250
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -1091,11 +1090,11 @@ msgstr ""
 "Valóban vissza szeretné állítani a tulajdonságokat\n"
 "az alapértelmezésre?"
 
-#: ../libanjuta/anjuta-preferences.c:1163
+#: ../libanjuta/anjuta-preferences.c:1254
 msgid "_Reset"
 msgstr "_Visszaállítás"
 
-#: ../libanjuta/anjuta-preferences.c:1461
+#: ../libanjuta/anjuta-preferences.c:1552
 msgid "Anjuta Preferences"
 msgstr "Anjuta tulajdonságai"
 
@@ -1417,7 +1416,7 @@ msgid "_Lock dock items"
 msgstr "Dokkelemek _zárolása"
 
 #: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:270
-#: ../plugins/editor/plugin.c:1183 ../plugins/editor/search-replace.c:793
+#: ../plugins/editor/plugin.c:1223 ../plugins/editor/search-replace.c:793
 #: ../plugins/editor/search-replace.c:1425
 #: ../plugins/editor/search-replace.c:1432
 #: ../plugins/editor/search-replace.c:1444
@@ -1426,7 +1425,7 @@ msgstr "Dokkelemek _zárolása"
 msgid "Search"
 msgstr "Keresés"
 
-#: ../libegg/test-actions.c:141 ../plugins/editor/plugin.c:1184
+#: ../libegg/test-actions.c:141 ../plugins/editor/plugin.c:1224
 msgid "Incremental search"
 msgstr "Növekvő keresés"
 
@@ -1452,8 +1451,8 @@ msgstr "Nincs elkészítési parancs meghatározva ehhez a fájltípushoz."
 
 #: ../plugins/build/build_file.c:104
 #, c-format
-msgid "Building file: %s ...\n"
-msgstr "Fájl elkészítése: %s ...\n"
+msgid "Building file: %s...\n"
+msgstr "Fájl elkészítése: %s...\n"
 
 #: ../plugins/build/build_file.c:132
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:513
@@ -1464,21 +1463,21 @@ msgstr "Eltelt idő összesen: %lu másodperc\n"
 
 #: ../plugins/build/build_file.c:136
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:518
-msgid "Completed ... unsuccessful\n"
-msgstr "Befejezve ... sikertelenül\n"
+msgid "Completed... unsuccessful\n"
+msgstr "Befejezve... sikertelenül\n"
 
 #: ../plugins/build/build_file.c:140
-msgid "Completed ... unsuccessful"
-msgstr "Befejezve ... sikertelenül"
+msgid "Completed... unsuccessful"
+msgstr "Befejezve... sikertelenül"
 
 #: ../plugins/build/build_file.c:145
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:523
-msgid "Completed ... successful\n"
-msgstr "Befejezve ... sikeresen\n"
+msgid "Completed... successful\n"
+msgstr "Befejezve... sikeresen\n"
 
 #: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:516
-msgid "Completed ... successful"
-msgstr "Befejezve ... sikeresen"
+msgid "Completed... successful"
+msgstr "Befejezve... sikeresen"
 
 #: ../plugins/build/build_project.c:76 ../plugins/build/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
@@ -1596,8 +1595,8 @@ msgstr "Fordítás"
 
 #: ../plugins/build/compile.c:155
 #, c-format
-msgid "Compiling file: %s ...\n"
-msgstr "Fájl fordítása: %s ...\n"
+msgid "Compiling file: %s...\n"
+msgstr "Fájl fordítása: %s...\n"
 
 #: ../plugins/build/compiler_options.c:503
 msgid ""
@@ -1663,8 +1662,8 @@ msgid "Configure"
 msgstr "Beállítás"
 
 #: ../plugins/build/configurer.c:191
-msgid "Configuring the Project ....\n"
-msgstr "A projekt beállítása ....\n"
+msgid "Configuring the Project...\n"
+msgstr "A projekt beállítása....\n"
 
 #: ../plugins/build/executer.c:54
 msgid "The target executable of this Project is unknown"
@@ -1792,16 +1791,16 @@ msgid "Clean whole project"
 msgstr "A teljes projekt tisztítása"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:987
-msgid "Run C_onfigure ..."
-msgstr "C_onfigure futtatása ..."
+msgid "Run C_onfigure..."
+msgstr "C_onfigure futtatása..."
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:988
 msgid "Configure project"
 msgstr "Projekt beállítása"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:993
-msgid "Run _Autogenerate ..."
-msgstr "_Autogenerate futtatása ..."
+msgid "Run _Autogenerate..."
+msgstr "_Autogenerate futtatása..."
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:994
 msgid "Autogenrate project files"
@@ -2176,12 +2175,12 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Modul részletei:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
-#: ../plugins/subversion/anjuta-subversion.glade.h:2
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Options:</b>"
 msgstr "<b>Beállítások:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:6
-#: ../plugins/editor/anjuta-document-manager.glade.h:19
+#: ../plugins/editor/anjuta-document-manager.glade.h:25
 msgid "<b>Options</b>"
 msgstr "<b>Beállítások</b>"
 
@@ -2252,12 +2251,12 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "Choose file or directory to add:"
 msgstr "Válassza ki a hozzáadandó fájlt/könyvtárt:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to commit:"
 msgstr "Válassza ki a véglegesítendő fájlt/könyvtárt:"
 
@@ -2274,12 +2273,12 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Válassza ki a fájlt/könyvtárt az állapot kinyeréséhez:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to remove:"
 msgstr "Válassza ki a törlendő fájlt/könyvtárt:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to update:"
 msgstr "Válassza ki a frissítendő fájlt/könyvtárt:"
 
@@ -2296,7 +2295,7 @@ msgid "Delete empty directories"
 msgstr "Üres könyvtárak törlése"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Do not act recursively"
 msgstr "Ne működjön rekurzívan"
 
@@ -2319,7 +2318,7 @@ msgstr ""
 "Jelszókiszolgáló (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "Log message:"
 msgstr "Naplóüzenet:"
 
@@ -2364,7 +2363,7 @@ msgid "Unified format instead of context format"
 msgstr "Kontextusformátum helyett egységesített formátum"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:22
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Use revision/tag: "
 msgstr "Verzió/címke használata: "
 
@@ -2373,7 +2372,7 @@ msgid "Use revision: "
 msgstr "Verzió használata: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:23
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Username: "
 msgstr "Felhasználónév: "
 
@@ -2382,7 +2381,7 @@ msgid "Vendor tag:"
 msgstr "Gyártó címke:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
-#: ../plugins/subversion/anjuta-subversion.glade.h:24
+#: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Whole project"
 msgstr "Teljes projekt"
 
@@ -2630,7 +2629,7 @@ msgstr "A hibakeresési folyamat indítása"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:473
-msgid "Load debugging target ..."
+msgid "Load debugging target..."
 msgstr "Hibakeresési cél betöltése..."
 
 #. Display label
@@ -2642,8 +2641,8 @@ msgstr "A célfájl megnyitása hibakereséshez"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:481
-msgid "_Attach to Process ..."
-msgstr "_Kapcsolódás folyamathoz ..."
+msgid "_Attach to Process..."
+msgstr "_Kapcsolódás folyamathoz..."
 
 #. Display label
 #. short-cut
@@ -2749,7 +2748,7 @@ msgstr "Súgó megjelenítése"
 msgid "Search Help:"
 msgstr "Keresés a súgóban:"
 
-#: ../plugins/devhelp/plugin.c:428 ../plugins/editor/plugin.c:249
+#: ../plugins/devhelp/plugin.c:428 ../plugins/editor/plugin.c:251
 #: ../plugins/message-view/plugin.c:70 ../plugins/symbol-browser/plugin.c:269
 msgid "_Goto"
 msgstr "U_grás"
@@ -2864,20 +2863,24 @@ msgstr "\"%s\" növekményes keresése (az elejétől folytatva) sikertelen."
 msgid "Save file as"
 msgstr "Fájl mentése másként"
 
-#: ../plugins/editor/anjuta-docman.c:644
+#: ../plugins/editor/anjuta-docman.c:647
 msgid "Path:"
 msgstr "Útvonal:"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:1
+msgid "#Else #Endif "
+msgstr "#Else #Endif "
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:2
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(module.source.files) $(module.include.files)"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:3
+#: ../plugins/editor/anjuta-document-manager.glade.h:4
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:4
+#: ../plugins/editor/anjuta-document-manager.glade.h:5
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
@@ -2886,634 +2889,994 @@ msgstr ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:5
+#: ../plugins/editor/anjuta-document-manager.glade.h:6
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:6
+#: ../plugins/editor/anjuta-document-manager.glade.h:7
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
 msgid "*\\.*"
 msgstr "*\\.*"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:7
+#: ../plugins/editor/anjuta-document-manager.glade.h:8
+msgid "<b>'indent' arguments</b>"
+msgstr "<b>Az \"indent\" paraméterei</b>"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:9
 msgid "<b>Actions</b>"
 msgstr "<b>Műveletek</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:8
+#: ../plugins/editor/anjuta-document-manager.glade.h:10
 msgid "<b>Autocompletion</b>"
 msgstr "<b>Automatikus kiegészítés</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:9
+#: ../plugins/editor/anjuta-document-manager.glade.h:11
 msgid "<b>Autoformat style</b>"
 msgstr "<b>Automatikus formázás stílusa</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:10
+#: ../plugins/editor/anjuta-document-manager.glade.h:12
 msgid "<b>Autosave</b>"
 msgstr "<b>Automatikus mentés</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:11
+#: ../plugins/editor/anjuta-document-manager.glade.h:13
+msgid "<b>Blank Lines</b>"
+msgstr "<b>Üres sorok</b>"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:14
+msgid "<b>Breaking Long Lines</b>"
+msgstr "<b>Hosszú sorok törése</b>"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:15
 msgid "<b>Code folding</b>"
 msgstr "<b>Kódblokk összecsukása</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:12
-msgid "<b>Custom autoformate style</b>"
-msgstr "<b>Egyéni automatikus formázási stílus</b>"
+#: ../plugins/editor/anjuta-document-manager.glade.h:16
+msgid "<b>Comments</b>"
+msgstr "<b>Megjegyzések</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:13
+#: ../plugins/editor/anjuta-document-manager.glade.h:17
+msgid "<b>Declarations</b>"
+msgstr "<b>Deklarációk</b>"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:18
 msgid "<b>Editor tabs</b>"
 msgstr "<b>Szerkesztőlapok</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:14
+#: ../plugins/editor/anjuta-document-manager.glade.h:19
 msgid "<b>Encoding to use when saving files</b>"
 msgstr "<b>Fájlok mentéséhez használt kódolás</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:15
+#: ../plugins/editor/anjuta-document-manager.glade.h:20
 msgid "<b>File Filter</b>"
 msgstr "<b>Fájlszűrő</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:16
+#: ../plugins/editor/anjuta-document-manager.glade.h:21
 msgid "<b>Highlight style</b>"
 msgstr "<b>Kiemelés stílusa</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:17
+#: ../plugins/editor/anjuta-document-manager.glade.h:22
 msgid "<b>Indentation and auto-format options</b>"
 msgstr "<b>Behúzás és automatikus formázás beállításai</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:18
+#: ../plugins/editor/anjuta-document-manager.glade.h:23
+msgid "<b>Indentation</b>"
+msgstr "<b>Behúzás</b>"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:24
 msgid "<b>Misc options</b>"
 msgstr "<b>Egyéb beállítások</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:20
+#: ../plugins/editor/anjuta-document-manager.glade.h:26
 msgid "<b>Other colors</b>"
 msgstr "<b>Más színek</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:21
+#: ../plugins/editor/anjuta-document-manager.glade.h:27
 msgid "<b>Parameters</b>"
 msgstr "<b>Paraméterek</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:22
+#: ../plugins/editor/anjuta-document-manager.glade.h:28
 msgid "<b>Print options</b>"
 msgstr "<b>Nyomtatási beállítások</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:23
+#: ../plugins/editor/anjuta-document-manager.glade.h:29
 msgid "<b>Scope</b>"
 msgstr "<b>Hatáskör</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:24
+#: ../plugins/editor/anjuta-document-manager.glade.h:30
 msgid "<b>Search Variable</b>"
 msgstr "<b>Keresendő változó</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:25
+#: ../plugins/editor/anjuta-document-manager.glade.h:31
+msgid "<b>Statements</b>"
+msgstr "<b>Utasítások</b>"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:32
 msgid "<b>Supported Encodings</b>"
 msgstr "<b>Támogatott kódolások</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:26
+#: ../plugins/editor/anjuta-document-manager.glade.h:33
 msgid "<b>Theme</b>"
 msgstr "<b>Téma</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:27
+#: ../plugins/editor/anjuta-document-manager.glade.h:34
 msgid "Add line number every:"
 msgstr "Sorszám hozzáadása:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:28
+#: ../plugins/editor/anjuta-document-manager.glade.h:35
 msgid "Add page header"
 msgstr "Oldalfejléc hozzáadása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:29
+#: ../plugins/editor/anjuta-document-manager.glade.h:36
+msgid "After Declarations"
+msgstr "Deklarációk után"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:37
+msgid "After Procedures"
+msgstr "Eljárások után"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:38
+msgid "All Comments"
+msgstr "Minden megjegyzés"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:39
 msgid "Always save in UTF-8 encoding (faster)"
 msgstr "Mindig mentsen UTF-8 kódolással (gyorsabb)"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:30
-msgid "Anjuta coding style"
-msgstr "Anjuta kódolási stílus"
+#: ../plugins/editor/anjuta-document-manager.glade.h:40
+msgid ""
+"Arguments associated with the selected autoformat style. \n"
+"Select the 'Indent Setting' button to manage the autoformat styles.\n"
+"Read the info page for 'indent' for more details"
+msgstr ""
+"A kijelölt automatikus formázási stílushoz társított paraméterek. \n"
+"Az automatikus formázás stílusainak kezeléséhez válassza a \"Behúzás "
+"beállítása\" gombot.\n"
+"További részletekért olvassa el az \"indent\" info oldalát."
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:31
+#: ../plugins/editor/anjuta-document-manager.glade.h:43
 msgid "Arrows"
 msgstr "Nyilak"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:32
+#: ../plugins/editor/anjuta-document-manager.glade.h:44
 msgid "Attributes:"
 msgstr "Attribútumok:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:33
+#: ../plugins/editor/anjuta-document-manager.glade.h:45
 msgid "Autocomplete XML/HTML closing tags"
 msgstr "XML/HTML záró címkék automatikus kiegészítése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:34
+#: ../plugins/editor/anjuta-document-manager.glade.h:46
 msgid "Autocompletion pop up choices"
 msgstr "Lehetőség bukkanjon fel automatikus kiegészítésnél"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:35
+#: ../plugins/editor/anjuta-document-manager.glade.h:47
 msgid "Back color:"
 msgstr "Háttérszín:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:36
+#: ../plugins/editor/anjuta-document-manager.glade.h:48
 msgid "Backward"
 msgstr "Vissza"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:37
+#: ../plugins/editor/anjuta-document-manager.glade.h:49
 msgid "Basic Search & Replace"
 msgstr "Egyszerű keresés és csere"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:38
+#: ../plugins/editor/anjuta-document-manager.glade.h:50
 msgid "Bold"
 msgstr "Félkövér"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:39
+#: ../plugins/editor/anjuta-document-manager.glade.h:51
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:4
 msgid "Bottom"
 msgstr "Lent"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:41
+#: ../plugins/editor/anjuta-document-manager.glade.h:52
+msgid "Brace"
+msgstr "Zárójel"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:53
+msgid "Braces after IF Line"
+msgstr "Zárójelek az IF sor után"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:54
+msgid "Braces after Struct"
+msgstr "Zárójelek a Struct után"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:55
+msgid "Braces on IF line"
+msgstr "Zárójelek az IF sorban"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:56
+msgid "Braces on Struct"
+msgstr "Zárójelek a Struct sorban"
+
+# fixme ez milyen funkció?
+#: ../plugins/editor/anjuta-document-manager.glade.h:57
+msgid "Break before Boolean"
+msgstr "Törés Boolean előtt"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:59
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:10
 msgid "CVS intl po"
 msgstr "CVS po-fájl"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:42
+#: ../plugins/editor/anjuta-document-manager.glade.h:60
 msgid "Calltip background:"
 msgstr "Gyorstipp háttérszíne:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:43
+#: ../plugins/editor/anjuta-document-manager.glade.h:61
 msgid "Caret (cursor) color:"
 msgstr "Sormutató (kurzor) színe:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:44
+#: ../plugins/editor/anjuta-document-manager.glade.h:62
 msgid "Caret blink period in milli-seconds"
 msgstr "Kurzorvillogás időtartama ezredmásodpercben"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:45
+#: ../plugins/editor/anjuta-document-manager.glade.h:63
+msgid "Case"
+msgstr "Case"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:64
 msgid "Case insensitive"
 msgstr "Nem érzékeny a kis- és nagybetűkre"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:46
+#: ../plugins/editor/anjuta-document-manager.glade.h:65
 msgid "Choose Directories:"
 msgstr "Könyvtárak megadása:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:47
+#: ../plugins/editor/anjuta-document-manager.glade.h:66
 msgid "Choose Files:"
 msgstr "Fájlok megadása:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:48
+#: ../plugins/editor/anjuta-document-manager.glade.h:67
 msgid "Choose autocomplete for single match"
 msgstr "Automatikus kiegészítés kiválasztása egyetlen találat esetén"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:49
+#: ../plugins/editor/anjuta-document-manager.glade.h:68
 msgid "Circular"
 msgstr "Kör"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:50
+#: ../plugins/editor/anjuta-document-manager.glade.h:69
 msgid "Collapse all code folds on file open"
 msgstr "Az összes kódblokk összecsukása a fájl megnyitásakor"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:51
+#: ../plugins/editor/anjuta-document-manager.glade.h:70
 msgid "Colors and fonts"
 msgstr "Színek és betűkészletek"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:52
+#: ../plugins/editor/anjuta-document-manager.glade.h:71
 msgid "Colour"
 msgstr "Színes"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:53
+#: ../plugins/editor/anjuta-document-manager.glade.h:72
 msgid "Compact folding"
 msgstr "Tömör összecsukás"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:54
-msgid "Custom style"
-msgstr "Egyéni stílus"
+#: ../plugins/editor/anjuta-document-manager.glade.h:73
+msgid "Continuation"
+msgstr "Folytatás"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:55
+#: ../plugins/editor/anjuta-document-manager.glade.h:74
+msgid "Continue at Parenth."
+msgstr ""
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:75
+msgid ""
+"Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
+"parameters by default)."
+msgstr ""
+"Új stílus létrehozása az \"Új stílus\" beviteli mezőben megadott névvel "
+"(alapértelmezésben a \"-gnu\" paraméterekkel)."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:76
+msgid "Cuddle Else"
+msgstr ""
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:77
+msgid ""
+"Cuddle up to the immediately preceding '}' in an if-then-else construct."
+msgstr ""
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:78
+msgid "Declaration  "
+msgstr "Deklaráció  "
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:79
+msgid "Declarations  "
+msgstr "Deklarációk  "
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:80
 msgid "Delete Theme"
 msgstr "Téma törlése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:56
+#: ../plugins/editor/anjuta-document-manager.glade.h:81
+msgid "Delete the style selected in the combo style selector."
+msgstr "A legördülő stílusválasztóban kijelölt stílus törlése."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:82
+msgid "Delimiters on BL"
+msgstr ""
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:83
 msgid "Disable auto-format"
 msgstr "Automatikus formázás kikapcsolása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:57
+#: ../plugins/editor/anjuta-document-manager.glade.h:84
 msgid "Disable syntax highlighting"
 msgstr "Nyelvtani kiemelések tiltása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:58
+#: ../plugins/editor/anjuta-document-manager.glade.h:85
+msgid "Display the indent output according the selected parameters."
+msgstr ""
+"Az indent kimenetének megjelenítése a kijelölt paramétereknek megfelelően."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:86
 msgid "Do not show tabs"
 msgstr "Ne mutassa a lapokat"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:59
-#: ../plugins/editor/plugin.c:1206
+#: ../plugins/editor/anjuta-document-manager.glade.h:87
+#: ../plugins/editor/plugin.c:1246
 msgid "Documents"
 msgstr "Dokumentumok"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:60
+#: ../plugins/editor/anjuta-document-manager.glade.h:88
 msgid "Draw line below folded lines"
 msgstr "Vonal rajzolása az összecsukott sorok alá"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:61
+#: ../plugins/editor/anjuta-document-manager.glade.h:89
 msgid "Edge column"
 msgstr "Szélső oszlop"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:62
+#: ../plugins/editor/anjuta-document-manager.glade.h:90
 msgid "Editor caret (cursor) width in pixels"
 msgstr "Kurzor szélessége pixelben"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:63
+#: ../plugins/editor/anjuta-document-manager.glade.h:91
 msgid "Enable HTML tags folding"
 msgstr "HTML címkék összecsukásának engedélyezése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:64
+#: ../plugins/editor/anjuta-document-manager.glade.h:92
 msgid "Enable automatic indentation"
 msgstr "Automatikus behúzás engedélyezése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:65
+#: ../plugins/editor/anjuta-document-manager.glade.h:93
 msgid "Enable braces check"
 msgstr "Zárójelek ellenőrzésének engedélyezése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:66
+#: ../plugins/editor/anjuta-document-manager.glade.h:94
 msgid "Enable code folding"
 msgstr "Kódblokk összecsukásának engedélyezése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:67
+#: ../plugins/editor/anjuta-document-manager.glade.h:95
 msgid "Enable comments folding"
 msgstr "Megjegyzés összecsukásának engedélyezése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:68
+#: ../plugins/editor/anjuta-document-manager.glade.h:96
 msgid "Enable files autosave"
 msgstr "Fájlok automatikus mentése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:69
+#: ../plugins/editor/anjuta-document-manager.glade.h:97
 msgid "Enable line wrap"
 msgstr "Sortörés engedélyezése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:70
+#: ../plugins/editor/anjuta-document-manager.glade.h:98
 msgid "Enable python comments folding"
 msgstr "Python megjegyzések összecsukásának engedélyezése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:71
+#: ../plugins/editor/anjuta-document-manager.glade.h:99
 msgid "Enable python quoted strings folding"
 msgstr "Python idézet-karakterláncok összecsukásának engedélyezése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:72
+#: ../plugins/editor/anjuta-document-manager.glade.h:100
 msgid "Encodings"
 msgstr "Kódolások"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:73
-msgid ""
-"Enter the command line arguments for the 'indent' program. Read the info "
-"page for 'indent' for more details"
-msgstr ""
-"Adja meg az 'indent' program parancssori paramétereit. A részletekért "
-"olvassa el az 'indent' info oldalát."
-
-#: ../plugins/editor/anjuta-document-manager.glade.h:74
+#: ../plugins/editor/anjuta-document-manager.glade.h:101
 msgid "Expand regex back references"
 msgstr "Reguláris kifejezések visszahivatkozásainak kiterjesztése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:75
+#: ../plugins/editor/anjuta-document-manager.glade.h:102
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Extra karakterek szűrése DOS módban"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:76
+#: ../plugins/editor/anjuta-document-manager.glade.h:103
 msgid "Find & Replace"
 msgstr "Keresés és csere"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:77
+#: ../plugins/editor/anjuta-document-manager.glade.h:104
+msgid "First Column"
+msgstr "Első oszlop"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:105
+msgid "Foece a space between an 'if' and the following parenthesis (default)."
+msgstr ""
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:106
 msgid "Fold style:"
 msgstr "Összecsukás stílusa:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:78
+#: ../plugins/editor/anjuta-document-manager.glade.h:107
 msgid "Font:"
 msgstr "Betűkészlet:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:79
+#: ../plugins/editor/anjuta-document-manager.glade.h:108
 msgid "Fonts and colors for editor"
 msgstr "A szerkesztő betűtípusai és színei"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:80
+#: ../plugins/editor/anjuta-document-manager.glade.h:109
+msgid "Force a blank line after every block of declarations."
+msgstr "Üres sor kényszerítése minden deklarációblokk után."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:110
+msgid "Force a blank line after every procedure body."
+msgstr "Üres sor kényszerítése minden eljárástörzs után."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:111
+msgid "Force a newline after each comma in a declaration."
+msgstr "Üres sor kényszerítése minden deklarációban található vessző után."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:112
+msgid "Force a space between a 'for' and the following parenthesis (default)."
+msgstr ""
+"Üres sor kényszerítése egy for és a rákövetkező zárójel után "
+"(alapértelmezett)."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:113
+msgid ""
+"Force a space between a 'while' and the following parenthesis (default)."
+msgstr ""
+"Üres sor kényszerítése egy while és a rákövetkező zárójel után "
+"(alapértelmezett)."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:114
 msgid "Fore color:"
 msgstr "Szövegszín:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:81
+#: ../plugins/editor/anjuta-document-manager.glade.h:115
+msgid "Format comments which begin after the first column."
+msgstr "Az első oszlop után kezdődő megjegyzések formázása."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:116
+msgid "Format comments which begin in column one."
+msgstr "Az első oszlopban kezdődő megjegyzések formázása."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:117
 #: ../plugins/editor/text_editor_menu.c:85
 msgid "Forward"
 msgstr "Előre"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:82
+#: ../plugins/editor/anjuta-document-manager.glade.h:118
 msgid "Full Buffer"
 msgstr "Mindenütt"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:83
-msgid "GNU coding style"
-msgstr "GNU kódolási stílus"
-
-#: ../plugins/editor/anjuta-document-manager.glade.h:84
+#: ../plugins/editor/anjuta-document-manager.glade.h:119
 msgid "Greedy matching"
 msgstr "Mohó illesztés"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:85
+#: ../plugins/editor/anjuta-document-manager.glade.h:120
+msgid "Honour Newlines"
+msgstr ""
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:121
+msgid "Honour newlines by giving them the highest possible priority."
+msgstr ""
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:122
 msgid "Ignore Binary Files"
 msgstr "Bináris fájlok mellőzése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:86
+#: ../plugins/editor/anjuta-document-manager.glade.h:123
 msgid "Ignore Directories:"
 msgstr "Könyvtárak mellőzése:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:87
+#: ../plugins/editor/anjuta-document-manager.glade.h:124
 msgid "Ignore Files:"
 msgstr "Fájlok mellőzése:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:88
+#: ../plugins/editor/anjuta-document-manager.glade.h:125
 msgid "Ignore Hidden Directories"
 msgstr "Rejtett könyvtárak mellőzése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:89
+#: ../plugins/editor/anjuta-document-manager.glade.h:126
 msgid "Ignore Hidden Files"
 msgstr "Rejtett fájlok mellőzése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:90
+#: ../plugins/editor/anjuta-document-manager.glade.h:127
+msgid "Indent"
+msgstr "Behúzás"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:128
+msgid "Indent Preferences"
+msgstr "Behúzás tulajdonságai"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:129
+msgid "Indent Setting"
+msgstr "Behúzás beállítása"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:130
 msgid "Indent closing braces"
 msgstr "Záró zárójelek behúzása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:91
+#: ../plugins/editor/anjuta-document-manager.glade.h:131
 msgid "Indent opening braces"
 msgstr "Nyitó zárójelek behúzása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:92
+#: ../plugins/editor/anjuta-document-manager.glade.h:132
 msgid "Indentation"
 msgstr "Behúzás"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:93
+#: ../plugins/editor/anjuta-document-manager.glade.h:133
 msgid "Indentation size in spaces:"
 msgstr "Behúzás mérete szóközökben:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:94
+#: ../plugins/editor/anjuta-document-manager.glade.h:134
+msgid "Insert a line before a Box comment."
+msgstr "Sor beszúrása megjegyzésdobozok elé."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:135
 msgid "Italic"
 msgstr "Dőlt"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:95
-msgid "Kernighan and Ritchie style"
-msgstr "Kernighan és Ritchie stílus"
-
-#: ../plugins/editor/anjuta-document-manager.glade.h:96
+#: ../plugins/editor/anjuta-document-manager.glade.h:136
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:10
 msgid "Left"
 msgstr "Balra"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:97
+#: ../plugins/editor/anjuta-document-manager.glade.h:137
+msgid "Length       "
+msgstr "Hossz:      "
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:138
+msgid "Level              "
+msgstr "Szint                "
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:139
+msgid "Line Indent   "
+msgstr "Sorbehúzás "
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:140
+msgid "Line after Commas"
+msgstr "Sor vesszők után"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:141
+msgid "Line before Box "
+msgstr "Sor doboz előtt "
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:142
 msgid "Line numbers margin width in pixels"
 msgstr "Sorszámmargó szélessége képpontokban"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:98
+#: ../plugins/editor/anjuta-document-manager.glade.h:143
+msgid ""
+"Line up continuation line to start at the character position just after the "
+"left parenthesis if a line has a left parenthesis which is not closed on "
+"that line."
+msgstr ""
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:144
 #: ../plugins/editor/print.c:1038 ../plugins/gdb/info.c:126
 msgid "Lines"
 msgstr "Sor"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:99
+#: ../plugins/editor/anjuta-document-manager.glade.h:145
 msgid "Maintain past Indentation"
 msgstr "Korábbi behúzás megtartása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:100
+#: ../plugins/editor/anjuta-document-manager.glade.h:146
 msgid "Margin Fold visible"
 msgstr "Kódblokkszegély látható"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:101
+#: ../plugins/editor/anjuta-document-manager.glade.h:147
 msgid "Margin Linenum visible"
 msgstr "Sorszámszegély látható"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:102
+#: ../plugins/editor/anjuta-document-manager.glade.h:148
 msgid "Margin Marker visible"
 msgstr "Jelölőszegély látható"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:103
+#: ../plugins/editor/anjuta-document-manager.glade.h:149
 msgid "Match at start of word"
 msgstr "Szóeleji egyezés"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:104
+#: ../plugins/editor/anjuta-document-manager.glade.h:150
 msgid "Match complete lines"
 msgstr "Teljes sorok illesztése "
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:105
+#: ../plugins/editor/anjuta-document-manager.glade.h:151
 msgid "Match complete words"
 msgstr "Teljes szavak illesztése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:106
+#: ../plugins/editor/anjuta-document-manager.glade.h:152
 msgid "Max. Actions"
 msgstr "Legfeljebb ennyi művelet:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:107
+#: ../plugins/editor/anjuta-document-manager.glade.h:153
 msgid "Mode:"
 msgstr "Mód:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:108
+#: ../plugins/editor/anjuta-document-manager.glade.h:154
 #: ../plugins/gdb/registers.c:220
 msgid "Modify"
 msgstr "Módosítás"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:109
+#: ../plugins/editor/anjuta-document-manager.glade.h:155
 msgid "Monochrome"
 msgstr "Fekete-fehér"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:110
+#: ../plugins/editor/anjuta-document-manager.glade.h:156
+msgid ""
+"New\n"
+"Style"
+msgstr ""
+"Új\n"
+"stílus"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:158
 msgid "New Name:"
 msgstr "Új név:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:111
+#: ../plugins/editor/anjuta-document-manager.glade.h:159
 msgid "No Limit"
 msgstr "Nincs korlátozva"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:113
-msgid "Original Berkeley style"
-msgstr "Eredeti Berkeley stílus"
+#: ../plugins/editor/anjuta-document-manager.glade.h:161
+msgid "Parameter     "
+msgstr "Paraméter     "
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:114
+#: ../plugins/editor/anjuta-document-manager.glade.h:162
+msgid "Place a space after a cast operator."
+msgstr "Szóköz elhelyezése kényszerítő operátor után."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:163
+msgid ""
+"Place a space between the name of the procedure being called and the '('."
+msgstr "Szóköz elhelyezése a meghívott eljárás neve és a ( közé."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:164
+msgid "Place stars at the beginning of multi-line comments."
+msgstr "Csillagok elhelyezése több soros megjegyzések elejére."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:165
+msgid "Place the '{' following a 'struct' declaration on the next line."
+msgstr "A \"struct\" deklarációt követő { elhelyezése a következő sorba."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:166
+msgid "Place the '{' following a 'struct' declaration on the same line."
+msgstr "A \"struct\" deklarációt követő { elhelyezése ugyanazon sorba."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:167
+msgid "Place the brace on the line following the if test."
+msgstr "A zárójel elhelyezése az if tesztet követő sorba."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:168
+msgid "Place the brace on the line of the if test."
+msgstr "A zárójel elhelyezése az if teszt sorába."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:169
+msgid "Place the comment delimiters on blank lines."
+msgstr "A megjegyzés elválasztók elhelyezése üres sorokba."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:170
+msgid "Place the type of a procedure beeing defined on the previous line."
+msgstr "A definiálandó eljárás típusának elhelyezése az előző sorba."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:171
 msgid "Plus/Minus"
 msgstr "Plusz/mínusz"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:115
+#: ../plugins/editor/anjuta-document-manager.glade.h:172
 msgid "Position:"
 msgstr "Pozíció:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:116
+#: ../plugins/editor/anjuta-document-manager.glade.h:173
+msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
+msgstr ""
+"Hosszú sorok törésének előnyben részesítése a \"&&\" és \"||\" logikai "
+"operátorok előtt."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:174
 msgid "Pressing backspace un-indents"
 msgstr "A Backspace törli a behúzást"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:117
+#: ../plugins/editor/anjuta-document-manager.glade.h:175
 msgid "Pressing tab indents"
 msgstr "A Tab billentyű beljebb húzza a sort"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:118
+#: ../plugins/editor/anjuta-document-manager.glade.h:176
+msgid "Preview"
+msgstr "Előnézet"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:177
 msgid "Printing"
 msgstr "Nyomtatás"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:119
+#: ../plugins/editor/anjuta-document-manager.glade.h:178
+msgid "Procnames start lines"
+msgstr "Folyamatnevek kezdő sorai"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:179
 msgid "Regular Expression"
 msgstr "Reguláris kifejezés"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:120
+#: ../plugins/editor/anjuta-document-manager.glade.h:180
 msgid "Reload Session Defaults"
 msgstr "Munkamenet alapértelmezéseinek újratöltése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:121
+#: ../plugins/editor/anjuta-document-manager.glade.h:181
 msgid "Reload System Defaults"
 msgstr "Rendszer alapértelmezéseinek újratöltése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:122
+#: ../plugins/editor/anjuta-document-manager.glade.h:182
 msgid "Replace With:"
 msgstr "Csere:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:123
+#: ../plugins/editor/anjuta-document-manager.glade.h:183
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:15
 msgid "Right"
 msgstr "Jobbra"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:124
+#: ../plugins/editor/anjuta-document-manager.glade.h:184
 msgid "Save files interval in minutes"
 msgstr "Fájlmentés időköze percben"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:125
+#: ../plugins/editor/anjuta-document-manager.glade.h:185
 msgid "Save session interval in minutes"
 msgstr "Munkamenet mentésének időköze percben"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:126
+#: ../plugins/editor/anjuta-document-manager.glade.h:186
+msgid "Save the selected Style with the modified parameters."
+msgstr "A kijelölt stílus mentése a módosított paraméterekkel."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:187
 msgid "Search Action:"
 msgstr "Keresési művelet:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:127
+#: ../plugins/editor/anjuta-document-manager.glade.h:188
 msgid "Search Direction:"
 msgstr "Keresési irány:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:128
+#: ../plugins/editor/anjuta-document-manager.glade.h:189
 msgid "Search Expression"
 msgstr "Kifejezés keresése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:129
+#: ../plugins/editor/anjuta-document-manager.glade.h:190
 msgid "Search Expression:"
 msgstr "Kifejezés keresése:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:130
+#: ../plugins/editor/anjuta-document-manager.glade.h:191
 msgid "Search In:"
 msgstr "Keresés helye:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:131
+#: ../plugins/editor/anjuta-document-manager.glade.h:192
 msgid "Search Recursively"
 msgstr "Rekurzív keresés"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:132
+#: ../plugins/editor/anjuta-document-manager.glade.h:193
 msgid "Search Target"
 msgstr "Keresés célja"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:133
+#: ../plugins/editor/anjuta-document-manager.glade.h:194
 msgid "Select highlight style to edit:"
 msgstr "Válassza ki a szerkesztendő kiemelési stílust:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:134
+#: ../plugins/editor/anjuta-document-manager.glade.h:195
 msgid "Select theme:"
 msgstr "Téma kiválasztása:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:135
+#: ../plugins/editor/anjuta-document-manager.glade.h:196
 msgid "Selection background:"
 msgstr "Kijelölés háttérszíne:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:136
+#: ../plugins/editor/anjuta-document-manager.glade.h:197
 msgid "Selection foreground:"
 msgstr "Kijelölés szövegszíne:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:137
+#: ../plugins/editor/anjuta-document-manager.glade.h:198
 msgid "Setting"
 msgstr "Beállítás"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:138
+#: ../plugins/editor/anjuta-document-manager.glade.h:199
 msgid "Sorted by most recent use"
 msgstr "Rendezés a használat gyakorisága alapján"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:139
+#: ../plugins/editor/anjuta-document-manager.glade.h:200
 msgid "Sorted in alphabetical order"
 msgstr "Rendezés abc sorrendben"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:140
+#: ../plugins/editor/anjuta-document-manager.glade.h:201
 msgid "Sorted in opening order"
 msgstr "Rendezés a megnyitás sorrendjében"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:141
+#: ../plugins/editor/anjuta-document-manager.glade.h:202
+msgid "Space after Cast"
+msgstr "Szóköz kényszerítés után"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:203
+msgid "Space after FOR"
+msgstr "Szóköz FOR után"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:204
+msgid "Space after IF"
+msgstr "Szóköz IF után"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:205
+msgid "Space after Proc Call"
+msgstr "Szóköz eljáráshívás után"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:206
+msgid "Space after WHILE"
+msgstr "Szóköz WHILE után"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:207
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr "A kihagyandó könyvtárnevek (-minták) szóközzel elválasztott listája"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:142
+#: ../plugins/editor/anjuta-document-manager.glade.h:208
 msgid "Space-seperated list of directory name patterns to match"
 msgstr "A vizsgálandó könyvtárnevek (-minták) szóközzel elválasztott listája"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:143
+#: ../plugins/editor/anjuta-document-manager.glade.h:209
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr "A kihagyandó fájlnevek (-minták) szóközzel elválasztott listája"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:144
+#: ../plugins/editor/anjuta-document-manager.glade.h:210
 msgid "Space-seperated list of file name patterns to match"
 msgstr "A vizsgálandó fájlnevek (-minták) szóközzel elválasztott listája"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:145
+#: ../plugins/editor/anjuta-document-manager.glade.h:211
+msgid "Specify an amount by which comments are moved to the left."
+msgstr ""
+"Adjon meg egy mennyiséget, amely után a megjegyzések balra lesznek mozgatva."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:212
+msgid "Specify how many spaces to indent type declarations."
+msgstr "Megadja a típusdeklarációk behúzásához használt szóközök számát."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:213
+msgid "Specify the column for comments following code."
+msgstr "Megadja a kódot követő megjegyzések oszlopát."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:214
+msgid "Specify the column for comments following declarations."
+msgstr "Megadja a deklarációkat követő megjegyzések oszlopát."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:215
+msgid "Specify the column for comments following preprocessor directives."
+msgstr "Megadja az előfeldolgozó direktívákat követő megjegyzések oszlopát."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:216
+msgid "Specify the column of identifiers."
+msgstr "Megadja az azonosítók oszlopát."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:217
+msgid ""
+"Specify the indentation level when a statement is broken across two lines "
+"(default 0)."
+msgstr ""
+"Megadja a behúzás szintjét, ha egy utasítás két sorba van törve (az "
+"alapértelmezés: 0)."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:218
+msgid ""
+"Specify the maximum length of a line of C code, not including possible "
+"comments that follow it."
+msgstr ""
+"Megadja egy sornyi C kód maximális hosszát, az utána következő megjegyzések "
+"nélkül."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:219
+msgid "Specify the number o spaces for a TAB (default 8)."
+msgstr "Megadja a szóközök számát egy TAB karakterhez (alapértelmezés: 8)."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:220
+msgid "Specify the number of spaces by which braces are indented."
+msgstr "Megadja a zárójelek behúzására használt szóközök számát."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:221
+msgid ""
+"Specify the number of spaces that 'case' labels should be indented to the "
+"right of the containing 'switch' statement."
+msgstr ""
+"Megadja a szóközök számát, amennyivel a \"case\" címkéket a tartalmazó "
+"\"switch\" utasítás jobb széléhez képest be kell húzni."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:222
+msgid "Specify the value of indentation for each level."
+msgstr "Megadja a behúzás értékét minden egyes szinthez."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:223
 msgid "Squares"
 msgstr "Négyzetek"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:146
+#: ../plugins/editor/anjuta-document-manager.glade.h:224
+msgid "Star Left Side"
+msgstr "Csillag bal oldalt"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:225
 msgid "Strip trailling spaces on file save"
 msgstr "Kezdő szóközök eltávolítása fájl mentésekor"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:147
-msgid "Style of Kangleipak"
-msgstr "Kangleipak stílus"
+#: ../plugins/editor/anjuta-document-manager.glade.h:226
+msgid "Swallow Optional"
+msgstr "Elhagyható lenyelése"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:148
+#: ../plugins/editor/anjuta-document-manager.glade.h:227
+msgid "Swallow optional blank lines."
+msgstr "Elhagyható üres sorok lenyelése."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:228
+msgid "Tab Size      "
+msgstr "Tab mérete  "
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:229
 msgid "Tab size in spaces:"
 msgstr "Tabulátor mérete szóközökben:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:149
+#: ../plugins/editor/anjuta-document-manager.glade.h:230
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:18
 msgid "Top"
 msgstr "Fent"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:150
+#: ../plugins/editor/anjuta-document-manager.glade.h:231
 msgid "Try to save in current locale's encoding"
 msgstr "Próbálja menteni a jelenlegi helyi kódolás szerint"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:151
+#: ../plugins/editor/anjuta-document-manager.glade.h:232
 msgid "Try to save in original encoding"
 msgstr "Próbálja menteni a fájl eredeti kódolása szerint"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:152
+#: ../plugins/editor/anjuta-document-manager.glade.h:233
 msgid "Underlined"
 msgstr "Aláhúzott"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:153
+#: ../plugins/editor/anjuta-document-manager.glade.h:234
+msgid "Update Style"
+msgstr "Stílus frissítése"
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:235
 msgid "Use default"
 msgstr "Alapértelmezés használata"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:154
+#: ../plugins/editor/anjuta-document-manager.glade.h:236
 msgid "Use tabs for indentation"
 msgstr "Használjon tabokat a behúzáshoz"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:155
+#: ../plugins/editor/anjuta-document-manager.glade.h:237
 msgid "View EOL chars"
 msgstr "EOL karakterek mutatása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:156
+#: ../plugins/editor/anjuta-document-manager.glade.h:238
 msgid "View Indentation Guides"
 msgstr "Bekezdésmutató mutatása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:157
+#: ../plugins/editor/anjuta-document-manager.glade.h:239
 msgid "View Line Wrap"
 msgstr "Sortörés mutatása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:158
+#: ../plugins/editor/anjuta-document-manager.glade.h:240
 msgid "View Whitespaces"
 msgstr "Üreshely-karakterek mutatása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:159
+#: ../plugins/editor/anjuta-document-manager.glade.h:241
 msgid "View indentation whitespaces"
 msgstr "Behúzási üreshelyek mutatása"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:160
+#: ../plugins/editor/anjuta-document-manager.glade.h:242
 msgid "Wrap bookmarks search around"
 msgstr "Könyvjelzők keresése körbe"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:161
+#: ../plugins/editor/anjuta-document-manager.glade.h:243
+msgid ""
+"You can modify the parameters either by \n"
+"using the above buttons or by editing them \n"
+"directly (See indent manual)."
+msgstr ""
+"A paramétereket vagy a fenti gombok \n"
+"használatával, vagy közvetlen szerkesztéssel \n"
+"módosíthatja (lásd az indent kézikönyvoldalát)."
+
+#: ../plugins/editor/anjuta-document-manager.glade.h:246
 msgid "_Save Theme As"
 msgstr "Tém_a mentése másként"
 
@@ -3521,490 +3884,502 @@ msgstr "Tém_a mentése másként"
 msgid "<b>Go to Line number:</b>"
 msgstr "<b>Ugrás erre a sorszámra:</b>"
 
-#: ../plugins/editor/plugin.c:139 ../plugins/glade/plugin.c:494
+#: ../plugins/editor/indent-dialog.c:402 ../plugins/editor/indent-dialog.c:429
+msgid "indent parameter not known !"
+msgstr "Az indent paramétere ismeretlen!"
+
+#: ../plugins/editor/indent-dialog.c:467
+msgid "A Style has already this name !"
+msgstr "Már van ilyen nevű stílus!"
+
+#: ../plugins/editor/indent-dialog.c:496 ../plugins/editor/indent-dialog.c:527
+msgid "This Style is not modifiable !"
+msgstr "Ez a stílus nem módosítható!"
+
+#: ../plugins/editor/plugin.c:141 ../plugins/glade/plugin.c:494
 msgid "_Save"
 msgstr "Me_ntés"
 
-#: ../plugins/editor/plugin.c:140
+#: ../plugins/editor/plugin.c:142
 msgid "Save current file"
 msgstr "Jelenlegi fájl mentése"
 
-#: ../plugins/editor/plugin.c:141 ../plugins/glade/plugin.c:502
-msgid "Save _As ..."
-msgstr "Menté_s másként ..."
+#: ../plugins/editor/plugin.c:143 ../plugins/glade/plugin.c:502
+msgid "Save _As..."
+msgstr "Men_tés másként..."
 
-#: ../plugins/editor/plugin.c:142
+#: ../plugins/editor/plugin.c:144
 msgid "Save the current file with a different name"
 msgstr "A jelenlegi fájl mentése más néven"
 
-#: ../plugins/editor/plugin.c:144
+#: ../plugins/editor/plugin.c:146
 msgid "Save A_ll"
 msgstr "Összes men_tése"
 
-#: ../plugins/editor/plugin.c:145
+#: ../plugins/editor/plugin.c:147
 msgid "Save all currently open files, except new files"
 msgstr "Minden nyitott fájl mentése, kivéve az új fájlokat"
 
-#: ../plugins/editor/plugin.c:147
+#: ../plugins/editor/plugin.c:149
 msgid "_Close File"
 msgstr "Fájl be_zárása"
 
-#: ../plugins/editor/plugin.c:148
+#: ../plugins/editor/plugin.c:150
 msgid "Close current file"
 msgstr "Jelenlegi fájl bezárása"
 
-#: ../plugins/editor/plugin.c:150
+#: ../plugins/editor/plugin.c:152
 msgid "Close All Files"
 msgstr "Összes fájl bezárása"
 
-#: ../plugins/editor/plugin.c:151
+#: ../plugins/editor/plugin.c:153
 msgid "Close all files"
 msgstr "Összes fájl bezárása"
 
-#: ../plugins/editor/plugin.c:153
+#: ../plugins/editor/plugin.c:155
 msgid "Reload F_ile"
 msgstr "Fájl ú_jratöltése"
 
-#: ../plugins/editor/plugin.c:154
+#: ../plugins/editor/plugin.c:156
 msgid "Reload current file"
 msgstr "Jelenlegi fájl újratöltése"
 
 #. 8
-#: ../plugins/editor/plugin.c:156 ../plugins/editor/text_editor_menu.c:292
+#: ../plugins/editor/plugin.c:158 ../plugins/editor/text_editor_menu.c:292
 msgid "Swap .h/.c"
 msgstr "Váltás .h/.c között"
 
-#: ../plugins/editor/plugin.c:157
+#: ../plugins/editor/plugin.c:159
 msgid "Swap c header and source file"
 msgstr "C fejléc és forrásfájl cseréje"
 
-#: ../plugins/editor/plugin.c:159
+#: ../plugins/editor/plugin.c:161
 msgid "Recent _Files"
 msgstr "_Legutóbbi fájlok"
 
-#: ../plugins/editor/plugin.c:163
+#: ../plugins/editor/plugin.c:165
 msgid "_Print"
 msgstr "_Nyomtatás"
 
-#: ../plugins/editor/plugin.c:164
+#: ../plugins/editor/plugin.c:166
 msgid "Print the current file"
 msgstr "A jelenlegi fájl nyomtatása"
 
-#: ../plugins/editor/plugin.c:165
+#: ../plugins/editor/plugin.c:167
 msgid "_Print Preview"
 msgstr "_Nyomtatási kép"
 
-#: ../plugins/editor/plugin.c:166
+#: ../plugins/editor/plugin.c:168
 msgid "Print preview of the current file"
 msgstr "A jelenlegi fájl nyomtatási képe"
 
-#: ../plugins/editor/plugin.c:171
+#: ../plugins/editor/plugin.c:173
 msgid "_Transform"
 msgstr "Á_talakítás"
 
-#: ../plugins/editor/plugin.c:172
+#: ../plugins/editor/plugin.c:174
 msgid "_Make Selection Uppercase"
 msgstr "A kijelölt legyen _nagybetűs"
 
-#: ../plugins/editor/plugin.c:173
+#: ../plugins/editor/plugin.c:175
 msgid "Make the selected text uppercase"
 msgstr "A kijelölt szöveg nagybetűssé tétele"
 
-#: ../plugins/editor/plugin.c:175
+#: ../plugins/editor/plugin.c:177
 msgid "Make Selection Lowercase"
 msgstr "A kijelölt legyen kisbetűs"
 
-#: ../plugins/editor/plugin.c:176
+#: ../plugins/editor/plugin.c:178
 msgid "Make the selected text lowercase"
 msgstr "A kijelölt szöveg kisbetűssé tétele"
 
-#: ../plugins/editor/plugin.c:178
+#: ../plugins/editor/plugin.c:180
 msgid "Convert EOL chars to CRLF"
 msgstr "A sorvége karakter legyen CRLF"
 
-#: ../plugins/editor/plugin.c:179
+#: ../plugins/editor/plugin.c:181
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "A sorvége karakter átalakítása DOS formátumúvá"
 
-#: ../plugins/editor/plugin.c:181
+#: ../plugins/editor/plugin.c:183
 msgid "Convert EOL chars to LF"
 msgstr "A sorvége karakter legyen LF"
 
-#: ../plugins/editor/plugin.c:182
+#: ../plugins/editor/plugin.c:184
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "A sorvége karakter átalakítása UNIX formátumúvá"
 
-#: ../plugins/editor/plugin.c:184
+#: ../plugins/editor/plugin.c:186
 msgid "Convert EOL chars to CR"
 msgstr "A sorvége karakter legyen CR"
 
-#: ../plugins/editor/plugin.c:185
+#: ../plugins/editor/plugin.c:187
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "A sorvége karakter átalakítása MAC formátumúvá"
 
-#: ../plugins/editor/plugin.c:187
+#: ../plugins/editor/plugin.c:189
 msgid "Convert EOL chars to majority EOL"
 msgstr "A sorvége karakter legyen a többségnek megfelelő"
 
-#: ../plugins/editor/plugin.c:188
+#: ../plugins/editor/plugin.c:190
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr ""
 "A sorvége karakterek átalakítása a fájlban típus szerint többségben lévő "
 "sorvége karakterekké"
 
-#: ../plugins/editor/plugin.c:193
+#: ../plugins/editor/plugin.c:195
 msgid "_Select"
 msgstr "K_ijelölés"
 
-#: ../plugins/editor/plugin.c:194
+#: ../plugins/editor/plugin.c:196
 msgid "Select _All"
 msgstr "_Mindent kijelöl"
 
-#: ../plugins/editor/plugin.c:195
+#: ../plugins/editor/plugin.c:197
 msgid "Select all text in the editor"
 msgstr "Összes szöveg kijelölése a szerkesztőben"
 
-#: ../plugins/editor/plugin.c:197
+#: ../plugins/editor/plugin.c:199
 msgid "Select to _Brace"
 msgstr "Kijelölés a _zárójelig"
 
-#: ../plugins/editor/plugin.c:198
+#: ../plugins/editor/plugin.c:200
 msgid "Select the text in the matching braces"
 msgstr "Szöveg kijelölése az összetartozó zárójelek között"
 
-#: ../plugins/editor/plugin.c:200
+#: ../plugins/editor/plugin.c:202
 msgid "Select _Code Block"
 msgstr "_Kódblokk kijelölése"
 
-#: ../plugins/editor/plugin.c:202
+#: ../plugins/editor/plugin.c:204
 msgid "Select the current code block"
 msgstr "A jelenlegi kódblokk kijelölése"
 
-#: ../plugins/editor/plugin.c:207
+#: ../plugins/editor/plugin.c:209
 msgid "_Search"
 msgstr "_Keresés"
 
-#: ../plugins/editor/plugin.c:208
-msgid "_Find ..."
-msgstr "_Keresés ..."
+#: ../plugins/editor/plugin.c:210
+msgid "_Find..."
+msgstr "_Keresés..."
 
-#: ../plugins/editor/plugin.c:209
+#: ../plugins/editor/plugin.c:211
 msgid "Search for a string or regular expression in the editor"
 msgstr "Egy karakterlánc vagy reguláris kifejezés keresése a szerkesztőben"
 
-#: ../plugins/editor/plugin.c:211
+#: ../plugins/editor/plugin.c:213
 msgid "Find _Next"
 msgstr "_Következő találat"
 
-#: ../plugins/editor/plugin.c:212 ../plugins/editor/plugin.c:216
+#: ../plugins/editor/plugin.c:214 ../plugins/editor/plugin.c:218
 msgid "Repeat the last Find command"
 msgstr "Az utolsó 'keresés' parancs megismétlése"
 
-#: ../plugins/editor/plugin.c:214
+#: ../plugins/editor/plugin.c:216
 msgid "Find _Previous"
 msgstr "_Előző találat"
 
-#: ../plugins/editor/plugin.c:218
-msgid "Find and R_eplace ..."
-msgstr "Keresés és _csere ..."
-
 #: ../plugins/editor/plugin.c:220
+msgid "Find and R_eplace..."
+msgstr "Keresés és _csere..."
+
+#: ../plugins/editor/plugin.c:222
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr ""
 "Egy karakterlánc vagy reguláris kifejezés keresése és cseréje egy másik "
 "karakterlánccal"
 
-#: ../plugins/editor/plugin.c:222
+#: ../plugins/editor/plugin.c:224
 msgid "Advanced Search And Replace"
 msgstr "Haladó keresés és csere"
 
-#: ../plugins/editor/plugin.c:224
+#: ../plugins/editor/plugin.c:226
 msgid "New advance search And replace stuff"
 msgstr "Haladó keresés és csere"
 
-#: ../plugins/editor/plugin.c:226
+#: ../plugins/editor/plugin.c:228
 msgid "_Enter Selection/I-Search"
 msgstr "Kijelölés me_gadása/I-keresés"
 
-#: ../plugins/editor/plugin.c:228
+#: ../plugins/editor/plugin.c:230
 msgid "Enter the selected text as the search target"
 msgstr "A kijelölt szöveg megadása a keresés célpontjaként"
 
-#: ../plugins/editor/plugin.c:230
-msgid "Fin_d in Files ..."
-msgstr "Keresés _fájlokban ..."
+#: ../plugins/editor/plugin.c:232
+msgid "Fin_d in Files..."
+msgstr "Keresés _fájlokban..."
 
-#: ../plugins/editor/plugin.c:231
+#: ../plugins/editor/plugin.c:233
 msgid "Search for a string in multiple files or directories"
 msgstr "Karakterlánc keresése több fájlban vagy könyvtárban"
 
-#: ../plugins/editor/plugin.c:236
+#: ../plugins/editor/plugin.c:238
 msgid "Co_mment code"
 msgstr "A kód meg_jegyzés"
 
-#: ../plugins/editor/plugin.c:237
+#: ../plugins/editor/plugin.c:239
 msgid "_Block Comment/Uncomment"
 msgstr "A _blokk (ne) legyen megjegyzés"
 
-#: ../plugins/editor/plugin.c:238
+#: ../plugins/editor/plugin.c:240
 msgid "Block comment the selected text"
 msgstr "A kijelölt szöveg blokkos megjegyzés"
 
-#: ../plugins/editor/plugin.c:240
+#: ../plugins/editor/plugin.c:242
 msgid "Bo_x Comment/Uncomment"
 msgstr "Megjegyzés_doboz ki/be"
 
-#: ../plugins/editor/plugin.c:241
+#: ../plugins/editor/plugin.c:243
 msgid "Box comment the selected text"
 msgstr "A kijelölt szöveg megjegyzésdobozba kerül"
 
-#: ../plugins/editor/plugin.c:243
+#: ../plugins/editor/plugin.c:245
 msgid "_Stream Comment/Uncomment"
 msgstr "_Folyamatos megjegyzés ki/be"
 
-#: ../plugins/editor/plugin.c:244
+#: ../plugins/editor/plugin.c:246
 msgid "Stream comment the selected text"
 msgstr "A kijelölt szöveg folyamatos megjegyzés"
 
-#: ../plugins/editor/plugin.c:250
+#: ../plugins/editor/plugin.c:252
 msgid "_Goto Line number"
 msgstr "_Ugrás sorszámra"
 
-#: ../plugins/editor/plugin.c:252 ../plugins/editor/plugin.c:256
+#: ../plugins/editor/plugin.c:254 ../plugins/editor/plugin.c:258
 msgid "Go to a particular line in the editor"
 msgstr "Egy adott sorra lépés a szerkesztőben"
 
-#: ../plugins/editor/plugin.c:254
-msgid "_Line number ..."
-msgstr "_Sorszám ..."
+#: ../plugins/editor/plugin.c:256
+msgid "_Line number..."
+msgstr "_Sorszám..."
 
-#: ../plugins/editor/plugin.c:258
+#: ../plugins/editor/plugin.c:260
 msgid "Matching _Brace"
 msgstr "_Zárójel párjára"
 
-#: ../plugins/editor/plugin.c:260
+#: ../plugins/editor/plugin.c:262
 msgid "Go to the matching brace in the editor"
 msgstr "A zárójel párjára lépés a szerkesztőben"
 
-#: ../plugins/editor/plugin.c:262
+#: ../plugins/editor/plugin.c:264
 msgid "_Start of block"
 msgstr "_Blokk kezdetére"
 
-#: ../plugins/editor/plugin.c:264
+#: ../plugins/editor/plugin.c:266
 msgid "Go to the start of the current block"
 msgstr "A jelenlegi blokk kezdetére lépés a szerkesztőben"
 
-#: ../plugins/editor/plugin.c:266
+#: ../plugins/editor/plugin.c:268
 msgid "_End of block"
 msgstr "Blokk _végére"
 
-#: ../plugins/editor/plugin.c:268
+#: ../plugins/editor/plugin.c:270
 msgid "Go to the end of the current block"
 msgstr "A jelenlegi blokk végére lépés a szerkesztőben"
 
-#: ../plugins/editor/plugin.c:270
+#: ../plugins/editor/plugin.c:272
 msgid "Ne_xt occurrence"
 msgstr "_Következő előfordulás"
 
-#: ../plugins/editor/plugin.c:272
+#: ../plugins/editor/plugin.c:274
 msgid "Find the next occurrence of current word"
 msgstr "Keresse a jelenlegi kifejezés következő előfordulását"
 
-#: ../plugins/editor/plugin.c:274
+#: ../plugins/editor/plugin.c:276
 msgid "Pre_vious occurrence"
 msgstr "_Előző előfordulás"
 
-#: ../plugins/editor/plugin.c:276
+#: ../plugins/editor/plugin.c:278
 msgid "Find the previous occurrence of current word"
 msgstr "Keresse a jelenlegi kifejezés előző előfordulását"
 
-#: ../plugins/editor/plugin.c:278
+#: ../plugins/editor/plugin.c:280
 msgid "Previous _history"
 msgstr "Elő_zmény"
 
-#: ../plugins/editor/plugin.c:280
+#: ../plugins/editor/plugin.c:282
 msgid "Goto previous history"
 msgstr "Ugrás az előző előzményre"
 
-#: ../plugins/editor/plugin.c:282
+#: ../plugins/editor/plugin.c:284
 msgid "Next histor_y"
 msgstr "_Következő"
 
-#: ../plugins/editor/plugin.c:284
+#: ../plugins/editor/plugin.c:286
 msgid "Goto next history"
 msgstr "Ugrás a következő előzményre"
 
-#: ../plugins/editor/plugin.c:290
+#: ../plugins/editor/plugin.c:292
 msgid "_Editor"
 msgstr "_Szerkesztő"
 
-#: ../plugins/editor/plugin.c:291
+#: ../plugins/editor/plugin.c:293
 msgid "_Add Editor View"
 msgstr "Szer_kesztőnézet hozzáadása"
 
-#: ../plugins/editor/plugin.c:292
+#: ../plugins/editor/plugin.c:294
 msgid "Add one more view of current document"
 msgstr "A jelenlegi dokumentum egy vagy több nézetének hozzáadása"
 
-#: ../plugins/editor/plugin.c:294
+#: ../plugins/editor/plugin.c:296
 msgid "_Remove Editor View"
 msgstr "Szerkesztő_nézet eltávolítása"
 
-#: ../plugins/editor/plugin.c:295
+#: ../plugins/editor/plugin.c:297
 msgid "Remove current view of the document"
 msgstr "A dokumentum jelenlegi nézetének eltávolítása"
 
-#: ../plugins/editor/plugin.c:297
+#: ../plugins/editor/plugin.c:299
 msgid "U_ndo"
 msgstr "Visszavo_nás"
 
-#: ../plugins/editor/plugin.c:298
+#: ../plugins/editor/plugin.c:300
 msgid "Undo the last action"
 msgstr "Az utolsó művelet visszavonása"
 
-#: ../plugins/editor/plugin.c:300 ../plugins/glade/plugin.c:125
+#: ../plugins/editor/plugin.c:302 ../plugins/glade/plugin.c:125
 #: ../plugins/glade/plugin.c:446
 msgid "_Redo"
 msgstr "Új_ra"
 
-#: ../plugins/editor/plugin.c:301
+#: ../plugins/editor/plugin.c:303
 msgid "Redo the last undone action"
 msgstr "A visszavont művelet ismételt végrehajtása"
 
-#: ../plugins/editor/plugin.c:303
+#: ../plugins/editor/plugin.c:305
 msgid "C_ut"
 msgstr "Ki_vágás"
 
-#: ../plugins/editor/plugin.c:304
+#: ../plugins/editor/plugin.c:306
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Kijelölt szöveg kivágása a szerkesztőből a vágólapra"
 
-#: ../plugins/editor/plugin.c:306 ../plugins/glade/plugin.c:462
+#: ../plugins/editor/plugin.c:308 ../plugins/glade/plugin.c:462
 msgid "_Copy"
 msgstr "Má_solás"
 
-#: ../plugins/editor/plugin.c:307
+#: ../plugins/editor/plugin.c:309
 msgid "Copy the selected text to the clipboard"
 msgstr "A kijelölt szöveg másolása a vágólapra"
 
-#: ../plugins/editor/plugin.c:309 ../plugins/glade/plugin.c:470
+#: ../plugins/editor/plugin.c:311 ../plugins/glade/plugin.c:470
 msgid "_Paste"
 msgstr "_Beillesztés"
 
-#: ../plugins/editor/plugin.c:310
+#: ../plugins/editor/plugin.c:312
 msgid "Paste the content of clipboard at the current position"
 msgstr "A vágólap tartalmának beillesztése a jelenlegi kurzorpozícióba"
 
-#: ../plugins/editor/plugin.c:312
+#: ../plugins/editor/plugin.c:314
 msgid "_Clear"
 msgstr "_Törlés"
 
-#: ../plugins/editor/plugin.c:313
+#: ../plugins/editor/plugin.c:315
 msgid "Delete the selected text from the editor"
 msgstr "A kijelölt szöveg törlése a szerkesztőből"
 
-#: ../plugins/editor/plugin.c:315
+#: ../plugins/editor/plugin.c:317
 msgid "_AutoComplete"
 msgstr "Automatikus _kiegészítés"
 
-#: ../plugins/editor/plugin.c:317
+#: ../plugins/editor/plugin.c:319
 msgid "AutoComplete the current word"
 msgstr "A szó automatikus kiegészítése"
 
-#: ../plugins/editor/plugin.c:319
+#: ../plugins/editor/plugin.c:321
 msgid "S_how calltip"
 msgstr "_Gyorstipp megjelenítése"
 
-#: ../plugins/editor/plugin.c:320
+#: ../plugins/editor/plugin.c:322
 msgid "Show calltip for the function"
 msgstr "Gyorstipp megjelenítése a függvényhez"
 
-#: ../plugins/editor/plugin.c:325
+#: ../plugins/editor/plugin.c:327
 msgid "_Line numbers margin"
 msgstr "_Sorszámszegély"
 
-#: ../plugins/editor/plugin.c:326
+#: ../plugins/editor/plugin.c:328
 msgid "Show/Hide line numbers"
 msgstr "Sorszámozás megjelenítése/elrejtése"
 
-#: ../plugins/editor/plugin.c:328
+#: ../plugins/editor/plugin.c:330
 msgid "_Markers Margin"
 msgstr "_Könyvjelzőszegély"
 
-#: ../plugins/editor/plugin.c:329
+#: ../plugins/editor/plugin.c:331
 msgid "Show/Hide markers margin"
 msgstr "Könyvjelzők megjelenítése/elrejtése"
 
-#: ../plugins/editor/plugin.c:331
+#: ../plugins/editor/plugin.c:333
 msgid "_Code fold margin"
 msgstr "_Kódblokkszegély"
 
-#: ../plugins/editor/plugin.c:332
+#: ../plugins/editor/plugin.c:334
 msgid "Show/Hide code fold margin"
 msgstr "Kódblokkszegély megjelenítése/elrejtése"
 
-#: ../plugins/editor/plugin.c:334
+#: ../plugins/editor/plugin.c:336
 msgid "_Indentation guides"
 msgstr "_Bekezdésmutató"
 
-#: ../plugins/editor/plugin.c:335
+#: ../plugins/editor/plugin.c:337
 msgid "Show/Hide indentation guides"
 msgstr "Bekezdésmutató megjelenítése/elrejtése"
 
-#: ../plugins/editor/plugin.c:337
+#: ../plugins/editor/plugin.c:339
 msgid "_White spaces"
 msgstr "Ü_reshely-karakterek"
 
-#: ../plugins/editor/plugin.c:338
+#: ../plugins/editor/plugin.c:340
 msgid "Show/Hide white spaces"
 msgstr "Üreshely-karakterek megjelenítése/elrejtése"
 
-#: ../plugins/editor/plugin.c:340
+#: ../plugins/editor/plugin.c:342
 msgid "_Line end characters"
 msgstr "Sor_vége karakterek"
 
-#: ../plugins/editor/plugin.c:341
+#: ../plugins/editor/plugin.c:343
 msgid "Show/Hide line end characters"
 msgstr "Sorvége karakterek megjelenítése/elrejtése"
 
-#: ../plugins/editor/plugin.c:343
+#: ../plugins/editor/plugin.c:345
 msgid "Line _wrapping"
 msgstr "Sor_törés"
 
-#: ../plugins/editor/plugin.c:344
+#: ../plugins/editor/plugin.c:346
 msgid "Enable/disable line wrapping"
 msgstr "Sortörés engedélyezése/tiltása"
 
-#: ../plugins/editor/plugin.c:349
+#: ../plugins/editor/plugin.c:351
 msgid "Zoom in"
 msgstr "Nagyítás"
 
-#: ../plugins/editor/plugin.c:350
+#: ../plugins/editor/plugin.c:352
 msgid "Zoom in: Increase font size"
 msgstr "Nagyítás: betűkészlet méretének növelése"
 
-#: ../plugins/editor/plugin.c:352
+#: ../plugins/editor/plugin.c:354
 msgid "Zoom out"
 msgstr "Kicsinyítés"
 
-#: ../plugins/editor/plugin.c:353
+#: ../plugins/editor/plugin.c:355
 msgid "Zoom out: Decrease font size"
 msgstr "Kicsinyítés: betűkészlet méretének csökkentése"
 
-#: ../plugins/editor/plugin.c:358
+#: ../plugins/editor/plugin.c:360
 msgid "_Highlight Mode"
 msgstr "_Kiemelési üzemmód"
 
-#: ../plugins/editor/plugin.c:362
+#: ../plugins/editor/plugin.c:364
 msgid "For_mat"
 msgstr "For_mátum"
 
-#: ../plugins/editor/plugin.c:363
+#: ../plugins/editor/plugin.c:365
 msgid "Auto _Format"
 msgstr "Automatikus _formázás"
 
-#: ../plugins/editor/plugin.c:365
+#: ../plugins/editor/plugin.c:367
 msgid "Autoformat the current source file"
 msgstr "A jelenlegi forrásfájl automatikus formázása"
 
@@ -4022,190 +4397,190 @@ msgstr "A jelenlegi forrásfájl automatikus formázása"
 #. N_("Decrease indentation of line/selection"),
 #. G_CALLBACK (on_editor_command_indent_decrease_activate)},
 #.
-#: ../plugins/editor/plugin.c:381
+#: ../plugins/editor/plugin.c:383
 msgid "_Close All Folds"
 msgstr "Összes kódblokk össze_csukása"
 
-#: ../plugins/editor/plugin.c:383
+#: ../plugins/editor/plugin.c:385
 msgid "Close all code folds in the editor"
 msgstr "Az összes kódblokk összecsukása a szerkesztőben"
 
-#: ../plugins/editor/plugin.c:385
+#: ../plugins/editor/plugin.c:387
 msgid "_Open All Folds"
 msgstr "Összes kódblokk ki_nyitása"
 
-#: ../plugins/editor/plugin.c:387
+#: ../plugins/editor/plugin.c:389
 msgid "Open all code folds in the editor"
 msgstr "Az összes kódblokk kinyitása a szerkesztőben"
 
-#: ../plugins/editor/plugin.c:389
+#: ../plugins/editor/plugin.c:391
 msgid "_Toggle Current Fold"
 msgstr "Jelenlegi blokk _kinyitása/összecsukása"
 
-#: ../plugins/editor/plugin.c:391
+#: ../plugins/editor/plugin.c:393
 msgid "Toggle current code fold in the editor"
 msgstr "A jelenlegi kódblokk kinyitása/összecsukása a szerkesztőben"
 
-#: ../plugins/editor/plugin.c:396
+#: ../plugins/editor/plugin.c:398
 msgid "Bookmar_k"
 msgstr "Könyvje_lző"
 
-#: ../plugins/editor/plugin.c:397
+#: ../plugins/editor/plugin.c:399
 msgid "_Toggle bookmark"
 msgstr "Könyvjelző ki/_be"
 
-#: ../plugins/editor/plugin.c:399
+#: ../plugins/editor/plugin.c:401
 msgid "Toggle a bookmark at the current line position"
 msgstr "Könyvjelző ki/bekapcsolása a jelenlegi pozícióban"
 
-#: ../plugins/editor/plugin.c:401
+#: ../plugins/editor/plugin.c:403
 msgid "_First bookmark"
 msgstr "El_ső könyvjelző"
 
-#: ../plugins/editor/plugin.c:403
+#: ../plugins/editor/plugin.c:405
 msgid "Jump to the first bookmark in the file"
 msgstr "A fájlban lévő első könyvjelzőre ugrás"
 
-#: ../plugins/editor/plugin.c:405
+#: ../plugins/editor/plugin.c:407
 msgid "_Previous bookmark"
 msgstr "Elő_ző könyvjelző"
 
-#: ../plugins/editor/plugin.c:407
+#: ../plugins/editor/plugin.c:409
 msgid "Jump to the previous bookmark in the file"
 msgstr "A fájlban lévő előző könyvjelzőre ugrás"
 
-#: ../plugins/editor/plugin.c:409
+#: ../plugins/editor/plugin.c:411
 msgid "_Next bookmark"
 msgstr "Kö_vetkező könyvjelző"
 
-#: ../plugins/editor/plugin.c:411
+#: ../plugins/editor/plugin.c:413
 msgid "Jump to the next bookmark in the file"
 msgstr "A fájlban lévő következő könyvjelzőre ugrás"
 
-#: ../plugins/editor/plugin.c:413
+#: ../plugins/editor/plugin.c:415
 msgid "_Last bookmark"
 msgstr "_Utolsó könyvjelző"
 
-#: ../plugins/editor/plugin.c:415
+#: ../plugins/editor/plugin.c:417
 msgid "Jump to the last bookmark in the file"
 msgstr "A fájlban lévő utolsó könyvjelzőre ugrás"
 
-#: ../plugins/editor/plugin.c:417
+#: ../plugins/editor/plugin.c:419
 msgid "_Clear all bookmarks"
 msgstr "Összes könyvjelző _törlése"
 
-#: ../plugins/editor/plugin.c:419
+#: ../plugins/editor/plugin.c:421
 msgid "Clear bookmarks"
 msgstr "Könyvjelzők törlése"
 
-#: ../plugins/editor/plugin.c:438
+#: ../plugins/editor/plugin.c:440
 msgid "Editor file operations"
 msgstr "Szerkesztő fájl műveletei"
 
-#: ../plugins/editor/plugin.c:439
+#: ../plugins/editor/plugin.c:441
 msgid "Editor print operations"
 msgstr "Szerkesztő nyomtatási műveletei"
 
-#: ../plugins/editor/plugin.c:440
+#: ../plugins/editor/plugin.c:442
 msgid "Editor text transformation"
 msgstr "Szerkesztő szövegének átalakítása"
 
-#: ../plugins/editor/plugin.c:441
+#: ../plugins/editor/plugin.c:443
 msgid "Editor text selection"
 msgstr "Szerkesztő szövegének kijelölése"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/editor/plugin.c:443
+#: ../plugins/editor/plugin.c:445
 msgid "Editor text searching"
 msgstr "Szerkesztő szövegében keresés"
 
-#: ../plugins/editor/plugin.c:444
+#: ../plugins/editor/plugin.c:446
 msgid "Editor code commenting"
 msgstr "Szerkesztő kód megjegyzések"
 
-#: ../plugins/editor/plugin.c:445
+#: ../plugins/editor/plugin.c:447
 msgid "Editor navigations"
 msgstr "Szerkesztő navigációk"
 
-#: ../plugins/editor/plugin.c:446
+#: ../plugins/editor/plugin.c:448
 msgid "Editor edit operations"
 msgstr "Szerkesztő szerkesztési műveletek"
 
-#: ../plugins/editor/plugin.c:447
+#: ../plugins/editor/plugin.c:449
 msgid "Editor zoom operations"
 msgstr "Szerkesztő nagyítás műveletek"
 
-#: ../plugins/editor/plugin.c:448
+#: ../plugins/editor/plugin.c:450
 msgid "Editor syntax highlighting styles"
 msgstr "Szerkesztő nyelvi kiemelési stílusai"
 
-#: ../plugins/editor/plugin.c:449
+#: ../plugins/editor/plugin.c:451
 msgid "Editor text formating"
 msgstr "Szerkesztő szövegformázásai"
 
-#: ../plugins/editor/plugin.c:450
+#: ../plugins/editor/plugin.c:452
 msgid "Editor bookmarks"
 msgstr "Szerkesztő könyvjelzői"
 
-#: ../plugins/editor/plugin.c:454
+#: ../plugins/editor/plugin.c:456
 msgid "Editor view settings"
 msgstr "Szerkesztő nézetbeállításai"
 
-#: ../plugins/editor/plugin.c:524
+#: ../plugins/editor/plugin.c:528
 msgid "Save"
 msgstr "Mentés"
 
-#: ../plugins/editor/plugin.c:528
+#: ../plugins/editor/plugin.c:532
 msgid "Reload"
 msgstr "Újratöltés"
 
-#: ../plugins/editor/plugin.c:534
+#: ../plugins/editor/plugin.c:538
 msgid "Find"
 msgstr "Keresés"
 
-#: ../plugins/editor/plugin.c:537
+#: ../plugins/editor/plugin.c:541
 msgid "Goto"
 msgstr "Ugrás"
 
-#: ../plugins/editor/plugin.c:723
+#: ../plugins/editor/plugin.c:727
 msgid "OVR"
 msgstr "ÁTÍR"
 
-#: ../plugins/editor/plugin.c:727
+#: ../plugins/editor/plugin.c:731
 msgid "INS"
 msgstr "BESZ"
 
-#: ../plugins/editor/plugin.c:729 ../plugins/editor/plugin.c:740
+#: ../plugins/editor/plugin.c:733 ../plugins/editor/plugin.c:744
 msgid "Zoom"
 msgstr "Nagyítás"
 
-#: ../plugins/editor/plugin.c:730 ../plugins/editor/plugin.c:741
+#: ../plugins/editor/plugin.c:734 ../plugins/editor/plugin.c:745
 #: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:575
 msgid "Line"
 msgstr "Sor"
 
-#: ../plugins/editor/plugin.c:731 ../plugins/editor/plugin.c:742
+#: ../plugins/editor/plugin.c:735 ../plugins/editor/plugin.c:746
 msgid "Col"
 msgstr "Oszl."
 
-#: ../plugins/editor/plugin.c:732 ../plugins/editor/plugin.c:743
+#: ../plugins/editor/plugin.c:736 ../plugins/editor/plugin.c:747
 msgid "Mode"
 msgstr "Mód"
 
 #. Automatic highlight menu
-#: ../plugins/editor/plugin.c:1019
+#: ../plugins/editor/plugin.c:1042
 msgid "Automatic"
 msgstr "Automatikus"
 
-#: ../plugins/editor/plugin.c:1172
+#: ../plugins/editor/plugin.c:1212
 msgid "Goto line"
 msgstr "Ugrás sorra"
 
-#: ../plugins/editor/plugin.c:1173
+#: ../plugins/editor/plugin.c:1213
 msgid "Enter the line number to jump and press enter"
 msgstr "Adja meg a sor számát az ugráshoz és üssön entert"
 
-#: ../plugins/editor/plugin.c:1201
+#: ../plugins/editor/plugin.c:1241
 msgid "Editor quick navigations"
 msgstr "Szerkesztő gyors navigációi"
 
@@ -4227,13 +4602,9 @@ msgstr "Fájl: %s"
 msgid "%d"
 msgstr "%d"
 
-#: ../plugins/editor/print.c:870
-msgid "Printing .."
-msgstr "Nyomtatás .."
-
-#: ../plugins/editor/print.c:882
-msgid "Printing ..."
-msgstr "Nyomtatás ..."
+#: ../plugins/editor/print.c:870 ../plugins/editor/print.c:882
+msgid "Printing..."
+msgstr "Nyomtatás..."
 
 #: ../plugins/editor/print.c:1029 ../plugins/gdb/signals.c:354
 msgid "Print"
@@ -4299,23 +4670,23 @@ msgstr ""
 "A(z) %s fájl a lemezen frissebb, mint a jelenlegi pufferben.\n"
 "Újratöltsem?"
 
-#: ../plugins/editor/text_editor.c:1198
+#: ../plugins/editor/text_editor.c:1200
 msgid "Could not get file info"
 msgstr "Nem érhető el fájlinformáció"
 
-#: ../plugins/editor/text_editor.c:1205
+#: ../plugins/editor/text_editor.c:1207
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Ez a fájl túl nagy. Nem lehet memóriát foglalni."
 
-#: ../plugins/editor/text_editor.c:1212
+#: ../plugins/editor/text_editor.c:1214
 msgid "Could not open file"
 msgstr "Nem lehet megnyitni a fájlt"
 
-#: ../plugins/editor/text_editor.c:1220
+#: ../plugins/editor/text_editor.c:1222
 msgid "Error while reading from file"
 msgstr "Hiba a fájlból való olvasás közben"
 
-#: ../plugins/editor/text_editor.c:1256
+#: ../plugins/editor/text_editor.c:1258
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4325,7 +4696,11 @@ msgstr ""
 "támogatott kódolások listáját. Ha nincs rajta, akkor adja hozzá a "
 "tulajdonságoknál."
 
-#: ../plugins/editor/text_editor.c:1421
+#: ../plugins/editor/text_editor.c:1416
+msgid "Loading file..."
+msgstr "Fájl betöltése..."
+
+#: ../plugins/editor/text_editor.c:1423
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4336,37 +4711,57 @@ msgstr ""
 "\n"
 "Részletek: %s"
 
-#: ../plugins/editor/text_editor.c:1468
+#: ../plugins/editor/text_editor.c:1444
+msgid "File loaded successfully"
+msgstr "A fájl sikeresen betöltve"
+
+#: ../plugins/editor/text_editor.c:1461
+msgid "Saving file..."
+msgstr "Fájl mentése..."
+
+#: ../plugins/editor/text_editor.c:1470
 #, c-format
 msgid "Could not save file: %s."
 msgstr "Nem lehet menteni a fájlt: %s."
 
-#: ../plugins/editor/text_editor.c:1644
+#: ../plugins/editor/text_editor.c:1481
+msgid "File saved successfully"
+msgstr "A fájl sikeresen mentve"
+
+#: ../plugins/editor/text_editor.c:1620
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "Az automatikus formázás jelenleg ki van kapcsolva. Változtassa meg a "
 "beállításoknál."
 
-#: ../plugins/editor/text_editor.c:1663
-msgid "Error in auto formatting ..."
+#: ../plugins/editor/text_editor.c:1626
+msgid "Auto formatting..."
+msgstr "Automatikus formázás..."
+
+#: ../plugins/editor/text_editor.c:1639
+msgid "Error in auto formatting..."
 msgstr "Hiba az automatikus formázás közben..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1679
+#: ../plugins/editor/text_editor.c:1657
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "Az Anjuta nem ismeri ezt: %s!"
 
-#: ../plugins/editor/text_editor.c:1704
+#: ../plugins/editor/text_editor.c:1681
 #, c-format
 msgid ""
-"Error in auto formatting ...\n"
+"Error in auto formatting...\n"
 "Details: %s"
 msgstr ""
 "Hiba az automatikus formázás közben...\n"
 "Részletek: %s"
 
-#: ../plugins/editor/text_editor.c:1949
+#: ../plugins/editor/text_editor.c:1688
+msgid "Auto formatting completed"
+msgstr "Az automatikus formázás befejeződött"
+
+#: ../plugins/editor/text_editor.c:1926
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4379,7 +4774,12 @@ msgstr ""
 "Ez helytelen működést vagy instabilitást eredményezhet.\n"
 "Az Anjuta visszatér a beépített (korlátozott) beállításokhoz"
 
-#: ../plugins/editor/text_editor_cbs.c:126
+#: ../plugins/editor/text_editor_cbs.c:120
+#, c-format
+msgid "Autosaved \"%s\""
+msgstr "\"%s\" automatikusan mentve"
+
+#: ../plugins/editor/text_editor_cbs.c:129
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "\"%s\" automatikus mentése -- Sikertelen"
@@ -4614,16 +5014,16 @@ msgid "Failed to activate plugin: %s"
 msgstr "A bővítmény aktiválása sikertelen: %s"
 
 #: ../plugins/file-loader/plugin.c:801
-msgid "_New ..."
-msgstr "Ú_j ..."
+msgid "_New..."
+msgstr "Ú_j..."
 
 #: ../plugins/file-loader/plugin.c:803
 msgid "New empty editor."
 msgstr "Új üres szerkesztő."
 
 #: ../plugins/file-loader/plugin.c:809
-msgid "_Open ..."
-msgstr "M_egnyitás ..."
+msgid "_Open..."
+msgstr "_Megnyitás..."
 
 #: ../plugins/file-loader/plugin.c:817 ../plugins/file-loader/plugin.c:830
 msgid "_Open"
@@ -4665,8 +5065,8 @@ msgstr "Legutóbbi fájl megnyitása"
 #: ../plugins/file-manager/an_file_view.c:596
 #: ../plugins/file-manager/an_file_view.c:864
 #: ../plugins/symbol-browser/an_symbol_view.c:513
-msgid "Loading ..."
-msgstr "Betöltés ..."
+msgid "Loading..."
+msgstr "Betöltés..."
 
 #: ../plugins/file-manager/an_file_view.c:724
 msgid "Rev"
@@ -5164,8 +5564,8 @@ msgstr ""
 "Győződjön meg, hogy az Anjuta megfelelően van telepítve."
 
 #: ../plugins/gdb/debugger.c:647
-msgid "Getting ready to start debugging session ...\n"
-msgstr "Felkészülés a hibakeresés megkezdésére ....\n"
+msgid "Getting ready to start debugging session...\n"
+msgstr "Felkészülés a hibakeresés megkezdésére...\n"
 
 #: ../plugins/gdb/debugger.c:662
 msgid "No executable specified.\n"
@@ -5257,12 +5657,16 @@ msgstr "Nem indítható terminál a hibakereséshez."
 msgid "Program arguments"
 msgstr "Program paraméterei"
 
-#: ../plugins/gdb/debugger.c:1507
-#, c-format
-msgid "Attaching to process: %d\n"
-msgstr "Kapcsolódás folyamathoz: %d\n"
+#: ../plugins/gdb/debugger.c:1506
+msgid "Program attached\n"
+msgstr "A program csatlakoztatva\n"
 
-#: ../plugins/gdb/debugger.c:1531
+#: ../plugins/gdb/debugger.c:1520
+#, c-format
+msgid "Attaching to process: %d...\n"
+msgstr "Kapcsolódás folyamathoz: %d...\n"
+
+#: ../plugins/gdb/debugger.c:1544
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -5270,28 +5674,32 @@ msgstr ""
 "Egy folyamat már fut.\n"
 "Le akarja azt állítani és az újhoz kapcsolódni?"
 
-#: ../plugins/gdb/debugger.c:1548
+#: ../plugins/gdb/debugger.c:1561
 msgid "Anjuta is unable to attach to itself."
 msgstr "Az Anjuta nem kapcsolódhat saját magához."
 
-#: ../plugins/gdb/debugger.c:1595
+#: ../plugins/gdb/debugger.c:1608
 msgid "Program terminated\n"
 msgstr "A program félbeszakítva\n"
 
-#: ../plugins/gdb/debugger.c:1610
-msgid "Detaching the process\n"
-msgstr "Leválás a folyamatról\n"
+#: ../plugins/gdb/debugger.c:1620
+msgid "Program detached\n"
+msgstr "A program leválasztva\n"
 
-#: ../plugins/gdb/debugger.c:1628
+#: ../plugins/gdb/debugger.c:1636
+msgid "Detaching the process...\n"
+msgstr "Leválás a folyamatról...\n"
+
+#: ../plugins/gdb/debugger.c:1655
 msgid "Interrupting the process\n"
 msgstr "Folyamat megszakítása\n"
 
-#: ../plugins/gdb/debugger.c:1816
+#: ../plugins/gdb/debugger.c:1843
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "%s szignál küldése a(z) %d folyamatnak"
 
-#: ../plugins/gdb/debugger.c:1842
+#: ../plugins/gdb/debugger.c:1869
 msgid "Error whilst signaling the process."
 msgstr "Hiba a folyamatnak való szignálküldés közben."
 
@@ -5318,8 +5726,8 @@ msgstr "Töréspont ki/be a jelenlegi helyen"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/gdb/plugin.c:76
-msgid "Set Breakpoint ..."
-msgstr "Töréspont beállítása ..."
+msgid "Set Breakpoint..."
+msgstr "Töréspont beállítása..."
 
 #. Display label
 #. short-cut
@@ -5330,8 +5738,8 @@ msgstr "Egy töréspont beállítása"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/gdb/plugin.c:84
-msgid "_Breakpoints ..."
-msgstr "_Töréspontok ..."
+msgid "_Breakpoints..."
+msgstr "_Töréspontok..."
 
 #. Display label
 #. short-cut
@@ -5482,15 +5890,15 @@ msgid "Send a kernel signal to the process being debugged"
 msgstr "Kernelszignál küldése a hibakeresés alatt álló folyamatnak"
 
 #: ../plugins/gdb/plugin.c:228
-msgid "Ins_pect/Evaluate ..."
-msgstr "Vizs_gálat/Kiértékelés ..."
+msgid "Ins_pect/Evaluate..."
+msgstr "Vizs_gálat/Kiértékelés..."
 
 #: ../plugins/gdb/plugin.c:230
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Egy kifejezés vagy változó vizsgálata/kiértékelése"
 
 #: ../plugins/gdb/plugin.c:236
-msgid "Add Expression in _Watch ..."
+msgid "Add Expression in _Watch..."
 msgstr "Egy kifejezés hozzáadása a _figyelőhöz..."
 
 #: ../plugins/gdb/plugin.c:238
@@ -5498,32 +5906,32 @@ msgid "Add expression or variable to the watch"
 msgstr "Egy kifejezés vagy változó hozzáadása a figyelőhöz"
 
 #: ../plugins/gdb/plugin.c:244
-msgid "Debugger command ..."
-msgstr "Hibakereső parancs ..."
+msgid "Debugger command..."
+msgstr "Hibakereső parancs..."
 
 #: ../plugins/gdb/plugin.c:246
 msgid "Custom debugger command"
 msgstr "Egyéni hibakereső parancs"
 
 #: ../plugins/gdb/plugin.c:252
-msgid "Registers ..."
-msgstr "Regiszterek ..."
+msgid "Registers..."
+msgstr "Regiszterek..."
 
 #: ../plugins/gdb/plugin.c:254
 msgid "Show CPU register contents"
 msgstr "CPU regiszterek tartalmának mutatása"
 
 #: ../plugins/gdb/plugin.c:260
-msgid "Shared Libraries ..."
-msgstr "Megosztott programkönyvtárak ..."
+msgid "Shared Libraries..."
+msgstr "Megosztott programkönyvtárak..."
 
 #: ../plugins/gdb/plugin.c:262
 msgid "Show shared libraries mappings"
 msgstr "Megosztott programkönyvtárak térképeinek mutatása"
 
 #: ../plugins/gdb/plugin.c:268
-msgid "Kernel Signals ..."
-msgstr "Kernel szignálok ..."
+msgid "Kernel Signals..."
+msgstr "Kernel szignálok..."
 
 #: ../plugins/gdb/plugin.c:270
 msgid "Show kernel signals"
@@ -5721,12 +6129,12 @@ msgstr "\"%s\" Glade projekt mentve"
 
 #. If instead we dont have a path yet, fire up a file selector
 #: ../plugins/glade/plugin.c:234
-msgid "Save glade file ..."
-msgstr "Glade fájl mentése ..."
+msgid "Save glade file..."
+msgstr "Glade fájl mentése..."
 
 #: ../plugins/glade/plugin.c:261
-msgid "Save glade file as ..."
-msgstr "Glade fájl mentése másként ..."
+msgid "Save glade file as..."
+msgstr "Glade fájl mentése másként..."
 
 #: ../plugins/glade/plugin.c:289
 #, c-format
@@ -6796,8 +7204,8 @@ msgid "Shortcut:"
 msgstr "Gyorsbillentyű:"
 
 #: ../plugins/macro/macro-actions.c:123
-msgid "Press macro shortcut ..."
-msgstr "Nyomja meg a makró gyorsbillentyűjét ..."
+msgid "Press macro shortcut..."
+msgstr "Nyomja meg a makró gyorsbillentyűjét..."
 
 #: ../plugins/macro/macro-actions.c:130
 msgid "Press shortcut"
@@ -6972,24 +7380,24 @@ msgid "Macros"
 msgstr "Makrók"
 
 #: ../plugins/macro/plugin.c:41
-msgid "_Insert Macro ..."
-msgstr "Makró _beszúrása ..."
+msgid "_Insert Macro..."
+msgstr "Makró _beszúrása..."
 
 #: ../plugins/macro/plugin.c:43
 msgid "Insert a macro using a shortcut"
 msgstr "Makró beszúrása gyorsbillentyű használatával"
 
 #: ../plugins/macro/plugin.c:48
-msgid "_Add Macro ..."
-msgstr "Makró hozzá_adása ..."
+msgid "_Add Macro..."
+msgstr "Makró hozzá_adása..."
 
 #: ../plugins/macro/plugin.c:50
 msgid "Add a macro"
 msgstr "Egy makró hozzáadása"
 
 #: ../plugins/macro/plugin.c:55
-msgid "Macros ..."
-msgstr "Makrók ..."
+msgid "Macros..."
+msgstr "Makrók..."
 
 #: ../plugins/macro/plugin.c:57
 msgid "Add/Edit/Remove macros"
@@ -7193,8 +7601,8 @@ msgid "Loaded: "
 msgstr "Betöltve: "
 
 #: ../plugins/profile-default/plugin.c:493
-msgid " ..."
-msgstr " ..."
+msgid "..."
+msgstr "..."
 
 #: ../plugins/profile-default/plugin.c:546
 #: ../plugins/profile-default/plugin.c:566
@@ -7233,21 +7641,21 @@ msgstr ""
 "Nem tűnik érvényes Anjuta projektnek."
 
 #: ../plugins/profile-default/plugin.c:898
-msgid "Loaded default profile ..."
-msgstr "Alapértelmezett profil betöltve ..."
+msgid "Loaded default profile..."
+msgstr "Alapértelmezett profil betöltve..."
 
 #: ../plugins/profile-default/plugin.c:948
 #: ../plugins/profile-default/plugin.c:1075
-msgid "Loaded Profile ..."
-msgstr "Profil betöltve ..."
+msgid "Loaded Profile..."
+msgstr "Profil betöltve..."
 
 #: ../plugins/profile-default/plugin.c:1045
-msgid "Loaded Project ... Initializing"
-msgstr "Projekt betöltve ... Inicializálás"
+msgid "Loaded Project... Initializing"
+msgstr "Projekt betöltve... Inicializálás"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:1
-msgid "Enter the base path of your project (where configure.in can be found):"
-msgstr "Adja meg a projekt alap elérési útját (ahol a configure.in található):"
+msgid "Enter the base path of your project:"
+msgstr "Adja meg a projekt alap elérési útját:"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:2
 msgid "Enter the project name:"
@@ -7258,31 +7666,41 @@ msgid "Import Project"
 msgstr "Projekt importálása"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
-msgid ""
-"This wizard will help you to import an existing automake/autoconf managed "
-"project into anjuta."
+msgid "This wizard will help you to import an existing project into anjuta."
 msgstr ""
-"Ez a varázsló segítségére lesz egy létező, automake/autoconf által kezelt "
-"projekt Anjuta-ba importálásában."
+"Ez a varázsló segítségére lesz egy létező projekt Anjuta-ba importálásában."
 
-#: ../plugins/project-import/project-import.c:89
+#: ../plugins/project-import/project-import.c:95
+#, c-format
 msgid ""
-"This does not look like a project root dir!\n"
-"Continue anyway?"
+"Could not find a valid project backend for the directory given (%s). Please "
+"select a different directory, or try upgrading to a newer version of the "
+"Gnome Build Framework."
 msgstr ""
-"Ez nem úgy néz ki, mint egy projekt gyökérkönyvtára!\n"
-"Mégis folytatja?"
+"Nem található érvényes projekt háttér az adott könyvtárhoz (%s). Kérem "
+"válasszon egy másik könyvtárat vagy próbáljon a Gnome Build Framework egy "
+"újabb verziójára frissíteni."
 
-#: ../plugins/project-import/project-import.c:113
+#: ../plugins/project-import/project-import.c:116
 #, c-format
 msgid ""
 "Project name: %s\n"
+"Project type: %s\n"
 "Project path: %s\n"
 msgstr ""
 "Projekt neve: %s\n"
+"Projekt típusa: %s\n"
 "Projekt útvonala: %s\n"
 
-#: ../plugins/project-import/project-import.c:284
+#: ../plugins/project-import/project-import.c:294
+msgid ""
+"Generation of project file failed. Cannot find an appropriate project "
+"template to use. Please make sure your version of Anjuta is up to date."
+msgstr ""
+"A projektfájl előállítása meghiúsult. Nem található megfelelő, használandó "
+"projektsablon. Győződjön meg róla, hogy az Anjuta verziója naprakész."
+
+#: ../plugins/project-import/project-import.c:324
 #, c-format
 msgid ""
 "Generation of project file failed. Please check if you have write access to "
@@ -7441,8 +7859,8 @@ msgid "Loading project: %s"
 msgstr "Projekt betöltése: %s"
 
 #: ../plugins/project-manager/plugin.c:1009
-msgid "Created project view ..."
-msgstr "Projektnézet létrehozva ..."
+msgid "Created project view..."
+msgstr "Projektnézet létrehozva..."
 
 #: ../plugins/project-manager/plugin.c:1022
 #, c-format
@@ -7915,31 +8333,31 @@ msgstr "%s: Nem közönséges fájl"
 
 #: ../plugins/project-manager/project_import.c:109
 #, c-format
-msgid "Importing Project from %s ...\n"
-msgstr "Projekt importálása: %s ...\n"
+msgid "Importing Project from %s...\n"
+msgstr "Projekt importálása: %s...\n"
 
 #: ../plugins/project-manager/project_import.c:119
 msgid "Could not launch script!\n"
 msgstr "Nem lehet elindítani a parancsfájlt!\n"
 
 #: ../plugins/project-manager/project_import.c:130
-msgid "Importing Project...please wait"
+msgid "Importing Project... please wait"
 msgstr "Projekt importálása... kérem várjon"
 
 #: ../plugins/project-manager/project_import.c:181
-msgid "Project import completed...unsuccessful\n"
+msgid "Project import completed... unsuccessful\n"
 msgstr "Projekt importálása befejeződött... sikertelenül\n"
 
 #: ../plugins/project-manager/project_import.c:183
-msgid "Project import completed...unsuccessful"
+msgid "Project import completed... unsuccessful"
 msgstr "Projekt importálása befejeződött... sikertelenül"
 
 #: ../plugins/project-manager/project_import.c:188
-msgid "Project import completed...successful\n"
+msgid "Project import completed... successful\n"
 msgstr "Projekt importálása befejeződött... sikeresen\n"
 
 #: ../plugins/project-manager/project_import.c:190
-msgid "Project import completed...successful"
+msgid "Project import completed... successful"
 msgstr "Projekt importálása befejeződött... sikeresen"
 
 #: ../plugins/project-manager/project_import.c:206
@@ -7947,8 +8365,8 @@ msgid "Could not import Project: no project file found!"
 msgstr "Nem lehet importálni a projektet: nem található projektfájl!"
 
 #: ../plugins/project-manager/project_import.c:213
-msgid "Opening Project...please wait"
-msgstr "Projekt megnyitása...kérem várjon"
+msgid "Opening Project... please wait"
+msgstr "Projekt megnyitása... kérem várjon"
 
 #: ../plugins/project-manager/project_import.c:216
 msgid "Could not open generated Project file"
@@ -8196,21 +8614,25 @@ msgstr "Minta fájlműveletek"
 msgid "SamplePlugin"
 msgstr "Mintabővítmény"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:2
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Subversion beállításai</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "Force"
 msgstr "Kényszerítés"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Password:"
 msgstr "Jelszó:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
 msgid "Realm:"
 msgstr "Tartomány:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "Realm: "
+msgstr "Tartomány: "
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "Recurse"
@@ -8221,34 +8643,42 @@ msgid "Remember Password"
 msgstr "Jelszó megjegyzése"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "Remember this decision"
+msgstr "Ezen döntés megjegyzése"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "Repository authorization"
 msgstr "Tároló hitelesítés"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "Subversion Preferences"
 msgstr "Subversion tulajdonságai"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Fájl/könyvtár hozzáadása"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Subversion: Commit file/directory"
 msgstr "Subversion: Fájl/könyvtár véglegesítése"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:19
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Fájl/könyvtár eltávolítása"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:20
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: Fájl/könyvtár frissítése"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:21
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "TODO!"
 msgstr "TODO!"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
+msgid "Trust server"
+msgstr "Megbízom a kiszolgálóban"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "realm"
 msgstr "tartomány"
 
@@ -8300,9 +8730,34 @@ msgstr "A Subversion parancs még fut! Kérem várjon, amíg befejeződik!"
 msgid "svn.diff"
 msgstr "svn.diff"
 
-#: ../plugins/subversion/svn-auth.c:82
+#: ../plugins/subversion/svn-auth.c:82 ../plugins/subversion/svn-auth.c:132
+#: ../plugins/subversion/svn-auth.c:188
 msgid "Authentication canceled"
 msgstr "Hitelesítés megszakítva"
+
+#: ../plugins/subversion/svn-auth.c:163
+msgid "Hostname: "
+msgstr "Kiszolgálónév: "
+
+#: ../plugins/subversion/svn-auth.c:164
+msgid "Fingerprint: "
+msgstr "Ujjlenyomat: "
+
+#: ../plugins/subversion/svn-auth.c:165
+msgid "Valid from: "
+msgstr "Érvényes ettől: "
+
+#: ../plugins/subversion/svn-auth.c:166
+msgid "Valid until: "
+msgstr "Érvényes eddig: "
+
+#: ../plugins/subversion/svn-auth.c:167
+msgid "Issuer DN: "
+msgstr "Kibocsátó DN: "
+
+#: ../plugins/subversion/svn-auth.c:168
+msgid "DER certificate: "
+msgstr "DER tanúsítvány: "
 
 #: ../plugins/subversion/svn-notify.c:69
 msgid "Add"
@@ -8459,8 +8914,8 @@ msgid "Refresh symbol browser tree"
 msgstr "Szimbólumböngésző-fa frissítése"
 
 #: ../plugins/symbol-browser/plugin.c:384
-msgid "Created sysmbols ..."
-msgstr "Szimbólumok létrehozva ..."
+msgid "Created sysmbols..."
+msgstr "Szimbólumok létrehozva..."
 
 #: ../plugins/symbol-browser/plugin.c:815
 msgid "Tree"
@@ -8615,8 +9070,8 @@ msgid "Running command: "
 msgstr "Parancs futtatása: "
 
 #: ../plugins/tools/execute.c:510
-msgid "Completed ... unsuccessful with "
-msgstr "Befejezve ... sikertelenül "
+msgid "Completed... unsuccessful with "
+msgstr "Befejezve... sikertelenül: "
 
 #: ../plugins/tools/execute.c:616
 msgid "Unable to create a buffer, command aborted"
@@ -8694,8 +9149,8 @@ msgstr ""
 "anjuta.org"
 
 #: ../src/anjuta.c:199
-msgid "Loaded Session ..."
-msgstr "Munkamenet betöltve ..."
+msgid "Loaded Session..."
+msgstr "Munkamenet betöltve..."
 
 #: ../src/anjuta.glade.h:2
 msgid "<b>General Information:</b>"
@@ -8762,8 +9217,8 @@ msgid "_Settings"
 msgstr "_Beállítások"
 
 #: ../src/anjuta-actions.h:56 ../src/shell.c:91
-msgid "_Preferences ..."
-msgstr "_Beállítások ..."
+msgid "_Preferences..."
+msgstr "_Beállítások..."
 
 #: ../src/anjuta-actions.h:57
 msgid "Do you prefer coffee to tea? Check it out."
