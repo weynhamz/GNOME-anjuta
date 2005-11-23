@@ -984,6 +984,7 @@ imessage_view_buffer_append (IAnjutaMessageView * message_view,
 {
 	MessageView *view;
 	gint cur_char;
+	int len = strlen(message);
 	
 	g_return_if_fail (MESSAGE_IS_VIEW (message_view));
 	g_return_if_fail (message != NULL);	
@@ -991,8 +992,17 @@ imessage_view_buffer_append (IAnjutaMessageView * message_view,
 	view = MESSAGE_VIEW (message_view);
 	
 	/* Check if message contains newlines */
-	for (cur_char = 0; cur_char < strlen(message); cur_char++)
+	for (cur_char = 0; cur_char < len; cur_char++)
 	{		
+		/* Replace "\\\n" with " " */
+		if (message[cur_char] == '\\' && cur_char < len - 1 &&
+			message[cur_char+1] == '\n')
+		{
+			add_char(&view->privat->line_buffer, ' ');
+			cur_char++;
+			continue;
+		}
+
 		/* Is newline => print line */
 		if (message[cur_char] != '\n')
 		{

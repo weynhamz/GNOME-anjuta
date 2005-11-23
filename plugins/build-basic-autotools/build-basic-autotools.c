@@ -385,6 +385,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	GList *node;
 	gchar dir[2048];
 	gchar *summary = NULL;
+	gchar *freeptr = NULL;
 	
 	g_return_if_fail (one_line != NULL);
 	
@@ -403,7 +404,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		build_context_push_dir (context, "default", dir);
 		return;
 	}
-	/* Traslation for the following should match that of 'make' program */
+	/* Translation for the following should match that of 'make' program */
 	if ((sscanf (one_line, _("make[%d]: Leaving directory `%s'"), &dummy_int, dir) == 2) ||
 		(sscanf (one_line, _("make: Leaving directory `%s'"), dir) == 1))
 	{
@@ -418,7 +419,22 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		return;
 	}
 	
-	line = g_strdup (one_line);
+	/* Save freeptr so that we can free the copied string */
+	line = freeptr = g_strdup (one_line);
+
+	g_strchug(line); /* Remove leading whitespace */
+	if (g_str_has_prefix(line, "if ") == TRUE)
+	{
+		char *end;
+		line = line + 3;
+		
+		/* Find the first occurence of ';' (ignoring nesting in quotations) */
+		end = strchr(line, ';');
+		if (end)
+		{
+			*end = '\0';
+		}
+	}
 	
 	type = IANJUTA_MESSAGE_VIEW_TYPE_NORMAL;
 	if (parse_error_line(line, &dummy_fn, &dummy_int))
@@ -470,7 +486,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	}
 	else
 		ianjuta_message_view_append (view, type, line, "", NULL);
-	g_free (line);
+	g_free(freeptr);
 }
 
 static void

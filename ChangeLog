@@ -1,3 +1,18 @@
+2005-11-23  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Johan Ersvik <jersvik@fastmail.fm>
+	* plugins/message-view/message-view.c
+	plugins/build-basic-autotools/build-basic-autotools.c
+	plugins/build-basic-autotools/automake-c.filters
+
+	This patch correct regex-filters for newer automake
+	versions
+
+2005-11-19 Sebastien Granjoux <seb.sfo@free.fr>
+
+       * plugins/tools/execute.c:
+       Detect variables inside a word
+
 2005-11-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* libanjuta/anjuta-status.[ch],

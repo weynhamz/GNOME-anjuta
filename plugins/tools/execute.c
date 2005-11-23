@@ -144,30 +144,36 @@ replace_variable (const gchar* prefix,  const gchar* source,
 	{
 		for (; *source != '\0'; source += len)
 		{
-			for (len = 0; (source[len] != '\0') &&
-				 g_ascii_isspace (source[len]); len++);
-			g_string_append_len (str, source, len);
-			source += len;
-			for (len = 0; (source[len] != '\0') &&
-				 !g_ascii_isspace (source[len]); len++);
-			if ((len > 3) && (source[0] == '$') && (source[1] == '(') &&
-				 (source[len - 1] == ')'))
+			if (source[0] != '$')
+			{	
+				/* Just append anything that doesn't looks like a variable */
+				for (len = 0; (source[len] != '\0') &&
+					 (source[len] != '$'); len++);
+				g_string_append_len (str, source, len);
+			}
+			else if (source[1] != '(')
 			{
-				val = atp_variable_get_value_from_name_part (variable,
-															 source + 2,
-															 len - 3);
-				if (val)
-				{
-					g_string_append (str, val);
-				}
-				else
-				{
-					g_string_append_len (str, source, len);
-				}
-				g_free (val);
+				g_string_append_c (str, '$');
+				len = 1;
 			}
 			else
 			{
+				/* Check if there is a variable */
+				for (len = 2; g_ascii_isalnum(source[len])
+						|| (source[len] == '_') ; len++);
+				if (source[len] == ')')
+				{	
+					len++;
+					val = atp_variable_get_value_from_name_part (variable, source + 2, len - 3);
+					if (val)
+					{
+						/* This is really a variable, replace */
+						g_string_append (str, val);
+						continue;
+					}
+				}
+
+				/* It's not a variable */
 				g_string_append_len (str, source, len);
 			}
 		}
