@@ -18,8 +18,7 @@
  */
  
 #include <glib.h>
-#include <graphviz/dotneato.h>	/* libgraph */
-#include <graphviz/graph.h>
+#include <graphviz/gvc.h>		/* graphviz */
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
@@ -162,6 +161,7 @@ cls_inherit_graph_init (AnjutaClassInheritance *plugin, gchar* graph_label)
 {
 	aginit ();
 	plugin->graph = agopen (graph_label, AGDIGRAPH);
+	plugin->gvc = gvContext();
 }
 
 /*----------------------------------------------------------------------------
@@ -173,11 +173,18 @@ cls_inherit_graph_cleanup (AnjutaClassInheritance *plugin)
 {
 	if (plugin->graph != NULL)
 	{
-		dot_cleanup (plugin->graph);
+		gvFreeLayout (plugin->gvc, plugin->graph);
 		agclose (plugin->graph);
+	}
+
+	if (plugin->gvc != NULL )
+	{
+		gvFreeContext (plugin->gvc);
 	}
 	
 	plugin->graph = NULL;
+	plugin->gvc = NULL;
+
 }
 
 /*----------------------------------------------------------------------------
@@ -665,7 +672,8 @@ cls_inherit_draw_graph (AnjutaClassInheritance *plugin)
 	g_return_if_fail (num_nodes > 0);
 	
 	/* compiles nodes/edges informations, such as positions, coordinates etc */
-	dot_layout (plugin->graph);
+	gvLayout (plugin->gvc, plugin->graph, "dot");
+	//dot_layout (plugin->graph);
 	
 	/* set the size of the canvas. We need this to set the scrolling.. */
 	max_canvas_size_x = max_canvas_size_y = CANVAS_MIN_SIZE;

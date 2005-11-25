@@ -198,6 +198,7 @@ class_inheritance_instance_init (GObject *obj)
 
 	plugin->widget = NULL;
 	plugin->graph = NULL;
+	plugin->gvc = NULL;
 	plugin->expansion_node_list = NULL;
 }
 

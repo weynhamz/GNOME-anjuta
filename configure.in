@@ -28,7 +28,7 @@ LIBDEVHELP_REQUIRED=0.9
 GDL_REQUIRED=0.5.0
 GNOMEBUILD_REQUIRED=0.1.2
 LIBGLADEUI_REQUIRED=2.90.0
-LIBGRAPHVIZ_REQUIRED=2.2.1
+LIBGRAPHVIZ_REQUIRED=1.0
 NEON_REQUIRED=0.24.5
 SUBVERSION_REQUIRED=1.0.2
 GTKSOURCEVIEW_REQUIRED=1.4.0
@@ -313,7 +313,7 @@ else
 
 	export PKG_CONFIG_PATH
 	PKG_CHECK_MODULES(PLUGIN_CLASS_INHERITANCE,
-		[libdotneato >= $LIBGRAPHVIZ_REQUIRED libdotgen >= $LIBGRAPHVIZ_REQUIRED],
+		[libgvc >= $LIBGRAPHVIZ_REQUIRED], 
 		[libgraphviz_found="yes"],
 		[libgraphviz_found="no"])
 	AC_SUBST(PLUGIN_CLASS_INHERITANCE_CFLAGS)
@@ -1035,6 +1035,7 @@ if [ test x$libgraphviz_found = xyes ]; then
         echo "Building class inheritance plugin: .....................YES"
 else
         echo "Building class inheritance plugin: .....................NO"
-		echo "        Requires graphviz (>= 2.2.1); http://graphviz.org"
+		echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
 fi
 echo "-------------------------------------------------------------------"
+

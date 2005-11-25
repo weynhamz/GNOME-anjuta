@@ -26,8 +26,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
-#include <graphviz/dotneato.h>	/* libgraph */
-#include <graphviz/graph.h>
+#include <gvc.h>		/* graphviz */
 
 G_BEGIN_DECLS
 
@@ -46,12 +45,10 @@ struct _AnjutaClassInheritance {
 	GList *drawable_list;   		/* GnomeCanvasItem* list. Edges, arrows and texts */
 	GList *node_list;					/* NodeData* list */
 
-
-	// FIXME: better an hashtable?
-	// on symbol_update si preoccuperà di rimuovere gli eventuali nodi presenti su expanded_status
-	// se essi vengono tolti dal tagmanager [i.e. rimuovo una class..]
 	GHashTable *expansion_node_list;	/* expansion_status for the nodes */
-	
+
+	/* graphviz stuff */	
+	GVC_t *gvc;
 	Agraph_t *graph;
 	
 	gchar *top_dir;

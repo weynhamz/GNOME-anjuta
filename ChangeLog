@@ -1,3 +1,14 @@
+2005-11-25  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	Patch from Massimo Cora <maxcvs@email.it>
+	* plugins/class-inheritence/class-inherit.c
+	plugins/class-inheritence/plugin.c
+	plugins/class-inheritence/plugin.h
+	configure.in
+	
+	Update plugin to use new API from graphviz 2.6. Version 2.2 is 
+	no longer supported!
+
 2005-11-23  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	Patch from Johan Ersvik <jersvik@fastmail.fm>
