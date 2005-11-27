@@ -398,6 +398,7 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 			npw_install_install_file (this);
 			return;
 		default:
+			g_warning("Unknown file type %d\n", npw_file_get_type (this->file));
 			break;
 		}
 	}
@@ -406,7 +407,6 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 gboolean
 npw_install_launch (NPWInstall* this)
 {
-
 	npw_autogen_set_output_callback (this->gen, on_install_read_file_list, this);
 	npw_autogen_execute (this->gen, on_install_read_all_file_list, this, NULL);
 
@@ -423,6 +423,7 @@ npw_install_install_file (NPWInstall* this)
 	const gchar* source;
 	gchar* msg;
 	gboolean use_autogen;
+	gboolean ok = TRUE;
 
 	destination = npw_file_get_destination (this->file);
 	source = npw_file_get_source (this->file);
@@ -482,27 +483,30 @@ npw_install_install_file (NPWInstall* this)
 			{
 				if (mkdir (buffer, 0755) == -1)
 				{
-					/* ERROR */
-					return FALSE;
+					g_warning("Unable to create directory %s\n", buffer);
+					break;
 				}
 			}
 		}
 		*sep++ = G_DIR_SEPARATOR_S[0];
 	}
 
-	if (use_autogen)
+	if (ok)
 	{
-		npw_autogen_set_input_file (this->gen, source, NULL, NULL);
-		npw_autogen_set_output_file (this->gen, destination);
-		npw_autogen_execute (this->gen, on_install_end_install_file, this, NULL);
-	}
-	else
-	{
-		npw_copy_file (destination, source);
-		on_install_end_install_file (this->gen, this);
+		if (use_autogen)
+		{
+			npw_autogen_set_input_file (this->gen, source, NULL, NULL);
+			npw_autogen_set_output_file (this->gen, destination);
+			npw_autogen_execute (this->gen, on_install_end_install_file, this, NULL);
+		}
+		else
+		{
+			npw_copy_file (destination, source);
+			on_install_end_install_file (this->gen, this);
+		}
 	}
 
-	return TRUE;
+	return ok;
 }
 
 static void

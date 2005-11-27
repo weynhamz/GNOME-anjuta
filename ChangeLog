@@ -1,3 +1,16 @@
+2005-11-26 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/project-wizard/property.c:
+	Use newer GtkFileChooser instead of GtkFileSelection with
+	GnomeFileEntry to avoid a bug
+
+	* plugins/project-wizard/install.c:
+	Avoid an endless loop if project directory is not writable
+	
+	* plugins/project-wizard/druid.c:
+	Allow creating project in empty directory without a
+	warning
+
 2005-11-25  Johannes Schmid <jhs@cvs.gnome.org>
 	
 	Patch from Massimo Cora <maxcvs@email.it>

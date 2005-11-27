@@ -486,16 +486,32 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 	/* Check exist property */
 	if (modified && (npw_property_get_exist_option (property) == NPW_FALSE))
 	{
-		if ((value != NULL) && (g_file_test (value, G_FILE_TEST_EXISTS)))
+		gboolean is_directory = npw_property_get_type (property) == NPW_DIRECTORY_PROPERTY;
+		gboolean exist = (value != NULL) && g_file_test (value, G_FILE_TEST_EXISTS);
+		/* Allow empty directory */
+		if (exist && is_directory)
+		{
+			GDir* dir;
+
+			dir = g_dir_open (value, 0, NULL);
+			if (dir != NULL)
+			{
+				if (g_dir_read_name (dir) == NULL) exist = FALSE;
+				g_dir_close (dir);
+			}
+		}
+
+		if (exist)
 		{
 			if (data->next == TRUE)
 			{
 				/* First error message */
 				gboolean yes;
 
-				yes = anjuta_util_dialog_boolean_question (data->parent,
-					_("Directory \"%s\" already exists. Project creation could fail if some files "
-					  "cannot be written. Do you want to continue?"),
+				yes = anjuta_util_dialog_boolean_question (data->parent, is_directory ? 
+					_("Directory \"%s\" is not empty. Project creation could fail if some files "
+					  "cannot be written. Do you want to continue?") :
+					_("File \"%s\" already exists. Do you want to overwrite it ?"),
 			       		value);
 
 				if (!yes)

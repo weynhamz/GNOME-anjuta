@@ -214,7 +214,7 @@ npw_property_create_widget (NPWProperty* this)
 {
 	GtkWidget* entry;
 	const gchar* value;
-
+	GValue val = {0};
 
 	value = npw_property_get_value (this);
 	switch (this->type)
@@ -242,11 +242,19 @@ npw_property_create_widget (NPWProperty* this)
 		break;
 	case NPW_DIRECTORY_PROPERTY:
 		entry = gnome_file_entry_new (NULL, NULL);
+		g_value_init (&val, G_TYPE_BOOLEAN);
+		g_value_set_boolean (&val, TRUE);
+		g_object_set_property (G_OBJECT (entry), "use-filechooser", &val);
+	       	g_value_unset (&val);	
 		gnome_file_entry_set_directory_entry (GNOME_FILE_ENTRY (entry), TRUE);
 		if (value) gnome_file_entry_set_filename (GNOME_FILE_ENTRY (entry), value);
 		break;
 	case NPW_FILE_PROPERTY:
 		entry = gnome_file_entry_new (NULL, NULL);
+		g_value_init (&val, G_TYPE_BOOLEAN);
+		g_value_set_boolean (&val, TRUE);
+		g_object_set_property (G_OBJECT (entry), "use-filechooser", &val);
+	       	g_value_unset (&val);	
 		gnome_file_entry_set_directory_entry (GNOME_FILE_ENTRY (entry), FALSE);
 		if (value) gnome_file_entry_set_filename (GNOME_FILE_ENTRY (entry), value);
 		break;

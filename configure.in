@@ -245,11 +245,11 @@ PKG_CHECK_MODULES(PLUGIN_GNOMEBUILD, gnome-build-1.0 >= $GNOMEBUILD_REQUIRED)
 AC_SUBST(PLUGIN_GNOMEBUILD_CFLAGS)
 AC_SUBST(PLUGIN_GNOMEBUILD_LIBS)
 
-dnl Check for GtkSourceView
-dnl ---------------------
-dnl PKG_CHECK_MODULES(GTKSOURCEVIEW, gtksourceview-1.0 >= $GTKSOURCEVIEW_REQUIRED)
-dnl AC_SUBST(GTKSOURCEVIEW_CFLAGS)
-dnl AC_SUBST(GTKSOURCEVIEW_LIBS)
+Check for GtkSourceView
+---------------------
+PKG_CHECK_MODULES(GTKSOURCEVIEW, gtksourceview-1.0 >= $GTKSOURCEVIEW_REQUIRED)
+AC_SUBST(GTKSOURCEVIEW_CFLAGS)
+AC_SUBST(GTKSOURCEVIEW_LIBS)
 
 dnl Check for Glade3
 dnl ---------------------
@@ -1003,6 +1003,7 @@ plugins/project-wizard/templates/xlib/po/Makefile
 plugins/project-wizard/templates/xlib-dock/Makefile
 plugins/project-wizard/templates/xlib-dock/src/Makefile
 plugins/project-wizard/templates/xlib-dock/po/Makefile
+plugins/sourceview/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile
