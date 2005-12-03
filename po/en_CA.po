@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-08 17:04-0500\n"
+"POT-Creation-Date: 2005-12-03 17:47-0500\n"
 "PO-Revision-Date: 2005-08-03 12:57-0400\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -733,7 +733,7 @@ msgstr "Tool Editor"
 msgid "Top level Makefile.am"
 msgstr "Top level Makefile.am"
 
-#: anjuta.glade.h:157 plugins/class-inheritance/class-inherit.c:931
+#: anjuta.glade.h:157 plugins/class-inheritance/class-inherit.c:939
 #: plugins/gdb/registers.c:227 plugins/gdb/sharedlib.c:128
 #: plugins/gdb/signals.c:288 plugins/gdb/stack_trace.c:459
 #: plugins/subversion/svn-notify.c:119
@@ -1381,14 +1381,14 @@ msgid "Building file: %s...\n"
 msgstr "Building file: %s...\n"
 
 #: plugins/build/build_file.c:132
-#: plugins/build-basic-autotools/build-basic-autotools.c:513
+#: plugins/build-basic-autotools/build-basic-autotools.c:529
 #: plugins/project-manager/project_import.c:192
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Total time taken: %lu secs\n"
 
 #: plugins/build/build_file.c:136
-#: plugins/build-basic-autotools/build-basic-autotools.c:518
+#: plugins/build-basic-autotools/build-basic-autotools.c:534
 msgid "Completed... unsuccessful\n"
 msgstr "Completed... unsuccessful\n"
 
@@ -1397,11 +1397,11 @@ msgid "Completed... unsuccessful"
 msgstr "Completed... unsuccessful"
 
 #: plugins/build/build_file.c:145
-#: plugins/build-basic-autotools/build-basic-autotools.c:523
+#: plugins/build-basic-autotools/build-basic-autotools.c:539
 msgid "Completed... successful\n"
 msgstr "Completed... successful\n"
 
-#: plugins/build/build_file.c:149 plugins/tools/execute.c:516
+#: plugins/build/build_file.c:149 plugins/tools/execute.c:522
 msgid "Completed... successful"
 msgstr "Completed... successful"
 
@@ -1628,201 +1628,201 @@ msgstr "Select execution program and args"
 
 #. FIXME: What about translations in the following sscanf strings
 #. The translations should match that of 'make' program
-#: plugins/build-basic-autotools/build-basic-autotools.c:393
+#: plugins/build-basic-autotools/build-basic-autotools.c:394
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
 msgstr "make[%d]: Entering directory `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:394
+#: plugins/build-basic-autotools/build-basic-autotools.c:395
 #, c-format
 msgid "make: Entering directory `%s'"
 msgstr "make: Entering directory `%s'"
 
-#. Traslation for the following should match that of 'make' program
-#: plugins/build-basic-autotools/build-basic-autotools.c:407
+#. Translation for the following should match that of 'make' program
+#: plugins/build-basic-autotools/build-basic-autotools.c:408
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr "make[%d]: Leaving directory `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:408
+#: plugins/build-basic-autotools/build-basic-autotools.c:409
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "make: Leaving directory `%s'"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:428
-#: plugins/tools/execute.c:338
+#: plugins/build-basic-autotools/build-basic-autotools.c:444
+#: plugins/tools/execute.c:344
 msgid "warning:"
 msgstr "warning:"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:574
+#: plugins/build-basic-autotools/build-basic-autotools.c:590
 #, c-format
 msgid "Build %d: %s"
 msgstr "Build %d: %s"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:763
-#: plugins/build-basic-autotools/build-basic-autotools.c:791
+#: plugins/build-basic-autotools/build-basic-autotools.c:779
+#: plugins/build-basic-autotools/build-basic-autotools.c:807
 msgid "Configure Parameters:"
 msgstr "Configure Parameters:"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:965
-#: plugins/build-basic-autotools/build-basic-autotools.c:1035
-#: plugins/build-basic-autotools/build-basic-autotools.c:1045
-#: plugins/build-basic-autotools/build-basic-autotools.c:1063
-#: plugins/build-basic-autotools/build-basic-autotools.c:1073
-#: plugins/build-basic-autotools/build-basic-autotools.c:1242
+#: plugins/build-basic-autotools/build-basic-autotools.c:981
+#: plugins/build-basic-autotools/build-basic-autotools.c:1051
+#: plugins/build-basic-autotools/build-basic-autotools.c:1061
+#: plugins/build-basic-autotools/build-basic-autotools.c:1079
+#: plugins/build-basic-autotools/build-basic-autotools.c:1089
+#: plugins/build-basic-autotools/build-basic-autotools.c:1258
 msgid "_Build"
 msgstr "_Build"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:969
+#: plugins/build-basic-autotools/build-basic-autotools.c:985
 msgid "_Build Project"
 msgstr "_Build Project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:970
+#: plugins/build-basic-autotools/build-basic-autotools.c:986
 msgid "Build whole project"
 msgstr "Build whole project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:975
+#: plugins/build-basic-autotools/build-basic-autotools.c:991
 msgid "_Install Project"
 msgstr "_Install Project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:976
+#: plugins/build-basic-autotools/build-basic-autotools.c:992
 msgid "Install whole project"
 msgstr "Install whole project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:981
+#: plugins/build-basic-autotools/build-basic-autotools.c:997
 msgid "_Clean Project"
 msgstr "_Clean Project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:982
+#: plugins/build-basic-autotools/build-basic-autotools.c:998
 msgid "Clean whole project"
 msgstr "Clean whole project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:987
+#: plugins/build-basic-autotools/build-basic-autotools.c:1003
 msgid "Run C_onfigure..."
 msgstr "Run C_onfigure..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:988
+#: plugins/build-basic-autotools/build-basic-autotools.c:1004
 msgid "Configure project"
 msgstr "Configure project"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:993
+#: plugins/build-basic-autotools/build-basic-autotools.c:1009
 msgid "Run _Autogenerate..."
 msgstr "Run _Autogenerate..."
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:994
+#: plugins/build-basic-autotools/build-basic-autotools.c:1010
 msgid "Autogenrate project files"
 msgstr "Autogenerate project files"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:999
+#: plugins/build-basic-autotools/build-basic-autotools.c:1015
 msgid "Build _Tarball"
 msgstr "Build _Tarball"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1000
+#: plugins/build-basic-autotools/build-basic-autotools.c:1016
 msgid "Build project tarball distribution"
 msgstr "Build project tarball distribution"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1005
+#: plugins/build-basic-autotools/build-basic-autotools.c:1021
 msgid "_Execute program"
 msgstr "_Execute program"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1006
+#: plugins/build-basic-autotools/build-basic-autotools.c:1022
 msgid "Execute program"
 msgstr "Execute program"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1011
+#: plugins/build-basic-autotools/build-basic-autotools.c:1027
 msgid "_Build Module"
 msgstr "_Build Module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1012
+#: plugins/build-basic-autotools/build-basic-autotools.c:1028
 msgid "Build module associated with current file"
 msgstr "Build module associated with current file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1017
+#: plugins/build-basic-autotools/build-basic-autotools.c:1033
 msgid "_Install Module"
 msgstr "_Install Module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1018
+#: plugins/build-basic-autotools/build-basic-autotools.c:1034
 msgid "Install module associated with current file"
 msgstr "Install module associated with current file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1023
+#: plugins/build-basic-autotools/build-basic-autotools.c:1039
 msgid "_Clean Module"
 msgstr "_Clean Module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1024
+#: plugins/build-basic-autotools/build-basic-autotools.c:1040
 msgid "Clean module associated with current file"
 msgstr "Clean module associated with current file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1029
+#: plugins/build-basic-autotools/build-basic-autotools.c:1045
 msgid "Co_mpile File"
 msgstr "Co_mpile File"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1030
+#: plugins/build-basic-autotools/build-basic-autotools.c:1046
 msgid "Compile current editor file"
 msgstr "Compile current editor file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1039
-#: plugins/build-basic-autotools/build-basic-autotools.c:1067
+#: plugins/build-basic-autotools/build-basic-autotools.c:1055
+#: plugins/build-basic-autotools/build-basic-autotools.c:1083
 msgid "_Compile"
 msgstr "_Compile"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1040
-#: plugins/build-basic-autotools/build-basic-autotools.c:1068
+#: plugins/build-basic-autotools/build-basic-autotools.c:1056
+#: plugins/build-basic-autotools/build-basic-autotools.c:1084
 msgid "Complie file"
 msgstr "Compile file"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1046
-#: plugins/build-basic-autotools/build-basic-autotools.c:1074
+#: plugins/build-basic-autotools/build-basic-autotools.c:1062
+#: plugins/build-basic-autotools/build-basic-autotools.c:1090
 msgid "Build module"
 msgstr "Build module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1051
-#: plugins/build-basic-autotools/build-basic-autotools.c:1079
-#: plugins/build-basic-autotools/build-basic-autotools.c:1246
+#: plugins/build-basic-autotools/build-basic-autotools.c:1067
+#: plugins/build-basic-autotools/build-basic-autotools.c:1095
+#: plugins/build-basic-autotools/build-basic-autotools.c:1262
 msgid "_Install"
 msgstr "_Install"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1052
-#: plugins/build-basic-autotools/build-basic-autotools.c:1080
+#: plugins/build-basic-autotools/build-basic-autotools.c:1068
+#: plugins/build-basic-autotools/build-basic-autotools.c:1096
 msgid "Install module"
 msgstr "Install module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1057
-#: plugins/build-basic-autotools/build-basic-autotools.c:1085
-#: plugins/build-basic-autotools/build-basic-autotools.c:1250
+#: plugins/build-basic-autotools/build-basic-autotools.c:1073
+#: plugins/build-basic-autotools/build-basic-autotools.c:1101
+#: plugins/build-basic-autotools/build-basic-autotools.c:1266
 msgid "_Clean"
 msgstr "_Clean"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1058
-#: plugins/build-basic-autotools/build-basic-autotools.c:1086
+#: plugins/build-basic-autotools/build-basic-autotools.c:1074
+#: plugins/build-basic-autotools/build-basic-autotools.c:1102
 msgid "Clean module"
 msgstr "Clean module"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1254
+#: plugins/build-basic-autotools/build-basic-autotools.c:1270
 msgid "Co_mpile"
 msgstr "Co_mpile"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1263
+#: plugins/build-basic-autotools/build-basic-autotools.c:1279
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Build (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1270
+#: plugins/build-basic-autotools/build-basic-autotools.c:1286
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Install (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1277
+#: plugins/build-basic-autotools/build-basic-autotools.c:1293
 #, c-format
 msgid "_Clean (%s)"
 msgstr "_Clean (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1284
+#: plugins/build-basic-autotools/build-basic-autotools.c:1300
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpile (%s)"
 
-#: plugins/build-basic-autotools/build-basic-autotools.c:1576
+#: plugins/build-basic-autotools/build-basic-autotools.c:1592
 msgid "Build commands"
 msgstr "Build commands"
 
@@ -1851,11 +1851,11 @@ msgid "Executable '%s' is not up-to-date."
 msgstr "Executable '%s' is not up-to-date."
 
 #. create the check menuitem
-#: plugins/class-inheritance/class-inherit.c:140
+#: plugins/class-inheritance/class-inherit.c:139
 msgid "Fixed data-view"
 msgstr "Fixed data-view"
 
-#: plugins/class-inheritance/class-inherit.c:932
+#: plugins/class-inheritance/class-inherit.c:940
 msgid "Update the graph"
 msgstr "Update the graph"
 
@@ -8407,16 +8407,21 @@ msgstr "Unable to find any project template in %s"
 msgid "Field \"%s\" is mandatory. Please enter it."
 msgstr "Field \"%s\" is mandatory."
 
-#: plugins/project-wizard/druid.c:497
+#: plugins/project-wizard/druid.c:512
 #, c-format
 msgid ""
-"Directory \"%s\" already exists. Project creation could fail if some files "
+"Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 msgstr ""
-"Directory \"%s\" already exists. Project creation could fail if some files "
+"Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 
-#: plugins/project-wizard/druid.c:809
+#: plugins/project-wizard/druid.c:514
+#, c-format
+msgid "File \"%s\" already exists. Do you want to overwrite it ?"
+msgstr "File \"%s\" already exists. Do you want to overwrite it?"
+
+#: plugins/project-wizard/druid.c:825
 msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
@@ -8424,7 +8429,7 @@ msgstr ""
 "Could not find autogen version 5. Please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
 
-#: plugins/project-wizard/druid.c:817
+#: plugins/project-wizard/druid.c:833
 msgid "Unable to build project wizard user interface"
 msgstr "Unable to build project wizard user interface"
 
@@ -8432,22 +8437,22 @@ msgstr "Unable to build project wizard user interface"
 msgid "New project has been created successfully"
 msgstr "New project has been created successfully"
 
-#: plugins/project-wizard/install.c:433
+#: plugins/project-wizard/install.c:434
 #, c-format
 msgid "Skipping %s: file already exists"
 msgstr "Skipping %s: file already exists"
 
-#: plugins/project-wizard/install.c:459
+#: plugins/project-wizard/install.c:460
 #, c-format
 msgid "Creating %s (using AutoGen)"
 msgstr "Creating %s (using AutoGen)"
 
-#: plugins/project-wizard/install.c:463
+#: plugins/project-wizard/install.c:464
 #, c-format
 msgid "Creating %s"
 msgstr "Creating %s"
 
-#: plugins/project-wizard/install.c:531
+#: plugins/project-wizard/install.c:535
 msgid "Executing: "
 msgstr "Executing: "
 
@@ -8455,7 +8460,7 @@ msgstr "Executing: "
 msgid "New Project Wizard"
 msgstr "New Project Wizard"
 
-#: plugins/project-wizard/property.c:254
+#: plugins/project-wizard/property.c:262
 msgid "Icon choice"
 msgstr "Icon choice"
 
@@ -8909,42 +8914,42 @@ msgstr "New accelerator..."
 msgid "Unable to build user interface for tool editor"
 msgstr "Unable to build user interface for tool editor"
 
-#: plugins/tools/execute.c:322
+#: plugins/tools/execute.c:328
 #, c-format
 msgid "Opening %s"
 msgstr "Opening %s"
 
-#: plugins/tools/execute.c:343
+#: plugins/tools/execute.c:349
 msgid "error:"
 msgstr "error:"
 
 #. Only for output data
-#: plugins/tools/execute.c:414
+#: plugins/tools/execute.c:420
 msgid "(output)"
 msgstr "(output)"
 
 #. Only for error data
-#: plugins/tools/execute.c:419
+#: plugins/tools/execute.c:425
 msgid "(error)"
 msgstr "(error)"
 
-#: plugins/tools/execute.c:470
+#: plugins/tools/execute.c:476
 msgid "Running command: "
 msgstr "Running command: "
 
-#: plugins/tools/execute.c:510
+#: plugins/tools/execute.c:516
 msgid "Completed... unsuccessful with "
 msgstr "Completed... unsuccessful with "
 
-#: plugins/tools/execute.c:616
+#: plugins/tools/execute.c:622
 msgid "Unable to create a buffer, command aborted"
 msgstr "Unable to create a buffer; command aborted"
 
-#: plugins/tools/execute.c:628
+#: plugins/tools/execute.c:634
 msgid "No document currently open, command aborted"
 msgstr "No document currently open; command aborted"
 
-#: plugins/tools/execute.c:1002
+#: plugins/tools/execute.c:1008
 #, c-format
 msgid "Unable to open input file %s, Command aborted"
 msgstr "Unable to open input file %s, Command aborted"
