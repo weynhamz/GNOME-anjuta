@@ -250,10 +250,6 @@ void text_editor_scintilla_command (TextEditor *te, gint command,
 
 #define FOLD_SYMBOLS               "fold.symbols"
 #define FOLD_UNDERLINE             "fold.underline"
-#define EDITOR_TABS_POS            "editor.tabs.pos"
-#define EDITOR_TABS_HIDE           "editor.tabs.hide"
-#define EDITOR_TABS_ORDERING       "editor.tabs.ordering"
-#define EDITOR_TABS_RECENT_FIRST   "editor.tabs.recent.first"
 
 #define STRIP_TRAILING_SPACES      "strip.trailing.spaces"
 #define FOLD_ON_OPEN               "fold.on.open"

@@ -577,7 +577,7 @@ update_editor_save_ui (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
 								   "ActionFileSave");
 	g_object_set (G_OBJECT (action), "sensitive",
-				  !ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(editor), NULL),
+				  ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(editor), NULL),
 				  NULL);
 }
 

@@ -1,5 +1,29 @@
 2005-12-11  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/anjuta-docman.c
+	plugins/document-manager/plugin.c
+	plugins/editor/text_editor.c:
+	
+	Fixed "is-dirty" bug and tab ordering
+
+2005-12-11  Johan Ersvik <jersvik@fastmail.fm>
+	
+	* plugins/editor/aneditor-autocomplete.cxx
+	plugins/editor/aneditor-calltip.cxx
+	plugins/editor/aneditor-priv.h
+	plugins/symbol-browser/an_symbol.c
+	plugins/symbol-browser/an_symbol_view.c
+	tagmanager/entry.h
+	tagmanager/tm_symbol.c
+	tagmanager/tm_tag.c
+	tagmanager/include/tm_symbol.h
+	tagmanager/include/tm_tag.h
+	tagmanager/c.c
+
+	Better pointer recognition in tagmanager and symbol browser
+
+2005-12-11  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/search/*: New search plugin derived from search code in old editor
 	plugin.
 	
