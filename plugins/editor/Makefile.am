@@ -1,48 +1,8 @@
-# Plugin glade file
-editor_gladedir = $(anjuta_glade_dir)
-editor_glade_DATA = anjuta-document-manager.glade
-
-# Plugin UI file
-editor_uidir = $(anjuta_ui_dir)
-editor_ui_DATA = anjuta-document-manager.ui
-
-# Test file for anjuta indent
-editor_datadir = $(anjuta_data_dir)
-editor_data_DATA = indent_test.c
-
-# Plugin pixmaps
-editor_pixmapsdir = $(anjuta_image_dir)
-editor_pixmaps_DATA = \
-	anjuta-document-manager.png \
-	preferences-editor.png \
-	undock.png \
-	fold_toggle.xpm \
-	fold_open.xpm \
-	fold_close.xpm \
-	indent.xpm \
-	indent_set.xpm \
-	indent_inc.xpm \
-	indent_dcr.xpm \
-	indent_auto.xpm \
-	autocomplete-16.png \
-	autocomplete.png \
-	block-end-16.png \
-	block-end.png \
-	block-start-16.png \
-	block-start.png \
-	block_select.xpm \
-	bookmark-first-16.png \
-	bookmark-first.png \
-	bookmark-prev-16.png \
-	bookmark-prev.png \
-	bookmark-next-16.png \
-	bookmark-next.png \
-	bookmark-last-16.png \
-	bookmark-last.png \
-	bookmark_toggle.xpm
-
 # Plugin Icon file
-plugin_in_files = anjuta-document-manager.plugin.in
+editor_pixmapsdir = $(anjuta_image_dir)
+editor_pixmaps_DATA = anjuta-editor.png
+
+plugin_in_files = anjuta-editor.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 editor_plugindir = $(anjuta_plugin_dir)
@@ -87,33 +47,11 @@ libanjuta_editor_la_SOURCES= \
 	text_editor_menu.h \
 	text_editor_cbs.c \
 	text_editor_cbs.h \
-	anjuta-docman.c \
-	anjuta-docman.h \
 	lexer.h \
 	plugin.c \
 	plugin.h \
-	action-callbacks.c\
-	action-callbacks.h\
-	file_history.c \
-	file_history.h \
-	search-replace.h \
-	search-replace.c \
-	search-replace_backend.c \
-	search-replace_backend.h \
-	search_preferences.c \
-	search_preferences.h \
-	goto_line.c \
-	goto_line.h \
-	print.c \
-	print.h \
 	style-editor.c \
-	style-editor.h \
-	editor-tooltips.c \
-	editor-tooltips.h \
-	indent-dialog.c \
-	indent-dialog.h \
-	indent-util.c \
-	indent-util.h
+	style-editor.h
 
 EXTRA_DIST = \
 	$(editor_pixmaps_DATA) \

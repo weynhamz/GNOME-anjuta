@@ -1,3 +1,28 @@
+2005-12-11  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/search/*: New search plugin derived from search code in old editor
+	plugin.
+	
+	* plugins/document-manager/*: new document-manger which is now seperated from
+	editor to allow implementation of other editor widgets. Code is mostly derived
+	from old editor plugin
+
+	* plugins/print/* new print plugin which is not fully implemented in the
+	moment
+
+	* plugins/editor/text_editor.c: Added lots of interface code
+	
+	* libanjuta/interfaces/libanjuta.idl: Added IAnjutaEditorEdit, IAnjutaEditorView,
+	IAnjutaEditorFactory and extended IAnjutaEditor
+	
+	* configure.in, plugins/Makefile.am updated build system for new
+	plugins
+
+	This is a huge commit which might still contain some bugs and also has
+	some fixmes. Things that are not working are the search toolbar because it
+	does not use the same backend as any other searching function and printing
+	(easy to fix) because it did not yet implement IAnjutaPrintable.
+
 2005-11-26 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/project-wizard/property.c:

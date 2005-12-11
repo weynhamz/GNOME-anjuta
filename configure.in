@@ -95,7 +95,7 @@ AC_ARG_ENABLE(deprecated,
   [ if test "$enableval" = "no"; then
     DEPRECATED_FLAGS="-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED -DBONOBO_DISABLE_DEPRECATED -DBONOBO_UI_DISABLE_DEPRECATED"
   fi ],
-  [ DEPRECATED_FLAGS="" ])
+ [ DEPRECATED_FLAGS="" ])
 AC_SUBST(DEPRECATED_FLAGS)
 
 dnl Enable versioned user preferences directory
@@ -942,6 +942,8 @@ plugins/gtodo/Makefile
 plugins/class-gen/Makefile
 plugins/patch/Makefile
 plugins/editor/Makefile
+plugins/document-manager/Makefile
+plugins/search/Makefile
 plugins/message-view/Makefile
 plugins/gdb/Makefile
 plugins/gdb/images/Makefile

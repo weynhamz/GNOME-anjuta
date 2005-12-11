@@ -14,6 +14,9 @@ Some predefined marshallers to use.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### MACRO anjuta_cclosure_marshal_VOID__BOOLEAN ##### -->
 <para>
 

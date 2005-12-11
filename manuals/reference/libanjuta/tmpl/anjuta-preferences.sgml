@@ -47,6 +47,9 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### ENUM AnjutaPropertyObjectType ##### -->
 <para>
 

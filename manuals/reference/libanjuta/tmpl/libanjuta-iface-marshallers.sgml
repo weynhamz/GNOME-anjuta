@@ -14,6 +14,9 @@ libanjuta-iface-marshallers
 
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### MACRO libanjuta_iface_cclosure_marshal_VOID__BOOLEAN ##### -->
 <para>
 

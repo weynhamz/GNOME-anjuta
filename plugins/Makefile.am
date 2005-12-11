@@ -25,7 +25,9 @@ SUBDIRS = . \
 	project-import \
 	glade \
 	tools \
-	class-inheritance 
+	class-inheritance \
+	document-manager \
+	search
 #	sourceview
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.

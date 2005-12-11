@@ -383,7 +383,82 @@ interface IAnjutaEditor
 	gchar* get_text (gint start, gint end);
 	gchar* get_attributes (gint start, gint end);
 	gint   get_position ();
-
+	
+	/**
+	 * ianjuta_editor_set_selection:
+	 * @obj: Self
+	 * @start: Begin of selection
+	 * @end: End of selection
+	 * @err: Error propagation and reporting
+	 *
+	 * Select chars between start and end
+	 *
+	 */
+	void set_selection(int start, int end);
+	
+	/**
+	 * ianjuta_editor_get_selection_start:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Get start position of selection
+	 *
+	 * Return: Start of selection
+	 */
+	int get_selection_start();
+	
+	/**
+	 * ianjuta_editor_line_from_position:
+	 * @obj: Self
+	 * @pos: Position you want to know the line from
+	 * @err: Error propagation and reporting
+	 *
+	 * Get line of position
+	 * Retunrns: Line which corresponds to position
+	 *
+	 */
+	int get_line_from_position(int pos);
+	
+	/**
+	 * ianjuta_editor_get_selection_end:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Get end position of selection
+	 *
+	 */
+	int get_selection_end();
+	
+	/**
+	 * ianjuta_editor_select_block:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Select current block
+	 *
+	 */
+	void select_block();
+	
+	/**
+	 * ianjuta_editor_select_function:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Select current function
+	 *
+	 */
+	void select_function();
+	
+	/**
+	 * ianjuta_editor_get_current_pos
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Select chars between start and end;
+	 *
+	 */
+	void get_current_pos();
+	
 	/**
 	 * ianjuta_editor_get_lineno:
 	 * @obj: Self
@@ -394,10 +469,51 @@ interface IAnjutaEditor
 	 * Return value: Line number.
 	 */
 	gint   get_lineno ();
-
+	
+	/**
+	 * ianjuta_editor_get_length:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Get length of complete text in editor
+	 *
+	 * Return value: Text length.
+	 */
 	gint   get_length ();
+	
+	/**
+	 * ianjuta_editor_get_current_word:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Obtains number of the current word in the editor.
+	 *
+	 * Return value: Current word.
+	 */
 	gchar* get_current_word ();
 
+	/**
+	 * ianjuta_editor_get_current_column:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Obtains number of the current column in the editor.
+	 *
+	 * Return value: Current column.
+	 */
+	int get_column();
+	
+	/**
+	 * ianjuta_editor_get_overwrite:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Obtains editor mode: TRUE = Override, FALSE = Insert.
+	 *
+	 * Return value: editor mode.
+	 */
+	int get_overwrite();
+	
 	/**
 	 * ianjuta_editor_get_filename:
 	 * @obj: Self
@@ -407,7 +523,341 @@ interface IAnjutaEditor
 	 *
 	 * Return value: The name of the file. Not to be freed by caller.
 	 */
-	const gchar* get_filename ();
+	const gchar* get_filename ();	
+	
+	/**
+	 * ianjuta_editor_can_undo:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Can the editor undo the last operation?
+	 *
+	 * Returns true if editor can undo, else FALSE
+	 */
+	gboolean can_undo();
+	
+	/**
+	 * ianjuta_editor_can_redo:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Can the editor redo the last operation?
+	 *
+	 * Returns true if editor can redo, else FALSE
+	 */
+	gboolean can_redo();
+	
+	/**
+	 * ianjuta_editor_set_popup_menu:
+	 * @obj: Self
+	 * @menu: Popupmenu
+	 * @err: Error propagation and reporting
+	 *
+	 * Set Editor popup menu
+	 *
+	 */
+	void set_popup_menu(gpointer menu);
+}
+
+interface IAnjutaEditorEdit
+{
+	#include "ianjuta-editor.h"
+	
+	/**
+	 * ianjuta_editor_edit_to_upper:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * change selection to uppercase
+	 *
+	 */
+	void to_upper();
+	
+	/**
+	 * ianjuta_editor_edit_to_lower:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * change selection to lowercase
+	 *
+	 */
+	void to_lower();
+	
+	/**
+	 * ianjuta_editor_edit_eoltocrlf:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Convert EOL to CRLF
+	 *
+	 */
+	void eoltocrlf();
+	
+	/**
+	 * ianjuta_editor_edit_eoltolf:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Convert EOL to LF
+	 *
+	 */
+	void eoltolf();
+	
+	/**
+	 * ianjuta_editor_edit_eoltocr:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Convert EOL to CR
+	 *
+	 */
+	void eoltocr();
+	
+	/**
+	 * ianjuta_editor_edit_select_all:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Select whole buffer
+	 *
+	 */
+	void select_all();
+
+	/**
+	 * ianjuta_editor_edit_select_to_brace:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Select to brace
+	 *
+	 */
+	void select_to_brace();
+
+	/**
+	 * ianjuta_editor_edit_select_block:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Select code block
+	 *
+	 */
+	void select_block();
+	
+	/**
+	 * ianjuta_editor_edit_undo:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Undo last operation
+	 *
+	 */
+	void undo();
+	
+	/**
+	 * ianjuta_editor_edit_redo:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Rede last undo operation
+	 *
+	 */
+	void redo();
+	
+	/**
+	 * ianjuta_editor_edit_cut:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Cut selection
+	 *
+	 */
+	void cut();
+
+	/**
+	 * ianjuta_editor_edit_copy:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Copy selection
+	 *
+	 */
+	void copy();
+	
+	/**
+	 * ianjuta_editor_edit_past:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Paste selection
+	 *
+	 */
+	void paste();
+
+	/**
+	 * ianjuta_editor_edit_clear:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Clear selection
+	 *
+	 */
+	void clear();
+
+	/**
+	 * ianjuta_editor_edit_autocomplete:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Auto complete current word
+	 *
+	 */
+	void autocomplete();
+	
+	/**
+	 * ianjuta_editor_edit_convert_eol:
+	 * @obj: Self
+	 * @mode: Mode for transformation
+	 * @err: Error propagation and reporting
+	 *
+	 * Convert EOL chars
+	 *
+	 */
+	void convert_eol(glong mode);
+	
+}
+
+interface IAnjutaEditorView
+{
+	#include "ianjuta-editor.h"
+	
+	/**
+	 * ianjuta_editor_view_open_folds:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Open all folds
+	 *
+	 */
+	void open_folds();
+	
+	/**
+	 * ianjuta_editor_view_close_folds:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Close all folds
+	 *
+	 */
+	void close_folds();
+	
+	/**
+	 * ianjuta_editor_view_toggle_fold:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Open/Close current fold
+	 *
+	 */
+	void toggle_fold();
+
+}
+
+interface IAnjutaBookmark
+{
+	/**
+	 * ianjuta_bookmark_activate:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Add bookmark at cursor position
+	 *
+	 */
+	void activate();
+	
+	/**
+	 * ianjuta_bookmark_first:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Goto first bookmark
+	 *
+	 */
+	void first();
+	
+	/**
+	 * ianjuta_bookmark_last:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Goto last bookmark
+	 *
+	 */
+	void last();
+	
+	/**
+	 * ianjuta_bookmark_next:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Goto next bookmark
+	 *
+	 */
+	void next();
+	
+	/**
+	 * ianjuta_bookmark_previous:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Goto previous bookmark
+	 *
+	 */
+	void previous();
+	
+	/**
+	 * ianjuta_bookmark_clear_all:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Clear all bookmarks
+	 *
+	 */
+	void clear_all();
+	
+}
+	
+	
+interface IAnjutaEditorFactory
+{
+	#include "ianjuta-editor.h"
+	/**
+	 * ianjuta_editor_factory_new_editor:
+	 * @obj: Self
+	 * @status: current status (AnjutaStatus*)
+	 * @prefs: current preferences (AnjutaPreferences*)
+	 * @uri: Uri to open
+	 * @filename: filename to open
+	 * @err: Error propagation and reporting
+	 *
+	 * Get a new GtkWidget* which implements IAnjutaEditor
+	 *
+	 * Return value: A new Widget implementing IAnjutaEditor
+	 */
+	IAnjutaEditor* new_editor (gpointer status, gpointer prefs, const gchar* uri, const gchar* filename);
+	
+	/**
+	 * ianjuta_editor_factory_new_style editor:
+	 * @obj: Self
+	 * @prefs: An AnjutaPreferences object
+	 * @err: Error propagation and reporting
+	 *
+	 * Get a style-editor
+	 * FIXME: This is rather stupid and will be removed in the future
+	 *
+	 * Return value: A style-editor
+	 */
+	
+	gpointer new_style_editor(gpointer prefs);
 }
 
 interface IAnjutaDocumentManager

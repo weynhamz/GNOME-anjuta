@@ -19,16 +19,18 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-ui.h>
 
-#include "style-editor.h"
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
-typedef struct _EditorPlugin EditorPlugin;
-typedef struct _EditorPluginClass EditorPluginClass;
+typedef struct _SearchPlugin SearchPlugin;
+typedef struct _SearchPluginClass SearchPluginClass;
 
-struct _EditorPlugin{
+struct _SearchPlugin{
 	AnjutaPlugin parent;
 	
+	gint uiid;
+	IAnjutaDocumentManager* docman;
 };
 
-struct _EditorPluginClass{
+struct _SearchPluginClass{
 	AnjutaPluginClass parent_class;
 };

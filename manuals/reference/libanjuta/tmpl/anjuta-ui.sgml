@@ -48,6 +48,9 @@ User Interface manager
 	#GtkRadioAction, #GtkRadioActionEntry, #GtkActionGroup, #GtkUIManager
 </para>
 
+<!-- ##### SECTION Stability_Level ##### -->
+
+
 <!-- ##### STRUCT AnjutaUI ##### -->
 <para>
 
