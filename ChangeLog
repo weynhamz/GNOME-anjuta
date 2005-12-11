@@ -4,6 +4,8 @@
 	plugins/document-manager/plugin.c
 	plugins/editor/text_editor.c:
 	
+	AUTHORS: Added Johan Ersvik
+
 	Fixed "is-dirty" bug and tab ordering
 
 2005-12-11  Johan Ersvik <jersvik@fastmail.fm>
