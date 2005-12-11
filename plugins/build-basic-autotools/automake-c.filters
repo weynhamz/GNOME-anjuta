@@ -5,7 +5,8 @@
 ^\s*(gcc|g\+\+|cc|c\+\+).*?\-c\s+([^\s]+).*?\-o\s+([^\s]+).*$|||Compiling \2 --> \3|||0
 ^\s*(gcc|g\+\+|cc|c\+\+).*?\-o\s+([^\s]+).*?\-c\s+([^\s]+).*$|||Compiling \3 --> \2|||0
 ^\s*(gcc|g\+\+|cc|c\+\+).*?\-c\s+([^\s]+).*$|||Compiling \2|||0
-^.*?libtool \-\-mode=compile|||Invoking libtool for compilation|||0
+^.*?libtool .*\-\-mode=compile|||Invoking libtool for compilation|||0
+^.*?libtool .*\-\-mode=link|||Invoking libtool for linking|||0
 ^\s*(gcc|g\+\+|cc|c\+\+).*?\s+\-shared\s+.*?\-o\s+([^\s]+).*$|||Building shared library \2|||0
 ^ar cru\s+([^\s]+).*$|||Building static library \1|||0
 ^\s*(gcc|g\+\+|cc|c\+\+).*?\-o\s+([^\s]+).*$|||Building executable \2|||0

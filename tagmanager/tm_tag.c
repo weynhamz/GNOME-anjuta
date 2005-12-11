@@ -137,7 +137,7 @@ gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_ent
 		tag->name = g_strdup(tag_entry->name);
 		tag->type = get_tag_type(tag_entry->kindName);
 		tag->atts.entry.local = tag_entry->isFileScope;
-		tag->atts.entry.isPointer = tag_entry->isPointer;
+		tag->atts.entry.pointerOrder = tag_entry->pointerOrder;
 		tag->atts.entry.line = tag_entry->lineNumber;
 		if (NULL != tag_entry->extensionFields.arglist)
 			tag->atts.entry.arglist = g_strdup(tag_entry->extensionFields.arglist);
@@ -246,7 +246,7 @@ gboolean tm_tag_init_from_file(TMTag *tag, TMSourceFile *file, FILE *fp)
 					tag->atts.entry.scope = g_strdup(start + 1);
 					break;
 				case TA_POINTER:
-					tag->atts.entry.isPointer = atoi(start + 1);
+					tag->atts.entry.pointerOrder = atoi(start + 1);
 					break;
 				case TA_VARTYPE:
 					tag->atts.entry.var_type = g_strdup(start + 1);
@@ -343,7 +343,7 @@ gboolean tm_tag_write(TMTag *tag, FILE *fp, guint attrs)
 		if ((attrs & tm_tag_attr_inheritance_t) && (NULL != tag->atts.entry.inheritance))
 			fprintf(fp, "%c%s", TA_INHERITS, tag->atts.entry.inheritance);
 		if (attrs & tm_tag_attr_pointer_t)
-			fprintf(fp, "%c%d", TA_POINTER, tag->atts.entry.isPointer);
+			fprintf(fp, "%c%d", TA_POINTER, tag->atts.entry.pointerOrder);
 		if ((attrs & tm_tag_attr_vartype_t) && (NULL != tag->atts.entry.var_type))
 			fprintf(fp, "%c%s", TA_VARTYPE, tag->atts.entry.var_type);
 		if ((attrs & tm_tag_attr_access_t) && (TAG_ACCESS_UNKNOWN != tag->atts.entry.access))

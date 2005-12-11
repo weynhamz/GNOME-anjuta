@@ -334,8 +334,9 @@ anjuta_symbol_view_clear (AnjutaSymbolView * sv)
 static void
 sv_assign_node_name (TMSymbol * sym, GString * s)
 {
+	gboolean append_var_type = TRUE;
+	
 	g_assert (sym && sym->tag && s);
-
 	g_string_assign (s, sym->tag->name);
 
 	switch (sym->tag->type)
@@ -343,36 +344,49 @@ sv_assign_node_name (TMSymbol * sym, GString * s)
 	case tm_tag_function_t:
 	case tm_tag_method_t:
 	case tm_tag_prototype_t:
-	case tm_tag_macro_with_arg_t:
 		if (sym->tag->atts.entry.arglist)
 			g_string_append (s, sym->tag->atts.entry.arglist);
 		break;
+	case tm_tag_macro_with_arg_t:
+		if (sym->tag->atts.entry.arglist)
+			g_string_append (s, sym->tag->atts.entry.arglist);
+		append_var_type = FALSE;
+		break;
 
 	default:
+		break;
+	}
+	if (append_var_type)
+	{
+		char *vt = sym->tag->atts.entry.var_type;
+		if (vt)
 		{
-			char *vt = sym->tag->atts.entry.var_type;
-			if (vt)
+			if((vt = strstr(vt, "_fake_")))
 			{
-				if((vt = strstr(vt, "_fake_")))
-				{
-					char backup = *vt;
-					*vt = '\0';
-					g_string_append_printf (s, " [%s%s]",
-											sym->tag->atts.entry.var_type,
-											(sym->tag->atts.entry.isPointer ?
-											 "*" : ""));
-					*vt = backup;
-				}
-				else
-				{
-					g_string_append_printf (s, " [%s%s]",
-											sym->tag->atts.entry.var_type,
-											(sym->tag->atts.entry.isPointer ?
-											 "*" : ""));
-				}
+				char backup = *vt;
+				int i;
+				*vt = '\0';
+
+				g_string_append_printf (s, " [%s",
+						sym->tag->atts.entry.var_type);
+				i = sym->tag->atts.entry.pointerOrder;
+				for (; i > 0; i--)
+					g_string_append_printf (s, "*");
+				g_string_append_printf (s, "]");
+
+				*vt = backup;
+			}
+			else
+			{
+				int i;
+				g_string_append_printf (s, " [%s",
+						sym->tag->atts.entry.var_type);
+				i = sym->tag->atts.entry.pointerOrder;
+				for (; i > 0; i--)
+					g_string_append_printf (s, "*");
+				g_string_append_printf (s, "]");
 			}
 		}
-		break;
 	}
 }
 

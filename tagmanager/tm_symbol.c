@@ -76,6 +76,16 @@ int tm_symbol_compare(const void *p1, const void *p2)
 	return strcmp(s1->tag->name, s2->tag->name);
 }
 
+/*
+ * Compares function argument lists.
+ * FIXME: Compare based on types, not an exact string match.
+ */
+int tm_arglist_compare(const TMTag* t1, const TMTag* t2)
+{
+	return strcmp(NVL(t1->atts.entry.arglist, ""),
+			NVL(t2->atts.entry.arglist, ""));
+}
+
 /* Need this custom compare function to generate a symbol tree
 in a simgle pass from tag list */
 int tm_symbol_tag_compare(const TMTag **t1, const TMTag **t2)
@@ -121,8 +131,8 @@ int tm_symbol_tag_compare(const TMTag **t1, const TMTag **t2)
 	/* If none of them are function/prototype, they are effectively equal */
 	if ((tm_tag_function_t != (*t1)->type) &&
 	    (tm_tag_prototype_t != (*t1)->type)&&
-	    (tm_tag_function_t != (*t1)->type) &&
-	    (tm_tag_prototype_t != (*t1)->type))
+	    (tm_tag_function_t != (*t2)->type) &&
+	    (tm_tag_prototype_t != (*t2)->type))
 		return 0;
 
 	/* Whichever is not a function/prototype goes first */
@@ -134,8 +144,7 @@ int tm_symbol_tag_compare(const TMTag **t1, const TMTag **t2)
 		return 1;
 
 	/* Compare the argument list */
-	s1 = strcmp(NVL((*t1)->atts.entry.arglist, ""),
-	  NVL((*t2)->atts.entry.arglist, ""));
+	s1 = tm_arglist_compare(*t1, *t2);
 	if (s1 != 0)
 		return s1;
 
@@ -192,7 +201,7 @@ static void check_children_symbols(TMSymbol *sym, const char *name)
 		  {        
         sym1 = TM_SYMBOL(sym->info.children->pdata[j]);
         if ((tm_tag_member_t & sym1->tag->type) == tm_tag_member_t &&
-             !sym1->tag->atts.entry.isPointer)
+		     sym1->tag->atts.entry.pointerOrder == 0)
           check_children_symbols(sym1, sym1->tag->atts.entry.var_type);
       }
     }
@@ -318,6 +327,7 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 	fprintf(stderr, "Dumping unordered tags..\n");
 	tm_tags_array_print(tags, stderr);
 #endif
+	
 	if (tags && (tags->len > 0))
 	{
 		guint i;
@@ -356,10 +366,17 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 			
 			if (tm_tag_prototype_t == tag->type)
 			{
+				/* Since the tags are sorted, we can now expect to find
+				 * identical definitions/declarations in the previous element.
+				 * Functions will come before their prototypes.
+				 */
 				if (sym && (tm_tag_function_t == sym->tag->type) &&
 				  (!sym->info.equiv) &&
 				  (0 == strcmp(NVL(tag->atts.entry.scope, "")
-							 , NVL(sym->tag->atts.entry.scope, ""))))
+							 , NVL(sym->tag->atts.entry.scope, ""))) &&
+				  (0 == strcmp(tag->name, sym->tag->name)) &&
+				  (0 == tm_arglist_compare(tag,
+										   sym->tag)))
 				{
 					sym->info.equiv = tag;
 					continue;

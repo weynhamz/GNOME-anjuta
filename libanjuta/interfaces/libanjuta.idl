@@ -1222,7 +1222,7 @@ interface IAnjutaSymbol
 	const gchar *file ();        // File in which the symbol occurs
 	gulong line ();              // Line number of the symbol
 	gboolean is_local ();        // Is the symbol of local scope
-	gboolean is_pointer ();      // Is the symbol Pointer?
+	guint pointer_order ();      // The number of pointer signs
 	
 	GdkPixbuf *icon ();          // Pixbuf icon representing the symbol
 }

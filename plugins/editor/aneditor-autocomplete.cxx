@@ -199,7 +199,7 @@ static bool IsRecordOperator(char *ch)
 
 TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
 										const char *root, const bool type,
-										bool *retptr, int *count)
+										int *retptr, int *count)
 {
 	int posCurrentWord = SendEditor (SCI_GETCURRENTPOS);
 	int Line = SendEditor(SCI_LINEFROMPOSITION , posCurrentWord);
@@ -284,7 +284,7 @@ TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
 		}
 		if(current < 1) break;
 		
-		bool isPointer = false;
+		int pointerOrder = 0;
 		int startword = current - 1;
 		
 		{
@@ -303,12 +303,11 @@ TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
 				}
 				if(findPointer && linebuf[startword] == '*')
 				{
-					findPointer = false;
-					isPointer = true;
+					pointerOrder++;
 				}
 				startword--;
 			}	
-		}		
+		}
 		
 		name = NULL;
 		for (;;)
@@ -377,7 +376,7 @@ TMTag ** AnEditor::FindTypeInLocalWords(GPtrArray *CurrentFileTags,
 				match = (TMTag **)tags->pdata;
 			}
 			
-			if(retptr) *retptr = isPointer;  
+			if(retptr) *retptr = pointerOrder;  
 			if(count) *count = doclen;
 			return match;
 		}
@@ -416,7 +415,7 @@ static char * get_current_function_scope (GtkWidget *scintilla, int line)
 };
 
 static char * FindTypeInFunctionArgs(GPtrArray *CurrentFileTags,
-                          const char *root, bool *retptr, const int line)
+                          const char *root, int *retptr, const int line)
 {
   /* find type in function arguments */
   if(CurrentFileTags)
@@ -425,7 +424,7 @@ static char * FindTypeInFunctionArgs(GPtrArray *CurrentFileTags,
     size_t rootlen;
     int end, start;
     TMTag *tag;
-    bool isPointer;
+	int pointerOrder;
     if(NULL == (tag = TM_TAG(tm_get_current_function(CurrentFileTags, line))))
     {
       return NULL;
@@ -451,15 +450,15 @@ static char * FindTypeInFunctionArgs(GPtrArray *CurrentFileTags,
       name = tag->atts.entry.arglist;
       break;
     }
-    isPointer = false;
+	pointerOrder = 0;
     while(end > 0)
     {
       while(end > 0 && !IsAlnum(name[end - 1]))
       {
-        if(!isPointer && name[end - 1] == '*')
-        {
-          isPointer = true;
-        }
+		if (name[end - 1] == '*')
+		{
+			pointerOrder++;
+		}
         end--;
       }
       start = end;
@@ -484,7 +483,7 @@ static char * FindTypeInFunctionArgs(GPtrArray *CurrentFileTags,
       tag->atts.entry.arglist[end] = backup;
       break;
     }
-    if(retptr) *retptr = isPointer;
+    if(retptr) *retptr = pointerOrder;
     return name;
   }
   
@@ -580,7 +579,7 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 	linebuf.change(endword, '\0');
 	root = linebuf.c_str() + startword;
 	
-	bool isPointer = false;	
+	int pointerOrder;
 	char *name;
 	char *new_name = NULL;
 	int types = (ch == ':' ? tm_tag_class_t : (tm_tag_max_t & ~tm_tag_class_t));
@@ -593,106 +592,106 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 		name = get_current_function_scope(GTK_WIDGET (GetID()),
 										  GetCurrentLineNumber());
 		if(!name || name[0] == '\0') return false;
-			isPointer = true;
+		pointerOrder = 1;
+	}
+	else
+	{
+		TMTagAttrType attrs[] = {
+			tm_tag_attr_name_t,
+			tm_tag_attr_type_t,
+			tm_tag_attr_none_t
+		};
+		TMTag **match = NULL;
+		int count = 0;
+
+		tm_tags_sort(CurrentFileTags, attrs, FALSE);
+		match = tm_tags_find(CurrentFileTags, root, FALSE, &count);
+		if(count && ch == ':')
+		{
+			int real_count = 0;
+			for(int i = 0; i < count; ++i)
+			{
+				if(types & match[i]->type)
+				{
+					real_count++;
+				}
+			}
+			count = real_count;
+		}
+		if (!count || !match || !(*match))
+		{
+			/* search in global variables and functions tag's entrys */
+			tags = tm_workspace_find(root, types, attrs, FALSE, TRUE);  
+			count = (tags != NULL)? tags->len: 0;
+			match = NULL;
+		}
+		ScanType = NULL;
+		if (count == 1)
+		{
+			ScanType = (match ? match[0] : TM_TAG(tags->pdata[0]));
+			if(!(!ScanType->atts.entry.scope ||
+				((name =
+					get_current_function_scope(GTK_WIDGET (GetID()),
+											   GetCurrentLineNumber())) &&
+				0 == strcmp(name, ScanType->atts.entry.scope))) )
+			{
+				ScanType = NULL;
+			}
 		}
 		else
 		{
-			TMTagAttrType attrs[] = {
-				tm_tag_attr_name_t,
-				tm_tag_attr_type_t,
-				tm_tag_attr_none_t
-			};
-			TMTag **match = NULL;
-			int count = 0;
-			
-			tm_tags_sort(CurrentFileTags, attrs, FALSE);
-			match = tm_tags_find(CurrentFileTags, root, FALSE, &count);
-			if(count && ch == ':')
+			if((count > 0) &&
+				(name =
+					get_current_function_scope(GTK_WIDGET (GetID()),
+											   GetCurrentLineNumber())))
 			{
-				int real_count = 0;
-				for(int i = 0; i < count; ++i)
+				int iter;
+				for( iter =0; iter < count; ++iter)
 				{
-					if(types & match[i]->type)
+					ScanType =
+						(match ? match[iter] : TM_TAG(tags->pdata[iter]));
+					if(ch != ':' && ScanType->atts.entry.scope &&
+					   0 == strcmp(name, ScanType->atts.entry.scope))
 					{
-						real_count++;
+						break;
+					}
+					if(ch == ':' && ScanType->type == tm_tag_class_t)
+					{
+						break;
 					}
 				}
-				count = real_count;
+				if(iter == count) ScanType = NULL;
 			}
-			if (!count || !match || !(*match))
+		}
+		if(ScanType)
+		{
+			if(ScanType->type == tm_tag_class_t)
 			{
-				/* search in global variables and functions tag's entrys */
-				tags = tm_workspace_find(root, types, attrs, FALSE, TRUE);  
-				count = (tags != NULL)? tags->len: 0;
-				match = NULL;
-			}
-			ScanType = NULL;
-			if (count == 1)
-			{
-				ScanType = (match ? match[0] : TM_TAG(tags->pdata[0]));
-				if(!(!ScanType->atts.entry.scope ||
-					((name =
-						get_current_function_scope(GTK_WIDGET (GetID()),
-												   GetCurrentLineNumber())) &&
-					0 == strcmp(name, ScanType->atts.entry.scope))) )
-				{
-					ScanType = NULL;
-				}
+				/* show nothing when use normal acces operators (./->) */
+				name = ScanType->name;
+				pointerOrder = (ch == '.');
 			}
 			else
 			{
-				if((count > 0) &&
-					(name =
-						get_current_function_scope(GTK_WIDGET (GetID()),
-												   GetCurrentLineNumber())))
-				{
-					int iter;
-					for( iter =0; iter < count; ++iter)
-					{
-						ScanType =
-							(match ? match[iter] : TM_TAG(tags->pdata[iter]));
-						if(ch != ':' && ScanType->atts.entry.scope &&
-						   0 == strcmp(name, ScanType->atts.entry.scope))
-						{
-							break;
-						}
-						if(ch == ':' && ScanType->type == tm_tag_class_t)
-						{
-							break;
-						}
-					}
-					if(iter == count) ScanType = NULL;
-				}
+				name = ScanType->atts.entry.var_type;
+				pointerOrder = ScanType->atts.entry.pointerOrder;
 			}
-			if(ScanType)
+		}
+		else
+		{
+			new_name = FindTypeInFunctionArgs(CurrentFileTags, root,
+											  &pointerOrder,
+											  GetCurrentLineNumber());
+			if(new_name)
 			{
-				if(ScanType->type == tm_tag_class_t)
-				{
-					/* show nothing when use normal acces operators (./->) */
-					name = ScanType->name;
-					isPointer = (ch == '.');
-				}
-				else
-				{
-					name = ScanType->atts.entry.var_type;
-					isPointer = ScanType->atts.entry.isPointer;
-				}
+				name = new_name;
 			}
 			else
 			{
-				new_name = FindTypeInFunctionArgs(CurrentFileTags, root,
-												  &isPointer,
-												  GetCurrentLineNumber());
-				if(new_name)
-				{
-					name = new_name;
-				}
-				else
-				{
 				count = 0;
 				TMTag **match = FindTypeInLocalWords(CurrentFileTags,
 													 root, (tmp_chr == '.'),
-													 &isPointer, &count);
+													 &pointerOrder, &count);
 				if ((match) && (count == 1) && (ScanType = match[0]))
 				{
 					name = ScanType->name;
@@ -794,7 +793,7 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 		}
 		CurrentFileTags = ScanType->atts.entry.file->work_object.tags_array;
 		name = ScanType->atts.entry.var_type;
-		isPointer = ScanType->atts.entry.isPointer;
+		pointerOrder = ScanType->atts.entry.pointerOrder;
 	}
 	if (ch == ':' && ScanType && ScanType->type != tm_tag_class_t)
 	{
@@ -802,17 +801,17 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 			//anjuta_status (_("Wrong acces operator ... "));
 			return false;
 	}
-	if (ch == '>' && !isPointer)
+	if (ch == '>' && pointerOrder != 1)
 	{
 		if(new_name) g_free(new_name);
-			//anjuta_status (_("Wrong acces operator... Please use \"->\""));
-			return false;
+		//anjuta_status (_("Wrong acces operator... Please use \"->\""));
+		return false;
 	}
-	if (ch == '.' && isPointer)
+	if (ch == '.' && pointerOrder != 0)
 	{
 		if(new_name) g_free(new_name);
-			//anjuta_status (_("Wrong acces operator... Please use \".\""));
-			return false;
+		//anjuta_status (_("Wrong acces operator... Please use \".\""));
+		return false;
 	}	
 	bool retval = SendAutoCompleteRecordsFields(CurrentFileTags, name);
 	if(new_name) g_free(new_name);

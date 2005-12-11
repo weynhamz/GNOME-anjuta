@@ -308,7 +308,7 @@ protected:
 	void CompleteCallTip();
 
 	TMTag ** FindTypeInLocalWords(GPtrArray *CurrentFileTags, const char *root,
-								  const bool type, bool *retptr, int *count);
+								  const bool type, int *retptr, int *count);
 	bool SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
 									   const char *ScanType);
 	bool StartAutoCompleteRecordsFields(char ch);

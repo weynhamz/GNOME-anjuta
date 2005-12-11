@@ -82,11 +82,13 @@ bool AnEditor::StartCallTip_new() {
 		printf ("Number of calltips found %d\n", tags->len);
 		for (unsigned int i = 0; (i < tags->len) && (i < 20); i++) {
 			TMTag *tag = (TMTag *) tags->pdata[0];
-			char *tmp;
-			tmp = g_strdup_printf("%s %s%s", NVL(tag->atts.entry.var_type, ""),
-								  tag->name, NVL(tag->atts.entry.arglist, ""));
-			call_tip_node.functionDefinition[i] = tmp;
-			g_free(tmp);
+			GString* tmp = g_string_new(NVL(tag->atts.entry.var_type, ""));
+			for (unsigned int j = 0; j < tag->atts.entry.pointerOrder; j++)
+				g_string_append(tmp, "*");
+			g_string_append_printf(tmp, " %s%s", tag->name,
+				NVL(tag->atts.entry.arglist, ""));
+			call_tip_node.functionDefinition[i] = tmp->str;
+			g_string_free(tmp, TRUE);
 		}
 		char *real_tip;
 		if (call_tip_node.max_def > 1)

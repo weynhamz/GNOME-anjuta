@@ -60,6 +60,9 @@ tm_symbol_tree_free() and tm_symbol_tree_new().
 */
 TMSymbol *tm_symbol_tree_update(TMSymbol *root, GPtrArray *tags);
 
+/*! Arglist comparison function */
+int tm_arglist_compare(const TMTag *t1, const TMTag *t2);
+
 /*! Symbol comparison function - can be used for sorting purposes. */
 int tm_symbol_compare(const void *p1, const void *p2);
 

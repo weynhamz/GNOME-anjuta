@@ -202,14 +202,13 @@ isymbol_is_local (IAnjutaSymbol *isymbol, GError **err)
 	return s->priv->tm_tag->atts.entry.local;
 }
 
-static gboolean
-isymbol_is_pointer (IAnjutaSymbol *isymbol, GError **err)
+static guint
+isymbol_pointer_order (IAnjutaSymbol *isymbol, GError **err)
 {
 	AnjutaSymbol *s;
-
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), FALSE);
 	s = ANJUTA_SYMBOL (isymbol);
-	return s->priv->tm_tag->atts.entry.isPointer;
+	return s->priv->tm_tag->atts.entry.pointerOrder;
 }
 
 static GdkPixbuf*
@@ -238,7 +237,7 @@ isymbol_iface_init (IAnjutaSymbolIface *iface)
 	iface->file = isymbol_file;
 	iface->line = isymbol_line;
 	iface->is_local = isymbol_is_local;
-	iface->is_pointer = isymbol_is_pointer;
+	iface->pointer_order = isymbol_pointer_order;
 	iface->icon = isymbol_icon;
 }
 

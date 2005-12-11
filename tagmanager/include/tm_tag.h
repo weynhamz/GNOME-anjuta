@@ -131,7 +131,7 @@ typedef struct _TMTag
 			TMSourceFile *file; /*!< File in which the tag occurs */
 			gulong line; /*!< Line number of the tag */
 			gboolean local; /*!< Is the tag of local scope */
-			gboolean isPointer; /*!< Is the tag Pointer ? */
+			guint pointerOrder;
 			char *arglist; /*!< Argument list (functions/prototypes/macros) */
 			char *scope; /*!< Scope of tag */
 			char *inheritance; /*!< Parent classes */
