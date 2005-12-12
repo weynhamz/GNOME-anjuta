@@ -29,6 +29,7 @@
 #include <libgnome/gnome-i18n.h>
 #include <string.h>
 #include <ctype.h>
+#include <assert.h>
 #include "debug_tree.h"
 #include "debugger.h"
 #include "memory.h"
@@ -1043,8 +1044,8 @@ determine_type (gchar * buf)
 	if (*buf == '(')
 	{
 		buf = skip_delim (buf, '(', ')');
-
-		switch (*(buf - 2))
+		buf -= 2;
+		switch (*buf)
 		{
 		case ')':
 		case '*':
@@ -1052,7 +1053,14 @@ determine_type (gchar * buf)
 		case '&':
 			return TYPE_REFERENCE;
 		default:
-			return TYPE_UNKNOWN;
+			/* fix (char * const) - case */
+			while(*buf && (isalpha(*buf) || *buf == ' ')) --buf;
+			switch(*buf)
+			{
+			  case '*':	return TYPE_POINTER;
+			  case '&':	return TYPE_REFERENCE;
+			  default:	return TYPE_UNKNOWN;
+			}
 		}
 	}
 
@@ -1431,10 +1439,47 @@ debug_tree_parse_variables (DebugTree *d_tree, const GList * list)
 	/* Mark variables as not analyzed */
 	gtk_tree_model_foreach(model,set_not_analyzed,NULL);	
 	gtk_tree_model_get_iter_first(model,&iter);	
-	while (list)
+
+	if(list)
 	{
-		parse_data (GTK_TREE_VIEW(d_tree->tree), &iter, (gchar *) list->data);
-		list = g_list_next (list);
+		GString *const string = g_string_sized_new (64);
+		int complex = 0;
+		while (list)
+		{
+			const gchar *const data = (gchar *) list->data;
+      
+			if(*data)
+			{
+				const gchar* iterator = data;
+				do
+				{
+					switch(*iterator)
+					{
+						case '{': ++complex; break;
+						case '}': --complex; break;
+						default: break; 
+					}
+					++iterator;  
+				} while(*iterator);
+
+				assert(complex >= 0 && "struct/array debuger output parse error");
+        
+				if(complex)
+        			{
+					g_string_append (string, data);  
+				} else {
+					if(!string->len)
+						parse_data (GTK_TREE_VIEW(d_tree->tree), &iter, (gchar *)data);          
+					else {
+						g_string_append (string, data);
+						parse_data (GTK_TREE_VIEW(d_tree->tree), &iter, (gchar *)string->str);
+						g_string_truncate (string, 0);
+					}
+				}
+			}
+			list = g_list_next (list);
+		}
+		g_string_free(string,TRUE);
 	}
 
 	/* Destroy non used variables (non analyzed) */

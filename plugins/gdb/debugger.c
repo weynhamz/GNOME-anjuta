@@ -685,29 +685,29 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 static void
 gdb_stdout_line_arrived (Debugger *debugger, const gchar * chars)
 {
-	gint i = 0;
-
-	while (chars[i])
+	gchar c = *chars;
+	GString *const line = debugger->priv->stdo_line;
+	while(c)
 	{
-		if (chars[i] == '\n')
+		++chars;
+		if (c == '\n')
 			debugger_stdo_flush (debugger);
 		else
-			g_string_append_c (debugger->priv->stdo_line, chars[i]);
-		i++;
+			g_string_append_c (line, c);
+		c = *chars;
 	}
 }
 
 static void
 gdb_stderr_line_arrived (Debugger *debugger, const gchar * chars)
 {
-	gint i;
-
-	for (i = 0; i < strlen (chars); i++)
+	while(*chars)
 	{
-		if (chars[i] == '\n')
+		if (*chars == '\n')
 			debugger_stde_flush (debugger);
 		else
-			g_string_append_c (debugger->priv->stde_line, chars[i]);
+			g_string_append_c (debugger->priv->stde_line, *chars);
+		++chars;
 	}
 }
 
@@ -806,11 +806,11 @@ static void
 debugger_stdo_flush (Debugger *debugger)
 {
 	guint lineno;
-	gchar *filename, *line;
+	gchar *filename;
 
-	line = debugger->priv->stdo_line->str;
-	
-	if (strlen (line) == 0)
+	gchar *line = debugger->priv->stdo_line->str;
+	const size_t len = strlen (line);
+	if (len == 0)
 	{
 		return;
 	}
@@ -1067,16 +1067,15 @@ debugger_stdo_flush (Debugger *debugger)
 		/* FIXME: change message type */
 		gchar *proper_msg, *full_msg;
 		
-		if (line[1] == '\"' && line [strlen(line) - 1] == '\"')
+		if (line[1] == '\"' && line [len - 1] == '\"')
 		{
-			line[strlen(line) - 1] = '\0';
+			line[len - 1] = '\0';
 			proper_msg = g_strcompress (line + 2);
 		}
 		else
 		{
 			proper_msg = g_strdup (line);
 		}
-		
 		if (proper_msg[strlen(proper_msg)-1] != '\n')
 		{
 			full_msg = g_strconcat (proper_msg, "\n", NULL);

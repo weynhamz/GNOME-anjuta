@@ -9,6 +9,22 @@
 	plugins/search/plugin.c
 	
 	Fixed bug #305301
+	
+	* plugins/document-manager/anjuta-docman.c:
+	
+	Fixed error markers 
+	
+	* AUTHORS: Added Rafał Bursig <bursig@poczta.fm>
+	
+	Patch from Rafał Bursig <bursig@poczta.fm> (#320338 and #320341):
+	
+	* plugins/document-manager/anjuta-docman.c:
+	highlight changed files in docman popup-menu
+	* plugins/gdb/debug-tree.c:
+	plugins/gdb/debugger.c
+	Do not corupt entire "locals" tree when variable pointer have
+	additional info and arrays/strucs/unions correctly.
+	
 
 2005-12-11  Johannes Schmid <jhs@gnome.org>
 
