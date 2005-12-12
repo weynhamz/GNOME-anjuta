@@ -172,7 +172,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											GETTEXT_PACKAGE, plugin);
 	gtodo_plugin->action_group2 = 
 		anjuta_ui_add_toggle_action_group_entries (ui, "ActionGroupTodoViewOps",
-												_("Tasks manager"),
+												_("Tasks manager view"),
 												actions_view,
 												G_N_ELEMENTS (actions_view),
 												GETTEXT_PACKAGE, plugin);

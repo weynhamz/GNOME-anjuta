@@ -519,7 +519,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect (action, "focus_out",
 					  G_CALLBACK (on_toolbar_find_incremental_end), plugin);
 	gtk_action_group_add_action (group, action);
-	anjuta_ui_add_action_group(ui, "ActionGroupSearch", "Searching", group);
+	anjuta_ui_add_action_group(ui, "ActionGroupSearch", _("Search Toolbar"), group);
 	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 
 	

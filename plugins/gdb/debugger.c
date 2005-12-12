@@ -1233,6 +1233,7 @@ debugger_get_source_path (Debugger *debugger, const gchar *file)
 		if (g_file_test (path, G_FILE_TEST_EXISTS))
 			break;
 		g_free (path);
+		path = NULL;
 		node = g_list_next (node);
 	}
 	

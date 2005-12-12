@@ -1,3 +1,15 @@
+2005-12-12  Johannes Schmid <jhs@gnome.org>
+
+	Patch from Johan Ersvik <jersvik@fastmail.fm>:
+	* plugins/gdb/debugger.c
+	
+	Fix a crasher in gdb plugin
+	
+	* plugins/gtodo/plugin.c
+	plugins/search/plugin.c
+	
+	Fixed bug #305301
+
 2005-12-11  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c
