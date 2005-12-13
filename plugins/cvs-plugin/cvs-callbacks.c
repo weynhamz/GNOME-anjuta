@@ -244,7 +244,11 @@ on_cvs_commit_response(GtkDialog* dialog, gint response, CVSData* data)
 				_("Are you sure that you do not want a log message?"));
 			result = gtk_dialog_run(GTK_DIALOG(dlg));
 			if (result == GTK_RESPONSE_NO)
+			{
+				gtk_widget_hide(dlg);
+				gtk_widget_destroy(dlg);
 				break;
+			}
 			gtk_widget_destroy(dlg);
 		}
 		

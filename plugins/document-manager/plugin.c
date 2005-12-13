@@ -1285,7 +1285,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	DocmanPlugin *eplugin = (DocmanPlugin*)obj;
+	// DocmanPlugin *eplugin = (DocmanPlugin*)obj;
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
@@ -1449,8 +1449,11 @@ isaveable_save (IAnjutaFileSavable* plugin, GError** e)
 	while(editors)
 	{
 		editor = IANJUTA_EDITOR(editors->data);
-		if (ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL) != NULL)
+		if (ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL) != NULL &&
+			ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(editor), NULL))
+		{
 			ianjuta_file_savable_save(IANJUTA_FILE_SAVABLE(editor), NULL);
+		}
 		editors = g_list_next(editors);
 	}
 	g_list_free(editors);
@@ -1459,7 +1462,7 @@ isaveable_save (IAnjutaFileSavable* plugin, GError** e)
 static void
 isavable_save_as (IAnjutaFileSavable* plugin, const gchar* uri, GError** e)
 {
-	DEBUG_PRINT("save_as: Not implemented	in DocmanPlugin");
+	DEBUG_PRINT("save_as: Not implemented in DocmanPlugin");
 }
 
 static gboolean

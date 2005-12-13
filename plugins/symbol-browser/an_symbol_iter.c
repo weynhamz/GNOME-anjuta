@@ -191,7 +191,7 @@ static void
 isymbol_iter_set_nth (IAnjutaIterable *iterable, GType data_type,
 					  gpointer data, gint position, GError **err)
 {
-	g_warning ("set() is not valid for AnjutaSymbolIter implementation");
+	DEBUG_PRINT ("set() is not valid for AnjutaSymbolIter implementation");
 }
 
 static gint

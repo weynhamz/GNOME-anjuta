@@ -1,5 +1,14 @@
 2005-12-13  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/plugin.c:
+	Only save modified files in ianjuta_file_savable_save() for document-manager
+	as discussed on mailing list.
+	
+	* plugins/cvs-plugin/cvs-callbacks.c:
+	Fixed dialog handling for empty log message
+
+2005-12-13  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/search/plugin.c: Fixed search toolbar (FIXME: Wrapping);
 	
 	* plugins/project-manager/* Removed ununsed files
