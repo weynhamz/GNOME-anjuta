@@ -163,7 +163,7 @@ fill_predefined (GtkTreeStore * tree_store, GtkTreeIter * iter_pre)
 	if (parse_xml_file (&doc, &cur, PREDEFINED_MACRO_FILE))
 		read_macros (doc, cur, tree_store, iter_pre, TRUE);
 	else
-		g_warning ("Could not read predefined macros!");
+		DEBUG_PRINT ("Could not read predefined macros!");
 }
 
 static void
@@ -176,7 +176,7 @@ fill_userdefined (GtkTreeStore * tree_store, GtkTreeIter * iter_user)
 	if (parse_xml_file (&doc, &cur, user_file))
 		read_macros (doc, cur, tree_store, iter_user, FALSE);
 	else
-		g_warning ("Could not read predefined macros!");
+		DEBUG_PRINT ("Could not read predefined macros!");
 	g_free (user_file);
 }
 

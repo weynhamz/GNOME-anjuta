@@ -15,6 +15,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <libanjuta/anjuta-debug.h>
+
+
 #include <libgnomevfs/gnome-vfs.h>
 #include "cvs-execute.h"
 #include "cvs-callbacks.h"
@@ -130,7 +133,7 @@ void anjuta_cvs_commit (AnjutaPlugin *obj, const gchar* filename, const gchar* l
 	if (strlen(log))
 		g_string_printf(options, "-m '%s'", log);
 	else
-		g_string_printf(options, "-m 'no log message'", log);
+		g_string_printf(options, "-m 'no log message'");
 	
 	if (strlen(rev))
 	{
@@ -334,7 +337,7 @@ void anjuta_cvs_import (AnjutaPlugin *obj, const gchar* dir, const gchar* cvsroo
 		}
 		default:
 		{
-			g_warning("Invalid cvs server type!");
+			DEBUG_PRINT("Invalid cvs server type!");
 			g_string_free (options, TRUE);
 			return;
 		}

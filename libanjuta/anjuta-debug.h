@@ -20,6 +20,12 @@
 #ifndef __ANJUTA_DEBUG__
 #define __ANJUTA_DEBUG__
 
+/* It is better to include this here because we can not assume that
+any file that uses DEBUG_PRINT also includes config.h and without
+it has no effect. */
+
+#include "config.h"
+
 /**
  * DEBUG_PRINT:
  * 

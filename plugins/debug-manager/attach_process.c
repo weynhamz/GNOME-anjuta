@@ -30,6 +30,7 @@
 #include <gnome.h>
 
 #include <libanjuta/resources.h>
+#include <libanjuta/anjuta-debug.h>
 
 //#include "properties.h"
 #include "attach_process.h"
@@ -258,7 +259,7 @@ calc_depth_and_get_iter (AttachProcess *ap, GtkTreeStore *store,
 						else
 						{
 							// should never get here
-							g_warning("Unknown error");
+							DEBUG_PRINT ("Unknown error");
 							iter_stack_pop (ap);
 							*iter = iter_stack_push_new (ap, store);
 						}

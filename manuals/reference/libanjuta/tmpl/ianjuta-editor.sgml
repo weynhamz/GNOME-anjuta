@@ -46,19 +46,31 @@
 @char_added: 
 @update_ui: 
 @append: 
+@can_redo: 
+@can_undo: 
 @erase_all: 
 @get_attributes: 
+@get_column: 
+@get_current_pos: 
 @get_current_word: 
 @get_filename: 
 @get_length: 
+@get_line_from_position: 
 @get_lineno: 
+@get_overwrite: 
 @get_position: 
 @get_selection: 
+@get_selection_end: 
+@get_selection_start: 
 @get_text: 
 @goto_line: 
 @goto_position: 
 @insert: 
 @replace_selection: 
+@select_block: 
+@select_function: 
+@set_popup_menu: 
+@set_selection: 
 
 <!-- ##### FUNCTION ianjuta_editor_error_quark ##### -->
 <para>

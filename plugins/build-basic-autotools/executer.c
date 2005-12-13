@@ -357,7 +357,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		}
 		else
 		{
-			g_warning ("No installed terminal plugin found");
+			DEBUG_PRINT ("No installed terminal plugin found");
 			gnome_execute_shell (dir, cmd);
 		}
 	}

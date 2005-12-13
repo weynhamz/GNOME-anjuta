@@ -838,7 +838,7 @@ apply_styles (StyleEditor *se)
 								 "editor-style.properties", NULL);
 	ofile = fopen (filename, "w");
 	if (!ofile) {
-		g_warning ("Could not open %s for writing", filename);
+		DEBUG_PRINT ("Could not open %s for writing", filename);
 	} else {
 		style_editor_save (se, ofile);
 		fclose (ofile);

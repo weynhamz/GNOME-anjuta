@@ -5,6 +5,7 @@
 #include <ctype.h>
 
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 
 #define GTK
 #undef PLAT_GTK
@@ -99,12 +100,12 @@ get_propset(PropsID pi)
   PropSetFile* p;
   if(pi < 0 || (guint)pi >= g_list_length(anjuta_propset))
   {
-  	g_warning("Invalid PropSetFile handle");
+  	DEBUG_PRINT("Invalid PropSetFile handle");
   	return NULL;
   }
   p = (PropSetFile*)g_list_nth_data(anjuta_propset, pi);
   if (p == NULL)
-  	g_warning("Trying to access already destroyed PropSetFile object");
+  	DEBUG_PRINT("Trying to access already destroyed PropSetFile object");
   return p;
 }
 
@@ -123,7 +124,7 @@ prop_set_new(void)
    handle = g_list_length(anjuta_propset);
    if (length == handle)
    {
-   	g_warning("Unable to create PropSetFile Object");
+   	DEBUG_PRINT("Unable to create PropSetFile Object");
    	return -1;
    }
    return handle-1;

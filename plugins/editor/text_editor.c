@@ -363,7 +363,7 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 		/*
 		if (res != GNOME_VFS_OK)
 		{
-			g_warning ("Error while setting up file monitor: %s",
+			DEBUG_PRINT ("Error while setting up file monitor: %s",
 					   gnome_vfs_result_to_string (res));
 		}
 		*/
@@ -1207,7 +1207,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	buffer = g_malloc (info.size);
 	if (buffer == NULL && info.size != 0)
 	{
-		g_warning ("This file is too big. Unable to allocate memory.");
+		DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
 		*err = g_strdup (_("This file is too big. Unable to allocate memory."));
 		return FALSE;
 	}
@@ -1227,7 +1227,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 		return FALSE;
 	}
 
-	if (info.size != nchars) g_warning ("File size and loaded size not matching");
+	if (info.size != nchars) DEBUG_PRINT ("File size and loaded size not matching");
 	dos_filter = 
 		anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
 									DOS_EOL_CHECK);
@@ -1398,7 +1398,7 @@ save_to_file (TextEditor *te, gchar * uri)
 		g_free (data);
 		/* FIXME: Find a nice way to check that all the bytes have been written */
 		/* if (size != nchars)
-			g_warning("Text length and number of bytes saved is not equal [%d != %d]", nchars, size);
+			DEBUG_PRINT("Text length and number of bytes saved is not equal [%d != %d]", nchars, size);
 		*/
 	}
 	result = gnome_vfs_close(vfs_write);
@@ -2068,7 +2068,7 @@ static gchar*
 itext_editor_get_attributes (IAnjutaEditor *editor, gint start,
 							   gint end, GError **e)
 {
-	g_warning("get_attributes: Not yet implemented in EditorPlugin");
+	DEBUG_PRINT("get_attributes: Not yet implemented in EditorPlugin");
 	return NULL;
 }
 
@@ -2355,7 +2355,7 @@ isavable_is_dirty (IAnjutaFileSavable* editor, GError** e)
 static void
 isavable_set_dirty (IAnjutaFileSavable* editor, gboolean dirty, GError** e)
 {
-	g_warning("set_dirty: Not implemented in EditorPlugin");
+	DEBUG_PRINT("set_dirty: Not implemented in EditorPlugin");
 }
 
 

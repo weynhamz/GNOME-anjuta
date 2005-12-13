@@ -29,6 +29,7 @@
 
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 
 void cvs_add_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
 void cvs_remove_dialog(GtkAction* action, CVSPlugin* plugin, gchar *filename);
@@ -61,7 +62,7 @@ static void on_server_type_changed(GtkComboBox* combo, GladeXML* gxml)
 			gtk_widget_set_sensitive(password, TRUE);
 			break;
 		default:
-			g_warning("Unknown CVS server type");
+			DEBUG_PRINT("Unknown CVS server type");
 	}
 }
 

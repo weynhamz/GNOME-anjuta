@@ -381,7 +381,7 @@ transform_file(const gchar *input_file, const gchar *output_file,
 	for(st_size = 0; search_table[st_size] != NULL; st_size++); 
 	
 	if(!g_file_get_contents(input_file, &contents, &length, NULL)) {
-		g_warning ("Could not read %s\n", input_file);
+		DEBUG_PRINT ("Could not read %s\n", input_file);
 		return FALSE;
 	}
 

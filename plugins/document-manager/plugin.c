@@ -429,7 +429,7 @@ swap_label_and_stock (GtkActionEntry* actions, gint size)
 		actions[i].label = actions[i].stock_id;
 		actions[i].stock_id = stock_id;
 		if (actions[i].name == NULL)
-			g_warning ("Name is null: %s", actions[i].label);
+			DEBUG_PRINT ("Name is null: %s", actions[i].label);
 	}
 }
 
@@ -443,7 +443,7 @@ swap_toggle_label_and_stock (GtkToggleActionEntry* actions, gint size)
 		actions[i].label = actions[i].stock_id;
 		actions[i].stock_id = stock_id;
 		if (actions[i].name == NULL)
-			g_warning ("Name is null: %s", actions[i].label);
+			DEBUG_PRINT ("Name is null: %s", actions[i].label);
 	}
 }
 
@@ -1459,7 +1459,7 @@ isaveable_save (IAnjutaFileSavable* plugin, GError** e)
 static void
 isavable_save_as (IAnjutaFileSavable* plugin, const gchar* uri, GError** e)
 {
-	g_warning("save_as: Not implemented	in DocmanPlugin");
+	DEBUG_PRINT("save_as: Not implemented	in DocmanPlugin");
 }
 
 static gboolean
@@ -1489,7 +1489,7 @@ isavable_is_dirty(IAnjutaFileSavable* plugin, GError** e)
 static void
 isavable_set_dirty(IAnjutaFileSavable* plugin, gboolean dirty, GError** e)
 {
-	g_warning("set_dirty: Not implemented in DocmanPlugin");
+	DEBUG_PRINT("set_dirty: Not implemented in DocmanPlugin");
 }
 
 static void

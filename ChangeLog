@@ -1,7 +1,33 @@
 2005-12-13  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/search/plugin.c: Fixed search toolbar (FIXME: Wrapping);
+	
+	* plugins/project-manager/* Removed ununsed files
+	
+	* plugins/symbol-browser/an_symbol_iter.c
+	plugins/build-basic-autotools/build-basic-autotools.c
+	plugins/build-basic-autotools/executer.c
+	plugins/class-gen/class_gen.c
+	plugins/class-inheritance/class-inherit.c
+	plugins/cvs-plugin/cvs-actions.c
+	plugins/cvs-plugin/cvs-interface.c
+	plugins/debug-manager/attach_process.
+	plugins/devhelp/plugin.c
+	plugins/document-manager/plugin.c
+	plugins/document-manager/indent_util.c
+	plugins/editor/properties.cxx
+	plugins/editor/aneditor.cxx
+	plugins/editor/style-editor.c
+	plugins/editor/text_editor.c
+	plugins/macro/macro_db.c
+	tagmanager/c.c:
+	
+	Use DEBUG_PRINT for debug messages
 
+	libanjuta/anjuta-debug.h: Include config.h
+	
+	HACKING: Updated (BTW: does anyone read this?)
+	
 2005-12-12  Johannes Schmid <jhs@gnome.org>
 
 	Patch from Johan Ersvik <jersvik@fastmail.fm>:

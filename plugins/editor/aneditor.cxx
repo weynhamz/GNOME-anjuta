@@ -25,6 +25,8 @@
 
 #include "aneditor-priv.h"
 
+#include <libanjuta/anjuta-debug.h>
+
 static void lowerCaseString(char *s);
 static AnEditor * aneditor_get(AnEditorID id);
 
@@ -3085,13 +3087,13 @@ aneditor_get(AnEditorID id)
 	AnEditor* ed;
 	if(id >= g_list_length(editors))
 	{
-		g_warning("Invalid AnEditorID supplied");
+		DEBUG_PRINT("Invalid AnEditorID supplied");
 		return NULL;
 	}
 	ed = (AnEditor*)g_list_nth_data(editors, (guint)id);
 	if(!ed)
 	{
-		g_warning("Trying to use already destroyed AnEditor Object");
+		DEBUG_PRINT("Trying to use already destroyed AnEditor Object");
 		return NULL;
 	}
 	return ed;
@@ -3103,7 +3105,7 @@ aneditor_new(gpointer propset)
   AnEditor* ed = new AnEditor((PropSetFile*)propset);
   if (!ed)
   {
-     g_warning("Memory allocation error.");
+     DEBUG_PRINT("Memory allocation error.");
      return ANE_ID_INVALID;
   }
   g_signal_connect(ed->GetID(), "focus_in_event", 

@@ -113,7 +113,7 @@ build_context_pop_dir (BuildContext *context, const gchar *key,
 	
 	if (strcmp (top_dir, dir) != 0)
 	{
-		g_warning ("Directory stack misaligned!!");
+		DEBUG_PRINT("Directory stack misaligned!!");
 	}
 	g_free (top_dir);
 	if (dir_stack)
@@ -164,7 +164,7 @@ build_regex_load ()
 	fp = fopen (PACKAGE_DATA_DIR"/build/automake-c.filters", "r");
 	if (fp == NULL)
 	{
-		g_warning ("Failed to load filters: %s",
+		DEBUG_PRINT ("Failed to load filters: %s",
 				   PACKAGE_DATA_DIR"/build/automake-c.filters");
 		return;
 	}
@@ -181,7 +181,7 @@ build_regex_load ()
 		
 		if (!tokens[0] || !tokens[1])
 		{
-			g_warning ("Cannot parse regex: %s", buffer);
+			DEBUG_PRINT ("Cannot parse regex: %s", buffer);
 			g_strfreev (tokens);
 			continue;
 		}
@@ -225,7 +225,7 @@ build_regex_init ()
 			   &erroffset,       /* for error offset */
 			   NULL);            /* use default character tables */
 		if (pattern->regex == NULL) {
-			g_warning ("PCRE compilarion failed: %s: regex \"%s\" at char %d",
+			DEBUG_PRINT ("PCRE compilarion failed: %s: regex \"%s\" at char %d",
 						pattern->pattern, error, erroffset);
 		}
 		node = g_list_next (node);
@@ -1777,7 +1777,7 @@ ifile_open (IAnjutaFile *manager, const gchar *uri,
 static gchar*
 ifile_get_uri (IAnjutaFile *manager, GError **err)
 {
-	g_warning ("Unsupported operation");
+	DEBUG_PRINT ("Unsupported operation");
 	return NULL;
 }
 

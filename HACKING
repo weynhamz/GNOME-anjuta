@@ -113,7 +113,7 @@ command "host annocvs.gnome.org"
 
 4) If the patch is big or is not high priority (i.e. things other than 
 stability patches), then either send it to the lead developers directly 
-(cc-ing them together is a nice idea), or post it on the sourceforge page. 
+(cc-ing them together is a nice idea), or file it at bugzilla.gnome.org. 
 *Never* post big patches to the mailing lists, since they will annoy 
 subscribers and are liable to be rejected by the list server. Send
 a reference email to the list mentioning that you have sent a patch.
@@ -325,7 +325,17 @@ AnjutaPreferences in the reference.
 FIXME: For no take a look at the project types in 
 plugins/project-wizard/templates
 
-8) How to correctly credit people:
+8) Debug messages
+---------------------------------
+
+Do not use g_message/g_warning for debug messages. Use DEBUG_PRINT instead which
+is defined in libanjuta/anjuta-debug.h. This will assure that debug messages
+are only presented to developers and not to normal users. Debug messages will
+only be shown if --enable-debug is passed to configure/autogen which means that
+DEBUG is defined.
+
+
+9) How to correctly credit people:
 ----------------------------------
 
 New contributors must always be credited in AUTHORS file

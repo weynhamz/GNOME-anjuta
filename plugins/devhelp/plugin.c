@@ -377,7 +377,7 @@ on_context_help_idle (gpointer data)
 
 	if (IANJUTA_IS_EDITOR (dh_plugin->priv->editor) == FALSE)
 	{
-		g_warning ("Current Editor does not support IAnjutaEditor interface");
+		DEBUG_PRINT ("Current Editor does not support IAnjutaEditor interface");
 		return FALSE;
 	}
 	editor = IANJUTA_EDITOR (dh_plugin->priv->editor);

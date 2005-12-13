@@ -886,7 +886,7 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 		{
 			if (strcmp (parents, old_parents) != 0)
 			{
-				g_warning ("Class '%s' has different parents '%s' and '%s'",
+				DEBUG_PRINT ("Class '%s' has different parents '%s' and '%s'",
 						   class_name, old_parents, parents);
 			}
 			continue;
