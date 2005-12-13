@@ -6,13 +6,6 @@
 	
 	* plugins/cvs-plugin/cvs-callbacks.c:
 	Fixed dialog handling for empty log message
-	
-	* plugins/editor/text_editor.c:
-	plugins/document-manager/plugin.c
-	plugins/cvs-plugin/cvs-callbacks.c
-	libanjuta/interfaces/libanjuta.idl:
-	
-	# Fixed bug #309688
 
 2005-12-13  Johannes Schmid <jhs@gnome.org>
 
