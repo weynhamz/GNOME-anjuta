@@ -18,6 +18,8 @@
 #include <setjmp.h>
 #include <glib.h>
 
+#include <libanjuta/anjuta-debug.h>
+
 #include "debug.h"
 #include "entry.h"
 #include "get.h"
@@ -1872,7 +1874,7 @@ static int parseParens (statementInfo *const st, parenInfo *const info)
 	{
 	    case '&':
 	    case '*':
-		printf("parseParens, po++\n");
+		DEBUG_PRINT("parseParens, po++\n");
 		info->pointerOrder++;
 		info->isKnrParamList = FALSE;
 		if (identifierCount == 0)

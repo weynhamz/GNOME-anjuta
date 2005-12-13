@@ -1,3 +1,7 @@
+2005-12-13  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/search/plugin.c: Fixed search toolbar (FIXME: Wrapping);
+
 2005-12-12  Johannes Schmid <jhs@gnome.org>
 
 	Patch from Johan Ersvik <jersvik@fastmail.fm>:

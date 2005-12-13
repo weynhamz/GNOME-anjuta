@@ -21,6 +21,7 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include <libegg/menu/egg-entry-action.h>
 
@@ -31,6 +32,47 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-search.ui"
 #define ICON_FILE "anjuta-search.png"
+
+/* Find next occurence of expression in Editor
+   Caching of FileBuffer might be useful here to improve performance
+   Returns: TRUE = found, FALSE = not found
+*/
+
+static gboolean find_incremental(IAnjutaEditor* te, gchar* expression, 
+								 SearchDirection dir)
+{
+	FileBuffer* fb = file_buffer_new_from_te (te);
+	SearchExpression* se = g_new0(SearchExpression, 1);
+	MatchInfo* info;
+	gboolean ret;
+		
+	se->search_str = expression;
+	se->regex = FALSE;
+	se->greedy = FALSE;
+	se->ignore_case = TRUE;
+	se->whole_word = FALSE;
+	se->whole_line = FALSE;
+	se->word_start = FALSE;
+	se->no_limit = FALSE;
+	se->actions_max = 1;
+	se->re = NULL;
+	
+	info = get_next_match(fb, dir, se);
+	
+	if (info != NULL)
+	{
+		ianjuta_editor_set_selection(te, info->pos, info->pos + info->len, NULL);
+		ret = TRUE;
+	}
+	else
+		ret = FALSE;
+	
+	match_info_free(info);
+	file_buffer_free(fb);
+	g_free(se);
+	
+	return ret;
+}
 
 static void
 on_find1_activate (GtkAction * action, gpointer user_data)
@@ -104,23 +146,20 @@ on_enterselection (GtkAction * action, gpointer user_data)
 static void
 on_prev_occur(GtkAction * action, gpointer user_data)
 {
-	// FIXME
-	#if 0
-    TextEditor* te;
-	AnjutaDocman *docman;
-	DocmanPlugin *plugin;
-	
-	gboolean ret;
+	IAnjutaEditor* te;
+	IAnjutaDocumentManager *docman;
+	SearchPlugin *plugin;
+	gchar* ret;
     gint return_;
 	gchar *buffer = NULL;
 	
-	plugin = (DocmanPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor(docman);
+	plugin = (SearchPlugin *) user_data;
+	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
+										IAnjutaDocumentManager, NULL);
+	te = ianjuta_document_manager_get_current_editor(docman, NULL);
 	if(!te) return;
-	if (text_editor_has_selection(te))
+	if ((buffer = ianjuta_editor_get_selection(te, NULL)))
 	{
-		buffer = text_editor_get_selection(te);
 		g_strstrip(buffer);
 		if ('\0' == *buffer)
 		{
@@ -131,38 +170,36 @@ on_prev_occur(GtkAction * action, gpointer user_data)
 	if (NULL == buffer)
 	{
 		buffer = g_new(char, 256);
-		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, 255L);
+		ret = ianjuta_editor_get_current_word(te, NULL);
 		if (!ret)
 		{
 			g_free(buffer);
 			return;
 		}
 	}
-    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,0,0,1,1,0);
+    return_= find_incremental(te, buffer, SD_BACKWARD);
 	
 	g_free(buffer);
-	
-	#endif
 }
 
 static void 
 on_next_occur(GtkAction * action, gpointer user_data)
 {
-	// FIXME
-	#if 0
-	gboolean ret;
-	gchar *buffer = NULL;
+	IAnjutaEditor* te;
+	IAnjutaDocumentManager *docman;
+	SearchPlugin *plugin;
+	
+	gchar* ret;
     gint return_;
-    TextEditor* te;
-	AnjutaDocman *docman;
-	DocmanPlugin *plugin;
-	plugin = (DocmanPlugin *) user_data;
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor(docman);
+	gchar *buffer = NULL;
+	
+	plugin = (SearchPlugin *) user_data;
+	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
+										IAnjutaDocumentManager, NULL);
+	te = ianjuta_document_manager_get_current_editor(docman, NULL);
 	if(!te) return;
-	if (text_editor_has_selection(te))
+	if ((buffer = ianjuta_editor_get_selection(te, NULL)))
 	{
-		buffer = text_editor_get_selection(te);
 		g_strstrip(buffer);
 		if ('\0' == *buffer)
 		{
@@ -173,18 +210,16 @@ on_next_occur(GtkAction * action, gpointer user_data)
 	if (NULL == buffer)
 	{
 		buffer = g_new(char, 256);
-		ret = aneditor_command (te->editor_id, ANE_GETCURRENTWORD, (long)buffer, 255L);
+		ret = ianjuta_editor_get_current_word(te, NULL);
 		if (!ret)
 		{
 			g_free(buffer);
 			return;
 		}
 	}
-    return_=text_editor_find(te,buffer,TEXT_EDITOR_FIND_SCOPE_CURRENT,1,0,1,1,0);
+    return_= find_incremental(te, buffer, SD_FORWARD);
 	
 	g_free(buffer);
-	
-	#endif
 }
 
 /* Incremental search */
@@ -212,10 +247,13 @@ on_incremental_entry_key_press (GtkWidget *entry, GdkEventKey *event,
 
 static void on_toolbar_find_start_over(GtkAction * action, gpointer user_data);
 
+/* FIXME: Wrapping does not yet work */
+
 static void
 on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 {
 	const gchar *string;
+	gchar* expression;
 	gint ret;
 	IAnjutaEditor *te;
 	IAnjutaDocumentManager *docman;
@@ -253,20 +291,25 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 		g_return_if_fail (EGG_IS_ENTRY_ACTION (entry_action));
 		string = egg_entry_action_get_text (EGG_ENTRY_ACTION (entry_action));
 	}
-	if (search_params->pos >= 0 && search_params->wrap)
+	if (search_params->pos >= 0 &&  search_params->wrap)
 	{
 		/* If incremental search wrap requested, so wrap it. */
 		search_wrap = TRUE;
 	}
-	/* FIXME:
-	ret = text_editor_find (te, string,
-							TEXT_EDITOR_FIND_SCOPE_CURRENT,
-							TRUE,
-							FALSE, TRUE, FALSE, search_wrap);
-	*/
+	
+	expression = g_strdup(string);
+	if (search_wrap)
+	{
+		ret = find_incremental(te, expression, SD_BEGINNING);
+	}
+	else
+	{
+		ret = find_incremental(te, expression, SD_FORWARD);
+	}
+	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (user_data)->shell, NULL);
 	
-	if (ret < 0) {
+	if (ret == FALSE) {
 		if (search_params->pos < 0)
 		{
 			GtkWindow *parent;

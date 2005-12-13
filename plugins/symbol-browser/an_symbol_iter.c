@@ -20,6 +20,7 @@
 
 #include <libgnome/gnome-macros.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include "an_symbol_iter.h"
@@ -183,7 +184,7 @@ static void
 isymbol_iter_set (IAnjutaIterable *iterable, GType data_type,
 				  gpointer data, GError **err)
 {
-	g_warning ("set() is not valid for AnjutaSymbolIter implementation");
+	DEBUG_PRINT ("set() is not valid for AnjutaSymbolIter implementation");
 }
 
 static void
