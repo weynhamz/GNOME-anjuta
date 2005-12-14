@@ -35,6 +35,9 @@
 #include <libgnome/gnome-util.h>
 
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
+
+#include <libgnomevfs/gnome-vfs.h>
 
 #define FILE_BUFFER_SIZE 1024
 
@@ -893,6 +896,45 @@ anjuta_util_escape_quotes(const gchar* str)
 	}
 	buffer[idx] = '\0';
 	return buffer;
+}
+
+/* Diff the text contained in uri with text. Return true if files
+differ, FALSE if they are identical.
+FIXME: Find a better algorithm, this seems ineffective */
+
+gboolean anjuta_util_diff(const gchar* uri, const gchar* text)
+{
+	GnomeVFSFileSize bytes_read;
+	
+	gchar* file_text;
+	
+	GnomeVFSHandle* handle = NULL;
+	GnomeVFSFileInfo info;
+	
+	gnome_vfs_get_file_info(uri, &info, GNOME_VFS_FILE_INFO_DEFAULT);
+	
+	file_text = g_new0(gchar, info.size + 1);
+	
+	if (gnome_vfs_open(&handle, uri, GNOME_VFS_OPEN_READ != GNOME_VFS_OK))
+		return TRUE;
+	
+	if ((gnome_vfs_read(handle, file_text, info.size, &bytes_read) == GNOME_VFS_OK)
+		&& (bytes_read == info.size))
+	{
+		gnome_vfs_close(handle);
+		DEBUG_PRINT("File text: %d", strlen(file_text));
+		DEBUG_PRINT("text: %d", strlen(text));
+		
+		if ((strlen(file_text) == strlen(text))
+			&& strcmp(file_text, text) == 0)
+			return FALSE;
+		return TRUE;
+	}
+	else
+	{
+		gnome_vfs_close(handle);
+		return TRUE;
+	}
 }
 
 /*

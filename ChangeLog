@@ -1,3 +1,11 @@
+2005-12-14  Johannes Schmid <jhs@gnome.org>
+	
+	* plugins/editor/text_editor.c
+	libanjuta/anjuta-utils.c:
+	
+	Check if files differ when gnome-vfs monitoring is used.
+	(Bug #309688)
+
 2005-12-13  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c:

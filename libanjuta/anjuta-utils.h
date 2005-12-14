@@ -26,6 +26,8 @@
 
 gboolean anjuta_util_copy_file (gchar * src, gchar * dest, gboolean show_error);
 
+gboolean anjuta_util_diff(const gchar* uri, const gchar* text);
+
 void anjuta_util_color_from_string (const gchar * val, guint8 * r,
 									guint8 * g, guint8 * b);
 

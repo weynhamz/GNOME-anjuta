@@ -306,7 +306,11 @@ on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
 		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
 		return;
 	
-	
+	if (!anjuta_util_diff(te->uri, ianjuta_editor_get_text(IANJUTA_EDITOR(te),
+													   0,
+													   ianjuta_editor_get_length(IANJUTA_EDITOR(te), NULL),
+													   NULL)))
+		return;
 	
 	if (strcmp (monitor_uri, info_uri) != 0)
 		return;
