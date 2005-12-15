@@ -56,7 +56,7 @@ static gboolean find_incremental(IAnjutaEditor* te, gchar* expression,
 	se->no_limit = FALSE;
 	se->actions_max = 1;
 	se->re = NULL;
-	
+
 	info = get_next_match(fb, dir, se);
 	
 	if (info != NULL)
@@ -300,7 +300,9 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 	expression = g_strdup(string);
 	if (search_wrap)
 	{
-		ret = find_incremental(te, expression, SD_BEGINNING);
+		ianjuta_editor_goto_position(te, 0, NULL);
+		ret = find_incremental(te, expression, SD_FORWARD);
+		search_params->wrap = FALSE;
 	}
 	else
 	{
