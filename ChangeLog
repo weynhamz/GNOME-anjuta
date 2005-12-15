@@ -1,3 +1,12 @@
+2005-12-15  Johannes Schmid,,,  <set EMAIL_ADDRESS environment variable>
+
+	* plugins/document-manager/action-callbacks.c:
+	(on_save_all1_activate), (on_swap_activate)
+	plugins/document-manager/anjuta-docman.c:
+	(on_save_as_filesel_response), (on_notebook_switch_page):
+	
+	Fixed some remaining issues in document-manger
+
 2005-12-15	Johannes Schmid <jhs@gnome.org>
 
 	* plugins/profile-default/default.anjuta:
