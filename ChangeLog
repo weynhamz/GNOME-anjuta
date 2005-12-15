@@ -1,3 +1,8 @@
+2005-12-15	Johannes Schmid <jhs@gnome.org>
+
+	* plugins/profile-default/default.anjuta:
+	Load Search plugin and Message Manager by default
+
 2005-12-14  Johannes Schmid <jhs@gnome.org>
 	
 	* plugins/editor/text_editor.c

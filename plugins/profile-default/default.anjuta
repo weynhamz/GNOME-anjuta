@@ -21,12 +21,19 @@
                  attribute="Location"
                  value="anjuta-file-wizard:AnjutaFileWizardPlugin"/>
     </plugin>
-    <plugin name="API Help System"
+    <plugin name="Message Manager"
             url="http://anjuta.org/plugins/"
             mandatory="yes">
 		<require group="Anjuta Plugin"
                  attribute="Interfaces"
-                 value="IAnjutaHelp"/>
+                 value="IAnjutaMessageManager"/>
+    </plugin>
+    <plugin name="Search Plugin"
+            url="http://anjuta.org/plugins/"
+            mandatory="yes">
+		<require group="Anjuta Plugin"
+                 attribute="Location"
+                 value="anjuta-search:SearchPlugin"/>
     </plugin>
     <plugin name="File Manager"
             url="http://anjuta.org/plugins/"
