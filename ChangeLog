@@ -1,4 +1,4 @@
-2005-12-15  Johannes Schmid,,,  <set EMAIL_ADDRESS environment variable>
+2005-12-15  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/action-callbacks.c:
 	(on_save_all1_activate), (on_swap_activate)
