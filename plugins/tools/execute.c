@@ -91,36 +91,19 @@ typedef struct _ATPExecutionContext
  *---------------------------------------------------------------------------*/
 
 /* Save all current anjuta files */
-static gboolean
+static void
 save_all_files (AnjutaPlugin *plugin)
 {
 	IAnjutaDocumentManager *docman;
-	GList* node;
-	gboolean save;
+	IAnjutaFileSavable* save;
 
-	save = FALSE;	
-	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-										 IAnjutaDocumentManager, NULL);
+	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager, NULL);
 	/* No document manager, so no file to save */
-	if (docman == NULL) return FALSE;
-
-	for (node = ianjuta_document_manager_get_editors (docman, NULL);
-		 node != NULL; node = g_list_next (node))
+	if (docman != NULL)
 	{
-		IAnjutaFileSavable* ed;
-
-		ed = IANJUTA_FILE_SAVABLE (node->data);
-		if (ed)
-		{
-			if (ianjuta_file_savable_is_dirty (ed, NULL))
-			{
-				ianjuta_file_savable_save (ed, NULL);
-				save = TRUE;
-			}
-		}
+		save = IANJUTA_FILE_SAVABLE (docman);
+		if (save) ianjuta_file_savable_save (save, NULL);
 	}
-
-	return save;
 }
 
 /* Replace variable in source and add prefix separated with a space */

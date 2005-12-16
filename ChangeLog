@@ -1,3 +1,12 @@
+2005-12-15 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	Save all files in editor before running a command
+
+	* plugins/tools/execute.c:
+	Use document manager plugin instead of each editor for
+	saving all files
+
 2005-12-15  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/action-callbacks.c:
