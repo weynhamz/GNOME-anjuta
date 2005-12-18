@@ -1,4 +1,8 @@
-2005-12-15 Sebastien Granjoux <seb.sfo@free.fr>
+2005-12-18  Johannes Schmid <jhs@gnome.org>
+	
+	po/POTFILES.in: Updated files after directory changes
+
+2005-12-15  Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c:
 	Save all files in editor before running a command
