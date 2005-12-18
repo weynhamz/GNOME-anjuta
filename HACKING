@@ -99,29 +99,19 @@ mis-syncs are easily detected. Non-unified formats are hard to read.
 2) Diffs taken against CVS should be preceded by "cvs -z3 up" in 
 *all* cases.
 
-3) If anonymous CVS is used, one way of to matching more closely with 
-the actual CVS is by running "cvs -z3 up" on all three anonymous CVS 
-servers (annocvs1.gnome.org, annocvs2.gnome.org and annocvs3.gnome.org). 
-Run the following command in succession for the three servers:
-
-cvs -d:pserver:annocvs[123].gnome.org:/cvs/gnome/anjuta
-
-Details about the anonymous CVS servers can be obtained by issuing the 
-command "host annocvs.gnome.org"
-
 (Note: You can of course use the cvs plugin for all this stuff)
 
-4) If the patch is big or is not high priority (i.e. things other than 
+3) If the patch is big or is not high priority (i.e. things other than 
 stability patches), then either send it to the lead developers directly 
 (cc-ing them together is a nice idea), or file it at bugzilla.gnome.org. 
 *Never* post big patches to the mailing lists, since they will annoy 
 subscribers and are liable to be rejected by the list server. Send
 a reference email to the list mentioning that you have sent a patch.
 
-5) *Always* include a ChangeLog entry as part of the diff to ensure that
+4) *Always* include a ChangeLog entry as part of the diff to ensure that
 your entry is also committed directly with your name mentioned.
 
-6) Name the patch with a useful filename. e.g. avoid calling your patch
+5) Name the patch with a useful filename. e.g. avoid calling your patch
 patch.diff, anjuta.diff or something like that. It is easier to manage
 a queue of patches named things like biswa-print-20020605.diff and 
 bug-544912.diff as the names are more meaningful. Include the bug number
