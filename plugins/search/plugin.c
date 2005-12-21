@@ -427,7 +427,8 @@ on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data)
 	docman = plugin->docman;
 	te = ianjuta_document_manager_get_current_editor(docman, NULL);
 
-	if (!te) return FALSE;
+	if (!te) 
+		return FALSE;
 		
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (user_data)->shell, NULL);
 	anjuta_status_clear_stack (status);
@@ -559,9 +560,9 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_toolbar_find_clicked), plugin);
 	g_signal_connect (action, "changed",
 					  G_CALLBACK (on_toolbar_find_incremental), plugin);
-	g_signal_connect (action, "focus-in",
+	g_signal_connect (action, "focus-in-event",
 					  G_CALLBACK (on_toolbar_find_incremental_start), plugin);
-	g_signal_connect (action, "focus_out",
+	g_signal_connect (action, "focus-out-event",
 					  G_CALLBACK (on_toolbar_find_incremental_end), plugin);
 	gtk_action_group_add_action (group, action);
 	anjuta_ui_add_action_group(ui, "ActionGroupSearch", _("Search Toolbar"), group);

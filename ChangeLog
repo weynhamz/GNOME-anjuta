@@ -1,3 +1,17 @@
+2005-12-21	Johannes Schmid <jhs@gnome.org>
+	
+	* plugins/search/plugin.c:
+	Fixed signal names
+	* libanjuta/anjuta-encodings.c: Don't crash if uninitialized. Further
+	investigation needed.
+	
+	AUTHORS: Added Ross Goldner
+
+2005-12-19  Ross Golder  <ross@golder.org>
+
+	* plugins/document-manager/anjuta-document-manager.plugin.in: Added
+	application/xml MIME type.
+
 2005-12-18  Johannes Schmid <jhs@gnome.org>
 	
 	po/POTFILES.in: Updated files after directory changes
