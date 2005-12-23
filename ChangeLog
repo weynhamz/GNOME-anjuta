@@ -1,3 +1,9 @@
+2005-12-23  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+	* plugins/search/search-replace.c :
+	Bookmark all matched lines.
+	* plugins/search/search-replace_backend.c :
+	Fixed bug (Search in all project files).
+
 2005-12-21	Johannes Schmid <jhs@gnome.org>
 	
 	* plugins/search/plugin.c:
