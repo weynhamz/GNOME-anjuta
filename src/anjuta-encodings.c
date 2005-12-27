@@ -562,6 +562,8 @@ on_down_encoding (GtkButton *button)
 static void
 on_stock_selection_changed (GtkTreeSelection *selection)
 {
+	if (!anjuta_encodings_dialog)
+		return;
 	if (gtk_tree_selection_count_selected_rows (selection) > 0)
 		gtk_widget_set_sensitive (anjuta_encodings_dialog->add_button, TRUE);
 	else
@@ -574,6 +576,9 @@ on_supported_selection_changed (GtkTreeSelection *selection)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	
+	if (!anjuta_encodings_dialog)
+		return;
+
 	if (gtk_tree_selection_get_selected (selection, &model, &iter) > 0)
 	{
 		GtkTreePath *path;
