@@ -80,6 +80,7 @@ static gboolean
 										_("Sample file operations"),
 										actions_file,
 										G_N_ELEMENTS (actions_file),
+										GETTEXT_PACKAGE,
 										plugin);
 	[+NameCLower+]->uiid = anjuta_ui_merge (ui, UI_FILE);
 [+ENDIF+]

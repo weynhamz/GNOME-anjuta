@@ -22,7 +22,7 @@
 # include <config.h>
 #endif
 
-#include <gnome.h>
+#include <gtk/gtkaboutdialog.h>
 #include <libanjuta/plugins.h>
 
 #include "about.h"
@@ -177,34 +177,35 @@ about_box_new ()
 	
 	pix = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ANJUTA_PIXMAP_LOGO,
 									NULL);
+
+/* Use GTK 2.6 about dialog */
+#if 0
 	dialog = gnome_about_new ("Anjuta", VERSION, 
 							  _("Copyright (c) Naba Kumar"),
 							  _("Integrated Development Environment"),
 							  authors, documenters, translators, pix);
-	g_object_unref (pix);
-#if 0
-	/* GTK provides a new about dialog now, please activate
-	when we swith to GTK 2.6 */
+#endif
+	
 	dialog = gtk_about_dialog_new();
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "Anjuta");
 	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION);
 	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), 
 		_("Copyright (c) Naba Kumar"));
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),
-		_("Integrated Development Environment");
+		_("Integrated Development Environment"));
 	gtk_about_dialog_set_license(GTK_ABOUT_DIALOG(dialog), 
 		_("GNU General Public License"));
 	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "www.anjuta.org");
-	gtk_about_dialog_set_icon(GTK_ABOUT_DIALOG(dialog), pix);
+	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pix);
 	
 	gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog), authors);
-	gtk_about_dialog_set_documenters(GTK_ABOUT_DIALOG(dialog), documentors);
+	gtk_about_dialog_set_documenters(GTK_ABOUT_DIALOG(dialog), documenters);
+	gtk_about_dialog_set_translator_credits(GTK_ABOUT_DIALOG(dialog), translators);
 	/* We should fill this!
-	gtk_about_dialog_set_translator_credits(GTK_ABOUT_DIALOG(dialog), ???);
 	gtk_about_dialog_set_artists(GTK_ABOUT_DIALOG(dialog), ???);*/
-#endif
 	/* Free authors, documenters, translators */
 	about_free_credit();
+	g_object_unref (pix);
 	return dialog;
 }
 
@@ -237,8 +238,18 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
 	{
 		authors_v = g_strsplit(authors, ",", -1);
 	}
-	dialog = gnome_about_new (name, VERSION, _("Anjuta plugin"), d,
-							  authors_v, NULL, NULL, pix);
+	/*dialog = gnome_about_new (name, VERSION, _("Anjuta plugin"), d,
+							  authors_v, NULL, NULL, pix);*/
+	dialog = gtk_about_dialog_new();
+	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), name);
+	gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), VERSION);
+	gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), 
+		_("Anjuta Plugin"));
+	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),d);
+	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pix);
+	
+	gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog), authors_v);
+	
 	gtk_widget_show (dialog);
 	g_object_unref (pix);
 	g_strfreev (authors_v);

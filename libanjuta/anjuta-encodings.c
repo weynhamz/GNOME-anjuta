@@ -734,11 +734,11 @@ anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (stock_treeview));
 	g_return_if_fail (selection != NULL);
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
-	g_signal_connect (G_OBJECT (selection), "changed",
-					  G_CALLBACK (on_stock_selection_changed), NULL);
 
 	model = create_encodings_treeview_model ();
 	gtk_tree_view_set_model (GTK_TREE_VIEW (stock_treeview), model);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_stock_selection_changed), NULL);
 	g_object_unref (model);
 
 	/* Add the encoding column for supported treeview*/
@@ -753,13 +753,13 @@ anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (supported_treeview));
 	g_return_if_fail (selection != NULL);
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
-	g_signal_connect (G_OBJECT (selection), "changed",
-					  G_CALLBACK (on_supported_selection_changed), NULL);
 
 	/* create list store */
 	model = GTK_TREE_MODEL (gtk_list_store_new (SUPPORTED_ENCODING_NUM_COLS,
 												G_TYPE_STRING, G_TYPE_POINTER));
 	gtk_tree_view_set_model (GTK_TREE_VIEW (supported_treeview), model);
+	g_signal_connect (G_OBJECT (selection), "changed",
+					  G_CALLBACK (on_supported_selection_changed), NULL);
 	g_object_unref (model);
 	
 	anjuta_preferences_register_property_custom (pref, supported_treeview,

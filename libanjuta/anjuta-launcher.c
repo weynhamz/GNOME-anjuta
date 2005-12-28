@@ -576,10 +576,10 @@ anjuta_launcher_buffered_output (AnjutaLauncher *launcher,
 	gchar *all_lines;
 	gchar *incomplete_line;
 	gchar **buffer;
-	
+
 	g_return_if_fail (chars != NULL);
 	g_return_if_fail (strlen (chars) > 0);
-	
+
 	if (launcher->priv->output_callback == NULL)
 		return;
 	if (launcher->priv->buffered_output == FALSE)
@@ -606,7 +606,7 @@ anjuta_launcher_buffered_output (AnjutaLauncher *launcher,
 		all_lines = g_strdup (chars);
 	
 	/* Buffer the last incomplete line */
-	incomplete_line = all_lines + strlen (all_lines) - 1;
+	incomplete_line = all_lines + strlen (all_lines);
 	while (incomplete_line > all_lines &&
 		   *incomplete_line != '\n')
 	{
@@ -642,30 +642,35 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 	gsize n;
 	gchar buffer[FILE_BUFFER_SIZE];
 	gboolean ret = TRUE;
-	
+
 	if (condition & G_IO_IN)
 	{
 		GError *err = NULL;
-		g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
-		if (n > 0 && !err) /* There is output */
+		do
 		{
-			gchar *utf8_chars;
-			buffer[n] = '\0';
-			utf8_chars = anjuta_util_convert_to_utf8 (buffer);
-			anjuta_launcher_buffered_output (launcher,
-											 ANJUTA_LAUNCHER_OUTPUT_STDOUT,
-											 utf8_chars);
-			g_free (utf8_chars);
-		}
-		/* The pipe is closed on the other side */
-		/* if not related to non blocking read or interrupted syscall */
-		else if (err && errno != EAGAIN && errno != EINTR)
-		{
-			/* DEBUG_PRINT ("launcher.c: Error while reading child stdout\n"); */
-			launcher->priv->stdout_is_done = TRUE;
-			anjuta_launcher_synchronize (launcher);
-			ret = FALSE;
-		}
+			g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
+			if (n > 0 && !err) /* There is output */
+			{
+				gchar *utf8_chars;
+				buffer[n] = '\0';
+				utf8_chars = anjuta_util_convert_to_utf8 (buffer);
+				anjuta_launcher_buffered_output (launcher,
+												 ANJUTA_LAUNCHER_OUTPUT_STDOUT,
+												 utf8_chars);
+				g_free (utf8_chars);
+			}
+			/* The pipe is closed on the other side */
+			/* if not related to non blocking read or interrupted syscall */
+			else if (err && errno != EAGAIN && errno != EINTR)
+			{
+				/* DEBUG_PRINT ("launcher.c: Error while reading child stdout\n"); */
+				launcher->priv->stdout_is_done = TRUE;
+				anjuta_launcher_synchronize (launcher);
+				ret = FALSE;
+			}
+		/* Read next chars if buffer was too small
+		 * (the maximum length of one character is 6 bytes) */
+		} while (!err && (n > FILE_BUFFER_SIZE - 7));
 		if (err)
 			g_error_free (err);
 	}
@@ -690,26 +695,31 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 	if (condition & G_IO_IN)
 	{
 		GError *err = NULL;
-		g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
-		if (n > 0 && !err) /* There is stderr output */
+		do
 		{
-			gchar *utf8_chars;
-			buffer[n] = '\0';
-			utf8_chars = anjuta_util_convert_to_utf8 (buffer);
-			anjuta_launcher_buffered_output (launcher,
-											 ANJUTA_LAUNCHER_OUTPUT_STDERR,
-											 utf8_chars);
-			g_free (utf8_chars);
-		}
-		/* The pipe is closed on the other side */
-		/* if not related to non blocking read or interrupted syscall */
-		else if (err && errno != EAGAIN && errno != EINTR)
-		{
-			/* DEBUG_PRINT ("launcher.c: Error while reading child stderr");*/
-			launcher->priv->stderr_is_done = TRUE;
-			anjuta_launcher_synchronize (launcher);
-			ret = FALSE;
-		}
+			g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
+			if (n > 0 && !err) /* There is stderr output */
+			{
+				gchar *utf8_chars;
+				buffer[n] = '\0';
+				utf8_chars = anjuta_util_convert_to_utf8 (buffer);
+				anjuta_launcher_buffered_output (launcher,
+												 ANJUTA_LAUNCHER_OUTPUT_STDERR,
+												 utf8_chars);
+				g_free (utf8_chars);
+			}
+			/* The pipe is closed on the other side */
+			/* if not related to non blocking read or interrupted syscall */
+			else if (err && errno != EAGAIN && errno != EINTR)
+			{
+				/* DEBUG_PRINT ("launcher.c: Error while reading child stderr");*/
+				launcher->priv->stderr_is_done = TRUE;
+				anjuta_launcher_synchronize (launcher);
+				ret = FALSE;
+			}
+		/* Read next chars if buffer was too small
+		 * (the maximum length of one character is 6 bytes) */
+		} while (!err && (n > FILE_BUFFER_SIZE - 7));
 		if (err)
 			g_error_free (err);
 	}
@@ -734,30 +744,35 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 	if (condition & G_IO_IN)
 	{
 		GError *err = NULL;
-		g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
-		if (n > 0 && !err) /* There is stderr output */
+		do
 		{
-			gchar *utf8_chars;
-			gchar *old_str = launcher->priv->pty_output_buffer;
-			buffer[n] = '\0';
-			utf8_chars = anjuta_util_convert_to_utf8 (buffer);
-			if (old_str)
+			g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
+			if (n > 0 && !err) /* There is stderr output */
 			{
-				gchar *str = g_strconcat (old_str, utf8_chars, NULL);
-				launcher->priv->pty_output_buffer = str;
-				g_free (old_str);
+				gchar *utf8_chars;
+				gchar *old_str = launcher->priv->pty_output_buffer;
+				buffer[n] = '\0';
+				utf8_chars = anjuta_util_convert_to_utf8 (buffer);
+				if (old_str)
+				{
+					gchar *str = g_strconcat (old_str, utf8_chars, NULL);
+					launcher->priv->pty_output_buffer = str;
+					g_free (old_str);
+				}
+				else
+					launcher->priv->pty_output_buffer = g_strdup (utf8_chars);
+				g_free (utf8_chars);
 			}
-			else
-				launcher->priv->pty_output_buffer = g_strdup (utf8_chars);
-			g_free (utf8_chars);
-		}
-		/* The pipe is closed on the other side */
-		/* if not related to non blocking read or interrupted syscall */
-		else if (err && errno != EAGAIN && errno != EINTR)
-		{
-			g_warning (_("launcher.c: Error while reading child pty\n"));
-			ret = FALSE;
-		}
+			/* The pipe is closed on the other side */
+			/* if not related to non blocking read or interrupted syscall */
+			else if (err && errno != EAGAIN && errno != EINTR)
+			{
+				g_warning (_("launcher.c: Error while reading child pty\n"));
+				ret = FALSE;
+			}
+		/* Read next chars if buffer was too small
+		 * (the maximum length of one character is 6 bytes) */
+		} while (!err && (n > FILE_BUFFER_SIZE - 7));
 		if (err)
 			g_error_free (err);
 		if (launcher->priv->check_for_passwd_prompt

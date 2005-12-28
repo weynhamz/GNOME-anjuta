@@ -1,3 +1,22 @@
+2005-12-17 Sebastien Granjoux <seb.sfo@free.fr>
+ 
+ 	* libanjuta/anjuta-launcher.c:
+ 	Fix a bug in AnjutaLauncher when output is bigger than buffer
+ 	Probably fix bug #315188 and #305134
+
+2005-12-28	Johannes Schmid <jhs@gnome.org>
+	
+	* configure: Changed required gtk to 2.6.0, bumped VERSION to 2.02cvs
+	* src/about.c: Use new gtk about dialog
+	* plugins/project-wizard/templates/anjuta-plugin/src/plugin.c:
+	Updated anjuta_ui_add_action_group_entries call
+	
+	Patch from Jean Breford <jean.breford@normalesup.org>
+	and Markus Habermehl <bmh1980de@yahoo.de>:
+	
+	* libanjuta/anjuta-encodings.c: Fix crash in a much more nice way
+	* AUTHORS: Added Jean and Markus
+
 2005-12-23  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 	* plugins/search/search-replace.c :
 	Bookmark all matched lines.
