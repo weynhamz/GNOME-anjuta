@@ -53,7 +53,6 @@ plugins/document-manager/goto_line.c
 plugins/document-manager/indent-dialog.c
 plugins/document-manager/plugin.c
 plugins/editor/plugin.c
-plugins/editor/print.c
 plugins/editor/text_editor.c
 plugins/editor/text_editor_cbs.c
 plugins/editor/text_editor_menu.c
@@ -118,13 +117,6 @@ plugins/profile-default/plugin.c
 plugins/project-import/anjuta-project-import.glade
 plugins/project-import/project-import.c
 plugins/project-manager/plugin.c
-plugins/project-manager/project_dbase.c
-plugins/project-manager/project_dbase_gui.c
-plugins/project-manager/project_import.c
-plugins/project-manager/project_import_cbs.c
-plugins/project-manager/project_import_gui.c
-plugins/project-manager/source.c
-plugins/project-manager/src_paths.c
 plugins/project-wizard/anjuta-project-wizard.glade
 plugins/project-wizard/druid.c
 plugins/project-wizard/install.c
