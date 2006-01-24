@@ -34,6 +34,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
 
 #include <libgnomevfs/gnome-vfs.h>
 
@@ -65,6 +66,7 @@ enum {
 	ATP_PROJECT_MANAGER_CURRENT_EXTENSION,
 	ATP_EDITOR_CURRENT_FILENAME,
 	ATP_EDITOR_CURRENT_FILENAME_WITHOUT_EXT,
+	ATP_EDITOR_CURRENT_DIRECTORY,
 	ATP_EDITOR_CURRENT_SELECTION,
 	ATP_EDITOR_CURRENT_WORD,
 	ATP_EDITOR_CURRENT_LINE,
@@ -97,6 +99,7 @@ static const struct
  {"project_manager_current_extension", "selected project manager file extension", ATP_DEFAULT_VARIABLE },
  {"editor_current_filename", "current edited file name", ATP_FILE_VARIABLE },
  {"editor_current_filename_without_ext", "current edited file name without extension", ATP_FILE_VARIABLE },
+ {"editor_current_directory", "current edited file directory", ATP_DIRECTORY_VARIABLE },
  {"editor_current_selection", "current selection in editor", ATP_FILE_VARIABLE },
  {"editor_current_word", "current word in editor", ATP_FILE_VARIABLE },
  {"editor_current_line", "current line in editor", ATP_FILE_VARIABLE },
@@ -285,6 +288,7 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 	IAnjutaDocumentManager *docman;
 	IAnjutaEditor *ed;
 	gchar* val;
+	gchar* uri;
 	GError* err = NULL;
 
 	docman = anjuta_shell_get_interface (this->shell, IAnjutaDocumentManager, NULL);
@@ -304,6 +308,10 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 		break;
 	case ATP_EDITOR_CURRENT_FILENAME:
 		val = g_strdup (ianjuta_editor_get_filename (ed, &err));
+		break;
+	case ATP_EDITOR_CURRENT_DIRECTORY:
+		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), &err);
+		val = remove_filename(get_path_from_uri(uri));
 		break;
 	default:
 		g_return_val_if_reached (NULL);
@@ -453,6 +461,7 @@ atp_variable_get_value_from_id (const ATPVariable* this, guint id)
 		val = remove_extension (val);
 		break;
 	case ATP_EDITOR_CURRENT_FILENAME:
+	case ATP_EDITOR_CURRENT_DIRECTORY:
 	case ATP_EDITOR_CURRENT_SELECTION:
 	case ATP_EDITOR_CURRENT_WORD:
 	case ATP_EDITOR_CURRENT_LINE:

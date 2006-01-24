@@ -1,3 +1,15 @@
+2005-01-24 Johannes Schmid <jhs@gnome.org>
+
+	* Patch from Eric Greveson <ejg45@cam.ac.uk>
+	plugins/tools/variables.c:
+	Added current directory to possible variables
+
+	* Patch from Günther Brammer <gbrammer@gmx.de>
+	plugins/document-manager/anjuta-docman.c:
+	Fix a crash on opening a file
+
+	AUTHORS: Added Günther Brammer
+
 2005-12-17 Sebastien Granjoux <seb.sfo@free.fr>
  
  	* libanjuta/anjuta-launcher.c:
