@@ -27,7 +27,8 @@ SUBDIRS = . \
 	tools \
 	class-inheritance \
 	document-manager \
-	search
+	search \
+	valgrind 
 #	sourceview
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.

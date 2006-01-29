@@ -1,3 +1,10 @@
+2006-01-29 naba  <naba@gnome.org>
+
+	Patch from Massimo Cora  <maxcvs@email.it>:
+	* configure.in, plugins/Makefile.am,
+	plugins/valgrind/*: Valgrind plugin (requires
+	binutils-dev and valgrind to be installed.
+
 2005-01-24 Johannes Schmid <jhs@gnome.org>
 
 	* Patch from Eric Greveson <ejg45@cam.ac.uk>

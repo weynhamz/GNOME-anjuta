@@ -326,6 +326,44 @@ fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_CLASS_INHERITANCE, [test x$libgraphviz_found = xyes])
 
+dnl FIXME libbfd
+dnl check for libbfd
+AC_CHECK_LIB(bfd, bfd_get_error, [LIBS="$LIBS -Wl,-Bstatic -lbfd -liberty -Wl,-Bdynamic"],
+  AC_ERROR([*** libbfd required to build Anjuta.]),
+  -liberty)
+
+
+dnl we need gconftool-2 in order to install the schema
+AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
+
+if test "x$GCONFTOOL" = "xno"; then
+  AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
+fi
+
+AM_GCONF_SOURCE_2
+
+
+
+
+dnl check for bfd_get_section_size_before_reloc() in libbfd
+AC_MSG_CHECKING(for bfd_get_section_size_before_reloc)
+AC_TRY_LINK([
+        #include <bfd.h>
+        ], [
+        asection *section;
+
+        bfd_get_section_size_before_reloc (section);
+        ],
+        AC_MSG_RESULT(yes)
+        AC_DEFINE(HAVE_BFD_GET_SECTION_SIZE_BEFORE_RELOC, [], [Define if libbfd
+contains the function bfd_get_section_size_before_reloc])
+,
+        AC_MSG_RESULT(no)
+)
+
+
+
+
 dnl Setup Anjuta Library flags
 dnl --------------------------
 LIBANJUTA_CFLAGS='$(GNOME_UI_CFLAGS) $(GLADE_CFLAGS) -I$(top_srcdir)'
@@ -968,6 +1006,7 @@ plugins/tools/Makefile
 plugins/tools/scripts/Makefile
 plugins/tools/scripts/tools-2.xml
 plugins/class-inheritance/Makefile
+plugins/valgrind/Makefile
 plugins/project-import/Makefile
 plugins/project-wizard/templates/Makefile
 plugins/project-wizard/templates/terminal/Makefile
