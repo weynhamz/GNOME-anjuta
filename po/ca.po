@@ -1,14 +1,14 @@
 # Anjuta Catalan translation.
-# Copyright © 2003,2004,2005 Free Software Foundation, Inc.
+# Copyright © 2003-2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
-# Xavier A. Conde Rueda <xavi.conde@gmail.com>, 2003, 2004, 2005.
+# Xavier A. Conde Rueda <xavi.conde@gmail.com>, 2003-2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 1.2.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-04 10:02+0200\n"
-"PO-Revision-Date: 2005-10-09 22:11+0200\n"
+"POT-Creation-Date: 2006-02-04 14:16+0100\n"
+"PO-Revision-Date: 2006-02-04 14:18+0100\n"
 "Last-Translator: Xavier A. Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "EID Anjuta"
 
-#: ../anjuta.desktop.in.in.h:2 ../src/about.c:182 ../src/about.c:194
+#: ../anjuta.desktop.in.in.h:2 ../src/about.c:185 ../src/about.c:195
 #: ../src/main.c:142
 msgid "Integrated Development Environment"
 msgstr "Entorn integrat de desenvolupament"
@@ -34,7 +34,7 @@ msgstr "    "
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:1
-#: ../plugins/editor/anjuta-document-manager.glade.h:2
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:3
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
@@ -76,7 +76,7 @@ msgstr "Inicia Anjuta amb diàleg"
 #: ../anjuta.glade.h:10
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "Application Wizard"
-msgstr "Assistent d'aplicacions"
+msgstr "Auxiliar d'aplicacions"
 
 #: ../anjuta.glade.h:11
 msgid "Ask for parameters at run-time"
@@ -150,7 +150,7 @@ msgstr "Registres de la CPU"
 
 #: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:231
 #: ../plugins/cvs-plugin/cvs-execute.c:235
-#: ../plugins/editor/anjuta-document-manager.glade.h:40
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:58
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
 #: ../plugins/macro/macros.xml.h:9
 msgid "CVS"
@@ -192,7 +192,7 @@ msgstr "Entrades d'un quadre desplegable:"
 msgid "Command Line Parameters"
 msgstr "Paràmetres de la línia d'ordres"
 
-#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:464
+#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:473
 msgid "Command line parameters"
 msgstr "Paràmetres de l'ordre"
 
@@ -420,7 +420,7 @@ msgstr "No tenir en compte els fitxers i els directoris"
 
 #: ../anjuta.glade.h:79
 msgid "Import Wizard"
-msgstr "Assistent d'importació de projectes"
+msgstr "Auxiliar d'importació de projectes"
 
 #: ../anjuta.glade.h:80
 msgid ""
@@ -428,9 +428,9 @@ msgid ""
 "existing Project into Anjuta and convert it into Anjuta Project. There will "
 "be no data loss or modification done to the project."
 msgstr ""
-"Importa un projecte existent. L'assistent d'importació el guiarà per "
-"importar un projecte existent dins d'Anjuta i el convertirà en un projecte "
-"Anjuta. No hi haurà cap pèrdua de dades, ni el projecte serà modificat."
+"Importa un projecte existent. L'auxiliar d'importació el guiarà per importar "
+"un projecte existent dins d'Anjuta i el convertirà en un projecte Anjuta. No "
+"hi haurà cap pèrdua de dades, ni el projecte serà modificat."
 
 #: ../anjuta.glade.h:81
 msgid "Include Paths"
@@ -547,7 +547,8 @@ msgstr "Nou fitxer"
 msgid "No Optimization"
 msgstr "Cap optimització"
 
-#: ../anjuta.glade.h:106 ../plugins/editor/anjuta-document-manager.glade.h:112
+#: ../anjuta.glade.h:106
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:160
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -558,8 +559,7 @@ msgstr ""
 "no hi ha cap projecte obert, seran preferències globals."
 
 # Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
-#. Must declare static, because it will be used forever
-#: ../anjuta.glade.h:107 ../plugins/project-manager/project_dbase.c:198
+#: ../anjuta.glade.h:107
 msgid "Open Project"
 msgstr "Obre un projecte"
 
@@ -571,7 +571,7 @@ msgstr "Obre un projecte existent."
 msgid "Open existing file or create a new file."
 msgstr "Obre un fitxer existent o crea un nou fitxer."
 
-#: ../anjuta.glade.h:110 ../plugins/editor/anjuta-docman.c:320
+#: ../anjuta.glade.h:110 ../plugins/document-manager/anjuta-docman.c:304
 #: ../plugins/file-loader/plugin.c:536 ../plugins/file-loader/plugin.c:811
 #: ../plugins/file-loader/plugin.c:818 ../plugins/file-loader/plugin.c:831
 msgid "Open file"
@@ -645,7 +645,6 @@ msgstr "Programes"
 #: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1042
 #: ../plugins/project-manager/plugin.c:1062
 #: ../plugins/project-manager/plugin.c:1141
-#: ../plugins/project-manager/project_dbase_gui.c:581
 msgid "Project"
 msgstr "Projecte"
 
@@ -783,8 +782,8 @@ msgid ""
 "creation. With the Application Wizard, you will be able to create the "
 "skeleton of various Project types."
 msgstr ""
-"Comenci amb un projecte nou. L'assistent d'aplicacions el guiarà amb la "
-"creació del projecte. Amb l'assistent d'apliacions podrà crear l'esquelet de "
+"Comenceu amb un projecte nou. L'auxiliar d'aplicacions us guiarà amb la "
+"creació del projecte. Amb l'auxiliar d'apliacions podreu crear l'esquelet de "
 "diferents tipus de projectes."
 
 # Netscape_4.7->Dialog Box Control:TEXTIMP.DLL
@@ -816,7 +815,7 @@ msgid "Top level Makefile.am"
 msgstr "Makefile.am de nivell superior"
 
 # Projecte_Mandrake [tm-mandrake.po]
-#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:931
+#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:939
 #: ../plugins/gdb/registers.c:227 ../plugins/gdb/sharedlib.c:128
 #: ../plugins/gdb/signals.c:288 ../plugins/gdb/stack_trace.c:459
 #: ../plugins/subversion/svn-notify.c:119
@@ -845,7 +844,7 @@ msgid "User name:"
 msgstr "Nom d'usuari:"
 
 # Projecte_Mandrake [xmms-ca.po]
-#: ../anjuta.glade.h:163 ../plugins/project-manager/project_dbase_gui.c:871
+#: ../anjuta.glade.h:163
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 msgid "Version:"
 msgstr "Versió:"
@@ -869,15 +868,10 @@ msgid "Working directory:"
 msgstr "Directori de treball:"
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
-#. For the time being
 #: ../anjuta.glade.h:168
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:26
 #: ../plugins/gdb/anjuta-gdb.glade.h:28 ../plugins/gdb/signals.c:190
 #: ../plugins/gdb/signals.c:203 ../plugins/gdb/signals.c:216
-#: ../plugins/project-manager/project_dbase.c:1466
-#: ../plugins/project-manager/project_dbase.c:1472
-#: ../plugins/project-manager/project_dbase.c:1475
-#: ../plugins/project-manager/project_import_cbs.c:227
 #: ../plugins/project-wizard/property.c:207
 msgid "Yes"
 msgstr "Sí"
@@ -907,7 +901,7 @@ msgid "_Disable all"
 msgstr "Inhabilita'ls _tots"
 
 # Winrar 2.9->Menu:rarlng.dll
-#: ../anjuta.glade.h:173 ../plugins/editor/plugin.c:289
+#: ../anjuta.glade.h:173 ../plugins/document-manager/plugin.c:251
 #: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:18
 #: ../src/anjuta-actions.h:30 ../src/shell.c:76
 msgid "_Edit"
@@ -1026,7 +1020,6 @@ msgstr "Àrab"
 
 # Netscape_4.7->String:RESDLL.DLL
 #: ../libanjuta/anjuta-encodings.c:141 ../libanjuta/anjuta-encodings.c:239
-#: ../plugins/project-manager/project_dbase_gui.c:1081
 msgid "Greek"
 msgstr "Grec"
 
@@ -1042,7 +1035,6 @@ msgstr "Hebreu"
 # Netscape_4.7->String:RESDLL.DLL
 #: ../libanjuta/anjuta-encodings.c:147 ../libanjuta/anjuta-encodings.c:202
 #: ../libanjuta/anjuta-encodings.c:241
-#: ../plugins/project-manager/project_dbase_gui.c:1101
 msgid "Turkish"
 msgstr "Turc"
 
@@ -1056,7 +1048,6 @@ msgstr "Celta"
 
 # Mozilla 1.3->ro
 #: ../libanjuta/anjuta-encodings.c:157
-#: ../plugins/project-manager/project_dbase_gui.c:1098
 msgid "Romanian"
 msgstr "Romanès"
 
@@ -1088,7 +1079,6 @@ msgstr "Japonès"
 # Netscape_4.7->String:RESDLL.DLL
 #: ../libanjuta/anjuta-encodings.c:180 ../libanjuta/anjuta-encodings.c:211
 #: ../libanjuta/anjuta-encodings.c:215 ../libanjuta/anjuta-encodings.c:228
-#: ../plugins/project-manager/project_dbase_gui.c:1092
 msgid "Korean"
 msgstr "Coreà"
 
@@ -1115,19 +1105,19 @@ msgstr "Vietnamita"
 msgid "Thai"
 msgstr "Tailandès"
 
-#: ../libanjuta/anjuta-encodings.c:702
+#: ../libanjuta/anjuta-encodings.c:727
 msgid "Stock Encodings"
 msgstr "Codificacions per defecte"
 
-#: ../libanjuta/anjuta-encodings.c:721
+#: ../libanjuta/anjuta-encodings.c:746
 msgid "Supported Encodings"
 msgstr "Codificacions disponibles"
 
-#: ../libanjuta/anjuta-launcher.c:758
+#: ../libanjuta/anjuta-launcher.c:770
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: s'ha produït un error en llegir de la pty filla\n"
 
-#: ../libanjuta/anjuta-launcher.c:942 ../libanjuta/resources.c:253
+#: ../libanjuta/anjuta-launcher.c:957 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
@@ -1151,7 +1141,7 @@ msgstr "Categoria"
 msgid "Anjuta Preferences Dialog"
 msgstr "Diàleg de preferències d'Anjuta"
 
-#: ../libanjuta/anjuta-preferences.c:1159
+#: ../libanjuta/anjuta-preferences.c:1250
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -1159,12 +1149,12 @@ msgstr ""
 "Desitgeu retornar les preferències\n"
 "als seus valors per defecte?"
 
-#: ../libanjuta/anjuta-preferences.c:1163
+#: ../libanjuta/anjuta-preferences.c:1254
 msgid "_Reset"
 msgstr "_Reinicia"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: ../libanjuta/anjuta-preferences.c:1461
+#: ../libanjuta/anjuta-preferences.c:1552
 msgid "Anjuta Preferences"
 msgstr "Preferències d'Anjuta"
 
@@ -1190,61 +1180,21 @@ msgstr "Sensible"
 msgid "Shortcut"
 msgstr "Drecera"
 
-#: ../libanjuta/anjuta-utils.c:56 ../src/utilities.c:697
+#: ../libanjuta/anjuta-utils.c:59 ../src/utilities.c:697
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "No es pot llegir el fitxer: %s."
 
-#: ../libanjuta/anjuta-utils.c:66 ../plugins/project-manager/source.c:120
-#: ../plugins/project-manager/source.c:167
-#: ../plugins/project-manager/source.c:205
-#: ../plugins/project-manager/source.c:455
-#: ../plugins/project-manager/source.c:480
-#: ../plugins/project-manager/source.c:575
-#: ../plugins/project-manager/source.c:673
-#: ../plugins/project-manager/source.c:713
-#: ../plugins/project-manager/source.c:728
-#: ../plugins/project-manager/source.c:762
-#: ../plugins/project-manager/source.c:818
-#: ../plugins/project-manager/source.c:854
-#: ../plugins/project-manager/source.c:909
-#: ../plugins/project-manager/source.c:945
-#: ../plugins/project-manager/source.c:1001
-#: ../plugins/project-manager/source.c:1057
-#: ../plugins/project-manager/source.c:1076
-#: ../plugins/project-manager/source.c:1109
-#: ../plugins/project-manager/source.c:1128
-#: ../plugins/project-manager/source.c:1161
-#: ../plugins/project-manager/source.c:1180
-#: ../plugins/project-manager/source.c:1211
-#: ../plugins/project-manager/source.c:1229
-#: ../plugins/project-manager/source.c:1259
-#: ../plugins/project-manager/source.c:1277
-#: ../plugins/project-manager/source.c:1306
-#: ../plugins/project-manager/source.c:1355
-#: ../plugins/project-manager/source.c:1392
-#: ../plugins/project-manager/source.c:1436
-#: ../plugins/project-manager/source.c:1517
-#: ../plugins/project-manager/source.c:1649
-#: ../plugins/project-manager/source.c:1689
-#: ../plugins/project-manager/source.c:1779
-#: ../plugins/project-manager/source.c:1852
-#: ../plugins/project-manager/source.c:1946
-#: ../plugins/project-manager/source.c:2027
-#: ../plugins/project-manager/source.c:2085
-#: ../plugins/project-manager/source.c:2199
-#: ../plugins/project-manager/source.c:2262
-#: ../plugins/project-manager/source.c:2568
-#: ../plugins/project-manager/source.c:2703 ../src/utilities.c:705
+#: ../libanjuta/anjuta-utils.c:69 ../src/utilities.c:705
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "No es pot crear el fitxer: %s."
 
-#: ../libanjuta/anjuta-utils.c:102 ../src/utilities.c:739
+#: ../libanjuta/anjuta-utils.c:105 ../src/utilities.c:739
 msgid "Unable to complete file copy"
 msgstr "No es pot completar la còpia de fitxer"
 
-#: ../libanjuta/anjuta-utils.c:324
+#: ../libanjuta/anjuta-utils.c:327
 msgid ""
 "\n"
 "System: "
@@ -1252,20 +1202,20 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: ../libanjuta/anjuta-utils.c:462
+#: ../libanjuta/anjuta-utils.c:465
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
 msgstr "Heu d'instal·lar la utilitat \"%s\"."
 
-#: ../libanjuta/anjuta-utils.c:762
+#: ../libanjuta/anjuta-utils.c:765
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr ""
 "No es pot executar l'ordre: %s (es fa servir l'intèrpret d'ordres %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:766
+#: ../libanjuta/anjuta-utils.c:769
 #, c-format
 msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "No es pot executar l'ordre %s (es fa servir l'intèrpret d'ordres %s)\n"
@@ -1503,16 +1453,16 @@ msgstr "B_loca els elements enganxables"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
 #: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:270
-#: ../plugins/editor/plugin.c:1183 ../plugins/editor/search-replace.c:793
-#: ../plugins/editor/search-replace.c:1425
-#: ../plugins/editor/search-replace.c:1432
-#: ../plugins/editor/search-replace.c:1444
-#: ../plugins/editor/search-replace.c:1744
+#: ../plugins/search/plugin.c:553 ../plugins/search/search-replace.c:809
+#: ../plugins/search/search-replace.c:1445
+#: ../plugins/search/search-replace.c:1452
+#: ../plugins/search/search-replace.c:1464
+#: ../plugins/search/search-replace.c:1766
 #: ../plugins/symbol-browser/plugin.c:841
 msgid "Search"
 msgstr "Cerca"
 
-#: ../libegg/test-actions.c:141 ../plugins/editor/plugin.c:1184
+#: ../libegg/test-actions.c:141 ../plugins/search/plugin.c:554
 msgid "Incremental search"
 msgstr "Cerca incremental"
 
@@ -1539,32 +1489,31 @@ msgstr "No s'ha especificat cap ordre per muntar aquest tipus de fitxer."
 
 #: ../plugins/build/build_file.c:104
 #, c-format
-msgid "Building file: %s ...\n"
-msgstr "S'està muntant el fitxer: %s ...\n"
+msgid "Building file: %s...\n"
+msgstr "S'està muntant el fitxer: %s...\n"
 
 #: ../plugins/build/build_file.c:132
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:513
-#: ../plugins/project-manager/project_import.c:192
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:531
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr "Temps total: %lu segons\n"
 
 #: ../plugins/build/build_file.c:136
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:518
-msgid "Completed ... unsuccessful\n"
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:536
+msgid "Completed... unsuccessful\n"
 msgstr "S'ha completat incorrectament\n"
 
 #: ../plugins/build/build_file.c:140
-msgid "Completed ... unsuccessful"
+msgid "Completed... unsuccessful"
 msgstr "S'ha completat incorrectament"
 
 #: ../plugins/build/build_file.c:145
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:523
-msgid "Completed ... successful\n"
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:541
+msgid "Completed... successful\n"
 msgstr "S'ha completat correctament\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:516
-msgid "Completed ... successful"
+#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:505
+msgid "Completed... successful"
 msgstr "S'ha completat correctament"
 
 #: ../plugins/build/build_project.c:76 ../plugins/build/compile.c:61
@@ -1672,8 +1621,8 @@ msgstr "Compila"
 
 #: ../plugins/build/compile.c:155
 #, c-format
-msgid "Compiling file: %s ...\n"
-msgstr "S'està compilant el fitxer: %s ...\n"
+msgid "Compiling file: %s...\n"
+msgstr "S'està compilant el fitxer: %s...\n"
 
 #: ../plugins/build/compiler_options.c:503
 msgid ""
@@ -1686,13 +1635,12 @@ msgstr ""
 "completament?"
 
 #: ../plugins/build/compiler_options.c:726
-#: ../plugins/project-manager/src_paths.c:218
 msgid "Do you want to clear the list?"
 msgstr "Segur que voleu netejar la llista?"
 
 # Winrar 2.9->String:rarlng.dll
 #: ../plugins/build/compiler_options.c:798
-#: ../plugins/editor/search_preferences.c:531
+#: ../plugins/search/search_preferences.c:531
 msgid "Name"
 msgstr "Nom"
 
@@ -1743,8 +1691,8 @@ msgid "Configure"
 msgstr "Configura"
 
 #: ../plugins/build/configurer.c:191
-msgid "Configuring the Project ....\n"
-msgstr "S'està configurant el projecte ....\n"
+msgid "Configuring the Project...\n"
+msgstr "S'està configurant el projecte....\n"
 
 #: ../plugins/build/executer.c:54
 msgid "The target executable of this Project is unknown"
@@ -1798,212 +1746,212 @@ msgstr "Seleccioneu el programa a executar i els paràmetres"
 
 #. FIXME: What about translations in the following sscanf strings
 #. The translations should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:393
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:396
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
 msgstr "make[%d]: s'està entrant al directori '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:394
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:397
 #, c-format
 msgid "make: Entering directory `%s'"
 msgstr "make: s'està entrant al directori '%s'"
 
-#. Traslation for the following should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:407
+#. Translation for the following should match that of 'make' program
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:410
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr "make[%d]: s'està sortint del directori '%s'"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:408
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:411
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr "make: s'està sortint del directori '%s'"
 
 # Mozilla 1.3->warnings.label
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:428
-#: ../plugins/tools/execute.c:338
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:446
+#: ../plugins/tools/execute.c:327
 msgid "warning:"
 msgstr "avís:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:574
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:592
 #, c-format
 msgid "Build %d: %s"
 msgstr "Munta %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:763
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:791
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:800
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:828
 msgid "Configure Parameters:"
 msgstr "Paràmetres de configure:"
 
 # Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:965
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1035
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1045
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1063
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1073
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1242
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1002
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1072
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1082
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1100
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1110
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1279
 msgid "_Build"
 msgstr "_Munta"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:969
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1006
 msgid "_Build Project"
 msgstr "_Munta el projecte"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:970
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1007
 msgid "Build whole project"
 msgstr "Munta el projecte sencer"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:975
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1012
 msgid "_Install Project"
 msgstr "_Instal·la el projecte"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:976
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1013
 msgid "Install whole project"
 msgstr "Instal·la el projecte sencer"
 
 # Projecte_Gnome_2.2 [anjuta2.HEAD.ca.po]
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:981
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1018
 msgid "_Clean Project"
 msgstr "Neteja el proje_cte"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:982
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1019
 msgid "Clean whole project"
 msgstr "Neteja el projecte sencer"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:987
-msgid "Run C_onfigure ..."
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1024
+msgid "Run C_onfigure..."
 msgstr "Executa c_onfigure..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:988
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1025
 msgid "Configure project"
 msgstr "Configura el projecte"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:993
-msgid "Run _Autogenerate ..."
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1030
+msgid "Run _Autogenerate..."
 msgstr "Executa l'_autogeneració..."
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:994
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1031
 msgid "Autogenrate project files"
 msgstr "Genera automàticament els fitxers de projecte"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:999
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1036
 msgid "Build _Tarball"
 msgstr "Mun_ta un fitxer tar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1000
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1037
 msgid "Build project tarball distribution"
 msgstr "Munta el fitxer tar de distribució"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1005
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1042
 msgid "_Execute program"
 msgstr "_Executa el programa"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1006
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1043
 msgid "Execute program"
 msgstr "Executa el programa"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1011
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1048
 msgid "_Build Module"
 msgstr "_Munta el mòdul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1012
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1049
 msgid "Build module associated with current file"
 msgstr "Munta el mòdul associat al fitxer actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1017
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1054
 msgid "_Install Module"
 msgstr "_Instal·la el mòdul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1018
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1055
 msgid "Install module associated with current file"
 msgstr "Instal·la el mòdul associat al fitxer actual"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1023
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1060
 msgid "_Clean Module"
 msgstr "_Neteja el mòdul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1024
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1061
 msgid "Clean module associated with current file"
 msgstr "Neteja el mòdul associat al fitxer actual"
 
 # sdi\sfxslots.src sfxslotinfo SID_BASICCOMPILE
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1029
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1066
 msgid "Co_mpile File"
 msgstr "Co_mpila el fitxer"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1030
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1067
 msgid "Compile current editor file"
 msgstr "Compila el fitxer actual de l'editor"
 
 # sdi\sfxslots.src sfxslotinfo SID_BASICCOMPILE
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1039
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1067
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1076
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1104
 msgid "_Compile"
 msgstr "_Compila"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1040
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1068
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1077
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1105
 msgid "Complie file"
 msgstr "Compila fitxers"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1046
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1074
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1083
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1111
 msgid "Build module"
 msgstr "Munta el mòdul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1051
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1079
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1246
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1088
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1116
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1283
 msgid "_Install"
 msgstr "_Instal·la"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1052
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1080
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1089
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1117
 msgid "Install module"
 msgstr "Instal·la el mòdul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1057
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1085
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1250
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1094
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1122
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1287
 msgid "_Clean"
 msgstr "Nete_ja"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1058
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1086
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1095
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1123
 msgid "Clean module"
 msgstr "Neteja el mòdul"
 
 # sdi\sfxslots.src sfxslotinfo SID_BASICCOMPILE
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1254
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1291
 msgid "Co_mpile"
 msgstr "Co_mpila"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1263
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1300
 #, c-format
 msgid "_Build (%s)"
 msgstr "_Munta (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1270
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1307
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Instal·la (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1277
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1314
 #, c-format
 msgid "_Clean (%s)"
 msgstr "Nete_ja (%s)"
 
 # sdi\sfxslots.src sfxslotinfo SID_BASICCOMPILE
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1284
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1321
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "Co_mpila (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1576
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1613
 msgid "Build commands"
 msgstr "Ordres per muntar"
 
@@ -2032,11 +1980,11 @@ msgid "Executable '%s' is not up-to-date."
 msgstr "L'executable '%s' no està actualitzat."
 
 #. create the check menuitem
-#: ../plugins/class-inheritance/class-inherit.c:140
+#: ../plugins/class-inheritance/class-inherit.c:139
 msgid "Fixed data-view"
 msgstr "Visualització de dades fixa"
 
-#: ../plugins/class-inheritance/class-inherit.c:932
+#: ../plugins/class-inheritance/class-inherit.c:940
 msgid "Update the graph"
 msgstr "Actualitza el graf"
 
@@ -2226,7 +2174,8 @@ msgstr ""
 "protegit\n"
 "privat"
 
-#: ../plugins/class-gen/class_gen.c:106 ../plugins/editor/anjuta-docman.c:293
+#: ../plugins/class-gen/class_gen.c:106
+#: ../plugins/document-manager/anjuta-docman.c:277
 #: ../plugins/file-wizard/file.c:229 ../src/anjuta_cbs.c:426
 #, c-format
 msgid ""
@@ -2237,7 +2186,8 @@ msgstr ""
 "Desitgeu reemplaçar-lo amb el que esteu desant ara?"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/class-gen/class_gen.c:114 ../plugins/editor/anjuta-docman.c:300
+#: ../plugins/class-gen/class_gen.c:114
+#: ../plugins/document-manager/anjuta-docman.c:284
 #: ../plugins/file-wizard/file.c:237 ../src/anjuta-callbacks.c:79
 #: ../src/anjuta_cbs.c:433 ../src/anjuta_cbs.c:497
 msgid "_Replace"
@@ -2283,7 +2233,7 @@ msgstr "<b>Opcions:</b>"
 
 # Winrar 2.9->Menu:rarlng.dll
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:6
-#: ../plugins/editor/anjuta-document-manager.glade.h:19
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:25
 msgid "<b>Options</b>"
 msgstr "<b>Opcions</b>"
 
@@ -2527,31 +2477,31 @@ msgid "Unable to delete file"
 msgstr "No es pot suprimir el fitxer"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
-#: ../plugins/cvs-plugin/cvs-callbacks.c:454
+#: ../plugins/cvs-plugin/cvs-callbacks.c:458
 #: ../plugins/subversion/subversion-callbacks.c:243
 msgid "Are you sure that you do not want a log message?"
 msgstr "Esteu segur que no voleu un missatge de registre?"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:430
+#: ../plugins/cvs-plugin/cvs-callbacks.c:434
 msgid "CVSROOT"
 msgstr "CVSROOT"
 
 # source\appl\app.src string STR_KEY_MODULES_PATH
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: ../plugins/cvs-plugin/cvs-callbacks.c:433
+#: ../plugins/cvs-plugin/cvs-callbacks.c:437
 msgid "Module"
 msgstr "Mòdul"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:436
+#: ../plugins/cvs-plugin/cvs-callbacks.c:440
 msgid "Vendor"
 msgstr "Proveïdor"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/cvs-plugin/cvs-callbacks.c:439
+#: ../plugins/cvs-plugin/cvs-callbacks.c:443
 msgid "Release"
 msgstr "Versió"
 
-#: ../plugins/cvs-plugin/cvs-callbacks.c:443
+#: ../plugins/cvs-plugin/cvs-callbacks.c:447
 msgid "Directory"
 msgstr "Directori"
 
@@ -2682,31 +2632,31 @@ msgid "dialog1"
 msgstr "diàleg"
 
 # Projecte_Gnome_2.2 [libgtop.libgtop-GNOME-2-0-port.ca.po]
-#: ../plugins/debug-manager/attach_process.c:73
+#: ../plugins/debug-manager/attach_process.c:74
 msgid "Pid"
 msgstr "Identificador de procés"
 
-#: ../plugins/debug-manager/attach_process.c:73
+#: ../plugins/debug-manager/attach_process.c:74
 msgid "User"
 msgstr "Usuari"
 
 # Winrar 2.9->String:rarlng.dll
-#: ../plugins/debug-manager/attach_process.c:73
+#: ../plugins/debug-manager/attach_process.c:74
 #: ../plugins/gtodo/egg-datetime.c:2292
 msgid "Time"
 msgstr "Temps"
 
 # Projecte_Mandrake [tm-mandrake.po]
-#: ../plugins/debug-manager/attach_process.c:73
+#: ../plugins/debug-manager/attach_process.c:74
 msgid "Command"
 msgstr "Ordre"
 
-#: ../plugins/debug-manager/attach_process.c:407
+#: ../plugins/debug-manager/attach_process.c:408
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "No es pot executar: %s."
 
-#: ../plugins/debug-manager/attach_process.c:421
+#: ../plugins/debug-manager/attach_process.c:422
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "No es pot obrir el fitxer: %s\n"
@@ -2717,14 +2667,6 @@ msgstr "Carregueu l'objecte a depurar"
 
 # Winrar 2.9->String:rarlng.dll
 #: ../plugins/debug-manager/plugin.c:151 ../plugins/file-loader/plugin.c:442
-#: ../plugins/project-manager/project_dbase.c:363
-#: ../plugins/project-manager/project_dbase_gui.c:153
-#: ../plugins/project-manager/project_dbase_gui.c:170
-#: ../plugins/project-manager/project_dbase_gui.c:182
-#: ../plugins/project-manager/project_dbase_gui.c:190
-#: ../plugins/project-manager/project_dbase_gui.c:202
-#: ../plugins/project-manager/project_dbase_gui.c:211
-#: ../plugins/project-manager/project_dbase_gui.c:220
 msgid "All files"
 msgstr "Tots els fitxers"
 
@@ -2754,8 +2696,8 @@ msgstr "Inicia la sessió de depuració"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:473
-msgid "Load debugging target ..."
-msgstr "S'està carregant l'objecte a depurar..."
+msgid "Load debugging target..."
+msgstr "Carrega l'objecte a depurar..."
 
 #. Display label
 #. short-cut
@@ -2766,8 +2708,8 @@ msgstr "No es pot obrir l'objecte a depurar"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:481
-msgid "_Attach to Process ..."
-msgstr "_Adjunta al procés..."
+msgid "_Attach to Process..."
+msgstr "_Adjunta a un procés..."
 
 #. Display label
 #. short-cut
@@ -2863,11 +2805,8 @@ msgstr "Operacions del depurador"
 msgid "Contents"
 msgstr "Contingut"
 
-#. 7
-#. 9
 #: ../plugins/devhelp/plugin.c:304 ../plugins/devhelp/plugin.c:531
-#: ../plugins/devhelp/plugin.c:544
-#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:477
+#: ../plugins/devhelp/plugin.c:544 ../src/anjuta-app.c:477
 msgid "Help"
 msgstr "Ajuda"
 
@@ -2881,7 +2820,7 @@ msgstr "Mostreu l'ajuda"
 msgid "Search Help:"
 msgstr "Cerca l'ajuda:"
 
-#: ../plugins/devhelp/plugin.c:428 ../plugins/editor/plugin.c:249
+#: ../plugins/devhelp/plugin.c:428 ../plugins/document-manager/plugin.c:219
 #: ../plugins/message-view/plugin.c:70 ../plugins/symbol-browser/plugin.c:269
 msgid "_Goto"
 msgstr "_Vés a"
@@ -2932,17 +2871,7 @@ msgstr "Cerca un terme a l'ajuda"
 msgid "Devhelp navigation operations"
 msgstr "Operacions de navegació de Devhelp"
 
-#: ../plugins/editor/action-callbacks.c:136
-msgid ""
-"The editor is being used as output buffer for an operation.\n"
-"Closing it will result in stopping the process.\n"
-"Do you still want close the editor?"
-msgstr ""
-"L'editor s'està fent servir com a memòria de sortida per a una operació.\n"
-"Quan el tanqueu, el procés s'haurà d'aturar.\n"
-"Desitgeu tancar l'editor?"
-
-#: ../plugins/editor/action-callbacks.c:151
+#: ../plugins/document-manager/action-callbacks.c:151
 #, c-format
 msgid ""
 "The file '%s' is not saved.\n"
@@ -2951,12 +2880,11 @@ msgstr ""
 "No s'ha desat el fitxer '%s'.\n"
 "Desitgeu desar-lo abans de tancar?"
 
-#: ../plugins/editor/action-callbacks.c:161
-#: ../plugins/project-manager/project_dbase_gui.c:1066
+#: ../plugins/document-manager/action-callbacks.c:161
 msgid "Do_n't save"
 msgstr "_No ho desis"
 
-#: ../plugins/editor/action-callbacks.c:227
+#: ../plugins/document-manager/action-callbacks.c:227
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -2966,54 +2894,35 @@ msgstr ""
 "El canvis no desats es perdran."
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: ../plugins/editor/action-callbacks.c:238
-#: ../plugins/editor/text_editor.c:326
+#: ../plugins/document-manager/action-callbacks.c:238
+#: ../plugins/editor/text_editor.c:334
 msgid "_Reload"
 msgstr "Ac_tualitza"
 
-#: ../plugins/editor/action-callbacks.c:790
-#, c-format
-msgid "There is no line number %d in \"%s\"."
-msgstr "No existeix la línia %d en \"%s\"."
-
-#: ../plugins/editor/action-callbacks.c:1287
-msgid "No matches. Wrap search around the document?"
-msgstr "No hi ha concordànces. Voleu començar la cerca des del principi?"
-
-#: ../plugins/editor/action-callbacks.c:1297
-#, c-format
-msgid ""
-"Incremental search for '%s' failed. Press Enter or click Find to continue "
-"searching at the top."
-msgstr ""
-"Ha fallat la cerca incremental per a '%s'. Premeu la tecla de retorn o feu "
-"clic a Cerca per continuar des del principi."
-
-#: ../plugins/editor/action-callbacks.c:1304
-#, c-format
-msgid "Incremental search for '%s' (continued at top) failed."
-msgstr "Ha fallat la cerca incremental per a '%s' (des del començament)."
-
 # Projecte_Mandrake [abiword-ca.po]
-#: ../plugins/editor/anjuta-docman.c:339
+#: ../plugins/document-manager/anjuta-docman.c:323
 #: ../plugins/message-view/message-view.c:87
 msgid "Save file as"
 msgstr "Anomena i desa"
 
-#: ../plugins/editor/anjuta-docman.c:644
+#: ../plugins/document-manager/anjuta-docman.c:660
 msgid "Path:"
 msgstr "Camí:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:1
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:1
+msgid "#Else #Endif "
+msgstr "#Else #Endif "
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:2
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(fitx.codi.modul) $(fitx.incl.modul)"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:3
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:4
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:4
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:5
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
 msgid ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
@@ -3022,65 +2931,92 @@ msgstr ""
 "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
 "README AUTHORS ChangeLog *.m4"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:5
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:6
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
 msgid "*.so *.o *.a *.la"
 msgstr "*.so *.o *.a *.la"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:6
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:7
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
 msgid "*\\.*"
 msgstr "*\\.*"
 
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:8
+msgid "<b>'indent' arguments</b>"
+msgstr "<b>Paràmetres per a 'indent'</b>"
+
 # source\dialog\cfg.src #define FIXEDTEXT_TEXT_FUNCTION
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: ../plugins/editor/anjuta-document-manager.glade.h:7
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:9
 msgid "<b>Actions</b>"
 msgstr "<b>Accions</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:8
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:10
 msgid "<b>Autocompletion</b>"
 msgstr "<b>Completa automàticament</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:9
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:11
 msgid "<b>Autoformat style</b>"
 msgstr "<b>Estil de format automàtic</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:10
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:12
 msgid "<b>Autosave</b>"
 msgstr "<b>Desa automàticament</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:11
+# source\ui\app\mn.src menuitem MN_PPREVIEW_POPUPMENU FN_PREVIEW_PRINT_OPTIONS
+# Projecte_Open_Office_1.1 [sw.po]
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:13
+msgid "<b>Blank Lines</b>"
+msgstr "<b>Línies en blanc</b>"
+
+# source\ui\app\mn.src menuitem MN_PPREVIEW_POPUPMENU FN_PREVIEW_PRINT_OPTIONS
+# Projecte_Open_Office_1.1 [sw.po]
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:14
+msgid "<b>Breaking Long Lines</b>"
+msgstr "<b>Separació de línies llargues</b>"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:15
 msgid "<b>Code folding</b>"
 msgstr "<b>Desplegament de codi</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:12
-msgid "<b>Custom autoformate style</b>"
-msgstr "<b>Estil personal d'autoformat</b>"
+# Netscape_4.7->String:RESDLL.DLL
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:16
+msgid "<b>Comments</b>"
+msgstr "<b>Comentaris</b>"
+
+# source\dialog\cfg.src #define FIXEDTEXT_TEXT_FUNCTION
+# Projecte_Open_Office_1.1 [sfx2.po]
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:17
+msgid "<b>Declarations</b>"
+msgstr "<b>Declaracions</b>"
 
 # source\ui\utlui\initui.src string STR_AUTH_FIELD_EDITOR
 # Projecte_Open_Office_1.1 [sw.po]
-#: ../plugins/editor/anjuta-document-manager.glade.h:13
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:18
 msgid "<b>Editor tabs</b>"
 msgstr "<b>Pestanyes de l'editor</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:14
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:19
 msgid "<b>Encoding to use when saving files</b>"
 msgstr "<b>Codificació emprada en desar els fitxers</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:15
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:20
 msgid "<b>File Filter</b>"
 msgstr "<b>Filtre de fitxers</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:16
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:21
 msgid "<b>Highlight style</b>"
 msgstr "<b>Estil de ressaltat</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:17
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:22
 msgid "<b>Indentation and auto-format options</b>"
 msgstr "<b>Opcions de sagnat i de format automàtic</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:18
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:23
+msgid "<b>Indentation</b>"
+msgstr "<b>Sagnat</b>"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:24
 msgid "<b>Misc options</b>"
 msgstr "<b>Altres opcions</b>"
 
@@ -3089,1112 +3025,1393 @@ msgstr "<b>Altres opcions</b>"
 # source\smres.src toolboxitem RID_TOOLBOXWINDOW.10 RID_ATTRIBUTES_CAT
 # source\smres.src toolboxitem RID_TOOLBOXWINDOW.10 RID_MISC_CAT
 # Projecte_Open_Office_1.1 [starmath.po]
-#: ../plugins/editor/anjuta-document-manager.glade.h:20
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:26
 msgid "<b>Other colors</b>"
 msgstr "<b>Altres colors</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:21
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:27
 msgid "<b>Parameters</b>"
 msgstr "<b>Paràmetres</b>"
 
 # source\ui\app\mn.src menuitem MN_PPREVIEW_POPUPMENU FN_PREVIEW_PRINT_OPTIONS
 # Projecte_Open_Office_1.1 [sw.po]
-#: ../plugins/editor/anjuta-document-manager.glade.h:22
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:28
 msgid "<b>Print options</b>"
 msgstr "<b>Opcions de impressió</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:23
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:29
 msgid "<b>Scope</b>"
 msgstr "<b>Abast</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:24
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:30
 msgid "<b>Search Variable</b>"
 msgstr "<b>Variables de cerca</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:25
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:31
+msgid "<b>Statements</b>"
+msgstr "<b>Paràmetres</b>"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:32
 msgid "<b>Supported Encodings</b>"
 msgstr "<b>Codificacions disponibles</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:26
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:33
 msgid "<b>Theme</b>"
 msgstr "<b>Tema</b>"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:27
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:34
 msgid "Add line number every:"
 msgstr "Afegeix números de línia cada:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:28
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:35
 msgid "Add page header"
 msgstr "Afegeix capçalera de pàgina"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:29
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:36
+msgid "After Declarations"
+msgstr "Després de les declaracions"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:37
+msgid "After Procedures"
+msgstr "Després dels procediments"
+
+# Netscape_4.7->String:RESDLL.DLL
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:38
+msgid "All Comments"
+msgstr "Tots els comentaris"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:39
 msgid "Always save in UTF-8 encoding (faster)"
 msgstr "Desa sempre en codificació UTF-8 (més ràpid)"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:30
-msgid "Anjuta coding style"
-msgstr "Estil de codificació d'Anjuta"
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:40
+msgid ""
+"Arguments associated with the selected autoformat style. \n"
+"Select the 'Indent Setting' button to manage the autoformat styles.\n"
+"Read the info page for 'indent' for more details"
+msgstr ""
+"Arguments associats amb l'estil d'autoformat seleccionat.\n"
+"Seleccioneu el botó 'Configuració del sagnat' per gestionar els\n"
+"estils d'autoformat. Llegiu la pàgina info d'«indent» per a més detalls."
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:31
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:43
 msgid "Arrows"
 msgstr "Fletxes"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:32
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:44
 msgid "Attributes:"
 msgstr "Atributs:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:33
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:45
 msgid "Autocomplete XML/HTML closing tags"
 msgstr "Completa automàticament les etiquetes de tancament XML/HTML"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:34
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:46
 msgid "Autocompletion pop up choices"
 msgstr "Diàleg emergent amb alternatives per autocompletar"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:35
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:47
 msgid "Back color:"
 msgstr "Color del fons:"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:36
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:48
 msgid "Backward"
 msgstr "Endarrere"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:37
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:49
 msgid "Basic Search & Replace"
 msgstr "Cerca i reemplaçament bàsic"
 
 # Netscape_4.7->String:MNPREF32.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:38
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:50
 msgid "Bold"
 msgstr "Negreta"
 
 # Netscape_4.7->Dialog Box Control:EDITOR32.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:39
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:51
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:4
 msgid "Bottom"
 msgstr "Inferior"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:41
+# Netscape_4.7->String:RESDLL.DLL
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:52
+msgid "Brace"
+msgstr "Claus"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:53
+msgid "Braces after IF Line"
+msgstr "Claus després de la línia amb IF"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:54
+msgid "Braces after Struct"
+msgstr "Claus després d'Struct"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:55
+msgid "Braces on IF line"
+msgstr "Claus a la línia IF"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:56
+msgid "Braces on Struct"
+msgstr "Claus a Struct"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:57
+msgid "Break before Boolean"
+msgstr "Separació abans del booleà"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:59
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:10
 msgid "CVS intl po"
 msgstr "CVS intl po"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:42
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:60
 msgid "Calltip background:"
 msgstr "Color de fons de l'etiqueta de funció:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:43
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:61
 msgid "Caret (cursor) color:"
 msgstr "Color del cursor:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:44
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:62
 msgid "Caret blink period in milli-seconds"
 msgstr "Període de pampallugueix del cursor, en mil·lisegons"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:45
+# Winrar 2.9->Dialog Box Control:rarlng.dll
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:63
+msgid "Case"
+msgstr "Majúscules"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:64
 msgid "Case insensitive"
 msgstr "Considera iguals majúscules i minúscules"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:46
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:65
 msgid "Choose Directories:"
 msgstr "Escolliu directoris:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:47
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:66
 msgid "Choose Files:"
 msgstr "Escolliu fitxers:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:48
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:67
 msgid "Choose autocomplete for single match"
 msgstr "Autocompleta quan hi hagi només una concordança"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:49
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:68
 msgid "Circular"
 msgstr "Rodó"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:50
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:69
 msgid "Collapse all code folds on file open"
 msgstr "Plega totes les vistes de codi quan s'obre un fitxer"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:51
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:70
 msgid "Colors and fonts"
 msgstr "Color i tipus de lletra"
 
 # Mozilla 1.3->Color
-#: ../plugins/editor/anjuta-document-manager.glade.h:52
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:71
 msgid "Colour"
 msgstr "Color"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:53
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:72
 msgid "Compact folding"
 msgstr "Desplegament compacte"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:54
-msgid "Custom style"
-msgstr "Estil personalitzat"
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:73
+msgid "Continuation"
+msgstr "Continuació"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:55
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:74
+msgid "Continue at Parenth."
+msgstr ""
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:75
+msgid ""
+"Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
+"parameters by default)."
+msgstr ""
+"Crea un nou estil amb el nom definit a l'entrada «Nou estil» (paràmetres «-"
+"gnu»per defecte)."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:76
+msgid "Cuddle Else"
+msgstr "Abraça l'«else»"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:77
+msgid ""
+"Cuddle up to the immediately preceding '}' in an if-then-else construct."
+msgstr "Abraça el «}» immediatament precedent en una construcció if-then-else."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:78
+msgid "Declaration  "
+msgstr "Declaració "
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:79
+msgid "Declarations  "
+msgstr "Declaracions "
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:80
 msgid "Delete Theme"
 msgstr "Esborra el tema"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:56
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:81
+msgid "Delete the style selected in the combo style selector."
+msgstr "Esborra l'estil seleccionat en el selector combinat d'estils."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:82
+msgid "Delimiters on BL"
+msgstr ""
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:83
 msgid "Disable auto-format"
 msgstr "Inhabilita el format automàtic"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:57
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:84
 msgid "Disable syntax highlighting"
 msgstr "Desactiva el ressaltat de sintaxi"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:58
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:85
+msgid "Display the indent output according the selected parameters."
+msgstr "Mostra la sortida de sagnat d'acord amb els paràmetres seleccionats."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:86
 msgid "Do not show tabs"
 msgstr "No mostris pestanyes"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:59
-#: ../plugins/editor/plugin.c:1206
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:87
+#: ../plugins/document-manager/plugin.c:1193
 msgid "Documents"
 msgstr "Documents"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:60
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:88
 msgid "Draw line below folded lines"
 msgstr "Dibuixa una línia sota la línia plegada"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:61
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:89
 msgid "Edge column"
 msgstr ""
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:62
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:90
 msgid "Editor caret (cursor) width in pixels"
 msgstr "Amplada del cursor, en píxels"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:63
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:91
 msgid "Enable HTML tags folding"
 msgstr "Habilita el desplegament d'etiquetes HTML"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:64
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:92
 msgid "Enable automatic indentation"
 msgstr "Habilita el sagnat automàtic"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:65
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:93
 msgid "Enable braces check"
 msgstr "Comprova concordança entre claus/parèntesis"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:66
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:94
 msgid "Enable code folding"
 msgstr "Habilita el desplegament de codi"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:67
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:95
 msgid "Enable comments folding"
 msgstr "Habilita el desplegament de comentaris"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:68
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:96
 msgid "Enable files autosave"
 msgstr "Habilita el desat automàtic"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:69
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:97
 msgid "Enable line wrap"
 msgstr "Habilita el tall de línia"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:70
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:98
 msgid "Enable python comments folding"
 msgstr "Habilita el desplegament de comentaris python"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:71
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:99
 msgid "Enable python quoted strings folding"
 msgstr "Habilita el desplegament de cadenes comentades python"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:72
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:100
 msgid "Encodings"
 msgstr "Codificacions"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:73
-msgid ""
-"Enter the command line arguments for the 'indent' program. Read the info "
-"page for 'indent' for more details"
-msgstr ""
-"Introduïu els paràmetres de línia d'ordres per al programa 'indent'. Llegiu "
-"la pàgina info d'indent per a obtenir més detalls."
-
-#: ../plugins/editor/anjuta-document-manager.glade.h:74
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:101
 msgid "Expand regex back references"
 msgstr ""
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:75
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:102
 msgid "Filter extraneous characters in DOS mode"
 msgstr "Filtra caràcters estranys en mode DOS"
 
 # source\dialog\srchdlg.src modelessdialog RID_SVXDLG_SEARCH
 # Projecte_Open_Office_1.1 [svx.po]
-#: ../plugins/editor/anjuta-document-manager.glade.h:76
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:103
 msgid "Find & Replace"
 msgstr "Cerca i reemplaça"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:77
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:104
+msgid "First Column"
+msgstr "Primera columna"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:105
+msgid "Foece a space between an 'if' and the following parenthesis (default)."
+msgstr "Força un espai entre «if» i el parèntesi següent (per defecte)."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:106
 msgid "Fold style:"
 msgstr "Estil del format:"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:78
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:107
 msgid "Font:"
 msgstr "Tipus de lletra:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:79
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:108
 msgid "Fonts and colors for editor"
 msgstr "Tipus de lletra i colors per a l'editor"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:80
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:109
+msgid "Force a blank line after every block of declarations."
+msgstr "Força una línia en blanc després de cada bloc de declaracions."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:110
+msgid "Force a blank line after every procedure body."
+msgstr "Força una línia en blanc després de cada cos de procediment."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:111
+msgid "Force a newline after each comma in a declaration."
+msgstr "Força una nova línia després de cada coma en una declaració."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:112
+msgid "Force a space between a 'for' and the following parenthesis (default)."
+msgstr "Força un espai entre un «for» i el parèntesi següent (per defecte)."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:113
+msgid ""
+"Force a space between a 'while' and the following parenthesis (default)."
+msgstr "Força un espai entre un «while» i el parèntesi següent (per defecte)."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:114
 msgid "Fore color:"
 msgstr "Color de la lletra:"
 
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:115
+msgid "Format comments which begin after the first column."
+msgstr "Formateja commentaris que començan després de la primera columna."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:116
+msgid "Format comments which begin in column one."
+msgstr "Formateja commentaris que comencen a la primera columna."
+
 # Netscape_4.7->String:RESDLL.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:81
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:117
 #: ../plugins/editor/text_editor_menu.c:85
 msgid "Forward"
 msgstr "Endavant"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:82
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:118
 msgid "Full Buffer"
 msgstr "Memòria completa"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:83
-msgid "GNU coding style"
-msgstr "Estil de codificació GNU"
-
-#: ../plugins/editor/anjuta-document-manager.glade.h:84
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:119
 msgid "Greedy matching"
 msgstr "Cerca voraç"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:85
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:120
+msgid "Honour Newlines"
+msgstr "Prioritza les línies noves"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:121
+msgid "Honour newlines by giving them the highest possible priority."
+msgstr "Prioritza les línies noves donant-les la prioritat més alta possible."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:122
 msgid "Ignore Binary Files"
 msgstr "No tinguis en compte fitxers binaris"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:86
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:123
 msgid "Ignore Directories:"
 msgstr "No tinguis en compte directoris:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:87
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:124
 msgid "Ignore Files:"
 msgstr "No tinguis en compte fitxers:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:88
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:125
 msgid "Ignore Hidden Directories"
 msgstr "No tinguis en compte directoris ocults"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:89
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:126
 msgid "Ignore Hidden Files"
 msgstr "No tinguis en compte fitxers ocults"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:90
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:127
+msgid "Indent"
+msgstr "Sagnat"
+
+# Netscape_4.7->Menu:RESDLL.DLL
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:128
+msgid "Indent Preferences"
+msgstr "Preferències del sagnat"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:129
+msgid "Indent Setting"
+msgstr "Configuració del sagnat"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:130
 msgid "Indent closing braces"
 msgstr "Sagnat de clau/parèntesi final"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:91
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:131
 msgid "Indent opening braces"
 msgstr "Sagnat de clau/parèntesi inicial"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:92
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:132
 msgid "Indentation"
 msgstr "Sagnat"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:93
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:133
 msgid "Indentation size in spaces:"
 msgstr "Mida del sagnat en espais:"
 
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:134
+msgid "Insert a line before a Box comment."
+msgstr "Insereix una línia abans d'un comentari en caixa."
+
 # Netscape_4.7->String:MNPREF32.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:94
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:135
 msgid "Italic"
 msgstr "Cursiva"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:95
-msgid "Kernighan and Ritchie style"
-msgstr "Estil de Kernighan i Ritchie"
-
 # Netscape_4.7->Dialog Box Control:EDITOR32.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:96
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:136
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:10
 msgid "Left"
 msgstr "Esquerra"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:97
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:137
+msgid "Length       "
+msgstr "Longitud       "
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:138
+msgid "Level              "
+msgstr "Nivell"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:139
+msgid "Line Indent   "
+msgstr "Sagnat de línia   "
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:140
+msgid "Line after Commas"
+msgstr "Línia després de comes"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:141
+msgid "Line before Box "
+msgstr "Línia abans de caixa "
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:142
 msgid "Line numbers margin width in pixels"
 msgstr "Amplada del marge del número de línia, en píxels"
 
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:143
+msgid ""
+"Line up continuation line to start at the character position just after the "
+"left parenthesis if a line has a left parenthesis which is not closed on "
+"that line."
+msgstr ""
+"Alinea la línea a continuació per començar a la posició del caràcter just "
+"després del parèntesi, si una línia té un parèntesi esquerra que no està "
+"tancat en aquella línia."
+
 # Netscape_4.7->String:RESDLL.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:98
-#: ../plugins/editor/print.c:1038 ../plugins/gdb/info.c:126
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:144
+#: ../plugins/gdb/info.c:126 ../plugins/print/print.c:1029
 msgid "Lines"
 msgstr "Línies"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:99
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:145
 msgid "Maintain past Indentation"
 msgstr "Conserva el sagnat anterior"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:100
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:146
 msgid "Margin Fold visible"
 msgstr "Visualitza el marge de plegament"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:101
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:147
 msgid "Margin Linenum visible"
 msgstr "Visualitza el marge de número de línia"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:102
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:148
 msgid "Margin Marker visible"
 msgstr "Visualitza el marge del marcatge"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:103
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:149
 msgid "Match at start of word"
 msgstr "Concorda al començament de la paraula"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:104
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:150
 msgid "Match complete lines"
 msgstr "Concorda amb línies senceres"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:105
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:151
 msgid "Match complete words"
 msgstr "Concorda amb paraules senceres"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:106
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:152
 msgid "Max. Actions"
 msgstr "Màx. accions"
 
 # Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
-#: ../plugins/editor/anjuta-document-manager.glade.h:107
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:153
 msgid "Mode:"
 msgstr "Mode:"
 
 # Projecte_Mandrake [tm-mandrake.po]
-#: ../plugins/editor/anjuta-document-manager.glade.h:108
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:154
 #: ../plugins/gdb/registers.c:220
 msgid "Modify"
 msgstr "Modifica"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:109
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:155
 msgid "Monochrome"
 msgstr "Monocolor"
 
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:156
+msgid ""
+"New\n"
+"Style"
+msgstr ""
+"Nou\n"
+"estil"
+
 # Winrar 2.9->String:rarlng.dll
-#: ../plugins/editor/anjuta-document-manager.glade.h:110
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:158
 msgid "New Name:"
 msgstr "Nou nom:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:111
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:159
 msgid "No Limit"
 msgstr "Cap límit"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:113
-msgid "Original Berkeley style"
-msgstr "Estil original de Berkeley"
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:161
+msgid "Parameter     "
+msgstr "Paràmetres     "
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:114
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:162
+msgid "Place a space after a cast operator."
+msgstr "Posa un espai després d'un operador de «casting»."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:163
+msgid ""
+"Place a space between the name of the procedure being called and the '('."
+msgstr "Posa un espai entre el nom del procediment cridat i «(»."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:164
+msgid "Place stars at the beginning of multi-line comments."
+msgstr "Posa estrelles al commençament de comentaris multi-línia."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:165
+msgid "Place the '{' following a 'struct' declaration on the next line."
+msgstr "Posa «{» a continuació d'una declaració «struct» a la següent línia."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:166
+msgid "Place the '{' following a 'struct' declaration on the same line."
+msgstr "Posa «{» a continuació d'una declaració «struct» a la mateixa línia."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:167
+msgid "Place the brace on the line following the if test."
+msgstr "Posa la clau a la línia següent al test «if»."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:168
+msgid "Place the brace on the line of the if test."
+msgstr "Posa la clau a la línia del test «if»."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:169
+msgid "Place the comment delimiters on blank lines."
+msgstr "Posa delimitadors de comentari en línies en blanc."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:170
+msgid "Place the type of a procedure beeing defined on the previous line."
+msgstr "Posa el tipus de procediment definit a la línia anterior."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:171
 msgid "Plus/Minus"
 msgstr "Més/menys"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:115
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:172
 msgid "Position:"
 msgstr "Posició:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:116
-msgid "Pressing backspace un-indents"
-msgstr "Prenmeu la tecla de retrocés per reduir el sagnat"
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:173
+msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
+msgstr ""
+"Prefereix trencar línies llargues abans dels operadors booleans «&&» i «|»."
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:117
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:174
+msgid "Pressing backspace un-indents"
+msgstr "Premeu la tecla de retrocés per reduir el sagnat"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:175
 msgid "Pressing tab indents"
 msgstr "Premeu el tabulador per incrementar el sagnat"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:118
+# Netscape_4.7->Menu:RESDLL.DLL
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:176
+msgid "Preview"
+msgstr "Previsualitza"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:177
 msgid "Printing"
 msgstr "Impressió"
 
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:178
+msgid "Procnames start lines"
+msgstr ""
+
 # Projecte_Gnome_2.2 [balsa.HEAD.ca.po]
-#: ../plugins/editor/anjuta-document-manager.glade.h:119
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:179
 msgid "Regular Expression"
 msgstr "Expressió regular"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:120
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:180
 msgid "Reload Session Defaults"
 msgstr "Actualitza els valors per defecte de la sessió"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:121
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:181
 msgid "Reload System Defaults"
 msgstr "Actualitza els valors per defecte del sistema"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:122
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:182
 msgid "Replace With:"
 msgstr "Reemplaça amb:"
 
 # Netscape_4.7->Dialog Box Control:EDITOR32.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:123
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:183
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:15
 msgid "Right"
 msgstr "Dreta"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:124
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:184
 msgid "Save files interval in minutes"
 msgstr "Interval en minuts per desar fitxers automàticament"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:125
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:185
 msgid "Save session interval in minutes"
 msgstr "Interval en minuts per desar la sessió automàticament"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:126
+# Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:186
+msgid "Save the selected Style with the modified parameters."
+msgstr "Desa l'estil seleccionat amb els paràmetres modificats."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:187
 msgid "Search Action:"
 msgstr "Acció de la cerca:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:127
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:188
 msgid "Search Direction:"
 msgstr "Direcció de la cerca:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:128
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:189
 msgid "Search Expression"
 msgstr "Expressió per cercar"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:129
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:190
 msgid "Search Expression:"
 msgstr "Expressió per cercar:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:130
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:191
 msgid "Search In:"
 msgstr "Cerca a:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:131
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:192
 msgid "Search Recursively"
 msgstr "Cerca recursiva"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:132
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:193
 msgid "Search Target"
 msgstr "Objecte de la cerca"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:133
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:194
 msgid "Select highlight style to edit:"
 msgstr "Seleccioneu l'estil de ressaltat que voleu editar:"
 
 # source\euro\euro.src string MESSAGES+2
 # Projecte_Open_Office_1.1 [wizards.po]
-#: ../plugins/editor/anjuta-document-manager.glade.h:134
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:195
 msgid "Select theme:"
 msgstr "Seleccioneu un tema:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:135
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:196
 msgid "Selection background:"
 msgstr "Fons de la selecció:"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:136
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:197
 msgid "Selection foreground:"
 msgstr "Color de la lletra de la selecció:"
 
 # Winrar 2.9->String:rarlng.dll
-#: ../plugins/editor/anjuta-document-manager.glade.h:137
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:198
 msgid "Setting"
 msgstr "Paràmetres"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:138
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:199
 msgid "Sorted by most recent use"
 msgstr "Ordenats segons l'usat més recentment"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:139
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:200
 msgid "Sorted in alphabetical order"
 msgstr "Ordenats alfabèticament"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:140
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:201
 msgid "Sorted in opening order"
 msgstr "Ordenats com es van obrir"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:141
+# Projecte_Mandrake [abiword-ca.po]
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:202
+msgid "Space after Cast"
+msgstr "Espai després del «casting»"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:203
+msgid "Space after FOR"
+msgstr "Espai després de FOR"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:204
+msgid "Space after IF"
+msgstr "Espai després d'IF"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:205
+msgid "Space after Proc Call"
+msgstr "Espai després de una crida a procediment"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:206
+msgid "Space after WHILE"
+msgstr "Espai després de WHILE"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:207
 msgid "Space-seperated list of directory name patterns to ignore"
 msgstr ""
 "Llista de patrons de nom de directori, separats per espais, que no es "
 "tindran en compte"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:142
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:208
 msgid "Space-seperated list of directory name patterns to match"
 msgstr ""
 "Llista de patrons de nom de directoris, separats per espais, per cercar una "
 "coincidència"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:143
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:209
 msgid "Space-seperated list of file name patterns to ignore"
 msgstr ""
 "Llista de patrons de nom de fitxer, separats per espais, que no es tindran "
 "en compte"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:144
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:210
 msgid "Space-seperated list of file name patterns to match"
 msgstr ""
 "Llista de patrons de nom de fitxer, separats per espais, per cercar una "
 "coincidència"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:145
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:211
+msgid "Specify an amount by which comments are moved to the left."
+msgstr "Especifica una quantitat a moure els comentaris a l'esquerra."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:212
+msgid "Specify how many spaces to indent type declarations."
+msgstr "Especifica quants espais sagnar les declaracions de tipus."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:213
+msgid "Specify the column for comments following code."
+msgstr "Especifica la columna per a comentaris a continuació del codi."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:214
+msgid "Specify the column for comments following declarations."
+msgstr ""
+"Especifica la columna per a comentaris a continuació de les declaracions."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:215
+msgid "Specify the column for comments following preprocessor directives."
+msgstr ""
+"Especifica la columna per als comentaris a continuació de directives de "
+"preprocessador."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:216
+msgid "Specify the column of identifiers."
+msgstr "Especifica la columna d'identificadors."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:217
+msgid ""
+"Specify the indentation level when a statement is broken across two lines "
+"(default 0)."
+msgstr ""
+"Especifica el nivell de sagnat quan una sentència està separada entre dues "
+"línies (per defecte 0)."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:218
+msgid ""
+"Specify the maximum length of a line of C code, not including possible "
+"comments that follow it."
+msgstr ""
+"Especifica la longitud màxima d'una línia de codi C, sense incloure "
+"possibles comentaris a continuació."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:219
+msgid "Specify the number o spaces for a TAB (default 8)."
+msgstr "Especifica el nombre d'espais per a un tabulador (per defecte 8)."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:220
+msgid "Specify the number of spaces by which braces are indented."
+msgstr "Especifica el nombre d'espais de sagnat de les claus."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:221
+msgid ""
+"Specify the number of spaces that 'case' labels should be indented to the "
+"right of the containing 'switch' statement."
+msgstr ""
+"Especifica el nombre d'espais a sagnar les etiquetes 'case' a la dreta de la "
+"sentència que conté el «switch»."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:222
+msgid "Specify the value of indentation for each level."
+msgstr "Especifica el valor del sagnat a cada nivell"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:223
 msgid "Squares"
 msgstr "Quadrat"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:146
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:224
+msgid "Star Left Side"
+msgstr "Estrella a l'esquerra"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:225
 msgid "Strip trailling spaces on file save"
 msgstr "Retalla espais al final de línia en desar el fitxer"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:147
-msgid "Style of Kangleipak"
-msgstr "Estil de Kangleipak"
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:226
+msgid "Swallow Optional"
+msgstr "Elimina les opcionals"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:148
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:227
+msgid "Swallow optional blank lines."
+msgstr "Elimina les línies blanques opcionals."
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:228
+msgid "Tab Size      "
+msgstr "Mida del tabulador      "
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:229
 msgid "Tab size in spaces:"
 msgstr "Mida de tabulació en espais:"
 
 # Netscape_4.7->String:RESDLL.DLL
-#: ../plugins/editor/anjuta-document-manager.glade.h:149
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:230
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:18
 msgid "Top"
 msgstr "Principi"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:150
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:231
 msgid "Try to save in current locale's encoding"
 msgstr "Intenta desar en la codificació de la localització actual"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:151
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:232
 msgid "Try to save in original encoding"
 msgstr "Intenta desar en la codificació original"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:152
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:233
 msgid "Underlined"
 msgstr "Subratllat"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:153
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:234
+msgid "Update Style"
+msgstr "Actualitza l'estil"
+
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:235
 msgid "Use default"
 msgstr "Fes servir els predeterminats"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:154
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:236
 msgid "Use tabs for indentation"
 msgstr "Usa el tabulador per fer el sagnat"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:155
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:237
 msgid "View EOL chars"
 msgstr "Visualitza el fi de línia"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:156
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:238
 msgid "View Indentation Guides"
 msgstr "Visualitza les guies de sagnat"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:157
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:239
 msgid "View Line Wrap"
 msgstr "Visualitza el tall de línia"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:158
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:240
 msgid "View Whitespaces"
 msgstr "Visualitza els espais en blanc"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:159
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:241
 msgid "View indentation whitespaces"
 msgstr "Visualitza els espais en blanc del sagnat"
 
-#: ../plugins/editor/anjuta-document-manager.glade.h:160
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:242
 msgid "Wrap bookmarks search around"
 msgstr "Torna a començar la cerca d'adreces d'interès"
 
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:243
+msgid ""
+"You can modify the parameters either by \n"
+"using the above buttons or by editing them \n"
+"directly (See indent manual)."
+msgstr ""
+
 # Projecte_Mandrake [abiword-ca.po]
-#: ../plugins/editor/anjuta-document-manager.glade.h:161
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:246
 msgid "_Save Theme As"
 msgstr "Anomena i de_sa el tema"
 
-#: ../plugins/editor/goto_line.c:126
+#: ../plugins/document-manager/goto_line.c:124
 msgid "<b>Go to Line number:</b>"
 msgstr "<b>Vés al número de línia:</b>"
 
+#: ../plugins/document-manager/indent-dialog.c:418
+#: ../plugins/document-manager/indent-dialog.c:445
+msgid "indent parameter not known !"
+msgstr ""
+
+#: ../plugins/document-manager/indent-dialog.c:483
+msgid "A Style has already this name !"
+msgstr ""
+
+#: ../plugins/document-manager/indent-dialog.c:512
+#: ../plugins/document-manager/indent-dialog.c:543
+msgid "This Style is not modifiable !"
+msgstr ""
+
 # Projecte_Gnome_2.2 [mrproject.HEAD.ca.po]
-#: ../plugins/editor/plugin.c:139 ../plugins/glade/plugin.c:494
+#: ../plugins/document-manager/plugin.c:138 ../plugins/glade/plugin.c:494
 msgid "_Save"
 msgstr "_Desa"
 
-#: ../plugins/editor/plugin.c:140
+#: ../plugins/document-manager/plugin.c:139
 msgid "Save current file"
 msgstr "Desa el fitxer actual"
 
-#: ../plugins/editor/plugin.c:141 ../plugins/glade/plugin.c:502
-msgid "Save _As ..."
+#: ../plugins/document-manager/plugin.c:140 ../plugins/glade/plugin.c:502
+msgid "Save _As..."
 msgstr "_Anomena i desa..."
 
 # Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: ../plugins/editor/plugin.c:142
+#: ../plugins/document-manager/plugin.c:141
 msgid "Save the current file with a different name"
 msgstr "Desa el fitxer actual amb un nom diferent"
 
-#: ../plugins/editor/plugin.c:144
+#: ../plugins/document-manager/plugin.c:143
 msgid "Save A_ll"
 msgstr "Desa-ho to_t"
 
-#: ../plugins/editor/plugin.c:145
+#: ../plugins/document-manager/plugin.c:144
 msgid "Save all currently open files, except new files"
 msgstr "Desa tots els fitxers oberts actualment, excepte fitxers nous"
 
-#: ../plugins/editor/plugin.c:147
+#: ../plugins/document-manager/plugin.c:146
 msgid "_Close File"
 msgstr "Tan_ca el fitxer"
 
-#: ../plugins/editor/plugin.c:148
+#: ../plugins/document-manager/plugin.c:147
 msgid "Close current file"
 msgstr "Tanca el fitxer actual"
 
 # sdi\sfxslots.src sfxslotinfo SID_CLOSEDOCS
 # Projecte_Open_Office_1.1 [sfx2.po]
-#: ../plugins/editor/plugin.c:150
+#: ../plugins/document-manager/plugin.c:149
 msgid "Close All Files"
 msgstr "Tanca tots els titxers"
 
-#: ../plugins/editor/plugin.c:151
+#: ../plugins/document-manager/plugin.c:150
 msgid "Close all files"
 msgstr "Tanca tots els fitxers"
 
-#: ../plugins/editor/plugin.c:153
+#: ../plugins/document-manager/plugin.c:152
 msgid "Reload F_ile"
 msgstr "Actualitza el f_itxer"
 
-#: ../plugins/editor/plugin.c:154
+#: ../plugins/document-manager/plugin.c:153
 msgid "Reload current file"
 msgstr "Actualitza el fitxer actual"
 
 #. 8
-#: ../plugins/editor/plugin.c:156 ../plugins/editor/text_editor_menu.c:292
+#: ../plugins/document-manager/plugin.c:155
+#: ../plugins/editor/text_editor_menu.c:292
 msgid "Swap .h/.c"
 msgstr "Alterna capçalera/codi"
 
-#: ../plugins/editor/plugin.c:157
+#: ../plugins/document-manager/plugin.c:156
 msgid "Swap c header and source file"
 msgstr "Alterna entre la capçalera i el codi font"
 
 # Projecte_Gnome_2.2 [gedit.gnome-2-0.ca.po]
-#: ../plugins/editor/plugin.c:159
+#: ../plugins/document-manager/plugin.c:158
 msgid "Recent _Files"
 msgstr "_Fitxers recents"
 
 # Projecte_Gnome_2.2 [gtk+.gtk-2-0.ca.po]
-#: ../plugins/editor/plugin.c:163
+#: ../plugins/document-manager/plugin.c:162
 msgid "_Print"
 msgstr "_Imprimeix"
 
 # Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: ../plugins/editor/plugin.c:164
+#: ../plugins/document-manager/plugin.c:163
 msgid "Print the current file"
 msgstr "Imprimeix el fitxer actual"
 
-#: ../plugins/editor/plugin.c:165
+#: ../plugins/document-manager/plugin.c:164
 msgid "_Print Preview"
 msgstr "_Previsualitza la impressió"
 
-#: ../plugins/editor/plugin.c:166
+#: ../plugins/document-manager/plugin.c:165
 msgid "Print preview of the current file"
 msgstr "Previsualitza la impressió del fitxer actual"
 
-#: ../plugins/editor/plugin.c:171
+#: ../plugins/document-manager/plugin.c:170
 msgid "_Transform"
 msgstr "_Transforma"
 
-#: ../plugins/editor/plugin.c:172
+#: ../plugins/document-manager/plugin.c:171
 msgid "_Make Selection Uppercase"
 msgstr "Converteix la selecció en _majúscules"
 
-#: ../plugins/editor/plugin.c:173
+#: ../plugins/document-manager/plugin.c:172
 msgid "Make the selected text uppercase"
 msgstr "Converteix el text seleccionat en majúscules"
 
-#: ../plugins/editor/plugin.c:175
+#: ../plugins/document-manager/plugin.c:174
 msgid "Make Selection Lowercase"
 msgstr "Converteix la selecció en minúscules"
 
-#: ../plugins/editor/plugin.c:176
+#: ../plugins/document-manager/plugin.c:175
 msgid "Make the selected text lowercase"
 msgstr "Converteix el text seleccionat en minúscules"
 
-#: ../plugins/editor/plugin.c:178
+#: ../plugins/document-manager/plugin.c:177
 msgid "Convert EOL chars to CRLF"
 msgstr "Converteix caràcters EOL a CRLF"
 
-#: ../plugins/editor/plugin.c:179
+#: ../plugins/document-manager/plugin.c:178
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Converteix els caràcters de fi de línia a tipus DOS (CRLF)"
 
-#: ../plugins/editor/plugin.c:181
+#: ../plugins/document-manager/plugin.c:180
 msgid "Convert EOL chars to LF"
 msgstr "Converteix els caràcters EOL a LF"
 
-#: ../plugins/editor/plugin.c:182
+#: ../plugins/document-manager/plugin.c:181
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Converteix els caràcters fi de línia a tipus Unix EOL (LF)"
 
-#: ../plugins/editor/plugin.c:184
+#: ../plugins/document-manager/plugin.c:183
 msgid "Convert EOL chars to CR"
 msgstr "Converteix caràcters EOL a CR"
 
-#: ../plugins/editor/plugin.c:185
+#: ../plugins/document-manager/plugin.c:184
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Converteix caràcters de fi de línia a tipus MacOS EOL (CR)"
 
-#: ../plugins/editor/plugin.c:187
+#: ../plugins/document-manager/plugin.c:186
 msgid "Convert EOL chars to majority EOL"
 msgstr "Converteix els caràcters EOL a la majoria d'EOL"
 
-#: ../plugins/editor/plugin.c:188
+#: ../plugins/document-manager/plugin.c:187
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr ""
 "Converteix caràcters de fi de línia a la majoria d'EOL trobats al fitxer"
 
 # Projecte_Gnome_2.2 [libbonoboui.gnome-2-0.ca.po]
-#: ../plugins/editor/plugin.c:193
+#: ../plugins/document-manager/plugin.c:192
 msgid "_Select"
 msgstr "_Selecciona"
 
-#: ../plugins/editor/plugin.c:194
+#: ../plugins/document-manager/plugin.c:193
 msgid "Select _All"
 msgstr "Seleccion_a-ho tot"
 
-#: ../plugins/editor/plugin.c:195
+#: ../plugins/document-manager/plugin.c:194
 msgid "Select all text in the editor"
 msgstr "Selecciona tot el text en l'editor"
 
-#: ../plugins/editor/plugin.c:197
+#: ../plugins/document-manager/plugin.c:196
 msgid "Select to _Brace"
 msgstr "Selcciona fins la _clau"
 
-#: ../plugins/editor/plugin.c:198
+#: ../plugins/document-manager/plugin.c:197
 msgid "Select the text in the matching braces"
 msgstr "Selecciona el text entre les claus del codi concordants"
 
-#: ../plugins/editor/plugin.c:200
+#: ../plugins/document-manager/plugin.c:199
 msgid "Select _Code Block"
 msgstr "Sele_cciona el bloc de codi"
 
-#: ../plugins/editor/plugin.c:202
+#: ../plugins/document-manager/plugin.c:201
 msgid "Select the current code block"
 msgstr "Selecciona el bloc de codi actual"
 
-# Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/editor/plugin.c:207
-msgid "_Search"
-msgstr "_Cerca"
-
-#: ../plugins/editor/plugin.c:208
-msgid "_Find ..."
-msgstr "Ce_rca..."
-
-#: ../plugins/editor/plugin.c:209
-msgid "Search for a string or regular expression in the editor"
-msgstr "Cerca una cadena o una expressió regular en l'editor"
-
-#: ../plugins/editor/plugin.c:211
-msgid "Find _Next"
-msgstr "Cerca el següe_nt"
-
-#: ../plugins/editor/plugin.c:212 ../plugins/editor/plugin.c:216
-msgid "Repeat the last Find command"
-msgstr "Torna a fer la darrera acció de cerca"
-
-# Netscape_4.7->Menu:RESDLL.DLL
-#: ../plugins/editor/plugin.c:214
-msgid "Find _Previous"
-msgstr "_Troba l'anterior"
-
-#: ../plugins/editor/plugin.c:218
-msgid "Find and R_eplace ..."
-msgstr "C_erca i reemplaça..."
-
-#: ../plugins/editor/plugin.c:220
-msgid ""
-"Search for and replace a string or regular expression with another string"
-msgstr ""
-"Cerca i reemplaça una cadena o una expressió regular amb una altra cadena"
-
-#: ../plugins/editor/plugin.c:222
-msgid "Advanced Search And Replace"
-msgstr "Cerca i reemplaçament avançat"
-
-#: ../plugins/editor/plugin.c:224
-msgid "New advance search And replace stuff"
-msgstr "Noves funcionalitats de cerca i reemplaçament avançat"
-
-#: ../plugins/editor/plugin.c:226
-msgid "_Enter Selection/I-Search"
-msgstr "Introduïu s_elecció/I-cerca"
-
-#: ../plugins/editor/plugin.c:228
-msgid "Enter the selected text as the search target"
-msgstr "Introduïu el text seleccionat com a objecte de la cerca"
-
-#: ../plugins/editor/plugin.c:230
-msgid "Fin_d in Files ..."
-msgstr "Cerca a fit_xers..."
-
-#: ../plugins/editor/plugin.c:231
-msgid "Search for a string in multiple files or directories"
-msgstr "Cerca una cadena a múltiples fitxers o directoris"
-
-#: ../plugins/editor/plugin.c:236
+#: ../plugins/document-manager/plugin.c:206
 msgid "Co_mment code"
 msgstr "Co_menta el codi"
 
-#: ../plugins/editor/plugin.c:237
+#: ../plugins/document-manager/plugin.c:207
 msgid "_Block Comment/Uncomment"
 msgstr "Comenta/descomenta com a _bloc"
 
-#: ../plugins/editor/plugin.c:238
+#: ../plugins/document-manager/plugin.c:208
 msgid "Block comment the selected text"
 msgstr "Comenta el text seleccionat com a bloc"
 
-#: ../plugins/editor/plugin.c:240
+#: ../plugins/document-manager/plugin.c:210
 msgid "Bo_x Comment/Uncomment"
 msgstr "Comenta/descomenta com a cai_xa"
 
-#: ../plugins/editor/plugin.c:241
+#: ../plugins/document-manager/plugin.c:211
 msgid "Box comment the selected text"
 msgstr "Comenta el text seleccionat com a caixa"
 
-#: ../plugins/editor/plugin.c:243
+#: ../plugins/document-manager/plugin.c:213
 msgid "_Stream Comment/Uncomment"
 msgstr "Comenta/de_scomenta inici i final"
 
-#: ../plugins/editor/plugin.c:244
+#: ../plugins/document-manager/plugin.c:214
 msgid "Stream comment the selected text"
 msgstr "Comenta el text seleccionat a l'inici i al final"
 
-#: ../plugins/editor/plugin.c:250
+#: ../plugins/document-manager/plugin.c:220
 msgid "_Goto Line number"
 msgstr "_Vés al número de línia"
 
-#: ../plugins/editor/plugin.c:252 ../plugins/editor/plugin.c:256
+#: ../plugins/document-manager/plugin.c:222
+#: ../plugins/document-manager/plugin.c:226
 msgid "Go to a particular line in the editor"
 msgstr "Vés a una línia particular en l'editor"
 
-#: ../plugins/editor/plugin.c:254
-msgid "_Line number ..."
+#: ../plugins/document-manager/plugin.c:224
+msgid "_Line number..."
 msgstr "Número de _línia..."
 
-#: ../plugins/editor/plugin.c:258
+#: ../plugins/document-manager/plugin.c:228
 msgid "Matching _Brace"
 msgstr "Clau o _parèntesi concordant"
 
-#: ../plugins/editor/plugin.c:260
+#: ../plugins/document-manager/plugin.c:230
 msgid "Go to the matching brace in the editor"
 msgstr "Vés a la clau o parèntesi concordant en l'editor"
 
-#: ../plugins/editor/plugin.c:262
+#: ../plugins/document-manager/plugin.c:232
 msgid "_Start of block"
 msgstr "Vé_s a l'inici del bloc"
 
-#: ../plugins/editor/plugin.c:264
+#: ../plugins/document-manager/plugin.c:234
 msgid "Go to the start of the current block"
 msgstr "Vés a l'inici del bloc actual"
 
-#: ../plugins/editor/plugin.c:266
+#: ../plugins/document-manager/plugin.c:236
 msgid "_End of block"
 msgstr "Vés a la fi d_el bloc"
 
-#: ../plugins/editor/plugin.c:268
+#: ../plugins/document-manager/plugin.c:238
 msgid "Go to the end of the current block"
 msgstr "Vés a la fi del bloc actual"
 
-#: ../plugins/editor/plugin.c:270
-msgid "Ne_xt occurrence"
-msgstr "Se_güent cas"
-
-#: ../plugins/editor/plugin.c:272
-msgid "Find the next occurrence of current word"
-msgstr "Troba el següent cas de la paraula actual"
-
-#: ../plugins/editor/plugin.c:274
-msgid "Pre_vious occurrence"
-msgstr "Ante_rior cas"
-
-#: ../plugins/editor/plugin.c:276
-msgid "Find the previous occurrence of current word"
-msgstr "Troba el cas anterior de la paraula actual"
-
-#: ../plugins/editor/plugin.c:278
+#: ../plugins/document-manager/plugin.c:240
 msgid "Previous _history"
 msgstr "_Historial anterior"
 
-#: ../plugins/editor/plugin.c:280
+#: ../plugins/document-manager/plugin.c:242
 msgid "Goto previous history"
 msgstr "Vés a l'anterior historial"
 
-#: ../plugins/editor/plugin.c:282
+#: ../plugins/document-manager/plugin.c:244
 msgid "Next histor_y"
 msgstr "_Següent historial"
 
-#: ../plugins/editor/plugin.c:284
+#: ../plugins/document-manager/plugin.c:246
 msgid "Goto next history"
 msgstr "Vés al següent historial"
 
-#: ../plugins/editor/plugin.c:290
+#: ../plugins/document-manager/plugin.c:252
 msgid "_Editor"
 msgstr "_Editor"
 
-#: ../plugins/editor/plugin.c:291
+#: ../plugins/document-manager/plugin.c:253
 msgid "_Add Editor View"
 msgstr "_Afegeix una vista d'editor"
 
-#: ../plugins/editor/plugin.c:292
+#: ../plugins/document-manager/plugin.c:254
 msgid "Add one more view of current document"
 msgstr "Afegeix una o més visualitzacions del document"
 
-#: ../plugins/editor/plugin.c:294
+#: ../plugins/document-manager/plugin.c:256
 msgid "_Remove Editor View"
 msgstr "_Suprimeix la vista de l'editor"
 
-#: ../plugins/editor/plugin.c:295
+#: ../plugins/document-manager/plugin.c:257
 msgid "Remove current view of the document"
 msgstr "Suprimeix la vista actual de l'editor"
 
-#: ../plugins/editor/plugin.c:297
+#: ../plugins/document-manager/plugin.c:259
 msgid "U_ndo"
 msgstr "Des_fés"
 
 # Projecte_Gnome_2.2 [mrproject.HEAD.ca.po]
-#: ../plugins/editor/plugin.c:298
+#: ../plugins/document-manager/plugin.c:260
 msgid "Undo the last action"
 msgstr "Desfés l'última acció"
 
 # Projecte_Gnome_2.2 [libgnomeui.gnome-2-0.ca.po]
-#: ../plugins/editor/plugin.c:300 ../plugins/glade/plugin.c:125
+#: ../plugins/document-manager/plugin.c:262 ../plugins/glade/plugin.c:125
 #: ../plugins/glade/plugin.c:446
 msgid "_Redo"
 msgstr "To_rna a fer"
 
-#: ../plugins/editor/plugin.c:301
+#: ../plugins/document-manager/plugin.c:263
 msgid "Redo the last undone action"
 msgstr "Torna a fer la darrera acció desfeta"
 
 # Projecte_Gnome_2.2 [gnome-control-center.gnome-2-0.ca.po]
-#: ../plugins/editor/plugin.c:303
+#: ../plugins/document-manager/plugin.c:265
 msgid "C_ut"
 msgstr "Reta_lla"
 
-#: ../plugins/editor/plugin.c:304
+#: ../plugins/document-manager/plugin.c:266
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Retalla el text seleccionat de l'editor al porta-retalls"
 
-#: ../plugins/editor/plugin.c:306 ../plugins/glade/plugin.c:462
+#: ../plugins/document-manager/plugin.c:268 ../plugins/glade/plugin.c:462
 msgid "_Copy"
 msgstr "_Copia"
 
 # Projecte_Gnome_2.2 [nautilus.gnome-2-0.ca.po]
-#: ../plugins/editor/plugin.c:307
+#: ../plugins/document-manager/plugin.c:269
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el text seleccionat al porta-retalls"
 
-#: ../plugins/editor/plugin.c:309 ../plugins/glade/plugin.c:470
+#: ../plugins/document-manager/plugin.c:271 ../plugins/glade/plugin.c:470
 msgid "_Paste"
 msgstr "_Enganxa"
 
-#: ../plugins/editor/plugin.c:310
+#: ../plugins/document-manager/plugin.c:272
 msgid "Paste the content of clipboard at the current position"
 msgstr "Enganxa el contingut del porta-retalls a la posició actual"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/editor/plugin.c:312
+#: ../plugins/document-manager/plugin.c:274
 msgid "_Clear"
 msgstr "_Buida"
 
-#: ../plugins/editor/plugin.c:313
+#: ../plugins/document-manager/plugin.c:275
 msgid "Delete the selected text from the editor"
 msgstr "Esborra el text seleccionat de l'editor"
 
-#: ../plugins/editor/plugin.c:315
+#: ../plugins/document-manager/plugin.c:277
 msgid "_AutoComplete"
 msgstr "Completa _automàticament"
 
-#: ../plugins/editor/plugin.c:317
+#: ../plugins/document-manager/plugin.c:279
 msgid "AutoComplete the current word"
 msgstr "Completa automàticament la paraula actual"
 
-#: ../plugins/editor/plugin.c:319
+#: ../plugins/document-manager/plugin.c:281
 msgid "S_how calltip"
 msgstr "Mostra una eti_queta de funció"
 
-#: ../plugins/editor/plugin.c:320
+#: ../plugins/document-manager/plugin.c:282
 msgid "Show calltip for the function"
 msgstr "Mostra una etiqueta amb la crida de la funció"
 
-#: ../plugins/editor/plugin.c:325
+#: ../plugins/document-manager/plugin.c:287
 msgid "_Line numbers margin"
 msgstr "Número de _línia del marge"
 
-#: ../plugins/editor/plugin.c:326
+#: ../plugins/document-manager/plugin.c:288
 msgid "Show/Hide line numbers"
 msgstr "Mostra/amaga el número de línia"
 
-#: ../plugins/editor/plugin.c:328
+#: ../plugins/document-manager/plugin.c:290
 msgid "_Markers Margin"
 msgstr "Marge dels _marcadors"
 
-#: ../plugins/editor/plugin.c:329
+#: ../plugins/document-manager/plugin.c:291
 msgid "Show/Hide markers margin"
 msgstr "Mostra/amaga el marge dels marcadors"
 
-#: ../plugins/editor/plugin.c:331
+#: ../plugins/document-manager/plugin.c:293
 msgid "_Code fold margin"
 msgstr "Marge de desplegament de _codi"
 
-#: ../plugins/editor/plugin.c:332
+#: ../plugins/document-manager/plugin.c:294
 msgid "Show/Hide code fold margin"
 msgstr "Mostra/amaga el marge de desplegament de codi"
 
-#: ../plugins/editor/plugin.c:334
+#: ../plugins/document-manager/plugin.c:296
 msgid "_Indentation guides"
 msgstr "Gu_ies de sagnat"
 
-#: ../plugins/editor/plugin.c:335
+#: ../plugins/document-manager/plugin.c:297
 msgid "Show/Hide indentation guides"
 msgstr "Mostra/amaga les guies de sagnat"
 
-#: ../plugins/editor/plugin.c:337
+#: ../plugins/document-manager/plugin.c:299
 msgid "_White spaces"
 msgstr "Espais en _blanc"
 
-#: ../plugins/editor/plugin.c:338
+#: ../plugins/document-manager/plugin.c:300
 msgid "Show/Hide white spaces"
 msgstr "Mostra/amaga espais en blanc"
 
-#: ../plugins/editor/plugin.c:340
+#: ../plugins/document-manager/plugin.c:302
 msgid "_Line end characters"
 msgstr "Caràcters fi de _línia"
 
-#: ../plugins/editor/plugin.c:341
+#: ../plugins/document-manager/plugin.c:303
 msgid "Show/Hide line end characters"
 msgstr "Mostra/amaga caràcters de fi de línia"
 
-#: ../plugins/editor/plugin.c:343
+#: ../plugins/document-manager/plugin.c:305
 msgid "Line _wrapping"
 msgstr "Tall de _línia"
 
-#: ../plugins/editor/plugin.c:344
+#: ../plugins/document-manager/plugin.c:306
 msgid "Enable/disable line wrapping"
 msgstr "Habilita/inhabilita el tall de línia al final"
 
-#: ../plugins/editor/plugin.c:349
+#: ../plugins/document-manager/plugin.c:311
 msgid "Zoom in"
 msgstr "Apropa"
 
-#: ../plugins/editor/plugin.c:350
+#: ../plugins/document-manager/plugin.c:312
 msgid "Zoom in: Increase font size"
 msgstr "Apropa per incrementar la mida del tipus de lletra"
 
-#: ../plugins/editor/plugin.c:352
+#: ../plugins/document-manager/plugin.c:314
 msgid "Zoom out"
 msgstr "Allunya"
 
-#: ../plugins/editor/plugin.c:353
+#: ../plugins/document-manager/plugin.c:315
 msgid "Zoom out: Decrease font size"
 msgstr "Allunya per reduir la mida del tipus de lletra"
 
-#: ../plugins/editor/plugin.c:358
+#: ../plugins/document-manager/plugin.c:320
 msgid "_Highlight Mode"
 msgstr "Estil de _ressaltat"
 
-#: ../plugins/editor/plugin.c:362
+#: ../plugins/document-manager/plugin.c:324
 msgid "For_mat"
 msgstr "For_mat"
 
-#: ../plugins/editor/plugin.c:363
+#: ../plugins/document-manager/plugin.c:325
 msgid "Auto _Format"
 msgstr "_Format automàtic"
 
-#: ../plugins/editor/plugin.c:365
+#: ../plugins/document-manager/plugin.c:327
 msgid "Autoformat the current source file"
 msgstr "Formateja automàticament el codi"
 
@@ -4212,294 +4429,205 @@ msgstr "Formateja automàticament el codi"
 #. N_("Decrease indentation of line/selection"),
 #. G_CALLBACK (on_editor_command_indent_decrease_activate)},
 #.
-#: ../plugins/editor/plugin.c:381
+#: ../plugins/document-manager/plugin.c:343
 msgid "_Close All Folds"
 msgstr "Plega totes les vistes de _codi"
 
-#: ../plugins/editor/plugin.c:383
+#: ../plugins/document-manager/plugin.c:345
 msgid "Close all code folds in the editor"
 msgstr "Plega totes les vistes de codi en l'editor"
 
-#: ../plugins/editor/plugin.c:385
+#: ../plugins/document-manager/plugin.c:347
 msgid "_Open All Folds"
 msgstr "Desplega t_otes les vistes de codi"
 
-#: ../plugins/editor/plugin.c:387
+#: ../plugins/document-manager/plugin.c:349
 msgid "Open all code folds in the editor"
 msgstr "Desplega totes les vistes de codi en l'editor"
 
-#: ../plugins/editor/plugin.c:389
+#: ../plugins/document-manager/plugin.c:351
 msgid "_Toggle Current Fold"
 msgstr "Commu_ta la vista de codi actual"
 
-#: ../plugins/editor/plugin.c:391
+#: ../plugins/document-manager/plugin.c:353
 msgid "Toggle current code fold in the editor"
 msgstr "Commuta la vista de codi actual en l'editor"
 
-#: ../plugins/editor/plugin.c:396
+#: ../plugins/document-manager/plugin.c:358
 msgid "Bookmar_k"
 msgstr "Adreça d'inte_rès"
 
-#: ../plugins/editor/plugin.c:397
+#: ../plugins/document-manager/plugin.c:359
 msgid "_Toggle bookmark"
 msgstr "Commu_ta adreça d'interès"
 
-#: ../plugins/editor/plugin.c:399
+#: ../plugins/document-manager/plugin.c:361
 msgid "Toggle a bookmark at the current line position"
 msgstr "Commuta una adreça d'interès a la línia actual"
 
-#: ../plugins/editor/plugin.c:401
+#: ../plugins/document-manager/plugin.c:363
 msgid "_First bookmark"
 msgstr "_Primera adreça d'interès"
 
-#: ../plugins/editor/plugin.c:403
+#: ../plugins/document-manager/plugin.c:365
 msgid "Jump to the first bookmark in the file"
 msgstr "Vés a la primera adreça d'interès del fitxer"
 
-#: ../plugins/editor/plugin.c:405
+#: ../plugins/document-manager/plugin.c:367
 msgid "_Previous bookmark"
 msgstr "_Anterior adreça d'interès"
 
-#: ../plugins/editor/plugin.c:407
+#: ../plugins/document-manager/plugin.c:369
 msgid "Jump to the previous bookmark in the file"
 msgstr "Vés a la anterior adreça d'interès del fitxer"
 
-#: ../plugins/editor/plugin.c:409
+#: ../plugins/document-manager/plugin.c:371
 msgid "_Next bookmark"
 msgstr "_Següent adreça d'interès"
 
-#: ../plugins/editor/plugin.c:411
+#: ../plugins/document-manager/plugin.c:373
 msgid "Jump to the next bookmark in the file"
 msgstr "Vés a la següent adreça d'interès del fitxer"
 
-#: ../plugins/editor/plugin.c:413
+#: ../plugins/document-manager/plugin.c:375
 msgid "_Last bookmark"
-msgstr "_Última adreça d'interès"
+msgstr "Ú_ltima adreça d'interès"
 
-#: ../plugins/editor/plugin.c:415
+#: ../plugins/document-manager/plugin.c:377
 msgid "Jump to the last bookmark in the file"
 msgstr "Vés a l'última adreça d'interès del fitxer"
 
-#: ../plugins/editor/plugin.c:417
+#: ../plugins/document-manager/plugin.c:379
 msgid "_Clear all bookmarks"
 msgstr "Neteja totes les adre_ces d'interès"
 
-#: ../plugins/editor/plugin.c:419
+#: ../plugins/document-manager/plugin.c:381
 msgid "Clear bookmarks"
 msgstr "Neteja adreces d'interès"
 
-#: ../plugins/editor/plugin.c:438
+#: ../plugins/document-manager/plugin.c:400
 msgid "Editor file operations"
 msgstr "Operacions de fitxer de l'editor"
 
 # source\ui\app\mn.src menuitem MN_PPREVIEW_POPUPMENU FN_PREVIEW_PRINT_OPTIONS
 # Projecte_Open_Office_1.1 [sw.po]
-#: ../plugins/editor/plugin.c:439
+#: ../plugins/document-manager/plugin.c:401
 msgid "Editor print operations"
 msgstr "Operacions d'impressió de l'editor"
 
-#: ../plugins/editor/plugin.c:440
+#: ../plugins/document-manager/plugin.c:402
 msgid "Editor text transformation"
 msgstr "Transformació del text de l'editor"
 
-#: ../plugins/editor/plugin.c:441
+#: ../plugins/document-manager/plugin.c:403
 msgid "Editor text selection"
 msgstr "Selecció de text de l'editor"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/editor/plugin.c:443
-msgid "Editor text searching"
-msgstr "Cerca de text de l'editor"
-
-#: ../plugins/editor/plugin.c:444
+#: ../plugins/document-manager/plugin.c:405
 msgid "Editor code commenting"
 msgstr "Comentaris del codi de l'editor"
 
 # source\ui\utlui\initui.src string STR_AUTH_FIELD_EDITOR
 # Projecte_Open_Office_1.1 [sw.po]
-#: ../plugins/editor/plugin.c:445
+#: ../plugins/document-manager/plugin.c:406
 msgid "Editor navigations"
 msgstr "Navegacions de l'editor"
 
 # source\ui\app\mn.src menuitem MN_PPREVIEW_POPUPMENU FN_PREVIEW_PRINT_OPTIONS
 # Projecte_Open_Office_1.1 [sw.po]
-#: ../plugins/editor/plugin.c:446
+#: ../plugins/document-manager/plugin.c:407
 msgid "Editor edit operations"
 msgstr "Operacions d'edició de l'editor"
 
-#: ../plugins/editor/plugin.c:447
+#: ../plugins/document-manager/plugin.c:408
 msgid "Editor zoom operations"
 msgstr "Operacions d'ampliació de l'editor"
 
-#: ../plugins/editor/plugin.c:448
+#: ../plugins/document-manager/plugin.c:409
 msgid "Editor syntax highlighting styles"
 msgstr "Estils de ressaltat de sintaxi de l'editor"
 
-#: ../plugins/editor/plugin.c:449
+#: ../plugins/document-manager/plugin.c:410
 msgid "Editor text formating"
 msgstr "Formatat del text de l'editor"
 
-#: ../plugins/editor/plugin.c:450
+#: ../plugins/document-manager/plugin.c:411
 msgid "Editor bookmarks"
 msgstr "Adreces d'interès de l'editor"
 
-#: ../plugins/editor/plugin.c:454
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor view settings"
 msgstr "Configuració de la visualització de l'editor"
 
 # Projecte_Gnome_2.2 [mrproject.HEAD.ca.po]
-#: ../plugins/editor/plugin.c:524
+#: ../plugins/document-manager/plugin.c:495
 msgid "Save"
 msgstr "Desa"
 
 # Netscape_4.7->Menu:RESDLL.DLL
-#: ../plugins/editor/plugin.c:528
+#: ../plugins/document-manager/plugin.c:499
 msgid "Reload"
 msgstr "Actualitza"
 
-#: ../plugins/editor/plugin.c:534
-msgid "Find"
-msgstr "Cerca"
-
-#: ../plugins/editor/plugin.c:537
+#: ../plugins/document-manager/plugin.c:505
 msgid "Goto"
 msgstr "Vés a"
 
-#: ../plugins/editor/plugin.c:723
+#: ../plugins/document-manager/plugin.c:687
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/editor/plugin.c:727
+#: ../plugins/document-manager/plugin.c:691
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/editor/plugin.c:729 ../plugins/editor/plugin.c:740
+#: ../plugins/document-manager/plugin.c:693
+#: ../plugins/document-manager/plugin.c:704
 msgid "Zoom"
 msgstr "Ampliació"
 
 # source\ui\utlui\initui.src string RID_SW_SHELLRES STR_POSTIT_PAGE
 # source\ui\utlui\initui.src string RID_SW_SHELLRES STR_POSTIT_LINE
 # Projecte_Open_Office_1.1 [sw.po]
-#: ../plugins/editor/plugin.c:730 ../plugins/editor/plugin.c:741
-#: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:575
+#: ../plugins/document-manager/plugin.c:694
+#: ../plugins/document-manager/plugin.c:705 ../plugins/gdb/breakpoints.c:129
+#: ../plugins/gdb/stack_trace.c:575
 msgid "Line"
 msgstr "Línia"
 
 # Mozilla 1.3->Color
-#: ../plugins/editor/plugin.c:731 ../plugins/editor/plugin.c:742
+#: ../plugins/document-manager/plugin.c:695
+#: ../plugins/document-manager/plugin.c:706
 msgid "Col"
 msgstr "Col"
 
 # Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
-#: ../plugins/editor/plugin.c:732 ../plugins/editor/plugin.c:743
+#: ../plugins/document-manager/plugin.c:696
+#: ../plugins/document-manager/plugin.c:707
 msgid "Mode"
 msgstr "Mode"
 
 # Netscape_4.7->String:RESDLL.DLL
 #. Automatic highlight menu
-#: ../plugins/editor/plugin.c:1019
+#: ../plugins/document-manager/plugin.c:1007
 msgid "Automatic"
 msgstr "Automàtic"
 
-#: ../plugins/editor/plugin.c:1172
+#: ../plugins/document-manager/plugin.c:1178
 msgid "Goto line"
 msgstr "Vés a la línia"
 
-#: ../plugins/editor/plugin.c:1173
+#: ../plugins/document-manager/plugin.c:1179
 msgid "Enter the line number to jump and press enter"
 msgstr ""
 "Introduïu el número de línia on desitgeu anar i premeu la tecla de retorn"
 
-#: ../plugins/editor/plugin.c:1201
+#: ../plugins/document-manager/plugin.c:1188
 msgid "Editor quick navigations"
 msgstr "Navegacions ràpides de l'editor"
 
-#: ../plugins/editor/print.c:480
-msgid "No file to print!"
-msgstr "No hi ha cap fitxer per imprimir"
-
-#: ../plugins/editor/print.c:503
-msgid "Unable to get text buffer for printing"
-msgstr "No es pot obtenir la memòria intermèdia de text per imprimir"
-
-# Projecte_Gnome_2.2 [gedit.gnome-2-0.ca.po]
-#: ../plugins/editor/print.c:757
-#, c-format
-msgid "File: %s"
-msgstr "Fitxer: %s"
-
-#: ../plugins/editor/print.c:758
-#, c-format
-msgid "%d"
-msgstr "%d"
-
-#: ../plugins/editor/print.c:870
-msgid "Printing .."
-msgstr "Impressió .."
-
-#: ../plugins/editor/print.c:882
-msgid "Printing ..."
-msgstr "Impressió ..."
-
-# Netscape_4.7->Menu:RESDLL.DLL
-#: ../plugins/editor/print.c:1029 ../plugins/gdb/signals.c:354
-msgid "Print"
-msgstr "Imprimeix"
-
-# Netscape_4.7->Menu:RESDLL.DLL
-#: ../plugins/editor/print.c:1065
-msgid "Print Preview"
-msgstr "Previsualitza la impressió"
-
-# Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/editor/search_preferences.c:44
-msgid "Basic Search"
-msgstr "Cerca bàsica"
-
-#: ../plugins/editor/search_preferences.c:520
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
-msgid "Default"
-msgstr "Predeterminat"
-
-#: ../plugins/editor/search-replace.c:283
-msgid "Find: "
-msgstr "Cerca: "
-
-# Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/editor/search-replace.c:386
-msgid "Replace"
-msgstr "Reemplaça"
-
-# Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#: ../plugins/editor/search-replace.c:796
-#: ../plugins/editor/search-replace.c:1439
-msgid "Replace All"
-msgstr "Reemplaça'ls tots"
-
-#: ../plugins/editor/search-replace.c:834
-#, c-format
-msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr "No s'ha trobat \"%s\". Voleu començar la cerca des del principi?"
-
-#: ../plugins/editor/search-replace.c:854
-#, c-format
-msgid "The match \"%s\" was not found."
-msgstr "No s'ha trobat \"%s\"."
-
-#: ../plugins/editor/search-replace.c:869
-msgid "The maximum number of results has been reached."
-msgstr "S'ha obtingut el nombre màxim de resultats."
-
-#: ../plugins/editor/search-replace.c:882
-#, c-format
-msgid "%d matches have been replaced."
-msgstr "s'han reeemplaçat %d concordances."
-
-#: ../plugins/editor/search-replace.c:1037
-msgid "Unable to build user interface for Search And Replace"
-msgstr "No es pot construir la interfície d'usuari per a cercar i reemplaçar"
-
-#: ../plugins/editor/text_editor.c:312
+#: ../plugins/editor/text_editor.c:320
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4510,24 +4638,24 @@ msgstr ""
 "el carregat a la memòria.\n"
 "Desitgeu actualitzar-lo?"
 
-#: ../plugins/editor/text_editor.c:1198
+#: ../plugins/editor/text_editor.c:1208
 msgid "Could not get file info"
 msgstr "No es pot obtenir la informació del fitxer"
 
-#: ../plugins/editor/text_editor.c:1205
+#: ../plugins/editor/text_editor.c:1215
 msgid "This file is too big. Unable to allocate memory."
 msgstr "El fitxer és massa gran. No es pot obtenir la memòria necessària."
 
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
-#: ../plugins/editor/text_editor.c:1212
+#: ../plugins/editor/text_editor.c:1222
 msgid "Could not open file"
 msgstr "No s'ha pogut obrir el fitxer"
 
-#: ../plugins/editor/text_editor.c:1220
+#: ../plugins/editor/text_editor.c:1230
 msgid "Error while reading from file"
 msgstr "S'ha produït un error en llegir del fitxer"
 
-#: ../plugins/editor/text_editor.c:1256
+#: ../plugins/editor/text_editor.c:1266
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -4537,8 +4665,12 @@ msgstr ""
 "codificació emprad. Comproveu que la codificació es troba entre les "
 "codificacions disponibles. En cas contrari, afegiu-la a les preferències."
 
+#: ../plugins/editor/text_editor.c:1424
+msgid "Loading file..."
+msgstr "S'està carregant el fitxer..."
+
 # Projecte_Gnome_2.2 [gnumeric.HEAD.ca.po]
-#: ../plugins/editor/text_editor.c:1421
+#: ../plugins/editor/text_editor.c:1431
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4549,36 +4681,56 @@ msgstr ""
 "\n"
 "Motius: %s"
 
-#: ../plugins/editor/text_editor.c:1468
+#: ../plugins/editor/text_editor.c:1452
+msgid "File loaded successfully"
+msgstr "El fitxer s'ha carregat correctament."
+
+#: ../plugins/editor/text_editor.c:1469
+msgid "Saving file..."
+msgstr "S'està desant el fitxer..."
+
+#: ../plugins/editor/text_editor.c:1478
 #, c-format
 msgid "Could not save file: %s."
 msgstr "No es pot desar el fitxer: %s."
 
-#: ../plugins/editor/text_editor.c:1644
+#: ../plugins/editor/text_editor.c:1489
+msgid "File saved successfully"
+msgstr "El fitxer s'ha desat correctament"
+
+#: ../plugins/editor/text_editor.c:1628
 msgid "Auto format is currently disabled. Change the setting in Preferences."
 msgstr ""
 "El format automàtic està desactivat. Canvieu la configuració a Preferències."
 
-#: ../plugins/editor/text_editor.c:1663
-msgid "Error in auto formatting ..."
+#: ../plugins/editor/text_editor.c:1634
+msgid "Auto formatting..."
+msgstr "Format automàtic..."
+
+#: ../plugins/editor/text_editor.c:1647
+msgid "Error in auto formatting..."
 msgstr "S'ha produït un error en formatar automàticament..."
 
 #. FIXME: anjuta_set_active ();
-#: ../plugins/editor/text_editor.c:1679
+#: ../plugins/editor/text_editor.c:1665
 #, c-format
 msgid "Anjuta does not know %s!"
 msgstr "L'Anjuta no coneix %s"
 
-#: ../plugins/editor/text_editor.c:1704
+#: ../plugins/editor/text_editor.c:1689
 #, c-format
 msgid ""
-"Error in auto formatting ...\n"
+"Error in auto formatting...\n"
 "Details: %s"
 msgstr ""
 "S'ha produït un error en formatar automàticament...\n"
 "Motius: %s"
 
-#: ../plugins/editor/text_editor.c:1949
+#: ../plugins/editor/text_editor.c:1696
+msgid "Auto formatting completed"
+msgstr "S'ha completat l'auto-format"
+
+#: ../plugins/editor/text_editor.c:1934
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4592,7 +4744,12 @@ msgstr ""
 "Es poden produir comportaments incorrectes o inestabilitats.\n"
 "L'Anjuta farà servir les opcions incloses per defecte (més limitades)"
 
-#: ../plugins/editor/text_editor_cbs.c:126
+#: ../plugins/editor/text_editor_cbs.c:120
+#, c-format
+msgid "Autosaved \"%s\""
+msgstr "S'ha desat automàticament \"%s\""
+
+#: ../plugins/editor/text_editor_cbs.c:129
 #, c-format
 msgid "Autosave \"%s\" -- Failed"
 msgstr "No s'ha pogut desar automàticament \"%s\""
@@ -4783,7 +4940,6 @@ msgid "Anjuta Projects"
 msgstr "Projectes d'Anjuta"
 
 #: ../plugins/file-loader/plugin.c:453
-#: ../plugins/project-manager/project_dbase_gui.c:161
 msgid "C/C++ source files"
 msgstr "Fitxers de codi C/C++"
 
@@ -4792,7 +4948,6 @@ msgid "C# source files"
 msgstr "Fitxers de codi C#"
 
 #: ../plugins/file-loader/plugin.c:471
-#: ../plugins/project-manager/project_dbase_gui.c:162
 msgid "Java source files"
 msgstr "Fitxers de codi Java"
 
@@ -4838,7 +4993,7 @@ msgid "Failed to activate plugin: %s"
 msgstr "No es pot activar el connector: %s."
 
 #: ../plugins/file-loader/plugin.c:801
-msgid "_New ..."
+msgid "_New..."
 msgstr "_Nou..."
 
 #: ../plugins/file-loader/plugin.c:803
@@ -4846,7 +5001,7 @@ msgid "New empty editor."
 msgstr "Nou directori buit."
 
 #: ../plugins/file-loader/plugin.c:809
-msgid "_Open ..."
+msgid "_Open..."
 msgstr "_Obre..."
 
 #: ../plugins/file-loader/plugin.c:817 ../plugins/file-loader/plugin.c:830
@@ -4869,7 +5024,7 @@ msgstr "Nom del carregador"
 
 #: ../plugins/file-loader/plugin.c:1156
 msgid "_Wizard"
-msgstr "_Assistent"
+msgstr "_Auxiliar"
 
 #: ../plugins/file-loader/plugin.c:1157
 msgid "New file, project and project components."
@@ -4891,8 +5046,8 @@ msgstr "Obre un fitxer recent"
 #: ../plugins/file-manager/an_file_view.c:428
 #: ../plugins/file-manager/an_file_view.c:596
 #: ../plugins/file-manager/an_file_view.c:864
-#: ../plugins/symbol-browser/an_symbol_view.c:513
-msgid "Loading ..."
+#: ../plugins/symbol-browser/an_symbol_view.c:527
+msgid "Loading..."
 msgstr "S'està carregant..."
 
 #: ../plugins/file-manager/an_file_view.c:724
@@ -5279,7 +5434,7 @@ msgstr "Insereix la paraula clau CVS de codi (camí complet)"
 
 #: ../plugins/file-wizard/plugin.c:187
 msgid "File wizard operations"
-msgstr "Operacions de l'assistent de fitxers"
+msgstr "Operacions de l'auxiliar de fitxers"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:7
 msgid "Debugger command"
@@ -5357,55 +5512,55 @@ msgid "All breakpoints removed.\n"
 msgstr "S'han suprmit tots els punts de ruptura.\n"
 
 # Mozilla 1.3->styleVar.label
-#: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/watch_gui.c:122
+#: ../plugins/gdb/debug_tree.c:110 ../plugins/gdb/watch_gui.c:122
 #: ../plugins/tools/editor.c:456
 msgid "Variable"
 msgstr "Variable"
 
 # Mozilla 1.3->valueColumn.label
-#: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/registers.c:316
+#: ../plugins/gdb/debug_tree.c:110 ../plugins/gdb/registers.c:316
 #: ../plugins/gdb/watch_gui.c:131 ../plugins/tools/editor.c:462
 msgid "Value"
 msgstr "Valor"
 
-#: ../plugins/gdb/debug_tree.c:1207
+#: ../plugins/gdb/debug_tree.c:1215
 msgid "Local Variables"
 msgstr "Variables locals"
 
-#: ../plugins/gdb/debug_tree.c:1526
+#: ../plugins/gdb/debug_tree.c:1571
 msgid "Default format"
 msgstr "Format per defecte"
 
 # Projecte_Gnome_2.2 [ghex.HEAD.ca.po]
-#: ../plugins/gdb/debug_tree.c:1530
+#: ../plugins/gdb/debug_tree.c:1575
 msgid "Binary"
 msgstr "Binari"
 
 # Projecte_Gnome_2.2 [ghex.HEAD.ca.po]
-#: ../plugins/gdb/debug_tree.c:1533
+#: ../plugins/gdb/debug_tree.c:1578
 msgid "Octal"
 msgstr "Octal"
 
-#: ../plugins/gdb/debug_tree.c:1536
+#: ../plugins/gdb/debug_tree.c:1581
 msgid "Signed decimal"
 msgstr "Decimal amb signe"
 
-#: ../plugins/gdb/debug_tree.c:1539
+#: ../plugins/gdb/debug_tree.c:1584
 msgid "Unsigned decimal"
 msgstr "Decimal sense signe"
 
 # Projecte_Gnome_2.2 [ghex.HEAD.ca.po]
-#: ../plugins/gdb/debug_tree.c:1542
+#: ../plugins/gdb/debug_tree.c:1587
 msgid "Hex"
 msgstr "Hexadecimal"
 
 #
 # Projecte_Gnome_2.2 [gedit.gnome-2-0.ca.po]
-#: ../plugins/gdb/debug_tree.c:1545
+#: ../plugins/gdb/debug_tree.c:1590
 msgid "Char"
 msgstr "Caràcter"
 
-#: ../plugins/gdb/debug_tree.c:1550
+#: ../plugins/gdb/debug_tree.c:1595
 msgid "Inspect memory"
 msgstr "Inspecciona la memòria"
 
@@ -5429,8 +5584,8 @@ msgstr ""
 "Asegureu-vos que l'Anjuta està instal·lat correctament."
 
 #: ../plugins/gdb/debugger.c:647
-msgid "Getting ready to start debugging session ...\n"
-msgstr "Preparant-se per iniciar la sessió de depuració ...\n"
+msgid "Getting ready to start debugging session...\n"
+msgstr "Preparant-se per iniciar la sessió de depuració...\n"
 
 #: ../plugins/gdb/debugger.c:662
 msgid "No executable specified.\n"
@@ -5490,11 +5645,11 @@ msgstr "S'ha arribat a la ubicació\n"
 msgid "Debugger is ready.\n"
 msgstr "El depurador és a punt.\n"
 
-#: ../plugins/gdb/debugger.c:1148
+#: ../plugins/gdb/debugger.c:1147
 msgid "gdb terminated unexpectedly. Restarting gdb\n"
 msgstr "El gdb ha terminat inesperadament. S'està reinciant el gdb\n"
 
-#: ../plugins/gdb/debugger.c:1182
+#: ../plugins/gdb/debugger.c:1181
 msgid ""
 "Program is ATTACHED.\n"
 "Do you still want to stop Debugger?"
@@ -5502,7 +5657,7 @@ msgstr ""
 "El programa és adjunt.\n"
 "Desitgeu aturar el depurador?"
 
-#: ../plugins/gdb/debugger.c:1185
+#: ../plugins/gdb/debugger.c:1184
 msgid ""
 "Program is RUNNING.\n"
 "Do you still want to stop Debugger?"
@@ -5523,12 +5678,17 @@ msgstr "No es pot iniciar el terminal per depurar."
 msgid "Program arguments"
 msgstr "Paràmetres del programa"
 
-#: ../plugins/gdb/debugger.c:1507
-#, c-format
-msgid "Attaching to process: %d\n"
-msgstr "S'està adjuntant al procés: %d\n"
+# Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
+#: ../plugins/gdb/debugger.c:1506
+msgid "Program attached\n"
+msgstr "El programa s'ha adjuntat\n"
 
-#: ../plugins/gdb/debugger.c:1531
+#: ../plugins/gdb/debugger.c:1520
+#, c-format
+msgid "Attaching to process: %d...\n"
+msgstr "S'està adjuntant al procés: %d...\n"
+
+#: ../plugins/gdb/debugger.c:1544
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -5536,29 +5696,34 @@ msgstr ""
 "Hi ha un procés executant-se.\n"
 "Desitgeu terminar-lo i adjuntar-vos al nou procés?"
 
-#: ../plugins/gdb/debugger.c:1548
+#: ../plugins/gdb/debugger.c:1561
 msgid "Anjuta is unable to attach to itself."
 msgstr "L'Anjuta no pot adjuntar-se a sí mateix."
 
 # Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
-#: ../plugins/gdb/debugger.c:1595
+#: ../plugins/gdb/debugger.c:1608
 msgid "Program terminated\n"
 msgstr "El programa ha acabat\n"
 
-#: ../plugins/gdb/debugger.c:1610
-msgid "Detaching the process\n"
+# Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
+#: ../plugins/gdb/debugger.c:1620
+msgid "Program detached\n"
+msgstr "El programa s'ha separat\n"
+
+#: ../plugins/gdb/debugger.c:1636
+msgid "Detaching the process...\n"
 msgstr "S'està separant el procés\n"
 
-#: ../plugins/gdb/debugger.c:1628
+#: ../plugins/gdb/debugger.c:1655
 msgid "Interrupting the process\n"
 msgstr "S'està interrompent el procés:\n"
 
-#: ../plugins/gdb/debugger.c:1816
+#: ../plugins/gdb/debugger.c:1843
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "S'està enviant el senyal %s al procés: %d"
 
-#: ../plugins/gdb/debugger.c:1842
+#: ../plugins/gdb/debugger.c:1869
 msgid "Error whilst signaling the process."
 msgstr "Hi ha hagut un error quan s'enviava el senyal al procés."
 
@@ -5586,7 +5751,7 @@ msgstr "Commuta el punt de trencament a l'ubicació actual"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/gdb/plugin.c:76
-msgid "Set Breakpoint ..."
+msgid "Set Breakpoint..."
 msgstr "Estableix el punt de trencament..."
 
 #. Display label
@@ -5598,7 +5763,7 @@ msgstr "Establei el punt de trencament"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/gdb/plugin.c:84
-msgid "_Breakpoints ..."
+msgid "_Breakpoints..."
 msgstr "_Punts de trencament..."
 
 #. Display label
@@ -5750,7 +5915,7 @@ msgid "Send a kernel signal to the process being debugged"
 msgstr "Envia un senyal del nucli al procés en depuració"
 
 #: ../plugins/gdb/plugin.c:228
-msgid "Ins_pect/Evaluate ..."
+msgid "Ins_pect/Evaluate..."
 msgstr "Ins_pecciona/avalua..."
 
 #: ../plugins/gdb/plugin.c:230
@@ -5758,7 +5923,7 @@ msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspecciona o evalua una expressió o variable"
 
 #: ../plugins/gdb/plugin.c:236
-msgid "Add Expression in _Watch ..."
+msgid "Add Expression in _Watch..."
 msgstr "Afegeix una expressió a _vigilar..."
 
 #: ../plugins/gdb/plugin.c:238
@@ -5766,7 +5931,7 @@ msgid "Add expression or variable to the watch"
 msgstr "Afegeix expressió o variable per a vigilar"
 
 #: ../plugins/gdb/plugin.c:244
-msgid "Debugger command ..."
+msgid "Debugger command..."
 msgstr "Ordre del depurador..."
 
 #: ../plugins/gdb/plugin.c:246
@@ -5774,7 +5939,7 @@ msgid "Custom debugger command"
 msgstr "Ordre personalitzada del depurador"
 
 #: ../plugins/gdb/plugin.c:252
-msgid "Registers ..."
+msgid "Registers..."
 msgstr "Registres..."
 
 #: ../plugins/gdb/plugin.c:254
@@ -5782,7 +5947,7 @@ msgid "Show CPU register contents"
 msgstr "Registres de la CPU i el seu valor"
 
 #: ../plugins/gdb/plugin.c:260
-msgid "Shared Libraries ..."
+msgid "Shared Libraries..."
 msgstr "Biblioteques compartides..."
 
 #: ../plugins/gdb/plugin.c:262
@@ -5790,7 +5955,7 @@ msgid "Show shared libraries mappings"
 msgstr "Mostra les correspondències de les biblioteques compartides"
 
 #: ../plugins/gdb/plugin.c:268
-msgid "Kernel Signals ..."
+msgid "Kernel Signals..."
 msgstr "Senyals del nucli..."
 
 #: ../plugins/gdb/plugin.c:270
@@ -5853,11 +6018,7 @@ msgstr ""
 
 # Winrar 2.9->Dialog Box Control:rarlng.dll
 #: ../plugins/gdb/signals.c:192 ../plugins/gdb/signals.c:205
-#: ../plugins/gdb/signals.c:218
-#: ../plugins/project-manager/project_dbase.c:1468
-#: ../plugins/project-manager/project_dbase.c:1477
-#: ../plugins/project-manager/project_import_cbs.c:229
-#: ../plugins/project-wizard/property.c:209
+#: ../plugins/gdb/signals.c:218 ../plugins/project-wizard/property.c:209
 #: ../plugins/project-wizard/property.c:223
 msgid "No"
 msgstr "No"
@@ -5883,6 +6044,11 @@ msgstr "Senyal"
 #: ../plugins/gdb/signals.c:350
 msgid "Stop"
 msgstr "Atura"
+
+# Netscape_4.7->Menu:RESDLL.DLL
+#: ../plugins/gdb/signals.c:354 ../plugins/print/print.c:1020
+msgid "Print"
+msgstr "Imprimeix"
 
 #: ../plugins/gdb/signals.c:481
 msgid " Stop: "
@@ -5928,10 +6094,8 @@ msgid "Add expression"
 msgstr "Afegeix expressió"
 
 # Netscape_4.7->Dialog Box Control:RESDLL.DLL
-#. 3
 #: ../plugins/gdb/watch_gui.c:43 ../plugins/gtodo/callback.c:15
 #: ../plugins/gtodo/callback.c:101
-#: ../plugins/project-manager/project_dbase_gui.c:323
 msgid "Remove"
 msgstr "Elimina"
 
@@ -6003,11 +6167,11 @@ msgstr "S'ha desat el projecte '%s'"
 
 #. If instead we dont have a path yet, fire up a file selector
 #: ../plugins/glade/plugin.c:234
-msgid "Save glade file ..."
+msgid "Save glade file..."
 msgstr "Desa el fitxer glade..."
 
 #: ../plugins/glade/plugin.c:261
-msgid "Save glade file as ..."
+msgid "Save glade file as..."
 msgstr "Anomena i desa el fitxer glade..."
 
 #: ../plugins/glade/plugin.c:289
@@ -6765,7 +6929,7 @@ msgstr ""
 
 #: ../plugins/gtodo/libgtodo.c:759
 msgid "No Gtodo Client to save."
-msgstr "No hi ha cap Client Gtodo per a desar."
+msgstr "No hi ha cap client Gtodo per a desar."
 
 #: ../plugins/gtodo/libgtodo.c:778
 #, c-format
@@ -6941,8 +7105,13 @@ msgstr "Amaga _els elements sense data de venciment"
 msgid "Hide items without an end date"
 msgstr "Amaga els elements sense data de venciment"
 
-#: ../plugins/gtodo/plugin.c:169 ../plugins/gtodo/plugin.c:175
+#: ../plugins/gtodo/plugin.c:169
 msgid "Tasks manager"
+msgstr "Gestor de tasques"
+
+#: ../plugins/gtodo/plugin.c:175
+#, fuzzy
+msgid "Tasks manager view"
 msgstr "Gestor de tasques"
 
 # Projecte_Gnome_2.2 [gedit.gnome-2-0.ca.po]
@@ -7126,7 +7295,7 @@ msgid "Shortcut:"
 msgstr "Drecera:"
 
 #: ../plugins/macro/macro-actions.c:123
-msgid "Press macro shortcut ..."
+msgid "Press macro shortcut..."
 msgstr "Premeu la drecera per a la macro..."
 
 #
@@ -7326,7 +7495,7 @@ msgid "Macros"
 msgstr "Macros"
 
 #: ../plugins/macro/plugin.c:41
-msgid "_Insert Macro ..."
+msgid "_Insert Macro..."
 msgstr "_Insereix una macro..."
 
 #: ../plugins/macro/plugin.c:43
@@ -7334,7 +7503,7 @@ msgid "Insert a macro using a shortcut"
 msgstr "Insereix una macro que fa servir una drecera de teclat"
 
 #: ../plugins/macro/plugin.c:48
-msgid "_Add Macro ..."
+msgid "_Add Macro..."
 msgstr "_Afegeix una macro..."
 
 #: ../plugins/macro/plugin.c:50
@@ -7344,7 +7513,7 @@ msgstr "Afegeix una macro"
 # source\dialog\eventdlg.src fixedline TP_CONFIG_EVENT GB_MACRO
 # Projecte_Open_Office_1.1 [sfx2.po]
 #: ../plugins/macro/plugin.c:55
-msgid "Macros ..."
+msgid "Macros..."
 msgstr "Macros..."
 
 #: ../plugins/macro/plugin.c:57
@@ -7542,6 +7711,34 @@ msgstr "_Pedaç"
 msgid "Patch files/directories"
 msgstr "Aplica un pedaç a fitxers/directoris"
 
+#: ../plugins/print/print.c:471
+msgid "No file to print!"
+msgstr "No hi ha cap fitxer per imprimir"
+
+#: ../plugins/print/print.c:494
+msgid "Unable to get text buffer for printing"
+msgstr "No es pot obtenir la memòria intermèdia de text per imprimir"
+
+# Projecte_Gnome_2.2 [gedit.gnome-2-0.ca.po]
+#: ../plugins/print/print.c:748
+#, c-format
+msgid "File: %s"
+msgstr "Fitxer: %s"
+
+#: ../plugins/print/print.c:749
+#, c-format
+msgid "%d"
+msgstr "%d"
+
+#: ../plugins/print/print.c:861 ../plugins/print/print.c:873
+msgid "Printing..."
+msgstr "Impressió ..."
+
+# Netscape_4.7->Menu:RESDLL.DLL
+#: ../plugins/print/print.c:1056
+msgid "Print Preview"
+msgstr "Previsualitza la impressió"
+
 # Projecte_Gnome_2.2 [anjuta2.HEAD.ca.po]
 #: ../plugins/profile-default/plugin.c:242
 msgid "Close Pro_ject"
@@ -7562,8 +7759,8 @@ msgid "Loaded: "
 msgstr "Carregat: "
 
 #: ../plugins/profile-default/plugin.c:493
-msgid " ..."
-msgstr " ..."
+msgid "..."
+msgstr "..."
 
 # Projecte_Mandrake [tm-mandrake.po]
 #: ../plugins/profile-default/plugin.c:546
@@ -7603,68 +7800,72 @@ msgstr ""
 "No sembla un projecte d'Anjuta vàlid."
 
 #: ../plugins/profile-default/plugin.c:898
-msgid "Loaded default profile ..."
+msgid "Loaded default profile..."
 msgstr "S'ha carregat el perfil per defecte..."
 
 #: ../plugins/profile-default/plugin.c:948
 #: ../plugins/profile-default/plugin.c:1075
-msgid "Loaded Profile ..."
+msgid "Loaded Profile..."
 msgstr "S'ha carregat el peril..."
 
 #: ../plugins/profile-default/plugin.c:1045
-msgid "Loaded Project ... Initializing"
+msgid "Loaded Project... Initializing"
 msgstr "S'ha carregat el projecte ... S'està inicialitzant"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:1
-msgid "Enter the base path of your project (where configure.in can be found):"
-msgstr ""
-"Introduïu el camí base del vostre projecte (on es troba el configure.in):"
+msgid "Enter the base path of your project:"
+msgstr "Introduïu el camí base del vostre projecte:"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:2
-#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:2
 msgid "Enter the project name:"
 msgstr "Introduïu el nom del projecte:"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:3
-#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:3
 msgid "Import Project"
 msgstr "Importa un projecte"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
-msgid ""
-"This wizard will help you to import an existing automake/autoconf managed "
-"project into anjuta."
-msgstr ""
-"Aquest assistent us permetrà importar un projecte existent gestionat amb "
-"automake/autoconf a l'Anjuta."
+msgid "This wizard will help you to import an existing project into anjuta."
+msgstr "Aquest auxiliar us ajudarà a importar a l'Anjuta un projecte existent."
 
-#: ../plugins/project-import/project-import.c:89
-#: ../plugins/project-mkfile-import/project-mkfile-import.c:84
+#: ../plugins/project-import/project-import.c:95
+#, c-format
 msgid ""
-"This does not look like a project root dir!\n"
-"Continue anyway?"
+"Could not find a valid project backend for the directory given (%s). Please "
+"select a different directory, or try upgrading to a newer version of the "
+"Gnome Build Framework."
 msgstr ""
-"No sembla l'arrel del directori d'un projecte.\n"
-"Voleu continuar igualment?"
+"No s'ha trobat un tipus de projecte vàlida per al directori donat (%s). "
+"Seleccioneu un directori diferent, o proveu d'actualitzar a una versió nova "
+"de l'entorn de desenvolupament GNOME."
 
-#: ../plugins/project-import/project-import.c:113
-#: ../plugins/project-mkfile-import/project-mkfile-import.c:106
+#: ../plugins/project-import/project-import.c:116
 #, c-format
 msgid ""
 "Project name: %s\n"
+"Project type: %s\n"
 "Project path: %s\n"
 msgstr ""
 "Nom del projecte: %s\n"
+"Tipus de projecte: %s\n"
 "Nom del camí: %s\n"
 
-#: ../plugins/project-import/project-import.c:284
-#: ../plugins/project-mkfile-import/project-mkfile-import.c:276
+#: ../plugins/project-import/project-import.c:294
+msgid ""
+"Generation of project file failed. Cannot find an appropriate project "
+"template to use. Please make sure your version of Anjuta is up to date."
+msgstr ""
+"No s'ha pogut generar el fitxer de projecte. No es pot trobar una plantilla "
+"de projecte apropiada per usar. Assegureu-vos que la vostra versió d'Anjuta "
+"està actualitzada."
+
+#: ../plugins/project-import/project-import.c:324
 #, c-format
 msgid ""
 "Generation of project file failed. Please check if you have write access to "
 "the project directory: %s"
 msgstr ""
-"Ha fallat la generació del projecte. Comproveu que teniu accés per a "
+"No s'ha pogut generar el fitxer de projecte. Comproveu que teniu accés per a "
 "escriure al directori del projecte: %s"
 
 #: ../plugins/project-manager/plugin.c:217
@@ -7741,7 +7942,7 @@ msgstr "L'URI és un enllaç"
 #: ../plugins/project-manager/plugin.c:572
 #, c-format
 msgid "Failed to retried URI info of %s: %s"
-msgstr ""
+msgstr "NO s'ha pogut obtenir informació de URI de %s: %s"
 
 # source\misc\mediatyp.src string STR_SVT_MIMETYPE_CNT_FSYSFLD
 # source\misc\mediatyp.src string STR_SVT_MIMETYPE_CNT_FSYSFILE
@@ -7820,7 +8021,7 @@ msgid "Loading project: %s"
 msgstr "S'està carregant el projecte: %s"
 
 #: ../plugins/project-manager/plugin.c:1009
-msgid "Created project view ..."
+msgid "Created project view..."
 msgstr "Visualització del projecte creat..."
 
 #: ../plugins/project-manager/plugin.c:1022
@@ -7836,655 +8037,6 @@ msgstr "Accions del gestor de projectes"
 msgid "Project manager popup actions"
 msgstr "Accions emergents del gestor de projectes"
 
-#. Must declare static, because it will be used forever
-#: ../plugins/project-manager/project_dbase.c:205
-msgid "Add to Project"
-msgstr "Afegeix al projecte"
-
-#: ../plugins/project-manager/project_dbase.c:362
-msgid "Anjuta project files"
-msgstr "Fitxers de projecte d'Anjuta"
-
-#: ../plugins/project-manager/project_dbase.c:444
-#: ../plugins/project-manager/project_dbase.c:462
-#, c-format
-msgid "Unable to load Project: %s"
-msgstr "No es pot carregar el projecte: %s"
-
-#: ../plugins/project-manager/project_dbase.c:455
-#: ../plugins/project-manager/project_dbase.c:2461
-#, c-format
-msgid ""
-"Anjuta version %s or later is required to open this Project.\n"
-"Please upgrade to the latest version of Anjuta (Help for more information)."
-msgstr ""
-"Cal la versió %s o posterior d'Anjuta per obrir aquest projecte.\n"
-"Actualitzeu-vos a la versió més recent d'Anjuta (per a més informació "
-"consulteu l'ajuda)."
-
-#: ../plugins/project-manager/project_dbase.c:836
-msgid "Project saved successfully"
-msgstr "El projecte s'ha desat correctament"
-
-#: ../plugins/project-manager/project_dbase.c:842
-#: ../plugins/project-manager/project_dbase.c:845
-msgid "Unable to save the Project."
-msgstr "No es pot desar el projecte."
-
-#: ../plugins/project-manager/project_dbase.c:1543
-msgid ""
-"A .glade file does not exist in the top level Project directory. If you do "
-"not use glade for GUI editing,  please specify a custom command for it in "
-"[Project]->[Project Configuration]->[GUI editor command]"
-msgstr ""
-"No hi ha cap fitxer .glade al directori de nivell superior del projecte. Si "
-"no feu servir glade per editar les interfícies, especifiqueu una ordre "
-"personalitzada a [Projecte]->[Configuració del projecte]->[Ordre de l'editor "
-"d'interfícies gràfiques]"
-
-#: ../plugins/project-manager/project_dbase.c:1605
-msgid ""
-"A .glade file does not\n"
-"exist in the top level Project directory."
-msgstr ""
-"No existeix un fitxer .glade\n"
-"al directori de nivell superior del Projecte."
-
-#: ../plugins/project-manager/project_dbase.c:2021
-msgid "Recent Projects "
-msgstr "Projectes recents "
-
-#. Set project title
-#: ../plugins/project-manager/project_dbase.c:2059
-msgid "Project: "
-msgstr "Projecte: "
-
-#: ../plugins/project-manager/project_dbase.c:2176
-#, c-format
-msgid ""
-"Unable to get relative file name for %s\n"
-" in %s"
-msgstr ""
-"No es pot obtenir el nom de fitxer relatiu per a %s\n"
-" a %s"
-
-#: ../plugins/project-manager/project_dbase.c:2241
-msgid " already exists in the project"
-msgstr " ja existeix al projecte"
-
-#: ../plugins/project-manager/project_dbase.c:2274
-msgid "Error while copying the file inside the module."
-msgstr "S'ha produït un error en copiar el fitxer dins del mòdul."
-
-#: ../plugins/project-manager/project_dbase.c:2537
-#: ../plugins/project-manager/project_dbase.c:2540
-#, c-format
-msgid "Error in loading Project: %s"
-msgstr "S'ha produït un error en carregar el projecte: %s"
-
-#: ../plugins/project-manager/project_dbase.c:2561
-msgid "Project loaded successfully."
-msgstr "El projecte s'ha carregat correctament."
-
-#: ../plugins/project-manager/project_dbase_gui.c:76
-#, c-format
-msgid ""
-"Are you sure you want to remove the item\n"
-"'%s' from the Project?"
-msgstr ""
-"Desitgeu esborrar l'element\n"
-"'%s' del projecte?"
-
-#: ../plugins/project-manager/project_dbase_gui.c:118
-msgid "There is already a Project open.Do you want to close it first?"
-msgstr "Hi ha un projecte obert. Desitgeu tancar-lo primer?"
-
-#: ../plugins/project-manager/project_dbase_gui.c:152
-msgid "Help files"
-msgstr "Fitxers d'ajuda"
-
-#: ../plugins/project-manager/project_dbase_gui.c:163
-msgid "Pascal files"
-msgstr "Fitxers Pascal"
-
-#: ../plugins/project-manager/project_dbase_gui.c:164
-msgid "PHP files"
-msgstr "Fitxers PHP"
-
-#: ../plugins/project-manager/project_dbase_gui.c:165
-msgid "Perl files"
-msgstr "Fitxers Perl"
-
-#: ../plugins/project-manager/project_dbase_gui.c:166
-msgid "Python files"
-msgstr "Fitxers Python"
-
-#: ../plugins/project-manager/project_dbase_gui.c:167
-msgid "Shell Script files"
-msgstr "Fitxers de seqüència d'intèrpret d'ordres"
-
-#: ../plugins/project-manager/project_dbase_gui.c:168
-msgid "Visual Basic files"
-msgstr "Fitxes de Visual Basic"
-
-#: ../plugins/project-manager/project_dbase_gui.c:169
-msgid ".lua files"
-msgstr "Fitxers .lua"
-
-#: ../plugins/project-manager/project_dbase_gui.c:178
-msgid "PNG files"
-msgstr "Fitxers PNG"
-
-#: ../plugins/project-manager/project_dbase_gui.c:179
-msgid "JPG files"
-msgstr "Fitxes JPG"
-
-#: ../plugins/project-manager/project_dbase_gui.c:180
-msgid "BMP files"
-msgstr "Fitxers BMP"
-
-#: ../plugins/project-manager/project_dbase_gui.c:181
-msgid "GIF files"
-msgstr "Fitxers GIF"
-
-#: ../plugins/project-manager/project_dbase_gui.c:198
-msgid "Text files"
-msgstr "Fitxers de Text"
-
-#: ../plugins/project-manager/project_dbase_gui.c:199
-msgid "XML files"
-msgstr "Fitxers XML"
-
-#: ../plugins/project-manager/project_dbase_gui.c:200
-msgid "HTML files"
-msgstr "Fitxers HTML"
-
-#: ../plugins/project-manager/project_dbase_gui.c:201
-msgid "DOC files"
-msgstr "Fitxers DOC"
-
-#: ../plugins/project-manager/project_dbase_gui.c:210
-msgid "PO files"
-msgstr "Fitxers PO"
-
-#: ../plugins/project-manager/project_dbase_gui.c:219
-msgid "C/C++ Headers"
-msgstr "Capçalera C/C++"
-
-#: ../plugins/project-manager/project_dbase_gui.c:250
-msgid "Add file to module: "
-msgstr "Afegeix un fitxer al mòdul: "
-
-# Projecte_Gnome_2.2 [balsa.HEAD.ca.po]
-#. 0
-#: ../plugins/project-manager/project_dbase_gui.c:259
-msgid "Include file"
-msgstr "Fitxer inclòs"
-
-#. 1
-#: ../plugins/project-manager/project_dbase_gui.c:265
-msgid "Source file"
-msgstr "Fitxer de codi"
-
-# source\misc\imagemgr.src string STR_DESCRIPTION_HELP_DOC
-# Projecte_Open_Office_1.1 [svtools.po]
-#. 2
-#: ../plugins/project-manager/project_dbase_gui.c:271
-msgid "Help file"
-msgstr "Fitxer d'ajuda"
-
-#. 3
-#: ../plugins/project-manager/project_dbase_gui.c:277
-msgid "Data file"
-msgstr "Fitxer de dades"
-
-#. 4
-#: ../plugins/project-manager/project_dbase_gui.c:283
-msgid "Pixmap file"
-msgstr "Fitxer de mapa de píxels"
-
-#. 5
-#: ../plugins/project-manager/project_dbase_gui.c:289
-msgid "Translation file"
-msgstr "Fitxer de traduccions"
-
-#. 6
-#: ../plugins/project-manager/project_dbase_gui.c:295
-msgid "Doc file"
-msgstr "Fitxer doc"
-
-#. 0
-#: ../plugins/project-manager/project_dbase_gui.c:305
-msgid "Add File"
-msgstr "Afegeix fitxer"
-
-#. 1
-#: ../plugins/project-manager/project_dbase_gui.c:311
-msgid "Open in default viewer"
-msgstr "Obre en el visualitzador per defecte"
-
-#. 2
-#: ../plugins/project-manager/project_dbase_gui.c:317
-msgid "Open in Anjuta"
-msgstr "Obre dins d'Anjuta"
-
-#. 4
-#. 5
-#: ../plugins/project-manager/project_dbase_gui.c:330
-msgid "Configure Project"
-msgstr "Configura el projecte"
-
-#. 6
-#: ../plugins/project-manager/project_dbase_gui.c:336
-msgid "Project Info"
-msgstr "Informació del projecte"
-
-#: ../plugins/project-manager/project_dbase_gui.c:677
-msgid "Project Information"
-msgstr "Informació del projecte"
-
-#: ../plugins/project-manager/project_dbase_gui.c:685
-msgid " Project Information "
-msgstr " Informació del projecte "
-
-# Mozilla 1.3->authorName.label
-#: ../plugins/project-manager/project_dbase_gui.c:721
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
-msgid "Author:"
-msgstr "Autor:"
-
-# Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
-#: ../plugins/project-manager/project_dbase_gui.c:729
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
-msgid "Project Name:"
-msgstr "Nom del projecte:"
-
-# Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
-#: ../plugins/project-manager/project_dbase_gui.c:808
-msgid "Program Name:"
-msgstr "Nom del programa:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:815
-msgid "Source files:"
-msgstr "Fitxers de codi:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:822
-msgid "Help files:"
-msgstr "Fitxers d'ajuda:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:829
-msgid "Data files:"
-msgstr "Fitxers de dades:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:836
-msgid "Pixmap files:"
-msgstr "Fitxers de mapa de píxels:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:843
-msgid "Doc files:"
-msgstr "Fitxers doc:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:864
-msgid "Po files:"
-msgstr "Fitxers po:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:894
-msgid "GUI editable by Glade:"
-msgstr "Interfície editable pel Glade:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:916
-msgid "Makefiles managed:"
-msgstr "Makefiles gestionats:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:958
-msgid "Gettext support:"
-msgstr "Ús de gettext:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:1016
-msgid "Project Type:"
-msgstr "Tipus de projecte:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:1061
-msgid ""
-"Project is not saved.\n"
-"Do you want to save it before closing?"
-msgstr ""
-"El projecte no s'ha desat.\n"
-"Desitgeu desar-lo abans de tancar?"
-
-# Mozilla 1.3->br
-#: ../plugins/project-manager/project_dbase_gui.c:1076
-#: ../plugins/project-manager/project_dbase_gui.c:1196
-msgid "Breton"
-msgstr "Bretó"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1077
-msgid "Catalan"
-msgstr "Català"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1078
-msgid "Czech"
-msgstr "Txec"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1079
-msgid "Danish"
-msgstr "Danès"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1080
-msgid "German"
-msgstr "Alemany"
-
-# Mozilla 1.3->eo
-#: ../plugins/project-manager/project_dbase_gui.c:1082
-msgid "Esperanto"
-msgstr "Esperanto"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1083
-msgid "Spanish"
-msgstr "Castellà"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1084
-msgid "Finnish"
-msgstr "Finès"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1085
-msgid "French"
-msgstr "Francès"
-
-#: ../plugins/project-manager/project_dbase_gui.c:1086
-msgid "Herbrew"
-msgstr "Hebreu"
-
-# Mozilla 1.3->hr
-#: ../plugins/project-manager/project_dbase_gui.c:1087
-#: ../plugins/project-manager/project_dbase_gui.c:1091
-msgid "Croatian"
-msgstr "Croat"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1088
-msgid "Hungarian"
-msgstr "Hongarès"
-
-#: ../plugins/project-manager/project_dbase_gui.c:1089
-msgid "Islandic"
-msgstr "Islandès"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1090
-msgid "Italian"
-msgstr "Italià"
-
-# Mozilla 1.3->mk
-#: ../plugins/project-manager/project_dbase_gui.c:1093
-msgid "Macedonian"
-msgstr "Macedònic"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1094
-msgid "Dutch"
-msgstr "Holandès"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1095
-msgid "Norwegian"
-msgstr "Noruec"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1096
-msgid "Polish"
-msgstr "Polonès"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1097
-msgid "Portuguese"
-msgstr "Portuguès"
-
-# Netscape_4.7->String:EDITOR32.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1099
-msgid "Russian"
-msgstr "Rus"
-
-# Mozilla 1.3->sk
-#: ../plugins/project-manager/project_dbase_gui.c:1100
-msgid "Slovak"
-msgstr "Eslovac"
-
-# Netscape_4.7->String:RESDLL.DLL
-#: ../plugins/project-manager/project_dbase_gui.c:1102
-msgid "Simplified Chinese"
-msgstr "Xinès simplificat"
-
-# Mozilla 1.3->chardet.zh_parallel_state_machine.title
-#: ../plugins/project-manager/project_dbase_gui.c:1103
-msgid "Chinese"
-msgstr "Xinès"
-
-# Mozilla 1.3->et
-#: ../plugins/project-manager/project_dbase_gui.c:1104
-msgid "Estonian"
-msgstr "Estonià"
-
-#: ../plugins/project-manager/project_dbase_gui.c:1148
-msgid "Select regional language"
-msgstr "Seleccioneu l'idioma de la seva regió"
-
-#: ../plugins/project-manager/project_dbase_gui.c:1164
-msgid "Select regional language:"
-msgstr "Seleccioneu l'idioma de la seva regió:"
-
-#: ../plugins/project-manager/project_dbase_gui.c:1204
-#, c-format
-msgid "Unable to find pixmap file: %s"
-msgstr "No es pot trobar el mapa de píxels: %s"
-
-#: ../plugins/project-manager/project_dbase_gui.c:1281
-#, c-format
-msgid ""
-"\"%s\"\n"
-"does not exist.\n"
-"Do you want to create it now ?"
-msgstr ""
-"\"%s\"\n"
-"no existeix.\n"
-"Desitgeu crear-lo ara?"
-
-#: ../plugins/project-manager/project_dbase_gui.c:1299
-#, c-format
-msgid "Not a regular file: %s."
-msgstr "No és un fitxer: %s."
-
-#: ../plugins/project-manager/project_dbase_gui.c:1309
-#, c-format
-msgid ""
-"\"%s\"\n"
-"does not exist in the current module directory.\n"
-"Do you want to IMPORT (copy) it into the module?"
-msgstr ""
-"\"%s\"\n"
-"no existeix al directori de mòdul actual.\n"
-"Desitgeu importar-lo (copiar-lo) dins del mòdul?"
-
-#: ../plugins/project-manager/project_import.c:89
-#, c-format
-msgid "Unable to find import script %s"
-msgstr "No es pot trobar el fitxer de seqüència d'ordres %s per a importar"
-
-#: ../plugins/project-manager/project_import.c:94
-#, c-format
-msgid "%s: Not a regular file"
-msgstr "%s: no és un fitxer"
-
-#: ../plugins/project-manager/project_import.c:109
-#, c-format
-msgid "Importing Project from %s ...\n"
-msgstr "S'està important un projecte de %s...\n"
-
-#: ../plugins/project-manager/project_import.c:119
-msgid "Could not launch script!\n"
-msgstr "No es pot executar el fitxer de seqüència d'ordres\n"
-
-#: ../plugins/project-manager/project_import.c:130
-msgid "Importing Project...please wait"
-msgstr "S'està important el projecte..."
-
-#: ../plugins/project-manager/project_import.c:181
-msgid "Project import completed...unsuccessful\n"
-msgstr "La importació del projecte s'ha completat incorrectament\n"
-
-#: ../plugins/project-manager/project_import.c:183
-msgid "Project import completed...unsuccessful"
-msgstr "La importació del projecte s'ha completat incorrectament"
-
-#: ../plugins/project-manager/project_import.c:188
-msgid "Project import completed...successful\n"
-msgstr "S'ha importat correctament el projecte\n"
-
-#: ../plugins/project-manager/project_import.c:190
-msgid "Project import completed...successful"
-msgstr "S'ha importat correctament el projecte"
-
-#: ../plugins/project-manager/project_import.c:206
-msgid "Could not import Project: no project file found!"
-msgstr "No es pot importar el projecte: no hi ha cap fitxer de projecte"
-
-#: ../plugins/project-manager/project_import.c:213
-msgid "Opening Project...please wait"
-msgstr "S'està obrint el projecte..."
-
-#: ../plugins/project-manager/project_import.c:216
-msgid "Could not open generated Project file"
-msgstr "No es pot obrir el fitxer de projecte generat"
-
-#: ../plugins/project-manager/project_import_cbs.c:126
-msgid "Please complete all of the required fields"
-msgstr "Completeu tots els camps indicats"
-
-#: ../plugins/project-manager/project_import_cbs.c:230
-msgid ""
-"Confirm the following information:\n"
-"\n"
-msgstr ""
-"Confirmeu la següent informació:\n"
-"\n"
-
-#: ../plugins/project-manager/project_import_cbs.c:231
-msgid "Project Name:    "
-msgstr "Nom del projecte:    "
-
-#: ../plugins/project-manager/project_import_cbs.c:232
-msgid "Project Type:    "
-msgstr "Tipus de projecte:    "
-
-#: ../plugins/project-manager/project_import_cbs.c:234
-msgid "Target Type:     "
-msgstr "Tipus d'objecte generat:     "
-
-#: ../plugins/project-manager/project_import_cbs.c:237
-msgid "Source Target:   "
-msgstr "Objecte font:   "
-
-#: ../plugins/project-manager/project_import_cbs.c:238
-msgid "Version:         "
-msgstr "Versió:         "
-
-#: ../plugins/project-manager/project_import_cbs.c:239
-msgid "Author:          "
-msgstr "Autor:          "
-
-#: ../plugins/project-manager/project_import_cbs.c:240
-msgid "Language:        "
-msgstr "Llenguatge:        "
-
-#: ../plugins/project-manager/project_import_cbs.c:242
-msgid "Gettext Support: "
-msgstr "Suport per a gettext: "
-
-#. We should never come here because this button is disabled
-#: ../plugins/project-manager/project_import_cbs.c:285
-msgid ""
-"The import operation has already begun.\n"
-"Click Cancel to skip the customisation stage, or Next to continue."
-msgstr ""
-"L'operació d'importació ja ha començat.\n"
-"Cliqueu Cancel·la per a abandonar la personalització, o Següent per "
-"continuar."
-
-#: ../plugins/project-manager/project_import_gui.c:46
-msgid ""
-"The Project Import Wizard scans the directory of an\n"
-"existing code project, and attempts to import the structure\n"
-"into an Anjuta Project. There will be a chance to update\n"
-"any autodetected values during the import process.\n"
-"\n"
-"THIS IS AN EXPERIMENTAL FEATURE\n"
-msgstr ""
-"L'assistent d'importació de projectes rastreja el directori d'un\n"
-"projecte de codi, i intenta importar-ne les estructures\n"
-"a un Projecte Anjuta. Hi haurà la possibilitat per actualitzar\n"
-"qualsevol valor detectat automàticament durant el procés d'importació.\n"
-"\n"
-"Es tracta d'una característica experimental.\n"
-
-#: ../plugins/project-manager/project_import_gui.c:74
-#: ../plugins/project-manager/project_import_gui.c:159
-msgid "Project Import Wizard"
-msgstr "Assistent d'importació de projectes"
-
-# source\euro\euro.src string MESSAGES+1
-# Projecte_Open_Office_1.1 [wizards.po]
-#: ../plugins/project-manager/project_import_gui.c:190
-#: ../plugins/symbol-browser/an_symbol_prefs.c:320
-#: ../plugins/symbol-browser/an_symbol_prefs.c:516
-msgid "Select directory"
-msgstr "Seleccioneu el directori"
-
-#: ../plugins/project-manager/project_import_gui.c:207
-msgid "Select top level directory of an existing project"
-msgstr "Seleccioneu el directori de nivell superior d'un projecte existent"
-
-#: ../plugins/project-manager/project_import_gui.c:211
-msgid "Select existing project directory"
-msgstr "Seleccioneu el directori d'un projecte existent"
-
-#: ../plugins/project-manager/project_import_gui.c:225
-msgid "Click Forward to begin the import"
-msgstr "Cliqueu Següent per començar a importar"
-
-#: ../plugins/project-manager/source.c:112
-#, c-format
-msgid "Error writing to file: %s."
-msgstr "S'ha produït un error en escriure al fitxer: %s"
-
-#: ../plugins/project-manager/source.c:1614
-#: ../plugins/project-manager/source.c:1734
-#, c-format
-msgid "Error writing to: %s."
-msgstr "S'ha produït un error en escriure a: %s."
-
-#: ../plugins/project-manager/src_paths.c:263
-msgid "Source Paths"
-msgstr "Camin_s de codis font"
-
-#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:1
-msgid "Enter the base path of your project (where the Makefile can be found):"
-msgstr ""
-"Introduïu el camí base del vostre projecte (on es troba el Makefile):"
-
-#: ../plugins/project-mkfile-import/anjuta-project-mkfile-import.glade.h:4
-msgid ""
-"This wizard will help you to import an existing Makefile project into anjuta."
-msgstr ""
-"Aquest assistent us ajudarà a importar a l'Anjuta un projecte existent gestionat amb "
-"Makefile."
-
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 msgid "<b>Project description:</b>"
 msgstr "<b>Descripció del projecte:</b>"
@@ -8492,6 +8044,11 @@ msgstr "<b>Descripció del projecte:</b>"
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
 msgid "<b>Select the type of application to be developed</b>"
 msgstr "<b>Seleccioneu el tipus d'aplicació que desenvolupareu</b>"
+
+# Mozilla 1.3->authorName.label
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
+msgid "Author:"
+msgstr "Autor:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
 msgid "Basic Information"
@@ -8506,6 +8063,11 @@ msgstr "Destí:"
 msgid "Enter the basic Project information"
 msgstr "Introduïu la informació básica del projecte"
 
+# Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
+msgid "Project Name:"
+msgstr "Nom del projecte:"
+
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
 msgid "Project Type"
 msgstr "Tipus de projecte"
@@ -8517,7 +8079,7 @@ msgid ""
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
 msgstr ""
-"L'assistent d'aplicacions generarà un esquelet bàsic per al projecte, que "
+"L'auxiliar d'aplicacions generarà un esquelet bàsic per al projecte, que "
 "inclourà tots els fitxers per montar-lo. També li demanarà detalls sobre "
 "l'estructura inicial de l'aplicació. Respongueu les preguntes amb cura, ja "
 "que no serà possible canviar algunes de les opcions després."
@@ -8548,16 +8110,24 @@ msgstr "No es pot trobar cap plantilla de projecte a %s"
 msgid "Field \"%s\" is mandatory. Please enter it."
 msgstr "El camp \"%s\" és obligatori. Introduïu-lo."
 
-#: ../plugins/project-wizard/druid.c:497
-#, c-format
+#: ../plugins/project-wizard/druid.c:512
+#, fuzzy, c-format
 msgid ""
-"Directory \"%s\" already exists. Project creation could fail if some files "
+"Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 msgstr ""
 "El directori \"%s\" ja existeix. La creació del projecte pot fallar si "
 "alguns fitxers no es poden escriure. Voleu continuar?"
 
-#: ../plugins/project-wizard/druid.c:809
+#: ../plugins/project-wizard/druid.c:514
+#, fuzzy, c-format
+msgid "File \"%s\" already exists. Do you want to overwrite it ?"
+msgstr ""
+"\"%s\"\n"
+"no existeix.\n"
+"Desitgeu crear-lo ara?"
+
+#: ../plugins/project-wizard/druid.c:825
 msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
@@ -8565,41 +8135,41 @@ msgstr ""
 "No es pot trobar l'autogen versió 5. Instal·leu el paquet autogen. Podeu "
 "obtenir-lo de http://autogen.sourceforge.net"
 
-#: ../plugins/project-wizard/druid.c:817
+#: ../plugins/project-wizard/druid.c:833
 msgid "Unable to build project wizard user interface"
 msgstr ""
-"No es pot construir la interfície d'usuari per a l'assistent del projecte"
+"No es pot construir la interfície d'usuari per a l'auxiliar del projecte"
 
 #: ../plugins/project-wizard/install.c:379
 msgid "New project has been created successfully"
 msgstr "El projecte s'ha creat correctament"
 
-#: ../plugins/project-wizard/install.c:433
+#: ../plugins/project-wizard/install.c:434
 #, c-format
 msgid "Skipping %s: file already exists"
 msgstr "S'ignorarà %s: el fitxer ja existeix"
 
-#: ../plugins/project-wizard/install.c:459
+#: ../plugins/project-wizard/install.c:460
 #, c-format
 msgid "Creating %s (using AutoGen)"
 msgstr "S'està creant %s (fent servir AutoGen)"
 
 # Mozilla 1.3->hr
-#: ../plugins/project-wizard/install.c:463
+#: ../plugins/project-wizard/install.c:464
 #, c-format
 msgid "Creating %s"
 msgstr "S'està creant %s"
 
 # Projecte_Gnome_2.2 [gtk+.gtk-2-0.ca.po]
-#: ../plugins/project-wizard/install.c:531
+#: ../plugins/project-wizard/install.c:535
 msgid "Executing: "
 msgstr "Executa:"
 
 #: ../plugins/project-wizard/plugin.c:150
 msgid "New Project Wizard"
-msgstr "Assistent per als nous projectes"
+msgstr "Auxiliar per als nous projectes"
 
-#: ../plugins/project-wizard/property.c:254
+#: ../plugins/project-wizard/property.c:262
 msgid "Icon choice"
 msgstr "Selecció d'icona"
 
@@ -8622,6 +8192,156 @@ msgstr "Exemple d'operacions de fitxers"
 #: ../plugins/sample1/plugin.c:85
 msgid "SamplePlugin"
 msgstr "Exemple de connector"
+
+#: ../plugins/search/plugin.c:325
+msgid "No matches. Wrap search around the document?"
+msgstr "No hi ha concordànces. Voleu començar la cerca des del principi?"
+
+#: ../plugins/search/plugin.c:335
+#, c-format
+msgid ""
+"Incremental search for '%s' failed. Press Enter or click Find to continue "
+"searching at the top."
+msgstr ""
+"Ha fallat la cerca incremental per a '%s'. Premeu la tecla de retorn o feu "
+"clic a Cerca per continuar des del principi."
+
+#: ../plugins/search/plugin.c:342
+#, c-format
+msgid "Incremental search for '%s' (continued at top) failed."
+msgstr "Ha fallat la cerca incremental per a '%s' (des del començament)."
+
+# Netscape_4.7->Dialog Box Control:RESDLL.DLL
+#: ../plugins/search/plugin.c:495
+msgid "_Search"
+msgstr "_Cerca"
+
+#: ../plugins/search/plugin.c:496
+msgid "_Find..."
+msgstr "Ce_rca..."
+
+#: ../plugins/search/plugin.c:497
+msgid "Search for a string or regular expression in the editor"
+msgstr "Cerca una cadena o una expressió regular en l'editor"
+
+#: ../plugins/search/plugin.c:499
+msgid "Find _Next"
+msgstr "Cerca el següe_nt"
+
+#: ../plugins/search/plugin.c:500 ../plugins/search/plugin.c:504
+msgid "Repeat the last Find command"
+msgstr "Torna a fer la darrera acció de cerca"
+
+# Netscape_4.7->Menu:RESDLL.DLL
+#: ../plugins/search/plugin.c:502
+msgid "Find _Previous"
+msgstr "_Troba l'anterior"
+
+#: ../plugins/search/plugin.c:506
+msgid "Find and R_eplace..."
+msgstr "C_erca i reemplaça..."
+
+#: ../plugins/search/plugin.c:508
+msgid ""
+"Search for and replace a string or regular expression with another string"
+msgstr ""
+"Cerca i reemplaça una cadena o una expressió regular amb una altra cadena"
+
+#: ../plugins/search/plugin.c:510
+msgid "Advanced Search And Replace"
+msgstr "Cerca i reemplaçament avançat"
+
+#: ../plugins/search/plugin.c:511
+msgid "New advance search And replace stuff"
+msgstr "Noves funcionalitats de cerca i reemplaçament avançat"
+
+#: ../plugins/search/plugin.c:513
+msgid "_Enter Selection/I-Search"
+msgstr "Introduïu s_elecció/I-cerca"
+
+#: ../plugins/search/plugin.c:515
+msgid "Enter the selected text as the search target"
+msgstr "Introduïu el text seleccionat com a objecte de la cerca"
+
+#: ../plugins/search/plugin.c:517
+msgid "Fin_d in Files..."
+msgstr "Cerca a fit_xers..."
+
+#: ../plugins/search/plugin.c:518
+msgid "Search for a string in multiple files or directories"
+msgstr "Cerca una cadena a múltiples fitxers o directoris"
+
+#: ../plugins/search/plugin.c:521
+msgid "Ne_xt occurrence"
+msgstr "Se_güent cas"
+
+#: ../plugins/search/plugin.c:522
+msgid "Find the next occurrence of current word"
+msgstr "Troba el següent cas de la paraula actual"
+
+#: ../plugins/search/plugin.c:525
+msgid "Pre_vious occurrence"
+msgstr "Ante_rior cas"
+
+#: ../plugins/search/plugin.c:526
+msgid "Find the previous occurrence of current word"
+msgstr "Troba el cas anterior de la paraula actual"
+
+#: ../plugins/search/plugin.c:545
+msgid "Searching..."
+msgstr "S'està cercant..."
+
+#: ../plugins/search/plugin.c:568
+msgid "Search Toolbar"
+msgstr "Barra d'eines de cerca"
+
+# Netscape_4.7->Dialog Box Control:RESDLL.DLL
+#: ../plugins/search/search_preferences.c:44
+msgid "Basic Search"
+msgstr "Cerca bàsica"
+
+#: ../plugins/search/search_preferences.c:520
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
+msgid "Default"
+msgstr "Predeterminat"
+
+#: ../plugins/search/search-replace.c:275
+msgid "Find: "
+msgstr "Cerca: "
+
+# Netscape_4.7->Dialog Box Control:RESDLL.DLL
+#: ../plugins/search/search-replace.c:391
+msgid "Replace"
+msgstr "Reemplaça"
+
+# Netscape_4.7->Dialog Box Control:RESDLL.DLL
+#: ../plugins/search/search-replace.c:812
+#: ../plugins/search/search-replace.c:1459
+msgid "Replace All"
+msgstr "Reemplaça'ls tots"
+
+#: ../plugins/search/search-replace.c:851
+#, c-format
+msgid "The match \"%s\" was not found. Wrap search around the document?"
+msgstr "No s'ha trobat \"%s\". Voleu començar la cerca des del principi?"
+
+#: ../plugins/search/search-replace.c:871
+#, c-format
+msgid "The match \"%s\" was not found."
+msgstr "No s'ha trobat \"%s\"."
+
+#: ../plugins/search/search-replace.c:886
+msgid "The maximum number of results has been reached."
+msgstr "S'ha obtingut el nombre màxim de resultats."
+
+#: ../plugins/search/search-replace.c:899
+#, c-format
+msgid "%d matches have been replaced."
+msgstr "s'han reeemplaçat %d concordances."
+
+#: ../plugins/search/search-replace.c:1054
+msgid "Unable to build user interface for Search And Replace"
+msgstr "No es pot construir la interfície d'usuari per a cercar i reemplaçar"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:2
 msgid "<b>Subversion Options</b>"
@@ -8862,6 +8582,13 @@ msgstr "Subversion"
 msgid "Subversion command finished!"
 msgstr "L'ordre subversion ha acabat"
 
+# source\euro\euro.src string MESSAGES+1
+# Projecte_Open_Office_1.1 [wizards.po]
+#: ../plugins/symbol-browser/an_symbol_prefs.c:320
+#: ../plugins/symbol-browser/an_symbol_prefs.c:516
+msgid "Select directory"
+msgstr "Seleccioneu el directori"
+
 # Netscape_4.7->String:RESDLL.DLL
 #: ../plugins/symbol-browser/an_symbol_prefs.c:386
 msgid "Directories to scan"
@@ -8941,7 +8668,7 @@ msgid "Refresh symbol browser tree"
 msgstr "Actualitza l'arbre del navegador de símbols"
 
 #: ../plugins/symbol-browser/plugin.c:384
-msgid "Created sysmbols ..."
+msgid "Created sysmbols..."
 msgstr "Símbols creats..."
 
 # Netscape_4.7->String:RESDLL.DLL
@@ -9094,46 +8821,46 @@ msgid "Unable to build user interface for tool editor"
 msgstr "No es pot construir la interfície d'usuari per a l'editor d'eines"
 
 # Mozilla 1.3->hr
-#: ../plugins/tools/execute.c:322
+#: ../plugins/tools/execute.c:311
 #, c-format
 msgid "Opening %s"
 msgstr "S'està obrint %s"
 
 # src/trans.h:117
 # Projecte_Gnome_2.2 [galeon.HEAD.ca.po]
-#: ../plugins/tools/execute.c:343
+#: ../plugins/tools/execute.c:332
 msgid "error:"
 msgstr "errors:"
 
 #. Only for output data
-#: ../plugins/tools/execute.c:414
+#: ../plugins/tools/execute.c:403
 msgid "(output)"
 msgstr "(sorida)"
 
 # src/trans.h:117
 # Projecte_Gnome_2.2 [galeon.HEAD.ca.po]
 #. Only for error data
-#: ../plugins/tools/execute.c:419
+#: ../plugins/tools/execute.c:408
 msgid "(error)"
 msgstr "(error)"
 
-#: ../plugins/tools/execute.c:470
+#: ../plugins/tools/execute.c:459
 msgid "Running command: "
 msgstr "Ordre per a executar: "
 
-#: ../plugins/tools/execute.c:510
-msgid "Completed ... unsuccessful with "
+#: ../plugins/tools/execute.c:499
+msgid "Completed... unsuccessful with "
 msgstr "No s'ha completat correctament. S'ha fet servir "
 
-#: ../plugins/tools/execute.c:616
+#: ../plugins/tools/execute.c:605
 msgid "Unable to create a buffer, command aborted"
 msgstr "No es pot crear la memòria intermitja. S'ha anul·lat l'ordre"
 
-#: ../plugins/tools/execute.c:628
+#: ../plugins/tools/execute.c:617
 msgid "No document currently open, command aborted"
 msgstr "No hi ha cap document obert. S'ha anul·lat l'ordre"
 
-#: ../plugins/tools/execute.c:1002
+#: ../plugins/tools/execute.c:991
 #, c-format
 msgid "Unable to open input file %s, Command aborted"
 msgstr "No es pot obrir el fitxer d'entrada %s. S'ha anul·lat l'ordre"
@@ -9175,16 +8902,16 @@ msgstr "Configura eines externes"
 msgid "Tool operations"
 msgstr "Operacions d'eina"
 
-#: ../src/about.c:181 ../src/about.c:192
+#: ../src/about.c:184 ../src/about.c:193
 msgid "Copyright (c) Naba Kumar"
 msgstr "Copyright (c) Naba Kumar"
 
-#: ../src/about.c:196
+#: ../src/about.c:197
 msgid "GNU General Public License"
 msgstr "Llicència Pública General GNU"
 
-#: ../src/about.c:240
-msgid "Anjuta plugin"
+#: ../src/about.c:247
+msgid "Anjuta Plugin"
 msgstr "Connector de l'Anjuta"
 
 #: ../src/action-callbacks.c:101 ../src/action-callbacks.c:116
@@ -9201,8 +8928,8 @@ msgstr ""
 "d'Anjuta està instal·lat. El podeu descarregar d'http://anjuta.org"
 
 #: ../src/anjuta.c:199
-msgid "Loaded Session ..."
-msgstr "Sessió carregada ..."
+msgid "Loaded Session..."
+msgstr "S'ha carregat la sessió..."
 
 #: ../src/anjuta.glade.h:2
 msgid "<b>General Information:</b>"
@@ -9274,7 +9001,7 @@ msgstr "_Paràmetres"
 
 # Projecte_Gnome_2.2 [atomix.HEAD.ca.po]
 #: ../src/anjuta-actions.h:56 ../src/shell.c:91
-msgid "_Preferences ..."
+msgid "_Preferences..."
 msgstr "_Preferències..."
 
 #: ../src/anjuta-actions.h:57
@@ -9446,3 +9173,466 @@ msgstr "Prova el grup d'accions de l'entorn"
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Entorn de proves d'Anjuta"
+
+#~ msgid ""
+#~ "The editor is being used as output buffer for an operation.\n"
+#~ "Closing it will result in stopping the process.\n"
+#~ "Do you still want close the editor?"
+#~ msgstr ""
+#~ "L'editor s'està fent servir com a memòria de sortida per a una operació.\n"
+#~ "Quan el tanqueu, el procés s'haurà d'aturar.\n"
+#~ "Desitgeu tancar l'editor?"
+
+#~ msgid "There is no line number %d in \"%s\"."
+#~ msgstr "No existeix la línia %d en \"%s\"."
+
+#~ msgid "Editor text searching"
+#~ msgstr "Cerca de text de l'editor"
+
+#~ msgid "Find"
+#~ msgstr "Cerca"
+
+#~ msgid "Add to Project"
+#~ msgstr "Afegeix al projecte"
+
+#~ msgid "Anjuta project files"
+#~ msgstr "Fitxers de projecte d'Anjuta"
+
+#~ msgid "Unable to load Project: %s"
+#~ msgstr "No es pot carregar el projecte: %s"
+
+#~ msgid ""
+#~ "Anjuta version %s or later is required to open this Project.\n"
+#~ "Please upgrade to the latest version of Anjuta (Help for more "
+#~ "information)."
+#~ msgstr ""
+#~ "Cal la versió %s o posterior d'Anjuta per obrir aquest projecte.\n"
+#~ "Actualitzeu-vos a la versió més recent d'Anjuta (per a més informació "
+#~ "consulteu l'ajuda)."
+
+#~ msgid "Unable to save the Project."
+#~ msgstr "No es pot desar el projecte."
+
+#~ msgid ""
+#~ "A .glade file does not exist in the top level Project directory. If you "
+#~ "do not use glade for GUI editing,  please specify a custom command for it "
+#~ "in [Project]->[Project Configuration]->[GUI editor command]"
+#~ msgstr ""
+#~ "No hi ha cap fitxer .glade al directori de nivell superior del projecte. "
+#~ "Si no feu servir glade per editar les interfícies, especifiqueu una ordre "
+#~ "personalitzada a [Projecte]->[Configuració del projecte]->[Ordre de "
+#~ "l'editor d'interfícies gràfiques]"
+
+#~ msgid ""
+#~ "A .glade file does not\n"
+#~ "exist in the top level Project directory."
+#~ msgstr ""
+#~ "No existeix un fitxer .glade\n"
+#~ "al directori de nivell superior del Projecte."
+
+#~ msgid "Recent Projects "
+#~ msgstr "Projectes recents "
+
+#~ msgid "Project: "
+#~ msgstr "Projecte: "
+
+#~ msgid ""
+#~ "Unable to get relative file name for %s\n"
+#~ " in %s"
+#~ msgstr ""
+#~ "No es pot obtenir el nom de fitxer relatiu per a %s\n"
+#~ " a %s"
+
+#~ msgid " already exists in the project"
+#~ msgstr " ja existeix al projecte"
+
+#~ msgid "Error while copying the file inside the module."
+#~ msgstr "S'ha produït un error en copiar el fitxer dins del mòdul."
+
+#~ msgid "Error in loading Project: %s"
+#~ msgstr "S'ha produït un error en carregar el projecte: %s"
+
+#~ msgid ""
+#~ "Are you sure you want to remove the item\n"
+#~ "'%s' from the Project?"
+#~ msgstr ""
+#~ "Desitgeu esborrar l'element\n"
+#~ "'%s' del projecte?"
+
+#~ msgid "There is already a Project open.Do you want to close it first?"
+#~ msgstr "Hi ha un projecte obert. Desitgeu tancar-lo primer?"
+
+#~ msgid "Help files"
+#~ msgstr "Fitxers d'ajuda"
+
+#~ msgid "Pascal files"
+#~ msgstr "Fitxers Pascal"
+
+#~ msgid "PHP files"
+#~ msgstr "Fitxers PHP"
+
+#~ msgid "Perl files"
+#~ msgstr "Fitxers Perl"
+
+#~ msgid "Python files"
+#~ msgstr "Fitxers Python"
+
+#~ msgid "Shell Script files"
+#~ msgstr "Fitxers de seqüència d'intèrpret d'ordres"
+
+#~ msgid "Visual Basic files"
+#~ msgstr "Fitxes de Visual Basic"
+
+#~ msgid ".lua files"
+#~ msgstr "Fitxers .lua"
+
+#~ msgid "PNG files"
+#~ msgstr "Fitxers PNG"
+
+#~ msgid "JPG files"
+#~ msgstr "Fitxes JPG"
+
+#~ msgid "BMP files"
+#~ msgstr "Fitxers BMP"
+
+#~ msgid "GIF files"
+#~ msgstr "Fitxers GIF"
+
+#~ msgid "Text files"
+#~ msgstr "Fitxers de Text"
+
+#~ msgid "XML files"
+#~ msgstr "Fitxers XML"
+
+#~ msgid "HTML files"
+#~ msgstr "Fitxers HTML"
+
+#~ msgid "DOC files"
+#~ msgstr "Fitxers DOC"
+
+#~ msgid "PO files"
+#~ msgstr "Fitxers PO"
+
+#~ msgid "C/C++ Headers"
+#~ msgstr "Capçalera C/C++"
+
+#~ msgid "Add file to module: "
+#~ msgstr "Afegeix un fitxer al mòdul: "
+
+# Projecte_Gnome_2.2 [balsa.HEAD.ca.po]
+#~ msgid "Include file"
+#~ msgstr "Fitxer inclòs"
+
+#~ msgid "Source file"
+#~ msgstr "Fitxer de codi"
+
+# source\misc\imagemgr.src string STR_DESCRIPTION_HELP_DOC
+# Projecte_Open_Office_1.1 [svtools.po]
+#~ msgid "Help file"
+#~ msgstr "Fitxer d'ajuda"
+
+#~ msgid "Data file"
+#~ msgstr "Fitxer de dades"
+
+#~ msgid "Pixmap file"
+#~ msgstr "Fitxer de mapa de píxels"
+
+#~ msgid "Translation file"
+#~ msgstr "Fitxer de traduccions"
+
+#~ msgid "Doc file"
+#~ msgstr "Fitxer doc"
+
+#~ msgid "Add File"
+#~ msgstr "Afegeix fitxer"
+
+#~ msgid "Open in default viewer"
+#~ msgstr "Obre en el visualitzador per defecte"
+
+#~ msgid "Open in Anjuta"
+#~ msgstr "Obre dins d'Anjuta"
+
+#~ msgid "Configure Project"
+#~ msgstr "Configura el projecte"
+
+#~ msgid "Project Info"
+#~ msgstr "Informació del projecte"
+
+#~ msgid "Project Information"
+#~ msgstr "Informació del projecte"
+
+#~ msgid " Project Information "
+#~ msgstr " Informació del projecte "
+
+# Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
+#~ msgid "Program Name:"
+#~ msgstr "Nom del programa:"
+
+#~ msgid "Source files:"
+#~ msgstr "Fitxers de codi:"
+
+#~ msgid "Help files:"
+#~ msgstr "Fitxers d'ajuda:"
+
+#~ msgid "Data files:"
+#~ msgstr "Fitxers de dades:"
+
+#~ msgid "Pixmap files:"
+#~ msgstr "Fitxers de mapa de píxels:"
+
+#~ msgid "Doc files:"
+#~ msgstr "Fitxers doc:"
+
+#~ msgid "Po files:"
+#~ msgstr "Fitxers po:"
+
+#~ msgid "GUI editable by Glade:"
+#~ msgstr "Interfície editable pel Glade:"
+
+#~ msgid "Makefiles managed:"
+#~ msgstr "Makefiles gestionats:"
+
+#~ msgid "Gettext support:"
+#~ msgstr "Ús de gettext:"
+
+#~ msgid "Project Type:"
+#~ msgstr "Tipus de projecte:"
+
+#~ msgid ""
+#~ "Project is not saved.\n"
+#~ "Do you want to save it before closing?"
+#~ msgstr ""
+#~ "El projecte no s'ha desat.\n"
+#~ "Desitgeu desar-lo abans de tancar?"
+
+# Mozilla 1.3->br
+#~ msgid "Breton"
+#~ msgstr "Bretó"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Catalan"
+#~ msgstr "Català"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Czech"
+#~ msgstr "Txec"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Danish"
+#~ msgstr "Danès"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "German"
+#~ msgstr "Alemany"
+
+# Mozilla 1.3->eo
+#~ msgid "Esperanto"
+#~ msgstr "Esperanto"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Spanish"
+#~ msgstr "Castellà"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Finnish"
+#~ msgstr "Finès"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "French"
+#~ msgstr "Francès"
+
+#~ msgid "Herbrew"
+#~ msgstr "Hebreu"
+
+# Mozilla 1.3->hr
+#~ msgid "Croatian"
+#~ msgstr "Croat"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Hungarian"
+#~ msgstr "Hongarès"
+
+#~ msgid "Islandic"
+#~ msgstr "Islandès"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Italian"
+#~ msgstr "Italià"
+
+# Mozilla 1.3->mk
+#~ msgid "Macedonian"
+#~ msgstr "Macedònic"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Dutch"
+#~ msgstr "Holandès"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Norwegian"
+#~ msgstr "Noruec"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Polish"
+#~ msgstr "Polonès"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Portuguese"
+#~ msgstr "Portuguès"
+
+# Netscape_4.7->String:EDITOR32.DLL
+#~ msgid "Russian"
+#~ msgstr "Rus"
+
+# Mozilla 1.3->sk
+#~ msgid "Slovak"
+#~ msgstr "Eslovac"
+
+# Netscape_4.7->String:RESDLL.DLL
+#~ msgid "Simplified Chinese"
+#~ msgstr "Xinès simplificat"
+
+# Mozilla 1.3->chardet.zh_parallel_state_machine.title
+#~ msgid "Chinese"
+#~ msgstr "Xinès"
+
+# Mozilla 1.3->et
+#~ msgid "Estonian"
+#~ msgstr "Estonià"
+
+#~ msgid "Select regional language"
+#~ msgstr "Seleccioneu l'idioma de la seva regió"
+
+#~ msgid "Select regional language:"
+#~ msgstr "Seleccioneu l'idioma de la seva regió:"
+
+#~ msgid "Unable to find pixmap file: %s"
+#~ msgstr "No es pot trobar el mapa de píxels: %s"
+
+#~ msgid "Not a regular file: %s."
+#~ msgstr "No és un fitxer: %s."
+
+#~ msgid ""
+#~ "\"%s\"\n"
+#~ "does not exist in the current module directory.\n"
+#~ "Do you want to IMPORT (copy) it into the module?"
+#~ msgstr ""
+#~ "\"%s\"\n"
+#~ "no existeix al directori de mòdul actual.\n"
+#~ "Desitgeu importar-lo (copiar-lo) dins del mòdul?"
+
+#~ msgid "Unable to find import script %s"
+#~ msgstr "No es pot trobar el fitxer de seqüència d'ordres %s per a importar"
+
+#~ msgid "%s: Not a regular file"
+#~ msgstr "%s: no és un fitxer"
+
+#~ msgid "Importing Project from %s...\n"
+#~ msgstr "S'està important un projecte de %s...\n"
+
+#~ msgid "Could not launch script!\n"
+#~ msgstr "No es pot executar el fitxer de seqüència d'ordres\n"
+
+#~ msgid "Importing Project... please wait"
+#~ msgstr "S'està important el projecte... espereu"
+
+#~ msgid "Project import completed... unsuccessful\n"
+#~ msgstr "La importació del projecte s'ha completat incorrectament\n"
+
+#~ msgid "Project import completed... unsuccessful"
+#~ msgstr "La importació del projecte s'ha completat incorrectament"
+
+#~ msgid "Project import completed... successful\n"
+#~ msgstr "S'ha importat correctament el projecte\n"
+
+#~ msgid "Project import completed... successful"
+#~ msgstr "S'ha importat correctament el projecte"
+
+#~ msgid "Could not import Project: no project file found!"
+#~ msgstr "No es pot importar el projecte: no hi ha cap fitxer de projecte"
+
+#~ msgid "Opening Project... please wait"
+#~ msgstr "S'està obrint el projecte... espereu"
+
+#~ msgid "Could not open generated Project file"
+#~ msgstr "No es pot obrir el fitxer de projecte generat"
+
+#~ msgid "Please complete all of the required fields"
+#~ msgstr "Completeu tots els camps indicats"
+
+#~ msgid ""
+#~ "Confirm the following information:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Confirmeu la següent informació:\n"
+#~ "\n"
+
+#~ msgid "Project Name:    "
+#~ msgstr "Nom del projecte:    "
+
+#~ msgid "Project Type:    "
+#~ msgstr "Tipus de projecte:    "
+
+#~ msgid "Target Type:     "
+#~ msgstr "Tipus d'objecte generat:     "
+
+#~ msgid "Source Target:   "
+#~ msgstr "Objecte font:   "
+
+#~ msgid "Version:         "
+#~ msgstr "Versió:         "
+
+#~ msgid "Author:          "
+#~ msgstr "Autor:          "
+
+#~ msgid "Language:        "
+#~ msgstr "Llenguatge:        "
+
+#~ msgid "Gettext Support: "
+#~ msgstr "Suport per a gettext: "
+
+#~ msgid ""
+#~ "The import operation has already begun.\n"
+#~ "Click Cancel to skip the customisation stage, or Next to continue."
+#~ msgstr ""
+#~ "L'operació d'importació ja ha començat.\n"
+#~ "Cliqueu Cancel·la per a abandonar la personalització, o Següent per "
+#~ "continuar."
+
+#~ msgid ""
+#~ "The Project Import Wizard scans the directory of an\n"
+#~ "existing code project, and attempts to import the structure\n"
+#~ "into an Anjuta Project. There will be a chance to update\n"
+#~ "any autodetected values during the import process.\n"
+#~ "\n"
+#~ "THIS IS AN EXPERIMENTAL FEATURE\n"
+#~ msgstr ""
+#~ "L'auxiliar d'importació de projectes rastreja el directori d'un\n"
+#~ "projecte de codi, i intenta importar-ne les estructures\n"
+#~ "a un Projecte Anjuta. Hi haurà la possibilitat per actualitzar\n"
+#~ "qualsevol valor detectat automàticament durant el procés d'importació.\n"
+#~ "\n"
+#~ "Es tracta d'una característica experimental.\n"
+
+#~ msgid "Project Import Wizard"
+#~ msgstr "Auxiliar d'importació de projectes"
+
+#~ msgid "Select top level directory of an existing project"
+#~ msgstr "Seleccioneu el directori de nivell superior d'un projecte existent"
+
+#~ msgid "Select existing project directory"
+#~ msgstr "Seleccioneu el directori d'un projecte existent"
+
+#~ msgid "Click Forward to begin the import"
+#~ msgstr "Cliqueu Següent per començar a importar"
+
+#~ msgid "Error writing to file: %s."
+#~ msgstr "S'ha produït un error en escriure al fitxer: %s"
+
+#~ msgid "Error writing to: %s."
+#~ msgstr "S'ha produït un error en escriure a: %s."
+
+#~ msgid "Source Paths"
+#~ msgstr "Camin_s de codis font"
+
+#~ msgid "Anjuta plugin"
+#~ msgstr "Connector de l'Anjuta"
