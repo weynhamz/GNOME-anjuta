@@ -38,17 +38,13 @@ typedef struct _AnjutaValgrindPluginClass AnjutaValgrindPluginClass;
 struct _AnjutaValgrindPlugin{
 	AnjutaPlugin parent;
 
-	GIOChannel *gio;
-	guint watch_id;
-	pid_t pid;
-	
-//	gboolean widget_displayed;
 	gboolean is_busy;
 	
 	gchar *project_root_uri;
 	gint root_watch_id;
 	
 	GtkWidget *valgrind_widget;			/* a VgToolView object */
+	gboolean valgrind_displayed;	
 	GtkWidget *general_prefs;
 	VgActions *val_actions;
 	

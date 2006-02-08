@@ -1,6 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
  *  Authors: Jeffrey Stedfast <fejj@ximian.com>
+ *  Copyright (C) Massimo Cora' 2005 <maxcvs@gmail.com>  
  *
  *  Copyright 2003 Ximian, Inc. (www.ximian.com)
  *
@@ -34,6 +35,8 @@
 
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-i18n.h>
+#include <libgnomevfs/gnome-vfs.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include "vggeneralprefs.h"
 
@@ -47,6 +50,8 @@
 #define TIME_STAMP_KEY       "/apps/anjuta/valgrind/general/time-stamp"
 #define RUN_LIBC_FREERES_KEY "/apps/anjuta/valgrind/general/run-libc-freeres"
 #define SUPPRESSIONS_KEY     "/apps/anjuta/valgrind/general/suppressions"
+
+#define SUPPRESSIONS_DEFAULT_FILE	".anjuta/valgrind.supp"
 
 static void vg_general_prefs_class_init (VgGeneralPrefsClass *klass);
 static void vg_general_prefs_init (VgGeneralPrefs *prefs);
@@ -133,32 +138,32 @@ spin_focus_out (GtkSpinButton *spin, GdkEventFocus *event, const char *key)
 }
 
 static void
-file_entry_changed (GtkEntry *entry, const char *key)
+file_entry_changed (GtkFileChooser *chooser, const char *key)
 {
-	GnomeFileEntry *file_entry;
 	GConfClient *gconf;
-	char *str;
+	gchar *str;
 	
 	gconf = gconf_client_get_default ();
 	
-	file_entry = (GnomeFileEntry *) gtk_widget_get_ancestor ((GtkWidget *) entry, GNOME_TYPE_FILE_ENTRY);
+	str = gtk_file_chooser_get_filename (chooser);
 	
-	str = gnome_file_entry_get_full_path (file_entry, FALSE);
+	DEBUG_PRINT ("str is %s key is %s", str, key);
+	
 	gconf_client_set_string (gconf, key, str ? str : "", NULL);
 	g_free (str);
-	
+
 	g_object_unref (gconf);
 }
 
 static void
 vg_general_prefs_init (VgGeneralPrefs *prefs)
 {
-	GtkWidget *vbox, *hbox, *label, *w;
+	GtkWidget *vbox, *hbox, *label;
 	GConfClient *gconf;
 	GError *err = NULL;
 	GtkWidget *widget;
 	gboolean bool;
-	char *str;
+	gchar *str_file, *str_uri_file;
 	int num;
 	
 	gconf = gconf_client_get_default ();
@@ -248,30 +253,37 @@ vg_general_prefs_init (VgGeneralPrefs *prefs)
 	gtk_widget_show (label);
 	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
 	
-	if (!(str = gconf_client_get_string (gconf, SUPPRESSIONS_KEY, &err)) || err != NULL) {
+	if (!(str_file = gconf_client_get_string (gconf, SUPPRESSIONS_KEY, &err)) || err != NULL) {
 		int fd;
 		
-		// FIXME: change the hardcoded path...
-		str = g_build_filename (g_get_home_dir (), ".anjuta/valgrind.supp", NULL);
-		if ((fd = open (str, O_WRONLY | O_CREAT, 0666)) == -1) {
-			g_free (str);
-			str = NULL;
+		str_file = g_build_filename (g_get_home_dir (), SUPPRESSIONS_DEFAULT_FILE, NULL);
+		if ((fd = open (str_file, O_WRONLY | O_CREAT, 0666)) == -1) {
+			g_free (str_file);
+			str_file = NULL;
 		} else {
 			close (fd);
 		}
 		
 		g_clear_error (&err);
 	}
+
+	str_uri_file = gnome_vfs_get_uri_from_local_path (str_file);
+	g_free (str_file);
 	
-	widget = gnome_file_entry_new ("suppressions-id", _("Choose Valgrind Suppressions File..."));
-	w = gnome_file_entry_gtk_entry ((GnomeFileEntry *) widget);
-	g_signal_connect (w, "changed", G_CALLBACK (file_entry_changed), SUPPRESSIONS_KEY);
-	gtk_entry_set_text ((GtkEntry *) w, str ? str : "");
-	prefs->suppressions = (GnomeFileEntry *) widget;
+	widget = 
+		gtk_file_chooser_button_new (_("Choose Valgrind Suppressions File..."), 
+								GTK_FILE_CHOOSER_ACTION_OPEN);
+
+	if ( gtk_file_chooser_select_uri ((GtkFileChooser*)widget, str_uri_file) == FALSE )
+		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_uri ()");
+
+	g_free (str_uri_file);
+
+	/* grab every change in file selection */
+	g_signal_connect (widget, "selection-changed", G_CALLBACK (file_entry_changed), SUPPRESSIONS_KEY);
+
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) hbox, widget, FALSE, FALSE, 0);
-	
-	g_free (str);
+	gtk_box_pack_start ((GtkBox *) hbox, widget, TRUE, TRUE, 0);
 	
 	gtk_widget_show (hbox);
 	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);

@@ -3,6 +3,7 @@
  *  Authors: Jeffrey Stedfast <fejj@ximian.com>
  *
  *  Copyright 2003 Ximian, Inc. (www.ximian.com)
+ *  Copyright (C) Massimo Cora' 2005 <maxcvs@gmail.com> 
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -25,6 +26,7 @@
 #include <config.h>
 #endif
 
+#include <gtk/gtk.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
@@ -36,8 +38,9 @@
 
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-i18n.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
 
 #include "vgdefaultview.h"
 #include "vgrulepattern.h"
@@ -45,7 +48,7 @@
 #include "vgrule-list.h"
 #include "menu-utils.h"
 #include "vgio.h"
-
+#include "vgactions.h"
 
 #define d(x)
 #define w(x) x
@@ -84,7 +87,8 @@ static void valgrind_view_reset (VgToolView *tool);
 static void valgrind_view_connect (VgToolView *tool, int sockfd);
 static int  valgrind_view_step (VgToolView *tool);
 static void valgrind_view_disconnect (VgToolView *tool);
-static int  valgrind_view_save_log (VgToolView *tool, int fd);
+static int  valgrind_view_save_log (VgToolView *tool, gchar* uri);
+static int  valgrind_view_load_log (VgToolView *tool, VgActions *actions, gchar* uri);
 static void valgrind_view_cut (VgToolView *tool);
 static void valgrind_view_copy (VgToolView *tool);
 static void valgrind_view_paste (VgToolView *tool);
@@ -144,6 +148,7 @@ vg_default_view_class_init (VgDefaultViewClass *klass)
 	tool_class->step = valgrind_view_step;
 	tool_class->disconnect = valgrind_view_disconnect;
 	tool_class->save_log = valgrind_view_save_log;
+	tool_class->load_log = valgrind_view_load_log;	
 	tool_class->cut = valgrind_view_cut;
 	tool_class->copy = valgrind_view_copy;
 	tool_class->paste = valgrind_view_paste;
@@ -606,35 +611,79 @@ valgrind_view_disconnect (VgToolView *tool)
 	g_ptr_array_set_size (view->suppressions, 0);
 }
 
-
+/*------------------------------------------------------------------------------
+ * perform a GnomeVFS save of the file. 
+ * NOTE: the chosen file will be overwritten if it already exists.
+ */
 static int
-valgrind_view_save_log (VgToolView *tool, int fd)
+valgrind_view_save_log (VgToolView *tool, gchar* uri)
 {
 	VgDefaultView *view = (VgDefaultView *) tool;
 	VgError *err;
 	GString *str;
-	int i;
 	
+	int i;
+	GnomeVFSHandle* handle;
+	
+	if (uri == NULL) 
+		return -1;
+		
+	/* Create file */
+	if (gnome_vfs_create (&handle, uri, GNOME_VFS_OPEN_WRITE, FALSE, 0664) != GNOME_VFS_OK)	{
+		return -1;
+	}
+		
 	str = g_string_new ("");
 	
 	for (i = 0; i < view->errors->len; i++) {
+		GnomeVFSFileSize written;
 		err = view->errors->pdata[i];
 		vg_error_to_string (err, str);
-		if (vg_write (fd, str->str, str->len) == -1) {
+
+		if (gnome_vfs_write (handle, str->str, str->len, &written) != GNOME_VFS_OK) {
 			g_string_free (str, TRUE);
 			return -1;
 		}
-		
 		g_string_truncate (str, 0);
 	}
 	
 	g_string_free (str, TRUE);
-	
-	if (fsync (fd) == -1)
-		return -1;
-	
+
+	gnome_vfs_close (handle);	
+
 	return 0;
 }
+
+/*-----------------------------------------------------------------------------
+ * FIXME:
+ * We can only load local files. Support to VFS would require to change all the
+ * I/O [i.e. fopen/fwrite/etc...] calls for this plugin. I hope day somebody
+ * will write a gnomelib wrapper that supports old I/O methos.
+ * Perhaps a solution would be to save the file grabbed by the gnome_vfs to /tmp
+ * and then open it with the I/O fopen/fwrite.
+ */
+ 
+static int
+valgrind_view_load_log (VgToolView *tool, VgActions *actions, gchar* uri)
+{
+	int fd;
+	gchar *filename;
+
+	filename = gnome_vfs_get_local_path_from_uri (uri);
+	
+	if ((fd = open (filename, O_RDONLY)) != -1) {
+		vg_tool_view_connect (tool, fd);
+	}
+	
+	vg_actions_set_pid (actions, (pid_t)-1);
+	
+	/* with this call we'll set automatically the watch_id too. */
+	vg_actions_set_giochan (actions, g_io_channel_unix_new (fd));
+
+	g_free (filename);
+	return 0;	
+}
+
 
 static void
 valgrind_view_cut (VgToolView *tool)
@@ -1054,119 +1103,16 @@ suppress_cb (GtkWidget *widget, gpointer user_data)
 			       (GtkWindow *) parent, summary);
 }
 
-/*/
-static void
-spawn_editor (VgDefaultView *view, const char *editor)
-{
-	GtkTreeSelection *selection;
-	VgErrorStack *stack = NULL;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	char *path, *lineno;
-	char *argv[4];
-	
-	selection = gtk_tree_view_get_selection ((GtkTreeView *) view->table);
-	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
-		return;
-	
-	gtk_tree_model_get (model, &iter, COL_POINTER_STACK, &stack, -1);
-	if (stack == NULL)
-		return;
-	
-	if (!(path = resolve_full_path ((VgToolView *) view, stack)))
-		return;
-	
-	lineno = g_strdup_printf ("+%u", stack->info.src.lineno);
-	
-	argv[0] = (char *) editor;
-	argv[1] = lineno;
-	argv[2] = path;
-	argv[3] = NULL;
-	
-	g_spawn_async (NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
-	
-	g_free (lineno);
-	g_free (path);
-}
-/*/
-
-static void
-emacs_cb (GtkWidget *widget, gpointer user_data)
-{
-/*/
-	VgDefaultView *view = user_data;
-	GtkTreeSelection *selection;
-	VgErrorStack *stack = NULL;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	char *path, *lineno;
-	gboolean spawned;
-	char *argv[5];
-	int status;
-	
-	selection = gtk_tree_view_get_selection ((GtkTreeView *) view->table);
-	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
-		return;
-	
-	gtk_tree_model_get (model, &iter, COL_POINTER_STACK, &stack, -1);
-	if (stack == NULL)
-		return;
-	
-	if (!(path = resolve_full_path ((VgToolView *) view, stack)))
-		return;
-	
-	lineno = g_strdup_printf ("+%u", stack->info.src.lineno);
-	
-	argv[0] = EMACSCLIENT_PATH;
-	argv[1] = "-n";
-	argv[2] = lineno;
-	argv[3] = path;
-	argv[4] = NULL;
-	
-	spawned = g_spawn_sync (NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL, &status, NULL);
-	if (!spawned || WEXITSTATUS (status) != 0) {
-		argv[0] = EMACS_PATH;
-		argv[1] = lineno;
-		argv[2] = path;
-		argv[3] = NULL;
-		
-		g_spawn_async (NULL, argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, NULL);
-	}
-	
-	g_free (lineno);
-	g_free (path);
-/*/	
-}
-
-static void
-xemacs_cb (GtkWidget *widget, gpointer user_data)
-{
-/*/
-	spawn_editor ((VgDefaultView *) user_data, XEMACS_PATH);
-/*/	
-}
-
-static void
-gvim_cb (GtkWidget *widget, gpointer user_data)
-{
-/*/
-	spawn_editor ((VgDefaultView *) user_data, GVIM_PATH);
-/*/	
-}
-
-
-// FIXME: need a method to handle binary files opening on IAnjutaDocumentManager
-// A ghex plugin ? :)
 static void
 custom_editor_cb (GtkWidget *widget, gpointer user_data)
 {
 	VgDefaultView *view = user_data;
-	IAnjutaDocumentManager *dm;
+	IAnjutaFileLoader *loader;
 	GtkTreeSelection *selection;
 	VgErrorStack *stack = NULL;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	char *path;
+	gchar *path;
 	
 	selection = gtk_tree_view_get_selection ((GtkTreeView *) view->table);
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
@@ -1182,12 +1128,18 @@ custom_editor_cb (GtkWidget *widget, gpointer user_data)
 	DEBUG_PRINT ("got this path for file opening: %s and line %d", path, stack->info.src.lineno );
 	
 	/* Goto file line */
-	dm = anjuta_shell_get_interface (ANJUTA_PLUGIN (view->valgrind_plugin)->shell,
-									 IAnjutaDocumentManager, NULL);
-	if (dm)
+	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (view->valgrind_plugin)->shell,
+									 IAnjutaFileLoader, NULL);
+	if (loader)
 	{
-		ianjuta_document_manager_goto_file_line (dm, path, stack->info.src.lineno, NULL);
+		gchar *uri;
+		uri = g_strdup_printf ("file:///%s#%d", path, stack->info.src.lineno);
+		
+		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+		g_free (uri);
 	}	
+	
+	g_free (path);
 }
 
 
@@ -1203,9 +1155,6 @@ static struct _MenuItem popup_menu_items[] = {
 	MENU_ITEM_SEPARATOR,
 	{ N_("Suppress"), NULL,              FALSE, FALSE, FALSE, FALSE, G_CALLBACK (suppress_cb), SELECTED_MASK },
 	MENU_ITEM_SEPARATOR,
-/*	{ N_("Edit in GNU/Emacs"), NULL,     FALSE, FALSE, FALSE, FALSE, G_CALLBACK (emacs_cb),    STACK_MASK    },
-	{ N_("Edit in XEmacs"),    NULL,     FALSE, FALSE, FALSE, FALSE, G_CALLBACK (xemacs_cb),   STACK_MASK    },
-	{ N_("Edit in GVim"),      NULL,     FALSE, FALSE, FALSE, FALSE, G_CALLBACK (gvim_cb),     STACK_MASK    },*/
 	{ N_("Edit in Custom Editor"), NULL,     FALSE, FALSE, FALSE, FALSE, G_CALLBACK (custom_editor_cb), STACK_MASK },
 	MENU_ITEM_TERMINATOR
 };

@@ -38,27 +38,36 @@ G_BEGIN_DECLS
 #define VG_IS_ACTIONS_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), VG_TYPE_ACTIONS))
 #define VG_ACTIONS_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), VG_TYPE_ACTIONS, VgActionsClass))
 
-typedef struct VgActionsPriv VgActionsPriv;
 
-typedef struct {
-	GObject parent;
-	VgActionsPriv *priv;
-} VgActions;
-
-typedef struct {
-	GObjectClass parent_class;
-
-} VgActionsClass;
+typedef struct _VgActionsClass VgActionsClass;
+typedef struct _VgActions VgActions;
+typedef struct _VgActionsPriv VgActionsPriv;
 
 #include "plugin.h"
-#include "vgdefaultview.h"
 
-GType vg_actions_get_type ();
+
+struct _VgActionsClass {
+	GObjectClass parent_class;
+
+};
+
+struct _VgActions {
+	GObject parent;
+	VgActionsPriv *priv;
+};
+
+
+
+GType vg_actions_get_type (void);
 VgActions *vg_actions_new (AnjutaValgrindPlugin *anjuta_plugin, 
-		ValgrindPluginPrefs *prefs, VgDefaultView *view);
+					ValgrindPluginPrefs *prefs, GtkWidget *vg_default_view);
 void vg_actions_run (VgActions *actions, gchar* prg_to_debug, gchar* tool, 
-		GError **err);
+					GError **err);
 void vg_actions_kill (VgActions *actions);
+void vg_actions_set_pid (VgActions *actions, pid_t pid);
+void vg_actions_set_giochan (VgActions *actions, GIOChannel*gio);
+void vg_actions_set_watch_id (VgActions *actions, guint watch_id);
+
 
 G_END_DECLS
 

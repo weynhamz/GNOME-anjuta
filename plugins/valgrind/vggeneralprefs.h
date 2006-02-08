@@ -3,6 +3,7 @@
  *  Authors: Jeffrey Stedfast <fejj@ximian.com>
  *
  *  Copyright 2003 Ximian, Inc. (www.ximian.com)
+ *  Copyright (C) Massimo Cora' 2005 <maxcvs@gmail.com>  
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -55,7 +56,6 @@ struct _VgGeneralPrefs {
 	GtkToggleButton *track_fds;
 	GtkToggleButton *time_stamp;
 	GtkToggleButton *run_libc_freeres;
-	GnomeFileEntry *suppressions;
 };
 
 struct _VgGeneralPrefsClass {

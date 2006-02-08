@@ -1,4 +1,22 @@
-2006-01-29 naba  <naba@gnome.org>
+2006-02-08 Naba Kumar  <naba@gnome.org>
+
+	Patch from Massimo Cora  <maxcvs@email.it>:
+	* plugins/valgrind/anjuta-valgrind.schemas,
+	plugins/valgrind/plugin.c, plugins/valgrind/plugin.h,
+	plugins/valgrind/preferences.c, plugins/valgrind/vgactions.c,
+	plugins/valgrind/vgactions.h, plugins/valgrind/vgdefaultview.c,
+	plugins/valgrind/vgdefaultview.h, plugins/valgrind/vggeneralprefs.c,
+	plugins/valgrind/vggeneralprefs.h, plugins/valgrind/vgmemcheckprefs.c,
+	plugins/valgrind/vgtoolview.c,
+	plugins/valgrind/vgtoolview.h: It checks for the valgrind binary
+	before running the debugging session. I've added also a
+	preference in Anjuta Preferences where you can specify
+	the path to the valgrind binary. The default is /usr/bin/valgrind.
+	Now it displays a dialog with the error. [it can be -program
+	exited- or -file loaded or end of input-]. Some valgrind 3.x
+	compatibility.
+	
+2006-01-29 Naba Kumar  <naba@gnome.org>
 
 	Patch from Massimo Cora  <maxcvs@email.it>:
 	* configure.in, plugins/Makefile.am,

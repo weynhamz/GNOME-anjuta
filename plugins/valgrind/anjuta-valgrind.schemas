@@ -15,6 +15,17 @@
     </schema>
 
     <schema>
+      <key>/schemas/apps/anjuta/valgrind/exe-path</key>
+      <applyto>/apps/anjuta/valgrind/exe-path</applyto>
+      <owner>anjuta</owner>
+      <type>string</type>
+      <default>/usr/bin/valgrind</default>
+      <locale name="C">
+         <short>Valgrind path in the system</short>
+      </locale>
+    </schema>
+	
+    <schema>
       <key>/schemas/apps/anjuta/valgrind/num-lines</key>
       <applyto>/apps/anjuta/valgrind/num-lines</applyto>
       <owner>anjuta</owner>
@@ -24,7 +35,7 @@
          <short>Show X-number of lines above and below target line</short>
       </locale>
     </schema>
-
+	
     <!-- General Valgrind settings -->
 
     <schema>

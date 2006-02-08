@@ -3,6 +3,7 @@
  *  Authors: Jeffrey Stedfast <fejj@ximian.com>
  *
  *  Copyright 2003 Ximian, Inc. (www.ximian.com)
+ *  Copyright (C) Massimo Cora' 2005 <maxcvs@gmail.com>  
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -31,7 +32,6 @@
 #include <sys/types.h>
 #include <regex.h>
 
-#include "vgtoolview.h"
 #include "vgerror.h"
 #include "symtab.h"
 
@@ -51,8 +51,8 @@ extern "C" {
 typedef struct _VgDefaultView VgDefaultView;
 typedef struct _VgDefaultViewClass VgDefaultViewClass;
 
+#include "vgtoolview.h"
 #include "plugin.h"
-
 
 struct _VgDefaultView {
 	VgToolView parent_object;

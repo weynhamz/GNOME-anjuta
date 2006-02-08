@@ -3,6 +3,7 @@
  *  Authors: Jeffrey Stedfast <fejj@ximian.com>
  *
  *  Copyright 2003 Ximian, Inc. (www.ximian.com)
+ *  Copyright (C) Massimo Cora' 2005 <maxcvs@gmail.com>  
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -44,7 +45,8 @@ static void tool_view_reset (VgToolView *view);
 static void tool_view_connect (VgToolView *view, int sockfd);
 static int  tool_view_step (VgToolView *view);
 static void tool_view_disconnect (VgToolView *view);
-static int  tool_view_save_log (VgToolView *view, int fd);
+static int  tool_view_save_log (VgToolView *view, gchar* uri);
+static int  tool_view_load_log (VgToolView *view, VgActions *actions, gchar* uri);
 static void tool_view_cut (VgToolView *view);
 static void tool_view_copy (VgToolView *view);
 static void tool_view_paste (VgToolView *view);
@@ -96,6 +98,7 @@ vg_tool_view_class_init (VgToolViewClass *klass)
 	klass->step = tool_view_step;
 	klass->disconnect = tool_view_disconnect;
 	klass->save_log = tool_view_save_log;
+	klass->load_log = tool_view_load_log;
 	klass->cut = tool_view_cut;
 	klass->copy = tool_view_copy;
 	klass->paste = tool_view_paste;
@@ -232,7 +235,7 @@ vg_tool_view_disconnect (VgToolView *view)
 
 
 static int
-tool_view_save_log (VgToolView *view, int fd)
+tool_view_save_log (VgToolView *view, gchar* uri)
 {
 	errno = ENOTSUP;
 	return -1;
@@ -240,11 +243,28 @@ tool_view_save_log (VgToolView *view, int fd)
 
 
 int
-vg_tool_view_save_log (VgToolView *view, int fd)
+vg_tool_view_save_log (VgToolView *view, gchar *uri)
 {
 	g_return_val_if_fail (VG_IS_TOOL_VIEW (view), -1);
 	
-	return VG_TOOL_VIEW_GET_CLASS (view)->save_log (view, fd);
+	return VG_TOOL_VIEW_GET_CLASS (view)->save_log (view, uri);
+}
+
+
+static int
+tool_view_load_log (VgToolView *view, VgActions *actions, gchar* uri)
+{
+	errno = ENOTSUP;
+	return -1;
+}
+
+
+int
+vg_tool_view_load_log (VgToolView *view, VgActions *actions, gchar *uri)
+{
+	g_return_val_if_fail (VG_IS_TOOL_VIEW (view), -1);
+	
+	return VG_TOOL_VIEW_GET_CLASS (view)->load_log (view, actions, uri);
 }
 
 

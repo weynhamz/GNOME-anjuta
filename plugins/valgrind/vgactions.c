@@ -32,12 +32,17 @@
 
 #include "vgactions.h"
 #include "vgtoolview.h"
+#include "vgdefaultview.h"
+
+#define EXE_PATH     	"/apps/anjuta/valgrind/exe-path"
  
 static void vg_actions_class_init(VgActionsClass *klass);
 static void vg_actions_init(VgActions *sp);
 static void vg_actions_finalize(GObject *object);
 
-struct VgActionsPriv {
+static GObjectClass *parent_class = NULL;
+
+struct _VgActionsPriv {
 	const gchar *program;
 	const char **srcdir;
 	SymTab *symtab;
@@ -52,7 +57,6 @@ struct VgActionsPriv {
 	ValgrindPluginPrefs *prefs;
 };
 
-static GObjectClass *parent_class = NULL;
 
 GType
 vg_actions_get_type (void)
@@ -125,9 +129,10 @@ vg_actions_finalize(GObject *object)
 
 VgActions *
 vg_actions_new (AnjutaValgrindPlugin *anjuta_plugin, 
-		ValgrindPluginPrefs *prefs, VgDefaultView *view)
+		ValgrindPluginPrefs *prefs, GtkWidget *vg_default_view)
 {
 	VgActions *obj;
+	VgDefaultView *view = VG_DEFAULT_VIEW (vg_default_view);
 	
 	obj = VG_ACTIONS(g_object_new(VG_TYPE_ACTIONS, NULL));
 	
@@ -153,6 +158,8 @@ io_ready_cb (GIOChannel *gio, GIOCondition condition, gpointer user_data)
 
 	if ((condition & G_IO_IN) && vg_tool_view_step ((VgToolView *) priv->view) <= 0) {
 		DEBUG_PRINT ("child program exited or error in GIOChannel [IO_IN], killing");
+		anjuta_util_dialog_info (NULL, _("Reached the end of the input file or error "
+								"in parsing valgrind output."));
 		vg_actions_kill (actions);
 		priv->watch_id = 0;
 		return FALSE;
@@ -160,6 +167,7 @@ io_ready_cb (GIOChannel *gio, GIOCondition condition, gpointer user_data)
 
 	if (condition & G_IO_HUP) {
 		DEBUG_PRINT ("child program exited or error in GIOChannel [IO_HUP], killing");
+		anjuta_util_dialog_info (NULL, _("Process exited."));
 		vg_actions_kill (actions);
 		priv->watch_id = 0;
 		return FALSE;
@@ -168,9 +176,37 @@ io_ready_cb (GIOChannel *gio, GIOCondition condition, gpointer user_data)
 	return TRUE;
 }
 
-/*-----------------------------------------------------------------------------
- * 
- */
+static gboolean
+check_valgrind_binary() 
+{
+	GConfClient *gconf;
+	gchar *str_valgrind_file;
+	GError *err = NULL;
+	
+	gconf = gconf_client_get_default ();	
+	if (!(str_valgrind_file = 
+			gconf_client_get_string (gconf, EXE_PATH, &err)) || err != NULL) {
+		anjuta_util_dialog_error (NULL, 
+				_("Could not get the right valgrind-binary gconf key:"));
+		g_free (str_valgrind_file);
+		return FALSE;
+	}
+	
+	if ( g_file_test (str_valgrind_file, 
+				G_FILE_TEST_EXISTS | G_FILE_TEST_IS_SYMLINK) == FALSE ) {;
+		anjuta_util_dialog_error (NULL, 
+			_("Valgrind binary [%s] does not exist. Please check "
+			"the preferences or install Valgrind package."), 
+			str_valgrind_file);
+			
+		g_free (str_valgrind_file);
+		return FALSE;
+	}
+	
+	g_free (str_valgrind_file);
+	return TRUE;
+}
+
 void
 vg_actions_run (VgActions *actions, gchar* prg_to_debug, gchar* tool, GError **err)
 {
@@ -185,21 +221,27 @@ vg_actions_run (VgActions *actions, gchar* prg_to_debug, gchar* tool, GError **e
 	
 	priv = actions->priv;
 
+	/* check the valgrind binary availability */
+	check_valgrind_binary ();
+	
 	priv->program = g_strdup (prg_to_debug);
 
 	if (priv->pid != (pid_t) -1) {
-		DEBUG_PRINT("	if (priv->pid != (pid_t) -1) {");
+		anjuta_util_dialog_error (NULL, 
+				_("Could not get the right pipe for the process."));
+		
 		return;
 	}
 	
 	if (pipe (logfd) == -1) {
-		DEBUG_PRINT("	if (pipe (logfd) == -1) {");
+		anjuta_util_dialog_error (NULL, 
+				_("Could not get the right pipe for the process."));
 		return;
 	}
 
 	args = valgrind_plugin_prefs_create_argv (priv->prefs, tool);
 
-	sprintf (logfd_arg, "--logfile-fd=%d", logfd[1]);
+	sprintf (logfd_arg, "--log-fd=%d", logfd[1]);
 	g_ptr_array_add (args, logfd_arg);
 
 	for ( i=0; i < args->len; i++ ) {
@@ -227,13 +269,13 @@ vg_actions_run (VgActions *actions, gchar* prg_to_debug, gchar* tool, GError **e
 	vg_tool_view_connect ((VgToolView *) priv->view, logfd[0]);
 
 	priv->gio = g_io_channel_unix_new (logfd[0]);
-	priv->watch_id = g_io_add_watch (priv->gio, G_IO_IN | G_IO_HUP, io_ready_cb, actions);
+	priv->watch_id = g_io_add_watch (priv->gio, G_IO_IN | G_IO_HUP, 
+										io_ready_cb, actions);
 
 	/* let's update our menu status */
 	valgrind_set_busy_status (priv->anjuta_plugin, TRUE);
 	valgrind_update_ui (priv->anjuta_plugin);	
 }
-
 
 void
 vg_actions_kill (VgActions *actions)
@@ -262,3 +304,26 @@ vg_actions_kill (VgActions *actions)
 	valgrind_update_ui (priv->anjuta_plugin);	
 }
 
+void vg_actions_set_pid (VgActions *actions, pid_t pid) 
+{
+	VgActionsPriv *priv;
+	
+	g_return_if_fail (actions != NULL);
+	priv = actions->priv;
+
+	priv->pid = (pid_t) pid;
+
+}
+
+void vg_actions_set_giochan (VgActions *actions, GIOChannel*gio) 
+{
+	VgActionsPriv *priv;
+	
+	g_return_if_fail (actions != NULL);
+	priv = actions->priv;
+
+	priv->gio = gio;	
+	
+	priv->watch_id = g_io_add_watch (priv->gio, G_IO_IN | G_IO_HUP, 
+								io_ready_cb, actions);	
+}

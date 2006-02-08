@@ -24,6 +24,7 @@
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libgnome/gnome-i18n.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include <libgnome/gnome-util.h>
 #include <libgnomeui/gnome-about.h>
 #include <libanjuta/anjuta-shell.h>
@@ -298,10 +299,15 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 			vg_tool_view_set_symtab ((VgToolView *) plugin->valgrind_widget,
 							symtab);			
 
-			plugin->val_actions = 
-					vg_actions_new (plugin, plugin->val_prefs, 
-							(VgDefaultView *)plugin->valgrind_widget);
-			
+		
+			if (plugin->valgrind_displayed == FALSE) {
+				/* Add the widget to the shell */		
+				anjuta_shell_add_widget (((AnjutaPlugin*)plugin)->shell, plugin->valgrind_widget,
+								 "AnjutaValgrindPluginWidget", _("Valgrind"), "valgrind-knight",
+								 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);	
+				plugin->valgrind_displayed = TRUE;
+			}
+							
 			switch (tool_selected) {
 				case MEMCHECK_OPTION:
 					/* this is not a blocking call. The process will fork */
@@ -323,16 +329,108 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 			}
 		}
 		else {
-			/* TODO */
-			/* display a message that says to the user that the project hasn't 
-			 * any available target */
+			if ( response == GTK_RESPONSE_OK ) {
+				anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+						_("No executable target selected for debugging with Valgrind."
+						"Please select one."));
+			}
 		}
 		
 		g_object_unref (gxml);
 	}	
+	else {
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+				_("There aren't any available executable targets for this project.\n"
+				"Please create one first."));
+	}
 }
 
+static void
+on_menu_save_log_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)  
+{
+	GtkWidget *dialog;
+	gchar* uri = NULL;
+	GnomeVFSURI* vfs_uri;
+	
+	dialog = gtk_file_chooser_dialog_new (_("Choose file where to save Valgrind log"),
+					NULL, GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_SAVE, 
+					GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, 
+					GTK_RESPONSE_CANCEL, NULL);
 
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+		uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+	}
+	else {
+		uri = NULL;
+	}
+
+	gtk_widget_destroy(dialog);
+
+	vfs_uri = gnome_vfs_uri_new(uri);
+	if (gnome_vfs_uri_exists (vfs_uri))
+	{
+		GtkWidget *dialog;
+		dialog = gtk_message_dialog_new (NULL,
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_NONE,
+										 _("The file '%s' already exists.\n"
+										 "Do you want to replace it with the one you are saving?"),
+										 uri);
+										 
+		gtk_dialog_add_button (GTK_DIALOG(dialog),
+							   GTK_STOCK_CANCEL,
+							   GTK_RESPONSE_CANCEL);
+		anjuta_util_dialog_add_button (GTK_DIALOG (dialog),
+								  _("_Replace"),
+								  GTK_STOCK_REFRESH,
+								  GTK_RESPONSE_YES);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+			vg_tool_view_save_log (VG_TOOL_VIEW (plugin->valgrind_widget), uri);
+		gtk_widget_destroy (dialog);
+	}
+	else {
+		vg_tool_view_save_log (VG_TOOL_VIEW (plugin->valgrind_widget), uri);
+	}
+
+	g_free (uri);
+	g_free (vfs_uri);
+}
+
+static void
+on_menu_load_log_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)  
+{
+	gchar* uri = NULL;
+	GtkWidget* dialog = 
+		gtk_file_chooser_dialog_new (_("Open Valgrind log file"), 
+									NULL,
+									GTK_FILE_CHOOSER_ACTION_OPEN,
+									GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+									GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+									NULL);
+									
+	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
+		uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+	}
+	else {
+		uri = NULL;
+	}
+									
+	gtk_widget_destroy(dialog);
+										
+	vg_tool_view_load_log (VG_TOOL_VIEW (plugin->valgrind_widget), 
+				plugin->val_actions, uri);
+
+	if (plugin->valgrind_displayed == FALSE) {
+		/* Add the widget to the shell */		
+		anjuta_shell_add_widget (((AnjutaPlugin*)plugin)->shell, plugin->valgrind_widget,
+						 "AnjutaValgrindPluginWidget", _("Valgrind"), "valgrind-knight",
+						 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);	
+		plugin->valgrind_displayed = TRUE;
+	}
+				
+	g_free (uri);	
+}
 
 static GtkActionEntry actions_file[] = {
 	{
@@ -365,15 +463,15 @@ static GtkActionEntry actions_file[] = {
 		N_("_Load log"),						/* Display label */
 		NULL,                                   /* short-cut */
 		NULL,                      				/* Tooltip */			
-		NULL								    /* action callback */
+		G_CALLBACK(on_menu_load_log_activate)	/* action callback */
 	},
 	{
 		"ActionValgrindSave",                   /* Action name */
 		GTK_STOCK_SAVE,                      	/* Stock icon, if any */
 		N_("S_ave log"),						/* Display label */
 		NULL,                                   /* short-cut */
-		NULL,                      				/* Tooltip */			
-		NULL								    /* action callback */
+		NULL,                      				/* Tooltip */
+		G_CALLBACK(on_menu_save_log_activate)	/* action callback */
 	},
 	{
 		"ActionValgrindEditRules",              /* Action name */
@@ -382,8 +480,7 @@ static GtkActionEntry actions_file[] = {
 		NULL,                                   /* short-cut */
 		NULL,                      				/* Tooltip */			
 		G_CALLBACK(on_menu_editrules_activate)  /* action callback */
-	}	
-	
+	}
 };
 
 
@@ -426,7 +523,6 @@ valgrind_update_ui (AnjutaValgrindPlugin *plugin)
 
 }
 
-
 static gboolean
 valgrind_activate (AnjutaPlugin *plugin)
 {
@@ -436,7 +532,6 @@ valgrind_activate (AnjutaPlugin *plugin)
 	static gboolean initialized = FALSE;
 	AnjutaValgrindPlugin *valgrind;
 	ValgrindPluginPrefs *valgrind_prefs;	
-	GtkWidget *wid;
 	
 	DEBUG_PRINT ("AnjutaValgrindPlugin: Activating AnjutaValgrindPlugin plugin ...");
 	valgrind = (AnjutaValgrindPlugin*) plugin;
@@ -469,16 +564,16 @@ valgrind_activate (AnjutaPlugin *plugin)
 
 	/* Build the ValgrindPluginPrefs */
 	valgrind->val_prefs = valgrind_plugin_prefs_new ();
-	
-	
-	/* Add main widget to shell */
-	wid = vg_default_view_new (valgrind);
-	valgrind->valgrind_widget = wid;
-	
-	anjuta_shell_add_widget (((AnjutaPlugin*)plugin)->shell, wid,
-							 "AnjutaValgrindPluginWidget", _("Valgrind"), "valgrind-knight",
-							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);	
 
+	/* Create the main valgrind widget [a VgToolView object...]. Do NOT add it now,
+     * but only after a call to run () is made
+	 */
+	valgrind->valgrind_widget = vg_default_view_new (valgrind);
+	
+	/* And the VgActions */	
+	valgrind->val_actions = vg_actions_new (valgrind, valgrind->val_prefs, 
+						valgrind->valgrind_widget);
+							 
 	/* set up project directory watch */
 	valgrind->project_root_uri = NULL;
 	valgrind->root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -499,18 +594,28 @@ static gboolean
 valgrind_deactivate (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
-
+	AnjutaValgrindPlugin* valgrind;
+	
+	valgrind = (AnjutaValgrindPlugin*)plugin;
+	
 	DEBUG_PRINT ("AnjutaValgrindPlugin: Dectivating AnjutaValgrindPlugin plugin ...");
 
-	if ( ((AnjutaValgrindPlugin*)plugin)->valgrind_widget != NULL )
-		anjuta_shell_remove_widget (plugin->shell, ((AnjutaValgrindPlugin*)plugin)->valgrind_widget,
+	if ( valgrind->valgrind_widget != NULL ) {
+		anjuta_shell_remove_widget (plugin->shell, valgrind->valgrind_widget,
 									NULL);
+		valgrind->valgrind_displayed = FALSE;
+	}
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	anjuta_ui_unmerge (ui, ((AnjutaValgrindPlugin*)plugin)->uiid);
+	anjuta_ui_unmerge (ui, valgrind->uiid);
 
 
-	// FIXME: destroys vgactions/vgtoolview/ValgrindPluginPrefs objects
+	/* unref VgToolView object */
+	g_object_unref (valgrind->general_prefs);
+	g_object_unref (valgrind->val_actions);
+	
+	/* FIXME: what about the destroying of Anjuta's Preference page? */
+	//g_object_unref (valgrind->val_prefs);
 	
 	return TRUE;
 }
@@ -538,6 +643,7 @@ valgrind_instance_init (GObject *obj)
 
 	plugin->valgrind_widget = NULL;
 	plugin->general_prefs = NULL;
+	plugin->valgrind_displayed = FALSE;
 }
 
 static void

@@ -22,10 +22,6 @@
  *            Boston,  MA  02111-1307, USA.
  */
  
-
-// FIXME: get it from anjuta's prefs?!
-#define VALGRIND_PATH  "/usr/bin/valgrind"
-
 #include "vggeneralprefs.h"
 #include "vgmemcheckprefs.h"
 #include "vgcachegrindprefs.h"
@@ -34,10 +30,14 @@
 
 #include <string.h>
 #include <gconf/gconf-client.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
 
 #define EDITOR_KEY      "/apps/anjuta/valgrind/editor"
 #define NUM_LINES_KEY   "/apps/anjuta/valgrind/num-lines"
+#define EXE_PATH     	"/apps/anjuta/valgrind/exe-path"
+
+#define VALGRIND_DEFAULT_BIN	"/usr/bin/valgrind"
 
 enum {
 	PAGE_GENERAL    = 0,
@@ -85,6 +85,29 @@ spin_changed (GtkSpinButton *spin, GdkEvent *event, const char *key)
 
 
 /*-----------------------------------------------------------------------------
+ * Callback for valgrind exe file path selection
+ */
+
+static void
+on_exe_path_entry_changed (GtkFileChooser *chooser, const char *key)
+{
+	GConfClient *gconf;
+	gchar *str;
+	
+	gconf = gconf_client_get_default ();
+	
+	str = gtk_file_chooser_get_filename (chooser);
+	
+	DEBUG_PRINT ("str is %s key is %s", str, key);
+	
+	gconf_client_set_string (gconf, key, str ? str : "", NULL);
+	g_free (str);
+
+	g_object_unref (gconf);
+}
+
+
+/*-----------------------------------------------------------------------------
  * build and returns a widget containing the general prefs of alleyoop/valgrind
  */
 
@@ -92,20 +115,53 @@ static GtkWidget *
 build_general_prefs () 
 {
 	GConfClient *gconf;
-	GtkWidget *vbox, *hbox, *label, *main_label, *gen_page;
+	GtkWidget *vbox, *hbox, *label, *main_label, *gen_page, *widget;
 	GtkSpinButton *numlines;
+	GError *err = NULL;
 	gint num;
+	gchar *str_file, *str_uri_file;
 	
 	gconf = gconf_client_get_default ();	
 
 	vbox = gtk_vbox_new (FALSE, 6);
 
 	hbox = gtk_hbox_new (FALSE, 6);
-	
+
 	main_label = gtk_label_new ("");
-	gtk_label_set_markup ((GtkLabel*)main_label, "<b>Valgrind general preferences</b>");
-	
+	gtk_label_set_markup ((GtkLabel*)main_label, "<b>Valgrind general preferences</b>");	
+
 	gtk_box_pack_start ((GtkBox *) hbox, main_label, FALSE, FALSE, 0);
+	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
+	
+	hbox = gtk_hbox_new (FALSE, 6);
+	label = gtk_label_new (_("Valgrind binary file path:"));
+	gtk_widget_show (label);
+	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+
+	if (!(str_file = gconf_client_get_string (gconf, EXE_PATH, &err)) || err != NULL) {
+		str_file = g_strdup (VALGRIND_DEFAULT_BIN);
+	}
+	
+	/* calculate the uri */
+	str_uri_file = gnome_vfs_get_uri_from_local_path (str_file);
+	g_free (str_file);
+	
+	widget = 
+		gtk_file_chooser_button_new (_("Choose Valgrind Binary File Path..."), 
+								GTK_FILE_CHOOSER_ACTION_OPEN);
+								
+	if ( gtk_file_chooser_select_uri ((GtkFileChooser*)widget, str_uri_file) == FALSE )
+		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_uri ()");
+		
+	g_free (str_uri_file);
+
+	/* grab every change in file selection */
+	g_signal_connect (widget, "selection-changed", G_CALLBACK (on_exe_path_entry_changed), EXE_PATH);
+
+	gtk_widget_show (widget);
+	gtk_box_pack_start ((GtkBox *) hbox, widget, TRUE, TRUE, 0);
+
+	gtk_widget_show (hbox);
 	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
@@ -141,14 +197,20 @@ valgrind_plugin_prefs_create_argv (ValgrindPluginPrefs *valprefs, const char *to
 	GPtrArray *argv;
 	int page;
 	ValgrindPluginPrefsPriv *priv;
+	GConfClient *gconf;
+	gchar *str_file;
 	
 	g_return_val_if_fail (valprefs != NULL, NULL);
 	
 	priv = valprefs->priv;
 	
 	argv = g_ptr_array_new ();
-	g_ptr_array_add (argv, VALGRIND_PATH);
 	
+	gconf = gconf_client_get_default ();
+	str_file = gconf_client_get_string (gconf, EXE_PATH, NULL);
+	
+	g_ptr_array_add (argv, str_file);
+		
 	if (tool != NULL) {
 		if (!strcmp (tool, "memcheck")) {
 			g_ptr_array_add (argv, "--tool=memcheck");

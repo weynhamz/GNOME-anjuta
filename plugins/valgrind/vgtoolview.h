@@ -1,8 +1,8 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
  *  Authors: Jeffrey Stedfast <fejj@ximian.com>
- *
  *  Copyright 2003 Ximian, Inc. (www.ximian.com)
+ *  Copyright (C) Massimo Cora' 2005 <maxcvs@gmail.com>  
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -43,6 +43,8 @@ extern "C" {
 typedef struct _VgToolView VgToolView;
 typedef struct _VgToolViewClass VgToolViewClass;
 
+#include "vgactions.h"
+
 struct _VgToolView {
 	GtkVBox parent_object;
 	
@@ -66,7 +68,8 @@ struct _VgToolViewClass {
 	int  (* step)    (VgToolView *view);               /* take 1 parse step over valgrind's output stream */
 	void (* disconnect) (VgToolView *view);            /* disconnect from valgrind's --logfile-fd */
 	
-	int (* save_log) (VgToolView *view, int fd);
+	int (* save_log) (VgToolView *view, gchar* uri);
+	int (* load_log) (VgToolView *view, VgActions *actions, gchar* uri);
 	
 	/* cut/copy/paste methods */
 	void (* cut) (VgToolView *view);
@@ -90,7 +93,8 @@ void vg_tool_view_connect (VgToolView *view, int sockfd);
 int  vg_tool_view_step (VgToolView *view);
 void vg_tool_view_disconnect (VgToolView *view);
 
-int vg_tool_view_save_log (VgToolView *view, int fd);
+int vg_tool_view_save_log (VgToolView *view, gchar*uri);
+int vg_tool_view_load_log (VgToolView *view, VgActions *actions, gchar *uri);
 
 void vg_tool_view_cut (VgToolView *view);
 void vg_tool_view_copy (VgToolView *view);

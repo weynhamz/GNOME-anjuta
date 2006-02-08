@@ -258,7 +258,7 @@ vg_memcheck_prefs_init (VgMemcheckPrefs *prefs)
 	prefs->workaround_gcc296_bugs = (GtkToggleButton *) widget;
 	gtk_widget_show (widget);
 	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
-	
+/*/	
 	bool = gconf_client_get_bool (gconf, AVOID_STRLEN_ERRORS_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Ignore errors produced by inline strlen() calls"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), AVOID_STRLEN_ERRORS_KEY);
@@ -266,7 +266,7 @@ vg_memcheck_prefs_init (VgMemcheckPrefs *prefs)
 	prefs->avoid_strlen_errors = (GtkToggleButton *) widget;
 	gtk_widget_show (widget);
 	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
-	
+/*/	
 	g_object_unref (gconf);
 }
 
@@ -314,8 +314,8 @@ static struct {
 	{ SHOW_REACHABLE_KEY,         "--show-reachable",         BOTH,     NULL, ARG_TYPE_BOOL,   0       },
 	{ LEAK_RESOLUTION_KEY,        "--leak-resolution",        BOTH,     NULL, ARG_TYPE_STRING, 0       },
 	{ FREELIST_VOL_KEY,           "--freelist-vol",           BOTH,     NULL, ARG_TYPE_INT,    1000000 },
-	{ WORKAROUND_GCC296_BUGS_KEY, "--workaround-gcc296-bugs", BOTH,     NULL, ARG_TYPE_BOOL,   0       },
-	{ AVOID_STRLEN_ERRORS_KEY,    "--avoid-strlen-errors",    MEMCHECK, NULL, ARG_TYPE_BOOL,   1       },
+	{ WORKAROUND_GCC296_BUGS_KEY, "--workaround-gcc296-bugs", BOTH,     NULL, ARG_TYPE_BOOL,   0       }/*,
+	{ AVOID_STRLEN_ERRORS_KEY,    "--avoid-strlen-errors",    MEMCHECK, NULL, ARG_TYPE_BOOL,   1       },*/
 };
 
 static void
