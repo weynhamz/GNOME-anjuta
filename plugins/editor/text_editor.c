@@ -188,7 +188,7 @@ text_editor_add_view (TextEditor *te)
 		current_line = 0;
 		current_point = 0;
 	}
-	editor_id = aneditor_new (prop_get_pointer (te->props_base));
+	editor_id = aneditor_new (sci_prop_get_pointer (te->props_base));
 	scintilla = aneditor_get_widget (editor_id);
 	
 	/* Set parent, if it is not primary view */
@@ -954,7 +954,7 @@ filter_chars_in_dos_mode(gchar *data_, size_t size )
 {
 	int k;
 	size_t i;
-	unsigned char * data = data_;
+	unsigned char * data = (unsigned char*)data_;
 	unsigned char * tr_map;
 
 	tr_map = (unsigned char *)malloc( 256 );
@@ -992,7 +992,7 @@ save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_,
 	for ( k = 0; k < sizeof(tr_dos)/2; k++)
 	  tr_map[tr_dos[k].c] = tr_dos[k].b;
 
-	data = data_;
+	data = (unsigned char*)data_;
 	i = 0; j = 0;
 	while ( i < size )
 	{
@@ -1131,7 +1131,7 @@ convert_to_utf8 (PropsID props, const gchar *content, gsize len,
 	g_return_val_if_fail (!g_utf8_validate (content, len, NULL), 
 			g_strndup (content, len < 0 ? strlen (content) : len));
 
-	encoding_strings = prop_glist_from_data (props, SUPPORTED_ENCODINGS);
+	encoding_strings = sci_prop_glist_from_data (props, SUPPORTED_ENCODINGS);
 	encodings = anjuta_encoding_get_encodings (encoding_strings);
 	anjuta_util_glist_strings_free (encoding_strings);
 	
@@ -1905,23 +1905,23 @@ text_editor_get_props ()
 	if (props)
 		return props;
 	
-	props_built_in = prop_set_new ();
-	props_global = prop_set_new ();
-	// props_local = prop_set_new ();
-	props_session = prop_set_new ();
-	props = prop_set_new ();
+	props_built_in = sci_prop_set_new ();
+	props_global = sci_prop_set_new ();
+	// props_local = sci_prop_set_new ();
+	props_session = sci_prop_set_new ();
+	props = sci_prop_set_new ();
 
-	prop_clear (props_built_in);
-	prop_clear (props_global);
-	// prop_clear (props_local);
-	prop_clear (props_session);
-	prop_clear (props);
+	sci_prop_clear (props_built_in);
+	sci_prop_clear (props_global);
+	// sci_prop_clear (props_local);
+	sci_prop_clear (props_session);
+	sci_prop_clear (props);
 
-	prop_set_parent (props_global, props_built_in);
-	// prop_set_parent (props_local, props_global);
-	// prop_set_parent (props_session, props_local);
-	prop_set_parent (props_session, props_global);
-	prop_set_parent (props, props_session);
+	sci_prop_set_parent (props_global, props_built_in);
+	// sci_prop_set_parent (props_local, props_global);
+	// sci_prop_set_parent (props_session, props_local);
+	sci_prop_set_parent (props_session, props_global);
+	sci_prop_set_parent (props, props_session);
 	
 	propdir = g_build_filename (PACKAGE_DATA_DIR, "properties/", NULL);
 	propfile = g_build_filename (PACKAGE_DATA_DIR, "properties",
@@ -1937,7 +1937,7 @@ text_editor_get_props ()
 			 "Anjuta will fall back to built in (limited) settings"),
 			 propfile);
 	}
-	prop_read (props_global, propfile, propdir);
+	sci_prop_read (props_global, propfile, propdir);
 	g_free (propfile);
 	g_free (propdir);
 
@@ -1955,7 +1955,7 @@ text_editor_get_props ()
 			anjuta_util_copy_file (old_propfile, propfile, FALSE);
 		g_free (old_propfile);
 	}
-	prop_read (props_session, propfile, propdir);
+	sci_prop_read (props_session, propfile, propdir);
 	g_free (propdir);
 	g_free (propfile);
 

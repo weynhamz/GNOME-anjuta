@@ -81,7 +81,7 @@ set_n_get_prop_int (TextEditor *te, const gchar *key)
 	AnjutaPreferences *pr;
 	pr = te->preferences;
 	val = anjuta_preferences_get_int (pr, key);
-	prop_set_int_with_key (text_editor_get_props (), key, val);
+	sci_prop_set_int_with_key (text_editor_get_props (), key, val);
 	return val;
 }
 
@@ -92,7 +92,7 @@ set_n_get_prop_string (TextEditor *te, const gchar *key)
 	AnjutaPreferences *pr;
 	pr = te->preferences;
 	val = anjuta_preferences_get (pr, key);
-	prop_set_with_key (text_editor_get_props (), key, val);
+	sci_prop_set_with_key (text_editor_get_props (), key, val);
 	return val;
 }
 
@@ -435,9 +435,9 @@ text_editor_prefs_init (TextEditor *te)
 	/* This one is special */
 	val = set_n_get_prop_int (te, INDENT_MAINTAIN);
 	if (val)
-		prop_set_int_with_key (te->props_base, INDENT_MAINTAIN".*", 1);
+		sci_prop_set_int_with_key (te->props_base, INDENT_MAINTAIN".*", 1);
 	else
-		prop_set_with_key (te->props_base, INDENT_MAINTAIN".*", "");
+		sci_prop_set_with_key (te->props_base, INDENT_MAINTAIN".*", "");
 	
 	set_n_get_prop_int (te, TAB_INDENTS);
 	set_n_get_prop_int (te, BACKSPACE_UNINDENTS);

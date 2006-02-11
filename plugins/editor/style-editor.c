@@ -674,7 +674,7 @@ sync_from_props (StyleEditor *se)
 
 		if (hilite_style[i] == NULL)
 			break;
-		str = prop_get_expanded (se->props, hilite_style[i + 1]);
+		str = sci_prop_get_expanded (se->props, hilite_style[i + 1]);
 		sdata = style_data_new_parse (str);
 		/* DEBUG_PRINT ("Parsing %s => %s", hilite_style[i + 1], str); */
 		if (str)
@@ -693,7 +693,7 @@ sync_from_props (StyleEditor *se)
 	on_hilite_style_entry_changed (GTK_EDITABLE (GTK_COMBO
 					(se->priv->hilite_item_combo)->entry), se);
 
-	str = prop_get (se->props, CARET_FORE_COLOR);
+	str = sci_prop_get (se->props, CARET_FORE_COLOR);
 	if(str)
 	{
 		GdkColor color;
@@ -712,7 +712,7 @@ sync_from_props (StyleEditor *se)
 									&color);
 	}
 
-	str = prop_get (se->props, CALLTIP_BACK_COLOR);
+	str = sci_prop_get (se->props, CALLTIP_BACK_COLOR);
 	if(str)
 	{
 		GdkColor color;
@@ -731,7 +731,7 @@ sync_from_props (StyleEditor *se)
 									&color);
 	}
 	
-	str = prop_get (se->props, SELECTION_FORE_COLOR);
+	str = sci_prop_get (se->props, SELECTION_FORE_COLOR);
 	if(str)
 	{
 		GdkColor color;
@@ -750,7 +750,7 @@ sync_from_props (StyleEditor *se)
 									&color);
 	}
 	
-	str = prop_get (se->props, SELECTION_BACK_COLOR);
+	str = sci_prop_get (se->props, SELECTION_BACK_COLOR);
 	if(str)
 	{
 		GdkColor color;
@@ -781,7 +781,7 @@ set_one_color (PropsID props, gchar *key, GtkWidget *picker)
 										 color.blue >> 8);
 	if(str)
 	{
-		prop_set_with_key (props, key, str);
+		sci_prop_set_with_key (props, key, str);
 		g_free (str);
 	}
 }
@@ -810,7 +810,7 @@ sync_to_props (StyleEditor *se)
 		str = style_data_get_string (sdata);
 		if (str)
 		{
-			prop_set_with_key (se->props, hilite_style[i + 1], str);
+			sci_prop_set_with_key (se->props, hilite_style[i + 1], str);
 			g_free (str);
 		}
 	}
@@ -986,7 +986,7 @@ style_editor_save (StyleEditor *se, FILE *fp)
 	{
 		if (hilite_style[i] == NULL)
 			break;
-		str = prop_get (se->props, hilite_style[i + 1]);
+		str = sci_prop_get (se->props, hilite_style[i + 1]);
 		if (str)
 		{
 			fprintf (fp, "%s=%s\n", hilite_style[i + 1], str);
@@ -995,28 +995,28 @@ style_editor_save (StyleEditor *se, FILE *fp)
 		/* else
 			fprintf (fp, "%s=\n", hilite_style[i + 1]); */
 	}
-	str = prop_get (se->props, CARET_FORE_COLOR);
+	str = sci_prop_get (se->props, CARET_FORE_COLOR);
 	if(str)
 	{
 		fprintf (fp, "%s=%s\n", CARET_FORE_COLOR, str);
 		g_free (str);
 	}
 
-	str = prop_get (se->props, CALLTIP_BACK_COLOR);
+	str = sci_prop_get (se->props, CALLTIP_BACK_COLOR);
 	if(str)
 	{
 		fprintf (fp, "%s=%s\n", CALLTIP_BACK_COLOR, str);
 		g_free (str);
 	}
 	
-	str = prop_get (se->props, SELECTION_FORE_COLOR);
+	str = sci_prop_get (se->props, SELECTION_FORE_COLOR);
 	if(str)
 	{
 		fprintf (fp, "%s=%s\n", SELECTION_FORE_COLOR, str);
 		g_free (str);
 	}
 	
-	str = prop_get (se->props, SELECTION_BACK_COLOR);
+	str = sci_prop_get (se->props, SELECTION_BACK_COLOR);
 	if(str)
 	{
 		fprintf (fp, "%s=%s\n", SELECTION_BACK_COLOR, str);

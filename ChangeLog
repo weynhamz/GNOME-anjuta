@@ -1,3 +1,11 @@
+2006-02-11 Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/properties.[cxx,h],
+	plugins/editor/text_editor.c, plugins/editor/style-editor.c,
+	plugins/editor/text_editor_prefs.c: Renamed prop_*() functions
+	to sci_prop_*(), because they were conflicting with external
+	functions (in some ssl library).
+	
 2006-02-08 Naba Kumar  <naba@gnome.org>
 
 	Patch from Massimo Cora  <maxcvs@email.it>:

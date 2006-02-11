@@ -28,25 +28,25 @@ extern "C" {
 
 typedef gint PropsID;
 
-PropsID prop_set_new (void);
-void prop_set_destroy (PropsID p);
-gpointer prop_get_pointer (PropsID p);
+PropsID sci_prop_set_new (void);
+void sci_prop_set_destroy (PropsID p);
+gpointer sci_prop_get_pointer (PropsID p);
 
-void prop_set_with_key (PropsID p, const gchar *key, const gchar *val);
-void prop_set_int_with_key (PropsID p, const gchar *key, int val);
-void prop_set (PropsID p, const gchar *keyval);
-gchar* prop_get (PropsID p, const gchar *key);
-gchar* prop_get_expanded (PropsID p, const gchar *key);
-gchar* prop_expand (PropsID p, const gchar *withvars);
-int prop_get_int (PropsID p, const gchar *key, gint defaultValue);
-gchar* prop_get_wild (PropsID p, const gchar *keybase, const gchar *filename);
-gchar* prop_get_new_expand (PropsID p, const gchar *keybase, const gchar *filename);
-void prop_clear (PropsID p);
-void prop_read_from_memory (PropsID p, const gchar *data,
+void sci_prop_set_with_key (PropsID p, const gchar *key, const gchar *val);
+void sci_prop_set_int_with_key (PropsID p, const gchar *key, int val);
+void sci_prop_set (PropsID p, const gchar *keyval);
+gchar* sci_prop_get (PropsID p, const gchar *key);
+gchar* sci_prop_get_expanded (PropsID p, const gchar *key);
+gchar* sci_prop_expand (PropsID p, const gchar *withvars);
+int sci_prop_get_int (PropsID p, const gchar *key, gint defaultValue);
+gchar* sci_prop_get_wild (PropsID p, const gchar *keybase, const gchar *filename);
+gchar* sci_prop_get_new_expand (PropsID p, const gchar *keybase, const gchar *filename);
+void sci_prop_clear (PropsID p);
+void sci_prop_read_from_memory (PropsID p, const gchar *data,
 							gint len, const gchar *directoryForImports);
-void prop_read (PropsID p, const gchar *filename, const gchar *directoryForImports);
-void prop_set_parent (PropsID p1, PropsID p2);
-GList* prop_glist_from_data (guint props, const gchar* id);
+void sci_prop_read (PropsID p, const gchar *filename, const gchar *directoryForImports);
+void sci_prop_set_parent (PropsID p1, PropsID p2);
+GList* sci_prop_glist_from_data (guint props, const gchar* id);
 
 #ifdef __cplusplus
 }

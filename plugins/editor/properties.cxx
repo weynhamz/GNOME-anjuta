@@ -112,7 +112,7 @@ get_propset(PropsID pi)
 // Followings are the C++ to C interface for the PropSetFile
 
 PropsID
-prop_set_new(void)
+sci_prop_set_new(void)
 {
    PropsID handle;
    PropSetFile *p;
@@ -130,7 +130,8 @@ prop_set_new(void)
    return handle-1;
 }
 
-gpointer prop_get_pointer(PropsID handle)
+gpointer
+sci_prop_get_pointer(PropsID handle)
 {
   PropSetFile* p;
   p = get_propset(handle);
@@ -138,7 +139,7 @@ gpointer prop_get_pointer(PropsID handle)
 }
 
 void
-prop_set_destroy(PropsID handle)
+sci_prop_set_destroy(PropsID handle)
 {
   PropSetFile* p;
   p = get_propset(handle);
@@ -148,7 +149,7 @@ prop_set_destroy(PropsID handle)
 }
 
 void
-prop_set_parent(PropsID handle1, PropsID handle2)
+sci_prop_set_parent(PropsID handle1, PropsID handle2)
 {
   PropSetFile *p1, *p2;
   p1 = get_propset(handle1);
@@ -158,7 +159,7 @@ prop_set_parent(PropsID handle1, PropsID handle2)
 }
 
 void
-prop_set_with_key(PropsID handle, const gchar *key, const gchar *val)
+sci_prop_set_with_key(PropsID handle, const gchar *key, const gchar *val)
 {
   PropSetFile* p;
   p = get_propset(handle);
@@ -170,16 +171,16 @@ prop_set_with_key(PropsID handle, const gchar *key, const gchar *val)
 }
 
 void 
-prop_set_int_with_key (PropsID p, const gchar *key, int value)
+sci_prop_set_int_with_key (PropsID p, const gchar *key, int value)
 {
   gchar *str;
   str = g_strdup_printf ("%d", value);
-  prop_set_with_key (p, key, str);
+  sci_prop_set_with_key (p, key, str);
   g_free (str);  
 }
 
 void
-prop_set(PropsID handle, const gchar *keyval)
+sci_prop_set(PropsID handle, const gchar *keyval)
 {
   PropSetFile* p;
   p = get_propset (handle);
@@ -188,7 +189,7 @@ prop_set(PropsID handle, const gchar *keyval)
 }
 
 gchar*
-prop_get(PropsID handle, const gchar *key)
+sci_prop_get(PropsID handle, const gchar *key)
 {
   PropSetFile* p;
   SString s;
@@ -201,7 +202,7 @@ prop_get(PropsID handle, const gchar *key)
 }
 
 gchar*
-prop_get_expanded(PropsID handle, const gchar *key)
+sci_prop_get_expanded(PropsID handle, const gchar *key)
 {
   PropSetFile* p;
   SString s;
@@ -213,7 +214,7 @@ prop_get_expanded(PropsID handle, const gchar *key)
 }
 
 gchar*
-prop_expand(PropsID handle, const gchar *withvars)
+sci_prop_expand(PropsID handle, const gchar *withvars)
 {
   PropSetFile* p;
   SString s;
@@ -225,7 +226,7 @@ prop_expand(PropsID handle, const gchar *withvars)
 }
 
 int
-prop_get_int(PropsID handle, const gchar *key, gint defaultValue=0)
+sci_prop_get_int(PropsID handle, const gchar *key, gint defaultValue=0)
 {
   PropSetFile* p;
   p = get_propset(handle);
@@ -234,7 +235,7 @@ prop_get_int(PropsID handle, const gchar *key, gint defaultValue=0)
 }
 
 gchar*
-prop_get_wild(PropsID handle, const gchar *keybase, const gchar *filename)
+sci_prop_get_wild(PropsID handle, const gchar *keybase, const gchar *filename)
 {
   PropSetFile* p;
   SString s;
@@ -246,7 +247,7 @@ prop_get_wild(PropsID handle, const gchar *keybase, const gchar *filename)
 }
 
 gchar*
-prop_get_new_expand(PropsID handle, const gchar *keybase, const gchar *filename)
+sci_prop_get_new_expand(PropsID handle, const gchar *keybase, const gchar *filename)
 {
   PropSetFile* p;
   SString s;
@@ -259,7 +260,7 @@ prop_get_new_expand(PropsID handle, const gchar *keybase, const gchar *filename)
 
 /* GList of strings operations */
 static GList *
-prop_glist_from_string (const gchar *string)
+sci_prop_glist_from_string (const gchar *string)
 {
 	gchar *str, *temp, buff[256];
 	GList *list;
@@ -307,19 +308,19 @@ prop_glist_from_string (const gchar *string)
 /* Get the list of strings as GList from a property value.
    Strings are splitted from white spaces */
 GList *
-prop_glist_from_data (guint props, const gchar *id)
+sci_prop_glist_from_data (guint props, const gchar *id)
 {
 	gchar *str;
 	GList *list;
 
-	str = prop_get (props, id);
-	list = prop_glist_from_string (str);
+	str = sci_prop_get (props, id);
+	list = sci_prop_glist_from_string (str);
 	g_free(str);
 	return list;
 }
 
 void
-prop_clear(PropsID handle)
+sci_prop_clear(PropsID handle)
 {
   PropSetFile* p;
   p = get_propset(handle);
@@ -328,7 +329,7 @@ prop_clear(PropsID handle)
 }
 
 void
-prop_read_from_memory(PropsID handle, const gchar *data, gint len,
+sci_prop_read_from_memory(PropsID handle, const gchar *data, gint len,
 		const gchar *directoryForImports=0)
 {
   PropSetFile* p;
@@ -338,7 +339,7 @@ prop_read_from_memory(PropsID handle, const gchar *data, gint len,
 }
 
 void
-prop_read(PropsID handle, const gchar *filename, const gchar *directoryForImports)
+sci_prop_read(PropsID handle, const gchar *filename, const gchar *directoryForImports)
 {
   PropSetFile* p;
   p = get_propset(handle);
