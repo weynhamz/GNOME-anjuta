@@ -763,7 +763,7 @@ on_edit_editor_styles (GtkWidget *button, DocmanPlugin *plugin)
 	AnjutaShell* shell = ANJUTA_DOCMAN(plugin->docman)->shell;
 	IAnjutaEditorFactory* factory = 
 	     anjuta_shell_get_interface(shell, IAnjutaEditorFactory, NULL);
-	ianjuta_editor_factory_new_style_editor(factory, plugin->prefs, NULL);
+	ianjuta_editor_factory_new_style_editor(factory, NULL);
 }
 
 static void
@@ -1011,6 +1011,7 @@ create_highlight_submenu (DocmanPlugin *plugin)
 	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
 
 	//menu_entries = prop_get (text_editor_get_props (), "menu.language");
+	menu_entries = "";
 	g_return_val_if_fail (menu_entries != NULL, NULL);
 	strv = g_strsplit (menu_entries, "|", -1);
 	token = strv;

@@ -2188,9 +2188,9 @@ itext_editor_get_overwrite(IAnjutaEditor *editor, GError **e)
 }
 
 static void
-itext_editor_set_popup_menu(IAnjutaEditor *editor, gpointer menu, GError **e)
+itext_editor_set_popup_menu(IAnjutaEditor *editor, GtkWidget* menu, GError **e)
 {
-	text_editor_set_popup_menu(TEXT_EDITOR(editor), GTK_WIDGET(menu));
+	text_editor_set_popup_menu(TEXT_EDITOR(editor), menu);
 }
 
 static void
@@ -2208,14 +2208,14 @@ itext_editor_get_line_from_position(IAnjutaEditor *editor, int pos, GError **e)
 }
 
 static int
-itext_editor_get_selection_start(IAnjutaEditor *editor, GError *ee)
+itext_editor_get_selection_start(IAnjutaEditor *editor, GError **e)
 {
 	return scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
 						   SCI_GETSELECTIONSTART,0,0);
 }
 
 static int
-itext_editor_get_selection_end(IAnjutaEditor *editor, GError *ee)
+itext_editor_get_selection_end(IAnjutaEditor *editor, GError **e)
 {
 	return scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
 								  SCI_GETSELECTIONEND, 0, 0);
@@ -2454,15 +2454,15 @@ imarkable_iface_init (IAnjutaMarkableIface *iface)
 
 static IAnjutaEditor*
 itext_editor_factory_new_editor(IAnjutaEditorFactory* factory, 
-								gpointer status, 
-								gpointer prefs,
 								const gchar* uri,
 								const gchar* filename, 
 								GError** error)
 {
-	IAnjutaEditor* editor = IANJUTA_EDITOR(text_editor_new((AnjutaStatus*) status, (AnjutaPreferences*) prefs,
-										   uri, filename));
-	return editor;
+	TextEditor *current_editor = TEXT_EDITOR (factory);
+	GtkWidget* editor = text_editor_new (current_editor->status,
+										 current_editor->preferences,
+										 uri, filename);
+	return IANJUTA_EDITOR (editor);
 }
 
 static void
@@ -2675,5 +2675,7 @@ ANJUTA_TYPE_ADD_INTERFACE(iedit, IANJUTA_TYPE_EDITOR_EDIT);
 ANJUTA_TYPE_ADD_INTERFACE(iview, IANJUTA_TYPE_EDITOR_VIEW);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(imarkable, IANJUTA_TYPE_MARKABLE);
+
+/* FIXME: Is factory definition really required for editor class? */
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor_factory, IANJUTA_TYPE_EDITOR_FACTORY);
 ANJUTA_TYPE_END;

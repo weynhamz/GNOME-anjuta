@@ -58,7 +58,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	EditorPlugin *eplugin = (EditorPlugin*)obj;
+	/* EditorPlugin *eplugin = (EditorPlugin*)obj; */
 	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
@@ -66,7 +66,7 @@ dispose (GObject *obj)
 static void
 editor_plugin_instance_init (GObject *obj)
 {
-	EditorPlugin *plugin = (EditorPlugin*)obj;
+	/* EditorPlugin *plugin = (EditorPlugin*)obj; */
 }
 
 static void
@@ -83,21 +83,24 @@ editor_plugin_class_init (GObjectClass *klass)
 
 static IAnjutaEditor*
 itext_editor_factory_new_editor(IAnjutaEditorFactory* factory, 
-								gpointer status, 
-								gpointer prefs,
 								const gchar* uri,
 								const gchar* filename, 
 								GError** error)
 {
-	IAnjutaEditor* editor = IANJUTA_EDITOR(text_editor_new((AnjutaStatus*) status, (AnjutaPreferences*) prefs,
-										   uri, filename));
+	AnjutaShell *shell = ANJUTA_PLUGIN (factory)->shell;
+	AnjutaPreferences *prefs = anjuta_shell_get_preferences (shell, NULL);
+	AnjutaStatus *status = anjuta_shell_get_status (shell, NULL);
+	IAnjutaEditor* editor = IANJUTA_EDITOR(text_editor_new(status, prefs,
+														   uri, filename));
 	return editor;
 }
 
 static gpointer
-itext_editor_factory_new_style_editor(IAnjutaEditorFactory *editor, gpointer prefs, GError **e)
+itext_editor_factory_new_style_editor(IAnjutaEditorFactory *factory, GError **e)
 {
-	StyleEditor* se = style_editor_new(ANJUTA_PREFERENCES(prefs));
+	AnjutaShell *shell = ANJUTA_PLUGIN (factory)->shell;
+	AnjutaPreferences *prefs = anjuta_shell_get_preferences (shell, NULL);
+	StyleEditor* se = style_editor_new(prefs);
 	style_editor_show (se);
 	return se;
 }

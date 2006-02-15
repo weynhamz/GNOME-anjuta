@@ -148,7 +148,6 @@ plugins/tools/fileop.c
 plugins/tools/plugin.c
 plugins/tools/variable.c
 plugins/valgrind/anjuta-valgrind.glade
-plugins/valgrind/main.c
 plugins/valgrind/plugin.c
 plugins/valgrind/preferences.c
 plugins/valgrind/process.c

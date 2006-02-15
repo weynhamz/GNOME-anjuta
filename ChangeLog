@@ -1,3 +1,18 @@
+2006-02-15 Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-shell.c: Added a warning when a session is loaded
+	within another.
+	
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/document-manager/anjuta-docman.c,
+	plugins/document-manager/plugin.c,
+	plugins/editor/plugin.c, plugins/editor/text_editor.c: Removed
+	unnecessary parameters from IAnjutaEditor interface and used proper
+	types instead of 'gpointer'. Fixed various compiler warnings.
+	
+	* (removed) plugins/valgrind/main.c, po/POTFILES.in: Deleted useless
+	file
+
 2006-02-12 Naba Kumar  <naba@gnome.org>
 
 	* po/POTFILES.in: Updated.

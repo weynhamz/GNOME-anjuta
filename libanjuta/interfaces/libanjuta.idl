@@ -364,6 +364,8 @@ interface IAnjutaLoader
 
 interface IAnjutaEditor
 {
+	#include <gtk/gtkwidget.h>
+	
 	enum Error
 	{
 		DOESNT_EXIST
@@ -556,7 +558,7 @@ interface IAnjutaEditor
 	 * Set Editor popup menu
 	 *
 	 */
-	void set_popup_menu(gpointer menu);
+	void set_popup_menu(GtkWidget *menu);
 }
 
 interface IAnjutaEditorEdit
@@ -825,39 +827,35 @@ interface IAnjutaBookmark
 	void clear_all();
 	
 }
-	
-	
+
 interface IAnjutaEditorFactory
 {
 	#include "ianjuta-editor.h"
+	
 	/**
 	 * ianjuta_editor_factory_new_editor:
 	 * @obj: Self
-	 * @status: current status (AnjutaStatus*)
-	 * @prefs: current preferences (AnjutaPreferences*)
 	 * @uri: Uri to open
 	 * @filename: filename to open
 	 * @err: Error propagation and reporting
 	 *
 	 * Get a new GtkWidget* which implements IAnjutaEditor
 	 *
-	 * Return value: A new Widget implementing IAnjutaEditor
+	 * Return value: An object implementing IAnjutaEditor
 	 */
-	IAnjutaEditor* new_editor (gpointer status, gpointer prefs, const gchar* uri, const gchar* filename);
+	IAnjutaEditor* new_editor (const gchar* uri, const gchar* filename);
 	
 	/**
 	 * ianjuta_editor_factory_new_style editor:
 	 * @obj: Self
-	 * @prefs: An AnjutaPreferences object
 	 * @err: Error propagation and reporting
 	 *
 	 * Get a style-editor
 	 * FIXME: This is rather stupid and will be removed in the future
 	 *
-	 * Return value: A style-editor
+	 * Return value: A style-editor dialog widget
 	 */
-	
-	gpointer new_style_editor(gpointer prefs);
+	gpointer new_style_editor ();
 }
 
 interface IAnjutaDocumentManager
