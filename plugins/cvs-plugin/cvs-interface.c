@@ -213,7 +213,7 @@ void anjuta_cvs_log (AnjutaPlugin *obj, const gchar* filename, gboolean recurse,
 	}
 	else
 	{
-		gchar* dir = g_strdup(dir);
+		gchar* dir = g_strdup(filename);
 		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
 								 NULL), "log", options->str, "");
 		cvs_execute_log(plugin, command, dir);
@@ -259,7 +259,7 @@ void anjuta_cvs_status (AnjutaPlugin *obj, const gchar* filename, gboolean recur
 	}
 	else
 	{
-		gchar* dir = g_strdup(dir);
+		gchar* dir = g_strdup(filename);
 		command = create_cvs_command(anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell,
 								 NULL), "status", options->str, "");
 		cvs_execute_status(plugin, command, dir);

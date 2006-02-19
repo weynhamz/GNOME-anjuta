@@ -19,6 +19,7 @@
 */
 
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
@@ -61,7 +62,8 @@ static gboolean find_incremental(IAnjutaEditor* te, gchar* expression,
 	
 	if (info != NULL)
 	{
-		ianjuta_editor_set_selection(te, info->pos, info->pos + info->len, NULL);
+		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
+									  info->pos, info->pos + info->len, NULL);
 		ret = TRUE;
 	}
 	else
@@ -127,7 +129,8 @@ on_enterselection (GtkAction * action, gpointer user_data)
 									   "ActionEditSearchEntry");
 	g_return_if_fail (EGG_IS_ENTRY_ACTION (entry_action));
 	
-	selectionText = ianjuta_editor_get_selection (te, NULL);
+	selectionText = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te),
+												  NULL);
 	if (selectionText != NULL && selectionText[0] != '\0')
 	{
 		egg_entry_action_set_text (EGG_ENTRY_ACTION (entry_action), selectionText);
@@ -154,11 +157,11 @@ on_prev_occur(GtkAction * action, gpointer user_data)
 	gchar *buffer = NULL;
 	
 	plugin = (SearchPlugin *) user_data;
-	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										IAnjutaDocumentManager, NULL);
-	te = ianjuta_document_manager_get_current_editor(docman, NULL);
+	te = ianjuta_document_manager_get_current_editor (docman, NULL);
 	if(!te) return;
-	if ((buffer = ianjuta_editor_get_selection(te, NULL)))
+	if ((buffer = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL)))
 	{
 		g_strstrip(buffer);
 		if ('\0' == *buffer)
@@ -194,11 +197,11 @@ on_next_occur(GtkAction * action, gpointer user_data)
 	gchar *buffer = NULL;
 	
 	plugin = (SearchPlugin *) user_data;
-	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										IAnjutaDocumentManager, NULL);
-	te = ianjuta_document_manager_get_current_editor(docman, NULL);
+	te = ianjuta_document_manager_get_current_editor (docman, NULL);
 	if(!te) return;
-	if ((buffer = ianjuta_editor_get_selection(te, NULL)))
+	if ((buffer = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL)))
 	{
 		g_strstrip(buffer);
 		if ('\0' == *buffer)

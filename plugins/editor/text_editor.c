@@ -35,7 +35,10 @@
 #include <libanjuta/anjuta-encodings.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
-#include <libanjuta/interfaces/ianjuta-editor-edit.h>
+#include <libanjuta/interfaces/ianjuta-editor-selection.h>
+#include <libanjuta/interfaces/ianjuta-editor-convert.h>
+#include <libanjuta/interfaces/ianjuta-editor-line-mode.h>
+#include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-view.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
@@ -2036,12 +2039,6 @@ text_editor_scintilla_command (TextEditor *te, gint command, glong wparam,
 
 /* IAnjutaEditor interface implementation */
 
-static gchar*
-itext_editor_get_selection (IAnjutaEditor *editor, GError **error)
-{
-	return text_editor_get_selection (TEXT_EDITOR (editor));
-}
-
 static void
 itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 {
@@ -2136,21 +2133,6 @@ itext_editor_append (IAnjutaEditor *editor, const gchar *txt,
 }
 
 static void
-itext_editor_replace_selection (IAnjutaEditor *editor, const gchar *txt,
-					 gint length, GError **e)
-{
-	gchar *text_to_insert;
-	if (length >= 0)
-		text_to_insert = g_strndup (txt, length);
-	else
-		text_to_insert = g_strdup (txt);
-	
-	text_editor_replace_selection (TEXT_EDITOR (editor), text_to_insert);
-
-	g_free (text_to_insert);
-}
-
-static void
 itext_editor_erase_all (IAnjutaEditor *editor, GError **e)
 {
 	scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla), SCI_CLEARALL,
@@ -2175,6 +2157,18 @@ itext_editor_can_redo(IAnjutaEditor *editor, GError **e)
 	return text_editor_can_redo(TEXT_EDITOR(editor));
 }
 
+static void 
+itext_editor_undo(IAnjutaEditor* te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_UNDO, 0, 0);
+}
+
+static void 
+itext_editor_redo(IAnjutaEditor* te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_REDO, 0, 0);
+}
+
 static int
 itext_editor_get_column(IAnjutaEditor *editor, GError **e)
 {
@@ -2193,13 +2187,6 @@ itext_editor_set_popup_menu(IAnjutaEditor *editor, GtkWidget* menu, GError **e)
 	text_editor_set_popup_menu(TEXT_EDITOR(editor), menu);
 }
 
-static void
-itext_editor_set_selection(IAnjutaEditor *editor, int start, int end, GError **e)
-{
-	scintilla_send_message(SCINTILLA(
-						  TEXT_EDITOR(editor)->scintilla), SCI_SETSEL, start, end);
-}
-
 static int
 itext_editor_get_line_from_position(IAnjutaEditor *editor, int pos, GError **e)
 {
@@ -2207,28 +2194,95 @@ itext_editor_get_line_from_position(IAnjutaEditor *editor, int pos, GError **e)
 								   SCI_LINEFROMPOSITION, pos, 0);
 }
 
-static int
-itext_editor_get_selection_start(IAnjutaEditor *editor, GError **e)
+static void
+itext_editor_iface_init (IAnjutaEditorIface *iface)
 {
-	return scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-						   SCI_GETSELECTIONSTART,0,0);
+	iface->goto_line = itext_editor_goto_line;
+	iface->goto_position = itext_editor_goto_position;
+	iface->get_text = itext_editor_get_text;
+	iface->get_attributes = itext_editor_get_attributes;
+	iface->get_position = itext_editor_get_position;
+	iface->get_lineno = itext_editor_get_lineno;
+	iface->get_length = itext_editor_get_length;
+	iface->get_current_word = itext_editor_get_current_word;
+	iface->insert = itext_editor_insert;
+	iface->append = itext_editor_append;
+	iface->erase_all = itext_editor_erase_all;
+	iface->get_filename = itext_editor_get_filename;
+	iface->can_undo = itext_editor_can_undo;
+	iface->can_redo = itext_editor_can_redo;
+	iface->undo = itext_editor_undo;
+	iface->redo = itext_editor_redo;
+	iface->get_column = itext_editor_get_column;
+	iface->get_overwrite = itext_editor_get_overwrite;
+	iface->set_popup_menu = itext_editor_set_popup_menu;
+	iface->get_line_from_position = itext_editor_get_line_from_position;
+}
+
+/* IAnjutaEditorSelection implementation */
+
+static gchar*
+iselection_get (IAnjutaEditorSelection *editor, GError **error)
+{
+	return text_editor_get_selection (TEXT_EDITOR (editor));
+}
+
+static void
+iselection_set(IAnjutaEditorSelection *editor, int start, int end, GError **e)
+{
+	scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
+						   SCI_SETSEL, start, end);
 }
 
 static int
-itext_editor_get_selection_end(IAnjutaEditor *editor, GError **e)
+iselection_get_start(IAnjutaEditorSelection *editor, GError **e)
+{
+	return scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
+								  SCI_GETSELECTIONSTART,0,0);
+}
+
+static int
+iselection_get_end(IAnjutaEditorSelection *editor, GError **e)
 {
 	return scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
 								  SCI_GETSELECTIONEND, 0, 0);
 }
 
 static void
-itext_editor_select_block(IAnjutaEditor *editor, GError **e)
+iselection_replace (IAnjutaEditorSelection *editor, const gchar *txt,
+					gint length, GError **e)
 {
-	aneditor_command(TEXT_EDITOR(editor)->editor_id, ANE_SELECTBLOCK, 0, 0);
+	gchar *text_to_insert;
+	if (length >= 0)
+		text_to_insert = g_strndup (txt, length);
+	else
+		text_to_insert = g_strdup (txt);
+	
+	text_editor_replace_selection (TEXT_EDITOR (editor), text_to_insert);
+
+	g_free (text_to_insert);
 }
 
 static void
-itext_editor_select_function(IAnjutaEditor *editor, GError **e)
+iselection_select_all(IAnjutaEditorSelection* te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_SELECTALL, 0, 0);
+}
+
+static void
+iselection_select_to_brace(IAnjutaEditorSelection* te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_SELECTTOBRACE, 0, 0);
+}
+
+static void
+iselection_select_block(IAnjutaEditorSelection *te, GError **e)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_SELECTBLOCK, 0, 0);
+}
+
+static void
+iselection_select_function(IAnjutaEditorSelection *editor, GError **e)
 {
 	TextEditor* te = TEXT_EDITOR(editor);
 	gint pos;
@@ -2269,35 +2323,49 @@ itext_editor_select_function(IAnjutaEditor *editor, GError **e)
 	}
 }
 
-static void
-itext_editor_iface_init (IAnjutaEditorIface *iface)
+static void 
+iselection_cut(IAnjutaEditorSelection* te, GError** ee)
 {
-	iface->goto_line = itext_editor_goto_line;
-	iface->goto_position = itext_editor_goto_position;
-	iface->get_text = itext_editor_get_text;
-	iface->get_selection = itext_editor_get_selection;
-	iface->replace_selection = itext_editor_replace_selection;
-	iface->get_attributes = itext_editor_get_attributes;
-	iface->get_position = itext_editor_get_position;
-	iface->get_lineno = itext_editor_get_lineno;
-	iface->get_length = itext_editor_get_length;
-	iface->get_current_word = itext_editor_get_current_word;
-	iface->insert = itext_editor_insert;
-	iface->append = itext_editor_append;
-	iface->erase_all = itext_editor_erase_all;
-	iface->get_filename = itext_editor_get_filename;
-	iface->can_undo = itext_editor_can_undo;
-	iface->can_redo = itext_editor_can_redo;
-	iface->get_column = itext_editor_get_column;
-	iface->get_overwrite = itext_editor_get_overwrite;
-	iface->set_popup_menu = itext_editor_set_popup_menu;
-	iface->set_selection = itext_editor_set_selection;
-	iface->get_selection_start = itext_editor_get_selection_start;
-	iface->get_selection_end = itext_editor_get_selection_end;
-	iface->get_line_from_position = itext_editor_get_line_from_position;
-	iface->select_block = itext_editor_select_block;
-	iface->select_function = itext_editor_select_function;
+	text_editor_command(TEXT_EDITOR(te), ANE_CUT, 0, 0);
 }
+
+static void 
+iselection_copy(IAnjutaEditorSelection* te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_COPY, 0, 0);
+}
+
+static void 
+iselection_paste(IAnjutaEditorSelection* te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_PASTE, 0, 0);
+}
+
+static void 
+iselection_clear(IAnjutaEditorSelection* te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_CLEAR, 0, 0);
+}
+
+static void
+iselection_iface_init (IAnjutaEditorSelectionIface *iface)
+{
+	iface->get = iselection_get;
+	iface->set = iselection_set;
+	iface->get_start = iselection_get_start;
+	iface->get_end = iselection_get_end;
+	iface->replace = iselection_replace;
+	iface->select_all = iselection_select_all;
+	iface->select_to_brace = iselection_select_to_brace;
+	iface->select_block = iselection_select_block;
+	iface->select_function = iselection_select_function;
+	iface->cut = iselection_cut;
+	iface->cut = iselection_copy;
+	iface->paste = iselection_paste;
+	iface->clear = iselection_clear;
+}
+
+/* IAnjutaFile implementation */
 
 static gchar*
 ifile_get_uri (IAnjutaFile *editor, GError **error)
@@ -2380,6 +2448,7 @@ ifile_iface_init (IAnjutaFileIface *iface)
 }
 
 /* Implementation of the IAnjutaMarkable interface */
+
 static gint
 marker_ianjuta_to_editor (IAnjutaMarkableMarker marker)
 {
@@ -2452,6 +2521,8 @@ imarkable_iface_init (IAnjutaMarkableIface *iface)
 	iface->delete_all_markers = imarkable_delete_all_markers;
 }
 
+/* IAnjutaEditorFactory implementation */
+
 static IAnjutaEditor*
 itext_editor_factory_new_editor(IAnjutaEditorFactory* factory, 
 								const gchar* uri,
@@ -2471,128 +2542,95 @@ itext_editor_factory_iface_init (IAnjutaEditorFactoryIface *iface)
 	iface->new_editor = itext_editor_factory_new_editor;
 }
 
+/* IAnjutaEditorConvert implementation */
+
 static void
-iedit_to_upper(IAnjutaEditorEdit* te, GError** ee)
+iconvert_to_upper(IAnjutaEditorConvert* te, gint start_position,
+				  gint end_position, GError** ee)
 {
+	scintilla_send_message(SCINTILLA(TEXT_EDITOR(te)->scintilla),
+						   SCI_SETSEL, start_position, end_position);
 	text_editor_command(TEXT_EDITOR(te), ANE_UPRCASE, 0, 0);
 }
 
 static void
-iedit_to_lower(IAnjutaEditorEdit* te, GError** ee)
+iconvert_to_lower(IAnjutaEditorConvert* te, gint start_position,
+				  gint end_position, GError** ee)
 {
+	scintilla_send_message(SCINTILLA(TEXT_EDITOR(te)->scintilla),
+						   SCI_SETSEL, start_position, end_position);
 	text_editor_command(TEXT_EDITOR(te), ANE_LWRCASE, 0, 0);	
 }
 
 static void
-iedit_eoltocrlf(IAnjutaEditorEdit* te, GError** ee)
+iconvert_iface_init (IAnjutaEditorConvertIface *iface)
 {
-	text_editor_command(TEXT_EDITOR(te), ANE_EOL_CRLF, 0, 0);
+	iface->to_lower = iconvert_to_lower;
+	iface->to_upper = iconvert_to_upper;
+}
+
+/* IAnjutaEditorLineMode implementation */
+
+static IAnjutaEditorLineModeType
+ilinemode_get (IAnjutaEditorLineMode* te, GError** ee)
+{
+	/* FIXME: Determine the correct type */
+	return IANJUTA_EDITOR_LINE_MODE_LF;
 }
 
 static void
-iedit_eoltolf(IAnjutaEditorEdit* te, GError** ee)
+ilinemode_set (IAnjutaEditorLineMode* te, IAnjutaEditorLineModeType mode,
+			   GError** ee)
 {
-	text_editor_command(TEXT_EDITOR(te), ANE_EOL_LF, 0, 0);
+	switch (mode)
+	{
+		case IANJUTA_EDITOR_LINE_MODE_LF:
+			text_editor_command(TEXT_EDITOR(te), ANE_EOL_LF, 0, 0);
+		break;
+		
+		case IANJUTA_EDITOR_LINE_MODE_CR:
+			text_editor_command(TEXT_EDITOR(te), ANE_EOL_CR, 0, 0);
+		break;
+		
+		case IANJUTA_EDITOR_LINE_MODE_CRLF:
+			text_editor_command(TEXT_EDITOR(te), ANE_EOL_CRLF, 0, 0);
+		break;
+		
+		default:
+			g_warning ("Should not reach here");
+		break;
+	}
 }
 
 static void
-iedit_eoltocr(IAnjutaEditorEdit* te, GError** ee)
+ilinemode_fix (IAnjutaEditorLineMode* te, GError** e)
 {
-	text_editor_command(TEXT_EDITOR(te), ANE_EOL_CR, 0, 0);
+	glong mode = 0;
+	text_editor_command (TEXT_EDITOR(te), ANE_EOL_CONVERT, mode, 0);
 }
 
 static void
-iedit_select_all(IAnjutaEditorEdit* te, GError** ee)
+ilinemode_iface_init (IAnjutaEditorLineModeIface *iface)
 {
-	text_editor_command(TEXT_EDITOR(te), ANE_SELECTALL, 0, 0);
+	iface->set = ilinemode_set;
+	iface->get = ilinemode_get;
+	iface->fix = ilinemode_fix;
 }
 
-static void
-iedit_select_to_brace(IAnjutaEditorEdit* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_SELECTTOBRACE, 0, 0);
-}
-
+/* IAnjutaEditorAssist implementation */
 static void 
-iedit_select_block(IAnjutaEditorEdit* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_SELECTBLOCK, 0, 0);
-}
-
-static void 
-iedit_undo(IAnjutaEditorEdit* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_UNDO, 0, 0);
-}
-
-static void 
-iedit_redo(IAnjutaEditorEdit* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_REDO, 0, 0);
-}
-
-static void 
-iedit_cut(IAnjutaEditorEdit* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_CUT, 0, 0);
-}
-
-static void 
-iedit_copy(IAnjutaEditorEdit* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_COPY, 0, 0);
-}
-
-static void 
-iedit_paste(IAnjutaEditorEdit* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_PASTE, 0, 0);
-}
-
-static void 
-iedit_clear(IAnjutaEditorEdit* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_CLEAR, 0, 0);
-}
-
-static void 
-iedit_autocomplete(IAnjutaEditorEdit* te, GError** ee)
+iassist_autocomplete(IAnjutaEditorAssist* te, GError** ee)
 {
 	text_editor_command(TEXT_EDITOR(te), ANE_COMPLETEWORD, 0, 0);
 }
 
 static void
-iedit_convert_eol(IAnjutaEditorEdit* te, glong mode, GError** e)
+iassist_iface_init(IAnjutaEditorAssistIface* iface)
 {
-	text_editor_command (TEXT_EDITOR(te), ANE_EOL_CONVERT, mode, 0);
+	iface->autocomplete = iassist_autocomplete;
 }
 
-static void
-iedit_iface_init(IAnjutaEditorEditIface* iface)
-{
-	iface->to_upper = iedit_to_upper;
-	iface->to_lower = iedit_to_lower;
-
-	iface->eoltocrlf = iedit_eoltocrlf;
-	iface->eoltolf = iedit_eoltolf;
-	iface->eoltocr = iedit_eoltocr;
-	
-	iface->select_all = iedit_select_all;
-	iface->select_to_brace = iedit_select_to_brace;
-	iface->select_block = iedit_select_block;
-
-	iface->undo = iedit_undo;
-	iface->redo = iedit_redo;
-	
-	iface->cut = iedit_cut;
-	iface->copy = iedit_copy;
-	iface->paste = iedit_paste;
-	iface->clear = iedit_clear;
-	
-	iface->autocomplete = iedit_autocomplete;
-	iface->convert_eol = iedit_convert_eol;
-}
-
+/* IAnutaEditorView implementation */
 static void
 iview_open_folds(IAnjutaEditorView* view, GError **e)
 {
@@ -2620,9 +2658,12 @@ iview_iface_init(IAnjutaEditorViewIface* iface)
 	
 }
 
+/* IAnjutaBookmark implementation */
 static void
-ibookmark_activate(IAnjutaBookmark* view, GError **e)
+ibookmark_toggle(IAnjutaBookmark* view, gint location,
+			  gboolean ensure_visible, GError **e)
 {
+	text_editor_goto_line (TEXT_EDITOR(view), location, FALSE, ensure_visible);
 	text_editor_command(TEXT_EDITOR(view), ANE_BOOKMARK_TOGGLE, 0, 0);
 }
 
@@ -2659,7 +2700,7 @@ ibookmark_clear_all(IAnjutaBookmark* view, GError **e)
 static void
 ibookmark_iface_init(IAnjutaBookmarkIface* iface)
 {
-	iface->activate = ibookmark_activate;
+	iface->toggle = ibookmark_toggle;
 	iface->first = ibookmark_first;
 	iface->last = ibookmark_last;
 	iface->next = ibookmark_next;
@@ -2671,7 +2712,10 @@ ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor, IANJUTA_TYPE_EDITOR);
-ANJUTA_TYPE_ADD_INTERFACE(iedit, IANJUTA_TYPE_EDITOR_EDIT);
+ANJUTA_TYPE_ADD_INTERFACE(ilinemode, IANJUTA_TYPE_EDITOR_LINE_MODE);
+ANJUTA_TYPE_ADD_INTERFACE(iselection, IANJUTA_TYPE_EDITOR_SELECTION);
+ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
+ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iview, IANJUTA_TYPE_EDITOR_VIEW);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(imarkable, IANJUTA_TYPE_MARKABLE);

@@ -630,7 +630,7 @@ on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data)
 		if ((command == NULL) || (*command == '\0'))
 		{
 			gchar* name;
-			guint pos;
+			gint pos;
 
 			if (command) g_free (command);
 			/* Generate a new script file name */
@@ -641,7 +641,9 @@ on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data)
 			}
 			name = atp_remove_mnemonic (command);
 			g_free (command);
-			command = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_SCRIPT_DIRECTORY, name, NULL);
+			command = g_build_filename (g_get_home_dir(),
+										LOCAL_ANJUTA_SCRIPT_DIRECTORY,
+										name, NULL);
 			g_free (name);
 
 			/* Find a new file name */
@@ -657,11 +659,11 @@ on_editor_script_toggle (GtkToggleButton *tb, gpointer user_data)
 
 			/* Fill command line */
 			gtk_editable_delete_text(this->command_en, 0, -1);
-			gtk_editable_insert_text(this->command_en, command, strlen(command), &pos);
+			gtk_editable_insert_text(this->command_en, command,
+									 strlen(command), &pos);
 		}
 		if (command) g_free (command);
 	}
-			
 }
 
 static void

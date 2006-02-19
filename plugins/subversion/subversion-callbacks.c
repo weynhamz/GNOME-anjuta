@@ -296,7 +296,8 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
 	                                     IAnjutaDocumentManager, NULL);
 			data->plugin->diff_editor = ianjuta_document_manager_add_buffer(docman, _("svn.diff"), "", NULL);
-			g_object_weak_ref(G_OBJECT(data->plugin->diff_editor), G_CALLBACK(on_editor_destroy), data->plugin);
+			g_object_weak_ref(G_OBJECT(data->plugin->diff_editor),
+							  (GWeakNotify)(on_editor_destroy), data->plugin);
 			
 			svn_backend_diff(data->plugin->backend, filename, revision,
 							   !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)));

@@ -372,101 +372,160 @@ interface IAnjutaEditor
 	}
 	
 	// Signals.
-	void   ::char_added (gint position, gchar ch);
-	void   ::update_ui ();
-
-	void   erase_all ();	
-	void   insert (int position, const gchar *text, gint length);
-	void   append (const gchar *text, gint length);
-	void   goto_line (gint lineno);
-	void   goto_position (gint position);
-	gchar* get_selection ();
-	void   replace_selection (const gchar *text, gint length);
-	gchar* get_text (gint start, gint end);
-	gchar* get_attributes (gint start, gint end);
-	gint   get_position ();
 	
 	/**
-	 * ianjuta_editor_set_selection:
+	 * IAnjutaEditor::char_added:
+	 * @position: The position where @ch is added.
+	 * @ch: The character that has been added.
 	 * @obj: Self
-	 * @start: Begin of selection
-	 * @end: End of selection
+	 * 
+	 * This signal is emitted when any character is added inside the editor.
+	 * The newly added character is @ch which has been inserted at @position.
+	 */
+	void   ::char_added (gint position, gchar ch);
+	
+	/**
+	 * IAnjutaEditor::update_ui:
+	 * @obj: Self
+	 * 
+	 * This signal is emitted when the editor assumes the UI must be updated
+	 * because some internal state of the editor has changed. For example, if
+	 * current line position is changed, it needs to be reflected to the UI.
+	 */
+	void   ::update_ui ();
+
+	/**
+	 * ianjuta_editor_erase_all:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Empties the whole editor buffer. There will be zero characters.
+	 */
+	void   erase_all ();
+	
+	/**
+	 * ianjuta_editor_insert:
+	 * @obj: Self
+	 * @position: Character position in editor where insert will take place.
+	 * @text: Text to append.
+	 * @length: Length of @text to use.
+	 * @err: Error propagation and reporting
+	 *
+	 * Inserts @length characters from @text buffer at given @position of
+	 * editor buffer. If @length is -1, the whole @text is used.
+	 */
+	void   insert (int position, const gchar *text, gint length);
+	
+	/**
+	 * ianjuta_editor_append:
+	 * @obj: Self
+	 * @text: Text to append.
+	 * @length: Length of @text to use.
+	 * @err: Error propagation and reporting
+	 *
+	 * Appends @length characters from @text buffer at the end of editor
+	 * buffer. If @length is -1, the whole @text is used.
+	 */
+	void   append (const gchar *text, gint length);
+	
+	/**
+	 * ianjuta_editor_goto_line:
+	 * @obj: Self
+	 * @lineno: line number where carat will be moved.
+	 * @err: Error propagation and reporting
+	 *
+	 * Carat is moved to the given @lineno line and text view is scrolled to
+	 * bring it in viewable area of the editor.
+	 */
+	void   goto_line (gint lineno);
+	
+	/**
+	 * ianjuta_editor_goto_position:
+	 * @obj: Self
+	 * @position: Character position where carat will be moved.
+	 * @err: Error propagation and reporting
+	 *
+	 * Carat is moved to the given @position and text view is scrolled to
+	 * bring @position in viewable area of the editor.
+	 */
+	void   goto_position (gint position);
+	
+	/**
+	 * ianjuta_editor_get_text:
+	 * @obj: Self
+	 * @start: Begining position
+	 * @end: End position
+	 * @err: Error propagation and reporting
+	 *
+	 * Gets the text characters between beginning position and end position
+	 * (including themselves). The characters are utf-8 encoded.
+	 *
+	 * Returns: A buffer of utf-8 characters.
+	 * The returned buffer must be freed when no longer required.
+	 */
+	gchar* get_text (gint start, gint end);
+	
+	/**
+	 * ianjuta_editor_get_attributes:
+	 * @obj: Self
+	 * @start: Begining position
+	 * @end: End position
+	 * @err: Error propagation and reporting
+	 *
+	 * Gets the character attributes for characters between begining
+	 * position and end position (including themselves). Character attributes
+	 * are really only meaningful in the editor context from which it was
+	 * taken. Therefore, the returned data is mainly to be passed back to
+	 * the editor.
+	 *
+	 * Character attributes chould contain display information of the
+	 * character, such as font, size, color, highlight information etc.
+	 * 
+	 * Returns: A buffer of character attributes, indexed in sequence for
+	 * characters starting at begining position and ending at end position.
+	 * The returned buffer must be freed when no longer required.
+	 */
+	gchar* get_attributes (gint start, gint end);
+
+	/**
+	 * ianjuta_editor_get_position:
+	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
 	 * Select chars between start and end
 	 *
+	 * Returns: Current character position since the begining of file.
 	 */
-	void set_selection(int start, int end);
-	
-	/**
-	 * ianjuta_editor_get_selection_start:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Get start position of selection
-	 *
-	 * Return: Start of selection
-	 */
-	int get_selection_start();
+	gint   get_position ();
 	
 	/**
 	 * ianjuta_editor_line_from_position:
 	 * @obj: Self
-	 * @pos: Position you want to know the line from
+	 * @position: Position you want to know the line from
 	 * @err: Error propagation and reporting
 	 *
-	 * Get line of position
-	 * Retunrns: Line which corresponds to position
+	 * Get the line number in which @position locates.
+	 * Returns: Line which corresponds to @position
 	 *
 	 */
-	int get_line_from_position(int pos);
-	
-	/**
-	 * ianjuta_editor_get_selection_end:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Get end position of selection
-	 *
-	 */
-	int get_selection_end();
-	
-	/**
-	 * ianjuta_editor_select_block:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Select current block
-	 *
-	 */
-	void select_block();
-	
-	/**
-	 * ianjuta_editor_select_function:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Select current function
-	 *
-	 */
-	void select_function();
+	int get_line_from_position (int position);
 	
 	/**
 	 * ianjuta_editor_get_current_pos
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Select chars between start and end;
+	 * Gets the current position of carat in the text buffer.
 	 *
 	 */
-	void get_current_pos();
+	void get_current_pos ();
 	
 	/**
 	 * ianjuta_editor_get_lineno:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Obtains number of the current line in the editor.
+	 * Obtains current line number on which carat is.
 	 *
 	 * Return value: Line number.
 	 */
@@ -477,7 +536,8 @@ interface IAnjutaEditor
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Get length of complete text in editor
+	 * Get length of complete text in editor. This will be the total
+	 * number of characters in the file or buffer.
 	 *
 	 * Return value: Text length.
 	 */
@@ -488,7 +548,7 @@ interface IAnjutaEditor
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Obtains number of the current word in the editor.
+	 * Obtains the word on which carat is currently on.
 	 *
 	 * Return value: Current word.
 	 */
@@ -503,7 +563,7 @@ interface IAnjutaEditor
 	 *
 	 * Return value: Current column.
 	 */
-	int get_column();
+	int get_column ();
 	
 	/**
 	 * ianjuta_editor_get_overwrite:
@@ -514,7 +574,7 @@ interface IAnjutaEditor
 	 *
 	 * Return value: editor mode.
 	 */
-	int get_overwrite();
+	int get_overwrite ();
 	
 	/**
 	 * ianjuta_editor_get_filename:
@@ -547,7 +607,25 @@ interface IAnjutaEditor
 	 *
 	 * Returns true if editor can redo, else FALSE
 	 */
-	gboolean can_redo();
+	gboolean can_redo ();
+	
+	/**
+	 * ianjuta_editor_undo:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Undo last operation
+	 */
+	void undo ();
+	
+	/**
+	 * ianjuta_editor_redo:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Rede last undo operation
+	 */
+	void redo ();
 	
 	/**
 	 * ianjuta_editor_set_popup_menu:
@@ -555,226 +633,279 @@ interface IAnjutaEditor
 	 * @menu: Popupmenu
 	 * @err: Error propagation and reporting
 	 *
-	 * Set Editor popup menu
+	 * Set Editor popup menu. This is the menu shown in the editor when one
+	 * right-clicks on it.
 	 *
 	 */
-	void set_popup_menu(GtkWidget *menu);
-}
+	void set_popup_menu (GtkWidget *menu);
+	
+	interface IAnjutaEditorSelection
+	{
+		/**
+		 * ianjuta_editor_selection_get:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Gets curerntly selected text in editor.
+		 * 
+		 * Returns: A newly allocated buffer of currently selected characters.
+		 * NULL if there is no selection. The returned buffer must be freed after
+		 * use.
+		 */
+		gchar* get ();
+		
+		/**
+		 * ianjuta_editor_selection_set:
+		 * @obj: Self
+		 * @start: Begin of selection
+		 * @end: End of selection
+		 * @err: Error propagation and reporting
+		 *
+		 * Select characters between start and end
+		 */
+		void set (int start, int end);
+		
+		/**
+		 * ianjuta_editor_selection_get_start:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Gets start position of selection text. If there is no selection,
+		 * returns the current carat position.
+		 *
+		 * Return: Start of selection
+		 */
+		int get_start ();
+		
+		/**
+		 * ianjuta_editor_selection_get_end:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Get end position of selection.
+		 */
+		int get_end ();
+		
+		/**
+		 * ianjuta_editor_selection_select_block:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Selects current block of code. The definition of block of code
+		 * depends on highlight mode used (programming language). Some
+		 * highlight mode does not have block concept, in that case this
+		 * method does not do anything.
+		 */
+		void select_block ();
+		
+		/**
+		 * ianjuta_editor_selection_select_function:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Select current function block. The definition of function block
+		 * depends on highlight mode used (programming language). Some
+		 * highlight mode does not have function concept, in that case this
+		 * method does not do anything.
+		 */
+		void select_function ();
 
-interface IAnjutaEditorEdit
-{
-	#include "ianjuta-editor.h"
-	
-	/**
-	 * ianjuta_editor_edit_to_upper:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * change selection to uppercase
-	 *
-	 */
-	void to_upper();
-	
-	/**
-	 * ianjuta_editor_edit_to_lower:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * change selection to lowercase
-	 *
-	 */
-	void to_lower();
-	
-	/**
-	 * ianjuta_editor_edit_eoltocrlf:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Convert EOL to CRLF
-	 *
-	 */
-	void eoltocrlf();
-	
-	/**
-	 * ianjuta_editor_edit_eoltolf:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Convert EOL to LF
-	 *
-	 */
-	void eoltolf();
-	
-	/**
-	 * ianjuta_editor_edit_eoltocr:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Convert EOL to CR
-	 *
-	 */
-	void eoltocr();
-	
-	/**
-	 * ianjuta_editor_edit_select_all:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Select whole buffer
-	 *
-	 */
-	void select_all();
+		/**
+		 * ianjuta_editor_selection_select_to_brace:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Select to brace. Some highlight mode does not have braces concept,
+		 * in that case, this method does not do anything.
+		 */
+		void select_to_brace ();
+		
+		/**
+		 * ianjuta_editor_edit_select_all:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Select whole buffer.
+		 */
+		void select_all ();
 
-	/**
-	 * ianjuta_editor_edit_select_to_brace:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Select to brace
-	 *
-	 */
-	void select_to_brace();
-
-	/**
-	 * ianjuta_editor_edit_select_block:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Select code block
-	 *
-	 */
-	void select_block();
+		/**
+		 * ianjuta_editor_selection_replace:
+		 * @obj: Self
+		 * @text: Replacement text.
+		 * @length: Length of the text to used in @text.
+		 * @err: Error propagation and reporting
+		 *
+		 * Replaces currently selected text with the @text. Only @length amount
+		 * of characters are used from @text buffer to replace.
+		 */
+		void replace (const gchar *text, gint length);
+		
+		/**
+		 * ianjuta_editor_selection_cut:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Cut selection to clipboard.
+		 */
+		void cut ();
 	
-	/**
-	 * ianjuta_editor_edit_undo:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Undo last operation
-	 *
-	 */
-	void undo();
+		/**
+		 * ianjuta_editor_selection_copy:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Copy selection to clipboard.
+		 */
+		void copy ();
+		
+		/**
+		 * ianjuta_editor_selection_paste:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Paste clipboard at current position.
+		 */
+		void paste ();
 	
-	/**
-	 * ianjuta_editor_edit_redo:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Rede last undo operation
-	 *
-	 */
-	void redo();
+		/**
+		 * ianjuta_editor_selection_clear:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Clear selection
+		 */
+		void clear ();
+	}
 	
-	/**
-	 * ianjuta_editor_edit_cut:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Cut selection
-	 *
-	 */
-	void cut();
-
-	/**
-	 * ianjuta_editor_edit_copy:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Copy selection
-	 *
-	 */
-	void copy();
+	interface IAnjutaEditorConvert
+	{
+		/**
+		 * ianjuta_editor_convert_to_upper:
+		 * @obj: Self
+		 * @start_position: Start position.
+		 * @end_position: End position.
+		 * @err: Error propagation and reporting
+		 *
+		 * change characters from start position to end position to uppercase.
+		 *
+		 */
+		void to_upper (gint start_position, gint end_position);
+		
+		/**
+		 * ianjuta_editor_convert_to_lower:
+		 * @obj: Self
+		 * @start_position: Start position.
+		 * @end_position: End position.
+		 * @err: Error propagation and reporting
+		 *
+		 * change characters from start position to end position to lowercase
+		 *
+		 */
+		void to_lower (gint start_position, gint end_position);
+	}
 	
-	/**
-	 * ianjuta_editor_edit_past:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Paste selection
-	 *
-	 */
-	void paste();
-
-	/**
-	 * ianjuta_editor_edit_clear:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Clear selection
-	 *
-	 */
-	void clear();
-
-	/**
-	 * ianjuta_editor_edit_autocomplete:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Auto complete current word
-	 *
-	 */
-	void autocomplete();
+	interface IAnjutaEditorLineMode
+	{
+		enum Type
+		{
+			LF,
+			CR,
+			CRLF
+		}
+		
+		/**
+		 * ianjuta_editor_line_mode_get:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Get current line ending mode. It is auto-detected from the
+		 * buffer contents.
+		 */
+		Type get ();
+		
+		/**
+		 * ianjuta_editor_line_mode_set:
+		 * @obj: Self
+		 * @mode: Line mode to set.
+		 * @err: Error propagation and reporting
+		 *
+		 * Set the line ending mode to the given @mode. All line end
+		 * characters in the buffer are converted to @mode characters.
+		 */
+		void set (Type mode);
+		
+		/**
+		 * ianjuta_editor_line_mode_fix:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Convert EOL characters to majority of line mode. This is helpful
+		 * when the buffer contains mixed line modes and we want to fix it.
+		 */
+		void fix ();
+	}
 	
-	/**
-	 * ianjuta_editor_edit_convert_eol:
-	 * @obj: Self
-	 * @mode: Mode for transformation
-	 * @err: Error propagation and reporting
-	 *
-	 * Convert EOL chars
-	 *
-	 */
-	void convert_eol(glong mode);
+	interface IAnjutaEditorAssist
+	{
+		/**
+		 * ianjuta_editor_edit_autocomplete:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Auto complete current word
+		 *
+		 */
+		void autocomplete ();
+	}
 	
-}
-
-interface IAnjutaEditorView
-{
-	#include "ianjuta-editor.h"
-	
-	/**
-	 * ianjuta_editor_view_open_folds:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Open all folds
-	 *
-	 */
-	void open_folds();
-	
-	/**
-	 * ianjuta_editor_view_close_folds:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Close all folds
-	 *
-	 */
-	void close_folds();
-	
-	/**
-	 * ianjuta_editor_view_toggle_fold:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Open/Close current fold
-	 *
-	 */
-	void toggle_fold();
-
+	interface IAnjutaEditorView
+	{
+		/**
+		 * ianjuta_editor_view_open_folds:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Open all folds
+		 *
+		 */
+		void open_folds ();
+		
+		/**
+		 * ianjuta_editor_view_close_folds:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Close all folds
+		 *
+		 */
+		void close_folds ();
+		
+		/**
+		 * ianjuta_editor_view_toggle_fold:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Open/Close current fold
+		 *
+		 */
+		void toggle_fold ();
+	}
 }
 
 interface IAnjutaBookmark
 {
 	/**
-	 * ianjuta_bookmark_activate:
+	 * ianjuta_bookmark_toggle:
 	 * @obj: Self
+	 * @location: The location where bookmark is toggled.
+	 * @ensure_visible: If the location must be made visible.
 	 * @err: Error propagation and reporting
 	 *
-	 * Add bookmark at cursor position
+	 * Toggle bookmark at given @location
 	 *
 	 */
-	void activate();
+	void toggle (gint location, gboolean ensure_visible);
 	
 	/**
 	 * ianjuta_bookmark_first:
@@ -784,7 +915,7 @@ interface IAnjutaBookmark
 	 * Goto first bookmark
 	 *
 	 */
-	void first();
+	void first ();
 	
 	/**
 	 * ianjuta_bookmark_last:
@@ -794,7 +925,7 @@ interface IAnjutaBookmark
 	 * Goto last bookmark
 	 *
 	 */
-	void last();
+	void last ();
 	
 	/**
 	 * ianjuta_bookmark_next:
@@ -804,7 +935,7 @@ interface IAnjutaBookmark
 	 * Goto next bookmark
 	 *
 	 */
-	void next();
+	void next ();
 	
 	/**
 	 * ianjuta_bookmark_previous:
@@ -814,7 +945,7 @@ interface IAnjutaBookmark
 	 * Goto previous bookmark
 	 *
 	 */
-	void previous();
+	void previous ();
 	
 	/**
 	 * ianjuta_bookmark_clear_all:
@@ -824,8 +955,7 @@ interface IAnjutaBookmark
 	 * Clear all bookmarks
 	 *
 	 */
-	void clear_all();
-	
+	void clear_all ();
 }
 
 interface IAnjutaEditorFactory

@@ -2061,6 +2061,17 @@ Properties
 @line: 
 @err: 
 
+<!-- ##### FUNCTION ianjuta_editor_get_selection ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+@editor: 
+@e: 
+
 <!-- ##### FUNCTION ianjuta_file_get_filename ##### -->
 <para>
 

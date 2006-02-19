@@ -1,3 +1,20 @@
+2006-02-19 Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml,
+	plugins/cvs-plugin/cvs-interface.c,
+	plugins/document-manager/action-callbacks.c,
+	plugins/document-manager/action-callbacks.h,
+	plugins/editor/text_editor.c, plugins/macro/macro-actions.c,
+	plugins/search/plugin.c, plugins/search/search-replace.c,
+	plugins/search/search-replace_backend.c,
+	plugins/subversion/subversion-actions.c,
+	plugins/subversion/subversion-callbacks.c,
+	plugins/tools/editor.c, plugins/tools/execute.c,
+	plugins/tools/variable.c: Defined proper editor interfaces and fixed
+	few fatal warnings.
+
 2006-02-15 Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-shell.c: Added a warning when a session is loaded

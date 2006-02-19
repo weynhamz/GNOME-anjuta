@@ -34,6 +34,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 
 #include <libgnomevfs/gnome-vfs.h>
@@ -298,7 +299,8 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 	switch (id)
 	{
 	case ATP_EDITOR_CURRENT_SELECTION:
-		val = ianjuta_editor_get_selection (ed, &err);
+		val = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (ed),
+											&err);
 		break;
 	case ATP_EDITOR_CURRENT_WORD:
 		val = ianjuta_editor_get_current_word (ed, &err);

@@ -15,6 +15,7 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+#include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include "macro-actions.h"
 #include "macro-db.h"
 #include "macro-dialog.h"
@@ -150,7 +151,7 @@ void on_menu_add_macro (GtkAction * action, MacroPlugin * plugin)
 	if (plugin->current_editor != NULL)
 	{
 		selection = 
-			ianjuta_editor_get_selection(IANJUTA_EDITOR(plugin->current_editor), NULL);
+			ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION(plugin->current_editor), NULL);
 	}
 	if (selection != NULL && strlen(selection))
 		macro_edit_set_macro(add, selection);

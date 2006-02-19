@@ -32,6 +32,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 
@@ -539,8 +540,9 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 	case ATP_TOUT_REPLACE_SELECTION:
 		if (this->editor)
 		{
-			ianjuta_editor_replace_selection (this->editor, this->buffer->str,
-								  this->buffer->len, NULL);
+			ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (this->editor),
+											  this->buffer->str,
+											  this->buffer->len, NULL);
 		}
 		g_string_free (this->buffer, TRUE);
 		this->buffer = NULL;
@@ -974,7 +976,8 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 			ed = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
 			if (ed != NULL)
 			{
-				input = ianjuta_editor_get_selection (ed, NULL);
+				input = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (ed),
+													  NULL);
 			}
 			break;
 		case ATP_TIN_STRING:
