@@ -247,9 +247,9 @@ AC_SUBST(PLUGIN_GNOMEBUILD_LIBS)
 
 dnl Check for GtkSourceView
 dnl ---------------------
-dnl PKG_CHECK_MODULES(GTKSOURCEVIEW, gtksourceview-1.0 >= $GTKSOURCEVIEW_REQUIRED)
-dnl AC_SUBST(GTKSOURCEVIEW_CFLAGS)
-dnl AC_SUBST(GTKSOURCEVIEW_LIBS)
+PKG_CHECK_MODULES(GTKSOURCEVIEW, gtksourceview-1.0 >= $GTKSOURCEVIEW_REQUIRED)
+AC_SUBST(GTKSOURCEVIEW_CFLAGS)
+AC_SUBST(GTKSOURCEVIEW_LIBS)
 
 dnl Check for Glade3
 dnl ---------------------
@@ -1002,6 +1002,7 @@ plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile
 plugins/subversion/Makefile
+plugins/sourceview/Makefile
 plugins/tools/Makefile
 plugins/tools/scripts/Makefile
 plugins/tools/scripts/tools-2.xml

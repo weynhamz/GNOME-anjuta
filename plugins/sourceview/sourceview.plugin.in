@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+Location=anjuta-sourceview:SourceviewPlugin
+Icon=sourceview.png
+_Name=GtkSourceview editing component for anjuta
+_Description=This plugin allows to use GtkSourceview for editing in anjuta
+Interfaces=IAnjutaEditorFactory

@@ -1,3 +1,22 @@
+2006-02-19  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/document-manager/anjuta-docman.c:
+	(on_open_filesel_response): Fixed useless g_slist statement (thanks gcc for complaining)
+	
+	* configure.in:
+	plugins/Makefile.am:
+	plugins/sourceview/.cvsignore:
+	plugins/sourceview/Makefile.am:
+	plugins/sourceview/plugin.c: :
+	plugins/sourceview/plugin.h:
+	plugins/sourceview/sourceview.c: 
+	plugins/sourceview/sourceview.h:
+	plugins/sourceview/sourceview.plugin:
+	plugins/sourceview/sourceview.plugin.in:
+	plugins/sourceview/sourceview.png:
+
+	Added sourceview editor plugin
+
 2006-02-19 Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,
