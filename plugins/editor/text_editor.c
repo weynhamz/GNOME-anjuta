@@ -45,6 +45,7 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
+#include <libanjuta/interfaces/ianjuta-indicable.h>
 
 #include "properties.h"
 #include "text_editor.h"
@@ -821,22 +822,16 @@ text_editor_set_marker (TextEditor *te, glong line, gint marker)
 }
 
 gint
-text_editor_set_indicator (TextEditor *te, glong line, gint indicator)
+text_editor_set_indicator (TextEditor *te, gint start,
+						   gint end, gint indicator)
 {
-	glong start, end;
 	gchar ch;
 	glong indic_mask[] = {INDIC0_MASK, INDIC1_MASK, INDIC2_MASK};
 	
 	g_return_val_if_fail (te != NULL, -1);
 	g_return_val_if_fail (IS_SCINTILLA (te->scintilla) == TRUE, -1);
 
-	if (line > 0) {
-		line = linenum_text_editor_to_scintilla (line);
-		start = scintilla_send_message (SCINTILLA (te->scintilla),
-										SCI_POSITIONFROMLINE, line, 0);
-		end = scintilla_send_message (SCINTILLA (te->scintilla),
-									  SCI_POSITIONFROMLINE, line+1, 0) - 1;
-	
+	if (start >= 0) {
 		if (end <= start)
 			return -1;
 
@@ -2187,11 +2182,37 @@ itext_editor_set_popup_menu(IAnjutaEditor *editor, GtkWidget* menu, GError **e)
 	text_editor_set_popup_menu(TEXT_EDITOR(editor), menu);
 }
 
-static int
-itext_editor_get_line_from_position(IAnjutaEditor *editor, int pos, GError **e)
+static gint
+itext_editor_get_line_from_position (IAnjutaEditor *editor, gint pos, GError **e)
 {
-	return 	scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-								   SCI_LINEFROMPOSITION, pos, 0);
+	return 	scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
+								    SCI_LINEFROMPOSITION, pos, 0);
+}
+
+static gint
+itext_editor_get_line_begin_position (IAnjutaEditor *editor, gint line,
+									  GError **e)
+{
+	gint ln;
+	
+	g_return_val_if_fail (line < 0, -1);
+	
+	ln = linenum_text_editor_to_scintilla (line);
+	return scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
+								   SCI_POSITIONFROMLINE, ln, 0);
+}
+
+static gint
+itext_editor_get_line_end_position (IAnjutaEditor *editor, gint line,
+									  GError **e)
+{
+	gint ln;
+	
+	g_return_val_if_fail (line < 0, -1);
+	
+	ln = linenum_text_editor_to_scintilla (line);
+	return scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
+								   SCI_POSITIONFROMLINE, ln + 1, 0) - 1;
 }
 
 static void
@@ -2217,6 +2238,8 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_overwrite = itext_editor_get_overwrite;
 	iface->set_popup_menu = itext_editor_set_popup_menu;
 	iface->get_line_from_position = itext_editor_get_line_from_position;
+	iface->get_line_begin_position = itext_editor_get_line_begin_position;
+	iface->get_line_end_position = itext_editor_get_line_end_position;
 }
 
 /* IAnjutaEditorSelection implementation */
@@ -2708,6 +2731,44 @@ ibookmark_iface_init(IAnjutaBookmarkIface* iface)
 	iface->clear_all = ibookmark_clear_all;
 }
 
+static void
+iindicable_set (IAnjutaIndicable *te, gint begin_location, gint end_location,
+				IAnjutaIndicableIndicator indicator, GError **err)
+{
+	switch (indicator)
+	{
+		case IANJUTA_INDICABLE_IMPORTANT:
+			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
+									   end_location, 0);
+		break;
+		case IANJUTA_INDICABLE_WARNING:
+			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
+									   end_location, 1);
+		break;
+		case IANJUTA_INDICABLE_CRITICAL:
+			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
+									   end_location, 2);
+		break;
+		default:
+			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
+									   end_location, -1);
+		break;
+	}
+}
+
+static void
+iindicable_clear (IAnjutaIndicable *te, GError **err)
+{
+	text_editor_set_indicator (TEXT_EDITOR (te), -1, -1, -1);
+}
+
+static void
+iindicable_iface_init (IAnjutaIndicableIface *iface)
+{
+	iface->set = iindicable_set;
+	iface->clear = iindicable_clear;
+}
+				
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -2719,6 +2780,7 @@ ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iview, IANJUTA_TYPE_EDITOR_VIEW);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(imarkable, IANJUTA_TYPE_MARKABLE);
+ANJUTA_TYPE_ADD_INTERFACE(iindicable, IANJUTA_TYPE_INDICABLE);
 
 /* FIXME: Is factory definition really required for editor class? */
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor_factory, IANJUTA_TYPE_EDITOR_FACTORY);

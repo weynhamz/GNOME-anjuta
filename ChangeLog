@@ -1,5 +1,12 @@
 2006-02-21  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/editor/text_editor.c, plugins/editor/text_editor.h,
+	plugins/editor/text_editor_cbs.c: Implemanted IAnjutaIndicable
+	interface for editor.
+
+2006-02-21  Naba Kumar  <naba@gnome.org>
+
 	* plugins/editor/text_editor.c: Fixed a crash bug on copy operation.
 
 	Patch from Anjuta Khongbantabam <k_anjuta@yahoo.com>:

@@ -185,7 +185,8 @@ void     text_editor_delete_marker_all (TextEditor *te, gint marker);
 gint     text_editor_line_from_handle (TextEditor* te, gint marker_handle);
 gint     text_editor_get_bookmark_line (TextEditor* te, const glong nLineStart);
 gint     text_editor_get_num_bookmarks (TextEditor* te);
-gint     text_editor_set_indicator (TextEditor *te, glong line, gint indicator);
+gint     text_editor_set_indicator (TextEditor *te, gint start, gint end,
+									gint indicator);
 gboolean text_editor_can_undo (TextEditor *te);
 gboolean text_editor_can_redo (TextEditor *te);
 

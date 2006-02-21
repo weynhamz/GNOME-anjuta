@@ -229,6 +229,20 @@ interface IAnjutaMarkable
 	void delete_all_markers (Marker marker);
 }
 
+interface IAnjutaIndicable
+{
+	enum Indicator
+	{
+		NONE,
+		IMPORTANT,
+		WARNING,
+		CRITICAL
+	}
+	
+	void set (gint begin_location, gint end_location, Indicator indicator);
+	void clear ();
+}
+
 interface IAnjutaIterable
 {
 	/**
@@ -699,7 +713,7 @@ interface IAnjutaEditor
 	 * Carat is moved to the given @position and text view is scrolled to
 	 * bring @position in viewable area of the editor.
 	 */
-	void   goto_position (gint position);
+	void goto_position (gint position);
 	
 	/**
 	 * ianjuta_editor_get_text:
@@ -814,18 +828,21 @@ interface IAnjutaEditor
 	 *
 	 * Return value: Current column.
 	 */
-	int get_column ();
+	gint get_column ();
+	
+	gint get_line_begin_position (gint line);
+	gint get_line_end_position (gint line);
 	
 	/**
 	 * ianjuta_editor_get_overwrite:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Obtains editor mode: TRUE = Override, FALSE = Insert.
+	 * Obtains editor overwirte mode: TRUE = Override, FALSE = Insert.
 	 *
 	 * Return value: editor mode.
 	 */
-	int get_overwrite ();
+	gboolean get_overwrite ();
 	
 	/**
 	 * ianjuta_editor_get_filename:
@@ -914,7 +931,7 @@ interface IAnjutaEditor
 		 *
 		 * Select characters between start and end
 		 */
-		void set (int start, int end);
+		void set (gint start, gint end);
 		
 		/**
 		 * ianjuta_editor_selection_get_start:
@@ -926,7 +943,7 @@ interface IAnjutaEditor
 		 *
 		 * Return: Start of selection
 		 */
-		int get_start ();
+		gint get_start ();
 		
 		/**
 		 * ianjuta_editor_selection_get_end:
@@ -935,7 +952,7 @@ interface IAnjutaEditor
 		 *
 		 * Get end position of selection.
 		 */
-		int get_end ();
+		gint get_end ();
 		
 		/**
 		 * ianjuta_editor_selection_select_block:

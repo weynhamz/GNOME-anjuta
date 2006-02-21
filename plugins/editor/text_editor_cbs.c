@@ -198,7 +198,7 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 		
 	case SCN_CHARADDED:
 		te->current_line = text_editor_get_current_lineno (te);
-		text_editor_set_indicator (te, te->current_line, -1);
+		// text_editor_set_indicator (te, te->current_line, -1);
 		position = text_editor_get_current_position (te);
 		g_signal_emit_by_name(G_OBJECT (te), "char_added", position, wParam);
 		return;
