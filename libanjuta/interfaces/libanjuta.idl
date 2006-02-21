@@ -194,71 +194,246 @@ interface IAnjutaMarkable
 	 */
 	gint location_from_handle (gint handle);
 
+	/**
+	* ianjuta_markable_unmark:
+	* @obj: Self
+	* @location: Location where the marker is set.
+	* @marker: The marker to unset.
+	* @err: Error propagation and reporting
+	*
+	* Clears the @marker at given @location.
+	*/
 	void unmark (gint location, Marker marker);
+	
+	/**
+	* ianjuta_markable_is_marker_set:
+	* @obj: Self
+	* @location: Location to check.
+	* @marker: Marker to check.
+	* @err: Error propagation and reporting 
+	* 
+	* Check if the @marker is set at the given @location.
+	* 
+	* Returns: TRUE if the marker is set at the location, other false.
+	*/
 	gboolean is_marker_set (gint location, Marker marker);
+	
+	/**
+	* ianjuta_markable_delete_all_markers:
+	* @obj: Self
+	* @marker: Marker to delete.
+	* @err: Error propagation and reporting
+	* 
+	* Delete the @marker from all locations.
+	*/
 	void delete_all_markers (Marker marker);
 }
 
 interface IAnjutaIterable
 {
-	// Set iter to first element position. Returns FALSE if
-	// there is no element in the iterable (hence does not have last).
+	/**
+	* ianjuta_iterable_first:
+	* @obj: Self
+	* @err: Error propagation and reporting
+	*
+	* Set iter to first element position. Returns FALSE if
+	* there is no element in the iterable (hence does not have last).
+	*
+	* Returns: TRUE if sucessful, other FALSE.
+	*/
 	gboolean first ();
 	
-	// Set the iter position to next element position. Returns FALSE if there
-	// is no next element.
+	/**
+	* ianjuta_iterable_next:
+	* @obj: Self
+	* @err: Error propagation and reporting
+	*
+	* Set the iter position to next element position. Returns FALSE if there
+	* is no next element.
+	*
+	* Returns: TRUE if sucessful, other FALSE..
+	*/
 	gboolean next ();
 	
-	// Set the iter position to previous element position. Returns FALSE if
-	// there is no previous element.
+	/**
+	* ianjuta_iterable_previous:
+	* @obj: Self
+	* @err: Error propagation and reporting
+	* 
+	* Set the iter position to previous element position. Returns FALSE if
+	* there is no previous element.
+	*
+	* Returns: TRUE if sucessful, other FALSE.
+	*/
 	gboolean previous ();
 	
-	// Set iter position to last element position. Returns FALSE if
-	// there is no element in the iterable (hence does not have last).
+	/**
+	* ianjuta_iterable_last:
+	* @obj: Self
+	* @err: Error propagation and reporting
+	* 
+	* Set iter position to last element position. Returns FALSE if
+	* there is no element in the iterable (hence does not have last).
+	*
+	* Returns: TRUE if sucessful, other FALSE.
+	*/
 	gboolean last ();
 	
-	// Call callback for each element.
+	/**
+	* ianjuta_iterable_foreach:
+	* @obj: Self
+	* @callback: Callback to call for each element.
+	* @user_data: user data that is passed back to the callback.
+	* @err: Error propagation and reporting
+	*
+	* Call callback for each element.
+	*/
 	void foreach (GFunc callback, gpointer user_data);
 	
-	// Gets the value at current iter position.
-	// Interpretation of 'data' really depends on implementation and is of
-	// type 'data_type'. get_nth() gets the element at given position without
-	// altering the position of current iter.
+	/**
+	* ianjuta_iterable_get:
+	* @obj: Self
+	* @data_type: Data type of the value being retrieved.
+	* @err: Error propagation and reporting
+	* 
+	* Gets the value at current iter position.
+	* Interpretation of 'data' really depends on implementation and is of
+	* type 'data_type'. get_nth() gets the element at given position without
+	* altering the position of current iter.
+	*
+	* Returns: The data at current iter position.
+	*/
 	gpointer get (GType data_type);
+	
+	/**
+	* ianjuta_iterable_get_nth:
+	* @obj: Self
+	* @data_type: Data type of the value being retrieved.
+	* @position: Index of the iter.
+	* @err: Error propagation and reporting
+	* 
+	* Returns the nth element in the list.
+	*
+	* Returns: The data at nth position.
+	*/
 	gpointer get_nth (GType data_type, gint position);
 	
-	// Index of the current iter in the iterable
+	/**
+	* ianjuta_iterable_get_position:
+	* @obj: Self
+	* @err: Error propagation and reporting
+	*
+	* Index of the current iter in the iterable
+	*
+	* Returns: integer index.
+	*/
 	gint get_position ();
 	
-	// Length of the iterable
+	/**
+	* ianjuta_iterable_get_length:
+	* @obj: Self
+	* @err: Error propagation and reporting
+	* 
+	* Length of the iterable
+	*
+	* Returns: total lenght of the list.
+	*/
 	gint get_length ();
 	
-	// If the iterable is settable
+	/**
+	* ianjuta_iterable_get_settable:
+	* @obj: Self
+	* @err: Error propagation and reporting
+	* 
+	* If the iterable is settable.
+	* 
+	* Returns: TRUE if data can be set in this implementation.
+	*/
 	gboolean get_settable ();
 	
-	// Sets the value at current iter position. The iterable be be settable.
-	// Interpretation of 'data' really depends on implementation. The data
-	// must be of type 'data_type'.
+	/**
+	* ianjuta_iterable_set:
+	* @obj: Self
+	* @data_type: Data type of the value being set.
+	* @data: The data being set.
+	* @err: Error propagation and reporting
+	* 
+	* Sets the value at current iter position. The iterable be be settable.
+	* Interpretation of 'data' really depends on implementation. The data
+	* must be of type 'data_type'.
+	*/
 	void set (GType data_type, gpointer data);
+	
+	/** 
+	* ianjuta_iterable_set_nth:
+	* @obj: Self
+	* @data_type: Data type of the value being set.
+	* @data: The data being set.
+	* @position: element position where data is set.
+	* @err: Error propagation and reporting
+	* 
+	* Sets the @data at given @position. Current iter position is not altered.
+	*/
 	void set_nth (GType data_type, gpointer data, gint position);
 	
 	interface IAnjutaIterableTree
 	{
-		// Set iter position to parent of curernt iter. If there is no parent,
-		// returns FALSE (current iter position is not changed)
+	
+		/** 
+		* ianjuta_iterable_tree_parent:
+		* @obj: Self
+		* @err: Error propagation and reporting
+		* 
+		* Set iter position to parent of curernt iter. If there is no parent,
+		* returns FALSE (current iter position is not changed)
+		*
+		* Returns: TRUE if sucessful, otherwise FALSE.
+		*/
 		gboolean parent ();
 		
-		// Iter position set to first child of current iter. If there is no
-		// children, return NULL (iter position is not changed).
+		/**
+		* ianjuta_iterable_tree_children:
+		* @obj: Self
+		* @err: Error propagation and reporting
+		*
+		* Iter position set to first child of current iter. If there is no
+		* children, return NULL (iter position is not changed).
+		*
+		* Returns: TRUE if sucessful, otherwise FALSE.
+		*/
 		gboolean children ();
 		
-		// Returns true if current iter has children
+		/**
+		* ianjuta_iterable_tree_has_children:
+		* @obj: Self
+		* @err: Error propagation and reporting
+		*
+		* Returns true if current iter has children
+		*
+		* Returns: TRUE if there are children, otherwise FALSE.
+		*/
 		gboolean has_children ();
 		
-		// Call callback for each element in post order.
+		/**
+		* ianjuta_iterable_tree_foreach_post:
+		* @obj: Self
+		* @callback: Callback to call for each element.
+		* @user_data: User data to pass back to callback.
+		* @err: Error propagation and reporting
+		* 
+		* Call callback for each element in post order.
+		*/
 		void foreach_post (GFunc callback, gpointer user_data);
 		
-		// Call callback for each element in pre order.
+		/**
+		* ianjuta_iterable_tree_foreach_pre:
+		* @obj: Self
+		* @callback: Callback to call for each element.
+		* @user_data: User data to pass back to callback.
+		* @err: Error propagation and reporting
+		* 
+		* Call callback for each element in pre order.
+		*/
 		void foreach_pre (GFunc callback, gpointer user_data);
 	}
 }
@@ -266,11 +441,65 @@ interface IAnjutaIterable
 // Implemented by plugins which can build (e.g module manager plugins).
 interface IAnjutaBuildable
 {
+
+	/** 
+	* ianjuta_buildable_build:
+	* @obj: Self
+	* @uri: fixme
+	* @err: Error propagation and reporting.
+	*
+	* fixme
+	*/
 	void build (const gchar *uri);
+	
+	/**
+	* ianjuta_buildable_clean:
+	* @obj: Self
+	* @uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void clean (const gchar *uri);
+	
+	/**
+	* ianjuta_buildable_install:
+	* @obj: Self
+	* @uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void install (const gchar *uri);
+	
+	/**
+	* ianjuta_buildable_configure:
+	* @obj: Self
+	* @uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void configure (const gchar *uri);
+	
+	/**
+	* ianjuta_buildable_generate:
+	* @obj: Self
+	* @uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void generate (const gchar *uri);
+	
+	/**
+	* ianjuta_buildable_execute:
+	* @obj: Self
+	* @uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void execute (const gchar *uri);
 }
 
@@ -279,11 +508,27 @@ interface IAnjutaProfile
 {
 	#include <libanjuta/e-splash.h>
 	
+	/**
+	* ianjuta_profile_load:
+	* @obj: Self
+	* @err: Error propagation and reporting
+	*
+	* fixme
+	*/
 	void load ();
 }
 
 interface IAnjutaHelp
 {
+
+	/**
+	* ianjuta_help_search:
+	* @obj: Self
+	* @query: fixme
+	* @err: Error propagation and reporting
+	* 
+	* fixme
+	*/
 	void search (const gchar *query);
 }
 
@@ -294,7 +539,13 @@ interface IAnjutaHelp
 // requirements.
 interface IAnjutaLoader
 {
-	// Returns all plugins supporting loader interface.
+	/**
+	* ianjuta_loader_find_plugins:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* Returns all plugins supporting loader interface.
+	*/
 	GSList * find_plugins ();
 	
 	// Loaders can deterime correct plugin to open a file
@@ -623,7 +874,7 @@ interface IAnjutaEditor
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Rede last undo operation
+	 * Redo last undo operation
 	 */
 	void redo ();
 	
@@ -997,15 +1248,86 @@ interface IAnjutaDocumentManager
 		DOESNT_EXIST
 	}
 
+	/**
+	* ianjuta_document_manager_get_full_filename:
+	* @obj: Self
+	* @file: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme.
+	*/
 	const gchar * get_full_filename (const gchar *file);
+	
+	/**
+	* ianjuta_document_manager_find_editor_with_path:
+	* @obj: Self
+	* @file_path: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	IAnjutaEditor* find_editor_with_path (const gchar *file_path);
+	
+	/**
+	* ianjuta_document_manager_goto_file_line:
+	* @obj: Self
+	* @file: fixme
+	* @lineno: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void goto_file_line (const gchar *file, gint lineno);
+	
+	/** 
+	* ianjuta_document_manager_goto_file_line_mark:
+	* @obj: Self
+	* @file: fixme
+	* @lineno: fixme
+	* @mark: fixme
+	* @err: Error propagation and reporting
+	* 
+	* fixme
+	*/
 	void goto_file_line_mark (const gchar *file, gint lineno, gboolean mark);
+	
+	/**
+	* ianjuta_document_manager_get_current_editor:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	IAnjutaEditor* get_current_editor ();
+	
+	/** 
+	* ianjuta_document_manager_set_current_editor:
+	* @obj: Self
+	* @editor: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void set_current_editor (IAnjutaEditor *editor);
+	
+	/**
+	* ianjuta_document_manager_get_editors:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	GList* get_editors ();
 
-	// New editor buffer
+	/**
+	* ianjuta_document_manager_add_buffer:
+	* @obj: Self
+	* @name: fixme
+	* @content: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* New editor buffer
+	*/
 	IAnjutaEditor* add_buffer (const gchar *name, const gchar* content);
 }
 
@@ -1019,17 +1341,91 @@ interface IAnjutaMessageView
 		TYPE_ERROR
 	}
 	
-	// Signals
+	/**
+	* IAnjutaMessageView::message_clicked:
+	* @obj: Self
+	* @message: fixme
+	* @err: Error propagation and reporting.
+	*
+	* fixme
+	*/
 	void ::message_clicked (const gchar *message);
+	
+	/** 
+	* IAnjutaMessageView::buffer_flushed:
+	* @obj: Self
+	* @line: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void ::buffer_flushed (const gchar *line);
 	
-	/* Buffer methods */
+	/**
+	* ianjuta_message_view_buffer_append:
+	* @obj: Self
+	* @text: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void buffer_append (const gchar *text);
+	
+	/**
+	* ianjuta_message_view_append:
+	* @obj: Self
+	* @type: fixme
+	* @summary: fixme
+	* @details: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void append (Type type, const gchar *summary, const gchar *details);
+	
+	/**
+	* ianjuta_message_view_clear:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void clear ();
+	
+	/**
+	* ianjuta_message_view_select_next:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void select_next ();
+	
+	/**
+	* ianjuta_message_view_select_previous:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void select_previous ();
+	
+	/**
+	* ianjuta_message_view_get_current_message:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	const gchar* get_current_message ();
+	
+	/**
+	* ianjuta_message_view_get_all_messages:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	GList* get_all_messages ();
 }
 
@@ -1131,10 +1527,43 @@ interface IAnjutaMessageManager
 
 interface IAnjutaFileManager
 {
+
+	/**
+	* IAnjutaFileManager::section_changed:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void ::section_changed (const gchar *uri);
 	
+	/**
+	* ianjuta_file_manager_set_root:
+	* @obj: Self
+	* @root_uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void set_root (const gchar *root_uri);
+	
+	/**
+	* ianjuta_file_manager_get_selected:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	gchar* get_selected ();
+	
+	/**
+	* ianjuta_file_manager_set_selected:
+	* @obj: Self
+	* @uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme.
+	*/
 	void set_selected (const gchar *uri);
 }
 

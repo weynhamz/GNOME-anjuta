@@ -2360,7 +2360,7 @@ iselection_iface_init (IAnjutaEditorSelectionIface *iface)
 	iface->select_block = iselection_select_block;
 	iface->select_function = iselection_select_function;
 	iface->cut = iselection_cut;
-	iface->cut = iselection_copy;
+	iface->copy = iselection_copy;
 	iface->paste = iselection_paste;
 	iface->clear = iselection_clear;
 }
