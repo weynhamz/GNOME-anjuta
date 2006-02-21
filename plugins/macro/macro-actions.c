@@ -33,14 +33,13 @@ match_shortcut (MacroPlugin * plugin, GtkTreeIter * iter,
 		MACRO_SHORTCUT, &shortcut, -1);
 	if (key == shortcut)
 	{
-		const int CURRENT_POS = -1;
 		gchar* text = macro_db_get_macro(plugin, plugin->macro_db, iter, &offset);
 		if (plugin->current_editor != NULL && text != NULL)
 		{
 			pos = ianjuta_editor_get_position (IANJUTA_EDITOR(plugin->current_editor),
 			                                   NULL);
 			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor),
-					               CURRENT_POS, text, -1, NULL);
+			                       pos, text, -1, NULL);			
 			ianjuta_editor_goto_position (IANJUTA_EDITOR(plugin->current_editor), 
 			                              pos + offset, 
 			                              NULL);

@@ -184,14 +184,13 @@ match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, const gchar *keyword)
 		MACRO_NAME, &name, -1);
 	if ( name && strcmp(keyword, name) == 0)
 	{
-		const int CURRENT_POS = -1;
 		gchar* text = macro_db_get_macro(plugin, plugin->macro_db, iter, &offset);
 		if (plugin->current_editor != NULL && text != NULL)
 		{
 			pos = ianjuta_editor_get_position (IANJUTA_EDITOR(plugin->current_editor),
 			                                   NULL);
 			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor),
-					       CURRENT_POS, text, -1, NULL);
+			                       pos, text, -1, NULL);
 			ianjuta_editor_goto_position (IANJUTA_EDITOR(plugin->current_editor), 
 			                              pos + offset, 
 			                              NULL);

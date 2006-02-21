@@ -1,3 +1,13 @@
+2006-02-21  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* GTKSOURCEVIEW EDITOR
+	plugins/sourceview/sourceview.c :
+	Fixed copy and Goto Line.
+	
+	plugins/macro/macro-actions.c plugins/macro/macro-dialog.c
+	plugins/macro/plugin.c :
+	Fixed Insert key word and Insert macro.
+
 2006-02-19  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c:

@@ -59,14 +59,12 @@ on_ok_clicked (MacroPlugin * plugin)
 	text = macro_db_get_macro(plugin, dialog->macro_db, &iter, &offset);
 	if (text)
 	{
-		const int CURRENT_POS = -1;
 		if (plugin->current_editor != NULL)
 		{
 			pos = ianjuta_editor_get_position (IANJUTA_EDITOR(plugin->current_editor),
 			                                   NULL);
 			ianjuta_editor_insert (IANJUTA_EDITOR(plugin->current_editor),
-								   CURRENT_POS, text, -1,
-								   NULL);
+			                       pos, text, -1, NULL);
 			ianjuta_editor_goto_position (IANJUTA_EDITOR(plugin->current_editor), 
 			                              pos + offset, 
 			                              NULL);

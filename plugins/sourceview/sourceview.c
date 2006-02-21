@@ -385,9 +385,11 @@ static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 	const gfloat CENTER = 0.5;
 	
 	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->source_buffer),
-									 &iter, line);
+									 &iter, line - 1);
 	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(sv->priv->source_view),
 											   &iter, 0, TRUE, LEFT, CENTER);
+	gtk_text_buffer_place_cursor(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+									 &iter);
 }
 
 /* Scroll to position */
@@ -503,7 +505,7 @@ static void ieditor_insert(IAnjutaEditor *editor, gint position,
 {
 	GtkTextIter iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	
+
 	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									   &iter, position);
 	gtk_text_buffer_insert(GTK_TEXT_BUFFER(sv->priv->source_buffer),
@@ -516,7 +518,7 @@ static void ieditor_append(IAnjutaEditor *editor, const gchar* text,
 {
 	GtkTextIter iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	
+
 	gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									   &iter);
 	gtk_text_buffer_insert(GTK_TEXT_BUFFER(sv->priv->source_buffer),
@@ -774,7 +776,7 @@ iselect_copy(IAnjutaEditorSelection* edit, GError** ee)
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
 	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->source_buffer);
 	GtkClipboard* clipboard = gtk_clipboard_get(GDK_NONE);
-	gtk_text_buffer_cut_clipboard(buffer, clipboard, TRUE);	
+	gtk_text_buffer_copy_clipboard(buffer, clipboard);	
 }
 
 static void 
