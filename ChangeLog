@@ -1,5 +1,12 @@
 2006-02-22  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/anjuta-plugin-description.c,
+	libanjuta/anjuta-plugin-description.h, libanjuta/anjuta-shell.c,
+	libanjuta/anjuta-shell.h, libanjuta/interfaces/libanjuta.idl,
+	manuals/reference/libanjuta/tmpl/anjuta-plugin-description.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-shell.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml: Fixed API docs.
+	
 	Patch from Anjuta Khongbantabam <k_anjuta@yahoo.com>:
 	* libanjuta/interfaces/libanjuta.idl: Added more API documentation stubs.
 	

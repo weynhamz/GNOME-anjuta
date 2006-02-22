@@ -55,38 +55,38 @@ AnjutaPluginDescription* anjuta_plugin_description_new (const gchar *filename,
 AnjutaPluginDescription* anjuta_plugin_description_new_from_string (gchar *data,
 																	GError **error);
 
-gchar* anjuta_plugin_description_to_string (AnjutaPluginDescription *pd);
+gchar* anjuta_plugin_description_to_string (AnjutaPluginDescription *pf);
 
-void anjuta_plugin_description_free (AnjutaPluginDescription *pd);
+void anjuta_plugin_description_free (AnjutaPluginDescription *pf);
 
-void anjuta_plugin_description_foreach_section (AnjutaPluginDescription *pd,
+void anjuta_plugin_description_foreach_section (AnjutaPluginDescription *pf,
 												AnjutaPluginDescriptionSectionFunc func,
 												gpointer user_data);
 
-void anjuta_plugin_description_foreach_key (AnjutaPluginDescription *dp,
+void anjuta_plugin_description_foreach_key (AnjutaPluginDescription *df,
 											const gchar *section,
 											gboolean include_localized,
 											AnjutaPluginDescriptionLineFunc func,
 											gpointer user_data);
 
 /* Gets the raw text of the key, unescaped */
-gboolean anjuta_plugin_description_get_raw (AnjutaPluginDescription *dp,
+gboolean anjuta_plugin_description_get_raw (AnjutaPluginDescription *df,
 										    const gchar *section,
 											const gchar *keyname,
 											const gchar *locale,
 											gchar **val);
 
-gboolean anjuta_plugin_description_get_integer (AnjutaPluginDescription *dp,
+gboolean anjuta_plugin_description_get_integer (AnjutaPluginDescription *df,
 												const gchar *section,
 												const gchar *keyname,
 												gint *val);
 
-gboolean anjuta_plugin_description_get_string (AnjutaPluginDescription   *dp,
+gboolean anjuta_plugin_description_get_string (AnjutaPluginDescription   *df,
 											   const gchar *section,
 											   const gchar *keyname,
 											   gchar **val);
 
-gboolean anjuta_plugin_description_get_locale_string (AnjutaPluginDescription *dp,
+gboolean anjuta_plugin_description_get_locale_string (AnjutaPluginDescription *df,
 													  const gchar *section,
 													  const gchar *keyname,
 													  gchar **val);

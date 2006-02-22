@@ -230,8 +230,10 @@ Application shell interface
 </para>
 
 @shell: 
-@err: 
+@error: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@err: 
 
 
 <!-- ##### FUNCTION anjuta_shell_get_preferences ##### -->
@@ -240,8 +242,10 @@ Application shell interface
 </para>
 
 @shell: 
-@err: 
+@error: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@err: 
 
 
 <!-- ##### FUNCTION anjuta_shell_get_status ##### -->
@@ -250,8 +254,10 @@ Application shell interface
 </para>
 
 @shell: 
-@err: 
+@error: 
 @Returns: 
+<!-- # Unused Parameters # -->
+@err: 
 
 
 <!-- ##### FUNCTION anjuta_shell_get_object ##### -->

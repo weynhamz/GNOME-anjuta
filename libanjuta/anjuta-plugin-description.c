@@ -722,7 +722,7 @@ lookup_line (AnjutaPluginDescription        *df,
  * Return value: TRUE if sucessful, otherwise FALSE.
  */
 gboolean
-anjuta_plugin_description_get_raw (AnjutaPluginDescription  *df,
+anjuta_plugin_description_get_raw (AnjutaPluginDescription *df,
 			    const char    *section_name,
 			    const char    *keyname,
 			    const char    *locale,
@@ -759,9 +759,9 @@ anjuta_plugin_description_get_raw (AnjutaPluginDescription  *df,
  * Calls @func for each of the sections in the description.
  */
 void
-anjuta_plugin_description_foreach_section (AnjutaPluginDescription            *df,
-				  AnjutaPluginDescriptionSectionFunc  func,
-				  gpointer                     user_data)
+anjuta_plugin_description_foreach_section (AnjutaPluginDescription *df,
+				  AnjutaPluginDescriptionSectionFunc func,
+				  gpointer user_data)
 {
   AnjutaPluginDescriptionSection *section;
   int i;
@@ -788,7 +788,7 @@ anjuta_plugin_description_foreach_section (AnjutaPluginDescription            *d
  * only one call is made for the key in current locale.
  */
 void
-anjuta_plugin_description_foreach_key (AnjutaPluginDescription            *df,
+anjuta_plugin_description_foreach_key (AnjutaPluginDescription *df,
 			      const char                  *section_name,
 			      gboolean                     include_localized,
 			      AnjutaPluginDescriptionLineFunc     func,

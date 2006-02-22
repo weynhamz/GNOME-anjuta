@@ -1528,8 +1528,6 @@ interface IAnjutaMessageManager
 	 *
 	 * Remove view from the message-manager. The view
 	 * will become invalid.
-	 *
-	 * Return value: The new message-view
 	 */
 	void remove_view (IAnjutaMessageView *view);
 	

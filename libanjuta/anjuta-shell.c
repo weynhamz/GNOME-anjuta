@@ -67,7 +67,7 @@ anjuta_shell_error_quark (void)
  * 1 and real thawing happens when the count reaches 0.
  */
 void
-anjuta_shell_freeze (AnjutaShell *shell, GError *err)
+anjuta_shell_freeze (AnjutaShell *shell, GError *error)
 {
 	gint freeze_count;
 	
@@ -88,7 +88,7 @@ anjuta_shell_freeze (AnjutaShell *shell, GError *err)
  * when the count reaches 0.
  */
 void
-anjuta_shell_thaw (AnjutaShell *shell, GError *err)
+anjuta_shell_thaw (AnjutaShell *shell, GError *error)
 {
 	gint freeze_count;
 	

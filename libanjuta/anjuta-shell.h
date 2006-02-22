@@ -86,15 +86,15 @@ struct _AnjutaShellIface {
 GQuark anjuta_shell_error_quark     (void);
 GType  anjuta_shell_get_type        (void);
 
-AnjutaStatus* anjuta_shell_get_status (AnjutaShell *shell, GError **err);
+AnjutaStatus* anjuta_shell_get_status (AnjutaShell *shell, GError **error);
 
-AnjutaUI* anjuta_shell_get_ui (AnjutaShell *shell, GError **err);
+AnjutaUI* anjuta_shell_get_ui (AnjutaShell *shell, GError **error);
 
 AnjutaPreferences* anjuta_shell_get_preferences (AnjutaShell *shell,
-												 GError **err);
+												 GError **error);
 
-void anjuta_shell_freeze (AnjutaShell *shell, GError *err);
-void anjuta_shell_thaw (AnjutaShell *shell, GError *err);
+void anjuta_shell_freeze (AnjutaShell *shell, GError *error);
+void anjuta_shell_thaw (AnjutaShell *shell, GError *error);
 
 void   anjuta_shell_add_widget      (AnjutaShell     *shell,
 									 GtkWidget       *widget,
