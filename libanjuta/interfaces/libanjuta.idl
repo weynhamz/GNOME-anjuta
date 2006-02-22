@@ -20,7 +20,11 @@
 
 #include <glib-object.h>
 
-// Implemented by all plugins that can open files
+/**
+* IAnjutaFile:
+* 
+* Implemented by all plugins that can open files.
+*/
 interface IAnjutaFile
 {
 	/**
@@ -113,7 +117,11 @@ interface IAnjutaFile
 	}
 }
 
-// Stream interface
+/** 
+* IAnjutaStream:
+*
+* Stream interface
+*/
 interface IAnjutaStream
 {
 	#include <stdio.h>
@@ -142,8 +150,12 @@ interface IAnjutaStream
 	}
 }
 
-// Markables.
-// For example, IAnjutaEditor extension - editor capable of marking lines
+/**
+* IAnjutaMarkable:
+*
+* Markables.
+* For example, IAnjutaEditor extension - editor capable of marking lines.
+*/
 interface IAnjutaMarkable
 {
 	enum Error
@@ -452,7 +464,11 @@ interface IAnjutaIterable
 	}
 }
 
-// Implemented by plugins which can build (e.g module manager plugins).
+/**
+* IAnjutaBuildable:
+*
+* Implemented by plugins which can build (e.g module manager plugins).
+*/
 interface IAnjutaBuildable
 {
 
@@ -517,7 +533,11 @@ interface IAnjutaBuildable
 	void execute (const gchar *uri);
 }
 
-// Studio profile. Like c++ profile, java profile etc.
+/**
+* IAnjutaProfile:
+*
+* Studio profile. Like c++ profile, java profile etc.
+*/
 interface IAnjutaProfile
 {
 	#include <libanjuta/e-splash.h>
@@ -546,11 +566,15 @@ interface IAnjutaHelp
 	void search (const gchar *query);
 }
 
-// Loaders can deterime correct plugin to open a file or stream.  They
-// themselves can not load it, but will correctly redirect the request to
-// an implementor of IAnjutaFile, IAnjutaFileSavable, IAnjutaStream or
-// IAnjutaStreamSavable, depending on the mime-type, meta-type or any other
-// requirements.
+/**
+* IAnjutaLoader:
+*
+* Loaders can deterime correct plugin to open a file or stream.  They
+* themselves can not load it, but will correctly redirect the request to
+* an implementor of IAnjutaFile, IAnjutaFileSavable, IAnjutaStream or
+* IAnjutaStreamSavable, depending on the mime-type, meta-type or any other
+* requirements.
+*/
 interface IAnjutaLoader
 {
 	/**
@@ -562,7 +586,11 @@ interface IAnjutaLoader
 	*/
 	GSList * find_plugins ();
 	
-	// Loaders can deterime correct plugin to open a file
+	/**
+	* IAnjutaFileLoader:
+	*
+	* Loaders can deterime correct plugin to open a file.
+	*/
 	interface IAnjutaFileLoader
 	{
 		/**
@@ -593,7 +621,11 @@ interface IAnjutaLoader
 		gchar* peek_interface (const gchar *uri);
 	}
 	
-	// StreamLoaders can deterime correct plugin to open a stream.
+	/**
+	* IAnjutaStreamLoader:
+	*
+	* StreamLoaders can deterime correct plugin to open a stream.
+	*/
 	interface IAnjutaStreamLoader
 	{
 		#include <stdio.h>
@@ -830,7 +862,28 @@ interface IAnjutaEditor
 	 */
 	gint get_column ();
 	
+	/**
+	* ianjuta_editor_get_line_begin_position:
+	* @obj: Self
+	* @line: fixme
+	* @err: Error propagation and reporting.
+	*
+	* fixme
+	*
+	* Returns: fixme
+	*/
 	gint get_line_begin_position (gint line);
+	
+	/**
+	* ianjuta_editor_get_line_end_position:
+	* @obj: Self
+	* @line: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	* 
+	* Returns: fixme
+	*/
 	gint get_line_end_position (gint line);
 	
 	/**
@@ -1587,6 +1640,18 @@ interface IAnjutaFileManager
 interface IAnjutaTerminal
 {
 	#include <sys/types.h>
+		
+	/**
+	* ianjuta_terminal_execute_command:
+	* @obj: Self
+	* @directory: fixme
+	* @command: fixme
+	* @err: Error propagation and reporting.
+	*
+	* fixme
+	* 
+	* Returns: fixme
+	*/
 	pid_t execute_command (const gchar* directory, const gchar *command);
 }
 
@@ -1609,64 +1674,358 @@ interface IAnjutaProjectManager
 	}
 	
 	// Signals
+	
+	/**
+	* IAnjutaProjectManager::element_added:
+	* @obj: Self
+	* @element_uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void ::element_added (const gchar *element_uri);
+	
+	/** 
+	* IAnjutaProjectManager::element_removed:
+	* @obj: Self
+	* @element_uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void ::element_removed (const gchar *element_uri);
+	
+	/**
+	* IAnjutaProjectManager::element_selected:
+	* @obj: Self
+	* @element_uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void ::element_selected (const gchar *element_uri);
 	
 	// Methods
+	
+	/**
+	* ianjuta_project_manager_get_element_type:
+	* @obj: Self
+	* @element_uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
 	ElementType get_element_type (const gchar *element_uri);
+	
+	/**
+	* ianjuta_project_manager_get_elements:
+	* @obj: Self
+	* @element_type: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	* 
+	* Returns: fixme
+	*/
 	GList* get_elements (ElementType element_type);
 	
+	/**
+	* ianjuta_project_manager_get_target_type:
+	* @obj: Self
+	* @target_uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	* 
+	* Returns: fixme
+	*/
 	TargetType get_target_type (const gchar *target_uri);
+	
+	/**
+	* ianjuta_project_manager_get_targets:
+	* @obj: Self
+	* @target_type: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	* 
+	* Returns: fixme
+	*/
 	GList* get_targets (TargetType target_type);
 	
+	/**
+	* ianjuta_project_manager_get_parent:
+	* @obj: Self
+	* @element_uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
 	gchar* get_parent (const gchar *element_uri);
+	
+	/**
+	* ianjuta_project_manager_get_children:
+	* @obj: Self
+	* @element_uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
 	GList* get_children (const gchar *element_uri);
+	
+	/**
+	* ianjuta_project_manager_get_selected:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	gchar* get_selected ();
 	
-	/* Returns element URIs. Must be freed when no longer required */
+	/**
+	* ianjuta_project_manager_add_source:
+	* @obj: Self
+	* @source_uri_to_add: fixme
+	* @default_location_uri: fixme
+	* @err: Error propagation and reporting.
+	*
+	* fixme
+	*
+	* Returns: element URIs. Must be freed when no longer required.
+	*/
 	gchar* add_source (const gchar *source_uri_to_add, const gchar *default_location_uri);
+	
+	/**
+	* ianjuta_project_manager_add_target:
+	* @obj: Self
+	* @target_name_to_add: fixme
+	* @default_location_uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	* 
+	* Returns:
+	*/
 	gchar* add_target (const gchar *target_name_to_add, const gchar *default_location_uri);
+	
+	/**
+	* ianjuta_project_manager_add_group:
+	* @obj: Self
+	* @group_name_to_add: fixme
+	* @default_location_uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	* 
+	* Returns: fixme
+	*/
 	gchar* add_group (const gchar *group_name_to_add, const gchar *default_location_uri);
+	
+	/**
+	* ianjuta_project_manager_is_open:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/ 
 	gboolean is_open ();
 }
 
 interface IAnjutaTodo
 {
+
+	/**
+	* ianjuta_to_do_load:
+	* @obj: Self
+	* @uri: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void load(gchar *uri);
 }
 
 interface IAnjutaWizard
 {
+
+	/**
+	* ianjuta_wizard_activate:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void activate();
 }
 
 interface IAnjutaDebuggerManager
 {
+
+	/**
+	* ianjuta_debugger_manager_is_active:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
 	gboolean is_active ();
+	
+	/**
+	* ianjuta_debugger_manager_is_busy:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
 	gboolean is_busy ();
 	
+	/**
+	* ianjuta_debugger_manager_start:
+	* @obj: Self
+	* @prog_uri: fixme
+	* @source_search_directories: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void start (const gchar *prog_uri, const GList *source_search_directories);
+	
+	/**
+	* ianjuta_debugger_manager_stop:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
 	gboolean stop ();
 }
 
 interface IAnjutaDebugger
 {
 	// Sinals
+	
+	/**
+	* IAnjutaDebugger::busy:
+	* @obj: Self
+	* @busy_state: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void ::busy (gboolean busy_state);
 	
+	/**
+	* ianjuta_debugger_is_busy:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
 	gboolean is_busy ();
 
+	/**
+	* ianjuta_debugger_load:
+	* @obj: Self
+	* @prog_uri: fixme
+	* @source_search_directories: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void load (const gchar *prog_uri, const GList *source_search_directories);
 
+	/**
+	* ianjuta_debugger_run_continue:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void run_continue ();
+	
+	/**
+	* ianjuta_debugger_step_in:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void step_in ();
+	
+	/**
+	* ianjuta_debugger_step_over:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void step_over ();
+	
+	/**
+	* ianjuta_debugger_step_out:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void step_out ();
+	
+	/**
+	* ianjuta_debugger_run_to_position:
+	* @obj: Self
+	* @uri: fixme
+	* @line: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void run_to_position (const gchar *uri, gint line);
 	
+	/**
+	* ianjuta_debugger_breakpoint_toggle:
+	* @obj: Self
+	* @uri: fixme
+	* @line: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void breakpoint_toggle (const gchar *uri, gint line);
+	
+	/**
+	* ianjuta_debugger_breakpoint_set:
+	* @obj: Self
+	* @uri: fixme
+	* @line: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void breakpoint_set (const gchar *uri, gint line);
+	
+	/**
+	* ianjuta_debugger_breakpoint_delete:
+	* @obj: Self
+	* @uri: fixme
+	* @line: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
 	void breakpoint_delete (const gchar *uri, gint line);
 }
 
@@ -1806,10 +2165,43 @@ interface IAnjutaSymbolManager
 	#include "ianjuta-iterable.h"
 	#include "ianjuta-symbol.h"
 
-	// Database query. Returned iterable must be unrefed after use.
+	/**
+	* ianjuta_symbol_manager_search:
+	* @obj: Self
+	* @match_types: fixme
+	* @match_name: fixme
+	* @partial_name_match: fixme
+	* @global_search: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* Database query. Returned iterable must be unrefed after use.
+	* 
+	* Returns: fixme
+	*/
 	IAnjutaIterable* search (IAnjutaSymbolType match_types, const gchar *match_name, gboolean partial_name_match, gboolean global_search);
 	
-	// Database query. Returned iterable must be unrefed after use.
+	/**
+	* ianjuta_symbol_manager_get_members:
+	* @obj: Self
+	* @symbol_name: fixme
+	* @global_search: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* Database query. Returned iterable must be unrefed after use.
+	* 
+	* Returns: fixme
+	*/
 	IAnjutaIterable* get_members (const gchar *symbol_name, gboolean global_search);
+	
+	/**
+	* ianjuta_symbol_manager_get_parents:
+	* @obj: Self
+	* @symbol_name: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	* 
+	* Returns: fixme
+	*/
 	IAnjutaIterable* get_parents (const gchar *symbol_name);
 }
