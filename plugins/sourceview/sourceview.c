@@ -82,6 +82,9 @@ typedef struct {
 static guint sourceview_signals[LAST_SIGNAL] = { 0 };
 static GObjectClass *parent_class = NULL;
 
+static void iselect_set(IAnjutaEditorSelection *editor, gint start, 
+					    gint end, GError **e);
+
 /* Callbacks */
 
 /* Called whenever the source_buffer is changed */
@@ -205,11 +208,11 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 	gchar *mime_type;
 
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
-	
+
 	/* Do nothing on unsaved files */
 	if (ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(sv), NULL))
 		return;
-	
+
 	g_free(sv->priv->uri);
 	sv->priv->uri = g_strdup(uri);
 	g_free(sv->priv->filename);
@@ -245,7 +248,7 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 	/* Clear buffer */
 	gtk_source_buffer_begin_not_undoable_action(sv->priv->source_buffer);
 	gtk_text_buffer_set_text(GTK_TEXT_BUFFER(sv->priv->source_buffer), "", 0);
-	
+
 	/* Load file */
 	{
 		GnomeVFSHandle* handle;
@@ -658,8 +661,8 @@ iconvert_iface_init(IAnjutaEditorConvertIface* iface)
 
 static void
 iselect_all(IAnjutaEditorSelection* edit, GError** ee)
-{
-	
+{	
+	iselect_set(edit, 0, -1, NULL);
 }
 
 static void
@@ -682,6 +685,8 @@ static void iselect_set(IAnjutaEditorSelection *editor, gint start,
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
+	const gfloat LEFT = 0.0;
+	const gfloat CENTER = 0.5;
 	
 	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									   &start_iter, start);
@@ -690,7 +695,9 @@ static void iselect_set(IAnjutaEditorSelection *editor, gint start,
 	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									  "insert", &start_iter);
 	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->source_buffer),
-									  "selection_bound", &start_iter);
+									  "selection_bound", &end_iter);
+	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(sv->priv->source_view), &start_iter,
+	                             0, TRUE, LEFT, CENTER);
 	
 }
 
@@ -750,14 +757,14 @@ static void iselect_replace(IAnjutaEditorSelection* editor,
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	
+
 	if (gtk_text_buffer_get_selection_bounds(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 										 &start_iter, &end_iter))
 	{
 		gtk_text_buffer_delete_selection(GTK_TEXT_BUFFER(sv->priv->source_buffer),
-														 FALSE, TRUE);
+														 FALSE, TRUE);		
 		gtk_text_buffer_insert(GTK_TEXT_BUFFER(sv->priv->source_buffer),
-							   &start_iter, text, length);
+							   &start_iter, text, length);	
 	}
 }
 
