@@ -1,3 +1,11 @@
+2006-02-23  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/sourceview/sourceview.c :
+	Fixed Replace, to_upper, to_lower.
+	
+	* plugins/search/search-replace_backend.c :
+	Renamed header name.
+
 2006-02-22  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-plugin-description.c,

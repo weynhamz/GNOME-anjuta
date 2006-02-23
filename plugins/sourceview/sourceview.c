@@ -79,6 +79,12 @@ typedef struct {
 	Sourceview *object;
 } SourceviewSignal;
 
+
+static gchar* iselect_get(IAnjutaEditorSelection* editor, GError **e);
+static void iselect_replace(IAnjutaEditorSelection* editor, const gchar* text,
+                            gint length, GError **e);
+
+
 static guint sourceview_signals[LAST_SIGNAL] = { 0 };
 static GObjectClass *parent_class = NULL;
 
@@ -639,15 +645,32 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 /* IAnjutaEditorConvert Interface */
 
 static void
-iconvert_to_upper(IAnjutaEditorConvert* edit, gint start_pos, gint end_pos, GError** ee)
+iconvert_to_upper(IAnjutaEditorConvert* edit, gint start_pos, gint end_pos, GError** e)
 {
-	// TODO: lot's of unicode magic...
+	gchar *buffer;
+	
+	buffer = iselect_get(IANJUTA_EDITOR_SELECTION(edit), e);
+	if (buffer)
+	{
+		buffer = g_utf8_strup(buffer, strlen(buffer));
+		iselect_replace(IANJUTA_EDITOR_SELECTION(edit), buffer, strlen(buffer), e);	
+		g_free(buffer);
+	}
+
 }
 
 static void
-iconvert_to_lower(IAnjutaEditorConvert* edit, gint start_pos, gint end_pos, GError** ee)
+iconvert_to_lower(IAnjutaEditorConvert* edit, gint start_pos, gint end_pos, GError** e)
 {
+	gchar *buffer;
 	
+	buffer = iselect_get(IANJUTA_EDITOR_SELECTION(edit), e);
+	if (buffer)
+	{
+		buffer = g_utf8_strdown(buffer, strlen(buffer));
+		iselect_replace(IANJUTA_EDITOR_SELECTION(edit), buffer, strlen(buffer), e);	
+		g_free(buffer);
+	}
 }
 
 static void
@@ -660,19 +683,19 @@ iconvert_iface_init(IAnjutaEditorConvertIface* iface)
 /* IAnjutaEditorSelection */
 
 static void
-iselect_all(IAnjutaEditorSelection* edit, GError** ee)
+iselect_all(IAnjutaEditorSelection* edit, GError** e)
 {	
 	iselect_set(edit, 0, -1, NULL);
 }
 
 static void
-iselect_to_brace(IAnjutaEditorSelection* edit, GError** ee)
+iselect_to_brace(IAnjutaEditorSelection* edit, GError** e)
 {
 	
 }
 
 static void 
-iselect_block(IAnjutaEditorSelection* edit, GError** ee)
+iselect_block(IAnjutaEditorSelection* edit, GError** e)
 {
 	
 }
@@ -756,15 +779,20 @@ static void iselect_replace(IAnjutaEditorSelection* editor,
 {
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
+	GtkTextIter iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-
+	gint position;
+	
 	if (gtk_text_buffer_get_selection_bounds(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 										 &start_iter, &end_iter))
 	{
+		position = gtk_text_iter_get_offset(&start_iter);
 		gtk_text_buffer_delete_selection(GTK_TEXT_BUFFER(sv->priv->source_buffer),
-														 FALSE, TRUE);		
+										 FALSE, TRUE);	
+		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+                                           &iter, position);		
 		gtk_text_buffer_insert(GTK_TEXT_BUFFER(sv->priv->source_buffer),
-							   &start_iter, text, length);	
+							   &iter, text, length);	
 	}
 }
 
