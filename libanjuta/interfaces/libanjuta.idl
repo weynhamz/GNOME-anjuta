@@ -980,11 +980,12 @@ interface IAnjutaEditor
 		 * @obj: Self
 		 * @start: Begin of selection
 		 * @end: End of selection
+		 * @backward: Direction of search
 		 * @err: Error propagation and reporting
 		 *
 		 * Select characters between start and end
 		 */
-		void set (gint start, gint end);
+		void set (gint start, gint end, gboolean backward);
 		
 		/**
 		 * ianjuta_editor_selection_get_start:

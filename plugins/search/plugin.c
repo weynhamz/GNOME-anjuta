@@ -62,8 +62,10 @@ static gboolean find_incremental(IAnjutaEditor* te, gchar* expression,
 	
 	if (info != NULL)
 	{
+		gboolean backward;
+		backward = dir == SD_BACKWARD?TRUE:FALSE;
 		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
-									  info->pos, info->pos + info->len, NULL);
+									  info->pos, info->pos + info->len, backward, NULL);
 		ret = TRUE;
 	}
 	else

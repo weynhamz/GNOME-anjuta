@@ -47,6 +47,9 @@
 /* Use same value as sourceview test application... */
 #define READ_BUFFER_SIZE   4096
 
+#define FORWARD 	0
+#define BACKWARD 	1
+
 static void sourceview_class_init(SourceviewClass *klass);
 static void sourceview_instance_init(Sourceview *sv);
 static void sourceview_finalize(GObject *object);
@@ -89,7 +92,7 @@ static guint sourceview_signals[LAST_SIGNAL] = { 0 };
 static GObjectClass *parent_class = NULL;
 
 static void iselect_set(IAnjutaEditorSelection *editor, gint start, 
-					    gint end, GError **e);
+					    gint end, gboolean backward, GError **e);
 
 /* Callbacks */
 
@@ -514,7 +517,7 @@ static void ieditor_insert(IAnjutaEditor *editor, gint position,
 {
 	GtkTextIter iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-
+	
 	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									   &iter, position);
 	gtk_text_buffer_insert(GTK_TEXT_BUFFER(sv->priv->source_buffer),
@@ -685,7 +688,7 @@ iconvert_iface_init(IAnjutaEditorConvertIface* iface)
 static void
 iselect_all(IAnjutaEditorSelection* edit, GError** e)
 {	
-	iselect_set(edit, 0, -1, NULL);
+	iselect_set(edit, 0, -1, FALSE, NULL);
 }
 
 static void
@@ -703,18 +706,30 @@ iselect_block(IAnjutaEditorSelection* edit, GError** e)
 
 /* Select range between start and end */
 static void iselect_set(IAnjutaEditorSelection *editor, gint start, 
-								  gint end, GError **e)
+								  gint end, gboolean backward, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
 	const gfloat LEFT = 0.0;
 	const gfloat CENTER = 0.5;
-	
-	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+
+	if (backward)
+	{
+		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									   &start_iter, start);
-	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									   &end_iter, end);
+	}	
+	else
+	{
+		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+									   &start_iter, end);
+		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+									   &end_iter, start);
+	}
+
+	
 	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									  "insert", &start_iter);
 	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->source_buffer),
@@ -722,6 +737,8 @@ static void iselect_set(IAnjutaEditorSelection *editor, gint start,
 	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(sv->priv->source_view), &start_iter,
 	                             0, TRUE, LEFT, CENTER);
 	
+	gtk_text_buffer_get_selection_bounds(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+										 &start_iter, &end_iter);
 }
 
 /* Return a newly allocated pointer containing selected text or

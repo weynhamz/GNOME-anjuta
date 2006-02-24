@@ -1,3 +1,11 @@
+2006-02-24  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/sourceview/sourceview.c, plugins/search/plugin.c,
+	plugins/search/search-replace.c, plugins/search/search-replace_backend.c,
+	libanjuta/interfaces/libanjuta.idl :
+	Search in sourceview editor (Select in buffer).
+ 
+
 2006-02-23  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/sourceview/sourceview.c :
