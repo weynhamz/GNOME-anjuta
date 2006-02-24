@@ -2251,10 +2251,15 @@ iselection_get (IAnjutaEditorSelection *editor, GError **error)
 }
 
 static void
-iselection_set(IAnjutaEditorSelection *editor, int start, int end, GError **e)
+iselection_set (IAnjutaEditorSelection *editor, gint start, gint end,
+		gboolean backwards, GError **e)
 {
+    if (!backwards)
 	scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
 						   SCI_SETSEL, start, end);
+    else
+	scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
+						   SCI_SETSEL, end, start);
 }
 
 static int
