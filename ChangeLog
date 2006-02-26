@@ -3,6 +3,8 @@
 	* plugins/sourceview/sourceview.c:
 	- Fixed some bugs
 	- Added markers
+	* plugins/subversion/svn_auth.c:
+	Fixed username/password authentification but there might be a memory corruption
 
 2006-02-26  Naba Kumar  <naba@gnome.org>
 

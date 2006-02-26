@@ -22,6 +22,8 @@
 #include "svn-auth.h"
 #include "plugin.h"
 
+#include <libanjuta/anjuta-debug.h>
+
 /* User authentication prompts handlers */
 static svn_error_t*
 svn_auth_simple_prompt_func_cb (svn_auth_cred_simple_t **cred, void *baton,
@@ -69,14 +71,18 @@ svn_auth_simple_prompt_func_cb (svn_auth_cred_simple_t **cred, void *baton,
  	switch (gtk_dialog_run(GTK_DIALOG(svn_user_auth)))
 	{
 		case GTK_RESPONSE_OK:
+		{
 			*cred = apr_pcalloc (pool, sizeof(*cred));
+			(*cred)->may_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+															 (remember_pwd));
 			(*cred)->username = apr_pstrdup (pool,
 								 gtk_entry_get_text(GTK_ENTRY(username_entry)));
 			(*cred)->password = apr_pstrdup (pool,
 								 gtk_entry_get_text(GTK_ENTRY(password_entry)));
-			(*cred)->may_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
-															 (remember_pwd));
+															 			
+			err = SVN_NO_ERROR;
 			break;
+		}
 		default:
 			err = svn_error_create (SVN_ERR_AUTHN_CREDS_UNAVAILABLE, NULL,
 									_("Authentication canceled"));
@@ -181,6 +187,7 @@ svn_auth_ssl_server_trust_prompt_func_cb (svn_auth_cred_ssl_server_trust_t **cre
 			*cred = apr_pcalloc (pool, sizeof(*cred));
 			(*cred)->may_save = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
 															 (remember_check));
+			err = SVN_NO_ERROR;
 		/* TODO: Set bitmask for accepted_failures */
 			break;
 		default:
@@ -202,7 +209,7 @@ svn_auth_ssl_client_cert_prompt_func_cb (svn_auth_cred_ssl_client_cert_t **cred,
 	
 	/* Ask for the file where client certificate of authenticity is.
 	 * I think it is some sort of private key. */
-	return NULL;
+	return SVN_NO_ERROR;
 }
 
 static svn_error_t*
@@ -214,7 +221,7 @@ svn_auth_ssl_client_cert_pw_prompt_func_cb (svn_auth_cred_ssl_client_cert_pw_t *
 	SVN *svn = (SVN*)baton;
 	
 	/* Prompt for password only. I think it is pass-phrase of the above key. */
-	return NULL;
+	return SVN_NO_ERROR;;
 }
 
 void
