@@ -1,3 +1,9 @@
+2006-02-26  Naba Kumar  <naba@gnome.org>
+
+	Patch from Anjuta Khongbantabam <k_anjuta@yahoo.com>:
+	* libanjuta/anjuta-encodings.c, libanjuta/anjuta-launcher.c,
+	libanjuta/anjuta-launcher.h: Added documentation.
+
 2006-02-24  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/text_editor.c: Fixed change in API in

@@ -45,6 +45,16 @@ typedef enum {
 	ANJUTA_LAUNCHER_OUTPUT_PTY
 } AnjutaLauncherOutputType;
 
+/**
+* AnjutaLauncherOutputCallback:
+* @launcher: a #AnjutaLauncher object
+* @output_type: Type of the output
+* @chars: Characters being outputed
+* @user_data: User data passed back to the user
+* 
+* This callback is called when new characters arrive from the launcher
+* execution.
+*/
 typedef void (*AnjutaLauncherOutputCallback) (AnjutaLauncher *launcher,
 										  AnjutaLauncherOutputType output_type,
 											  const gchar *chars,

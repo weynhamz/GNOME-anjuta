@@ -542,7 +542,8 @@ anjuta_launcher_check_password (AnjutaLauncher *launcher, const gchar *chars)
 	}
 }
 
-gboolean is_password_prompt(const gchar* line)
+static gboolean
+is_password_prompt (const gchar* line)
 {
 	gchar* password = "assword";
 	gchar* passphrase = "assphrase";

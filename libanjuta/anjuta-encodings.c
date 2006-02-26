@@ -277,6 +277,14 @@ anjuta_encoding_lazy_init (void)
 	initialized = TRUE;
 }
 
+/**
+* anjuta_encoding_get_from_charset:
+* @charset: Character set for the encoding.
+* 
+* Gets #AnjutaEncoding object corresponding to the given character set
+* 
+* Returns: #AnjutaEncoding object for the given charset
+*/
 const AnjutaEncoding *
 anjuta_encoding_get_from_charset (const gchar *charset)
 {
@@ -296,6 +304,14 @@ anjuta_encoding_get_from_charset (const gchar *charset)
 	return NULL;
 }
 
+/**
+* anjuta_encoding_get_from_index:
+* @idx: Index of the encoding object
+* 
+* Retrieves #AnjutaEncoding object at the given index.
+* 
+* Returns: #AnjutaEncoding object at the index @idx.
+*/
 const AnjutaEncoding *
 anjuta_encoding_get_from_index (gint idx)
 {
@@ -309,6 +325,14 @@ anjuta_encoding_get_from_index (gint idx)
 	return &encodings [idx];
 }
 
+/**
+* anjuta_encoding_to_string:
+* @enc: an #AnjutaEncoding object
+* 
+* Returns the string form of the given encoding.
+* 
+* Returns: string name of the encoding.
+*/
 gchar *
 anjuta_encoding_to_string (const AnjutaEncoding* enc)
 {
@@ -321,6 +345,14 @@ anjuta_encoding_to_string (const AnjutaEncoding* enc)
     	return g_strdup_printf ("%s (%s)", enc->name, enc->charset);
 }
 
+/**
+* anjuta_encoding_get_charset:
+* @enc: an #AnjutaEncoding object
+* 
+* Gets the character set for the given encoding.
+*
+* Returns: Character set
+*/
 const gchar *
 anjuta_encoding_get_charset (const AnjutaEncoding* enc)
 {
@@ -332,7 +364,14 @@ anjuta_encoding_get_charset (const AnjutaEncoding* enc)
 	return enc->charset;
 }
 
-/* Encodings */
+/**
+* anjuta_encoding_get_encodings:
+* @encodings_strings: List of encoding names.
+* 
+* Returns list of encoding objects for the given names. 
+* 
+* Returns: list of #AnjutaEncoding objects
+*/
 GList *
 anjuta_encoding_get_encodings (GList *encoding_strings)
 {
@@ -689,6 +728,13 @@ save_property (void)
 	g_free (value);
 }
 
+/**
+* anjuta_encodings_init:
+* @pref: an #AnjutaPreferences object.
+* @gxml: an #GladeXML object holding encodings dialog.
+* 
+* Initializes the encodings system.
+*/
 void
 anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 {
