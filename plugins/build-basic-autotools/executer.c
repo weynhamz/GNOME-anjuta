@@ -37,8 +37,6 @@
 
 #include "executer.h"
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.glade"
-
 static gboolean
 get_program_parameters (BasicAutotoolsPlugin *plugin,
 						const gchar *pre_select_uri,

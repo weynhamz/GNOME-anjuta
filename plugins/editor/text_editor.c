@@ -2195,7 +2195,7 @@ itext_editor_get_line_begin_position (IAnjutaEditor *editor, gint line,
 {
 	gint ln;
 	
-	g_return_val_if_fail (line < 0, -1);
+	g_return_val_if_fail (line > 0, -1);
 	
 	ln = linenum_text_editor_to_scintilla (line);
 	return scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
@@ -2208,7 +2208,7 @@ itext_editor_get_line_end_position (IAnjutaEditor *editor, gint line,
 {
 	gint ln;
 	
-	g_return_val_if_fail (line < 0, -1);
+	g_return_val_if_fail (line > 0, -1);
 	
 	ln = linenum_text_editor_to_scintilla (line);
 	return scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
@@ -2742,6 +2742,10 @@ iindicable_set (IAnjutaIndicable *te, gint begin_location, gint end_location,
 {
 	switch (indicator)
 	{
+		case IANJUTA_INDICABLE_NONE:
+			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
+									   end_location, -1);
+		break;
 		case IANJUTA_INDICABLE_IMPORTANT:
 			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
 									   end_location, 0);
@@ -2755,6 +2759,7 @@ iindicable_set (IAnjutaIndicable *te, gint begin_location, gint end_location,
 									   end_location, 2);
 		break;
 		default:
+			g_warning ("Unsupported indicator %d", indicator);
 			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
 									   end_location, -1);
 		break;

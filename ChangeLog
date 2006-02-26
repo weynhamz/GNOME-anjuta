@@ -1,3 +1,15 @@
+2006-02-26  Naba Kumar  <naba@gnome.org>
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/build-basic-autotools.h,
+	plugins/build-basic-autotools/executer.c,
+	plugins/message-view/anjuta-message-manager-plugin.glade: Moved enable/
+	disable indicator highlights preferences from message manager to
+	build plugin. Implemented message indicator highlights in build tool.
+	
+	* plugins/editor/text_editor.c: Fixed indicators.
+
 2006-02-26  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c:

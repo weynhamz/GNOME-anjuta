@@ -33,6 +33,7 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
+#include <libanjuta/interfaces/ianjuta-indicable.h>
 
 #include "build-basic-autotools.h"
 #include "executer.h"
@@ -41,6 +42,7 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
 #define MAKE_COMMAND "make"
 #define MAX_BUILD_PANES 3
+#define PREF_INDICATORS_AUTOMATIC "indicators.automatic"
 
 static gpointer parent_class;
 
@@ -52,6 +54,13 @@ typedef struct
 	pcre *regex;
 } BuildPattern;
 
+typedef struct
+{
+	gchar *filename;
+	gint line;
+	IAnjutaIndicableIndicator indicator;
+} BuildIndicatorLocation;
+
 /* Command processing */
 typedef struct
 {
@@ -61,9 +70,56 @@ typedef struct
 	AnjutaLauncher *launcher;
 	GHashTable *build_dir_stack;
 	
+	/* Indicator locations */
+	GSList *locations;
 } BuildContext;
 
 static GList *patterns_list = NULL;
+
+/* Indicator locations reported by the build */
+
+static BuildIndicatorLocation*
+build_indicator_location_new (const gchar *filename, gint line,
+							  IAnjutaIndicableIndicator indicator)
+{
+	BuildIndicatorLocation *loc = g_new0 (BuildIndicatorLocation, 1);
+	loc->filename = g_strdup (filename);
+	loc->line = line;
+	loc->indicator = indicator;
+	return loc;
+}
+
+static void
+build_indicator_location_set (BuildIndicatorLocation *loc,
+							  IAnjutaEditor *editor,
+							  const gchar *editor_filename)
+{
+	gint line_start, line_end;
+	
+	if (editor && editor_filename &&
+		IANJUTA_IS_INDICABLE (editor) &&
+		strcmp (editor_filename, loc->filename) == 0)
+	{
+		DEBUG_PRINT ("loc line: %d", loc->line);
+	
+		line_start = ianjuta_editor_get_line_begin_position (editor,
+															 loc->line, NULL);
+		line_end = ianjuta_editor_get_line_end_position (editor,
+														 loc->line, NULL);
+		ianjuta_indicable_set (IANJUTA_INDICABLE (editor),
+							   line_start, line_end, loc->indicator,
+							   NULL);
+	}
+}
+
+static void
+build_indicator_location_free (BuildIndicatorLocation *loc)
+{
+	g_free (loc->filename);
+	g_free (loc);
+}
+
+/* Build context */
 
 static void
 build_context_stack_destroy (gpointer value)
@@ -152,7 +208,30 @@ build_context_destroy (BuildContext *context)
 	if (context->build_dir_stack)
 		g_hash_table_destroy (context->build_dir_stack);
 	g_free (context->command);
+	
+	g_slist_foreach (context->locations, (GFunc) build_indicator_location_free,
+					 NULL);
+	g_slist_free (context->locations);
+	
 	g_free (context);
+}
+
+static void
+build_context_reset (BuildContext *context)
+{
+	/* Reset context */
+	g_free (context->command);
+	context->command = NULL;
+	
+	ianjuta_message_view_clear (context->message_view, NULL);
+	
+	g_hash_table_destroy (context->build_dir_stack);
+	context->build_dir_stack = NULL;
+	
+	g_slist_foreach (context->locations,
+					 (GFunc) build_indicator_location_free, NULL);
+	g_slist_free (context->locations);
+	context->locations = NULL;
 }
 
 static void
@@ -388,6 +467,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	gchar dir[2048];
 	gchar *summary = NULL;
 	gchar *freeptr = NULL;
+	BasicAutotoolsPlugin *p = (BasicAutotoolsPlugin*) context->plugin;
 	
 	g_return_if_fail (one_line != NULL);
 	
@@ -442,21 +522,50 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	if (parse_error_line(line, &dummy_fn, &dummy_int))
 	{
 		gchar *start_str, *end_str, *mid_str;
+		BuildIndicatorLocation *loc;
+		IAnjutaIndicableIndicator indicator;
 	
-		if ((strstr (line, "warning:") != NULL) || (strstr (line, _("warning:")) != NULL))
+		if ((strstr (line, "warning:") != NULL) ||
+			(strstr (line, _("warning:")) != NULL))
+		{
 			type = IANJUTA_MESSAGE_VIEW_TYPE_WARNING;
+			indicator = IANJUTA_INDICABLE_WARNING;
+		}
 		else
+		{
 			type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
+			indicator = IANJUTA_INDICABLE_CRITICAL;
+		}
 		
 		mid_str = strstr (line, dummy_fn);
-		g_message("mid_str = %s, line = %s", mid_str, line);
+		DEBUG_PRINT ("mid_str = %s, line = %s", mid_str, line);
 		start_str = g_strndup (line, mid_str - line);
 		end_str = line + strlen (start_str) + strlen (dummy_fn);
 		mid_str = g_build_filename (build_context_get_dir (context, "default"),
 									dummy_fn, NULL);
+		DEBUG_PRINT (mid_str);
+		
 		if (mid_str)
 		{
 			line = g_strconcat (start_str, mid_str, end_str, NULL);
+			
+			/* We sucessfully build an absolute path of the file (mid_str),
+			 * so we create an indicator location for it and save it.
+			 * Additionally, check of current editor holds this file and if
+			 * so, set the indicator.
+			 */
+			DEBUG_PRINT ("dummy int: %d", dummy_int);
+			
+			loc = build_indicator_location_new (mid_str, dummy_int,
+												indicator);
+			context->locations = g_slist_prepend (context->locations, loc);
+			
+			/* If current editor file is same as indicator file, set indicator */
+			if (anjuta_preferences_get_int (anjuta_shell_get_preferences (context->plugin->shell, NULL), PREF_INDICATORS_AUTOMATIC))
+			{
+				build_indicator_location_set (loc, p->current_editor,
+											  p->current_editor_filename);
+			}
 		}
 		else
 		{
@@ -614,11 +723,7 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 											   IAnjutaMessageManager, NULL);
 	if (context)
 	{
-		/* Reset context */
-		g_free (context->command);
-		ianjuta_message_view_clear (context->message_view, NULL);
-		g_hash_table_destroy (context->build_dir_stack);
-		context->build_dir_stack = NULL;
+		build_context_reset (context);
 		
 		/* It will be re-inserted in right order */
 		plugin->contexts_pool = g_list_remove (plugin->contexts_pool, context);
@@ -653,6 +758,15 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	plugin->contexts_pool = g_list_append (plugin->contexts_pool, context);
 	ianjuta_message_manager_set_current_view (mesg_manager,
 											  context->message_view, NULL);
+	
+	/* Reset indicators in editors */
+	if (IANJUTA_IS_INDICABLE (plugin->current_editor))
+		ianjuta_indicable_clear (IANJUTA_INDICABLE (plugin->current_editor),
+								 NULL);
+	g_hash_table_destroy (plugin->indicators_updated_editors);
+	plugin->indicators_updated_editors = g_hash_table_new (g_direct_hash,
+														   g_direct_equal);
+	
 	return context;
 }
 
@@ -1549,6 +1663,56 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	update_project_ui (bb_plugin);
 }
 
+static gint
+on_update_indicators_idle (gpointer data)
+{
+	AnjutaPlugin *plugin = ANJUTA_PLUGIN (data);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)data;
+	IAnjutaEditor *editor = ba_plugin->current_editor;
+	
+	/* If indicators are not yet updated in the editor, do it */
+	if (ba_plugin->current_editor_filename &&
+		IANJUTA_IS_INDICABLE (editor) &&
+		anjuta_preferences_get_int (anjuta_shell_get_preferences (plugin->shell,
+																  NULL),
+									PREF_INDICATORS_AUTOMATIC))
+	{
+		if (ba_plugin->indicators_updated_editors == NULL)
+		{
+			ba_plugin->indicators_updated_editors = 
+			    g_hash_table_new (g_direct_hash, g_direct_equal);
+		}
+		
+		if (g_hash_table_lookup (ba_plugin->indicators_updated_editors,
+								 editor) == NULL)
+		{
+			GList *node;
+			
+			// ianjuta_indicable_clear (IANJUTA_INDICABLE (editor), NULL);
+			
+			node = ba_plugin->contexts_pool;
+			while (node)
+			{
+				BuildContext *context;
+				GSList *loc_node;
+				
+				context = (BuildContext*)node->data;
+				loc_node = context->locations;
+				while (loc_node)
+				{
+					build_indicator_location_set ((BuildIndicatorLocation*) loc_node->data,
+					IANJUTA_EDITOR (editor), ba_plugin->current_editor_filename);
+					loc_node = g_slist_next (loc_node);
+				}
+				node = g_list_next (node);
+			}
+			g_hash_table_insert (ba_plugin->indicators_updated_editors,
+								 editor, editor);
+		}
+	}
+	return FALSE;
+}
+
 static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
@@ -1564,6 +1728,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	g_free (ba_plugin->current_editor_filename);
 	ba_plugin->current_editor_filename = NULL;
+	ba_plugin->current_editor = IANJUTA_EDITOR (editor);
 	
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 	if (uri)
@@ -1576,6 +1741,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_free (uri);
 		update_module_ui (ba_plugin);
 	}
+	g_idle_add (on_update_indicators_idle, plugin);
 }
 
 static void
@@ -1584,9 +1750,17 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 {
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
+	if (g_hash_table_lookup (ba_plugin->indicators_updated_editors,
+							 ba_plugin->current_editor))
+	{
+		g_hash_table_remove (ba_plugin->indicators_updated_editors,
+							 ba_plugin->current_editor);
+	}
+	
 	if (ba_plugin->current_editor_filename)
 		g_free (ba_plugin->current_editor_filename);
 	ba_plugin->current_editor_filename = NULL;
+	ba_plugin->current_editor = NULL;
 	
 	update_module_ui (ba_plugin);
 }
@@ -1595,6 +1769,8 @@ static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
+	AnjutaPreferences *prefs;
+	static gboolean initialized = FALSE;
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -1606,6 +1782,18 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_session_load),
 					  plugin);
 	
+	/* Add preferences */
+	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	if (!initialized)
+	{
+		GladeXML *gxml;
+		
+		/* Create the preferences page */
+		gxml = glade_xml_new (GLADE_FILE, "preferences_dialog_build", NULL);
+		anjuta_preferences_add_page (prefs, gxml, "Build", ICON_FILE);
+		g_object_unref (gxml);
+	}
+
 	/* Add action group */
 	ba_plugin->build_action_group = 
 		anjuta_ui_add_action_group_entries (ui,
@@ -1637,6 +1825,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
+	initialized = TRUE;
 	return TRUE;
 }
 
@@ -1679,12 +1868,24 @@ static void
 finalize (GObject *obj)
 {
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*) obj;
+	
 	g_free (ba_plugin->fm_current_filename);
 	g_free (ba_plugin->pm_current_filename);
 	g_free (ba_plugin->project_root_dir);
 	g_free (ba_plugin->current_editor_filename);
 	g_free (ba_plugin->program_args);
 	g_free (ba_plugin->configure_args);
+	if (ba_plugin->indicators_updated_editors)
+		g_hash_table_destroy (ba_plugin->indicators_updated_editors);
+	
+	ba_plugin->fm_current_filename = NULL;
+	ba_plugin->pm_current_filename = NULL;
+	ba_plugin->project_root_dir = NULL;
+	ba_plugin->current_editor_filename = NULL;
+	ba_plugin->program_args = NULL;
+	ba_plugin->configure_args = NULL;
+	ba_plugin->indicators_updated_editors = NULL;
+	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
 
@@ -1700,6 +1901,7 @@ basic_autotools_plugin_instance_init (GObject *obj)
 	ba_plugin->configure_args = NULL;
 	ba_plugin->program_args = NULL;
 	ba_plugin->run_in_terminal = TRUE;
+	ba_plugin->indicators_updated_editors = NULL;
 }
 
 static void
