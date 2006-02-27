@@ -1,3 +1,10 @@
+2006-02-27  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/document-manager/action-callbacks.c,
+	plugins/editor/text_editor.c: Fixed IAnjutaEditorLineMode interface
+	and eol conversion actions.
+
 2006-02-27  Johannes Schmid <jhs@gnome.org>
 	
 	* plugins/sourceview/sourceview.c: Implemented markers and fixed several crashers

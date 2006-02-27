@@ -2576,18 +2576,18 @@ static void
 iconvert_to_upper(IAnjutaEditorConvert* te, gint start_position,
 				  gint end_position, GError** ee)
 {
-	scintilla_send_message(SCINTILLA(TEXT_EDITOR(te)->scintilla),
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR(te)->scintilla),
 						   SCI_SETSEL, start_position, end_position);
-	text_editor_command(TEXT_EDITOR(te), ANE_UPRCASE, 0, 0);
+	text_editor_command (TEXT_EDITOR(te), ANE_UPRCASE, 0, 0);
 }
 
 static void
 iconvert_to_lower(IAnjutaEditorConvert* te, gint start_position,
 				  gint end_position, GError** ee)
 {
-	scintilla_send_message(SCINTILLA(TEXT_EDITOR(te)->scintilla),
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR(te)->scintilla),
 						   SCI_SETSEL, start_position, end_position);
-	text_editor_command(TEXT_EDITOR(te), ANE_LWRCASE, 0, 0);	
+	text_editor_command (TEXT_EDITOR(te), ANE_LWRCASE, 0, 0);	
 }
 
 static void
@@ -2600,16 +2600,39 @@ iconvert_iface_init (IAnjutaEditorConvertIface *iface)
 /* IAnjutaEditorLineMode implementation */
 
 static IAnjutaEditorLineModeType
-ilinemode_get (IAnjutaEditorLineMode* te, GError** ee)
+ilinemode_get (IAnjutaEditorLineMode* te, GError** err)
 {
-	/* FIXME: Determine the correct type */
-	return IANJUTA_EDITOR_LINE_MODE_LF;
+	glong eolmode;
+	IAnjutaEditorLineModeType retmode;
+	
+	g_return_val_if_fail (IS_TEXT_EDITOR (te), IANJUTA_EDITOR_LINE_MODE_LF);
+	
+	eolmode = scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
+									  SCI_GETEOLMODE, 0, 0);
+	
+	switch (eolmode) {
+		case SC_EOL_CR:
+			retmode = IANJUTA_EDITOR_LINE_MODE_CR;
+		break;
+		case SC_EOL_CRLF:
+			retmode = IANJUTA_EDITOR_LINE_MODE_CRLF;
+		break;
+		case SC_EOL_LF:
+			retmode = IANJUTA_EDITOR_LINE_MODE_LF;
+		break;
+		default:
+			retmode = IANJUTA_EDITOR_LINE_MODE_LF;
+			g_warning ("Should not be here");
+	}
+	return retmode;
 }
 
 static void
 ilinemode_set (IAnjutaEditorLineMode* te, IAnjutaEditorLineModeType mode,
-			   GError** ee)
+			   GError** err)
 {
+	g_return_if_fail (IS_TEXT_EDITOR (te));
+	
 	switch (mode)
 	{
 		case IANJUTA_EDITOR_LINE_MODE_LF:
@@ -2631,10 +2654,37 @@ ilinemode_set (IAnjutaEditorLineMode* te, IAnjutaEditorLineModeType mode,
 }
 
 static void
-ilinemode_fix (IAnjutaEditorLineMode* te, GError** e)
+ilinemode_convert (IAnjutaEditorLineMode *te, IAnjutaEditorLineModeType mode,
+				   GError **err)
 {
-	glong mode = 0;
-	text_editor_command (TEXT_EDITOR(te), ANE_EOL_CONVERT, mode, 0);
+	switch (mode)
+	{
+		case IANJUTA_EDITOR_LINE_MODE_LF:
+			text_editor_command (TEXT_EDITOR (te), ANE_EOL_CONVERT,
+								ANE_EOL_LF, 0);
+		break;
+		
+		case IANJUTA_EDITOR_LINE_MODE_CR:
+			text_editor_command (TEXT_EDITOR (te), ANE_EOL_CONVERT,
+								 ANE_EOL_CR, 0);
+		break;
+		
+		case IANJUTA_EDITOR_LINE_MODE_CRLF:
+			text_editor_command (TEXT_EDITOR (te), ANE_EOL_CONVERT,
+								 ANE_EOL_CRLF, 0);
+		break;
+		
+		default:
+			g_warning ("Should not reach here");
+		break;
+	}
+}
+
+static void
+ilinemode_fix (IAnjutaEditorLineMode* te, GError** err)
+{
+	IAnjutaEditorLineModeType mode = ilinemode_get (te, NULL);
+	ilinemode_convert (te, mode, NULL);
 }
 
 static void
@@ -2642,6 +2692,7 @@ ilinemode_iface_init (IAnjutaEditorLineModeIface *iface)
 {
 	iface->set = ilinemode_set;
 	iface->get = ilinemode_get;
+	iface->convert = ilinemode_convert;
 	iface->fix = ilinemode_fix;
 }
 

@@ -1152,10 +1152,22 @@ interface IAnjutaEditor
 		 * @mode: Line mode to set.
 		 * @err: Error propagation and reporting
 		 *
-		 * Set the line ending mode to the given @mode. All line end
-		 * characters in the buffer are converted to @mode characters.
+		 * Set the line ending mode to the given @mode. Existing line end
+		 * characters in the buffer are not touched. Only the newly added
+		 * texts will have @mode line end characters.
 		 */
 		void set (Type mode);
+
+		/**
+		 * ianjuta_editor_line_mode_convert:
+		 * @obj: Self
+		 * @mode: Line mode to convert.
+		 * @err: Error propagation and reporting
+		 *
+		 * Set the line ending mode to the given @mode and convert all line end
+		 * characters in the buffer to @mode line end characters.
+		 */
+		void convert (Type mode);
 		
 		/**
 		 * ianjuta_editor_line_mode_fix:
