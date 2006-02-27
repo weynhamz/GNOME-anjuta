@@ -21,6 +21,11 @@ struct _FileManagerPlugin{
 	
 	GList *gconf_notify_ids;
 	gboolean project_is_loaded;
+	
+	GdkRectangle tooltip_rect;
+	GtkWidget *tooltip_window;
+	gulong tooltip_timeout;
+	PangoLayout *tooltip_layout;
 };
 
 struct _FileManagerPluginClass{

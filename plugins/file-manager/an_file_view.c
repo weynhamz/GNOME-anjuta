@@ -67,6 +67,207 @@ typedef struct _FileFilter
 static GdlIcons *icon_set = NULL;
 static FileFilter *ff = NULL;
 
+/* Tooltip operations -- taken from gtodo/message_view */
+
+static gchar *
+tooltip_get_display_text (FileManagerPlugin *fv)
+{
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree));
+	
+	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(fv->tree),
+		fv->tooltip_rect.x, fv->tooltip_rect.y,
+		&path, NULL, NULL, NULL))
+	{
+		gchar *text;
+		
+		gtk_tree_model_get_iter (model, &iter, path);
+		gtk_tree_model_get (model, &iter, FILENAME_COLUMN, &text, -1); 
+		gtk_tree_path_free(path);
+				
+		return text;
+	}
+	return NULL;
+}
+
+static void
+tooltip_paint (GtkWidget *widget, GdkEventExpose *event, FileManagerPlugin *fv)
+{
+	GtkStyle *style;
+	gchar *tooltiptext;
+
+	tooltiptext = tooltip_get_display_text (fv);
+	
+	if (!tooltiptext)
+		tooltiptext = g_strdup (_("No message details"));
+
+	pango_layout_set_markup (fv->tooltip_layout,
+							 tooltiptext,
+							 strlen (tooltiptext));
+	pango_layout_set_wrap(fv->tooltip_layout, PANGO_WRAP_CHAR);
+	pango_layout_set_width(fv->tooltip_layout, 600000);
+	style = fv->tooltip_window->style;
+
+	gtk_paint_flat_box (style, fv->tooltip_window->window,
+						GTK_STATE_NORMAL, GTK_SHADOW_OUT,
+						NULL, fv->tooltip_window,
+						"tooltip", 0, 0, -1, -1);
+
+	gtk_paint_layout (style, fv->tooltip_window->window,
+					  GTK_STATE_NORMAL, TRUE,
+					  NULL, fv->tooltip_window,
+					  "tooltip", 4, 4, fv->tooltip_layout);
+	/*
+	   g_object_unref(layout);
+	   */
+	g_free(tooltiptext);
+	return;
+}
+
+static gboolean
+tooltip_timeout (FileManagerPlugin *fv)
+{
+	gint scr_w,scr_h, w, h, x, y;
+	gchar *tooltiptext;
+
+	tooltiptext = tooltip_get_display_text (fv);
+	
+	if (!tooltiptext)
+		tooltiptext = g_strdup (_("No file details"));
+	
+	fv->tooltip_window = gtk_window_new (GTK_WINDOW_POPUP);
+	fv->tooltip_window->parent = fv->tree;
+	gtk_widget_set_app_paintable (fv->tooltip_window, TRUE);
+	gtk_window_set_resizable (GTK_WINDOW(fv->tooltip_window), FALSE);
+	gtk_widget_set_name (fv->tooltip_window, "gtk-tooltips");
+	g_signal_connect (G_OBJECT(fv->tooltip_window), "expose_event",
+					  G_CALLBACK(tooltip_paint), fv);
+	gtk_widget_ensure_style (fv->tooltip_window);
+
+	fv->tooltip_layout =
+		gtk_widget_create_pango_layout (fv->tooltip_window, NULL);
+	pango_layout_set_wrap (fv->tooltip_layout, PANGO_WRAP_CHAR);
+	pango_layout_set_width (fv->tooltip_layout, 600000);
+	pango_layout_set_markup (fv->tooltip_layout, tooltiptext,
+							 strlen (tooltiptext));
+	scr_w = gdk_screen_width();
+	scr_h = gdk_screen_height();
+	pango_layout_get_size (fv->tooltip_layout, &w, &h);
+	w = PANGO_PIXELS(w) + 8;
+	h = PANGO_PIXELS(h) + 8;
+
+	gdk_window_get_pointer (NULL, &x, &y, NULL);
+	if (GTK_WIDGET_NO_WINDOW (fv->tree))
+		y += fv->tree->allocation.y;
+
+	x -= ((w >> 1) + 4);
+
+	if ((x + w) > scr_w)
+		x -= (x + w) - scr_w;
+	else if (x < 0)
+		x = 0;
+
+	if ((y + h + 4) > scr_h)
+		y = y - h;
+	else
+		y = y + 6;
+	/*
+	   g_object_unref(layout);
+	   */
+	gtk_widget_set_size_request (fv->tooltip_window, w, h);
+	gtk_window_move (GTK_WINDOW (fv->tooltip_window), x, y);
+	gtk_widget_show (fv->tooltip_window);
+	g_free (tooltiptext);
+	
+	return FALSE;
+}
+
+static gboolean
+tooltip_motion_cb (GtkWidget *tv, GdkEventMotion *event, FileManagerPlugin *fv)
+{
+	GtkTreePath *path;
+	
+	if (fv->tooltip_rect.y == 0 &&
+		fv->tooltip_rect.height == 0 &&
+		fv->tooltip_timeout)
+	{
+		g_source_remove (fv->tooltip_timeout);
+		fv->tooltip_timeout = 0;
+		if (fv->tooltip_window) {
+			gtk_widget_destroy (fv->tooltip_window);
+			fv->tooltip_window = NULL;
+		}
+		return FALSE;
+	}
+	if (fv->tooltip_timeout) {
+		if (((int)event->y > fv->tooltip_rect.y) &&
+			(((int)event->y - fv->tooltip_rect.height)
+				< fv->tooltip_rect.y))
+			return FALSE;
+
+		if(event->y == 0)
+		{
+			g_source_remove (fv->tooltip_timeout);
+			fv->tooltip_timeout = 0;
+			return FALSE;
+		}
+		/* We've left the cell.  Remove the timeout and create a new one below */
+		if (fv->tooltip_window) {
+			gtk_widget_destroy (fv->tooltip_window);
+			fv->tooltip_window = NULL;
+		}
+		g_source_remove (fv->tooltip_timeout);
+		fv->tooltip_timeout = 0;
+	}
+
+	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(fv->tree),
+									   event->x, event->y, &path,
+									   NULL, NULL, NULL))
+	{
+		GtkTreeSelection *selection;
+		
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(fv->tree));
+		if (gtk_tree_selection_path_is_selected (selection, path))
+		{
+			gtk_tree_view_get_cell_area (GTK_TREE_VIEW (fv->tree),
+										 path, NULL, &fv->tooltip_rect);
+			
+			if (fv->tooltip_rect.y != 0 &&
+				fv->tooltip_rect.height != 0)
+			{
+				gchar *tooltiptext;
+				
+				tooltiptext = tooltip_get_display_text (fv);
+				if (tooltiptext == NULL)
+					return FALSE;
+				g_free (tooltiptext);
+				
+				fv->tooltip_timeout =
+					g_timeout_add (500, (GSourceFunc) tooltip_timeout, fv);
+			}
+		}
+		gtk_tree_path_free (path);
+	}
+	return FALSE;
+}
+
+static void
+tooltip_leave_cb (GtkWidget *w, GdkEventCrossing *e, FileManagerPlugin *fv)
+{
+	if (fv->tooltip_timeout) {
+		g_source_remove (fv->tooltip_timeout);
+		fv->tooltip_timeout = 0;
+	}
+	if (fv->tooltip_window) {
+		gtk_widget_destroy (fv->tooltip_window);
+		g_object_unref (fv->tooltip_layout);
+		fv->tooltip_window = NULL;
+	}
+}
+
 static gboolean
 anjuta_fv_open_file (FileManagerPlugin * fv, const char *path)
 {
@@ -700,6 +901,11 @@ fv_init (FileManagerPlugin *fv)
 					  G_CALLBACK (on_tree_view_selection_changed), fv);
 	g_signal_connect (fv->tree, "row_activated",
 					  G_CALLBACK (on_treeview_row_activated), fv);
+	/* Tooltip signals */
+	g_signal_connect (G_OBJECT (fv->tree), "motion-notify-event",
+					  G_CALLBACK (tooltip_motion_cb), fv);
+	g_signal_connect (G_OBJECT (fv->tree), "leave-notify-event",
+					  G_CALLBACK (tooltip_leave_cb), fv);
 	gtk_widget_show (fv->tree);
 
 	g_object_unref (G_OBJECT (store));

@@ -43,6 +43,12 @@ struct _AnjutaSymbolViewPriv
 	GtkTreeModel *file_symbol_model;
 	TMSymbol *symbols;
 	gboolean symbols_need_update;
+	
+	/* Tooltips */
+	GdkRectangle tooltip_rect;
+	GtkWidget *tooltip_window;
+	gulong tooltip_timeout;
+	PangoLayout *tooltip_layout;
 };
 
 enum
@@ -55,6 +61,207 @@ enum
 };
 
 static GtkTreeViewClass *parent_class;
+
+/* Tooltip operations -- taken from gtodo/message_view */
+
+static gchar *
+tooltip_get_display_text (AnjutaSymbolView * sv)
+{
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (sv));
+	
+	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(sv),
+		sv->priv->tooltip_rect.x, sv->priv->tooltip_rect.y,
+		&path, NULL, NULL, NULL))
+	{
+		gchar *text;
+		
+		gtk_tree_model_get_iter (model, &iter, path);
+		gtk_tree_model_get (model, &iter, NAME_COLUMN, &text, -1); 
+		gtk_tree_path_free(path);
+				
+		return text;
+	}
+	return NULL;
+}
+
+static void
+tooltip_paint (GtkWidget *widget, GdkEventExpose *event, AnjutaSymbolView * sv)
+{
+	GtkStyle *style;
+	gchar *tooltiptext;
+
+	tooltiptext = tooltip_get_display_text (sv);
+	
+	if (!tooltiptext)
+		tooltiptext = g_strdup (_("No message details"));
+
+	pango_layout_set_markup (sv->priv->tooltip_layout,
+							 tooltiptext,
+							 strlen (tooltiptext));
+	pango_layout_set_wrap(sv->priv->tooltip_layout, PANGO_WRAP_CHAR);
+	pango_layout_set_width(sv->priv->tooltip_layout, 600000);
+	style = sv->priv->tooltip_window->style;
+
+	gtk_paint_flat_box (style, sv->priv->tooltip_window->window,
+						GTK_STATE_NORMAL, GTK_SHADOW_OUT,
+						NULL, sv->priv->tooltip_window,
+						"tooltip", 0, 0, -1, -1);
+
+	gtk_paint_layout (style, sv->priv->tooltip_window->window,
+					  GTK_STATE_NORMAL, TRUE,
+					  NULL, sv->priv->tooltip_window,
+					  "tooltip", 4, 4, sv->priv->tooltip_layout);
+	/*
+	   g_object_unref(layout);
+	   */
+	g_free(tooltiptext);
+	return;
+}
+
+static gboolean
+tooltip_timeout (AnjutaSymbolView * sv)
+{
+	gint scr_w,scr_h, w, h, x, y;
+	gchar *tooltiptext;
+
+	tooltiptext = tooltip_get_display_text (sv);
+	
+	if (!tooltiptext)
+		tooltiptext = g_strdup (_("No file details"));
+	
+	sv->priv->tooltip_window = gtk_window_new (GTK_WINDOW_POPUP);
+	sv->priv->tooltip_window->parent = GTK_WIDGET(sv);
+	gtk_widget_set_app_paintable (sv->priv->tooltip_window, TRUE);
+	gtk_window_set_resizable (GTK_WINDOW(sv->priv->tooltip_window), FALSE);
+	gtk_widget_set_name (sv->priv->tooltip_window, "gtk-tooltips");
+	g_signal_connect (G_OBJECT(sv->priv->tooltip_window), "expose_event",
+					  G_CALLBACK(tooltip_paint), sv);
+	gtk_widget_ensure_style (sv->priv->tooltip_window);
+
+	sv->priv->tooltip_layout =
+		gtk_widget_create_pango_layout (sv->priv->tooltip_window, NULL);
+	pango_layout_set_wrap (sv->priv->tooltip_layout, PANGO_WRAP_CHAR);
+	pango_layout_set_width (sv->priv->tooltip_layout, 600000);
+	pango_layout_set_markup (sv->priv->tooltip_layout, tooltiptext,
+							 strlen (tooltiptext));
+	scr_w = gdk_screen_width();
+	scr_h = gdk_screen_height();
+	pango_layout_get_size (sv->priv->tooltip_layout, &w, &h);
+	w = PANGO_PIXELS(w) + 8;
+	h = PANGO_PIXELS(h) + 8;
+
+	gdk_window_get_pointer (NULL, &x, &y, NULL);
+	if (GTK_WIDGET_NO_WINDOW (sv))
+		y += GTK_WIDGET(sv)->allocation.y;
+
+	x -= ((w >> 1) + 4);
+
+	if ((x + w) > scr_w)
+		x -= (x + w) - scr_w;
+	else if (x < 0)
+		x = 0;
+
+	if ((y + h + 4) > scr_h)
+		y = y - h;
+	else
+		y = y + 6;
+	/*
+	   g_object_unref(layout);
+	   */
+	gtk_widget_set_size_request (sv->priv->tooltip_window, w, h);
+	gtk_window_move (GTK_WINDOW (sv->priv->tooltip_window), x, y);
+	gtk_widget_show (sv->priv->tooltip_window);
+	g_free (tooltiptext);
+	
+	return FALSE;
+}
+
+static gboolean
+tooltip_motion_cb (GtkWidget *tv, GdkEventMotion *event, AnjutaSymbolView * sv)
+{
+	GtkTreePath *path;
+	
+	if (sv->priv->tooltip_rect.y == 0 &&
+		sv->priv->tooltip_rect.height == 0 &&
+		sv->priv->tooltip_timeout)
+	{
+		g_source_remove (sv->priv->tooltip_timeout);
+		sv->priv->tooltip_timeout = 0;
+		if (sv->priv->tooltip_window) {
+			gtk_widget_destroy (sv->priv->tooltip_window);
+			sv->priv->tooltip_window = NULL;
+		}
+		return FALSE;
+	}
+	if (sv->priv->tooltip_timeout) {
+		if (((int)event->y > sv->priv->tooltip_rect.y) &&
+			(((int)event->y - sv->priv->tooltip_rect.height)
+				< sv->priv->tooltip_rect.y))
+			return FALSE;
+
+		if(event->y == 0)
+		{
+			g_source_remove (sv->priv->tooltip_timeout);
+			sv->priv->tooltip_timeout = 0;
+			return FALSE;
+		}
+		/* We've left the cell.  Remove the timeout and create a new one below */
+		if (sv->priv->tooltip_window) {
+			gtk_widget_destroy (sv->priv->tooltip_window);
+			sv->priv->tooltip_window = NULL;
+		}
+		g_source_remove (sv->priv->tooltip_timeout);
+		sv->priv->tooltip_timeout = 0;
+	}
+
+	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(sv),
+									   event->x, event->y, &path,
+									   NULL, NULL, NULL))
+	{
+		GtkTreeSelection *selection;
+		
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(sv));
+		if (gtk_tree_selection_path_is_selected (selection, path))
+		{
+			gtk_tree_view_get_cell_area (GTK_TREE_VIEW (sv),
+										 path, NULL, &sv->priv->tooltip_rect);
+			
+			if (sv->priv->tooltip_rect.y != 0 &&
+				sv->priv->tooltip_rect.height != 0)
+			{
+				gchar *tooltiptext;
+				
+				tooltiptext = tooltip_get_display_text (sv);
+				if (tooltiptext == NULL)
+					return FALSE;
+				g_free (tooltiptext);
+				
+				sv->priv->tooltip_timeout =
+					g_timeout_add (500, (GSourceFunc) tooltip_timeout, sv);
+			}
+		}
+		gtk_tree_path_free (path);
+	}
+	return FALSE;
+}
+
+static void
+tooltip_leave_cb (GtkWidget *w, GdkEventCrossing *e, AnjutaSymbolView * sv)
+{
+	if (sv->priv->tooltip_timeout) {
+		g_source_remove (sv->priv->tooltip_timeout);
+		sv->priv->tooltip_timeout = 0;
+	}
+	if (sv->priv->tooltip_window) {
+		gtk_widget_destroy (sv->priv->tooltip_window);
+		g_object_unref (sv->priv->tooltip_layout);
+		sv->priv->tooltip_window = NULL;
+	}
+}
 
 static void anjuta_symbol_view_add_children (AnjutaSymbolView *sv,
 											 TMSymbol *sym,
@@ -272,6 +479,12 @@ sv_create (AnjutaSymbolView * sv)
 			  G_CALLBACK (on_symbol_view_row_expanded), sv);
 	g_signal_connect (G_OBJECT (sv), "row_collapsed",
 			  G_CALLBACK (on_symbol_view_row_collapsed), sv);
+			  
+	/* Tooltip signals */
+	g_signal_connect (G_OBJECT (sv), "motion-notify-event",
+					  G_CALLBACK (tooltip_motion_cb), sv);
+	g_signal_connect (G_OBJECT (sv), "leave-notify-event",
+					  G_CALLBACK (tooltip_leave_cb), sv);
 
 	g_object_unref (G_OBJECT (store));
 
