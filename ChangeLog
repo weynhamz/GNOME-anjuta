@@ -1,3 +1,7 @@
+2006-02-27  Johannes Schmid <jhs@gnome.org>
+	
+	* plugins/sourceview/sourceview.c: Implemented markers and fixed several crashers
+
 2006-02-26  Naba Kumar  <naba@gnome.org>
 
 	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade,

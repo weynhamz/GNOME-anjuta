@@ -1,4 +1,4 @@
-/***************************************************************************
+/****************************************************************************
  *            sourceview.c
  *
  *  Do Dez 29 00:50:15 2005
@@ -47,8 +47,7 @@
 
 #include "config.h"
 
-/* Use same value as sourceview test application... */
-#define READ_BUFFER_SIZE   4096
+#define READ_BUFFER_SIZE   16384
 
 #define FORWARD 	0
 #define BACKWARD 	1
@@ -75,6 +74,9 @@ struct SourceviewPrivate {
 	/* Markers */
 	GList* markers;
 	gint marker_count;
+	
+	/* VFS Monitor */
+	GnomeVFSMonitorHandle* monitor;
 };
 
 typedef enum {
@@ -87,16 +89,8 @@ typedef struct {
 } SourceviewSignal;
 
 
-static gchar* iselect_get(IAnjutaEditorSelection* editor, GError **e);
-static void iselect_replace(IAnjutaEditorSelection* editor, const gchar* text,
-                            gint length, GError **e);
-
-
 static guint sourceview_signals[LAST_SIGNAL] = { 0 };
 static GObjectClass *parent_class = NULL;
-
-static void iselect_set(IAnjutaEditorSelection *editor, gint start, 
-					    gint end, gboolean backward, GError **e);
 
 /* Callbacks */
 
@@ -115,6 +109,115 @@ static void on_cursor_moved(GtkTextView *widget, GtkMovementStep step,
 {
 	/* Emit IAnjutaEditor signals */
 	g_signal_emit_by_name(G_OBJECT(sv), "update_ui");
+}
+
+/* Load file */
+static void load_file(Sourceview* sv)
+{
+	GnomeVFSHandle* handle;
+	GtkTextIter iter;
+	GnomeVFSFileSize buffer_size;
+	gchar* file_buffer = g_malloc(READ_BUFFER_SIZE);
+		
+	if  (gnome_vfs_open(&handle, sv->priv->uri, GNOME_VFS_OPEN_READ) != GNOME_VFS_OK)
+	{
+		anjuta_util_dialog_error(GTK_WINDOW(sv), "Could not open file: %s", sv->priv->uri);
+	}
+	else 
+	{	
+		while (gnome_vfs_read(handle, file_buffer, READ_BUFFER_SIZE, &buffer_size)
+			 == GNOME_VFS_OK)
+		{
+			gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(sv->priv->source_buffer), &iter);
+			gtk_text_buffer_insert(GTK_TEXT_BUFFER(sv->priv->source_buffer), &iter,
+												   file_buffer, buffer_size);
+		}
+	}
+}
+
+/* Callback for dialog below */
+static void 
+on_reload_dialog_response (GtkWidget *dlg, gint res, Sourceview *sv)
+{
+	if (res == GTK_RESPONSE_YES)
+	{
+		gchar* uri = g_strdup(sv->priv->uri);
+		ianjuta_file_open(IANJUTA_FILE(sv), uri, NULL);
+		g_free(uri);
+	}
+	gtk_widget_destroy (dlg);
+}
+
+
+/* VFS-Monitor Callback */
+static void
+on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
+							const gchar *monitor_uri,
+							const gchar *info_uri,
+							GnomeVFSMonitorEventType event_type,
+							gpointer user_data)
+{
+	GtkWidget *dlg;
+	GtkWidget *parent;
+	gchar *buff;
+	Sourceview *sv = ANJUTA_SOURCEVIEW (user_data);
+	
+	DEBUG_PRINT ("File changed!!!");
+	
+	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
+		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
+		return;
+	
+	if (!anjuta_util_diff(sv->priv->uri, ianjuta_editor_get_text(IANJUTA_EDITOR(sv),
+													   0,
+													   ianjuta_editor_get_length(IANJUTA_EDITOR(sv), NULL),
+													   NULL)))
+		return;
+	
+	if (strcmp (monitor_uri, info_uri) != 0)
+		return;
+	
+	buff =
+		g_strdup_printf (_
+						 ("The file '%s' on the disk is more recent than\n"
+						  "the current buffer.\nDo you want to reload it?"),
+						 sv->priv->filename);
+	
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv));
+	
+	dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
+								  GTK_DIALOG_DESTROY_WITH_PARENT,
+								  GTK_MESSAGE_WARNING,
+								  GTK_BUTTONS_NONE, buff);
+	gtk_dialog_add_button (GTK_DIALOG (dlg),
+						   GTK_STOCK_NO,
+						   GTK_RESPONSE_NO);
+	anjuta_util_dialog_add_button (GTK_DIALOG (dlg),
+								   _("_Reload"),
+								   GTK_STOCK_REFRESH,
+								   GTK_RESPONSE_YES);
+	g_free (buff);
+	
+	gtk_window_set_transient_for (GTK_WINDOW (dlg),
+								  GTK_WINDOW (parent));
+	
+	g_signal_connect (dlg, "response",
+					  G_CALLBACK (on_reload_dialog_response),
+					  sv);
+	g_signal_connect_swapped (dlg, "delete-event",
+					  G_CALLBACK (gtk_widget_destroy),
+					  dlg);
+	gtk_widget_show (dlg);
+}
+
+/* Update Monitor on load/save */
+static void
+sourceview_update_monitor(Sourceview* sv)
+{
+	if (sv->priv->monitor != NULL)
+		gnome_vfs_monitor_cancel(sv->priv->monitor);
+	gnome_vfs_monitor_add(&sv->priv->monitor, sv->priv->uri, GNOME_VFS_MONITOR_FILE,
+		on_sourceview_uri_changed, sv);
 }
 
 static void 
@@ -274,9 +377,11 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 	if (ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(sv), NULL))
 		return;
 
-	g_free(sv->priv->uri);
+	if (sv->priv->uri)
+		g_free(sv->priv->uri);
 	sv->priv->uri = g_strdup(uri);
-	g_free(sv->priv->filename);
+	if (sv->priv->filename)
+		g_free(sv->priv->filename);
 	sv->priv->filename = g_path_get_basename(uri);
 
 	mime_type = gnome_vfs_get_mime_type (uri);
@@ -310,27 +415,18 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 	gtk_source_buffer_begin_not_undoable_action(sv->priv->source_buffer);
 	gtk_text_buffer_set_text(GTK_TEXT_BUFFER(sv->priv->source_buffer), "", 0);
 
-	/* Load file */
-	{
-		GnomeVFSHandle* handle;
-		GtkTextIter iter;
-		GnomeVFSFileSize buffer_size;
-		gchar* file_buffer = g_malloc(READ_BUFFER_SIZE);
-		
-		gnome_vfs_open(&handle, uri, GNOME_VFS_OPEN_READ);
-		while (gnome_vfs_read(handle, file_buffer, READ_BUFFER_SIZE, &buffer_size)
-			   == GNOME_VFS_OK)
-		{
-			gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(sv->priv->source_buffer), &iter);
-			gtk_text_buffer_insert(GTK_TEXT_BUFFER(sv->priv->source_buffer), &iter,
-												   file_buffer, buffer_size);
-		}
-	}
+	/* Really load file */
+	load_file(sv);	
+
+
 	gtk_source_buffer_end_not_undoable_action(sv->priv->source_buffer);
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->source_buffer), FALSE);
-
+	
 	/* Move cursor to 0 */
-	ianjuta_editor_goto_line(IANJUTA_EDITOR(sv), 0, NULL);
+	ianjuta_editor_goto_line(IANJUTA_EDITOR(sv), 1, NULL);
+	
+	/* Update Monitor */
+	sourceview_update_monitor(sv);
 }
 
 /* Return the currently loaded uri */
@@ -399,7 +495,8 @@ ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 								  !gtk_text_buffer_get_modified(GTK_TEXT_BUFFER(buffer)));
 			/* Signals of IAnjutaEditor */
 			g_signal_emit_by_name (G_OBJECT(sv), "update_ui");
-			
+			/* Update Monitor */
+			sourceview_update_monitor(sv);
 			return;
 		}
 		gnome_vfs_close(handle);
@@ -453,7 +550,7 @@ static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									 &iter, line - 1);
 	mark = gtk_text_buffer_create_mark(GTK_TEXT_BUFFER(sv->priv->source_buffer),
-							"goto_line", &iter, TRUE) ;
+							NULL, &iter, TRUE) ;
 
 	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(sv->priv->source_view),  mark);
 	gtk_text_buffer_delete_mark(GTK_TEXT_BUFFER(sv->priv->source_buffer), mark);
@@ -465,7 +562,19 @@ static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 /* Scroll to position */
 static void ieditor_goto_position(IAnjutaEditor *editor, gint position, GError **e)
 {
-	ieditor_goto_line(editor, ianjuta_editor_get_line_from_position(editor, position, NULL), NULL);
+	GtkTextIter iter;
+	GtkTextMark* mark;
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	
+	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+									 &iter,  position);
+	mark = gtk_text_buffer_create_mark(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+							NULL, &iter, TRUE) ;
+
+	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(sv->priv->source_view),  mark);
+	gtk_text_buffer_delete_mark(GTK_TEXT_BUFFER(sv->priv->source_buffer), mark);
+	gtk_text_buffer_place_cursor(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+									 &iter);
 }
 
 /* Return a newly allocated pointer containing the whole text */
@@ -701,51 +810,7 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->redo = ieditor_redo;
 }
 
-/* IAnjutaEditorConvert Interface */
-
-static void
-iconvert_to_upper(IAnjutaEditorConvert* edit, gint start_pos, gint end_pos, GError** e)
-{
-	gchar *buffer;
-	
-	buffer = iselect_get(IANJUTA_EDITOR_SELECTION(edit), e);
-	if (buffer)
-	{
-		buffer = g_utf8_strup(buffer, strlen(buffer));
-		iselect_replace(IANJUTA_EDITOR_SELECTION(edit), buffer, strlen(buffer), e);	
-		g_free(buffer);
-	}
-
-}
-
-static void
-iconvert_to_lower(IAnjutaEditorConvert* edit, gint start_pos, gint end_pos, GError** e)
-{
-	gchar *buffer;
-	
-	buffer = iselect_get(IANJUTA_EDITOR_SELECTION(edit), e);
-	if (buffer)
-	{
-		buffer = g_utf8_strdown(buffer, strlen(buffer));
-		iselect_replace(IANJUTA_EDITOR_SELECTION(edit), buffer, strlen(buffer), e);	
-		g_free(buffer);
-	}
-}
-
-static void
-iconvert_iface_init(IAnjutaEditorConvertIface* iface)
-{
-	iface->to_upper = iconvert_to_upper;
-	iface->to_lower = iconvert_to_lower;
-}
-
 /* IAnjutaEditorSelection */
-
-static void
-iselect_all(IAnjutaEditorSelection* edit, GError** e)
-{	
-	iselect_set(edit, 0, -1, FALSE, NULL);
-}
 
 static void
 iselect_to_brace(IAnjutaEditorSelection* edit, GError** e)
@@ -767,8 +832,6 @@ static void iselect_set(IAnjutaEditorSelection *editor, gint start,
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
-	const gfloat LEFT = 0.0;
-	const gfloat CENTER = 0.5;
 
 	if (backward)
 	{
@@ -785,16 +848,18 @@ static void iselect_set(IAnjutaEditorSelection *editor, gint start,
 									   &end_iter, start);
 	}
 
-	
 	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									  "insert", &start_iter);
 	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									  "selection_bound", &end_iter);
-	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(sv->priv->source_view), &start_iter,
-	                             0, TRUE, LEFT, CENTER);
-	
-	gtk_text_buffer_get_selection_bounds(GTK_TEXT_BUFFER(sv->priv->source_buffer),
-										 &start_iter, &end_iter);
+	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(sv->priv->source_view),
+			gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->source_buffer)));	
+}
+
+static void
+iselect_all(IAnjutaEditorSelection* edit, GError** e)
+{	
+	iselect_set(edit, 0, -1, FALSE, NULL);
 }
 
 /* Return a newly allocated pointer containing selected text or
@@ -918,6 +983,43 @@ iselect_iface_init(IAnjutaEditorSelectionIface *iface)
 	iface->clear = iselect_clear;
 }
 
+/* IAnjutaEditorConvert Interface */
+
+static void
+iconvert_to_upper(IAnjutaEditorConvert* edit, gint start_pos, gint end_pos, GError** e)
+{
+	gchar *buffer;
+	
+	buffer = iselect_get(IANJUTA_EDITOR_SELECTION(edit), e);
+	if (buffer)
+	{
+		buffer = g_utf8_strup(buffer, strlen(buffer));
+		iselect_replace(IANJUTA_EDITOR_SELECTION(edit), buffer, strlen(buffer), e);	
+		g_free(buffer);
+	}
+
+}
+
+static void
+iconvert_to_lower(IAnjutaEditorConvert* edit, gint start_pos, gint end_pos, GError** e)
+{
+	gchar *buffer;
+	
+	buffer = iselect_get(IANJUTA_EDITOR_SELECTION(edit), e);
+	if (buffer)
+	{
+		buffer = g_utf8_strdown(buffer, strlen(buffer));
+		iselect_replace(IANJUTA_EDITOR_SELECTION(edit), buffer, strlen(buffer), e);	
+		g_free(buffer);
+	}
+}
+
+static void
+iconvert_iface_init(IAnjutaEditorConvertIface* iface)
+{
+	iface->to_upper = iconvert_to_upper;
+	iface->to_lower = iconvert_to_lower;
+}
 
 
 /* IAnjutaAssist Interface */
@@ -1000,6 +1102,7 @@ imark_unmark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 		{
 			gtk_source_buffer_delete_marker(sv->priv->source_buffer, sv_marker->marker);
 			sv->priv->markers = g_list_remove(sv->priv->markers, node);
+			return;
 		}
 		node = g_list_next(node);
 	}	
@@ -1052,7 +1155,8 @@ imark_delete_all_markers(IAnjutaMarkable* mark, IAnjutaMarkableMarker marker,
 		if (sv_marker->type == marker)
 		{
 			gtk_source_buffer_delete_marker(sv->priv->source_buffer, sv_marker->marker);
-			sv->priv->markers = g_list_remove(sv->priv->markers, node);
+			sv->priv->markers = g_list_delete_link(sv->priv->markers, node);
+			node = sv->priv->markers;
 		}
 		node = g_list_next(node);
 	}
