@@ -45,6 +45,8 @@
 
 #include "plugin.h"
 
+#define TOOL_TIP_TIMEOUT 1000 /* milliseconds */
+
 enum {
 	PIXBUF_COLUMN,
 	FILENAME_COLUMN,
@@ -227,27 +229,22 @@ tooltip_motion_cb (GtkWidget *tv, GdkEventMotion *event, FileManagerPlugin *fv)
 									   event->x, event->y, &path,
 									   NULL, NULL, NULL))
 	{
-		GtkTreeSelection *selection;
+		gtk_tree_view_get_cell_area (GTK_TREE_VIEW (fv->tree),
+									 path, NULL, &fv->tooltip_rect);
 		
-		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(fv->tree));
-		if (gtk_tree_selection_path_is_selected (selection, path))
+		if (fv->tooltip_rect.y != 0 &&
+			fv->tooltip_rect.height != 0)
 		{
-			gtk_tree_view_get_cell_area (GTK_TREE_VIEW (fv->tree),
-										 path, NULL, &fv->tooltip_rect);
+			gchar *tooltiptext;
 			
-			if (fv->tooltip_rect.y != 0 &&
-				fv->tooltip_rect.height != 0)
-			{
-				gchar *tooltiptext;
-				
-				tooltiptext = tooltip_get_display_text (fv);
-				if (tooltiptext == NULL)
-					return FALSE;
-				g_free (tooltiptext);
-				
-				fv->tooltip_timeout =
-					g_timeout_add (500, (GSourceFunc) tooltip_timeout, fv);
-			}
+			tooltiptext = tooltip_get_display_text (fv);
+			if (tooltiptext == NULL)
+				return FALSE;
+			g_free (tooltiptext);
+			
+			fv->tooltip_timeout =
+				g_timeout_add (TOOL_TIP_TIMEOUT,
+							   (GSourceFunc) tooltip_timeout, fv);
 		}
 		gtk_tree_path_free (path);
 	}

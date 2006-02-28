@@ -34,6 +34,7 @@
 #include "an_symbol_info.h"
 
 #define MAX_STRING_LENGTH 256
+#define TOOLTIP_TIMEOUT 1000 /* milliseconds */
 
 struct _AnjutaSymbolViewPriv
 {
@@ -222,27 +223,22 @@ tooltip_motion_cb (GtkWidget *tv, GdkEventMotion *event, AnjutaSymbolView * sv)
 									   event->x, event->y, &path,
 									   NULL, NULL, NULL))
 	{
-		GtkTreeSelection *selection;
+		gtk_tree_view_get_cell_area (GTK_TREE_VIEW (sv),
+									 path, NULL, &sv->priv->tooltip_rect);
 		
-		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(sv));
-		if (gtk_tree_selection_path_is_selected (selection, path))
+		if (sv->priv->tooltip_rect.y != 0 &&
+			sv->priv->tooltip_rect.height != 0)
 		{
-			gtk_tree_view_get_cell_area (GTK_TREE_VIEW (sv),
-										 path, NULL, &sv->priv->tooltip_rect);
+			gchar *tooltiptext;
 			
-			if (sv->priv->tooltip_rect.y != 0 &&
-				sv->priv->tooltip_rect.height != 0)
-			{
-				gchar *tooltiptext;
-				
-				tooltiptext = tooltip_get_display_text (sv);
-				if (tooltiptext == NULL)
-					return FALSE;
-				g_free (tooltiptext);
-				
-				sv->priv->tooltip_timeout =
-					g_timeout_add (500, (GSourceFunc) tooltip_timeout, sv);
-			}
+			tooltiptext = tooltip_get_display_text (sv);
+			if (tooltiptext == NULL)
+				return FALSE;
+			g_free (tooltiptext);
+			
+			sv->priv->tooltip_timeout =
+				g_timeout_add (TOOLTIP_TIMEOUT,
+							   (GSourceFunc) tooltip_timeout, sv);
 		}
 		gtk_tree_path_free (path);
 	}
