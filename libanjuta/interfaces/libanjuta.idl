@@ -1193,7 +1193,7 @@ interface IAnjutaEditor
 		void autocomplete ();
 	}
 	
-	interface IAnjutaEditorView
+	interface IAnjutaEditorFolds
 	{
 		/**
 		 * ianjuta_editor_view_open_folds:
@@ -1203,7 +1203,7 @@ interface IAnjutaEditor
 		 * Open all folds
 		 *
 		 */
-		void open_folds ();
+		void open_all ();
 		
 		/**
 		 * ianjuta_editor_view_close_folds:
@@ -1213,7 +1213,7 @@ interface IAnjutaEditor
 		 * Close all folds
 		 *
 		 */
-		void close_folds ();
+		void close_all ();
 		
 		/**
 		 * ianjuta_editor_view_toggle_fold:
@@ -1223,7 +1223,48 @@ interface IAnjutaEditor
 		 * Open/Close current fold
 		 *
 		 */
-		void toggle_fold ();
+		void toggle_current ();
+	}
+	
+	/**
+	 * IAnjutaEditorView:
+	 * An editor view is a visual representation of the editor. An editor
+	 * can have multiple views. All views of an editor show the same editor
+	 * content (buffer). Consequently, any change done in one view is
+	 * updated in all other views.
+	 */
+	interface IAnjutaEditorView
+	{
+		/**
+		 * ianjuta_editor_view_create:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Creates a new view for the editor. The newly created view gets
+		 * the user focus and scrolls to the same location as last view.
+		 */
+		void create ();
+		
+		/**
+		 * ianjuta_editor_view_remove_current:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Removes currently focused editor view. It does not remove the
+		 * last view of the editor. That is, if currently there is only
+		 * one view of the editor, this function does nothing.
+		 */
+		void remove_current ();
+		
+		/**
+		 * ianjuta_editor_view_get_count:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Total number of views currently present. It will never be less
+		 * than 1. Invalid return values are considered error condition.
+		 */
+		gint get_count ();
 	}
 }
 

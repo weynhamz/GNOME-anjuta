@@ -1,4 +1,17 @@
-2006-02-27  Naba Kumar  <naba@gnome.org>
+2006-02-28  Naba Kumar <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/document-manager/action-callbacks.c,
+	plugins/document-manager/plugin.c,
+	plugins/editor/text_editor.c: Renamed IAnjutaEditorView to
+	IAnjutaEditorFolds and implemented IAnjutaEditorView as editor views.
+	Added interface checks in document manager and enable/disable
+	menus based on supported interface.
+	
+	* plugins/project-import/anjuta-project-import.glade: Set some
+	resonable size for the import dialog.
+ 
+ 2006-02-27  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,
 	plugins/document-manager/action-callbacks.c,

@@ -40,6 +40,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-line-mode.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-view.h>
+#include <libanjuta/interfaces/ianjuta-editor-folds.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -2709,32 +2710,62 @@ iassist_iface_init(IAnjutaEditorAssistIface* iface)
 	iface->autocomplete = iassist_autocomplete;
 }
 
-/* IAnutaEditorView implementation */
+/* IAnutaEditorFolds implementation */
+
 static void
-iview_open_folds(IAnjutaEditorView* view, GError **e)
+ifolds_open_all(IAnjutaEditorFolds* view, GError **e)
 {
 	text_editor_command(TEXT_EDITOR(view), ANE_OPEN_FOLDALL, 0, 0);
 }
 
 static void
-iview_close_folds(IAnjutaEditorView* view, GError **e)
+ifolds_close_all(IAnjutaEditorFolds* view, GError **e)
 {
 	text_editor_command(TEXT_EDITOR(view), ANE_CLOSE_FOLDALL, 0, 0);
 }
 
 static void
-iview_toggle_fold(IAnjutaEditorView* view, GError **e)
+ifolds_toggle_current(IAnjutaEditorFolds* view, GError **e)
 {
 	text_editor_command(TEXT_EDITOR(view), ANE_TOGGLE_FOLD, 0, 0);
 }
 
 static void
-iview_iface_init(IAnjutaEditorViewIface* iface)
+ifolds_iface_init(IAnjutaEditorFoldsIface* iface)
 {
-	iface->open_folds = iview_open_folds;
-	iface->close_folds = iview_close_folds;
-	iface->toggle_fold = iview_toggle_fold;
-	
+	iface->open_all = ifolds_open_all;
+	iface->close_all = ifolds_close_all;
+	iface->toggle_current = ifolds_toggle_current;
+}
+
+/* IAnjutaEditorView implementation */
+static void
+iview_create (IAnjutaEditorView *view, GError **err)
+{
+	g_return_if_fail (IS_TEXT_EDITOR (view));
+	text_editor_add_view (TEXT_EDITOR (view));
+}
+
+static void
+iview_remove_current (IAnjutaEditorView *view, GError **err)
+{
+	g_return_if_fail (IS_TEXT_EDITOR (view));
+	text_editor_remove_view (TEXT_EDITOR (view));
+}
+
+static gint
+iview_get_count (IAnjutaEditorView *view, GError **err)
+{
+	g_return_val_if_fail (IS_TEXT_EDITOR (view), -1);
+	return g_list_length (TEXT_EDITOR (view)->views);
+}
+
+static void
+iview_iface_init (IAnjutaEditorViewIface *iface)
+{
+	iface->create = iview_create;
+	iface->remove_current = iview_remove_current;
+	iface->get_count = iview_get_count;
 }
 
 /* IAnjutaBookmark implementation */
@@ -2829,7 +2860,7 @@ iindicable_iface_init (IAnjutaIndicableIface *iface)
 	iface->set = iindicable_set;
 	iface->clear = iindicable_clear;
 }
-				
+
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -2839,6 +2870,7 @@ ANJUTA_TYPE_ADD_INTERFACE(iselection, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
 ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iview, IANJUTA_TYPE_EDITOR_VIEW);
+ANJUTA_TYPE_ADD_INTERFACE(ifolds, IANJUTA_TYPE_EDITOR_FOLDS);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(imarkable, IANJUTA_TYPE_MARKABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iindicable, IANJUTA_TYPE_INDICABLE);

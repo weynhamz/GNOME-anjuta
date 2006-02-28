@@ -27,6 +27,11 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-editor-selection.h>
+#include <libanjuta/interfaces/ianjuta-editor-convert.h>
+#include <libanjuta/interfaces/ianjuta-editor-view.h>
+#include <libanjuta/interfaces/ianjuta-editor-line-mode.h>
+#include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 
@@ -557,7 +562,7 @@ update_editor_ui_disable_all (AnjutaPlugin *plugin)
 }
 
 static void
-update_editor_save_ui (AnjutaPlugin *plugin, IAnjutaEditor *editor)
+update_editor_ui_save_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
@@ -582,6 +587,92 @@ update_editor_save_ui (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 }
 
 static void
+update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
+{
+	AnjutaUI *ui;
+	GtkAction *action;
+	gboolean flag;
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+
+	/* IAnjutaEditorSelection */
+	flag = IANJUTA_IS_EDITOR_SELECTION (editor);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionEditCut");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionEditCopy");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionEditPaste");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionEditClear");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorSelect",
+								   "ActionEditSelectAll");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorSelect",
+								   "ActionEditSelectToBrace");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorSelect",
+								   "ActionEditSelectBlock");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	/* IAnjutaEditorConvert */
+	flag = IANJUTA_IS_EDITOR_CONVERT (editor);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
+								   "ActionEditMakeSelectionUppercase");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
+								   "ActionEditMakeSelectionLowercase");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	/* IAnjutaEditorLineMode */
+	flag = IANJUTA_IS_EDITOR_LINE_MODE (editor);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
+								   "ActionEditConvertCRLF");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
+								   "ActionEditConvertLF");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
+								   "ActionEditConvertCR");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
+								   "ActionEditConvertEOL");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	/* IAnjutaEditorView */
+	flag = IANJUTA_IS_EDITOR_VIEW (editor);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionViewEditorAddView");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionViewEditorRemoveView");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	/* IAnjutaEditorAssist */
+	flag = IANJUTA_IS_EDITOR_ASSIST (editor);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionEditAutocomplete");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
+								   "ActionEditCalltip");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+}
+
+static void
 update_editor_ui (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 {
 	if (editor == NULL)
@@ -590,14 +681,15 @@ update_editor_ui (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 		return;
 	}
 	update_editor_ui_enable_all (plugin);
-	update_editor_save_ui (plugin, editor);
+	update_editor_ui_save_items (plugin, editor);
+	update_editor_ui_interface_items (plugin, editor);
 }
 
 static void
 on_editor_update_save_ui (IAnjutaEditor *editor, gboolean entered,
 						  AnjutaPlugin *plugin)
 {
-	update_editor_save_ui (plugin, editor);
+	update_editor_ui_save_items (plugin, editor);
 }
 
 #define REGISTER_ICON(icon, stock_id) \
