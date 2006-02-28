@@ -335,27 +335,12 @@ sourceview_new(const gchar* uri, const gchar* filename)
 	gtk_container_add(GTK_CONTAINER(sv), sv->priv->source_view);
 	gtk_widget_show_all(GTK_WIDGET(sv));
 	
-	g_message("URI = %s", sv->priv->uri);
-
 	if (filename && strlen(filename) > 0)
 		sv->priv->filename = g_strdup(filename); 
 	else 
 		sv->priv->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
 	if (uri != NULL && strlen(uri) > 0)
 	{
-		GnomeVFSResult result;
-		GnomeVFSURI* vfs_uri;
-		GnomeVFSFileInfo info = {0,0};
-		
-		new_file_count--;
-		if (sv->priv->filename)
-			g_free (sv->priv->filename);
-		vfs_uri = gnome_vfs_uri_new(uri);
-		result = gnome_vfs_get_file_info_uri(vfs_uri, &info, GNOME_VFS_SET_FILE_INFO_NONE);
-		gnome_vfs_uri_unref(vfs_uri); 
-		sv->priv->filename = g_strdup(info.name);
-		sv->priv->uri = g_strdup(uri);
-
 		ianjuta_file_open(IANJUTA_FILE(sv), uri, NULL);
 	}	
 	
@@ -746,6 +731,14 @@ static void ieditor_set_popup_menu(IAnjutaEditor *editor,
 								   GtkWidget* menu, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	GList* menus;
+
+	menus = gtk_menu_get_for_attach_widget(GTK_WIDGET(sv->priv->source_view));
+	while (menus)
+	{
+		gtk_menu_detach(menus->data);
+		menus = g_list_next(menus);
+	}
 	gtk_menu_attach_to_widget(GTK_MENU(menu), sv->priv->source_view,
 							  NULL);
 }

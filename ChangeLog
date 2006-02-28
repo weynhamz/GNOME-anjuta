@@ -1,3 +1,20 @@
+2006-02-28  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/file-wizard/Makefile.am
+	plugins/file-wizard/action-callbacks.c (removed)
+	plugins/file-wizard/action-callbacks.h (removed)
+	plugins/file-wizard/anjuta-file-wizard.ui
+	plugins/file-wizard/plugin.c: (activate_plugin),
+	(deactivate_plugin)
+	plugins/file-wizard/plugin.h:
+	Removed Edit->Insert Text submenu (replace by macros plugin)
+	
+	* plugins/sourceview/sourceview.c: (sourceview_new),
+	(ieditor_set_popup_menu):
+	Fixed some more bugs
+	
+	* plugins/subversion/svn-threat.h (removed): Removed ununsed file
+
 2006-02-28  Naba Kumar <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,

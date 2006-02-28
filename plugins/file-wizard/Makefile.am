@@ -2,10 +2,6 @@
 wizard_gladedir = $(anjuta_glade_dir)
 wizard_glade_DATA =  anjuta-file-wizard.glade
 
-# Plugin UI file
-wizard_uidir = $(anjuta_ui_dir)
-wizard_ui_DATA =  anjuta-file-wizard.ui
-
 # Plugin pixmaps
 wizard_pixmapsdir = $(anjuta_image_dir)
 wizard_pixmaps_DATA = \
@@ -32,8 +28,6 @@ libanjuta_file_wizard_la_LIBADD = \
 libanjuta_file_wizard_la_SOURCES= \
 	file.c \
 	file.h \
-	action-callbacks.c \
-	action-callbacks.h \
 	plugin.c \
 	plugin.h
 
@@ -41,5 +35,4 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(wizard_pixmaps_DATA) \
 	$(wizard_plugin_DATA) \
-	$(wizard_glade_DATA) \
-	$(wizard_ui_DATA)
+	$(wizard_glade_DATA)

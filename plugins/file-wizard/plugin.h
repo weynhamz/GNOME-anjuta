@@ -30,10 +30,8 @@ typedef struct _AnjutaFileWizardPluginClass AnjutaFileWizardPluginClass;
 
 struct _AnjutaFileWizardPlugin {
 	AnjutaPlugin parent;
-	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
 	GtkActionGroup *action_group;
-	gint merge_id;
 	gint root_watch_id;
 	gchar *top_dir;
 };
