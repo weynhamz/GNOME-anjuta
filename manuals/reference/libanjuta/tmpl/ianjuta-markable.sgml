@@ -69,25 +69,12 @@ ianjuta-markable
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_markable_mark ##### -->
+<!-- ##### FUNCTION ianjuta_markable_delete_all_markers ##### -->
 <para>
 
 </para>
 
 @obj: 
-@location: 
-@marker: 
-@err: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_markable_unmark ##### -->
-<para>
-
-</para>
-
-@obj: 
-@location: 
 @marker: 
 @err: 
 
@@ -115,12 +102,25 @@ ianjuta-markable
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_markable_delete_all_markers ##### -->
+<!-- ##### FUNCTION ianjuta_markable_mark ##### -->
 <para>
 
 </para>
 
 @obj: 
+@location: 
+@marker: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_markable_unmark ##### -->
+<para>
+
+</para>
+
+@obj: 
+@location: 
 @marker: 
 @err: 
 

@@ -17,15 +17,6 @@ Underlying glue plugin
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### STRUCT GluePlugin ##### -->
-<para>
-
-</para>
-
-@parent: 
-@module: 
-@path: 
-
 <!-- ##### STRUCT GluePluginComponent ##### -->
 <para>
 

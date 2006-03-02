@@ -1,0 +1,242 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-symbol
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### ENUM IAnjutaSymbolField ##### -->
+<para>
+
+</para>
+
+@IANJUTA_SYMBOL_FIELD_NONE: 
+@IANJUTA_SYMBOL_FIELD_NAME: 
+@IANJUTA_SYMBOL_FIELD_TYPE: 
+@IANJUTA_SYMBOL_FIELD_FILE: 
+@IANJUTA_SYMBOL_FIELD_LINE: 
+@IANJUTA_SYMBOL_FIELD_POSITION: 
+@IANJUTA_SYMBOL_FIELD_SCOPE: 
+@IANJUTA_SYMBOL_FIELD_INHERITANCE: 
+@IANJUTA_SYMBOL_FIELD_ARGUMENTS: 
+@IANJUTA_SYMBOL_FIELD_LOCAL: 
+@IANJUTA_SYMBOL_FIELD_TIME: 
+@IANJUTA_SYMBOL_FIELD_VARTYPE: 
+@IANJUTA_SYMBOL_FIELD_ACCESS: 
+@IANJUTA_SYMBOL_FIELD_IMPLEMENTATION: 
+@IANJUTA_SYMBOL_FIELD_LANGUAGE: 
+@IANJUTA_SYMBOL_FIELD_INACTIVE: 
+@IANJUTA_SYMBOL_FIELD_POINTER: 
+@IANJUTA_SYMBOL_FIELD_MAX: 
+
+<!-- ##### ENUM IAnjutaSymbolType ##### -->
+<para>
+
+</para>
+
+@IANJUTA_SYMBOL_TYPE_UNDEF: 
+@IANJUTA_SYMBOL_TYPE_CLASS: 
+@IANJUTA_SYMBOL_TYPE_ENUM: 
+@IANJUTA_SYMBOL_TYPE_ENUMERATOR: 
+@IANJUTA_SYMBOL_TYPE_FIELD: 
+@IANJUTA_SYMBOL_TYPE_FUNCTION: 
+@IANJUTA_SYMBOL_TYPE_INTERFACE: 
+@IANJUTA_SYMBOL_TYPE_MEMBER: 
+@IANJUTA_SYMBOL_TYPE_METHOD: 
+@IANJUTA_SYMBOL_TYPE_NAMESPACE: 
+@IANJUTA_SYMBOL_TYPE_PACKAGE: 
+@IANJUTA_SYMBOL_TYPE_PROTOTYPE: 
+@IANJUTA_SYMBOL_TYPE_STRUCT: 
+@IANJUTA_SYMBOL_TYPE_TYPEDEF: 
+@IANJUTA_SYMBOL_TYPE_UNION: 
+@IANJUTA_SYMBOL_TYPE_VARIABLE: 
+@IANJUTA_SYMBOL_TYPE_EXTERNVAR: 
+@IANJUTA_SYMBOL_TYPE_MACRO: 
+@IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG: 
+@IANJUTA_SYMBOL_TYPE_FILE: 
+@IANJUTA_SYMBOL_TYPE_OTHER: 
+@IANJUTA_SYMBOL_TYPE_MAX: 
+
+<!-- ##### MACRO IANJUTA_SYMBOL_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaSymbol ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaSymbolIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@access: 
+@args: 
+@file: 
+@icon: 
+@impl: 
+@inheritance: 
+@is_local: 
+@line: 
+@name: 
+@pointer_order: 
+@scope: 
+@type: 
+@var_type: 
+
+<!-- ##### FUNCTION ianjuta_symbol_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_access ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_args ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_file ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_icon ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_impl ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_inheritance ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_is_local ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_line ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_name ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_pointer_order ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_scope ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_type ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_var_type ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+

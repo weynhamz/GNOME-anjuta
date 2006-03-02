@@ -32,6 +32,38 @@ Plugins management and activation
 
 
 
+<!-- ##### FUNCTION anjuta_plugins_get_installed_dialog ##### -->
+<para>
+
+</para>
+
+@shell: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@ui: 
+@prefs: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_get_description ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_get_description_by_id ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin_id: 
+@Returns: 
+
+
 <!-- ##### FUNCTION anjuta_plugins_query ##### -->
 <para>
 
@@ -45,13 +77,27 @@ Plugins management and activation
 @Returns: 
 
 
-<!-- ##### FUNCTION anjuta_plugins_get_description ##### -->
+<!-- ##### FUNCTION anjuta_plugins_select ##### -->
 <para>
 
 </para>
 
 @shell: 
-@plugin: 
+@title: 
+@description: 
+@plugin_descriptions: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_select_and_activate ##### -->
+<para>
+
+</para>
+
+@shell: 
+@title: 
+@description: 
+@plugin_descriptions: 
 @Returns: 
 
 
@@ -67,26 +113,43 @@ Plugins management and activation
 @interface_name: 
 
 
-<!-- ##### MACRO anjuta_plugins_get_interface ##### -->
+<!-- ##### FUNCTION anjuta_plugins_get_plugin_by_id ##### -->
 <para>
 
 </para>
 
 @shell: 
-@iface_type: 
-@error: 
+@plugin_id: 
+@Returns: 
 
 
-<!-- ##### FUNCTION anjuta_plugins_get_installed_dialog ##### -->
+<!-- ##### FUNCTION anjuta_plugins_get_active_plugins ##### -->
 <para>
 
 </para>
 
 @shell: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@ui: 
-@prefs: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_unload_plugin ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugins_unload_plugin_by_id ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin_id: 
+@Returns: 
 
 
 <!-- ##### FUNCTION anjuta_plugins_unload_all ##### -->
@@ -97,15 +160,13 @@ Plugins management and activation
 @shell: 
 
 
-<!-- ##### FUNCTION anjuta_plugins_select ##### -->
+<!-- ##### MACRO anjuta_plugins_get_interface ##### -->
 <para>
 
 </para>
 
 @shell: 
-@title: 
-@description: 
-@plugin_descriptions: 
-@Returns: 
+@iface_type: 
+@error: 
 
 

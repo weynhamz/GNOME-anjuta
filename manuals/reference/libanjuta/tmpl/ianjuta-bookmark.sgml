@@ -1,0 +1,109 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-bookmark
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### MACRO IANJUTA_BOOKMARK_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaBookmark ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaBookmarkIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@clear_all: 
+@first: 
+@last: 
+@next: 
+@previous: 
+@toggle: 
+
+<!-- ##### FUNCTION ianjuta_bookmark_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_bookmark_clear_all ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_bookmark_first ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_bookmark_last ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_bookmark_next ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_bookmark_previous ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_bookmark_toggle ##### -->
+<para>
+
+</para>
+
+@obj: 
+@location: 
+@ensure_visible: 
+@err: 
+
+

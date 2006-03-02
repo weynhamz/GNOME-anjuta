@@ -57,6 +57,16 @@ ianjuta-iterable
 @Returns: 
 
 
+<!-- ##### FUNCTION ianjuta_iterable_first ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
 <!-- ##### FUNCTION ianjuta_iterable_foreach ##### -->
 <para>
 
@@ -84,7 +94,49 @@ ianjuta-iterable
 @iter: 
 
 
+<!-- ##### FUNCTION ianjuta_iterable_get_length ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_iterable_get_nth ##### -->
+<para>
+
+</para>
+
+@obj: 
+@data_type: 
+@position: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_iterable_get_position ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
 <!-- ##### FUNCTION ianjuta_iterable_get_settable ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_iterable_last ##### -->
 <para>
 
 </para>
@@ -129,5 +181,17 @@ ianjuta-iterable
 @err: 
 <!-- # Unused Parameters # -->
 @iter: 
+
+
+<!-- ##### FUNCTION ianjuta_iterable_set_nth ##### -->
+<para>
+
+</para>
+
+@obj: 
+@data_type: 
+@data: 
+@position: 
+@err: 
 
 

@@ -77,6 +77,46 @@
 @Returns: 
 
 
+<!-- ##### FUNCTION ianjuta_editor_append ##### -->
+<para>
+
+</para>
+
+@obj: 
+@text: 
+@length: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_can_redo ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_can_undo ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_erase_all ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
 <!-- ##### FUNCTION ianjuta_editor_get_attributes ##### -->
 <para>
 
@@ -92,19 +132,89 @@
 @e: 
 
 
-<!-- ##### FUNCTION ianjuta_editor_get_text ##### -->
+<!-- ##### FUNCTION ianjuta_editor_get_column ##### -->
 <para>
 
 </para>
 
 @obj: 
-@start: 
-@end: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_current_pos ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_current_word ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_filename ##### -->
+<para>
+
+</para>
+
+@obj: 
 @err: 
 @Returns: 
 <!-- # Unused Parameters # -->
 @editor: 
 @e: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_length ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_line_begin_position ##### -->
+<para>
+
+</para>
+
+@obj: 
+@line: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_line_end_position ##### -->
+<para>
+
+</para>
+
+@obj: 
+@line: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_line_from_position ##### -->
+<para>
+
+</para>
+
+@obj: 
+@position: 
+@err: 
+@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_editor_get_lineno ##### -->
@@ -117,7 +227,7 @@
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_editor_get_length ##### -->
+<!-- ##### FUNCTION ianjuta_editor_get_overwrite ##### -->
 <para>
 
 </para>
@@ -137,22 +247,14 @@
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_editor_get_current_word ##### -->
+<!-- ##### FUNCTION ianjuta_editor_get_text ##### -->
 <para>
 
 </para>
 
 @obj: 
-@err: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_editor_get_filename ##### -->
-<para>
-
-</para>
-
-@obj: 
+@start: 
+@end: 
 @err: 
 @Returns: 
 <!-- # Unused Parameters # -->
@@ -192,6 +294,34 @@
 @position: 
 @text: 
 @length: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_redo ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_set_popup_menu ##### -->
+<para>
+
+</para>
+
+@obj: 
+@menu: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_undo ##### -->
+<para>
+
+</para>
+
+@obj: 
 @err: 
 
 

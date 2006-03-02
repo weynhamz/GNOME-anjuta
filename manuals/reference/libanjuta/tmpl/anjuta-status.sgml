@@ -17,28 +17,6 @@ AnjutaStatus
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### STRUCT AnjutaStatus ##### -->
-<para>
-
-</para>
-
-
-<!-- ##### SIGNAL AnjutaStatus::busy ##### -->
-<para>
-
-</para>
-
-@anjutastatus: the object which received the signal.
-@arg1: 
-
-<!-- ##### STRUCT AnjutaStatusClass ##### -->
-<para>
-
-</para>
-
-@parent_class: 
-@busy: 
-
 <!-- ##### STRUCT AnjutaStatusPriv ##### -->
 <para>
 
@@ -81,6 +59,14 @@ AnjutaStatus
 @obj: 
 
 
+<!-- ##### MACRO anjuta_status_clear_stack ##### -->
+<para>
+
+</para>
+
+@obj: 
+
+
 <!-- ##### FUNCTION anjuta_status_busy_push ##### -->
 <para>
 
@@ -115,5 +101,61 @@ AnjutaStatus
 
 @status: 
 @widget: 
+
+
+<!-- ##### FUNCTION anjuta_status ##### -->
+<para>
+
+</para>
+
+@status: 
+@mesg: 
+@timeout: 
+
+
+<!-- ##### FUNCTION anjuta_status_progress_set_splash ##### -->
+<para>
+
+</para>
+
+@status: 
+@splash_file: 
+@splash_progress_position: 
+
+
+<!-- ##### FUNCTION anjuta_status_progress_disable_splash ##### -->
+<para>
+
+</para>
+
+@status: 
+@disable_splash: 
+
+
+<!-- ##### FUNCTION anjuta_status_progress_add_ticks ##### -->
+<para>
+
+</para>
+
+@status: 
+@ticks: 
+
+
+<!-- ##### FUNCTION anjuta_status_progress_tick ##### -->
+<para>
+
+</para>
+
+@status: 
+@icon: 
+@text: 
+
+
+<!-- ##### FUNCTION anjuta_status_progress_reset ##### -->
+<para>
+
+</para>
+
+@status: 
 
 

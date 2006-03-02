@@ -17,13 +17,6 @@
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### MACRO IANJUTA_MESSAGE_VIEW_ERROR ##### -->
-<para>
-
-</para>
-
-
-
 <!-- ##### ENUM IAnjutaMessageViewType ##### -->
 <para>
 
@@ -33,6 +26,13 @@
 @IANJUTA_MESSAGE_VIEW_TYPE_INFO: 
 @IANJUTA_MESSAGE_VIEW_TYPE_WARNING: 
 @IANJUTA_MESSAGE_VIEW_TYPE_ERROR: 
+
+<!-- ##### MACRO IANJUTA_MESSAGE_VIEW_ERROR ##### -->
+<para>
+
+</para>
+
+
 
 <!-- ##### STRUCT IAnjutaMessageView ##### -->
 <para>
@@ -64,16 +64,6 @@
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_message_view_buffer_append ##### -->
-<para>
-
-</para>
-
-@obj: 
-@text: 
-@err: 
-
-
 <!-- ##### FUNCTION ianjuta_message_view_append ##### -->
 <para>
 
@@ -90,6 +80,16 @@
 @e: 
 
 
+<!-- ##### FUNCTION ianjuta_message_view_buffer_append ##### -->
+<para>
+
+</para>
+
+@obj: 
+@text: 
+@err: 
+
+
 <!-- ##### FUNCTION ianjuta_message_view_clear ##### -->
 <para>
 
@@ -100,16 +100,6 @@
 <!-- # Unused Parameters # -->
 @message_view: 
 @e: 
-
-
-<!-- ##### FUNCTION ianjuta_message_view_get_current_message ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_message_view_get_all_messages ##### -->
@@ -123,6 +113,16 @@
 <!-- # Unused Parameters # -->
 @message_view: 
 @e: 
+
+
+<!-- ##### FUNCTION ianjuta_message_view_get_current_message ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_message_view_select_next ##### -->

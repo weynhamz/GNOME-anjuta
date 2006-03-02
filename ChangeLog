@@ -1,3 +1,85 @@
+2006-03-02 naba  <naba@>
+
+	* manuals/reference/libanjuta/Makefile.am,
+	manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	manuals/reference/libanjuta/libanjuta.types,
+	manuals/reference/libanjuta/tmpl/anjuta-children.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-launcher.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-marshal.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-plugin.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences-dialog.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-session.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-shell.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-status.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-ui.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-utils.sgml,
+	manuals/reference/libanjuta/tmpl/cell-renderer-captioned-image.sgml,
+	manuals/reference/libanjuta/tmpl/e-splash.sgml,
+	manuals/reference/libanjuta/tmpl/glue-factory.sgml,
+	manuals/reference/libanjuta/tmpl/glue-plugin.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-bookmark.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-buildable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-debugger-manager.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-debugger.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-document-manager.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor-assist.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor-convert.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor-edit.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor-factory.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor-folds.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor-line-mode.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor-selection.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor-view.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-file.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-indicable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable-tree.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-macro.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-markable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-message-manager.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-message-view.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-project-manager.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-symbol-manager.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-symbol.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-vcs.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml,
+	manuals/reference/libanjuta/tmpl/plugins.sgml,
+	(added) manuals/reference/libanjuta/tmpl/anjuta-session.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-assist.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-convert.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-edit.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-factory.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-folds.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-line-mode.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-selection.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-view.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-indicable.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-macro.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-symbol-manager.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-symbol.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-vcs.sgml: Updated
+	documentation.
+
+2006-02-28  Naba Kumar <naba@gnome.org>
+
+	(added) manuals/reference/libanjuta/tmpl/anjuta-session.sgml,
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-assist.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-convert.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-edit.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-factory.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-folds.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-line-mode.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-selection.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-editor-view.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-indicable.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-macro.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-symbol-manager.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-symbol.sgml
+	(added) manuals/reference/libanjuta/tmpl/ianjuta-vcs.sgml
+
 2006-03-02  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/sourceview/sourceview.c:

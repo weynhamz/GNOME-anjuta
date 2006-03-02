@@ -98,6 +98,174 @@ Gnome file selector (deprecated)
 GnomeFileList
 
 
+<!-- ##### SECTION ./tmpl/ianjuta-context-list.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-list.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-list.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-list.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-list.sgml:Title ##### -->
+ianjuta-context-list
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-text.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-text.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-text.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-text.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-text.sgml:Title ##### -->
+ianjuta-context-text
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-tree.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-tree.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-tree.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-tree.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context-tree.sgml:Title ##### -->
+ianjuta-context-tree
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-context.sgml:Title ##### -->
+ianjuta-context
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-renderable.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-renderable.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-renderable.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-renderable.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-renderable.sgml:Title ##### -->
+ianjuta-renderable
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-sand-box.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-sand-box.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-sand-box.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-sand-box.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-sand-box.sgml:Title ##### -->
+ianjuta-sand-box
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-transformable.sgml:Long_Description ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-transformable.sgml:See_Also ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-transformable.sgml:Short_Description ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-transformable.sgml:Stability_Level ##### -->
+
+
+
+<!-- ##### SECTION ./tmpl/ianjuta-transformable.sgml:Title ##### -->
+ianjuta-transformable
+
+
 <!-- ##### SECTION ./tmpl/pixmaps.sgml:Long_Description ##### -->
 <para>
 
@@ -920,7 +1088,75 @@ Properties
 </para>
 
 
+<!-- ##### STRUCT AnjutaCellRendererCaptionedImage ##### -->
+<para>
+
+</para>
+
+@parent: 
+@image: 
+@caption: 
+
+<!-- ##### STRUCT AnjutaLauncher ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL AnjutaLauncher::busy ##### -->
+<para>
+
+</para>
+
+@anjutalauncher: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL AnjutaLauncher::child-exited ##### -->
+<para>
+
+</para>
+
+@anjutalauncher: the object which received the signal.
+@arg1: 
+@arg2: 
+@arg3: 
+
+<!-- ##### STRUCT AnjutaLauncherClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+@child_exited_signal: 
+@busy_signal: 
+
+<!-- ##### STRUCT AnjutaPlugin ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL AnjutaPlugin::activated ##### -->
+<para>
+
+</para>
+
+@anjutaplugin: the object which received the signal.
+
+<!-- ##### SIGNAL AnjutaPlugin::deactivated ##### -->
+<para>
+
+</para>
+
+@anjutaplugin: the object which received the signal.
+
 <!-- ##### ARG AnjutaPlugin:prefs ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### ARG AnjutaPlugin:shell ##### -->
 <para>
 
 </para>
@@ -967,7 +1203,7 @@ Properties
 @name: 
 @data: 
 
-<!-- ##### STRUCT AnjutaPluginPrivate ##### -->
+<!-- ##### STRUCT AnjutaPreferences ##### -->
 <para>
 
 </para>
@@ -980,29 +1216,47 @@ Properties
 
 @anjutapreferences: the object which received the signal.
 
-<!-- ##### STRUCT AnjutaPreferencesDialogPrivate ##### -->
+<!-- ##### STRUCT AnjutaPreferencesDialog ##### -->
 <para>
 
 </para>
 
 
-<!-- ##### STRUCT AnjutaPreferencesPriv ##### -->
+<!-- ##### STRUCT AnjutaStatus ##### -->
 <para>
 
 </para>
 
 
-<!-- ##### STRUCT AnjutaUIPrivate ##### -->
+<!-- ##### SIGNAL AnjutaStatus::busy ##### -->
+<para>
+
+</para>
+
+@anjutastatus: the object which received the signal.
+@arg1: 
+
+<!-- ##### STRUCT AnjutaStatusClass ##### -->
+<para>
+
+</para>
+
+@parent_class: 
+@busy: 
+
+<!-- ##### STRUCT AnjutaUI ##### -->
 <para>
 
 </para>
 
 
-<!-- ##### STRUCT ESplashPrivate ##### -->
+<!-- ##### STRUCT ESplash ##### -->
 <para>
 
 </para>
 
+@parent: 
+@priv: 
 
 <!-- ##### STRUCT FileSelData ##### -->
 <para>
@@ -1015,11 +1269,14 @@ Properties
 @click_cancel_callback: 
 @filesel: 
 
-<!-- ##### STRUCT GlueFactoryClass ##### -->
+<!-- ##### STRUCT GluePlugin ##### -->
 <para>
 
 </para>
 
+@parent: 
+@module: 
+@path: 
 
 <!-- ##### STRUCT GnomeFileList ##### -->
 <para>
@@ -1087,6 +1344,12 @@ Properties
 
 
 <!-- ##### MACRO IANJUTA_CONTEXT_TREE_ERROR ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### MACRO IANJUTA_EDITOR_EDIT_ERROR ##### -->
 <para>
 
 </para>
@@ -1181,6 +1444,35 @@ Properties
 @g_iface: 
 @down: 
 @up: 
+
+<!-- ##### STRUCT IAnjutaEditorEdit ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaEditorEditIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@autocomplete: 
+@clear: 
+@convert_eol: 
+@copy: 
+@cut: 
+@eoltocr: 
+@eoltocrlf: 
+@eoltolf: 
+@paste: 
+@redo: 
+@select_all: 
+@select_block: 
+@select_to_brace: 
+@to_lower: 
+@to_upper: 
+@undo: 
 
 <!-- ##### ENUM IAnjutaIterableError ##### -->
 <para>
@@ -2059,6 +2351,142 @@ Properties
 
 @obj: 
 @line: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_autocomplete ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_clear ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_convert_eol ##### -->
+<para>
+
+</para>
+
+@obj: 
+@mode: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_copy ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_cut ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_eoltocr ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_eoltocrlf ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_eoltolf ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_paste ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_redo ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_select_all ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_select_block ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_select_to_brace ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_to_lower ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_to_upper ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_editor_edit_undo ##### -->
+<para>
+
+</para>
+
+@obj: 
 @err: 
 
 <!-- ##### FUNCTION ianjuta_editor_get_selection ##### -->

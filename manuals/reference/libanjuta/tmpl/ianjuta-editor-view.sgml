@@ -1,0 +1,78 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-editor-view
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### MACRO IANJUTA_EDITOR_VIEW_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaEditorView ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaEditorViewIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@create: 
+@get_count: 
+@remove_current: 
+
+<!-- ##### FUNCTION ianjuta_editor_view_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_view_create ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_view_get_count ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_view_remove_current ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+

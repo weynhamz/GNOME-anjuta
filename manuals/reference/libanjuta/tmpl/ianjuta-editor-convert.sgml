@@ -1,0 +1,71 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-editor-convert
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### MACRO IANJUTA_EDITOR_CONVERT_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaEditorConvert ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaEditorConvertIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@to_lower: 
+@to_upper: 
+
+<!-- ##### FUNCTION ianjuta_editor_convert_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_convert_to_lower ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start_position: 
+@end_position: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_convert_to_upper ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start_position: 
+@end_position: 
+@err: 
+
+

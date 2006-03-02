@@ -47,6 +47,16 @@ ianjuta-file
 @Returns: 
 
 
+<!-- ##### FUNCTION ianjuta_file_get_uri ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
 <!-- ##### FUNCTION ianjuta_file_open ##### -->
 <para>
 
@@ -57,15 +67,5 @@ ianjuta-file
 @err: 
 <!-- # Unused Parameters # -->
 @filename: 
-
-
-<!-- ##### FUNCTION ianjuta_file_get_uri ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
 
 

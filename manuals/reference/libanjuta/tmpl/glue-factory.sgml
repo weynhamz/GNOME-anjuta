@@ -23,6 +23,12 @@ Underlying plugin factory
 </para>
 
 
+<!-- ##### STRUCT GlueFactoryClass ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### FUNCTION glue_factory_new ##### -->
 <para>
 

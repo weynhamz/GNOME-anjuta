@@ -239,30 +239,11 @@ else
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### STRUCT AnjutaPlugin ##### -->
+<!-- ##### STRUCT AnjutaPluginPrivate ##### -->
 <para>
 
 </para>
 
-
-<!-- ##### SIGNAL AnjutaPlugin::activated ##### -->
-<para>
-
-</para>
-
-@anjutaplugin: the object which received the signal.
-
-<!-- ##### SIGNAL AnjutaPlugin::deactivated ##### -->
-<para>
-
-</para>
-
-@anjutaplugin: the object which received the signal.
-
-<!-- ##### ARG AnjutaPlugin:shell ##### -->
-<para>
-
-</para>
 
 <!-- ##### USER_FUNCTION AnjutaPluginValueAdded ##### -->
 <para>
@@ -291,15 +272,6 @@ else
 @tool: 
 
 
-<!-- ##### FUNCTION anjuta_plugin_is_active ##### -->
-<para>
-
-</para>
-
-@plugin: 
-@Returns: 
-
-
 <!-- ##### FUNCTION anjuta_plugin_activate ##### -->
 <para>
 
@@ -310,6 +282,15 @@ else
 
 
 <!-- ##### FUNCTION anjuta_plugin_deactivate ##### -->
+<para>
+
+</para>
+
+@plugin: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_plugin_is_active ##### -->
 <para>
 
 </para>

@@ -1,0 +1,87 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-symbol-manager
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### MACRO IANJUTA_SYMBOL_MANAGER_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaSymbolManager ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaSymbolManagerIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@get_members: 
+@get_parents: 
+@search: 
+
+<!-- ##### FUNCTION ianjuta_symbol_manager_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_manager_get_members ##### -->
+<para>
+
+</para>
+
+@obj: 
+@symbol_name: 
+@global_search: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_manager_get_parents ##### -->
+<para>
+
+</para>
+
+@obj: 
+@symbol_name: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_symbol_manager_search ##### -->
+<para>
+
+</para>
+
+@obj: 
+@match_types: 
+@match_name: 
+@partial_name_match: 
+@global_search: 
+@err: 
+@Returns: 
+
+

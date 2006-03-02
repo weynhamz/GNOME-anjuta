@@ -87,6 +87,16 @@ ianjuta-buildable
 @directory: 
 
 
+<!-- ##### FUNCTION ianjuta_buildable_execute ##### -->
+<para>
+
+</para>
+
+@obj: 
+@uri: 
+@err: 
+
+
 <!-- ##### FUNCTION ianjuta_buildable_generate ##### -->
 <para>
 

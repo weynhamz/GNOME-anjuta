@@ -17,39 +17,6 @@ AnjutaLauncher
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### STRUCT AnjutaLauncher ##### -->
-<para>
-
-</para>
-
-
-<!-- ##### SIGNAL AnjutaLauncher::busy ##### -->
-<para>
-
-</para>
-
-@anjutalauncher: the object which received the signal.
-@arg1: 
-
-<!-- ##### SIGNAL AnjutaLauncher::child-exited ##### -->
-<para>
-
-</para>
-
-@anjutalauncher: the object which received the signal.
-@arg1: 
-@arg2: 
-@arg3: 
-
-<!-- ##### STRUCT AnjutaLauncherClass ##### -->
-<para>
-
-</para>
-
-@parent_class: 
-@child_exited_signal: 
-@busy_signal: 
-
 <!-- ##### STRUCT AnjutaLauncherPriv ##### -->
 <para>
 

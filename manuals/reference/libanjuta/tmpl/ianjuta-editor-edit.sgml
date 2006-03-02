@@ -1,8 +1,8 @@
 <!-- ##### SECTION Title ##### -->
-AnjutaCellRendererCaptionedImage
+ianjuta-editor-edit
 
 <!-- ##### SECTION Short_Description ##### -->
-Captioned image cell renderer.
+
 
 <!-- ##### SECTION Long_Description ##### -->
 <para>
@@ -15,13 +15,5 @@ Captioned image cell renderer.
 </para>
 
 <!-- ##### SECTION Stability_Level ##### -->
-
-
-<!-- ##### FUNCTION anjuta_cell_renderer_captioned_image_new ##### -->
-<para>
-
-</para>
-
-@Returns: 
 
 

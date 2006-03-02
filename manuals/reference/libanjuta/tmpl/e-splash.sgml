@@ -17,13 +17,11 @@ ESplash
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### STRUCT ESplash ##### -->
+<!-- ##### STRUCT ESplashPrivate ##### -->
 <para>
 
 </para>
 
-@parent: 
-@priv: 
 
 <!-- ##### FUNCTION e_splash_construct ##### -->
 <para>
@@ -45,5 +43,17 @@ ESplash
 @image_file: 
 @progressbar_position: 
 @Returns: 
+
+
+<!-- ##### FUNCTION e_splash_set ##### -->
+<para>
+
+</para>
+
+@splash: 
+@icon_pixbuf: 
+@title: 
+@desc: 
+@progress_percentage: 
 
 

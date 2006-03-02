@@ -1,37 +1,55 @@
 ## Process this file with automake to produce Makefile.in
 
-# The name of the module.
-DOC_MODULE = libanjuta
+# We require automake 1.6 at least.
+AUTOMAKE_OPTIONS = 1.6
 
-# The top-level SGML file.
-DOC_MAIN_SGML_FILE = $(DOC_MODULE)-docs.sgml
+# The name of the module, e.g. 'glib'.
+DOC_MODULE=libanjuta
 
-# The directory containing the source code. Relative to $(srcdir)
-DOC_SOURCE_DIR =../../../libanjuta
+# The top-level SGML file. You can change this if you want to.
+DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.sgml
 
-# Extra options to pass to gtkdoc-scangobj
-SCANGOBJ_OPTIONS =
+# The directory containing the source code. Relative to $(srcdir).
+# gtk-doc will search all .c & .h files beneath here for inline comments
+# documenting the functions and macros.
+# e.g. DOC_SOURCE_DIR=../../../gtk
+DOC_SOURCE_DIR=../../../libanjuta
 
-# Extra options to supply to gtkdoc-scan
-SCAN_OPTIONS =
+# Extra options to pass to gtkdoc-scangobj. Not normally needed.
+SCANGOBJ_OPTIONS=
 
-# Extra options to supply to gtkdoc-mkdb
-MKDB_OPTIONS = --sgml-mode --output-format=xml
+# Extra options to supply to gtkdoc-scan.
+# e.g. SCAN_OPTIONS=--deprecated-guards="GTK_DISABLE_DEPRECATED" 
+SCAN_OPTIONS=
 
-# Extra options to supply to gtkdoc-fixref
+# Extra options to supply to gtkdoc-mkdb.
+# e.g. MKDB_OPTIONS=--sgml-mode --output-format=xml
+MKDB_OPTIONS=--sgml-mode --output-format=xml
+
+# Extra options to supply to gtkdoc-mktmpl
+# e.g. MKTMPL_OPTIONS=--only-section-tmpl
+MKTMPL_OPTIONS=
+
+# Extra options to supply to gtkdoc-fixref. Not normally needed.
+# e.g. FIXXREF_OPTIONS=--extra-dir=../gdk-pixbuf/html --extra-dir=../gdk/html
 FIXXREF_OPTIONS=
 
-# Used for dependencies
-HFILE_GLOB=$(top_srcdir)/libanjuta/*.h
-CFILE_GLOB=$(top_srcdir)/libanjuta/*.c
+# Used for dependencies. The docs will be rebuilt if any of these change.
+# e.g. HFILE_GLOB=$(top_srcdir)/gtk/*.h
+# e.g. CFILE_GLOB=$(top_srcdir)/gtk/*.c
+HFILE_GLOB=$(top_srcdir)/libanjuta/*.h $(top_srcdir)/libanjuta/interfaces/*.h
+CFILE_GLOB=$(top_srcdir)/libanjuta/*.c $(top_srcdir)/libanjuta/interfaces/*.c
 
-# Header files to ignore when scanning
+# Header files to ignore when scanning.
+# e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h
 IGNORE_HFILES=egg* glue* e-*
 
-# Images to copy into HTML directory
-HTML_IMAGES = anjuta-architecture.png
+# Images to copy into HTML directory.
+# e.g. HTML_IMAGES=$(top_srcdir)/gtk/stock-icons/stock_about_24.png
+HTML_IMAGES=anjuta-architecture.png
 
-# Extra SGML files that are included by $(DOC_MAIN_SGML_FILE)
+# Extra SGML files that are included by $(DOC_MAIN_SGML_FILE).
+# e.g. content_files=running.sgml building.sgml changes-2.0.sgml
 content_files = \
 	version.xml \
 	anjuta-architecture.sgml\
@@ -39,12 +57,17 @@ content_files = \
 	plugin-description-file.sgml\
 	project-wizard-format.sgml
 
-# Other files to distribute
-extra_files = version.xml.in
+# SGML files where gtk-doc abbrevations (#GtkWidget) are expanded
+# These files must be listed here *and* in content_files
+# e.g. expand_content_files=running.sgml
+expand_content_files=
 
-# CFLAGS and LDFLAGS for compiling scan program. Only needed
-# if $(DOC_MODULE).types is non-empty.
-GTKDOC_CFLAGS =						\
+# CFLAGS and LDFLAGS for compiling gtkdoc-scangobj with your library.
+# Only needed if you are using gtkdoc-scangobj to dynamically query widget
+# signals and properties.
+# e.g. INCLUDES=-I$(top_srcdir) -I$(top_builddir) $(GTK_DEBUG_FLAGS)
+# e.g. GTKDOC_LIBS=$(top_builddir)/gtk/$(gtktargetlib)
+INCLUDES =						\
 	-I$(top_srcdir) 				\
 	-I$(top_builddir) 				\
 	-I$(top_builddir)/libanjuta			\
@@ -58,22 +81,20 @@ GTKDOC_LIBS =						\
 	$(top_builddir)/scintilla/libanjuta-scintilla.la \
 	$(LIBANJUTA_LIBS)
 
-DOC_OVERRIDES = $(DOC_MODULE)-overrides.txt
-
-## include $(top_srcdir)/gtk-doc.make
-# -*- mode: makefile -*-
+# This includes the standard gtk-doc make rules, copied by gtkdocize.
+# include $(top_srcdir)/gtk-doc.make
 
 ####################################
 # Everything below here is generic #
 ####################################
 
-## if GTK_DOC_USE_LIBTOOL
+# if GTK_DOC_USE_LIBTOOL
 GTKDOC_CC = $(LIBTOOL) --mode=compile $(CC) $(INCLUDES) $(AM_CFLAGS) $(CFLAGS)
-GTKDOC_LD = $(LIBTOOL) --mode=link $(CXX) $(AM_CXXFLAGS) $(CXXFLAGS) $(LDFLAGS)
-## else
-## GTKDOC_CC = $(CC) $(INCLUDES) $(AM_CFLAGS) $(CFLAGS)
-## GTKDOC_LD = $(CXX) $(AM_CXXFLAGS) $(CXXFLAGS) $(LDFLAGS)
-## endif
+GTKDOC_LD = $(LIBTOOL) --mode=link $(CC) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS)
+# else
+# GTKDOC_CC = $(CC) $(INCLUDES) $(AM_CFLAGS) $(CFLAGS)
+# GTKDOC_LD = $(CC) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS)
+# endif
 
 # We set GPATH here; this gives us semantics for GNU make
 # which are more like other make's VPATH, when it comes to
@@ -88,7 +109,6 @@ EXTRA_DIST = 				\
 	$(content_files)		\
 	$(HTML_IMAGES)			\
 	$(DOC_MAIN_SGML_FILE)		\
-	$(DOC_MODULE).types		\
 	$(DOC_MODULE)-sections.txt	\
 	$(DOC_MODULE)-overrides.txt
 
@@ -109,10 +129,10 @@ all-local: html-build.stamp
 
 #### scan ####
 
-scan-build.stamp: $(HFILE_GLOB)
+scan-build.stamp: $(HFILE_GLOB) $(CFILE_GLOB)
 	@echo '*** Scanning header files ***'
 	@-chmod -R u+w $(srcdir)
-	if grep -l '^..*$$' $(srcdir)/$(DOC_MODULE).types > /dev/null ; then \
+	if grep -l '^..*$$' $(srcdir)/$(DOC_MODULE).types > /dev/null 2>&1 ; then \
 	    CC="$(GTKDOC_CC)" LD="$(GTKDOC_LD)" CFLAGS="$(GTKDOC_CFLAGS)" LDFLAGS="$(GTKDOC_LIBS)" gtkdoc-scangobj $(SCANGOBJ_OPTIONS) --module=$(DOC_MODULE) --output-dir=$(srcdir) ; \
 	else \
 	    cd $(srcdir) ; \
@@ -132,7 +152,7 @@ $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES): scan-build.stamp
 tmpl-build.stamp: $(DOC_MODULE)-decl.txt $(SCANOBJ_FILES) $(DOC_MODULE)-sections.txt $(DOC_MODULE)-overrides.txt
 	@echo '*** Rebuilding template files ***'
 	@-chmod -R u+w $(srcdir)
-	cd $(srcdir) && gtkdoc-mktmpl --module=$(DOC_MODULE)
+	cd $(srcdir) && gtkdoc-mktmpl --module=$(DOC_MODULE) $(MKTMPL_OPTIONS)
 	touch tmpl-build.stamp
 
 tmpl.stamp: tmpl-build.stamp
@@ -140,11 +160,11 @@ tmpl.stamp: tmpl-build.stamp
 
 #### xml ####
 
-sgml-build.stamp: tmpl.stamp $(CFILE_GLOB) $(srcdir)/tmpl/*.sgml
+sgml-build.stamp: tmpl.stamp $(CFILE_GLOB) $(srcdir)/tmpl/*.sgml $(expand_content_files)
 	@echo '*** Building XML ***'
 	@-chmod -R u+w $(srcdir)
 	cd $(srcdir) && \
-	gtkdoc-mkdb --module=$(DOC_MODULE) --source-dir=$(DOC_SOURCE_DIR) --output-format=xml $(MKDB_OPTIONS)
+	gtkdoc-mkdb --module=$(DOC_MODULE) --source-dir=$(DOC_SOURCE_DIR) --output-format=xml --expand-content-files="$(expand_content_files)" $(MKDB_OPTIONS)
 	touch sgml-build.stamp
 
 sgml.stamp: sgml-build.stamp
@@ -162,6 +182,8 @@ html-build.stamp: sgml.stamp $(DOC_MAIN_SGML_FILE) $(content_files)
 	@echo '-- Fixing Crossreferences' 
 	cd $(srcdir) && gtkdoc-fixxref --module-dir=html --html-dir=$(HTML_DIR) $(FIXXREF_OPTIONS)
 	touch html-build.stamp
+else
+all-local:
 endif
 
 ##############
@@ -174,18 +196,18 @@ maintainer-clean-local: clean
 	cd $(srcdir) && rm -rf xml html $(DOC_MODULE)-decl-list.txt $(DOC_MODULE)-decl.txt
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(TARGET_DIR)
-	(installfiles=`echo $(srcdir)/html/*`; \
+	installfiles=`echo $(srcdir)/html/*`; \
 	if test "$$installfiles" = '$(srcdir)/html/*'; \
 	then echo '-- Nothing to install' ; \
 	else \
+	  $(mkinstalldirs) $(DESTDIR)$(TARGET_DIR); \
 	  for i in $$installfiles; do \
 	    echo '-- Installing '$$i ; \
 	    $(INSTALL_DATA) $$i $(DESTDIR)$(TARGET_DIR); \
 	  done; \
 	  echo '-- Installing $(srcdir)/html/index.sgml' ; \
 	  $(INSTALL_DATA) $(srcdir)/html/index.sgml $(DESTDIR)$(TARGET_DIR) || :; \
-	fi)
+	fi
 
 uninstall-local:
 	rm -f $(DESTDIR)$(TARGET_DIR)/*
@@ -208,5 +230,12 @@ dist-hook: dist-check-gtkdoc dist-hook-local
 	-cp $(srcdir)/tmpl/*.sgml $(distdir)/tmpl
 	-cp $(srcdir)/xml/*.xml $(distdir)/xml
 	-cp $(srcdir)/html/* $(distdir)/html
+	if test -f $(srcdir)/$(DOC_MODULE).types; then \
+	  cp $(srcdir)/$(DOC_MODULE).types $(distdir)/$(DOC_MODULE).types; \
+	fi
 
 .PHONY : dist-hook-local
+
+# Other files to distribute
+# e.g. EXTRA_DIST += version.xml.in
+EXTRA_DIST += version.xml.in

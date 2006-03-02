@@ -28,6 +28,16 @@ Utility functions
 @Returns: 
 
 
+<!-- ##### FUNCTION anjuta_util_diff ##### -->
+<para>
+
+</para>
+
+@uri: 
+@text: 
+@Returns: 
+
+
 <!-- ##### FUNCTION anjuta_util_color_from_string ##### -->
 <para>
 
@@ -154,6 +164,24 @@ Utility functions
 @Returns: 
 
 
+<!-- ##### FUNCTION anjuta_util_convert_to_utf8 ##### -->
+<para>
+
+</para>
+
+@str: 
+@Returns: 
+
+
+<!-- ##### FUNCTION anjuta_util_parse_args_from_string ##### -->
+<para>
+
+</para>
+
+@string: 
+@Returns: 
+
+
 <!-- ##### FUNCTION anjuta_util_type_from_string ##### -->
 <para>
 
@@ -256,6 +284,15 @@ Utility functions
 @Returns: 
 
 
+<!-- ##### FUNCTION anjuta_util_create_dir ##### -->
+<para>
+
+</para>
+
+@d: 
+@Returns: 
+
+
 <!-- ##### FUNCTION anjuta_util_execute_shell ##### -->
 <para>
 
@@ -266,39 +303,34 @@ Utility functions
 @Returns: 
 
 
-<!-- ##### FUNCTION anjuta_util_create_dir ##### -->
-<para>
-
-</para>
-
-@d: 
-@Returns: 
-
-
-<!-- ##### FUNCTION anjuta_util_parse_args_from_string ##### -->
-<para>
-
-</para>
-
-@string: 
-@Returns: 
-
-
-<!-- ##### FUNCTION anjuta_util_convert_to_utf8 ##### -->
-<para>
-
-</para>
-
-@str: 
-@Returns: 
-
-
 <!-- ##### FUNCTION anjuta_util_escape_quotes ##### -->
 <para>
 
 </para>
 
 @str: 
+@Returns: 
+
+
+<!-- ##### FUNCTION forkpty ##### -->
+<para>
+
+</para>
+
+@amaster: 
+@name: 
+@termp: 
+@winp: 
+@Returns: 
+
+
+<!-- ##### FUNCTION alphasort ##### -->
+<para>
+
+</para>
+
+@a: 
+@b: 
 @Returns: 
 
 

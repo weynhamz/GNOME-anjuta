@@ -60,6 +60,29 @@
 @Returns: 
 
 
+<!-- ##### FUNCTION ianjuta_document_manager_add_buffer ##### -->
+<para>
+
+</para>
+
+@obj: 
+@name: 
+@content: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_document_manager_find_editor_with_path ##### -->
+<para>
+
+</para>
+
+@obj: 
+@file_path: 
+@err: 
+@Returns: 
+
+
 <!-- ##### FUNCTION ianjuta_document_manager_get_current_editor ##### -->
 <para>
 
@@ -134,28 +157,5 @@
 <!-- # Unused Parameters # -->
 @docman: 
 @e: 
-
-
-<!-- ##### FUNCTION ianjuta_document_manager_add_buffer ##### -->
-<para>
-
-</para>
-
-@obj: 
-@name: 
-@content: 
-@err: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_document_manager_find_editor_with_path ##### -->
-<para>
-
-</para>
-
-@obj: 
-@file_path: 
-@err: 
-@Returns: 
 
 

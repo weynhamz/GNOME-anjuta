@@ -75,6 +75,13 @@
   <chapter id="plugin-interfaces">
     <title>Plugin interfaces</title>
     <xi:include href="xml/ianjuta-editor.xml"/>
+	<xi:include href="xml/ianjuta-editor-selection.xml"/>
+	<xi:include href="xml/ianjuta-editor-view.xml"/>
+	<xi:include href="xml/ianjuta-editor-assist.xml"/>
+	<xi:include href="xml/ianjuta-editor-convert.xml"/>
+	<xi:include href="xml/ianjuta-editor-line-mode.xml"/>
+	<xi:include href="xml/ianjuta-editor-folds.xml"/>
+    <xi:include href="xml/ianjuta-editor-factory.xml"/>
     <xi:include href="xml/ianjuta-buildable.xml"/>
     <xi:include href="xml/ianjuta-context.xml"/>
     <xi:include href="xml/ianjuta-context-list.xml"/>

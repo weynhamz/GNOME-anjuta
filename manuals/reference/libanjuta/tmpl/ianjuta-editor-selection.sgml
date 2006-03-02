@@ -1,0 +1,185 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-editor-selection
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### MACRO IANJUTA_EDITOR_SELECTION_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaEditorSelection ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaEditorSelectionIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@clear: 
+@copy: 
+@cut: 
+@get: 
+@get_end: 
+@get_start: 
+@paste: 
+@replace: 
+@select_all: 
+@select_block: 
+@select_function: 
+@select_to_brace: 
+@set: 
+
+<!-- ##### FUNCTION ianjuta_editor_selection_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_clear ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_copy ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_cut ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_get ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_get_end ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_get_start ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_paste ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_replace ##### -->
+<para>
+
+</para>
+
+@obj: 
+@text: 
+@length: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_select_all ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_select_block ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_select_function ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_select_to_brace ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_selection_set ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start: 
+@end: 
+@backward: 
+@err: 
+
+

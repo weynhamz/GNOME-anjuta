@@ -1,0 +1,58 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-macro
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### MACRO IANJUTA_MACRO_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaMacro ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaMacroIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@insert: 
+
+<!-- ##### FUNCTION ianjuta_macro_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_macro_insert ##### -->
+<para>
+
+</para>
+
+@obj: 
+@key: 
+@err: 
+
+

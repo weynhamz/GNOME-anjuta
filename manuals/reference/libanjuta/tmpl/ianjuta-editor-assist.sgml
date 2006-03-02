@@ -1,0 +1,57 @@
+<!-- ##### SECTION Title ##### -->
+ianjuta-editor-assist
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### MACRO IANJUTA_EDITOR_ASSIST_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### STRUCT IAnjutaEditorAssist ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaEditorAssistIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@autocomplete: 
+
+<!-- ##### FUNCTION ianjuta_editor_assist_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_assist_autocomplete ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+
+

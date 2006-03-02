@@ -49,3 +49,44 @@ ianjuta-debugger-manager
 @Returns: 
 
 
+<!-- ##### FUNCTION ianjuta_debugger_manager_is_active ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_manager_is_busy ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_manager_start ##### -->
+<para>
+
+</para>
+
+@obj: 
+@prog_uri: 
+@source_search_directories: 
+@err: 
+
+
+<!-- ##### FUNCTION ianjuta_debugger_manager_stop ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+

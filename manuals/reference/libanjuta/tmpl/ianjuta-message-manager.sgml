@@ -142,3 +142,14 @@
 @e: 
 
 
+<!-- ##### FUNCTION ianjuta_message_manager_set_view_title ##### -->
+<para>
+
+</para>
+
+@obj: 
+@view: 
+@title: 
+@err: 
+
+
