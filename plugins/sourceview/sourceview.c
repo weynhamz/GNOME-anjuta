@@ -1127,8 +1127,7 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 		default:
 			DEBUG_PRINT("Unkonown marker type: %d!", marker);
 			name = MARKER_NONE;
-	}
-name = MARKER_ATTENTIVE;		
+	}	
 	source_marker = gtk_source_buffer_create_marker(sv->priv->source_buffer, 
 													NULL, name, &iter);
 	SVMarker* sv_marker = g_new0(SVMarker, 1);
