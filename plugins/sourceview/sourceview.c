@@ -44,6 +44,7 @@
 #include <gtksourceview/gtksourcelanguage.h>
 #include <gtksourceview/gtksourcelanguagesmanager.h>
 #include <gtksourceview/gtksourcebuffer.h>
+#include <gtksourceview/gtksourceiter.h>
 
 #include "config.h"
 
@@ -803,18 +804,83 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->redo = ieditor_redo;
 }
 
+static void
+set_select(Sourceview* sv, GtkTextIter* start_iter, GtkTextIter* end_iter)
+{
+	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+									  "insert", start_iter);
+	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+									  "selection_bound", end_iter);
+	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(sv->priv->source_view),
+		 gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->source_buffer)));			
+}
+
 /* IAnjutaEditorSelection */
 
 static void
 iselect_to_brace(IAnjutaEditorSelection* edit, GError** e)
 {
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->source_buffer);
+	GtkTextIter start_iter;
+	GtkTextIter end_iter;
+	gboolean found;
 	
+	gtk_text_buffer_get_iter_at_mark(buffer, &start_iter, 
+									 gtk_text_buffer_get_insert(buffer));
+	end_iter = start_iter;
+	found = gtk_source_iter_find_matching_bracket (&end_iter);
+	if (found)
+		set_select(sv, &start_iter, &end_iter);
 }
 
 static void 
 iselect_block(IAnjutaEditorSelection* edit, GError** e)
 {
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->source_buffer);
+	GtkTextIter start_iter;
+	GtkTextIter end_iter;
+	GtkTextIter iter;
+	gchar *text;
+	gint position;
 	
+	gtk_text_buffer_get_start_iter(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+								   &start_iter);
+	gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+								   &end_iter);
+	text = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+										&start_iter, &end_iter, FALSE);
+	if (text)
+	{
+		gboolean found = FALSE;
+		gint cpt = 0;
+		gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
+									 gtk_text_buffer_get_insert(buffer));
+		position = gtk_text_iter_get_offset(&iter);
+		
+		while((--position >= 0) && !found)
+		{
+			if (text[position] == '{')
+				if (cpt-- == 0)
+					found = TRUE;
+			if (text[position] == '}')
+				cpt++;
+		}			
+		if (found)
+		{
+			gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+									           &start_iter, position + 2);
+			gtk_text_buffer_place_cursor(GTK_TEXT_BUFFER(sv->priv->source_buffer),
+									     &start_iter);
+			end_iter = start_iter;
+			found = gtk_source_iter_find_matching_bracket (&end_iter);
+			if (found)
+				set_select(sv, &start_iter, &end_iter);
+		}
+		g_free(text);
+	}
+
 }
 
 
@@ -840,13 +906,7 @@ static void iselect_set(IAnjutaEditorSelection *editor, gint start,
 		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->source_buffer),
 									   &end_iter, start);
 	}
-
-	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->source_buffer),
-									  "insert", &start_iter);
-	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->source_buffer),
-									  "selection_bound", &end_iter);
-	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(sv->priv->source_view),
-			gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->source_buffer)));	
+	set_select(sv, &start_iter, &end_iter);
 }
 
 static void
@@ -1068,7 +1128,7 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 			DEBUG_PRINT("Unkonown marker type: %d!", marker);
 			name = MARKER_NONE;
 	}
-		
+name = MARKER_ATTENTIVE;		
 	source_marker = gtk_source_buffer_create_marker(sv->priv->source_buffer, 
 													NULL, name, &iter);
 	SVMarker* sv_marker = g_new0(SVMarker, 1);
