@@ -1,4 +1,10 @@
-2006-03-02 naba  <naba@>
+2006-03-03  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/*:
+	Reimplemented sourceview plugin reusing much code from gedit. Thanks to Paolo Borelli & Maggi for 
+	poiting this out!
+
+2006-03-02  Naba Kumar  <naba@gnome.org>
 
 	* manuals/reference/libanjuta/Makefile.am,
 	manuals/reference/libanjuta/libanjuta-docs.sgml,

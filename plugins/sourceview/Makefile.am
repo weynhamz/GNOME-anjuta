@@ -22,16 +22,45 @@ INCLUDES = \
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
 
+# Marshallers
+BUILT_SOURCES = 			\
+	anjuta-marshal.c			\
+	anjuta-marshal.h              
+
+anjuta-marshal.h: anjuta-marshal.list
+	glib-genmarshal anjuta-marshal.list --header --prefix=anjuta_marshal > $@
+
+anjuta-marshal.c: anjuta-marshal.list
+	echo "#include \"anjuta-marshal.h\"" > $@ && \
+	glib-genmarshal anjuta-marshal.list --body --prefix=anjuta_marshal >> $@
+
 # The plugin
 plugin_LTLIBRARIES = libanjuta-sourceview.la
 
 # Plugin sources
 libanjuta_sourceview_la_SOURCES = \
+	$(BUILT_SOURCES)		\
 	plugin.c \
 	plugin.h \
 	sourceview.c \
-	sourceview.h
-
+	sourceview.h \
+	anjuta-view.h \
+	anjuta-view.c \
+	anjuta-document-loader.c \
+	anjuta-document-loader.h \
+	anjuta-document-saver.c \
+	anjuta-document-saver.h \
+	anjuta-document.c \
+	anjuta-document.h \
+	anjuta-encodings.h \
+	anjuta-encodings.c \
+	anjuta-languages-manager.h \
+	anjuta-languages-manager.c \
+	anjuta-convert.h \
+	anjuta-convert.c \
+	anjuta-utils.h \
+	anjuta-utils.c
+	
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \
 	$(PCRE_LIBS) \
