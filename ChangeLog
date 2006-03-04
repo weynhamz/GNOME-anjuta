@@ -1,3 +1,12 @@
+2006-03-04  Naba Kumar  <naba@gnome.org>
+
+	* plugins/document-manager/*, plugins/print/*, plugins/search/*:
+	Restored cvs-moved revision files. They were originally marked
+	deleted at their older locations. Now they are restored at
+	their new locations. The changeset is one that was committed
+	as part of document-manager, editor, search and print plugins
+	separation from editor plugin.
+	
 2006-03-03  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/*:
