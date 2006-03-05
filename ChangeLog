@@ -1,9 +1,15 @@
+2006-03-06  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/anjuta-idl-compiler.pl: Generate struct
+	typedefs separately so that forward linking would work.
+	e.g: typedef sturct _Foo Foo; struct _Foo { Foo *prev };
+
 2006-03-05  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl: Added support for
 	passing Enums and Structs in signals. Define struct _Name in
 	generated code, so that forward referencing.
-	e.g typedef sturct _Foo { strutct _Foo *prev } Foo;
+	e.g: typedef sturct _Foo { strutct _Foo *prev } Foo;
 	
 	* libanjuta/interfaces/libanjuta.idl: Fixed typo.
 	

@@ -981,12 +981,13 @@ G_BEGIN_DECLS
 	{
 		foreach my $s (sort keys %$structs_hr)
 		{
-			$answer .= "typedef struct _${class}$s {\n";
+			$answer .= "typedef struct _${class}$s ${class}$s;\n";
+			$answer .= "struct _${class}$s {\n";
 			foreach my $d (@{$structs_hr->{$s}->{"__data"}})
 			{
 				$answer .= "\t$d\n";
 			}
-			$answer .= "} ${class}$s;\n\n";
+			$answer .= "};\n\n";
 		}
 	}
 	
