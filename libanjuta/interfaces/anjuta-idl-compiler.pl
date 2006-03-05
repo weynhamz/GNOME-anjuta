@@ -156,6 +156,7 @@ my $data_hr = {};
 my @collector = ();
 my $struct = "";
 my $enum = "";
+my $typedef = "";
 
 while ($line = <INFILE>)
 {
@@ -230,6 +231,18 @@ while ($line = <INFILE>)
 	{
 		push @level, "enum";
 		$enum = $class;
+		$linenum++;
+		next;
+	}
+	elsif (is_typedef($line, \$typedef))
+	{
+		die "Parse error at $idl_file:$linenum: typedefs should only be in interface"
+			if (current_level(@level) ne "interface");
+		die "Parse error at $idl_file:$linenum: Class name expected"
+			if ($current_class eq "");
+		my $comments_in = get_comments();
+		compile_typedef($data_hr, $current_class, $comments_in, $typedef);
+		$typedef = "";
 		$linenum++;
 		next;
 	}
@@ -381,6 +394,41 @@ sub is_struct
 	return 0;
 }
 
+sub is_typedef
+{
+	my ($line, $typedef_ref) = @_;
+	if ($line =~ /^\s*typedef\s*/)
+	{
+		my $iter_class = $current_class;
+		while (1)
+		{
+			if (defined ($class_privates{$iter_class}))
+			{
+				foreach my $p (@{$class_privates{$iter_class}})
+				{
+					$line =~ s/\b$p\b/$iter_class$p/g;
+				}
+			}
+			if (defined ($data_hr) &&
+				defined ($data_hr->{$iter_class}) &&
+				defined ($data_hr->{$iter_class}->{"__parent"}))
+			{
+				$iter_class = $data_hr->{$iter_class}->{"__parent"};
+			}
+			else
+			{
+				last;
+			}
+		}
+		$line =~ s/([\w_][\w\d_]+)\s*;\s*$/$current_class$1;/g;
+		$line =~ s/\(\s*\*([\w_][\w\d_]+)\s*\)/(*$current_class$1)/g;
+		$$typedef_ref = $line;
+		print "Typedef: $line\n";
+		return 1;
+	}
+	return 0;
+}
+
 sub is_method
 {
 	my ($line, $method_hr) = @_;
@@ -527,6 +575,18 @@ sub compile_inclues
 		}
 		$class_hr->{'__include'} = \@includes;
 	}	
+}
+
+sub compile_typedef
+{
+	my ($data_hr, $current_class, $comments, $typedef) = @_;
+	my $class_hr = $data_hr->{$current_class};
+	if (!defined($class_hr->{"__typedefs"}))
+	{
+		$class_hr->{"__typedefs"} = [];
+	}
+	my $typedefs_lr = $class_hr->{"__typedefs"};
+	push (@$typedefs_lr, $typedef);
 }
 
 sub compile_enum
@@ -837,8 +897,24 @@ G_BEGIN_DECLS
 #define ${macro_name}_GET_IFACE(obj) (G_TYPE_INSTANCE_GET_INTERFACE ((obj), $macro_type, ${class}Iface))
 
 ";
-	## Added enums;
+	# Enum GType macros.
 	my $enums_hr = $class_hr->{"__enums"};
+	if (defined ($enums_hr))
+	{
+		foreach my $e (sort keys %$enums_hr)
+		{
+			my $e_upper = uc($e);
+			my $e_lower = lc($e);
+			my $e_macro = "${macro_type}_${e_upper}";
+			my $e_proto = "${prefix}_${e_lower}_get_type";
+			$answer .=
+"#define $e_macro ($e_proto)
+";
+		}
+		$answer .= "\n";
+	}
+	
+	## Added enums;
 	if (defined ($enums_hr))
 	{
 		foreach my $e (sort keys %$enums_hr)
@@ -865,11 +941,24 @@ G_BEGIN_DECLS
 			$answer .= "} ${class}$s;\n\n";
 		}
 	}
+	
 	$answer .=
-"	
-#define ${macro_name}_ERROR ${prefix}_error_quark()
+"#define ${macro_name}_ERROR ${prefix}_error_quark()
 
-typedef struct _$class $class;
+";
+	## Added Typedefs
+	my $typedefs_lr = $class_hr->{"__typedefs"};
+	if (defined ($typedefs_lr))
+	{
+		foreach my $td (@$typedefs_lr)
+		{
+			$answer .= $td . "\n";
+		}
+		$answer .= "\n";
+	}
+	
+	$answer .=
+"typedef struct _$class $class;
 typedef struct _${class}Iface ${class}Iface;
 
 struct _${class}Iface {
@@ -911,6 +1000,22 @@ struct _${class}Iface {
 	$answer .=
 "
 };
+";
+	# Enum GType prototypes.
+	if (defined ($enums_hr))
+	{
+		foreach my $e (sort keys %$enums_hr)
+		{
+			my $e_lower = lc($e);
+			my $e_proto = "${prefix}_${e_lower}_get_type";
+			$answer .=
+"GType $e_proto (void);
+";
+		}
+	}
+	
+	$answer .=
+"
 GQuark ${prefix}_error_quark     (void);
 GType  ${prefix}_get_type        (void);
 
@@ -1091,6 +1196,44 @@ ${prefix}_get_type (void)
 	return type;			
 }
 ";
+	# Enum GTypes.
+	if (defined ($enums_hr))
+	{
+		foreach my $e (sort keys %$enums_hr)
+		{
+			my $e_lower = lc($e);
+			$answer .=
+"
+GType
+${prefix}_${e_lower}_get_type (void)
+{
+	static const GEnumValue values[] =
+	{
+";
+			foreach my $d (@{$enums_hr->{$e}->{"__data"}})
+			{
+				$d =~ s/^([\w_\d]+).*$/$1/;
+				my $e_val = "${macro_name}_$d";
+				my $e_val_str = lc($d);
+				$e_val_str =~ s/_/-/g;
+				$answer .= "\t\t{ $e_val, \"$e_val\", \"$e_val_str\" }, \n";
+			}
+			$answer .=
+"		{ 0, NULL, NULL }
+	};
+
+	static GType type = 0;
+
+	if (! type)
+	{
+		type = g_enum_register_static (\"${class}$e\", values);
+	}
+
+	return type;
+}
+";
+		}
+	}
 	write_file ($filename, $answer);
 	push @source_files, $filename;
 }

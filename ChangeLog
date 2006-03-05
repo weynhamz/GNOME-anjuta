@@ -1,3 +1,9 @@
+2006-03-05  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/anjuta-idl-compiler.pl: Added typedef
+	support. Generate GType definitions for enums in generated codes
+	so that	enums could be passed as signal params.
+	
 2006-03-04  Naba Kumar  <naba@gnome.org>
 
 	* plugins/document-manager/*, plugins/print/*, plugins/search/*:
