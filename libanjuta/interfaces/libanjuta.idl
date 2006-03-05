@@ -1966,7 +1966,7 @@ interface IAnjutaDebuggerManager
 
 interface IAnjutaDebugger
 {
-	// Sinals
+	// Signals
 	
 	/**
 	* IAnjutaDebugger::busy:

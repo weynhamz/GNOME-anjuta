@@ -1,5 +1,14 @@
 2006-03-05  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/interfaces/anjuta-idl-compiler.pl: Added support for
+	passing Enums and Structs in signals. Define struct _Name in
+	generated code, so that forward referencing.
+	e.g typedef sturct _Foo { strutct _Foo *prev } Foo;
+	
+	* libanjuta/interfaces/libanjuta.idl: Fixed typo.
+	
+2006-03-05  Naba Kumar  <naba@gnome.org>
+
 	* libanjuta/interfaces/anjuta-idl-compiler.pl: Added typedef
 	support. Generate GType definitions for enums in generated codes
 	so that	enums could be passed as signal params.

@@ -604,6 +604,28 @@ sub compile_enum
 	$enums_hr->{$class}->{"__parent"} = $parent;
 	$enums_hr->{$class}->{"__comments"} = $comments;
 	$enums_hr->{$class}->{"__data"} = \@data;
+	
+	## Add to @not_classes and $type_map
+	{
+		my $prefix;
+		my $macro_prefix;
+		my $macro_suffix;
+		my $macro_name;
+		my $type_map_item_hr = {};
+		my $enum_fullname = "$parent$class";
+		
+		# Add to @not_classes
+		$not_classes->{$enum_fullname} = 1;
+		
+		# Add to $type_map
+		get_canonical_names($enum_fullname, \$prefix, \$macro_prefix,
+							\$macro_suffix, \$macro_name);
+		print "haha $enum_fullname\n";
+		$type_map_item_hr->{'gtype'} = 'G_TYPE_ENUM';
+		$type_map_item_hr->{'rettype'} = '0';
+		$type_map_item_hr->{'type'} = $macro_prefix."_TYPE_".$macro_suffix;
+		$type_map->{$enum_fullname} = $type_map_item_hr;
+	}
 }
 
 sub compile_struct
@@ -614,13 +636,33 @@ sub compile_struct
 	{
 		$class_hr->{"__structs"} = {};
 	}
-	my $enums_hr = $class_hr->{"__structs"};
+	my $structs_hr = $class_hr->{"__structs"};
 	
 	my @data = @collector;
-	$enums_hr->{$class} = {};
-	$enums_hr->{$class}->{"__parent"} = $parent;
-	$enums_hr->{$class}->{"__comments"} = $comments;
-	$enums_hr->{$class}->{"__data"} = \@data;
+	$structs_hr->{$class} = {};
+	$structs_hr->{$class}->{"__parent"} = $parent;
+	$structs_hr->{$class}->{"__comments"} = $comments;
+	$structs_hr->{$class}->{"__data"} = \@data;
+	
+	## Add to @not_classes and $type_map
+	{
+		my $prefix;
+		my $macro_prefix;
+		my $macro_suffix;
+		my $macro_name;
+		my $type_map_item_hr = {};
+		my $struct_fullname = "$parent$class";
+		
+		# Add to @not_classes
+		$not_classes->{$struct_fullname} = 1;
+		
+		# Add to $type_map
+		print "haha struct $struct_fullname\n";
+		$type_map_item_hr->{'gtype'} = 'G_TYPE_POINTER';
+		$type_map_item_hr->{'rettype'} = 'NULL';
+		$type_map_item_hr->{'type'} = "G_TYPE_POINTER";
+		$type_map->{"${struct_fullname}*"} = $type_map_item_hr;
+	}
 }
 
 ## GObject based C class files
@@ -789,15 +831,21 @@ sub construct_marshaller
 			if ($one_arg =~ s/([\w_][\w\d_]*)$//)
 			{
 				$one_arg =~ s/\s//g;
-				my $oarg = get_arg_type_info ($one_arg, "gtype");
-				if (!defined($oarg) or $oarg eq '')
+				my $arg_gtype = get_arg_type_info ($one_arg, "gtype");
+				my $arg_type = get_arg_type_info ($one_arg, "type");
+				
+				if (!defined($arg_gtype) or $arg_gtype eq '')
 				{
 					die "Can not find GType for arg type '$one_arg'. Fix it first.";
 				}
-				$args_list .= ",\n\t\t\t$oarg";
-				$oarg =~ s/^G_TYPE_//;
-				$oarg =~ s/NONE/VOID/;
-				$marshal_index .= "_$oarg";
+				if (!defined($arg_type) or $arg_type eq '')
+				{
+					$arg_type = $arg_gtype;
+				}
+				$args_list .= ",\n\t\t\t$arg_type";
+				$arg_gtype =~ s/^G_TYPE_//;
+				$arg_gtype =~ s/NONE/VOID/;
+				$marshal_index .= "_$arg_gtype";
 				$arg_count++;
 			}
 		}
@@ -933,7 +981,7 @@ G_BEGIN_DECLS
 	{
 		foreach my $s (sort keys %$structs_hr)
 		{
-			$answer .= "typedef struct {\n";
+			$answer .= "typedef struct _${class}$s {\n";
 			foreach my $d (@{$structs_hr->{$s}->{"__data"}})
 			{
 				$answer .= "\t$d\n";
