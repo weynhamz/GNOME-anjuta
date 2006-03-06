@@ -41,6 +41,28 @@
 
 static gpointer parent_class;
 
+static int
+sort_wizards(gconstpointer wizard1, gconstpointer wizard2)
+{
+	gchar* name1, *name2;
+	AnjutaPluginDescription* desc1 = (AnjutaPluginDescription*) wizard1;
+	AnjutaPluginDescription* desc2 = (AnjutaPluginDescription*) wizard2;
+	
+	if ((anjuta_plugin_description_get_string (desc1, "Wizard",
+												  "Title", &name1) ||
+			anjuta_plugin_description_get_string (desc1, "Anjuta Plugin",
+												  "Name", &name1)) &&
+		(anjuta_plugin_description_get_string (desc2, "Wizard",
+												  "Title", &name2) ||
+			anjuta_plugin_description_get_string (desc2, "Anjuta Plugin",
+												  "Name", &name2)))
+	{
+		return strcmp(name1, name2);
+	}
+	else
+		return 0;
+}
+
 static gboolean
 path_has_extension (const gchar *path, const gchar *ext)
 {
@@ -616,6 +638,7 @@ on_create_submenu (gpointer user_data)
 										 "Anjuta Plugin",
 										 "Interfaces", "IAnjutaWizard",
 										 NULL);
+	plugin_descs = g_slist_sort(plugin_descs, sort_wizards);
 	node = plugin_descs;
 	count = 0;
 	while (node)
@@ -1153,7 +1176,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											GETTEXT_PACKAGE, plugin);
 	saction = g_object_new (EGG_TYPE_SUBMENU_ACTION,
 							"name", "ActionFileWizard",
-							"label", _("_Wizard"),
+							"label", _("New"),
 							"tooltip", _("New file, project and project components."),
 							NULL);
 	egg_submenu_action_set_menu_factory (saction,

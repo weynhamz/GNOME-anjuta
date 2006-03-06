@@ -7,4 +7,4 @@ Interfaces=IAnjutaWizard
 UserActivatable=no
 
 [Wizard]
-_Title=Create new file
+_Title=File

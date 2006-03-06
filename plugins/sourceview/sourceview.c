@@ -4,7 +4,7 @@
  *  Do Dez 29 00:50:15 2005
  *  Copyright  2005  Johannes Schmid
  *  jhs@gnome.org
- ***************************************************************************/
+ ****************************************************************************/
 
 /*
  *  This program is free software; you can redistribute it and/or modify
@@ -247,6 +247,7 @@ static void sourceview_apply_prefs(Sourceview* sv, AnjutaPreferences* prefs)
 	GtkSourceView* view = 	GTK_SOURCE_VIEW(sv->priv->view);
 	gtk_source_view_set_auto_indent(view, TRUE);
 	gtk_source_view_set_show_line_numbers(view, TRUE);
+	gtk_source_view_set_show_line_markers(view, TRUE);
 }
 
 /* Sync with IANJUTA_MARKABLE_MARKER  */
@@ -339,6 +340,8 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 						 0, FALSE);
 	g_signal_connect(G_OBJECT(sv->priv->document), "loaded", 
 					 G_CALLBACK(on_document_loaded), sv);
+					 
+	sourceview_update_monitor(sv);
 }
 
 /* Return the currently loaded uri */

@@ -1,3 +1,23 @@
+2006-03-06  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/class-gen/anjuta-class-gen.plugin.in
+	plugins/file-loader/plugin.c: (sort_wizards)
+	(on_create_submenu), (activate_plugin)
+	plugins/file-wizard/anjuta-file-wizard.plugin.in
+	plugins/glade/anjuta-glade.plugin.in
+	plugins/project-import/anjuta-project-import.plugin.in
+	plugins/project-wizard/anjuta-project-wizard.plugin.in:
+	
+	Changed File->Wizard to File->New and changed some wizard titles. Wizards are 
+	sorted alphabeticly
+	
+	* plugins/project-wizard/templates/mkfile.wiz:
+	Use configured project directory instead of ~/myproject
+	
+	* plugins/sourceview/sourceview.c: (sourceview_apply_prefs),
+	(ifile_open):
+	Show markers (again) and monitor uri
+
 2006-03-06  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl: Generate struct

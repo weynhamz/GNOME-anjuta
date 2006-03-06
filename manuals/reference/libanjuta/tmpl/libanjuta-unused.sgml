@@ -1349,12 +1349,6 @@ Properties
 </para>
 
 
-<!-- ##### MACRO IANJUTA_EDITOR_EDIT_ERROR ##### -->
-<para>
-
-</para>
-
-
 <!-- ##### MACRO IANJUTA_RENDERABLE_ERROR ##### -->
 <para>
 
@@ -1444,35 +1438,6 @@ Properties
 @g_iface: 
 @down: 
 @up: 
-
-<!-- ##### STRUCT IAnjutaEditorEdit ##### -->
-<para>
-
-</para>
-
-
-<!-- ##### STRUCT IAnjutaEditorEditIface ##### -->
-<para>
-
-</para>
-
-@g_iface: 
-@autocomplete: 
-@clear: 
-@convert_eol: 
-@copy: 
-@cut: 
-@eoltocr: 
-@eoltocrlf: 
-@eoltolf: 
-@paste: 
-@redo: 
-@select_all: 
-@select_block: 
-@select_to_brace: 
-@to_lower: 
-@to_upper: 
-@undo: 
 
 <!-- ##### ENUM IAnjutaIterableError ##### -->
 <para>
@@ -2351,142 +2316,6 @@ Properties
 
 @obj: 
 @line: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_autocomplete ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_clear ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_convert_eol ##### -->
-<para>
-
-</para>
-
-@obj: 
-@mode: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_copy ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_cut ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_eoltocr ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_eoltocrlf ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_eoltolf ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_error_quark ##### -->
-<para>
-
-</para>
-
-@Returns: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_paste ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_redo ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_select_all ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_select_block ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_select_to_brace ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_to_lower ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_to_upper ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-<!-- ##### FUNCTION ianjuta_editor_edit_undo ##### -->
-<para>
-
-</para>
-
-@obj: 
 @err: 
 
 <!-- ##### FUNCTION ianjuta_editor_get_selection ##### -->

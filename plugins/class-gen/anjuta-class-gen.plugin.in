@@ -7,4 +7,4 @@ Interfaces=IAnjutaWizard
 UserActivatable=no
 
 [Wizard]
-_Title=Create new c++/gobject class
+_Title=C++/gobject class
