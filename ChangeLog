@@ -1,3 +1,40 @@
+2006-03-07  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/action-callbacks.c
+	plugins/document-manager/anjuta-document-manager.glade
+	plugins/document-manager/plugin.c: (prefs_init),
+	(activate_plugin):
+	plugins/editor/Makefile.am:
+	plugins/editor/editor.glade:
+	plugins/editor/plugin.c: (on_style_button_clicked),
+	(activate_plugin), (dispose):
+	plugins/editor/style-editor.c:
+	
+	Startet to seperate document-manager and editor preferences
+
+	* plugins/search/Makefile.am:
+	plugins/search/anjuta-search.glade:
+	plugins/search/search-replace.c:
+	
+	Moved search GUI to search-plugin
+		
+	* plugins/sourceview/sourceview-prefs.c:
+	plugins/sourceview/sourceview-prefs.h:
+	plugins/sourceview/sourceview-private.h:
+	plugins/sourceview/sourceview.c: 
+	plugins/sourceview/sourceview.h:
+	plugins/sourceview/Makefile.am:
+	plugins/sourceview/anjuta-document.h:
+	plugins/sourceview/anjuta-view.c: (anjuta_view_init):
+	plugins/sourceview/plugin.c: 
+	
+	Added some preferences to sourceview and fixed vfs_monitor
+	
+	* tagmanager/c.c: (parseParens): 
+	Removed annoying debug message
+	
+	* libanjuta/interfaces/libanjuta.idl: Remove IAnjutaEditorFactory::create_style_editor()
+
 2006-03-07  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/sourceview/sourceview.c, plugins/search/search-replace.c :

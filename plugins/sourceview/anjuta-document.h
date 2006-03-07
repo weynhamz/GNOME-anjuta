@@ -164,7 +164,6 @@ void		 anjuta_document_save_as 	(AnjutaDocument       *doc,
 						 AnjutaDocumentSaveFlags flags);
 
 gboolean	 anjuta_document_is_untouched 	(AnjutaDocument       *doc);
-gboolean	 anjuta_document_is_untitled 	(AnjutaDocument       *doc);
 
 gboolean	 anjuta_document_get_deleted	(AnjutaDocument       *doc);
 /* Ancora da discutere

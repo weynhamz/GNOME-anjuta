@@ -37,7 +37,6 @@ ianjuta-editor-factory
 
 @g_iface: 
 @new_editor: 
-@new_style_editor: 
 
 <!-- ##### FUNCTION ianjuta_editor_factory_error_quark ##### -->
 <para>
@@ -55,16 +54,6 @@ ianjuta-editor-factory
 @obj: 
 @uri: 
 @filename: 
-@err: 
-@Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_editor_factory_new_style_editor ##### -->
-<para>
-
-</para>
-
-@obj: 
 @err: 
 @Returns: 
 

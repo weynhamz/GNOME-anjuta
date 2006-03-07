@@ -1,3 +1,7 @@
+# Plugin glade file
+editor_gladedir = $(anjuta_glade_dir)
+editor_glade_DATA = editor.glade
+
 # Plugin Icon file
 editor_pixmapsdir = $(anjuta_image_dir)
 editor_pixmaps_DATA = anjuta-editor.png

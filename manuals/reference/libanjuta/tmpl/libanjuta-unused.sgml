@@ -2318,6 +2318,15 @@ Properties
 @line: 
 @err: 
 
+<!-- ##### FUNCTION ianjuta_editor_factory_new_style_editor ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
 <!-- ##### FUNCTION ianjuta_editor_get_selection ##### -->
 <para>
 

@@ -49,7 +49,7 @@
 
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 
-#define GLADE_FILE_SEARCH_REPLACE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
+#define GLADE_FILE_SEARCH_REPLACE PACKAGE_DATA_DIR"/glade/anjuta-search.glade"
 
 /* LibGlade's auto-signal-connect will connect to these signals.
  * Do not declare them static.

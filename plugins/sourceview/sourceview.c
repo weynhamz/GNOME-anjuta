@@ -23,6 +23,7 @@
  */
 
 #include "sourceview.h"
+#include "sourceview-prefs.h"
 #include "plugin.h"
 
 #include <libanjuta/anjuta-debug.h>
@@ -48,6 +49,7 @@
 
 #include "config.h"
 #include "anjuta-encodings.h"
+#include "sourceview-private.h"
 #include "anjuta-document.h"
 #include "anjuta-view.h"
 
@@ -56,25 +58,15 @@
 #define FORWARD 	0
 #define BACKWARD 	1
 
+#define REGISTER_NOTIFY(key, func) \
+	notify_id = anjuta_preferences_notify_add (te->preferences, \
+											   key, func, te, NULL); \
+	te->gconf_notify_ids = g_list_prepend (te->gconf_notify_ids, \
+										   (gpointer)(notify_id));
+
 static void sourceview_class_init(SourceviewClass *klass);
 static void sourceview_instance_init(Sourceview *sv);
 static void sourceview_finalize(GObject *object);
-
-struct SourceviewPrivate {
-	/* GtkSouceView */
-	AnjutaView* view;
-	gchar* filename;
-	
-	/* GtkSourceBuffer */
-	AnjutaDocument* document;
-	
-	/* Markers */
-	GList* markers;
-	gint marker_count;
-	
-	/* VFS Monitor */
-	GnomeVFSMonitorHandle* monitor;
-};
 
 typedef enum {
 	SIGNAL_TYPE_EXAMPLE,
@@ -97,22 +89,6 @@ static void on_document_changed(AnjutaDocument* buffer, Sourceview* sv)
 	/* Emit IAnjutaFileSavable signals */
 	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
 						  !gtk_text_buffer_get_modified(GTK_TEXT_BUFFER(buffer)));
-}
-
-/* Called when document is loaded completly */
-static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
-{
-	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
-	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
-						  TRUE);
-}
-
-/* Called when document is loaded completly */
-static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
-{
-	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
-	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
-						  TRUE);
 }
 
 /* Called whenever the curser moves */
@@ -170,7 +146,7 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 						  "the current buffer.\nDo you want to reload it?"),
 						 g_basename(anjuta_document_get_uri(sv->priv->document)));
 	
-	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv));
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv->priv->view));
 	
 	dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
 								  GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -199,13 +175,40 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 
 /* Update Monitor on load/save */
 static void
-sourceview_update_monitor(Sourceview* sv)
+sourceview_remove_monitor(Sourceview* sv)
 {
-	if (sv->priv->monitor != NULL)
+	if (sv->priv->monitor != NULL) 
+	{
 		gnome_vfs_monitor_cancel(sv->priv->monitor);
+		sv->priv->monitor = NULL;
+	}
+}
+
+static void 
+sourceview_add_monitor(Sourceview* sv)
+{
+	g_return_if_fail(sv->priv->monitor == NULL);
 	gnome_vfs_monitor_add(&sv->priv->monitor, anjuta_document_get_uri(sv->priv->document),
 						  GNOME_VFS_MONITOR_FILE,
 						  on_sourceview_uri_changed, sv);
+}
+
+/* Called when document is loaded completly */
+static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
+{
+	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
+	sourceview_add_monitor(sv);
+	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
+						  TRUE);
+}
+
+/* Called when document is loaded completly */
+static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
+{
+	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
+	sourceview_add_monitor(sv);
+	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
+						  TRUE);
 }
 
 static void 
@@ -239,15 +242,6 @@ sourceview_finalize(GObject *object)
 	
 	g_free(cobj->priv);
 	G_OBJECT_CLASS(parent_class)->finalize(object);
-}
-
-static void sourceview_apply_prefs(Sourceview* sv, AnjutaPreferences* prefs)
-{
-	/* TODO: Apply preferences */
-	GtkSourceView* view = 	GTK_SOURCE_VIEW(sv->priv->view);
-	gtk_source_view_set_auto_indent(view, TRUE);
-	gtk_source_view_set_show_line_numbers(view, TRUE);
-	gtk_source_view_set_show_line_markers(view, TRUE);
 }
 
 /* Sync with IANJUTA_MARKABLE_MARKER  */
@@ -289,11 +283,10 @@ static void sourceview_create_markers(Sourceview* sv)
 the file will be loaded in the buffer */
 
 Sourceview *
-sourceview_new(const gchar* uri, const gchar* filename)
+sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs)
 {
 	Sourceview *sv = ANJUTA_SOURCEVIEW(g_object_new(ANJUTA_TYPE_SOURCEVIEW, NULL));
-	static guint new_file_count = 0;
-	
+
 	/* Create buffer */
 	sv->priv->document = anjuta_document_new();
 	g_signal_connect_after(G_OBJECT(sv->priv->document), "changed", 
@@ -306,7 +299,8 @@ sourceview_new(const gchar* uri, const gchar* filename)
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
 
 	/* Apply Preferences (TODO) */
-	sourceview_apply_prefs(sv, NULL);
+	sv->priv->prefs = prefs;
+	sourceview_prefs_init(sv);
 	
 	/* Create Markers */
 	sourceview_create_markers(sv);
@@ -317,9 +311,6 @@ sourceview_new(const gchar* uri, const gchar* filename)
 				      GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(sv), GTK_WIDGET(sv->priv->view));
 	gtk_widget_show_all(GTK_WIDGET(sv));
-	
-	if (filename == 0|| strlen(filename) == 0)
-		sv->priv->filename = g_strdup_printf ("Newfile#%d", ++new_file_count);
 	
 	if (uri != NULL && strlen(uri) > 0)
 	{
@@ -336,12 +327,11 @@ static void
 ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
-	anjuta_document_load(sv->priv->document, uri, anjuta_encoding_get_utf8(),
-						 0, FALSE);
+	sourceview_remove_monitor(sv);
 	g_signal_connect(G_OBJECT(sv->priv->document), "loaded", 
 					 G_CALLBACK(on_document_loaded), sv);
-					 
-	sourceview_update_monitor(sv);
+	anjuta_document_load(sv->priv->document, uri, anjuta_encoding_get_utf8(),
+						 0, FALSE);
 }
 
 /* Return the currently loaded uri */
@@ -360,10 +350,11 @@ static void
 ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
-	anjuta_document_save(sv->priv->document, ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);
+	sourceview_remove_monitor(sv);
 	g_signal_connect(G_OBJECT(sv->priv->document), "saved", 
 					 G_CALLBACK(on_document_saved), sv);
-	
+					 
+	anjuta_document_save(sv->priv->document, ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);	
 }
 
 /* Save file as */
@@ -371,11 +362,13 @@ static void
 ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
+	sourceview_remove_monitor(sv);
+	g_signal_connect(G_OBJECT(sv->priv->document), "saved", 
+					 G_CALLBACK(on_document_saved), sv);
 	anjuta_document_save_as(sv->priv->document, 
 							uri, anjuta_encoding_get_utf8(),
 							ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);
-	g_signal_connect(G_OBJECT(sv->priv->document), "saved", 
-					 G_CALLBACK(on_document_saved), sv);
+	
 }
 
 static void 

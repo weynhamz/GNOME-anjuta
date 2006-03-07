@@ -850,15 +850,6 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 }
 
 static void
-on_edit_editor_styles (GtkWidget *button, DocmanPlugin *plugin)
-{
-	AnjutaShell* shell = ANJUTA_DOCMAN(plugin->docman)->shell;
-	IAnjutaEditorFactory* factory = 
-	     anjuta_shell_get_interface(shell, IAnjutaEditorFactory, NULL);
-	ianjuta_editor_factory_new_style_editor(factory, NULL);
-}
-
-static void
 on_edit_editor_indent (GtkWidget *button, DocmanPlugin *plugin)
 {
 	IndentData *idt = plugin->idt;
@@ -1067,7 +1058,6 @@ prefs_init (DocmanPlugin *ep)
 	docman_plugin_set_tab_pos (ep);
 	REGISTER_NOTIFY (EDITOR_TABS_HIDE, on_gconf_notify_prefs);
 	REGISTER_NOTIFY (EDITOR_TABS_POS, on_gconf_notify_prefs);
-
 }
 
 static void
@@ -1182,7 +1172,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	if (!initialized)
 	{
-		GtkWidget *style_button;
 		GtkWidget *indent_button;
 		GtkWidget *indent_combo;
 		GtkWidget *indent_entry;
@@ -1193,15 +1182,12 @@ activate_plugin (AnjutaPlugin *plugin)
 		
 		/* Add preferences */
 		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
-		style_button = glade_xml_get_widget (gxml, "edit_style_button");
-		g_signal_connect (G_OBJECT (style_button), "clicked",
-						  G_CALLBACK (on_edit_editor_styles), plugin);
 		indent_button = glade_xml_get_widget (gxml, "set_indent_button");
 		g_signal_connect (G_OBJECT (indent_button), "clicked",
 						  G_CALLBACK (on_edit_editor_indent), plugin);
 		
 		anjuta_preferences_add_page (editor_plugin->prefs,
-									 gxml, "Editor", ICON_FILE);
+									 gxml, "Documents", ICON_FILE);
 		anjuta_encodings_init (editor_plugin->prefs, gxml);
 		
 		indent_combo = glade_xml_get_widget (gxml, "pref_indent_style_combobox");

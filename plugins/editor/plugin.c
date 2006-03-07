@@ -36,15 +36,35 @@
 #include "style-editor.h"
 #include "text_editor.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-document-manager.ui"
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
+#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/editor.glade"
 #define ICON_FILE "anjuta-document-manager.png"
 
 gpointer parent_class;
 
+static void 
+on_style_button_clicked(GtkWidget* button, AnjutaPreferences* prefs)
+{
+	StyleEditor* se = style_editor_new(prefs);
+	style_editor_show(se);
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
+	/* Add preferences */
+	AnjutaPreferences* prefs;
+	AnjutaShell* shell;
+	GladeXML* gxml;
+	GtkWidget* style_button;
+	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
+	prefs = anjuta_shell_get_preferences(shell, NULL);
+	gxml = glade_xml_new (PREFS_GLADE, "editor_prefs", NULL);
+	style_button = glade_xml_get_widget(gxml, "style_editor_button");
+	g_signal_connect(G_OBJECT(style_button), "clicked", G_CALLBACK(on_style_button_clicked), prefs);
+	anjuta_preferences_add_page (prefs,
+								 gxml, "Editor", ICON_FILE);
+	anjuta_encodings_init (prefs, gxml);
+
 	return TRUE;
 }
 
@@ -59,7 +79,7 @@ static void
 dispose (GObject *obj)
 {
 	/* EditorPlugin *eplugin = (EditorPlugin*)obj; */
-	
+
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
@@ -95,21 +115,10 @@ itext_editor_factory_new_editor(IAnjutaEditorFactory* factory,
 	return editor;
 }
 
-static gpointer
-itext_editor_factory_new_style_editor(IAnjutaEditorFactory *factory, GError **e)
-{
-	AnjutaShell *shell = ANJUTA_PLUGIN (factory)->shell;
-	AnjutaPreferences *prefs = anjuta_shell_get_preferences (shell, NULL);
-	StyleEditor* se = style_editor_new(prefs);
-	style_editor_show (se);
-	return se;
-}
-
 static void
 itext_editor_factory_iface_init (IAnjutaEditorFactoryIface *iface)
 {
 	iface->new_editor = itext_editor_factory_new_editor;
-	iface->new_style_editor = itext_editor_factory_new_style_editor;
 }
 
 ANJUTA_PLUGIN_BEGIN (EditorPlugin, editor_plugin);

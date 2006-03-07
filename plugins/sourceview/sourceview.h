@@ -52,6 +52,6 @@ typedef struct {
 } SourceviewClass;
 
 GType sourceview_get_type(void);
-Sourceview *sourceview_new(const gchar* uri, const gchar* filename);
+Sourceview *sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs);
 
 #endif /* SOURCEVIEW_H */

@@ -1,3 +1,7 @@
+# Plugin glade file
+search_gladedir = $(anjuta_glade_dir)
+search_glade_DATA = anjuta-search.glade
+
 # Plugin Icon file
 search_pixmapsdir = $(anjuta_image_dir)
 search_pixmaps_DATA = anjuta-search.png
@@ -45,4 +49,5 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(search_plugin_DATA) \
 	$(search_ui_DATA) \
-	$(search_pixmaps_DATA)
+	$(search_pixmaps_DATA) \
+	$(search_glade_DATA)

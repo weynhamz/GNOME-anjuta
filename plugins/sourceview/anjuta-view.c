@@ -253,7 +253,6 @@ anjuta_view_init (AnjutaView *view)
 		      "auto_indent", TRUE,
 		      "tabs_width", 4,
 		      "insert_spaces_instead_of_tabs", FALSE,
-		      "show_markers", TRUE, 
 		      "highlight_current_line", TRUE, 
 		      "smart_home_end", FALSE, /* Never changes this */
 		      NULL);

@@ -94,22 +94,19 @@ ieditor_factory_new_editor(IAnjutaEditorFactory* factory,
 								const gchar* filename, 
 								GError** error)
 {
-	IAnjutaEditor* editor = IANJUTA_EDITOR(sourceview_new(uri, filename));
+	AnjutaPlugin* plugin = ANJUTA_PLUGIN(factory);
+	AnjutaShell* shell;
+	AnjutaPreferences* prefs;
+	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
+	prefs = anjuta_shell_get_preferences(shell, NULL);
+	IAnjutaEditor* editor = IANJUTA_EDITOR(sourceview_new(uri, filename, prefs));
 	return editor;
-}
-
-static gpointer
-ieditor_factory_new_style_editor(IAnjutaEditorFactory *editor, GError **e)
-{
-	DEBUG_PRINT("StyleEditor not implemented in SourceviewPlugin");
-	return NULL;
 }
 
 static void
 ieditor_factory_iface_init (IAnjutaEditorFactoryIface *iface)
 {
 	iface->new_editor = ieditor_factory_new_editor;
-	iface->new_style_editor = ieditor_factory_new_style_editor;
 }
 
 ANJUTA_PLUGIN_BEGIN (SourceviewPlugin, sourceview_plugin);

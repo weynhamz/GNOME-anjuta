@@ -849,23 +849,20 @@ on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data)
 void
 on_indent1_activate (GtkAction * action, gpointer user_data)
 {
-	#if 0 // FIXME
     //trying to restore line no where i was before autoformat invoked
     gint lineno;
-	TextEditor *te;
+	IAnjutaEditor *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
 	plugin = (DocmanPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
-    lineno = aneditor_command (te->editor_id, ANE_GET_LINENO, 0, 0);
-	if (te == NULL)
+    if (te == NULL)
 		return;
-	text_editor_autoformat (te);
-	// FIXME: anjuta_update_title ();
-    text_editor_goto_line (te, lineno+1, TRUE, FALSE);
-	#endif
+    lineno = ianjuta_editor_get_lineno(te, NULL);
+	//FIXME: text_editor_autoformat (te);
+	ianjuta_editor_goto_line (te, lineno, NULL);
 }
 
 #if 0

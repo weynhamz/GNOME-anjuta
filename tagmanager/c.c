@@ -1874,7 +1874,7 @@ static int parseParens (statementInfo *const st, parenInfo *const info)
 	{
 	    case '&':
 	    case '*':
-		DEBUG_PRINT("parseParens, po++\n");
+		/* DEBUG_PRINT("parseParens, po++\n"); */
 		info->pointerOrder++;
 		info->isKnrParamList = FALSE;
 		if (identifierCount == 0)
