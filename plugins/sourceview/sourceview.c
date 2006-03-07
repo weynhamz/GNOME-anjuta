@@ -965,7 +965,7 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 	gchar* name;
 	
 	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document),
-									 &iter, location - 1);
+									 &iter, location);
 	switch (marker)
 	{
 		case IANJUTA_MARKABLE_NONE:

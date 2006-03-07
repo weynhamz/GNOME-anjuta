@@ -39,7 +39,7 @@
 #include <libanjuta/interfaces/ianjuta-message-view.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
-#include <libanjuta/interfaces/ianjuta-bookmark.h>
+#include <libanjuta/interfaces/ianjuta-markable.h>
 
 #include <libegg/menu/egg-entry-action.h>
 
@@ -327,7 +327,12 @@ search_and_replace (void)
 			gint found_line = 0;
 			fb->pos = se->start_pos;
 			offset = 0;
-
+			
+			if (s->action == SA_BOOKMARK || s->action == SA_HIGHLIGHT)
+				ianjuta_markable_delete_all_markers(IANJUTA_MARKABLE(fb->te), 
+				                                    IANJUTA_MARKABLE_ATTENTIVE, NULL);
+			
+	
 			while (interactive || 
 				NULL != (mi = get_next_match(fb, s->range.direction, &(s->expr))))
 			{
@@ -359,8 +364,10 @@ search_and_replace (void)
 						
 						if (found_line != mi->line + 1)
 						{
-							ianjuta_bookmark_toggle(IANJUTA_BOOKMARK(fb->te),
-													found_line, FALSE, NULL);
+							ianjuta_markable_mark (IANJUTA_MARKABLE(fb->te), 
+							                       mi->line + 1,
+							                       IANJUTA_MARKABLE_ATTENTIVE,
+							                       NULL);
 							found_line = mi->line + 1;
 						}
 						break;

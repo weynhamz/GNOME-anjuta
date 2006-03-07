@@ -1,3 +1,8 @@
+2006-03-07  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/sourceview/sourceview.c, plugins/search/search-replace.c :
+	Search : Bookmark all matched lines.
+
 2006-03-06  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/class-gen/anjuta-class-gen.plugin.in
