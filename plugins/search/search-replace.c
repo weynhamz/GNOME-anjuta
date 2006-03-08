@@ -1453,6 +1453,7 @@ on_search_action_changed (GtkEditable *editable, gpointer user_data)
 	reset_flags();
 	act = search_get_item_combo(editable, search_action_strings);
 	rt = search_get_item_combo_name(SEARCH_TARGET, search_target_strings);
+	show_jump_button (FALSE);
 	switch(act)
 	{
 		case SA_SELECT:

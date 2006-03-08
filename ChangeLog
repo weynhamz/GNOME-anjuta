@@ -1,3 +1,10 @@
+2006-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/search/anjuta-search.glade :
+	New order's buttons - Renamed "Forward" to "Find" (bug #306970)
+	plugins/search/search-replace_bachend.c: Fixed a crash bug.
+	plugins/search/search-replace.c : Fixed bug.
+	
 2006-03-08  Johannes Schmid <jhs@gnome.org>
 
     * plugins/search/anjuta-search.glade

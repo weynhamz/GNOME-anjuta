@@ -772,8 +772,6 @@ clear_search_replace_instance(void)
 void
 clear_pcre(void)
 {
-
-	g_free (sr->search.expr.re);
 	FREE_FN(pcre_info_free, sr->search.expr.re);
 }
 
