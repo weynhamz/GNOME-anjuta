@@ -22,6 +22,13 @@ struct _DocmanPlugin{
 	
 	IndentData *idt;
 	
+	/* Autosave timer ID */
+	gint autosave_id;
+	gboolean autosave_on;
+
+	/* Timer interval in mins */
+	gint autosave_it;
+	
 	GList *gconf_notify_ids;
 };
 

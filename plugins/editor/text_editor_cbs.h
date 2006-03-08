@@ -28,8 +28,6 @@ on_text_editor_scintilla_focus_in (GtkWidget* scintilla, GdkEvent *event,
 void
 on_text_editor_text_changed            (GtkEditable     *editable,
                                         gpointer         user_data);
-gboolean
-on_text_editor_auto_save               (gpointer         user_data);
 
 gboolean
 on_text_editor_text_event              (GtkWidget       *widget,

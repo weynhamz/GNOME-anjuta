@@ -111,6 +111,16 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, Sourceview *sv)
 	gtk_widget_destroy (dlg);
 }
 
+/* Show popup menu */
+static gboolean
+on_menu_popup(GtkWidget* view, Sourceview* sv)
+{
+    gtk_menu_attach_to_widget(GTK_MENU(sv->priv->menu), view, NULL);
+    gtk_menu_popup(GTK_MENU(sv->priv->menu), NULL, NULL, NULL, NULL, 0,
+        gtk_get_current_event_time());
+    DEBUG_PRINT("Popup");
+    return TRUE;
+}
 
 /* VFS-Monitor Callback */
 static void
@@ -293,10 +303,15 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 					 G_CALLBACK(on_document_changed), sv);
 	g_signal_connect_after(G_OBJECT(sv->priv->document), "cursor-moved", 
 					 G_CALLBACK(on_cursor_moved),sv);
-	
+	g_signal_connect_after(G_OBJECT(sv->priv->document), "loaded", 
+					 G_CALLBACK(on_document_loaded), sv);
+	g_signal_connect_after(G_OBJECT(sv->priv->document), "saved", 
+					 G_CALLBACK(on_document_saved), sv);
+					 
 	/* Create View instance */
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document));
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
+    g_signal_connect(G_OBJECT(sv->priv->view), "popup-menu", G_CALLBACK(on_menu_popup), sv);
 
 	/* Apply Preferences (TODO) */
 	sv->priv->prefs = prefs;
@@ -328,8 +343,6 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
-	g_signal_connect(G_OBJECT(sv->priv->document), "loaded", 
-					 G_CALLBACK(on_document_loaded), sv);
 	anjuta_document_load(sv->priv->document, uri, anjuta_encoding_get_utf8(),
 						 0, FALSE);
 }
@@ -351,8 +364,6 @@ ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
-	g_signal_connect(G_OBJECT(sv->priv->document), "saved", 
-					 G_CALLBACK(on_document_saved), sv);
 					 
 	anjuta_document_save(sv->priv->document, ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);	
 }
@@ -363,8 +374,6 @@ ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
-	g_signal_connect(G_OBJECT(sv->priv->document), "saved", 
-					 G_CALLBACK(on_document_saved), sv);
 	anjuta_document_save_as(sv->priv->document, 
 							uri, anjuta_encoding_get_utf8(),
 							ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);
@@ -588,23 +597,14 @@ static void ieditor_set_popup_menu(IAnjutaEditor *editor,
 								   GtkWidget* menu, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	GList* menus;
-
-	menus = gtk_menu_get_for_attach_widget(GTK_WIDGET(sv->priv->view));
-	while (menus)
-	{
-		gtk_menu_detach(menus->data);
-		menus = g_list_next(menus);
-	}
-	gtk_menu_attach_to_widget(GTK_MENU(menu), GTK_WIDGET(sv->priv->view),
-							  NULL);
+    sv->priv->menu = menu;
 }
 
 /* Return the opened filename */
 static const gchar* ieditor_get_filename(IAnjutaEditor *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	return g_basename(anjuta_document_get_uri(sv->priv->document));
+	return anjuta_document_get_short_name_for_display(sv->priv->document);
 }
 
 /* Convert from position to line */
@@ -958,7 +958,7 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 	gchar* name;
 	
 	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document),
-									 &iter, location);
+									 &iter, location - 1);
 	switch (marker)
 	{
 		case IANJUTA_MARKABLE_NONE:

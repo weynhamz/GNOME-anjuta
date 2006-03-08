@@ -36,6 +36,7 @@
 
 #include <libanjuta/anjuta-encodings.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 
 struct _AnjutaEncoding
 {
@@ -738,6 +739,8 @@ save_property (void)
 void
 anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 {
+    /* FIXME */
+    #if 0
 	GtkWidget *add_button;
 	GtkWidget *remove_button;
 	GtkWidget *up_button;
@@ -750,8 +753,6 @@ anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
 	
-	g_return_if_fail (anjuta_encodings_dialog == NULL);
-	
 	/* Create the Encodings preferences page */
 	/*
 	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
@@ -761,6 +762,7 @@ anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 								"Encodings",
 								"preferences-encodings.png");
 	*/
+	
 	supported_treeview = glade_xml_get_widget (gxml, "supported_treeview");
 	stock_treeview =  glade_xml_get_widget (gxml, "stock_treeview");
 	add_button = glade_xml_get_widget (gxml, "add_button");
@@ -838,4 +840,5 @@ anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 	anjuta_encodings_dialog->down_button = down_button;
 	anjuta_encodings_dialog->supported_treeview = supported_treeview;
 	anjuta_encodings_dialog->stock_treeview = stock_treeview;
+	#endif
 }

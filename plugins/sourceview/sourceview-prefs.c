@@ -25,7 +25,6 @@
 										   (gpointer)(notify_id));
 /* Editor preferences */
 #define DISABLE_SYNTAX_HILIGHTING  "disable.syntax.hilighting"
-#define SAVE_AUTOMATIC             "save.automatic"
 #define INDENT_AUTOMATIC           "indent.automatic"
 #define USE_TABS                   "use.tabs"
 #define BRACES_CHECK               "braces.check"
@@ -39,7 +38,6 @@
 #define TAB_INDENTS                "tab.indents"
 #define BACKSPACE_UNINDENTS        "backspace.unindents"
 
-#define AUTOSAVE_TIMER             "autosave.timer"
 #define SAVE_SESSION_TIMER         "save.session.timer"
 
 #define AUTOFORMAT_DISABLE         "autoformat.disable"
@@ -79,54 +77,6 @@ get_bool(GConfEntry* entry)
 {
     GConfValue* value = gconf_entry_get_value(entry);
 	return gconf_value_get_bool(value);
-}
-
-										   
-static void
-on_gconf_notify_timer (GConfClient *gclient, guint cnxn_id,
-					   GConfEntry *entry, gpointer user_data)
-{
-	// TODO: Move to document manager
-	#if 0
-	gboolean auto_save;
-	guint auto_save_timer;
-	TextEditor *te;
-	
-	te = TEXT_EDITOR (user_data);
-	auto_save = set_n_get_prop_int (te, SAVE_AUTOMATIC);
-	auto_save_timer = set_n_get_prop_int (te, AUTOSAVE_TIMER);
-
-	if (auto_save)
-	{
-		if (te->autosave_on == TRUE)
-		{
-			if (auto_save_timer != te->autosave_it)
-			{
-				gtk_timeout_remove (te->autosave_id);
-				te->autosave_id =
-					gtk_timeout_add (auto_save_timer *
-							 60000,
-							 on_text_editor_auto_save,
-							 te);
-			}
-		}
-		else
-		{
-			te->autosave_id =
-				gtk_timeout_add (auto_save_timer * 60000,
-						 on_text_editor_auto_save,
-						 te);
-		}
-		te->autosave_it = auto_save_timer;
-		te->autosave_on = TRUE;
-	}
-	else
-	{
-		if (te->autosave_on == TRUE)
-			gtk_timeout_remove (te->autosave_id);
-		te->autosave_on = FALSE;
-	}
-	#endif
 }
 
 static void
@@ -344,8 +294,6 @@ sourceview_prefs_init(Sourceview* sv)
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
-	REGISTER_NOTIFY (SAVE_AUTOMATIC, on_gconf_notify_timer);
-	REGISTER_NOTIFY (AUTOSAVE_TIMER, on_gconf_notify_timer);
 	REGISTER_NOTIFY (TEXT_ZOOM_FACTOR, on_gconf_notify_zoom_factor);
 	REGISTER_NOTIFY (INDENT_SIZE, on_gconf_notify_indent_size);
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);

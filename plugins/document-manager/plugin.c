@@ -940,6 +940,8 @@ on_window_key_press_event (GtkWidget   *widget,
 #define EDITOR_TABS_POS            "editor.tabs.pos"
 #define EDITOR_TABS_HIDE           "editor.tabs.hide"
 #define EDITOR_TABS_ORDERING       "editor.tabs.ordering"
+#define AUTOSAVE_TIMER             "autosave.timer"
+#define SAVE_AUTOMATIC             "save.automatic"
 
 static gint
 on_window_key_release_event (GtkWidget   *widget,
@@ -1046,6 +1048,101 @@ on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
 	docman_plugin_set_tab_pos (ep);
 }
 
+static gboolean
+on_docman_auto_save (gpointer data)
+{
+	DocmanPlugin *plugin = (DocmanPlugin*)data;
+	AnjutaShell* shell;
+	AnjutaPreferences* prefs;
+    AnjutaDocman *docman;
+    AnjutaStatus* status;
+	IAnjutaEditor* editor;
+	GList* editors;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	
+    g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
+	prefs = anjuta_shell_get_preferences(shell, NULL);
+	status = anjuta_shell_get_status(shell, NULL);
+	
+	if (!docman)
+		return FALSE;
+	if (anjuta_preferences_get_int (prefs, SAVE_AUTOMATIC) == FALSE)
+	{
+		plugin->autosave_on = FALSE;
+		return FALSE;
+	}
+	
+	editors = anjuta_docman_get_all_editors(docman);
+	while(editors)
+	{
+		editor = IANJUTA_EDITOR(editors->data);
+		if (ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(editor), NULL))
+		{
+            if (ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL) != NULL)
+            {
+                ianjuta_file_savable_save(IANJUTA_FILE_SAVABLE(editor), NULL);
+            }
+        }
+		editors = g_list_next(editors);
+	}
+	// TODO: Check for errors
+	{
+	   gchar *mesg = NULL;
+	   mesg = g_strdup("Autosaved complete");                                          
+	   anjuta_status (status, mesg, 3);
+	   g_free(mesg);
+	}
+	return TRUE;
+}
+
+static void
+on_gconf_notify_timer (GConfClient *gclient, guint cnxn_id,
+					   GConfEntry *entry, gpointer user_data)
+{
+	DocmanPlugin *ep = (DocmanPlugin*)user_data;
+	AnjutaShell* shell;
+	AnjutaPreferences* prefs;
+	gint auto_save_timer;
+	gboolean auto_save;
+	
+	g_object_get(G_OBJECT(ep), "shell", &shell, NULL);
+	prefs = anjuta_shell_get_preferences(shell, NULL);
+	
+	auto_save_timer = anjuta_preferences_get_int(prefs, AUTOSAVE_TIMER);
+	auto_save = anjuta_preferences_get_int(prefs, SAVE_AUTOMATIC);
+	
+	if (auto_save)
+	{
+		if (ep->autosave_on == TRUE)
+		{
+			if (auto_save_timer != ep->autosave_it)
+			{
+				gtk_timeout_remove (ep->autosave_id);
+				ep->autosave_id =
+					gtk_timeout_add (auto_save_timer *
+							 60000,
+							 on_docman_auto_save,
+							 ep);
+			}
+		}
+		else
+		{
+			ep->autosave_id =
+				gtk_timeout_add (auto_save_timer * 60000,
+						 on_docman_auto_save,
+						 ep);
+		}
+		ep->autosave_it = auto_save_timer;
+		ep->autosave_on = TRUE;
+	}
+	else
+	{
+		if (ep->autosave_on == TRUE)
+			gtk_timeout_remove (ep->autosave_id);
+		ep->autosave_on = FALSE;
+	}
+}
+
 #define REGISTER_NOTIFY(key, func) \
 	notify_id = anjuta_preferences_notify_add (ep->prefs, \
 											   key, func, ep, NULL); \
@@ -1058,6 +1155,10 @@ prefs_init (DocmanPlugin *ep)
 	docman_plugin_set_tab_pos (ep);
 	REGISTER_NOTIFY (EDITOR_TABS_HIDE, on_gconf_notify_prefs);
 	REGISTER_NOTIFY (EDITOR_TABS_POS, on_gconf_notify_prefs);
+	REGISTER_NOTIFY (AUTOSAVE_TIMER, on_gconf_notify_timer);
+	REGISTER_NOTIFY (SAVE_AUTOMATIC, on_gconf_notify_timer);
+	
+	on_gconf_notify_timer(NULL,0,NULL, ep);
 }
 
 static void

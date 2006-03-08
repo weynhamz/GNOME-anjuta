@@ -103,8 +103,6 @@ text_editor_instance_init (TextEditor *te)
 	te->freeze_count = 0;
 	te->current_line = 0;
 	te->popup_menu = NULL;
-	te->autosave_on = FALSE;
-	te->autosave_it = 10;
 	te->props_base = 0;
 	te->first_time_expose = TRUE;
 	te->encoding = NULL;
@@ -432,7 +430,7 @@ text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, const gchar *uri, 
 	return GTK_WIDGET (te);
 }
 
-void
+voi
 text_editor_dispose (GObject *obj)
 {
 	TextEditor *te = TEXT_EDITOR (obj);
@@ -440,12 +438,6 @@ text_editor_dispose (GObject *obj)
 	{
 		text_editor_update_monitor (te, TRUE);
 		te->monitor = NULL;
-	}
-	if (te->autosave_on)
-	{
-		gtk_timeout_remove (te->autosave_id);
-		te->autosave_on = FALSE;
-		te->autosave_id = 0;
 	}
 	if (te->popup_menu)
 	{

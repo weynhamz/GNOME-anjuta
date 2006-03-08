@@ -69,13 +69,6 @@ struct _TextEditor
 	/* Properties set ID in the preferences */
 	gint props_base;
 
-	/* Autosave timer ID */
-	gint autosave_id;
-	gboolean autosave_on;
-
-	/* Timer interval in mins */
-	gint autosave_it;
-
 	/* Something to stop unecessary signalings */
 	gint freeze_count;
 	

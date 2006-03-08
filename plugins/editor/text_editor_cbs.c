@@ -1,5 +1,5 @@
 /*
- * text_editor_cbs.c
+ * text_editor_cbs.
  * Copyright (C) 2000  Kh. Naba Kumar Singh
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -99,37 +99,6 @@ on_text_editor_insert_text (GtkEditable * text,
 {
 }
 
-gboolean on_text_editor_auto_save (gpointer data)
-{
-	TextEditor *te = data;
-
-	if (!te)
-		return FALSE;
-	if (anjuta_preferences_get_int (te->preferences, SAVE_AUTOMATIC) == FALSE)
-	{
-		te->autosave_on = FALSE;
-		return FALSE;
-	}
-	if (te->uri == NULL)
-		return TRUE;
-	if (text_editor_is_saved (te))
-		return TRUE;
-	if (text_editor_save_file (te, TRUE))
-	{
-		gchar *mesg = NULL;
-		mesg = g_strdup_printf(_("Autosaved \"%s\""), te->filename);                                          
-		anjuta_status (te->status, mesg, 3);
-		g_free(mesg);
-	}
-	else
-	{
-		GtkWidget *parent;
-		parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
-		anjuta_util_dialog_warning (GTK_WINDOW (parent),
-									_("Autosave \"%s\" -- Failed"), te->filename);
-	}
-	return TRUE;
-}
 
 static void 
 scintilla_uri_dropped (TextEditor *te, const char *uri)

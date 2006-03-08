@@ -97,50 +97,6 @@ set_n_get_prop_string (TextEditor *te, const gchar *key)
 }
 
 static void
-on_gconf_notify_timer (GConfClient *gclient, guint cnxn_id,
-					   GConfEntry *entry, gpointer user_data)
-{
-	gboolean auto_save;
-	guint auto_save_timer;
-	TextEditor *te;
-	
-	te = TEXT_EDITOR (user_data);
-	auto_save = set_n_get_prop_int (te, SAVE_AUTOMATIC);
-	auto_save_timer = set_n_get_prop_int (te, AUTOSAVE_TIMER);
-
-	if (auto_save)
-	{
-		if (te->autosave_on == TRUE)
-		{
-			if (auto_save_timer != te->autosave_it)
-			{
-				gtk_timeout_remove (te->autosave_id);
-				te->autosave_id =
-					gtk_timeout_add (auto_save_timer *
-							 60000,
-							 on_text_editor_auto_save,
-							 te);
-			}
-		}
-		else
-		{
-			te->autosave_id =
-				gtk_timeout_add (auto_save_timer * 60000,
-						 on_text_editor_auto_save,
-						 te);
-		}
-		te->autosave_it = auto_save_timer;
-		te->autosave_on = TRUE;
-	}
-	else
-	{
-		if (te->autosave_on == TRUE)
-			gtk_timeout_remove (te->autosave_id);
-		te->autosave_on = FALSE;
-	}
-}
-
-static void
 on_gconf_notify_disable_hilite (GConfClient *gclient, guint cnxn_id,
 								GConfEntry *entry, gpointer user_data)
 {
@@ -420,8 +376,6 @@ text_editor_prefs_init (TextEditor *te)
 	
 	/* Sync prefs from gconf to props */
 	set_n_get_prop_int (te, TAB_SIZE);
-	set_n_get_prop_int (te, SAVE_AUTOMATIC);
-	set_n_get_prop_int (te, AUTOSAVE_TIMER);
 	set_n_get_prop_int (te, TEXT_ZOOM_FACTOR);
 	set_n_get_prop_int (te, INDENT_SIZE);
 	set_n_get_prop_int (te, USE_TABS);
@@ -453,8 +407,6 @@ text_editor_prefs_init (TextEditor *te)
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
-	REGISTER_NOTIFY (SAVE_AUTOMATIC, on_gconf_notify_timer);
-	REGISTER_NOTIFY (AUTOSAVE_TIMER, on_gconf_notify_timer);
 	REGISTER_NOTIFY (TEXT_ZOOM_FACTOR, on_gconf_notify_zoom_factor);
 	REGISTER_NOTIFY (INDENT_SIZE, on_gconf_notify_indent_size);
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);

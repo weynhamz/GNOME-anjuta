@@ -1,3 +1,31 @@
+2006-03-08  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-encodings.c: (anjuta_encodings_init)
+	plugins/search/plugin.c: (activate_plugin):
+	
+	Removed Gtk-Criticals
+	
+	* plugins/document-manager/anjuta-document-manager.glade:
+	plugins/document-manager/plugin.c: (on_docman_auto_save),
+	(on_gconf_notify_timer), (prefs_init):
+    plugins/document-manager/plugin.h:
+	plugins/editor/text_editor.c: (text_editor_instance_init),
+	(text_editor_dispose):
+	plugins/editor/text_editor.h:
+	plugins/editor/text_editor_cbs.c:
+	plugins/editor/text_editor_cbs.h:
+	plugins/editor/text_editor_prefs.c: (text_editor_prefs_init):
+	plugins/glade/plugin.c: (activate_plugin):
+	plugins/sourceview/sourceview-prefs.c: (sourceview_prefs_init):
+	plugins/sourceview/sourceview-private.h:
+	plugins/sourceview/sourceview.c: (on_menu_popup),
+	(sourceview_new), (ifile_open), (ifile_savable_save),
+	(ifile_savable_save_as), (ieditor_set_popup_menu),
+	(ieditor_get_filename), (imark_mark):
+
+    Move autosave from editor to document manager and fixed some things in 
+    Sourceview plugin
+
 2006-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/search/anjuta-search.glade :

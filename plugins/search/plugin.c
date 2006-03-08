@@ -565,9 +565,9 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_toolbar_find_clicked), plugin);
 	g_signal_connect (action, "changed",
 					  G_CALLBACK (on_toolbar_find_incremental), plugin);
-	g_signal_connect (action, "focus-in-event",
+	g_signal_connect (action, "focus-in",
 					  G_CALLBACK (on_toolbar_find_incremental_start), plugin);
-	g_signal_connect (action, "focus-out-event",
+	g_signal_connect (action, "focus-out",
 					  G_CALLBACK (on_toolbar_find_incremental_end), plugin);
 	gtk_action_group_add_action (group, action);
 	anjuta_ui_add_action_group(ui, "ActionGroupSearch", _("Search Toolbar"), group);
