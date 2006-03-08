@@ -1,3 +1,8 @@
+2006-03-08  Johannes Schmid <jhs@gnome.org>
+
+    * plugins/search/anjuta-search.glade
+    Fixed widget names (glade is a bit stupid on copying widgets to other files)
+
 2006-03-07  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/action-callbacks.c
@@ -33,7 +38,8 @@
 	* tagmanager/c.c: (parseParens): 
 	Removed annoying debug message
 	
-	* libanjuta/interfaces/libanjuta.idl: Remove IAnjutaEditorFactory::create_style_editor()
+	* libanjuta/interfaces/libanjuta.idl: 
+	Removed IAnjutaEditorFactory::create_style_editor()
 
 2006-03-07  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
