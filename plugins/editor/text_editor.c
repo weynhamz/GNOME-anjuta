@@ -430,7 +430,7 @@ text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, const gchar *uri, 
 	return GTK_WIDGET (te);
 }
 
-voi
+void
 text_editor_dispose (GObject *obj)
 {
 	TextEditor *te = TEXT_EDITOR (obj);

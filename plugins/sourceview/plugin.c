@@ -34,15 +34,24 @@
 #include "plugin.h"
 #include "sourceview.h"
 
+#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/sourceview.glade"
+#define ICON_FILE "sourceview.png"
+
 static gpointer parent_class;
 
 static gboolean
 sourceview_plugin_activate (AnjutaPlugin *plugin)
-{
-	SourceviewPlugin *sourceview;
-	
+{	
+    /* Add preferences */
+	AnjutaPreferences* prefs;
+	AnjutaShell* shell;
+	GladeXML* gxml;
+	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
+	prefs = anjuta_shell_get_preferences(shell, NULL);
+	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
+	anjuta_preferences_add_page (prefs,
+								 gxml, "Editor", ICON_FILE);
 	DEBUG_PRINT ("SourceviewPlugin: Activating SourceviewPlugin plugin ...");
-	sourceview = (SourceviewPlugin*) plugin;
 
 	return TRUE;
 }

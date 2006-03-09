@@ -37,7 +37,7 @@
 #include "text_editor.h"
 
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/editor.glade"
-#define ICON_FILE "anjuta-document-manager.png"
+#define ICON_FILE "anjuta-editor.png"
 
 gpointer parent_class;
 
@@ -58,12 +58,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	GtkWidget* style_button;
 	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
 	prefs = anjuta_shell_get_preferences(shell, NULL);
-	gxml = glade_xml_new (PREFS_GLADE, "editor_prefs", NULL);
-	style_button = glade_xml_get_widget(gxml, "style_editor_button");
+	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
+	style_button = glade_xml_get_widget(gxml, "style_button");
 	g_signal_connect(G_OBJECT(style_button), "clicked", G_CALLBACK(on_style_button_clicked), prefs);
 	anjuta_preferences_add_page (prefs,
 								 gxml, "Editor", ICON_FILE);
-	anjuta_encodings_init (prefs, gxml);
 
 	return TRUE;
 }

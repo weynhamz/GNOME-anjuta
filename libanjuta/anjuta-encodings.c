@@ -739,8 +739,6 @@ save_property (void)
 void
 anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 {
-    /* FIXME */
-    #if 0
 	GtkWidget *add_button;
 	GtkWidget *remove_button;
 	GtkWidget *up_button;
@@ -748,20 +746,9 @@ anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 	GtkWidget *supported_treeview;
 	GtkWidget *stock_treeview;
 	GtkTreeModel *model;
-	/* GladeXML *gxml; */
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	GtkTreeSelection *selection;
-	
-	/* Create the Encodings preferences page */
-	/*
-	gxml = glade_xml_new (PACKAGE_DATA_DIR"/glade/anjuta.glade",
-						  "preferences_dialog_encodings",
-						  NULL);
-	anjuta_preferences_add_page (pref, gxml,
-								"Encodings",
-								"preferences-encodings.png");
-	*/
 	
 	supported_treeview = glade_xml_get_widget (gxml, "supported_treeview");
 	stock_treeview =  glade_xml_get_widget (gxml, "stock_treeview");
@@ -840,5 +827,4 @@ anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml)
 	anjuta_encodings_dialog->down_button = down_button;
 	anjuta_encodings_dialog->supported_treeview = supported_treeview;
 	anjuta_encodings_dialog->stock_treeview = stock_treeview;
-	#endif
 }

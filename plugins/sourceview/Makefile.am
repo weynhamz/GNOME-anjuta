@@ -1,3 +1,7 @@
+# Plugin glade file
+sourceview_gladedir = $(anjuta_glade_dir)
+sourceview_glade_DATA = sourceview.glade
+
 # Plugin Icon file
 sourceview_pixmapsdir = $(anjuta_image_dir)
 sourceview_pixmaps_DATA = sourceview.png
@@ -76,4 +80,5 @@ libanjuta_sourceview_la_LIBADD = \
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(sourceview_plugin_DATA) \
-	$(sourceview_pixmaps_DATA)
+	$(sourceview_pixmaps_DATA) \
+	$(sourceview_glade_DATA)

@@ -1,3 +1,17 @@
+2006-03-09  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-encodings.c: (anjuta_encodings_init):
+	Completed changes from yesterday
+	
+	* plugins/document-manager/anjuta-document-manager.glade:
+	plugins/editor/editor.glade
+	plugins/editor/plugin.c: (activate_plugin)
+	plugins/editor/text_editor.c
+    plugins/sourceview/Makefile.am
+	plugins/sourceview/plugin.c: (sourceview_plugin_activate)
+	plugins/sourceview/sourceview.glade:
+	Completed preference changes
+
 2006-03-08  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-encodings.c: (anjuta_encodings_init)
@@ -23,7 +37,7 @@
 	(ifile_savable_save_as), (ieditor_set_popup_menu),
 	(ieditor_get_filename), (imark_mark):
 
-    Move autosave from editor to document manager and fixed some things in 
+    Moved autosave from editor to document manager and fixed some things in 
     Sourceview plugin
 
 2006-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
