@@ -1,3 +1,10 @@
+2006-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/sourceview/sourceview.c, plugins/sourceview/sourceview-private.h,
+	plugins/search/search-replace.c :
+	Fixed bug (Bookmark the good line).
+	Search & Replace (Mark all matched strings).
+	
 2006-03-09  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-encodings.c: (anjuta_encodings_init):

@@ -32,6 +32,7 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
+#include <libanjuta/interfaces/ianjuta-indicable.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
@@ -263,6 +264,11 @@ sourceview_finalize(GObject *object)
 #define MARKER_ATTENTIVE "sv-mark-attentive"
 #define MARKER_INTENSE "sv-mark-intense"
 
+/* HIGHLIGHTED TAGS */
+
+#define IMPORTANT_INDIC "important_indic"
+#define WARNING_INDIC "warning_indic"
+#define CRITICAL_INDIC "critical_indic"
 
 /* Create pixmaps for the markers */
 static void sourceview_create_markers(Sourceview* sv)
@@ -288,6 +294,19 @@ static void sourceview_create_markers(Sourceview* sv)
 	else
 		DEBUG_PRINT("Pixmap not found: %s!",PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP);
 }
+
+/* Create tags for highlighting */
+static void sourceview_create_highligth_indic(Sourceview* sv)
+{	
+	sv->priv->important_indic = 
+	          gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
+	          IMPORTANT_INDIC,
+	   		  "foreground", "red", NULL);  
+	//  TO BE DEFINED
+	sv->priv->warning_indic = sv->priv->important_indic; 
+	sv->priv->critical_indic = sv->priv->important_indic;
+}
+
 
 /* Create a new sourceview instance. If uri is valid,
 the file will be loaded in the buffer */
@@ -319,7 +338,7 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 	
 	/* Create Markers */
 	sourceview_create_markers(sv);
-	
+		
 	/* Add View */
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv),
 				      GTK_POLICY_AUTOMATIC,
@@ -331,6 +350,9 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 	{
 		ianjuta_file_open(IANJUTA_FILE(sv), uri, NULL);
 	}	
+	
+	/* Create Higlight Tag */
+	sourceview_create_highligth_indic(sv);
 	
 	return sv;
 }
@@ -931,7 +953,7 @@ iconvert_iface_init(IAnjutaEditorConvertIface* iface)
 static void 
 iassist_autocomplete(IAnjutaEditorAssist* edit, GError** ee)
 {
-	
+
 }
 
 static void iassist_iface_init(IAnjutaEditorAssistIface* iface)
@@ -958,7 +980,7 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 	gchar* name;
 	
 	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document),
-									 &iter, location - 1);
+									 &iter, location );
 	switch (marker)
 	{
 		case IANJUTA_MARKABLE_NONE:
@@ -1079,12 +1101,70 @@ imark_iface_init(IAnjutaMarkableIface* iface)
 	iface->delete_all_markers = imark_delete_all_markers;
 }
 
+/* IanjutaIndic Interface */
+
+
+static void
+iindic_clear (IAnjutaIndicable *indic, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(indic);
+	GtkTextIter start, end;
+	
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER(sv->priv->document), 
+	                                    &start, 0);
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER(sv->priv->document), 
+	                                    &end, -1);
+	gtk_text_buffer_remove_tag_by_name (GTK_TEXT_BUFFER(sv->priv->document),
+	                                     IMPORTANT_INDIC,
+	                                     &start, &end);
+	// Remove warning_indic, critical_indic
+}
+
+static void
+iindic_set (IAnjutaIndicable *indic, gint begin_location, gint end_location, 
+            IAnjutaIndicableIndicator indicator, GError **e)
+{
+	GtkTextTag *tag = NULL;
+	GtkTextIter start, end;
+	Sourceview* sv = ANJUTA_SOURCEVIEW(indic);
+	
+	switch (indicator)
+	{
+		case IANJUTA_INDICABLE_IMPORTANT : 
+			tag = sv->priv->important_indic;
+			break;
+		case IANJUTA_INDICABLE_WARNING :
+			tag = sv->priv->warning_indic;
+			break;
+		case IANJUTA_INDICABLE_CRITICAL :
+			tag = sv->priv->critical_indic;
+			break;
+		default:
+			return;
+	}
+
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER(sv->priv->document), 
+	                                    &start, begin_location);
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER(sv->priv->document), 
+	                                    &end, end_location);
+	gtk_text_buffer_apply_tag (GTK_TEXT_BUFFER(sv->priv->document), tag, 
+	                           &start, &end);
+}
+
+static void
+iindic_iface_init(IAnjutaIndicableIface* iface)
+{
+	iface->clear = iindic_clear;
+	iface->set = iindic_set;
+}
+
 
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
 ANJUTA_TYPE_ADD_INTERFACE(ieditor, IANJUTA_TYPE_EDITOR);
 ANJUTA_TYPE_ADD_INTERFACE(imark, IANJUTA_TYPE_MARKABLE);
+ANJUTA_TYPE_ADD_INTERFACE(iindic, IANJUTA_TYPE_INDICABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iselect, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);

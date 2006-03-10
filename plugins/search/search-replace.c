@@ -40,6 +40,7 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
+#include <libanjuta/interfaces/ianjuta-indicable.h>
 
 #include <libegg/menu/egg-entry-action.h>
 
@@ -328,10 +329,11 @@ search_and_replace (void)
 			fb->pos = se->start_pos;
 			offset = 0;
 			
-			if (s->action == SA_BOOKMARK || s->action == SA_HIGHLIGHT)
+			if (s->action == SA_BOOKMARK)
 				ianjuta_markable_delete_all_markers(IANJUTA_MARKABLE(fb->te), 
 				                                    IANJUTA_MARKABLE_ATTENTIVE, NULL);
-			
+			if (s->action == SA_HIGHLIGHT)	
+				ianjuta_indicable_clear (IANJUTA_INDICABLE(fb->te), NULL); 				
 	
 			while (interactive || 
 				NULL != (mi = get_next_match(fb, s->range.direction, &(s->expr))))
@@ -349,6 +351,13 @@ search_and_replace (void)
 				switch (s->action)
 				{
 					case SA_HIGHLIGHT: /* FIXME */
+						if (NULL == fb->te)
+							ianjuta_document_manager_goto_file_line (sr->docman, 
+								                  fb->path, mi->line + 1, NULL);
+						ianjuta_indicable_set (IANJUTA_INDICABLE(fb->te),  
+						                       mi->pos, mi->pos + mi->len,  
+						                       IANJUTA_INDICABLE_IMPORTANT, NULL);             //
+						 break; //   
 					case SA_BOOKMARK:
 						if (NULL == fb->te)
 						{

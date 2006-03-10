@@ -31,6 +31,11 @@ struct SourceviewPrivate {
 	GList* markers;
 	gint marker_count;
 	
+	/* Highlight Tag */
+	GtkTextTag *important_indic;
+	GtkTextTag *warning_indic;
+	GtkTextTag *critical_indic;
+	
 	/* VFS Monitor */
 	GnomeVFSMonitorHandle* monitor;
 	
