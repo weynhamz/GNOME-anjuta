@@ -956,7 +956,7 @@ G_BEGIN_DECLS
 			my $e_macro = "${macro_type}_${e_upper}";
 			my $e_proto = "${prefix}_${e_lower}_get_type";
 			$answer .=
-"#define $e_macro ($e_proto)
+"#define $e_macro ($e_proto())
 ";
 		}
 		$answer .= "\n";
@@ -1206,9 +1206,12 @@ ${prefix}_base_init (gpointer gclass)
 		}
 		if ($func =~ s/^\:\://)
 		{
+			my $signal = $func;
+			$signal =~ s/_/-/g;
+			
 			my $marshaller = construct_marshaller($rettype, $args);
 			$answer .= "\t\t/* Signal */";
-			$answer .="\n\t\tg_signal_new (\"$func\",
+			$answer .="\n\t\tg_signal_new (\"$signal\",
 			$macro_type,
 			G_SIGNAL_RUN_LAST,
 			G_STRUCT_OFFSET (${class}Iface, $func),

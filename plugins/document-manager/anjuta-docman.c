@@ -444,7 +444,7 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	
 	gtk_notebook_popup_enable (GTK_NOTEBOOK (docman));
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (docman), TRUE);
-	g_signal_connect (G_OBJECT(docman), "switch_page",
+	g_signal_connect (G_OBJECT(docman), "switch-page",
 					  G_CALLBACK (on_notebook_switch_page), docman);
 }
 
@@ -463,7 +463,7 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 		initialized = TRUE;
 		
 		/* Signal */
-		g_signal_new ("editor_added",
+		g_signal_new ("editor-added",
 			ANJUTA_TYPE_DOCMAN,
 			G_SIGNAL_RUN_LAST,
 			G_STRUCT_OFFSET (AnjutaDocmanClass, editor_added),
@@ -472,7 +472,7 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 			G_TYPE_NONE,
 			1,
 			G_TYPE_OBJECT);
-		g_signal_new ("editor_changed",
+		g_signal_new ("editor-changed",
 			ANJUTA_TYPE_DOCMAN,
 			G_SIGNAL_RUN_LAST,
 			G_STRUCT_OFFSET (AnjutaDocmanClass, editor_changed),
@@ -671,12 +671,12 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
 			    GTK_SIGNAL_FUNC (on_notebook_switch_page),
 			    docman);
-	g_signal_connect (G_OBJECT (te), "save_point",
+	g_signal_connect (G_OBJECT (te), "save-point",
 					  G_CALLBACK (on_editor_save_point), docman);
 	g_signal_connect (G_OBJECT (te), "destroy",
 					  G_CALLBACK (on_editor_destroy), docman);
 	
-	g_signal_emit_by_name (docman, "editor_added", te);
+	g_signal_emit_by_name (docman, "editor-added", te);
 	anjuta_docman_set_current_editor(docman, te);
 	return te;
 }

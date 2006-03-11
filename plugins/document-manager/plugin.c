@@ -815,10 +815,10 @@ static void
 on_editor_added (AnjutaDocman *docman, IAnjutaEditor *te,
 				   AnjutaPlugin *plugin)
 {
-	g_signal_connect (G_OBJECT (te), "update_ui",
+	g_signal_connect (G_OBJECT (te), "update-ui",
 					  G_CALLBACK (on_editor_update_ui),
 					  ANJUTA_PLUGIN (plugin));
-	g_signal_connect (G_OBJECT (te), "save_point",
+	g_signal_connect (G_OBJECT (te), "save-point",
 					  G_CALLBACK (on_editor_update_save_ui),
 					  ANJUTA_PLUGIN (plugin));
 	anjuta_shell_present_widget (plugin->shell,
@@ -1260,9 +1260,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	ui = editor_plugin->ui;
 	docman = anjuta_docman_new (editor_plugin->prefs);
 	editor_plugin->docman = docman;
-	g_signal_connect (G_OBJECT (docman), "editor_added",
+	g_signal_connect (G_OBJECT (docman), "editor-added",
 					  G_CALLBACK (on_editor_added), plugin);
-	g_signal_connect (G_OBJECT (docman), "editor_changed",
+	g_signal_connect (G_OBJECT (docman), "editor-changed",
 					  G_CALLBACK (on_editor_changed), plugin);
 	g_signal_connect_swapped (G_OBJECT (status), "busy",
 							  G_CALLBACK (anjuta_docman_set_busy), docman);
@@ -1394,7 +1394,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		//search_and_replace_init (ANJUTA_DOCMAN (docman));
 	}
 	/* Connect to save session */
-	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
+	g_signal_connect (G_OBJECT (plugin->shell), "save-session",
 					  G_CALLBACK (on_session_save), plugin);
 	
 	initialized = TRUE;

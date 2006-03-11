@@ -1,3 +1,15 @@
+2006-03-11 Naba Kumar <naba@gnome.org>
+
+	* libanjuta/anjuta-shell.c,
+	plugins/document-manager/anjuta-docman.c,
+	plugins/document-manager/plugin.c,
+	plugins/symbol-browser/an_symbol_search.c,
+	plugins/valgrind/vgrule-list.c: Use correct signal names while
+	creating them.
+	
+	* libanjuta/interfaces/anjuta-idl-compiler.pl: Generate correct
+	signal names and fixed enum IANJUTA_TYPE_* macro.
+
 2006-03-08  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/sourceview/sourceview.c, plugins/sourceview/sourceview-private.h,

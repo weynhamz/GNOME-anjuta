@@ -114,7 +114,7 @@ vg_rule_list_class_init (VgRuleListClass *klass)
 	gtk_object_class->destroy = vg_rule_list_destroy;
 	
 	signals[RULE_ADDED]
-		= g_signal_new ("rule_added",
+		= g_signal_new ("rule-added",
 				G_OBJECT_CLASS_TYPE (object_class),
 				G_SIGNAL_RUN_FIRST,
 				G_STRUCT_OFFSET (VgRuleListClass, rule_added),

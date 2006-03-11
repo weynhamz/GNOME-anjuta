@@ -666,7 +666,7 @@ anjuta_shell_base_init (gpointer gclass)
 	static gboolean initialized = FALSE;
 	
 	if (!initialized) {
-		g_signal_new ("value_added",
+		g_signal_new ("value-added",
 			      ANJUTA_TYPE_SHELL,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (AnjutaShellIface, value_added),
@@ -675,7 +675,7 @@ anjuta_shell_base_init (gpointer gclass)
 			      G_TYPE_NONE, 2,
 			      G_TYPE_STRING, G_TYPE_VALUE);
 		
-		g_signal_new ("value_removed",
+		g_signal_new ("value-removed",
 			      ANJUTA_TYPE_SHELL,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (AnjutaShellIface, value_removed),
@@ -683,7 +683,7 @@ anjuta_shell_base_init (gpointer gclass)
 			      anjuta_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_STRING);
-		g_signal_new ("save_session",
+		g_signal_new ("save-session",
 			      ANJUTA_TYPE_SHELL,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (AnjutaShellIface, save_session),
@@ -692,7 +692,7 @@ anjuta_shell_base_init (gpointer gclass)
 			      G_TYPE_NONE, 2,
 				  G_TYPE_INT,
 			      G_TYPE_OBJECT);
-		g_signal_new ("load_session",
+		g_signal_new ("load-session",
 			      ANJUTA_TYPE_SHELL,
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (AnjutaShellIface, load_session),

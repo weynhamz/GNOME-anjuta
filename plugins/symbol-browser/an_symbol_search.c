@@ -209,7 +209,7 @@ an_symbol_search_class_init (AnjutaSymbolSearchClass * klass)
 	object_class->dispose = an_symbol_search_dispose;
 
 	signals[SYM_SELECTED] =
-		g_signal_new ("symbol_selected",
+		g_signal_new ("symbol-selected",
 			      G_TYPE_FROM_CLASS (klass),
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (AnjutaSymbolSearchClass,
