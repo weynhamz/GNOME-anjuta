@@ -13,6 +13,16 @@ development and what's new in Anjuta 2.0 release.</comment>
       <comment>Update credit list in AUTHORS file and use this file in about dialog
 box (instead of hardcoded names in the source).</comment>
     </item>
+    <item>
+      <attribute id="1142156720" priority="1" done="0" start_date="732382" enddate="99999999" notify="0" endtime="-60" last_edited="1142156720"/>
+      <summary>Implement IAnjutaEditorPrint</summary>
+      <comment>Implement it using GnomePrint</comment>
+    </item>
+    <item>
+      <attribute id="1142156772" priority="1" done="0" start_date="732382" enddate="99999999" notify="0" endtime="-60" last_edited="1142156772"/>
+      <summary>Implement IAnjutaPrint</summary>
+      <comment>A generic print interface</comment>
+    </item>
   </category>
   <category title="libanjuta" place="2">
     <item>

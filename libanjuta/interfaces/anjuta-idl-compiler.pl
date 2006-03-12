@@ -279,7 +279,6 @@ while ($line = <INFILE>)
 		elsif (current_level(@level) eq "struct")
 		{
 			my $comments_in = get_comments();
-			add_class_private ($current_class, $struct);
 			$not_classes->{"$current_class$struct"} = "1";
 			compile_struct($data_hr, $current_class, $struct,
 						   $comments_in, @collector);
@@ -290,7 +289,6 @@ while ($line = <INFILE>)
 		elsif (current_level(@level) eq "enum")
 		{
 			my $comments_in = get_comments();
-			add_class_private ($current_class, $enum);
 			$not_classes->{"$current_class$enum"} = "1";
 			compile_enum($data_hr, $current_class, $enum,
 						 $comments_in, @collector);
@@ -373,9 +371,11 @@ sub is_interface
 sub is_enum
 {
 	my ($line, $class_ref) = @_;
-	if ($line =~ /^\s*enum\s*([\w|_]+)\s*$/)
+	if ($line =~ /^\s*enum\s*([\w\d|_]+)\s*$/)
 	{
-		$$class_ref = $1;
+		my $enum_name = $1;
+		add_class_private ($current_class, $enum_name);
+		$$class_ref = $enum_name;
 		## print "Enum: $line\n";
 		return 1;
 	}
@@ -385,9 +385,11 @@ sub is_enum
 sub is_struct
 {
 	my ($line, $class_ref) = @_;
-	if ($line =~ /^\s*struct\s*([\w|_]+)\s*$/)
+	if ($line =~ /^\s*struct\s*([\w\d|_]+)\s*$/)
 	{
-		$$class_ref = $1;
+		my $struct_name = $1;
+		$$class_ref = $struct_name;
+		add_class_private ($current_class, $struct_name);
 		## print "Struct: $line\n";
 		return 1;
 	}
@@ -399,31 +401,18 @@ sub is_typedef
 	my ($line, $typedef_ref) = @_;
 	if ($line =~ /^\s*typedef\s*/)
 	{
-		my $iter_class = $current_class;
-		while (1)
+		## Check if it is variable typedef and grab the typedef name.
+		if ($line =~ /([\w_][\w\d_]+)\s*;\s*$/)
 		{
-			if (defined ($class_privates{$iter_class}))
-			{
-				foreach my $p (@{$class_privates{$iter_class}})
-				{
-					$line =~ s/\b$p\b/$iter_class$p/g;
-				}
-			}
-			if (defined ($data_hr) &&
-				defined ($data_hr->{$iter_class}) &&
-				defined ($data_hr->{$iter_class}->{"__parent"}))
-			{
-				$iter_class = $data_hr->{$iter_class}->{"__parent"};
-			}
-			else
-			{
-				last;
-			}
+			add_class_private ($current_class, $1);
 		}
-		$line =~ s/([\w_][\w\d_]+)\s*;\s*$/$current_class$1;/g;
-		$line =~ s/\(\s*\*([\w_][\w\d_]+)\s*\)/(*$current_class$1)/g;
+		## Check if it is function typedef and grab the typedef name.
+		elsif ($line =~ /\(\s*\*([\w_][\w\d_]+)\s*\)/)
+		{
+			add_class_private ($current_class, $1);
+		}
 		$$typedef_ref = $line;
-		print "Typedef: $line\n";
+		## print "Typedef: $line\n";
 		return 1;
 	}
 	return 0;
@@ -448,35 +437,41 @@ sub is_method
 		}
 		$rettype =~ s/\s+$//;
 		
-		my $iter_class = $current_class;
-		while (1)
-		{
-			if (defined ($class_privates{$iter_class}))
-			{
-				foreach my $p (@{$class_privates{$iter_class}})
-				{
-					$args =~ s/\b$p\b/$iter_class$p/g;
-					$rettype =~ s/\b$p\b/$iter_class$p/g;
-				}
-			}
-			if (defined ($data_hr) &&
-				defined ($data_hr->{$iter_class}) &&
-				defined ($data_hr->{$iter_class}->{"__parent"}))
-			{
-				$iter_class = $data_hr->{$iter_class}->{"__parent"};
-			}
-			else
-			{
-				last;
-			}
-		}
-		$method_hr->{'rettype'} = $rettype;
 		$method_hr->{'function'} = $function;
+		$method_hr->{'rettype'} = $rettype;
 		$method_hr->{'args'} = $args;
 		## print "Function: $line\n";
 		return 1;
 	}
 	return 0;
+}
+
+sub normalize_namespace
+{
+	my ($current_class, $text) = @_;
+	
+	my $iter_class = $current_class;
+	while (1)
+	{
+		if (defined ($class_privates{$iter_class}))
+		{
+			foreach my $p (@{$class_privates{$iter_class}})
+			{
+				$text =~ s/\b$p\b/$iter_class$p/g;
+			}
+		}
+		if (defined ($data_hr) &&
+			defined ($data_hr->{$iter_class}) &&
+			defined ($data_hr->{$iter_class}->{"__parent"}))
+		{
+			$iter_class = $data_hr->{$iter_class}->{"__parent"};
+		}
+		else
+		{
+			last;
+		}
+	}
+	return $text;
 }
 
 sub current_level
@@ -620,7 +615,7 @@ sub compile_enum
 		# Add to $type_map
 		get_canonical_names($enum_fullname, \$prefix, \$macro_prefix,
 							\$macro_suffix, \$macro_name);
-		print "haha $enum_fullname\n";
+		## print "Enum Fullname: $enum_fullname\n";
 		$type_map_item_hr->{'gtype'} = 'G_TYPE_ENUM';
 		$type_map_item_hr->{'rettype'} = '0';
 		$type_map_item_hr->{'type'} = $macro_prefix."_TYPE_".$macro_suffix;
@@ -985,6 +980,7 @@ G_BEGIN_DECLS
 			$answer .= "struct _${class}$s {\n";
 			foreach my $d (@{$structs_hr->{$s}->{"__data"}})
 			{
+				$d = normalize_namespace ($class, $d);
 				$answer .= "\t$d\n";
 			}
 			$answer .= "};\n\n";
@@ -1001,6 +997,7 @@ G_BEGIN_DECLS
 	{
 		foreach my $td (@$typedefs_lr)
 		{
+			$td = normalize_namespace ($class, $td);
 			$answer .= $td . "\n";
 		}
 		$answer .= "\n";
@@ -1018,8 +1015,8 @@ struct _${class}Iface {
 	{
 		next if ($m =~ /^__/);
 		my $func = $class_hr->{$m}->{'function'};
-		my $rettype = $class_hr->{$m}->{'rettype'};
-		my $args = $class_hr->{$m}->{'args'};
+		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
+		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
 		if ($args ne '')
 		{
 			$args = ", ".$args;
@@ -1035,8 +1032,8 @@ struct _${class}Iface {
 	{
 		next if ($m =~ /^__/);
 		my $func = $class_hr->{$m}->{'function'};
-		my $rettype = $class_hr->{$m}->{'rettype'};
-		my $args = $class_hr->{$m}->{'args'};
+		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
+		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
 		if ($args ne '')
 		{
 			$args .= ", ";
@@ -1073,8 +1070,8 @@ GType  ${prefix}_get_type        (void);
 	{
 		next if ($m =~ /^__/);
 		my $func = $class_hr->{$m}->{'function'};
-		my $rettype = $class_hr->{$m}->{'rettype'};
-		my $args = $class_hr->{$m}->{'args'};
+		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
+		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
 		if ($args ne '')
 		{
 			$args .= ", ";
@@ -1141,8 +1138,8 @@ ${prefix}_error_quark (void)
 	{
 		next if ($m =~ /^__/);
 		my $func = $class_hr->{$m}->{'function'};
-		my $rettype = $class_hr->{$m}->{'rettype'};
-		my $args = $class_hr->{$m}->{'args'};
+		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
+		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
 		my $params = "";
 		next if ($func =~ /^\:\:/);
 
@@ -1198,8 +1195,8 @@ ${prefix}_base_init (gpointer gclass)
 	{
 		next if ($m =~ /^__/);
 		my $func = $class_hr->{$m}->{'function'};
-		my $rettype = $class_hr->{$m}->{'rettype'};
-		my $args = $class_hr->{$m}->{'args'};
+		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
+		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
 		if ($args ne '')
 		{
 			$args = ", ".$args;
