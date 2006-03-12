@@ -59,6 +59,16 @@ anjuta_session_instance_init (AnjutaSession *obj)
 	obj->priv->dir_path = NULL;
 }
 
+/**
+ * anjuta_session_new:
+ * @session_directory: Directory where session is loaded from/saved to.
+ * 
+ * Created a new session object. @session_directory is the directory
+ * where session information will be stored or loaded in case of existing
+ * session.
+ * 
+ * Returns: an #AnjutaSession Object
+ */
 AnjutaSession*
 anjuta_session_new (const gchar *session_directory)
 {
@@ -74,12 +84,28 @@ anjuta_session_new (const gchar *session_directory)
 
 ANJUTA_TYPE_BOILERPLATE (AnjutaSession, anjuta_session, G_TYPE_OBJECT)
 
+/**
+ * anjuta_session_get_session_directory:
+ * @session: an #AnjutaSession object
+ * 
+ * Returns the directory corresponding to this session object.
+ * 
+ * Returns: session directory
+ */
 const gchar*
 anjuta_session_get_session_directory (AnjutaSession *session)
 {
 	return session->priv->dir_path;
 }
 
+/**
+ * anjuta_session_get_session_filename:
+ * @session: an #AnjutaSession object
+ * 
+ * Gets the session filename corresponding to this session object.
+ * 
+ * Returns: session (absolute) filename
+ */
 gchar*
 anjuta_session_get_session_filename (AnjutaSession *session)
 {
@@ -101,6 +127,12 @@ anjuta_session_get_key_path (AnjutaSession *session, const gchar *section,
 	return key_path;
 }
 
+/**
+ * anjuta_session_sync:
+ * @session: an #AnjutaSession object
+ * 
+ * Synchronizes session object with session file
+ */
 void
 anjuta_session_sync (AnjutaSession *session)
 {
@@ -116,6 +148,12 @@ anjuta_session_sync (AnjutaSession *session)
 	g_free (path);
 }
 
+/**
+ * anjuta_session_clear:
+ * @session: an #AnjutaSession object
+ * 
+ * Clears the session.
+ */
 void
 anjuta_session_clear (AnjutaSession *session)
 {
@@ -141,6 +179,13 @@ anjuta_session_clear (AnjutaSession *session)
 	g_free (cmd);
 }
 
+/**
+ * anjuta_session_clear_section:
+ * @session: an #AnjutaSession object.
+ * @section: Section to clear.
+ * 
+ * Clears the given section in session object.
+ */
 void
 anjuta_session_clear_section (AnjutaSession *session,
 							  const gchar *section)
@@ -156,6 +201,15 @@ anjuta_session_clear_section (AnjutaSession *session,
 	g_free (filename);
 }
  
+/**
+ * anjuta_session_set_int:
+ * @session: an #AnjutaSession object
+ * @section: Section.
+ * @key: Key name.
+ * @value: Key value
+ * 
+ * Set an integer @value to @key in given @section.
+ */
 void
 anjuta_session_set_int (AnjutaSession *session, const gchar *section,
 						const gchar *key, gint value)
@@ -171,6 +225,15 @@ anjuta_session_set_int (AnjutaSession *session, const gchar *section,
 	g_free (key_path);
 }
 
+/**
+ * anjuta_session_set_float:
+ * @session: an #AnjutaSession object
+ * @section: Section.
+ * @key: Key name.
+ * @value: Key value
+ * 
+ * Set a float @value to @key in given @section.
+ */
 void
 anjuta_session_set_float (AnjutaSession *session, const gchar *section,
 						  const gchar *key, gfloat value)
@@ -186,6 +249,15 @@ anjuta_session_set_float (AnjutaSession *session, const gchar *section,
 	g_free (key_path);
 }
 
+/**
+ * anjuta_session_set_string:
+ * @session: an #AnjutaSession object
+ * @section: Section.
+ * @key: Key name.
+ * @value: Key value
+ * 
+ * Set a string @value to @key in given @section.
+ */
 void
 anjuta_session_set_string (AnjutaSession *session, const gchar *section,
 						   const gchar *key, const gchar *value)
@@ -201,6 +273,15 @@ anjuta_session_set_string (AnjutaSession *session, const gchar *section,
 	g_free (key_path);
 }
 
+/**
+ * anjuta_session_set_string_list:
+ * @session: an #AnjutaSession object
+ * @section: Section.
+ * @key: Key name.
+ * @value: Key value
+ * 
+ * Set a list of strings @value to @key in given @section.
+ */
 void
 anjuta_session_set_string_list (AnjutaSession *session,
 								const gchar *section,
@@ -238,6 +319,16 @@ anjuta_session_set_string_list (AnjutaSession *session,
 	g_free (key_path);
 }
 
+/**
+ * anjuta_session_get_int:
+ * @session: an #AnjutaSession object
+ * @section: Section.
+ * @key: Key name.
+ * 
+ * Get an integer @value of @key in given @section.
+ * 
+ * Returns: Key value
+ */
 gint
 anjuta_session_get_int (AnjutaSession *session, const gchar *section,
 						const gchar *key)
@@ -255,6 +346,16 @@ anjuta_session_get_int (AnjutaSession *session, const gchar *section,
 	return value;
 }
 
+/**
+ * anjuta_session_get_float:
+ * @session: an #AnjutaSession object
+ * @section: Section.
+ * @key: Key name.
+ * 
+ * Get a float @value of @key in given @section.
+ * 
+ * Returns: Key value
+ */
 gfloat
 anjuta_session_get_float (AnjutaSession *session, const gchar *section,
 						  const gchar *key)
@@ -272,6 +373,16 @@ anjuta_session_get_float (AnjutaSession *session, const gchar *section,
 	return value;
 }
 
+/**
+ * anjuta_session_get_string:
+ * @session: an #AnjutaSession object
+ * @section: Section.
+ * @key: Key name.
+ * 
+ * Get a string @value of @key in given @section.
+ * 
+ * Returns: Key value
+ */
 gchar*
 anjuta_session_get_string (AnjutaSession *session, const gchar *section,
 						   const gchar *key)
@@ -289,6 +400,16 @@ anjuta_session_get_string (AnjutaSession *session, const gchar *section,
 	return value;
 }
 
+/**
+ * anjuta_session_get_string_list:
+ * @session: an #AnjutaSession object
+ * @section: Section.
+ * @key: Key name.
+ * 
+ * Get a list of strings @value of @key in given @section.
+ * 
+ * Returns: Key value
+ */
 GList*
 anjuta_session_get_string_list (AnjutaSession *session,
 								const gchar *section,

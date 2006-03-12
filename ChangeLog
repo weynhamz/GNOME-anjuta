@@ -1,5 +1,10 @@
 2006-03-12 Naba Kumar <naba@gnome.org>
 
+	* libanjuta/anjuta-preferences.c, libanjuta/anjuta-preferences.h,
+	libanjuta/anjuta-session.c: Added API docs.
+
+2006-03-12 Naba Kumar <naba@gnome.org>
+
 	* TODO.tasks: Added couple of tasks.
 	* libanjuta/interfaces/anjuta-idl-compiler.pl: Delay type normalization,
 	Register private class as early as possible so that members could

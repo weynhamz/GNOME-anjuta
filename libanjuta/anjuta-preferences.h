@@ -60,6 +60,7 @@ typedef enum
 
 typedef struct _AnjutaProperty AnjutaProperty;
 
+/* Get functions. Add more get functions for AnjutaProperty, if required */
 /* Gets the widget associated with the property */
 GtkWidget* anjuta_property_get_widget (AnjutaProperty *prop);
 

@@ -85,7 +85,14 @@ property_destroy (AnjutaProperty *property)
 	g_free (property);
 }
 
-/* Get functions. Add more get functions for AnjutaProperty, if required */
+/**
+ * anjuta_property_get_widget:
+ * @prop: an #AnjutaProperty reference
+ *
+ * Gets the widget associated with the property.
+ * 
+ * Returns: a #GtkWidget object associated with the property.
+ */
 GtkWidget*
 anjuta_property_get_widget (AnjutaProperty *prop)
 {
