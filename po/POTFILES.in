@@ -52,6 +52,7 @@ plugins/document-manager/anjuta-document-manager.glade
 plugins/document-manager/goto_line.c
 plugins/document-manager/indent-dialog.c
 plugins/document-manager/plugin.c
+plugins/editor/editor.glade
 plugins/editor/plugin.c
 plugins/editor/text_editor.c
 plugins/editor/text_editor_cbs.c
@@ -60,7 +61,6 @@ plugins/file-loader/plugin.c
 plugins/file-manager/an_file_view.c
 plugins/file-manager/anjuta-file-manager-plugin.glade
 plugins/file-manager/plugin.c
-plugins/file-wizard/action-callbacks.c
 plugins/file-wizard/anjuta-file-wizard.glade
 plugins/file-wizard/file.c
 plugins/file-wizard/plugin.c
@@ -123,9 +123,15 @@ plugins/project-wizard/install.c
 plugins/project-wizard/plugin.c
 plugins/project-wizard/property.c
 plugins/sample1/plugin.c
+plugins/search/anjuta-search.glade
 plugins/search/plugin.c
 plugins/search/search_preferences.c
 plugins/search/search-replace.c
+plugins/sourceview/anjuta-document-saver.c
+plugins/sourceview/anjuta-document.c
+plugins/sourceview/anjuta-encodings.c
+plugins/sourceview/sourceview.c
+plugins/sourceview/sourceview.glade
 plugins/subversion/anjuta-subversion.glade
 plugins/subversion/plugin.c
 plugins/subversion/subversion-callbacks.c
