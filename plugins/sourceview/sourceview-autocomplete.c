@@ -38,7 +38,8 @@ find_duplicate(GList* list, gchar* word)
 		list = g_list_next(list);
 	}
 	return FALSE;
-}		
+}
+
 
 /* Find all words which start with the current word an put them in a List
 	Return NULL if no or more then five occurences were found */
@@ -124,7 +125,8 @@ get_completions(Sourceview* sv)
     	comp_word = g_new0(gchar, end - start + 1);
     	strncpy(comp_word, text + start + 1, end - start - 2);
     	DEBUG_PRINT("Completion found: %s", comp_word);
-    	if (!find_duplicate(words, comp_word))
+    	if (!find_duplicate(words, comp_word) &&
+    		strcmp(comp_word, current_word) != 0)
 		    words = g_list_append(words, comp_word);
     }
     g_free(text);   
@@ -155,9 +157,9 @@ get_coordinates(Sourceview* sv, int* x, int* y)
 /* Select to map callback of the Entry */
 
 static void
-select_to_map(GtkEntry* entry, const gchar* word)
+select_to_map(GtkEntry* entry, GdkEvent* event, gchar* word)
 {
-    gtk_editable_select_region(GTK_EDITABLE(entry), strlen(word), -1);
+	gtk_editable_select_region(GTK_EDITABLE(entry), strlen(word), -1);
 }
 
 /* Return an entry which contains all
@@ -174,6 +176,7 @@ make_entry_completion(Sourceview* sv)
 	GList* words = get_completions(sv);
 	GList* word;
 	gchar* first_word;
+	gchar* current_word;
 	if (words == NULL || g_list_length(words) > 5)
 		return NULL;
 	
@@ -184,6 +187,7 @@ make_entry_completion(Sourceview* sv)
 	gtk_entry_completion_set_model(completion, GTK_TREE_MODEL(list_store));
 	gtk_entry_completion_set_text_column(completion, 0);
 	first_word = g_strdup(words->data);
+	current_word = ianjuta_editor_get_current_word(IANJUTA_EDITOR(sv), NULL);
     word = words;
     while (word != NULL)
     {
@@ -196,7 +200,7 @@ make_entry_completion(Sourceview* sv)
     gtk_entry_set_completion(GTK_ENTRY(entry), completion);
 	gtk_entry_set_text(GTK_ENTRY(entry), first_word);
 	gtk_entry_completion_set_popup_completion(completion, TRUE);
-	g_signal_connect_after(G_OBJECT(entry), "map-event", G_CALLBACK(select_to_map), words->data);
+	g_signal_connect_after(G_OBJECT(entry), "map-event", G_CALLBACK(select_to_map), current_word);
 	
 	gtk_widget_show_all(entry);
 	return entry;
