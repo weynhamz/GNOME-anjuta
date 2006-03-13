@@ -351,7 +351,9 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 	if (uri != NULL && strlen(uri) > 0)
 	{
 		ianjuta_file_open(IANJUTA_FILE(sv), uri, NULL);
-	}	
+	}
+	else if (filename != NULL && strlen(filename) > 0)
+		sv->priv->filename = g_strdup(filename);	
 	
 	/* Create Higlight Tag */
 	sourceview_create_highligth_indic(sv);
@@ -389,7 +391,7 @@ ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
 					 
-	anjuta_document_save(sv->priv->document, ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);	
+	anjuta_document_save(sv->priv->document, ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);
 }
 
 /* Save file as */
@@ -401,7 +403,11 @@ ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 	anjuta_document_save_as(sv->priv->document, 
 							uri, anjuta_encoding_get_utf8(),
 							ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);
-	
+	if (sv->priv->filename)
+	{
+		g_free(sv->priv->filename);
+		sv->priv->filename = NULL;
+	}
 }
 
 static void 
@@ -636,7 +642,10 @@ static void ieditor_set_popup_menu(IAnjutaEditor *editor,
 static const gchar* ieditor_get_filename(IAnjutaEditor *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	return anjuta_document_get_short_name_for_display(sv->priv->document);
+	if (sv->priv->filename != NULL)
+		return sv->priv->filename;
+	else
+		return anjuta_document_get_short_name_for_display(sv->priv->document);
 }
 
 /* Convert from position to line */

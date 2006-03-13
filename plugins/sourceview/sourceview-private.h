@@ -29,6 +29,9 @@ struct SourceviewPrivate {
 	/* GtkSourceBuffer */
 	AnjutaDocument* document;
 	
+	/* Filename */
+	gchar* filename;
+	
 	/* Markers */
 	GList* markers;
 	gint marker_count;

@@ -181,9 +181,15 @@ static gchar *
 get_filename_up(MacroPlugin * plugin)
 {
 	gchar *name;
-	
+	gchar* score;
 	gchar *filename = get_filename(plugin);
 	name = g_ascii_strup(filename, -1);
+	
+	/* Fix bug #333606 */
+	score = strchr(name, '-');
+	if (score != NULL)
+		*score = '_';
+	
 	g_free(filename);
 	return name;
 }
@@ -192,7 +198,6 @@ static gchar *
 get_filename_up_prefix(MacroPlugin * plugin)
 {
 	gchar *name;
-	
 	gchar *filename = get_filename_up(plugin);
 	name = g_strndup(filename, strlen(filename) - 2);
 	g_free(filename);

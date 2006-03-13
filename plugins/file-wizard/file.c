@@ -310,14 +310,14 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	
 	optionmenu = glade_xml_get_widget(nfg->xml, NEW_FILE_TYPE);
 	source_type = gtk_option_menu_get_history(GTK_OPTION_MENU(optionmenu));
-		
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
+	
+	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
-		ianjuta_macro_insert(macro, "Header_h", NULL);
-	}		
-
+		insert_header(macro, source_type);
+	}
+		
 	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_LICENSE);
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
@@ -330,11 +330,11 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 		insert_notice(macro, license_type, comment_type);		
 	}
 	
-	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_HEADER);
+	checkbutton = glade_xml_get_widget(nfg->xml, NEW_FILE_TEMPLATE);
 	if (GTK_WIDGET_SENSITIVE(checkbutton) && 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbutton)))
 	{
-		insert_header(macro, source_type);
+		ianjuta_macro_insert(macro, "Header_h", NULL);
 	}
 	
 	gtk_widget_hide (nfg->dialog);
