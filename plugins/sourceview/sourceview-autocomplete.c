@@ -26,16 +26,17 @@
 
 /* Maximal found autocompletition words */
 const gint MAX_MATCHES = 5;
-const gint N_MAX = 15; 
+const gint N_MAX = 15;
+const gchar* REGEX = "\\s%s\\w*\\s";
 
 static gboolean
-find_duplicate(GList* list, gchar* word)
+find_duplicate(GSList* list, gchar* word)
 {
 	while(list)
 	{
 		if (strcmp(list->data, word) == 0)
 			return TRUE;
-		list = g_list_next(list);
+		list = g_slist_next(list);
 	}
 	return FALSE;
 }
@@ -44,29 +45,19 @@ find_duplicate(GList* list, gchar* word)
 /* Find all words which start with the current word an put them in a List
 	Return NULL if no or more then five occurences were found */
 
-static GList*
+static gboolean
 get_completions(Sourceview* sv)
 {
-	GtkTextIter start_iter, end_iter;
-	gchar* current_word = ianjuta_editor_get_current_word(IANJUTA_EDITOR(sv), NULL);
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-    gchar* text;
 	pcre *re;
-    GList* words = NULL;
+    GSList* words = NULL;
     gchar* regex;
     gint err_offset;
 	const gchar* err;
 	gint rc;
 	int ovector[N_MAX];
 
-	
-    gtk_text_buffer_get_start_iter(buffer, &start_iter);
-    gtk_text_buffer_get_end_iter(buffer, &end_iter);    
-    text = gtk_text_buffer_get_text(buffer, &start_iter, &end_iter, FALSE);
-    if (current_word == NULL && !strlen(current_word))
-        return NULL;
-	
-	regex = g_strdup_printf("\\s%s\\w*\\s", current_word);
+	/* Create regular expression */
+	regex = g_strdup_printf(REGEX, sv->priv->ac->current_word);
 	re = pcre_compile(regex, 0, &err, &err_offset, NULL);
    	g_free(regex);
 	
@@ -74,7 +65,7 @@ get_completions(Sourceview* sv)
 	{
 		/* Compile failed - check error message */
 		DEBUG_PRINT("Regex compile failed! %s at position %d", err, err_offset);
-		return NULL;
+		return FALSE;
 	}
 	
 	ovector[1] = 0;
@@ -87,13 +78,13 @@ get_completions(Sourceview* sv)
 		
  	 	if (ovector[0] == ovector[1])
     	{
-    		if (ovector[0] == strlen(text)) 
+    		if (ovector[0] == strlen(sv->priv->ac->text)) 
     			break;
     		options = PCRE_NOTEMPTY | PCRE_ANCHORED;
     	}
 
   		/* Run the next matching operation */
-		rc = pcre_exec(re, NULL, text, strlen(text), start_offset,
+		rc = pcre_exec(re, NULL, sv->priv->ac->text, strlen(sv->priv->ac->text), start_offset,
 					   0, ovector, N_MAX);
 
 	 	if (rc == PCRE_ERROR_NOMATCH)
@@ -107,7 +98,7 @@ get_completions(Sourceview* sv)
  		 if (rc < 0)
     	{
     		DEBUG_PRINT("Matching error %d\n", rc);
-    		return NULL;
+    		return FALSE;
     	}
 
 		if (rc == 0)
@@ -118,19 +109,20 @@ get_completions(Sourceview* sv)
     	start = ovector[0];
     	end = ovector[1];
     	
+    	/* Minimum 2 chars (trailing and ending whitespace) */
     	if (start + 2 >= end)
     		continue;
     	
-    	DEBUG_PRINT("Start: %d End: %d", start, end);
     	comp_word = g_new0(gchar, end - start + 1);
-    	strncpy(comp_word, text + start + 1, end - start - 2);
-    	DEBUG_PRINT("Completion found: %s", comp_word);
+    	strncpy(comp_word, sv->priv->ac->text + start + 1, end - start - 2);
     	if (!find_duplicate(words, comp_word) &&
-    		strcmp(comp_word, current_word) != 0)
-		    words = g_list_append(words, comp_word);
+    		strcmp(comp_word, sv->priv->ac->current_word) != 0)
+		    words = g_slist_append(words, comp_word);
+		else
+			g_free(comp_word);
     }
-    g_free(text);   
-    return words;
+   	sv->priv->ac->completions = words;
+   	return TRUE;
 }
 
 /* Return a tuple containing the (x, y) position of the cursor */
@@ -168,16 +160,13 @@ select_to_map(GtkEntry* entry, GdkEvent* event, gchar* word)
 static GtkWidget* 
 make_entry_completion(Sourceview* sv)
 {
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
 	GtkWidget* entry;
 	GtkEntryCompletion* completion;
-	GtkListStore* list_store;
-	gint max_word_length;	
-	GList* words = get_completions(sv);
-	GList* word;
+	GtkListStore* list_store;	
+	GSList* node;
 	gchar* first_word;
-	gchar* current_word;
-	if (words == NULL || g_list_length(words) > 5)
+	
+	if (!get_completions(sv))
 		return NULL;
 	
 	entry = gtk_entry_new();
@@ -186,21 +175,21 @@ make_entry_completion(Sourceview* sv)
 
 	gtk_entry_completion_set_model(completion, GTK_TREE_MODEL(list_store));
 	gtk_entry_completion_set_text_column(completion, 0);
-	first_word = g_strdup(words->data);
-	current_word = ianjuta_editor_get_current_word(IANJUTA_EDITOR(sv), NULL);
-    word = words;
-    while (word != NULL)
+	first_word = g_strdup(sv->priv->ac->completions->data);
+	
+	node = sv->priv->ac->completions;
+	 while (node != NULL)
     {
         GtkTreeIter iter;
         gtk_list_store_append(list_store, &iter);
-        gtk_list_store_set(list_store, &iter, 0, word->data, -1);
-        //g_free(word->data);
-        word = g_list_next(word);
+        gtk_list_store_set(list_store, &iter, 0,node->data, -1);
+        node = g_slist_next(node);
      }
     gtk_entry_set_completion(GTK_ENTRY(entry), completion);
 	gtk_entry_set_text(GTK_ENTRY(entry), first_word);
 	gtk_entry_completion_set_popup_completion(completion, TRUE);
-	g_signal_connect_after(G_OBJECT(entry), "map-event", G_CALLBACK(select_to_map), current_word);
+	g_signal_connect_after(G_OBJECT(entry), "map-event", G_CALLBACK(select_to_map), 
+		sv->priv->ac->current_word);
 	
 	gtk_widget_show_all(entry);
 	return entry;
@@ -238,6 +227,7 @@ get_word_replacement(Sourceview* sv)
 	GtkWidget* completion_dialog;
 	gint x, y;
 	gint response;
+	
 	if (entry == NULL)
 		return NULL;
 	get_coordinates(sv, &x, &y);
@@ -264,18 +254,54 @@ get_word_replacement(Sourceview* sv)
 
 void sourceview_autocomplete(Sourceview* sv)
 {
-	const gchar* replacement = get_word_replacement(sv);
-	const gchar* current_word = ianjuta_editor_get_current_word(IANJUTA_EDITOR(sv), NULL);
+	GtkTextIter start_iter, end_iter;   
 	GtkTextBuffer * buffer = GTK_TEXT_BUFFER(sv->priv->document);
 	GtkTextIter cursor_iter, *word_iter;
+	const gchar* replacement;
+	
+	/* Init */
+	sv->priv->ac = g_new0(SourceviewAutocomplete, 1);
+	sv->priv->ac->current_word = ianjuta_editor_get_current_word(IANJUTA_EDITOR(sv), NULL);
+	 if (sv->priv->ac->current_word == NULL && !strlen(sv->priv->ac->current_word))
+     {
+     	g_free(sv->priv->ac->current_word);
+     	return;
+     }
+	
+	/* Get whole buffer text */ 
+    gtk_text_buffer_get_start_iter(buffer, &start_iter);
+    gtk_text_buffer_get_end_iter(buffer, &end_iter);    
+    sv->priv->ac->text = gtk_text_buffer_get_text(buffer, &start_iter, &end_iter, FALSE);
+    
+    replacement = get_word_replacement(sv);
+
 	if (replacement == NULL)
+	{
+		g_free(sv->priv->ac->text);
+		g_free(sv->priv->ac->current_word);
 		return;
+	}
 	gtk_text_buffer_get_iter_at_mark(buffer, &cursor_iter, 
 								 gtk_text_buffer_get_insert(buffer));
 	word_iter = gtk_text_iter_copy(&cursor_iter);
-	gtk_text_iter_set_line_index(word_iter, gtk_text_iter_get_line_index(&cursor_iter) - strlen(current_word));
+	gtk_text_iter_set_line_index(word_iter, 
+		gtk_text_iter_get_line_index(&cursor_iter) - strlen(sv->priv->ac->current_word));
 	gtk_text_buffer_delete(buffer, word_iter, &cursor_iter);
-	gtk_text_buffer_insert_at_cursor(buffer, replacement, strlen(replacement));
+	gtk_text_buffer_insert_at_cursor(buffer, replacement, 
+		strlen(replacement));
+		
+	/* Clean up */
+	{
+		GSList* node = sv->priv->ac->completions;
+		while (node != NULL)
+		{
+			g_free(node->data);
+			node = g_slist_next(node); 
+		}
+		g_free(sv->priv->ac->text);
+		g_free(sv->priv->ac->current_word);
+		g_slist_free(sv->priv->ac->completions);
+	}
 }
 
  

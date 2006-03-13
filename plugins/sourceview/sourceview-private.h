@@ -20,17 +20,7 @@
 #include "anjuta-view.h"
 #include "anjuta-document.h"
 
-// will contain the parameters for the recursive function completion
-typedef struct _CallTipNode 
-{
-	int startCalltipWord;
-	int def_index;
-	int max_def;
-	gchar* functionDefinition[20];
-	int rootlen;
-	int start_pos;					// start position in editor
-	int call_tip_start_pos;		// start position in calltip
-} CallTipNode;
+typedef struct _SourceviewAutocomplete SourceviewAutocomplete;
 
 struct SourceviewPrivate {
 	/* GtkSouceView */
@@ -57,6 +47,9 @@ struct SourceviewPrivate {
 	
 	/* Popup menu */
 	GtkWidget* menu;
+	
+	/* Autocomplete */
+	SourceviewAutocomplete* ac;
 };
 
 #endif

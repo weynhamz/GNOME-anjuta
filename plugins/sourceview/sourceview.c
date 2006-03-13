@@ -250,8 +250,9 @@ sourceview_finalize(GObject *object)
 	
 	/* Free private members, etc. */
 	
-	gtk_widget_destroy(GTK_WIDGET(cobj->priv->view));
+	sourceview_remove_monitor(cobj);
 	
+	gtk_widget_destroy(GTK_WIDGET(cobj->priv->view));
 	g_free(cobj->priv);
 	G_OBJECT_CLASS(parent_class)->finalize(object);
 }
@@ -990,7 +991,7 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 	gchar* name;
 	
 	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document),
-									 &iter, location );
+									 &iter, location  - 1);
 	switch (marker)
 	{
 		case IANJUTA_MARKABLE_NONE:

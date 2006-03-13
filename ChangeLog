@@ -1,7 +1,12 @@
 2006-03-13  Johannes Schmid <jhs@gnome.org>
 
-	* plugins/sourceview/sourceview_autocomplete.c:
-	Works know though the regex could be better!
+	* plugins/sourceview/sourceview_autocomplete.c
+	plugins/sourceview/sourceview_autocomplete.h
+	plugins/sourceview/sourceview.c
+	plugins/sourceview/sourceview-private.h
+	plugins/sourceview/sourceview-prefs.c:
+	
+	Cleaned up and fixed several issues
 	
 2006-03-13  Johannes Schmid <jhs@gnome.org>
 

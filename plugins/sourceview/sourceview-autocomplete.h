@@ -20,6 +20,14 @@
 
 #include "sourceview.h"
 
+struct _SourceviewAutocomplete
+{
+	GSList* completions;
+	gchar* text;
+	gchar* current_word;
+	gchar* replacement;
+};
+
 void sourceview_autocomplete(Sourceview* sv);
 
 #endif

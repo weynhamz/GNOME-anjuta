@@ -28,42 +28,12 @@
 #define INDENT_AUTOMATIC           "indent.automatic"
 #define USE_TABS                   "use.tabs"
 #define BRACES_CHECK               "braces.check"
-#define DOS_EOL_CHECK              "editor.doseol"
-#define WRAP_BOOKMARKS             "editor.wrapbookmarks"
 #define TAB_SIZE                   "tabsize"
-#define INDENT_SIZE                "indent.size"
-#define INDENT_OPENING             "indent.opening"
-#define INDENT_CLOSING             "indent.closing"
-#define INDENT_MAINTAIN            "indent.maintain"
 #define TAB_INDENTS                "tab.indents"
 #define BACKSPACE_UNINDENTS        "backspace.unindents"
 
-#define SAVE_SESSION_TIMER         "save.session.timer"
-
-#define AUTOFORMAT_DISABLE         "autoformat.disable"
-#define AUTOFORMAT_STYLE           "autoformat.style"
-#define AUTOFORMAT_LIST_STYLE      "autoformat.list.style"
-#define AUTOFORMAT_OPTS            "autoformat.opts"
-
-#define FOLD_SYMBOLS               "fold.symbols"
-#define FOLD_UNDERLINE             "fold.underline"
-
-#define STRIP_TRAILING_SPACES      "strip.trailing.spaces"
-#define FOLD_ON_OPEN               "fold.on.open"
-#define CARET_FORE_COLOR           "caret.fore"
-#define CALLTIP_BACK_COLOR         "calltip.back"
-#define SELECTION_FORE_COLOR       "selection.fore"
-#define SELECTION_BACK_COLOR       "selection.back"
-#define TEXT_ZOOM_FACTOR           "text.zoom.factor"
-
 #define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible"
 #define VIEW_MARKER_MARGIN         "margin.marker.visible"
-#define VIEW_FOLD_MARGIN           "margin.fold.visible"
-#define VIEW_INDENTATION_GUIDES    "view.indentation.guides"
-#define VIEW_WHITE_SPACES          "view.whitespace"
-#define VIEW_EOL                   "view.eol"
-#define VIEW_LINE_WRAP             "view.line.wrap"
-										   
 
 static int
 get_int(GConfEntry* entry)
@@ -89,13 +59,6 @@ on_gconf_notify_disable_hilite (GConfClient *gclient, guint cnxn_id,
 	
 	gtk_source_buffer_set_highlight(GTK_SOURCE_BUFFER(sv->priv->document), !disable_highlight);
 	
-}
-
-static void
-on_gconf_notify_zoom_factor (GConfClient *gclient, guint cnxn_id,
-							 GConfEntry *entry, gpointer user_data)
-{
-	// TODO
 }
 
 static void
@@ -133,20 +96,6 @@ on_gconf_notify_automatic_indentation (GConfClient *gclient, guint cnxn_id,
 }
 
 static void
-on_gconf_notify_indent_size (GConfClient *gclient, guint cnxn_id,
-							 GConfEntry *entry, gpointer user_data)
-{
-	// TODO
-}
-
-static void
-on_gconf_notify_wrap_bookmarks (GConfClient *gclient, guint cnxn_id,
-								GConfEntry *entry, gpointer user_data)
-{
-	// TODO
-}
-
-static void
 on_gconf_notify_braces_check (GConfClient *gclient, guint cnxn_id,
 							  GConfEntry *entry, gpointer user_data)
 {
@@ -159,27 +108,6 @@ on_gconf_notify_braces_check (GConfClient *gclient, guint cnxn_id,
 }
 
 static void
-on_gconf_notify_indent_opening (GConfClient *gclient, guint cnxn_id,
-								GConfEntry *entry, gpointer user_data)
-{
-	
-}
-
-static void
-on_gconf_notify_indent_closing (GConfClient *gclient, guint cnxn_id,
-								GConfEntry *entry, gpointer user_data)
-{
-	
-}
-
-static void
-on_gconf_notify_indent_maintain (GConfClient *gclient, guint cnxn_id,
-								 GConfEntry *entry, gpointer user_data)
-{
-
-}
-
-static void
 on_gconf_notify_tab_indents (GConfClient *gclient, guint cnxn_id,
 							 GConfEntry *entry, gpointer user_data)
 {
@@ -189,41 +117,6 @@ on_gconf_notify_tab_indents (GConfClient *gclient, guint cnxn_id,
 static void
 on_gconf_notify_backspace_unindents (GConfClient *gclient, guint cnxn_id,
 									 GConfEntry *entry, gpointer user_data)
-{
-	
-}
-
-static void
-on_gconf_notify_view_eols (GConfClient *gclient, guint cnxn_id,
-							   GConfEntry *entry, gpointer user_data)
-{
-	
-}
-
-static void
-on_gconf_notify_view_whitespaces (GConfClient *gclient, guint cnxn_id,
-								  GConfEntry *entry, gpointer user_data)
-{
-	
-}
-
-static void
-on_gconf_notify_view_linewrap (GConfClient *gclient, guint cnxn_id,
-						  GConfEntry *entry, gpointer user_data)
-{
-	
-}
-
-static void
-on_gconf_notify_view_indentation_guides (GConfClient *gclient, guint cnxn_id,
-										 GConfEntry *entry, gpointer user_data)
-{
-	
-}
-
-static void
-on_gconf_notify_view_folds (GConfClient *gclient, guint cnxn_id,
-							GConfEntry *entry, gpointer user_data)
 {
 	
 }
@@ -254,20 +147,6 @@ on_gconf_notify_view_linenums (GConfClient *gclient, guint cnxn_id,
 
 }
 
-static void
-on_gconf_notify_fold_symbols (GConfClient *gclient, guint cnxn_id,
-							  GConfEntry *entry, gpointer user_data)
-{
-	
-}
-
-static void
-on_gconf_notify_fold_underline (GConfClient *gclient, guint cnxn_id,
-								GConfEntry *entry, gpointer user_data)
-{
-
-}
-
 static int
 get_key(Sourceview* sv, const gchar* key)
 {
@@ -294,25 +173,12 @@ sourceview_prefs_init(Sourceview* sv)
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
-	REGISTER_NOTIFY (TEXT_ZOOM_FACTOR, on_gconf_notify_zoom_factor);
-	REGISTER_NOTIFY (INDENT_SIZE, on_gconf_notify_indent_size);
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);
 	REGISTER_NOTIFY (DISABLE_SYNTAX_HILIGHTING, on_gconf_notify_disable_hilite);
 	REGISTER_NOTIFY (INDENT_AUTOMATIC, on_gconf_notify_automatic_indentation);
-	REGISTER_NOTIFY (WRAP_BOOKMARKS, on_gconf_notify_wrap_bookmarks);
 	REGISTER_NOTIFY (BRACES_CHECK, on_gconf_notify_braces_check);
-	REGISTER_NOTIFY (INDENT_OPENING, on_gconf_notify_indent_opening);
-	REGISTER_NOTIFY (INDENT_CLOSING, on_gconf_notify_indent_closing);
-	REGISTER_NOTIFY (INDENT_MAINTAIN, on_gconf_notify_indent_maintain);
 	REGISTER_NOTIFY (TAB_INDENTS, on_gconf_notify_tab_indents);
 	REGISTER_NOTIFY (BACKSPACE_UNINDENTS, on_gconf_notify_backspace_unindents);
-	REGISTER_NOTIFY (VIEW_EOL, on_gconf_notify_view_eols);
-	REGISTER_NOTIFY (VIEW_LINE_WRAP, on_gconf_notify_view_linewrap);
-	REGISTER_NOTIFY (VIEW_WHITE_SPACES, on_gconf_notify_view_whitespaces);
-	REGISTER_NOTIFY (VIEW_INDENTATION_GUIDES, on_gconf_notify_view_indentation_guides);
-	REGISTER_NOTIFY (VIEW_FOLD_MARGIN, on_gconf_notify_view_folds);
 	REGISTER_NOTIFY (VIEW_MARKER_MARGIN, on_gconf_notify_view_markers);
 	REGISTER_NOTIFY (VIEW_LINENUMBERS_MARGIN, on_gconf_notify_view_linenums);
-	REGISTER_NOTIFY (FOLD_SYMBOLS, on_gconf_notify_fold_symbols);
-	REGISTER_NOTIFY (FOLD_UNDERLINE, on_gconf_notify_fold_underline);
 }
