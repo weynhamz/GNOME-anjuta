@@ -283,7 +283,7 @@ sourceview_prefs_init(Sourceview* sv)
 	gtk_source_buffer_set_highlight(GTK_SOURCE_BUFFER(sv->priv->document), !get_key(sv, DISABLE_SYNTAX_HILIGHTING));
 	gtk_source_view_set_tabs_width(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, TAB_SIZE));
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
-													  get_key(sv, USE_TABS));
+													  !get_key(sv, USE_TABS));
 	gtk_source_view_set_auto_indent(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, INDENT_AUTOMATIC));
 	gtk_source_buffer_set_check_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
 										 get_key(sv, BRACES_CHECK));

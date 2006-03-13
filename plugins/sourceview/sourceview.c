@@ -53,6 +53,7 @@
 #include "sourceview-private.h"
 #include "anjuta-document.h"
 #include "anjuta-view.h"
+#include "sourceview-autocomplete.h"
 
 #define READ_BUFFER_SIZE   16384
 
@@ -208,18 +209,18 @@ sourceview_add_monitor(Sourceview* sv)
 static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 {
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
-	sourceview_add_monitor(sv);
-	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
+    g_signal_emit_by_name(G_OBJECT(sv), "save_point",
 						  TRUE);
+	sourceview_add_monitor(sv);
 }
 
 /* Called when document is loaded completly */
 static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 {
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
-	sourceview_add_monitor(sv);
 	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
 						  TRUE);
+	sourceview_add_monitor(sv);
 }
 
 static void 
@@ -533,17 +534,25 @@ static gchar* ieditor_get_current_word(IAnjutaEditor *editor, GError **e)
 	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
 	GtkTextIter iter_begin;
 	GtkTextIter iter_end;
+	GtkTextIter cursor;
 	
 	gtk_text_buffer_get_iter_at_mark(buffer, &iter_begin, 
+									 gtk_text_buffer_get_insert(buffer));
+	gtk_text_buffer_get_iter_at_mark(buffer, &cursor, 
 									 gtk_text_buffer_get_insert(buffer));
 	gtk_text_buffer_get_iter_at_mark(buffer, &iter_end, 
 									 gtk_text_buffer_get_insert(buffer));
 	
-	gtk_text_iter_backward_word_start(&iter_begin);
-	gtk_text_iter_forward_word_end(&iter_end);
+	if (!gtk_text_iter_starts_word(&iter_begin))
+		gtk_text_iter_backward_word_start(&iter_begin);
+	if (!gtk_text_iter_ends_word(&iter_end))
+		gtk_text_iter_forward_word_end(&iter_end);
 	
 	DEBUG_PRINT("Current word = %s", 
 				gtk_text_buffer_get_text(buffer, &iter_begin, &iter_end, FALSE));
+	
+	/* Reset cursor */
+	gtk_text_buffer_move_mark(buffer, gtk_text_buffer_get_insert(buffer), &cursor);
 	
 	return gtk_text_buffer_get_text(buffer, &iter_begin, &iter_end, FALSE);
 }
@@ -953,7 +962,8 @@ iconvert_iface_init(IAnjutaEditorConvertIface* iface)
 static void 
 iassist_autocomplete(IAnjutaEditorAssist* edit, GError** ee)
 {
-
+    Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+    sourceview_autocomplete(sv);
 }
 
 static void iassist_iface_init(IAnjutaEditorAssistIface* iface)

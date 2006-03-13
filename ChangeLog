@@ -1,3 +1,14 @@
+2006-03-13  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/Makefile.am:
+	plugins/sourceview/sourceview-autocomplete.c
+	plugins/sourceview/sourceview-autocomplete.h:
+	plugins/sourceview/sourceview-prefs.c: (sourceview_prefs_init):
+	plugins/sourceview/sourceview-private.h:
+	plugins/sourceview/sourceview.c:
+	
+	Added (buggy) autocomplete feature to sourceview
+	
 2006-03-12 Naba Kumar <naba@gnome.org>
 
 	* libanjuta/anjuta-preferences.c, libanjuta/anjuta-preferences.h,

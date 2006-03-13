@@ -66,7 +66,10 @@ libanjuta_sourceview_la_SOURCES = \
 	anjuta-utils.c \
 	sourceview-prefs.h \
 	sourceview-prefs.c \
-	sourceview-private.h 
+	sourceview-private.h \
+	sourceview-calltip.c \
+	sourceview-autocomplete.c \
+	sourceview-autocomplete.h 
 	
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \
