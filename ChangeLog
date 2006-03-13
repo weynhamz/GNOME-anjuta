@@ -1,5 +1,10 @@
 2006-03-13  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/sourceview_autocomplete.c:
+	Improved it a bit
+
+2006-03-13  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/sourceview/Makefile.am:
 	plugins/sourceview/sourceview-autocomplete.c
 	plugins/sourceview/sourceview-autocomplete.h:

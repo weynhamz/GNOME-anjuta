@@ -25,7 +25,20 @@
 #include <pcre.h>
 
 /* Maximal found autocompletition words */
+const gint MAX_MATCHES = 5;
 const gint N_MAX = 15; 
+
+static gboolean
+find_duplicate(GList* list, gchar* word)
+{
+	while(list)
+	{
+		if (strcmp(list->data, word) == 0)
+			return TRUE;
+		list = g_list_next(list);
+	}
+	return FALSE;
+}		
 
 /* Find all words which start with the current word an put them in a List
 	Return NULL if no or more then five occurences were found */
@@ -40,11 +53,11 @@ get_completions(Sourceview* sv)
 	pcre *re;
     GList* words = NULL;
     gchar* regex;
-    gint i;
     gint err_offset;
 	const gchar* err;
-	gint num_matches;
-	int matches[N_MAX];
+	gint rc;
+	int ovector[N_MAX];
+
 	
     gtk_text_buffer_get_start_iter(buffer, &start_iter);
     gtk_text_buffer_get_end_iter(buffer, &end_iter);    
@@ -52,47 +65,69 @@ get_completions(Sourceview* sv)
     if (current_word == NULL && !strlen(current_word))
         return NULL;
 	
-	regex = g_strdup_printf("\\s%s\\w*", current_word);
-	
-	DEBUG_PRINT("regex = %s", regex);
-   	re = pcre_compile(regex, 0, &err, &err_offset, NULL);
+	regex = g_strdup_printf("\\s%s\\w*\\s", current_word);
+	re = pcre_compile(regex, 0, &err, &err_offset, NULL);
    	g_free(regex);
+	
 	if (NULL == re)
 	{
 		/* Compile failed - check error message */
 		DEBUG_PRINT("Regex compile failed! %s at position %d", err, err_offset);
 		return NULL;
 	}
-    num_matches = pcre_exec(re, NULL, text, strlen(text), 0,
-					   0, matches, N_MAX);
 	
-	/* None found of more than 5 found */
-	if (num_matches <= 0)
+	ovector[1] = 0;
+	for (;;)
 	{
-		switch(num_matches)
+		int options = 0;                 /* Normally no options */
+		int start_offset = ovector[1];   /* Start at end of previous match */
+		gchar* comp_word;
+		int start, end;
+		
+ 	 	if (ovector[0] == ovector[1])
     	{
-	    	case PCRE_ERROR_NOMATCH: 
-	    		DEBUG_PRINT("No match\n"); 
-	    		break;
-    		default: 
-    			DEBUG_PRINT("Matching error %d\n", num_matches); 
+    		if (ovector[0] == strlen(text)) 
     			break;
+    		options = PCRE_NOTEMPTY | PCRE_ANCHORED;
     	}
-		return NULL;
-	}
-    
-    for (i = 0; i < num_matches; i++)
-    {
-    	int start = matches[2 * i] + 1; /* First character is the trailing whitespace */
-    	int end = matches[2 * i + 1];
-    	DEBUG_PRINT("Start: %d End: %d", start, end);
-    	if (start == -1 || end == -1)
+
+  		/* Run the next matching operation */
+		rc = pcre_exec(re, NULL, text, strlen(text), start_offset,
+					   0, ovector, N_MAX);
+
+	 	if (rc == PCRE_ERROR_NOMATCH)
+    	{
+    		if (options == 0) 
+    			break;
+    		ovector[1] = start_offset + 1;
+    		continue;
+    	}
+
+ 		 if (rc < 0)
+    	{
+    		DEBUG_PRINT("Matching error %d\n", rc);
+    		return NULL;
+    	}
+
+		if (rc == 0)
+    	{
     		break;
-    	gchar* comp_word = g_new0(gchar, end - start + 1);
-    	strncpy(comp_word, text + start, end - start);
+    	}
+    	
+    	start = ovector[0];
+    	end = ovector[1];
+    	
+    	if (start + 2 >= end)
+    		continue;
+    	
+    	DEBUG_PRINT("Start: %d End: %d", start, end);
+    	comp_word = g_new0(gchar, end - start + 1);
+    	strncpy(comp_word, text + start + 1, end - start - 2);
     	DEBUG_PRINT("Completion found: %s", comp_word);
-	    words = g_list_append(words, comp_word);
+    	if (!find_duplicate(words, comp_word))
+		    words = g_list_append(words, comp_word);
     }
+    g_free(text);   
     return words;
 }
 
@@ -145,8 +180,7 @@ make_entry_completion(Sourceview* sv)
 	entry = gtk_entry_new();
 	completion = gtk_entry_completion_new();
 	list_store = gtk_list_store_new(1, G_TYPE_STRING);
-	
-	gtk_entry_set_completion(GTK_ENTRY(entry), completion);
+
 	gtk_entry_completion_set_model(completion, GTK_TREE_MODEL(list_store));
 	gtk_entry_completion_set_text_column(completion, 0);
 	first_word = g_strdup(words->data);
@@ -159,7 +193,9 @@ make_entry_completion(Sourceview* sv)
         //g_free(word->data);
         word = g_list_next(word);
      }
+    gtk_entry_set_completion(GTK_ENTRY(entry), completion);
 	gtk_entry_set_text(GTK_ENTRY(entry), first_word);
+	gtk_entry_completion_set_popup_completion(completion, TRUE);
 	g_signal_connect_after(G_OBJECT(entry), "map-event", G_CALLBACK(select_to_map), words->data);
 	
 	gtk_widget_show_all(entry);
@@ -180,6 +216,12 @@ static void
 activate_entry(GtkEntry* entry, GtkDialog* dialog)
 {
 	gtk_dialog_response(dialog, GTK_RESPONSE_OK);
+	g_idle_add((GSourceFunc)idle_destroy, dialog);
+}
+
+static void
+deactivate_entry(GtkEntry* entry, GtkDialog* dialog)
+{
 	g_idle_add((GSourceFunc)idle_destroy, dialog);
 }
 
