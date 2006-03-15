@@ -122,7 +122,10 @@ get_completions(Sourceview* sv)
 			g_free(comp_word);
     }
    	sv->priv->ac->completions = words;
-   	return TRUE;
+   	if (sv->priv->ac->completions == NULL)
+   		return FALSE;
+   	else
+	   	return TRUE;
 }
 
 /* Return a tuple containing the (x, y) position of the cursor */
@@ -264,7 +267,6 @@ void sourceview_autocomplete(Sourceview* sv)
 	sv->priv->ac->current_word = ianjuta_editor_get_current_word(IANJUTA_EDITOR(sv), NULL);
 	 if (sv->priv->ac->current_word == NULL && !strlen(sv->priv->ac->current_word))
      {
-     	g_free(sv->priv->ac->current_word);
      	return;
      }
 	

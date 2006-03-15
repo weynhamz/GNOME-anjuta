@@ -1835,11 +1835,26 @@ interface IAnjutaProjectManager
 	* @default_location_uri: fixme
 	* @err: Error propagation and reporting.
 	*
-	* fixme
+	* Prompt the user to add a file to the project. If the user selects multiple files only
+	* the first uri is returned.
 	*
 	* Returns: element URIs. Must be freed when no longer required.
 	*/
-	gchar* add_source (const gchar *source_uri_to_add, const gchar *default_location_uri);
+	char* add_source (const gchar *source_uri_to_add, const gchar *default_location_uri);
+	
+	/**
+	* ianjuta_project_manager_add_source_multi:
+	* @obj: Self
+	* @source_uris_to_add: fixme
+	* @default_location_uri: fixme
+	* @err: Error propagation and reporting.
+	*
+	* Prompt the user to add a file to the project. If the user selects multiple files only
+	* the first uri is returned.
+	*
+	* Returns: element URIs. Must be freed when no longer required.
+	*/
+	GSList* add_source_multi (GSList *source_uri_to_add, const gchar *default_location_uri);
 	
 	/**
 	* ianjuta_project_manager_add_target:

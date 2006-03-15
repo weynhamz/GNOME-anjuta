@@ -289,7 +289,8 @@ on_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 static void
 on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 {
-	gchar *source_uri, *default_group_uri = NULL, *default_source_uri;
+	gchar *default_group_uri = NULL, *default_source_uri;
+	gchar* source_uri;
 	
 	if (plugin->current_editor_uri)
 	{
@@ -551,11 +552,11 @@ on_popup_add_to_project (GtkAction *action, ProjectManagerPlugin *plugin)
 		else
 		{
 			gchar *source_id =
-			ianjuta_project_manager_add_source (IANJUTA_PROJECT_MANAGER (plugin),
+				ianjuta_project_manager_add_source (IANJUTA_PROJECT_MANAGER (plugin),
 												plugin->fm_current_uri,
 												parent_directory,
 												NULL);
-			g_free (source_id);
+			g_free(source_id);
 		}
 		g_free (filename);
 		g_free (parent_directory);
@@ -1694,8 +1695,9 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 {
 	ProjectManagerPlugin *plugin;
 	IAnjutaProjectManagerElementType default_location_type;
-	gchar *source_id, *location_id;
-	gchar *source_uri = NULL;
+	gchar *location_id;
+	gchar* source_id;
+	gchar* source_uri;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
@@ -1729,10 +1731,66 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 												 source_uri_to_add);
 	}
 	update_operation_end (plugin, TRUE);
-	source_uri = get_element_uri_from_id (plugin, source_id);
-	g_free (source_id);
-	g_free (location_id);
+	
+	source_uri = get_element_uri_from_id(plugin, source_id);
+	g_free(source_id);
+	
 	return source_uri;
+}
+
+static GSList*
+iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
+							 GSList *source_add_uris,
+							 const gchar *default_location_uri,
+							 GError **err)
+{
+	ProjectManagerPlugin *plugin;
+	IAnjutaProjectManagerElementType default_location_type;
+	gchar *location_id;
+	GSList* source_ids;
+	GSList* source_uris = NULL;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
+	
+	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	g_return_val_if_fail (GBF_IS_PROJECT (plugin->project), FALSE);
+
+	update_operation_begin (plugin);
+	default_location_type =
+		ianjuta_project_manager_get_element_type (project_manager,
+												  default_location_uri, NULL);
+	location_id = get_element_id_from_uri (plugin, default_location_uri);
+	if (default_location_type == IANJUTA_PROJECT_MANAGER_GROUP)
+	{
+		source_ids = gbf_project_util_add_source_multi (plugin->model,
+												 get_plugin_parent_window (plugin),
+												 NULL, location_id,
+												 source_add_uris);
+	}
+	else if (default_location_type == IANJUTA_PROJECT_MANAGER_TARGET)
+	{
+		source_ids = gbf_project_util_add_source_multi (plugin->model,
+												 get_plugin_parent_window (plugin),
+												 location_id, NULL,
+												 source_add_uris);
+	}
+	else
+	{
+		source_ids = gbf_project_util_add_source_multi (plugin->model,
+												 get_plugin_parent_window (plugin),
+												 NULL, NULL,
+												 source_add_uris);
+	}
+	update_operation_end (plugin, TRUE);
+	
+	while (source_ids)
+	{
+		source_uris = g_slist_append(source_uris, get_element_uri_from_id(plugin, source_ids->data));
+		g_free(source_ids->data);
+		source_ids = g_slist_next(source_ids);
+	}
+	g_slist_free(source_ids);
+	return source_uris;
 }
 
 static gchar*
@@ -1814,6 +1872,7 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 	iface->get_children = iproject_manager_get_children;
 	iface->get_selected = iproject_manager_get_selected;
 	iface->add_source = iproject_manager_add_source;
+	iface->add_source_multi = iproject_manager_add_source_multi;
 	iface->add_target = iproject_manager_add_target;
 	iface->add_group = iproject_manager_add_group;
 	iface->is_open = iproject_manager_is_open;

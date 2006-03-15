@@ -140,7 +140,7 @@ gobject_class_create_code (ClassGenData* data) {
 	GtkWidget *classgen_widget;	
 	gchar *trans_table[8];
 	gboolean a, b;
-	gchar *source_file, *header_file;
+	gchar *source_file = NULL, *header_file = NULL;
 	const gchar *base_class = FETCH_STRING (data->gxml, "go_base_class");
 	const gchar *gtype_name = FETCH_STRING (data->gxml, "go_type_name");
 	const gchar *gtype_prefix = FETCH_STRING (data->gxml, "go_type_prefix");
@@ -193,8 +193,11 @@ gobject_class_create_code (ClassGenData* data) {
 	/* Add to project first so that user could change the files path */
 	if (plugin->top_dir && add_to_project)
 	{
+		GSList* filenames = NULL;
+		GSList* added_files;
 		IAnjutaProjectManager *pm;
-		gchar *filename, *dirname, *curdir;
+		gchar *dirname, *curdir;
+		gboolean ret = TRUE;
 		
 		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 									 IAnjutaProjectManager, NULL);
@@ -202,40 +205,38 @@ gobject_class_create_code (ClassGenData* data) {
 		g_return_val_if_fail (pm != NULL, FALSE);			
 		
 		curdir = g_get_current_dir ();
-		filename = g_path_get_basename (source_filename);
+		
+		filenames = g_slist_append(filenames, g_path_get_basename (source_filename));
+		filenames = g_slist_append(filenames, g_path_get_basename (header_filename));
+		
 		dirname  = g_path_get_dirname (source_filename);
 		if (dirname && strcmp (dirname, ".") != 0)
-			source_file = ianjuta_project_manager_add_source (pm, filename,
+			added_files = ianjuta_project_manager_add_source_multi (pm, filenames,
 															  dirname, NULL);
 		else
-			source_file = ianjuta_project_manager_add_source (pm, filename,
+			added_files = ianjuta_project_manager_add_source_multi (pm, filenames,
 															  curdir, NULL);
-		g_free (filename);
-		g_free (dirname);
 		
-		if (!source_file)
+		if (g_slist_length(added_files) != 2)
 		{
-			/* User has canceled it */
-			g_free (curdir);
-			return FALSE;
-		}
-		filename = g_path_get_basename (header_filename);
-		dirname  = g_path_get_dirname (header_filename);
-		if (dirname && strcmp (dirname, ".") != 0)
-			header_file = ianjuta_project_manager_add_source (pm, filename,
-															  dirname, NULL);
+			/* User has canceled it or did not add all files */
+			GSList* node = added_files;
+			while (node)
+			{
+				g_free(node->data);
+				node = g_slist_next(node);
+			}
+			ret = FALSE;
+		}	
 		else
-			header_file = ianjuta_project_manager_add_source (pm, filename,
-															  curdir, NULL);
-		g_free (filename);
-		g_free (dirname);
-		g_free (curdir);
-		if (!header_file)
 		{
-			/* User has canceled it */
-			g_free (source_file);
-			return FALSE;
+			source_file = added_files->data;
+			header_file = g_slist_next(added_files)->data;
 		}
+		g_free(curdir);
+		g_slist_free(added_files);
+		if (ret == FALSE)
+			return FALSE;
 	}
 	else
 	{
@@ -460,7 +461,7 @@ generic_cpp_class_create_code (ClassGenData *data) {
 	gboolean bOK = FALSE;
 	IAnjutaFileLoader *loader;
 	AnjutaClassGenPlugin *plugin;
-	gchar *source_file, *header_file;
+	gchar *source_file = NULL, *header_file = NULL;
 	GnomeVFSURI *vfs_uri;
 	const gchar *source_filename = FETCH_STRING (data->gxml, "cc_source_file");
 	const gchar *header_filename = FETCH_STRING (data->gxml, "cc_header_file");
@@ -498,8 +499,11 @@ generic_cpp_class_create_code (ClassGenData *data) {
 	/* Add to project first so that user could change the files path */
 	if (plugin->top_dir && add_to_project)
 	{
+		GSList* filenames = NULL;
+		GSList* added_files;
 		IAnjutaProjectManager *pm;
-		gchar *filename, *dirname, *curdir;
+		gchar *dirname, *curdir;
+		gboolean ret = TRUE;
 		
 		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 									 IAnjutaProjectManager, NULL);
@@ -507,45 +511,45 @@ generic_cpp_class_create_code (ClassGenData *data) {
 		g_return_val_if_fail (pm != NULL, FALSE);			
 		
 		curdir = g_get_current_dir ();
-		filename = g_path_get_basename (header_filename);
-		dirname  = g_path_get_dirname (header_filename);
+		
+		if (!is_inline)
+			filenames = g_slist_append(filenames, g_path_get_basename (source_filename));
+		filenames = g_slist_append(filenames, g_path_get_basename (header_filename));
+		
+		dirname  = g_path_get_dirname (source_filename);
 		if (dirname && strcmp (dirname, ".") != 0)
-			header_file = ianjuta_project_manager_add_source (pm, filename,
+			added_files = ianjuta_project_manager_add_source_multi (pm, filenames,
 															  dirname, NULL);
 		else
-			header_file = ianjuta_project_manager_add_source (pm, filename,
+			added_files = ianjuta_project_manager_add_source_multi (pm, filenames,
 															  curdir, NULL);
-			
-		g_free (filename);
-		g_free (dirname);
-		if (!header_file)
+		
+		if ((g_slist_length(added_files) != 2 && !is_inline) ||
+			(g_slist_length(added_files) != 1 && is_inline))
 		{
-			/* User has canceled it */
-			g_free (curdir);
-			return FALSE;
-		}
-		if (!is_inline)
-		{
-			filename = g_path_get_basename (source_filename);
-			dirname  = g_path_get_dirname (source_filename);
-			if (dirname && strcmp (dirname, ".") != 0)
-				source_file = ianjuta_project_manager_add_source (pm, filename,
-																  dirname, NULL);
-			else
-				source_file = ianjuta_project_manager_add_source (pm, filename,
-																  curdir, NULL);
-			g_free (filename);
-			g_free (dirname);
-			
-			if (!source_file)
+			/* User has canceled it or did not add all files */
+			GSList* node = added_files;
+			while (node)
 			{
-				/* User has canceled it */
-				g_free (curdir);
-				g_free (header_file);
-				return FALSE;
+				g_free(node->data);
+				node = g_slist_next(node);
 			}
+			ret = FALSE;
+		}	
+		else
+		{
+			if (!is_inline)
+			{
+				source_file = added_files->data;
+				header_file = g_slist_next(added_files)->data;
+			}
+			else
+				header_file = added_files->data;
 		}
-		g_free (curdir);
+		g_free(curdir);
+		g_slist_free(added_files);
+		if (ret == FALSE)
+			return FALSE;
 	}
 	else
 	{

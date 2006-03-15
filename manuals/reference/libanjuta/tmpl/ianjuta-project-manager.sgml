@@ -61,6 +61,7 @@ ianjuta-project-manager
 @element_selected: 
 @add_group: 
 @add_source: 
+@add_source_multi: 
 @add_target: 
 @get_children: 
 @get_element_type: 

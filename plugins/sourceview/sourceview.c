@@ -191,6 +191,7 @@ sourceview_remove_monitor(Sourceview* sv)
 {
 	if (sv->priv->monitor != NULL) 
 	{
+		DEBUG_PRINT ("Monitor removed for %s", anjuta_document_get_uri(sv->priv->document));
 		gnome_vfs_monitor_cancel(sv->priv->monitor);
 		sv->priv->monitor = NULL;
 	}
@@ -200,6 +201,7 @@ static void
 sourceview_add_monitor(Sourceview* sv)
 {
 	g_return_if_fail(sv->priv->monitor == NULL);
+	DEBUG_PRINT ("Monitor added for %s", anjuta_document_get_uri(sv->priv->document)); 
 	gnome_vfs_monitor_add(&sv->priv->monitor, anjuta_document_get_uri(sv->priv->document),
 						  GNOME_VFS_MONITOR_FILE,
 						  on_sourceview_uri_changed, sv);

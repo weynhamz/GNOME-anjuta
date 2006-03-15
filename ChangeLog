@@ -1,3 +1,14 @@
+2006-03-15  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	plugins/class-gen/class_gen.c:
+	plugins/file-wizard/file.c: (on_new_file_okbutton_clicked):
+	plugins/project-manager/plugin.c:
+	
+	Allow to add multiple source files (#320191)
+	
+	* configure.in: Require gnome-build 0.1.3
+
 2006-03-14  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/macro/macro-utils.c: Fixed bug #333606

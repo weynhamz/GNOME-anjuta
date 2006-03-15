@@ -274,9 +274,9 @@ on_new_file_okbutton_clicked(GtkWidget *window, GdkEvent *event,
 	if (nfg->plugin->top_dir &&
 		gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (nfg->add_to_project)))
 	{
-		gchar *file_uri = NULL;
 		IAnjutaProjectManager *pm;
 		GnomeVFSHandle *vfs_write;
+		gchar* file_uri;
 		
 		pm = anjuta_shell_get_interface (ANJUTA_PLUGIN(docman)->shell, 
 										 IAnjutaProjectManager, NULL);
