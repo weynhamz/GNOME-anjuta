@@ -283,7 +283,15 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		/* Restore window state */
 		if (anjuta_session_get_int (session, "Anjuta", "Fullscreen"))
 		{
+			/* bug #304495 */
+			AnjutaUI* ui = anjuta_shell_get_ui(shell, NULL);
+			GtkAction* action = anjuta_ui_get_action (ui, "ActionGroupToggleView",
+								   "ActionViewFullscreen");
+			gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action),
+								  TRUE);					   
+
 			gtk_window_fullscreen (GTK_WINDOW (shell));
+			
 		}
 		else if (anjuta_session_get_int (session, "Anjuta", "Maximized"))
 		{

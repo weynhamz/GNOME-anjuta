@@ -1,5 +1,10 @@
 2006-03-15  Johannes Schmid <jhs@gnome.org>
 
+	* src/anjuta-app.c:
+	Fixed bug #304495
+
+2006-03-15  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/interfaces/libanjuta.idl:
 	plugins/class-gen/class_gen.c:
 	plugins/file-wizard/file.c: (on_new_file_okbutton_clicked):
