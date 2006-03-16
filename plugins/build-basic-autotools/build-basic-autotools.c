@@ -43,6 +43,11 @@
 #define MAKE_COMMAND "make"
 #define MAX_BUILD_PANES 3
 #define PREF_INDICATORS_AUTOMATIC "indicators.automatic"
+#define PREF_INSTALL_ROOT "build.install.root"
+#define PREF_INSTALL_ROOT_COMMAND "build.install.root.command"
+
+#define CHECK_BUTTON "preferences_toggle:bool:0:0:build.install.root"
+#define ENTRY "preferences_entry:text:sudo:0:build.install.root.command"
 
 static gpointer parent_class;
 
@@ -75,6 +80,30 @@ typedef struct
 } BuildContext;
 
 static GList *patterns_list = NULL;
+
+/* Allow installation as root (#321455) */
+static void on_root_check_toggled(GtkWidget* toggle_button, GtkWidget* entry)
+{
+		gtk_widget_set_sensitive(entry, 
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button)));
+}
+
+static gchar*
+get_root_install_command(BasicAutotoolsPlugin *bplugin)
+{
+	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
+	AnjutaPreferences* prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	if (anjuta_preferences_get_int (prefs , PREF_INSTALL_ROOT))
+	{
+		gchar* command = anjuta_preferences_get(prefs, PREF_INSTALL_ROOT_COMMAND);
+		if (command != NULL)
+			return command;
+		else
+			return g_strdup("");
+	}
+	else
+		return g_strdup("");
+}
 
 /* Indicator locations reported by the build */
 
@@ -892,8 +921,13 @@ build_build_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 static void
 build_install_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
+	gchar* root = get_root_install_command(plugin);
+	gchar* command = g_strdup_printf("%s %s %s", root, MAKE_COMMAND,
+		"install");
+	g_free(root);
 	build_execute_command (plugin, plugin->project_root_dir,
-						   MAKE_COMMAND" install", TRUE);
+						   command, TRUE);
+	g_free(command);
 }
 
 static void
@@ -984,7 +1018,13 @@ static void
 build_install_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dirname = g_dirname (plugin->current_editor_filename);
-	build_execute_command (plugin, dirname, MAKE_COMMAND" install", TRUE);
+	gchar* root = get_root_install_command(plugin);
+	gchar* command = g_strdup_printf("%s %s %s", root, MAKE_COMMAND,
+		"install");
+	g_free(root);
+	build_execute_command (plugin, dirname,
+						   command, TRUE);
+	g_free(command);
 	g_free (dirname);
 }
 
@@ -1787,10 +1827,17 @@ activate_plugin (AnjutaPlugin *plugin)
 	if (!initialized)
 	{
 		GladeXML *gxml;
+		GtkWidget *root_check;
+		GtkWidget *entry;
 		
 		/* Create the preferences page */
 		gxml = glade_xml_new (GLADE_FILE, "preferences_dialog_build", NULL);
+		root_check = glade_xml_get_widget(gxml, CHECK_BUTTON);
+		entry = glade_xml_get_widget(gxml, ENTRY);
+		g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
+		
 		anjuta_preferences_add_page (prefs, gxml, "Build", ICON_FILE);
+		
 		g_object_unref (gxml);
 	}
 

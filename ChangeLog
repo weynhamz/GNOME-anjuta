@@ -1,5 +1,12 @@
 2006-03-16  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade:
+	plugins/build-basic-autotools/build-basic-autotools.c:
+	
+	Implemented "install as root"-feature (#321455)
+
+2006-03-16  Johannes Schmid <jhs@gnome.org>
+
 	* mime/.cvsignore
 	plugins/sourceview/.cvsignore
 	plugins/tools/scripts/.cvsignore:
