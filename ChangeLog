@@ -1,3 +1,10 @@
+2006-03-17  Massimo Caro <maxcvs@email.it>
+	
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+	
+	* plugins/document-manager/anjuta-docman.c:
+	Implement tab drag and drop
+
 2006-03-16  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade:
