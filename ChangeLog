@@ -1,3 +1,14 @@
+2006-03-17  Massimo Cora' <maxcvs@email.it>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/class-gen/anjuta-class-gen-plugin.glade
+	plugins/class-gen/class_gen.c 
+	plugins/class-gen/goc_template_header
+	plugins/class-gen/goc_template_source
+	
+	Fixed bug #334663
+
 2006-03-16  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c:

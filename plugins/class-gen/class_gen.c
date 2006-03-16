@@ -141,6 +141,7 @@ gobject_class_create_code (ClassGenData* data) {
 	gchar *trans_table[8];
 	gboolean a, b;
 	gchar *source_file = NULL, *header_file = NULL;
+	const gchar *parent_class = FETCH_STRING (data->gxml, "go_parent_class");
 	const gchar *base_class = FETCH_STRING (data->gxml, "go_base_class");
 	const gchar *gtype_name = FETCH_STRING (data->gxml, "go_type_name");
 	const gchar *gtype_prefix = FETCH_STRING (data->gxml, "go_type_prefix");
@@ -166,13 +167,13 @@ gobject_class_create_code (ClassGenData* data) {
 	classgen_widget = glade_xml_get_widget (data->gxml, "classgen_main");	
 	
 	/* check whether all required fields are filled or not */
-	if ( g_str_equal (base_class, "") || g_str_equal (gtype_name, "") ||
+	if ( g_str_equal (parent_class , "") || g_str_equal (base_class, "") || g_str_equal (gtype_name, "") ||
 		  g_str_equal (gtype_prefix, "") || g_str_equal (class_function_prefix, "") ||
 		  g_str_equal (source_filename, "") || g_str_equal (header_filename, "") ) {
 		anjuta_util_dialog_error (NULL, _("Please check your required fields."));
 		return FALSE;
 	}
-	
+		
 	header_file_base = g_path_get_basename(header_filename);
 	header_define = cstr_replace_all(header_file_base, "-", "_");
 	t = header_define;
@@ -183,12 +184,13 @@ gobject_class_create_code (ClassGenData* data) {
 	g_free (header_define);
 	header_define = t;
 	
-	trans_table[0] = (gchar *)base_class;
-	trans_table[1] = (gchar *)gtype_name;
-	trans_table[2] = (gchar *)gtype_prefix;
-	trans_table[3] = (gchar *)class_function_prefix;
-	trans_table[4] = header_file_base;
-	trans_table[5] = header_define;
+	trans_table[0] = (gchar *)parent_class;
+	trans_table[1] = (gchar *)base_class;
+	trans_table[2] = (gchar *)gtype_name;
+	trans_table[3] = (gchar *)gtype_prefix;
+	trans_table[4] = (gchar *)class_function_prefix;
+	trans_table[5] = header_file_base;
+	trans_table[6] = header_define;
 
 	/* Add to project first so that user could change the files path */
 	if (plugin->top_dir && add_to_project)
@@ -370,6 +372,7 @@ transform_file(const gchar *input_file, const gchar *output_file,
 	GString *file_content;
 	
 	gchar *search_table[] = {
+		"{{PARENT_CLASS}}",
 		"{{BASE_CLASS}}", 
 		"{{GTYPE_NAME}}",
 		"{{GTYPE_PREFIX}}",

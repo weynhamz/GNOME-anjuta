@@ -4,22 +4,25 @@ static void {{FUNCTION_PREFIX}}_class_init({{BASE_CLASS}}Class *klass);
 static void {{FUNCTION_PREFIX}}_init({{BASE_CLASS}} *sp);
 static void {{FUNCTION_PREFIX}}_finalize(GObject *object);
 
-struct {{BASE_CLASS}}Private {
+struct _{{BASE_CLASS}}Private {
 	/* Place Private Members Here */
 };
 
-typedef enum {
+typedef struct _{{BASE_CLASS}}Signal {{BASE_CLASS}}Signal;
+typedef enum _{{BASE_CLASS}}SignalType {{BASE_CLASS}}SignalType;
+
+enum _{{BASE_CLASS}}SignalType {
 	/* Place Signal Types Here */
 	SIGNAL_TYPE_EXAMPLE,
 	LAST_SIGNAL
-} {{BASE_CLASS}}SignalType;
+};
 
-typedef struct {
+struct _{{BASE_CLASS}}Signal {
 	{{BASE_CLASS}} *object;
-} {{BASE_CLASS}}Signal;
+};
 
 static guint {{FUNCTION_PREFIX}}_signals[LAST_SIGNAL] = { 0 };
-static GObjectClass *parent_class = NULL;
+static {{PARENT_CLASS}}Class *parent_class = NULL;
 
 GType
 {{FUNCTION_PREFIX}}_get_type()
