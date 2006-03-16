@@ -52,6 +52,7 @@ struct SourceviewPrivate {
 	GtkWidget* menu;
 	
 	/* Autocomplete */
+	gint ac_choices;
 	SourceviewAutocomplete* ac;
 };
 

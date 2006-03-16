@@ -1,3 +1,20 @@
+2006-03-16  Johannes Schmid <jhs@gnome.org>
+
+	* mime/.cvsignore
+	plugins/sourceview/.cvsignore
+	plugins/tools/scripts/.cvsignore:
+	Added/extended .cvsignore files
+	
+	* plugins/sourceview/sourceview-autocomplete.c:
+	plugins/sourceview/sourceview-autocomplete.h:
+	plugins/sourceview/sourceview-prefs.c:
+	plugins/sourceview/sourceview-private.h:
+	plugins/sourceview/sourceview.glade:
+	Autcomplete just works(tm) now and respects preferences
+	
+	* plugins/sourceview/sourceview.c: (ieditor_get_current_word):
+	Use better algorithm from autocomplete
+
 2006-03-15  Johannes Schmid <jhs@gnome.org>
 
 	* src/anjuta-app.c:

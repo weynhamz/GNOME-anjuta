@@ -541,29 +541,8 @@ static gchar* ieditor_get_current_word(IAnjutaEditor *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	GtkTextIter iter_begin;
-	GtkTextIter iter_end;
-	GtkTextIter cursor;
 	
-	gtk_text_buffer_get_iter_at_mark(buffer, &iter_begin, 
-									 gtk_text_buffer_get_insert(buffer));
-	gtk_text_buffer_get_iter_at_mark(buffer, &cursor, 
-									 gtk_text_buffer_get_insert(buffer));
-	gtk_text_buffer_get_iter_at_mark(buffer, &iter_end, 
-									 gtk_text_buffer_get_insert(buffer));
-	
-	if (!gtk_text_iter_starts_word(&iter_begin))
-		gtk_text_iter_backward_word_start(&iter_begin);
-	if (!gtk_text_iter_ends_word(&iter_end))
-		gtk_text_iter_forward_word_end(&iter_end);
-	
-	DEBUG_PRINT("Current word = %s", 
-				gtk_text_buffer_get_text(buffer, &iter_begin, &iter_end, FALSE));
-	
-	/* Reset cursor */
-	gtk_text_buffer_move_mark(buffer, gtk_text_buffer_get_insert(buffer), &cursor);
-	
-	return gtk_text_buffer_get_text(buffer, &iter_begin, &iter_end, FALSE);
+	return sourceview_autocomplete_get_current_word(buffer);
 }
 
 /* Insert text at position */

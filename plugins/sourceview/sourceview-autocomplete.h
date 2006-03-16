@@ -30,6 +30,8 @@ struct _SourceviewAutocomplete
 
 void sourceview_autocomplete(Sourceview* sv);
 
+gchar* sourceview_autocomplete_get_current_word(GtkTextBuffer* buffer);
+
 #endif
  
  

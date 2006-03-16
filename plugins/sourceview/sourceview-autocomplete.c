@@ -25,9 +25,7 @@
 #include <pcre.h>
 
 /* Maximal found autocompletition words */
-const gint MAX_MATCHES = 5;
-const gint N_MAX = 15;
-const gchar* REGEX = "\\s%s\\w*\\s";
+const gchar* REGEX = "\\s%s[\\w_*]*\\s";
 
 static gboolean
 find_duplicate(GSList* list, gchar* word)
@@ -54,7 +52,8 @@ get_completions(Sourceview* sv)
     gint err_offset;
 	const gchar* err;
 	gint rc;
-	int ovector[N_MAX];
+	int ovector[2];
+	int num_matches = 0;
 
 	/* Create regular expression */
 	regex = g_strdup_printf(REGEX, sv->priv->ac->current_word);
@@ -76,6 +75,9 @@ get_completions(Sourceview* sv)
 		gchar* comp_word;
 		int start, end;
 		
+		if (num_matches >= sv->priv->ac_choices)
+			break;
+		
  	 	if (ovector[0] == ovector[1])
     	{
     		if (ovector[0] == strlen(sv->priv->ac->text)) 
@@ -85,7 +87,7 @@ get_completions(Sourceview* sv)
 
   		/* Run the next matching operation */
 		rc = pcre_exec(re, NULL, sv->priv->ac->text, strlen(sv->priv->ac->text), start_offset,
-					   0, ovector, N_MAX);
+					   0, ovector, 2);
 
 	 	if (rc == PCRE_ERROR_NOMATCH)
     	{
@@ -117,7 +119,10 @@ get_completions(Sourceview* sv)
     	strncpy(comp_word, sv->priv->ac->text + start + 1, end - start - 2);
     	if (!find_duplicate(words, comp_word) &&
     		strcmp(comp_word, sv->priv->ac->current_word) != 0)
+    	{
 		    words = g_slist_append(words, comp_word);
+			num_matches++;
+		}
 		else
 			g_free(comp_word);
     }
@@ -216,8 +221,9 @@ activate_entry(GtkEntry* entry, GtkDialog* dialog)
 }
 
 static void
-deactivate_entry(GtkEntry* entry, GtkDialog* dialog)
+deactivate_entry(GtkAccelGroup* group, GtkDialog* dialog)
 {
+	gtk_dialog_response(dialog, GTK_RESPONSE_CANCEL);
 	g_idle_add((GSourceFunc)idle_destroy, dialog);
 }
 
@@ -230,6 +236,9 @@ get_word_replacement(Sourceview* sv)
 	GtkWidget* completion_dialog;
 	gint x, y;
 	gint response;
+	GtkAccelGroup* accel_group;
+	guint accel_key;
+	GdkModifierType mod_type;
 	
 	if (entry == NULL)
 		return NULL;
@@ -245,6 +254,13 @@ get_word_replacement(Sourceview* sv)
 	gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(completion_dialog)->vbox), entry);
 	gtk_dialog_set_default_response(GTK_DIALOG(completion_dialog), GTK_RESPONSE_OK);
 	g_signal_connect(G_OBJECT(entry), "activate", G_CALLBACK(activate_entry), completion_dialog);
+	
+	accel_group = gtk_accel_group_new();
+	gtk_accelerator_parse("Escape", &accel_key, &mod_type);
+	gtk_accel_group_connect(accel_group, accel_key, mod_type, GTK_ACCEL_VISIBLE, 
+		g_cclosure_new_object(G_CALLBACK(deactivate_entry), G_OBJECT(completion_dialog)));
+	
+	gtk_window_add_accel_group(GTK_WINDOW(completion_dialog), accel_group);
 	
 	response = gtk_dialog_run(GTK_DIALOG(completion_dialog));
 	if (response == GTK_RESPONSE_OK)
@@ -264,7 +280,7 @@ void sourceview_autocomplete(Sourceview* sv)
 	
 	/* Init */
 	sv->priv->ac = g_new0(SourceviewAutocomplete, 1);
-	sv->priv->ac->current_word = ianjuta_editor_get_current_word(IANJUTA_EDITOR(sv), NULL);
+	sv->priv->ac->current_word = sourceview_autocomplete_get_current_word(buffer);
 	 if (sv->priv->ac->current_word == NULL && !strlen(sv->priv->ac->current_word))
      {
      	return;
@@ -303,8 +319,64 @@ void sourceview_autocomplete(Sourceview* sv)
 		g_free(sv->priv->ac->text);
 		g_free(sv->priv->ac->current_word);
 		g_slist_free(sv->priv->ac->completions);
+		gtk_text_iter_free(word_iter);
 	}
 }
 
- 
+#define WORD_REGEX "[^ \\t]+$"
+
+gchar*
+sourceview_autocomplete_get_current_word(GtkTextBuffer* buffer)
+{
+	pcre *re;
+    gint err_offset;
+	const gchar* err;
+	gint rc, start, end;
+	int ovector[2];
+	gchar* line, *word;
+	GtkTextIter *line_iter, cursor_iter;
+	gtk_text_buffer_get_iter_at_mark(buffer, &cursor_iter, 
+								 gtk_text_buffer_get_insert(buffer));
+	line_iter = gtk_text_iter_copy(&cursor_iter);
+	gtk_text_iter_set_line_offset(line_iter, 0);
+	line = gtk_text_buffer_get_text(buffer, line_iter, &cursor_iter, FALSE);
+	gtk_text_iter_free(line_iter);
+
+	/* Create regular expression */
+	re = pcre_compile(WORD_REGEX, 0, &err, &err_offset, NULL);
+	
+	if (NULL == re)
+	{
+		/* Compile failed - check error message */
+		DEBUG_PRINT("Regex compile failed! %s at position %d", err, err_offset);
+		return FALSE;
+	}
+	
+	/* Run the next matching operation */
+	rc = pcre_exec(re, NULL, line, strlen(line), 0,
+					   0, ovector, 2);
+
+	 if (rc == PCRE_ERROR_NOMATCH)
+    {
+    	DEBUG_PRINT("No match");
+    	return NULL;
+    }
+ 	 else if (rc < 0)
+    {
+    	DEBUG_PRINT("Matching error %d\n", rc);
+    	return NULL;
+    }
+	else if (rc == 0)
+    {
+    	DEBUG_PRINT("ovector too small");
+    	return NULL;
+    }
+    start = ovector[0];
+    end = ovector[1];
+    	    	
+    word = g_new0(gchar, end - start + 1);
+    strncpy(word, line + start, end - start);
+  	
+  	return word;
+}
  
