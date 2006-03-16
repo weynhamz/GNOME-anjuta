@@ -86,7 +86,7 @@ static GObjectClass *parent_class = NULL;
 /* Callbacks */
 
 /* Called whenever the document is changed */
-static void on_document_changed(AnjutaDocument* buffer, Sourceview* sv)
+static void on_document_modified_changed(AnjutaDocument* buffer, Sourceview* sv)
 {
 	/* Emit IAnjutaFileSavable signals */
 	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
@@ -322,8 +322,8 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 
 	/* Create buffer */
 	sv->priv->document = anjuta_document_new();
-	g_signal_connect_after(G_OBJECT(sv->priv->document), "changed", 
-					 G_CALLBACK(on_document_changed), sv);
+	g_signal_connect_after(G_OBJECT(sv->priv->document), "modified-changed", 
+					 G_CALLBACK(on_document_modified_changed), sv);
 	g_signal_connect_after(G_OBJECT(sv->priv->document), "cursor-moved", 
 					 G_CALLBACK(on_cursor_moved),sv);
 	g_signal_connect_after(G_OBJECT(sv->priv->document), "loaded", 

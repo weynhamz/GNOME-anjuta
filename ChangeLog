@@ -1,4 +1,9 @@
-2006-03-17  Massimo Cora' <maxcvs@email.it>
+2006-03-16  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c:
+	Fixed "save-point" signal for undo actions
+
+2006-03-16  Massimo Cora' <maxcvs@email.it>
 	
 	reviewed by: Johannes Schmid <jhs@gnome.org>
 	
