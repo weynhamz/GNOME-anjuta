@@ -1,9 +1,14 @@
 2006-03-17  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/editor/editor.glade:
+	Added style-editor again after it got lost somehow
+
+2006-03-17  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/devhelp/plugin.c: Updated to work with devhelp-0.11
 	configure.in: require devhelp 0.11
 	
-	Post 0.11 devhelp version (CVS) do not work because of an API change...
+	Post 0.11 devhelp versions (CVS) do not work because of an API change...
 
 	plugins/build-basic-autotools/build-basic-autotools.c:
 	forgot a an installtion callback for the "install as root"-feature
