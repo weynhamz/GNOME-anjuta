@@ -1073,14 +1073,21 @@ static void
 fm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dir;
+	gchar* root; 
+	gchar* command; 
 	
 	g_return_if_fail (plugin->fm_current_filename != NULL);
+	
 	
 	if (g_file_test (plugin->fm_current_filename, G_FILE_TEST_IS_DIR))
 		dir = g_strdup (plugin->fm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->fm_current_filename);
-	build_execute_command (plugin, dir, MAKE_COMMAND" install", TRUE);
+	root = get_root_install_command(plugin);
+	command = g_strdup_printf("%s %s %s", root, MAKE_COMMAND,
+		"install");
+	g_free(root);
+	build_execute_command (plugin, dir, command, TRUE);
 }
 
 static void
