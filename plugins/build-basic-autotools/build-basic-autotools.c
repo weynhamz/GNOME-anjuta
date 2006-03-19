@@ -1797,7 +1797,8 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 {
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
-	if (g_hash_table_lookup (ba_plugin->indicators_updated_editors,
+	if (ba_plugin->indicators_updated_editors &&
+		g_hash_table_lookup (ba_plugin->indicators_updated_editors,
 							 ba_plugin->current_editor))
 	{
 		g_hash_table_remove (ba_plugin->indicators_updated_editors,

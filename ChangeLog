@@ -3,6 +3,9 @@
 	* plugins/sourceview/anjuta-document-loader.c:
 	replace gnome_vfs_get_mime_type_for_name_and data
 
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	Fixed #335142
+
 2006-03-17  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/editor/editor.glade:
