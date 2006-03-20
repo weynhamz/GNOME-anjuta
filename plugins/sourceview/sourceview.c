@@ -508,8 +508,8 @@ static gint ieditor_get_lineno(IAnjutaEditor *editor, GError **e)
 	
 	gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
 									 gtk_text_buffer_get_insert(buffer));
-
-	return gtk_text_iter_get_line(&iter);
+	DEBUG_PRINT("GETLINENO: %d\n", gtk_text_iter_get_line(&iter));
+	return gtk_text_iter_get_line(&iter) + 1;
 }
 
 /* Return the length of the text in the buffer */
@@ -639,7 +639,8 @@ static gint ieditor_get_line_from_position(IAnjutaEditor *editor,
 	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
 									   &iter, position);
 
-	line = gtk_text_iter_get_line(&iter);
+	line = gtk_text_iter_get_line(&iter) + 1;
+	DEBUG_PRINT("GETLINEFROMPOS: %d\n", line);
 	line = line ? line - 1 : 0;
 	
 	return line;

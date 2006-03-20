@@ -451,7 +451,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 			mi = g_new0(MatchInfo, 1);
 			mi->pos = s->re->ovector[0];
 			mi->len = s->re->ovector[1] - s->re->ovector[0];
-			mi->line = file_buffer_line_from_pos(fb, mi->pos);
+			mi->line = ianjuta_editor_get_line_from_position(fb->te, mi->pos, NULL);
 			if (status > 1) /* Captured subexpressions */
 			{
 				int i;
@@ -490,7 +490,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
 							mi->len = match_len;
-							mi->line = file_buffer_line_from_pos(fb, mi->pos);
+							mi->line = ianjuta_editor_get_line_from_position(fb->te, mi->pos, NULL);
 							return mi;
 						}
 					}
@@ -508,7 +508,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
 							mi->len = match_len;
-							mi->line = file_buffer_line_from_pos(fb, mi->pos);
+							mi->line = ianjuta_editor_get_line_from_position(fb->te, mi->pos, NULL);
 							return mi;
 						}
 					}
@@ -530,7 +530,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
 							mi->len = match_len;
-							mi->line = file_buffer_line_from_pos(fb, mi->pos);
+							mi->line = ianjuta_editor_get_line_from_position(fb->te, mi->pos, NULL);
 							fb->pos += match_len;
 							return mi;
 						}
@@ -549,7 +549,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
 							mi->len = match_len;
-							mi->line = file_buffer_line_from_pos(fb, mi->pos);
+							mi->line = ianjuta_editor_get_line_from_position(fb->te, mi->pos, NULL);
 							fb->pos += match_len;
 							return mi;
 						}
