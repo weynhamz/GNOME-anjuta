@@ -22,10 +22,6 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "sourceview.h"
-#include "sourceview-prefs.h"
-#include "plugin.h"
-
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -50,10 +46,15 @@
 
 #include "config.h"
 #include "anjuta-encodings.h"
-#include "sourceview-private.h"
 #include "anjuta-document.h"
 #include "anjuta-view.h"
+
+#include "sourceview.h"
+#include "sourceview-prefs.h"
 #include "sourceview-autocomplete.h"
+#include "sourceview-private.h"
+#include "plugin.h"
+
 
 #define READ_BUFFER_SIZE   16384
 
@@ -99,6 +100,13 @@ static void on_cursor_moved(AnjutaDocument *widget,
 {
 	/* Emit IAnjutaEditor signals */
 	g_signal_emit_by_name(G_OBJECT(sv), "update_ui");
+}
+
+/* key-press-event used for tooltips */
+static gboolean on_key_pressed(AnjutaView* view, GdkEventKey* event, Sourceview* sv)
+{
+	//sourceview_tooltip(sv, event->keyval);
+	return FALSE;
 }
 
 /* Callback for dialog below */
@@ -158,7 +166,7 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 						  "the current buffer.\nDo you want to reload it?"),
 						 g_basename(anjuta_document_get_uri(sv->priv->document)));
 	
-	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv->priv->view));
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv));
 	
 	dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
 								  GTK_DIALOG_DESTROY_WITH_PARENT,
@@ -210,6 +218,12 @@ sourceview_add_monitor(Sourceview* sv)
 /* Called when document is loaded completly */
 static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 {
+	if (err)
+	{
+		GtkWidget* parent = parent = gtk_widget_get_toplevel (GTK_WIDGET(sv));
+		anjuta_util_dialog_error(GTK_WINDOW(parent),
+			 "Could not open file: %s", err->message);
+	}
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
     g_signal_emit_by_name(G_OBJECT(sv), "save_point",
 						  TRUE);
@@ -219,6 +233,12 @@ static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 /* Called when document is loaded completly */
 static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 {
+	if (err)
+	{
+		GtkWidget* parent = parent = gtk_widget_get_toplevel (GTK_WIDGET (sv));
+		anjuta_util_dialog_error(GTK_WINDOW(parent),
+			 "Could not save file: %s", err->message);
+	}
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
 	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
 						  TRUE);
@@ -336,6 +356,9 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
     g_signal_connect(G_OBJECT(sv->priv->view), "popup-menu", G_CALLBACK(on_menu_popup), sv);
 
+	g_signal_connect_after (G_OBJECT(sv->priv->view), "key-press-event", 
+		G_CALLBACK(on_key_pressed), sv);
+
 	/* Apply Preferences (TODO) */
 	sv->priv->prefs = prefs;
 	sourceview_prefs_init(sv);
@@ -371,7 +394,7 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
-	anjuta_document_load(sv->priv->document, uri, anjuta_encoding_get_utf8(),
+	anjuta_document_load(sv->priv->document, uri, NULL,
 						 0, FALSE);
 }
 
@@ -403,7 +426,7 @@ ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
 	anjuta_document_save_as(sv->priv->document, 
-							uri, anjuta_encoding_get_utf8(),
+							uri, NULL,
 							ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);
 	if (sv->priv->filename)
 	{

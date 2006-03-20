@@ -1,3 +1,10 @@
+2006-03-20  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/anjuta-document-loader.c
+	plugins/sourceview/sourceview.c:
+	
+	Fixed encoding bugs
+
 2006-03-20  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/sourceview/sourceview.c, plugins/search/search-replace_backend.c :

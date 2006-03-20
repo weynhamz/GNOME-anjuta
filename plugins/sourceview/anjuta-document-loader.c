@@ -312,7 +312,20 @@ update_document_contents (AnjutaDocumentLoader  *loader,
 							&new_len,
 							&conv_error);
 		}
-
+		if  (converted_text == NULL)	
+		{
+			/* Last change, let's try 8859-15 */
+			loader->priv->auto_detected_encoding = 
+				anjuta_encoding_get_from_charset( "ISO-8859-15");
+			
+			converted_text = anjuta_convert_to_utf8 (
+							file_contents,
+							file_size,
+							&loader->priv->auto_detected_encoding,
+							&new_len,
+							&conv_error);
+		 }
+			
 		if (converted_text == NULL)
 		{
 			g_return_val_if_fail (conv_error != NULL, FALSE);
@@ -1004,8 +1017,10 @@ anjuta_document_loader_get_encoding (AnjutaDocumentLoader *loader)
 	if (loader->priv->encoding != NULL)
 		return loader->priv->encoding;
 		
-	g_return_val_if_fail (loader->priv->auto_detected_encoding != NULL, 
-			      anjuta_encoding_get_current ());
+	if (loader->priv->auto_detected_encoding == NULL)
+	{
+		return anjuta_encoding_get_current ();
+	}
 			  
 	return loader->priv->auto_detected_encoding;
 }
