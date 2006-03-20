@@ -47,11 +47,13 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
+#include <libanjuta/interfaces/ianjuta-print.h>
 
 #include "properties.h"
 #include "text_editor.h"
 #include "text_editor_cbs.h"
 #include "text_editor_menu.h"
+#include "print.h"
 
 #define GTK
 #undef PLAT_GTK
@@ -2853,6 +2855,27 @@ iindicable_iface_init (IAnjutaIndicableIface *iface)
 	iface->clear = iindicable_clear;
 }
 
+static void
+iprint_print(IAnjutaPrint* print, GError** e)
+{
+	TextEditor* te = TEXT_EDITOR(print);
+	anjuta_print(FALSE, te->preferences, te);
+}
+
+static void
+iprint_preview(IAnjutaPrint* print, GError** e)
+{
+	TextEditor* te = TEXT_EDITOR(print);
+	anjuta_print(TRUE, te->preferences, te);
+}
+
+static void
+iprint_iface_init(IAnjutaPrintIface* iface)
+{
+	iface->print = iprint_print;
+	iface->print_preview = iprint_preview;
+}
+
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -2866,6 +2889,7 @@ ANJUTA_TYPE_ADD_INTERFACE(ifolds, IANJUTA_TYPE_EDITOR_FOLDS);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(imarkable, IANJUTA_TYPE_MARKABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iindicable, IANJUTA_TYPE_INDICABLE);
+ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 
 /* FIXME: Is factory definition really required for editor class? */
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor_factory, IANJUTA_TYPE_EDITOR_FACTORY);

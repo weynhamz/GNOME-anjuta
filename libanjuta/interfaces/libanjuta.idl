@@ -2260,3 +2260,26 @@ interface IAnjutaSymbolManager
 	*/
 	IAnjutaIterable* get_parents (const gchar *symbol_name);
 }
+
+interface IAnjutaPrint
+{
+	/**
+	* ianjuta_print_print:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* Print the plugin (the file in case of the editor). In most cases this will show
+	* a print dialog
+	*/
+	void print();
+	
+	/**
+	* ianjuta_print_print:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* Show print preview dialog
+	*/
+
+	void print_preview();
+}

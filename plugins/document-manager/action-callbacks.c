@@ -32,6 +32,7 @@
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
+#include <libanjuta/interfaces/ianjuta-print.h>
 
 #include <libegg/menu/egg-entry-action.h>
 
@@ -256,8 +257,7 @@ on_reload_file1_activate (GtkAction * action, gpointer user_data)
 void
 anjuta_print_cb (GtkAction *action, gpointer user_data)
 {
-	#if 0 // FIXME
-	TextEditor *te;
+	IAnjutaEditor *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
@@ -266,15 +266,13 @@ anjuta_print_cb (GtkAction *action, gpointer user_data)
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	anjuta_print (FALSE, plugin->prefs, te);
-	#endif
+	ianjuta_print_print (IANJUTA_PRINT(te), NULL);
 }
 
 void
 anjuta_print_preview_cb (GtkAction * action, gpointer user_data)
 {
-	#if 0 //FIXME
-	TextEditor *te;
+	IAnjutaEditor *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
@@ -283,8 +281,7 @@ anjuta_print_preview_cb (GtkAction * action, gpointer user_data)
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	anjuta_print (TRUE, plugin->prefs, te);
-	#endif
+	ianjuta_print_print_preview (IANJUTA_PRINT(te), NULL);
 }
 
 void

@@ -55,7 +55,9 @@ libanjuta_editor_la_SOURCES= \
 	plugin.c \
 	plugin.h \
 	style-editor.c \
-	style-editor.h
+	style-editor.h \
+	print.c \
+	print.h
 
 EXTRA_DIST = \
 	$(editor_pixmaps_DATA) \

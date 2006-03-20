@@ -26,10 +26,6 @@
 #include <devhelp/dh-search.h>
 #include <devhelp/dh-base.h>
 #include <devhelp/dh-preferences.h>
-/* FIXME: The function is declared in this header, but is private
-#include <devhelp/dh-gecko-utils.h>
-*/
-extern void dh_gecko_utils_init_services (void);
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
@@ -221,7 +217,7 @@ devhelp_html_initialize (DevhelpPlugin *plugin)
 	GNode        *contents_tree;
 	GList        *keywords = NULL;
 	DevhelpPluginPriv *priv;
-	gboolean initialized = FALSE;
+	static gboolean initialized = FALSE;
 	
 	priv = plugin->priv;
 	
@@ -236,7 +232,7 @@ devhelp_html_initialize (DevhelpPlugin *plugin)
 	{
 		initialized = TRUE;
 		/* FIXME: post 0.11 devhelp calls this dh_gecko_utils_init() */
-		dh_gecko_utils_init_services ();
+		//dh_gecko_utils_init_services ();
 		dh_preferences_init ();
 		dh_preferences_setup_fonts ();
 	}
@@ -561,7 +557,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	 * faster) by commenting the following line. However, if that is done,
 	 * the window layout gets screwed up when the widgets are added later.
 	 */
-	/* devhelp_html_initialize (devhelp_plugin); */
+	devhelp_html_initialize (devhelp_plugin);
 	
 	/* Add watches */
 	priv->editor_watch_id = 

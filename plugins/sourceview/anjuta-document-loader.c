@@ -542,7 +542,7 @@ load_local_file_real (AnjutaDocumentLoader *loader)
 			goto done;
 		}
 
-		mime_type = gnome_vfs_get_mime_type_for_name(loader->priv->local_file_name);
+		mime_type = gnome_vfs_get_mime_type_for_name(loader->priv->local_file_name);	
 		if (mime_type == NULL)
 			mime_type = gnome_vfs_get_mime_type_for_data(mapped_file,
 				MIN (loader->priv->bytes_read, MAX_MIME_SNIFF_SIZE));

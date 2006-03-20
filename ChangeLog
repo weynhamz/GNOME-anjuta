@@ -1,3 +1,22 @@
+2006-03-20  Johannes Schmid <jha@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Added IAnjutaPrint
+	* plugins/devhelp/plugin.c: Work with any devhelp version (hopefully)
+	as we do not use private apis. Show help window and startup because it does 
+	not survive gdl
+	
+	* plugins/document-manager/action-callbacks.c:
+	plugins/editor/Makefile.am:
+	plugins/editor/text_editor.c:
+	plugins/print/print.c:
+	plugins/print/print.h:
+	
+	Fixed printing (nobody has missed it BTW ;-)
+	
+	* plugins/sourceview/sourceview.c:
+	Fixed a crasher
+
 2006-03-20 Naba Kumar <naba@gnome.org>
 
 	* configure.in, plugins/devhelp/plugin.c: Be able to build with

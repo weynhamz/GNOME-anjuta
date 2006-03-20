@@ -166,7 +166,7 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 						  "the current buffer.\nDo you want to reload it?"),
 						 g_basename(anjuta_document_get_uri(sv->priv->document)));
 	
-	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv));
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv->priv->view));
 	
 	dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
 								  GTK_DIALOG_DESTROY_WITH_PARENT,
