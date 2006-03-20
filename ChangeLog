@@ -9,8 +9,8 @@
 	* plugins/document-manager/action-callbacks.c:
 	plugins/editor/Makefile.am:
 	plugins/editor/text_editor.c:
-	plugins/print/print.c:
-	plugins/print/print.h:
+	plugins/editor/print.c:
+	plugins/editor/print.h:
 	
 	Fixed printing (nobody has missed it BTW ;-)
 	
