@@ -229,7 +229,16 @@ fi
 
 dnl Check for Devhelp
 dnl -----------------
-PKG_CHECK_MODULES(PLUGIN_DEVHELP, libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED)
+devhelp_old=yes
+PKG_CHECK_MODULES(PLUGIN_DEVHELP, [libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED],
+                  [devhelp_old=no], [
+                        AC_MSG_RESULT([version >= 0.11 not found])
+                        devhelp_old=yes
+                  ])
+if test x$devhelp_old = xyes; then
+  PKG_CHECK_MODULES(PLUGIN_DEVHELP, libdevhelp-1.0 >= 0.9)
+  AC_DEFINE(HAVE_OLD_DEVHELP, 1, [If old devhelp (>= 0.9 < 0.11) is installed])
+fi
 AC_SUBST(PLUGIN_DEVHELP_CFLAGS)
 AC_SUBST(PLUGIN_DEVHELP_LIBS)
 

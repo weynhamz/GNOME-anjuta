@@ -1,3 +1,8 @@
+2006-03-20 Naba Kumar <naba@gnome.org>
+
+	* configure.in, plugins/devhelp/plugin.c: Be able to build with
+	devhelp >= 0.9 < 0.11 versions.
+	
 2006-03-20  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/anjuta-document-loader.c

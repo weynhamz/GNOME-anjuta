@@ -111,7 +111,13 @@ devhelp_open_url (DevhelpPlugin *plugin, const gchar *url)
 	priv->current_uri = g_strdup (url);
 	
 	dh_html_open_uri (priv->html, url);
+
+#ifdef HAVE_OLD_DEVHELP
+	dh_book_tree_show_uri (DH_BOOK_TREE (priv->book_tree), url);
+#else
 	dh_book_tree_select_uri (DH_BOOK_TREE (priv->book_tree), url);
+#endif
+
 	devhelp_check_history (plugin);
 
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
