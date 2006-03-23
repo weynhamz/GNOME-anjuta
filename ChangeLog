@@ -1,3 +1,8 @@
+2006-03-23  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/print.c: Fixed a bug where some sections of
+	printed/previewed text is not highlighted.
+	
 2006-03-20  Johannes Schmid <jha@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

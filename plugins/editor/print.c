@@ -1074,6 +1074,8 @@ anjuta_print (gboolean preview, AnjutaPreferences *p, TextEditor *te)
 	PrintJobInfo *pji;
 	gboolean cancel = FALSE;
 
+	scintilla_send_message (SCINTILLA (te->scintilla), SCI_COLOURISE, 0, -1);
+	
 	if (NULL == (pji = anjuta_print_job_info_new(p, te)))
 		return;
 	pji->preview = preview;
