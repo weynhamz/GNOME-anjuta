@@ -1,5 +1,10 @@
 2006-03-26 Naba Kumar  <naba@gnome.org>
 
+	* plugins/document-manager/anjuta-docman.c: Fixed close icon button
+	size to scale itself with theme.
+
+2006-03-26 Naba Kumar  <naba@gnome.org>
+
 	* plugins/file-manager/an_file_view.c,
 	plugins/symbol-browser/an_symbol_view.c: Destroy tooltip timers
 	when symbolview and fileview objects are destroyed to avoid crashes

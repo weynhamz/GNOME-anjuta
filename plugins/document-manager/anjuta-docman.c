@@ -517,7 +517,11 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	button15 = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(button15), tmp_toolbar_icon);
 	gtk_button_set_relief(GTK_BUTTON(button15), GTK_RELIEF_NONE);
-	gtk_widget_set_size_request (button15, w, h);
+	
+	/* Setting size creates awkard looking cross button. Let the widget
+	 * size itself
+	 */
+	/* gtk_widget_set_size_request (button15, w, h); */
 
 	close_pixmap = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	gtk_widget_set_size_request(close_pixmap, w,h);
