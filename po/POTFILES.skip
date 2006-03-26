@@ -1,5 +1,4 @@
 anjuta.desktop.in
-anjuta_dialogs_strings.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade
 plugins/project-wizard/templates/gnome/src/main.c

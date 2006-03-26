@@ -375,8 +375,12 @@ on_close_activated (GtkAction *action, GladePlugin *plugin)
 	project = glade_app_get_active_project (GLADE_APP (gpw));
 
 	if (!project)
+	{
+		/* if (gtk_tree_model_iter_n_children (model, NULL) <= 0) */
+		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
 		return;
-
+	}
+	
 	if (project->changed)
 	{
 		close = glade_confirm_close_project (plugin, project);

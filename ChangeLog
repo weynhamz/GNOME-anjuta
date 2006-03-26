@@ -1,3 +1,14 @@
+2006-03-26 Naba Kumar <naba@gnome.org>
+
+	* Makefile.am,	po/POTFILES.skip, (removed) anjuta_dialogs_strings.h:
+	Deleted unused file.
+	
+	* plugins/glade/plugin.c: Be able to close glade plugin when there
+	there is no glade project loaded.
+	
+	* plugins/sourceview/sourceview.plugin,
+	plugins/sourceview/sourceview.plugin.in: Give a better plugin name.
+
 2006-03-23  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/print.c: Fixed a bug where some sections of

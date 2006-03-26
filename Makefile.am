@@ -32,8 +32,7 @@ EXTRA_DIST = \
 	intltool-extract.in\
 	intltool-merge.in\
 	intltool-update.in\
-	$(anjutadoc_DATA)\
-	anjuta_dialogs_strings.c
+	$(anjutadoc_DATA)
 
 gnomemenudir = $(datadir)/applications
 gnomemenu_premerge_file = anjuta.desktop.in

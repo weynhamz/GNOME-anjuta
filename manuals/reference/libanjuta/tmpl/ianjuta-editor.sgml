@@ -50,6 +50,7 @@
 @can_undo: 
 @erase_all: 
 @get_attributes: 
+@get_cell_iter: 
 @get_column: 
 @get_current_pos: 
 @get_current_word: 
