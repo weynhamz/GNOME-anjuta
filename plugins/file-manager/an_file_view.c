@@ -937,6 +937,10 @@ fv_init (FileManagerPlugin *fv)
 void
 fv_finalize (FileManagerPlugin *fv)
 {
+	if (fv->tooltip_timeout)
+		g_source_remove (fv->tooltip_timeout);
+	fv->tooltip_timeout = 0;
+	
 	if (fv->top_dir)
 		g_free (fv->top_dir);
 	g_object_unref (G_OBJECT (fv->tree));

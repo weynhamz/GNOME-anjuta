@@ -822,6 +822,10 @@ anjuta_symbol_view_finalize (GObject * obj)
 	
 	anjuta_symbol_view_clear (sv);
 	
+	if (sv->priv->tooltip_timeout)
+		g_source_remove (sv->priv->tooltip_timeout);
+	sv->priv->tooltip_timeout = 0;
+	
 	g_hash_table_destroy (sv->priv->tm_files);
 	tm_workspace_free ((gpointer) sv->priv->tm_workspace);
 	g_free (sv->priv);
