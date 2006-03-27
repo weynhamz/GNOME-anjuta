@@ -1,3 +1,12 @@
+2006-03-27  Johannes Schmid <jhs@gnome.org>
+
+	* TODO.tasks:
+	Updated
+	
+	Patch from Rob Bradfort <robster@debian.org>:
+	* src/main.c: (get_command_line_args), (main):
+	Migration from popt to GOption
+	
 2006-03-26 Naba Kumar  <naba@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c: Fixed close icon button
@@ -26,7 +35,7 @@
 	* plugins/editor/print.c: Fixed a bug where some sections of
 	printed/previewed text is not highlighted.
 	
-2006-03-20  Johannes Schmid <jha@gnome.org>
+2006-03-20  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
 	Added IAnjutaPrint

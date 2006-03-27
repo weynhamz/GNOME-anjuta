@@ -19,7 +19,7 @@ box (instead of hardcoded names in the source).</comment>
       <comment>Implement it using GnomePrint</comment>
     </item>
     <item>
-      <attribute id="1142156772" priority="1" done="0" start_date="732382" enddate="99999999" notify="0" endtime="-60" last_edited="1142156772"/>
+      <attribute id="1142156772" priority="1" done="1" start_date="732382" completed_date="732391" notify="0" last_edited="1142930663"/>
       <summary>Implement IAnjutaPrint</summary>
       <comment>A generic print interface</comment>
     </item>
