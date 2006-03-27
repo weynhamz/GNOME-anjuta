@@ -1,5 +1,12 @@
 2006-03-27  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/sourceview-private.h:
+	plugins/sourceview/sourceview.c:
+	
+	Added basic bookmark support
+
+2006-03-27  Johannes Schmid <jhs@gnome.org>
+
 	* TODO.tasks:
 	Updated
 	

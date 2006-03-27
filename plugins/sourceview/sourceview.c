@@ -32,6 +32,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
+#include <libanjuta/interfaces/ianjuta-bookmark.h>
 
 #include <libgnomevfs/gnome-vfs-init.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
@@ -1183,7 +1184,105 @@ iindic_iface_init(IAnjutaIndicableIface* iface)
 	iface->set = iindic_set;
 }
 
+static void
+ibookmark_toggle(IAnjutaBookmark* bmark, gint location, gboolean ensure_visible, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
+	gint* line = g_new(gint, 1);
+	*line = location;
+	sv->priv->bookmarks = g_list_append(sv->priv->bookmarks, line);
+	/* TODO: Make bookmarks visible */
+}
 
+static void
+ibookmark_first(IAnjutaBookmark* bmark, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
+	GList* bookmark;
+	gint* line;
+	bookmark = g_list_first(sv->priv->bookmarks);
+	if (bookmark)
+	{
+		line = (gint*) bookmark->data;
+		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
+			*line, NULL);
+		sv->priv->cur_bmark = bookmark;
+	}
+}
+
+static void
+ibookmark_last(IAnjutaBookmark* bmark, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
+	GList* bookmark;
+	gint* line;
+	bookmark = g_list_last(sv->priv->bookmarks);
+	if (bookmark)
+	{
+		line = (gint*) bookmark->data;
+		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
+			*line, NULL);
+		sv->priv->cur_bmark = bookmark;
+	}
+}
+
+static void
+ibookmark_next(IAnjutaBookmark* bmark, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
+	GList* bookmark;
+	gint* line;
+	bookmark = g_list_next(sv->priv->cur_bmark);
+	if (bookmark)
+	{
+		line = (gint*) bookmark->data;
+		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
+			*line, NULL);
+		sv->priv->cur_bmark = bookmark;
+	}
+}
+
+static void
+ibookmark_previous(IAnjutaBookmark* bmark, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
+	GList* bookmark;
+	gint* line;
+	bookmark = g_list_previous(sv->priv->cur_bmark);
+	if (bookmark)
+	{
+		line = (gint*) bookmark->data;
+		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
+			*line, NULL);
+		sv->priv->cur_bmark = bookmark;
+	}
+}
+
+static void
+ibookmark_clear_all(IAnjutaBookmark* bmark, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
+	GList* node = sv->priv->bookmarks;
+	while (node)
+	{
+		g_free(node->data);
+		node = g_list_next(node);
+	}
+	g_list_free(sv->priv->bookmarks);
+	sv->priv->bookmarks = NULL;
+}
+
+static void
+ibookmark_iface_init(IAnjutaBookmarkIface* iface)
+{
+	iface->toggle = ibookmark_toggle;
+	iface->first = ibookmark_first;
+	iface->last = ibookmark_last;
+	iface->next = ibookmark_next;
+	iface->previous = ibookmark_previous;
+	iface->clear_all = ibookmark_clear_all;
+}
+	
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -1193,4 +1292,5 @@ ANJUTA_TYPE_ADD_INTERFACE(iindic, IANJUTA_TYPE_INDICABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iselect, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
+ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_END;

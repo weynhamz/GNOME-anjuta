@@ -54,6 +54,10 @@ struct SourceviewPrivate {
 	/* Autocomplete */
 	gint ac_choices;
 	SourceviewAutocomplete* ac;
+	
+	/* Bookmarks */
+	GList* bookmarks;
+	GList* cur_bmark;
 };
 
 #endif
