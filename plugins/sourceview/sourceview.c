@@ -106,7 +106,9 @@ static void on_cursor_moved(AnjutaDocument *widget,
 /* key-press-event used for tooltips */
 static gboolean on_key_pressed(AnjutaView* view, GdkEventKey* event, Sourceview* sv)
 {
-	//sourceview_tooltip(sv, event->keyval);
+	DEBUG_PRINT("Current word: %s", 
+		sourceview_autocomplete_get_current_word(GTK_TEXT_BUFFER(sv->priv->document)));
+	DEBUG_PRINT("Key: %s", event->string);
 	return FALSE;
 }
 
@@ -357,7 +359,7 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
     g_signal_connect(G_OBJECT(sv->priv->view), "popup-menu", G_CALLBACK(on_menu_popup), sv);
 
-	g_signal_connect_after (G_OBJECT(sv->priv->view), "key-press-event", 
+	g_signal_connect (G_OBJECT(sv->priv->view), "key-press-event", 
 		G_CALLBACK(on_key_pressed), sv);
 
 	/* Apply Preferences (TODO) */

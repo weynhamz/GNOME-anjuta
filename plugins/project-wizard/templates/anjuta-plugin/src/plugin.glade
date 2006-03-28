@@ -49,7 +49,7 @@
 	      <property name="left_margin">0</property>
 	      <property name="right_margin">0</property>
 	      <property name="indent">0</property>
-	      <property name="text" translatable="yes">Anjuta Plugin Uese Interface</property>
+	      <property name="text" translatable="yes">Anjuta Plugin User Interface</property>
 	    </widget>
 	  </child>
 	</widget>
