@@ -18,6 +18,9 @@ AC_PROG_CXX
 [+ENDIF+]
 
 [+IF (=(get "HaveI18n") "1")+]
+dnl Initialize xml-i18n-tools
+AC_PROG_INTLTOOL
+
 dnl Set gettext package name
 GETTEXT_PACKAGE=[+NameLower+]
 AC_SUBST(GETTEXT_PACKAGE)
@@ -97,6 +100,5 @@ AM_CONDITIONAL(ENABLE_GTK_DOC, test x$enable_gtk_doc = xyes)
 AC_OUTPUT([
 Makefile
 src/Makefile
-src/[+NameLower+].plugin
 [+IF (=(get "HaveI18n") "1")+]po/Makefile.in[+ENDIF+]
 ])

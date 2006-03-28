@@ -1,3 +1,14 @@
+2006-03-28  Yang Hong <yanghong@ccoss.com.cn>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/project-wizard/templates/anjuta-plugin/configure.in.tpl
+	plugins/project-wizard/templates/anjuta-plugin/po/POTFILES.in
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade:
+	
+	Improve anjuta-plugin project template. Also fix for #322744
+
 2006-03-27  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview-private.h:
