@@ -68,7 +68,11 @@ libanjuta_sourceview_la_SOURCES = \
 	sourceview-prefs.c \
 	sourceview-private.h \
 	sourceview-autocomplete.c \
-	sourceview-autocomplete.h
+	sourceview-autocomplete.h \
+	sourceview-tags.c \
+	sourceview-tags.h \
+	tag-window.c \
+	tag-window.h 
 	
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \

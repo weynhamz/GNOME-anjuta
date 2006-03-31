@@ -45,6 +45,9 @@
 
 #include "anjuta-view.h"
 #include "anjuta-encodings.h"
+#include "sourceview.h"
+#include "sourceview-private.h"
+#include "sourceview-tags.h"
 
 #define ANJUTA_VIEW_SCROLL_MARGIN 0.02
 
@@ -56,10 +59,10 @@ struct _AnjutaViewPrivate
 
 	/* idle hack to make open-at-line work */
 	guint        scroll_idle;
+	
+	/* Plugin, needed for tag completion */
+	Sourceview* plugin;
 };
-
-/* The search entry completion is shared among all the views */
-GtkListStore *search_completion_model = NULL;
 
 static void	anjuta_view_destroy		(GtkObject       *object);
 static void	anjuta_view_finalize		(GObject         *object);
@@ -72,19 +75,12 @@ static gint     anjuta_view_focus_out		(GtkWidget       *widget,
 
 static gint	anjuta_view_expose	 	(GtkWidget       *widget,
 						 GdkEventExpose  *event);
+					
+static gboolean	anjuta_view_key_press_event		(GtkWidget         *widget,
+							 GdkEventKey       *event);
 						 
 G_DEFINE_TYPE(AnjutaView, anjuta_view, GTK_TYPE_SOURCE_VIEW)
 
-/* Signals */
-enum
-{
-	START_INTERACTIVE_SEARCH,
-	START_INTERACTIVE_GOTO_LINE,
-	RESET_SEARCHED_TEXT,
-	LAST_SIGNAL
-};
-
-static guint view_signals [LAST_SIGNAL] = { 0 };
 
 static void
 document_read_only_notify_handler (AnjutaDocument *document, 
@@ -109,22 +105,13 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 
 	widget_class->focus_out_event = anjuta_view_focus_out;
 	widget_class->expose_event = anjuta_view_expose;
+	widget_class->key_press_event = anjuta_view_key_press_event;
 
 	textview_class->move_cursor = anjuta_view_move_cursor;
 
 	g_type_class_add_private (klass, sizeof (AnjutaViewPrivate));
 	
-	binding_set = gtk_binding_set_by_class (klass);
-	
-	gtk_binding_entry_add_signal (binding_set, GDK_k, GDK_CONTROL_MASK, "start_interactive_search", 0);
-	gtk_binding_entry_add_signal (binding_set, GDK_K, GDK_CONTROL_MASK, "start_interactive_search", 0);
-	
-	gtk_binding_entry_add_signal (binding_set, GDK_i, GDK_CONTROL_MASK, "start_interactive_goto_line", 0);
-	gtk_binding_entry_add_signal (binding_set, GDK_I, GDK_CONTROL_MASK, "start_interactive_goto_line", 0);
-	
-	gtk_binding_entry_add_signal (binding_set, GDK_k, GDK_CONTROL_MASK | GDK_SHIFT_MASK, "reset_searched_text", 0);
-	gtk_binding_entry_add_signal (binding_set, GDK_K, GDK_CONTROL_MASK | GDK_SHIFT_MASK, "reset_searched_text", 0);	
-
+	binding_set = gtk_binding_set_by_class (klass);	
 }
 
 static void
@@ -149,12 +136,6 @@ move_cursor (GtkTextView       *text_view,
 				      0.0);
 }
 
-/*
- * This feature is implemented in anjuta and not in gtksourceview since the latter
- * has a similar feature called smart home/end that it is not compatible with this 
- * one and is more "invasive". Maybe in the future we will move this feature in 
- * gtksourceview or even better in gtktextview.
- */
 static void
 anjuta_view_move_cursor (GtkTextView    *text_view,
 			GtkMovementStep step,
@@ -316,13 +297,15 @@ anjuta_view_focus_out (GtkWidget *widget, GdkEventFocus *event)
  * Return value: a new #AnjutaView
  **/
 GtkWidget *
-anjuta_view_new (AnjutaDocument *doc)
+anjuta_view_new (AnjutaDocument *doc, Sourceview* plugin)
 {
 	GtkWidget *view;
 
 	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), NULL);
 
 	view = GTK_WIDGET (g_object_new (ANJUTA_TYPE_VIEW, NULL));
+	
+	ANJUTA_VIEW(view)->priv->plugin = plugin;
 	
 	gtk_text_view_set_buffer (GTK_TEXT_VIEW (view),
 				  GTK_TEXT_BUFFER (doc));
@@ -643,30 +626,6 @@ anjuta_view_set_font (AnjutaView   *view,
 	}
 }
 
-static gboolean
-get_selected_text (GtkTextBuffer *doc, gchar **selected_text, gint *len)
-{
-	GtkTextIter start, end;
-
-	g_return_val_if_fail (selected_text != NULL, FALSE);
-	g_return_val_if_fail (*selected_text == NULL, FALSE);
-
-	if (!gtk_text_buffer_get_selection_bounds (doc, &start, &end))
-	{
-		if (len != NULL)
-			len = 0;
-
-		return FALSE;
-	}
-
-	*selected_text = gtk_text_buffer_get_slice (doc, &start, &end, TRUE);
-
-	if (len != NULL)
-		*len = g_utf8_strlen (*selected_text, -1);
-
-	return TRUE;
-}
-
 static gint
 anjuta_view_expose (GtkWidget      *widget,
                    GdkEventExpose *event)
@@ -693,4 +652,52 @@ anjuta_view_expose (GtkWidget      *widget,
 	}
 
 	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->expose_event)(widget, event);
+}
+
+static gboolean
+anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
+{
+	AnjutaView* view = ANJUTA_VIEW(widget);
+	
+	/* Assume keyval is something like [A-Za-z0-9_]+ */
+	if  ((GDK_A <= event->keyval && event->keyval <= GDK_Z)
+		|| (GDK_a <= event->keyval && event->keyval <= GDK_z)
+		|| (GDK_0 <= event->keyval && event->keyval <= GDK_9)		
+		|| GDK_underscore == event->keyval
+		|| GDK_Shift_L == event->keyval
+		|| GDK_Shift_R == event->keyval)
+	{	
+		/* Add the character to the buffer */
+		gboolean retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+		/* Call tag completion */
+		sourceview_tags_show(view->priv->plugin);
+			
+		return retval;
+	}
+	else if (event->keyval == GDK_Down)
+	{
+		if (sourceview_tags_down(view->priv->plugin))
+			return TRUE;
+		else
+			return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+	}
+	else if (event->keyval == GDK_Up)
+	{
+		if (sourceview_tags_up(view->priv->plugin))
+			return TRUE;
+		else
+			return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+	}
+	else if (event->keyval == GDK_Return || event->keyval == GDK_Tab)
+	{
+		if (sourceview_tags_select(view->priv->plugin))
+			return TRUE;
+		else
+			return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+	}
+	else
+	{
+		sourceview_tags_stop(view->priv->plugin);
+		return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+	}
 }

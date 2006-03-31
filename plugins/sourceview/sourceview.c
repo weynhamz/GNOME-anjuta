@@ -54,8 +54,8 @@
 #include "sourceview-prefs.h"
 #include "sourceview-autocomplete.h"
 #include "sourceview-private.h"
+#include "sourceview-tags.h"
 #include "plugin.h"
-
 
 #define READ_BUFFER_SIZE   16384
 
@@ -101,15 +101,6 @@ static void on_cursor_moved(AnjutaDocument *widget,
 {
 	/* Emit IAnjutaEditor signals */
 	g_signal_emit_by_name(G_OBJECT(sv), "update_ui");
-}
-
-/* key-press-event used for tooltips */
-static gboolean on_key_pressed(AnjutaView* view, GdkEventKey* event, Sourceview* sv)
-{
-	DEBUG_PRINT("Current word: %s", 
-		sourceview_autocomplete_get_current_word(GTK_TEXT_BUFFER(sv->priv->document)));
-	DEBUG_PRINT("Key: %s", event->string);
-	return FALSE;
 }
 
 /* Callback for dialog below */
@@ -252,6 +243,7 @@ static void
 sourceview_instance_init(Sourceview* sv)
 {
 	sv->priv = g_new0(SourceviewPrivate, 1);
+	sourceview_tags_init(sv);
 }
 
 static void
@@ -276,6 +268,7 @@ sourceview_finalize(GObject *object)
 	/* Free private members, etc. */
 	
 	sourceview_remove_monitor(cobj);
+	sourceview_tags_destroy(cobj);
 	
 	gtk_widget_destroy(GTK_WIDGET(cobj->priv->view));
 	g_free(cobj->priv);
@@ -355,12 +348,9 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 					 G_CALLBACK(on_document_saved), sv);
 					 
 	/* Create View instance */
-	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document));
+	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document, sv));
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
     g_signal_connect(G_OBJECT(sv->priv->view), "popup-menu", G_CALLBACK(on_menu_popup), sv);
-
-	g_signal_connect (G_OBJECT(sv->priv->view), "key-press-event", 
-		G_CALLBACK(on_key_pressed), sv);
 
 	/* Apply Preferences (TODO) */
 	sv->priv->prefs = prefs;
@@ -428,8 +418,9 @@ ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
+	/* TODO: Set correct encoding */
 	anjuta_document_save_as(sv->priv->document, 
-							uri, NULL,
+							uri, anjuta_encoding_get_current(),
 							ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);
 	if (sv->priv->filename)
 	{

@@ -281,7 +281,7 @@ void sourceview_autocomplete(Sourceview* sv)
 	/* Init */
 	sv->priv->ac = g_new0(SourceviewAutocomplete, 1);
 	sv->priv->ac->current_word = sourceview_autocomplete_get_current_word(buffer);
-	 if (sv->priv->ac->current_word == NULL && !strlen(sv->priv->ac->current_word))
+	 if (sv->priv->ac->current_word == NULL || !strlen(sv->priv->ac->current_word))
      {
      	return;
      }

@@ -1,5 +1,21 @@
 2006-03-31  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/anjuta-view.c:
+	* plugins/sourceview/anjuta-view.h:
+	* plugins/sourceview/sourceview-autocomplete.c:
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview-tags.c:
+	* plugins/sourceview/sourceview-tags.h:
+	* plugins/sourceview/sourceview.c: 
+	* plugins/sourceview/tag-window.c:
+	* plugins/sourceview/tag-window.h:
+	
+	Added code completion with tag manager to the editor and fixed a save_as bug
+
+2006-03-31  Johannes Schmid <jhs@gnome.org>
+
 	* src/main.c: Revert patch from Rob to allow building with
 	Gnome 2.12
 	* configure.in: Require at least 2.12 libraries
