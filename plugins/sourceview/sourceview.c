@@ -57,8 +57,6 @@
 #include "sourceview-tags.h"
 #include "plugin.h"
 
-#define READ_BUFFER_SIZE   16384
-
 #define FORWARD 	0
 #define BACKWARD 	1
 
@@ -277,12 +275,20 @@ sourceview_finalize(GObject *object)
 
 /* Sync with IANJUTA_MARKABLE_MARKER  */
 
-#define MARKER_PIXMAP "pointer.png"
+#define MARKER_PIXMAP_BASIC "marker-basic.png"
+#define MARKER_PIXMAP_LIGHT "marker-light.png"
+#define MARKER_PIXMAP_ATTENTIVE "marker-attentive.png"
+#define MARKER_PIXMAP_INTENSE "marker-intense.png"
+
+#define MARKER_PIXMAP_BOOKMARK "bookmark.png"
+
 #define MARKER_NONE "sv-mark-none"
 #define MARKER_BASIC "sv-mark-basic"
 #define MARKER_LIGHT "sv-mark-light"
 #define MARKER_ATTENTIVE "sv-mark-attentive"
 #define MARKER_INTENSE "sv-mark-intense"
+
+#define MARKER_BOOKMARK "sv-bookmark"
 
 /* HIGHLIGHTED TAGS */
 
@@ -297,22 +303,36 @@ static void sourceview_create_markers(Sourceview* sv)
 	GtkSourceView* view = 	GTK_SOURCE_VIEW(sv->priv->view);
 
 	
-	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP, NULL)))
+	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BASIC, NULL)))
 	{
-		/* TODO: Use different pixmaps */
 		gtk_source_view_set_marker_pixbuf (view, 
 			MARKER_BASIC, pixbuf);
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_INTENSE, pixbuf);
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_LIGHT, pixbuf);
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_ATTENTIVE, pixbuf);
-		
 		g_object_unref (pixbuf);
 	}
-	else
-		DEBUG_PRINT("Pixmap not found: %s!",PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP);
+	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_LIGHT, NULL)))
+	{
+		gtk_source_view_set_marker_pixbuf (view, 
+			MARKER_LIGHT, pixbuf);
+		g_object_unref (pixbuf);
+	}
+	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_ATTENTIVE, NULL)))
+	{
+		gtk_source_view_set_marker_pixbuf (view, 
+			MARKER_ATTENTIVE, pixbuf);
+		g_object_unref (pixbuf);
+	}
+	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_INTENSE, NULL)))
+	{
+		gtk_source_view_set_marker_pixbuf (view, 
+			MARKER_INTENSE, pixbuf);
+		g_object_unref (pixbuf);
+	}
+	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BOOKMARK, NULL)))
+	{
+		gtk_source_view_set_marker_pixbuf (view, 
+			MARKER_BOOKMARK, pixbuf);
+		g_object_unref (pixbuf);
+	}
 }
 
 /* Create tags for highlighting */
@@ -1177,14 +1197,35 @@ iindic_iface_init(IAnjutaIndicableIface* iface)
 	iface->set = iindic_set;
 }
 
+typedef struct
+{
+	GtkSourceMarker* marker;
+	gint line;
+} SVBookmark;
+
+static int bookmark_compare(SVBookmark* bmark1, SVBookmark* bmark2)
+{
+	if (bmark1->line < bmark2->line)
+		return -1;
+	if (bmark2->line > bmark2->line)
+		return 1;
+	else
+		return 0;
+}
+
 static void
 ibookmark_toggle(IAnjutaBookmark* bmark, gint location, gboolean ensure_visible, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	gint* line = g_new(gint, 1);
-	*line = location;
-	sv->priv->bookmarks = g_list_append(sv->priv->bookmarks, line);
-	/* TODO: Make bookmarks visible */
+	SVBookmark* bookmark = g_new0(SVBookmark, 1);
+	GtkTextIter iter;
+	bookmark->line = location;
+	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document), &iter, bookmark->line - 1);
+	bookmark->marker = gtk_source_buffer_create_marker(GTK_SOURCE_BUFFER(sv->priv->document), 
+													NULL, MARKER_BOOKMARK, &iter);
+	sv->priv->bookmarks = g_list_append(sv->priv->bookmarks, bookmark);
+	sv->priv->cur_bmark = sv->priv->bookmarks;
+	sv->priv->bookmarks = g_list_sort(sv->priv->bookmarks, (GCompareFunc) bookmark_compare);
 }
 
 static void
@@ -1192,13 +1233,13 @@ ibookmark_first(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
 	GList* bookmark;
-	gint* line;
+	SVBookmark* mark;
 	bookmark = g_list_first(sv->priv->bookmarks);
 	if (bookmark)
 	{
-		line = (gint*) bookmark->data;
+		mark = bookmark->data;
 		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
-			*line, NULL);
+			mark->line, NULL);
 		sv->priv->cur_bmark = bookmark;
 	}
 }
@@ -1208,13 +1249,13 @@ ibookmark_last(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
 	GList* bookmark;
-	gint* line;
+	SVBookmark* mark;
 	bookmark = g_list_last(sv->priv->bookmarks);
 	if (bookmark)
 	{
-		line = (gint*) bookmark->data;
+		mark = bookmark->data;
 		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
-			*line, NULL);
+			mark->line, NULL);
 		sv->priv->cur_bmark = bookmark;
 	}
 }
@@ -1224,13 +1265,13 @@ ibookmark_next(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
 	GList* bookmark;
-	gint* line;
+	SVBookmark* mark;
 	bookmark = g_list_next(sv->priv->cur_bmark);
 	if (bookmark)
 	{
-		line = (gint*) bookmark->data;
+		mark = bookmark->data;
 		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
-			*line, NULL);
+			mark->line, NULL);
 		sv->priv->cur_bmark = bookmark;
 	}
 }
@@ -1240,13 +1281,13 @@ ibookmark_previous(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
 	GList* bookmark;
-	gint* line;
+	SVBookmark* mark;
 	bookmark = g_list_previous(sv->priv->cur_bmark);
 	if (bookmark)
 	{
-		line = (gint*) bookmark->data;
+		mark = bookmark->data;
 		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
-			*line, NULL);
+			mark->line, NULL);
 		sv->priv->cur_bmark = bookmark;
 	}
 }
@@ -1258,7 +1299,10 @@ ibookmark_clear_all(IAnjutaBookmark* bmark, GError** e)
 	GList* node = sv->priv->bookmarks;
 	while (node)
 	{
-		g_free(node->data);
+		SVBookmark* mark = node->data;
+		gtk_source_buffer_delete_marker(GTK_SOURCE_BUFFER(sv->priv->document),
+											mark->marker);
+		g_free(mark);
 		node = g_list_next(node);
 	}
 	g_list_free(sv->priv->bookmarks);

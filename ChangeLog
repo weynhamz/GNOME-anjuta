@@ -1,3 +1,15 @@
+2006-04-01  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/bookmark.png:
+	* plugins/sourceview/marker-attentive.png:
+	* plugins/sourceview/marker-basic.png:
+	* plugins/sourceview/marker-intense.png:
+	* plugins/sourceview/marker-light.png:
+	* plugins/sourceview/sourceview.c: 
+	
+	Added pixmaps for all marker types and show bookmarks
+
 2006-03-31  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/Makefile.am:
