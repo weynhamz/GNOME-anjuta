@@ -18,6 +18,8 @@
 #include "sourceview-private.h"
 #include <gtksourceview/gtksourceview.h>
 
+static AnjutaPreferences* prefs = NULL;
+
 #define REGISTER_NOTIFY(key, func) \
 	notify_id = anjuta_preferences_notify_add (sv->priv->prefs, \
 											   key, func, sv, NULL); \
@@ -34,8 +36,6 @@
 
 #define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible"
 #define VIEW_MARKER_MARGIN         "margin.marker.visible"
-
-#define AUTOCOMPLETE_CHOICES "autocompleteword.choices"
 
 static int
 get_int(GConfEntry* entry)
@@ -149,18 +149,6 @@ on_gconf_notify_view_linenums (GConfClient *gclient, guint cnxn_id,
 
 }
 
-static void
-on_gconf_notify_autocomplete_choices (GConfClient *gclient, guint cnxn_id,
-							   GConfEntry *entry, gpointer user_data)
-{
-	Sourceview *sv;
-	gint choices = get_int(entry);
-	sv = ANJUTA_SOURCEVIEW(user_data);
-	
-	sv->priv->ac_choices = choices;
-}
-
-
 static int
 get_key(Sourceview* sv, const gchar* key)
 {
@@ -171,6 +159,8 @@ void
 sourceview_prefs_init(Sourceview* sv)
 {
 	guint notify_id;
+	
+	prefs = sv->priv->prefs;
 	
 	/* Init */
 	gtk_source_buffer_set_highlight(GTK_SOURCE_BUFFER(sv->priv->document), !get_key(sv, DISABLE_SYNTAX_HILIGHTING));
@@ -184,7 +174,6 @@ sourceview_prefs_init(Sourceview* sv)
 										 get_key(sv, VIEW_MARKER_MARGIN));
 	gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(sv->priv->view), 
 										 get_key(sv, VIEW_LINENUMBERS_MARGIN));
-	sv->priv->ac_choices = get_key(sv, AUTOCOMPLETE_CHOICES);
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
@@ -196,5 +185,10 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (BACKSPACE_UNINDENTS, on_gconf_notify_backspace_unindents);
 	REGISTER_NOTIFY (VIEW_MARKER_MARGIN, on_gconf_notify_view_markers);
 	REGISTER_NOTIFY (VIEW_LINENUMBERS_MARGIN, on_gconf_notify_view_linenums);
-	REGISTER_NOTIFY (AUTOCOMPLETE_CHOICES, on_gconf_notify_autocomplete_choices);
+}
+
+AnjutaPreferences*
+sourceview_get_prefs()
+{
+	return prefs;
 }

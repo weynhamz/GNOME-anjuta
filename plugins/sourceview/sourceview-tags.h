@@ -17,36 +17,13 @@
 #ifndef _SOURCEVIEW_TOOLTIP_H
 #define _SOURCEVIEW_TOOLTIP_H
 
-#include "sourceview.h"
+#include "anjuta-view.h"
 #include "tag-window.h"
+#include <gtk/gtkliststore.h>
 
-struct _SourceviewTags
-{
-	gchar* current_word;
-	TagWindow* tag_window;
-};
+gboolean sourceview_tags_update(AnjutaView* view, GtkListStore* store, gchar* current_word);
 
-void
-sourceview_tags_show(Sourceview* sv);
-
-void
-sourceview_tags_init(Sourceview* sv);
-
-void
-sourceview_tags_destroy(Sourceview* sv);
-
-void
-sourceview_tags_stop(Sourceview* sv);
-
-gboolean
-sourceview_tags_up(Sourceview* sv);
-
-gboolean
-sourceview_tags_down(Sourceview* sv);
-
-gboolean
-sourceview_tags_select(Sourceview* sv);
-
+void sourceview_tags_destroy(void);
 
 #endif /* _SOURCEVIEW_TOOLTIP_H */
  

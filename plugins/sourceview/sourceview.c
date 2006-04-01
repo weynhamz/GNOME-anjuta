@@ -241,7 +241,6 @@ static void
 sourceview_instance_init(Sourceview* sv)
 {
 	sv->priv = g_new0(SourceviewPrivate, 1);
-	sourceview_tags_init(sv);
 }
 
 static void
@@ -266,7 +265,7 @@ sourceview_finalize(GObject *object)
 	/* Free private members, etc. */
 	
 	sourceview_remove_monitor(cobj);
-	sourceview_tags_destroy(cobj);
+	sourceview_tags_destroy();
 	
 	gtk_widget_destroy(GTK_WIDGET(cobj->priv->view));
 	g_free(cobj->priv);
@@ -368,9 +367,11 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 					 G_CALLBACK(on_document_saved), sv);
 					 
 	/* Create View instance */
-	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document, sv));
+	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document));
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
     g_signal_connect(G_OBJECT(sv->priv->view), "popup-menu", G_CALLBACK(on_menu_popup), sv);
+	anjuta_view_set_tag_update(sv->priv->view, sourceview_tags_update);
+	anjuta_view_set_autocomplete_update(sv->priv->view, sourceview_autocomplete_update);
 
 	/* Apply Preferences (TODO) */
 	sv->priv->prefs = prefs;
@@ -577,9 +578,7 @@ static gint ieditor_get_length(IAnjutaEditor *editor, GError **e)
 static gchar* ieditor_get_current_word(IAnjutaEditor *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	
-	return sourceview_autocomplete_get_current_word(buffer);
+	return anjuta_document_get_current_word(sv->priv->document);
 }
 
 /* Insert text at position */
@@ -992,7 +991,7 @@ static void
 iassist_autocomplete(IAnjutaEditorAssist* edit, GError** ee)
 {
     Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-    sourceview_autocomplete(sv);
+    anjuta_view_autocomplete(sv->priv->view);
 }
 
 static void iassist_iface_init(IAnjutaEditorAssistIface* iface)

@@ -18,19 +18,12 @@
 #ifndef SOURCEVIEW_AUTOCOMPLETE_H
 #define SOURCEVIEW_AUTOCOMPLETE_H
 
-#include "sourceview.h"
+#include "anjuta-view.h"
+#include <gtk/gtkliststore.h>
 
-struct _SourceviewAutocomplete
-{
-	GSList* completions;
-	gchar* text;
-	gchar* current_word;
-	gchar* replacement;
-};
 
-void sourceview_autocomplete(Sourceview* sv);
-
-gchar* sourceview_autocomplete_get_current_word(GtkTextBuffer* buffer);
+gboolean
+sourceview_autocomplete_update(AnjutaView* view, GtkListStore* store, gchar* current_word);
 
 #endif
  

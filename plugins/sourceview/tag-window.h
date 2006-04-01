@@ -54,13 +54,21 @@ struct _TagWindowClass {
 	void (*selected)(GtkWidget* window, const gchar* tag);
 };
 
-GType tag_window_get_type(void);
-GtkWidget *tag_window_new(const GPtrArray* tags);
+enum
+{
+	TAG_WINDOW_COLUMN_SHOW = 0,
+	TAG_WINDOW_COLUMN_PIXBUF,
+	TAG_WINDOW_COLUMN_NAME,
+	TAG_WINDOW_N_COLUMNS
+};
 
-void tag_window_update(TagWindow* tagwin, const GPtrArray* tags);
+GType tag_window_get_type(void);
+GtkWidget *tag_window_new(void);
+
+GtkListStore* tag_window_get_model(TagWindow* tag_window);
 
 gboolean tag_window_up(TagWindow* tagwin);
-void tag_window_down(TagWindow* tagwin);
+gboolean tag_window_down(TagWindow* tagwin);
 gboolean tag_window_select(TagWindow* tagwin);
 
 #endif /* TAG_WINDOW_H */

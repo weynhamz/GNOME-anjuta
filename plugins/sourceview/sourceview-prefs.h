@@ -23,5 +23,8 @@
 void
 sourceview_prefs_init(Sourceview* sv);
 
+AnjutaPreferences*
+sourceview_get_prefs(void);
+
 #endif
 

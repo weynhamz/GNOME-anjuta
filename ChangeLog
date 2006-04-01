@@ -1,5 +1,25 @@
 2006-04-01  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/anjuta-document.h:
+	* plugins/sourceview/anjuta-view.c:
+	* plugins/sourceview/anjuta-view.h:
+	* plugins/sourceview/sourceview-autocomplete.c:
+	* plugins/sourceview/sourceview-autocomplete.h:
+	* plugins/sourceview/sourceview-prefs.c:
+	* plugins/sourceview/sourceview-prefs.h:
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview-tags.c:
+	* plugins/sourceview/sourceview-tags.h:
+	* plugins/sourceview/sourceview.c:
+	* plugins/sourceview/sourceview.glade:
+	* plugins/sourceview/tag-window.c: 
+	* plugins/sourceview/tag-window.h:
+	
+	Improved code complete and autocomplete
+
+2006-04-01  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/sourceview/Makefile.am:
 	* plugins/sourceview/bookmark.png:
 	* plugins/sourceview/marker-attentive.png:

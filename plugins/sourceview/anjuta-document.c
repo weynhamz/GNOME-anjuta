@@ -50,6 +50,7 @@
 #include "anjuta-utils.h"
 
 #include <gtksourceview/gtksourceiter.h>
+#include <pcre.h>
 
 #define ANJUTA_MAX_PATH_LEN  2048
 
@@ -1173,6 +1174,62 @@ anjuta_document_get_encoding (AnjutaDocument *doc)
 	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), NULL);
 
 	return doc->priv->encoding;
+}
+
+#define WORD_REGEX "[^ \\t&*(]+$"
+gchar* anjuta_document_get_current_word(AnjutaDocument* doc)
+{
+	pcre *re;
+    gint err_offset;
+	const gchar* err;
+	gint rc, start, end;
+	int ovector[2];
+	gchar* line, *word;
+	GtkTextIter *line_iter, cursor_iter;
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(doc);
+	gtk_text_buffer_get_iter_at_mark(buffer, &cursor_iter, 
+								 gtk_text_buffer_get_insert(buffer));
+	line_iter = gtk_text_iter_copy(&cursor_iter);
+	gtk_text_iter_set_line_offset(line_iter, 0);
+	line = gtk_text_buffer_get_text(buffer, line_iter, &cursor_iter, FALSE);
+	gtk_text_iter_free(line_iter);
+
+	/* Create regular expression */
+	re = pcre_compile(WORD_REGEX, 0, &err, &err_offset, NULL);
+	
+	if (NULL == re)
+	{
+		/* Compile failed - check error message */
+		DEBUG_PRINT("Regex compile failed! %s at position %d", err, err_offset);
+		return FALSE;
+	}
+	
+	/* Run the next matching operation */
+	rc = pcre_exec(re, NULL, line, strlen(line), 0,
+					   0, ovector, 2);
+
+	 if (rc == PCRE_ERROR_NOMATCH)
+    {
+    	DEBUG_PRINT("No match");
+    	return NULL;
+    }
+ 	 else if (rc < 0)
+    {
+    	DEBUG_PRINT("Matching error %d\n", rc);
+    	return NULL;
+    }
+	else if (rc == 0)
+    {
+    	DEBUG_PRINT("ovector too small");
+    	return NULL;
+    }
+    start = ovector[0];
+    end = ovector[1];
+    	    	
+    word = g_new0(gchar, end - start + 1);
+    strncpy(word, line + start, end - start);
+  	
+  	return word;
 }
 
 glong

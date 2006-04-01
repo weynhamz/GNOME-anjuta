@@ -34,7 +34,6 @@
 #include <gtk/gtk.h>
 
 #include "anjuta-document.h"
-#include "sourceview.h"
 #include <gtksourceview/gtksourceview.h>
 
 G_BEGIN_DECLS
@@ -80,7 +79,7 @@ struct _AnjutaViewClass
  */
 GtkType		 anjuta_view_get_type     	(void) G_GNUC_CONST;
 
-GtkWidget	*anjuta_view_new			(AnjutaDocument   *doc, Sourceview* plugin);
+GtkWidget	*anjuta_view_new			(AnjutaDocument   *doc);
 
 void		 anjuta_view_cut_clipboard 	(AnjutaView       *view);
 void		 anjuta_view_copy_clipboard 	(AnjutaView       *view);
@@ -100,6 +99,15 @@ void 		 anjuta_view_set_colors 		(AnjutaView       *view,
 void 		 anjuta_view_set_font		(AnjutaView       *view,
 						 gboolean         def,
 						 const gchar     *font_name);
+
+void		 anjuta_view_autocomplete(AnjutaView* view);
+
+/* Update function() */
+typedef gboolean (*AnjutaViewUpdateFunc)	(AnjutaView* view, GtkListStore* store, gchar* current_word);
+
+void		anjuta_view_set_tag_update(AnjutaView* view, AnjutaViewUpdateFunc update);
+
+void		anjuta_view_set_autocomplete_update(AnjutaView* view, AnjutaViewUpdateFunc update);
 
 G_END_DECLS
 

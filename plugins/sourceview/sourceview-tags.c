@@ -15,30 +15,181 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- */
+ */ 
  
-#include "sourceview-autocomplete.h"
-#include "sourceview-private.h"
 #include "sourceview-tags.h"
-#include "tag-window.h"
+#include "sourceview-prefs.h"
 #include "tm_tagmanager.h"
 
-#include <libanjuta/interfaces/ianjuta-editor.h> 
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/resources.h>
 
-#include <gdk/gdkkeysyms.h>
+#include <libgnomevfs/gnome-vfs.h>
+
+static GdkPixbuf **pixbufs = NULL;
+
+typedef enum
+{
+	sv_none_t,
+	sv_class_t,
+	sv_struct_t,
+	sv_union_t,
+	sv_typedef_t,
+	sv_function_t,
+	sv_variable_t,
+	sv_enumerator_t,
+	sv_macro_t,
+	sv_private_func_t,
+	sv_private_var_t,
+	sv_protected_func_t,
+	sv_protected_var_t,
+	sv_public_func_t,
+	sv_public_var_t,
+	sv_max_t
+} SVNodeType;
+
+static SVNodeType
+anjuta_symbol_info_get_node_type ( const TMTag *tag)
+{
+	TMTagType t_type;
+	SVNodeType type;
+	char access;
+	
+	if ( tag == NULL)
+		return sv_none_t;
+
+	t_type = tag->type;
+	
+	if (t_type == tm_tag_file_t)
+		return sv_none_t;
+	
+	access = tag->atts.entry.access;
+	
+	switch (t_type)
+	{
+	case tm_tag_class_t:
+		type = sv_class_t;
+		break;
+	case tm_tag_struct_t:
+		type = sv_struct_t;
+		break;
+	case tm_tag_union_t:
+		type = sv_union_t;
+		break;
+	case tm_tag_function_t:
+	case tm_tag_prototype_t:
+	case tm_tag_method_t:
+		switch (access)
+		{
+		case TAG_ACCESS_PRIVATE:
+			type = sv_private_func_t;
+			break;
+		case TAG_ACCESS_PROTECTED:
+			type = sv_protected_func_t;
+			break;
+		case TAG_ACCESS_PUBLIC:
+			type = sv_public_func_t;
+			break;
+		default:
+			type = sv_function_t;
+			break;
+		}
+		break;
+	case tm_tag_member_t:
+	case tm_tag_field_t:
+		switch (access)
+		{
+		case TAG_ACCESS_PRIVATE:
+			type = sv_private_var_t;
+			break;
+		case TAG_ACCESS_PROTECTED:
+			type = sv_protected_var_t;
+			break;
+		case TAG_ACCESS_PUBLIC:
+			type = sv_public_var_t;
+			break;
+		default:
+			type = sv_variable_t;
+			break;
+		}
+		break;
+	case tm_tag_externvar_t:
+	case tm_tag_variable_t:
+		type = sv_variable_t;
+		break;
+	case tm_tag_macro_t:
+	case tm_tag_macro_with_arg_t:
+		type = sv_macro_t;
+		break;
+	case tm_tag_typedef_t:
+		type = sv_typedef_t;
+		break;
+	case tm_tag_enumerator_t:
+		type = sv_enumerator_t;
+		break;
+	default:
+		type = sv_none_t;
+		break;
+	}
+	return type;
+}
+
+#define CREATE_SV_ICON(N, F) \
+	pix_file = anjuta_res_get_pixmap_file (F); \
+	pixbufs[(N)] = gdk_pixbuf_new_from_file (pix_file, NULL); \
+	g_free (pix_file);
+
+static void
+load_pixbufs ()
+{
+	gchar *pix_file;
+
+	pixbufs = g_new (GdkPixbuf *, sv_max_t + 1);
+
+	CREATE_SV_ICON (sv_none_t,              "Icons.16x16.Literal");
+	CREATE_SV_ICON (sv_class_t,             "Icons.16x16.Class");
+	CREATE_SV_ICON (sv_struct_t,            "Icons.16x16.ProtectedStruct");
+	CREATE_SV_ICON (sv_union_t,             "Icons.16x16.PrivateStruct");
+	CREATE_SV_ICON (sv_typedef_t,           "Icons.16x16.Reference");
+	CREATE_SV_ICON (sv_function_t,          "Icons.16x16.Method");
+	CREATE_SV_ICON (sv_variable_t,          "Icons.16x16.Literal");
+	CREATE_SV_ICON (sv_enumerator_t,        "Icons.16x16.Enum");
+	CREATE_SV_ICON (sv_macro_t,             "Icons.16x16.Field");
+	CREATE_SV_ICON (sv_private_func_t,      "Icons.16x16.PrivateMethod");
+	CREATE_SV_ICON (sv_private_var_t,       "Icons.16x16.PrivateProperty");
+	CREATE_SV_ICON (sv_protected_func_t,    "Icons.16x16.ProtectedMethod");
+	CREATE_SV_ICON (sv_protected_var_t,     "Icons.16x16.ProtectedProperty");
+	CREATE_SV_ICON (sv_public_func_t,       "Icons.16x16.InternalMethod");
+	CREATE_SV_ICON (sv_public_var_t,        "Icons.16x16.InternalProperty");
+	
+	pixbufs[sv_max_t] = NULL;
+}
+
+static GdkPixbuf*
+get_pixbuf  (const TMTag* tag)
+{
+	if (pixbufs == NULL)
+		load_pixbufs();
+	SVNodeType type = anjuta_symbol_info_get_node_type (tag);
+	g_return_val_if_fail (type >=0 && type < sv_max_t, NULL);
+		
+	return pixbufs[type];
+}
 
 static const GPtrArray*
-find_tags (Sourceview* sv)
+find_tags (const gchar* current_word)
 {
 	TMTagAttrType attrs[] =
 	{
 		tm_tag_attr_name_t, tm_tag_attr_type_t, tm_tag_attr_none_t
 	};
 	
-	g_return_val_if_fail(sv->priv->tags->current_word != NULL, NULL);
+	g_return_val_if_fail(current_word != NULL, NULL);
 	
-	return tm_workspace_find(sv->priv->tags->current_word,
+	if (strlen(current_word) <= 3)
+		return NULL;
+	
+	return tm_workspace_find(current_word,
 											  tm_tag_enumerator_t |
 											  tm_tag_struct_t |
 											  tm_tag_class_t |
@@ -48,156 +199,76 @@ find_tags (Sourceview* sv)
 											  attrs, TRUE, TRUE);
 }
 
-/* Return a tuple containing the (x, y) position of the cursor */
-static void
-get_coordinates(Sourceview* sv, int* x, int* y)
+void sourceview_tags_destroy()
 {
-	int xor, yor;
-	/* We need to Rectangles because if we step to the next line
-	the x position is lost */
-	GdkRectangle rectx;
-	GdkRectangle recty;
-	GdkWindow* window;
-	GtkTextIter cursor;
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	GtkTextView* view = GTK_TEXT_VIEW(sv->priv->view);
-	gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer)); 
-	gtk_text_view_get_iter_location(view, &cursor, &rectx);
-	gtk_text_iter_forward_lines(&cursor, 1);
-	gtk_text_view_get_iter_location(view, &cursor, &recty);
-	window = gtk_text_view_get_window(view, GTK_TEXT_WINDOW_TEXT);
-	gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, 
-		rectx.x + rectx.width, recty.y, x, y);
+	int i;
+	for (i=0; i < sv_max_t;i++)
+	{
+		g_object_unref(pixbufs[i]);
+	}
+	g_free(pixbufs);
+}
+
+#define ENABLE_CODE_COMPLETION "enable.code.completion"
+
+gboolean 
+sourceview_tags_update(AnjutaView* view, GtkListStore* store, gchar* current_word)
+{
+	gint i;
+	const GPtrArray* tags =find_tags(current_word);
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)));
+	GtkSourceLanguage* lang = gtk_source_buffer_get_language(buffer);
+	GSList* mime_types = gtk_source_language_get_mime_types(lang);
+	gboolean is_source = FALSE;
 	
-	gdk_window_get_origin(window, &xor, &yor);
-	*x = *x + xor;
-	*y = *y + yor;
-}
-
-static void
-tag_selected(GtkWidget* window, gchar* tag_name, Sourceview* sv)
-{
-	GtkTextBuffer * buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	GtkTextIter cursor_iter, *word_iter;
+	if (!anjuta_preferences_get_int (sourceview_get_prefs(), "enable.code.completion" ))
+		return FALSE;
 	
-	gtk_text_buffer_get_iter_at_mark(buffer, &cursor_iter, 
-								 gtk_text_buffer_get_insert(buffer));
-	word_iter = gtk_text_iter_copy(&cursor_iter);
-	gtk_text_iter_set_line_index(word_iter, 
-		gtk_text_iter_get_line_index(&cursor_iter) - strlen(sv->priv->tags->current_word));
-	gtk_text_buffer_delete(buffer, word_iter, &cursor_iter);
-	gtk_text_buffer_insert_at_cursor(buffer, tag_name, 
-		strlen(tag_name));
-		
-	g_free(sv->priv->tags->current_word);
-	sv->priv->tags->current_word = NULL;
-	sv->priv->tags->tag_window = NULL;
-	gtk_text_iter_free(word_iter);
-}
-
-static void
-update_tags_window(Sourceview* sv)
-{
-	const GPtrArray* tags = find_tags(sv);
+	while(mime_types)
+	{
+		if (g_str_equal(mime_types->data, "text/x-c")
+			|| g_str_equal(mime_types->data, "text/x-c++"))
+		{
+			is_source = TRUE;
+			break;
+		}
+		mime_types = g_slist_next(mime_types);
+	}
+	if (!is_source)
+		return FALSE;
 	
-	if (tags && tags->len)
-	{
-		tag_window_update(sv->priv->tags->tag_window, tags);
-	}
-	else
-		sourceview_tags_stop(sv);
-}
-
-static void
-show_tags_window(Sourceview* sv)
-{
-	GtkWidget* tag_window;
-	gint x, y;
-	const GPtrArray* tags = find_tags(sv);
+	if (tags == NULL || tags->len <= 0)
+		return FALSE;
 	
-	if (tags && tags->len)
-	{
-		get_coordinates(sv, &x, &y);
-		tag_window = tag_window_new(tags);
+	gtk_list_store_clear(store);
 	
-		g_signal_connect(G_OBJECT(tag_window), "selected", G_CALLBACK(tag_selected), sv);
-	
-		gtk_window_move(GTK_WINDOW(tag_window), x, y);
-		gtk_widget_show_all(tag_window);
-		sv->priv->tags->tag_window = TAG_WINDOW(tag_window);
-	}
-}
-
-void sourceview_tags_show(Sourceview* sv)
-{
-	GtkTextBuffer * buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	
-	if (sv->priv->tags->current_word != NULL)
-		g_free(sv->priv->tags->current_word);
-	
-	sv->priv->tags->current_word = sourceview_autocomplete_get_current_word(buffer);
-	if (sv->priv->tags->current_word == NULL || strlen(sv->priv->tags->current_word) <= 3)
+	for (i = 0; i < tags->len; i++)
 	{
-		return;
-	}
-	else if (sv->priv->tags->tag_window != NULL)
-	{
-		update_tags_window(sv);
-	}
-	else
-	{
-		show_tags_window(sv);
-	}
-}
-
-void sourceview_tags_init(Sourceview* sv)
-{
-	sv->priv->tags = g_new0(SourceviewTags, 1);
-}
-
-void sourceview_tags_destroy(Sourceview* sv)
-{
-	g_free(sv->priv->tags);
-}
-
-void sourceview_tags_stop(Sourceview* sv)
-{
-	if (sv->priv->tags->tag_window != NULL)
-	{
-		gdk_keyboard_ungrab(GDK_CURRENT_TIME);
-		gtk_widget_hide(GTK_WIDGET(sv->priv->tags->tag_window));
-		gtk_widget_destroy(GTK_WIDGET(sv->priv->tags->tag_window));
-		sv->priv->tags->tag_window = NULL;
-	}
-}
-
-gboolean
-sourceview_tags_up(Sourceview* sv)
-{
-	if (sv->priv->tags->tag_window != NULL)
-	{
-		return tag_window_up(sv->priv->tags->tag_window);
-	}
-	return FALSE;
-}
-
-gboolean
-sourceview_tags_down(Sourceview* sv)
-{
-	if (sv->priv->tags->tag_window != NULL)
-	{
-		tag_window_down(sv->priv->tags->tag_window);
-		return TRUE;
-	}
-	return FALSE;
-}
-
-gboolean
-sourceview_tags_select(Sourceview* sv)
-{
-	if (sv->priv->tags->tag_window != NULL)
-	{
-		return tag_window_select(sv->priv->tags->tag_window);
-	}
-	return FALSE;
+	    GtkTreeIter iter;
+	    gchar* show;
+	    TMTag* tag = TM_TAG(g_ptr_array_index(tags, i));
+	    switch (tag->type)
+	    {
+	    	case tm_tag_function_t:
+	    	case tm_tag_method_t:
+	    	case tm_tag_prototype_t:
+	    		/* Nice but too long
+	    		show = g_strdup_printf("%s %s %s", tag->atts.entry.var_type, tag->name, tag->atts.entry.arglist);*/
+	    		show = g_strdup_printf("%s %s ()", tag->atts.entry.var_type, tag->name);
+	    		break;
+	    	case tm_tag_macro_with_arg_t:
+	    	 	show = g_strdup_printf("%s %s", tag->name, tag->atts.entry.arglist);
+	    	 	break;
+	    	 default:
+	    	 	show = g_strdup(tag->name);
+	    }
+	    
+	    GdkPixbuf* pixbuf = get_pixbuf  (tag);
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter, TAG_WINDOW_COLUMN_SHOW, show,
+        												TAG_WINDOW_COLUMN_PIXBUF, pixbuf, 
+        												TAG_WINDOW_COLUMN_NAME, tag->name, -1);
+        g_free(show);
+     }
+     return TRUE;
 }
