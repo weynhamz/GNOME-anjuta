@@ -1,3 +1,5 @@
+if HAVE_PLUGIN_SOURCEVIEW
+
 # Plugin glade file
 sourceview_gladedir = $(anjuta_glade_dir)
 sourceview_glade_DATA = sourceview.glade
@@ -24,7 +26,7 @@ INCLUDES = \
 	$(PCRE_CFLAGS) \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GNOME_VFS_CFLAGS) \
-	$(GTKSOURCEVIEW_CFLAGS) \
+	$(PLUGIN_SOURCEVIEW_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
 	-I$(top_srcdir)/tagmanager/include
 
@@ -84,9 +86,11 @@ libanjuta_sourceview_la_LIBADD = \
 	$(PCRE_LIBS) \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_VFS_LIBS) \
-	$(GTKSOURCEVIEW_LIBS) \
+	$(PLUGIN_SOURCEVIEW_LIBS) \
 	$(LIBANJUTA_LIBS) \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
+
+endif
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

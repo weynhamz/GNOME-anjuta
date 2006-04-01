@@ -9,6 +9,10 @@
 	* plugins/sourceview/sourceview.c: 
 	
 	Added pixmaps for all marker types and show bookmarks
+	
+	* configure.in
+	* plugins/sourceview/Makefile.am:
+	Build sourceview on 2.14 only
 
 2006-03-31  Johannes Schmid <jhs@gnome.org>
 

@@ -32,6 +32,7 @@ LIBGRAPHVIZ_REQUIRED=1.0
 NEON_REQUIRED=0.24.5
 SUBVERSION_REQUIRED=1.0.2
 GTKSOURCEVIEW_REQUIRED=1.4.0
+GTKSOURCEVIEW_GNOME_REQUIRED=2.14
 
 dnl LIBGTODO_REQUIRED=0.15
 
@@ -63,6 +64,7 @@ AC_SUBST(LIBGRAPHVIZ_REQUIRED)
 AC_SUBST(NEON_REQUIRED)
 AC_SUBST(SUBVERSION_REQUIRED)
 AC_SUBST(GTKSOURCEVIEW_REQUIRED)
+AC_SUBST(GTKSOURCEVIEW_GNOME_REQUIRED)
 
 dnl AC_SUBST(LIBGTODO_REQUIRED)
 
@@ -254,12 +256,6 @@ PKG_CHECK_MODULES(PLUGIN_GNOMEBUILD, gnome-build-1.0 >= $GNOMEBUILD_REQUIRED)
 AC_SUBST(PLUGIN_GNOMEBUILD_CFLAGS)
 AC_SUBST(PLUGIN_GNOMEBUILD_LIBS)
 
-dnl Check for GtkSourceView
-dnl ---------------------
-PKG_CHECK_MODULES(GTKSOURCEVIEW, gtksourceview-1.0 >= $GTKSOURCEVIEW_REQUIRED)
-AC_SUBST(GTKSOURCEVIEW_CFLAGS)
-AC_SUBST(GTKSOURCEVIEW_LIBS)
-
 dnl Check for Glade3
 dnl ---------------------
 
@@ -334,6 +330,35 @@ else
 fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_CLASS_INHERITANCE, [test x$libgraphviz_found = xyes])
+
+dnl Build gtksourceview plugin only on gnome 2.14
+dnl -------------------------------------------------------------
+
+AC_ARG_ENABLE(plugin-sourceview,
+	[ --disable-plugin-sourceview	Disable gtksourceview based editor in Anjuta], 
+	[ if test "$enableval" = "no"; then
+		user_disabled_sourceview=1
+	  fi ],
+	[ user_disabled_sourceview=0 ])
+
+AC_MSG_CHECKING(if sourceview plugin is disabled)
+if test "$user_disabled_sourceview" = 1; then
+	AC_MSG_RESULT(yes)
+	sourceview="no"
+else
+	AC_MSG_RESULT(no)
+	
+	PKG_CHECK_MODULES(PLUGIN_SOURCEVIEW,
+		[libgnome-2.0 >= $GTKSOURCEVIEW_GNOME_REQUIRED, 
+		gtksourceview-1.0 >= $GTKSOURCEVIEW_REQUIRED],
+		[sourceview="yes"],
+		[sourceview="no"])
+	AC_SUBST(PLUGIN_SOURCEVIEW_CFLAGS)
+	AC_SUBST(PLUGIN_SOURCEVIEW_LIBS)
+	
+fi
+
+AM_CONDITIONAL(HAVE_PLUGIN_SOURCEVIEW, [test x$sourceview = xyes])
 
 dnl FIXME libbfd
 dnl check for libbfd
@@ -1089,4 +1114,10 @@ else
 		echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
 fi
 echo "-------------------------------------------------------------------"
-
+if [ test x$sourceview = xyes ]; then
+        echo "Building GtkSourceView based editor: .....................YES"
+else
+        echo "Building GtkSourceView based editor: .....................NO"
+		echo "       Requires GNOME >= 2.14"
+fi
+echo "-------------------------------------------------------------------"
