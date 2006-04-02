@@ -1206,7 +1206,7 @@ static int bookmark_compare(SVBookmark* bmark1, SVBookmark* bmark2)
 {
 	if (bmark1->line < bmark2->line)
 		return -1;
-	if (bmark2->line > bmark2->line)
+	if (bmark1->line > bmark2->line)
 		return 1;
 	else
 		return 0;
