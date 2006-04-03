@@ -56,6 +56,7 @@
 #include "sourceview-autocomplete.h"
 #include "sourceview-private.h"
 #include "sourceview-tags.h"
+#include "sourceview-scope.h"
 #include "sourceview-print.h"
 #include "plugin.h"
 
@@ -71,18 +72,6 @@
 static void sourceview_class_init(SourceviewClass *klass);
 static void sourceview_instance_init(Sourceview *sv);
 static void sourceview_finalize(GObject *object);
-
-typedef enum {
-	SIGNAL_TYPE_EXAMPLE,
-	LAST_SIGNAL
-} SourceviewSignalType;
-
-typedef struct {
-	Sourceview *object;
-} SourceviewSignal;
-
-
-static guint sourceview_signals[LAST_SIGNAL] = { 0 };
 static GObjectClass *parent_class = NULL;
 
 /* Callbacks */
@@ -113,17 +102,6 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, Sourceview *sv)
 						  anjuta_document_get_uri(sv->priv->document), NULL);
 	}
 	gtk_widget_destroy (dlg);
-}
-
-/* Show popup menu */
-static gboolean
-on_menu_popup(GtkWidget* view, Sourceview* sv)
-{
-    gtk_menu_attach_to_widget(GTK_MENU(sv->priv->menu), view, NULL);
-    gtk_menu_popup(GTK_MENU(sv->priv->menu), NULL, NULL, NULL, NULL, 0,
-        gtk_get_current_event_time());
-    DEBUG_PRINT("Popup");
-    return TRUE;
 }
 
 /* VFS-Monitor Callback */
@@ -224,7 +202,6 @@ static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 	
 	if (sv->priv->goto_line > 0)
 	{
-		DEBUG_PRINT("Goto Line: %d", sv->priv->goto_line);
 		anjuta_document_goto_line(doc, sv->priv->goto_line - 1);
 		sv->priv->goto_line = -1;
 	}
@@ -232,6 +209,52 @@ static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 	sv->priv->loading = FALSE;
 	
 	sourceview_add_monitor(sv);
+}
+
+/* Show nice progress bar */
+static void on_document_loading(AnjutaDocument    *document,
+					 GnomeVFSFileSize  size,
+					 GnomeVFSFileSize  total_size,
+					 Sourceview* sv)
+{
+	AnjutaShell* shell;
+	AnjutaStatus* status;
+
+	g_object_get(G_OBJECT(sv->priv->plugin), "shell", &shell, NULL);
+	status = anjuta_shell_get_status(shell, NULL);
+	
+	if (!sv->priv->loading)
+	{
+		gint procentage = 0;
+		if (size)
+			procentage = total_size/size;
+		anjuta_status_progress_add_ticks(status,procentage + 1);
+		sv->priv->loading = TRUE;
+	}
+	anjuta_status_progress_tick(status, NULL,  _("Loading"));
+}
+
+/* Show nice progress bar */
+static void on_document_saving(AnjutaDocument    *document,
+					 GnomeVFSFileSize  size,
+					 GnomeVFSFileSize  total_size,
+					 Sourceview* sv)
+{
+	AnjutaShell* shell;
+	AnjutaStatus* status;
+
+	g_object_get(G_OBJECT(sv->priv->plugin), "shell", &shell, NULL);
+	status = anjuta_shell_get_status(shell, NULL);
+	
+	if (!sv->priv->saving)
+	{
+		gint procentage = 0;
+		if (size)
+			procentage = total_size/size;
+		anjuta_status_progress_add_ticks(status,procentage + 1);
+		sv->priv->saving = TRUE;
+	}
+	anjuta_status_progress_tick(status, NULL, _("Saving..."));
 }
 
 /* Called when document is saved completly */
@@ -247,6 +270,7 @@ static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
 						  TRUE);
 	sourceview_add_monitor(sv);
+	sv->priv->saving = FALSE;
 }
 
 static void 
@@ -364,8 +388,10 @@ static void sourceview_create_highligth_indic(Sourceview* sv)
 the file will be loaded in the buffer */
 
 Sourceview *
-sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs)
+sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 {
+	AnjutaShell* shell;
+	
 	Sourceview *sv = ANJUTA_SOURCEVIEW(g_object_new(ANJUTA_TYPE_SOURCEVIEW, NULL));
 	
 	/* Create buffer */
@@ -376,22 +402,29 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 					 G_CALLBACK(on_cursor_moved),sv);
 	g_signal_connect_after(G_OBJECT(sv->priv->document), "loaded", 
 					 G_CALLBACK(on_document_loaded), sv);
+	g_signal_connect(G_OBJECT(sv->priv->document), "loading", 
+					 G_CALLBACK(on_document_loading), sv);				 
 	g_signal_connect_after(G_OBJECT(sv->priv->document), "saved", 
 					 G_CALLBACK(on_document_saved), sv);
+	g_signal_connect(G_OBJECT(sv->priv->document), "saving", 
+					 G_CALLBACK(on_document_saving), sv);
 					 
 	/* Create View instance */
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document));
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
-    g_signal_connect(G_OBJECT(sv->priv->view), "popup-menu", G_CALLBACK(on_menu_popup), sv);
 	
-	sv->priv->tag_window = sourceview_tags_new();
+	sv->priv->tag_window = sourceview_tags_new(plugin);
 	sv->priv->autocomplete = sourceview_autocomplete_new();
+	sv->priv->scope = sourceview_scope_new(plugin, sv->priv->view);
 	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->tag_window));
+	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->scope));
 	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->autocomplete));
 	
-	/* Apply Preferences (TODO) */
-	sv->priv->prefs = prefs;
+	/* Apply Preferences */
+	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
+	sv->priv->prefs = anjuta_shell_get_preferences(shell, NULL);
 	sourceview_prefs_init(sv);
+	sv->priv->plugin = plugin;
 	
 	/* Create Markers */
 	sourceview_create_markers(sv);
@@ -424,7 +457,6 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
-	sv->priv->loading = TRUE;
 	anjuta_document_load(sv->priv->document, uri, NULL,
 						 -1, FALSE);
 }
@@ -673,7 +705,7 @@ static void ieditor_set_popup_menu(IAnjutaEditor *editor,
 								   GtkWidget* menu, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-    sv->priv->menu = menu;
+    g_object_set(G_OBJECT(sv->priv->view), "popup", menu, NULL);
 }
 
 /* Return the opened filename */
@@ -707,6 +739,7 @@ ieditor_undo(IAnjutaEditor* edit, GError** ee)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
 	gtk_source_buffer_undo(GTK_SOURCE_BUFFER(sv->priv->document));
+	anjuta_view_scroll_to_cursor(sv->priv->view);
 	g_signal_emit_by_name(G_OBJECT(sv), "update_ui", sv); 
 }
 
@@ -715,6 +748,7 @@ ieditor_redo(IAnjutaEditor* edit, GError** ee)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
 	gtk_source_buffer_redo(GTK_SOURCE_BUFFER(sv->priv->document));
+	anjuta_view_scroll_to_cursor(sv->priv->view);
 }
 
 static void
@@ -1234,8 +1268,8 @@ static int bookmark_compare(SVBookmark* bmark1, SVBookmark* bmark2)
 		return 0;
 }
 
-SVBookmark*
-ibookmark_is_bookmak_set(IAnjutaBookmark* bmark, gint location, GError **e)
+static SVBookmark*
+ibookmark_is_bookmark_set(IAnjutaBookmark* bmark, gint location, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
 	GList* node = sv->priv->bookmarks;
@@ -1257,7 +1291,7 @@ ibookmark_toggle(IAnjutaBookmark* bmark, gint location, gboolean ensure_visible,
 	SVBookmark* bookmark;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
 
-	if ((bookmark = ibookmark_is_bookmak_set(bmark, location, e)) != NULL)
+	if ((bookmark = ibookmark_is_bookmark_set(bmark, location, e)) != NULL)
 	{
 		gtk_source_buffer_delete_marker(GTK_SOURCE_BUFFER(sv->priv->document),
 		                                bookmark->marker);

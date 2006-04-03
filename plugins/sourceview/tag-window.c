@@ -39,8 +39,6 @@ enum
 	TAG_WINDOW_END
 };
 
-static void tag_window_class_init(TagWindowClass *klass);
-static void tag_window_init(TagWindow *sp);
 static void tag_window_finalize(GObject *object);
 
 struct _TagWindowPrivate {

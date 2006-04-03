@@ -20,7 +20,10 @@
 #include "anjuta-view.h"
 #include "anjuta-document.h"
 #include "sourceview-tags.h"
+#include "sourceview-scope.h"
 #include "sourceview-autocomplete.h"
+
+#include <libanjuta/anjuta-plugin.h>
 
 struct SourceviewPrivate {
 	/* GtkSouceView */
@@ -58,10 +61,15 @@ struct SourceviewPrivate {
 	/* Tag Windows */
 	SourceviewTags* tag_window;
 	SourceviewAutocomplete* autocomplete;
+	SourceviewScope* scope;
 	
 	/* Goto line hack */
 	gboolean loading;
+	gboolean saving;
 	gint goto_line;
+	
+	/* Plugin */
+	AnjutaPlugin* plugin;
 };
 
 #endif

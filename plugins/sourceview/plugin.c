@@ -104,11 +104,7 @@ ieditor_factory_new_editor(IAnjutaEditorFactory* factory,
 								GError** error)
 {
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN(factory);
-	AnjutaShell* shell;
-	AnjutaPreferences* prefs;
-	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
-	prefs = anjuta_shell_get_preferences(shell, NULL);
-	IAnjutaEditor* editor = IANJUTA_EDITOR(sourceview_new(uri, filename, prefs));
+	IAnjutaEditor* editor = IANJUTA_EDITOR(sourceview_new(uri, filename, plugin));
 	return editor;
 }
 

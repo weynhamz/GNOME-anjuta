@@ -60,9 +60,16 @@ enum
 	SCOPE,
 };
 
+enum
+{
+	ANJUTA_VIEW_POPUP = 1
+};
+
 struct _AnjutaViewPrivate
 {
 	GtkTooltips *tooltips;
+	GtkWidget* popup;
+	guint scroll_idle;
 	
 	/* Tag and Autocompletion */
 	GList* tag_windows;
@@ -87,6 +94,22 @@ static gboolean	anjuta_view_button_press_event		(GtkWidget         *widget,
 
 G_DEFINE_TYPE(AnjutaView, anjuta_view, GTK_TYPE_SOURCE_VIEW)
 
+static gboolean
+scroll_to_cursor_real (AnjutaView *view)
+{
+	GtkTextBuffer* buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+	g_return_val_if_fail (buffer != NULL, FALSE);
+
+	gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (view),
+				      gtk_text_buffer_get_insert (buffer),
+				      0.25,
+				      FALSE,
+				      0.0,
+				      0.0);
+	
+	view->priv->scroll_idle = 0;
+	return FALSE;
+}
 
 static void
 document_read_only_notify_handler (AnjutaDocument *document, 
@@ -143,6 +166,57 @@ tag_window_selected(GtkWidget* window, gchar* tag_name, AnjutaView* view)
 }
 
 static void
+anjuta_view_set_property (GObject * object,
+			   guint property_id,
+			   const GValue * value, GParamSpec * pspec)
+{
+	AnjutaView *self = ANJUTA_VIEW (object);
+	g_return_if_fail(value != NULL);
+	g_return_if_fail(pspec != NULL);
+	
+	switch (property_id)
+	{
+		case ANJUTA_VIEW_POPUP:
+		{
+			self->priv->popup = g_value_get_object (value);
+			gtk_menu_detach(GTK_MENU(self->priv->popup));
+			gtk_menu_attach_to_widget(GTK_MENU(self->priv->popup), GTK_WIDGET(self), NULL);
+			break;
+		}
+		default:
+		{
+			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec);
+			break;
+		}
+	}
+}
+
+static void
+anjuta_view_get_property (GObject * object,
+			   guint property_id,
+			   GValue * value, GParamSpec * pspec)
+{
+	AnjutaView *self = ANJUTA_VIEW (object);
+	
+	g_return_if_fail(value != NULL);
+	g_return_if_fail(pspec != NULL);
+	
+	switch (property_id)
+	{
+		case ANJUTA_VIEW_POPUP:
+		{
+			g_value_set_object (value, self->priv->popup);
+			break;
+		}
+		default:
+		{
+			G_OBJECT_WARN_INVALID_PROPERTY_ID(object, property_id, pspec);
+			break;
+		}
+	}
+}
+
+static void
 anjuta_view_class_init (AnjutaViewClass *klass)
 {
 	GObjectClass     *object_class = G_OBJECT_CLASS (klass);
@@ -150,9 +224,12 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 	GtkTextViewClass *textview_class = GTK_TEXT_VIEW_CLASS (klass);
 	GtkWidgetClass   *widget_class = GTK_WIDGET_CLASS (klass);
 	GtkBindingSet    *binding_set;
+	GParamSpec *anjuta_view_spec_popup;
 
 	gtkobject_class->destroy = anjuta_view_destroy;
 	object_class->finalize = anjuta_view_finalize;
+	object_class->set_property = anjuta_view_set_property;
+	object_class->get_property = anjuta_view_get_property;	
 
 	widget_class->focus_out_event = anjuta_view_focus_out;
 	widget_class->expose_event = anjuta_view_expose;
@@ -162,6 +239,15 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 	textview_class->move_cursor = anjuta_view_move_cursor;
 
 	g_type_class_add_private (klass, sizeof (AnjutaViewPrivate));
+	
+	anjuta_view_spec_popup = g_param_spec_object ("popup",
+						       "Popup menu",
+						       "The popup-menu to show",
+						       GTK_TYPE_WIDGET,
+						       G_PARAM_READWRITE);
+	g_object_class_install_property (object_class,
+					 ANJUTA_VIEW_POPUP,
+					 anjuta_view_spec_popup);
 	
 	binding_set = gtk_binding_set_by_class (klass);	
 }
@@ -479,19 +565,9 @@ anjuta_view_select_all (AnjutaView *view)
 void
 anjuta_view_scroll_to_cursor (AnjutaView *view)
 {
-	GtkTextBuffer* buffer = NULL;
-
 	g_return_if_fail (ANJUTA_IS_VIEW (view));
 	
-	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
-	g_return_if_fail (buffer != NULL);
-
-	gtk_text_view_scroll_to_mark (GTK_TEXT_VIEW (view),
-				      gtk_text_buffer_get_insert (buffer),
-				      0.25,
-				      FALSE,
-				      0.0,
-				      0.0);
+	view->priv->scroll_idle = g_idle_add ((GSourceFunc) scroll_to_cursor_real, view);
 }
 
 /* assign a unique name */
@@ -767,5 +843,16 @@ static gboolean	anjuta_view_button_press_event		(GtkWidget         *widget, GdkE
 	{
 		gtk_widget_hide(GTK_WIDGET(tag_window));
 	}
-	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->button_press_event)(widget, event);
+	
+	switch(event->button)
+	{
+		case 3: /* Right Button */
+		{
+			gtk_menu_popup (GTK_MENU (view->priv->popup), NULL, NULL, NULL, NULL, 
+                  event->button, event->time);
+			return TRUE;
+		}
+		default:
+			return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->button_press_event)(widget, event);
+	}
 }
