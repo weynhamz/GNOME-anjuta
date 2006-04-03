@@ -23,6 +23,7 @@
  */
 
 #include "tag-window.h"
+#include "anjuta-view.h"
 
 #include <gtk/gtk.h>
 #include <libanjuta/anjuta-debug.h>
@@ -30,12 +31,21 @@
 
 #include <string.h>
 
+/* Properties */
+enum
+{
+	TAG_WINDOW_VIEW = 1,
+	TAG_WINDOW_COLUMN,
+	TAG_WINDOW_END
+};
+
 static void tag_window_class_init(TagWindowClass *klass);
 static void tag_window_init(TagWindow *sp);
 static void tag_window_finalize(GObject *object);
 
 struct _TagWindowPrivate {
 	GtkTreeView* view;
+	gint	column;
 };
 
 typedef struct _TagWindowSignal TagWindowSignal;
@@ -52,18 +62,98 @@ struct _TagWindowSignal {
 };
 
 static guint tag_window_signals[LAST_SIGNAL] = { 0 };
-static GtkWindowClass *parent_class = NULL;
 
 G_DEFINE_TYPE(TagWindow, tag_window, GTK_TYPE_WINDOW);
 
+static void
+tag_window_set_property (GObject * object,
+			   guint property_id,
+			   const GValue * value, GParamSpec * pspec)
+{
+	TagWindow *self = TAG_WINDOW (object);
+	g_return_if_fail(value != NULL);
+	g_return_if_fail(pspec != NULL);
+	
+	switch (property_id)
+	{
+		case TAG_WINDOW_VIEW:
+		{
+			g_assert("Property view is read-only!");
+			break;
+		}
+		case TAG_WINDOW_COLUMN:
+		{
+			 self->priv->column = g_value_get_int(value);
+			break;
+		}
+		default:
+		{
+			g_assert ("Unknown property");
+			break;
+		}
+	}
+}
 
+static void
+tag_window_get_property (GObject * object,
+			   guint property_id,
+			   GValue * value, GParamSpec * pspec)
+{
+	TagWindow *self = TAG_WINDOW (object);
+	
+	g_return_if_fail(value != NULL);
+	g_return_if_fail(pspec != NULL);
+	
+	switch (property_id)
+	{
+		case TAG_WINDOW_VIEW:
+		{
+			g_value_set_object (value, self->priv->view);
+			break;
+		}
+		case TAG_WINDOW_COLUMN:
+		{
+			g_value_set_int(value, self->priv->column);
+			break;
+		}
+		default:
+		{
+			g_assert ("Unknown property");
+			break;
+		}
+	}
+}
 
 static void
 tag_window_class_init(TagWindowClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	parent_class = g_type_class_peek_parent(klass);
+	GParamSpec *tag_window_spec_view;
+	GParamSpec *tag_window_spec_column;
+	
 	object_class->finalize = tag_window_finalize;
+	object_class->set_property = tag_window_set_property;
+	object_class->get_property = tag_window_get_property;
+	
+	klass->update_tags = NULL;
+	klass->filter_keypress = NULL;
+	
+	tag_window_spec_view = g_param_spec_object ("view",
+						       "GtkTreeView of the window",
+						       "Add column, etc here",
+						       GTK_TYPE_TREE_VIEW,
+						       G_PARAM_READABLE);
+	g_object_class_install_property (object_class,
+					 TAG_WINDOW_VIEW,
+					 tag_window_spec_view);
+	
+	tag_window_spec_column = g_param_spec_int ("column",
+						       "Number of TreeViewColumn",
+						       "The string to insert on activation should be found there",
+								0, 100, 0, G_PARAM_READWRITE);
+	g_object_class_install_property (object_class,
+					 TAG_WINDOW_COLUMN,
+					 tag_window_spec_column);
 	
 	tag_window_signals[SIGNAL_TYPE_SELECTED] = g_signal_new ("selected",
 			      G_OBJECT_CLASS_TYPE (object_class),
@@ -77,25 +167,6 @@ tag_window_class_init(TagWindowClass *klass)
 }
 
 static void
-tag_window_init(TagWindow *obj)
-{
-	obj->priv = g_new0(TagWindowPrivate, 1);
-	/* Initialize private members, etc. */
-}
-
-static void
-tag_window_finalize(GObject *object)
-{
-	TagWindow *cobj;
-	cobj = TAG_WINDOW(object);
-	
-	/* Free private members, etc. */
-	
-	g_free(cobj->priv);
-	G_OBJECT_CLASS(parent_class)->finalize(object);
-}
-
-static void
 tag_activated(GtkTreeView* view, GtkTreePath* path, GtkTreeViewColumn* column,
 			  GtkWidget* window)
 {
@@ -103,41 +174,25 @@ tag_activated(GtkTreeView* view, GtkTreePath* path, GtkTreeViewColumn* column,
 	gchar* tag_name;
 	GtkTreeModel* model = gtk_tree_view_get_model(view);
 	gtk_tree_model_get_iter(model, &iter, path);
-	gtk_tree_model_get(model, &iter, TAG_WINDOW_COLUMN_NAME, &tag_name, -1);
+	gtk_tree_model_get(model, &iter, TAG_WINDOW(window)->priv->column, &tag_name, -1);
 	
 	g_signal_emit(window, tag_window_signals[SIGNAL_TYPE_SELECTED], 0, 
 					tag_name);
 	gtk_widget_hide(window);
 }
 
-GtkWidget *
-tag_window_new()
+
+static void
+tag_window_init(TagWindow *obj)
 {
 	GtkWidget* view;
 	GtkWidget* scroll;
-	GtkCellRenderer* renderer_text;
-	GtkCellRenderer* renderer_pixbuf;
-	GtkTreeViewColumn* column_show;
-	GtkTreeViewColumn* column_pixbuf;
-	GtkListStore* model;
-	GtkWidget *obj;
 	
-	obj = GTK_WIDGET(
-		g_object_new(TAG_TYPE_WINDOW, "type", GTK_WINDOW_POPUP, NULL));
+	obj->priv = g_new0(TagWindowPrivate, 1);
 	
-	model = gtk_list_store_new(TAG_WINDOW_N_COLUMNS, G_TYPE_STRING, GDK_TYPE_PIXBUF, G_TYPE_STRING);
-	view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(model));
+	g_object_set(G_OBJECT(obj), "type", GTK_WINDOW_POPUP, NULL);
 	
-   	renderer_pixbuf = gtk_cell_renderer_pixbuf_new();
-   	column_pixbuf = gtk_tree_view_column_new_with_attributes ("Pixbuf",
-                                                   renderer_pixbuf, "pixbuf", TAG_WINDOW_COLUMN_PIXBUF, NULL);
-   	renderer_text = gtk_cell_renderer_text_new();
-	column_show = gtk_tree_view_column_new_with_attributes ("Show",
-                                                   renderer_text, "text", TAG_WINDOW_COLUMN_SHOW, NULL);
-                                                   
-	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column_pixbuf);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column_show);
-	
+	view = gtk_tree_view_new();
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(view), FALSE);
 	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(view), FALSE);
 	
@@ -152,14 +207,25 @@ tag_window_new()
 	gtk_container_add(GTK_CONTAINER(obj), scroll);
 	gtk_container_add(GTK_CONTAINER(scroll), view);
 	
-	TAG_WINDOW(obj)->priv->view = GTK_TREE_VIEW(view);
+	obj->priv->view = GTK_TREE_VIEW(view);
 	
 	gtk_window_set_decorated(GTK_WINDOW(obj), FALSE);
 	gtk_window_set_type_hint(GTK_WINDOW(obj), GDK_WINDOW_TYPE_HINT_MENU);
+	
 	gtk_widget_set_size_request(view, -1, 150);
 	gtk_widget_show_all(scroll);
+}
+
+static void
+tag_window_finalize(GObject *object)
+{
+	TagWindow *cobj;
+	cobj = TAG_WINDOW(object);
 	
-	return obj;
+	/* Free private members, etc. */
+	
+	g_free(cobj->priv);
+	(* G_OBJECT_CLASS (tag_window_parent_class)->finalize) (object);
 }
 
 gboolean tag_window_up(TagWindow* tagwin)
@@ -234,7 +300,7 @@ gboolean tag_window_select(TagWindow* tagwin)
 	if (gtk_tree_selection_get_selected(selection, &model, &iter))
 	{
 		gchar* tag_name;
-		gtk_tree_model_get(model, &iter, TAG_WINDOW_COLUMN_NAME, &tag_name, -1);
+		gtk_tree_model_get(model, &iter, tagwin->priv->column, &tag_name, -1);
 		g_signal_emit(tagwin, tag_window_signals[SIGNAL_TYPE_SELECTED], 0, 
 						tag_name);
 		gtk_widget_hide(GTK_WIDGET(tagwin));
@@ -244,8 +310,79 @@ gboolean tag_window_select(TagWindow* tagwin)
 		return FALSE;
 }
 
-GtkListStore*
-tag_window_get_model(TagWindow* tag_window)
+/* Return a tuple containing the (x, y) position of the cursor + 1 line */
+static void
+get_coordinates(AnjutaView* view, int* x, int* y)
 {
-	return GTK_LIST_STORE(gtk_tree_view_get_model(tag_window->priv->view));
+	int xor, yor;
+	/* We need to Rectangles because if we step to the next line
+	the x position is lost */
+	GdkRectangle rectx;
+	GdkRectangle recty;
+	GdkWindow* window;
+	GtkTextIter cursor;
+	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+	gchar* current_word = anjuta_document_get_current_word(ANJUTA_DOCUMENT(buffer));
+	
+	g_return_if_fail(current_word != NULL);
+	
+	gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer)); 
+	gtk_text_iter_backward_chars(&cursor, strlen(current_word));
+	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), &cursor, &rectx);
+	gtk_text_iter_forward_lines(&cursor, 1);
+	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), &cursor, &recty);
+	window = gtk_text_view_get_window(GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT);
+	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT, 
+		rectx.x + rectx.width, recty.y, x, y);
+	
+	gdk_window_get_origin(window, &xor, &yor);
+	*x = *x + xor;
+	*y = *y + yor;
+	g_free(current_word);
+}
+
+static void
+tag_window_move(TagWindow* tag_win, AnjutaView* view)
+{
+	int x,y;
+	get_coordinates(view, &x, &y);	
+	gtk_window_move(GTK_WINDOW(tag_win), x, y);
+}
+
+gboolean tag_window_update(TagWindow* tagwin, GtkWidget* view)
+{
+	TagWindowClass* klass = TAG_WINDOW_GET_CLASS (tagwin);
+	
+	g_return_val_if_fail(klass != NULL, FALSE);
+	g_return_val_if_fail(klass->update_tags != NULL, FALSE);
+	
+	if (klass->update_tags(tagwin, view))
+	{
+		if (!tag_window_is_active(tagwin))
+		{
+			tag_window_move(tagwin, ANJUTA_VIEW(view));
+			gtk_widget_show(GTK_WIDGET(tagwin));
+		}
+		return TRUE;
+	}
+	else
+	{
+		gtk_widget_hide(GTK_WIDGET(tagwin));
+		return FALSE;
+	}
+}
+
+gboolean tag_window_filter_keypress(TagWindow* tagwin, guint keyval)
+{
+	TagWindowClass* klass = TAG_WINDOW_GET_CLASS (tagwin);
+	
+	g_return_val_if_fail(klass != NULL, FALSE);
+	g_return_val_if_fail(klass->filter_keypress != NULL, FALSE);
+	
+	return (klass->filter_keypress (tagwin, keyval));
+}
+
+gboolean tag_window_is_active(TagWindow* tagwin)
+{
+	return GTK_WIDGET_VISIBLE(GTK_WIDGET(tagwin));
 }

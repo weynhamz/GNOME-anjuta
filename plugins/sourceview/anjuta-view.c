@@ -53,8 +53,6 @@
 
 #define ANJUTA_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), ANJUTA_TYPE_VIEW, AnjutaViewPrivate))
 
-typedef struct _AnjutaTags AnjutaTags;
-
 enum
 {
 	TAG = 0,
@@ -62,32 +60,12 @@ enum
 	SCOPE,
 };
 
-struct _AnjutaTags
-{
-	gchar* current_word;
-	TagWindow* tag_window;
-	GtkListStore* model;
-	gint type;
-	
-	/* tag fill */
-	gboolean (*update_tags)(AnjutaView* view, GtkListStore* store, gchar* current_word);
-	
-	/* scope fill */
-	gboolean (*update_scope)(AnjutaView* view, GtkListStore* store, gchar* current_word);
-	
-	/* autocomplete fill */
-	gboolean (*update_autocomplete)(AnjutaView* view, GtkListStore* store, gchar* current_word);
-};
-
 struct _AnjutaViewPrivate
 {
 	GtkTooltips *tooltips;
-
-	/* idle hack to make open-at-line work */
-	guint        scroll_idle;
 	
 	/* Tag and Autocompletion */
-	AnjutaTags* tags;
+	GList* tag_windows;
 };
 
 static void	anjuta_view_destroy		(GtkObject       *object);
@@ -120,119 +98,48 @@ document_read_only_notify_handler (AnjutaDocument *document,
 }
 
 /* Tag stuff */
+static TagWindow* get_active_tag_window(AnjutaView* view)
+{
+	GList* node = view->priv->tag_windows;
+	while (node)
+	{
+		if (tag_window_is_active(TAG_WINDOW(node->data)))
+			return TAG_WINDOW(node->data);
+		node = g_list_next(node);
+	}
+	return NULL;
+}
+
+static TagWindow* find_tag_window(AnjutaView* view, guint keyval)
+{
+	GList* node = view->priv->tag_windows;
+	while (node)
+	{
+		if (tag_window_filter_keypress(TAG_WINDOW(node->data), keyval))
+			return TAG_WINDOW(node->data);
+		node = g_list_next(node);
+	}
+	return NULL;
+}
+
 static void
 tag_window_selected(GtkWidget* window, gchar* tag_name, AnjutaView* view)
 {
 	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
 	GtkTextIter cursor_iter, *word_iter;
+	gchar* current_word = anjuta_document_get_current_word(ANJUTA_DOCUMENT(buffer));
 	
 	gtk_text_buffer_get_iter_at_mark(buffer, &cursor_iter, 
 								 gtk_text_buffer_get_insert(buffer));
 	word_iter = gtk_text_iter_copy(&cursor_iter);
 	gtk_text_iter_set_line_index(word_iter, 
-		gtk_text_iter_get_line_index(&cursor_iter) - strlen(view->priv->tags->current_word));
+		gtk_text_iter_get_line_index(&cursor_iter) - strlen(current_word));
 	gtk_text_buffer_delete(buffer, word_iter, &cursor_iter);
 	gtk_text_buffer_insert_at_cursor(buffer, tag_name, 
 		strlen(tag_name));
 		
-	g_free(view->priv->tags->current_word);
-	view->priv->tags->current_word = NULL;
+	g_free(current_word);
 	gtk_text_iter_free(word_iter);
-}
-
-static void tag_window_hidden(GtkWidget* widget, AnjutaView* view)
-{
-	gtk_list_store_clear(tag_window_get_model(TAG_WINDOW(widget)));
-	view->priv->tags->type = TAG;
-}
-
-/* Return a tuple containing the (x, y) position of the cursor + 1 line */
-static void
-get_coordinates(AnjutaView* view, int* x, int* y)
-{
-	int xor, yor;
-	/* We need to Rectangles because if we step to the next line
-	the x position is lost */
-	GdkRectangle rectx;
-	GdkRectangle recty;
-	GdkWindow* window;
-	GtkTextIter cursor;
-	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
-	
-	gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer)); 
-	gtk_text_iter_backward_chars(&cursor, strlen(view->priv->tags->current_word));
-	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), &cursor, &rectx);
-	gtk_text_iter_forward_lines(&cursor, 1);
-	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), &cursor, &recty);
-	window = gtk_text_view_get_window(GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT);
-	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT, 
-		rectx.x + rectx.width, recty.y, x, y);
-	
-	gdk_window_get_origin(window, &xor, &yor);
-	*x = *x + xor;
-	*y = *y + yor;
-}
-
-static void
-anjuta_view_update_tags(AnjutaView* view)
-{
-	AnjutaDocument* doc = ANJUTA_DOCUMENT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)));
-	gint x, y;
-	
-	g_return_if_fail(view->priv->tags->tag_window != NULL);
-	
-	if (view->priv->tags->update_tags == NULL)
-		return;
-	
-	g_free(view->priv->tags->current_word);
-	view->priv->tags->current_word = anjuta_document_get_current_word(doc);
-	
-	if (view->priv->tags->current_word == NULL)
-		return;
-	
-	if (view->priv->tags->update_tags
-		(view, tag_window_get_model(view->priv->tags->tag_window), view->priv->tags->current_word))
-	{
-		view->priv->tags->type = TAG;
-		get_coordinates(view, &x, &y);	
-		gtk_window_move(GTK_WINDOW(view->priv->tags->tag_window), x, y);
-		gtk_widget_show(GTK_WIDGET(view->priv->tags->tag_window));
-	}
-}
-
-void
-anjuta_view_set_tag_update(AnjutaView* view, AnjutaViewUpdateFunc update)
-{
-	view->priv->tags->update_tags = update;
-}
-
-void
-anjuta_view_set_autocomplete_update(AnjutaView* view, AnjutaViewUpdateFunc update)
-{
-	view->priv->tags->update_autocomplete = update;
-}
-
-void
-anjuta_view_autocomplete(AnjutaView* view)
-{
-	AnjutaDocument* doc = ANJUTA_DOCUMENT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)));
-	if (view->priv->tags->update_autocomplete == NULL)
-		return;
-	
-	g_free(view->priv->tags->current_word);
-	view->priv->tags->current_word = anjuta_document_get_current_word(doc);
-	
-	if (view->priv->tags->update_autocomplete
-		(view, tag_window_get_model(view->priv->tags->tag_window), view->priv->tags->current_word))
-	{
-		int x,y;
-		view->priv->tags->type = AUTOCOMPLETE;
-		get_coordinates(view, &x, &y);	
-		gtk_window_move(GTK_WINDOW(view->priv->tags->tag_window), x, y);
-		gtk_widget_show(GTK_WIDGET(view->priv->tags->tag_window));
-	}
-	else
-		view->priv->tags->type = TAG;
 }
 
 static void
@@ -354,15 +261,6 @@ anjuta_view_move_cursor (GtkTextView    *text_view,
 	}
 }
 
-static gboolean
-scroll_to_cursor_on_init (AnjutaView *view)
-{
-	anjuta_view_scroll_to_cursor (view);
-
-	view->priv->scroll_idle = 0;
-	return FALSE;
-}
-
 static void 
 anjuta_view_init (AnjutaView *view)
 {	
@@ -382,22 +280,8 @@ anjuta_view_init (AnjutaView *view)
 		      "highlight_current_line", TRUE, 
 		      "smart_home_end", FALSE, /* Never changes this */
 		      NULL);
-
-	/* Make sure that the view is scrolled to the cursor so
-	 * that "anjuta +100 foo.txt" works.
-	 * We would like to this on the first expose handler so that
-	 * it would look instantaneous, but this isn't currently
-	 * possible: see bug #172277 and bug #311728.
-	 * So we need to do this in an idle handler.
-	 */
-	view->priv->scroll_idle = g_idle_add ((GSourceFunc) scroll_to_cursor_on_init, view); 
 	
-	view->priv->tags = g_new0(AnjutaTags, 1);
-	view->priv->tags->tag_window = TAG_WINDOW(tag_window_new());
-	g_signal_connect(G_OBJECT(view->priv->tags->tag_window), 
-		"selected", G_CALLBACK(tag_window_selected), view);
-	g_signal_connect(G_OBJECT(view->priv->tags->tag_window), 
-		"hidden", G_CALLBACK(tag_window_hidden), view);
+	view->priv->tag_windows = NULL;
 }
 
 static void
@@ -419,12 +303,8 @@ anjuta_view_finalize (GObject *object)
 	
 	if (view->priv->tooltips != NULL)
 		g_object_unref (view->priv->tooltips);
-
-	if (view->priv->scroll_idle > 0)
-		g_source_remove (view->priv->scroll_idle);
 	
-	g_free(view->priv->tags->current_word);
-	g_free(view->priv->tags);
+	g_list_free(view->priv->tag_windows);
 		
 	(* G_OBJECT_CLASS (anjuta_view_parent_class)->finalize) (object);
 }
@@ -433,9 +313,13 @@ static gint
 anjuta_view_focus_out (GtkWidget *widget, GdkEventFocus *event)
 {
 	AnjutaView *view = ANJUTA_VIEW (widget);
+	TagWindow* tag_window = get_active_tag_window(view);
+	if (tag_window != NULL)
+	{
+		gtk_widget_hide(GTK_WIDGET(tag_window));
+	}
 	
 	gtk_widget_queue_draw (widget);
-	gtk_widget_hide(GTK_WIDGET(view->priv->tags->tag_window));
 	
 	(* GTK_WIDGET_CLASS (anjuta_view_parent_class)->focus_out_event) (widget, event);
 	
@@ -780,6 +664,14 @@ anjuta_view_set_font (AnjutaView   *view,
 	}
 }
 
+void anjuta_view_register_completion(AnjutaView* view, TagWindow* tagwin)
+{
+	g_return_if_fail(tagwin != NULL);
+	
+	view->priv->tag_windows = g_list_append(view->priv->tag_windows, tagwin);
+	g_signal_connect(G_OBJECT(tagwin), "selected", G_CALLBACK(tag_window_selected), view);
+}
+
 static gint
 anjuta_view_expose (GtkWidget      *widget,
                    GdkEventExpose *event)
@@ -812,62 +704,68 @@ static gboolean
 anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 {
 	AnjutaView* view = ANJUTA_VIEW(widget);
+	TagWindow* tag_window = get_active_tag_window(view);
 	
-	/* Assume keyval is something like [A-Za-z0-9_]+ */
-	if  ((GDK_A <= event->keyval && event->keyval <= GDK_Z)
-		|| (GDK_a <= event->keyval && event->keyval <= GDK_z)
-		|| (GDK_0 <= event->keyval && event->keyval <= GDK_9)		
-		|| GDK_underscore == event->keyval
-		|| GDK_Shift_L == event->keyval
-		|| GDK_Shift_R == event->keyval)
-	{	
-		/* Add the character to the buffer */
-		gboolean retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
-		/* Call tag completion */
-		switch(view->priv->tags->type)
+	 switch (event->keyval)
+	 {
+	 	case GDK_Down:
 		{
-			case TAG:
-				anjuta_view_update_tags(view);
-				break;
-			case SCOPE:
-				break;
-			case AUTOCOMPLETE:
-				anjuta_view_autocomplete(view);
-				break;
+			if (tag_window != NULL && tag_window_down(tag_window))
+				return TRUE;
+			else
+				return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
 		}
-		return retval;
-	}
-	else if (event->keyval == GDK_Down)
-	{
-		if (tag_window_down(view->priv->tags->tag_window))
-			return TRUE;
-		else
-			return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
-	}
-	else if (event->keyval == GDK_Up)
-	{
-		if (tag_window_up(view->priv->tags->tag_window))
-			return TRUE;
-		else
-			return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
-	}
-	else if (event->keyval == GDK_Return || event->keyval == GDK_Tab)
-	{
-		if (tag_window_select(view->priv->tags->tag_window))
-			return TRUE;
-		else
-			return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
-	}
-	else
-	{
-		gtk_widget_hide(GTK_WIDGET(view->priv->tags->tag_window));
-		return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+		case GDK_Up:
+		{
+			if (tag_window != NULL && tag_window_up(tag_window))
+				return TRUE;
+			else
+				return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+		}
+		case GDK_Return:
+		case GDK_Tab:
+		{
+			if (tag_window != NULL && tag_window_select(tag_window))
+				return TRUE;
+			else
+				return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+		}
+		default:
+		{
+			if (tag_window != NULL)
+			{
+				gboolean retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+				if (tag_window_filter_keypress(tag_window, event->keyval))
+				{
+					tag_window_update(tag_window, GTK_WIDGET(view));
+				}
+				else
+				{
+					gtk_widget_hide(GTK_WIDGET(tag_window));
+				}
+				return retval;
+			}
+			else if ((tag_window = find_tag_window(view, event->keyval)) != NULL)
+			{
+				gboolean retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+				tag_window_update(tag_window, GTK_WIDGET(view));
+				return retval;
+			}
+			else
+			{
+				return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+			}
+		}
 	}
 }
 
 static gboolean	anjuta_view_button_press_event		(GtkWidget         *widget, GdkEventButton       *event)
 {
 	AnjutaView* view = ANJUTA_VIEW(widget);
-	gtk_widget_hide(GTK_WIDGET(view->priv->tags->tag_window));
+	TagWindow* tag_window = get_active_tag_window(view);
+	if (tag_window != NULL)
+	{
+		gtk_widget_hide(GTK_WIDGET(tag_window));
+	}
 	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->button_press_event)(widget, event);
 }

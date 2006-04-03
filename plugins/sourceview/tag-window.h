@@ -52,23 +52,23 @@ struct _TagWindowClass {
 	GtkWindowClass parent_class;
 	/* Add Signal Functions Here */
 	void (*selected)(GtkWidget* window, const gchar* tag);
-};
-
-enum
-{
-	TAG_WINDOW_COLUMN_SHOW = 0,
-	TAG_WINDOW_COLUMN_PIXBUF,
-	TAG_WINDOW_COLUMN_NAME,
-	TAG_WINDOW_N_COLUMNS
+	
+	/* Virtual functions */
+	gboolean (*update_tags)(TagWindow* tagwin, GtkWidget* view);
+	gboolean (*filter_keypress)(TagWindow* tagwin, guint keyval);
 };
 
 GType tag_window_get_type(void);
-GtkWidget *tag_window_new(void);
 
-GtkListStore* tag_window_get_model(TagWindow* tag_window);
+gboolean tag_window_update(TagWindow* tagwin, GtkWidget* view);
+gboolean tag_window_filter_keypress(TagWindow* tagwin, guint keyval);
 
 gboolean tag_window_up(TagWindow* tagwin);
 gboolean tag_window_down(TagWindow* tagwin);
 gboolean tag_window_select(TagWindow* tagwin);
+
+gboolean tag_window_is_active(TagWindow* tagwin);
+
+G_END_DECLS
 
 #endif /* TAG_WINDOW_H */

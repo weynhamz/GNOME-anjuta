@@ -1,30 +1,46 @@
+/***************************************************************************
+ *            sourceview-autocomplete.c
+ *
+ *  Mo Apr  3 00:46:28 2006
+ *  Copyright  2006  Johannes Schmid
+ *  jhs@gnome.org
+ ***************************************************************************/
+
 /*
- * sourceview-autocomplete.c (c) 2006 Johannes Schmid
- * Based on the Python-Code from Guillaume Chazarain
- * 
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Library General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
+
 #include "sourceview-autocomplete.h"
 #include "sourceview-prefs.h"
-#include "tag-window.h"
-#include "config.h"
+#include "anjuta-document.h"
+#include "anjuta-view.h"
 
-#include <libanjuta/interfaces/ianjuta-editor.h> 
-#include <libanjuta/anjuta-debug.h>
 #include <pcre.h>
+#include <string.h>
+
+#include <libanjuta/anjuta-debug.h>
+ 
+static void sourceview_autocomplete_class_init(SourceviewAutocompleteClass *klass);
+static void sourceview_autocomplete_init(SourceviewAutocomplete *sp);
+static void sourceview_autocomplete_finalize(GObject *object);
+
+struct _SourceviewAutocompletePrivate {
+	/* Place Private Members Here */
+};
+
+G_DEFINE_TYPE(SourceviewAutocomplete, sourceview_autocomplete, TAG_TYPE_WINDOW);
 
 /* Maximal found autocompletition words */
 const gchar* REGEX = "\\s%s[\\w_*]*\\s";
@@ -132,10 +148,9 @@ get_completions(gchar* current_word, gchar* text, gint choices)
 }
 
 #define AUTOCOMPLETE_CHOICES "autocompleteword.choices"
-#define PIXBUF PACKAGE_PIXMAPS_DIR"/marker-light.png"
 
-gboolean
-sourceview_autocomplete_update(AnjutaView* view, GtkListStore* store, gchar* current_word)
+static gboolean
+sourceview_autocomplete_update(TagWindow* tag_win, GtkWidget* view)
 {
 	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
 	GtkTextIter start_iter;
@@ -143,7 +158,12 @@ sourceview_autocomplete_update(AnjutaView* view, GtkListStore* store, gchar* cur
 	gchar* text;
 	GSList* words;
 	GSList* node;
-	GdkPixbuf* pixbuf;
+	GtkTreeView* tag_view;
+	GtkListStore* store;
+	gchar* current_word = anjuta_document_get_current_word(ANJUTA_DOCUMENT(buffer));
+	
+	if (current_word == NULL || strlen(current_word) == 0)
+		return FALSE;
 	
 	gtk_text_buffer_get_iter_at_offset(buffer,
 								   &start_iter, 0);
@@ -157,23 +177,97 @@ sourceview_autocomplete_update(AnjutaView* view, GtkListStore* store, gchar* cur
 	if (words == NULL)
 		return FALSE;
 	
+	g_object_get(G_OBJECT(tag_win), "view", &tag_view, NULL);
+	store = GTK_LIST_STORE(gtk_tree_view_get_model(tag_view));
 	gtk_list_store_clear(store);
 	
 	node = words;
-	pixbuf = gdk_pixbuf_new_from_file (PIXBUF, NULL);
 	while (node)
 	{
 		GtkTreeIter iter;
 		gchar* word = node->data;
 	 	gtk_list_store_append(store, &iter);
-        gtk_list_store_set(store, &iter, TAG_WINDOW_COLUMN_SHOW, word,
-        												TAG_WINDOW_COLUMN_PIXBUF, pixbuf,
-        												TAG_WINDOW_COLUMN_NAME, word, -1);
+        gtk_list_store_set(store, &iter, 0, word, -1);
         g_free(word);
         node = g_slist_next(node);
      }
-     g_object_unref(pixbuf);
      g_slist_free(words);
      return TRUE;
 }
- 
+
+static gboolean
+sourceview_autocomplete_filter_keypress(TagWindow* tags, guint keyval)
+{
+	/* By default do nothing if not activated */
+	if (!tag_window_is_active(tags))
+		return FALSE;
+
+	if  ((GDK_A <= keyval && keyval <= GDK_Z)
+		|| (GDK_a <= keyval && keyval <= GDK_z)
+		|| (GDK_0 <= keyval && keyval <= GDK_9)		
+		|| GDK_underscore == keyval
+		|| GDK_Shift_L == keyval
+		|| GDK_Shift_R == keyval)
+	{
+		return TRUE;
+	}
+	else
+		return FALSE;
+}
+
+static void
+sourceview_autocomplete_class_init(SourceviewAutocompleteClass *klass)
+{
+	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	TagWindowClass *tag_window_class = TAG_WINDOW_CLASS(klass);
+
+	object_class->finalize = sourceview_autocomplete_finalize;
+	
+	tag_window_class->update_tags = sourceview_autocomplete_update;
+	tag_window_class->filter_keypress = sourceview_autocomplete_filter_keypress;
+}
+
+static void
+sourceview_autocomplete_init(SourceviewAutocomplete *obj)
+{
+	obj->priv = g_new0(SourceviewAutocompletePrivate, 1);
+
+}
+
+static void
+sourceview_autocomplete_finalize(GObject *object)
+{
+	SourceviewAutocomplete *cobj;
+	cobj = SOURCEVIEW_AUTOCOMPLETE(object);
+	
+	/* Free private members, etc. */
+		
+	g_free(cobj->priv);
+	G_OBJECT_CLASS(sourceview_autocomplete_parent_class)->finalize(object);
+}
+
+SourceviewAutocomplete *
+sourceview_autocomplete_new()
+{
+	SourceviewAutocomplete *obj;
+	GtkCellRenderer* renderer_text;
+	GtkTreeViewColumn* column_text;
+	GtkListStore* model;
+	GtkTreeView* view;
+	
+	obj = SOURCEVIEW_AUTOCOMPLETE(g_object_new(SOURCEVIEW_TYPE_AUTOCOMPLETE, NULL));
+	
+	g_object_get(G_OBJECT(obj), "view", &view, NULL);
+	g_object_set(G_OBJECT(obj), "column", 0, NULL);
+	
+	model = gtk_list_store_new(1, G_TYPE_STRING);
+	gtk_tree_view_set_model(view, GTK_TREE_MODEL(model));
+	
+   	renderer_text = gtk_cell_renderer_text_new();
+	column_text = gtk_tree_view_column_new_with_attributes ("Show",
+                                                   renderer_text, "text", 0, NULL);
+                                                   
+	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column_text);
+	
+	return obj;
+}

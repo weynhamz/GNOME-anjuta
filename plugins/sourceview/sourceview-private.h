@@ -19,8 +19,8 @@
 
 #include "anjuta-view.h"
 #include "anjuta-document.h"
-
-typedef struct _SourceviewAutocomplete SourceviewAutocomplete;
+#include "sourceview-tags.h"
+#include "sourceview-autocomplete.h"
 
 struct SourceviewPrivate {
 	/* GtkSouceView */
@@ -54,6 +54,14 @@ struct SourceviewPrivate {
 	/* Bookmarks */
 	GList* bookmarks;
 	GList* cur_bmark;
+	
+	/* Tag Windows */
+	SourceviewTags* tag_window;
+	SourceviewAutocomplete* autocomplete;
+	
+	/* Goto line hack */
+	gboolean loading;
+	gint goto_line;
 };
 
 #endif

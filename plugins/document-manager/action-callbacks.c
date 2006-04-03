@@ -602,6 +602,7 @@ on_toolbar_goto_clicked (GtkAction *action, gpointer user_data)
 {
 	DocmanPlugin *plugin;
 	AnjutaUI *ui;
+	AnjutaShell* shell;
 	AnjutaDocman *docman;
 	IAnjutaEditor *te;
 	guint line;
@@ -610,7 +611,8 @@ on_toolbar_goto_clicked (GtkAction *action, gpointer user_data)
 	plugin = (DocmanPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
-	ui = ANJUTA_UI (ANJUTA_PLUGIN (plugin));
+	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
+	ui = anjuta_shell_get_ui(shell, NULL);
 	
 	if (EGG_IS_ENTRY_ACTION (action))
 	{

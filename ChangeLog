@@ -1,3 +1,26 @@
+2006-04-03  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/action-callbacks.c:
+	Fixed Gtk-Warning in goto_line
+	
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/anjuta-view.c: 
+	* plugins/sourceview/anjuta-view.h:
+	* plugins/sourceview/sourceview-autocomplete.c:
+	* plugins/sourceview/sourceview-autocomplete.h:
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview-tags.c:
+	* plugins/sourceview/sourceview-tags.h:
+	* plugins/sourceview/sourceview.c:
+	* plugins/sourceview/tag-window.c:
+	* plugins/sourceview/tag-window.h:
+	Created a nice API for tag and completion windows
+	
+	* plugins/sourceview/sourceview-print.h:
+	* plugins/sourceview/sourceview-print.c:
+	Added printing
+		
 2006-04-02  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
 
 	* plugins/sourceview/sourceview.c:

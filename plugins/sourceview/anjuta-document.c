@@ -817,13 +817,9 @@ document_loader_loaded (AnjutaDocumentLoader *loader,
 							  &iter,
 							  doc->priv->requested_line_pos - 1);
 		}
-		/* otherwise to the top */
 		else
-		{
-			gtk_text_buffer_get_start_iter (GTK_TEXT_BUFFER (doc),
-							&iter);
-		}
-
+			gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (doc),
+							  &iter, 0);
 		gtk_text_buffer_place_cursor (GTK_TEXT_BUFFER (doc), &iter);
 	}
 
@@ -1059,15 +1055,6 @@ anjuta_document_is_untouched (AnjutaDocument *doc)
 		(!gtk_text_buffer_get_modified (GTK_TEXT_BUFFER (doc)));
 }
 
-gboolean 
-anjuta_document_is_untitled (AnjutaDocument *doc)
-{
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), TRUE);
-
-	return (doc->priv->uri == NULL);
-}
-
-
 gboolean
 anjuta_document_get_deleted (AnjutaDocument *doc)
 {
@@ -1120,35 +1107,6 @@ anjuta_document_goto_line (AnjutaDocument *doc,
 	gtk_text_buffer_place_cursor (GTK_TEXT_BUFFER (doc), &iter);
 
 	return ret;
-}
-
-static gint
-compute_num_of_lines (const gchar *text)
-{
-	const gchar *p;
-	gint len;
-	gint n = 1;
-
-	g_return_val_if_fail (text != NULL, 0);
-
-	len = strlen (text);
-	p = text;
-
-	while (len > 0)
-	{
-		gint del, par;
-
-		pango_find_paragraph_boundary (p, len, &del, &par);
-
-		if (del == par) /* not found */
-			break;
-
-		p += par;
-		len -= par;
-		++n;
-	}
-
-	return n;
 }
 
 void

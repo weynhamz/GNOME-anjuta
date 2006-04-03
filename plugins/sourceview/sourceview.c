@@ -33,6 +33,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
+#include <libanjuta/interfaces/ianjuta-print.h>
 
 #include <libgnomevfs/gnome-vfs-init.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
@@ -55,6 +56,7 @@
 #include "sourceview-autocomplete.h"
 #include "sourceview-private.h"
 #include "sourceview-tags.h"
+#include "sourceview-print.h"
 #include "plugin.h"
 
 #define FORWARD 	0
@@ -219,10 +221,20 @@ static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
     g_signal_emit_by_name(G_OBJECT(sv), "save_point",
 						  TRUE);
+	
+	if (sv->priv->goto_line > 0)
+	{
+		DEBUG_PRINT("Goto Line: %d", sv->priv->goto_line);
+		anjuta_document_goto_line(doc, sv->priv->goto_line - 1);
+		sv->priv->goto_line = -1;
+	}
+	anjuta_view_scroll_to_cursor(sv->priv->view);
+	sv->priv->loading = FALSE;
+	
 	sourceview_add_monitor(sv);
 }
 
-/* Called when document is loaded completly */
+/* Called when document is saved completly */
 static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 {
 	if (err)
@@ -265,9 +277,10 @@ sourceview_finalize(GObject *object)
 	/* Free private members, etc. */
 	
 	sourceview_remove_monitor(cobj);
-	sourceview_tags_destroy();
 	
-	gtk_widget_destroy(GTK_WIDGET(cobj->priv->view));
+	gtk_widget_destroy(GTK_WIDGET(cobj->priv->tag_window));
+	gtk_widget_destroy(GTK_WIDGET(cobj->priv->autocomplete));
+	
 	g_free(cobj->priv);
 	G_OBJECT_CLASS(parent_class)->finalize(object);
 }
@@ -354,7 +367,7 @@ Sourceview *
 sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs)
 {
 	Sourceview *sv = ANJUTA_SOURCEVIEW(g_object_new(ANJUTA_TYPE_SOURCEVIEW, NULL));
-
+	
 	/* Create buffer */
 	sv->priv->document = anjuta_document_new();
 	g_signal_connect_after(G_OBJECT(sv->priv->document), "modified-changed", 
@@ -370,9 +383,12 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPreferences* prefs
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document));
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
     g_signal_connect(G_OBJECT(sv->priv->view), "popup-menu", G_CALLBACK(on_menu_popup), sv);
-	anjuta_view_set_tag_update(sv->priv->view, sourceview_tags_update);
-	anjuta_view_set_autocomplete_update(sv->priv->view, sourceview_autocomplete_update);
-
+	
+	sv->priv->tag_window = sourceview_tags_new();
+	sv->priv->autocomplete = sourceview_autocomplete_new();
+	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->tag_window));
+	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->autocomplete));
+	
 	/* Apply Preferences (TODO) */
 	sv->priv->prefs = prefs;
 	sourceview_prefs_init(sv);
@@ -408,8 +424,9 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
+	sv->priv->loading = TRUE;
 	anjuta_document_load(sv->priv->document, uri, NULL,
-						 0, FALSE);
+						 -1, FALSE);
 }
 
 /* Return the currently loaded uri */
@@ -487,9 +504,13 @@ ifile_iface_init (IAnjutaFileIface *iface)
 static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	anjuta_document_goto_line(sv->priv->document, line - 1);
-	anjuta_view_scroll_to_cursor(sv->priv->view);
-	DEBUG_PRINT("Line %d", line);
+	if (!sv->priv->loading)
+	{
+		anjuta_document_goto_line(sv->priv->document, line - 1);
+		anjuta_view_scroll_to_cursor(sv->priv->view);
+	}
+	else
+		sv->priv->goto_line = line;
 }
 
 /* Scroll to position */
@@ -991,7 +1012,9 @@ static void
 iassist_autocomplete(IAnjutaEditorAssist* edit, GError** ee)
 {
     Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-    anjuta_view_autocomplete(sv->priv->view);
+    
+    if (tag_window_update(TAG_WINDOW(sv->priv->autocomplete), GTK_WIDGET(sv->priv->view)))
+    	gtk_widget_show(GTK_WIDGET(sv->priv->autocomplete));
 }
 
 static void iassist_iface_init(IAnjutaEditorAssistIface* iface)
@@ -1318,7 +1341,28 @@ ibookmark_iface_init(IAnjutaBookmarkIface* iface)
 	iface->previous = ibookmark_previous;
 	iface->clear_all = ibookmark_clear_all;
 }
+
+static void
+iprint_print(IAnjutaPrint* print, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(print);
+	sourceview_print(sv);
+}
+
+static void
+iprint_print_preview(IAnjutaPrint* print, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(print);
+	sourceview_print_preview(sv);
+}
 	
+static void
+iprint_iface_init(IAnjutaPrintIface* iface)
+{
+	iface->print = iprint_print;
+	iface->print_preview = iprint_print_preview;
+}
+
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -1329,4 +1373,5 @@ ANJUTA_TYPE_ADD_INTERFACE(iselect, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
+ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 ANJUTA_TYPE_END;

@@ -79,7 +79,9 @@ libanjuta_sourceview_la_SOURCES = \
 	sourceview-tags.c \
 	sourceview-tags.h \
 	tag-window.c \
-	tag-window.h 
+	tag-window.h \
+	sourceview-print.c \
+	sourceview-print.h
 	
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \
