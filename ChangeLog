@@ -1,6 +1,4 @@
-2006-04-03  Johannes Schmid,,,  <set EMAIL_ADDRESS environment variable>
-
-	reviewed by: <delete if not using a buddy>
+2006-04-03  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/Makefile.am:
 	* plugins/sourceview/anjuta-view.c:
