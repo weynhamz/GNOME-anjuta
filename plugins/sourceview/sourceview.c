@@ -504,6 +504,7 @@ ifile_iface_init (IAnjutaFileIface *iface)
 static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+
 	if (!sv->priv->loading)
 	{
 		anjuta_document_goto_line(sv->priv->document, line - 1);
@@ -567,7 +568,6 @@ static gint ieditor_get_lineno(IAnjutaEditor *editor, GError **e)
 	
 	gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
 									 gtk_text_buffer_get_insert(buffer));
-	DEBUG_PRINT("GETLINENO: %d\n", gtk_text_iter_get_line(&iter));
 	return gtk_text_iter_get_line(&iter) + 1;
 }
 
@@ -697,7 +697,6 @@ static gint ieditor_get_line_from_position(IAnjutaEditor *editor,
 									   &iter, position);
 
 	line = gtk_text_iter_get_line(&iter) + 1;
-	DEBUG_PRINT("GETLINEFROMPOS: %d\n", line);
 	line = line ? line - 1 : 0;
 	
 	return line;
@@ -1235,25 +1234,55 @@ static int bookmark_compare(SVBookmark* bmark1, SVBookmark* bmark2)
 		return 0;
 }
 
+SVBookmark*
+ibookmark_is_bookmak_set(IAnjutaBookmark* bmark, gint location, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
+	GList* node = sv->priv->bookmarks;
+	while (node)
+	{
+		SVBookmark* bookmark = node->data;
+		if (bookmark->line == location)
+			return bookmark;
+		if (bookmark->line > location)
+			return NULL;
+		node = g_list_next(node);
+	}
+	return NULL;
+}
+
 static void
 ibookmark_toggle(IAnjutaBookmark* bmark, gint location, gboolean ensure_visible, GError** e)
 {
+	SVBookmark* bookmark;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	SVBookmark* bookmark = g_new0(SVBookmark, 1);
-	GtkTextIter iter;
-	bookmark->line = location;
-	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document), &iter, bookmark->line - 1);
-	bookmark->marker = gtk_source_buffer_create_marker(GTK_SOURCE_BUFFER(sv->priv->document), 
-													NULL, MARKER_BOOKMARK, &iter);
-	sv->priv->bookmarks = g_list_append(sv->priv->bookmarks, bookmark);
-	sv->priv->cur_bmark = sv->priv->bookmarks;
-	sv->priv->bookmarks = g_list_sort(sv->priv->bookmarks, (GCompareFunc) bookmark_compare);
+
+	if ((bookmark = ibookmark_is_bookmak_set(bmark, location, e)) != NULL)
+	{
+		gtk_source_buffer_delete_marker(GTK_SOURCE_BUFFER(sv->priv->document),
+		                                bookmark->marker);
+		sv->priv->bookmarks = g_list_remove(sv->priv->bookmarks, bookmark);
+		g_free(bookmark);
+	}
+	else
+	{
+		bookmark = g_new0(SVBookmark, 1);
+		GtkTextIter iter;
+		bookmark->line = location;
+		gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document), &iter, bookmark->line - 1);
+		bookmark->marker = gtk_source_buffer_create_marker(GTK_SOURCE_BUFFER(sv->priv->document), 
+		                                                   NULL, MARKER_BOOKMARK, &iter);
+		sv->priv->bookmarks = g_list_append(sv->priv->bookmarks, bookmark);
+		sv->priv->cur_bmark = sv->priv->bookmarks;
+		sv->priv->bookmarks = g_list_sort(sv->priv->bookmarks, (GCompareFunc) bookmark_compare);
+	}
 }
 
 static void
 ibookmark_first(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
+	
 	GList* bookmark;
 	SVBookmark* mark;
 	bookmark = g_list_first(sv->priv->bookmarks);
@@ -1286,15 +1315,23 @@ static void
 ibookmark_next(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GList* bookmark;
-	SVBookmark* mark;
-	bookmark = g_list_next(sv->priv->cur_bmark);
-	if (bookmark)
+	GList* node = sv->priv->bookmarks;
+	SVBookmark* bookmark;
+	gint location;
+
+	location = ieditor_get_lineno(IANJUTA_EDITOR(bmark), NULL);	
+	while (node)
 	{
-		mark = bookmark->data;
+		bookmark = node->data;
+		if (bookmark->line > location)
+			break;
+		node = g_list_next(node);
+	}
+	if (node)
+	{
 		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
-			mark->line, NULL);
-		sv->priv->cur_bmark = bookmark;
+		                         bookmark->line, NULL);
+		sv->priv->cur_bmark = node;
 	}
 }
 
@@ -1302,15 +1339,27 @@ static void
 ibookmark_previous(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GList* bookmark;
-	SVBookmark* mark;
-	bookmark = g_list_previous(sv->priv->cur_bmark);
-	if (bookmark)
+	GList* node = sv->priv->bookmarks;
+	SVBookmark* bookmark;
+	gint location;
+
+	location = ieditor_get_lineno(IANJUTA_EDITOR(bmark), NULL);	
+	if (node)
 	{
-		mark = bookmark->data;
-		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
-			mark->line, NULL);
-		sv->priv->cur_bmark = bookmark;
+		node = g_list_last(node);
+		while (node)
+		{
+			bookmark = node->data;
+			if (bookmark->line < location)
+				break;
+			node = g_list_previous(node);
+		}
+		if (node)
+		{
+			ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
+		                             bookmark->line, NULL);
+			sv->priv->cur_bmark = node;
+		}
 	}
 }
 

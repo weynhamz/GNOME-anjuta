@@ -1,3 +1,9 @@
+2006-04-03  Jean-Noel Guiheneuf <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/sourceview/sourceview.c:
+	Fixed next/previous bookmark.
+	Toggled bookmark (set/unset).
+
 2006-04-03  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/action-callbacks.c:
