@@ -57,6 +57,7 @@ static void anjuta_app_layout_save (AnjutaApp *app,
 									const gchar *name);
 
 static gpointer parent_class = NULL;
+static GList* toolbars = NULL;
 
 static void
 on_toggle_widget_view (GtkCheckMenuItem *menuitem, GtkWidget *dockitem)
@@ -214,8 +215,9 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 		gtk_widget_show (GTK_WIDGET (menuitem));
 		g_signal_connect (G_OBJECT (menuitem), "toggled",
 						  G_CALLBACK (on_toolbar_view_toggled), widget);
+		toolbars = g_list_append(toolbars, widget);
 
-		/* FIXME: This doesn't work: Show/hide toolbar */
+		/* Show/hide toolbar */
 		pr = ANJUTA_PREFERENCES (ANJUTA_APP(ui_container)->preferences);
 		key = g_strconcat (toolbarname, ".visible", NULL);
 		if (anjuta_preferences_get_int_with_default (pr, key,
@@ -235,9 +237,25 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 {
 	gchar *geometry, *layout_file;
 	GdkWindowState state;
+	GList* node = toolbars;
+	
 	
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
+	
+	/* Save toolbars */
+	while (node)
+	{
+		GtkWidget* widget = node->data;
+		GtkWidget* dock_item = g_object_get_data (G_OBJECT(widget), "dock_item");;
+		const gchar* toolbarname = gtk_widget_get_name(widget);
+		AnjutaPreferences* pr = ANJUTA_PREFERENCES (app->preferences);
+		gchar* key = g_strconcat (toolbarname, ".visible", NULL);
+		anjuta_preferences_set_int(pr, key, GTK_WIDGET_VISIBLE(dock_item));
+		g_free(key);
+		node = g_list_next(node);
+	}
+
 	
 	/* Save geometry */
 	state = gdk_window_get_state (GTK_WIDGET (app)->window);
@@ -785,6 +803,16 @@ static void
 on_widget_remove (GtkWidget *container, GtkWidget *widget, AnjutaApp *app)
 {
 	GtkWidget *dock_item;
+	GList* node = node;
+	while (node)
+	{
+		if (node->data == widget)
+		{
+			toolbars = g_list_delete_link(toolbars, node);
+			break;
+		}
+		node = g_list_next(node);
+	}
 
 	dock_item = g_object_get_data (G_OBJECT (widget), "dockitem");
 	if (dock_item)

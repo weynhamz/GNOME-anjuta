@@ -1,5 +1,17 @@
 2006-04-03  Johannes Schmid <jhs@gnome.org>
 
+	* TODO.tasks
+	* src/anjuta-app.c: (on_add_merge_widget), (on_session_save),
+	(on_widget_remove):
+	Save toolbar state
+
+	* plugins/sourceview/sourceview.c: (iselect_clear):
+	Make "Delete"-key working
+
+	* configure.in: #336389
+
+2006-04-03  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/sourceview/Makefile.am:
 	* plugins/sourceview/anjuta-view.c:
 	* plugins/sourceview/plugin.c: 
