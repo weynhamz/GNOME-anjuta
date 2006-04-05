@@ -138,7 +138,8 @@ static TagWindow* find_tag_window(AnjutaView* view, guint keyval)
 	GList* node = view->priv->tag_windows;
 	while (node)
 	{
-		if (tag_window_filter_keypress(TAG_WINDOW(node->data), keyval))
+		if (tag_window_filter_keypress(TAG_WINDOW(node->data), keyval)
+			== TAG_WINDOW_KEY_UPDATE)
 			return TAG_WINDOW(node->data);
 		node = g_list_next(node);
 	}
@@ -784,53 +785,41 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 	
 	 switch (event->keyval)
 	 {
-	 	case GDK_Down:
+		case GDK_Shift_L:
+		case GDK_Shift_R:
 		{
-			if (tag_window != NULL && tag_window_down(tag_window))
-				return TRUE;
-			else
-				return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
-		}
-		case GDK_Up:
-		{
-			if (tag_window != NULL && tag_window_up(tag_window))
-				return TRUE;
-			else
-				return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
-		}
-		case GDK_Return:
-		case GDK_Tab:
-		{
-			if (tag_window != NULL && tag_window_select(tag_window))
-				return TRUE;
-			else
-				return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+			return TRUE;
 		}
 		default:
 		{
+			gboolean retval;
 			if (tag_window != NULL)
 			{
-				gboolean retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
-				if (tag_window_filter_keypress(tag_window, event->keyval))
+				switch (tag_window_filter_keypress(tag_window, event->keyval))
 				{
-					tag_window_update(tag_window, GTK_WIDGET(view));
+					case TAG_WINDOW_KEY_UPDATE:
+					{
+						retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+						tag_window_update(tag_window, GTK_WIDGET(view));
+						return retval;
+					}
+					case TAG_WINDOW_KEY_CONTROL:
+					{
+						return TRUE;
+					}
+					case TAG_WINDOW_KEY_SKIP:
+					{
+						gtk_widget_hide(GTK_WIDGET(tag_window));
+					}
 				}
-				else
-				{
-					gtk_widget_hide(GTK_WIDGET(tag_window));
-				}
-				return retval;
 			}
-			else if ((tag_window = find_tag_window(view, event->keyval)) != NULL)
+			if ((tag_window = find_tag_window(view, event->keyval)) != NULL)
 			{
-				gboolean retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+				retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
 				tag_window_update(tag_window, GTK_WIDGET(view));
 				return retval;
 			}
-			else
-			{
-				return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
-			}
+			return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);;
 		}
 	}
 }

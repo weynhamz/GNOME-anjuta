@@ -1,3 +1,24 @@
+2006-04-05  Johannes Schmid <jhs@cvs,gnome.org>
+
+	* plugins/message-view/anjuta-msgman.c:
+	* plugins/message-view/plugin.c: (ianjuta_msgman_set_current_view):
+	
+	Show message pane on switch (does not work, anjuta_shell needs a fix)
+	
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-view.c: (find_tag_window),
+	* plugins/sourceview/sourceview-args.c: 
+	* plugins/sourceview/sourceview-args.h:
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview-scope.c: 
+	(sourceview_scope_update), (sourceview_scope_filter_keypress):
+	* plugins/sourceview/sourceview-tags.c:
+	* plugins/sourceview/sourceview.c:
+	* plugins/sourceview/tag-window.c:
+	* plugins/sourceview/tag-window.h:
+	
+	Added scope and argument completion
+
 2006-04-03  Johannes Schmid <jhs@gnome.org>
 
 	* TODO.tasks

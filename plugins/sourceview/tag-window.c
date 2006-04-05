@@ -64,6 +64,9 @@ static guint tag_window_signals[LAST_SIGNAL] = { 0 };
 G_DEFINE_TYPE(TagWindow, tag_window, GTK_TYPE_WINDOW);
 
 static void
+tag_window_move(TagWindow* tag_win, GtkWidget* view);
+
+static void
 tag_window_set_property (GObject * object,
 			   guint property_id,
 			   const GValue * value, GParamSpec * pspec)
@@ -135,6 +138,7 @@ tag_window_class_init(TagWindowClass *klass)
 	
 	klass->update_tags = NULL;
 	klass->filter_keypress = NULL;
+	klass->move = tag_window_move;
 	
 	tag_window_spec_view = g_param_spec_object ("view",
 						       "GtkTreeView of the window",
@@ -238,6 +242,9 @@ gboolean tag_window_up(TagWindow* tagwin)
 	
 	selection = gtk_tree_view_get_selection(tagwin->priv->view);
 	
+	if (gtk_tree_selection_get_mode(selection) == GTK_SELECTION_NONE)
+		return FALSE;
+	
 	if (gtk_tree_selection_get_selected(selection, &model, &iter))
 	{
 		path = gtk_tree_model_get_path(model, &iter);
@@ -264,6 +271,9 @@ gboolean tag_window_down(TagWindow* tagwin)
 		return FALSE;
 	
 	selection = gtk_tree_view_get_selection(tagwin->priv->view);
+	
+	if (gtk_tree_selection_get_mode(selection) == GTK_SELECTION_NONE)
+		return FALSE;
 	
 	if (gtk_tree_selection_get_selected(selection, &model, &iter))
 	{
@@ -325,7 +335,7 @@ get_coordinates(AnjutaView* view, int* x, int* y)
 	g_return_if_fail(current_word != NULL);
 	
 	gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer)); 
-	gtk_text_iter_backward_chars(&cursor, strlen(current_word));
+	gtk_text_iter_backward_chars(&cursor, g_utf8_strlen(current_word, -1));
 	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), &cursor, &rectx);
 	gtk_text_iter_forward_lines(&cursor, 1);
 	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), &cursor, &recty);
@@ -340,10 +350,10 @@ get_coordinates(AnjutaView* view, int* x, int* y)
 }
 
 static void
-tag_window_move(TagWindow* tag_win, AnjutaView* view)
+tag_window_move(TagWindow* tag_win, GtkWidget* view)
 {
 	int x,y;
-	get_coordinates(view, &x, &y);	
+	get_coordinates(ANJUTA_VIEW(view), &x, &y);	
 	gtk_window_move(GTK_WINDOW(tag_win), x, y);
 }
 
@@ -358,7 +368,7 @@ gboolean tag_window_update(TagWindow* tagwin, GtkWidget* view)
 	{
 		if (!tag_window_is_active(tagwin))
 		{
-			tag_window_move(tagwin, ANJUTA_VIEW(view));
+			klass->move(tagwin, view);
 			gtk_widget_show(GTK_WIDGET(tagwin));
 		}
 		return TRUE;
@@ -370,14 +380,43 @@ gboolean tag_window_update(TagWindow* tagwin, GtkWidget* view)
 	}
 }
 
-gboolean tag_window_filter_keypress(TagWindow* tagwin, guint keyval)
+TagWindowKeyPress tag_window_filter_keypress(TagWindow* tag_window, guint keyval)
 {
-	TagWindowClass* klass = TAG_WINDOW_GET_CLASS (tagwin);
+	TagWindowClass* klass = TAG_WINDOW_GET_CLASS (tag_window);
 	
 	g_return_val_if_fail(klass != NULL, FALSE);
 	g_return_val_if_fail(klass->filter_keypress != NULL, FALSE);
 	
-	return (klass->filter_keypress (tagwin, keyval));
+	
+	if (tag_window_is_active(tag_window))
+	{
+		switch (keyval)
+	 	{
+	 		case GDK_Down:
+			{
+				if (tag_window_down(tag_window))
+					return TAG_WINDOW_KEY_CONTROL;
+				return TAG_WINDOW_KEY_SKIP;
+			}
+			case GDK_Up:
+			{
+				if (tag_window_up(tag_window))
+					return TAG_WINDOW_KEY_CONTROL;
+				return TAG_WINDOW_KEY_SKIP;
+			}
+			case GDK_Return:
+			case GDK_Tab:
+			{
+				if (tag_window_select(tag_window))
+					return TAG_WINDOW_KEY_CONTROL;
+				return TAG_WINDOW_KEY_SKIP;
+			}
+		}
+	}
+	if (klass->filter_keypress (tag_window, keyval))
+		return TAG_WINDOW_KEY_UPDATE;
+	else
+		return TAG_WINDOW_KEY_SKIP;
 }
 
 gboolean tag_window_is_active(TagWindow* tagwin)

@@ -21,6 +21,7 @@
 #include "anjuta-document.h"
 #include "sourceview-tags.h"
 #include "sourceview-scope.h"
+#include "sourceview-args.h"
 #include "sourceview-autocomplete.h"
 
 #include <libanjuta/anjuta-plugin.h>
@@ -62,6 +63,7 @@ struct SourceviewPrivate {
 	SourceviewTags* tag_window;
 	SourceviewAutocomplete* autocomplete;
 	SourceviewScope* scope;
+	SourceviewArgs* args;
 	
 	/* Goto line hack */
 	gboolean loading;

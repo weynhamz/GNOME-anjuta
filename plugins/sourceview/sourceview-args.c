@@ -1,7 +1,7 @@
 /***************************************************************************
- *            sourceview-scope.c
+ *            sourceview-args.c
  *
- *  So Apr  2 10:56:47 2006
+ *  Di Apr  4 17:09:23 2006
  *  Copyright  2006  Johannes Schmid
  *  jhs@gnome.org
  ***************************************************************************/
@@ -22,41 +22,20 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include "sourceview-scope.h"
+#include "sourceview-args.h"
 #include "sourceview-prefs.h"
 #include "anjuta-document.h"
+#include "anjuta-view.h"
 
 #include <gtk/gtktreeview.h>
-#include "tm_tagmanager.h"
-
-#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
-#include <libanjuta/interfaces/ianjuta-symbol.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
-#include <libanjuta/resources.h>
+#include <libanjuta/interfaces/ianjuta-symbol.h>
+#include <libanjuta/anjuta-debug.h>
 
-#include <libgnomevfs/gnome-vfs.h>
+#include <pcre.h>
  
-#include <pcre.h> 
- 
-#define ENABLE_CODE_COMPLETION "enable.code.completion"
-
-static void sourceview_scope_finalize(GObject *object);
-
-G_DEFINE_TYPE(SourceviewScope, sourceview_scope, TAG_TYPE_WINDOW);
-
-typedef enum 
-{
-	PERIOD,
-	ARROW
-} ScopeType;
-
-struct _SourceviewScopePrivate
-{
-	IAnjutaSymbolManager* browser;
-	ScopeType type;
-	AnjutaView* view;
-};
+static void sourceview_args_finalize(GObject *object);
 
 enum
 {
@@ -66,9 +45,16 @@ enum
 	N_COLUMNS
 };
 
+struct _SourceviewArgsPrivate {
+	gint brace_count;
+	IAnjutaSymbolManager* browser;
+	gchar* current_word;
+};
+
+G_DEFINE_TYPE(SourceviewArgs, sourceview_args, TAG_TYPE_WINDOW);
 
 #define WORD_REGEX "[^ \\t&*(]+$"
-static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
+static gchar* get_current_word(AnjutaDocument* doc)
 {
 	pcre *re;
     gint err_offset;
@@ -81,20 +67,10 @@ static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
 	gtk_text_buffer_get_iter_at_mark(buffer, &cursor_iter, 
 								 gtk_text_buffer_get_insert(buffer));
 	line_iter = gtk_text_iter_copy(&cursor_iter);
-	
-	/* Check if we have "." or "->" */
-	switch (type)
-	{
-		case PERIOD:
-			gtk_text_iter_backward_char(&cursor_iter);
-			break;
-		case ARROW:
-			gtk_text_iter_backward_chars(&cursor_iter, 2);
-			break;
-	}
-			
 	gtk_text_iter_set_line_offset(line_iter, 0);
+	gtk_text_iter_backward_char(&cursor_iter);
 	line = gtk_text_buffer_get_text(buffer, line_iter, &cursor_iter, FALSE);
+	DEBUG_PRINT("Line: %s", line);
 	gtk_text_iter_free(line_iter);
 	
 	/* Create regular expression */
@@ -137,10 +113,38 @@ static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
   	return word;
 }
 
+/* Return a tuple containing the (x, y) position of the cursor - 1 line */
+static void
+get_coordinates(AnjutaView* view, int* x, int* y, const gchar* current_word)
+{
+	int xor, yor;
+	/* We need to Rectangles because if we step to the next line
+	the x position is lost */
+	GdkRectangle rectx;
+	GdkRectangle recty;
+	GdkWindow* window;
+	GtkTextIter cursor;
+	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+	
+	gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer)); 
+	gtk_text_iter_backward_chars(&cursor, g_utf8_strlen(current_word, -1));
+	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), &cursor, &rectx);
+	gtk_text_iter_forward_line(&cursor);
+	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(view), &cursor, &recty);
+	window = gtk_text_view_get_window(GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT);
+	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT, 
+		rectx.x + rectx.width, recty.y, x, y);
+	
+	gdk_window_get_origin(window, &xor, &yor);
+	*x = *x + xor;
+	*y = *y + yor;
+}
+
 static gboolean
-sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
+sourceview_args_update(TagWindow* tagwin, GtkWidget* view)
 {
 	gint i;
+	GtkTreeIter iter;
 	IAnjutaIterable* tags;
 	gchar* current_word;
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)));
@@ -150,10 +154,16 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
 											 GDK_TYPE_PIXBUF, G_TYPE_STRING);
 	GtkTreeView* tag_view;
 	gboolean is_source = FALSE;
-	SourceviewScope* st = SOURCEVIEW_SCOPE(tagwin);
+	SourceviewArgs* st = SOURCEVIEW_ARGS(tagwin);
 	
 	if (!anjuta_preferences_get_int (sourceview_get_prefs(), "enable.code.completion" ))
 		return FALSE;
+		
+	if (tag_window_is_active(tagwin))
+	{
+		/* User types inside (...) */
+		return TRUE;
+	}
 	
 	while(mime_types)
 	{
@@ -166,23 +176,30 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
 		mime_types = g_slist_next(mime_types);
 	}
 	if (!is_source)
+	{
+		st->priv->brace_count = 0;
 		return FALSE;
-	
-	current_word = get_current_word(ANJUTA_DOCUMENT(buffer), st->priv->type);
-	DEBUG_PRINT(current_word);
-	if (current_word == NULL || strlen(current_word) <= 2)
+	}
+	current_word = get_current_word(ANJUTA_DOCUMENT(buffer));
+	if (current_word == NULL || strlen(current_word) <= 3)
+	{
+		st->priv->brace_count = 0;
 		return FALSE;
+	}
 	
 	g_return_val_if_fail(st->priv->browser != NULL, FALSE);
 	
-	tags = ianjuta_symbol_manager_get_members (st->priv->browser,
+	tags = ianjuta_symbol_manager_search (st->priv->browser, 
+											IANJUTA_SYMBOL_TYPE_PROTOTYPE |
+											IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
 											current_word,
-											 TRUE, NULL);
+											 FALSE, TRUE, NULL);
 	
-	if  (!tags || !ianjuta_iterable_get_length(tags, NULL))
+	if  (!ianjuta_iterable_get_length(tags, NULL))
 	{
-		return FALSE;
+		st->priv->brace_count = 0;
 		g_object_unref(tags);
+		return FALSE;
 	}
 	
 	g_object_get(G_OBJECT(st), "view", &tag_view, NULL);
@@ -191,133 +208,135 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
 	
 	for (i = 0; i < ianjuta_iterable_get_length(tags, NULL); i++)
 	{
-	    GtkTreeIter iter;
-	    gchar* show;
-	    gchar* name = NULL;
+	    gchar* show = NULL;
 	    IAnjutaSymbol* tag = ianjuta_iterable_get_nth(tags, IANJUTA_TYPE_SYMBOL, i, NULL); 
 	    switch (ianjuta_symbol_type(tag, NULL))
 	    {
 	    	case IANJUTA_SYMBOL_TYPE_FUNCTION:
-	    	case IANJUTA_SYMBOL_TYPE_METHOD:
 	    	case IANJUTA_SYMBOL_TYPE_PROTOTYPE:
-	    		show = g_strdup_printf("%s %s ()", ianjuta_symbol_var_type(tag, NULL),
-	    			 ianjuta_symbol_name(tag, NULL));
+	    	case IANJUTA_SYMBOL_TYPE_METHOD:
+	    		show = g_strdup_printf("%s %s %s", ianjuta_symbol_var_type(tag, NULL),
+	    			 ianjuta_symbol_name(tag, NULL), ianjuta_symbol_args(tag, NULL));
 	    		break;
 	    	case IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG:
 	    	 	show = g_strdup_printf("%s %s",  ianjuta_symbol_name(tag, NULL), 
 	    	 		 ianjuta_symbol_args(tag, NULL));
 	    	 	break;
 	    	 default:
-	    	 	show = g_strdup(ianjuta_symbol_name(tag, NULL));
+	    	 	continue;
 	    }
 	    
-	    switch (st->priv->type)
-	    {
-	    	case PERIOD:
-	    		name = g_strdup_printf("%s.%s", current_word,  ianjuta_symbol_name(tag, NULL));
-	    		break;
-	    	case ARROW:
-	    		name = g_strdup_printf("%s->%s", current_word,  ianjuta_symbol_name(tag, NULL));	    	
-	    		break;
-	    }
         gtk_list_store_append(store, &iter);
         gtk_list_store_set(store, &iter, COLUMN_SHOW, show,
         												COLUMN_PIXBUF,  ianjuta_symbol_icon(tag, NULL), 
-        												COLUMN_NAME,name, -1);
-        g_free(name);
+        												COLUMN_NAME,"", -1);
         g_free(show);
      }
      g_object_unref(tags);
      g_free(current_word);
-     return TRUE;
+     if (gtk_tree_model_get_iter_first(GTK_TREE_MODEL(store), &iter))
+     {
+     	int x,y;
+     	get_coordinates(ANJUTA_VIEW(view), &x,&y, current_word);
+     	gtk_window_move(GTK_WINDOW(st), x, y);
+     	return TRUE;
+     }
+     else
+     {
+     	st->priv->brace_count = 0;
+     	return FALSE;
+     }
 }
 
 static gboolean
-sourceview_scope_filter_keypress(TagWindow* tags, guint keyval)
+sourceview_args_filter_keypress(TagWindow* tags, guint keyval)
 {
-	SourceviewScope* scope = SOURCEVIEW_SCOPE(tags);
-	if (tag_window_is_active(tags))
+	SourceviewArgs* args = SOURCEVIEW_ARGS(tags);
+	if (keyval == GDK_Escape)
 	{
-			return FALSE;
+		args->priv->brace_count = 0;
+		return FALSE;
 	}
-	else
+	else if (keyval == GDK_parenleft)
 	{
-		if (keyval == GDK_period)
-		{
-			scope->priv->type = PERIOD;
-			return TRUE;
-		}
-		else if (keyval == GDK_greater)
-		{
-			GtkTextBuffer* buffer = 
-				gtk_text_view_get_buffer(GTK_TEXT_VIEW(SOURCEVIEW_SCOPE(tags)->priv->view));
-			GtkTextIter cursor;
-			GtkTextIter start;
-			gchar* text;
-			
-			gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer));
-			gtk_text_buffer_get_iter_at_mark(buffer, &start, gtk_text_buffer_get_insert(buffer));			
-			gtk_text_iter_backward_char(&start);
-			
-			text = gtk_text_buffer_get_text(buffer, &start, &cursor, FALSE);
-			if (g_str_equal(text, "-"))
-			{
-				g_free(text);
-				scope->priv->type = ARROW;
-				return TRUE;
-			}
-			g_free(text);
-		}
+		args->priv->brace_count++;
+		DEBUG_PRINT("brace_count++ = %d", args->priv->brace_count);
+		return TRUE;
 	}
-	return FALSE;
+	else if (tag_window_is_active(tags) &&keyval == GDK_parenright)
+	{
+		if (args->priv->brace_count >= 0)
+			args->priv->brace_count--;
+		DEBUG_PRINT("brace_count-- = %d", args->priv->brace_count);
+	}
+	return args->priv->brace_count;
+}
+
+static void sourceview_args_move(TagWindow* tagwin,GtkWidget* view)
+{
+	/* Do nothing here, we move on update */
 }
 
 static void
-sourceview_scope_class_init(SourceviewScopeClass *klass)
+sourceview_args_class_init(SourceviewArgsClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	TagWindowClass *tag_window_class = TAG_WINDOW_CLASS(klass);
-	
-	object_class->finalize = sourceview_scope_finalize;
-	
-	tag_window_class->update_tags = sourceview_scope_update;
-	tag_window_class->filter_keypress = sourceview_scope_filter_keypress;
+	TagWindowClass* tag_window_class = TAG_WINDOW_CLASS(klass);
+
+	tag_window_class->update_tags = sourceview_args_update;
+	tag_window_class->filter_keypress = sourceview_args_filter_keypress;
+	tag_window_class->move = sourceview_args_move;
+	object_class->finalize = sourceview_args_finalize;
 }
 
 static void
-sourceview_scope_init(SourceviewScope *obj)
+sourceview_args_init(SourceviewArgs *obj)
 {
-	obj->priv = g_new0(SourceviewScopePrivate, 1);
+	obj->priv = g_new0(SourceviewArgsPrivate, 1);
+	obj->priv->brace_count = 0;
 	/* Initialize private members, etc. */
 }
 
 static void
-sourceview_scope_finalize(GObject *object)
+sourceview_args_finalize(GObject *object)
 {
-	SourceviewScope *cobj;
-	cobj = SOURCEVIEW_SCOPE(object);
+	SourceviewArgs *cobj;
+	cobj = SOURCEVIEW_ARGS(object);
 	
+	/* Free private members, etc. */
+		
 	g_free(cobj->priv);
-	
-	(* G_OBJECT_CLASS (sourceview_scope_parent_class)->finalize) (object);
+	G_OBJECT_CLASS(sourceview_args_parent_class)->finalize(object);
 }
 
-SourceviewScope *
-sourceview_scope_new(AnjutaPlugin* plugin, AnjutaView* aview)
+static void
+sourceview_args_hide(SourceviewArgs* args)
 {
-	SourceviewScope *obj;
+	args->priv->brace_count = 0;
+}
+
+SourceviewArgs*
+sourceview_args_new(AnjutaPlugin* plugin)
+{
+	SourceviewArgs *obj;
 	GtkCellRenderer* renderer_text;
 	GtkCellRenderer* renderer_pixbuf;
 	GtkTreeViewColumn* column_show;
 	GtkTreeViewColumn* column_pixbuf;
 	GtkListStore* model;
 	GtkTreeView* view;
+	GtkTreeSelection* selection;
 	AnjutaShell* shell;
+	gint height;
 	
-	obj = SOURCEVIEW_SCOPE(g_object_new(SOURCEVIEW_TYPE_SCOPE, NULL));
+	obj = SOURCEVIEW_ARGS(g_object_new(SOURCEVIEW_TYPE_ARGS, NULL));
 	
 	g_object_get(G_OBJECT(obj), "view", &view, NULL);
 	g_object_set(G_OBJECT(obj), "column", COLUMN_NAME, NULL);
+	
+	/* Do not allow any selection */
+	selection = gtk_tree_view_get_selection(view);
+	gtk_tree_selection_set_mode(selection, GTK_SELECTION_NONE);
 	
 	model = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, GDK_TYPE_PIXBUF, G_TYPE_STRING);
 	gtk_tree_view_set_model(view, GTK_TREE_MODEL(model));
@@ -325,6 +344,7 @@ sourceview_scope_new(AnjutaPlugin* plugin, AnjutaView* aview)
 	renderer_pixbuf = gtk_cell_renderer_pixbuf_new();
    	column_pixbuf = gtk_tree_view_column_new_with_attributes ("Pixbuf",
                                                    renderer_pixbuf, "pixbuf", COLUMN_PIXBUF, NULL);
+    
    	renderer_text = gtk_cell_renderer_text_new();
 	column_show = gtk_tree_view_column_new_with_attributes ("Show",
                                                    renderer_text, "text", COLUMN_SHOW, NULL);
@@ -334,7 +354,11 @@ sourceview_scope_new(AnjutaPlugin* plugin, AnjutaView* aview)
 	
 	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
 	obj->priv->browser = anjuta_shell_get_interface(shell, IAnjutaSymbolManager, NULL);
-	obj->priv->view = aview;
+	
+	g_signal_connect(G_OBJECT(obj), "hide", G_CALLBACK(sourceview_args_hide), NULL);
+	
+ 	g_object_get(G_OBJECT(renderer_text), "height", &height, NULL);
+	gtk_widget_set_size_request(GTK_WIDGET(view), -1, height);
 	
 	return obj;
 }

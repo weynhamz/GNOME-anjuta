@@ -18,6 +18,7 @@
 #include <gtk/gtknotebook.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-shell.h>
 
 #include <libanjuta/resources.h>
 #include "anjuta-msgman.h"

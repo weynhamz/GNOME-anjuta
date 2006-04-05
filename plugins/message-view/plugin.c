@@ -287,11 +287,16 @@ ianjuta_msgman_set_current_view (IAnjutaMessageManager *plugin,
 								 IAnjutaMessageView *message_view,
 								 GError ** e)
 {
+	AnjutaShell* shell;
 	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
 								 msgman, NULL);
-	return anjuta_msgman_set_current_view (ANJUTA_MSGMAN (msgman),
+	anjuta_msgman_set_current_view (ANJUTA_MSGMAN (msgman),
 					       MESSAGE_VIEW (message_view));
+	
+	/* Ensure the message-view is visible! */
+	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
+	anjuta_shell_present_widget(shell, GTK_WIDGET(msgman), NULL);
 }
 
 static void

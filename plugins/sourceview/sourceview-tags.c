@@ -213,6 +213,7 @@ sourceview_tags_new(AnjutaPlugin* plugin)
 	renderer_pixbuf = gtk_cell_renderer_pixbuf_new();
    	column_pixbuf = gtk_tree_view_column_new_with_attributes ("Pixbuf",
                                                    renderer_pixbuf, "pixbuf", COLUMN_PIXBUF, NULL);
+    
    	renderer_text = gtk_cell_renderer_text_new();
 	column_show = gtk_tree_view_column_new_with_attributes ("Show",
                                                    renderer_text, "text", COLUMN_SHOW, NULL);

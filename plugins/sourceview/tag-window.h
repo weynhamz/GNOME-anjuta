@@ -43,6 +43,13 @@ typedef struct _TagWindow TagWindow;
 typedef struct _TagWindowPrivate TagWindowPrivate;
 typedef struct _TagWindowClass TagWindowClass;
 
+typedef enum
+{
+	TAG_WINDOW_KEY_CONTROL,
+	TAG_WINDOW_KEY_UPDATE,
+	TAG_WINDOW_KEY_SKIP
+} TagWindowKeyPress;
+	
 struct _TagWindow {
 	GtkWindow parent;
 	TagWindowPrivate *priv;
@@ -56,12 +63,13 @@ struct _TagWindowClass {
 	/* Virtual functions */
 	gboolean (*update_tags)(TagWindow* tagwin, GtkWidget* view);
 	gboolean (*filter_keypress)(TagWindow* tagwin, guint keyval);
+	void (*move)(TagWindow* tagwin, GtkWidget* view);
 };
 
 GType tag_window_get_type(void);
 
 gboolean tag_window_update(TagWindow* tagwin, GtkWidget* view);
-gboolean tag_window_filter_keypress(TagWindow* tagwin, guint keyval);
+TagWindowKeyPress tag_window_filter_keypress(TagWindow* tagwin, guint keyval);
 
 gboolean tag_window_up(TagWindow* tagwin);
 gboolean tag_window_down(TagWindow* tagwin);
