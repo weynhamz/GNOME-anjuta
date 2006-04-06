@@ -30,6 +30,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 #include "tag-window.h"
+#include "anjuta-view.h"
 
 G_BEGIN_DECLS
 
@@ -55,7 +56,7 @@ struct _SourceviewArgsClass {
 };
 
 GType sourceview_args_get_type(void);
-SourceviewArgs *sourceview_args_new(AnjutaPlugin* plugin);
+SourceviewArgs *sourceview_args_new(AnjutaPlugin* plugin, AnjutaView* view);
 
 G_END_DECLS
 

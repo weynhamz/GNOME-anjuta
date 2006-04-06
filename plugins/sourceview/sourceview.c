@@ -416,7 +416,7 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 	
 	sv->priv->tag_window = sourceview_tags_new(plugin);
 	sv->priv->autocomplete = sourceview_autocomplete_new();
-	sv->priv->args = sourceview_args_new(plugin);
+	sv->priv->args = sourceview_args_new(plugin, sv->priv->view);
 	sv->priv->scope = sourceview_scope_new(plugin, sv->priv->view);
 	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->tag_window));
 	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->args));

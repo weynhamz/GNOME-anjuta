@@ -1,3 +1,11 @@
+2006-04-06  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/sourceview/sourceview.c
+	* plugins/sourceview/sourceview-args.c
+	* plugins/sourceview/sourceview-args.h:
+	
+	Polished argument completion
+
 2006-04-05  Johannes Schmid <jhs@cvs,gnome.org>
 
 	* plugins/message-view/anjuta-msgman.c:

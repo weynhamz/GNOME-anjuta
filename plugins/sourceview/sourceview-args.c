@@ -34,7 +34,7 @@
 #include <libanjuta/anjuta-debug.h>
 
 #include <pcre.h>
- 
+
 static void sourceview_args_finalize(GObject *object);
 
 enum
@@ -48,6 +48,7 @@ enum
 struct _SourceviewArgsPrivate {
 	gint brace_count;
 	IAnjutaSymbolManager* browser;
+	AnjutaView* view;
 	gchar* current_word;
 };
 
@@ -252,24 +253,50 @@ static gboolean
 sourceview_args_filter_keypress(TagWindow* tags, guint keyval)
 {
 	SourceviewArgs* args = SOURCEVIEW_ARGS(tags);
-	if (keyval == GDK_Escape)
+	switch (keyval)
 	{
-		args->priv->brace_count = 0;
-		return FALSE;
+		case GDK_Escape:
+		{
+			args->priv->brace_count = 0;
+			return FALSE;
+		}
+		case GDK_BackSpace:
+		{
+			GtkTextBuffer* buffer = 
+				gtk_text_view_get_buffer(GTK_TEXT_VIEW(SOURCEVIEW_ARGS(tags)->priv->view));
+			GtkTextIter cursor;
+			GtkTextIter start;
+			gchar* text;
+			
+			gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer));
+			gtk_text_buffer_get_iter_at_mark(buffer, &start, gtk_text_buffer_get_insert(buffer));			
+			gtk_text_iter_backward_char(&start);
+			
+			text = gtk_text_buffer_get_text(buffer, &start, &cursor, FALSE);
+			if (g_str_equal(text, "(") && args->priv->brace_count == 1)
+			{
+				g_free(text);
+				return FALSE;
+			}
+			g_free(text);
+			return TRUE;
+		}
+		case GDK_parenleft:
+		{
+			args->priv->brace_count++;
+			return TRUE;
+		}
+		case GDK_parenright:
+		{
+			if (tag_window_is_active(tags) &&keyval == GDK_parenright)
+			{
+				if (args->priv->brace_count >= 0)
+					args->priv->brace_count--;
+			}
+		}
+		default:
+			return args->priv->brace_count;
 	}
-	else if (keyval == GDK_parenleft)
-	{
-		args->priv->brace_count++;
-		DEBUG_PRINT("brace_count++ = %d", args->priv->brace_count);
-		return TRUE;
-	}
-	else if (tag_window_is_active(tags) &&keyval == GDK_parenright)
-	{
-		if (args->priv->brace_count >= 0)
-			args->priv->brace_count--;
-		DEBUG_PRINT("brace_count-- = %d", args->priv->brace_count);
-	}
-	return args->priv->brace_count;
 }
 
 static void sourceview_args_move(TagWindow* tagwin,GtkWidget* view)
@@ -316,7 +343,7 @@ sourceview_args_hide(SourceviewArgs* args)
 }
 
 SourceviewArgs*
-sourceview_args_new(AnjutaPlugin* plugin)
+sourceview_args_new(AnjutaPlugin* plugin, AnjutaView* aview)
 {
 	SourceviewArgs *obj;
 	GtkCellRenderer* renderer_text;
@@ -346,6 +373,7 @@ sourceview_args_new(AnjutaPlugin* plugin)
                                                    renderer_pixbuf, "pixbuf", COLUMN_PIXBUF, NULL);
     
    	renderer_text = gtk_cell_renderer_text_new();
+   	g_object_set(G_OBJECT(renderer_text), "wrap-width", 400, "wrap-mode", PANGO_WRAP_WORD, NULL); 
 	column_show = gtk_tree_view_column_new_with_attributes ("Show",
                                                    renderer_text, "text", COLUMN_SHOW, NULL);
                                                    
@@ -354,6 +382,7 @@ sourceview_args_new(AnjutaPlugin* plugin)
 	
 	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
 	obj->priv->browser = anjuta_shell_get_interface(shell, IAnjutaSymbolManager, NULL);
+	obj->priv->view = aview;
 	
 	g_signal_connect(G_OBJECT(obj), "hide", G_CALLBACK(sourceview_args_hide), NULL);
 	
