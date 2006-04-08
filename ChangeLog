@@ -1,3 +1,7 @@
+2006-04-08  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* src/anjuta-app.c: Fixed crasher on plugin unloading
+
 2006-04-06  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/sourceview/sourceview.c

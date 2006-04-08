@@ -803,7 +803,7 @@ static void
 on_widget_remove (GtkWidget *container, GtkWidget *widget, AnjutaApp *app)
 {
 	GtkWidget *dock_item;
-	GList* node = node;
+	GList* node = toolbars;
 	while (node)
 	{
 		if (node->data == widget)
