@@ -15,22 +15,5 @@ anjuta_tags_SOURCES = tm_global_tags.c
 anjuta_tags_LDADD = $(top_builddir)/tagmanager/libanjuta-ctags.la
 anjuta_tags_LDFLAGS = $(GLIB_LIBS)
 
-system.tags: create_global_tags.sh anjuta-tags
-	echo "Detecting header files and Generating global symbols ....."
-	chmod +x $(srcdir)/create_global_tags.sh
-	(cd $(top_builddir)/global-tags && $(srcdir)/create_global_tags.sh && echo "This is only a timestamp" > system.tags)
+dist_bin_SCRIPTS = create_global_tags.sh
 
-all: system.tags
-
-install-data-local: system.tags
-	mkdir -p "$(DESTDIR)$(anjuta_data_dir)/tags";
-	for tagsfile in tags/*; do \
-		$(INSTALL_DATA) $$tagsfile $(DESTDIR)$(anjuta_data_dir)/tags/; \
-	done
-
-## FIXME: We should only uninstall tags created by us.
-uninstall-local:
-	rm -fr $(DESTDIR)$(anjuta_data_dir)/tags
-
-clean-local:
-	rm -fr system.tags tags

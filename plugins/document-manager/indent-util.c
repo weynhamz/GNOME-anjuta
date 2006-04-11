@@ -627,7 +627,7 @@ indent_remove_style(gchar *style_name, IndentData *idt)
 	                          (GCompareFunc) indent_compare_style);
 	if ( list && ((IndentStyle*)list->data)->modifiable)
 	{
-		g_list_remove(list, list->data);
+		list = g_list_remove(list, list->data);
 		return TRUE;
 	}
 	return FALSE;

@@ -114,7 +114,6 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 							gpointer user_data)
 {
 	GtkWidget *dlg;
-	GtkWidget *parent;
 	gchar *buff;
 	Sourceview *sv = ANJUTA_SOURCEVIEW (user_data);
 	
@@ -139,9 +138,7 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 						  "the current buffer.\nDo you want to reload it?"),
 						 g_basename(anjuta_document_get_uri(sv->priv->document)));
 	
-	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv->priv->view));
-	
-	dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
+	dlg = gtk_message_dialog_new (NULL,
 								  GTK_DIALOG_DESTROY_WITH_PARENT,
 								  GTK_MESSAGE_WARNING,
 								  GTK_BUTTONS_NONE, buff);
@@ -153,9 +150,6 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 								   GTK_STOCK_REFRESH,
 								   GTK_RESPONSE_YES);
 	g_free (buff);
-	
-	gtk_window_set_transient_for (GTK_WINDOW (dlg),
-								  GTK_WINDOW (parent));
 	
 	g_signal_connect (dlg, "response",
 					  G_CALLBACK (on_reload_dialog_response),
@@ -193,8 +187,7 @@ static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 {
 	if (err)
 	{
-		GtkWidget* parent = parent = gtk_widget_get_toplevel (GTK_WIDGET(sv));
-		anjuta_util_dialog_error(GTK_WINDOW(parent),
+		anjuta_util_dialog_error(NULL,
 			 "Could not open file: %s", err->message);
 	}
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
@@ -263,8 +256,7 @@ static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 {
 	if (err)
 	{
-		GtkWidget* parent = parent = gtk_widget_get_toplevel (GTK_WIDGET (sv));
-		anjuta_util_dialog_error(GTK_WINDOW(parent),
+		anjuta_util_dialog_error(NULL,
 			 "Could not save file: %s", err->message);
 	}
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);

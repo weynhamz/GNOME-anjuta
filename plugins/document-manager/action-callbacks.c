@@ -36,18 +36,73 @@
 
 #include <libegg/menu/egg-entry-action.h>
 
+#include <sys/wait.h>
+#include <sys/stat.h>
+
 #include "anjuta-docman.h"
 #include "action-callbacks.h"
 #include "plugin.h"
 #include "file_history.h"
 #include "goto_line.h"
 
+#define AUTOFORMAT_DISABLE         "autoformat.disable"
+#define AUTOFORMAT_STYLE           "autoformat.style"
+#define AUTOFORMAT_LIST_STYLE      "autoformat.list.style"
+#define AUTOFORMAT_OPTS            "autoformat.opts"
+
 gboolean closing_state;
+
+void
+static editor_autoformat (IAnjutaEditor *te, AnjutaPreferences* prefs)
+{
+	gchar *cmd,*dir;
+	gchar *indent_style = NULL;
+	gchar *fopts = NULL;
+	pid_t pid;
+	int status;
+	const gchar* file;
+
+	if (anjuta_util_prog_is_installed ("indent", TRUE) == FALSE)
+		return;
+	if (anjuta_preferences_get_int (prefs, AUTOFORMAT_DISABLE))
+	{
+		GtkWindow *parent;
+		parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (te)));
+		anjuta_util_dialog_warning (parent, _("Auto format is currently disabled. Change the setting in Preferences."));
+		return;
+	}
+	if (te == NULL)
+		return;
+
+	file = ianjuta_editor_get_filename(IANJUTA_EDITOR(te), NULL);
+	
+	if (!anjuta_preferences_get_pair (prefs, AUTOFORMAT_STYLE,
+                                 GCONF_VALUE_STRING, GCONF_VALUE_STRING,
+                                 &indent_style, &fopts))
+		return;
+	
+	if (!fopts)
+	{
+		gchar *msg;
+		msg = g_strdup_printf (_("Anjuta does not know %s!"), indent_style);
+		anjuta_util_dialog_warning (NULL, msg);
+		g_free(msg);
+		return;
+	}
+	cmd = g_strconcat ("indent ", fopts, " ", file, NULL);
+	g_free (fopts);
+	dir = g_path_get_dirname (file);
+	pid = anjuta_util_execute_shell (dir, cmd);
+	g_free (dir);
+	g_free (cmd);
+
+	waitpid (pid, &status, 0);
+}
 
 static IAnjutaEditor*
 get_current_editor(gpointer user_data)
 {
-	DocmanPlugin* plugin = (DocmanPlugin*) user_data;
+			DocmanPlugin* plugin = (DocmanPlugin*) user_data;
 	AnjutaDocman* docman = ANJUTA_DOCMAN(plugin->docman);
 	return IANJUTA_EDITOR(anjuta_docman_get_current_editor(docman));
 }
@@ -860,11 +915,10 @@ on_indent1_activate (GtkAction * action, gpointer user_data)
     if (te == NULL)
 		return;
     lineno = ianjuta_editor_get_lineno(te, NULL);
-	//FIXME: text_editor_autoformat (te);
+	editor_autoformat (te, plugin->prefs);
 	ianjuta_editor_goto_line (te, lineno, NULL);
 }
 
-#if 0
 void
 on_format_indent_style_clicked (GtkAction * action, gpointer user_data)
 {
@@ -873,7 +927,6 @@ on_format_indent_style_clicked (GtkAction * action, gpointer user_data)
 	gtk_signal_emit_by_name (GTK_OBJECT (plugin->prefs),
 										 "activate");
 }
-#endif
 
 void
 on_calltip1_activate (GtkAction * action, gpointer user_data)

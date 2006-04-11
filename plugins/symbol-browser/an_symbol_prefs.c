@@ -27,13 +27,14 @@
 #include <gtk/gtkliststore.h>
 #include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/interfaces/ianjuta-message-manager.h>
 
 #include "an_symbol_prefs.h"
 #include "tm_tagmanager.h"
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-symbol-browser-plugin.glade"
 #define ICON_FILE "anjuta-symbol-browser-plugin.png"
-#define SYSTEM_TAGS_DIR PACKAGE_DATA_DIR"/tags"
 #define LOCAL_TAGS_DIR ".anjuta/tags"
 #define SYSTEM_TAGS_CACHE ".anjuta/system-tags.cache"
 #define SYMBOL_BROWSER_TAGS "symbol.browser.tags"
@@ -59,6 +60,10 @@ update_system_tags (GList *tags_files)
 	{
 		g_warning ("Error while re-creating system tags cache");
 	}
+	
+	/* Reload tags */
+	tm_workspace_reload_global_tags(output_file);
+	
 	g_free (output_file);
 }
 
@@ -78,6 +83,9 @@ update_system_tags_only_add (const gchar *tag_file)
 	{
 		g_warning ("Error while re-creating system tags cache");
 	}
+		/* Reload tags */
+	tm_workspace_reload_global_tags(output_file);
+	
 	g_free (output_file);
 }
 
@@ -161,8 +169,6 @@ create_store (AnjutaPreferences *prefs)
 	/* Create store */
 	store = gtk_list_store_new (N_COLUMNS, G_TYPE_BOOLEAN, G_TYPE_STRING,
 								G_TYPE_STRING);
-	
-	tags_dirs = g_list_prepend (tags_dirs, g_strdup (SYSTEM_TAGS_DIR));
 	
 	local_tags_dir = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
 	tags_dirs = g_list_prepend (tags_dirs, local_tags_dir);
@@ -284,6 +290,10 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 			node = g_list_next (node);
 		}
 		
+		/* Update preferences */
+		final_str = g_string_free (str, FALSE);
+		anjuta_preferences_set (prefs, SYMBOL_BROWSER_TAGS, final_str);
+		
 		/* Update system tags cache */
 		if (enabled)
 		{
@@ -292,20 +302,16 @@ on_tag_load_toggled (GtkCellRendererToggle *cell, char *path_str,
 		else
 		{
 			update_system_tags (enabled_paths);
+			g_free (final_str);
 		}
-		
-		/* Update preferences */
-		final_str = g_string_free (str, FALSE);
-		anjuta_preferences_set (prefs, SYMBOL_BROWSER_TAGS, final_str);
-		g_list_foreach (enabled_paths, (GFunc)g_free, NULL);
-		g_list_free (enabled_paths);
-		g_free (final_str);
 	}
 	else
 	{
 		/* Unset key and clear all tags */
 		anjuta_preferences_set (prefs, SYMBOL_BROWSER_TAGS, "");
 	}
+	g_list_foreach (enabled_paths, (GFunc)g_free, NULL);
+	g_list_free (enabled_paths);
 	anjuta_status_busy_pop (status);
 }
 
@@ -631,6 +637,72 @@ on_remove_tags_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 	}
 }
 
+static void
+on_message (AnjutaLauncher *launcher,
+					   AnjutaLauncherOutputType output_type,
+					   const gchar * mesg, gpointer user_data)
+{
+	SymbolBrowserPlugin* plugin = (SymbolBrowserPlugin*) user_data;
+	if (plugin->mesg_view)
+		ianjuta_message_view_append (plugin->mesg_view, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+			 mesg, "", NULL);
+}
+
+static void
+refresh_list (AnjutaLauncher *launcher, gint child_pid, gint status,
+				   gulong time_taken, SymbolBrowserPlugin *plugin)
+{
+	refresh_tags_list(plugin);
+}
+
+static void
+on_mesg_view_destroy(SymbolBrowserPlugin* plugin, gpointer destroyed_view)
+{
+	plugin->mesg_view = NULL;
+}
+
+static void 
+on_update_global_clicked(GtkWidget *button, SymbolBrowserPlugin *plugin)
+{
+	gchar* tmp;
+	gint pid;
+	AnjutaLauncher* launcher;
+	IAnjutaMessageManager* mesg_manager;
+
+	/* Create local tags directory */	
+	tmp = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
+	if ((pid = fork()) == 0)
+	{
+		execlp ("mkdir", "mkdir", "-p", tmp, NULL);
+		perror ("Could not execute mkdir");
+	}
+	waitpid (pid, NULL, 0);
+	g_free (tmp);
+
+	/* Make sure program anjuta-tags can be found */
+	if (!anjuta_util_prog_is_installed ("create_global_tags.sh", TRUE))
+		return;
+	
+	mesg_manager = anjuta_shell_get_interface 
+		(ANJUTA_PLUGIN (plugin)->shell,	IAnjutaMessageManager, NULL);
+	plugin->mesg_view = 
+	    ianjuta_message_manager_get_view_by_name(mesg_manager, _("CVS"), NULL);
+	if (!plugin->mesg_view)
+	{
+		plugin->mesg_view =
+		     ianjuta_message_manager_add_view (mesg_manager, _("Create global tags"), 
+											  "anjuta-symbol-browser-plugin.png", NULL);
+		g_object_weak_ref (G_OBJECT (plugin->mesg_view), 
+						  (GWeakNotify)on_mesg_view_destroy, plugin);
+	}
+	ianjuta_message_view_clear(plugin->mesg_view, NULL);
+	
+	launcher = anjuta_launcher_new ();
+	g_signal_connect (G_OBJECT (launcher), "child-exited",
+						  G_CALLBACK (refresh_list), plugin);
+	anjuta_launcher_execute (launcher, "create_global_tags.sh", on_message, plugin);
+}
+
 static GtkWidget *
 prefs_page_init (SymbolBrowserPlugin *plugin)
 {
@@ -680,6 +752,11 @@ prefs_page_init (SymbolBrowserPlugin *plugin)
 	button = glade_xml_get_widget (gxml, "remove_tags_button");
 	g_signal_connect (G_OBJECT (button), "clicked",
 					  G_CALLBACK (on_remove_tags_clicked), plugin);
+	
+	button = glade_xml_get_widget (gxml, "update_tags_button");
+	g_signal_connect (G_OBJECT (button), "clicked",
+					  G_CALLBACK (on_update_global_clicked), plugin);
+	
 	
 	g_object_unref (store);
 	g_object_unref (gxml);

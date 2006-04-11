@@ -91,6 +91,14 @@ gboolean tm_workspace_remove_object(TMWorkObject *work_object, gboolean free);
 */
 gboolean tm_workspace_load_global_tags(const char *tags_file);
 
+/*! Reloads the global tag list from the specified file. The global tag list should
+ have been first created using tm_workspace_create_global_tags().
+ \param tags_file The file containing global tags.
+ \return TRUE on success, FALSE on failure.
+ \sa tm_workspace_create_global_tags()
+*/
+gboolean tm_workspace_reload_global_tags(const char *tags_file);
+
 /*! Creates a list of global tags. Ideally, this should be created once during
  installations so that all users can use the same file. Thsi is because a full
  scale global tag list can occupy several megabytes of disk space.

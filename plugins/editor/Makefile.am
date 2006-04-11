@@ -1,3 +1,5 @@
+if HAVE_PLUGIN_SCINTILLA
+
 # Plugin glade file
 editor_gladedir = $(anjuta_glade_dir)
 editor_glade_DATA = editor.glade
@@ -58,6 +60,8 @@ libanjuta_editor_la_SOURCES= \
 	style-editor.h \
 	print.c \
 	print.h
+
+endif
 
 EXTRA_DIST = \
 	$(editor_pixmaps_DATA) \

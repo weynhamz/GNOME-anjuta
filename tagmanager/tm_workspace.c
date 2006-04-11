@@ -173,6 +173,28 @@ tm_workspace_load_global_tags (const char *tags_file)
 	}
 }
 
+gboolean
+tm_workspace_reload_global_tags (const char *tags_file)
+{
+	gint i;
+	if (NULL == theWorkspace)
+		tm_create_workspace ();
+		
+	if (theWorkspace->global_tags)
+		{
+			for (i = 0; i < theWorkspace->global_tags->len; ++i)
+				tm_tag_free (theWorkspace->global_tags->pdata[i]);
+			g_ptr_array_free (theWorkspace->global_tags, TRUE);
+			tm_tag_chunk_clean ();
+		}
+	
+	theWorkspace->global_tags = tm_workspace_load_tags (NULL, tags_file);
+	if (theWorkspace->global_tags)
+		return TRUE;
+	else
+		return FALSE;
+}
+
 static guint
 tm_file_inode_hash (gconstpointer key)
 {

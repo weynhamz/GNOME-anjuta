@@ -97,7 +97,6 @@ sourceview_tags_update(TagWindow* tagwin, GtkWidget* view)
 											IANJUTA_SYMBOL_TYPE_STRUCT |
 											IANJUTA_SYMBOL_TYPE_CLASS |
 											IANJUTA_SYMBOL_TYPE_PROTOTYPE |
-											IANJUTA_SYMBOL_TYPE_FUNCTION |
 											IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
 											current_word,
 											 TRUE, TRUE, NULL);

@@ -1,3 +1,46 @@
+2006-04-11  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* configure.in:
+	* plugins/editor/Makefile.am:
+	* scintilla/Makefile.am
+	
+	Build sourceview on 2.14, scintilla on 2.12 and make it user configurable at build time
+	
+	* global-tags/Makefile.am:
+	* global-tags/create_global_tags.sh:
+	* plugins/symbol-browser/an_symbol_prefs.c:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
+	* plugins/symbol-browser/plugin.h:
+	* tagmanager/include/tm_workspace.h:
+	* tagmanager/tm_workspace.c:
+	
+	Fixed symbol-browser prefs and move global tags generation from installtion to
+	preferences to make the life easier for distributers and to allow updates after installtion
+
+	* plugins/document-manager/action-callbacks.c: 
+	* plugins/document-manager/action-callbacks.h:
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/document-manager/indent-util.c:
+	* plugins/document-manager/plugin.c:
+	* plugins/editor/text_editor.c:
+	
+	Moved indent stuff to document-manager
+	
+	* plugins/sourceview/anjuta-view.c: 
+	* plugins/sourceview/sourceview-args.c: 
+	* plugins/sourceview/sourceview-scope.c:
+	* plugins/sourceview/sourceview-tags.c: 
+	* plugins/sourceview/sourceview.c:
+	
+	Fixed several bugs
+	
+	* plugins/sourceview/sourceview.plugin (removed):
+	* plugins/sourceview/sourceview.plugin.in:
+	Editor is not user-activatible
+	
+	* plugins/sourceview/sourceview.png:
+	Updated icon
+
 2006-04-08  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* src/anjuta-app.c: Fixed crasher on plugin unloading

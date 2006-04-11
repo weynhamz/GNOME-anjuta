@@ -282,10 +282,7 @@ static GtkActionEntry actions_edit[] = {
   { "ActionEditAutocomplete", N_("_AutoComplete"),
 	ANJUTA_STOCK_AUTOCOMPLETE, "<control>Return",
 	N_("AutoComplete the current word"),
-    G_CALLBACK (on_editor_command_complete_word_activate)},
-  { "ActionEditCalltip", N_("S_how calltip"), NULL, "<control>space",
-	N_("Show calltip for the function"),
-    G_CALLBACK (on_calltip1_activate)},
+    G_CALLBACK (on_editor_command_complete_word_activate)}
 };
 
 static GtkToggleActionEntry actions_view[] = {
@@ -666,10 +663,6 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditAutocomplete");
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
-								   "ActionEditCalltip");
-	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
-	
 }
 
 static void

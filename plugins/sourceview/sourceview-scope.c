@@ -197,7 +197,6 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
 	    IAnjutaSymbol* tag = ianjuta_iterable_get_nth(tags, IANJUTA_TYPE_SYMBOL, i, NULL); 
 	    switch (ianjuta_symbol_type(tag, NULL))
 	    {
-	    	case IANJUTA_SYMBOL_TYPE_FUNCTION:
 	    	case IANJUTA_SYMBOL_TYPE_METHOD:
 	    	case IANJUTA_SYMBOL_TYPE_PROTOTYPE:
 	    		show = g_strdup_printf("%s %s ()", ianjuta_symbol_var_type(tag, NULL),

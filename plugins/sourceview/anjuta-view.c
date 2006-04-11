@@ -180,7 +180,8 @@ anjuta_view_set_property (GObject * object,
 		case ANJUTA_VIEW_POPUP:
 		{
 			self->priv->popup = g_value_get_object (value);
-			gtk_menu_detach(GTK_MENU(self->priv->popup));
+			if (gtk_menu_get_attach_widget(GTK_MENU(self->priv->popup)) != NULL)
+				gtk_menu_detach(GTK_MENU(self->priv->popup));
 			gtk_menu_attach_to_widget(GTK_MENU(self->priv->popup), GTK_WIDGET(self), NULL);
 			break;
 		}

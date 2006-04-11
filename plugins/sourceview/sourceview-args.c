@@ -71,7 +71,6 @@ static gchar* get_current_word(AnjutaDocument* doc)
 	gtk_text_iter_set_line_offset(line_iter, 0);
 	gtk_text_iter_backward_char(&cursor_iter);
 	line = gtk_text_buffer_get_text(buffer, line_iter, &cursor_iter, FALSE);
-	DEBUG_PRINT("Line: %s", line);
 	gtk_text_iter_free(line_iter);
 	
 	/* Create regular expression */
@@ -90,7 +89,6 @@ static gchar* get_current_word(AnjutaDocument* doc)
 
 	 if (rc == PCRE_ERROR_NOMATCH)
     {
-    	DEBUG_PRINT("No match");
     	return NULL;
     }
  	 else if (rc < 0)
@@ -108,8 +106,6 @@ static gchar* get_current_word(AnjutaDocument* doc)
     	    	
     word = g_new0(gchar, end - start + 1);
     strncpy(word, line + start, end - start);
-  	
-  	DEBUG_PRINT("Found: %s", word);
   	
   	return word;
 }

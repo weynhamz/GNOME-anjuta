@@ -1,5 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
+if HAVE_PLUGIN_SCINTILLA
+
 SUBDIRS = include
 
 noinst_LTLIBRARIES = libanjuta-scintilla.la
@@ -101,8 +103,10 @@ update-scintilla:
 		patch -p1 < $$patchfile; \
 	done
 
-EXTRA_DIST=lexers.make
-
 marshallers: scintilla-marshal.list
 	glib-genmarshal --prefix scintilla_marshal scintilla-marshal.list --header > scintilla-marshal.h
 	glib-genmarshal --prefix scintilla_marshal scintilla-marshal.list --body > scintilla-marshal.c 
+
+endif
+
+EXTRA_DIST=lexers.make

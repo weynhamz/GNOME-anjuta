@@ -6,7 +6,7 @@ function anjuta_tags {
     BASEDIR=`pwd`
     PROGDIR=. # `dirname $0`
     CFLAGS=""
-    ANJUTA_TAGS_BIN="$PROGDIR/anjuta-tags"
+    ANJUTA_TAGS_BIN="`which anjuta-tags`"
     OUTPUT_FILE=$1
     shift
     
@@ -81,8 +81,8 @@ if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
 		# echo $PKG_CFLAGS
 	    package=`echo $pkg_file | sed -e 's/^.*\/\(.*\)\.pc/\1/'`
 	    # if [ ! -e $BASEDIR/tags/$package.anjutatags.gz ] ; then
-		echo "Creating tags file: tags/$package.anjutatags.gz ..."
-		anjuta_tags "$BASEDIR/tags/$package.anjutatags" $PKG_CFLAGS > /dev/null
+		echo "Creating tags file: $HOME/.anjuta/tags/$package.anjutatags.gz ..."
+		anjuta_tags "$HOME/.anjuta/tags/$package.anjutatags" $PKG_CFLAGS > /dev/null
 	    # fi
 	done
     done

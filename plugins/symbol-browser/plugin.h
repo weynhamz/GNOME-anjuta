@@ -22,6 +22,7 @@
 #define _SYMBOL_BROWSER_PLUGIN_H_
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-message-manager.h>
 
 G_BEGIN_DECLS
 
@@ -51,6 +52,8 @@ struct _SymbolBrowserPlugin{
 	guint editor_watch_id;
 	GHashTable *editor_connected;
 	GList *gconf_notify_ids;
+	
+	IAnjutaMessageView* mesg_view;
 };
 
 struct _SymbolBrowserPluginClass{
