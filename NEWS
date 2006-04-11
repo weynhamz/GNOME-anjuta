@@ -1,4 +1,65 @@
-Anjuta 2.0.1 (26 May 2005) -- Naba Kumar
+Anjuta 2.0.2 (xx Apr 2006) -- Naba Kumar
+
+New: GtkSourceView based editor
+New: Project configuration
+New: Valgrind plugin
+New: Tab drag&drop in Editor
+
+Improved: global tags can now be updated after installation
+Improved: Remember toolbars on restart
+
+Bug fixes:
+#171314		Anjuta crash when trying to do "stream comment"
+#311420 	Crash on terminal deactivation
+#317454 	Anjuta crash when array lenght is incorrect
+#332084 	Anjuta crashes, when Ctrl+c is pressed.
+#170467 	crash when changing fonts and color in the preferences di...
+#172442 	inserting empty box comment
+#172666 	cvs diff does not always obtain full diff
+#300231 	Find pane non-functional
+#304495 	Project saved as fullscreen
+#304641 	Can't type the "-character
+#305082 	anjuta 2.0.0: crash in debugger / watch / inspect memory
+#305301 	In menu tree "Settings"->"Customize shortcuts" there are ...
+#305587 	gtkmm project compile crash
+#306790 	doble click in a message, doesn't find the file.
+#306966 	Search tool on the tool bar don't work correctly
+#306970 	The order of the command buttons "Close" - "Search" - "St...
+#307800 	Crashes when project directory removed from command line.
+#307810 	Can't configure a project after creating with new project...
+#307872 	Remember Configure and autogen options for the next time
+#307879 	Crashed when exiting
+#308870 	Glade Plugin Won't open Glade file.
+#309153 	code cleanup use glib/gi18n.h
+#309348 	Anjuta 2.0.1, Anjuta application crash upon build (F9)
+#309526 	Help->ReportBugs points to removed bug tracking system
+#309688 	When committing a file that is loaded, I get a file-modif...
+#311710 	freeze in __lll_mutex_lock_wait () after crash?
+#312566 	Patch that will fix another make -j 10 problem
+#312666 	Return "F3" to execute project
+#314069 	Window gets hidden when using glade3 plugin
+#315188 	Project Wizard Problems
+#315218 	anjuta 2.0 freeze on opening my project
+#315521 	Failed to compile HEAD-hourly-2005-09-05-18
+#316731 	Can not add new encodings
+#320338 	Colors of tab menu labels
+#320341 	Critical error in debugger "locals" window.
+#321090 	Wrong array/struct/union var type display in locals windows
+#321455 	Ask for root password when installing
+#322634 	anjuta_ui_add_action_group_entries : Anjuta Developers Re...
+#322744 	New anjuta plugin project configured incorrectly
+#324572 	anjuta crashes on open
+#328209 	Crash when opening a file while an unsaved new file is open
+#332161 	Test editor not opening
+#333601 	GPL headers are first to c-header template.
+#333606 	Macro contain hyphen
+#334663 	Allow to set a parent class to new GObject class
+#335142 	crash when opeing a second file
+#336389 	Should check for libwnck
+#107510 	Excessive messages marked for translation in anjuta
+#304650 	make -j CPUS doesn't always work for anjuta2
+
+Anjuta 2.0.1 (26 Jun 2005) -- Naba Kumar
 
 New: Group and target properties (for automake based projects)
 New: Improvements in class heirarchy. Added members view.

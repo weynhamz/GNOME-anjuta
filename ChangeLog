@@ -1,5 +1,10 @@
 2006-04-11  Johannes Schmid <jhs@cvs.gnome.org>
 
+	* ROADMAP: Updated (we are far behind ;-)
+	* plugins/document-manager/plugin.c: Hide Folding menu items if not supported
+
+2006-04-11  Johannes Schmid <jhs@cvs.gnome.org>
+
 	* configure.in:
 	* plugins/editor/Makefile.am:
 	* scintilla/Makefile.am

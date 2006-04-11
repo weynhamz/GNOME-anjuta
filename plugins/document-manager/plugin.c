@@ -33,6 +33,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-line-mode.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
+#include <libanjuta/interfaces/ianjuta-editor-folds.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 
 
@@ -663,6 +664,27 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditAutocomplete");
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	
+	/* IAnjutaEditorFolds */
+	flag = IANJUTA_IS_EDITOR_FOLDS(editor);
+	action = anjuta_ui_get_action(ui, "ActionGroupEditorFormat", 
+		"ActionFormatFoldCloseAll");
+	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	
+	flag = IANJUTA_IS_EDITOR_FOLDS(editor);
+	action = anjuta_ui_get_action(ui, "ActionGroupEditorFormat", 
+		"ActionFormatFoldOpenAll");
+	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+
+	flag = IANJUTA_IS_EDITOR_FOLDS(editor);
+	action = anjuta_ui_get_action(ui, "ActionGroupEditorFormat", 
+		"ActionFormatFoldToggle");
+	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	
+	flag = IANJUTA_IS_EDITOR_FOLDS(editor);
+	action = anjuta_ui_get_action(ui, "ActionGroupEditorView", 
+		"ActionViewEditorFolds");
+	g_object_set (G_OBJECT (action), "visible", flag, NULL);
 }
 
 static void
