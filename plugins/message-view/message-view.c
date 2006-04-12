@@ -159,27 +159,6 @@ add_char(gchar** str, gchar c)
 	*str = buffer;
 }
 
-/* Get a GdkColor from preferences. Free the color with gdk_color_free() */
-static GdkColor*
-convert_color(AnjutaPreferences* prefs, const gchar* pref_name)
-{
-	guint8 r, g, b;
-	guint factor = ((guint16) -1) / ((guint8) -1);
-	gchar* color;
-	GdkColor* gdkcolor = g_new0(GdkColor, 1);
-	color = anjuta_preferences_get(prefs, pref_name);
-	if (color)
-	{
-		anjuta_util_color_from_string (color, &r, &g, &b);
-		gdkcolor->pixel = 0;
-		gdkcolor->red = r * factor;
-		gdkcolor->green = g * factor;
-		gdkcolor->blue = b * factor;
-		g_free(color);
-	}
-	return gdkcolor;
-}
-
 static gchar*
 escape_string (const gchar *str)
 {
@@ -900,7 +879,7 @@ pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 	GtkTreeIter iter;
 	gboolean success;
 	
-	color = convert_color (mview->privat->prefs, color_pref_key);
+	color = anjuta_util_convert_color (mview->privat->prefs, color_pref_key);
 	store = GTK_LIST_STORE (gtk_tree_view_get_model
 				(GTK_TREE_VIEW (mview->privat->tree_view)));
 	success = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter);
@@ -1048,15 +1027,15 @@ imessage_view_append (IAnjutaMessageView *message_view,
 		switch (message->type)
 		{
 			case IANJUTA_MESSAGE_VIEW_TYPE_INFO:
-				color = convert_color(view->privat->prefs,
+				color = anjuta_util_convert_color(view->privat->prefs,
 									  "messages.color.info");
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_WARNING:
-				color = convert_color(view->privat->prefs,
+				color = anjuta_util_convert_color(view->privat->prefs,
 									  "messages.color.warning");
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_ERROR:
-				color = convert_color(view->privat->prefs,
+				color = anjuta_util_convert_color(view->privat->prefs,
 									  "messages.color.error");
 				break;
 			default:

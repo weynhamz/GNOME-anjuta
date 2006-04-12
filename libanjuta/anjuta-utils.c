@@ -120,11 +120,15 @@ int_from_hex_digit (const gchar ch)
 }
 
 void
-anjuta_util_color_from_string (const gchar * val, guint8 * r, guint8 * g, guint8 * b)
+anjuta_util_color_from_string (const gchar * val, guint16 * r, guint16 * g, guint16 * b)
 {
-	*r = int_from_hex_digit (val[1]) * 16 + int_from_hex_digit (val[2]);
-	*g = int_from_hex_digit (val[3]) * 16 + int_from_hex_digit (val[4]);
-	*b = int_from_hex_digit (val[5]) * 16 + int_from_hex_digit (val[6]);
+	GdkColor color;
+	if (gdk_color_parse(val, &color))
+	{
+		*r = color.red;
+		*g = color.green;
+		*b =color.blue;
+	}
 }
 
 gchar *
@@ -141,6 +145,27 @@ anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b)
 
 	sprintf (str, "#%06X", num);
 	return g_strdup (str);
+}
+
+/* Get a GdkColor from preferences. Free the color with gdk_color_free() */
+GdkColor*
+anjuta_util_convert_color(AnjutaPreferences* prefs, const gchar* pref_name)
+{
+	guint16 r, g, b;
+	guint factor = ((guint16) -1) / ((guint8) -1);
+	gchar* color;
+	GdkColor* gdkcolor = g_new0(GdkColor, 1);
+	color = anjuta_preferences_get(prefs, pref_name);
+	if (color)
+	{
+		anjuta_util_color_from_string (color, &r, &g, &b);
+		gdkcolor->pixel = 0;
+		gdkcolor->red = r * factor;
+		gdkcolor->green = g * factor;
+		gdkcolor->blue = b * factor;
+		g_free(color);
+	}
+	return gdkcolor;
 }
 
 GtkWidget* 

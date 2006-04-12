@@ -56,6 +56,7 @@ enum
 	N_COLUMNS
 };
 
+#define AUTOCOMPLETE_CHOICES "autocompleteword.choices"
 static gboolean
 sourceview_tags_update(TagWindow* tagwin, GtkWidget* view)
 {
@@ -101,7 +102,9 @@ sourceview_tags_update(TagWindow* tagwin, GtkWidget* view)
 											current_word,
 											 TRUE, TRUE, NULL);
 	
-	if  (!ianjuta_iterable_get_length(tags, NULL))
+	if  (!ianjuta_iterable_get_length(tags, NULL) || 
+		ianjuta_iterable_get_length(tags, NULL) > 
+			anjuta_preferences_get_int (sourceview_get_prefs(), AUTOCOMPLETE_CHOICES))
 	{
 		return FALSE;
 		 g_object_unref(tags);

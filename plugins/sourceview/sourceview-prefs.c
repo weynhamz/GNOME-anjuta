@@ -37,6 +37,15 @@ static AnjutaPreferences* prefs = NULL;
 #define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible"
 #define VIEW_MARKER_MARGIN         "margin.marker.visible"
 
+#define COLOR_THEME "sourceview.color.use_theme"
+#define COLOR_TEXT	"sourceview.color.text"
+#define COLOR_BACKGROUND	"sourceview.color.background"
+#define COLOR_SELECTED_TEXT	"sourceview.color.selected_text"
+#define COLOR_SELECTION	"sourceview.color.selection"
+
+#define FONT_THEME "sourceview.font.use_theme"
+#define FONT "sourceview.font"
+
 static int
 get_int(GConfEntry* entry)
 {
@@ -149,6 +158,69 @@ on_gconf_notify_view_linenums (GConfClient *gclient, guint cnxn_id,
 
 }
 
+static void
+on_gconf_notify_color (GConfClient *gclient, guint cnxn_id,
+							   GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	GdkColor *text, *background, *selected_text, *selection;
+	AnjutaPreferences* prefs = sourceview_get_prefs();
+	sv = ANJUTA_SOURCEVIEW(user_data);
+
+	text = anjuta_util_convert_color(prefs, COLOR_TEXT);
+	background = anjuta_util_convert_color(prefs, COLOR_BACKGROUND);
+	selected_text = anjuta_util_convert_color(prefs, COLOR_SELECTED_TEXT);
+	selection = anjuta_util_convert_color(prefs, COLOR_SELECTION);
+	
+	anjuta_view_set_colors(sv->priv->view, FALSE, background, text, selection, selected_text);
+}
+
+static void
+on_gconf_notify_color_theme (GConfClient *gclient, guint cnxn_id,
+							   GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	gboolean use_theme = get_bool(entry);
+	sv = ANJUTA_SOURCEVIEW(user_data);
+	
+	if (use_theme)
+	{
+		anjuta_view_set_colors(sv->priv->view, TRUE, NULL, NULL, NULL, NULL);
+	}
+	else
+		on_gconf_notify_color(NULL, 0, NULL, sv);
+}
+
+static void
+on_gconf_notify_font (GConfClient *gclient, guint cnxn_id,
+							   GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	gchar* font;
+	AnjutaPreferences* prefs = sourceview_get_prefs();
+	sv = ANJUTA_SOURCEVIEW(user_data);
+
+	font = anjuta_preferences_get(prefs, FONT);
+
+	anjuta_view_set_font(sv->priv->view, FALSE, font);	
+}
+
+static void
+on_gconf_notify_font_theme (GConfClient *gclient, guint cnxn_id,
+							   GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	gboolean use_theme = get_bool(entry);
+	sv = ANJUTA_SOURCEVIEW(user_data);
+	
+	if (use_theme)
+	{
+		anjuta_view_set_font(sv->priv->view, TRUE, NULL);
+	}
+	else
+		on_gconf_notify_font(NULL, 0, NULL, sv);
+}
+
 static int
 get_key(Sourceview* sv, const gchar* key)
 {
@@ -185,6 +257,14 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (BACKSPACE_UNINDENTS, on_gconf_notify_backspace_unindents);
 	REGISTER_NOTIFY (VIEW_MARKER_MARGIN, on_gconf_notify_view_markers);
 	REGISTER_NOTIFY (VIEW_LINENUMBERS_MARGIN, on_gconf_notify_view_linenums);
+	REGISTER_NOTIFY (COLOR_THEME, on_gconf_notify_color_theme);
+	REGISTER_NOTIFY (COLOR_TEXT, on_gconf_notify_color);
+	REGISTER_NOTIFY (COLOR_BACKGROUND, on_gconf_notify_color);
+	REGISTER_NOTIFY (COLOR_SELECTED_TEXT, on_gconf_notify_color);
+	REGISTER_NOTIFY (COLOR_SELECTION, on_gconf_notify_color);
+	REGISTER_NOTIFY (FONT_THEME, on_gconf_notify_font_theme);
+	REGISTER_NOTIFY (FONT, on_gconf_notify_font);
+	
 }
 
 AnjutaPreferences*

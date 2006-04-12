@@ -24,14 +24,18 @@
 #include <gtk/gtk.h>
 #include <sys/types.h>
 
+#include <libanjuta/anjuta-preferences.h>
+
 gboolean anjuta_util_copy_file (gchar * src, gchar * dest, gboolean show_error);
 
 gboolean anjuta_util_diff(const gchar* uri, const gchar* text);
 
-void anjuta_util_color_from_string (const gchar * val, guint8 * r,
-									guint8 * g, guint8 * b);
+void anjuta_util_color_from_string (const gchar * val, guint16 * r,
+									guint16 * g, guint16 * b);
 
 gchar* anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b);
+
+GdkColor* anjuta_util_convert_color(AnjutaPreferences* prefs, const gchar* pref_name);
 
 GtkWidget* anjuta_util_button_new_with_stock_image (const gchar* text,
 													const gchar* stock_id);

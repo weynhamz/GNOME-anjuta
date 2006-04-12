@@ -25,11 +25,8 @@
 #include <unistd.h>
 #include <string.h>
 
-#include <libgnomeui/gnome-color-picker.h>
 #include <glade/glade-parser.h>
 #include <gconf/gconf-client.h>
-
-// #include <style-editor.h>
 
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
@@ -196,16 +193,16 @@ get_property_value_as_string (AnjutaProperty *prop)
 		}
 	case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
 		{
-			guint8 r, g, b, a;
-			gnome_color_picker_get_i8 (GNOME_COLOR_PICKER (prop->object),
-									   &r, &g, &b, &a);
-			text_value = anjuta_util_string_from_color (r, g, b);
+			GdkColor color;
+			gtk_color_button_get_color(GTK_COLOR_BUTTON (prop->object),
+									   &color);
+			text_value = anjuta_util_string_from_color (color.red,  color.green, color.blue);
 		}
 		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FONT:
 		{
 			const gchar *font;
-			font = gnome_font_picker_get_font_name (GNOME_FONT_PICKER
+			font = gtk_font_button_get_font_name (GTK_FONT_BUTTON
 													(prop->object));
 			text_value = g_strdup (font);
 		}
@@ -305,15 +302,12 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		
 	case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
 		{
-			guint8 r, g, b;
+			GdkColor color;
 			
 			if (value)
-				anjuta_util_color_from_string (value, &r, &g, &b);
-			else
-				r = g = b = 0;
-			
-			gnome_color_picker_set_i8 (GNOME_COLOR_PICKER (prop->object),
-									   r, g, b, 8);
+				anjuta_util_color_from_string (value, &color.red, &color.green, &color.blue);
+				
+			gtk_color_button_set_color(GTK_COLOR_BUTTON(prop->object), &color);
 		}
 		break;
 		
@@ -339,13 +333,13 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 				
 				DEBUG_PRINT ("Font set as: %s", font_name);
 				
-				gnome_font_picker_set_font_name (GNOME_FONT_PICKER
+				gtk_font_button_set_font_name (GTK_FONT_BUTTON
 												 (prop->object), font_name);
 				g_free (font_name);
 			}
 			else
 			{				
-				gnome_font_picker_set_font_name (GNOME_FONT_PICKER
+				gtk_font_button_set_font_name (GTK_FONT_BUTTON
 												 (prop->object), value);
 			}
 		}
@@ -435,8 +429,7 @@ update_property_on_change_int (GtkWidget *widget, gpointer user_data)
 }
 
 static void
-update_property_on_change_color (GtkWidget *widget, guint arg1, guint arg2,
-								 guint arg3, guint arg4, gpointer user_data)
+update_property_on_change_color (GtkWidget *widget, gpointer user_data)
 {
 	AnjutaPreferences *pr;
 	AnjutaProperty *p;
@@ -451,7 +444,7 @@ update_property_on_change_color (GtkWidget *widget, guint arg1, guint arg2,
 }
 
 static void
-update_property_on_change_font (GtkWidget *widget, guint arg1,
+update_property_on_change_font (GtkWidget *widget,
 								gpointer user_data)
 {
 	AnjutaPreferences *pr;

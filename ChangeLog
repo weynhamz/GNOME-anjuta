@@ -1,6 +1,27 @@
+2006-04-12  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* ROADMAP:
+	* libanjuta/anjuta-preferences.c: 
+	* libanjuta/anjuta-utils.c: 
+	* libanjuta/anjuta-utils.h:
+	* plugins/message-view/message-view.c:
+	
+	Changed color functions and moved convert_color to anjuta-utils.h
+	
+	* plugins/message-view/anjuta-message-manager-plugin.glade:
+	GnomeColorPicker -> GtkColorButton (bug #309154)
+	
+	* plugins/sourceview/plugin.c:
+	* plugins/sourceview/sourceview-prefs.c:
+	* plugins/sourceview/sourceview.glade:
+	Added color and font preferences
+
+	* plugins/sourceview/sourceview-tags.c:
+	Only show as much choices as configured in preferences
+
 2006-04-11  Johannes Schmid <jhs@cvs.gnome.org>
 
-	* ROADMAP: Updated (we are far behind ;-)
+	* ROADMAP, NEWS: Updated (we are far behind ;-)
 	* plugins/document-manager/plugin.c: Hide Folding menu items if not supported
 
 2006-04-11  Johannes Schmid <jhs@cvs.gnome.org>

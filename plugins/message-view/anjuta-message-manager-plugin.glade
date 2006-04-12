@@ -628,25 +628,6 @@
 	      <property name="column_spacing">5</property>
 
 	      <child>
-		<widget class="GnomeColorPicker" id="preferences_color:color:#FF0000:0:messages.color.error">
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="dither">True</property>
-		  <property name="use_alpha">False</property>
-		  <property name="title" translatable="yes">Pick a color</property>
-		  <property name="focus_on_click">True</property>
-		</widget>
-		<packing>
-		  <property name="left_attach">5</property>
-		  <property name="right_attach">6</property>
-		  <property name="top_attach">0</property>
-		  <property name="bottom_attach">1</property>
-		  <property name="x_options">fill</property>
-		  <property name="y_options"></property>
-		</packing>
-	      </child>
-
-	      <child>
 		<widget class="GtkLabel" id="label144">
 		  <property name="visible">True</property>
 		  <property name="label" translatable="yes">Errors:</property>
@@ -703,25 +684,6 @@
 	      </child>
 
 	      <child>
-		<widget class="GnomeColorPicker" id="preferences_color:color:#0000FF:0:messages.color.info">
-		  <property name="visible">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="dither">True</property>
-		  <property name="use_alpha">False</property>
-		  <property name="title" translatable="yes">Pick a color</property>
-		  <property name="focus_on_click">True</property>
-		</widget>
-		<packing>
-		  <property name="left_attach">1</property>
-		  <property name="right_attach">2</property>
-		  <property name="top_attach">0</property>
-		  <property name="bottom_attach">1</property>
-		  <property name="x_options">fill</property>
-		  <property name="y_options"></property>
-		</packing>
-	      </child>
-
-	      <child>
 		<widget class="GtkLabel" id="label145">
 		  <property name="visible">True</property>
 		  <property name="label" translatable="yes">Warnings:</property>
@@ -750,17 +712,49 @@
 	      </child>
 
 	      <child>
-		<widget class="GnomeColorPicker" id="preferences_color:color:#00FF00:0:messages.color.warning">
+		<widget class="GtkColorButton" id="preferences_color:color:#0000FF:0:messages.color.info">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="dither">True</property>
 		  <property name="use_alpha">False</property>
-		  <property name="title" translatable="yes">Pick a color</property>
+		  <property name="focus_on_click">True</property>
+		</widget>
+		<packing>
+		  <property name="left_attach">1</property>
+		  <property name="right_attach">2</property>
+		  <property name="top_attach">0</property>
+		  <property name="bottom_attach">1</property>
+		  <property name="x_options">fill</property>
+		  <property name="y_options"></property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkColorButton" id="preferences_color:color:#00FF00:0:messages.color.warning">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="use_alpha">False</property>
 		  <property name="focus_on_click">True</property>
 		</widget>
 		<packing>
 		  <property name="left_attach">3</property>
 		  <property name="right_attach">4</property>
+		  <property name="top_attach">0</property>
+		  <property name="bottom_attach">1</property>
+		  <property name="x_options">fill</property>
+		  <property name="y_options"></property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkColorButton" id="preferences_color:color:#00FF00:0:messages.color.error">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="use_alpha">False</property>
+		  <property name="focus_on_click">True</property>
+		</widget>
+		<packing>
+		  <property name="left_attach">5</property>
+		  <property name="right_attach">6</property>
 		  <property name="top_attach">0</property>
 		  <property name="bottom_attach">1</property>
 		  <property name="x_options">fill</property>

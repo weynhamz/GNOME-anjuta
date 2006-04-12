@@ -30,6 +30,7 @@ Milestone 2.0.2 - (Estimated release time April 2006)
 
 Milestone 2.1.0 - (Estimated release time Oct 2006):
 - Complete Users manual, tutorials and FAQ
+- Include new debugger from anjuta-new-debugger branch
 - Fix GDL to restore widgets dock locations correctly.
 - Fix GDL to restore widgets geometry correctly on dock.
 - Complete glade plugin integration
