@@ -49,38 +49,30 @@
 
 #include "callbacks.h"
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/[+NameLower+]/glade/[+NameLower+].glade"
-
-#define GLADE_HOOKUP_OBJECT(component,widget,name) \
-		g_object_set_data_full (G_OBJECT (component), name, \
-		gtk_widget_ref (widget), (GDestroyNotify) gtk_widget_unref)
-
-#define GLADE_HOOKUP_OBJECT_NO_REF(component,widget,name) \
-	g_object_set_data (G_OBJECT (component), name, widget)
-	
+/* For testing propose use the local (not installed) glade file */
+/* #define GLADE_FILE PACKAGE_DATA_DIR"/[+NameLower+]/glade/[+NameLower+].glade" */
+#define GLADE_FILE "[+NameLower+].glade"
 	
 GtkWidget*
-create_window1 (void)
+create_window (void)
 {
-	GtkWidget *window1;
+	GtkWidget *window;
 	GladeXML *gxml;
 	
 	gxml = glade_xml_new (GLADE_FILE, NULL, NULL);
 	
 	/* This is important */
 	glade_xml_signal_autoconnect (gxml);
-	window1 = glade_xml_get_widget (gxml, "window1");
-	/* Store pointers to all widgets, for use by lookup_widget(). */
- 	GLADE_HOOKUP_OBJECT_NO_REF (window1, window1, "window1");
+	window = glade_xml_get_widget (gxml, "window");
 	
-	return window1;
+	return window;
 }
 
 
 int
 main (int argc, char *argv[])
 {
- 	GtkWidget *window1;
+ 	GtkWidget *window;
 
 [+IF (=(get "HaveI18n") "1")+]
 #ifdef ENABLE_NLS
@@ -93,8 +85,8 @@ main (int argc, char *argv[])
 	gtk_set_locale ();
 	gtk_init (&argc, &argv);
 
-	window1 = create_window1 ();
-	gtk_widget_show (window1);
+	window = create_window ();
+	gtk_widget_show (window);
 
 	gtk_main ();
 	return 0;

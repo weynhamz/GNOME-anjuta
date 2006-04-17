@@ -1,3 +1,13 @@
+2006-04-17  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/project-wizard/templates/gnome/src/main.c:
+	* plugins/project-wizard/templates/gnome/src/project.glade:
+	* plugins/project-wizard/templates/gtk/src/main.c: 
+	* plugins/project-wizard/templates/gtk/src/project.glade:
+	* plugins/project-wizard/templates/gtkmm/src/main.cc:
+	
+	Fixed up GLADE_FILE definition in project types and fixed bug #334546
+	
 2006-04-17  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: More removal of obsoleteness.

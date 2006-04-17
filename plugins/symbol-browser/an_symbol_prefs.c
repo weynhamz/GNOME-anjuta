@@ -83,7 +83,7 @@ update_system_tags_only_add (const gchar *tag_file)
 	{
 		g_warning ("Error while re-creating system tags cache");
 	}
-		/* Reload tags */
+	/* Reload tags */
 	tm_workspace_reload_global_tags(output_file);
 	
 	g_free (output_file);
