@@ -476,7 +476,7 @@ AC_SUBST(GLIB_MKENUMS)
 dnl ***************************************************************************
 dnl Internatinalization
 dnl ***************************************************************************
-ALL_LINGUAS="az be bg ca cs da de el en_CA en_GB es fi fr ga gl hi hr hu it ja ko mk ml ms nb ne nl no pl pa pt pt_BR ru rw sk sq sr sr@Latn sv tr uk zh_CN zh_TW"
+ALL_LINGUAS="az be bg ca cs da de el en_CA en_GB es fi fr ga gl hi hr hu it ja ko mk ml ms nb ne nl pl pa pt pt_BR ru rw sk sq sr sr@Latn sv tr uk zh_CN zh_TW"
 GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
