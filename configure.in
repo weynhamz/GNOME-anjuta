@@ -362,11 +362,10 @@ else
 	PKG_CHECK_MODULES(PLUGIN_SOURCEVIEW,
 		[libgnome-2.0 >= $GTKSOURCEVIEW_GNOME_REQUIRED, 
 		gtksourceview-1.0 >= $GTKSOURCEVIEW_REQUIRED],
-		[sourceview="yes"],
-		[sourceview="no"])
+		[sourceview="yes" scintilla="no"],
+		[sourceview="no" scintilla="yes"])
 	AC_SUBST(PLUGIN_SOURCEVIEW_CFLAGS)
 	AC_SUBST(PLUGIN_SOURCEVIEW_LIBS)
-	scintilla="no"
 fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_SOURCEVIEW, [test x$sourceview = xyes])
@@ -394,7 +393,7 @@ if test x$sourceview = xyes; then
 fi
 AC_ARG_ENABLE(plugin-scintilla,
 	[ --enable-plugin-scintilla	Enable Scintilla based editor in Anjuta], 
-	[ if test "$enableval" = "no"; then
+	[ if test "$enableval" = "yes"; then
 		scintilla="yes"
 	  fi ])
 

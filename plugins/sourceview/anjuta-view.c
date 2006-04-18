@@ -796,13 +796,21 @@ anjuta_view_expose (GtkWidget      *widget,
 	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->expose_event)(widget, event);
 }
 
+static gchar
+anjuta_view_get_last_character(GtkWidget* widget)
+{
+	GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
+	GtkTextIter cursor;
+	
+	gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer));
+	return (gchar) gtk_text_iter_get_char(&cursor);
+}
+
 static gboolean
 anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 {
 	AnjutaView* view = ANJUTA_VIEW(widget);
 	TagWindow* tag_window = get_active_tag_window(view);
-	
-	g_signal_emit_by_name(G_OBJECT(view), "char_added", (char) event->keyval);
 	
 	 switch (event->keyval)
 	 {
@@ -822,6 +830,7 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 					{
 						retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
 						tag_window_update(tag_window, GTK_WIDGET(view));
+						g_signal_emit_by_name(G_OBJECT(view), "char_added", anjuta_view_get_last_character(widget));
 						return retval;
 					}
 					case TAG_WINDOW_KEY_CONTROL:
@@ -838,10 +847,13 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 			{
 				retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
 				tag_window_update(tag_window, GTK_WIDGET(view));
+				g_signal_emit_by_name(G_OBJECT(view), "char_added", anjuta_view_get_last_character(widget));
 				return retval;
 			}
-			return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);;
-		}
+			retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+			g_signal_emit_by_name(G_OBJECT(view), "char_added", anjuta_view_get_last_character(widget));
+			return retval;
+		}				
 	}
 }
 
