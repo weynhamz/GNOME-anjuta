@@ -79,6 +79,14 @@ static void sourceview_add_monitor(Sourceview* sv);
 
 /* Callbacks */
 
+static void on_document_char_added(AnjutaDocument* buffer, gchar character, Sourceview* sv)
+{
+	/* FIXME: Pass correct character */
+	g_signal_emit_by_name(G_OBJECT(sv), "char_added",
+		ianjuta_editor_get_position(IANJUTA_EDITOR(sv), NULL), character);
+	DEBUG_PRINT("Char added");
+}
+
 /* Called whenever the document is changed */
 static void on_document_modified_changed(AnjutaDocument* buffer, Sourceview* sv)
 {
@@ -411,6 +419,8 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 					 
 	/* Create View instance */
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document));
+	g_signal_connect(G_OBJECT(sv->priv->view), "char_added",
+					G_CALLBACK(on_document_char_added), sv);
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
 	
 	sv->priv->tag_window = sourceview_tags_new(plugin);

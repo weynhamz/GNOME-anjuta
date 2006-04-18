@@ -1,3 +1,12 @@
+2006-04-18  Johannes Schmid,,,  <set EMAIL_ADDRESS environment variable>
+
+	* TODO.tasks: Updated
+	* plugins/sourceview/anjuta-view.c: 
+	* plugins/sourceview/anjuta-view.h:
+	* plugins/sourceview/sourceview.c: 
+	
+	Added char_added signal
+
 2006-04-18  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* libanjuta/anjuta-utils.c: (anjuta_util_diff):

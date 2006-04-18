@@ -53,6 +53,13 @@
 
 #define ANJUTA_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), ANJUTA_TYPE_VIEW, AnjutaViewPrivate))
 
+enum {
+	CHAR_ADDED,
+	LAST_SIGNAL
+};
+
+static guint view_signals[LAST_SIGNAL] = { 0 };
+
 enum
 {
 	TAG = 0,
@@ -250,6 +257,17 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 	g_object_class_install_property (object_class,
 					 ANJUTA_VIEW_POPUP,
 					 anjuta_view_spec_popup);
+	
+		view_signals[CHAR_ADDED] =
+   		g_signal_new ("char_added",
+			      G_OBJECT_CLASS_TYPE (object_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (AnjutaViewClass, char_added),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__CHAR,
+			      G_TYPE_NONE,
+			      1,
+			      G_TYPE_CHAR);
 	
 	binding_set = gtk_binding_set_by_class (klass);	
 }
@@ -783,6 +801,8 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 {
 	AnjutaView* view = ANJUTA_VIEW(widget);
 	TagWindow* tag_window = get_active_tag_window(view);
+	
+	g_signal_emit_by_name(G_OBJECT(view), "char_added", (char) event->keyval);
 	
 	 switch (event->keyval)
 	 {

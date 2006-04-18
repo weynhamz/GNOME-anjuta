@@ -91,13 +91,6 @@ should be shown side-by-side in status bar.</comment>
 preferences dialog) are not applied now.</comment>
     </item>
     <item>
-      <attribute id="1107240185" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240185"/>
-      <summary>Expose editor functions to IAnjutaEditor</summary>
-      <comment>Currently, only a limited numbers of Editor are exposed through
-IAnjutaEditor, IAnjutaMarkable and IAnjutaFileSavable interface.
-Most of the API should be exposed.</comment>
-    </item>
-    <item>
       <attribute id="1107240279" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240279"/>
       <summary>Move CVS directories</summary>
       <comment>Move data/properties/ and scintilla/ directories (by CVS surgery, and
@@ -140,6 +133,13 @@ prompt user to reload it.</comment>
       <comment>When syntax highlighting colors/fonts are changed, the
 changes are not propagated to all editors, but it should, just
 like a gconf key.</comment>
+    </item>
+    <item>
+      <attribute id="1107240185" priority="1" done="1" start_date="731978" completed_date="732419" notify="0" last_edited="1145355619"/>
+      <summary>Expose editor functions to IAnjutaEditor</summary>
+      <comment>Currently, only a limited numbers of Editor are exposed through
+IAnjutaEditor, IAnjutaMarkable and IAnjutaFileSavable interface.
+Most of the API should be exposed.</comment>
     </item>
   </category>
   <category title="Plugin: Project Manager" place="8">

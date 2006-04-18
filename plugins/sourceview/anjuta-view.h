@@ -73,6 +73,9 @@ typedef struct _AnjutaViewClass		AnjutaViewClass;
 struct _AnjutaViewClass
 {
 	GtkSourceViewClass parent_class;
+	
+	void (* char_added)  		(AnjutaDocument    *document,
+					 gchar character);
 };
 
 /*
