@@ -5,6 +5,8 @@
 	* plugins/sourceview/anjuta-view.h:
 	* plugins/sourceview/sourceview.c: 
 	
+	* configure.in: Fix --enable-plugin-scintilla
+	
 	Added char_added signal
 
 2006-04-18  Johannes Schmid <jhs@cvs.gnome.org>
