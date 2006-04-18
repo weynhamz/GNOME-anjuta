@@ -258,24 +258,30 @@ sourceview_args_filter_keypress(TagWindow* tags, guint keyval)
 		}
 		case GDK_BackSpace:
 		{
-			GtkTextBuffer* buffer = 
-				gtk_text_view_get_buffer(GTK_TEXT_VIEW(SOURCEVIEW_ARGS(tags)->priv->view));
-			GtkTextIter cursor;
-			GtkTextIter start;
-			gchar* text;
-			
-			gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer));
-			gtk_text_buffer_get_iter_at_mark(buffer, &start, gtk_text_buffer_get_insert(buffer));			
-			gtk_text_iter_backward_char(&start);
-			
-			text = gtk_text_buffer_get_text(buffer, &start, &cursor, FALSE);
-			if (g_str_equal(text, "(") && args->priv->brace_count == 1)
+			if (tag_window_is_active(TAG_WINDOW(tags)))
 			{
+				GtkTextBuffer* buffer = 
+					gtk_text_view_get_buffer(GTK_TEXT_VIEW(SOURCEVIEW_ARGS(tags)->priv->view));
+				GtkTextIter cursor;
+				GtkTextIter start;
+				gchar* text;
+			
+				gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer));
+				gtk_text_buffer_get_iter_at_mark(buffer, &start, gtk_text_buffer_get_insert(buffer));			
+				gtk_text_iter_backward_char(&start);
+			
+				text = gtk_text_buffer_get_text(buffer, &start, &cursor, FALSE);
+				if (g_str_equal(text, "("))
+				{
+					g_free(text);
+					args->priv->brace_count--;
+					return args->priv->brace_count;
+				}
 				g_free(text);
-				return FALSE;
+				return TRUE;
 			}
-			g_free(text);
-			return TRUE;
+			else
+				return FALSE;
 		}
 		case GDK_parenleft:
 		{
@@ -369,7 +375,7 @@ sourceview_args_new(AnjutaPlugin* plugin, AnjutaView* aview)
                                                    renderer_pixbuf, "pixbuf", COLUMN_PIXBUF, NULL);
     
    	renderer_text = gtk_cell_renderer_text_new();
-   	g_object_set(G_OBJECT(renderer_text), "wrap-width", 400, "wrap-mode", PANGO_WRAP_WORD, NULL); 
+   	g_object_set(G_OBJECT(renderer_text), "wrap-width", 600, "wrap-mode", PANGO_WRAP_WORD, NULL); 
 	column_show = gtk_tree_view_column_new_with_attributes ("Show",
                                                    renderer_text, "text", COLUMN_SHOW, NULL);
                                                    
@@ -383,7 +389,6 @@ sourceview_args_new(AnjutaPlugin* plugin, AnjutaView* aview)
 	g_signal_connect(G_OBJECT(obj), "hide", G_CALLBACK(sourceview_args_hide), NULL);
 	
  	g_object_get(G_OBJECT(renderer_text), "height", &height, NULL);
-	gtk_widget_set_size_request(GTK_WIDGET(view), -1, height);
 	
 	return obj;
 }

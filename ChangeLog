@@ -1,3 +1,17 @@
+2006-04-18  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* libanjuta/anjuta-utils.c: (anjuta_util_diff):
+	
+	Fixed diff for utf8
+	
+	* plugins/sourceview/sourceview.c:
+	Fixed VFS monitoring (still a bit buggy)
+	
+	* plugins/sourceview/sourceview-args.c:
+	* plugins/sourceview/tag-window.c: 
+	
+	Better sizing for the popup-window
+
 2006-04-17  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/project-wizard/templates/gnome/src/main.c:

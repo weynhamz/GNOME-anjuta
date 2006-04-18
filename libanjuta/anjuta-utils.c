@@ -31,6 +31,7 @@
 #include <string.h>
 
 #include <glib/gi18n.h>
+#include <glib.h>
 
 #include <libgnome/gnome-util.h>
 
@@ -947,10 +948,8 @@ gboolean anjuta_util_diff(const gchar* uri, const gchar* text)
 		&& (bytes_read == info.size))
 	{
 		gnome_vfs_close(handle);
-		DEBUG_PRINT("File text: %d", strlen(file_text));
-		DEBUG_PRINT("text: %d", strlen(text));
 		
-		if ((strlen(file_text) == strlen(text))
+		if ((g_utf8_strlen(file_text, -1) == g_utf8_strlen(text, -1))
 			&& strcmp(file_text, text) == 0)
 			return FALSE;
 		return TRUE;

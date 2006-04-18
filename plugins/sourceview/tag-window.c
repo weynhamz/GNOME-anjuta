@@ -43,6 +43,8 @@ static void tag_window_finalize(GObject *object);
 
 struct _TagWindowPrivate {
 	GtkTreeView* view;
+	GtkWidget* scrolled_window;
+	GtkWidget* text_view;
 	gint	column;
 };
 
@@ -65,6 +67,66 @@ G_DEFINE_TYPE(TagWindow, tag_window, GTK_TYPE_WINDOW);
 
 static void
 tag_window_move(TagWindow* tag_win, GtkWidget* view);
+
+static gboolean 
+tag_window_expose(GtkWidget* widget, GdkEventExpose* event)
+{
+	GtkWidget *text_view;
+    gint width;
+    gint total_items, items, height;
+    GdkScreen *screen;
+    gint monitor_num;
+    GdkRectangle monitor;
+    GtkRequisition popup_req;
+    gint vert_separator;
+    TagWindow* tagwin = TAG_WINDOW(widget);
+	GtkTreeModel* model = gtk_tree_view_get_model(tagwin->priv->view);
+	GtkTreeViewColumn* column = gtk_tree_view_get_column(tagwin->priv->view, 0);
+
+    g_return_val_if_fail (tagwin->priv->text_view != NULL, FALSE); 
+    text_view = tagwin->priv->text_view;
+
+    total_items = gtk_tree_model_iter_n_children (model, NULL);
+    items = MIN (total_items, 8);
+
+    gtk_tree_view_column_cell_get_size (column, NULL,
+                                        NULL, NULL, NULL, &height);
+
+    screen = gtk_widget_get_screen (text_view);
+    monitor_num = gdk_screen_get_monitor_at_window (screen, text_view->window);
+    gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
+
+    gtk_widget_style_get (GTK_WIDGET (tagwin->priv->view),
+                          "vertical-separator", &vert_separator,
+                          NULL);
+
+    gtk_widget_size_request (GTK_WIDGET (tagwin->priv->view), &popup_req);
+    width = popup_req.width;
+
+    if (total_items > items)
+    {
+        int scrollbar_spacing;
+        GtkRequisition scrollbar_req;
+        gtk_widget_size_request (GTK_SCROLLED_WINDOW(tagwin->priv->scrolled_window)->vscrollbar,
+                                 &scrollbar_req);
+        gtk_widget_style_get (GTK_WIDGET (tagwin->priv->scrolled_window),
+                              "scrollbar-spacing", &scrollbar_spacing, NULL);
+        width += scrollbar_req.width + scrollbar_spacing;
+    }
+
+    width = MAX (width, 100);
+    width = MIN (monitor.width, width);
+
+    gtk_widget_set_size_request (GTK_WIDGET (tagwin->priv->view),
+                                 -1, items * (height + vert_separator));
+    gtk_widget_set_size_request (GTK_WIDGET (tagwin->priv->scrolled_window),
+                                 width, -1);
+
+    gtk_widget_set_size_request (widget, -1, -1);
+    gtk_widget_size_request (widget, &popup_req);
+
+	return (* GTK_WIDGET_CLASS (tag_window_parent_class)->expose_event)(widget, event);
+}
 
 static void
 tag_window_set_property (GObject * object,
@@ -129,12 +191,15 @@ static void
 tag_window_class_init(TagWindowClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 	GParamSpec *tag_window_spec_view;
 	GParamSpec *tag_window_spec_column;
 	
 	object_class->finalize = tag_window_finalize;
 	object_class->set_property = tag_window_set_property;
 	object_class->get_property = tag_window_get_property;
+	
+	widget_class->expose_event = tag_window_expose;
 	
 	klass->update_tags = NULL;
 	klass->filter_keypress = NULL;
@@ -210,11 +275,11 @@ tag_window_init(TagWindow *obj)
 	gtk_container_add(GTK_CONTAINER(scroll), view);
 	
 	obj->priv->view = GTK_TREE_VIEW(view);
+	obj->priv->scrolled_window = scroll;
 	
 	gtk_window_set_decorated(GTK_WINDOW(obj), FALSE);
 	gtk_window_set_type_hint(GTK_WINDOW(obj), GDK_WINDOW_TYPE_HINT_MENU);
 	
-	gtk_widget_set_size_request(view, -1, 150);
 	gtk_widget_show_all(scroll);
 }
 
@@ -365,9 +430,10 @@ gboolean tag_window_update(TagWindow* tagwin, GtkWidget* view)
 	g_return_val_if_fail(klass->update_tags != NULL, FALSE);
 	
 	if (klass->update_tags(tagwin, view))
-	{
+	{	
 		if (!tag_window_is_active(tagwin))
-		{
+		{	
+			tagwin->priv->text_view = view;
 			klass->move(tagwin, view);
 			gtk_widget_show(GTK_WIDGET(tagwin));
 		}

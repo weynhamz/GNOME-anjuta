@@ -75,6 +75,8 @@ static void sourceview_instance_init(Sourceview *sv);
 static void sourceview_finalize(GObject *object);
 static GObjectClass *parent_class = NULL;
 
+static void sourceview_add_monitor(Sourceview* sv);
+
 /* Callbacks */
 
 /* Called whenever the document is changed */
@@ -105,6 +107,18 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, Sourceview *sv)
 	gtk_widget_destroy (dlg);
 }
 
+/* Update Monitor on load/save */
+static void
+sourceview_remove_monitor(Sourceview* sv)
+{
+	if (sv->priv->monitor != NULL) 
+	{
+		DEBUG_PRINT ("Monitor removed for %s", anjuta_document_get_uri(sv->priv->document));
+		gnome_vfs_monitor_cancel(sv->priv->monitor);
+		sv->priv->monitor = NULL;
+	}
+}
+
 /* VFS-Monitor Callback */
 static void
 on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
@@ -123,11 +137,16 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
 		return;
 	
+	sourceview_remove_monitor(sv);
+	
 	if (!anjuta_util_diff(anjuta_document_get_uri(sv->priv->document), 
 						  ianjuta_editor_get_text(IANJUTA_EDITOR(sv),
 						  0, ianjuta_editor_get_length(IANJUTA_EDITOR(sv), NULL),
 							NULL)))
+	{
+		sourceview_add_monitor(sv);
 		return;
+	}
 	
 	if (strcmp (monitor_uri, info_uri) != 0)
 		return;
@@ -158,18 +177,6 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 					  G_CALLBACK (gtk_widget_destroy),
 					  dlg);
 	gtk_widget_show (dlg);
-}
-
-/* Update Monitor on load/save */
-static void
-sourceview_remove_monitor(Sourceview* sv)
-{
-	if (sv->priv->monitor != NULL) 
-	{
-		DEBUG_PRINT ("Monitor removed for %s", anjuta_document_get_uri(sv->priv->document));
-		gnome_vfs_monitor_cancel(sv->priv->monitor);
-		sv->priv->monitor = NULL;
-	}
 }
 
 static void 
