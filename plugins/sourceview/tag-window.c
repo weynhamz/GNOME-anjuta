@@ -459,12 +459,14 @@ TagWindowKeyPress tag_window_filter_keypress(TagWindow* tag_window, guint keyval
 		switch (keyval)
 	 	{
 	 		case GDK_Down:
+	 		case GDK_Page_Down:
 			{
 				if (tag_window_down(tag_window))
 					return TAG_WINDOW_KEY_CONTROL;
 				return TAG_WINDOW_KEY_SKIP;
 			}
 			case GDK_Up:
+			case GDK_Page_Up:
 			{
 				if (tag_window_up(tag_window))
 					return TAG_WINDOW_KEY_CONTROL;

@@ -51,7 +51,6 @@
 @erase_all: 
 @get_attributes: 
 @get_column: 
-@get_current_pos: 
 @get_current_word: 
 @get_filename: 
 @get_length: 
@@ -137,15 +136,6 @@
 @obj: 
 @err: 
 @Returns: 
-
-
-<!-- ##### FUNCTION ianjuta_editor_get_current_pos ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
 
 
 <!-- ##### FUNCTION ianjuta_editor_get_current_word ##### -->

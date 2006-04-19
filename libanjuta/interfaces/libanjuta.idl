@@ -789,7 +789,7 @@ interface IAnjutaEditor
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Select chars between start and end
+	 * Get current caret position
 	 *
 	 * Returns: Current character position since the begining of file.
 	 */
@@ -806,16 +806,6 @@ interface IAnjutaEditor
 	 *
 	 */
 	int get_line_from_position (int position);
-	
-	/**
-	 * ianjuta_editor_get_current_pos
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Gets the current position of carat in the text buffer.
-	 *
-	 */
-	void get_current_pos ();
 	
 	/**
 	 * ianjuta_editor_get_lineno:

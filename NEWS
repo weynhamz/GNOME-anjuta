@@ -58,6 +58,8 @@ Bug fixes:
 #336389 	Should check for libwnck
 #107510 	Excessive messages marked for translation in anjuta
 #304650 	make -j CPUS doesn't always work for anjuta2
+#334546		No more lookup widget
+#312319 	Opening files when Anjuta is already open
 
 Anjuta 2.0.1 (26 Jun 2005) -- Naba Kumar
 

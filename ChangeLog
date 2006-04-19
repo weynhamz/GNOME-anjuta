@@ -1,3 +1,14 @@
+2006-04-20  Massimo Cora' <maxcvs@email.it>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Remove get_current_pos () because we have get_position()
+
+2006-04-20  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* NEWS: Updated
+	* plugins/sourceview/tag-window.c:
+	Don't close window on PageUp/PageDown
+
 2006-04-20 Johannes Schmid <jhs@cvs.gnome.org>
 
 	* data/Makefile.am:
