@@ -63,12 +63,6 @@ User Interface manager
 </para>
 
 @Returns: 
-<!-- # Unused Parameters # -->
-@ui_container: 
-@add_widget_cb: 
-@remove_widget_cb: 
-@add_widget: 
-@remove_widget: 
 
 
 <!-- ##### FUNCTION anjuta_ui_add_action_group_entries ##### -->
@@ -84,9 +78,6 @@ User Interface manager
 @translation_domain: 
 @user_data: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@group_name: 
-@group_label: 
 
 
 <!-- ##### FUNCTION anjuta_ui_add_toggle_action_group_entries ##### -->
@@ -113,9 +104,6 @@ User Interface manager
 @action_group_name: 
 @action_group_label: 
 @action_group: 
-<!-- # Unused Parameters # -->
-@group_name: 
-@group_label: 
 
 
 <!-- ##### FUNCTION anjuta_ui_remove_action_group ##### -->
@@ -136,8 +124,6 @@ User Interface manager
 @action_group_name: 
 @action_name: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@group_name: 
 
 
 <!-- ##### FUNCTION anjuta_ui_activate_action_by_path ##### -->
@@ -167,8 +153,6 @@ User Interface manager
 @ui: 
 @ui_filename: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@filename: 
 
 
 <!-- ##### FUNCTION anjuta_ui_unmerge ##### -->

@@ -90,8 +90,6 @@ ianjuta-iterable-tree
 @obj: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@iter: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_tree_parent ##### -->
@@ -102,7 +100,5 @@ ianjuta-iterable-tree
 @obj: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@iter: 
 
 

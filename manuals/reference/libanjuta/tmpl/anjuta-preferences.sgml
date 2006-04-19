@@ -210,8 +210,6 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 @pr: 
 @stream: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@p: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_save_filtered ##### -->
@@ -223,8 +221,6 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 @stream: 
 @filter: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@p: 
 
 
 <!-- ##### FUNCTION anjuta_preferences_save_gconf ##### -->

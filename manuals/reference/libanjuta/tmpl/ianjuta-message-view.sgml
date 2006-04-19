@@ -74,10 +74,6 @@
 @summary: 
 @details: 
 @err: 
-<!-- # Unused Parameters # -->
-@message: 
-@message_view: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_message_view_buffer_append ##### -->
@@ -97,9 +93,6 @@
 
 @obj: 
 @err: 
-<!-- # Unused Parameters # -->
-@message_view: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_message_view_get_all_messages ##### -->
@@ -110,9 +103,6 @@
 @obj: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@message_view: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_message_view_get_current_message ##### -->
@@ -132,9 +122,6 @@
 
 @obj: 
 @err: 
-<!-- # Unused Parameters # -->
-@message_view: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_message_view_select_previous ##### -->
@@ -144,8 +131,5 @@
 
 @obj: 
 @err: 
-<!-- # Unused Parameters # -->
-@message_view: 
-@e: 
 
 

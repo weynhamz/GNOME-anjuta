@@ -31,8 +31,6 @@ ESplash
 @splash: 
 @splash_image_pixbuf: 
 @progressbar_position: 
-<!-- # Unused Parameters # -->
-@splash_image: 
 
 
 <!-- ##### FUNCTION e_splash_new ##### -->

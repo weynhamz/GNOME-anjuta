@@ -78,8 +78,6 @@ ianjuta-file-savable
 @obj: 
 @uri: 
 @err: 
-<!-- # Unused Parameters # -->
-@filename: 
 
 
 <!-- ##### FUNCTION ianjuta_file_savable_set_dirty ##### -->

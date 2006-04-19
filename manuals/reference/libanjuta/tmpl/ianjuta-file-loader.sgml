@@ -57,8 +57,6 @@ ianjuta-file-loader
 @readonly: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@filename: 
 
 
 <!-- ##### FUNCTION ianjuta_file_loader_peek_interface ##### -->
@@ -70,7 +68,5 @@ ianjuta-file-loader
 @uri: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@filename: 
 
 

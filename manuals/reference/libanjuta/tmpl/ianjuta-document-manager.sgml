@@ -91,9 +91,6 @@
 @obj: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@docman: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_document_manager_get_editors ##### -->
@@ -104,9 +101,6 @@
 @obj: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@docman: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_document_manager_get_full_filename ##### -->
@@ -129,9 +123,6 @@
 @file: 
 @lineno: 
 @err: 
-<!-- # Unused Parameters # -->
-@docman: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_document_manager_goto_file_line_mark ##### -->
@@ -154,8 +145,5 @@
 @obj: 
 @editor: 
 @err: 
-<!-- # Unused Parameters # -->
-@docman: 
-@e: 
 
 

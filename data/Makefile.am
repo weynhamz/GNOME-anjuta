@@ -14,9 +14,6 @@ anjuta_data_DATA = \
 
 EXTRA_DIST = $(anjuta_data_DATA)
 
-install-data-local: system.tags
-	$(INSTALL_DATA) system.tags $(DESTDIR)$(anjuta_data_dir)
-
 uninstall-local:
 	@rm -fv $(anjuta_datadir)/system.tags
 	-if test -d $(DESTDIR)$(anjuta_data_dir)/properties; then \

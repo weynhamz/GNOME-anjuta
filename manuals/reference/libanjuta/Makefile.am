@@ -67,6 +67,7 @@ expand_content_files=
 # signals and properties.
 # e.g. INCLUDES=-I$(top_srcdir) -I$(top_builddir) $(GTK_DEBUG_FLAGS)
 # e.g. GTKDOC_LIBS=$(top_builddir)/gtk/$(gtktargetlib)
+if HAVE_PLUGIN_SCINTILLA
 INCLUDES =						\
 	-I$(top_srcdir) 				\
 	-I$(top_builddir) 				\
@@ -80,6 +81,19 @@ GTKDOC_LIBS =						\
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
 	$(top_builddir)/scintilla/libanjuta-scintilla.la \
 	$(LIBANJUTA_LIBS)
+else
+INCLUDES =						\
+	-I$(top_srcdir) 				\
+	-I$(top_builddir) 				\
+	-I$(top_builddir)/libanjuta			\
+	$(LIBANJUTA_CFLAGS)
+	
+GTKDOC_LIBS =						\
+	-lutil \
+	$(top_builddir)/libanjuta/libanjuta.la \
+	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
+	$(LIBANJUTA_LIBS)
+endif
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.
 # include $(top_srcdir)/gtk-doc.make

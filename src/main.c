@@ -30,12 +30,24 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/plugins.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
 
 #include "anjuta.h"
+#include "bacon-message-connection.h"
 
 #define ANJUTA_PIXMAP_SPLASH_SCREEN       "anjuta_splash.png"
 
+/* App */
+static AnjutaApp *app = NULL;
+
+/* Bacon */
+static guint32 startup_timestamp = 0;
+static BaconMessageConnection *connection;
+
 /* Command line options */
+/* command line */
+static gint line_position = 0;
+static GList *file_list = NULL;
 static gboolean no_splash = 0;
 static gboolean proper_shutdown = 0;
 static gchar *anjuta_geometry = NULL;
@@ -91,14 +103,13 @@ get_real_path (const gchar *file_name)
 		return NULL;
 }
 
-static GList *
+static void
 get_command_line_args (GnomeProgram *program)
 {
 	poptContext ctx;
 	gchar **args;
 	gint i;
 	GValue value = { 0, };
-	GList *command_args = NULL;
 
 	g_value_init (&value, G_TYPE_POINTER);
 	g_object_get_property (G_OBJECT (program),
@@ -109,19 +120,176 @@ get_command_line_args (GnomeProgram *program)
 	args = (char**) poptGetArgs(ctx);
 	if (args) 
 		for (i = 0; args[i]; i++) 
-			command_args = g_list_append (command_args,
+			file_list = g_list_append (file_list,
 										  get_real_path (args[i]));
-	return command_args;
+}
+
+static GdkDisplay *
+display_open_if_needed (const gchar *name)
+{
+	GSList *displays;
+	GSList *l;
+	GdkDisplay *display = NULL;
+
+	displays = gdk_display_manager_list_displays (gdk_display_manager_get ());
+
+	for (l = displays; l != NULL; l = l->next)
+	{
+		if (strcmp (gdk_display_get_name ((GdkDisplay *) l->data), name) == 0)
+		{
+			display = l->data;
+			break;
+		}
+	}
+
+	g_slist_free (displays);
+
+	return display != NULL ? display : gdk_display_open (name);
+}
+
+/* serverside */
+static void
+on_message_received (const char *message,
+		     gpointer    data)
+{
+	gchar **commands;
+	gchar **params;
+	gchar *display_name;
+	gint screen_number;
+	gint i;
+	GdkDisplay *display;
+	GdkScreen *screen;
+
+	g_return_if_fail (message != NULL);
+
+	commands = g_strsplit (message, "\v", -1);
+
+	/* header */
+	params = g_strsplit (commands[0], "\t", 4);
+	startup_timestamp = atoi (params[0]); /* CHECK if this is safe */
+	display_name = g_strdup (params[1]);
+	screen_number = atoi (params[2]);
+
+	display = display_open_if_needed (display_name);
+	screen = gdk_display_get_screen (display, screen_number);
+	g_free (display_name);
+
+	g_strfreev (params);
+
+	/* body */
+	i = 1;
+	while (commands[i])
+	{
+		params = g_strsplit (commands[i], "\t", -1);
+
+		if (strcmp (params[0], "OPEN-URIS") == 0)
+		{
+			gint n_uris, i;
+			gchar **uris;
+
+			line_position = atoi (params[1]);
+
+			n_uris = atoi (params[2]);
+			uris = g_strsplit (params[3], " ", n_uris);
+
+			for (i = 0; i < n_uris; i++)
+				file_list = g_list_prepend (file_list, uris[i]);
+			file_list = g_list_reverse (file_list);
+
+			/* the list takes ownerhip of the strings,
+			 * only free the array */
+			g_free (uris);
+		}
+		else
+		{
+			g_warning ("Unexpected bacon command");
+		}
+
+		g_strfreev (params);
+		++i;
+	}
+
+	g_strfreev (commands);
+
+	/* execute the commands */
+
+	while (file_list != NULL)
+	{
+		IAnjutaFileLoader* file =
+			anjuta_shell_get_interface(ANJUTA_SHELL(app), IAnjutaFileLoader, NULL);
+		gchar* uri = g_strdup_printf("%s:%d", (gchar*) file_list->data, line_position);
+		
+		ianjuta_file_loader_load(file, file_list->data, FALSE, NULL);
+		g_free(uri);
+		file_list = g_list_next(file_list);
+	}
+
+	/* free the file list and reset to default */
+	g_list_foreach (file_list, (GFunc) g_free, NULL);
+	g_list_free (file_list);
+	file_list = NULL;
+
+	line_position = 0;
+}
+
+/* clientside */
+static void
+send_bacon_message (void)
+{
+	GdkScreen *screen;
+	GdkDisplay *display;
+	const gchar *display_name;
+	gint screen_number;
+	GString *command;
+
+	screen = gdk_screen_get_default ();
+	display = gdk_screen_get_display (screen);
+
+	display_name = gdk_display_get_name (display);
+	screen_number = gdk_screen_get_number (screen);
+
+	command = g_string_new (NULL);
+
+	/* header */
+	g_string_append_printf (command,
+				"%" G_GUINT32_FORMAT "\t%s\t%d",
+				startup_timestamp,
+				display_name,
+				screen_number);
+
+	/* OPEN_URIS command, optionally specify line_num and encoding */
+	if (file_list)
+	{
+		GList *l;
+
+		command = g_string_append_c (command, '\v');
+		command = g_string_append (command, "OPEN-URIS");
+
+		g_string_append_printf (command,
+					"\t%d\t%d\t",
+					line_position,
+					g_list_length (file_list));
+
+		for (l = file_list; l != NULL; l = l->next)
+		{
+			command = g_string_append (command, l->data);
+			if (l->next != NULL)
+				command = g_string_append_c (command, ' ');
+		}
+	}
+	
+	bacon_message_connection_send (connection,
+				       command->str);
+
+	g_string_free (command, TRUE);
 }
 
 int
 main (int argc, char *argv[])
 {
-	AnjutaApp *app;
 	GnomeProgram *program;
 	gchar *data_dir;
 	GList *plugins_dirs = NULL;
-	GList* command_args;
 	char *im_file;
 	
 #ifdef ENABLE_NLS
@@ -144,10 +312,39 @@ main (int argc, char *argv[])
 								  NULL);
 	g_free (data_dir);
 	
-	gtk_window_set_default_icon_from_file (PACKAGE_PIXMAPS_DIR"/anjuta_icon.png", NULL);
-	
 	/* Get the command line files */
-	command_args = get_command_line_args (program);
+	get_command_line_args (program);
+	
+	connection = bacon_message_connection_new ("anjuta");
+	
+	if (connection != NULL)
+	{
+		if (!bacon_message_connection_get_is_server (connection)) 
+		{
+			DEBUG_PRINT("Client");
+			send_bacon_message ();
+
+			/* we never popup a window... tell startup-notification
+			 * that we are done.
+			 */
+			gdk_notify_startup_complete ();
+
+			bacon_message_connection_free (connection);
+
+			exit (0);
+		}
+		else 
+		{
+			DEBUG_PRINT("Server");
+			bacon_message_connection_set_callback (connection,
+							       on_message_received,
+							       NULL);
+		}
+	}
+	else
+		g_warning ("Cannot create the 'anjuta' connection.");
+	
+	gtk_window_set_default_icon_from_file (PACKAGE_PIXMAPS_DIR"/anjuta_icon.png", NULL);
 	gtk_window_set_auto_startup_notification(FALSE);
 
 	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
@@ -155,10 +352,10 @@ main (int argc, char *argv[])
 	/* Initialize plugins */
 	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
 	anjuta_plugins_init (plugins_dirs);
-
-	/* Create Anjuta application */
-	app = anjuta_new (argv[0], command_args, no_splash, im_file,
+	
+	app = anjuta_new (argv[0], file_list, no_splash, im_file,
 					  proper_shutdown, anjuta_geometry);
+	
 	g_free (im_file);
 	gtk_window_set_role (GTK_WINDOW (app), "anjuta-app");
 	

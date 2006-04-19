@@ -76,9 +76,6 @@ ianjuta-iterable
 @callback: 
 @user_data: 
 @err: 
-<!-- # Unused Parameters # -->
-@start_iter: 
-@user_dat: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_get ##### -->
@@ -90,8 +87,6 @@ ianjuta-iterable
 @data_type: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@iter: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_get_length ##### -->
@@ -154,8 +149,6 @@ ianjuta-iterable
 @obj: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@iter: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_previous ##### -->
@@ -166,8 +159,6 @@ ianjuta-iterable
 @obj: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@iter: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_set ##### -->
@@ -179,8 +170,6 @@ ianjuta-iterable
 @data_type: 
 @data: 
 @err: 
-<!-- # Unused Parameters # -->
-@iter: 
 
 
 <!-- ##### FUNCTION ianjuta_iterable_set_nth ##### -->

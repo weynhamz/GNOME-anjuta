@@ -39,9 +39,6 @@ Plugins management and activation
 
 @shell: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@ui: 
-@prefs: 
 
 
 <!-- ##### FUNCTION anjuta_plugins_get_description ##### -->
@@ -109,8 +106,6 @@ Plugins management and activation
 @shell: 
 @iface_name: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@interface_name: 
 
 
 <!-- ##### FUNCTION anjuta_plugins_get_plugin_by_id ##### -->

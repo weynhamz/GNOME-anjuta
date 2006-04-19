@@ -34,9 +34,6 @@ implementor.
 
 @exit_staus: 
 @user_data: 
-<!-- # Unused Parameters # -->
-@s: 
-@d: 
 
 
 <!-- ##### FUNCTION anjuta_children_register ##### -->
@@ -47,8 +44,6 @@ implementor.
 @pid: 
 @ch_terminated: 
 @data: 
-<!-- # Unused Parameters # -->
-@Param2: 
 
 
 <!-- ##### FUNCTION anjuta_children_unregister ##### -->

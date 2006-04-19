@@ -1,4 +1,18 @@
-2006-04-18  Johannes Schmid,,,  <set EMAIL_ADDRESS environment variable>
+2006-04-20 Johannes Schmid <jhs@cvs.gnome.org>
+
+	* data/Makefile.am:
+	* manuals/reference/libanjuta/Makefile.am:
+	
+	Some build fixes
+	
+	* src/Makefile.am:
+	* src/bacon-message-connection.c: 
+	* src/bacon-message-connection.h: (both from gedit)
+	* src/main.c:
+	
+	Fixed #312319 (Opening files when Anjuta is already open)
+
+2006-04-18  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* TODO.tasks: Updated
 	* plugins/sourceview/anjuta-view.c: 

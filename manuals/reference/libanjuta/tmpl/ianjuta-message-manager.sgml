@@ -69,10 +69,6 @@
 @icon: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@msgman: 
-@file: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_message_manager_get_all_views ##### -->
@@ -83,9 +79,6 @@
 @obj: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@msgman: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_message_manager_get_current_view ##### -->
@@ -96,9 +89,6 @@
 @obj: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@msgman: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_message_manager_get_view_by_name ##### -->
@@ -110,9 +100,6 @@
 @name: 
 @err: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@msgman: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_message_manager_remove_view ##### -->
@@ -123,9 +110,6 @@
 @obj: 
 @view: 
 @err: 
-<!-- # Unused Parameters # -->
-@msgman: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_message_manager_set_current_view ##### -->
@@ -136,10 +120,6 @@
 @obj: 
 @view: 
 @err: 
-<!-- # Unused Parameters # -->
-@msgman: 
-@message_view: 
-@e: 
 
 
 <!-- ##### FUNCTION ianjuta_message_manager_set_view_title ##### -->

@@ -31,6 +31,8 @@ anjuta_SOURCES = \
 	anjuta-actions.h \
 	action-callbacks.h \
 	action-callbacks.c \
+	bacon-message-connection.h \
+	bacon-message-connection.c \
 	main.c
 
 anjuta_LDADD =  \

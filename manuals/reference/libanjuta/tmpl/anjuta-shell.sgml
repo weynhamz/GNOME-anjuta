@@ -132,8 +132,6 @@ Application shell interface
 @shell: 
 @error: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@err: 
 
 
 <!-- ##### FUNCTION anjuta_shell_get_ui ##### -->
@@ -144,8 +142,6 @@ Application shell interface
 @shell: 
 @error: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@err: 
 
 
 <!-- ##### FUNCTION anjuta_shell_get_preferences ##### -->
@@ -156,8 +152,6 @@ Application shell interface
 @shell: 
 @error: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@err: 
 
 
 <!-- ##### FUNCTION anjuta_shell_freeze ##### -->
@@ -297,8 +291,6 @@ Application shell interface
 @iface_name: 
 @error: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@interface_name: 
 
 
 <!-- ##### FUNCTION anjuta_shell_session_save ##### -->

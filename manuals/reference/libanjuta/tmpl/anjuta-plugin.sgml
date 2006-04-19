@@ -254,9 +254,6 @@ else
 @name: 
 @value: 
 @user_data: 
-<!-- # Unused Parameters # -->
-@data: 
-@tool: 
 
 
 <!-- ##### USER_FUNCTION AnjutaPluginValueRemoved ##### -->
@@ -267,9 +264,6 @@ else
 @plugin: 
 @name: 
 @user_data: 
-<!-- # Unused Parameters # -->
-@data: 
-@tool: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_activate ##### -->
@@ -310,8 +304,6 @@ else
 @removed: 
 @user_data: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@tool: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_remove_watch ##### -->
@@ -322,8 +314,6 @@ else
 @plugin: 
 @id: 
 @send_remove: 
-<!-- # Unused Parameters # -->
-@tool: 
 
 
 <!-- ##### MACRO ANJUTA_PLUGIN_BEGIN ##### -->

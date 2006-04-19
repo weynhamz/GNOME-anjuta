@@ -96,8 +96,6 @@ Plugins meta data description
 
 @pf: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@pd: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_description_free ##### -->
@@ -106,8 +104,6 @@ Plugins meta data description
 </para>
 
 @pf: 
-<!-- # Unused Parameters # -->
-@pd: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_description_foreach_section ##### -->
@@ -118,8 +114,6 @@ Plugins meta data description
 @pf: 
 @func: 
 @user_data: 
-<!-- # Unused Parameters # -->
-@pd: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_description_foreach_key ##### -->
@@ -132,8 +126,6 @@ Plugins meta data description
 @include_localized: 
 @func: 
 @user_data: 
-<!-- # Unused Parameters # -->
-@dp: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_description_get_raw ##### -->
@@ -147,8 +139,6 @@ Plugins meta data description
 @locale: 
 @val: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@dp: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_description_get_integer ##### -->
@@ -161,8 +151,6 @@ Plugins meta data description
 @keyname: 
 @val: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@dp: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_description_get_string ##### -->
@@ -175,8 +163,6 @@ Plugins meta data description
 @keyname: 
 @val: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@dp: 
 
 
 <!-- ##### FUNCTION anjuta_plugin_description_get_locale_string ##### -->
@@ -189,7 +175,5 @@ Plugins meta data description
 @keyname: 
 @val: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@dp: 
 
 

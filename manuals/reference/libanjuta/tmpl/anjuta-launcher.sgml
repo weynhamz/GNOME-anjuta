@@ -70,8 +70,6 @@ AnjutaLauncher
 @callback: 
 @callback_data: 
 @Returns: 
-<!-- # Unused Parameters # -->
-@command: 
 
 
 <!-- ##### FUNCTION anjuta_launcher_execute_v ##### -->
@@ -103,8 +101,6 @@ AnjutaLauncher
 
 @launcher: 
 @input_str: 
-<!-- # Unused Parameters # -->
-@in: 
 
 
 <!-- ##### FUNCTION anjuta_launcher_send_ptyin ##### -->
@@ -114,8 +110,6 @@ AnjutaLauncher
 
 @launcher: 
 @input_str: 
-<!-- # Unused Parameters # -->
-@in: 
 
 
 <!-- ##### FUNCTION anjuta_launcher_get_child_pid ##### -->
