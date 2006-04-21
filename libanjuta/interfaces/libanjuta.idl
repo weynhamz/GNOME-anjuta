@@ -1256,6 +1256,58 @@ interface IAnjutaEditor
 		 */
 		gint get_count ();
 	}
+	
+	interface IAnjutaEditorComment
+	{
+		/**
+		 * ianjuta_editor_comment_block()
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Comment/Uncomment out selected block
+		 */
+		void block();
+		
+		/**
+		 * ianjuta_editor_comment_box()
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Comment/Uncomment out selected block
+		 */
+		void box();
+		
+		/**
+		 * ianjuta_editor_comment_stream()
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Comment/Uncomment out selected block
+		 */
+		void stream();
+	}
+	
+	interface IAnjutaEditorZoom
+	{
+		/**
+		 * ianjuta_editor_zoom_in()
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Zoom in
+		 */
+		void in();
+		
+		/**
+		 * ianjuta_editor_zoom_out()
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Zoom out
+		 */
+		void out();
+	}
+		
 }
 
 interface IAnjutaBookmark

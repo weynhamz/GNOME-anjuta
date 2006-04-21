@@ -33,6 +33,8 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-print.h>
+#include <libanjuta/interfaces/ianjuta-editor-comment.h>
+#include <libanjuta/interfaces/ianjuta-editor-zoom.h>
 
 #include <libegg/menu/egg-entry-action.h>
 
@@ -603,44 +605,35 @@ on_next_history (GtkAction *action, gpointer user_data)
 void
 on_comment_block (GtkAction * action, gpointer user_data)
 {
-	#if 0 // FIXME
-	TextEditor* te;
+	IAnjutaEditor* te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	plugin = (DocmanPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-    aneditor_command (te->editor_id, ANE_BLOCKCOMMENT, 0, 0);
-	#endif
+	ianjuta_editor_comment_block(IANJUTA_EDITOR_COMMENT(te), NULL);
 }
 
 void on_comment_box (GtkAction * action, gpointer user_data)
 {
-	#if 0 // FIXME
-    TextEditor* te;
+	IAnjutaEditor* te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	plugin = (DocmanPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-    aneditor_command (te->editor_id, ANE_BOXCOMMENT, 0, 0);
-	#endif
+	ianjuta_editor_comment_box(IANJUTA_EDITOR_COMMENT(te), NULL);
 }
 
 void on_comment_stream (GtkAction * action, gpointer user_data)
 {
-	#if 0 // FIXME
-    TextEditor* te;
+	IAnjutaEditor* te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	plugin = (DocmanPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
-	if(!te) return;
-    aneditor_command (te->editor_id, ANE_STREAMCOMMENT, 0, 0);
-	#endif
+	ianjuta_editor_comment_stream(IANJUTA_EDITOR_COMMENT(te), NULL);
 }
 
 void
@@ -838,45 +831,30 @@ on_editor_linewrap1_activate (GtkAction * action, gpointer user_data)
 								VIEW_LINE_WRAP, state);
 }
 
-#define MAX_ZOOM_FACTOR 8
-#define MIN_ZOOM_FACTOR -8
-
-static void
-on_zoom_text_activate (GtkAction * action, const gchar *zoom_text,
-					   DocmanPlugin *plugin)
-{
-#if 0 // FIXME
-	gint zoom;
-	gchar buf[20];
-	
-	if (!zoom_text)
-		zoom = 0;
-	else if (0 == strncmp(zoom_text, "++", 2))
-		zoom = prop_get_int(plugin->prefs->props, TEXT_ZOOM_FACTOR, 0) + 2;
-	else if (0 == strncmp(zoom_text, "--", 2))
-		zoom = prop_get_int(plugin->prefs->props, TEXT_ZOOM_FACTOR, 0) - 2;
-	else
-		zoom = atoi(zoom_text);
-	if (zoom > MAX_ZOOM_FACTOR)
-		zoom = MAX_ZOOM_FACTOR;
-	else if (zoom < MIN_ZOOM_FACTOR)
-		zoom = MIN_ZOOM_FACTOR;
-	g_snprintf(buf, 20, "%d", zoom);
-	prop_set_with_key (plugin->prefs->props, TEXT_ZOOM_FACTOR, buf);
-	// FIXME: anjuta_docman_set_zoom_factor(zoom);
-#endif
-}
-
 void
 on_zoom_in_text_activate (GtkAction * action, gpointer user_data)
 {
-	on_zoom_text_activate (action, "++", user_data);
+	DocmanPlugin *plugin;
+	IAnjutaEditor* te;
+	AnjutaDocman *docman;
+	plugin = (DocmanPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	te = anjuta_docman_get_current_editor (docman);
+	
+	ianjuta_editor_zoom_in(IANJUTA_EDITOR_ZOOM(te), NULL);
 }
 
 void
 on_zoom_out_text_activate (GtkAction * action, gpointer user_data)
 {
-	on_zoom_text_activate (action, "--", user_data);
+	DocmanPlugin *plugin;
+	AnjutaDocman *docman;
+	IAnjutaEditor* te;
+	plugin = (DocmanPlugin *) user_data;
+	docman = ANJUTA_DOCMAN (plugin->docman);
+	te = anjuta_docman_get_current_editor (docman);
+	
+	ianjuta_editor_zoom_out(IANJUTA_EDITOR_ZOOM(te), NULL);
 }
 
 void

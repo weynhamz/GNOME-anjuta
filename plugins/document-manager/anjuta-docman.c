@@ -1461,15 +1461,6 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te_widget)
 	}
 }
 
-#if 0
-void anjuta_set_zoom_factor (gint zoom)
-{
-	TextEditor *te = anjuta_get_current_text_editor();
-	if (te)
-		text_editor_set_zoom_factor(te, zoom);
-}
-#endif
-
 static void
 anjuta_docman_grab_text_focus (AnjutaDocman *docman)
 {

@@ -64,11 +64,7 @@
 #define FORWARD 	0
 #define BACKWARD 	1
 
-#define REGISTER_NOTIFY(key, func) \
-	notify_id = anjuta_preferences_notify_add (te->preferences, \
-											   key, func, te, NULL); \
-	te->gconf_notify_ids = g_list_prepend (te->gconf_notify_ids, \
-										   (gpointer)(notify_id));
+#define MONITOR_KEY "sourceview.enable.vfs"
 
 static void sourceview_class_init(SourceviewClass *klass);
 static void sourceview_instance_init(Sourceview *sv);
@@ -119,7 +115,9 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, Sourceview *sv)
 static void
 sourceview_remove_monitor(Sourceview* sv)
 {
-	if (sv->priv->monitor != NULL) 
+	gboolean monitor_enabled = anjuta_preferences_get_int (sv->priv->prefs, MONITOR_KEY);
+
+	if (monitor_enabled && sv->priv->monitor != NULL) 
 	{
 		DEBUG_PRINT ("Monitor removed for %s", anjuta_document_get_uri(sv->priv->document));
 		gnome_vfs_monitor_cancel(sv->priv->monitor);
@@ -190,11 +188,16 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 static void 
 sourceview_add_monitor(Sourceview* sv)
 {
-	g_return_if_fail(sv->priv->monitor == NULL);
-	DEBUG_PRINT ("Monitor added for %s", anjuta_document_get_uri(sv->priv->document)); 
-	gnome_vfs_monitor_add(&sv->priv->monitor, anjuta_document_get_uri(sv->priv->document),
-						  GNOME_VFS_MONITOR_FILE,
+	gboolean monitor_enabled = anjuta_preferences_get_int (sv->priv->prefs, MONITOR_KEY);
+
+	if (monitor_enabled)
+	{
+		g_return_if_fail(sv->priv->monitor == NULL);
+		DEBUG_PRINT ("Monitor added for %s", anjuta_document_get_uri(sv->priv->document)); 
+		gnome_vfs_monitor_add(&sv->priv->monitor, anjuta_document_get_uri(sv->priv->document),
+							  GNOME_VFS_MONITOR_FILE,
 						  on_sourceview_uri_changed, sv);
+	}
 }
 
 /* Called when document is loaded completly */
@@ -633,7 +636,7 @@ static gint ieditor_get_length(IAnjutaEditor *editor, GError **e)
 								   &end_iter);
 	text = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(sv->priv->document),
 									&start_iter, &end_iter, FALSE);
-	length = strlen(text);
+	length = g_utf8_strlen(text,  -1);
 	g_free(text);
 
 	return length;
@@ -1034,8 +1037,8 @@ iconvert_to_upper(IAnjutaEditorConvert* edit, gint start_pos, gint end_pos, GErr
 	buffer = iselect_get(IANJUTA_EDITOR_SELECTION(edit), e);
 	if (buffer)
 	{
-		buffer = g_utf8_strup(buffer, strlen(buffer));
-		iselect_replace(IANJUTA_EDITOR_SELECTION(edit), buffer, strlen(buffer), e);	
+		buffer = g_utf8_strup(buffer, g_utf8_strlen(buffer, -1));
+		iselect_replace(IANJUTA_EDITOR_SELECTION(edit), buffer, g_utf8_strlen(buffer,  -1), e);	
 		g_free(buffer);
 	}
 
@@ -1049,8 +1052,8 @@ iconvert_to_lower(IAnjutaEditorConvert* edit, gint start_pos, gint end_pos, GErr
 	buffer = iselect_get(IANJUTA_EDITOR_SELECTION(edit), e);
 	if (buffer)
 	{
-		buffer = g_utf8_strdown(buffer, strlen(buffer));
-		iselect_replace(IANJUTA_EDITOR_SELECTION(edit), buffer, strlen(buffer), e);	
+		buffer = g_utf8_strdown(buffer, g_utf8_strlen(buffer, -1));
+		iselect_replace(IANJUTA_EDITOR_SELECTION(edit), buffer, g_utf8_strlen(buffer,  -1), e);	
 		g_free(buffer);
 	}
 }

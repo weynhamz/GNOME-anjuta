@@ -1,3 +1,21 @@
+2006-04-21  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/action-callbacks.c:
+	* plugins/document-manager/anjuta-docman.c:
+	* plugins/document-manager/plugin.c:
+	* plugins/editor/text_editor.c: 
+	Added and implemented IAnjutaEditorComment and IAnjutaEditorZoom
+	
+	* plugins/sourceview/sourceview.c:
+	* plugins/sourceview/sourceview.glade:
+	Fixed some uft-8 issues and added a preference option
+	to enable/disable gnome-vfs monitoring
+	
+	* scintilla/Makefile.am:
+	* scintilla/include/Makefile.am:
+	Fixed build
+
 2006-04-20  Massimo Cora' <maxcvs@email.it>
 
 	* libanjuta/interfaces/libanjuta.idl:

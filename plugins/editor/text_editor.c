@@ -41,6 +41,8 @@
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-view.h>
 #include <libanjuta/interfaces/ianjuta-editor-folds.h>
+#include <libanjuta/interfaces/ianjuta-editor-comment.h>
+#include <libanjuta/interfaces/ianjuta-editor-zoom.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -2776,6 +2778,83 @@ iprint_iface_init(IAnjutaPrintIface* iface)
 	iface->print_preview = iprint_preview;
 }
 
+static void
+icomment_block(IAnjutaEditorComment* comment, GError** e)
+{
+	TextEditor* te = TEXT_EDITOR(comment);
+    aneditor_command (te->editor_id, ANE_BLOCKCOMMENT, 0, 0);
+}
+
+static void
+icomment_stream(IAnjutaEditorComment* comment, GError** e)
+{
+	TextEditor* te = TEXT_EDITOR(comment);
+    aneditor_command (te->editor_id, ANE_STREAMCOMMENT, 0, 0);
+}
+
+static void
+icomment_box(IAnjutaEditorComment* comment, GError** e)
+{
+	TextEditor* te = TEXT_EDITOR(comment);
+    aneditor_command (te->editor_id, ANE_BOXCOMMENT, 0, 0);
+}
+
+static void
+icomment_iface_init(IAnjutaEditorCommentIface* iface)
+{
+	iface->block = icomment_block;
+	iface->box = icomment_box;
+	iface->stream = icomment_stream;
+}
+
+#define MAX_ZOOM_FACTOR 8
+#define MIN_ZOOM_FACTOR -8
+
+static void
+on_zoom_text_activate (const gchar *zoom_text,
+					   TextEditor* te)
+{
+	gint zoom;
+	gchar buf[20];
+	
+	if (!zoom_text)
+		zoom = 0;
+	else if (0 == strncmp(zoom_text, "++", 2))
+		zoom = sci_prop_get_int(te->props_base, TEXT_ZOOM_FACTOR, 0) + 2;
+	else if (0 == strncmp(zoom_text, "--", 2))
+		zoom = sci_prop_get_int(te->props_base, TEXT_ZOOM_FACTOR, 0) - 2;
+	else
+		zoom = atoi(zoom_text);
+	if (zoom > MAX_ZOOM_FACTOR)
+		zoom = MAX_ZOOM_FACTOR;
+	else if (zoom < MIN_ZOOM_FACTOR)
+		zoom = MIN_ZOOM_FACTOR;
+	g_snprintf(buf, 20, "%d", zoom);
+	sci_prop_set_with_key (te->props_base, TEXT_ZOOM_FACTOR, buf);
+	text_editor_set_zoom_factor(te, zoom);
+}
+
+static void
+izoom_in(IAnjutaEditorZoom* zoom, GError** e)
+{
+	TextEditor* te = TEXT_EDITOR(zoom);
+   	on_zoom_text_activate ("++", te);
+}
+
+static void
+izoom_out(IAnjutaEditorZoom* zoom, GError** e)
+{
+	TextEditor* te = TEXT_EDITOR(zoom);
+   	on_zoom_text_activate ("--", te);
+}
+
+static void
+izoom_iface_init(IAnjutaEditorZoomIface* iface)
+{
+	iface->in = izoom_in;
+	iface->out = izoom_out;
+}
+
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -2790,6 +2869,8 @@ ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(imarkable, IANJUTA_TYPE_MARKABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iindicable, IANJUTA_TYPE_INDICABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
+ANJUTA_TYPE_ADD_INTERFACE(icomment, IANJUTA_TYPE_EDITOR_COMMENT);
+ANJUTA_TYPE_ADD_INTERFACE(izoom, IANJUTA_TYPE_EDITOR_ZOOM);
 
 /* FIXME: Is factory definition really required for editor class? */
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor_factory, IANJUTA_TYPE_EDITOR_FACTORY);
