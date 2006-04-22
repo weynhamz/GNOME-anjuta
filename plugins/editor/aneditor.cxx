@@ -1931,6 +1931,9 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 		lineNumbersWidth = wParam;
 		SendEditor(SCI_SETMARGINWIDTHN, 0, lineNumbers ? lineNumbersWidth : 0);
 		break;
+	case ANE_SETEDGECOLUMN:
+		SendEditor(SCI_SETEDGECOLUMN, wParam);
+		break;
 	default:
 		break;
 	}

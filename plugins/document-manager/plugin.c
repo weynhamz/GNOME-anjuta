@@ -36,6 +36,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-folds.h>
 #include <libanjuta/interfaces/ianjuta-editor-comment.h>
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
+#include <libanjuta/interfaces/ianjuta-editor-goto.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 
 
@@ -688,9 +689,13 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 		"ActionViewEditorFolds");
 	g_object_set (G_OBJECT (action), "visible", flag, NULL);
 	
+	/* IAnjutaEditorComment */
+	
 	flag = IANJUTA_IS_EDITOR_COMMENT(editor);
 	action = anjuta_ui_get_action(ui, "ActionGroupEditorComment", "ActionMenuEditComment");
 	g_object_set(G_OBJECT (action), "visible", flag, NULL);
+	
+	/* IAnjutaEditorZoom */
 	
 	flag = IANJUTA_IS_EDITOR_ZOOM(editor);
 	action = anjuta_ui_get_action(ui,  "ActionGroupEditorZoom", "ActionViewEditorZoomIn");
@@ -698,6 +703,12 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 	action = anjuta_ui_get_action(ui,  "ActionGroupEditorZoom", "ActionViewEditorZoomOut");
 	g_object_set(G_OBJECT (action), "visible", flag, NULL);
 
+	/* IAnjutaEditorGoto */
+	flag = IANJUTA_IS_EDITOR_GOTO(editor);
+	action = anjuta_ui_get_action(ui,  "ActionGroupEditorNavigate", "ActionEditGotoBlockStart");
+	g_object_set(G_OBJECT (action), "visible", flag, NULL);
+	action = anjuta_ui_get_action(ui,  "ActionGroupEditorNavigate", "ActionEditGotoBlockEnd");
+	g_object_set(G_OBJECT (action), "visible", flag, NULL);
 }
 
 static void

@@ -1,3 +1,18 @@
+2006-04-22  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/action-callbacks.c:
+	* plugins/document-manager/plugin.c:
+	* plugins/editor/text_editor.c:
+	Added IAnjutaEditorGoto	
+
+	* plugins/editor/aneditor.cxx:
+	* plugins/editor/aneditor.h:
+	* plugins/editor/text_editor.h:
+	* plugins/editor/text_editor_prefs.c:
+	
+	Fixed #305076
+
 2006-04-21  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

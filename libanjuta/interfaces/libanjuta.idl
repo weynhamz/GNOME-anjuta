@@ -1307,7 +1307,27 @@ interface IAnjutaEditor
 		 */
 		void out();
 	}
+	
+	interface IAnjutaEditorGoto
+	{
+		/**
+		 * ianjuta_editor_goto_start_block()
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Moves cursor to the start of the current block
+		 */
+		void start_block();
 		
+		/**
+		 * ianjuta_editor_goto_end_block()
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Moves cursor to the end of the current block
+		 */
+		void end_block();
+	}
 }
 
 interface IAnjutaBookmark

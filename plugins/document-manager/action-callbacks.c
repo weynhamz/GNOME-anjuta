@@ -35,6 +35,7 @@
 #include <libanjuta/interfaces/ianjuta-print.h>
 #include <libanjuta/interfaces/ianjuta-editor-comment.h>
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
+#include <libanjuta/interfaces/ianjuta-editor-goto.h>
 
 #include <libegg/menu/egg-entry-action.h>
 
@@ -715,8 +716,7 @@ on_goto_line_no1_activate (GtkAction * action, gpointer user_data)
 void
 on_goto_block_start1_activate (GtkAction * action, gpointer user_data)
 {
-	#if 0
-	TextEditor *te;
+	IAnjutaEditor *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
@@ -725,15 +725,13 @@ on_goto_block_start1_activate (GtkAction * action, gpointer user_data)
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	text_editor_goto_block_start(te);
-	#endif
+	ianjuta_editor_goto_start_block(IANJUTA_EDITOR_GOTO(te), NULL);
 }
 
 void
 on_goto_block_end1_activate (GtkAction * action, gpointer user_data)
 {
-	#if 0
-	TextEditor *te;
+	IAnjutaEditor *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
@@ -742,8 +740,7 @@ on_goto_block_end1_activate (GtkAction * action, gpointer user_data)
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	text_editor_goto_block_end(te);
-	#endif
+	ianjuta_editor_goto_end_block(IANJUTA_EDITOR_GOTO(te), NULL);
 }
 
 #define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible"

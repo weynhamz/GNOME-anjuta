@@ -260,5 +260,6 @@ void text_editor_scintilla_command (TextEditor *te, gint command,
 #define VIEW_WHITE_SPACES          "view.whitespace"
 #define VIEW_EOL                   "view.eol"
 #define VIEW_LINE_WRAP             "view.line.wrap"
+#define EDGE_COLUMN                "edge.column"
 
 #endif

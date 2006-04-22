@@ -362,6 +362,18 @@ on_gconf_notify_fold_underline (GConfClient *gclient, guint cnxn_id,
 	text_editor_command (te, ANE_SETFOLDUNDERLINE, state, 0);
 }
 
+static void
+on_gconf_notify_edge_column (GConfClient *gclient, guint cnxn_id,
+								GConfEntry *entry, gpointer user_data)
+{
+	TextEditor *te;
+	gint size;
+	
+	te = TEXT_EDITOR (user_data);
+	size = set_n_get_prop_int (te, EDGE_COLUMN);
+	text_editor_command (te, ANE_SETEDGECOLUMN, size, 0);
+}
+
 #define REGISTER_NOTIFY(key, func) \
 	notify_id = anjuta_preferences_notify_add (te->preferences, \
 											   key, func, te, NULL); \
@@ -404,6 +416,7 @@ text_editor_prefs_init (TextEditor *te)
 	set_n_get_prop_int (te, VIEW_LINENUMBERS_MARGIN);
 	g_free (set_n_get_prop_string (te, FOLD_SYMBOLS));
 	set_n_get_prop_int (te, FOLD_UNDERLINE);
+	set_n_get_prop_int (te, EDGE_COLUMN);
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
@@ -428,6 +441,7 @@ text_editor_prefs_init (TextEditor *te)
 	REGISTER_NOTIFY (VIEW_LINENUMBERS_MARGIN, on_gconf_notify_view_linenums);
 	REGISTER_NOTIFY (FOLD_SYMBOLS, on_gconf_notify_fold_symbols);
 	REGISTER_NOTIFY (FOLD_UNDERLINE, on_gconf_notify_fold_underline);
+	REGISTER_NOTIFY (EDGE_COLUMN, on_gconf_notify_edge_column);
 }
 
 void

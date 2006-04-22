@@ -43,6 +43,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-folds.h>
 #include <libanjuta/interfaces/ianjuta-editor-comment.h>
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
+#include <libanjuta/interfaces/ianjuta-editor-goto.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -2855,6 +2856,27 @@ izoom_iface_init(IAnjutaEditorZoomIface* iface)
 	iface->out = izoom_out;
 }
 
+static void
+igoto_start_block(IAnjutaEditorGoto* editor, GError** e)
+{
+	TextEditor* te = TEXT_EDITOR(editor);
+	text_editor_goto_block_start(te);
+}
+
+static void
+igoto_end_block(IAnjutaEditorGoto* editor, GError** e)
+{
+	TextEditor* te = TEXT_EDITOR(editor);
+	text_editor_goto_block_end(te);
+}
+
+static void
+igoto_iface_init(IAnjutaEditorGotoIface* iface)
+{
+	iface->start_block = igoto_start_block;
+	iface->end_block = igoto_end_block;
+}
+
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -2871,6 +2893,7 @@ ANJUTA_TYPE_ADD_INTERFACE(iindicable, IANJUTA_TYPE_INDICABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 ANJUTA_TYPE_ADD_INTERFACE(icomment, IANJUTA_TYPE_EDITOR_COMMENT);
 ANJUTA_TYPE_ADD_INTERFACE(izoom, IANJUTA_TYPE_EDITOR_ZOOM);
+ANJUTA_TYPE_ADD_INTERFACE(igoto, IANJUTA_TYPE_EDITOR_GOTO);
 
 /* FIXME: Is factory definition really required for editor class? */
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor_factory, IANJUTA_TYPE_EDITOR_FACTORY);
