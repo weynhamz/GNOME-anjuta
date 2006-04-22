@@ -1,3 +1,10 @@
+2005-04-22 Sebastien Granjoux <seb.sfo@free.fr>
+ 
+ 	* plugins/project-wizard/install.c,
+ 	* plugins/project-wizard/autogen.c:
+ 	Add error messages if using a read only directory
+ 	Improve fix for bug #339296
+
 2006-04-22  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

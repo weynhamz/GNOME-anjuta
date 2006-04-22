@@ -61,6 +61,7 @@ struct _NPWAutogen
 					 * in a file */
 	const gchar* outfilename;
 	FILE* output;
+	gboolean empty;
 					/* Call back function and data used
 					 * when autogen output something */
 	NPWAutogenOutputFunc outfunc;
@@ -258,14 +259,10 @@ on_autogen_output (AnjutaLauncher* launcher, AnjutaLauncherOutputType type, cons
 	if (this->outfilename != NULL)
 	{
 		/* Write output in a file */
-		if (this->output == NULL)
-		{
-			/* Open file if it's not already done */
-			this->output = fopen (this->outfilename, "wt");
-		}
 		if (this->output != NULL)
 		{
 			fputs (output, this->output);
+			this->empty = FALSE;
 		}
 	}
 	if (this->outfunc != NULL)
@@ -283,6 +280,11 @@ on_autogen_terminated (AnjutaLauncher* launcher, gint pid, gint status, gulong t
 	{
 		fclose (this->output);
 		this->output = NULL;
+		/* Delete empty file */
+		if (this->empty == TRUE)
+		{
+			g_remove (this->outfilename);
+		}
 	}
 
 	if (this->endfunc)
@@ -314,6 +316,15 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GErro
 	args[2] = (gchar *)this->tplfilename;
 	args[3] = (gchar *)this->deffilename;
 
+	/* Check if output file can be written */
+	if (this->outfilename != NULL)
+	{
+		/* Open file if it's not already done */
+		this->output = fopen (this->outfilename, "wt");
+		if (this->output == NULL) return FALSE;
+		this->empty = TRUE;
+	}
+	
 	this->busy = TRUE;
 	if (!anjuta_launcher_execute_v (this->launcher, args, on_autogen_output, this))
 	{

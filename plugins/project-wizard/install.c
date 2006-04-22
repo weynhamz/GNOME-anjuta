@@ -65,6 +65,7 @@ struct _NPWInstall
 	AnjutaLauncher* launcher;
 	NPWPlugin* plugin;
 	const gchar* project_file;
+	gboolean success;
 };
 
 /*---------------------------------------------------------------------------*/
@@ -194,6 +195,7 @@ NPWInstall* npw_install_new (NPWPlugin* plugin)
 	this = g_new0(NPWInstall, 1);
 	this->gen = npw_autogen_new ();
 	this->plugin = plugin;
+	this->success = TRUE;
 	npw_plugin_create_view (plugin);
 
 	plugin->install = this;
@@ -275,7 +277,11 @@ on_install_end_action (gpointer data)
 	{
 		if (this->action == NULL)
 		{
-			this->action = npw_action_list_first (this->action_list);
+			if (this->success)
+			{
+				/* Run action on success only */
+				this->action = npw_action_list_first (this->action_list);
+			}
 		}
 		else
 		{
@@ -374,20 +380,20 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 		{
 			/* IAnjutaFileLoader* loader; */
 			/* All files have been installed */
-			npw_plugin_print_view (this->plugin,
-								   IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-								   _("New project has been created successfully"),
-								   "");
-
-			/*if (this->project_file != NULL)
+			if (this->success)
 			{
-				loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->plugin)->shell, IAnjutaFileLoader, NULL);
-				if (loader)
-				{
-					ianjuta_file_loader_load (loader, this->project_file, FALSE, NULL);
-				}
-			}*/
-
+				npw_plugin_print_view (this->plugin,
+					IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+					 _("New project has been created successfully"),
+					 "");
+			}
+			else
+			{
+				npw_plugin_print_view (this->plugin,
+					IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
+					 _("New project creation has failed"),
+					 "");
+			}
 			on_install_end_action (this);
 			
 			return;
@@ -423,7 +429,7 @@ npw_install_install_file (NPWInstall* this)
 	const gchar* source;
 	gchar* msg;
 	gboolean use_autogen;
-	gboolean ok = TRUE;
+	gboolean ok;
 
 	destination = npw_file_get_destination (this->file);
 	source = npw_file_get_source (this->file);
@@ -455,17 +461,6 @@ npw_install_install_file (NPWInstall* this)
 		use_autogen = FALSE;
 	}
 
-	if (use_autogen)
-	{	
-		msg = g_strdup_printf (_("Creating %s (using AutoGen)"), destination);
-	}
-	else
-	{
-		msg = g_strdup_printf (_("Creating %s"), destination);
-	}
-	npw_plugin_print_view (this->plugin, IANJUTA_MESSAGE_VIEW_TYPE_INFO, msg, "");
-	g_free (msg);
-
 	len = strlen (destination) + 1;	
 	buffer = g_new (gchar, MAX (FILE_BUFFER_SIZE, len));
 	strcpy (buffer, destination);			
@@ -483,7 +478,8 @@ npw_install_install_file (NPWInstall* this)
 			{
 				if (mkdir (buffer, 0755) == -1)
 				{
-					g_warning("Unable to create directory %s\n", buffer);
+					msg = g_strdup_printf (_("Creating %s ... Fail to create directory"), destination);
+					ok = FALSE;
 					break;
 				}
 			}
@@ -497,14 +493,24 @@ npw_install_install_file (NPWInstall* this)
 		{
 			npw_autogen_set_input_file (this->gen, source, NULL, NULL);
 			npw_autogen_set_output_file (this->gen, destination);
-			npw_autogen_execute (this->gen, on_install_end_install_file, this, NULL);
+			ok = npw_autogen_execute (this->gen, on_install_end_install_file, this, NULL);
+			msg = g_strdup_printf (_("Creating %s (using AutoGen)... %s"), destination, ok ? "Ok" : "Fail to Execute");
 		}
 		else
 		{
-			npw_copy_file (destination, source);
-			on_install_end_install_file (this->gen, this);
+			ok = npw_copy_file (destination, source);
+			msg = g_strdup_printf (_("Creating %s ... %s"), destination, ok ? "Ok" : "Fail to copy file");
 		}
 	}
+
+	/* Record failure and display error message */
+	if (!ok) this->success = FALSE;
+	npw_plugin_print_view (this->plugin, ok ? IANJUTA_MESSAGE_VIEW_TYPE_INFO : IANJUTA_MESSAGE_VIEW_TYPE_ERROR, msg, "");
+	g_free (msg);
+
+	/* Next file is called automatically if autogen succeed */
+	if (!ok || !use_autogen)
+		on_install_end_install_file (this->gen, this);
 
 	return ok;
 }
