@@ -250,9 +250,14 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		GtkWidget* dock_item = g_object_get_data (G_OBJECT(widget), "dock_item");;
 		const gchar* toolbarname = gtk_widget_get_name(widget);
 		AnjutaPreferences* pr = ANJUTA_PREFERENCES (app->preferences);
-		gchar* key = g_strconcat (toolbarname, ".visible", NULL);
-		anjuta_preferences_set_int(pr, key, GTK_WIDGET_VISIBLE(dock_item));
-		g_free(key);
+		gboolean visible;
+		if (dock_item)
+		{
+			gchar* key = g_strconcat (toolbarname, ".visible", NULL);
+			g_object_get(G_OBJECT(dock_item), "visible", &visible, NULL);
+			anjuta_preferences_set_int(pr, key, visible);
+			g_free(key);
+		}
 		node = g_list_next(node);
 	}
 

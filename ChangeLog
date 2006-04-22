@@ -1,5 +1,11 @@
 2006-04-22  Johannes Schmid <jhs@cvs.gnome.org>
 
+	* src/anjuta-app.c: (on_session_save):
+	Fixed bug in toolbar saving. Thanks to Ricardo Jose Ferrari
+	<ricardo.jose.ferrari@gmail.com> for pointing this out!
+
+2006-04-22  Johannes Schmid <jhs@cvs.gnome.org>
+
 	* libanjuta/anjuta-utils.c: 
 	* plugins/cvs-plugin/cvs-execute.c:
 	Off-by-one...
