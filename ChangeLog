@@ -1,5 +1,17 @@
 2006-04-22  Johannes Schmid <jhs@cvs.gnome.org>
 
+	* libanjuta/anjuta-utils.c: 
+	* plugins/cvs-plugin/cvs-execute.c:
+	Off-by-one...
+
+	* scintilla/LexInno.cxx:
+	* scintilla/LexOpal.cxx:
+	* scintilla/LexTCL.cxx:
+
+	Added missing files from scintilla-update
+
+2006-04-22  Johannes Schmid <jhs@cvs.gnome.org>
+
 	* configure.in:
 	* manuals/C/Makefile.am:
 	* manuals/C/anjuta-faqs/anjuta-faqs.xml:
