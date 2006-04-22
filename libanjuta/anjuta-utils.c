@@ -830,7 +830,7 @@ anjuta_util_parse_args_from_string (const gchar* string)
 {
 	gboolean escaped;
 	gchar    quote;
-	gchar    buffer[2048];
+	gchar* buffer = g_new0(gchar, g_utf8_strlen(string, -1));
 	const gchar *s;
 	gint     idx;
 	GList* args = NULL;
@@ -908,7 +908,7 @@ anjuta_util_escape_quotes(const gchar* str)
 	idx = 0;
 	
 	/* We are assuming there will be less than 2048 chars to escape */
-	max_size = strlen(str) + 2048;
+	max_size = g_utf8_strlen(str, -1) + 2048;
 	buffer = g_new (gchar, max_size);
 	max_size -= 2;
 	

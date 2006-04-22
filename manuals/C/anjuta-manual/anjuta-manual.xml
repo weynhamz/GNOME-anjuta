@@ -6,7 +6,6 @@
   <!ENTITY fileoperations SYSTEM "fileoperations.xml">
   <!ENTITY build SYSTEM "build.xml">
   <!ENTITY execute SYSTEM "execute.xml">
-  <!ENTITY compileopts SYSTEM "compileopts.xml">
   <!ENTITY projects SYSTEM "projects.xml">
   <!ENTITY debugger SYSTEM "debugger.xml">
   <!ENTITY preferences SYSTEM "preferences.xml">
@@ -14,9 +13,9 @@
   <!ENTITY authors SYSTEM "authors.xml">
   <!ENTITY license SYSTEM "license.xml">
   <!ENTITY license SYSTEM "legal.xml">
-  <!ENTITY appversion "2.2.2">
-  <!ENTITY manrevision "2.6">
-  <!ENTITY date "September 2003">
+  <!ENTITY appversion "2.0.2">
+  <!ENTITY manrevision "2.7">
+  <!ENTITY date "April 2006">
   <!ENTITY app "anjuta">
 ]>
 
@@ -92,8 +91,6 @@
  &build;
  <!-- Executing -->
  &execute;
- <!-- Setting compiler options -->
- &compileopts;
  <!-- Project Management -->
  &projects;
  <!-- Debugging -->

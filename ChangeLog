@@ -1,3 +1,100 @@
+2006-04-22  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* configure.in:
+	* manuals/C/Makefile.am:
+	* manuals/C/anjuta-faqs/anjuta-faqs.xml:
+	* manuals/C/anjuta-manual/Makefile.am:
+	* manuals/C/anjuta-manual/anjuta-manual.xml:
+	* manuals/C/anjuta-manual/build.xml:
+	* manuals/C/anjuta-manual/debugger.xml:
+	* manuals/C/anjuta-manual/execute.xml:
+	* manuals/C/anjuta-manual/figures/anjuta-in-action.png:
+	* manuals/C/anjuta-manual/figures/arguments.png:
+	* manuals/C/anjuta-manual/figures/configure_dlg.png:
+	* manuals/C/anjuta-manual/figures/file_menu.png:
+	* manuals/C/anjuta-manual/figures/menu_main.png:
+	* manuals/C/anjuta-manual/figures/menubar.png:
+	* manuals/C/anjuta-manual/figures/new_file_wizard.png:
+	* manuals/C/anjuta-manual/figures/project_info.png:
+	* manuals/C/anjuta-manual/figures/scrshot.png:
+	* manuals/C/anjuta-manual/figures/symbol_browser.png:
+	* manuals/C/anjuta-manual/figures/tool-editor.png:
+	* manuals/C/anjuta-manual/figures/toolbar_browser.png:
+	* manuals/C/anjuta-manual/figures/toolbar_ext.png:
+	* manuals/C/anjuta-manual/figures/toolbar_format.png:
+	* manuals/C/anjuta-manual/figures/toolbar_main.png:
+	* manuals/C/anjuta-manual/figures/toolbar_tags.png:
+	* manuals/C/anjuta-manual/fileoperations.xml:
+	* manuals/C/anjuta-manual/interface.xml:
+	* manuals/C/anjuta-manual/introduction.xml:
+	* manuals/C/anjuta-manual/preferences.xml:
+	* manuals/C/anjuta-manual/projects.xml:
+	* manuals/C/anjuta-manual/tools.xml:
+	* manuals/Makefile.am:
+	
+	Updated manual and faq
+
+	* scintilla/CallTip.cxx:
+	* scintilla/CallTip.h:
+	* scintilla/CellBuffer.cxx:
+	* scintilla/CellBuffer.h:
+	* scintilla/ContractionState.cxx:
+	* scintilla/Document.cxx:
+	* scintilla/Document.h:
+	* scintilla/DocumentAccessor.cxx:
+	* scintilla/Editor.cxx:
+	* scintilla/Editor.h:
+	* scintilla/ExternalLexer.cxx:
+	* scintilla/Indicator.cxx:
+	* scintilla/KeyMap.cxx:
+	* scintilla/KeyWords.cxx:
+	* scintilla/LexAU3.cxx:
+	* scintilla/LexBash.cxx:
+	* scintilla/LexCPP.cxx:
+	* scintilla/LexCaml.cxx:
+	* scintilla/LexCsound.cxx:
+	* scintilla/LexEiffel.cxx:
+	* scintilla/LexGui4Cli.cxx:
+	* scintilla/LexHTML.cxx:
+	* scintilla/LexLua.cxx:
+	* scintilla/LexMSSQL.cxx:
+	* scintilla/LexOthers.cxx:
+	* scintilla/LexPOV.cxx:
+	* scintilla/LexPython.cxx:
+	* scintilla/LexRuby.cxx:
+	* scintilla/LexSQL.cxx:
+	* scintilla/LexVB.cxx:
+	* scintilla/Makefile.am:
+	* scintilla/PlatGTK.cxx:
+	* scintilla/PropSet.cxx:
+	* scintilla/RESearch.cxx:
+	* scintilla/RESearch.h:
+	* scintilla/ScintillaBase.cxx:
+	* scintilla/ScintillaGTK.cxx:
+	* scintilla/StyleContext.h:
+	* scintilla/ViewStyle.cxx:
+	* scintilla/ViewStyle.h:
+	* scintilla/XPM.cxx:
+	* scintilla/include/KeyWords.h:
+	* scintilla/include/Platform.h:
+	* scintilla/include/PropSet.h:
+	* scintilla/include/SciLexer.h:
+	* scintilla/include/Scintilla.h:
+	* scintilla/include/Scintilla.iface:
+	* scintilla/include/ScintillaWidget.h:
+	* scintilla/lexers.make:
+
+	Update to scintilla 1.68
+
+	* src/anjuta-app.c:
+	Only show help items which are really availible
+
+	* plugins/cvs-plugin/cvs-callbacks.c
+	* plugins/cvs-plugin/cvs-execute.c
+	* plugins/cvs-plugin/subversion-callbacks.c:
+	* libanjuta/anjuta-utils.c:
+	Fixed utf-8 issues and fixed a crasher (yes, strings tend to be longer than 2048...)
+
 2005-04-22 Sebastien Granjoux <seb.sfo@free.fr>
  
  	* plugins/project-wizard/install.c,

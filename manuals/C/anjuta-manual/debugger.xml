@@ -2,6 +2,13 @@
  <chapter id="debugging">
   <title>Debugging</title>
 
+	<note>
+	<para>
+	We are working on a new and improved debugger. The current is buggy and the information provided in
+	this chapter might not be up-to-date!
+	</para>
+	</note>
+
 <sect1 id="debugger-session">
 <title>Introduction to debugging</title>
   <para>
@@ -65,8 +72,7 @@
 	executable file, therefore it does not have to be handled separately. The symbol 
 	table is necessary for the debugger to identify the various symbols in the source 
 	code of the program. The information is included in the executable during the 
-	compilation (as long as the program is compiled with the Debug option enabled &mdash; 
-	see <xref linkend="setting-compiler-options"/> for details).
+	compilation (as long as the program is compiled with the Debug option enabled
    </para>
    <para>
     The target <emphasis>Core file</emphasis> becomes active when the core file is 

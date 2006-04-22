@@ -1123,6 +1123,9 @@ manuals/Makefile
 manuals/reference/Makefile
 manuals/reference/libanjuta/Makefile
 manuals/reference/libanjuta/version.xml
+manuals/C/Makefile
+manuals/C/anjuta-manual/Makefile
+manuals/C/anjuta-faqs/Makefile
 mime/Makefile
 ])
 echo " "

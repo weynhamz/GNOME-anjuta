@@ -20,64 +20,25 @@
   specify input, output and error redirection within the GUI framework and
   supply command line parameters to the tool.
   </para>
+	<note>
+	<para>
+	The tools plugin has to be enabled to use this feature!
+	</para>
+	</note>
   </sect1>
 
   <sect1 id="tools-example">
   <title>Tools Examples</title>
   <para>
-  Simply put, a tool is any external command that you want to use from within
-  the GUI framework of Anjuta. As a simply example, say, you want to use
-  Doxygen to build your project documentation. But you don't want to resort
-  to the command line every time you want to fire the command 'doxygen' to
-  update your project documentation. Further, you want single-click access
-  to the files and lines specified in the warning and error messages of
-  Doxygen, just as you do with the C compiler.
-  </para>
-
-  <figure id="doxygen-tool">
-    <title>Defining Doxygen as an user-defined tool</title>
-    <screenshot>
-	<screeninfo>Adding support for Doxygen</screeninfo>
-     <graphic fileref="figures/doxygen.png" format="PNG" srccredit="biswapesh"></graphic>
-    </screenshot>
-   </figure>
-
-  <para>
-  The above figure shows how you can use the tool editor to specify Doxygen
-  as a project level tool. Here is another example which shows how you can
-  use the excellent A2PS tool as an alternative to Anjuta's inbuilt printing
-  support.
-  </para>
-
-  <figure id="a2ps-tool">
-    <title>Using A2PS for Printing</title>
-    <screenshot>
-	<screeninfo>Using A2PS for Printing</screeninfo>
-     <graphic fileref="figures/a2ps.png" format="PNG" srccredit="biswapesh"></graphic>
-    </screenshot>
-   </figure>
-
-  <para>
-  The above screenshot also shows the use of variables. You can use numerous
-  variables to define command-line parameters as well as standard input to the
-  tool. A complete list of variables is available for your reference with the
-  tool editor. To see this list, press the 'Help' button while in the tool
-  editor.
-  </para>
-
-  <para>
-  The tool editor shown in the above screenshots can be accessed from the 'Settings'
-  menu of the IDE. When invoked, it shows a list of currently defined user
-  tools. Initially, the tool list will be empty, but this will change as you
-  add new tools using the tool editor. The tool editor supports adding, removing
-  and editing tools.
+  This is a simple example how to use the tools plugin to integrate the GNOME ChangeLog
+	generation script
   </para>
 
   <figure id="tool-list">
     <title>The tool editor</title>
     <screenshot>
 	<screeninfo>The tool editor</screeninfo>
-     <graphic fileref="figures/tool-editor.png" format="PNG" srccredit="biswapesh"></graphic>
+     <graphic fileref="figures/tool-editor.png" format="PNG" srccredit="jhs"></graphic>
     </screenshot>
    </figure>
 

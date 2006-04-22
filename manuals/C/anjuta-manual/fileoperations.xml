@@ -20,8 +20,8 @@
     <title>File Wizard</title>
      <para>
       A wizard can also be used to create a new file.To create a new file, choose
-      <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>Wizard</guisubmenu> 
-      <guimenuitem>File Wizard</guimenuitem></menuchoice> from the menubar.
+      <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</guisubmenu> 
+      <guimenuitem>File</guimenuitem></menuchoice> from the menubar.
       This will open the New File Wizard dialog. Select the file type. Enter the File name. 
       The suffix will be automatically added. 
       You can add a license information (according to your license choice) and a header.
@@ -41,23 +41,6 @@
         etc, create new files and add the output there. These could be saved in real file
         just like normal new files.
      </para>
-     </sect2>
-     <sect2 id="inserting-texts">
-      <title>Inserting Texts</title>
-      <para>
-        To insert popular text bits in the file, place the cursor at the insertion point
-        and select the right insert text menu item from <menuchoice><guisubmenu>File</guisubmenu>
-        <guisubmenu>Insert Text</guisubmenu></menuchoice>. Some of the text bits use the
-        user information (such as name and email) provided in Preferences (General page).
-        So make sure you set them to correct values before inserting texts.
-        <figure id="insert-text">
-         <title>Insert Text</title>
-          <screenshot>
-           <screeninfo>The Open File dialog</screeninfo>
-           <graphic fileref="figures/insert_text.png" format="PNG" srccredit="jnoel"></graphic>
-          </screenshot>
-        </figure>	
-      </para>
      </sect2>
      <sect2 id="inserting-macros">
       <title>Inserting Macros</title>
@@ -389,6 +372,11 @@
 	 smaller, facilitating easy browsing and editing of the file.
     </para>
    </sect2>
+   <note>
+   <para>
+	Please note that code folding and editor guides are only avalible in the scintilla based editor.
+	</para>
+	</note>
    <sect2 id="autoformat">
     <title>Auto-formatting source code</title>
     <para>
@@ -433,7 +421,7 @@
         <title>Tags toolbar</title>
         <screenshot>
          <screeninfo>The Tags toolbar</screeninfo>
-         <graphic fileref="figures/toolbar_tags.png" format="PNG" srccredit="naba"></graphic>
+         <graphic fileref="figures/toolbar_browser.png" format="PNG" srccredit="jhs"></graphic>
         </screenshot>
        </figure>
       <tip><title>Function symbols</title>
@@ -456,7 +444,7 @@
         <title>Tags toolbar</title>
         <screenshot>
          <screeninfo>Symbol browser</screeninfo>
-         <graphic fileref="figures/symbol_browser.png" format="PNG" srccredit="naba"></graphic>
+         <graphic fileref="figures/symbol_browser.png" format="PNG" srccredit="jhs"></graphic>
         </screenshot>
        </figure>
       </para>

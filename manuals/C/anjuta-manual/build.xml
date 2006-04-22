@@ -4,10 +4,8 @@
  <sect1 id="compile-program">
  <title>Compiling and building programs</title>
   <para>
-   Once you have written a C or C++ program, you will probably want to build and run it.
-   To compile the current file (if it is a C/C++ source file), click on the 
-   <guibutton>Compile</guibutton> button in the extended toolbar, choose the 
-   menu item <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Compile</guimenuitem></menuchoice>, 
+   Once you have written a program, you will probably want to build and run it.
+   To compile the current file, click choose the  menu item <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Compile</guimenuitem></menuchoice>, 
    or press <keycap>F9</keycap>. The <interface>Message window</interface> will appear 
    and list all the messages including any compilation errors. You can double-click on the 
    error lines (displayed in red) to go to the particular line where the error occurred. You 
@@ -19,14 +17,11 @@
    (<filename>*.o</filename>) file which is later linked to build the executable.
   </para>
   <para>
-   To build a file, click on the <guibutton>Build</guibutton> button in the extended toolbar, 
-   choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
+   To build a file, choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
    <guimenuitem>Build</guimenuitem></menuchoice>, or press <keycap>F11</keycap>. This will 
    again display the <interface>Message window</interface> listing all the messages that are 
    encountered during the build. The build process will link your object file with libraries 
-   and generate the executable. You can specify the libraries to link with your file in the 
-   <interface>Compiler Options</interface> dialog (<menuchoice><guisubmenu>Settings</guisubmenu>
-   <guimenuitem>Compiler and Linker Settings &hellip;</guimenuitem></menuchoice>)
+   and generate the executable.
   </para>
   <note>
   <title>Build dependencies</title>

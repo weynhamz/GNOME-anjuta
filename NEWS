@@ -4,6 +4,7 @@ New: GtkSourceView based editor
 New: Project configuration
 New: Valgrind plugin
 New: Tab drag&drop in Editor
+Updated: Manual and FAQ
 
 Improved: global tags can now be updated after installation
 Improved: Remember toolbars on restart
@@ -60,6 +61,7 @@ Bug fixes:
 #304650 	make -j CPUS doesn't always work for anjuta2
 #334546		No more lookup widget
 #312319 	Opening files when Anjuta is already open
+#339296		Wizard can't cope with insufficient permissions in project target directory
 
 Anjuta 2.0.1 (26 Jun 2005) -- Naba Kumar
 

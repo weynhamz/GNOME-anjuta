@@ -403,6 +403,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	GtkWidget *view_menu, *hbox;
 	GtkWidget *dockbar;
 	GtkAccelGroup *accel_group;
+	GtkAction* action;
 	
 	GdkGeometry size_hints = {
     	100, 100, 0, 0, 100, 100, 0, 0, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST  
@@ -507,6 +508,12 @@ anjuta_app_instance_init (AnjutaApp *app)
 
 	/* Merge UI */
 	merge_id = anjuta_ui_merge (app->ui, UI_FILE);
+
+	/* Disable unavailible tutorials */
+	action = anjuta_ui_get_action(app->ui, "ActionGroupHelp", "ActionHelpTutorial");
+	g_object_set(G_OBJECT(action), "visible", FALSE, NULL);
+	action = anjuta_ui_get_action(app->ui, "ActionGroupHelp", "ActionHelpAdvancedTutorial");
+	g_object_set(G_OBJECT(action), "visible", FALSE, NULL);
 
 	/* create toolbar menus */
 	toolbar_menu =

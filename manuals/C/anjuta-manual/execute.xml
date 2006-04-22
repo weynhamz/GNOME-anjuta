@@ -4,10 +4,10 @@
  <sect1 id="executing-program">
  <title>Executing the program</title>
    <para>
-    Once your executable is ready after the build, you can execute it by clicking on
-    the <guibutton>Execute</guibutton> button in the extended toolbar, choosing the menu item
+    Once your executable is ready after the build, you can execute it by choosing the menu item
     <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Execute</guimenuitem></menuchoice>, 
-	or pressing <keycap>F3</keycap>. 
+	or pressing <keycap>F3</keycap>. You can specify which executable you want to use in case your project
+	provides more than one and specify command line arguments. 
    </para>
    <note>
    <title>Dependencies</title>
@@ -19,16 +19,12 @@
    </para>
    </note>
    <para>
-    If you want to pass any arguments to your program, choose <menuchoice><guisubmenu>Build</guisubmenu>
-	<guimenuitem>Set Program params &hellip;</guimenuitem></menuchoice>, enter the arguments 
-	in the dialog that appears (shown below) and click <guibutton>OK</guibutton>. You can 
-	also specify whether the program should be run in a terminal or not.
   </para>
   <figure id="params">
-   <title>Setting program parameters</title>
+   <title>Choose executable and set program parameters</title>
    <screenshot>
    <screeninfo>Setting program parameters</screeninfo>
-    <graphic fileref="figures/arguments.png" format="PNG" srccredit="andyp"></graphic>
+    <graphic fileref="figures/arguments.png" format="PNG" srccredit="jhs"></graphic>
    </screenshot>
   </figure>
  </sect1>

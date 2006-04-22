@@ -2,7 +2,7 @@ entities = \
 	legal.xml          debugger.xml        introduction.xml  projects.xml \
 	authors.xml        execute.xml         legal.xml         template.xml \
 	build.xml          fileoperations.xml  license.xml       tools.xml    \
-	compileopts.xml    interface.xml       preferences.xml                \
+	interface.xml       preferences.xml                \
 	anjuta-manual.xml
 
 figdir = figures

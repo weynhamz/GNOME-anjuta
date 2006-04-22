@@ -2,7 +2,7 @@
 
 @INTLTOOL_DESKTOP_RULE@
 
-SUBDIRS = po tagmanager global-tags scintilla \
+SUBDIRS = po tagmanager scintilla global-tags \
 	libegg pixmaps scripts data launcher \
 	doc libanjuta plugins src manuals mime 
 

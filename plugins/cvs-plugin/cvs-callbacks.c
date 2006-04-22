@@ -235,7 +235,7 @@ on_cvs_commit_response(GtkDialog* dialog, gint response, CVSData* data)
 				
 		logtext = glade_xml_get_widget(data->gxml, "cvs_log");
 		log = get_log_from_textview(logtext);
-		if (!strlen(log))
+		if (!g_utf8_strlen(log, -1))
 		{
 			gint result;
 			GtkWidget* dlg = gtk_message_dialog_new(GTK_WINDOW(dialog), 

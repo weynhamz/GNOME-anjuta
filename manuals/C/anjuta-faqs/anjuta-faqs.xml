@@ -20,6 +20,10 @@
    <year>2002</year>
    <holder>Biswapesh Chatopadhyay</holder>
   </copyright>
+ <copyright>
+   <year>2006</year>
+   <holder>Johannes Schmid</holder>
+  </copyright>
 
   <!-- translators: uncomment this:
 
@@ -128,10 +132,7 @@
      </question>
      <answer>
       <para>
-	  A GNOME2 port was started but it has stagnated due to lack of interest.
-	  Besides, there is already Anjuta2 (a completely different project) which
-	  works on GNOME2. However, the Anjuta development team welcomes any effort
-	  to port Anjuta to GNOME2.
+	 Anjuta 1.2 and Anjuta 2.0 are GNOME2 software!
      </para>
       </answer>
      </qandaentry>
@@ -168,8 +169,6 @@
      <para>
 	Latest nightly tarballs of Anjuta are available 
 	<ulink type="http" url="http://anjuta.org/cvs/">here</ulink>.
-	You should download the ANJUTA_1_0_0 branch sources since HEAD is currently
-	unstable and will probably not build.
      </para>
     </answer>
    </qandaentry> 
@@ -189,6 +188,18 @@
     </answer>
    </qandaentry> 
 
+	<qandaentry>
+    <question>
+     <para>
+	Can I still use the Scintilla based editor in Anjuta  >= 2.0.2?
+     </para>
+    </question>
+    <answer>
+     <para>
+	Yes, simply pass --disable-plugin-sourceview --enable-plugin-scintilla to ./configure!
+     </para>
+    </answer>
+   </qandaentry> 
 
     <qandaentry>
      <question>
@@ -200,9 +211,8 @@
      <answer>
       <para>
       The missing header files probably belong to the GNOME libraries. You may have 
-      an old version of the GNOME libraries. You should upgrade to a full GNOME 1.4
-	  installation. <ulink url="http://www.ximian.com/" type="http">Ximian</ulink>
-	  provides pre-built packages for many Linux distributions.
+      an old version of the GNOME libraries. You should upgrade to a full GNOME 2.14
+	  installation. 
       </para>
       </answer>
      </qandaentry>
@@ -287,21 +297,6 @@
     <qandaentry>
      <question>
       <para>
-		Installation hangs while executing create_global_tags.sh.
-      </para>
-     </question>
-     <answer>
-      <para>
-		This is a known problem with some distributions. Basically, there is a recursive
-		include loop in some of the files Anjuta is trying to parse. You'll have to manually
-		identify and fix the loop, or create a dummy system.tags file.
-	  </para>
-      </answer>
-     </qandaentry>
-
-    <qandaentry>
-     <question>
-      <para>
 		I get lots of jade errors while building documentation.
       </para>
      </question>
@@ -357,7 +352,7 @@
      </question>
      <answer>
       <para>
-		File a <ulink url="http://sf.net/projects/anjuta/" type="http">bug report</ulink>.
+		File a <ulink url="http://bugzilla.gnome.org/browse.cgi?product=anjuta" type="http">bug report</ulink>.
 	  </para>
       </answer>
      </qandaentry>
@@ -371,9 +366,9 @@
      </question>
      <answer>
       <para>
-      Check the <ulink url="http://sf.net/projects/anjuta/" type="http">Project Page</ulink>
-	  at SourceForge. There are always plenty of bugs and feature requests to pick up.
-	  It is a good idea to join the anjuta-devel mailing list first, though. Start small
+      Check the <ulink url="http://bugzilla.gnome.org/browse.cgi?product=anjuta" type="http">Product summary</ulink>
+	  at Bugzilla. There are always plenty of bugs and feature requests to pick up.
+	  It is a good idea to join the anjuta-devel mailing list (anjuta-devel@list.sf.net) first, though. Start small
 	  and then gradually tackle bigger and bigger thngs.
       </para>
       </answer>
@@ -387,9 +382,12 @@
      </question>
      <answer>
       <para>
-      If you want to improve Anjuta's editor, it is beter to hack on
+      If you want to improve Anjuta's editor, it is better to hack on
 	  <ulink url="http://www.scintilla.org/" type="http">Scintilla</ulink> instead.
 	  Anjuta simply uses the Scintilla editor widget with some minor changes.
+
+		Since Anjuta 2.0.2 we also use the<ulink url="http://gtksourceview.sf.net" type="http">GtkSourceView</ulink>
+		editor.  This is the same library gedit is based on!
       </para>
       </answer>
      </qandaentry>
@@ -403,9 +401,8 @@
      <answer>
       <para>
 		Start with Anjuta2. You will need a full GNOME2 installation. Asking quesitons
-		on gnome-devtools list is a good way to start. Currently, Anjuta2 is
-		missing lots of Anjuta features. A good way to get involved is to port
-		you favourite missing feature from Anjuta to Anjuta2.
+		on anjuta-devel list is a good way to start. Anjuta2 has improved a lot in the last months
+		and is in beta stage now.
 	  </para>
       </answer>
      </qandaentry>
@@ -455,25 +452,7 @@
     </question>
     <answer>
      <para>
-		This is curently not possible with the existing project manager. Anjuta2
-		will have the ability to organize code into multiple subdirectories. A
-		future version of Anjuta will also hopefully have this ability.
-     </para>
-    </answer>
-   </qandaentry> 
-
-   <qandaentry>
-    <question>
-     <para>
-		I want to add/customize the way programs are called.
-     </para>
-    </question>
-    <answer>
-     <para>
-		See the menu option Settings->Commands. If you are curious about the variables you can
-		use, have a look at /usr/share/anjuta/properties/anjuta.properties file. It contains a
-		brief list of variables names and heir meanings. You can also use the
-		tools editor under Settings->Tools to create and use your own tools.
+		This is one of the cool features of Anjuta 2 and a really good reason to update!
      </para>
     </answer>
    </qandaentry> 
@@ -500,7 +479,7 @@
     </question>
     <answer>
      <para>
-		Build->Save Build Messages
+		Right-click in the message pane ->Save messages!
      </para>
     </answer>
    </qandaentry> 
@@ -514,8 +493,7 @@
     <answer>
      <para>
 		In general, to link against any external library which has a name lib[name].a or
-		lib[name].so, you need to add '-l[name]' to linker flags. You can do this under
-		Settings->Compiler and Linker Settings.
+		lib[name].so, you need to add '-l[name]' to linker flags. 
      </para>
     </answer>
    </qandaentry> 
@@ -578,58 +556,6 @@
 	</para>
     </answer>
    </qandaentry> 
-   
-	<qandaentry>
-    <question>
-     <para>
-		How do I add multiple build targets/modules/subdirectories?
-     </para>
-    </question>
-    <answer>
-     <para>
-		 First create the new sub-directory and and fill it with your own
-		 Makefile.am and other source files. Decide if you want to build
-		 this directory before the src/ module or after it. If the targets in
-		 your sub-directory depend on the target in src/ directory, you should build
-		 your directory before the src/ directory, otherwise you can build it after the src/
-		 directory.
-		 </para>
-		 <para>
-		 Then go to
-		 <menuchoice><guimenu>Project</guimenu><guisubmenu>Project Configuration
-		 </guisubmenu><guimenuitem>Modules</guimenuitem></menuchoice> and add the
-		 directory in the appropriate entry box. All the directory names should
-		 be space separated in these entries. Also, add your module in only of
-		 the two entry boxes. lastly, save the project and run autogeneration from 
-		 the Build menu.
-		</para>
-		<para>
-		Remember, you are responsible for maintaining the files in these
-		 extra sub-directories. A future version of Anjuta will have better
-		 GUI support for projects with multiple directories and targets.
-	</para>
-    </answer>
-   </qandaentry> 
-
-	<qandaentry>
-    <question>
-     <para>
-		Loading is very slow on large projects.
-     </para>
-    </question>
-    <answer>
-     <para>
-		This is probably due to the symbol browser. You can increase your loading speed
-		by turning 'Build Symbol Browser automatically' and 'Update tags image automatically'
-		off in Settings->general.
-	</para>
-     <para>
-	 Note that this issue has largely been fixed in the current version of Anjuta
-	 so loading time should be tolerable for large projects even with the symbol
-	 and file browser building turned on.
-	</para>
-    </answer>
-   </qandaentry> 
 
 	<qandaentry>
     <question>
@@ -639,8 +565,7 @@
     </question>
     <answer>
      <para>
-		Just position your mouse on the menu item and press the key combination you want to
-		associate it with.
+		Use Settings->Customize shortcuts.
 	</para>
     </answer>
    </qandaentry> 
@@ -697,20 +622,7 @@
     <answer>
      <para>
 		You probably do not have Devhelp installed. please install
-		<ulink url="http://devhelp.codefactory.se/" type="http">DevHelp</ulink>.
-	</para>
-    </answer>
-   </qandaentry>
-
-	<qandaentry>
-    <question>
-     <para>
-		How do I supply my own compiler/linker flags to my program ?
-     </para>
-    </question>
-    <answer>
-     <para>
-		You can set your flags using Settings->Compiler and Linker flags.
+		<ulink url="http://developer.imendio.com/wiki/Devhelp" type="http">DevHelp</ulink>.
 	</para>
     </answer>
    </qandaentry>
@@ -749,37 +661,6 @@
 	<qandaentry>
     <question>
      <para>
-		How do a add files written in a different language to my project ?
-     </para>
-    </question>
-    <answer>
-     <para>
-		You'll have to manually edit your Makefile.am to add the necessary rules. But before that,
-		open Project->Configure Project-> Build Files and disable overwriting of Makefile.am so that
-		your changes don't get lost.
-	</para>
-    </answer>
-   </qandaentry>
-
-	<qandaentry>
-    <question>
-     <para>
-		I imported a project using the Project Import feature. Now, when I add source files to the project,
-		I find that they no longer compile.
-     </para>
-    </question>
-    <answer>
-     <para>
-		You'll have to manually edit your Makefile.am to add the necessary files. This is because Anjuta is
-		currently not smart enough to parse your Makefiles and make the addition of the source files without
-		risking damage to your build system.
-	</para>
-    </answer>
-   </qandaentry>
-
-	<qandaentry>
-    <question>
-     <para>
 		The project/messages panes keep shrinking back to zero size ?
      </para>
     </question>
@@ -794,14 +675,13 @@
 	<qandaentry>
     <question>
      <para>
-		I already have a projct tree. How do I use Anjuta ?
+		I already have a project tree. How do I use Anjuta ?
     </para>
     </question>
     <answer>
      <para>
-		Use File->Import Project. However, you will have to manage your Makefiles
-		manually. A future version of Anjuta will have better project importing
-		for Autotools based projects, and hopefully projects of other types as well.
+		If your project is autoconf/automake based, simply run File->New->Project from existing sources
+		to import your project.
 	</para>
     </answer>
    </qandaentry>
@@ -828,20 +708,11 @@
 	<qandaentry>
     <question>
      <para>
-		Should I use Anjuta 1 or Anjuta 2 ?
+		Should I use Anjuta 1.2 or Anjuta 2 ?
     </para>
     </question>
     <answer>
-     <para>
-	Currently, Anjuta is more usable than Anjuta2. However, most of the development effort is
-	concentrated on Anjuta2, so if you're looking for powerful new features, Anjuta2 is the
-	likely candidate for implementation. Also, Anjuta2 is a full GNOME2 application while Anjuta
-	is dependent on GNOME1 libraries. For long-term investment, Anjuta2 is a better option.
-	</para>
-	<para>
-	Ultimately, it is all about what works best at a particular time for a particular
-	scenario for you. You'll need to use both and make an informed decision.
-	</para>
+    Definitly use Anjuta 2 because it has more features, has become quite stable and is blending-edge ;-)
     </answer>
    </qandaentry>
 
@@ -851,7 +722,8 @@
 
   <para>
    This FAQ was compiled by Andy Piper(<email>andy.piper@freeuk.com</email>)
-   and Biswapesh Chatopadhyay (<email>biswapesh_chatterjee@tcscal.co.in</email>).
+   ,Biswapesh Chatopadhyay (<email>biswapesh_chatterjee@tcscal.co.in</email>)
+	and Johannes Schmid (<email>johannes.schmid@gmx.de</email>)
    Please send all comments and suggestions regarding the FAQ to the authors.
     For more information on <application>Anjuta</application> or the
     <application>Anjuta</application> mailing lists, please visit the

@@ -18,6 +18,8 @@ libanjuta_scintilla_la_SOURCES =\
 	CellBuffer.cxx \
 	ContractionState.cxx \
 	Converter.h \
+	CharClassify.h \
+	CharClassify.cxx \
 	ExternalLexer.cxx \
 	ExternalLexer.h \
 	Document.cxx \

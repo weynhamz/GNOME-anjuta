@@ -27,6 +27,7 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexGui4Cli.o\
 	$(top_srcdir)/scintilla/LexHaskell.o\
 	$(top_srcdir)/scintilla/LexHTML.o\
+	$(top_srcdir)/scintilla/LexInno.o\
 	$(top_srcdir)/scintilla/LexKix.o\
 	$(top_srcdir)/scintilla/LexLisp.o\
 	$(top_srcdir)/scintilla/LexLout.o\
@@ -37,6 +38,7 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexMPT.o\
 	$(top_srcdir)/scintilla/LexMSSQL.o\
 	$(top_srcdir)/scintilla/LexNsis.o\
+	$(top_srcdir)/scintilla/LexOpal.o\
 	$(top_srcdir)/scintilla/LexOthers.o\
 	$(top_srcdir)/scintilla/LexPascal.o\
 	$(top_srcdir)/scintilla/LexPB.o\
@@ -51,6 +53,7 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexSpecman.o\
 	$(top_srcdir)/scintilla/LexSQL.o\
 	$(top_srcdir)/scintilla/LexTADS3.o\
+	$(top_srcdir)/scintilla/LexTCL.o\
 	$(top_srcdir)/scintilla/LexTeX.o\
 	$(top_srcdir)/scintilla/LexVB.o\
 	$(top_srcdir)/scintilla/LexVerilog.o\
@@ -84,6 +87,7 @@ LEXER_SRCS = \
 	LexGui4Cli.cxx\
 	LexHaskell.cxx\
 	LexHTML.cxx\
+	LexInno.cxx\
 	LexKix.cxx\
 	LexLisp.cxx\
 	LexLout.cxx\
@@ -94,6 +98,7 @@ LEXER_SRCS = \
 	LexMPT.cxx\
 	LexMSSQL.cxx\
 	LexNsis.cxx\
+	LexOpal.cxx\
 	LexOthers.cxx\
 	LexPascal.cxx\
 	LexPB.cxx\
@@ -108,6 +113,7 @@ LEXER_SRCS = \
 	LexSpecman.cxx\
 	LexSQL.cxx\
 	LexTADS3.cxx\
+	LexTCL.cxx\
 	LexTeX.cxx\
 	LexVB.cxx\
 	LexVerilog.cxx\

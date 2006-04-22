@@ -93,7 +93,7 @@ public:
 private:
 	int refCount;
 	CellBuffer cb;
-	charClassification charClass[256];
+	CharClassify charClass;
 	char stylingMask;
 	int endStyled;
 	int styleClock;
@@ -176,6 +176,7 @@ public:
 	char StyleAt(int position) { return cb.StyleAt(position); }
 	int GetMark(int line) { return cb.GetMark(line); }
 	int AddMark(int line, int markerNum);
+	void AddMarkSet(int line, int valueSet);
 	void DeleteMark(int line, int markerNum);
 	void DeleteMarkFromHandle(int markerHandle);
 	void DeleteAllMarks(int markerNum);
@@ -206,7 +207,7 @@ public:
 	void ChangeCase(Range r, bool makeUpperCase);
 
 	void SetDefaultCharClasses(bool includeWordClass);
-	void SetCharClasses(const unsigned char *chars, charClassification newCharClass);
+	void SetCharClasses(const unsigned char *chars, CharClassify::cc newCharClass);
 	void SetStylingBits(int bits);
 	void StartStyling(int position, char mask);
 	bool SetStyleFor(int length, char style);
@@ -233,11 +234,12 @@ public:
 	int ParaUp(int pos);
 	int ParaDown(int pos);
 	int IndentSize() { return actualIndentInChars; }
+	int BraceMatch(int position, int maxReStyle);
 
 private:
 	void CheckReadOnly();
 
-	charClassification WordCharClass(unsigned char ch);
+	CharClassify::cc WordCharClass(unsigned char ch);
 	bool IsWordStartAt(int pos);
 	bool IsWordEndAt(int pos);
 	bool IsWordAt(int start, int end);
@@ -276,7 +278,7 @@ public:
 
 	DocModification(int modificationType_, const Action &act, int linesAdded_=0) :
 		modificationType(modificationType_),
-		position(act.position / 2),
+		position(act.position),
 		length(act.lenData),
 		linesAdded(linesAdded_),
 		text(act.data),

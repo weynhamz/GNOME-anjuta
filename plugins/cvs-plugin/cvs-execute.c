@@ -67,11 +67,11 @@ on_cvs_mesg_format (IAnjutaMessageView *view, const gchar *line,
 	}		
 	
 	/* Match against type regexps to find the message type. */
-	if (pcre_exec(info, NULL, line, strlen(line), 0, 0, output, 16) >= 0)
+	if (pcre_exec(info, NULL, line, g_utf8_strlen(line, -1), 0, 0, output, 16) >= 0)
 	{
 		type = IANJUTA_MESSAGE_VIEW_TYPE_INFO;
 	}
-	else if (pcre_exec(err, NULL, line, strlen(line), 0, 0, output, 16) >= 0)
+	else if (pcre_exec(err, NULL, line, g_utf8_strlen(line, -1), 0, 0, output, 16) >= 0)
 	{
 		type = IANJUTA_MESSAGE_VIEW_TYPE_ERROR;
 	}

@@ -2,7 +2,7 @@
 /** @file LexHTML.cxx
  ** Lexer for HTML.
  **/
-// Copyright 1998-2003 by Neil Hodgson <neilh@scintilla.org>
+// Copyright 1998-2005 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
 #include <stdlib.h>
@@ -149,7 +149,13 @@ static inline bool isStringState(int state) {
 	case SCE_HB_STRING:
 	case SCE_HBA_STRING:
 	case SCE_HP_STRING:
+	case SCE_HP_CHARACTER:
+	case SCE_HP_TRIPLE:
+	case SCE_HP_TRIPLEDOUBLE:
 	case SCE_HPA_STRING:
+	case SCE_HPA_CHARACTER:
+	case SCE_HPA_TRIPLE:
+	case SCE_HPA_TRIPLEDOUBLE:
 	case SCE_HPHP_HSTRING:
 	case SCE_HPHP_SIMPLESTRING:
 	case SCE_HPHP_HSTRING_VARIABLE:
@@ -161,6 +167,19 @@ static inline bool isStringState(int state) {
 		break;
 	}
 	return bResult;
+}
+
+static inline bool stateAllowsTermination(int state) {
+	bool allowTermination = !isStringState(state);
+	if (allowTermination) {
+		switch (state) {
+		case SCE_HPHP_COMMENT:
+		case SCE_HP_COMMENTLINE:
+		case SCE_HPA_COMMENTLINE:
+			allowTermination = false;
+		}
+	}
+	return allowTermination;
 }
 
 // not really well done, since it's only comments that should lex the %> and <%
@@ -503,12 +522,28 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 	char chPrev = ' ';
 	char ch = ' ';
 	char chPrevNonWhite = ' ';
+	// look back to set chPrevNonWhite properly for better regex colouring
+	if (scriptLanguage == eScriptJS && startPos > 0) {
+		int back = startPos;
+		int style = 0;
+		while (--back) {
+			style = styler.StyleAt(back);
+			if (style < SCE_HJ_DEFAULT || style > SCE_HJ_COMMENTDOC)
+				// includes SCE_HJ_COMMENT & SCE_HJ_COMMENTLINE
+				break;
+		}
+		if (style == SCE_HJ_SYMBOLS) {
+			chPrevNonWhite = styler.SafeGetCharAt(back);
+		}
+	}
+
 	styler.StartSegment(startPos);
 	const int lengthDoc = startPos + length;
 	for (int i = startPos; i < lengthDoc; i++) {
 		const char chPrev2 = chPrev;
 		chPrev = ch;
-		if (ch != ' ' && ch != '\t')
+		if (!isspacechar(ch) && state != SCE_HJ_COMMENT &&
+			state != SCE_HJ_COMMENTLINE && state != SCE_HJ_COMMENTDOC)
 			chPrevNonWhite = ch;
 		ch = styler[i];
 		char chNext = styler.SafeGetCharAt(i + 1);
@@ -668,11 +703,9 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				inScriptType = eNonHtmlScriptPreProc;
 			else
 				inScriptType = eNonHtmlPreProc;
-			// fold whole script
-			if (foldHTMLPreprocessor){
+			// Fold whole script, but not if the XML first tag (all XML-like tags in this case)
+			if (foldHTMLPreprocessor && (scriptLanguage != eScriptXML)) {
 				levelCurrent++;
-				if (scriptLanguage == eScriptXML)
-					levelCurrent--; // no folding of the XML first tag (all XML-like tags in this case)
 			}
 			// should be better
 			ch = styler.SafeGetCharAt(i);
@@ -749,9 +782,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 		else if ((
 		             ((inScriptType == eNonHtmlPreProc)
 		              || (inScriptType == eNonHtmlScriptPreProc)) && (
-		                 ((scriptLanguage == eScriptPHP) && (ch == '?') && !isPHPStringState(state) && (state != SCE_HPHP_COMMENT)) ||
-		                 ((scriptLanguage != eScriptNone) && !isStringState(state) &&
-		                  (ch == '%'))
+		                 ((scriptLanguage != eScriptNone) && stateAllowsTermination(state) && ((ch == '%') || (ch == '?')))
 		             ) && (chNext == '>')) ||
 		         ((scriptLanguage == eScriptSGML) && (ch == '>') && (state != SCE_H_SGML_COMMENT))) {
 			if (state == SCE_H_ASPAT) {
@@ -796,10 +827,11 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				inScriptType = eNonHtmlScript;
 			else
 				inScriptType = eHtml;
-			scriptLanguage = eScriptNone;
-			// unfold all scripting languages
-			if (foldHTMLPreprocessor)
+			// Unfold all scripting languages, except for XML tag
+			if (foldHTMLPreprocessor && (scriptLanguage != eScriptXML)) {
 				levelCurrent--;
+			}
+			scriptLanguage = eScriptNone;
 			continue;
 		}
 		/////////////////////////////////////
@@ -1237,12 +1269,14 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 			if (ch == '/' && chPrev == '*') {
 				styler.ColourTo(i, StateToPrint);
 				state = SCE_HJ_DEFAULT;
+				ch = ' ';
 			}
 			break;
 		case SCE_HJ_COMMENTLINE:
 			if (ch == '\r' || ch == '\n') {
 				styler.ColourTo(i - 1, statePrintForState(SCE_HJ_COMMENTLINE, inScriptType));
 				state = SCE_HJ_DEFAULT;
+				ch = ' ';
 			}
 			break;
 		case SCE_HJ_DOUBLESTRING:
@@ -1290,6 +1324,13 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 			break;
 		case SCE_HJ_REGEX:
 			if (ch == '\r' || ch == '\n' || ch == '/') {
+				if (ch == '/') {
+					while (isascii(chNext) && islower(chNext)) {   // gobble regex flags
+						i++;
+						ch = chNext;
+						chNext = styler.SafeGetCharAt(i + 1);
+					}
+				}
 				styler.ColourTo(i, StateToPrint);
 				state = SCE_HJ_DEFAULT;
 			} else if (ch == '\\') {
@@ -1993,9 +2034,9 @@ static const char * const phpscriptWordListDesc[] = {
 	0,
 };
 
-LexerModule lmHTML(SCLEX_HTML, ColouriseHyperTextDoc, "hypertext", 0, htmlWordListDesc);
-LexerModule lmXML(SCLEX_XML, ColouriseHyperTextDoc, "xml", 0, htmlWordListDesc);
+LexerModule lmHTML(SCLEX_HTML, ColouriseHyperTextDoc, "hypertext", 0, htmlWordListDesc, 7);
+LexerModule lmXML(SCLEX_XML, ColouriseHyperTextDoc, "xml", 0, htmlWordListDesc, 7);
 // SCLEX_ASP and SCLEX_PHP should not be used in new code: use SCLEX_HTML instead.
-LexerModule lmASP(SCLEX_ASP, ColouriseASPDoc, "asp", 0, htmlWordListDesc);
-LexerModule lmPHP(SCLEX_PHP, ColourisePHPDoc, "php", 0, htmlWordListDesc);
-LexerModule lmPHPSCRIPT(SCLEX_PHPSCRIPT, ColourisePHPScriptDoc, "phpscript", 0, phpscriptWordListDesc);
+LexerModule lmASP(SCLEX_ASP, ColouriseASPDoc, "asp", 0, htmlWordListDesc, 7);
+LexerModule lmPHP(SCLEX_PHP, ColourisePHPDoc, "php", 0, htmlWordListDesc, 7);
+LexerModule lmPHPSCRIPT(SCLEX_PHPSCRIPT, ColourisePHPScriptDoc, "phpscript", 0, phpscriptWordListDesc, 7);
