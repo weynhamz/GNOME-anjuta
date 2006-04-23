@@ -67,7 +67,7 @@ enum
 };
 
 
-#define WORD_REGEX "[^ \\t&*(]+$"
+#define WORD_REGEX "[^ \\t&*]+$"
 static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
 {
 	pcre *re;

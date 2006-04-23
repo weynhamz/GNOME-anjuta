@@ -5,4 +5,4 @@ Location=anjuta-editor:EditorPlugin
 Version=0.1
 Icon=anjuta-document-manager.png
 Interfaces=IAnjutaEditorFactory
-UserActivatable=no
+UserActivatable=yes

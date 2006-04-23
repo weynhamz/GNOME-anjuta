@@ -338,13 +338,6 @@ dnl Build gtksourceview plugin only on gnome 2.14
 dnl -------------------------------------------------------------
 
 AC_ARG_ENABLE(plugin-sourceview,
-	[ --enable-plugin-sourceview	Disable gtksourceview based editor in Anjuta], 
-	[ if test "$enableval" = "yes"; then
-		user_disabled_sourceview=0
-	  fi ],
-	[ user_disabled_sourceview=1 ])
-
-AC_ARG_ENABLE(plugin-sourceview,
 	[ --disable-plugin-sourceview	Disable gtksourceview based editor in Anjuta], 
 	[ if test "$enableval" = "no"; then
 		user_disabled_sourceview=1
@@ -355,15 +348,14 @@ AC_MSG_CHECKING(if sourceview plugin is disabled)
 if test "$user_disabled_sourceview" = 1; then
 	AC_MSG_RESULT(yes)
 	sourceview="no"
-	scintilla="yes"
 else
 	AC_MSG_RESULT(no)
 	
 	PKG_CHECK_MODULES(PLUGIN_SOURCEVIEW,
 		[libgnome-2.0 >= $GTKSOURCEVIEW_GNOME_REQUIRED, 
 		gtksourceview-1.0 >= $GTKSOURCEVIEW_REQUIRED],
-		[sourceview="yes" scintilla="no"],
-		[sourceview="no" scintilla="yes"])
+		[sourceview="yes"],
+		[sourceview="no"])
 	AC_SUBST(PLUGIN_SOURCEVIEW_CFLAGS)
 	AC_SUBST(PLUGIN_SOURCEVIEW_LIBS)
 fi
@@ -383,20 +375,11 @@ AC_ARG_ENABLE(plugin-scintilla,
 AC_MSG_CHECKING(if scintilla plugin is disabled)
 if test "$user_disabled_scintilla" = 1; then
 	AC_MSG_RESULT(yes)
-	sourceview="yes"
 	scintilla="no"
 else
+	AC_MSG_RESULT(no)
 	scintilla="yes"
 fi
-if test x$sourceview = xyes; then
-	scintilla="no"
-fi
-AC_ARG_ENABLE(plugin-scintilla,
-	[ --enable-plugin-scintilla	Enable Scintilla based editor in Anjuta], 
-	[ if test "$enableval" = "yes"; then
-		scintilla="yes"
-	  fi ])
-
 AM_CONDITIONAL(HAVE_PLUGIN_SCINTILLA, [test x$scintilla = xyes])
 
 dnl FIXME libbfd

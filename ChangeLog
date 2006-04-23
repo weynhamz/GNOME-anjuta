@@ -1,3 +1,14 @@
+2006-04-23 Johannes Schmid <jhs@cvs.gnome.org>
+
+	* configure.in:
+	* plugins/editor/anjuta-editor.plugin.in:
+	* plugins/sourceview/sourceview.plugin.in:
+
+	Build both editors and let the user decide a runtime!
+	
+	* plugins/sourceview/sourceview-scope.c:
+	Fixed bug in regex to allow test()-> completions
+
 2006-04-23  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/sourceview/anjuta-document.c:
