@@ -67,6 +67,13 @@ static gchar* get_current_word(AnjutaDocument* doc)
 	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(doc);
 	gtk_text_buffer_get_iter_at_mark(buffer, &cursor_iter, 
 								 gtk_text_buffer_get_insert(buffer));
+								 
+	/* Check if we are just a whitespace away from the last word */
+	if (g_unichar_isspace(gtk_text_iter_get_char(&cursor_iter)))
+	{
+		gtk_text_iter_backward_char(&cursor_iter);
+	}
+	
 	line_iter = gtk_text_iter_copy(&cursor_iter);
 	gtk_text_iter_set_line_offset(line_iter, 0);
 	gtk_text_iter_backward_char(&cursor_iter);
@@ -146,7 +153,7 @@ sourceview_args_update(TagWindow* tagwin, GtkWidget* view)
 	gchar* current_word;
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)));
 	GtkSourceLanguage* lang = gtk_source_buffer_get_language(buffer);
-	GSList* mime_types = gtk_source_language_get_mime_types(lang);
+	GSList* mime_types;
 	GtkListStore* store = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING,
 											 GDK_TYPE_PIXBUF, G_TYPE_STRING);
 	GtkTreeView* tag_view;
@@ -161,6 +168,10 @@ sourceview_args_update(TagWindow* tagwin, GtkWidget* view)
 		/* User types inside (...) */
 		return TRUE;
 	}
+	
+	if (lang == NULL)
+	 	return FALSE;
+	mime_types = gtk_source_language_get_mime_types(lang);
 	
 	while(mime_types)
 	{

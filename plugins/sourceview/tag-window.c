@@ -431,11 +431,19 @@ gboolean tag_window_update(TagWindow* tagwin, GtkWidget* view)
 	
 	if (klass->update_tags(tagwin, view))
 	{	
+		GtkTreeSelection* selection;
 		if (!tag_window_is_active(tagwin))
 		{	
 			tagwin->priv->text_view = view;
 			klass->move(tagwin, view);
 			gtk_widget_show(GTK_WIDGET(tagwin));
+		}
+		selection = gtk_tree_view_get_selection(tagwin->priv->view);
+		if (gtk_tree_selection_get_mode(selection) != GTK_SELECTION_NONE)
+		{
+			GtkTreeIter iter;
+			gtk_tree_model_get_iter_first(gtk_tree_view_get_model(tagwin->priv->view), &iter);
+			gtk_tree_selection_select_iter(selection, &iter);
 		}
 		return TRUE;
 	}

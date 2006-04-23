@@ -1,3 +1,13 @@
+2006-04-23  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/sourceview-args.c: 
+	* plugins/sourceview/sourceview-scope.c:
+	* plugins/sourceview/sourceview-tags.c:
+	* plugins/sourceview/tag-window.c: 
+	
+	Improved callltip windows
+
 2006-04-22  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* src/anjuta-app.c: (on_session_save):

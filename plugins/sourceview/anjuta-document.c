@@ -1147,6 +1147,7 @@ gchar* anjuta_document_get_current_word(AnjutaDocument* doc)
 	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(doc);
 	gtk_text_buffer_get_iter_at_mark(buffer, &cursor_iter, 
 								 gtk_text_buffer_get_insert(buffer));
+	
 	line_iter = gtk_text_iter_copy(&cursor_iter);
 	gtk_text_iter_set_line_offset(line_iter, 0);
 	line = gtk_text_buffer_get_text(buffer, line_iter, &cursor_iter, FALSE);

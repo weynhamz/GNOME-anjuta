@@ -75,6 +75,10 @@ sourceview_tags_update(TagWindow* tagwin, GtkWidget* view)
 	if (!anjuta_preferences_get_int (sourceview_get_prefs(), "enable.code.completion" ))
 		return FALSE;
 	
+	if (lang == NULL)
+	 	return FALSE;
+	mime_types = gtk_source_language_get_mime_types(lang);
+	
 	while(mime_types)
 	{
 		if (g_str_equal(mime_types->data, "text/x-c")
