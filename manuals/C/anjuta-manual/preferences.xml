@@ -24,4 +24,19 @@
       </listitem>
      </orderedlist>
     </sect1>
+    <sect1 id="prefs-files"><title>File Manager</title>
+    <orderedlist>
+     <listitem><para>
+      <emphasis>Root directory if no project is open</emphasis> is the path where
+      the root of the file manager points to if no project is currently open.
+      </para>
+     </listitem>
+      <listitem><para>
+       <emphasis>File Filter:</emphasis> It is possible to filter out some file from the file tree, for example
+       hidden files or files that are ignored by the version control system which usually means they are
+       generated at build time and should not be changed.
+       </para>
+      </listitem>
+     </orderedlist>
+    </sect1>
  </chapter>

@@ -217,6 +217,17 @@
    Anjuta manages all Makefile.am (or Makefile, in case of a Makefile based project) files for you. A tree
 	of the scanned files is shown in the <interface>Project</interface> window.
    </para>
+   <para>
+   You can use <menuchoice><guisubmenu>Project</guisubmenu>
+	 <guimenuitem>Add Target</guimenuitem></menuchoice> to add a new target (executable,
+	 library, ...) to the project. To add files to the new target see <emphasis>Adding and Removing Files
+	 </emphasis> above.
+	</para>
+	<para>
+	To add a new group to your project, use <menuchoice><guisubmenu>Project</guisubmenu>
+	 <guimenuitem>Add Groups</guimenuitem></menuchoice>. In most project backends (Automake,
+	 Makefile) group simply means directory. After you created a group you can add targets to that group.
+	 </para>
   </sect1>
   
   <sect1 id="project-build">

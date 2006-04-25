@@ -1,4 +1,17 @@
-2006-04-23 Johannes Schmid <jhs@cvs.gnome.org>
+2006-04-25  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* manuals/C/anjuta-faqs/anjuta-faqs.xml:
+	Updated editor section
+	
+	* manuals/C/anjuta-manual/interface.xml:
+	* manuals/C/anjuta-manual/preferences.xml:
+	* manuals/C/anjuta-manual/projects.xml:
+	Updated manual
+	
+	* plugins/editor/anjuta-editor.plugin.in:
+	Better plugin name
+
+2006-04-23  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* configure.in:
 	* plugins/editor/anjuta-editor.plugin.in:

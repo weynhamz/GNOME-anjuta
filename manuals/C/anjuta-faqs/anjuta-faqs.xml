@@ -2,9 +2,9 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
   <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY appversion "1.1.1">
-  <!ENTITY manrevision "0.1">
-  <!ENTITY date "September 2003">
+  <!ENTITY appversion "2.0.2">
+  <!ENTITY manrevision "0.2">
+  <!ENTITY date "April 2006">
   <!ENTITY app "anjuta">
 ]>
 
@@ -191,12 +191,12 @@
 	<qandaentry>
     <question>
      <para>
-	Can I still use the Scintilla based editor in Anjuta  >= 2.0.2?
+	How can I switch between the two editors with Anjuta >= 2.0.2?
      </para>
     </question>
     <answer>
      <para>
-	Yes, simply pass --disable-plugin-sourceview --enable-plugin-scintilla to ./configure!
+	You can select the appropriate editor in Settings->Plugin Manager.
      </para>
     </answer>
    </qandaentry> 
@@ -386,7 +386,7 @@
 	  <ulink url="http://www.scintilla.org/" type="http">Scintilla</ulink> instead.
 	  Anjuta simply uses the Scintilla editor widget with some minor changes.
 
-		Since Anjuta 2.0.2 we also use the<ulink url="http://gtksourceview.sf.net" type="http">GtkSourceView</ulink>
+		Since Anjuta 2.0.2 we also use the <ulink url="http://gtksourceview.sf.net" type="http">GtkSourceView</ulink>
 		editor.  This is the same library gedit is based on!
       </para>
       </answer>

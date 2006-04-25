@@ -157,7 +157,7 @@
     <itemizedlist>
      <listitem>
       <para>
-       <interface>Document</interface>
+       <interface>Documents</interface>
       </para>
      </listitem>
      <listitem>
@@ -208,6 +208,26 @@
 	   <interface>Project window</interface> will open that file.
       </para>
      </listitem>
+      <listitem>
+      <para>
+       The <interface>Files window</interface> shows a file tree. If no project is open, the file
+       tree usually points to the file system root but you can change it in the preferences. If a project is 
+       open it shows all files inside the project. Double clicking opens a file in the appropriate application
+       as configured in the gnome mime preferences. Richt click opens a popup-menu which gives you
+       choices how to open the file. 
+      </para>
+     </listitem>
+      <listitem>
+      <para>
+       The <interface>Symbols window</interface> shows shows a tree of availible symbols in the project
+       generated from ctags parser. Double clicking opens an editor window with the corresponding file
+       and line.
+      </para>
+      <para>
+      There is also a <interface>Search tab</interface> in the Symbols window where you can search for
+      symbols.
+      </para>
+     </listitem>
      <listitem>
       <para>
       The <interface>Message window</interface> will list all the messages (both 
@@ -231,6 +251,12 @@
 	  Double-clicking on such messages will open the file and highlight the 
 	  line containing the error.
 	  </para>
+     </listitem>
+     <listitem>
+      <para>
+       The <interface>Terminal window</interface> is a terminal emulation where you can type commands
+       just like in the gnome-terminal.
+      </para>
      </listitem>
     </orderedlist>
    </para>
