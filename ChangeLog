@@ -1,5 +1,11 @@
 2006-04-25  Johannes Schmid <jhs@cvs.gnome.org>
 
+	* plugins/glade/plugin.c:
+	
+	Fixed glade plugin build because of API changes in glade3
+
+2006-04-25  Johannes Schmid <jhs@cvs.gnome.org>
+
 	* manuals/C/anjuta-faqs/anjuta-faqs.xml:
 	Updated editor section
 	
