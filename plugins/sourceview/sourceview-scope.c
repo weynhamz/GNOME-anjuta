@@ -114,6 +114,7 @@ static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
 	 if (rc == PCRE_ERROR_NOMATCH)
     {
     	DEBUG_PRINT("No match");
+    	g_free(line);
     	return NULL;
     }
  	 else if (rc < 0)
@@ -133,7 +134,7 @@ static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
     strncpy(word, line + start, end - start);
   	
   	DEBUG_PRINT("Found: %s", word);
-  	
+  	g_free(line);
   	return word;
 }
 

@@ -1,3 +1,14 @@
+2006-04-26  Johannes Schmid <jhs@cvs.gnome.org>
+
+	reviewed by: <delete if not using a buddy>
+
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/sourceview-args.c:
+	* plugins/sourceview/sourceview-scope.c:
+	* plugins/sourceview/sourceview.c:
+	
+	Fixed some memory leaks and argument completion
+
 2006-04-25  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/glade/plugin.c:

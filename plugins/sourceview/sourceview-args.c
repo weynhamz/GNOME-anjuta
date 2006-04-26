@@ -62,22 +62,19 @@ static gchar* get_current_word(AnjutaDocument* doc)
 	const gchar* err;
 	gint rc, start, end;
 	int ovector[2];
-	gchar* line, *word;
+	gchar* line, *real_line, *word;
 	GtkTextIter *line_iter, cursor_iter;
 	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(doc);
 	gtk_text_buffer_get_iter_at_mark(buffer, &cursor_iter, 
 								 gtk_text_buffer_get_insert(buffer));
-								 
-	/* Check if we are just a whitespace away from the last word */
-	if (g_unichar_isspace(gtk_text_iter_get_char(&cursor_iter)))
-	{
-		gtk_text_iter_backward_char(&cursor_iter);
-	}
 	
+	gtk_text_iter_backward_char(&cursor_iter);
 	line_iter = gtk_text_iter_copy(&cursor_iter);
 	gtk_text_iter_set_line_offset(line_iter, 0);
-	gtk_text_iter_backward_char(&cursor_iter);
-	line = gtk_text_buffer_get_text(buffer, line_iter, &cursor_iter, FALSE);
+	real_line = gtk_text_buffer_get_text(buffer, line_iter, &cursor_iter, FALSE);
+	/* Remove leading/trailing whitespaces */
+	line = g_strstrip(real_line);
+	
 	gtk_text_iter_free(line_iter);
 	
 	/* Create regular expression */
@@ -96,6 +93,7 @@ static gchar* get_current_word(AnjutaDocument* doc)
 
 	 if (rc == PCRE_ERROR_NOMATCH)
     {
+    	g_free(line);
     	return NULL;
     }
  	 else if (rc < 0)
@@ -113,6 +111,10 @@ static gchar* get_current_word(AnjutaDocument* doc)
     	    	
     word = g_new0(gchar, end - start + 1);
     strncpy(word, line + start, end - start);
+  	
+  	DEBUG_PRINT("Found: %s", word);
+  	
+  	g_free(real_line);
   	
   	return word;
 }

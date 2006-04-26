@@ -1170,6 +1170,7 @@ gchar* anjuta_document_get_current_word(AnjutaDocument* doc)
 	 if (rc == PCRE_ERROR_NOMATCH)
     {
     	DEBUG_PRINT("No match");
+    	g_free(line);
     	return NULL;
     }
  	 else if (rc < 0)
@@ -1187,6 +1188,8 @@ gchar* anjuta_document_get_current_word(AnjutaDocument* doc)
     	    	
     word = g_new0(gchar, end - start + 1);
     strncpy(word, line + start, end - start);
+  	
+  	g_free(line);
   	
   	return word;
 }

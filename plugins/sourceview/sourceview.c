@@ -80,7 +80,6 @@ static void on_document_char_added(AnjutaDocument* buffer, gchar character, Sour
 	/* FIXME: Pass correct character */
 	g_signal_emit_by_name(G_OBJECT(sv), "char_added",
 		ianjuta_editor_get_position(IANJUTA_EDITOR(sv), NULL), character);
-	DEBUG_PRINT("Char added");
 }
 
 /* Called whenever the document is changed */
