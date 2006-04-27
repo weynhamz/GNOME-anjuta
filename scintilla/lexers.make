@@ -51,6 +51,7 @@ LEXER_OBJS = \
 	$(top_srcdir)/scintilla/LexScriptol.o\
 	$(top_srcdir)/scintilla/LexSmalltalk.o\
 	$(top_srcdir)/scintilla/LexSpecman.o\
+	$(top_srcdir)/scintilla/LexSpice.o\
 	$(top_srcdir)/scintilla/LexSQL.o\
 	$(top_srcdir)/scintilla/LexTADS3.o\
 	$(top_srcdir)/scintilla/LexTCL.o\
@@ -111,6 +112,7 @@ LEXER_SRCS = \
 	LexScriptol.cxx\
 	LexSmalltalk.cxx\
 	LexSpecman.cxx\
+	LexSpice.cxx\
 	LexSQL.cxx\
 	LexTADS3.cxx\
 	LexTCL.cxx\

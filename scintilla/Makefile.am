@@ -9,6 +9,7 @@ INCLUDES = \
 	-I$(srcdir)/include
 
 AM_CXXFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM
+AM_CPPFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM
 
 include $(srcdir)/lexers.make
 
@@ -99,7 +100,7 @@ update-scintilla:
 	done
 	echo "" >> lexers.make
 	echo "Patching files ..."
-	for patchfile in patches/*.diff patches/*.patch; do \
+	for patchfile in patches/*.diff; do \
 		patch -p1 < $$patchfile; \
 	done
 
