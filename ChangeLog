@@ -1,3 +1,13 @@
+2006-05-27  Naba Kumar <naba@gnome.org>
+
+	* (added) scintilla/LexSpice.cxx, scintilla/Editor.cxx,
+	scintilla/KeyWords.cxx, scintilla/LexSQL.cxx, scintilla/LexTCL.cxx,
+	scintilla/Makefile.am, scintilla/PlatGTK.cxx, scintilla/lexers.make,
+	scintilla/include/HFacer.py, scintilla/include/SciLexer.h,
+	scintilla/include/Scintilla.iface,
+	(remove) scintilla/patches/pango-1.8.patch: Updated scintilla from
+	cvs. Fixed compile flags. Removed outdated patches.
+
 2006-04-27  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* configure.in: Require libgladeui 2.91.1 (for glade3 plugin)
