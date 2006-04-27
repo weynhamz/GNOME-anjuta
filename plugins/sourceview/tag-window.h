@@ -71,10 +71,6 @@ GType tag_window_get_type(void);
 gboolean tag_window_update(TagWindow* tagwin, GtkWidget* view);
 TagWindowKeyPress tag_window_filter_keypress(TagWindow* tagwin, guint keyval);
 
-gboolean tag_window_up(TagWindow* tagwin);
-gboolean tag_window_down(TagWindow* tagwin);
-gboolean tag_window_select(TagWindow* tagwin);
-
 gboolean tag_window_is_active(TagWindow* tagwin);
 
 G_END_DECLS

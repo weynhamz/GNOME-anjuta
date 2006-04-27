@@ -164,6 +164,7 @@ typedef struct sTokenInfo {
 				   to pointer, etc */
     unsigned long lineNumber;	/* line number of tag */
     fpos_t        filePosition;	/* file position of line containing name */
+	int			  bufferPosition;	/* buffer position of line containing name */
 } tokenInfo;
 
 
@@ -428,7 +429,11 @@ static void initToken (tokenInfo* const token)
     token->keyword	= KEYWORD_NONE;
     token->pointerOrder = 0;
     token->lineNumber	= getSourceLineNumber ();
-    token->filePosition	= getInputFilePosition ();
+    
+	if (useFile())
+		token->filePosition	= getInputFilePosition ();
+	else
+		token->bufferPosition = getInputBufferPosition ();
     vStringClear (token->name);
 }
 
@@ -451,6 +456,7 @@ static tokenInfo *prevToken (const statementInfo *const st, unsigned int n)
     unsigned int num = (unsigned int) NumTokens;
     Assert (n < num);
     tokenIndex = (st->tokenIndex + num - n) % num;
+
     return st->token [tokenIndex];
 }
 
@@ -924,36 +930,40 @@ static void addOtherFields (tagEntryInfo* const tag, const tagType type,
 	case TAG_TYPEDEF:
 	case TAG_UNION:
 	    if (isMember (st) &&
-		! (type == TAG_ENUMERATOR  &&  vStringLength (scope) == 0))
-	    {
-		if (isType (st->context, TOKEN_NAME))
-		    tag->extensionFields.scope [0] = tagName (TAG_CLASS);
-		else
-		    tag->extensionFields.scope [0] =
-			tagName (declToTagType (parentDecl (st)));
-		tag->extensionFields.scope [1] = vStringValue (scope);
+		! (type == TAG_ENUMERATOR  &&  vStringLength (scope) == 0))  {
+			if (isType (st->context, TOKEN_NAME))
+		    	tag->extensionFields.scope [0] = tagName (TAG_CLASS);
+			else
+		    	tag->extensionFields.scope [0] =
+					tagName (declToTagType (parentDecl (st)));
+			tag->extensionFields.scope [1] = vStringValue (scope);
 	    }
 	    if ((type == TAG_CLASS  ||  type == TAG_INTERFACE  ||
-		 type == TAG_STRUCT) && vStringLength (st->parentClasses) > 0)
-	    {
+		 type == TAG_STRUCT) && vStringLength (st->parentClasses) > 0) {
 
-		tag->extensionFields.inheritance =
-			vStringValue (st->parentClasses);
+			tag->extensionFields.inheritance =
+				vStringValue (st->parentClasses);
 	    }
 	    if (st->implementation != IMP_DEFAULT &&
-		(isLanguage (Lang_cpp) || isLanguage (Lang_java)))
-	    {
-		tag->extensionFields.implementation =
-			implementationString (st->implementation);
+				(isLanguage (Lang_cpp) || isLanguage (Lang_java)))  {
+			tag->extensionFields.implementation =
+				implementationString (st->implementation);
 	    }
-	    if (isMember (st))
-	    {
-		tag->extensionFields.access = accessField (st);
+	    if (isMember (st)) {
+			tag->extensionFields.access = accessField (st);
 	    }
 		if ((TRUE == st->gotArgs) && (TRUE == Option.extensionFields.argList) &&
-			((TAG_FUNCTION == type) || (TAG_METHOD == type) || (TAG_PROTOTYPE == type)))
-				tag->extensionFields.arglist = getArglistFromPos(
+			((TAG_FUNCTION == type) || (TAG_METHOD == type) || (TAG_PROTOTYPE == type))) {
+			
+			if (useFile()) {
+				tag->extensionFields.arglist = getArglistFromFilePos(
 				  tag->filePosition, tag->name);
+			}
+			else {
+				tag->extensionFields.arglist = getArglistFromBufferPos(
+				  tag->bufferPosition, tag->name);
+			}
+		}
 	    break;
     }
 	
@@ -1079,7 +1089,12 @@ static void makeTag (const tokenInfo *const token,
 	initTagEntry (&e, vStringValue (token->name));
 
 	e.lineNumber	= token->lineNumber;
-	e.filePosition	= token->filePosition;
+	
+	if (useFile())
+		e.filePosition	= token->filePosition;
+	else
+		e.bufferPosition = token->bufferPosition;
+	
 	e.isFileScope	= isFileScope;
 	e.kindName	= tagName (type);
 	e.kind		= tagLetter (type);
@@ -1231,8 +1246,9 @@ static int skipToNonWhite (void)
 {
     int c;
 
-    do
-	c = cppGetc ();
+    do {
+		c = cppGetc ();
+	}
     while (isspace (c));
 
     return c;
@@ -1489,7 +1505,10 @@ static void copyToken (tokenInfo *const dest, const tokenInfo *const src)
 {
     dest->type         = src->type;
     dest->keyword      = src->keyword;
-    dest->filePosition = src->filePosition;
+    if (useFile())
+		dest->filePosition = src->filePosition;
+	else
+		dest->bufferPosition = src->bufferPosition;
     dest->lineNumber   = src->lineNumber;
     dest->pointerOrder = src->pointerOrder;
     vStringCopy (dest->name, src->name);
@@ -1870,10 +1889,11 @@ static int parseParens (statementInfo *const st, parenInfo *const info)
     do
     {
 	int c = skipToNonWhite ();
+
 	switch (c)
 	{
-	    case '&':
-	    case '*':
+	    case '&':	
+	    case '*':	
 		/* DEBUG_PRINT("parseParens, po++\n"); */
 		info->pointerOrder++;
 		info->isKnrParamList = FALSE;
@@ -1989,8 +2009,12 @@ static int parseParens (statementInfo *const st, parenInfo *const info)
 	skipToMatch ("()");
 	--depth;
     }
-	if (st->argEndPosition == 0)
-		st->argEndPosition = ftell(File.fp);
+	if (st->argEndPosition == 0) {
+		if (useFile())
+			st->argEndPosition = ftell(File.fp);
+		else
+			st->argEndPosition = File.fpBufferPosition;
+	}
 
     if (! info->isNameCandidate)
 	initToken (token);
@@ -2015,39 +2039,43 @@ static void analyzeParens (statementInfo *const st)
 
     if (! isType (prev, TOKEN_NONE))    /* in case of ignored enclosing macros */
     {
-	tokenInfo *const token = activeToken (st);
-	parenInfo info;
-	int c;
+		tokenInfo *const token = activeToken (st);
+		parenInfo info;
+		int c;
 
-	initParenInfo (&info);
-	parseParens (st, &info);
-	c = skipToNonWhite ();
-	cppUngetc (c);
-	if (info.invalidContents)
-	    reinitStatement (st, FALSE);
-	else if (info.isNameCandidate  &&  isType (token, TOKEN_PAREN_NAME)  &&
-		 ! st->gotParenName  &&
-		 (! info.isParamList || ! st->haveQualifyingName  ||
-		  c == '('  ||
-		  (c == '='  &&  st->implementation != IMP_VIRTUAL) ||
-		  (st->declaration == DECL_NONE  &&  isOneOf (c, ",;"))))
-	{
-	    token->type = TOKEN_NAME;
-	    processName (st);
-	    st->gotParenName = TRUE;
-	    if (! (c == '('  &&  info.nestedArgs))
-		st->pointerOrder = info.pointerOrder;
+		initParenInfo (&info);
+		parseParens (st, &info);
+	
+		c = skipToNonWhite ();
+
+		cppUngetc (c);
+		if (info.invalidContents) {
+	    	reinitStatement (st, FALSE);
+		}
+		else if (info.isNameCandidate  &&  isType (token, TOKEN_PAREN_NAME)  &&
+			 ! st->gotParenName  &&
+		 	(! info.isParamList || ! st->haveQualifyingName  ||
+		  	c == '('  ||
+		  	(c == '='  &&  st->implementation != IMP_VIRTUAL) ||
+		  	(st->declaration == DECL_NONE  &&  isOneOf (c, ",;"))))
+		{
+	    	token->type = TOKEN_NAME;
+	    	processName (st);
+	    	st->gotParenName = TRUE;
+	    	if (! (c == '('  &&  info.nestedArgs))
+				st->pointerOrder = info.pointerOrder;
+		}
+		else if (! st->gotArgs  &&  info.isParamList)
+		{
+		    st->gotArgs = TRUE;
+		    setToken (st, TOKEN_ARGS);
+		    advanceToken (st);
+		    analyzePostParens (st, &info);
+		}
+		else {
+		    setToken (st, TOKEN_NONE);
+		}
 	}
-	else if (! st->gotArgs  &&  info.isParamList)
-	{
-	    st->gotArgs = TRUE;
-	    setToken (st, TOKEN_ARGS);
-	    advanceToken (st);
-	    analyzePostParens (st, &info);
-	}
-	else
-	    setToken (st, TOKEN_NONE);
-    }
 }
 
 /*
@@ -2192,30 +2220,30 @@ static void nextToken (statementInfo *const st)
     tokenInfo *token = activeToken (st);
     do
     {
-	c = skipToNonWhite();
-			
-	switch (c)
-	{
-	    case EOF: longjmp (Exception, (int) ExceptionEOF);		break;
-	    case '(': analyzeParens (st); token = activeToken (st);     break;
-	    case '*': setToken (st, TOKEN_STAR);			break;
-	    case ',': setToken (st, TOKEN_COMMA);			break;
-	    case ':': processColon (st);				      break;
-	    case ';': setToken (st, TOKEN_SEMICOLON);			break;
-	    case '<': skipToMatch ("<>");				break;
-	    case '=': processInitializer (st);				break;
-	    case '[': skipToMatch ("[]");				break;
-	    case '{': setToken (st, TOKEN_BRACE_OPEN);			break;
-	    case '}': setToken (st, TOKEN_BRACE_CLOSE);			break;
-	    default:  parseGeneralToken (st, c);				break;
-	}
+		c = skipToNonWhite();
+		switch (c)
+		{
+		    case EOF: longjmp (Exception, (int) ExceptionEOF);		break;
+		    case '(': analyzeParens (st); token = activeToken (st);     break;
+	    	case '*': setToken (st, TOKEN_STAR);			break;
+		    case ',': setToken (st, TOKEN_COMMA);			break;
+		    case ':': processColon (st);				      break;
+		    case ';': setToken (st, TOKEN_SEMICOLON);			break;
+		    case '<': skipToMatch ("<>");				break;
+	    	case '=': processInitializer (st);				break;
+		    case '[': skipToMatch ("[]");				break;
+		    case '{': setToken (st, TOKEN_BRACE_OPEN);			break;
+	    	case '}': setToken (st, TOKEN_BRACE_CLOSE);			break;
+	    	default:  parseGeneralToken (st, c);				break;
+		}
     } while (isType (token, TOKEN_NONE));
 	
 	/* We want to know about non-keyword variable types */
 	if (TOKEN_NONE == st->firstToken->type)
 	{
-	    if ((TOKEN_NAME == token->type) || isDataTypeKeyword(token))
+	    if ((TOKEN_NAME == token->type) || isDataTypeKeyword(token)) {
 			copyToken(st->firstToken, token);
+		}
 	}
 }
 
@@ -2453,35 +2481,33 @@ static void createTags (const unsigned int nestLevel,
     statementInfo *const st = newStatement (parent);
 
     DebugStatement ( if (nestLevel > 0) debugParseNest (TRUE, nestLevel); )
-    while (TRUE)
-    {
-	tokenInfo *token;
+    while (TRUE) {
+		tokenInfo *token;
 
-	nextToken (st);
-	token = activeToken (st);
-	if (isType (token, TOKEN_BRACE_CLOSE))
-	{
-	    if (nestLevel > 0)
-		break;
-	    else
-	    {
-		verbose ("%s: unexpected closing brace at line %lu\n",
-			getInputFileName (), getInputLineNumber ());
-		longjmp (Exception, (int) ExceptionBraceFormattingError);
-	    }
-	}
-	else if (isType (token, TOKEN_DOUBLE_COLON))
-	{
-	    addContext (st, prevToken (st, 1));
-	    advanceToken (st);
-	}
-	else
-	{
-	    tagCheck (st);/* this can add new token */
-	    if (isType (activeToken (st), TOKEN_BRACE_OPEN))
-		nest (st, nestLevel + 1);
-	    checkStatementEnd (st);
-	}
+		nextToken (st);
+
+		token = activeToken (st);
+
+		if (isType (token, TOKEN_BRACE_CLOSE)) {
+	    	if (nestLevel > 0) {
+				break;
+			}
+	    	else {
+				verbose ("%s: unexpected closing brace at line %lu\n",
+					getInputFileName (), getInputLineNumber ());
+				longjmp (Exception, (int) ExceptionBraceFormattingError);
+	    	}
+		}
+		else if (isType (token, TOKEN_DOUBLE_COLON)) {
+	    	addContext (st, prevToken (st, 1));
+	    	advanceToken (st);
+		}
+		else {
+	    	tagCheck (st);/* this can add new token */
+	    	if (isType (activeToken (st), TOKEN_BRACE_OPEN))
+				nest (st, nestLevel + 1);
+	    	checkStatementEnd (st);
+		}
     }
     deleteStatement ();
     DebugStatement ( if (nestLevel > 0) debugParseNest (FALSE, nestLevel - 1); )
@@ -2497,17 +2523,17 @@ static boolean findCTags (const unsigned int passCount)
 
     exception = (exception_t) setjmp (Exception);
     retry = FALSE;
-    if (exception == ExceptionNone)
+
+    if (exception == ExceptionNone) {
 	    createTags (0, NULL);
-    else
-    {
-	deleteAllStatements ();
-	if (exception == ExceptionBraceFormattingError  &&  passCount == 1)
-	{
-	    retry = TRUE;
-	   verbose ("%s: retrying file with fallback brace matching algorithm\n",
-		    getInputFileName ());
 	}
+    else {
+		deleteAllStatements ();
+		if (exception == ExceptionBraceFormattingError  &&  passCount == 1) {
+	    	retry = TRUE;
+	   		verbose ("%s: retrying file with fallback brace matching algorithm\n",
+		    	getInputFileName ());
+		}
     }
     cppTerminate ();
     return retry;

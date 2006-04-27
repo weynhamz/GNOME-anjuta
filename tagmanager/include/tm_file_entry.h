@@ -24,6 +24,10 @@ extern "C"
 {
 #endif
 
+// DEBUG. FIXME REMOVE
+//#define TM_DEBUG
+
+
 /*! Enum defining file types */
 typedef enum
 {

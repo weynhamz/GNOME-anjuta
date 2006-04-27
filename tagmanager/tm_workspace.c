@@ -981,6 +981,7 @@ tm_workspace_find_scope_members (const GPtrArray * file_tags, const char *name,
 	{
 		g_free (new_name);
 	}
+
 	return tags;
 }
 

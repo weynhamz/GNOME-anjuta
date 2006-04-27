@@ -28,7 +28,8 @@ extern void cppBeginStatement (void);
 extern void cppEndStatement (void);
 extern void cppUngetc (const int c);
 extern int cppGetc (void);
-extern char *getArglistFromPos(fpos_t startPosition, const char *tokenName);
+extern char *getArglistFromFilePos(fpos_t startPosition, const char *tokenName);
+extern char *getArglistFromBufferPos(int startPosition, const char *tokenName);
 extern char *getArglistFromStr(char *buf, const char *name);
 #endif	/* _GET_H */
 

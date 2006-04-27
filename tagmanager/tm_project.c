@@ -267,6 +267,7 @@ gboolean tm_project_remove_object(TMProject *project, TMWorkObject *w)
 	return FALSE;
 }
 
+
 void tm_project_recreate_tags_array(TMProject *project)
 {
 	guint i, j;
@@ -277,6 +278,8 @@ void tm_project_recreate_tags_array(TMProject *project)
 	g_message("Recreating tags for project: %s", project->work_object.file_name);
 #endif
 
+	/* FIXME: project doesn't free the old tags_array GPtrArray. But just sets its
+	 size to 0 and recreate the tags. There'll be some dangling pointer. */
 	if (NULL != project->work_object.tags_array)
 		g_ptr_array_set_size(project->work_object.tags_array, 0);
 	else
@@ -322,6 +325,10 @@ gboolean tm_project_update(TMWorkObject *work_object, gboolean force
 	{
 		if (recurse)
 		{
+			#ifdef TM_DEBUG
+				g_message ("Gonna recursing in file-tags updating from [project], %d times", project->file_list->len);
+			#endif
+
 			for (i=0; i < project->file_list->len; ++i)
 			{
 				if (TRUE == tm_source_file_update(TM_WORK_OBJECT(
@@ -332,14 +339,23 @@ gboolean tm_project_update(TMWorkObject *work_object, gboolean force
 		if (update_tags || (TM_WORK_OBJECT (project)->tags_array == NULL))
 		{
 #ifdef TM_DEBUG
-			g_message ("Tags updated, recreating tags array");
+			g_message ("Tags updated, recreating tags array from project");
 #endif
 			tm_project_recreate_tags_array(project);
 		}
 	}
 	work_object->analyze_time = time(NULL);
-	if ((work_object->parent) && (update_parent))
+	if ((work_object->parent) && (update_parent)) {
 		tm_workspace_update(work_object->parent, TRUE, FALSE, FALSE);
+#ifdef TM_DEBUG
+		g_message ("Gonna reparse workspace too");
+	}
+	else {
+		g_message ("Won't reparse workspace. Parent is %s and update_parent is %s"
+			  , work_object->parent?"NOT NULL":"NULL", update_parent?"TRUE":"FALSE");
+#endif
+	}	
+		
 	return update_tags;
 }
 

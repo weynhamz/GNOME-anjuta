@@ -2321,6 +2321,18 @@ interface IAnjutaSymbolManager
 	* Returns: fixme
 	*/
 	IAnjutaIterable* get_parents (const gchar *symbol_name);
+	
+	/**
+	* ianjuta_symbol_manager_get_completions_at_position:
+	* @obj: Self
+	* @symbol_name: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	* 
+	* Returns: fixme
+	*/
+	IAnjutaIterable* get_completions_at_position (gchar* file_uri, gchar *text_buffer, gint text_length, gint text_pos);
 }
 
 interface IAnjutaPrint

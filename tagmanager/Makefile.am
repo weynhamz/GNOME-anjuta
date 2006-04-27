@@ -69,3 +69,21 @@ libanjuta_ctags_la_SOURCES =\
 	tm_tagmanager.c
 
 libanjuta_ctags_la_LIBADD = $(GLIB_LIBS)
+
+bin_PROGRAMS = \
+	test_tm_buffer 
+	
+
+test_tm_buffer_SOURCES = \
+	test_tm_buffer.c\
+	entry.h                        \
+	general.h                        \
+	parse.h                        \
+	read.h                        \
+	include/tm_source_file.h                        \
+	include/tm_tag.h                        \
+	include/tm_work_object.h                        
+
+test_tm_buffer_LDADD = $(GLIB_LIBS)\
+	libanjuta-ctags.la
+

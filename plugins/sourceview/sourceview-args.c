@@ -54,7 +54,7 @@ struct _SourceviewArgsPrivate {
 
 G_DEFINE_TYPE(SourceviewArgs, sourceview_args, TAG_TYPE_WINDOW);
 
-#define WORD_REGEX "[^ \\t&*(]+$"
+#define WORD_REGEX "[^ \\t&*!(]+$"
 static gchar* get_current_word(AnjutaDocument* doc)
 {
 	pcre *re;

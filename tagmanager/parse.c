@@ -645,24 +645,24 @@ extern boolean parseFile (const char *const fileName)
     boolean tagFileResized = FALSE;
     langType language = Option.language;
     if (Option.language == LANG_AUTO)
-	language = getFileLanguage (fileName);
+		language = getFileLanguage (fileName);
     Assert (language != LANG_AUTO);
     if (language == LANG_IGNORE)
-	verbose ("ignoring %s (unknown language)\n", fileName);
+		verbose ("ignoring %s (unknown language)\n", fileName);
     else if (! LanguageTable [language]->enabled)
-	verbose ("ignoring %s (language disabled)\n", fileName);
+		verbose ("ignoring %s (language disabled)\n", fileName);
     else
     {
-	if (Option.filter)
-	    openTagFile ();
+		if (Option.filter)
+		    openTagFile ();
 
-	tagFileResized = createTagsWithFallback (fileName, language);
+		tagFileResized = createTagsWithFallback (fileName, language);
 
-	if (Option.filter)
-	    closeTagFile (tagFileResized);
-	addTotals (1, 0L, 0L);
+		if (Option.filter)
+	    	closeTagFile (tagFileResized);
+		addTotals (1, 0L, 0L);
 
-	return tagFileResized;
+		return tagFileResized;
     }
     return tagFileResized;
 }

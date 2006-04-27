@@ -10,6 +10,7 @@
 #ifndef TM_SYMBOL_H
 #define TM_SYMBOL_H
 
+
 /*! \file
  The TMSymbol structure and related routines are used by TMProject to maintain a symbol
  hierarchy. The top level TMSymbol maintains a pretty simple hierarchy, consisting of

@@ -2,7 +2,11 @@
 /*
  * an_symbol_view.c
  * Copyright (C) 2004 Naba Kumar
- * 
+ * Copyright (C) 2006 Martin Stubenschrott <stubenschrott@gmx.net>: thankyou for
+ * the code of IComplete [which anyway here is heavily modified] and the ideas
+ * for autocompletion
+ * Copyright (C) 2006 Massimo Cora' <maxcvs@email.it> 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -23,9 +27,11 @@
 
 #include <string.h>
 #include <ctype.h>
-#include <libgnomeui/gnome-stock-icons.h>
+#include <regex.h>
+#include <libgnomeui/gnome-stock-icons.h> 
 #include <libgnome/gnome-i18n.h>
 #include <libgnome/gnome-macros.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-status.h>
@@ -35,6 +41,7 @@
 
 #define MAX_STRING_LENGTH 256
 #define TOOLTIP_TIMEOUT 1000 /* milliseconds */
+
 
 struct _AnjutaSymbolViewPriv
 {
@@ -610,16 +617,26 @@ mapping_function (GtkTreeView * treeview, GtkTreePath * path, gpointer data)
 	*((GList **) data) = map;
 };
 
-#if 0
-TMFile *
-sv_get_tm_file (AnjutaSymbolView * sv, const gchar * filename)
+
+TMSourceFile *
+anjuta_symbol_view_get_tm_file (AnjutaSymbolView * sv, const gchar * uri)
 {
-	return tm_workspace_find_object (TM_WORK_OBJECT
+	gchar *filename;
+	TMSourceFile *tm_file;
+	
+	g_return_val_if_fail (uri != NULL, NULL);
+	
+	filename = gnome_vfs_get_local_path_from_uri (uri);
+	
+	tm_file = (TMSourceFile *)tm_workspace_find_object (TM_WORK_OBJECT
 					 (sv->priv->tm_workspace), filename,
-					 TRUE);
+					 FALSE);
+	
+	g_free (filename);
+	return tm_file;				
 }
 
-#endif
+
 
 void
 anjuta_symbol_view_add_source (AnjutaSymbolView * sv, const gchar *filename)
@@ -675,6 +692,51 @@ anjuta_symbol_view_remove_source (AnjutaSymbolView *sv, const gchar *filename)
 		g_warning ("Unable to find %s in project", full_fn);
 */
 }
+
+void anjuta_symbol_view_update_source_from_buffer (AnjutaSymbolView *sv, const gchar *uri,
+													gchar* text_buffer, gint buffer_size) 
+{
+	TMWorkObject *tm_file;
+	gchar *filename = NULL;
+
+	GTimer *timer;
+	gulong ms;
+
+	filename = gnome_vfs_get_local_path_from_uri (uri);
+	
+	if (sv->priv->tm_workspace == NULL ||
+		sv->priv->tm_project == NULL ) {
+		DEBUG_PRINT ("workspace or project are null");
+		return;
+	}
+	
+	tm_file =
+		tm_workspace_find_object (TM_WORK_OBJECT
+								  (sv->priv->tm_workspace),
+								  filename, FALSE);
+	if (tm_file == NULL) {
+		DEBUG_PRINT ("tm_file is null");
+		return;
+	}
+
+	/* this is only a debug part of code. It'll be remove later. The only function
+	   to let here is tm_source_file_buffer_update () */
+	DEBUG_PRINT ("total tags discovered BEFORE buffer updating...: %d", 
+			TM_PROJECT(sv->priv->tm_project)->work_object.tags_array->len);	
+	
+	timer = g_timer_new ();
+	tm_source_file_buffer_update (tm_file, text_buffer, buffer_size, TRUE);
+	
+	g_timer_stop (timer);
+	g_timer_elapsed (timer, &ms);
+	
+	DEBUG_PRINT ("updating took %d microseconds", (unsigned int)ms );
+	
+	DEBUG_PRINT ("total tags discovered AFTER buffer updating...: %d", 
+			TM_PROJECT(sv->priv->tm_project)->work_object.tags_array->len);	
+	
+}
+
 
 static void
 anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
@@ -1185,6 +1247,8 @@ anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView * sv,
 		g_hash_table_remove (sv->priv->tm_files, uri);
 }
 
+
+// FIXME
 void
 anjuta_symbol_view_workspace_update_file (AnjutaSymbolView * sv,
 										  const gchar * old_file_uri,
@@ -1373,3 +1437,767 @@ anjuta_symbol_view_get_file_symbol (AnjutaSymbolView * sv,
 	}
 	return FALSE;
 }
+
+
+
+
+/*
+ * for a given expression "myvar->getX().toFloat"
+ * the function should just return "myvar"
+ * and move the **expr pointer after the ident
+ * returns NULL, if no identifier is found, and then the value of expr is undefined
+ */
+static gchar* 
+sv_scan_for_ident(const gchar **expr)
+{
+	static gchar ident[256];
+    int valid_chars = 0; /* number of identified characters in the ident string */
+
+	gchar c;
+	while ((c = **expr) != '\0')
+	{
+		if(valid_chars == 0 && isspace(c))
+		{
+			(*expr)++;
+			continue;
+		}
+		// XXX: Namespace support
+		else if(isalpha(c) || c == '_') // ???: || c == ':')
+		{
+			ident[valid_chars] = c;
+			if (++valid_chars == 255)
+			{
+				ident[255] = '\0';
+				return ident;
+			}
+		}
+		/* a digit may be part of an ident but not from the start */
+		else if (isdigit(c))
+		{
+			if (valid_chars)
+			{
+				ident[valid_chars] = c;
+				if (++valid_chars == 255)
+				{
+					ident[255] = '\0';
+					return ident;
+				}
+			}
+			else
+				return NULL;
+
+		}
+		else
+			break;
+
+		(*expr)++;
+	}
+
+	if (valid_chars)
+	{
+		ident[valid_chars] = '\0';
+		return ident;
+	}
+	else
+		return NULL;
+}
+
+
+static
+gchar* sv_extract_type_qualifier_from_expr (const gchar *string, const gchar *expr )
+{
+	/* check with a regular expression for the type */
+	regex_t re;
+	regmatch_t pm[8]; // 7 sub expression -> 8 matches
+	memset (&pm, -1, sizeof(pm));
+	/*
+	 * this regexp catches things like:
+	 * a) std::vector<char*> exp1[124] [12], *exp2, expr;
+	 * b) QClass* expr1, expr2, expr;
+	 * c) int a,b; char r[12] = "test, argument", q[2] = { 't', 'e' }, expr;
+	 *
+	 * it CAN be fooled, if you really want it, but it should
+	 * work for 99% of all situations.
+	 *
+	 * QString
+	 * 		var;
+	 * in 2 lines does not work, because //-comments would often bring wrong results
+	 */
+
+	#define STRING      "\\\".*\\\""
+	#define BRACKETEXPR "\\{.*\\}"
+	#define IDENT       "[a-zA-Z_][a-zA-Z0-9_]*"
+	#define WS          "[ \t\n]*"
+	#define PTR         "[\\*&]?\\*?"
+	#define INITIALIZER "=(" WS IDENT WS ")|=(" WS STRING WS ")|=(" WS BRACKETEXPR WS ")" WS
+	#define ARRAY 		WS "\\[" WS "[0-9]*" WS "\\]" WS
+
+	gchar *res = NULL;
+	static gchar pattern[512] =
+		"(" IDENT "\\>)" 	// the 'std' in example a)
+		"(::" IDENT ")*"	// ::vector
+		"(" WS "<[^>;]*>)?"	// <char *>
+		"(" WS PTR WS IDENT WS "(" ARRAY ")*" "(" INITIALIZER ")?," WS ")*" // other variables for the same ident (string i,j,k;)
+		"[ \t\\*&]*";		// check again for pointer/reference type
+
+	/* must add a 'termination' symbol to the regexp, otherwise
+	 * 'exp' would match 'expr' */
+	gchar regexp[512];
+	snprintf(regexp, 512, "%s\\<%s\\>", pattern, expr);
+
+	/* compile regular expression */
+	gint error = regcomp (&re, regexp, REG_EXTENDED) ;
+	if (error)
+		g_warning ("regcomp failed");
+
+	/* this call to regexec finds the first match on the line */
+	error = regexec (&re, string, 8, &pm[0], 0) ;
+	while (error == 0) /* while matches found */
+	{   
+		/* subString found between pm.rm_so and pm.rm_eo */
+		/* only include the ::vector part in the indentifier, if the second subpattern matches at all */
+		gint len = (pm[2].rm_so != -1 ? pm[2].rm_eo : pm[1].rm_eo) - pm[1].rm_so;
+		if (res)
+			free (res);
+		res = (gchar*) malloc (len + 1);
+		if (!res)
+		{
+			regfree (&re);
+			return NULL;
+		}
+		strncpy (res, string + pm[1].rm_so, len); 
+		res[len] = '\0';
+
+		/* This call to regexec finds the next match */
+		error = regexec (&re, string + pm[0].rm_eo, 8, &pm[0], 0) ;
+		break;
+	}
+	regfree(&re);
+
+	/* we if the proposed type is a keyword, we did something wrong, return NULL instead */
+	/*    static char *keywords[] = { "if", "else", "goto", "for", "do", "while", "const", "static", "volatile",*/
+	/*    "register", "break", "continue", "return", "switch", "case", "new", "typedef", "inline"};*/
+	return res;
+}
+
+
+
+/* for ident=getRect and class=QWidget return QRect
+ * @param token_is_function = true, if the token is a function or false if a variable
+ * caller must free() the returned string */
+static TMTag* 
+sv_get_type_of_token (const gchar* ident, const gchar* klass, const TMTag* local_scope_of_ident, 
+					const TMTag* local_declaration_type)
+{
+	const GPtrArray *tags_array;
+	TMTag *klass_tag = NULL;
+	gint i;
+	
+	/* if we have a variable and already found a local definition, just return it*/
+	if (local_declaration_type != NULL && strlen(local_declaration_type->name)) {
+		return (TMTag*)local_declaration_type;
+	}
+
+	/* if the identifier is this-> return the current class */
+	if (!strcmp (ident, "this")) {
+		const GPtrArray *tags_array;
+		TMTag* scope_tag = NULL;
+		gint i;
+		
+		scope_tag = (TMTag*)local_scope_of_ident;
+		
+		if (scope_tag == NULL || scope_tag->atts.entry.scope == NULL)
+			return NULL;
+		
+		DEBUG_PRINT ("hey the scope_tag printing.... %s", scope_tag->name);
+		tm_tag_print (scope_tag, stdout);
+		
+		
+		tags_array = tm_workspace_find (scope_tag->atts.entry.scope, 
+				tm_tag_struct_t | tm_tag_typedef_t |tm_tag_union_t| tm_tag_class_t, 
+				NULL, FALSE, TRUE);
+		
+		if (tags_array  != NULL) {
+			for (i=0; i < tags_array ->len; i++) {
+				TMTag *cur_tag;
+			
+				cur_tag = (TMTag*)g_ptr_array_index (tags_array , i);
+				g_message ("found following %d array_tmp tag: %s", i, cur_tag ->name );
+				if ( strcmp (cur_tag->name, scope_tag->atts.entry.scope) == 0) {
+					scope_tag = cur_tag;
+					break;
+				}
+			}
+		}
+				
+		DEBUG_PRINT ("returning local_scope_of_ident on \"this\" with klass %s", klass);
+		
+		if (scope_tag)
+			DEBUG_PRINT ("scope_tag [class] %s", scope_tag->name);
+		return scope_tag;;
+	}
+	
+	if (klass == NULL || (strcmp("", klass) == 0))
+		return NULL;
+	
+	tags_array = tm_workspace_find_scope_members (NULL, klass,
+												  TRUE);
+
+	for (i=0; i < tags_array->len; i++) {
+		TMTag *tmp_tag;
+		
+		tmp_tag = (TMTag*)g_ptr_array_index (tags_array, i);
+		
+		/* store the klass_tag. It will be useful later */
+		if (strcmp (tmp_tag->name, klass) == 0) {
+			klass_tag = tmp_tag;
+		}
+		
+		if (strcmp (tmp_tag->name, ident) == 0 ) {
+			DEBUG_PRINT ("returning from get_type_of_token. ident %s, klass %s, local_scope_of_ident %s",
+					ident, klass, local_scope_of_ident->name);
+		
+			DEBUG_PRINT ("returning %s at pos %i", tmp_tag->name, i);
+			return tmp_tag;
+		}
+	}	
+		
+	/* checking for inherited members */
+	GPtrArray *inherited_tags_array;
+	
+	inherited_tags_array = anjuta_symbol_view_get_completable_members (klass_tag, TRUE);
+	
+	for (i=0; i < inherited_tags_array->len; i++) {
+		TMTag *tmp_tag;
+		
+		tmp_tag = (TMTag*)g_ptr_array_index (inherited_tags_array, i);
+		DEBUG_PRINT ("parsing inherited member as %s ", tmp_tag->name);
+		if ( (strcmp (tmp_tag->name, ident) == 0) ) {
+			const GPtrArray *inherit_array;
+		
+			TMTagAttrType attrs[] = {
+				tm_tag_attr_type_t
+			};
+			
+			inherit_array = tm_workspace_find (tmp_tag->atts.entry.var_type, 
+					tm_tag_class_t, attrs, FALSE, TRUE);
+					
+			if (inherit_array == NULL)
+				continue;
+								
+			gint j;
+			for (j=0; j < inherit_array->len; j++) {
+				TMTag *cur_tag = (TMTag*)g_ptr_array_index (inherit_array, j);
+//				DEBUG_PRINT ("found inherited member: %s", cur_tag->name);
+				
+				if (strcmp(tmp_tag->atts.entry.var_type, cur_tag->name) == 0 )
+					return cur_tag;
+			}
+			
+			return tmp_tag;
+		}
+	}
+	
+	g_ptr_array_free (inherited_tags_array, TRUE);
+
+	g_message ("returning NULL from get_type_of_token. ident %s", ident);
+	return NULL;
+}
+
+
+/*----------------------------------------------------------------------------
+ * Lists the completable members given a klass_tag. I.e.: it returns all current
+ * class members [private/protected/public] [or in case of a struct all its members]
+ * and then it goes up for parents retrieving public/protected memebers.
+ */
+
+GPtrArray*
+anjuta_symbol_view_get_completable_members (TMTag* klass_tag, gboolean include_parents) {
+	gchar *symbol_name;
+
+	// FIXME: pobably there's no need for this check.	
+	symbol_name = klass_tag->atts.entry.var_type;
+	if (symbol_name == NULL)
+		symbol_name = klass_tag->name;
+	
+	DEBUG_PRINT ("hey from completable.");
+	tm_tag_print (klass_tag, stdout);
+
+	switch (klass_tag->type) {
+		case tm_tag_struct_t: 
+		case tm_tag_typedef_t: 
+		case tm_tag_union_t: 
+		{
+			const GPtrArray* tags_array;
+			GPtrArray *completable_array;
+			gint i;
+			/* we should list all members of our struct/typedef/union...*/
+			tags_array = tm_workspace_find_scope_members (NULL, symbol_name, TRUE);
+			if (tags_array == NULL)
+				return NULL;
+
+			completable_array = g_ptr_array_new ();
+			for (i=0; i < tags_array->len; i++)
+				g_ptr_array_add (completable_array, g_ptr_array_index (tags_array, i));
+				
+			return completable_array;
+		}
+		case tm_tag_class_t: 
+		case tm_tag_member_t:
+		case tm_tag_method_t:
+		case tm_tag_prototype_t:
+		{
+			
+			/* list all the public/protected members of super classes, if it's a class
+	  		obviously and if there are some super classes */
+			
+			GPtrArray *completable_array;			
+			const GPtrArray *tags_array;
+			gint i;
+					
+			tags_array = tm_workspace_find_scope_members (NULL, symbol_name, TRUE);
+			if (tags_array == NULL)
+				return NULL;
+
+			completable_array = g_ptr_array_new ();
+			/* we *must* duplicate the contents of the tags_array coz it will be 
+			 * overwritten the next call to tm_workspace_find_scope_members ().
+			 * Just the tag-pointers will be saved, not the entire struct behind them.
+			 */
+			for (i=0; i < tags_array->len; i++)
+				g_ptr_array_add (completable_array, g_ptr_array_index (tags_array, i));
+
+			/* should we go for parents [include_parents]? or is it a struct [inheritance == NULL]? */
+			if (!include_parents || klass_tag->atts.entry.inheritance == NULL)
+				return completable_array;
+				
+			DEBUG_PRINT ("parents from klass_tag [name] %s: %s", symbol_name, klass_tag->atts.entry.inheritance);
+			
+			const GPtrArray *parents_array = tm_workspace_get_parents (symbol_name);
+			if (parents_array == NULL) {
+				DEBUG_PRINT ("returning tags_array coz parents_array is null");
+				return completable_array;
+			}
+			
+			for (i=0; i < parents_array->len; i++) {
+				gint j;
+				const GPtrArray *tmp_parents_array;
+				TMTag* cur_parent_tag = g_ptr_array_index (parents_array, i);
+
+				/* we don't need the members for the symbols_name's class. We 
+				   already have them */
+				if ( (strcmp(cur_parent_tag->name, symbol_name) == 0) )
+					continue;
+				
+				if ( (tmp_parents_array = tm_workspace_find_scope_members (NULL, 
+						cur_parent_tag->name, TRUE)) == NULL) {
+					continue;		
+				}
+					
+				gint length = tmp_parents_array->len;
+				for (j = 0; j < length; j++) {
+					TMTag *test_tag;
+					test_tag = (TMTag*)g_ptr_array_index (tmp_parents_array, j);
+					
+					//g_message ("got [%d] test_tag->name %s", j, test_tag->name );
+					
+					if (test_tag->atts.entry.access == TAG_ACCESS_PUBLIC ||
+						test_tag->atts.entry.access == TAG_ACCESS_PROTECTED ||
+						test_tag->atts.entry.access == TAG_ACCESS_FRIEND) {
+
+						g_ptr_array_add (completable_array, test_tag);	
+					}					
+				}	
+			}			
+			
+			return completable_array;
+		}
+
+		case tm_tag_namespace_t:
+		{
+			const GPtrArray *namespace_classes;
+			GPtrArray *completable_array = NULL;
+			gint i;
+			
+			DEBUG_PRINT ("we got a namespace!");
+			
+			namespace_classes = tm_workspace_find (NULL, 
+				tm_tag_class_t |tm_tag_struct_t, NULL, TRUE, TRUE);
+
+			/* we *must* duplicate the contents of the tags_array coz it will be 
+			 * overwritten the next call to tm_workspace_find_scope_members ().
+			 * Just the tag-pointers will be saved, not the entire struct behind them.
+			 */
+			completable_array = g_ptr_array_new ();				
+			for (i=0; i < namespace_classes->len; i++)
+				g_ptr_array_add (completable_array, g_ptr_array_index (namespace_classes, i));
+
+
+/*/			
+			for (i=0; i < namespace_classes->len; i++) {
+				TMTag *cur_tag;
+			
+				cur_tag = (TMTag*)g_ptr_array_index (namespace_classes, i);
+				g_message ("found following class-tag of namespace %d: %s", i, cur_tag->name );
+			}
+/*/				
+			return completable_array;
+		}	
+		default: 
+			return NULL;
+	}
+	return NULL;
+}
+
+	
+TMTag* anjuta_symbol_view_get_type_of_expression(AnjutaSymbolView * sv,
+		const gchar* expr, int expr_len, TMTag *func_scope_tag, gint *access_method)
+{
+	gchar *ident = NULL;
+	*access_method = COMPLETION_ACCESS_NONE;
+	
+	/* very basic stack implementation to keep track of tokens */
+	const int max_items = 20;
+	const gchar* stack[max_items];
+	int num_stack = 0;
+
+	/* skip nested brackets */
+	int brackets = 0, square_brackets = 0;
+
+	gboolean in_ident = FALSE; /* if the current position is within an identifier */
+	gboolean extract_ident = FALSE; /* if we extract the next string which looks like an identifier - only after: . -> and ( */
+
+	if (strlen(expr) < 1)
+		return FALSE;
+
+	if (!expr_len)
+		return FALSE;
+
+	g_return_val_if_fail (func_scope_tag != NULL, NULL);
+	
+	/* check the access method */
+	if (*access_method == COMPLETION_ACCESS_NONE) {
+		switch (expr[expr_len-1]) {
+			case '.':
+				*access_method = COMPLETION_ACCESS_DIRECT;
+				g_message ("access_method = COMPLETION_ACCESS_DIRECT;");
+				break;
+			case '>':
+				if (expr[expr_len-2]	== '-') {
+					*access_method = COMPLETION_ACCESS_POINTER;
+					g_message ("access_method = COMPLETION_ACCESS_POINTER;");
+				}
+				break;
+			case ':':
+				if (expr[expr_len-2]	== ':') {
+					*access_method = COMPLETION_ACCESS_STATIC;
+					g_message ("access_method = COMPLETION_ACCESS_STATIC;");
+				}
+				break;				
+			default:
+				*access_method = COMPLETION_ACCESS_NONE;
+		}		
+	}
+
+	const gchar *start = expr + expr_len;
+	while (--start >= expr )
+	{
+		/* skip brackets */
+		if (brackets > 0 || square_brackets > 0)
+		{
+			if (*start == '(')
+				--brackets;
+			else if (*start == ')')
+				++brackets;
+			else if (*start == '[')
+				--square_brackets;
+			else if (*start == ']')
+				++square_brackets;
+			continue;
+		}
+		/* identifier */
+		if (isdigit(*start))
+			in_ident = FALSE;
+		else if (isalpha(*start) || *start == '_')
+		{
+			in_ident = TRUE;
+		}
+		else
+		{
+			switch (*start)
+			{
+				/* skip whitespace */
+				case ' ':
+				case '\t':
+					if (in_ident)
+						goto extract;
+					else
+					{
+						in_ident = FALSE;
+						continue;
+					}
+
+				/* continue searching to the left, if we
+				 * have a . or -> accessor */
+				case '.':
+					if (in_ident && extract_ident)
+					{
+						const gchar *ident = start+1;
+						if (num_stack < max_items) {
+							stack[num_stack++] = ident;
+						}
+						else
+							return FALSE;
+					}
+					in_ident = FALSE;
+					extract_ident = TRUE;
+					continue;
+				case '>': /* pointer access */
+					if ((*start == '>' && (start-1 >= expr && (start-1)[0] == '-')))
+					{
+						if (in_ident && extract_ident)
+						{
+							const gchar *ident = start+1;
+							if (num_stack < max_items) {
+								stack[num_stack++] = ident;
+					
+							}
+							else
+								return FALSE;
+						}
+						in_ident = FALSE;
+						extract_ident = TRUE;
+						--start;
+						continue;
+					}
+					else
+					{
+						start++;
+						goto extract;
+					}				
+				case ':': /* static access */
+					if ((*start == ':' && (start-1 >= expr && (start-1)[0] == ':')))
+					{
+						if (in_ident && extract_ident)
+						{
+							const gchar *ident = start+1;
+							if (num_stack < max_items) {
+								stack[num_stack++] = ident;
+							}
+							else
+								return FALSE;
+						}
+						in_ident = FALSE;
+						extract_ident = TRUE;
+						--start;
+						continue;
+					}
+					else
+					{
+						start++;
+						goto extract;
+					}
+				case '(': /* start of a function */
+					if (extract_ident)
+					{
+						start++;
+						goto extract;
+					}
+					else
+					{
+						extract_ident = TRUE;
+						in_ident = FALSE;
+						break;
+					}
+
+				case ')':
+					if (in_ident) /* probably a cast - (const char*)str */
+					{
+						start++;
+						goto extract;
+					}
+					brackets++;
+					break;
+
+				case ']':
+					if (in_ident)
+					{
+						start++;
+						goto extract;
+					}						
+					square_brackets++;
+					break;
+
+				default:
+					start++;
+					goto extract;
+			}
+		}
+	}
+
+extract:
+	/* ident is the leftmost token, stack[*] the ones to the right
+	 * Example: str.left(2,5).toUpper()
+	 *          ^^^ ^^^^      ^^^^^^^
+	 *        ident stack[1]  stack[0]
+	 */
+
+	ident = sv_scan_for_ident(&start);
+	if (!ident)
+		return FALSE;
+
+	DEBUG_PRINT("ident found: %s", ident);
+
+	TMTag *type = NULL, *old_type = NULL;
+	
+	/* for static access, parsing is done, just return the identifier */
+	if (*access_method != COMPLETION_ACCESS_STATIC) {
+		const GPtrArray * loc_decl_tags_array;
+		gchar *local_declaration_type_str;
+		TMTag* local_scope_of_ident = NULL;
+		TMTag* local_declaration_type = NULL;
+		gint i;
+				
+		local_scope_of_ident = func_scope_tag;
+		local_declaration_type_str = sv_extract_type_qualifier_from_expr (expr, ident);
+		
+		/* check between the scope and parents members if "ident" is present */
+		if (local_declaration_type_str  == NULL) {
+
+			DEBUG_PRINT ("local_declaration_type_str is NULL, checking between its members "
+						 "if it's a class");
+			
+			local_declaration_type = sv_get_type_of_token (ident, local_scope_of_ident->atts.entry.scope,
+											local_scope_of_ident, NULL);
+			if (local_declaration_type)
+				DEBUG_PRINT ("found local_declaration_type->name %s",local_declaration_type->name);
+			/* we can set this to null. local_declaration_type will != NULL if we already 
+			 * found something. Anyway we don't need other searches. */
+			loc_decl_tags_array = NULL;
+		}
+		else {
+			DEBUG_PRINT ("local_declaration_type_str is %s", local_declaration_type_str);
+			
+			loc_decl_tags_array = tm_workspace_find (local_declaration_type_str, 
+				tm_tag_struct_t | tm_tag_typedef_t |tm_tag_union_t| tm_tag_class_t, 
+				NULL, FALSE, TRUE);
+		}
+			
+
+		/* if we didn't get anything before we should have a look at the tags_array for
+		 * the correct tag.
+		 */			
+		if (loc_decl_tags_array != NULL) {
+			for (i=0; i < loc_decl_tags_array->len; i++) {
+				TMTag *cur_tag;
+			
+				cur_tag = (TMTag*)g_ptr_array_index (loc_decl_tags_array, i);
+				if ( strcmp(cur_tag->name, local_declaration_type_str) == 0) {
+					local_declaration_type = cur_tag;
+					break;
+				}
+			}
+		}
+				
+		if (local_declaration_type == NULL)
+			DEBUG_PRINT ("warning: local_declaration_type  is NULL");
+		else
+			tm_tag_print (local_declaration_type, stdout);
+						
+		if (local_scope_of_ident != NULL && local_declaration_type != NULL )
+			DEBUG_PRINT ("found local_scope_of_ident->name  %s and local_declaration_type->name %s", 
+					local_scope_of_ident->name , local_declaration_type->name);
+
+
+		/* if we have the start of a function/method, don't return the type
+		 * of this function, but class, which it is member of */
+		type = sv_get_type_of_token (ident, NULL, local_scope_of_ident, local_declaration_type);
+		
+		if (type!=NULL)
+			DEBUG_PRINT ("type of token: %s : %s, var_type %s\n", ident, type->name, type->atts.entry.var_type);
+		else
+			DEBUG_PRINT  ("WARNING: type is null. cannot determine ident");
+
+
+		while (type && type->name && num_stack > 0) {
+			ident = sv_scan_for_ident (&stack[--num_stack]);
+			DEBUG_PRINT ("!!scanning for ident %s\n", ident );
+			
+			old_type = type;
+			//<brc code>: namespace workaround: if the "type" of an identifier is namespace ignore it
+	//			if (!strcmp(type,"namespace"))
+	//			old_type=NULL;
+			//<\end brc code>
+			
+			/* Example: 
+			 * String str;
+			 * str->left(param1)
+			 *
+			 * We already parsed the "str" token. Now it's left() turn.
+			 * If we don't have the local_declaration_type nor the local_scope_of_ident let's find
+			 * the type of the member. Obviously we should also check the parent 
+			 * classes if we don't find it in the old_type->name class.
+			 */
+			
+			if (old_type->atts.entry.var_type == NULL )
+				type = sv_get_type_of_token (ident, old_type->name, local_scope_of_ident, NULL);
+			else
+				type = sv_get_type_of_token (ident, old_type->atts.entry.var_type, local_scope_of_ident, NULL);
+
+			if (type != NULL) {
+				DEBUG_PRINT ("type of token: %s : [pointer order] %d\n", ident, type->atts.entry.pointerOrder);
+				DEBUG_PRINT ("we have setted a completion of %s", 
+					*access_method == COMPLETION_ACCESS_DIRECT ? "DIRECT ACCESS" : "POINTER ACCESS");
+				tm_tag_print (type, stdout);
+				
+				if (type->atts.entry.pointerOrder >= 1) {
+					/* we shouldn't permit a direct access on tags which are on
+					 * pointerOrder >=1. This means we can't complete with "."
+					 * on MyClass* variables */
+					if (*access_method == COMPLETION_ACCESS_DIRECT) {
+						DEBUG_PRINT ("completion not permitted. Pointer Order is wrong");
+						type = NULL;
+					}
+				}
+				else if (type->atts.entry.pointerOrder == 0) {
+					if (*access_method == COMPLETION_ACCESS_POINTER) {
+						DEBUG_PRINT ("completion not permitted. Pointer Order is wrong");
+						type = NULL;
+					}
+				}
+			}
+		}
+	}
+	else /* static member */
+	{
+		/* just return the ident's tag */
+		const GPtrArray * tags_array;
+		gint i;
+		if (ident != NULL)
+			tags_array = tm_workspace_find (ident, 
+				tm_tag_struct_t | tm_tag_typedef_t |tm_tag_union_t| tm_tag_class_t |
+				tm_tag_namespace_t, NULL, FALSE, TRUE);
+		
+		if (tags_array != NULL) {
+			for (i=0; i < tags_array->len; i++) {
+				TMTag *cur_tag;
+			
+				cur_tag = (TMTag*)g_ptr_array_index (tags_array, i);
+				if ( strcmp(cur_tag->name, ident) == 0) {
+					/* ok we found our tag */
+					type = cur_tag;
+					break;
+				}
+			}
+		}
+		else
+			return NULL;
+		
+	}
+	
+	return type;
+}
+
+
+
+

@@ -294,23 +294,29 @@ static void makeDefineTag (const char *const name, boolean parameterized)
     const boolean isFileScope = (boolean) (! isHeaderFile ());
 
     if (includingDefineTags () &&
-	(! isFileScope  ||  Option.include.fileScope))
-    {
-	tagEntryInfo e;
+	(! isFileScope  ||  Option.include.fileScope))  {
+		tagEntryInfo e;
 
-	initTagEntry (&e, name);
+		initTagEntry (&e, name);
 
-	e.lineNumberEntry = (boolean) (Option.locate != EX_PATTERN);
-	e.isFileScope	= isFileScope;
-	e.truncateLine	= TRUE;
-	e.kindName	= "macro";
-	e.kind		= 'd';
-	if (parameterized)
-		e.extensionFields.arglist = getArglistFromPos(getInputFilePosition()
-		  , e.name);
-	makeTagEntry (&e);
-	if (parameterized)
-		free((char *) e.extensionFields.arglist);
+		e.lineNumberEntry = (boolean) (Option.locate != EX_PATTERN);
+		e.isFileScope	= isFileScope;
+		e.truncateLine	= TRUE;
+		e.kindName	= "macro";
+		e.kind		= 'd';
+		if (parameterized) {
+			if (useFile()) {
+				e.extensionFields.arglist = getArglistFromFilePos(getInputFilePosition()
+		  			, e.name);
+			}
+			else {
+				e.extensionFields.arglist = getArglistFromBufferPos(getInputBufferPosition()
+		  			, e.name);
+			}				
+		}
+		makeTagEntry (&e);
+		if (parameterized)
+			free((char *) e.extensionFields.arglist);
     }
 }
 
@@ -503,116 +509,113 @@ extern int cppGetc (void)
     boolean ignore = FALSE;
     int c;
 
-    if (Cpp.ungetch != '\0')
-    {
-	c = Cpp.ungetch;
-	Cpp.ungetch = Cpp.ungetch2;
-	Cpp.ungetch2 = '\0';
-	return c;	    /* return here to avoid re-calling debugPutc () */
+    if (Cpp.ungetch != '\0') {
+		c = Cpp.ungetch;
+		Cpp.ungetch = Cpp.ungetch2;
+		Cpp.ungetch2 = '\0';
+		return c;	    /* return here to avoid re-calling debugPutc () */
     }
-    else do
-    {
-	c = fileGetc ();
+    else do {
+		c = fileGetc ();
+
 process:
-	switch (c)
-	{
+	switch (c) {
 	    case EOF:
-		ignore    = FALSE;
-		directive = FALSE;
-		break;
+			ignore    = FALSE;
+			directive = FALSE;
+			break;
 
 	    case TAB:
 	    case SPACE:
-		break;				/* ignore most white space */
+			break;				/* ignore most white space */
 
 	    case NEWLINE:
-		if (directive  &&  ! ignore)
-		    directive = FALSE;
-		Cpp.directive.accept = TRUE;
-		break;
+			if (directive  &&  ! ignore)
+			    directive = FALSE;
+			Cpp.directive.accept = TRUE;
+			break;
 
 	    case DOUBLE_QUOTE:
-		Cpp.directive.accept = FALSE;
-		c = skipToEndOfString ();
-		break;
+			Cpp.directive.accept = FALSE;
+			c = skipToEndOfString ();
+			break;
 
 	    case '#':
-		if (Cpp.directive.accept)
-		{
-		    directive = TRUE;
-		    Cpp.directive.state  = DRCTV_HASH;
-		    Cpp.directive.accept = FALSE;
-		}
-		break;
+			if (Cpp.directive.accept)
+			{
+			    directive = TRUE;
+		    	Cpp.directive.state  = DRCTV_HASH;
+		    	Cpp.directive.accept = FALSE;
+			}
+			break;
 
 	    case SINGLE_QUOTE:
-		Cpp.directive.accept = FALSE;
-		c = skipToEndOfChar ();
-		break;
+			Cpp.directive.accept = FALSE;
+			c = skipToEndOfChar ();
+			break;
 
 	    case '/':
-	    {
-		const Comment comment = isComment ();
+	    	{
+			const Comment comment = isComment ();
 
-		if (comment == COMMENT_C)
-		    c = skipOverCComment ();
-		else if (comment == COMMENT_CPLUS)
-		{
-		    c = skipOverCplusComment ();
-		    if (c == NEWLINE)
-			fileUngetc (c);
-		}
-		else
-		    Cpp.directive.accept = FALSE;
-		break;
-	    }
+			if (comment == COMMENT_C)
+			    c = skipOverCComment ();
+			else if (comment == COMMENT_CPLUS)
+			{
+		    	c = skipOverCplusComment ();
+		    	if (c == NEWLINE)
+					fileUngetc (c);
+			}
+			else
+			    Cpp.directive.accept = FALSE;
+			break;
+	    	}
 
 	    case BACKSLASH:
-	    {
-		int next = fileGetc ();
+		    {
+			int next = fileGetc ();
 
-		if (next == NEWLINE)
-		    continue;
-		else if (next == '?')
-		    cppUngetc (next);
-		else
-		    fileUngetc (next);
-		break;
-	    }
+			if (next == NEWLINE)
+		    	continue;
+			else if (next == '?')
+			    cppUngetc (next);
+			else
+			    fileUngetc (next);
+			break;
+	    	}
 
 	    case '?':
-	    {
-		int next = fileGetc ();
-		if (next != '?')
-		    fileUngetc (next);
-		else
-		{
-		    next = fileGetc ();
-		    switch (next)
 		    {
-			case '(':          c = '[';       break;
-			case ')':          c = ']';       break;
-			case '<':          c = '{';       break;
-			case '>':          c = '}';       break;
-			case '/':          c = BACKSLASH; goto process;
-			case '!':          c = '|';       break;
-			case SINGLE_QUOTE: c = '^';       break;
-			case '-':          c = '~';       break;
-			case '=':          c = '#';       goto process;
-			default:
-			    fileUngetc (next);
-			    cppUngetc ('?');
-			    break;
-		    }
-		}
+			int next = fileGetc ();
+			if (next != '?')
+		    	fileUngetc (next);
+			else
+			{
+		    	next = fileGetc ();
+			    switch (next)   {
+					case '(':          c = '[';       break;
+					case ')':          c = ']';       break;
+					case '<':          c = '{';       break;
+					case '>':          c = '}';       break;
+					case '/':          c = BACKSLASH; goto process;
+					case '!':          c = '|';       break;
+					case SINGLE_QUOTE: c = '^';       break;
+					case '-':          c = '~';       break;
+					case '=':          c = '#';       goto process;
+					default:
+			    		fileUngetc (next);
+			    		cppUngetc ('?');
+			    		break;
+		    	}
+			}
 	    } break;
 
 	    default:
-		Cpp.directive.accept = FALSE;
-		if (directive)
-		    ignore = handleDirective (c);
-		break;
-	}
+			Cpp.directive.accept = FALSE;
+			if (directive)
+			    ignore = handleDirective (c);
+			break;
+		}
     } while (directive || ignore);
 
     DebugStatement ( debugPutc (DEBUG_CPP, c); )
@@ -622,17 +625,51 @@ process:
     return c;
 }
 
+extern char *getArglistFromBufferPos(int startPosition, const char *tokenName)
+{
+	int bufferOriginalPosition;
+	char *result = NULL;
+	char *arglist = NULL;
+	long pos1, pos2;
 
-extern char *getArglistFromPos(fpos_t startPosition, const char *tokenName)
+	pos2 = getBufPos();
+
+	if (!useFile()) {
+		bufferOriginalPosition = getBufPos ();
+		setBufPos(startPosition);
+		pos1 = File.fpBufferPosition;
+	}
+	else
+		return NULL;
+		
+	if (pos2 > pos1)
+	{
+		result = (char *) malloc(sizeof(char ) * (pos2 - pos1 + 2));
+		if (result != NULL)
+		{
+			memcpy(result, &File.fpBuffer[getBufPos()], pos2 - pos1 + 1);
+			result[pos2-pos1+1] = '\0';
+			arglist = getArglistFromStr(result, tokenName);
+			free(result);
+		}
+	}
+	setBufPos (bufferOriginalPosition);
+	return arglist;
+}
+
+extern char *getArglistFromFilePos(fpos_t startPosition, const char *tokenName)
 {
 	fpos_t originalPosition;
 	char *result = NULL;
 	char *arglist = NULL;
-	long pos1, pos2 = ftell(File.fp);
+	long pos1, pos2;
+
+	pos2 = ftell(File.fp);
 
 	fgetpos(File.fp, &originalPosition);
 	fsetpos(File.fp, &startPosition);
 	pos1 = ftell(File.fp);
+	
 	if (pos2 > pos1)
 	{
 		result = (char *) malloc(sizeof(char ) * (pos2 - pos1 + 2));

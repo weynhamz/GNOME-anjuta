@@ -36,6 +36,7 @@ ianjuta-symbol-manager
 </para>
 
 @g_iface: 
+@get_completions_at_position: 
 @get_members: 
 @get_parents: 
 @search: 

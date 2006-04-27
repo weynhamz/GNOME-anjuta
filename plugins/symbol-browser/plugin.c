@@ -47,7 +47,12 @@
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-symbol-browser-plugin.glade"
 #define ICON_FILE "anjuta-symbol-browser-plugin.png"
 
+#define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10000
+
 static gpointer parent_class = NULL;
+static gboolean need_symbols_update;
+static gint timeout_id;
+static gchar prev_char_added = ' ';
 
 /* these will block signals on treeview and treesearch callbacks functions */
 static void trees_signals_block (SymbolBrowserPlugin *sv_plugin);
@@ -421,14 +426,12 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 										  on_project_element_removed,
 										  sv_plugin);
 	
-DEBUG_PRINT ("cleaning with anjuta_symbol_search_clear....");
 	/* clear anjuta_symbol_search side */
 	anjuta_symbol_search_clear(ANJUTA_SYMBOL_SEARCH(sv_plugin->ss));
-DEBUG_PRINT ("good.");
-DEBUG_PRINT ("cleaning with anjuta_symbol_view_clear...." );
+
 	/* clear glist's sfiles */
 	anjuta_symbol_view_clear (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
-DEBUG_PRINT ("good.");
+
 	g_free (sv_plugin->project_root_uri);
 	sv_plugin->project_root_uri = NULL;
 }
@@ -446,7 +449,7 @@ on_treeview_event (GtkWidget *widget,
 
 	view = GTK_TREE_VIEW (widget);
 	model = gtk_tree_view_get_model (view);
-	selection = gtk_tree_view_get_selection (view);
+	selection = gtk_tree_view_get_selection (view); 
 
 	if (!event)
 		return FALSE;
@@ -728,6 +731,67 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 		g_free (uri);
 }
 
+static gboolean
+on_editor_buffer_symbols_update_timeout (gpointer user_data)
+{
+	SymbolBrowserPlugin *sv_plugin;
+	IAnjutaEditor *ed;
+	gchar *current_buffer = NULL;
+	gint buffer_size = 0;
+	gchar *uri = NULL;
+
+	sv_plugin = (SymbolBrowserPlugin*) user_data;
+	
+	if (sv_plugin->current_editor == NULL)
+		return FALSE;
+	 
+	 /* we won't proceed with the updating of the symbols if we didn't type in 
+	 	anything */
+	 if (!need_symbols_update)
+	 	return TRUE;
+	
+	if (sv_plugin->current_editor) {
+		ed = IANJUTA_EDITOR (sv_plugin->current_editor);
+		
+		buffer_size = ianjuta_editor_get_length (ed, NULL);
+		current_buffer = ianjuta_editor_get_text (ed, 0, buffer_size, NULL);
+				
+		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), NULL);
+		
+	} 
+	else
+		return FALSE;
+	
+	if (uri) {
+		anjuta_symbol_view_update_source_from_buffer (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree), 
+				uri, current_buffer, buffer_size);
+		g_free (uri);
+	}
+	
+	if (current_buffer)
+		g_free (current_buffer);  
+
+	need_symbols_update = FALSE;
+
+	return TRUE;
+}
+
+static void
+on_char_added (IAnjutaEditor *editor, gint position, gchar ch,
+				 SymbolBrowserPlugin *sv_plugin) {
+	
+	
+	DEBUG_PRINT ("char added @ %d : %c [int %d]", position, ch, ch);
+	
+	/* try to force the update if a "." or a "->" is pressed */
+	if ((ch == '.') || (prev_char_added == '-' && ch == '>'))
+		on_editor_buffer_symbols_update_timeout (sv_plugin);
+		
+	need_symbols_update = TRUE;
+	
+	prev_char_added = ch;
+}
+
 static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
@@ -769,8 +833,17 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_signal_connect (G_OBJECT (editor), "saved",
 						  G_CALLBACK (on_editor_saved),
 						  sv_plugin);
+						  
+		g_signal_connect (G_OBJECT (editor), "char-added",
+						  G_CALLBACK (on_char_added),
+						  sv_plugin);
 	}
 	g_free (uri);
+	
+	/* add a default timeout to the updating of buffer symbols */	
+	timeout_id = g_timeout_add (TIMEOUT_INTERVAL_SYMBOLS_UPDATE, on_editor_buffer_symbols_update_timeout, plugin);								 
+	need_symbols_update = FALSE;
+	
 }
 
 static void
@@ -781,6 +854,10 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	SymbolBrowserPlugin *sv_plugin;
 	GtkAction *action;
 
+	/* let's remove the timeout for symbols refresh */
+	g_source_remove (timeout_id);
+	need_symbols_update = FALSE;
+	
 	sv_plugin = (SymbolBrowserPlugin*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
@@ -903,6 +980,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
+	
 	return TRUE;
 }
 
@@ -1050,6 +1128,8 @@ isymbol_manager_get_members (IAnjutaSymbolManager *sm,
 	
 	tags_array = tm_workspace_find_scope_members (NULL, symbol_name,
 												  global_search);
+												  
+	
 	if (tags_array)
 	{
 		iter = anjuta_symbol_iter_new (tags_array);
@@ -1075,12 +1155,71 @@ isymbol_manager_get_parents (IAnjutaSymbolManager *sm,
 	return NULL;
 }
 
+static IAnjutaIterable*
+isymbol_manager_get_completions_at_position (IAnjutaSymbolManager *sm,
+											gchar *file_uri,
+							 				gchar *text_buffer, 
+											gint text_length, 
+											gint text_pos,
+							 				GError **err)
+{
+	SymbolBrowserPlugin *sv_plugin;
+	const TMTag *func_scope_tag;
+	TMSourceFile *tm_file;
+	IAnjutaEditor *ed;
+	AnjutaSymbolView *symbol_view;
+	gulong line;
+	gint access_method;
+	GPtrArray * completable_tags_array;
+	AnjutaSymbolIter *iter = NULL;
+	
+	sv_plugin = (SymbolBrowserPlugin*)sm;
+	ed = IANJUTA_EDITOR (sv_plugin->current_editor);	
+	symbol_view = ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree);
+	
+	line = ianjuta_editor_get_line_from_position (ed, text_pos, NULL);
+	
+	/* get the function scope */
+	tm_file = anjuta_symbol_view_get_tm_file (symbol_view, file_uri);
+	
+	/* check whether the current file_uri is listed in the tm_workspace or not... */	
+	if (tm_file == NULL)
+		return 	NULL;
+	func_scope_tag = tm_get_current_function (tm_file->work_object.tags_array, line);
+	
+		
+	TMTag * found_type = anjuta_symbol_view_get_type_of_expression (symbol_view, 
+				text_buffer, text_pos, func_scope_tag, &access_method);
+
+				
+	if (found_type == NULL) {
+		return NULL;	
+	}
+	
+	/* get the completable memebers. If the access is COMPLETION_ACCESS_STATIC we don't
+	 * want to know the parents members of the class.
+	 */
+	if (access_method == COMPLETION_ACCESS_STATIC)
+		completable_tags_array = anjuta_symbol_view_get_completable_members (found_type, FALSE);
+	else
+		completable_tags_array = anjuta_symbol_view_get_completable_members (found_type, TRUE);
+	
+	if (completable_tags_array)
+	{
+		iter = anjuta_symbol_iter_new (completable_tags_array);
+		return IANJUTA_ITERABLE (iter);
+	}
+	return NULL;
+}
+
+
 static void
 isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
 	iface->search = isymbol_manager_search;
 	iface->get_members = isymbol_manager_get_members;
 	iface->get_parents = isymbol_manager_get_parents;
+	iface->get_completions_at_position = isymbol_manager_get_completions_at_position;
 }
 
 ANJUTA_PLUGIN_BEGIN (SymbolBrowserPlugin, symbol_browser_plugin);

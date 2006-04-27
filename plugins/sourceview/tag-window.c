@@ -295,71 +295,7 @@ tag_window_finalize(GObject *object)
 	(* G_OBJECT_CLASS (tag_window_parent_class)->finalize) (object);
 }
 
-gboolean tag_window_up(TagWindow* tagwin)
-{
-	GtkTreeIter iter;
-	GtkTreePath* path;
-	GtkTreeModel* model;
-	GtkTreeSelection* selection;
-	
-	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(tagwin)))
-		return FALSE;
-	
-	selection = gtk_tree_view_get_selection(tagwin->priv->view);
-	
-	if (gtk_tree_selection_get_mode(selection) == GTK_SELECTION_NONE)
-		return FALSE;
-	
-	if (gtk_tree_selection_get_selected(selection, &model, &iter))
-	{
-		path = gtk_tree_model_get_path(model, &iter);
-		gtk_tree_path_prev(path);
-		
-		if (gtk_tree_model_get_iter(model, &iter, path))
-		{
-			gtk_tree_selection_select_iter(selection, &iter);
-			gtk_tree_view_scroll_to_cell(tagwin->priv->view, path, NULL, FALSE, 0, 0);
-		}
-		gtk_tree_path_free(path);
-		return TRUE;
-	}
-	return FALSE;
-}
-
-gboolean tag_window_down(TagWindow* tagwin)
-{
-	GtkTreeIter iter;
-	GtkTreeModel* model;
-	GtkTreeSelection* selection;
-	
-	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(tagwin)))
-		return FALSE;
-	
-	selection = gtk_tree_view_get_selection(tagwin->priv->view);
-	
-	if (gtk_tree_selection_get_mode(selection) == GTK_SELECTION_NONE)
-		return FALSE;
-	
-	if (gtk_tree_selection_get_selected(selection, &model, &iter))
-	{
-		if (gtk_tree_model_iter_next(model, &iter))
-		{
-			GtkTreePath* path;
-			gtk_tree_selection_select_iter(selection, &iter);
-			path = gtk_tree_model_get_path(model, &iter);
-			gtk_tree_view_scroll_to_cell(tagwin->priv->view, path, NULL, FALSE, 0, 0);
-			gtk_tree_path_free(path);
-		}
-	}
-	else
-	{
-		gtk_tree_model_get_iter_first(model, &iter);
-		gtk_tree_selection_select_iter(selection, &iter);
-	}
-	return TRUE;
-}
-
-gboolean tag_window_select(TagWindow* tagwin)
+static gboolean tag_window_select(TagWindow* tagwin)
 {
 	GtkTreeIter iter;
 	GtkTreeModel* model;
@@ -381,6 +317,133 @@ gboolean tag_window_select(TagWindow* tagwin)
 	}
 	else
 		return FALSE;
+}
+
+static gboolean tag_window_first(TagWindow* tagwin)
+{
+	GtkTreeIter iter;
+	GtkTreePath* path;
+	GtkTreeModel* model;
+	GtkTreeSelection* selection;
+	
+	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(tagwin)))
+		return FALSE;
+	
+	selection = gtk_tree_view_get_selection(tagwin->priv->view);
+	
+	if (gtk_tree_selection_get_mode(selection) == GTK_SELECTION_NONE)
+		return FALSE;
+	
+	model = gtk_tree_view_get_model(tagwin->priv->view);
+		
+	gtk_tree_model_get_iter_first(model, &iter);
+	gtk_tree_selection_select_iter(selection, &iter);
+	path = gtk_tree_model_get_path(model, &iter);
+	gtk_tree_view_scroll_to_cell(tagwin->priv->view, path, NULL, FALSE, 0, 0);
+	gtk_tree_path_free(path);
+	return TRUE;
+}
+
+static gboolean tag_window_last(TagWindow* tagwin)
+{
+	GtkTreeIter iter;
+	GtkTreeModel* model;
+	GtkTreeSelection* selection;
+	GtkTreePath* path;
+	gint children;
+	
+	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(tagwin)))
+		return FALSE;
+	
+	selection = gtk_tree_view_get_selection(tagwin->priv->view);
+	model = gtk_tree_view_get_model(tagwin->priv->view);
+	
+	if (gtk_tree_selection_get_mode(selection) == GTK_SELECTION_NONE)
+		return FALSE;
+	
+	children = gtk_tree_model_iter_n_children(model, NULL);
+	if (children > 0)
+	{
+		gtk_tree_model_iter_nth_child(model, &iter, NULL, children - 1);
+	
+		gtk_tree_selection_select_iter(selection, &iter);
+		path = gtk_tree_model_get_path(model, &iter);
+		gtk_tree_view_scroll_to_cell(tagwin->priv->view, path, NULL, FALSE, 0, 0);
+		gtk_tree_path_free(path);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+static gboolean tag_window_up(TagWindow* tagwin, gint rows)
+{
+	GtkTreeIter iter;
+	GtkTreePath* path;
+	GtkTreeModel* model;
+	GtkTreeSelection* selection;
+	
+	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(tagwin)))
+		return FALSE;
+	
+	selection = gtk_tree_view_get_selection(tagwin->priv->view);
+	
+	if (gtk_tree_selection_get_mode(selection) == GTK_SELECTION_NONE)
+		return FALSE;
+	
+	if (gtk_tree_selection_get_selected(selection, &model, &iter))
+	{
+		gint i;
+		path = gtk_tree_model_get_path(model, &iter);
+		for (i=0; i  < rows; i++)
+			gtk_tree_path_prev(path);
+		
+		if (gtk_tree_model_get_iter(model, &iter, path))
+		{
+			gtk_tree_selection_select_iter(selection, &iter);
+			gtk_tree_view_scroll_to_cell(tagwin->priv->view, path, NULL, FALSE, 0, 0);
+		}
+		gtk_tree_path_free(path);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+static gboolean tag_window_down(TagWindow* tagwin, gint rows)
+{
+	GtkTreeIter iter;
+	GtkTreeModel* model;
+	GtkTreeSelection* selection;
+	
+	if (!GTK_WIDGET_VISIBLE(GTK_WIDGET(tagwin)))
+		return FALSE;
+	
+	selection = gtk_tree_view_get_selection(tagwin->priv->view);
+	
+	if (gtk_tree_selection_get_mode(selection) == GTK_SELECTION_NONE)
+		return FALSE;
+	
+	if (gtk_tree_selection_get_selected(selection, &model, &iter))
+	{
+		gint i;
+		GtkTreePath* path;
+		for (i = 0; i < rows; i++)
+		{
+			if (!gtk_tree_model_iter_next(model, &iter))
+				return tag_window_last(tagwin);
+		}
+			
+		gtk_tree_selection_select_iter(selection, &iter);
+		path = gtk_tree_model_get_path(model, &iter);
+		gtk_tree_view_scroll_to_cell(tagwin->priv->view, path, NULL, FALSE, 0, 0);
+		gtk_tree_path_free(path);
+		return TRUE;
+	}
+	else
+	{	
+		gtk_tree_model_get_iter_first(model, &iter);
+		gtk_tree_selection_select_iter(selection, &iter);
+	}
+	return TRUE;
 }
 
 /* Return a tuple containing the (x, y) position of the cursor + 1 line */
@@ -467,16 +530,38 @@ TagWindowKeyPress tag_window_filter_keypress(TagWindow* tag_window, guint keyval
 		switch (keyval)
 	 	{
 	 		case GDK_Down:
-	 		case GDK_Page_Down:
 			{
-				if (tag_window_down(tag_window))
+				if (tag_window_down(tag_window, 1))
+					return TAG_WINDOW_KEY_CONTROL;
+				return TAG_WINDOW_KEY_SKIP;
+			}
+			case GDK_Page_Down:
+			{
+				if (tag_window_down(tag_window, 5))
 					return TAG_WINDOW_KEY_CONTROL;
 				return TAG_WINDOW_KEY_SKIP;
 			}
 			case GDK_Up:
+			{
+				if (tag_window_up(tag_window, 1))
+					return TAG_WINDOW_KEY_CONTROL;
+				return TAG_WINDOW_KEY_SKIP;
+			}
 			case GDK_Page_Up:
 			{
-				if (tag_window_up(tag_window))
+				if (tag_window_up(tag_window, 5))
+					return TAG_WINDOW_KEY_CONTROL;
+				return TAG_WINDOW_KEY_SKIP;
+			}
+			case GDK_Home:
+			{
+				if (tag_window_first(tag_window))
+					return TAG_WINDOW_KEY_CONTROL;
+				return TAG_WINDOW_KEY_SKIP;
+			}
+			case GDK_End:
+			{
+				if (tag_window_last(tag_window))
 					return TAG_WINDOW_KEY_CONTROL;
 				return TAG_WINDOW_KEY_SKIP;
 			}

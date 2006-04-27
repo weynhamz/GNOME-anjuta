@@ -12,6 +12,10 @@
 
 #include <glib.h>
 
+// DEBUG. FIXME REMOVE
+//#define TM_DEBUG
+
+
 #include "tm_work_object.h"
 
 /*! \file
@@ -65,7 +69,7 @@ const TMWorkspace *tm_get_workspace(void);
 gboolean tm_workspace_add_object(TMWorkObject *work_object);
 
 /*! Given a file name, returns a pointer to the object if the object's file
- name is same as the passed file name, otherwise retruns NULL. This is an
+ name is same as the passed file name, otherwise returns NULL. This is an
  overloaded version of tm_work_object_find().
  \param work_object Pointer to the workspace.
  \param file_name The name of the file to search.
@@ -100,7 +104,7 @@ gboolean tm_workspace_load_global_tags(const char *tags_file);
 gboolean tm_workspace_reload_global_tags(const char *tags_file);
 
 /*! Creates a list of global tags. Ideally, this should be created once during
- installations so that all users can use the same file. Thsi is because a full
+ installations so that all users can use the same file. This is because a full
  scale global tag list can occupy several megabytes of disk space.
  \param pre_process The pre-processing command. This is executed via system(),
  so you can pass stuff like 'gcc -E -dD -P `gnome-config --cflags gnome`'.
@@ -174,11 +178,7 @@ const GPtrArray *tm_workspace_get_parents(const gchar *name);
  exiting from the main program.
 */
 void tm_workspace_free(gpointer workspace);
-
-/*! Contains the id obtained by registering the TMWorkspace class as a child of
- TMWorkObject.
- \sa tm_work_object_register()
-*/
+	
 extern guint workspace_class_id;
 
 #ifdef __cplusplus

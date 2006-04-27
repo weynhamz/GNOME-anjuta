@@ -48,7 +48,8 @@ G_DEFINE_TYPE(SourceviewScope, sourceview_scope, TAG_TYPE_WINDOW);
 typedef enum 
 {
 	PERIOD,
-	ARROW
+	ARROW,
+	DOUBLECOLON
 } ScopeType;
 
 struct _SourceviewScopePrivate
@@ -67,7 +68,7 @@ enum
 };
 
 
-#define WORD_REGEX "[^ \\t&*]+$"
+#define WORD_REGEX "[^ \\t!&*]+$"
 static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
 {
 	pcre *re;
@@ -82,13 +83,16 @@ static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
 								 gtk_text_buffer_get_insert(buffer));
 	line_iter = gtk_text_iter_copy(&cursor_iter);
 	
-	/* Check if we have "." or "->" */
+	/* Check if we have "." or "->" or a "::" */
 	switch (type)
 	{
 		case PERIOD:
 			gtk_text_iter_backward_char(&cursor_iter);
 			break;
 		case ARROW:
+			gtk_text_iter_backward_chars(&cursor_iter, 2);
+			break;
+		case DOUBLECOLON:
 			gtk_text_iter_backward_chars(&cursor_iter, 2);
 			break;
 	}
@@ -114,7 +118,6 @@ static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
 	 if (rc == PCRE_ERROR_NOMATCH)
     {
     	DEBUG_PRINT("No match");
-    	g_free(line);
     	return NULL;
     }
  	 else if (rc < 0)
@@ -134,9 +137,11 @@ static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
     strncpy(word, line + start, end - start);
   	
   	DEBUG_PRINT("Found: %s", word);
-  	g_free(line);
+  	
   	return word;
 }
+
+
 
 static gboolean
 sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
@@ -146,19 +151,21 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
 	gchar* current_word;
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)));
 	GtkSourceLanguage* lang = gtk_source_buffer_get_language(buffer);
-	GSList* mime_types;
+	GSList* mime_types = gtk_source_language_get_mime_types(lang);
 	GtkListStore* store = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING,
 											 GDK_TYPE_PIXBUF, G_TYPE_STRING);
 	GtkTreeView* tag_view;
+	GtkTextIter start_iter;
+	GtkTextIter end_iter;
+	
+	GtkTextBuffer* text_buffer = GTK_TEXT_BUFFER(ANJUTA_DOCUMENT(GTK_TEXT_BUFFER(buffer)));	
+	gchar *final_text = NULL;
+	GtkTextIter cursor_iter;
 	gboolean is_source = FALSE;
 	SourceviewScope* st = SOURCEVIEW_SCOPE(tagwin);
 	
 	if (!anjuta_preferences_get_int (sourceview_get_prefs(), "enable.code.completion" ))
 		return FALSE;
-	
-	 if (lang == NULL)
-	 	return FALSE;
-	 mime_types = gtk_source_language_get_mime_types(lang);
 	
 	while(mime_types)
 	{
@@ -180,15 +187,39 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
 	
 	g_return_val_if_fail(st->priv->browser != NULL, FALSE);
 	
-	tags = ianjuta_symbol_manager_get_members (st->priv->browser,
-											current_word,
-											 TRUE, NULL);
+
+	gtk_text_buffer_get_iter_at_mark(text_buffer, &cursor_iter, 
+								 gtk_text_buffer_get_insert(text_buffer));
+
+	gtk_text_buffer_get_iter_at_offset(text_buffer,
+								   &start_iter, 0);
+	gtk_text_buffer_get_iter_at_offset(text_buffer,
+								   &end_iter, -1);
 	
-	if  (!tags || !ianjuta_iterable_get_length(tags, NULL))
-	{
+	final_text = gtk_text_buffer_get_text (text_buffer, &start_iter, &end_iter, FALSE);
+	
+	gchar * file_uri = anjuta_document_get_uri (ANJUTA_DOCUMENT(text_buffer));
+	
+	tags = ianjuta_symbol_manager_get_completions_at_position (st->priv->browser, 
+												file_uri,
+												final_text,
+												strlen (final_text),
+												gtk_text_iter_get_offset (&cursor_iter),
+												NULL);
+	g_free (final_text);
+	
+	if (!tags) {
 		return FALSE;
-		g_object_unref(tags);
 	}
+		
+	if (!ianjuta_iterable_get_length(tags, NULL))
+	{
+		DEBUG_PRINT ("some went wrong with tags from scope_update, returning.");
+		g_object_unref(tags);
+		return FALSE;		
+	}
+
+	DEBUG_PRINT ("lenght of tags discovered %d",ianjuta_iterable_get_length(tags, NULL));
 	
 	g_object_get(G_OBJECT(st), "view", &tag_view, NULL);
 	store = GTK_LIST_STORE(gtk_tree_view_get_model(tag_view));
@@ -223,6 +254,9 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
 	    	case ARROW:
 	    		name = g_strdup_printf("%s->%s", current_word,  ianjuta_symbol_name(tag, NULL));	    	
 	    		break;
+	    	case DOUBLECOLON:
+	    		name = g_strdup_printf("%s::%s", current_word,  ianjuta_symbol_name(tag, NULL));	    	
+	    		break;
 	    }
         gtk_list_store_append(store, &iter);
         gtk_list_store_set(store, &iter, COLUMN_SHOW, show,
@@ -233,6 +267,7 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
      }
      g_object_unref(tags);
      g_free(current_word);
+	 
      return TRUE;
 }
 
@@ -272,6 +307,27 @@ sourceview_scope_filter_keypress(TagWindow* tags, guint keyval)
 			}
 			g_free(text);
 		}
+		else if (keyval == GDK_colon)
+		{
+			GtkTextBuffer* buffer = 
+				gtk_text_view_get_buffer(GTK_TEXT_VIEW(SOURCEVIEW_SCOPE(tags)->priv->view));
+			GtkTextIter cursor;
+			GtkTextIter start;
+			gchar* text;
+			
+			gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer));
+			gtk_text_buffer_get_iter_at_mark(buffer, &start, gtk_text_buffer_get_insert(buffer));			
+			gtk_text_iter_backward_char(&start);
+			
+			text = gtk_text_buffer_get_text(buffer, &start, &cursor, FALSE);
+			if (g_str_equal(text, ":"))
+			{
+				g_free(text);
+				scope->priv->type = DOUBLECOLON;
+				return TRUE;
+			}
+			g_free(text);
+		}		
 	}
 	return FALSE;
 }

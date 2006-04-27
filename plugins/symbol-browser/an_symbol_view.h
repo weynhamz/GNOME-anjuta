@@ -44,6 +44,14 @@ typedef struct _AnjutaSymbolViewClass
 	GtkTreeViewClass parent_class;
 } AnjutaSymbolViewClass;
 
+enum {
+	COMPLETION_ACCESS_NONE,
+	COMPLETION_ACCESS_DIRECT,
+	COMPLETION_ACCESS_POINTER,
+	COMPLETION_ACCESS_STATIC
+};
+
+
 GType anjuta_symbol_view_get_type (void);
 GtkWidget *anjuta_symbol_view_new (void);
 
@@ -60,6 +68,29 @@ gchar* anjuta_symbol_view_get_current_symbol (AnjutaSymbolView *sv);
 
 void anjuta_symbol_view_add_source (AnjutaSymbolView *sv, const gchar *filename);
 void anjuta_symbol_view_remove_source (AnjutaSymbolView *sv, const gchar *filename);
+void anjuta_symbol_view_update_source_from_buffer (AnjutaSymbolView *sv, const gchar *uri,
+													gchar* text_buffer, gint buffer_size);
+TMSourceFile *anjuta_symbol_view_get_tm_file (AnjutaSymbolView * sv, const gchar * uri);
+
+/* expr: the expression you want to complete.
+ * len: expr_len
+ * func_scope_tag: the TMTag of the line into expr, which define the scope of the tag to return.
+ *
+ * returns the TMTag type of expression you want to complete. Usually it is a struct
+ * a class or a union. 
+ * returns the access_method detected which you wanna complete. 
+ */
+TMTag* anjuta_symbol_view_get_type_of_expression(AnjutaSymbolView * sv,
+		const gchar* expr, int expr_len, TMTag *func_scope_tag, gint *access_method);
+
+/* TMTag* klass_tag: a tag for a struct/union/class
+ * include_parents_tags: in the final array do you want to include the parent classes? Works
+ *                       only with classes. 
+ *
+ * returns the public/protected members of parent classes within the ones of the class you
+ *         passed as param.
+ */
+GPtrArray* anjuta_symbol_view_get_completable_members (TMTag* klass_tag, gboolean include_parents_tags);
 
 /* Returns TRUE if file and line are updated */
 gboolean anjuta_symbol_view_get_current_symbol_def (AnjutaSymbolView *sv,
@@ -77,7 +108,7 @@ void anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView *sv,
 void anjuta_symbol_view_workspace_update_file (AnjutaSymbolView *sv,
 											   const gchar *old_file_uri,
 											   const gchar *new_file_uri);
-
+							   
 gint anjuta_symbol_view_workspace_get_line (AnjutaSymbolView *sv,
 											GtkTreeIter *iter);
 gboolean anjuta_symbol_view_get_file_symbol (AnjutaSymbolView *sv,

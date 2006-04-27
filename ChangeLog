@@ -1,6 +1,55 @@
-2006-04-26  Johannes Schmid <jhs@cvs.gnome.org>
+2006-04-27  Johannes Schmid,,,  <set EMAIL_ADDRESS environment variable>
 
-	reviewed by: <delete if not using a buddy>
+	* configure.in: Require libgladeui 2.91.1 (for glade3 plugin)
+
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/sourceview-args.c:
+	* plugins/sourceview/sourceview-scope.c:
+	
+	Add End/Home keypresses and support completion if symbol start with '!' for example
+	in an if statement
+
+2006-04-27 Massimo Cora' <maxcvs@email.it>
+
+	* libanjuta/interfaces/libanjuta.idl:
+
+	* plugins/sourceview/sourceview-scope.c:
+	* plugins/sourceview/tag-window.c: 
+	* plugins/sourceview/tag-window.h:
+	* plugins/symbol-browser/an_symbol_view.c:
+	* plugins/symbol-browser/an_symbol_view.h:
+	* plugins/symbol-browser/plugin.c:
+	
+	added and implemented IAnjutaSymbolManager -> get_completions_at_position ()
+	interface.
+	Code and ideas for C/C++ new completion engine comes from IComplete written by
+	Martin Stubenschrott <stubenschrott@gmx.net>.
+	Currently the interface works only with GtkSourceView plugin.	
+	
+	* tagmanager/Makefile.am:
+	* tagmanager/c.c: 
+	* tagmanager/entry.h:
+	* tagmanager/get.c:
+	* tagmanager/get.h:
+	* tagmanager/include/tm_file_entry.h:
+	* tagmanager/include/tm_project.h:
+	* tagmanager/include/tm_source_file.h:
+	* tagmanager/include/tm_symbol.h:
+	* tagmanager/include/tm_tagmanager.h:
+	* tagmanager/include/tm_work_object.h:
+	* tagmanager/include/tm_workspace.h:
+	* tagmanager/parse.c:
+	* tagmanager/read.c: 
+	* tagmanager/read.h:
+	* tagmanager/tm_project.c: 
+	* tagmanager/tm_source_file.c: 
+	* tagmanager/tm_workspace.c:
+	
+	Tagmanager can now parse a memory buffer and generate/update 
+	tags into tm_workspace/tm_project on the fly, without using files.
+	C/C++ is supported now.
+	
+2006-04-26  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/sourceview/anjuta-document.c:
 	* plugins/sourceview/sourceview-args.c:

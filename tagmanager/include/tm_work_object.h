@@ -19,6 +19,9 @@ extern "C"
 {
 #endif
 
+// DEBUG. FIXME REMOVE
+//#define TM_DEBUG
+
 /*! Evaluates to X is X is defined, else evaluates to Y */
 #define NVL(X,Y) (X)?(X):(Y)
 

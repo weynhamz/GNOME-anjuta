@@ -10,6 +10,10 @@
 #ifndef TM_TAGMANAGER_H
 #define TM_TAGMANAGER_H
 
+// DEBUG. FIXME REMOVE
+//#define TM_DEBUG
+
+
 #include "tm_tag.h"
 #include "tm_symbol.h"
 #include "tm_file_entry.h"
@@ -17,6 +21,8 @@
 #include "tm_work_object.h"
 #include "tm_source_file.h"
 #include "tm_project.h"
+
+ 
 
 /*! \mainpage Introduction
  \section Introduction
