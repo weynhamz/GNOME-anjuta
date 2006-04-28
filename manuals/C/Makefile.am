@@ -4,4 +4,5 @@
 ########################################################
 
 SUBDIRS = \
-	anjuta-faqs anjuta-manual
+	anjuta-faqs \
+	anjuta-manual

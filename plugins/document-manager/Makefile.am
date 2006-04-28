@@ -87,6 +87,6 @@ EXTRA_DIST = \
 	$(document_manager_pixmaps_DATA) \
 	$(plugin_in_files) \
 	$(document_manager_plugin_DATA) \
-	$(document_manager_DATA) \
+	$(document_manager_data_DATA) \
 	$(document_manager_ui_DATA) \
 	$(document_manager_glade_DATA)

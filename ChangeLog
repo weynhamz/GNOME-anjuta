@@ -1,3 +1,16 @@
+2006-04-28  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* manuals/C/Makefile.am:
+	* manuals/Makefile.am:
+	* plugins/document-manager/Makefile.am:
+	* plugins/project-wizard/templates/anjuta-plugin/Makefile.am:
+	* plugins/sourceview/Makefile.am:
+	* tagmanager/c.c:
+	
+	Fixed distcheck
+	
+	* plugins/class-gen/goc_template_header: G_END_DECLS
+
 2006-05-27  Naba Kumar <naba@gnome.org>
 
 	* (added) scintilla/LexSpice.cxx, scintilla/Editor.cxx,

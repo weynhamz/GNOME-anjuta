@@ -99,6 +99,7 @@ libanjuta_sourceview_la_LIBADD = \
 endif
 
 EXTRA_DIST = \
+	anjuta-marshal.list \
 	$(plugin_in_files) \
 	$(sourceview_plugin_DATA) \
 	$(sourceview_pixmaps_DATA) \

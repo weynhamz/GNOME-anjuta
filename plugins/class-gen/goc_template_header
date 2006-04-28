@@ -30,4 +30,6 @@ struct _{{BASE_CLASS}}Class {
 GType {{FUNCTION_PREFIX}}_get_type();
 {{BASE_CLASS}} *{{FUNCTION_PREFIX}}_new();
 
+G_END_DECLS
+
 #endif /* {{HEADER_DEFINE}} */

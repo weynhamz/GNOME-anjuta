@@ -2,7 +2,6 @@
 # List of source files containing translatable strings.
 # Please keep this list in alphabetical order.
 anjuta.desktop.in.in
-anjuta.glade
 libanjuta/anjuta-encodings.c
 libanjuta/anjuta-launcher.c
 libanjuta/anjuta-plugin.c
@@ -20,13 +19,6 @@ libegg/eggtreemodelfilter.c
 libegg/eggtreeviewstate.c
 libegg/layout.glade
 libegg/test-actions.c
-plugins/build/build_file.c
-plugins/build/build_project.c
-plugins/build/clean_project.c
-plugins/build/compile.c
-plugins/build/compiler_options.c
-plugins/build/configurer.c
-plugins/build/executer.c
 plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade
 plugins/build-basic-autotools/build-basic-autotools.c
 plugins/build-basic-autotools/executer.c
@@ -53,6 +45,7 @@ plugins/document-manager/goto_line.c
 plugins/document-manager/indent-dialog.c
 plugins/document-manager/plugin.c
 plugins/editor/editor.glade
+plugins/editor/print.c
 plugins/editor/plugin.c
 plugins/editor/text_editor.c
 plugins/editor/text_editor_cbs.c
@@ -85,11 +78,9 @@ plugins/gtodo/callback.c
 plugins/gtodo/egg-datetime.c
 plugins/gtodo/eggtrayicon.c
 plugins/gtodo/export.c
-plugins/gtodo/gtodo.c
 plugins/gtodo/interface.c
 plugins/gtodo/libgtodo.c
 plugins/gtodo/list_tooltip.c
-plugins/gtodo/main.c
 plugins/gtodo/mcategory.c
 plugins/gtodo/notification.c
 plugins/gtodo/plugin.c
@@ -111,8 +102,6 @@ plugins/message-view/plugin.c
 plugins/patch/patch-plugin.c
 plugins/patch/patch-plugin.glade
 plugins/patch/plugin.c
-plugins/print/print.c
-plugins/print/print.h
 plugins/profile-default/plugin.c
 plugins/project-import/anjuta-project-import.glade
 plugins/project-import/project-import.c
@@ -172,7 +161,5 @@ src/anjuta.glade
 src/anjuta-actions.h
 src/anjuta-app.c
 src/anjuta-callbacks.c
-src/anjuta_cbs.c
 src/main.c
 src/shell.c
-src/utilities.c
