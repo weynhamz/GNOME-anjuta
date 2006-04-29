@@ -1,3 +1,9 @@
+2006-04-29  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.in: Add some files
+	* POTFILES.skip: And a bunch here too
+	* nb.po: Updated Norwegian bokmål translation.
+
 2006-04-28  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* POTFILES.in: Updated

@@ -121,6 +121,7 @@ plugins/sourceview/anjuta-document.c
 plugins/sourceview/anjuta-encodings.c
 plugins/sourceview/sourceview.c
 plugins/sourceview/sourceview.glade
+plugins/sourceview/sourceview-print.c
 plugins/subversion/anjuta-subversion.glade
 plugins/subversion/plugin.c
 plugins/subversion/subversion-callbacks.c
