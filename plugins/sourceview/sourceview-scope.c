@@ -64,6 +64,7 @@ enum
 	COLUMN_SHOW,
 	COLUMN_PIXBUF,
 	COLUMN_NAME,
+	COLUMN_VISIBLE,
 	N_COLUMNS
 };
 
@@ -141,10 +142,8 @@ static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
   	return word;
 }
 
-
-
 static gboolean
-sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
+sourceview_scope_create_list(TagWindow* tagwin, GtkWidget* view)
 {
 	gint i;
 	IAnjutaIterable* tags;
@@ -153,12 +152,12 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
 	GtkSourceLanguage* lang = gtk_source_buffer_get_language(buffer);
 	GSList* mime_types = gtk_source_language_get_mime_types(lang);
 	GtkListStore* store = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING,
-											 GDK_TYPE_PIXBUF, G_TYPE_STRING);
+											 GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_BOOLEAN);
 	GtkTreeView* tag_view;
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
 	
-	GtkTextBuffer* text_buffer = GTK_TEXT_BUFFER(ANJUTA_DOCUMENT(GTK_TEXT_BUFFER(buffer)));	
+	GtkTextBuffer* text_buffer = GTK_TEXT_BUFFER(buffer);	
 	gchar *final_text = NULL;
 	GtkTextIter cursor_iter;
 	gboolean is_source = FALSE;
@@ -261,7 +260,7 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
         gtk_list_store_append(store, &iter);
         gtk_list_store_set(store, &iter, COLUMN_SHOW, show,
         												COLUMN_PIXBUF,  ianjuta_symbol_icon(tag, NULL), 
-        												COLUMN_NAME,name, -1);
+        												COLUMN_NAME,name, COLUMN_VISIBLE, TRUE, -1);
         g_free(name);
         g_free(show);
      }
@@ -272,11 +271,70 @@ sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
 }
 
 static gboolean
+sourceview_scope_update_list(TagWindow* tagwin, GtkWidget* view)
+{
+	gboolean still_items = FALSE;
+	gchar* current_word;
+	GtkTreeModel* model;
+	GtkTreeView* tag_view;
+	GtkTreeIter iter;
+	
+	GtkTextBuffer* text_buffer =gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));	
+	SourceviewScope* st = SOURCEVIEW_SCOPE(tagwin);
+	
+	g_object_get(G_OBJECT(st), "view", &tag_view, NULL);
+	model = gtk_tree_view_get_model(tag_view);
+	gtk_tree_model_get_iter_first(model, &iter);
+	
+	current_word = anjuta_document_get_current_word(ANJUTA_DOCUMENT(text_buffer));
+	
+	while (TRUE)
+	{
+		gchar* tag;
+		gtk_tree_model_get(model, &iter, COLUMN_NAME, &tag, -1);
+		if (!g_str_has_prefix(tag, current_word))
+		{
+			gtk_list_store_set(GTK_LIST_STORE(model), &iter, COLUMN_VISIBLE, FALSE, -1);
+			if (!gtk_list_store_remove(GTK_LIST_STORE(model), &iter))
+				break;
+		}
+		else
+		{
+			still_items = TRUE;
+			if (!gtk_tree_model_iter_next(model, &iter))
+				break;
+		}
+	}
+	
+	return still_items;
+}
+
+static gboolean
+sourceview_scope_update(TagWindow* tagwin, GtkWidget* view)
+{
+	if (!tag_window_is_active(tagwin))
+		return sourceview_scope_create_list(tagwin, view);
+	else
+		return sourceview_scope_update_list(tagwin, view);
+}
+
+static gboolean
 sourceview_scope_filter_keypress(TagWindow* tags, guint keyval)
 {
 	SourceviewScope* scope = SOURCEVIEW_SCOPE(tags);
 	if (tag_window_is_active(tags))
 	{
+		/* Assume keyval is something like [A-Za-z0-9_]+ */
+		if  ((GDK_A <= keyval && keyval <= GDK_Z)
+			|| (GDK_a <= keyval && keyval <= GDK_z)
+			|| (GDK_0 <= keyval && keyval <= GDK_9)		
+			|| GDK_underscore == keyval
+			|| GDK_Shift_L == keyval
+			|| GDK_Shift_R == keyval)
+			{
+				return TRUE;
+			}
+		else
 			return FALSE;
 	}
 	else
@@ -379,15 +437,18 @@ sourceview_scope_new(AnjutaPlugin* plugin, AnjutaView* aview)
 	g_object_get(G_OBJECT(obj), "view", &view, NULL);
 	g_object_set(G_OBJECT(obj), "column", COLUMN_NAME, NULL);
 	
-	model = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, GDK_TYPE_PIXBUF, G_TYPE_STRING);
+	model = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING, GDK_TYPE_PIXBUF, G_TYPE_STRING,
+												G_TYPE_BOOLEAN);
 	gtk_tree_view_set_model(view, GTK_TREE_MODEL(model));
 	
 	renderer_pixbuf = gtk_cell_renderer_pixbuf_new();
    	column_pixbuf = gtk_tree_view_column_new_with_attributes ("Pixbuf",
-                                                   renderer_pixbuf, "pixbuf", COLUMN_PIXBUF, NULL);
+                                                   renderer_pixbuf, "pixbuf", COLUMN_PIXBUF, 
+                                                   "visible", COLUMN_VISIBLE, NULL);
    	renderer_text = gtk_cell_renderer_text_new();
 	column_show = gtk_tree_view_column_new_with_attributes ("Show",
-                                                   renderer_text, "text", COLUMN_SHOW, NULL);
+                                                   renderer_text, "text", COLUMN_SHOW, 
+                                                   "visible", COLUMN_VISIBLE, NULL);
                                                    
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column_pixbuf);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column_show);

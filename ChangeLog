@@ -1,3 +1,8 @@
+2006-04-29 Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/sourceview/sourceview-scope.c:
+	Implemented type-ahead for scope completion
+
 2006-04-28  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* manuals/C/Makefile.am:
