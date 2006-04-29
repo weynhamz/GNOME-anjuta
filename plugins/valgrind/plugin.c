@@ -434,6 +434,14 @@ on_menu_load_log_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 
 static GtkActionEntry actions_file[] = {
 	{
+		"ActionMenuDebug",                        /* Action name */
+		NULL,                                     /* Stock icon, if any */
+		N_("_Debug"),                             /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                                     /* Tooltip */
+		NULL                                      /* action callback */
+	},
+	{
 		"ActionMenuValgrind",                   /* Action name */
 		"valgrind-knight",                      /* Stock icon, if any */
 		N_("_Valgrind"),                     	/* Display label */

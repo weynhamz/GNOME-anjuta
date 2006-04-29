@@ -1,3 +1,14 @@
+2006-04-30  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/sourceview/sourceview-tags.c:
+	complete some more tag types
+	
+	* plugins/valgrind/plugin.c:
+	* plugins/valgrind/preferences.c:
+	* plugins/valgrind/vggeneralprefs.c:
+	
+	Fixed lots of gtk warnings
+
 2006-04-29 Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/sourceview/sourceview-scope.c:

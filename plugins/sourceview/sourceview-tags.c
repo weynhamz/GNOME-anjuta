@@ -99,9 +99,13 @@ sourceview_tags_update(TagWindow* tagwin, GtkWidget* view)
 	
 	tags = ianjuta_symbol_manager_search (st->priv->browser, 
 											IANJUTA_SYMBOL_TYPE_ENUM |
+											IANJUTA_SYMBOL_TYPE_ENUMERATOR |
+											IANJUTA_SYMBOL_TYPE_TYPEDEF |											
 											IANJUTA_SYMBOL_TYPE_STRUCT |
 											IANJUTA_SYMBOL_TYPE_CLASS |
+											IANJUTA_SYMBOL_TYPE_FUNCTION |
 											IANJUTA_SYMBOL_TYPE_PROTOTYPE |
+											IANJUTA_SYMBOL_TYPE_MACRO |
 											IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
 											current_word,
 											 TRUE, TRUE, NULL);

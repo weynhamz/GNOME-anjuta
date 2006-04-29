@@ -32,6 +32,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <string.h>
 
 #include <gconf/gconf-client.h>
 #include <libgnome/gnome-i18n.h>
@@ -163,7 +164,7 @@ vg_general_prefs_init (VgGeneralPrefs *prefs)
 	GError *err = NULL;
 	GtkWidget *widget;
 	gboolean bool;
-	gchar *str_file, *str_uri_file;
+	gchar *str_file;
 	int num;
 	
 	gconf = gconf_client_get_default ();
@@ -266,19 +267,15 @@ vg_general_prefs_init (VgGeneralPrefs *prefs)
 		
 		g_clear_error (&err);
 	}
-
-	str_uri_file = gnome_vfs_get_uri_from_local_path (str_file);
-	g_free (str_file);
+	
 	
 	widget = 
 		gtk_file_chooser_button_new (_("Choose Valgrind Suppressions File..."), 
 								GTK_FILE_CHOOSER_ACTION_OPEN);
 
-	if ( gtk_file_chooser_select_uri ((GtkFileChooser*)widget, str_uri_file) == FALSE )
-		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_uri ()");
-
-	g_free (str_uri_file);
-
+	if ( gtk_file_chooser_select_filename ((GtkFileChooser*)widget, str_file) == FALSE )
+		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_filename ()");
+	
 	/* grab every change in file selection */
 	g_signal_connect (widget, "selection-changed", G_CALLBACK (file_entry_changed), SUPPRESSIONS_KEY);
 

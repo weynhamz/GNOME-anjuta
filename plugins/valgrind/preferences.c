@@ -119,7 +119,7 @@ build_general_prefs ()
 	GtkSpinButton *numlines;
 	GError *err = NULL;
 	gint num;
-	gchar *str_file, *str_uri_file;
+	gchar *str_file;
 	
 	gconf = gconf_client_get_default ();	
 
@@ -138,22 +138,23 @@ build_general_prefs ()
 	gtk_widget_show (label);
 	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
 
-	if (!(str_file = gconf_client_get_string (gconf, EXE_PATH, &err)) || err != NULL) {
+	str_file = gconf_client_get_string (gconf, EXE_PATH, &err);
+
+	if (str_file == NULL || err != NULL) {
 		str_file = g_strdup (VALGRIND_DEFAULT_BIN);
 	}
 	
-	/* calculate the uri */
-	str_uri_file = gnome_vfs_get_uri_from_local_path (str_file);
-	g_free (str_file);
+	if (!g_path_is_absolute(str_file))
+		DEBUG_PRINT("Not absolute");
 	
 	widget = 
 		gtk_file_chooser_button_new (_("Choose Valgrind Binary File Path..."), 
 								GTK_FILE_CHOOSER_ACTION_OPEN);
 								
-	if ( gtk_file_chooser_select_uri ((GtkFileChooser*)widget, str_uri_file) == FALSE )
-		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_uri ()");
+	if ( gtk_file_chooser_select_filename ((GtkFileChooser*)widget, str_file) == FALSE )
+		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_filename ()");
 		
-	g_free (str_uri_file);
+	g_free (str_file);
 
 	/* grab every change in file selection */
 	g_signal_connect (widget, "selection-changed", G_CALLBACK (on_exe_path_entry_changed), EXE_PATH);
