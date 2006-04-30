@@ -1642,6 +1642,8 @@ sv_get_type_of_token (const gchar* ident, const gchar* klass, const TMTag* local
 	
 	tags_array = tm_workspace_find_scope_members (NULL, klass,
 												  TRUE);
+	if (tags_array == NULL)
+		return NULL;
 
 	for (i=0; i < tags_array->len; i++) {
 		TMTag *tmp_tag;

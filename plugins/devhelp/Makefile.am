@@ -31,7 +31,9 @@ plugin_LTLIBRARIES = libanjuta-devhelp.la
 # Plugin sources
 libanjuta_devhelp_la_SOURCES = \
 	plugin.c \
-	plugin.h
+	plugin.h \
+	htmlview.c \
+	htmlview.h
 
 # Plugin dependencies
 libanjuta_devhelp_la_LIBADD = \

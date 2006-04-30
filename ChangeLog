@@ -1,3 +1,16 @@
+2006-05-01  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/devhelp/Makefile.am:
+	* plugins/devhelp/anjuta-devhelp.plugin.in:
+	* plugins/devhelp/htmlview.c:
+	* plugins/devhelp/htmlview.h:
+	* plugins/devhelp/plugin.c: 
+	* plugins/devhelp/plugin.h:
+	Reimplemeted devhelp plugin from scratch
+	
+	* plugins/symbol-browser/an_symbol_view.c: (sv_get_type_of_token):
+	Fixed crasher
+
 2006-04-30  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/sourceview/sourceview-tags.c:
