@@ -52,6 +52,8 @@ devhelp_tree_link_selected_cb (GObject       *ignored,
 	html = html_view_get_dh_html(HTML_VIEW(widget->htmlview));
 
 	dh_html_open_uri (html, link->uri);
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
+								 widget->htmlview, NULL);
 
 	anjuta_devhelp_check_history (widget);
 }
@@ -66,6 +68,8 @@ devhelp_search_link_selected_cb (GObject  *ignored,
 	html = html_view_get_dh_html(HTML_VIEW(widget->htmlview));
 
 	dh_html_open_uri (html, link->uri);
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
+								 widget->htmlview, NULL);
 
 	anjuta_devhelp_check_history (widget);
 }
@@ -314,7 +318,6 @@ devhelp_activate (AnjutaPlugin *plugin)
 static gboolean
 devhelp_deactivate (AnjutaPlugin *plugin)
 {
-
 	AnjutaUI *ui;
 	AnjutaDevhelp* devhelp = (AnjutaDevhelp*) plugin;
 
@@ -323,6 +326,10 @@ devhelp_deactivate (AnjutaPlugin *plugin)
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_unmerge (ui, devhelp->uiid);
+	
+	/* Remove widgets */
+	anjuta_shell_remove_widget(plugin->shell, devhelp->htmlview, NULL);
+	anjuta_shell_remove_widget(plugin->shell, devhelp->control_notebook, NULL);	
 	
 	/* Remove action group */
 	anjuta_ui_remove_action_group (ui, devhelp->action_group);
@@ -362,6 +369,12 @@ devhelp_finalize (GObject *obj)
 static void
 devhelp_dispose (GObject *obj)
 {
+	AnjutaDevhelp* devhelp = (AnjutaDevhelp*) obj;
+	
+	/* Destroy devhelp */
+	DEBUG_PRINT("Dispose");
+	g_object_unref(G_OBJECT(devhelp->base));
+
 	/* Disposition codes */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }

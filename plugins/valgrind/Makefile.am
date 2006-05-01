@@ -1,3 +1,5 @@
+if HAVE_PLUGIN_VALGRIND
+
 # Plugin UI file
 valgrind_uidir = $(anjuta_ui_dir)
 valgrind_ui_DATA = anjuta-valgrind.ui
@@ -43,8 +45,8 @@ plugin_LTLIBRARIES = libanjuta-valgrind.la
 # Plugin dependencies
 libanjuta_valgrind_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
-	-lbfd \
-	-liberty 
+	$(PLUGIN_VALGRIND_LIBS)
+	
 
 # Plugin sources
 libanjuta_valgrind_la_SOURCES = \
@@ -136,5 +138,7 @@ noinst_PROGRAMS = \
 
 bugged_prg_test_SOURCES = \
 	bugged-prg-test.c 
+
+endif
 
 

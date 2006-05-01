@@ -1,4 +1,4 @@
-Anjuta 2.0.2 (xx Apr 2006) -- Naba Kumar
+Anjuta 2.0.2 (2 May 2006) -- Naba Kumar
 
 New: GtkSourceView based editor
 New: Project configuration
@@ -8,6 +8,10 @@ Updated: Manual and FAQ
 
 Improved: global tags can now be updated after installation
 Improved: Remember toolbars on restart
+Improved: Tag manager now knows about classes/namespaces which
+should make C++ programming much more easy (IComplete)
+Improved: Devhelp plugin should now really work
+Improved: Scintilla is now up-to-date 1.68
 
 Bug fixes:
 #171314		Anjuta crash when trying to do "stream comment"

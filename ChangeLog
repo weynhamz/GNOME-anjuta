@@ -1,3 +1,27 @@
+2006-05-01  Massimo Cora' <maxcvs@email.it>
+
+	* configure.in:
+	* plugins/valgrind/Makefile.am:
+
+	Optional compiling of Valgrind plugin
+
+2006-05-01  Massimo Cora' <maxcvs@email.it>
+
+	* plugins/symbol-browser/an_symbol_view.c:
+	- modularized code. Marked with FIXME the parts which need improvement.
+	- More comments.
+    - Added basic namespace completion for Gtkmm type project:
+    - namespace1::MyClass *class;
+    - class-> [display]
+    - Namespaces must be anyway improved.
+
+2006-05-01  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/devhelp/plugin.c: 
+	Fixed up plugin unloading and show html widget on link selected
+	
+	* NEWS: Updated
+	
 2006-05-01  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/devhelp/Makefile.am:
