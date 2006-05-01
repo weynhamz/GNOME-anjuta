@@ -2,6 +2,7 @@
 
 	* pixmaps/Makefile.am:
 	* src/main.c:
+	* anjuta.desktop.in.in
 	
 	GNOME Goal #2.1: Install theme-friendly icons
 
