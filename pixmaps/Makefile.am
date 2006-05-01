@@ -1,14 +1,24 @@
 ## Process this file with automake to produce Makefile.in
 
-## Created by Anjuta - will be overwritten
-## If you don't want it to overwrite it,
-## Please disable it in the Anjuta project configuration
+icondir = $(datadir)/icons/hicolor/48x48/apps
+icon_DATA = anjuta_icon.png
+svgicondir = $(datadir)/icons/hicolor/scalable/apps
+svgicon_DATA = anjuta_icon.svg
+
+gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
+
+install-data-hook:
+	@-if test -z "$(DESTDIR)"; then \
+	echo "Updating Gtk icon cache."; \
+		$(gtk_update_icon_cache); \
+	else \
+		echo "*** Icon cache not updated.  After install, run this:"; \
+		echo "***   $(gtk_update_icon_cache)"; \
+	fi
 
 anjuta_pixmapsdir = $(anjuta_image_dir)
 
 anjuta_pixmaps_DATA = \
-	anjuta_icon.svg \
-	anjuta_icon.png \
 	anjuta_logo.png \
 	anjuta_logo1.png \
 	anjuta_logo2.png \
@@ -108,4 +118,7 @@ anjuta_glade_pixmaps_DATA = \
 	start-with-import.png \
 	start-with-open.png
 
-EXTRA_DIST = $(anjuta_pixmaps_DATA) $(anjuta_glade_pixmaps_DATA)
+EXTRA_DIST = $(anjuta_pixmaps_DATA) \
+						$(anjuta_glade_pixmaps_DATA) \
+						$(icon_DATA) \
+						$(svnicon_DATA)

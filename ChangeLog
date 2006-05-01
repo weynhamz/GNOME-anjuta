@@ -1,5 +1,12 @@
 2006-05-01  Johannes Schmid <jhs@cvs.gnome.org>
 
+	* pixmaps/Makefile.am:
+	* src/main.c:
+	
+	GNOME Goal #2.1: Install theme-friendly icons
+
+2006-05-01  Johannes Schmid <jhs@cvs.gnome.org>
+
 	* plugins/devhelp/htmlview.c: Reload page on reparent
 	* plugins/document-manager/anjuta-docman.c:
 	Present document-manager when document is selected in file-manager
