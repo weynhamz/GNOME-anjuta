@@ -1989,10 +1989,13 @@ sv_get_local_declaration_type (const gchar *local_declaration_type_str) {
 
 					DEBUG_PRINT ("it's a struct/class/something else: %s [scope] %s. Object_scope is %s",
 							cur_tag->name, cur_tag->atts.entry.scope, object_scope->str);
-
-					if ( strcmp (cur_tag->atts.entry.scope, object_scope->str) == 0) {
-						local_declaration_type = cur_tag;
-						break;
+					
+					if (cur_tag->atts.entry.scope != NULL)
+					{
+						if ( strcmp (cur_tag->atts.entry.scope, object_scope->str) == 0) {
+							local_declaration_type = cur_tag;
+							break;
+						}
 					}
 				}
 			}
