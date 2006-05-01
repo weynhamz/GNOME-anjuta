@@ -1,5 +1,11 @@
 2006-05-01  Johannes Schmid <jhs@cvs.gnome.org>
 
+	* plugins/devhelp/htmlview.c: Reload page on reparent
+	* plugins/document-manager/anjuta-docman.c:
+	Present document-manager when document is selected in file-manager
+
+2006-05-01  Johannes Schmid <jhs@cvs.gnome.org>
+
 	* plugins/symbol-broser/an_symbol_view.c:
 	Fixed crasher in namespace exploration
 

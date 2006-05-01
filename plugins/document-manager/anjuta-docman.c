@@ -1464,12 +1464,7 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te_widget)
 static void
 anjuta_docman_grab_text_focus (AnjutaDocman *docman)
 {
-	/* FIXME:
-	GtkWidget *text;
-	text = GTK_WIDGET (anjuta_docman_get_current_editor (docman));
-	if (!text)
-		return; // This is not an error condition.
-	text_editor_grab_focus (TEXT_EDITOR (text)); */
+	anjuta_shell_present_widget(docman->shell, GTK_WIDGET(docman), NULL);
 }
 
 void

@@ -29,6 +29,7 @@ static void html_view_finalize(GObject *object);
 struct _HtmlViewPrivate {
 	DhHtml* html;
 	AnjutaDevhelp* devhelp;
+	gchar* uri;
 };
 
 G_DEFINE_TYPE(HtmlView, html_view, GTK_TYPE_HBOX)
@@ -74,6 +75,10 @@ html_view_create_html(HtmlView* html_view)
 	/* Hack to get GtkMozEmbed to work properly. */
 	gtk_widget_show (view);
 	dh_html_clear (priv->html);
+	if (priv->uri)
+		dh_html_open_uri(priv->html, priv->uri);
+	else
+		dh_html_open_uri(priv->html, "about:blank");
 	
 	return FALSE;
 }
@@ -90,6 +95,9 @@ static void
 html_view_unrealize(GtkWidget* widget)
 {
 	HtmlView* html_view = HTML_VIEW(widget);
+	
+	g_free(html_view->priv->uri);
+	html_view->priv->uri = dh_html_get_location(html_view->priv->html);
 	
 	if (gtk_container_get_children(GTK_CONTAINER(html_view)))
 	{
