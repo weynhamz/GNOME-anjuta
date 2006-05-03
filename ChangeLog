@@ -1,3 +1,8 @@
+2006-05-01  Massimo Cora' <maxcvs@email.it>
+
+	* configure.in, plugins/valgrind/Makefile.am:
+	Optional compiling of Valgrind plugin
+	
 2006-05-03  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/devhelp/htmlview.c:
@@ -51,6 +56,7 @@
 	
 	* NEWS: Updated
 	
+>>>>>>> 1.1238
 2006-05-01  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/devhelp/Makefile.am:
