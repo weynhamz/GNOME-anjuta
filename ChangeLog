@@ -1,12 +1,11 @@
-2006-05-01  Massimo Cora' <maxcvs@email.it>
-
-	* configure.in, plugins/valgrind/Makefile.am:
-	Optional compiling of Valgrind plugin
-	
 2006-05-03  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/devhelp/htmlview.c:
-	Fixed bug
+	* plugins/devhelp/plugin.c:
+	Fixed bug and libdevhelp issue!
+
+	* plugins/project-wizard/install.c:
+	Fixed message string!
 
 2006-05-03  Massimo Cora' <maxcvs@email.it>
        

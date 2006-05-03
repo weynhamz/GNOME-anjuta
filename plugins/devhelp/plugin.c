@@ -263,8 +263,6 @@ devhelp_activate (AnjutaPlugin *plugin)
 										plugin);
 	devhelp->uiid = anjuta_ui_merge (ui, UI_FILE);
 
-	/* Create devhelp */
-	devhelp->base = dh_base_new ();
 	books = dh_base_get_book_tree (devhelp->base);
 	keywords = dh_base_get_keywords (devhelp->base);
 	
@@ -383,6 +381,10 @@ static void
 devhelp_instance_init (GObject *obj)
 {
 	AnjutaDevhelp *plugin = (AnjutaDevhelp*)obj;
+	
+	/* Create devhelp */
+	plugin->base = dh_base_new ();
+
 	
 	plugin->uiid = 0;
 }

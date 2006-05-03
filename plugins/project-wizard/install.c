@@ -429,7 +429,7 @@ npw_install_install_file (NPWInstall* this)
 	const gchar* source;
 	gchar* msg;
 	gboolean use_autogen;
-	gboolean ok;
+	gboolean ok = FALSE;
 
 	destination = npw_file_get_destination (this->file);
 	source = npw_file_get_source (this->file);
@@ -504,7 +504,11 @@ npw_install_install_file (NPWInstall* this)
 	}
 
 	/* Record failure and display error message */
-	if (!ok) this->success = FALSE;
+	if (!ok) 
+	{
+		this->success = FALSE;
+		msg = g_strdup_printf (_("Creating %s ... %s"), destination, "Fail to copy file");
+	}
 	npw_plugin_print_view (this->plugin, ok ? IANJUTA_MESSAGE_VIEW_TYPE_INFO : IANJUTA_MESSAGE_VIEW_TYPE_ERROR, msg, "");
 	g_free (msg);
 
