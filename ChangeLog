@@ -1,3 +1,13 @@
+2006-05-03  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/devhelp/htmlview.c:
+	Fixed bug
+
+2006-05-03  Massimo Cora' <maxcvs@email.it>
+       
+	* plugins/symbol-browser/an_symbol_view.c:
+	Avoiding to get keywords from sv_extract_type_qualifier_from_expr()
+
 2006-05-01  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* pixmaps/Makefile.am:

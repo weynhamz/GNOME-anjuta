@@ -74,7 +74,7 @@ html_view_create_html(HtmlView* html_view)
 			  
 	/* Hack to get GtkMozEmbed to work properly. */
 	gtk_widget_show (view);
-	dh_html_clear (priv->html);
+	dh_html_clear(priv->html);
 	if (priv->uri)
 		dh_html_open_uri(priv->html, priv->uri);
 	else
@@ -96,12 +96,18 @@ html_view_unrealize(GtkWidget* widget)
 {
 	HtmlView* html_view = HTML_VIEW(widget);
 	
-	g_free(html_view->priv->uri);
-	html_view->priv->uri = dh_html_get_location(html_view->priv->html);
+	if (html_view->priv->html != NULL)
+	{
+		g_free(html_view->priv->uri);
+		html_view->priv->uri = dh_html_get_location(html_view->priv->html);
+	}
+	else
+		html_view->priv->uri = NULL;
 	
 	if (gtk_container_get_children(GTK_CONTAINER(html_view)))
 	{
 		gtk_container_remove(GTK_CONTAINER(widget), dh_html_get_widget(html_view->priv->html));
+		html_view->priv->html = NULL;
 	}
 
 	(* GTK_WIDGET_CLASS (html_view_parent_class)->realize)(widget);

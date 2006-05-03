@@ -68,6 +68,67 @@ enum
 	COLUMNS_NB
 };
 
+
+static 	gchar *keywords[] = { 
+			"asm",
+			"auto",
+			"bool",
+			"break",
+			"case",
+			"catch",
+			"class",
+			"const",
+			"const_cast",
+			"continue",
+			"default",
+			"delete",
+			"do",
+			"dynamic_cast",
+			"else",
+			"enum",
+			"explicit",
+			"export",
+			"extern",
+			"false",
+			"for",
+			"friend",
+			"goto",
+			"if",
+			"inline",
+			"mutable",
+			"namespace",
+			"new",
+			"operator",
+			"private",
+			"protected",
+			"public",
+			"register",
+			"reinterpret_cast",
+			"return",
+			"signed",
+			"sizeof",
+			"static",
+			"static_cast",
+			"struct",
+			"switch",
+			"template",
+			"this",
+			"throw",
+			"true",
+			"try",
+			"typedef",
+			"typeid",
+			"typename",
+			"union",
+			"unsigned",
+			"using",
+			"virtual",
+			"volatile",
+			"while",
+			NULL
+		};
+	
+
 static GtkTreeViewClass *parent_class;
 
 /* Tooltip operations -- taken from gtodo/message_view */
@@ -1508,6 +1569,7 @@ gchar* sv_extract_type_qualifier_from_expr (const gchar *string, const gchar *ex
 {
 	/* check with a regular expression for the type */
 	regex_t re;
+	gint i;
 	regmatch_t pm[8]; // 7 sub expression -> 8 matches
 	memset (&pm, -1, sizeof(pm));
 	/*
@@ -1574,9 +1636,19 @@ gchar* sv_extract_type_qualifier_from_expr (const gchar *string, const gchar *ex
 	}
 	regfree(&re);
 
-	/* we if the proposed type is a keyword, we did something wrong, return NULL instead */
-	/*    static char *keywords[] = { "if", "else", "goto", "for", "do", "while", "const", "static", "volatile",*/
-	/*    "register", "break", "continue", "return", "switch", "case", "new", "typedef", "inline"};*/
+	/* if the proposed type is a keyword, we did something wrong, return NULL instead */	
+	/* FIXME: think to a better regex. instead of doing this. The regex should skip functions bodies
+	 * or there can be the possibility to grab a declaration which is not like the one
+     * we're trying to complete..
+	 */
+	i=0;
+	while (keywords[i] != NULL) {
+		if (strcmp(res, keywords[i]) == 0) {
+			return NULL;
+		}
+		i++;
+	}
+	
 	return res;
 }
 
@@ -2238,6 +2310,12 @@ extract:
 		 * calling the following function should return the strings "MyClass".
 		 * FIXME: there would need a better regex which returns also the pointer
 		 * order of myclass, in this case should be "MyClass *", or better 1.
+		 * The scan should be done in three ways: first in the current function body to check
+		 * for a local declaration, then between it's members if it's a class' function,
+		 * and last a check for the entire file for global decls [the other functions
+		 * bodies must be skipped to avoid the grabbing of something declared else where
+		 * which could be not what we want].
+		 *
 		 */
 		local_declaration_type_str = sv_extract_type_qualifier_from_expr (expr, ident);
 
