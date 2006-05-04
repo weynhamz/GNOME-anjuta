@@ -429,7 +429,7 @@ npw_install_install_file (NPWInstall* this)
 	const gchar* source;
 	gchar* msg;
 	gboolean use_autogen;
-	gboolean ok = FALSE;
+	gboolean ok = TRUE;
 
 	destination = npw_file_get_destination (this->file);
 	source = npw_file_get_source (this->file);

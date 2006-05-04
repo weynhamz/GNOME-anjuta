@@ -763,6 +763,10 @@ void anjuta_symbol_view_update_source_from_buffer (AnjutaSymbolView *sv, const g
 	GTimer *timer;
 	gulong ms;
 
+	g_return_if_fail(sv != NULL);
+	if (uri == NULL || text_buffer == NULL)
+		return;
+
 	filename = gnome_vfs_get_local_path_from_uri (uri);
 	
 	if (sv->priv->tm_workspace == NULL ||
@@ -778,12 +782,7 @@ void anjuta_symbol_view_update_source_from_buffer (AnjutaSymbolView *sv, const g
 	if (tm_file == NULL) {
 		DEBUG_PRINT ("tm_file is null");
 		return;
-	}
-
-	/* this is only a debug part of code. It'll be remove later. The only function
-	   to let here is tm_source_file_buffer_update () */
-	DEBUG_PRINT ("total tags discovered BEFORE buffer updating...: %d", 
-			TM_PROJECT(sv->priv->tm_project)->work_object.tags_array->len);	
+	}	
 	
 	timer = g_timer_new ();
 	tm_source_file_buffer_update (tm_file, text_buffer, buffer_size, TRUE);

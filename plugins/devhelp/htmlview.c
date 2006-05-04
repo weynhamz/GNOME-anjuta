@@ -62,6 +62,10 @@ html_view_create_html(HtmlView* html_view)
 	HtmlViewPrivate* priv = html_view->priv;
 
 	priv->html = dh_html_new();
+	
+	if (!priv->html)	
+		return TRUE;
+	
 	view = dh_html_get_widget(priv->html);
 	gtk_box_pack_start(GTK_BOX(html_view), dh_html_get_widget(priv->html), TRUE, TRUE, 1);
 	
