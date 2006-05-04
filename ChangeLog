@@ -1,6 +1,15 @@
 2006-05-04  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/devhelp/htmlview.c: 
+	* plugins/devhelp/plugin.c:
+	Maybe I fixed the crash this time! I could at least not reproduce anymore!
+	
+	* plugins/project-wizard/install.c:
+	Don't set a message - thanks to seb
+
+2006-05-04  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/devhelp/htmlview.c: 
 	* plugins/symbol-browser/an_symbol_view.c:
 	
 	There is a weird crash in gtk_idle which I still did not completly fix!

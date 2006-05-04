@@ -38,7 +38,6 @@
 #include "plugin.h"
 #include "htmlview.h"
 
-
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-devhelp.ui"
 
 static void

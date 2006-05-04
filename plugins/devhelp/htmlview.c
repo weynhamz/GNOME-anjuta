@@ -63,7 +63,7 @@ html_view_create_html(HtmlView* html_view)
 
 	priv->html = dh_html_new();
 	
-	if (!priv->html)	
+	if (!priv->html || !DH_IS_HTML(priv->html))	
 		return TRUE;
 	
 	view = dh_html_get_widget(priv->html);
