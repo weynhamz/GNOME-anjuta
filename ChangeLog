@@ -1,3 +1,10 @@
+2006-05-05  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/project-wizard/templates/wxwin/configure.in.tpl
+	* plugins/project-wizard/templates/wxwin/src/Makefile.am:
+	
+	Fixed WxWidgets project type
+
 2006-05-04  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/devhelp/htmlview.c: 

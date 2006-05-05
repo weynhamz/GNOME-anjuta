@@ -4,14 +4,15 @@
 ## Created by Anjuta
 
 INCLUDES = \
-	$(WX_FLAGS) \
+	$(WX_CXXFLAGS) \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" [+IF (=(get "HavePackage") "1")+]$(PACKAGE_CFLAGS)[+ENDIF+]
 
 AM_CFLAGS =\
-	 -Wall\
-	 -g
+	 -Wall \
+	 -g \
+	 $(WX_CPPFLAGS)
 
 bin_PROGRAMS = [+NameLower+]
 
