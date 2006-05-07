@@ -1635,6 +1635,9 @@ gchar* sv_extract_type_qualifier_from_expr (const gchar *string, const gchar *ex
 	}
 	regfree(&re);
 
+	if (!res)
+		return NULL;
+	
 	/* if the proposed type is a keyword, we did something wrong, return NULL instead */	
 	/* FIXME: think to a better regex. instead of doing this. The regex should skip functions bodies
 	 * or there can be the possibility to grab a declaration which is not like the one
