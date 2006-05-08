@@ -86,4 +86,5 @@ if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
 	    # fi
 	done
     done
+    echo "This is just a timestamp" > $HOME/.anjuta/system-tags.cache
 fi

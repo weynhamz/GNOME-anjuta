@@ -47,6 +47,8 @@ enum
 	N_COLUMNS
 };
 
+static SymbolBrowserPlugin* symbol_browser_plugin = NULL;
+
 static void 
 update_system_tags (GList *tags_files)
 {
@@ -758,6 +760,8 @@ prefs_page_init (SymbolBrowserPlugin *plugin)
 					  G_CALLBACK (on_update_global_clicked), plugin);
 	
 	
+	symbol_browser_plugin = plugin;
+	
 	g_object_unref (store);
 	g_object_unref (gxml);
 	return treeview;
@@ -805,4 +809,11 @@ symbol_browser_prefs_finalize (SymbolBrowserPlugin *plugin)
 	}
 	g_list_free (plugin->gconf_notify_ids);
 	plugin->gconf_notify_ids = NULL;
+}
+
+
+gboolean symbol_browser_prefs_create_global_tags(gpointer unused)
+{
+	on_update_global_clicked(NULL, symbol_browser_plugin);
+	return FALSE; /* Stop g_idle */
 }

@@ -38,6 +38,7 @@
 #include <tm_tagmanager.h>
 #include "an_symbol_view.h"
 #include "an_symbol_info.h"
+#include "an_symbol_prefs.h"
 
 #define MAX_STRING_LENGTH 256
 #define TOOLTIP_TIMEOUT 1000 /* milliseconds */
@@ -989,7 +990,10 @@ anjuta_symbol_view_instance_init (GObject * obj)
 										 "system-tags.cache", NULL);
 	/* Load gloabal tags on gtk idle */
 	if (!tm_workspace_load_global_tags (system_tags_path))
-		g_warning ("Unable to load global tag file");
+	{
+		g_idle_add((GSourceFunc) symbol_browser_prefs_create_global_tags, 
+			(SymbolBrowserPlugin*) obj);
+	}
 
 	/* let's create symbol_view tree and other gui stuff */
 	sv_create (sv);

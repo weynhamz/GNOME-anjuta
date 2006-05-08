@@ -26,4 +26,6 @@
 void symbol_browser_prefs_init (SymbolBrowserPlugin *plugin);
 void symbol_browser_prefs_finalize (SymbolBrowserPlugin *plugin);
 
+gboolean symbol_browser_prefs_create_global_tags(gpointer unused);
+
 #endif

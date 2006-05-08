@@ -1094,6 +1094,9 @@ plugins/project-wizard/templates/Makefile
 plugins/project-wizard/templates/terminal/Makefile
 plugins/project-wizard/templates/terminal/src/Makefile
 plugins/project-wizard/templates/terminal/po/Makefile
+plugins/project-wizard/templates/cpp/Makefile
+plugins/project-wizard/templates/cpp/src/Makefile
+plugins/project-wizard/templates/cpp/po/Makefile
 plugins/project-wizard/templates/gtk/Makefile
 plugins/project-wizard/templates/gtk/src/Makefile
 plugins/project-wizard/templates/gtk/po/Makefile
