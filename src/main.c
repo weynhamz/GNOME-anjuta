@@ -49,6 +49,7 @@ static BaconMessageConnection *connection;
 static gint line_position = 0;
 static GList *file_list = NULL;
 static gboolean no_splash = 0;
+static gboolean no_client = 0;
 static gboolean proper_shutdown = 0;
 static gchar *anjuta_geometry = NULL;
 
@@ -70,6 +71,12 @@ poptOption anjuta_options[] = {
 		"no-splash", 's', POPT_ARG_NONE,
 		&no_splash, 0,
 		N_("Do not show the splashscreen"),
+		NULL
+	},
+	{
+		"no-client", 'c', POPT_ARG_NONE,
+		&no_client, 0,
+		N_("Start a new instance and do not open the file in a existing"),
 		NULL
 	},
 	{
@@ -291,8 +298,6 @@ main (int argc, char *argv[])
 	gchar *data_dir;
 	GList *plugins_dirs = NULL;
 	char *im_file;
-	gboolean client = TRUE;
-	gint i;
 	
 #ifdef ENABLE_NLS
 	setlocale (LC_ALL, "");
@@ -303,15 +308,6 @@ main (int argc, char *argv[])
 	
 	data_dir = g_strdup (PACKAGE_DATA_DIR);
 	data_dir[strlen (data_dir) - strlen (PACKAGE) - 1] = '\0';
-	
-	/* Check if we should connect to a server */
-	for (i=1; i < argc; i++)
-	{
-		if (g_str_equal(argv[i], "--no-client"))
-		{
-			client = FALSE;
-		}
-	}
 	
 	/* Initialize gnome program */
 	program = gnome_program_init (PACKAGE, VERSION,
@@ -331,7 +327,7 @@ main (int argc, char *argv[])
 	if (connection != NULL)
 	{
 		if (!bacon_message_connection_get_is_server (connection) &&
-			 client ==TRUE) 
+			 no_client ==FALSE) 
 		{
 			DEBUG_PRINT("Client");
 			send_bacon_message ();
