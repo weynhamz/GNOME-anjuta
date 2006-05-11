@@ -291,6 +291,8 @@ main (int argc, char *argv[])
 	gchar *data_dir;
 	GList *plugins_dirs = NULL;
 	char *im_file;
+	gboolean client = TRUE;
+	gint i;
 	
 #ifdef ENABLE_NLS
 	setlocale (LC_ALL, "");
@@ -301,6 +303,15 @@ main (int argc, char *argv[])
 	
 	data_dir = g_strdup (PACKAGE_DATA_DIR);
 	data_dir[strlen (data_dir) - strlen (PACKAGE) - 1] = '\0';
+	
+	/* Check if we should connect to a server */
+	for (i=1; i < argc; i++)
+	{
+		if (g_str_equal(argv[i], "--no-client"))
+		{
+			client = FALSE;
+		}
+	}
 	
 	/* Initialize gnome program */
 	program = gnome_program_init (PACKAGE, VERSION,
@@ -319,7 +330,8 @@ main (int argc, char *argv[])
 	
 	if (connection != NULL)
 	{
-		if (!bacon_message_connection_get_is_server (connection)) 
+		if (!bacon_message_connection_get_is_server (connection) &&
+			 client ==TRUE) 
 		{
 			DEBUG_PRINT("Client");
 			send_bacon_message ();

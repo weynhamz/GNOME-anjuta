@@ -1,5 +1,10 @@
 2006-05-08	Johannes Schmid <jhs@cvs.gnome.org>
 
+	* src/main.c:
+	Added "--no-client" option to start a new instance of anjuta instead of connecting to an old one.
+
+2006-05-08	Johannes Schmid <jhs@cvs.gnome.org>
+
 	* plugins/glade/plugin.c: (on_api_help), (activate_plugin):
 	Implement gtk-api-help signals of glade3
 	* configure.in: Bump to glade3 2.91.2
