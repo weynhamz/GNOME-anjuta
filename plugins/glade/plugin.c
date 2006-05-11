@@ -26,6 +26,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
+#include <libanjuta/interfaces/ianjuta-help.h>
 
 #include <glade.h>
 #include <glade-palette.h>
@@ -348,6 +349,39 @@ glade_confirm_close_project (GladePlugin *plugin, GladeProject *project)
 }
 
 static void
+on_api_help(GladeEditor* editor, 
+	const gchar* book,
+	const gchar* page,
+	const gchar* search,
+	GladePlugin* plugin)
+{
+	gchar *book_comm = NULL, *page_comm = NULL;
+	gchar *string;
+
+	AnjutaPlugin* aplugin = ANJUTA_PLUGIN(plugin);
+	AnjutaShell* shell = aplugin->shell;
+	IAnjutaHelp* help;
+	
+	help = anjuta_shell_get_interface(shell, IAnjutaHelp, NULL);
+	
+	/* No API Help Plugin */
+	if (help == NULL)
+		return;
+	
+	if (book) book_comm = g_strdup_printf ("book:%s ", book);
+	if (page) page_comm = g_strdup_printf ("page:%s ", page);
+
+	string = g_strdup_printf ("%s%s%s",
+		book_comm ? book_comm : "",
+		page_comm ? page_comm : "",
+		search ? search : "");
+
+	ianjuta_help_search(help, string, NULL);
+
+	g_free (string);
+}
+
+static void
 glade_do_close (GladePlugin *plugin, GladeProject *project)
 {
 	// FIXME: Remove from combo.	
@@ -625,6 +659,9 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_glade_project_changed), plugin);
 	g_signal_connect (G_OBJECT (priv->gpw), "update-ui",
 					  G_CALLBACK (glade_update_ui), plugin);
+	
+	g_signal_connect(G_OBJECT(priv->gpw), "gtk-doc-search",
+		G_CALLBACK(on_api_help), plugin);
 	
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook),
 								 TRUE);

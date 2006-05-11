@@ -1,5 +1,17 @@
 2006-05-08	Johannes Schmid <jhs@cvs.gnome.org>
 
+	* plugins/glade/plugin.c: (on_api_help), (activate_plugin):
+	Implement gtk-api-help signals of glade3
+	* configure.in: Bump to glade3 2.91.2
+	
+	* plugins/devhelp/plugin.c:
+	Fixed some realize stuff in the devhelp plugin
+	
+	* plugins/sourceview/anjuta-document.c:
+	fixed bug with scope completion
+
+2006-05-08	Johannes Schmid <jhs@cvs.gnome.org>
+
 	* plugins/symbol-browser/an_symbol_view.c
 	* plugins/symbol-browser/an_symbol_prefs.c
 	* plugins/symbol-browser/an_symbol_prefs.h

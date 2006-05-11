@@ -48,11 +48,15 @@ devhelp_tree_link_selected_cb (GObject       *ignored,
 	
 	DhHtml       *html;
 
-	html = html_view_get_dh_html(HTML_VIEW(widget->htmlview));
-
-	dh_html_open_uri (html, link->uri);
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
 								 widget->htmlview, NULL);
+
+	html = html_view_get_dh_html(HTML_VIEW(widget->htmlview));
+	
+	if (!DH_IS_HTML(html))
+		return;
+	
+	dh_html_open_uri (html, link->uri);
 
 	anjuta_devhelp_check_history (widget);
 }
@@ -66,9 +70,10 @@ devhelp_search_link_selected_cb (GObject  *ignored,
 
 	html = html_view_get_dh_html(HTML_VIEW(widget->htmlview));
 
+	if (!DH_IS_HTML(html))
+		return;
+
 	dh_html_open_uri (html, link->uri);
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
-								 widget->htmlview, NULL);
 
 	anjuta_devhelp_check_history (widget);
 }
@@ -81,6 +86,9 @@ on_go_back_activate (GtkAction *action, AnjutaDevhelp *plugin)
 
 	html = html_view_get_dh_html(HTML_VIEW(plugin->htmlview));
 	
+	if (!DH_IS_HTML(html))
+		return;
+		
 	dh_html_go_back(html);
 }
 
@@ -90,6 +98,9 @@ on_go_forward_activate (GtkAction *action, AnjutaDevhelp *plugin)
 	DhHtml* html;
 
 	html = html_view_get_dh_html(HTML_VIEW(plugin->htmlview));
+	
+	if (!DH_IS_HTML(html))
+		return;
 	
 	dh_html_go_forward(html);
 }
@@ -407,10 +418,12 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 	AnjutaDevhelp *plugin;
 	
 	plugin = (AnjutaDevhelp*)help;
-	dh_search_set_search_string (DH_SEARCH (plugin->search), query);
-	gtk_notebook_set_current_page (GTK_NOTEBOOK (plugin->control_notebook), 1);
+	
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
 								 plugin->control_notebook, NULL);
+	
+	dh_search_set_search_string (DH_SEARCH (plugin->search), query);
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (plugin->control_notebook), 1);
 }
 
 static void
