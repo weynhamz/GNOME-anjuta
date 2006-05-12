@@ -1,8 +1,14 @@
-2006-05-08	Johannes Schmid <jhs@cvs.gnome.org>
+2006-05-13 Johannes Schmid <jhs@cvs.gnome.org
+
+	plugins/macro/macros.xml:
+	Fixed bug #341583 (Address of FSF)
+
+2006-05-12	Johannes Schmid <jhs@cvs.gnome.org>
 
 	* src/main.c:
 	Added "--no-client" option to start a new instance of anjuta instead of connecting to an old one.
-
+	Update: Do it the cool way...
+	
 2006-05-08	Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/glade/plugin.c: (on_api_help), (activate_plugin):
