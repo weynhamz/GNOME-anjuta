@@ -1,6 +1,6 @@
 2006-05-13 Johannes Schmid <jhs@cvs.gnome.org
 
-	plugins/macro/macros.xml:
+	* plugins/macro/macros.xml:
 	Fixed bug #341583 (Address of FSF)
 
 2006-05-12	Johannes Schmid <jhs@cvs.gnome.org>
