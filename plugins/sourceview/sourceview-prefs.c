@@ -221,6 +221,26 @@ on_gconf_notify_font_theme (GConfClient *gclient, guint cnxn_id,
 		on_gconf_notify_font(NULL, 0, NULL, sv);
 }
 
+static void
+init_colors_and_fonts(Sourceview* sv)
+{
+	gboolean font_theme;
+	gboolean color_theme;
+	
+	font_theme = anjuta_preferences_get_int(prefs, FONT_THEME);
+	color_theme = anjuta_preferences_get_int(prefs, COLOR_THEME);
+	
+	if (!font_theme)
+	{
+		on_gconf_notify_font(NULL, 0, NULL, sv);
+	}
+	
+	if (!color_theme)
+	{
+		on_gconf_notify_color(NULL, 0, NULL, sv);
+	}
+}
+
 static int
 get_key(Sourceview* sv, const gchar* key)
 {
@@ -246,6 +266,8 @@ sourceview_prefs_init(Sourceview* sv)
 										 get_key(sv, VIEW_MARKER_MARGIN));
 	gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(sv->priv->view), 
 										 get_key(sv, VIEW_LINENUMBERS_MARGIN));
+	
+	init_colors_and_fonts(sv);
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);

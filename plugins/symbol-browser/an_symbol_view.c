@@ -1736,9 +1736,6 @@ sv_get_type_of_token (const gchar* ident, const gchar* klass, const TMTag* local
 		}
 		
 		if (strcmp (tmp_tag->name, ident) == 0 ) {
-			DEBUG_PRINT ("returning from get_type_of_token. ident %s, klass %s, scope %s, local_scope_of_ident %s",
-					ident, klass, klass_tag->atts.entry.scope, local_scope_of_ident->name);
-		
 			return tmp_tag;
 		}
 	}	
