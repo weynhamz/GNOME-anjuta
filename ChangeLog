@@ -1,4 +1,9 @@
-2006-05-13  Johannes Schmid <jhs@cvs.gnome.org
+2006-05-13  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* pixmaps/Makefile.am:
+	Fixed EXTRA_DIST
+
+2006-05-13  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/sourceview/sourceview-prefs.c:
 	Fixed font & color handling
@@ -6,7 +11,7 @@
 	* plugins/symbol-browser/an_symbol_view.c:
 	Fixed crasher
 
-2006-05-13 Johannes Schmid <jhs@cvs.gnome.org
+2006-05-13 Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/macro/macros.xml:
 	Fixed bug #341583 (Address of FSF)

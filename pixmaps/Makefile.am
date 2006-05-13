@@ -121,4 +121,5 @@ anjuta_glade_pixmaps_DATA = \
 EXTRA_DIST = $(anjuta_pixmaps_DATA) \
 						$(anjuta_glade_pixmaps_DATA) \
 						$(icon_DATA) \
-						$(svnicon_DATA)
+						$(svgicon_DATA)
+
