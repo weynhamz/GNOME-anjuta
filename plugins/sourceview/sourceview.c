@@ -314,6 +314,8 @@ sourceview_finalize(GObject *object)
 	
 	gtk_widget_destroy(GTK_WIDGET(cobj->priv->tag_window));
 	gtk_widget_destroy(GTK_WIDGET(cobj->priv->autocomplete));
+	gtk_widget_destroy(GTK_WIDGET(cobj->priv->args));
+	gtk_widget_destroy(GTK_WIDGET(cobj->priv->scope));
 	
 	g_free(cobj->priv);
 	G_OBJECT_CLASS(parent_class)->finalize(object);

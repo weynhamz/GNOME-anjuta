@@ -58,7 +58,8 @@ anjuta_pixmaps_DATA = \
 	dock.xpm \
 	directory.png \
 	directory-accept.png \
-	password.png
+	password.png \
+	preferences-general.png
 
 #	frame.xpm \
 #	handle_hide.xpm \
@@ -84,7 +85,6 @@ anjuta_pixmaps_DATA = \
 #	preferences-indentation.png\
 #	preferences-cvs.png\
 #	preferences-print.png\
-#	preferences-general.png\
 #	project.xpm \
 #	registers.xpm \
 #	run_to_cursor.xpm \

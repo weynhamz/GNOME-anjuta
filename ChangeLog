@@ -1,6 +1,30 @@
 2006-05-13  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* pixmaps/Makefile.am:
+	Add preferences_general.png
+	
+	* plugins/devhelp/plugin.c:
+	Fixed some more realise things
+	
+	* plugins/message-view/anjuta-msgman.c:
+	Support stock icons for message panes
+	
+	* plugins/search/search-replace.c:
+	Use GTK_STOCK_FIND_AND_REPLACE instead of anjuta_icon
+	 
+	* plugins/search/search-replace_backend.c:
+	Fixed #341359
+	
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/sourceview.c:
+	Fixed finalise and tag completion
+	
+	* src/anjuta-app.c:
+	Use preferences_general icon
+
+2006-05-13  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* pixmaps/Makefile.am:
 	Fixed EXTRA_DIST
 
 2006-05-13  Johannes Schmid <jhs@cvs.gnome.org>

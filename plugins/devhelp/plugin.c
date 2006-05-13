@@ -68,6 +68,9 @@ devhelp_search_link_selected_cb (GObject  *ignored,
 {
 	DhHtml       *html;
 
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (widget)->shell,
+								 widget->htmlview, NULL);
+
 	html = html_view_get_dh_html(HTML_VIEW(widget->htmlview));
 
 	if (!DH_IS_HTML(html))
@@ -379,9 +382,8 @@ devhelp_dispose (GObject *obj)
 {
 	AnjutaDevhelp* devhelp = (AnjutaDevhelp*) obj;
 	
-	/* Destroy devhelp */
-	DEBUG_PRINT("Dispose");
-	g_object_unref(G_OBJECT(devhelp->base));
+	/* Destroy devhelp - seems not to work... */
+	// g_object_unref(G_OBJECT(devhelp->base));
 
 	/* Disposition codes */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));

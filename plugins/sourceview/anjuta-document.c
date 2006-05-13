@@ -1134,7 +1134,7 @@ anjuta_document_get_encoding (AnjutaDocument *doc)
 	return doc->priv->encoding;
 }
 
-#define WORD_REGEX "[^ \\t&*!]+$"
+#define WORD_REGEX "[^ \\t&*!(]+$"
 gchar* anjuta_document_get_current_word(AnjutaDocument* doc)
 {
 	pcre *re;

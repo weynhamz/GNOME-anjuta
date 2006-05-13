@@ -44,6 +44,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
@@ -293,7 +294,9 @@ file_buffer_line_from_pos(FileBuffer *fb, int pos)
 		return lineno;
 	}
 	else if (FB_EDITOR == fb->type)
+	{
 		return ianjuta_editor_get_line_from_position(fb->te, pos, NULL);
+	}
 	else
 		return -1;
 }
@@ -451,7 +454,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 			mi = g_new0(MatchInfo, 1);
 			mi->pos = s->re->ovector[0];
 			mi->len = s->re->ovector[1] - s->re->ovector[0];
-			mi->line = ianjuta_editor_get_line_from_position(fb->te, mi->pos, NULL);
+			mi->line = file_buffer_line_from_pos(fb, mi->pos);
 			if (status > 1) /* Captured subexpressions */
 			{
 				int i;
@@ -490,7 +493,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
 							mi->len = match_len;
-							mi->line = ianjuta_editor_get_line_from_position(fb->te, mi->pos, NULL);
+							mi->line = file_buffer_line_from_pos(fb, mi->pos);
 							return mi;
 						}
 					}
@@ -508,7 +511,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
 							mi->len = match_len;
-							mi->line = ianjuta_editor_get_line_from_position(fb->te, mi->pos, NULL);
+							mi->line = file_buffer_line_from_pos(fb, mi->pos);
 							return mi;
 						}
 					}
@@ -530,7 +533,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
 							mi->len = match_len;
-							mi->line = ianjuta_editor_get_line_from_position(fb->te, mi->pos, NULL);
+							mi->line = file_buffer_line_from_pos(fb, mi->pos);
 							fb->pos += match_len;
 							return mi;
 						}
@@ -549,7 +552,7 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 							mi = g_new0(MatchInfo, 1);
 							mi->pos = fb->pos;
 							mi->len = match_len;
-							mi->line = ianjuta_editor_get_line_from_position(fb->te, mi->pos, NULL);
+							mi->line = file_buffer_line_from_pos(fb, mi->pos);
 							fb->pos += match_len;
 							return mi;
 						}

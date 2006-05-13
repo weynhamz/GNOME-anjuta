@@ -289,7 +289,7 @@ search_and_replace (void)
 		{
 			// FIXME: Put a nice icon here:
 			view = ianjuta_message_manager_add_view(msgman, name,
-													"anjuta_icon.png", NULL);	
+													GTK_STOCK_FIND_AND_REPLACE, NULL);	
 			g_return_if_fail(view != NULL);
 			g_signal_connect (G_OBJECT(view), "buffer_flushed",
 			                  G_CALLBACK (on_message_buffer_flush), NULL);

@@ -47,7 +47,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.ui"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta.glade"
-#define ICON_FILE "anjuta_icon.png"
+#define ICON_FILE "preferences-general.png"
 
 static void anjuta_app_layout_load (AnjutaApp *app,
 									const gchar *layout_filename,
