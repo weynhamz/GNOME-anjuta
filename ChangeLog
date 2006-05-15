@@ -1,5 +1,10 @@
 2006-05-15  Johannes Schmid <jhs@cvs.gnome.org>
 
+	* plugins/glade/plugin.c:
+	Fixed signal connection for "gtk-doc-search"
+
+2006-05-15  Johannes Schmid <jhs@cvs.gnome.org>
+
 	* NEWS: Set release date, add known issues
 	
 	* libanjuta/anjuta-shell.c:

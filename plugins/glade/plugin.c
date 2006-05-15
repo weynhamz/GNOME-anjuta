@@ -660,7 +660,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect (G_OBJECT (priv->gpw), "update-ui",
 					  G_CALLBACK (glade_update_ui), plugin);
 	
-	g_signal_connect(G_OBJECT(priv->gpw), "gtk-doc-search",
+	g_signal_connect(G_OBJECT(glade_app_get_editor()), "gtk-doc-search",
 		G_CALLBACK(on_api_help), plugin);
 	
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook),
