@@ -186,8 +186,12 @@ anjuta_view_set_property (GObject * object,
 	{
 		case ANJUTA_VIEW_POPUP:
 		{
+			GtkWidget* widget;
 			self->priv->popup = g_value_get_object (value);
-			if (gtk_menu_get_attach_widget(GTK_MENU(self->priv->popup)) != NULL)
+			widget = gtk_menu_get_attach_widget(GTK_MENU(self->priv->popup));
+			/* This is a very ugly hack, maybe somebody more familiar with gtk menus
+			can fix this */
+			if (widget != NULL)
 				gtk_menu_detach(GTK_MENU(self->priv->popup));
 			gtk_menu_attach_to_widget(GTK_MENU(self->priv->popup), GTK_WIDGET(self), NULL);
 			break;

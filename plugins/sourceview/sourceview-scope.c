@@ -150,7 +150,7 @@ sourceview_scope_create_list(TagWindow* tagwin, GtkWidget* view)
 	gchar* current_word;
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)));
 	GtkSourceLanguage* lang = gtk_source_buffer_get_language(buffer);
-	GSList* mime_types = gtk_source_language_get_mime_types(lang);
+	GSList* mime_types;
 	GtkListStore* store = gtk_list_store_new(N_COLUMNS, G_TYPE_STRING,
 											 GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_BOOLEAN);
 	GtkTreeView* tag_view;
@@ -165,6 +165,11 @@ sourceview_scope_create_list(TagWindow* tagwin, GtkWidget* view)
 	
 	if (!anjuta_preferences_get_int (sourceview_get_prefs(), "enable.code.completion" ))
 		return FALSE;
+	
+	if (!GTK_IS_SOURCE_LANGUAGE(lang))
+	 	return FALSE;
+	
+	mime_types = gtk_source_language_get_mime_types(lang);
 	
 	while(mime_types)
 	{

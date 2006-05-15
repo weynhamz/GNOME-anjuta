@@ -254,7 +254,8 @@ build_context_reset (BuildContext *context)
 	
 	ianjuta_message_view_clear (context->message_view, NULL);
 	
-	g_hash_table_destroy (context->build_dir_stack);
+	if (context->build_dir_stack)
+		g_hash_table_destroy (context->build_dir_stack);
 	context->build_dir_stack = NULL;
 	
 	g_slist_foreach (context->locations,
@@ -792,7 +793,8 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	if (IANJUTA_IS_INDICABLE (plugin->current_editor))
 		ianjuta_indicable_clear (IANJUTA_INDICABLE (plugin->current_editor),
 								 NULL);
-	g_hash_table_destroy (plugin->indicators_updated_editors);
+	if (plugin->indicators_updated_editors)
+		g_hash_table_destroy (plugin->indicators_updated_editors);
 	plugin->indicators_updated_editors = g_hash_table_new (g_direct_hash,
 														   g_direct_equal);
 	

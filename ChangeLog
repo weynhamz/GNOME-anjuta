@@ -1,3 +1,20 @@
+2006-05-15  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* NEWS: Set release date, add known issues
+	
+	* libanjuta/anjuta-shell.c:
+	Use DEBUG_PRINT instead of g_warning (to be able to pass --g-fatal-warnings
+	and debug other gtk-warnings/criticals)
+	
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	Fixed gtk-critical (gtk_hash_table_destroy(NULL))
+	
+	* plugins/sourceview/anjuta-view.c:
+	* plugins/sourceview/sourceview-args.c:
+	* plugins/sourceview/sourceview-scope.c:
+	* plugins/sourceview/sourceview-tags.c:
+	Fixed gtk-criticals (gtk_source_language_get_mime_types)
+
 2006-05-13  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* pixmaps/Makefile.am:

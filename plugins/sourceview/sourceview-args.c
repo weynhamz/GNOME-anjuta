@@ -171,7 +171,7 @@ sourceview_args_update(TagWindow* tagwin, GtkWidget* view)
 		return TRUE;
 	}
 	
-	if (lang == NULL)
+	if (!GTK_IS_SOURCE_LANGUAGE(lang))
 	 	return FALSE;
 	mime_types = gtk_source_language_get_mime_types(lang);
 	
