@@ -1,3 +1,10 @@
+=== anjuta 2.0.2 ===
+
+2006-05-15  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: set required versions for
+	gdl and glade3.
+	
 2006-05-15  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/glade/plugin.c:
