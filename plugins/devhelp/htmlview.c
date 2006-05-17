@@ -75,14 +75,16 @@ html_view_create_html(HtmlView* html_view)
 	g_signal_connect (priv->html, "location-changed",
 			  G_CALLBACK (devhelp_html_location_changed_cb),
 			  priv->devhelp);
-			  
+	
 	/* Hack to get GtkMozEmbed to work properly. */
-	gtk_widget_show (view);
 	dh_html_clear(priv->html);
+
 	if (priv->uri)
 		dh_html_open_uri(priv->html, priv->uri);
 	else
 		dh_html_open_uri(priv->html, "about:blank");
+	
+	gtk_widget_show (view);
 	
 	return FALSE;
 }
@@ -114,7 +116,7 @@ html_view_unrealize(GtkWidget* widget)
 		html_view->priv->html = NULL;
 	}
 
-	(* GTK_WIDGET_CLASS (html_view_parent_class)->realize)(widget);
+	(* GTK_WIDGET_CLASS (html_view_parent_class)->unrealize)(widget);
 }
 
 static void
@@ -143,7 +145,8 @@ html_view_finalize(GObject *object)
 	cobj = HTML_VIEW(object);
 	
 	/* Free private members, etc. */
-	g_object_unref(cobj->priv->html);
+	if (cobj->priv->html)
+		gtk_widget_destroy(dh_html_get_widget(cobj->priv->html));
 		
 	g_free(cobj->priv);
 	G_OBJECT_CLASS(html_view_parent_class)->finalize(object);

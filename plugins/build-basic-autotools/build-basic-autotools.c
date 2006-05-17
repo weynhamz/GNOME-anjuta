@@ -638,19 +638,16 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 	gint lineno;
 	if (parse_error_line (line, &filename, &lineno))
 	{
-		gchar *uri;
-		IAnjutaFileLoader *loader;
+		IAnjutaDocumentManager *docman;
 		
 		/* Go to file and line number */
-		loader = anjuta_shell_get_interface (context->plugin->shell,
-											 IAnjutaFileLoader,
+		docman = anjuta_shell_get_interface (context->plugin->shell,
+											 IAnjutaDocumentManager,
 											 NULL);
 		
 		/* FIXME: Determine full file path */
-		uri = g_strdup_printf ("file:///%s#%d", filename, lineno);
-		g_free (filename);
-		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
-		g_free (uri);
+		ianjuta_document_manager_goto_file_line_mark(docman, filename, lineno, TRUE, NULL);
+		g_free(filename);
 	}
 }
 

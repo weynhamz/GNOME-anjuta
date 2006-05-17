@@ -1226,7 +1226,7 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, IAnjutaEditor * te)
 IAnjutaEditor *
 anjuta_docman_goto_file_line (AnjutaDocman *docman, const gchar *fname, glong lineno)
 {
-	return anjuta_docman_goto_file_line_mark (docman, fname, lineno, TRUE);
+	eturn anjuta_docman_goto_file_line_mark (docman, fname, lineno, FALSE);
 }
 
 IAnjutaEditor *

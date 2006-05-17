@@ -352,8 +352,8 @@ search_and_replace (void)
 				{
 					case SA_HIGHLIGHT: /* FIXME */
 						if (NULL == fb->te)
-							ianjuta_document_manager_goto_file_line (sr->docman, 
-								                  fb->path, mi->line + 1, NULL);
+							ianjuta_document_manager_goto_file_line_mark (sr->docman, 
+								                  fb->path, mi->line + 1, TRUE, NULL);
 						ianjuta_indicable_set (IANJUTA_INDICABLE(fb->te),  
 						                       mi->pos, mi->pos + mi->len,  
 						                       IANJUTA_INDICABLE_IMPORTANT, NULL);             //
@@ -361,8 +361,8 @@ search_and_replace (void)
 					case SA_BOOKMARK:
 						if (NULL == fb->te)
 						{
-							ianjuta_document_manager_goto_file_line (sr->docman, 
-											fb->path, mi->line + 1, NULL);
+							ianjuta_document_manager_goto_file_line_mark (sr->docman, 
+								                  fb->path, mi->line + 1, TRUE, NULL);
 							fb->te = 
 							  ianjuta_document_manager_get_current_editor(sr->docman,
 																		  NULL);

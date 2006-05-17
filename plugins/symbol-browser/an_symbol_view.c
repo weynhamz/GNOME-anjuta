@@ -535,9 +535,12 @@ sv_create (AnjutaSymbolView * sv)
 
 	/* search through the tree interactively */
 	gtk_tree_view_set_search_column (GTK_TREE_VIEW (sv), NAME_COLUMN);
+	
+	/* FIXME: Implement on_tree_view_row_search
 	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW (sv),
 					     on_treeview_row_search,
 					     NULL, NULL);
+	*/
 	gtk_tree_view_set_enable_search (GTK_TREE_VIEW (sv), TRUE);
 
 	g_signal_connect (G_OBJECT (sv), "row_expanded",
@@ -1724,19 +1727,22 @@ sv_get_type_of_token (const gchar* ident, const gchar* klass, const TMTag* local
 	
 	tags_array = tm_workspace_find_scope_members (NULL, klass,
 												  TRUE);
-
-	for (i=0; i < tags_array->len; i++) {
-		TMTag *tmp_tag;
+	
+	if (tags_array != NULL)
+	{
+		for (i=0; i < tags_array->len; i++) {
+			TMTag *tmp_tag;
 		
-		tmp_tag = (TMTag*)g_ptr_array_index (tags_array, i);
+			tmp_tag = (TMTag*)g_ptr_array_index (tags_array, i);
 		
-		/* store the klass_tag. It will be useful later */
-		if (strcmp (tmp_tag->name, klass) == 0) {
-			klass_tag = tmp_tag;
-		}
+			/* store the klass_tag. It will be useful later */
+			if (strcmp (tmp_tag->name, klass) == 0) {
+				klass_tag = tmp_tag;
+			}
 		
-		if (strcmp (tmp_tag->name, ident) == 0 ) {
-			return tmp_tag;
+			if (strcmp (tmp_tag->name, ident) == 0 ) {
+				return tmp_tag;
+			}
 		}
 	}	
 		
@@ -1747,39 +1753,41 @@ sv_get_type_of_token (const gchar* ident, const gchar* klass, const TMTag* local
 	
 	inherited_tags_array = anjuta_symbol_view_get_completable_members (klass_tag, TRUE);
 	
-	for (i=0; i < inherited_tags_array->len; i++) {
-		TMTag *tmp_tag;
+	if (inherited_tags_array != NULL)
+	{
+		for (i=0; i < inherited_tags_array->len; i++) {
+			TMTag *tmp_tag;
 		
-		tmp_tag = (TMTag*)g_ptr_array_index (inherited_tags_array, i);
-		DEBUG_PRINT ("parsing inherited member as %s ", tmp_tag->name);
-		if ( (strcmp (tmp_tag->name, ident) == 0) ) {
-			const GPtrArray *inherit_array;
+			tmp_tag = (TMTag*)g_ptr_array_index (inherited_tags_array, i);
+			DEBUG_PRINT ("parsing inherited member as %s ", tmp_tag->name);
+			if ( (strcmp (tmp_tag->name, ident) == 0) ) {
+				const GPtrArray *inherit_array;
 		
-			TMTagAttrType attrs[] = {
-				tm_tag_attr_type_t
-			};
+				TMTagAttrType attrs[] = {
+					tm_tag_attr_type_t
+				};
 			
-			inherit_array = tm_workspace_find (tmp_tag->atts.entry.var_type, 
-					tm_tag_class_t, attrs, FALSE, TRUE);
+				inherit_array = tm_workspace_find (tmp_tag->atts.entry.var_type, 
+						tm_tag_class_t, attrs, FALSE, TRUE);
 					
-			if (inherit_array == NULL)
-				continue;
+				if (inherit_array == NULL)
+					continue;
 								
-			gint j;
-			for (j=0; j < inherit_array->len; j++) {
-				TMTag *cur_tag = (TMTag*)g_ptr_array_index (inherit_array, j);
+				gint j;
+				for (j=0; j < inherit_array->len; j++) {
+					TMTag *cur_tag = (TMTag*)g_ptr_array_index (inherit_array, j);
 				
-				if (strcmp(tmp_tag->atts.entry.var_type, cur_tag->name) == 0 )
-					return cur_tag;
-			}
+					if (strcmp(tmp_tag->atts.entry.var_type, cur_tag->name) == 0 )
+						return cur_tag;
+				}
 			
-			return tmp_tag;
+				return tmp_tag;
+			}
 		}
+		g_ptr_array_free (inherited_tags_array, TRUE);
 	}
-	
-	g_ptr_array_free (inherited_tags_array, TRUE);
 
-	g_message ("returning NULL from get_type_of_token. ident %s", ident);
+	DEBUG_PRINT ("returning NULL from get_type_of_token. ident %s", ident);
 	return NULL;
 }
 
@@ -1794,13 +1802,16 @@ GPtrArray*
 anjuta_symbol_view_get_completable_members (TMTag* klass_tag, gboolean include_parents) {
 	gchar *symbol_name;
 
-	// FIXME: pobably there's no need for this check.	
+	if (klass_tag == NULL)
+		return NULL;
+	
+	
 	symbol_name = klass_tag->atts.entry.var_type;
 	if (symbol_name == NULL)
 		symbol_name = klass_tag->name;
 	
 	DEBUG_PRINT ("hey from completable.");
-	g_message ("completable --> scope of tag name %s is %s", klass_tag->name, klass_tag->atts.entry.scope);
+	DEBUG_PRINT ("completable --> scope of tag name %s is %s", klass_tag->name, klass_tag->atts.entry.scope);
 	tm_tag_print (klass_tag, stdout);
 
 	switch (klass_tag->type) {
