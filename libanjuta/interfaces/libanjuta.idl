@@ -662,6 +662,7 @@ interface IAnjutaLoader
 interface IAnjutaEditor
 {
 	#include <gtk/gtkwidget.h>
+	#include <libanjuta/interfaces/ianjuta-iterable.h>
 	
 	enum Error
 	{
@@ -950,6 +951,85 @@ interface IAnjutaEditor
 	 */
 	void set_popup_menu (GtkWidget *menu);
 	
+	/**
+	 * ianjuta_editor_get_cell_iter:
+	 * @obj: Self
+	 * @position: position where the iter will be set
+	 * @err: Error propagation and reporting
+	 *
+	 * Creates and returns an iter for editor cells. The iter is
+	 * placed at the given position. The iter must be unreferrenced by
+	 * the caller when done. The iter navigates (next/previous) in step
+	 * of unicode characters (one unicode character == one cell).
+	 * 
+	 * Retruns: a newly created iter of IAnjutaEditorCell placed at the
+	 * given position.
+	 */
+	IAnjutaIterable* get_cell_iter (gint position);
+
+	/**
+	 * IAnjutaEditorCell:
+	 * Represents a cell in editor. A cell corresponds to a unicode
+	 * character along with all associated styles (such as colors and font).
+	 * A cell may or may not have style. If style is supported in the
+	 * editor, it is assumed all cells will have styles and hence every
+	 * IAnjutaEditorCell interface instance will have additionally
+	 * IAnjutaEditorCellStyle implemented.
+	 */
+	interface IAnjutaEditorCell
+	{
+		/**
+		 * ianjuta_editor_cell_get_character:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Returns the unicode character in this cell. A NULL terminated
+		 * string is returned that is the multibyte unicode character.
+		 * NULL is returned if the cell does not have any character.
+		 * 
+		 * Retruns: a newly created string representing the cell's unicode
+		 * character.
+		 */
+		gchar *get_character ();
+		
+		/**
+		 * ianjuta_editor_cell_get_lenth:
+		 * @obj: self
+		 * @err: Error propagation and reporting.
+		 *
+		 * Gets the length of the cell in bytes. That is, length of the
+		 * unicode character.
+		 * 
+		 * Returns: Length of the unicode character.
+		 */
+		gint get_length ();
+		
+		/**
+		 * ianjuta_editor_cell_get_char:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Returns the byte of the unicode character in this cell at given
+		 * index @char_index. @char_index can vary from 0 to length of the
+		 * unicode string minus 1. Out of range index is not allowed
+		 * (asserted) and return is undefined.
+		 * 
+		 * Since there is dynamic allocation of unicode character string
+		 * involved in ianjuta_editor_cell_get_character(), this function
+		 * is mainly useful for fast iteration (such as copying data).
+		 * 
+		 * Retruns: a byte character.
+		 */
+		gchar get_char (gint char_index);
+		
+		interface IAnjutaEditorCellStyle
+		{
+			gchar* get_font_description ();			
+			gchar* get_color();
+			gchar* get_background_color();
+		}
+	}
+	
 	interface IAnjutaEditorSelection
 	{
 		/**
@@ -1170,15 +1250,143 @@ interface IAnjutaEditor
 		void fix ();
 	}
 	
+	/* Editor assistance framework */
 	interface IAnjutaEditorAssist
 	{
+		/* IAnjutaEdiotrAssist::assist_begin:
+		 * @obj: self
+		 * @context: context where assistance is required.
+		 * 
+		 * When certain context is encountered and assistance is required
+		 * to complete it, this signal is emitted by the editor. For example
+		 * it could be emitted when the user typed "var->" or "var." in a c
+		 * source code.
+		 * 
+		 * Another example is to emit it when the user has typed the begining of
+		 * a word, for a simple word completion.
+		 *
+		 * Yet another example is to emit it when the user has typed something
+		 * like "function (" for a fuction call tip assistance.
+		 *
+		 * The type of assistance provided would be based on the context
+		 * provided. For example in case of word completion of members
+		 * completeion, choices would be presented or in case of function
+		 * assistance a tip would be presented with the prototype.
+		 * 
+		 * Each emission of assist_begin() must match with corresponding
+		 * assist_end(), otherwise the assist stack could be corrupted --
+		 * just like subroutine 'call' and 'return'. The only situation where
+		 * it should be followed is when assist_cancel is emitted, in which
+		 * case the whole assist stack is collapsed and everything is reset.
+		 * 
+		 */
+		void ::assist_begin (const gchar *context);
+		
+		/* IAnjutaEdiotrAssist::assist_update:
+		 * @obj: self
+		 * @context: new context where assistance is required.
+		 * 
+		 * When there is more information in currect assistance context (e.g.
+		 * user has typed some more), it can be updated by emitting this
+		 * signal. Mainly used to narrow down the choices. There should be at
+		 * least one pending assist context when this signal is emitted.
+		 */
+		void ::assist_update (const gchar *context);
+		
+		/* IAnjutaEdiotrAssist::assist_choosen:
+		 * @obj: self
+		 *
+		 * User's selection from the choices. It is the index of the choice
+		 * presented with ianjuta_editor_assist_suggest().
+		 */
+		void ::assist_choosen (gint selection);
+		
+		/* IAnjutaEdiotrAssist::assist_end:
+		 * @obj: self
+		 *
+		 * Ends the current assistance context that was begun last. Note that
+		 * each assist_end must match with corresponding assist_begin
+		 * emission, unless the whole assistance is canceled with assist_cancel.
+		 */
+		void ::assist_end ();
+		
+		/* IAnjutaEdiotrAssist::assist_canceled:
+		 * @obj: self
+		 * 
+		 * This signal is emitted when the user cancels the completion.
+		 * The whole assistance stack is dropped and reset.
+		 */
+		void ::assist_canceled ();
+		
+		/**
+		 * ianjuta_editor_assist_suggest:
+		 * @obj: Self
+		 * @choices: list of choices.
+		 * @char_alignment: Character alignment.
+		 * @err: Error propagation and reporting
+		 * 
+		 * Suggest a list of choices to the user. @char_alignment indicates
+		 * the position of before which is the know context and after which is
+		 * the suggestions. Usually the editor would use this figure to
+		 * align the choices display such that the carat is just at this
+		 * position when the choices are displayed.
+		 *
+		 */
+		void suggest (GList *choices, gint char_alignment);
+		
+		/**
+		 * ianjuta_editor_assist_tip:
+		 * @obj: Self
+		 * @tips: list of alternative tips.
+		 * @char_alignment: Character alignment.
+		 * @err: Error propagation and reporting
+		 *
+		 * Show tips showing more information on current context. No user feed
+		 * back is required when tips are shown. @char_alignment indicates
+		 * the position of before which is the know context and after which is
+		 * the suggestions. Usually the editor would use this figure to
+		 * align the choices display such that the carat is just at this
+		 * position when the choices are displayed.
+		 *
+		 */
+		void tip (GList *tips, gint char_alignment);
+		
+		/**
+		 * ianjuta_editor_assist_react:
+		 * @obj: Self
+		 * @selection: The user selection index.
+		 * @context: The context to react in.
+		 * @completion: corresponding completion.
+		 * @err: Error propagation and reporting
+		 * 
+		 * When a user makes a choice, the editor is requested to react to
+		 * it. Usually the editor inserts it at the current carat position
+		 * and end or update current assist context.
+		 */
+		void react (gint selection, const gchar *context, const gchar *completion);
+		
+		/**
+		 * ianjuta_editor_assist_react:
+		 * @obj: Self
+		 * @context: The context for the suggestions.
+		 * @err: Error propagation and reporting
+		 *
+		 * Usually the editor might have some suggestions to make
+		 * for a context. For example in a simple word completion context.
+		 * If the editor has no suggestions to make, it returns NULL.
+		 * 
+		 * Returns: A list of suggestions for the given context or NULL
+		 * if there is nothing to suggest.
+		 */
+		GList* get_suggestions (const gchar *context);
+		
 		/**
 		 * ianjuta_editor_edit_autocomplete:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
-		 * Auto complete current word
-		 *
+		 * Auto complete current word. This is a left over of old api for
+		 * backward compatibility. It will removed one we move to the new api.
 		 */
 		void autocomplete ();
 	}
@@ -1260,7 +1468,7 @@ interface IAnjutaEditor
 	interface IAnjutaEditorComment
 	{
 		/**
-		 * ianjuta_editor_comment_block()
+		 * ianjuta_editor_comment_block:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -1269,7 +1477,7 @@ interface IAnjutaEditor
 		void block();
 		
 		/**
-		 * ianjuta_editor_comment_box()
+		 * ianjuta_editor_comment_box:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -1278,7 +1486,7 @@ interface IAnjutaEditor
 		void box();
 		
 		/**
-		 * ianjuta_editor_comment_stream()
+		 * ianjuta_editor_comment_stream:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
@@ -1290,22 +1498,35 @@ interface IAnjutaEditor
 	interface IAnjutaEditorZoom
 	{
 		/**
-		 * ianjuta_editor_zoom_in()
+		 * ianjuta_editor_zoom_in:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
 		 * Zoom in
 		 */
-		void in();
+		void in ();
 		
 		/**
-		 * ianjuta_editor_zoom_out()
+		 * ianjuta_editor_zoom_out:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
 		 * Zoom out
 		 */
-		void out();
+		void out ();
+		
+		/**
+		 * ianjuta_editor_zoom_set:
+		 * @obj: Self
+		 * @zoom_factor: The amount of zoom to perform.
+		 * @err: Error propagation and reporting
+		 *
+		 * Zooms the editor fonts in the given factor. Each factor usually
+		 * corresponds to 2 font points. Factor zero restores the font size
+		 * normal. Negative factor reduces the font size by 2 * zoom_factor
+		 * and positive factor increases font size by 2 * zoom_factor.
+		 */
+		void set (gint zoom_factor);
 	}
 	
 	interface IAnjutaEditorGoto

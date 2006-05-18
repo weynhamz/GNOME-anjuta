@@ -1,3 +1,16 @@
+2006-05-18 Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/document-manager/action-callbacks.c,
+	plugins/editor/print.c,
+	plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h,
+	plugins/editor/text_editor_prefs.c: Fixed zooming.
+	
+	* libanjuta/interfaces/libanjuta.idl: Defined IAnjutaEditorCell
+	interface for character iteration and IAnjutaEditorAssist interface
+	for autocompletions and editor tips.
+
 2006-05-18  Johannes Schmid <jhs@cvs.gnome.org>
 
 	Patch from Günther Brammer <GBrammer@gmx.de>:
@@ -26,6 +39,7 @@
 	
 	Only add a marker to a line where it makes sense!
 
+>>>>>>> 1.1257
 === anjuta 2.0.2 ===
 
 2006-05-15  Naba Kumar  <naba@gnome.org>

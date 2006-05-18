@@ -83,6 +83,9 @@ struct _TextEditor
 	
 	/* Gconf notify IDs */
 	GList* gconf_notify_ids;
+	
+	/* Current zoom factor */
+	gint zoom_factor;
 };
 
 struct _TextEditorClass
@@ -124,6 +127,11 @@ void text_editor_hilite (TextEditor *te, gboolean force);
  * text font size by a factor of (2*zfac)
  */
 void text_editor_set_zoom_factor (TextEditor * te, gint zfac);
+
+/*
+ * Get current zoom factor.
+ */
+gint text_editor_get_zoom_factor (TextEditor * te);
 
  /* Undo or redo last action */
 void text_editor_undo (TextEditor * te);
@@ -251,7 +259,6 @@ void text_editor_scintilla_command (TextEditor *te, gint command,
 #define CALLTIP_BACK_COLOR         "calltip.back"
 #define SELECTION_FORE_COLOR       "selection.fore"
 #define SELECTION_BACK_COLOR       "selection.back"
-#define TEXT_ZOOM_FACTOR           "text.zoom.factor"
 
 #define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible"
 #define VIEW_MARKER_MARGIN         "margin.marker.visible"

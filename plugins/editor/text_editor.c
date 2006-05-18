@@ -102,6 +102,7 @@ text_editor_instance_init (TextEditor *te)
 	te->views = NULL;
 	te->popup_menu = NULL;
 	
+	te->zoom_factor = 0;
 	te->monitor = NULL;
 	te->preferences = NULL;
 	te->force_hilite = NULL;
@@ -577,7 +578,14 @@ text_editor_hilite (TextEditor * te, gboolean override_by_pref)
 void
 text_editor_set_zoom_factor (TextEditor * te, gint zfac)
 {
+	te->zoom_factor = zfac;
 	text_editor_command (te, ANE_SETZOOM, zfac,  0);
+}
+
+gint
+text_editor_get_zoom_factor (TextEditor * te)
+{
+	return te->zoom_factor;
 }
 
 glong
@@ -2812,41 +2820,45 @@ icomment_iface_init(IAnjutaEditorCommentIface* iface)
 #define MIN_ZOOM_FACTOR -8
 
 static void
-on_zoom_text_activate (const gchar *zoom_text,
-					   TextEditor* te)
-{
-	gint zoom;
-	gchar buf[20];
-	
-	if (!zoom_text)
-		zoom = 0;
-	else if (0 == strncmp(zoom_text, "++", 2))
-		zoom = sci_prop_get_int(te->props_base, TEXT_ZOOM_FACTOR, 0) + 2;
-	else if (0 == strncmp(zoom_text, "--", 2))
-		zoom = sci_prop_get_int(te->props_base, TEXT_ZOOM_FACTOR, 0) - 2;
-	else
-		zoom = atoi(zoom_text);
-	if (zoom > MAX_ZOOM_FACTOR)
-		zoom = MAX_ZOOM_FACTOR;
-	else if (zoom < MIN_ZOOM_FACTOR)
-		zoom = MIN_ZOOM_FACTOR;
-	g_snprintf(buf, 20, "%d", zoom);
-	sci_prop_set_with_key (te->props_base, TEXT_ZOOM_FACTOR, buf);
-	text_editor_set_zoom_factor(te, zoom);
-}
-
-static void
 izoom_in(IAnjutaEditorZoom* zoom, GError** e)
 {
 	TextEditor* te = TEXT_EDITOR(zoom);
-   	on_zoom_text_activate ("++", te);
+	gint zoom_factor = text_editor_get_zoom_factor (te) + 2;
+	
+	if (zoom_factor > MAX_ZOOM_FACTOR)
+		zoom_factor = MAX_ZOOM_FACTOR;
+	else if (zoom_factor < MIN_ZOOM_FACTOR)
+		zoom_factor = MIN_ZOOM_FACTOR;
+	
+	text_editor_set_zoom_factor(te, zoom_factor);
 }
 
 static void
 izoom_out(IAnjutaEditorZoom* zoom, GError** e)
 {
 	TextEditor* te = TEXT_EDITOR(zoom);
-   	on_zoom_text_activate ("--", te);
+	gint zoom_factor = text_editor_get_zoom_factor (te) - 2;
+	
+	if (zoom_factor > MAX_ZOOM_FACTOR)
+		zoom_factor = MAX_ZOOM_FACTOR;
+	else if (zoom_factor < MIN_ZOOM_FACTOR)
+		zoom_factor = MIN_ZOOM_FACTOR;
+	
+	text_editor_set_zoom_factor(te, zoom_factor);
+}
+
+static void
+izoom_set(IAnjutaEditorZoom* zoom, gint zoom_factor,
+		  GError** e)
+{
+	TextEditor* te = TEXT_EDITOR (zoom);
+	
+	if (zoom_factor > MAX_ZOOM_FACTOR)
+		zoom_factor = MAX_ZOOM_FACTOR;
+	else if (zoom_factor < MIN_ZOOM_FACTOR)
+		zoom_factor = MIN_ZOOM_FACTOR;
+	
+	text_editor_set_zoom_factor(te, zoom_factor);
 }
 
 static void
@@ -2854,6 +2866,7 @@ izoom_iface_init(IAnjutaEditorZoomIface* iface)
 {
 	iface->in = izoom_in;
 	iface->out = izoom_out;
+	iface->set = izoom_set;
 }
 
 static void

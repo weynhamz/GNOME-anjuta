@@ -750,6 +750,7 @@ on_goto_block_end1_activate (GtkAction * action, gpointer user_data)
 #define VIEW_WHITE_SPACES          "view.whitespace"
 #define VIEW_EOL                   "view.eol"
 #define VIEW_LINE_WRAP             "view.line.wrap"
+#define TEXT_ZOOM_FACTOR           "text.zoom.factor"
 
 void
 on_editor_linenos1_activate (GtkAction * action, gpointer user_data)
@@ -828,17 +829,35 @@ on_editor_linewrap1_activate (GtkAction * action, gpointer user_data)
 								VIEW_LINE_WRAP, state);
 }
 
+static void
+on_zoom_editor_foreach (gpointer editor, gpointer data)
+{
+	IAnjutaEditor *te = IANJUTA_EDITOR (editor);
+	gint zoom_factor = GPOINTER_TO_INT (data);
+	ianjuta_editor_zoom_set (IANJUTA_EDITOR_ZOOM(te), zoom_factor, NULL);
+}
+
 void
 on_zoom_in_text_activate (GtkAction * action, gpointer user_data)
 {
 	DocmanPlugin *plugin;
-	IAnjutaEditor* te;
 	AnjutaDocman *docman;
+	gint zfactor;
+	GList *editors;
+	
 	plugin = (DocmanPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	editors = anjuta_docman_get_all_editors (docman);
 	
-	ianjuta_editor_zoom_in(IANJUTA_EDITOR_ZOOM(te), NULL);
+	zfactor = anjuta_preferences_get_int (plugin->prefs,
+										  TEXT_ZOOM_FACTOR);
+	zfactor++;
+	anjuta_preferences_set_int (plugin->prefs,
+								TEXT_ZOOM_FACTOR, zfactor);
+	
+	g_list_foreach (editors, on_zoom_editor_foreach,
+					GINT_TO_POINTER (zfactor));
+	g_list_free (editors);
 }
 
 void
@@ -846,12 +865,23 @@ on_zoom_out_text_activate (GtkAction * action, gpointer user_data)
 {
 	DocmanPlugin *plugin;
 	AnjutaDocman *docman;
-	IAnjutaEditor* te;
+	gint zfactor;
+	GList *editors;
+	
 	plugin = (DocmanPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
 	
-	ianjuta_editor_zoom_out(IANJUTA_EDITOR_ZOOM(te), NULL);
+	editors = anjuta_docman_get_all_editors (docman);
+	
+	zfactor = anjuta_preferences_get_int (plugin->prefs,
+										  TEXT_ZOOM_FACTOR);
+	zfactor--;
+	anjuta_preferences_set_int (plugin->prefs,
+								TEXT_ZOOM_FACTOR, zfactor);
+	
+	g_list_foreach (editors, on_zoom_editor_foreach,
+					GINT_TO_POINTER (zfactor));
+	g_list_free (editors);
 }
 
 void
