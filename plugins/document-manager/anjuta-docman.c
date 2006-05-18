@@ -31,6 +31,8 @@
 #include <gtk/gtkfilechooserdialog.h>
 #include <libgnomevfs/gnome-vfs.h>
 
+#include <gdl/gdl-icons.h>
+
 #include "anjuta-docman.h"
 #include "file_history.h"
 #include "plugin.h"
@@ -494,15 +496,18 @@ editor_tab_widget_destroy (AnjutaDocmanPage* page)
 static GtkWidget*
 editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 {
-	GtkWidget *button15;
+	GtkWidget *close_button;
 	GtkWidget *close_pixmap;
 	GtkWidget *tmp_toolbar_icon;
+	GtkRcStyle *rcstyle;
 	GtkWidget *label, *menu_label;
 	GtkWidget *box;
 	GtkWidget *event_hbox;
 	GtkWidget *event_box;
 	int h, w;
 	GdkColor color;
+	gchar* uri;
+	IAnjutaFile* editor;
 	
 	g_return_val_if_fail(GTK_IS_WIDGET (page->widget), NULL);
 	
@@ -514,14 +519,18 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	tmp_toolbar_icon = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	gtk_widget_show(tmp_toolbar_icon);
 	
-	button15 = gtk_button_new();
-	gtk_container_add(GTK_CONTAINER(button15), tmp_toolbar_icon);
-	gtk_button_set_relief(GTK_BUTTON(button15), GTK_RELIEF_NONE);
+	/* setup close button, zero out {x,y}thickness to get smallest possible
+	 * size */
+	close_button = gtk_button_new();
+	gtk_button_set_focus_on_click (GTK_BUTTON (close_button), FALSE);
+	gtk_container_add(GTK_CONTAINER(close_button), tmp_toolbar_icon);
+	gtk_button_set_relief(GTK_BUTTON(close_button), GTK_RELIEF_NONE);
+	rcstyle = gtk_rc_style_new ();
+	rcstyle->xthickness = rcstyle->ythickness = 0;
+	gtk_widget_modify_style (close_button, rcstyle);
+	gtk_rc_style_unref (rcstyle);
 	
-	/* Setting size creates awkard looking cross button. Let the widget
-	 * size itself
-	 */
-	/* gtk_widget_set_size_request (button15, w, h); */
+	gtk_widget_set_size_request (close_button, w, h);
 
 	close_pixmap = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	gtk_widget_set_size_request(close_pixmap, w,h);
@@ -539,12 +548,12 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	color.green = 0;
 	color.blue = 0;
 	
-	gtk_widget_modify_fg (button15, GTK_STATE_NORMAL, &color);
-	gtk_widget_modify_fg (button15, GTK_STATE_INSENSITIVE, &color);
-	gtk_widget_modify_fg (button15, GTK_STATE_ACTIVE, &color);
-	gtk_widget_modify_fg (button15, GTK_STATE_PRELIGHT, &color);
-	gtk_widget_modify_fg (button15, GTK_STATE_SELECTED, &color);
-	gtk_widget_show(button15);
+	gtk_widget_modify_fg (close_button, GTK_STATE_NORMAL, &color);
+	gtk_widget_modify_fg (close_button, GTK_STATE_INSENSITIVE, &color);
+	gtk_widget_modify_fg (close_button, GTK_STATE_ACTIVE, &color);
+	gtk_widget_modify_fg (close_button, GTK_STATE_PRELIGHT, &color);
+	gtk_widget_modify_fg (close_button, GTK_STATE_SELECTED, &color);
+	gtk_widget_show(close_button);
 	
 	/* create our layout/event boxes */
 	event_box = gtk_event_box_new();
@@ -553,8 +562,22 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	event_hbox = gtk_hbox_new (FALSE, 2);	
 	box = gtk_hbox_new(FALSE, 2);
 	
+	/* Add a nice mime-type icon */
+	editor = IANJUTA_FILE(page->widget);
+	uri = ianjuta_file_get_uri(editor, NULL);
+	if (uri != NULL)
+	{
+		const int ICON_SIZE = 16;
+		GdlIcons* icons = gdl_icons_new(ICON_SIZE);
+		GtkWidget* image = gtk_image_new_from_pixbuf(
+			gdl_icons_get_uri_icon(icons, uri));
+		gtk_box_pack_start (GTK_BOX(event_hbox), image, FALSE, FALSE, 0);
+		g_object_unref(icons);
+	}
+	g_free(uri);
+	
 	gtk_box_pack_start (GTK_BOX(event_hbox), label, TRUE, TRUE, 0);
-	gtk_box_pack_start (GTK_BOX (event_hbox), button15, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (event_hbox), close_button, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX(event_hbox), close_pixmap, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (event_box), event_hbox);
 	
@@ -567,12 +590,12 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	/* show the widgets of the tab */
 	gtk_widget_show_all(box);
 
-	gtk_signal_connect (GTK_OBJECT (button15), "clicked",
+	gtk_signal_connect (GTK_OBJECT (close_button), "clicked",
 				GTK_SIGNAL_FUNC(on_text_editor_notebook_close_page),
 				docman);
 
 	page->close_image = close_pixmap;
-	page->close_button = button15;
+	page->close_button = close_button;
 	page->label = label;
 	page->menu_label = menu_label;
 

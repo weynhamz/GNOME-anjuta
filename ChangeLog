@@ -1,3 +1,14 @@
+2006-05-18  Johannes Schmid <jhs@cvs.gnome.org>
+
+	Patch from Günther Brammer <GBrammer@gmx.de>:
+		* plugins/document-manager/anjuta-docman.c:
+		Make tabs smaller but keep nice closing icon
+
+	* plugins/document-manager/anjuta-docman.c:
+	* plugins/document-manager/Makefile.am:
+	
+	Added nice mime-icons to the editor tabs
+
 2006-05-17  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* configure.in: Bumped version to 2.0.3 (pre-release increment)

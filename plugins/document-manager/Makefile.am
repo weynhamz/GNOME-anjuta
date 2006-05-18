@@ -55,11 +55,13 @@ INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(PCRE_CFLAGS) \
+	$(GDL_CFLAGS) \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GNOME_VFS_CFLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
 libanjuta_document_manager_la_LIBADD = \
+	$(GDL_LIBS) \
 	$(PCRE_LIBS) \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_VFS_LIBS) \
