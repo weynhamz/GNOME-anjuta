@@ -1,5 +1,10 @@
 2006-05-20  Johannes Schmid <jhs@cvs.gnome.org>
 
+	* plugins/document-manager/anjuta-docman.c:
+	Fixed close button reaction by setting the correct current editor
+
+2006-05-20  Johannes Schmid <jhs@cvs.gnome.org>
+
 	Patch from Yang Hong <yanghong@ccoss.com.cn>:
 	* plugins/document-manager/anjuta-docman.c
         - Fix close button, you can close any tab as you wish now.

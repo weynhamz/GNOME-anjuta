@@ -473,11 +473,27 @@ static void
 on_text_editor_notebook_close_page (GtkButton* button, 
 									AnjutaDocman* docman)
 {
+	GList* node;
 	/* This is a hack because we cannot get the real
 	Editor plugin */
 	DocmanPlugin* dummy_plugin = g_new0(DocmanPlugin, 1);
 	dummy_plugin->docman = GTK_WIDGET(docman);
-
+	
+	node = docman->priv->editors;
+	while (node)
+	{
+		AnjutaDocmanPage *page;
+		IAnjutaEditor *te;
+		page = (AnjutaDocmanPage *) node->data;
+		if (page->close_button == GTK_WIDGET(button))
+		{
+			te = (IAnjutaEditor *) page->widget;
+			anjuta_docman_set_current_editor(docman, te);
+			break;
+		}
+		node = g_list_next (node);
+	}
+	
 	on_close_file1_activate (NULL, dummy_plugin);
 	
 	g_free(dummy_plugin);
