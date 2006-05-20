@@ -160,8 +160,13 @@ int tm_symbol_tag_compare(const TMTag **t1, const TMTag **t2)
 	return 0;
 }
 
-static void check_children_symbols(TMSymbol *sym, const char *name)
+static void
+check_children_symbols(TMSymbol *sym, const char *name, gint level)
 {
+    if (level > 5) {
+        g_warning ("Infinite recursion detected (symbol name = %s) !!", name);
+        return;
+    }
   if(sym && name)
   {
     const GPtrArray *scope_tags;
@@ -185,28 +190,29 @@ static void check_children_symbols(TMSymbol *sym, const char *name)
             
       sym->info.children = g_ptr_array_sized_new(scope_tags->len);
       for (j=0; j < scope_tags->len; ++j)
-		  {
+      {
         tag = TM_TAG(scope_tags->pdata[j]);
 	if (strcmp(tag->name, sym->tag->name) == 0)
 	{
-		continue; /* Avoid recursive definition */
+            continue; /* Avoid recursive definition */
 	}
         SYM_NEW(sym1);
-			  sym1->tag = tag;
+        sym1->tag = tag;
         sym1->parent = sym;
         g_ptr_array_add(sym->info.children, sym1);
       }
       
       for (j=0; j < sym->info.children->len; ++j)
-		  {        
+      {        
         sym1 = TM_SYMBOL(sym->info.children->pdata[j]);
         if ((tm_tag_member_t & sym1->tag->type) == tm_tag_member_t &&
-		     sym1->tag->atts.entry.pointerOrder == 0)
-          check_children_symbols(sym1, sym1->tag->atts.entry.var_type);
+            sym1->tag->atts.entry.pointerOrder == 0)
+          check_children_symbols(sym1, sym1->tag->atts.entry.var_type,
+                                 level + 1);
       }
     }
   }
-  return;    
+  return;
 }
 
 
@@ -420,7 +426,7 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 				& tag->type)
 				continue;
 			
-			check_children_symbols(sym, tag->name);
+			check_children_symbols(sym, tag->name, 0);
 		}
 #ifdef TM_DEBUG
 		fprintf(stderr, "Done.Dumping symbol tree..");
