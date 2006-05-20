@@ -36,7 +36,16 @@ ianjuta-editor-assist
 </para>
 
 @g_iface: 
+@assist_begin: 
+@assist_canceled: 
+@assist_choosen: 
+@assist_end: 
+@assist_update: 
 @autocomplete: 
+@get_suggestions: 
+@react: 
+@suggest: 
+@tip: 
 
 <!-- ##### FUNCTION ianjuta_editor_assist_error_quark ##### -->
 <para>

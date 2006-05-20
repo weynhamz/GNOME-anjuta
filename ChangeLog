@@ -1,5 +1,12 @@
 2006-05-20  Johannes Schmid <jhs@cvs.gnome.org>
 
+	Patch from Yang Hong <yanghong@ccoss.com.cn>:
+	* plugins/document-manager/anjuta-docman.c
+        - Fix close button, you can close any tab as you wish now.
+        - Fadeout mime icon as the same as close image	
+
+2006-05-20  Johannes Schmid <jhs@cvs.gnome.org>
+
 	Patch from Marc Maurer <uwog@uwog.net>
 	* main.c: Compile fix when NLS is enabled
 	

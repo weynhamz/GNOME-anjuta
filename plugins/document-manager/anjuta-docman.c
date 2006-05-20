@@ -75,9 +75,11 @@ struct _AnjutaDocmanPage {
 	GtkWidget *widget;
 	GtkWidget *close_image;
 	GtkWidget *close_button;
+	GtkWidget *mime_icon;
 	GtkWidget *label;
 	GtkWidget *menu_label;
 	GtkWidget *box;
+	gboolean is_current;
 };
 
 typedef struct _AnjutaDocmanPage AnjutaDocmanPage;
@@ -482,6 +484,25 @@ on_text_editor_notebook_close_page (GtkButton* button,
 }
 
 static void
+on_text_editor_notebook_close_button_enter_cb (GtkButton* button, 
+											   AnjutaDocmanPage* page)
+{
+	g_return_if_fail (page != NULL);
+	
+	gtk_widget_set_sensitive (page->close_image, TRUE);
+}
+
+static void
+on_text_editor_notebook_close_button_leave_cb (GtkButton* button, 
+											   AnjutaDocmanPage* page)
+{
+	g_return_if_fail (page != NULL);
+	
+	if (! page->is_current)
+		gtk_widget_set_sensitive (page->close_image,FALSE);
+}
+
+static void
 editor_tab_widget_destroy (AnjutaDocmanPage* page)
 {
 	g_return_if_fail(page != NULL);
@@ -489,8 +510,10 @@ editor_tab_widget_destroy (AnjutaDocmanPage* page)
 
 	page->close_image = NULL;
 	page->close_button = NULL;
+	page->mime_icon = NULL;
 	page->label = NULL;
 	page->menu_label = NULL;
+	page->is_current = FALSE;
 }
 
 static GtkWidget*
@@ -498,12 +521,12 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 {
 	GtkWidget *close_button;
 	GtkWidget *close_pixmap;
-	GtkWidget *tmp_toolbar_icon;
 	GtkRcStyle *rcstyle;
 	GtkWidget *label, *menu_label;
 	GtkWidget *box;
 	GtkWidget *event_hbox;
 	GtkWidget *event_box;
+	GtkTooltips *tooltips;
 	int h, w;
 	GdkColor color;
 	gchar* uri;
@@ -516,14 +539,14 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	
 	gtk_icon_size_lookup (GTK_ICON_SIZE_MENU, &w, &h);
 
-	tmp_toolbar_icon = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
-	gtk_widget_show(tmp_toolbar_icon);
+	close_pixmap = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+	gtk_widget_show(close_pixmap);
 	
 	/* setup close button, zero out {x,y}thickness to get smallest possible
 	 * size */
 	close_button = gtk_button_new();
 	gtk_button_set_focus_on_click (GTK_BUTTON (close_button), FALSE);
-	gtk_container_add(GTK_CONTAINER(close_button), tmp_toolbar_icon);
+	gtk_container_add(GTK_CONTAINER(close_button), close_pixmap);
 	gtk_button_set_relief(GTK_BUTTON(close_button), GTK_RELIEF_NONE);
 	rcstyle = gtk_rc_style_new ();
 	rcstyle->xthickness = rcstyle->ythickness = 0;
@@ -531,10 +554,10 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	gtk_rc_style_unref (rcstyle);
 	
 	gtk_widget_set_size_request (close_button, w, h);
-
-	close_pixmap = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
-	gtk_widget_set_size_request(close_pixmap, w,h);
-	gtk_widget_set_sensitive(close_pixmap, FALSE);
+	tooltips = gtk_tooltips_new ();
+	gtk_tooltips_set_tip (GTK_TOOLTIPS (tooltips), close_button,
+						  _("Close file"),
+						  NULL);
 
 	label = gtk_label_new (ianjuta_editor_get_filename (IANJUTA_EDITOR(page->widget),
 														NULL));
@@ -569,16 +592,17 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	{
 		const int ICON_SIZE = 16;
 		GdlIcons* icons = gdl_icons_new(ICON_SIZE);
-		GtkWidget* image = gtk_image_new_from_pixbuf(
-			gdl_icons_get_uri_icon(icons, uri));
+		GdkPixbuf *pixbuf = gdl_icons_get_uri_icon(icons, uri);
+		GtkWidget* image = gtk_image_new_from_pixbuf (pixbuf);
 		gtk_box_pack_start (GTK_BOX(event_hbox), image, FALSE, FALSE, 0);
+		page->mime_icon = image;
+		g_object_unref(pixbuf);
 		g_object_unref(icons);
 	}
 	g_free(uri);
 	
 	gtk_box_pack_start (GTK_BOX(event_hbox), label, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (event_hbox), close_button, FALSE, FALSE, 0);
-	gtk_box_pack_start (GTK_BOX(event_hbox), close_pixmap, FALSE, FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (event_box), event_hbox);
 	
 	/* setup the data hierarchy */
@@ -593,6 +617,12 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	gtk_signal_connect (GTK_OBJECT (close_button), "clicked",
 				GTK_SIGNAL_FUNC(on_text_editor_notebook_close_page),
 				docman);
+	gtk_signal_connect (GTK_OBJECT (close_button), "enter",
+				GTK_SIGNAL_FUNC(on_text_editor_notebook_close_button_enter_cb),
+				page);
+	gtk_signal_connect (GTK_OBJECT (close_button), "leave",
+				GTK_SIGNAL_FUNC(on_text_editor_notebook_close_button_leave_cb),
+				page);
 
 	page->close_image = close_pixmap;
 	page->close_button = close_button;
@@ -1184,8 +1214,9 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, IAnjutaEditor * te)
 		AnjutaDocmanPage *page = anjuta_docman_page_from_widget (docman, ote);
 		if (page && page->close_button != NULL)
 		{
-			gtk_widget_hide (page->close_button);
-			gtk_widget_show (page->close_image);
+			gtk_widget_set_sensitive (page->close_image, FALSE);
+			gtk_widget_set_sensitive (page->mime_icon, FALSE);
+			page->is_current = FALSE;
 		}
 	}
 	docman->priv->current_editor = te;
@@ -1195,8 +1226,9 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, IAnjutaEditor * te)
 		AnjutaDocmanPage *page = anjuta_docman_page_from_widget (docman, te);
 		if (page && page->close_button != NULL)
 		{
-			gtk_widget_show (page->close_button);
-			gtk_widget_hide (page->close_image);
+			gtk_widget_set_sensitive (page->close_image, TRUE);
+			gtk_widget_set_sensitive (page->mime_icon, TRUE);
+			page->is_current = TRUE;
 		}
 		page_num = gtk_notebook_page_num (GTK_NOTEBOOK (docman),
 										  GTK_WIDGET (te));
