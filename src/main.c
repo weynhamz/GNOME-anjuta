@@ -35,6 +35,10 @@
 #include "anjuta.h"
 #include "bacon-message-connection.h"
 
+#ifdef ENABLE_NLS
+#include <locale.h>
+#endif
+
 #define ANJUTA_PIXMAP_SPLASH_SCREEN       "anjuta_splash.png"
 
 /* App */

@@ -1,3 +1,10 @@
+2006-05-20  Johannes Schmid <jhs@cvs.gnome.org>
+
+	Patch from Marc Maurer <uwog@uwog.net>
+	* main.c: Compile fix when NLS is enabled
+	
+	AUTHORS: Added Marc
+
 2006-05-20  Naba Kumar  <naba@gnome.org>
 
 	* tagmanager/tm_symbol.c: Prevent infinite recursive (detected
