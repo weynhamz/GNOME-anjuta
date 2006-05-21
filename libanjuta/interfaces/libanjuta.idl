@@ -1024,7 +1024,7 @@ interface IAnjutaEditor
 		
 		interface IAnjutaEditorCellStyle
 		{
-			gchar* get_font_description ();			
+			gchar* get_font_description ();
 			gchar* get_color();
 			gchar* get_background_color();
 		}
@@ -1326,9 +1326,9 @@ interface IAnjutaEditor
 		 * @err: Error propagation and reporting
 		 * 
 		 * Suggest a list of choices to the user. @char_alignment indicates
-		 * the position of before which is the know context and after which is
-		 * the suggestions. Usually the editor would use this figure to
-		 * align the choices display such that the carat is just at this
+		 * the position before which is the known context and after which are
+		 * the suggestions. Usually the editor would use this to
+		 * align the choices displayed such that the carat is just at this
 		 * position when the choices are displayed.
 		 *
 		 */
@@ -1341,11 +1341,11 @@ interface IAnjutaEditor
 		 * @char_alignment: Character alignment.
 		 * @err: Error propagation and reporting
 		 *
-		 * Show tips showing more information on current context. No user feed
-		 * back is required when tips are shown. @char_alignment indicates
-		 * the position of before which is the know context and after which is
-		 * the suggestions. Usually the editor would use this figure to
-		 * align the choices display such that the carat is just at this
+		 * Show tips showing more information on current context. No user feedback
+		 * is required when tips are shown. @char_alignment indicates
+		 * the position before which is the known context and after which are
+		 * the suggestions. Usually the editor would use this to
+		 * align the choices displayed such that the carat is just at this
 		 * position when the choices are displayed.
 		 *
 		 */
@@ -1377,6 +1377,9 @@ interface IAnjutaEditor
 		 * 
 		 * Returns: A list of suggestions for the given context or NULL
 		 * if there is nothing to suggest.
+		 * 
+		 * Returns: A list of dynamically allocated strings. The whole
+		 * list, including the the strings should be freed when done.
 		 */
 		GList* get_suggestions (const gchar *context);
 		
@@ -1386,7 +1389,8 @@ interface IAnjutaEditor
 		 * @err: Error propagation and reporting
 		 *
 		 * Auto complete current word. This is a left over of old api for
-		 * backward compatibility. It will removed one we move to the new api.
+		 * backward compatibility. It will be removed once we move to
+		 * the new api.
 		 */
 		void autocomplete ();
 	}

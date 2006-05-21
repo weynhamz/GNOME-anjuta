@@ -1,3 +1,8 @@
+2006-05-21  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl: Fixed api documentation and
+	whitespaces.
+
 2006-05-20  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c:
