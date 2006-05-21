@@ -1,3 +1,16 @@
+2006-05-21  Johannes Schmid <jhs@cvs.gnome.org>
+
+	Modified Patch from Marc Maurer <uwog@uwog.net>:
+	* libegg/egg-entry-action.c: (entry_focus_in), (entry_focus_out):
+	Fixes #342447
+	
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/sourceview-cell.c:
+	* plugins/sourceview/sourceview-cell.h:
+	* plugins/sourceview/sourceview.c: 
+	
+	Implemented IAnjutaEditorCell
+
 2006-05-21  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,

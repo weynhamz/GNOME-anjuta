@@ -83,9 +83,9 @@ static void disconnect_proxy               (GtkAction *action,
 										    GtkWidget *proxy);
 static void entry_changed                  (GtkEditable *editable,
 										    EggEntryAction *entry_action);
-static void entry_focus_in                 (GtkEntry *entry, GdkEvent *event,
+static gboolean entry_focus_in                 (GtkEntry *entry, GdkEvent *event,
 										    EggEntryAction *action);
-static void entry_focus_out                (GtkEntry *entry, GdkEvent *event,
+static gboolean entry_focus_out            (GtkEntry *entry, GdkEvent *event,
 										    EggEntryAction *action);
 static void entry_activate                 (GtkEntry *entry, GtkAction *action);
 static void egg_entry_action_finalize      (GObject *object);
@@ -366,16 +366,18 @@ entry_activate (GtkEntry *entry, GtkAction *action)
   gtk_action_activate (action);
 }
 
-static void
+static gboolean
 entry_focus_in (GtkEntry *entry, GdkEvent *event, EggEntryAction *action)
 {
   g_signal_emit (action, action_signals[FOCUS_IN], 0);
+  return FALSE;
 }
 
-static void
+static gboolean
 entry_focus_out (GtkEntry *entry, GdkEvent *event, EggEntryAction *action)
 {
   g_signal_emit (action, action_signals[FOCUS_OUT], 0);
+  return FALSE;
 }
 
 /**

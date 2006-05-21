@@ -59,6 +59,7 @@
 #include "sourceview-scope.h"
 #include "sourceview-args.h"
 #include "sourceview-print.h"
+#include "sourceview-cell.h"
 #include "plugin.h"
 
 #define FORWARD 	0
@@ -767,6 +768,20 @@ ieditor_redo(IAnjutaEditor* edit, GError** ee)
 	anjuta_view_scroll_to_cursor(sv->priv->view);
 }
 
+static IAnjutaIterable*
+ieditor_get_cell_iter(IAnjutaEditor* edit, gint position, GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	GtkTextIter iter;
+	SourceviewCell* cell;
+	
+	gtk_text_buffer_get_iter_at_offset(buffer, &iter, position);
+	cell = sourceview_cell_new(&iter, GTK_TEXT_VIEW(sv->priv->view));
+	
+	return IANJUTA_ITERABLE(cell);
+}
+
 static void
 ieditor_iface_init (IAnjutaEditorIface *iface)
 {
@@ -790,6 +805,7 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_line_from_position = ieditor_get_line_from_position;
 	iface->undo = ieditor_undo;
 	iface->redo = ieditor_redo;
+	iface->get_cell_iter = ieditor_get_cell_iter;
 }
 
 static void

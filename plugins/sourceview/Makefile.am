@@ -85,7 +85,9 @@ libanjuta_sourceview_la_SOURCES = \
 	sourceview-scope.c \
 	sourceview-scope.h \
 	sourceview-args.c \
-	sourceview-args.h 
+	sourceview-args.h \
+	sourceview-cell.c \
+	sourceview-cell.h 
 	
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \
