@@ -1518,19 +1518,6 @@ interface IAnjutaEditor
 		 * Zoom out
 		 */
 		void out ();
-		
-		/**
-		 * ianjuta_editor_zoom_set:
-		 * @obj: Self
-		 * @zoom_factor: The amount of zoom to perform.
-		 * @err: Error propagation and reporting
-		 *
-		 * Zooms the editor fonts in the given factor. Each factor usually
-		 * corresponds to 2 font points. Factor zero restores the font size
-		 * normal. Negative factor reduces the font size by 2 * zoom_factor
-		 * and positive factor increases font size by 2 * zoom_factor.
-		 */
-		void set (gint zoom_factor);
 	}
 	
 	interface IAnjutaEditorGoto

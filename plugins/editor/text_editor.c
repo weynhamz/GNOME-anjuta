@@ -102,7 +102,6 @@ text_editor_instance_init (TextEditor *te)
 	te->views = NULL;
 	te->popup_menu = NULL;
 	
-	te->zoom_factor = 0;
 	te->monitor = NULL;
 	te->preferences = NULL;
 	te->force_hilite = NULL;
@@ -386,6 +385,7 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 GtkWidget *
 text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, const gchar *uri, const gchar *name)
 {
+	gint zoom_factor;
 	static guint new_file_count;
 	TextEditor *te = TEXT_EDITOR (gtk_widget_new (TYPE_TEXT_EDITOR, NULL));
 	
@@ -430,6 +430,12 @@ text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, const gchar *uri, 
 		}
 	}
 	text_editor_update_controls (te);
+	
+	/* Apply font zoom separately */
+	zoom_factor = anjuta_preferences_get_int (te->preferences, TEXT_ZOOM_FACTOR);
+	DEBUG_PRINT ("Initializing zoom factor to: %d", zoom_factor);
+	text_editor_set_zoom_factor (te, zoom_factor);
+	
 #ifdef DEBUG
 	g_object_weak_ref (G_OBJECT (te), on_te_already_destroyed, te);
 #endif
@@ -578,14 +584,7 @@ text_editor_hilite (TextEditor * te, gboolean override_by_pref)
 void
 text_editor_set_zoom_factor (TextEditor * te, gint zfac)
 {
-	te->zoom_factor = zfac;
 	text_editor_command (te, ANE_SETZOOM, zfac,  0);
-}
-
-gint
-text_editor_get_zoom_factor (TextEditor * te)
-{
-	return te->zoom_factor;
 }
 
 glong
@@ -2823,42 +2822,30 @@ static void
 izoom_in(IAnjutaEditorZoom* zoom, GError** e)
 {
 	TextEditor* te = TEXT_EDITOR(zoom);
-	gint zoom_factor = text_editor_get_zoom_factor (te) + 2;
+	gint zoom_factor = anjuta_preferences_get_int (te->preferences,
+												   TEXT_ZOOM_FACTOR) + 1;
 	
 	if (zoom_factor > MAX_ZOOM_FACTOR)
 		zoom_factor = MAX_ZOOM_FACTOR;
 	else if (zoom_factor < MIN_ZOOM_FACTOR)
 		zoom_factor = MIN_ZOOM_FACTOR;
 	
-	text_editor_set_zoom_factor(te, zoom_factor);
+	anjuta_preferences_set_int (te->preferences, TEXT_ZOOM_FACTOR, zoom_factor);
 }
 
 static void
 izoom_out(IAnjutaEditorZoom* zoom, GError** e)
 {
 	TextEditor* te = TEXT_EDITOR(zoom);
-	gint zoom_factor = text_editor_get_zoom_factor (te) - 2;
+	gint zoom_factor = anjuta_preferences_get_int (te->preferences,
+												   TEXT_ZOOM_FACTOR) - 1;
 	
 	if (zoom_factor > MAX_ZOOM_FACTOR)
 		zoom_factor = MAX_ZOOM_FACTOR;
 	else if (zoom_factor < MIN_ZOOM_FACTOR)
 		zoom_factor = MIN_ZOOM_FACTOR;
 	
-	text_editor_set_zoom_factor(te, zoom_factor);
-}
-
-static void
-izoom_set(IAnjutaEditorZoom* zoom, gint zoom_factor,
-		  GError** e)
-{
-	TextEditor* te = TEXT_EDITOR (zoom);
-	
-	if (zoom_factor > MAX_ZOOM_FACTOR)
-		zoom_factor = MAX_ZOOM_FACTOR;
-	else if (zoom_factor < MIN_ZOOM_FACTOR)
-		zoom_factor = MIN_ZOOM_FACTOR;
-	
-	text_editor_set_zoom_factor(te, zoom_factor);
+	anjuta_preferences_set_int (te->preferences, TEXT_ZOOM_FACTOR, zoom_factor);
 }
 
 static void
@@ -2866,7 +2853,6 @@ izoom_iface_init(IAnjutaEditorZoomIface* iface)
 {
 	iface->in = izoom_in;
 	iface->out = izoom_out;
-	iface->set = izoom_set;
 }
 
 static void

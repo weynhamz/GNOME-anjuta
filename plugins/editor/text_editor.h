@@ -128,12 +128,7 @@ void text_editor_hilite (TextEditor *te, gboolean force);
  */
 void text_editor_set_zoom_factor (TextEditor * te, gint zfac);
 
-/*
- * Get current zoom factor.
- */
-gint text_editor_get_zoom_factor (TextEditor * te);
-
- /* Undo or redo last action */
+/* Undo or redo last action */
 void text_editor_undo (TextEditor * te);
 void text_editor_redo (TextEditor * te);
 
@@ -268,5 +263,6 @@ void text_editor_scintilla_command (TextEditor *te, gint command,
 #define VIEW_EOL                   "view.eol"
 #define VIEW_LINE_WRAP             "view.line.wrap"
 #define EDGE_COLUMN                "edge.column"
+#define TEXT_ZOOM_FACTOR           "text.zoom.factor"
 
 #endif

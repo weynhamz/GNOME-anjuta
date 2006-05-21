@@ -518,7 +518,8 @@ anjuta_print_job_info_new (AnjutaPreferences *p, TextEditor *te)
 	g_free (buffer);
 	
 	/* Zoom factor */
-	pji->zoom_factor = text_editor_get_zoom_factor (te);
+	pji->zoom_factor = anjuta_preferences_get_int (te->preferences,
+						       TEXT_ZOOM_FACTOR);
 	
 	/* Line number printing details */
 	pji->print_line_numbers =

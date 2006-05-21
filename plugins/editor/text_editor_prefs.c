@@ -18,6 +18,8 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-debug.h>
+
 #include "properties.h"
 #include "text_editor_prefs.h"
 #include "text_editor_cbs.h"
@@ -107,10 +109,6 @@ on_gconf_notify_disable_hilite (GConfClient *gclient, guint cnxn_id,
 	text_editor_hilite (te, TRUE);
 }
 
-/*
- *ZOOM setting is moved in document manager.
- * 
-
 static void
 on_gconf_notify_zoom_factor (GConfClient *gclient, guint cnxn_id,
 							 GConfEntry *entry, gpointer user_data)
@@ -122,7 +120,6 @@ on_gconf_notify_zoom_factor (GConfClient *gclient, guint cnxn_id,
 	zoom_factor = set_n_get_prop_int (te, TEXT_ZOOM_FACTOR);
 	text_editor_set_zoom_factor (te, zoom_factor);
 }
-*/
 
 static void
 on_gconf_notify_tab_size (GConfClient *gclient, guint cnxn_id,
@@ -393,7 +390,7 @@ text_editor_prefs_init (TextEditor *te)
 	
 	/* Sync prefs from gconf to props */
 	set_n_get_prop_int (te, TAB_SIZE);
-	/* set_n_get_prop_int (te, TEXT_ZOOM_FACTOR); */
+	set_n_get_prop_int (te, TEXT_ZOOM_FACTOR);
 	set_n_get_prop_int (te, INDENT_SIZE);
 	set_n_get_prop_int (te, USE_TABS);
 	set_n_get_prop_int (te, DISABLE_SYNTAX_HILIGHTING);
@@ -425,7 +422,7 @@ text_editor_prefs_init (TextEditor *te)
 	
 	/* Register gconf notifications */
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
-	/* REGISTER_NOTIFY (TEXT_ZOOM_FACTOR, on_gconf_notify_zoom_factor); */
+	REGISTER_NOTIFY (TEXT_ZOOM_FACTOR, on_gconf_notify_zoom_factor);
 	REGISTER_NOTIFY (INDENT_SIZE, on_gconf_notify_indent_size);
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);
 	REGISTER_NOTIFY (DISABLE_SYNTAX_HILIGHTING, on_gconf_notify_disable_hilite);

@@ -1,5 +1,14 @@
 2006-05-21  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/document-manager/action-callbacks.c,
+	plugins/document-manager/plugin.c,
+	plugins/editor/print.c, plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h, plugins/editor/text_editor_prefs.c:
+	Fixed zooming and added icons and shortcuts for zoom menu items.
+
+2006-05-21  Naba Kumar  <naba@gnome.org>
+
 	* libanjuta/interfaces/libanjuta.idl: Fixed api documentation and
 	whitespaces.
 
