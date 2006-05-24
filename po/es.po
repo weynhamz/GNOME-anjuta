@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-19 20:07+0200\n"
-"PO-Revision-Date: 2006-05-19 20:22+0200\n"
+"POT-Creation-Date: 2006-05-24 22:42+0200\n"
+"PO-Revision-Date: 2006-05-24 22:49+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid "Anjuta IDE"
 msgstr "EID Anjuta"
 
 #: ../anjuta.desktop.in.in.h:2 ../src/about.c:185 ../src/about.c:195
-#: ../src/main.c:317
+#: ../src/main.c:321
 msgid "Integrated Development Environment"
 msgstr "Entorno Integrado de Desarrollo"
 
@@ -971,11 +971,10 @@ msgid "Enter the name of the class your new class will inherit from."
 msgstr "Introduzca el nombre de la clase de la que su nueva clase heredará."
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
-#, fuzzy
 msgid ""
 "Enter the name of the class your new class will inherit from. Default is "
 "GObject."
-msgstr "Introduzca el nombre de la clase de la que su nueva clase heredará."
+msgstr "Introduzca el nombre de la clase de la que su nueva clase heredará. La predeterminada es GObject."
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
 msgid "GObject"
@@ -1041,7 +1040,7 @@ msgstr ""
 "private"
 
 #: ../plugins/class-gen/class_gen.c:106
-#: ../plugins/document-manager/anjuta-docman.c:696
+#: ../plugins/document-manager/anjuta-docman.c:742
 #: ../plugins/file-wizard/file.c:229 ../plugins/valgrind/plugin.c:377
 #, c-format
 msgid ""
@@ -1052,7 +1051,7 @@ msgstr ""
 "¿Desea sobreescribirlo con el que está intentando guardar?"
 
 #: ../plugins/class-gen/class_gen.c:114
-#: ../plugins/document-manager/anjuta-docman.c:703
+#: ../plugins/document-manager/anjuta-docman.c:749
 #: ../plugins/file-wizard/file.c:237 ../plugins/valgrind/plugin.c:385
 #: ../src/anjuta-callbacks.c:79
 msgid "_Replace"
@@ -1919,22 +1918,26 @@ msgstr ""
 "Perderá todas las modificaciones sin guardar."
 
 #: ../plugins/document-manager/action-callbacks.c:301
-#: ../plugins/editor/text_editor.c:343 ../plugins/sourceview/sourceview.c:173
+#: ../plugins/editor/text_editor.c:342 ../plugins/sourceview/sourceview.c:174
 msgid "_Reload"
 msgstr "_Recargar"
 
-#: ../plugins/document-manager/anjuta-docman.c:723
+#: ../plugins/document-manager/anjuta-docman.c:575
+msgid "Close file"
+msgstr "Cerrar archivo"
+
+#: ../plugins/document-manager/anjuta-docman.c:769
 #: ../plugins/file-loader/plugin.c:558 ../plugins/file-loader/plugin.c:834
 #: ../plugins/file-loader/plugin.c:841 ../plugins/file-loader/plugin.c:854
 msgid "Open file"
 msgstr "Abre un archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:742
+#: ../plugins/document-manager/anjuta-docman.c:788
 #: ../plugins/message-view/message-view.c:87
 msgid "Save file as"
 msgstr "Guardar archivo como"
 
-#: ../plugins/document-manager/anjuta-docman.c:1104
+#: ../plugins/document-manager/anjuta-docman.c:1150
 msgid "Path:"
 msgstr "Ruta:"
 
@@ -3283,7 +3286,7 @@ msgstr "Itálica"
 msgid "Line numbers margin width in pixels"
 msgstr "Ancho en píxeles del margen de número de línea"
 
-#: ../plugins/editor/editor.glade.h:51 ../plugins/editor/print.c:1039
+#: ../plugins/editor/editor.glade.h:51 ../plugins/editor/print.c:1040
 #: ../plugins/gdb/info.c:126 ../plugins/sourceview/sourceview.glade.h:23
 #: ../plugins/sourceview/sourceview-print.c:98
 msgid "Lines"
@@ -3419,30 +3422,30 @@ msgstr "No hay archivo para imprimir."
 msgid "Unable to get text buffer for printing"
 msgstr "No se puede obtener un búfer de texto para imprimir"
 
-#: ../plugins/editor/print.c:758
+#: ../plugins/editor/print.c:759
 #, c-format
 msgid "File: %s"
 msgstr "Archivo: %s"
 
-#: ../plugins/editor/print.c:759
+#: ../plugins/editor/print.c:760
 #, c-format
 msgid "%d"
 msgstr "%d"
 
-#: ../plugins/editor/print.c:871 ../plugins/editor/print.c:883
+#: ../plugins/editor/print.c:872 ../plugins/editor/print.c:884
 msgid "Printing..."
 msgstr "Imprimiendo…"
 
-#: ../plugins/editor/print.c:1030 ../plugins/gdb/signals.c:354
+#: ../plugins/editor/print.c:1031 ../plugins/gdb/signals.c:354
 #: ../plugins/sourceview/sourceview-print.c:89
 msgid "Print"
 msgstr "Imprimir"
 
-#: ../plugins/editor/print.c:1066
+#: ../plugins/editor/print.c:1067
 msgid "Print Preview"
 msgstr "Vista previa de la impresión"
 
-#: ../plugins/editor/text_editor.c:329 ../plugins/sourceview/sourceview.c:161
+#: ../plugins/editor/text_editor.c:328 ../plugins/sourceview/sourceview.c:162
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -3453,23 +3456,23 @@ msgstr ""
 "que el búfer actual.\n"
 "¿Desea recargarlo?"
 
-#: ../plugins/editor/text_editor.c:1212
+#: ../plugins/editor/text_editor.c:1211
 msgid "Could not get file info"
 msgstr "No se pudo obtener la información del archivo"
 
-#: ../plugins/editor/text_editor.c:1219
+#: ../plugins/editor/text_editor.c:1218
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
-#: ../plugins/editor/text_editor.c:1226
+#: ../plugins/editor/text_editor.c:1225
 msgid "Could not open file"
 msgstr "No se pudo abrir el archivo"
 
-#: ../plugins/editor/text_editor.c:1234
+#: ../plugins/editor/text_editor.c:1233
 msgid "Error while reading from file"
 msgstr "Error al leer desde el archivo"
 
-#: ../plugins/editor/text_editor.c:1270
+#: ../plugins/editor/text_editor.c:1269
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -3479,11 +3482,11 @@ msgstr ""
 "no está soportada. Verifique que la codificación del archivo esté soportada  "
 "por la lista de codificaciones. Si no, añádala desde las preferencias."
 
-#: ../plugins/editor/text_editor.c:1428
+#: ../plugins/editor/text_editor.c:1427
 msgid "Loading file..."
 msgstr "Cargando archivo…"
 
-#: ../plugins/editor/text_editor.c:1435
+#: ../plugins/editor/text_editor.c:1434
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -3494,24 +3497,24 @@ msgstr ""
 "\n"
 "Detalles: %s"
 
-#: ../plugins/editor/text_editor.c:1456
+#: ../plugins/editor/text_editor.c:1455
 msgid "File loaded successfully"
 msgstr "Archivo cargado correctamente"
 
-#: ../plugins/editor/text_editor.c:1473
+#: ../plugins/editor/text_editor.c:1472
 msgid "Saving file..."
 msgstr "Guardando archivo…"
 
-#: ../plugins/editor/text_editor.c:1482
+#: ../plugins/editor/text_editor.c:1481
 #, c-format
 msgid "Could not save file: %s."
 msgstr "No se puede guardar: %s."
 
-#: ../plugins/editor/text_editor.c:1493
+#: ../plugins/editor/text_editor.c:1492
 msgid "File saved successfully"
 msgstr "Archivo guardado correctamente"
 
-#: ../plugins/editor/text_editor.c:1838
+#: ../plugins/editor/text_editor.c:1837
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -6847,11 +6850,11 @@ msgstr "Documento no guardado %d"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../plugins/sourceview/sourceview.c:245
+#: ../plugins/sourceview/sourceview.c:246
 msgid "Loading"
 msgstr "Cargando"
 
-#: ../plugins/sourceview/sourceview.c:268
+#: ../plugins/sourceview/sourceview.c:269
 msgid "Saving..."
 msgstr "Guardando…"
 
@@ -7596,7 +7599,9 @@ msgstr "Falló al cargar el proceso hijo «%s»: %s"
 
 #: ../plugins/valgrind/vgactions.c:161
 msgid "Reached the end of the input file or error in parsing valgrind output."
-msgstr "Se llegó al final del archivo de entrada o un error al analizar la salida de valgrind."
+msgstr ""
+"Se llegó al final del archivo de entrada o un error al analizar la salida de "
+"valgrind."
 
 #: ../plugins/valgrind/vgactions.c:170
 msgid "Process exited."
@@ -7611,7 +7616,9 @@ msgstr "No se puedo obtener la clave gconf correcta del binario de valgrind:"
 msgid ""
 "Valgrind binary [%s] does not exist. Please check the preferences or install "
 "Valgrind package."
-msgstr "El binario Valgrind [%s] no existe. Compruebe las preferencias o instale el paquete Valgrind."
+msgstr ""
+"El binario Valgrind [%s] no existe. Compruebe las preferencias o instale el "
+"paquete Valgrind."
 
 #: ../plugins/valgrind/vgactions.c:231 ../plugins/valgrind/vgactions.c:238
 msgid "Could not get the right pipe for the process."
@@ -7628,7 +7635,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:234
 msgid "Override default settings"
-msgstr ""
+msgstr "Tomar precedencia sobre la configuración predeterminada"
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:244
 msgid "Enter <size>,<assoc>,<line_size>:"
@@ -7684,7 +7691,7 @@ msgstr "General"
 
 #: ../plugins/valgrind/vggeneralprefs.c:178
 msgid "Demangle c++ symbol names"
-msgstr ""
+msgstr "Desrevolver los nombres de símbolos c++"
 
 #: ../plugins/valgrind/vggeneralprefs.c:186
 msgid "Show"
@@ -7700,23 +7707,23 @@ msgstr "Parar de mostrar errores si hay demasiados"
 
 #: ../plugins/valgrind/vggeneralprefs.c:213
 msgid "Round malloc sizes to next word"
-msgstr ""
+msgstr "Redondear tamaños de malloc a la siguiente palabra"
 
 #: ../plugins/valgrind/vggeneralprefs.c:221
 msgid "Trace any child processes forked off by the program being debugged"
-msgstr ""
+msgstr "Trazar cualquier proceso bifurcado por el programa que se está depurando"
 
 #: ../plugins/valgrind/vggeneralprefs.c:229
 msgid "Track open file descriptors"
-msgstr ""
+msgstr "Seguimiento de descriptores de archivos abiertos"
 
 #: ../plugins/valgrind/vggeneralprefs.c:237
 msgid "Add time stamps to log messages"
-msgstr ""
+msgstr "Añadir sello temporal a los mensajes de registro"
 
 #: ../plugins/valgrind/vggeneralprefs.c:245
 msgid "Call __libc_freeres() at exit before checking for memory leaks"
-msgstr ""
+msgstr "Llamar __Libc_freeres() a la salida antes de comprobar fugas de memoria"
 
 #: ../plugins/valgrind/vggeneralprefs.c:253
 msgid "Suppressions File:"
@@ -7724,7 +7731,7 @@ msgstr "Archivo de supresiones:"
 
 #: ../plugins/valgrind/vggeneralprefs.c:273
 msgid "Choose Valgrind Suppressions File..."
-msgstr ""
+msgstr "Elija el archivos de supresiones Valgrind..."
 
 #: ../plugins/valgrind/vghelgrindprefs.c:165
 msgid "Helgrind"
@@ -7732,11 +7739,11 @@ msgstr "Helgrind"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:170
 msgid "Assume thread stacks are used privately"
-msgstr ""
+msgstr "Asumir que las pilas del hilo se usan de forma privada"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:179
 msgid "Show location of last word access on error:"
-msgstr ""
+msgstr "Mostrar la ubicación del acceso de la última palabra en el error:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:189
 msgid "Memcheck"
@@ -7760,11 +7767,11 @@ msgstr "Resolución de pérdidas:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:236
 msgid "Keep up to"
-msgstr ""
+msgstr "Mantener hasta"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:248
 msgid "bytes in the queue after being free()'d"
-msgstr ""
+msgstr "bytes en la cola después de aplicarles free()"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:255
 msgid "Work around bugs generated by gcc 2.96"
@@ -8055,27 +8062,27 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Desea reemplazarlo con el que está intentando guardar?"
 
-#: ../src/main.c:67
+#: ../src/main.c:71
 msgid "Specify the size and location of the main window"
 msgstr "Especificar el tamaño y ubicación de la ventana principal"
 
-#: ../src/main.c:68
+#: ../src/main.c:72
 msgid "WIDTHxHEIGHT+XOFF+YOFF"
 msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
-#: ../src/main.c:73
+#: ../src/main.c:77
 msgid "Do not show the splashscreen"
 msgstr "No mostrar la pantalla de inicio"
 
-#: ../src/main.c:79
+#: ../src/main.c:83
 msgid "Start a new instance and do not open the file in a existing"
-msgstr ""
+msgstr "Iniciar una instancia nueva y no abrir el archivo en la existente"
 
-#: ../src/main.c:85
+#: ../src/main.c:89
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr "Detener anjuta apropiadamente soltando todos los recursos (para depuración)"
+msgstr "Detener anjuta apropiadamente liberando todos los recursos (para depuración)"
 
-#: ../src/main.c:355
+#: ../src/main.c:359
 msgid "Anjuta"
 msgstr "Anjuta"
 
