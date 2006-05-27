@@ -1,3 +1,193 @@
+2006-05-27  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl, plugins/gdb/*,
+	plugins/debug-manager/*, data/Makefile.am,
+	manuals/reference/libanjuta/libanjuta.types,
+	manuals/reference/libanjuta/tmpl/ianjuta-debugger.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml:
+	merged anjuta-new-debugger branch into trunck.
+	(cvs -z3 up -j anjuta-merged-from-trunk-to-new-debugger -j anjuta-new-debugger)
+
+2006-05-06 Sebastien Granjoux <seb.sfo@free.fr>
+	
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/debugger.c,
+	plugins/debug-manager/debugger.h,
+	plugins/gdb/anjuta-gdb.plugin.in,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/gdb/plugin.c:
+	Add new IAnjutaCpuDebugger interface to access cpu register
+	Run gdb instead of /usr/local/bin/gdb
+	
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/registers.h:
+	Rewrite register window
+	Rename Load target menu item to Run target
+
+2006-05-07  Naba Kumar  <naba@gnome.org>
+
+	* plugins/gdb.init
+	
+2006-05-01 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/watch.c,
+	plugins/debug-manager/breakpoint.c,
+	plugins/debug-manager/breakpoint.h:
+	Fix crash: disconnect save and load session signals
+
+2006-04-30 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/interface/libanjuta.idl,
+	plugins/debug-manager/debugger.c,
+	plugins/gdb/plugin.c:
+	Add a value parameter for evaluate command
+
+	* plugins/debug-manager/anjuta-debug-manager.glade:
+	Create new dialog box for watches using glade
+
+	* plugins/debug-manager/anjuta-debug-manager.ui:
+	Move watch menu items near the end
+	Move breakpoint menu items outside the sub menu
+
+	* plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/watch.c:
+	Move all GUI code from watch.c to debug_tree.c
+	Add an auto update property to watches
+	
+	* plugins/debug-manager/locals.c,
+	plugins/debug-manager/locals.h,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/stack_trace.h,
+	plugins/debug-manager/plugin.c:
+	Register actions before starting debugger
+
+	* plugins/gdb/debugger.c:
+	Do not call callback function if not present
+
+2006-04-02 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/stack_trace.h,
+	plugins/debug-manager/anjuta-debug-manager.ui,
+	plugins/gdb/debugger.c:
+	Add a popup menu in stack frame window
+	Add a new frame-changed event
+	Use MI command for getting stack informations
+	Get filename with full path (need gdb > 6.3)
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/debugger.c,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/locals.h,
+	plugins/debug-manager/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/gdb/parser.c,
+	plugins/gdb/parser.h,
+	plugins/gdb/plugin.c,
+	plugins/gdb/Makefile.am:
+	Pass watch data with string instead of Watch structures
+	Use debug_tree in local window
+	Remove info local
+	Remove parser.{ch}
+
+	* plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/utilities.c,
+	plugins/debug-manager/utilities.h:
+	Use a GtkListStore instead of a GtkTreeStore
+	move goto_location_in_editor in utilities.c
+	
+2006-03-26 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/anjuta-debug-manager.ui,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/plugin.c,
+	plugins/gdb/debugger.c:
+	Add a breakpoint type
+	Add new popup menu in breakpoint window
+	Add toggle breakpoint in editor popup menu
+	Save and restore breakpoint enable
+	Fix bug in clear all breakpoints
+	Remove old useless code
+
+	* plugins/debug-manager/debugger.c:
+	Fix some problem with debugger states
+
+	* manuals/reference/libanjuta/tmpl/ianjuta-debugger.sgml:
+	Update documentation
+	
+2006-03-25 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* data/Makefile.am,
+	plugins/gdb/Makefile.am,
+	plugins/gdb/gdb.init:
+	Move gdb.init crom data to plugins/gdb
+
+	* plugins/gdb/gdb.init,
+	libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/debugger.c,
+	plugins/debug-manager/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/plugin.c:
+	Support pending breakpoints
+	Rewrite debugger states
+	Split ianjuta_debugger_log into _enable_log and _disable_log
+
+	* plugins/debug-manager/start.c,
+	plugins/debug-manager/debug_tree.c,
+	plugins/gdb/parser.c:
+	Remove some useless lines
+
+	* manuals/reference/libanjuta/tmpl/ianjuta-debugger-manager.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-debugger.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml:
+	Update documentation
+
+2006-03-12 Naba Kumar <naba@gnome.org>
+
+	* manuals/references/libanjuta/libanjuta.types: Fixed
+	debug-manager name.
+	
+2006-03-12 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-debugger.c,
+	libanjuta/anjuta-debugger.h:
+	Remove those files
+	
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-mananger/breakpoints.c,
+	plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/debugger.c,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/sharedlib.c,
+	plugins/debug-manager/signal.c,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/start.c,
+	plugins/debug-manager/watch.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/gdb/parser.c,
+	plugins/gdb/parser.h,
+	plugins/gdb/plugin.c:
+	Move types definitions from libanjuta/anjuta-debugger.{ch}
+	Rename types from AnjutaDebugger* to IAnjutaDebugger*
+	
+	* plugins/gdb/Makefile.am:
+	Remove user interface from gdb plugin
+
+2006-03-12 Naba Kumar <naba@gnome.org>
+
+	* merged from trunk (tag: anjuta-merged-from-trunk-to-new-debugger)
+
 2006-05-21  Johannes Schmid <jhs@cvs.gnome.org>
 
 	Modified Patch from Marc Maurer <uwog@uwog.net>:
@@ -1301,6 +1491,103 @@
 	* plugins/sourceview/*:
 	Reimplemented sourceview plugin reusing much code from gedit. Thanks to Paolo Borelli & Maggi for 
 	poiting this out!
+
+2006-03-04  Naba Kumar  <naba@gnome.org>
+
+	* plugins/gdb/*: Deleted removed files (see previous changlog
+	entry for files list).
+	
+2005-03-01 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-mananger/breakpoints.c,
+	plugins/debug-manager/breakpoints.h,
+	plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/info.c,
+	plugins/debug-manager/info.h,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/locals.h,
+	plugins/debug-manager/memory.c,
+	plugins/debug-manager/memory.h,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/registers.h,
+	plugins/debug-manager/sharedlib.c,
+	plugins/debug-manager/sharedlib.h,
+	plugins/debug-manager/signal.c,
+	plugins/debug-manager/signal.h,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/stack_trace.h,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/watch.h,
+	plugins/debug-manager/Makefile.am:
+	Move from gdb plugin to debug manager plugin
+
+	* plugins/debug-manager/anjuta-debug-manager.glade,
+	plugins/debug-manager/anjuta-debug-manager.ui:
+	Move all user interface from gdb to debug manager
+
+	* plugins/debug-manager/utilities.c,
+	plugins/debug-manager/utilities.h:
+	Remove some unused code
+	Add useful code from gdb plugin
+
+	* plugins/debug-manager/start.c,
+	plugins/debug-manager/start.h:
+	Include code of attach_process
+	Add more code to start the debugger
+
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/plugin.h,
+	plugins/debug-manager/anjuta-debug-manager.plugin.in:
+	Rename IAnjutaDebuggerManager to IAnjutaDebugManager
+
+	* plugins/debug-manager/debugger.c,
+	plugins/debug-manager/debugger.h:
+	Implement a queue of debugger command
+
+	* plugins/gdb/actions.c,
+	plugins/gdb/actions.h,
+	plugins/gdb/watch_cbs.c,
+	plugins/gdb/watch_cbs.h,
+	plugins/gdb/watch_gui.c,
+	plugins/gdb/watch_gui.h:
+	Removed 
+
+	* plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/gdb/gdbmi.c,
+	plugins/gdb/gdbmi.h,
+	plugins/gdb/utilities.c,
+	plugins/gdb/utilities.h,
+	plugins/gdb/Makefile.am,
+	plugins/gdb/anjuta-gdb.plugin.in:
+	Implement necessary functions
+
+	* plugins/gdb/parser.c,
+	plugins/gdb/parser.h:
+	Code for parsing variable previously in debug_tree.c
+
+	* plugins/gdb/anjuta-gdb.glade,
+	plugins/gdb/anjuta-gdb.ui:
+	Remove user interface
+
+	* plugins/gdb/gdbmi-test.c:
+	Need update
+
+	* plugins/gdb/anjuta-gdb.plugin.png:
+	Try an improved icon for gdb (archer fish)
+
+	* libanjuta/anjuta-debugger.c,
+	libanjuta/anjuta-debugger.h,
+	libanjuta/interfaces/libanjuta.idl,
+	libanjuta/interfaces/anjuta-idl-compiler.pl,
+	libanjuta/Makefile.am:
+	Add declaration used in new IAnjutaDebugger interface
+
+	* manuals/reference/libanjuta.types,
+	manuals/reference/libanjuta/tmpl/ianjuta-debugger.sgml
+	manuals/referecen/libanjuta/tmpl/libanjuta-unused.sgml:
+	Update documentation
 
 2006-03-02  Naba Kumar  <naba@gnome.org>
 
