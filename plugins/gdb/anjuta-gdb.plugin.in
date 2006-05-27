@@ -3,5 +3,4 @@ _Name=Gdb
 _Description=Gdb plugin.
 Location=anjuta-gdb:GdbPlugin
 Icon=anjuta-gdb.plugin.png
-Interfaces=IAnjutaDebugger
-UserActivatable=no
+Interfaces=IAnjutaDebugger,IAnjutaCpuDebugger

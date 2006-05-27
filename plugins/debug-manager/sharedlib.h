@@ -1,7 +1,6 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    plugin.h
-    Copyright (C) 2000 Naba Kumar
+    sharedlibs.h
+    Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,22 +17,47 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef __PLUGIN_H__
-#define __PLUGIN_H__
-
+#ifndef _SHAREDLIBS_H_
+#define _SHAREDLIBS_H_
 
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
-#include <libanjuta/interfaces/ianjuta-editor.h>
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.glade"
+#include <glib.h>
+#include <gtk/gtkwidget.h>
 
-typedef struct _DebugManagerPlugin DebugManagerPlugin;
-typedef struct _DebugManagerPluginClass DebugManagerPluginClass;
+typedef struct _SharedlibsGui SharedlibsGui;
+typedef struct _Sharedlibs Sharedlibs;
 
-enum {
-ACTION_GROUP_DEFAULT = 0,
-ACTION_GROUP_EXECUTE = 1,
-LAST_ACTION_GROUP };
+struct _SharedlibsGui
+{
+    GtkWidget*   window;
+    GtkWidget*   clist;
+    GtkWidget*   menu;
+    GtkWidget*   menu_update;
+};
+
+struct _Sharedlibs
+{
+	SharedlibsGui  widgets;
+	IAnjutaDebugger *debugger;
+	gboolean is_showing;
+	gint win_pos_x, win_pos_y, win_width, win_height;
+};
+
+Sharedlibs*
+sharedlibs_new (IAnjutaDebugger *debugger);
+
+void
+sharedlibs_clear (Sharedlibs *ew);
+
+void
+sharedlibs_free (Sharedlibs*ew);
+
+void
+sharedlibs_show (Sharedlibs * ew);
+
+void
+sharedlibs_hide (Sharedlibs * ew);
 
 #endif

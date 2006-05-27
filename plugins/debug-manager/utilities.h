@@ -19,4 +19,22 @@
 #ifndef _UTILITIES_H_
 #define _UTILITIES_H_
 
+#include <libanjuta/anjuta-plugin.h>
+
+#include <glib.h>
+
+/* Functions that dynamic allocate memory. Return value(s) should be g_freed
+ * Removes while spaces in the text
+ *---------------------------------------------------------------------------*/
+gchar* gdb_util_remove_white_spaces(const gchar* text);
+
+/* In this case only GList must be freed and not the data
+ * Because output data are the input data. Only GList is allocated
+ *---------------------------------------------------------------------------*/
+GList* gdb_util_remove_blank_lines(const GList* lines);
+
+/* Goto to corresponding location in editor, opening file if necessary
+ *---------------------------------------------------------------------------*/
+void goto_location_in_editor (AnjutaPlugin *plugin, const gchar* uri, guint line);
+
 #endif

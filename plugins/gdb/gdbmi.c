@@ -114,6 +114,12 @@ gdbmi_value_get_name (const GDBMIValue *val)
 	return val->name;
 }
 
+GDBMIDataType
+gdbmi_value_get_type (const GDBMIValue *val)
+{
+	return val->type;
+}
+
 void
 gdbmi_value_set_name (GDBMIValue *val, const gchar *name)
 {

@@ -20,10 +20,11 @@
 #ifndef _WATCH_H_
 #define _WATCH_H_
 
+#include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-debugger.h>
+
 #include <gtk/gtkwidget.h>
 #include <gtk/gtktreemodel.h>
-
-#include "debugger.h"
 
 /* TODO #include "properties.h" */
 
@@ -36,33 +37,11 @@ enum {
 	WATCH_N_COLUMNS
 };
 
-struct _ExprWatchGui
-{
-	GtkWidget*   scrolledwindow;
-    GtkWidget*   clist;
-    GtkWidget*   menu_add;
-    GtkWidget*   menu_remove;
-    GtkWidget*   menu_clear;
-    GtkWidget*   menu_update;
-    GtkWidget*   menu_toggle;
-    GtkWidget*   menu_change;
-    GtkWidget*   menu;
-};
+ExprWatch* expr_watch_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger);
 
-struct _ExprWatch
-{
-	ExprWatchGui  widgets;
-	Debugger *debugger;
-};
+void expr_watch_connect (ExprWatch *ew, IAnjutaDebugger *debugger);
 
-struct watch_cb_data {
-	ExprWatch* ew;
-	GtkTreePath* path;
-};
-
-ExprWatch* expr_watch_new (Debugger *debugger);
-
-void expr_watch_clear (ExprWatch *ew);
+/*void expr_watch_clear (ExprWatch *ew);
 
 void expr_watch_cmd_queqe (ExprWatch *ew);
 
@@ -72,8 +51,12 @@ void expr_watch_update (Debugger *debugger, const GDBMIValue *mi_result,
 void expr_watch_evaluate_expression (ExprWatch *ew, const gchar *expr,
 									 DebuggerResultFunc parser, gpointer data);
 
-void expr_watch_update_controls (ExprWatch *ew);
+void expr_watch_update_controls (ExprWatch *ew);*/
 
 void expr_watch_destroy (ExprWatch*ew);
+
+//void expr_watch_update (struct _DebugPrintCallback* cb_data, const gchar* value);
+void expr_watch_cmd_queqe (ExprWatch * ew);
+
 
 #endif

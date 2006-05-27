@@ -19,3 +19,89 @@
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif
+
+#include "utilities.h"
+
+#include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
+
+#include <glib.h>
+
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <limits.h>
+#include <ctype.h>
+#include <stdlib.h>
+
+gchar *
+gdb_util_remove_white_spaces (const gchar * text)
+{
+	guint src_count, dest_count, tab_count;
+	gchar buff[2048];	/* Let us hope that it does not overflow */
+	
+	tab_count = 8;
+	dest_count = 0;
+	
+	for (src_count = 0; src_count < strlen (text); src_count++)
+	{
+		if (text[src_count] == '\t')
+		{
+			gint j;
+			for (j = 0; j < tab_count; j++)
+				buff[dest_count++] = ' ';
+		}
+		else if (isspace (text[src_count]))
+		{
+			buff[dest_count++] = ' ';
+		}
+		else
+		{
+			buff[dest_count++] = text[src_count];
+		}
+	}
+	buff[dest_count] = '\0';
+	return g_strdup (buff);
+}
+
+GList *
+gdb_util_remove_blank_lines (const GList * lines)
+{
+	GList *list, *node;
+	gchar *str;
+
+	if (lines)
+		list = g_list_copy ((GList*)lines);
+	else
+		list = NULL;
+
+	node = list;
+	while (node)
+	{
+		str = node->data;
+		node = g_list_next (node);
+		if (!str)
+		{
+			list = g_list_remove (list, str);
+			continue;
+		}
+		if (strlen (g_strchomp (str)) < 1)
+			list = g_list_remove (list, str);
+	}
+	return list;
+}
+
+void
+goto_location_in_editor (AnjutaPlugin *plugin, const gchar* uri, guint line)
+{
+	IAnjutaDocumentManager *docman;
+	
+	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager, NULL);
+	if (docman)
+	{
+		
+		ianjuta_document_manager_goto_file_line (docman, uri, line, NULL);
+	}
+}

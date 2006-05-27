@@ -32,6 +32,7 @@
 static gchar *gdb_test_line = 
 "^done,BreakpointTable={nr_rows=\"2\",nr_cols=\"6\",hdr=[{width=\"3\",alignment=\"-1\",col_name=\"number\",colhdr=\"Num\"},{width=\"14\",alignment=\"-1\",col_name=\"type\",colhdr=\"Type\"},{width=\"4\",alignment=\"-1\",col_name=\"disp\",colhdr=\"Disp\"},{width=\"3\",alignment=\"-1\",col_name=\"enabled\",colhdr=\"Enb\"},{width=\"10\",alignment=\"-1\",col_name=\"addr\",colhdr=\"Address\"},{width=\"40\",alignment=\"2\",col_name=\"what\",colhdr=\"What\"}],body=[bkpt={number=\"1\",type=\"breakpoint\",disp=\"keep\",enabled=\"y\",addr=\"0x08050f5d\",func=\"main\",file=\"main.c\",line=\"122\",times=\"1\"},bkpt={number=\"2\",type=\"breakpoint\",disp=\"keep\",enabled=\"y\",addr=\"0x0096fbae\",func=\"anjuta_plugin_activate\",file=\"anjuta-plugin.c\",line=\"395\",times=\"1\"}]}";
 
+#if 0
 static void
 output_callback (Debugger *debugger, DebuggerOutputType type,
 				 const gchar *data, gpointer user_data)
@@ -41,7 +42,7 @@ output_callback (Debugger *debugger, DebuggerOutputType type,
 
 static void
 output_parser (Debugger* debugger, const GDBMIValue *mi_result,
-			   const GList* cli_result, gpointer data)
+			   const GList* cli_result, gpointer data, gpointer extra_data)
 {
 	gdbmi_value_dump (mi_result, 0);
 }
@@ -76,6 +77,7 @@ on_entry_activate (GtkEntry *entry, Debugger *debugger)
 	debugger_command (debugger, gtk_entry_get_text (entry),
 					  FALSE, output_parser, NULL);
 }
+#endif
 
 int
 main(int argc, char **argv)
@@ -100,7 +102,8 @@ main(int argc, char **argv)
 	}
 	printf ("Testing debugger\n");
 	gtk_init (&argc, &argv);
-	
+
+	#if 0	
 	debugger = debugger_new_with_program (NULL, NULL, output_callback, NULL,
 										  "./gdbmi-test", TRUE);
 	
@@ -121,5 +124,6 @@ main(int argc, char **argv)
 					  debugger);
 	gtk_widget_show_all (win);
 	gtk_main();
+#endif
 	return (0);
 }

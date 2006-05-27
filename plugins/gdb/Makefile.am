@@ -1,10 +1,13 @@
 # Plugin UI file
 gdb_uidir = $(anjuta_ui_dir)
-gdb_ui_DATA = anjuta-gdb-plugin.ui
+gdb_ui_DATA =
 
 # Plugin glade file
 anjuta_gladedir = $(anjuta_glade_dir)
 anjuta_glade_DATA = anjuta-gdb.glade
+
+anjuta_datadir = $(anjuta_data_dir)
+anjuta_data_DATA = gdb.init
 
 plugin_pixmapsdir = $(anjuta_image_dir)
 plugin_pixmaps_DATA = \
@@ -32,36 +35,10 @@ libanjuta_gdb_la_SOURCES = \
 	gdbmi.h \
 	debugger.c \
 	debugger.h \
-	utilities.c \
-	utilities.h \
 	plugin.c \
 	plugin.h \
-	actions.c \
-	actions.h \
-	info.c \
-	info.h \
-	breakpoints.c \
-	breakpoints.h \
-	watch.c \
-	watch_cbs.c \
-	watch_cbs.h \
-	watch_gui.c \
-	watch_gui.h \
-	watch.h \
-	locals.c \
-	locals.h \
-	debug_tree.c \
-	debug_tree.h \
-	memory.c \
-	memory.h \
-	stack_trace.c \
-	stack_trace.h \
-	registers.c \
-	registers.h \
-	sharedlib.c \
-	sharedlib.h \
-	signals.c \
-	signals.h
+	utilities.c \
+	utilities.h
 
 noinst_PROGRAMS = gdbmi-test
 gdbmi_test_SOURCES = gdbmi-test.c
@@ -72,7 +49,8 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(anjuta_plugin_DATA) \
 	$(gdb_ui_DATA) \
-	$(anjuta_glade_DATA)
+	$(anjuta_glade_DATA) \
+	$(anjuta_data_DATA)
 
 SUBDIRS = \
 	images 

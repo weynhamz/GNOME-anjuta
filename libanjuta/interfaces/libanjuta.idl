@@ -2193,70 +2193,230 @@ interface IAnjutaWizard
 	void activate();
 }
 
-interface IAnjutaDebuggerManager
+interface IAnjutaDebugManager
 {
-
-	/**
-	* ianjuta_debugger_manager_is_active:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean is_active ();
-	
-	/**
-	* ianjuta_debugger_manager_is_busy:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean is_busy ();
-	
-	/**
-	* ianjuta_debugger_manager_start:
-	* @obj: Self
-	* @prog_uri: fixme
-	* @source_search_directories: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*/
-	void start (const gchar *prog_uri, const GList *source_search_directories);
-	
-	/**
-	* ianjuta_debugger_manager_stop:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean stop ();
 }
 
 interface IAnjutaDebugger
 {
-	// Signals
-	
+	#include "ianjuta-debug-manager.h"
+	#include "ianjuta-message-view.h"
+	#include <sys/types.h>
+
+	/* Types */
+	enum Error
+	{
+		OK              =  0,
+		NOT_READY       = -1,
+		NOT_RUNNING     = -2,
+		NOT_STOPPED     = -3,
+		NOT_LOADED      = -4,
+		NOT_STARTED     = -5,
+		NOT_CONNECTED   = -6,
+		NOT_IMPLEMENTED = -7
+	}
+
+	enum Data
+	{
+		INFORMATION,
+		BREAKPOINT,
+		FRAME,
+		VARIABLE,
+		REGISTER
+	}
+
+	enum OutputType
+	{
+		OUTPUT,
+		WARNING_OUTPUT,
+		ERROR_OUTPUT,
+		INFO_OUTPUT
+	}
+
+	enum Boolean
+	{
+		UNDEFINED = 0,
+		DEFINED = 1,
+		FALSE = 1,
+		BOOLEAN = 2,
+		TRUE = 3
+	}	
+
+	enum Status
+	{
+		BUSY,
+		STOPPED,
+		STARTED,
+		PROGRAM_LOADED,
+		PROGRAM_RUNNING,
+		PROGRAM_STOPPED
+	}
+
+	enum BreakpointType
+	{
+		BREAK_ON_LINE,
+		BREAK_ON_ADDRESS,
+		BREAK_ON_FUNCTION
+	}
+
+	struct Breakpoint
+	{
+		BreakpointType type;
+		guint id;
+		const gchar *file;
+		guint line;
+		const gchar *function;
+		guint address;
+		Boolean enable;
+		guint ignore;
+		guint times;
+		const gchar *condition;
+		gboolean keep;
+	}
+
+	struct Register
+	{
+		guint num;
+		const gchar *name;
+		const gchar *value;
+	}
+
+	struct Frame
+	{
+		guint level;
+		const gchar *args;
+		const gchar *file;
+		guint line;
+		const gchar *function;
+		guint address;
+	}
+
+	/* Call back functions */
+	typedef void (*Func) (const gpointer data, gpointer user_data);
+	typedef void (*GListFunc) (const GList *list, gpointer user_data);
+	typedef void (*GCharFunc) (const gchar *value, gpointer user_data);
+	typedef void (*BreakpointFunc) (const Breakpoint *breakpoint, gpointer user_data);
+	typedef void (*OutputFunc) (OutputType type, const gchar *output, gpointer user_data);
+
+	/* Signals */
+
 	/**
-	* IAnjutaDebugger::busy:
+	* IAnjutaDebugger::status_changed:
 	* @obj: Self
-	* @busy_state: fixme
+	* @status: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
-	void ::busy (gboolean busy_state);
+	void ::status_changed (Status status);
+
+	/**
+	* IAnjutaDebugger::send:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::send ();
+
+	/**
+	* IAnjutaDebugger::debugger_started:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::debugger_started ();
+
+	/**
+	* IAnjutaDebugger::debugger_stopped:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::debugger_stopped ();
+
+	/**
+	* IAnjutaDebugger::program_loaded:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::program_loaded ();
+
+	/**
+	* IAnjutaDebugger::program_running:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::program_running ();
+
+	/**
+	* IAnjutaDebugger::program_stopped:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::program_stopped ();
+
+	/**
+	* IAnjutaDebugger::program_exited:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::program_exited ();
+
+	/**
+	* IAnjutaDebugger::sharedlib_event:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::sharedlib_event ();
+
+	/**
+	* IAnjutaDebugger::location_changed:
+	* @obj: Self
+	* @file: fixme
+	* @line: fixme
+	* @address: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::location_changed (const gchar* file, guint line, const gchar* address);	
+
+	/**
+	* IAnjutaDebugger::frame_changed:
+	* @obj: Self
+	* @frame: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::frame_changed (guint frame);	
+
+	/**
+	* IAnjutaDebugger::debugger_ready:
+	* @obj: Self
+	* @status: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::debugger_ready (Status status);
+
 	
 	/**
-	* ianjuta_debugger_is_busy:
+	* ianjuta_debugger_get_status:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
@@ -2264,27 +2424,93 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	gboolean is_busy ();
+	Status get_status ();	
 
+	
+	/**
+	* ianjuta_debugger_initialize:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error initialize (OutputFunc func, gpointer user_data);
+	
 	/**
 	* ianjuta_debugger_load:
 	* @obj: Self
-	* @prog_uri: fixme
+	* @file: fixme
+	* @mime_type: fixme
 	* @source_search_directories: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
+	*
+	* Returns: fixme
 	*/
-	void load (const gchar *prog_uri, const GList *source_search_directories);
-
+	Error load (const gchar *file, const gchar *mime_type, const GList *source_search_directories);
+	
 	/**
-	* ianjuta_debugger_run_continue:
+	* ianjuta_debugger_attach:
+	* @obj: Self
+	* @pid: fixme
+	* @source_search_directories: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error attach (pid_t pid, const GList *source_search_directories);
+	
+	/**
+	* ianjuta_debugger_start:
+	* @obj: Self
+	* @args: fixme
+	* @terminal: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error start (const gchar *args, gboolean terminal);
+	
+	/**
+	* ianjuta_debugger_unload:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
+	*
+	* Returns: fixme
 	*/
-	void run_continue ();
+	Error unload ();
+	
+	/**
+	* ianjuta_debugger_quit:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error quit ();
+
+	
+	/**
+	* ianjuta_debugger_run:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error run ();
 	
 	/**
 	* ianjuta_debugger_step_in:
@@ -2292,8 +2518,10 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
+	*
+	* Returns: fixme
 	*/
-	void step_in ();
+	Error step_in ();
 	
 	/**
 	* ianjuta_debugger_step_over:
@@ -2301,8 +2529,10 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
+	*
+	* Returns: fixme
 	*/
-	void step_over ();
+	Error step_over ();
 	
 	/**
 	* ianjuta_debugger_step_out:
@@ -2310,52 +2540,488 @@ interface IAnjutaDebugger
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
+	*
+	* Returns: fixme
 	*/
-	void step_out ();
+	Error step_out ();
 	
 	/**
-	* ianjuta_debugger_run_to_position:
+	* ianjuta_debugger_run_to:
 	* @obj: Self
 	* @uri: fixme
 	* @line: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
+	*
+	* Returns: fixme
 	*/
-	void run_to_position (const gchar *uri, gint line);
+	Error run_to (const gchar *uri, gint line);
 	
 	/**
-	* ianjuta_debugger_breakpoint_toggle:
+	* ianjuta_debugger_exit:
 	* @obj: Self
-	* @uri: fixme
-	* @line: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
+	*
+	* Returns: fixme
 	*/
-	void breakpoint_toggle (const gchar *uri, gint line);
+	Error exit ();
 	
 	/**
-	* ianjuta_debugger_breakpoint_set:
+	* ianjuta_debugger_interrupt:
 	* @obj: Self
-	* @uri: fixme
-	* @line: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
+	*
+	* Returns: fixme
 	*/
-	void breakpoint_set (const gchar *uri, gint line);
+	Error interrupt ();
+
 	
 	/**
-	* ianjuta_debugger_breakpoint_delete:
+	* ianjuta_debugger_set_breakpoint_at_line:
 	* @obj: Self
-	* @uri: fixme
+	* @file: fixme
 	* @line: fixme
+	* @func: fixme
+	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
+	*
+	* Returns: fixme
 	*/
-	void breakpoint_delete (const gchar *uri, gint line);
+	Error set_breakpoint_at_line (const gchar* file, guint line, BreakpointFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_set_breakpoint_at_address:
+	* @obj: Self
+	* @address: fixme
+	* @func: fixme
+	* @user_date: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error set_breakpoint_at_address (guint address, BreakpointFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_set_breakpoint_at_function:
+	* @obj: Self
+	* @file: fixme
+	* @function: fixme
+	* @funx: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error set_breakpoint_at_function (const gchar* file, const gchar* function, BreakpointFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_clear_breakpoint:
+	* @obj: Self
+	* @id: fixme
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error clear_breakpoint (guint id, BreakpointFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_enable_breakpoint:
+	* @obj: Self
+	* @id: fixme
+	* @enable: fixme
+	* @func: fixme
+	* @user_data: fixme	
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error enable_breakpoint (guint id, gboolean enable, BreakpointFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_ignore_breakpoint:
+	* @obj: Self
+	* @id: fixme
+	* @ignore: fixme
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error ignore_breakpoint (guint id, guint ignore, BreakpointFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_condition_breakpoint:
+	* @obj: Self
+	* @id: fixme
+	* @condition: fixme
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error condition_breakpoint (guint id, const gchar* condition, BreakpointFunc func, gpointer user_data);
+
+	
+	/**
+	* ianjuta_debugger_inspect:
+	* @obj: Self
+	* @name: fixme
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error inspect (const gchar* name, GCharFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_evaluate:
+	* @obj: Self
+	* @name: fixme
+	* @value: fixme
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error evaluate (const gchar* name, const gchar* value, GCharFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_print:
+	* @obj: Self
+	* @variable: fixme
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error print (const gchar *variable, GCharFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_info_local:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error list_local (GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_info_signal:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error info_signal (GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_info_sharedlib:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error info_sharedlib (GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_handle_signal:
+	* @obj: Self
+	* @name: fixme
+	* @stop: fixme
+	* @print: fixme
+	* @ignore: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error handle_signal (const gchar *name, gboolean stop, gboolean print, gboolean ignore);
+	
+	/**
+	* ianjuta_debugger_info_frame:
+	* @obj: Self
+	* @frame: fixme
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error info_frame (guint frame, GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_info_args:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error info_args (GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_info_target:
+	* @obj: Self
+	* @funx: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error info_target (GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_info_program:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error info_program (GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_info_udot:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error info_udot (GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_info_threads:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error info_threads (GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_info_variables:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error info_variables (GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_list_frame:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error list_frame (GListFunc func, gpointer user_data);
+	
+	/**
+	* ianjuta_debugger_set_frame:
+	* @obj: Self
+	* @frame: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error set_frame (guint frame);
+
+	
+	/**
+	* ianjuta_debugger_list_register:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error list_register (GListFunc func, gpointer user_data);
+
+	
+	/**
+	* ianjuta_debugger_inspect_memory:
+	* @obj: Self
+	* @address: fixme
+	* @length: fixme
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error inspect_memory (const gchar* address, guint length, GListFunc func, gpointer user_data);
+
+	
+	/**
+	* ianjuta_debugger_send_command:
+	* @obj: Self
+	* @command: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	Error send_command (const gchar *command);
+
+	
+	/**
+	* ianjuta_debugger_enable_log:
+	* @obj: Self
+	* @log: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	void enable_log (IAnjutaMessageView *log);
+
+	/**
+	* ianjuta_debugger_disable_log:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	void disable_log ();
+}
+
+interface IAnjutaCpuDebugger
+{
+	#include "ianjuta-debug-manager.h"
+	#include "ianjuta-debugger.h"
+	#include "ianjuta-message-view.h"
+	#include <sys/types.h>
+
+	/* Types */
+	struct Register
+	{
+		guint num;
+		const gchar *name;
+		const gchar *value;
+	}
+
+	/* Call back functions */
+	typedef void (*GListFunc) (const GList *list, gpointer user_data);
+
+	/**
+	* ianjuta_debugger_list_register:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	IAnjutaDebuggerError list_register (GListFunc func, gpointer user_data);
+
+	/**
+	* ianjuta_debugger_update_register:
+	* @obj: Self
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	IAnjutaDebuggerError update_register (GListFunc func, gpointer user_data);
+
+	/**
+	* ianjuta_debugger_write_register:
+	* @obj: Self
+	* @value: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	IAnjutaDebuggerError write_register (Register *value);
 }
 
 interface IAnjutaVcs

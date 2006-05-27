@@ -1,7 +1,6 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    plugin.h
-    Copyright (C) 2000 Naba Kumar
+    breakpoints.h
+    Copyright (C) 2000  Naba Kumar <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,22 +17,28 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef __PLUGIN_H__
-#define __PLUGIN_H__
+#ifndef _BREAKPOINTS_DBASE_H_
+#define _BREAKPOINTS_DBASE_H_
 
-
+#include <glade/glade.h>
+#include <stdio.h>
 #include <libanjuta/anjuta-plugin.h>
-#include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-debugger.h>
 
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.glade"
+G_BEGIN_DECLS
 
-typedef struct _DebugManagerPlugin DebugManagerPlugin;
-typedef struct _DebugManagerPluginClass DebugManagerPluginClass;
+typedef struct _BreakpointsDBase BreakpointsDBase;
 
-enum {
-ACTION_GROUP_DEFAULT = 0,
-ACTION_GROUP_EXECUTE = 1,
-LAST_ACTION_GROUP };
+BreakpointsDBase *breakpoints_dbase_new (AnjutaPlugin *plugin);
+void breakpoints_dbase_destroy (BreakpointsDBase * bd);
 
+void breakpoints_dbase_connect (BreakpointsDBase *bd, IAnjutaDebugger *debugger);
+void breakpoints_dbase_disconnect (BreakpointsDBase *bd);
+
+void breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te);
+void breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te);
+
+G_END_DECLS
+											
 #endif

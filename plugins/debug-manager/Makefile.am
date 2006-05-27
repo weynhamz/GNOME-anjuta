@@ -31,10 +31,32 @@ libanjuta_debug_manager_la_LIBADD = \
 libanjuta_debug_manager_la_SOURCES = \
 	plugin.c \
 	plugin.h \
-	attach_process.c \
-	attach_process.h \
+	start.c \
+	start.h \
 	utilities.c \
-	utilities.h
+	utilities.h \
+	breakpoints.c \
+	breakpoints.h \
+	watch.c \
+	watch.h \
+	debug_tree.c \
+	debug_tree.h \
+	locals.c \
+	locals.h \
+	stack_trace.c \
+	stack_trace.h \
+	signals.c \
+	signals.h \
+	sharedlib.c \
+	sharedlib.h \
+	registers.c \
+	registers.h \
+	memory.c \
+	memory.h \
+	info.c \
+	info.h \
+	debugger.c \
+	debugger.h
 
 EXTRA_DIST = \
 	$(plugin_pixmaps_DATA) \

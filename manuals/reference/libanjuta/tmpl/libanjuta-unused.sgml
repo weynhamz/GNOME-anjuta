@@ -2282,7 +2282,46 @@ Properties
 @obj: 
 @err: 
 
+<!-- ##### FUNCTION ianjuta_debugger_breakpoint_delete ##### -->
+<para>
+
+</para>
+
+@obj: 
+@uri: 
+@line: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_debugger_breakpoint_set ##### -->
+<para>
+
+</para>
+
+@obj: 
+@uri: 
+@line: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_debugger_breakpoint_toggle ##### -->
+<para>
+
+</para>
+
+@obj: 
+@uri: 
+@line: 
+@err: 
+
 <!-- ##### FUNCTION ianjuta_debugger_is_active ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_debugger_is_busy ##### -->
 <para>
 
 </para>
@@ -2327,13 +2366,26 @@ Properties
 @line: 
 @err: 
 
-<!-- ##### FUNCTION ianjuta_debugger_start ##### -->
+<!-- ##### FUNCTION ianjuta_debugger_run_continue ##### -->
 <para>
 
 </para>
 
 @obj: 
+@args: 
+@terminal: 
+@err: 
+@Returns: 
 @prog: 
+
+<!-- ##### FUNCTION ianjuta_debugger_run_to_position ##### -->
+<para>
+
+</para>
+
+@obj: 
+@uri: 
+@line: 
 @err: 
 
 <!-- ##### FUNCTION ianjuta_debugger_toggle_breakpoint ##### -->

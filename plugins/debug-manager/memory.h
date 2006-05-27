@@ -26,13 +26,16 @@
 
 G_BEGIN_DECLS
 
+#include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-debugger.h>
+
 #include <glade/glade.h>
 #include <gtk/gtkwidget.h>
 #include <gtk/gtktextbuffer.h>
 
 typedef struct _MemApp
 {
-	Debugger *debugger;
+	IAnjutaDebugger *debugger;
 	GladeXML *xml;
 	GtkWidget *dialog;
 	GtkWidget *adr_entry;
@@ -52,7 +55,7 @@ typedef struct _MemApp
 	gboolean new_window;
 } MemApp;
 
-GtkWidget* memory_info_new (Debugger *debugger, GtkWindow *parent, guchar *ptr);
+GtkWidget* memory_info_new (IAnjutaDebugger *debugger, GtkWindow *parent, guchar *ptr);
 gchar *memory_info_address_to_decimal (gchar *hex_address);
 
 G_END_DECLS

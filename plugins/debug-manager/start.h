@@ -1,5 +1,5 @@
 /*
-    signals.h
+    start.h
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -17,47 +17,20 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef _SIGNALS_H_
-#define _SIGNALS_H_
+#ifndef _START_H_
+#define _START_H_
 
-#include <glib.h>
-#include <gtk/gtkwidget.h>
-#include "debugger.h"
+#include "plugin.h"
 
-typedef struct _SignalsGui SignalsGui;
-typedef struct _Signals Signals;
+#include <libanjuta/interfaces/ianjuta-debugger.h>
 
-struct _SignalsGui
-{
-    GtkWidget*   window;
-    GtkWidget*   clist;
-    GtkWidget*   menu;
-    GtkWidget*   menu_modify;
-    GtkWidget*   menu_signal;
-    GtkWidget*   menu_update;
-};
+typedef struct _DmaStart DmaStart;
 
-struct _Signals
-{
-	SignalsGui  widgets;
-	Debugger *debugger;
-	gboolean is_showing;
-	gint win_pos_x, win_pos_y, win_width, win_height;
-	gint	idx;
-	gchar	*signal;
-	gboolean stop;
-	gboolean print;
-	gboolean pass;
-};
+DmaStart *dma_start_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger);
+void dma_start_free (DmaStart *this);
 
-Signals* signals_new (Debugger *debugger);
-
-void signals_clear (Signals *ew);
-
-void signals_destroy (Signals*ew);
-
-void signals_show (Signals *ew);
-
-void signals_hide (Signals *ew);
+void dma_attach_to_process (DmaStart *this);
+void dma_run_target (DmaStart *this);
+gboolean dma_set_parameters (DmaStart *this);
 
 #endif

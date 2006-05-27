@@ -89,7 +89,7 @@ gdb_util_get_str_cod (const gchar *szIn)
 }
 
 gboolean
-gdb_util_parse_error_line (const gchar * line, gchar ** filename, int *lineno)
+gdb_util_parse_error_line (const gchar * line, gchar ** filename, guint *lineno)
 {
 	gint i = 0;
 	gint j = 0;
@@ -108,7 +108,7 @@ gdb_util_parse_error_line (const gchar * line, gchar ** filename, int *lineno)
 		j = i;
 		while (isdigit (line[i++])) ;
 		dummy = g_strndup (&line[j], i - j - 1);
-		*lineno = atoi (dummy);
+		*lineno = strtoul (dummy, NULL, 10);
 		if (dummy)
 			g_free (dummy);
 		dummy = g_strndup (line, j - 1);
@@ -145,7 +145,7 @@ gdb_util_parse_error_line (const gchar * line, gchar ** filename, int *lineno)
 		j = i;
 		while (isdigit (line[i++])) ;
 		dummy = g_strndup (&line[j], i - j - 1);
-		*lineno = atoi (dummy);
+		*lineno = strtoul (dummy, NULL, 10);
 		if (dummy)
 			g_free (dummy);
 		dummy = g_strndup (&line[k], j - k - 1);
@@ -323,6 +323,7 @@ gdb_util_check_gnome_terminal (void)
 
 /* Debugger message manager management */
 
+#if 0
 static const gchar * MESSAGE_VIEW_TITLE = N_("Debug");
 
 static void
@@ -419,3 +420,4 @@ gdb_util_clear_messages (AnjutaPlugin *plugin)
 	message_view = gdb_util_get_message_view (plugin);
 	ianjuta_message_view_clear (message_view, NULL);
 }
+#endif

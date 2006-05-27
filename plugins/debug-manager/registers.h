@@ -1,5 +1,5 @@
 /*
-    stack_trace.h
+    cpu_registers.h
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -17,21 +17,18 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef _STACK_TRACE_H_
-#define _STACK_TRACE_H_
+#ifndef _REGISTERS_H_
+#define _REGISTERS_H_
 
-#include <glib.h>
-#include <gtk/gtkwidget.h>
+#include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-debugger.h>
+#include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
 
-typedef struct _StackTrace StackTrace;
+#include <gnome.h>
 
-StackTrace *stack_trace_new (Debugger *debugger);
+typedef struct _CpuRegisters CpuRegisters;
 
-/* Getters */
-GtkWidget *stack_trace_get_main_widget (StackTrace *st);
-
-void stack_trace_clear (StackTrace *st);
-void stack_trace_set_frame (StackTrace *st, gint frame);
-void stack_trace_destroy (StackTrace *st);
+CpuRegisters* cpu_registers_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger);
+void cpu_registers_free(CpuRegisters *this);
 
 #endif

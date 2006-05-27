@@ -337,7 +337,7 @@ gint gdb_util_check_gnome_terminal (void);
  * Don't forget to g_free (*filename)
  ********************************************************/
 gboolean gdb_util_parse_error_line(const gchar *line, gchar **filename,
-								   int *lineno);
+								   guint *lineno);
 
 /*******************************************************************/
 /* In this case only GList must be freed and not the data          */

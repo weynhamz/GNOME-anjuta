@@ -1,62 +1,32 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/*
+    plugin.c
+    Copyright (C) 2005 Sebastien Granjoux
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
+
 #ifndef GDB_PLUGIN_H
 #define GDB_PLUGIN_H
 
-#include <libanjuta/anjuta-plugin.h>
-#include <libanjuta/anjuta-launcher.h>
-#include <libanjuta/interfaces/ianjuta-message-view.h>
-
-#include "debugger.h"
-#include "watch.h"
-#include "locals.h"
-#include "stack_trace.h"
-#include "registers.h"
-#include "sharedlib.h"
-#include "signals.h"
-#include "breakpoints.h"
-
-/* TODO: remove UI from here */
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-gdb.glade"
+#include <glib.h>
 
 G_BEGIN_DECLS
 
 typedef struct _GdbPlugin GdbPlugin;
 typedef struct _GdbPluginClass GdbPluginClass;
-
-struct _GdbPlugin
-{
-	AnjutaPlugin parent;
-	
-	gint uiid;
-	
-	gint merge_id;
-	GtkActionGroup *action_group;
-	guint editor_watch_id;
-	guint project_watch_id;
-	
-	GObject *current_editor;
-	
-	gchar *project_root_uri;
-	IAnjutaMessageView *mesg_view;
-	
-	/* Debugger */
-	Debugger *debugger;
-	
-	/* Debugger components */
-	ExprWatch *watch;
-	Locals *locals;
-	StackTrace *stack;
-	CpuRegisters *registers;
-	Sharedlibs *sharedlibs;
-	Signals *signals;
-	BreakpointsDBase *breakpoints;
-};
-
-struct _GdbPluginClass
-{
-	AnjutaPluginClass parent_class;
-};
-
-void gdb_plugin_update_ui (GdbPlugin *plugin);
 
 G_END_DECLS
 

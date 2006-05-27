@@ -44,6 +44,7 @@ void gdbmi_value_free (GDBMIValue *val);
 
 const gchar* gdbmi_value_get_name (const GDBMIValue *val);
 void gdbmi_value_set_name (GDBMIValue *val, const gchar *name);
+GDBMIDataType gdbmi_value_get_type (const GDBMIValue* val);
 gint gdbmi_value_get_size (const GDBMIValue* val);
 void gdbmi_value_foreach (const GDBMIValue* val, GFunc func, gpointer user_data);
 

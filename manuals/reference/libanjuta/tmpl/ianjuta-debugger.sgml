@@ -36,17 +36,59 @@ ianjuta-debugger
 </para>
 
 @g_iface: 
-@busy: 
-@breakpoint_delete: 
-@breakpoint_set: 
-@breakpoint_toggle: 
-@is_busy: 
+@debugger_ready: 
+@debugger_started: 
+@debugger_stopped: 
+@location_changed: 
+@program_exited: 
+@program_loaded: 
+@program_running: 
+@program_stopped: 
+@send: 
+@sharedlib_event: 
+@status_changed: 
+@attach: 
+@clear_breakpoint: 
+@condition_breakpoint: 
+@disable_log: 
+@enable_breakpoint: 
+@enable_log: 
+@evaluate: 
+@exit: 
+@get_status: 
+@handle_signal: 
+@ignore_breakpoint: 
+@info_args: 
+@info_frame: 
+@info_local: 
+@info_program: 
+@info_sharedlib: 
+@info_signal: 
+@info_target: 
+@info_threads: 
+@info_udot: 
+@info_variables: 
+@initialize: 
+@inspect: 
+@inspect_memory: 
+@interrupt: 
+@list_frame: 
+@list_register: 
 @load: 
-@run_continue: 
-@run_to_position: 
+@print: 
+@quit: 
+@run: 
+@run_to: 
+@send_command: 
+@set_breakpoint_at_address: 
+@set_breakpoint_at_function: 
+@set_breakpoint_at_line: 
+@set_frame: 
+@start: 
 @step_in: 
 @step_out: 
 @step_over: 
+@unload: 
 
 <!-- ##### FUNCTION ianjuta_debugger_error_quark ##### -->
 <para>
@@ -56,78 +98,19 @@ ianjuta-debugger
 @Returns: 
 
 
-<!-- ##### FUNCTION ianjuta_debugger_breakpoint_delete ##### -->
-<para>
-
-</para>
-
-@obj: 
-@uri: 
-@line: 
-@err: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_breakpoint_set ##### -->
-<para>
-
-</para>
-
-@obj: 
-@uri: 
-@line: 
-@err: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_breakpoint_toggle ##### -->
-<para>
-
-</para>
-
-@obj: 
-@uri: 
-@line: 
-@err: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_is_busy ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-@Returns: 
-
-
 <!-- ##### FUNCTION ianjuta_debugger_load ##### -->
 <para>
 
 </para>
 
 @obj: 
-@prog_uri: 
+@file: 
+@mime_type: 
 @source_search_directories: 
 @err: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_run_continue ##### -->
-<para>
-
-</para>
-
-@obj: 
-@err: 
-
-
-<!-- ##### FUNCTION ianjuta_debugger_run_to_position ##### -->
-<para>
-
-</para>
-
-@obj: 
-@uri: 
-@line: 
-@err: 
+@Returns: 
+<!-- # Unused Parameters # -->
+@prog_uri: 
 
 
 <!-- ##### FUNCTION ianjuta_debugger_step_in ##### -->
@@ -137,6 +120,7 @@ ianjuta-debugger
 
 @obj: 
 @err: 
+@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_debugger_step_out ##### -->
@@ -146,6 +130,7 @@ ianjuta-debugger
 
 @obj: 
 @err: 
+@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_debugger_step_over ##### -->
@@ -155,5 +140,6 @@ ianjuta-debugger
 
 @obj: 
 @err: 
+@Returns: 
 
 

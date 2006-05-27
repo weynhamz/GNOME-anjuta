@@ -1,5 +1,5 @@
 /*
-    cpu_registers.h
+    signals.h
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -17,47 +17,50 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef _REGISTERS_H_
-#define _REGISTERS_H_
+#ifndef _SIGNALS_H_
+#define _SIGNALS_H_
 
-#include <gnome.h>
-#include "debugger.h"
+#include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-debugger.h>
 
-typedef struct _CpuRegistersGui CpuRegistersGui;
-typedef struct _CpuRegisters CpuRegisters;
+#include <gtk/gtkwidget.h>
 
-struct _CpuRegistersGui
+#include <glib.h>
+
+typedef struct _SignalsGui SignalsGui;
+typedef struct _Signals Signals;
+
+struct _SignalsGui
 {
     GtkWidget*   window;
     GtkWidget*   clist;
     GtkWidget*   menu;
     GtkWidget*   menu_modify;
+    GtkWidget*   menu_signal;
     GtkWidget*   menu_update;
 };
 
-struct _CpuRegisters
+struct _Signals
 {
-	Debugger *debugger;
-	CpuRegistersGui  widgets;
-	gint                      current_index;
-	gboolean             is_showing;
-	gint             win_pos_x, win_pos_y, win_width, win_height;
+	SignalsGui  widgets;
+	IAnjutaDebugger *debugger;
+	gboolean is_showing;
+	gint win_pos_x, win_pos_y, win_width, win_height;
+	gint	idx;
+	gchar	*signal;
+	gboolean stop;
+	gboolean print;
+	gboolean pass;
 };
 
-CpuRegisters* cpu_registers_new(Debugger *debugger);
+Signals* signals_new (IAnjutaDebugger *debugger);
 
-GtkWidget* create_cpu_registers_modify_dialog(void);
+void signals_clear (Signals *ew);
 
-void cpu_registers_clear(CpuRegisters *ew);
+void signals_free (Signals*ew);
 
-void cpu_registers_destroy(CpuRegisters*ew);
+void signals_show (Signals *ew);
 
-gboolean cpu_registers_save_yourself(CpuRegisters* ew, FILE* stream);
-
-void cpu_registers_show(CpuRegisters * ew);
-
-void cpu_registers_hide(CpuRegisters * ew);
-
-void registers_update_controls(CpuRegisters* ew);
+void signals_hide (Signals *ew);
 
 #endif

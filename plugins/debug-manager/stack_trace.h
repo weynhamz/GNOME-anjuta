@@ -1,5 +1,5 @@
 /*
-    locals.h
+    stack_trace.h
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -17,16 +17,23 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef _LOCALS_H_
-#define _LOCALS_H_
+#ifndef _STACK_TRACE_H_
+#define _STACK_TRACE_H_
+
+#include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-debugger.h>
 
 #include <gtk/gtkwidget.h>
-#include "debugger.h"
 
-typedef struct _Locals Locals;
+#include <glib.h>
 
-Locals *locals_create (Debugger *debugger);
-GtkWidget *locals_get_main_widget (Locals *l);
-void locals_destroy (Locals *l);
+typedef struct _StackTrace StackTrace;
+
+StackTrace *stack_trace_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin);
+void stack_trace_free (StackTrace *st);
+void stack_trace_connect (StackTrace *st, IAnjutaDebugger *debugger);
+
+void stack_trace_update (StackTrace *st);
+void stack_trace_clear (StackTrace *st);
 
 #endif

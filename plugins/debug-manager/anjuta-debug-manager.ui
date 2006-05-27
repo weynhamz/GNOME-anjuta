@@ -3,20 +3,75 @@
 	<menubar name="MenuMain">
 		<placeholder name="PlaceHolderDebugMenus">
 			<menu name="MenuDebug" action="ActionMenuDebug">
-					<menuitem name="StartDebugger" action="ActionDebuggerStart" />
-					<menuitem name="Stop" action="ActionDebuggerStop" />
-					<separator name="separator1"/>
-					<menuitem name="Load" action="ActionDebuggerLoad" />
-					<menuitem name="AttachToProcess" action="ActionDebuggerAttachToProcess" />
-					<separator name="separator2"/>
-					<menu name="Execution" action="ActionMenuExecution">
-						<menuitem name="Run" action="ActionDebuggerRunContinue" />
-						<menuitem name="RunToPosition" action="ActionDebuggerRunToPosition" />
-						<menuitem name="StepIn" action="ActionDebuggerStepIn" />
-						<menuitem name="StepOver" action="ActionDebuggerStepOver" />
-						<menuitem name="StepOut" action="ActionDebuggerStepOut" />
-					</menu>
+				<menu name="Start" action="ActionMenuStart">
+					<menuitem name="RunTarget" action="ActionDebuggerRunTarget" />
+					<menuitem name="AttachProcess" action="ActionDebuggerAttachProcess" />
+				</menu>
+				<menuitem name="Stop" action="ActionDebuggerStop" />
+				<menuitem name="Parameter" action="ActionDebuggerParameter" />
+				<separator name="separator3"/>
+
+				<menuitem name="Run" action="ActionDebuggerRunContinue" />
+				<menuitem name="RunToPosition" action="ActionDebuggerRunToPosition" />
+				<menuitem name="StepIn" action="ActionDebuggerStepIn" />
+				<menuitem name="StepOver" action="ActionDebuggerStepOver" />
+				<menuitem name="StepOut" action="ActionDebuggerStepOut" />
+				<menuitem name="PauseProgram" action="ActionGdbPauseProgram" />
+				<separator name="separator4"/>
+				<menuitem name="SetBreakpoint" action="ActionGdbSetBreakpoint" />
+				<menuitem name="DisableAllBreakpoints" action="ActionGdbDisableAllBreakpoints" />
+				<menuitem name="ClearAllBreakpoints" action="ActionGdbClearAllBreakpoints" />
+				<separator name="separator7"/>
+				<menuitem name="AddWatch" action="ActionDmaAddWatch" />
+				<menuitem name="Inspect" action="ActionDmaInspect" />
+				<separator name="separator8"/>
+				<menu name="Info" action="ActionMenuGdbInformation">
+					<menuitem name="Registers" action="ActionGdbViewRegisters" />
+					<menuitem name="Sharedlibs" action="ActionGdbViewSharedlibs" />
+					<menuitem name="Signals" action="ActionGdbViewSignals" />
+					<menuitem name="SignalProgram" action="ActionGdbSignalProgram" />
+					<menuitem name="Memory" action="ActionGdbExamineMemory" />
+					<separator name="separator4"/>
+					<menuitem name="TargetFiles" action="ActionGdbInfoTargetFiles"/>
+					<menuitem name="Program" action="ActionGdbInfoProgram" />
+					<menuitem name="KernelUserStruct" action="ActionGdbInfoKernelUserStruct" />
+					<menuitem name="Threads" action="ActionGdbInfoThreads" />
+					<menuitem name="GlobalVariables" action="ActionGdbInfoGlobalVariables" />
+					<menuitem name="CurrentFrame" action="ActionGdbInfoCurrentFrame" />
+					<menuitem name="FunctionArgs" action="ActionGdbInfoFunctionArgs" />
+				</menu>
+				<separator name="separator6"/>
+				<menuitem name="GdbCommand" action="ActionGdbCommand" />
+
 			</menu>
 		</placeholder>
 	</menubar>
+	<popup name="PopupDocumentManager">
+		<separator name="separator1"/>
+		<menuitem name="ToggleBreakpoint" action="ActionGdbToggleBreakpoint" />
+	</popup>
+	<popup name="PopupBreakpoint">
+		<menuitem name="SetBreakpoint" action="ActionGdbSetBreakpoint" />
+		<menuitem name="ClearBreakpoint" action="ActionGdbClearBreakpoint" />
+		<menuitem name="JumpToBreakpoint" action="ActionGdbJumpToBreakpoint" />
+		<menuitem name="EditBreakpoint" action="ActionGdbEditBreakpoint" />
+		<menuitem name="EnableDisableBreakpoint" action="ActionGdbEnableDisableBreakpoint" />
+		<separator name="separator1"/>
+		<menuitem name="DisableAllBreakpoints" action="ActionGdbDisableAllBreakpoints" />
+		<menuitem name="ClearAllBreakpoints" action="ActionGdbClearAllBreakpoints" />
+	</popup>
+	<popup name="PopupStack">
+		<menuitem name="SetCurrentFrame" action="ActionDmaSetCurrentFrame" />
+		<menuitem name="JumpToFrame" action="ActionDmaJumpToFrame" />
+	</popup>
+	<popup name="PopupWatch">
+		<menuitem name="AddWatch" action="ActionDmaAddWatch" />
+		<menuitem name="RemoveWatch" action="ActionDmaRemoveWatch" />
+		<menuitem name="UpdateWatch" action="ActionDmaUpdateWatch" />
+		<menuitem name="AutoUpdateWatch" action="ActionDmaAutoUpdateWatch" />
+		<menuitem name="EditWatch" action="ActionDmaEditWatch" />
+		<separator name="separator1"/>
+		<menuitem name="UpdateAllWatch" action="ActionDmaUpdateAllWatch" />
+		<menuitem name="RemoveAllWatch" action="ActionDmaRemoveAllWatch" />
+	</popup>
 </ui>

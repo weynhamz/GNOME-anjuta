@@ -32,7 +32,6 @@
 #include <libgnome/gnome-i18n.h>
 #include <libanjuta/anjuta-utils.h>
 
-#include "debugger.h"
 #include "memory.h"
 
 #define ADR_ENTRY                "adr_entry"
@@ -88,7 +87,7 @@ static void on_button_quit_clicked (GtkButton *button, MemApp *memapp);
 
 
 GtkWidget*
-memory_info_new (Debugger *debugger, GtkWindow *parent, guchar *ptr)
+memory_info_new (IAnjutaDebugger *debugger, GtkWindow *parent, guchar *ptr)
 {
 	MemApp *memapp;
 	
@@ -341,8 +340,7 @@ address_is_accessible(gchar* ptr)
 
 
 static void
-debugger_memory_cbs (Debugger *debugger, const GDBMIValue *mi_results,
-					 const GList* list, gpointer user_data)
+debugger_memory_cbs (const GList* list, gpointer user_data)
 {
 	gchar *address = "";
 	gchar *data = "";
@@ -362,7 +360,7 @@ debugger_memory_cbs (Debugger *debugger, const GDBMIValue *mi_results,
 
 	if (memapp->new_window)
 	{
-		win_mem = memory_info_new (debugger, NULL, memapp->adr);
+		win_mem = memory_info_new (memapp->debugger, NULL, memapp->adr);
 		gtk_widget_show (win_mem);
 	}
 	else
@@ -419,21 +417,7 @@ debugger_memory_cbs (Debugger *debugger, const GDBMIValue *mi_results,
 static gboolean
 inspect_memory (gchar *adr, MemApp * memapp)
 {
-	gchar *cmd;
-	gchar *address;
-	gchar *nb_car;
-	
-	address =g_strdup_printf ("%ld", (gulong) adr);
-	nb_car = g_strdup_printf ("%d", (gint) (MEM_NB_LINES * 16 - ((gulong)adr & 0xF)) );
-	cmd = g_strconcat ("x", "/", nb_car, "bd ", address, " ", NULL);
-	memapp->adr = adr;
-	
-	debugger_command (memapp->debugger, cmd, FALSE,
-					  debugger_memory_cbs, memapp);
-	
-	g_free (cmd);
-	g_free (address);
-	g_free (nb_car);
+	ianjuta_debugger_inspect_memory (memapp->debugger, adr, (gint) (MEM_NB_LINES * 16 - ((gulong)adr & 0xF)), debugger_memory_cbs, memapp, NULL); 
 
 	return FALSE;
 }

@@ -142,7 +142,7 @@ gdb_info_show_file (GtkWindow *parent, const gchar *path,
 
 	g_return_val_if_fail (path != NULL, FALSE);
 
-	if (!g_file_exists (path))
+	if (!g_file_test (path, G_FILE_TEST_EXISTS | G_FILE_TEST_IS_DIR))
 		return FALSE;
 
 	if ((f = fopen (path, "r")) == NULL)

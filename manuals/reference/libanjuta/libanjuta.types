@@ -1,8 +1,8 @@
 #include <libanjuta/libanjuta.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-buildable.h>
+#include <libanjuta/interfaces/ianjuta-debug-manager.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
-#include <libanjuta/interfaces/ianjuta-debugger-manager.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
@@ -46,8 +46,8 @@ anjuta_launcher_get_type
 anjuta_plugin_get_type
 ianjuta_bookmark_get_type
 ianjuta_buildable_get_type
+ianjuta_debug_manager_get_type
 ianjuta_debugger_get_type
-ianjuta_debugger_manager_get_type
 ianjuta_document_manager_get_type
 ianjuta_editor_assist_get_type
 ianjuta_editor_convert_get_type

@@ -29,7 +29,6 @@
 
 #include <libanjuta/resources.h>
 
-#include "debugger.h"
 #include "utilities.h"
 #include "signals.h"
 
@@ -40,16 +39,15 @@ signals_update_controls (Signals * ew)
 {
 	gboolean R, Pr;
 	
-	R = debugger_is_ready (ew->debugger);
-	Pr = debugger_program_is_running (ew->debugger);
+	R = ianjuta_debugger_get_status (ew->debugger, NULL) == IANJUTA_DEBUGGER_OK;
+	Pr = ianjuta_debugger_get_status (ew->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_RUNNING;
 	gtk_widget_set_sensitive (ew->widgets.menu_signal, Pr);
 	gtk_widget_set_sensitive (ew->widgets.menu_modify, R);
 	gtk_widget_set_sensitive (ew->widgets.menu_update, R);
 }
 
 static void
-signals_update (Debugger *debugger, const GDBMIValue *mi_results,
-				const GList * lines, gpointer data)
+signals_update (const GList * lines, gpointer data)
 {
 	Signals *sg;
 	gint j, count;
@@ -142,23 +140,23 @@ on_signals_modify_activate (GtkMenuItem *menuitem, gpointer user_data)
 static void
 on_signals_send_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
-	/* gchar* sig; */
+	#if 0
+	gchar* sig;
     Signals *s = (Signals*)user_data;
 	
 	if (debugger_program_is_running (s->debugger) == FALSE) return;
-	/*
+	
 	signals_show (s);
 	gtk_clist_get_text(GTK_CLIST (s->widgets.clist), s->idx, 0, &sig);
 	debugger_signal(sig, TRUE);
-	*/
+	#endif
 }
 
 static void
 on_signals_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
     Signals *s = (Signals*)user_data;
-	debugger_command (s->debugger, "info signals", FALSE,
-					  signals_update, s);
+	ianjuta_debugger_info_signal (s->debugger, signals_update, s, NULL);
 }
 
 static gboolean
@@ -222,50 +220,33 @@ static void
 on_signals_set_ok_clicked              (GtkButton       *button,
                                         gpointer         user_data)
 {
-	gchar* cmd, *tmp;
 	Signals *s = (Signals*) user_data;
 
-	cmd = g_strconcat("handle ", s->signal, " ",  NULL);
-	tmp = cmd;
 	if(s->stop)
 	{
 		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 1, "Yes");
-		cmd = g_strconcat(tmp, "stop ", NULL);
 	}
 	else
 	{
 		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 1, "No");
-		cmd = g_strconcat(tmp, "nostop ", NULL);
 	}
-	g_free(tmp);
-	
-	tmp = cmd;
 	if(s->print)
 	{
 		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 2, "Yes");
-		cmd = g_strconcat(tmp, "print ", NULL);
 	}
 	else
 	{
 		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 2, "No");
-		cmd = g_strconcat(tmp, "noprint ", NULL);
 	}
-	g_free(tmp);
-	
-	tmp = cmd;
 	if(s->pass)
 	{
 		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 3, "Yes");
-		cmd = g_strconcat(tmp, "pass ", NULL);
 	}
 	else
 	{
 		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 3, "No");
-		cmd = g_strconcat(tmp, "nopass ", NULL);
 	}
-	g_free(tmp);
-	debugger_command (s->debugger, cmd, FALSE, NULL, NULL);
-	g_free(cmd);
+	ianjuta_debugger_handle_signal (s->debugger, s->signal, s->stop, s->print, s->pass, NULL);
 }
 
 static GnomeUIInfo signals_menu_uiinfo[] =
@@ -551,7 +532,7 @@ create_signals_set_dialog (Signals *s)
 }
 
 Signals *
-signals_new (Debugger *debugger)
+signals_new (IAnjutaDebugger *debugger)
 {
 	Signals *ew;
 	ew = g_malloc (sizeof (Signals));
@@ -595,8 +576,7 @@ signals_show (Signals * ew)
 										 ew->win_width, ew->win_height);
 			gtk_widget_show (ew->widgets.window);
 			ew->is_showing = TRUE;
-			debugger_command (ew->debugger, "info signals", TRUE,
-							  signals_update, ew);
+			ianjuta_debugger_info_signal (ew->debugger, signals_update, ew, NULL);
 		}
 	}
 }
@@ -618,7 +598,7 @@ signals_hide (Signals * ew)
 }
 
 void
-signals_destroy (Signals * sg)
+signals_free (Signals * sg)
 {
 	if (sg)
 	{

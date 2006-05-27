@@ -1,5 +1,5 @@
 /*
-    sharedlibs.h
+    locals.h
     Copyright (C) 2000  Kh. Naba Kumar Singh
 
     This program is free software; you can redistribute it and/or modify
@@ -17,46 +17,21 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-#ifndef _SHAREDLIBS_H_
-#define _SHAREDLIBS_H_
+#ifndef _LOCALS_H_
+#define _LOCALS_H_
 
-#include <glib.h>
+#include <libanjuta/interfaces/ianjuta-debugger.h>
+#include <libanjuta/anjuta-plugin.h>
+
 #include <gtk/gtkwidget.h>
 
-#include "debugger.h"
+typedef struct _Locals Locals;
 
-typedef struct _SharedlibsGui SharedlibsGui;
-typedef struct _Sharedlibs Sharedlibs;
+Locals *locals_new (AnjutaPlugin* plugin, IAnjutaDebugger* debugger);
+void locals_connect (Locals *l, IAnjutaDebugger *debugger);
+void locals_free (Locals *l);
 
-struct _SharedlibsGui
-{
-    GtkWidget*   window;
-    GtkWidget*   clist;
-    GtkWidget*   menu;
-    GtkWidget*   menu_update;
-};
-
-struct _Sharedlibs
-{
-	SharedlibsGui  widgets;
-	Debugger *debugger;
-	gboolean is_showing;
-	gint win_pos_x, win_pos_y, win_width, win_height;
-};
-
-Sharedlibs*
-sharedlibs_new (Debugger *debugger);
-
-void
-sharedlibs_clear (Sharedlibs *ew);
-
-void
-sharedlibs_destroy (Sharedlibs*ew);
-
-void
-sharedlibs_show (Sharedlibs * ew);
-
-void
-sharedlibs_hide (Sharedlibs * ew);
+void locals_update (Locals *l);
+void locals_clear (Locals *l);
 
 #endif

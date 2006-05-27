@@ -28,7 +28,6 @@
 
 #include <libanjuta/resources.h>
 
-#include "debugger.h"
 #include "utilities.h"
 #include "sharedlib.h"
 
@@ -55,8 +54,7 @@ on_sharedlibs_key_press_event (GtkWidget *widget, GdkEventKey *event,
 
 
 static void
-sharedlibs_update (Debugger *debugger, const GDBMIValue *mi_results,
-				   const GList *lines, gpointer data)
+sharedlibs_update (const GList *lines, gpointer data)
 {
     Sharedlibs *sl;
     gchar obj[512], from[32], to[32], read[32];
@@ -89,8 +87,7 @@ on_sharedlibs_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
 	Sharedlibs *sl = (Sharedlibs *)user_data;
 	
-	debugger_command (sl->debugger, "info sharedlibrary", FALSE,
-					  sharedlibs_update, sl);
+	ianjuta_debugger_info_sharedlib (sl->debugger, sharedlibs_update, sl, NULL);
 }
 
 static void
@@ -98,7 +95,7 @@ sharedlibs_update_controls (Sharedlibs* ew)
 {
      gboolean R;
 
-     R = debugger_is_ready (ew->debugger);
+     R = ianjuta_debugger_get_status (ew->debugger, NULL) == IANJUTA_DEBUGGER_OK;
 
      gtk_widget_set_sensitive(ew->widgets.menu_update, R);
 }
@@ -209,7 +206,7 @@ create_sharedlibs_gui (Sharedlibs *sl)
 }
 
 Sharedlibs*
-sharedlibs_new (Debugger *debugger)
+sharedlibs_new (IAnjutaDebugger *debugger)
 {
 	Sharedlibs* ew;
 	ew = g_malloc(sizeof(Sharedlibs));
@@ -252,8 +249,7 @@ sharedlibs_show (Sharedlibs* ew)
 										ew->win_width, ew->win_height);
 			gtk_widget_show(ew->widgets.window);
 			ew->is_showing = TRUE;
-			debugger_command (ew->debugger, "info sharedlibrary", TRUE,
-							  sharedlibs_update, ew);
+			ianjuta_debugger_info_sharedlib (ew->debugger, sharedlibs_update, ew, NULL);
 		}
 	}
 }
@@ -274,7 +270,7 @@ sharedlibs_hide (Sharedlibs* ew)
 }
 
 void
-sharedlibs_destroy(Sharedlibs* sg)
+sharedlibs_free(Sharedlibs* sg)
 {
 	if(sg)
 	{

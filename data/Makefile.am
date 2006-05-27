@@ -9,7 +9,6 @@ SUBDIRS = properties
 anjuta_datadir = $(anjuta_data_dir)
 
 anjuta_data_DATA = \
-	gdb.init\
 	welcome.txt
 
 EXTRA_DIST = $(anjuta_data_DATA)
