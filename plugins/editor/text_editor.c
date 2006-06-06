@@ -44,6 +44,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-comment.h>
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
+#include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -76,6 +77,11 @@
 #define TEXT_EDITOR_BREAKPOINT_ENABLED      3
 
 #define MARKER_PROP_END 0xaaaaaa /* Do not define any color with this value */
+
+/* Editor language supports */
+static GList *supported_languages = NULL;
+static GHashTable *supported_languages_name = NULL;
+static GHashTable *supported_languages_ext = NULL;
 
 /* marker fore and back colors */
 static glong marker_prop[] = 
@@ -2876,6 +2882,115 @@ igoto_iface_init(IAnjutaEditorGotoIface* iface)
 	iface->end_block = igoto_end_block;
 }
 
+static const GList*
+ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
+								   GError **err)
+{
+	if (supported_languages == NULL)
+	{
+		gchar **strv;
+		gchar **token;
+		gchar *menu_entries;
+		
+		supported_languages_name =
+			g_hash_table_new_full (g_str_hash, g_str_equal,
+								   NULL, g_free);
+		supported_languages_ext =
+			g_hash_table_new_full (g_str_hash, g_str_equal,
+								   NULL, g_free);
+		
+		menu_entries = sci_prop_get (text_editor_get_props (), "menu.language");
+		g_return_val_if_fail (menu_entries != NULL, NULL);
+		
+		strv = g_strsplit (menu_entries, "|", -1);
+		token = strv;
+		while (*token)
+		{
+			gchar *iter;
+			gchar *name, *extension;
+			GString *lang;
+			
+			lang = g_string_new ("");
+			
+			name = *token++;
+			if (!name)
+				break;
+			
+			extension = *token++;
+			if (!extension)
+				break;
+			token++;
+			
+			if (name[0] == '#')
+				continue;
+			
+			iter = name;
+			while (*iter)
+			{
+				if (*iter == '&')
+				{
+					*iter = '_';
+				}
+				else
+				{
+					g_string_append_c (lang, g_ascii_tolower (*iter));
+				}
+				iter++;
+			}
+			g_hash_table_insert (supported_languages_name, lang->str,
+								 g_strdup (name));
+			g_hash_table_insert (supported_languages_ext, lang->str,
+								 g_strconcat ("file.", extension, NULL));
+			supported_languages = g_list_prepend (supported_languages,
+												  lang->str);
+			g_string_free (lang, FALSE);
+		}
+		g_strfreev (strv);
+	}
+	return supported_languages;
+}
+
+static const gchar*
+ilanguage_get_language_name (IAnjutaEditorLanguage *ilanguage,
+							 const gchar *language, GError **err)
+{
+	if (!supported_languages_name)
+		ilanguage_get_supported_languages (ilanguage, NULL);
+	
+	return g_hash_table_lookup (supported_languages_name, language);
+}
+
+static void
+ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
+						const gchar *language, GError **err)
+{
+	if (!supported_languages_ext)
+		ilanguage_get_supported_languages (ilanguage, NULL);
+
+	text_editor_set_hilite_type (TEXT_EDITOR (ilanguage),
+								 g_hash_table_lookup (supported_languages_ext,
+													  language));
+	text_editor_hilite (TEXT_EDITOR (ilanguage), FALSE);
+	g_object_set_data_full (G_OBJECT (ilanguage), "current_language",
+							g_strdup (language), (GDestroyNotify)g_free);
+	g_signal_emit_by_name (ilanguage, "language-changed", language);
+}
+
+static const gchar*
+ilanguage_get_language (IAnjutaEditorLanguage *ilanguage, GError **err)
+{
+	return g_object_get_data (G_OBJECT (ilanguage), "current_language");
+}
+
+static void
+ilanguage_iface_init (IAnjutaEditorLanguageIface *iface)
+{
+	iface->get_supported_languages = ilanguage_get_supported_languages;
+	iface->get_language_name = ilanguage_get_language_name;
+	iface->get_language = ilanguage_get_language;
+	iface->set_language = ilanguage_set_language;
+}
+
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -2884,6 +2999,7 @@ ANJUTA_TYPE_ADD_INTERFACE(ilinemode, IANJUTA_TYPE_EDITOR_LINE_MODE);
 ANJUTA_TYPE_ADD_INTERFACE(iselection, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
 ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
+ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
 ANJUTA_TYPE_ADD_INTERFACE(iview, IANJUTA_TYPE_EDITOR_VIEW);
 ANJUTA_TYPE_ADD_INTERFACE(ifolds, IANJUTA_TYPE_EDITOR_FOLDS);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);

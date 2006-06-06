@@ -1129,6 +1129,7 @@ plugins/project-wizard/templates/xlib/po/Makefile
 plugins/project-wizard/templates/xlib-dock/Makefile
 plugins/project-wizard/templates/xlib-dock/src/Makefile
 plugins/project-wizard/templates/xlib-dock/po/Makefile
+plugins/language-support-cpp-java/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile

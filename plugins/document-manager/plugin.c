@@ -38,7 +38,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
-
+#include <libanjuta/interfaces/ianjuta-editor-language.h>
 
 #include "anjuta-docman.h"
 #include "action-callbacks.h"
@@ -596,6 +596,13 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
+	/* IAnjutaEditorLanguage */
+	flag = IANJUTA_IS_EDITOR_LANGUAGE (editor);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorStyle",
+								   "ActionMenuFormatStyle");
+	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	
 	/* IAnjutaEditorSelection */
 	flag = IANJUTA_IS_EDITOR_SELECTION (editor);
 	
@@ -850,10 +857,67 @@ on_editor_update_ui (IAnjutaEditor *editor, DocmanPlugin *plugin)
 		update_status (plugin, te);
 }
 
+static GtkWidget*
+create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
+{
+	const GList *languages, *node;
+	GtkWidget *submenu;
+	GtkWidget *menuitem;
+	
+	submenu = gtk_menu_new ();
+	
+	if (!editor || !IANJUTA_IS_EDITOR_LANGUAGE (editor))
+		return NULL;
+	
+	languages = ianjuta_editor_language_get_supported_languages (IANJUTA_EDITOR_LANGUAGE (editor), NULL);
+	if (!languages)
+		return NULL;
+	
+	/* Automatic highlight menu */
+	menuitem = gtk_menu_item_new_with_mnemonic (_("Automatic"));
+	g_signal_connect (G_OBJECT (menuitem), "activate",
+					  G_CALLBACK (on_force_hilite_activate),
+					  plugin);
+	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
+
+	node = languages;
+	while (node)
+	{
+		const gchar *lang = node->data;
+		const gchar *name = ianjuta_editor_language_get_language_name (IANJUTA_EDITOR_LANGUAGE (editor), lang, NULL);
+		
+		menuitem = gtk_menu_item_new_with_mnemonic (name);
+		g_object_set_data_full (G_OBJECT (menuitem), "language_code",
+								g_strdup (lang),
+								(GDestroyNotify)g_free);
+		g_signal_connect (G_OBJECT (menuitem), "activate",
+						  G_CALLBACK (on_force_hilite_activate),
+						  plugin);
+		gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
+		node = g_list_next (node);
+	}
+	gtk_widget_show_all (submenu);
+	return submenu;
+}
+
 static void
 on_editor_added (AnjutaDocman *docman, IAnjutaEditor *te,
 				   AnjutaPlugin *plugin)
 {
+	GtkWidget *highlight_submenu, *highlight_menu;
+	DocmanPlugin *editor_plugin = (DocmanPlugin *)plugin;
+	
+	/* Create Highlight submenu */
+	highlight_submenu = 
+		create_highlight_submenu (editor_plugin, te);
+	if (highlight_submenu)
+	{
+		highlight_menu =
+			gtk_ui_manager_get_widget (GTK_UI_MANAGER (editor_plugin->ui),
+						"/MenuMain/MenuView/MenuViewEditor/MenuFormatStyle");
+		gtk_menu_item_set_submenu (GTK_MENU_ITEM (highlight_menu),
+								   highlight_submenu);
+	}
 	g_signal_connect (G_OBJECT (te), "update-ui",
 					  G_CALLBACK (on_editor_update_ui),
 					  ANJUTA_PLUGIN (plugin));
@@ -1214,67 +1278,6 @@ prefs_finalize (DocmanPlugin *ep)
 	ep->gconf_notify_ids = NULL;
 }
 
-static GtkWidget*
-create_highlight_submenu (DocmanPlugin *plugin)
-{
-	gchar *menu_entries;
-	GtkWidget *submenu;
-	gchar **strv;
-	gchar **token;
-	GtkWidget *menuitem;
-	
-	submenu = gtk_menu_new ();
-	
-	/* Automatic highlight menu */
-	menuitem = gtk_menu_item_new_with_mnemonic (_("Automatic"));
-	g_signal_connect (G_OBJECT (menuitem), "activate",
-					  G_CALLBACK (on_force_hilite_activate),
-					  plugin);
-	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
-
-	//menu_entries = prop_get (text_editor_get_props (), "menu.language");
-	menu_entries = "";
-	g_return_val_if_fail (menu_entries != NULL, NULL);
-	strv = g_strsplit (menu_entries, "|", -1);
-	token = strv;
-	while (*token)
-	{
-		gchar *iter;
-		gchar *name, *extension;
-		
-		name = *token++;
-		if (!name)
-			break;
-		
-		extension = *token++;
-		if (!extension)
-			break;
-		token++;
-		
-		if (name[0] == '#')
-			continue;
-		
-		iter = name;
-		while (*iter)
-		{
-			if (*iter == '&')
-				*iter = '_';
-			iter++;
-		}
-		menuitem = gtk_menu_item_new_with_mnemonic (name);
-		g_object_set_data_full (G_OBJECT (menuitem), "file_extension",
-								g_strconcat ("file.", extension, NULL),
-								(GDestroyNotify)g_free);
-		g_signal_connect (G_OBJECT (menuitem), "activate",
-						  G_CALLBACK (on_force_hilite_activate),
-						  plugin);
-		gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
-	}
-	g_strfreev (strv);
-	gtk_widget_show_all (submenu);
-	return submenu;
-}
-
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -1286,7 +1289,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	GladeXML *gxml;
 	gint i;
 	AnjutaStatus *status;
-	GtkWidget *highlight_submenu, *highlight_menu;
 	static gboolean initialized = FALSE;
 	
 	DEBUG_PRINT ("DocmanPlugin: Activating Editor plugin...");
@@ -1412,13 +1414,6 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "AnjutaDocumentManager", _("Documents"),
 							 "editor-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL); 
-	/* Create Highlight submenu */
-	highlight_submenu = 
-		create_highlight_submenu (editor_plugin);
-	highlight_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
-				"/MenuMain/MenuView/MenuViewEditor/MenuFormatStyle");
-	gtk_menu_item_set_submenu (GTK_MENU_ITEM (highlight_menu),
-							   highlight_submenu);
 	ui_states_init(plugin);
 	ui_give_shorter_names (plugin);
 	update_editor_ui (plugin, NULL);

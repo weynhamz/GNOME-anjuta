@@ -1318,6 +1318,36 @@ interface IAnjutaEditor
 		 */
 		void ::assist_canceled ();
 		
+		typedef gchar* (*ContextParser) (IAnjutaEditor *editor, gint position);
+		
+		/**
+		 * ianjuta_editor_assist_add_trigger:
+		 * @obj: Self
+		 * @trigger: trigger character sequence
+		 * @context_parser: Callback used to parse the context.
+		 * @err: Error propagation and reporting
+		 * 
+		 * Add the given character sequence as a trigger for begining
+		 * assist. context_parser is a callback to use to retrieve the
+		 * context when the trigger happens.
+		 * 
+		 * By default there is always a trigger for aphanumeric
+		 * characters with default context_parser picking up the word
+		 * just before the carat.
+		 */
+		void add_trigger (const gchar *trigger, ContextParser context_parser);
+		
+		/*
+		 * ianjuta_editor_assist_remove_trigger:
+		 * @obj: Self
+		 * @trigger: the trigger character sequence to remove.
+		 * @err: Error propagation and reporting
+		 * 
+		 * Removes the trigger character sequence. If the trigger is not
+		 * added, nothing happens.
+		 */
+		void remove_trigger (const gchar *trigger);
+		
 		/**
 		 * ianjuta_editor_assist_suggest:
 		 * @obj: Self
@@ -1393,6 +1423,25 @@ interface IAnjutaEditor
 		 * the new api.
 		 */
 		void autocomplete ();
+	}
+	
+	interface IAnjutaEditorHover
+	{
+		void ::hover_over (gint position);
+		void ::hover_leave (gint position);
+		
+		void set_timeout (gint timeout);
+		void display (const gchar *info);
+	}
+	
+	interface IAnjutaEditorLanguage
+	{
+		void ::language_changed (const gchar *language);
+		
+		const GList *get_supported_languages ();
+		const gchar *get_language_name (const gchar* language);
+		const gchar *get_language ();
+		void set_language (const gchar* language);
 	}
 	
 	interface IAnjutaEditorFolds
@@ -3210,7 +3259,7 @@ interface IAnjutaSymbolManager
 	* 
 	* Returns: fixme
 	*/
-	IAnjutaIterable* get_completions_at_position (gchar* file_uri, gchar *text_buffer, gint text_length, gint text_pos);
+	IAnjutaIterable* get_completions_at_position (const gchar* file_uri, const gchar *text_buffer, const gint text_length, const gint text_pos);
 }
 
 interface IAnjutaPrint
@@ -3234,4 +3283,10 @@ interface IAnjutaPrint
 	*/
 
 	void print_preview();
+}
+
+interface IAnjutaLanguageSupport
+{
+    GList *get_supported_languages ();
+    gboolean supports(const gchar *language);
 }

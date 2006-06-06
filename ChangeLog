@@ -1,3 +1,18 @@
+2006-06-06 Naba Kumar <naba@gnome.org>
+
+	* configure.in,
+	libanjuta/interfaces/libanjuta.idl,
+	manuals/reference/libanjuta/tmpl/ianjuta-debugger.sgml:
+	plugins/Makefile.am,
+	plugins/document-manager/action-callbacks.c,
+	plugins/document-manager/plugin.c,
+	plugins/editor/text_editor.c: Implemented IAnjutaEditorLanguage
+	interface for language highlight selection and langauge change
+	signal.
+	
+	* plugins/language-support-cpp-java: Added language support
+	plugin for cpp and java.
+
 2006-05-27  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl, plugins/gdb/*,

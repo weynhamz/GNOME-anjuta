@@ -36,6 +36,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-comment.h>
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
+#include <libanjuta/interfaces/ianjuta-editor-language.h>
 
 #include <libegg/menu/egg-entry-action.h>
 
@@ -863,22 +864,21 @@ on_zoom_out_text_activate (GtkAction * action, gpointer user_data)
 void
 on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data)
 {
-	#if 0
-	TextEditor *te;
+	IAnjutaEditor *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
-	const gchar *file_extension;
+	const gchar *language_code;
 	
 	plugin = (DocmanPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	te = anjuta_docman_get_current_editor (docman);
-	file_extension = g_object_get_data (G_OBJECT (menuitem), "file_extension");
+	language_code = g_object_get_data (G_OBJECT (menuitem), "language_code");
 	
 	if (te == NULL)
 		return;
-	text_editor_set_hilite_type (te, file_extension);
-	text_editor_hilite (te, TRUE);
-	#endif
+	if (language_code && IANJUTA_IS_EDITOR_LANGUAGE (te))
+		ianjuta_editor_language_set_language (IANJUTA_EDITOR_LANGUAGE (te),
+											  language_code, NULL);
 }
 
 void
