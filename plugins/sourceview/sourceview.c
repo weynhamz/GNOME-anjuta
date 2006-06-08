@@ -751,6 +751,28 @@ static gint ieditor_get_line_from_position(IAnjutaEditor *editor,
 	return line;
 }
 
+static gint ieditor_get_line_begin_position(IAnjutaEditor *editor,
+											gint line, GError **e)
+{
+	GtkTextIter iter;
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	
+	gtk_text_buffer_get_iter_at_line_index(GTK_TEXT_BUFFER(sv->priv->document), &iter, line - 1, 0);
+	return gtk_text_iter_get_offset(&iter);
+}
+
+static gint ieditor_get_line_end_position(IAnjutaEditor *editor,
+											gint line, GError **e)
+{
+	GtkTextIter iter;
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	
+	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document), &iter, line - 1);
+	while (gtk_text_iter_forward_char(&iter) && !gtk_text_iter_ends_line(&iter))
+		;
+	return gtk_text_iter_get_offset(&iter);
+}
+
 static void 
 ieditor_undo(IAnjutaEditor* edit, GError** ee)
 {
@@ -806,6 +828,8 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->undo = ieditor_undo;
 	iface->redo = ieditor_redo;
 	iface->get_cell_iter = ieditor_get_cell_iter;
+	iface->get_line_begin_position = ieditor_get_line_begin_position;
+	iface->get_line_end_position = ieditor_get_line_end_position;	
 }
 
 static void

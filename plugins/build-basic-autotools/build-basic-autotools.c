@@ -127,6 +127,7 @@ build_indicator_location_set (BuildIndicatorLocation *loc,
 	
 	if (editor && editor_filename &&
 		IANJUTA_IS_INDICABLE (editor) &&
+		IANJUTA_IS_EDITOR (editor) &&
 		strcmp (editor_filename, loc->filename) == 0)
 	{
 		DEBUG_PRINT ("loc line: %d", loc->line);
@@ -571,8 +572,15 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		DEBUG_PRINT ("mid_str = %s, line = %s", mid_str, line);
 		start_str = g_strndup (line, mid_str - line);
 		end_str = line + strlen (start_str) + strlen (dummy_fn);
-		mid_str = g_build_filename (build_context_get_dir (context, "default"),
-									dummy_fn, NULL);
+		if (g_path_is_absolute(dummy_fn))
+		{
+			mid_str = g_strdup(dummy_fn);
+		}
+		else
+		{
+			mid_str = g_build_filename (build_context_get_dir (context, "default"),
+										dummy_fn, NULL);
+		}
 		DEBUG_PRINT (mid_str);
 		
 		if (mid_str)
@@ -1734,7 +1742,7 @@ on_update_indicators_idle (gpointer data)
 		{
 			GList *node;
 			
-			// ianjuta_indicable_clear (IANJUTA_INDICABLE (editor), NULL);
+			ianjuta_indicable_clear (IANJUTA_INDICABLE (editor), NULL);
 			
 			node = ba_plugin->contexts_pool;
 			while (node)
@@ -1950,6 +1958,7 @@ basic_autotools_plugin_instance_init (GObject *obj)
 	ba_plugin->fm_current_filename = NULL;
 	ba_plugin->pm_current_filename = NULL;
 	ba_plugin->project_root_dir = NULL;
+	ba_plugin->current_editor = NULL;
 	ba_plugin->current_editor_filename = NULL;
 	ba_plugin->contexts_pool = NULL;
 	ba_plugin->configure_args = NULL;

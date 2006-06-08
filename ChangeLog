@@ -1,3 +1,15 @@
+2006-06-08  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* libanjuta/anjuta-launcher.c:
+	Added debug message (see #343522)
+	
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	Patch from Günther Brammer to fix #344015
+
+	* plugins/sourceview/sourceview.c:
+	Implemented IAnjutaEditor->get_begin/end_line_position (crashed
+	automatic highlight of build messages)
+
 2006-06-06 Naba Kumar <naba@gnome.org>
 
 	* configure.in,

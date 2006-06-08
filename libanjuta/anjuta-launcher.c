@@ -956,6 +956,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 		
 		execvp (args[0], args);
 		g_warning (_("Cannot execute command: \"%s\""), args[0]);
+		perror(_("execvp failed"));
 		_exit(-1);
 	}
 	g_free (working_dir);
