@@ -154,7 +154,6 @@ on_prev_occur(GtkAction * action, gpointer user_data)
 	IAnjutaEditor* te;
 	IAnjutaDocumentManager *docman;
 	SearchPlugin *plugin;
-	gchar* ret;
     gint return_;
 	gchar *buffer = NULL;
 	
@@ -174,13 +173,9 @@ on_prev_occur(GtkAction * action, gpointer user_data)
 	}
 	if (NULL == buffer)
 	{
-		buffer = g_new(char, 256);
-		ret = ianjuta_editor_get_current_word(te, NULL);
-		if (!ret)
-		{
-			g_free(buffer);
+		buffer = ianjuta_editor_get_current_word(te, NULL);
+		if (!buffer)
 			return;
-		}
 	}
     return_= find_incremental(te, buffer, SD_BACKWARD);
 	
@@ -193,8 +188,6 @@ on_next_occur(GtkAction * action, gpointer user_data)
 	IAnjutaEditor* te;
 	IAnjutaDocumentManager *docman;
 	SearchPlugin *plugin;
-	
-	gchar* ret;
     gint return_;
 	gchar *buffer = NULL;
 	
@@ -214,13 +207,9 @@ on_next_occur(GtkAction * action, gpointer user_data)
 	}
 	if (NULL == buffer)
 	{
-		buffer = g_new(char, 256);
-		ret = ianjuta_editor_get_current_word(te, NULL);
-		if (!ret)
-		{
-			g_free(buffer);
+		buffer = ianjuta_editor_get_current_word(te, NULL);
+		if (!buffer)
 			return;
-		}
 	}
     return_= find_incremental(te, buffer, SD_FORWARD);
 	

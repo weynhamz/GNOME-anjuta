@@ -1,3 +1,14 @@
+2006-06-08 Naba Kumar <naba@gnome.org>
+
+	* plugins/editor/text_editor.c (itext_editor_get_current_word):
+	Do not return garbage characters and return NULL when there is no
+	current word.
+	
+	* plugins/search/plugin.c: Fixed next occurance and prev occurance to
+	work correctly.
+	
+	* plugins/search/search-replace.c: Fixed a mem leak.
+
 2006-06-08  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* libanjuta/anjuta-launcher.c:
@@ -14,7 +25,7 @@
 
 	* configure.in,
 	libanjuta/interfaces/libanjuta.idl,
-	manuals/reference/libanjuta/tmpl/ianjuta-debugger.sgml:
+	manuals/reference/libanjuta/tmpl/ianjuta-debugger.sgml,
 	plugins/Makefile.am,
 	plugins/document-manager/action-callbacks.c,
 	plugins/document-manager/plugin.c,

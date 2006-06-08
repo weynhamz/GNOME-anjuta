@@ -2002,9 +2002,13 @@ static gchar*
 itext_editor_get_current_word (IAnjutaEditor *editor, GError **e)
 {
 	gchar buffer[512];
+	buffer[0] = '\0';
 	aneditor_command (TEXT_EDITOR (editor)->editor_id,
 					  ANE_GETCURRENTWORD, (glong) buffer, 512);
-	return g_strdup (buffer);
+	if (buffer[0] != '\0')
+		return g_strdup (buffer);
+	else
+		return NULL;
 }
 
 static void

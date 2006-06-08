@@ -1762,10 +1762,10 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 		if (current_word && strlen(current_word) > 0 )
 		{
 			if (strlen(current_word) > MAX_LENGTH_SEARCH)
-				current_word = g_strndup (current_word, MAX_LENGTH_SEARCH);
+				current_word[MAX_LENGTH_SEARCH] = '\0';
 			gtk_entry_set_text((GtkEntry *) search_entry, current_word);
 			g_free(current_word);
-		}	
+		}
 	}
 		
 	if (replace)
