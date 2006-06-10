@@ -28,7 +28,20 @@ libanjuta_debug_manager_la_LIBADD = \
 	$(top_builddir)/libanjuta/libanjuta.la \
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la
 
+# Marshallers
+BUILT_SOURCES = 			\
+	anjuta-marshal.c			\
+	anjuta-marshal.h              
+
+anjuta-marshal.h: anjuta-marshal.list
+	glib-genmarshal anjuta-marshal.list --header --prefix=anjuta_marshal > $@
+
+anjuta-marshal.c: anjuta-marshal.list
+	echo "#include \"anjuta-marshal.h\"" > $@ && \
+	glib-genmarshal anjuta-marshal.list --body --prefix=anjuta_marshal >> $@
+
 libanjuta_debug_manager_la_SOURCES = \
+	$(BUILT_SOURCES) \
 	plugin.c \
 	plugin.h \
 	start.c \
@@ -56,7 +69,13 @@ libanjuta_debug_manager_la_SOURCES = \
 	info.c \
 	info.h \
 	debugger.c \
-	debugger.h
+	debugger.h \
+	data_view.c \
+	data_view.h \
+	chunk_view.c \
+	chunk_view.h \
+	data_buffer.c \
+	data_buffer.h
 
 EXTRA_DIST = \
 	$(plugin_pixmaps_DATA) \

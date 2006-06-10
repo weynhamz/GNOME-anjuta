@@ -145,7 +145,7 @@ void debugger_info_program (Debugger *debugger, IAnjutaDebuggerGListFunc func, g
 void debugger_info_udot (Debugger *debugger, IAnjutaDebuggerGListFunc func, gpointer user_data);
 void debugger_info_threads (Debugger *debugger, IAnjutaDebuggerGListFunc func, gpointer user_data);
 void debugger_info_variables (Debugger *debugger, IAnjutaDebuggerGListFunc func, gpointer user_data);
-void debugger_inspect_memory (Debugger *debugger, const gchar *address, guint length, IAnjutaDebuggerGListFunc func, gpointer user_data);
+void debugger_inspect_memory (Debugger *debugger, const void *address, guint length, IAnjutaCpuDebuggerMemoryCallBack func, gpointer user_data);
 
 /* Register */
 

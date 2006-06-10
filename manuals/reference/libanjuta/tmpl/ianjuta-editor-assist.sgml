@@ -41,9 +41,11 @@ ianjuta-editor-assist
 @assist_choosen: 
 @assist_end: 
 @assist_update: 
+@add_trigger: 
 @autocomplete: 
 @get_suggestions: 
 @react: 
+@remove_trigger: 
 @suggest: 
 @tip: 
 

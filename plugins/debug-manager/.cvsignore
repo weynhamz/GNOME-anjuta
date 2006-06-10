@@ -2,3 +2,6 @@ Makefile
 Makefile.in
 *.plugin
 *.gladep
+anjuta-marshal.c
+anjuta-marshal.h
+

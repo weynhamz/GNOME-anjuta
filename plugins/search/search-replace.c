@@ -1754,6 +1754,7 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 	search_replace_populate();
 
 	reset_flags_and_search_button();
+	
 	/* Set properties */
 	search_entry = sr_get_gladewidget(SEARCH_STRING)->widget;
 	if (te && search_entry && sr->search.range.type != SR_SELECTION)
@@ -1767,7 +1768,7 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 			g_free(current_word);
 		}
 	}
-		
+	
 	if (replace)
 	{
 		if ( !(sr->search.action == SA_REPLACE || 

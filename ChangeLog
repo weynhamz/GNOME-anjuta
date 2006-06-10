@@ -1,3 +1,31 @@
+2006-06-10 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Move inspect_memory function in IAnjutaCpuDebugger interface
+	Rename Boolean type to State
+
+	* plugins/debug-manager/breakpoint.c:
+	Rename Boolean type to State
+
+	* plugins/debug-manager/Makefile.am,
+	plugins/debug-manager/anjuta-marshal.list,
+	plugins/debug-manager/data_view.c,
+	plugins/debug-manager/data_view.h,
+	plugins/debug-manager/data_buffer.c,
+	plugins/debug-manager/data_buffer.h,
+	plugins/debug-manager/chunk_view.c,
+	plugins/debug-manager/chunk_view.h,
+	plugins/debug-manager/anjuta-debug-manager.ui,
+	plugins/debug-manager/debugger.c,
+	plugins/debug-manager/memory.c,
+	plugins/debug-manager/memory.h,
+	plugins/debug-manager/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/gdb/plugin.c:
+	Rewrite memory window using a special widget
+	Rename Boolean type to State
+
 2006-06-08 Naba Kumar <naba@gnome.org>
 
 	* plugins/editor/text_editor.c (itext_editor_get_current_word):

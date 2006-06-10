@@ -2282,13 +2282,11 @@ interface IAnjutaDebugger
 		INFO_OUTPUT
 	}
 
-	enum Boolean
+	enum State
 	{
-		UNDEFINED = 0,
-		DEFINED = 1,
-		FALSE = 1,
-		BOOLEAN = 2,
-		TRUE = 3
+		UNDEFINED = -1,
+		NO = 0,
+		YES = 1	
 	}	
 
 	enum Status
@@ -2316,11 +2314,11 @@ interface IAnjutaDebugger
 		guint line;
 		const gchar *function;
 		guint address;
-		Boolean enable;
+		State enable;
 		guint ignore;
 		guint times;
 		const gchar *condition;
-		gboolean keep;
+		State keep;
 	}
 
 	struct Register
@@ -2962,23 +2960,6 @@ interface IAnjutaDebugger
 	*/
 	Error list_register (GListFunc func, gpointer user_data);
 
-	
-	/**
-	* ianjuta_debugger_inspect_memory:
-	* @obj: Self
-	* @address: fixme
-	* @length: fixme
-	* @func: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	Error inspect_memory (const gchar* address, guint length, GListFunc func, gpointer user_data);
-
-	
 	/**
 	* ianjuta_debugger_send_command:
 	* @obj: Self
@@ -3033,6 +3014,7 @@ interface IAnjutaCpuDebugger
 
 	/* Call back functions */
 	typedef void (*GListFunc) (const GList *list, gpointer user_data);
+	typedef void (*MemoryCallBack) (const gchar* address, guint length, const gchar *data, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_list_register:
@@ -3071,6 +3053,21 @@ interface IAnjutaCpuDebugger
 	* Returns: fixme
 	*/
 	IAnjutaDebuggerError write_register (Register *value);
+
+	/**
+	* ianjuta_debugger_inspect_memory:
+	* @obj: Self
+	* @address: fixme
+	* @length: fixme
+	* @func: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	void inspect_memory (const void* address, guint length, MemoryCallBack func, gpointer user_data);
 }
 
 interface IAnjutaVcs

@@ -70,7 +70,6 @@ ianjuta-debugger
 @info_variables: 
 @initialize: 
 @inspect: 
-@inspect_memory: 
 @interrupt: 
 @list_frame: 
 @list_local: 

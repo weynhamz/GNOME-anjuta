@@ -2251,11 +2251,11 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 			value = gdbmi_value_literal_get (literal);
 			if (strcmp (value, "keep") == 0)
 			{
-				bp.keep = IANJUTA_DEBUGGER_TRUE;
+				bp.keep = IANJUTA_DEBUGGER_YES;
 			}
 			else if (strcmp (value, "nokeep") == 0)
 			{
-				bp.keep = IANJUTA_DEBUGGER_FALSE;
+				bp.keep = IANJUTA_DEBUGGER_NO;
 			}
 		}
 										
@@ -2265,11 +2265,11 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 			value = gdbmi_value_literal_get (literal);
 			if (strcmp (value, "n") == 0)
 			{
-				bp.enable = IANJUTA_DEBUGGER_FALSE;
+				bp.enable = IANJUTA_DEBUGGER_NO;
 			}
 			else if (strcmp (value, "y") == 0)
 			{
-				bp.enable = IANJUTA_DEBUGGER_TRUE;
+				bp.enable = IANJUTA_DEBUGGER_YES;
 			}
 		}
 	
@@ -2652,8 +2652,76 @@ debugger_info_variables (Debugger *debugger, IAnjutaDebuggerGListFunc callback, 
 	debugger_queue_command (debugger, "info variables", TRUE, FALSE, (DebuggerResultFunc)debugger_info_finish, (IAnjutaDebuggerFunc)callback, user_data);
 }
 
+static void
+debugger_read_memory_finish (Debugger *debugger, const GDBMIValue *mi_results, const GList *cli_results, IAnjutaCpuDebuggerMemoryCallBack callback, gpointer user_data)
+
+{
+	const GDBMIValue *literal;
+	const GDBMIValue *mem;
+	const gchar *value;
+	gchar *data;
+	gchar *ptr;
+	gchar *address;
+	guint len;
+	guint i;
+
+	literal = gdbmi_value_hash_lookup (mi_results, "total-bytes");
+	if (literal)
+	{
+		guint size;
+		
+		len = strtoul (gdbmi_value_literal_get (literal), NULL, 10);
+		data = g_new (gchar, len * 2);
+		memset (data + len, 0, len);
+
+		literal = gdbmi_value_hash_lookup (mi_results, "addr");
+		address = strtoul (gdbmi_value_literal_get (literal), NULL, 0);
+	
+		ptr = data;
+		size = 0;
+		mem = gdbmi_value_hash_lookup (mi_results, "memory");
+		if (mem)
+		{
+			mem = gdbmi_value_list_get_nth (mem, 0);
+			if (mem)
+			{
+				mem = gdbmi_value_hash_lookup (mem, "data");
+				if (mem)
+				{
+					size = gdbmi_value_get_size (mem);
+				}
+			}
+		}
+
+		if (size < len) len = size;
+		for (i = 0; i < len; i++)
+		{
+			literal = gdbmi_value_list_get_nth (mem, i);
+			if (literal)
+			{
+				gchar *endptr;
+				value = gdbmi_value_literal_get (literal);
+				*ptr = strtoul (value, &endptr, 16);
+				if ((*value != '\0') && (*endptr == '\0'))
+				{
+					/* valid data */
+					ptr[len] = 1;
+				}
+				ptr++;
+			}
+		}
+		((IAnjutaCpuDebuggerMemoryCallBack)callback) (address, len, data, user_data);
+
+		g_free (data);
+	}
+	else
+	{
+		((IAnjutaCpuDebuggerMemoryCallBack)callback) (0, 0, NULL, user_data);
+	}
+}
+
 void
-debugger_inspect_memory (Debugger *debugger, const gchar *address, guint length, IAnjutaDebuggerGListFunc callback, gpointer user_data)
+debugger_inspect_memory (Debugger *debugger, const void *address, guint length, IAnjutaCpuDebuggerMemoryCallBack callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -2661,8 +2729,8 @@ debugger_inspect_memory (Debugger *debugger, const gchar *address, guint length,
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("x/%dbd %ld", length, (gulong) address);
-	debugger_queue_command (debugger, buff, TRUE, FALSE, (DebuggerResultFunc)debugger_info_finish, (IAnjutaDebuggerFunc)callback, user_data);
+	buff = g_strdup_printf ("-data-read-memory 0x%x x 1 1 %d", (guint)address, length);
+	debugger_queue_command (debugger, buff, TRUE, FALSE, (DebuggerResultFunc)debugger_read_memory_finish, (IAnjutaDebuggerFunc)callback, user_data);
 	g_free (buff);
 }
 

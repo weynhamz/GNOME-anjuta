@@ -100,6 +100,7 @@ struct _DebugManagerPlugin
 	CpuRegisters *registers;
 	Sharedlibs *sharedlibs;
 	Signals *signals;	
+	DmaMemory *memory;
 	
 	/* Debugger status */
 	DebugManagerState state;
@@ -633,7 +634,7 @@ on_info_args_activate (GtkAction *action, DebugManagerPlugin *plugin)
 /* Other informations
  *---------------------------------------------------------------------------*/
 
-static void
+/*static void
 on_info_memory_activate (GtkAction * action, DebugManagerPlugin *plugin)
 {
 	GtkWidget *win_memory;
@@ -642,7 +643,7 @@ on_info_memory_activate (GtkAction * action, DebugManagerPlugin *plugin)
 								  GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 								  NULL);
 	gtk_widget_show(win_memory);
-}
+}*/
 
 static void
 on_debugger_registers_activate (GtkAction * action, DebugManagerPlugin *plugin)
@@ -764,14 +765,14 @@ static GtkActionEntry actions_loaded[] =
 		N_("Display the contents of kernel 'struct user' for current child"),
 		G_CALLBACK (on_info_udot_activate)
 	},
-	{
+/*	{
 		"ActionGdbExamineMemory",
 		NULL,
 		N_("Examine _Memory"),
 		NULL,
 		N_("Display accessible memory"),
 		G_CALLBACK (on_info_memory_activate)
-	},
+	},*/
 	{
 		"ActionGdbViewSharedlibs",
 		NULL,
@@ -999,6 +1000,9 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	/* Register list */
 	this->registers = cpu_registers_new (plugin, this->debugger);
 
+	/* Memory window */
+	this->memory = dma_memory_new (plugin, this->debugger);
+
 	/* Start debugger part */
 	this->start = dma_start_new (plugin, this->debugger);
 	
@@ -1061,6 +1065,9 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 
 	cpu_registers_free (this->registers);
 	this->registers = NULL;
+	
+	dma_memory_free (this->memory);
+	this->memory = NULL;
 	
 	dma_start_free (this->start);
 	this->start = NULL;

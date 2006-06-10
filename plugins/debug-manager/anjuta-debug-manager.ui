@@ -30,7 +30,6 @@
 					<menuitem name="Sharedlibs" action="ActionGdbViewSharedlibs" />
 					<menuitem name="Signals" action="ActionGdbViewSignals" />
 					<menuitem name="SignalProgram" action="ActionGdbSignalProgram" />
-					<menuitem name="Memory" action="ActionGdbExamineMemory" />
 					<separator name="separator4"/>
 					<menuitem name="TargetFiles" action="ActionGdbInfoTargetFiles"/>
 					<menuitem name="Program" action="ActionGdbInfoProgram" />
