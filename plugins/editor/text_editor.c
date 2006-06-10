@@ -1948,7 +1948,7 @@ text_editor_scintilla_command (TextEditor *te, gint command, glong wparam,
 static void
 itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 {
-	text_editor_goto_line (TEXT_EDITOR (editor), lineno, FALSE, TRUE);
+	text_editor_goto_line (TEXT_EDITOR (editor), lineno, TRUE, TRUE);
 }
 
 static void

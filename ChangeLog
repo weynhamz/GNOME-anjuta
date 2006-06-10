@@ -1,3 +1,8 @@
+2006-06-10 Naba Kumar <naba@gnome.org>
+
+	* plugins/editor/text_editor.c: Fixed goto line to mark the line
+	being set.
+	
 2006-06-10 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* libanjuta/interfaces/libanjuta.idl:
@@ -542,7 +547,6 @@
 	
 	* NEWS: Updated
 	
->>>>>>> 1.1238
 2006-05-01  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/devhelp/Makefile.am:
