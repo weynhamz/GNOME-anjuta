@@ -1,7 +1,7 @@
 # German translation for anjuta.
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Jens Georg <mail@jensgeorg>, 2001.
-# Hendrik Richter <hendi@gnome-de.org>, 2005.
+# Hendrik Richter <hendrikr@gnome.org>, 2005.
 # Jens Seidel <jseidel@cvs.gnome.org>, 2005.
 #
 # folgende Kommentare:
@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: anjuta 0.1.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-22 14:47+0200\n"
-"PO-Revision-Date: 2005-07-04 17:04+0200\n"
-"Last-Translator: Hendrik Richter <hendi@gnome-de.org>\n"
+"PO-Revision-Date: 2006-06-15 15:54+0200\n"
+"Last-Translator: Hendrik Richter <hendrikr@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -246,7 +246,7 @@ msgstr ""
 #: ../anjuta.glade.h:41
 #, fuzzy
 msgid "Compiler and linker options"
-msgstr "Einstellungen für _Compiler und Linker ..."
+msgstr "Einstellungen für _Compiler und Linker …"
 
 #: ../anjuta.glade.h:42
 #, fuzzy
@@ -1939,7 +1939,7 @@ msgstr "Gesamtes Projekt wird bereinigt: "
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:987
 #, fuzzy
 msgid "Run C_onfigure ..."
-msgstr "Kon_figurieren ..."
+msgstr "Kon_figurieren …"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:988
 #, fuzzy
@@ -1949,7 +1949,7 @@ msgstr "Projekt konfigurieren"
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:993
 #, fuzzy
 msgid "Run _Autogenerate ..."
-msgstr "Auto_generieren ..."
+msgstr "Auto_generieren …"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:994
 #, fuzzy
@@ -2218,7 +2218,7 @@ msgstr "Ungültiger Klassenname"
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:18
 #, fuzzy
 msgid "Browse"
-msgstr "Durchsuchen..."
+msgstr "Durchsuchen …"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:19
 msgid "Browse for the declaration file name."
@@ -2862,7 +2862,7 @@ msgstr "Die ausführbare Datei zum Debuggen öffnen"
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:481
 msgid "_Attach to Process ..."
-msgstr "_An Prozess anhängen ..."
+msgstr "_An Prozess anhängen …"
 
 #. Display label
 #. short-cut
@@ -3000,7 +3000,7 @@ msgstr "Zur nächsten Nachricht springen"
 #: ../plugins/devhelp/plugin.c:452
 #, fuzzy
 msgid "_API references"
-msgstr "Vorlieben ..."
+msgstr "Vorlieben …"
 
 #: ../plugins/devhelp/plugin.c:454
 #, fuzzy
@@ -3627,7 +3627,7 @@ msgstr ""
 #: ../plugins/editor/anjuta-document-manager.glade.h:118
 #, fuzzy
 msgid "Printing"
-msgstr "_Drucken ..."
+msgstr "_Drucken …"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:119
 msgid "Regular Expression"
@@ -3842,7 +3842,7 @@ msgstr "Aktuelle Datei speichern"
 
 #: ../plugins/editor/plugin.c:141 ../plugins/glade/plugin.c:502
 msgid "Save _As ..."
-msgstr "Speichern _unter ..."
+msgstr "Speichern _unter …"
 
 #: ../plugins/editor/plugin.c:142
 msgid "Save the current file with a different name"
@@ -4005,7 +4005,7 @@ msgstr "Hilfe durchsuchen"
 
 #: ../plugins/editor/plugin.c:208
 msgid "_Find ..."
-msgstr "_Suchen ..."
+msgstr "_Suchen …"
 
 #: ../plugins/editor/plugin.c:209
 #, fuzzy
@@ -4027,7 +4027,7 @@ msgstr ""
 
 #: ../plugins/editor/plugin.c:218
 msgid "Find and R_eplace ..."
-msgstr "Suchen und _Ersetzen ..."
+msgstr "Suchen und _Ersetzen …"
 
 #: ../plugins/editor/plugin.c:220
 #, fuzzy
@@ -4111,7 +4111,7 @@ msgstr "Zu einer bestimmten Zeile im Editor springen"
 #: ../plugins/editor/plugin.c:254
 #, fuzzy
 msgid "_Line number ..."
-msgstr "_Gehe zu Zeile ..."
+msgstr "_Gehe zu Zeile …"
 
 #: ../plugins/editor/plugin.c:258
 #, fuzzy
@@ -4612,12 +4612,12 @@ msgstr ""
 #: ../plugins/editor/print.c:870
 #, fuzzy
 msgid "Printing .."
-msgstr "_Drucken ..."
+msgstr "_Drucken …"
 
 #: ../plugins/editor/print.c:882
 #, fuzzy
 msgid "Printing ..."
-msgstr "_Drucken ..."
+msgstr "_Drucken …"
 
 #: ../plugins/editor/print.c:1029 ../plugins/gdb/signals.c:354
 msgid "Print"
@@ -5011,7 +5011,7 @@ msgstr "Plugin in Modul %s konnte nicht  gestartet werden"
 #: ../plugins/file-loader/plugin.c:801
 #, fuzzy
 msgid "_New ..."
-msgstr "Ö_ffnen ..."
+msgstr "Ö_ffnen …"
 
 #: ../plugins/file-loader/plugin.c:803
 msgid "New empty editor."
@@ -5019,7 +5019,7 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:809
 msgid "_Open ..."
-msgstr "Ö_ffnen ..."
+msgstr "Ö_ffnen …"
 
 #: ../plugins/file-loader/plugin.c:817 ../plugins/file-loader/plugin.c:830
 #, fuzzy
@@ -5070,7 +5070,7 @@ msgstr "Textdatei öffnen"
 #: ../plugins/symbol-browser/an_symbol_view.c:513
 #, fuzzy
 msgid "Loading ..."
-msgstr "Datei wird geladen..."
+msgstr "Datei wird geladen …"
 
 #: ../plugins/file-manager/an_file_view.c:724
 #, fuzzy
@@ -5162,7 +5162,7 @@ msgstr ""
 #: ../plugins/file-manager/plugin.c:165
 #, fuzzy
 msgid "File manager popup actions"
-msgstr "Einstellungen für _Compiler und Linker ..."
+msgstr "Einstellungen für _Compiler und Linker …"
 
 #: ../plugins/file-manager/plugin.c:174
 msgid "Files"
@@ -5792,7 +5792,7 @@ msgstr "Breakpoint an der aktuellen Position an/ausschalten"
 #. Stock icon, if any
 #: ../plugins/gdb/plugin.c:76
 msgid "Set Breakpoint ..."
-msgstr "Breakpoint setzen ..."
+msgstr "Breakpoint setzen …"
 
 #. Display label
 #. short-cut
@@ -5804,7 +5804,7 @@ msgstr "Einen Breakpoint Setzen"
 #. Stock icon, if any
 #: ../plugins/gdb/plugin.c:84
 msgid "_Breakpoints ..."
-msgstr "_Breakpoints ..."
+msgstr "_Breakpoints …"
 
 #. Display label
 #. short-cut
@@ -5960,7 +5960,7 @@ msgstr "Kernelsignal an den zu debuggenden Prozess senden"
 
 #: ../plugins/gdb/plugin.c:228
 msgid "Ins_pect/Evaluate ..."
-msgstr "Ins_pizieren/Auswerten ..."
+msgstr "Ins_pizieren/Auswerten …"
 
 #: ../plugins/gdb/plugin.c:230
 msgid "Inspect or evaluate an expression or variable"
@@ -5968,7 +5968,7 @@ msgstr "Einen Ausdruck oder Variable inspizieren oder Auswerten"
 
 #: ../plugins/gdb/plugin.c:236
 msgid "Add Expression in _Watch ..."
-msgstr "Ausdruck zu _Watch hinzufügen ..."
+msgstr "Ausdruck zu _Watch hinzufügen …"
 
 #: ../plugins/gdb/plugin.c:238
 msgid "Add expression or variable to the watch"
@@ -6214,12 +6214,12 @@ msgstr "LibGlade Projekt"
 #: ../plugins/glade/plugin.c:234
 #, fuzzy
 msgid "Save glade file ..."
-msgstr "Datei wird gespeichert ..."
+msgstr "Datei wird gespeichert …"
 
 #: ../plugins/glade/plugin.c:261
 #, fuzzy
 msgid "Save glade file as ..."
-msgstr "Datei wird gespeichert ..."
+msgstr "Datei wird gespeichert …"
 
 #: ../plugins/glade/plugin.c:289
 #, c-format
@@ -6793,7 +6793,7 @@ msgstr ""
 #: ../plugins/gtodo/gtodo.c:130
 #, fuzzy
 msgid "/ToDo/_Preferences"
-msgstr "Vorlieben ..."
+msgstr "Vorlieben …"
 
 #: ../plugins/gtodo/gtodo.c:131
 msgid "/ToDo/_Edit Categories"
@@ -7535,7 +7535,7 @@ msgstr "Makros"
 #: ../plugins/macro/plugin.c:41
 #, fuzzy
 msgid "_Insert Macro ..."
-msgstr "N_eues Projekt ..."
+msgstr "N_eues Projekt …"
 
 #: ../plugins/macro/plugin.c:43
 msgid "Insert a macro using a shortcut"
@@ -7787,7 +7787,7 @@ msgstr "Core laden: "
 #: ../plugins/profile-default/plugin.c:493
 #, fuzzy
 msgid " ..."
-msgstr "Ö_ffnen ..."
+msgstr "Ö_ffnen …"
 
 #: ../plugins/profile-default/plugin.c:546
 #: ../plugins/profile-default/plugin.c:566
@@ -7828,7 +7828,7 @@ msgstr "_Core-Datei laden"
 #: ../plugins/profile-default/plugin.c:1075
 #, fuzzy
 msgid "Loaded Profile ..."
-msgstr "Datei wird geladen..."
+msgstr "Datei wird geladen …"
 
 #: ../plugins/profile-default/plugin.c:1045
 #, fuzzy
@@ -8034,7 +8034,7 @@ msgstr "Projekt wird geladen ...\n"
 #: ../plugins/project-manager/plugin.c:1009
 #, fuzzy
 msgid "Created project view ..."
-msgstr "N_eues Projekt ..."
+msgstr "N_eues Projekt …"
 
 #: ../plugins/project-manager/plugin.c:1022
 #, fuzzy, c-format
@@ -8683,7 +8683,7 @@ msgstr "Fehler beim Schreiben in Datei %s."
 #: ../plugins/project-manager/src_paths.c:263
 #, fuzzy
 msgid "Source Paths"
-msgstr "_Quellpfade ..."
+msgstr "_Quellpfade …"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 #, fuzzy
@@ -8731,7 +8731,7 @@ msgstr ""
 "es später nicht mehr möglich ist, einige der\n"
 "Einstellungen zu ändern.\n"
 "\n"
-"Klicken Sie auf Weiter, um fortzufahren ..."
+"Klicken Sie auf Weiter, um fortzufahren …"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 msgid "label"
@@ -9464,7 +9464,7 @@ msgstr "Ein_stellungen"
 
 #: ../src/anjuta-actions.h:56 ../src/shell.c:91
 msgid "_Preferences ..."
-msgstr "Vorlieben ..."
+msgstr "Vorlieben …"
 
 #: ../src/anjuta-actions.h:57
 msgid "Do you prefer coffee to tea? Check it out."
@@ -9633,7 +9633,7 @@ msgstr ""
 #: ../src/shell.c:93
 #, fuzzy
 msgid "Preferences"
-msgstr "Vorlieben ..."
+msgstr "Vorlieben …"
 
 #: ../src/shell.c:164
 msgid "Test shell action group"
@@ -9643,3 +9643,6 @@ msgstr ""
 #, fuzzy
 msgid "Anjuta test shell"
 msgstr "Anjuta im Internet"
+
+
+
