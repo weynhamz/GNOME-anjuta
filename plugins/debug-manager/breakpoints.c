@@ -1152,8 +1152,8 @@ static void
 on_clear_all_breakpoints (GtkWidget *button, BreakpointsDBase *bd)
 {
 	GtkWidget *dialog;
-	
-	dialog = gtk_message_dialog_new (GTK_WINDOW (bd->scrolledwindow),
+
+	dialog = gtk_message_dialog_new (GTK_WINDOW (ANJUTA_PLUGIN (bd->plugin)->shell), 
 									 GTK_DIALOG_DESTROY_WITH_PARENT,
 									 GTK_MESSAGE_QUESTION,
 									 GTK_BUTTONS_NONE,
@@ -1164,7 +1164,7 @@ on_clear_all_breakpoints (GtkWidget *button, BreakpointsDBase *bd)
 							NULL);
 	
 	gtk_window_set_transient_for (GTK_WINDOW (dialog),
-								  GTK_WINDOW (bd->scrolledwindow));
+			GTK_WINDOW (ANJUTA_PLUGIN (bd->plugin)->shell) );
 
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
 	{

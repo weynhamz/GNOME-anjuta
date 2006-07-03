@@ -1,3 +1,14 @@
+2006-07-03  Fredrik Axelsson <fraxbe@gmail.com>
+
+	reviewed by: Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/debug-manager/breakpoints.c: (on_clear_all_breakpoints):
+	* plugins/sourceview/sourceview.c: (imark_unmark):
+	
+	Patches for bugs #346450 and #346295
+	
+	* AUTHORS: Added Fredrik
+
 2006-06-18 Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/message-view/anjuta-msgman.c: 

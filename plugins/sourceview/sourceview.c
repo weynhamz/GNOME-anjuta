@@ -1190,7 +1190,7 @@ imark_unmark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 		{
 			gtk_source_buffer_delete_marker(GTK_SOURCE_BUFFER(sv->priv->document),
 											sv_marker->marker);
-			sv->priv->markers = g_list_remove(sv->priv->markers, node);
+			sv->priv->markers = g_list_remove(sv->priv->markers, node->data);
 			return;
 		}
 		node = g_list_next(node);
