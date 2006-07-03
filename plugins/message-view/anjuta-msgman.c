@@ -62,6 +62,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 {
 	AnjutaMsgmanPage *page;
 	int h, w;
+	GtkRcStyle *rcstyle;
 	
 	g_return_val_if_fail (view != NULL, NULL);
 
@@ -90,11 +91,17 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 												GTK_ICON_SIZE_MENU);
 	gtk_widget_set_size_request(page->close_icon, w, h);
 	
-	/* gtk_widget_show(page->close_icon); */
 	page->button = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(page->button), page->close_icon);
+	gtk_widget_set_size_request (page->button, w, h);	
+	gtk_button_set_focus_on_click (GTK_BUTTON (page->button), FALSE);
+	gtk_container_add(GTK_CONTAINER(page->button), page->close_icon);
 	gtk_button_set_relief(GTK_BUTTON(page->button), GTK_RELIEF_NONE);
-	gtk_widget_set_size_request (page->button, w, h);
+	rcstyle = gtk_rc_style_new ();
+	rcstyle->xthickness = rcstyle->ythickness = 0;
+	gtk_widget_modify_style (page->button, rcstyle);
+	gtk_rc_style_unref (rcstyle);
+	
 	gtk_box_pack_start (GTK_BOX (page->box), page->button, FALSE, FALSE, 0);
 	
 	g_object_set_data (G_OBJECT (page->button), "message_view", page->widget);
