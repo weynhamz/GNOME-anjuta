@@ -1,3 +1,16 @@
+2006-07-03  Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/editor/text_editor.c: (convert_to_utf8_from_charset):
+	Bug #342937
+	
+2006-07-03  Fredrik Axelsson <fraxbe@gmail.com>
+
+	reviewed by: Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/document-manager/anjuta-docman.c:
+	* src/anjuta-app.c:
+	makes Anjuta display dock_items which have previously been hidden
+
 2006-07-03  Fredrik Axelsson <fraxbe@gmail.com>
 
 	reviewed by: Johannes Schmid <jhs@cvs.gnome.org>

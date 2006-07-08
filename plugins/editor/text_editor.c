@@ -1106,7 +1106,7 @@ convert_to_utf8_from_charset (const gchar *content,
 									charset, NULL, &bytes_written,
 									&conv_error); 
 						
-	if ((conv_error != NULL) || 
+	if ((conv_error != NULL) || (converted_contents == NULL)  ||
 	    !g_utf8_validate (converted_contents, bytes_written, NULL))		
 	{
 		DEBUG_PRINT ("Couldn't convert from %s to UTF-8.", charset);

@@ -983,7 +983,7 @@ anjuta_app_present_widget (AnjutaShell *shell, GtkWidget *widget,
 						   GError **error)
 {
 	AnjutaApp *app;
-	GtkWidget *dock_item;
+	GdlDockItem *dock_item;
 	GtkWidget *parent;
 	
 	g_return_if_fail (ANJUTA_IS_APP (shell));
@@ -997,15 +997,22 @@ anjuta_app_present_widget (AnjutaShell *shell, GtkWidget *widget,
 	g_return_if_fail (dock_item != NULL);
 	
 	/* Hack to present the dock item if it's in a notebook dock item */
-	parent = gtk_widget_get_parent (dock_item);
+	parent = gtk_widget_get_parent (GTK_WIDGET(dock_item) );
 	if (GTK_IS_NOTEBOOK (parent))
 	{
 		gint pagenum;
-		pagenum = gtk_notebook_page_num (GTK_NOTEBOOK (parent), dock_item);
+		pagenum = gtk_notebook_page_num (GTK_NOTEBOOK (parent), GTK_WIDGET (dock_item));
 		gtk_notebook_set_current_page (GTK_NOTEBOOK (parent), pagenum);
+	} 
+	else if (!GDL_DOCK_OBJECT_ATTACHED (dock_item)) 
+	{ 
+	    gdl_dock_item_show_item (GDL_DOCK_ITEM (dock_item));  
 	}
-	/* FIXME: If the item is hidden, show it */
+	
 	/* FIXME: If the item is floating, present the window */
+	/* FIXME: There is no way to detect if a widget was floating before it was
+	detached since it no longer has a parent there is no way to access the
+	floating property of the GdlDock structure.*/
 }
 
 static GObject*

@@ -1186,6 +1186,7 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 				   
 	g_signal_emit_by_name (docman, "editor-added", te);
 	anjuta_docman_set_current_editor(docman, te);
+	anjuta_shell_present_widget( ANJUTA_SHELL (docman->shell), GTK_WIDGET (docman), NULL);
 	return te;
 }
 
@@ -1471,6 +1472,7 @@ anjuta_docman_show_editor (AnjutaDocman *docman, GtkWidget* te)
 		{
 			gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), i);
 			anjuta_docman_set_current_editor (docman, IANJUTA_EDITOR (te));
+			anjuta_shell_present_widget (ANJUTA_SHELL (docman->shell), GTK_WIDGET (docman), NULL);
 			return;
 		}
 		i++;
