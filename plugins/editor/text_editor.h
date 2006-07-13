@@ -20,6 +20,9 @@
 #ifndef _TEXT_EDITOR_H_
 #define _TEXT_EDITOR_H_
 
+#include <glib.h>
+#include <glib-object.h>
+
 #include <libanjuta/anjuta-preferences.h>
 #include <libgnomevfs/gnome-vfs-monitor.h>
 
@@ -33,6 +36,8 @@
 #define TEXT_EDITOR_FIND_SCOPE_WHOLE 1
 #define TEXT_EDITOR_FIND_SCOPE_CURRENT 2
 #define TEXT_EDITOR_FIND_SCOPE_SELECTION 3
+
+G_BEGIN_DECLS
 
 #define TYPE_TEXT_EDITOR        (text_editor_get_type ())
 #define TEXT_EDITOR(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_TEXT_EDITOR, TextEditor))
@@ -264,5 +269,7 @@ void text_editor_scintilla_command (TextEditor *te, gint command,
 #define VIEW_LINE_WRAP             "view.line.wrap"
 #define EDGE_COLUMN                "edge.column"
 #define TEXT_ZOOM_FACTOR           "text.zoom.factor"
+
+G_END_DECLS
 
 #endif

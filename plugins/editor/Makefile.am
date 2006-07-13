@@ -53,6 +53,8 @@ libanjuta_editor_la_SOURCES= \
 	text_editor_menu.h \
 	text_editor_cbs.c \
 	text_editor_cbs.h \
+	text-editor-iterable.c \
+	text-editor-iterable.h \
 	lexer.h \
 	plugin.c \
 	plugin.h \

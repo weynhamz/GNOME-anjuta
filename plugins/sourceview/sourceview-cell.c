@@ -93,9 +93,11 @@ icell_get_character(IAnjutaEditorCell* icell, GError** e)
 static gint 
 icell_get_length(IAnjutaEditorCell* icell, GError** e)
 {
+	/* FIXME: This is not efficient */
 	gint length;
 	gchar* s = icell_get_character(icell, NULL);
 	length = strlen(s);
+	g_free (s);
 	return length;
 }
 

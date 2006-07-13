@@ -1,3 +1,16 @@
+2006-07-13 Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/Makefile.am,
+	plugins/editor/text_editor.h,
+	plugins/editor/text-editor-iterable.h,
+	plugins/editor/text-editor-iterable.c: Implemented text iterator (not
+	tested yet).
+	
+	* plugins/language-support-cpp-java/plugin.c: Preliminary indentation
+	code.
+	
+	* plugins/sourceview/sourceview-cell.c: Fixed a leak.
+
 2006-07-03  Johannes Schmid <jhs@cvs.gnome.org>
 
 	* plugins/editor/text_editor.c: (convert_to_utf8_from_charset):
