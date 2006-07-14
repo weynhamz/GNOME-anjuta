@@ -439,7 +439,8 @@ void
 stack_trace_connect (StackTrace *st, IAnjutaDebugger *debugger)
 {
 	/* Create stack window */
-	create_stack_trace_gui (st);
+	if ( (st->widgets).scrolledwindow==NULL )
+		create_stack_trace_gui (st);
 
 	/* Connect to debugger */
 	st->current_frame = 0;

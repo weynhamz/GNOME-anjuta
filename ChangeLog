@@ -1,3 +1,17 @@
+2006-07-14  Johannes Schmid <jhs@cvs.gnome.org>
+	
+	* configure.in: Check for C/C++-Compiler correctly
+
+2006-07-14  Fredrik Axelsson <fraxbe@gmail.com>
+
+	reviewed by: Johannes Schmid <jhs@cvs.gnome.org>
+
+	* plugins/debug-manager/stack_trace.c:
+	Destroy stack window when debuuger is disabled (#347414)
+	
+	* plugins/sourceview/anjuta-view.c:
+	Fix a crash with popup-menu (#347412)
+
 2006-07-13 Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/Makefile.am,
