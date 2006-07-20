@@ -34,6 +34,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-print.h>
+#include <libanjuta/interfaces/ianjuta-editor-language.h>
 
 #include <libgnomevfs/gnome-vfs-init.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
@@ -1513,6 +1514,83 @@ iprint_iface_init(IAnjutaPrintIface* iface)
 	iface->print_preview = iprint_print_preview;
 }
 
+static const GList*
+ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
+								   GError **err)
+{
+	GtkSourceLanguagesManager* manager = gtk_source_languages_manager_new();
+	const GSList* manager_languages = gtk_source_languages_manager_get_available_languages(manager);
+	GList* languages = NULL;
+	
+	while (manager_languages)
+	{
+		languages = g_list_append(languages, gtk_source_language_get_name(
+			GTK_SOURCE_LANGUAGE(manager_languages->data)));
+		manager_languages = g_slist_next(manager_languages);
+	}
+	return languages;
+}
+
+static const gchar*
+ilanguage_get_language_name (IAnjutaEditorLanguage *ilanguage,
+							 const gchar *language, GError **err)
+{	
+	return language;
+}
+
+static void
+ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
+						const gchar *language, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(ilanguage);
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
+	GtkSourceLanguagesManager* manager = gtk_source_languages_manager_new();
+	const GSList* langs = gtk_source_languages_manager_get_available_languages(manager);
+	
+	while (langs)
+	{
+		gchar* name = gtk_source_language_get_name(GTK_SOURCE_LANGUAGE(langs->data));
+		if (g_str_equal(name, language))
+		{
+			gtk_source_buffer_set_language(buffer, GTK_SOURCE_LANGUAGE(langs->data));
+			g_signal_emit_by_name (ilanguage, "language-changed", language);
+			return;
+		}
+		langs = g_slist_next(langs);
+	}
+	/* Language not found -> use autodetection */
+	{
+		gchar* mime_type = anjuta_document_get_mime_type(ANJUTA_DOCUMENT(buffer));
+		GtkSourceLanguage* lang = gtk_source_languages_manager_get_language_from_mime_type(
+			manager, mime_type);
+		if (lang != NULL)
+		{
+			gtk_source_buffer_set_language(buffer, lang);
+			g_signal_emit_by_name (ilanguage, "language-changed", 
+				gtk_source_language_get_name(lang));
+		}
+	}	
+}
+
+static const gchar*
+ilanguage_get_language (IAnjutaEditorLanguage *ilanguage, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(ilanguage);
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
+	gchar* lang = gtk_source_language_get_name(gtk_source_buffer_get_language(buffer));
+	
+	return lang;
+}
+
+static void
+ilanguage_iface_init (IAnjutaEditorLanguageIface *iface)
+{
+	iface->get_supported_languages = ilanguage_get_supported_languages;
+	iface->get_language_name = ilanguage_get_language_name;
+	iface->get_language = ilanguage_get_language;
+	iface->set_language = ilanguage_set_language;
+}
+
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -1524,4 +1602,5 @@ ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
+ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
 ANJUTA_TYPE_END;

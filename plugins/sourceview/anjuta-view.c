@@ -414,9 +414,12 @@ anjuta_view_finalize (GObject *object)
 	if (view->priv->tooltips != NULL)
 		g_object_unref (view->priv->tooltips);
 
-	if (view->priv->popup != NULL)
-	    gtk_menu_detach (GTK_MENU (view->priv->popup));
-
+	if (view->priv->popup != NULL) 
+	{
+	    GtkWidget* widget = gtk_menu_get_attach_widget (GTK_MENU (view->priv->popup));
+	    if (widget != NULL)
+		gtk_menu_detach (GTK_MENU (view->priv->popup));
+	}
 	g_list_free(view->priv->tag_windows);
 		
 	(* G_OBJECT_CLASS (anjuta_view_parent_class)->finalize) (object);
