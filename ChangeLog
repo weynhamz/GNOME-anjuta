@@ -1,7 +1,11 @@
 2006-07-20  Johannes Schmid <jhs@cvs.gnome.org>
 
+	* plugins/document-manager/plugin.c:
+	Fixed "Automatic" highlighting
+
+2006-07-20  Johannes Schmid <jhs@cvs.gnome.org>
+
 	* plugins/sourceview/sourceview.c: Added support for IAnjutaEditorLanguage
-	(automatic does not work, same with scintilla editor)
 
 	* plugins/sourceview/anjuta-view.c:
 	Patch from Fredrik Axelsson <fraxbe@gmail.com> to fix a popup-menu issue

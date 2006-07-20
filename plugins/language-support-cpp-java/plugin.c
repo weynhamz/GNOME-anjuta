@@ -218,7 +218,9 @@ install_support (CppJavaPlugin *lang_plugin)
 											  NULL);
 	
 	if (lang_plugin->current_language &&
-		strcmp (lang_plugin->current_language, "cpp") == 0)
+		(strcmp (lang_plugin->current_language, "cpp") == 0
+		|| strcmp (lang_plugin->current_language, "C") == 0
+		|| strcmp (lang_plugin->current_language, "C++") == 0))
 	{
 		g_signal_connect (lang_plugin->current_editor,
 						  "char-added",
@@ -226,7 +228,8 @@ install_support (CppJavaPlugin *lang_plugin)
 						  lang_plugin);
 	}
 	else if (lang_plugin->current_language &&
-		strcmp (lang_plugin->current_language, "java") == 0)
+		(strcmp (lang_plugin->current_language, "java") == 0
+		|| strcmp (lang_plugin->current_language, "Java") == 0))
 	{
 		g_signal_connect (lang_plugin->current_editor,
 						  "char-added",

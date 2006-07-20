@@ -878,6 +878,7 @@ create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 	g_signal_connect (G_OBJECT (menuitem), "activate",
 					  G_CALLBACK (on_force_hilite_activate),
 					  plugin);
+	g_object_set_data(G_OBJECT(menuitem), "language_code", "auto-detect");
 	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
 
 	node = languages;
