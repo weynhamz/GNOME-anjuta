@@ -309,8 +309,8 @@ dma_plugin_program_loaded (DebugManagerPlugin *this)
 	/* Connect components */
 	breakpoints_dbase_connect (this->breakpoints, this->debugger);
 	expr_watch_connect (this->watch, this->debugger);
-	locals_connect (this->locals, this->debugger);
-	stack_trace_connect (this->stack, this->debugger);
+//	locals_connect (this->locals, this->debugger);
+//	stack_trace_connect (this->stack, this->debugger);
 //	cpu_registers_connect (this->registers, this->debugger);
 						
 	/* Update ui */
@@ -346,8 +346,8 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 	DEBUG_PRINT ("DMA: dma_plugin_program_broken");
 	
 	expr_watch_cmd_queqe (this->watch);
-	locals_update (this->locals);
-	stack_trace_update (this->stack);
+//	locals_update (this->locals);
+//	stack_trace_update (this->stack);
 //	cpu_registers_update (this->registers);
 
 	/* Update ui */

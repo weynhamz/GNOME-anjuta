@@ -937,7 +937,7 @@ debug_tree_update_watch (DebugTree *this, GtkTreeIter *iter, const gchar *value)
 }
 
 static void
-on_watch_updated (const gchar *value, gpointer user_data)
+on_watch_updated (const gchar *value, gpointer user_data, GError *error)
 {
 	WatchCallBack *watch_data = (WatchCallBack *)user_data;
 	
@@ -951,7 +951,7 @@ on_watch_updated (const gchar *value, gpointer user_data)
 }
 
 static void
-on_entry_updated (const gchar *value, gpointer user_data)
+on_entry_updated (const gchar *value, gpointer user_data, GError *error)
 {
 	GtkWidget *entry = (GtkWidget *)user_data;
 	

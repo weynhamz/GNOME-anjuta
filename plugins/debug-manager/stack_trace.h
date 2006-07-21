@@ -31,9 +31,5 @@ typedef struct _StackTrace StackTrace;
 
 StackTrace *stack_trace_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin);
 void stack_trace_free (StackTrace *st);
-void stack_trace_connect (StackTrace *st, IAnjutaDebugger *debugger);
-
-void stack_trace_update (StackTrace *st);
-void stack_trace_clear (StackTrace *st);
 
 #endif

@@ -50,9 +50,12 @@ struct _DmaMemory
  *---------------------------------------------------------------------------*/
 
 static void
-on_memory_block_read (const gchar *address, guint length, const gchar* data, DmaMemory *mem)
+on_memory_block_read (const IAnjutaDebuggerMemory *block, DmaMemory *mem, GError *err)
 {
 	const gchar* tag;
+	guint length = block->length;
+	gchar *data = block->data;
+	gchar *address = block->address;
 	
 	tag = data + length;
 	while (length != 0)

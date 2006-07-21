@@ -28,10 +28,6 @@
 typedef struct _Locals Locals;
 
 Locals *locals_new (AnjutaPlugin* plugin, IAnjutaDebugger* debugger);
-void locals_connect (Locals *l, IAnjutaDebugger *debugger);
 void locals_free (Locals *l);
-
-void locals_update (Locals *l);
-void locals_clear (Locals *l);
 
 #endif

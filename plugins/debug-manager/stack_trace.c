@@ -111,6 +111,15 @@ get_current_index (StackTrace* st)
 /* Private functions
  *---------------------------------------------------------------------------*/
 
+static void
+stack_trace_clear (StackTrace * st)
+{
+	GtkTreeModel* model;
+	
+	model = gtk_tree_view_get_model (st->widgets.clist);
+	gtk_list_store_clear (GTK_LIST_STORE (model));
+}
+
 /* Callback functions
  *---------------------------------------------------------------------------*/
 
@@ -272,6 +281,13 @@ on_stack_trace_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer
 	return FALSE;
 }
 
+static void
+stack_trace_update (StackTrace *st)
+{
+	st->current_frame = 0;
+	ianjuta_debugger_list_frame (st->debugger, on_stack_trace_updated, st, NULL);
+}
+
 /* Actions table
  *---------------------------------------------------------------------------*/
 
@@ -303,6 +319,9 @@ create_stack_trace_gui(StackTrace *st)
 	GtkCellRenderer *renderer;
 	AnjutaUI *ui;
 
+	g_return_if_fail (st->widgets.scrolledwindow == NULL);
+	g_return_if_fail (st->widgets.menu == NULL);
+	
 	/* Create tree view */
 	model = GTK_TREE_MODEL(gtk_list_store_new (STACK_TRACE_N_COLUMNS,
 											   GDK_TYPE_PIXBUF,
@@ -416,39 +435,43 @@ create_stack_trace_gui(StackTrace *st)
 
 }
 
+static void
+destroy_stack_trace_gui (StackTrace *st)
+{
+	if (st->widgets.menu != NULL)
+	{
+		gtk_widget_unref (st->widgets.menu);
+		gtk_widget_destroy (st->widgets.menu);
+		st->widgets.menu = NULL;
+	}
+	if (st->widgets.scrolledwindow != NULL)
+	{
+		gtk_widget_destroy (st->widgets.scrolledwindow);
+		st->widgets.scrolledwindow = NULL;
+	}
+}
+
+static void
+on_program_stopped (StackTrace *st)
+{
+	stack_trace_update (st);
+}
+
+static void
+on_debugger_started (StackTrace *st)
+{
+	create_stack_trace_gui (st);
+}
+
+static void
+on_debugger_stopped (StackTrace *st)
+{
+	stack_trace_clear (st);
+	destroy_stack_trace_gui (st);
+}
+
 /* Public functions
  *---------------------------------------------------------------------------*/
-
-void
-stack_trace_clear (StackTrace * st)
-{
-	GtkTreeModel* model;
-	
-	model = gtk_tree_view_get_model (st->widgets.clist);
-	gtk_list_store_clear (GTK_LIST_STORE (model));
-}
-
-void
-stack_trace_update (StackTrace *st)
-{
-	st->current_frame = 0;
-	ianjuta_debugger_list_frame (st->debugger, on_stack_trace_updated, st, NULL);
-}
-
-void
-stack_trace_connect (StackTrace *st, IAnjutaDebugger *debugger)
-{
-	/* Create stack window */
-	if ( (st->widgets).scrolledwindow==NULL )
-		create_stack_trace_gui (st);
-
-	/* Connect to debugger */
-	st->current_frame = 0;
-	st->debugger = debugger;
-	g_signal_connect_swapped (st->debugger, "frame-changed",
-				  G_CALLBACK (on_stack_trace_frame_changed), st);
-	
-}
 
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
@@ -463,6 +486,8 @@ stack_trace_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin)
 	if (st == NULL) return NULL;
 
 	st->plugin = plugin;
+	st->debugger = debugger;
+	if (debugger != NULL) g_object_ref (debugger);
 
 	/* Register actions */
 	ui = anjuta_shell_get_ui (st->plugin->shell, NULL);
@@ -472,6 +497,11 @@ stack_trace_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin)
 											actions_stack_trace,
 											G_N_ELEMENTS (actions_stack_trace),
 											GETTEXT_PACKAGE, st);
+
+	g_signal_connect_swapped (st->debugger, "debugger-started", G_CALLBACK (on_debugger_started), st);
+	g_signal_connect_swapped (st->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), st);
+	g_signal_connect_swapped (st->debugger, "program-stopped", G_CALLBACK (on_program_stopped), st);
+	g_signal_connect_swapped (st->debugger, "frame-changed", G_CALLBACK (on_stack_trace_frame_changed), st);
 	
 	return st;
 }
@@ -485,20 +515,20 @@ stack_trace_free (StackTrace * st)
 
 	/* Disconnect from debugger */
 	if (st->debugger != NULL)
+	{	
+		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_debugger_started), st);
+		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_debugger_stopped), st);
+		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_program_stopped), st);
 		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_stack_trace_frame_changed), st);
+		g_object_unref (st->debugger);	
+	}
 
 	/* Remove menu actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (st->plugin)->shell, NULL);
 	anjuta_ui_remove_action_group (ui, st->action_group);
 	
 	/* Destroy menu */
-	if (st->widgets.menu != NULL)
-	{
-		gtk_widget_unref (st->widgets.menu);
-		gtk_widget_destroy (st->widgets.menu);
-	}
-	if (st->widgets.scrolledwindow != NULL)
-		gtk_widget_destroy (st->widgets.scrolledwindow);
+	destroy_stack_trace_gui	(st);
 	
 	g_free (st);
 }

@@ -384,7 +384,7 @@ breakpoint_item_free (BreakpointItem *bi)
  * Missing breakpoint are created */
 
 static void
-on_breakpoint_item_update_in_ui (const IAnjutaDebuggerBreakpoint *breakpoint, gpointer user_data);
+on_breakpoint_item_update_in_ui (const IAnjutaDebuggerBreakpoint *breakpoint, gpointer user_data, GError *err);
 
 static void
 breakpoint_item_update_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoint* bp)
@@ -490,7 +490,7 @@ breakpoint_item_update_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 }
 
 static void
-on_breakpoint_item_update_in_ui (const IAnjutaDebuggerBreakpoint *breakpoint, gpointer user_data)
+on_breakpoint_item_update_in_ui (const IAnjutaDebuggerBreakpoint *breakpoint, gpointer user_data, GError *err)
 {
 	breakpoint_item_update_in_ui ((BreakpointItem *)user_data, breakpoint);
 }
@@ -522,7 +522,7 @@ breakpoint_item_remove_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 }
 
 static void
-on_breakpoint_item_remove_in_ui (const IAnjutaDebuggerBreakpoint *breakpoint, gpointer user_data)
+on_breakpoint_item_remove_in_ui (const IAnjutaDebuggerBreakpoint *breakpoint, gpointer user_data, GError *err)
 {
 	breakpoint_item_remove_in_ui ((BreakpointItem *)user_data, breakpoint);
 }

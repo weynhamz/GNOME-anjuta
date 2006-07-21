@@ -66,7 +66,7 @@ enum
  *---------------------------------------------------------------------------*/
 
 static void
-on_cpu_registers_updated (const GList *registers, gpointer user_data)
+on_cpu_registers_updated (const GList *registers, gpointer user_data, GError *error)
 {
 	CpuRegisters *this = (CpuRegisters *)user_data;
 	const GList *node;
@@ -154,7 +154,7 @@ on_cpu_registers_changed (GtkCellRendererText *cell,
 
 	if (gtk_tree_model_get_iter_from_string (this->model, &iter, path_string))
 	{
-		IAnjutaCpuDebuggerRegister reg;
+		IAnjutaDebuggerRegister reg;
 		gchar *name;
 		
 		gtk_tree_model_get (this->model, &iter, NUMBER_COLUMN, &reg.num, NAME_COLUMN, &name, -1);
@@ -320,6 +320,12 @@ cpu_registers_free(CpuRegisters* this)
 	g_return_if_fail (this != NULL);
 
 	destroy_cpu_registers_gui (this);
-	if (this->debugger != NULL)	g_object_unref (this->debugger);
+	if (this->debugger != NULL)
+	{
+		g_signal_handlers_disconnect_by_func (this->debugger, G_CALLBACK (on_debugger_started), this);
+		g_signal_handlers_disconnect_by_func (this->debugger, G_CALLBACK (on_debugger_stopped), this);
+		g_signal_handlers_disconnect_by_func (this->debugger, G_CALLBACK (on_program_stopped), this);
+		g_object_unref (this->debugger);
+	}
 	g_free(this);
 }

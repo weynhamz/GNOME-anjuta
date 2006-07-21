@@ -2262,7 +2262,10 @@ interface IAnjutaDebugger
 		NOT_LOADED      = -4,
 		NOT_STARTED     = -5,
 		NOT_CONNECTED   = -6,
-		NOT_IMPLEMENTED = -7
+		NOT_IMPLEMENTED = -7,
+		CANCEL,
+		UNABLE_TO_CREATE_VARIABLE,
+		UNKNOWN_ERROR
 	}
 
 	enum Data
@@ -2310,40 +2313,59 @@ interface IAnjutaDebugger
 	{
 		BreakpointType type;
 		guint id;
-		const gchar *file;
+		gchar *file;
 		guint line;
-		const gchar *function;
+		gchar *function;
 		guint address;
 		State enable;
 		guint ignore;
 		guint times;
-		const gchar *condition;
+		gchar *condition;
 		State keep;
 	}
 
 	struct Register
 	{
 		guint num;
-		const gchar *name;
-		const gchar *value;
+		gchar *name;
+		gchar *value;
 	}
 
 	struct Frame
 	{
 		guint level;
-		const gchar *args;
-		const gchar *file;
+		gchar *args;
+		gchar *file;
 		guint line;
-		const gchar *function;
+		gchar *function;
 		guint address;
 	}
 
+	struct Variable
+	{
+		gchar *name;
+		gchar *expression;
+		gchar *type;
+		gchar *value;
+		gboolean changed;
+		guint children;
+	}
+
+	struct Memory
+	{
+		gchar *address;
+		guint length;
+		gchar *data;
+	}	
+
 	/* Call back functions */
-	typedef void (*Func) (const gpointer data, gpointer user_data);
-	typedef void (*GListFunc) (const GList *list, gpointer user_data);
-	typedef void (*GCharFunc) (const gchar *value, gpointer user_data);
-	typedef void (*BreakpointFunc) (const Breakpoint *breakpoint, gpointer user_data);
-	typedef void (*OutputFunc) (OutputType type, const gchar *output, gpointer user_data);
+	typedef void (*Callback) (const gpointer data, gpointer user_data, GError* err);
+	typedef void (*GListCallback) (const GList *list, gpointer user_data, GError* err);
+	typedef void (*GCharCallback) (const gchar *value, gpointer user_data, GError* err);
+	typedef void (*BreakpointCallback) (const Breakpoint *breakpoint, gpointer user_data, GError* err);
+	typedef void (*OutputCallback) (OutputType type, const gchar *output, gpointer user_data);
+	typedef void (*MemoryCallback) (const gchar* address, guint length, const gchar *data, gpointer user_data, GError *err);
+	typedef void (*VariableCallback) (Variable *variable, gpointer user_data, GError *err);
 
 	/* Signals */
 
@@ -2483,7 +2505,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error initialize (OutputFunc func, gpointer user_data);
+	gboolean initialize (OutputCallback func, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_load:
@@ -2497,7 +2519,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error load (const gchar *file, const gchar *mime_type, const GList *source_search_directories);
+	gboolean load (const gchar *file, const gchar *mime_type, const GList *source_search_directories);
 	
 	/**
 	* ianjuta_debugger_attach:
@@ -2510,7 +2532,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error attach (pid_t pid, const GList *source_search_directories);
+	gboolean attach (pid_t pid, const GList *source_search_directories);
 	
 	/**
 	* ianjuta_debugger_start:
@@ -2523,7 +2545,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error start (const gchar *args, gboolean terminal);
+	gboolean start (const gchar *args, gboolean terminal);
 	
 	/**
 	* ianjuta_debugger_unload:
@@ -2534,7 +2556,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error unload ();
+	gboolean unload ();
 	
 	/**
 	* ianjuta_debugger_quit:
@@ -2545,7 +2567,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error quit ();
+	gboolean quit ();
 
 	
 	/**
@@ -2557,7 +2579,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error run ();
+	gboolean run ();
 	
 	/**
 	* ianjuta_debugger_step_in:
@@ -2568,7 +2590,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error step_in ();
+	gboolean step_in ();
 	
 	/**
 	* ianjuta_debugger_step_over:
@@ -2579,7 +2601,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error step_over ();
+	gboolean step_over ();
 	
 	/**
 	* ianjuta_debugger_step_out:
@@ -2590,7 +2612,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error step_out ();
+	gboolean step_out ();
 	
 	/**
 	* ianjuta_debugger_run_to:
@@ -2603,7 +2625,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error run_to (const gchar *uri, gint line);
+	gboolean run_to (const gchar *uri, gint line);
 	
 	/**
 	* ianjuta_debugger_exit:
@@ -2614,7 +2636,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error exit ();
+	gboolean exit ();
 	
 	/**
 	* ianjuta_debugger_interrupt:
@@ -2625,7 +2647,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error interrupt ();
+	gboolean interrupt ();
 
 	
 	/**
@@ -2633,7 +2655,7 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @file: fixme
 	* @line: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2641,13 +2663,14 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error set_breakpoint_at_line (const gchar* file, guint line, BreakpointFunc func, gpointer user_data);
+	gboolean set_breakpoint_at_line (const gchar* file, guint line, Callback callback, gpointer user_data);
+
 	
 	/**
 	* ianjuta_debugger_set_breakpoint_at_address:
 	* @obj: Self
 	* @address: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_date: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2655,14 +2678,14 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error set_breakpoint_at_address (guint address, BreakpointFunc func, gpointer user_data);
+	gboolean set_breakpoint_at_address (guint address, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_set_breakpoint_at_function:
 	* @obj: Self
 	* @file: fixme
 	* @function: fixme
-	* @funx: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2670,13 +2693,13 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error set_breakpoint_at_function (const gchar* file, const gchar* function, BreakpointFunc func, gpointer user_data);
+	gboolean set_breakpoint_at_function (const gchar* file, const gchar* function, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_clear_breakpoint:
 	* @obj: Self
 	* @id: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2684,14 +2707,14 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error clear_breakpoint (guint id, BreakpointFunc func, gpointer user_data);
+	gboolean clear_breakpoint (guint id, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_enable_breakpoint:
 	* @obj: Self
 	* @id: fixme
 	* @enable: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme	
 	* @err: Error propagation and reporting.
 	* 
@@ -2699,14 +2722,14 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error enable_breakpoint (guint id, gboolean enable, BreakpointFunc func, gpointer user_data);
+	gboolean enable_breakpoint (guint id, gboolean enable, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_ignore_breakpoint:
 	* @obj: Self
 	* @id: fixme
 	* @ignore: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2714,14 +2737,14 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error ignore_breakpoint (guint id, guint ignore, BreakpointFunc func, gpointer user_data);
+	gboolean ignore_breakpoint (guint id, guint ignore, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_condition_breakpoint:
 	* @obj: Self
 	* @id: fixme
 	* @condition: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2729,14 +2752,14 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error condition_breakpoint (guint id, const gchar* condition, BreakpointFunc func, gpointer user_data);
+	gboolean condition_breakpoint (guint id, const gchar* condition, Callback callback, gpointer user_data);
 
 	
 	/**
 	* ianjuta_debugger_inspect:
 	* @obj: Self
 	* @name: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2744,14 +2767,14 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error inspect (const gchar* name, GCharFunc func, gpointer user_data);
+	gboolean inspect (const gchar* name, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_evaluate:
 	* @obj: Self
 	* @name: fixme
 	* @value: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2759,13 +2782,13 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error evaluate (const gchar* name, const gchar* value, GCharFunc func, gpointer user_data);
+	gboolean evaluate (const gchar* name, const gchar* value, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_print:
 	* @obj: Self
 	* @variable: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2773,12 +2796,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error print (const gchar *variable, GCharFunc func, gpointer user_data);
+	gboolean print (const gchar *variable, Callback callback, gpointer user_data);
 	
 	/**
-	* ianjuta_debugger_info_local:
+	* ianjuta_debugger_list_local:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2786,12 +2809,25 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error list_local (GListFunc func, gpointer user_data);
+	gboolean list_local (Callback callback, gpointer user_data);
+
+	/**
+	* ianjuta_debugger_list_argument:
+	* @obj: Self
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean list_argument (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_signal:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2799,12 +2835,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error info_signal (GListFunc func, gpointer user_data);
+	gboolean info_signal (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_sharedlib:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2812,7 +2848,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error info_sharedlib (GListFunc func, gpointer user_data);
+	gboolean info_sharedlib (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_handle_signal:
@@ -2827,13 +2863,13 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error handle_signal (const gchar *name, gboolean stop, gboolean print, gboolean ignore);
+	gboolean handle_signal (const gchar *name, gboolean stop, gboolean print, gboolean ignore);
 	
 	/**
 	* ianjuta_debugger_info_frame:
 	* @obj: Self
 	* @frame: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2841,12 +2877,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error info_frame (guint frame, GListFunc func, gpointer user_data);
+	gboolean info_frame (guint frame, Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_args:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2854,7 +2890,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error info_args (GListFunc func, gpointer user_data);
+	gboolean info_args (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_target:
@@ -2867,12 +2903,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error info_target (GListFunc func, gpointer user_data);
+	gboolean info_target (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_program:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2880,12 +2916,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error info_program (GListFunc func, gpointer user_data);
+	gboolean info_program (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_udot:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2893,12 +2929,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error info_udot (GListFunc func, gpointer user_data);
+	gboolean info_udot (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_threads:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2906,12 +2942,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error info_threads (GListFunc func, gpointer user_data);
+	gboolean info_threads (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_variables:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2919,12 +2955,12 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error info_variables (GListFunc func, gpointer user_data);
+	gboolean info_variables (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_list_frame:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2932,7 +2968,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error list_frame (GListFunc func, gpointer user_data);
+	gboolean list_frame (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_set_frame:
@@ -2944,13 +2980,13 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error set_frame (guint frame);
+	gboolean set_frame (guint frame);
 
 	
 	/**
 	* ianjuta_debugger_list_register:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -2958,7 +2994,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error list_register (GListFunc func, gpointer user_data);
+	gboolean list_register (Callback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_send_command:
@@ -2970,7 +3006,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Error send_command (const gchar *command);
+	gboolean send_command (const gchar *command);
 
 	
 	/**
@@ -3004,22 +3040,10 @@ interface IAnjutaCpuDebugger
 	#include "ianjuta-message-view.h"
 	#include <sys/types.h>
 
-	/* Types */
-	struct Register
-	{
-		guint num;
-		const gchar *name;
-		const gchar *value;
-	}
-
-	/* Call back functions */
-	typedef void (*GListFunc) (const GList *list, gpointer user_data);
-	typedef void (*MemoryCallBack) (const gchar* address, guint length, const gchar *data, gpointer user_data);
-
 	/**
 	* ianjuta_debugger_list_register:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -3027,12 +3051,12 @@ interface IAnjutaCpuDebugger
 	*
 	* Returns: fixme
 	*/
-	IAnjutaDebuggerError list_register (GListFunc func, gpointer user_data);
+	gboolean list_register (IAnjutaDebuggerCallback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_update_register:
 	* @obj: Self
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -3040,7 +3064,7 @@ interface IAnjutaCpuDebugger
 	*
 	* Returns: fixme
 	*/
-	IAnjutaDebuggerError update_register (GListFunc func, gpointer user_data);
+	gboolean update_register (IAnjutaDebuggerCallback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_write_register:
@@ -3052,14 +3076,14 @@ interface IAnjutaCpuDebugger
 	*
 	* Returns: fixme
 	*/
-	IAnjutaDebuggerError write_register (Register *value);
+	gboolean write_register (IAnjutaDebuggerRegister *value);
 
 	/**
 	* ianjuta_debugger_inspect_memory:
 	* @obj: Self
 	* @address: fixme
 	* @length: fixme
-	* @func: fixme
+	* @callback: fixme
 	* @user_data: fixme
 	* @err: Error propagation and reporting.
 	* 
@@ -3067,7 +3091,95 @@ interface IAnjutaCpuDebugger
 	*
 	* Returns: fixme
 	*/
-	void inspect_memory (const void* address, guint length, MemoryCallBack func, gpointer user_data);
+	gboolean inspect_memory (const void* address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
+}
+
+interface IAnjutaVariableDebugger
+{
+	#include "ianjuta-debug-manager.h"
+	#include "ianjuta-debugger.h"
+	#include <sys/types.h>
+
+	/**
+	* ianjuta_variable_debugger_create:
+	* @obj: Self
+	* @name: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean create (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+	/**
+	* ianjuta_variable_debugger_list_children:
+	* @obj: Self
+	* @name: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean list_children (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+	/**
+	* ianjuta_variable_debugger_evaluate:
+	* @obj: Self
+	* @name: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean evaluate (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+	/**
+	* ianjuta_variable_debugger_assign:
+	* @obj: Self
+	* @name: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean assign (const gchar *name, const gchar *value);
+
+	/**
+	* ianjuta_variable_debugger_update:
+	* @obj: Self
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean update (IAnjutaDebuggerCallback callback, gpointer user_data);
+
+	/**
+	* ianjuta_variable_debugger_delete:
+	* @obj: Self
+	* @name: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean delete (const gchar *name);
 }
 
 interface IAnjutaVcs
@@ -3079,7 +3191,7 @@ interface IAnjutaVcs
 	 * @err: Error propagation and reporting
 	 *
 	 * Add filename to the cvs repositry.
-	 */
+ve	 */
 	void add(const gchar* filename);
 	
 	/**

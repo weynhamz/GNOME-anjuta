@@ -30,6 +30,7 @@
 
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
+#include <libanjuta/interfaces/ianjuta-variable-debugger.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-plugin.h>
 
@@ -44,7 +45,7 @@ struct _GdbPlugin
 	Debugger *debugger;
 
 	/* Output callback data */
-	IAnjutaDebuggerOutputFunc output_callback;
+	IAnjutaDebuggerOutputCallback output_callback;
 	gpointer output_user_data;
 
 	/* Log message window */
@@ -182,19 +183,19 @@ idebugger_get_status (IAnjutaDebugger *plugin, GError **err)
 }	
 
 
-static IAnjutaDebuggerError
-idebugger_initialize (IAnjutaDebugger *plugin, IAnjutaDebuggerOutputFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_initialize (IAnjutaDebugger *plugin, IAnjutaDebuggerOutputCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	this->output_callback = callback;
 	this->output_user_data = user_data;
-	g_signal_emit_by_name (G_OBJECT (plugin), "debugger-started");
+	//g_signal_emit_by_name (G_OBJECT (plugin), "debugger-started");
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_type,
 				const GList *search_dirs, GError **err)
 {
@@ -217,28 +218,30 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_ty
 	}
 	else
 	{
-		return IANJUTA_DEBUGGER_NOT_IMPLEMENTED;
+		//return IANJUTA_DEBUGGER_NOT_IMPLEMENTED;
+		return TRUE;
 	}
 	
 	// a NULL filename could be used to check supported mime type
-	if (file == NULL) return IANJUTA_DEBUGGER_OK;
+	if (file == NULL) return TRUE;
 		
 	// Start debugger
 	gdb_plugin_initialize (this);
-	return debugger_start (this->debugger, search_dirs, file, is_libtool) ? IANJUTA_DEBUGGER_OK : IANJUTA_DEBUGGER_NOT_STARTED;
+	//return debugger_start (this->debugger, search_dirs, file, is_libtool) ? IANJUTA_DEBUGGER_OK : IANJUTA_DEBUGGER_NOT_STARTED;
+	return debugger_start (this->debugger, search_dirs, file, is_libtool);
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_unload (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_stop (this->debugger);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_attach (IAnjutaDebugger *plugin, pid_t pid, const GList *search_dirs, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
@@ -248,20 +251,20 @@ idebugger_attach (IAnjutaDebugger *plugin, pid_t pid, const GList *search_dirs, 
 	debugger_start (this->debugger, search_dirs, NULL, FALSE);
 	debugger_attach_process (this->debugger, pid);
 	
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_start (IAnjutaDebugger *plugin, const gchar *argument, gboolean terminal, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_start_program (this->debugger, argument, terminal);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_quit (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
@@ -273,40 +276,40 @@ idebugger_quit (IAnjutaDebugger *plugin, GError **err)
 	}
 	g_signal_emit_by_name (G_OBJECT (plugin), "debugger-stopped");
 	
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_run (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	debugger_run (this->debugger);
 
-	return IANJUTA_DEBUGGER_PROGRAM_RUNNING;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_step_in (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	debugger_step_in (this->debugger);
 
-	return IANJUTA_DEBUGGER_PROGRAM_RUNNING;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_step_over (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	debugger_step_over (this->debugger);
 
-	return IANJUTA_DEBUGGER_PROGRAM_RUNNING;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_run_to (IAnjutaDebugger *plugin, const gchar *file,
 						   gint line, GError **err)
 {
@@ -314,142 +317,142 @@ idebugger_run_to (IAnjutaDebugger *plugin, const gchar *file,
 	
 	debugger_run_to_position (this->debugger, file, line);
 
-	return IANJUTA_DEBUGGER_PROGRAM_RUNNING;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_step_out (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	debugger_step_out (this->debugger);
 
-	return IANJUTA_DEBUGGER_PROGRAM_RUNNING;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_exit (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	debugger_stop_program (this->debugger);
 
-	return IANJUTA_DEBUGGER_PROGRAM_LOADED;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_interrupt (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	debugger_interrupt (this->debugger);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_add_breakpoint_at_line (IAnjutaDebugger *plugin, const gchar* file, guint line, IAnjutaDebuggerBreakpointFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_add_breakpoint_at_line (IAnjutaDebugger *plugin, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	/* NULL breakpoint is used to detect available feature */
-	if (file == NULL) return IANJUTA_DEBUGGER_OK;
+	if (file == NULL) return TRUE;
 		
 	debugger_add_breakpoint_at_line (this->debugger, file, line, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_add_breakpoint_at_function (IAnjutaDebugger *plugin, const gchar* file, const gchar* function, IAnjutaDebuggerBreakpointFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_add_breakpoint_at_function (IAnjutaDebugger *plugin, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	/* NULL breakpoint is used to detect available feature */
-	if (function == NULL) return IANJUTA_DEBUGGER_OK;
+	if (function == NULL) return TRUE;
 
 	debugger_add_breakpoint_at_function (this->debugger, file, function, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_add_breakpoint_at_address (IAnjutaDebugger *plugin, guint address, IAnjutaDebuggerBreakpointFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_add_breakpoint_at_address (IAnjutaDebugger *plugin, guint address, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	/* NULL breakpoint is used to detect available feature */
-	if (address == 0) return IANJUTA_DEBUGGER_OK;
+	if (address == 0) return TRUE;
 
 	debugger_add_breakpoint_at_address (this->debugger, address, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_enable_breakpoint (IAnjutaDebugger *plugin, guint id, gboolean enable, IAnjutaDebuggerBreakpointFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_enable_breakpoint (IAnjutaDebugger *plugin, guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return IANJUTA_DEBUGGER_OK;
+	if (id == 0) return TRUE;
 
 	debugger_enable_breakpoint (this->debugger, id, enable, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_ignore_breakpoint (IAnjutaDebugger *plugin, guint id, guint ignore, IAnjutaDebuggerBreakpointFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_ignore_breakpoint (IAnjutaDebugger *plugin, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return IANJUTA_DEBUGGER_OK;
+	if (id == 0) return TRUE;
 
 	debugger_ignore_breakpoint (this->debugger, id, ignore, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_condition_breakpoint (IAnjutaDebugger *plugin, guint id, const gchar *condition, IAnjutaDebuggerBreakpointFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_condition_breakpoint (IAnjutaDebugger *plugin, guint id, const gchar *condition, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return IANJUTA_DEBUGGER_OK;
+	if (id == 0) return TRUE;
 
 	debugger_condition_breakpoint (this->debugger, id, condition, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_remove_breakpoint (IAnjutaDebugger *plugin, guint id, IAnjutaDebuggerBreakpointFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_remove_breakpoint (IAnjutaDebugger *plugin, guint id, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return IANJUTA_DEBUGGER_OK;
+	if (id == 0) return TRUE;
 
 	debugger_remove_breakpoint (this->debugger, id, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_inspect (IAnjutaDebugger *plugin, const gchar *name, IAnjutaDebuggerGCharFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_inspect (IAnjutaDebugger *plugin, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	
 	debugger_evaluate (this->debugger, name, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_evaluate (IAnjutaDebugger *plugin, const gchar *name, const gchar *value, IAnjutaDebuggerGCharFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_evaluate (IAnjutaDebugger *plugin, const gchar *name, const gchar *value, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 	gchar* buf;
@@ -458,60 +461,70 @@ idebugger_evaluate (IAnjutaDebugger *plugin, const gchar *name, const gchar *val
 	debugger_evaluate (this->debugger, buf, callback, user_data);
 	g_free (buf);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_send_command (IAnjutaDebugger *plugin, const gchar* command, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_command (this->debugger, command, FALSE, NULL, NULL);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError 
-idebugger_print (IAnjutaDebugger *plugin, const gchar* variable, IAnjutaDebuggerGCharFunc callback, gpointer user_data, GError **err)
+static gboolean
+idebugger_print (IAnjutaDebugger *plugin, const gchar* variable, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_print (this->debugger, variable, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_list_local (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_list_local (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_list_local (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_info_signal (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_list_argument (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+{
+	GdbPlugin *this = (GdbPlugin *)plugin;
+
+	debugger_list_argument (this->debugger, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+idebugger_info_signal (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_info_signal (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_info_sharedlib (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_info_sharedlib (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_info_sharedlib (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_handle_signal (IAnjutaDebugger *plugin, const gchar* name, gboolean stop, gboolean print, gboolean ignore, GError **err)
 {
 	gchar* cmd;
@@ -521,107 +534,107 @@ idebugger_handle_signal (IAnjutaDebugger *plugin, const gchar* name, gboolean st
 	debugger_command (this->debugger, cmd, FALSE, NULL, NULL);
 	g_free (cmd);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_info_frame (IAnjutaDebugger *plugin, guint frame, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_info_frame (IAnjutaDebugger *plugin, guint frame, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_info_frame (this->debugger, frame, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_info_args (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_info_args (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_info_args (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_info_target (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_info_target (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_info_target (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_info_program (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_info_program (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_info_program (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_info_udot (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_info_udot (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_info_udot (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_info_threads (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_info_threads (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_info_threads (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_info_variables (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_info_variables (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_info_variables (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
+static gboolean
 idebugger_set_frame (IAnjutaDebugger *plugin, guint frame, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_set_frame (this->debugger, frame);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_list_frame (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_list_frame (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_list_frame (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-idebugger_list_register (IAnjutaDebugger *plugin, IAnjutaDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+idebugger_list_register (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	//debugger_list_register (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
 static void
@@ -674,6 +687,7 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 
 	iface->print = idebugger_print;
 	iface->list_local = idebugger_list_local;
+	iface->list_argument = idebugger_list_argument;
 	iface->info_frame = idebugger_info_frame;
 	iface->info_signal = idebugger_info_signal;
 	iface->info_sharedlib = idebugger_info_sharedlib;
@@ -697,42 +711,44 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 /* Implementation of IAnjutaCpuDebugger interface
  *---------------------------------------------------------------------------*/
 
-static IAnjutaDebuggerError
-icpu_debugger_list_register (IAnjutaCpuDebugger *plugin, IAnjutaCpuDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+icpu_debugger_list_register (IAnjutaCpuDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_list_register (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-icpu_debugger_update_register (IAnjutaCpuDebugger *plugin, IAnjutaCpuDebuggerGListFunc callback , gpointer user_data, GError **err)
+static gboolean
+icpu_debugger_update_register (IAnjutaCpuDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_update_register (this->debugger, callback, user_data);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static IAnjutaDebuggerError
-icpu_debugger_write_register (IAnjutaCpuDebugger *plugin, IAnjutaCpuDebuggerRegister *value, gpointer user_data, GError **err)
+static gboolean
+icpu_debugger_write_register (IAnjutaDebugger *plugin, IAnjutaDebuggerRegister *value, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_write_register (this->debugger, value->name, value->value);
 
-	return IANJUTA_DEBUGGER_OK;
+	return TRUE;
 }
 
-static void
-icpu_debugger_inspect_memory (IAnjutaDebugger *plugin, const void *address, unsigned int length, IAnjutaCpuDebuggerMemoryCallBack callback , gpointer user_data, GError **err)
+static gboolean
+icpu_debugger_inspect_memory (IAnjutaDebugger *plugin, const void *address, unsigned int length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	debugger_inspect_memory (this->debugger, address, length, callback, user_data);
+
+	return TRUE;
 }
 
 static void
@@ -744,9 +760,84 @@ icpu_debugger_iface_init (IAnjutaCpuDebuggerIface *iface)
 	iface->inspect_memory = icpu_debugger_inspect_memory;
 }
 
+/* Implementation of IAnjutaVariableDebugger interface
+ *---------------------------------------------------------------------------*/
+
+static gboolean
+ivariable_debugger_delete (IAnjutaVariableDebugger *plugin, const gchar *name, GError **error)
+{
+	GdbPlugin *gdb = (GdbPlugin *)plugin;
+
+	debugger_delete_variable (gdb->debugger, name);
+
+	return TRUE;
+}
+
+static gboolean
+ivariable_debugger_evaluate (IAnjutaVariableDebugger *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
+{
+	GdbPlugin *gdb = (GdbPlugin *)plugin;
+
+	debugger_evaluate_variable (gdb->debugger, name, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+ivariable_debugger_assign (IAnjutaVariableDebugger *plugin, const gchar *name, const gchar *value, GError **error)
+{
+	GdbPlugin *gdb = (GdbPlugin *)plugin;
+
+	debugger_assign_variable (gdb->debugger, name, value);
+
+	return TRUE;
+}
+
+static gboolean
+ivariable_debugger_list_children (IAnjutaVariableDebugger *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
+{
+	GdbPlugin *gdb = (GdbPlugin *)plugin;
+
+	debugger_list_variable_children (gdb->debugger, name, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+ivariable_debugger_create (IAnjutaVariableDebugger *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
+{
+	GdbPlugin *gdb = (GdbPlugin *)plugin;
+
+	debugger_create_variable (gdb->debugger, name, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+ivariable_debugger_update (IAnjutaVariableDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
+{
+	GdbPlugin *gdb = (GdbPlugin *)plugin;
+
+	debugger_update_variable (gdb->debugger, callback, user_data);
+
+	return TRUE;
+}
+
+static void
+ivariable_debugger_iface_init (IAnjutaVariableDebuggerIface *iface)
+{
+	iface->delete = ivariable_debugger_delete;
+	iface->evaluate = ivariable_debugger_evaluate;
+	iface->assign = ivariable_debugger_assign;
+	iface->list_children = ivariable_debugger_list_children;
+	iface->create = ivariable_debugger_create;
+	iface->update = ivariable_debugger_update;
+}
+
 ANJUTA_PLUGIN_BEGIN (GdbPlugin, gdb_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger, IANJUTA_TYPE_DEBUGGER);
 ANJUTA_PLUGIN_ADD_INTERFACE(icpu_debugger, IANJUTA_TYPE_CPU_DEBUGGER);
+ANJUTA_PLUGIN_ADD_INTERFACE(ivariable_debugger, IANJUTA_TYPE_VARIABLE_DEBUGGER);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (GdbPlugin, gdb_plugin);

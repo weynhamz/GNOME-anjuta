@@ -47,27 +47,18 @@ locals_updated (const GList *list, gpointer user_data)
 	debug_tree_update_all(locals->debug_tree,FALSE);
 }
 
-/* Public functions
+/* Private functions
  *---------------------------------------------------------------------------*/
 
-void locals_update (Locals *locals)
+static void
+create_locals_gui (Locals *l)
 {
-	ianjuta_debugger_list_local (locals->debugger, locals_updated, locals, NULL);
-}
+	if (l->debug_tree == NULL)
+	{
+		l->debug_tree = debug_tree_new (l->plugin, FALSE);
+		debug_tree_connect (l->debug_tree, l->debugger);
+	}
 
-void
-locals_clear (Locals *l)
-{
-	g_return_if_fail (l != NULL);
-	debug_tree_remove_all (l->debug_tree);
-}
-
-void
-locals_connect (Locals *l, IAnjutaDebugger *debugger)
-{
-	l->debugger = debugger;
-	debug_tree_connect (l->debug_tree, debugger);
-	
 	if (l->main_w == NULL)
 	{
 		/* Create local window */
@@ -90,7 +81,55 @@ locals_connect (Locals *l, IAnjutaDebugger *debugger)
 							 "gdb-locals-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
 							 NULL);
 	}
-	
+}
+
+static void
+destroy_locals_gui (Locals *l)
+{
+	if (l->debug_tree != NULL)
+	{
+		debug_tree_free (l->debug_tree);
+		l->debug_tree = NULL;
+	}
+	if (l->main_w != NULL)
+	{
+		gtk_widget_destroy (GTK_WIDGET (l->main_w));
+		l->main_w = NULL;
+	}
+}
+
+/* Private functions
+ *---------------------------------------------------------------------------*/
+
+static void locals_update (Locals *locals)
+{
+	ianjuta_debugger_list_local (locals->debugger, locals_updated, locals, NULL);
+}
+
+static void
+locals_clear (Locals *l)
+{
+	g_return_if_fail (l != NULL);
+	debug_tree_remove_all (l->debug_tree);
+}
+
+static void
+on_program_stopped (Locals *l)
+{
+	locals_update (l);
+}
+
+static void
+on_debugger_started (Locals *l)
+{
+	create_locals_gui (l);
+}
+
+static void
+on_debugger_stopped (Locals *l)
+{
+	locals_clear (l);
+	destroy_locals_gui (l);
 }
 
 /* Constructor & Destructor
@@ -103,12 +142,13 @@ locals_new (AnjutaPlugin *plugin, IAnjutaDebugger* debugger)
 
 	Locals *locals = g_new0 (Locals, 1);
 
-	debug_tree = debug_tree_new (plugin, FALSE);
-
 	locals->debugger = debugger;
-	locals->debug_tree = debug_tree;
+	if (debugger != NULL) g_object_ref (debugger);
 	locals->plugin = plugin;
-	debug_tree_connect (locals->debug_tree, locals->debugger);
+
+	g_signal_connect_swapped (locals->debugger, "debugger-started", G_CALLBACK (on_debugger_started), locals);
+	g_signal_connect_swapped (locals->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), locals);
+	g_signal_connect_swapped (locals->debugger, "program-stopped", G_CALLBACK (on_program_stopped), locals);
 	
 	return locals;
 }
@@ -117,9 +157,18 @@ void
 locals_free (Locals *l)
 {
 	g_return_if_fail (l != NULL);
+
+	/* Destroy gui */
+	destroy_locals_gui (l);
 	
-	debug_tree_free (l->debug_tree);
-	if (l->main_w != NULL)
-		gtk_widget_destroy (GTK_WIDGET (l->main_w));
+	/* Disconnect from debugger */
+	if (l->debugger != NULL)
+	{	
+		g_signal_handlers_disconnect_by_func (l->debugger, G_CALLBACK (on_debugger_started), l);
+		g_signal_handlers_disconnect_by_func (l->debugger, G_CALLBACK (on_debugger_stopped), l);
+		g_signal_handlers_disconnect_by_func (l->debugger, G_CALLBACK (on_program_stopped), l);
+		g_object_unref (l->debugger);	
+	}
+
 	g_free (l);
 }
