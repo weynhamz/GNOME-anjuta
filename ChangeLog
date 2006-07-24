@@ -1,3 +1,15 @@
+2006-07-24 Naba Kumar  <naba@gnome.org>
+
+	* plugins/document-manager/plugin.c,
+	plugins/document-manager/plugin.h: Initial implementedion for loading
+	support plugins.
+	
+	* plugins/editor/text_editor.c: Fixed IAnjutaEditorLanguage
+	implementation.
+	
+	* plugins/editor/text_editor.c: Fixed syntax highlighting when
+	indicators are cleared (that leaved grey texts).
+
 2006-07-14 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* libanjuta/interfaces/libanjuta.idl,

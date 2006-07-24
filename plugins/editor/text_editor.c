@@ -82,6 +82,7 @@
 static GList *supported_languages = NULL;
 static GHashTable *supported_languages_name = NULL;
 static GHashTable *supported_languages_ext = NULL;
+static GHashTable *supported_languages_by_lexer = NULL;
 
 /* marker fore and back colors */
 static glong marker_prop[] = 
@@ -534,11 +535,20 @@ text_editor_thaw (TextEditor *te)
 void
 text_editor_set_hilite_type (TextEditor * te, const gchar *file_extension)
 {
+	const gchar *past_language;
+	const gchar *curr_language;
+	
+	past_language = ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (te), NULL);
+	
 	g_free (te->force_hilite);
 	if (file_extension)
 		te->force_hilite = g_strdup (file_extension);
 	else
 		te->force_hilite = NULL;
+	
+	curr_language = ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (te), NULL);
+	if (past_language != curr_language)
+		g_signal_emit_by_name (te, "language-changed", curr_language);
 }
 
 static void
@@ -881,14 +891,24 @@ text_editor_set_indicator (TextEditor *te, gint start,
 		}
 	} else {
 		if (indicator < 0) {
-			glong last;
+			char current_mask;
+			glong i, last;
+			
 			last = scintilla_send_message (SCINTILLA (te->scintilla),
 										   SCI_GETTEXTLENGTH, 0, 0);
-			if (last > 0) {
-				scintilla_send_message (SCINTILLA (te->scintilla),
-										SCI_STARTSTYLING, 0, INDICS_MASK);
-				scintilla_send_message (SCINTILLA (te->scintilla),
-										SCI_SETSTYLING, last, 0);
+			for (i = 0; i < last; i++)
+			{
+				current_mask =
+					scintilla_send_message (SCINTILLA (te->scintilla),
+											SCI_GETSTYLEAT, i, 0);
+				current_mask &= INDICS_MASK;
+				if (current_mask != 0)
+				{
+					scintilla_send_message (SCINTILLA (te->scintilla),
+											SCI_STARTSTYLING, i, INDICS_MASK);
+					scintilla_send_message (SCINTILLA (te->scintilla),
+											SCI_SETSTYLING, 1, 0);
+				}
 			}
 		}
 	}
@@ -2903,6 +2923,10 @@ ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
 			g_hash_table_new_full (g_str_hash, g_str_equal,
 								   NULL, g_free);
 		
+		supported_languages_by_lexer =
+			g_hash_table_new_full (g_str_hash, g_str_equal,
+								   g_free, NULL);
+			
 		menu_entries = sci_prop_get (text_editor_get_props (), "menu.language");
 		g_return_val_if_fail (menu_entries != NULL, NULL);
 		
@@ -2910,6 +2934,8 @@ ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
 		token = strv;
 		while (*token)
 		{
+			gchar *lexer;
+			gchar *possible_file;
 			gchar *iter;
 			gchar *name, *extension;
 			GString *lang;
@@ -2941,10 +2967,39 @@ ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
 				}
 				iter++;
 			}
+			
+			/* HACK: Convert the weird c++ name to cpp */
+			if (strcmp (lang->str, "c / c++") == 0)
+			{
+				g_string_assign (lang, "cpp");
+			}
+			
+			/* Updated mapping hash tables */
 			g_hash_table_insert (supported_languages_name, lang->str,
 								 g_strdup (name));
 			g_hash_table_insert (supported_languages_ext, lang->str,
 								 g_strconcat ("file.", extension, NULL));
+			/* Map lexer to language */
+			possible_file = g_strconcat ("file.", extension, NULL);
+			lexer = sci_prop_get_new_expand (TEXT_EDITOR (ilanguage)->props_base,
+											 "lexer.", possible_file);
+			g_free (possible_file);
+			if (lexer)
+			{
+				/* We only map the first (which is hopefully the true) language */
+				if (!g_hash_table_lookup (supported_languages_by_lexer, lexer))
+				{
+					DEBUG_PRINT ("Mapping (lexer)%s to (language)%s", lexer, lang->str);
+					g_hash_table_insert (supported_languages_by_lexer,
+										 lexer, lang->str);
+					/* lexer is taken in the hash, so no free */
+				}
+				else
+				{
+					g_free (lexer);
+				}
+				lexer = NULL;
+			}
 			supported_languages = g_list_prepend (supported_languages,
 												  lang->str);
 			g_string_free (lang, FALSE);
@@ -2971,19 +3026,46 @@ ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
 	if (!supported_languages_ext)
 		ilanguage_get_supported_languages (ilanguage, NULL);
 
-	text_editor_set_hilite_type (TEXT_EDITOR (ilanguage),
-								 g_hash_table_lookup (supported_languages_ext,
-													  language));
+	if (language)
+		text_editor_set_hilite_type (TEXT_EDITOR (ilanguage),
+									 g_hash_table_lookup (supported_languages_ext,
+														  language));
+	else /* Autodetect */
+		text_editor_set_hilite_type (TEXT_EDITOR (ilanguage), NULL);
+		
 	text_editor_hilite (TEXT_EDITOR (ilanguage), FALSE);
-	g_object_set_data_full (G_OBJECT (ilanguage), "current_language",
-							g_strdup (language), (GDestroyNotify)g_free);
-	g_signal_emit_by_name (ilanguage, "language-changed", language);
 }
 
 static const gchar*
 ilanguage_get_language (IAnjutaEditorLanguage *ilanguage, GError **err)
 {
-	return g_object_get_data (G_OBJECT (ilanguage), "current_language");
+	const gchar *language = NULL;
+	const gchar *filename = NULL;
+	TextEditor *te = TEXT_EDITOR (ilanguage);
+	
+	if (te->force_hilite)
+		filename = te->force_hilite;
+	else if (te->filename)
+		filename = te->filename;
+	
+	if (filename)
+	{
+		gchar *lexer = NULL;
+		lexer = sci_prop_get_new_expand (te->props_base,
+										 "lexer.", filename);
+		
+		/* No lexer, no language */
+		if (lexer)
+		{
+			if (!supported_languages_by_lexer)
+				ilanguage_get_supported_languages (ilanguage, NULL);
+			
+			language = g_hash_table_lookup (supported_languages_by_lexer, lexer);
+			DEBUG_PRINT ("Found (language)%s for (lexer)%s", language, lexer);
+			g_free (lexer);
+		}
+	}
+	return language;
 }
 
 static void

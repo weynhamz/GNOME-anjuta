@@ -30,6 +30,9 @@ struct _DocmanPlugin{
 	gint autosave_it;
 	
 	GList *gconf_notify_ids;
+	
+	/* Support plugins */
+	GList *support_plugins;
 };
 
 struct _DocmanPluginClass{

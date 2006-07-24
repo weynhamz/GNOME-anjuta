@@ -23,6 +23,8 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/plugins.h>
+
 #include <libegg/menu/egg-entry-action.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -39,6 +41,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
+#include <libanjuta/interfaces/ianjuta-language-support.h>
 
 #include "anjuta-docman.h"
 #include "action-callbacks.h"
@@ -933,10 +936,24 @@ static void
 on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 				   AnjutaPlugin *plugin)
 {
-	update_status ((DocmanPlugin *)plugin, te);
+	DocmanPlugin *docman_plugin = (DocmanPlugin *)plugin;
+	
+	update_status (docman_plugin, te);
 	update_editor_ui (plugin, te);
+		
+	/* unload previous support plugins */
+	if (docman_plugin->support_plugins) {
+		g_list_foreach (docman_plugin->support_plugins,
+						(GFunc) anjuta_plugin_deactivate, NULL);
+		g_list_free (docman_plugin->support_plugins);
+		docman_plugin->support_plugins = NULL;
+	}
+	
 	if (te)
 	{
+		const gchar *language;
+		GSList *support_plugin_descs, *node;
+		
 		GValue *value = g_new0 (GValue, 1);
 		g_value_init (value, G_TYPE_OBJECT);
 		g_value_set_object (value, te);
@@ -944,6 +961,35 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 								"document_manager_current_editor",
 								value, NULL);
 		DEBUG_PRINT ("Editor Added");
+		
+		/* Load current language editor support plugins */
+		if (IANJUTA_IS_EDITOR_LANGUAGE (te)) {
+			language = ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (te), NULL);
+			support_plugin_descs = anjuta_plugins_query (plugin->shell,
+														 "AnjutaPluing",
+														 "Interfaces",
+														 "IAnjutaLanguageSupport",
+														 "LanguageSupport",
+														 "Languages",
+														 language, NULL);
+			node = support_plugin_descs;
+			while (node) {
+				gchar *plugin_id;
+				GObject *plugin_object;
+				
+				AnjutaPluginDescription *desc = node->data;
+				anjuta_plugin_description_get_string (desc, "AnjutaPlugin", "Location",
+													  &plugin_id);
+				plugin_object = anjuta_plugins_get_plugin_by_id (plugin->shell,
+																 plugin_id);
+				anjuta_plugin_activate (ANJUTA_PLUGIN (plugin_object));
+				docman_plugin->support_plugins = g_list_prepend (docman_plugin->support_plugins,
+																 plugin_object);
+				node = node->next;
+				g_free (plugin_id);
+			}
+			g_slist_free (support_plugin_descs);
+		}
 	}
 	else
 	{
