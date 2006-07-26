@@ -1601,7 +1601,7 @@ gchar* sv_extract_type_qualifier_from_expr (const gchar *string, const gchar *ex
 	#define ARRAY 		WS "\\[" WS "[0-9]*" WS "\\]" WS
 
 	gchar *res = NULL;
-	static gchar pattern[512] =
+	gchar pattern[512] =
 		"(" IDENT "\\>)" 	// the 'std' in example a)
 		"(::" IDENT ")*"	// ::vector
 		"(" WS "<[^>;]*>)?"	// <char *>
@@ -1611,7 +1611,7 @@ gchar* sv_extract_type_qualifier_from_expr (const gchar *string, const gchar *ex
 	/* must add a 'termination' symbol to the regexp, otherwise
 	 * 'exp' would match 'expr' */
 	gchar regexp[512];
-	snprintf(regexp, 512, "%s\\<%s\\>", pattern, expr);
+	snprintf (regexp, 512, "%s\\<%s\\>", pattern, expr);
 
 	/* compile regular expression */
 	gint error = regcomp (&re, regexp, REG_EXTENDED) ;
@@ -1620,7 +1620,30 @@ gchar* sv_extract_type_qualifier_from_expr (const gchar *string, const gchar *ex
 
 	/* this call to regexec finds the first match on the line */
 	error = regexec (&re, string, 8, &pm[0], 0) ;
-	while (error == 0) /* while matches found */
+	
+	/* while matches found. We'll find the *last* occurrence of the expr. This will
+	 * guarantee us that it is the right one we want to use. I.e.
+	 *
+	 * given:
+	 *
+	 *
+	 * int func_1 (void) {
+	 *
+	 *   MyClass *klass;
+	 *
+	 *
+	 *   for (int i=0; i < 20; i++) {
+	 *     YourClass *klass;
+	 *
+	 *     klass->
+	 *   }
+	 *
+	 *  / ... /
+	 *
+	 * Here the klass-> will be matched as YourClass [right], not the MyClass' ones [wrong]
+	 * 
+	 */
+	while (error == 0) 
 	{   
 		/* subString found between pm.rm_so and pm.rm_eo */
 		/* only include the ::vector part in the indentifier, if the second subpattern matches at all */
@@ -1635,10 +1658,11 @@ gchar* sv_extract_type_qualifier_from_expr (const gchar *string, const gchar *ex
 		}
 		strncpy (res, string + pm[1].rm_so, len); 
 		res[len] = '\0';
-
+		
+		string += pm[0].rm_eo;
+		
 		/* This call to regexec finds the next match */
-		error = regexec (&re, string + pm[0].rm_eo, 8, &pm[0], 0) ;
-		break;
+		error = regexec (&re, string, 8, &pm[0], 0) ;
 	}
 	regfree(&re);
 
@@ -2101,7 +2125,7 @@ sv_get_local_declaration_type (const gchar *local_declaration_type_str) {
 }
 	
 TMTag* anjuta_symbol_view_get_type_of_expression(AnjutaSymbolView * sv,
-		const gchar* expr, int expr_len, TMTag *func_scope_tag, gint *access_method)
+		const gchar* expr, int expr_len, const TMTag *func_scope_tag, gint *access_method)
 {
 	gchar *ident = NULL;
 	*access_method = COMPLETION_ACCESS_NONE;
@@ -2308,7 +2332,7 @@ extract:
 	 */
 	if (*access_method != COMPLETION_ACCESS_STATIC) {
 		gchar *local_declaration_type_str;
-		TMTag* local_scope_of_ident = NULL;
+		const TMTag* local_scope_of_ident;
 		TMTag* local_declaration_type = NULL;
 				
 		local_scope_of_ident = func_scope_tag;

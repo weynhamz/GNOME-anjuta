@@ -1,3 +1,11 @@
+2006-07-24  Massimo Cora'  <maxcvs@email.it>
+ 
+	* plugins/symbol-browser/an_symbol_view.c,
+	plugins/symbol-browser/an_symbol_view.h,
+	plugins/symbol-browser/plugin.c:
+    fix a matching case into sv_extract_type_qualifier_from_expr ()
+    and some minor issues.
+
 2006-07-26  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c:

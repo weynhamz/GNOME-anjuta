@@ -1157,8 +1157,8 @@ isymbol_manager_get_parents (IAnjutaSymbolManager *sm,
 
 static IAnjutaIterable*
 isymbol_manager_get_completions_at_position (IAnjutaSymbolManager *sm,
-											gchar *file_uri,
-							 				gchar *text_buffer, 
+											const gchar *file_uri,
+							 				const gchar *text_buffer, 
 											gint text_length, 
 											gint text_pos,
 							 				GError **err)
@@ -1169,6 +1169,8 @@ isymbol_manager_get_completions_at_position (IAnjutaSymbolManager *sm,
 	IAnjutaEditor *ed;
 	AnjutaSymbolView *symbol_view;
 	gulong line;
+	gulong scope_position;
+	gchar *needed_text = NULL;
 	gint access_method;
 	GPtrArray * completable_tags_array;
 	AnjutaSymbolIter *iter = NULL;
@@ -1185,14 +1187,48 @@ isymbol_manager_get_completions_at_position (IAnjutaSymbolManager *sm,
 	/* check whether the current file_uri is listed in the tm_workspace or not... */	
 	if (tm_file == NULL)
 		return 	NULL;
-	func_scope_tag = tm_get_current_function (tm_file->work_object.tags_array, line);
-	
 		
+
+	// FIXME: remove DEBUG_PRINT	
+/*/
+	DEBUG_PRINT ("tags in file &s\n");
+	if (tm_file->work_object.tags_array != NULL) {
+		int i;
+		for (i=0; i < tm_file->work_object.tags_array->len; i++) {
+			TMTag *cur_tag;
+		
+			cur_tag = (TMTag*)g_ptr_array_index (tm_file->work_object.tags_array, i);
+			tm_tag_print (cur_tag, stdout);
+		}
+	}
+/*/
+
+	func_scope_tag = tm_get_current_function (tm_file->work_object.tags_array, line);
+		
+	if (func_scope_tag == NULL) {
+		DEBUG_PRINT ("func_scope_tag is NULL, seems like it's a completion on a global scope");
+		return NULL;
+	}
+	
+	DEBUG_PRINT ("current expression scope: %s", func_scope_tag->name);
+	
+	
+	scope_position = ianjuta_editor_get_line_begin_position (ed, func_scope_tag->atts.entry.line, NULL);
+	needed_text = ianjuta_editor_get_text (ed, scope_position, text_pos, NULL);
+
+	if (needed_text == NULL)
+		DEBUG_PRINT ("needed_text is null");
+	DEBUG_PRINT ("text needed is %s", needed_text );
+	
+
+	/* we'll pass only the text of the current scope: i.e. only the current function
+	 * in which we request the completion. */
 	TMTag * found_type = anjuta_symbol_view_get_type_of_expression (symbol_view, 
-				text_buffer, text_pos, func_scope_tag, &access_method);
+				needed_text, text_pos - scope_position, func_scope_tag, &access_method);
 
 				
 	if (found_type == NULL) {
+		DEBUG_PRINT ("type not found.");
 		return NULL;	
 	}
 	

@@ -81,7 +81,7 @@ TMSourceFile *anjuta_symbol_view_get_tm_file (AnjutaSymbolView * sv, const gchar
  * returns the access_method detected which you wanna complete. 
  */
 TMTag* anjuta_symbol_view_get_type_of_expression(AnjutaSymbolView * sv,
-		const gchar* expr, int expr_len, TMTag *func_scope_tag, gint *access_method);
+		const gchar* expr, int expr_len, const TMTag *func_scope_tag, gint *access_method);
 
 /* TMTag* klass_tag: a tag for a struct/union/class
  * include_parents_tags: in the final array do you want to include the parent classes? Works
