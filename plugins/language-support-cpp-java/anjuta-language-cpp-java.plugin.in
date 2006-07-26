@@ -6,6 +6,6 @@ _Description=C++ and Java support plugin for code completion, auto indentation e
 Interfaces=IAnjutaLanguageSupport
 UserActivatable=no
 
-[LanguageSupport]
+[Language Support]
 Languages=cpp,java
 MimeTypes=text/x-c,text/x-java-source

@@ -71,6 +71,7 @@ ianjuta-debugger
 @initialize: 
 @inspect: 
 @interrupt: 
+@list_argument: 
 @list_frame: 
 @list_local: 
 @list_register: 

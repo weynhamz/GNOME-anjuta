@@ -57,6 +57,7 @@
 #include "text_editor.h"
 #include "text_editor_cbs.h"
 #include "text_editor_menu.h"
+#include "text-editor-iterable.h"
 #include "print.h"
 
 #define GTK
@@ -1981,13 +1982,23 @@ static gchar*
 itext_editor_get_text (IAnjutaEditor *editor, gint start, gint end,
 						 GError **e)
 {
-	gint nchars;
 	gchar *data;
 	TextEditor *te = TEXT_EDITOR (editor);
-	nchars = scintilla_send_message (SCINTILLA (te->scintilla),
+
+	g_return_val_if_fail (start >= 0, NULL);
+
+	if (end < 0)
+		end = scintilla_send_message (SCINTILLA (te->scintilla),
 									 SCI_GETLENGTH, 0, 0);
+
+	if (start > end)
+	{
+		gint swap = start;
+		start = end;
+		end = swap;
+	}
 	data =	(gchar *) aneditor_command (te->editor_id,
-										ANE_GETTEXTRANGE, 0, nchars);
+										ANE_GETTEXTRANGE, start, end);
 	return data;
 }
 
@@ -2150,6 +2161,13 @@ itext_editor_get_line_end_position (IAnjutaEditor *editor, gint line,
 								   SCI_POSITIONFROMLINE, ln + 1, 0) - 1;
 }
 
+static IAnjutaIterable*
+itext_editor_get_cell_iter (IAnjutaEditor *editor, gint position, GError **e)
+{
+	TextEditorCell *editor_cell = text_editor_cell_new (TEXT_EDITOR (editor), position);
+	return IANJUTA_ITERABLE (editor_cell);
+}
+
 static void
 itext_editor_iface_init (IAnjutaEditorIface *iface)
 {
@@ -2175,6 +2193,7 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_line_from_position = itext_editor_get_line_from_position;
 	iface->get_line_begin_position = itext_editor_get_line_begin_position;
 	iface->get_line_end_position = itext_editor_get_line_end_position;
+	iface->get_cell_iter = itext_editor_get_cell_iter;
 }
 
 /* IAnjutaEditorSelection implementation */

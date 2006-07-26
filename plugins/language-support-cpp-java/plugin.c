@@ -161,51 +161,95 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 		{
 			/* Find matching brace and continue */
 			if (!jumb_to_matching_brace (iter, point_ch))
-				return line_indent;
+				break;
 		}
 		else if (point_ch == '{')
 		{
 			/* Increase line indentation */
-			return line_indent + BRACE_INDENT_RIGHT;
+			line_indent += BRACE_INDENT_RIGHT;
+			break;
 		}
 		else if (point_ch == '(' || point_ch == '[')
 		{
-			return line_indent + 1;
+			line_indent += 1;
+			break;
 		}
 	}
-	
+	g_object_unref (iter);
 	return line_indent;
 }
 
 static void
+set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
+{
+	gint line_begin, line_end, indent_position;
+	gchar *line_string, *idx;
+	gint line_indent = 0;
+	gint delta_indentation;
+
+	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
+	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
+	indent_position = line_begin;
+	
+	if (line_end > line_begin)
+	{
+		line_string = ianjuta_editor_get_text (editor, line_begin, line_end, NULL);
+		
+		if (line_string)
+		{
+			idx = line_string;
+			
+			/* Find first non-white space */
+			while (*idx != '\0' && isspace (*idx))
+				{
+					if (*idx == '\t')
+						line_indent += TAB_SIZE;
+					else
+						line_indent++;
+					idx++; /* Since we are looking for first non-space char, simple
+							* increment of the chars would do */
+				}
+			indent_position = line_begin + (idx - line_string);
+			g_free (line_string);
+		}
+	}
+	
+	delta_indentation = indentation - line_indent;
+	if (delta_indentation > 0)
+	{
+		gchar *indent_string;
+		indent_string = get_line_indentation_string (delta_indentation);
+		if (indent_string)
+			ianjuta_editor_insert (editor, indent_position,
+								   indent_string, -1, NULL);
+		g_free (indent_string);
+	}
+}
+
+static void
 on_editor_char_inserted_cpp (IAnjutaEditor *editor,
-							 const  gint current_pos, 
-							 const gchar ch,
+							 gint current_pos,
+							 gchar ch,
 							 CppJavaPlugin *plugin)
 {
 	gint current_line;
 	gint line_indent;
-	gchar *indent_string;
 	
-	DEBUG_PRINT ("Indenting cpp code, char: %c", ch);
+	DEBUG_PRINT ("Indenting cpp code with char '%c'", ch);
 	
 	if (ch == '\n')
 	{
 		current_line = ianjuta_editor_get_lineno (editor, NULL);
 		line_indent = get_line_indentation_base (plugin, editor, current_line);
-		indent_string = get_line_indentation_string (line_indent);
-		if (indent_string != NULL)
-		{
-			ianjuta_editor_insert (editor, current_pos, indent_string, -1, NULL);
-			g_free(indent_string);
-		}
+		/* Disable for now */
+		/* set_line_indentation (editor, current_line, line_indent); */
 	}
 }
 
 static void
 on_editor_char_inserted_java (IAnjutaEditor *editor,
-							  const int current_pos,
-							  const gchar ch,
+							  gint position,
+							  gchar ch,
 							  CppJavaPlugin *plugin)
 {
 	if (ch != '\n' || ch != '\t')
@@ -244,7 +288,9 @@ install_support (CppJavaPlugin *lang_plugin)
 						  "char-added",
 						  G_CALLBACK (on_editor_char_inserted_java),
 						  lang_plugin);
+														  
 	}
+			
 	else
 	{
 		return;

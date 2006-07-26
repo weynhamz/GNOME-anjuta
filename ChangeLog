@@ -1,3 +1,23 @@
+2006-07-26 Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl: Fixed IAnjutaEditorCell and
+	IAnjutaEditorCellStyle interfaces to not inherit IAnjutaEditor.
+	
+	* manuals/reference/libanjuta/tmpl/ianjuta-debugger.sgml: Updated.
+	
+	* plugins/document-manager/plugin.c: Fixed dynamic loading of
+	support plugins
+	
+	* plugins/editor/text-editor-iterable.c,
+	plugins/editor/text_editor.c,
+	plugins/editor/text_editor_cbs.c: Fixed ianjuta_editor_get_text
+	method to work correctly, it was ignoring start and end parameters.
+	Fixed TextEditorCell implementation. Fixed 'char-added' signal
+	emission.
+	
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in,
+	plugins/language-support-cpp-java/plugin.c: Fixed indentation engine.
+
 2006-07-24  Massimo Cora'  <maxcvs@email.it>
  
 	* plugins/symbol-browser/an_symbol_view.c,

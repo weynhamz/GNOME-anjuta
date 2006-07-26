@@ -966,10 +966,10 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 		if (IANJUTA_IS_EDITOR_LANGUAGE (te)) {
 			language = ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (te), NULL);
 			support_plugin_descs = anjuta_plugins_query (plugin->shell,
-														 "AnjutaPluing",
+														 "Anjuta Plugin",
 														 "Interfaces",
 														 "IAnjutaLanguageSupport",
-														 "LanguageSupport",
+														 "Language Support",
 														 "Languages",
 														 language, NULL);
 			node = support_plugin_descs;
@@ -978,11 +978,11 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 				GObject *plugin_object;
 				
 				AnjutaPluginDescription *desc = node->data;
-				anjuta_plugin_description_get_string (desc, "AnjutaPlugin", "Location",
+				anjuta_plugin_description_get_string (desc, "Anjuta Plugin", "Location",
 													  &plugin_id);
 				plugin_object = anjuta_plugins_get_plugin_by_id (plugin->shell,
 																 plugin_id);
-				anjuta_plugin_activate (ANJUTA_PLUGIN (plugin_object));
+				/* anjuta_plugin_activate (ANJUTA_PLUGIN (plugin_object)); */
 				docman_plugin->support_plugins = g_list_prepend (docman_plugin->support_plugins,
 																 plugin_object);
 				node = node->next;

@@ -25,6 +25,7 @@
 #include <ctype.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell-style.h>
 
@@ -52,6 +53,8 @@ static void text_editor_cell_class_init(TextEditorCellClass *klass);
 static void text_editor_cell_instance_init(TextEditorCell *sp);
 static void text_editor_cell_finalize(GObject *object);
 
+static gpointer parent_class;
+
 typedef struct _CellStyle
 {
 	gchar          *font_desc;
@@ -78,8 +81,6 @@ struct _TextEditorCellPrivate {
 	/* Styles cache */
 	CellStyle* styles_pool[TEXT_CELL_MAX_STYLES];
 };
-
-gpointer text_editor_cell_parent_class;
 
 /* Style processing */
 
@@ -268,7 +269,7 @@ static void
 text_editor_cell_class_init (TextEditorCellClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-
+	parent_class = g_type_class_peek_parent (klass);
 	object_class->finalize = text_editor_cell_finalize;
 }
 
@@ -294,7 +295,8 @@ text_editor_cell_finalize (GObject *object)
 			cell_style_destroy (cobj->priv->styles_pool[i]);
 	}
 	g_free(cobj->priv);
-	G_OBJECT_CLASS(text_editor_cell_parent_class)->finalize(object);
+	if (G_OBJECT_CLASS(parent_class)->finalize)
+	    G_OBJECT_CLASS(parent_class)->finalize(object);
 }
 
 TextEditorCell *
@@ -587,7 +589,6 @@ iiter_iface_init(IAnjutaIterableIface* iface)
 	iface->get_length = iiter_get_length;
 	iface->get_settable = iiter_get_settable;
 }
-
 
 ANJUTA_TYPE_BEGIN(TextEditorCell, text_editor_cell, G_TYPE_OBJECT);
 ANJUTA_TYPE_ADD_INTERFACE(icell, IANJUTA_TYPE_EDITOR_CELL);
