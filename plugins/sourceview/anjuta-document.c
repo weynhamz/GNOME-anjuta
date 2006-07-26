@@ -58,10 +58,6 @@
 
 static void	anjuta_document_set_readonly	(AnjutaDocument *doc,
 						 gboolean       readonly);
-static void insert_text_cb		 	(AnjutaDocument *doc, 
-						 GtkTextIter   *pos,
-						 const gchar   *text, 
-						 gint           length);
 						 
 static void	delete_range_cb 		(AnjutaDocument *doc, 
 						 GtkTextIter   *start,
@@ -523,11 +519,6 @@ anjuta_document_init (AnjutaDocument *doc)
 
 	gtk_source_buffer_set_check_brackets (GTK_SOURCE_BUFFER (doc), 
 					     TRUE);
-
-	g_signal_connect_after (doc, 
-			  	"insert-text",
-			  	G_CALLBACK (insert_text_cb),
-			  	NULL);
 
 	g_signal_connect_after (doc, 
 			  	"delete-range",
@@ -1212,27 +1203,6 @@ _anjuta_document_is_saving_as (AnjutaDocument *doc)
 	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), FALSE);
 	
 	return (doc->priv->is_saving_as);
-}
-
-static void
-insert_text_cb (AnjutaDocument *doc, 
-		GtkTextIter   *pos,
-		const gchar   *text, 
-		gint           length)
-{
-	GtkTextIter start;
-	GtkTextIter end;
-		
-	start = end = *pos;
-
-	/*
-	 * pos is invalidated when
-	 * insertion occurs (because the buffer contents change), but the
-	 * default signal handler revalidates it to point to the end of the
-	 * inserted text 
-	 */
-	gtk_text_iter_backward_chars (&start,
-				      g_utf8_strlen (text, length));
 }
 						 
 static void	

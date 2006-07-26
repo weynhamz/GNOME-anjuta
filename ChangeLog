@@ -1,3 +1,13 @@
+2006-07-26  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c:
+	Fixed to work kind of with sourceview editor
+	* plugins/sourceview/anjuta-document.c: 
+	* plugins/sourceview/anjuta-view.c: 
+	* plugins/sourceview/sourceview-cell.c:
+	* plugins/sourceview/sourceview.c:
+	Fixed IAnjutaEditorCell and "char-added" signal
+
 2006-07-24 Naba Kumar  <naba@gnome.org>
 
 	* plugins/document-manager/plugin.c,

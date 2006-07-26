@@ -31,10 +31,10 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-cpp-java-plugin.ui"
 
-#define TAB_SIZE 8
+#define TAB_SIZE 4
 #define INDENT_SIZE 4
-#define BRACE_INDENT_LEFT 2
-#define BRACE_INDENT_RIGHT (INDENT_SIZE - BRACE_INDENT_LEFT)
+#define BRACE_INDENT_LEFT 4
+#define BRACE_INDENT_RIGHT BRACE_INDENT_LEFT
 #define USE_SPACES_FOR_INDENTATION FALSE
 
 static gpointer parent_class;
@@ -72,6 +72,7 @@ jumb_to_matching_brace (IAnjutaIterable *iter, gchar brace)
 		if (braces_stack->str[0] == '\0')
 			return TRUE;
 	}
+				
 	return FALSE;
 }
 
@@ -128,7 +129,7 @@ get_line_indentation_string (gint spaces)
 	{
 		gint num_tabs = spaces / INDENT_SIZE;
 		gint num_spaces = spaces % INDENT_SIZE;
-		gchar *indent_string = g_new(gchar, num_tabs + num_spaces);
+		gchar *indent_string = g_new0(gchar, num_tabs + num_spaces);
 		
 		for (i = 0; i < num_tabs; i++)
 			indent_string[i] = '\t';
@@ -155,6 +156,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	{
 		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
 												 NULL);
+		DEBUG_PRINT("point_ch = %c", point_ch);
 		if (point_ch == ')' || point_ch == ']' || point_ch == '}')
 		{
 			/* Find matching brace and continue */
@@ -171,33 +173,38 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			return line_indent + 1;
 		}
 	}
+	
 	return line_indent;
 }
 
 static void
 on_editor_char_inserted_cpp (IAnjutaEditor *editor,
+							 const  gint current_pos, 
 							 const gchar ch,
 							 CppJavaPlugin *plugin)
 {
-	gint current_pos;
 	gint current_line;
 	gint line_indent;
 	gchar *indent_string;
 	
-	DEBUG_PRINT ("Indenting cpp code");
+	DEBUG_PRINT ("Indenting cpp code, char: %c", ch);
 	
 	if (ch == '\n')
 	{
-		current_pos = ianjuta_editor_get_position (editor, NULL);
 		current_line = ianjuta_editor_get_lineno (editor, NULL);
 		line_indent = get_line_indentation_base (plugin, editor, current_line);
 		indent_string = get_line_indentation_string (line_indent);
-		ianjuta_editor_insert (editor, current_pos, indent_string, -1, NULL);
+		if (indent_string != NULL)
+		{
+			ianjuta_editor_insert (editor, current_pos, indent_string, -1, NULL);
+			g_free(indent_string);
+		}
 	}
 }
 
 static void
 on_editor_char_inserted_java (IAnjutaEditor *editor,
+							  const int current_pos,
 							  const gchar ch,
 							  CppJavaPlugin *plugin)
 {
@@ -216,6 +223,8 @@ install_support (CppJavaPlugin *lang_plugin)
 		= ianjuta_editor_language_get_language
 					(IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor),
 											  NULL);
+	
+	DEBUG_PRINT("Language: %s", lang_plugin->current_language);
 	
 	if (lang_plugin->current_language &&
 		(strcmp (lang_plugin->current_language, "cpp") == 0

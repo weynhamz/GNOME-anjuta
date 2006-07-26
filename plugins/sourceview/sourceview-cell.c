@@ -24,10 +24,12 @@
 
 #include "sourceview-cell.h"
 
+#include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell-style.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include <gtk/gtktextview.h>
 #include <string.h>
@@ -37,8 +39,9 @@ static void sourceview_cell_instance_init(SourceviewCell *sp);
 static void sourceview_cell_finalize(GObject *object);
 
 struct _SourceviewCellPrivate {
-	GtkTextIter* iter;
+	GtkTextMark* mark;
 	GtkTextView* view;
+	GtkTextBuffer* buffer;
 };
 
 gpointer sourceview_cell_parent_class;
@@ -64,7 +67,7 @@ sourceview_cell_finalize(GObject *object)
 	SourceviewCell *cobj;
 	cobj = SOURCEVIEW_CELL(object);
 	
-	gtk_text_iter_free(cobj->priv->iter);
+	gtk_text_buffer_delete_mark(cobj->priv->buffer, cobj->priv->mark);
 	
 	g_free(cobj->priv);
 	G_OBJECT_CLASS(sourceview_cell_parent_class)->finalize(object);
@@ -77,7 +80,11 @@ sourceview_cell_new(GtkTextIter* iter, GtkTextView* view)
 	
 	obj = SOURCEVIEW_CELL(g_object_new(SOURCEVIEW_TYPE_CELL, NULL));
 	
-	obj->priv->iter = gtk_text_iter_copy(iter);
+	obj->priv->buffer = gtk_text_view_get_buffer(view);
+	obj->priv->mark = gtk_text_buffer_create_mark(obj->priv->buffer,
+												  NULL,
+												  iter,
+												  FALSE);
 	obj->priv->view = view;
 	
 	return obj;
@@ -87,7 +94,16 @@ static gchar*
 icell_get_character(IAnjutaEditorCell* icell, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
-	return gtk_text_iter_get_text(cell->priv->iter, cell->priv->iter);
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &iter,
+									 cell->priv->mark);
+	GtkTextIter* iter_prev = gtk_text_iter_copy(&iter);
+	if (gtk_text_iter_backward_char(iter_prev))
+	{
+		return gtk_text_iter_get_text(&iter, iter_prev);
+	}
+	else
+		return strdup("");
 }
 
 static gint 
@@ -104,12 +120,14 @@ icell_get_length(IAnjutaEditorCell* icell, GError** e)
 static gchar
 icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 {
-	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
-	gunichar uc = gtk_text_iter_get_char(cell->priv->iter);
+	gchar* characters = icell_get_character(icell, NULL);
 	
-	gchar c = (gchar) (uc>>index);
-	
-	return c;
+	if (strlen(characters) > index)
+		return characters[index];
+	else
+	{
+		return '\0';
+	}
 }
 
 static void
@@ -133,7 +151,11 @@ icell_style_get_font_description(IAnjutaEditorCellStyle* icell_style, GError ** 
 {
 	const gchar* font;
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell_style);
-	GtkTextAttributes* atts = get_attributes(cell->priv->iter, cell->priv->view);
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &iter,
+									 cell->priv->mark);
+	GtkTextAttributes* atts = get_attributes(&iter, 
+											 cell->priv->view);
 	font = pango_font_description_to_string(atts->font);
 	g_free(atts);
 	return g_strdup(font);
@@ -144,7 +166,10 @@ icell_style_get_color(IAnjutaEditorCellStyle* icell_style, GError ** e)
 {
 	gchar* color;
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell_style);
-	GtkTextAttributes* atts = get_attributes(cell->priv->iter, cell->priv->view);
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &iter,
+									 cell->priv->mark);
+	GtkTextAttributes* atts = get_attributes(&iter, cell->priv->view);
 	color = anjuta_util_string_from_color(atts->appearance.fg_color.red,
 		atts->appearance.fg_color.green, atts->appearance.fg_color.blue);
 	g_free(atts);
@@ -156,7 +181,10 @@ icell_style_get_background_color(IAnjutaEditorCellStyle* icell_style, GError ** 
 {
 	gchar* color;
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell_style);
-	GtkTextAttributes* atts = get_attributes(cell->priv->iter, cell->priv->view);
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &iter,
+									 cell->priv->mark);
+	GtkTextAttributes* atts = get_attributes(&iter, cell->priv->view);
 	color = anjuta_util_string_from_color(atts->appearance.bg_color.red,
 		atts->appearance.bg_color.green, atts->appearance.bg_color.blue);
 	g_free(atts);
@@ -175,7 +203,11 @@ static gboolean
 iiter_first(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	gtk_text_iter_set_offset(cell->priv->iter, 0);
+	GtkTextIter text_iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
+									 cell->priv->mark);
+	gtk_text_iter_set_offset(&text_iter, 0);
+	gtk_text_buffer_move_mark(cell->priv->buffer, cell->priv->mark, &text_iter);
 	return TRUE;
 }
 
@@ -183,21 +215,46 @@ static gboolean
 iiter_next(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	return gtk_text_iter_forward_char(cell->priv->iter);
+	GtkTextIter text_iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
+									 cell->priv->mark);
+
+	if (gtk_text_iter_forward_char(&text_iter))
+	{
+		gtk_text_buffer_move_mark(cell->priv->buffer, cell->priv->mark, &text_iter);
+		return TRUE;
+	}
+	else
+		return FALSE;
 }
 
 static gboolean
 iiter_previous(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	return gtk_text_iter_backward_char(cell->priv->iter);
+	GtkTextIter text_iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
+									 cell->priv->mark);
+
+	if (gtk_text_iter_backward_char(&text_iter))
+	{
+		gtk_text_buffer_move_mark(cell->priv->buffer, cell->priv->mark, &text_iter);
+		return TRUE;
+	}
+	else
+		return FALSE;
 }
 
 static gboolean
 iiter_last(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	gtk_text_iter_forward_to_end(cell->priv->iter);
+	GtkTextIter text_iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
+									 cell->priv->mark);
+
+	gtk_text_iter_forward_to_end(&text_iter);
+	gtk_text_buffer_move_mark(cell->priv->buffer, cell->priv->mark, &text_iter);
 	return TRUE;
 }
 
@@ -205,19 +262,15 @@ static void
 iiter_foreach(IAnjutaIterable* iter, GFunc callback, gpointer data, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	GtkTextIter* text_iter;
 	
-	/* Save iter */
-	text_iter = gtk_text_iter_copy(cell->priv->iter);
-	gtk_text_iter_set_offset(cell->priv->iter, 0);
-	while (gtk_text_iter_forward_char(cell->priv->iter))
+	GtkTextIter text_iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
+									 cell->priv->mark);
+	gtk_text_iter_set_offset(&text_iter, 0);
+	while (gtk_text_iter_forward_char(&text_iter))
 	{
 		(*callback)(cell, data);
 	}
-	
-	/* Restore iter */
-	gtk_text_iter_free(cell->priv->iter);
-	cell->priv->iter = text_iter;
 }
 
 static gpointer
@@ -234,7 +287,14 @@ iiter_get_nth(IAnjutaIterable* iter, GType data_type, gint n, GError** e)
 	g_return_val_if_fail(!g_type_is_a(sourceview_cell_get_type(), data_type), NULL);
 
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	gtk_text_iter_set_offset(cell->priv->iter, n);
+	GtkTextIter text_iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
+									 cell->priv->mark);
+	gtk_text_iter_set_offset(&text_iter, n);
+	
+	gtk_text_buffer_move_mark(cell->priv->buffer,
+							  cell->priv->mark,
+							  &text_iter);
 	
 	return iter;
 }
@@ -243,14 +303,17 @@ static gint
 iiter_get_position(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	return gtk_text_iter_get_offset(cell->priv->iter);
+	GtkTextIter text_iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
+									 cell->priv->mark);
+	return gtk_text_iter_get_offset(&text_iter);
 }
 
 static gint
 iiter_get_length(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	return gtk_text_buffer_get_char_count(gtk_text_iter_get_buffer(cell->priv->iter));
+	return gtk_text_buffer_get_char_count(cell->priv->buffer);
 }
 
 static gboolean
@@ -274,8 +337,15 @@ iiter_iface_init(IAnjutaIterableIface* iface)
 	iface->get_settable = iiter_get_settable;
 }
 
+static void
+ieditor_iface_init(IAnjutaEditorIface* iface)
+{
+	/* This is completely fake to keep GType happy. We do NOT implement 
+	IAnjuta Editor here */
+}
 
 ANJUTA_TYPE_BEGIN(SourceviewCell, sourceview_cell, G_TYPE_OBJECT);
+ANJUTA_TYPE_ADD_INTERFACE(ieditor, IANJUTA_TYPE_EDITOR);
 ANJUTA_TYPE_ADD_INTERFACE(icell, IANJUTA_TYPE_EDITOR_CELL);
 ANJUTA_TYPE_ADD_INTERFACE(icell_style, IANJUTA_TYPE_EDITOR_CELL_STYLE);
 ANJUTA_TYPE_ADD_INTERFACE(iiter, IANJUTA_TYPE_ITERABLE);

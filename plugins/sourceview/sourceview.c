@@ -26,14 +26,15 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
-#include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
+#include <libanjuta/interfaces/ianjuta-bookmark.h>
+#include <libanjuta/interfaces/ianjuta-print.h>
+#include <libanjuta/interfaces/ianjuta-language-support.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
-#include <libanjuta/interfaces/ianjuta-bookmark.h>
-#include <libanjuta/interfaces/ianjuta-print.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 
 #include <libgnomevfs/gnome-vfs-init.h>
@@ -77,11 +78,17 @@ static void sourceview_add_monitor(Sourceview* sv);
 
 /* Callbacks */
 
-static void on_document_char_added(AnjutaDocument* buffer, gchar character, Sourceview* sv)
+static void on_document_insert_text(AnjutaDocument* buffer, GtkTextIter* iter, gchar* text, 
+	gint length, Sourceview* sv)
 {
-	/* FIXME: Pass correct character */
-	g_signal_emit_by_name(G_OBJECT(sv), "char_added",
-		ianjuta_editor_get_position(IANJUTA_EDITOR(sv), NULL), character);
+	/* Ignore multi-byte characters and clipboard past for now */
+	if (length == 1)
+	{
+		gchar ch = text[0];
+		gint pos = gtk_text_iter_get_offset(iter);
+		g_signal_emit_by_name(G_OBJECT(sv), "char_added",
+			pos, ch);
+	}
 }
 
 /* Called whenever the document is changed */
@@ -425,8 +432,8 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 					 
 	/* Create View instance */
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document));
-	g_signal_connect(G_OBJECT(sv->priv->view), "char_added",
-					G_CALLBACK(on_document_char_added), sv);
+	g_signal_connect_after(G_OBJECT(sv->priv->document), "insert-text",
+					G_CALLBACK(on_document_insert_text), sv);
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
 	
 	sv->priv->tag_window = sourceview_tags_new(plugin);
@@ -474,9 +481,17 @@ static void
 ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
+	const gchar* lang;
+	IAnjutaLanguageSupport* lang_support;
 	sourceview_remove_monitor(sv);
 	anjuta_document_load(sv->priv->document, uri, NULL,
 						 -1, FALSE);
+						 
+	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(file), NULL);
+	/* Load language support plugin */
+	lang_support = anjuta_shell_get_interface(ANJUTA_SHELL(ANJUTA_PLUGIN(sv->priv->plugin)->shell),
+		IAnjutaLanguageSupport, NULL);
+	g_signal_emit_by_name (sv, "language-changed", lang);
 }
 
 /* Return the currently loaded uri */
