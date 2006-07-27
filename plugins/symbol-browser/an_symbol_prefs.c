@@ -38,6 +38,7 @@
 #define LOCAL_TAGS_DIR ".anjuta/tags"
 #define SYSTEM_TAGS_CACHE ".anjuta/system-tags.cache"
 #define SYMBOL_BROWSER_TAGS "symbol.browser.tags"
+#define CREATE_GLOBAL_TAGS PACKAGE_DATA_DIR"/scripts/create_global_tags.sh"
 
 enum
 {
@@ -682,7 +683,7 @@ on_update_global_clicked(GtkWidget *button, SymbolBrowserPlugin *plugin)
 	g_free (tmp);
 
 	/* Make sure program anjuta-tags can be found */
-	if (!anjuta_util_prog_is_installed ("create_global_tags.sh", TRUE))
+	if (!anjuta_util_prog_is_installed (CREATE_GLOBAL_TAGS, TRUE))
 		return;
 	
 	mesg_manager = anjuta_shell_get_interface 
@@ -702,7 +703,7 @@ on_update_global_clicked(GtkWidget *button, SymbolBrowserPlugin *plugin)
 	launcher = anjuta_launcher_new ();
 	g_signal_connect (G_OBJECT (launcher), "child-exited",
 						  G_CALLBACK (refresh_list), plugin);
-	anjuta_launcher_execute (launcher, "create_global_tags.sh", on_message, plugin);
+	anjuta_launcher_execute (launcher, CREATE_GLOBAL_TAGS, on_message, plugin);
 }
 
 static GtkWidget *

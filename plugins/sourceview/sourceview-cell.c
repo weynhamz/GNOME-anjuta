@@ -24,7 +24,6 @@
 
 #include "sourceview-cell.h"
 
-#include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell-style.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
@@ -44,12 +43,14 @@ struct _SourceviewCellPrivate {
 	GtkTextBuffer* buffer;
 };
 
-gpointer sourceview_cell_parent_class;
+static gpointer sourceview_cell_parent_class = NULL;
 
 static void
 sourceview_cell_class_init(SourceviewCellClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	sourceview_cell_parent_class = g_type_class_peek_parent(klass);
+
 
 	object_class->finalize = sourceview_cell_finalize;
 }
@@ -206,7 +207,7 @@ iiter_first(IAnjutaIterable* iter, GError** e)
 	GtkTextIter text_iter;
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
 									 cell->priv->mark);
-	gtk_text_iter_set_offset(&text_iter, 0);
+	gtk_text_iter_set_line_offset(&text_iter, 0);
 	gtk_text_buffer_move_mark(cell->priv->buffer, cell->priv->mark, &text_iter);
 	return TRUE;
 }
@@ -219,7 +220,7 @@ iiter_next(IAnjutaIterable* iter, GError** e)
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
 									 cell->priv->mark);
 
-	if (gtk_text_iter_forward_char(&text_iter))
+	if (!gtk_text_iter_ends_line(&text_iter) && gtk_text_iter_forward_char(&text_iter))
 	{
 		gtk_text_buffer_move_mark(cell->priv->buffer, cell->priv->mark, &text_iter);
 		return TRUE;
@@ -236,7 +237,7 @@ iiter_previous(IAnjutaIterable* iter, GError** e)
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
 									 cell->priv->mark);
 
-	if (gtk_text_iter_backward_char(&text_iter))
+	if (!gtk_text_iter_starts_line(&text_iter) && gtk_text_iter_backward_char(&text_iter))
 	{
 		gtk_text_buffer_move_mark(cell->priv->buffer, cell->priv->mark, &text_iter);
 		return TRUE;
@@ -253,7 +254,7 @@ iiter_last(IAnjutaIterable* iter, GError** e)
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
 									 cell->priv->mark);
 
-	gtk_text_iter_forward_to_end(&text_iter);
+	gtk_text_iter_forward_to_line_end(&text_iter);
 	gtk_text_buffer_move_mark(cell->priv->buffer, cell->priv->mark, &text_iter);
 	return TRUE;
 }
@@ -266,8 +267,8 @@ iiter_foreach(IAnjutaIterable* iter, GFunc callback, gpointer data, GError** e)
 	GtkTextIter text_iter;
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
 									 cell->priv->mark);
-	gtk_text_iter_set_offset(&text_iter, 0);
-	while (gtk_text_iter_forward_char(&text_iter))
+	gtk_text_iter_set_line_offset(&text_iter, 0);
+	while (!gtk_text_iter_ends_line(&text_iter) && gtk_text_iter_forward_char(&text_iter))
 	{
 		(*callback)(cell, data);
 	}
@@ -290,7 +291,7 @@ iiter_get_nth(IAnjutaIterable* iter, GType data_type, gint n, GError** e)
 	GtkTextIter text_iter;
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
 									 cell->priv->mark);
-	gtk_text_iter_set_offset(&text_iter, n);
+	gtk_text_iter_set_line_offset(&text_iter, n);
 	
 	gtk_text_buffer_move_mark(cell->priv->buffer,
 							  cell->priv->mark,
@@ -306,14 +307,18 @@ iiter_get_position(IAnjutaIterable* iter, GError** e)
 	GtkTextIter text_iter;
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
 									 cell->priv->mark);
-	return gtk_text_iter_get_offset(&text_iter);
+	return gtk_text_iter_get_line_offset(&text_iter);
 }
 
 static gint
 iiter_get_length(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	return gtk_text_buffer_get_char_count(cell->priv->buffer);
+	GtkTextIter text_iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
+									 cell->priv->mark);
+	
+	return gtk_text_iter_get_chars_in_line(&text_iter);
 }
 
 static gboolean
@@ -337,15 +342,8 @@ iiter_iface_init(IAnjutaIterableIface* iface)
 	iface->get_settable = iiter_get_settable;
 }
 
-static void
-ieditor_iface_init(IAnjutaEditorIface* iface)
-{
-	/* This is completely fake to keep GType happy. We do NOT implement 
-	IAnjuta Editor here */
-}
 
 ANJUTA_TYPE_BEGIN(SourceviewCell, sourceview_cell, G_TYPE_OBJECT);
-ANJUTA_TYPE_ADD_INTERFACE(ieditor, IANJUTA_TYPE_EDITOR);
 ANJUTA_TYPE_ADD_INTERFACE(icell, IANJUTA_TYPE_EDITOR_CELL);
 ANJUTA_TYPE_ADD_INTERFACE(icell_style, IANJUTA_TYPE_EDITOR_CELL_STYLE);
 ANJUTA_TYPE_ADD_INTERFACE(iiter, IANJUTA_TYPE_ITERABLE);

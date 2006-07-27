@@ -4,7 +4,8 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-EXTRA_DIST = create_global_tags.sh
+bindir = $(anjuta_data_dir)/scripts
+dist_bin_SCRIPTS = create_global_tags.sh
 
 INCLUDES = -I$(top_srcdir)/tagmanager/include -Wall $(GLIB_CFLAGS)
 
@@ -15,5 +16,5 @@ anjuta_tags_SOURCES = tm_global_tags.c
 anjuta_tags_LDADD = $(top_builddir)/tagmanager/libanjuta-ctags.la
 anjuta_tags_LDFLAGS = $(GLIB_LIBS)
 
-dist_bin_SCRIPTS = create_global_tags.sh
+EXTRA_DIST = $(dist_bin_SCRIPTS)
 

@@ -477,7 +477,7 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 /* IAnjutaFile interface */
 
 /* Open uri in Editor */
-static void 
+static void
 ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
