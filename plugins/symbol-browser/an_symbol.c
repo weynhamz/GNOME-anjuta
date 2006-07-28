@@ -81,11 +81,14 @@ void
 anjuta_symbol_set_tag (AnjutaSymbol *symbol, const TMTag *tm_tag)
 {
 	g_return_if_fail (ANJUTA_IS_SYMBOL (symbol));
-	g_return_if_fail (tm_tag != NULL);
-	g_return_if_fail (tm_tag->type < tm_tag_max_t);
-	g_return_if_fail (!(tm_tag->type & (tm_tag_file_t|tm_tag_undef_t)));
-	
-	symbol->priv->tm_tag = tm_tag;
+	symbol->priv->tm_tag = NULL;
+	if (tm_tag != NULL)
+	{
+		g_return_if_fail (tm_tag->type < tm_tag_max_t);
+		g_return_if_fail (!(tm_tag->type & (tm_tag_file_t|tm_tag_undef_t)));
+		
+		symbol->priv->tm_tag = tm_tag;
+	}
 }
 
 /* IAnjutaSymbol implementation */
@@ -97,6 +100,7 @@ isymbol_type (IAnjutaSymbol *isymbol, GError **err)
 	
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), IANJUTA_SYMBOL_TYPE_UNDEF);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, IANJUTA_SYMBOL_TYPE_UNDEF);
 	return s->priv->tm_tag->type;
 }
 
@@ -107,6 +111,7 @@ isymbol_name (IAnjutaSymbol *isymbol, GError **err)
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), NULL);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
 	return s->priv->tm_tag->name;
 }
 
@@ -117,6 +122,7 @@ isymbol_args (IAnjutaSymbol *isymbol, GError **err)
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), NULL);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
 	return s->priv->tm_tag->atts.entry.arglist;
 }
 
@@ -127,6 +133,7 @@ isymbol_scope (IAnjutaSymbol *isymbol, GError **err)
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), NULL);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
 	return s->priv->tm_tag->atts.entry.scope;
 }
 
@@ -137,6 +144,7 @@ isymbol_inheritance (IAnjutaSymbol *isymbol, GError **err)
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), NULL);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
 	return s->priv->tm_tag->atts.entry.inheritance;
 }
 
@@ -147,6 +155,7 @@ isymbol_var_type (IAnjutaSymbol *isymbol, GError **err)
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), NULL);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
 	return s->priv->tm_tag->atts.entry.var_type;
 }
 
@@ -157,6 +166,7 @@ isymbol_access (IAnjutaSymbol *isymbol, GError **err)
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), '\0');
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, '\0');
 	return s->priv->tm_tag->atts.entry.access;
 }
 
@@ -167,6 +177,7 @@ isymbol_impl (IAnjutaSymbol *isymbol, GError **err)
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), '\0');
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, '\0');
 	return s->priv->tm_tag->atts.entry.impl;
 }
 
@@ -177,6 +188,7 @@ isymbol_file (IAnjutaSymbol *isymbol, GError **err)
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), NULL);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
 	if (s->priv->tm_tag->atts.entry.file == NULL)
 		return NULL;
 	return s->priv->tm_tag->atts.entry.file->work_object.file_name;
@@ -189,6 +201,7 @@ isymbol_line (IAnjutaSymbol *isymbol, GError **err)
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), 0);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, 0);
 	return s->priv->tm_tag->atts.entry.line;
 }
 
@@ -199,6 +212,7 @@ isymbol_is_local (IAnjutaSymbol *isymbol, GError **err)
 
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), FALSE);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, FALSE);
 	return s->priv->tm_tag->atts.entry.local;
 }
 
@@ -208,6 +222,7 @@ isymbol_pointer_order (IAnjutaSymbol *isymbol, GError **err)
 	AnjutaSymbol *s;
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), FALSE);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, 0);
 	return s->priv->tm_tag->atts.entry.pointerOrder;
 }
 
@@ -219,6 +234,7 @@ isymbol_icon (IAnjutaSymbol *isymbol, GError **err)
 	
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), FALSE);
 	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
 	node_type = anjuta_symbol_info_get_node_type (NULL, s->priv->tm_tag);
 	return anjuta_symbol_info_get_pixbuf (node_type);
 }

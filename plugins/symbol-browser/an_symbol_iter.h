@@ -22,6 +22,7 @@
 
 #include <glib.h>
 #include <glib-object.h>
+#include "an_symbol.h"
 
 typedef struct _AnjutaSymbolIter      AnjutaSymbolIter;
 typedef struct _AnjutaSymbolIterClass AnjutaSymbolIterClass;
@@ -35,13 +36,13 @@ typedef struct _AnjutaSymbolIterPriv  AnjutaSymbolIterPriv;
 
 struct _AnjutaSymbolIter
 {
-	GObject parent;
+	AnjutaSymbol parent;
 	AnjutaSymbolIterPriv *priv;
 };
 
 struct _AnjutaSymbolIterClass
 {
-	GObjectClass parent_class;
+	AnjutaSymbolClass parent_class;
 };
 
 GType anjuta_symbol_iter_get_type (void);

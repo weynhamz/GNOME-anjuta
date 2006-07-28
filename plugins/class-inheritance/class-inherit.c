@@ -91,42 +91,35 @@ class_inheritance_show_dynamic_class_popup_menu (GdkEvent *event,
 													   FALSE, NULL);
 			if (iter && ianjuta_iterable_get_length (iter, NULL) > 0)
 			{
+				IAnjutaSymbol *symbol = IANJUTA_SYMBOL (iter);
 				do
 				{
-					IAnjutaSymbol *symbol;
+					const gchar *name, *file;
+					GdkPixbuf *pixbuf;
+					gint line;
 					
-					symbol = ianjuta_iterable_get (iter,
-												   IANJUTA_TYPE_SYMBOL,
-												   NULL);
-					if (symbol)
+					name = ianjuta_symbol_name (symbol, NULL);
+					pixbuf = ianjuta_symbol_icon (symbol, NULL);
+					file = ianjuta_symbol_file (symbol, NULL);
+					line = ianjuta_symbol_line (symbol, NULL);
+					
+					item = gtk_image_menu_item_new_with_label (name);
+					image = gtk_image_new_from_pixbuf (pixbuf);
+					gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM
+												   (item), image);
+					
+					if (file)
 					{
-						const gchar *name, *file;
-						GdkPixbuf *pixbuf;
-						gint line;
-						
-						name = ianjuta_symbol_name (symbol, NULL);
-						pixbuf = ianjuta_symbol_icon (symbol, NULL);
-						file = ianjuta_symbol_file (symbol, NULL);
-						line = ianjuta_symbol_line (symbol, NULL);
-						
-						item = gtk_image_menu_item_new_with_label (name);
-						image = gtk_image_new_from_pixbuf (pixbuf);
-						gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM
-													   (item), image);
-						
-						if (file)
-						{
-							g_object_set_data_full (G_OBJECT (item), "__file",
-													g_strdup (file), g_free);
-							g_object_set_data (G_OBJECT (item), "__line",
-											   GINT_TO_POINTER (line));
-						}
-						gtk_container_add (GTK_CONTAINER (nodedata->menu),
-										   item);
-						g_signal_connect (G_OBJECT (item), "activate",
-													G_CALLBACK (on_member_menuitem_clicked),
-													nodedata);
+						g_object_set_data_full (G_OBJECT (item), "__file",
+												g_strdup (file), g_free);
+						g_object_set_data (G_OBJECT (item), "__line",
+										   GINT_TO_POINTER (line));
 					}
+					gtk_container_add (GTK_CONTAINER (nodedata->menu),
+									   item);
+					g_signal_connect (G_OBJECT (item), "activate",
+												G_CALLBACK (on_member_menuitem_clicked),
+												nodedata);
 				} while (ianjuta_iterable_next (iter, NULL));
 			}
 			if (iter)
@@ -309,18 +302,11 @@ cls_inherit_add_node (AnjutaClassInheritance *plugin, const gchar* node_name)
 				i = 0;
 				do
 				{
-					IAnjutaSymbol *symbol;
-					
-					symbol = ianjuta_iterable_get (iter,
-												   IANJUTA_TYPE_SYMBOL,
-												   NULL);
-					if (symbol)
-					{
-						const gchar *name;
+					const gchar *name;
+					IAnjutaSymbol *symbol = IANJUTA_SYMBOL (iter);
 						
-						name = ianjuta_symbol_name (symbol, NULL);
-						g_string_append_printf (label, "|%s", name);
-					}
+					name = ianjuta_symbol_name (symbol, NULL);
+					g_string_append_printf (label, "|%s", name);
 					i++;
 				} while (ianjuta_iterable_next (iter, NULL) && i < max_label_items);
 			}
@@ -519,46 +505,38 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 					
 			/* go on with the icons */
 			if (symbol_iter && ianjuta_iterable_get_length (symbol_iter, NULL) > 0) {
-				IAnjutaSymbol *symbol;
+				GdkPixbuf *pixbuf;
+				const gchar* file;
+				gint line;
+				IAnjutaSymbol *symbol = IANJUTA_SYMBOL (symbol_iter);
+
+				file = ianjuta_symbol_file (symbol, NULL);
+				line = ianjuta_symbol_line (symbol, NULL);
+				pixbuf = ianjuta_symbol_icon (symbol, NULL);
 				
-				symbol = ianjuta_iterable_get (symbol_iter,
-											   IANJUTA_TYPE_SYMBOL,
-											   NULL);
-				if (symbol) {
-					GdkPixbuf *pixbuf;
-					const gchar* file;
-					gint line;
+				item = gnome_canvas_item_new (	gnome_canvas_root
+									(GNOME_CANVAS (plugin->canvas)),
+									gnome_canvas_pixbuf_get_type(),
+									"x",
+									(gdouble) (node_pos->x -
+									INCH_TO_PIXELS (node_width)/2 +2),
+									"y", 
+									(gdouble) -node_pos->y -
+									INCH_TO_PIXELS (node_height)/2+(j+0.5)*abs(y1-y2)-5,
+									"pixbuf", pixbuf,
+									NULL);
 
-					file = ianjuta_symbol_file (symbol, NULL);
-					line = ianjuta_symbol_line (symbol, NULL);
-					pixbuf = ianjuta_symbol_icon (symbol, NULL);
-					
-					item = gnome_canvas_item_new (	gnome_canvas_root
-									  	(GNOME_CANVAS (plugin->canvas)),
-										gnome_canvas_pixbuf_get_type(),
-						  	  			"x",
-						  	  			(gdouble) (node_pos->x -
-										INCH_TO_PIXELS (node_width)/2 +2),
-						  	  			"y", 
-										(gdouble) -node_pos->y -
-										INCH_TO_PIXELS (node_height)/2+(j+0.5)*abs(y1-y2)-5,
-										"pixbuf", pixbuf,
-										NULL);
-
-					/* set now the object properties on node_data. We still have a 
-					 * reference to it so we can access its canvas_item */
-					if (file) {
-						g_object_set_data_full (G_OBJECT (node_data->canvas_item), "__file",
-												g_strdup (file), g_free);
-						g_object_set_data (G_OBJECT (node_data->canvas_item), "__line",
-										   GINT_TO_POINTER (line));
-					}
+				/* set now the object properties on node_data. We still have a 
+				 * reference to it so we can access its canvas_item */
+				if (file) {
+					g_object_set_data_full (G_OBJECT (node_data->canvas_item), "__file",
+											g_strdup (file), g_free);
+					g_object_set_data (G_OBJECT (node_data->canvas_item), "__line",
+									   GINT_TO_POINTER (line));
 				}
 			}
-			
 			plugin->drawable_list = g_list_prepend (plugin->drawable_list, item);
 			ianjuta_iterable_next (symbol_iter, NULL);
-
 		}
 	}
 	
@@ -850,6 +828,7 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 										  "", FALSE, FALSE, NULL);
 	if (!iter)
 		return;
+	symbol = IANJUTA_SYMBOL (iter);
 	
 	DEBUG_PRINT ("Number of classes found = %d",
 				 ianjuta_iterable_get_length (iter, NULL));
@@ -870,10 +849,6 @@ class_inheritance_update_graph (AnjutaClassInheritance *plugin)
 		const gchar *class_name, *parents, *old_parents;
 		
 		first = FALSE;
-		
-		symbol = ianjuta_iterable_get (iter, IANJUTA_TYPE_SYMBOL, NULL);
-		if (!symbol)
-			continue;
 		
 		class_name = ianjuta_symbol_name (symbol, NULL);
 		parents = ianjuta_symbol_inheritance (symbol, NULL);

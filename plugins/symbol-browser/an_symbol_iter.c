@@ -29,11 +29,13 @@
 struct _AnjutaSymbolIterPriv
 {
 	gint current_pos;
-	AnjutaSymbol *symbol;
 	const GPtrArray *tm_tags_array;
 };
 
 static gpointer parent_class;
+
+static gboolean isymbol_iter_set_position (IAnjutaIterable *iterable,
+										   gint position, GError **err);
 
 /* Anjuta symbol iter class */
 
@@ -49,13 +51,7 @@ anjuta_symbol_iter_finalize (GObject * obj)
 static void
 anjuta_symbol_iter_dispose (GObject * obj)
 {
-	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (obj);
-	
-	if (si->priv->symbol)
-	{
-		g_object_unref (si->priv->symbol);
-		si->priv->symbol = NULL;
-	}
+	/* AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (obj); */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
@@ -67,7 +63,6 @@ anjuta_symbol_iter_instance_init (GObject * obj)
 	si = ANJUTA_SYMBOL_ITER (obj);
 	si->priv = g_new0 (AnjutaSymbolIterPriv, 1);
 	si->priv->current_pos = 0;
-	si->priv->symbol = NULL;
 }
 
 static void
@@ -91,6 +86,7 @@ anjuta_symbol_iter_new (const GPtrArray *tm_tags_array)
 	
 	si = g_object_new (ANJUTA_TYPE_SYMBOL_ITER, NULL);
 	si->priv->tm_tags_array = tm_tags_array;
+	ianjuta_iterable_first (IANJUTA_ITERABLE (si), NULL);
 	return si;
 }
 
@@ -103,7 +99,14 @@ isymbol_iter_first (IAnjutaIterable *iterable, GError **err)
 	
 	si->priv->current_pos = 0;
 	if (si->priv->tm_tags_array->len <= 0)
+	{
+		anjuta_symbol_set_tag (ANJUTA_SYMBOL (iterable),
+							   NULL);
 		return FALSE;
+	}
+	/* g_assert (si->priv->tm_tags_array->pdata[si->priv->current_pos]); */
+	anjuta_symbol_set_tag (ANJUTA_SYMBOL (iterable),
+						   si->priv->tm_tags_array->pdata[0]);
 	return TRUE;
 }
 
@@ -113,8 +116,15 @@ isymbol_iter_next (IAnjutaIterable *iterable, GError **err)
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
 	
 	if (si->priv->current_pos >= (si->priv->tm_tags_array->len - 1))
+	{
+		anjuta_symbol_set_tag (ANJUTA_SYMBOL (iterable),
+							si->priv->tm_tags_array->pdata[si->priv->tm_tags_array->len - 1]);
 		return FALSE;
+	}
 	si->priv->current_pos++;
+	/* g_assert (si->priv->tm_tags_array->pdata[si->priv->current_pos]); */
+	anjuta_symbol_set_tag (ANJUTA_SYMBOL (iterable),
+						si->priv->tm_tags_array->pdata[si->priv->current_pos]);
 	return TRUE;
 }
 
@@ -124,8 +134,15 @@ isymbol_iter_previous (IAnjutaIterable *iterable, GError **err)
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
 	
 	if (si->priv->current_pos <= 0)
+	{
+		anjuta_symbol_set_tag (ANJUTA_SYMBOL (iterable),
+							si->priv->tm_tags_array->pdata[0]);
 		return FALSE;
+	}
 	si->priv->current_pos--;
+	/* g_assert (si->priv->tm_tags_array->pdata[si->priv->current_pos]); */
+	anjuta_symbol_set_tag (ANJUTA_SYMBOL (iterable),
+						   si->priv->tm_tags_array->pdata[si->priv->current_pos]);
 	return TRUE;
 }
 
@@ -136,8 +153,15 @@ isymbol_iter_last (IAnjutaIterable *iterable, GError **err)
 	
 	si->priv->current_pos = 0;
 	if (si->priv->tm_tags_array->len <= 0)
+	{
+		anjuta_symbol_set_tag (ANJUTA_SYMBOL (iterable),
+							si->priv->tm_tags_array->pdata[0]);
 		return FALSE;
+	}
 	si->priv->current_pos = si->priv->tm_tags_array->len - 1;
+	/* g_assert (si->priv->tm_tags_array->pdata[si->priv->current_pos]); */
+	anjuta_symbol_set_tag (ANJUTA_SYMBOL (iterable),
+						   si->priv->tm_tags_array->pdata[si->priv->current_pos]);
 	return TRUE;
 }
 
@@ -146,45 +170,17 @@ isymbol_iter_foreach (IAnjutaIterable *iterable, GFunc callback,
 					  gpointer user_data, GError **err)
 {
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
-	g_ptr_array_foreach ((GPtrArray*)si->priv->tm_tags_array,
-	callback, user_data);
-}
-
-/*
-static gpointer
-isymbol_iter_get (IAnjutaIterable *iterable, GType data_type, GError **err)
-{
-	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
-	g_return_val_if_fail (data_type != ANJUTA_TYPE_SYMBOL, NULL);
-	g_return_val_if_fail (si->priv->tm_tags_array->len > 0, NULL);
+	gint saved_pos = si->priv->current_pos;
 	
-	if (si->priv->symbol == NULL)
-		si->priv->symbol = anjuta_symbol_new (si->priv->tm_tags_array->pdata[si->priv->current_pos]);
-	else
-		anjuta_symbol_set_tag (si->priv->symbol,
-							   si->priv->tm_tags_array->pdata[si->priv->current_pos]);
-	return si->priv->symbol;
+	isymbol_iter_first (iterable, NULL);
+	while (!isymbol_iter_next (iterable, NULL))
+		callback (iterable, user_data);
+	isymbol_iter_set_position (iterable, saved_pos, NULL);
 }
-
-static gpointer
-isymbol_iter_get_nth (IAnjutaIterable *iterable, GType data_type,
-					  gint position, GError **err)
-{
-	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
-	g_return_val_if_fail (data_type != ANJUTA_TYPE_SYMBOL, NULL);
-	
-	if (si->priv->symbol == NULL)
-		si->priv->symbol = anjuta_symbol_new (si->priv->tm_tags_array->pdata[position]);
-	else
-		anjuta_symbol_set_tag (si->priv->symbol,
-							   si->priv->tm_tags_array->pdata[position]);
-	return si->priv->symbol;
-}
-*/
 
 static gboolean
-isymbol_iter_set_position (IAnjutaIterable *iterable, GType data_type,
-						   gpointer data, gint position, GError **err)
+isymbol_iter_set_position (IAnjutaIterable *iterable,
+						   gint position, GError **err)
 {
 	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
 	if (position < 0)
@@ -192,6 +188,9 @@ isymbol_iter_set_position (IAnjutaIterable *iterable, GType data_type,
 	if (position > (si->priv->tm_tags_array->len - 1))
 		return FALSE;
 	si->priv->current_pos = position;
+	/* g_assert (si->priv->tm_tags_array->pdata[si->priv->current_pos]); */
+	anjuta_symbol_set_tag (ANJUTA_SYMBOL (iterable),
+						   si->priv->tm_tags_array->pdata[si->priv->current_pos]);
 	return TRUE;
 }
 
@@ -222,6 +221,6 @@ isymbol_iter_iface_init (IAnjutaIterableIface *iface, GError **err)
 	iface->get_length = isymbol_iter_get_length;
 }
 
-ANJUTA_TYPE_BEGIN (AnjutaSymbolIter, anjuta_symbol_iter, G_TYPE_OBJECT);
+ANJUTA_TYPE_BEGIN (AnjutaSymbolIter, anjuta_symbol_iter, ANJUTA_TYPE_SYMBOL);
 ANJUTA_TYPE_ADD_INTERFACE (isymbol_iter, IANJUTA_TYPE_ITERABLE);
 ANJUTA_TYPE_END;
