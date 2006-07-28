@@ -150,6 +150,7 @@ isymbol_iter_foreach (IAnjutaIterable *iterable, GFunc callback,
 	callback, user_data);
 }
 
+/*
 static gpointer
 isymbol_iter_get (IAnjutaIterable *iterable, GType data_type, GError **err)
 {
@@ -179,19 +180,19 @@ isymbol_iter_get_nth (IAnjutaIterable *iterable, GType data_type,
 							   si->priv->tm_tags_array->pdata[position]);
 	return si->priv->symbol;
 }
+*/
 
-static void
-isymbol_iter_set (IAnjutaIterable *iterable, GType data_type,
-				  gpointer data, GError **err)
+static gboolean
+isymbol_iter_set_position (IAnjutaIterable *iterable, GType data_type,
+						   gpointer data, gint position, GError **err)
 {
-	DEBUG_PRINT ("set() is not valid for AnjutaSymbolIter implementation");
-}
-
-static void
-isymbol_iter_set_nth (IAnjutaIterable *iterable, GType data_type,
-					  gpointer data, gint position, GError **err)
-{
-	DEBUG_PRINT ("set() is not valid for AnjutaSymbolIter implementation");
+	AnjutaSymbolIter *si = ANJUTA_SYMBOL_ITER (iterable);
+	if (position < 0)
+		return FALSE;
+	if (position > (si->priv->tm_tags_array->len - 1))
+		return FALSE;
+	si->priv->current_pos = position;
+	return TRUE;
 }
 
 static gint
@@ -208,12 +209,6 @@ isymbol_iter_get_length (IAnjutaIterable *iterable, GError **err)
 	return si->priv->tm_tags_array->len;
 }
 
-static gboolean
-isymbol_iter_get_settable (IAnjutaIterable *iterable, GError **err)
-{
-	return FALSE;
-}
-
 static void
 isymbol_iter_iface_init (IAnjutaIterableIface *iface, GError **err)
 {
@@ -222,13 +217,9 @@ isymbol_iter_iface_init (IAnjutaIterableIface *iface, GError **err)
 	iface->previous = isymbol_iter_previous;
 	iface->last = isymbol_iter_last;
 	iface->foreach = isymbol_iter_foreach;
-	iface->get = isymbol_iter_get;
-	iface->get_nth = isymbol_iter_get_nth;
+	iface->set_position = isymbol_iter_set_position;
 	iface->get_position = isymbol_iter_get_position;
 	iface->get_length = isymbol_iter_get_length;
-	iface->get_settable = isymbol_iter_get_settable;
-	iface->set = isymbol_iter_set;
-	iface->set_nth = isymbol_iter_set_nth;
 }
 
 ANJUTA_TYPE_BEGIN (AnjutaSymbolIter, anjuta_symbol_iter, G_TYPE_OBJECT);

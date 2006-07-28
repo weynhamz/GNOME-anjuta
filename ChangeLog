@@ -1,3 +1,23 @@
+2006-07-28 Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl: Removed get data methods in
+	IAnjutaIterable. They were kind of useless since the interface is
+	defined on the data object itself. Added set_position() method
+	in IAnjutaIterable to allow setting arbitrary current index to the
+	iter.
+	Added erase() and erase_range() in IAnjutaEditor.
+
+	* plugins/editor/text-editor-iterable.c: Fixed 
+	plugins/editor/text_editor.c: Implemented erase() and erase_range()
+	methods in editor. Fixed get_line_from_position() method.
+
+	* plugins/language-support-cpp-java/plugin.c: Fixed indentation
+	code. It's disabled for now.
+
+	* plugins/sourceview/sourceview-cell.c,
+	plugins/symbol-browser/an_symbol_iter.c: Fixed IAnjutaIterable
+	implementation.
+
 2006-07-27  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview-cell.c:

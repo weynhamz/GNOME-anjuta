@@ -275,7 +275,7 @@ interface IAnjutaIterable
 	* @err: Error propagation and reporting
 	*
 	* Set the iter position to next element position. Returns FALSE if there
-	* is no next element.
+	* is no next element and the iter remains pointed to the last element.
 	*
 	* Returns: TRUE if sucessful, other FALSE..
 	*/
@@ -287,7 +287,8 @@ interface IAnjutaIterable
 	* @err: Error propagation and reporting
 	* 
 	* Set the iter position to previous element position. Returns FALSE if
-	* there is no previous element.
+	* there is no previous element and the iter remains pointed to the first
+	* element.
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
@@ -317,39 +318,28 @@ interface IAnjutaIterable
 	void foreach (GFunc callback, gpointer user_data);
 	
 	/**
-	* ianjuta_iterable_get:
+	* ianjuta_iterable_set_position:
 	* @obj: Self
-	* @data_type: Data type of the value being retrieved.
+	* @position: New position for the iter.
 	* @err: Error propagation and reporting
 	* 
-	* Gets the value at current iter position.
-	* Interpretation of 'data' really depends on implementation and is of
-	* type 'data_type'. get_nth() gets the element at given position without
-	* altering the position of current iter.
+	* Sets the current position of the iter to @position. The given @position
+	* must be from 0 to length - 1 (ianjuta_iter_get_length()), otherwise
+	* FLASE will be returned. If invalid iter @position is give, the current
+	* iter position is not altered.
 	*
-	* Returns: The data at current iter position.
+	* Returns: TRUE if successfully set (i.e. @position is within the range.
+	* otherwise returns FALSE (i.e. @position is out of data range).
 	*/
-	gpointer get (GType data_type);
-	
-	/**
-	* ianjuta_iterable_get_nth:
-	* @obj: Self
-	* @data_type: Data type of the value being retrieved.
-	* @position: Index of the iter.
-	* @err: Error propagation and reporting
-	* 
-	* Returns the nth element in the list.
-	*
-	* Returns: The data at nth position.
-	*/
-	gpointer get_nth (GType data_type, gint position);
+	gboolean set_position (gint position);
 	
 	/**
 	* ianjuta_iterable_get_position:
 	* @obj: Self
 	* @err: Error propagation and reporting
 	*
-	* Index of the current iter in the iterable
+	* Index of the current iter in the iterable. It will be
+	* from 0 to length - 1 (ianjuta_iter_get_length())
 	*
 	* Returns: integer index.
 	*/
@@ -362,45 +352,9 @@ interface IAnjutaIterable
 	* 
 	* Length of the iterable
 	*
-	* Returns: total lenght of the list.
+	* Returns: total length of the list.
 	*/
 	gint get_length ();
-	
-	/**
-	* ianjuta_iterable_get_settable:
-	* @obj: Self
-	* @err: Error propagation and reporting
-	* 
-	* If the iterable is settable.
-	* 
-	* Returns: TRUE if data can be set in this implementation.
-	*/
-	gboolean get_settable ();
-	
-	/**
-	* ianjuta_iterable_set:
-	* @obj: Self
-	* @data_type: Data type of the value being set.
-	* @data: The data being set.
-	* @err: Error propagation and reporting
-	* 
-	* Sets the value at current iter position. The iterable be be settable.
-	* Interpretation of 'data' really depends on implementation. The data
-	* must be of type 'data_type'.
-	*/
-	void set (GType data_type, gpointer data);
-	
-	/** 
-	* ianjuta_iterable_set_nth:
-	* @obj: Self
-	* @data_type: Data type of the value being set.
-	* @data: The data being set.
-	* @position: element position where data is set.
-	* @err: Error propagation and reporting
-	* 
-	* Sets the @data at given @position. Current iter position is not altered.
-	*/
-	void set_nth (GType data_type, gpointer data, gint position);
 	
 	interface IAnjutaIterableTree
 	{
@@ -693,6 +647,28 @@ interface IAnjutaEditor
 	void   ::update_ui ();
 
 	/**
+	 * ianjuta_editor_erase:
+	 * @obj: Self
+	 * @position: Start position of chars to erase.
+	 * @length: number of chars to erase.
+	 * @err: Error propagation and reporting
+	 *
+	 * Erases the @length number of chars starting from @position.
+	 */
+	void   erase (gint position, gint length);
+	
+	/**
+	 * ianjuta_editor_erase_range:
+	 * @obj: Self
+	 * @start: Start position of chars to erase.
+	 * @end: End position of chars to erase.
+	 * @err: Error propagation and reporting
+	 *
+	 * Erases the range of chars starting from @start position to @end.
+	 */
+	void   erase_range (gint start, gint end);
+	
+	/**
 	 * ianjuta_editor_erase_all:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
@@ -954,13 +930,25 @@ interface IAnjutaEditor
 	/**
 	 * ianjuta_editor_get_cell_iter:
 	 * @obj: Self
-	 * @position: position where the iter will be set
+	 * @position: Byte position where the iter will be set
 	 * @err: Error propagation and reporting
 	 *
 	 * Creates and returns an iter for editor cells. The iter is
-	 * placed at the given position. The iter must be unreferrenced by
-	 * the caller when done. The iter navigates (next/previous) in step
-	 * of unicode characters (one unicode character == one cell).
+	 * placed at the unicode character position where the given byte
+     * @position happens to fall (means given @position does not necessarily
+	 * is the current position of the iter). The returned iter
+	 * is cell (character) iter and not byte iter, so all iter operations
+	 * on it are character (not byte) iteration, including all position
+     * and index references in the iter. However, the @position paramter
+     * passed to this function is byte position (because all editor
+ 	 * Aoperations are based on byte positions). @position could happen
+     * to be in the middle of a unicode character and that is a vaild
+     * situation.
+     *
+     * The iter must be
+     * unreferrenced by the caller when done. The iter navigates
+     * (next/previous) in step of unicode characters (one unicode
+ 	 * character == one cell).
 	 * 
 	 * Retruns: a newly created iter of IAnjutaEditorCell placed at the
 	 * given position.

@@ -2074,6 +2074,29 @@ itext_editor_append (IAnjutaEditor *editor, const gchar *txt,
 }
 
 static void
+itext_editor_erase (IAnjutaEditor *editor, gint position, gint length,
+					GError **e)
+{
+	ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (editor) , position,
+								  position + length, FALSE, NULL);
+	text_editor_replace_selection (TEXT_EDITOR (editor), "");
+}
+
+static void
+itext_editor_erase_range (IAnjutaEditor *editor, gint start, gint end,
+						  GError **e)
+{
+	if (end > start)
+	{
+		itext_editor_erase (editor, start, end - start, NULL);
+	}
+	else if (start > end)
+	{
+		itext_editor_erase (editor, end, start - end, NULL);
+	}
+}
+
+static void
 itext_editor_erase_all (IAnjutaEditor *editor, GError **e)
 {
 	scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla), SCI_CLEARALL,
@@ -2131,8 +2154,7 @@ itext_editor_set_popup_menu(IAnjutaEditor *editor, GtkWidget* menu, GError **e)
 static gint
 itext_editor_get_line_from_position (IAnjutaEditor *editor, gint pos, GError **e)
 {
-	return 	scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-								    SCI_LINEFROMPOSITION, pos, 0);
+	return text_editor_get_line_from_position (TEXT_EDITOR (editor), pos);
 }
 
 static gint
@@ -2181,6 +2203,8 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_current_word = itext_editor_get_current_word;
 	iface->insert = itext_editor_insert;
 	iface->append = itext_editor_append;
+	iface->erase = itext_editor_erase;
+	iface->erase_range = itext_editor_erase_range;
 	iface->erase_all = itext_editor_erase_all;
 	iface->get_filename = itext_editor_get_filename;
 	iface->can_undo = itext_editor_can_undo;

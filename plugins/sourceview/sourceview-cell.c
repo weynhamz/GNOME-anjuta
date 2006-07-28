@@ -274,30 +274,20 @@ iiter_foreach(IAnjutaIterable* iter, GFunc callback, gpointer data, GError** e)
 	}
 }
 
-static gpointer
-iiter_get(IAnjutaIterable* iter, GType data_type, GError** e)
-{
-	g_return_val_if_fail(!g_type_is_a(sourceview_cell_get_type(), data_type), NULL);
-	return iter;
-}
-
 /* Warning: This modifies the current iter */
-static gpointer
-iiter_get_nth(IAnjutaIterable* iter, GType data_type, gint n, GError** e)
+static gboolean
+iiter_set_position (IAnjutaIterable* iter, gint position, GError** e)
 {
-	g_return_val_if_fail(!g_type_is_a(sourceview_cell_get_type(), data_type), NULL);
-
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
 	GtkTextIter text_iter;
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
 									 cell->priv->mark);
-	gtk_text_iter_set_line_offset(&text_iter, n);
+	gtk_text_iter_set_line_offset(&text_iter, position);
 	
 	gtk_text_buffer_move_mark(cell->priv->buffer,
 							  cell->priv->mark,
 							  &text_iter);
-	
-	return iter;
+	return TRUE;
 }
 
 static gint
@@ -335,11 +325,9 @@ iiter_iface_init(IAnjutaIterableIface* iface)
 	iface->previous = iiter_previous;
 	iface->last = iiter_last;
 	iface->foreach = iiter_foreach;
-	iface->get = iiter_get;
-	iface->get_nth = iiter_get_nth;
+	iface->set_position = iiter_set_position;
 	iface->get_position = iiter_get_position;
 	iface->get_length = iiter_get_length;
-	iface->get_settable = iiter_get_settable;
 }
 
 
