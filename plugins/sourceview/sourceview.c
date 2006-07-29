@@ -1610,9 +1610,11 @@ ilanguage_get_language (IAnjutaEditorLanguage *ilanguage, GError **err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(ilanguage);
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	gchar* lang = gtk_source_language_get_name(gtk_source_buffer_get_language(buffer));
-	
-	return lang;
+	GtkSourceLanguage* lang = gtk_source_buffer_get_language(buffer);
+	if (lang)
+		return gtk_source_language_get_name(lang);
+	else
+		return NULL;
 }
 
 static void

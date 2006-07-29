@@ -29,7 +29,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-#define MENU_PLACEHOLDER "/MenuMain/PlaceHolderToolMenus/Tools"
+#define MENU_PLACEHOLDER "/MenuMain/PlaceHolderToolMenus/MenuTools"
 
 #define ANJUTA_TOOLS_DIRECTORY PACKAGE_DATA_DIR"/tools"
 #define LOCAL_ANJUTA_TOOLS_DIRECTORY "/.anjuta"

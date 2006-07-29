@@ -148,6 +148,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 		REGISTER_ICON ("step-into.png", "debugger-step-into");
 		REGISTER_ICON ("step-out.png", "debugger-step-out");
 		REGISTER_ICON ("step-over.png", "debugger-step-over");
+		REGISTER_ICON ("run-to-cursor.png", "debugger-run-to-cursor");
 }
 
 static void
@@ -374,7 +375,7 @@ dma_plugin_location_changed (DebugManagerPlugin *this, const gchar* file, guint 
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this)->shell, IAnjutaDocumentManager, NULL);
 	file_uri = g_strconcat ("file://", file, NULL);
 	if (docman)
-		ianjuta_document_manager_goto_file_line (docman, file_uri, line, NULL);
+		ianjuta_document_manager_goto_file_line_mark (docman, file_uri, line, TRUE, NULL);
 	g_free (file_uri);
 }
 
@@ -827,7 +828,7 @@ static GtkActionEntry actions_stopped[] =
 	},
 	{
 		"ActionDebuggerRunToPosition",    
-		NULL,                             
+		"debugger-run-to-cursor",                             
 		N_("_Run to cursor"),           
 		"F8",                              
 		N_("Run to the cursor"),              
@@ -919,7 +920,7 @@ static GtkActionEntry actions_running[] =
 {
     {
 		"ActionGdbPauseProgram",                       /* Action name */
-		NULL,                                          /* Stock icon, if any */
+		GTK_STOCK_MEDIA_PAUSE,                        /* Stock icon, if any */
 		N_("Pa_use Program"),                          /* Display label */
 		NULL,                                          /* short-cut */
 		N_("Pauses the execution of the program"),     /* Tooltip */

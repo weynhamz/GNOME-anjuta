@@ -45,6 +45,19 @@
 			</menu>
 		</placeholder>
 	</menubar>
+	<toolbar name="ToolbarDebug">
+		<placeholder name="PlaceholderDebugToolbar" >
+			<toolitem name="Run" action="ActionDebuggerRunContinue" />
+			<toolitem name="RunToPosition" action="ActionDebuggerRunToPosition" />
+			<toolitem name="StepIn" action="ActionDebuggerStepIn" />
+			<toolitem name="StepOver" action="ActionDebuggerStepOver" />
+			<toolitem name="StepOut" action="ActionDebuggerStepOut" />
+			<toolitem name="PauseProgram" action="ActionGdbPauseProgram" />
+			<separator name="separator1"/>
+			<toolitem name="ToggleBreakpoint" action="ActionGdbToggleBreakpoint" />
+			<separator name="separator2" />
+		</placeholder>
+	</toolbar>
 	<popup name="PopupDocumentManager">
 		<separator name="separator1"/>
 		<menuitem name="ToggleBreakpoint" action="ActionGdbToggleBreakpoint" />

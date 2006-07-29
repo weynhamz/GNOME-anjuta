@@ -37,8 +37,14 @@ struct _PatchPlugin {
 	GtkWidget* file_chooser;
 	GtkWidget* patch_chooser;
 	GtkWidget* dialog;
+	GtkWidget* output_label;
+	GtkWidget* patch_button;
+	GtkWidget* cancel_button;
+	GtkWidget* dry_run_check;
 	GladeXML* gxml;
 	
+
+	gboolean executing;
 	gint uiid;
 };
 

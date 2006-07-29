@@ -9,6 +9,7 @@ images_DATA = \
 	step-out-16.png \
 	step-out.png \
 	step-over-16.png \
-	step-over.png
+	step-over.png \
+	run-to-cursor.png
 
 EXTRA_DIST = $(images_DATA)

@@ -2,7 +2,7 @@
 <ui>
 	<menubar name="MenuMain">
 		<placeholder name="PlaceHolderToolMenus">
-		<menu name="Tools" action="ActionMenuTools">
+		<menu name="MenuTools" action="ActionMenuTools">
 				<menuitem name="Configure" action="ActionConfigureTools" />
 				<separator name="separator1" />
 		</menu>

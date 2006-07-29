@@ -1303,7 +1303,7 @@ static GtkActionEntry actions_breakpoints[] = {
 	},
 	{
 		"ActionGdbSetBreakpoint",                 /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		"gdb-breakpoint-toggle",                  /* Stock icon, if any */
 		N_("Add Breakpoint"),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add a breakpoint"),                   /* Tooltip */

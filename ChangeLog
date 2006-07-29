@@ -1,3 +1,36 @@
+2006-07-29  Johannes Schmid,,,  <set EMAIL_ADDRESS environment variable>
+
+	reviewed by: <delete if not using a buddy>
+
+	* plugins/debug-manager/anjuta-debug-manager.ui:
+	* plugins/debug-manager/breakpoints.c:
+	* plugins/debug-manager/images/Makefile.am:
+	* plugins/debug-manager/images/run-to-cursor.png:
+	* plugins/debug-manager/plugin.c: (register_stock_icons),
+	(dma_plugin_location_changed):
+	* plugins/patch/anjuta-patch.ui:
+	* plugins/patch/patch-plugin.c: (patch_show_gui), (on_ok_clicked),
+	(on_cancel_clicked), (on_msg_arrived), (on_patch_terminated),
+	(on_msg_buffer):
+	* plugins/patch/patch-plugin.glade:
+	* plugins/patch/plugin.c: (patch_plugin_activate):
+	* plugins/patch/plugin.h:
+	* plugins/sourceview/sourceview.c: (ilanguage_get_language):
+	* plugins/tools/anjuta-tools.ui:
+	* plugins/tools/plugin.h:
+
+2006-07-29  Johannes Schmid,,,  <set EMAIL_ADDRESS environment variable>
+
+	reviewed by: <delete if not using a buddy>
+
+	* plugins/debug-manager/anjuta-debug-manager.ui:
+	* plugins/debug-manager/breakpoints.c:
+	* plugins/debug-manager/images/Makefile.am:
+	* plugins/debug-manager/images/run-to-cursor.png:
+	* plugins/debug-manager/plugin.c: (register_stock_icons),
+	(dma_plugin_location_changed):
+	* plugins/sourceview/sourceview.c: (ilanguage_get_language):
+
 2006-07-29  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c:

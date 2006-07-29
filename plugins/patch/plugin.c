@@ -25,7 +25,7 @@
 #include "patch-plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-patch.ui"
-
+#define ICON_FILE "anjuta-patch-plugin.png"
 
 static gpointer parent_class;
 
@@ -40,6 +40,11 @@ static void patch_plugin_instance_init (GObject *obj);
 static void patch_plugin_class_init (GObjectClass *klass);
 static void on_patch_action_activate (GtkAction *action, PatchPlugin *plugin);
 
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	g_object_unref (pixbuf);
 
 static void
 on_patch_action_activate (GtkAction *action, PatchPlugin *plugin) {
@@ -49,10 +54,10 @@ on_patch_action_activate (GtkAction *action, PatchPlugin *plugin) {
 }
 
 
-static GtkActionEntry actions_edit[] = {	
+static GtkActionEntry actions_tools[] = {	
 	{
-		"ActionEditPatch",		/* Action name */
-		NULL,							/* Stock icon, if any */
+		"ActionToolsPatch",		/* Action name */
+		"patch-plugin-icon",							/* Stock icon, if any */
 		N_("_Patch"), 				/* Display label */
 		NULL, 						/* short-cut */
 		NULL, 						/* Tooltip */
@@ -67,6 +72,9 @@ patch_plugin_activate (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	PatchPlugin *p_plugin;
+	GtkIconFactory *icon_factory;
+	GtkIconSet *icon_set;
+	GdkPixbuf *pixbuf;
 	
 	DEBUG_PRINT ("PatchPlugin: Activating Patch plugin...");
 	
@@ -75,12 +83,17 @@ patch_plugin_activate (AnjutaPlugin *plugin)
 	p_plugin->launcher = anjuta_launcher_new ();
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	/* Register icon */
+	icon_factory = anjuta_ui_get_icon_factory (ui);
+	REGISTER_ICON (ICON_FILE, "patch-plugin-icon");
 
-	/* Add all our editor actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionMenuEdit",
+
+	/* Add all our actions */
+	anjuta_ui_add_action_group_entries (ui, "ActionMenuTools",
 										_("Patch files/directories"),
-										actions_edit,
-										G_N_ELEMENTS (actions_edit),
+										actions_tools,
+										G_N_ELEMENTS (actions_tools),
 										GETTEXT_PACKAGE, p_plugin);
 
 	p_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
