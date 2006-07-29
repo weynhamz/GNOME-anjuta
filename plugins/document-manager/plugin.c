@@ -317,10 +317,10 @@ static GtkToggleActionEntry actions_view[] = {
 };
 
 static GtkActionEntry actions_zoom[] = {
-  { "ActionViewEditorZoomIn", N_("Zoom in"), GTK_STOCK_ZOOM_IN, "<control>=",
+  { "ActionViewEditorZoomIn", N_("Zoom in"), GTK_STOCK_ZOOM_IN, "<control>plus",
 	N_("Zoom in: Increase font size"),
     G_CALLBACK (on_zoom_in_text_activate)},
-  { "ActionViewEditorZoomOut", N_("Zoom out"), GTK_STOCK_ZOOM_OUT, "<control>=",
+  { "ActionViewEditorZoomOut", N_("Zoom out"), GTK_STOCK_ZOOM_OUT, "<control>minus",
 	N_("Zoom out: Decrease font size"),
     G_CALLBACK (on_zoom_out_text_activate)}
 };

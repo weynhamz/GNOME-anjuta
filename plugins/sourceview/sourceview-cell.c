@@ -279,14 +279,29 @@ static gboolean
 iiter_set_position (IAnjutaIterable* iter, gint position, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	GtkTextIter text_iter;
-	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
+	GtkTextIter old_iter;
+	gint i;
+	gboolean out_of_range = FALSE;
+
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &old_iter,
 									 cell->priv->mark);
-	gtk_text_iter_set_line_offset(&text_iter, position);
 	
-	gtk_text_buffer_move_mark(cell->priv->buffer,
-							  cell->priv->mark,
-							  &text_iter);
+	/* Iterate untill the we reach given position */
+	for (i = 0; i < position; i++)
+	{
+		if (!ianjuta_iterable_next (iter, NULL))
+		{
+			out_of_range = TRUE;
+			break;
+		}
+	}
+	
+	if (out_of_range)
+	{
+		/* out of range. Restore previous position */
+		gtk_text_buffer_move_mark(cell->priv->buffer, cell->priv->mark, &old_iter);
+		return FALSE;
+	}
 	return TRUE;
 }
 
@@ -309,12 +324,6 @@ iiter_get_length(IAnjutaIterable* iter, GError** e)
 									 cell->priv->mark);
 	
 	return gtk_text_iter_get_chars_in_line(&text_iter);
-}
-
-static gboolean
-iiter_get_settable(IAnjutaIterable* iter, GError** e)
-{
-	return FALSE;
 }
 
 static void

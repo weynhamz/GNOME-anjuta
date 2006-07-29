@@ -78,17 +78,12 @@ static void sourceview_add_monitor(Sourceview* sv);
 
 /* Callbacks */
 
-static void on_document_insert_text(AnjutaDocument* buffer, GtkTextIter* iter, gchar* text, 
-	gint length, Sourceview* sv)
+/* Called when a character is added */
+static void on_document_char_added(AnjutaDocument* buffer, gint position, gchar ch,
+								   Sourceview* sv)
 {
-	/* Ignore multi-byte characters and clipboard past for now */
-	if (length == 1)
-	{
-		gchar ch = text[0];
-		gint pos = gtk_text_iter_get_offset(iter);
-		g_signal_emit_by_name(G_OBJECT(sv), "char_added",
-			pos, ch);
-	}
+	g_signal_emit_by_name(G_OBJECT(sv), "char_added",
+			position, ch);	
 }
 
 /* Called whenever the document is changed */
@@ -432,10 +427,9 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 					 
 	/* Create View instance */
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document));
-	g_signal_connect_after(G_OBJECT(sv->priv->document), "insert-text",
-					G_CALLBACK(on_document_insert_text), sv);
+	g_signal_connect_after(G_OBJECT(sv->priv->document), "char-added",
+					G_CALLBACK(on_document_char_added), sv);
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
-	
 	sv->priv->tag_window = sourceview_tags_new(plugin);
 	sv->priv->autocomplete = sourceview_autocomplete_new();
 	sv->priv->args = sourceview_args_new(plugin, sv->priv->view);
@@ -693,6 +687,26 @@ static void ieditor_append(IAnjutaEditor *editor, const gchar* text,
 						   &iter, text, length);
 }
 
+static void ieditor_erase(IAnjutaEditor* editor, gint position, gint length, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	GtkTextIter start, end;
+	gtk_text_buffer_get_iter_at_offset(buffer, &start, position);
+	gtk_text_buffer_get_iter_at_offset(buffer, &end, position + length);
+	gtk_text_buffer_delete (buffer, &start, &end);
+}
+
+static void ieditor_erase_range(IAnjutaEditor* editor, gint start_offset, gint end_offset, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	GtkTextIter start, end;
+	gtk_text_buffer_get_iter_at_offset(buffer, &start, start_offset);
+	gtk_text_buffer_get_iter_at_offset(buffer, &end, end_offset);
+	gtk_text_buffer_delete (buffer, &start,& end);
+}
+
 static void ieditor_erase_all(IAnjutaEditor *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
@@ -709,7 +723,7 @@ static gboolean ieditor_can_redo(IAnjutaEditor *editor, GError **e)
 /* Return true if editor can undo */
 static gboolean ieditor_can_undo(IAnjutaEditor *editor, GError **e)
 {
-	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);	
 	return gtk_source_buffer_can_undo(GTK_SOURCE_BUFFER(sv->priv->document));
 }
 
@@ -793,7 +807,8 @@ static void
 ieditor_undo(IAnjutaEditor* edit, GError** ee)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	gtk_source_buffer_undo(GTK_SOURCE_BUFFER(sv->priv->document));
+	if (ieditor_can_undo(edit, NULL))	
+		gtk_source_buffer_undo(GTK_SOURCE_BUFFER(sv->priv->document));
 	anjuta_view_scroll_to_cursor(sv->priv->view);
 	g_signal_emit_by_name(G_OBJECT(sv), "update_ui", sv); 
 }
@@ -802,7 +817,8 @@ static void
 ieditor_redo(IAnjutaEditor* edit, GError** ee)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	gtk_source_buffer_redo(GTK_SOURCE_BUFFER(sv->priv->document));
+	if (ieditor_can_redo(edit, NULL))	
+		gtk_source_buffer_redo(GTK_SOURCE_BUFFER(sv->priv->document));
 	anjuta_view_scroll_to_cursor(sv->priv->view);
 }
 
@@ -833,6 +849,8 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_current_word = ieditor_get_current_word;
 	iface->insert = ieditor_insert;
 	iface->append = ieditor_append;
+	iface->erase = ieditor_erase;
+	iface->erase_range = ieditor_erase_range;
 	iface->erase_all = ieditor_erase_all;
 	iface->get_filename = ieditor_get_filename;
 	iface->can_undo = ieditor_can_undo;

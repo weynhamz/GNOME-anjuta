@@ -279,11 +279,9 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 		current_line = ianjuta_editor_get_lineno (editor, NULL);
 		line_indent = get_line_indentation_base (plugin, editor, current_line);
 		/* Disable for now */
-		/*
-		DEBUG_PRINT ("Line indentation = %d", line_indent);
+		/*DEBUG_PRINT ("Line indentation = %d", line_indent);
 		nchars = set_line_indentation (editor, current_line, line_indent);
-		ianjuta_editor_goto_position (editor, current_pos + nchars, NULL);
-		*/
+		ianjuta_editor_goto_position (editor, current_pos + nchars, NULL);*/
 	}
 }
 

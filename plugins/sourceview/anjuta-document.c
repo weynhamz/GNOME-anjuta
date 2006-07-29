@@ -62,6 +62,11 @@ static void	anjuta_document_set_readonly	(AnjutaDocument *doc,
 static void	delete_range_cb 		(AnjutaDocument *doc, 
 						 GtkTextIter   *start,
 						 GtkTextIter   *end);
+
+static void anjuta_document_insert_text(GtkTextBuffer* doc,
+						GtkTextIter* iter,
+						const gchar* text,
+						gint length);
 			     
 struct _AnjutaDocumentPrivate
 {
@@ -113,6 +118,7 @@ enum {
 	LOADED,
 	SAVING,
 	SAVED,
+	CHAR_ADDED,
 	LAST_SIGNAL
 };
 
@@ -325,7 +331,8 @@ anjuta_document_class_init (AnjutaDocumentClass *klass)
 
 	buf_class->mark_set = anjuta_document_mark_set;
 	buf_class->changed = anjuta_document_changed;
-
+	buf_class->insert_text = anjuta_document_insert_text;
+	
 	g_object_class_install_property (object_class, PROP_URI,
 					 g_param_spec_string ("uri",
 					 		      "URI",
@@ -428,7 +435,19 @@ anjuta_document_class_init (AnjutaDocumentClass *klass)
 			      G_TYPE_NONE,
 			      1,
 			      G_TYPE_POINTER);
-
+	
+	document_signals[CHAR_ADDED] =
+		g_signal_new ("char-added",
+				  G_OBJECT_CLASS_TYPE (object_class),
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (AnjutaDocumentClass, char_added),
+			      NULL, NULL,
+			      anjuta_marshal_VOID__INT_CHAR,
+			      G_TYPE_NONE,
+			      2,
+			      G_TYPE_INT,
+				  G_TYPE_CHAR);
+				  
 	g_type_class_add_private (object_class, sizeof(AnjutaDocumentPrivate));
 }
 
@@ -1217,3 +1236,23 @@ delete_range_cb (AnjutaDocument *doc,
 	d_end = *end;
 	
 }
+
+
+static void anjuta_document_insert_text(GtkTextBuffer* doc,
+						GtkTextIter* iter,
+						const gchar* text,
+						gint length)
+{
+	/* Call the default handler first */
+	GTK_TEXT_BUFFER_CLASS (anjuta_document_parent_class)->insert_text (doc, iter, text, length);							
+	
+	/* Ignore multi-byte characters and clipboard past for now */
+	if (length == 1)
+	{
+		gchar ch = text[0];
+		gint pos = gtk_text_iter_get_offset(iter);
+		g_signal_emit_by_name(G_OBJECT(doc), "char_added",
+			pos + 1, ch);
+	}							
+}
+

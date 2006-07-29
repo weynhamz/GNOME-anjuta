@@ -95,7 +95,6 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	gtk_container_add(GTK_CONTAINER(page->button), page->close_icon);
 	gtk_widget_set_size_request (page->button, w, h);	
 	gtk_button_set_focus_on_click (GTK_BUTTON (page->button), FALSE);
-	gtk_container_add(GTK_CONTAINER(page->button), page->close_icon);
 	gtk_button_set_relief(GTK_BUTTON(page->button), GTK_RELIEF_NONE);
 	rcstyle = gtk_rc_style_new ();
 	rcstyle->xthickness = rcstyle->ythickness = 0;

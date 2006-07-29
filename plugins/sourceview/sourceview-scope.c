@@ -145,7 +145,6 @@ static gchar* get_current_word(AnjutaDocument* doc, ScopeType type)
 static gboolean
 sourceview_scope_create_list(TagWindow* tagwin, GtkWidget* view)
 {
-	gint i;
 	IAnjutaIterable* tags;
 	gchar* current_word;
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)));
@@ -229,12 +228,12 @@ sourceview_scope_create_list(TagWindow* tagwin, GtkWidget* view)
 	store = GTK_LIST_STORE(gtk_tree_view_get_model(tag_view));
 	gtk_list_store_clear(store);
 	
-	for (i = 0; i < ianjuta_iterable_get_length(tags, NULL); i++)
+	do
 	{
 	    GtkTreeIter iter;
 	    gchar* show;
 	    gchar* name = NULL;
-	    IAnjutaSymbol* tag = ianjuta_iterable_get_nth(tags, IANJUTA_TYPE_SYMBOL, i, NULL); 
+	    IAnjutaSymbol* tag = IANJUTA_SYMBOL(tags);
 	    switch (ianjuta_symbol_type(tag, NULL))
 	    {
 	    	case IANJUTA_SYMBOL_TYPE_METHOD:
@@ -269,6 +268,7 @@ sourceview_scope_create_list(TagWindow* tagwin, GtkWidget* view)
         g_free(name);
         g_free(show);
      }
+	 while	(ianjuta_iterable_next(tags, NULL));
      g_object_unref(tags);
      g_free(current_word);
 	 

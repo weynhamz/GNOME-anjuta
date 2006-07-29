@@ -60,7 +60,6 @@ enum
 static gboolean
 sourceview_tags_update(TagWindow* tagwin, GtkWidget* view)
 {
-	gint i;
 	IAnjutaIterable* tags;
 	gchar* current_word;
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)));
@@ -122,11 +121,11 @@ sourceview_tags_update(TagWindow* tagwin, GtkWidget* view)
 	store = GTK_LIST_STORE(gtk_tree_view_get_model(tag_view));
 	gtk_list_store_clear(store);
 	
-	for (i = 0; i < ianjuta_iterable_get_length(tags, NULL); i++)
+	do
 	{
 	    GtkTreeIter iter;
 	    gchar* show;
-	    IAnjutaSymbol* tag = ianjuta_iterable_get_nth(tags, IANJUTA_TYPE_SYMBOL, i, NULL); 
+	   IAnjutaSymbol* tag = IANJUTA_SYMBOL(tags);
 	    switch (ianjuta_symbol_type(tag, NULL))
 	    {
 	    	case IANJUTA_SYMBOL_TYPE_FUNCTION:
@@ -148,6 +147,7 @@ sourceview_tags_update(TagWindow* tagwin, GtkWidget* view)
         												COLUMN_NAME, ianjuta_symbol_name(tag, NULL), -1);
         g_free(show);
      }
+	 while	(ianjuta_iterable_next(tags, NULL));
      g_object_unref(tags);
      g_free(current_word);
      return TRUE;
