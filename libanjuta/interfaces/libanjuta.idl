@@ -263,7 +263,7 @@ interface IAnjutaIterable
 	* @err: Error propagation and reporting
 	*
 	* Set iter to first element position. Returns FALSE if
-	* there is no element in the iterable (hence does not have last).
+	* there is no element in the iterable (hence does not have first).
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
@@ -313,7 +313,10 @@ interface IAnjutaIterable
 	* @user_data: user data that is passed back to the callback.
 	* @err: Error propagation and reporting
 	*
-	* Call callback for each element.
+	* Call callback for each element in the list. Call back is passed the
+	* same iter, but with different position set (from first to last). This
+	* method does not affect current position. i.e. current position is
+	* restored at the end of this method.
 	*/
 	void foreach (GFunc callback, gpointer user_data);
 	
@@ -325,7 +328,7 @@ interface IAnjutaIterable
 	* 
 	* Sets the current position of the iter to @position. The given @position
 	* must be from 0 to length - 1 (ianjuta_iter_get_length()), otherwise
-	* FLASE will be returned. If invalid iter @position is give, the current
+	* FLASE will be returned. If invalid iter @position is given, the current
 	* iter position is not altered.
 	*
 	* Returns: TRUE if successfully set (i.e. @position is within the range.
