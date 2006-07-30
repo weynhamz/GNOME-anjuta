@@ -271,7 +271,7 @@ iiter_foreach(IAnjutaIterable* iter, GFunc callback, gpointer data, GError** e)
 	
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
 									 cell->priv->mark);
-	saved_offset = gtk_text_iter_get_offset (&iter);
+	saved_offset = gtk_text_iter_get_offset (&text_iter);
 	gtk_text_iter_set_offset(&text_iter, 0);
 	while (gtk_text_iter_forward_char(&text_iter))
 	{

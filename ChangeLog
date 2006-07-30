@@ -1,3 +1,14 @@
+2006-07-30  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/anjuta-document.h:
+	* plugins/sourceview/anjuta-view.c: 
+	* plugins/sourceview/sourceview.c:
+	Wrote a new "char_added" implementation, I hope this one is good
+
+	* plugins/sourceview/sourceview-cell.c:
+	Fixed typo: "text_iter" instead of "iter"
+
 2006-07-30 Naba Kumar  <naba@gnome.org>
 
 	* plugins/sourceview/sourceview-cell.c: Fixed iter navigation.

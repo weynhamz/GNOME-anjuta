@@ -96,10 +96,6 @@ struct _AnjutaDocumentClass
 
 	void (* saved)  		(AnjutaDocument    *document,
 					 const GError     *error);
-	
-	void (* char_added)  		(AnjutaDocument    *document,
-					 gint position, char ch);
-	
 
 };
 

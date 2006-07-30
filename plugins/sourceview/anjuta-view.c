@@ -40,6 +40,7 @@
 #include <gdk/gdkkeysyms.h>
 
 #include <glib/gi18n.h>
+#include <glib.h>
 
 #include <libanjuta/anjuta-debug.h>
 
@@ -811,7 +812,28 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 {
 	AnjutaView* view = ANJUTA_VIEW(widget);
 	TagWindow* tag_window = get_active_tag_window(view);
-	
+
+	if (event->keyval == GDK_Return)
+	{
+		g_signal_emit_by_name (G_OBJECT(view), "char_added", '\n');
+	}
+	else
+	{
+		gchar* unistring = g_new0(gchar, 6);
+		gunichar uc = gdk_keyval_to_unicode(event->keyval);
+		if (g_unichar_to_utf8(uc, unistring) >= 1)
+		{
+			guint read, written;
+			gchar* string = g_locale_from_utf8(unistring, 1, &read, &written, NULL);
+			if (string != NULL && read == 1 && written == 1)
+			{
+				g_signal_emit_by_name (G_OBJECT(view), "char_added", string[0]);
+			}
+			g_free(string);
+		}
+		g_free(unistring);
+	}
+
 	 switch (event->keyval)
 	 {
 		case GDK_Shift_L:
