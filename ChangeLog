@@ -35,7 +35,6 @@
 	* plugins/tools/anjuta-tools.ui:
 	* plugins/tools/plugin.h:
 	Put Patch plugin in tools menu and changed ui file
->>>>>>> 1.1290
 
 2006-07-29  Johannes Schmid <jhs@gnome.org>
 
