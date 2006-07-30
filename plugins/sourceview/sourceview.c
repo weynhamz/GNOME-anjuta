@@ -391,12 +391,17 @@ static void sourceview_create_markers(Sourceview* sv)
 static void sourceview_create_highligth_indic(Sourceview* sv)
 {	
 	sv->priv->important_indic = 
-	          gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
-	          IMPORTANT_INDIC,
-	   		  "foreground", "red", NULL);  
-	//  TO BE DEFINED
-	sv->priv->warning_indic = sv->priv->important_indic; 
-	sv->priv->critical_indic = sv->priv->important_indic;
+		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
+		IMPORTANT_INDIC,
+		"foreground", "#0000FF", NULL);  
+	sv->priv->warning_indic = 
+		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
+		WARNING_INDIC,
+		"foreground", "#00FF00", NULL); 
+	sv->priv->critical_indic = 
+		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
+		CRITICAL_INDIC,
+		"foreground", "#FF0000", "underline", PANGO_UNDERLINE_ERROR, NULL);
 }
 
 

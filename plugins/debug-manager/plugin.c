@@ -42,6 +42,7 @@
 #include <libanjuta/plugins.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-indicable.h>
 #include <libanjuta/interfaces/ianjuta-debug-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -375,7 +376,21 @@ dma_plugin_location_changed (DebugManagerPlugin *this, const gchar* file, guint 
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this)->shell, IAnjutaDocumentManager, NULL);
 	file_uri = g_strconcat ("file://", file, NULL);
 	if (docman)
+	{
+		IAnjutaEditor* editor;
 		ianjuta_document_manager_goto_file_line_mark (docman, file_uri, line, TRUE, NULL);
+		editor = ianjuta_document_manager_get_current_editor(docman, NULL);
+		if (editor && IANJUTA_IS_INDICABLE(editor))
+		{
+			gint begin = ianjuta_editor_get_line_begin_position(editor, line, NULL);
+			gint end = ianjuta_editor_get_line_end_position(editor, line, NULL);
+			
+			ianjuta_indicable_clear(IANJUTA_INDICABLE(editor), NULL);			
+
+			ianjuta_indicable_set(IANJUTA_INDICABLE(editor), begin, end, IANJUTA_INDICABLE_IMPORTANT,
+				NULL);
+		}
+	}		
 	g_free (file_uri);
 }
 
@@ -438,6 +453,12 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_visible (this->running_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
+
+	/* clear indicator */
+	if (this->current_editor && IANJUTA_IS_INDICABLE(this->current_editor))
+	{
+		ianjuta_indicable_clear(IANJUTA_INDICABLE(this->current_editor), NULL);
+	}
 }
 
 /* Start/Stop menu functions
@@ -582,8 +603,9 @@ on_debugger_custom_command_activate (GtkAction * action, DebugManagerPlugin *plu
  *---------------------------------------------------------------------------*/
 
 static void
-on_debugger_dialog_message (const GList *cli_result, gpointer user_data)
+on_debugger_dialog_message (const gpointer data, gpointer user_data, GError* error)
 {
+	const GList *cli_result = data;
 	GtkWindow *parent = GTK_WINDOW (user_data);
 	if (g_list_length ((GList*)cli_result) < 1)
 		return;
