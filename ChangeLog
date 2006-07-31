@@ -1,3 +1,24 @@
+2006-07-31 Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/editor/text-editor-iterable.c,
+	plugins/editor/text_editor.c,
+	plugins/sourceview/anjuta-view.c,
+	plugins/sourceview/anjuta-view.h,
+	plugins/sourceview/sourceview.c: Fixed text iteration and 
+	IAnjutaEditor implementations in both scintilla
+	and sourceview. Cleand up libanjuta API: Removed redundant
+	erase_range() method from IAnjutaEditor interface, fixed
+	ianjuta_editor_get_text to take length instead of range (consistency).
+	autoindentation in both sourceview and scintilla more or less works,
+	but still disabled for now because there are still some anomalies
+	in text iteration.
+
+	* plugins/language-support-cpp-java/plugin.c: Fixed indentation code.
+
+	* plugins/symbol-browser/plugin.c, plugins/tools/execute.c: Fixed
+	API changes.
+
 2006-07-30  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/anjuta-document.c:

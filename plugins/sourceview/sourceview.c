@@ -79,13 +79,12 @@ static void sourceview_add_monitor(Sourceview* sv);
 /* Callbacks */
 
 /* Called when a character is added */
-static void on_document_char_added(AnjutaDocument* buffer, gchar ch,
+static void on_document_char_added(AnjutaView* view, gint pos,
+								   gchar ch,
 								   Sourceview* sv)
 {
-	int pos = ianjuta_editor_get_position(IANJUTA_EDITOR(sv), NULL);
 	DEBUG_PRINT("char-added: %c", ch);
-	g_signal_emit_by_name(G_OBJECT(sv), "char_added",
-			pos, ch);
+	g_signal_emit_by_name(G_OBJECT(sv), "char_added", pos, ch);
 }
 
 /* Called whenever the document is changed */
@@ -152,8 +151,7 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 	
 	if (!anjuta_util_diff(anjuta_document_get_uri(sv->priv->document), 
 						  ianjuta_editor_get_text(IANJUTA_EDITOR(sv),
-						  0, ianjuta_editor_get_length(IANJUTA_EDITOR(sv), NULL),
-							NULL)))
+												  0, -1, NULL)))
 	{
 		sourceview_add_monitor(sv);
 		return;
@@ -583,23 +581,35 @@ static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 /* Scroll to position */
 static void ieditor_goto_position(IAnjutaEditor *editor, gint position, GError **e)
 {
+	GtkTextIter iter;
+	
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	anjuta_document_goto_line(sv->priv->document, 
-							 ianjuta_editor_get_line_from_position(editor, position, NULL));
+	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
+									   &iter, position);
+	gtk_text_buffer_place_cursor (GTK_TEXT_BUFFER (sv->priv->document), &iter);
+	gtk_text_view_place_cursor_onscreen (GTK_TEXT_VIEW (sv->priv->view));
 }
 
 /* Return a newly allocated pointer containing the whole text */
-static gchar* ieditor_get_text(IAnjutaEditor* editor, gint start,
-							   gint end, GError **e)
+static gchar* ieditor_get_text(IAnjutaEditor* editor, gint position,
+							   gint length, GError **e)
 {
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	
+	g_return_val_if_fail (position >= 0, NULL);
+	if (length == 0)
+		return NULL;
+
 	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-								   &start_iter, start);
-	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-								   &end_iter, end);
+								   &start_iter, position);
+	if (length > 0)
+		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
+										   &end_iter, position + length);
+	else
+		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
+										   &end_iter, -1);
 	return gtk_text_buffer_get_text(GTK_TEXT_BUFFER(sv->priv->document),
 									&start_iter, &end_iter, FALSE);
 }
@@ -696,22 +706,21 @@ static void ieditor_append(IAnjutaEditor *editor, const gchar* text,
 
 static void ieditor_erase(IAnjutaEditor* editor, gint position, gint length, GError **e)
 {
+	GtkTextIter start, end;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	GtkTextIter start, end;
-	gtk_text_buffer_get_iter_at_offset(buffer, &start, position);
-	gtk_text_buffer_get_iter_at_offset(buffer, &end, position + length);
-	gtk_text_buffer_delete (buffer, &start, &end);
-}
 
-static void ieditor_erase_range(IAnjutaEditor* editor, gint start_offset, gint end_offset, GError **e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	GtkTextIter start, end;
-	gtk_text_buffer_get_iter_at_offset(buffer, &start, start_offset);
-	gtk_text_buffer_get_iter_at_offset(buffer, &end, end_offset);
-	gtk_text_buffer_delete (buffer, &start,& end);
+	g_return_if_fail (position >= 0);
+	if (length == 0)
+		return;
+
+	gtk_text_buffer_get_iter_at_offset(buffer, &start, position);
+
+	if (length > 0)
+		gtk_text_buffer_get_iter_at_offset(buffer, &end, position + length);
+	else
+		gtk_text_buffer_get_iter_at_offset(buffer, &end, -1);
+	gtk_text_buffer_delete (buffer, &start, &end);
 }
 
 static void ieditor_erase_all(IAnjutaEditor *editor, GError **e)
@@ -783,7 +792,7 @@ static gint ieditor_get_line_from_position(IAnjutaEditor *editor,
 									   &iter, position);
 
 	line = gtk_text_iter_get_line(&iter) + 1;
-	line = line ? line - 1 : 0;
+	/* line = line ? line - 1 : 0; */
 	
 	return line;
 }
@@ -794,7 +803,8 @@ static gint ieditor_get_line_begin_position(IAnjutaEditor *editor,
 	GtkTextIter iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	
-	gtk_text_buffer_get_iter_at_line_index(GTK_TEXT_BUFFER(sv->priv->document), &iter, line - 1, 0);
+	gtk_text_buffer_get_iter_at_line_index(GTK_TEXT_BUFFER(sv->priv->document),
+										   &iter, line - 1, 0);
 	return gtk_text_iter_get_offset(&iter);
 }
 
@@ -804,9 +814,11 @@ static gint ieditor_get_line_end_position(IAnjutaEditor *editor,
 	GtkTextIter iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	
-	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document), &iter, line - 1);
-	while (gtk_text_iter_forward_char(&iter) && !gtk_text_iter_ends_line(&iter))
-		;
+	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document),
+									 &iter, line - 1);
+	/* If iter is not at line end, move it */
+	if (!gtk_text_iter_ends_line(&iter))
+		gtk_text_iter_forward_to_line_end (&iter);
 	return gtk_text_iter_get_offset(&iter);
 }
 
@@ -857,7 +869,6 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->insert = ieditor_insert;
 	iface->append = ieditor_append;
 	iface->erase = ieditor_erase;
-	iface->erase_range = ieditor_erase_range;
 	iface->erase_all = ieditor_erase_all;
 	iface->get_filename = ieditor_get_filename;
 	iface->can_undo = ieditor_can_undo;

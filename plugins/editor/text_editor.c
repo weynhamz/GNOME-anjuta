@@ -323,9 +323,7 @@ on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
 		return;
 	
 	if (!anjuta_util_diff(te->uri, ianjuta_editor_get_text(IANJUTA_EDITOR(te),
-													   0,
-													   ianjuta_editor_get_length(IANJUTA_EDITOR(te), NULL),
-													   NULL)))
+														   0, -1, NULL)))
 		return;
 	
 	if (strcmp (monitor_uri, info_uri) != 0)
@@ -1979,26 +1977,25 @@ itext_editor_goto_position (IAnjutaEditor *editor, gint position, GError **e)
 }
 
 static gchar*
-itext_editor_get_text (IAnjutaEditor *editor, gint start, gint end,
-						 GError **e)
+itext_editor_get_text (IAnjutaEditor *editor, gint position, gint length,
+					   GError **e)
 {
 	gchar *data;
+	gint end;
 	TextEditor *te = TEXT_EDITOR (editor);
 
-	g_return_val_if_fail (start >= 0, NULL);
+	g_return_val_if_fail (position >= 0, NULL);
+	if (length == 0)
+		return NULL;
 
-	if (end < 0)
+	if (length < 0)
 		end = scintilla_send_message (SCINTILLA (te->scintilla),
-									 SCI_GETLENGTH, 0, 0);
+									  SCI_GETLENGTH, 0, 0);
+	else
+		end = position + length;
 
-	if (start > end)
-	{
-		gint swap = start;
-		start = end;
-		end = swap;
-	}
 	data =	(gchar *) aneditor_command (te->editor_id,
-										ANE_GETTEXTRANGE, start, end);
+										ANE_GETTEXTRANGE, position, end);
 	return data;
 }
 
@@ -2077,23 +2074,21 @@ static void
 itext_editor_erase (IAnjutaEditor *editor, gint position, gint length,
 					GError **e)
 {
-	ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (editor) , position,
-								  position + length, FALSE, NULL);
-	text_editor_replace_selection (TEXT_EDITOR (editor), "");
-}
+	gint end;
 
-static void
-itext_editor_erase_range (IAnjutaEditor *editor, gint start, gint end,
-						  GError **e)
-{
-	if (end > start)
-	{
-		itext_editor_erase (editor, start, end - start, NULL);
-	}
-	else if (start > end)
-	{
-		itext_editor_erase (editor, end, start - end, NULL);
-	}
+	g_return_if_fail (position >= 0);
+	if (length == 0)
+		return;
+
+	if (length < 0)
+		end = scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
+									  SCI_GETLENGTH, 0, 0);
+	else
+		end = position + length;
+
+	ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (editor) , position,
+								  end, FALSE, NULL);
+	text_editor_replace_selection (TEXT_EDITOR (editor), "");
 }
 
 static void
@@ -2180,7 +2175,7 @@ itext_editor_get_line_end_position (IAnjutaEditor *editor, gint line,
 	
 	ln = linenum_text_editor_to_scintilla (line);
 	return scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
-								   SCI_POSITIONFROMLINE, ln + 1, 0) - 1;
+								   SCI_GETLINEENDPOSITION, ln, 0);
 }
 
 static IAnjutaIterable*
@@ -2204,7 +2199,6 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->insert = itext_editor_insert;
 	iface->append = itext_editor_append;
 	iface->erase = itext_editor_erase;
-	iface->erase_range = itext_editor_erase_range;
 	iface->erase_all = itext_editor_erase_all;
 	iface->get_filename = itext_editor_get_filename;
 	iface->can_undo = itext_editor_can_undo;

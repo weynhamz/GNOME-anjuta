@@ -928,7 +928,6 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 	gchar* cmd;
 	gchar* input;
 	gchar* val = NULL;
-	guint len;
 
 	plugin = atp_user_tool_get_plugin (this);
 	variable = atp_plugin_get_variable (plugin);
@@ -966,8 +965,7 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 			ed = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
 			if (ed != NULL)
 			{
-				len = ianjuta_editor_get_length (ed, NULL);
-				input = ianjuta_editor_get_text (ed, 0, len, NULL);
+				input = ianjuta_editor_get_text (ed, 0, -1, NULL);
 			}
 			break;
 		case ATP_TIN_SELECTION:

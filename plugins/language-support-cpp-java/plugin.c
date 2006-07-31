@@ -91,9 +91,14 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 	
 	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
+	DEBUG_PRINT ("line begin = %d, line end = %d", line_begin, line_end);
+	
 	if (line_begin == line_end)
 		return 0;
-	line_string = ianjuta_editor_get_text (editor, line_begin, line_end, NULL);
+	
+	line_string = ianjuta_editor_get_text (editor, line_begin,
+										   line_end - line_begin, NULL);
+	DEBUG_PRINT ("line_string = '%s'", line_string);
 	
 	if (!line_string)
 		return 0;
@@ -119,6 +124,7 @@ get_line_indentation_string (gint spaces)
 {
 	gint i;
 	
+	DEBUG_PRINT ("In %s()", __FUNCTION__);
 	g_return_val_if_fail (spaces >= 0, NULL);
 	
 	if (spaces <= 0)
@@ -126,16 +132,16 @@ get_line_indentation_string (gint spaces)
 	
 	if (USE_SPACES_FOR_INDENTATION)
 	{
-		gchar *indent_string = g_new(gchar, spaces);
+		gchar *indent_string = g_new(gchar, spaces + 1);
 		for (i = 0; i < spaces; i++)
 			indent_string[i] = ' ';
 		return indent_string;
 	}
 	else
 	{
-		gint num_tabs = spaces / INDENT_SIZE;
-		gint num_spaces = spaces % INDENT_SIZE;
-		gchar *indent_string = g_new0(gchar, num_tabs + num_spaces);
+		gint num_tabs = spaces / TAB_SIZE;
+		gint num_spaces = spaces % TAB_SIZE;
+		gchar *indent_string = g_new0(gchar, num_tabs + num_spaces + 1);
 		
 		for (i = 0; i < num_tabs; i++)
 			indent_string[i] = '\t';
@@ -155,6 +161,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	gint current_pos;
 	gint line_indent = 0;
 
+	DEBUG_PRINT ("In %s()", __FUNCTION__);
+	
 	line_indent = get_line_indentation (editor, line_num - 1);
 	current_pos = ianjuta_editor_get_line_begin_position (editor, line_num,
 														  NULL);
@@ -221,15 +229,21 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 	gint nchars = 0;
 	gchar *indent_string;
 	
+	DEBUG_PRINT ("In %s()", __FUNCTION__);
+	
 	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
+	DEBUG_PRINT ("line begin = %d, line end = %d", line_begin, line_end);
+	
 	indent_position = line_begin;
 	
 	if (line_end > line_begin)
 	{
-		line_string = ianjuta_editor_get_text (editor, line_begin, line_end,
+		line_string = ianjuta_editor_get_text (editor, line_begin,
+											   line_end - line_begin,
 											   NULL);
 		
+		DEBUG_PRINT ("line_string = '%s'", line_string);
 		if (line_string)
 		{
 			idx = line_string;
@@ -245,7 +259,8 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 	
 	/* Remove existing indentation */
 	if (indent_position > line_begin)
-		ianjuta_editor_erase_range (editor, line_begin, indent_position, NULL);
+		ianjuta_editor_erase (editor, line_begin,
+							  indent_position - line_begin, NULL);
 	
 	/* Set new indentation */
 	if (indentation > 0)
@@ -270,7 +285,9 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 {
 	gint current_line;
 	gint line_indent;
-	
+
+	/* Disable for now */
+#if 0
 	DEBUG_PRINT ("Indenting cpp code with char '%c'", ch);
 	
 	if (ch == '\n')
@@ -278,11 +295,14 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 		gint nchars;
 		current_line = ianjuta_editor_get_lineno (editor, NULL);
 		line_indent = get_line_indentation_base (plugin, editor, current_line);
-		/* Disable for now */
-		/*DEBUG_PRINT ("Line indentation = %d", line_indent);
+		DEBUG_PRINT ("Line indentation = %d", line_indent);
 		nchars = set_line_indentation (editor, current_line, line_indent);
-		ianjuta_editor_goto_position (editor, current_pos + nchars, NULL);*/
+		DEBUG_PRINT ("Number of chars inserted at line %d = %d", current_line,
+					 nchars);
+		ianjuta_editor_goto_position (editor, current_pos + nchars, NULL);
+		DEBUG_PRINT ("Cursor moved to position %d", current_pos + nchars);
 	}
+#endif
 }
 
 static void

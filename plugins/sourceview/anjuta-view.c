@@ -49,6 +49,7 @@
 #include "sourceview.h"
 #include "sourceview-private.h"
 #include "tag-window.h"
+#include "anjuta-marshal.h"
 
 #define ANJUTA_VIEW_SCROLL_MARGIN 0.02
 
@@ -269,9 +270,10 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (AnjutaViewClass, char_added),
 			      NULL, NULL,
-			      g_cclosure_marshal_VOID__CHAR,
+			      anjuta_marshal_VOID__INT_CHAR,
 			      G_TYPE_NONE,
-			      1,
+			      2,
+				  G_TYPE_INT,
 			      G_TYPE_CHAR);
 	
 	binding_set = gtk_binding_set_by_class (klass);	
@@ -810,29 +812,17 @@ anjuta_view_expose (GtkWidget      *widget,
 static gboolean
 anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 {
+	GtkTextBuffer *buffer;
 	AnjutaView* view = ANJUTA_VIEW(widget);
 	TagWindow* tag_window = get_active_tag_window(view);
+	gint pos;
+	GtkTextIter iter;
+	
+	buffer  = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+	gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
+									 gtk_text_buffer_get_insert(buffer));
 
-	if (event->keyval == GDK_Return)
-	{
-		g_signal_emit_by_name (G_OBJECT(view), "char_added", '\n');
-	}
-	else
-	{
-		gchar* unistring = g_new0(gchar, 6);
-		gunichar uc = gdk_keyval_to_unicode(event->keyval);
-		if (g_unichar_to_utf8(uc, unistring) >= 1)
-		{
-			guint read, written;
-			gchar* string = g_locale_from_utf8(unistring, 1, &read, &written, NULL);
-			if (string != NULL && read == 1 && written == 1)
-			{
-				g_signal_emit_by_name (G_OBJECT(view), "char_added", string[0]);
-			}
-			g_free(string);
-		}
-		g_free(unistring);
-	}
+	pos = gtk_text_iter_get_offset(&iter);
 
 	 switch (event->keyval)
 	 {
@@ -868,9 +858,35 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 			{
 				retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
 				tag_window_update(tag_window, GTK_WIDGET(view));
-				return retval;
 			}
-			retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+			else
+			{
+				retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
+			}
+			
+			/* Handle char_added signal here */
+			if (event->keyval == GDK_Return)
+			{
+				g_signal_emit_by_name (G_OBJECT(view), "char_added",
+									   pos + 1, '\n');
+			}
+			else
+			{
+				gchar* unistring = g_new0(gchar, 6);
+				gunichar uc = gdk_keyval_to_unicode(event->keyval);
+				if (g_unichar_to_utf8(uc, unistring) >= 1)
+				{
+					guint read, written;
+					gchar* string = g_locale_from_utf8(unistring, 1, &read, &written, NULL);
+					if (string != NULL && read == 1 && written == 1)
+					{
+						g_signal_emit_by_name (G_OBJECT(view), "char_added",
+											   pos  + 1, string[0]);
+					}
+					g_free(string);
+				}
+				g_free(unistring);
+			}
 			return retval;
 		}				
 	}

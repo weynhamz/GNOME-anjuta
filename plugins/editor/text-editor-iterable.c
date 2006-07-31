@@ -24,6 +24,7 @@
 
 #include <ctype.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
@@ -335,6 +336,7 @@ text_editor_cell_set_position (TextEditorCell *cell, gint position)
     ch = scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
 										   SCI_GETCHARAT,
 										   position, 0);
+	DEBUG_PRINT ("Iterator position set at %d where char '%c' is found", position, ch);
 	if ((ch >= 0x80) && (ch < (0x80 + 0x40)))
 	{
 		/* un-aligned. Align it */
@@ -482,6 +484,8 @@ static gboolean
 iiter_previous (IAnjutaIterable* iter, GError** e)
 {
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
+	gint saved_pos = cell->priv->position;
+	
 	if (cell->priv->position <= 0)
 	{
 		return FALSE;
@@ -490,6 +494,8 @@ iiter_previous (IAnjutaIterable* iter, GError** e)
 												   SCI_POSITIONBEFORE,
 												   cell->priv->position,
 												   0);
+	DEBUG_PRINT ("Iterator position changed from %d to %d", saved_pos,
+				 cell->priv->position);
 	return TRUE;
 }
 
@@ -567,7 +573,7 @@ iiter_get_position(IAnjutaIterable* iter, GError** e)
 	{
 		/* FIXME: Find a more optimal solution */
 		text = ianjuta_editor_get_text (IANJUTA_EDITOR (cell->priv->editor), 0,
-										cell->priv->position - 1,
+										cell->priv->position,
 										NULL);
 		char_position = g_utf8_strlen (text, -1);
 		g_free (text);

@@ -754,7 +754,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		ed = IANJUTA_EDITOR (sv_plugin->current_editor);
 		
 		buffer_size = ianjuta_editor_get_length (ed, NULL);
-		current_buffer = ianjuta_editor_get_text (ed, 0, buffer_size, NULL);
+		current_buffer = ianjuta_editor_get_text (ed, 0, -1, NULL);
 				
 		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), NULL);
 		
@@ -1214,7 +1214,8 @@ isymbol_manager_get_completions_at_position (IAnjutaSymbolManager *sm,
 	
 	
 	scope_position = ianjuta_editor_get_line_begin_position (ed, func_scope_tag->atts.entry.line, NULL);
-	needed_text = ianjuta_editor_get_text (ed, scope_position, text_pos, NULL);
+	needed_text = ianjuta_editor_get_text (ed, scope_position,
+										   text_pos - scope_position, NULL);
 
 	if (needed_text == NULL)
 		DEBUG_PRINT ("needed_text is null");

@@ -652,24 +652,14 @@ interface IAnjutaEditor
 	/**
 	 * ianjuta_editor_erase:
 	 * @obj: Self
-	 * @position: Start position of chars to erase.
-	 * @length: number of chars to erase.
+	 * @position: Start position of chars to erase. Must be 0 or more.
+	 * @length: number of chars to erase. -1 means till the end of document.
 	 * @err: Error propagation and reporting
 	 *
-	 * Erases the @length number of chars starting from @position.
+	 * Erases the @length number of chars starting from @position. If length
+	 * is 0, nothing happens.
 	 */
 	void   erase (gint position, gint length);
-	
-	/**
-	 * ianjuta_editor_erase_range:
-	 * @obj: Self
-	 * @start: Start position of chars to erase.
-	 * @end: End position of chars to erase.
-	 * @err: Error propagation and reporting
-	 *
-	 * Erases the range of chars starting from @start position to @end.
-	 */
-	void   erase_range (gint start, gint end);
 	
 	/**
 	 * ianjuta_editor_erase_all:
@@ -730,17 +720,21 @@ interface IAnjutaEditor
 	/**
 	 * ianjuta_editor_get_text:
 	 * @obj: Self
-	 * @start: Begining position
-	 * @end: End position
+	 * @position: Begining position. Must be greater than or equal to 0.
+	 * @length: length of the text. -1 means till the end of document.
 	 * @err: Error propagation and reporting
 	 *
-	 * Gets the text characters between beginning position and end position
-	 * (including themselves). The characters are utf-8 encoded.
+	 * Gets @length text characters beginning from @position
+	 * (including char pointed by @position). If @length is less then
+	 * 0 or exceeds document length, text till the end of the document is
+	 * returned. @start must be 0 or greater then 0. If @start is beyond
+	 * document length, NULL is returned. If @length is 0, NULL is returned.
+	 * The characters returned are utf-8 encoded.
 	 *
 	 * Returns: A buffer of utf-8 characters.
 	 * The returned buffer must be freed when no longer required.
 	 */
-	gchar* get_text (gint start, gint end);
+	gchar* get_text (gint position, gint length);
 	
 	/**
 	 * ianjuta_editor_get_attributes:
@@ -1575,11 +1569,11 @@ interface IAnjutaEditorCell
 	gchar get_char (gint char_index);
 	
 	interface IAnjutaEditorCellStyle
-		{
-			gchar* get_font_description ();
-			gchar* get_color();
-			gchar* get_background_color();
-		}
+	{
+		gchar* get_font_description ();
+		gchar* get_color();
+		gchar* get_background_color();
+	}
 }
 
 interface IAnjutaBookmark
