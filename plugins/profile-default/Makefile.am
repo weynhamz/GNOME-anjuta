@@ -3,10 +3,6 @@
 profile_profiledir = $(anjuta_data_dir)/profiles
 profile_profile_DATA =  default.anjuta
 
-# Plugin UI file
-profile_uidir = $(anjuta_ui_dir)
-profile_ui_DATA =  anjuta-default-profile.ui
-
 # Plugin Icon file
 profile_pixmapsdir = $(anjuta_image_dir)
 profile_pixmaps_DATA = anjuta-default-profile-plugin.png
@@ -42,6 +38,5 @@ libanjuta_default_profile_la_LIBADD = $(LIBANJUTA_LIBS) $(LIBXML_LIBS)
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(profile_plugin_DATA) \
-	$(profile_ui_DATA) \
 	$(profile_pixmaps_DATA) \
 	$(profile_profile_DATA)

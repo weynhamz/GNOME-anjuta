@@ -6,7 +6,6 @@ SUBDIRS = . \
 	editor \
 	gdb \
 	debug-manager \
-	devhelp \
 	file-manager \
 	terminal \
 	build-basic-autotools \
@@ -23,7 +22,6 @@ SUBDIRS = . \
 	patch \
 	subversion \
 	project-import \
-	glade \
 	tools \
 	class-inheritance \
 	document-manager \
@@ -31,6 +29,8 @@ SUBDIRS = . \
 	valgrind \
 	sourceview \
 	language-support-cpp-java
+#	devhelp
+#	glade
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left

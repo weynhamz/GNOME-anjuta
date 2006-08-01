@@ -1,3 +1,21 @@
+2006-08-01  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in
+	* plugins/Makefile.am:
+	Disabled devhelp and glade for now as they do not work (#341073
+	and #341170)
+	
+	* plugins/profile-default/anjuta-default-profile.ui (removed):
+	* plugins/profile-default/plugin.c:
+	* plugins/profile-default/plugin.h:
+	* plugins/project-manager/anjuta-project-manager.ui:
+	* plugins/project-manager/plugin.c:
+	* plugins/project-manager/plugin.h:
+	Limted multiple project support #315043
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Added ianjuta_profile_unload
+	
 2006-07-31 Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,

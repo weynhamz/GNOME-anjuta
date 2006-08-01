@@ -241,19 +241,19 @@ fi
 
 dnl Check for Devhelp
 dnl -----------------
-devhelp_old=yes
-PKG_CHECK_MODULES(PLUGIN_DEVHELP, 
-				[libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED],
-                  [devhelp_old=no], [
-                        AC_MSG_RESULT([version >= 0.11 not found])
-                        devhelp_old=yes
-                  ])
-if test x$devhelp_old = xyes; then
-  PKG_CHECK_MODULES(PLUGIN_DEVHELP, [libdevhelp-1.0 >= 0.9])
-  AC_DEFINE(HAVE_OLD_DEVHELP, 1, [If old devhelp (>= 0.9 < 0.11) is installed])
-fi
-AC_SUBST(PLUGIN_DEVHELP_CFLAGS)
-AC_SUBST(PLUGIN_DEVHELP_LIBS)
+dnl devhelp_old=yes
+dnl PKG_CHECK_MODULES(PLUGIN_DEVHELP, 
+dnl				[libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED],
+dnl                  [devhelp_old=no], [
+dnl                        AC_MSG_RESULT([version >= 0.11 not found])
+dnl                        devhelp_old=yes
+dnl                  ])
+dnl if test x$devhelp_old = xyes; then
+dnl   PKG_CHECK_MODULES(PLUGIN_DEVHELP, [libdevhelp-1.0 >= 0.9])
+dnl  AC_DEFINE(HAVE_OLD_DEVHELP, 1, [If old devhelp (>= 0.9 < 0.11) is installed])
+dnl fi
+dnl AC_SUBST(PLUGIN_DEVHELP_CFLAGS)
+dnl AC_SUBST(PLUGIN_DEVHELP_LIBS)
 
 dnl Check for GTodo
 dnl -----------------
@@ -270,12 +270,14 @@ AC_SUBST(PLUGIN_GNOMEBUILD_LIBS)
 dnl Check for Glade3
 dnl ---------------------
 
-AC_ARG_ENABLE(plugin-glade,
-  [  --disable-plugin-glade        Disable glade plugin support in Anjuta.],
-  [ if test "$enableval" = "no"; then
-        user_disabled_glade=1
-    fi ],
-  [ user_disabled_glade=0 ] )
+dnl AC_ARG_ENABLE(plugin-glade,
+dnl   [  --disable-plugin-glade        Disable glade plugin support in Anjuta.],
+dnl   [ if test "$enableval" = "no"; then
+dnl        user_disabled_glade=1
+dnl    fi ],
+dnl  [ user_disabled_glade=0 ] )
+
+user_disabled_glade=1
 
 AC_MSG_CHECKING(if glade plugin is disabled)
 if test "$user_disabled_glade" = 1; then
@@ -1160,12 +1162,12 @@ else
 		echo "        Requires subversion (>= 1.0.2); http://subversion.org"
 fi
 
-if [ test x$libgladeui_found = xyes ]; then
-        echo "Building glade plugin: .................................YES"
-else
-        echo "Building glade plugin: .................................NO"
-		echo "        Requires glade-3 (>= 2.91.2); CVS cvs.gnome.org, module glade-3"
-fi
+dnl if [ test x$libgladeui_found = xyes ]; then
+dnl        echo "Building glade plugin: .................................YES"
+dnl else
+dnl         echo "Building glade plugin: .................................NO"
+dnl		echo "        Requires glade-3 (>= 2.91.2); CVS cvs.gnome.org, module glade-3"
+dnl fi
 
 if [ test x$libgraphviz_found = xyes ]; then
         echo "Building class inheritance plugin: .....................YES"

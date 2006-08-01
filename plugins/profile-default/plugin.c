@@ -44,6 +44,40 @@ static void default_profile_plugin_close (DefaultProfilePlugin *plugin);
 static void default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 												 GError **err);
 
+/* Check if the given string is in the GSList:
+	Just to avoid a type system warning */
+static inline gint uri_strcmp(gconstpointer a, gconstpointer b)
+{
+	DEBUG_PRINT("loaded_uri: %s, uri: %s", a, b);
+	return strcmp((gchar*)a, (gchar*)b);
+}
+
+
+/* Check if the given directory uri is the directory
+	containing the uri of the project file */
+
+static int
+uri_compare(gconstpointer a, gconstpointer b)
+{
+	const gchar* project_uri = (const gchar*)a;
+	const gchar* project_dir = (const gchar*)b;
+	DEBUG_PRINT("project_uri = %s, project_dir = %s", project_uri, project_dir);
+	GnomeVFSURI* vfs_uri;
+	gchar* vfs_dir;
+	gchar* dirname;
+	gint retval;
+
+	vfs_uri = gnome_vfs_uri_new (project_uri);
+	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
+	vfs_dir = gnome_vfs_get_uri_from_local_path (dirname);
+	
+	gnome_vfs_uri_unref(vfs_uri);
+	g_free(dirname);
+	retval = strcmp(vfs_dir, project_dir);
+	g_free(vfs_dir);
+	return retval;
+}
+
 static void
 default_profile_plugin_write_to_file (DefaultProfilePlugin *plugin,
 									  const gchar *dir,
@@ -207,68 +241,44 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 }
 
 static void
-update_ui (DefaultProfilePlugin *plugin)
+value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
+							  const GValue *value, gpointer data)
 {
-	AnjutaUI *ui;
-	GtkAction *action;
-			
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupProfile",
-								   "ActionProfileCloseProject");
-	g_object_set (G_OBJECT (action), "sensitive",
-				  (plugin->project_uri != NULL), NULL);
-}
-
-static gboolean
-on_close_project_idle (gpointer plugin)
-{
-	default_profile_plugin_close ((DefaultProfilePlugin *)plugin);
-	default_profile_plugin_load_default ((DefaultProfilePlugin *)plugin,
-										 NULL);
-	return FALSE;
+	DefaultProfilePlugin* pf_plugin = (DefaultProfilePlugin*) plugin;
+	const gchar* uri = g_value_get_string(value);
+	
+	GSList* project_node =
+		g_slist_find_custom(pf_plugin->root_uris, uri, uri_compare);
+		
+	g_return_if_fail(project_node != NULL);
+	pf_plugin->project_uri = (gchar*) project_node->data;
 }
 
 static void
-on_close_project (GtkAction *action, DefaultProfilePlugin *plugin)
+value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
+								gpointer data)
 {
-	if (plugin->project_uri)
-		g_idle_add (on_close_project_idle, plugin);
+	/*DefaultProfilePlugin* pf_plugin = (DefaultProfilePlugin*) plugin;
+	g_free (pf_plugin->project_uri);
+	pf_plugin->project_uri = NULL;*/
 }
-
-static GtkActionEntry pf_actions[] = 
-{
-	{
-		"ActionProfileCloseProject", NULL,
-		N_("Close Pro_ject"), NULL, N_("Close project"),
-		G_CALLBACK (on_close_project)
-	},
-};
 
 static gboolean
 default_profile_plugin_activate_plugin (AnjutaPlugin *plugin)
 {
 	DefaultProfilePlugin *pf_plugin;
-	AnjutaUI *ui;
-	
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	pf_plugin = (DefaultProfilePlugin *)plugin;
-	
-	/* Create actions */
-	pf_plugin->action_group = 
-		anjuta_ui_add_action_group_entries (ui,
-											"ActionGroupProfile",
-											_("Profile actions"),
-											pf_actions,
-											G_N_ELEMENTS (pf_actions),
-											GETTEXT_PACKAGE, plugin);
-	/* Merge UI */
-	pf_plugin->merge_id = anjuta_ui_merge (ui, UI_FILE);
-	update_ui (pf_plugin);
 	
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
 					  G_CALLBACK (on_session_save), plugin);
+					  
+	pf_plugin->project_watch_id = 
+		anjuta_plugin_add_watch (plugin, "project_root_uri",
+								 value_added_project_root_uri,
+								 value_removed_project_root_uri, NULL);
+
 	return TRUE;
 }
 
@@ -289,6 +299,8 @@ default_profile_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	
 	anjuta_ui_unmerge (ui, pf_plugin->merge_id);
 	anjuta_ui_remove_action_group (ui, pf_plugin->action_group);
+	
+	anjuta_plugin_remove_watch (plugin, pf_plugin->project_watch_id, TRUE);
 	
 	return TRUE;
 }
@@ -331,6 +343,7 @@ default_profile_plugin_instance_init (GObject *obj)
 	plugin->system_plugins = NULL;
 	plugin->project_plugins = NULL;
 	plugin->session_by_me = FALSE;
+	plugin->root_uris = NULL;
 }
 
 static void
@@ -921,10 +934,6 @@ default_profile_plugin_close (DefaultProfilePlugin *plugin)
 	
 	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
 							   "project_root_uri", NULL);
-	
-	g_free (plugin->project_uri);
-	plugin->project_uri = NULL;
-	update_ui (plugin);
 }
 
 static void
@@ -949,9 +958,40 @@ iprofile_load (IAnjutaProfile *profile, GError **err)
 }
 
 static void
+iprofile_unload (IAnjutaProfile *iprofile,
+			GError **e)
+{
+	DefaultProfilePlugin *plugin;
+	GSList* uri_node;
+	gchar* uri;
+	gchar* session_dir;
+	
+	plugin = (DefaultProfilePlugin*)G_OBJECT (iprofile);
+	
+	/* Save project session */
+	session_dir = default_profile_plugin_get_session_dir (plugin);
+	if (session_dir)
+	{
+		plugin->session_by_me = TRUE;
+		anjuta_shell_session_save (ANJUTA_PLUGIN (plugin)->shell,
+								   session_dir, NULL);
+		plugin->session_by_me = FALSE;
+		g_free (session_dir);
+	}
+	
+	uri_node = g_slist_find_custom(plugin->root_uris, plugin->project_uri, uri_strcmp);
+	g_return_if_fail(uri_node != NULL);
+	
+	uri = (gchar*) uri_node->data;
+	plugin->root_uris = g_slist_remove(plugin->root_uris, uri);
+	plugin->project_uri = NULL;
+}
+
+static void
 iprofile_iface_init(IAnjutaProfileIface *iface)
 {
 	iface->load = iprofile_load;
+	iface->unload = iprofile_unload;
 }
 
 static void
@@ -967,10 +1007,14 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	
 	plugin = (DefaultProfilePlugin*)G_OBJECT (ifile);
 	
+	/* First check if this uri was already opened */
+	if (g_slist_find_custom (plugin->root_uris, uri, uri_strcmp) != NULL)
+		return;
+	
 	/* Load system default plugins */
 	selected_plugins = default_profile_plugin_read (plugin,
 													plugin->default_profile);
-	
+		
 	/* Load project default plugins */
 	temp_plugins = default_profile_plugin_read (plugin, uri);
 	if (!temp_plugins)
@@ -1033,21 +1077,20 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	g_slist_free (selected_plugins);
 	
 	/* Set project uri */
+	plugin->project_uri = g_strdup(uri);
+	plugin->root_uris = g_slist_prepend(plugin->root_uris, g_strdup(uri));
+	
+	anjuta_status_progress_tick (status, NULL, _("Loaded Project... Initializing"));
+	
 	vfs_dir = gnome_vfs_get_uri_from_local_path (dirname);
-	g_free (dirname);
-
+	g_free(dirname);
 	value = g_new0 (GValue, 1);
 	g_value_init (value, G_TYPE_STRING);
 	g_value_take_string (value, vfs_dir);
-	
-	g_free (plugin->project_uri);
-	plugin->project_uri = g_strdup (uri);
-	anjuta_status_progress_tick (status, NULL, _("Loaded Project... Initializing"));
-	
+
 	anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
 							"project_root_uri",
 							value, NULL);
-	update_ui (plugin);
 	
 	/* Thaw shell */
 	/* FIXME: The shell can not be thawed after the session is loaded,
