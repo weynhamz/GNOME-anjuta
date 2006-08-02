@@ -48,7 +48,6 @@ static void default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 	Just to avoid a type system warning */
 static inline gint uri_strcmp(gconstpointer a, gconstpointer b)
 {
-	DEBUG_PRINT("loaded_uri: %s, uri: %s", a, b);
 	return strcmp((gchar*)a, (gchar*)b);
 }
 
@@ -61,7 +60,6 @@ uri_compare(gconstpointer a, gconstpointer b)
 {
 	const gchar* project_uri = (const gchar*)a;
 	const gchar* project_dir = (const gchar*)b;
-	DEBUG_PRINT("project_uri = %s, project_dir = %s", project_uri, project_dir);
 	GnomeVFSURI* vfs_uri;
 	gchar* vfs_dir;
 	gchar* dirname;
@@ -985,6 +983,8 @@ iprofile_unload (IAnjutaProfile *iprofile,
 	uri = (gchar*) uri_node->data;
 	plugin->root_uris = g_slist_remove(plugin->root_uris, uri);
 	plugin->project_uri = NULL;
+	
+	anjuta_shell_remove_value(ANJUTA_PLUGIN(plugin)->shell, "project_root_uri", NULL);
 }
 
 static void
@@ -1012,8 +1012,17 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 		return;
 	
 	/* Load system default plugins */
-	selected_plugins = default_profile_plugin_read (plugin,
+	if (!plugin->project_uri)
+	{
+		selected_plugins = default_profile_plugin_read (plugin,
 													plugin->default_profile);
+	}
+	/* Get already loaded plugins to avoid unloading */
+	else
+	{
+		selected_plugins = anjuta_plugins_get_active_plugins(
+			ANJUTA_PLUGIN(plugin)->shell);
+	}
 		
 	/* Load project default plugins */
 	temp_plugins = default_profile_plugin_read (plugin, uri);
