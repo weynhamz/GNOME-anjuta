@@ -22,6 +22,8 @@
 #include <libanjuta/anjuta-preferences.h>
 #include "message-view.h"
 
+#define MESSAGES_TABS_POS  "messages.tab.position"
+
 #define ANJUTA_TYPE_MSGMAN        (anjuta_msgman_get_type ())
 #define ANJUTA_MSGMAN(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_MSGMAN, AnjutaMsgman))
 #define ANJUTA_MSGMAN_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ANJUTA_TYPE_MSGMAN, AnjutaMsgmanClass))
@@ -62,5 +64,9 @@ GList *anjuta_msgman_get_all_views (AnjutaMsgman * msgman);
 
 void anjuta_msgman_set_view_title (AnjutaMsgman *msgman, MessageView *view,
 								   const gchar *title);
+
+void
+on_gconf_notify_message_pref (GConfClient *gclient, guint cnxn_id,
+					   GConfEntry *entry, gpointer user_data);
 
 #endif /* _ANJUTA_MSGMAN_H */

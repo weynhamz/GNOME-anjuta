@@ -46,18 +46,6 @@ when deactivated.</comment>
 1 ref and when ref count reaches 0, plugin is deactivated.</comment>
     </item>
     <item>
-      <attribute id="1109399546" priority="1" done="0" start_date="732003" enddate="99999999" notify="0" endtime="-60" last_edited="1110211647"/>
-      <summary>Implement preferences as interface</summary>
-      <comment>Define a IAnjutaPreferences interface with construct() method
-in it. Then, all plugins having preferences, implement this
-interface and initialize the preferences in it (instead of what
-currently is been done in activate_plugin()). Then when user
-activates Settings-&gt;Preferences, find all "loaded" plugins
-that implement IAnjutaPreferences and call construct() on
-them. Then display preferences dialog. Destroy the
-preferences dialog when it is closed.</comment>
-    </item>
-    <item>
       <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1112104260"/>
       <summary>Move encodings source files</summary>
       <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c)
@@ -76,6 +64,11 @@ mismatch when the keys are queried.</comment>
       <comment>Implement  multiple progress bars in AnjutaStatus class. Any
 number of progressbar should be acceptable. All of them
 should be shown side-by-side in status bar.</comment>
+    </item>
+    <item>
+      <attribute id="1109399546" priority="1" done="0" start_date="732003" enddate="99999999" notify="0" endtime="-60" last_edited="1154629170"/>
+      <summary>Implement preferences as interface</summary>
+      <comment>Create the preference dialog only if it is shown and destroy it afterwards.</comment>
     </item>
   </category>
   <category title="Plugin: Editor" place="5">
@@ -394,11 +387,6 @@ to anjuta 1.x.</comment>
   </category>
   <category title="Plugin: Debugger" place="15">
     <item>
-      <attribute id="1108355203" priority="2" done="0" start_date="731991" enddate="99999999" notify="0" endtime="-60" last_edited="1108355203"/>
-      <summary>Complete UI and other porting</summary>
-      <comment>Complete debugger UI in gdb plugin. Complete porting of debugger.</comment>
-    </item>
-    <item>
       <attribute id="1108355482" priority="1" done="1" start_date="731991" completed_date="732054" notify="0" last_edited="1113828071"/>
       <summary>Executable choices when starting debugger</summary>
       <comment>In debugger-manager, when the debugger is started, the user
@@ -413,6 +401,11 @@ the debugger should start anyway without loading any exec.</comment>
       <summary>Use gdb MI interface</summary>
       <comment>Current CLI parsing is inefficient and prone to failures across different gdb
 releases. Use gdb's MI interface to communicate with it.</comment>
+    </item>
+    <item>
+      <attribute id="1108355203" priority="2" done="1" start_date="731991" completed_date="732526" notify="0" last_edited="1154629179"/>
+      <summary>Complete UI and other porting</summary>
+      <comment>Complete debugger UI in gdb plugin. Complete porting of debugger.</comment>
     </item>
   </category>
   <category title="Plugin: Terminal" place="16">

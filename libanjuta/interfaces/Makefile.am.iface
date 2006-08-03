@@ -2,6 +2,7 @@ INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
+	$(LIBANJUTA_CFLAGS) \
 	-I$(top_srcdir)
 
 MODULE_NAME = libanjuta

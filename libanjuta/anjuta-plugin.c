@@ -21,6 +21,7 @@
 #include <config.h>
 #include <string.h>
 #include <libanjuta/anjuta-marshal.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 #include "anjuta-plugin.h"
 
 typedef struct 
@@ -365,6 +366,8 @@ anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
  * Activates the plugin by calling activate() virtual method. All plugins
  * should derive their classes from this virtual class and implement this
  * method.
+ * If the plugin implements IAnjutaPreferences, it is prompted to install
+ * it's preferences.
  *
  * Return value: TRUE if sucessfully activated, FALSE otherwise.
  */
@@ -381,6 +384,10 @@ anjuta_plugin_activate (AnjutaPlugin *plugin)
 	g_return_val_if_fail (klass->activate != NULL, FALSE);
 	
 	plugin->priv->activated = klass->activate(plugin);
+	
+	if (IANJUTA_IS_PREFERENCES(plugin))
+		ianjuta_preferences_merge(IANJUTA_PREFERENCES(plugin),
+			ANJUTA_PREFERENCES(anjuta_shell_get_preferences(plugin->shell, NULL)), NULL);
 	
 	if (plugin->priv->activated)
 		g_signal_emit_by_name (G_OBJECT (plugin), "activated");
@@ -409,6 +416,10 @@ anjuta_plugin_deactivate (AnjutaPlugin *plugin)
 	
 	klass = ANJUTA_PLUGIN_GET_CLASS(plugin);
 	g_return_val_if_fail (klass->deactivate != NULL, FALSE);
+	
+	if (IANJUTA_IS_PREFERENCES(plugin))
+		ianjuta_preferences_unmerge(IANJUTA_PREFERENCES(plugin),
+			ANJUTA_PREFERENCES(anjuta_shell_get_preferences(plugin->shell, NULL)), NULL);
 	
 	success = klass->deactivate(plugin);
 	plugin->priv->activated = !success;

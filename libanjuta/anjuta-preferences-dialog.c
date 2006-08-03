@@ -42,8 +42,10 @@ struct _AnjutaPreferencesDialogPrivate {
 
 enum {
 	COL_NAME,
+	COL_TITLE,
 	COL_PIXBUF,
 	COL_WIDGET,
+	COL_PAGE,
 	LAST_COL
 };
 
@@ -127,7 +129,7 @@ add_category_columns (AnjutaPreferencesDialog *dlg)
 	column = gtk_tree_view_column_new_with_attributes (_("Category"),
 							   renderer,
 							   "text",
-							   COL_NAME,
+							   COL_TITLE,
 							   "pixbuf",
 							   COL_PIXBUF,
 							   NULL);
@@ -174,8 +176,10 @@ anjuta_preferences_dialog_instance_init (AnjutaPreferencesDialog *dlg)
 
 	dlg->priv->store = gtk_list_store_new (LAST_COL, 
 					       G_TYPE_STRING,
+					       G_TYPE_STRING,
 					       GDK_TYPE_PIXBUF,
-					       GTK_TYPE_WIDGET);
+					       GTK_TYPE_WIDGET,
+					       G_TYPE_INT);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (dlg->priv->treeview),
 				 GTK_TREE_MODEL (dlg->priv->store));
@@ -247,36 +251,59 @@ anjuta_preferences_dialog_new (void)
  */
 void
 anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
-									const char *name,
+									const gchar *name,
+									const gchar *title,
 									GdkPixbuf *icon,
 									GtkWidget *page)
 {
 	GtkTreeIter iter;
+	gint page_num;
 	
 	gtk_widget_show (page);
 	
-	gtk_notebook_append_page (GTK_NOTEBOOK (dlg->priv->notebook), 
+	page_num = gtk_notebook_append_page (GTK_NOTEBOOK (dlg->priv->notebook), 
 				  page, NULL);
 
 	gtk_list_store_append (dlg->priv->store, &iter);
 	
 	gtk_list_store_set (dlg->priv->store, &iter,
 			    COL_NAME, name,
+			    COL_TITLE, title,
 			    COL_PIXBUF, icon,
-			    COL_WIDGET, page, 
+			    COL_WIDGET, page,
+			    COL_PAGE, page_num,
 			    -1);
 }
 
 /**
  * anjuta_preferences_dialog_remove_page:
- * @dlg: A #AnjutaPreferencesDialog object.
+ * @dlg: A #AnjutaPreferencesDialog object.g_signal_handler
  * @name: Name of the preferences page.
  *
  * Removes a preferences page.
  */
 void
 anjuta_preferences_dialog_remove_page (AnjutaPreferencesDialog *dlg,
-									   const char *name)
+									   const char *title)
 {
-	/* FIXME */
+	GtkTreeModel* model = GTK_TREE_MODEL(dlg->priv->store);
+	GtkTreeIter iter;
+	
+	if (gtk_tree_model_get_iter_first(model, &iter))
+	{
+		do
+		{
+			gchar* page_title;
+			gint page_num;
+			gtk_tree_model_get(model, &iter, COL_TITLE, &page_title, COL_PAGE, &page_num, -1);
+			if (g_str_equal(page_title, title))
+			{
+				gtk_notebook_remove_page(GTK_NOTEBOOK(dlg->priv->notebook), page_num);
+				gtk_list_store_remove(dlg->priv->store, &iter);
+				return;
+			}
+		}
+		while (gtk_tree_model_iter_next(model, &iter));
+	}
+	g_warning("Could not find page to remove");
 }

@@ -31,6 +31,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "vgdefaultview.h"
 #include "plugin.h"
@@ -534,12 +535,9 @@ valgrind_update_ui (AnjutaValgrindPlugin *plugin)
 static gboolean
 valgrind_activate (AnjutaPlugin *plugin)
 {
-	AnjutaPreferences *prefs;
 	AnjutaUI *ui;
-	GdkPixbuf *pixbuf;
 	static gboolean initialized = FALSE;
 	AnjutaValgrindPlugin *valgrind;
-	ValgrindPluginPrefs *valgrind_prefs;	
 	
 	DEBUG_PRINT ("AnjutaValgrindPlugin: Activating AnjutaValgrindPlugin plugin ...");
 	valgrind = (AnjutaValgrindPlugin*) plugin;
@@ -556,22 +554,6 @@ valgrind_activate (AnjutaPlugin *plugin)
 										G_N_ELEMENTS (actions_file),
 										GETTEXT_PACKAGE, plugin);
 	valgrind->uiid = anjuta_ui_merge (ui, UI_FILE);
-
-	/* Add prefs page */
-	valgrind_prefs = valgrind_plugin_prefs_new ();
-	valgrind->general_prefs = valgrind_plugin_prefs_get_anj_prefs ();
-	
-	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	if (!initialized) {
-		pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);
-	
-		anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs),
-						"Valgrind", pixbuf, valgrind->general_prefs);
-		g_object_unref (pixbuf);
-	}
-
-	/* Build the ValgrindPluginPrefs */
-	valgrind->val_prefs = valgrind_plugin_prefs_new ();
 
 	/* Create the main valgrind widget [a VgToolView object...]. Do NOT add it now,
      * but only after a call to run () is made
@@ -619,11 +601,7 @@ valgrind_deactivate (AnjutaPlugin *plugin)
 
 
 	/* unref VgToolView object */
-	g_object_unref (valgrind->general_prefs);
 	g_object_unref (valgrind->val_actions);
-	
-	/* FIXME: what about the destroying of Anjuta's Preference page? */
-	//g_object_unref (valgrind->val_prefs);
 	
 	return TRUE;
 }
@@ -667,5 +645,42 @@ valgrind_class_init (GObjectClass *klass)
 	klass->dispose = valgrind_dispose;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (AnjutaValgrindPlugin, valgrind);
+static void 
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	GdkPixbuf* pixbuf;
+	AnjutaValgrindPlugin* valgrind = (AnjutaValgrindPlugin*) ipref;
+	valgrind->general_prefs = valgrind_plugin_prefs_get_anj_prefs ();
+	pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);
+	
+	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs),
+						"Valgrind", _("Valgrind"), pixbuf, valgrind->general_prefs);
+	g_object_unref (pixbuf);
+	valgrind->val_prefs = valgrind_plugin_prefs_new ();
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	AnjutaValgrindPlugin* valgrind = (AnjutaValgrindPlugin*) ipref;
+
+	g_object_unref (valgrind->general_prefs);
+	g_object_unref (valgrind->val_prefs);
+	
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), 
+		_("Valgrind"));
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
+
+ANJUTA_PLUGIN_BEGIN (AnjutaValgrindPlugin, valgrind);
+ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
+ANJUTA_PLUGIN_END;
+
 ANJUTA_SIMPLE_PLUGIN (AnjutaValgrindPlugin, valgrind);

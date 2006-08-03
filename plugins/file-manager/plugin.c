@@ -25,6 +25,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/plugins.h>
 #include <libanjuta/anjuta-debug.h>
 
@@ -147,7 +148,6 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	GladeXML *gxml;
 	FileManagerPlugin *fm_plugin;
 	gboolean initialized = FALSE;
 	
@@ -173,17 +173,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_add_widget (plugin->shell, fm_plugin->scrolledwindow,
 							 "AnjutaFileManager", _("Files"), GTK_STOCK_OPEN,
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
-	if (!initialized)
-	{
-		/* Add preferences */
-		gxml = glade_xml_new (PREFS_GLADE, "dialog.file.filter", NULL);
-		
-		anjuta_preferences_add_page (fm_plugin->prefs,
-									gxml, "File Manager", ICON_FILE);
-		g_object_unref (G_OBJECT (gxml));
-	}
-	prefs_init (fm_plugin);
-	on_gconf_notify_prefs (NULL, 0, NULL, fm_plugin);
 	
 	/* set up project directory watch */
 	fm_plugin->root_watch_id = anjuta_plugin_add_watch (plugin,
@@ -201,13 +190,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	FileManagerPlugin *fm_plugin;
 	
 	fm_plugin = (FileManagerPlugin*) plugin;
-	prefs_finalize (fm_plugin);
 	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, fm_plugin->root_watch_id, FALSE);
-	
-	/* Remove preferences */
-	/* FIXME: */
 	
 	/* Finalize it first so that we release our refs */
 	widget_to_remove = fm_plugin->scrolledwindow;
@@ -284,8 +269,38 @@ ifile_manager_iface_init(IAnjutaFileManagerIface *iface)
 	iface->set_selected = ifile_manager_set_selected;
 }
 
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	FileManagerPlugin* fm_plugin = (FileManagerPlugin*) ipref;
+	/* Add preferences */
+	GladeXML *gxml = glade_xml_new (PREFS_GLADE, "dialog.file.filter", NULL);
+		
+	anjuta_preferences_add_page (prefs,
+									gxml, "File Manager", _("File Manager"), ICON_FILE);
+	g_object_unref (G_OBJECT (gxml));
+	prefs_init (fm_plugin);
+	on_gconf_notify_prefs (NULL, 0, NULL, fm_plugin);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	FileManagerPlugin* fm_plugin = (FileManagerPlugin*) ipref;
+	prefs_finalize (fm_plugin);
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), _("File Manager"));
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
 ANJUTA_PLUGIN_BEGIN (FileManagerPlugin, file_manager_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (ifile_manager, IANJUTA_TYPE_FILE_MANAGER);
+ANJUTA_PLUGIN_ADD_INTERFACE (ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (FileManagerPlugin, file_manager_plugin);

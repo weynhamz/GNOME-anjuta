@@ -3393,3 +3393,28 @@ interface IAnjutaLanguageSupport
     GList *get_supported_languages ();
     gboolean supports(const gchar *language);
 }
+
+interface IAnjutaPreferences
+{
+	#include <libanjuta/anjuta-preferences.h>
+	/**
+	 * ianjuta_preferences_merge:
+	 * @obj: Self
+	 * @prefs: AnjutaPreferences to install to
+	 * @err: Error propagation and reporting.
+	 * 
+	 * When called, the plugin should install it's preferences
+	 */
+	void merge(AnjutaPreferences* prefs);
+	
+	/**
+	 * ianjuta_preferences_unmerge:
+	 * @obj: Self
+	 * @prefs: AnjutaPreferences to install to
+	 * @err: Error propagation and reporting.
+	 * 
+	 * When called, the plugin should uninstall it's preferences
+	 */
+	void unmerge(AnjutaPreferences* prefs);
+}
+	

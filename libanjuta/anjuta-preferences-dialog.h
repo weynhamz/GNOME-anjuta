@@ -47,11 +47,12 @@ GType anjuta_preferences_dialog_get_type (void);
 GtkWidget *anjuta_preferences_dialog_new (void);
 
 void anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
-										 const char *name,
+										 const gchar *name,
+										 const gchar *title,
 										 GdkPixbuf *icon,
 										 GtkWidget *page);
 
 void anjuta_preferences_dialog_remove_page (AnjutaPreferencesDialog *dlg,
-											const char *name);
+											const char *title);
 
 #endif

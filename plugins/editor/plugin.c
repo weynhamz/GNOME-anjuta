@@ -28,6 +28,7 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 
 #include "aneditor.h"
@@ -51,19 +52,6 @@ on_style_button_clicked(GtkWidget* button, AnjutaPreferences* prefs)
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	/* Add preferences */
-	AnjutaPreferences* prefs;
-	AnjutaShell* shell;
-	GladeXML* gxml;
-	GtkWidget* style_button;
-	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
-	prefs = anjuta_shell_get_preferences(shell, NULL);
-	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
-	style_button = glade_xml_get_widget(gxml, "style_button");
-	g_signal_connect(G_OBJECT(style_button), "clicked", G_CALLBACK(on_style_button_clicked), prefs);
-	anjuta_preferences_add_page (prefs,
-								 gxml, "Editor", ICON_FILE);
-
 	return TRUE;
 }
 
@@ -120,8 +108,42 @@ itext_editor_factory_iface_init (IAnjutaEditorFactoryIface *iface)
 	iface->new_editor = itext_editor_factory_new_editor;
 }
 
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	EditorPlugin* plugin = (EditorPlugin*)ipref;
+	GladeXML* gxml;
+	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
+	plugin->style_button = glade_xml_get_widget(gxml, "style_button");
+	g_signal_connect(G_OBJECT(plugin->style_button), "clicked", 
+		G_CALLBACK(on_style_button_clicked), prefs);
+	anjuta_preferences_add_page (prefs,
+								 gxml, "Editor", _("Scintilla Editor"),  ICON_FILE);
+	g_object_unref(gxml);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	EditorPlugin* plugin = (EditorPlugin*)ipref;
+	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->style_button), 
+		G_CALLBACK(on_style_button_clicked), 
+		anjuta_shell_get_preferences(ANJUTA_PLUGIN(plugin)->shell, NULL));
+	
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs),
+		("Scintilla Editor"));
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
 ANJUTA_PLUGIN_BEGIN (EditorPlugin, editor_plugin);
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor_factory, IANJUTA_TYPE_EDITOR_FACTORY);
+ANJUTA_TYPE_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (EditorPlugin, editor_plugin);

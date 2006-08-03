@@ -41,13 +41,41 @@ void gui_preferences()
 	/* save the settings */
 }
 
+static GtkWidget *cb_show_date = NULL;
+static GtkWidget *cb_list_tooltip = NULL;
+static GtkWidget *cb = NULL;
+static GtkWidget *cb_auto_purge = NULL;
+static GtkWidget *sp_purge_days = NULL;
+static GtkWidget *cb_hl_due = NULL;
+static GtkWidget *cb_hl_today = NULL;
+static GtkWidget *cb_hl_indays = NULL;
+static GtkWidget *hbox = NULL;
+
+void preferences_remove_signals()
+{
+	g_signal_handlers_disconnect_by_func(G_OBJECT(cb_show_date), 
+		G_CALLBACK(preferences_cb_show_date), NULL);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(cb),
+		G_CALLBACK(preferences_cb_toggle_show_category_column), NULL);	
+	g_signal_handlers_disconnect_by_func(G_OBJECT(cb),
+		G_CALLBACK(preferences_cb_toggle_show_priority_column), NULL);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(cb_list_tooltip),
+		G_CALLBACK(preferences_cb_do_tooltip), NULL);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(cb_hl_today), 
+		G_CALLBACK( preferences_cb_toggle_hl_today), NULL);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(cb_hl_due),
+		G_CALLBACK( preferences_cb_toggle_hl_due), NULL);	
+	g_signal_handlers_disconnect_by_func(G_OBJECT(cb_auto_purge),
+		G_CALLBACK(preferences_cb_auto_purge), hbox);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(cb),
+		G_CALLBACK(preferences_cb_toggle_show_notification), NULL);
+}
+			
 GtkWidget *preferences_widget()
 {
 	GtkWidget *vbox,  *vbox2;
-	GtkWidget *frame;
-	GtkWidget *cb_show_date, *cb_list_tooltip, *cb;
-	GtkWidget *cb_auto_purge, *sp_purge_days, *label, *hbox;
-	GtkWidget *cb_hl_due, *cb_hl_today, *cb_hl_indays;
+	GtkWidget *frame, *label;
+	
 	GtkWidget *notebook;
 	gchar *tmp;
 

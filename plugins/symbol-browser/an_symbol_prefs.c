@@ -716,7 +716,7 @@ prefs_page_init (SymbolBrowserPlugin *plugin)
 	AnjutaPreferences *pref = plugin->prefs;
 	GladeXML *gxml = glade_xml_new (GLADE_FILE, NULL, NULL);
 	
-	anjuta_preferences_add_page (pref, gxml, "Symbol Browser", ICON_FILE);
+	anjuta_preferences_add_page (pref, gxml, "Symbol Browser", _("Symbol Browser"),  ICON_FILE);
 	treeview = glade_xml_get_widget (gxml, "tags_treeview");
 	
 	store = create_store (pref);
@@ -810,6 +810,9 @@ symbol_browser_prefs_finalize (SymbolBrowserPlugin *plugin)
 	}
 	g_list_free (plugin->gconf_notify_ids);
 	plugin->gconf_notify_ids = NULL;
+	
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(plugin->prefs), 
+		_("Symbol Browser"));
 }
 
 

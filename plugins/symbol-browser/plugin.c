@@ -32,6 +32,7 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/plugins.h>
 #include <libegg/menu/egg-combo-action.h>
 
@@ -883,9 +884,6 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	/* Create widgets */
 	sv_plugin->sw = gtk_notebook_new();
-	
-	/* anjuta symbol view */
-	symbol_browser_prefs_init (sv_plugin);
 
 	/* create symbol-view scrolled window */
 	sv_plugin->sv = gtk_scrolled_window_new (NULL, NULL);
@@ -989,8 +987,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	SymbolBrowserPlugin *sv_plugin;
 	sv_plugin = (SymbolBrowserPlugin*) plugin;
-	
-	symbol_browser_prefs_finalize (sv_plugin);
 	
 	/* Ensure all editor cached info are released */
 	if (sv_plugin->editor_connected)
@@ -1259,8 +1255,28 @@ isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 	iface->get_completions_at_position = isymbol_manager_get_completions_at_position;
 }
 
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	symbol_browser_prefs_init((SymbolBrowserPlugin*)ipref);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	symbol_browser_prefs_finalize ((SymbolBrowserPlugin*)ipref);
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
 ANJUTA_PLUGIN_BEGIN (SymbolBrowserPlugin, symbol_browser_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (isymbol_manager, IANJUTA_TYPE_SYMBOL_MANAGER);
+ANJUTA_PLUGIN_ADD_INTERFACE (ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (SymbolBrowserPlugin, symbol_browser_plugin);

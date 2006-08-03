@@ -549,7 +549,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	/* Create preferences page */
 	gxml = glade_xml_new (GLADE_FILE, "anjuta_preferences_window", NULL);
 	anjuta_preferences_add_page (app->preferences, gxml,
-								 "General", ICON_FILE);
+								 "General", _("General"), ICON_FILE);
 	g_object_unref (gxml);
 	
 	/* Connect to session */

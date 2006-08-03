@@ -30,6 +30,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "plugin.h"
 #include "sourceview.h"
@@ -47,6 +48,8 @@
 #define FONT_BUTTON "preferences_font:font:Sans:0:sourceview.font"
 
 static gpointer parent_class;
+
+static GladeXML* gxml = NULL;
 
 static void
 on_color_check_toggled(GtkToggleButton* button, GladeXML* gxml)
@@ -76,23 +79,6 @@ on_font_check_toggled(GtkToggleButton* button, GladeXML* gxml)
 static gboolean
 sourceview_plugin_activate (AnjutaPlugin *plugin)
 {	
-    /* Add preferences */
-	AnjutaPreferences* prefs;
-	AnjutaShell* shell;
-	GtkWidget* check_color;
-	GtkWidget* check_font;
-	GladeXML* gxml;
-	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
-	prefs = anjuta_shell_get_preferences(shell, NULL);
-	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
-	anjuta_preferences_add_page (prefs,
-								 gxml, "Editor", ICON_FILE);
-	
-	check_color = glade_xml_get_widget(gxml, COLOR_USE_THEME_BUTTON);
-	g_signal_connect(G_OBJECT(check_color), "toggled", G_CALLBACK(on_color_check_toggled), gxml);
-	check_font = glade_xml_get_widget(gxml, FONT_USE_THEME_BUTTON);
-	g_signal_connect(G_OBJECT(check_font), "toggled", G_CALLBACK(on_font_check_toggled), gxml);
-	
 	DEBUG_PRINT ("SourceviewPlugin: Activating SourceviewPlugin plugin ...");
 
 	return TRUE;
@@ -123,7 +109,7 @@ sourceview_plugin_dispose (GObject *obj)
 static void
 sourceview_plugin_instance_init (GObject *obj)
 {
-	SourceviewPlugin *plugin = (SourceviewPlugin*)obj;
+
 }
 
 static void
@@ -156,8 +142,45 @@ ieditor_factory_iface_init (IAnjutaEditorFactoryIface *iface)
 	iface->new_editor = ieditor_factory_new_editor;
 }
 
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	/* Add preferences */
+	SourceviewPlugin* plugin = (SourceviewPlugin*)(ipref); 
+	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
+	anjuta_preferences_add_page (prefs,
+								 gxml, "Editor", _("GtkSourceView Editor"), ICON_FILE);
+	
+	plugin->check_color = glade_xml_get_widget(gxml, COLOR_USE_THEME_BUTTON);
+	g_signal_connect(G_OBJECT(plugin->check_color), "toggled", G_CALLBACK(on_color_check_toggled), gxml);
+	plugin->check_font = glade_xml_get_widget(gxml, FONT_USE_THEME_BUTTON);
+	g_signal_connect(G_OBJECT(plugin->check_font), "toggled", G_CALLBACK(on_font_check_toggled), gxml);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	SourceviewPlugin* plugin = (SourceviewPlugin*)(ipref); 
+	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->check_color), 
+		G_CALLBACK(on_color_check_toggled), gxml);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->check_font), 
+		G_CALLBACK(on_font_check_toggled), gxml);
+	
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), _("GtkSourceView Editor"));
+	g_object_unref(gxml);
+	gxml = NULL;
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
 ANJUTA_PLUGIN_BEGIN (SourceviewPlugin, sourceview_plugin);
 ANJUTA_TYPE_ADD_INTERFACE(ieditor_factory, IANJUTA_TYPE_EDITOR_FACTORY);
+ANJUTA_TYPE_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (SourceviewPlugin, sourceview_plugin);

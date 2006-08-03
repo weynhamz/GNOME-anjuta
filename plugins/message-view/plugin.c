@@ -22,6 +22,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "plugin.h"
 #include "anjuta-msgman.h"
@@ -132,7 +133,6 @@ static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
-	AnjutaPreferences *prefs;
 	GtkWidget *popup;
 	MessageViewPlugin *mv_plugin;
 	static gboolean initialized = FALSE;
@@ -151,19 +151,9 @@ activate_plugin (AnjutaPlugin *plugin)
 											actions_goto,
 											G_N_ELEMENTS (actions_goto),
 											GETTEXT_PACKAGE, plugin);
-	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	if (!initialized)
-	{
-		GladeXML *gxml;
-		/* Create the messages preferences page */
-		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_messages", NULL);
-		anjuta_preferences_add_page (prefs, gxml,
-									"Messages", ICON_FILE);
-		g_object_unref (gxml);
-	}
 	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupMessageView");
-	mv_plugin->msgman = anjuta_msgman_new(prefs, popup);
+	mv_plugin->msgman = anjuta_msgman_new(anjuta_shell_get_preferences(plugin->shell, NULL), popup);
 	anjuta_shell_add_widget (plugin->shell, mv_plugin->msgman,
 							 "AnjutaMessageView", _("Messages"),
 							 "message-manager-plugin-icon",
@@ -321,8 +311,41 @@ ianjuta_msgman_iface_init (IAnjutaMessageManagerIface *iface)
 	iface->set_view_title = ianjuta_msgman_set_view_title;
 }
 
+static guint notify_id;
+
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+		GladeXML *gxml;
+		MessageViewPlugin* plugin = (MessageViewPlugin*) ipref;
+		/* Create the messages preferences page */
+		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_messages", NULL);
+		anjuta_preferences_add_page (prefs, gxml,
+									"Messages", _("Messages"), ICON_FILE);
+		notify_id = anjuta_preferences_notify_add (prefs, MESSAGES_TABS_POS, 
+			on_gconf_notify_message_pref, plugin->msgman, NULL);
+		
+		g_object_unref (gxml);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	anjuta_preferences_notify_remove(prefs, notify_id);
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs),
+	 _("Messages"));
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
 ANJUTA_PLUGIN_BEGIN (MessageViewPlugin, message_view_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(ianjuta_msgman, IANJUTA_TYPE_MESSAGE_MANAGER);
+ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (MessageViewPlugin, message_view_plugin);

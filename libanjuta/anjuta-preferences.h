@@ -96,7 +96,8 @@ GType anjuta_preferences_get_type (void);
 GtkWidget *anjuta_preferences_new (void);
 
 void anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
-								  const char* glade_widget_name,
+								  const gchar* glade_widget_name,
+								  const gchar* title,
 								  const gchar *icon_filename);
 
 /*

@@ -24,9 +24,6 @@
 #include "anjuta-msgman.h"
 #include "message-view.h"
 
-
-#define MESSAGES_TABS_POS            "messages.tab.position"
-
 struct _AnjutaMsgmanPriv
 {
 	AnjutaPreferences *preferences;
@@ -198,7 +195,7 @@ set_message_tab(AnjutaPreferences *pref, GtkNotebook *msgman)
 	g_free (tab_pos);
 }
 
-static void
+void
 on_gconf_notify_message_pref (GConfClient *gclient, guint cnxn_id,
 					   GConfEntry *entry, gpointer user_data)
 {
@@ -212,17 +209,12 @@ on_gconf_notify_message_pref (GConfClient *gclient, guint cnxn_id,
 GtkWidget*
 anjuta_msgman_new (AnjutaPreferences *pref, GtkWidget *popup_menu)
 {
-	guint notify_id;
 	GtkWidget *msgman = NULL;
 	msgman = gtk_widget_new (ANJUTA_TYPE_MSGMAN, NULL);
 	if (msgman)
 	{
 	    ANJUTA_MSGMAN (msgman)->priv->preferences = pref;
 	    ANJUTA_MSGMAN (msgman)->priv->popup_menu = popup_menu;
-
-		set_message_tab(pref, GTK_NOTEBOOK (msgman));
-		notify_id = anjuta_preferences_notify_add (pref, MESSAGES_TABS_POS, 
-		on_gconf_notify_message_pref, GTK_NOTEBOOK (msgman), NULL);
 	}
 	return msgman;
 }

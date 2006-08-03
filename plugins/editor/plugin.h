@@ -27,6 +27,7 @@ typedef struct _EditorPluginClass EditorPluginClass;
 struct _EditorPlugin{
 	AnjutaPlugin parent;
 	
+	GtkWidget* style_button;
 };
 
 struct _EditorPluginClass{

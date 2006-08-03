@@ -1,3 +1,42 @@
+2006-08-03  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in: Add a more informative text to valgrind plugin
+
+	* TODO.tasks:
+	Modified Preferences tasl
+	* libanjuta/anjuta-plugin.c: 
+	* libanjuta/anjuta-preferences-dialog.c: 
+	* libanjuta/anjuta-preferences-dialog.h:
+	* libanjuta/anjuta-preferences.c:
+	* libanjuta/anjuta-preferences.h:
+	* libanjuta/interfaces/Makefile.am.iface:
+	* libanjuta/interfaces/libanjuta.idl:
+	Added IAnjutaPreferences interface which every plugin that has preferences should
+	implement. Call merge() and unmerge() at plugin activation/deactivation.
+	Fixed preferences_page_remove()
+	
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	* plugins/cvs-plugin/plugin.c: 
+	* plugins/document-manager/plugin.c:
+	* plugins/editor/plugin.c:
+	* plugins/editor/plugin.h:
+	* plugins/file-manager/plugin.c: 
+	* plugins/gtodo/main.h:
+	* plugins/gtodo/plugin.c: 
+	* plugins/gtodo/preferences.c: 
+	* plugins/message-view/anjuta-msgman.c: 
+	* plugins/message-view/anjuta-msgman.h:
+	* plugins/message-view/plugin.c:
+	* plugins/sourceview/plugin.c: 
+	* plugins/sourceview/plugin.h:
+	* plugins/symbol-browser/an_symbol_prefs.c:
+	* plugins/symbol-browser/plugin.c: 
+	* plugins/terminal/terminal.c: 
+	* plugins/valgrind/plugin.c
+	* src/anjuta-app.c:
+	
+	Updated preference loading/unloading for all plugins
+
 2006-08-03 Guenther Brammer <gbrammer@gmx.de>
 	
 	* configure.in, libanjuta/Makefile.am, libegg/Makefile.am,

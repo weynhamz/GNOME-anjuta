@@ -136,6 +136,7 @@ int  get_all_past_purge();
 
 /* preferences */
 GtkWidget *preferences_widget(void);
+void preferences_remove_signals(void);
 
 // void preferences_cb_show_date(GtkWidget *chbox);
 gint sort_function_test(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer user_data);

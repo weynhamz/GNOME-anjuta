@@ -23,6 +23,7 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-todo.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 //#include <libgtodo/main.h>
 #include "main.h"
@@ -137,8 +138,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
 	GTodoPlugin *gtodo_plugin;
-	GdkPixbuf *pixbuf;
-	static gboolean initialized = FALSE;
+	static gboolean initialized;
 	
 	DEBUG_PRINT ("GTodoPlugin: Activating Task manager plugin ...");
 	gtodo_plugin = (GTodoPlugin*) plugin;
@@ -154,15 +154,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	gtk_widget_show_all (wid);
 	gtodo_plugin->widget = wid;
 	
-	if (!initialized)
-	{
-		pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);
-		gtodo_plugin->prefs = preferences_widget();
-		anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs),
-											"Todo Manager",
-											pixbuf, gtodo_plugin->prefs);
-		g_object_unref (pixbuf);
-	}
 	/* Add all our editor actions */
 	gtodo_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupTodoView",
@@ -186,7 +177,7 @@ activate_plugin (AnjutaPlugin *plugin)
 													"project_root_uri",
 													project_root_added,
 													project_root_removed, NULL);
-	initialized = TRUE;
+	initialized = TRUE;													
 	return TRUE;
 }
 
@@ -262,8 +253,40 @@ itodo_iface_init(IAnjutaTodoIface *iface)
 	iface->load = itodo_load;
 }
 
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	/* Add preferences */
+	GTodoPlugin* gtodo_plugin = (GTodoPlugin*)(ipref); 
+	GdkPixbuf *pixbuf;
+	
+	pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);
+	gtodo_plugin->prefs = preferences_widget();
+	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs), "GTodo",
+											_("Todo Manager"),
+											pixbuf, gtodo_plugin->prefs);
+	g_object_unref (pixbuf);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	preferences_remove_signals();
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), _("Todo Manager"));
+}
+
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
+
 ANJUTA_PLUGIN_BEGIN (GTodoPlugin, gtodo_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (itodo, IANJUTA_TYPE_TODO);
+ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (GTodoPlugin, gtodo_plugin);

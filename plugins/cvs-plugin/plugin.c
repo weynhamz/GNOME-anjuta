@@ -26,6 +26,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-vcs.h>
 
 #include "plugin.h"
@@ -329,27 +330,13 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	GladeXML* gxml;
-	AnjutaPreferences *prefs;
 	AnjutaUI *ui;
 	CVSPlugin *cvs_plugin;
-	
-	static gboolean prefs_init = FALSE;
 	
 	DEBUG_PRINT ("CVSPlugin: Activating CVS plugin ...");
 	cvs_plugin = (CVSPlugin*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	
-	/* Create the messages preferences page */
-	if (!prefs_init)
-	{
-		prefs_init = TRUE;
-		prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-		gxml = glade_xml_new (GLADE_FILE, "cvs", NULL);
-		anjuta_preferences_add_page (prefs, gxml, "cvs", ICON_FILE);
-		g_object_unref (gxml);
-	}
 		
 	/* Add all our actions */
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupCVS",
@@ -462,9 +449,33 @@ ianjuta_vcs_iface_init (IAnjutaVcsIface *iface)
 	iface->commit = ianjuta_cvs_commit;	
 }
 
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	/* Create the messages preferences page */
+	GladeXML* gxml;
+	gxml = glade_xml_new (GLADE_FILE, "cvs", NULL);
+	anjuta_preferences_add_page (prefs, gxml, "cvs", _("CVS"), ICON_FILE);
+	g_object_unref (gxml);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), 
+		_("CVS"));
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
 
 ANJUTA_PLUGIN_BEGIN (CVSPlugin, cvs_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(ianjuta_vcs, IANJUTA_TYPE_VCS);
+ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (CVSPlugin, cvs_plugin);

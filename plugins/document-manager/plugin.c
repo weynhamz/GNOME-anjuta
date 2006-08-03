@@ -42,6 +42,7 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-language-support.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "anjuta-docman.h"
 #include "action-callbacks.h"
@@ -1333,7 +1334,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	DocmanPlugin *editor_plugin;
 	GtkActionGroup *group;
 	GtkAction *action;
-	GladeXML *gxml;
 	gint i;
 	AnjutaStatus *status;
 	static gboolean initialized = FALSE;
@@ -1348,6 +1348,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	ui = editor_plugin->ui;
 	docman = anjuta_docman_new (editor_plugin->prefs);
 	editor_plugin->docman = docman;
+	ANJUTA_DOCMAN(docman)->shell = plugin->shell;
 	g_signal_connect (G_OBJECT (docman), "editor-added",
 					  G_CALLBACK (on_editor_added), plugin);
 	g_signal_connect (G_OBJECT (docman), "editor-changed",
@@ -1361,38 +1362,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	if (!initialized)
 	{
-		GtkWidget *indent_button;
-		GtkWidget *indent_combo;
-		GtkWidget *indent_entry;
-		
-		ANJUTA_DOCMAN(docman)->shell = plugin->shell;
-		
 		register_stock_icons (plugin);
-		
-		/* Add preferences */
-		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
-		indent_button = glade_xml_get_widget (gxml, "set_indent_button");
-		g_signal_connect (G_OBJECT (indent_button), "clicked",
-						  G_CALLBACK (on_edit_editor_indent), plugin);
-		
-		anjuta_preferences_add_page (editor_plugin->prefs,
-									 gxml, "Documents", ICON_FILE);
-		anjuta_encodings_init (editor_plugin->prefs, gxml);
-		
-		indent_combo = glade_xml_get_widget (gxml, "pref_indent_style_combobox");
-		((DocmanPlugin*)plugin)->idt->pref_indent_combo = indent_combo;
-		g_signal_connect (G_OBJECT (indent_combo), "changed",
-						  G_CALLBACK (on_style_combo_changed), plugin);
-		
-		
-		indent_entry = glade_xml_get_widget (gxml, "preferences_style_entry");
-		((DocmanPlugin*)plugin)->idt->pref_indent_options = indent_entry;
-		((DocmanPlugin*)plugin)->idt->prefs = ((DocmanPlugin*)plugin)->prefs;
-		indent_init_load_style(((DocmanPlugin*)plugin)->idt);
-		
-		g_object_unref (G_OBJECT (gxml));
 	}
-	prefs_init (editor_plugin);
 	editor_plugin->action_groups = NULL;
 	/* Add all our editor actions */
 	for (i = 0; i < G_N_ELEMENTS (action_groups); i++)
@@ -1479,9 +1450,6 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_session_save), plugin);
 	
 	initialized = TRUE;
-
-	pref_set_style_combo(((DocmanPlugin*)plugin)->idt); 
-	
 	return TRUE;
 }
 
@@ -1765,10 +1733,63 @@ isavable_iface_init (IAnjutaFileSavableIface *iface)
 	iface->is_dirty = isavable_is_dirty;
 }
 
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	GtkWidget *indent_button;
+	GtkWidget *indent_combo;
+	GtkWidget *indent_entry;
+	GladeXML* gxml;
+		
+	AnjutaPlugin* plugin = ANJUTA_PLUGIN(ipref);
+		
+	/* Add preferences */
+	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
+	indent_button = glade_xml_get_widget (gxml, "set_indent_button");
+	g_signal_connect (G_OBJECT (indent_button), "clicked",
+						  G_CALLBACK (on_edit_editor_indent), plugin);
+		
+	anjuta_preferences_add_page (prefs,
+									gxml, "Documents", _("Documents"),  ICON_FILE);
+	anjuta_encodings_init (prefs, gxml);
+		
+	indent_combo = glade_xml_get_widget (gxml, "pref_indent_style_combobox");
+	((DocmanPlugin*)plugin)->idt->pref_indent_combo = indent_combo;
+	g_signal_connect (G_OBJECT (indent_combo), "changed",
+						  G_CALLBACK (on_style_combo_changed), plugin);
+		
+		
+	indent_entry = glade_xml_get_widget (gxml, "preferences_style_entry");
+	((DocmanPlugin*)plugin)->idt->pref_indent_options = indent_entry;
+	((DocmanPlugin*)plugin)->idt->prefs = ((DocmanPlugin*)plugin)->prefs;
+	indent_init_load_style(((DocmanPlugin*)plugin)->idt);
+		
+	g_object_unref (G_OBJECT (gxml));
+	prefs_init((DocmanPlugin*)plugin);
+	pref_set_style_combo(((DocmanPlugin*)plugin)->idt); 
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	DocmanPlugin* plugin = (DocmanPlugin*) ipref;
+	prefs_finalize(plugin);
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), 
+		_("Documents"));
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
 ANJUTA_PLUGIN_BEGIN (DocmanPlugin, docman_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(ianjuta_document_manager, IANJUTA_TYPE_DOCUMENT_MANAGER);
 ANJUTA_PLUGIN_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_PLUGIN_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
+ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (DocmanPlugin, docman_plugin);

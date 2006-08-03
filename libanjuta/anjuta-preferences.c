@@ -1376,7 +1376,8 @@ preferences_prop_to_objects (AnjutaPreferences *pr)
  */
 void
 anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
-							 const char* glade_widget_name,
+							 const gchar* glade_widget_name,
+							 const gchar* title,
 							 const gchar *icon_filename)
 {
 	GtkWidget *parent;
@@ -1409,7 +1410,7 @@ anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
 	image_path = anjuta_res_get_pixmap_file (icon_filename);
 	pixbuf = gdk_pixbuf_new_from_file (image_path, NULL);
 	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (pr),
-										glade_widget_name, pixbuf, page);
+										glade_widget_name, title, pixbuf, page);
 	anjuta_preferences_register_all_properties_from_glade_xml (pr, gxml, page);
 	g_object_unref (page);
 	g_free (image_path);

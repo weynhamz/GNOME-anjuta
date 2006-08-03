@@ -34,6 +34,7 @@
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "build-basic-autotools.h"
 #include "executer.h"
@@ -1824,7 +1825,6 @@ static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
-	AnjutaPreferences *prefs;
 	static gboolean initialized = FALSE;
 	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
@@ -1836,25 +1836,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect (plugin->shell, "load-session",
 					  G_CALLBACK (on_session_load),
 					  plugin);
-	
-	/* Add preferences */
-	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	if (!initialized)
-	{
-		GladeXML *gxml;
-		GtkWidget *root_check;
-		GtkWidget *entry;
-		
-		/* Create the preferences page */
-		gxml = glade_xml_new (GLADE_FILE, "preferences_dialog_build", NULL);
-		root_check = glade_xml_get_widget(gxml, CHECK_BUTTON);
-		entry = glade_xml_get_widget(gxml, ENTRY);
-		g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
-		
-		anjuta_preferences_add_page (prefs, gxml, "Build", ICON_FILE);
-		
-		g_object_unref (gxml);
-	}
 
 	/* Add action group */
 	ba_plugin->build_action_group = 
@@ -2074,9 +2055,51 @@ ifile_iface_init (IAnjutaFileIface *iface)
 	iface->get_uri = ifile_get_uri;
 }
 
+static GladeXML *gxml;
+
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	GtkWidget *root_check;
+	GtkWidget *entry;
+		
+	/* Create the preferences page */
+	gxml = glade_xml_new (GLADE_FILE, "preferences_dialog_build", NULL);
+	root_check = glade_xml_get_widget(gxml, CHECK_BUTTON);
+	entry = glade_xml_get_widget(gxml, ENTRY);
+	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
+		
+	anjuta_preferences_add_page (prefs, gxml, "Build", _("Build Autotools"),  ICON_FILE);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	GtkWidget *root_check;
+	GtkWidget *entry;
+	
+	root_check = glade_xml_get_widget(gxml, CHECK_BUTTON);
+	entry = glade_xml_get_widget(gxml, ENTRY);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
+		G_CALLBACK(on_root_check_toggled), entry);
+		
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs),
+		_("Build Autotools"));
+	
+	g_object_unref (gxml);
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
 ANJUTA_PLUGIN_BEGIN (BasicAutotoolsPlugin, basic_autotools_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (ibuildable, IANJUTA_TYPE_BUILDABLE);
 ANJUTA_PLUGIN_ADD_INTERFACE (ifile, IANJUTA_TYPE_FILE);
+ANJUTA_PLUGIN_ADD_INTERFACE (ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (BasicAutotoolsPlugin, basic_autotools_plugin);

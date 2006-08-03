@@ -24,6 +24,7 @@
 #include <libanjuta/anjuta-debug.h>
 
 #include <libanjuta/interfaces/ianjuta-terminal.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/plugins.h>
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-terminal.ui"
@@ -572,7 +573,6 @@ register_stock_icons (AnjutaPlugin *plugin)
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	GladeXML *gxml;
 	TerminalPlugin *term_plugin;
 	static gboolean initialized = FALSE;
 	
@@ -587,18 +587,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	if (!initialized)
 	{
 		register_stock_icons (plugin);
-		
-		/* Create the terminal preferences page */
-		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_terminal", NULL);
-		anjuta_preferences_add_page (term_plugin->prefs, gxml,
-									"Terminal", ICON_FILE);
-		term_plugin->pref_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
-		term_plugin->pref_default_button =
-			glade_xml_get_widget (gxml,
-						"preferences_toggle:bool:1:0:terminal.default.profile");
-		g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
-						  G_CALLBACK (use_default_profile_cb), term_plugin);
-		g_object_unref (gxml);
 	}
 	
 	/* Setup prefs callbacks */
@@ -700,8 +688,43 @@ iterminal_iface_init(IAnjutaTerminalIface *iface)
 	iface->execute_command = iterminal_execute_command;
 }
 
+static void
+ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	/* Create the terminal preferences page */
+	TerminalPlugin* term_plugin = (TerminalPlugin*) ipref;
+	GladeXML *gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_terminal", NULL);
+	anjuta_preferences_add_page (term_plugin->prefs, gxml,
+									"Terminal", _("Terminal"), ICON_FILE);
+	term_plugin->pref_profile_combo = glade_xml_get_widget (gxml, "profile_list_combo");
+	term_plugin->pref_default_button =
+		glade_xml_get_widget (gxml,
+						"preferences_toggle:bool:1:0:terminal.default.profile");
+	g_signal_connect (G_OBJECT(term_plugin->pref_default_button), "toggled",
+						  G_CALLBACK (use_default_profile_cb), term_plugin);
+	g_object_unref (gxml);
+}
+
+static void
+ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
+{
+	TerminalPlugin* term_plugin = (TerminalPlugin*) ipref;
+	g_signal_handlers_disconnect_by_func(G_OBJECT(term_plugin->pref_default_button),
+		G_CALLBACK (use_default_profile_cb), term_plugin);
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs),
+		_("Terminal"));
+}
+
+static void
+ipreferences_iface_init(IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
 ANJUTA_PLUGIN_BEGIN (TerminalPlugin, terminal_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (iterminal, IANJUTA_TYPE_TERMINAL);
+ANJUTA_PLUGIN_ADD_INTERFACE (ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (TerminalPlugin, terminal_plugin);
