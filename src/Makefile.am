@@ -13,7 +13,13 @@ INCLUDES = \
 	$(GNOME_UI_CFLAGS)\
 	$(GDL_CFLAGS)\
 	-I$(top_srcdir)\
-	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\"
+	-I.. -I. -DPACKAGE_BIN_DIR=\"$(bindir)\" \
+	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
+	-DPACKAGE_DOC_DIR=\"$(datadir)/doc/$(PACKAGE)\" \
+	-DPACKAGE_PIXMAPS_DIR=\"$(datadir)/pixmaps/$(PACKAGE)\" \
+	-DPACKAGE_PLUGIN_DIR=\"$(libdir)/$(PACKAGE)\" \
+	-DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\"
+
 
 include $(top_srcdir)/scintilla/lexers.make
 

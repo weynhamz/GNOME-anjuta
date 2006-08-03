@@ -6,7 +6,12 @@ INCLUDES = \
 	$(DEPRECATED_FLAGS) \
 	$(GNOME_UI_CFLAGS) \
 	$(GLADE_CFLAGS) \
-	-I$(top_srcdir)
+	-I$(top_srcdir) \
+	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
+	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
+	-DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" \
+	-DPACKAGE_DOC_DIR="\"$(datadir)/doc/$(PACKAGE)\"" \
+	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\""
 
 lib_LTLIBRARIES=libanjuta.la
 

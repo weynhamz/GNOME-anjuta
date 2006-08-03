@@ -11,3 +11,16 @@ tools_DATA = tools-2.xml
 EXTRA_DIST = \
 	$(tools_SCRIPTS) \
 	$(tools_DATA)
+
+# from the autoconf manual
+edit = sed \
+             -e 's|@ANJUTA_DATA_DIR[@]|$(anjuta_data_dir)|g'
+     
+tools-2.xml: Makefile
+	rm -f $@ $@.tmp
+	$(edit) '$(srcdir)/$@.in' >$@.tmp
+	chmod +x $@.tmp
+	chmod a-w $@.tmp
+	mv $@.tmp $@
+     
+tools-2.xml: tools-2.xml.in

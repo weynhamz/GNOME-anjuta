@@ -455,7 +455,7 @@ contains the function bfd_get_section_size_before_reloc])
 
 dnl Setup Anjuta Library flags
 dnl --------------------------
-LIBANJUTA_CFLAGS='$(GNOME_UI_CFLAGS) $(GLADE_CFLAGS) -I$(top_srcdir)'
+LIBANJUTA_CFLAGS='$(GNOME_UI_CFLAGS) $(GLADE_CFLAGS) -I$(top_srcdir) -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
 LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta.la'
 AC_SUBST(LIBANJUTA_CFLAGS)
 AC_SUBST(LIBANJUTA_LIBS)
@@ -496,7 +496,6 @@ GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 AM_GLIB_GNU_GETTEXT
-AM_GLIB_DEFINE_LOCALEDIR(PACKAGE_LOCALE_DIR)
 
 dnl gtk-doc
 dnl GTK_DOC_CHECK([1.0])
@@ -988,41 +987,6 @@ AC_SUBST(SVN_INCLUDE)
 AC_SUBST(SVN_LIB)
 AC_SUBST(SVN_CFLAGS)
 
-dnl *********************************************************************
-dnl Set PACKAGE DIRs in config.h
-dnl *********************************************************************
-
-anjuta_save_prefix="$prefix"
-anjuta_save_exec_prefix="$exec_prefix"
-test "x$prefix" = xNONE && prefix=$ac_default_prefix
-test "x$exec_prefix" = xNONE && exec_prefix=$prefix
-
-packagesrcdir=`cd $srcdir && pwd`
-systemdatadir=`eval echo ${datadir}`
-packagedatadir=`eval echo ${datadir}/${PACKAGE}`
-packagedocdir=`eval echo ${datadir}/doc/${PACKAGE}`
-packageplugindir=`eval echo ${libdir}/${PACKAGE}`
-packagepixmapsdir=`eval echo ${datadir}/pixmaps/${PACKAGE}`
-packagehelpdir=`eval echo ${datadir}/gnome/help/${PACKAGE}`
-packagemenudir=`eval echo ${datadir}/gnome/apps`
-
-ANJUTA_PIXMAPS_DIR=${packagepixmapsdir}
-AC_SUBST(ANJUTA_PIXMAPS_DIR)
-ANJUTA_DATA_DIR=${packagedatadir}
-AC_SUBST(ANJUTA_DATA_DIR)
-
-prefix="$anjuta_save_prefix"
-exec_prefix="$anjuta_save_exec_prefix"
-
-AC_DEFINE_UNQUOTED(SYSTEM_DATA_DIR, "${systemdatadir}", [System data directory])
-AC_DEFINE_UNQUOTED(PACKAGE_DATA_DIR, "${packagedatadir}", [Package data directory])
-AC_DEFINE_UNQUOTED(PACKAGE_DOC_DIR, "${packagedocdir}", [Package doc directory])
-AC_DEFINE_UNQUOTED(PACKAGE_PIXMAPS_DIR, "${packagepixmapsdir}", [Package pixmaps directory])
-AC_DEFINE_UNQUOTED(PACKAGE_HELP_DIR, "${packagehelpdir}", [Package help directory])
-AC_DEFINE_UNQUOTED(PACKAGE_MENU_DIR, "${packagemenudir}", [Package program menu directory])
-AC_DEFINE_UNQUOTED(PACKAGE_PLUGIN_DIR, "${packageplugindir}", [Package plugins directory])
-AC_DEFINE_UNQUOTED(PACKAGE_SOURCE_DIR, "${packagesrcdir}", [Package source code directory])
-
 dnl --------- help outputs -----------
 dnl manuals/C/Makefile
 dnl manuals/C/anjuta-tutorial/Makefile
@@ -1094,7 +1058,6 @@ plugins/subversion/Makefile
 plugins/sourceview/Makefile
 plugins/tools/Makefile
 plugins/tools/scripts/Makefile
-plugins/tools/scripts/tools-2.xml
 plugins/class-inheritance/Makefile
 plugins/valgrind/Makefile
 plugins/project-import/Makefile

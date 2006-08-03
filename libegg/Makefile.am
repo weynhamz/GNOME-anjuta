@@ -11,6 +11,7 @@ INCLUDES = \
 	$(DEPRECATED_FLAGS) \
 	-DEGG_COMPILATION \
 	-DEGG_GLADEDIR=\"$(gladefiledir)\" \
+	-DPACKAGE_PIXMAPS_DIR=\"$(datadir)/pixmaps/$(PACKAGE)\" \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/libegg \
 	-I$(top_srcdir)/libegg/menu \

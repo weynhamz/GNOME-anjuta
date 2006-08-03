@@ -1,3 +1,13 @@
+2006-08-03 Guenther Brammer <gbrammer@gmx.de>
+	
+	* configure.in, libanjuta/Makefile.am, libegg/Makefile.am,
+	src/Makefile.am, plugins/tools/scripts/Makefile.am: 
+    - Do not define PACKAGE_*_DIR in config.h, use -D compiler arguments instead as
+	recommended by the autoconf manual. 
+	- Fixes compiling with autoconf 2.60.
+	
+	* libanjuta/libanjuta-1.0.pc.in: Silence a warning about datarootdir
+
 2006-08-02	Johanes Schmid <jhs@gnome.org>
 
 	* plugins/profile-default/plugin.c:
@@ -20,7 +30,7 @@
 
 	* libanjuta/interfaces/libanjuta.idl:
 	Added ianjuta_profile_unload
-	
+
 2006-07-31 Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,
