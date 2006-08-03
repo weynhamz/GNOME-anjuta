@@ -1,3 +1,8 @@
+2006-08-04 Naba Kumar  <naba@gnome.org>
+
+	* plugins/sourceview/sourceview.c: Fixed ieditor_goto_position
+	implementation.
+	
 2006-08-03  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in: Add a more informative text to valgrind plugin
@@ -70,6 +75,7 @@
 	* libanjuta/interfaces/libanjuta.idl:
 	Added ianjuta_profile_unload
 
+>>>>>>> 1.1298
 2006-07-31 Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,

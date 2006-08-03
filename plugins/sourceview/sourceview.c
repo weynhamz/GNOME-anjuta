@@ -587,7 +587,8 @@ static void ieditor_goto_position(IAnjutaEditor *editor, gint position, GError *
 	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
 									   &iter, position);
 	gtk_text_buffer_place_cursor (GTK_TEXT_BUFFER (sv->priv->document), &iter);
-	gtk_text_view_place_cursor_onscreen (GTK_TEXT_VIEW (sv->priv->view));
+	gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (sv->priv->view),
+								  &iter, 0, FALSE, 0, 0);
 }
 
 /* Return a newly allocated pointer containing the whole text */
