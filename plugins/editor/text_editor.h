@@ -45,9 +45,17 @@ G_BEGIN_DECLS
 #define IS_TEXT_EDITOR(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), TYPE_TEXT_EDITOR))
 #define IS_TEXT_EDITOR_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), TYPE_TEXT_EDITOR))
 
+typedef enum _TextEditorAttrib
+{
+	TEXT_EDITOR_ATTRIB_TEXT,
+	TEXT_EDITOR_ATTRIB_COMMENT,
+	TEXT_EDITOR_ATTRIB_KEYWORD,
+	TEXT_EDITOR_ATTRIB_STRING
+} TextEditorAttrib;
+
 typedef struct _TextEditor TextEditor;
 typedef struct _TextEditorClass TextEditorClass;
-	
+
 struct _TextEditor
 {
 	GtkVBox vbox;
@@ -132,6 +140,9 @@ void text_editor_hilite (TextEditor *te, gboolean force);
  * text font size by a factor of (2*zfac)
  */
 void text_editor_set_zoom_factor (TextEditor * te, gint zfac);
+
+/* Get text attribute of the character at given position */
+TextEditorAttrib text_editor_get_attribute (TextEditor *te, gint position);
 
 /* Undo or redo last action */
 void text_editor_undo (TextEditor * te);

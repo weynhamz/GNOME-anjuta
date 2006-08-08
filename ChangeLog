@@ -1,3 +1,24 @@
+2006-08-08 Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/editor/text_editor.c,
+	plugins/editor/text_editor.h,
+	plugins/editor/text-editor-iterable.c,
+	plugins/sourceview/sourceview-cell.c,
+	plugins/sourceview/sourceview.c: Impleted editor attributes
+	methods.
+	
+	* plugins/editor/aneditor.cxx: Disabled old indentation code.
+	plugins/language-support-cpp-java/plugin.c: Implemented indentation
+	code (not complete yet).
+
+	* manuals/reference/libanjuta/tmpl/anjuta-preferences-dialog.sgml,
+	manuals/reference/libanjuta/tmpl/anjuta-preferences.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-profile.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml: Updated.
+
 2006-08-04 Naba Kumar  <naba@gnome.org>
 
 	* plugins/sourceview/sourceview.c: Fixed ieditor_goto_position

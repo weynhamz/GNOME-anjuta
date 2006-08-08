@@ -131,12 +131,23 @@ icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 	}
 }
 
+static IAnjutaEditorAttribute
+icell_get_attribute (IAnjutaEditorCell* cell, GError **e)
+{
+	IAnjutaEditorAttribute attrib;
+	
+	/* FIXME */
+	attrib = IANJUTA_EDITOR_TEXT;
+	return attrib;
+}
+
 static void
 icell_iface_init(IAnjutaEditorCellIface* iface)
 {
 	iface->get_character = icell_get_character;
 	iface->get_char = icell_get_char;
 	iface->get_length = icell_get_length;
+	iface->get_attribute = icell_get_attribute;
 }
 
 static

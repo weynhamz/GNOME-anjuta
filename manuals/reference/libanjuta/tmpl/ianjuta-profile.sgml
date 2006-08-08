@@ -37,6 +37,7 @@ ianjuta-profile
 
 @g_iface: 
 @load: 
+@unload: 
 
 <!-- ##### FUNCTION ianjuta_profile_error_quark ##### -->
 <para>

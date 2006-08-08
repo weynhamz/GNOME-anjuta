@@ -2550,6 +2550,17 @@ Properties
 @err: 
 @Returns: 
 
+<!-- ##### FUNCTION ianjuta_editor_get_attributes ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start: 
+@end: 
+@err: 
+@Returns: 
+
 <!-- ##### FUNCTION ianjuta_editor_get_current_pos ##### -->
 <para>
 
@@ -2615,6 +2626,36 @@ Properties
 @iter: 
 @err: 
 
+<!-- ##### FUNCTION ianjuta_iterable_get ##### -->
+<para>
+
+</para>
+
+@obj: 
+@data_type: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_get_nth ##### -->
+<para>
+
+</para>
+
+@obj: 
+@data_type: 
+@position: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_iterable_get_settable ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
 <!-- ##### FUNCTION ianjuta_iterable_reset ##### -->
 <para>
 
@@ -2622,6 +2663,27 @@ Properties
 
 @obj: 
 @iter: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_set ##### -->
+<para>
+
+</para>
+
+@obj: 
+@data_type: 
+@data: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_iterable_set_nth ##### -->
+<para>
+
+</para>
+
+@obj: 
+@data_type: 
+@data: 
+@position: 
 @err: 
 
 <!-- ##### FUNCTION ianjuta_iterable_tree_get_children ##### -->

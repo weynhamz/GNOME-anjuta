@@ -615,11 +615,19 @@ static gchar* ieditor_get_text(IAnjutaEditor* editor, gint position,
 									&start_iter, &end_iter, FALSE);
 }
 
-/* TODO! No documentation, so we do nothing */
-static gchar* ieditor_get_attributes(IAnjutaEditor* editor, 
-									 gint start, gint end, GError **e)
+static IAnjutaEditorAttribute*
+ieditor_get_attributes(IAnjutaEditor* editor, 
+					   gint positon, gint length, GError **e)
 {
-	return NULL;
+	gint i;
+	IAnjutaEditorAttribute *attribs = g_new0(IAnjutaEditorAttribute, length);
+	
+	for (i = 0; i < length; i++)
+	{
+		/* FIXME */
+		attribs[i] = IANJUTA_EDITOR_TEXT;
+	}
+	return attribs;
 }
 
 /* Get cursor position */

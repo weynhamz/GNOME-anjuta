@@ -602,6 +602,39 @@ text_editor_set_zoom_factor (TextEditor * te, gint zfac)
 	text_editor_command (te, ANE_SETZOOM, zfac,  0);
 }
 
+TextEditorAttrib
+text_editor_get_attribute (TextEditor *te, gint position)
+{
+	int lexer;
+	int style;
+	TextEditorAttrib attrib = TEXT_EDITOR_ATTRIB_TEXT;
+	
+	lexer = scintilla_send_message (SCINTILLA (te->scintilla), SCI_GETLEXER,
+									0, 0);
+	style = scintilla_send_message (SCINTILLA (te->scintilla), SCI_GETSTYLEAT,
+									position, 0);
+	switch (lexer)
+	{
+		case SCLEX_CPP:
+			switch (style)
+			{
+				case SCE_C_CHARACTER:
+				case SCE_C_STRING:
+					attrib = TEXT_EDITOR_ATTRIB_STRING;
+					break;
+				case SCE_C_COMMENT:
+				case SCE_C_COMMENTLINE:
+					attrib = TEXT_EDITOR_ATTRIB_COMMENT;
+					break;
+				case SCE_C_WORD:
+					attrib = TEXT_EDITOR_ATTRIB_KEYWORD;
+					break;
+			}
+			break;
+	}
+	return attrib;
+}
+
 glong
 text_editor_find (TextEditor * te, const gchar * str, gint scope,
 				  gboolean forward, gboolean regexp,
@@ -1999,14 +2032,6 @@ itext_editor_get_text (IAnjutaEditor *editor, gint position, gint length,
 	return data;
 }
 
-static gchar*
-itext_editor_get_attributes (IAnjutaEditor *editor, gint start,
-							   gint end, GError **e)
-{
-	DEBUG_PRINT("get_attributes: Not yet implemented in EditorPlugin");
-	return NULL;
-}
-
 static gint
 itext_editor_get_position (IAnjutaEditor *editor, GError **e)
 {
@@ -2191,7 +2216,6 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->goto_line = itext_editor_goto_line;
 	iface->goto_position = itext_editor_goto_position;
 	iface->get_text = itext_editor_get_text;
-	iface->get_attributes = itext_editor_get_attributes;
 	iface->get_position = itext_editor_get_position;
 	iface->get_lineno = itext_editor_get_lineno;
 	iface->get_length = itext_editor_get_length;

@@ -1424,10 +1424,12 @@ void AnEditor::CharAdded(char ch) {
 					StartCallTip_new();
 				} else {
 					autoCCausedByOnlyOne = false;
+					/*
 					if (indentMaintain)
 						MaintainIndentation(ch);
 					else if (props->GetInt("indent.automatic"))
 						AutomaticIndentation(ch);
+					*/
 					if (autoCompleteStartCharacters.contains(ch)) {
 						StartAutoComplete();
 					} else if (props->GetInt("autocompleteword.automatic") &&

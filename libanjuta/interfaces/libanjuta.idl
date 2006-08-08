@@ -358,6 +358,18 @@ interface IAnjutaIterable
 	* Returns: total length of the list.
 	*/
 	gint get_length ();
+
+	/**
+	* ianjuta_iterable_clone:
+	* @obj: Self
+	* @err: Error propagation and reporting
+	* 
+	* Clones the iterable. The returned iterable object must be unrefed
+	* when done.
+	*
+	* Returns: A new instance of this iterable pointing at the same location.
+	*/
+	IAnjutaIterable *clone ();
 	
 	interface IAnjutaIterableTree
 	{
@@ -635,6 +647,14 @@ interface IAnjutaEditor
 		DOESNT_EXIST
 	}
 	
+	enum Attribute
+	{
+		TEXT,
+		KEYWORD,
+		COMMENT,
+		STRING
+	}
+	
 	// Signals.
 	
 	/**
@@ -765,9 +785,9 @@ interface IAnjutaEditor
 	 * characters starting at begining position and ending at end position.
 	 * The returned buffer must be freed when no longer required.
 	 */
-	gchar* get_attributes (gint start, gint end);
+	Attribute* get_attributes (gint start, gint length);
 
-	/**
+	/*
 	 * ianjuta_editor_get_position:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
@@ -1533,6 +1553,8 @@ interface IAnjutaEditor
  */
 interface IAnjutaEditorCell
 {
+	#include <libanjuta/interfaces/ianjuta-editor.h>
+	
 	/**
 	 * ianjuta_editor_cell_get_character:
 	 * @obj: Self
@@ -1576,6 +1598,8 @@ interface IAnjutaEditorCell
 	 * Retruns: a byte character.
 	 */
 	gchar get_char (gint char_index);
+	
+	IAnjutaEditorAttribute get_attribute ();
 	
 	interface IAnjutaEditorCellStyle
 	{

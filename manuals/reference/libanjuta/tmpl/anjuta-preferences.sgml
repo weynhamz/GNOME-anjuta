@@ -130,6 +130,7 @@ are mainly two ways a plugin could register its preferences in Anjuta.
 @pr: 
 @gxml: 
 @glade_widget_name: 
+@title: 
 @icon_filename: 
 
 

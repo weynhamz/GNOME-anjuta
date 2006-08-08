@@ -51,13 +51,19 @@ jumb_to_matching_brace (IAnjutaIterable *iter, gchar brace)
 	g_return_val_if_fail (point_ch == ')' || point_ch == ']' ||
 						  point_ch == '}', FALSE);
 	
-	DEBUG_PRINT ("Matching brace being");
+	/* DEBUG_PRINT ("Matching brace being"); */
 	/* Push brace */
 	g_string_prepend_c (braces_stack, point_ch);
 	
 	while (ianjuta_iterable_previous (iter, NULL))
 	{
-		DEBUG_PRINT ("point ch = %c", point_ch);
+		/* Skip comments and strings */
+		IAnjutaEditorAttribute attrib =
+			ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter), NULL);
+		if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
+			continue;
+		
+		/* DEBUG_PRINT ("point ch = %c", point_ch); */
 		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
 												 NULL);
 		if (point_ch == ')' || point_ch == ']' || point_ch == '}')
@@ -74,11 +80,11 @@ jumb_to_matching_brace (IAnjutaIterable *iter, gchar brace)
 		/* Bail out if there is no more in stack */
 		if (braces_stack->str[0] == '\0')
 		{
-			DEBUG_PRINT ("Matching brace end -- found");
+			/* DEBUG_PRINT ("Matching brace end -- found"); */
 			return TRUE;
 		}
 	}
-	DEBUG_PRINT ("Matching brace end -- not found");
+	/* DEBUG_PRINT ("Matching brace end -- not found"); */
 	return FALSE;
 }
 
@@ -91,14 +97,14 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 	
 	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
-	DEBUG_PRINT ("line begin = %d, line end = %d", line_begin, line_end);
+	/* DEBUG_PRINT ("line begin = %d, line end = %d", line_begin, line_end); */
 	
 	if (line_begin == line_end)
 		return 0;
 	
 	line_string = ianjuta_editor_get_text (editor, line_begin,
 										   line_end - line_begin, NULL);
-	DEBUG_PRINT ("line_string = '%s'", line_string);
+	/* DEBUG_PRINT ("line_string = '%s'", line_string); */
 	
 	if (!line_string)
 		return 0;
@@ -124,7 +130,7 @@ get_line_indentation_string (gint spaces)
 {
 	gint i;
 	
-	DEBUG_PRINT ("In %s()", __FUNCTION__);
+	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
 	g_return_val_if_fail (spaces >= 0, NULL);
 	
 	if (spaces <= 0)
@@ -161,7 +167,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	gint current_pos;
 	gint line_indent = 0;
 
-	DEBUG_PRINT ("In %s()", __FUNCTION__);
+	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
 	
 	line_indent = get_line_indentation (editor, line_num - 1);
 	current_pos = ianjuta_editor_get_line_begin_position (editor, line_num,
@@ -169,10 +175,16 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	iter = ianjuta_editor_get_cell_iter (editor, current_pos, NULL);
 	while (ianjuta_iterable_previous (iter, NULL))
 	{
+		/* Skip comments and strings */
+		IAnjutaEditorAttribute attrib =
+			ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter), NULL);
+		if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
+			continue;
+		
 		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
 												 NULL);
 
-		DEBUG_PRINT("point_ch = %c", point_ch);
+		/* DEBUG_PRINT("point_ch = %c", point_ch); */
 		if (point_ch == ')' || point_ch == ']' || point_ch == '}')
 		{
 			gint line_saved;
@@ -229,11 +241,11 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 	gint nchars = 0;
 	gchar *indent_string;
 	
-	DEBUG_PRINT ("In %s()", __FUNCTION__);
+	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
 	
 	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
-	DEBUG_PRINT ("line begin = %d, line end = %d", line_begin, line_end);
+	/* DEBUG_PRINT ("line begin = %d, line end = %d", line_begin, line_end); */
 	
 	indent_position = line_begin;
 	
@@ -243,7 +255,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 											   line_end - line_begin,
 											   NULL);
 		
-		DEBUG_PRINT ("line_string = '%s'", line_string);
+		/* DEBUG_PRINT ("line_string = '%s'", line_string); */
 		if (line_string)
 		{
 			idx = line_string;
@@ -285,24 +297,67 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 {
 	gint current_line;
 	gint line_indent;
-
+	gint nchars;
+	IAnjutaIterable *iter;
+	
 	/* Disable for now */
-#if 0
-	DEBUG_PRINT ("Indenting cpp code with char '%c'", ch);
+	/* DEBUG_PRINT ("Indenting cpp code with char '%c'", ch); */
+	
+	iter = ianjuta_editor_get_cell_iter (editor, current_pos, NULL);
 	
 	if (ch == '\n')
 	{
-		gint nchars;
-		current_line = ianjuta_editor_get_lineno (editor, NULL);
-		line_indent = get_line_indentation_base (plugin, editor, current_line);
-		DEBUG_PRINT ("Line indentation = %d", line_indent);
-		nchars = set_line_indentation (editor, current_line, line_indent);
-		DEBUG_PRINT ("Number of chars inserted at line %d = %d", current_line,
-					 nchars);
-		ianjuta_editor_goto_position (editor, current_pos + nchars, NULL);
-		DEBUG_PRINT ("Cursor moved to position %d", current_pos + nchars);
+		IAnjutaEditorAttribute attrib =
+			ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter), NULL);
+		if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
+		{
+			DEBUG_PRINT ("Inside comment or string");
+			current_line = ianjuta_editor_get_lineno (editor, NULL);
+			line_indent = get_line_indentation_base (plugin, editor, current_line);
+			DEBUG_PRINT ("Line indentation = %d", line_indent);
+			nchars = set_line_indentation (editor, current_line, line_indent);
+			DEBUG_PRINT ("Number of chars inserted at line %d = %d", current_line,
+						 nchars);
+			ianjuta_editor_goto_position (editor, current_pos + nchars, NULL);
+			DEBUG_PRINT ("Cursor moved to position %d", current_pos + nchars);
+		}
+		else
+		{
+			current_line = ianjuta_editor_get_lineno (editor, NULL);
+			line_indent = get_line_indentation_base (plugin, editor, current_line);
+			DEBUG_PRINT ("Line indentation = %d", line_indent);
+			nchars = set_line_indentation (editor, current_line, line_indent);
+			DEBUG_PRINT ("Number of chars inserted at line %d = %d", current_line,
+						 nchars);
+			ianjuta_editor_goto_position (editor, current_pos + nchars, NULL);
+			DEBUG_PRINT ("Cursor moved to position %d", current_pos + nchars);
+		}
 	}
-#endif
+	else if (ch == '}')
+	{
+		current_line = ianjuta_editor_get_lineno (editor, NULL);
+		ianjuta_iterable_previous (iter, NULL);
+		if (jumb_to_matching_brace (iter, ch))
+		{
+			gint line_begin;
+			gint position = ianjuta_iterable_get_position (iter, NULL);
+			gint line = ianjuta_editor_get_line_from_position (editor, position, NULL);
+			
+			DEBUG_PRINT ("Matching brace found at line %d", line);
+			
+			line_indent = get_line_indentation_base (plugin, editor, line);
+			DEBUG_PRINT ("Line indentation = %d", line_indent);
+			
+			nchars = set_line_indentation (editor, current_line, line_indent);
+			DEBUG_PRINT ("Number of chars inserted at line %d = %d", current_line,
+						 nchars);
+			
+			line_begin = ianjuta_editor_get_line_begin_position (editor, current_line, NULL);
+			ianjuta_editor_goto_position (editor, line_begin + nchars + 1, NULL);
+			DEBUG_PRINT ("Cursor moved to position %d", line_begin + nchars + 1);
+		}
+	}
+	g_object_unref (iter);
 }
 
 static void

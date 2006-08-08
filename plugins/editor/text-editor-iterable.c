@@ -336,7 +336,7 @@ text_editor_cell_set_position (TextEditorCell *cell, gint position)
     ch = scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
 										   SCI_GETCHARAT,
 										   position, 0);
-	DEBUG_PRINT ("Iterator position set at %d where char '%c' is found", position, ch);
+	/* DEBUG_PRINT ("Iterator position set at %d where char '%c' is found", position, ch); */
 	if ((ch >= 0x80) && (ch < (0x80 + 0x40)))
 	{
 		/* un-aligned. Align it */
@@ -390,11 +390,37 @@ icell_get_char (IAnjutaEditorCell* icell, gint index, GError** e)
 	return (gchar) (c);
 }
 
+static IAnjutaEditorAttribute
+icell_get_attribute (IAnjutaEditorCell *cell, GError **e)
+{
+	IAnjutaEditorAttribute attrib = IANJUTA_EDITOR_TEXT;
+	TextEditorAttrib text_attrib =
+		text_editor_get_attribute (TEXT_EDITOR_CELL (cell)->priv->editor,
+								   TEXT_EDITOR_CELL (cell)->priv->position);
+	switch (text_attrib)
+	{
+		case TEXT_EDITOR_ATTRIB_TEXT:
+			attrib = IANJUTA_EDITOR_TEXT;
+			break;
+		case TEXT_EDITOR_ATTRIB_COMMENT:
+			attrib = IANJUTA_EDITOR_COMMENT;
+			break;
+		case TEXT_EDITOR_ATTRIB_KEYWORD:
+			attrib = IANJUTA_EDITOR_KEYWORD;
+			break;
+		case TEXT_EDITOR_ATTRIB_STRING:
+			attrib = IANJUTA_EDITOR_STRING;
+			break;
+	}
+	return attrib;
+}
+
 static void
 icell_iface_init (IAnjutaEditorCellIface* iface)
 {
 	iface->get_character = icell_get_character;
 	iface->get_char = icell_get_char;
+	iface->get_attribute = icell_get_attribute;
 	iface->get_length = icell_get_length;
 }
 
@@ -484,7 +510,9 @@ static gboolean
 iiter_previous (IAnjutaIterable* iter, GError** e)
 {
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
+	/*
 	gint saved_pos = cell->priv->position;
+	*/
 	
 	if (cell->priv->position <= 0)
 	{
@@ -494,8 +522,10 @@ iiter_previous (IAnjutaIterable* iter, GError** e)
 												   SCI_POSITIONBEFORE,
 												   cell->priv->position,
 												   0);
+	/*
 	DEBUG_PRINT ("Iterator position changed from %d to %d", saved_pos,
 				 cell->priv->position);
+	*/
 	return TRUE;
 }
 
@@ -597,6 +627,15 @@ iiter_get_length(IAnjutaIterable* iter, GError** e)
 	return length;
 }
 
+static IAnjutaIterable *
+iiter_clone (IAnjutaIterable *iter, GError **e)
+{
+	TextEditorCell *src = TEXT_EDITOR_CELL (iter);
+	TextEditorCell *cell = text_editor_cell_new (src->priv->editor,
+												 src->priv->position);
+	return IANJUTA_ITERABLE (cell);
+}
+
 static void
 iiter_iface_init(IAnjutaIterableIface* iface)
 {
@@ -608,6 +647,7 @@ iiter_iface_init(IAnjutaIterableIface* iface)
 	iface->set_position = iiter_set_position;
 	iface->get_position = iiter_get_position;
 	iface->get_length = iiter_get_length;
+	iface->clone = iiter_clone;
 }
 
 ANJUTA_TYPE_BEGIN(TextEditorCell, text_editor_cell, G_TYPE_OBJECT);
