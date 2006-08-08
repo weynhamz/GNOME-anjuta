@@ -679,6 +679,15 @@ interface IAnjutaEditor
 	void   ::update_ui ();
 
 	/**
+	 * ianjuta_editor_grab_focus:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Grabs the focus.
+	 */
+	void   grab_focus ();
+	
+	/**
 	 * ianjuta_editor_erase:
 	 * @obj: Self
 	 * @position: Start position of chars to erase. Must be 0 or more.

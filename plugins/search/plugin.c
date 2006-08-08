@@ -235,7 +235,7 @@ on_incremental_entry_key_press (GtkWidget *entry, GdkEventKey *event,
 		
 		te = ianjuta_document_manager_get_current_editor(plugin->docman, NULL);
 		if (te)
-			gtk_widget_grab_focus (GTK_WIDGET(te));
+			ianjuta_editor_grab_focus (te, NULL);
 	}
 }
 

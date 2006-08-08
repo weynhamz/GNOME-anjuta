@@ -564,6 +564,12 @@ ifile_iface_init (IAnjutaFileIface *iface)
 
 /* IAnjutaEditor interface */
 
+/* Grab focus */
+static void ieditor_grab_focus (IAnjutaEditor *editor, GError **e)
+{
+	gtk_widget_grab_focus (GTK_WIDGET (ANJUTA_SOURCEVIEW (editor)->priv->view));
+}
+
 /* Scroll to line */
 static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 {
@@ -867,6 +873,7 @@ ieditor_get_cell_iter(IAnjutaEditor* edit, gint position, GError** e)
 static void
 ieditor_iface_init (IAnjutaEditorIface *iface)
 {
+	iface->grab_focus = ieditor_grab_focus;
 	iface->goto_line = ieditor_goto_line;
 	iface->goto_position = ieditor_goto_position;
 	iface->get_text = ieditor_get_text;

@@ -1,3 +1,16 @@
+2006-08-08 Naba Kumar <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml,
+	manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml,
+	plugins/editor/text_editor.c,
+	plugins/sourceview/sourceview.c: Added grab_focus() in IAnjutaEditor
+	and implemented it for both scintilla and sourceview.
+
+	* plugins/search/plugin.c: Use the new grab_focus() to transfer
+	focus back to editor (happens when pressing esc in incremental
+	search box).
+
 2006-08-08 Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,

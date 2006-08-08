@@ -2211,6 +2211,12 @@ itext_editor_get_cell_iter (IAnjutaEditor *editor, gint position, GError **e)
 }
 
 static void
+itext_editor_grab_focus (IAnjutaEditor *editor, GError **e)
+{
+	gtk_widget_grab_focus (TEXT_EDITOR (editor)->scintilla);
+}
+
+static void
 itext_editor_iface_init (IAnjutaEditorIface *iface)
 {
 	iface->goto_line = itext_editor_goto_line;
@@ -2236,6 +2242,7 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_line_begin_position = itext_editor_get_line_begin_position;
 	iface->get_line_end_position = itext_editor_get_line_end_position;
 	iface->get_cell_iter = itext_editor_get_cell_iter;
+	iface->grab_focus = itext_editor_grab_focus;
 }
 
 /* IAnjutaEditorSelection implementation */
