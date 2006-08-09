@@ -1,5 +1,9 @@
 2006-08-09 Naba Kumar  <naba@gnome.org>
 
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade,
+	plugins/language-support-cpp-java/anjuta-language-support-cpp-java.ui:
+	Added missing files.
+
 	* plugins/sourceview/sourceview.c:  Implemented get_tabsize(),
 	get_use_spaces(), set_tabsize() and set_use_spaces().
 
