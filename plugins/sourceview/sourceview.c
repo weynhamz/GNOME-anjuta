@@ -570,6 +570,34 @@ static void ieditor_grab_focus (IAnjutaEditor *editor, GError **e)
 	gtk_widget_grab_focus (GTK_WIDGET (ANJUTA_SOURCEVIEW (editor)->priv->view));
 }
 
+static gint
+ieditor_get_tab_size (IAnjutaEditor *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	return gtk_source_view_get_tabs_width (GTK_SOURCE_VIEW (sv->priv->view));
+}
+
+static void
+ieditor_set_tab_size (IAnjutaEditor *editor, gint tabsize, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	gtk_source_view_set_tabs_width(GTK_SOURCE_VIEW(sv->priv->view), tabsize);
+}
+
+static gboolean
+ieditor_get_use_spaces (IAnjutaEditor *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	return gtk_source_view_get_insert_spaces_instead_of_tabs (GTK_SOURCE_VIEW(sv->priv->view));
+}
+
+static void
+ieditor_set_use_spaces (IAnjutaEditor *editor, gboolean use_spaces, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view), use_spaces);
+}
+
 /* Scroll to line */
 static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 {
@@ -874,6 +902,10 @@ static void
 ieditor_iface_init (IAnjutaEditorIface *iface)
 {
 	iface->grab_focus = ieditor_grab_focus;
+	iface->get_tabsize = ieditor_get_tab_size;
+	iface->set_tabsize = ieditor_set_tab_size;
+	iface->get_use_spaces = ieditor_get_use_spaces;
+	iface->set_use_spaces = ieditor_set_use_spaces;
 	iface->goto_line = ieditor_goto_line;
 	iface->goto_position = ieditor_goto_position;
 	iface->get_text = ieditor_get_text;

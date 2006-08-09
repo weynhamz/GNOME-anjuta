@@ -1,5 +1,10 @@
 2006-08-09 Naba Kumar  <naba@gnome.org>
 
+	* plugins/sourceview/sourceview.c:  Implemented get_tabsize(),
+	get_use_spaces(), set_tabsize() and set_use_spaces().
+
+2006-08-09 Naba Kumar  <naba@gnome.org>
+
 	* libanjuta/anjuta-plugin.c: Only merge preferences if the plugin
 	succeeded in activating.
 
@@ -36,7 +41,7 @@
 	plugins/editor/text_editor.h,
 	plugins/editor/text-editor-iterable.c,
 	plugins/sourceview/sourceview-cell.c,
-	plugins/sourceview/sourceview.c: Impleted editor attributes
+	plugins/sourceview/sourceview.c: Implemented editor attributes
 	methods.
 	
 	* plugins/editor/aneditor.cxx: Disabled old indentation code.
