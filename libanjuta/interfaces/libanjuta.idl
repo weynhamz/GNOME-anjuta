@@ -688,6 +688,48 @@ interface IAnjutaEditor
 	void   grab_focus ();
 	
 	/**
+	 * ianjuta_editor_get_tabsize:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Returns the tabsize (in spaces) currently used by the editor.
+	 *
+	 * Returns: tabsize in number of spaces
+	 */
+	gint   get_tabsize ();
+	
+	/**
+	 * ianjuta_editor_set_tabsize:
+	 * @obj: Self
+	 * @tabsize: Tabsize in spaces
+	 * @err: Error propagation and reporting
+	 *
+	 * Sets the tabsize of the editor.
+	 */
+	void   set_tabsize (gint tabsize);
+	
+	/**
+	 * ianjuta_editor_get_use_spaces:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Returns if the editor uses spaces for filling up tab characters.
+	 *
+	 * Returns: TRUE if yes, FALSE if no.
+	 */
+	gboolean   get_use_spaces ();
+	
+	/**
+	 * ianjuta_editor_set_use_space:
+	 * @obj: Self
+	 * @use_spaces: TRUE to use spaces, FALSE to use tab char directly.
+	 * @err: Error propagation and reporting
+	 *
+	 * Sets if the editor should use spaces for filling up tab characters.
+	 */
+	void   set_use_spaces (gboolean use_spaces);
+	
+	/**
 	 * ianjuta_editor_erase:
 	 * @obj: Self
 	 * @position: Start position of chars to erase. Must be 0 or more.

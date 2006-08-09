@@ -1,4 +1,22 @@
-2006-08-08 Naba Kumar <naba@gnome.org>
+2006-08-09 Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-plugin.c: Only merge preferences if the plugin
+	succeeded in activating.
+
+	* plugins/document-manager/plugin.c: Added debug message.
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/editor/text_editor.c: Implemented get_tabsize(),
+	get_use_spaces(), set_tabsize() and set_use_spaces().
+
+	* plugins/language-support-cpp-java/Makefile.am,
+	plugins/language-support-cpp-java/plugin.c,
+	plugins/language-support-cpp-java/plugin.h: Used editor parameters
+	for indentation. Added preferences page for paramenters.
+
+	* manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml: Updated.
+
+2006-08-08 Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,
 	manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml,
@@ -109,7 +127,6 @@
 	* libanjuta/interfaces/libanjuta.idl:
 	Added ianjuta_profile_unload
 
->>>>>>> 1.1298
 2006-07-31 Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,

@@ -984,8 +984,15 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 				plugin_object = anjuta_plugins_get_plugin_by_id (plugin->shell,
 																 plugin_id);
 				/* anjuta_plugin_activate (ANJUTA_PLUGIN (plugin_object)); */
-				docman_plugin->support_plugins = g_list_prepend (docman_plugin->support_plugins,
-																 plugin_object);
+				if (plugin_object)
+				{
+					docman_plugin->support_plugins = g_list_prepend (docman_plugin->support_plugins,
+																	 plugin_object);
+				}
+				else
+				{
+					DEBUG_PRINT ("Failed to load support plugin %s", plugin_id);
+				}
 				node = node->next;
 				g_free (plugin_id);
 			}

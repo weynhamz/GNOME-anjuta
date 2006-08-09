@@ -26,16 +26,28 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-cpp-java-plugin.ui"
+#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-language-cpp-java.glade"
+#define ICON_FILE "anjuta-language-cpp-java-plugin.png"
 
-#define TAB_SIZE 4
-#define INDENT_SIZE 4
-#define BRACE_INDENT_LEFT 0
+/* Preferences keys */
+
+#define PREF_INDENT_AUTOMATIC "language.cpp.indent.automatic"
+#define PREF_INDENT_ADAPTIVE "language.cpp.indent.adaptive"
+#define PREF_INDENT_TAB_INDENTS "language.cpp.indent.tab.indents"
+#define PREF_INDENT_STATEMENT_SIZE "language.cpp.indent.statement.size"
+#define PREF_INDENT_BRACE_SIZE "language.cpp.indent.brace.size"
+
+#define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
+#define USE_SPACES_FOR_INDENTATION (ianjuta_editor_get_use_spaces (editor, NULL))
+#define INDENT_SIZE (anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_STATEMENT_SIZE))
+#define BRACE_INDENT_LEFT (anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_BRACE_SIZE))
 #define BRACE_INDENT_RIGHT (INDENT_SIZE - BRACE_INDENT_LEFT)
-#define USE_SPACES_FOR_INDENTATION FALSE
+
 
 #define LEFT_BRACE(ch) (ch == ')'? '(' : (ch == '}'? '{' : (ch == ']'? '[' : ch)))  
 static gpointer parent_class;
@@ -126,7 +138,7 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 }
 
 static gchar *
-get_line_indentation_string (gint spaces)
+get_line_indentation_string (IAnjutaEditor *editor, gint spaces)
 {
 	gint i;
 	
@@ -277,7 +289,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 	/* Set new indentation */
 	if (indentation > 0)
 	{
-		indent_string = get_line_indentation_string (indentation);
+		indent_string = get_line_indentation_string (editor, indentation);
 		if (indent_string)
 		{
 			ianjuta_editor_insert (editor, line_begin,
@@ -477,13 +489,15 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 	lang_plugin = (CppJavaPlugin*) plugin;
 	
 	DEBUG_PRINT ("AnjutaLanguageCppJavaPlugin: Activating plugin ...");
-	
+
+	lang_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	lang_plugin->editor_watch_id = 
 		anjuta_plugin_add_watch (plugin,
 								 "document_manager_current_editor",
 								 on_value_added_current_editor,
 								 on_value_removed_current_editor,
 								 plugin);
+	DEBUG_PRINT ("AnjutaLanguageCppJavaPlugin: Activated plugin.");
 	return TRUE;
 }
 
@@ -531,5 +545,37 @@ cpp_java_plugin_class_init (GObjectClass *klass)
 	klass->dispose = cpp_java_plugin_dispose;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (CppJavaPlugin, cpp_java_plugin);
+static void
+ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
+					GError** e)
+{
+	GladeXML* gxml;
+		
+	/* Add preferences */
+	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
+	anjuta_preferences_add_page (prefs,
+								 gxml, "preferences", _("C/C++/Java"),
+								 ICON_FILE);
+	g_object_unref (gxml);
+}
+
+static void
+ipreferences_unmerge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
+					  GError** e)
+{
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), 
+										  _("C/C++/Java"));
+}
+
+static void
+ipreferences_iface_init (IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;	
+}
+
+ANJUTA_PLUGIN_BEGIN (CppJavaPlugin, cpp_java_plugin);
+ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
+ANJUTA_PLUGIN_END;
+
 ANJUTA_SIMPLE_PLUGIN (CppJavaPlugin, cpp_java_plugin);

@@ -62,13 +62,17 @@
 @get_lineno: 
 @get_overwrite: 
 @get_position: 
+@get_tabsize: 
 @get_text: 
+@get_use_spaces: 
 @goto_line: 
 @goto_position: 
 @grab_focus: 
 @insert: 
 @redo: 
 @set_popup_menu: 
+@set_tabsize: 
+@set_use_spaces: 
 @undo: 
 
 <!-- ##### FUNCTION ianjuta_editor_error_quark ##### -->

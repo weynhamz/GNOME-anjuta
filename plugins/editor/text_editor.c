@@ -1997,6 +1997,34 @@ text_editor_scintilla_command (TextEditor *te, gint command, glong wparam,
 
 /* IAnjutaEditor interface implementation */
 
+static gint
+itext_editor_get_tab_size (IAnjutaEditor *editor, GError **e)
+{
+	return scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
+								   SCI_GETTABWIDTH, 0, 0);
+}
+
+static void
+itext_editor_set_tab_size (IAnjutaEditor *editor, gint tabsize, GError **e)
+{
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
+							SCI_SETTABWIDTH, tabsize, 0);
+}
+
+static gboolean
+itext_editor_get_use_spaces (IAnjutaEditor *editor, GError **e)
+{
+	return !scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
+								    SCI_GETUSETABS, 0, 0);
+}
+
+static void
+itext_editor_set_use_spaces (IAnjutaEditor *editor, gboolean use_spaces, GError **e)
+{
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
+							SCI_SETUSETABS, !use_spaces, 0);
+}
+
 static void
 itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 {
@@ -2213,12 +2241,16 @@ itext_editor_get_cell_iter (IAnjutaEditor *editor, gint position, GError **e)
 static void
 itext_editor_grab_focus (IAnjutaEditor *editor, GError **e)
 {
-	gtk_widget_grab_focus (TEXT_EDITOR (editor)->scintilla);
+	text_editor_grab_focus (TEXT_EDITOR (editor));
 }
 
 static void
 itext_editor_iface_init (IAnjutaEditorIface *iface)
 {
+	iface->get_tabsize = itext_editor_get_tab_size;
+	iface->set_tabsize = itext_editor_set_tab_size;
+	iface->get_use_spaces = itext_editor_get_use_spaces;
+	iface->set_use_spaces = itext_editor_set_use_spaces;
 	iface->goto_line = itext_editor_goto_line;
 	iface->goto_position = itext_editor_goto_position;
 	iface->get_text = itext_editor_get_text;

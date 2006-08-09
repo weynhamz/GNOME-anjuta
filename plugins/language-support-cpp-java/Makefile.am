@@ -1,4 +1,11 @@
-# Sample Makefile for a anjuta plugin.
+
+# Plugin glade file
+cpp_java_gladedir = $(anjuta_glade_dir)
+cpp_java_glade_DATA = anjuta-language-cpp-java.glade
+
+# Plugin UI file
+cpp_java_uidir = $(anjuta_ui_dir)
+cpp_java_ui_DATA = anjuta-language-support-cpp-java.ui
 
 # Plugin Icon file
 cpp_java_pixmapsdir = $(anjuta_image_dir)
@@ -44,4 +51,5 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(cpp_java_plugin_DATA) \
 	$(cpp_java_ui_DATA) \
-	$(cpp_java_pixmaps_DATA)
+	$(cpp_java_pixmaps_DATA) \
+	$(cpp_java_glade_DATA)
