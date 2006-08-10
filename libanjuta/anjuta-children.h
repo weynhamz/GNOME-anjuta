@@ -25,6 +25,8 @@
 #include <sys/wait.h>
 #include <glib.h>
 
+G_BEGIN_DECLS
+
 /**
  * AnjutaChildTerminatedCallback:
  * @exit_staus: Exit status of the child.
@@ -42,5 +44,7 @@ void anjuta_children_unregister (pid_t pid);
 void anjuta_children_foreach (GFunc cb, gpointer data);
 void anjuta_children_recover (void);
 void anjuta_children_finalize(void);
+
+G_END_DECLS
 
 #endif

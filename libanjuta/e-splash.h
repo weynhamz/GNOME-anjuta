@@ -27,10 +27,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtkwindow.h>
 
-#ifdef __cplusplus
-extern "C" {
-#pragma }
-#endif /* __cplusplus */
+G_BEGIN_DECLS
 
 #define E_TYPE_SPLASH			(e_splash_get_type ())
 #define E_SPLASH(obj)			(GTK_CHECK_CAST ((obj), E_TYPE_SPLASH, ESplash))
@@ -38,7 +35,6 @@ extern "C" {
 #define E_IS_SPLASH(obj)			(GTK_CHECK_TYPE ((obj), E_TYPE_SPLASH))
 #define E_IS_SPLASH_CLASS(klass)		(GTK_CHECK_CLASS_TYPE ((obj), E_TYPE_SPLASH))
 
-
 typedef struct _ESplash        ESplash;
 typedef struct _ESplashPrivate ESplashPrivate;
 typedef struct _ESplashClass   ESplashClass;
@@ -66,8 +62,6 @@ void       e_splash_set                 (ESplash   *splash,
 										 const gchar *desc,
 										 gfloat progress_percentage);
 
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
+G_END_DECLS
 
 #endif /* _E_SPLASH_H_ */

@@ -1,3 +1,38 @@
+2006-08-10  Johannes Schmid <jhs@gnome.org>
+
+	* INSTALL:
+	* autogen.sh:
+	Required automake = 1.9
+
+	* libanjuta/anjuta-children.c:
+	* libanjuta/anjuta-children.h:
+	* libanjuta/anjuta-encodings.h:
+	* libanjuta/anjuta-launcher.h:
+	* libanjuta/anjuta-plugin-description.h:
+	* libanjuta/anjuta-preferences-dialog.h:
+	* libanjuta/anjuta-preferences.h:
+	* libanjuta/anjuta-session.h:
+	* libanjuta/anjuta-status.h:
+	* libanjuta/anjuta-ui.h:
+	* libanjuta/anjuta-utils.c:
+	* libanjuta/anjuta-utils.h:
+	* libanjuta/e-splash.h:
+	* libanjuta/glue-factory.h:
+	* libanjuta/glue-plugin.h:
+	* libanjuta/plugins.h:
+	* libanjuta/resources.h:
+	Fixed libanjuta to be able to wrap it
+	- G_BEGIN_DECLS, G_END_DECLS
+	- include all necessary files in libanjuta.h
+
+	* plugins/gtodo/tray-icon.c:
+	* plugins/terminal/terminal.c:
+	Some build fixes for freebsd
+
+	* plugins/sourceview/sourceview-prefs.c: (sourceview_prefs_init):
+	* plugins/sourceview/sourceview.glade:
+	Remove auto-indent feature as it is now in language-support
+
 2006-08-09 Naba Kumar  <naba@gnome.org>
 
 	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade,

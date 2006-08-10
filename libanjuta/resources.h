@@ -19,12 +19,9 @@
 #ifndef _RESOURCES_H_
 #define _RESOURCES_H_
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 #include <gtk/gtkwidget.h>
+
+G_BEGIN_DECLS
 
 GtkWidget* anjuta_res_lookup_widget (GtkWidget *widget,
 									 const gchar *widget_name);
@@ -53,8 +50,6 @@ void anjuta_res_help_search (const gchar * word);
 /* URI handler -- wrapped over gnome_url_show() */
 void anjuta_res_url_show(const char *url);
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS
 
 #endif /* _RESOURCES_H_ */

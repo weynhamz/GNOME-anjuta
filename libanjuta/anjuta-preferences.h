@@ -24,13 +24,9 @@
 #include <glade/glade.h>
 #include <gconf/gconf-client.h>
 
-// #include <libanjuta/properties.h>
 #include <libanjuta/anjuta-preferences-dialog.h>
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+G_BEGIN_DECLS
 
 typedef enum
 {
@@ -228,8 +224,6 @@ inline void anjuta_preferences_add_dir (AnjutaPreferences *pr, const gchar *dir,
 
 inline void anjuta_preferences_remove_dir (AnjutaPreferences *pr, const gchar *dir);
 
-#ifdef __cplusplus
-};
-#endif
+G_END_DECLS
 
 #endif

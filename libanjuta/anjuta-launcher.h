@@ -22,10 +22,7 @@
 #include <glib.h>
 #include <glib-object.h>
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+G_BEGIN_DECLS
 
 typedef struct _AnjutaLauncher      AnjutaLauncher;
 typedef struct _AnjutaLauncherClass AnjutaLauncherClass;
@@ -103,8 +100,6 @@ void anjuta_launcher_set_check_passwd_prompt (AnjutaLauncher *launcher,
 gboolean anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
 											gboolean echo_on);
 
-#ifdef __cplusplus
-};
-#endif
+G_END_DECLS
 
 #endif				/* __ANJUTA_LAUNCHER_H__ */

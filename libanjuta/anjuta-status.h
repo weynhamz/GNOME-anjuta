@@ -23,6 +23,8 @@
 #include <libgnomeui/gnome-appbar.h>
 #include <libgnome/gnome-macros.h>
 
+G_BEGIN_DECLS
+
 #define ANJUTA_TYPE_STATUS        (anjuta_status_get_type ())
 #define ANJUTA_STATUS(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_STATUS, AnjutaStatus))
 #define ANJUTA_STATUS_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ANJUTA_TYPE_STATUS, AnjutaStatusClass))
@@ -69,5 +71,7 @@ void anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks);
 void anjuta_status_progress_tick (AnjutaStatus *status,
 								  GdkPixbuf *icon, const gchar *text);
 void anjuta_status_progress_reset (AnjutaStatus *status);
+
+G_END_DECLS
 
 #endif

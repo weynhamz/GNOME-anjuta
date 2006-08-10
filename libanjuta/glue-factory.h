@@ -3,6 +3,8 @@
 
 #include <glib-object.h>
 
+G_BEGIN_DECLS
+
 #define GLUE_TYPE_FACTORY            (glue_factory_get_type ())
 #define GLUE_FACTORY(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GLUE_TYPE_FACTORY, GlueFactory))
 #define GLUE_FACTORY_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GLUE_TYPE_FACTORY, GlueFactoryClass))
@@ -25,4 +27,6 @@ GObject     *glue_factory_create_object   (GlueFactory  *factory,
 					   const gchar  *component_name,
 					   const gchar  *type_name,
 					   ...);
+					   
+G_END_DECLS
 #endif /* __GLUE_FACTORY_H__ */

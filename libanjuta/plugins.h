@@ -5,6 +5,8 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-plugin-description.h>
 
+G_BEGIN_DECLS
+
 /* Initialization and finalization */
 void anjuta_plugins_init (GList *plugin_dirs);
 void anjuta_plugins_finalize (void);
@@ -71,5 +73,7 @@ void anjuta_plugins_unload_all (AnjutaShell *shell);
  */
 #define anjuta_plugins_get_interface(shell, iface_type, error) \
 	(((iface_type*) anjuta_plugins_get_plugin((shell), #iface_type, (error)))
+
+G_END_DECLS
 
 #endif

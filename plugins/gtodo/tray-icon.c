@@ -1,5 +1,7 @@
 #include <config.h>
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
+#include <string.h>
 #include "main.h"
 #include "eggtrayicon.h"
 #include "tray-icon.h"

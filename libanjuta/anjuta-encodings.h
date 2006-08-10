@@ -34,6 +34,8 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <glade/glade.h>
 
+G_BEGIN_DECLS
+
 typedef struct _AnjutaEncoding AnjutaEncoding;
 
 const AnjutaEncoding* anjuta_encoding_get_from_charset (const gchar *charset);
@@ -50,5 +52,7 @@ void anjuta_encodings_init (AnjutaPreferences *pref, GladeXML *gxml);
 #define SAVE_ENCODING_ORIGINAL            "save.encoding.original"
 #define SAVE_ENCODING_CURRENT_LOCALE      "save.encoding.current.locale"
 #define SUPPORTED_ENCODINGS               "supported.encodings"
+
+G_END_DECLS
 
 #endif  /* __ANJUTA_ENCODINGS_H__ */

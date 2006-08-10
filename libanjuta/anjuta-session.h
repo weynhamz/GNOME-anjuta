@@ -82,5 +82,7 @@ gchar* anjuta_session_get_string (AnjutaSession *session, const gchar *section,
 GList* anjuta_session_get_string_list (AnjutaSession *session,
 									   const gchar *section,
 									   const gchar *key);
+									   
+G_END_DECLS;
 
 #endif /* _ANJUTA_SESSION_H_ */

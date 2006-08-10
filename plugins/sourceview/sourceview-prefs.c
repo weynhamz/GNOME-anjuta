@@ -27,7 +27,6 @@ static AnjutaPreferences* prefs = NULL;
 										   (gpointer)(notify_id));
 /* Editor preferences */
 #define DISABLE_SYNTAX_HILIGHTING  "disable.syntax.hilighting"
-#define INDENT_AUTOMATIC           "indent.automatic"
 #define USE_TABS                   "use.tabs"
 #define BRACES_CHECK               "braces.check"
 #define TAB_SIZE                   "tabsize"
@@ -96,17 +95,6 @@ on_gconf_notify_use_tab_for_indentation (GConfClient *gclient, guint cnxn_id,
 }
 
 static void
-on_gconf_notify_automatic_indentation (GConfClient *gclient, guint cnxn_id,
-									   GConfEntry *entry, gpointer user_data)
-{
-	Sourceview *sv;
-	gboolean auto_indent = get_bool(entry);
-	sv = ANJUTA_SOURCEVIEW(user_data);
-	
-	gtk_source_view_set_auto_indent(GTK_SOURCE_VIEW(sv->priv->view), auto_indent);
-}
-
-static void
 on_gconf_notify_braces_check (GConfClient *gclient, guint cnxn_id,
 							  GConfEntry *entry, gpointer user_data)
 {
@@ -116,20 +104,6 @@ on_gconf_notify_braces_check (GConfClient *gclient, guint cnxn_id,
 	
 	gtk_source_buffer_set_check_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
 										 braces_check);
-}
-
-static void
-on_gconf_notify_tab_indents (GConfClient *gclient, guint cnxn_id,
-							 GConfEntry *entry, gpointer user_data)
-{
-	
-}
-
-static void
-on_gconf_notify_backspace_unindents (GConfClient *gclient, guint cnxn_id,
-									 GConfEntry *entry, gpointer user_data)
-{
-	
 }
 
 static void
@@ -259,7 +233,6 @@ sourceview_prefs_init(Sourceview* sv)
 	gtk_source_view_set_tabs_width(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, TAB_SIZE));
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
 													  !get_key(sv, USE_TABS));
-	gtk_source_view_set_auto_indent(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, INDENT_AUTOMATIC));
 	gtk_source_buffer_set_check_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
 										 get_key(sv, BRACES_CHECK));
 	gtk_source_view_set_show_line_markers(GTK_SOURCE_VIEW(sv->priv->view), 
@@ -273,10 +246,7 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);
 	REGISTER_NOTIFY (DISABLE_SYNTAX_HILIGHTING, on_gconf_notify_disable_hilite);
-	REGISTER_NOTIFY (INDENT_AUTOMATIC, on_gconf_notify_automatic_indentation);
 	REGISTER_NOTIFY (BRACES_CHECK, on_gconf_notify_braces_check);
-	REGISTER_NOTIFY (TAB_INDENTS, on_gconf_notify_tab_indents);
-	REGISTER_NOTIFY (BACKSPACE_UNINDENTS, on_gconf_notify_backspace_unindents);
 	REGISTER_NOTIFY (VIEW_MARKER_MARGIN, on_gconf_notify_view_markers);
 	REGISTER_NOTIFY (VIEW_LINENUMBERS_MARGIN, on_gconf_notify_view_linenums);
 	REGISTER_NOTIFY (COLOR_THEME, on_gconf_notify_color_theme);

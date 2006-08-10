@@ -18,6 +18,7 @@
  */
 
 #include <libanjuta/anjuta-children.h>
+#include <signal.h>
 
 static GList *registered_child_processes = NULL;
 static GList *registered_child_processes_cb = NULL;

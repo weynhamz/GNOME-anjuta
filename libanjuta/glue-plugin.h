@@ -4,6 +4,8 @@
 #include <glib-object.h>
 #include <gmodule.h>
 
+G_BEGIN_DECLS
+
 #define GLUE_TYPE_PLUGIN            (glue_plugin_get_type ())
 #define GLUE_PLUGIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GLUE_TYPE_PLUGIN, GluePlugin))
 #define GLUE_PLUGIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GLUE_TYPE_PLUGIN, GluePluginClass))
@@ -68,5 +70,7 @@ glue_get_component_type (GluePlugin *plugin, const char *name) \
 \
   return G_TYPE_INVALID; \
 } 
+
+G_END_DECLS
 
 #endif /* __GLUE_PLUGIN_H__ */

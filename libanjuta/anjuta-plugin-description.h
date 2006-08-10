@@ -22,6 +22,8 @@
 
 #include <glib.h>
 
+G_BEGIN_DECLS
+
 typedef struct _AnjutaPluginDescription AnjutaPluginDescription;
 
 typedef void (*AnjutaPluginDescriptionSectionFunc) (AnjutaPluginDescription *df,
@@ -90,4 +92,6 @@ gboolean anjuta_plugin_description_get_locale_string (AnjutaPluginDescription *d
 													  const gchar *section,
 													  const gchar *keyname,
 													  gchar **val);
+G_END_DECLS;
+
 #endif /* ANJUTA_PLUGIN_PARSER_H */

@@ -27,6 +27,8 @@
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/plugins.h>
 
+#include <signal.h>
+
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-terminal.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-terminal-plugin.glade"
 #define ICON_FILE "preferences-terminal.png"

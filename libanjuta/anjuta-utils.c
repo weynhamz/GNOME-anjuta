@@ -107,19 +107,6 @@ anjuta_util_copy_file (gchar * src, gchar * dest, gboolean show_error)
 	return error;
 }
 
-static gint
-int_from_hex_digit (const gchar ch)
-{
-	if (isdigit (ch))
-		return ch - '0';
-	else if (ch >= 'A' && ch <= 'F')
-		return ch - 'A' + 10;
-	else if (ch >= 'a' && ch <= 'f')
-		return ch - 'a' + 10;
-	else
-		return 0;
-}
-
 void
 anjuta_util_color_from_string (const gchar * val, guint16 * r, guint16 * g, guint16 * b)
 {

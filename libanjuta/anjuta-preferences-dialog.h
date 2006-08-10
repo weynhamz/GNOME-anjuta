@@ -20,6 +20,8 @@
 #ifndef ANJUTA_PREFERENCES_DIALOG_H
 #define ANJUTA_PREFERENCES_DIALOG_H
 
+G_BEGIN_DECLS
+
 #include <gtk/gtkdialog.h>
 
 #define ANJUTA_TYPE_PREFERENCES_DIALOG        (anjuta_preferences_dialog_get_type ())
@@ -54,5 +56,7 @@ void anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
 
 void anjuta_preferences_dialog_remove_page (AnjutaPreferencesDialog *dlg,
 											const char *title);
+
+G_END_DECLS
 
 #endif

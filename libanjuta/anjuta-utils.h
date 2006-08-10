@@ -26,6 +26,8 @@
 
 #include <libanjuta/anjuta-preferences.h>
 
+G_BEGIN_DECLS
+
 gboolean anjuta_util_copy_file (gchar * src, gchar * dest, gboolean show_error);
 
 gboolean anjuta_util_diff(const gchar* uri, const gchar* text);
@@ -160,5 +162,7 @@ prefix##_get_type (void)                                  \
 #define ANJUTA_TYPE_BOILERPLATE(class_name, prefix, parent_type) \
 ANJUTA_TYPE_BEGIN(class_name, prefix, parent_type);              \
 ANJUTA_TYPE_END
+
+G_END_DECLS
 
 #endif

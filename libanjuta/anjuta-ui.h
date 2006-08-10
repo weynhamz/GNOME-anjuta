@@ -34,6 +34,8 @@
 #include <gtk/gtkaccelgroup.h>
 #include <gtk/gtkuimanager.h>
 
+G_BEGIN_DECLS
+
 #define ANJUTA_TYPE_UI        (anjuta_ui_get_type ())
 #define ANJUTA_UI(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_UI, AnjutaUI))
 #define ANJUTA_UI_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST((k), ANJUTA_TYPE_UI, AnjutaUIClass))
@@ -123,5 +125,7 @@ GtkWidget* anjuta_ui_get_accel_editor (AnjutaUI *ui);
 
 /* Dump the whole tree in STDOUT. Useful for debugging */
 void anjuta_ui_dump_tree (AnjutaUI *ui);
+
+G_END_DECLS
 
 #endif
