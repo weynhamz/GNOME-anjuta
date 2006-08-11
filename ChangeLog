@@ -1,3 +1,15 @@
+2006-08-11 Naba Kumar  <naba@gnome.org>
+
+	* plugins/sourceview/sourceview-cell.c: Fixed get_character () to
+	return the right character at the iter position and get_char() to
+	not leak memory.
+
+	* plugins/sourceview/sourceview.c: Fixed get_line_begin_position()
+	to set to character offset and not byte index.
+
+	* plugins/language-support-cpp-java/plugin.c: Improved
+	auto-indentation login. Indents opening and closing braces correctly.
+
 2006-08-10  Johannes Schmid <jhs@gnome.org>
 
 	* INSTALL:

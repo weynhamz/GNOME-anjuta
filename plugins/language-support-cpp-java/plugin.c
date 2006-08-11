@@ -109,8 +109,10 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 	
 	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
-	/* DEBUG_PRINT ("line begin = %d, line end = %d", line_begin, line_end); */
-	
+	/*
+	DEBUG_PRINT ("%s: line begin = %d, line end = %d", __FUNCTION__,
+				 line_begin, line_end);
+	*/
 	if (line_begin == line_end)
 		return 0;
 	
@@ -247,18 +249,20 @@ static gint
 set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 {
 	gint line_begin, line_end, indent_position;
+	gint current_pos;
 	gchar *line_string, *idx;
-	gint delta_indentation;
-	gint line_indent = 0;
-	gint nchars = 0;
-	gchar *indent_string;
+	gint nchars = 0, nchars_removed = 0;
+	gchar *old_indent_string = NULL, *indent_string = NULL;
 	
 	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
-	
+	current_pos = ianjuta_editor_get_position (editor, NULL);
 	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
-	/* DEBUG_PRINT ("line begin = %d, line end = %d", line_begin, line_end); */
 	
+	/*
+	DEBUG_PRINT ("line begin = %d, line end = %d, current_pos = %d",
+				 line_begin, line_end, current_pos);
+	*/
 	indent_position = line_begin;
 	
 	if (line_end > line_begin)
@@ -281,24 +285,158 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 		}
 	}
 	
-	/* Remove existing indentation */
-	if (indent_position > line_begin)
-		ianjuta_editor_erase (editor, line_begin,
-							  indent_position - line_begin, NULL);
-	
 	/* Set new indentation */
 	if (indentation > 0)
 	{
-		indent_string = get_line_indentation_string (editor, indentation);
+		indent_string = get_line_indentation_string (editor,
+													 indentation);
+		nchars = strlen (indent_string);
+		
+		/* Only indent if there is something to indent with */
 		if (indent_string)
 		{
-			ianjuta_editor_insert (editor, line_begin,
-								   indent_string, -1, NULL);
-			nchars = strlen (indent_string);
-			g_free (indent_string);
+			/* Get existing indentation */
+			if (indent_position > line_begin)
+			{
+				old_indent_string = ianjuta_editor_get_text (editor, line_begin,
+															 indent_position - line_begin,
+															 NULL);
+				nchars_removed = strlen (old_indent_string);
+			}
+			
+			/* Only indent if there was no indentation before or old
+			 * indentation string was different from the new indent string
+			 */
+			if (old_indent_string == NULL ||
+				strcmp (old_indent_string, indent_string) != 0)
+			{
+				/* Remove the old indentation string, if there is any */
+				if (old_indent_string)
+					ianjuta_editor_erase (editor, line_begin,
+										  indent_position - line_begin, NULL);
+				
+				/* Insert the new indentation string */
+				ianjuta_editor_insert (editor, line_begin,
+									   indent_string, -1, NULL);
+			}
 		}
 	}
+	
+	/* If indentation == 0, we really didn't enter the previous code block,
+	 * but we may need to clear existing indentation.
+	 */
+	if (indentation == 0)
+	{
+		/* Get existing indentation */
+		if (indent_position > line_begin)
+		{
+			old_indent_string = ianjuta_editor_get_text (editor, line_begin,
+														 indent_position - line_begin,
+														 NULL);
+			nchars_removed = strlen (old_indent_string);
+		}
+		if (old_indent_string)
+			ianjuta_editor_erase (editor, line_begin,
+								  indent_position - line_begin, NULL);
+				
+	}
+	
+	/* Restore current position */
+	if (current_pos >= indent_position)
+	{
+		/* If the cursor was not before the first non-space character in
+		 * the line, restore it's position after indentation.
+		 */
+		gint delta_position = nchars - nchars_removed;
+		ianjuta_editor_goto_position (editor, current_pos + delta_position,
+									  NULL);
+		DEBUG_PRINT ("Restored position to %d", current_pos + delta_position);
+	}
+	else if (current_pos >= line_begin)
+	{
+		/* If the cursor was somewhere in the old indentation spaces,
+		 * home the cursor to first non-space character in the line (or
+		 * end of line if there is no non-space characters in the line.
+		 */
+		ianjuta_editor_goto_position (editor, current_pos + nchars,
+									  NULL);
+	}
+	
+	g_free (old_indent_string);
+	g_free (indent_string);
 	return nchars;
+}
+
+static gint
+get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
+						   gint line)
+{
+	IAnjutaIterable *iter;
+	IAnjutaEditorAttribute attrib;
+	gint line_indent = 0;
+	gint line_begin;
+	
+	g_return_val_if_fail (line > 1, 0);
+	
+	line_begin = ianjuta_editor_get_line_begin_position (editor, line, NULL);
+	iter = ianjuta_editor_get_cell_iter (editor, line_begin, NULL);
+	
+	attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter),
+												NULL);
+	if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
+	{
+		line_indent = get_line_indentation (editor, line - 1);
+	}
+	else
+	{
+		line_indent = get_line_indentation_base (plugin, editor, line);
+	}
+	
+	/* Determine what the first non-white char in the line is */
+	do
+	{
+		gchar ch;
+		attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter),
+													NULL);
+		if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
+		{
+			break;
+		}
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+										   0, NULL);
+		if (ch == '\n')
+			break;
+		
+		if (ch == '{')
+		{
+			/* The first level braces are excused from brace indentation */
+			DEBUG_PRINT ("Increasing indent level from %d to %d", line_indent,
+						 line_indent + BRACE_INDENT_LEFT);
+			if (line_indent > 0)
+				line_indent += BRACE_INDENT_LEFT;
+			break;
+		}
+		else if (ch == '}')
+		{
+			ianjuta_iterable_previous (iter, NULL);
+			if (jumb_to_matching_brace (iter, ch))
+			{
+				gint position = ianjuta_iterable_get_position (iter, NULL);
+				gint line = ianjuta_editor_get_line_from_position (editor,
+																   position,
+																   NULL);
+				line_indent = get_line_indentation (editor, line);
+			}
+			break;
+		}
+		else if (!isspace (ch))
+		{
+			break;
+		}
+	}
+	while (ianjuta_iterable_next (iter, NULL));
+	g_object_unref (iter);
+	return line_indent;
 }
 
 static void
@@ -307,67 +445,88 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 							 gchar ch,
 							 CppJavaPlugin *plugin)
 {
-	gint current_line;
-	gint line_indent;
-	gint nchars;
+	IAnjutaEditorAttribute attrib;
 	IAnjutaIterable *iter;
+	gboolean should_auto_indent = FALSE;
 	
-	/* Disable for now */
-	/* DEBUG_PRINT ("Indenting cpp code with char '%c'", ch); */
+	/* Do nothing if automatic indentation is not enabled */
+	if (!anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_AUTOMATIC))
+		return;
 	
 	iter = ianjuta_editor_get_cell_iter (editor, current_pos, NULL);
 	
 	if (ch == '\n')
 	{
-		IAnjutaEditorAttribute attrib =
-			ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter), NULL);
-		if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
+		/* All newline entries means enable indenting */
+		should_auto_indent = TRUE;
+	}
+	else if (ch == '{' || ch == '}')
+	{
+		/* Indent only when it's the first non-white space char in the line */
+		
+		/* Don't bother if we are inside comment or string */
+		attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter),
+													NULL);
+		if (attrib != IANJUTA_EDITOR_COMMENT &&
+			attrib != IANJUTA_EDITOR_STRING)
 		{
-			DEBUG_PRINT ("Inside comment or string");
-			current_line = ianjuta_editor_get_lineno (editor, NULL);
-			line_indent = get_line_indentation_base (plugin, editor, current_line);
-			DEBUG_PRINT ("Line indentation = %d", line_indent);
-			nchars = set_line_indentation (editor, current_line, line_indent);
-			DEBUG_PRINT ("Number of chars inserted at line %d = %d", current_line,
-						 nchars);
-			ianjuta_editor_goto_position (editor, current_pos + nchars, NULL);
-			DEBUG_PRINT ("Cursor moved to position %d", current_pos + nchars);
-		}
-		else
-		{
-			current_line = ianjuta_editor_get_lineno (editor, NULL);
-			line_indent = get_line_indentation_base (plugin, editor, current_line);
-			DEBUG_PRINT ("Line indentation = %d", line_indent);
-			nchars = set_line_indentation (editor, current_line, line_indent);
-			DEBUG_PRINT ("Number of chars inserted at line %d = %d", current_line,
-						 nchars);
-			ianjuta_editor_goto_position (editor, current_pos + nchars, NULL);
-			DEBUG_PRINT ("Cursor moved to position %d", current_pos + nchars);
+			/* Iterate backwards till the begining of the line and disable
+			 * indenting if any non-white space char is encountered
+			 */
+			
+			/* Begin by assuming it should be indented */
+			should_auto_indent = TRUE;
+			
+			ianjuta_iterable_previous (iter, NULL);
+			while (ianjuta_iterable_previous (iter, NULL))
+			{
+				ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+												   0, NULL);
+				
+				DEBUG_PRINT ("Looking at char '%c'", ch);
+				
+				/* Break on begining of line (== end of previous line) */
+				if (ch == '\n')
+					break;
+				
+				/* If a non-white space char is encountered, disabled indenting */
+				if (!isspace (ch))
+				{
+					should_auto_indent = FALSE;
+					break;
+				}
+			}
 		}
 	}
-	else if (ch == '}')
+	else if (ch == '\t' &&
+			 anjuta_preferences_get_int (plugin->prefs,
+										 PREF_INDENT_TAB_INDENTS))
 	{
-		current_line = ianjuta_editor_get_lineno (editor, NULL);
-		ianjuta_iterable_previous (iter, NULL);
-		if (jumb_to_matching_brace (iter, ch))
+		/* Indent on tab enabled */
+		/* Don't bother if we are inside comment or string */
+		attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter),
+													NULL);
+		if (attrib != IANJUTA_EDITOR_COMMENT &&
+			attrib != IANJUTA_EDITOR_STRING)
 		{
-			gint line_begin;
-			gint position = ianjuta_iterable_get_position (iter, NULL);
-			gint line = ianjuta_editor_get_line_from_position (editor, position, NULL);
 			
-			DEBUG_PRINT ("Matching brace found at line %d", line);
+			/* Ensure that we remove the inserted tab */
+			ianjuta_editor_erase (editor, current_pos, 1, NULL);
 			
-			line_indent = get_line_indentation_base (plugin, editor, line);
-			DEBUG_PRINT ("Line indentation = %d", line_indent);
-			
-			nchars = set_line_indentation (editor, current_line, line_indent);
-			DEBUG_PRINT ("Number of chars inserted at line %d = %d", current_line,
-						 nchars);
-			
-			line_begin = ianjuta_editor_get_line_begin_position (editor, current_line, NULL);
-			ianjuta_editor_goto_position (editor, line_begin + nchars + 1, NULL);
-			DEBUG_PRINT ("Cursor moved to position %d", line_begin + nchars + 1);
+			should_auto_indent = TRUE;
 		}
+	}
+	
+	if (should_auto_indent)
+	{
+		gint current_line;
+		gint line_indent;
+		gint nchars;
+		
+		current_line = ianjuta_editor_get_lineno (editor, NULL);
+		line_indent = get_line_auto_indentation (plugin, editor, current_line);
+		nchars = set_line_indentation (editor, current_line, line_indent);
+		/* ianjuta_editor_goto_position (editor, current_pos + nchars, NULL); */
 	}
 	g_object_unref (iter);
 }

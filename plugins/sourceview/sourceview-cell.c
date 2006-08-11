@@ -95,15 +95,17 @@ static gchar*
 icell_get_character(IAnjutaEditorCell* icell, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
-	GtkTextIter iter;
+	GtkTextIter iter, iter_next;
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &iter,
 									 cell->priv->mark);
-	GtkTextIter* iter_prev = gtk_text_iter_copy(&iter);
-	if (gtk_text_iter_backward_char(iter_prev))
+	iter_next = iter;
+	if (gtk_text_iter_forward_char (&iter_next))
 	{
-		return gtk_text_iter_get_text(&iter, iter_prev);
+		return gtk_text_iter_get_text (&iter, &iter_next);
 	}
-	else
+	else /* This should never happen, as the iter is always at least one less
+		  * then last
+		  */
 		return strdup("");
 }
 
@@ -121,14 +123,13 @@ icell_get_length(IAnjutaEditorCell* icell, GError** e)
 static gchar
 icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 {
+	gchar ch = '\0';
 	gchar* characters = icell_get_character(icell, NULL);
 	
-	if (strlen(characters) > index)
-		return characters[index];
-	else
-	{
-		return '\0';
-	}
+	if (characters && strlen(characters) > index)
+		ch = characters[index];
+	g_free (characters);
+	return ch;
 }
 
 static IAnjutaEditorAttribute

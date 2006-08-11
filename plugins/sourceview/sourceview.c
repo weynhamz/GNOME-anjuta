@@ -846,9 +846,9 @@ static gint ieditor_get_line_begin_position(IAnjutaEditor *editor,
 	GtkTextIter iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	
-	gtk_text_buffer_get_iter_at_line_index(GTK_TEXT_BUFFER(sv->priv->document),
-										   &iter, line - 1, 0);
-	return gtk_text_iter_get_offset(&iter);
+	gtk_text_buffer_get_iter_at_line_offset (GTK_TEXT_BUFFER(sv->priv->document),
+											 &iter, line - 1, 0);
+	return gtk_text_iter_get_offset (&iter);
 }
 
 static gint ieditor_get_line_end_position(IAnjutaEditor *editor,
