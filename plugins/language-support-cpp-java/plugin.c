@@ -152,7 +152,7 @@ get_line_indentation_string (IAnjutaEditor *editor, gint spaces)
 	
 	if (USE_SPACES_FOR_INDENTATION)
 	{
-		gchar *indent_string = g_new(gchar, spaces + 1);
+		gchar *indent_string = g_new0 (gchar, spaces + 1);
 		for (i = 0; i < spaces; i++)
 			indent_string[i] = ' ';
 		return indent_string;
@@ -161,7 +161,7 @@ get_line_indentation_string (IAnjutaEditor *editor, gint spaces)
 	{
 		gint num_tabs = spaces / TAB_SIZE;
 		gint num_spaces = spaces % TAB_SIZE;
-		gchar *indent_string = g_new0(gchar, num_tabs + num_spaces + 1);
+		gchar *indent_string = g_new0 (gchar, num_tabs + num_spaces + 1);
 		
 		for (i = 0; i < num_tabs; i++)
 			indent_string[i] = '\t';
@@ -441,7 +441,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 
 static void
 on_editor_char_inserted_cpp (IAnjutaEditor *editor,
-							 gint current_pos,
+							 gint insert_pos,
 							 gchar ch,
 							 CppJavaPlugin *plugin)
 {
@@ -453,7 +453,9 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	if (!anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_AUTOMATIC))
 		return;
 	
-	iter = ianjuta_editor_get_cell_iter (editor, current_pos, NULL);
+	DEBUG_PRINT ("Char added at position %d: '%c'", insert_pos, ch);
+	
+	iter = ianjuta_editor_get_cell_iter (editor, insert_pos, NULL);
 	
 	if (ch == '\n')
 	{
@@ -477,7 +479,6 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 			/* Begin by assuming it should be indented */
 			should_auto_indent = TRUE;
 			
-			ianjuta_iterable_previous (iter, NULL);
 			while (ianjuta_iterable_previous (iter, NULL))
 			{
 				ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
@@ -511,7 +512,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 		{
 			
 			/* Ensure that we remove the inserted tab */
-			ianjuta_editor_erase (editor, current_pos, 1, NULL);
+			ianjuta_editor_erase (editor, insert_pos, 1, NULL);
 			
 			should_auto_indent = TRUE;
 		}
@@ -519,27 +520,23 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	
 	if (should_auto_indent)
 	{
-		gint current_line;
+		gint insert_line;
 		gint line_indent;
-		gint nchars;
 		
-		current_line = ianjuta_editor_get_lineno (editor, NULL);
-		line_indent = get_line_auto_indentation (plugin, editor, current_line);
-		nchars = set_line_indentation (editor, current_line, line_indent);
-		/* ianjuta_editor_goto_position (editor, current_pos + nchars, NULL); */
+		insert_line = ianjuta_editor_get_lineno (editor, NULL);
+		line_indent = get_line_auto_indentation (plugin, editor, insert_line);
+		set_line_indentation (editor, insert_line, line_indent);
 	}
 	g_object_unref (iter);
 }
 
 static void
 on_editor_char_inserted_java (IAnjutaEditor *editor,
-							  gint position,
+							  gint insert_pos,
 							  gchar ch,
 							  CppJavaPlugin *plugin)
 {
-	if (ch != '\n' || ch != '\t')
-		return;
-	DEBUG_PRINT ("Indenting java code");
+	on_editor_char_inserted_cpp (editor, insert_pos, ch, plugin);
 }
 
 static void

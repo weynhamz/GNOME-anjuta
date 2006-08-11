@@ -341,10 +341,11 @@ protected:
 	void Notify(SCNotification *notification);
 	static void NotifySignal(GtkWidget *w, gint wParam, gpointer lParam,
 							 AnEditor *scitew);
+	/*
 	int KeyPress (unsigned int state, unsigned int keyval);
 	static gint KeyPressEvent(GtkWidget *w, GdkEventKey *event,
 							  AnEditor *editor);
-
+	 */
 	void BookmarkToggle( int lineno = -1 );
 	void BookmarkFirst();
 	void BookmarkPrev();

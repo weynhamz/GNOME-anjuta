@@ -868,7 +868,12 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 			if (event->keyval == GDK_Return)
 			{
 				g_signal_emit_by_name (G_OBJECT(view), "char_added",
-									   pos + 1, '\n');
+									   pos, '\n');
+			}
+			else if (event->keyval == GDK_Tab)
+			{
+				g_signal_emit_by_name (G_OBJECT(view), "char_added",
+									   pos, '\t');
 			}
 			else
 			{
@@ -877,11 +882,12 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 				if (g_unichar_to_utf8(uc, unistring) >= 1)
 				{
 					guint read, written;
-					gchar* string = g_locale_from_utf8(unistring, 1, &read, &written, NULL);
+					gchar* string = g_locale_from_utf8(unistring, 1, &read,
+													   &written, NULL);
 					if (string != NULL && read == 1 && written == 1)
 					{
 						g_signal_emit_by_name (G_OBJECT(view), "char_added",
-											   pos  + 1, string[0]);
+											   pos, string[0]);
 					}
 					g_free(string);
 				}

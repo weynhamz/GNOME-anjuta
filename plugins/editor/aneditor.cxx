@@ -134,12 +134,12 @@ AnEditor::AnEditor(PropSetFile* p) {
 	/* Set default editor mode */
 	SendEditor(SCI_SETEOLMODE, SC_EOL_LF);
 	
+#if 0
 	// Trap 'TAB' key for automatic indentation.
 	// SendEditor (SCI_ASSIGNCMDKEY, SCK_TAB, SCI_NULL);
 	g_signal_connect (wEditor.GetID(), "key-press-event",
 					  G_CALLBACK (KeyPressEvent), this);
 
-#if 0
 	/* Register images to be used for autocomplete */
 	typedef struct {
 		SVNodeType type;
@@ -1424,9 +1424,9 @@ void AnEditor::CharAdded(char ch) {
 					StartCallTip_new();
 				} else {
 					autoCCausedByOnlyOne = false;
-					/*
 					if (indentMaintain)
 						MaintainIndentation(ch);
+					/*
 					else if (props->GetInt("indent.automatic"))
 						AutomaticIndentation(ch);
 					*/
@@ -2161,9 +2161,11 @@ bool AnEditor::MarginClick(int position, int modifiers) {
 	return true;
 }
 
+#if 0
 gint AnEditor::KeyPressEvent(GtkWidget *, GdkEventKey *event, AnEditor *anedit) {
 	return anedit->KeyPress(event->state, event->keyval);
 }
+#endif
 
 void AnEditor::NotifySignal(GtkWidget *, gint /*wParam*/, gpointer lParam, AnEditor *anedit) {
 	anedit->Notify(reinterpret_cast<SCNotification *>(lParam));
@@ -2293,6 +2295,7 @@ void AnEditor::HandleDwellStart(int mousePos) {
 	debugTipOn = true;
 }
 
+#if 0
 int AnEditor::KeyPress(unsigned int state, unsigned int keyval){
 
 	unsigned int mask = GDK_SHIFT_MASK | GDK_LOCK_MASK |
@@ -2321,6 +2324,7 @@ int AnEditor::KeyPress(unsigned int state, unsigned int keyval){
 	}
 	return false;
 }
+#endif
 
 void AnEditor::Notify(SCNotification *notification) {
 	switch (notification->nmhdr.code) {
