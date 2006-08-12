@@ -1,3 +1,11 @@
+2006-08-12 Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/aneditor-indent.cxx, plugins/editor/aneditor-priv.h,
+	plugins/editor/aneditor.cxx, plugins/editor/aneditor.h,
+	plugins/editor/editor.glade, plugins/editor/text_editor.h,
+	plugins/editor/text_editor_prefs.c: Disabled automatic indentation
+	codes and dead codes. Removed automatic indentation prefs.
+
 2006-08-12  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/Makefile.am:
