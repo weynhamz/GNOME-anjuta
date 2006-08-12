@@ -240,19 +240,23 @@ void text_editor_scintilla_command (TextEditor *te, gint command,
 /* Editor preferences */
 #define DISABLE_SYNTAX_HILIGHTING  "disable.syntax.hilighting"
 #define SAVE_AUTOMATIC             "save.automatic"
+/*
 #define INDENT_AUTOMATIC           "indent.automatic"
+*/
 #define USE_TABS                   "use.tabs"
 #define BRACES_CHECK               "braces.check"
 #define DOS_EOL_CHECK              "editor.doseol"
 #define WRAP_BOOKMARKS             "editor.wrapbookmarks"
 #define TAB_SIZE                   "tabsize"
 #define INDENT_SIZE                "indent.size"
+/*
 #define INDENT_OPENING             "indent.opening"
 #define INDENT_CLOSING             "indent.closing"
+*/
 #define INDENT_MAINTAIN            "indent.maintain"
+
 #define TAB_INDENTS                "tab.indents"
 #define BACKSPACE_UNINDENTS        "backspace.unindents"
-
 #define AUTOSAVE_TIMER             "autosave.timer"
 #define SAVE_SESSION_TIMER         "save.session.timer"
 

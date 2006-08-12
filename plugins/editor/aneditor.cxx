@@ -47,12 +47,14 @@ AnEditor::AnEditor(PropSetFile* p) {
 	characterSet = 0;
 	language = "java";
 	lexLanguage = SCLEX_CPP;
+	/*
 	indentSize = 8;
 	indentOpening = true;
 	indentClosing = true;
-	indentMaintain = true;
 	statementLookback = 10;
-
+	*/
+	indentMaintain = true;
+	
 	wrapLine = true;
 	isReadOnly = false;
 	fnEditor = 0;
@@ -380,6 +382,8 @@ void AnEditor::GetRange(guint start, guint end, gchar *text, gboolean styled) {
 		SendEditor (SCI_GETTEXTRANGE, 0, reinterpret_cast<long>(&tr));
 }
 
+#if 0
+
 /**
  * Check if the given line is a preprocessor condition line.
  * @return The kind of preprocessor condition (enum values).
@@ -513,6 +517,8 @@ bool AnEditor::FindMatchingPreprocCondPosition(
 	}
 	return isInside;
 }
+#endif
+
 #ifdef __BORLANDC__
 #pragma warn .aus
 #endif
@@ -1211,7 +1217,7 @@ bool AnEditor::StartStreamComment() {
 	return true;
 }
 
-
+#if 0
 SString AnEditor::GetMode(SString language) {
 	SString mode;	
 	if (strcmp(language.c_str(), "cpp") == 0)
@@ -1333,6 +1339,7 @@ bool AnEditor::InsertCustomIndent() {
 	return TRUE;
 }
 	
+#endif
 
 /**
  * Return the length of the given line, not counting the EOL.
@@ -1857,10 +1864,10 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	
 	case ANE_STREAMCOMMENT:
 		return StartStreamComment();
-	
+	/*
 	case ANE_CUSTOMINDENT:
 		return InsertCustomIndent();
-	
+	*/
 	case ANE_WORDSELECT:
 		WordSelect();
 		break;
@@ -1878,11 +1885,11 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_SETWRAPBOOKMARKS:
 		// Nothing to do.
 		break;
-		
+	/*
 	case ANE_SETAUTOINDENTATION:
 		// Nothing to do.
 		break;
-		
+	*/
 	case ANE_SETUSETABFORINDENT:
 		SendEditor(SCI_SETUSETABS, wParam);
 		break;
@@ -1891,11 +1898,11 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 		indentSize = wParam;
 		SendEditor(SCI_SETINDENT, wParam);
 		break;
-		
+	
 	case ANE_SETINDENTBRACESCHECK:
 		bracesCheck = wParam;
 		break;
-		
+	/*
 	case ANE_SETINDENTOPENING:
 		indentOpening = wParam;
 		break;
@@ -1903,7 +1910,7 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_SETINDENTCLOSING:
 		indentClosing = wParam;
 		break;
-		
+	*/
 	case ANE_SETINDENTMAINTAIN:
 		if (wParam)
 			props->Set ("indent.maintain.*", "1");
@@ -1911,6 +1918,7 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 			props->Set ("indent.opening.*", "0");
 		indentMaintain = wParam;
 		break;
+	
 	case ANE_SETTABINDENTS:
 		SendEditor(SCI_SETTABINDENTS, wParam);
 		break;
@@ -1918,7 +1926,7 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_SETBACKSPACEUNINDENTS:
 		SendEditor(SCI_SETBACKSPACEUNINDENTS, wParam);
 		break;
-		
+	
 	case ANE_SETFOLDSYMBOLS:
 		SetFoldSymbols(reinterpret_cast<char *> (wParam));
 		break;
@@ -2895,18 +2903,21 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	}
 	indentSize = props->GetInt("indent.size");
 	SendEditor(SCI_SETINDENT, indentSize);
-	
+	/*
 	indentOpening = props->GetInt("indent.opening");
 	indentClosing = props->GetInt("indent.closing");
+	*/
 	indentMaintain = props->GetNewExpand("indent.maintain.", fileNameForExtension.c_str()).value();
-	
+	/*
 	SString lookback = props->GetNewExpand("statement.lookback.", fileNameForExtension.c_str());
 	statementLookback = lookback.value();
 	statementIndent = GetStyleAndWords("statement.indent.");
 	statementEnd =GetStyleAndWords("statement.end.");
 	blockStart = GetStyleAndWords("block.start.");
 	blockEnd = GetStyleAndWords("block.end.");
-
+	*/
+	
+	/*
 	SString list;
 	list = props->GetNewExpand("preprocessor.symbol.", fileNameForExtension.c_str());
 	preprocessorSymbol = list[0];
@@ -2919,7 +2930,8 @@ void AnEditor::ReadProperties(const char *fileForExt) {
 	list = props->GetNewExpand("preprocessor.end.", fileNameForExtension.c_str());
 	preprocCondEnd.Clear();
 	preprocCondEnd.Set(list.c_str());
-
+	*/
+	
 	if (props->GetInt("vc.home.key", 1)) {
 		AssignKey(SCK_HOME, 0, SCI_VCHOME);
 		AssignKey(SCK_HOME, SCMOD_SHIFT, SCI_VCHOMEEXTEND);

@@ -98,6 +98,8 @@ bool AnEditor::RangeIsAllWhitespace(int start, int end) {
 	return true;
 }
 
+#if 0
+
 unsigned int AnEditor::GetLinePartsInStyle(int line, int style1, int style2,
 										   SString sv[], int len) {
 	for (int i = 0; i < len; i++)
@@ -307,6 +309,7 @@ int AnEditor::IndentOfBlock(int line) {
 	}
 	return IndentOfBlockProper(backLine);
 }
+#endif
 
 void AnEditor::MaintainIndentation(char ch) {
 	int eolMode = SendEditor(SCI_GETEOLMODE);
@@ -329,6 +332,7 @@ void AnEditor::MaintainIndentation(char ch) {
 	}
 }
 
+#if 0
 void AnEditor::AutomaticIndentation(char ch) {
 	CharacterRange crange = GetSelection();
 	int selStart = crange.cpMin;
@@ -417,3 +421,4 @@ void AnEditor::AutomaticIndentation(char ch) {
 		}
 	}
 }
+#endif

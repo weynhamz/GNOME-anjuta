@@ -146,6 +146,7 @@ on_gconf_notify_use_tab_for_indentation (GConfClient *gclient, guint cnxn_id,
 	// text_editor_scintilla_command (te, SCI_SETTABWIDTH,	use_tabs, 0);
 }
 
+#if 0
 static void
 on_gconf_notify_automatic_indentation (GConfClient *gclient, guint cnxn_id,
 									   GConfEntry *entry, gpointer user_data)
@@ -157,6 +158,7 @@ on_gconf_notify_automatic_indentation (GConfClient *gclient, guint cnxn_id,
 	indent_automatic = set_n_get_prop_int (te, INDENT_AUTOMATIC);
 	text_editor_command (te, ANE_SETAUTOINDENTATION, indent_automatic, 0);
 }
+#endif
 
 static void
 on_gconf_notify_indent_size (GConfClient *gclient, guint cnxn_id,
@@ -194,6 +196,7 @@ on_gconf_notify_braces_check (GConfClient *gclient, guint cnxn_id,
 	text_editor_command (te, ANE_SETINDENTBRACESCHECK, state, 0);
 }
 
+#if 0
 static void
 on_gconf_notify_indent_opening (GConfClient *gclient, guint cnxn_id,
 								GConfEntry *entry, gpointer user_data)
@@ -217,6 +220,8 @@ on_gconf_notify_indent_closing (GConfClient *gclient, guint cnxn_id,
 	state = set_n_get_prop_int (te, INDENT_CLOSING);
 	text_editor_command (te, ANE_SETINDENTCLOSING, state, 0);
 }
+
+#endif
 
 static void
 on_gconf_notify_indent_maintain (GConfClient *gclient, guint cnxn_id,
@@ -394,11 +399,13 @@ text_editor_prefs_init (TextEditor *te)
 	set_n_get_prop_int (te, INDENT_SIZE);
 	set_n_get_prop_int (te, USE_TABS);
 	set_n_get_prop_int (te, DISABLE_SYNTAX_HILIGHTING);
-	set_n_get_prop_int (te, INDENT_AUTOMATIC);
+	/* set_n_get_prop_int (te, INDENT_AUTOMATIC); */
 	set_n_get_prop_int (te, WRAP_BOOKMARKS);
 	set_n_get_prop_int (te, BRACES_CHECK);
+	/*
 	set_n_get_prop_int (te, INDENT_OPENING);
 	set_n_get_prop_int (te, INDENT_CLOSING);
+	*/
 	
 	/* This one is special */
 	val = set_n_get_prop_int (te, INDENT_MAINTAIN);
@@ -409,6 +416,7 @@ text_editor_prefs_init (TextEditor *te)
 	
 	set_n_get_prop_int (te, TAB_INDENTS);
 	set_n_get_prop_int (te, BACKSPACE_UNINDENTS);
+	
 	set_n_get_prop_int (te, VIEW_EOL);
 	set_n_get_prop_int (te, VIEW_LINE_WRAP);
 	set_n_get_prop_int (te, VIEW_WHITE_SPACES);
@@ -426,11 +434,13 @@ text_editor_prefs_init (TextEditor *te)
 	REGISTER_NOTIFY (INDENT_SIZE, on_gconf_notify_indent_size);
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);
 	REGISTER_NOTIFY (DISABLE_SYNTAX_HILIGHTING, on_gconf_notify_disable_hilite);
-	REGISTER_NOTIFY (INDENT_AUTOMATIC, on_gconf_notify_automatic_indentation);
+	/* REGISTER_NOTIFY (INDENT_AUTOMATIC, on_gconf_notify_automatic_indentation); */
 	REGISTER_NOTIFY (WRAP_BOOKMARKS, on_gconf_notify_wrap_bookmarks);
 	REGISTER_NOTIFY (BRACES_CHECK, on_gconf_notify_braces_check);
+	/*
 	REGISTER_NOTIFY (INDENT_OPENING, on_gconf_notify_indent_opening);
 	REGISTER_NOTIFY (INDENT_CLOSING, on_gconf_notify_indent_closing);
+	*/
 	REGISTER_NOTIFY (INDENT_MAINTAIN, on_gconf_notify_indent_maintain);
 	REGISTER_NOTIFY (TAB_INDENTS, on_gconf_notify_tab_indents);
 	REGISTER_NOTIFY (BACKSPACE_UNINDENTS, on_gconf_notify_backspace_unindents);

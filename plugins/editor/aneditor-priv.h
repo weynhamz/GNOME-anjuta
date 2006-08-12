@@ -175,9 +175,13 @@ protected:
 	GtkAccelGroup* accelGroup;
 
 	int indentSize;
+	/*
 	bool indentOpening;
 	bool indentClosing;
+	*/
+	
 	bool indentMaintain;
+	/*
 	int statementLookback;
 	StyleAndWords statementIndent;
 	StyleAndWords statementEnd;
@@ -188,7 +192,8 @@ protected:
 	WordList preprocCondStart;	///< List of preprocessor conditional start keywords (in C: if ifdef ifndef)
 	WordList preprocCondMiddle;	///< List of preprocessor conditional middle keywords (in C: else elif)
 	WordList preprocCondEnd;	///< List of preprocessor conditional end keywords (in C: endif)
-
+	*/
+	
 	Window wEditor;
 
 	SciFnDirect fnEditor;
@@ -270,11 +275,13 @@ protected:
 	void GetLine(SString & text, int line = -1);
 	int  GetFullLine(SString & text, int line = -1);
 	void GetRange(Window &win, int start, int end, char *text);
+	/*
 	int IsLinePreprocessorCondition(const char *line);
 	bool FindMatchingPreprocessorCondition(int &curLine, int direction,
 										   int condEnd1, int condEnd2);
 	bool FindMatchingPreprocCondPosition(bool isForward, int &mppcAtCaret,
 										 int &mppcMatch);
+	*/
 	bool FindMatchingBracePosition(bool editor, int &braceAtCaret,
 								   int &braceOpposite, bool sloppy);
 	void BraceMatch(bool editor);
@@ -287,6 +294,7 @@ protected:
 
 	void IndentationIncrease();
 	void IndentationDecrease();
+	
 	void ClearDocument();
 	void CountLineEnds(int &linesCR, int &linesLF, int &linesCRLF);
 	CharacterRange GetSelection();
@@ -318,19 +326,19 @@ protected:
 	bool CanBeCommented(bool box_stream);
 	bool StartBoxComment();
 	bool StartStreamComment();
-	SString GetMode(SString language); 
-	bool InsertCustomIndent();
+	// SString GetMode(SString language); 
+	// bool InsertCustomIndent();
 
-	unsigned int GetLinePartsInStyle(int line, int style1, int style2,
-									 SString sv[], int len);
+	// unsigned int GetLinePartsInStyle(int line, int style1, int style2,
+	//								 SString sv[], int len);
 	void SetLineIndentation(int line, int indent);
 	int GetLineIndentation(int line);
 	int GetLineIndentPosition(int line);
-	IndentationStatus GetIndentState(int line);
-	int IndentOfBlockProper(int line);
-	int IndentOfBlock(int line);
+	// IndentationStatus GetIndentState(int line);
+	// int IndentOfBlockProper(int line);
+	// int IndentOfBlock(int line);
 	void MaintainIndentation(char ch);
-	void AutomaticIndentation(char ch);
+	// void AutomaticIndentation(char ch);
 	void CharAdded(char ch);
 	void FoldChanged(int line, int levelNow, int levelPrev);
 	void FoldChanged(int position);

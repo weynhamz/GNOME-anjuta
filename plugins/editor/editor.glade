@@ -1008,28 +1008,6 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:indent.automatic">
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">Enable automatic indentation</property>
-		      <property name="use_underline">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
-		      <property name="active">False</property>
-		      <property name="inconsistent">False</property>
-		      <property name="draw_indicator">True</property>
-		    </widget>
-		    <packing>
-		      <property name="left_attach">0</property>
-		      <property name="right_attach">1</property>
-		      <property name="top_attach">0</property>
-		      <property name="bottom_attach">1</property>
-		      <property name="x_options">fill</property>
-		      <property name="y_options"></property>
-		    </packing>
-		  </child>
-
-		  <child>
 		    <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:use.tabs">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
@@ -1053,7 +1031,6 @@
 
 		  <child>
 		    <widget class="GtkCheckButton" id="preferences_toggle:bool:0:1:indent.opening">
-		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Indent opening braces</property>
 		      <property name="use_underline">True</property>
@@ -1075,7 +1052,6 @@
 
 		  <child>
 		    <widget class="GtkCheckButton" id="preferences_toggle:bool:0:1:indent.closing">
-		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Indent closing braces</property>
 		      <property name="use_underline">True</property>
@@ -1158,6 +1134,27 @@
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Maintain past Indentation</property>
+		      <property name="use_underline">True</property>
+		      <property name="relief">GTK_RELIEF_NORMAL</property>
+		      <property name="focus_on_click">True</property>
+		      <property name="active">False</property>
+		      <property name="inconsistent">False</property>
+		      <property name="draw_indicator">True</property>
+		    </widget>
+		    <packing>
+		      <property name="left_attach">0</property>
+		      <property name="right_attach">1</property>
+		      <property name="top_attach">0</property>
+		      <property name="bottom_attach">1</property>
+		      <property name="x_options">fill</property>
+		      <property name="y_options"></property>
+		    </packing>
+		  </child>
+
+		  <child>
+		    <widget class="GtkCheckButton" id="preferences_toggle:bool:1:1:indent.automatic">
+		      <property name="can_focus">True</property>
+		      <property name="label" translatable="yes">Enable automatic indentation</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <property name="focus_on_click">True</property>
