@@ -245,7 +245,7 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 					G_TYPE_FROM_CLASS (object_class),
 					G_SIGNAL_RUN_FIRST,
 					G_STRUCT_OFFSET (AnjutaLauncherClass,
-									 child_exited_signal),
+									 child_exited),
 					NULL, NULL,
 					anjuta_cclosure_marshal_VOID__INT_INT_ULONG,
 					G_TYPE_NONE, 3, G_TYPE_INT,
@@ -256,7 +256,7 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 					G_TYPE_FROM_CLASS (object_class),
 					G_SIGNAL_RUN_FIRST,
 					G_STRUCT_OFFSET (AnjutaLauncherClass,
-									 busy_signal),
+									 busy),
 					NULL, NULL,
 					anjuta_cclosure_marshal_VOID__BOOLEAN,
 					G_TYPE_NONE, 1, G_TYPE_BOOLEAN);

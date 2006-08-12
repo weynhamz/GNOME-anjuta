@@ -87,8 +87,8 @@ struct _AnjutaPluginClass {
 	GObjectClass parent_class;
 
 	/* Signals  */
-	void (*activated_signal) (AnjutaPlugin *plugin);
-	void (*deactivated_signal) (AnjutaPlugin *plugin);
+	void (*activated) (AnjutaPlugin *plugin);
+	void (*deactivated) (AnjutaPlugin *plugin);
 
 	/* Virtual functions */
 	gboolean (*activate) (AnjutaPlugin *plugin);

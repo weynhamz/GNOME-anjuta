@@ -181,7 +181,7 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 					G_TYPE_FROM_CLASS (object_class),
 					G_SIGNAL_RUN_FIRST,
 					G_STRUCT_OFFSET (AnjutaPluginClass,
-									 activated_signal),
+									 activated),
 					NULL, NULL,
 					anjuta_cclosure_marshal_VOID__VOID,
 					G_TYPE_NONE, 0);
@@ -191,7 +191,7 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 					G_TYPE_FROM_CLASS (object_class),
 					G_SIGNAL_RUN_FIRST,
 					G_STRUCT_OFFSET (AnjutaPluginClass,
-									 deactivated_signal),
+									 deactivated),
 					NULL, NULL,
 					anjuta_cclosure_marshal_VOID__VOID,
 					G_TYPE_NONE, 0);

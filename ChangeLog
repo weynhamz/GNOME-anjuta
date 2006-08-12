@@ -1,3 +1,25 @@
+2006-08-12  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/Makefile.am:
+	* libanjuta/anjuta-launcher.c:
+	* libanjuta/anjuta-launcher.h:
+	* libanjuta/anjuta-plugin.c:
+	* libanjuta/anjuta-plugin.h:
+	* libanjuta/anjuta-preferences.c:
+	* libanjuta/anjuta-preferences.h:
+	* libanjuta/anjuta-shell.c:
+	* libanjuta/anjuta-shell.h:
+	* libanjuta/libanjuta.h:
+	
+	Made wrapper friendly:
+	- no inline in header files (preferences_set/get)
+	- correct signal names
+	- correct GError** argument in anjuta_shell_freeze/thaw
+	- include correct files in libanjuta.h
+	
+	* plugins/project-manager/plugin.c: 
+	Fixed two crashers
+
 2006-08-11 Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/aneditor-priv.h,

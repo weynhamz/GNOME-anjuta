@@ -72,6 +72,335 @@ build_key (const gchar *key)
 	return buffer;
 }
 
+/**
+ * anjuta_preferences_get:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ *
+ * Gets the value of @key as string. Returned string should be g_freed() when not
+ * required.
+ *
+ * Return value: Key value as string or NULL if the key is not defined.
+ */
+inline gchar *
+anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
+{
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
+	g_return_val_if_fail (key != NULL, NULL);
+
+	return gconf_client_get_string (pr->priv->gclient, build_key (key), NULL);
+}
+
+/**
+ * anjuta_preferences_get_list:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ * @list_type: Type of each list element
+ *
+ * Gets the list of @key.
+ *
+ * Return value: Key list or NULL if the key is not defined.
+ */
+inline GSList *
+anjuta_preferences_get_list (AnjutaPreferences *pr, const gchar *key,
+                             GConfValueType list_type)
+{
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
+	g_return_val_if_fail (key != NULL, NULL);
+
+	return gconf_client_get_list(pr->priv->gclient, build_key (key), list_type, NULL);
+}
+
+/**
+ * anjuta_preferences_get_pair:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ * @car_type: Desired type of the pair's first field (car).
+ * @cdr_type: Desired type of the pair's second field (cdr).
+ * @car_retloc: Address of a return location for the car.
+ * @cdr_retloc: Address of a return location for the cdr.
+ *
+ * Gets the pair of @key.
+ *
+ * Return value: TRUE or FALSE.
+ */
+inline gboolean
+anjuta_preferences_get_pair (AnjutaPreferences *pr, const gchar *key,
+                             GConfValueType car_type, GConfValueType cdr_type,
+                             gpointer car_retloc, gpointer cdr_retloc)
+{
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
+	g_return_val_if_fail (key != NULL, FALSE);
+
+	return gconf_client_get_pair(pr->priv->gclient, build_key (key),
+                                 car_type, cdr_type,
+                                 car_retloc, cdr_retloc, NULL);
+}
+
+/**
+ * anjuta_preferences_get_int:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ *
+ * Gets the value of @key as integer.
+ *
+ * Return value: Key value as integer or 0 if the key is not defined.
+ */
+inline gint
+anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
+{
+	gint ret_val;
+	GConfValue *value;
+	
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
+	g_return_val_if_fail (key != NULL, 0);
+	
+	ret_val = 0;
+	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
+	if (value)
+	{
+		switch (value->type)
+		{
+			case GCONF_VALUE_INT:
+				ret_val = gconf_value_get_int (value);
+				break;
+			case GCONF_VALUE_BOOL:
+				ret_val = gconf_value_get_bool (value);
+				break;
+			default:
+				g_warning ("Invalid gconf type for key: %s", key);
+		}
+		gconf_value_free (value);
+	}
+	/* else
+		g_warning ("The preference key %s is not defined", key); */
+	return ret_val;
+}
+
+/**
+ * anjuta_preferences_get_int_with_default:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ * @default_value: Default value to return if the key is not defined.
+ *
+ * Gets the value of @key as integer.
+ *
+ * Return value: Key value as integer or @default_value if the
+ * key is not defined.
+ */
+inline gint
+anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
+										 const gchar *key, gint default_value)
+{
+	gint ret_val;
+	GConfValue *value;
+	
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
+	g_return_val_if_fail (key != NULL, 0);
+	
+	ret_val = default_value;
+	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
+	if (value)
+	{
+		switch (value->type)
+		{
+			case GCONF_VALUE_INT:
+				ret_val = gconf_value_get_int (value);
+				break;
+			case GCONF_VALUE_BOOL:
+				ret_val = gconf_value_get_bool (value);
+				break;
+			default:
+				g_warning ("Invalid gconf type for key: %s", key);
+		}
+		gconf_value_free (value);
+	}
+	return ret_val;
+}
+
+/**
+ * anjuta_preferences_default_get:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ *
+ * Gets the default value of @key as string. The default value of the key
+ * is the value defined in System defaults (generally installed during 
+ * program installation). Returned value must be g_freed() when not required.
+ *
+ * Return value: Default key value as string or NULL if not defined.
+ */
+inline gchar *
+anjuta_preferences_default_get (AnjutaPreferences * pr, const gchar * key)
+{
+	GConfValue *val;
+	gchar *str;
+	GError *err = NULL;
+	
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
+	g_return_val_if_fail (key != NULL, NULL);
+	
+	val = gconf_client_get_default_from_schema (pr->priv->gclient, build_key (key), &err);
+	if (err) {
+		g_error_free (err);
+		return NULL;
+	}
+	str = g_strdup (gconf_value_get_string (val));
+	gconf_value_free (val);
+	return str;
+}
+
+/**
+ * anjuta_preferences_default_get_int:
+ * @pr: A #AnjutaPreferences object
+ * @key: Property key
+ *
+ * Gets the default value of @key as integer. The default value of the key
+ * is the value defined in System defaults (generally installed during 
+ * program installation).
+ *
+ * Return value: Default key value as integer or 0 if the key is not defined.
+ */
+inline gint
+anjuta_preferences_default_get_int (AnjutaPreferences *pr, const gchar *key)
+{
+	GConfValue *val;
+	gint ret;
+	GError *err = NULL;
+	
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
+	g_return_val_if_fail (key != NULL, 0);
+	val = gconf_client_get_default_from_schema (pr->priv->gclient, build_key (key), &err);
+	if (err) {
+		g_error_free (err);
+		return 0;
+	}
+	ret = gconf_value_get_int (val);
+	gconf_value_free (val);
+	return ret;
+}
+
+/**
+ * anjuta_preferences_set:
+ * @pr: A #AnjutaPreferences object.
+ * @key: Property key.
+ * @value: Value of the key.
+ *
+ * Sets the value of @key in current session.
+ */
+inline void
+anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
+						const gchar *value)
+{
+	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
+	g_return_if_fail (key != NULL);
+
+	if (value && (strlen (value) > 0))
+	{
+		gconf_client_set_string (pr->priv->gclient, build_key (key), value, NULL);
+	}
+	else
+	{
+		gconf_client_set_string (pr->priv->gclient, build_key (key), "", NULL);
+	}
+}
+
+/**
+ * anjuta_preferences_set_list:
+ * @pr: A #AnjutaPreferences object.
+ * @key: Property key.
+ * @list_type: Type of each element.
+ * @list: New value of the key.
+ *
+ * Sets a list in current session.
+ */
+inline void
+anjuta_preferences_set_list (AnjutaPreferences *pr, const gchar *key,
+					         GConfValueType list_type, GSList *list)
+{
+	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
+	g_return_if_fail (key != NULL);
+
+	gconf_client_set_list(pr->priv->gclient, build_key (key), 
+		                      list_type, list, NULL);
+}
+
+/**
+ * anjuta_preferences_set_pair:
+ * @pr: A #AnjutaPreferences object.
+ * @key: Property key.
+ * @car_type: Type of the pair's first field (car).
+ * @cdr_type: Type of the pair's second field (cdr).
+ * @address_of_car: Address of the car.
+ * @address_of_cdr: Address of the cdr.
+ *
+ */
+inline gboolean
+anjuta_preferences_set_pair (AnjutaPreferences *pr, const gchar *key,
+					         GConfValueType car_type, GConfValueType cdr_type,
+                             gconstpointer address_of_car,
+                             gconstpointer address_of_cdr)
+{
+	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
+	g_return_val_if_fail (key != NULL, FALSE);
+
+	return gconf_client_set_pair (pr->priv->gclient, build_key (key),
+                                  car_type, cdr_type,
+                                  address_of_car, address_of_cdr,
+                                  NULL);
+}
+
+/**
+ * anjuta_preferences_set_int:
+ * @pr: A #AnjutaPreferences object.
+ * @key: Property key.
+ * @value: Integer value of the key.
+ *
+ * Sets the value of @key in current session.
+ */
+inline void
+anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
+							gint value)
+{
+	GConfValue *gvalue;
+	
+	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
+	g_return_if_fail (key != NULL);
+	
+	gvalue = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
+	if (gvalue)
+	{
+		switch (gvalue->type)
+		{
+			case GCONF_VALUE_BOOL:
+				gconf_client_set_bool (pr->priv->gclient, build_key (key),
+									   value, NULL);
+				break;
+			case GCONF_VALUE_INT:
+				gconf_client_set_int (pr->priv->gclient, build_key (key),
+									  value, NULL);
+				break;
+			default:
+				g_warning ("Invalid gconf type for key: %s", key);
+		}
+		gconf_value_free (gvalue);
+	}
+	else
+	{
+		/* g_warning ("The preference key %s is not defined", key); */
+		gconf_client_set_int (pr->priv->gclient, build_key (key),
+							  value, NULL);
+	}
+}
+
+static void
+on_preferences_dialog_response (GtkDialog *dialog,
+                                gint response, gpointer user_data)
+{
+	AnjutaPreferences *pr = ANJUTA_PREFERENCES (user_data);
+	if (pr)
+		gtk_widget_hide (GTK_WIDGET (pr));
+}
+
 static void
 property_destroy (AnjutaProperty *property)
 {
@@ -549,6 +878,7 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 											get_property, p, NULL, NULL);
 }
 
+
 /**
  * anjuta_preferences_register_property_raw:
  * @pr: a #AnjutaPreferences object
@@ -900,335 +1230,6 @@ anjuta_preferences_register_all_properties_from_glade_xml (AnjutaPreferences *pr
 		}
 		node = g_list_next (node);
 	}
-}
-
-/**
- * anjuta_preferences_get:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- *
- * Gets the value of @key as string. Returned string should be g_freed() when not
- * required.
- *
- * Return value: Key value as string or NULL if the key is not defined.
- */
-inline gchar *
-anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
-{
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
-	g_return_val_if_fail (key != NULL, NULL);
-
-	return gconf_client_get_string (pr->priv->gclient, build_key (key), NULL);
-}
-
-/**
- * anjuta_preferences_get_list:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- * @list_type: Type of each list element
- *
- * Gets the list of @key.
- *
- * Return value: Key list or NULL if the key is not defined.
- */
-inline GSList *
-anjuta_preferences_get_list (AnjutaPreferences *pr, const gchar *key,
-                             GConfValueType list_type)
-{
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
-	g_return_val_if_fail (key != NULL, NULL);
-
-	return gconf_client_get_list(pr->priv->gclient, build_key (key), list_type, NULL);
-}
-
-/**
- * anjuta_preferences_get_pair:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- * @car_type: Desired type of the pair's first field (car).
- * @cdr_type: Desired type of the pair's second field (cdr).
- * @car_retloc: Address of a return location for the car.
- * @cdr_retloc: Address of a return location for the cdr.
- *
- * Gets the pair of @key.
- *
- * Return value: TRUE or FALSE.
- */
-inline gboolean
-anjuta_preferences_get_pair (AnjutaPreferences *pr, const gchar *key,
-                             GConfValueType car_type, GConfValueType cdr_type,
-                             gpointer car_retloc, gpointer cdr_retloc)
-{
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
-	g_return_val_if_fail (key != NULL, FALSE);
-
-	return gconf_client_get_pair(pr->priv->gclient, build_key (key),
-                                 car_type, cdr_type,
-                                 car_retloc, cdr_retloc, NULL);
-}
-
-/**
- * anjuta_preferences_get_int:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- *
- * Gets the value of @key as integer.
- *
- * Return value: Key value as integer or 0 if the key is not defined.
- */
-inline gint
-anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
-{
-	gint ret_val;
-	GConfValue *value;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
-	g_return_val_if_fail (key != NULL, 0);
-	
-	ret_val = 0;
-	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
-	if (value)
-	{
-		switch (value->type)
-		{
-			case GCONF_VALUE_INT:
-				ret_val = gconf_value_get_int (value);
-				break;
-			case GCONF_VALUE_BOOL:
-				ret_val = gconf_value_get_bool (value);
-				break;
-			default:
-				g_warning ("Invalid gconf type for key: %s", key);
-		}
-		gconf_value_free (value);
-	}
-	/* else
-		g_warning ("The preference key %s is not defined", key); */
-	return ret_val;
-}
-
-/**
- * anjuta_preferences_get_int_with_default:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- * @default_value: Default value to return if the key is not defined.
- *
- * Gets the value of @key as integer.
- *
- * Return value: Key value as integer or @default_value if the
- * key is not defined.
- */
-inline gint
-anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
-										 const gchar *key, gint default_value)
-{
-	gint ret_val;
-	GConfValue *value;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
-	g_return_val_if_fail (key != NULL, 0);
-	
-	ret_val = default_value;
-	value = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
-	if (value)
-	{
-		switch (value->type)
-		{
-			case GCONF_VALUE_INT:
-				ret_val = gconf_value_get_int (value);
-				break;
-			case GCONF_VALUE_BOOL:
-				ret_val = gconf_value_get_bool (value);
-				break;
-			default:
-				g_warning ("Invalid gconf type for key: %s", key);
-		}
-		gconf_value_free (value);
-	}
-	return ret_val;
-}
-
-/**
- * anjuta_preferences_default_get:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- *
- * Gets the default value of @key as string. The default value of the key
- * is the value defined in System defaults (generally installed during 
- * program installation). Returned value must be g_freed() when not required.
- *
- * Return value: Default key value as string or NULL if not defined.
- */
-inline gchar *
-anjuta_preferences_default_get (AnjutaPreferences * pr, const gchar * key)
-{
-	GConfValue *val;
-	gchar *str;
-	GError *err = NULL;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
-	g_return_val_if_fail (key != NULL, NULL);
-	
-	val = gconf_client_get_default_from_schema (pr->priv->gclient, build_key (key), &err);
-	if (err) {
-		g_error_free (err);
-		return NULL;
-	}
-	str = g_strdup (gconf_value_get_string (val));
-	gconf_value_free (val);
-	return str;
-}
-
-/**
- * anjuta_preferences_default_get_int:
- * @pr: A #AnjutaPreferences object
- * @key: Property key
- *
- * Gets the default value of @key as integer. The default value of the key
- * is the value defined in System defaults (generally installed during 
- * program installation).
- *
- * Return value: Default key value as integer or 0 if the key is not defined.
- */
-inline gint
-anjuta_preferences_default_get_int (AnjutaPreferences *pr, const gchar *key)
-{
-	GConfValue *val;
-	gint ret;
-	GError *err = NULL;
-	
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), 0);
-	g_return_val_if_fail (key != NULL, 0);
-	val = gconf_client_get_default_from_schema (pr->priv->gclient, build_key (key), &err);
-	if (err) {
-		g_error_free (err);
-		return 0;
-	}
-	ret = gconf_value_get_int (val);
-	gconf_value_free (val);
-	return ret;
-}
-
-/**
- * anjuta_preferences_set:
- * @pr: A #AnjutaPreferences object.
- * @key: Property key.
- * @value: Value of the key.
- *
- * Sets the value of @key in current session.
- */
-inline void
-anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
-						const gchar *value)
-{
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (key != NULL);
-
-	if (value && (strlen (value) > 0))
-	{
-		gconf_client_set_string (pr->priv->gclient, build_key (key), value, NULL);
-	}
-	else
-	{
-		gconf_client_set_string (pr->priv->gclient, build_key (key), "", NULL);
-	}
-}
-
-/**
- * anjuta_preferences_set_list:
- * @pr: A #AnjutaPreferences object.
- * @key: Property key.
- * @list_type: Type of each element.
- * @list: New value of the key.
- *
- * Sets a list in current session.
- */
-inline void
-anjuta_preferences_set_list (AnjutaPreferences *pr, const gchar *key,
-					         GConfValueType list_type, GSList *list)
-{
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (key != NULL);
-
-	gconf_client_set_list(pr->priv->gclient, build_key (key), 
-		                      list_type, list, NULL);
-}
-
-/**
- * anjuta_preferences_set_pair:
- * @pr: A #AnjutaPreferences object.
- * @key: Property key.
- * @car_type: Type of the pair's first field (car).
- * @cdr_type: Type of the pair's second field (cdr).
- * @address_of_car: Address of the car.
- * @address_of_cdr: Address of the cdr.
- *
- */
-inline gboolean
-anjuta_preferences_set_pair (AnjutaPreferences *pr, const gchar *key,
-					         GConfValueType car_type, GConfValueType cdr_type,
-                             gconstpointer address_of_car,
-                             gconstpointer address_of_cdr)
-{
-	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
-	g_return_val_if_fail (key != NULL, FALSE);
-
-	return gconf_client_set_pair (pr->priv->gclient, build_key (key),
-                                  car_type, cdr_type,
-                                  address_of_car, address_of_cdr,
-                                  NULL);
-}
-
-/**
- * anjuta_preferences_set_int:
- * @pr: A #AnjutaPreferences object.
- * @key: Property key.
- * @value: Integer value of the key.
- *
- * Sets the value of @key in current session.
- */
-inline void
-anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
-							gint value)
-{
-	GConfValue *gvalue;
-	
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (key != NULL);
-	
-	gvalue = gconf_client_get (pr->priv->gclient, build_key (key), NULL);
-	if (gvalue)
-	{
-		switch (gvalue->type)
-		{
-			case GCONF_VALUE_BOOL:
-				gconf_client_set_bool (pr->priv->gclient, build_key (key),
-									   value, NULL);
-				break;
-			case GCONF_VALUE_INT:
-				gconf_client_set_int (pr->priv->gclient, build_key (key),
-									  value, NULL);
-				break;
-			default:
-				g_warning ("Invalid gconf type for key: %s", key);
-		}
-		gconf_value_free (gvalue);
-	}
-	else
-	{
-		/* g_warning ("The preference key %s is not defined", key); */
-		gconf_client_set_int (pr->priv->gclient, build_key (key),
-							  value, NULL);
-	}
-}
-
-static void
-on_preferences_dialog_response (GtkDialog *dialog,
-                                gint response, gpointer user_data)
-{
-	AnjutaPreferences *pr = ANJUTA_PREFERENCES (user_data);
-	if (pr)
-		gtk_widget_hide (GTK_WIDGET (pr));
 }
 
 /**

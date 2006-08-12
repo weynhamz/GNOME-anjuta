@@ -68,10 +68,10 @@ struct _AnjutaLauncherClass
     GObjectClass parent_class;
 	
 	/* Signals */
-	void (*child_exited_signal) (AnjutaLauncher *launcher,
+	void (*child_exited) (AnjutaLauncher *launcher,
 								 int child_pid, int exit_status,
 								 gulong time_taken_in_seconds);
-	void (*busy_signal) (AnjutaLauncher *launcher, gboolean busy_flag);
+	void (*busy) (AnjutaLauncher *launcher, gboolean busy_flag);
 };
 
 GType anjuta_launcher_get_type (void);
@@ -95,7 +95,7 @@ void anjuta_launcher_signal (AnjutaLauncher *launcher, int sig);
 void anjuta_launcher_set_buffered_output (AnjutaLauncher *launcher,
 										  gboolean buffered);
 void anjuta_launcher_set_check_passwd_prompt (AnjutaLauncher *launcher,
-											  gboolean buffered);
+											  gboolean check_passwd);
 /* Returns old value */
 gboolean anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
 											gboolean echo_on);

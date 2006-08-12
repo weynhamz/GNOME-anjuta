@@ -1067,7 +1067,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	}
 	
 	
-	project = g_new(PMProject, 1);
+	project = g_new0(PMProject, 1);
 	project->root_uri = g_strdup(root_uri);
 	
 	g_return_if_fail (dirname != NULL);
@@ -1129,11 +1129,16 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 		GtkWidget *toplevel;
 		GtkWindow *win;
 		
-		toplevel = gtk_widget_get_toplevel (pm_plugin->active_project->scrolledwindow);
-		if (toplevel && GTK_IS_WINDOW (toplevel))
-			win = GTK_WINDOW (toplevel);
+		if (pm_plugin->active_project)
+		{
+			toplevel = gtk_widget_get_toplevel (pm_plugin->active_project->scrolledwindow);
+			if (toplevel && GTK_IS_WINDOW (toplevel))
+				win = GTK_WINDOW (toplevel);
+			else
+				win = GTK_WINDOW (plugin->shell);
+		}
 		else
-			win = GTK_WINDOW (plugin->shell);
+			win = GTK_WINDOW(plugin->shell);
 		
 		anjuta_util_dialog_error (win, _("Failed to load project %s: %s"),
 								  dirname, error->message);

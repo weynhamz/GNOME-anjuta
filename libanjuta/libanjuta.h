@@ -1,18 +1,18 @@
 #ifndef LIBANJUTA_H
 #define LIBANJUTA_H
 
-#include "anjuta-debug.h"
-#include "anjuta-utils.h"
-#include "anjuta-plugin.h"
-#include "anjuta-preferences.h"
-#include "anjuta-ui.h"
-#include "anjuta-status.h"
-#include "anjuta-shell.h"
-#include "anjuta-children.h"
-#include "anjuta-launcher.h"
-#include "anjuta-encodings.h"
-#include "anjuta-marshal.h"
-#include "plugins.h"
-#include "resources.h"
+#include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/anjuta-plugin-description.h>
+#include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-ui.h>
+#include <libanjuta/anjuta-status.h>
+#include <libanjuta/anjuta-shell.h>
+#include <libanjuta/anjuta-children.h>
+#include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-encodings.h>
+#include <libanjuta/anjuta-marshal.h>
+#include <libanjuta/resources.h>
 
 #endif
