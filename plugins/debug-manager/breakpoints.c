@@ -1480,7 +1480,7 @@ breakpoints_dbase_new (AnjutaPlugin *plugin)
 		
 		anjuta_shell_add_widget (plugin->shell,
 							 bd->scrolledwindow,
-                             "IAnjutaDebugger_Breakpoint", _("Breakpoint"),
+                             "AnjutaDebuggerBreakpoints", _("Breakpoints"),
                              "gdb-breakpoint-toggle", ANJUTA_SHELL_PLACEMENT_BOTTOM,
                               NULL);
 											

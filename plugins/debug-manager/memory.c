@@ -117,8 +117,8 @@ create_memory_gui (DmaMemory *mem)
 	
 	anjuta_shell_add_widget (mem->plugin->shell,
 							 mem->window,
-                             "IAnjutaDebugger_Memory", _("Memory"),
-                             NULL, ANJUTA_SHELL_PLACEMENT_RIGHT,
+                             "AnjutaDebuggerMemory", _("Memory"),
+                             NULL, ANJUTA_SHELL_PLACEMENT_CENTER,
 							 NULL);
 
 }
