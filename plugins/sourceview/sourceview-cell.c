@@ -303,6 +303,7 @@ iiter_set_position (IAnjutaIterable* iter, gint position, GError** e)
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &old_iter,
 									 cell->priv->mark);
 	gtk_text_iter_set_offset (&old_iter, position);
+	gtk_text_buffer_move_mark (cell->priv->buffer, cell->priv->mark, &old_iter);
 	return TRUE;
 }
 
@@ -327,6 +328,32 @@ iiter_get_length(IAnjutaIterable* iter, GError** e)
 	return gtk_text_buffer_get_char_count (gtk_text_iter_get_buffer(&text_iter));
 }
 
+static IAnjutaIterable *
+iiter_clone (IAnjutaIterable *iter, GError **e)
+{
+	GtkTextIter text_iter;
+	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
+	
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &text_iter,
+									 cell->priv->mark);
+	
+	return IANJUTA_ITERABLE (sourceview_cell_new (&text_iter, cell->priv->view));
+}
+
+static void
+iiter_assign (IAnjutaIterable *iter, IAnjutaIterable *src_iter, GError **e)
+{
+	GtkTextIter text_iter;
+	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
+	SourceviewCell* src_cell = SOURCEVIEW_CELL(src_iter);
+	
+	gtk_text_buffer_get_iter_at_mark(src_cell->priv->buffer, &text_iter,
+									 src_cell->priv->mark);
+	
+	gtk_text_buffer_move_mark (cell->priv->buffer, cell->priv->mark,
+							   &text_iter);
+}
+
 static void
 iiter_iface_init(IAnjutaIterableIface* iface)
 {
@@ -338,6 +365,8 @@ iiter_iface_init(IAnjutaIterableIface* iface)
 	iface->set_position = iiter_set_position;
 	iface->get_position = iiter_get_position;
 	iface->get_length = iiter_get_length;
+	iface->assign = iiter_assign;
+	iface->clone = iiter_clone;
 }
 
 

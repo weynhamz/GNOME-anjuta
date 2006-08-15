@@ -331,7 +331,7 @@ interface IAnjutaIterable
 	* FLASE will be returned. If invalid iter @position is given, the current
 	* iter position is not altered.
 	*
-	* Returns: TRUE if successfully set (i.e. @position is within the range.
+	* Returns: TRUE if successfully set (i.e. @position is within the range).
 	* otherwise returns FALSE (i.e. @position is out of data range).
 	*/
 	gboolean set_position (gint position);
@@ -347,7 +347,7 @@ interface IAnjutaIterable
 	* Returns: integer index.
 	*/
 	gint get_position ();
-	
+
 	/**
 	* ianjuta_iterable_get_length:
 	* @obj: Self
@@ -370,7 +370,18 @@ interface IAnjutaIterable
 	* Returns: A new instance of this iterable pointing at the same location.
 	*/
 	IAnjutaIterable *clone ();
-	
+
+	/**
+	* ianjuta_iterable_assign:
+	* @obj: Self
+	* @src_iter: Source iter from which to copy the assignment.
+	* @err: Error propagation and reporting
+	* 
+	* Assigns the iter position from @src_iter.
+	*
+	*/
+	void assign (IAnjutaIterable *src_iter);
+
 	interface IAnjutaIterableTree
 	{
 	
@@ -991,7 +1002,26 @@ interface IAnjutaEditor
 	 * Redo last undo operation
 	 */
 	void redo ();
+
+	/**
+	 * ianjuta_editor_begin_undo_action:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Begins the mark of undoable action. Calls to this are stacked and
+	 * each must be ended with ianjuta_editor_end_action().
+	 */
+	void begin_undo_action ();
 	
+	/**
+	 * ianjuta_editor_end_undo_action:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Ends the mark of undoable action.
+	 */
+	void end_undo_action ();
+
 	/**
 	 * ianjuta_editor_set_popup_menu:
 	 * @obj: Self

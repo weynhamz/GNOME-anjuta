@@ -2176,6 +2176,20 @@ itext_editor_undo(IAnjutaEditor* te, GError** ee)
 }
 
 static void 
+itext_editor_begin_undo_action (IAnjutaEditor* te, GError** ee)
+{
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
+							SCI_BEGINUNDOACTION, 0, 0);
+}
+
+static void 
+itext_editor_end_undo_action (IAnjutaEditor* te, GError** ee)
+{
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
+							SCI_ENDUNDOACTION, 0, 0);
+}
+
+static void 
 itext_editor_redo(IAnjutaEditor* te, GError** ee)
 {
 	text_editor_command(TEXT_EDITOR(te), ANE_REDO, 0, 0);
@@ -2267,6 +2281,8 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->can_redo = itext_editor_can_redo;
 	iface->undo = itext_editor_undo;
 	iface->redo = itext_editor_redo;
+	iface->begin_undo_action = itext_editor_begin_undo_action;
+	iface->end_undo_action = itext_editor_end_undo_action;
 	iface->get_column = itext_editor_get_column;
 	iface->get_overwrite = itext_editor_get_overwrite;
 	iface->set_popup_menu = itext_editor_set_popup_menu;

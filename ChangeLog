@@ -1,3 +1,15 @@
+2006-08-15 Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/editor/text-editor-iterable.c,
+	plugins/editor/text_editor.c,
+	plugins/sourceview/sourceview-cell.c,
+	plugins/sourceview/sourceview.c: Implemented ianjuta_iterable_clone(),
+	ianjuta_iterable_assign(), ianjuta_editor_begin_action (),
+	ianjuta_editor_end_action().
+	
+	* plugins/language-support-cpp-java/plugin.c: Improved auto-indentation.
+
 2006-08-13 Naba Kumar  <naba@gnome.org>
 
 	* plugins/debug-manager/breakpoints.c,

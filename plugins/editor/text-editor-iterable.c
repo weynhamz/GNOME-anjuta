@@ -637,6 +637,15 @@ iiter_clone (IAnjutaIterable *iter, GError **e)
 }
 
 static void
+iiter_assign (IAnjutaIterable *iter, IAnjutaIterable *src_iter, GError **e)
+{
+	TextEditorCell *cell = TEXT_EDITOR_CELL (iter);
+	TextEditorCell *src = TEXT_EDITOR_CELL (src_iter);
+	cell->priv->editor = src->priv->editor;
+	cell->priv->position = src->priv->position;
+}
+
+static void
 iiter_iface_init(IAnjutaIterableIface* iface)
 {
 	iface->first = iiter_first;
@@ -648,6 +657,7 @@ iiter_iface_init(IAnjutaIterableIface* iface)
 	iface->get_position = iiter_get_position;
 	iface->get_length = iiter_get_length;
 	iface->clone = iiter_clone;
+	iface->assign = iiter_assign;
 }
 
 ANJUTA_TYPE_BEGIN(TextEditorCell, text_editor_cell, G_TYPE_OBJECT);

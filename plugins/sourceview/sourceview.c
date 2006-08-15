@@ -786,6 +786,20 @@ static gboolean ieditor_can_undo(IAnjutaEditor *editor, GError **e)
 	return gtk_source_buffer_can_undo(GTK_SOURCE_BUFFER(sv->priv->document));
 }
 
+/* Return true if editor can undo */
+static void ieditor_begin_undo_action (IAnjutaEditor *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);	
+	gtk_text_buffer_begin_user_action (GTK_TEXT_BUFFER(sv->priv->document));
+}
+
+/* Return true if editor can undo */
+static void ieditor_end_undo_action (IAnjutaEditor *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);	
+	gtk_text_buffer_end_user_action (GTK_TEXT_BUFFER(sv->priv->document));
+}
+
 /* Return column of cursor */
 static gint ieditor_get_column(IAnjutaEditor *editor, GError **e)
 {
@@ -921,6 +935,8 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_filename = ieditor_get_filename;
 	iface->can_undo = ieditor_can_undo;
 	iface->can_redo = ieditor_can_redo;
+	iface->begin_undo_action = ieditor_begin_undo_action;
+	iface->end_undo_action = ieditor_end_undo_action;
 	iface->get_column = ieditor_get_column;
 	iface->get_overwrite = ieditor_get_overwrite;
 	iface->set_popup_menu = ieditor_set_popup_menu;

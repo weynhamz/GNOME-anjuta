@@ -45,12 +45,67 @@
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 #define USE_SPACES_FOR_INDENTATION (ianjuta_editor_get_use_spaces (editor, NULL))
 #define INDENT_SIZE (anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_STATEMENT_SIZE))
-#define BRACE_INDENT_LEFT (anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_BRACE_SIZE))
-#define BRACE_INDENT_RIGHT (INDENT_SIZE - BRACE_INDENT_LEFT)
-
+#define BRACE_INDENT (anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_BRACE_SIZE))
+#define CASE_INDENT (INDENT_SIZE)
 
 #define LEFT_BRACE(ch) (ch == ')'? '(' : (ch == '}'? '{' : (ch == ']'? '[' : ch)))  
 static gpointer parent_class;
+
+static gboolean
+iter_is_newline (IAnjutaIterable *iter, gchar ch)
+{
+	if (ch == '\n' || ch == '\r')
+		return TRUE;
+	return FALSE;
+}
+
+/* Returns TRUE if iter was moved */
+static gboolean
+skip_iter_to_newline_head (IAnjutaIterable *iter, gchar ch)
+{
+	gboolean ret_val = FALSE;
+	
+	if (ch == '\n')
+	{
+		/* Possibly at tail */
+		if (ianjuta_iterable_previous (iter, NULL))
+		{
+			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+											0, NULL);
+			if (ch != '\r')
+				/* Already at head, undo iter */
+				ianjuta_iterable_next (iter, NULL);
+			else
+				/* Correctly at head */
+				ret_val = TRUE;
+		}
+	}
+	return ret_val;
+}
+
+/* Returns TRUE if iter was moved */
+static gboolean
+skip_iter_to_newline_tail (IAnjutaIterable *iter, gchar ch)
+{
+	gboolean ret_val = FALSE;
+	
+	if (ch == '\r')
+	{
+		/* Possibly at head */
+		if (ianjuta_iterable_previous (iter, NULL))
+		{
+			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+											0, NULL);
+			if (ch != '\n')
+				/* Already at tail, undo iter */
+				ianjuta_iterable_next (iter, NULL);
+			else
+				/* Correctly at tail */
+				ret_val = TRUE;
+		}
+	}
+	return ret_val;
+}
 
 /* Jumps to the reverse matching brace of the given brace character */
 
@@ -171,78 +226,209 @@ get_line_indentation_string (IAnjutaEditor *editor, gint spaces)
 	}
 }
 
-static gint
-get_line_indentation_base (CppJavaPlugin *plugin,
-						   IAnjutaEditor *editor,
-						   gint line_num)
+/* Sets the iter to line end of previous line and TRUE is returned.
+ * If there is no previous line, iter is set to first character in the
+ * buffer and FALSE is returned.
+ */
+static gboolean
+skip_iter_to_previous_line (IAnjutaEditor *editor, IAnjutaIterable *iter)
 {
-	IAnjutaIterable *iter;
-	gchar point_ch;
-	gint current_pos;
-	gint line_indent = 0;
-
-	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
+	gboolean found = FALSE;
+	gchar ch;
 	
-	line_indent = get_line_indentation (editor, line_num - 1);
-	current_pos = ianjuta_editor_get_line_begin_position (editor, line_num,
-														  NULL);
-	iter = ianjuta_editor_get_cell_iter (editor, current_pos, NULL);
 	while (ianjuta_iterable_previous (iter, NULL))
 	{
-		/* Skip comments and strings */
-		IAnjutaEditorAttribute attrib =
-			ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter), NULL);
-		if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
-			continue;
-		
-		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
-												 NULL);
-
-		/* DEBUG_PRINT("point_ch = %c", point_ch); */
-		if (point_ch == ')' || point_ch == ']' || point_ch == '}')
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
+		if (iter_is_newline (iter, ch))
 		{
-			gint line_saved;
-			
-			line_saved = ianjuta_editor_get_line_from_position (editor,
-								ianjuta_iterable_get_position (iter, NULL),
-																	NULL);
-			/* Find matching brace and continue */
-			if (!jumb_to_matching_brace (iter, point_ch))
-			{
-				line_indent = get_line_indentation (editor, line_saved);
-				break;
-			}
-		}
-		else if (point_ch == '{')
-		{
-			gint line_for_indent = ianjuta_editor_get_line_from_position (editor,
-								ianjuta_iterable_get_position (iter, NULL),
-								NULL);
-			line_indent = get_line_indentation (editor, line_for_indent);
-			/* Increase line indentation */
-			line_indent += BRACE_INDENT_RIGHT;
-			break;
-		}
-		else if (point_ch == '(' || point_ch == '[')
-		{
-			line_indent = 0;
-			while (ianjuta_iterable_previous (iter, NULL))
-			{
-				gchar dummy_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
-														 NULL);
-				if (dummy_ch == '\n')
-					break;
-				if (dummy_ch == '\t')
-					line_indent += TAB_SIZE;
-				else
-					line_indent++;
-			}
-			line_indent += 1;
+			skip_iter_to_newline_head (iter, ch);
+			found = TRUE;
 			break;
 		}
 	}
-	g_object_unref (iter);
-	return line_indent;
+	return found;
+}
+
+/* Returns TRUE if the line is continuation of previous line (that is, it is
+ * part of the same logical line).
+ */
+static gboolean
+line_is_continuation (IAnjutaEditor *editor, IAnjutaIterable *iter)
+{
+	int is_continuation = FALSE;
+	
+	IAnjutaIterable *new_iter = ianjuta_iterable_clone (iter, NULL);
+	if (skip_iter_to_previous_line (editor, new_iter))
+	{
+		while (ianjuta_iterable_previous (new_iter, NULL))
+		{
+			gchar ch = ianjuta_editor_cell_get_char
+				(IANJUTA_EDITOR_CELL (new_iter), 0, NULL);
+			if (ch == ' ' || ch == '\t')
+				continue;
+			
+			if (ch == '\\')
+			{
+				is_continuation = TRUE;
+				break;
+			}
+			
+			if (iter_is_newline (new_iter, ch))
+				break;
+		}
+	}
+	g_object_unref (new_iter);
+	return is_continuation;
+}
+
+/* Sets the iter to line end of previous logical line and TRUE is returned.
+ * If there is no previous logical line, iter is set to first character in the
+ * buffer and FALSE is returned. logical line is defined as one or more
+ * real lines that are joined with line escapes ('\' at the end of real
+ * lines.
+ */
+static gboolean
+skip_iter_to_previous_logical_line (IAnjutaEditor *editor,
+									IAnjutaIterable *iter)
+{
+	gboolean found = TRUE;
+	
+	while (line_is_continuation (editor, iter))
+	{
+		/*
+		DEBUG_PRINT ("Line %d is continuation line .. Skipping",
+					 ianjuta_editor_get_line_from_position
+						(editor, ianjuta_iterable_get_position (iter, NULL),
+						 NULL));
+		*/
+		found = skip_iter_to_previous_line (editor, iter);
+		if (!found)
+			break;
+	}
+	/*
+	DEBUG_PRINT ("Line %d is *not* continuation line .. Breaking",
+				 ianjuta_editor_get_line_from_position
+					(editor, ianjuta_iterable_get_position (iter, NULL),
+					 NULL));
+	*/
+	if (found)
+		found = skip_iter_to_previous_line (editor, iter);
+	/*
+	DEBUG_PRINT ("Line %d is next logical line",
+				 ianjuta_editor_get_line_from_position
+					(editor, ianjuta_iterable_get_position (iter, NULL),
+					 NULL));
+	*/
+	return found;
+}
+
+static gboolean
+line_is_preprocessor (IAnjutaEditor *editor, IAnjutaIterable *iter)
+{
+	gboolean is_preprocessor = FALSE;
+	IAnjutaIterable *new_iter = ianjuta_iterable_clone (iter, NULL);
+	
+	if (skip_iter_to_previous_logical_line (editor, new_iter))
+	{
+		/* Forward the newline char and point to line begin of next line */
+		gchar ch;
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
+										   0, NULL);
+		skip_iter_to_newline_tail (new_iter, ch);
+		ianjuta_iterable_next (new_iter, NULL);
+	}
+	/* else, line is already pointed at first char of the line */
+	
+	do
+	{
+		gchar ch;
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
+										   0, NULL);
+		if (ch == '#')
+		{
+			is_preprocessor = TRUE;
+			break;
+		}
+		if (iter_is_newline (new_iter, ch) || !isspace (ch))
+			break;
+	}
+	while (ianjuta_iterable_next (new_iter, NULL));
+	
+	g_object_unref (new_iter);
+	
+	return is_preprocessor;
+}
+
+/* Skips to the end-of-line of previous non-preprocessor line. Any multiple
+ * preprocessor lines are skipped. If current
+ * line is not preprocessor line, nothing happens. If there is no previous
+ * non-preprocessor line (we are at first line of the document which happens
+ * to be preprocessor line), iter is set to the first character in the
+ * document. It returns TRUE if the line is preprocessor line, otherwise
+ * FALSE.
+ */
+static gboolean
+skip_preprocessor_lines (IAnjutaEditor *editor, IAnjutaIterable *iter)
+{
+	gboolean line_found = FALSE;
+	gboolean preprocessor_found = FALSE;
+	IAnjutaIterable *new_iter = ianjuta_iterable_clone (iter, NULL);
+	
+	do
+	{
+		gboolean is_preprocessor = FALSE;
+		if (skip_iter_to_previous_logical_line (editor, new_iter))
+		{
+			gchar ch;
+			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
+											   0, NULL);
+			skip_iter_to_newline_tail (new_iter, ch);
+			ianjuta_iterable_next (new_iter, NULL);
+		}
+		do
+		{
+			gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
+													 0, NULL);
+			if (ch == '#')
+			{
+				is_preprocessor = TRUE;
+				/*
+				DEBUG_PRINT ("Line %d is preprocessor line .. Skipping",
+							 ianjuta_editor_get_line_from_position
+								(editor, ianjuta_iterable_get_position (new_iter, NULL),
+								 NULL));
+				*/
+				break;
+			}
+			if (iter_is_newline (new_iter, ch) || !isspace (ch))
+			{
+				skip_iter_to_newline_tail (new_iter, ch);
+				break;
+			}
+		}
+		while (ianjuta_iterable_next (new_iter, NULL));
+		
+		if (is_preprocessor)
+		{
+			line_found = skip_iter_to_previous_line (editor, new_iter);
+			ianjuta_iterable_assign (iter, new_iter, NULL);
+			preprocessor_found = TRUE;
+		}
+		else
+		{
+			/*
+			DEBUG_PRINT ("Line %d is *not* preprocessor line .. Breaking",
+						 ianjuta_editor_get_line_from_position
+							(editor, ianjuta_iterable_get_position (new_iter, NULL),
+							 NULL));
+			*/
+			break;
+		}
+	}
+	while (line_found);
+	
+	g_object_unref (new_iter);
+	return preprocessor_found;
 }
 
 static gint
@@ -350,7 +536,9 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 		gint delta_position = nchars - nchars_removed;
 		ianjuta_editor_goto_position (editor, current_pos + delta_position,
 									  NULL);
+		/*
 		DEBUG_PRINT ("Restored position to %d", current_pos + delta_position);
+		*/
 	}
 	else if (current_pos >= line_begin)
 	{
@@ -367,6 +555,187 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 	return nchars;
 }
 
+/*  incomplete_statement:
+ *  1 == COMPLETE STATEMENT
+ *  0 == INCOMPLETE STATEMENT
+ * -1 == UNKNOWN
+ */
+static gint
+get_line_indentation_base (CppJavaPlugin *plugin,
+						   IAnjutaEditor *editor,
+						   gint line_num,
+						   gint *incomplete_statement)
+{
+	IAnjutaIterable *iter;
+	gchar point_ch;
+	gint position;
+	gint line_indent = 0;
+	gboolean looking_at_just_next_line = TRUE;
+	gboolean current_line_is_preprocessor = FALSE;
+	gboolean current_line_is_continuation = FALSE;
+	
+	*incomplete_statement = -1;
+	
+	if (line_num <= 1)
+		return 0;
+	
+	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
+	
+	position = ianjuta_editor_get_line_begin_position (editor, line_num,
+													   NULL);
+	iter = ianjuta_editor_get_cell_iter (editor, position, NULL);
+	
+	current_line_is_preprocessor = line_is_preprocessor (editor, iter);
+	current_line_is_continuation = line_is_continuation (editor, iter);
+	/*
+	DEBUG_PRINT ("Current line is preprocessor = %d",
+				 current_line_is_preprocessor);
+	DEBUG_PRINT ("Current line is continuation = %d",
+				 current_line_is_continuation);
+	*/
+	/* line_indent = get_line_indentation (editor, line_num - 1); */
+	
+	if (current_line_is_preprocessor && current_line_is_continuation)
+	{
+		/* Continuation of preprocessor line -- just maintain indentation */
+		g_object_unref (iter);
+		return get_line_indentation (editor, line_num - 1);;
+	}
+	else if (current_line_is_preprocessor)
+	{
+		/* Preprocessor line -- indentation should be 0 */
+		g_object_unref (iter);
+		return 0;
+	}
+	
+	while (ianjuta_iterable_previous (iter, NULL))
+	{
+		/* Skip comments and strings */
+		IAnjutaEditorAttribute attrib =
+			ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter), NULL);
+		if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
+			continue;
+		
+		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
+												 NULL);
+
+		/* DEBUG_PRINT("point_ch = %c", point_ch); */
+		if (point_ch == ')' || point_ch == ']' || point_ch == '}')
+		{
+			gint line_saved;
+			
+			line_saved = ianjuta_editor_get_line_from_position (editor,
+								ianjuta_iterable_get_position (iter, NULL),
+																	NULL);
+			
+			/* If we encounter a block-end before anything else, the
+			 * statement could hardly be incomplte.
+			 */
+			if (point_ch == '}' && *incomplete_statement == -1)
+				*incomplete_statement = 0;
+			
+			/* If at level 0 indentation, encoutered a
+			 * block end, don't bother going further
+			 */
+			if (point_ch == '}' && get_line_indentation (editor, line_saved) <= 0)
+			{
+				line_indent = 0;
+				break;
+			}
+			
+			/* Find matching brace and continue */
+			if (!jumb_to_matching_brace (iter, point_ch))
+			{
+				line_indent = get_line_indentation (editor, line_saved);
+				break;
+			}
+		}
+		else if (point_ch == '{')
+		{
+			gint line_for_indent = ianjuta_editor_get_line_from_position (editor,
+								ianjuta_iterable_get_position (iter, NULL),
+								NULL);
+			line_indent = get_line_indentation (editor, line_for_indent);
+			/* Increase line indentation */
+			line_indent += INDENT_SIZE;
+			
+			/* If we encounter a block-start before anything else, the
+			 * statement could hardly be incomplte.
+			 */
+			if (point_ch == '}' && *incomplete_statement == -1)
+				*incomplete_statement = 0;
+			
+			break;
+		}
+		else if (point_ch == '(' || point_ch == '[')
+		{
+			line_indent = 0;
+			while (ianjuta_iterable_previous (iter, NULL))
+			{
+				gchar dummy_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
+														 NULL);
+				if (iter_is_newline (iter, dummy_ch))
+				{
+					skip_iter_to_newline_head (iter, dummy_ch);
+					break;
+				}
+				if (dummy_ch == '\t')
+					line_indent += TAB_SIZE;
+				else
+					line_indent++;
+			}
+			line_indent += 1;
+			
+			/* Although statement is incomplete at this point, we don't
+			 * set it to incomplete and just leave it to unknown to avaoid
+			 * increating indentation for it, because incomplete braces,
+			 * overrides any existing indentation
+			 */
+			*incomplete_statement = -1;
+			break;
+		}
+		else if (point_ch == ';' || point_ch == ',')
+		{
+			/* If we encounter statement-end before any non-whitespace
+			 * char, the statement is complete.
+			 */
+			if (*incomplete_statement == -1)
+				*incomplete_statement = 0;
+		}
+		else if (iter_is_newline (iter, point_ch))
+		{
+			skip_iter_to_newline_head (iter, point_ch);
+			
+			/* We just crossed a line boundary. Skip any preprocessor lines,
+			 * and ensure that line_indent is updated with correct real
+			 * previous non-preprocessor line.
+			 */
+			if (skip_preprocessor_lines (editor, iter) &&
+				looking_at_just_next_line)
+			{
+				/*
+				gint line = ianjuta_editor_get_line_from_position
+					(editor, ianjuta_iterable_get_position (iter, NULL), NULL);
+				line_indent = get_line_indentation (editor, line);
+				*/
+			}
+			looking_at_just_next_line = FALSE;
+		}
+		else if (!isspace (point_ch))
+		{
+			/* If we encounter any non-whitespace char before any of the
+			 * statement-complete indicators, the statement is basically
+			 * incomplete
+			 */
+			if (*incomplete_statement == -1)
+				*incomplete_statement = 1;
+		}
+	}
+	g_object_unref (iter);
+	
+	return line_indent;
+}
+
 static gint
 get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 						   gint line)
@@ -375,6 +744,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	IAnjutaEditorAttribute attrib;
 	gint line_indent = 0;
 	gint line_begin;
+	gint incomplete_statement = -1;
 	
 	g_return_val_if_fail (line > 1, 0);
 	
@@ -389,7 +759,8 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	}
 	else
 	{
-		line_indent = get_line_indentation_base (plugin, editor, line);
+		line_indent = get_line_indentation_base (plugin, editor, line,
+												 &incomplete_statement);
 	}
 	
 	/* Determine what the first non-white char in the line is */
@@ -404,16 +775,28 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 		}
 		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
 										   0, NULL);
-		if (ch == '\n')
+		if (iter_is_newline (iter, ch))
+		{
+			skip_iter_to_newline_tail (iter, ch);
+			
+			/* First levels are excused from incomplete statement indent */
+			if (incomplete_statement == 1 && line_indent > 0)
+				line_indent += INDENT_SIZE;
 			break;
+		}
 		
 		if (ch == '{')
 		{
-			/* The first level braces are excused from brace indentation */
-			DEBUG_PRINT ("Increasing indent level from %d to %d", line_indent,
-						 line_indent + BRACE_INDENT_LEFT);
 			if (line_indent > 0)
-				line_indent += BRACE_INDENT_LEFT;
+			{
+				/* The first level braces are excused from brace indentation */
+				/*
+				DEBUG_PRINT ("Increasing indent level from %d to %d",
+							 line_indent,
+							 line_indent + BRACE_INDENT);
+				*/
+				line_indent += BRACE_INDENT;
+			}
 			break;
 		}
 		else if (ch == '}')
@@ -429,8 +812,15 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 			}
 			break;
 		}
+		else if (ch == '#')
+		{
+			line_indent = 0;
+		}
 		else if (!isspace (ch))
 		{
+			/* First levels are excused from incomplete statement indent */
+			if (incomplete_statement == 1 && line_indent > 0)
+				line_indent += INDENT_SIZE;
 			break;
 		}
 	}
@@ -453,16 +843,19 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	if (!anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_AUTOMATIC))
 		return;
 	
-	DEBUG_PRINT ("Char added at position %d: '%c'", insert_pos, ch);
+	/* DEBUG_PRINT ("Char added at position %d: '%c'", insert_pos, ch); */
+	
+	ianjuta_editor_begin_undo_action (editor, NULL);
 	
 	iter = ianjuta_editor_get_cell_iter (editor, insert_pos, NULL);
 	
-	if (ch == '\n')
+	if (iter_is_newline (iter, ch))
 	{
+		skip_iter_to_newline_head (iter, ch);
 		/* All newline entries means enable indenting */
 		should_auto_indent = TRUE;
 	}
-	else if (ch == '{' || ch == '}')
+	else if (ch == '{' || ch == '}' || ch == '#')
 	{
 		/* Indent only when it's the first non-white space char in the line */
 		
@@ -484,12 +877,14 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 				ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
 												   0, NULL);
 				
-				DEBUG_PRINT ("Looking at char '%c'", ch);
+				/* DEBUG_PRINT ("Looking at char '%c'", ch); */
 				
 				/* Break on begining of line (== end of previous line) */
-				if (ch == '\n')
+				if (iter_is_newline (iter, ch))
+				{
+					skip_iter_to_newline_head (iter, ch);
 					break;
-				
+				}
 				/* If a non-white space char is encountered, disabled indenting */
 				if (!isspace (ch))
 				{
@@ -528,6 +923,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 		set_line_indentation (editor, insert_line, line_indent);
 	}
 	g_object_unref (iter);
+	ianjuta_editor_end_undo_action (editor, NULL);
 }
 
 static void
@@ -550,7 +946,7 @@ install_support (CppJavaPlugin *lang_plugin)
 					(IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor),
 											  NULL);
 	
-	DEBUG_PRINT("Language: %s", lang_plugin->current_language);
+	/* DEBUG_PRINT("Language: %s", lang_plugin->current_language); */
 	
 	if (lang_plugin->current_language &&
 		(strcmp (lang_plugin->current_language, "cpp") == 0
