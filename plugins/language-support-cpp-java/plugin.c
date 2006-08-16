@@ -771,6 +771,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 													NULL);
 		if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
 		{
+			line_indent = get_line_indentation (editor, line - 1);
 			break;
 		}
 		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),

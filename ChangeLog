@@ -1,3 +1,9 @@
+2006-08-16  Naba Kumar  <naba@gnome.org>
+
+	* Makefile.am, plugins/editor/text_editor.c,
+	plugins/language-support-cpp-java/plugin.c: Fixed indentation in
+	comments.
+
 2006-08-16 Naba Kumar  <naba@gnome.org>
 
 	Patch from  Massimo Cora'  <maxcvs@email.it>:

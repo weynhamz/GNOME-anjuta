@@ -624,6 +624,10 @@ text_editor_get_attribute (TextEditor *te, gint position)
 					break;
 				case SCE_C_COMMENT:
 				case SCE_C_COMMENTLINE:
+				case SCE_C_COMMENTDOC:
+				case SCE_C_COMMENTLINEDOC:
+				case SCE_C_COMMENTDOCKEYWORD:
+				case SCE_C_COMMENTDOCKEYWORDERROR:
 					attrib = TEXT_EDITOR_ATTRIB_COMMENT;
 					break;
 				case SCE_C_WORD:
