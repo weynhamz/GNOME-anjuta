@@ -46,8 +46,10 @@
 @char_added: 
 @update_ui: 
 @append: 
+@begin_undo_action: 
 @can_redo: 
 @can_undo: 
+@end_undo_action: 
 @erase: 
 @erase_all: 
 @get_attributes: 

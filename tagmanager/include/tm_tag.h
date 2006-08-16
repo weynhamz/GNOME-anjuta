@@ -91,6 +91,13 @@ typedef enum
 	tm_tag_attr_arglist_t = 128, /*!< Argument list */
 	tm_tag_attr_local_t = 256, /*!< If it has local scope */
 	tm_tag_attr_time_t = 512, /*!< Modification time (File tag only) */
+	
+/* UPDATE: because of the change of the tagEntryInfo in ctags 5.6 about
+ * the migration from "const char* varType" to "const char* typeRef [2]" 
+ * here the "tm_tag_attr_vartype_t" will be referred to "typeRef[1]".
+ * Probably a day we will need an ugrade here.
+ */
+	
 	tm_tag_attr_vartype_t = 1024, /*!< Variable Type */
 	tm_tag_attr_access_t = 2048, /*!< Access type (public/protected/private) */
 	tm_tag_attr_impl_t = 4096, /*!< Implementation (e.g. virtual) */
@@ -135,7 +142,7 @@ typedef struct _TMTag
 			char *arglist; /*!< Argument list (functions/prototypes/macros) */
 			char *scope; /*!< Scope of tag */
 			char *inheritance; /*!< Parent classes */
-			char *var_type; /*!< Variable type (maps to struct for typedefs) */
+			char *type_ref[2]; /*!< Variable type (maps to struct for typedefs) */
 			char access; /*!< Access type (public/protected/private/etc.) */
 			char impl; /*!< Implementation (e.g. virtual) */
 		} entry;

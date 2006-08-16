@@ -163,6 +163,13 @@ const GPtrArray *tm_workspace_find_scope_members(const GPtrArray *file_tags,
 												 const char *scope_name,
 												 gboolean find_global);
 
+
+// DEBUG.
+const GPtrArray *
+tm_workspace_find_namespace_members (const GPtrArray * file_tags, const char *name,
+								 gboolean search_global);
+
+
 /*! Returns TMTag to function which "own" given line
  \param line Current line in edited file.
  \param file_tags A GPtrArray of edited file TMTag pointers.

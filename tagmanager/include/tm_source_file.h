@@ -26,6 +26,7 @@ typedef int langType;
 typedef void tagEntryInfo;
 #endif
 
+
 #if !defined(tagEntryInfo)
 #endif
 

@@ -673,7 +673,7 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 			}
 			else
 			{
-				name = ScanType->atts.entry.var_type;
+				name = ScanType->atts.entry.type_ref[1];
 				pointerOrder = ScanType->atts.entry.pointerOrder;
 			}
 		}
@@ -792,7 +792,7 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 				return false;
 		}
 		CurrentFileTags = ScanType->atts.entry.file->work_object.tags_array;
-		name = ScanType->atts.entry.var_type;
+		name = ScanType->atts.entry.type_ref[1];
 		pointerOrder = ScanType->atts.entry.pointerOrder;
 	}
 	if (ch == ':' && ScanType && ScanType->type != tm_tag_class_t)

@@ -1,5 +1,7 @@
 /*
-*   Copyright (c) 1998-2001, Darren Hiebert
+*   $Id$
+*
+*   Copyright (c) 1998-2002, Darren Hiebert
 *
 *   This source code is released for free distribution under the terms of the
 *   GNU General Public License.
@@ -12,7 +14,7 @@
 /*
 *   INCLUDE FILES
 */
-#include "general.h"	/* must always come first */
+#include "general.h"  /* must always come first */
 
 /*
 *   FUNCTION PROTOTYPES
@@ -25,6 +27,6 @@ extern void externalSortTags (const boolean toStdout);
 extern void internalSortTags (const boolean toStdout);
 #endif
 
-#endif	/* _SORT_H */
+#endif  /* _SORT_H */
 
-/* vi:set tabstop=8 shiftwidth=4: */
+/* vi:set tabstop=4 shiftwidth=4: */

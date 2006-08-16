@@ -86,6 +86,16 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 	const char *file_name;
 	gboolean status = TRUE;
 
+	/* DEBUG FIXME removeme */
+
+	printf ("DEBUG: setting language to auto. Before it was %d\n", source_file->lang );
+
+	source_file->lang = LANG_AUTO;
+
+//	TagFile = tagsOpen("/home/pescio/Projects/gtk-foobar/.tm_project2.cache", NULL);
+//	openTagFile();
+
+
 	if ((NULL == source_file) || (NULL == source_file->work_object.file_name))
 	{
 		g_warning("Attempt to parse NULL file");
@@ -93,7 +103,7 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 	}
 
 #ifdef TM_DEBUG
-	g_message("Parsing %s", source_file->work_object.file_name);
+	g_message("Parsing source file %s", source_file->work_object.file_name);
 #endif
 	file_name = source_file->work_object.file_name;
 	if (NULL == LanguageTable)
@@ -103,9 +113,17 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 		if (NULL == TagEntryFunction)
 			TagEntryFunction = tm_source_file_tags;
 	}
+	
 	current_source_file = source_file;
-	if (LANG_AUTO == source_file->lang)
+	if (LANG_AUTO == source_file->lang) {
 		source_file->lang = getFileLanguage (file_name);
+#ifdef TM_DEBUG
+		g_message("New language detected %d", source_file->lang);
+#endif
+		
+	}
+	
+		
 	if (source_file->lang == LANG_IGNORE)
 	{
 #ifdef TM_DEBUG
@@ -125,10 +143,13 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 		{
 			if (source_file->work_object.tags_array)
 				tm_tags_array_free(source_file->work_object.tags_array, FALSE);
+#ifdef TM_DEBUG			
+			printf("DEBUG: opening file: %s\n", file_name );
+#endif
 			if (fileOpen (file_name, source_file->lang))
 			{
 				if (LanguageTable [source_file->lang]->parser != NULL)
-					LanguageTable [source_file->lang]->parser ();
+				 	LanguageTable [source_file->lang]->parser ();
 				else if (LanguageTable [source_file->lang]->parser2 != NULL)
 					status = LanguageTable [source_file->lang]->parser2 (passCount);
 				fileClose ();

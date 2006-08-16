@@ -207,7 +207,7 @@ check_children_symbols(TMSymbol *sym, const char *name, gint level)
         sym1 = TM_SYMBOL(sym->info.children->pdata[j]);
         if ((tm_tag_member_t & sym1->tag->type) == tm_tag_member_t &&
             sym1->tag->atts.entry.pointerOrder == 0)
-          check_children_symbols(sym1, sym1->tag->atts.entry.var_type,
+          check_children_symbols(sym1, sym1->tag->atts.entry.type_ref[1],
                                  level + 1);
       }
     }

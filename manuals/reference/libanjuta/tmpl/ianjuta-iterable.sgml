@@ -36,6 +36,7 @@ ianjuta-iterable
 </para>
 
 @g_iface: 
+@assign: 
 @clone: 
 @first: 
 @foreach: 

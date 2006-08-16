@@ -1,6 +1,7 @@
 /*
+*   $Id$
 *
-*   Copyright (c) 2000-2001, Darren Hiebert
+*   Copyright (c) 2000-2003, Darren Hiebert
 *
 *   This source code is released for free distribution under the terms of the
 *   GNU General Public License.
@@ -13,69 +14,37 @@
 *   INCLUDE FILES
 */
 #include "general.h"	/* must always come first */
-
 #include "parse.h"
-#include "read.h"
-#include "vstring.h"
-
-/*
-*   DATA DEFINITIONS
-*/
-typedef enum eCobolKinds {
-    K_PARAGRAPH
-} cobolKind;
-
-static kindOption CobolKinds [] = {
-    { TRUE, 'p', "paragraph", "paragraphs" }
-};
 
 /*
 *   FUNCTION DEFINITIONS
 */
 
-/* Algorithm adapted from from GNU etags.
- * Idea by Corny de Souza
- * Cobol tag functions
- * We could look for anything that could be a paragraph name.
- * i.e. anything that starts in column 8 is one word and ends in a full stop.
- */
-static void findCobolTags (void)
+static void installCobolRegex (const langType language)
 {
-    vString *name = vStringNew ();
-    const unsigned char *line;
-
-    while ((line = fileReadLine ()) != NULL)
-    {
-	const unsigned char *cp = line;
-	const unsigned char *dbp = cp + 7;
-
-	/* If eoln, compiler option or comment ignore whole line. */
-	if (dbp [-1] == ' '  &&  isalnum ((int) dbp [0]))
-	{
-	    for (cp = dbp  ;  isalnum ((int) *cp) || *cp == '-'  ;  cp++)
-		vStringPut (name, (int) *cp);
-
-	    if (*cp++ == '.')
-	    {
-		vStringPut (name, (int) *cp);
-		makeSimpleTag (name, CobolKinds, K_PARAGRAPH);
-	    }
-	    vStringTerminate (name);
-	    vStringClear (name);
-	}
-    }
-    vStringDelete (name);
+   addTagRegex (language, "^[ \t]*[0-9]+[ \t]+([A-Z0-9][A-Z0-9-]*)[ \t]+(BLANK|OCCURS|IS|JUST|PIC|REDEFINES|RENAMES|SIGN|SYNC|USAGE|VALUE)",
+		"\\1", "d,data,data items", "i");
+	addTagRegex (language, "^[ \t]*[FSR]D[ \t]+([A-Z0-9][A-Z0-9-]*)\\.",
+		"\\1", "f,file,file descriptions (FD, SD, RD)", "i");
+	addTagRegex (language, "^[ \t]*[0-9]+[ \t]+([A-Z0-9][A-Z0-9-]*)\\.",
+		"\\1", "g,group,group items", "i");
+	addTagRegex (language, "^[ \t]*([A-Z0-9][A-Z0-9-]*)\\.",
+		"\\1", "p,paragraph,paragraphs", "i");
+	addTagRegex (language, "^[ \t]*PROGRAM-ID\\.[ \t]+([A-Z0-9][A-Z0-9-]*)\\.",
+		"\\1", "P,program,program ids", "i");
+	addTagRegex (language, "^[ \t]*([A-Z0-9][A-Z0-9-]*)[ \t]+SECTION\\.",
+		"\\1", "s,section,sections", "i");
 }
 
 extern parserDefinition* CobolParser ()
 {
-    static const char *const extensions [] = { "cob", "COB", NULL };
-    parserDefinition* def = parserNew ("Cobol");
-    def->kinds      = CobolKinds;
-    def->kindCount  = KIND_COUNT (CobolKinds);
-    def->extensions = extensions;
-    def->parser     = findCobolTags;
-    return def;
+	static const char *const extensions [] = {
+			"cbl", "cob", "CBL", "COB", NULL };
+	parserDefinition* def = parserNew ("Cobol");
+	def->extensions = extensions;
+	def->initialize = installCobolRegex;
+	def->regex      = TRUE;
+	return def;
 }
 
-/* vi:set tabstop=8 shiftwidth=4: */
+/* vi:set tabstop=4 shiftwidth=4: */

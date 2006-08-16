@@ -1,3 +1,51 @@
+2006-08-16 Naba Kumar  <naba@gnome.org>
+
+	Patch from  Massimo Cora'  <maxcvs@email.it>:
+	
+	* plugins/editor/aneditor-autocomplete.cxx,
+	plugins/editor/aneditor-calltip.cxx,
+	plugins/symbol-browser/Makefile.am,
+	plugins/symbol-browser/an_symbol.c,
+	plugins/symbol-browser/an_symbol_view.c,
+	plugins/symbol-browser/plugin.c,
+	tagmanager/Makefile.am, tagmanager/acconfig.h, tagmanager/args.c,
+	tagmanager/args.h, tagmanager/asm.c, tagmanager/asp.c,
+	tagmanager/awk.c, tagmanager/beta.c, tagmanager/c.c,
+	tagmanager/cobol.c, tagmanager/ctags.c, tagmanager/ctags.h,
+	tagmanager/debug.c, tagmanager/debug.h, tagmanager/eiffel.c,
+	tagmanager/entry.c, tagmanager/entry.h, tagmanager/erlang.c,
+	tagmanager/fortran.c, tagmanager/general.h, tagmanager/get.c,
+	tagmanager/get.h, tagmanager/html.c,
+	tagmanager/include/tm_source_file.h,
+	tagmanager/include/tm_tag.h,
+	tagmanager/include/tm_workspace.h,
+	tagmanager/jscript.c, tagmanager/keyword.c,
+	tagmanager/keyword.h, tagmanager/lisp.c,
+	tagmanager/lregex.c, tagmanager/lua.c,
+	tagmanager/main.h, tagmanager/make.c,
+	tagmanager/options.c, tagmanager/options.h,
+	tagmanager/parse.c, tagmanager/parse.h,
+	tagmanager/parsers.h, tagmanager/pascal.c,
+	tagmanager/perl.c, tagmanager/php.c,
+	tagmanager/python.c, tagmanager/read.c,
+	tagmanager/read.h, tagmanager/readtags.c,
+	tagmanager/readtags.h, tagmanager/rexx.c,
+	tagmanager/routines.c, tagmanager/routines.h,
+	tagmanager/ruby.c, tagmanager/scheme.c,
+	tagmanager/sh.c, tagmanager/slang.c,
+	tagmanager/sml.c, tagmanager/sort.c,
+	tagmanager/sort.h, tagmanager/sql.c,
+	tagmanager/strlist.c, tagmanager/strlist.h,
+	tagmanager/tcl.c, tagmanager/tm_source_file.c,
+	tagmanager/tm_symbol.c, tagmanager/tm_tag.c,
+	tagmanager/tm_workspace.c, tagmanager/verilog.c,
+	tagmanager/vim.c, tagmanager/vstring.c,
+	tagmanager/vstring.h, tagmanager/yacc.c: Updated ctags to version
+	5.6 and namespace completion fixed.
+
+	* manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml,
+	manuals/reference/libanjuta/tmpl/ianjuta-iterable.sgml: Updated.
+
 2006-08-15 Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl,

@@ -370,7 +370,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	const gchar *root_uri;
 
 	sv_plugin = (SymbolBrowserPlugin *)plugin;
-	
+	  
 	g_free (sv_plugin->project_root_uri);
 	sv_plugin->project_root_uri = NULL;
 	root_uri = g_value_get_string (value);
@@ -384,10 +384,10 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			trees_signals_block (sv_plugin);
 			anjuta_symbol_view_open (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
 									 root_dir);
-			
+			 
 			/* Current editor symbol model may have changed */
 			update_editor_symbol_model (sv_plugin);
-			anjuta_status_progress_tick (status, NULL, _("Created sysmbols..."));
+			anjuta_status_progress_tick (status, NULL, _("Created symbols..."));
 			trees_signals_unblock (sv_plugin);
 			g_free (root_dir);
 		}

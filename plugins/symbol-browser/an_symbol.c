@@ -156,7 +156,7 @@ isymbol_var_type (IAnjutaSymbol *isymbol, GError **err)
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), NULL);
 	s = ANJUTA_SYMBOL (isymbol);
 	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
-	return s->priv->tm_tag->atts.entry.var_type;
+	return s->priv->tm_tag->atts.entry.type_ref[1];
 }
 
 static gchar

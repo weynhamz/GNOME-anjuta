@@ -1,6 +1,7 @@
 /*
+*   $Id$
 *
-*   Copyright (c) 1998-2001, Darren Hiebert
+*   Copyright (c) 1998-2002, Darren Hiebert
 *
 *   This source code is released for free distribution under the terms of the
 *   GNU General Public License.
@@ -13,7 +14,7 @@
 /*
 *   INCLUDE FILES
 */
-#include "general.h"	/* must always come first */
+#include "general.h"  /* must always come first */
 
 #include <stdio.h>
 
@@ -31,52 +32,53 @@
 /*  Maintains the state of the tag file.
  */
 typedef struct eTagFile {
-    char *name;
-    char *directory;
-    FILE *fp;
-    struct sNumTags { unsigned long added, prev; } numTags;
-    struct sMax { size_t line, tag, file; } max;
-    struct sEtags {
 	char *name;
+	char *directory;
 	FILE *fp;
-	size_t byteCount;
-    } etags;
-    vString *vLine;
+	struct sNumTags { unsigned long added, prev; } numTags;
+	struct sMax { size_t line, tag, file; } max;
+	struct sEtags {
+		char *name;
+		FILE *fp;
+		size_t byteCount;
+	} etags;
+	vString *vLine;
 } tagFile;
 
 typedef struct sTagFields {
-    unsigned int count;		/* number of additional extension flags */
-    const char *const *label;	/* list of labels for extension flags */
-    const char *const *value;	/* list of values for extension flags */
+	unsigned int count;        /* number of additional extension flags */
+	const char *const *label;  /* list of labels for extension flags */
+	const char *const *value;  /* list of values for extension flags */
 } tagFields;
 
 /*  Information about the current tag candidate.
  */
 typedef struct sTagEntryInfo {
-    boolean	lineNumberEntry;/* pattern or line number entry */
-    unsigned long lineNumber;	/* line number of tag */
-    fpos_t	filePosition;	/* file position of line containing tag */
-	int bufferPosition;		/* buffer position of line containing tag */
-    const char*	language;	/* language of source file */
-    boolean	isFileScope;	/* is tag visibile only within source file? */
-    boolean	isFileEntry;	/* is this just an entry for a file name? */
-    boolean	truncateLine;	/* truncate tag line at end of tag name? */
-    int         pointerOrder;   /* The number of *'s this variable has */
-    const char *sourceFileName;	/* name of source file */
-    const char *name;		/* name of the tag */
-    const char *kindName;	/* kind of tag */
-    char	kind;		/* single character representation of kind */
-    struct {
+	boolean     lineNumberEntry;  /* pattern or line number entry */
+	unsigned long lineNumber;     /* line number of tag */
+	fpos_t      filePosition;     /* file position of line containing tag */
+	int bufferPosition;             /* buffer position of line containing tag */
+	const char* language;         /* language of source file */
+	boolean     isFileScope;      /* is tag visibile only within source file? */
+	boolean     isFileEntry;      /* is this just an entry for a file name? */
+	boolean     truncateLine;     /* truncate tag line at end of tag name? */
+	int         pointerOrder;   /* The number of *'s this variable has */
+	const char *sourceFileName;   /* name of source file */
+	const char *name;             /* name of the tag */
+	const char *kindName;         /* kind of tag */
+	char        kind;             /* single character representation of kind */
+	struct {
 		const char* access;
 		const char* fileScope;
 		const char* implementation;
 		const char* inheritance;
-		const char* scope [2];	/* value and key */
+		const char* scope [2];    /* value and key */
+		const char* signature;
+
+		/* type (union/struct/etc.) and name for a variable or typedef. */
+		const char* typeRef [2];  /* e.g., "struct" and struct name */
 		const char *arglist; /* Argument list for functions and macros with arguments */
-		const char *varType;
-    } extensionFields;		/* list of extension fields*/
-	int type;
-	unsigned long seekPosition;
+	} extensionFields;  /* list of extension fields*/
 } tagEntryInfo;
 
 /*
@@ -98,6 +100,6 @@ extern void endEtagsFile (const char *const name);
 extern void makeTagEntry (const tagEntryInfo *const tag);
 extern void initTagEntry (tagEntryInfo *const e, const char *const name);
 
-#endif	/* _ENTRY_H */
+#endif  /* _ENTRY_H */
 
-/* vi:set tabstop=8 shiftwidth=4: */
+/* vi:set tabstop=4 shiftwidth=4: */
