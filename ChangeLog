@@ -1,3 +1,10 @@
+2006-08-17  Naba Kumar  <naba@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c,
+	plugins/language-support-cpp-java/plugin.h: Implemented emacs-style
+	mode line parsing. Indentation parameters initialized based on
+	mode line parameters.
+
 2006-08-16  Naba Kumar  <naba@gnome.org>
 
 	* Makefile.am, plugins/editor/text_editor.c,

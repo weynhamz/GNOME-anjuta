@@ -43,10 +43,21 @@
 #define PREF_INDENT_BRACE_SIZE "language.cpp.indent.brace.size"
 
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
+
 #define USE_SPACES_FOR_INDENTATION (ianjuta_editor_get_use_spaces (editor, NULL))
-#define INDENT_SIZE (anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_STATEMENT_SIZE))
-#define BRACE_INDENT (anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_BRACE_SIZE))
+
+#define INDENT_SIZE \
+	(plugin->param_statement_indentation >= 0? \
+		plugin->param_statement_indentation : \
+		anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_STATEMENT_SIZE))
+
+#define BRACE_INDENT \
+	(plugin->param_brace_indentation >= 0? \
+		plugin->param_brace_indentation : \
+		anjuta_preferences_get_int (plugin->prefs, PREF_INDENT_BRACE_SIZE))
+
 #define CASE_INDENT (INDENT_SIZE)
+#define LABEL_INDENT (INDENT_SIZE)
 
 #define LEFT_BRACE(ch) (ch == ')'? '(' : (ch == '}'? '{' : (ch == ']'? '[' : ch)))  
 static gpointer parent_class;
@@ -429,6 +440,167 @@ skip_preprocessor_lines (IAnjutaEditor *editor, IAnjutaIterable *iter)
 	
 	g_object_unref (new_iter);
 	return preprocessor_found;
+}
+
+static void
+set_indentation_param (CppJavaPlugin* plugin, const gchar *param,
+					   const gchar *value)
+{
+	/* DEBUG_PRINT ("Setting indent param: %s = %s", param, value); */
+	if (strcasecmp (param, "indent-tabs-mode") == 0)
+	{
+		if (strcasecmp (value, "t"))
+		{
+			plugin->param_use_spaces = 0;
+			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
+										   FALSE, NULL);
+		}
+		else if (strcasecmp (value, "t"))
+		{
+			plugin->param_use_spaces = 1;
+			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
+										   TRUE, NULL);
+		}
+	}
+	else if (strcasecmp (param, "c-basic-offset") == 0)
+	{
+		plugin->param_statement_indentation = atoi (value);
+	}
+	else if (strcasecmp (param, "tab-width") == 0)
+	{
+		plugin->param_tab_size = atoi (value);
+		ianjuta_editor_set_tabsize (IANJUTA_EDITOR (plugin->current_editor),
+									plugin->param_tab_size, NULL);
+	}
+}
+
+static void
+parse_mode_line (CppJavaPlugin *plugin, const gchar *modeline)
+{
+	gchar **strv, **ptr;
+	
+	strv = g_strsplit (modeline, ";", -1);
+	ptr = strv;
+	while (*ptr)
+	{
+		gchar **keyval;
+		keyval = g_strsplit (*ptr, ":", 2);
+		if (keyval[0] && keyval[1])
+		{
+			g_strstrip (keyval[0]);
+			g_strstrip (keyval[1]);
+			set_indentation_param (plugin, keyval[0], keyval[1]);
+		}
+		g_strfreev (keyval);
+		ptr++;
+	}
+	g_strfreev (strv);
+}
+
+static gchar *
+extract_mode_line (const gchar *comment_text)
+{
+	gchar *begin_modeline, *end_modeline;
+	begin_modeline = strstr (comment_text, "-*-");
+	if (!begin_modeline)
+		return NULL;
+	begin_modeline += 3;
+	end_modeline = strstr (begin_modeline, "-*-");
+	if (!end_modeline)
+		return NULL;
+	return g_strndup (begin_modeline, end_modeline - begin_modeline);
+}
+
+#define MINI_BUFFER_SIZE 3
+
+static void
+initialize_indentation_params (CppJavaPlugin *plugin)
+{
+	IAnjutaIterable *iter;
+	GString *comment_text;
+	gboolean comment_begun = FALSE;
+	gboolean line_comment = FALSE;
+	gchar mini_buffer[MINI_BUFFER_SIZE] = {0};
+	
+	/* Initialize indentation parameters */
+	plugin->param_tab_size = -1;
+	plugin->param_statement_indentation = -1;
+	plugin->param_brace_indentation = -1;
+	plugin->param_case_indentation = -1;
+	plugin->param_label_indentation = -1;
+	plugin->param_use_spaces = -1;
+	
+	/* Find the first comment text in the buffer */
+	comment_text = g_string_new (NULL);
+	iter = ianjuta_editor_get_cell_iter (IANJUTA_EDITOR (plugin->current_editor),
+										 0, NULL);
+	do
+	{
+		gboolean shift_buffer = TRUE;
+		gint i;
+		gchar ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+												 0, NULL);
+		
+		for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
+		{
+			if (mini_buffer[i] == '\0')
+			{
+				mini_buffer[i] = ch;
+				shift_buffer = FALSE;
+				break;
+			}
+		}
+		if (shift_buffer == TRUE)
+		{
+			/* Shift buffer and add */
+			for (i = 0; i < MINI_BUFFER_SIZE - 1; i++)
+				mini_buffer [i] = mini_buffer[i+1];
+			mini_buffer[i] = ch;
+		}
+		
+		if (!comment_begun && strncmp (mini_buffer, "/*", 2) == 0)
+		{
+			comment_begun = TRUE;
+			/* Reset buffer */
+			mini_buffer[0] = mini_buffer[1] = '\0';
+		}
+		else if (!comment_begun && strncmp (mini_buffer, "//", 2) == 0)
+		{
+			comment_begun = TRUE;
+			line_comment = TRUE;
+		}
+		else if (!comment_begun && mini_buffer[1] != '\0')
+		{
+			/* The buffer doesn't begin with a comment */
+			break;
+		}
+		else if (comment_begun)
+		{
+			if ((line_comment && ch == '\n') ||
+				(!line_comment && strncmp (mini_buffer, "*/", 2) == 0))
+			{
+				break;
+			}
+		}
+		
+		if (comment_begun)
+			g_string_append_c (comment_text, ch);
+	}
+	while (ianjuta_iterable_next (iter, NULL));
+	
+	/* DEBUG_PRINT ("Comment text: %s", comment_text->str); */
+	
+	if (comment_text->len > 0)
+	{
+		/* First comment found */
+		gchar *modeline = extract_mode_line (comment_text->str);
+		if (modeline)
+		{
+			parse_mode_line (plugin, modeline);
+			g_free (modeline);
+		}
+	}
+	g_string_free (comment_text, TRUE);
 }
 
 static gint
@@ -919,6 +1091,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 		gint insert_line;
 		gint line_indent;
 		
+		initialize_indentation_params (plugin);
 		insert_line = ianjuta_editor_get_lineno (editor, NULL);
 		line_indent = get_line_auto_indentation (plugin, editor, insert_line);
 		set_line_indentation (editor, insert_line, line_indent);
@@ -951,13 +1124,14 @@ install_support (CppJavaPlugin *lang_plugin)
 	
 	if (lang_plugin->current_language &&
 		(strcmp (lang_plugin->current_language, "cpp") == 0
-		|| strcmp (lang_plugin->current_language, "C") == 0
-		|| strcmp (lang_plugin->current_language, "C++") == 0))
+		|| strcmp (lang_plugin->current_language, "c") == 0
+		|| strcmp (lang_plugin->current_language, "c++") == 0))
 	{
 		g_signal_connect (lang_plugin->current_editor,
 						  "char-added",
 						  G_CALLBACK (on_editor_char_inserted_cpp),
 						  lang_plugin);
+		initialize_indentation_params (lang_plugin);
 	}
 	else if (lang_plugin->current_language &&
 		(strcmp (lang_plugin->current_language, "java") == 0
@@ -967,9 +1141,8 @@ install_support (CppJavaPlugin *lang_plugin)
 						  "char-added",
 						  G_CALLBACK (on_editor_char_inserted_java),
 						  lang_plugin);
-														  
+		initialize_indentation_params (lang_plugin);
 	}
-			
 	else
 	{
 		return;
@@ -1050,7 +1223,6 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 								 on_value_added_current_editor,
 								 on_value_removed_current_editor,
 								 plugin);
-	DEBUG_PRINT ("AnjutaLanguageCppJavaPlugin: Activated plugin.");
 	return TRUE;
 }
 
@@ -1062,6 +1234,7 @@ cpp_java_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_plugin_remove_watch (plugin,
 								lang_plugin->editor_watch_id,
 								TRUE);
+	DEBUG_PRINT ("AnjutaLanguageCppJavaPlugin: Deactivated plugin.");
 	return TRUE;
 }
 
