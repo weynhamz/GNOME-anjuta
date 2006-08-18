@@ -446,7 +446,7 @@ static void
 set_indentation_param (CppJavaPlugin* plugin, const gchar *param,
 					   const gchar *value)
 {
-	/* DEBUG_PRINT ("Setting indent param: %s = %s", param, value); */
+	DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
 	if (strcasecmp (param, "indent-tabs-mode") == 0)
 	{
 		if (strcasecmp (value, "t"))
@@ -588,7 +588,7 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 	}
 	while (ianjuta_iterable_next (iter, NULL));
 	
-	/* DEBUG_PRINT ("Comment text: %s", comment_text->str); */
+	DEBUG_PRINT ("Comment text: %s", comment_text->str);
 	
 	if (comment_text->len > 0)
 	{
@@ -1120,12 +1120,12 @@ install_support (CppJavaPlugin *lang_plugin)
 					(IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor),
 											  NULL);
 	
-	/* DEBUG_PRINT("Language: %s", lang_plugin->current_language); */
+	DEBUG_PRINT("Language: %s", lang_plugin->current_language);
 	
 	if (lang_plugin->current_language &&
-		(strcmp (lang_plugin->current_language, "cpp") == 0
-		|| strcmp (lang_plugin->current_language, "c") == 0
-		|| strcmp (lang_plugin->current_language, "c++") == 0))
+		(strcasecmp (lang_plugin->current_language, "cpp") == 0
+		|| strcasecmp (lang_plugin->current_language, "c") == 0
+		|| strcasecmp (lang_plugin->current_language, "c++") == 0))
 	{
 		g_signal_connect (lang_plugin->current_editor,
 						  "char-added",
@@ -1134,8 +1134,8 @@ install_support (CppJavaPlugin *lang_plugin)
 		initialize_indentation_params (lang_plugin);
 	}
 	else if (lang_plugin->current_language &&
-		(strcmp (lang_plugin->current_language, "java") == 0
-		|| strcmp (lang_plugin->current_language, "Java") == 0))
+		(strcasecmp (lang_plugin->current_language, "java") == 0
+		|| strcasecmp (lang_plugin->current_language, "Java") == 0))
 	{
 		g_signal_connect (lang_plugin->current_editor,
 						  "char-added",

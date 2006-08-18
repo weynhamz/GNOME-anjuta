@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /****************************************************************************
  *            sourceview.c
  *
@@ -485,12 +486,13 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 	sourceview_remove_monitor(sv);
 	anjuta_document_load(sv->priv->document, uri, NULL,
 						 -1, FALSE);
-						 
+#if 0						 
 	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(file), NULL);
 	/* Load language support plugin */
 	lang_support = anjuta_shell_get_interface(ANJUTA_SHELL(ANJUTA_PLUGIN(sv->priv->plugin)->shell),
 		IAnjutaLanguageSupport, NULL);
 	g_signal_emit_by_name (sv, "language-changed", lang);
+#endif
 }
 
 /* Return the currently loaded uri */
