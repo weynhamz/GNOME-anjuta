@@ -1,5 +1,8 @@
 2006-08-18  Naba Kumar  <naba@gnome.org>
 
+	* plugins/sourceview/sourceview.c: Emit language-changed signal at the
+	end of document loading.
+
 	* plugins/language-support-cpp-java/plugin.c,
 	plugins/sourceview/sourceview.c: Fixed plugin loading.
 

@@ -207,6 +207,7 @@ sourceview_add_monitor(Sourceview* sv)
 /* Called when document is loaded completly */
 static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 {
+	const gchar *lang;
 	if (err)
 	{
 		anjuta_util_dialog_error(NULL,
@@ -225,6 +226,9 @@ static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 	sv->priv->loading = FALSE;
 	
 	sourceview_add_monitor(sv);
+
+	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
+	g_signal_emit_by_name (sv, "language-changed", lang);
 }
 
 /* Show nice progress bar */
@@ -486,13 +490,6 @@ ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 	sourceview_remove_monitor(sv);
 	anjuta_document_load(sv->priv->document, uri, NULL,
 						 -1, FALSE);
-#if 0						 
-	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(file), NULL);
-	/* Load language support plugin */
-	lang_support = anjuta_shell_get_interface(ANJUTA_SHELL(ANJUTA_PLUGIN(sv->priv->plugin)->shell),
-		IAnjutaLanguageSupport, NULL);
-	g_signal_emit_by_name (sv, "language-changed", lang);
-#endif
 }
 
 /* Return the currently loaded uri */
