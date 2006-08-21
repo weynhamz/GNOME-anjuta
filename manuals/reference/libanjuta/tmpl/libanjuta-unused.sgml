@@ -1349,6 +1349,12 @@ Properties
 </para>
 
 
+<!-- ##### MACRO IANJUTA_DEBUGGER_MANAGER_ERROR ##### -->
+<para>
+
+</para>
+
+
 <!-- ##### MACRO IANJUTA_EDITOR_EDIT_ERROR ##### -->
 <para>
 
@@ -1444,6 +1450,23 @@ Properties
 @g_iface: 
 @down: 
 @up: 
+
+<!-- ##### STRUCT IAnjutaDebuggerManager ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### STRUCT IAnjutaDebuggerManagerIface ##### -->
+<para>
+
+</para>
+
+@g_iface: 
+@is_active: 
+@is_busy: 
+@start: 
+@stop: 
 
 <!-- ##### STRUCT IAnjutaEditorEdit ##### -->
 <para>
@@ -2348,7 +2371,51 @@ Properties
 @prog: 
 @err: 
 
+<!-- ##### FUNCTION ianjuta_debugger_manager_error_quark ##### -->
+<para>
+
+</para>
+
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_debugger_manager_is_active ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_debugger_manager_is_busy ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
 <!-- ##### FUNCTION ianjuta_debugger_manager_is_debugger_active ##### -->
+<para>
+
+</para>
+
+@obj: 
+@err: 
+@Returns: 
+
+<!-- ##### FUNCTION ianjuta_debugger_manager_start ##### -->
+<para>
+
+</para>
+
+@obj: 
+@prog_uri: 
+@source_search_directories: 
+@err: 
+
+<!-- ##### FUNCTION ianjuta_debugger_manager_stop ##### -->
 <para>
 
 </para>
