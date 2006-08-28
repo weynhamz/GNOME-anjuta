@@ -1,3 +1,9 @@
+2006-08-22 Adam Dingle <adam@medovina.org>
+	
+	* plugins/editor/editor.glade: Fixed bug 346775 ("no highlight styles
+	to edit are shown in the preferences dialog in anjuta").
+	Removed unused widgets from the style editor dialog.
+
 2006-08-21  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/symbol-browser/test-class.[cpp/h]
