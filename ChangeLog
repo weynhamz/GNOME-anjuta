@@ -1,4 +1,18 @@
 2006-08-28 Naba Kumar  <naba@gnome.org>
+	
+	* plugins/gvim/.cvsignore,
+	plugins/gvim/Makefile.am,
+	plugins/gvim/anjuta-vim-plugin.png,
+	plugins/gvim/anjuta-vim.c,
+	plugins/gvim/anjuta-vim.h,
+	plugins/gvim/anjuta-vim.plugin.in,
+	plugins/gvim/gtkvim.c,
+	plugins/gvim/gtkvim.h,
+	plugins/gvim/plugin.c,
+	plugins/gvim/plugin.h: Added gvim anjuta plugin. Not included
+	in build yet.
+
+2006-08-28 Naba Kumar  <naba@gnome.org>
 
 	Patch from: Massimo Corà  <maxcvs@email.it>
 	* tagmanager/tm_source_file.c, tagmanager/tm_workspace.c: Fixed
