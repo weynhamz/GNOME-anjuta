@@ -86,15 +86,9 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 	const char *file_name;
 	gboolean status = TRUE;
 
-	/* DEBUG FIXME removeme */
-
-	printf ("DEBUG: setting language to auto. Before it was %d\n", source_file->lang );
-
 	source_file->lang = LANG_AUTO;
 
-//	TagFile = tagsOpen("/home/pescio/Projects/gtk-foobar/.tm_project2.cache", NULL);
-//	openTagFile();
-
+	source_file->lang = LANG_AUTO;
 
 	if ((NULL == source_file) || (NULL == source_file->work_object.file_name))
 	{

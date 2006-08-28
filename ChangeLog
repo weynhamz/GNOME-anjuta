@@ -1,3 +1,9 @@
+2006-08-28 Naba Kumar  <naba@gnome.org>
+
+	Patch from: Massimo Corà  <maxcvs@email.it>
+	* tagmanager/tm_source_file.c, tagmanager/tm_workspace.c: Fixed
+	possible infinite loop.
+
 2006-08-22 Adam Dingle <adam@medovina.org>
 	
 	* plugins/editor/editor.glade: Fixed bug 346775 ("no highlight styles

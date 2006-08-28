@@ -1115,7 +1115,14 @@ tm_workspace_find_scope_members (const GPtrArray * file_tags, const char *name,
 			if (tag->type == tm_tag_typedef_t && tag->atts.entry.type_ref[1]
 				&& tag->atts.entry.type_ref[1][0] != '\0')
 			{
-				new_name = tag->atts.entry.type_ref[1];
+				char *tmp_name;
+				tmp_name = tag->atts.entry.type_ref[1];
+				if (strcmp(tmp_name, new_name) == 0) {
+					new_name = NULL;
+				}
+				else {
+					new_name = tmp_name;
+				}
 				continue;
 			}
 			filename = (tag->atts.entry.file ?
