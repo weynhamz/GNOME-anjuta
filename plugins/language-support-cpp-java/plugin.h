@@ -26,6 +26,10 @@ typedef struct _CppJavaPluginClass CppJavaPluginClass;
 
 struct _CppJavaPlugin {
 	AnjutaPlugin parent;
+	
+	GtkActionGroup *action_group;
+	gint uiid;
+	
 	AnjutaPreferences *prefs;
 	gint editor_watch_id;
 	GObject *current_editor;

@@ -1,3 +1,9 @@
+2006-08-30 Naba Kumar  <naba@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.[c,h],
+	plugins/language-support-cpp-java/anjuta-language-support-cpp-java.ui:
+	Impletemnted UI for auto indent.
+	
 2006-08-28 Naba Kumar  <naba@gnome.org>
 	
 	* plugins/gvim/.cvsignore,

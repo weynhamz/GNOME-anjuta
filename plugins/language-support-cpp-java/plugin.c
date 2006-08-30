@@ -26,11 +26,12 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
+#include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "plugin.h"
 
-#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-cpp-java-plugin.ui"
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-support-cpp-java.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-language-cpp-java.glade"
 #define ICON_FILE "anjuta-language-cpp-java-plugin.png"
 
@@ -1018,8 +1019,6 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	
 	/* DEBUG_PRINT ("Char added at position %d: '%c'", insert_pos, ch); */
 	
-	ianjuta_editor_begin_undo_action (editor, NULL);
-	
 	iter = ianjuta_editor_get_cell_iter (editor, insert_pos, NULL);
 	
 	if (iter_is_newline (iter, ch))
@@ -1067,6 +1066,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 			}
 		}
 	}
+#if 0
 	else if (ch == '\t' &&
 			 anjuta_preferences_get_int (plugin->prefs,
 										 PREF_INDENT_TAB_INDENTS))
@@ -1085,19 +1085,20 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 			should_auto_indent = TRUE;
 		}
 	}
-	
+#endif
 	if (should_auto_indent)
 	{
 		gint insert_line;
 		gint line_indent;
 		
+		ianjuta_editor_begin_undo_action (editor, NULL);
 		initialize_indentation_params (plugin);
 		insert_line = ianjuta_editor_get_lineno (editor, NULL);
 		line_indent = get_line_auto_indentation (plugin, editor, insert_line);
 		set_line_indentation (editor, insert_line, line_indent);
+		ianjuta_editor_end_undo_action (editor, NULL);
 	}
 	g_object_unref (iter);
-	ianjuta_editor_end_undo_action (editor, NULL);
 }
 
 static void
@@ -1208,15 +1209,76 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 	lang_plugin->current_editor = NULL;
 }
 
+static void
+on_auto_indent (GtkAction *action, gpointer data)
+{
+	gint sel_start, sel_end;
+	gint line_start, line_end;
+	gint insert_line;
+	gint line_indent;
+	
+	CppJavaPlugin *lang_plugin;
+	IAnjutaEditor *editor;
+	lang_plugin = (CppJavaPlugin*) data;
+	editor = IANJUTA_EDITOR (lang_plugin->current_editor);
+	
+	sel_start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor),
+													NULL);
+	sel_end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor),
+												NULL);
+	line_start = ianjuta_editor_get_line_from_position (editor,
+														sel_start,
+														NULL);
+	line_end = ianjuta_editor_get_line_from_position (editor,
+													  sel_end,
+													  NULL);
+	ianjuta_editor_begin_undo_action (editor, NULL);
+	initialize_indentation_params (lang_plugin);
+	
+	for (insert_line = line_start; insert_line <= line_end; insert_line++)
+	{
+		line_indent = get_line_auto_indentation (lang_plugin, editor,
+												 insert_line);
+		DEBUG_PRINT ("Line indent for line %d = %d", insert_line, line_indent);
+		set_line_indentation (editor, insert_line, line_indent);
+	}
+	ianjuta_editor_end_undo_action (editor, NULL);
+}
+
+static GtkActionEntry actions_indent[] = {
+	{
+		"ActionMenuEdit",
+		NULL, N_("_Edit"),
+		NULL, NULL, NULL
+	},
+	{
+		"ActionEditAutoindent",
+		NULL,
+		N_("Auto indent"), "<control>i",
+		N_("Auto indent current line or selection based on indentation settings"),
+		G_CALLBACK (on_auto_indent)
+	}
+};
+
 static gboolean
 cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 {
+	AnjutaUI *ui;
 	CppJavaPlugin *lang_plugin;
 	lang_plugin = (CppJavaPlugin*) plugin;
 	
 	DEBUG_PRINT ("AnjutaLanguageCppJavaPlugin: Activating plugin ...");
 
 	lang_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	lang_plugin->action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupAutoindent",
+											_("Autoindent"),
+											actions_indent,
+											G_N_ELEMENTS (actions_indent),
+											GETTEXT_PACKAGE, plugin);
+	lang_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
+	
 	lang_plugin->editor_watch_id = 
 		anjuta_plugin_add_watch (plugin,
 								 "document_manager_current_editor",
@@ -1229,8 +1291,16 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 cpp_java_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 {
+	AnjutaUI *ui;
 	CppJavaPlugin *lang_plugin;
 	lang_plugin = (CppJavaPlugin*) plugin;
+	
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	anjuta_ui_unmerge (ui, lang_plugin->uiid);
+	anjuta_ui_remove_action_group (ui, lang_plugin->action_group);
+	
+	lang_plugin->action_group = NULL;
+	lang_plugin->uiid = 0;
 	anjuta_plugin_remove_watch (plugin,
 								lang_plugin->editor_watch_id,
 								TRUE);
@@ -1255,7 +1325,12 @@ cpp_java_plugin_dispose (GObject *obj)
 static void
 cpp_java_plugin_instance_init (GObject *obj)
 {
-	/* CppJavaPlugin *plugin = (CppJavaPlugin*)obj; */
+	CppJavaPlugin *plugin = (CppJavaPlugin*)obj;
+	plugin->action_group = NULL;
+	plugin->current_editor = NULL;
+	plugin->current_language = NULL;
+	plugin->editor_watch_id = 0;
+	plugin->uiid = 0;
 }
 
 static void
