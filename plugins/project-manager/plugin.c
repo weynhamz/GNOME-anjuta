@@ -1173,7 +1173,8 @@ static void
 value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 								gpointer data)
 {
-	/* Do nothing... */
+	ProjectManagerPlugin* pm_plugin = (ProjectManagerPlugin*)(plugin);
+	pm_plugin->active_project = NULL;
 }
 
 static void

@@ -1,3 +1,9 @@
+2006-09-09  Johannes Schmid  <jhs@gnome.org>
+
+  * plugins/project-manager/plugin.c:
+  (value_removed_project_root_uri):
+  Fixed crasher if project cannot be opened
+
 2006-08-30 Naba Kumar  <naba@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.[c,h],
