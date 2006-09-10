@@ -1,6 +1,11 @@
 2006-09-09  Johannes Schmid  <jhs@gnome.org>
 
   * plugins/project-manager/plugin.c:
+  Fixed #355148 (Show project name in title bar)
+
+2006-09-09  Johannes Schmid  <jhs@gnome.org>
+
+  * plugins/project-manager/plugin.c:
   (value_removed_project_root_uri):
   Fixed crasher if project cannot be opened
 
