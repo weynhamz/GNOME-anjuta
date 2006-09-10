@@ -995,6 +995,18 @@ create_plugin_tree (void)
 	return tree;
 }
 
+/* Sort function for tools */
+static gint sort_tools(gconstpointer a, gconstpointer b)
+{
+  g_return_val_if_fail (a != NULL, 0);
+  g_return_val_if_fail (b != NULL, 0);
+
+  const AvailableTool* tool_a = a;
+  const AvailableTool* tool_b = b;
+  
+  return strcmp(tool_a->name, tool_b->name);
+}
+
 /* If show_all == FALSE, show only user activatable plugins
  * If show_all == TRUE, show all plugins
  */
@@ -1007,6 +1019,8 @@ populate_plugin_model (GtkListStore *store,
 	GSList *l;
 	
 	gtk_list_store_clear (store);
+	
+	available_tools = g_slist_sort(available_tools, sort_tools);
 	
 	for (l = available_tools; l != NULL; l = l->next) {
 		AvailableTool *tool = l->data;

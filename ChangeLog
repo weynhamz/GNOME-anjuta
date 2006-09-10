@@ -1,5 +1,10 @@
 2006-09-09  Johannes Schmid  <jhs@gnome.org>
 
+  * libanjuta/plugins.c:
+  Fixed #355156 (Show plugins in alphabetical order)
+
+2006-09-09  Johannes Schmid  <jhs@gnome.org>
+
   * plugins/project-manager/plugin.c:
   Fixed #355148 (Show project name in title bar)
 
