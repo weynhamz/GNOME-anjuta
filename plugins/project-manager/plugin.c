@@ -76,6 +76,21 @@ project_manager_plugin_close_project(ProjectManagerPlugin* plugin, PMProject* pr
 static void
 on_close_project (GtkAction *action, ProjectManagerPlugin *plugin);
 
+static void update_title(ProjectManagerPlugin* plugin, PMProject* project)
+{
+	if (project)
+	{
+		gchar* title;
+		title = g_strdup_printf("%s - Anjuta", g_basename(project->root_uri));
+		gtk_window_set_title(GTK_WINDOW(ANJUTA_PLUGIN(plugin)->shell), title);
+		g_free(title);
+	}
+	else
+	{
+		gtk_window_set_title(GTK_WINDOW(ANJUTA_PLUGIN(plugin)->shell), "Anjuta");
+	}
+}
+
 static GtkWindow*
 get_plugin_parent_window (ProjectManagerPlugin *plugin)
 {
@@ -1024,6 +1039,7 @@ change_active_project(ProjectManagerPlugin* plugin, PMProject* project)
 							   "project_root_uri", NULL);
 	anjuta_shell_add_value (ANJUTA_PLUGIN (plugin)->shell,
 							   "project_root_uri", value, NULL);
+	update_title(plugin, project);
 }
 
 static void
@@ -1041,7 +1057,6 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	PMProject* project;
 	GtkTreeIter iter;
 	GtkTreeModel* model;
-	gchar* title;
 		
 	root_uri = g_value_get_string (value);
 	dirname = gnome_vfs_get_local_path_from_uri (root_uri);
@@ -1167,9 +1182,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	anjuta_status_set_default (status, _("Project"), g_basename (dirname));
 	anjuta_status_pop (status);
 	anjuta_status_busy_pop (status);
-	title = g_strdup_printf("%s - Anjuta", g_basename(dirname));
-	gtk_window_set_title(GTK_WINDOW(plugin->shell), title);
-	g_free(title);
+	update_title(pm_plugin, project);
 	g_free (dirname);
 }
 
@@ -1179,7 +1192,7 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 {
 	ProjectManagerPlugin* pm_plugin = (ProjectManagerPlugin*)(plugin);
 	pm_plugin->active_project = NULL;
-  gtk_window_set_title(GTK_WINDOW(plugin->shell), "Anjuta");
+	update_title(pm_plugin, pm_plugin->active_project);
 }
 
 static void
