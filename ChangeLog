@@ -1,4 +1,9 @@
-2006-09-09  Johannes Schmid  <jhs@gnome.org>
+2006-09-13  Curtis Magyar <curtm4n@gmail.com>
+
+  * scintilla/ScintillaGTK.cxx
+  Fixed doulbe freeing in Scintilla
+
+2006-09-12  Johannes Schmid  <jhs@gnome.org>
 
   * plugins/project-manager/plugin.c:
   Really fixed #355148 (Show project name in title bar)

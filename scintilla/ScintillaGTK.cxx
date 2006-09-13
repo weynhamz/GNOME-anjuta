@@ -2193,7 +2193,7 @@ gint ScintillaGTK::ExposeTextThis(GtkWidget * /*widget*/, GdkEventExpose *ose) {
 	paintState = notPainting;
 
 	if (rgnUpdate) {
-		g_free(rgnUpdate);
+		gdk_region_destroy(rgnUpdate);
 	}
 	rgnUpdate = 0;
 
