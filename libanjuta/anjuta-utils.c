@@ -120,19 +120,9 @@ anjuta_util_color_from_string (const gchar * val, guint16 * r, guint16 * g, guin
 }
 
 gchar *
-anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b)
+anjuta_util_string_from_color (guint16 r, guint16 g, guint16 b)
 {
-	gchar str[10];
-	guint32 num;
-
-	num = r;
-	num <<= 8;
-	num += g;
-	num <<= 8;
-	num += b;
-
-	sprintf (str, "#%06X", num);
-	return g_strdup (str);
+	return g_strdup_printf("#%02x%02x%02x", r >> 8, g >> 8, b >> 8);
 }
 
 /* Get a GdkColor from preferences. Free the color with gdk_color_free() */

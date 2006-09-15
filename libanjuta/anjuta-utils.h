@@ -35,7 +35,7 @@ gboolean anjuta_util_diff(const gchar* uri, const gchar* text);
 void anjuta_util_color_from_string (const gchar * val, guint16 * r,
 									guint16 * g, guint16 * b);
 
-gchar* anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b);
+gchar* anjuta_util_string_from_color (guint16 r, guint16 g, guint16 b);
 
 GdkColor* anjuta_util_convert_color(AnjutaPreferences* prefs, const gchar* pref_name);
 

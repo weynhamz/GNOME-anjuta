@@ -1,3 +1,8 @@
+2006-09-15  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-utils.c/.h:
+	Fixed #355168
+
 2006-09-13  Curtis Magyar <curtm4n@gmail.com>
 
   * scintilla/ScintillaGTK.cxx
