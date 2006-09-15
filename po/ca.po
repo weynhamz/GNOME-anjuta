@@ -2203,7 +2203,7 @@ msgid ""
 "permissions."
 msgstr ""
 "S'ha produït un error en intentar escriure la plantilla de classe GObject. "
-"Comproveu els permissos dels fitxers."
+"Comproveu els permisos dels fitxers."
 
 #: ../plugins/class-gen/class_gen.c:480 ../plugins/class-gen/class_gen.c:488
 msgid "Please fill required fields."
@@ -4479,7 +4479,7 @@ msgstr "_Anterior adreça d'interès"
 
 #: ../plugins/document-manager/plugin.c:369
 msgid "Jump to the previous bookmark in the file"
-msgstr "Vés a la anterior adreça d'interès del fitxer"
+msgstr "Vés a l'anterior adreça d'interès del fitxer"
 
 #: ../plugins/document-manager/plugin.c:371
 msgid "_Next bookmark"
@@ -8061,7 +8061,7 @@ msgstr "Destí:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:8
 msgid "Enter the basic Project information"
-msgstr "Introduïu la informació básica del projecte"
+msgstr "Introduïu la informació bàsica del projecte"
 
 # Projecte_Gnome_2.2 [glade.glade-gnome2-branch.ca.po]
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
