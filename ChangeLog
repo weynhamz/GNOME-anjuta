@@ -1,3 +1,24 @@
+2006-09-18  Johannes Schmid <jhs@gnome.org>
+
+	* global-tags/.cvsignore:
+	* global-tags/Makefile.am:
+	* global-tags/create_global_tags.sh (removed):
+	* global-tags/create_global_tags.sh.in (added):
+	Fixed #355407
+	
+	* libanjuta/anjuta-launcher.c:
+	Fixed #349374
+	
+	* plugins/project-manager/plugin.c:
+	(project_manager_plugin_close_project):
+	Fixed crasher
+	
+	* plugins/symbol-browser/plugin.c: (update_editor_symbol_model):
+	Fixed gtk critical
+	
+	* src/anjuta-app.c: (on_add_merge_widget), (on_widget_remove):
+	More reasonable toolbar creation/deletition though it does not completly work!
+
 2006-09-15  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-utils.c/.h:

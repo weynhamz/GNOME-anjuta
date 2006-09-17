@@ -25,7 +25,11 @@
 #include <fcntl.h>
 #include <signal.h>
 #ifndef sun
+#ifndef FREEBSD
 #include <pty.h>
+#else
+#include <libutil.h>
+#endif
 #endif
 #include <assert.h>
 #include <termios.h>

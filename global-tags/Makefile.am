@@ -16,5 +16,12 @@ anjuta_tags_SOURCES = tm_global_tags.c
 anjuta_tags_LDADD = $(top_builddir)/tagmanager/libanjuta-ctags.la
 anjuta_tags_LDFLAGS = $(GLIB_LIBS)
 
-EXTRA_DIST = $(dist_bin_SCRIPTS)
+edit = sed \
+	-e 's,@scriptdir\@,$(bindir),g'
 
+create_global_tags.sh: Makefile create_global_tags.sh.in
+	rm -f create_global_tags.sh
+	$(edit) create_global_tags.sh.in > create_global_tags.sh
+	chmod +x create_global_tags.sh
+
+EXTRA_DIST = $(dist_bin_SCRIPTS)

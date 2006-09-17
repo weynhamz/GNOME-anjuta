@@ -215,6 +215,7 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 		gtk_widget_show (GTK_WIDGET (menuitem));
 		g_signal_connect (G_OBJECT (menuitem), "toggled",
 						  G_CALLBACK (on_toolbar_view_toggled), widget);
+		g_object_set_data(G_OBJECT(widget), "menuitem", menuitem);
 		toolbars = g_list_append(toolbars, widget);
 
 		/* Show/hide toolbar */
@@ -820,6 +821,10 @@ on_widget_remove (GtkWidget *container, GtkWidget *widget, AnjutaApp *app)
 	{
 		if (node->data == widget)
 		{
+			g_message("Removing toolbar");
+			GtkWidget* menuitem = GTK_WIDGET(g_object_get_data(G_OBJECT(widget), "menuitem"));
+			gtk_widget_hide(menuitem);
+			gtk_widget_destroy(menuitem);
 			toolbars = g_list_delete_link(toolbars, node);
 			break;
 		}

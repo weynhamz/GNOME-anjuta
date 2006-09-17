@@ -1640,15 +1640,13 @@ project_manager_plugin_close_project(ProjectManagerPlugin* plugin, PMProject* pr
 	g_free(prj->root_uri);
 	g_free(prj);
 	
-	gtk_notebook_remove_page(GTK_NOTEBOOK(plugin->notebook), id);
-	gtk_notebook_set_page(GTK_NOTEBOOK(plugin->notebook), 0);
-	
 	unload_profile(ANJUTA_PLUGIN(plugin));
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell, NULL);
 	anjuta_status_set_default (status, _("Project"), NULL);
 	
 	gtk_combo_box_set_active(GTK_COMBO_BOX(plugin->combo), 0);
+	gtk_notebook_remove_page(GTK_NOTEBOOK(plugin->notebook), id);
 	update_ui(plugin);
 }
 

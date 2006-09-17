@@ -717,16 +717,19 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 		
 		file_symbol_model =
 			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
-		g_object_set_data (G_OBJECT (editor), "tm_file",
+		if (file_symbol_model)
+		{
+			g_object_set_data (G_OBJECT (editor), "tm_file",
 						   g_object_get_data (G_OBJECT (file_symbol_model),
 											  "tm_file"));
-		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
+			egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
 		
 		
-		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
-			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		else
-			g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+			if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
+				g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+			else
+				g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
+		}
 	}
 	if (uri)
 		g_free (uri);
