@@ -1,5 +1,9 @@
 2006-09-18  Johannes Schmid <jhs@gnome.org>
 
+	* configure.in: Added gdl-gnome-1.0 to depencies and bumped gdl requirement to 0.7.0
+
+2006-09-18  Johannes Schmid <jhs@gnome.org>
+
 	* global-tags/.cvsignore:
 	* global-tags/Makefile.am:
 	* global-tags/create_global_tags.sh (removed):
