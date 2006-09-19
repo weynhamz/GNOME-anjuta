@@ -21,6 +21,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-save-prompt.h>
 #include <libanjuta/plugins.h>
 #include <libanjuta/interfaces/ianjuta-profile.h>
 
@@ -31,17 +32,38 @@
 static gboolean
 on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 {
+	AnjutaSavePrompt *save_prompt;
 	gchar *session_dir;
+	
 	DEBUG_PRINT ("AnjutaApp delete event");
 	
-	/* FIXME: Check for unsaved data */
+	/* Check for unsaved data */
+	save_prompt = anjuta_save_prompt_new (GTK_WINDOW (app));
+	anjuta_shell_save_prompt (ANJUTA_SHELL (app), save_prompt, NULL);
 
+	if (anjuta_save_prompt_get_items_count (save_prompt) > 0)
+	{
+		switch (gtk_dialog_run (GTK_DIALOG (save_prompt)))
+		{
+			case ANJUTA_SAVE_PROMPT_RESPONSE_CANCEL:
+				gtk_widget_destroy (GTK_WIDGET (save_prompt));
+				/* Do not exit now */
+				return TRUE;
+			case ANJUTA_SAVE_PROMPT_RESPONSE_DISCARD:
+			case ANJUTA_SAVE_PROMPT_RESPONSE_SAVE_CLOSE:
+				/* exit now */
+				break;
+		}
+	}
+	
 	/* Save current session as default session */
 	session_dir = g_build_filename (g_get_home_dir (), ".anjuta",
 									"session", NULL);
 	anjuta_shell_session_save (ANJUTA_SHELL (app), session_dir, NULL);
 	g_free (session_dir);
 
+	gtk_widget_destroy (GTK_WIDGET (save_prompt));
+	
 	/* Shutdown */
 	if (g_object_get_data (G_OBJECT (app), "__proper_shutdown"))
 	{

@@ -93,7 +93,14 @@ GList* anjuta_docman_get_all_editors (AnjutaDocman *docman);
 
 void anjuta_docman_open_file (AnjutaDocman *docman);
 
-void anjuta_docman_save_as_file (AnjutaDocman *docman);
+/* Returns TRUE if editor is saved */
+gboolean anjuta_docman_save_editor (AnjutaDocman *docman, IAnjutaEditor *te,
+									GtkWidget *parent_window);
+
+/* Returns TRUE if editor is saved */
+gboolean anjuta_docman_save_editor_as (AnjutaDocman *docman,
+									   IAnjutaEditor *editor,
+									   GtkWidget *parent_window);
 
 void anjuta_docman_set_busy (AnjutaDocman *docman, gboolean state);
 

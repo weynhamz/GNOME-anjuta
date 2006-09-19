@@ -23,13 +23,15 @@ libanjuta_la_LIBADD = \
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la
 
 libanjuta_la_SOURCES= \
+	anjuta-enum-types.h \
+	anjuta-enum-types.c \
 	cell-renderer-captioned-image.c	\
 	cell-renderer-captioned-image.h \
 	e-splash.h \
 	e-splash.c \
+	anjuta-marshal.c \
 	anjuta-shell.c \
 	anjuta-status.c \
-	anjuta-marshal.c \
 	anjuta-encodings.c \
 	anjuta-preferences-dialog.c \
 	anjuta-preferences.c \
@@ -46,8 +48,7 @@ libanjuta_la_SOURCES= \
 	glue-factory.c \
 	plugins.c \
 	plugins.h \
-	anjutaenumtypes.h \
-	anjutaenumtypes.c
+	anjuta-save-prompt.c
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 
@@ -67,15 +68,16 @@ libanjuta_include = \
 	anjuta-launcher.h \
 	anjuta-children.h \
 	anjuta-session.h \
+	anjuta-save-prompt.h \
 	glue-plugin.h \
 	glue-factory.h \
 	resources.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
-	anjutaenumtypes.h
+	anjuta-enum-types.h
 
-BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h  anjutaenumtypes.h anjutaenumtypes.c
+BUILT_SOURCES=anjuta-marshal.c anjuta-marshal.h  anjuta-enum-types.h anjuta-enum-types.c
 
 anjuta-marshal.h: anjuta-marshal.list
 	@GLIB_GENMARSHAL@ \
@@ -90,29 +92,29 @@ anjuta-marshal.c: anjuta-marshal.h anjuta-marshal.list
 	&& cp xgen-gmc $(@F) \
 	&& rm -f xgen-gmc
 
-anjutaenumtypes.h: stamp-anjutaenumtypes.h
+anjuta-enum-types.h: stamp-anjuta-enum-types.h
 	@true
-stamp-anjutaenumtypes.h: Makefile $(libanjuta_include) anjutaenumtypes.c
+stamp-anjuta-enum-types.h: Makefile $(libanjuta_include) anjuta-enum-types.c
 	( cd $(srcdir) && $(GLIB_MKENUMS) \
 			--fhead "#ifndef __ANJUTA_ENUM_TYPES_H__\n#define __ANJUTA_ENUM_TYPES_H__\n\n#include <libanjuta/libanjuta.h>\n\nG_BEGIN_DECLS\n" \
 			--fprod "/* enumerations from \"@filename@\" */\n" \
 			--vhead "GType @enum_name@_get_type (void) G_GNUC_CONST;\n#define ANJUTA_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
 			--ftail "G_END_DECLS\n\n#endif /* __ANJUTA_ENUM_TYPES_H__ */" \
 		$(libanjuta_include) ) >> xgen-geth \
-	&& (cmp -s xgen-geth anjutaenumtypes.h || cp xgen-geth anjutaenumtypes.h ) \
+	&& (cmp -s xgen-geth anjuta-enum-types.h || cp xgen-geth anjuta-enum-types.h ) \
 	&& rm -f xgen-geth \
 	&& echo timestamp > $(@F)
 	
-anjutaenumtypes.c: Makefile
+anjuta-enum-types.c: Makefile
 	( cd $(srcdir) && $(GLIB_MKENUMS) \
-			--fhead "#include \"anjutaenumtypes.h\"\n" \
+			--fhead "#include \"anjuta-enum-types.h\"\n" \
 			--fprod "\n/* enumerations from \"@filename@\" */" \
 			--ftail "\n#define __ANJUTA_ENUM_TYPES_C__\n" \
 			--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {" \
 			--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
 			--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (g_intern_static_string (\"@EnumName@\"), values);\n  }\n  return etype;\n}\n" \
 		$(libanjuta_include) ) > xgen-getc \
-	&& cp xgen-getc anjutaenumtypes.c  \
+	&& cp xgen-getc anjuta-enum-types.c  \
 	&& rm -f xgen-getc
 
 

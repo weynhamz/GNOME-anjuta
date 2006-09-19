@@ -53,8 +53,9 @@ static gpointer parent_class;
 struct _AnjutaDocmanPriv {
 	AnjutaPreferences *preferences;
 	IAnjutaEditor *current_editor;
+	
 	GtkWidget *fileselection;
-	GtkWidget *save_as_fileselection;
+	
 	GList *editors;
 	GtkWidget *popup_menu;
 	gboolean shutingdown;
@@ -494,7 +495,7 @@ on_text_editor_notebook_close_page (GtkButton* button,
 		node = g_list_next (node);
 	}
 	
-	on_close_file1_activate (NULL, dummy_plugin);
+	on_close_file_activate (NULL, dummy_plugin);
 	
 	g_free(dummy_plugin);
 }
@@ -677,7 +678,7 @@ on_open_filesel_response (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 
 	if (id != GTK_RESPONSE_ACCEPT)
 	{
-		gtk_widget_hide (docman->priv->save_as_fileselection);
+		gtk_widget_hide (docman->priv->fileselection);
 		return;
 	}
 	
@@ -697,69 +698,6 @@ on_open_filesel_response (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 		list = g_slist_remove(list, entry_filename);
 		g_free(entry_filename);
 	}
-}
-
-static void
-save_as_real (AnjutaDocman *docman)
-{
-	IAnjutaEditor *te;
-	const gchar* uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection));
-	if (!uri)
-		return;
-
-	te = anjuta_docman_get_current_editor (docman);
-	g_return_if_fail (te != NULL);
-
-	gtk_widget_hide (docman->priv->save_as_fileselection);
-	
-	/* TODO: Error checking and maybe rehighlite */
-	ianjuta_file_savable_save_as(IANJUTA_FILE_SAVABLE(te), uri, NULL);
-}
-
-static void
-on_save_as_filesel_response (GtkDialog* dialog, gint id, AnjutaDocman *docman)
-{
-	gchar* uri;
-	GnomeVFSURI* vfs_uri;
-	
-	if (id != GTK_RESPONSE_ACCEPT)
-	{
-		gtk_widget_hide (docman->priv->save_as_fileselection);
-		return;
-	} 	
-
-	uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
-	vfs_uri = gnome_vfs_uri_new(uri);
-	if (gnome_vfs_uri_exists(vfs_uri))
-	{
-		GtkWidget *dialog;
-		GtkWidget *parent;
-		parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
-		dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
-										 GTK_DIALOG_DESTROY_WITH_PARENT,
-										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_NONE,
-										 _("The file '%s' already exists.\n"
-										 "Do you want to replace it with the one you are saving?"),
-										 uri);
-		gtk_dialog_add_button (GTK_DIALOG(dialog),
-							   GTK_STOCK_CANCEL,
-							   GTK_RESPONSE_CANCEL);
-		anjuta_util_dialog_add_button (GTK_DIALOG (dialog),
-								  _("_Replace"),
-								  GTK_STOCK_REFRESH,
-								  GTK_RESPONSE_YES);
-		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-			save_as_real (docman);
-		gtk_widget_destroy (dialog);
-	}
-	else
-		save_as_real (docman);
-	g_free (uri);
-
-	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (docman->priv->preferences),
-									EDITOR_TABS_ORDERING))
-		anjuta_docman_order_tabs (docman);
 }
 
 static GtkWidget*
@@ -792,10 +730,6 @@ create_file_save_dialog_gui (GtkWindow* parent, AnjutaDocman* docman)
 									GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 									NULL); 
 	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_ACCEPT);
-	g_signal_connect (G_OBJECT(dialog), "response", 
-					  G_CALLBACK(on_save_as_filesel_response), docman);	
-	g_signal_connect_swapped (G_OBJECT(dialog), "delete-event",
-							  G_CALLBACK(gtk_widget_hide), dialog);	
 	return dialog;
 }
 
@@ -812,35 +746,100 @@ anjuta_docman_open_file (AnjutaDocman *docman)
 	gtk_widget_show (docman->priv->fileselection);
 }
 
-void
-anjuta_docman_save_as_file (AnjutaDocman *docman)
+gboolean
+anjuta_docman_save_editor_as (AnjutaDocman *docman, IAnjutaEditor *te,
+							  GtkWidget *parent_window)
 {
-	IAnjutaEditor *te;
-	const gchar* uri;
+	gchar* uri;
+	GnomeVFSURI* vfs_uri;
+	const gchar* file_uri;
 	const gchar* filename;
+	GtkWidget *parent;
+	GtkWidget *dialog;
+	gint response;
+	gboolean file_saved = TRUE;
 	
-	if (!docman->priv->save_as_fileselection)
-	{
-		GtkWidget *parent;
-		parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
-		docman->priv->save_as_fileselection =
-			create_file_save_dialog_gui (GTK_WINDOW (parent), docman);
-		gtk_window_set_modal (GTK_WINDOW (docman->priv->save_as_fileselection),
-							  TRUE);
-	}
-	te = anjuta_docman_get_current_editor (docman);
-	if (te == NULL)
-		return;
-	if ((uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL)) != NULL)
-		gtk_file_chooser_set_uri (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
-									uri);
-	else if ((filename = ianjuta_editor_get_filename(te, NULL)) != NULL)
-		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
-											filename);
+	g_return_val_if_fail (ANJUTA_IS_DOCMAN (docman), FALSE);
+	g_return_val_if_fail (IANJUTA_IS_EDITOR (te), FALSE);
+	
+	if (parent_window)
+		parent = parent_window;
 	else
-		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(docman->priv->save_as_fileselection),
-										  "");
-	gtk_widget_show (docman->priv->save_as_fileselection);
+		parent = gtk_widget_get_toplevel (GTK_WIDGET (docman));
+	
+	dialog = create_file_save_dialog_gui (GTK_WINDOW (parent), docman);
+	
+	if ((file_uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL)) != NULL)
+		gtk_file_chooser_set_uri (GTK_FILE_CHOOSER(dialog), file_uri);
+	else if ((filename = ianjuta_editor_get_filename(te, NULL)) != NULL)
+		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(dialog), filename);
+	else
+		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(dialog), "");
+	
+	response = gtk_dialog_run (GTK_DIALOG (dialog));
+	if (response != GTK_RESPONSE_ACCEPT)
+	{
+		gtk_widget_destroy (dialog);
+		return FALSE;
+	}
+	
+	uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+	vfs_uri = gnome_vfs_uri_new(uri);
+	if (gnome_vfs_uri_exists(vfs_uri))
+	{
+		GtkWidget *msg_dialog;
+		msg_dialog = gtk_message_dialog_new (GTK_WINDOW (dialog),
+											 GTK_DIALOG_DESTROY_WITH_PARENT,
+											 GTK_MESSAGE_QUESTION,
+											 GTK_BUTTONS_NONE,
+											 _("The file '%s' already exists.\n"
+											 "Do you want to replace it with the"
+											 " one you are saving?"),
+											 uri);
+		gtk_dialog_add_button (GTK_DIALOG (msg_dialog),
+							   GTK_STOCK_CANCEL,
+							   GTK_RESPONSE_CANCEL);
+		anjuta_util_dialog_add_button (GTK_DIALOG (msg_dialog),
+								  _("_Replace"),
+								  GTK_STOCK_REFRESH,
+								  GTK_RESPONSE_YES);
+		if (gtk_dialog_run (GTK_DIALOG (msg_dialog)) == GTK_RESPONSE_YES)
+			ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (te), uri,
+										  NULL);
+		else
+			file_saved = FALSE;
+		gtk_widget_destroy (msg_dialog);
+	}
+	else
+	{
+		ianjuta_file_savable_save_as (IANJUTA_FILE_SAVABLE (te), uri, NULL);
+	}
+	
+	if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (docman->priv->preferences),
+									EDITOR_TABS_ORDERING))
+		anjuta_docman_order_tabs (docman);
+
+	gtk_widget_destroy (dialog);
+	g_free (uri);
+	gnome_vfs_uri_unref (vfs_uri);
+	return file_saved;
+}
+
+gboolean
+anjuta_docman_save_editor (AnjutaDocman *docman, IAnjutaEditor *te,
+						   GtkWidget *parent_window)
+{
+	if (ianjuta_file_get_uri(IANJUTA_FILE(te), NULL) == NULL)
+	{
+		anjuta_docman_set_current_editor (docman, te);
+		return anjuta_docman_save_editor_as (docman, te, parent_window);
+	}
+	else
+	{
+		/* TODO: Error checking */
+		ianjuta_file_savable_save(IANJUTA_FILE_SAVABLE(te), NULL);
+	}
+	return TRUE;
 }
 
 static void
@@ -891,8 +890,6 @@ anjuta_docman_finalize (GObject *obj)
 	{
 		if (docman->priv->fileselection)
 			gtk_widget_destroy (docman->priv->fileselection);
-		if (docman->priv->save_as_fileselection)
-			gtk_widget_destroy (docman->priv->save_as_fileselection);
 		g_free (docman->priv);
 		docman->priv = NULL;
 	}
@@ -905,7 +902,6 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	docman->priv = g_new0 (AnjutaDocmanPriv, 1);
 	docman->priv->popup_menu = NULL;
 	docman->priv->fileselection = NULL;
-	docman->priv->save_as_fileselection = NULL;
 	
 	gtk_notebook_popup_enable (GTK_NOTEBOOK (docman));
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (docman), TRUE);

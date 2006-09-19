@@ -54,8 +54,6 @@
 #define AUTOFORMAT_LIST_STYLE      "autoformat.list.style"
 #define AUTOFORMAT_OPTS            "autoformat.opts"
 
-gboolean closing_state;
-
 void
 static editor_autoformat (IAnjutaEditor *te, AnjutaPreferences* prefs)
 {
@@ -112,7 +110,7 @@ get_current_editor(gpointer user_data)
 }
 
 void
-on_open1_activate (GtkAction * action, gpointer user_data)
+on_open_activate (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
@@ -122,7 +120,7 @@ on_open1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_save1_activate (GtkAction *action, gpointer user_data)
+on_save_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaEditor *te;
 	AnjutaDocman *docman;
@@ -133,36 +131,29 @@ on_save1_activate (GtkAction *action, gpointer user_data)
 	te = anjuta_docman_get_current_editor (docman);
 	if (te == NULL)
 		return;
-	if (ianjuta_file_get_uri(IANJUTA_FILE(te), NULL) == NULL)
-	{
-		anjuta_docman_set_current_editor (docman, te);
-		anjuta_docman_save_as_file (docman);
-		return;
-	}
-	else
-	{
-		/* TODO: Error checking */
-		ianjuta_file_savable_save(IANJUTA_FILE_SAVABLE(te), NULL);
-	}
-	if (closing_state)
-	{
-		anjuta_docman_remove_editor (docman, te);
-		closing_state = FALSE;
-	}
+	
+	anjuta_docman_save_editor (docman, te, NULL);
 }
 
 void
-on_save_as1_activate (GtkAction * action, gpointer user_data)
+on_save_as_activate (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
+	IAnjutaEditor *te;
+	
 	plugin = (DocmanPlugin *) user_data;
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	anjuta_docman_save_as_file (docman);
+	
+	te = anjuta_docman_get_current_editor (docman);
+	if (te == NULL)
+		return;
+	
+	anjuta_docman_save_editor_as (docman, te, NULL);
 }
 
 void
-on_save_all1_activate (GtkAction * action, gpointer user_data)
+on_save_all_activate (GtkAction * action, gpointer user_data)
 {
 	GList *node;
 	AnjutaDocman *docman;
@@ -190,7 +181,7 @@ on_save_all1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_close_file1_activate (GtkAction * action, gpointer user_data)
+on_close_file_activate (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	IAnjutaEditor *te;
@@ -211,7 +202,6 @@ on_close_file1_activate (GtkAction * action, gpointer user_data)
 		GtkWidget *dialog;
 		gint res;
 		
-		closing_state = TRUE;
 		mesg = g_strdup_printf (_("The file '%s' is not saved.\n"
 								"Do you want to save it before closing?"),
 								ianjuta_editor_get_filename(te, NULL));
@@ -229,23 +219,24 @@ on_close_file1_activate (GtkAction * action, gpointer user_data)
 		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
 										 GTK_RESPONSE_CANCEL);
 		res = gtk_dialog_run (GTK_DIALOG (dialog));
+		
+		gtk_widget_destroy (dialog);
 		if (res == GTK_RESPONSE_YES)
-			on_save1_activate (NULL, user_data);
+		{
+			anjuta_docman_save_editor (docman, te, NULL);
+			anjuta_docman_remove_editor (docman, te);
+		}
 		else if (res == GTK_RESPONSE_NO)
 		{
 			anjuta_docman_remove_editor (docman, te);
-			closing_state = FALSE;
 		}
-		else
-			closing_state = FALSE;
-		gtk_widget_destroy (dialog);
 	}
 	else
 		anjuta_docman_remove_editor (docman, te);
 }
 
 void
-on_close_all_file1_activate (GtkAction * action, gpointer user_data)
+on_close_all_file_activate (GtkAction * action, gpointer user_data)
 {
 	GList *node;
 	AnjutaDocman *docman;
@@ -273,7 +264,7 @@ on_close_all_file1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_reload_file1_activate (GtkAction * action, gpointer user_data)
+on_reload_file_activate (GtkAction * action, gpointer user_data)
 {
 	IAnjutaEditor *te;
 	gchar mesg[256];

@@ -17,13 +17,13 @@
 #ifndef _ACTION_CALLBACKS_H_
 #define _ACTION_CALLBACKS_H_
 
-void on_open1_activate (GtkAction * action, gpointer user_data);
-void on_save1_activate (GtkAction * action, gpointer user_data);
-void on_save_as1_activate (GtkAction * action, gpointer user_data);
-void on_save_all1_activate (GtkAction * action, gpointer user_data);
-void on_close_file1_activate (GtkAction * action, gpointer user_data);
-void on_reload_file1_activate (GtkAction * action, gpointer user_data);
-void on_close_all_file1_activate (GtkAction * action, gpointer user_data);
+void on_open_activate (GtkAction * action, gpointer user_data);
+void on_save_activate (GtkAction * action, gpointer user_data);
+void on_save_as_activate (GtkAction * action, gpointer user_data);
+void on_save_all_activate (GtkAction * action, gpointer user_data);
+void on_close_file_activate (GtkAction * action, gpointer user_data);
+void on_reload_file_activate (GtkAction * action, gpointer user_data);
+void on_close_all_file_activate (GtkAction * action, gpointer user_data);
 
 void anjuta_print_cb (GtkAction *action, gpointer user_data);
 void anjuta_print_preview_cb (GtkAction *action, gpointer user_data);

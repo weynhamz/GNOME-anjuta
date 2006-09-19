@@ -1,6 +1,29 @@
+2006-09-19  Naba Kumar  <naba@gnome.org>
+
+	* ChangeLog: Fixed indentation.
+	
+	* libanjuta/Makefile.am,
+	libanjuta/anjuta-marshal.list,
+	libanjuta/anjuta-shell.c,
+	libanjuta/anjuta-shell.h,
+	plugins/document-manager/action-callbacks.c,
+	plugins/document-manager/action-callbacks.h,
+	plugins/document-manager/anjuta-docman.c,
+	plugins/document-manager/anjuta-docman.h,
+	plugins/document-manager/plugin.c,
+	src/anjuta.c: Impletemnted save prompt dialog to prompt for
+	unsaved items during exit. A new signal is added in shell
+	interface called 'save-prompt' to collect all unsaved items.
+	Create AnjutaSavePrompt class (dialog) to process unsaved items.
+	Fixed document manager to use the new save-prompt signal in shell
+	and AnjutaSavePrompt object for unsaved files. Cleaned up
+	AnjutaDocman to synchronously save new files. Fixed function
+	names.
+
 2006-09-18  Johannes Schmid <jhs@gnome.org>
 
-	* configure.in: Added gdl-gnome-1.0 to depencies and bumped gdl requirement to 0.7.0
+	* configure.in: Added gdl-gnome-1.0 to depencies and bumped
+	gdl requirement to 0.7.0
 
 2006-09-18  Johannes Schmid <jhs@gnome.org>
 
@@ -21,7 +44,8 @@
 	Fixed gtk critical
 	
 	* src/anjuta-app.c: (on_add_merge_widget), (on_widget_remove):
-	More reasonable toolbar creation/deletition though it does not completly work!
+	More reasonable toolbar creation/deletition though it does
+	not completly work!
 
 2006-09-15  Johannes Schmid <jhs@gnome.org>
 
@@ -30,29 +54,29 @@
 
 2006-09-13  Curtis Magyar <curtm4n@gmail.com>
 
-  * scintilla/ScintillaGTK.cxx
-  Fixed doulbe freeing in Scintilla
+	* scintilla/ScintillaGTK.cxx
+	Fixed doulbe freeing in Scintilla
 
 2006-09-12  Johannes Schmid  <jhs@gnome.org>
 
-  * plugins/project-manager/plugin.c:
-  Really fixed #355148 (Show project name in title bar)
+	* plugins/project-manager/plugin.c:
+	Really fixed #355148 (Show project name in title bar)
 
 2006-09-09  Johannes Schmid  <jhs@gnome.org>
 
-  * libanjuta/plugins.c:
-  Fixed #355156 (Show plugins in alphabetical order)
+	* libanjuta/plugins.c:
+	Fixed #355156 (Show plugins in alphabetical order)
 
 2006-09-09  Johannes Schmid  <jhs@gnome.org>
 
-  * plugins/project-manager/plugin.c:
-  Fixed #355148 (Show project name in title bar)
+	* plugins/project-manager/plugin.c:
+	Fixed #355148 (Show project name in title bar)
 
 2006-09-09  Johannes Schmid  <jhs@gnome.org>
 
-  * plugins/project-manager/plugin.c:
-  (value_removed_project_root_uri):
-  Fixed crasher if project cannot be opened
+	* plugins/project-manager/plugin.c:
+	(value_removed_project_root_uri):
+	Fixed crasher if project cannot be opened
 
 2006-08-30 Naba Kumar  <naba@gnome.org>
 

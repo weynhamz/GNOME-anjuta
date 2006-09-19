@@ -9,6 +9,7 @@
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-session.h>
+#include <libanjuta/anjuta-save-prompt.h>
 
 G_BEGIN_DECLS
 
@@ -48,7 +49,8 @@ struct _AnjutaShellIface {
 						  AnjutaSession *session);
 	void (*load_session) (AnjutaShell *shell, AnjutaSessionPhase phase,
 						  AnjutaSession *session);
-
+	void (*save_prompt)  (AnjutaShell *shell, AnjutaSavePrompt *save_prompt);
+	
 	/* Virtual Table */
 	AnjutaStatus* (*get_status) (AnjutaShell  *shell, GError **err);
 	AnjutaUI* (*get_ui) (AnjutaShell  *shell, GError **err);
@@ -145,6 +147,9 @@ void anjuta_shell_session_save      (AnjutaShell *shell,
 									 GError **error);
 void anjuta_shell_session_load      (AnjutaShell *shell,
 									 const gchar *session_directory,
+									 GError **error);
+void anjuta_shell_save_prompt       (AnjutaShell *shell,
+									 AnjutaSavePrompt *prompt,
 									 GError **error);
 
 /**

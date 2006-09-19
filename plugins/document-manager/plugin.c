@@ -149,22 +149,22 @@ static ShortcutMapping global_keymap[] = {
 
 static GtkActionEntry actions_file[] = {
   { "ActionFileSave", N_("_Save"), GTK_STOCK_SAVE, "<control>s",
-	N_("Save current file"), G_CALLBACK (on_save1_activate)},
+	N_("Save current file"), G_CALLBACK (on_save_activate)},
   { "ActionFileSaveAs", N_("Save _As..."), GTK_STOCK_SAVE_AS, NULL,
 	N_("Save the current file with a different name"),
-    G_CALLBACK (on_save_as1_activate)},
+    G_CALLBACK (on_save_as_activate)},
   { "ActionFileSaveAll", N_("Save A_ll"),  NULL, NULL,
 	N_("Save all currently open files, except new files"),
-    G_CALLBACK (on_save_all1_activate)},
+    G_CALLBACK (on_save_all_activate)},
   { "ActionFileClose", N_("_Close File"), GTK_STOCK_CLOSE, "<control>w",
 	N_("Close current file"),
-    G_CALLBACK (on_close_file1_activate)},
+    G_CALLBACK (on_close_file_activate)},
   { "ActionFileCloseAll", N_("Close All Files"), GTK_STOCK_CLOSE, "<alt>d",
 	N_("Close all files"),
-    G_CALLBACK (on_close_all_file1_activate)},
+    G_CALLBACK (on_close_all_file_activate)},
   { "ActionFileReload", N_("Reload F_ile"), GTK_STOCK_REVERT_TO_SAVED, NULL,
 	N_("Reload current file"),
-    G_CALLBACK (on_reload_file1_activate)},
+    G_CALLBACK (on_reload_file_activate)},
   { "ActionFileSwap", N_("Swap .h/.c"), ANJUTA_STOCK_SWAP, NULL,
 	N_("Swap c header and source file"),
     G_CALLBACK (on_swap_activate)},
@@ -1167,6 +1167,43 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	g_list_free (files);
 }
 
+static gboolean
+on_save_prompt_save_editor (AnjutaSavePrompt *save_prompt,
+							gpointer item, gpointer user_data)
+{
+	DocmanPlugin *plugin;
+	
+	plugin = (DocmanPlugin*)user_data;
+	return anjuta_docman_save_editor (ANJUTA_DOCMAN (plugin->docman),
+									  IANJUTA_EDITOR (item),
+									  GTK_WIDGET (save_prompt));
+}
+
+static void
+on_save_prompt (AnjutaShell *shell, AnjutaSavePrompt *save_prompt,
+				DocmanPlugin *plugin)
+{
+	GList *list, *node;
+	
+	list = anjuta_docman_get_all_editors (ANJUTA_DOCMAN (plugin->docman));
+	node = list;
+	while (node)
+	{
+		IAnjutaFileSavable *editor = IANJUTA_FILE_SAVABLE (node->data);
+		if (ianjuta_file_savable_is_dirty (editor, NULL))
+		{
+			const gchar *name;
+			const gchar *uri;
+			
+			name = ianjuta_editor_get_filename (IANJUTA_EDITOR (editor), NULL);
+			uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+			anjuta_save_prompt_add_item (save_prompt, name, uri, editor,
+										 on_save_prompt_save_editor, plugin);
+		}
+		node = g_list_next (node);
+	}
+}
+
 static void
 docman_plugin_set_tab_pos (DocmanPlugin *ep)
 {
@@ -1455,6 +1492,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save-session",
 					  G_CALLBACK (on_session_save), plugin);
+	/* Connect to save prompt */
+	g_signal_connect (G_OBJECT (plugin->shell), "save-prompt",
+					  G_CALLBACK (on_save_prompt), plugin);
 	
 	initialized = TRUE;
 	return TRUE;
@@ -1476,6 +1516,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	prefs_finalize (eplugin);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_save), plugin);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_save_prompt), plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	status = anjuta_shell_get_status (plugin->shell, NULL);

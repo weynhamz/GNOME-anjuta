@@ -660,6 +660,16 @@ anjuta_shell_session_load (AnjutaShell *shell, const gchar *session_directory,
 	g_object_set_data (G_OBJECT (shell), "__session_loading", NULL);
 }
 
+void
+anjuta_shell_save_prompt (AnjutaShell *shell,
+						  AnjutaSavePrompt *save_prompt,
+						  GError **error)
+{
+	g_return_if_fail (ANJUTA_IS_SHELL (shell));
+	g_return_if_fail (ANJUTA_IS_SAVE_PROMPT (save_prompt));
+	g_signal_emit_by_name (shell, "save-prompt", save_prompt);
+}
+
 static void
 anjuta_shell_base_init (gpointer gclass)
 {
@@ -700,6 +710,14 @@ anjuta_shell_base_init (gpointer gclass)
 			      anjuta_cclosure_marshal_VOID__INT_OBJECT,
 			      G_TYPE_NONE, 2,
 				  G_TYPE_INT,
+			      G_TYPE_OBJECT);
+		g_signal_new ("save-prompt",
+			      ANJUTA_TYPE_SHELL,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (AnjutaShellIface, save_prompt),
+			      NULL, NULL,
+			      anjuta_cclosure_marshal_VOID__OBJECT,
+			      G_TYPE_NONE, 1,
 			      G_TYPE_OBJECT);
 		initialized = TRUE;
 	}
