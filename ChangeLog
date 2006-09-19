@@ -1,5 +1,8 @@
 2006-09-19  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/anjuta-save-prompt.[c,h]: Added missing files
+	that implements AnjutaSavePrompt class.
+
 	* ChangeLog: Fixed indentation.
 	
 	* libanjuta/Makefile.am,
