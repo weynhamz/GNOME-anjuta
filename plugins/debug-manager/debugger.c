@@ -47,12 +47,22 @@ typedef enum
 	NEED_PROGRAM_LOADED = 1 << 10,
 	NEED_PROGRAM_STOPPED = 1 << 11,
 	NEED_PROGRAM_RUNNING = 1 << 12,
+
+	STOP_DEBUGGER = 1 << 18,
+	START_DEBUGGER = 1 << 19,
+	LOAD_PROGRAM = 1 << 20,
+	STOP_PROGRAM = 1 << 21,
+	RUN_PROGRAM = 1 << 22,
+	
+	CHANGE_STATE = 31 << 18,
+	
 	CANCEL_IF_PROGRAM_RUNNING = 1 << 13,
+	CANCEL_ALL_COMMAND = 1 << 15,
 };
 
 typedef enum
 {
-	DUMMY_COMMAND ,
+	EMPTY_COMMAND ,
 	INITIALIZE_COMMAND,     /* Debugger stopped */
 	LOAD_COMMAND,           /* Debugger started */
 	ATTACH_COMMAND,
@@ -68,7 +78,7 @@ typedef enum
 	BREAK_ADDRESS_COMMAND,
 	ENABLE_BREAK_COMMAND,
 	IGNORE_BREAK_COMMAND,
-	CONDITION_BREAK_COMMAND,
+	CONDITION_BREAK_COMMAND, /* 0x10 */
 	REMOVE_BREAK_COMMAND,
 	INFO_SHAREDLIB_COMMAND,
 	INFO_TARGET_COMMAND,
@@ -84,7 +94,7 @@ typedef enum
 	LIST_LOCAL_COMMAND,
 	LIST_ARG_COMMAND,
 	INFO_SIGNAL_COMMAND,
-	INFO_FRAME_COMMAND,
+	INFO_FRAME_COMMAND,		/* 0x20 */
 	INFO_ARGS_COMMAND,
 	INFO_THREADS_COMMAND,
 	INFO_VARIABLES_COMMAND,
@@ -106,59 +116,153 @@ typedef enum
 
 typedef enum
 {
-	DMA_INITIALIZE_COMMAND = INITIALIZE_COMMAND,
-	DMA_LOAD_COMMAND = LOAD_COMMAND,
-	DMA_ATTACH_COMMAND = ATTACH_COMMAND,
-	DMA_QUIT_COMMAND = QUIT_COMMAND,
-	DMA_USER_COMMAND = USER_COMMAND,
-	DMA_INSPECT_MEMORY_COMMAND = INSPECT_MEMORY_COMMAND,
-	DMA_LIST_REGISTER_COMMAND = LIST_REGISTER_COMMAND,
-	DMA_UNLOAD_COMMAND = UNLOAD_COMMAND,
-	DMA_START_COMMAND = START_COMMAND,         
-	DMA_RESTART_COMMAND = RESTART_COMMAND,
-	DMA_BREAK_LINE_COMMAND = BREAK_LINE_COMMAND,
-	DMA_BREAK_FUNCTION_COMMAND = BREAK_FUNCTION_COMMAND,
-	DMA_BREAK_ADDRESS_COMMAND = BREAK_ADDRESS_COMMAND,
-	DMA_ENABLE_BREAK_COMMAND = ENABLE_BREAK_COMMAND,
-	DMA_IGNORE_BREAK_COMMAND = IGNORE_BREAK_COMMAND,
-	DMA_CONDITION_BREAK_COMMAND = CONDITION_BREAK_COMMAND,
-	DMA_REMOVE_BREAK_COMMAND = REMOVE_BREAK_COMMAND,
-	DMA_INFO_SHAREDLIB_COMMAND = INFO_SHAREDLIB_COMMAND,
-	DMA_INFO_TARGET_COMMAND = INFO_TARGET_COMMAND,
-	DMA_INFO_PROGRAM_COMMAND = INFO_PROGRAM_COMMAND,
-	DMA_INFO_UDOT_COMMAND = INFO_UDOT_COMMAND,
-	DMA_STEP_IN_COMMAND = STEP_IN_COMMAND,
-	DMA_STEP_OVER_COMMAND = STEP_OVER_COMMAND,
-	DMA_STEP_OUT_COMMAND = STEP_OUT_COMMAND,
-	DMA_RUN_COMMAND = RUN_COMMAND,		
-	DMA_RUN_TO_COMMAND = RUN_TO_COMMAND,
-	DMA_EXIT_COMMAND = EXIT_COMMAND,
-	DMA_HANDLE_SIGNAL_COMMAND = HANDLE_SIGNAL_COMMAND,
-	DMA_LIST_LOCAL_COMMAND = LIST_LOCAL_COMMAND,
-	DMA_LIST_ARG_COMMAND = LIST_ARG_COMMAND,
-	DMA_INFO_SIGNAL_COMMAND = INFO_SIGNAL_COMMAND,
-	DMA_INFO_FRAME_COMMAND = INFO_FRAME_COMMAND,
-	DMA_INFO_ARGS_COMMAND = INFO_ARGS_COMMAND,
-	DMA_INFO_THREADS_COMMAND = INFO_THREADS_COMMAND,
-	DMA_INFO_VARIABLES_COMMAND = INFO_VARIABLES_COMMAND,
-	DMA_SET_FRAME_COMMAND = SET_FRAME_COMMAND,
-	DMA_LIST_FRAME_COMMAND = LIST_FRAME_COMMAND,
-	DMA_UPDATE_REGISTER_COMMAND = UPDATE_REGISTER_COMMAND,
-	DMA_WRITE_REGISTER_COMMAND = WRITE_REGISTER_COMMAND,
-	DMA_EVALUATE_COMMAND = EVALUATE_COMMAND,
-	DMA_INSPECT_COMMAND = INSPECT_COMMAND,
-	DMA_PRINT_COMMAND = PRINT_COMMAND,
+	DMA_INITIALIZE_COMMAND =
+		INITIALIZE_COMMAND | START_DEBUGGER |
+		NEED_DEBUGGER_STOPPED,
+	DMA_LOAD_COMMAND =
+		LOAD_COMMAND | LOAD_PROGRAM |
+		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_ATTACH_COMMAND =
+		ATTACH_COMMAND | RUN_PROGRAM |
+		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_QUIT_COMMAND =
+		QUIT_COMMAND | CANCEL_ALL_COMMAND | STOP_DEBUGGER |
+	    NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_USER_COMMAND =
+		USER_COMMAND |
+	    NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_INSPECT_MEMORY_COMMAND =
+		INSPECT_MEMORY_COMMAND |
+		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_LIST_REGISTER_COMMAND =
+		LIST_REGISTER_COMMAND |
+		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_UNLOAD_COMMAND =
+		UNLOAD_COMMAND | START_DEBUGGER |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_START_COMMAND =
+		START_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_RESTART_COMMAND =
+		RESTART_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_BREAK_LINE_COMMAND =
+		BREAK_LINE_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_BREAK_FUNCTION_COMMAND =
+		BREAK_FUNCTION_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_BREAK_ADDRESS_COMMAND =
+		BREAK_ADDRESS_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_ENABLE_BREAK_COMMAND =
+		ENABLE_BREAK_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_IGNORE_BREAK_COMMAND =
+		IGNORE_BREAK_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_CONDITION_BREAK_COMMAND =
+		CONDITION_BREAK_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_REMOVE_BREAK_COMMAND =
+		REMOVE_BREAK_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_INFO_SHAREDLIB_COMMAND =
+		INFO_SHAREDLIB_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_INFO_TARGET_COMMAND =
+		INFO_TARGET_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_INFO_PROGRAM_COMMAND =
+		INFO_PROGRAM_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_INFO_UDOT_COMMAND =
+		INFO_UDOT_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_STEP_IN_COMMAND =
+		STEP_IN_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_STEP_OVER_COMMAND =
+		STEP_OVER_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_STEP_OUT_COMMAND =
+		STEP_OUT_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_RUN_COMMAND =
+		RUN_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_RUN_TO_COMMAND =
+		RUN_TO_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_EXIT_COMMAND =
+		EXIT_COMMAND | LOAD_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_HANDLE_SIGNAL_COMMAND =
+		HANDLE_SIGNAL_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_LIST_LOCAL_COMMAND =
+		LIST_LOCAL_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_LIST_ARG_COMMAND =
+		LIST_ARG_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_INFO_SIGNAL_COMMAND =
+		INFO_SIGNAL_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_INFO_FRAME_COMMAND =
+		INFO_FRAME_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_INFO_ARGS_COMMAND =
+		INFO_ARGS_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_INFO_THREADS_COMMAND =
+		INFO_THREADS_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_INFO_VARIABLES_COMMAND =
+		INFO_VARIABLES_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_SET_FRAME_COMMAND =
+		SET_FRAME_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_LIST_FRAME_COMMAND =
+		LIST_FRAME_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_UPDATE_REGISTER_COMMAND =
+		UPDATE_REGISTER_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_WRITE_REGISTER_COMMAND =
+		WRITE_REGISTER_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_EVALUATE_COMMAND =
+		EVALUATE_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_INSPECT_COMMAND =
+		INSPECT_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_PRINT_COMMAND =
+		PRINT_COMMAND |
+		NEED_PROGRAM_STOPPED,
 	DMA_CREATE_VARIABLE_COMMAND =
-	   CREATE_VARIABLE,
+	   CREATE_VARIABLE |
+		NEED_PROGRAM_STOPPED,
 	DMA_EVALUATE_VARIABLE_COMMAND =
-	   EVALUATE_VARIABLE | CANCEL_IF_PROGRAM_RUNNING,
+	    EVALUATE_VARIABLE | CANCEL_IF_PROGRAM_RUNNING |
+	    NEED_PROGRAM_STOPPED,
 	DMA_LIST_VARIABLE_CHILDREN_COMMAND =
-	   LIST_VARIABLE_CHILDREN,
-	DMA_DELETE_VARIABLE_COMMAND = DELETE_VARIABLE,
-	DMA_ASSIGN_VARIABLE_COMMAND = ASSIGN_VARIABLE,
+	    LIST_VARIABLE_CHILDREN |
+		NEED_PROGRAM_STOPPED,
+	DMA_DELETE_VARIABLE_COMMAND =
+		DELETE_VARIABLE |
+		NEED_PROGRAM_STOPPED,
+	DMA_ASSIGN_VARIABLE_COMMAND =
+		ASSIGN_VARIABLE |
+		NEED_PROGRAM_STOPPED,
 	DMA_UPDATE_VARIABLE_COMMAND =
-	   UPDATE_VARIABLE | CANCEL_IF_PROGRAM_RUNNING,
-	DMA_INTERRUPT_COMMAND = INTERRUPT_COMMAND
+	    UPDATE_VARIABLE | CANCEL_IF_PROGRAM_RUNNING |
+		NEED_PROGRAM_STOPPED,
+	DMA_INTERRUPT_COMMAND =
+		INTERRUPT_COMMAND | STOP_PROGRAM |
+		NEED_PROGRAM_RUNNING,
 } DmaDebuggerCommand;
 
 
@@ -166,7 +270,7 @@ typedef enum
 
 enum
 {
-	DEBUGGER_STOPPED_OR_GREATER = DUMMY_COMMAND,
+	DEBUGGER_STOPPED_OR_GREATER = EMPTY_COMMAND,
 	DEBUGGER_STOPPED_OR_LESSER = INITIALIZE_COMMAND,
 	DEBUGGER_STARTED_OR_GREATER = LOAD_COMMAND,
 	DEBUGGER_STARTED_OR_LESSER = ATTACH_COMMAND,
@@ -254,6 +358,7 @@ struct _DmaDebuggerQueue {
 	/* Command queue */
 	DmaQueueCommand *head;
 	DmaQueueCommand *tail;
+	DmaDebuggerCommandType last;
 	
 	IAnjutaDebuggerStatus debugger_status;
 	IAnjutaDebuggerStatus queue_status;
@@ -361,7 +466,7 @@ dma_debugger_command_free (DmaQueueCommand *cmd)
 {
 	switch (cmd->type & COMMAND_MASK)
 	{
-	case DUMMY_COMMAND:
+	case EMPTY_COMMAND:
 	case INITIALIZE_COMMAND:
 	case UNLOAD_COMMAND:
 	case QUIT_COMMAND:
@@ -452,6 +557,7 @@ dma_debugger_command_cancel (DmaQueueCommand *cmd)
 	{
 		cmd->callback (NULL, cmd->user_data, err);
 	}
+	g_warning ("Cancel command %x\n", cmd->type);
 	
 	g_error_free (err);
 	dma_debugger_command_free (cmd);
@@ -471,7 +577,6 @@ dma_queue_cancel (DmaDebuggerQueue *this, guint flag)
 			DmaQueueCommand* tmp = cmd;
 			
 			cmd = cmd->next;
-			printf ("cancel command %d\n", tmp->type);
 			dma_debugger_command_cancel (tmp);
 			prev->next = cmd;
 		}
@@ -485,6 +590,68 @@ dma_queue_cancel (DmaDebuggerQueue *this, guint flag)
 	this->tail = prev;
 }
 
+/* Cancel all commands those cannot handle this unexpected state
+ * Return TRUE if the state of the queue need to be changed too
+ */
+
+static gboolean
+dma_queue_cancel_unexpected (DmaDebuggerQueue *this, guint state)
+{
+	DmaQueueCommand* cmd;
+	DmaQueueCommand* prev;
+	
+	if (this->ready == FALSE)
+	{
+		/* Current command is still in queue, keep it */
+		prev = this->head;
+		cmd = prev->next;
+	}
+	else
+	{
+		/* First command hasn't been send yet, can be cancelled */
+		prev = NULL;
+		cmd = this->head;
+	}
+
+	for (; cmd != NULL;)
+	{
+		if (!(cmd->type & state))
+		{
+			/* Command is not allowed in this state, cancel it */
+			DmaQueueCommand* tmp = cmd;
+			
+			cmd = cmd->next;
+			dma_debugger_command_cancel (tmp);
+			if (prev == NULL)
+			{
+				this->head = cmd;
+			}
+			else
+			{
+				prev->next = cmd;
+			}
+		}
+		else if (cmd->type & CHANGE_STATE)
+		{
+			/* A command setting the state is kept,
+			   debugger state is known again afterward, queue state is kept too */
+			
+			return FALSE;
+		}
+		else
+		{
+			/* Command is allowed even in this unexpected state, keep it */
+			prev = cmd;
+			cmd = cmd->next;
+		}
+	}
+
+	/* Update end of queue if necessary, queue state need to be changed */
+	this->tail = prev;
+				
+	return TRUE;
+}
+
 static void
 dma_debugger_queue_remove (DmaDebuggerQueue *this)
 {
@@ -496,7 +663,12 @@ dma_debugger_queue_remove (DmaDebuggerQueue *this)
 		dma_debugger_command_free (this->head);
 		g_free (this->head);
 		this->head = cmd;
-		if (cmd == NULL) this->tail = NULL;
+		if (cmd == NULL)
+		{
+			this->tail = NULL;
+			/* Queue is empty so has the same status than debugger */
+			this->queue_status = this->debugger_status;
+		}
 	}
 }
 
@@ -522,131 +694,93 @@ dma_queue_check_status (DmaDebuggerQueue *this, DmaDebuggerCommandType type, GEr
 {
 	for (;;)
 	{
+		//printf ("queue status %d command %x\n", this->queue_status, type);
 		switch (this->queue_status)
   	    {
 			case IANJUTA_DEBUGGER_BUSY:
-				return FALSE;
+				/* Only the debugger can be busy */
+				g_return_val_if_reached (FALSE);
 			case IANJUTA_DEBUGGER_STOPPED:
-				if (type >= DEBUGGER_STARTED_OR_GREATER)
+				if (type & NEED_DEBUGGER_STOPPED)
+			    {
+					/* State is right */
+					return TRUE;
+				}
+			    else if (type & STOP_DEBUGGER)
+			    {
+					/* Already stopped */
+					g_warning ("Cancel command %x, already stop\n", type);
+					return FALSE;
+				}
+				else if (type & NEED_DEBUGGER_STARTED)
 				{
-					/* Start debugger first */
+					/* This command will start debugger automatically */
 					if (!ianjuta_debugger_initialize (IANJUTA_DEBUGGER (this), this->output_callback == NULL ? null_function : this->output_callback, this->output_callback == NULL ? 1 : this->output_data, err))
 					{
 						return FALSE;
 					}
+					break;
 				}
-				else
-				{
-					return TRUE;
+			    else
+			    {
+					/* Other command need a program loaded, cannot be done automatically */
+					g_warning ("Cancel command %x, debugger stopped\n", type);
+					return FALSE;
 				}
-				break;
 			case IANJUTA_DEBUGGER_STARTED:
-				if (type <= DEBUGGER_STOPPED_OR_LESSER)
-				{
-					/* Stop debugger first */
-					if (!ianjuta_debugger_quit (IANJUTA_DEBUGGER (this), err))
-					{
-						return FALSE;
-					}
-				}
-				else if (type >= PROGRAM_LOADED_OR_GREATER)
-				{
-					/* Unable to load a program, so remove command */
-					g_warning ("Cancelling command %d\n", type);
-					return FALSE;
-				}
-				else
-				{
+				if (type & NEED_DEBUGGER_STARTED)
+			    {
+					/* State is right */
 					return TRUE;
 				}
-				break;
+			    else if (type & START_DEBUGGER)
+			    {
+					/* Already started */
+					g_warning ("Cancel command %x, already started\n", type);
+					return FALSE;
+				}
+			    else
+			    {
+					/* Other command need a program loaded, cannot be done automatically */
+					g_warning ("Cancel command %x, debugger started\n", type);
+					return FALSE;
+				}
 			case IANJUTA_DEBUGGER_PROGRAM_LOADED:
-				if (type <= DEBUGGER_STOPPED_OR_LESSER)
-				{
-					/* Stop debugger first */
-					if (!ianjuta_debugger_quit (IANJUTA_DEBUGGER (this), err))
-					{
-						return FALSE;
-					}
-				}
-				else if (type <= DEBUGGER_STARTED_OR_LESSER)
-				{
-					/* Unload program first */
-					if (!ianjuta_debugger_unload (IANJUTA_DEBUGGER (this), err))
-					{
-						return FALSE;
-					}
-				}
-				else if (type >= PROGRAM_RUNNING_OR_GREATER)
-				{
-					/* Unable to run a program, so remove command */
-					g_warning ("Cancelling command %d\n", type);
-					return FALSE;
-				}
-				else
-				{
+				if (type & NEED_PROGRAM_LOADED)
+			    {
+					/* State is right */
 					return TRUE;
 				}
-				break;
+			    else
+			    {
+					/* Other command need a program running, cannot be done automatically */
+					g_warning ("Cancel command %x, program loaded\n", type);
+					return FALSE;
+				}
 			case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
-				if (type <= DEBUGGER_STOPPED_OR_LESSER)
-				{
-					/* Stop debugger first */
-					if (!ianjuta_debugger_quit (IANJUTA_DEBUGGER (this), err))
-					{
-						return FALSE;
-					}
-				}
-				else if (type <= DEBUGGER_STARTED_OR_LESSER)
-				{
-					/* Unload program first */
-					if (!ianjuta_debugger_unload (IANJUTA_DEBUGGER (this), err))
-					{
-						return FALSE;
-					}
-				}
-				else if (type <= PROGRAM_LOADED_OR_LESSER)
-				{
-					/* Exit program first */
-					if (!ianjuta_debugger_exit (IANJUTA_DEBUGGER (this), err))
-					{
-						return FALSE;
-					}
-				}
-				else if (type >= PROGRAM_RUNNING_OR_GREATER)
-				{
-					/* Unable to run a program, so remove command */
-					g_warning ("Cancelling command %d\n", type);
-					
-					return FALSE;
-				}
-				else
-				{
+				if (type & NEED_PROGRAM_STOPPED)
+			    {
+					/* State is right */
 					return TRUE;
 				}
-				break;
+			    else
+			    {
+					/* Other command need a program running, cannot be done automatically */
+					g_warning ("Cancel command %x, program stopped\n", type);
+					return FALSE;
+				}
 			case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
-				if (type <= PROGRAM_LOADED_OR_LESSER)
-				{
-					/* Interrupt program first */
-					if (!ianjuta_debugger_interrupt (IANJUTA_DEBUGGER (this), err))
-					{
-						return FALSE;
-					}
-				}
-				else if (type <= PROGRAM_STOPPED_OR_LESSER)
-				{
-					/* Unable to interrupt then continue a program,
-					 * so remove command */
-					g_warning ("Cancelling command %d\n", type);
-					
-					return FALSE;
-				}
-				else
-				{
+				if (type & NEED_PROGRAM_RUNNING)
+			    {
+					/* State is right */
 					return TRUE;
 				}
-				break;
+			    else
+			    {
+					/* Other command need a program stopped, cannot be done automatically */
+					g_warning ("Cancel command %x, program running\n", type);
+					return TRUE;
+				}
 		}
 	}
 }
@@ -655,70 +789,26 @@ dma_queue_check_status (DmaDebuggerQueue *this, DmaDebuggerCommandType type, GEr
 static void
 dma_queue_update_queue_status (DmaDebuggerQueue *this, DmaDebuggerCommandType type)
 {
-	switch (type & COMMAND_MASK)
+	if (type & STOP_DEBUGGER)
 	{
-	case INITIALIZE_COMMAND:
-	case UNLOAD_COMMAND:
-		this->queue_status = IANJUTA_DEBUGGER_STARTED;
-	    break;
-	case QUIT_COMMAND:
 		this->queue_status = IANJUTA_DEBUGGER_STOPPED;
-	    break;
-	case RUN_COMMAND:
-	case RUN_TO_COMMAND:
-	case STEP_IN_COMMAND:
-	case STEP_OVER_COMMAND:
-	case STEP_OUT_COMMAND:
-	case RESTART_COMMAND:
-	case START_COMMAND:
-	case ATTACH_COMMAND:
+	}
+	else if (type & START_DEBUGGER)
+	{
+		this->queue_status = IANJUTA_DEBUGGER_STARTED;
+	}
+	else if (type & LOAD_PROGRAM)
+	{
+		this->queue_status = IANJUTA_DEBUGGER_PROGRAM_LOADED;
+	}
+	else if (type & STOP_PROGRAM)
+	{
+		this->queue_status = IANJUTA_DEBUGGER_PROGRAM_STOPPED;
+	}
+	else if (type & RUN_PROGRAM)
+	{
 		this->queue_status = IANJUTA_DEBUGGER_PROGRAM_RUNNING;
 	    dma_queue_cancel (this, CANCEL_IF_PROGRAM_RUNNING);
-	    break;
-	case EXIT_COMMAND:
-	case LOAD_COMMAND:
-		this->queue_status = IANJUTA_DEBUGGER_PROGRAM_LOADED;
-	    break;
-	case INTERRUPT_COMMAND:
-		this->queue_status = IANJUTA_DEBUGGER_PROGRAM_STOPPED;
-	    break;
-	case DUMMY_COMMAND:
-	case ENABLE_BREAK_COMMAND:
-	case IGNORE_BREAK_COMMAND:
-	case REMOVE_BREAK_COMMAND:
-	case LIST_LOCAL_COMMAND:
-	case LIST_ARG_COMMAND:
-	case INFO_SIGNAL_COMMAND:
-	case INFO_SHAREDLIB_COMMAND:
-	case INFO_FRAME_COMMAND:
-	case INFO_ARGS_COMMAND:
-	case INFO_TARGET_COMMAND:
-	case INFO_PROGRAM_COMMAND:
-	case INFO_UDOT_COMMAND:
-	case INFO_THREADS_COMMAND:
-	case INFO_VARIABLES_COMMAND:
-	case SET_FRAME_COMMAND:
-	case LIST_FRAME_COMMAND:
-	case LIST_REGISTER_COMMAND:
-	case UPDATE_REGISTER_COMMAND:
-	case INSPECT_MEMORY_COMMAND:
-	case INSPECT_COMMAND:
-	case EVALUATE_COMMAND:
-	case WRITE_REGISTER_COMMAND:
-	case BREAK_LINE_COMMAND:
-	case BREAK_FUNCTION_COMMAND:
-	case BREAK_ADDRESS_COMMAND:
-	case CONDITION_BREAK_COMMAND:
-	case USER_COMMAND:
-	case PRINT_COMMAND:
-	case HANDLE_SIGNAL_COMMAND:
-	case DELETE_VARIABLE:
-	case ASSIGN_VARIABLE:
-	case CREATE_VARIABLE:
-	case EVALUATE_VARIABLE:
-	case LIST_VARIABLE_CHILDREN:
-	case UPDATE_VARIABLE:
-		break;
 	}
 }
 
@@ -728,77 +818,95 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus 
 	DmaQueueCommand *head;
 	DmaQueueCommand *tail;
 
-	if (status != IANJUTA_DEBUGGER_BUSY)
-	{
-		/* Get a valid state, debugger is ready */
-		dma_debugger_end_command (this);
-	}
-	
 	switch (status)
 	{
 	case IANJUTA_DEBUGGER_BUSY:
-		/* Debugger is busy */
-		break;
-	case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
-		if (this->debugger_status != IANJUTA_DEBUGGER_PROGRAM_RUNNING) 
+		/* Debugger is busy, nothing to do */
+		return;
+	case IANJUTA_DEBUGGER_STOPPED:
+		if (this->debugger_status != IANJUTA_DEBUGGER_STOPPED) 
 		{
-			printf ("status %d emit program running\n", this->debugger_status);
-			this->debugger_status = IANJUTA_DEBUGGER_PROGRAM_RUNNING;
-			this->stop_on_sharedlib = FALSE;
-			g_signal_emit_by_name (this, "program-running");
+			if (!(this->last & STOP_DEBUGGER))
+			{
+				if (dma_queue_cancel_unexpected (this, NEED_DEBUGGER_STOPPED))
+				{
+					this->queue_status = IANJUTA_DEBUGGER_STOPPED;
+				}
+			}
+			this->debugger_status = IANJUTA_DEBUGGER_STOPPED;
+			g_signal_emit_by_name (this, "debugger-stopped");
 		}
 	    break;
-	case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
-		if (this->debugger_status != IANJUTA_DEBUGGER_PROGRAM_STOPPED) 
+	case IANJUTA_DEBUGGER_STARTED:
+		if (this->debugger_status != IANJUTA_DEBUGGER_STARTED) 
 		{
-			printf ("status %d emit program stopped\n", this->debugger_status);
-			this->debugger_status = IANJUTA_DEBUGGER_PROGRAM_STOPPED;
-			if (!this->stop_on_sharedlib)
-				g_signal_emit_by_name (this, "program-stopped");
+			if (!(this->last & START_DEBUGGER))
+			{
+				if (dma_queue_cancel_unexpected (this, NEED_DEBUGGER_STARTED))
+				{
+					this->queue_status = IANJUTA_DEBUGGER_STARTED;
+				}
+			}
+			this->debugger_status = IANJUTA_DEBUGGER_STARTED;
+			g_signal_emit_by_name (this, "debugger-started");
 		}
 	    break;
 	case IANJUTA_DEBUGGER_PROGRAM_LOADED:
 		if (this->debugger_status != IANJUTA_DEBUGGER_PROGRAM_LOADED)
 		{
-			if (this->debugger_status = IANJUTA_DEBUGGER_STOPPED)
+			if (!(this->last & LOAD_PROGRAM))
+			{
+				if (dma_queue_cancel_unexpected (this, NEED_PROGRAM_LOADED))
+				{
+					this->queue_status = IANJUTA_DEBUGGER_PROGRAM_LOADED;
+				}
+			}
+			if (this->debugger_status == IANJUTA_DEBUGGER_STOPPED)
 			{
 				this->debugger_status = IANJUTA_DEBUGGER_STARTED;
 				g_signal_emit_by_name (this, "debugger-started");
 			}
 			this->debugger_status = IANJUTA_DEBUGGER_PROGRAM_LOADED;
 			this->stop_on_sharedlib = FALSE;
-/*			head = this->head;
-			tail = this->tail;
-			this->head = NULL;
-			this->tail = NULL;*/
 			g_signal_emit_by_name (this, "program-loaded");
-/*			if (this->head == NULL)
+		}
+	    break;
+	case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
+		if (this->debugger_status != IANJUTA_DEBUGGER_PROGRAM_STOPPED) 
+		{
+			if (!(this->last & STOP_PROGRAM))
 			{
-				this->tail = tail;
-				this->head = head;
+				if (dma_queue_cancel_unexpected (this, NEED_PROGRAM_STOPPED))
+				{
+					this->queue_status = IANJUTA_DEBUGGER_PROGRAM_STOPPED;
+				}
 			}
-			else
+			this->debugger_status = IANJUTA_DEBUGGER_PROGRAM_STOPPED;
+			if (!this->stop_on_sharedlib)
 			{
-				this->tail->next = head;
-				this->tail = tail;
-			}*/
+				g_signal_emit_by_name (this, "program-stopped");
+			}
 		}
 	    break;
-	case IANJUTA_DEBUGGER_STARTED:
-		if (this->debugger_status != IANJUTA_DEBUGGER_STARTED) 
+	case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
+		if (this->debugger_status != IANJUTA_DEBUGGER_PROGRAM_RUNNING) 
 		{
-			this->debugger_status = IANJUTA_DEBUGGER_STARTED;
-			g_signal_emit_by_name (this, "debugger-started");
-		}
-	    break;
-	case IANJUTA_DEBUGGER_STOPPED:
-		if (this->debugger_status != IANJUTA_DEBUGGER_STOPPED) 
-		{
-			this->debugger_status = IANJUTA_DEBUGGER_STOPPED;
-			g_signal_emit_by_name (this, "debugger-stopped");
+			if (!(this->last & RUN_PROGRAM))
+			{
+				if (dma_queue_cancel_unexpected (this, NEED_PROGRAM_RUNNING))
+				{
+					this->queue_status = IANJUTA_DEBUGGER_PROGRAM_RUNNING;
+				}
+			}
+			this->debugger_status = IANJUTA_DEBUGGER_PROGRAM_RUNNING;
+			this->stop_on_sharedlib = FALSE;
+			g_signal_emit_by_name (this, "program-running");
 		}
 	    break;
 	}
+	
+	/* Remove current command */
+	dma_debugger_end_command (this);
 }
 
 static gboolean
@@ -828,12 +936,16 @@ dma_debugger_queue_clear (DmaDebuggerQueue *this)
 	}
 	this->head = NULL;
 	this->tail = NULL;
+	
+	/* Queue is empty so has the same status than debugger */
+	this->queue_status = this->debugger_status;
 }
 
 static DmaQueueCommand*
 dma_debugger_queue_append (DmaDebuggerQueue *this, DmaDebuggerCommandType type, GError **err)
 {
 	DmaQueueCommand* cmd = NULL;
+
 	
 	if (dma_queue_check_status(this, type, err))
 	{
@@ -863,7 +975,7 @@ dma_debugger_queue_prepend (DmaDebuggerQueue *this)
 	DmaQueueCommand* cmd;
 	
 	cmd = g_new0 (DmaQueueCommand, 1);
-	cmd->type = DUMMY_COMMAND;
+	cmd->type = EMPTY_COMMAND;
 	cmd->next = this->head;
 	this->head = cmd;
 	
@@ -880,7 +992,7 @@ static void
 dma_debugger_queue_execute (DmaDebuggerQueue *this)
 {
 	IAnjutaDebuggerRegister reg;
-	
+
 	/* Check if debugger is connected to a debugger backend */
 	if (this->debugger == NULL) return;
 
@@ -900,118 +1012,20 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 		
 		cmd = this->head;
 
-		printf("debugger cmd %d status %d\n", cmd->type, this->debugger_status);
-		#if 0
-		/* Check if the debugger is in the right mode */
-		switch (this->debugger_status)
-		{
-			case IANJUTA_DEBUGGER_BUSY:
-				return;
-			case IANJUTA_DEBUGGER_STOPPED:
-				if (cmd->type >= DEBUGGER_STARTED_OR_GREATER)
-				{
-					/* Start debugger first */
-					printf("start debugger\n");
-					cmd = dma_debugger_queue_prepend (this);
-					cmd->type = INITIALIZE_COMMAND;
-					cmd->callback = this->output_callback;
-					cmd->user_data = this->output_data;
-				}
-				break;
-			case IANJUTA_DEBUGGER_STARTED:
-				if (cmd->type <= DEBUGGER_STOPPED_OR_LESSER)
-				{
-					/* Stop debugger first */
-					cmd = dma_debugger_queue_prepend (this);
-					cmd->type = QUIT_COMMAND;
-				}
-				else if (cmd->type >= PROGRAM_LOADED_OR_GREATER)
-				{
-					/* Unable to load a program, so remove command */
-					g_warning ("Cancelling command %d\n", cmd->type);
-					dma_debugger_queue_cancel (this);
-					continue;
-				}
-				break;
-			case IANJUTA_DEBUGGER_PROGRAM_LOADED:
-				if (cmd->type <= DEBUGGER_STOPPED_OR_LESSER)
-				{
-					/* Stop debugger first */
-					cmd = dma_debugger_queue_prepend (this);
-					cmd->type = QUIT_COMMAND;
-				}
-				else if (cmd->type <= DEBUGGER_STARTED_OR_LESSER)
-				{
-					/* Unload program first */
-					cmd = dma_debugger_queue_prepend (this);
-					cmd->type = UNLOAD_COMMAND;
-				}
-				else if (cmd->type >= PROGRAM_RUNNING_OR_GREATER)
-				{
-					/* Unable to run a program, so remove command */
-					g_warning ("Cancelling command %d\n", cmd->type);
-					dma_debugger_queue_cancel (this);
-					continue;
-				}
-				break;
-			case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
-				if (cmd->type <= DEBUGGER_STOPPED_OR_LESSER)
-				{
-					/* Stop debugger first */
-					cmd = dma_debugger_queue_prepend (this);
-					cmd->type = QUIT_COMMAND;
-				}
-				else if (cmd->type <= DEBUGGER_STARTED_OR_LESSER)
-				{
-					/* Unload program first */
-					cmd = dma_debugger_queue_prepend (this);
-					cmd->type = UNLOAD_COMMAND;
-				}
-				else if (cmd->type <= PROGRAM_LOADED_OR_LESSER)
-				{
-					/* Exit program first */
-					cmd = dma_debugger_queue_prepend (this);
-					cmd->type = EXIT_COMMAND;
-				}
-				else if (cmd->type >= PROGRAM_RUNNING_OR_GREATER)
-				{
-					/* Unable to run a program, so remove command */
-					g_warning ("Cancelling command %d\n", cmd->type);
-					dma_debugger_queue_cancel (this);
-					continue;
-				}
-				break;
-			case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
-				if (cmd->type <= PROGRAM_LOADED_OR_LESSER)
-				{
-					/* Interrupt program first */
-					cmd = dma_debugger_queue_prepend (this);
-					cmd->type = INTERRUPT_COMMAND;
-				}
-				else if (cmd->type <= PROGRAM_STOPPED_OR_LESSER)
-				{
-					/* Unable to interrupt than continue a program,
-					 * so remove command */
-					g_warning ("Cancelling command %d\n", cmd->type);
-					dma_debugger_queue_cancel (this);
-					continue;
-				}
-				break;
-		}
-		#endif
+		//printf("debugger cmd %d status %d\n", cmd->type, this->debugger_status);
 		
 		/* Start command */
 		this->ready = FALSE;
+		this->last = cmd->type;
 		switch (cmd->type & COMMAND_MASK)
 		{
-		case DUMMY_COMMAND:
+		case EMPTY_COMMAND:
 			break;
 		case INITIALIZE_COMMAND:
 		    //dma_debugger_create_view (this);
 		    this->output_callback = (IAnjutaDebuggerOutputCallback)cmd->callback;
 		    this->output_data = cmd->user_data;
 	 	    ianjuta_debugger_initialize (this->debugger, on_debugger_output, this, NULL);
-//		    dma_queue_update_debugger_status (this, ANJUTA_DEBUGGER_STARTED);
 		    break;
 		case LOAD_COMMAND:
 			ianjuta_debugger_load (this->debugger, cmd->load.file, cmd->load.type, cmd->load.dirs, NULL);	
@@ -1204,6 +1218,7 @@ static void
 on_dma_debugger_started (DmaDebuggerQueue *this)
 {
 	/* Nothing do to */
+	//printf ("From debugger: receive debugger started\n");
 	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_STARTED);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
@@ -1211,7 +1226,7 @@ on_dma_debugger_started (DmaDebuggerQueue *this)
 static void
 on_dma_debugger_stopped (DmaDebuggerQueue *this)
 {
-	/* Nothing do to */
+	//printf ("From debugger: receive debugger stopped\n");
 	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_STOPPED);
 	dma_debugger_queue_clear (this);
 	this->ready = TRUE;
@@ -1220,7 +1235,7 @@ on_dma_debugger_stopped (DmaDebuggerQueue *this)
 static void
 on_dma_program_loaded (DmaDebuggerQueue *this)
 {
-	/* Nothing do to */
+	//printf ("From debugger: receive program loaded\n");
 	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_LOADED);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
@@ -1228,14 +1243,14 @@ on_dma_program_loaded (DmaDebuggerQueue *this)
 static void
 on_dma_program_running (DmaDebuggerQueue *this)
 {
-	/* Nothing do to */
+	//printf ("From debugger: receive program running\n");
 	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_RUNNING);
 }
 
 static void
 on_dma_program_stopped (DmaDebuggerQueue *this)
 {
-	/* Nothing do to */
+	//printf ("From debugger: receive program stopped\n");
 	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_STOPPED);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
@@ -1243,7 +1258,7 @@ on_dma_program_stopped (DmaDebuggerQueue *this)
 static void
 on_dma_program_exited (DmaDebuggerQueue *this)
 {
-	/* Nothing do to */
+	//printf ("From debugger: receive program exited\n");
 	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_LOADED);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
@@ -1251,18 +1266,21 @@ on_dma_program_exited (DmaDebuggerQueue *this)
 static void
 on_dma_location_changed (DmaDebuggerQueue *this, const gchar* src_path, guint line, const gchar* address)
 {
+	//printf ("From debugger: location changed\n");
 	g_signal_emit_by_name (this, "location-changed", src_path, line, address);
 }
 
 static void
 on_dma_frame_changed (DmaDebuggerQueue *this, guint frame)
 {
+	//printf ("From debugger: frame changed\n");
 	g_signal_emit_by_name (this, "frame-changed", frame);
 }
 
 static void
 on_dma_sharedlib_event (DmaDebuggerQueue *this)
 {
+	//printf ("From debugger: shared lib event\n");
 	this->stop_on_sharedlib = TRUE;
 	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_STOPPED);
 	g_signal_emit_by_name (this, "sharedlib-event");
@@ -1286,7 +1304,7 @@ idebugger_initialize (IAnjutaDebugger *iface, IAnjutaDebuggerOutputCallback call
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 
-	cmd = dma_debugger_queue_append (this, INITIALIZE_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INITIALIZE_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1304,7 +1322,7 @@ idebugger_load (IAnjutaDebugger *iface, const gchar *file, const gchar* mime_typ
 	DmaQueueCommand *cmd;
 	const GList *node;
 
-	cmd = dma_debugger_queue_append (this, LOAD_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_LOAD_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->load.file = g_strdup (file);
@@ -1328,7 +1346,7 @@ idebugger_attach (IAnjutaDebugger *iface, pid_t pid, const GList *search_dirs, G
 	DmaQueueCommand *cmd;
 	const GList *node;
 	
-	cmd = dma_debugger_queue_append (this, ATTACH_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_ATTACH_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 	
 	cmd->attach.pid = pid;
@@ -1350,7 +1368,7 @@ idebugger_start (IAnjutaDebugger *iface, const gchar *args, gboolean terminal, G
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 
-	cmd = dma_debugger_queue_append (this, START_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_START_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->start.args = args == NULL ? NULL : g_strdup (args);
@@ -1366,7 +1384,7 @@ idebugger_unload (IAnjutaDebugger *iface, GError **err)
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, UNLOAD_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_UNLOAD_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 	
 	dma_debugger_queue_execute (this);
@@ -1380,7 +1398,7 @@ idebugger_quit (IAnjutaDebugger *iface, GError **err)
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, QUIT_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_QUIT_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 	
 	dma_debugger_queue_execute (this);
@@ -1394,7 +1412,7 @@ idebugger_run (IAnjutaDebugger *iface, GError **err)
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, RUN_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_RUN_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 	
 	dma_debugger_queue_execute (this);
@@ -1408,7 +1426,7 @@ idebugger_step_in (IAnjutaDebugger *iface, GError **err)
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, STEP_IN_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_STEP_IN_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 	
 	dma_debugger_queue_execute (this);
@@ -1422,7 +1440,7 @@ idebugger_step_over (IAnjutaDebugger *iface, GError **err)
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, STEP_OVER_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_STEP_OVER_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 	
 	dma_debugger_queue_execute (this);
@@ -1437,7 +1455,7 @@ idebugger_run_to (IAnjutaDebugger *iface, const gchar *file,
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, RUN_TO_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_RUN_TO_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 	
 	cmd->pos.file = g_strdup (file);
@@ -1453,7 +1471,7 @@ idebugger_step_out (IAnjutaDebugger *iface, GError **err)
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, STEP_OUT_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_STEP_OUT_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	dma_debugger_queue_execute (this);
@@ -1467,7 +1485,7 @@ idebugger_exit (IAnjutaDebugger *iface, GError **err)
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, EXIT_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_EXIT_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	dma_debugger_queue_execute (this);
@@ -1481,7 +1499,7 @@ idebugger_interrupt (IAnjutaDebugger *iface, GError **err)
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INTERRUPT_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INTERRUPT_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	dma_debugger_queue_execute (this);
@@ -1495,7 +1513,7 @@ idebugger_add_breakpoint_at_line (IAnjutaDebugger *iface, const gchar* file, gui
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, BREAK_LINE_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_BREAK_LINE_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->pos.file = g_strdup (file);
@@ -1513,7 +1531,7 @@ idebugger_add_breakpoint_at_function (IAnjutaDebugger *iface, const gchar* file,
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, BREAK_FUNCTION_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_BREAK_FUNCTION_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->pos.file = g_strdup (file);
@@ -1531,7 +1549,7 @@ idebugger_add_breakpoint_at_address (IAnjutaDebugger *iface, guint address, IAnj
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, BREAK_ADDRESS_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_BREAK_ADDRESS_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->pos.address = address;
@@ -1548,7 +1566,7 @@ idebugger_enable_breakpoint (IAnjutaDebugger *iface, guint id, gboolean enable, 
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, ENABLE_BREAK_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_ENABLE_BREAK_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->brk.id = id;
@@ -1566,7 +1584,7 @@ idebugger_ignore_breakpoint (IAnjutaDebugger *iface, guint id, guint ignore, IAn
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, IGNORE_BREAK_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_IGNORE_BREAK_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->brk.id = id;
@@ -1584,7 +1602,7 @@ idebugger_condition_breakpoint (IAnjutaDebugger *iface, guint id, const gchar *c
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, CONDITION_BREAK_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_CONDITION_BREAK_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->brk.id = id;
@@ -1602,7 +1620,7 @@ idebugger_remove_breakpoint (IAnjutaDebugger *iface, guint id, IAnjutaDebuggerCa
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, REMOVE_BREAK_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_REMOVE_BREAK_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->brk.id = id;
@@ -1619,7 +1637,7 @@ idebugger_inspect (IAnjutaDebugger *iface, const gchar *expression, IAnjutaDebug
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INSPECT_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INSPECT_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->watch.name = g_strdup (expression);
@@ -1636,7 +1654,7 @@ idebugger_evaluate (IAnjutaDebugger *iface, const gchar *name, const gchar* valu
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, EVALUATE_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_EVALUATE_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->watch.name = g_strdup (name);
@@ -1654,7 +1672,7 @@ idebugger_send_command (IAnjutaDebugger *iface, const gchar* command, GError **e
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, USER_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_USER_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->user.cmd = g_strdup (command);
@@ -1669,7 +1687,7 @@ idebugger_print (IAnjutaDebugger *iface, const gchar* variable, IAnjutaDebuggerC
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, PRINT_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_PRINT_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->print.var = g_strdup (variable);
@@ -1686,7 +1704,7 @@ idebugger_list_local (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback ,
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, LIST_LOCAL_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_LIST_LOCAL_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1702,7 +1720,7 @@ idebugger_list_argument (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callbac
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, LIST_ARG_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_LIST_ARG_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1718,7 +1736,7 @@ idebugger_info_signal (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback 
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INFO_SIGNAL_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INFO_SIGNAL_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1734,7 +1752,7 @@ idebugger_info_sharedlib (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callba
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INFO_SHAREDLIB_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INFO_SHAREDLIB_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1750,7 +1768,7 @@ idebugger_handle_signal (IAnjutaDebugger *iface, const gchar* name, gboolean sto
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, HANDLE_SIGNAL_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_HANDLE_SIGNAL_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->signal.name = g_strdup (name);
@@ -1768,7 +1786,7 @@ idebugger_info_frame (IAnjutaDebugger *iface, guint frame, IAnjutaDebuggerCallba
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INFO_FRAME_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INFO_FRAME_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->frame.frame = frame;
@@ -1785,7 +1803,7 @@ idebugger_info_args (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback , 
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INFO_ARGS_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INFO_ARGS_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1801,7 +1819,7 @@ idebugger_info_target (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback 
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INFO_TARGET_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INFO_TARGET_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1817,7 +1835,7 @@ idebugger_info_program (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INFO_PROGRAM_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INFO_PROGRAM_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1833,7 +1851,7 @@ idebugger_info_udot (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback , 
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INFO_UDOT_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INFO_UDOT_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1849,7 +1867,7 @@ idebugger_info_threads (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INFO_THREADS_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INFO_THREADS_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1865,7 +1883,7 @@ idebugger_info_variables (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callba
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INFO_VARIABLES_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INFO_VARIABLES_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1881,7 +1899,7 @@ idebugger_set_frame (IAnjutaDebugger *iface, guint frame, GError **err)
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 
-	cmd = dma_debugger_queue_append (this, SET_FRAME_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_SET_FRAME_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->frame.frame = frame;
@@ -1896,7 +1914,7 @@ idebugger_list_frame (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback ,
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, LIST_FRAME_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_LIST_FRAME_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -1912,7 +1930,7 @@ idebugger_list_register (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callbac
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, LIST_REGISTER_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_LIST_REGISTER_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -2000,7 +2018,7 @@ icpu_debugger_list_register (IAnjutaCpuDebugger *iface, IAnjutaDebuggerCallback 
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, LIST_REGISTER_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_LIST_REGISTER_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -2017,7 +2035,7 @@ icpu_debugger_update_register (IAnjutaCpuDebugger *iface, IAnjutaDebuggerCallbac
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, UPDATE_REGISTER_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_UPDATE_REGISTER_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -2033,7 +2051,7 @@ icpu_debugger_write_register (IAnjutaCpuDebugger *iface, IAnjutaDebuggerRegister
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, WRITE_REGISTER_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_WRITE_REGISTER_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->watch.id = value->num;
@@ -2050,7 +2068,7 @@ icpu_debugger_inspect_memory (IAnjutaDebugger *iface, const void *address, guint
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 	
-	cmd = dma_debugger_queue_append (this, INSPECT_MEMORY_COMMAND, err);
+	cmd = dma_debugger_queue_append (this, DMA_INSPECT_MEMORY_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 
 	cmd->mem.address = address;
@@ -2145,7 +2163,6 @@ ivariable_debugger_create (IAnjutaVariableDebugger *iface, const gchar *name, IA
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;
 
-	printf ("ivariable debugger create\n");
 	cmd = dma_debugger_queue_append (this, DMA_CREATE_VARIABLE_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		

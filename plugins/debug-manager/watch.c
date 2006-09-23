@@ -21,6 +21,9 @@
 #include "watch.h"
 
 #include "debug_tree.h"
+#include "plugin.h"
+
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 /* Type
  *---------------------------------------------------------------------------*/
@@ -35,12 +38,407 @@ struct _ExprWatch
 	
 	/* Menu action */
 	GtkActionGroup *action_group;
+	GtkActionGroup *toggle_group;
+	
+	GtkWidget* middle_click_menu;
+};
+
+struct _InspectDialog
+{
+	DebugTree *tree;
+	GtkWidget *treeview;
+	GtkWidget *dialog;
+};
+
+typedef struct _InspectDialog InspectDialog;
+
+/* Widget and signal name found in glade file
+ *---------------------------------------------------------------------------*/
+
+#define ADD_WATCH_DIALOG "add_watch_dialog"
+#define CHANGE_WATCH_DIALOG "change_watch_dialog"
+#define INSPECT_EVALUATE_DIALOG "watch_dialog"
+#define NAME_ENTRY "name_entry"
+#define VALUE_ENTRY "value_entry"
+#define VALUE_TREE "value_treeview"
+#define AUTO_UPDATE_CHECK "auto_update_check"
+
+/* Private functions
+ *---------------------------------------------------------------------------*/
+
+static void
+on_entry_updated (const gchar *value, gpointer user_data, GError *err)
+{
+	GtkWidget *entry = (GtkWidget *)user_data;
+	
+	gtk_entry_set_text (GTK_ENTRY (entry), value);
+	gtk_widget_unref (entry);
+}
+
+static void
+debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
+{
+	GladeXML *gxml;
+	gint reply;
+	const gchar *value;
+	InspectDialog dlg;
+	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
+
+	gxml = glade_xml_new (GLADE_FILE, INSPECT_EVALUATE_DIALOG, NULL);
+	dlg.dialog = glade_xml_get_widget (gxml, INSPECT_EVALUATE_DIALOG);
+	gtk_window_set_transient_for (GTK_WINDOW (dlg.dialog),
+								  NULL);
+	dlg.treeview = glade_xml_get_widget (gxml, VALUE_TREE);
+	g_object_unref (gxml);
+
+	printf ("dlg.value_treeview %p\n", dlg.treeview);
+	/* Create debug tree */
+	dlg.tree = debug_tree_new_with_view (ew->plugin, dlg.treeview);
+	if (ew->debugger)
+		debug_tree_connect (dlg.tree, ew->debugger);
+	if (expression != NULL)
+	{
+		var.expression = expression;
+		debug_tree_add_watch (dlg.tree, &var, FALSE);
+	}
+	else
+	{
+		debug_tree_add_dummy (dlg.tree);
+	}
+
+	for(;;)
+	{
+		reply = gtk_dialog_run (GTK_DIALOG (dlg.dialog));
+		switch (reply)
+		{
+		case GTK_RESPONSE_OK:
+			/* Add in watch window */
+			#if 0
+			expression = gtk_entry_get_text (GTK_ENTRY (dlg.name_entry));
+		    var.expression = expression;
+			debug_tree_add_watch (ew->debug_tree, &var, FALSE);
+		    #endif
+		    continue;
+		case GTK_RESPONSE_APPLY:
+			/* Update value */
+			#if 0
+			expression = gtk_entry_get_text (GTK_ENTRY (dlg.name_entry));
+			value = gtk_entry_get_text (GTK_ENTRY (dlg.value_treeview));
+		    gtk_widget_ref (dlg.value_treeview);
+		    if (ew->debugger != NULL)
+			{
+				ianjuta_debugger_evaluate (ew->debugger, expression, value, NULL, &dlg, NULL);
+				ianjuta_debugger_inspect (ew->debugger, expression, on_entry_updated, &dlg, NULL);
+			}
+			#endif
+			continue;
+		case GTK_RESPONSE_ACCEPT:
+			/* Update variable */
+			#if 0
+			expression = gtk_entry_get_text (GTK_ENTRY (dlg.name_entry));
+		    gtk_widget_ref (dlg.value_treeview);
+		    debug_tree_remove_all (dlg.tree);
+		    printf("update watch %s\n", expression);
+		    var.expression = expression;
+			debug_tree_add_watch (dlg.tree, &var, FALSE);
+		    printf("get back\n");
+		    #endif
+			continue;
+		default:
+			break;
+		}
+		break;
+	}
+	debug_tree_free (dlg.tree);
+	gtk_widget_destroy (dlg.dialog);
+}
+
+static void
+debug_tree_add_watch_dialog (ExprWatch *ew, const gchar* expression)
+{
+	GladeXML *gxml;
+	GtkWidget *dialog;
+	GtkWidget *name_entry;
+	GtkWidget *auto_update_check;
+	gint reply;
+	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
+
+	gxml = glade_xml_new (GLADE_FILE, ADD_WATCH_DIALOG, NULL);
+	dialog = glade_xml_get_widget (gxml, ADD_WATCH_DIALOG);
+	gtk_window_set_transient_for (GTK_WINDOW (dialog),
+								  NULL);
+	auto_update_check = glade_xml_get_widget (gxml, AUTO_UPDATE_CHECK);
+	name_entry = glade_xml_get_widget (gxml, NAME_ENTRY);
+	g_object_unref (gxml);
+
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (auto_update_check), TRUE);
+	gtk_entry_set_text (GTK_ENTRY (name_entry), expression == NULL ? "" : expression);
+	
+	reply = gtk_dialog_run (GTK_DIALOG (dialog));
+	if (reply == GTK_RESPONSE_OK)
+	{
+		var.expression = gtk_entry_get_text (GTK_ENTRY (name_entry));
+		debug_tree_add_watch (ew->debug_tree, &var,
+							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (auto_update_check)));
+	}
+	gtk_widget_destroy (dialog);
+}
+
+static void
+debug_tree_change_watch_dialog (ExprWatch *ew, GtkTreeIter* iter)
+{
+#if 0
+ 	GladeXML *gxml;
+	GtkWidget *dialog;
+	GtkWidget *name_entry;
+	GtkWidget *value_entry;
+	gint reply;
+	TrimmableItem *item = NULL;
+	GtkTreeModel* model = NULL;
+	
+	model = gtk_tree_view_get_model(d_tree->view);
+	gtk_tree_model_get (model, iter, ITEM_COLUMN, &item, -1);
+
+	gxml = glade_xml_new (GLADE_FILE, CHANGE_WATCH_DIALOG, NULL);
+	dialog = glade_xml_get_widget (gxml, CHANGE_WATCH_DIALOG);
+	gtk_window_set_transient_for (GTK_WINDOW (dialog),
+								  NULL);
+	name_entry = glade_xml_get_widget (gxml, NAME_ENTRY);
+	value_entry = glade_xml_get_widget (gxml, VALUE_ENTRY);
+	g_object_unref (gxml);
+
+	gtk_widget_grab_focus (value_entry);
+	gtk_entry_set_text (GTK_ENTRY (name_entry), &item->name[1]);
+	gtk_entry_set_text (GTK_ENTRY (value_entry), item->value);
+	
+	reply = gtk_dialog_run (GTK_DIALOG (dialog));
+	if (reply == GTK_RESPONSE_APPLY)
+	{
+		debug_tree_evaluate (d_tree, iter, gtk_entry_get_text (GTK_ENTRY (value_entry))); 
+	}
+	gtk_widget_destroy (dialog);
+#endif
+}
+
+/* Menu call backs
+ *---------------------------------------------------------------------------*/
+
+static void
+on_debug_tree_inspect (GtkAction *action, gpointer user_data)
+{
+	ExprWatch * ew = (ExprWatch *)user_data;
+	GObject *obj;
+	IAnjutaDocumentManager *docman = NULL;
+	IAnjutaEditor *te = NULL;
+	const gchar *expression = NULL;
+	
+	/* Get current editor and line */
+	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (ew->plugin)->shell,
+			"IAnjutaDocumentManager", NULL /* TODO */);
+	docman = IANJUTA_DOCUMENT_MANAGER (obj);
+	if (docman != NULL)
+	{
+		te = ianjuta_document_manager_get_current_editor (docman, NULL);
+	}
+	
+	debug_tree_inspect_evaluate_dialog (ew, expression);
+}
+
+static void
+on_debug_tree_add_watch (GtkAction *action, gpointer user_data)
+{
+	ExprWatch * ew = (ExprWatch *)user_data;
+	
+	debug_tree_add_watch_dialog (ew, NULL);
+}
+
+static void
+on_debug_tree_remove_watch (GtkAction *action, gpointer user_data)
+{
+	ExprWatch * ew = (ExprWatch *)user_data;
+	GtkTreeIter iter;
+	
+	if (debug_tree_get_current (ew->debug_tree, &iter))
+	{
+		debug_tree_remove (ew->debug_tree, &iter);
+	}
+}
+
+static void
+on_debug_tree_update_watch (GtkAction *action, gpointer user_data)
+{
+	ExprWatch * ew = (ExprWatch *)user_data;
+	GtkTreeIter iter;
+
+	if (debug_tree_get_current (ew->debug_tree, &iter))
+	{
+		debug_tree_update (ew->debug_tree, &iter, TRUE);
+	}
+}
+
+static void
+on_debug_tree_auto_update_watch (GtkAction *action, gpointer user_data)
+{
+	ExprWatch * ew = (ExprWatch *)user_data;
+	GtkTreeIter iter;
+
+	if (debug_tree_get_current (ew->debug_tree, &iter))
+	{
+		gboolean state;
+		
+		state = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
+		debug_tree_set_auto_update (ew->debug_tree, &iter, state);
+	}
+}
+
+static void
+on_debug_tree_edit_watch (GtkAction *action, gpointer user_data)
+{
+	ExprWatch * ew = (ExprWatch *)user_data;
+	GtkTreeIter iter;
+	
+	if (debug_tree_get_current (ew->debug_tree, &iter))
+	{
+		debug_tree_change_watch_dialog (ew, &iter);
+	}
+}
+
+static void
+on_debug_tree_update_all_watch (GtkAction *action, gpointer user_data)
+{
+	ExprWatch * ew = (ExprWatch *)user_data;
+	
+	debug_tree_update_all (ew->debug_tree);
+}
+
+static void
+on_debug_tree_remove_all_watch (GtkAction *action, gpointer user_data)
+{
+	ExprWatch * ew = (ExprWatch *)user_data;
+	
+	debug_tree_remove_all (ew->debug_tree);
+}
+
+static gboolean
+on_debug_tree_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer user_data)
+{
+	ExprWatch * ew = (ExprWatch *)user_data;
+
+	if (bevent->button == 3)
+	{
+		GtkAction *action;
+		AnjutaUI *ui;
+		GtkTreeIter iter;
+
+		ui = anjuta_shell_get_ui (ew->plugin->shell, NULL);
+		action = anjuta_ui_get_action (ui, "ActionGroupWatchToggle", "ActionDmaAutoUpdateWatch");
+		if (debug_tree_get_current (ew->debug_tree, &iter))
+		{
+			gtk_action_set_sensitive (GTK_ACTION (action), TRUE);
+			gtk_toggle_action_set_active (GTK_TOGGLE_ACTION (action), debug_tree_get_auto_update (ew->debug_tree, &iter));
+		}
+		else
+		{
+			gtk_action_set_sensitive (GTK_ACTION (action), FALSE);
+		}
+
+		action = anjuta_ui_get_action (ui, "ActionGroupWatch", "ActionDmaEditWatch");
+		gtk_action_set_sensitive (GTK_ACTION (action), FALSE);   // FIXME: Not implemented
+		
+		if (ew->middle_click_menu == NULL)
+		{
+			ew->middle_click_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupWatch");
+			g_object_ref (ew->middle_click_menu);
+			//g_signal_connect (debug_tree_get_tree_widget(ew->debug_tree), "hide", G_CALLBACK (on_debug_tree_hide_popup), NULL);  
+			
+		}
+		gtk_menu_popup (GTK_MENU (ew->middle_click_menu), NULL, NULL, NULL, NULL,
+						bevent->button, bevent->time);
+	}
+	
+	return FALSE;
+}
+
+/* Actions table
+ *---------------------------------------------------------------------------*/
+
+static GtkActionEntry actions_watch[] = {
+    {
+		"ActionDmaInspect",                      /* Action name */
+		GTK_STOCK_DIALOG_INFO,                   /* Stock icon, if any */
+		N_("Ins_pect/Evaluate..."),              /* Display label */
+		NULL,                                    /* short-cut */
+		N_("Inspect or evaluate an expression or variable"), /* Tooltip */
+		G_CALLBACK (on_debug_tree_inspect) /* action callback */
+    },
+	{
+		"ActionDmaAddWatch",                      
+		NULL,                                     
+		N_("Add Watch"),                      
+		NULL,                                    
+		NULL,                                     
+		G_CALLBACK (on_debug_tree_add_watch)     
+	},
+	{
+		"ActionDmaRemoveWatch",
+		NULL,
+		N_("Remove Watch"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_debug_tree_remove_watch)
+	},
+	{
+		"ActionDmaUpdateWatch",
+		NULL,
+		N_("Update Watch"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_debug_tree_update_watch)
+	},
+	{
+		"ActionDmaEditWatch",
+		NULL,
+		N_("Change Value"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_debug_tree_edit_watch)
+	},
+	{
+		"ActionDmaUpdateAllWatch",
+		NULL,
+		N_("Update all"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_debug_tree_update_all_watch)
+	},
+	{
+		"ActionDmaRemoveAllWatch",
+		NULL,
+		N_("Remove all"),
+		NULL,
+		NULL,
+		G_CALLBACK (on_debug_tree_remove_all_watch)
+	}
+};		
+
+static GtkToggleActionEntry toggle_watch[] = {
+	{
+		"ActionDmaAutoUpdateWatch",               /* Action name */
+		NULL,                                     /* Stock icon, if any */
+		N_("Automatic update"),                   /* Display label */
+		NULL,                                     /* short-cut */
+		NULL,                                     /* Tooltip */
+		G_CALLBACK (on_debug_tree_auto_update_watch), /* action callback */
+		FALSE                                     /* Initial state */
+	}
 };
 
 static void
 create_expr_watch_gui (ExprWatch * ew)
 {
-	ew->debug_tree = debug_tree_new (ew->plugin, TRUE);
+	AnjutaUI *ui;
+	
+	ew->debug_tree = debug_tree_new (ew->plugin);
 	ew->scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
 	gtk_widget_show (ew->scrolledwindow);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (ew->scrolledwindow),
@@ -49,6 +447,22 @@ create_expr_watch_gui (ExprWatch * ew)
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (ew->scrolledwindow),
 										 GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER (ew->scrolledwindow), debug_tree_get_tree_widget (ew->debug_tree));
+	
+	ui = anjuta_shell_get_ui (ew->plugin->shell, NULL);
+	ew->action_group =
+	      anjuta_ui_add_action_group_entries (ui, "ActionGroupWatch",
+											_("Watch operations"),
+											actions_watch,
+											G_N_ELEMENTS (actions_watch),
+											GETTEXT_PACKAGE, ew);
+	ew->toggle_group =
+		      anjuta_ui_add_toggle_action_group_entries (ui, "ActionGroupWatchToggle",
+											_("Watch operations"),
+											toggle_watch,
+											G_N_ELEMENTS (toggle_watch),
+											GETTEXT_PACKAGE, ew);
+	g_signal_connect (debug_tree_get_tree_widget (ew->debug_tree), "button-press-event", G_CALLBACK (on_debug_tree_button_press), ew);  
+	
 	gtk_widget_show_all (ew->scrolledwindow);
 }
 
@@ -58,7 +472,9 @@ create_expr_watch_gui (ExprWatch * ew)
 void
 expr_watch_cmd_queqe (ExprWatch *ew)
 {
-	debug_tree_update_all (ew->debug_tree, FALSE);
+	printf ("update watch begin\n");
+	debug_tree_update_all (ew->debug_tree);
+	printf ("update watch end\n");
 }
 
 void
@@ -82,6 +498,8 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 	list = debug_tree_get_full_watch_list (ew->debug_tree);
 	if (list != NULL)
 		anjuta_session_set_string_list (session, "Debugger", "Watch", list);
+	g_list_foreach (list, (GFunc)g_free, NULL);
+    g_list_free (list);
 }
 
 static void
@@ -132,12 +550,24 @@ expr_watch_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger)
 void
 expr_watch_destroy (ExprWatch * ew)
 {
+	AnjutaUI *ui;
+	
 	g_return_if_fail (ew != NULL);
 	
 	/* Disconnect from Load and Save event */
 	g_signal_handlers_disconnect_by_func (ew->plugin->shell, G_CALLBACK (on_session_save), ew);
 	g_signal_handlers_disconnect_by_func (ew->plugin->shell, G_CALLBACK (on_session_load), ew);
 
+	ui = anjuta_shell_get_ui (ew->plugin->shell, NULL);
+	anjuta_ui_remove_action_group (ui, ew->action_group);
+	anjuta_ui_remove_action_group (ui, ew->toggle_group);
+
+	if (ew->middle_click_menu != NULL)
+	{
+		g_object_unref (ew->middle_click_menu);
+		gtk_widget_destroy (ew->middle_click_menu);
+	}
+	
 	debug_tree_free (ew->debug_tree);
 	gtk_widget_destroy (ew->scrolledwindow);
 	g_free (ew);

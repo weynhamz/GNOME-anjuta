@@ -22,6 +22,7 @@
 #define DEBUG
 
 #include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <signal.h>
 #include <string.h>
@@ -30,6 +31,7 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include <assert.h>
+#include <fcntl.h>
 
 #include <glib.h>
 
@@ -92,6 +94,7 @@ struct _DebuggerPriv
 	gboolean stopping;
 	gboolean exiting;
 	gboolean starting;
+	gboolean terminating;
 	gboolean loading;
 	
 	/* GDB command queue */
@@ -232,6 +235,7 @@ debugger_initialize (Debugger *debugger)
 	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->starting = FALSE;
+	debugger->priv->terminating = FALSE;
 	debugger->priv->skip_next_prompt = FALSE;
 	debugger->priv->command_output_sent = FALSE;
 
@@ -665,6 +669,7 @@ debugger_load_executable (Debugger *debugger, const gchar *prog)
 	debugger_queue_command (debugger, command, FALSE, FALSE, debugger_load_executable_finish, NULL, NULL);
 	g_free (command);
 	debugger->priv->starting = TRUE;
+	debugger->priv->terminating = FALSE;
 }
 
 void
@@ -814,6 +819,7 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	}
 	g_free (dir);
 	debugger->priv->starting = TRUE;
+	debugger->priv->terminating = FALSE;
 	debugger->priv->loading = prog != NULL ? TRUE : FALSE;
 	debugger->priv->debugger_is_busy = 1;
 
@@ -1472,6 +1478,7 @@ debugger_initialize2 (Debugger *debugger)
 	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->starting = FALSE;
+	debugger->priv->terminating = FALSE;
 	debugger->priv->skip_next_prompt = FALSE;
 	debugger->priv->command_output_sent = FALSE;
 
@@ -1505,7 +1512,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 				   gpointer data)
 {
 	Debugger *debugger = DEBUGGER (data);
-	
+
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (on_gdb_terminated),
 										  debugger);
@@ -1517,11 +1524,10 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	debugger_stop_terminal (debugger);
 
 	/* Good Bye message */
-	if (debugger->priv->output_callback)
+	if (!debugger->priv->terminating)
 	{
-		debugger->priv->output_callback (IANJUTA_DEBUGGER_ERROR_OUTPUT,
-							   _("gdb terminated unexpectedly. Restarting gdb\n"),
-							   debugger->priv->output_user_data);
+		anjuta_util_dialog_error (debugger->priv->parent_win,
+		_("gdb terminated unexpectedly with error code %d\n"), status);
 	}
 	g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
 	debugger_stop_terminal (debugger);
@@ -1530,6 +1536,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	debugger->priv->term_pid = -1;
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->skip_next_prompt = FALSE;
+	debugger->priv->terminating = FALSE;
 	/*debugger_initialize2 (debugger);*/
 	/* debugger_start (debugger, NULL, NULL, FALSE); */
 	/* TODO	anjuta_update_app_status (TRUE, NULL); */
@@ -1545,6 +1552,7 @@ debugger_stop_real (Debugger *debugger)
 		debugger_queue_command (debugger, "detach", FALSE, FALSE, NULL, NULL, NULL);
 
 	debugger_stop_terminal (debugger);
+	debugger->priv->terminating = TRUE;
 	debugger_queue_command (debugger, "-gdb-exit", FALSE, FALSE, NULL, NULL, NULL);
 }
 
@@ -1552,7 +1560,7 @@ gboolean
 debugger_stop (Debugger *debugger)
 {
 	gboolean ret = TRUE;
-	
+
 	if (debugger->priv->prog_is_running == TRUE)
 	{
 		GtkWidget *dialog;
@@ -2063,8 +2071,9 @@ debugger_interrupt (Debugger *debugger)
 							   _("Interrupting the process\n"),
 							   debugger->priv->output_user_data);
 	}
+
 	anjuta_launcher_signal (debugger->priv->launcher, SIGINT);
-	//debugger_queue_command (debugger, "-exec-interrupt", FALSE, FALSE, NULL, NULL, NULL);
+	g_signal_emit_by_name (debugger->priv->instance, "program-running");
 }
 
 void

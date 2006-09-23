@@ -61,6 +61,7 @@
 	<popup name="PopupDocumentManager">
 		<separator name="separator1"/>
 		<menuitem name="ToggleBreakpoint" action="ActionGdbToggleBreakpoint" />
+		<menuitem name="InspectVariable" action="ActionDmaInspect" />
 	</popup>
 	<popup name="PopupBreakpoint">
 		<menuitem name="SetBreakpoint" action="ActionGdbSetBreakpoint" />

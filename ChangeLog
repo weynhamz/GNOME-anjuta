@@ -1,3 +1,33 @@
+2006-09-23 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Change one variable sign
+
+	* plugins/debug-manager/anjuta-debug-manager.glade,
+	plugins/debug-manager/anjuta-debug-manager.ui:
+	Few small interface changes	
+
+	* plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/debugger.c,
+	plugins/debug-manager/plugin.c
+	plugins/gdb/debugger.c,
+	plugins/gdb/plugin.c:
+	Big rewrite of debugger queue
+	Allow to cancel command
+
+	* plugins/debug-manager/memory.c:
+	Fix a bug if a command is cancelled
+
+2006-09-23  Bursig Rafal <Bursig_Rafal@mentor.com>
+
+	* plugins/gdb/debugger.c,
+	plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/locals.c:
+	Restore tree representation for local variable
+	Add argument in local variable list
+	Use gdb variable object to get all informations
+
 2006-09-19  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-save-prompt.[c,h]: Added missing files

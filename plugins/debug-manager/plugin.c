@@ -223,6 +223,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	/* Close debugger when session changed */
 	if (plugin->debugger)
 	{
+		ianjuta_debugger_interrupt (plugin->debugger, NULL);
 		ianjuta_debugger_quit (plugin->debugger, NULL);
 	}
 }
@@ -459,6 +460,8 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *this)
 	{
 		ianjuta_indicable_clear(IANJUTA_INDICABLE(this->current_editor), NULL);
 	}
+	
+	enable_log_view (this, FALSE);
 }
 
 /* Start/Stop menu functions
@@ -481,9 +484,12 @@ on_attach_to_project_action_activate (GtkAction* action, DebugManagerPlugin* thi
 static void
 on_debugger_stop_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
-	enable_log_view (plugin, FALSE);
+//	enable_log_view (plugin, FALSE);
 	if (plugin->debugger)
+	{
+		ianjuta_debugger_interrupt (plugin->debugger, NULL);
 		ianjuta_debugger_quit (plugin->debugger, NULL);
+	}
 //	dma_plugin_debugger_stopped (plugin);
 }
 

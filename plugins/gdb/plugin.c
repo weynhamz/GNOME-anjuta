@@ -268,13 +268,9 @@ static gboolean
 idebugger_quit (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
-	
-	if (this->debugger != NULL)
-	{
-	      	debugger_free (this->debugger);
-		this->debugger = NULL;
-	}
-	g_signal_emit_by_name (G_OBJECT (plugin), "debugger-stopped");
+
+	debugger_stop (this->debugger);	
+	//g_signal_emit_by_name (G_OBJECT (plugin), "debugger-stopped");
 	
 	return TRUE;
 }

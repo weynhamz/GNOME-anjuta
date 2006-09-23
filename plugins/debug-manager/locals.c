@@ -33,18 +33,24 @@ struct _Locals
 };
 
 static void
-locals_updated (const GList *list, gpointer user_data)
+locals_updated (const gpointer data, gpointer user_data, GError *error)
 {
+	const GList *list = (const GList *)data;
 	Locals *locals = (Locals*) user_data;
 	
 	g_return_if_fail (locals != NULL);
 
-	if (g_list_length ((GList*)list) < 1)
+	if (error != NULL)
 		return;
 	
-	debug_tree_remove_all (locals->debug_tree);
-	debug_tree_add_watch_list (locals->debug_tree, list, TRUE);	
-	debug_tree_update_all(locals->debug_tree,FALSE);
+	if (g_list_length ((GList*)list) < 1)
+		return;
+
+	printf ("replace list\n");
+	debug_tree_replace_list (locals->debug_tree, list);
+	printf ("update all\n");
+	debug_tree_update_all(locals->debug_tree);
+	printf ("replace list end\n");
 }
 
 /* Private functions
@@ -55,7 +61,7 @@ create_locals_gui (Locals *l)
 {
 	if (l->debug_tree == NULL)
 	{
-		l->debug_tree = debug_tree_new (l->plugin, FALSE);
+		l->debug_tree = debug_tree_new (l->plugin);
 		debug_tree_connect (l->debug_tree, l->debugger);
 	}
 
@@ -141,6 +147,8 @@ locals_new (AnjutaPlugin *plugin, IAnjutaDebugger* debugger)
 	DebugTree *debug_tree;
 
 	Locals *locals = g_new0 (Locals, 1);
+
+	debug_tree = debug_tree_new (plugin);
 
 	locals->debugger = debugger;
 	if (debugger != NULL) g_object_ref (debugger);

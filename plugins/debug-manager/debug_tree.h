@@ -22,28 +22,39 @@
 
 #include <gtk/gtk.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
+#include <libanjuta/interfaces/ianjuta-variable-debugger.h>
 #include <libanjuta/anjuta-plugin.h>
 
 G_BEGIN_DECLS
 
 typedef struct _DebugTree DebugTree;
 
-DebugTree* debug_tree_new (AnjutaPlugin* plugin, gboolean user);
+DebugTree* debug_tree_new (AnjutaPlugin* plugin);
+DebugTree* debug_tree_new_with_view (AnjutaPlugin *plugin, GtkTreeView *view);
 void debug_tree_free (DebugTree *this);
 
 void debug_tree_connect (DebugTree *this, IAnjutaDebugger *debugger);
 void debug_tree_disconnect (DebugTree *this);
 
 void debug_tree_remove_all (DebugTree *this);
-void debug_tree_add_watch (DebugTree *this, const gchar* expression, gboolean auto_update);
+void debug_tree_replace_list (DebugTree *this, const GList *expressions);
+void debug_tree_add_watch (DebugTree *this, const IAnjutaDebuggerVariable* var, gboolean auto_update);
+void debug_tree_add_dummy (DebugTree *this);
+void debug_tree_expand_watch (DebugTree *tree, GtkTreeIter *parent);
 void debug_tree_add_full_watch_list (DebugTree *this, GList *expressions);
 void debug_tree_add_watch_list (DebugTree *this, GList *expressions, gboolean auto_update);
-void debug_tree_update_all (DebugTree *this, gboolean force);
+void debug_tree_update_all (DebugTree *this);
 
 GList* debug_tree_get_full_watch_list (DebugTree *this);
 
 
-GtkWidget *debug_tree_get_tree_widget (DebugTree *this);
+GtkWidget *debug_tree_get_tree_widget (DebugTree *tree);
+gboolean debug_tree_get_current (DebugTree *tree, GtkTreeIter* iter);
+void debug_tree_remove (DebugTree *tree, GtkTreeIter* iter);
+gboolean debug_tree_update (DebugTree *tree, GtkTreeIter* iter, gboolean force);
+void debug_tree_set_auto_update (DebugTree* this, GtkTreeIter* iter, gboolean state);
+gboolean debug_tree_get_auto_update (DebugTree* this, GtkTreeIter* iter);
+
 
 G_END_DECLS
 

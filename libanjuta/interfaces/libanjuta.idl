@@ -2447,7 +2447,7 @@ interface IAnjutaDebugger
 		gchar *type;
 		gchar *value;
 		gboolean changed;
-		guint children;
+		gint children;
 	}
 
 	struct Memory
