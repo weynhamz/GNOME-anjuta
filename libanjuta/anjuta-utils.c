@@ -129,21 +129,10 @@ anjuta_util_string_from_color (guint16 r, guint16 g, guint16 b)
 GdkColor*
 anjuta_util_convert_color(AnjutaPreferences* prefs, const gchar* pref_name)
 {
-	guint16 r, g, b;
-	guint factor = ((guint16) -1) / ((guint8) -1);
-	gchar* color;
-	GdkColor* gdkcolor = g_new0(GdkColor, 1);
-	color = anjuta_preferences_get(prefs, pref_name);
-	if (color)
-	{
-		anjuta_util_color_from_string (color, &r, &g, &b);
-		gdkcolor->pixel = 0;
-		gdkcolor->red = r * factor;
-		gdkcolor->green = g * factor;
-		gdkcolor->blue = b * factor;
-		g_free(color);
-	}
-	return gdkcolor;
+	GdkColor* color = g_new0(GdkColor, 1);
+	gchar* color_string = anjuta_preferences_get(prefs, pref_name);
+	gdk_color_parse(color_string, color);
+	return color;
 }
 
 GtkWidget* 
