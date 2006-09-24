@@ -129,6 +129,64 @@ register_stock_icons (AnjutaPlugin *plugin)
 	gtk_icon_source_free (source);
 }
 
+static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, MessageViewPlugin *plugin)
+{
+	gboolean success;
+	const gchar *dir;
+	gchar *messages_file;
+	AnjutaSerializer *serializer;
+		
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	
+	dir = anjuta_session_get_session_directory (session);
+	messages_file = g_build_filename (dir, "messages.txt", NULL);
+	serializer = anjuta_serializer_new (messages_file,
+										ANJUTA_SERIALIZER_WRITE);
+	if (!serializer)
+	{
+		g_free (messages_file);
+		return;
+	}
+	success = anjuta_msgman_serialize (ANJUTA_MSGMAN (plugin->msgman),
+									   serializer);
+	g_object_unref (serializer);
+	if (!success)
+	{
+		g_warning ("Serialization failed: deleting %s", messages_file);
+		unlink (messages_file);
+	}
+	g_free (messages_file);
+}
+
+static void
+on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, MessageViewPlugin *plugin)
+{
+	const gchar *dir;
+	gchar *messages_file;
+	AnjutaSerializer *serializer;
+	
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	
+	dir = anjuta_session_get_session_directory (session);
+	messages_file = g_build_filename (dir, "messages.txt", NULL);
+	serializer = anjuta_serializer_new (messages_file,
+										ANJUTA_SERIALIZER_READ);
+	if (!serializer)
+	{
+		g_free (messages_file);
+		return;
+	}
+	anjuta_msgman_remove_all_views (ANJUTA_MSGMAN (plugin->msgman));
+	anjuta_msgman_deserialize (ANJUTA_MSGMAN (plugin->msgman), serializer);
+	g_object_unref (serializer);
+	g_free (messages_file);
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -158,6 +216,11 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "AnjutaMessageView", _("Messages"),
 							 "message-manager-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
+	/* Connect to save and load session */
+	g_signal_connect (G_OBJECT (plugin->shell), "save-session",
+					  G_CALLBACK (on_session_save), plugin);
+	g_signal_connect (G_OBJECT (plugin->shell), "load-session",
+					  G_CALLBACK (on_session_load), plugin);
 	initialized = TRUE;
 	return TRUE;
 }
@@ -171,6 +234,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	DEBUG_PRINT ("MessageViewPlugin: Dectivating message view plugin ...");
 	
 	mplugin = (MessageViewPlugin *)plugin;
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_session_save),
+										  plugin);
 	
 	/* Widget is destroyed as soon as it is removed */
 	anjuta_shell_remove_widget (plugin->shell, mplugin->msgman, NULL);

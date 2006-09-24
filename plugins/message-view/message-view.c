@@ -38,6 +38,7 @@ struct _MessageViewPrivate
 	
 	/* Properties */
 	gchar *label;
+	gchar *pixmap;
 	gboolean highlite;
 	
 	GdkRectangle tooltip_rect;
@@ -69,6 +70,7 @@ enum
 {
 	MV_PROP_ID = 0,
 	MV_PROP_LABEL,
+	MV_PROP_PIXMAP,
 	MV_PROP_HIGHLITE
 };
 
@@ -130,6 +132,38 @@ message_free (Message *message)
 	g_free (message->summary);
 	g_free (message->details);
 	g_free (message);
+}
+
+static gboolean
+message_serialize (Message *message, AnjutaSerializer *serializer)
+{
+	if (!anjuta_serializer_write_int (serializer, "type",
+									  message->type))
+		return FALSE;
+	if (!anjuta_serializer_write_string (serializer, "summary",
+										 message->summary))
+		return FALSE;
+	if (!anjuta_serializer_write_string (serializer, "details",
+										 message->details))
+		return FALSE;
+	return TRUE;
+}
+
+static gboolean
+message_deserialize (Message *message, AnjutaSerializer *serializer)
+{
+	gint type;
+	if (!anjuta_serializer_read_int (serializer, "type",
+									 &type))
+		return FALSE;
+	message->type = type;
+	if (!anjuta_serializer_read_string (serializer, "summary",
+										&message->summary, TRUE))
+		return FALSE;
+	if (!anjuta_serializer_read_string (serializer, "details",
+										&message->details, TRUE))
+		return FALSE;
+	return TRUE;
 }
 
 static GType
@@ -505,6 +539,12 @@ message_view_set_property (GObject * object,
 		self->privat->label = g_value_dup_string (value);
 		break;
 	}
+	case MV_PROP_PIXMAP:
+	{
+		g_free (self->privat->pixmap);
+		self->privat->pixmap = g_value_dup_string (value);
+		break;
+	}
 	case MV_PROP_HIGHLITE:
 	{
 		self->privat->highlite = g_value_get_boolean (value);
@@ -512,7 +552,7 @@ message_view_set_property (GObject * object,
 	}
 	default:
 	{
-		g_assert ("Unknown property");
+		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
 		break;
 	}
 	}
@@ -535,6 +575,11 @@ message_view_get_property (GObject * object,
 			g_value_set_string (value, self->privat->label);
 			break;
 		}
+		case MV_PROP_PIXMAP:
+		{
+			g_value_set_string (value, self->privat->pixmap);
+			break;
+		}
 		case MV_PROP_HIGHLITE:
 		{
 			g_value_set_boolean (value, self->privat->highlite);
@@ -542,7 +587,7 @@ message_view_get_property (GObject * object,
 		}
 		default:
 		{
-			g_assert ("Unknown property");
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
 			break;
 		}
 	}
@@ -577,10 +622,9 @@ static void
 message_view_finalize (GObject *obj)
 {
 	MessageView *mview = MESSAGE_VIEW (obj);
-	if (mview->privat->line_buffer)
-		g_free (mview->privat->line_buffer);
-	if (mview->privat->label)
-		g_free (mview->privat->label);
+	g_free (mview->privat->line_buffer);
+	g_free (mview->privat->label);
+	g_free (mview->privat->pixmap);
 	g_free (mview->privat);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
@@ -661,6 +705,7 @@ static void
 message_view_class_init (MessageViewClass * klass)
 {
 	GParamSpec *message_view_spec_label;
+	GParamSpec *message_view_spec_pixmap;
 	GParamSpec *message_view_spec_highlite;
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	
@@ -680,6 +725,16 @@ message_view_class_init (MessageViewClass * klass)
 					 MV_PROP_LABEL,
 					 message_view_spec_label);
 
+	message_view_spec_pixmap = g_param_spec_string ("pixmap",
+						       "Pixmap of the view",
+						       "Used to decorate the view tab,"
+						       "translateable",
+						       "no label",
+						       G_PARAM_READWRITE);
+	g_object_class_install_property (gobject_class,
+					 MV_PROP_PIXMAP,
+					 message_view_spec_pixmap);
+
 	message_view_spec_highlite = g_param_spec_boolean ("highlite",
 							   "Highlite build messages",
 							   "If TRUE, specify colors",
@@ -688,7 +743,6 @@ message_view_class_init (MessageViewClass * klass)
 	g_object_class_install_property (gobject_class,
 					 MV_PROP_HIGHLITE,
 					 message_view_spec_highlite);
-
 }
 
 /* Returns a new message-view instance */
@@ -700,6 +754,86 @@ message_view_new (AnjutaPreferences* prefs, GtkWidget* popup_menu)
 	mv->privat->popup_menu = popup_menu;
 	prefs_init (mv);
 	return GTK_WIDGET(mv);
+}
+
+gboolean
+message_view_serialize (MessageView *view, AnjutaSerializer *serializer)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
+	if (!anjuta_serializer_write_string (serializer, "label",
+										 view->privat->label))
+		return FALSE;
+	if (!anjuta_serializer_write_string (serializer, "pixmap",
+										 view->privat->pixmap))
+		return FALSE;
+	if (!anjuta_serializer_write_int (serializer, "highlite",
+									  view->privat->highlite))
+		return FALSE;
+	
+	/* Serialize individual messages */
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view->privat->tree_view));
+	
+	if (!anjuta_serializer_write_int (serializer, "messages",
+									  gtk_tree_model_iter_n_children (model, NULL)))
+		return FALSE;
+
+	if (gtk_tree_model_get_iter_first (model, &iter))
+	{
+		do
+		{
+			Message *message;
+			gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1);
+			if (message)
+			{
+				if (!message_serialize (message, serializer))
+					return FALSE;
+			}
+		}
+		while (gtk_tree_model_iter_next (model, &iter));
+	}
+	return TRUE;
+}
+
+gboolean
+message_view_deserialize (MessageView *view, AnjutaSerializer *serializer)
+{
+	GtkTreeModel *model;
+	gint messages, i;
+	
+	if (!anjuta_serializer_read_string (serializer, "label",
+										&view->privat->label, TRUE))
+		return FALSE;
+	if (!anjuta_serializer_read_string (serializer, "pixmap",
+										&view->privat->pixmap, TRUE))
+		return FALSE;
+	if (!anjuta_serializer_read_int (serializer, "highlite",
+									 &view->privat->highlite))
+		return FALSE;
+	
+	/* Create individual messages */
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view->privat->tree_view));
+	gtk_list_store_clear (GTK_LIST_STORE (model));
+	
+	if (!anjuta_serializer_read_int (serializer, "messages", &messages))
+		return FALSE;
+	
+	for (i = 0; i < messages; i++)
+	{
+		Message *message;
+
+		message = message_new (0, NULL, NULL);
+		if (!message_deserialize (message, serializer))
+		{
+			message_free (message);
+			return FALSE;
+		}
+		ianjuta_message_view_append (IANJUTA_MESSAGE_VIEW (view), message->type,
+									 message->summary, message->details, NULL);
+		message_free (message);
+	}
+	return TRUE;
 }
 
 void message_view_next(MessageView* view)

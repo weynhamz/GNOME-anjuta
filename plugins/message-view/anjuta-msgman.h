@@ -65,6 +65,11 @@ GList *anjuta_msgman_get_all_views (AnjutaMsgman * msgman);
 void anjuta_msgman_set_view_title (AnjutaMsgman *msgman, MessageView *view,
 								   const gchar *title);
 
+gboolean anjuta_msgman_serialize (AnjutaMsgman *msgman,
+								  AnjutaSerializer *serializer);
+gboolean anjuta_msgman_deserialize (AnjutaMsgman *msgman,
+									AnjutaSerializer *serializer);
+
 void
 on_gconf_notify_message_pref (GConfClient *gclient, guint cnxn_id,
 					   GConfEntry *entry, gpointer user_data);

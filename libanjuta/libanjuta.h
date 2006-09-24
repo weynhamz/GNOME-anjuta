@@ -11,6 +11,8 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-children.h>
 #include <libanjuta/anjuta-launcher.h>
+#include <libanjuta/anjuta-serializer.h>
+#include <libanjuta/anjuta-save-prompt.h>
 #include <libanjuta/anjuta-encodings.h>
 #include <libanjuta/anjuta-marshal.h>
 #include <libanjuta/resources.h>

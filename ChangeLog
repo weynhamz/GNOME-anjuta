@@ -1,3 +1,17 @@
+2006-09-25  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/Makefile.am, libanjuta/libanjuta.h,
+	libanjuta/anjuta-serializer.[ch]: Implemented serialization
+	class.
+	
+	* plugins/message-view/anjuta-msgman.c,
+	plugins/message-view/anjuta-msgman.h,
+	plugins/message-view/message-view.c,
+	plugins/message-view/message-view.h,
+	plugins/message-view/plugin.c: Serialize messages panes in
+	session save and deserialize them in session load so that
+	build messages persistant.
+	
 2006-09-24  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-utils.c:

@@ -277,19 +277,16 @@ on_message_view_destroy (MessageView *view, AnjutaMsgman *msgman)
 									   (on_notebook_switch_page), msgman);
 }
 
-MessageView *
-anjuta_msgman_add_view (AnjutaMsgman * msgman,
-			const gchar * name, const gchar * pixmap)
+static void
+anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
+						   const gchar * name, const gchar * pixmap)
 {
-	g_return_val_if_fail (msgman != NULL, NULL);
-	g_return_val_if_fail (name != NULL, NULL);
-
-	GtkWidget *mv;
 	AnjutaMsgmanPage *page;
 
-	mv = message_view_new (msgman->priv->preferences, msgman->priv->popup_menu);
-	g_return_val_if_fail (mv != NULL, NULL);
-	g_object_set (G_OBJECT (mv), "highlite", TRUE, NULL);	
+	g_return_if_fail (msgman != NULL);
+	g_return_if_fail (mv != NULL);
+	g_return_if_fail (name != NULL);
+
 	gtk_widget_show (mv);
 	page = anjuta_msgman_page_new (mv, name, pixmap, msgman);
 
@@ -308,6 +305,22 @@ anjuta_msgman_add_view (AnjutaMsgman * msgman,
 	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
 									   GTK_SIGNAL_FUNC
 									   (on_notebook_switch_page), msgman);
+}
+
+MessageView *
+anjuta_msgman_add_view (AnjutaMsgman * msgman,
+						const gchar * name, const gchar * pixmap)
+{
+	GtkWidget *mv;
+
+	g_return_val_if_fail (msgman != NULL, NULL);
+	g_return_val_if_fail (name != NULL, NULL);
+
+	mv = message_view_new (msgman->priv->preferences, msgman->priv->popup_menu);
+	g_return_val_if_fail (mv != NULL, NULL);
+	g_object_set (G_OBJECT (mv), "highlite", TRUE, "label", name,
+				  "pixmap", pixmap, NULL);
+	anjuta_msgman_append_view (msgman, mv, name, pixmap);
 	return MESSAGE_VIEW (mv);
 }
 
@@ -423,4 +436,52 @@ anjuta_msgman_set_view_title (AnjutaMsgman *msgman, MessageView *view,
 	g_return_if_fail (page != NULL);
 	
 	gtk_label_set_text (GTK_LABEL (page->label), title);
+}
+
+gboolean
+anjuta_msgman_serialize (AnjutaMsgman *msgman, AnjutaSerializer *serializer)
+{
+	GList *node;
+	
+	if (!anjuta_serializer_write_int (serializer, "views",
+									  g_list_length (msgman->priv->views)))
+		return FALSE;
+	
+	node = msgman->priv->views;
+	while (node)
+	{
+		AnjutaMsgmanPage *page = (AnjutaMsgmanPage*)node->data;
+		if (!message_view_serialize (MESSAGE_VIEW (page->widget), serializer))
+			return FALSE;
+		node = g_list_next (node);
+	}
+	return TRUE;
+}
+
+gboolean
+anjuta_msgman_deserialize (AnjutaMsgman *msgman, AnjutaSerializer *serializer)
+{
+	gint views, i;
+	
+	if (!anjuta_serializer_read_int (serializer, "views", &views))
+		return FALSE;
+	
+	for (i = 0; i < views; i++)
+	{
+		gchar *label, *pixmap;
+		GtkWidget *view;
+		view = message_view_new (msgman->priv->preferences,
+								 msgman->priv->popup_menu);
+		g_return_val_if_fail (view != NULL, FALSE);
+		if (!message_view_deserialize (MESSAGE_VIEW (view), serializer))
+		{
+			gtk_widget_destroy (view);
+			return FALSE;
+		}
+		g_object_get (view, "label", &label, "pixmap", &pixmap, NULL);
+		anjuta_msgman_append_view (msgman, view, label, pixmap);
+		g_free (label);
+		g_free (pixmap);
+	}
+	return TRUE;
 }

@@ -48,7 +48,9 @@ libanjuta_la_SOURCES= \
 	glue-factory.c \
 	plugins.c \
 	plugins.h \
-	anjuta-save-prompt.c
+	anjuta-save-prompt.c \
+	anjuta-serializer.c \
+	anjuta-serializer.h 
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 
@@ -69,6 +71,7 @@ libanjuta_include = \
 	anjuta-children.h \
 	anjuta-session.h \
 	anjuta-save-prompt.h \
+	anjuta-serializer.h \
 	glue-plugin.h \
 	glue-factory.h \
 	resources.h
