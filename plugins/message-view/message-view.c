@@ -894,6 +894,7 @@ pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 		}
 		success = gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter);
 	}
+	g_free(color);
 }
 
 static void
