@@ -1,3 +1,62 @@
+2006-09-28  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-ui.c, libanjuta/anjuta-ui.h:
+	Added 'customizable' parameter to
+	anjuta_ui_add_action_group_entries() and similar functions to
+	allow user configuration of the actions. Filter out actions that
+	are not configurable items (such as submenu items). Now the
+	'Customize shortcuts' dialog is much better listed.
+
+	* plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/build-basic-autotools/build-basic-autotools.h,
+	plugins/cvs-plugin/plugin.c,
+	plugins/cvs-plugin/plugin.h,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/watch.c,
+	plugins/devhelp/plugin.c,
+	plugins/document-manager/plugin.c,
+	plugins/file-loader/plugin.c,
+	plugins/file-manager/plugin.c,
+	plugins/glade/plugin.c,
+	plugins/gtodo/interface.c,
+	plugins/gtodo/plugin.c,
+	plugins/language-support-cpp-java/plugin.c,
+	plugins/macro/plugin.c,
+	plugins/macro/plugin.h,
+	plugins/message-view/plugin.c,
+	plugins/patch/plugin.c,
+	plugins/profile-default/default.anjuta,
+	plugins/project-manager/plugin.c,
+	plugins/project-manager/plugin.h,
+	plugins/sample1/plugin.c,
+	plugins/search/plugin.c,
+	plugins/subversion/plugin.c,
+	plugins/subversion/plugin.h,
+	plugins/symbol-browser/plugin.c,
+	plugins/symbol-browser/plugin.h,
+	plugins/tools/plugin.c,
+	plugins/valgrind/plugin.c,
+	plugins/valgrind/plugin.h: Fixed to take care of above change
+	in API of AnjutaUI. Properly added/removed action groups in some
+	plugins. Split action groups into customization and non-customizable
+	groups and added them separately.
+
+	* plugins/document-manager/plugin.c: Close files belonging to
+	project when project is closed (not complete).
+	
+	* plugins/gtodo/plugin.c: Enabled wrapping of tasks texts and
+	vertical aligned cell entries.
+	
+	* src/anjuta-app.c: Define macros for the placeholder names.
+	Set default widths and heights of the default placeholders,
+	so that newly docked widgets are correclty sized.
+	
+	* plugins/project-wizard/templates/anjuta-plugin/src/plugin.c,
+	plugins/project-wizard/templates/anjuta-plugin/src/plugin.h:
+	Fixed to generated correct actions addition/removal code.
+
 2006-09-25  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/Makefile.am, libanjuta/libanjuta.h,

@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    plugin.c
+    build-basic-autotools.c
     Copyright (C) 2000 Naba Kumar
 
     This program is free software; you can redistribute it and/or modify
@@ -1235,7 +1235,11 @@ static GtkActionEntry build_actions[] =
 		N_("Co_mpile File"), "F9",
 		N_("Compile current editor file"),
 		G_CALLBACK (build_compile_file)
-	},
+	}
+};
+
+static GtkActionEntry build_popup_actions[] = 
+{
 	{
 		"ActionPopupBuild", NULL,
 		N_("_Build"), NULL, NULL, NULL
@@ -1582,9 +1586,9 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	if (!makefile_exists)
 		return;
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupBuild", "ActionPopupBuild");
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild", "ActionPopupBuild");
 	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild",
 										"ActionPopupBuildCompile");
 	if (is_dir)
 		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
@@ -1605,7 +1609,7 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	ba_plugin->fm_current_filename = NULL;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupBuild", "ActionPopupBuild");
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild", "ActionPopupBuild");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 }
 
@@ -1646,9 +1650,9 @@ value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
 	if (!makefile_exists)
 		return;
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupBuild", "ActionPopupPMBuild");
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild", "ActionPopupPMBuild");
 	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild",
 										"ActionPopupPMBuildCompile");
 	if (is_dir)
 		g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
@@ -1669,7 +1673,7 @@ value_removed_pm_current_uri (AnjutaPlugin *plugin,
 	ba_plugin->pm_current_filename = NULL;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupBuild", "ActionPopupPMBuild");
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupBuild", "ActionPopupPMBuild");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 }
 
@@ -1844,7 +1848,14 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("Build commands"),
 											build_actions,
 											sizeof(build_actions)/sizeof(GtkActionEntry),
-											GETTEXT_PACKAGE, plugin);
+											GETTEXT_PACKAGE, TRUE, plugin);
+	ba_plugin->build_popup_action_group = 
+		anjuta_ui_add_action_group_entries (ui,
+											"ActionGroupPopupBuild",
+											_("Build popup commands"),
+											build_popup_actions,
+											sizeof(build_popup_actions)/sizeof(GtkActionEntry),
+											GETTEXT_PACKAGE, FALSE, plugin);
 	/* Add UI */
 	ba_plugin->build_merge_id = anjuta_ui_merge (ui, UI_FILE);
 
@@ -1898,6 +1909,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	/* Remove action group */
 	anjuta_ui_remove_action_group (ui, ba_plugin->build_action_group);
+	anjuta_ui_remove_action_group (ui, ba_plugin->build_popup_action_group);
 	return TRUE;
 }
 

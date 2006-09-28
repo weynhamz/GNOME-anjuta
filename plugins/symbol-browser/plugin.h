@@ -44,6 +44,7 @@ struct _SymbolBrowserPlugin{
 	GtkWidget *pref_tree_view; /* Preferences treeview */
 	
 	GtkActionGroup *action_group;
+	GtkActionGroup *popup_action_group;
 	GtkActionGroup *action_group_nav;
 	gint merge_id;
 	gchar *project_root_uri;

@@ -21,7 +21,8 @@ typedef struct _[+PluginClass+]Class [+PluginClass+]Class;
 struct _[+PluginClass+]{
 	AnjutaPlugin parent;
 	[+IF (=(get "HasGladeFile") "1") +]GtkWidget *widget;[+ENDIF+]
-	[+IF (=(get "HasUI") "1") +]gint uiid;[+ENDIF+]
+	[+IF (=(get "HasUI") "1") +]gint uiid;
+	GtkActionGroup *action_group;[+ENDIF+]
 };
 
 struct _[+PluginClass+]Class{

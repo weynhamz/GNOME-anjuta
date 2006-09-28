@@ -496,7 +496,7 @@ stack_trace_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin)
 											_("Stack frame operations"),
 											actions_stack_trace,
 											G_N_ELEMENTS (actions_stack_trace),
-											GETTEXT_PACKAGE, st);
+											GETTEXT_PACKAGE, TRUE, st);
 
 	g_signal_connect_swapped (st->debugger, "debugger-started", G_CALLBACK (on_debugger_started), st);
 	g_signal_connect_swapped (st->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), st);

@@ -1,5 +1,6 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    anjuta-ui.c
+    anjuta-ui.h
     Copyright (C) 2003  Naba Kumar  <naba@gnome.org>
 
     This program is free software; you can redistribute it and/or modify
@@ -72,6 +73,7 @@ GtkActionGroup* anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 											GtkActionEntry *entries,
 											gint num_entries,
 											const gchar *translation_domain,
+											gboolean can_customize,
 											gpointer user_data);
 
 GtkActionGroup* anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
@@ -80,12 +82,14 @@ GtkActionGroup* anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
 											GtkToggleActionEntry *entries,
 											gint num_entries,
 											const gchar *translation_domain,
+											gboolean can_customize,
 											gpointer user_data);
 
 void anjuta_ui_add_action_group (AnjutaUI *ui,
 								 const gchar *action_group_name,
 								 const gchar *action_group_label,
-								 GtkActionGroup *action_group);
+								 GtkActionGroup *action_group,
+								 gboolean can_customize);
 
 /* Removes the group of Actions */
 void anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group);

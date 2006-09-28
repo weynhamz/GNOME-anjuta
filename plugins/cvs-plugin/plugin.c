@@ -110,7 +110,10 @@ static GtkActionEntry actions_cvs[] = {
 		NULL,                      /* short-cut */
 		N_("Import a new source tree to CVS"), /* Tooltip */
 		G_CALLBACK (on_menu_cvs_import) /* action callback */
-	},
+	}
+};
+
+static GtkActionEntry popup_actions_cvs[] = {
 	{
 		"ActionPopupCVS",          /* Action name */
 		NULL,                      /* Stock icon, if any */
@@ -337,13 +340,21 @@ activate_plugin (AnjutaPlugin *plugin)
 	cvs_plugin = (CVSPlugin*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-		
+	
 	/* Add all our actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupCVS",
-					_("CVS operations"),
-					actions_cvs,
-					G_N_ELEMENTS (actions_cvs),
-					GETTEXT_PACKAGE, plugin);
+	cvs_plugin->cvs_action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupCVS",
+											_("CVS operations"),
+											actions_cvs,
+											G_N_ELEMENTS (actions_cvs),
+											GETTEXT_PACKAGE, TRUE, plugin);
+	cvs_plugin->cvs_popup_action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupPopupCVS",
+											_("CVS popup operations"),
+											popup_actions_cvs,
+											G_N_ELEMENTS (popup_actions_cvs),
+											GETTEXT_PACKAGE, FALSE, plugin);
+	/* UI merge */
 	cvs_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	/* Add watches */
@@ -365,9 +376,26 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	AnjutaUI *ui;
+	CVSPlugin *cvs_plugin;
+	
 	DEBUG_PRINT ("CVSPlugin: Dectivating CVS plugin ...");
-	anjuta_ui_unmerge (ui, ((CVSPlugin*)plugin)->uiid);
+	
+	cvs_plugin = (CVSPlugin*) plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	/* Remove watches */
+	anjuta_plugin_remove_watch (plugin, cvs_plugin->fm_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin, cvs_plugin->project_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin, cvs_plugin->editor_watch_id, TRUE);
+	
+	/* Unmerge UI */
+	anjuta_ui_unmerge (ui, cvs_plugin->uiid);
+	
+	/* Remove action groups */
+	anjuta_ui_remove_action_group (ui, cvs_plugin->cvs_action_group);
+	anjuta_ui_remove_action_group (ui, cvs_plugin->cvs_popup_action_group);
+	
 	return TRUE;
 }
 

@@ -49,6 +49,11 @@
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta.glade"
 #define ICON_FILE "preferences-general.png"
 
+#define DOCK_PH_LEFT    "ph_left"
+#define DOCK_PH_RIGHT   "ph_right"
+#define DOCK_PH_TOP     "ph_top"
+#define DOCK_PH_BOTTOM  "ph_bottom"
+
 static void anjuta_app_layout_load (AnjutaApp *app,
 									const gchar *layout_filename,
 									const gchar *name);
@@ -447,13 +452,13 @@ anjuta_app_instance_init (AnjutaApp *app)
 					  G_CALLBACK (on_layout_locked_notify), app);
 	
 	/* Create placeholders for default widget positions */
-	gdl_dock_placeholder_new ("ph_top", GDL_DOCK_OBJECT (app->dock),
+	gdl_dock_placeholder_new (DOCK_PH_TOP, GDL_DOCK_OBJECT (app->dock),
 							  GDL_DOCK_TOP, FALSE);
-	gdl_dock_placeholder_new ("ph_bottom", GDL_DOCK_OBJECT (app->dock),
+	gdl_dock_placeholder_new (DOCK_PH_BOTTOM, GDL_DOCK_OBJECT (app->dock),
 							  GDL_DOCK_BOTTOM, FALSE);
-	gdl_dock_placeholder_new ("ph_left", GDL_DOCK_OBJECT (app->dock),
+	gdl_dock_placeholder_new (DOCK_PH_LEFT, GDL_DOCK_OBJECT (app->dock),
 							  GDL_DOCK_LEFT, FALSE);
-	gdl_dock_placeholder_new ("ph_right", GDL_DOCK_OBJECT (app->dock),
+	gdl_dock_placeholder_new (DOCK_PH_RIGHT, GDL_DOCK_OBJECT (app->dock),
 							  GDL_DOCK_RIGHT, FALSE);
 	gdl_dock_placeholder_new ("ph_center", GDL_DOCK_OBJECT (app->dock),
 							  GDL_DOCK_CENTER, FALSE);
@@ -609,6 +614,7 @@ anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry)
 {
 	gint width, height, posx, posy;
 	gboolean geometry_set = FALSE;
+	GdlDockPlaceholder *placeholder;
 	
 	if (geometry && strlen (geometry) > 0)
 	{
@@ -647,6 +653,23 @@ anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry)
 			gtk_window_move (GTK_WINDOW (app), posx, posy);
 		}
 	}
+	/* Set default placeholders geometry */
+	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock),
+													DOCK_PH_TOP);
+	g_object_set (placeholder, "height", GINT_TO_POINTER((gint)(0.25 * height)),
+				  NULL);
+	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock),
+													DOCK_PH_BOTTOM);
+	g_object_set (placeholder, "height", GINT_TO_POINTER((gint)(0.25 * height)),
+				  NULL);
+	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock),
+													DOCK_PH_LEFT);
+	g_object_set (placeholder, "width", GINT_TO_POINTER((gint)(0.25 * width)),
+				  NULL);
+	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock),
+													DOCK_PH_RIGHT);
+	g_object_set (placeholder, "width", GINT_TO_POINTER((gint)(0.25 * width)),
+				  NULL);
 }
 
 static void
@@ -920,10 +943,10 @@ anjuta_app_add_widget (AnjutaShell *shell,
 	{
 		switch (placement)
 		{
-			case GDL_DOCK_TOP: placeholder_name = "ph_top"; break;
-			case GDL_DOCK_BOTTOM: placeholder_name = "ph_bottom"; break;
-			case GDL_DOCK_LEFT: placeholder_name = "ph_left"; break;
-			case GDL_DOCK_RIGHT: placeholder_name = "ph_right"; break;
+			case GDL_DOCK_TOP: placeholder_name = DOCK_PH_TOP; break;
+			case GDL_DOCK_BOTTOM: placeholder_name = DOCK_PH_BOTTOM; break;
+			case GDL_DOCK_LEFT: placeholder_name = DOCK_PH_LEFT; break;
+			case GDL_DOCK_RIGHT: placeholder_name = DOCK_PH_RIGHT; break;
 			default: placeholder_name = "ph_center";
 		}
 		

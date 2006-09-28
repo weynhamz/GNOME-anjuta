@@ -201,30 +201,35 @@ GtkWidget * gui_create_todo_widget()
 
 	/* add the columns to the list */
 	renderer =  gtk_cell_renderer_toggle_new();
+	g_object_set (renderer, "yalign", 0.0, NULL);
 	column = gtk_tree_view_column_new_with_attributes("", renderer, "active",DONE,"activatable", EDITABLE, NULL);
 	gtk_tree_view_column_set_sort_column_id (column, DONE);
 	g_signal_connect(renderer, "toggled", G_CALLBACK(list_toggled_done), NULL);    
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mw.treeview), column);    
 
 	renderer =  gtk_cell_renderer_text_new();
-	column = gtk_tree_view_column_new_with_attributes(_("Priority"), renderer, "text" , PRIOSTR,"strikethrough", DONE, "foreground-set", DUE,"foreground", COLOR,NULL);
+	g_object_set (renderer, "yalign", 0.0, NULL);
+	column = gtk_tree_view_column_new_with_attributes(_("Priority"), renderer, "text" , PRIOSTR,"strikethrough", DONE, "foreground-set", DUE,"foreground", COLOR, NULL);
 	gtk_tree_view_column_set_sort_column_id (column, PRIOSTR);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mw.treeview), column);    
 	if(!gconf_client_get_bool(client, "/apps/gtodo/view/show-priority-column",NULL)) gtk_tree_view_column_set_visible(column, FALSE);
 
 	renderer =  gtk_cell_renderer_text_new();
+	g_object_set (renderer, "yalign", 0.0, NULL);
 	column = gtk_tree_view_column_new_with_attributes(_("Due date"), renderer, "text" , F_DATE,"strikethrough", DONE, "foreground-set", DUE,"foreground", COLOR,NULL);
 	gtk_tree_view_column_set_sort_column_id (column, F_DATE);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mw.treeview), column);    
 	if(!gconf_client_get_bool(client, "/apps/gtodo/prefs/show-due-column",NULL)) gtk_tree_view_column_set_visible(column, FALSE);
 
 	renderer =  gtk_cell_renderer_text_new();
+	g_object_set (renderer, "yalign", 0.0, NULL);
 	column = gtk_tree_view_column_new_with_attributes(_("Category"), renderer, "text" , CATEGORY,"strikethrough", DONE, "foreground-set", DUE,"foreground", COLOR,NULL);
 	gtk_tree_view_column_set_sort_column_id (column, CATEGORY);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mw.treeview), column);   	
 	if(!gconf_client_get_bool(client, "/apps/gtodo/view/show-category-column",NULL)) gtk_tree_view_column_set_visible(column, FALSE);
 
 	renderer =  gtk_cell_renderer_text_new();
+	g_object_set (renderer, "yalign", 0.0, "wrap-mode", PANGO_WRAP_WORD, "wrap-width", 500, NULL);
 	column = gtk_tree_view_column_new_with_attributes(_("Summary"), renderer, "markup",SUMMARY,"strikethrough", DONE, "foreground-set", DUE,"foreground", COLOR,NULL);
 	gtk_tree_view_column_set_sort_column_id (column, SUMMARY);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mw.treeview), column);    

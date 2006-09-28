@@ -1173,7 +1173,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("File Loader"),
 											actions_file,
 											G_N_ELEMENTS (actions_file),
-											GETTEXT_PACKAGE, plugin);
+											GETTEXT_PACKAGE, TRUE, plugin);
 	saction = g_object_new (EGG_TYPE_SUBMENU_ACTION,
 							"name", "ActionFileWizard",
 							"label", _("New"),
@@ -1206,7 +1206,7 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_open_recent_file), plugin);
 	gtk_action_group_add_action (group, action);
 	anjuta_ui_add_action_group (ui, "ActionGroupLoaderRecent",
-								N_("Open recent files"), group);
+								N_("Open recent files"), group, FALSE);
 	loader_plugin->recent_group = group;
 	
 	/* Add UI */

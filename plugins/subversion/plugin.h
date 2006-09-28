@@ -38,13 +38,19 @@ typedef struct _SubversionClass SubversionClass;
 
 struct _Subversion{
 	AnjutaPlugin parent;
-	gint uiid;
 	
 	IAnjutaMessageView* mesg_view;
 	IAnjutaEditor* diff_editor;
 	AnjutaLauncher* launcher;
 	
 	SVNBackend* backend;
+	
+	/* Merge ID */
+	gint uiid;
+	
+	/* Action groups */
+	GtkActionGroup *action_group;
+	GtkActionGroup *popup_action_group;
 	
 	/* Watch IDs */
 	gint fm_watch_id;

@@ -1465,7 +1465,7 @@ breakpoints_dbase_new (AnjutaPlugin *plugin)
 											_("Breakpoint operations"),
 											actions_breakpoints,
 											G_N_ELEMENTS (actions_breakpoints),
-											GETTEXT_PACKAGE, bd);
+											GETTEXT_PACKAGE, TRUE, bd);
 
 		/* Add breakpoint window */
 		bd->scrolledwindow = gtk_scrolled_window_new (NULL, NULL);

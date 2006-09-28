@@ -268,12 +268,13 @@ devhelp_activate (AnjutaPlugin *plugin)
 
 	/* Add all UI actions and merge UI */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	devhelp->action_group = anjuta_ui_add_action_group_entries (ui, "ActionGroupFiledevhelp",
-										_("Sample file operations"),
-										actions,
-										G_N_ELEMENTS (actions),
-										GETTEXT_PACKAGE,
-										plugin);
+	devhelp->action_group =
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupDevhelp",
+											_("Help operations"),
+											actions,
+											G_N_ELEMENTS (actions),
+											GETTEXT_PACKAGE, TRUE,
+											plugin);
 	devhelp->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 	books = dh_base_get_book_tree (devhelp->base);

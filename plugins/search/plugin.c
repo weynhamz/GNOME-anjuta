@@ -539,7 +539,7 @@ activate_plugin (AnjutaPlugin *plugin)
 					_("Searching..."),
 					actions_search,
 					G_N_ELEMENTS (actions_search),
-					GETTEXT_PACKAGE, plugin);
+					GETTEXT_PACKAGE, TRUE, plugin);
 		
 	group = gtk_action_group_new ("ActionGroupSearch");
 	action = g_object_new (EGG_TYPE_ENTRY_ACTION,
@@ -559,7 +559,12 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect (action, "focus-out",
 					  G_CALLBACK (on_toolbar_find_incremental_end), plugin);
 	gtk_action_group_add_action (group, action);
-	anjuta_ui_add_action_group(ui, "ActionGroupSearch", _("Search Toolbar"), group);
+	
+	/* FIXME: For some reason, if can_customize is set TRUE, AnjutaUI
+	 * can't find this action
+	 */
+	anjuta_ui_add_action_group(ui, "ActionGroupSearch", _("Search Toolbar"),
+							   group, TRUE);
 	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 
 	

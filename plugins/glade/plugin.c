@@ -670,10 +670,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Add action group */
 	priv->action_group = 
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupGlade",
-										_("Glade operations"),
-										actions,
-										G_N_ELEMENTS (actions),
-										GETTEXT_PACKAGE, glade_plugin);
+											_("Glade operations"),
+											actions,
+											G_N_ELEMENTS (actions),
+											GETTEXT_PACKAGE, TRUE,
+											glade_plugin);
 	/* Add UI */
 	priv->uiid = anjuta_ui_merge (ui, UI_FILE);
 	

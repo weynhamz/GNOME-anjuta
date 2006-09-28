@@ -1421,7 +1421,8 @@ activate_plugin (AnjutaPlugin *plugin)
 													_(action_groups[i].label),
 													action_groups[i].group,
 													action_groups[i].size,
-													GETTEXT_PACKAGE, plugin);
+													GETTEXT_PACKAGE, TRUE,
+													plugin);
 		editor_plugin->action_groups =
 			g_list_prepend (editor_plugin->action_groups, group);
 		actions = gtk_action_group_list_actions (group);
@@ -1442,7 +1443,7 @@ activate_plugin (AnjutaPlugin *plugin)
 												_(action_toggle_groups[i].label),
 												action_toggle_groups[i].group,
 												action_toggle_groups[i].size,
-												GETTEXT_PACKAGE, plugin);
+												GETTEXT_PACKAGE, TRUE, plugin);
 		editor_plugin->action_groups =
 			g_list_prepend (editor_plugin->action_groups, group);
 		actions = gtk_action_group_list_actions (group);
@@ -1468,7 +1469,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	gtk_action_group_add_action (group, action);
 	
 	anjuta_ui_add_action_group (ui, "ActionGroupNavigation",
-								N_("Editor quick navigations"), group);
+								N_("Editor quick navigations"),
+								group, FALSE);
 	
 	/* Add UI */
 	editor_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);

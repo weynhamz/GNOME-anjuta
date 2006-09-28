@@ -270,7 +270,7 @@ on_refresh_activate (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 	g_idle_add (on_refresh_idle, sv_plugin);
 }
 
-static GtkActionEntry popup_actions[] = 
+static GtkActionEntry actions[] = 
 {
 	{ "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
 	{
@@ -288,7 +288,11 @@ static GtkActionEntry popup_actions[] =
 		"<shift><control>d",
 		N_("Goto symbol declaration"),
 		G_CALLBACK (on_goto_file_tag_decl_activate)
-	},
+	}
+};
+
+static GtkActionEntry popup_actions[] = 
+{
 	{
 		"ActionPopupSymbolBrowserGotoDef",
 		NULL,
@@ -940,10 +944,17 @@ activate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (sv_plugin->ui,
 											"ActionGroupSymbolBrowser",
+											_("Symbol browser actions"),
+											actions,
+											G_N_ELEMENTS (actions),
+											GETTEXT_PACKAGE, TRUE, plugin);
+	sv_plugin->action_group = 
+		anjuta_ui_add_action_group_entries (sv_plugin->ui,
+											"ActionGroupPopupSymbolBrowser",
 											_("Symbol browser popup actions"),
 											popup_actions,
 											G_N_ELEMENTS (popup_actions),
-											GETTEXT_PACKAGE, plugin);
+											GETTEXT_PACKAGE, FALSE, plugin);
 	group = gtk_action_group_new ("ActionGroupSymbolNavigation");
 
 	/* create a new combobox in style of libegg... */
@@ -959,7 +970,7 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_symbol_selected), sv_plugin);
 	gtk_action_group_add_action (group, action);
 	anjuta_ui_add_action_group (sv_plugin->ui, "ActionGroupSymbolNavigation",
-								N_("Symbol navigations"), group);
+								N_("Symbol navigations"), group, FALSE);
 	sv_plugin->action_group_nav = group;
 	
 	/* Add UI */
@@ -1013,6 +1024,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	/* Remove action group */
 	anjuta_ui_remove_action_group (sv_plugin->ui, sv_plugin->action_group);
+	anjuta_ui_remove_action_group (sv_plugin->ui, sv_plugin->popup_action_group);
 	anjuta_ui_remove_action_group (sv_plugin->ui, sv_plugin->action_group_nav);
 	
 	sv_plugin->root_watch_id = 0;

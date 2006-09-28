@@ -102,7 +102,7 @@ patch_plugin_activate (AnjutaPlugin *plugin)
 										_("Patch files/directories"),
 										actions_tools,
 										G_N_ELEMENTS (actions_tools),
-										GETTEXT_PACKAGE, p_plugin);
+										GETTEXT_PACKAGE, TRUE, p_plugin);
 
 	p_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	

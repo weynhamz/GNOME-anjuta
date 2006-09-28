@@ -32,8 +32,13 @@ typedef struct _MacroPluginClass MacroPluginClass;
 struct _MacroPlugin
 {
 	AnjutaPlugin parent;
+	
+	/* Merge id */
 	gint uiid;
 
+	/* Action group */
+	GtkActionGroup *action_group;
+	
 	/* Watch IDs */
 	gint editor_watch_id;
 

@@ -982,25 +982,25 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 											_("Debugger operations"),
 											actions_start,
 											G_N_ELEMENTS (actions_start),
-											GETTEXT_PACKAGE, this);
+											GETTEXT_PACKAGE, TRUE, this);
 	this->loaded_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebug",
 											_("Debugger operations"),
 											actions_loaded,
 											G_N_ELEMENTS (actions_loaded),
-											GETTEXT_PACKAGE, this);
+											GETTEXT_PACKAGE, TRUE, this);
 	this->stopped_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebug",
 											_("Debugger operations"),
 											actions_stopped,
 											G_N_ELEMENTS (actions_stopped),
-											GETTEXT_PACKAGE, this);
+											GETTEXT_PACKAGE, TRUE, this);
 	this->running_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupDebug",
 											_("Debugger operations"),
 											actions_running,
 											G_N_ELEMENTS (actions_running),
-											GETTEXT_PACKAGE, this);	
+											GETTEXT_PACKAGE, TRUE, this);	
 	this->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	/* Load debugger */

@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     anjuta-ui.c
     Copyright (C) 2003  Naba Kumar  <naba@gnome.org>
@@ -44,7 +45,8 @@
 struct _AnjutaUIPrivate {
 	GtkIconFactory *icon_factory;
 	GtkTreeModel *model;
-	GHashTable *actions_hash;
+	GHashTable *customizable_actions_hash;
+	GHashTable *uncustomizable_actions_hash;
 };
 
 enum {
@@ -57,6 +59,7 @@ enum {
 	N_COLUMNS
 };
 
+#if 0
 static void
 sensitivity_toggled (GtkCellRendererToggle *cell,
 					 const gchar *path_str, GtkTreeModel *model)
@@ -77,6 +80,7 @@ sensitivity_toggled (GtkCellRendererToggle *cell,
 						COLUMN_SENSITIVE, !sensitive, -1);
 	gtk_tree_path_free (path);
 }
+#endif
 
 static void
 visibility_toggled (GtkCellRendererToggle *cell,
@@ -291,11 +295,17 @@ anjuta_ui_dispose (GObject *obj)
 		g_object_unref (G_OBJECT (ui->priv->model));
 		ui->priv->model = NULL;
 	}
-	if (ui->priv->actions_hash)
+	if (ui->priv->customizable_actions_hash)
 	{
 		/* This will also release the refs on all action groups */
-		g_hash_table_destroy (ui->priv->actions_hash);
-		ui->priv->actions_hash = NULL;
+		g_hash_table_destroy (ui->priv->customizable_actions_hash);
+		ui->priv->customizable_actions_hash = NULL;
+	}
+	if (ui->priv->uncustomizable_actions_hash)
+	{
+		/* This will also release the refs on all action groups */
+		g_hash_table_destroy (ui->priv->uncustomizable_actions_hash);
+		ui->priv->uncustomizable_actions_hash = NULL;
 	}
 	if (ui->priv->icon_factory) {
 		g_object_unref (G_OBJECT (ui->priv->icon_factory));
@@ -330,10 +340,16 @@ anjuta_ui_instance_init (AnjutaUI *ui)
 	
 	/* Initialize member data */
 	ui->priv = g_new0 (AnjutaUIPrivate, 1);
-	ui->priv->actions_hash = g_hash_table_new_full (g_str_hash,
-													g_str_equal,
-													(GDestroyNotify) g_free, NULL
-													/* (GDestroyNotify) g_object_unref*/);
+	ui->priv->customizable_actions_hash =
+		g_hash_table_new_full (g_str_hash,
+							   g_str_equal,
+							   (GDestroyNotify) g_free,
+							   NULL);
+	ui->priv->uncustomizable_actions_hash =
+		g_hash_table_new_full (g_str_hash,
+							   g_str_equal,
+							   (GDestroyNotify) g_free,
+							   NULL);
 	/* Create Icon factory */
 	ui->priv->icon_factory = gtk_icon_factory_new ();
 	gtk_icon_factory_add_default (ui->priv->icon_factory);
@@ -351,7 +367,7 @@ anjuta_ui_instance_init (AnjutaUI *ui)
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE(store),
 										  COLUMN_ACTION, GTK_SORT_ASCENDING);
 	
-	// unreferenced in dispose() method.
+	/* unreferenced in dispose() method. */
 	ui->priv->model = GTK_TREE_MODEL (store);
 }
 
@@ -375,6 +391,7 @@ anjuta_ui_new (void)
  * @action_group_label: Translated label of the action group.
  * @entries: An array of action entries.
  * @num_entries: Number of elements in the action entries array.
+ * @can_customize: If true the actions are customizable by user.
  * @translation_domain: The translation domain used to translated the entries.
  * It is usually the GETTEXT_PACKAGE macro in a project.
  * @user_data: User data to pass to action objects. This is the data that
@@ -400,6 +417,7 @@ anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 									GtkActionEntry *entries,
 									gint num_entries,
 									const gchar *translation_domain,
+									gboolean can_customize,
 									gpointer user_data)
 {
 	GtkActionGroup *action_group;
@@ -414,8 +432,8 @@ anjuta_ui_add_action_group_entries (AnjutaUI *ui,
 	gtk_action_group_add_actions (action_group, entries, num_entries,
 								  user_data);
 	anjuta_ui_add_action_group (ui, action_group_name,
-								action_group_label, action_group);
-	// g_object_unref (action_group);
+								action_group_label, action_group,
+								can_customize);
 	return action_group;
 }
 
@@ -443,6 +461,7 @@ anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
 									GtkToggleActionEntry *entries,
 									gint num_entries,
 									const gchar *translation_domain,
+									gboolean can_customize,
 									gpointer user_data)
 {
 	GtkActionGroup *action_group;
@@ -456,8 +475,8 @@ anjuta_ui_add_toggle_action_group_entries (AnjutaUI *ui,
 	gtk_action_group_add_toggle_actions (action_group, entries, num_entries,
 										 user_data);
 	anjuta_ui_add_action_group (ui, action_group_name,
-								action_group_label, action_group);
-	// g_object_unref (action_group);
+								action_group_label, action_group,
+								can_customize);
 	return action_group;
 }
 
@@ -477,28 +496,35 @@ void
 anjuta_ui_add_action_group (AnjutaUI *ui,
 							const gchar *action_group_name,
 							const gchar *action_group_label,
-							GtkActionGroup *action_group)
+							GtkActionGroup *action_group,
+							gboolean can_customize)
 {
 	GList *actions, *l;
 	GtkTreeIter parent;
 	GdkPixbuf *pixbuf;
+	gint n_actions_added = 0;
 	
 	g_return_if_fail (ANJUTA_IS_UI (ui));
 	g_return_if_fail (GTK_IS_ACTION_GROUP (action_group));
 	g_return_if_fail (action_group_name != NULL);
 	g_return_if_fail (action_group_name != NULL);
 
-	/* We are holding a ref to the action_group in hash table.
-	   It will be unrefed when the action_group is removed */
-	// g_object_ref (action_group);
 	gtk_ui_manager_insert_action_group (GTK_UI_MANAGER (ui), action_group, 0);
-	g_hash_table_insert (ui->priv->actions_hash,
-						g_strdup (action_group_name), action_group);
+	
+	if (can_customize)
+	{
+		g_hash_table_insert (ui->priv->customizable_actions_hash,
+							g_strdup (action_group_name), action_group);
+	}
+	else
+	{
+		g_hash_table_insert (ui->priv->uncustomizable_actions_hash,
+							g_strdup (action_group_name), action_group);
+	}
 	
 	actions = gtk_action_group_list_actions (action_group);
 	gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
 						   &parent, NULL);
-/*	pixbuf = anjuta_res_get_pixbuf (PACKAGE_PIXMAPS_DIR"/directory.png");*/
 	pixbuf = NULL;
 	gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &parent,
 						COLUMN_PIXBUF, pixbuf,
@@ -509,14 +535,21 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 	{
 		gchar *action_label;
 		gchar *icon;
-		
-		// gchar *accel_name;
+		guint signal_id;
+		gint n_handlers;
 		GtkTreeIter iter;
-		// GtkWidget *icon;
 		GtkAction *action = l->data;
 		
 		if (!action)
 			continue;
+		
+		signal_id = g_signal_lookup ("activate", GTK_TYPE_ACTION);
+		n_handlers = g_signal_has_handler_pending (action, signal_id,
+												   0, TRUE);
+		if (n_handlers == 0)
+			continue; /* The action element is not user configuration */
+		
+		n_actions_added++;
 		
 		gtk_tree_store_append (GTK_TREE_STORE (ui->priv->model),
 							   &iter, &parent);
@@ -551,19 +584,18 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 		}
 		g_free (action_label);
 	}
+	
+	/* If there are no actions in the group, removed the group node */
+	if (n_actions_added == 0)
+		gtk_tree_store_remove (GTK_TREE_STORE (ui->priv->model),
+							   &parent);
 }
 
 static gboolean
 on_action_group_remove_hash (gpointer key, gpointer value, gpointer data)
 {
 	if (data == value)
-	{
-		/*
-		DEBUG_PRINT ("Removing action group from hash: %s",
-				   gtk_action_group_get_name (GTK_ACTION_GROUP (data)));
-		*/
 		return TRUE;
-	}
 	else
 		return FALSE;
 }
@@ -591,14 +623,12 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while (valid)
 	{
-		// GtkTreeIter parent;
 		const gchar *group;
 		const gchar *group_name;
 		
 		gtk_tree_model_get (model, &iter, COLUMN_GROUP, &group, -1);
 		group_name = gtk_action_group_get_name (GTK_ACTION_GROUP (action_group));
 		
-		/* DEBUG_PRINT ("%s == %s", group, group_name); */
 		if (group_name == NULL || group == NULL)
 		{
 			valid = gtk_tree_model_iter_next (model, &iter);
@@ -606,9 +636,6 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 		}
 		if (strcmp (group_name, group) == 0)
 		{
-			/* DEBUG_PRINT ("Removing action group from tree: %s", group); */
-			
-			/* This will also release all action refs */
 			valid = gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
 		}
 		else
@@ -616,8 +643,9 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 	}
 	gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (ui), action_group);
 	
-	/* This will also release the ref on action group */
-	g_hash_table_foreach_remove (ui->priv->actions_hash,
+	g_hash_table_foreach_remove (ui->priv->customizable_actions_hash,
+								 on_action_group_remove_hash, action_group);
+	g_hash_table_foreach_remove (ui->priv->uncustomizable_actions_hash,
 								 on_action_group_remove_hash, action_group);
 }
 
@@ -641,8 +669,13 @@ anjuta_ui_get_action (AnjutaUI *ui, const gchar *action_group_name,
 	
 	g_return_val_if_fail (ANJUTA_IS_UI (ui), NULL);
 	
-	action_group = g_hash_table_lookup (ui->priv->actions_hash,
+	action_group = g_hash_table_lookup (ui->priv->customizable_actions_hash,
 										action_group_name);
+	if (!action_group)
+	{
+		action_group = g_hash_table_lookup (ui->priv->uncustomizable_actions_hash,
+											action_group_name);
+	}
 	if (GTK_IS_ACTION_GROUP (action_group) == FALSE)
 	{
 		g_warning ("Unable to find action group \"%s\"", action_group_name);
@@ -800,7 +833,7 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 	
 	/* Columns */
 	column = gtk_tree_view_column_new ();
-	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	/* gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE); */
 	gtk_tree_view_column_set_title (column, _("Action"));
 
 	renderer = gtk_cell_renderer_pixbuf_new ();
@@ -824,9 +857,9 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 													   "active",
 													   COLUMN_VISIBLE,
 													   NULL);
-	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	/* gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE); */
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
-	
+#if 0
 	renderer = gtk_cell_renderer_toggle_new ();
 	g_signal_connect (G_OBJECT (renderer), "toggled",
 					  G_CALLBACK (sensitivity_toggled), store);
@@ -835,12 +868,12 @@ anjuta_ui_get_accel_editor (AnjutaUI *ui)
 													   "active",
 													   COLUMN_SENSITIVE,
 													   NULL);
-	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	/* gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE); */
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), column);
-	
+#endif
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (column, _("Shortcut"));
-	// gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);	
+	/* gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);	*/
 	renderer = g_object_new (EGG_TYPE_CELL_RENDERER_KEYS,
 							"editable", TRUE,
 							"accel_mode", EGG_CELL_RENDERER_KEYS_MODE_GTK,

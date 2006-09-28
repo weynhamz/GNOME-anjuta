@@ -548,11 +548,12 @@ valgrind_activate (AnjutaPlugin *plugin)
 
 	/* Add all UI actions and merge UI */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupValgrind",
-										_("Use Valgrind debug tool"),
-										actions_file,
-										G_N_ELEMENTS (actions_file),
-										GETTEXT_PACKAGE, plugin);
+	valgrind->action_group =
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupValgrind",
+											_("Use Valgrind debug tool"),
+											actions_file,
+											G_N_ELEMENTS (actions_file),
+											GETTEXT_PACKAGE, TRUE, plugin);
 	valgrind->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 	/* Create the main valgrind widget [a VgToolView object...]. Do NOT add it now,
@@ -597,9 +598,11 @@ valgrind_deactivate (AnjutaPlugin *plugin)
 	}
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	anjuta_plugin_remove_watch (plugin, valgrind->root_watch_id, TRUE);
 	anjuta_ui_unmerge (ui, valgrind->uiid);
-
-
+	anjuta_ui_remove_action_group (ui, valgrind->action_group);
+	
 	/* unref VgToolView object */
 	g_object_unref (valgrind->val_actions);
 	

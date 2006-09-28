@@ -454,13 +454,13 @@ create_expr_watch_gui (ExprWatch * ew)
 											_("Watch operations"),
 											actions_watch,
 											G_N_ELEMENTS (actions_watch),
-											GETTEXT_PACKAGE, ew);
+											GETTEXT_PACKAGE, TRUE, ew);
 	ew->toggle_group =
 		      anjuta_ui_add_toggle_action_group_entries (ui, "ActionGroupWatchToggle",
 											_("Watch operations"),
 											toggle_watch,
 											G_N_ELEMENTS (toggle_watch),
-											GETTEXT_PACKAGE, ew);
+											GETTEXT_PACKAGE, TRUE, ew);
 	g_signal_connect (debug_tree_get_tree_widget (ew->debug_tree), "button-press-event", G_CALLBACK (on_debug_tree_button_press), ew);  
 	
 	gtk_widget_show_all (ew->scrolledwindow);

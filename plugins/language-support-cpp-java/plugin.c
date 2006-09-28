@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/* -*- Mode:bosys C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     plugin.c
     Copyright (C) 2000 Naba Kumar
@@ -1276,7 +1276,8 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 											_("Autoindent"),
 											actions_indent,
 											G_N_ELEMENTS (actions_indent),
-											GETTEXT_PACKAGE, plugin);
+											GETTEXT_PACKAGE, TRUE,
+											plugin);
 	lang_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	lang_plugin->editor_watch_id = 

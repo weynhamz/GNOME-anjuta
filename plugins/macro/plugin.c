@@ -107,11 +107,12 @@ activate_plugin (AnjutaPlugin * plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
 	/* Add all our actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupMacro",
-					    _("Macro operations"),
-					    actions_macro,
-					    G_N_ELEMENTS (actions_macro),
-					    GETTEXT_PACKAGE, plugin);
+	macro_plugin->action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupMacro",
+											_("Macro operations"),
+											actions_macro,
+											G_N_ELEMENTS (actions_macro),
+											GETTEXT_PACKAGE, TRUE, plugin);
 	macro_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 
 	macro_plugin->editor_watch_id =
@@ -132,7 +133,11 @@ deactivate_plugin (AnjutaPlugin * plugin)
 
 	DEBUG_PRINT ("MacroPlugin: Deactivating Macro plugin...");
 
+	anjuta_plugin_remove_watch (plugin,
+								((MacroPlugin *) plugin)->editor_watch_id,
+								TRUE);
 	anjuta_ui_unmerge (ui, ((MacroPlugin *) plugin)->uiid);
+	anjuta_ui_remove_action_group (ui, ((MacroPlugin *) plugin)->action_group);
 	return TRUE;
 }
 

@@ -160,13 +160,13 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("Tasks manager"),
 											actions_todo_view,
 											G_N_ELEMENTS (actions_todo_view),
-											GETTEXT_PACKAGE, plugin);
+											GETTEXT_PACKAGE, FALSE, plugin);
 	gtodo_plugin->action_group2 = 
 		anjuta_ui_add_toggle_action_group_entries (ui, "ActionGroupTodoViewOps",
 												_("Tasks manager view"),
 												actions_view,
 												G_N_ELEMENTS (actions_view),
-												GETTEXT_PACKAGE, plugin);
+												GETTEXT_PACKAGE, TRUE, plugin);
 	gtodo_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	anjuta_shell_add_widget (plugin->shell, wid,
 							 "AnjutaTodoPlugin", _("Tasks"),

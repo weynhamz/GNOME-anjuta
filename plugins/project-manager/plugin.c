@@ -1,4 +1,4 @@
-#/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     plugin.c
     Copyright (C) 2000 Naba Kumar
@@ -22,8 +22,10 @@
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libgnomevfs/gnome-vfs-ops.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
+#include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include <libanjuta/interfaces/ianjuta-profile.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-status.h>
@@ -1237,7 +1239,8 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("Profile actions"),
 											pf_actions,
 											G_N_ELEMENTS (pf_actions),
-											GETTEXT_PACKAGE, plugin);
+											GETTEXT_PACKAGE, TRUE,
+											plugin);
 	
 	pm_plugin->pm_action_group = 
 		anjuta_ui_add_action_group_entries (pm_plugin->ui,
@@ -1245,14 +1248,16 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("Project manager actions"),
 											pm_actions,
 											G_N_ELEMENTS(pm_actions),
-											GETTEXT_PACKAGE, plugin);
+											GETTEXT_PACKAGE, TRUE,
+											plugin);
 	pm_plugin->popup_action_group = 
 		anjuta_ui_add_action_group_entries (pm_plugin->ui,
 											"ActionGroupProjectManagerPopup",
 											_("Project manager popup actions"),
 											popup_actions,
 											G_N_ELEMENTS (popup_actions),
-											GETTEXT_PACKAGE, plugin);
+											GETTEXT_PACKAGE, FALSE,
+											plugin);
 	/* Merge UI */
 	pm_plugin->merge_id = 
 		anjuta_ui_merge (pm_plugin->ui, UI_FILE);
@@ -1612,8 +1617,50 @@ project_manager_plugin_close_project(ProjectManagerPlugin* plugin, PMProject* pr
 	gint id;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
+	IAnjutaDocumentManager *docman;
 
 	g_return_if_fail(prj != NULL);
+	
+	/* Close files that belong to this project (that are saved) */
+	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
+					  "document_manager",
+					  G_TYPE_OBJECT, &docman,
+					  NULL);
+	if (docman)
+	{
+		GList *to_remove = NULL;
+		const GList *editors;
+		const GList *node;
+		
+		editors = ianjuta_document_manager_get_editors (docman, NULL);
+		node = editors;
+		while (node)
+		{
+			const gchar *editor_uri =
+				ianjuta_file_get_uri (IANJUTA_FILE (node->data), NULL);
+			
+			/* Only remove if it does not have unsaved data */
+			if (editor_uri && (!IANJUTA_IS_FILE_SAVABLE (node->data) ||
+							   !ianjuta_file_savable_is_dirty
+									(IANJUTA_FILE_SAVABLE (node->data), NULL)))
+			{
+				if (strncmp (editor_uri, prj->root_uri,
+							 strlen (prj->root_uri)) == 0 &&
+					editor_uri[strlen (prj->root_uri)] == '/')
+				{
+					to_remove = g_list_prepend (to_remove, node->data);
+				}
+			}
+			node = g_list_next (node);
+		}
+		node = to_remove;
+		while (node)
+		{
+			/* FIXME: */
+			/* ianjuta_file_close (node->data); */
+			node = g_list_next (node);
+		}
+	}
 	
 	model = gtk_combo_box_get_model(GTK_COMBO_BOX(plugin->combo));
 	if (gtk_tree_model_get_iter_first(model, &iter))

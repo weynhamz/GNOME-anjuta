@@ -208,7 +208,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											_("Next/Prev Message"),
 											actions_goto,
 											G_N_ELEMENTS (actions_goto),
-											GETTEXT_PACKAGE, plugin);
+											GETTEXT_PACKAGE, TRUE, plugin);
 	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupMessageView");
 	mv_plugin->msgman = anjuta_msgman_new(anjuta_shell_get_preferences(plugin->shell, NULL), popup);

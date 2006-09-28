@@ -85,7 +85,10 @@ static GtkActionEntry actions_subversion[] = {
 		NULL,                                     /* short-cut */
 		N_("Diff local tree with repositry"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_diff)    /* action callback */
-	},
+	}
+};
+
+static GtkActionEntry popup_actions_subversion[] = {
 	{
 		"ActionPopupSubversion",                       /* Action name */
 		NULL,                            /* Stock icon, if any */
@@ -307,11 +310,20 @@ activate_plugin (AnjutaPlugin *plugin)
 	*/
 	
 	/* Add all our actions */
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupSubversion",
-					_("Subversion operations"),
-					actions_subversion,
-					G_N_ELEMENTS (actions_subversion),
-					GETTEXT_PACKAGE, plugin);
+	subversion->action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupSubversion",
+											_("Subversion operations"),
+											actions_subversion,
+											G_N_ELEMENTS (actions_subversion),
+											GETTEXT_PACKAGE, TRUE, plugin);
+	subversion->popup_action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupPopupSubversion",
+											_("Subversion popup operations"),
+											popup_actions_subversion,
+											G_N_ELEMENTS (popup_actions_subversion),
+											GETTEXT_PACKAGE, FALSE, plugin);
+	
+	/* Merge UI */
 	subversion->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	/* Add watches */
@@ -333,9 +345,15 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
+	Subversion *subversion = (Subversion*) plugin;
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	DEBUG_PRINT ("Subversion: Dectivating Subversion plugin ...");
+	anjuta_plugin_remove_watch (plugin, subversion->fm_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin, subversion->project_watch_id, TRUE);
+	anjuta_plugin_remove_watch (plugin, subversion->editor_watch_id, TRUE);
 	anjuta_ui_unmerge (ui, ((Subversion*)plugin)->uiid);
+	anjuta_ui_remove_action_group (ui, ((Subversion*)plugin)->action_group);
+	anjuta_ui_remove_action_group (ui, ((Subversion*)plugin)->popup_action_group);
 	return TRUE;
 }
 

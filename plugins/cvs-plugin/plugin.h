@@ -34,12 +34,18 @@ typedef struct _CVSPluginClass CVSPluginClass;
 
 struct _CVSPlugin{
 	AnjutaPlugin parent;
-	gint uiid;
 	
 	IAnjutaMessageView* mesg_view;
 	IAnjutaEditor* diff_editor;
 	AnjutaLauncher* launcher;
 	gboolean executing_command;
+	
+	/* UI merge id */
+	gint uiid;
+	
+	/* Action groups */
+	GtkActionGroup *cvs_action_group;
+	GtkActionGroup *cvs_popup_action_group;
 	
 	/* Watch IDs */
 	gint fm_watch_id;

@@ -76,12 +76,14 @@ static gboolean
 [+IF (=(get "HasUI") "1") +]
 	/* Add all UI actions and merge UI */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	anjuta_ui_add_action_group_entries (ui, "ActionGroupFile[+NameLower+]",
-										_("Sample file operations"),
-										actions_file,
-										G_N_ELEMENTS (actions_file),
-										GETTEXT_PACKAGE,
-										plugin);
+	
+	[+NameCLower+]->action_group = 
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupFile[+NameLower+]",
+											_("Sample file operations"),
+											actions_file,
+											G_N_ELEMENTS (actions_file),
+											GETTEXT_PACKAGE, TRUE,
+											plugin);
 	[+NameCLower+]->uiid = anjuta_ui_merge (ui, UI_FILE);
 [+ENDIF+]
 [+IF (=(get "HasGladeFile") "1") +]
@@ -110,6 +112,7 @@ static gboolean
 [+ENDIF+]
 [+IF (=(get "HasUI") "1") +]
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	anjuta_ui_remove_action_group (ui, (([+PluginClass+]*)plugin)->action_group);
 	anjuta_ui_unmerge (ui, (([+PluginClass+]*)plugin)->uiid);
 [+ENDIF+]	
 	return TRUE;
