@@ -1,5 +1,10 @@
-2006-09-28  Naba Kumar  <naba@gnome.org>
+2006-09-29  Naba Kumar  <naba@gnome.org>
 
+	* plugins/gtodo/add_edit_item.c: Fixed text wrapping and item edit
+	dialog.
+	
+	* TODO.tasks: Added more tasks and bounties. Marked a few completed.
+	
 	* TODO.tasks: Updated in light of the word wrapping fix
 	in Tasks Manager. Added a test bounty entry.
 

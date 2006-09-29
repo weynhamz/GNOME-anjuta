@@ -22,13 +22,18 @@ void check_length(GtkWidget *entry, GtkWidget *button)
 
 void add_edit_comment_keybord_focus_in_event(GtkWidget *menu)
 {
+	/* No default selection for now */
+	
 	GtkTextIter biter, eiter;
 	GtkTextBuffer *tb = gtk_text_view_get_buffer(GTK_TEXT_VIEW(menu));
 	gtk_text_buffer_get_end_iter(tb, &eiter);
 	gtk_text_buffer_get_start_iter(tb, &biter);
 	/* set the cursor posistion */
+	gtk_text_buffer_place_cursor(tb,&biter);
+#if 0
 	gtk_text_buffer_place_cursor(tb,&eiter);
 	if(GTK_MINOR_VERSION >= 3) gtk_text_buffer_select_range(tb, &eiter,&biter); 
+#endif
 }
 
 /* this function is called when the egg_datetime entry changes	*
@@ -103,7 +108,8 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	}
 	else  	dialog = gtk_dialog_new_with_buttons(_("Edit Item"), GTK_WINDOW(mw.window), 
 			GTK_DIALOG_DESTROY_WITH_PARENT, NULL);
-
+	gtk_window_set_default_size (GTK_WINDOW (dialog), 520, 600);
+	
 	if(gtodo_client_get_read_only(cl))
 	{
 		addbut = gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL);
@@ -262,8 +268,9 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	vp = gtk_viewport_new(NULL, NULL);
 	gtk_container_add(GTK_CONTAINER(vp), label);
 	gtk_box_pack_start(GTK_BOX(vbox2), vp, TRUE, TRUE, 0);
+#if 0
 	g_signal_connect(G_OBJECT(text_view), "focus-in-event", G_CALLBACK(add_edit_comment_keybord_focus_in_event), NULL);
-
+#endif
 
 	/* the completed check button */
 	if(edit)

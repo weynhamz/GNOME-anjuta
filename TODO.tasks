@@ -24,13 +24,11 @@ box (instead of hardcoded names in the source).</comment>
       <comment>A generic print interface</comment>
     </item>
     <item>
-      <attribute id="1159539525" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159539525"/>
-      <summary>Complete Makefile project manager backend</summary>
-      <comment>[Skill: High, Work: 50hrs, Bounty: $700]
+      <attribute id="1159555748" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159555748"/>
+      <summary>Performance Profiler plugin</summary>
+      <comment>[Skill: medium, Work: 30hrs]
 
-There is some initial work done for makefile based project management in gnome-build (src/backends/libgbf_mkfile) and Anjuta. Most of the base implementations have been done. The tasks is to completed this backend so that it works just like automake-backend. All the project interfaces from Anjuta via gnome-build should work meaningfully for this backend (as far as Makefile based structure would allow). Further details can be acquired by following the mailing list thread:
-
-http://sourceforge.net/mailarchive/message.php?msg_id=12687933</comment>
+gprof is a command line tool for profiling program performance. The executable is required to be compiled with -p flag and when the program is executed, a profiling info is collected in a file. After the execution is done, gprof can be used to interpret the profile data. This plugin parses the output from gprof and presents the information in different views -- text, lists and graphs.</comment>
     </item>
   </category>
   <category title="libanjuta" place="2">
@@ -63,11 +61,6 @@ number of progressbar should be acceptable. All of them
 should be shown side-by-side in status bar.</comment>
     </item>
     <item>
-      <attribute id="1109399546" priority="1" done="0" start_date="732003" enddate="99999999" notify="0" endtime="-60" last_edited="1154629170"/>
-      <summary>Implement preferences as interface</summary>
-      <comment>Create the preference dialog only if it is shown and destroy it afterwards.</comment>
-    </item>
-    <item>
       <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159483377"/>
       <summary>Move encodings source files</summary>
       <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c) by CVS surgery into editor plugin.</comment>
@@ -76,6 +69,24 @@ should be shown side-by-side in status bar.</comment>
       <attribute id="1107255619" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483386"/>
       <summary>Plugins reference counting</summary>
       <comment>Implement plugins reference counting. Loading a plugin gets 1 ref and when ref count reaches 0, plugin is deactivated.</comment>
+    </item>
+    <item>
+      <attribute id="1109399546" priority="1" done="1" start_date="732003" completed_date="732583" notify="0" last_edited="1159555532"/>
+      <summary>Implement preferences as interface</summary>
+      <comment>Create the preference dialog only if it is shown and destroy it afterwards.</comment>
+    </item>
+    <item>
+      <attribute id="1159555613" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159555613"/>
+      <summary>On demand preferences widgets creation</summary>
+      <comment>[Skill: High, Work: 30hrs]
+
+Currently, preferences are registered at plugins activation time. This has a real drawback that we spend unnecessary time at startup that could easily be avoided by on-demand creation of the preferences. One reason why it isn't straightforward is because preferences dialogs contain the schemas for preference keys, so unless the glade files (of the plugin preferences dialogs) are loaded, the default values of the keys are not available.
+
+It should be fixed such that gconf schema files are automatically
+generated from the dialogs by grepping for the preferences keys schemas defined in the widget names (in the glade files) during build time and installed correctly during install time.
+
+Then AnjutaPreferences class should be fixed not to preemptively create the dialog widgets on plugin activations, but rather do it at IAnjutaPreferences::merge() and IAnjutaPreferences::unmerge() implementations in plugins. The plugins would still need to setup notifications in IAnjutaPreferences::init() implementation. To accomplish all this, it might involve substantial changes in AnjutaPreferences class.
+</comment>
     </item>
   </category>
   <category title="Plugin: Editor" place="5">
@@ -138,6 +149,16 @@ Most of the API should be exposed.</comment>
       <summary>Update on configure syntax highlighting</summary>
       <comment>When syntax highlighting colors/fonts are changed, the changes are not propagated to all editors, but it should, just like a gconf key.</comment>
     </item>
+    <item>
+      <attribute id="1159556116" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159556169"/>
+      <summary>Relocate 'Autoformat' code from document-manager plugin</summary>
+      <comment>[Skill: Basic, Work: 3hr, Bounty: $50]
+
+Relocate 'Autoformat' code from document-manager plugin to language-support-cpp-java plugin.
+
+Currently Autoformat code that is specific to c and c++ (uses indent program) is located in document-manager plugin (legacy). It should now be moved to language-support-cpp-java plugin that specializes in c/c++ processing. Preferences, UI, and processing should all be moved to the
+new place. At the same time, the indent configuration dialog should be fixed to fit in smaller size, presumably using notebook widget (currently it is huge and not screen appropriate for lower resolution).</comment>
+    </item>
   </category>
   <category title="Plugin: Project Manager" place="8">
     <item>
@@ -167,6 +188,15 @@ Added context menu based on current selected target or source.</comment>
       <summary>Implemente "Properties" method</summary>
       <comment>Implement "Configure" method in gnome-build for the automake backend.
 This will correspond to the "Properties" method in our project manager.</comment>
+    </item>
+    <item>
+      <attribute id="1159539525" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159550650"/>
+      <summary>Complete Makefile project manager backend</summary>
+      <comment>[Skill: High, Work: 50hrs, Bounty: $700]
+
+There is some initial work done for makefile based project management in gnome-build (src/backends/libgbf_mkfile) and Anjuta. Most of the base implementations have been done. The tasks is to completed this backend so that it works just like automake-backend. All the project interfaces from Anjuta via gnome-build should work meaningfully for this backend (as far as Makefile based structure would allow). Further details can be acquired by following the mailing list thread:
+
+http://sourceforge.net/mailarchive/message.php?msg_id=12687933</comment>
     </item>
   </category>
   <category title="Plugin: File Manager" place="7"/>
@@ -293,11 +323,6 @@ with context menu in project manager.</comment>
   </category>
   <category title="Plugin: Task Manager" place="11">
     <item>
-      <attribute id="1107241016" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241016"/>
-      <summary>Text wrap</summary>
-      <comment>Text (title and description) are not automatically wrapped for long lines.</comment>
-    </item>
-    <item>
       <attribute id="1107240984" priority="1" done="1" start_date="731978" completed_date="731978" notify="0" last_edited="1107250499"/>
       <summary>Scrollbars</summary>
       <comment>Set horizontal and vertical scrollbars AUTOMATIC.</comment>
@@ -323,6 +348,11 @@ It can be done either during save or load. Without this fix, the save xml is dis
       <summary>Create text version TODO file</summary>
       <comment>Create human readable TODO file, which will be plain text, during save.</comment>
     </item>
+    <item>
+      <attribute id="1107241016" priority="1" done="1" start_date="731978" completed_date="732583" notify="0" last_edited="1159555711"/>
+      <summary>Text wrap</summary>
+      <comment>Text (title and description) are not automatically wrapped for long lines.</comment>
+    </item>
   </category>
   <category title="Plugin: Project Wizard" place="9">
     <item>
@@ -343,6 +373,13 @@ abort the process.</comment>
 templates. For example, 'Creating project-name/file-path/file-name.c'
 instead of full path names.</comment>
     </item>
+    <item>
+      <attribute id="1159556062" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159556062"/>
+      <summary>Test and fix all project wizards templates</summary>
+      <comment>[Skill: basic, Work: 5hr, Bounty: $50]
+
+Test and fix all project wizard templates and set reasonable version numbers for the dependencies</comment>
+    </item>
   </category>
   <category title="anjuta" place="1">
     <item>
@@ -361,6 +398,24 @@ instead of full path names.</comment>
       <comment>[Skill: Medium, Work: 40hrs, Bounty: $300]
 
 Implement missing features of CVS and subversion in their respective plugins. Basic features are already implemented, but we are missing many advanced yet powerful features of these version control systems.</comment>
+    </item>
+    <item>
+      <attribute id="1159556239" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159556239"/>
+      <summary>Use class macros for type casting in all plugin classes</summary>
+      <comment>[Skill: Basic, Work: 1hr, Bounty: $20]
+
+As a bad trend from the beginning, all plugin classes (derived from AnjutaPluing class) do not define any class macros, resulting in bad type castings in wherever these classes are used. These need to be fixed to follow the right procedure.
+
+The work is mostly search and replace work and could possibly be done quickly using sed and friends. Go through all the plugins in plugins/ directory, locate the class definitions of plugins (usually defined in plugin.h), add class macros and use them wherever there are force typecasting used.
+
+Example: (DocmanPlugin*)plugin -&gt; DOCMAN_PLUGIN (plugin)</comment>
+    </item>
+    <item>
+      <attribute id="1159555638" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159556331"/>
+      <summary>Apply http://live.gnome.org/GnomeGoals</summary>
+      <comment>[Skill: Low, Work: 20hrs]
+
+Investigate general usability and HIG issues in Anjuta, come up with solutions that counter them and solve them. Issues such as Dialog consistencies, Navigational usabilities, Menus organization, features usablities should be investigated.</comment>
     </item>
   </category>
   <category title="Plugin: Macros" place="13">
@@ -471,6 +526,23 @@ Add stock icon. Deactivate glade plugin when last glade file is closed.</comment
       <attribute id="1114330065" priority="1" done="0" start_date="732060" enddate="99999999" notify="0" endtime="-60" last_edited="1159483571"/>
       <summary>Connect callback signal</summary>
       <comment>Connect signal callback selection signal from glade and goto the signal implementation when a signal handler is selected in glade. Create the signal prototype if it is not found.</comment>
+    </item>
+    <item>
+      <attribute id="1159555859" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159555950"/>
+      <summary>Complete Glade 3 integration</summary>
+      <comment>[Skill: High, Work: 30hrs, Bounty: $100]
+
+We already have glade3 integration in anjuta working. But the implementation is incomplete and not fully usable. It should interface with Anjuta glade plugin for signals navigation, stubs creations and project files negotiations.
+
+Signals navigation" means when user selects a signal in glade properties editor, Anjuta automatically brings up the implementation of that signal in its editor. This can be accomplished with SymbolBrowser plugin in anjuta, that keeps tab on all symbol updates in the project. Using the
+signal handler signature, Anjuta glade plugin can take help of symbol-browser plugin to find the location of function definitions in the project.
+
+"Stubs creation" means when the user adds new signals, Anjuta glade plugin automatically creates the stub for the signal handler using gtk signal introspection. The signal prototype can be identified with the introspection. Where and how the stubs are added in project is a matter
+of dissussion.
+
+"Project files negotiation" means when user adds file via glade (e.g. images in dialogs), glade will notify anjuta to add the file in project and give a change to relocate it within the project. Anjuta needs to handle this request and add the files in project (possibly prompting user for relocation). Anjuta also needs to make sure glade is able to find them later.
+
+Also, the the glade widget editor should be embed in Anjuta (glade-3 already has the necessary widgets).</comment>
     </item>
   </category>
   <category title="Pluing: Class wizard" place="20">
