@@ -3,6 +3,8 @@
 	* TODO.tasks: Updated in light of the word wrapping fix
 	in Tasks Manager. Added a test bounty entry.
 
+	* TODO.tasks: Added four bounties.
+	
 2006-09-28  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-ui.c, libanjuta/anjuta-ui.h:

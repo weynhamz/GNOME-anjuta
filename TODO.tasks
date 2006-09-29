@@ -23,6 +23,15 @@ box (instead of hardcoded names in the source).</comment>
       <summary>Implement IAnjutaPrint</summary>
       <comment>A generic print interface</comment>
     </item>
+    <item>
+      <attribute id="1159539525" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159539525"/>
+      <summary>Complete Makefile project manager backend</summary>
+      <comment>[Skill: High, Work: 50hrs, Bounty: $700]
+
+There is some initial work done for makefile based project management in gnome-build (src/backends/libgbf_mkfile) and Anjuta. Most of the base implementations have been done. The tasks is to completed this backend so that it works just like automake-backend. All the project interfaces from Anjuta via gnome-build should work meaningfully for this backend (as far as Makefile based structure would allow). Further details can be acquired by following the mailing list thread:
+
+http://sourceforge.net/mailarchive/message.php?msg_id=12687933</comment>
+    </item>
   </category>
   <category title="libanjuta" place="2">
     <item>
@@ -234,6 +243,21 @@ plugin that can work with most languages type system.</comment>
       <summary>Tags search do not retrieve all matching symbols</summary>
       <comment>Tags search (plugins/editor/aneditor.cxx) during calltips query do not retrieve all matching function prototypes. Perhaps, the tags are not sorted, leading to incomplete binary search. Investigate it in tag-manager/ directory.</comment>
     </item>
+    <item>
+      <attribute id="1159539232" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159539305"/>
+      <summary>Rewrite symbol-browser plugin</summary>
+      <comment>[Skill: High, Work: 200hr, Bounty: $1500, Status: Assigned, Bug: #00000]
+
+A rewrite of symbol-browser plugin is in place. The rewrite is about
+view/model/store of the symbols database. It will use sqllite for the
+database for primary storage and implement a GtkTreeModel interface
+exclusively for using it in Views. A store class will be created that
+proxies the sqllite database and provide GtkTreeModel interface. The
+design for this work is still under sketch. Following the given thread
+for more details:
+
+http://sourceforge.net/mailarchive/message.php?msg_id=36842046</comment>
+    </item>
   </category>
   <category title="Documentation" place="21">
     <item>
@@ -330,6 +354,13 @@ instead of full path names.</comment>
       <attribute id="1107253772" priority="1" done="1" start_date="731978" completed_date="732405" notify="0" last_edited="1144149839"/>
       <summary>Show toolbars</summary>
       <comment>Show toolbars that were shown in last session.</comment>
+    </item>
+    <item>
+      <attribute id="1159539123" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159539726"/>
+      <summary>Improve subvestion and cvs plugins</summary>
+      <comment>[Skill: Medium, Work: 40hrs, Bounty: $300]
+
+Implement missing features of CVS and subversion in their respective plugins. Basic features are already implemented, but we are missing many advanced yet powerful features of these version control systems.</comment>
     </item>
   </category>
   <category title="Plugin: Macros" place="13">
@@ -444,9 +475,10 @@ Add stock icon. Deactivate glade plugin when last glade file is closed.</comment
   </category>
   <category title="Pluing: Class wizard" place="20">
     <item>
-      <attribute id="1159534023" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159534141"/>
+      <attribute id="1159534023" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159539372"/>
       <summary>Improve class wizard</summary>
-      <comment>[Skill: Medium, Work: 20hrs, Bounty: $200, Bug: #12345, Status: Open]
+      <comment>[Skill: Medium, Work: 20hrs, Bounty: $200, Bug: #00000, Status: Assigned]
+
 Fix c++/gobject class generator to allow adding members, methods, signals, properties and other class elements.</comment>
     </item>
   </category>
