@@ -1,5 +1,7 @@
 2006-09-29  Naba Kumar  <naba@gnome.org>
 
+	* TODO.tasks: Updated.
+	
 	* plugins/gtodo/add_edit_item.c: Fixed text wrapping and item edit
 	dialog.
 	

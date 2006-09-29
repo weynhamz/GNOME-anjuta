@@ -47,13 +47,6 @@ Until we figure out that, the plugins should not be unloaded
 when deactivated.</comment>
     </item>
     <item>
-      <attribute id="1098253494" priority="2" done="0" start_date="731874" notify="0" last_edited="1113555538"/>
-      <summary>Preferences keys with no defaults do not register</summary>
-      <comment>Preferences keys without default values (defined in .glade file) are not
-registered during preferences registeration. This results in gconf type
-mismatch when the keys are queried.</comment>
-    </item>
-    <item>
       <attribute id="1107253918" priority="1" done="1" start_date="731978" completed_date="732118" notify="0" last_edited="1119330389"/>
       <summary>Progress bar</summary>
       <comment>Implement  multiple progress bars in AnjutaStatus class. Any
@@ -76,17 +69,20 @@ should be shown side-by-side in status bar.</comment>
       <comment>Create the preference dialog only if it is shown and destroy it afterwards.</comment>
     </item>
     <item>
-      <attribute id="1159555613" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159555613"/>
+      <attribute id="1159555613" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159560494"/>
       <summary>On demand preferences widgets creation</summary>
       <comment>[Skill: High, Work: 30hrs]
 
 Currently, preferences are registered at plugins activation time. This has a real drawback that we spend unnecessary time at startup that could easily be avoided by on-demand creation of the preferences. One reason why it isn't straightforward is because preferences dialogs contain the schemas for preference keys, so unless the glade files (of the plugin preferences dialogs) are loaded, the default values of the keys are not available.
 
-It should be fixed such that gconf schema files are automatically
-generated from the dialogs by grepping for the preferences keys schemas defined in the widget names (in the glade files) during build time and installed correctly during install time.
+It should be fixed such that gconf schema files are automatically generated from the dialogs by grepping for the preferences keys schemas defined in the widget names (in the glade files) during build time and installed correctly during install time.
 
-Then AnjutaPreferences class should be fixed not to preemptively create the dialog widgets on plugin activations, but rather do it at IAnjutaPreferences::merge() and IAnjutaPreferences::unmerge() implementations in plugins. The plugins would still need to setup notifications in IAnjutaPreferences::init() implementation. To accomplish all this, it might involve substantial changes in AnjutaPreferences class.
-</comment>
+Then AnjutaPreferences class should be fixed not to preemptively create the dialog widgets on plugin activations, but rather do it at IAnjutaPreferences::merge() and IAnjutaPreferences::unmerge() implementations in plugins. The plugins would still need to setup notifications in IAnjutaPreferences::init() implementation. To accomplish all this, it might involve substantial changes in AnjutaPreferences class.</comment>
+    </item>
+    <item>
+      <attribute id="1098253494" priority="2" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159560595"/>
+      <summary>Preferences keys with no defaults do not register</summary>
+      <comment>Preferences keys without default values (defined in .glade file) are not registered during preferences registeration. This results in gconf type mismatch when the keys are queried.</comment>
     </item>
   </category>
   <category title="Plugin: Editor" place="5">
@@ -94,12 +90,6 @@ Then AnjutaPreferences class should be fixed not to preemptively create the dial
       <attribute id="1098255400" priority="1" done="1" start_date="731874" completed_date="731902" notify="0" last_edited="1100696776"/>
       <summary>Add "saved" signal</summary>
       <comment>Saved signal to notify that document has been just saved.</comment>
-    </item>
-    <item>
-      <attribute id="1107240279" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240279"/>
-      <summary>Move CVS directories</summary>
-      <comment>Move data/properties/ and scintilla/ directories (by CVS surgery, and
-not by add/remove) into plugins/editor/ directory.</comment>
     </item>
     <item>
       <attribute id="1107240087" priority="1" done="1" start_date="731978" completed_date="731987" notify="0" last_edited="1108058172"/>
@@ -150,14 +140,18 @@ Most of the API should be exposed.</comment>
       <comment>When syntax highlighting colors/fonts are changed, the changes are not propagated to all editors, but it should, just like a gconf key.</comment>
     </item>
     <item>
-      <attribute id="1159556116" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159556169"/>
+      <attribute id="1159556116" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159560459"/>
       <summary>Relocate 'Autoformat' code from document-manager plugin</summary>
       <comment>[Skill: Basic, Work: 3hr, Bounty: $50]
 
 Relocate 'Autoformat' code from document-manager plugin to language-support-cpp-java plugin.
 
-Currently Autoformat code that is specific to c and c++ (uses indent program) is located in document-manager plugin (legacy). It should now be moved to language-support-cpp-java plugin that specializes in c/c++ processing. Preferences, UI, and processing should all be moved to the
-new place. At the same time, the indent configuration dialog should be fixed to fit in smaller size, presumably using notebook widget (currently it is huge and not screen appropriate for lower resolution).</comment>
+Currently Autoformat code that is specific to c and c++ (uses indent program) is located in document-manager plugin (legacy). It should now be moved to language-support-cpp-java plugin that specializes in c/c++ processing. Preferences, UI, and processing should all be moved to the new place. At the same time, the indent configuration dialog should be fixed to fit in smaller size, presumably using notebook widget (currently it is huge and not screen appropriate for lower resolution).</comment>
+    </item>
+    <item>
+      <attribute id="1107240279" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159560523"/>
+      <summary>Move CVS directories</summary>
+      <comment>Move data/properties/ and scintilla/ directories (by CVS surgery, and not by add/remove) into plugins/editor/ directory.</comment>
     </item>
   </category>
   <category title="Plugin: Project Manager" place="8">
@@ -274,17 +268,11 @@ plugin that can work with most languages type system.</comment>
       <comment>Tags search (plugins/editor/aneditor.cxx) during calltips query do not retrieve all matching function prototypes. Perhaps, the tags are not sorted, leading to incomplete binary search. Investigate it in tag-manager/ directory.</comment>
     </item>
     <item>
-      <attribute id="1159539232" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159539305"/>
+      <attribute id="1159539232" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159560418"/>
       <summary>Rewrite symbol-browser plugin</summary>
       <comment>[Skill: High, Work: 200hr, Bounty: $1500, Status: Assigned, Bug: #00000]
 
-A rewrite of symbol-browser plugin is in place. The rewrite is about
-view/model/store of the symbols database. It will use sqllite for the
-database for primary storage and implement a GtkTreeModel interface
-exclusively for using it in Views. A store class will be created that
-proxies the sqllite database and provide GtkTreeModel interface. The
-design for this work is still under sketch. Following the given thread
-for more details:
+A rewrite of symbol-browser plugin is in place. The rewrite is about view/model/store of the symbols database. It will use sqllite for the database for primary storage and implement a GtkTreeModel interface exclusively for using it in Views. A store class will be created that proxies the sqllite database and provide GtkTreeModel interface. The design for this work is still under sketch. Following the given thread for more details:
 
 http://sourceforge.net/mailarchive/message.php?msg_id=36842046</comment>
     </item>
@@ -528,14 +516,13 @@ Add stock icon. Deactivate glade plugin when last glade file is closed.</comment
       <comment>Connect signal callback selection signal from glade and goto the signal implementation when a signal handler is selected in glade. Create the signal prototype if it is not found.</comment>
     </item>
     <item>
-      <attribute id="1159555859" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159555950"/>
+      <attribute id="1159555859" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159560780"/>
       <summary>Complete Glade 3 integration</summary>
       <comment>[Skill: High, Work: 30hrs, Bounty: $100]
 
 We already have glade3 integration in anjuta working. But the implementation is incomplete and not fully usable. It should interface with Anjuta glade plugin for signals navigation, stubs creations and project files negotiations.
 
-Signals navigation" means when user selects a signal in glade properties editor, Anjuta automatically brings up the implementation of that signal in its editor. This can be accomplished with SymbolBrowser plugin in anjuta, that keeps tab on all symbol updates in the project. Using the
-signal handler signature, Anjuta glade plugin can take help of symbol-browser plugin to find the location of function definitions in the project.
+Signals navigation" means when user selects a signal in glade properties editor, Anjuta automatically brings up the implementation of that signal in its editor. This can be accomplished with SymbolBrowser plugin in anjuta, that keeps tab on all symbol updates in the project. Using the signal handler signature, Anjuta glade plugin can take help of symbol-browser plugin to find the location of function definitions in the project.
 
 "Stubs creation" means when the user adds new signals, Anjuta glade plugin automatically creates the stub for the signal handler using gtk signal introspection. The signal prototype can be identified with the introspection. Where and how the stubs are added in project is a matter
 of dissussion.
