@@ -40,18 +40,6 @@ Until we figure out that, the plugins should not be unloaded
 when deactivated.</comment>
     </item>
     <item>
-      <attribute id="1107255619" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107255619"/>
-      <summary>Plugins reference counting</summary>
-      <comment>Implement plugins reference counting. Loading a plugin gets
-1 ref and when ref count reaches 0, plugin is deactivated.</comment>
-    </item>
-    <item>
-      <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1112104260"/>
-      <summary>Move encodings source files</summary>
-      <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c)
-by CVS surgery into editor plugin.</comment>
-    </item>
-    <item>
       <attribute id="1098253494" priority="2" done="0" start_date="731874" notify="0" last_edited="1113555538"/>
       <summary>Preferences keys with no defaults do not register</summary>
       <comment>Preferences keys without default values (defined in .glade file) are not
@@ -70,18 +58,22 @@ should be shown side-by-side in status bar.</comment>
       <summary>Implement preferences as interface</summary>
       <comment>Create the preference dialog only if it is shown and destroy it afterwards.</comment>
     </item>
+    <item>
+      <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159483377"/>
+      <summary>Move encodings source files</summary>
+      <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c) by CVS surgery into editor plugin.</comment>
+    </item>
+    <item>
+      <attribute id="1107255619" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483386"/>
+      <summary>Plugins reference counting</summary>
+      <comment>Implement plugins reference counting. Loading a plugin gets 1 ref and when ref count reaches 0, plugin is deactivated.</comment>
+    </item>
   </category>
   <category title="Plugin: Editor" place="5">
     <item>
       <attribute id="1098255400" priority="1" done="1" start_date="731874" completed_date="731902" notify="0" last_edited="1100696776"/>
       <summary>Add "saved" signal</summary>
       <comment>Saved signal to notify that document has been just saved.</comment>
-    </item>
-    <item>
-      <attribute id="1098253642" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1107239862"/>
-      <summary>Apply prefererences</summary>
-      <comment>Hidden editor preferences (those which are not settable from
-preferences dialog) are not applied now.</comment>
     </item>
     <item>
       <attribute id="1107240279" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240279"/>
@@ -121,18 +113,21 @@ current file. Details like Directory path, cvs rev number etc. should be there.<
 prompt user to reload it.</comment>
     </item>
     <item>
-      <attribute id="1098253712" priority="2" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1113463797"/>
-      <summary>Update on configure syntax highlighting</summary>
-      <comment>When syntax highlighting colors/fonts are changed, the
-changes are not propagated to all editors, but it should, just
-like a gconf key.</comment>
-    </item>
-    <item>
       <attribute id="1107240185" priority="1" done="1" start_date="731978" completed_date="732419" notify="0" last_edited="1145355619"/>
       <summary>Expose editor functions to IAnjutaEditor</summary>
       <comment>Currently, only a limited numbers of Editor are exposed through
 IAnjutaEditor, IAnjutaMarkable and IAnjutaFileSavable interface.
 Most of the API should be exposed.</comment>
+    </item>
+    <item>
+      <attribute id="1098253642" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159483408"/>
+      <summary>Apply prefererences</summary>
+      <comment>Hidden editor preferences (those which are not settable from preferences dialog) are not applied now.</comment>
+    </item>
+    <item>
+      <attribute id="1098253712" priority="2" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159483581"/>
+      <summary>Update on configure syntax highlighting</summary>
+      <comment>When syntax highlighting colors/fonts are changed, the changes are not propagated to all editors, but it should, just like a gconf key.</comment>
     </item>
   </category>
   <category title="Plugin: Project Manager" place="8">
@@ -168,22 +163,15 @@ This will correspond to the "Properties" method in our project manager.</comment
   <category title="Plugin: File Manager" place="7"/>
   <category title="Plugin: Automake Build" place="4">
     <item>
-      <attribute id="1100521161" priority="1" done="0" start_date="731900" enddate="99999999" notify="0" endtime="-60" last_edited="1107241480"/>
-      <summary>Define compile commands</summary>
-      <comment>Define compile commands for various file extensions.
-Normally, plugin should search for a Makefile and invoke it with
-correct target (for example for a c file, it will be 'make file.o').
-There should be a file that contains regexs for deriving target
-from a file name for invoking 'make'. Also, if there is no Makefile
-found in the directory with which to invoke the compile command,
-user should be prompted to create a Makefile (possibly filling it
-up with some template contents).</comment>
-    </item>
-    <item>
       <attribute id="1098254207" priority="1" done="1" start_date="731874" completed_date="732059" notify="0" last_edited="1114205327"/>
       <summary>Project manager watch</summary>
       <comment>Watch current project's target or source and depending on it,
 merge context menu into project manager.</comment>
+    </item>
+    <item>
+      <attribute id="1100521161" priority="1" done="0" start_date="731900" enddate="99999999" notify="0" endtime="-60" last_edited="1159482687"/>
+      <summary>Define compile commands</summary>
+      <comment>Define compile commands for various file extensions. Normally, plugin should search for a Makefile and invoke it with correct target (for example for a c file, it will be 'make file.o'). There should be a file that contains regexs for deriving target from a file name for invoking 'make'. Also, if there is no Makefile found in the directory with which to invoke the compile command, user should be prompted to create a Makefile (possibly filling it up with some template contents).</comment>
     </item>
   </category>
   <category title="Plugin: Symbol Browser" place="10">
@@ -192,29 +180,6 @@ merge context menu into project manager.</comment>
       <summary>Destroy file tags</summary>
       <comment>Connect to "destroy" signal of editor and destroy file tags when
 the editor is destroyed.</comment>
-    </item>
-    <item>
-      <attribute id="1107240520" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240535"/>
-      <summary>Tags search do not retrieve all matching symbols</summary>
-      <comment>Tags search (plugins/editor/aneditor.cxx) during calltips query
-do not retrieve all matching function prototypes.
-Perhaps, the tags
-are not sorted, leading to incomplete binary search.
-Investigate it in tag-manager/ directory.
-</comment>
-    </item>
-    <item>
-      <attribute id="1107240571" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240571"/>
-      <summary>Possible memory leak</summary>
-      <comment>Investigate possible memory lead on load/unload of symbol-browser.</comment>
-    </item>
-    <item>
-      <attribute id="1100698396" priority="1" done="0" start_date="731902" enddate="99999999" notify="0" endtime="-60" last_edited="1110202511"/>
-      <summary>Workspace symbols not updated</summary>
-      <comment>Although, file symbols are updated when the file is saved,
-corresponding workspace symbols are not updated. That is when
-"goto symbol" to a symbol in this file from some other place is
-activated (eg. symbol pane), the old location is used.</comment>
     </item>
     <item>
       <attribute id="1098255828" priority="1" done="1" start_date="731874" completed_date="732042" notify="0" last_edited="1112766624"/>
@@ -254,8 +219,23 @@ tags in database.</comment>
       <comment>Create and implement IAnjutaSymbols interface for symbol-browser
 plugin that can work with most languages type system.</comment>
     </item>
+    <item>
+      <attribute id="1107240571" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483466"/>
+      <summary>Possible memory leak</summary>
+      <comment>Investigate possible memory lead on load/unload of symbol-browser.</comment>
+    </item>
+    <item>
+      <attribute id="1100698396" priority="1" done="0" start_date="731902" enddate="99999999" notify="0" endtime="-60" last_edited="1159483495"/>
+      <summary>Workspace symbols not updated</summary>
+      <comment>Although, file symbols are updated when the file is saved, corresponding workspace symbols are not updated. That is when "goto symbol" to a symbol in this file from some other place is activated (eg. symbol pane), the old location is used.</comment>
+    </item>
+    <item>
+      <attribute id="1107240520" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483529"/>
+      <summary>Tags search do not retrieve all matching symbols</summary>
+      <comment>Tags search (plugins/editor/aneditor.cxx) during calltips query do not retrieve all matching function prototypes. Perhaps, the tags are not sorted, leading to incomplete binary search. Investigate it in tag-manager/ directory.</comment>
+    </item>
   </category>
-  <category title="Documentation" place="20">
+  <category title="Documentation" place="21">
     <item>
       <attribute id="1098255636" priority="1" done="0" start_date="731874" notify="0" last_edited="1101603303"/>
       <summary>Update</summary>
@@ -289,22 +269,9 @@ with context menu in project manager.</comment>
   </category>
   <category title="Plugin: Task Manager" place="11">
     <item>
-      <attribute id="1107240955" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240955"/>
-      <summary>Proper deactivation</summary>
-      <comment>Some stuffs are left out during deactivation of the plugin. For example,
-gnome-vfs monitor for TODO.tasks is not removed, leading
-to crash when the file changes when the plugin is not active.</comment>
-    </item>
-    <item>
       <attribute id="1107241016" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241016"/>
       <summary>Text wrap</summary>
       <comment>Text (title and description) are not automatically wrapped for long lines.</comment>
-    </item>
-    <item>
-      <attribute id="1107241155" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241155"/>
-      <summary>Create text version TODO file</summary>
-      <comment>Create human readable TODO file, which will be plain text,
-during save.</comment>
     </item>
     <item>
       <attribute id="1107240984" priority="1" done="1" start_date="731978" completed_date="731978" notify="0" last_edited="1107250499"/>
@@ -321,6 +288,16 @@ It can be done either during save or load. Without this fix, the save xml is dis
       <attribute id="1107253814" priority="1" done="1" start_date="731978" completed_date="732012" notify="0" last_edited="1110211719"/>
       <summary>Column sorting</summary>
       <comment>Implement column sorting (ala evolution).</comment>
+    </item>
+    <item>
+      <attribute id="1107240955" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483549"/>
+      <summary>Proper deactivation</summary>
+      <comment>Some stuffs are left out during deactivation of the plugin. For example, gnome-vfs monitor for TODO.tasks is not removed, leading to crash when the file changes when the plugin is not active.</comment>
+    </item>
+    <item>
+      <attribute id="1107241155" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483646"/>
+      <summary>Create text version TODO file</summary>
+      <comment>Create human readable TODO file, which will be plain text, during save.</comment>
     </item>
   </category>
   <category title="Plugin: Project Wizard" place="9">
@@ -460,11 +437,17 @@ in the project. User then selects one of them and executes.</comment>
 Add stock icon. Deactivate glade plugin when last glade file is closed.</comment>
     </item>
     <item>
-      <attribute id="1114330065" priority="1" done="0" start_date="732060" enddate="99999999" notify="0" endtime="-60" last_edited="1114330065"/>
+      <attribute id="1114330065" priority="1" done="0" start_date="732060" enddate="99999999" notify="0" endtime="-60" last_edited="1159483571"/>
       <summary>Connect callback signal</summary>
-      <comment>Connect signal callback selection signal from glade and goto
-the signal implementation when a signal handler is
-selected in glade. Create the signal prototype if it is not found.</comment>
+      <comment>Connect signal callback selection signal from glade and goto the signal implementation when a signal handler is selected in glade. Create the signal prototype if it is not found.</comment>
+    </item>
+  </category>
+  <category title="Pluing: Class wizard" place="20">
+    <item>
+      <attribute id="1159534023" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159534141"/>
+      <summary>Improve class wizard</summary>
+      <comment>[Skill: Medium, Work: 20hrs, Bounty: $200, Bug: #12345, Status: Open]
+Fix c++/gobject class generator to allow adding members, methods, signals, properties and other class elements.</comment>
     </item>
   </category>
 </gtodo>
