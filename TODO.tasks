@@ -268,9 +268,9 @@ plugin that can work with most languages type system.</comment>
       <comment>Tags search (plugins/editor/aneditor.cxx) during calltips query do not retrieve all matching function prototypes. Perhaps, the tags are not sorted, leading to incomplete binary search. Investigate it in tag-manager/ directory.</comment>
     </item>
     <item>
-      <attribute id="1159539232" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159560418"/>
+      <attribute id="1159539232" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159616893"/>
       <summary>Rewrite symbol-browser plugin</summary>
-      <comment>[Skill: High, Work: 200hr, Bounty: $1500, Status: Assigned, Bug: #00000]
+      <comment>[Skill: High, Work: 200hr, Bounty: $1500, Status: Assigned, Bug: #358479]
 
 A rewrite of symbol-browser plugin is in place. The rewrite is about view/model/store of the symbols database. It will use sqllite for the database for primary storage and implement a GtkTreeModel interface exclusively for using it in Views. A store class will be created that proxies the sqllite database and provide GtkTreeModel interface. The design for this work is still under sketch. Following the given thread for more details:
 
@@ -534,9 +534,9 @@ Also, the the glade widget editor should be embed in Anjuta (glade-3 already has
   </category>
   <category title="Pluing: Class wizard" place="20">
     <item>
-      <attribute id="1159534023" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159539372"/>
+      <attribute id="1159534023" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159616917"/>
       <summary>Improve class wizard</summary>
-      <comment>[Skill: Medium, Work: 20hrs, Bounty: $200, Bug: #00000, Status: Assigned]
+      <comment>[Skill: Medium, Work: 20hrs, Bounty: $200]
 
 Fix c++/gobject class generator to allow adding members, methods, signals, properties and other class elements.</comment>
     </item>
