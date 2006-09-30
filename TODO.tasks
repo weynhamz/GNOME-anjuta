@@ -458,6 +458,39 @@ releases. Use gdb's MI interface to communicate with it.</comment>
       <summary>Complete UI and other porting</summary>
       <comment>Complete debugger UI in gdb plugin. Complete porting of debugger.</comment>
     </item>
+    <item>
+      <attribute id="1159648703" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648703"/>
+      <summary>Multi-thread support</summary>
+      <comment>[Skill: medium, Work: 30h, Bounty: $150]
+Displaying all threads and selecting one should be rather easy. But this might have some impact on the display of local variables.</comment>
+    </item>
+    <item>
+      <attribute id="1159648774" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648774"/>
+      <summary>Remote debugging support</summary>
+      <comment>[Skill: medium, Work: 40h]
+Remote debugging support in Anjuta debugger.</comment>
+    </item>
+    <item>
+      <attribute id="1159648963" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648963"/>
+      <summary>Rewrite a working inspect/evaluate dialog</summary>
+      <comment>[Skill: Medium, Work: 20hrs]
+
+Currently, this dialog use the same debug tree widget used by the local  variables and watch display. I think we should keep the same widget for all this but we need perhaps to add a few options (local variables cannot be removed by example).</comment>
+    </item>
+    <item>
+      <attribute id="1159648879" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648975"/>
+      <summary>Add a disassembly window</summary>
+      <comment>[Skill: Medium, Work: 40hrs]
+
+The same widget that it already used for the memory view can possibly used for this view with a few improvements. It's a text widget allocating memory only for displayed text. This widget should be improved too, as currently it doesn't free any memory.</comment>
+    </item>
+    <item>
+      <attribute id="1159649070" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159649070"/>
+      <summary>Cleaning the debugger plugin code</summary>
+      <comment>[Skill: Basic, Work: 10hrs, Bounty: $20]
+There are some warning when compiling the gdb plugin code and some useless code that should be removed.
+</comment>
+    </item>
   </category>
   <category title="Plugin: Terminal" place="16">
     <item>
