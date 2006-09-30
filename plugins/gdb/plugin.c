@@ -24,6 +24,8 @@
 
 #include <config.h>
 
+#define DEBUG
+
 #include "plugin.h"
 
 #include "debugger.h"
@@ -276,6 +278,17 @@ idebugger_quit (IAnjutaDebugger *plugin, GError **err)
 }
 
 static gboolean
+idebugger_abort (IAnjutaDebugger *plugin, GError **err)
+{
+	GdbPlugin *this = (GdbPlugin *)plugin;
+
+	DEBUG_PRINT ("idebugger abort\n");
+	debugger_abort (this->debugger);	
+	
+	return TRUE;
+}
+
+static gboolean
 idebugger_run (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
@@ -330,7 +343,7 @@ static gboolean
 idebugger_exit (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
-	
+
 	debugger_stop_program (this->debugger);
 
 	return TRUE;
@@ -663,6 +676,7 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->start = idebugger_start;
 	iface->unload = idebugger_unload;
 	iface->quit = idebugger_quit;
+	iface->abort = idebugger_abort;
 	iface->run = idebugger_run;
 	iface->step_in = idebugger_step_in;
 	iface->step_over = idebugger_step_over;

@@ -84,6 +84,7 @@ gboolean debugger_start (Debugger *debugger, const GList *search_dirs,
 							const gchar *prog, gboolean is_libtool_prog);
 
 gboolean debugger_stop (Debugger *debugger);
+gboolean debugger_abort (Debugger *debugger);
 
 void debugger_set_output_callback (Debugger *debugger, IAnjutaDebuggerOutputCallback callback, gpointer user_data);
 

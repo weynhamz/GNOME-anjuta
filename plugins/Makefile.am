@@ -28,9 +28,9 @@ SUBDIRS = . \
 	search \
 	valgrind \
 	sourceview \
-	language-support-cpp-java
+	language-support-cpp-java \
+	glade
 #	devhelp
-#	glade
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left

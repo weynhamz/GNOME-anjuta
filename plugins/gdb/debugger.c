@@ -105,6 +105,7 @@ struct _DebuggerPriv
 	
 	gboolean term_is_running;
 	pid_t term_pid;
+	pid_t inferior_pid;
     gint gnome_terminal_type;
 	
 	GObject* instance;
@@ -133,92 +134,6 @@ static void on_gdb_terminated (AnjutaLauncher *launcher,
 
 static void debugger_class_init (DebuggerClass *klass);
 static void debugger_instance_init (Debugger *debugger);
-
-GType
-debugger_get_type (void)
-{
-	static GType obj_type = 0;
-
-	if (!obj_type)
-	{
-		static const GTypeInfo obj_info = 
-		{
-			sizeof (DebuggerClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) debugger_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,           /* class_data */
-			sizeof (Debugger),
-			0,              /* n_preallocs */
-			(GInstanceInitFunc) debugger_instance_init,
-			NULL            /* value_table */
-		};
-		obj_type = g_type_register_static (G_TYPE_OBJECT,
-		                                   "Debugger", &obj_info, 0);
-	}
-	return obj_type;
-}
-
-static void
-debugger_dispose (GObject *obj)
-{
-	Debugger *debugger = DEBUGGER (obj);
-	
-	DEBUG_PRINT ("In function: debugger_shutdown()");
-
-	if (debugger->priv->launcher)
-	{
-		debugger_stop_terminal(debugger);
-		g_object_unref (debugger->priv->launcher);
-		debugger->priv->launcher = NULL;
-		debugger_queue_clear (debugger);
-		
-		g_list_foreach (debugger->priv->search_dirs, (GFunc)g_free, NULL);
-		g_list_free (debugger->priv->search_dirs);
-		
-		/* Good Bye message */
-		if (debugger->priv->output_callback)
-		{
-			debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
-								   "Debugging session completed.\n",
-								   debugger->priv->output_user_data);
-		}
-		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
-	}
-	if (debugger->priv->instance != NULL)
-	{
-		g_object_remove_weak_pointer (debugger->priv->instance, (gpointer *)&debugger->priv->instance);
-		debugger->priv->instance = NULL;
-	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
-}
-
-static void
-debugger_finalize (GObject *obj)
-{
-	Debugger *debugger = DEBUGGER (obj);
-	g_string_free (debugger->priv->stdo_line, TRUE);
-	g_string_free (debugger->priv->stdo_acc, TRUE);
-	g_string_free (debugger->priv->stde_line, TRUE);
-	g_free (debugger->priv);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
-}
-
-static void
-debugger_class_init (DebuggerClass * klass)
-{
-	GObjectClass *object_class;
-	
-	g_return_if_fail (klass != NULL);
-	object_class = (GObjectClass *) klass;
-	
-	DEBUG_PRINT ("Initializing debugger class");
-	
-	parent_class = g_type_class_peek_parent (klass);
-	object_class->dispose = debugger_dispose;
-	object_class->finalize = debugger_finalize;
-}
 
 static void
 debugger_initialize (Debugger *debugger)
@@ -335,7 +250,7 @@ debugger_log_command (Debugger *debugger, const gchar *command)
 		if (str[len - 1] == '\n') str[len - 1] = '\0';
 
 		/* Log only MI command as other are echo */
-		printf ("Cmd: %s\n", str);
+		DEBUG_PRINT ("Cmd: %s", str);
 		ianjuta_message_view_append (debugger->priv->log, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, str, "", NULL);
 		g_free (str);
 	}
@@ -431,7 +346,6 @@ debugger_emit_status (Debugger *debugger)
 			debugger->priv->exiting = FALSE;
 			debugger->priv->stopping = FALSE;
 			debugger->priv->solib_event = FALSE;
-			printf ("shared lib event\n");
 			g_signal_emit_by_name (debugger->priv->instance, "sharedlib-event");
 		}
 		else if (debugger->priv->stopping)
@@ -439,7 +353,6 @@ debugger_emit_status (Debugger *debugger)
 			debugger->priv->exiting = FALSE;
 			debugger->priv->stopping = FALSE;
 			debugger->priv->solib_event = FALSE;
-			printf ("debugger program stopped\n");
 			g_signal_emit_by_name (debugger->priv->instance, "program-stopped");
 		}
 		else
@@ -501,7 +414,6 @@ debugger_clear_buffers (Debugger *debugger)
 	g_list_foreach (debugger->priv->cli_lines, (GFunc)g_free, NULL);
 	g_list_free (debugger->priv->cli_lines);
 	debugger->priv->cli_lines = NULL;
-	debugger->priv->solib_event = FALSE;
 }
 
 static DebuggerCommand *
@@ -920,6 +832,7 @@ on_gdb_output_arrived (AnjutaLauncher *launcher,
 					   const gchar *chars, gpointer data)
 {
 	Debugger *debugger = DEBUGGER (data);
+	DEBUG_PRINT ("on gdb output arrived");
 
 	switch (output_type)
 	{
@@ -942,9 +855,11 @@ debugger_handle_post_execution (Debugger *debugger)
 		case DEBUGGER_NONE:
 			break;
 		case DEBUGGER_EXIT:
+			DEBUG_PRINT ("debugger stop in handle post execution\n");
 			debugger_stop (debugger);
 			break;
 		case DEBUGGER_RERUN_PROGRAM:
+			DEBUG_PRINT ("debugger run in handle post execution\n");
 			debugger_run (debugger);
 			break;
 		default:
@@ -1233,6 +1148,7 @@ debugger_parse_stopped (Debugger *debugger)
 		{
 			debugger->priv->prog_is_running = FALSE;
 			debugger->priv->prog_is_attached = FALSE;
+			DEBUG_PRINT ("stop terminal in parse stopped");
 			debugger_stop_terminal (debugger);
 //			g_signal_emit_by_name (debugger->priv->instance, "program-exited");
 			debugger_handle_post_execution (debugger);
@@ -1345,7 +1261,7 @@ debugger_stdo_flush (Debugger *debugger)
 
 	line = debugger->priv->stdo_line->str;
 
-	printf("Log: %s\n", line);
+	DEBUG_PRINT ("Log: %s\n", line);
 	debugger_log_output (debugger, line);	
 	if (strlen (line) == 0)
 	{
@@ -1521,7 +1437,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	
 	/* Clear the command queue & Buffer */
 	debugger_clear_buffers (debugger);
-	debugger_stop_terminal (debugger);
+	//debugger_stop_terminal (debugger);
 
 	/* Good Bye message */
 	if (!debugger->priv->terminating)
@@ -1545,7 +1461,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 static void
 debugger_stop_real (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_stop()");
+	DEBUG_PRINT ("In function: debugger_stop_real()");
 	
 	/* if program is attached - detach from it before quiting */
 	if (debugger->priv->prog_is_attached == TRUE)
@@ -1588,6 +1504,80 @@ debugger_stop (Debugger *debugger)
 	}
 	else
 		debugger_stop_real (debugger);
+	return ret;
+}
+
+static void
+debugger_abort_real (Debugger *debugger)
+{
+	DEBUG_PRINT ("In function: debugger_abort_real()");
+
+	/* Stop terminal */
+	debugger_stop_terminal (debugger);
+	debugger->priv->terminating = TRUE;
+
+	/* Stop gdb */
+	//anjuta_launcher_reset (debugger->priv->launcher);
+	g_object_unref (debugger->priv->launcher);
+	debugger->priv->launcher = NULL;
+	
+	/* Stop inferior */	
+	if ((debugger->priv->prog_is_attached == FALSE) && (debugger->priv->inferior_pid != 0))
+	{
+		kill (debugger->priv->inferior_pid, SIGTERM);
+		debugger_queue_command (debugger, "detach", FALSE, FALSE, NULL, NULL, NULL);
+	}
+
+	/* Signal end of debugger */
+	g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
+
+	/* Free memory */	
+	debugger_queue_clear (debugger);
+	g_list_foreach (debugger->priv->search_dirs, (GFunc)g_free, NULL);
+	g_list_free (debugger->priv->search_dirs);
+
+	/* Disconnect */
+	if (debugger->priv->instance != NULL)
+	{
+		g_object_remove_weak_pointer (debugger->priv->instance, (gpointer *)&debugger->priv->instance);
+		debugger->priv->instance = NULL;
+	}
+}
+
+gboolean
+debugger_abort (Debugger *debugger)
+{
+	gboolean ret = TRUE;
+
+	if (debugger->priv->prog_is_running == TRUE)
+	{
+		GtkWidget *dialog;
+		gchar *mesg;
+		
+		if (debugger->priv->prog_is_attached == TRUE)
+			mesg = _("Program is ATTACHED.\n"
+				   "Do you still want to stop Debugger?");
+		else
+			mesg = _("Program is RUNNING.\n"
+				   "Do you still want to stop Debugger?");
+		dialog = gtk_message_dialog_new (debugger->priv->parent_win,
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_QUESTION,
+										 GTK_BUTTONS_NONE, mesg);
+		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
+								GTK_STOCK_CANCEL,	GTK_RESPONSE_NO,
+								GTK_STOCK_STOP,		GTK_RESPONSE_YES,
+								NULL);
+		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
+		{
+			debugger_abort_real (debugger);
+		}
+		else
+			ret = FALSE;
+		gtk_widget_destroy (dialog);
+	}
+	else
+		debugger_abort_real (debugger);
 	return ret;
 }
 
@@ -1860,6 +1850,27 @@ debugger_stop_terminal (Debugger *debugger)
 	debugger->priv->term_is_running = FALSE;
 }
 
+static void
+debugger_info_program_finish (Debugger *debugger, const GDBMIValue *mi_results,
+								const GList *cli_results, GError *error)
+{
+	DEBUG_PRINT ("In function: debugger_info_program()");
+
+	/* Hack: find message string giving inferior pid */
+	while (cli_results != NULL)
+	{
+		gchar* child_proc;
+	       
+		child_proc = strstr(cli_results->data, " child process ");
+		if (child_proc != NULL)
+		{
+			debugger->priv->inferior_pid = strtoul (child_proc + 15, NULL, 10);
+			break;
+		}
+		cli_results = g_list_next (cli_results);
+	}		
+}
+
 void
 debugger_start_program (Debugger *debugger, const gchar* args, gboolean terminal)
 {
@@ -1870,7 +1881,7 @@ debugger_start_program (Debugger *debugger, const gchar* args, gboolean terminal
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == FALSE);
 
-	//debugger->priv->debugger_is_busy++;
+	debugger->priv->inferior_pid = 0;
 	debugger_queue_command (debugger, "-break-insert -t main", FALSE, FALSE, NULL, NULL, NULL);
 	if (args && (*args))
 	{
@@ -1892,8 +1903,9 @@ debugger_start_program (Debugger *debugger, const gchar* args, gboolean terminal
 	{
 		debugger_queue_command (debugger, "-exec-run", FALSE, FALSE, NULL, NULL, NULL);
 	}
+	/* Get pid of program on next stop */
+	debugger_queue_command (debugger, "info program", FALSE, FALSE, debugger_info_program_finish, NULL, NULL);
 	debugger->priv->post_execution_flag = DEBUGGER_NONE;
-	//debugger->priv->debugger_is_busy--;
 }
 
 static void
@@ -1926,7 +1938,8 @@ debugger_attach_process_real (Debugger *debugger, pid_t pid)
 							   buff, debugger->priv->output_user_data);
 		g_free (buff);
 	}
-	
+
+	debugger->priv->inferior_pid = pid;	
 	buff = g_strdup_printf ("attach %d", pid);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, 
 							debugger_attach_process_finish, NULL, NULL);
@@ -2007,6 +2020,7 @@ debugger_stop_program (Debugger *debugger)
 		debugger_queue_command (debugger, "kill", FALSE, FALSE, NULL, NULL, NULL);
 		debugger->priv->prog_is_running = FALSE;
 		debugger->priv->prog_is_attached = FALSE;
+		DEBUG_PRINT ("stop terminal in stop program");
 		debugger_stop_terminal (debugger);
 		g_signal_emit_by_name (debugger->priv->instance, "program-exited");
 		if (debugger->priv->output_callback)
@@ -2072,8 +2086,17 @@ debugger_interrupt (Debugger *debugger)
 							   debugger->priv->output_user_data);
 	}
 
-	anjuta_launcher_signal (debugger->priv->launcher, SIGINT);
-	g_signal_emit_by_name (debugger->priv->instance, "program-running");
+	if (debugger->priv->inferior_pid == 0)
+	{
+		/* In case we do not have the inferior pid, send signal to gdb */
+		anjuta_launcher_signal (debugger->priv->launcher, SIGINT);
+	}
+	else
+	{
+		/* Send signal directly to inferior */
+		kill (debugger->priv->inferior_pid, SIGINT);
+	}
+	//g_signal_emit_by_name (debugger->priv->instance, "program-running");
 }
 
 void
@@ -3403,6 +3426,79 @@ void debugger_update_variable (Debugger *debugger, IAnjutaDebuggerCallback callb
 
 	debugger_queue_command (debugger, "-var-update *", FALSE, FALSE, gdb_var_update, callback, user_data);
 }
+
+GType
+debugger_get_type (void)
+{
+	static GType obj_type = 0;
+
+	if (!obj_type)
+	{
+		static const GTypeInfo obj_info = 
+		{
+			sizeof (DebuggerClass),
+			(GBaseInitFunc) NULL,
+			(GBaseFinalizeFunc) NULL,
+			(GClassInitFunc) debugger_class_init,
+			(GClassFinalizeFunc) NULL,
+			NULL,           /* class_data */
+			sizeof (Debugger),
+			0,              /* n_preallocs */
+			(GInstanceInitFunc) debugger_instance_init,
+			NULL            /* value_table */
+		};
+		obj_type = g_type_register_static (G_TYPE_OBJECT,
+		                                   "Debugger", &obj_info, 0);
+	}
+	return obj_type;
+}
+
+static void
+debugger_dispose (GObject *obj)
+{
+	Debugger *debugger = DEBUGGER (obj);
+	
+	DEBUG_PRINT ("In function: debugger_shutdown()");
+
+	debugger_abort_real (debugger);
+
+	/* Good Bye message */
+	if (debugger->priv->output_callback)
+	{
+		debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
+							   "Debugging session completed.\n",
+							   debugger->priv->output_user_data);
+	}
+
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
+}
+
+static void
+debugger_finalize (GObject *obj)
+{
+	Debugger *debugger = DEBUGGER (obj);
+	g_string_free (debugger->priv->stdo_line, TRUE);
+	g_string_free (debugger->priv->stdo_acc, TRUE);
+	g_string_free (debugger->priv->stde_line, TRUE);
+	g_free (debugger->priv);
+	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
+}
+
+static void
+debugger_class_init (DebuggerClass * klass)
+{
+	GObjectClass *object_class;
+	
+	g_return_if_fail (klass != NULL);
+	object_class = (GObjectClass *) klass;
+	
+	DEBUG_PRINT ("Initializing debugger class");
+	
+	parent_class = g_type_class_peek_parent (klass);
+	object_class->dispose = debugger_dispose;
+	object_class->finalize = debugger_finalize;
+}
+
 
 #if 0 /* FIXME */
 void

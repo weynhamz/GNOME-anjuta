@@ -157,7 +157,7 @@ on_cut_activated (GtkAction *action, GladePlugin *plugin)
 static void
 on_paste_activated (GtkAction *action, GladePlugin *plugin)
 {
-	glade_app_command_paste ();
+	glade_app_command_paste (NULL);
 }
 
 static void

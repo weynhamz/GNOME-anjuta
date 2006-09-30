@@ -272,10 +272,16 @@ on_stack_trace_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer
 {
 	StackTrace *st = (StackTrace*) user_data;
 
-	if (bevent->button == 3)
+	if ((bevent->type == GDK_BUTTON_PRESS) && (bevent->button == 3))
 	{
+		/* Right mouse click */
 		gtk_menu_popup (GTK_MENU (st->widgets.menu), NULL, NULL, NULL, NULL,
 						bevent->button, bevent->time);
+	}
+	else if ((bevent->type == GDK_2BUTTON_PRESS) && (bevent->button == 1))
+	{
+		/* Double left mousr click */
+		on_stack_view_src_activate (NULL, user_data);
 	}
 	
 	return FALSE;

@@ -151,6 +151,9 @@ anjuta_symbol_info_get_node_type (const TMSymbol *sym, const TMTag *tag)
 	
 	switch (t_type)
 	{
+	case tm_tag_namespace_t:
+		type = sv_namespace_t;
+		break;
 	case tm_tag_class_t:
 		type = sv_class_t;
 		break;
@@ -227,6 +230,8 @@ anjuta_symbol_info_get_root_type (SVNodeType type)
 		return sv_root_none_t;
 	switch (type)
 	{
+	case sv_namespace_t:
+		return sv_root_namespace_t;
 	case sv_class_t:
 		return sv_root_class_t;
 	case sv_struct_t:
@@ -268,6 +273,7 @@ sv_load_symbol_pixbufs (void)
 	sv_symbol_pixbufs = g_new (GdkPixbuf *, sv_max_t + 1);
 
 	CREATE_SV_ICON (sv_none_t,              "Icons.16x16.Literal");
+	CREATE_SV_ICON (sv_namespace_t,         "Icons.16x16.NameSpace");
 	CREATE_SV_ICON (sv_class_t,             "Icons.16x16.Class");
 	CREATE_SV_ICON (sv_struct_t,            "Icons.16x16.ProtectedStruct");
 	CREATE_SV_ICON (sv_union_t,             "Icons.16x16.PrivateStruct");

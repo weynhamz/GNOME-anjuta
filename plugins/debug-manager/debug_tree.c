@@ -872,9 +872,13 @@ on_debug_tree_value_changed (GtkCellRendererText *cell,
 		local_data_transport *tran;
 
 		gtk_tree_model_get (model, &iter, DTREE_ENTRY_COLUMN, &item, -1);
-		ianjuta_variable_debugger_assign (tree->debugger, item->name, text, NULL);
-		tran = alloc_data_transport(model, &iter, item);
-		ianjuta_variable_debugger_evaluate (tree->debugger, item->name, gdb_var_evaluate_expression, tran, NULL);
+		if (item != NULL)
+		{
+			/* Variable is valid */
+			ianjuta_variable_debugger_assign (tree->debugger, item->name, text, NULL);
+			tran = alloc_data_transport(model, &iter, item);
+			ianjuta_variable_debugger_evaluate (tree->debugger, item->name, gdb_var_evaluate_expression, tran, NULL);
+		}
 	}
 }
 

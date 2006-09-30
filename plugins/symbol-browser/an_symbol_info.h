@@ -37,6 +37,7 @@ typedef struct _AnjutaSymbolInfoPriv AnjutaSymbolInfoPriv;
 typedef enum
 {
 	sv_none_t,
+	sv_namespace_t,
 	sv_class_t,
 	sv_struct_t,
 	sv_union_t,
@@ -58,6 +59,7 @@ typedef enum
 
 typedef enum
 {
+	sv_root_namespace_t,
 	sv_root_class_t,
 	sv_root_struct_t,
 	sv_root_union_t,

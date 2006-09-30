@@ -2602,7 +2602,7 @@ interface IAnjutaDebugger
 	* 
 	* fixme
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, other FALSE.
 	*/
 	gboolean initialize (OutputCallback func, gpointer user_data);
 	
@@ -2616,7 +2616,7 @@ interface IAnjutaDebugger
 	* 
 	* fixme
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, other FALSE.
 	*/
 	gboolean load (const gchar *file, const gchar *mime_type, const GList *source_search_directories);
 	
@@ -2629,7 +2629,7 @@ interface IAnjutaDebugger
 	* 
 	* fixme
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, other FALSE.
 	*/
 	gboolean attach (pid_t pid, const GList *source_search_directories);
 	
@@ -2642,7 +2642,7 @@ interface IAnjutaDebugger
 	* 
 	* fixme
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, other FALSE.
 	*/
 	gboolean start (const gchar *args, gboolean terminal);
 	
@@ -2662,12 +2662,22 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Quit the debugger, can wait until the debugger is ready.
 	*
-	* Returns: fixme
+	* Returns: TRUE if sucessful, other FALSE.
 	*/
 	gboolean quit ();
 
+	/**
+	* ianjuta_debugger_abort:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* Quit the debugger as fast as possible.
+	*
+	* Returns: TRUE if sucessful, other FALSE.
+	*/
+	gboolean abort ();
 	
 	/**
 	* ianjuta_debugger_run:

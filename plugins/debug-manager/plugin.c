@@ -223,8 +223,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	/* Close debugger when session changed */
 	if (plugin->debugger)
 	{
-		ianjuta_debugger_interrupt (plugin->debugger, NULL);
-		ianjuta_debugger_quit (plugin->debugger, NULL);
+		ianjuta_debugger_abort (plugin->debugger, NULL);
 	}
 }
 

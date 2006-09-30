@@ -164,7 +164,7 @@ anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 										_("Test shell action group"),
 										action_entries,
 										G_N_ELEMENTS (action_entries),
-										GETTEXT_PACKAGE, shell);
+										GETTEXT_PACKAGE, TRUE, shell);
 	/* Merge UI */
 	shell->merge_id = anjuta_ui_merge (shell->ui, UI_FILE);
 
