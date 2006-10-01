@@ -1618,7 +1618,7 @@ project_manager_plugin_close_project(ProjectManagerPlugin* plugin, PMProject* pr
 	gint id;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	IAnjutaDocumentManager *docman;
+	GObject *docman;
 
 	g_return_if_fail(prj != NULL);
 	
@@ -1630,10 +1630,11 @@ project_manager_plugin_close_project(ProjectManagerPlugin* plugin, PMProject* pr
 	if (docman)
 	{
 		GList *to_remove = NULL;
-		const GList *editors;
-		const GList *node;
+		GList *editors;
+		GList *node;
 		
-		editors = ianjuta_document_manager_get_editors (docman, NULL);
+		editors =
+			ianjuta_document_manager_get_editors (IANJUTA_DOCUMENT_MANAGER (docman), NULL);
 		node = editors;
 		while (node)
 		{
@@ -1661,6 +1662,10 @@ project_manager_plugin_close_project(ProjectManagerPlugin* plugin, PMProject* pr
 			/* ianjuta_file_close (node->data); */
 			node = g_list_next (node);
 		}
+		if (editors)
+			g_list_free (editors);
+		if (to_remove)
+			g_list_free (to_remove);
 	}
 	
 	model = gtk_combo_box_get_model(GTK_COMBO_BOX(plugin->combo));

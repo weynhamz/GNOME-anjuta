@@ -1,5 +1,8 @@
 2006-10-01  Naba Kumar  <naba@gnome.org>
 
+	* plguins/project-manager/plugin.c: Possible fix for crash
+	bug #358583.
+	
 	* configure.in, plugins/Makefile.am: Enabled glade plugin and
 	set dep to last version 3.0.2.
 	
