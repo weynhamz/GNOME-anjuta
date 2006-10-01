@@ -1,5 +1,9 @@
 2006-10-01  Naba Kumar  <naba@gnome.org>
 
+	* plugins/devhelp/anjuta-devhelp-simple.ui: Added a simple
+	UI file used when out-of-process devhelp is used instead of
+	embedded devhelp.
+	
 	* configure.in, plugins/Makefile.am, plugins/devhelp/Makefile.am,
 	plugins/devhelp/plugin.c, plugins/devhelp/plugin.h,
 	plugins/profile-default/default.anjuta: Build devhelp plugin,
