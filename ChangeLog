@@ -1,5 +1,14 @@
 2006-10-01  Naba Kumar  <naba@gnome.org>
 
+	* configure.in, plugins/Makefile.am, plugins/devhelp/Makefile.am,
+	plugins/devhelp/plugin.c, plugins/devhelp/plugin.h,
+	plugins/profile-default/default.anjuta: Build devhelp plugin,
+	but use out-of-process devhelp if devhelp plugin is disabled
+	(either by user or devhelp is not installed). Disabled devhelp
+	plugin by default. Added it in default profile.
+
+2006-10-01  Naba Kumar  <naba@gnome.org>
+
 	* plguins/project-manager/plugin.c: Possible fix for crash
 	bug #358583.
 	

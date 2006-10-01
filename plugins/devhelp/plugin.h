@@ -28,7 +28,9 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
+#ifndef DISABLE_EMBEDDED_DEVHELP
 #include <devhelp/dh-base.h>
+#endif /* DISABLE_EMBEDDED_DEVHELP */
 
 typedef struct _AnjutaDevhelp AnjutaDevhelp;
 typedef struct _AnjutaDevhelpClass AnjutaDevhelpClass;
@@ -36,7 +38,9 @@ typedef struct _AnjutaDevhelpClass AnjutaDevhelpClass;
 struct _AnjutaDevhelp{
 	AnjutaPlugin parent;
 	
+#ifndef DISABLE_EMBEDDED_DEVHELP
 	DhBase         *base;
+#endif /* DISABLE_EMBEDDED_DEVHELP */
 	GtkWidget     *htmlview;    
 	GtkWidget      *control_notebook; 
 	GtkWidget      *book_tree;

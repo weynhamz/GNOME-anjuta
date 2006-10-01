@@ -241,19 +241,42 @@ fi
 
 dnl Check for Devhelp
 dnl -----------------
-dnl devhelp_old=yes
-dnl PKG_CHECK_MODULES(PLUGIN_DEVHELP, 
-dnl				[libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED],
-dnl                  [devhelp_old=no], [
-dnl                        AC_MSG_RESULT([version >= 0.11 not found])
-dnl                        devhelp_old=yes
-dnl                  ])
-dnl if test x$devhelp_old = xyes; then
-dnl   PKG_CHECK_MODULES(PLUGIN_DEVHELP, [libdevhelp-1.0 >= 0.9])
-dnl  AC_DEFINE(HAVE_OLD_DEVHELP, 1, [If old devhelp (>= 0.9 < 0.11) is installed])
-dnl fi
-dnl AC_SUBST(PLUGIN_DEVHELP_CFLAGS)
-dnl AC_SUBST(PLUGIN_DEVHELP_LIBS)
+
+AC_ARG_ENABLE(plugin-devhelp,
+  [  --enable-plugin-devhelp        Enable devhelp plugin support in Anjuta.],
+  [ if test "$enableval" = "yes"; then
+       user_disabled_devhelp=0
+    fi ],
+  [ user_disabled_devhelp=1 ] )
+
+AC_MSG_CHECKING(if devhelp plugin is disabled)
+if test "$user_disabled_devhelp" = 1; then
+	AC_MSG_RESULT(yes)
+	devhelp_enabled="no"
+else
+	AC_MSG_RESULT(no)
+	devhelp_old=yes
+	PKG_CHECK_MODULES(PLUGIN_DEVHELP, 
+				[libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED],
+					 [
+					    devhelp_old=no
+						devhelp_enabled=yes
+					 ], [
+						   AC_MSG_RESULT([version >= 0.11 not found])
+						   devhelp_old=yes
+						   devhelp_enabled=no
+					 ])
+	if test x$devhelp_old = xyes; then
+	  PKG_CHECK_MODULES(PLUGIN_DEVHELP, [libdevhelp-1.0 >= 0.9], [devhelp_enabled=yes], [devhelp_enabled=no])
+		if test x$devhelp_enabled = xyes; then
+	      AC_DEFINE(HAVE_OLD_DEVHELP, 1, [If old devhelp (>= 0.9 < 0.11) is installed])
+		fi
+	fi
+	AC_SUBST(PLUGIN_DEVHELP_CFLAGS)
+	AC_SUBST(PLUGIN_DEVHELP_LIBS)
+fi
+
+AM_CONDITIONAL(HAVE_PLUGIN_DEVHELP, [test x$devhelp_enabled = xyes])
 
 dnl Check for GTodo
 dnl -----------------
@@ -263,6 +286,7 @@ dnl AC_SUBST(PLUGIN_GTODO_LIBS)
 
 dnl Check for Gnome Build
 dnl ---------------------
+
 PKG_CHECK_MODULES(PLUGIN_GNOMEBUILD, gnome-build-1.0 >= $GNOMEBUILD_REQUIRED)
 AC_SUBST(PLUGIN_GNOMEBUILD_CFLAGS)
 AC_SUBST(PLUGIN_GNOMEBUILD_LIBS)
@@ -1128,6 +1152,13 @@ if [ test x$libgladeui_found = xyes ]; then
 else
        echo "Building glade plugin: .................................NO"
        echo "        Requires glade-3 (>= 3.0.2); CVS cvs.gnome.org, module glade-3"
+fi
+
+if [ test x$devhelp_enabled = xyes ]; then
+       echo "Building devhelp plugin: ...............................YES"
+else
+       echo "Building devhelp plugin: ...............................NO"
+       echo "        Requires devhelp"
 fi
 
 if [ test x$libgraphviz_found = xyes ]; then

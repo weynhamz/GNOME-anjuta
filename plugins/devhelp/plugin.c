@@ -29,16 +29,27 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
 
+#include "plugin.h"
+
+#ifndef DISABLE_EMBEDDED_DEVHELP
+
 #include <devhelp/dh-book-tree.h>
 #include <devhelp/dh-html.h>
 #include <devhelp/dh-preferences.h>
 #include <devhelp/dh-search.h>
 #include <devhelp/dh-base.h>
-
-#include "plugin.h"
 #include "htmlview.h"
-
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-devhelp.ui"
+
+#else /* DISABLE_EMBEDDED_DEVHELP */
+
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-devhelp-simple.ui"
+
+#endif /* DISABLE_EMBEDDED_DEVHELP */
+
+static gpointer parent_class;
+
+#ifndef DISABLE_EMBEDDED_DEVHELP
 
 static void
 devhelp_tree_link_selected_cb (GObject       *ignored,
@@ -81,7 +92,6 @@ devhelp_search_link_selected_cb (GObject  *ignored,
 	anjuta_devhelp_check_history (widget);
 }
 
-static gpointer parent_class;
 static void
 on_go_back_activate (GtkAction *action, AnjutaDevhelp *plugin)
 {
@@ -116,6 +126,17 @@ api_reference_idle (AnjutaDevhelp* plugin)
 								 plugin->control_notebook, NULL);
 	return FALSE;
 }
+
+#else /* DISABLE_EMBEDDED_DEVHELP */
+
+static gboolean
+api_reference_idle (AnjutaDevhelp* plugin)
+{
+	ianjuta_help_search (IANJUTA_HELP (plugin), "", NULL);
+	return FALSE;
+}
+
+#endif
 
 static void
 on_api_reference_activate (GtkAction *action, AnjutaDevhelp *plugin)
@@ -171,6 +192,9 @@ on_search_help_activate (GtkAction *action, AnjutaDevhelp *plugin)
 
 /* Action definitions */
 static GtkActionEntry actions[] = {
+
+#ifndef DISABLE_EMBEDDED_DEVHELP
+
 	/* Go menu */
 	{
 		"ActionMenuGoto",
@@ -196,6 +220,7 @@ static GtkActionEntry actions[] = {
 		N_("Go to next help page"),
 		G_CALLBACK (on_go_forward_activate)
 	},
+#endif /* DISABLE_EMBEDDED_DEVHELP */
 	{
 		"ActionHelpApi",
 		NULL,
@@ -277,6 +302,8 @@ devhelp_activate (AnjutaPlugin *plugin)
 											plugin);
 	devhelp->uiid = anjuta_ui_merge (ui, UI_FILE);
 
+#ifndef DISABLE_EMBEDDED_DEVHELP
+
 	books = dh_base_get_book_tree (devhelp->base);
 	keywords = dh_base_get_keywords (devhelp->base);
 	
@@ -317,6 +344,8 @@ devhelp_activate (AnjutaPlugin *plugin)
 								 GTK_STOCK_HELP,
 								 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 								 
+#endif /* DISABLE_EMBEDDED_DEVHELP */
+
 	/* Add watches */
 	devhelp->editor_watch_id = 
 		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
@@ -339,9 +368,13 @@ devhelp_deactivate (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_unmerge (ui, devhelp->uiid);
 	
+#ifndef DISABLE_EMBEDDED_DEVHELP
+
 	/* Remove widgets */
 	anjuta_shell_remove_widget(plugin->shell, devhelp->htmlview, NULL);
 	anjuta_shell_remove_widget(plugin->shell, devhelp->control_notebook, NULL);	
+
+#endif /* DISABLE_EMBEDDED_DEVHELP */
 	
 	/* Remove action group */
 	anjuta_ui_remove_action_group (ui, devhelp->action_group);
@@ -351,6 +384,8 @@ devhelp_deactivate (AnjutaPlugin *plugin)
 	
 	return TRUE;
 }
+
+#ifndef DISABLE_EMBEDDED_DEVHELP
 
 void anjuta_devhelp_check_history(AnjutaDevhelp* devhelp)
 {
@@ -369,6 +404,9 @@ void anjuta_devhelp_check_history(AnjutaDevhelp* devhelp)
 	}
 }
 
+#endif /* DISABLE_EMBEDDED_DEVHELP */
+
+#if 0
 static void
 devhelp_finalize (GObject *obj)
 {
@@ -389,15 +427,19 @@ devhelp_dispose (GObject *obj)
 	/* Disposition codes */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
+#endif
 
 static void
 devhelp_instance_init (GObject *obj)
 {
 	AnjutaDevhelp *plugin = (AnjutaDevhelp*)obj;
 	
+#ifndef DISABLE_EMBEDDED_DEVHELP
+
 	/* Create devhelp */
 	plugin->base = dh_base_new ();
 
+#endif /* DISABLE_EMBEDDED_DEVHELP */
 	
 	plugin->uiid = 0;
 }
@@ -411,9 +453,13 @@ devhelp_class_init (GObjectClass *klass)
 
 	plugin_class->activate = devhelp_activate;
 	plugin_class->deactivate = devhelp_deactivate;
+#if 0
 	klass->finalize = devhelp_finalize;
 	klass->dispose = devhelp_dispose;
+#endif
 }
+
+#ifndef DISABLE_EMBEDDED_DEVHELP
 
 static void
 ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
@@ -428,6 +474,43 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 	dh_search_set_search_string (DH_SEARCH (plugin->search), query);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (plugin->control_notebook), 1);
 }
+
+#else /* DISABLE_EMBEDDED_DEVHELP */
+
+static void
+ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
+{
+	AnjutaDevhelp *plugin;
+	
+	plugin = (AnjutaDevhelp*)help;
+	
+	if (!anjuta_util_prog_is_installed ("devhelp", TRUE))
+	{
+		return;
+	}
+	
+	if(query && strlen (query) > 0)
+	{
+		fprintf(stderr, "Word is %s\n", query);
+		if(fork()==0)
+		{
+			execlp("devhelp", "devhelp", "-s", query, NULL);
+			g_warning (_("Cannot execute command: \"%s\""), "devhelp");
+			_exit(1);
+		}
+	}
+	else
+	{
+		if(fork()==0)
+		{
+			execlp("devhelp", "devhelp", NULL);
+			g_warning (_("Cannot execute command: \"%s\""), "devhelp");
+			_exit(1);
+		}
+	}
+}
+
+#endif /* DISABLE_EMBEDDED_DEVHELP */
 
 static void
 ihelp_iface_init(IAnjutaHelpIface *iface)
