@@ -742,7 +742,7 @@ update_ui (ProjectManagerPlugin *plugin)
 		sensitive = gtk_tree_model_get_iter_first(model, &iter);
 		gtk_widget_set_sensitive(GTK_WIDGET(plugin->combo), sensitive);
 	}
-			
+	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	for (j = 0; j < G_N_ELEMENTS (pf_actions); j++)
 	{
@@ -1233,7 +1233,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	pm_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
 	/* Action groups */
-	pm_plugin->pm_action_group = 
+	pm_plugin->pf_action_group = 
 		anjuta_ui_add_action_group_entries (pm_plugin->ui,
 											"ActionGroupProfile",
 											_("Profile actions"),
@@ -1391,6 +1391,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	}
 	
 	anjuta_ui_unmerge (pm_plugin->ui, pm_plugin->merge_id);
+	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->pf_action_group);
 	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->pm_action_group);
 	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->popup_action_group);
 	

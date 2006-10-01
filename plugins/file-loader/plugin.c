@@ -833,7 +833,10 @@ static GtkActionEntry actions_file[] = {
 		"<control>o",
 		N_("Open file"),
 		G_CALLBACK (on_open_activate)
-	},
+	}
+};
+
+static GtkActionEntry popup_actions_file[] = {
 	{
 		"ActionPopupOpen",
 		GTK_STOCK_OPEN,
@@ -972,10 +975,10 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	fl_plugin = (AnjutaFileLoaderPlugin*) plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionPopupOpen");
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupLoader", "ActionPopupOpen");
 	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader",
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupLoader",
 								   "ActionPopupOpenWith");
 	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 	
@@ -1006,10 +1009,10 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	fl_plugin->fm_current_uri = NULL;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionPopupOpen");
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupLoader", "ActionPopupOpen");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader",
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupLoader",
 								   "ActionPopupOpenWith");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 }
@@ -1030,10 +1033,10 @@ value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
 	fl_plugin = (AnjutaFileLoaderPlugin*) plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionPopupPMOpen");
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupLoader", "ActionPopupPMOpen");
 	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader",
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupLoader",
 								   "ActionPopupPMOpenWith");
 	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 	
@@ -1064,10 +1067,10 @@ value_removed_pm_current_uri (AnjutaPlugin *plugin,
 	fl_plugin->pm_current_uri = NULL;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionPopupPMOpen");
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupLoader", "ActionPopupPMOpen");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 	
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader",
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupLoader",
 								   "ActionPopupPMOpenWith");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 }
@@ -1174,6 +1177,12 @@ activate_plugin (AnjutaPlugin *plugin)
 											actions_file,
 											G_N_ELEMENTS (actions_file),
 											GETTEXT_PACKAGE, TRUE, plugin);
+	loader_plugin->popup_action_group =
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupPopupLoader",
+											_("File Loader"),
+											popup_actions_file,
+											G_N_ELEMENTS (popup_actions_file),
+											GETTEXT_PACKAGE, FALSE, plugin);
 	saction = g_object_new (EGG_TYPE_SUBMENU_ACTION,
 							"name", "ActionFileWizard",
 							"label", _("New"),
@@ -1257,6 +1266,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_ui_unmerge (ui, loader_plugin->uiid);
 	/* Remove action group */
 	anjuta_ui_remove_action_group (ui, loader_plugin->action_group);
+	anjuta_ui_remove_action_group (ui, loader_plugin->popup_action_group);
 	anjuta_ui_remove_action_group (ui, loader_plugin->recent_group);
 	return TRUE;
 }

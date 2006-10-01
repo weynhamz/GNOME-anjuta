@@ -1,3 +1,17 @@
+2006-10-01  Naba Kumar  <naba@gnome.org>
+
+	* plugins/cvs-plugin/plugin.c, plugins/file-loader/plugin.c,
+	plugins/file-loader/plugin.h, plugins/subversion/plugin.c,
+	plugins/symbol-browser/plugin.c: Use the right action group
+	for getting popup actions (Fixes lots of assertion failures).
+
+	* plugins/project-manager/plugin.c,
+	plugins/project-manager/plugin.h: use separate action group
+	for profie actions.
+	
+	* plugins/message-view/plugin.c: Disconnect session load
+	signal on plugin deactivation (fixes a crash).
+
 2006-09-30  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Added a few debugger tasks from Sebastien (two bounties).

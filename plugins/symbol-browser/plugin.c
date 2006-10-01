@@ -478,7 +478,7 @@ on_treeview_event (GtkWidget *widget,
 		switch (e->keyval) {
 			case GDK_Return:
 				anjuta_ui_activate_action_by_group (sv_plugin->ui,
-													sv_plugin->action_group,
+													sv_plugin->popup_action_group,
 											"ActionPopupSymbolBrowserGotoDef");
 				return TRUE;
 			default:
@@ -501,7 +501,7 @@ on_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 		return;
 	anjuta_ui_activate_action_by_group (sv_plugin->ui,
-										sv_plugin->action_group,
+										sv_plugin->popup_action_group,
 										"ActionPopupSymbolBrowserGotoDef");
 }
 

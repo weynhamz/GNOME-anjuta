@@ -44,6 +44,7 @@ struct _ProjectManagerPlugin{
 	PMProject* active_project;
 	
 	GtkActionGroup *pm_action_group;
+	GtkActionGroup *pf_action_group;
 	GtkActionGroup *popup_action_group;
 	gint merge_id;
 	

@@ -235,8 +235,12 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	mplugin = (MessageViewPlugin *)plugin;
 	
+	/* Disconnect signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_save),
+										  plugin);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_session_load),
 										  plugin);
 	
 	/* Widget is destroyed as soon as it is removed */

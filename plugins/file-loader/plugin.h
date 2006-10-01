@@ -10,6 +10,7 @@ struct _AnjutaFileLoaderPlugin{
 	EggRecentModel *recent_files_model_top;
 	EggRecentModel *recent_files_model_bottom;
 	GtkActionGroup *action_group;
+	GtkActionGroup *popup_action_group;
 	GtkActionGroup *recent_group;
 	
 	gchar *fm_current_uri;

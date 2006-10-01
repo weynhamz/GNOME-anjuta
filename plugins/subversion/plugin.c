@@ -97,7 +97,7 @@ static GtkActionEntry popup_actions_subversion[] = {
 		NULL,                      /* Tooltip */
 		NULL
 	},
-		{
+	{
 		"ActionPopupSubversionCommit",                       /* Action name */
 		GTK_STOCK_YES,                            /* Stock icon, if any */
 		N_("_Commit"),                     /* Display label */
@@ -142,7 +142,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	subversion->fm_current_filename = filename;
 	
 	/* Show popup menu if Subversion directory exists */
-	subversion_menu_action = anjuta_ui_get_action (ui, "ActionGroupSubversion", "ActionPopupSubversion");
+	subversion_menu_action = anjuta_ui_get_action (ui, "ActionGroupPopupSubversion", "ActionPopupSubversion");
 	
 	/* If a directory is selected we check if it contains a "Subversion" directory,
 	if it is a file we check if it's directory contains a "Subversion" directory */
@@ -198,9 +198,8 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	subversion->fm_current_filename = NULL;
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupSubversion", "ActionPopupSubversion");
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupSubversion", "ActionPopupSubversion");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-	
 }
 
 static void

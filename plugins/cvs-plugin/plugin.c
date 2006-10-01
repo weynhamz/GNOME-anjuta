@@ -191,7 +191,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	cvs_plugin->fm_current_filename = filename;
 	
 	/* Show popup menu if CVS directory exists */
-	cvs_menu_action = anjuta_ui_get_action (ui, "ActionGroupCVS", "ActionPopupCVS");
+	cvs_menu_action = anjuta_ui_get_action (ui, "ActionGroupPopupCVS", "ActionPopupCVS");
 	
 	/* If a directory is selected we check if it contains a "CVS" directory,
 	if it is a file we check if it's directory contains a "CVS" directory */
@@ -242,7 +242,7 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	cvs_plugin->fm_current_filename = NULL;
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupCVS", "ActionPopupCVS");
+	action = anjuta_ui_get_action (ui, "ActionGroupPopupCVS", "ActionPopupCVS");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 	
 }
