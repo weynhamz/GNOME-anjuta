@@ -276,11 +276,6 @@ int type_from_string(StringMap *map, const char *str);
 const char *string_from_type(StringMap *map, int type);
 GList *glist_from_map(StringMap *map);
 
-void anjuta_util_color_from_string (const gchar * val,
-									guint8 * r, guint8 * g, guint8 * b);
-
-gchar *anjuta_util_string_from_color (guint8 r, guint8 g, guint8 b);
-
 /* Return must be freed. Works even if str is already UTF8 string */
 gchar *anjuta_util_convert_to_utf8 (const gchar *str);
 

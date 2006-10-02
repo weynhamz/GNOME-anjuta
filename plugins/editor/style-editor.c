@@ -601,17 +601,17 @@ on_hilite_style_entry_changed (GtkEditable * editable, gpointer user_data)
 
 		gtk_color_button_get_color (GTK_COLOR_BUTTON (p->priv->fore_colorpicker),
 									&color);
-		str = anjuta_util_string_from_color (color.red >> 8,
-											 color.green >> 8,
-											 color.blue >> 8);
+		str = anjuta_util_string_from_color (color.red,
+											 color.green,
+											 color.blue);
 		style_data_set_fore (p->priv->current_style, str);
 		g_free (str);
 
 		gtk_color_button_get_color (GTK_COLOR_BUTTON (p->priv->back_colorpicker),
 									&color);
-		str = anjuta_util_string_from_color (color.red >> 8,
-											 color.green >> 8,
-											 color.blue >> 8);
+		str = anjuta_util_string_from_color (color.red,
+											 color.green,
+											 color.blue);
 		style_data_set_back (p->priv->current_style, str);
 		g_free (str);
 
@@ -776,9 +776,9 @@ set_one_color (PropsID props, gchar *key, GtkWidget *picker)
 	GdkColor color;
 	gchar *str;
 	gtk_color_button_get_color (GTK_COLOR_BUTTON (picker), &color);
-	str = anjuta_util_string_from_color (color.red >> 8,
-										 color.green >> 8,
-										 color.blue >> 8);
+	str = anjuta_util_string_from_color (color.red,
+										 color.green,
+										 color.blue);
 	if(str)
 	{
 		sci_prop_set_with_key (props, key, str);

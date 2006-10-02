@@ -1,3 +1,8 @@
+2006-10-02  Adam Dingle <adam@medovina.org>
+
+	* plugins/editor/style-editor.c: fixed bug #357534
+	* plugins/gdb/utilities.h: removed 2 unused declarations
+
 2006-10-02  Johannes Schmid <jhs@gnome.org>
 
 	* Makefile.am: disabled anjuta-launcher
