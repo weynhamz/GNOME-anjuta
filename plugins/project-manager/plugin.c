@@ -2060,17 +2060,17 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	return source_uri;
 }
 
-static GSList*
+static GList*
 iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
-							 GSList *source_add_uris,
+							 GList *source_add_uris,
 							 const gchar *default_location_uri,
 							 GError **err)
 {
 	ProjectManagerPlugin *plugin;
 	IAnjutaProjectManagerElementType default_location_type;
 	gchar *location_id;
-	GSList* source_ids;
-	GSList* source_uris = NULL;
+	GList* source_ids;
+	GList* source_uris = NULL;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
@@ -2107,11 +2107,11 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 	
 	while (source_ids)
 	{
-		source_uris = g_slist_append(source_uris, get_element_uri_from_id(plugin, source_ids->data));
+		source_uris = g_list_append(source_uris, get_element_uri_from_id(plugin, source_ids->data));
 		g_free(source_ids->data);
-		source_ids = g_slist_next(source_ids);
+		source_ids = g_list_next(source_ids);
 	}
-	g_slist_free(source_ids);
+	g_list_free(source_ids);
 	return source_uris;
 }
 

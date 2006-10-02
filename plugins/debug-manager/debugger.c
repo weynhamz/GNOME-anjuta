@@ -2223,7 +2223,7 @@ ivariable_debugger_update (IAnjutaVariableDebugger *iface, IAnjutaDebuggerCallba
 static void
 ivariable_debugger_iface_init (IAnjutaVariableDebuggerIface *iface)
 {
-	iface->delete = ivariable_debugger_delete;
+	iface->delete_var = ivariable_debugger_delete;
 	iface->evaluate = ivariable_debugger_evaluate;
 	iface->assign = ivariable_debugger_assign;
 	iface->list_children = ivariable_debugger_list_children;

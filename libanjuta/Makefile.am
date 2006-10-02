@@ -48,6 +48,8 @@ libanjuta_la_SOURCES= \
 	glue-factory.c \
 	plugins.c \
 	plugins.h \
+	glue-cpp.h \
+	glue-cpp.c \
 	anjuta-save-prompt.c \
 	anjuta-serializer.c \
 	anjuta-serializer.h 
@@ -128,3 +130,7 @@ EXTRA_DIST = \
 	$(libanjutainclude_HEADERS) \
 	libanjuta-1.0.pc.in \
 	anjuta-marshal.list
+
+
+
+

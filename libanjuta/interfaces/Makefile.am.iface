@@ -12,7 +12,7 @@ MODULE_LIBS = $(GTK_LIBS)
 
 @@IFACE_RULES@@
 
-BUILT_SOURCES = iface-built.stamp
+BUILT_SOURCES = iface-built.stamp anjuta-interfaces-enum-types.h anjuta-interfaces-enum-types.c
 
 iface-built.stamp: libanjuta.idl Makefile.am.iface anjuta-idl-compiler.pl
 	savedir=`pwd` && \
@@ -25,8 +25,42 @@ iface-built.stamp: libanjuta.idl Makefile.am.iface anjuta-idl-compiler.pl
 	make && \
 	cd $$savedir
 
+libanjuta_interfaces_include_HEADERS =	$(libanjuta_interfaces_include) \
+	anjuta-interfaces-enum-types.h
+
+libanjuta_interfaces_la_SOURCES += \
+		anjuta-interfaces-enum-types.h  \
+		anjuta-interfaces-enum-types.c
+
+
+anjuta-interfaces-enum-types.h: stamp-anjuta-interfaces-enum-types.h
+	@true
+stamp-anjuta-interfaces-enum-types.h: Makefile $(libanjuta_interfaces_include) anjuta-interfaces-enum-types.c
+	( cd $(srcdir) && $(GLIB_MKENUMS) \
+			--fhead "#ifndef __ANJUTA_ENUM_TYPES_H__\n#define __ANJUTA_ENUM_TYPES_H__\n\n#include <libanjuta/interfaces/libanjuta-interfaces.h>\n\nG_BEGIN_DECLS\n" \
+			--fprod "/* enumerations from \"@filename@\" */\n" \
+			--vhead "GType @enum_name@_get_type (void) G_GNUC_CONST;\n#define IANJUTA_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
+			--ftail "G_END_DECLS\n\n#endif /* __ANJUTA_ENUM_TYPES_H__ */" \
+		$(libanjuta_interfaces_include) ) >> xgen-geth \
+	&& (cmp -s xgen-geth anjuta-interfaces-enum-types.h || cp xgen-geth anjuta-interfaces-enum-types.h ) \
+	&& rm -f xgen-geth \
+	&& echo timestamp > $(@F)
+	
+anjuta-interfaces-enum-types.c: Makefile
+	( cd $(srcdir) && $(GLIB_MKENUMS) \
+			--fhead "#include \"anjuta-interfaces-enum-types.h\"\n" \
+			--fprod "\n/* enumerations from \"@filename@\" */" \
+			--ftail "\n#define __IANJUTA_ENUM_TYPES_C__\n" \
+			--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {" \
+			--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
+			--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (g_intern_static_string (\"@EnumName@\"), values);\n  }\n  return etype;\n}\n" \
+		$(libanjuta_interfaces_include) ) > xgen-getc \
+	&& cp xgen-getc anjuta-interfaces-enum-types.c  \
+	&& rm -f xgen-getc
+
 EXTRA_DIST = \
 	iface-built.stamp \
+	$(libanjutainclude_HEADERS) \
 	libanjuta.idl \
 	Makefile.am.iface \
 	anjuta-idl-compiler.pl

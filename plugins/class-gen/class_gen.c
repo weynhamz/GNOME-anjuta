@@ -195,8 +195,8 @@ gobject_class_create_code (ClassGenData* data) {
 	/* Add to project first so that user could change the files path */
 	if (plugin->top_dir && add_to_project)
 	{
-		GSList* filenames = NULL;
-		GSList* added_files;
+		GList* filenames = NULL;
+		GList* added_files;
 		IAnjutaProjectManager *pm;
 		gchar *dirname, *curdir;
 		gboolean ret = TRUE;
@@ -208,8 +208,8 @@ gobject_class_create_code (ClassGenData* data) {
 		
 		curdir = g_get_current_dir ();
 		
-		filenames = g_slist_append(filenames, g_path_get_basename (source_filename));
-		filenames = g_slist_append(filenames, g_path_get_basename (header_filename));
+		filenames = g_list_append(filenames, g_path_get_basename (source_filename));
+		filenames = g_list_append(filenames, g_path_get_basename (header_filename));
 		
 		dirname  = g_path_get_dirname (source_filename);
 		if (dirname && strcmp (dirname, ".") != 0)
@@ -219,14 +219,14 @@ gobject_class_create_code (ClassGenData* data) {
 			added_files = ianjuta_project_manager_add_source_multi (pm, filenames,
 															  curdir, NULL);
 		
-		if (g_slist_length(added_files) != 2)
+		if (g_list_length(added_files) != 2)
 		{
 			/* User has canceled it or did not add all files */
-			GSList* node = added_files;
+			GList* node = added_files;
 			while (node)
 			{
 				g_free(node->data);
-				node = g_slist_next(node);
+				node = g_list_next(node);
 			}
 			ret = FALSE;
 		}	
@@ -236,7 +236,7 @@ gobject_class_create_code (ClassGenData* data) {
 			header_file = g_slist_next(added_files)->data;
 		}
 		g_free(curdir);
-		g_slist_free(added_files);
+		g_list_free(added_files);
 		if (ret == FALSE)
 			return FALSE;
 	}
@@ -502,8 +502,8 @@ generic_cpp_class_create_code (ClassGenData *data) {
 	/* Add to project first so that user could change the files path */
 	if (plugin->top_dir && add_to_project)
 	{
-		GSList* filenames = NULL;
-		GSList* added_files;
+		GList* filenames = NULL;
+		GList* added_files;
 		IAnjutaProjectManager *pm;
 		gchar *dirname, *curdir;
 		gboolean ret = TRUE;
@@ -516,8 +516,10 @@ generic_cpp_class_create_code (ClassGenData *data) {
 		curdir = g_get_current_dir ();
 		
 		if (!is_inline)
-			filenames = g_slist_append(filenames, g_path_get_basename (source_filename));
-		filenames = g_slist_append(filenames, g_path_get_basename (header_filename));
+		{
+			filenames = g_list_append(filenames, g_path_get_basename (source_filename));
+		}
+		filenames = g_list_append(filenames, g_path_get_basename (header_filename));
 		
 		dirname  = g_path_get_dirname (source_filename);
 		if (dirname && strcmp (dirname, ".") != 0)
@@ -527,15 +529,15 @@ generic_cpp_class_create_code (ClassGenData *data) {
 			added_files = ianjuta_project_manager_add_source_multi (pm, filenames,
 															  curdir, NULL);
 		
-		if ((g_slist_length(added_files) != 2 && !is_inline) ||
-			(g_slist_length(added_files) != 1 && is_inline))
+		if ((g_list_length(added_files) != 2 && !is_inline) ||
+			(g_list_length(added_files) != 1 && is_inline))
 		{
 			/* User has canceled it or did not add all files */
-			GSList* node = added_files;
+			GList* node = added_files;
 			while (node)
 			{
 				g_free(node->data);
-				node = g_slist_next(node);
+				node = g_list_next(node);
 			}
 			ret = FALSE;
 		}	
@@ -544,13 +546,13 @@ generic_cpp_class_create_code (ClassGenData *data) {
 			if (!is_inline)
 			{
 				source_file = added_files->data;
-				header_file = g_slist_next(added_files)->data;
+				header_file = g_list_next(added_files)->data;
 			}
 			else
 				header_file = added_files->data;
 		}
 		g_free(curdir);
-		g_slist_free(added_files);
+		g_list_free(added_files);
 		if (ret == FALSE)
 			return FALSE;
 	}

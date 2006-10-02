@@ -76,6 +76,7 @@ User Interface manager
 @entries: 
 @num_entries: 
 @translation_domain: 
+@can_customize: 
 @user_data: 
 @Returns: 
 
@@ -91,6 +92,7 @@ User Interface manager
 @entries: 
 @num_entries: 
 @translation_domain: 
+@can_customize: 
 @user_data: 
 @Returns: 
 
@@ -104,6 +106,7 @@ User Interface manager
 @action_group_name: 
 @action_group_label: 
 @action_group: 
+@can_customize: 
 
 
 <!-- ##### FUNCTION anjuta_ui_remove_action_group ##### -->

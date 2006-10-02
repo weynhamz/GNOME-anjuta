@@ -175,7 +175,7 @@ anjuta_plugin_class_init (AnjutaPluginClass *class)
 				      _("Anjuta Shell"),
 				      _("Anjuta shell that will contain the plugin"),
 				      ANJUTA_TYPE_SHELL,
-				      G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+				      G_PARAM_READWRITE/* | G_PARAM_CONSTRUCT_ONLY*/)); // Construct only does not work with libanjutamm
 	plugin_signals[ACTIVATED_SIGNAL] =
 		g_signal_new ("activated",
 					G_TYPE_FROM_CLASS (object_class),

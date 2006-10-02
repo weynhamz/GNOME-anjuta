@@ -15,12 +15,6 @@ typedef struct
   const gchar *name;
 } LoadedPlugin;
 
-typedef struct
-{
-  const gchar *path;
-  GHashTable *loaded_plugins;
-} PathEntry;
-
 struct _GlueFactory
 {
   GObject parent;
@@ -111,6 +105,11 @@ glue_factory_add_path (GlueFactory *factory, const gchar *path)
   factory->paths = g_list_prepend (factory->paths, entry);
     
   return TRUE;
+}
+
+GList* glue_factory_get_path(GlueFactory *factory)
+{
+	return factory->paths;
 }
 
 static LoadedPlugin *

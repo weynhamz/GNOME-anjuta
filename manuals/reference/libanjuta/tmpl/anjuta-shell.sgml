@@ -85,6 +85,7 @@ Application shell interface
 @value_removed: 
 @save_session: 
 @load_session: 
+@save_prompt: 
 @get_status: 
 @get_ui: 
 @get_preferences: 

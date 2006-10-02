@@ -48,6 +48,7 @@ ianjuta-debugger
 @send: 
 @sharedlib_event: 
 @status_changed: 
+@abort: 
 @attach: 
 @clear_breakpoint: 
 @condition_breakpoint: 

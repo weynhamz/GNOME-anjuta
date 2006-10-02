@@ -12,6 +12,12 @@ G_BEGIN_DECLS
 #define GLUE_IS_FACTORY_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((obj), GLUE_TYPE_FACTORY))
 #define GLUE_FACTORY_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), GLUE_TYPE_FACTORY, GlueFactoryClass))
 
+typedef struct
+{
+  const gchar *path;
+  GHashTable *loaded_plugins;
+} PathEntry;
+
 typedef struct _GlueFactory      GlueFactory;
 typedef struct _GlueFactoryClass GlueFactoryClass;
 
@@ -27,6 +33,7 @@ GObject     *glue_factory_create_object   (GlueFactory  *factory,
 					   const gchar  *component_name,
 					   const gchar  *type_name,
 					   ...);
+GList*			glue_factory_get_path (GlueFactory *factory);
 					   
 G_END_DECLS
 #endif /* __GLUE_FACTORY_H__ */

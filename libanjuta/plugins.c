@@ -11,6 +11,7 @@
 #include <libanjuta/libanjuta.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/glue-factory.h>
+#include <libanjuta/glue-cpp.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-plugin-description.h>
 #include <libanjuta/anjuta-debug.h>
@@ -588,8 +589,31 @@ activate_tool (AnjutaShell *shell, AvailableTool *tool)
 {
 	GType type;
 	GObject *ret;
+	gchar* lang;
 	if (!tool_types) {
 		tool_types = g_hash_table_new (g_str_hash, g_str_equal);
+	}
+	
+	if (anjuta_plugin_description_get_locale_string(tool->description, "Anjuta Plugin", "Language", &lang))
+	{
+		if (g_str_equal(lang, "C++"))
+		{
+			char **pieces;
+			pieces = g_strsplit (tool->id, ":", -1);
+			ret = glue_cpp_load_plugin(glue_factory, pieces[0], pieces[1]);
+			g_strfreev (pieces);
+			if (ret == NULL)
+			{
+				g_warning("Could not load C++ plugin: %s\n", tool->id);
+				return NULL;
+			}
+			g_object_set(ret, "shell", shell, NULL);
+			g_signal_connect (ret, "activated",
+						  G_CALLBACK (on_plugin_activated), tool);
+			g_signal_connect (ret, "deactivated",
+						  G_CALLBACK (on_plugin_deactivated), tool);
+			return ret;
+		}
 	}
 	
 	type = GPOINTER_TO_UINT (g_hash_table_lookup (tool_types, tool->id));
@@ -879,7 +903,9 @@ tool_set_update (AnjutaShell *shell, AvailableTool* selected_tool,
 				if (!tool_obj)
 					tool_obj = activate_tool (shell, tool);
 				if (tool_obj)
+				{
 					anjuta_plugin_activate (ANJUTA_PLUGIN (tool_obj));
+				}
 			}
 		}
 	}

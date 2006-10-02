@@ -675,6 +675,7 @@ sub generate_files
 		generate_class($c, $data_hr->{$c});
 	}
 	write_marshallers();
+	write_header();
 	write_makefile();
 }
 
@@ -856,6 +857,63 @@ sub construct_marshaller
 	return $marshal_index.",\n\t\t\t".$args_list;
 }
 
+sub convert_ret
+{
+	my ($ret) = @_;
+	
+	if ($ret =~ /List<.*>/ || $ret =~ /List-free<.*>/)
+	{
+		return "GList*";
+	}
+	elsif ($ret =~ /const List<.*>/ || $ret =~ /const List-free<.*>/)
+	{
+		return "const GList*";
+	}
+	else
+	{
+		return $ret;
+	}
+}
+
+sub convert_args
+{
+	my ($args) = @_;
+	my @argsv = split(',', $args);
+	foreach my $arg (@argsv)
+	{
+		my $arg_qual;
+		my $arg_type;
+		my $arg_name;
+		($arg_qual, $arg_type, $arg_name) = split(' ', $arg);
+		if (!$arg_name)
+		{
+			$arg_name = $arg_type;
+			$arg_type = $arg_qual;
+			$arg_qual = '';
+		}
+		while ($arg_name =~ /^\*/)
+		{
+			$arg_name = substr($arg_name, 1);
+			$arg_type .= '*';
+		}
+		if ($arg_qual)
+		{
+			$arg_type = join(' ', $arg_qual, $arg_type);
+		}
+		if ($arg_type =~ /List<.*>/ || $arg_type =~ /List-free<.*>/)
+		{
+			$arg_type = "GList*";
+		}
+		elsif ($arg_type =~ /const-List<.*>/ || $arg_type =~ /const-List-free<.*>/)
+		{
+			$arg_type = "const GList*";
+		}
+		$arg = join(' ', $arg_type, $arg_name);
+	}
+	$args = join(', ', @argsv);
+	return $args;
+}
+
 sub generate_class
 {
 	my ($class, $class_hr) = @_;
@@ -1017,12 +1075,14 @@ struct _${class}Iface {
 		my $func = $class_hr->{$m}->{'function'};
 		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
 		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
+		$args = convert_args($args);
 		if ($args ne '')
 		{
 			$args = ", ".$args;
 		}
 		if ($func =~ s/^\:\://)
 		{
+			$rettype = convert_ret($rettype);
 			$answer .= "\t/* Signal */\n";
 			$answer .= "\t$rettype (*$func) ($class *obj${args});\n";
 		}
@@ -1034,12 +1094,14 @@ struct _${class}Iface {
 		my $func = $class_hr->{$m}->{'function'};
 		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
 		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
+		$args = convert_args($args);
 		if ($args ne '')
 		{
 			$args .= ", ";
 		}
 		if ($func !~ /^\:\:/)
 		{
+			$rettype = convert_ret($rettype);
 			$answer .= "\t$rettype (*$func) ($class *obj, ${args}GError **err);\n";
 		}
 	}
@@ -1072,12 +1134,14 @@ GType  ${prefix}_get_type        (void);
 		my $func = $class_hr->{$m}->{'function'};
 		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
 		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
+		$args = convert_args($args);
 		if ($args ne '')
 		{
 			$args .= ", ";
 		}
 		if ($func !~ /^\:\:/)
 		{
+			$rettype = convert_ret($rettype);
 			$answer .= "${rettype} ${prefix}_$func ($class *obj, ${args}GError **err);\n\n";
 		}
 	}
@@ -1145,6 +1209,7 @@ ${prefix}_error_quark (void)
 
 		my $asserts = "\t".get_arg_assert($rettype, "$class *obj", 1)."\n";
 		## self assert;
+		$args = convert_args($args);
 		if ($args ne '')
 		{
 			my @params;
@@ -1165,11 +1230,13 @@ ${prefix}_error_quark (void)
 			$params .= ", ";
 		}
 		
+		$args = convert_args($args);
 		if ($args ne '')
 		{
 			$args .= ", ";
 		}
 		my $comments_out = $class_hr->{$m}->{'__comments'};
+		$rettype = convert_ret($rettype);
 		$answer .= "${comments_out}${rettype}\n${prefix}_$func ($class *obj, ${args}GError **err)\n";
 		$answer .= "{\n";
 		if ($asserts ne "")
@@ -1197,6 +1264,7 @@ ${prefix}_base_init (gpointer gclass)
 		my $func = $class_hr->{$m}->{'function'};
 		my $rettype = normalize_namespace($class, $class_hr->{$m}->{'rettype'});
 		my $args = normalize_namespace($class, $class_hr->{$m}->{'args'});
+		$args = convert_args($args);
 		if ($args ne '')
 		{
 			$args = ", ".$args;
@@ -1312,6 +1380,23 @@ sub write_marshallers
 	}
 }
 
+sub write_header
+{
+	my $iface_headers = "";
+	my $answer = 
+"
+/* Interfaces global include file */
+
+";
+;
+    foreach my $h (@header_files)
+    {
+    	$answer .= "#include \"$h\"\n";
+	}
+    write_file("libanjuta-interfaces.h", $answer);
+    push(@header_files, "libanjuta-interfaces.h");
+}
+
 sub write_makefile
 {
     my $iface_headers = "";
@@ -1330,7 +1415,7 @@ sub write_makefile
 ##    $iface_rules .= "${module_name}_interfaces_la_LIBADD = \n";
     $iface_rules .= "${module_name}_interfaces_la_SOURCES = $iface_sources\n";
     $iface_rules .= "${module_name}_interfaces_includedir = \$(MODULE_INCLUDEDIR)\n";
-    $iface_rules .= "${module_name}_interfaces_include_HEADERS = $iface_headers\n";
+    $iface_rules .= "${module_name}_interfaces_include = $iface_headers\n";
     
     my $contents = `cat Makefile.am.iface`;
     $contents =~ s/\@\@IFACE_RULES\@\@/$iface_rules/;

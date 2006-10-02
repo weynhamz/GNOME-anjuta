@@ -573,7 +573,7 @@ interface IAnjutaLoader
 	* 
 	* Returns all plugins supporting loader interface.
 	*/
-	GSList * find_plugins ();
+	List<AnjutaPlugin*> find_plugins ();
 	
 	/**
 	* IAnjutaFileLoader:
@@ -1394,7 +1394,7 @@ interface IAnjutaEditor
 		 * position when the choices are displayed.
 		 *
 		 */
-		void suggest (GList *choices, gint char_alignment);
+		void suggest (List<const gchar*> choices, gint char_alignment);
 		
 		/**
 		 * ianjuta_editor_assist_tip:
@@ -1411,7 +1411,7 @@ interface IAnjutaEditor
 		 * position when the choices are displayed.
 		 *
 		 */
-		void tip (GList *tips, gint char_alignment);
+		void tip (List<const gchar*> tips, gint char_alignment);
 		
 		/**
 		 * ianjuta_editor_assist_react:
@@ -1443,7 +1443,7 @@ interface IAnjutaEditor
 		 * Returns: A list of dynamically allocated strings. The whole
 		 * list, including the the strings should be freed when done.
 		 */
-		GList* get_suggestions (const gchar *context);
+		List-free<const gchar*> get_suggestions (const gchar *context);
 		
 		/**
 		 * ianjuta_editor_edit_autocomplete:
@@ -1470,7 +1470,7 @@ interface IAnjutaEditor
 	{
 		void ::language_changed (const gchar *language);
 		
-		const GList *get_supported_languages ();
+		const-List<const gchar*> get_supported_languages ();
 		const gchar *get_language_name (const gchar* language);
 		const gchar *get_language ();
 		void set_language (const gchar* language);
@@ -1790,7 +1790,7 @@ interface IAnjutaDocumentManager
 	* 
 	* fixme.
 	*/
-	const gchar * get_full_filename (const gchar *file);
+	const gchar* get_full_filename (const gchar *file);
 	
 	/**
 	* ianjuta_document_manager_find_editor_with_path:
@@ -1851,7 +1851,7 @@ interface IAnjutaDocumentManager
 	* 
 	* fixme
 	*/
-	GList* get_editors ();
+	List<IAnjutaEditor*> get_editors ();
 
 	/**
 	* ianjuta_document_manager_add_buffer:
@@ -1960,7 +1960,7 @@ interface IAnjutaMessageView
 	* 
 	* fixme
 	*/
-	GList* get_all_messages ();
+	List<const gchar*> get_all_messages ();
 }
 
 interface IAnjutaMessageManager
@@ -2031,7 +2031,7 @@ interface IAnjutaMessageManager
 	 * Return value: A GList* of all views. You must not
 	 * manipulate the list.
 	 */
-	GList* get_all_views ();
+	List<IAnjutaMessageView*> get_all_views ();
 	
 	/**
 	 * ianjuta_message_manager_set_current_view:
@@ -2191,7 +2191,7 @@ interface IAnjutaProjectManager
 	* 
 	* Returns: fixme
 	*/
-	GList* get_elements (ElementType element_type);
+	List<const gchar*> get_elements (ElementType element_type);
 	
 	/**
 	* ianjuta_project_manager_get_target_type:
@@ -2215,7 +2215,7 @@ interface IAnjutaProjectManager
 	* 
 	* Returns: fixme
 	*/
-	GList* get_targets (TargetType target_type);
+	List<const gchar*> get_targets (TargetType target_type);
 	
 	/**
 	* ianjuta_project_manager_get_parent:
@@ -2239,7 +2239,7 @@ interface IAnjutaProjectManager
 	*
 	* Returns: fixme
 	*/
-	GList* get_children (const gchar *element_uri);
+	List<const gchar*> get_children (const gchar *element_uri);
 	
 	/**
 	* ianjuta_project_manager_get_selected:
@@ -2276,7 +2276,7 @@ interface IAnjutaProjectManager
 	*
 	* Returns: element URIs. Must be freed when no longer required.
 	*/
-	GSList* add_source_multi (GSList *source_uri_to_add, const gchar *default_location_uri);
+	List-free<const gchar*> add_source_multi (List<const gchar*> source_uri_to_add, const gchar *default_location_uri);
 	
 	/**
 	* ianjuta_project_manager_add_target:
@@ -2459,7 +2459,7 @@ interface IAnjutaDebugger
 
 	/* Call back functions */
 	typedef void (*Callback) (const gpointer data, gpointer user_data, GError* err);
-	typedef void (*GListCallback) (const GList *list, gpointer user_data, GError* err);
+	typedef void (*GListCallback) (const GList* list, gpointer user_data, GError* err);
 	typedef void (*GCharCallback) (const gchar *value, gpointer user_data, GError* err);
 	typedef void (*BreakpointCallback) (const Breakpoint *breakpoint, gpointer user_data, GError* err);
 	typedef void (*OutputCallback) (OutputType type, const gchar *output, gpointer user_data);
@@ -2618,7 +2618,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
-	gboolean load (const gchar *file, const gchar *mime_type, const GList *source_search_directories);
+	gboolean load (const gchar *file, const gchar *mime_type, const-List<const gchar*> source_search_directories);
 	
 	/**
 	* ianjuta_debugger_attach:
@@ -2631,7 +2631,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
-	gboolean attach (pid_t pid, const GList *source_search_directories);
+	gboolean attach (pid_t pid, const-List<const gchar*> source_search_directories);
 	
 	/**
 	* ianjuta_debugger_start:
@@ -3288,7 +3288,7 @@ interface IAnjutaVariableDebugger
 	*
 	* Returns: fixme
 	*/
-	gboolean delete (const gchar *name);
+	gboolean delete_var (const gchar *name);
 }
 
 interface IAnjutaVcs
@@ -3505,7 +3505,7 @@ interface IAnjutaPrint
 
 interface IAnjutaLanguageSupport
 {
-    GList *get_supported_languages ();
+    const-List<const gchar*> get_supported_languages ();
     gboolean supports(const gchar *language);
 }
 
