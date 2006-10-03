@@ -58,9 +58,13 @@ anjuta-interfaces-enum-types.c: Makefile
 	&& cp xgen-getc anjuta-interfaces-enum-types.c  \
 	&& rm -f xgen-getc
 
+files_idl = libanjuta.idl
+idldir = $(MODULE_INCLUDEDIR)
+idl_HEADERS = $(files_idl)
+
 EXTRA_DIST = \
 	iface-built.stamp \
 	$(libanjutainclude_HEADERS) \
-	libanjuta.idl \
+	$(files_idl) \
 	Makefile.am.iface \
 	anjuta-idl-compiler.pl
