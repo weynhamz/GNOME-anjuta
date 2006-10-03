@@ -4,7 +4,7 @@
 
 SUBDIRS = po tagmanager scintilla global-tags \
 	libegg pixmaps scripts data \
-	doc libanjuta plugins src manuals mime 
+	doc libanjuta plugins src manuals mime launcher
 
 anjutadocdir = $(datadir)/doc/anjuta
 anjutadoc_DATA = \

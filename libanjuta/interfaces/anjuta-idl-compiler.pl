@@ -861,13 +861,13 @@ sub convert_ret
 {
 	my ($ret) = @_;
 	
-	if ($ret =~ /List<.*>/ || $ret =~ /List-free<.*>/)
-	{
-		return "GList*";
-	}
-	elsif ($ret =~ /const List<.*>/ || $ret =~ /const List-free<.*>/)
+	if ($ret =~ /const List<.*>/)
 	{
 		return "const GList*";
+	}
+	elsif ($ret =~ /List<.*>/)
+	{
+		return "GList*";
 	}
 	else
 	{
@@ -881,34 +881,16 @@ sub convert_args
 	my @argsv = split(',', $args);
 	foreach my $arg (@argsv)
 	{
-		my $arg_qual;
-		my $arg_type;
-		my $arg_name;
-		($arg_qual, $arg_type, $arg_name) = split(' ', $arg);
-		if (!$arg_name)
+		if ($arg =~ /const List<.*>.*/)
 		{
-			$arg_name = $arg_type;
-			$arg_type = $arg_qual;
-			$arg_qual = '';
+			my @arg_name = split(' ', $arg);
+			$arg = join(' ',"const GList*", $arg_name[-1]);
 		}
-		while ($arg_name =~ /^\*/)
+		elsif ($arg =~ /.*List<.*>.*/)
 		{
-			$arg_name = substr($arg_name, 1);
-			$arg_type .= '*';
+			my @arg_name = split(' ', $arg);
+			$arg = join(' ', "GList*", $arg_name[-1]);
 		}
-		if ($arg_qual)
-		{
-			$arg_type = join(' ', $arg_qual, $arg_type);
-		}
-		if ($arg_type =~ /List<.*>/ || $arg_type =~ /List-free<.*>/)
-		{
-			$arg_type = "GList*";
-		}
-		elsif ($arg_type =~ /const-List<.*>/ || $arg_type =~ /const-List-free<.*>/)
-		{
-			$arg_type = "const GList*";
-		}
-		$arg = join(' ', $arg_type, $arg_name);
 	}
 	$args = join(', ', @argsv);
 	return $args;

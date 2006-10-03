@@ -1443,7 +1443,7 @@ interface IAnjutaEditor
 		 * Returns: A list of dynamically allocated strings. The whole
 		 * list, including the the strings should be freed when done.
 		 */
-		List-free<const gchar*> get_suggestions (const gchar *context);
+		List<const gchar*> get_suggestions (const gchar *context);
 		
 		/**
 		 * ianjuta_editor_edit_autocomplete:
@@ -1470,7 +1470,7 @@ interface IAnjutaEditor
 	{
 		void ::language_changed (const gchar *language);
 		
-		const-List<const gchar*> get_supported_languages ();
+		List<const gchar*> get_supported_languages ();
 		const gchar *get_language_name (const gchar* language);
 		const gchar *get_language ();
 		void set_language (const gchar* language);
@@ -2276,7 +2276,7 @@ interface IAnjutaProjectManager
 	*
 	* Returns: element URIs. Must be freed when no longer required.
 	*/
-	List-free<const gchar*> add_source_multi (List<const gchar*> source_uri_to_add, const gchar *default_location_uri);
+	List<const gchar*> add_source_multi (List<const gchar*> source_uri_to_add, const gchar *default_location_uri);
 	
 	/**
 	* ianjuta_project_manager_add_target:
@@ -2618,7 +2618,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
-	gboolean load (const gchar *file, const gchar *mime_type, const-List<const gchar*> source_search_directories);
+	gboolean load (const gchar *file, const gchar *mime_type, const List<const gchar*> source_search_directories);
 	
 	/**
 	* ianjuta_debugger_attach:
@@ -2631,7 +2631,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
-	gboolean attach (pid_t pid, const-List<const gchar*> source_search_directories);
+	gboolean attach (pid_t pid, const List<const gchar*> source_search_directories);
 	
 	/**
 	* ianjuta_debugger_start:
@@ -3505,7 +3505,7 @@ interface IAnjutaPrint
 
 interface IAnjutaLanguageSupport
 {
-    const-List<const gchar*> get_supported_languages ();
+    const List<const gchar*> get_supported_languages ();
     gboolean supports(const gchar *language);
 }
 

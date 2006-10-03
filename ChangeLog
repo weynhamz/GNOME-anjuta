@@ -1,5 +1,14 @@
 2006-10-03  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/interfaces/anjuta-idl-compiler.pl:
+	* libanjuta/interfaces/libanjuta.idl:
+	const-List<> => const List<>
+	List-free<> => List<>
+	
+	* Makefile.am: Reenabled launcher
+
+2006-10-03  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/interfaces/Makefile.am.iface:
 	Install libanjuta.idl
 
