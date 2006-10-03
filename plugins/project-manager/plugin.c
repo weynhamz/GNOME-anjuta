@@ -1618,15 +1618,13 @@ project_manager_plugin_close_project(ProjectManagerPlugin* plugin, PMProject* pr
 	gint id;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	GObject *docman;
+	IAnjutaDocumentManager *docman;
 
 	g_return_if_fail(prj != NULL);
 	
 	/* Close files that belong to this project (that are saved) */
-	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
-					  "document_manager",
-					  G_TYPE_OBJECT, &docman,
-					  NULL);
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										 IAnjutaDocumentManager, NULL);
 	if (docman)
 	{
 		GList *to_remove = NULL;
@@ -1658,8 +1656,10 @@ project_manager_plugin_close_project(ProjectManagerPlugin* plugin, PMProject* pr
 		node = to_remove;
 		while (node)
 		{
-			/* FIXME: */
-			/* ianjuta_file_close (node->data); */
+			ianjuta_document_manager_remove_buffer (docman,
+											IANJUTA_EDITOR (node->data),
+													FALSE,
+													NULL);
 			node = g_list_next (node);
 		}
 		if (editors)

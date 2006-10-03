@@ -1002,8 +1002,11 @@ anjuta_app_remove_widget (AnjutaShell *shell, GtkWidget *widget,
 	dock_item = g_object_get_data (G_OBJECT (widget), "dockitem");
 	g_return_if_fail (dock_item != NULL);
 	
-	/* Following unbind will remove the widget from hash */
-	gdl_dock_item_unbind (GDL_DOCK_ITEM (dock_item));
+	/* Remove the widget from container */
+	g_object_ref (widget);
+	/* It should call on_widget_remove() and clean up should happen */
+	gtk_container_remove (GTK_CONTAINER (dock_item), widget);
+	g_object_unref (widget);
 }
 
 static void 

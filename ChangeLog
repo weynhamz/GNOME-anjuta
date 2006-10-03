@@ -1,3 +1,15 @@
+2006-10-03  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl, plugins/document-manager/plugin.c,
+	plugins/project-manager/plugin.c: Added a new API in
+	IAnjutaDocumentManager called ianjuta_document_manager_remove_editor().
+	Added some documentation. On project close, close all editors that
+	has files opened for the project.
+	
+	* plugins/glade/plugin.c, src/anjuta-app.c: Remove client widgets
+	from the containers on anjuta_shell_remove_widget(). Do not destroy
+	glade widgets once created.
+	
 2006-10-03  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl:

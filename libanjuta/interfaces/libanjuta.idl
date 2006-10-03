@@ -1785,43 +1785,54 @@ interface IAnjutaDocumentManager
 	/**
 	* ianjuta_document_manager_get_full_filename:
 	* @obj: Self
-	* @file: fixme
+	* @file: short filename
 	* @err: Error propagation and reporting.
 	* 
-	* fixme.
+	* Given the short filename, finds the full path of the file, if the
+	* editor that has it loaded is found. If there is no editor that has
+	* this file opened, returns NULL.
+	* 
+	* Return value: the full path of the file, if an editor is found for it.
 	*/
 	const gchar* get_full_filename (const gchar *file);
 	
 	/**
 	* ianjuta_document_manager_find_editor_with_path:
 	* @obj: Self
-	* @file_path: fixme
+	* @file_path: the file path.
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Finds the editor that has the file with path @file_path loaded. Only
+	* the editor that matches the file path will be searched.
+	* 
+	* Return value: the editor that corresponds to given file path. NULL if
+	* there is no editor loaded with this file path.
 	*/
 	IAnjutaEditor* find_editor_with_path (const gchar *file_path);
 	
 	/**
 	* ianjuta_document_manager_goto_file_line:
 	* @obj: Self
-	* @file: fixme
-	* @lineno: fixme
+	* @file: the file to go to.
+	* @lineno: the line number in the file to go to.
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Loads the given file if not loaded yet, set its editor as current editor
+	* and moves cursor to the given line in the editor.
 	*/
 	void goto_file_line (const gchar *file, gint lineno);
 	
 	/** 
 	* ianjuta_document_manager_goto_file_line_mark:
 	* @obj: Self
-	* @file: fixme
-	* @lineno: fixme
-	* @mark: fixme
+	* @file: the file to go to.
+	* @lineno: the line number in the file to go to.
+	* @mark: TRUE if the line should be marked with a marker.
 	* @err: Error propagation and reporting
 	* 
-	* fixme
+	* Loads the given file if not loaded yet, set its editor as current editor
+	* and moves cursor to the given line in the editor. Optionally also marks
+	* the line with line marker if @mark is given TRUE.
 	*/
 	void goto_file_line_mark (const gchar *file, gint lineno, gboolean mark);
 	
@@ -1830,17 +1841,19 @@ interface IAnjutaDocumentManager
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Gets the current editor.
+	* 
+	* Return value: the currently active editor. NULL if none is there.
 	*/
 	IAnjutaEditor* get_current_editor ();
 	
 	/** 
 	* ianjuta_document_manager_set_current_editor:
 	* @obj: Self
-	* @editor: fixme
+	* @editor: the editor to set as current.
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Sets the given editor as current editor.
 	*/
 	void set_current_editor (IAnjutaEditor *editor);
 	
@@ -1849,20 +1862,40 @@ interface IAnjutaDocumentManager
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Gets the current list of editors.
+	*
+	* Return value: the list of current available editors. The returned
+	* list must be freed after use (not the editor objects in the list).
 	*/
 	List<IAnjutaEditor*> get_editors ();
 
 	/**
 	* ianjuta_document_manager_add_buffer:
 	* @obj: Self
-	* @name: fixme
-	* @content: fixme
+	* @name: Name of the editor buffer.
+	* @content: Initial content of the buffer.
 	* @err: Error propagation and reporting.
 	* 
-	* New editor buffer
+	* Creates a new editor buffer of the given name and sets the given
+	* content as its initial content.
+	* 
+	* Return value: the IAnjutaEditor instance that has been added.
 	*/
 	IAnjutaEditor* add_buffer (const gchar *name, const gchar* content);
+	
+	/**
+	* ianjuta_document_manager_remove_buffer:
+	* @obj: Self
+	* @editor: Editor buffer to close.
+	* @save_before: If true, saves the editor before closing.
+	* @err: Error propagation and reporting.
+	*
+	* Closes and removes the given editor buffer. If @save_before is TRUE, also
+	* saves the editor before closing.
+	*
+	* Return value: TRUE if the editor was removed, else FALSE.
+	*/
+	gboolean remove_buffer (IAnjutaEditor *editor, gboolean save_before);
 }
 
 interface IAnjutaMessageView

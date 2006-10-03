@@ -1671,6 +1671,26 @@ ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 	return NULL;
 }
 
+static gboolean
+ianjuta_docman_remove_buffer (IAnjutaDocumentManager *plugin,
+							  IAnjutaEditor *editor,
+							  gboolean save_before, GError **e)
+{
+	gint ret_val = TRUE;
+	AnjutaDocman *docman;
+	docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
+	
+	if (save_before)
+	{
+		ret_val = anjuta_docman_save_editor (docman, editor,
+								 GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell));
+	}
+	if (ret_val)
+		anjuta_docman_remove_editor (docman, editor);
+	
+	return ret_val;
+}
+
 static void
 ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 {
@@ -1682,6 +1702,7 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 	iface->goto_file_line = ianjuta_docman_goto_file_line;
 	iface->goto_file_line_mark = ianjuta_docman_goto_file_line_mark;
 	iface->add_buffer = ianjuta_docman_add_buffer;
+	iface->remove_buffer = ianjuta_docman_remove_buffer;
 }
 
 /* Implement IAnjutaFile interface */
