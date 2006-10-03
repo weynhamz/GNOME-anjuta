@@ -24,9 +24,27 @@ box (instead of hardcoded names in the source).</comment>
       <comment>A generic print interface</comment>
     </item>
     <item>
-      <attribute id="1159555748" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159555748"/>
+      <attribute id="1159907132" priority="1" done="0" start_date="732587" enddate="99999999" notify="0" endtime="-60" last_edited="1159907262"/>
+      <summary>Bug fixing batch #1</summary>
+      <comment>[Skill: Medium, Work: 12hrs, Bounty: $25]
+
+* Bug #346777    Cannot change the editor font
+* Bug #351214    Anjuta doesn't respect Gnome blinking cursor preference
+* Bug #357151    a + character in a directory name confuses anjuta
+* Bug #357541    can't launch Anjuta project file from Nautilus
+* Bug #357820    Goto / Previous history should return to previous cursor ...</comment>
+    </item>
+    <item>
+      <attribute id="1159907660" priority="1" done="0" start_date="732587" enddate="99999999" notify="0" endtime="-60" last_edited="1159907660"/>
+      <summary>Automated tests for Anjuta</summary>
+      <comment>[Skill: Basic, Work: 20hrs]
+
+Implement automated tests for Anjuta using either LDTP (http://ldtp.freedesktop.org/wiki/) or Dogtail (http://people.redhat.com/zcerza/dogtail/), which ever is better. Test cases should cover existing features and be able to easily extend for future features. The implementation should alow running the test cases in an automated setup (such as a remote server with a sutable running platform).</comment>
+    </item>
+    <item>
+      <attribute id="1159555748" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159907684"/>
       <summary>Performance Profiler plugin</summary>
-      <comment>[Skill: medium, Work: 30hrs]
+      <comment>[Skill: medium, Work: 30hrs, Bounty: $500, Status: Assigned]
 
 gprof is a command line tool for profiling program performance. The executable is required to be compiled with -p flag and when the program is executed, a profiling info is collected in a file. After the execution is done, gprof can be used to interpret the profile data. This plugin parses the output from gprof and presents the information in different views -- text, lists and graphs.</comment>
     </item>

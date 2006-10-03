@@ -1,5 +1,8 @@
 2006-10-03  Naba Kumar  <naba@gnome.org>
 
+	* TODO.tasks: Set 'Profiler plugin' task to assigned. Added new
+	tasks 'Automated tests for Anjuta' and 'Bug fixing batch #1'
+
 	* libanjuta/interfaces/libanjuta.idl, plugins/document-manager/plugin.c,
 	plugins/project-manager/plugin.c: Added a new API in
 	IAnjutaDocumentManager called ianjuta_document_manager_remove_editor().
