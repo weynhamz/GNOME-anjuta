@@ -1,3 +1,11 @@
+2006-10-03  Adam Dingle <adam@medovina.org>
+ 
+ 	* plugins/document-manager/plugin.c: fixed bug #351387 (don't use Alt+key for shortcuts)
+ 	
+ 	*  plugins/debug-manager/debug_tree.c:
+	*  plugins/debug-manager/debugger.c:
+	Fixed bug #359317 (can't load debug manager)
+
 2006-10-03  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Set 'Profiler plugin' task to assigned. Added new

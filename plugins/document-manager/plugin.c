@@ -159,7 +159,7 @@ static GtkActionEntry actions_file[] = {
   { "ActionFileClose", N_("_Close File"), GTK_STOCK_CLOSE, "<control>w",
 	N_("Close current file"),
     G_CALLBACK (on_close_file_activate)},
-  { "ActionFileCloseAll", N_("Close All Files"), GTK_STOCK_CLOSE, "<alt>d",
+  { "ActionFileCloseAll", N_("Close All Files"), GTK_STOCK_CLOSE, "<shift><control>w",
 	N_("Close all files"),
     G_CALLBACK (on_close_all_file_activate)},
   { "ActionFileReload", N_("Reload F_ile"), GTK_STOCK_REVERT_TO_SAVED, NULL,
@@ -172,7 +172,7 @@ static GtkActionEntry actions_file[] = {
 };
 
 static GtkActionEntry actions_print[] = {
-  { "ActionPrintFile", N_("_Print"), GTK_STOCK_PRINT, "<alt>p",
+  { "ActionPrintFile", N_("_Print"), GTK_STOCK_PRINT, "<control>p",
 	N_("Print the current file"), G_CALLBACK (anjuta_print_cb)},
   { "ActionPrintPreview", N_("_Print Preview"), NULL, NULL,
 	N_("Print preview of the current file"),
@@ -206,11 +206,11 @@ static GtkActionEntry actions_select[] = {
   { "ActionEditSelectAll", N_("Select _All"), NULL, "<control>a",
 	N_("Select all text in the editor"),
     G_CALLBACK (on_editor_command_select_all_activate)},
-  { "ActionEditSelectToBrace", N_("Select to _Brace"), NULL, "<alt>a",
+  { "ActionEditSelectToBrace", N_("Select to _Brace"), NULL, NULL,
 	N_("Select the text in the matching braces"),
     G_CALLBACK (on_editor_command_select_to_brace_activate)},
   { "ActionEditSelectBlock", N_("Select _Code Block"),
-	ANJUTA_STOCK_BLOCK_SELECT, "<alt>b",
+	ANJUTA_STOCK_BLOCK_SELECT, "<shift><control>b",
 	N_("Select the current code block"),
     G_CALLBACK (on_editor_command_select_block_activate)},
 };

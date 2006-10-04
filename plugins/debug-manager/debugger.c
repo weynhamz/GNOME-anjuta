@@ -1171,7 +1171,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 			ianjuta_debugger_handle_signal (this->debugger, cmd->signal.name, cmd->signal.stop, cmd->signal.print, cmd->signal.ignore, NULL);	
 			break;
 		case DELETE_VARIABLE:
-			ianjuta_variable_debugger_delete (this->debugger, cmd->var.name, NULL);
+			ianjuta_variable_debugger_delete_var (this->debugger, cmd->var.name, NULL);
 			break;
 		case ASSIGN_VARIABLE:
 			ianjuta_variable_debugger_assign (this->debugger, cmd->var.name, cmd->var.value, NULL);

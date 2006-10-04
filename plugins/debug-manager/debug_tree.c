@@ -227,7 +227,7 @@ free_item_data(item_data * this)
 		{
 			/* Object has been created in debugger and is not a child
 			 * (destroyed with their parent) */
-			ianjuta_variable_debugger_delete (IANJUTA_VARIABLE_DEBUGGER (this->tree->debugger), this->name, NULL);
+			ianjuta_variable_debugger_delete_var (IANJUTA_VARIABLE_DEBUGGER (this->tree->debugger), this->name, NULL);
 		}
 	}
 	if (this->transport != NULL)
@@ -657,7 +657,7 @@ gdb_var_create (IAnjutaDebuggerVariable *variable, gpointer user_data, GError *e
 		/* Item has been deleted */
 		if ((data->tree->debugger) && (variable->name))
 		{
-			ianjuta_variable_debugger_delete (IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger), variable->name, NULL);
+			ianjuta_variable_debugger_delete_var (IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger), variable->name, NULL);
 		}
 		free_data_transport (data);
 		
