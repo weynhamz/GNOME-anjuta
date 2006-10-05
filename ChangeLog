@@ -1,6 +1,12 @@
+2006-10-05  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Set 'Improve class widzard' task to assigned.
+	Set bug id for 'Profiler plugin' task.
+	
 2006-10-03  Adam Dingle <adam@medovina.org>
  
- 	* plugins/document-manager/plugin.c: fixed bug #351387 (don't use Alt+key for shortcuts)
+ 	* plugins/document-manager/plugin.c: fixed bug #351387 (don't
+	use Alt+key for shortcuts)
  	
  	*  plugins/debug-manager/debug_tree.c:
 	*  plugins/debug-manager/debugger.c:
