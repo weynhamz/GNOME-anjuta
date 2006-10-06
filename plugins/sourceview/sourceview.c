@@ -922,7 +922,7 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->goto_line = ieditor_goto_line;
 	iface->goto_position = ieditor_goto_position;
 	iface->get_text = ieditor_get_text;
-	iface->get_attributes = ieditor_get_attributes;
+//	iface->get_attributes = ieditor_get_attributes;
 	iface->get_position = ieditor_get_position;
 	iface->get_lineno = ieditor_get_lineno;
 	iface->get_length = ieditor_get_length;

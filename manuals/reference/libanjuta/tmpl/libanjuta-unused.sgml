@@ -2617,6 +2617,17 @@ Properties
 @err: 
 @Returns: 
 
+<!-- ##### FUNCTION ianjuta_editor_get_attributes ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start: 
+@length: 
+@err: 
+@Returns: 
+
 <!-- ##### FUNCTION ianjuta_editor_get_current_pos ##### -->
 <para>
 

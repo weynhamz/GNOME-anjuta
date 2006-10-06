@@ -52,7 +52,6 @@
 @end_undo_action: 
 @erase: 
 @erase_all: 
-@get_attributes: 
 @get_cell_iter: 
 @get_column: 
 @get_current_word: 
@@ -123,18 +122,6 @@
 
 @obj: 
 @err: 
-
-
-<!-- ##### FUNCTION ianjuta_editor_get_attributes ##### -->
-<para>
-
-</para>
-
-@obj: 
-@start: 
-@length: 
-@err: 
-@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_editor_get_column ##### -->
