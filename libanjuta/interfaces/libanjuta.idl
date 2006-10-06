@@ -520,7 +520,7 @@ interface IAnjutaBuildable
 */
 interface IAnjutaProfile
 {
-	#include <libanjuta/e-splash.h>
+	/* #include <libanjuta/e-splash.h>*/
 	
 	/**
 	* ianjuta_profile_load:
@@ -1470,7 +1470,7 @@ interface IAnjutaEditor
 	{
 		void ::language_changed (const gchar *language);
 		
-		List<const gchar*> get_supported_languages ();
+		const List<const gchar*> get_supported_languages ();
 		const gchar *get_language_name (const gchar* language);
 		const gchar *get_language ();
 		void set_language (const gchar* language);
@@ -2295,7 +2295,7 @@ interface IAnjutaProjectManager
 	*
 	* Returns: element URIs. Must be freed when no longer required.
 	*/
-	char* add_source (const gchar *source_uri_to_add, const gchar *default_location_uri);
+	gchar* add_source (const gchar *source_uri_to_add, const gchar *default_location_uri);
 	
 	/**
 	* ianjuta_project_manager_add_source_multi:
@@ -2358,7 +2358,7 @@ interface IAnjutaTodo
 	* 
 	* fixme
 	*/
-	void load(gchar *uri);
+	void load(const gchar *uri);
 }
 
 interface IAnjutaWizard
@@ -3538,7 +3538,7 @@ interface IAnjutaPrint
 
 interface IAnjutaLanguageSupport
 {
-    const List<const gchar*> get_supported_languages ();
+    List<const gchar*> get_supported_languages ();
     gboolean supports(const gchar *language);
 }
 

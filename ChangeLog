@@ -1,3 +1,13 @@
+2006-10-06  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/Makefile.iface.am:
+	Fixed enum-types.h generation
+	* libanjuta/interfaces/libanjuta.idl:
+	char* => gchar*
+	IAnjutaTODO::load should take const gchar* argument
+	Remove include to libanjuta/e-splash.h which is not installed as header file
+	* plugins/gtodo/plugin.c: itodo_load now with const gchar* argument
+
 2006-10-05  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Set 'Improve class widzard' task to assigned.

@@ -42,7 +42,7 @@ stamp-anjuta-interfaces-enum-types.h: Makefile $(libanjuta_interfaces_include) a
 			--vhead "GType @enum_name@_get_type (void) G_GNUC_CONST;\n#define IANJUTA_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n" \
 			--ftail "G_END_DECLS\n\n#endif /* __ANJUTA_ENUM_TYPES_H__ */" \
 		$(libanjuta_interfaces_include) ) >> xgen-geth \
-	&& (cmp -s xgen-geth anjuta-interfaces-enum-types.h || cp xgen-geth anjuta-interfaces-enum-types.h ) \
+	&& (cmp -s xgen-geth anjuta-interfaces-enum-types.h || sed "s/i_/i/" xgen-geth > anjuta-interfaces-enum-types.h ) \
 	&& rm -f xgen-geth \
 	&& echo timestamp > $(@F)
 	
@@ -55,7 +55,7 @@ anjuta-interfaces-enum-types.c: Makefile
 			--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
 			--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (g_intern_static_string (\"@EnumName@\"), values);\n  }\n  return etype;\n}\n" \
 		$(libanjuta_interfaces_include) ) > xgen-getc \
-	&& cp xgen-getc anjuta-interfaces-enum-types.c  \
+	&& sed "s/i_/i/" xgen-getc > anjuta-interfaces-enum-types.c  \
 	&& rm -f xgen-getc
 
 files_idl = libanjuta.idl

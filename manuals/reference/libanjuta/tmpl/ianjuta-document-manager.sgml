@@ -50,6 +50,7 @@
 @get_full_filename: 
 @goto_file_line: 
 @goto_file_line_mark: 
+@remove_buffer: 
 @set_current_editor: 
 
 <!-- ##### FUNCTION ianjuta_document_manager_error_quark ##### -->

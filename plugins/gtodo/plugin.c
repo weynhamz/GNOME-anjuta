@@ -241,7 +241,7 @@ gtodo_plugin_class_init (GObjectClass *klass)
 }
 
 static void
-itodo_load (IAnjutaTodo *profile, gchar *filename, GError **err)
+itodo_load (IAnjutaTodo *profile, const gchar *filename, GError **err)
 {
 	g_return_if_fail (filename != NULL);
 	gtodo_client_load (cl, filename);
