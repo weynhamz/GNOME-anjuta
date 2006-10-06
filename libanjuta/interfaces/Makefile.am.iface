@@ -12,7 +12,7 @@ MODULE_LIBS = $(GTK_LIBS)
 
 @@IFACE_RULES@@
 
-BUILT_SOURCES = iface-built.stamp anjuta-interfaces-enum-types.h anjuta-interfaces-enum-types.c
+BUILT_SOURCES = iface-built.stamp anjuta-interfaces-enum-types.h
 
 iface-built.stamp: libanjuta.idl Makefile.am.iface anjuta-idl-compiler.pl
 	savedir=`pwd` && \
@@ -29,13 +29,12 @@ libanjuta_interfaces_include_HEADERS =	$(libanjuta_interfaces_include) \
 	anjuta-interfaces-enum-types.h
 
 libanjuta_interfaces_la_SOURCES += \
-		anjuta-interfaces-enum-types.h  \
-		anjuta-interfaces-enum-types.c
+		anjuta-interfaces-enum-types.h  
 
 
 anjuta-interfaces-enum-types.h: stamp-anjuta-interfaces-enum-types.h
 	@true
-stamp-anjuta-interfaces-enum-types.h: Makefile $(libanjuta_interfaces_include) anjuta-interfaces-enum-types.c
+stamp-anjuta-interfaces-enum-types.h: Makefile $(libanjuta_interfaces_include) 
 	( cd $(srcdir) && $(GLIB_MKENUMS) \
 			--fhead "#ifndef __ANJUTA_ENUM_TYPES_H__\n#define __ANJUTA_ENUM_TYPES_H__\n\n#include <libanjuta/interfaces/libanjuta-interfaces.h>\n\nG_BEGIN_DECLS\n" \
 			--fprod "/* enumerations from \"@filename@\" */\n" \
@@ -46,18 +45,6 @@ stamp-anjuta-interfaces-enum-types.h: Makefile $(libanjuta_interfaces_include) a
 	&& rm -f xgen-geth \
 	&& echo timestamp > $(@F)
 	
-anjuta-interfaces-enum-types.c: Makefile
-	( cd $(srcdir) && $(GLIB_MKENUMS) \
-			--fhead "#include \"anjuta-interfaces-enum-types.h\"\n" \
-			--fprod "\n/* enumerations from \"@filename@\" */" \
-			--ftail "\n#define __IANJUTA_ENUM_TYPES_C__\n" \
-			--vhead "GType\n@enum_name@_get_type (void)\n{\n  static GType etype = 0;\n  if (etype == 0) {\n    static const G@Type@Value values[] = {" \
-			--vprod "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
-			--vtail "      { 0, NULL, NULL }\n    };\n    etype = g_@type@_register_static (g_intern_static_string (\"@EnumName@\"), values);\n  }\n  return etype;\n}\n" \
-		$(libanjuta_interfaces_include) ) > xgen-getc \
-	&& sed "s/i_/i/" xgen-getc > anjuta-interfaces-enum-types.c  \
-	&& rm -f xgen-getc
-
 files_idl = libanjuta.idl
 idldir = $(MODULE_INCLUDEDIR)
 idl_HEADERS = $(files_idl)

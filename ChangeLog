@@ -6,6 +6,7 @@
 	char* => gchar*
 	IAnjutaTODO::load should take const gchar* argument
 	Remove include to libanjuta/e-splash.h which is not installed as header file
+	Attribute* => List<Attribute>
 	* plugins/gtodo/plugin.c: itodo_load now with const gchar* argument
 
 2006-10-05  Naba Kumar  <naba@gnome.org>

@@ -847,7 +847,7 @@ interface IAnjutaEditor
 	 * characters starting at begining position and ending at end position.
 	 * The returned buffer must be freed when no longer required.
 	 */
-	Attribute* get_attributes (gint start, gint length);
+	List<Attribute> get_attributes (gint start, gint length);
 
 	/*
 	 * ianjuta_editor_get_position:
