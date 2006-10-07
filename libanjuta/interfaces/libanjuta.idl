@@ -3334,7 +3334,7 @@ interface IAnjutaVcs
 	 * @err: Error propagation and reporting
 	 *
 	 * Add filename to the cvs repositry.
-ve	 */
+	 */
 	void add(const gchar* filename);
 	
 	/**

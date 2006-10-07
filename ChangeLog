@@ -2,8 +2,10 @@
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl:
 	* libanjuta/interfaces/Makefile.iface.am:
-	
 	Fixed enum types generation
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Fixed some strange typo
 
 2006-10-06  Johannes Schmid <jhs@gnome.org>
 
