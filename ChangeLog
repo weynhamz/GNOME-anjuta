@@ -1,3 +1,10 @@
+2006-10-07  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/anjuta-idl-compiler.pl:
+	* libanjuta/interfaces/Makefile.iface.am:
+	
+	Fixed enum types generation
+
 2006-10-06  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/Makefile.iface.am:

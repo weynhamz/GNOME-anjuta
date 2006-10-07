@@ -896,6 +896,13 @@ sub convert_args
 	return $args;
 }
 
+sub enum_split
+{
+	(my $e) = @_;
+	$e = substr($e, 0, 1) . "_" . substr($e, 1);
+	return $e;
+}
+
 sub generate_class
 {
 	my ($class, $class_hr) = @_;
@@ -986,8 +993,11 @@ G_BEGIN_DECLS
 	{
 		foreach my $e (sort keys %$enums_hr)
 		{
-			my $e_upper = uc($e);
-			my $e_lower = lc($e);
+			# add an underscore if necassery
+			my $se = $e;
+			$se =~ s/[a-z][A-Z]/enum_split($&)/e;
+			my $e_upper = uc($se);
+			my $e_lower = lc($se);
 			my $e_macro = "${macro_type}_${e_upper}";
 			my $e_proto = "${prefix}_${e_lower}_get_type";
 			$answer .=
@@ -1096,7 +1106,10 @@ struct _${class}Iface {
 	{
 		foreach my $e (sort keys %$enums_hr)
 		{
-			my $e_lower = lc($e);
+			# add an underscore if necassery
+			my $se = $e;
+			$se =~ s/[a-z][A-Z]/enum_split($&)/e;
+			my $e_lower = lc($se);
 			my $e_proto = "${prefix}_${e_lower}_get_type";
 			$answer .=
 "GType $e_proto (void);
@@ -1300,7 +1313,10 @@ ${prefix}_get_type (void)
 	{
 		foreach my $e (sort keys %$enums_hr)
 		{
-			my $e_lower = lc($e);
+			# add an underscore if necassery
+			my $se = $e;
+			$se =~ s/[a-z][A-Z]/enum_split($&)/e;
+			my $e_lower = lc($se);
 			$answer .=
 "
 GType
