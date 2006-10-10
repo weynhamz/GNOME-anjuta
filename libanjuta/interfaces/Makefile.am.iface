@@ -12,7 +12,7 @@ MODULE_LIBS = $(GTK_LIBS)
 
 @@IFACE_RULES@@
 
-BUILT_SOURCES = iface-built.stamp anjuta-interfaces-enum-types.h
+BUILT_SOURCES = iface-built.stamp
 
 iface-built.stamp: libanjuta.idl Makefile.am.iface anjuta-idl-compiler.pl
 	savedir=`pwd` && \

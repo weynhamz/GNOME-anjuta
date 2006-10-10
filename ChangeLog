@@ -1,3 +1,8 @@
+2006-10-10  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/Makefile.am.iface:
+	Fixed Makefile with broke build
+
 2006-10-07  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl:
