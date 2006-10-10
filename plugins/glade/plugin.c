@@ -652,7 +652,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		
 		priv->view = glade_project_view_new (GLADE_PROJECT_VIEW_TREE);
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->view),
-						GTK_POLICY_NEVER, GTK_POLICY_NEVER);
+						GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
 		glade_app_add_project_view (priv->view);
 		gtk_box_pack_start (GTK_BOX (priv->view_box), GTK_WIDGET (priv->view),

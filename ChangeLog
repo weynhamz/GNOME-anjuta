@@ -1,5 +1,10 @@
 2006-10-10  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/glade/plugin.c:
+	Add scrollbars to glade project window
+
+2006-10-10  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/interfaces/Makefile.am.iface:
 	Fixed Makefile with broke build
 
