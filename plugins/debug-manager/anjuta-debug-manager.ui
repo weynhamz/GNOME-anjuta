@@ -19,6 +19,7 @@
 				<menuitem name="PauseProgram" action="ActionGdbPauseProgram" />
 				<separator name="separator4"/>
 				<menuitem name="SetBreakpoint" action="ActionGdbSetBreakpoint" />
+                		<menuitem name="ToggleBreakpoint" action="ActionGdbToggleBreakpoint" />
 				<menuitem name="DisableAllBreakpoints" action="ActionGdbDisableAllBreakpoints" />
 				<menuitem name="ClearAllBreakpoints" action="ActionGdbClearAllBreakpoints" />
 				<separator name="separator7"/>

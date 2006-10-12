@@ -27,6 +27,7 @@ static AnjutaPreferences* prefs = NULL;
 										   (gpointer)(notify_id));
 /* Editor preferences */
 #define DISABLE_SYNTAX_HILIGHTING  "disable.syntax.hilighting"
+#define HIGHLIGHT_CURRENT_LINE	   "sourceview.highlightcurrentline"
 #define USE_TABS                   "use.tabs"
 #define BRACES_CHECK               "braces.check"
 #define TAB_SIZE                   "tabsize"
@@ -69,6 +70,18 @@ on_gconf_notify_disable_hilite (GConfClient *gclient, guint cnxn_id,
 	
 	gtk_source_buffer_set_highlight(GTK_SOURCE_BUFFER(sv->priv->document), !disable_highlight);
 	
+}
+
+static void
+on_gconf_notify_highlight_current_line (GConfClient *gclient, guint cnxn_id,
+					GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	gboolean highlight_current_line = get_bool(entry);
+	sv = ANJUTA_SOURCEVIEW(user_data);
+    
+    	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
+						   highlight_current_line);
 }
 
 static void
@@ -230,6 +243,8 @@ sourceview_prefs_init(Sourceview* sv)
 	
 	/* Init */
 	gtk_source_buffer_set_highlight(GTK_SOURCE_BUFFER(sv->priv->document), !get_key(sv, DISABLE_SYNTAX_HILIGHTING));
+    	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
+						   get_key(sv, HIGHLIGHT_CURRENT_LINE));
 	gtk_source_view_set_tabs_width(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, TAB_SIZE));
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
 													  !get_key(sv, USE_TABS));
@@ -246,6 +261,7 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);
 	REGISTER_NOTIFY (DISABLE_SYNTAX_HILIGHTING, on_gconf_notify_disable_hilite);
+        REGISTER_NOTIFY (HIGHLIGHT_CURRENT_LINE, on_gconf_notify_highlight_current_line);
 	REGISTER_NOTIFY (BRACES_CHECK, on_gconf_notify_braces_check);
 	REGISTER_NOTIFY (VIEW_MARKER_MARGIN, on_gconf_notify_view_markers);
 	REGISTER_NOTIFY (VIEW_LINENUMBERS_MARGIN, on_gconf_notify_view_linenums);

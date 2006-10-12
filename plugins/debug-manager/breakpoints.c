@@ -1296,15 +1296,15 @@ static GtkActionEntry actions_breakpoints[] = {
 	{
 		"ActionGdbToggleBreakpoint",              /* Action name */
 		"gdb-breakpoint-toggle",                  /* Stock icon, if any */
-		N_("Toggle breakpoint"),                  /* Display label */
-		NULL,                                     /* short-cut */
+		N_("Toggle Breakpoint"),                  /* Display label */
+		"<control>b",                             /* short-cut */
 		N_("Toggle breakpoint at the current location"), /* Tooltip */
 		G_CALLBACK (on_toggle_breakpoint_activate) /* action callback */
 	},
 	{
 		"ActionGdbSetBreakpoint",                 /* Action name */
 		"gdb-breakpoint-toggle",                  /* Stock icon, if any */
-		N_("Add Breakpoint"),                     /* Display label */
+		N_("Add Breakpoint..."),                  /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add a breakpoint"),                   /* Tooltip */
 		G_CALLBACK (on_add_breakpoint_activate)   /* action callback */

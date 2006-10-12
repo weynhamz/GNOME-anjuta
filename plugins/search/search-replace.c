@@ -514,6 +514,11 @@ search_and_replace (void)
 	
 	g_list_free(entries);
 	
+	if (s->action == SA_FIND_PANE) {
+		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+									 _("Search complete"), "", NULL);
+	}
+	
 	if (nb_results == 0)
 	{
 		search_end_alert(sr->search.expr.search_str);

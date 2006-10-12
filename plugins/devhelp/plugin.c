@@ -233,7 +233,7 @@ static GtkActionEntry actions[] = {
 		"ActionHelpContext",
 		GTK_STOCK_HELP,
 		N_("_Context Help"),
-		"<control>h",
+		"<shift>F1",
 		N_("Search help for the current word in the editor"),
 		G_CALLBACK (on_context_help_activate)
 	},

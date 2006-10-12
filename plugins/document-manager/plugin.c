@@ -861,10 +861,44 @@ on_editor_update_ui (IAnjutaEditor *editor, DocmanPlugin *plugin)
 		update_status (plugin, te);
 }
 
+/* Remove all instances of c from the string s. */
+static void remove_char(gchar *s, gchar c)
+{
+	gchar *t = s;
+	for (; *s ; ++s)
+		if (*s != c)
+			*t++ = *s;
+	*t = '\0';
+}
+
+/* Compare two strings, ignoring _ characters which indicate mneumonics.
+ * Returns -1, 0, or 1, just like strcmp(). */
+static gint
+menu_name_compare(const gchar *s, const char *t)
+{
+	gchar *s1 = g_utf8_strdown(s, -1);
+	gchar *t1 = g_utf8_strdown(t, -1);
+	remove_char(s1, '_');
+	remove_char(t1, '_');
+	int result = g_utf8_collate(s1, t1);
+	g_free(s1);
+	g_free(t1);
+	return result;
+}
+
+static gint
+compare_language_name(const gchar *lang1, const gchar *lang2, IAnjutaEditorLanguage *manager)
+{
+	const gchar *fullname1 = ianjuta_editor_language_get_language_name (manager, lang1, NULL);
+	const gchar *fullname2 = ianjuta_editor_language_get_language_name (manager, lang2, NULL);
+	return menu_name_compare(fullname1, fullname2);
+}
+
 static GtkWidget*
 create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 {
 	const GList *languages, *node;
+	GList *sorted_languages;
 	GtkWidget *submenu;
 	GtkWidget *menuitem;
 	
@@ -884,8 +918,14 @@ create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 					  plugin);
 	g_object_set_data(G_OBJECT(menuitem), "language_code", "auto-detect");
 	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
+	gtk_menu_shell_append (GTK_MENU_SHELL (submenu), gtk_separator_menu_item_new());
 
-	node = languages;
+	/* Sort languages so they appear alphabetically in the menu. */
+	sorted_languages = g_list_copy((GList *) languages);
+	sorted_languages = g_list_sort_with_data(sorted_languages, (GCompareDataFunc) compare_language_name,
+											 IANJUTA_EDITOR_LANGUAGE (editor));
+	
+	node = sorted_languages;
 	while (node)
 	{
 		const gchar *lang = node->data;
@@ -901,6 +941,8 @@ create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 		gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
 		node = g_list_next (node);
 	}
+	g_list_free(sorted_languages);
+	
 	gtk_widget_show_all (submenu);
 	return submenu;
 }

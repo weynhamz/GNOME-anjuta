@@ -66,7 +66,7 @@ app-dist-hook:
 install-data-local: omf
 	$(mkinstalldirs) $(DESTDIR)$(docdir)
 	for file in $(xml_files); do \
-	  cp $(srcdir)/$$file $(DESTDIR)$(docdir); \
+	  $(INSTALL_DATA) $(srcdir)/$$file $(DESTDIR)$(docdir); \
 	done
 	if test "$(figdir)"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(docdir)/$(figdir); \

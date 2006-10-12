@@ -1570,6 +1570,15 @@ enum {
 	N_COLUMNS
 };
 
+static void
+on_plugin_list_row_activated(GtkTreeView *tree_view,
+     	                      GtkTreePath *path,
+                             GtkTreeViewColumn *column,
+                             GtkDialog *dialog)
+{
+	gtk_dialog_response(dialog, GTK_RESPONSE_OK);
+}
+
 AnjutaPluginDescription *
 anjuta_plugins_select (AnjutaShell *shell, gchar *title, gchar *description,
 					   GSList *plugin_descriptions)
@@ -1638,6 +1647,9 @@ anjuta_plugins_select (AnjutaShell *shell, gchar *title, gchar *description,
 	
 		gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
 		gtk_tree_view_set_expander_column (GTK_TREE_VIEW (view), column);
+		
+		g_signal_connect(view, "row-activated",
+						 G_CALLBACK(on_plugin_list_row_activated), GTK_DIALOG(dlg));
 
 		node = plugin_descriptions;
 		while (node)

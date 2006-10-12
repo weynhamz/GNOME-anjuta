@@ -1,3 +1,33 @@
+2006-10-05  Adam Dingle <adam@medovina.org>
+
+  * libanjuta/plugins.c: Fixed bug #357537 (allow double click in plugin selection dialog).
+ 
+ 	* plugins/search/search-replace.c:
+	Fixed bug #358068 (indicate when Find in Files is complete)
+
+  * src/action-callbacks.c: fixed bug #357542 (plugins window is too narrow)
+
+  * plugins/sourceview/sourceview-prefs.c:
+  * plugins/sourceview/sourceview.glade:
+  Fixed bug #359663 (make line highlighting optional in GtkSourceView editor).
+
+  * manuals/xmldocs.make: fixed bug #359730 (Anjuta can't launch help files).
+
+  * plugins/devhelp/plugin.c:
+  * plugins/search/plugin.c: 
+  Fixed bug #359750 (fix find/replace shortcut keys).
+ 
+ 	* plugins/document-manager/plugin.c: fixed bug #351387 (don't
+	use Alt+key for shortcuts)
+ 	
+ 	*  plugins/debug-manager/debug_tree.c:
+	*  plugins/debug-manager/debugger.c:
+	Fixed bug #359317 (can't load debug manager)
+
+	* /plugins/document-manager/plugin.c:
+	Fixed bug #359259 (highlight modes listed in reverse 
+	alphabetical order).
+
 2006-10-10  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/glade/plugin.c:
@@ -35,15 +65,6 @@
 
 	* TODO.tasks: Set 'Improve class widzard' task to assigned.
 	Set bug id for 'Profiler plugin' task.
-	
-2006-10-03  Adam Dingle <adam@medovina.org>
- 
- 	* plugins/document-manager/plugin.c: fixed bug #351387 (don't
-	use Alt+key for shortcuts)
- 	
- 	*  plugins/debug-manager/debug_tree.c:
-	*  plugins/debug-manager/debugger.c:
-	Fixed bug #359317 (can't load debug manager)
 
 2006-10-03  Naba Kumar  <naba@gnome.org>
 
@@ -73,6 +94,10 @@
 
 	* libanjuta/interfaces/Makefile.am.iface:
 	Install libanjuta.idl
+
+2006-10-02  Adam Dingle <adam@medovina.org>
+
+	* src/action-callbacks.c: fixed bug #357542 (plugins window is too narrow)
 
 2006-10-02  Adam Dingle <adam@medovina.org>
 
