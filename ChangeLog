@@ -1,4 +1,10 @@
-2006-10-05  Adam Dingle <adam@medovina.org>
+2006-10-13  Maik Beckmann <maik@eigenco.de>
+
+  * src/action_callbacks.c:
+  Fixed bug #361830 (AboutDialog does not close) which is caused 
+  due to a change in Gtk+ 2.10  
+  
+2006-10-12  Adam Dingle <adam@medovina.org>
 
   * libanjuta/plugins.c: Fixed bug #357537 (allow double click in plugin selection dialog).
  
