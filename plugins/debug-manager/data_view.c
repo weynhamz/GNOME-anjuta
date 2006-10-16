@@ -23,6 +23,8 @@
 
 #include "anjuta-marshal.h"
 
+#include "sexy-icon-entry.h"
+
 #include <gdk/gdkkeysyms.h>
 
 #include <stdlib.h>
@@ -107,7 +109,7 @@ static void
 dma_data_view_goto_window_hide (DmaDataView *view)
 {
   gtk_widget_hide (view->goto_window);
-  gtk_entry_set_text (GTK_ENTRY (view->goto_entry), "");
+//  gtk_entry_set_text (GTK_ENTRY (view->goto_entry), "");
 }
 
 static gboolean
@@ -170,10 +172,8 @@ dma_data_view_goto_position_func (DmaDataView *view)
 {
 	gint x, y;
 	gint win_x, win_y;
-	gint win_width, win_height;
 	GdkWindow *window = GTK_WIDGET (view)->window;
 	GdkScreen *screen = gdk_drawable_get_screen (window);
-	GtkRequisition requisition;
 	gint monitor_num;
 	GdkRectangle monitor;
 
@@ -183,26 +183,36 @@ dma_data_view_goto_position_func (DmaDataView *view)
 	gtk_widget_realize (view->goto_window);
 
 	gdk_window_get_origin (window, &win_x, &win_y);
-	gdk_drawable_get_size (window,
-						   &win_width,
-						   &win_height);
-	gtk_widget_size_request (view->goto_window, &requisition);
-	
-	if (win_x + win_width - requisition.width > gdk_screen_get_width (screen))
-		x = gdk_screen_get_width (screen) - requisition.width;
-	else if (win_x + win_width - requisition.width < 0)
-		x = 0;
-	else
-		x = win_x + win_width - requisition.width;
-
-	if (win_y + win_height > gdk_screen_get_height (screen))
-		y = gdk_screen_get_height (screen) - requisition.height;
-	else if (win_y + win_height < 0) /* isn't really possible ... */
-		y = 0;
-	else
-		y = win_y + win_height;
+	x = MAX(12, win_x + 12);
+	y = MAX(12, win_y + 12);
 	
 	gtk_window_move (GTK_WINDOW (view->goto_window), x, y);
+}
+
+/* Cut and paste from gtkwindow.c */
+static void
+send_focus_change (GtkWidget *widget,
+                   gboolean   in)
+{
+        GdkEvent *fevent = gdk_event_new (GDK_FOCUS_CHANGE);
+
+        g_object_ref (widget);
+
+        if (in)
+                GTK_WIDGET_SET_FLAGS (widget, GTK_HAS_FOCUS);
+        else
+                GTK_WIDGET_UNSET_FLAGS (widget, GTK_HAS_FOCUS);
+
+        fevent->focus_change.type = GDK_FOCUS_CHANGE;
+        fevent->focus_change.window = g_object_ref (widget->window);
+        fevent->focus_change.in = in;
+
+        gtk_widget_event (widget, fevent);
+
+        g_object_notify (G_OBJECT (widget), "has-focus");
+
+        g_object_unref (widget);
+        gdk_event_free (fevent);
 }
 
 static void
@@ -212,6 +222,7 @@ dma_data_view_goto_activate (GtkWidget   *menu_item,
 	GtkWidget *toplevel;
 	GtkWidget *frame;
 	GtkWidget *vbox;
+	GtkWidget *icon;
 	
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (view));
 	
@@ -224,44 +235,54 @@ dma_data_view_goto_activate (GtkWidget   *menu_item,
 			gtk_window_group_remove_window (GTK_WINDOW (view->goto_window)->group,
 											GTK_WINDOW (view->goto_window)); 
 	
-		dma_data_view_goto_position_func (view);	
-		gtk_widget_show (view->goto_window);
-		return;
 	}
+	else
+	{
+		view->goto_window = gtk_window_new (GTK_WINDOW_POPUP);
 
-	view->goto_window = gtk_window_new (GTK_WINDOW_POPUP);
+		if (GTK_WINDOW (toplevel)->group)
+			gtk_window_group_add_window (GTK_WINDOW (toplevel)->group,
+										 GTK_WINDOW (view->goto_window));
 
-	if (GTK_WINDOW (toplevel)->group)
-		gtk_window_group_add_window (GTK_WINDOW (toplevel)->group,
-									 GTK_WINDOW (view->goto_window));
-
-	gtk_window_set_modal (GTK_WINDOW (view->goto_window), TRUE);
-	g_signal_connect (view->goto_window, "delete_event",
-					  G_CALLBACK (dma_data_view_goto_delete_event),
-					  view);
-	g_signal_connect (view->goto_window, "key_press_event",
-					  G_CALLBACK (dma_data_view_goto_key_press_event),
-					  view);
+		gtk_window_set_modal (GTK_WINDOW (view->goto_window), TRUE);
+		g_signal_connect (view->goto_window, "delete_event",
+						  G_CALLBACK (dma_data_view_goto_delete_event),
+						  view);
+		g_signal_connect (view->goto_window, "key_press_event",
+						  G_CALLBACK (dma_data_view_goto_key_press_event),
+						  view);
   
-	frame = gtk_frame_new (NULL);
-	gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_ETCHED_IN);
-	gtk_widget_show (frame);
-	gtk_container_add (GTK_CONTAINER (view->goto_window), frame);
+		frame = gtk_frame_new (NULL);
+		gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_ETCHED_IN);
+		gtk_widget_show (frame);
+		gtk_container_add (GTK_CONTAINER (view->goto_window), frame);
 	
-	vbox = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (vbox);
-	gtk_container_add (GTK_CONTAINER (frame), vbox);
-	gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
+		vbox = gtk_vbox_new (FALSE, 0);
+		gtk_widget_show (vbox);
+		gtk_container_add (GTK_CONTAINER (frame), vbox);
+		gtk_container_set_border_width (GTK_CONTAINER (vbox), 3);
 
-	/* add entry */
-	view->goto_entry = gtk_entry_new ();
-	gtk_widget_show (view->goto_entry);
-	gtk_container_add (GTK_CONTAINER (vbox),
-					   view->goto_entry);
+		/* add entry */
+		view->goto_entry = sexy_icon_entry_new ();
+		icon = gtk_image_new_from_stock (GTK_STOCK_JUMP_TO, GTK_ICON_SIZE_MENU);
+		sexy_icon_entry_set_icon (SEXY_ICON_ENTRY(view->goto_entry),
+    	                          SEXY_ICON_ENTRY_PRIMARY,
+                                  GTK_IMAGE (icon));
+		gtk_widget_show (view->goto_entry);
+		gtk_container_add (GTK_CONTAINER (vbox),
+						   view->goto_entry);
 					   
-	gtk_widget_realize (view->goto_entry);
+		gtk_widget_realize (view->goto_entry);
+	}
+	
 	dma_data_view_goto_position_func (view);	
+	gtk_entry_set_text (GTK_ENTRY (view->goto_entry), "0x");
 	gtk_widget_show (view->goto_window);
+	
+	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (view), FALSE);
+    gtk_widget_grab_focus (view->goto_entry);
+    send_focus_change (view->goto_entry, TRUE);
+	gtk_editable_set_position (GTK_EDITABLE (view->goto_entry), -1);
 }
 
 /* Private functions

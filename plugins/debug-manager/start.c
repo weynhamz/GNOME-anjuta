@@ -824,6 +824,8 @@ dma_start_load_uri (DmaStart *this)
 		mime_type = gnome_vfs_get_mime_type (this->target_uri);
 	        filename = gnome_vfs_uri_get_path (vfs_uri);
 
+		ianjuta_debugger_interrupt (this->debugger, NULL);
+		ianjuta_debugger_quit (this->debugger, NULL);
 		ianjuta_debugger_load (this->debugger, filename, mime_type, search_dirs, NULL);
 		
 		g_free (mime_type);
@@ -853,6 +855,8 @@ dma_attach_to_process (DmaStart* this)
 		GList *search_dirs;
 		
 		search_dirs = get_source_directories (this->plugin);
+		ianjuta_debugger_interrupt (this->debugger, NULL);
+		ianjuta_debugger_quit (this->debugger, NULL);
 		ianjuta_debugger_attach (this->debugger, lpid, search_dirs, NULL);
 		free_source_directories (search_dirs);
 	}

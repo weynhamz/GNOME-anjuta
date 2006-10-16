@@ -1384,45 +1384,6 @@ debugger_stde_flush (Debugger *debugger)
 }
 
 static void
-debugger_initialize2 (Debugger *debugger)
-{
-	DEBUG_PRINT ("In function: debugger_init2()");
-
-	debugger->priv->search_dirs = NULL;
-	debugger->priv->launcher = anjuta_launcher_new ();
-	
-	debugger->priv->prog_is_running = FALSE;
-	debugger->priv->debugger_is_busy = 0;
-	debugger->priv->starting = FALSE;
-	debugger->priv->terminating = FALSE;
-	debugger->priv->skip_next_prompt = FALSE;
-	debugger->priv->command_output_sent = FALSE;
-
-	strcpy (debugger->priv->current_cmd.cmd, "");
-	debugger->priv->current_cmd.parser = NULL;
-	
-	debugger->priv->cmd_queqe = NULL;
-	debugger->priv->cli_lines = NULL;
-	debugger->priv->solib_event = FALSE;
-	
-	debugger->priv->stdo_line = g_string_sized_new (FILE_BUFFER_SIZE);
-	g_string_assign (debugger->priv->stdo_line, "");
-	debugger->priv->stdo_acc = g_string_new ("");
-	
-	debugger->priv->stde_line = g_string_sized_new (FILE_BUFFER_SIZE);
-	g_string_assign (debugger->priv->stde_line, "");
-	
-	debugger->priv->term_is_running = FALSE;
-	debugger->priv->term_pid = -1;
-	
-	debugger->priv->post_execution_flag = DEBUGGER_NONE;
-	debugger->priv->gnome_terminal_type = gdb_util_check_gnome_terminal();
-
-    DEBUG_PRINT ("gnome-terminal type %d found.",
-				 debugger->priv->gnome_terminal_type);
-}
-
-static void
 on_gdb_terminated (AnjutaLauncher *launcher,
 				   gint child_pid, gint status, gulong t,
 				   gpointer data)
@@ -1445,7 +1406,6 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 		anjuta_util_dialog_error (debugger->priv->parent_win,
 		_("gdb terminated unexpectedly with error code %d\n"), status);
 	}
-	g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
 	debugger_stop_terminal (debugger);
 	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->term_is_running = FALSE;
@@ -1453,6 +1413,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->skip_next_prompt = FALSE;
 	debugger->priv->terminating = FALSE;
+	g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
 	/*debugger_initialize2 (debugger);*/
 	/* debugger_start (debugger, NULL, NULL, FALSE); */
 	/* TODO	anjuta_update_app_status (TRUE, NULL); */
@@ -1507,17 +1468,16 @@ debugger_stop (Debugger *debugger)
 	return ret;
 }
 
-static void
-debugger_abort_real (Debugger *debugger)
+gboolean
+debugger_abort (Debugger *debugger)
 {
-	DEBUG_PRINT ("In function: debugger_abort_real()");
+	DEBUG_PRINT ("In function: debugger_abort()");
 
 	/* Stop terminal */
 	debugger_stop_terminal (debugger);
 	debugger->priv->terminating = TRUE;
 
 	/* Stop gdb */
-	//anjuta_launcher_reset (debugger->priv->launcher);
 	g_object_unref (debugger->priv->launcher);
 	debugger->priv->launcher = NULL;
 	
@@ -1525,16 +1485,15 @@ debugger_abort_real (Debugger *debugger)
 	if ((debugger->priv->prog_is_attached == FALSE) && (debugger->priv->inferior_pid != 0))
 	{
 		kill (debugger->priv->inferior_pid, SIGTERM);
-		debugger_queue_command (debugger, "detach", FALSE, FALSE, NULL, NULL, NULL);
 	}
-
-	/* Signal end of debugger */
-	g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
 
 	/* Free memory */	
 	debugger_queue_clear (debugger);
 	g_list_foreach (debugger->priv->search_dirs, (GFunc)g_free, NULL);
 	g_list_free (debugger->priv->search_dirs);
+
+	/* Signal end of debugger */
+	g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
 
 	/* Disconnect */
 	if (debugger->priv->instance != NULL)
@@ -1542,43 +1501,8 @@ debugger_abort_real (Debugger *debugger)
 		g_object_remove_weak_pointer (debugger->priv->instance, (gpointer *)&debugger->priv->instance);
 		debugger->priv->instance = NULL;
 	}
-}
 
-gboolean
-debugger_abort (Debugger *debugger)
-{
-	gboolean ret = TRUE;
-
-	if (debugger->priv->prog_is_running == TRUE)
-	{
-		GtkWidget *dialog;
-		gchar *mesg;
-		
-		if (debugger->priv->prog_is_attached == TRUE)
-			mesg = _("Program is ATTACHED.\n"
-				   "Do you still want to stop Debugger?");
-		else
-			mesg = _("Program is RUNNING.\n"
-				   "Do you still want to stop Debugger?");
-		dialog = gtk_message_dialog_new (debugger->priv->parent_win,
-										 GTK_DIALOG_DESTROY_WITH_PARENT,
-										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_NONE, mesg);
-		gtk_dialog_add_buttons (GTK_DIALOG (dialog),
-								GTK_STOCK_CANCEL,	GTK_RESPONSE_NO,
-								GTK_STOCK_STOP,		GTK_RESPONSE_YES,
-								NULL);
-		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_YES)
-		{
-			debugger_abort_real (debugger);
-		}
-		else
-			ret = FALSE;
-		gtk_widget_destroy (dialog);
-	}
-	else
-		debugger_abort_real (debugger);
-	return ret;
+	return TRUE;
 }
 
 static void
@@ -2835,7 +2759,7 @@ debugger_read_memory_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 		memset (data + len, 0, len);
 
 		literal = gdbmi_value_hash_lookup (mi_results, "addr");
-		address = strtoul (gdbmi_value_literal_get (literal), NULL, 0);
+		address = (char *)strtoul (gdbmi_value_literal_get (literal), NULL, 0);
 	
 		ptr = data;
 		size = 0;
@@ -3194,7 +3118,8 @@ debugger_set_frame (Debugger *debugger, guint frame)
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
 	buff = g_strdup_printf ("-stack-select-frame %d", frame);
-	debugger_queue_command (debugger, buff, FALSE, FALSE, (DebuggerParserFunc)debugger_set_frame_finish, NULL, frame);
+
+	debugger_queue_command (debugger, buff, FALSE, FALSE, (DebuggerParserFunc)debugger_set_frame_finish, NULL, (gpointer)frame);
 	g_free (buff);
 }
 
@@ -3460,7 +3385,7 @@ debugger_dispose (GObject *obj)
 	
 	DEBUG_PRINT ("In function: debugger_shutdown()");
 
-	debugger_abort_real (debugger);
+	debugger_abort (debugger);
 
 	/* Good Bye message */
 	if (debugger->priv->output_callback)

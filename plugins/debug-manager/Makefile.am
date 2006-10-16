@@ -75,7 +75,9 @@ libanjuta_debug_manager_la_SOURCES = \
 	chunk_view.c \
 	chunk_view.h \
 	data_buffer.c \
-	data_buffer.h
+	data_buffer.h \
+	sexy-icon-entry.h \
+	sexy-icon-entry.c
 
 EXTRA_DIST = \
 	$(plugin_pixmaps_DATA) \

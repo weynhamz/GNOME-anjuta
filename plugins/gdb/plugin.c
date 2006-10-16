@@ -192,7 +192,7 @@ idebugger_initialize (IAnjutaDebugger *plugin, IAnjutaDebuggerOutputCallback cal
 
 	this->output_callback = callback;
 	this->output_user_data = user_data;
-	//g_signal_emit_by_name (G_OBJECT (plugin), "debugger-started");
+	g_signal_emit_by_name (G_OBJECT (plugin), "debugger-ready", IANJUTA_DEBUGGER_STOPPED);
 
 	return TRUE;
 }
@@ -271,10 +271,17 @@ idebugger_quit (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
-	debugger_stop (this->debugger);	
-	//g_signal_emit_by_name (G_OBJECT (plugin), "debugger-stopped");
-	
-	return TRUE;
+	if (!debugger_stop (this->debugger))
+	{
+		DEBUG_PRINT ("set error");
+		g_set_error (err, IANJUTA_DEBUGGER_ERROR, IANJUTA_DEBUGGER_CANCEL, "Command cancelled by user");
+
+		return FALSE;
+	}
+	else
+	{
+		return TRUE;
+	}
 }
 
 static gboolean
@@ -283,9 +290,16 @@ idebugger_abort (IAnjutaDebugger *plugin, GError **err)
 	GdbPlugin *this = (GdbPlugin *)plugin;
 
 	DEBUG_PRINT ("idebugger abort\n");
-	debugger_abort (this->debugger);	
-	
-	return TRUE;
+	if (!debugger_abort (this->debugger))
+	{
+		g_set_error (err, IANJUTA_DEBUGGER_ERROR, IANJUTA_DEBUGGER_CANCEL, "Command cancelled by user");
+
+		return FALSE;
+	}
+	else
+	{
+		return TRUE;
+	}
 }
 
 static gboolean

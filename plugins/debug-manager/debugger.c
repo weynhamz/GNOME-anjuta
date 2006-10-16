@@ -80,8 +80,8 @@ typedef enum
 	BREAK_FUNCTION_COMMAND,
 	BREAK_ADDRESS_COMMAND,
 	ENABLE_BREAK_COMMAND,
-	IGNORE_BREAK_COMMAND,
-	CONDITION_BREAK_COMMAND, /* 0x10 */
+	IGNORE_BREAK_COMMAND,	 /* 0x10 */
+	CONDITION_BREAK_COMMAND,
 	REMOVE_BREAK_COMMAND,
 	INFO_SHAREDLIB_COMMAND,
 	INFO_TARGET_COMMAND,
@@ -96,8 +96,8 @@ typedef enum
 	HANDLE_SIGNAL_COMMAND,
 	LIST_LOCAL_COMMAND,
 	LIST_ARG_COMMAND,
-	INFO_SIGNAL_COMMAND,
-	INFO_FRAME_COMMAND,		/* 0x20 */
+	INFO_SIGNAL_COMMAND,    /* 0x20 */
+	INFO_FRAME_COMMAND,
 	INFO_ARGS_COMMAND,
 	INFO_THREADS_COMMAND,
 	INFO_VARIABLES_COMMAND,
@@ -112,8 +112,8 @@ typedef enum
 	EVALUATE_VARIABLE,
 	LIST_VARIABLE_CHILDREN,
 	DELETE_VARIABLE,
-	ASSIGN_VARIABLE,
-	UPDATE_VARIABLE,		/* 0x30 */
+	ASSIGN_VARIABLE,		/* 0x30 */
+	UPDATE_VARIABLE,
 	INTERRUPT_COMMAND /* Program running */
 } DmaDebuggerCommandType;
 
@@ -124,10 +124,10 @@ typedef enum
 		NEED_DEBUGGER_STOPPED,
 	DMA_LOAD_COMMAND =
 		LOAD_COMMAND | LOAD_PROGRAM |
-		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+		NEED_DEBUGGER_STOPPED | NEED_DEBUGGER_STARTED,
 	DMA_ATTACH_COMMAND =
 		ATTACH_COMMAND | RUN_PROGRAM |
-		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+		NEED_DEBUGGER_STOPPED | NEED_DEBUGGER_STARTED,
 	DMA_QUIT_COMMAND =
 		QUIT_COMMAND | CANCEL_ALL_COMMAND | STOP_DEBUGGER |
 	    NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
@@ -365,6 +365,7 @@ struct _DmaDebuggerQueue {
 	DmaQueueCommand *head;
 	DmaQueueCommand *tail;
 	DmaDebuggerCommandType last;
+	gboolean queue_command;
 	
 	IAnjutaDebuggerStatus debugger_status;
 	IAnjutaDebuggerStatus queue_status;
@@ -606,60 +607,64 @@ dma_queue_cancel_unexpected (DmaDebuggerQueue *this, guint state)
 {
 	DmaQueueCommand* cmd;
 	DmaQueueCommand* prev;
-	
-	if (this->ready == FALSE)
-	{
-		/* Current command is still in queue, keep it */
-		prev = this->head;
-		cmd = prev->next;
-		
-		if (prev->type & CHANGE_STATE)
-		{
-			return FALSE;
-		}
-	}
-	else
-	{
-		/* First command hasn't been send yet, can be cancelled */
-		prev = NULL;
-		cmd = this->head;
-	}
 
-	for (; cmd != NULL;)
+	/* Check if queue is empty */
+	if (this->head)
 	{
-		if (!(cmd->type & state))
+		if (this->ready == FALSE)
 		{
-			/* Command is not allowed in this state, cancel it */
-			DmaQueueCommand* tmp = cmd;
-			
-			cmd = cmd->next;
-			dma_debugger_command_cancel (tmp);
-			if (prev == NULL)
+			/* Current command is still in queue, keep it */
+			prev = this->head;
+			cmd = prev->next;
+		
+			if (prev->type & CHANGE_STATE)
+			{	
+				return FALSE;
+			}
+		}
+		else
+		{	
+			/* First command hasn't been send yet, can be cancelled */
+			prev = NULL;
+			cmd = this->head;
+		}
+
+		for (; cmd != NULL;)
+		{
+			if (!(cmd->type & state))
 			{
-				this->head = cmd;
+				/* Command is not allowed in this state, cancel it */
+				DmaQueueCommand* tmp = cmd;
+			
+				cmd = cmd->next;
+				dma_debugger_command_cancel (tmp);
+				if (prev == NULL)
+				{
+					this->head = cmd;
+				}
+				else
+				{
+					prev->next = cmd;
+				}
+			}
+			else if (cmd->type & CHANGE_STATE)
+			{
+				/* A command setting the state is kept,
+			   	debugger state is known again afterward, queue state is kept too */
+			
+				return FALSE;
 			}
 			else
 			{
-				prev->next = cmd;
+				/* Command is allowed even in this unexpected state, keep it */
+				prev = cmd;
+				cmd = cmd->next;
 			}
 		}
-		else if (cmd->type & CHANGE_STATE)
-		{
-			/* A command setting the state is kept,
-			   debugger state is known again afterward, queue state is kept too */
-			
-			return FALSE;
-		}
-		else
-		{
-			/* Command is allowed even in this unexpected state, keep it */
-			prev = cmd;
-			cmd = cmd->next;
-		}
+		/* Update end of queue if necessary, queue state need to be changed */
+		this->tail = prev;
 	}
 
-	/* Update end of queue if necessary, queue state need to be changed */
-	this->tail = prev;
 
 	return TRUE;
 }
@@ -706,7 +711,7 @@ dma_queue_check_status (DmaDebuggerQueue *this, DmaDebuggerCommandType type, GEr
 {
 	for (;;)
 	{
-		switch (this->queue_status)
+		switch (this->queue_command ? this->queue_status : this->debugger_status)
   	    {
 			case IANJUTA_DEBUGGER_BUSY:
 				/* Only the debugger can be busy */
@@ -722,15 +727,6 @@ dma_queue_check_status (DmaDebuggerQueue *this, DmaDebuggerCommandType type, GEr
 					/* Already stopped */
 					g_warning ("Cancel command %x, already stop\n", type);
 					return FALSE;
-				}
-				else if (type & NEED_DEBUGGER_STARTED)
-				{
-					/* This command will start debugger automatically */
-					if (!ianjuta_debugger_initialize (IANJUTA_DEBUGGER (this), this->output_callback == NULL ? null_function : this->output_callback, this->output_callback == NULL ? 1 : this->output_data, err))
-					{
-						return FALSE;
-					}
-					break;
 				}
 			    else
 			    {
@@ -828,11 +824,14 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus 
 {
 	DmaQueueCommand *head;
 	DmaQueueCommand *tail;
+	const char* signal = NULL;
 
+	this->queue_command = FALSE;
 	switch (status)
 	{
 	case IANJUTA_DEBUGGER_BUSY:
 		/* Debugger is busy, nothing to do */
+		this->queue_command = TRUE;
 		return;
 	case IANJUTA_DEBUGGER_STOPPED:
 		if (this->debugger_status != IANJUTA_DEBUGGER_STOPPED) 
@@ -845,7 +844,7 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus 
 				}
 			}
 			this->debugger_status = IANJUTA_DEBUGGER_STOPPED;
-			g_signal_emit_by_name (this, "debugger-stopped");
+			signal = "debugger-stopped";
 		}
 	    break;
 	case IANJUTA_DEBUGGER_STARTED:
@@ -859,7 +858,7 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus 
 				}
 			}
 			this->debugger_status = IANJUTA_DEBUGGER_STARTED;
-			g_signal_emit_by_name (this, "debugger-started");
+			signal = "debugger-started";
 		}
 	    break;
 	case IANJUTA_DEBUGGER_PROGRAM_LOADED:
@@ -874,12 +873,13 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus 
 			}
 			if (this->debugger_status == IANJUTA_DEBUGGER_STOPPED)
 			{
+				dma_debugger_end_command (this);
 				this->debugger_status = IANJUTA_DEBUGGER_STARTED;
 				g_signal_emit_by_name (this, "debugger-started");
 			}
 			this->debugger_status = IANJUTA_DEBUGGER_PROGRAM_LOADED;
 			this->stop_on_sharedlib = FALSE;
-			g_signal_emit_by_name (this, "program-loaded");
+			signal = "program-loaded";
 		}
 	    break;
 	case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
@@ -895,7 +895,7 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus 
 			this->debugger_status = IANJUTA_DEBUGGER_PROGRAM_STOPPED;
 			if (!this->stop_on_sharedlib)
 			{
-				g_signal_emit_by_name (this, "program-stopped");
+				signal = "program-stopped";
 			}
 		}
 	    break;
@@ -911,26 +911,20 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus 
 			}
 			this->debugger_status = IANJUTA_DEBUGGER_PROGRAM_RUNNING;
 			this->stop_on_sharedlib = FALSE;
-			g_signal_emit_by_name (this, "program-running");
+			signal =  "program-running";
 		}
 	    break;
 	}
-	
+
 	/* Remove current command */
 	dma_debugger_end_command (this);
-}
-
-static gboolean
-dma_debugger_queue_cancel (DmaDebuggerQueue *this)
-{
-	DmaQueueCommand* cmd;
 	
-	cmd = this->head;
-	if (cmd == NULL) return FALSE;
-
-	this->head = cmd;
-	dma_debugger_command_free (cmd);
-	g_free (cmd);
+	/* Emit signal */
+	if (signal != NULL)
+	{
+		g_signal_emit_by_name (this, signal);
+	}
+	this->queue_command = TRUE;
 }
 
 static void
@@ -947,6 +941,7 @@ dma_debugger_queue_clear (DmaDebuggerQueue *this)
 	}
 	this->head = NULL;
 	this->tail = NULL;
+	this->queue_command = TRUE;
 	
 	/* Queue is empty so has the same status than debugger */
 	this->queue_status = this->debugger_status;
@@ -962,19 +957,46 @@ dma_debugger_queue_append (DmaDebuggerQueue *this, DmaDebuggerCommandType type, 
 	{
 		cmd = g_new0 (DmaQueueCommand, 1);
 		cmd->type = type;
-	
-		if (this->head == NULL)
+		
+		if (this->queue_command)
 		{
-			/* queue is empty */
-			this->head = cmd;
+			// Append command at the end (in the queue)
+
+			if (this->head == NULL)
+			{
+				/* queue is empty */
+				this->head = cmd;
+			}
+			else
+			{
+				this->tail->next = cmd;
+			}
+			this->tail = cmd;
+		
+			dma_queue_update_queue_status (this, type);
 		}
 		else
 		{
-			this->tail->next = cmd;
+			// Prepend command at the beginning
+			if (this->ready)
+			{
+				cmd->next = this->head;
+				this->head = cmd;
+				if (this->tail == NULL)
+				{
+					this->tail = cmd;
+				}
+			}
+			else
+			{
+				cmd->next = this->head->next;
+				this->head->next = cmd;
+				if (this->tail == this->head)
+				{
+					this->tail = cmd;
+				}
+			}				
 		}
-		this->tail = cmd;
-		
-		dma_queue_update_queue_status (this, type);
 	}
 		
 	return cmd;
@@ -1003,6 +1025,8 @@ static void
 dma_debugger_queue_execute (DmaDebuggerQueue *this)
 {
 	IAnjutaDebuggerRegister reg;
+	GError *err = NULL;
+	gboolean ret;
 
 	/* Check if debugger is connected to a debugger backend */
 	if (this->debugger == NULL) return;
@@ -1023,7 +1047,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 		
 		cmd = this->head;
 
-		DEBUG_PRINT("debugger cmd %d status %d\n", cmd->type, this->debugger_status);
+		DEBUG_PRINT("debugger cmd %x status %d\n", cmd->type, this->debugger_status);
 		
 		/* Start command */
 		this->ready = FALSE;
@@ -1036,160 +1060,186 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 		    //dma_debugger_create_view (this);
 		    this->output_callback = (IAnjutaDebuggerOutputCallback)cmd->callback;
 		    this->output_data = cmd->user_data;
-	 	    ianjuta_debugger_initialize (this->debugger, on_debugger_output, this, NULL);
+	 	    ianjuta_debugger_initialize (this->debugger, on_debugger_output, this, &err);
 		    break;
 		case LOAD_COMMAND:
-			ianjuta_debugger_load (this->debugger, cmd->load.file, cmd->load.type, cmd->load.dirs, NULL);	
+			ianjuta_debugger_load (this->debugger, cmd->load.file, cmd->load.type, cmd->load.dirs, &err);	
 			break;
   	    case ATTACH_COMMAND:
-			ianjuta_debugger_attach (this->debugger, cmd->attach.pid, cmd->load.dirs, NULL);	
+			ianjuta_debugger_attach (this->debugger, cmd->attach.pid, cmd->load.dirs, &err);	
 			break;
 		case UNLOAD_COMMAND:
-		    ianjuta_debugger_unload (this->debugger, NULL);
+		    ianjuta_debugger_unload (this->debugger, &err);
 		    break;
 		case QUIT_COMMAND:
-			ianjuta_debugger_quit (this->debugger, NULL);
+			DEBUG_PRINT ("quit command %p", err);
+			ret = ianjuta_debugger_quit (this->debugger, &err);
+			DEBUG_PRINT ("quit command %p ret %d", err, ret);
 			break;
 		case ABORT_COMMAND:
-			ianjuta_debugger_abort (this->debugger, NULL);
+			ianjuta_debugger_abort (this->debugger, &err);
 			break;
 		case START_COMMAND:
-			ianjuta_debugger_start (this->debugger, cmd->start.args, cmd->start.terminal, NULL);
+			ianjuta_debugger_start (this->debugger, cmd->start.args, cmd->start.terminal, &err);
 		    break;
 		case RUN_COMMAND:
-			ianjuta_debugger_run (this->debugger, NULL);	
+			ianjuta_debugger_run (this->debugger, &err);	
 			break;
 		case RUN_TO_COMMAND:
-			ianjuta_debugger_run_to (this->debugger, cmd->pos.file, cmd->pos.line, NULL);	
+			ianjuta_debugger_run_to (this->debugger, cmd->pos.file, cmd->pos.line, &err);	
 			break;
 		case STEP_IN_COMMAND:
-			ianjuta_debugger_step_in (this->debugger, NULL);	
+			ianjuta_debugger_step_in (this->debugger, &err);	
 			break;
 		case STEP_OVER_COMMAND:
-			ianjuta_debugger_step_over (this->debugger, NULL);	
+			ianjuta_debugger_step_over (this->debugger, &err);	
 			break;
 		case STEP_OUT_COMMAND:
-			ianjuta_debugger_step_out (this->debugger, NULL);	
+			ianjuta_debugger_step_out (this->debugger, &err);	
 			break;
 		case RESTART_COMMAND:
-			//ianjuta_debugger_restart (this->debugger, NULL);	
+			//ianjuta_debugger_restart (this->debugger, &err);	
 			break;
 		case EXIT_COMMAND:
-			ianjuta_debugger_exit (this->debugger, NULL);	
+			ianjuta_debugger_exit (this->debugger, &err);	
 			break;
 		case INTERRUPT_COMMAND:
-			ianjuta_debugger_interrupt (this->debugger, NULL);	
+			ianjuta_debugger_interrupt (this->debugger, &err);	
 			break;
 		case ENABLE_BREAK_COMMAND:
-			ianjuta_debugger_enable_breakpoint (this->debugger, cmd->brk.id, cmd->brk.enable == IANJUTA_DEBUGGER_YES ? TRUE : FALSE, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_enable_breakpoint (this->debugger, cmd->brk.id, cmd->brk.enable == IANJUTA_DEBUGGER_YES ? TRUE : FALSE, cmd->callback, cmd->user_data, &err);	
 			break;
 		case IGNORE_BREAK_COMMAND:
-			ianjuta_debugger_ignore_breakpoint (this->debugger, cmd->brk.id, cmd->brk.ignore, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_ignore_breakpoint (this->debugger, cmd->brk.id, cmd->brk.ignore, cmd->callback, cmd->user_data, &err);	
 			break;
 		case REMOVE_BREAK_COMMAND:
-			ianjuta_debugger_clear_breakpoint (this->debugger, cmd->brk.id, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_clear_breakpoint (this->debugger, cmd->brk.id, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INSPECT_COMMAND:
-			ianjuta_debugger_inspect (this->debugger, cmd->watch.name, cmd->callback, cmd->user_data, NULL);
+			ianjuta_debugger_inspect (this->debugger, cmd->watch.name, cmd->callback, cmd->user_data, &err);
 		    break;
 		case EVALUATE_COMMAND:
-			ianjuta_debugger_evaluate (this->debugger, cmd->watch.name, cmd->watch.value, cmd->callback, cmd->user_data, NULL);
+			ianjuta_debugger_evaluate (this->debugger, cmd->watch.name, cmd->watch.value, cmd->callback, cmd->user_data, &err);
 		    break;
 		case LIST_LOCAL_COMMAND:
-			ianjuta_debugger_list_local (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_list_local (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case LIST_ARG_COMMAND:
-			ianjuta_debugger_list_argument (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_list_argument (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_SIGNAL_COMMAND:
-			ianjuta_debugger_info_signal (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_info_signal (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_SHAREDLIB_COMMAND:
-			ianjuta_debugger_info_sharedlib (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_info_sharedlib (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_FRAME_COMMAND:
-			ianjuta_debugger_info_signal (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_info_signal (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_ARGS_COMMAND:
-			ianjuta_debugger_info_args (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_info_args (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_TARGET_COMMAND:
-			ianjuta_debugger_info_target (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_info_target (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_PROGRAM_COMMAND:
-			ianjuta_debugger_info_program (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_info_program (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_UDOT_COMMAND:
-			ianjuta_debugger_info_udot (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_info_udot (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_THREADS_COMMAND:
-			ianjuta_debugger_info_threads (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_info_threads (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_VARIABLES_COMMAND:
-			ianjuta_debugger_info_variables (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_info_variables (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case SET_FRAME_COMMAND:
-			ianjuta_debugger_set_frame (this->debugger, cmd->frame.frame, NULL);	
+			ianjuta_debugger_set_frame (this->debugger, cmd->frame.frame, &err);	
 			break;
 		case LIST_FRAME_COMMAND:
-			ianjuta_debugger_list_frame (this->debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_list_frame (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case LIST_REGISTER_COMMAND:
-			ianjuta_cpu_debugger_list_register (this->cpu_debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_cpu_debugger_list_register (this->cpu_debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case UPDATE_REGISTER_COMMAND:
-			ianjuta_cpu_debugger_update_register (this->cpu_debugger, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_cpu_debugger_update_register (this->cpu_debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case WRITE_REGISTER_COMMAND:
 			reg.num = cmd->watch.id;
 		    reg.name = cmd->watch.name;
 		    reg.value = cmd->watch.value;
-			ianjuta_cpu_debugger_write_register (this->cpu_debugger, &reg, NULL);	
+			ianjuta_cpu_debugger_write_register (this->cpu_debugger, &reg, &err);	
 			break;
 		case INSPECT_MEMORY_COMMAND:
-			ianjuta_cpu_debugger_inspect_memory (this->debugger, cmd->mem.address, cmd->mem.length, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_cpu_debugger_inspect_memory (this->debugger, cmd->mem.address, cmd->mem.length, cmd->callback, cmd->user_data, &err);	
 			break;
 		case BREAK_LINE_COMMAND:
-			ianjuta_debugger_set_breakpoint_at_line (this->debugger, cmd->pos.file, cmd->pos.line, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_set_breakpoint_at_line (this->debugger, cmd->pos.file, cmd->pos.line, cmd->callback, cmd->user_data, &err);	
 			break;
 		case BREAK_FUNCTION_COMMAND:
-			ianjuta_debugger_set_breakpoint_at_function (this->debugger, cmd->pos.file, cmd->pos.function, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_set_breakpoint_at_function (this->debugger, cmd->pos.file, cmd->pos.function, cmd->callback, cmd->user_data, &err);	
 			break;
 		case BREAK_ADDRESS_COMMAND:
-			ianjuta_debugger_set_breakpoint_at_address (this->debugger, cmd->pos.address, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_set_breakpoint_at_address (this->debugger, cmd->pos.address, cmd->callback, cmd->user_data, &err);	
 			break;
 		case CONDITION_BREAK_COMMAND:
-			ianjuta_debugger_condition_breakpoint (this->debugger, cmd->brk.id, cmd->brk.condition, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_condition_breakpoint (this->debugger, cmd->brk.id, cmd->brk.condition, cmd->callback, cmd->user_data, &err);	
 			break;
 		case USER_COMMAND:
-			ianjuta_debugger_send_command (this->debugger, cmd->user.cmd, NULL);	
+			ianjuta_debugger_send_command (this->debugger, cmd->user.cmd, &err);	
 			break;
 		case PRINT_COMMAND:
-			ianjuta_debugger_print (this->debugger, cmd->print.var, cmd->callback, cmd->user_data, NULL);	
+			ianjuta_debugger_print (this->debugger, cmd->print.var, cmd->callback, cmd->user_data, &err);	
 			break;
 		case HANDLE_SIGNAL_COMMAND:
-			ianjuta_debugger_handle_signal (this->debugger, cmd->signal.name, cmd->signal.stop, cmd->signal.print, cmd->signal.ignore, NULL);	
+			ianjuta_debugger_handle_signal (this->debugger, cmd->signal.name, cmd->signal.stop, cmd->signal.print, cmd->signal.ignore, &err);	
 			break;
 		case DELETE_VARIABLE:
 			ianjuta_variable_debugger_delete_var (this->debugger, cmd->var.name, NULL);
 			break;
 		case ASSIGN_VARIABLE:
-			ianjuta_variable_debugger_assign (this->debugger, cmd->var.name, cmd->var.value, NULL);
+			ianjuta_variable_debugger_assign (this->debugger, cmd->var.name, cmd->var.value, &err);
 			break;
 		case EVALUATE_VARIABLE:
-			ianjuta_variable_debugger_evaluate (this->debugger, cmd->var.name, cmd->callback, cmd->user_data, NULL);
+			ianjuta_variable_debugger_evaluate (this->debugger, cmd->var.name, cmd->callback, cmd->user_data, &err);
 			break;
 		case LIST_VARIABLE_CHILDREN:
-			ianjuta_variable_debugger_list_children (this->debugger, cmd->var.name, cmd->callback, cmd->user_data, NULL);
+			ianjuta_variable_debugger_list_children (this->debugger, cmd->var.name, cmd->callback, cmd->user_data, &err);
 			break;
 		case CREATE_VARIABLE:
-			ianjuta_variable_debugger_create (this->debugger, cmd->var.name, cmd->callback, cmd->user_data, NULL);
+			ianjuta_variable_debugger_create (this->debugger, cmd->var.name, cmd->callback, cmd->user_data, &err);
 			break;
 		case UPDATE_VARIABLE:
-			ianjuta_variable_debugger_update (this->debugger, cmd->callback, cmd->user_data, NULL);
+			ianjuta_variable_debugger_update (this->debugger, cmd->callback, cmd->user_data, &err);
 			break;
 	    }
 		
+		if (err != NULL)
+		{
+			/* Something fail */
+			gboolean cancel_state = cmd->type & CHANGE_STATE;
+			
+			/* Cancel command */
+			this->head = cmd->next;
+			dma_debugger_command_cancel (cmd);
+			this->ready = TRUE;
+
+			/* If a command changing a state has been cancelled,
+			 * cancel invalidate commands too */
+			if (cancel_state)
+			{
+				/* State change doesn't happen cancel all commands
+				   those cannot handle this */
+				if (dma_queue_cancel_unexpected (this, this->debugger_status))			
+				{
+					this->queue_status = this->debugger_status;
+				}
+			}
+			
+			g_error_free (err);
+		}
 	}
 }
 
@@ -1243,8 +1293,7 @@ on_dma_debugger_stopped (DmaDebuggerQueue *this)
 {
 	DEBUG_PRINT ("From debugger: receive debugger stopped");
 	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_STOPPED);
-	dma_debugger_queue_clear (this);
-	this->ready = TRUE;
+	if (this->ready) dma_debugger_queue_execute (this);
 }
 
 static void
@@ -2279,6 +2328,7 @@ dma_debugger_queue_instance_init (DmaDebuggerQueue *this)
 	this->debugger = NULL;
 	this->cpu_debugger = NULL;
 	this->head = NULL;
+	this->queue_command = TRUE;
 	this->ready = TRUE;
 	this->debugger_status = IANJUTA_DEBUGGER_STOPPED;
 	this->queue_status = IANJUTA_DEBUGGER_STOPPED;

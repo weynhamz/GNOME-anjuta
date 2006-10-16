@@ -214,20 +214,6 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 }
 
 static void
-on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
-                                 AnjutaSession *session, DebugManagerPlugin *plugin)
-{
-	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
-		return;
-
-	/* Close debugger when session changed */
-	if (plugin->debugger)
-	{
-		ianjuta_debugger_abort (plugin->debugger, NULL);
-	}
-}
-
-static void
 enable_log_view (DebugManagerPlugin *this, gboolean enable)
 {
 	if (enable)
@@ -263,6 +249,23 @@ enable_log_view (DebugManagerPlugin *this, gboolean enable)
 		ianjuta_debugger_disable_log (this->debugger, NULL);
 	}
 }
+
+static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+                                 AnjutaSession *session, DebugManagerPlugin *plugin)
+{
+	if (phase == ANJUTA_SESSION_PHASE_FIRST)
+		enable_log_view (plugin, FALSE);
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+
+	/* Close debugger when session changed */
+	if (plugin->debugger)
+	{
+		ianjuta_debugger_abort (plugin->debugger, NULL);
+	}
+}
+
 
 /* State functions
  *---------------------------------------------------------------------------*/
@@ -439,7 +442,7 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *this)
 
 	DEBUG_PRINT ("DMA: dma_plugin_debugger_stopped");
 
-	dma_plugin_program_unload (this);
+//	dma_plugin_program_unload (this);
 	
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
@@ -1012,7 +1015,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	g_signal_connect_swapped (this->debugger, "program-stopped", G_CALLBACK (dma_plugin_program_stopped), this);
 	g_signal_connect_swapped (this->debugger, "program-exited", G_CALLBACK (dma_plugin_program_loaded), this);
 	g_signal_connect_swapped (this->debugger, "location-changed", G_CALLBACK (dma_plugin_location_changed), this);
-	
+
 	/* Watch expression */
 	this->watch = expr_watch_new (ANJUTA_PLUGIN (plugin), this->debugger);
 	

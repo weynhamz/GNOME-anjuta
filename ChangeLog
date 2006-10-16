@@ -1,32 +1,48 @@
+2006-10-15 Sebastien Granjoux <seb.sfo@free.fr>
+	
+	* plugins/debug-manager/Makefile.am,
+	plugins/debug-manager/sexy-icon-entry.h,
+	plugins/debug-manager/sexy-icon-entry.c,
+	plugins/debug-manager/dataview.c:
+	Fix bug #358134 (Goto memory prompt)
+	Use sexy-icon-entry from libsexy 0.1.10
+
+	* plugins/debug-manager/debugger.c,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/start.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/plugin.c:
+	Better error handling when starting and stopping debugger
+
 2006-10-13  Maik Beckmann <maik@eigenco.de>
 
-  * src/action_callbacks.c:
-  Fixed bug #361830 (AboutDialog does not close) which is caused 
-  due to a change in Gtk+ 2.10  
+	* src/action_callbacks.c:
+	Fixed bug #361830 (AboutDialog does not close) which is caused 
+	due to a change in Gtk+ 2.10  
   
 2006-10-12  Adam Dingle <adam@medovina.org>
 
-  * libanjuta/plugins.c: Fixed bug #357537 (allow double click in plugin selection dialog).
- 
- 	* plugins/search/search-replace.c:
+	* libanjuta/plugins.c: Fixed bug #357537 (allow double click in plugin selection dialog).
+
+	* plugins/search/search-replace.c:
 	Fixed bug #358068 (indicate when Find in Files is complete)
 
-  * src/action-callbacks.c: fixed bug #357542 (plugins window is too narrow)
+	* src/action-callbacks.c: fixed bug #357542 (plugins window is too narrow)
 
-  * plugins/sourceview/sourceview-prefs.c:
-  * plugins/sourceview/sourceview.glade:
-  Fixed bug #359663 (make line highlighting optional in GtkSourceView editor).
+	* plugins/sourceview/sourceview-prefs.c:
+	* plugins/sourceview/sourceview.glade:
+	Fixed bug #359663 (make line highlighting optional in GtkSourceView editor).
 
-  * manuals/xmldocs.make: fixed bug #359730 (Anjuta can't launch help files).
+	* manuals/xmldocs.make: fixed bug #359730 (Anjuta can't launch help files).
 
-  * plugins/devhelp/plugin.c:
-  * plugins/search/plugin.c: 
-  Fixed bug #359750 (fix find/replace shortcut keys).
- 
- 	* plugins/document-manager/plugin.c: fixed bug #351387 (don't
+	* plugins/devhelp/plugin.c:
+	* plugins/search/plugin.c: 
+	Fixed bug #359750 (fix find/replace shortcut keys).
+
+	* plugins/document-manager/plugin.c: fixed bug #351387 (don't
 	use Alt+key for shortcuts)
- 	
- 	*  plugins/debug-manager/debug_tree.c:
+
+	*  plugins/debug-manager/debug_tree.c:
 	*  plugins/debug-manager/debugger.c:
 	Fixed bug #359317 (can't load debug manager)
 
