@@ -1,3 +1,9 @@
+2006-10-19  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Juan Pablo Ugarte
+	* plugins/glade/plugin.c: Include glade header
+	correctly.
+	
 2006-10-15 Sebastien Granjoux <seb.sfo@free.fr>
 	
 	* plugins/debug-manager/Makefile.am,

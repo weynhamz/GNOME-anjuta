@@ -19,7 +19,7 @@
 */
 
 #include <config.h>
-#include <gtk/gtk.h>
+#include <glade.h>
 
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>
@@ -27,23 +27,6 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-wizard.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
-
-#include <glade.h>
-#include <glade-palette.h>
-#include <glade-editor.h>
-#include <glade-clipboard.h>
-#include <glade-clipboard-view.h>
-#include <glade-widget.h>
-#include <glade-widget-class.h>
-#include <glade-property.h>
-#include <glade-property-class.h>
-#include <glade-project.h>
-#include <glade-project-view.h>
-#include <glade-placeholder.h>
-#include <glade-command.h>
-#include <glade-debug.h>
-#include <glade-utils.h>
-#include <glade-app.h>
 
 #include "plugin.h"
 
@@ -650,7 +633,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		gtk_box_pack_start (GTK_BOX (priv->view_box), priv->projects_combo,
 							FALSE, FALSE, 0);
 		
-		priv->view = glade_project_view_new (GLADE_PROJECT_VIEW_TREE);
+		priv->view = GLADE_PROJECT_VIEW (glade_project_view_new ());
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->view),
 						GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
@@ -872,7 +855,7 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 						PROJECT_COL, project, -1);
 	glade_app_add_project (project);
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (iwizard)->shell,
-								 glade_app_get_palette (), NULL);
+				     GTK_WIDGET (glade_app_get_palette ()), NULL);
 }
 
 static void
