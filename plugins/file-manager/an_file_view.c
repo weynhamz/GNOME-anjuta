@@ -1018,15 +1018,15 @@ fv_set_root (FileManagerPlugin *fv, const gchar *root_dir)
 		if (fv->top_dir)
 			g_free(fv->top_dir);
 		fv->top_dir = g_strdup(root_dir);
-		fv_refresh(fv);
+		fv_refresh(fv, FALSE);
 	}
 }
 
 void
-fv_refresh (FileManagerPlugin *fv)
+fv_refresh (FileManagerPlugin *fv, gboolean save_states)
 {
 	static gboolean busy = FALSE;
-	GList *selected_items;
+	GList *selected_items = NULL;
 	GtkTreeIter sub_iter;
 	GtkTreeIter iter;
 	GtkTreePath *path;
@@ -1047,7 +1047,8 @@ fv_refresh (FileManagerPlugin *fv)
 	ff = fv_prefs_new (fv);
 	
 	fv_disconnect (fv);
-	selected_items = fv_get_node_expansion_states (fv);
+	if (save_states)
+  	selected_items = fv_get_node_expansion_states (fv);
 	fv_clear (fv);
 
 	project_dir = g_path_get_basename (fv->top_dir);
@@ -1078,7 +1079,8 @@ fv_refresh (FileManagerPlugin *fv)
 	gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
 	gtk_tree_path_free (path);
 
-	fv_set_node_expansion_states (fv, selected_items);
+	if (save_states)
+  	fv_set_node_expansion_states (fv, selected_items);
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (model),
 										  GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
 										  GTK_SORT_ASCENDING);

@@ -42,7 +42,7 @@ void       fv_set_node_expansion_states (FileManagerPlugin *fv,
 									  GList *expansion_states);
 gchar*     fv_get_selected_file_path (FileManagerPlugin *fv);
 
-void       fv_refresh (FileManagerPlugin *fv);
+void       fv_refresh (FileManagerPlugin *fv, gboolean save_states);
 
 // void        fv_customize(gboolean really_show);
 // gboolean   fv_open_file (const char *path, gboolean use_anjuta);

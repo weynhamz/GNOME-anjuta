@@ -26,6 +26,7 @@
 #include <config.h>
 #endif
 
+#include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -54,6 +55,31 @@ static void tool_view_show_rules (VgToolView *view);
 
 
 static GtkVBoxClass *parent_class = NULL;
+
+static void
+destroy_array_and_content (GPtrArray **array)
+{
+	g_return_if_fail (array != NULL);
+	if (*array)
+	{
+		g_ptr_array_foreach (*array, (GFunc)g_free, NULL);
+		g_ptr_array_free (*array, TRUE);
+		*array = NULL;
+	}
+}
+
+static void
+allocate_array_and_content (GPtrArray **array, va_list va_args)
+{
+	gchar* item;
+
+	g_return_if_fail (array != NULL);
+	g_return_if_fail (*array == NULL);
+
+	*array = g_ptr_array_new ();
+	for (item = va_arg (va_args, gchar *); item; item = va_arg (va_args, gchar *))
+		g_ptr_array_add (*array, g_strdup (item));
+}
 
 
 GType
@@ -112,6 +138,9 @@ vg_tool_view_init (VgToolView *view)
 	view->symtab = NULL;
 	view->srcdir = NULL;
 	view->rules = NULL;
+
+	view->argv_array = NULL;
+	view->srcdir_array = NULL;
 }
 
 static void
@@ -123,25 +152,38 @@ vg_tool_view_finalize (GObject *obj)
 static void
 vg_tool_view_destroy (GtkObject *obj)
 {
+	VgToolView *view = VG_TOOL_VIEW (obj);
+	destroy_array_and_content (&view->srcdir_array);
+	destroy_array_and_content (&view->argv_array);
+
 	GTK_OBJECT_CLASS (parent_class)->destroy (obj);
 }
 
 
 void
-vg_tool_view_set_argv (VgToolView *view, const char **argv)
+vg_tool_view_set_argv (VgToolView *view, char *arg0, ...)
 {
+	va_list va_args;
 	g_return_if_fail (VG_IS_TOOL_VIEW (view));
-	
-	view->argv = argv;
+
+	va_start (va_args, arg0);
+	allocate_array_and_content (&view->argv_array, va_args);
+	va_end (va_args);
+
+	view->argv = (const char**)view->argv_array->pdata;
 }
 
-
 void
-vg_tool_view_set_srcdir (VgToolView *view, const char **srcdir)
+vg_tool_view_set_srcdir (VgToolView *view, char *srcdir0, ...)
 {
+	va_list va_args;
 	g_return_if_fail (VG_IS_TOOL_VIEW (view));
-	
-	view->srcdir = srcdir;
+
+	va_start (va_args, srcdir0);
+	allocate_array_and_content (&view->srcdir_array, va_args);
+	va_end (va_args);
+
+	view->srcdir = (const char**)view->srcdir_array->pdata;
 }
 
 

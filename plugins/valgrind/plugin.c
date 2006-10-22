@@ -210,7 +210,7 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 		gint response, tool_selected;
 		GList *node;
 		GtkTreeIter iter;
-		const gchar *sel_target = NULL;
+		gchar *sel_target = NULL;
 
 		tool_selected = 0;
 		gxml = glade_xml_new (GLADE_FILE, "select_and_run_dialog",
@@ -291,10 +291,10 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 			program_dir = g_path_get_dirname (prgname);
 			DEBUG_PRINT ("target a basedir: %s", program_dir);
 			
-			vg_tool_view_set_argv ((VgToolView *) plugin->valgrind_widget, 
-							(const char**)sel_target);
-			vg_tool_view_set_srcdir ((VgToolView *) plugin->valgrind_widget, 
-							(const char**)program_dir);
+			vg_tool_view_set_argv ((VgToolView *) plugin->valgrind_widget, sel_target, NULL);
+      vg_tool_view_set_srcdir ((VgToolView *) plugin->valgrind_widget, program_dir, NULL);
+      g_free (sel_target);
+      g_free (program_dir);
 			
 			symtab = load_symtab (prgname);
 			vg_tool_view_set_symtab ((VgToolView *) plugin->valgrind_widget,

@@ -1397,6 +1397,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	/* Widget is removed from the shell when destroyed */
 	gtk_widget_destroy (pm_plugin->vbox);
+
+	pm_plugin->vbox = NULL;
+	pm_plugin->combo = NULL;
 	
 	return TRUE;
 }
@@ -1693,14 +1696,15 @@ project_manager_plugin_close_project(ProjectManagerPlugin* plugin, PMProject* pr
 	g_free(prj->root_uri);
 	g_free(prj);
 	
-	unload_profile(ANJUTA_PLUGIN(plugin));
+	gtk_combo_box_set_active(GTK_COMBO_BOX(plugin->combo), 0);
+	gtk_notebook_remove_page(GTK_NOTEBOOK(plugin->notebook), id);
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell, NULL);
 	anjuta_status_set_default (status, _("Project"), NULL);
 	
-	gtk_combo_box_set_active(GTK_COMBO_BOX(plugin->combo), 0);
-	gtk_notebook_remove_page(GTK_NOTEBOOK(plugin->notebook), id);
 	update_ui(plugin);
+
+	unload_profile(ANJUTA_PLUGIN(plugin));
 }
 
 static void

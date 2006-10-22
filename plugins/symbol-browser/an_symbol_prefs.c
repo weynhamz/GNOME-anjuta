@@ -782,13 +782,7 @@ void
 symbol_browser_prefs_init (SymbolBrowserPlugin *plugin)
 {
 	guint notify_id;
-	static gboolean page_initialized = FALSE;
-	
-	if (!page_initialized)
-	{
-		plugin->pref_tree_view = prefs_page_init (plugin);
-		page_initialized = TRUE;
-	}
+	plugin->pref_tree_view = prefs_page_init (plugin);
 	plugin->gconf_notify_ids = NULL;
 	notify_id = anjuta_preferences_notify_add (plugin->prefs,
 											   SYMBOL_BROWSER_TAGS,

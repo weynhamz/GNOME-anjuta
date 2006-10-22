@@ -1139,7 +1139,7 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 
 	docman->priv->editors = g_list_append (docman->priv->editors, (gpointer)page);
 
-	ruri =  gnome_vfs_format_uri_for_display (uri);
+	ruri =  gnome_vfs_format_uri_for_display (uri ? uri : "");
 	
 	/* set the tooltips */	
 	tip = g_markup_printf_escaped("<b>%s</b> %s\n",
@@ -1228,7 +1228,8 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, IAnjutaEditor * te)
 		if (page && page->close_button != NULL)
 		{
 			gtk_widget_set_sensitive (page->close_image, FALSE);
-			gtk_widget_set_sensitive (page->mime_icon, FALSE);
+			if (page->mime_icon)
+				gtk_widget_set_sensitive (page->mime_icon, FALSE);
 			page->is_current = FALSE;
 		}
 	}
@@ -1240,7 +1241,8 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, IAnjutaEditor * te)
 		if (page && page->close_button != NULL)
 		{
 			gtk_widget_set_sensitive (page->close_image, TRUE);
-			gtk_widget_set_sensitive (page->mime_icon, TRUE);
+			if (page->mime_icon)
+				gtk_widget_set_sensitive (page->mime_icon, TRUE);
 			page->is_current = TRUE;
 		}
 		page_num = gtk_notebook_page_num (GTK_NOTEBOOK (docman),

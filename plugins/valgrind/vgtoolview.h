@@ -48,8 +48,11 @@ typedef struct _VgToolViewClass VgToolViewClass;
 struct _VgToolView {
 	GtkVBox parent_object;
 	
-	const char **argv;    /* argv of program to debug */
-	const char **srcdir;  /* list of src dirs to check for src files */
+	const char **argv;    /* args of program to debug */
+	const char **srcdir;  /* list src dir to check for src files */
+
+	GPtrArray *argv_array;
+	GPtrArray *srcdir_array;
 	
 	SymTab *symtab;
 	
@@ -83,8 +86,8 @@ struct _VgToolViewClass {
 
 GType vg_tool_view_get_type (void);
 
-void vg_tool_view_set_argv (VgToolView *view, const char **argv);
-void vg_tool_view_set_srcdir (VgToolView *view, const char **srcdir);
+void vg_tool_view_set_argv (VgToolView *view, char *arg0, ...);
+void vg_tool_view_set_srcdir (VgToolView *view, char *srcdir0, ...);
 void vg_tool_view_set_symtab (VgToolView *view, SymTab *symtab);
 
 void vg_tool_view_clear (VgToolView *view);

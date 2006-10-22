@@ -51,7 +51,7 @@ struct _AnjutaValgrindPlugin{
 	ValgrindPluginPrefs * val_prefs;
 	
 	gint uiid;
-	GtkAction *action_group;
+	GtkActionGroup *action_group;
 };
 
 struct _AnjutaValgrindPluginClass{

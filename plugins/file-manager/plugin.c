@@ -39,7 +39,7 @@ static gpointer parent_class;
 
 static void refresh (GtkAction *action, FileManagerPlugin *plugin)
 {
-	fv_refresh (plugin);
+	fv_refresh (plugin, TRUE);
 }
 
 static GtkActionEntry popup_actions[] = 
@@ -64,7 +64,7 @@ set_default_root_directory (FileManagerPlugin *fv)
 	{
 		fv_set_root (fv, "/");
 	}
-	fv_refresh (fv);
+	fv_refresh (fv, FALSE);
 }
 
 static void
@@ -75,7 +75,7 @@ on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
 	if (fv->project_is_loaded == FALSE)
 		set_default_root_directory (fv);
 	else
-		fv_refresh (fv);
+		fv_refresh (fv, TRUE);
 }
 
 #define REGISTER_NOTIFY(key, func) \
@@ -126,7 +126,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		if (root_dir)
 		{
 			fv_set_root (fm_plugin, root_dir);
-			fv_refresh (fm_plugin);
+			fv_refresh (fm_plugin, FALSE);
 			((FileManagerPlugin *)plugin)->project_is_loaded = TRUE;
 		}
 		else

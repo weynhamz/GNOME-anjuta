@@ -45,7 +45,6 @@ enum {
 	COL_TITLE,
 	COL_PIXBUF,
 	COL_WIDGET,
-	COL_PAGE,
 	LAST_COL
 };
 
@@ -257,12 +256,10 @@ anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
 									GtkWidget *page)
 {
 	GtkTreeIter iter;
-	gint page_num;
-	
+
 	gtk_widget_show (page);
 	
-	page_num = gtk_notebook_append_page (GTK_NOTEBOOK (dlg->priv->notebook), 
-				  page, NULL);
+	gtk_notebook_append_page (GTK_NOTEBOOK (dlg->priv->notebook), page, NULL);
 
 	gtk_list_store_append (dlg->priv->store, &iter);
 	
@@ -271,7 +268,6 @@ anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
 			    COL_TITLE, title,
 			    COL_PIXBUF, icon,
 			    COL_WIDGET, page,
-			    COL_PAGE, page_num,
 			    -1);
 }
 
@@ -294,14 +290,30 @@ anjuta_preferences_dialog_remove_page (AnjutaPreferencesDialog *dlg,
 		do
 		{
 			gchar* page_title;
-			gint page_num;
-			gtk_tree_model_get(model, &iter, COL_TITLE, &page_title, COL_PAGE, &page_num, -1);
+			GObject* page_widget;
+
+			gtk_tree_model_get(model, &iter,
+					COL_TITLE, &page_title,
+					COL_WIDGET, &page_widget,
+					-1);
+
 			if (g_str_equal(page_title, title))
 			{
-				gtk_notebook_remove_page(GTK_NOTEBOOK(dlg->priv->notebook), page_num);
+				int page_num;
+
+				page_num = gtk_notebook_page_num (
+						GTK_NOTEBOOK(dlg->priv->notebook),
+						GTK_WIDGET (page_widget));
+
+				gtk_notebook_remove_page(
+						GTK_NOTEBOOK(dlg->priv->notebook), page_num);
+
 				gtk_list_store_remove(dlg->priv->store, &iter);
+				g_object_unref (page_widget);
 				return;
 			}
+
+			g_object_unref (page_widget);
 		}
 		while (gtk_tree_model_iter_next(model, &iter));
 	}
