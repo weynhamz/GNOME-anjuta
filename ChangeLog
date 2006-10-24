@@ -1,3 +1,10 @@
+2006-10-24  Naba Kumar  <naba@gnome.org>
+
+	* plugins/document-manager/anjuta-document-manager.plugin.in:
+	Added application/x-reject in accepted mime-types.
+	
+	* Changelog: Fixed changelog alignments.
+
 2006-10-24  Sylvain Defresne  <sdefresne@gmail.com>
 
 	Reviewed by: Naba Kumar  <naba@gnome.org>
@@ -65,15 +72,15 @@
 
 2006-10-22 Arjan Timmermann <arjan@southfly.nl>
 
-  * plugins/glade/plugin.c: Fix build (#363884)
+	* plugins/glade/plugin.c: Fix build (#363884)
 
 2006-10-22  Johannes Schmid <jhs@gnome.org>
 
-  * plugins/file-manager/an_file_view.c:
-  * plugins/file-manager/plugin.c:
-  * plugins/file-manager/plugin.h:
-  Fix possible crasher when changing project-root uri when we try to restore open nodes
-  * AUTHORS: Updated
+	* plugins/file-manager/an_file_view.c:
+	* plugins/file-manager/plugin.c:
+	* plugins/file-manager/plugin.h:
+	Fix possible crasher when changing project-root uri when we try to restore open nodes
+	* AUTHORS: Updated
 
 2006-10-19  Naba Kumar  <naba@gnome.org>
 
