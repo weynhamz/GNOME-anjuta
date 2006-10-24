@@ -1,31 +1,39 @@
+2006-10-24  Naba Kumar  <naba@gnome.org>
+
+	* HACKING: Updated coding sample.
+	
+	Patch from: Armin Burgmeier  <armin@arbur.net>
+	* plugins/symbol-browser/test-class.h,
+	plugins/editor/aneditor-autocomplete.cxx: Fixed block ends.
+	
 2006-10-22 Sylvain Defresne <sdefresne@gmail.com>
 
-  * plugins/valgrind/plugin.c plugins/valgrind/vgtoolview.c
-  * plugins/valgrind/vgtoolview.h:
-  Correctly handle the argv / srcdir of vg_tool_view object. Do
-  not leak memory associated with those arrays.
+	* plugins/valgrind/plugin.c plugins/valgrind/vgtoolview.c
+	* plugins/valgrind/vgtoolview.h:
+	Correctly handle the argv / srcdir of vg_tool_view object. Do
+	not leak memory associated with those arrays.
 
-  * plugins/symbol-browser/an_symbol_prefs.c:
-  Support unloading / reloading of the module (for example when
-  closing a project and opening another one).
-  
- 	* plugins/project-manager/plugin.c:
- 	Remove plugin widget before removing plugin itself, preventing
- 	a crash with valgrind plugin.
-  
-  * libanjuta/anjuta-preferences-dialog.c:
-  Do not use the page_num returned by gtk_notebook_append_page to
-  remove the page as it cause bugs when pages removal is not done
-  in LIFO.
-  
-  * plugins/document-manager/anjuta-docman.c:
-  Fix some GTK+ warnings.
-  
-  * global-tags/create_global_tags.sh.in:
-  Rewrite script to remove bash-ism and use pkg-config directly
-  instead of parsing the *.pc file by hand. This solve problems
-  that occurred when one of the directory in PKG_CONFIG_PATH is
-  empty.
+	* plugins/symbol-browser/an_symbol_prefs.c:
+	Support unloading / reloading of the module (for example when
+	closing a project and opening another one).
+
+	* plugins/project-manager/plugin.c:
+	Remove plugin widget before removing plugin itself, preventing
+	a crash with valgrind plugin.
+
+	* libanjuta/anjuta-preferences-dialog.c:
+	Do not use the page_num returned by gtk_notebook_append_page to
+	remove the page as it cause bugs when pages removal is not done
+	in LIFO.
+
+	* plugins/document-manager/anjuta-docman.c:
+	Fix some GTK+ warnings.
+
+	* global-tags/create_global_tags.sh.in:
+	Rewrite script to remove bash-ism and use pkg-config directly
+	instead of parsing the *.pc file by hand. This solve problems
+	that occurred when one of the directory in PKG_CONFIG_PATH is
+	empty.
 
 2006-10-22 Arjan Timmermann <arjan@southfly.nl>
 

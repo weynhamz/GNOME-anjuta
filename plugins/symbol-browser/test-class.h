@@ -19,10 +19,10 @@ namespace First {
 			
 			static void func_second_1_class_foo() {};
 		};
-	};
+	}
 
 
-};
+}
 
 
 namespace Third {
@@ -48,9 +48,9 @@ namespace Third {
 			void func_fourth_1_class_foo (void) {};
 		};
 		
-	};
+	}
 
-};
+}
 
 
 class MyClass {

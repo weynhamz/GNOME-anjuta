@@ -123,11 +123,28 @@ Tab size = 4, Indentation = 4, Use tabs for indentation.
 Autoformat style: Anjuta coding style.
 Example code:
 <pre>
+/* Use only C comments. Multiple line comments can be written as shown
+ * in this particular example. Avoid writting redundant and balantly
+ * obvious comments. Always put comments for tricky and hacky situations.
+ * Also notice the space before parenthesis.
+ */
 gchar*
 function (gchar *arg1, gint arg2, gint arg3, gpointer arg4, GHashTable *arg5,
           gint arg7, gpointer arg7)
 {
-    if (x == y)
+    gchar *str;
+    gint x = 23; /* Only the trailing variables could be default initialized */
+    gint y = function_call (); /* This is another trailing variable decl */
+    
+    /* There should be a blank line between declarations and code */
+    if (x == y || some_long_comparision == another_long_variable ||
+        (ultra_long_function_call_that_does_not_fit_well (which_has_arguments,
+                                                          and_more_args,
+                                                          yet_more_args) &&
+         ((yet_another_conditional & ENUM_ITEM_1) == TRUE) ||
+         ((yet_another_conditional & ENUM_ITEM_2) == TRUE) ||
+         and_some_more_conditionals != MACRO_NAME) &&
+        notice_how_the_parenthesis_are_aligned_in_the_nest == TRUE)
     {
         switch (a)
         {
@@ -139,6 +156,11 @@ function (gchar *arg1, gint arg2, gint arg3, gpointer arg4, GHashTable *arg5,
             printf ("Welcome");
         }
     }
+    
+    /* No inline declarations of variables */
+    str = function_call (gchar *arg1, gint arg2, gint arg3, gpointer arg4,
+                         GHashTable *arg5, gint arg7, gpointer arg7,
+                         last_arg);
     return str;
 }
 </pre>

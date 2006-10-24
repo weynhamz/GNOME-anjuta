@@ -412,7 +412,7 @@ static char * get_current_function_scope (GtkWidget *scintilla, int line)
 		}
 	}
 	return NULL;
-};
+}
 
 static char * FindTypeInFunctionArgs(GPtrArray *CurrentFileTags,
                           const char *root, int *retptr, const int line)
