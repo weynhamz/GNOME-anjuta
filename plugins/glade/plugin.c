@@ -590,6 +590,30 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	g_list_free (files);
 }
 
+/* FIXME: Glade does not allow destroying its (singleton) widgets.
+ * Make sure they are removed when the application is destroyed
+ * without the plugin unloaded.
+ */
+static void
+on_shell_destroy (AnjutaShell *shell, GladePlugin *glade_plugin)
+{
+	GtkWidget *wid;
+	GtkWidget *parent;
+	
+	/* Remove widgets before the container destroyes them */
+	wid = GTK_WIDGET (glade_app_get_palette ());
+	parent = gtk_widget_get_parent (wid);
+	gtk_container_remove (GTK_CONTAINER (parent), wid);
+	
+	wid = GTK_WIDGET (glade_app_get_editor ());
+	parent = gtk_widget_get_parent (wid);
+	gtk_container_remove (GTK_CONTAINER (parent), wid);
+	
+	wid = GTK_WIDGET (glade_plugin->priv->view_box);
+	parent = gtk_widget_get_parent (wid);
+	gtk_container_remove (GTK_CONTAINER (parent), wid);
+}
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -654,6 +678,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	g_signal_connect(G_OBJECT(glade_app_get_editor()), "gtk-doc-search",
 					 G_CALLBACK(on_api_help), plugin);
+	
+	g_signal_connect(G_OBJECT(plugin->shell), "destroy",
+					 G_CALLBACK(on_shell_destroy), plugin);
 	
 	/* Add action group */
 	priv->action_group = 
@@ -720,6 +747,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT(glade_app_get_editor()),
 										  G_CALLBACK(on_api_help), plugin);
 	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_shell_destroy),
+										  plugin);
 	/* Remove widgets */
 	anjuta_shell_remove_widget (plugin->shell,
 								GTK_WIDGET (glade_app_get_palette ()),

@@ -1,5 +1,8 @@
 2006-10-24  Naba Kumar  <naba@gnome.org>
 
+	* plugins/glade/plugin.c: Fixed crash when Anjuta is
+	exited with glade plugin still loaded. Fixes Bug #364755.
+
 	* plugins/document-manager/anjuta-document-manager.plugin.in:
 	Added application/x-reject in accepted mime-types.
 	
