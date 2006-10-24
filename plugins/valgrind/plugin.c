@@ -85,7 +85,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	AnjutaValgrindPlugin *val_plugin;
 	const gchar *root_uri;
 
-	val_plugin = (AnjutaValgrindPlugin*) plugin;
+	val_plugin = ANJUTA_VALGRIND_PLUGIN (plugin);
 	root_uri = g_value_get_string (value);
 	
 	if (root_uri)
@@ -106,7 +106,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
 	AnjutaValgrindPlugin *val_plugin;
-	val_plugin = (AnjutaValgrindPlugin*) plugin;
+	val_plugin = ANJUTA_VALGRIND_PLUGIN (plugin);
 	
 	if (val_plugin->project_root_uri)
 		g_free(val_plugin->project_root_uri);
@@ -176,7 +176,7 @@ on_options_button_clicked (GtkButton *button, GladeXML *gxml)
 static void
 on_menu_editrules_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)  
 {
-	vg_tool_view_show_rules ((VgToolView *) plugin->valgrind_widget);
+	vg_tool_view_show_rules (VG_TOOL_VIEW (plugin->valgrind_widget));
 }
 
 static void
@@ -200,7 +200,7 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 						 IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE,
 						 NULL);
 
-	if (g_list_length (exec_targets) >= 1) {
+	if (exec_targets) {
 		GladeXML *gxml;
 		GtkWidget *dlg, *treeview, *tool_combobox;
 		GtkTreeViewColumn *column;
@@ -210,6 +210,8 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 		gint response, tool_selected;
 		GList *node;
 		GtkTreeIter iter;
+		gchar *project_root_uri;
+		size_t project_root_uri_len;
 		gchar *sel_target = NULL;
 
 		tool_selected = 0;
@@ -231,11 +233,15 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 					  GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell));
 		store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
 		node = exec_targets;	
+
+		anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell,
+			"project_root_uri", G_TYPE_STRING,
+			&project_root_uri, NULL);
+		project_root_uri_len = strlen(project_root_uri) + 1;
 	
 		while (node) {
 			const gchar *rel_path;
-			rel_path = 	(gchar*)node->data + 
-					strlen (plugin->project_root_uri) + 1;
+			rel_path = (gchar*)node->data + project_root_uri_len;
 			gtk_list_store_append (store, &iter);
 			gtk_list_store_set (store, &iter, 0, rel_path, 1,
 								node->data, -1);
@@ -283,6 +289,7 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 			gchar *prgname;
 			gchar *program_dir;
 			SymTab *symtab;
+			VgToolView *vg_tool_view;
 
 			prgname = gnome_vfs_format_uri_for_display (sel_target);
 			DEBUG_PRINT ("target program selected is %s", prgname);			
@@ -291,19 +298,20 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 			program_dir = g_path_get_dirname (prgname);
 			DEBUG_PRINT ("target a basedir: %s", program_dir);
 			
-			vg_tool_view_set_argv ((VgToolView *) plugin->valgrind_widget, sel_target, NULL);
-      vg_tool_view_set_srcdir ((VgToolView *) plugin->valgrind_widget, program_dir, NULL);
-      g_free (sel_target);
-      g_free (program_dir);
+			vg_tool_view = VG_TOOL_VIEW (plugin->valgrind_widget);
+			
+			vg_tool_view_set_argv (vg_tool_view, (const char**)sel_target);
+			vg_tool_view_set_srcdir (vg_tool_view, (const char**)program_dir);
+			
+			g_free (sel_target);
+			g_free (program_dir);
 			
 			symtab = load_symtab (prgname);
-			vg_tool_view_set_symtab ((VgToolView *) plugin->valgrind_widget,
-							symtab);			
-
-		
+			vg_tool_view_set_symtab (vg_tool_view, symtab);			
+			
 			if (plugin->valgrind_displayed == FALSE) {
 				/* Add the widget to the shell */		
-				anjuta_shell_add_widget (((AnjutaPlugin*)plugin)->shell, plugin->valgrind_widget,
+				anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell, plugin->valgrind_widget,
 								 "AnjutaValgrindPluginWidget", _("Valgrind"), "valgrind-knight",
 								 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);	
 				plugin->valgrind_displayed = TRUE;
@@ -424,7 +432,7 @@ on_menu_load_log_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 
 	if (plugin->valgrind_displayed == FALSE) {
 		/* Add the widget to the shell */		
-		anjuta_shell_add_widget (((AnjutaPlugin*)plugin)->shell, plugin->valgrind_widget,
+		anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell, plugin->valgrind_widget,
 						 "AnjutaValgrindPluginWidget", _("Valgrind"), "valgrind-knight",
 						 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);	
 		plugin->valgrind_displayed = TRUE;
@@ -540,7 +548,7 @@ valgrind_activate (AnjutaPlugin *plugin)
 	AnjutaValgrindPlugin *valgrind;
 	
 	DEBUG_PRINT ("AnjutaValgrindPlugin: Activating AnjutaValgrindPlugin plugin ...");
-	valgrind = (AnjutaValgrindPlugin*) plugin;
+	valgrind = ANJUTA_VALGRIND_PLUGIN (plugin);
 
 	if (!initialized) {
 		register_stock_icons (plugin);
@@ -562,7 +570,7 @@ valgrind_activate (AnjutaPlugin *plugin)
 	valgrind->valgrind_widget = vg_default_view_new (valgrind);
 	
 	/* And the VgActions */	
-	valgrind->val_actions = vg_actions_new (valgrind, valgrind->val_prefs, 
+	valgrind->val_actions = vg_actions_new (valgrind, &valgrind->val_prefs, 
 						valgrind->valgrind_widget);
 							 
 	/* set up project directory watch */
@@ -587,14 +595,13 @@ valgrind_deactivate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	AnjutaValgrindPlugin* valgrind;
 	
-	valgrind = (AnjutaValgrindPlugin*)plugin;
+	valgrind = ANJUTA_VALGRIND_PLUGIN (plugin);
 	
 	DEBUG_PRINT ("AnjutaValgrindPlugin: Dectivating AnjutaValgrindPlugin plugin ...");
 
-	if ( valgrind->valgrind_widget != NULL ) {
-		anjuta_shell_remove_widget (plugin->shell, valgrind->valgrind_widget,
-									NULL);
+	if ( valgrind->valgrind_displayed ) {
 		valgrind->valgrind_displayed = FALSE;
+		anjuta_shell_remove_widget (plugin->shell, valgrind->valgrind_widget, NULL);
 	}
 
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -626,7 +633,7 @@ valgrind_dispose (GObject *obj)
 static void
 valgrind_instance_init (GObject *obj)
 {
-	AnjutaValgrindPlugin *plugin = (AnjutaValgrindPlugin*)obj;
+	AnjutaValgrindPlugin *plugin = ANJUTA_VALGRIND_PLUGIN (obj);
 
 	plugin->uiid = 0;
 
@@ -652,26 +659,32 @@ static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	GdkPixbuf* pixbuf;
-	AnjutaValgrindPlugin* valgrind = (AnjutaValgrindPlugin*) ipref;
+	AnjutaValgrindPlugin* valgrind = ANJUTA_VALGRIND_PLUGIN (ipref);
+
 	valgrind->general_prefs = valgrind_plugin_prefs_get_anj_prefs ();
+	valgrind->val_prefs = valgrind_plugin_prefs_new ();
+
 	pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);
-	
+
+	g_object_ref(valgrind->general_prefs);
 	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs),
 						"Valgrind", _("Valgrind"), pixbuf, valgrind->general_prefs);
 	g_object_unref (pixbuf);
-	valgrind->val_prefs = valgrind_plugin_prefs_new ();
 }
 
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	AnjutaValgrindPlugin* valgrind = (AnjutaValgrindPlugin*) ipref;
+	AnjutaValgrindPlugin* valgrind = ANJUTA_VALGRIND_PLUGIN (ipref);
+
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), 
+		_("Valgrind"));
 
 	g_object_unref (valgrind->general_prefs);
 	g_object_unref (valgrind->val_prefs);
 	
-	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), 
-		_("Valgrind"));
+	valgrind->general_prefs = NULL;
+	valgrind->val_prefs = NULL;
 }
 
 static void
@@ -681,9 +694,11 @@ ipreferences_iface_init(IAnjutaPreferencesIface* iface)
 	iface->unmerge = ipreferences_unmerge;	
 }
 
+GType anjuta_valgrind_plugin_type = 0;
 
 ANJUTA_PLUGIN_BEGIN (AnjutaValgrindPlugin, valgrind);
 ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
+anjuta_valgrind_plugin_type = type;
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (AnjutaValgrindPlugin, valgrind);

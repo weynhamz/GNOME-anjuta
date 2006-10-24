@@ -90,9 +90,9 @@ type_menu_changed (GtkMenuItem *item, gpointer user_data)
 	VgRuleEditor *editor = user_data;
 	vgrule_t type;
 	
-	type = GPOINTER_TO_INT (g_object_get_data ((GObject *) item, "vgrule_t"));
+	type = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "vgrule_t"));
 	
-	gtk_widget_set_sensitive ((GtkWidget *) editor->syscall, type == VG_RULE_PARAM);
+	gtk_widget_set_sensitive (GTK_WIDGET (editor->syscall), type == VG_RULE_PARAM);
 }
 
 static GtkWidget *
@@ -106,15 +106,15 @@ rule_type_menu_new (VgRuleEditor *editor)
 	
 	for (i = 0; i < VG_RULE_LAST; i++) {
 		item = gtk_menu_item_new_with_label (vg_rule_type_to_name (i));
-		g_object_set_data ((GObject *) item, "vgrule_t", GINT_TO_POINTER (i));
+		g_object_set_data (G_OBJECT (item), "vgrule_t", GINT_TO_POINTER (i));
 		g_signal_connect (item, "activate", G_CALLBACK (type_menu_changed), editor);
 		gtk_widget_show (item);
-		gtk_menu_shell_append ((GtkMenuShell *) menu, item);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 		editor->types[i] = item;
 	}
 	
 	gtk_widget_show (menu);
-	gtk_option_menu_set_menu ((GtkOptionMenu *) omenu, menu);
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
 	
 	return omenu;
 }
@@ -132,28 +132,28 @@ call_stack_frame_new (vgcaller_t type, const char *name)
 	
 	item = gtk_menu_item_new_with_label (_("Function"));
 	gtk_widget_show (item);
-	gtk_menu_shell_append ((GtkMenuShell *) menu, item);
-	g_object_set_data ((GObject *) item, "vgcaller_t", GINT_TO_POINTER (VG_CALLER_FUNCTION));
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+	g_object_set_data (G_OBJECT (item), "vgcaller_t", GINT_TO_POINTER (VG_CALLER_FUNCTION));
 	
 	item = gtk_menu_item_new_with_label (_("Shared Object"));
 	gtk_widget_show (item);
-	gtk_menu_shell_append ((GtkMenuShell *) menu, item);
-	g_object_set_data ((GObject *) item, "vgcaller_t", GINT_TO_POINTER (VG_CALLER_OBJECT));
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+	g_object_set_data (G_OBJECT (item), "vgcaller_t", GINT_TO_POINTER (VG_CALLER_OBJECT));
 	
 	gtk_widget_show (menu);
-	gtk_option_menu_set_menu ((GtkOptionMenu *) omenu, menu);
-	gtk_option_menu_set_history ((GtkOptionMenu *) omenu, (int) type);
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (omenu), (int) type);
 	
 	gtk_widget_show (omenu);
 	gtk_box_pack_start (GTK_BOX (hbox), omenu, FALSE, FALSE, 0);
 	
 	entry = gtk_entry_new ();
-	gtk_entry_set_text ((GtkEntry *) entry, name ? name : "");
+	gtk_entry_set_text (GTK_ENTRY (entry), name ? name : "");
 	gtk_widget_show (entry);
 	gtk_box_pack_start (GTK_BOX (hbox), entry, TRUE, TRUE, 0);
 	
-	g_object_set_data ((GObject *) hbox, "omenu", omenu);
-	g_object_set_data ((GObject *) hbox, "entry", entry);
+	g_object_set_data (G_OBJECT (hbox), "omenu", omenu);
+	g_object_set_data (G_OBJECT (hbox), "entry", entry);
 	
 	return hbox;
 }
@@ -220,14 +220,14 @@ vg_rule_editor_init (VgRuleEditor *editor)
 	GtkWidget *vbox, *hbox, *label;
 	GtkWidget *widget;
 	
-	vbox = (GtkWidget *) editor;
-	gtk_box_set_spacing ((GtkBox *) vbox, 6);
+	vbox = GTK_WIDGET (editor);
+	gtk_box_set_spacing (GTK_BOX (vbox), 6);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
 	label = gtk_label_new (_("Rule name:"));
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-	editor->name = (GtkEntry *) (widget = gtk_entry_new ());
+	editor->name = GTK_ENTRY (widget = gtk_entry_new ());
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 0);
 	gtk_widget_show (hbox);
@@ -237,7 +237,7 @@ vg_rule_editor_init (VgRuleEditor *editor)
 	label = gtk_label_new (_("Suppress messages of type:"));
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-	editor->type = (GtkOptionMenu *) (widget = rule_type_menu_new (editor));
+	editor->type = GTK_OPTION_MENU (widget = rule_type_menu_new (editor));
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 0);
 	gtk_widget_show (hbox);
@@ -247,10 +247,10 @@ vg_rule_editor_init (VgRuleEditor *editor)
 	label = gtk_label_new (_("Suppress when using:"));
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-	editor->addrcheck = (GtkToggleButton *) (widget = gtk_check_button_new_with_label ("Addrcheck"));
+	editor->addrcheck = GTK_TOGGLE_BUTTON (widget = gtk_check_button_new_with_label ("Addrcheck"));
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
-	editor->memcheck = (GtkToggleButton *) (widget = gtk_check_button_new_with_label ("Memcheck"));
+	editor->memcheck = GTK_TOGGLE_BUTTON (widget = gtk_check_button_new_with_label ("Memcheck"));
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	gtk_widget_show (hbox);
@@ -258,10 +258,10 @@ vg_rule_editor_init (VgRuleEditor *editor)
 	
 	hbox = gtk_hbox_new (FALSE, 6);
 	label = gtk_label_new (_("System call:"));
-	gtk_misc_set_alignment ((GtkMisc *) label, 1.0, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (label), 1.0, 0.5);
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
-	editor->syscall = (GtkEntry *) (widget = gtk_entry_new ());
+	editor->syscall = GTK_ENTRY (widget = gtk_entry_new ());
 	gtk_widget_show (widget);
 	gtk_widget_set_sensitive (widget, FALSE);
 	gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 0);
@@ -269,14 +269,14 @@ vg_rule_editor_init (VgRuleEditor *editor)
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	
 	label = gtk_label_new (_("Call chain:"));
-	gtk_misc_set_alignment ((GtkMisc *) label, 0.0, 0.5);
+	gtk_misc_set_alignment (GTK_MISC (label), 0.0, 0.5);
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
 	
 	/*editor->callers = g_ptr_array_new ();
 	  g_ptr_array_add (editor->callers, call_stack_frame_new (0, NULL));*/
 	
-	editor->call_stack = (GtkBox *) (widget = call_stack_new (editor));
+	editor->call_stack = GTK_BOX (widget = call_stack_new (editor));
 	gtk_widget_show (widget);
 	gtk_box_pack_start (GTK_BOX (vbox), widget, TRUE, TRUE, 0);
 }
@@ -308,7 +308,7 @@ vg_rule_editor_new (void)
 	gtk_toggle_button_set_active (editor->addrcheck, TRUE);
 	gtk_toggle_button_set_active (editor->memcheck, TRUE);
 	
-	return (GtkWidget *) editor;
+	return GTK_WIDGET (editor);
 }
 
 
@@ -342,7 +342,7 @@ vg_rule_editor_new_from_rule (VgRule *rule)
 	while (tool != NULL) {
 		if (!strcasecmp (tool->name, "core")) {
 			/* special case... */
-			g_object_set_data ((GObject *) editor, "core", GINT_TO_POINTER (TRUE));
+			g_object_set_data (G_OBJECT (editor), "core", GINT_TO_POINTER (TRUE));
 		} else if (!strcasecmp (tool->name, "Addrcheck")) {
 			gtk_toggle_button_set_active (editor->addrcheck, TRUE);
 		} else if (!strcasecmp (tool->name, "Memcheck")) {
@@ -352,7 +352,7 @@ vg_rule_editor_new_from_rule (VgRule *rule)
 		tool = tool->next;
 	}
 	
-	return (GtkWidget *) editor;
+	return GTK_WIDGET (editor);
 }
 
 
@@ -425,7 +425,7 @@ vg_rule_editor_new_from_summary (VgErrorSummary *summary)
 	vg_rule_editor_set_name (editor, rule_name->str);
 	g_string_free (rule_name, TRUE);
 	
-	return (GtkWidget *) editor;
+	return GTK_WIDGET (editor);
 }
 
 
@@ -489,7 +489,7 @@ vg_rule_editor_get_rule (VgRuleEditor *editor)
 	if (gtk_toggle_button_get_active (editor->memcheck))
 		vg_rule_add_tool (rule, "Memcheck");
 	
-	if (!rule->tools && g_object_get_data ((GObject *) editor, "core")) {
+	if (!rule->tools && g_object_get_data (G_OBJECT (editor), "core")) {
 		/* this means we are editing a valgrind 1.9.x versioned supp file
 		   which needs at least 1 'tool' specified to suppress */
 		vg_rule_add_tool (rule, "core");
@@ -498,11 +498,11 @@ vg_rule_editor_get_rule (VgRuleEditor *editor)
 	tail = (VgCaller *) &rule->callers;
 	
 	for (i = 0; i < editor->callers->len; i++) {
-		omenu = g_object_get_data ((GObject *) editor->callers->pdata[i], "omenu");
-		entry = g_object_get_data ((GObject *) editor->callers->pdata[i], "entry");
+		omenu = g_object_get_data (G_OBJECT (editor->callers->pdata[i]), "omenu");
+		entry = g_object_get_data (G_OBJECT (editor->callers->pdata[i]), "entry");
 		
-		name = gtk_entry_get_text ((GtkEntry *) entry);
-		type = gtk_option_menu_get_history ((GtkOptionMenu *) omenu);
+		name = gtk_entry_get_text (GTK_ENTRY (entry));
+		type = gtk_option_menu_get_history (GTK_OPTION_MENU (omenu));
 		
 		caller = vg_caller_new (type, name);
 		tail->next = caller;
@@ -521,14 +521,14 @@ vg_rule_editor_save (VgRuleEditor *editor, const char *filename)
 	off_t offset;
 	int fd;
 	
-	parent = (GtkWindow *) gtk_widget_get_toplevel ((GtkWidget *) editor);
+	parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (editor)));
 	
 	if ((fd = open (filename, O_WRONLY | O_APPEND, 0666)) == -1) {
 		dialog = gtk_message_dialog_new (parent, GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 						 GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 						 _("Error saving to suppression file `%s': %s"),
 						 filename, g_strerror (errno));
-		gtk_dialog_run ((GtkDialog *) dialog);
+		gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (dialog);
 		return;
 	}
@@ -543,7 +543,7 @@ vg_rule_editor_save (VgRuleEditor *editor, const char *filename)
 						 GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 						 _("Error saving to suppression file `%s': %s"),
 						 filename, g_strerror (errno));
-		gtk_dialog_run ((GtkDialog *) dialog);
+		gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (dialog);
 		
 		ftruncate (fd, offset);

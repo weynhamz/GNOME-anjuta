@@ -1,3 +1,31 @@
+2006-10-24  Sylvain Defresne  <sdefresne@gmail.com>
+
+	Reviewed by: Naba Kumar  <naba@gnome.org>
+	
+	* plugins/valgrind/menu-utils.c plugins/valgrind/plugin.c
+	plugins/valgrind/plugin.h plugins/valgrind/preferences.c
+	plugins/valgrind/vgactions.c plugins/valgrind/vgcachegrindprefs.c
+	plugins/valgrind/vgdefaultview.c plugins/valgrind/vggeneralprefs.c
+	plugins/valgrind/vghelgrindprefs.c plugins/valgrind/vgmemcheckprefs.c
+	plugins/valgrind/vgrule-editor.c plugins/valgrind/vgrule-list.c
+	plugins/valgrind/vgsearchbar.c:
+	Use class macro for type casting.
+
+	* plugins/valgrind/plugin.h:
+	Don't force cast a GtkActionGroup to a GtkAction.
+
+	* plugins/valgrind/plugin.c:
+	Use correct API to get path of the preoject root when building
+	the list of targets for the run action.
+	Correct ordering of the construction of the preferences widgets.
+	Only remove the valgrind widget if it is currently displayed.
+
+	* plugins/valgrind/vgactions.c plugins/valgrind/vgactions.h:
+	Return if check_valgrind_binary() fails.
+	The ValgrindPluginPrefs object is initialized after the call to
+	vg_action_new. Take a handle to the location of the pointer to
+	the future object.
+
 2006-10-24  Naba Kumar  <naba@gnome.org>
 
 	* HACKING: Updated coding sample.

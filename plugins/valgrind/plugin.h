@@ -30,6 +30,10 @@
 
 G_BEGIN_DECLS
 
+extern GType anjuta_valgrind_plugin_type;
+#define ANJUTA_VALGRIND_PLUGIN_TYPE (anjuta_valgrind_plugin_type)
+#define ANJUTA_VALGRIND_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_VALGRIND_PLUGIN_TYPE, AnjutaValgrindPlugin))
+
 typedef struct _AnjutaValgrindPlugin AnjutaValgrindPlugin;
 typedef struct _AnjutaValgrindPluginClass AnjutaValgrindPluginClass;
 

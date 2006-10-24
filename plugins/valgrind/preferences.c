@@ -120,7 +120,7 @@ build_general_prefs ()
 	GError *err = NULL;
 	gint num;
 	gchar *str_file;
-	
+
 	gconf = gconf_client_get_default ();	
 
 	vbox = gtk_vbox_new (FALSE, 6);
@@ -128,15 +128,15 @@ build_general_prefs ()
 	hbox = gtk_hbox_new (FALSE, 6);
 
 	main_label = gtk_label_new ("");
-	gtk_label_set_markup ((GtkLabel*)main_label, "<b>Valgrind general preferences</b>");	
+	gtk_label_set_markup (GTK_LABEL (main_label), "<b>Valgrind general preferences</b>");	
 
-	gtk_box_pack_start ((GtkBox *) hbox, main_label, FALSE, FALSE, 0);
-	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), main_label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
 	label = gtk_label_new (_("Valgrind binary file path:"));
 	gtk_widget_show (label);
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 
 	str_file = gconf_client_get_string (gconf, EXE_PATH, &err);
 
@@ -151,7 +151,7 @@ build_general_prefs ()
 		gtk_file_chooser_button_new (_("Choose Valgrind Binary File Path..."), 
 								GTK_FILE_CHOOSER_ACTION_OPEN);
 								
-	if ( gtk_file_chooser_select_filename ((GtkFileChooser*)widget, str_file) == FALSE )
+	if ( gtk_file_chooser_select_filename (GTK_FILE_CHOOSER (widget), str_file) == FALSE )
 		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_filename ()");
 		
 	g_free (str_file);
@@ -160,33 +160,33 @@ build_general_prefs ()
 	g_signal_connect (widget, "selection-changed", G_CALLBACK (on_exe_path_entry_changed), EXE_PATH);
 
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) hbox, widget, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 0);
 
 	gtk_widget_show (hbox);
-	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
 	
 	label = gtk_label_new (_("Preview"));
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 
 	num = gconf_client_get_int (gconf, NUM_LINES_KEY, NULL);
-	numlines = (GtkSpinButton *) gtk_spin_button_new_with_range (0, (gdouble) INT_MAX, 1);
+	numlines = GTK_SPIN_BUTTON (gtk_spin_button_new_with_range (0, (gdouble) INT_MAX, 1));
 	gtk_spin_button_set_digits (numlines, 0);
 	gtk_spin_button_set_numeric (numlines, TRUE);
 	gtk_spin_button_set_value (numlines, (gdouble) num);
 
 	g_signal_connect (numlines, "focus-out-event", G_CALLBACK (spin_changed), NUM_LINES_KEY);
-	gtk_widget_show ((GtkWidget *) numlines);
-	gtk_box_pack_start ((GtkBox *) hbox, (GtkWidget *) numlines, FALSE, FALSE, 0);
+	gtk_widget_show (GTK_WIDGET (numlines));
+	gtk_box_pack_start (GTK_BOX (hbox), GTK_WIDGET (numlines), FALSE, FALSE, 0);
 
 	label = gtk_label_new (_("lines above and below the target line."));
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
-	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 
 	/* create a fresh new general prefs widget and add it to the vbox */
-	gen_page = g_object_new (page_types[PAGE_GENERAL], NULL);
-	gtk_box_pack_start ((GtkBox *) vbox, gen_page, FALSE, FALSE, 0);
+	gen_page = g_object_new (VG_TYPE_GENERAL_PREFS, NULL);
+	gtk_box_pack_start (GTK_BOX (vbox), gen_page, FALSE, FALSE, 0);
 	
 	gtk_widget_show_all (vbox);
 	return vbox;
@@ -235,10 +235,10 @@ valgrind_plugin_prefs_create_argv (ValgrindPluginPrefs *valprefs, const char *to
 	}
 
 	/* next, apply the general prefs */
-	vg_tool_prefs_get_argv ((VgToolPrefs *) priv->pages[PAGE_GENERAL], tool, argv);
+	vg_tool_prefs_get_argv (VG_TOOL_PREFS (priv->pages[PAGE_GENERAL]), tool, argv);
 
 	/* finally, apply the current view's prefs */
-	vg_tool_prefs_get_argv ((VgToolPrefs *) priv->pages[page], tool, argv);
+	vg_tool_prefs_get_argv (VG_TOOL_PREFS (priv->pages[page]), tool, argv);
 
 	return argv;
 }
@@ -252,25 +252,25 @@ valgrind_plugin_prefs_get_anj_prefs (void)
 GtkWidget * 
 valgrind_plugin_prefs_get_general_widget (void) 
 {
-	return g_object_new (page_types[PAGE_GENERAL], NULL);
+	return g_object_new (VG_TYPE_GENERAL_PREFS, NULL);
 }
 
 GtkWidget * 
 valgrind_plugin_prefs_get_memcheck_widget (void) 
 {
-	return g_object_new (page_types[PAGE_MEMCHECK], NULL);
+	return g_object_new (VG_TYPE_MEMCHECK_PREFS, NULL);
 }
 
 GtkWidget * 
 valgrind_plugin_prefs_get_cachegrind_widget (void) 
 {
-	return g_object_new (page_types[PAGE_CACHEGRIND], NULL);
+	return g_object_new (VG_TYPE_CACHEGRIND_PREFS, NULL);
 }
 
 GtkWidget * 
 valgrind_plugin_prefs_get_helgrind_widget (void) 
 {
-	return g_object_new (page_types[PAGE_HELGRIND], NULL);
+	return g_object_new (VG_TYPE_HELGRIND_PREFS, NULL);
 }
 
 
@@ -316,18 +316,12 @@ valgrind_plugin_prefs_init(ValgrindPluginPrefs *obj)
 
 	priv = obj->priv;
 	
-	/* sets the GTypes */
-	page_types[PAGE_GENERAL] = VG_TYPE_GENERAL_PREFS;	
-	page_types[PAGE_MEMCHECK] = VG_TYPE_MEMCHECK_PREFS;
-	page_types[PAGE_CACHEGRIND] = VG_TYPE_CACHEGRIND_PREFS;
-	page_types[PAGE_HELGRIND] = VG_TYPE_HELGRIND_PREFS;	
-
 	/* build our own widgets. These will be used only by VgActions to retrieve
 	 * the configs */
-	priv->pages[PAGE_GENERAL] = g_object_new (page_types[PAGE_GENERAL], NULL);	
-	priv->pages[PAGE_MEMCHECK] = g_object_new (page_types[PAGE_MEMCHECK], NULL);
-	priv->pages[PAGE_CACHEGRIND] = g_object_new (page_types[PAGE_CACHEGRIND], NULL);
-	priv->pages[PAGE_HELGRIND] = g_object_new (page_types[PAGE_HELGRIND], NULL);		
+	priv->pages[PAGE_GENERAL] = g_object_new (VG_TYPE_GENERAL_PREFS, NULL);	
+	priv->pages[PAGE_MEMCHECK] = g_object_new (VG_TYPE_MEMCHECK_PREFS, NULL);
+	priv->pages[PAGE_CACHEGRIND] = g_object_new (VG_TYPE_CACHEGRIND_PREFS, NULL);
+	priv->pages[PAGE_HELGRIND] = g_object_new (VG_TYPE_HELGRIND_PREFS, NULL);		
 }
 
 static void

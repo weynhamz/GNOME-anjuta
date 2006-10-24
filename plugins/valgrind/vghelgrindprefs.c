@@ -112,7 +112,7 @@ menu_item_activated (GtkMenuItem *item, const char *key)
 	
 	gconf = gconf_client_get_default ();
 	
-	str = g_object_get_data ((GObject *) item, "value");
+	str = g_object_get_data (G_OBJECT (item), "value");
 	gconf_client_set_string (gconf, key, str, NULL);
 	
 	g_object_unref (gconf);
@@ -136,7 +136,7 @@ show_last_access_new (GConfClient *gconf)
 			history = i;
 		
 		item = gtk_menu_item_new_with_label (show_last_access_opts[i]);
-		g_object_set_data ((GObject *) item, "value", show_last_access_opts[i]);
+		g_object_set_data (G_OBJECT (item), "value", show_last_access_opts[i]);
 		g_signal_connect (item, "activate", G_CALLBACK (menu_item_activated), SHOW_LAST_ACCESS_KEY);
 		gtk_widget_show (item);
 		
@@ -145,8 +145,8 @@ show_last_access_new (GConfClient *gconf)
 	
 	gtk_widget_show (menu);
 	omenu = gtk_option_menu_new ();
-	gtk_option_menu_set_menu ((GtkOptionMenu *) omenu, menu);
-	gtk_option_menu_set_history ((GtkOptionMenu *) omenu, history);
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (omenu), history);
 	
 	g_free (str);
 	
@@ -162,31 +162,31 @@ vg_helgrind_prefs_init (VgHelgrindPrefs *prefs)
 	
 	gconf = gconf_client_get_default ();
 	
-	((VgToolPrefs *) prefs)->label = _("Helgrind");
+	VG_TOOL_PREFS (prefs)->label = _("Helgrind");
 	
-	gtk_box_set_spacing ((GtkBox *) prefs, 6);
+	gtk_box_set_spacing (GTK_BOX (prefs), 6);
 	
 	bool = gconf_client_get_bool (gconf, PRIVATE_STACKS_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Assume thread stacks are used privately"));
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), PRIVATE_STACKS_KEY);
-	prefs->private_stacks = (GtkToggleButton *) widget;
+	prefs->private_stacks = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) prefs, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (prefs), widget, FALSE, FALSE, 0);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
 	
 	widget = gtk_label_new (_("Show location of last word access on error:"));
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) hbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	
 	widget = show_last_access_new (gconf);
-	prefs->show_last_access = (GtkOptionMenu *) widget;
+	prefs->show_last_access = GTK_OPTION_MENU (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) hbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	
 	gtk_widget_show (hbox);
-	gtk_box_pack_start ((GtkBox *) prefs, hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (prefs), hbox, FALSE, FALSE, 0);
 	
 	g_object_unref (gconf);
 }

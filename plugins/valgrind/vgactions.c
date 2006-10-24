@@ -54,7 +54,7 @@ struct _VgActionsPriv {
 	pid_t pid;
 	
 	AnjutaValgrindPlugin *anjuta_plugin;	/* mainly for valgrind_update_ui () */
-	ValgrindPluginPrefs *prefs;
+	ValgrindPluginPrefs **prefs;
 };
 
 
@@ -117,6 +117,9 @@ vg_actions_finalize(GObject *object)
 {
 	VgActions *cobj;
 	cobj = VG_ACTIONS(object);
+
+	g_object_unref (G_OBJECT (cobj->priv->anjuta_plugin));
+	g_object_unref (G_OBJECT (cobj->priv->view));
 	
 	/* Free private members, etc. */
 	/* wouldn't be necessary.. anyway */
@@ -129,10 +132,11 @@ vg_actions_finalize(GObject *object)
 
 VgActions *
 vg_actions_new (AnjutaValgrindPlugin *anjuta_plugin, 
-		ValgrindPluginPrefs *prefs, GtkWidget *vg_default_view)
+		ValgrindPluginPrefs **prefs, GtkWidget *vg_default_view)
 {
 	VgActions *obj;
-	VgDefaultView *view = VG_DEFAULT_VIEW (vg_default_view);
+    
+	g_return_val_if_fail(prefs != NULL, NULL);
 	
 	obj = VG_ACTIONS(g_object_new(VG_TYPE_ACTIONS, NULL));
 	
@@ -143,7 +147,10 @@ vg_actions_new (AnjutaValgrindPlugin *anjuta_plugin,
 	obj->priv->prefs = prefs;
 		
 	/* and the view object */
-	obj->priv->view = (GtkWidget*)view;
+	obj->priv->view = GTK_WIDGET (vg_default_view);
+	
+	g_object_ref (G_OBJECT (obj->priv->anjuta_plugin));
+	g_object_ref (G_OBJECT (obj->priv->view));
 	
 	return obj;
 }
@@ -156,7 +163,7 @@ io_ready_cb (GIOChannel *gio, GIOCondition condition, gpointer user_data)
 
 	priv = actions->priv;
 
-	if ((condition & G_IO_IN) && vg_tool_view_step ((VgToolView *) priv->view) <= 0) {
+	if ((condition & G_IO_IN) && vg_tool_view_step (VG_TOOL_VIEW (priv->view)) <= 0) {
 		DEBUG_PRINT ("child program exited or error in GIOChannel [IO_IN], killing");
 		anjuta_util_dialog_info (NULL, _("Reached the end of the input file or error "
 								"in parsing valgrind output."));
@@ -221,8 +228,11 @@ vg_actions_run (VgActions *actions, gchar* prg_to_debug, gchar* tool, GError **e
 	
 	priv = actions->priv;
 
+	g_return_if_fail (priv->prefs != NULL);
+
 	/* check the valgrind binary availability */
-	check_valgrind_binary ();
+	if (!check_valgrind_binary ())
+        return;
 	
 	priv->program = g_strdup (prg_to_debug);
 
@@ -239,7 +249,7 @@ vg_actions_run (VgActions *actions, gchar* prg_to_debug, gchar* tool, GError **e
 		return;
 	}
 
-	args = valgrind_plugin_prefs_create_argv (priv->prefs, tool);
+	args = valgrind_plugin_prefs_create_argv (*priv->prefs, tool);
 
 	sprintf (logfd_arg, "--log-fd=%d", logfd[1]);
 	g_ptr_array_add (args, logfd_arg);
@@ -266,7 +276,7 @@ vg_actions_run (VgActions *actions, gchar* prg_to_debug, gchar* tool, GError **e
 	g_ptr_array_free (args, TRUE);
 	close (logfd[1]);
 	
-	vg_tool_view_connect ((VgToolView *) priv->view, logfd[0]);
+	vg_tool_view_connect (VG_TOOL_VIEW (priv->view), logfd[0]);
 
 	priv->gio = g_io_channel_unix_new (logfd[0]);
 	priv->watch_id = g_io_add_watch (priv->gio, G_IO_IN | G_IO_HUP, 
@@ -285,7 +295,7 @@ vg_actions_kill (VgActions *actions)
 	g_return_if_fail (actions != NULL);
 	priv = actions->priv;
 	
-	vg_tool_view_disconnect ((VgToolView *) priv->view);
+	vg_tool_view_disconnect (VG_TOOL_VIEW (priv->view));
 	
 	if (priv->gio) {
 		g_io_channel_close (priv->gio);

@@ -169,90 +169,90 @@ vg_general_prefs_init (VgGeneralPrefs *prefs)
 	
 	gconf = gconf_client_get_default ();
 	
-	((VgToolPrefs *) prefs)->label = _("General");
+	VG_TOOL_PREFS (prefs)->label = _("General");
 	
-	vbox = (GtkWidget *) prefs;
-	gtk_box_set_spacing ((GtkBox *) vbox, 6);
+	vbox = GTK_WIDGET (prefs);
+	gtk_box_set_spacing (GTK_BOX (vbox), 6);
 	
 	bool = gconf_client_get_bool (gconf, DEMANGLE_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Demangle c++ symbol names"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), DEMANGLE_KEY);
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
-	prefs->demangle = (GtkToggleButton *) widget;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
+	prefs->demangle = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget, FALSE, FALSE, 0);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
 	label = gtk_label_new (_("Show"));
 	gtk_widget_show (label);
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	num = gconf_client_get_int (gconf, NUM_CALLERS_KEY, NULL);
 	widget = gtk_spin_button_new_with_range (0, (gdouble) 1024, 1);
 	gtk_widget_show (widget);
-	prefs->num_callers = (GtkSpinButton *) widget;
+	prefs->num_callers = GTK_SPIN_BUTTON (widget);
 	gtk_spin_button_set_digits (prefs->num_callers, 0);
 	gtk_spin_button_set_numeric (prefs->num_callers, TRUE);
 	gtk_spin_button_set_value (prefs->num_callers, (gdouble) num);
 	g_signal_connect (widget, "focus-out-event", G_CALLBACK (spin_focus_out), NUM_CALLERS_KEY);
-	gtk_box_pack_start ((GtkBox *) hbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	label = gtk_label_new (_("callers in stack trace"));
 	gtk_widget_show (label);
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	gtk_widget_show (hbox);
-	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	
 	bool = gconf_client_get_bool (gconf, ERROR_LIMIT_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Stop showing errors if there are too many"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), ERROR_LIMIT_KEY);
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
-	prefs->error_limit = (GtkToggleButton *) widget;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
+	prefs->error_limit = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget, FALSE, FALSE, 0);
 	
 	bool = gconf_client_get_bool (gconf, SLOPPY_MALLOC_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Round malloc sizes to next word"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), SLOPPY_MALLOC_KEY);
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
-	prefs->sloppy_malloc = (GtkToggleButton *) widget;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
+	prefs->sloppy_malloc = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget, FALSE, FALSE, 0);
 	
 	bool = gconf_client_get_bool (gconf, TRACE_CHILDREN_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Trace any child processes forked off by the program being debugged"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), TRACE_CHILDREN_KEY);
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
-	prefs->trace_children = (GtkToggleButton *) widget;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
+	prefs->trace_children = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget, FALSE, FALSE, 0);
 	
 	bool = gconf_client_get_bool (gconf, TRACK_FDS_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Track open file descriptors"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), TRACK_FDS_KEY);
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
-	prefs->track_fds = (GtkToggleButton *) widget;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
+	prefs->track_fds = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget, FALSE, FALSE, 0);
 	
 	bool = gconf_client_get_bool (gconf, TIME_STAMP_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Add time stamps to log messages"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), TIME_STAMP_KEY);
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
-	prefs->time_stamp = (GtkToggleButton *) widget;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
+	prefs->time_stamp = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget, FALSE, FALSE, 0);
 	
 	bool = gconf_client_get_bool (gconf, RUN_LIBC_FREERES_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Call __libc_freeres() at exit before checking for memory leaks"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), RUN_LIBC_FREERES_KEY);
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
-	prefs->run_libc_freeres = (GtkToggleButton *) widget;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
+	prefs->run_libc_freeres = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget, FALSE, FALSE, 0);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
 	label = gtk_label_new (_("Suppressions File:"));
 	gtk_widget_show (label);
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	
 	if (!(str_file = gconf_client_get_string (gconf, SUPPRESSIONS_KEY, &err)) || err != NULL) {
 		int fd;
@@ -273,17 +273,17 @@ vg_general_prefs_init (VgGeneralPrefs *prefs)
 		gtk_file_chooser_button_new (_("Choose Valgrind Suppressions File..."), 
 								GTK_FILE_CHOOSER_ACTION_OPEN);
 
-	if ( gtk_file_chooser_select_filename ((GtkFileChooser*)widget, str_file) == FALSE )
+	if ( gtk_file_chooser_select_filename (GTK_FILE_CHOOSER (widget), str_file) == FALSE )
 		DEBUG_PRINT ("error: could not select file uri with gtk_file_chooser_select_filename ()");
 	
 	/* grab every change in file selection */
 	g_signal_connect (widget, "selection-changed", G_CALLBACK (file_entry_changed), SUPPRESSIONS_KEY);
 
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) hbox, widget, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 0);
 	
 	gtk_widget_show (hbox);
-	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	
 	g_object_unref (gconf);
 }

@@ -165,15 +165,15 @@ valgrind_table_new (void)
 	GtkWidget *table;
 	
 	model = gtk_tree_store_newv (COL_LAST, col_types);
-	table = gtk_tree_view_new_with_model ((GtkTreeModel *) model);
+	table = gtk_tree_view_new_with_model (GTK_TREE_MODEL (model));
 	
 	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_insert_column_with_attributes ((GtkTreeView *) table, -1, "",
+	gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (table), -1, "",
 						     renderer, "text", 0, NULL);
 	
-	selection = gtk_tree_view_get_selection ((GtkTreeView *) table);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (table));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
-	gtk_tree_view_set_headers_visible ((GtkTreeView *) table, FALSE);
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (table), FALSE);
 	
 	return table;
 }
@@ -221,17 +221,17 @@ set_search (VgDefaultView *view, int item_id, const char *expr)
 	
 	regfree (&view->search_regex);
 	
-	parent = gtk_widget_get_toplevel ((GtkWidget *) view);
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (view));
 	parent = GTK_WIDGET_TOPLEVEL (parent) ? parent : NULL;
 	
-	dialog = gtk_message_dialog_new ((GtkWindow *) parent,
+	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
 					 GTK_DIALOG_DESTROY_WITH_PARENT,
 					 GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 					 _("Invalid regular expression: '%s': %s"),
 					 expr, err);
 	g_free (err);
 	
-	gtk_dialog_run ((GtkDialog *) dialog);
+	gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (dialog);
 }
 
@@ -273,16 +273,16 @@ vg_default_view_init (VgDefaultView *view)
 	view->rule_list = vg_rule_list_new (filename);
 	g_signal_connect (view->rule_list, "rule-added", G_CALLBACK (rule_added), view);
 	g_object_ref (view->rule_list);
-	gtk_object_sink ((GtkObject *) view->rule_list);
+	gtk_object_sink (GTK_OBJECT (view->rule_list));
 	gtk_widget_show (view->rule_list);
 	g_free (filename);
 	
 	search = vg_search_bar_new ();
-	vg_search_bar_set_menu_items ((VgSearchBar *) search, search_items);
+	vg_search_bar_set_menu_items (VG_SEARCH_BAR (search), search_items);
 	g_signal_connect (search, "search", G_CALLBACK (search_bar_search), view);
 	g_signal_connect (search, "clear", G_CALLBACK (search_bar_clear), view);
 	gtk_widget_show (search);
-	gtk_box_pack_start ((GtkBox *) view, search, FALSE, FALSE, 3);
+	gtk_box_pack_start (GTK_BOX (view), search, FALSE, FALSE, 3);
 	
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled),
@@ -299,13 +299,13 @@ vg_default_view_init (VgDefaultView *view)
 	gtk_widget_show (scrolled);
 	
 	/*gtk_container_add (GTK_CONTAINER (view), scrolled);*/
-	gtk_box_pack_start ((GtkBox *) view, scrolled, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (view), scrolled, TRUE, TRUE, 0);
 }
 
 static void
 vg_default_view_finalize (GObject *obj)
 {
-	VgDefaultView *view = (VgDefaultView *) obj;
+	VgDefaultView *view = VG_DEFAULT_VIEW (obj);
 	int i;
 	
 	for (i = 0; i < view->suppressions->len; i++)
@@ -333,7 +333,7 @@ vg_default_view_finalize (GObject *obj)
 static void
 vg_default_view_destroy (GtkObject *obj)
 {
-	VgDefaultView *view = (VgDefaultView *) obj;
+	VgDefaultView *view = VG_DEFAULT_VIEW (obj);
 	
 	if (view->rule_list) {
 		g_object_unref (view->rule_list);
@@ -362,11 +362,11 @@ vg_default_view_destroy (GtkObject *obj)
 static void
 valgrind_view_clear (VgToolView *tool)
 {
-	VgDefaultView *view = (VgDefaultView *) tool;
+	VgDefaultView *view = VG_DEFAULT_VIEW (tool);
 	GtkTreeStore *model;
 	int i;
 	
-	model = (GtkTreeStore *) gtk_tree_view_get_model ((GtkTreeView *) view->table);
+	model = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view->table)));
 	
 	gtk_tree_store_clear (model);
 	
@@ -385,7 +385,7 @@ valgrind_view_reset (VgToolView *tool)
 static void
 valgrind_init_src_preview (VgDefaultView *view, GtkTreeStore *model, GtkTreeIter *root, VgErrorStack *stack)
 {
-	VgToolView *tool = (VgToolView *) view;
+	VgToolView *tool = VG_TOOL_VIEW (view);
 	GtkTreeIter iter;
 	
 	if (!tool->symtab && !tool->srcdir)
@@ -535,7 +535,7 @@ view_rebuild (VgDefaultView *view)
 	GtkTreeStore *model;
 	int i;
 	
-	model = (GtkTreeStore *) gtk_tree_view_get_model ((GtkTreeView *) view->table);
+	model = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view->table)));
 	
 	gtk_tree_store_clear (model);
 	
@@ -565,7 +565,7 @@ recv_error_cb (VgErrorParser *parser, VgError *err, gpointer user_data)
 	
 	g_ptr_array_add (view->errors, err);
 	
-	model = (GtkTreeStore *) gtk_tree_view_get_model ((GtkTreeView *) view->table);
+	model = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (view->table)));
 	
 	if (error_matches_search (err, view->search_id, &view->search_regex))
 		view_show_error (view, model, err);
@@ -574,7 +574,7 @@ recv_error_cb (VgErrorParser *parser, VgError *err, gpointer user_data)
 static void
 valgrind_view_connect (VgToolView *tool, int sockfd)
 {
-	VgDefaultView *view = (VgDefaultView *) tool;
+	VgDefaultView *view = VG_DEFAULT_VIEW (tool);
 	
 	if (view->parser != NULL)
 		valgrind_view_disconnect (tool);
@@ -585,7 +585,7 @@ valgrind_view_connect (VgToolView *tool, int sockfd)
 static int
 valgrind_view_step (VgToolView *tool)
 {
-	VgDefaultView *view = (VgDefaultView *) tool;
+	VgDefaultView *view = VG_DEFAULT_VIEW (tool);
 	g_return_val_if_fail (view->parser != NULL, -1);
 
 	return vg_error_parser_step (view->parser);
@@ -594,7 +594,7 @@ valgrind_view_step (VgToolView *tool)
 static void
 valgrind_view_disconnect (VgToolView *tool)
 {
-	VgDefaultView *view = (VgDefaultView *) tool;
+	VgDefaultView *view = VG_DEFAULT_VIEW (tool);
 	int i;
 	
 	if (view->parser) {
@@ -618,7 +618,7 @@ valgrind_view_disconnect (VgToolView *tool)
 static int
 valgrind_view_save_log (VgToolView *tool, gchar* uri)
 {
-	VgDefaultView *view = (VgDefaultView *) tool;
+	VgDefaultView *view = VG_DEFAULT_VIEW (tool);
 	VgError *err;
 	GString *str;
 	
@@ -694,7 +694,7 @@ valgrind_view_cut (VgToolView *tool)
 static void
 valgrind_view_copy (VgToolView *tool)
 {
-	VgDefaultView *view = (VgDefaultView *) tool;
+	VgDefaultView *view = VG_DEFAULT_VIEW (tool);
 	GtkTreeSelection *selection;
 	GtkClipboard *clipboard;
 	VgErrorSummary *summary;
@@ -703,7 +703,7 @@ valgrind_view_copy (VgToolView *tool)
 	VgError *err;
 	GString *str;
 	
-	selection = gtk_tree_view_get_selection ((GtkTreeView *) view->table);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view->table));
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 		return;
 	
@@ -729,9 +729,9 @@ rules_response_cb (GtkDialog *dialog, int response, gpointer user_data)
 	VgDefaultView *view = user_data;
 	
 	if (response == GTK_RESPONSE_OK)
-		vg_rule_list_save ((VgRuleList *) view->rule_list);
+		vg_rule_list_save (VG_RULE_LIST (view->rule_list));
 	
-	gtk_widget_hide ((GtkWidget *) dialog);
+	gtk_widget_hide (GTK_WIDGET (dialog));
 }
 
 static gboolean
@@ -745,17 +745,17 @@ rules_delete_event_cb (GtkWidget *widget, gpointer user_data)
 static void
 valgrind_view_show_rules (VgToolView *tool)
 {
-	VgDefaultView *view = (VgDefaultView *) tool;
+	VgDefaultView *view = VG_DEFAULT_VIEW (tool);
 	GtkWidget *dialog;
 	GtkWidget *parent;
 	
 	if (tool->rules == NULL) {
-		parent = gtk_widget_get_toplevel ((GtkWidget *) tool);
+		parent = gtk_widget_get_toplevel (GTK_WIDGET (tool));
 		parent = GTK_WIDGET_TOPLEVEL (parent) ? parent : NULL;
 		
 		/* FIXME: we should really get this title from somewhere else? */
 		dialog = gtk_dialog_new_with_buttons (_("Valgrind Suppression Rules"),
-						      (GtkWindow *) parent,
+						      GTK_WINDOW (parent),
 						      GTK_DIALOG_DESTROY_WITH_PARENT,
 						      GTK_STOCK_CANCEL,
 						      GTK_RESPONSE_CANCEL,
@@ -763,11 +763,11 @@ valgrind_view_show_rules (VgToolView *tool)
 						      GTK_RESPONSE_OK,
 						      NULL);
 		
-		gtk_window_set_type_hint ((GtkWindow *) dialog, GDK_WINDOW_TYPE_HINT_NORMAL);
-		gtk_box_set_spacing ((GtkBox *) ((GtkDialog *) dialog)->vbox, 3);
-		gtk_window_set_default_size ((GtkWindow *) dialog, 450, 400);
+		gtk_window_set_type_hint (GTK_WINDOW (dialog), GDK_WINDOW_TYPE_HINT_NORMAL);
+		gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 3);
+		gtk_window_set_default_size (GTK_WINDOW (dialog), 450, 400);
 		
-		gtk_container_set_border_width ((GtkContainer *) view->rule_list, 6);
+		gtk_container_set_border_width (GTK_CONTAINER (view->rule_list), 6);
 		gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), view->rule_list, TRUE, TRUE, 0);
 		
 		g_signal_connect (dialog, "response", G_CALLBACK (rules_response_cb), view);
@@ -788,7 +788,7 @@ rules_filename_changed (GConfClient *client, guint cnxn_id,
 	char *filename;
 	
 	filename = gconf_client_get_string (client, SUPPRESSIONS_KEY, NULL);
-	vg_rule_list_set_filename ((VgRuleList *) view->rule_list, filename);
+	vg_rule_list_set_filename (VG_RULE_LIST (view->rule_list), filename);
 	g_free (filename);
 }
 
@@ -827,7 +827,7 @@ vg_default_view_new (AnjutaValgrindPlugin *valgrind_plugin)
 	 * destroying */
 	view->valgrind_plugin = valgrind_plugin;
 	
-	return (GtkWidget *) view;
+	return GTK_WIDGET (view);
 }
 
 
@@ -1028,9 +1028,9 @@ tree_row_expanded (GtkTreeView *treeview, GtkTreeIter *parent, GtkTreePath *path
 	gboolean load;
 	char *srcbuf;
 	
-	model = (GtkTreeStore *) gtk_tree_view_get_model (treeview);
+	model = GTK_TREE_STORE (gtk_tree_view_get_model (treeview));
 	
-	gtk_tree_model_get ((GtkTreeModel *) model, parent, COL_LOAD_SRC_PREVIEW, &load, -1);
+	gtk_tree_model_get (GTK_TREE_MODEL (model), parent, COL_LOAD_SRC_PREVIEW, &load, -1);
 	if (!load)
 		return;
 	
@@ -1038,9 +1038,9 @@ tree_row_expanded (GtkTreeView *treeview, GtkTreeIter *parent, GtkTreePath *path
 	gtk_tree_store_set (model, parent, COL_LOAD_SRC_PREVIEW, FALSE, -1);
 	
 	/* get the first child (which will be a dummy if we haven't loaded the src-preview yet) */
-	gtk_tree_model_iter_children ((GtkTreeModel *) model, &iter, parent);
+	gtk_tree_model_iter_children (GTK_TREE_MODEL (model), &iter, parent);
 	
-	gtk_tree_model_get ((GtkTreeModel *) model, &iter, COL_POINTER_STACK, &stack, -1);
+	gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, COL_POINTER_STACK, &stack, -1);
 	
 	if (!(srcbuf = load_src_buf (tool, stack, view->srclines))) {
 		w(g_warning ("couldn't load src preview"));
@@ -1087,7 +1087,7 @@ suppress_cb (GtkWidget *widget, gpointer user_data)
 	GtkWidget *parent;
 	GtkTreeIter iter;
 	
-	selection = gtk_tree_view_get_selection ((GtkTreeView *) view->table);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view->table));
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 		return;
 	
@@ -1095,12 +1095,12 @@ suppress_cb (GtkWidget *widget, gpointer user_data)
 	if (summary == NULL)
 		return;
 	
-	parent = gtk_widget_get_toplevel ((GtkWidget *) view);
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (view));
 	parent = GTK_WIDGET_TOPLEVEL (parent) ? parent : NULL;
 	
 	/* FIXME: we should really get this title from somewhere else? */
-	vg_rule_list_add_rule ((VgRuleList *) view->rule_list, _("Valgrind Suppression"),
-			       (GtkWindow *) parent, summary);
+	vg_rule_list_add_rule (VG_RULE_LIST (view->rule_list), _("Valgrind Suppression"),
+			       GTK_WINDOW (parent), summary);
 }
 
 static void
@@ -1114,7 +1114,7 @@ custom_editor_cb (GtkWidget *widget, gpointer user_data)
 	GtkTreeIter iter;
 	gchar *path;
 	
-	selection = gtk_tree_view_get_selection ((GtkTreeView *) view->table);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view->table));
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 		return;
 	
@@ -1122,7 +1122,7 @@ custom_editor_cb (GtkWidget *widget, gpointer user_data)
 	if (stack == NULL)
 		return;
 	
-	if (!(path = resolve_full_path ((VgToolView *) view, stack)))
+	if (!(path = resolve_full_path (VG_TOOL_VIEW (view), stack)))
 		return;
 	
 	DEBUG_PRINT ("got this path for file opening: %s and line %d", path, stack->info.src.lineno );
@@ -1172,9 +1172,9 @@ tree_button_press (GtkWidget *treeview, GdkEventButton *event, gpointer user_dat
 	
 	if (event->type == GDK_BUTTON_PRESS && event->button == 3) {
 		/* right-click */
-		selection = gtk_tree_view_get_selection ((GtkTreeView *) treeview);
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
 		if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-			gtk_tree_model_get ((GtkTreeModel *) model, &iter, COL_POINTER_STACK, &stack, -1);
+			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, COL_POINTER_STACK, &stack, -1);
 			if (stack == NULL)
 				mask |= STACK_MASK;
 		} else {

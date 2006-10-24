@@ -60,7 +60,7 @@ struct _VgActions {
 
 GType vg_actions_get_type (void);
 VgActions *vg_actions_new (AnjutaValgrindPlugin *anjuta_plugin, 
-					ValgrindPluginPrefs *prefs, GtkWidget *vg_default_view);
+					ValgrindPluginPrefs **prefs, GtkWidget *vg_default_view);
 void vg_actions_run (VgActions *actions, gchar* prg_to_debug, gchar* tool, 
 					GError **err);
 void vg_actions_kill (VgActions *actions);

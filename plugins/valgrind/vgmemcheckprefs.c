@@ -117,7 +117,7 @@ menu_item_activated (GtkMenuItem *item, const char *key)
 	
 	gconf = gconf_client_get_default ();
 	
-	str = g_object_get_data ((GObject *) item, "value");
+	str = g_object_get_data (G_OBJECT (item), "value");
 	gconf_client_set_string (gconf, key, str, NULL);
 	
 	g_object_unref (gconf);
@@ -155,7 +155,7 @@ option_menu_new (GConfClient *gconf, char *key, char **values, int n, int def)
 			history = i;
 		
 		item = gtk_menu_item_new_with_label (values[i]);
-		g_object_set_data ((GObject *) item, "value", values[i]);
+		g_object_set_data (G_OBJECT (item), "value", values[i]);
 		g_signal_connect (item, "activate", G_CALLBACK (menu_item_activated), key);
 		gtk_widget_show (item);
 		
@@ -164,8 +164,8 @@ option_menu_new (GConfClient *gconf, char *key, char **values, int n, int def)
 	
 	gtk_widget_show (menu);
 	omenu = gtk_option_menu_new ();
-	gtk_option_menu_set_menu ((GtkOptionMenu *) omenu, menu);
-	gtk_option_menu_set_history ((GtkOptionMenu *) omenu, history);
+	gtk_option_menu_set_menu (GTK_OPTION_MENU (omenu), menu);
+	gtk_option_menu_set_history (GTK_OPTION_MENU (omenu), history);
 	
 	g_free (str);
 	
@@ -186,86 +186,86 @@ vg_memcheck_prefs_init (VgMemcheckPrefs *prefs)
 	
 	gconf = gconf_client_get_default ();
 	
-	((VgToolPrefs *) prefs)->label = _("Memcheck");
+	VG_TOOL_PREFS (prefs)->label = _("Memcheck");
 	
-	vbox = (GtkWidget *) prefs;
-	gtk_box_set_spacing ((GtkBox *) vbox, 6);
+	vbox = GTK_WIDGET (prefs);
+	gtk_box_set_spacing (GTK_BOX (vbox), 6);
 	
 	frame = gtk_frame_new (_("Memory leaks"));
 	vbox = gtk_vbox_new (FALSE, 6);
-	gtk_container_set_border_width ((GtkContainer *) vbox, 6);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
 	label = gtk_label_new (_("Leak check:"));
 	gtk_widget_show (label);
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	widget = option_menu_new (gconf, LEAK_CHECK_KEY, leak_checks, G_N_ELEMENTS (leak_checks), 1);
-	prefs->leak_check = (GtkOptionMenu *) widget;
+	prefs->leak_check = GTK_OPTION_MENU (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) hbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	gtk_widget_show (hbox);
-	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	
 	bool = gconf_client_get_bool (gconf, SHOW_REACHABLE_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Show reachable blocks in leak check"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), SHOW_REACHABLE_KEY);
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
-	prefs->show_reachable = (GtkToggleButton *) widget;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
+	prefs->show_reachable = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget, FALSE, FALSE, 0);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
 	label = gtk_label_new (_("Leak resolution:"));
 	gtk_widget_show (label);
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	widget = option_menu_new (gconf, LEAK_RESOLUTION_KEY, leak_resolutions, G_N_ELEMENTS (leak_resolutions), 0);
-	prefs->leak_resolution = (GtkOptionMenu *) widget;
+	prefs->leak_resolution = GTK_OPTION_MENU (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) hbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	gtk_widget_show (hbox);
-	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	
 	gtk_widget_show (vbox);
-	gtk_container_add ((GtkContainer *) frame, vbox);
-	vbox = (GtkWidget *) prefs;
+	gtk_container_add (GTK_CONTAINER (frame), vbox);
+	vbox = GTK_WIDGET (prefs);
 	
 	gtk_widget_show (frame);
-	gtk_box_pack_start ((GtkBox *) vbox, frame, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), frame, FALSE, FALSE, 0);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
 	label = gtk_label_new (_("Keep up to"));
 	gtk_widget_show (label);
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	num = gconf_client_get_int (gconf, FREELIST_VOL_KEY, NULL);
 	widget = gtk_spin_button_new_with_range (0, (gdouble) INT_MAX, 4);
 	gtk_widget_show (widget);
-	prefs->freelist_vol = (GtkSpinButton *) widget;
+	prefs->freelist_vol = GTK_SPIN_BUTTON (widget);
 	gtk_spin_button_set_digits (prefs->freelist_vol, 0);
 	gtk_spin_button_set_numeric (prefs->freelist_vol, TRUE);
 	gtk_spin_button_set_value (prefs->freelist_vol, (gdouble) num);
 	g_signal_connect (widget, "focus-out-event", G_CALLBACK (spin_focus_out), FREELIST_VOL_KEY);
-	gtk_box_pack_start ((GtkBox *) hbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), widget, FALSE, FALSE, 0);
 	label = gtk_label_new (_("bytes in the queue after being free()'d"));
 	gtk_widget_show (label);
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	gtk_widget_show (hbox);
-	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	
 	bool = gconf_client_get_bool (gconf, WORKAROUND_GCC296_BUGS_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Work around bugs generated by gcc 2.96"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), WORKAROUND_GCC296_BUGS_KEY);
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
-	prefs->workaround_gcc296_bugs = (GtkToggleButton *) widget;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
+	prefs->workaround_gcc296_bugs = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget, FALSE, FALSE, 0);
 /*/	
 	bool = gconf_client_get_bool (gconf, AVOID_STRLEN_ERRORS_KEY, NULL);
 	widget = gtk_check_button_new_with_label (_("Ignore errors produced by inline strlen() calls"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), AVOID_STRLEN_ERRORS_KEY);
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, bool);
-	prefs->avoid_strlen_errors = (GtkToggleButton *) widget;
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
+	prefs->avoid_strlen_errors = GTK_TOGGLE_BUTTON (widget);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget, FALSE, FALSE, 0);
 /*/	
 	g_object_unref (gconf);
 }

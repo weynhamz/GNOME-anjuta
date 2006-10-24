@@ -118,7 +118,7 @@ toggle_button_toggled (GtkToggleButton *toggle, const char *key)
 	
 	g_object_unref (gconf);
 	
-	hbox = g_object_get_data ((GObject *) toggle, "hbox");
+	hbox = g_object_get_data (G_OBJECT (toggle), "hbox");
 	gtk_widget_set_sensitive (hbox, bool);
 }
 
@@ -188,11 +188,11 @@ cache_settings_get (GtkEntry *entry)
 	if (fixed)
 		gtk_entry_set_text (entry, out);
 	
-	gtk_editable_select_region ((GtkEditable *) entry, offset, offset + 1);
+	gtk_editable_select_region (GTK_EDITABLE (entry), offset, offset + 1);
 	
-	parent = gtk_widget_get_toplevel ((GtkWidget *) entry);
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (entry));
 	parent = GTK_WIDGET_TOPLEVEL (parent) ? parent : NULL;
-	dialog = gtk_message_dialog_new ((GtkWindow *) parent, GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL,
+	dialog = gtk_message_dialog_new (GTK_WINDOW (parent), GTK_DIALOG_DESTROY_WITH_PARENT | GTK_DIALOG_MODAL,
 					 GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 					 _("Invalid syntax in settings '%s'.\nPlease enter a value "
 					   "of the form \"<integer>,<integer>,<integer>\"."), out);
@@ -232,34 +232,34 @@ cache_settings_new (VgCachegrindPrefs *prefs, const char *name, int index,
 	vbox = gtk_vbox_new (FALSE, 6);
 	
 	widget = gtk_check_button_new_with_label (_("Override default settings"));
-	prefs->cache[index].override = (GtkToggleButton *) widget;
-	gtk_toggle_button_set_active ((GtkToggleButton *) widget, override);
+	prefs->cache[index].override = GTK_TOGGLE_BUTTON (widget);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), override);
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), (void *) override_keys[index]);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) vbox, widget,FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), widget,FALSE, FALSE, 0);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
-	g_object_set_data ((GObject *) prefs->cache[index].override, "hbox", hbox);
+	g_object_set_data (G_OBJECT (prefs->cache[index].override), "hbox", hbox);
 	
 	label = gtk_label_new (_("Enter <size>,<assoc>,<line_size>:"));
 	gtk_widget_show (label);
-	gtk_box_pack_start ((GtkBox *) hbox, label, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	
 	widget = gtk_entry_new ();
-	prefs->cache[index].settings = (GtkEntry *) widget;
-	gtk_entry_set_text ((GtkEntry *) widget, settings ? settings : "");
+	prefs->cache[index].settings = GTK_ENTRY (widget);
+	gtk_entry_set_text (GTK_ENTRY (widget), settings ? settings : "");
 	g_signal_connect (widget, "focus-out-event", G_CALLBACK (entry_focus_out), (void *) cache_keys[index]);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) hbox, widget, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox), widget, TRUE, TRUE, 0);
 	
 	gtk_widget_show (hbox);
 	gtk_widget_set_sensitive (hbox, override);
-	gtk_box_pack_start ((GtkBox *) vbox, hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	
-	gtk_container_set_border_width ((GtkContainer *) vbox, 6);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 	
 	gtk_widget_show (vbox);
-	gtk_container_add ((GtkContainer *) frame, vbox);
+	gtk_container_add (GTK_CONTAINER (frame), vbox);
 	
 	return frame;
 }
@@ -275,9 +275,9 @@ vg_cachegrind_prefs_init (VgCachegrindPrefs *prefs)
 	
 	gconf = gconf_client_get_default ();
 	
-	((VgToolPrefs *) prefs)->label = _("Cachegrind");
+	VG_TOOL_PREFS (prefs)->label = _("Cachegrind");
 	
-	gtk_box_set_spacing ((GtkBox *) prefs, 6);
+	gtk_box_set_spacing (GTK_BOX (prefs), 6);
 	
 	for (i = 0; i < 3; i++) {
 		override = gconf_client_get_bool (gconf, override_keys[i], NULL);
@@ -287,7 +287,7 @@ vg_cachegrind_prefs_init (VgCachegrindPrefs *prefs)
 		g_free (settings);
 		
 		gtk_widget_show (widget);
-		gtk_box_pack_start ((GtkBox *) prefs, widget, FALSE, FALSE, 0);
+		gtk_box_pack_start (GTK_BOX (prefs), widget, FALSE, FALSE, 0);
 	}
 	
 	g_object_unref (gconf);

@@ -141,13 +141,13 @@ rule_editor_dialog_new (GtkWindow *parent, VgRule *rule)
 	else
 		editor = vg_rule_editor_new ();
 	
-	gtk_container_set_border_width ((GtkContainer *) editor, 6);
+	gtk_container_set_border_width (GTK_CONTAINER (editor), 6);
 	gtk_widget_show (editor);
 	
 	gtk_box_set_spacing (GTK_BOX (GTK_DIALOG (dialog)->vbox), 3);
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), editor, TRUE, TRUE, 0);
 	
-	g_object_set_data ((GObject *) dialog, "editor", editor);
+	g_object_set_data (G_OBJECT (dialog), "editor", editor);
 	
 	return dialog;
 }
@@ -165,24 +165,24 @@ add_response_cb (GtkDialog *dialog, int response, gpointer user_data)
 		const char *name;
 		GtkWidget *msg;
 		
-		editor = g_object_get_data ((GObject *) dialog, "editor");
+		editor = g_object_get_data (G_OBJECT (dialog), "editor");
 		
-		name = vg_rule_editor_get_name ((VgRuleEditor *) editor);
+		name = vg_rule_editor_get_name (VG_RULE_EDITOR (editor));
 		if (!name || *name == '\0') {
-			msg = gtk_message_dialog_new ((GtkWindow *) dialog, GTK_DIALOG_MODAL |
+			msg = gtk_message_dialog_new (GTK_WINDOW (dialog), GTK_DIALOG_MODAL |
 						      GTK_DIALOG_DESTROY_WITH_PARENT,
 						      GTK_MESSAGE_WARNING,
 						      GTK_BUTTONS_CLOSE,
 						      _("You have forgotten to name your suppression rule."));
 			
-			gtk_dialog_run ((GtkDialog *) msg);
+			gtk_dialog_run (GTK_DIALOG (msg));
 			gtk_widget_destroy (msg);
 			return;
 		}
 		
 		list->changed = TRUE;
 		
-		rule = vg_rule_editor_get_rule ((VgRuleEditor *) editor);
+		rule = vg_rule_editor_get_rule (VG_RULE_EDITOR (editor));
 		
 		node = g_new (RuleNode, 1);
 		node->rule = rule;
@@ -191,9 +191,9 @@ add_response_cb (GtkDialog *dialog, int response, gpointer user_data)
 		
 		vg_rule_list_save (list);
 		
-		gtk_list_store_append ((GtkListStore *) list->model, &iter);
+		gtk_list_store_append (GTK_LIST_STORE (list->model), &iter);
 		
-		gtk_list_store_set ((GtkListStore *) list->model, &iter,
+		gtk_list_store_set (GTK_LIST_STORE (list->model), &iter,
 				    COL_STRING_NAME, rule->name,
 				    COL_POINTER_RULE, rule,
 				    COL_POINTER_RULE_NODE, node, -1);
@@ -201,7 +201,7 @@ add_response_cb (GtkDialog *dialog, int response, gpointer user_data)
 		g_signal_emit (list, signals[RULE_ADDED], 0, rule);
 	}
 	
-	gtk_widget_destroy ((GtkWidget *) dialog);
+	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 static void
@@ -211,10 +211,10 @@ add_cb (GtkWidget *button, gpointer user_data)
 	GtkWidget *parent;
 	GtkWidget *dialog;
 	
-	parent = gtk_widget_get_toplevel ((GtkWidget *) list);
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (list));
 	parent = GTK_WIDGET_TOPLEVEL (parent) ? parent : NULL;
 	
-	dialog = rule_editor_dialog_new ((GtkWindow *) parent, NULL);
+	dialog = rule_editor_dialog_new (GTK_WINDOW (parent), NULL);
 	g_signal_connect (dialog, "response", G_CALLBACK (add_response_cb), list);
 	
 	gtk_widget_show (dialog);
@@ -234,26 +234,26 @@ edit_response_cb (GtkDialog *dialog, int response, gpointer user_data)
 		const char *name;
 		GtkWidget *msg;
 		
-		editor = g_object_get_data ((GObject *) dialog, "editor");
+		editor = g_object_get_data (G_OBJECT (dialog), "editor");
 		
-		name = vg_rule_editor_get_name ((VgRuleEditor *) editor);
+		name = vg_rule_editor_get_name (VG_RULE_EDITOR (editor));
 		if (!name || *name == '\0') {
-			msg = gtk_message_dialog_new ((GtkWindow *) dialog, GTK_DIALOG_MODAL |
+			msg = gtk_message_dialog_new (GTK_WINDOW (dialog), GTK_DIALOG_MODAL |
 						      GTK_DIALOG_DESTROY_WITH_PARENT,
 						      GTK_MESSAGE_WARNING,
 						      GTK_BUTTONS_CLOSE,
 						      _("You have forgotten to name your suppression rule."));
 			
-			gtk_dialog_run ((GtkDialog *) msg);
+			gtk_dialog_run (GTK_DIALOG (msg));
 			gtk_widget_destroy (msg);
 			return;
 		}
 		
 		list->changed = TRUE;
 		
-		rule = vg_rule_editor_get_rule ((VgRuleEditor *) editor);
+		rule = vg_rule_editor_get_rule (VG_RULE_EDITOR (editor));
 		
-		path = g_object_get_data ((GObject *) dialog, "path");
+		path = g_object_get_data (G_OBJECT (dialog), "path");
 		if (gtk_tree_model_get_iter (list->model, &iter, path)) {
 			/* replace the old rule node... */
 			gtk_tree_model_get (list->model, &iter, COL_POINTER_RULE_NODE, &node, -1);
@@ -266,10 +266,10 @@ edit_response_cb (GtkDialog *dialog, int response, gpointer user_data)
 			
 			list_append_node (&list->rules, (ListNode *) node);
 			
-			gtk_list_store_append ((GtkListStore *) list->model, &iter);
+			gtk_list_store_append (GTK_LIST_STORE (list->model), &iter);
 		}
 		
-		gtk_list_store_set ((GtkListStore *) list->model, &iter,
+		gtk_list_store_set (GTK_LIST_STORE (list->model), &iter,
 				    COL_STRING_NAME, rule->name,
 				    COL_POINTER_RULE, rule,
 				    COL_POINTER_RULE_NODE, node, -1);
@@ -278,7 +278,7 @@ edit_response_cb (GtkDialog *dialog, int response, gpointer user_data)
 		g_signal_emit (list, signals[RULE_ADDED], 0, rule);
 	}
 	
-	gtk_widget_destroy ((GtkWidget *) dialog);
+	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
 
 static void
@@ -293,7 +293,7 @@ edit_cb (GtkWidget *button, gpointer user_data)
 	GtkTreePath *path;
 	GtkTreeIter iter;
 	
-	selection = gtk_tree_view_get_selection ((GtkTreeView *) list->list);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (list->list));
 	if (gtk_tree_selection_get_selected (selection, &model, &iter))
 		gtk_tree_model_get (model, &iter, COL_POINTER_RULE, &rule, -1);
 	
@@ -302,12 +302,12 @@ edit_cb (GtkWidget *button, gpointer user_data)
 	
 	path = gtk_tree_model_get_path (model, &iter);
 	
-	parent = gtk_widget_get_toplevel ((GtkWidget *) list);
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (list));
 	parent = GTK_WIDGET_TOPLEVEL (parent) ? parent : NULL;
 	
-	dialog = rule_editor_dialog_new ((GtkWindow *) parent, rule);
+	dialog = rule_editor_dialog_new (GTK_WINDOW (parent), rule);
 	g_signal_connect (dialog, "response", G_CALLBACK (edit_response_cb), list);
-	g_object_set_data_full ((GObject *) dialog, "path", path, (GDestroyNotify) gtk_tree_path_free);
+	g_object_set_data_full (G_OBJECT (dialog), "path", path, (GDestroyNotify) gtk_tree_path_free);
 	
 	gtk_widget_show (dialog);
 }
@@ -322,7 +322,7 @@ remove_cb (GtkWidget *button, gpointer user_data)
 	VgRule *rule = NULL;
 	GtkTreeIter iter;
 	
-	selection = gtk_tree_view_get_selection ((GtkTreeView *) list->list);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (list->list));
 	if (gtk_tree_selection_get_selected (selection, &model, &iter))
 		gtk_tree_model_get (model, &iter, COL_POINTER_RULE, &rule, COL_POINTER_RULE_NODE, &node, -1);
 	
@@ -331,7 +331,7 @@ remove_cb (GtkWidget *button, gpointer user_data)
 	
 	list->changed = TRUE;
 	
-	gtk_list_store_remove ((GtkListStore *) model, &iter);
+	gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
 	list_node_unlink ((ListNode *) node);
 	vg_rule_free (rule);
 	g_free (node);
@@ -375,16 +375,16 @@ vg_rule_list_init (VgRuleList *list)
 					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled), GTK_SHADOW_IN);
 	
-	list->model = (GtkTreeModel *) gtk_list_store_newv (COL_LAST, col_types);
+	list->model = GTK_TREE_MODEL (gtk_list_store_newv (COL_LAST, col_types));
 	list->list = gtk_tree_view_new_with_model (list->model);
 	
 	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_insert_column_with_attributes ((GtkTreeView *) list->list, -1, "",
+	gtk_tree_view_insert_column_with_attributes (GTK_TREE_VIEW (list->list), -1, "",
 						     renderer, "text", 0, NULL);
 	
-	selection = gtk_tree_view_get_selection ((GtkTreeView *) list->list);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (list->list));
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
-	gtk_tree_view_set_headers_visible ((GtkTreeView *) list->list, FALSE);
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (list->list), FALSE);
 	
 	g_signal_connect (selection, "changed", G_CALLBACK (selection_change_cb), list);
 	g_signal_connect (list->list, "row-activated", G_CALLBACK (row_activate_cb), list);
@@ -418,7 +418,7 @@ vg_rule_list_init (VgRuleList *list)
 	gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 	
 	gtk_widget_show (hbox);
-	gtk_container_add ((GtkContainer *) list, hbox);
+	gtk_container_add (GTK_CONTAINER (list), hbox);
 	
 	/* init our data */
 	list_init (&list->rules);
@@ -479,8 +479,8 @@ load_rule_cb (VgRuleParser *parser, VgRule *rule, gpointer user_data)
 	
 	list_append_node (&list->rules, (ListNode *) node);
 	
-	gtk_list_store_append ((GtkListStore *) list->model, &iter);
-	gtk_list_store_set ((GtkListStore *) list->model, &iter,
+	gtk_list_store_append (GTK_LIST_STORE (list->model), &iter);
+	gtk_list_store_set (GTK_LIST_STORE (list->model), &iter,
 			    COL_STRING_NAME, rule->name,
 			    COL_POINTER_RULE, rule,
 			    COL_POINTER_RULE_NODE, node, -1);
@@ -549,7 +549,7 @@ vg_rule_list_new (const char *filename)
            until the user shows it for the first time */
 	list->show_id = g_signal_connect (list, "map", G_CALLBACK (load_rules), list);
 	
-	return (GtkWidget *) list;
+	return GTK_WIDGET (list);
 }
 
 
@@ -583,12 +583,12 @@ vg_rule_list_set_filename (VgRuleList *list, const char *filename)
 			n = nn;
 		}
 		
-		gtk_list_store_clear ((GtkListStore *) list->model);
+		gtk_list_store_clear (GTK_LIST_STORE (list->model));
 		
 		if (!GTK_WIDGET_MAPPED (list))
 			list->show_id = g_signal_connect (list, "map", G_CALLBACK (load_rules), list);
 		else
-			load_rules ((GtkWidget *) list, list);
+			load_rules (GTK_WIDGET (list), list);
 	}
 }
 
@@ -642,10 +642,10 @@ vg_rule_list_save (VgRuleList *list)
 	
  exception:
 	
-	parent = gtk_widget_get_toplevel ((GtkWidget *) list);
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (list));
 	parent = GTK_WIDGET_TOPLEVEL (parent) ? parent : NULL;
 	
-	msg = gtk_message_dialog_new ((GtkWindow *) parent, GTK_DIALOG_MODAL,
+	msg = gtk_message_dialog_new (GTK_WINDOW (parent), GTK_DIALOG_MODAL,
 				      GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 				      _("Cannot save suppression rules: %s"),
 				      list->filename ? g_strerror (errno) :
@@ -686,7 +686,7 @@ vg_rule_list_add_rule (VgRuleList *list, const char *title, GtkWindow *parent, V
 	gtk_widget_show (editor);
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), editor, TRUE, TRUE, 0);
 	g_signal_connect (dialog, "response", G_CALLBACK (add_response_cb), list);
-	g_object_set_data ((GObject *) dialog, "editor", editor);
+	g_object_set_data (G_OBJECT (dialog), "editor", editor);
 	
 	if (list->filename == NULL) {
 		gconf = gconf_client_get_default ();

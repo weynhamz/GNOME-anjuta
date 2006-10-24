@@ -128,22 +128,22 @@ vg_search_bar_init (VgSearchBar *bar)
 {
 	GtkWidget *widget;
 	
-	gtk_box_set_spacing ((GtkBox *) bar, 6);
+	gtk_box_set_spacing (GTK_BOX(bar), 6);
 	
 	bar->item_id = -1;
 	
-	bar->menu = (GtkOptionMenu *) (widget = gtk_option_menu_new ());
+	bar->menu = GTK_OPTION_MENU (widget = gtk_option_menu_new ());
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) bar, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (bar), widget, FALSE, FALSE, 0);
 	
-	bar->entry = (GtkEntry *) (widget = gtk_entry_new ());
+	bar->entry = GTK_ENTRY (widget = gtk_entry_new ());
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) bar, widget, TRUE, TRUE, 0);
+	gtk_box_pack_start (GTK_BOX (bar), widget, TRUE, TRUE, 0);
 	g_signal_connect (bar->entry, "activate", G_CALLBACK (entry_activate), bar);
 	
 	bar->clear = widget = gtk_button_new_from_stock (GTK_STOCK_CLEAR);
 	gtk_widget_show (widget);
-	gtk_box_pack_start ((GtkBox *) bar, widget, FALSE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (bar), widget, FALSE, FALSE, 0);
 	g_signal_connect (bar->clear, "clicked", G_CALLBACK (clear_clicked), bar);
 }
 
@@ -170,7 +170,7 @@ vg_search_bar_new (void)
 static void
 item_activate (GtkMenuItem *item, VgSearchBar *bar)
 {
-	bar->item_id = GPOINTER_TO_INT (g_object_get_data ((GObject *) item, "item_id"));
+	bar->item_id = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (item), "item_id"));
 }
 
 static void
@@ -187,11 +187,11 @@ search_bar_set_menu_items (VgSearchBar *bar, VgSearchBarItem *items)
 	
 	for (i = 0; items[i].label != NULL; i++) {
 		item = gtk_menu_item_new_with_label (_(items[i].label));
-		g_object_set_data ((GObject *) item, "item_id", GINT_TO_POINTER (items[i].id));
+		g_object_set_data (G_OBJECT (item), "item_id", GINT_TO_POINTER (items[i].id));
 		g_signal_connect (item, "activate", G_CALLBACK (item_activate), bar);
 		gtk_widget_show (item);
 		
-		gtk_menu_shell_append ((GtkMenuShell *) menu, item);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 	}
 	
 	gtk_option_menu_set_menu (bar->menu, menu);
