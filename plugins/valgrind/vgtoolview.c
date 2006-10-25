@@ -165,6 +165,7 @@ vg_tool_view_set_argv (VgToolView *view, char *arg0, ...)
 {
 	va_list va_args;
 	g_return_if_fail (VG_IS_TOOL_VIEW (view));
+	destroy_array_and_content (&view->argv_array);
 
 	va_start (va_args, arg0);
 	allocate_array_and_content (&view->argv_array, va_args);
@@ -178,6 +179,7 @@ vg_tool_view_set_srcdir (VgToolView *view, char *srcdir0, ...)
 {
 	va_list va_args;
 	g_return_if_fail (VG_IS_TOOL_VIEW (view));
+	destroy_array_and_content (&view->srcdir_array);
 
 	va_start (va_args, srcdir0);
 	allocate_array_and_content (&view->srcdir_array, va_args);

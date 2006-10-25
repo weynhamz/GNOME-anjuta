@@ -6,6 +6,9 @@
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
 
+	* plugins/valgrind/vgtoolview.c:
+	Correct memory leaks in vg_tool_view_set_{argv,srcdir}.
+
 	* plugins/valgrind/bugged-prg-test.c:
 	No more warning during compilation with GCC 4.1.
 	Program is still buggy in order to be used as a test of the
