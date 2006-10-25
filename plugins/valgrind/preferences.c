@@ -47,14 +47,6 @@ enum {
 	PAGE_HELGRIND   = 3,
 };
 
-static GType page_types[] = {
-	(GType) 0, /* general */
-	(GType) 0, /* memcheck (addrcheck) */
-	(GType) 0, /* cachegrind */
-	(GType) 0, /* helgrind */
-};
-
-
 struct _ValgrindPluginPrefsPriv {
 	GtkWidget * pages[4];	/* must be used only to retrieve gconf parameters.
 							 * Do NOT return these as widgets that can be destroyed */

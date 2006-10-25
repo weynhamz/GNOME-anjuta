@@ -300,8 +300,8 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 			
 			vg_tool_view = VG_TOOL_VIEW (plugin->valgrind_widget);
 			
-			vg_tool_view_set_argv (vg_tool_view, (const char**)sel_target);
-			vg_tool_view_set_srcdir (vg_tool_view, (const char**)program_dir);
+			vg_tool_view_set_argv (vg_tool_view, sel_target, NULL);
+			vg_tool_view_set_srcdir (vg_tool_view, program_dir, NULL);
 			
 			g_free (sel_target);
 			g_free (program_dir);

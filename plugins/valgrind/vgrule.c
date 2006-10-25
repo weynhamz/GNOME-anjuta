@@ -235,7 +235,7 @@ parse_tool_list (unsigned char *tool_list)
 		
 		n = g_new (VgTool, 1);
 		n->next = NULL;
-		n->name = vg_strdup (start);
+		n->name = vg_strdup ((char *)start);
 		
 		tail->next = n;
 		tail = n;
@@ -377,13 +377,13 @@ vg_parser_parse_caller (VgRuleParser *parser)
 	}
 	
 	*inptr++ = '\0';
-	if ((type = vg_caller_type_from_name (parser->linebuf)) == VG_CALLER_LAST) {
+	if ((type = vg_caller_type_from_name ((char *)parser->linebuf)) == VG_CALLER_LAST) {
 		fprintf (stderr, "Invalid caller type encountered: '%s'\n", parser->linebuf);
 		return;
 	}
 	
 	*parser->lineptr = '\0';
-	caller = vg_caller_new (type, inptr);
+	caller = vg_caller_new (type, (char *)inptr);
 	
 	parser->tail->next = caller;
 	parser->tail = caller;
@@ -512,7 +512,7 @@ vg_rule_parser_step (VgRuleParser *parser)
 		switch (parser->state) {
 		case VG_RULE_PARSER_STATE_RULE_NAME:
 			*parser->lineptr = '\0';
-			parser->current->name = g_strdup (parser->linebuf);
+			parser->current->name = g_strdup ((char *)parser->linebuf);
 			parser->state = VG_RULE_PARSER_STATE_RULE_TYPE;
 			break;
 		case VG_RULE_PARSER_STATE_RULE_TYPE:
@@ -542,7 +542,7 @@ vg_rule_parser_step (VgRuleParser *parser)
 				parser->current->tools = parse_tool_list (parser->linebuf);
 			}
 			
-			parser->current->type = vg_rule_type_from_name (start);
+			parser->current->type = vg_rule_type_from_name ((char *)start);
 			g_assert (parser->current->type != VG_RULE_LAST);
 			if (parser->current->type == VG_RULE_PARAM)
 				parser->state = VG_RULE_PARSER_STATE_RULE_SYSCALL;
@@ -550,7 +550,7 @@ vg_rule_parser_step (VgRuleParser *parser)
 				parser->state = VG_RULE_PARSER_STATE_RULE_CALLER;
 			break;
 		case VG_RULE_PARSER_STATE_RULE_SYSCALL:
-			parser->current->syscall = g_strndup (start, (inptr - start));
+			parser->current->syscall = g_strndup ((char *)start, (inptr - start));
 			parser->state = VG_RULE_PARSER_STATE_RULE_CALLER;
 			break;
 		case VG_RULE_PARSER_STATE_RULE_CALLER:

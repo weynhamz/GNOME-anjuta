@@ -99,9 +99,9 @@ ldd_parse_linebuf (LddParser *ldd)
 	while (*inptr && !(inptr[0] == ' ' && inptr[1] == '=' && inptr[2] == '>') && *inptr != '(')
 		inptr++;
 	
-	shlib->libname = g_strndup (shlib->libname, inptr - shlib->libname);
+	shlib->libname = (unsigned char *)g_strndup ((char *)shlib->libname, inptr - shlib->libname);
 	
-	if (!strncmp (inptr, " =>", 3))
+	if (!strncmp ((char *)inptr, " =>", 3))
 		inptr += 3;
 	
 	while (*inptr == ' ' || *inptr == '\t')
@@ -128,12 +128,12 @@ ldd_parse_linebuf (LddParser *ldd)
 		}
 		
 		/* name is a path */
-		shlib->path = g_strdup (shlib->libname);
+		shlib->path = (unsigned char *)g_strdup ((char *)shlib->libname);
 		inptr++;
 	} else {
 		if (inptr[-1] == ' ')
 			inptr--;
-		shlib->path = g_strndup (shlib->path, inptr - shlib->path);
+		shlib->path = (unsigned char *)g_strndup ((char *)shlib->path, inptr - shlib->path);
 		inptr += 2;
 	}
 	

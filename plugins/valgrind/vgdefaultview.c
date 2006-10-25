@@ -879,8 +879,8 @@ read_src_lines (const char *filename, size_t first, size_t last, size_t target)
 		return NULL;
 	
 	midline = FALSE;
-	while (lineno <= last && fgets (linebuf, sizeof (linebuf), fp) != NULL) {
-		len = strlen (linebuf);
+	while (lineno <= last && fgets ((char *)linebuf, sizeof (linebuf), fp) != NULL) {
+		len = strlen ((char *)linebuf);
 		
 		if (lineno >= first) {
 			if (buf != NULL) {

@@ -255,8 +255,8 @@ vg_error_stack_new (VgErrorParser *parser, pid_t pid)
 int
 vg_error_parser_step (VgErrorParser *parser)
 {
-	register unsigned char *inptr;
-	unsigned char *start, *end;
+	register char *inptr;
+	char *start, *end;
 	time_stamp_t stamp;
 	vgthread_t thread;
 	unsigned int num;
@@ -274,16 +274,16 @@ vg_error_parser_step (VgErrorParser *parser)
 		return -1;
 	}
 	
-	start = inptr = priv->inptr;
+	start = inptr = (char *)priv->inptr;
 	
-	while (inptr < priv->inend) {
+	while (inptr < (char *)priv->inend) {
 		*priv->inend = '\n';
 		while (*inptr != '\n')
 			inptr++;
 		
 		d(fprintf (stderr, "parser_step: '%.*s'\n", inptr - start, start));
 		
-		if (inptr == priv->inend)
+		if (inptr == (char *)priv->inend)
 			break;
 		
 		if (start[0] != '=' || start[1] != '=') {
@@ -296,7 +296,7 @@ vg_error_parser_step (VgErrorParser *parser)
 		stamp.year = 0;
 		
 		start += 2;
-		if ((num = strtoul (start, (char **) &end, 10)) == 0 || end == start || *end != '=') {
+		if ((num = strtoul (start, &end, 10)) == 0 || end == start || *end != '=') {
 			/* possible time stamp */
 			if (*end != '-') {
 				d(fprintf (stderr, "Invalid pid or time stamp received from valgrind: '%.*s'\n", end - start, start));
@@ -308,7 +308,7 @@ vg_error_parser_step (VgErrorParser *parser)
 			stamp.year = num;
 			start = end + 1;
 			
-			if ((num = strtoul (start, (char **) &end, 10)) == 0 || num > 12 || end == start || *end != '-') {
+			if ((num = strtoul (start, &end, 10)) == 0 || num > 12 || end == start || *end != '-') {
 				d(fprintf (stderr, "Invalid pid or time stamp received from valgrind: '%.*s'\n", end - start, start));
 				inptr++;
 				start = inptr;
@@ -318,7 +318,7 @@ vg_error_parser_step (VgErrorParser *parser)
 			stamp.month = num;
 			start = end + 1;
 			
-			if ((num = strtoul (start, (char **) &end, 10)) == 0 || num > 31 || end == start || *end != ' ') {
+			if ((num = strtoul (start, &end, 10)) == 0 || num > 31 || end == start || *end != ' ') {
 				d(fprintf (stderr, "Invalid pid or time stamp received from valgrind: '%.*s'\n", end - start, start));
 				inptr++;
 				start = inptr;
@@ -328,7 +328,7 @@ vg_error_parser_step (VgErrorParser *parser)
 			stamp.day = num;
 			start = end + 1;
 			
-			if ((num = strtoul (start, (char **) &end, 10)) > 23 || end == start || *end != ':') {
+			if ((num = strtoul (start, &end, 10)) > 23 || end == start || *end != ':') {
 				d(fprintf (stderr, "Invalid pid or time stamp received from valgrind: '%.*s'\n", end - start, start));
 				inptr++;
 				start = inptr;
@@ -338,7 +338,7 @@ vg_error_parser_step (VgErrorParser *parser)
 			stamp.hour = num;
 			start = end + 1;
 			
-			if ((num = strtoul (start, (char **) &end, 10)) > 59 || end == start || *end != ':') {
+			if ((num = strtoul (start, &end, 10)) > 59 || end == start || *end != ':') {
 				d(fprintf (stderr, "Invalid pid or time stamp received from valgrind: '%.*s'\n", end - start, start));
 				inptr++;
 				start = inptr;
@@ -348,7 +348,7 @@ vg_error_parser_step (VgErrorParser *parser)
 			stamp.min = num;
 			start = end + 1;
 			
-			if ((num = strtoul (start, (char **) &end, 10)) > 59 || end == start || *end != '.') {
+			if ((num = strtoul (start, &end, 10)) > 59 || end == start || *end != '.') {
 				d(fprintf (stderr, "Invalid pid or time stamp received from valgrind: '%.*s'\n", end - start, start));
 				inptr++;
 				start = inptr;
@@ -358,7 +358,7 @@ vg_error_parser_step (VgErrorParser *parser)
 			stamp.sec = num;
 			start = end + 1;
 			
-			if ((num = strtoul (start, (char **) &end, 10)) > 1000 || end == start || *end != ' ') {
+			if ((num = strtoul (start, &end, 10)) > 1000 || end == start || *end != ' ') {
 				d(fprintf (stderr, "Invalid pid or time stamp received from valgrind: '%.*s'\n", end - start, start));
 				inptr++;
 				start = inptr;
@@ -368,7 +368,7 @@ vg_error_parser_step (VgErrorParser *parser)
 			stamp.msec = num;
 			start = end + 1;
 			
-			if ((pid = strtoul (start, (char **) &end, 10)) == 0 || end == start || *end != '=') {
+			if ((pid = strtoul (start, &end, 10)) == 0 || end == start || *end != '=') {
 				d(fprintf (stderr, "Invalid pid or time stamp received from valgrind: '%.*s'\n", end - start, start));
 				inptr++;
 				start = inptr;
@@ -428,7 +428,7 @@ vg_error_parser_step (VgErrorParser *parser)
 					vg_error_set_state (parser, pid, state | VG_ERROR_PARSER_STATE_WARNING);
 				} else if (strncmp (start, "Thread ", 7) == 0) {
 					start += 7;
-					thread = strtoul (start, (char **) &end, 10);
+					thread = strtoul (start, &end, 10);
 					if (*end != ':') {
 						start -= 7;
 						vg_error_summary_append (parser, pid, start, inptr - start);
@@ -565,7 +565,7 @@ vg_error_parser_step (VgErrorParser *parser)
 		start = inptr;
 	}
 	
-	priv->inptr = start;
+	priv->inptr = (unsigned char *)start;
 	
 	return 1;
 }
@@ -714,7 +714,7 @@ vg_error_to_string (VgError *err, GString *str)
 						err->stamp.month, err->stamp.day, err->stamp.hour,
 						err->stamp.min, err->stamp.sec, err->stamp.msec);
 		}
-		g_string_append_printf (str, "%u== Thread %d:\n", err->pid, err->thread);
+		g_string_append_printf (str, "%u== Thread %ld:\n", err->pid, err->thread);
 	}
 	
 	s = err->summary;

@@ -18,7 +18,7 @@ int main(int argc, char**argv)
 	vec = (char**)calloc (5, sizeof(char*));
 	
 	for (i=0; i < 10; i++)
-		vec[i] = 'x';
+		vec[i] = (char *)'x';
 	
 	return 0;
 }

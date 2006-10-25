@@ -1,3 +1,22 @@
+2006-10-25  Sylvain Defresne  <sdefresne@gmail.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+
+	* plugins/valgrind/bugged-prg-test.c:
+	No more warning during compilation with GCC 4.1.
+	Program is still buggy in order to be used as a test of the
+	plugin.
+
+	* plugins/valgrind/ldd.c plugins/valgrind/parser.c
+	plugins/valgrind/preferences.c plugins/valgrind/symtab.c
+	plugins/valgrind/vgdefaultview.c plugins/valgrind/vgerror.c
+	plugins/valgrind/vgrule.c:
+	No more warning during compilation with GCC 4.1.
+
+	* plugins/valgrind/plugin.c:
+	Correct call to vg_tool_view_set_{argv,srcdir} to conform to
+	prototype (was missing from previous patch).
+
 2006-10-24  Naba Kumar  <naba@gnome.org>
 
 	* plugins/glade/plugin.c: Show glade tree view, not list view.

@@ -85,7 +85,7 @@ parser_fill (Parser *parser)
 	parser->inend = inbuf;
 	inend = parser->realbuf + PARSER_SCAN_HEAD + PARSER_SCAN_BUF - 1;
 	
-	if ((nread = vg_read (parser->fd, inbuf, inend - inbuf)) == -1)
+	if ((nread = vg_read (parser->fd, (char *)inbuf, inend - inbuf)) == -1)
 		return -1;
 	
 	parser->inend += nread;

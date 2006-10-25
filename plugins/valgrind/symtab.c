@@ -44,6 +44,9 @@
 #define d(x)
 #define w(x) x
 
+#define POINTER_ARITHMETIC(POINTER, OFFSET) \
+    (void *)((char *)(POINTER) + (OFFSET))
+
 static asymbol **
 slurp_symtab (bfd *abfd, long *symcount)
 {
@@ -120,11 +123,11 @@ symtab_map_new (const char *filename, const char *libname, void *load_addr)
 	}
 
 	map->text_section = section;
-	map->text_start = load_addr + bfd_section_vma (map->abfd, section);
+	map->text_start = POINTER_ARITHMETIC(load_addr, bfd_section_vma (map->abfd, section));
 #ifdef HAVE_BFD_GET_SECTION_SIZE_BEFORE_RELOC
-	map->text_end = map->text_start + bfd_get_section_size_before_reloc (section);
+	map->text_end = POINTER_ARITHMETIC(map->text_start, bfd_get_section_size_before_reloc (section));
 #else
-	map->text_end = map->text_start + bfd_get_section_size (section);
+	map->text_end = POINTER_ARITHMETIC(map->text_start, bfd_get_section_size (section));
 #endif
 	
 	map->filename = g_strdup (filename);
@@ -140,7 +143,7 @@ load_shared_lib (LddParser *ldd, LddSharedLib *shlib, void *user_data)
 	SymTab *symtab = user_data;
 	SymTabMap *lib;
 	
-	if (!(lib = symtab_map_new (shlib->path, shlib->libname, (void *) shlib->addr))) {
+	if (!(lib = symtab_map_new ((char *)shlib->path, (char *)shlib->libname, (void *) shlib->addr))) {
 		ldd_shared_lib_free (shlib);
 		return;
 	}
@@ -275,6 +278,7 @@ symtab_resolve_addr (SymTab *symtab, void *addr, int demangle_cpp)
 	SymTabSymbol *sym;
 	const char *name;
 	SymTabMap *lib;
+    bfd_vma offset;
 	
 	if (!(lib = symtab_find_lib (symtab, addr))) {
 		d(fprintf (stderr, "can't figure out which lib %p is in\n", addr));
@@ -289,10 +293,10 @@ symtab_resolve_addr (SymTab *symtab, void *addr, int demangle_cpp)
 	
 	sym = g_new (SymTabSymbol, 1);
 	
-	addr -= (bfd_vma) lib->load_addr;
+    offset = (bfd_vma)((char *)addr - (char *)lib->load_addr);
 	
 	if (bfd_find_nearest_line (lib->abfd, lib->text_section, lib->syms,
-				   (bfd_vma) addr - lib->text_section->vma,
+				   offset - lib->text_section->vma,
 				   &sym->filename, &name, &sym->lineno)) {
 		if (name)
 			sym->function = demangle (lib->abfd, name, demangle_cpp);
