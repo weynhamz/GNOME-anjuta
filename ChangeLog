@@ -1,3 +1,7 @@
+2006-10-25  Naba Kumar  <naba@gnome.org>
+
+	* plugins/valgrind/vgactions.c: Fixed a warning.
+
 2006-10-25  Sylvain Defresne  <sdefresne@gmail.com>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:

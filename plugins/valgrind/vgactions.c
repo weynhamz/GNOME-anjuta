@@ -255,7 +255,7 @@ vg_actions_run (VgActions *actions, gchar* prg_to_debug, gchar* tool, GError **e
 	g_ptr_array_add (args, logfd_arg);
 
 	for ( i=0; i < args->len; i++ ) {
-		DEBUG_PRINT ("arg %d is %s", i, g_ptr_array_index (args, i));
+		DEBUG_PRINT ("arg %d is %s", i, (char*)g_ptr_array_index (args, i));
 	}
 
 	g_ptr_array_add (args, (gpointer)priv->program);
