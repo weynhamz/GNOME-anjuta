@@ -1,3 +1,9 @@
+2006-10-26  Naba Kumar  <naba@gnome.org>
+
+	* plugins/document-manager/anjuta-docman.c: Do not load
+	the same files with different path more than once (happens
+	with symlinked files). Fixes Bug #323591.
+
 2006-10-25  Naba Kumar  <naba@gnome.org>
 
 	* plugins/valgrind/vgactions.c: Fixed a warning.

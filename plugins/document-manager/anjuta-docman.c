@@ -1309,7 +1309,9 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	GList *node;
 	const gchar *linenum;
 	glong lineno;
-
+	gboolean is_local_uri;
+	gchar *normalized_path = NULL;
+	
 	IAnjutaEditor *te;
 
 	g_return_val_if_fail (fname, NULL);
@@ -1328,6 +1330,14 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	/* Restore URI without fragement identifier (linenum) */
 	uri = gnome_vfs_uri_to_string (vfs_uri,
 								   GNOME_VFS_URI_HIDE_FRAGMENT_IDENTIFIER);
+	
+	/* Get the normalized file path for comparision */
+	is_local_uri = gnome_vfs_uri_is_local (vfs_uri);
+	if (is_local_uri)
+		normalized_path = realpath (gnome_vfs_uri_get_path (vfs_uri), NULL);
+	if (normalized_path == NULL)
+		normalized_path = g_strdup (uri);
+	
 	gnome_vfs_uri_unref (vfs_uri);
 	/* g_free(filename); */
 
@@ -1338,15 +1348,30 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	while (node)
 	{
 		AnjutaDocmanPage *page;
+		gboolean te_is_local_uri;
+		gchar *te_normalized_path = NULL;
+		
 		page = (AnjutaDocmanPage *) node->data;
 		te = IANJUTA_EDITOR (page->widget);
 		te_uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
+		
 		if (te_uri == NULL)
 		{
 			node = g_list_next (node);
 			continue;
 		}
-		if (strcmp (uri, te_uri) == 0)
+		
+		/* Get the normalized file path for comparision */
+		vfs_uri = gnome_vfs_uri_new (te_uri);
+		te_is_local_uri = gnome_vfs_uri_is_local (vfs_uri);
+		if (te_is_local_uri)
+			te_normalized_path = realpath (gnome_vfs_uri_get_path (vfs_uri),
+										   NULL);
+		if (te_normalized_path == NULL)
+			te_normalized_path = g_strdup (te_uri);
+		gnome_vfs_uri_unref (vfs_uri);
+		
+		if (strcmp (normalized_path, te_normalized_path) == 0)
 		{
 			if (lineno >= 0)
 			{
@@ -1359,12 +1384,16 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 					ianjuta_markable_mark(IANJUTA_MARKABLE(te), lineno,
   	                				IANJUTA_MARKABLE_BASIC, NULL);
 				}
-  	        }				
+  	        }
 			anjuta_docman_show_editor (docman, GTK_WIDGET (te));
 			g_free (uri);
-			an_file_history_push (ianjuta_file_get_uri(IANJUTA_FILE(te), NULL), lineno);
+			g_free (normalized_path);
+			g_free (te_normalized_path);
+			an_file_history_push (ianjuta_file_get_uri(IANJUTA_FILE(te),
+													   NULL), lineno);
 			return te;
 		}
+		g_free (te_normalized_path);
 		node = g_list_next (node);
 	}
 	te = anjuta_docman_add_editor (docman, uri, NULL);
@@ -1383,6 +1412,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 		}
 	}
 	g_free (uri);
+	g_free (normalized_path);
 	return te ;
 }
 
