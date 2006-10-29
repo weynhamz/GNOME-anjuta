@@ -1042,10 +1042,11 @@ filter_chars_in_dos_mode(gchar *data_, size_t size )
 /*
  * save buffer. filter chars and set dos-like CR/LF if dos_text is set.
  */
-static size_t
+static GnomeVFSResult
 save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_,
 						  GnomeVFSFileSize size)
 {
+	GnomeVFSResult result;
 	size_t i, j;
 	unsigned char *data;
 	unsigned char *tr_map;
@@ -1054,6 +1055,7 @@ save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_,
 	/* build the translation table */
 	tr_map = malloc( 256 );
 	memset( tr_map, 0, 256 );
+	
 	for ( k = 0; k < sizeof(tr_dos)/2; k++)
 	  tr_map[tr_dos[k].c] = tr_dos[k].b;
 
@@ -1066,14 +1068,14 @@ save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_,
 			if ( tr_map[data[i]] != 0 )
 			{	
 				GnomeVFSFileSize bytes_written;
-				gnome_vfs_write(vfs_write, &tr_map[data[i]], 1, &bytes_written);
+				result = gnome_vfs_write (vfs_write, &tr_map[data[i]], 1, &bytes_written);
 				j += bytes_written;
 			}
 			else
 			{
 				/* char not found, skip transform */
 				GnomeVFSFileSize bytes_written;
-				gnome_vfs_write(vfs_write, &data[i], 1, &bytes_written);
+				result = gnome_vfs_write (vfs_write, &data[i], 1, &bytes_written);
 				j += bytes_written;
 			}
 			i++;
@@ -1081,15 +1083,17 @@ save_filtered_in_dos_mode(GnomeVFSHandle* vfs_write, gchar *data_,
 		else 
 		{
 			GnomeVFSFileSize bytes_written;
-			gnome_vfs_write(vfs_write, &data[i], 1, &bytes_written);
+			result = gnome_vfs_write (vfs_write, &data[i], 1, &bytes_written);
 			j += bytes_written;
 			i++;
 		}
+		if (result != GNOME_VFS_OK)
+			break;
 	}
 
-	if ( tr_map )
-		free(tr_map);
-	return size;
+	if (tr_map)
+		free (tr_map);
+	return result;
 }
 
 static gint
@@ -1351,7 +1355,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	return TRUE;
 }
 
-static gboolean
+static GnomeVFSResult
 save_to_file (TextEditor *te, gchar * uri)
 {
 	GnomeVFSHandle* vfs_write;
@@ -1363,7 +1367,8 @@ save_to_file (TextEditor *te, gchar * uri)
 	result = gnome_vfs_create (&vfs_write, uri, GNOME_VFS_OPEN_WRITE,
 							   FALSE, 0664);
  	if (result != GNOME_VFS_OK)
-		return FALSE;
+		return result;
+	
 	nchars = scintilla_send_message (SCINTILLA (te->scintilla),
 									 SCI_GETLENGTH, 0, 0);
 	data =	(gchar *) aneditor_command (te->editor_id,
@@ -1462,19 +1467,17 @@ save_to_file (TextEditor *te, gchar * uri)
 		}
 		else
 		{
-			gnome_vfs_write(vfs_write, data, size, &nchars);
+			result = gnome_vfs_write(vfs_write, data, size, &nchars);
 		}
 		g_free (data);
-		/* FIXME: Find a nice way to check that all the bytes have been written */
-		/* if (size != nchars)
-			DEBUG_PRINT("Text length and number of bytes saved is not equal [%d != %d]", nchars, size);
-		*/
 	}
-	result = gnome_vfs_close(vfs_write);
+	
 	if (result == GNOME_VFS_OK)
-		return TRUE;
+		result = gnome_vfs_close(vfs_write);
 	else
-		return FALSE;
+		gnome_vfs_close (vfs_write);
+	
+	return result;
 }
 
 gboolean
@@ -1508,8 +1511,7 @@ text_editor_load_file (TextEditor * te)
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_EMPTYUNDOBUFFER, 0, 0);
 	text_editor_set_hilite_type (te, NULL);
-	if (anjuta_preferences_get_int (te->preferences
-, FOLD_ON_OPEN))
+	if (anjuta_preferences_get_int (te->preferences, FOLD_ON_OPEN))
 	{
 		aneditor_command (te->editor_id, ANE_CLOSE_FOLDALL, 0, 0);
 	}
@@ -1522,6 +1524,9 @@ gboolean
 text_editor_save_file (TextEditor * te, gboolean update)
 {
 	gboolean ret = FALSE;
+	gchar *save_uri;
+	GnomeVFSResult result;
+	GtkWindow *parent;
 	
 	if (te == NULL)
 		return FALSE;
@@ -1530,31 +1535,69 @@ text_editor_save_file (TextEditor * te, gboolean update)
 	
 	text_editor_freeze (te);
 	text_editor_set_line_number_width(te);
+	parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (te)));
 	
 	anjuta_status (te->status, _("Saving file..."), 5); 
 	text_editor_update_monitor (te, TRUE);
 	
-	if (save_to_file (te, te->uri) == FALSE)
+	save_uri = g_strconcat (te->uri, "~", NULL);
+	result = save_to_file (te, save_uri);
+	if (result != GNOME_VFS_OK)
 	{
-		GtkWindow *parent;
-		parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (te)));
+		GList *sources = NULL;
+		GnomeVFSURI *vfs_uri;
+		
 		text_editor_thaw (te);
-		anjuta_util_dialog_error_system (parent, errno,
-										 _("Could not save file: %s."),
-										 te->uri);
+		anjuta_util_dialog_error (parent,
+								  _("Could not save intermediate file %s: %s."),
+								  save_uri,
+								  gnome_vfs_result_to_string (result));
+		
+		vfs_uri = gnome_vfs_uri_new (save_uri);
+		sources = g_list_append (sources, vfs_uri);
+		gnome_vfs_xfer_delete_list (sources, GNOME_VFS_XFER_ERROR_MODE_ABORT,
+									GNOME_VFS_XFER_DELETE_ITEMS |
+									GNOME_VFS_XFER_REMOVESOURCE, NULL, NULL);
+		g_list_free (sources);
+		gnome_vfs_uri_unref (vfs_uri);
 	}
 	else
 	{
-		/* te->modified_time = time (NULL); */
+		GnomeVFSURI *src_uri;
+		GnomeVFSURI *dest_uri;
+		
+		src_uri = gnome_vfs_uri_new (save_uri);
+		dest_uri = gnome_vfs_uri_new (te->uri);
+		
+		/* Move 'file~' to 'file' */
+		result = gnome_vfs_xfer_uri (src_uri, dest_uri,
+									 GNOME_VFS_XFER_DELETE_ITEMS |
+									 GNOME_VFS_XFER_REMOVESOURCE,
+									 GNOME_VFS_XFER_ERROR_MODE_ABORT,
+									 GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
+									 NULL, NULL);
 		/* we need to update UI with the call to scintilla */
 		text_editor_thaw (te);
-		scintilla_send_message (SCINTILLA (te->scintilla),
-					SCI_SETSAVEPOINT, 0, 0);
-		g_signal_emit_by_name (G_OBJECT (te), "saved", te->uri);
-		anjuta_status (te->status, _("File saved successfully"), 5);
-		ret = TRUE;
+		if (result != GNOME_VFS_OK)
+		{
+			anjuta_util_dialog_error (parent,
+						  _("Could not save file %s: %s."),
+						  te->uri,
+						  gnome_vfs_result_to_string (result));
+		}
+		else
+		{
+			scintilla_send_message (SCINTILLA (te->scintilla),
+						SCI_SETSAVEPOINT, 0, 0);
+			g_signal_emit_by_name (G_OBJECT (te), "saved", te->uri);
+			anjuta_status (te->status, _("File saved successfully"), 5);
+			ret = TRUE;
+		}
+		gnome_vfs_uri_unref (src_uri);
+		gnome_vfs_uri_unref (dest_uri);
 	}
 	text_editor_update_monitor (te, FALSE);
+	g_free (save_uri);
 	return ret;
 }
 

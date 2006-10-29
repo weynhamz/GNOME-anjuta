@@ -1,3 +1,11 @@
+2006-10-29  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/text_editor.c: Use a temporary file
+	to save the editor and move it at the end to original
+	file. This will prevent data corruption if file save
+	failed for any reason. Also report proper errors when
+	file save fails. Fixes bug #346575.
+	
 2006-10-26  Naba Kumar  <naba@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c: Do not load
