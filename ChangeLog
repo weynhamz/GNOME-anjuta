@@ -1,5 +1,14 @@
 2006-10-31  Naba Kumar  <naba@gnome.org>
 
+	* global-tags/create_global_tags.sh.in: Added an end message.
+	
+	* libanjuta/anjuta-launcher.h: Fixed indentation.
+	
+	* plugins/symbol-browser/an_symbol_prefs.c: Fixed system tags
+	creation to a) append the messages in right way, b) Connect signals
+	to the view properly and c) Recreate the system-tags.cache at the
+	end of the generation.
+
 	* plugins/symbol-browser: Fixed action path (double
 	click on sysmbols was not working).
 

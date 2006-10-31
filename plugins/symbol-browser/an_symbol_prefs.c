@@ -641,21 +641,63 @@ on_remove_tags_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 }
 
 static void
-on_message (AnjutaLauncher *launcher,
-					   AnjutaLauncherOutputType output_type,
-					   const gchar * mesg, gpointer user_data)
+on_message_buffer_flush (IAnjutaMessageView *mesg_view,
+						 const gchar * mesg_line,
+						 gpointer user_data)
 {
 	SymbolBrowserPlugin* plugin = (SymbolBrowserPlugin*) user_data;
 	if (plugin->mesg_view)
-		ianjuta_message_view_append (plugin->mesg_view, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-			 mesg, "", NULL);
+		ianjuta_message_view_append (plugin->mesg_view,
+									 IANJUTA_MESSAGE_VIEW_TYPE_INFO,
+									 mesg_line, "", NULL);
+}
+
+static void
+on_message (AnjutaLauncher *launcher,
+			AnjutaLauncherOutputType output_type,
+			const gchar * mesg, gpointer user_data)
+{
+	SymbolBrowserPlugin* plugin = (SymbolBrowserPlugin*) user_data;
+	if (plugin->mesg_view)
+		ianjuta_message_view_buffer_append (plugin->mesg_view,
+											mesg, NULL);
 }
 
 static void
 refresh_list (AnjutaLauncher *launcher, gint child_pid, gint status,
-				   gulong time_taken, SymbolBrowserPlugin *plugin)
+			  gulong time_taken, SymbolBrowserPlugin *plugin)
 {
+	GList *enabled_paths = NULL;
+	GtkTreeIter iter;
+	gchar *tag_path;
+	GtkListStore *store;
+	gboolean enabled;
+	
+	/* Refresh the list */
 	refresh_tags_list(plugin);
+	
+	/* Regenerate system-tags.cache */
+	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (plugin->pref_tree_view)));
+	if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter))
+	{
+		do
+		{
+			gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
+								COLUMN_LOAD, &enabled,
+								COLUMN_PATH, &tag_path,
+								-1);
+			if (enabled)
+				enabled_paths = g_list_prepend (enabled_paths, tag_path);
+			
+		}
+		while (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter));
+	}
+	if (enabled_paths)
+	{
+		update_system_tags (enabled_paths);
+	}
+	g_list_foreach (enabled_paths, (GFunc)g_free, NULL);
+	g_list_free (enabled_paths);
 }
 
 static void
@@ -688,13 +730,24 @@ on_update_global_clicked(GtkWidget *button, SymbolBrowserPlugin *plugin)
 	
 	mesg_manager = anjuta_shell_get_interface 
 		(ANJUTA_PLUGIN (plugin)->shell,	IAnjutaMessageManager, NULL);
-	plugin->mesg_view = 
-	    ianjuta_message_manager_get_view_by_name(mesg_manager, _("CVS"), NULL);
+	
 	if (!plugin->mesg_view)
 	{
-		plugin->mesg_view =
-		     ianjuta_message_manager_add_view (mesg_manager, _("Create global tags"), 
-											  "anjuta-symbol-browser-plugin.png", NULL);
+		plugin->mesg_view = 
+			ianjuta_message_manager_get_view_by_name(mesg_manager,
+													 _("Create global tags"),
+													 NULL);
+		if (!plugin->mesg_view)
+		{
+			plugin->mesg_view =
+				 ianjuta_message_manager_add_view (mesg_manager,
+												   _("Create global tags"), 
+												  "anjuta-symbol-browser-plugin.png",
+												   NULL);
+		}
+		g_signal_connect (plugin->mesg_view, "buffer-flushed",
+						  G_CALLBACK (on_message_buffer_flush),
+						  plugin);
 		g_object_weak_ref (G_OBJECT (plugin->mesg_view), 
 						  (GWeakNotify)on_mesg_view_destroy, plugin);
 	}
@@ -702,7 +755,7 @@ on_update_global_clicked(GtkWidget *button, SymbolBrowserPlugin *plugin)
 	
 	launcher = anjuta_launcher_new ();
 	g_signal_connect (G_OBJECT (launcher), "child-exited",
-						  G_CALLBACK (refresh_list), plugin);
+					  G_CALLBACK (refresh_list), plugin);
 	anjuta_launcher_execute (launcher, CREATE_GLOBAL_TAGS, on_message, plugin);
 }
 
@@ -810,8 +863,9 @@ symbol_browser_prefs_finalize (SymbolBrowserPlugin *plugin)
 }
 
 
-gboolean symbol_browser_prefs_create_global_tags(gpointer unused)
+gboolean
+symbol_browser_prefs_create_global_tags (gpointer unused)
 {
-	on_update_global_clicked(NULL, symbol_browser_plugin);
+	on_update_global_clicked (NULL, symbol_browser_plugin);
 	return FALSE; /* Stop g_idle */
 }

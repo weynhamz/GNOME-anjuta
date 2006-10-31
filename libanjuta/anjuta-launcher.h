@@ -69,8 +69,8 @@ struct _AnjutaLauncherClass
 	
 	/* Signals */
 	void (*child_exited) (AnjutaLauncher *launcher,
-								 int child_pid, int exit_status,
-								 gulong time_taken_in_seconds);
+						  int child_pid, int exit_status,
+						  gulong time_taken_in_seconds);
 	void (*busy) (AnjutaLauncher *launcher, gboolean busy_flag);
 };
 
@@ -87,8 +87,10 @@ gboolean anjuta_launcher_execute_v (AnjutaLauncher *launcher,
 									gpointer callback_data);
 gboolean anjuta_launcher_set_encoding (AnjutaLauncher *launcher,
 									   const gchar *charset);
-void anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar *input_str);
-void anjuta_launcher_send_ptyin (AnjutaLauncher *launcher, const gchar *input_str);
+void anjuta_launcher_send_stdin (AnjutaLauncher *launcher,
+								 const gchar *input_str);
+void anjuta_launcher_send_ptyin (AnjutaLauncher *launcher,
+								 const gchar *input_str);
 gint anjuta_launcher_get_child_pid (AnjutaLauncher *launcher);
 void anjuta_launcher_reset (AnjutaLauncher *launcher);
 void anjuta_launcher_signal (AnjutaLauncher *launcher, int sig);
