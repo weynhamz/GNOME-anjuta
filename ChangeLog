@@ -1,3 +1,13 @@
+2006-10-31  Naba Kumar  <naba@gnome.org>
+
+	* tagmanager/c.c: Took the latest version from ctags source
+	repository, because the one we had (from ctags 5.6) was broken.
+	
+	* global_tags/create_global_tags.sh.in: Reverted the patch from
+	Sylvain because it was not right fix (and added a helpful comment).
+	Used /bin/bash to fix the bashism and generated separate log files
+	for each tag files in the same directory.
+	
 2006-10-29  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/text_editor.c: Use a temporary file
