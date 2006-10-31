@@ -31,9 +31,6 @@ struct _AnjutaSerializerPrivate {
 	FILE *stream;
 };
 
-typedef struct _AnjutaSerializerSignal AnjutaSerializerSignal;
-typedef enum _AnjutaSerializerSignalType AnjutaSerializerSignalType;
-
 static GObjectClass *parent_class = NULL;
 
 enum

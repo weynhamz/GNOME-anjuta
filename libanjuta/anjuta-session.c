@@ -25,7 +25,7 @@
 #include "anjuta-session.h"
 #include "anjuta-utils.h"
  
-struct AnjutaSessionPriv {
+struct _AnjutaSessionPriv {
 	gchar *dir_path;
 };
 

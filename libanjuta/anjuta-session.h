@@ -33,7 +33,7 @@ G_BEGIN_DECLS
 #define ANJUTA_IS_SESSION_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_SESSION))
 #define ANJUTA_SESSION_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_SESSION, AnjutaSessionClass))
 
-typedef struct AnjutaSessionPriv AnjutaSessionPriv;
+typedef struct _AnjutaSessionPriv AnjutaSessionPriv;
 
 typedef enum
 {

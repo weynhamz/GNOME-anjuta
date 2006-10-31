@@ -948,7 +948,7 @@ activate_plugin (AnjutaPlugin *plugin)
 											actions,
 											G_N_ELEMENTS (actions),
 											GETTEXT_PACKAGE, TRUE, plugin);
-	sv_plugin->action_group = 
+	sv_plugin->popup_action_group = 
 		anjuta_ui_add_action_group_entries (sv_plugin->ui,
 											"ActionGroupPopupSymbolBrowser",
 											_("Symbol browser popup actions"),
