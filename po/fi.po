@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-31 22:19+0300\n"
-"PO-Revision-Date: 2006-10-31 22:56+0300\n"
+"POT-Creation-Date: 2006-11-01 06:10+0300\n"
+"PO-Revision-Date: 2006-11-01 06:40+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -84,7 +84,7 @@ msgstr "kreikka"
 #: ../libanjuta/anjuta-encodings.c:144
 #: ../plugins/sourceview/anjuta-encodings.c:165
 msgid "Hebrew Visual"
-msgstr ""
+msgstr "heprea, visuaalinen"
 
 #: ../libanjuta/anjuta-encodings.c:146 ../libanjuta/anjuta-encodings.c:205
 #: ../libanjuta/anjuta-encodings.c:244
@@ -206,7 +206,7 @@ msgstr "Tuetut koodaukset"
 
 #: ../libanjuta/anjuta-launcher.c:775
 msgid "launcher.c: Error while reading child pty\n"
-msgstr ""
+msgstr "launcher.c: Virhe luettaessa lapsiprosessin pty:tä\n"
 
 #: ../libanjuta/anjuta-launcher.c:962 ../libanjuta/resources.c:253
 #: ../libanjuta/resources.c:262 ../plugins/devhelp/plugin.c:498
@@ -221,11 +221,11 @@ msgstr "execvp epäonnistui"
 
 #: ../libanjuta/anjuta-plugin.c:175
 msgid "Anjuta Shell"
-msgstr ""
+msgstr "Anjutan tulkki"
 
 #: ../libanjuta/anjuta-plugin.c:176
 msgid "Anjuta shell that will contain the plugin"
-msgstr ""
+msgstr "Anjutan tulkki, joka sisältää liitännäisen"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:128
 #: ../plugins/gtodo/interface.c:226 ../plugins/gtodo/mcategory.c:36
@@ -234,13 +234,15 @@ msgstr "Luokka"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:237
 msgid "Anjuta Preferences Dialog"
-msgstr ""
+msgstr "Anjutan asetusikkuna"
 
 #: ../libanjuta/anjuta-preferences.c:1251
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
 msgstr ""
+"Haluatko varmasti palauttaa asetukset niiden\n"
+"oletusarvoihin?"
 
 #: ../libanjuta/anjuta-preferences.c:1255
 msgid "_Reset"
@@ -295,6 +297,8 @@ msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
 msgstr ""
+"Apuohjelmaa \"%s\" ei ole asennettu.\n"
+"Ole hyvä ja asenna se."
 
 #: ../libanjuta/anjuta-utils.c:757
 #, c-format
@@ -333,7 +337,7 @@ msgstr "Saatavilla olevat liitännäiset"
 
 #: ../libanjuta/plugins.c:1126
 msgid "Only show user activatable plugins"
-msgstr ""
+msgstr "Näyttä vain käyttäjän aktivoitavissa olevat liitännäiset"
 
 #: ../libanjuta/resources.c:49
 #, c-format
@@ -372,7 +376,7 @@ msgstr "Syötteen teksti"
 
 #: ../libegg/eggcellrendererkeys.c:160 ../libegg/eggcellrendererkeys.c:161
 msgid "Accelerator key"
-msgstr ""
+msgstr "Näppäinoikotie"
 
 #: ../libegg/eggcellrendererkeys.c:170 ../libegg/eggcellrendererkeys.c:171
 msgid "Accelerator modifiers"
@@ -380,23 +384,23 @@ msgstr ""
 
 #: ../libegg/eggcellrendererkeys.c:180
 msgid "Accelerator Mode"
-msgstr ""
+msgstr "Näppäinoikotien tila"
 
 #: ../libegg/eggcellrendererkeys.c:181
 msgid "The type of accelerator."
-msgstr ""
+msgstr "Näppäinoikotien tyyppi."
 
 #: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:534
 msgid "Disabled"
-msgstr ""
+msgstr "Ei käytössä"
 
 #: ../libegg/eggcellrendererkeys.c:330 ../libegg/eggcellrendererkeys.c:564
 msgid "Type a new accelerator, or press Backspace to clear"
-msgstr ""
+msgstr "Uuden näppäinoikotien tyyppi, tai tyhjennä askelpalauttimella"
 
 #: ../libegg/eggcellrendererkeys.c:567
 msgid "Type a new accelerator"
-msgstr ""
+msgstr "Syötä uusi näppäinoikotie"
 
 #: ../libegg/eggtreemodelfilter.c:267
 msgid "The child model"
@@ -404,7 +408,7 @@ msgstr "Lapsimalli"
 
 #: ../libegg/eggtreemodelfilter.c:268
 msgid "The model for the filtermodel to filter"
-msgstr ""
+msgstr "Suodatettavan suodatimallin malli"
 
 #: ../libegg/eggtreemodelfilter.c:275
 msgid "The virtual root"
@@ -412,7 +416,7 @@ msgstr "Virtuaalijuuri"
 
 #: ../libegg/eggtreemodelfilter.c:276
 msgid "The virtual root (relative to the child model) for this filtermodel"
-msgstr ""
+msgstr "Tämän suodatinmallin virtuaalijuuri (suhteessa lapsimalliin)"
 
 #: ../libegg/eggtreeviewstate.c:54
 #, c-format
@@ -422,12 +426,12 @@ msgstr "Rivi %d merkki %d: %s"
 #: ../libegg/eggtreeviewstate.c:109
 #, c-format
 msgid "Could not parse \"%s\" as an integer"
-msgstr ""
+msgstr "\"%s\" ei voida tulkita kokonaisluvuksi"
 
 #: ../libegg/eggtreeviewstate.c:118
 #, c-format
 msgid "Did not understand trailing characters \"%s\" in string \"%s\""
-msgstr ""
+msgstr "Perässä olevia merkkejä \"%s\" ei ymmärretty merkkijonossa \"%s\""
 
 #: ../libegg/eggtreeviewstate.c:127
 #, c-format
@@ -442,26 +446,26 @@ msgstr "Kokonaisluku %ld on liian suuri, tämänhetkinen enimmäisarvo %d"
 #: ../libegg/eggtreeviewstate.c:181
 #, c-format
 msgid "Boolean values must be \"true\" or \"false\" not \"%s\""
-msgstr ""
+msgstr "Totuusarvon tulee olla \"true\" tai \"false\", ei \"%s\""
 
 #: ../libegg/eggtreeviewstate.c:204
 #, c-format
 msgid "The value \"%s\" is not part of the enum \"%s\""
-msgstr ""
+msgstr "Arvo \"%s\" ei ole osa numerojoukkoa \"%s\""
 
 #: ../libegg/eggtreeviewstate.c:234
 #, c-format
 msgid "The type \"%s\" can't be parsed from a string"
-msgstr ""
+msgstr "Tyyppiä \"%s\" ei voi tulkita merkkijonosta"
 
 #: ../libegg/eggtreeviewstate.c:255
 #, c-format
 msgid "The property \"%s\" does not exist"
-msgstr ""
+msgstr "Ominaisuutta \"%s\" ei ole olemassa"
 
 #: ../libegg/eggtreeviewstate.c:310
 msgid "The type attribute can only be specified once."
-msgstr ""
+msgstr "Tyypin atttribuutit voidaan määritellä vain kerran."
 
 #: ../libegg/eggtreeviewstate.c:319
 #, c-format
@@ -471,35 +475,35 @@ msgstr "Tyyppi \"%s\" ei ole kelvollinen tyyppi."
 #: ../libegg/eggtreeviewstate.c:327
 #, c-format
 msgid "The type \"%s\" is not a cell renderer type."
-msgstr ""
+msgstr "Tyyppi \"%s\" ei ole solunesittäjätyyppi."
 
 #: ../libegg/eggtreeviewstate.c:339
 msgid "No type attribute specified."
-msgstr ""
+msgstr "Tyyppiattribuuttia ei annettu."
 
 #: ../libegg/eggtreeviewstate.c:457
 #, c-format
 msgid "Outermost element in theme must be <treeview_state> not <%s>"
-msgstr ""
+msgstr "Teeman ulkoisin alkio täytyy olla <treeview_state>, ei \"%s\""
 
 #: ../libegg/eggtreeviewstate.c:467
 #, c-format
 msgid "Element inside of <treeview_state> must be <treeview> not <%s>"
-msgstr ""
+msgstr "Alkion <treeview_state> sisällä tulee olla <treeview>, ei \"%s\""
 
 #: ../libegg/eggtreeviewstate.c:477
 #, c-format
 msgid "Element inside of <treeview> must be <column> not <%s>"
-msgstr ""
+msgstr "Alkion <treeview> sisällä tulee olla <column>, ei \"%s\""
 
 #: ../libegg/eggtreeviewstate.c:488
 #, c-format
 msgid "Element inside of <column> must be <cell> not <%s>"
-msgstr ""
+msgstr "Alkion <column> sisällä tulee olla <cell>, ei \"%s\""
 
 #: ../libegg/eggtreeviewstate.c:494
 msgid "The <cell> element must not have any children."
-msgstr ""
+msgstr "Alkiolla <cell> ei voi olla lapsia."
 
 #: ../libegg/layout.glade.h:1
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
@@ -568,7 +572,7 @@ msgstr "Argumentit: "
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
 msgid "Highlight build message locations in editor"
-msgstr ""
+msgstr "Korosta koosteviestien kohdat muokkaimessa"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 msgid "Install as root:"
@@ -577,11 +581,11 @@ msgstr "Asenna ylläpitäjänä:"
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
 #: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
-msgstr "Aja päätteessä"
+msgstr "Suorita päätteessä"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
 msgid "Select execution program and args"
-msgstr ""
+msgstr "Valitse suorittava ohjelma ja valitsimet"
 
 #. FIXME: What about translations in the following sscanf strings
 #. The translations should match that of 'make' program
@@ -770,7 +774,7 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1464
 msgid "Co_mpile"
-msgstr ""
+msgstr "_Käännä"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1473
 #, c-format
@@ -794,16 +798,16 @@ msgstr "Kää_nnä (%s)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1848
 msgid "Build commands"
-msgstr ""
+msgstr "Koostamiskomennot"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1855
 msgid "Build popup commands"
-msgstr ""
+msgstr "Koosta ponnahdusikkunan komennot"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2084
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2099
 msgid "Build Autotools"
-msgstr ""
+msgstr "Koosta Autotoolsit"
 
 #: ../plugins/build-basic-autotools/executer.c:133
 msgid "Program"
@@ -826,45 +830,45 @@ msgstr "Ohjelmaa \"%s\" ei löydy"
 #: ../plugins/build-basic-autotools/executer.c:287
 #, c-format
 msgid "Program '%s' does not have execution permission"
-msgstr ""
+msgstr "Ohjelmalla \"%s\" ei ole suoritusoikeuksia"
 
 #: ../plugins/build-basic-autotools/executer.c:319
 msgid "No executable for this file."
-msgstr ""
+msgstr "Tälle tiedostolle ei löydy suoritettavaa."
 
 #: ../plugins/build-basic-autotools/executer.c:325
 #, c-format
 msgid "Executable '%s' is not up-to-date."
-msgstr ""
+msgstr "Ohjelma \"%s\" ei ole ajan tasalla."
 
 #. create the check menuitem
 #: ../plugins/class-inheritance/class-inherit.c:132
 msgid "Fixed data-view"
-msgstr ""
+msgstr "Kiinteä tietonäkymä"
 
 #: ../plugins/class-inheritance/class-inherit.c:914
 #: ../plugins/subversion/svn-notify.c:119
 msgid "Update"
-msgstr ""
+msgstr "Päivitä"
 
 #: ../plugins/class-inheritance/class-inherit.c:915
 msgid "Update the graph"
-msgstr ""
+msgstr "Päivitä kaavio"
 
 #: ../plugins/class-inheritance/plugin.c:126
 msgid "Inheritance Graph"
-msgstr ""
+msgstr "Periytymiskaavio"
 
 #. get the header displaying a browsing window
 #: ../plugins/class-gen/action-callbacks.c:35
 #: ../plugins/class-gen/action-callbacks.c:104
 msgid "Select header file"
-msgstr ""
+msgstr "Valitse otsikkotiedosto"
 
 #: ../plugins/class-gen/action-callbacks.c:71
 #: ../plugins/class-gen/action-callbacks.c:138
 msgid "Select source file"
-msgstr ""
+msgstr "Valitse lähdetiedosto"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
 msgid "* Base Class"
@@ -872,7 +876,7 @@ msgstr "* Perusluokka"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
 msgid "* Class Function Prefix:"
-msgstr ""
+msgstr "i* Luokan funktion etuliite:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
 msgid "* Class Name:"
@@ -884,24 +888,26 @@ msgstr "*  Luokan nimi:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
 msgid "* GObject Prefix and Type:"
-msgstr ""
+msgstr "* GObject-etuliite ja tyyppi:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:6
 msgid "* Output Header File:"
-msgstr ""
+msgstr "* Luotava otsikkotiedosto:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:7
 msgid "* Output Source File:"
-msgstr ""
+msgstr "* Luotava lähdekooditiedosto:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
 msgid ""
 "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 msgstr ""
+"<span size=\"large\" weight=\"bold\">GObject-luokkapohjien koostin</span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "<span size=\"large\" weight=\"bold\">Generic C++ Class Builder</span>"
 msgstr ""
+"<span size=\"large\" weight=\"bold\">Yleinen C++-luokkien koostin</span>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
 msgid "Add to Repository"
@@ -942,15 +948,15 @@ msgstr "Selaa"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:19
 msgid "Browse for the declaration file name."
-msgstr ""
+msgstr "Selaa esittelyn tiedostonimeen."
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:20
 msgid "Browse for the implementation file name."
-msgstr ""
+msgstr "Selaa toteutuksen tiedostonimeen."
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:21
 msgid "Class Generator"
-msgstr ""
+msgstr "Luokkien generointi"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:22
 msgid "Class Options:"
@@ -963,17 +969,19 @@ msgstr "Luo"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
 msgid "Enter the name for the class you want to add."
-msgstr ""
+msgstr "Syötä lisättävän luokan nimi."
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
 msgid "Enter the name of the class your new class will inherit from."
-msgstr ""
+msgstr "Syötä luokka, josta uusi luokka periytyy."
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
 msgid ""
 "Enter the name of the class your new class will inherit from. Default is "
 "GObject."
 msgstr ""
+"Syötä sen luokan nimi, josta uusi luokka periytyy. Oletusarvo on "
+"GObject."
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
 msgid "GObject"
@@ -989,6 +997,9 @@ msgid ""
 "Lesser General Public License (LGPL)\n"
 "No License\n"
 msgstr ""
+"General Public License (GPL)\n"
+"Lesser General Public License (LGPL)\n"
+"Ei lisenssiä\n"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:33
 msgid "Generic C++ Class"
@@ -1004,7 +1015,7 @@ msgstr "Lisenssi: "
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:36
 msgid "Source/Header Headings:"
-msgstr ""
+msgstr "Lähdekoodin ja headereiden otsakkeet:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:37
 msgid ""
@@ -1012,6 +1023,9 @@ msgid ""
 "project. Note that the creating class's parameters will be taken from the "
 "active tab. Please be sure to fill all required fields marked by *."
 msgstr ""
+"Tämä liitännäinen luo haluamasi tyyppisen luokan ja lisää sen "
+"projektiin. Huomaa, että luovan luokan parametrit otetaan aktiivisesta "
+"välilehdestä. Täytä aina kaikki kentät, jotka on merkitty merkillä *."
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:38
 msgid "Virtual destructor"
@@ -1019,7 +1033,7 @@ msgstr "Virtuaalinen hajotin"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:39
 msgid "_TYPE_"
-msgstr ""
+msgstr "_TYYPPI_"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:40
 msgid ""
@@ -1039,6 +1053,8 @@ msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
 msgstr ""
+"Tiedosto \"%s\" on jo olemassa.\n"
+"Haluatko korvata sen nyt tallennettavalla tiedostolla?"
 
 #: ../plugins/class-gen/class_gen.c:114
 #: ../plugins/document-manager/anjuta-docman.c:803
@@ -1049,25 +1065,27 @@ msgstr "_Korvaa"
 
 #: ../plugins/class-gen/class_gen.c:173
 msgid "Please check your required fields."
-msgstr ""
+msgstr "Tarkista vaaditut kentät."
 
 #: ../plugins/class-gen/class_gen.c:284
 msgid ""
 "An error occurred when trying to write GObject Class Template. Check file "
 "permissions."
 msgstr ""
+"Tapahtui virhe yritettäessä tallentaa GObjectin luokkapohjaa. "
+"Tarkista tiedoston oikeudet."
 
 #: ../plugins/class-gen/class_gen.c:484 ../plugins/class-gen/class_gen.c:492
 msgid "Please fill required fields."
-msgstr ""
+msgstr "Täytä vaaditut kentät."
 
 #: ../plugins/class-gen/class_gen.c:650
 msgid "Error in writing files"
-msgstr ""
+msgstr "Virhe kirjoitettaessa tiedostoja"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "/usr/bin/cvs"
-msgstr ""
+msgstr "/usr/bin/cvs"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
 msgid "<b>CVS Options</b>"
@@ -1095,6 +1113,11 @@ msgid ""
 "won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
 "</b>"
 msgstr ""
+"<b>Huomautus:</b>\n"
+"\n"
+"Jos painat OK, tiedosto poistetaan sekä levyltä että CVS:stä. "
+"Tiedostoa ei toki poisteta CVS:stä ennen kuin vahvistat "
+"muutokset (commit). <b>Sinua on varoitettu!</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
 msgid "<b>Repository: </b>"
@@ -1102,7 +1125,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
 msgid "Be verbose"
-msgstr ""
+msgstr "Suulas tuloste"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
 msgid "CVS Preferences"
@@ -1114,11 +1137,11 @@ msgstr "CVS: lisää tiedosto tai kansio"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
 msgid "CVS: Commit file/directory"
-msgstr ""
+msgstr "CVS: Toteuta tiedoston tai kansion muutokset"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
 msgid "CVS: Diff file/directory"
-msgstr ""
+msgstr "CVS: Vertaile tiedostoa tai kansiota"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
 msgid "CVS: Import"
@@ -1126,7 +1149,7 @@ msgstr "CVS: Tuo"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
 msgid "CVS: Log file/directory"
-msgstr ""
+msgstr "CVS: Tiedoston tai kansion loki"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
 msgid "CVS: Remove file/directory"
@@ -1138,11 +1161,11 @@ msgstr "CVS: Tila"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
 msgid "CVS: Status from file/directory"
-msgstr ""
+msgstr "CVS: Tiedoston tai kansion tila"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
 msgid "CVS: Update file/directory"
-msgstr ""
+msgstr "CVS: Päivitä tiedosto tai kansio"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
 msgid "CVSROOT:"
@@ -1151,7 +1174,7 @@ msgstr "CVSROOT:"
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
 #: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "Choose file or directory to add:"
-msgstr ""
+msgstr "Valitse lisättävä tiedosto tai kansio:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
 #: ../plugins/subversion/anjuta-subversion.glade.h:4
@@ -1160,29 +1183,29 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
 msgid "Choose file or directory to diff:"
-msgstr ""
+msgstr "Valitse vertailtava tiedosto tai kansio:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
 msgid "Choose file or directory to get log:"
-msgstr ""
+msgstr "Valitse tiedosto tai kansio, jolle loki haetaan:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
 msgid "Choose file or directory to get the status from:"
-msgstr ""
+msgstr "Valitse tiedosto tai kansio, josta tila haetaan:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
 #: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to remove:"
-msgstr ""
+msgstr "Valitse poistettava tiedosto tai kansio:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
 #: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to update:"
-msgstr ""
+msgstr "Valitse päivitettävä tiedosto tai kansio:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
 msgid "Compression Level (0=off, 10=max):"
-msgstr ""
+msgstr "Pakkaustaso (0=ei pakata, 10=suurin pakkaus):"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
 msgid "Create new directories"
@@ -1195,7 +1218,7 @@ msgstr "Poista tyhjät kansiot"
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
 #: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Do not act recursively"
-msgstr ""
+msgstr "Älä toimi rekursiivisesti"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
 msgid "File is binary"
@@ -1211,6 +1234,9 @@ msgid ""
 "Extern (rsh)\n"
 "Password server (pserver)\n"
 msgstr ""
+"Paikallinen\n"
+"Extern (rsh)\n"
+"Salasanapalvelin (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
 #: ../plugins/subversion/anjuta-subversion.glade.h:9
@@ -1235,11 +1261,11 @@ msgstr "Projektin juurikansio:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
 msgid "Release tag:"
-msgstr ""
+msgstr "Julkaisumerkintä:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
 msgid "Reset sticky tags"
-msgstr ""
+msgstr "Nollaa sticky-merkinnät"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:47
 msgid "Revision: "
@@ -1250,6 +1276,8 @@ msgid ""
 "Standard diff\n"
 "Patch-Style diff"
 msgstr ""
+"Normaali diff\n"
+"Patch-tyylinen diff"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
 msgid "Unified format instead of context format"
@@ -1258,25 +1286,25 @@ msgstr ""
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
 #: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "Use revision/tag: "
-msgstr ""
+msgstr "Käytä versiota tai merkintää:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
 msgid "Use revision: "
-msgstr ""
+msgstr "Käytä versiota: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
 #: ../plugins/subversion/anjuta-subversion.glade.h:25
 msgid "Username: "
-msgstr ""
+msgstr "Käyttäjätunnus: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
 msgid "Vendor tag:"
-msgstr ""
+msgstr "Valmistajan merkintä: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Whole project"
-msgstr ""
+msgstr "Koko projekti"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:56
 msgid "none"
@@ -1294,15 +1322,15 @@ msgstr "Anna tiedostonimi!"
 #: ../plugins/cvs-plugin/cvs-callbacks.c:61
 #, c-format
 msgid "Please fill field: %s"
-msgstr ""
+msgstr "Täytä kenttä: %s"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:81
 msgid "CVS command is running! Please wait until it is finished!"
-msgstr ""
+msgstr "CVS-komento on käynnissä, odota kunnes se valmistuu!"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:153
 msgid "Unable to delete file"
-msgstr ""
+msgstr "Tiedostoa ei voi poistaa"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:458
@@ -1341,7 +1369,7 @@ msgstr "CVS-komento onnistui! - Aikaa kului %ld sekuntia."
 
 #: ../plugins/cvs-plugin/cvs-execute.c:223
 msgid "CVS command is running - please wait until it finishes!"
-msgstr ""
+msgstr "CVS-komento on käynnissä, odota kunnes se valmistuu!"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:231
 #: ../plugins/cvs-plugin/cvs-execute.c:235 ../plugins/cvs-plugin/plugin.c:486
@@ -1403,7 +1431,7 @@ msgstr "Toimita muutokset CVS-puuhun"
 #: ../plugins/gdb/anjuta-gdb.glade.h:37 ../plugins/subversion/plugin.c:76
 #: ../plugins/subversion/plugin.c:111
 msgid "_Update"
-msgstr ""
+msgstr "_Päivitä"
 
 #. Display label
 #. short-cut
@@ -1416,13 +1444,13 @@ msgstr "Ajantasaista paikallinen kopio CVS-puusta"
 #: ../plugins/cvs-plugin/plugin.c:85 ../plugins/cvs-plugin/plugin.c:144
 #: ../plugins/subversion/plugin.c:84
 msgid "_Diff"
-msgstr ""
+msgstr "_Vertaile"
 
 #. Display label
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:87 ../plugins/cvs-plugin/plugin.c:146
 msgid "Show differences between your local copy and the tree"
-msgstr ""
+msgstr "Näytä erot paikallisen kopion ja versiohallinan välillä"
 
 #. Action name
 #. Stock icon, if any
@@ -1434,7 +1462,7 @@ msgstr "_Näytä tila"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:95 ../plugins/cvs-plugin/plugin.c:154
 msgid "Show the status of a file/directory"
-msgstr ""
+msgstr "Näytä tiedoston tai kansion tila"
 
 #. Action name
 #. Stock icon, if any
@@ -1446,7 +1474,7 @@ msgstr "_Näytä loki"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:103 ../plugins/cvs-plugin/plugin.c:162
 msgid "Show the log of a file/directory"
-msgstr ""
+msgstr "Näytä tiedoston tai kansion loki"
 
 #. Action name
 #. Stock icon, if any
@@ -1458,7 +1486,7 @@ msgstr "_Tuo puu"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:111
 msgid "Import a new source tree to CVS"
-msgstr ""
+msgstr "Tuo uusi lähdekoodipuu CVS:ään"
 
 #: ../plugins/cvs-plugin/plugin.c:347
 msgid "CVS operations"
@@ -1466,7 +1494,7 @@ msgstr "CVS-toimenpiteet"
 
 #: ../plugins/cvs-plugin/plugin.c:353
 msgid "CVS popup operations"
-msgstr ""
+msgstr "CVS-ponnahdusikkunan toiminnot"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:1
 msgid "<b>Debugger:</b>"
@@ -1526,32 +1554,32 @@ msgstr "Kuvaus:"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:13
 #: ../plugins/gdb/anjuta-gdb.glade.h:10
 msgid "Display process _tree"
-msgstr ""
+msgstr "Näytä _prosessipuu"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:14
 #: ../plugins/gdb/anjuta-gdb.glade.h:11
 msgid "Enable _all"
-msgstr ""
+msgstr "Näytä _kaikki"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:15
 #: ../plugins/gdb/anjuta-gdb.glade.h:12
 msgid "Enter a Hexa adress or select one in the data"
-msgstr ""
+msgstr "Syötä heksadesimaalinen osoite tai valitse osoite datasta"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
 #: ../plugins/gdb/anjuta-gdb.glade.h:14
 msgid "Hide process para_meters"
-msgstr ""
+msgstr "Piilota prosessin valitsi_met"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
 #: ../plugins/editor/text_editor_menu.c:175
 #: ../plugins/gdb/anjuta-gdb.glade.h:15
 msgid "Inspect"
-msgstr ""
+msgstr "Tutki"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:18
 msgid "Inspect/Evaluate"
-msgstr ""
+msgstr "Tutki tai evaluoi"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
 #: ../plugins/gdb/anjuta-gdb.glade.h:16
@@ -1571,7 +1599,7 @@ msgstr "Muisti"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
 #: ../plugins/gdb/anjuta-gdb.glade.h:19
 msgid "Pass:"
-msgstr ""
+msgstr "Ohita:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:23
 #: ../plugins/gdb/anjuta-gdb.glade.h:20
@@ -1599,7 +1627,7 @@ msgstr "SIGINT"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:28
 #: ../plugins/gdb/anjuta-gdb.glade.h:24
 msgid "Set Signal Property"
-msgstr ""
+msgstr "Aseta signaalin ominaisuus"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:29
 #: ../plugins/gdb/anjuta-gdb.glade.h:25
@@ -1639,7 +1667,7 @@ msgstr "_Ehto:"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
 #: ../plugins/gdb/anjuta-gdb.glade.h:31
 msgid "_Disable all"
-msgstr ""
+msgstr "Poista k_aikki käytöstä"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
 #: ../plugins/gdb/anjuta-gdb.glade.h:32
@@ -1658,12 +1686,12 @@ msgstr "_Nimi:"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:40
 #: ../plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Pass:"
-msgstr ""
+msgstr "_Ohita:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:41
 #: ../plugins/gdb/anjuta-gdb.glade.h:35
 msgid "_Process to attach to:"
-msgstr ""
+msgstr "_Prosessi, johon liitetään:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:42
 #: ../plugins/gdb/anjuta-gdb.glade.h:36
@@ -1856,11 +1884,11 @@ msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:862
 msgid "_Run to cursor"
-msgstr ""
+msgstr "Suo_rita kohdistimeen"
 
 #: ../plugins/debug-manager/plugin.c:864
 msgid "Run to the cursor"
-msgstr ""
+msgstr "Suorita kohdistimeen"
 
 #: ../plugins/debug-manager/plugin.c:886
 msgid "Info _Threads"
@@ -1896,7 +1924,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:918
 msgid "Si_gnal to Process"
-msgstr ""
+msgstr "Si_gnaali prosessille"
 
 #: ../plugins/debug-manager/plugin.c:920
 msgid "Send a kernel signal to the process being debugged"
@@ -1904,11 +1932,11 @@ msgstr ""
 
 #: ../plugins/debug-manager/plugin.c:926
 msgid "Registers..."
-msgstr ""
+msgstr "Rekisterit..."
 
 #: ../plugins/debug-manager/plugin.c:928
 msgid "Show CPU register contents"
-msgstr ""
+msgstr "Näytä CPU-rekisterien sisältö"
 
 #. Action name
 #. Stock icon, if any
@@ -1935,23 +1963,23 @@ msgstr ""
 #: ../plugins/devhelp/plugin.c:202 ../plugins/document-manager/plugin.c:232
 #: ../plugins/message-view/plugin.c:71 ../plugins/symbol-browser/plugin.c:275
 msgid "_Goto"
-msgstr ""
+msgstr "_Siirry"
 
 #: ../plugins/devhelp/plugin.c:210
 msgid "Previous Help"
-msgstr ""
+msgstr "Edellinen ohje"
 
 #: ../plugins/devhelp/plugin.c:212
 msgid "Go to previous help page"
-msgstr ""
+msgstr "Siirry ohjeen edelliselle sivulle"
 
 #: ../plugins/devhelp/plugin.c:218
 msgid "Next Help"
-msgstr ""
+msgstr "Seuraava ohje"
 
 #: ../plugins/devhelp/plugin.c:220
 msgid "Go to next help page"
-msgstr ""
+msgstr "Siirry ohjeen seuraavalle sivulle"
 
 #: ../plugins/devhelp/plugin.c:227
 msgid "_API references"
@@ -1979,7 +2007,7 @@ msgstr ""
 
 #: ../plugins/devhelp/plugin.c:298
 msgid "Help operations"
-msgstr ""
+msgstr "Ohjetoiminnot"
 
 #: ../plugins/devhelp/plugin.c:333
 msgid "Books"
@@ -1991,7 +2019,7 @@ msgstr "Ohje"
 
 #: ../plugins/devhelp/plugin.c:343
 msgid "Help display"
-msgstr ""
+msgstr "Ohjeen näyttö"
 
 #: ../plugins/document-manager/action-callbacks.c:73
 msgid "Auto format is currently disabled. Change the setting in Preferences."
@@ -2008,6 +2036,8 @@ msgid ""
 "The file '%s' is not saved.\n"
 "Do you want to save it before closing?"
 msgstr ""
+"Tiedostoa \"%s\" ei ole tallennettu\n"
+"Haluatko tallentaa sen ennen sulkemista?"
 
 #: ../plugins/document-manager/action-callbacks.c:215
 msgid "Do_n't save"
@@ -2019,6 +2049,8 @@ msgid ""
 "Are you sure you want to reload '%s'?\n"
 "Any unsaved changes will be lost."
 msgstr ""
+"Haluatko varmasti ladata tiedoston \"%s\" uudestaan?\n"
+"Kaikki siihen tehdyt muutokset hukataan."
 
 #: ../plugins/document-manager/action-callbacks.c:293
 #: ../plugins/editor/text_editor.c:348 ../plugins/sourceview/sourceview.c:178
@@ -2046,7 +2078,7 @@ msgstr "Polku:"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:1
 msgid "#Else #Endif "
-msgstr ""
+msgstr "#Else #Endif "
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:2
 msgid "<b>'indent' arguments</b>"
@@ -2062,23 +2094,23 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:5
 msgid "<b>Blank Lines</b>"
-msgstr ""
+msgstr "<b>Tyhjät rivit</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:6
 msgid "<b>Breaking Long Lines</b>"
-msgstr ""
+msgstr "<b>Pitkien rivien katkaisu</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
 msgid "<b>Comments</b>"
-msgstr ""
+msgstr "<b>Kommentit</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:8
 msgid "<b>Declarations</b>"
-msgstr ""
+msgstr "<b>Esittelyt</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:9
 msgid "<b>Editor tabs</b>"
-msgstr ""
+msgstr "<b>Muokkaimen sarkaimet</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:10
 msgid "<b>Encoding to use when saving files</b>"
@@ -2086,23 +2118,23 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:11
 msgid "<b>Indentation</b>"
-msgstr ""
+msgstr "<b>Sisennys</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:12
 msgid "<b>Statements</b>"
-msgstr ""
+msgstr "<b>Lausekkeet</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:13
 msgid "<b>Supported Encodings</b>"
-msgstr ""
+msgstr "<b>Tuetut merkistökoodaukset</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:14
 msgid "After Declarations"
-msgstr ""
+msgstr "Esittelyiden jälkeen"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:15
 msgid "After Procedures"
-msgstr ""
+msgstr "Ennen proseduureja"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:16
 msgid "All Comments"
@@ -2130,23 +2162,23 @@ msgstr "Aaltosulku"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:23
 msgid "Braces after IF Line"
-msgstr ""
+msgstr "Aaltosulut IF-rivin jälkeen"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:24
 msgid "Braces after Struct"
-msgstr ""
+msgstr "Aaltosulut struct-rivin jälkeen"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:25
 msgid "Braces on IF line"
-msgstr ""
+msgstr "Aaltosulut IF-rivillä"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:26
 msgid "Braces on Struct"
-msgstr ""
+msgstr "Aaltosulut struct-rivillä"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:27
 msgid "Break before Boolean"
-msgstr ""
+msgstr "Väli ennen totuusarvoa"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:28
 msgid "Case"
@@ -2201,26 +2233,26 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:40
 msgid "Do not show tabs"
-msgstr ""
+msgstr "Älä näytä sarkaimia"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:41
 #: ../plugins/document-manager/plugin.c:1520
 #: ../plugins/document-manager/plugin.c:1867
 #: ../plugins/document-manager/plugin.c:1892
 msgid "Documents"
-msgstr ""
+msgstr "Asiakirjat"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:42
 msgid "Enable files autosave"
-msgstr ""
+msgstr "Tallenna tiedostot automaattisesti"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:43
 msgid "Encodings"
-msgstr ""
+msgstr "Merkistökoodaukset"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:44
 msgid "First Column"
-msgstr ""
+msgstr "Ensimmäinen sarake"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:45
 msgid "Foece a space between an 'if' and the following parenthesis (default)."
@@ -4195,7 +4227,7 @@ msgid "Debugger is ready.\n"
 msgstr ""
 
 #: ../plugins/gdb/debugger.c:1407
-#: , c-format
+#, c-format
 msgid "gdb terminated unexpectedly with error code %d\n"
 msgstr "gdb päättyi odottamattomasti virhekoodiin %d\n"
 
@@ -7604,4 +7636,3 @@ msgstr ""
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Anjutan testitulkii"
-
