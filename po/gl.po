@@ -999,7 +999,7 @@ msgid ""
 msgstr ""
 "General Public License (GPL)\n"
 "Lesser General Public License (LGPL)\n"
-"Sen licencia\n"
+"Sen licenza\n"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:33
 msgid "Generic C++ Class"
@@ -1011,7 +1011,7 @@ msgstr "Declaración e implementación en liña"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:35
 msgid "License: "
-msgstr "Licencia: "
+msgstr "Licenza: "
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:36
 msgid "Source/Header Headings:"
@@ -1030,7 +1030,7 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:38
 msgid "Virtual destructor"
-msgstr "Destructor virtual"
+msgstr "Destrutor virtual"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:39
 msgid "_TYPE_"
@@ -1142,7 +1142,7 @@ msgstr "CVS: Efectuar ficheiro/directorio"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
 msgid "CVS: Diff file/directory"
-msgstr "CVS: Diferencias do ficheiro/directorio"
+msgstr "CVS: Diferenzas do ficheiro/directorio"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
 msgid "CVS: Import"
@@ -1184,7 +1184,7 @@ msgstr "Escolla o ficheiro ou directorio a efectuar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
 msgid "Choose file or directory to diff:"
-msgstr "Escolla o ficheiro ou directorio a sacar diferencias:"
+msgstr "Escolla o ficheiro ou directorio a sacar diferenzas:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
 msgid "Choose file or directory to get log:"
@@ -1396,7 +1396,7 @@ msgstr "_Engadir"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:55
 msgid "Add a new file/directory to the CVS tree"
-msgstr "Engadir un novo ficheiro/directorio ao árbore CVS"
+msgstr "Engadir un novo ficheiro/directorio á árbore CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -1408,7 +1408,7 @@ msgstr "_Eliminar"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:63
 msgid "Remove a file/directory from CVS tree"
-msgstr "Eliminar un ficheiro/directorio do árbore CVS"
+msgstr "Eliminar un ficheiro/directorio da árbore CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -1421,7 +1421,7 @@ msgstr "E_fectuar"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:71 ../plugins/cvs-plugin/plugin.c:130
 msgid "Commit your changes to the CVS tree"
-msgstr "Efectuar cambios ao árbore CVS"
+msgstr "Efectuar cambios á árbore CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -1449,7 +1449,7 @@ msgstr "_Diff"
 #. short-cut
 #: ../plugins/cvs-plugin/plugin.c:87 ../plugins/cvs-plugin/plugin.c:146
 msgid "Show differences between your local copy and the tree"
-msgstr "Mostra as diferencias entre a súa copia local e o árbore"
+msgstr "Mostra as diferenzas entre a súa copia local e a árbore"
 
 #. Action name
 #. Stock icon, if any
@@ -4085,7 +4085,7 @@ msgstr "<span weight=\"bold\">Opcións</span>"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:4
 msgid "Add License Information"
-msgstr "Engadir información de licencia"
+msgstr "Engadir información de licenza"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:6
 msgid "Add to repository"
@@ -4106,7 +4106,7 @@ msgstr ""
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:10
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:9
 msgid "License:"
-msgstr "Licencia:"
+msgstr "Licenza:"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
@@ -4935,7 +4935,7 @@ msgstr "Sen permiso para ler o ficheiro"
 
 #: ../plugins/gtodo/libgtodo.c:636 ../plugins/gtodo/libgtodo.c:646
 msgid "Failed to parse xml structure"
-msgstr "Fallou ao analizar a estructura xml"
+msgstr "Fallou ao analizar a estrutura xml"
 
 #: ../plugins/gtodo/libgtodo.c:654
 msgid "File is not a valid gtodo file"
@@ -5332,7 +5332,7 @@ msgstr "Miñas macros"
 
 #: ../plugins/macro/macro-dialog.c:256
 msgid "Insert macro"
-msgstr "Insertar macro"
+msgstr "Inserir macro"
 
 #: ../plugins/macro/macro-edit.c:195
 msgid "Add/Edit macro"
@@ -5424,7 +5424,7 @@ msgstr "Cabeceira_shell"
 
 #: ../plugins/macro/macros.xml.h:21
 msgid "Licenses"
-msgstr "Licencias"
+msgstr "Licenzas"
 
 #: ../plugins/macro/macros.xml.h:22
 msgid "UserName"
@@ -5496,7 +5496,7 @@ msgstr "_Inserir macro..."
 
 #: ../plugins/macro/plugin.c:43
 msgid "Insert a macro using a shortcut"
-msgstr "Insertar unha macro usando un atallo"
+msgstr "Inserir unha macro usando un atallo"
 
 #: ../plugins/macro/plugin.c:48
 msgid "_Add Macro..."
@@ -6035,7 +6035,7 @@ msgid ""
 msgstr ""
 "O Asistente para Aplicacións xerará un esquelete básico para o proxecto, "
 "incluíndo todos os ficheiros de compilación. Preguntaralle detalles acerca "
-"da estructura inicial para a aplicación. Por favor, responda as preguntas "
+"da estrutura inicial para a aplicación. Por favor, responda as preguntas "
 "cuidadosamente, xa que pode que non sexa posible cambiar algúns valores máis "
 "tarde."
 
@@ -7508,7 +7508,7 @@ msgstr "Dereitos de copia (c) Naba Kumar"
 
 #: ../src/about.c:197
 msgid "GNU General Public License"
-msgstr "Licencia Pública Xeral de GNU"
+msgstr "Licenza Pública Xeral de GNU"
 
 #: ../src/about.c:247
 msgid "Anjuta Plugin"
