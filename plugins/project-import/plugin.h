@@ -25,6 +25,10 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-ui.h>
 
+extern GType project_import_plugin_type;
+#define PROJECT_IMPORT_PLUGIN_TYPE (project_import_plugin_type)
+#define PROJECT_IMPORT_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), PROJECT_IMPORT_PLUGIN_TYPE, AnjutaProjectImportPlugin))
+
 typedef struct _AnjutaProjectImportPlugin AnjutaProjectImportPlugin;
 typedef struct _AnjutaProjectImportPluginClass AnjutaProjectImportPluginClass;
 

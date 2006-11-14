@@ -14,6 +14,7 @@
 
 
 
+static
 void file_open(GtkWidget *button, GtkEntry *entry)
 {
 	GtkWidget *selection = NULL;
@@ -30,7 +31,7 @@ void file_open(GtkWidget *button, GtkEntry *entry)
 
 
 
-void export_backup_xml()
+void export_backup_xml(void)
 {
 	GtkWidget *dialog;
 	GtkWidget *entry;
@@ -89,23 +90,26 @@ void export_backup_xml()
 
 
 
+static
 void cust_cb_clicked(GtkToggleButton *but, GtkWidget *entry)
 {
 	gtk_widget_set_sensitive(entry, gtk_toggle_button_get_active(but));
 }
 
+static
 void emb_cb_clicked(GtkToggleButton *but, GtkWidget *entry)
 {
 	gtk_widget_set_sensitive(entry, !gtk_toggle_button_get_active(but));
 }
 
 
+static
 void export_xslt()
 {
 	GtkWidget *dialog;
 	xmlDocPtr res;
 	xsltStylesheetPtr cur;
-	GtkWidget *label, *vbox, *hbox;
+	GtkWidget *label, *hbox;
 	GtkWidget *loc_entry, *loc_browser;
 	GtkWidget *emb_cb, *cust_cb, *cust_browser, *cb_curcat;;
 	GtkWidget *box, *but;
@@ -183,7 +187,7 @@ void export_xslt()
 	}
 
 
-	cur= xsltParseStylesheetFile(DATADIR"/gtodo/gtodo.xsl");
+	cur= xsltParseStylesheetFile((xmlChar *)DATADIR"/gtodo/gtodo.xsl");
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(emb_cb)))
 	{
 		param_string = g_realloc(param_string, 3*sizeof(gchar *));
@@ -248,7 +252,7 @@ void export_xslt()
 	gtk_widget_destroy(dialog);
 }
 
-void export_gui()
+void export_gui(void)
 {
 	export_xslt();
 }

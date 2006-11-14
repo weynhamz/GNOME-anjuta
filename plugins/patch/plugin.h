@@ -25,6 +25,10 @@
 
 #define ICON_FILE "anjuta-patch-plugin.png"
 
+extern GType patch_plugin_type;
+#define PATCH_PLUGIN_TYPE (patch_plugin_type)
+#define PATCH_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), PATCH_PLUGIN_TYPE, PatchPlugin))
+
 typedef struct _PatchPlugin PatchPlugin;
 typedef struct _PatchPluginClass PatchPluginClass;
 

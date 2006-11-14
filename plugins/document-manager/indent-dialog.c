@@ -111,7 +111,7 @@ indent_toggle_button_set_active(gchar *name_widget, gboolean active, IndentData 
 	GtkWidget *widget;
 	
 	widget = glade_xml_get_widget(idt->xml, name_widget);
-	gtk_toggle_button_set_active((GtkToggleButton *) widget, active);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON (widget), active);
 }
 
 void
@@ -129,7 +129,7 @@ indent_spinbutton_set_value(gchar *name_widget, gchar *num, IndentData *idt)
 	GtkWidget *widget;
 
 	widget = glade_xml_get_widget(idt->xml, name_widget);
-	gtk_spin_button_set_value((GtkSpinButton*) widget, g_strtod(num, NULL));
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON (widget), g_strtod(num, NULL));
 }
 
 gchar *
@@ -139,7 +139,7 @@ indent_spinbutton_get_value(gchar *name_widget, IndentData *idt)
 	gint value;
 
 	widget = glade_xml_get_widget(idt->xml, name_widget);
-	value = gtk_spin_button_get_value_as_int((GtkSpinButton*) widget);
+	value = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON (widget));
 	return g_strdup_printf("%d", value); 
 }
 

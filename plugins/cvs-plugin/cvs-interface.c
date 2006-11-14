@@ -106,7 +106,7 @@ void anjuta_cvs_add (AnjutaPlugin *obj, const gchar* filename,
 	gboolean binary, GError **err)
 {
 	gchar* command;
-	CVSPlugin* plugin = (CVSPlugin*)obj;
+	CVSPlugin* plugin = CVS_PLUGIN (obj);
 	GString* options = g_string_new("");
 	gchar* file = g_strdup(filename);
 	
@@ -127,7 +127,7 @@ void anjuta_cvs_commit (AnjutaPlugin *obj, const gchar* filename, const gchar* l
 	const gchar* rev, gboolean recurse, GError **err)
 {
 	GString* options = g_string_new("");
-	CVSPlugin* plugin = (CVSPlugin*) obj;
+	CVSPlugin* plugin = CVS_PLUGIN (obj);
 	gchar* command;	
 	
 	if (strlen(log))
@@ -165,7 +165,7 @@ void anjuta_cvs_diff (AnjutaPlugin *obj, const gchar* filename, const gchar* rev
 	gboolean recurse, gboolean patch_style, gboolean unified, GError **err)
 {
 	GString* options = g_string_new("");
-	CVSPlugin* plugin = (CVSPlugin*) obj;
+	CVSPlugin* plugin = CVS_PLUGIN (obj);
 	gchar* command;	
 	
 	if (strlen(rev))
@@ -197,7 +197,7 @@ void anjuta_cvs_diff (AnjutaPlugin *obj, const gchar* filename, const gchar* rev
 void anjuta_cvs_log (AnjutaPlugin *obj, const gchar* filename, gboolean recurse, gboolean verbose, GError **err)
 {
 	GString* options = g_string_new("");
-	CVSPlugin* plugin = (CVSPlugin*) obj;
+	CVSPlugin* plugin = CVS_PLUGIN (obj);
 	gchar* command;	
 
 	add_option(!recurse, options, "-l");
@@ -226,7 +226,7 @@ void anjuta_cvs_log (AnjutaPlugin *obj, const gchar* filename, gboolean recurse,
 void anjuta_cvs_remove (AnjutaPlugin *obj, const gchar* filename, GError **err)
 {
 	gchar* command;
-	CVSPlugin* plugin = (CVSPlugin*)obj;
+	CVSPlugin* plugin = CVS_PLUGIN (obj);
 	GString* options = g_string_new("");
 	gchar* file = g_strdup(filename);	
 
@@ -243,7 +243,7 @@ void anjuta_cvs_remove (AnjutaPlugin *obj, const gchar* filename, GError **err)
 void anjuta_cvs_status (AnjutaPlugin *obj, const gchar* filename, gboolean recurse, gboolean verbose, GError **err)
 {
 	gchar* command;
-	CVSPlugin* plugin = (CVSPlugin*)obj;
+	CVSPlugin* plugin = CVS_PLUGIN (obj);
 	GString* options = g_string_new("");
 	
 	add_option(!recurse, options, "-l");
@@ -273,7 +273,7 @@ void anjuta_cvs_update (AnjutaPlugin *obj, const gchar* filename, gboolean recur
 	gboolean prune, gboolean create, gboolean reset_sticky, const gchar* revision, GError **err)
 {
 	GString* options = g_string_new("");
-	CVSPlugin* plugin = (CVSPlugin*) obj;
+	CVSPlugin* plugin = CVS_PLUGIN (obj);
 	gchar* command;	
 	
 	add_option(!recurse, options, "-l");
@@ -315,7 +315,7 @@ void anjuta_cvs_import (AnjutaPlugin *obj, const gchar* dir, const gchar* cvsroo
 	gchar* cvs_command;
 	gchar* root;
 	GString* options = g_string_new("");
-	CVSPlugin* plugin = (CVSPlugin*) obj;
+	CVSPlugin* plugin = CVS_PLUGIN (obj);
 	
 	switch (server_type)
 	{

@@ -30,6 +30,10 @@
 
 G_BEGIN_DECLS
 
+extern GType class_inheritance_type;
+#define CLASS_INHERITANCE_PLUGIN_TYPE (class_inheritance_type)
+#define CLASS_INHERITANCE_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), CLASS_INHERITANCE_PLUGIN_TYPE, AnjutaClassInheritance))
+
 typedef struct _AnjutaClassInheritance AnjutaClassInheritance;
 typedef struct _AnjutaClassInheritanceClass AnjutaClassInheritanceClass;
 

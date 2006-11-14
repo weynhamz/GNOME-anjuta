@@ -20,6 +20,10 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
+extern GType message_view_plugin_type;
+#define MESSAGE_VIEW_PLUGIN_TYPE (message_view_plugin_type)
+#define MESSAGE_VIEW_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), MESSAGE_VIEW_PLUGIN_TYPE, MessageViewPlugin))
+
 typedef struct _MessageViewPlugin MessageViewPlugin;
 typedef struct _MessageViewPluginClass MessageViewPluginClass;
 

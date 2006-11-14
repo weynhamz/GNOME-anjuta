@@ -282,8 +282,8 @@ egg_datetime_class_init (EggDateTimeClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	o_class  = (GObjectClass *)   klass;
-	go_class = (GtkObjectClass *) klass;
+	o_class  = G_OBJECT_CLASS (klass);
+	go_class = GTK_OBJECT_CLASS (klass);
 
 	o_class->finalize     = egg_datetime_finalize;
 	o_class->set_property = egg_datetime_set_property;

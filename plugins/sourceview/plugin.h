@@ -27,6 +27,10 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
+extern GType sourceview_plugin_type;
+#define SOURCEVIEW_PLUGIN_TYPE (sourceview_plugin_type)
+#define SOURCEVIEW_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), SOURCEVIEW_PLUGIN_TYPE, SourceviewPlugin))
+
 typedef struct _SourceviewPlugin SourceviewPlugin;
 typedef struct _SourceviewPluginClass SourceviewPluginClass;
 

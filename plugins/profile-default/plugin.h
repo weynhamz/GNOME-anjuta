@@ -20,6 +20,10 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
+extern GType default_profile_plugin_type;
+#define DEFAULT_PROFILE_PLUGIN_TYPE (default_profile_plugin_type)
+#define DEFAULT_PROFILE_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), DEFAULT_PROFILE_PLUGIN_TYPE, DefaultProfilePlugin))
+
 typedef struct _DefaultProfilePlugin DefaultProfilePlugin;
 typedef struct _DefaultProfilePluginClass DefaultProfilePluginClass;
 

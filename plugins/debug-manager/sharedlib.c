@@ -87,7 +87,11 @@ on_sharedlibs_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
 	Sharedlibs *sl = (Sharedlibs *)user_data;
 	
-	ianjuta_debugger_info_sharedlib (sl->debugger, sharedlibs_update, sl, NULL);
+	ianjuta_debugger_info_sharedlib (
+			sl->debugger,
+			(IAnjutaDebuggerCallback)sharedlibs_update,
+			sl,
+			NULL);
 }
 
 static void
@@ -249,7 +253,11 @@ sharedlibs_show (Sharedlibs* ew)
 										ew->win_width, ew->win_height);
 			gtk_widget_show(ew->widgets.window);
 			ew->is_showing = TRUE;
-			ianjuta_debugger_info_sharedlib (ew->debugger, sharedlibs_update, ew, NULL);
+			ianjuta_debugger_info_sharedlib (
+					ew->debugger,
+					(IAnjutaDebuggerCallback)sharedlibs_update,
+					ew,
+					NULL);
 		}
 	}
 }

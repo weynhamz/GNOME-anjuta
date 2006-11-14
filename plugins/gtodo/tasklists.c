@@ -2,7 +2,7 @@
 #include "main.h"
 
 
-void open_playlist()
+void open_playlist(void)
 {
 	GtkWidget *selection = NULL;
 	gchar *path = NULL;
@@ -23,7 +23,7 @@ void open_playlist()
 
 
 
-void create_playlist()
+void create_playlist(void)
 {
 	GtkWidget *selection = NULL;
 	gchar *path = NULL;

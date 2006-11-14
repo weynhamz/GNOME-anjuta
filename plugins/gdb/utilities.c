@@ -355,7 +355,7 @@ gdb_util_get_message_view (AnjutaPlugin *plugin)
 	GObject *obj;
 	IAnjutaMessageView *message_view;
 	IAnjutaMessageManager *message_manager = NULL;
-	GdbPlugin *gdb_plugin = (GdbPlugin*)plugin;
+	GdbPlugin *gdb_plugin = GDB_PLUGIN (plugin);
 
 	g_return_val_if_fail (plugin != NULL, NULL);
 

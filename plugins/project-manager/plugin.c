@@ -255,7 +255,7 @@ on_refresh_idle (gpointer user_data)
 	AnjutaStatus *status;
 	GError *err = NULL;
 	
-	plugin = (ProjectManagerPlugin *)user_data;
+	plugin = PROJECT_MANAGER_PLUGIN (user_data);
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	anjuta_status_push (status, "Refreshing symbol tree...");
@@ -929,7 +929,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	
 	uri = g_value_get_string (value);
 
-	pm_plugin = (ProjectManagerPlugin*)plugin;
+	pm_plugin = PROJECT_MANAGER_PLUGIN (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	if (pm_plugin->fm_current_uri)
@@ -949,7 +949,7 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	GtkAction *action;
 	ProjectManagerPlugin *pm_plugin;
 
-	pm_plugin = (ProjectManagerPlugin*)plugin;
+	pm_plugin = PROJECT_MANAGER_PLUGIN (plugin);
 	
 	if (pm_plugin->fm_current_uri)
 		g_free (pm_plugin->fm_current_uri);
@@ -969,7 +969,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	ProjectManagerPlugin *pm_plugin;
 	
 	editor = g_value_get_object (value);
-	pm_plugin = (ProjectManagerPlugin*)plugin;
+	pm_plugin = PROJECT_MANAGER_PLUGIN (plugin);
 	
 	if (pm_plugin->current_editor_uri)
 		g_free (pm_plugin->current_editor_uri);
@@ -983,7 +983,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 {
 	ProjectManagerPlugin *pm_plugin;
 	
-	pm_plugin = (ProjectManagerPlugin*)plugin;
+	pm_plugin = PROJECT_MANAGER_PLUGIN (plugin);
 	
 	if (pm_plugin->current_editor_uri)
 		g_free (pm_plugin->current_editor_uri);
@@ -1064,7 +1064,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	dirname = gnome_vfs_get_local_path_from_uri (root_uri);
 	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
-	pm_plugin = (ProjectManagerPlugin*)(plugin);
+	pm_plugin = PROJECT_MANAGER_PLUGIN (plugin);
 	/* progress_win = show_loading_progress (plugin); */
 	
 	model = gtk_combo_box_get_model(GTK_COMBO_BOX(pm_plugin->combo));
@@ -1192,7 +1192,7 @@ static void
 value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 								gpointer data)
 {
-	ProjectManagerPlugin* pm_plugin = (ProjectManagerPlugin*)(plugin);
+	ProjectManagerPlugin* pm_plugin = PROJECT_MANAGER_PLUGIN (plugin);
 	pm_plugin->active_project = NULL;
 	update_title(pm_plugin, pm_plugin->active_project);
 }
@@ -1228,7 +1228,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	if (!initialized)
 		register_stock_icons (plugin);
 	
-	pm_plugin = (ProjectManagerPlugin*) plugin;
+	pm_plugin = PROJECT_MANAGER_PLUGIN (plugin);
 	pm_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	pm_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
@@ -1372,7 +1372,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	ProjectManagerPlugin *pm_plugin;
-	pm_plugin = (ProjectManagerPlugin*) plugin;
+	pm_plugin = PROJECT_MANAGER_PLUGIN (plugin);
 	GtkTreeIter iter;
 	GtkTreeModel* model;
 	
@@ -1421,7 +1421,7 @@ dispose (GObject *obj)
 static void
 project_manager_plugin_instance_init (GObject *obj)
 {
-	ProjectManagerPlugin* plugin = (ProjectManagerPlugin*) obj;
+	ProjectManagerPlugin* plugin = PROJECT_MANAGER_PLUGIN (obj);
 	
 	plugin->active_project = NULL;
 	plugin->fm_current_uri = NULL;
@@ -1600,7 +1600,7 @@ get_element_id_from_uri (ProjectManagerPlugin *plugin, const gchar *uri)
 static void
 unload_profile (AnjutaPlugin* plugin)
 {
-	ProjectManagerPlugin* pm_plugin = (ProjectManagerPlugin*) plugin;
+	ProjectManagerPlugin* pm_plugin = PROJECT_MANAGER_PLUGIN (plugin);
 	IAnjutaProfile* profile = anjuta_shell_get_interface(plugin->shell, IAnjutaProfile, NULL);
 	if (profile)
 	{
@@ -1724,7 +1724,7 @@ iproject_manager_get_element_type (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
 						  IANJUTA_PROJECT_MANAGER_UNKNOWN);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project),
 						  IANJUTA_PROJECT_MANAGER_UNKNOWN);
 	g_return_val_if_fail (uri_is_inside_project (plugin, element_uri),
@@ -1758,7 +1758,7 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project), NULL);
 	
 	elements = NULL;
@@ -1836,7 +1836,7 @@ iproject_manager_get_target_type (IAnjutaProjectManager *project_manager,
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
 						  IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project),
 						  IANJUTA_PROJECT_MANAGER_TARGET_UNKNOWN);
 	
@@ -1882,7 +1882,7 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project), NULL);
 	
 	switch (target_type)
@@ -1937,7 +1937,7 @@ iproject_manager_get_parent (IAnjutaProjectManager *project_manager,
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project), NULL);
 	
 	type = ianjuta_project_manager_get_element_type (project_manager,
@@ -1955,7 +1955,7 @@ iproject_manager_get_children (IAnjutaProjectManager *project_manager,
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project), NULL);
 	/* FIXME: */
 	return NULL;
@@ -1971,7 +1971,7 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project), NULL);
 	
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->active_project->view),
@@ -2027,7 +2027,7 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project), FALSE);
 
 	update_operation_begin (plugin);
@@ -2078,7 +2078,7 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project), FALSE);
 
 	update_operation_begin (plugin);
@@ -2130,7 +2130,7 @@ iproject_manager_add_target (IAnjutaProjectManager *project_manager,
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project), FALSE);
 
@@ -2160,7 +2160,7 @@ iproject_manager_add_group (IAnjutaProjectManager *project_manager,
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), FALSE);
 	
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 	g_return_val_if_fail (GBF_IS_PROJECT (plugin->active_project->gbf_project), FALSE);
 
 	default_group_id = get_element_id_from_uri (plugin, default_group_uri);
@@ -2182,7 +2182,7 @@ iproject_manager_is_open (IAnjutaProjectManager *project_manager, GError **err)
 {
 	ProjectManagerPlugin *plugin;
 
-	plugin = (ProjectManagerPlugin*) G_OBJECT (project_manager);
+	plugin = PROJECT_MANAGER_PLUGIN (project_manager);
 
 	return GBF_IS_PROJECT (plugin->active_project->gbf_project);
 }

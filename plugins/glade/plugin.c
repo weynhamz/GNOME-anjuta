@@ -626,7 +626,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("GladePlugin: Activating Glade plugin...");
 	
-	glade_plugin = (GladePlugin*) plugin;
+	glade_plugin = GLADE_PLUGIN (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	priv = glade_plugin->priv;
@@ -657,7 +657,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		gtk_box_pack_start (GTK_BOX (priv->view_box), priv->projects_combo,
 							FALSE, FALSE, 0);
 		
-		priv->view = GLADE_PROJECT_VIEW (glade_project_view_new (GLADE_PROJECT_VIEW_TREE));
+		priv->view = GLADE_PROJECT_VIEW (glade_project_view_new ());
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->view),
 						GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
@@ -727,7 +727,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	GladePluginPriv *priv;
 	
-	priv = ((GladePlugin*)plugin)->priv;
+	priv = GLADE_PLUGIN (plugin)->priv;
 	
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -781,7 +781,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 glade_plugin_dispose (GObject *obj)
 {
-	// GladePlugin *plugin = (GladePlugin*)obj;
+	// GladePlugin *plugin = GLADE_PLUGIN (obj);
 	
 	/* FIXME: Glade widgets should be destroyed */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
@@ -790,7 +790,7 @@ glade_plugin_dispose (GObject *obj)
 static void
 glade_plugin_finalize (GObject *obj)
 {
-	GladePlugin *plugin = (GladePlugin*)obj;
+	GladePlugin *plugin = GLADE_PLUGIN (obj);
 	g_free (plugin->priv);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -799,7 +799,7 @@ static void
 glade_plugin_instance_init (GObject *obj)
 {
 	GladePluginPriv *priv;
-	GladePlugin *plugin = (GladePlugin*)obj;
+	GladePlugin *plugin = GLADE_PLUGIN (obj);
 	
 	plugin->priv = (GladePluginPriv *) g_new0 (GladePluginPriv, 1);
 	priv = plugin->priv;
@@ -831,7 +831,7 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	
 	g_return_if_fail (uri != NULL);
 	
-	priv = ((GladePlugin*)G_OBJECT (ifile))->priv;
+	priv = GLADE_PLUGIN (ifile)->priv;
 	
 	filename = gnome_vfs_get_local_path_from_uri (uri);
 	if (!filename)
@@ -870,7 +870,7 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 	GtkListStore *store;
 	GtkTreeIter iter;
 	
-	priv = ((GladePlugin*)G_OBJECT (iwizard))->priv;
+	priv = GLADE_PLUGIN (iwizard)->priv;
 
 	project = glade_project_new (TRUE);
 	if (!project)

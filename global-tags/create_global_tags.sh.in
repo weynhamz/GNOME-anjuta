@@ -77,11 +77,11 @@ if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
 	
     PKG_CONFIG_PATH_PROPER=`echo $PKG_CONFIG_PATH | sed -e 's/\:/ /g'`
     for pkg_path in $PKG_CONFIG_PATH_PROPER; do
-	for pkg_file in $pkg_path/*.pc; do
+	for pkg_file in `find "$pkg_path" -name '*.pc' 2>/dev/null`; do
 		# echo "Scanning package: $pkg_file"
-	    PKG_CFLAGS=`cat $pkg_file  2>/dev/null | grep -e "^\(\w\+\=\|\s*Cflags\:\)" | sed -e "s/^\s*Cflags\:\(.*\)/echo \"\1\"/" | sed -e 's/^\(\w\+\)\=\(.*\)/\1\=\"\2\"/' | sh`
+	    PKG_CFLAGS=`grep -e '^\(\w\+=\|\s*Cflags:\)' "$pkg_file"|sed -e 's/Cflags:\s*"\?\(.*\)"\?\s*/echo "\1"/' -e 's/^\(\w\+\)=\("\([^"]*\)"\|\(.*\)\)/\1="\3\4"/'|sh`
 		# echo $PKG_CFLAGS
-	    package=`echo $pkg_file | sed -e 's/^.*\/\(.*\)\.pc/\1/'`
+	    package=`basename "$pkg_file" '.pc'`
 	    # if [ ! -e $BASEDIR/tags/$package.anjutatags.gz ] ; then
 		echo "Creating tags file: $HOME/.anjuta/tags/$package.anjutatags.gz ..."
 		anjuta_tags "$HOME/.anjuta/tags/$package.anjutatags" $PKG_CFLAGS > /dev/null

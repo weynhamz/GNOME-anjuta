@@ -64,6 +64,10 @@
 
 extern char **environ;
 
+extern GType terminal_plugin_type;
+#define TERMINAL_PLUGIN_TYPE (terminal_plugin_type)
+#define TERMINAL_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), TERMINAL_PLUGIN_TYPE, TerminalPlugin))
+
 typedef struct _TerminalPlugin TerminalPlugin;
 typedef struct _TerminalPluginClass TerminalPluginClass;
 
@@ -249,7 +253,7 @@ static void
 on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
 					   GConfEntry *entry, gpointer user_data)
 {
-	TerminalPlugin *tp = (TerminalPlugin*)user_data;
+	TerminalPlugin *tp = TERMINAL_PLUGIN (user_data);
 	preferences_changed (tp->prefs, tp);
 }
 
@@ -580,7 +584,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("TerminalPlugin: Activating Terminal plugin ...");
 	
-	term_plugin = (TerminalPlugin*) plugin;
+	term_plugin = TERMINAL_PLUGIN (plugin);
 	term_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	term_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
@@ -609,7 +613,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	TerminalPlugin *term_plugin;
-	term_plugin = (TerminalPlugin*) plugin;
+	term_plugin = TERMINAL_PLUGIN (plugin);
 	
 	prefs_finalize (term_plugin);
 	
@@ -647,7 +651,7 @@ terminal_plugin_finalize (GObject *obj)
 static void
 terminal_plugin_instance_init (GObject *obj)
 {
-	TerminalPlugin *plugin = (TerminalPlugin*) obj;
+	TerminalPlugin *plugin = TERMINAL_PLUGIN (obj);
 	plugin->gconf_notify_ids = NULL;
 	plugin->child_initizlized = FALSE;
 	plugin->first_time_realization = TRUE;
@@ -674,7 +678,7 @@ iterminal_execute_command (IAnjutaTerminal *terminal,
 	TerminalPlugin *plugin;
 	const gchar *dir;
 	
-	plugin = (TerminalPlugin*)G_OBJECT (terminal);
+	plugin = TERMINAL_PLUGIN (terminal);
 	
 	if (directory == NULL || strlen (directory) <= 0)
 		dir = NULL;
@@ -694,7 +698,7 @@ static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	/* Create the terminal preferences page */
-	TerminalPlugin* term_plugin = (TerminalPlugin*) ipref;
+	TerminalPlugin* term_plugin = TERMINAL_PLUGIN (ipref);
 	GladeXML *gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_terminal", NULL);
 	anjuta_preferences_add_page (term_plugin->prefs, gxml,
 									"Terminal", _("Terminal"), ICON_FILE);
@@ -710,7 +714,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	TerminalPlugin* term_plugin = (TerminalPlugin*) ipref;
+	TerminalPlugin* term_plugin = TERMINAL_PLUGIN (ipref);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(term_plugin->pref_default_button),
 		G_CALLBACK (use_default_profile_cb), term_plugin);
 	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs),

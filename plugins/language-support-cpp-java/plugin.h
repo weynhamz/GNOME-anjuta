@@ -21,6 +21,10 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
+extern GType cpp_java_plugin_type;
+#define CPP_JAVA_PLUGIN_TYPE (cpp_java_plugin_type)
+#define CPP_JAVA_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), CPP_JAVA_PLUGIN_TYPE, CppJavaPlugin))
+
 typedef struct _CppJavaPlugin CppJavaPlugin;
 typedef struct _CppJavaPluginClass CppJavaPluginClass;
 

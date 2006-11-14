@@ -181,7 +181,7 @@ anjuta_document_finalize (GObject *object)
 	if (doc->priv->uri != NULL)
 	{
 		GtkTextIter iter;
-		gchar *position;
+		// gchar *position;
 		gchar *lang_id = NULL;
 		GtkSourceLanguage *lang;
 
@@ -251,7 +251,7 @@ anjuta_document_set_property (GObject      *object,
 			     const GValue *value,
 			     GParamSpec   *pspec)
 {
-	AnjutaDocument *doc = ANJUTA_DOCUMENT (object);
+	// AnjutaDocument *doc = ANJUTA_DOCUMENT (object);
 
 	switch (prop_id)
 	{
@@ -599,7 +599,7 @@ set_uri (AnjutaDocument *doc,
 
 	if (!doc->priv->language_set_by_user)
 	{
-		gchar *data;
+		// gchar *data;
 		GtkSourceLanguage *language = NULL;
 
 		

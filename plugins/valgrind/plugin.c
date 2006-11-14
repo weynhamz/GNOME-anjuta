@@ -631,7 +631,7 @@ valgrind_dispose (GObject *obj)
 }
 
 static void
-valgrind_instance_init (GObject *obj)
+anjuta_valgrind_plugin_instance_init (GObject *obj)
 {
 	AnjutaValgrindPlugin *plugin = ANJUTA_VALGRIND_PLUGIN (obj);
 
@@ -643,7 +643,7 @@ valgrind_instance_init (GObject *obj)
 }
 
 static void
-valgrind_class_init (GObjectClass *klass) 
+anjuta_valgrind_plugin_class_init (GObjectClass *klass) 
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -694,11 +694,8 @@ ipreferences_iface_init(IAnjutaPreferencesIface* iface)
 	iface->unmerge = ipreferences_unmerge;	
 }
 
-GType anjuta_valgrind_plugin_type = 0;
-
-ANJUTA_PLUGIN_BEGIN (AnjutaValgrindPlugin, valgrind);
+ANJUTA_PLUGIN_BEGIN (AnjutaValgrindPlugin, anjuta_valgrind_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
-anjuta_valgrind_plugin_type = type;
 ANJUTA_PLUGIN_END;
 
-ANJUTA_SIMPLE_PLUGIN (AnjutaValgrindPlugin, valgrind);
+ANJUTA_SIMPLE_PLUGIN (AnjutaValgrindPlugin, anjuta_valgrind_plugin);

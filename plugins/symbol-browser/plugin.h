@@ -26,6 +26,10 @@
 
 G_BEGIN_DECLS
 
+extern GType symbol_browser_plugin_type;
+#define SYMBOL_BROWSER_PLUGIN_TYPE (symbol_browser_plugin_type)
+#define SYMBOL_BROWSER_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), SYMBOL_BROWSER_PLUGIN_TYPE, SymbolBrowserPlugin))
+
 typedef struct _SymbolBrowserPlugin SymbolBrowserPlugin;
 typedef struct _SymbolBrowserPluginClass SymbolBrowserPluginClass;
 

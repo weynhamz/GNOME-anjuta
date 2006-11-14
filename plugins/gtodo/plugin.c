@@ -141,7 +141,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	static gboolean initialized;
 	
 	DEBUG_PRINT ("GTodoPlugin: Activating Task manager plugin ...");
-	gtodo_plugin = (GTodoPlugin*) plugin;
+	gtodo_plugin = GTODO_PLUGIN (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
@@ -184,7 +184,7 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-	GTodoPlugin *gplugin = (GTodoPlugin*)plugin;
+	GTodoPlugin *gplugin = GTODO_PLUGIN (plugin);
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	DEBUG_PRINT ("GTodoPlugin: Dectivating Tasks manager plugin ...");
@@ -223,7 +223,7 @@ dispose (GObject *obj)
 static void
 gtodo_plugin_instance_init (GObject *obj)
 {
-	GTodoPlugin *plugin = (GTodoPlugin*)obj;
+	GTodoPlugin *plugin = GTODO_PLUGIN (obj);
 	plugin->uiid = 0;
 }
 
@@ -257,7 +257,7 @@ static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	/* Add preferences */
-	GTodoPlugin* gtodo_plugin = (GTodoPlugin*)(ipref); 
+	GTodoPlugin* gtodo_plugin = GTODO_PLUGIN (ipref); 
 	GdkPixbuf *pixbuf;
 	
 	pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);

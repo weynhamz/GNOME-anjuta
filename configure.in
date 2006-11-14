@@ -901,63 +901,7 @@ if test -n "$SVN_INCLUDE" ; then
 	dnl ------------------------------------
 	dnl APR. Required by subversion (devel)
 	dnl ------------------------------------
-	
-	APR_CONFIGS="apr-config /usr/local/apr/bin/apr-config"
-	AC_ARG_WITH(apr-config,
-	[[  --with-apr-config=FILE    Use the given path to apr-config when determining
-								APR configuration; defaults to "apr-config"]],
-	[
-	if test "$withval" != "yes" -a "$withval" != ""; then
-	  APR_CONFIGS=$withval
-	fi
-	])
-	AC_MSG_CHECKING([for APR])
-	APR_CONFIG=""
-	for VALUE in $APR_CONFIGS ; do
-			if $VALUE --cflags > /dev/null 2>&1 ; then
-					APR_CONFIG=$VALUE
-					break
-			fi
-	done
-	test $VALUE && APR_CONFIG=$VALUE
-	if test $APR_CONFIG ; then
-		AC_MSG_RESULT([found])
-		APR_CFLAGS="`$APR_CONFIG --cflags`"
-		APR_INCLUDE="`$APR_CONFIG --includes`"
-		APR_LIBS="`$APR_CONFIG --link-ld --libs`"
-	else
-		AC_MSG_RESULT([not found])
-		dnl AC_MSG_ERROR([APR is required. Try --with-apr-config.])
-	fi
-	
-	dnl -----------------------------------------
-	dnl APR util. Required by subversion (devel)
-	dnl------------------------------------------
-	
-	APU_CONFIGS="apu-config /usr/local/apr/bin/apu-config"
-	AC_ARG_WITH(apu-config,
-	[[  --with-apu-config=FILE    Use the given path to apu-config when determining
-								APR util configuration; defaults to "apu-config"]],
-	[
-		if test "$withval" != "yes" -a "$withval" != ""; then
-			APU_CONFIGS=$withval
-		fi
-	])
-	AC_MSG_CHECKING([for APR util])
-	APU_CONFIG=""
-	for VALUE in $APU_CONFIGS ; do
-			if $VALUE --includes > /dev/null 2>&1 ; then
-					APU_CONFIG=$VALUE
-					break
-			fi
-	done
-	if test $APU_CONFIG ; then
-		AC_MSG_RESULT([found])
-		APR_INCLUDE="$APR_INCLUDE `$APU_CONFIG --includes`"
-		APR_LIBS="$APR_LIBS `$APU_CONFIG --link-ld --libs`"
-	else
-		AC_MSG_RESULT([not found])
-	fi
+	PKG_CHECK_MODULES(APR, apr-1)
 	
 	dnl -----------------------------------------
 	dnl NEON. Required by subversion (devel)

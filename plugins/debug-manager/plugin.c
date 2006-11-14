@@ -159,7 +159,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	DebugManagerPlugin *dm_plugin;
 	const gchar *root_uri;
 
-	dm_plugin = (DebugManagerPlugin *) plugin;
+	dm_plugin = DEBUG_MANAGER_PLUGIN (plugin);
 	
 	if (dm_plugin->project_root_uri)
 		g_free (dm_plugin->project_root_uri);
@@ -178,7 +178,7 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 {
 	DebugManagerPlugin *dm_plugin;
 
-	dm_plugin = (DebugManagerPlugin *) plugin;
+	dm_plugin = DEBUG_MANAGER_PLUGIN (plugin);
 	
 	if (dm_plugin->project_root_uri)
 		g_free (dm_plugin->project_root_uri);
@@ -193,7 +193,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	DebugManagerPlugin *dm_plugin;
 
 	editor = IANJUTA_EDITOR (g_value_get_object (value));
-	dm_plugin = (DebugManagerPlugin*)plugin;
+	dm_plugin = DEBUG_MANAGER_PLUGIN (plugin);
 	dm_plugin->current_editor = editor;
 	
     /* Restore breakpoints */
@@ -205,7 +205,7 @@ static void
 value_removed_current_editor (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
-	DebugManagerPlugin *dm_plugin = (DebugManagerPlugin*)plugin;
+	DebugManagerPlugin *dm_plugin = DEBUG_MANAGER_PLUGIN (plugin);
 
 	if (dm_plugin->current_editor)
 		breakpoints_dbase_clear_all_in_editor (dm_plugin->breakpoints,
@@ -399,6 +399,7 @@ dma_plugin_location_changed (DebugManagerPlugin *this, const gchar* file, guint 
 
 /* Called when a program is unloaded */
 
+#if 0
 static void
 dma_plugin_program_unload (DebugManagerPlugin *this)
 {
@@ -431,6 +432,7 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 	gtk_action_group_set_visible (this->running_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
 }
+#endif
 
 /* Called when the debugger is stopped */
 
@@ -969,7 +971,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	AnjutaUI *ui;
 	
 	DEBUG_PRINT ("DebugManagerPlugin: Activating Debug Manager plugin...");
-	this = (DebugManagerPlugin*) plugin;
+	this = DEBUG_MANAGER_PLUGIN (plugin);
 	
     if (!initialized)
     {
@@ -1065,7 +1067,7 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 
 	DEBUG_PRINT ("DebugManagerPlugin: Deactivating Debug Manager plugin...");
 
-	this = (DebugManagerPlugin *) plugin;
+	this = DEBUG_MANAGER_PLUGIN (plugin);
 
 	/* Stop debugger */
 	dma_plugin_debugger_stopped (this);
@@ -1131,7 +1133,7 @@ static gpointer parent_class;
 static void
 dma_plugin_instance_init (GObject* obj)
 {
-	DebugManagerPlugin *plugin = (DebugManagerPlugin *) obj;
+	DebugManagerPlugin *plugin = DEBUG_MANAGER_PLUGIN (obj);
 	
 	plugin->uiid = 0;
 	

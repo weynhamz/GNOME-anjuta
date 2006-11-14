@@ -4,6 +4,10 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
+extern GType file_manager_plugin_type;
+#define FILE_MANAGER_PLUGIN_TYPE (file_manager_plugin_type)
+#define FILE_MANAGER_PLUGIN(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), FILE_MANAGER_PLUGIN_TYPE, FileManagerPlugin))
+
 typedef struct _FileManagerPlugin FileManagerPlugin;
 typedef struct _FileManagerPluginClass FileManagerPluginClass;
 

@@ -183,7 +183,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	filename = gnome_vfs_get_local_path_from_uri (uri);
 	g_return_if_fail (filename != NULL);
 
-	CVSPlugin *cvs_plugin = (CVSPlugin*)plugin;
+	CVSPlugin *cvs_plugin = CVS_PLUGIN (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	if (cvs_plugin->fm_current_filename)
@@ -235,7 +235,7 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	AnjutaUI *ui;
 	GtkAction *action;
 	
-	CVSPlugin *cvs_plugin = (CVSPlugin*)plugin;
+	CVSPlugin *cvs_plugin = CVS_PLUGIN (plugin);
 	
 	if (cvs_plugin->fm_current_filename)
 		g_free (cvs_plugin->fm_current_filename);
@@ -254,7 +254,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	CVSPlugin *bb_plugin;
 	const gchar *root_uri;
 
-	bb_plugin = (CVSPlugin *) plugin;
+	bb_plugin = CVS_PLUGIN (plugin);
 	
 	DEBUG_PRINT ("Project added");
 	
@@ -280,7 +280,7 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 {
 	CVSPlugin *bb_plugin;
 
-	bb_plugin = (CVSPlugin *) plugin;
+	bb_plugin = CVS_PLUGIN (plugin);
 	if (bb_plugin->project_root_dir)
 		g_free (bb_plugin->project_root_dir);
 	bb_plugin->project_root_dir = NULL;
@@ -297,7 +297,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	editor = g_value_get_object (value);
 	
-	CVSPlugin *cvs_plugin = (CVSPlugin*)plugin;
+	CVSPlugin *cvs_plugin = CVS_PLUGIN (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	if (cvs_plugin->current_editor_filename)
@@ -321,7 +321,7 @@ static void
 value_removed_current_editor (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
-	CVSPlugin *cvs_plugin = (CVSPlugin*)plugin;
+	CVSPlugin *cvs_plugin = CVS_PLUGIN (plugin);
 	
 	if (cvs_plugin->current_editor_filename)
 		g_free (cvs_plugin->current_editor_filename);
@@ -337,7 +337,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	CVSPlugin *cvs_plugin;
 	
 	DEBUG_PRINT ("CVSPlugin: Activating CVS plugin ...");
-	cvs_plugin = (CVSPlugin*) plugin;
+	cvs_plugin = CVS_PLUGIN (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -381,7 +381,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("CVSPlugin: Dectivating CVS plugin ...");
 	
-	cvs_plugin = (CVSPlugin*) plugin;
+	cvs_plugin = CVS_PLUGIN (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	/* Remove watches */
@@ -402,21 +402,21 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 finalize (GObject *obj)
 {
-	// CVSPlugin *plugin = (CVSPlugin*)obj;
+	// CVSPlugin *plugin = CVS_PLUGIN (obj);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
 
 static void
 dispose (GObject *obj)
 {
-	// CVSPlugin *plugin = (CVSPlugin*)obj;
+	// CVSPlugin *plugin = CVS_PLUGIN (obj);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
 }
 
 static void
 cvs_plugin_instance_init (GObject *obj)
 {
-	CVSPlugin *plugin = (CVSPlugin*)obj;
+	CVSPlugin *plugin = CVS_PLUGIN (obj);
 	plugin->uiid = 0;
 	plugin->executing_command = FALSE;
 	plugin->mesg_view = NULL;

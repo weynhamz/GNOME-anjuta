@@ -36,7 +36,7 @@ void remove_todo_item(GtkWidget *fake, gboolean internall){
 /* this is the function called if the user switches to another category.. */
 /* can't hurt to change the name here. */
 
-void category_changed()
+void category_changed(void)
 {
 	if(cl != NULL)
 	{
@@ -87,7 +87,7 @@ void list_toggled_done(GtkCellRendererToggle *cell, gchar *path_str)
 	gtodo_client_unblock_changed_callback(cl);
 }
 
-void purge_category()
+void purge_category(void)
 {
 	gint done, value;
 	GtkTreeIter iter;

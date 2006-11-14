@@ -51,6 +51,7 @@ static gpointer parent_class;
 #define DRAG_AFTER_ALL_TABS -1
 
 struct _AnjutaDocmanPriv {
+	DocmanPlugin *plugin;
 	AnjutaPreferences *preferences;
 	IAnjutaEditor *current_editor;
 	
@@ -475,10 +476,6 @@ on_text_editor_notebook_close_page (GtkButton* button,
 									AnjutaDocman* docman)
 {
 	GList* node;
-	/* This is a hack because we cannot get the real
-	Editor plugin */
-	DocmanPlugin* dummy_plugin = g_new0(DocmanPlugin, 1);
-	dummy_plugin->docman = GTK_WIDGET(docman);
 	
 	node = docman->priv->editors;
 	while (node)
@@ -488,16 +485,14 @@ on_text_editor_notebook_close_page (GtkButton* button,
 		page = (AnjutaDocmanPage *) node->data;
 		if (page->close_button == GTK_WIDGET(button))
 		{
-			te = (IAnjutaEditor *) page->widget;
+			te = IANJUTA_EDITOR (page->widget);
 			anjuta_docman_set_current_editor(docman, te);
 			break;
 		}
 		node = g_list_next (node);
 	}
 	
-	on_close_file_activate (NULL, dummy_plugin);
-	
-	g_free(dummy_plugin);
+	on_close_file_activate (NULL, docman->priv->plugin);
 }
 
 static void
@@ -967,13 +962,16 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 }
 
 GtkWidget*
-anjuta_docman_new (AnjutaPreferences *pref)
+anjuta_docman_new (DocmanPlugin* plugin, AnjutaPreferences *pref)
 {
 
 	GtkWidget *docman = NULL;
 	docman = gtk_widget_new (ANJUTA_TYPE_DOCMAN, NULL);
 	if (docman)
-	    ANJUTA_DOCMAN (docman)->priv->preferences = pref;
+	{
+		ANJUTA_DOCMAN (docman)->priv->plugin = plugin;
+		ANJUTA_DOCMAN (docman)->priv->preferences = pref;
+	}
 
 	return docman;
 }
@@ -1620,7 +1618,7 @@ anjuta_docman_get_editor_from_path (AnjutaDocman *docman, const gchar *szFullPat
 	while (node)
 	{
 		page = node->data;
-		te = (IAnjutaEditor *) page->widget;
+		te = IANJUTA_EDITOR (page->widget);
 		uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
 		if (uri != NULL)
 		{
@@ -1782,7 +1780,7 @@ anjuta_docman_get_all_editors (AnjutaDocman *docman)
 		AnjutaDocmanPage *page;
 		IAnjutaEditor *te;
 		page = (AnjutaDocmanPage *) node->data;
-		te = (IAnjutaEditor *) page->widget;
+		te = IANJUTA_EDITOR (page->widget);
 		editors = g_list_prepend (editors, te);
 		node = g_list_next (node);
 	}
@@ -1801,7 +1799,7 @@ anjuta_docman_set_busy (AnjutaDocman *docman, gboolean state)
 		AnjutaDocmanPage *page;
 		IAnjutaEditor *te;
 		page = (AnjutaDocmanPage *) node->data;
-		te = (IAnjutaEditor *) page->widget;
+		te = IANJUTA_EDITOR (page->widget);
 		/* FIXME:
 		text_editor_set_busy (te, state);*/
 		node = g_list_next (node);

@@ -87,8 +87,8 @@ gtk_vim_class_init (GtkVimClass *class)
     GtkObjectClass *object_class;
     GtkWidgetClass *widget_class;
 
-    object_class = (GtkObjectClass*) class;
-    widget_class = (GtkWidgetClass*) class;
+    object_class = GTK_OBJECT_CLASS (class);
+    widget_class = GTK_WIDGET_CLASS (class);
     parent_class = gtk_type_class (GTK_TYPE_SOCKET);
 
     gtk_object_add_arg_type ("GtkVim::server_name", GTK_TYPE_STRING, GTK_ARG_READABLE, ARG_SERVER_NAME);

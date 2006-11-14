@@ -38,6 +38,10 @@
 
 /*---------------------------------------------------------------------------*/
 
+extern GType atp_plugin_type;
+#define ATP_PLUGIN_TYPE (atp_plugin_type)
+#define ATP_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), ATP_PLUGIN_TYPE, ATPPlugin))
+
 typedef struct _ATPPlugin ATPPlugin;
 typedef struct _ATPPluginClass ATPPluginClass;
 

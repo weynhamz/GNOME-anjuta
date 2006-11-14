@@ -212,7 +212,7 @@ on_refresh_idle (gpointer user_data)
 	GList *source_uris;
 	GList *source_files;
 	AnjutaStatus *status;
-	SymbolBrowserPlugin *sv_plugin = (SymbolBrowserPlugin *)user_data;
+	SymbolBrowserPlugin *sv_plugin = SYMBOL_BROWSER_PLUGIN (user_data);
 	
 	/* FIXME: There should be a way to ensure that this project manager
 	 * is indeed the one that has opened the project_uri
@@ -373,7 +373,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	SymbolBrowserPlugin *sv_plugin;
 	const gchar *root_uri;
 
-	sv_plugin = (SymbolBrowserPlugin *)plugin;
+	sv_plugin = SYMBOL_BROWSER_PLUGIN (plugin);
 	  
 	g_free (sv_plugin->project_root_uri);
 	sv_plugin->project_root_uri = NULL;
@@ -415,7 +415,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	IAnjutaProjectManager *pm;
 	SymbolBrowserPlugin *sv_plugin;
 	
-	sv_plugin = (SymbolBrowserPlugin *)plugin;
+	sv_plugin = SYMBOL_BROWSER_PLUGIN (plugin);
 	
 	/* Disconnect events from project manager */
 	
@@ -658,7 +658,7 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		{
 			for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
 			{
-				te1 = (TextEditor *) tmp->data;
+				te1 = TEXT_EDITOR (tmp->data);
 				text_editor_set_hilite_type(te1);
 			}
 		}
@@ -681,7 +681,7 @@ static void
 on_editor_foreach_clear (gpointer key, gpointer value, gpointer user_data)
 {
 	const gchar *uri;
-	SymbolBrowserPlugin *sv_plugin = (SymbolBrowserPlugin *)user_data;
+	SymbolBrowserPlugin *sv_plugin = SYMBOL_BROWSER_PLUGIN (user_data);
 	
 	uri = (const gchar *)value;
 	if (uri && strlen (uri) > 0)
@@ -748,7 +748,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	gint buffer_size = 0;
 	gchar *uri = NULL;
 
-	sv_plugin = (SymbolBrowserPlugin*) user_data;
+	sv_plugin = SYMBOL_BROWSER_PLUGIN (user_data);
 	
 	if (sv_plugin->current_editor == NULL)
 		return FALSE;
@@ -810,7 +810,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	editor = g_value_get_object (value);
 	
-	sv_plugin = (SymbolBrowserPlugin*)plugin;
+	sv_plugin = SYMBOL_BROWSER_PLUGIN (plugin);
 	
 	if (!sv_plugin->editor_connected)
 	{
@@ -866,7 +866,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	g_source_remove (timeout_id);
 	need_symbols_update = FALSE;
 	
-	sv_plugin = (SymbolBrowserPlugin*)plugin;
+	sv_plugin = SYMBOL_BROWSER_PLUGIN (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
 								   "ActionGotoSymbol");
@@ -885,7 +885,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	register_stock_icons (plugin);
 	
-	sv_plugin = (SymbolBrowserPlugin*) plugin;
+	sv_plugin = SYMBOL_BROWSER_PLUGIN (plugin);
 	sv_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	sv_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 
@@ -1000,7 +1000,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	SymbolBrowserPlugin *sv_plugin;
-	sv_plugin = (SymbolBrowserPlugin*) plugin;
+	sv_plugin = SYMBOL_BROWSER_PLUGIN (plugin);
 	
 	/* Ensure all editor cached info are released */
 	if (sv_plugin->editor_connected)
@@ -1041,7 +1041,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	SymbolBrowserPlugin *sv_plugin = (SymbolBrowserPlugin*) obj;
+	SymbolBrowserPlugin *sv_plugin = SYMBOL_BROWSER_PLUGIN (obj);
 	/* Ensure all editors are disconnected */
 	if (sv_plugin->editor_connected)
 	{
@@ -1069,14 +1069,14 @@ dispose (GObject *obj)
 static void
 finalize (GObject *obj)
 {
-	/* SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin *) obj; */
+	/* SymbolBrowserPlugin *plugin = SYMBOL_BROWSER_PLUGIN (obj); */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
 symbol_browser_plugin_instance_init (GObject *obj)
 {
-	SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin*) obj;
+	SymbolBrowserPlugin *plugin = SYMBOL_BROWSER_PLUGIN (obj);
 	plugin->current_editor = NULL;
 	plugin->editor_connected = NULL;
 	plugin->sw = NULL;
@@ -1091,8 +1091,8 @@ symbol_browser_plugin_class_init (SymbolBrowserPluginClass *klass)
 	AnjutaPluginClass *plugin_class;
 	
 	parent_class = g_type_class_peek_parent (klass);
-	object_class = (GObjectClass*) klass;
-	plugin_class = (AnjutaPluginClass*) klass;
+	object_class = G_OBJECT_CLASS (klass);
+	plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 	
 	plugin_class->activate = activate_plugin;
 	plugin_class->deactivate = deactivate_plugin;
@@ -1186,7 +1186,7 @@ isymbol_manager_get_completions_at_position (IAnjutaSymbolManager *sm,
 	GPtrArray * completable_tags_array;
 	AnjutaSymbolIter *iter = NULL;
 	
-	sv_plugin = (SymbolBrowserPlugin*)sm;
+	sv_plugin = SYMBOL_BROWSER_PLUGIN (sm);
 	ed = IANJUTA_EDITOR (sv_plugin->current_editor);	
 	symbol_view = ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree);
 	
@@ -1273,13 +1273,13 @@ isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	symbol_browser_prefs_init((SymbolBrowserPlugin*)ipref);
+	symbol_browser_prefs_init(SYMBOL_BROWSER_PLUGIN (ipref));
 }
 
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	symbol_browser_prefs_finalize ((SymbolBrowserPlugin*)ipref);
+	symbol_browser_prefs_finalize (SYMBOL_BROWSER_PLUGIN (ipref));
 }
 
 static void

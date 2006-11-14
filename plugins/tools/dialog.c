@@ -345,9 +345,9 @@ atp_tool_dialog_show (ATPToolDialog* this)
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), atp_plugin_get_app_window (this->plugin));
 
 	/* Create tree view */	
-	this->view = (GtkTreeView *) glade_xml_get_widget(xml, TOOL_TREEVIEW);
-	model = (GtkTreeModel*)gtk_list_store_new (ATP_N_TOOLS_COLUMNS,
-		G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
+	this->view = GTK_TREE_VIEW (glade_xml_get_widget(xml, TOOL_TREEVIEW));
+	model = GTK_TREE_MODEL (gtk_list_store_new (ATP_N_TOOLS_COLUMNS,
+		G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER));
 	gtk_tree_view_set_model (this->view, model);
 	
 	renderer = gtk_cell_renderer_toggle_new ();

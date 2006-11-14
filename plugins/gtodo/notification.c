@@ -15,7 +15,7 @@ typedef struct
 	gint id;
 } not_window;
 
-int check_for_notification_event()
+int check_for_notification_event(void)
 {
 	GTodoList *list = NULL;
 	int min_b_not = gconf_client_get_int(client, "/apps/gtodo/prefs/notify_in_minutes",NULL);

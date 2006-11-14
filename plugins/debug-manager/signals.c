@@ -156,7 +156,11 @@ static void
 on_signals_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
     Signals *s = (Signals*)user_data;
-	ianjuta_debugger_info_signal (s->debugger, signals_update, s, NULL);
+	ianjuta_debugger_info_signal (
+			s->debugger,
+			(IAnjutaDebuggerCallback)signals_update,
+			s,
+			NULL);
 }
 
 static gboolean
@@ -576,7 +580,11 @@ signals_show (Signals * ew)
 										 ew->win_width, ew->win_height);
 			gtk_widget_show (ew->widgets.window);
 			ew->is_showing = TRUE;
-			ianjuta_debugger_info_signal (ew->debugger, signals_update, ew, NULL);
+			ianjuta_debugger_info_signal (
+					ew->debugger,
+					(IAnjutaDebuggerCallback)signals_update,
+					ew, 
+					NULL);
 		}
 	}
 }

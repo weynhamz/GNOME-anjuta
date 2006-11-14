@@ -645,7 +645,7 @@ on_message_buffer_flush (IAnjutaMessageView *mesg_view,
 						 const gchar * mesg_line,
 						 gpointer user_data)
 {
-	SymbolBrowserPlugin* plugin = (SymbolBrowserPlugin*) user_data;
+	SymbolBrowserPlugin* plugin = SYMBOL_BROWSER_PLUGIN (user_data);
 	if (plugin->mesg_view)
 		ianjuta_message_view_append (plugin->mesg_view,
 									 IANJUTA_MESSAGE_VIEW_TYPE_INFO,
@@ -657,7 +657,7 @@ on_message (AnjutaLauncher *launcher,
 			AnjutaLauncherOutputType output_type,
 			const gchar * mesg, gpointer user_data)
 {
-	SymbolBrowserPlugin* plugin = (SymbolBrowserPlugin*) user_data;
+	SymbolBrowserPlugin* plugin = SYMBOL_BROWSER_PLUGIN (user_data);
 	if (plugin->mesg_view)
 		ianjuta_message_view_buffer_append (plugin->mesg_view,
 											mesg, NULL);
@@ -826,7 +826,7 @@ on_gconf_notify_tags_list_changed (GConfClient *gclient, guint cnxn_id,
 								   GConfEntry *entry, gpointer user_data)
 {
 	GtkListStore *store;
-	SymbolBrowserPlugin *plugin = (SymbolBrowserPlugin*)user_data;
+	SymbolBrowserPlugin *plugin = SYMBOL_BROWSER_PLUGIN (user_data);
 	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (plugin->pref_tree_view)));
 	select_loaded_tags (store, plugin->prefs);
 }

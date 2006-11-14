@@ -39,7 +39,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("AnjutaProjectImportPlugin: Activating Project Import Plugin ...");
 	
-	iplugin = (AnjutaProjectImportPlugin*) plugin;
+	iplugin = PROJECT_IMPORT_PLUGIN (plugin);
 	iplugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
 	return TRUE;
@@ -49,7 +49,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaProjectImportPlugin *iplugin;
-	iplugin = (AnjutaProjectImportPlugin*) plugin;
+	iplugin = PROJECT_IMPORT_PLUGIN (plugin);
 	return TRUE;
 }
 
@@ -62,7 +62,7 @@ dispose (GObject *obj)
 static void
 project_import_plugin_instance_init (GObject *obj)
 {
-	// AnjutaFileWizardPlugin *plugin = (AnjutaFileWizardPlugin*) obj;
+	// AnjutaFileWizardPlugin *plugin = PROJECT_IMPORT_PLUGIN (obj);
 }
 
 static void
@@ -80,7 +80,7 @@ project_import_plugin_class_init (GObjectClass *klass)
 static void
 iwizard_activate (IAnjutaWizard *wiz, GError **err)
 {
-	AnjutaProjectImportPlugin* plugin = (AnjutaProjectImportPlugin*) wiz;
+	AnjutaProjectImportPlugin* plugin = PROJECT_IMPORT_PLUGIN (wiz);
 	ProjectImport* pi;
 	
 	pi = project_import_new(ANJUTA_PLUGIN(plugin));
@@ -97,7 +97,7 @@ ifile_open (IAnjutaFile *file, const gchar *uri, GError **err)
 {
 	gchar *dir, *ext, *project_name;
 	ProjectImport* pi;
-	AnjutaProjectImportPlugin* plugin = (AnjutaProjectImportPlugin*) file;
+	AnjutaProjectImportPlugin* plugin = PROJECT_IMPORT_PLUGIN (file);
 	
 	g_return_if_fail (uri != NULL && strlen (uri) > 0);
 	

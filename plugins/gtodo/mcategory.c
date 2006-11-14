@@ -6,7 +6,7 @@ void category_manager_move_item_up(GtkWidget *button, GtkWidget *treeview);
 void category_manager_move_item_down(GtkWidget *button, GtkWidget *treeview);
 void tree_edited_string(GtkCellRendererText *cell, const char *path_string, const char *new_text, GtkWidget *treeview);
 
-void category_manager()
+void category_manager(void)
 {
 	GtkWidget *dialog;
 	GtkWidget *hbox, *vbutbox, *treeview, *sw;

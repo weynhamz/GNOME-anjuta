@@ -6,7 +6,7 @@ int categorys = 0;
 
 
 
-void read_categorys ()
+void read_categorys (void)
 {
 	GTodoList *list;
 	if (mw.mitems != NULL)
@@ -80,8 +80,8 @@ void read_categorys ()
 
 
 
-	void
-load_category ()
+void
+load_category (void)
 {
 	GtkTreeIter iter;
 	GtkTreeSelection *selection;
@@ -116,7 +116,6 @@ load_category ()
 				gchar *datestr = NULL;
 				gboolean due = FALSE;
 				gchar *color = NULL;
-				int i = 0;
 				gchar *summary = NULL;
 
 				/* create a priority string */
@@ -236,8 +235,8 @@ load_category ()
 	}
 }
 
-	int
-get_all_past_purge ()
+int
+get_all_past_purge (void)
 {
 	GTodoList *list;
 	GTodoItem *item;

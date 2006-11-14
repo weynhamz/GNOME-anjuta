@@ -25,6 +25,10 @@
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.glade"
 
+extern GType basic_autotools_plugin_type;
+#define BASIC_AUTOTOOLS_PLUGIN_TYPE (basic_autotools_plugin_type)
+#define BASIC_AUTOTOOLS_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), BASIC_AUTOTOOLS_PLUGIN_TYPE, BasicAutotoolsPlugin))
+
 typedef struct _BasicAutotoolsPlugin BasicAutotoolsPlugin;
 typedef struct _BasicAutotoolsPluginClass BasicAutotoolsPluginClass;
 

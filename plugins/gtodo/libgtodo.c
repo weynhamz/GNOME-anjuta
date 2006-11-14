@@ -46,7 +46,7 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error);
 /* Use gtodo_client_create_new_todo_item instead */
 /* note.. id is equal to the time created...  this should be unique. (what is the change on 2 pc's its created at the vary same second )*/
 
-GTodoItem * gtodo_client_create_empty_todo_item()
+GTodoItem * gtodo_client_create_empty_todo_item(void)
 {
 	GTodoItem *item = g_malloc(sizeof(GTodoItem));		
 	if(item == NULL) return NULL;
@@ -459,7 +459,7 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 	category =  xmlGetProp(node->parent, (const xmlChar *)"title");
 	node = node->xmlChildrenNode;
 	item = gtodo_client_create_empty_todo_item();
-	gtodo_todo_item_set_category(item, category);
+	gtodo_todo_item_set_category(item, (gchar *)category);
 	xmlFree(category);
 	while(node != NULL)
 	{
@@ -469,7 +469,7 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 			temp = xmlNodeGetContent(node);
 			if(temp != NULL) 
 			{
-				item->comment = g_strdup(temp);
+				item->comment = g_strdup((gchar *)temp);
 				xmlFree(temp);
 			}
 		}
@@ -479,7 +479,7 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 			temp = xmlNodeGetContent(node);
 			if(temp != NULL) 
 			{
-				item->summary = g_strdup(temp);
+				item->summary = g_strdup((gchar *)temp);
 				xmlFree(temp);
 			}
 		}
@@ -489,32 +489,32 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 			temp = xmlGetProp(node, (const xmlChar *)"id");
 			if(temp != NULL)
 			{
-				item->id = g_ascii_strtoull(temp, NULL,0);
+				item->id = g_ascii_strtoull((gchar *)temp, NULL,0);
 				xmlFree(temp);
 			}
 			temp = xmlGetProp(node, (const xmlChar *)"priority");
 			if(temp != NULL)
 			{
-				item->priority = atoi(temp);
+				item->priority = atoi((gchar *)temp);
 				xmlFree(temp);
 			}
 			temp = xmlGetProp(node, (const xmlChar *)"done");
 			if(temp != NULL)
 			{
-				item->done = atoi(temp);
+				item->done = atoi((gchar *)temp);
 				xmlFree(temp);
 			}
 			temp = xmlGetProp(node, (const xmlChar *)"start_date");
 			if(temp != NULL)
 			{
-				guint64 i = g_ascii_strtoull(temp, NULL, 0);
+				guint64 i = g_ascii_strtoull((gchar *)temp, NULL, 0);
 				if(i > 0) item->start = g_date_new_julian(i);
 				xmlFree(temp);
 			}
 			temp = xmlGetProp(node, (const xmlChar *)"completed_date");
 			if(temp != NULL)
 			{
-				guint64 i = g_ascii_strtoull(temp, NULL, 0);
+				guint64 i = g_ascii_strtoull((gchar *)temp, NULL, 0);
 				if(i > 0) item->stop = g_date_new_julian(i);
 				xmlFree(temp);
 			}
@@ -522,14 +522,14 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 			temp = xmlGetProp(node, (const xmlChar *)"notify");
 			if(temp != NULL)
 			{
-				gint i = (int)g_ascii_strtod(temp,NULL);
+				gint i = (int)g_ascii_strtod((gchar *)temp,NULL);
 				item->notify = (int)i;
 				xmlFree(temp);
 			}
 			temp = xmlGetProp(node, (const xmlChar *)"enddate");
 			if(temp != NULL)
 			{
-				guint64 i = g_ascii_strtoull(temp, NULL, 0);
+				guint64 i = g_ascii_strtoull((gchar *)temp, NULL, 0);
 				if(i > 1 && i != GTODO_NO_DUE_DATE) item->due = g_date_new_julian(i);
 				xmlFree(temp);
 			}
@@ -537,7 +537,7 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 			if(temp != NULL)
 			{
 				gint houre =0, minute = 0;
-				gint i = (int)g_ascii_strtod(temp,NULL);
+				gint i = (int)g_ascii_strtod((gchar *)temp,NULL);
 				if(i < 0)
 				{
 					houre = -1;minute = 0;
@@ -554,7 +554,7 @@ GTodoItem * gtodo_client_get_todo_item_from_xml_ptr(GTodoClient *cl, xmlNodePtr 
 			temp = xmlGetProp(node, (const xmlChar *)"last_edited");
 			if(temp != NULL)
 			{
-				guint64 i = g_ascii_strtoull(temp, NULL, 0);
+				guint64 i = g_ascii_strtoull((gchar *)temp, NULL, 0);
 				item->last_edited = (GTime) i;
 				xmlFree(temp);
 			}
@@ -659,15 +659,15 @@ int gtodo_client_check_file(GTodoClient *cl, GError **error)
 	else if(info_result == GNOME_VFS_ERROR_NOT_FOUND){
 		xmlNodePtr newn;
 		if(debug) g_print("Trying to create new file\n");
-		cl->gtodo_doc = xmlNewDoc("1.0");
-		cl->root = xmlNewDocNode(cl->gtodo_doc, NULL, "gtodo", NULL);	 
+		cl->gtodo_doc = xmlNewDoc((xmlChar *)"1.0");
+		cl->root = xmlNewDocNode(cl->gtodo_doc, NULL, (xmlChar *)"gtodo", NULL);	 
 		xmlDocSetRootElement(cl->gtodo_doc, cl->root);
-		newn = xmlNewTextChild(cl->root, NULL, "category", NULL);	
-		xmlNewProp(newn, "title", _("Personal"));
-		newn = xmlNewTextChild(cl->root, NULL, "category", NULL);	
-		xmlNewProp(newn, "title", _("Business"));
-		newn = xmlNewTextChild(cl->root, NULL, "category", NULL);	
-		xmlNewProp(newn, "title", _("Unfiled"));
+		newn = xmlNewTextChild(cl->root, NULL, (xmlChar *)"category", NULL);	
+		xmlNewProp(newn, (xmlChar *)"title", (xmlChar *)_("Personal"));
+		newn = xmlNewTextChild(cl->root, NULL, (xmlChar *)"category", NULL);	
+		xmlNewProp(newn, (xmlChar *)"title", (xmlChar *)_("Business"));
+		newn = xmlNewTextChild(cl->root, NULL, (xmlChar *)"category", NULL);	
+		xmlNewProp(newn, (xmlChar *)"title", (xmlChar *)_("Unfiled"));
 		if(gtodo_client_save_xml(cl, &tmp_error))
 		{
 			g_propagate_error(error, tmp_error);
@@ -843,7 +843,7 @@ int gtodo_client_load(GTodoClient *cl, const gchar *xml_path)
 	}
 	gtodo_client_set_changed_callback (cl, cl->function, cl->data);
 	if (cl->function)
-	    (void *)cl->function(cl, cl->data);
+	    cl->function(cl, cl->data);
 	return TRUE;
 }
 
@@ -902,6 +902,7 @@ void gtodo_client_quit(GTodoClient *cl)
 	g_free(cl);
 }
 
+static
 gboolean sort_category_list(GTodoCategory *a, GTodoCategory *b)
 {
 	return a->id-b->id;
@@ -929,15 +930,15 @@ GTodoList * gtodo_client_get_category_list(GTodoClient *cl)
 			if(place == NULL)
 			{
 				gchar *buf = g_strdup_printf("%i", repos);
-				xmlSetProp(cur, (const xmlChar *)"place", buf);
+				xmlSetProp(cur, (const xmlChar *)"place", (xmlChar *)buf);
 				g_free(buf);
 				repos ++;
 				pos = repos;
 			}
-			else pos = atoi(place);
+			else pos = atoi((gchar *)place);
 			cl->number_of_categories++;
 			cat = g_malloc(sizeof(GTodoCategory));
-			cat->name = g_strdup(temp);
+			cat->name = g_strdup((gchar *)temp);
 			cat->id = pos;
 			list->list = g_list_append(list->list, cat);
 			xmlFree(temp);
@@ -963,6 +964,7 @@ GTodoList * gtodo_client_get_category_list(GTodoClient *cl)
 	}
 }
 
+static
 void gtodo_client_free_category_item(GTodoCategory *cat)
 {
 	g_free(cat->name);
@@ -1033,7 +1035,7 @@ GTodoItem *gtodo_client_get_todo_item_from_id(GTodoClient *cl, guint32 id)
 	xmlNodePtr node = cl->root;
 	xmlNodePtr cur = cl->root->xmlChildrenNode;
 	while(cur != NULL){
-		if(xmlStrEqual(cur->name, "category")){
+		if(xmlStrEqual(cur->name, (xmlChar *)"category")){
 			xmlChar *temp = xmlGetProp(cur, (const xmlChar *)"title");
 
 			xmlNodePtr cur1;
@@ -1048,10 +1050,10 @@ GTodoItem *gtodo_client_get_todo_item_from_id(GTodoClient *cl, guint32 id)
 					{
 						if(xmlStrEqual(cur2->name, (const xmlChar *)"attribute"))
 						{	
-							xmlChar *temp1 = xmlGetProp(cur2,"id");
+							xmlChar *temp1 = xmlGetProp(cur2,(xmlChar *)"id");
 							if(temp1 != NULL)
 							{
-								if(atoi(temp1) == id)node = cur1;
+								if(atoi((gchar *)temp1) == id)node = cur1;
 								xmlFree(temp1);
 							}     
 						}	
@@ -1084,23 +1086,23 @@ gboolean gtodo_client_save_todo_item(GTodoClient *cl, GTodoItem *item)
 	{
 		xmlChar *temp2;
 		temp2 = xmlGetProp(cur, (const xmlChar *)"title");
-		if(xmlStrEqual(temp2, item->category))
+		if(xmlStrEqual(temp2, (xmlChar *)item->category))
 		{	
 			gchar *temp1;
 			xmlNodePtr newn, newa;
-			newn = xmlNewChild(cur, NULL, "item", NULL);
+			newn = xmlNewChild(cur, NULL, (xmlChar *)"item", NULL);
 			/* id */
-			newa = xmlNewChild(newn, NULL, "attribute", NULL);
+			newa = xmlNewChild(newn, NULL, (xmlChar *)"attribute", NULL);
 			temp1 = g_strdup_printf("%i",  item->id);
-			xmlSetProp(newa, "id", temp1);
+			xmlSetProp(newa, (xmlChar *)"id", (xmlChar *)temp1);
 			g_free(temp1);
 			/* priority */
 			temp1 = g_strdup_printf("%i",  item->priority);
-			xmlSetProp(newa, "priority", temp1);
+			xmlSetProp(newa, (xmlChar *)"priority", (xmlChar *)temp1);
 			g_free(temp1);
 			/* done */
 			temp1 = g_strdup_printf("%i", item->done);
-			xmlSetProp(newa, "done", temp1);
+			xmlSetProp(newa, (xmlChar *)"done", (xmlChar *)temp1);
 			g_free(temp1);
 
 			/* START_DATE */
@@ -1109,7 +1111,7 @@ gboolean gtodo_client_save_todo_item(GTodoClient *cl, GTodoItem *item)
 			{
 				guint32 julian = g_date_get_julian(item->start);
 				temp1 = g_strdup_printf("%u", julian);
-				xmlSetProp(newa, "start_date", temp1);
+				xmlSetProp(newa, (xmlChar *)"start_date", (xmlChar *)temp1);
 				g_free(temp1);
 			}
 			/*( COMPLETED_DATE */
@@ -1117,7 +1119,7 @@ gboolean gtodo_client_save_todo_item(GTodoClient *cl, GTodoItem *item)
 			{
 				guint32 julian = g_date_get_julian(item->stop);
 				temp1 = g_strdup_printf("%u", julian);
-				xmlSetProp(newa, "completed_date", temp1);
+				xmlSetProp(newa, (xmlChar *)"completed_date", (xmlChar *)temp1);
 				g_free(temp1);
 			}
 
@@ -1126,32 +1128,32 @@ gboolean gtodo_client_save_todo_item(GTodoClient *cl, GTodoItem *item)
 			{
 				guint32 julian = g_date_get_julian(item->due);
 				temp1 = g_strdup_printf("%u", julian);
-				xmlSetProp(newa, "enddate", temp1);
+				xmlSetProp(newa, (xmlChar *)"enddate", (xmlChar *)temp1);
 				g_free(temp1);
 			}
 			/* enddate (to the start date attribute) */
 			{
 				temp1 = g_strdup_printf("%i", (gint)item->notify);
-				xmlSetProp(newa, "notify", temp1);
+				xmlSetProp(newa, (xmlChar *)"notify", (xmlChar *)temp1);
 				g_free(temp1);
 			}
 			/* endtime (to the start date attribute) */
 			if(item->due != NULL)
 			{
 				temp1 = g_strdup_printf("%i", (item->due_time[GTODO_DUE_TIME_HOURE]*60)+item->due_time[GTODO_DUE_TIME_MINUTE]);
-				xmlSetProp(newa, "endtime", temp1);
+				xmlSetProp(newa, (xmlChar *)"endtime", (xmlChar *)temp1);
 				g_free(temp1);
 			}
 			/* last edited (to the start date attribute) */
 			{
 				temp1 = g_strdup_printf("%u", (GTime)time(NULL));
-				xmlSetProp(newa, "last_edited", temp1);
+				xmlSetProp(newa, (xmlChar *)"last_edited", (xmlChar *)temp1);
 				g_free(temp1);
 			}
 			/* summary */
-			newa = xmlNewChild(newn, NULL, "summary",  item->summary);
+			newa = xmlNewChild(newn, NULL, (xmlChar *)"summary",  (xmlChar *)item->summary);
 			/* comment */
-			newa = xmlNewChild(newn, NULL, "comment", item->comment);
+			newa = xmlNewChild(newn, NULL, (xmlChar *)"comment", (xmlChar *)item->comment);
 		}
 		g_free(temp2);
 		cur = cur->next;
@@ -1200,7 +1202,7 @@ void gtodo_client_delete_todo_by_id(GTodoClient *cl, guint32 id)
 	xmlNodePtr node = cl->root;
 	xmlNodePtr cur = cl->root->xmlChildrenNode;
 	while(cur != NULL){
-		if(xmlStrEqual(cur->name, "category")){
+		if(xmlStrEqual(cur->name, (xmlChar *)"category")){
 			xmlChar *temp = xmlGetProp(cur, (const xmlChar *)"title");
 			{	
 				xmlNodePtr cur1;
@@ -1215,10 +1217,10 @@ void gtodo_client_delete_todo_by_id(GTodoClient *cl, guint32 id)
 						{
 							if(xmlStrEqual(cur2->name, (const xmlChar *)"attribute"))
 							{	
-								xmlChar *temp1 = xmlGetProp(cur2,"id");
+								xmlChar *temp1 = xmlGetProp(cur2,(xmlChar *)"id");
 								if(temp1 != NULL)
 								{
-									if(g_ascii_strtoull(temp1,NULL,0) == id)node = cur1;
+									if(g_ascii_strtoull((gchar *)temp1,NULL,0) == id)node = cur1;
 									xmlFree(temp1);
 								}     
 							}	
@@ -1253,7 +1255,7 @@ int check_item_changed(GnomeVFSMonitorHandle *handle, const gchar *uri, const gc
 	}
 	gtodo_client_reload(cl);
 	if(debug)g_print("**DEBUG** Item changed\n");
-	(void *)cl->function(cl, cl->data);
+	cl->function(cl, cl->data);
 	return TRUE;
 }
 
@@ -1287,11 +1289,11 @@ gboolean gtodo_client_category_edit(GTodoClient *cl, gchar *old, gchar *newn)
 	{
 		xmlNodePtr cur = cl->root->xmlChildrenNode;
 		while(cur != NULL){
-			if(xmlStrEqual(cur->name, "category")){
+			if(xmlStrEqual(cur->name, (xmlChar *)"category")){
 				xmlChar *temp = xmlGetProp(cur, (const xmlChar *)"title");
 				if(xmlStrEqual(temp, (const xmlChar *)old))
 				{
-					xmlSetProp(cur, "title", newn);
+					xmlSetProp(cur, (xmlChar *)"title", (xmlChar *)newn);
 					cur = NULL;
 				}
 				else cur = cur->next;
@@ -1305,6 +1307,7 @@ gboolean gtodo_client_category_edit(GTodoClient *cl, gchar *old, gchar *newn)
 }
 
 
+static
 gboolean gtodo_client_category_set_id(GTodoClient *cl, gchar *name, gint id)
 {
 	if(cl == NULL ||name == NULL || id == -1) return FALSE;
@@ -1313,12 +1316,12 @@ gboolean gtodo_client_category_set_id(GTodoClient *cl, gchar *name, gint id)
 	{
 		xmlNodePtr cur = cl->root->xmlChildrenNode;
 		while(cur != NULL){
-			if(xmlStrEqual(cur->name, "category")){
+			if(xmlStrEqual(cur->name, (xmlChar *)"category")){
 				xmlChar *temp = xmlGetProp(cur, (const xmlChar *)"title");
 				if(xmlStrEqual(temp, (const xmlChar *)name))
 				{
 					gchar *buf = g_strdup_printf("%i", id);
-					xmlSetProp(cur, "place", buf);
+					xmlSetProp(cur, (xmlChar *)"place", (xmlChar *)buf);
 					g_free(buf);
 					cur = NULL;
 				}
@@ -1332,6 +1335,8 @@ gboolean gtodo_client_category_set_id(GTodoClient *cl, gchar *name, gint id)
 	return TRUE;
 }
 
+#if 0
+static
 gchar *gtodo_client_category_get_from_id(GTodoClient *cl,gint id)
 {
 	gchar *ret_val = NULL;
@@ -1346,6 +1351,7 @@ gchar *gtodo_client_category_get_from_id(GTodoClient *cl,gint id)
 	}
 	return ret_val;
 }
+#endif
 
 gboolean gtodo_client_category_move_up(GTodoClient *cl, gchar *name)
 {
@@ -1448,11 +1454,11 @@ gboolean gtodo_client_category_new(GTodoClient *cl, gchar *name)
 	gchar *buf = NULL;
 	if(cl == NULL || name == NULL) return FALSE;
 	if(gtodo_client_category_exists(cl, name)) return FALSE;
-	newn = xmlNewTextChild(cl->root, NULL, "category", NULL);	
-	xmlNewProp(newn, "title", name);
+	newn = xmlNewTextChild(cl->root, NULL, (xmlChar *)"category", NULL);	
+	xmlNewProp(newn, (xmlChar *)"title", (xmlChar *)name);
 	buf = g_strdup_printf("%i", cl->number_of_categories);
 	cl->number_of_categories++;
-	xmlNewProp(newn, "place", buf);
+	xmlNewProp(newn, (xmlChar *)"place", (xmlChar *)buf);
 	g_free(buf);
 	gtodo_client_save_xml(cl,NULL);
 	return TRUE;
@@ -1468,12 +1474,12 @@ gboolean gtodo_client_category_remove(GTodoClient *cl, gchar *name)
 		xmlNodePtr cur = cl->root->xmlChildrenNode;
 		/*		gtodo_client_block_changed_callback(cl);
 		*/		while(cur != NULL){
-			if(xmlStrEqual(cur->name, "category")){
+			if(xmlStrEqual(cur->name, (xmlChar *)"category")){
 				xmlChar *temp = xmlGetProp(cur, (const xmlChar *)"title");
 				if(xmlStrEqual(temp, (const xmlChar *)name))
 				{
 					xmlChar *idchar =  xmlGetProp(cur, (const xmlChar *)"place");
-					if(idchar != NULL) id = atoi(idchar);
+					if(idchar != NULL) id = atoi((gchar *)idchar);
 					xmlFree(idchar);
 					xmlUnlinkNode(cur);
 					xmlFreeNode(cur);

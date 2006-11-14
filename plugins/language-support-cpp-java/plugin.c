@@ -1188,7 +1188,7 @@ on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 							   const GValue *value, gpointer data)
 {
 	CppJavaPlugin *lang_plugin;
-	lang_plugin = (CppJavaPlugin*) plugin;
+	lang_plugin = CPP_JAVA_PLUGIN (plugin);
 	lang_plugin->current_editor = g_value_get_object (value);
 	install_support (lang_plugin);
 	g_signal_connect (lang_plugin->current_editor, "language-changed",
@@ -1201,7 +1201,7 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 								 gpointer data)
 {
 	CppJavaPlugin *lang_plugin;
-	lang_plugin = (CppJavaPlugin*) plugin;
+	lang_plugin = CPP_JAVA_PLUGIN (plugin);
 	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 										  G_CALLBACK (on_editor_language_changed),
 										  plugin);
@@ -1219,7 +1219,7 @@ on_auto_indent (GtkAction *action, gpointer data)
 	
 	CppJavaPlugin *lang_plugin;
 	IAnjutaEditor *editor;
-	lang_plugin = (CppJavaPlugin*) data;
+	lang_plugin = CPP_JAVA_PLUGIN (data);
 	editor = IANJUTA_EDITOR (lang_plugin->current_editor);
 	
 	sel_start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor),
@@ -1265,7 +1265,7 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	CppJavaPlugin *lang_plugin;
-	lang_plugin = (CppJavaPlugin*) plugin;
+	lang_plugin = CPP_JAVA_PLUGIN (plugin);
 	
 	DEBUG_PRINT ("AnjutaLanguageCppJavaPlugin: Activating plugin ...");
 
@@ -1294,7 +1294,7 @@ cpp_java_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	CppJavaPlugin *lang_plugin;
-	lang_plugin = (CppJavaPlugin*) plugin;
+	lang_plugin = CPP_JAVA_PLUGIN (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_unmerge (ui, lang_plugin->uiid);
@@ -1326,7 +1326,7 @@ cpp_java_plugin_dispose (GObject *obj)
 static void
 cpp_java_plugin_instance_init (GObject *obj)
 {
-	CppJavaPlugin *plugin = (CppJavaPlugin*)obj;
+	CppJavaPlugin *plugin = CPP_JAVA_PLUGIN (obj);
 	plugin->action_group = NULL;
 	plugin->current_editor = NULL;
 	plugin->current_language = NULL;

@@ -230,7 +230,7 @@ static void
 cb_druid_insert_project_icon (NPWHeader* header, gpointer user_data)
 {
 	gint idx;
-	GnomeIconList* list = (GnomeIconList*)user_data;
+	GnomeIconList* list = GNOME_ICON_LIST (user_data);
 
 	idx = gnome_icon_list_append (list, npw_header_get_iconfile (header), _(npw_header_get_name (header)));
 	gnome_icon_list_set_icon_data (list, idx, header);

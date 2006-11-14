@@ -411,7 +411,7 @@ anjuta_print_update_page_size_and_margins (PrintJobInfo *pji)
 											   &pji->page_height);
 
 	if (gnome_print_config_get_length (pji->config,
-									   GNOME_PRINT_KEY_PAGE_MARGIN_LEFT, 
+									   (const guchar *)GNOME_PRINT_KEY_PAGE_MARGIN_LEFT, 
 									   &pji->margin_left, &unit)) 
 	{
 		gnome_print_convert_distance (&pji->margin_left, unit,
@@ -419,7 +419,7 @@ anjuta_print_update_page_size_and_margins (PrintJobInfo *pji)
 	}
 	
 	if (gnome_print_config_get_length (pji->config,
-									   GNOME_PRINT_KEY_PAGE_MARGIN_RIGHT, 
+									   (const guchar *)GNOME_PRINT_KEY_PAGE_MARGIN_RIGHT, 
 									   &pji->margin_right, &unit)) 
 	{
 		gnome_print_convert_distance (&pji->margin_right, unit,
@@ -427,14 +427,14 @@ anjuta_print_update_page_size_and_margins (PrintJobInfo *pji)
 	}
 	
 	if (gnome_print_config_get_length (pji->config,
-									   GNOME_PRINT_KEY_PAGE_MARGIN_TOP, 
+									   (const guchar *)GNOME_PRINT_KEY_PAGE_MARGIN_TOP, 
 									   &pji->margin_top, &unit)) 
 	{
 		gnome_print_convert_distance (&pji->margin_top, unit,
 									  GNOME_PRINT_PS_UNIT);
 	}
 	if (gnome_print_config_get_length (pji->config,
-									   GNOME_PRINT_KEY_PAGE_MARGIN_BOTTOM, 
+									   (const guchar *)GNOME_PRINT_KEY_PAGE_MARGIN_BOTTOM, 
 									   &pji->margin_bottom, &unit)) 
 	{
 		gnome_print_convert_distance (&pji->margin_bottom, unit,
@@ -491,8 +491,8 @@ anjuta_print_job_info_new (AnjutaPreferences *p, TextEditor *te)
 		print_config = gnome_print_config_default ();
 		g_return_val_if_fail (print_config != NULL, NULL);
 
-		gnome_print_config_set (print_config, "Settings.Transport.Backend", "lpr");
-		gnome_print_config_set (print_config, "Printer", "GENERIC");
+		gnome_print_config_set (print_config, (const guchar *)"Settings.Transport.Backend", (const guchar *)"lpr");
+		gnome_print_config_set (print_config, (const guchar *)"Printer", (const guchar *)"GENERIC");
 	}
 	pji->config = print_config;
 	gnome_print_config_ref (pji->config);
@@ -614,7 +614,7 @@ anjuta_print_new_page (PrintJobInfo *pji)
 	
 	pji->current_page++;
 	sprintf(page, "%d", pji->current_page);
-	gnome_print_beginpage (pji->pc, page);
+	gnome_print_beginpage (pji->pc, (const guchar *)page);
 	if (pji->print_header)
 		anjuta_print_show_header(pji);
 	pji->cursor_y = pji->page_height - pji->margin_top - pji->margin_header;
@@ -660,7 +660,7 @@ anjuta_print_show_chars_styled (PrintJobInfo *pji, const char *chars, gint size,
 		
 		/* Print it */
 		gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
-		gnome_print_show_sized (pji->pc, chars, size);
+		gnome_print_show_sized (pji->pc, (const guchar *)chars, size);
 		pji->cursor_x += width;
 	}
 	return 0; /* Return text wrap status */
@@ -756,8 +756,8 @@ anjuta_print_set_buffer_as_range (PrintJobInfo *pji)
 static void
 anjuta_print_show_header (PrintJobInfo * pji)
 {
-	guchar *text1 = g_strdup_printf (_("File: %s"), pji->te->filename);
-	guchar *text2 = g_strdup_printf (_("%d"), pji->current_page);
+	guchar *text1 = (guchar *)g_strdup_printf (_("File: %s"), pji->te->filename);
+	guchar *text2 = (guchar *)g_strdup_printf (_("%d"), pji->current_page);
 	gfloat width;
 	gboolean save_wrapping;
 
@@ -768,15 +768,15 @@ anjuta_print_show_header (PrintJobInfo * pji)
 	pji->cursor_x = pji->margin_left;
 	pji->cursor_y = pji->page_height - pji->margin_top;
 	gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
-	anjuta_print_show_chars_styled(pji, text1, strlen(text1),
+	anjuta_print_show_chars_styled(pji, (const char *)text1, strlen((const char *)text1),
 								   AN_PRINT_DEFAULT_TEXT_STYLE);
 
 	/* Print page number on right */
-	width = anjuta_print_get_text_width (pji, AN_PRINT_DEFAULT_TEXT_STYLE, FALSE, text2);
+	width = anjuta_print_get_text_width (pji, AN_PRINT_DEFAULT_TEXT_STYLE, FALSE, (const char *)text2);
 	pji->cursor_x = pji->page_width - pji->margin_right - width - 2;
 	pji->cursor_y = pji->page_height - pji->margin_top;
 	gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
-	anjuta_print_show_chars_styled(pji, text2, strlen(text2),
+	anjuta_print_show_chars_styled(pji, (const char *)text2, strlen((const char *)text2),
 								   AN_PRINT_DEFAULT_TEXT_STYLE);
 	
 	pji->wrapping = save_wrapping;
@@ -787,13 +787,13 @@ anjuta_print_show_header (PrintJobInfo * pji)
 static void
 anjuta_print_show_linenum (PrintJobInfo * pji, guint line, guint padding)
 {
-	guchar *line_num = g_strdup_printf ("%u", line);
+	guchar *line_num = (guchar *)g_strdup_printf ("%u", line);
 	guchar *pad_str, *text;
 	gboolean save_wrapping;
 	gfloat save_x, save_y;
 		
-	pad_str = g_strnfill(padding - strlen(line_num), AN_PRINT_LINENUM_PADDING);
-	text = g_strconcat(pad_str, line_num, NULL);	
+	pad_str = (guchar *)g_strnfill(padding - strlen((const char *)line_num), AN_PRINT_LINENUM_PADDING);
+	text = (guchar *)g_strconcat((gchar *)pad_str, line_num, NULL);	
 	g_free(pad_str);
 	g_free(line_num);	
 		
@@ -804,7 +804,7 @@ anjuta_print_show_linenum (PrintJobInfo * pji, guint line, guint padding)
 	pji->wrapping = FALSE;
 	pji->cursor_x = pji->margin_left;
 	gnome_print_moveto (pji->pc, pji->cursor_x, pji->cursor_y);
-	anjuta_print_show_chars_styled(pji, text, strlen(text), 
+	anjuta_print_show_chars_styled(pji, (const char *)text, strlen((const char *)text), 
 								  AN_PRINT_LINENUMBER_STYLE);
 
 	pji->wrapping = save_wrapping;
@@ -821,7 +821,7 @@ anjuta_print_begin (PrintJobInfo * pji)
 	pji->current_page = 1;
 	
 	sprintf(page, "%d", pji->current_page);
-	gnome_print_beginpage (pji->pc, page);
+	gnome_print_beginpage (pji->pc, (const guchar *)page);
 	if (pji->print_header)
 		anjuta_print_show_header(pji);
 	pji->cursor_y = pji->page_height - pji->margin_top - pji->margin_header;
@@ -1028,7 +1028,7 @@ anjuta_print_run_dialog(PrintJobInfo *pji)
 						   pji->config, NULL);
 
 	gnome_print_dialog_construct (GNOME_PRINT_DIALOG (dialog),
-								  _("Print"),
+								  (const guchar *)_("Print"),
 								  GNOME_PRINT_DIALOG_RANGE |
 								  GNOME_PRINT_DIALOG_COPIES);
 	
@@ -1037,7 +1037,7 @@ anjuta_print_run_dialog(PrintJobInfo *pji)
 	gnome_print_dialog_construct_range_page (GNOME_PRINT_DIALOG (dialog),
 											 GNOME_PRINT_RANGE_ALL |
 											 selection_flag,
-											 1, lines, "A", _("Lines"));
+											 1, lines, (const guchar *)"A", (const guchar *)_("Lines"));
 	switch (gtk_dialog_run(GTK_DIALOG (dialog)))
 	{
 		case GNOME_PRINT_DIALOG_RESPONSE_PRINT:
@@ -1064,7 +1064,7 @@ static void
 anjuta_print_preview_real (PrintJobInfo *pji)
 {
 	GtkWidget *gpmp = gnome_print_job_preview_new (pji->print_job,
-												   _("Print Preview"));
+												   (const guchar *)_("Print Preview"));
 	gtk_widget_show (GTK_WIDGET (gpmp));
 }
 

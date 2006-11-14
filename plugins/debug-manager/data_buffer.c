@@ -22,6 +22,7 @@
 #include "anjuta-marshal.h"
 
 #include <string.h>
+#include <glib/gprintf.h>
 
 enum
 {
@@ -178,7 +179,7 @@ dma_data_buffer_find_node (DmaDataBuffer *buffer, gulong address)
 		{
 			if (i == 0)
 			{
-				*node = g_new0 (DmaDataBufferLastNode, 1);
+				*node = (DmaDataBufferNode *)g_new0 (DmaDataBufferLastNode, 1);
 			}
 			else
 			{
@@ -192,6 +193,7 @@ dma_data_buffer_find_node (DmaDataBuffer *buffer, gulong address)
 	return node;
 }
 
+#if 0
 static DmaDataBufferPage* 
 dma_data_buffer_get_page (DmaDataBuffer *buffer, gulong address)
 {
@@ -201,6 +203,7 @@ dma_data_buffer_get_page (DmaDataBuffer *buffer, gulong address)
 
 	return (DmaDataBufferPage *)*node;
 }
+#endif
 
 static DmaDataBufferPage* 
 dma_data_buffer_add_page (DmaDataBuffer *buffer, gulong address)
@@ -212,7 +215,7 @@ dma_data_buffer_add_page (DmaDataBuffer *buffer, gulong address)
 	
 	if (*node == NULL)
 	{
-		*node = g_new0 (DmaDataBufferPage, 1);
+		*node = (DmaDataBufferNode *)g_new0 (DmaDataBufferPage, 1);
 		page = (DmaDataBufferPage *)*node;
 		page->validation = buffer->validation - 1;
 	}
@@ -482,9 +485,9 @@ dma_data_buffer_class_init (DmaDataBufferClass * klass)
 
 	g_return_if_fail (klass != NULL);
 	
-	parent_class = (GObjectClass*) g_type_class_peek_parent (klass);
+	parent_class = G_OBJECT_CLASS (g_type_class_peek_parent (klass));
 	
-	object_class = (GObjectClass *) klass;
+	object_class = G_OBJECT_CLASS (klass);
 	object_class->dispose = dma_data_buffer_dispose;
 	object_class->finalize = dma_data_buffer_finalize;
 

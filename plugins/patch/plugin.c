@@ -86,7 +86,7 @@ patch_plugin_activate (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("PatchPlugin: Activating Patch plugin...");
 	
-	p_plugin = (PatchPlugin *)plugin;
+	p_plugin = PATCH_PLUGIN (plugin);
 
 	p_plugin->launcher = anjuta_launcher_new ();
 	
@@ -116,7 +116,7 @@ patch_plugin_deactivate (AnjutaPlugin *plugin)
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	DEBUG_PRINT ("AnjutaPatchPlugin: Dectivating Patch plugin ...");
 
-	anjuta_ui_unmerge (ui, ((PatchPlugin*)plugin)->uiid);
+	anjuta_ui_unmerge (ui, PATCH_PLUGIN (plugin)->uiid);
 
 	/* FIXME: should launcher be unreferenced? */
 	
@@ -128,7 +128,7 @@ patch_plugin_finalize (GObject *obj)
 {
 	/*/
 	PatchPlugin *p_plugin;
-	p_plugin = (PatchPlugin *) obj;
+	p_plugin = PATCH_PLUGIN (obj);
 	/*/
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -144,7 +144,7 @@ patch_plugin_dispose (GObject *obj)
 static void
 patch_plugin_instance_init (GObject *obj)
 {
-	PatchPlugin *plugin = (PatchPlugin*)obj;	
+	PatchPlugin *plugin = PATCH_PLUGIN (obj);	
 	plugin->uiid = 0;
 	plugin->launcher = NULL;
 }
