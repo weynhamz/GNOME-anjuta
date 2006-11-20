@@ -780,7 +780,8 @@ npw_druid_add_default_property (NPWDruid* this)
 	value = npw_value_heap_find_value (this->values, ANJUTA_PROJECT_DIRECTORY_PROPERTY);
 	s = anjuta_preferences_get (pref, "anjuta.project.directory");
 	npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
-
+	g_free (s);
+	
 	/* Add user name */
 	value = npw_value_heap_find_value (this->values, USER_NAME_PROPERTY);
 	s = anjuta_preferences_get (pref, "anjuta.user.name");
@@ -792,6 +793,7 @@ npw_druid_add_default_property (NPWDruid* this)
 	else
 	{
 		npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
+		g_free (s);
 	}
 	/* Add Email address */
 	value = npw_value_heap_find_value (this->values, EMAIL_ADDRESS_PROPERTY);
@@ -804,6 +806,7 @@ npw_druid_add_default_property (NPWDruid* this)
 		s = g_strconcat(s, "@", getenv("HOSTNAME"), NULL);
 	}
 	npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
+	g_free (s);
 }
 
 /* Druid public functions

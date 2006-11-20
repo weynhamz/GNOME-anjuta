@@ -156,16 +156,16 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 		/* Use the currently selected profile in gnome-terminal */
 		text = gconf_client_get_string (client, GCONF_DEFAULT_PROFILE, NULL);
 		if (!text)
-			text = "Default";
+			text = g_strdup ("Default");
 	}
 	else
 	{
 		/* Otherwise use the user selected profile */
 		text = anjuta_preferences_get (pref, PREFS_TERMINAL_PROFILE);
 		if (!text)
-			text = "Default";
+			text = g_strdup ("Default");
 	}
-	profile = g_strdup (text);
+	profile = text;
 	
 	vte_terminal_set_mouse_autohide (VTE_TERMINAL (vte), TRUE);
 
@@ -180,7 +180,8 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	}
 	if (text && GTK_WIDGET (vte)->window)
 		vte_terminal_set_font_from_string (VTE_TERMINAL (vte), text);
-
+	g_free (text);
+	
 	setting = GET_PROFILE_BOOL (GCONF_CURSOR_BLINK);
 	vte_terminal_set_cursor_blinks (VTE_TERMINAL (vte), setting);
 	setting = GET_PROFILE_BOOL (GCONF_SILENT_BELL);
@@ -194,7 +195,8 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	text = GET_PROFILE_STRING (GCONF_WORD_CHARS);
 	if (text)
 		vte_terminal_set_word_chars (VTE_TERMINAL (vte), text);
-
+	g_free (text);
+	
 	text = GET_PROFILE_STRING (GCONF_BACKSPACE_BINDING);
 	if (text)
 	{
@@ -210,6 +212,7 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 		else
 			vte_terminal_set_backspace_binding (VTE_TERMINAL (vte),
 								VTE_ERASE_AUTO);
+		g_free (text);
 	}
 	text = GET_PROFILE_STRING (GCONF_DELETE_BINDING);
 	if (text)
@@ -226,6 +229,7 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 		else
 			vte_terminal_set_delete_binding (VTE_TERMINAL (vte),
 							 VTE_ERASE_AUTO);
+		g_free (text);
 	}
 	/* Set fore- and background colors. */
 	text = GET_PROFILE_STRING (GCONF_BACKGROUND_COLOR);
@@ -233,6 +237,7 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 	{
 		gdk_color_parse (text, &color);
 		vte_terminal_set_color_background (VTE_TERMINAL (vte), &color);
+		g_free (text);
 	}
 	text = GET_PROFILE_STRING (GCONF_FOREGROUND_COLOR);
 	if (text)
@@ -240,6 +245,7 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 		gdk_color_parse (text, &color);
 		vte_terminal_set_color_foreground (VTE_TERMINAL (vte), &color);
 		vte_terminal_set_color_bold (VTE_TERMINAL (vte), &color);
+		g_free (text);
 	}
 	g_free (profile);
 	g_object_unref (client);

@@ -68,9 +68,9 @@ void gtodo_load_settings ()
 	settings.auto_purge		= gconf_client_get_bool(client, "/apps/gtodo/prefs/auto-purge",NULL);
 	/* set default auto purge to a week */	
 	settings.purge_days		= gconf_client_get_int(client, "/apps/gtodo/prefs/auto-purge-days",NULL);
-	settings.due_color 		= g_strdup(gconf_client_get_string(client, "/apps/gtodo/prefs/due-color",NULL));
-	settings.due_today_color 	= g_strdup(gconf_client_get_string(client, "/apps/gtodo/prefs/due-today-color",NULL));
-	settings.due_in_days_color 	= g_strdup(gconf_client_get_string(client, "/apps/gtodo/prefs/due-in-days-color",NULL));
+	settings.due_color 		= gconf_client_get_string(client, "/apps/gtodo/prefs/due-color",NULL);
+	settings.due_today_color 	= gconf_client_get_string(client, "/apps/gtodo/prefs/due-today-color",NULL);
+	settings.due_in_days_color 	= gconf_client_get_string(client, "/apps/gtodo/prefs/due-in-days-color",NULL);
 	settings.due_days 		= gconf_client_get_int(client, "/apps/gtodo/prefs/due-days",NULL);
 	settings.sorttype 		= gconf_client_get_int(client, "/apps/gtodo/prefs/sort-type",NULL);	
 	settings.sortorder 		= gconf_client_get_int(client, "/apps/gtodo/prefs/sort-order",NULL);	

@@ -268,7 +268,7 @@ gchar *gtodo_todo_item_get_stop_date_as_string(GTodoItem *item);
 /* its done automatically. USE WITH CARE */
 int gtodo_client_save_xml(GTodoClient *cl, GError **error);
 
-/* The above function should never to be used, this can be usefull f.e. backups or incase of syncronising */
+/* The above function should never be used, this can be useful f.e. backups or incase of syncronising */
 int gtodo_client_save_xml_to_file(GTodoClient *cl, gchar *file, GError **error);
 
 /* reloads the client backend data*/

@@ -189,7 +189,8 @@ on_gconf_notify_font (GConfClient *gclient, guint cnxn_id,
 
 	font = anjuta_preferences_get(prefs, FONT);
 
-	anjuta_view_set_font(sv->priv->view, FALSE, font);	
+	anjuta_view_set_font(sv->priv->view, FALSE, font);
+	g_free (font);
 }
 
 static void

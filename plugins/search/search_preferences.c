@@ -455,6 +455,8 @@ on_setting_pref_remove_clicked(GtkButton *button, gpointer user_data)
 		gtk_tree_model_get (model, &iter, PREF_NAME_COLUMN, &name, -1);
 		if (g_strcasecmp(name, BASIC))
 		{
+			path = gconf_client_get_string(client, gconf_concat_dir_and_key(SEARCH_PREF_PATH,
+							       "search_pref_default"), NULL);
 			gtk_tree_store_remove(store, &iter);
 		
 			list_pref = g_slist_remove(list_pref, search_preferences_find_setting(name)->data);
@@ -462,13 +464,12 @@ on_setting_pref_remove_clicked(GtkButton *button, gpointer user_data)
 			search_preferences_remove_setting(name);
 
 			client = gconf_client_get_default();
-			if (!g_strcasecmp(name,gconf_client_get_string(client, 
-					gconf_concat_dir_and_key(SEARCH_PREF_PATH,
-					"search_pref_default"), NULL)))
+			if (!g_strcasecmp(name, path))
 			{
 				gconf_client_set_string(client, gconf_concat_dir_and_key(
 					SEARCH_PREF_PATH, "search_pref_default"), "", NULL);
 			}
+			g_free(path);
 			search_preferences_update_entry("");
 		}
 	}

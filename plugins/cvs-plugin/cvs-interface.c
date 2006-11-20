@@ -61,7 +61,7 @@ static gchar* create_cvs_command_with_cvsroot(AnjutaPreferences* prefs,
 	}
 	command = g_strdup_printf(CVS_FORMAT, cvs, global_options, cvsroot, action,  
 								command_options, command_arguments);
-	
+	g_free (cvs);
 	g_free (global_options);
 	
 	return command;

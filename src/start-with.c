@@ -116,13 +116,17 @@ start_with_dialog_show (GtkWindow *parent, AnjutaPreferences *pref,
 	last_project = anjuta_preferences_get (pref, "anjuta.last.open.project");
 
 	/* Return if the dialog is not to be shown */
-	if (!force && do_not_show)
+	if (!force && do_not_show) {
+		g_free (last_project)
 		return;
+	}
 	
 	/* Return if preference for loading last project is set */
 	if (!force && reload_last_project &&
-		last_project && file_is_readable (last_project))
+		last_project && file_is_readable (last_project)) {
+		g_free (last_project);
 		return;
+	}
 	
 	gxml = glade_xml_new (GLADE_FILE, "start_with_dialog", NULL);
 	g_return_if_fail (gxml != NULL);

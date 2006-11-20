@@ -1,5 +1,17 @@
 2006-11-20  Naba Kumar  <naba@gnome.org>
 	
+	Patch from Kjartan Maraas:
+	* plugins/cvs-plugin/cvs-interface.c,
+	plugins/document-manager/plugin.c,
+	plugins/gtodo/interface.c,
+	plugins/gtodo/libgtodo.h,
+	plugins/message-view/anjuta-msgman.c,
+	plugins/project-wizard/druid.c,
+	plugins/search/search_preferences.c,
+	plugins/sourceview/sourceview-prefs.c,
+	plugins/terminal/terminal.c,
+	src/start-with.c: Fix a bunch of memory leaks. Fixes bug #377115.
+
 	Patch from Przemysław Grzegorczyk:
 	* plugins/cvs-plugin/anjuta-cvs-plugin.glade,
 	plugins/subversion/anjuta-subversion.glade: Enable files in
@@ -4047,7 +4059,7 @@
 2005-06-30 Johannes Schmid <jhs@cvs.gnome.org>
 	
 	* plugins/build-basic-autotools/build-basic-autotools.c:
-	Fixed crash bug! Might be usefull to release 2.0.2 soon
+	Fixed crash bug! Might be useful to release 2.0.2 soon
 	because this bug will crash any build which produces errors
 	or warnings
 
@@ -7856,7 +7868,7 @@
 	* plugins/cvs-plugin/cvs-execute.c:
 	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
 	- Implemented cvs add and cvs removed - both working now
-	- Created a usefull preferences page
+	- Created a useful preferences page
 	
 
 2004-11-30  Naba Kumar  <naba@gnome.org>

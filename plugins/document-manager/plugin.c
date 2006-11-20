@@ -1271,9 +1271,9 @@ docman_plugin_set_tab_pos (DocmanPlugin *ep)
 				pos = GTK_POS_RIGHT;
 			else if (strcasecmp (tab_pos, "bottom") == 0)
 				pos = GTK_POS_BOTTOM;
+			g_free (tab_pos);
 		}
 		gtk_notebook_set_tab_pos (GTK_NOTEBOOK (ep->docman), pos);
-		g_free (tab_pos);
 	}
 }
 
