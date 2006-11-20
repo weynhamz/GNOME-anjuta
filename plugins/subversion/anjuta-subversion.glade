@@ -626,7 +626,7 @@
 	    <widget class="GnomeFileEntry" id="fileentry3">
 	      <property name="visible">True</property>
 	      <property name="max_saved">10</property>
-	      <property name="directory_entry">True</property>
+	      <property name="directory_entry">False</property>
 	      <property name="modal">True</property>
 	      <property name="use_filechooser">True</property>
 	      <property name="filechooser_action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
@@ -941,7 +941,7 @@
 	    <widget class="GnomeFileEntry" id="fileentry4">
 	      <property name="visible">True</property>
 	      <property name="max_saved">10</property>
-	      <property name="directory_entry">True</property>
+	      <property name="directory_entry">False</property>
 	      <property name="modal">True</property>
 	      <property name="use_filechooser">True</property>
 	      <property name="filechooser_action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
@@ -1154,7 +1154,7 @@
 <widget class="GtkDialog" id="subversion_diff">
   <property name="border_width">10</property>
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Subversion: Update file/directory</property>
+  <property name="title" translatable="yes">Subversion: Diff file/directory</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -1224,7 +1224,7 @@
 	  <child>
 	    <widget class="GtkLabel" id="label35">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Choose file or directory to update:</property>
+	      <property name="label" translatable="yes">Choose file or directory to diff:</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">True</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1250,7 +1250,7 @@
 	    <widget class="GnomeFileEntry" id="fileentry5">
 	      <property name="visible">True</property>
 	      <property name="max_saved">10</property>
-	      <property name="directory_entry">True</property>
+	      <property name="directory_entry">False</property>
 	      <property name="modal">True</property>
 	      <property name="use_filechooser">True</property>
 	      <property name="filechooser_action">GTK_FILE_CHOOSER_ACTION_OPEN</property>

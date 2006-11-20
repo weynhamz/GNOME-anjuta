@@ -1,3 +1,10 @@
+2006-11-20  Naba Kumar  <naba@gnome.org>
+	
+	Patch from Przemysław Grzegorczyk:
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade,
+	plugins/subversion/anjuta-subversion.glade: Enable files in
+	fileselection dialog. Fixes bug #376031.
+	
 2006-11-17  Adam Dingle <adam@medovina.org>
 
 	Reviewed by: Naba Kumar  <naba@gnome.org>

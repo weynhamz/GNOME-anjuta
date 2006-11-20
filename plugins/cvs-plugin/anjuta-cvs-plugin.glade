@@ -592,7 +592,7 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
 	    <widget class="GnomeFileEntry" id="fileentry3">
 	      <property name="visible">True</property>
 	      <property name="max_saved">10</property>
-	      <property name="directory_entry">True</property>
+	      <property name="directory_entry">False</property>
 	      <property name="modal">True</property>
 	      <property name="use_filechooser">True</property>
 
@@ -931,7 +931,7 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
 	    <widget class="GnomeFileEntry" id="fileentry4">
 	      <property name="visible">True</property>
 	      <property name="max_saved">10</property>
-	      <property name="directory_entry">True</property>
+	      <property name="directory_entry">False</property>
 	      <property name="modal">True</property>
 	      <property name="use_filechooser">True</property>
 
@@ -1558,7 +1558,7 @@ Pressing OK will delete the file from disk and from CVS. Of course the file won'
 	    <widget class="GnomeFileEntry" id="fileentry6">
 	      <property name="visible">True</property>
 	      <property name="max_saved">10</property>
-	      <property name="directory_entry">True</property>
+	      <property name="directory_entry">False</property>
 	      <property name="modal">True</property>
 	      <property name="use_filechooser">True</property>
 
@@ -1874,7 +1874,7 @@ Patch-Style diff</property>
 	    <widget class="GnomeFileEntry" id="fileentry7">
 	      <property name="visible">True</property>
 	      <property name="max_saved">10</property>
-	      <property name="directory_entry">True</property>
+	      <property name="directory_entry">False</property>
 	      <property name="modal">True</property>
 	      <property name="use_filechooser">True</property>
 
