@@ -1,3 +1,9 @@
+2006-11-20  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Arjan Timmerman
+	*configure.in: Make subvesion plugin build for apr 1.x.
+	Fixes: Bug #364754.
+	
 2006-11-20  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in

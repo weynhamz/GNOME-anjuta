@@ -902,7 +902,7 @@ if test -n "$SVN_INCLUDE" ; then
 	dnl APR. Required by subversion (devel)
 	dnl ------------------------------------
 	
-	APR_CONFIGS="apr-config /usr/local/apr/bin/apr-config"
+	APR_CONFIGS="apr-config /usr/local/apr/bin/apr-config/ apr-1-config "
 	AC_ARG_WITH(apr-config,
 	[[  --with-apr-config=FILE    Use the given path to apr-config when determining
 								APR configuration; defaults to "apr-config"]],
@@ -922,7 +922,7 @@ if test -n "$SVN_INCLUDE" ; then
 	test $VALUE && APR_CONFIG=$VALUE
 	if test $APR_CONFIG ; then
 		AC_MSG_RESULT([found])
-		APR_CFLAGS="`$APR_CONFIG --cflags`"
+		APR_CFLAGS="`$APR_CONFIG --cflags` `$APR_CONFIG --cppflags`"
 		APR_INCLUDE="`$APR_CONFIG --includes`"
 		APR_LIBS="`$APR_CONFIG --link-ld --libs`"
 	else
@@ -934,7 +934,7 @@ if test -n "$SVN_INCLUDE" ; then
 	dnl APR util. Required by subversion (devel)
 	dnl------------------------------------------
 	
-	APU_CONFIGS="apu-config /usr/local/apr/bin/apu-config"
+	APU_CONFIGS="apu-config /usr/local/apr/bin/apu-config apu-1-config"
 	AC_ARG_WITH(apu-config,
 	[[  --with-apu-config=FILE    Use the given path to apu-config when determining
 								APR util configuration; defaults to "apu-config"]],
@@ -1053,6 +1053,7 @@ plugins/Makefile
 plugins/sample1/Makefile
 plugins/gtodo/Makefile
 plugins/class-gen/Makefile
+plugins/class-gen/templates/Makefile
 plugins/patch/Makefile
 plugins/editor/Makefile
 plugins/document-manager/Makefile
