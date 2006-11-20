@@ -1053,7 +1053,6 @@ plugins/Makefile
 plugins/sample1/Makefile
 plugins/gtodo/Makefile
 plugins/class-gen/Makefile
-plugins/class-gen/templates/Makefile
 plugins/patch/Makefile
 plugins/editor/Makefile
 plugins/document-manager/Makefile
