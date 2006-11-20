@@ -1,3 +1,7 @@
+2006-11-20  Johannes Schmid <jhs@gnome.org>
+
+	* Removed me from MAINTAINERS
+
 2006-11-14  Günther Brammer <GBrammer@gmx.de>
 
 	* configure.in:
