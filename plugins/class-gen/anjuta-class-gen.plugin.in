@@ -7,4 +7,4 @@ Interfaces=IAnjutaWizard
 UserActivatable=no
 
 [Wizard]
-_Title=C++/gobject class
+_Title=C++/GObject Class

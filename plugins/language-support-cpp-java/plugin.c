@@ -1254,7 +1254,7 @@ static GtkActionEntry actions_indent[] = {
 	{
 		"ActionEditAutoindent",
 		NULL,
-		N_("Auto indent"), "<control>i",
+		N_("Auto Indent"), "<control>i",
 		N_("Auto indent current line or selection based on indentation settings"),
 		G_CALLBACK (on_auto_indent)
 	}

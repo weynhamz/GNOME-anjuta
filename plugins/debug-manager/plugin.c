@@ -723,7 +723,7 @@ static GtkActionEntry actions_start[] =
 	{
 		"ActionDebuggerRunTarget",
 		NULL,
-		N_("Run target..."),
+		N_("Run Target..."),
 		"<shift>F12",
 		N_("load and start the target for debugging"),
 		G_CALLBACK (on_start_debug_activate)
@@ -759,7 +759,7 @@ static GtkActionEntry actions_loaded[] =
 	{
 		"ActionGdbCommand",                              /* Action name */
 		NULL,                                            /* Stock icon, if any */
-		N_("Debugger command..."),                       /* Display label */
+		N_("Debugger Command..."),                       /* Display label */
 		NULL,                                            /* short-cut */
 		N_("Custom debugger command"),                   /* Tooltip */ 
 		G_CALLBACK (on_debugger_custom_command_activate) /* action callback */
@@ -859,7 +859,7 @@ static GtkActionEntry actions_stopped[] =
 	{
 		"ActionDebuggerRunToPosition",    
 		"debugger-run-to-cursor",                             
-		N_("_Run to cursor"),           
+		N_("_Run to Cursor"),           
 		"F8",                              
 		N_("Run to the cursor"),              
 		G_CALLBACK (on_run_to_cursor_action_activate) 
@@ -867,7 +867,7 @@ static GtkActionEntry actions_stopped[] =
 	{
 		"ActionGdbCommand",
 		NULL,
-		N_("Debugger command..."),
+		N_("Debugger Command..."),
 		NULL,
 		N_("Custom debugger command"),
 		G_CALLBACK (on_debugger_custom_command_activate)
@@ -891,7 +891,7 @@ static GtkActionEntry actions_stopped[] =
 	{
 		"ActionGdbInfoGlobalVariables",
 		NULL,
-		N_("Info _Global variables"),
+		N_("Info _Global Variables"),
 		NULL,
 		N_("Display all global and static variables of the program"),
 		G_CALLBACK (on_info_variables_activate)

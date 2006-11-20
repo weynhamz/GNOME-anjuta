@@ -461,7 +461,7 @@ static GtkActionEntry actions_file[] = {
 	{
 		"ActionValgrindRun",                    /* Action name */
 		GTK_STOCK_EXECUTE,                      /* Stock icon, if any */
-		N_("_Select tool and run..."),			/* Display label */
+		N_("_Select Tool and Run..."),			/* Display label */
 		NULL,                                   /* short-cut */
 		NULL,                      				/* Tooltip */			
 		G_CALLBACK(on_menu_run_activate)		/* action callback */
@@ -469,7 +469,7 @@ static GtkActionEntry actions_file[] = {
 	{
 		"ActionValgrindKill",                   /* Action name */
 		GTK_STOCK_CANCEL,                      	/* Stock icon, if any */
-		N_("_Kill execution"),					/* Display label */
+		N_("_Kill Execution"),					/* Display label */
 		NULL,                                   /* short-cut */
 		NULL,                      				/* Tooltip */			
 		G_CALLBACK(on_menu_kill_activate)		/* action callback */
@@ -477,7 +477,7 @@ static GtkActionEntry actions_file[] = {
 	{
 		"ActionValgrindLoad",                   /* Action name */
 		GTK_STOCK_OPEN,                      	/* Stock icon, if any */
-		N_("_Load log"),						/* Display label */
+		N_("_Load Log"),						/* Display label */
 		NULL,                                   /* short-cut */
 		NULL,                      				/* Tooltip */			
 		G_CALLBACK(on_menu_load_log_activate)	/* action callback */
@@ -485,7 +485,7 @@ static GtkActionEntry actions_file[] = {
 	{
 		"ActionValgrindSave",                   /* Action name */
 		GTK_STOCK_SAVE,                      	/* Stock icon, if any */
-		N_("S_ave log"),						/* Display label */
+		N_("S_ave Log"),						/* Display label */
 		NULL,                                   /* short-cut */
 		NULL,                      				/* Tooltip */
 		G_CALLBACK(on_menu_save_log_activate)	/* action callback */

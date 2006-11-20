@@ -80,7 +80,7 @@ static GtkToggleActionEntry actions_view[] = {
 	{
 		"ActionViewTodoHideDueDate",
 		NULL,
-		N_("Hide items that are past _due date"),
+		N_("Hide Items Past _Due Date"),
 		NULL,
 		N_("Hide items that are past due date"),
 		G_CALLBACK (on_hide_due_date_action_activate),
@@ -89,7 +89,7 @@ static GtkToggleActionEntry actions_view[] = {
 	{
 		"ActionViewTodoHideEndDate",
 		NULL,
-		N_("Hide items without an _end date"),
+		N_("Hide Items Without _End Date"),
 		NULL,
 		N_("Hide items without an end date"),
 		G_CALLBACK (on_hide_end_date_action_activate),

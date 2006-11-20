@@ -10,4 +10,4 @@ Interfaces=IAnjutaWizard,IAnjutaFile
 SupportedMimeTypes=application/x-anjuta-old
 
 [Wizard]
-_Title=Project from existing sources
+_Title=Project From Existing Sources

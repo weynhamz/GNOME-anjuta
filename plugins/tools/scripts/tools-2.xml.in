@@ -12,7 +12,7 @@
 		<input_type>0</input_type>
 		<shortcut></shortcut>
 	</tool>
-	<tool name="Translation status">
+	<tool name="Translation Status">
 		<command>@ANJUTA_DATA_DIR@/tools/translation-status.pl</command>
 		<parameter>$(project_root_directory)</parameter>
 		<working_dir>$(project_root_directory)</working_dir>
@@ -36,7 +36,7 @@
 		<input_type>0</input_type>
 		<shortcut></shortcut>
 	</tool>
-	<tool name="Find with grep">
+	<tool name="Find With Grep">
 		<command>grep -r -e</command>
 		<parameter>$(ask_user_string) .</parameter>
 		<working_dir>$(project_root_directory)</working_dir>
@@ -48,7 +48,7 @@
 		<input_type>0</input_type>
 		<shortcut>&lt;Control&gt;grave</shortcut>
 	</tool>
-	<tool name="Make distribution">
+	<tool name="Make Distribution">
 		<command>make dist</command>
 		<parameter></parameter>
 		<working_dir>$(project_root_directory)</working_dir>

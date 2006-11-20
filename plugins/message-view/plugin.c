@@ -70,15 +70,15 @@ static void on_save_message(GtkAction* menuitem, MessageViewPlugin *plugin)
 static GtkActionEntry actions_goto[] = {
   { "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
   { "ActionMessageNext", ANJUTA_STOCK_NEXT_MESSAGE,
-    N_("_Next message"), "<control><alt>n",
+    N_("_Next Message"), "<control><alt>n",
 	N_("Next message"),
     G_CALLBACK (on_next_message)},
   { "ActionMessagePrev", ANJUTA_STOCK_PREV_MESSAGE,
-    N_("_Previous message"), "<control><alt>p",
+    N_("_Previous Message"), "<control><alt>p",
 	N_("Previous message"),
     G_CALLBACK (on_prev_message)},
   { "ActionMessageSave", NULL,
-    N_("_Save message"), NULL,
+    N_("_Save Message"), NULL,
 	N_("Save message"),
     G_CALLBACK (on_save_message)}
 };

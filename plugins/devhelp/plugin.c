@@ -224,7 +224,7 @@ static GtkActionEntry actions[] = {
 	{
 		"ActionHelpApi",
 		NULL,
-		N_("_API references"),
+		N_("_API Reference"),
 		NULL,
 		N_("Browse API Pages"),
 		G_CALLBACK (on_api_reference_activate)

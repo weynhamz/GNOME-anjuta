@@ -512,11 +512,11 @@ static GtkActionEntry actions_search[] = {
 	N_("Search for a string in multiple files or directories"),
     G_CALLBACK (on_find_in_files1_activate)},
 	{ "ActionEditGotoOccuranceNext", GTK_STOCK_JUMP_TO,
-	N_("Ne_xt occurrence"), NULL,
+	N_("Ne_xt Occurrence"), NULL,
 	N_("Find the next occurrence of current word"),
     G_CALLBACK (on_next_occur)},
   { "ActionEditGotoOccurancePrev",GTK_STOCK_JUMP_TO,
-	N_("Pre_vious occurrence"),  NULL,
+	N_("Pre_vious Occurrence"),  NULL,
 	N_("Find the previous occurrence of current word"),
     G_CALLBACK (on_prev_occur)},
 };

@@ -1444,11 +1444,11 @@ debugger_stop (Debugger *debugger)
 		gchar *mesg;
 		
 		if (debugger->priv->prog_is_attached == TRUE)
-			mesg = _("Program is ATTACHED.\n"
-				   "Do you still want to stop Debugger?");
+			mesg = _("The program is attached.\n"
+				   "Do you still want to stop the debugger?");
 		else
-			mesg = _("Program is RUNNING.\n"
-				   "Do you still want to stop Debugger?");
+			mesg = _("The program is running.\n"
+				   "Do you still want to stop the debugger?");
 		dialog = gtk_message_dialog_new (debugger->priv->parent_win,
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_MESSAGE_QUESTION,

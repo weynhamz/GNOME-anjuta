@@ -1344,7 +1344,7 @@ static GtkActionEntry actions_breakpoints[] = {
 	{
 		"ActionGdbDisableAllBreakpoints",         /* Action name */
 		NULL,                                     /* Stock icon, if any */
-		N_("Disable all Breakpoints"),            /* Display label */
+		N_("Disable All Breakpoints"),            /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Deactivate all breakpoints"),         /* Tooltip */
 		G_CALLBACK (on_disable_all_breakpoints_activate)/* action callback */
@@ -1352,7 +1352,7 @@ static GtkActionEntry actions_breakpoints[] = {
 	{
 		"ActionGdbClearAllBreakpoints",           /* Action name */
 		NULL,                                     /* Stock icon, if any */
-		N_("C_lear all Breakpoints"),             /* Display label */
+		N_("C_lear All Breakpoints"),             /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Delete all breakpoints"),             /* Tooltip */
 		G_CALLBACK (on_clear_all_breakpoints_activate)/* action callback */

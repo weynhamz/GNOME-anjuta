@@ -10,4 +10,4 @@ UserActivatable=no
 SupportedMimeTypes=application/x-glade
 
 [Wizard]
-_Title=Glade file
+_Title=Glade File

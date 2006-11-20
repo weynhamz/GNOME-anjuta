@@ -1208,7 +1208,7 @@ static GtkActionEntry build_actions[] =
 	},
 	{
 		"ActionBuildExecute", NULL,
-		N_("_Execute program"), "F3",
+		N_("_Execute Program"), "F3",
 		N_("Execute program"),
 		G_CALLBACK (build_execute_project)
 	},

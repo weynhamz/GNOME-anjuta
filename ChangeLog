@@ -1,3 +1,26 @@
+2006-11-17  Adam Dingle <adam@medovina.org>
+
+	Reviewed by: Naba Kumar  <naba@gnome.org>
+	* plugins/build-basic-autotools/build-basic-autotools.c
+	* plugins/class-gen/anjuta-class-gen.plugin.in
+	* plugins/debug-manager/breakpoints.c
+	* plugins/debug-manager/plugin.c
+	* plugins/devhelp/plugin.c
+	* plugins/document-manager/plugin.c
+	* plugins/gdb/debugger.c
+	* plugins/glade/anjuta-glade.plugin.in
+	* plugins/gtodo/plugin.c
+	* plugins/language-support-cpp-java/plugin.c
+	* plugins/message-view/plugin.c
+	* plugins/project-import/anjuta-project-import.glade
+	* plugins/project-import/anjuta-project-import.plugin.in
+	* plugins/search/plugin.c
+	* plugins/tools/scripts/tools-2.xml.in
+	* plugins/valgrind/plugin.c
+	* src/anjuta-actions.h:
+	Fixed bug #376335 "menu items should be capitalized".  Minor
+	grammar edits.
+
 2006-11-20  Naba Kumar  <naba@gnome.org>
 	
 	* configure.in: Fixed build.
