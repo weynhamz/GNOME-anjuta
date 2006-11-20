@@ -86,7 +86,7 @@ sourceview_print_dialog_new (GtkSourcePrintJob *job, GtkSourceBuffer* buffer)
 	dialog = g_object_new (GNOME_TYPE_PRINT_DIALOG, "print_config", config, NULL);
 
 	gnome_print_dialog_construct (GNOME_PRINT_DIALOG (dialog), 
-				      (const unsigned char *)_("Print"),
+				      _("Print"),
 			              GNOME_PRINT_DIALOG_RANGE | GNOME_PRINT_DIALOG_COPIES);
 
 	lines = gtk_text_buffer_get_line_count (GTK_TEXT_BUFFER (buffer));
@@ -95,8 +95,7 @@ sourceview_print_dialog_new (GtkSourcePrintJob *job, GtkSourceBuffer* buffer)
 						 GNOME_PRINT_RANGE_ALL |
 						 GNOME_PRINT_RANGE_RANGE |
 						 selection_flag,
-						 1, lines, (const unsigned char *)"A",
-						 (const unsigned char *)_("Lines"));
+						 1, lines, "A", _("Lines"));
 
 	return dialog;
 }

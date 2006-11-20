@@ -67,7 +67,7 @@ value_added_current_editor (AnjutaPlugin * plugin, const char *name,
 	AnjutaUI* ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	editor = g_value_get_object (value);
 
-	MacroPlugin *macro_plugin = MACRO_PLUGIN (plugin);
+	MacroPlugin *macro_plugin = (MacroPlugin *) plugin;
  	macro_insert_action = 
 		anjuta_ui_get_action (ui, "ActionGroupMacro", "ActionEditMacroInsert");
 
@@ -88,7 +88,7 @@ static void
 value_removed_current_editor (AnjutaPlugin * plugin,
 			      const char *name, gpointer data)
 {
-	MacroPlugin *macro_plugin = MACRO_PLUGIN (plugin);
+	MacroPlugin *macro_plugin = (MacroPlugin *) plugin;
 
 	macro_plugin->current_editor = NULL;
 
@@ -103,7 +103,7 @@ activate_plugin (AnjutaPlugin * plugin)
 
 	DEBUG_PRINT ("MacroPlugin: Activating Macro plugin...");
 
-	macro_plugin = MACRO_PLUGIN (plugin);
+	macro_plugin = (MacroPlugin *) plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
 	/* Add all our actions */
@@ -134,10 +134,10 @@ deactivate_plugin (AnjutaPlugin * plugin)
 	DEBUG_PRINT ("MacroPlugin: Deactivating Macro plugin...");
 
 	anjuta_plugin_remove_watch (plugin,
-								MACRO_PLUGIN (plugin)->editor_watch_id,
+								((MacroPlugin *) plugin)->editor_watch_id,
 								TRUE);
-	anjuta_ui_unmerge (ui, MACRO_PLUGIN (plugin)->uiid);
-	anjuta_ui_remove_action_group (ui, MACRO_PLUGIN (plugin)->action_group);
+	anjuta_ui_unmerge (ui, ((MacroPlugin *) plugin)->uiid);
+	anjuta_ui_remove_action_group (ui, ((MacroPlugin *) plugin)->action_group);
 	return TRUE;
 }
 
@@ -150,7 +150,7 @@ finalize (GObject * obj)
 static void
 dispose (GObject * obj)
 {
-	MacroPlugin *plugin = MACRO_PLUGIN (obj);
+	MacroPlugin *plugin = (MacroPlugin *) obj;
 	if (plugin->macro_dialog != NULL)
 		g_object_unref (plugin->macro_dialog);
 	g_object_unref(plugin->macro_db);
@@ -160,7 +160,7 @@ dispose (GObject * obj)
 static void
 macro_plugin_instance_init (GObject * obj)
 {
-	MacroPlugin *plugin = MACRO_PLUGIN (obj);
+	MacroPlugin *plugin = (MacroPlugin *) obj;
 	plugin->uiid = 0;
 	plugin->current_editor = NULL;
 }
@@ -268,7 +268,7 @@ macro_insert (MacroPlugin * plugin, const gchar *keyword)
 static void 
 ianjuta_macro_iface_insert(IAnjutaMacro* macro, const gchar* key, GError** err)
 {
-	MacroPlugin* plugin = MACRO_PLUGIN (macro);
+	MacroPlugin* plugin = (MacroPlugin*)macro;
 	macro_insert(plugin, key);
 }
 

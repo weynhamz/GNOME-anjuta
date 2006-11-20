@@ -82,7 +82,7 @@ on_text_editor_text_event (GtkWidget * widget,
 void
 on_text_editor_text_changed (GtkEditable * editable, gpointer user_data)
 {
-	TextEditor *te = TEXT_EDITOR (user_data);
+	TextEditor *te = (TextEditor *) user_data;
 	if (text_editor_is_saved (te))
 	{
 		//FIXME:

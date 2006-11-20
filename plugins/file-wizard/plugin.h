@@ -25,10 +25,6 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-ui.h>
 
-extern GType file_wizard_plugin_type;
-#define FILE_WIZARD_PLUGIN_TYPE (file_wizard_plugin_type)
-#define FILE_WIZARD_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), FILE_WIZARD_PLUGIN_TYPE, AnjutaFileWizardPlugin))
-
 typedef struct _AnjutaFileWizardPlugin AnjutaFileWizardPlugin;
 typedef struct _AnjutaFileWizardPluginClass AnjutaFileWizardPluginClass;
 

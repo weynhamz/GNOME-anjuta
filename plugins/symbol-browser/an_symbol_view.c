@@ -379,7 +379,6 @@ on_remove_project_tm_files (gpointer key, gpointer val, gpointer data)
 	return FALSE;
 }
 
-#if 0
 static gboolean
 on_treeview_row_search (GtkTreeModel * model, gint column,
 			const gchar * key, GtkTreeIter * iter, gpointer data)
@@ -387,7 +386,6 @@ on_treeview_row_search (GtkTreeModel * model, gint column,
 	DEBUG_PRINT ("Search key == '%s'", key);
 	return FALSE;
 }
-#endif
 
 static AnjutaSymbolInfo *
 sv_current_symbol (AnjutaSymbolView * sv)
@@ -718,7 +716,7 @@ anjuta_symbol_view_add_source (AnjutaSymbolView * sv, const gchar *filename)
 /*
 	for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
 	{
-		te = TEXT_EDITOR (tmp->data);
+		te = (TextEditor *) tmp->data;
 		if (te && !te->tm_file && (0 == strcmp(te->full_filename, filename)))
 			te->tm_file = tm_workspace_find_object(TM_WORK_OBJECT(app->tm_workspace)
 			  , filename, FALSE);
@@ -748,7 +746,7 @@ anjuta_symbol_view_remove_source (AnjutaSymbolView *sv, const gchar *filename)
 		sv->priv->symbols_need_update = TRUE;
 /*		for (node = app->text_editor_list; node; node = g_list_next(node))
 		{
-			te = TEXT_EDITOR (node->data);
+			te = (TextEditor *) node->data;
 			if (te && (source_file == te->tm_file))
 				te->tm_file = NULL;
 		}
@@ -791,7 +789,7 @@ void anjuta_symbol_view_update_source_from_buffer (AnjutaSymbolView *sv, const g
 	}	
 	
 	timer = g_timer_new ();
-	tm_source_file_buffer_update (tm_file, (unsigned char *)text_buffer, buffer_size, TRUE);
+	tm_source_file_buffer_update (tm_file, text_buffer, buffer_size, TRUE);
 	
 	g_timer_stop (timer);
 	g_timer_elapsed (timer, &ms);
@@ -997,7 +995,7 @@ anjuta_symbol_view_instance_init (GObject * obj)
 	if (!tm_workspace_load_global_tags (system_tags_path))
 	{
 		g_idle_add((GSourceFunc) symbol_browser_prefs_create_global_tags, 
-			SYMBOL_BROWSER_PLUGIN (obj));
+			(SymbolBrowserPlugin*) obj);
 	}
 
 	/* let's create symbol_view tree and other gui stuff */

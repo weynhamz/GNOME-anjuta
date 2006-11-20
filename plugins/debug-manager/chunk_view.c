@@ -156,9 +156,9 @@ dma_chunk_view_finalize (GObject *object)
 static void
 dma_chunk_view_instance_init (DmaChunkView *view)
 {
-	// GtkAdjustment *adj;
-	// GtkWidget* wid;
-	// PangoFontDescription *font_desc;
+	GtkAdjustment *adj;
+	GtkWidget* wid;
+	PangoFontDescription *font_desc;
 
 }
 
@@ -174,11 +174,11 @@ dma_chunk_view_class_init (DmaChunkViewClass * klass)
 
 	g_return_if_fail (klass != NULL);
 	
-	gobject_class = G_OBJECT_CLASS (klass);
-	object_class = GTK_OBJECT_CLASS (klass);
+	gobject_class = (GObjectClass *) klass;
+	object_class = (GtkObjectClass *) klass;
 	widget_class = GTK_WIDGET_CLASS (klass);
 	text_view_class = GTK_TEXT_VIEW_CLASS (klass);
-	parent_class = GTK_WIDGET_CLASS (g_type_class_peek_parent (klass));
+	parent_class = (GtkContainerClass*) g_type_class_peek_parent (klass);
 	
 	gobject_class->dispose = dma_chunk_view_dispose;
 	gobject_class->finalize = dma_chunk_view_finalize;

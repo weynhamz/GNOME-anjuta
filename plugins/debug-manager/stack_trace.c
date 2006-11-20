@@ -291,11 +291,7 @@ static void
 stack_trace_update (StackTrace *st)
 {
 	st->current_frame = 0;
-	ianjuta_debugger_list_frame (
-			st->debugger,
-			(IAnjutaDebuggerCallback)on_stack_trace_updated,
-			st,
-			NULL);
+	ianjuta_debugger_list_frame (st->debugger, on_stack_trace_updated, st, NULL);
 }
 
 /* Actions table

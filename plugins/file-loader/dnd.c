@@ -67,7 +67,7 @@ drag_data_received_cb (GtkWidget *widget, GdkDragContext *context,
 	 */	
 	g_return_if_fail (data->data != NULL);
 
-	current = (gchar *)data->data;
+	current = data->data;
 
 	while (*current)
 	{

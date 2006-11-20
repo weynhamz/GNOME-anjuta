@@ -262,7 +262,7 @@ alloc_data_transport(const GtkTreeModel *const model,
 	local_data_transport *data = g_new (local_data_transport, 1);
 
 	data->item = item;
-	data->model = GTK_TREE_MODEL (model);
+	data->model = (GtkTreeModel *)model;
 	data->iter = *iter;
 	data->tree = item->tree;
 	data->next = item->transport;
@@ -382,7 +382,6 @@ set_not_analyzed(GtkTreeModel *model, GtkTreePath* path,
 	return FALSE;	
 }
 
-#if 0
 static void 
 add_dummy_node(GtkTreeModel *const model, GtkTreeIter *const parent)
 {
@@ -392,7 +391,6 @@ add_dummy_node(GtkTreeModel *const model, GtkTreeIter *const parent)
                      TYPE_COLUMN, "",
                      VALUE_COLUMN, "", DTREE_ENTRY_COLUMN, NULL, -1);
 }
-#endif
 
 static void
 destroy_non_analyzed (GtkTreeModel* model)
@@ -583,7 +581,7 @@ gdb_var_list_children (const GList *children, gpointer user_data, GError *err)
     args.first_exist = 
                 gtk_tree_model_iter_children(data->model, &iter, &data->iter);
 
-	for (child = g_list_first ((GList *)children); child != NULL; child = g_list_next (child))
+	for (child = g_list_first (children); child != NULL; child = g_list_next (child))
     {
 		IAnjutaDebuggerVariable *var = (IAnjutaDebuggerVariable *)child->data;
 		args.name = var->name;
@@ -625,12 +623,7 @@ gdb_var_list_children (const GList *children, gpointer user_data, GError *err)
 					  printf ("parent %p\n", tmp);
 					  tmp = tmp->parent;
 				  }*/
-				  if (!ianjuta_variable_debugger_list_children (
-							  IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger),
-							  args.name,
-							  (IAnjutaDebuggerCallback)gdb_var_list_children,
-							  tData,
-							  NULL))
+				  if (!ianjuta_variable_debugger_list_children (IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger), args.name, gdb_var_list_children, tData, NULL))
 				  {
 					  break;
 				  }
@@ -714,24 +707,14 @@ gdb_var_create (IAnjutaDebuggerVariable *variable, gpointer user_data, GError *e
 	
     if (variable->children)
 	{
-		ianjuta_variable_debugger_list_children (
-				IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger),
-				variable->name,
-				(IAnjutaDebuggerCallback)gdb_var_list_children,
-				data,
-				NULL);
+		ianjuta_variable_debugger_list_children (IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger), variable->name, gdb_var_list_children, data, NULL);
 	}
 	else if (variable->value == NULL)
 	{
 		local_data_transport *tData =
                    alloc_data_transport(data->model, &data->iter, iData);
 
-		ianjuta_variable_debugger_evaluate (
-				IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger),
-				variable->name,
-				(IAnjutaDebuggerCallback)gdb_var_evaluate_expression,
-				tData,
-				NULL);
+		ianjuta_variable_debugger_evaluate (IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger), variable->name, gdb_var_evaluate_expression, tData, NULL);
 		free_data_transport (data);
 	}
 }
@@ -781,12 +764,7 @@ add_new_tree_item(struct add_new_tree_item_args *const args)
 		if (args->tree->debugger != NULL)
 		{
 			tData = alloc_data_transport(args->model, args->iter, data);
-			ianjuta_variable_debugger_create (
-					IANJUTA_VARIABLE_DEBUGGER (args->tree->debugger),
-					args->exp,
-					(IAnjutaDebuggerCallback)gdb_var_create,
-					tData,
-					NULL);
+			ianjuta_variable_debugger_create (IANJUTA_VARIABLE_DEBUGGER (args->tree->debugger), args->exp, gdb_var_create, tData, NULL);
 		}
 	} else {
 		data = alloc_item_data(args->name);
@@ -840,21 +818,11 @@ on_treeview_row_expanded       (GtkTreeView     *treeview,
 		local_data_transport *tData = alloc_data_transport(model, arg1, iData);
 		if(iData->is_root && !iData->tree->debugger)
 		{
-			ianjuta_variable_debugger_create (
-					IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
-					iData->name,
-					(IAnjutaDebuggerCallback)gdb_var_create,
-					tData,
-					NULL);
+			ianjuta_variable_debugger_create (IANJUTA_VARIABLE_DEBUGGER (tree->debugger), iData->name, gdb_var_create, tData, NULL);
 		} else {
 			iData->expandable = FALSE;
 			iData->expanded = TRUE;
-			ianjuta_variable_debugger_list_children (
-					IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
-					iData->name,
-					(IAnjutaDebuggerCallback)gdb_var_list_children,
-					tData,
-					NULL);
+			ianjuta_variable_debugger_list_children (IANJUTA_VARIABLE_DEBUGGER (tree->debugger), iData->name, gdb_var_list_children, tData, NULL);
 		}
     }
 
@@ -871,7 +839,7 @@ on_debug_tree_variable_changed (GtkCellRendererText *cell,
 	GtkTreeIter iter;
 	GtkTreeModel * model;
 	
-    model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
+    model = gtk_tree_view_get_model (tree->view);
 	if (gtk_tree_model_get_iter_from_string (model, &iter, path_string))
 	{
 		debug_tree_remove (tree, &iter);
@@ -896,7 +864,7 @@ on_debug_tree_value_changed (GtkCellRendererText *cell,
 	GtkTreeIter iter;
 	GtkTreeModel * model;
 	
-    model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
+    model = gtk_tree_view_get_model (tree->view);
 
 	if (gtk_tree_model_get_iter_from_string (model, &iter, path_string))
 	{
@@ -907,14 +875,9 @@ on_debug_tree_value_changed (GtkCellRendererText *cell,
 		if (item != NULL)
 		{
 			/* Variable is valid */
-			ianjuta_variable_debugger_assign (IANJUTA_VARIABLE_DEBUGGER (tree->debugger), item->name, text, NULL);
+			ianjuta_variable_debugger_assign (tree->debugger, item->name, text, NULL);
 			tran = alloc_data_transport(model, &iter, item);
-			ianjuta_variable_debugger_evaluate (
-					IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
-					item->name,
-					(IAnjutaDebuggerCallback) gdb_var_evaluate_expression,
-					tran,
-					NULL);
+			ianjuta_variable_debugger_evaluate (tree->debugger, item->name, gdb_var_evaluate_expression, tran, NULL);
 		}
 	}
 }
@@ -924,17 +887,17 @@ debug_tree_create (DebugTree *tree, GtkTreeView *view)
 {
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	GtkTreeModel * model = GTK_TREE_MODEL (gtk_tree_store_new
+	GtkTreeModel * model = gtk_tree_store_new
 			                     (N_COLUMNS, 
 	                                          G_TYPE_STRING, 
 	                                          G_TYPE_STRING,
                                               G_TYPE_STRING,
 								              G_TYPE_BOOLEAN,
-			                      G_TYPE_POINTER));
+			                      G_TYPE_POINTER);
 	
 	if (view == NULL)
 	{
-		view = GTK_TREE_VIEW (gtk_tree_view_new ());
+		view = gtk_tree_view_new ();
 	}
 	
     gtk_tree_view_set_model (view, GTK_TREE_MODEL (model));
@@ -1017,12 +980,12 @@ debug_tree_find_name (const GtkTreeModel *model, GtkTreeIter *iter, const gchar 
 			gboolean search;
 			
 			len = ptr - name;
-			for (search = gtk_tree_model_iter_children ((GtkTreeModel *)model, iter, parent);
+			for (search = gtk_tree_model_iter_children (model, iter, parent);
 				search != FALSE;
-	    		search = gtk_tree_model_iter_next ((GtkTreeModel *)model, iter))
+	    		search = gtk_tree_model_iter_next (model, iter))
 			{
 				item_data *iData;
-        		gtk_tree_model_get ((GtkTreeModel *)model, iter, DTREE_ENTRY_COLUMN, &iData, -1);
+        		gtk_tree_model_get (model, iter, DTREE_ENTRY_COLUMN, &iData, -1);
 			
 				if ((iData != NULL) && (iData->name != NULL) && (name[len] == '.') && (strncmp (name, iData->name, len) == 0))
 				{
@@ -1046,12 +1009,12 @@ debug_tree_find_name (const GtkTreeModel *model, GtkTreeIter *iter, const gchar 
 			/* Variable without any child */
 			gboolean search;
 
-			for (search = gtk_tree_model_iter_children ((GtkTreeModel *)model, iter, parent);
+			for (search = gtk_tree_model_iter_children (model, iter, parent);
 				search != FALSE;
-	    		search = gtk_tree_model_iter_next ((GtkTreeModel *)model, iter))
+	    		search = gtk_tree_model_iter_next (model, iter))
 			{
 				item_data *iData;
-        		gtk_tree_model_get ((GtkTreeModel *)model, iter, DTREE_ENTRY_COLUMN, &iData, -1);
+        		gtk_tree_model_get (model, iter, DTREE_ENTRY_COLUMN, &iData, -1);
 			
 				if ((iData != NULL) && (iData->name != NULL) && (strcmp (name, iData->name) == 0))
 				{
@@ -1070,19 +1033,19 @@ debug_tree_find_expression (const GtkTreeModel *model, GtkTreeIter *iter, const 
 	gboolean search;
 	gboolean found = FALSE;
 	
-	for (search = gtk_tree_model_get_iter_first ((GtkTreeModel *)model, iter);
+	for (search = gtk_tree_model_get_iter_first (model, iter);
 		search && !found;
-	    search = gtk_tree_model_iter_next ((GtkTreeModel *)model, iter))
+	    search = gtk_tree_model_iter_next (model, iter))
 	{
 		gchar *exp;
 		gchar *typ;
 		
-        gtk_tree_model_get ((GtkTreeModel *)model, iter, TYPE_COLUMN, &typ, VARIABLE_COLUMN, &exp, -1);
+        gtk_tree_model_get (model, iter, TYPE_COLUMN, &typ, VARIABLE_COLUMN, &exp, -1);
 		
 		found = ((type == NULL) || (strcmp (typ, type) == 0))
 			&& ((expression == NULL) || (strcmp (exp, expression) == 0));
 		
-		if (typ != NULL) g_free (typ);
+		if (type != NULL) g_free (type);
 		if (exp != NULL) g_free (exp);
 	}
 	
@@ -1109,7 +1072,7 @@ on_replace_watch (gpointer data, gpointer user_data)
 	}
 	else
 	{
-		var.expression = (gchar *)expression;
+		var.expression = expression;
 		debug_tree_add_watch (tree, &var, TRUE);
 	}
 }
@@ -1122,7 +1085,7 @@ debug_tree_replace_list (DebugTree *tree, const GList *expressions)
 	/* Mark variables as not analyzed */
 	gtk_tree_model_foreach(model,set_not_analyzed,NULL);	
 	
-	g_list_foreach ((GList *)expressions, on_replace_watch, tree);	
+	g_list_foreach (expressions, on_replace_watch, tree);	
 
 	destroy_non_analyzed (model);	
 }
@@ -1148,7 +1111,7 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariable* var, gbool
 	GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
 	GtkTreeIter iter;
 	item_data *item = NULL;
-	// gchar *exp;
+	gchar *exp;
 	
 	/* Allocate data */
 	item = alloc_item_data(var->name);
@@ -1177,12 +1140,7 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariable* var, gbool
 				local_data_transport *tran;
 		
 				tran = alloc_data_transport(model, &iter, item);
-				ianjuta_variable_debugger_create (
-						IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
-						var->expression,
-						(IAnjutaDebuggerCallback)gdb_var_create,
-						tran,
-						NULL);
+				ianjuta_variable_debugger_create (IANJUTA_VARIABLE_DEBUGGER (tree->debugger), var->expression, gdb_var_create, tran, NULL);
 			}
 			else
 			{
@@ -1192,12 +1150,7 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariable* var, gbool
 					local_data_transport *tran =
 					
 					tran = alloc_data_transport(model, &iter, item);
-					ianjuta_variable_debugger_evaluate (
-							IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
-							var->name,
-							(IAnjutaDebuggerCallback)gdb_var_evaluate_expression,
-							tran,
-							NULL);
+					ianjuta_variable_debugger_evaluate (IANJUTA_VARIABLE_DEBUGGER (tree->debugger), var->name, gdb_var_evaluate_expression, tran, NULL);
 				}
 				if (var->children == -1)
 				{
@@ -1205,12 +1158,7 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariable* var, gbool
 					local_data_transport *tran =
 					
 					tran = alloc_data_transport(model, &iter, item);
-					ianjuta_variable_debugger_list_children (
-							IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
-							var->name,
-							(IAnjutaDebuggerCallback)gdb_var_list_children,
-							tran,
-							NULL);
+					ianjuta_variable_debugger_list_children (IANJUTA_VARIABLE_DEBUGGER (tree->debugger), var->name, gdb_var_list_children, tran, NULL);
 				}
 			}
 		}
@@ -1249,7 +1197,7 @@ on_add_watch (gpointer data, gpointer user_data)
 	gboolean auto_update = ((const gchar *)data)[0] & AUTO_UPDATE_WATCH ? TRUE : FALSE;
 	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
 
-	var.expression = &((gchar *)data)[1];
+	var.expression = &((const gchar *)data)[1];
 	debug_tree_add_watch (this, &var, auto_update);
 }
 
@@ -1265,7 +1213,7 @@ on_add_manual_watch (gpointer data, gpointer user_data)
 	DebugTree* this = (DebugTree *)user_data;
 	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
 
-	var.expression = &((gchar *)data)[0];
+	var.expression = &((const gchar *)data)[0];
 	debug_tree_add_watch (this, &var, FALSE);
 }
 
@@ -1275,7 +1223,7 @@ on_add_auto_watch (gpointer data, gpointer user_data)
 	DebugTree* this = (DebugTree *)user_data;
 	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
 	
-	var.expression = &((gchar *)data)[0];
+	var.expression = &((const gchar *)data)[0];
 	debug_tree_add_watch (this, &var, TRUE);
 }
 
@@ -1343,7 +1291,7 @@ on_debug_tree_update_all (const GList *change, gpointer user_data, GError* err)
 	if (err != NULL) return;
 
 	// Mark all modified variables
-	g_list_foreach ((GList *)change, on_debug_tree_changed, NULL);
+	g_list_foreach (change, on_debug_tree_changed, NULL);
 
 	// Update this tree
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
@@ -1369,11 +1317,7 @@ debug_tree_update_all (DebugTree* tree)
 	if (tree->debugger != NULL)
 	{
 		/* Update if debugger is connected */
-		ianjuta_variable_debugger_update (
-				IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
-				(IAnjutaDebuggerCallback)on_debug_tree_update_all,
-				tree,
-				NULL);
+		ianjuta_variable_debugger_update (tree->debugger, on_debug_tree_update_all, tree, NULL);
 	}
 }
 
@@ -1422,7 +1366,7 @@ debug_tree_get_tree_widget (DebugTree *this)
 gboolean
 debug_tree_get_current (DebugTree *tree, GtkTreeIter* iter)
 {
-	return get_current_iter (GTK_TREE_VIEW (tree->view), iter);
+	return get_current_iter (tree->view, iter);
 }
 
 void
@@ -1455,12 +1399,7 @@ debug_tree_update (DebugTree* tree, GtkTreeIter* iter, gboolean force)
 		gtk_tree_model_get (model, iter, VARIABLE_COLUMN, &exp, -1);
 		tData = alloc_data_transport(model, iter, data);
 		data->modified = TRUE;
-		ianjuta_variable_debugger_create (
-				IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger),
-				exp,
-				(IAnjutaDebuggerCallback)gdb_var_create,
-				tData,
-				NULL);
+		ianjuta_variable_debugger_create (IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger), exp, gdb_var_create, tData, NULL);
 		g_free (exp);
 		
 		return FALSE;
@@ -1471,12 +1410,7 @@ debug_tree_update (DebugTree* tree, GtkTreeIter* iter, gboolean force)
                                 alloc_data_transport(model, iter, data);
 		refresh = data->modified != (data->changed != FALSE);
 		data->modified = (data->changed != FALSE);
-		ianjuta_variable_debugger_evaluate (
-				IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger),
-				data->name,
-				(IAnjutaDebuggerCallback)gdb_var_evaluate_expression,
-				tData,
-				NULL);
+		ianjuta_variable_debugger_evaluate (IANJUTA_VARIABLE_DEBUGGER (data->tree->debugger), data->name, gdb_var_evaluate_expression, tData, NULL);
 	}
 	else
 	{
@@ -1587,7 +1521,7 @@ debug_tree_new (AnjutaPlugin* plugin)
 void
 debug_tree_free (DebugTree * d_tree)
 {
-	// AnjutaUI *ui;
+	AnjutaUI *ui;
 	
 	g_return_if_fail (d_tree);
 

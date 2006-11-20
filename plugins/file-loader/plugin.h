@@ -2,10 +2,6 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libegg/recent-files/egg-recent-model.h>
 
-extern GType anjuta_file_loader_plugin_type;
-#define ANJUTA_FILE_LOADER_PLUGIN_TYPE (anjuta_file_loader_plugin_type)
-#define ANJUTA_FILE_LOADER_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_FILE_LOADER_PLUGIN_TYPE, AnjutaFileLoaderPlugin))
-
 typedef struct _AnjutaFileLoaderPlugin AnjutaFileLoaderPlugin;
 typedef struct _AnjutaFileLoaderPluginClass AnjutaFileLoaderPluginClass;
 

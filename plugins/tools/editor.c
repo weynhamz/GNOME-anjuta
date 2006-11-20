@@ -448,7 +448,7 @@ atp_variable_dialog_show (ATPVariableDialog* this, ATPFlags flag)
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), GTK_WINDOW (this->editor->dialog));
 
 	/* Create variable list */
-	this->view = GTK_TREE_VIEW (glade_xml_get_widget(xml, VARIABLE_TREEVIEW));
+	this->view = (GtkTreeView *) glade_xml_get_widget(xml, VARIABLE_TREEVIEW);
 	model = GTK_TREE_MODEL (gtk_list_store_new (ATP_N_VARIABLE_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING));
 	gtk_tree_view_set_model (this->view, model);
 
@@ -495,9 +495,9 @@ atp_update_sensitivity(ATPToolEditor *this)
 
 	/* Deactivate output and input setting if a terminal is used */
 	en = gtk_toggle_button_get_active (this->terminal_tb);
-	gtk_widget_set_sensitive(GTK_WIDGET (this->output_com), !en);
-	gtk_widget_set_sensitive(GTK_WIDGET (this->error_com), !en);
-	gtk_widget_set_sensitive(GTK_WIDGET (this->input_com), !en);
+	gtk_widget_set_sensitive((GtkWidget *) this->output_com, !en);
+	gtk_widget_set_sensitive((GtkWidget *) this->error_com, !en);
+	gtk_widget_set_sensitive((GtkWidget *) this->input_com, !en);
 
 	/* input value is available for a few input type only */
 	if (!en)
@@ -512,13 +512,13 @@ atp_update_sensitivity(ATPToolEditor *this)
 			en = FALSE;
 			break;
 		}
-		gtk_widget_set_sensitive(GTK_WIDGET (this->input_en), en);
-		gtk_widget_set_sensitive(GTK_WIDGET (this->input_var_bt), en);
+		gtk_widget_set_sensitive((GtkWidget *) this->input_en, en);
+		gtk_widget_set_sensitive((GtkWidget *) this->input_var_bt, en);
 	}
 	else
 	{
-		gtk_widget_set_sensitive(GTK_WIDGET (this->input_en), FALSE);
-		gtk_widget_set_sensitive(GTK_WIDGET (this->input_var_bt), FALSE);
+		gtk_widget_set_sensitive((GtkWidget *) this->input_en, FALSE);
+		gtk_widget_set_sensitive((GtkWidget *) this->input_var_bt, FALSE);
 	}
 }
 
@@ -823,7 +823,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 				gchar *uri;
 
 				/* Not found, load file */
-				loader = IANJUTA_FILE_LOADER (anjuta_shell_get_interface (ANJUTA_PLUGIN (this->parent->plugin)->shell, IAnjutaFileLoader, NULL));
+				loader = (IAnjutaFileLoader *)anjuta_shell_get_interface (ANJUTA_PLUGIN (this->parent->plugin)->shell, IAnjutaFileLoader, NULL);
 				uri = g_strdup_printf("file:///%s", data);
 				ianjuta_file_loader_load (loader, uri, FALSE, NULL);
 				g_free (uri);
@@ -982,25 +982,25 @@ atp_tool_editor_show (ATPToolEditor* this)
 	gtk_widget_show (this->dialog);
 	gtk_window_set_transient_for (GTK_WINDOW (this->dialog), atp_plugin_get_app_window (this->parent->plugin));
 
-	this->name_en = GTK_EDITABLE (glade_xml_get_widget (xml, TOOL_NAME));
-	this->command_en = GTK_EDITABLE (glade_xml_get_widget (xml, TOOL_COMMAND));
-	this->param_en = GTK_EDITABLE (glade_xml_get_widget (xml, TOOL_PARAM));
+	this->name_en = (GtkEditable *) glade_xml_get_widget (xml, TOOL_NAME);
+	this->command_en = (GtkEditable *) glade_xml_get_widget (xml, TOOL_COMMAND);
+	this->param_en = (GtkEditable *) glade_xml_get_widget (xml, TOOL_PARAM);
 	atp_variable_dialog_set_entry (&this->param_var, this->param_en);
-	this->dir_en = GTK_EDITABLE (glade_xml_get_widget (xml, TOOL_WORKING_DIR));
+	this->dir_en = (GtkEditable *) glade_xml_get_widget (xml, TOOL_WORKING_DIR);
 	atp_variable_dialog_set_entry (&this->dir_var, this->dir_en);
-	this->enabled_tb = GTK_TOGGLE_BUTTON (glade_xml_get_widget (xml, TOOL_ENABLED));
-	this->terminal_tb = GTK_TOGGLE_BUTTON (glade_xml_get_widget(xml, TOOL_TERMINAL));
-	this->autosave_tb = GTK_TOGGLE_BUTTON (glade_xml_get_widget(xml, TOOL_AUTOSAVE));
-	this->script_tb = GTK_TOGGLE_BUTTON (glade_xml_get_widget(xml, TOOL_SCRIPT));
-	this->output_com = GTK_COMBO_BOX (glade_xml_get_widget(xml, TOOL_OUTPUT));
-	this->error_com = GTK_COMBO_BOX (glade_xml_get_widget(xml, TOOL_ERROR));
-	this->input_com = GTK_COMBO_BOX (glade_xml_get_widget(xml, TOOL_INPUT));
-	this->input_en = GTK_EDITABLE (glade_xml_get_widget(xml, TOOL_INPUT_VALUE));
-	this->input_var_bt = GTK_BUTTON (glade_xml_get_widget(xml, TOOL_INPUT_VARIABLE));
-	this->shortcut_bt = GTK_TOGGLE_BUTTON (glade_xml_get_widget(xml, TOOL_SHORTCUT));
+	this->enabled_tb = (GtkToggleButton *) glade_xml_get_widget (xml, TOOL_ENABLED);
+	this->terminal_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_TERMINAL);
+	this->autosave_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_AUTOSAVE);
+	this->script_tb = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_SCRIPT);
+	this->output_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_OUTPUT);
+	this->error_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_ERROR);
+	this->input_com = (GtkComboBox *) glade_xml_get_widget(xml, TOOL_INPUT);
+	this->input_en = (GtkEditable *) glade_xml_get_widget(xml, TOOL_INPUT_VALUE);
+	this->input_var_bt = (GtkButton *) glade_xml_get_widget(xml, TOOL_INPUT_VARIABLE);
+	this->shortcut_bt = (GtkToggleButton *) glade_xml_get_widget(xml, TOOL_SHORTCUT);
 	atp_variable_dialog_set_entry (&this->input_file_var, this->input_en);
 	atp_variable_dialog_set_entry (&this->input_string_var, this->input_en);
-	this->icon_en = GNOME_ICON_ENTRY (glade_xml_get_widget(xml, TOOL_ICON));
+	this->icon_en = (GnomeIconEntry *) glade_xml_get_widget(xml, TOOL_ICON);
 
 	/* Add combox box value */
 	set_combo_box_enum_model (this->error_com, atp_get_error_type_list());

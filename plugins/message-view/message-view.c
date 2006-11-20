@@ -502,7 +502,7 @@ on_adjustment_changed (GtkAdjustment* adj, gpointer data)
 static void
 on_adjustment_value_changed (GtkAdjustment* adj, gpointer data)
 {
-	MessageView *self = MESSAGE_VIEW (data);
+	MessageView *self = (MessageView *) data;
 	if (adj->value > (adj->upper - adj->page_size) - 0.1)
 	{
 		if (!self->privat->adj_chgd_hdlr)

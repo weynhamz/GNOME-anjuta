@@ -1176,7 +1176,7 @@ search_update_combos(void)
 	search_entry = sr_get_gladewidget(SEARCH_STRING)->widget;
 	if (search_entry && te)
 	{
-		search_word = g_strdup(gtk_entry_get_text(GTK_ENTRY (search_entry)));
+		search_word = g_strdup(gtk_entry_get_text((GtkEntry *) search_entry));
 		if (search_word  && strlen(search_word) > 0)
 		{
 			if (!word_in_list(sr->search.expr_history, search_word))
@@ -1187,7 +1187,7 @@ search_update_combos(void)
 					search_word);
 				sr->search.expr_history = list_max_items(sr->search.expr_history,
 					MAX_ITEMS_SEARCH_COMBO);
-				gtk_combo_set_popdown_strings(GTK_COMBO (search_list),
+				gtk_combo_set_popdown_strings((GtkCombo *) search_list,
 					sr->search.expr_history);
 				
 				search_toolbar_set_text(search_word);	
@@ -1210,7 +1210,7 @@ replace_update_combos(void)
 	replace_entry = sr_get_gladewidget(REPLACE_STRING)->widget;
 	if (replace_entry && te)
 	{
-		replace_word = g_strdup(gtk_entry_get_text(GTK_ENTRY (replace_entry)));
+		replace_word = g_strdup(gtk_entry_get_text((GtkEntry *) replace_entry));
 		if (replace_word  && strlen(replace_word) > 0)
 		{
 			if (!word_in_list(sr->replace.expr_history, replace_word))
@@ -1221,7 +1221,7 @@ replace_update_combos(void)
 					replace_word);
 				sr->replace.expr_history = list_max_items(sr->replace.expr_history,
 					MAX_ITEMS_SEARCH_COMBO);
-				gtk_combo_set_popdown_strings(GTK_COMBO (replace_list),
+				gtk_combo_set_popdown_strings((GtkCombo *) replace_list,
 					sr->replace.expr_history);
 			}
 		}
@@ -1666,7 +1666,7 @@ on_search_expression_activate (GtkEditable *edit, gpointer user_data)
 	
 	search_and_replace();
 	combo = GTK_WIDGET(edit)->parent;
-	gtk_combo_disable_activate(GTK_COMBO (combo));
+	gtk_combo_disable_activate((GtkCombo*)combo);
 	reset_flags_and_search_button();
 }
 
@@ -1769,7 +1769,7 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 		{
 			if (strlen(current_word) > MAX_LENGTH_SEARCH)
 				current_word[MAX_LENGTH_SEARCH] = '\0';
-			gtk_entry_set_text(GTK_ENTRY (search_entry), current_word);
+			gtk_entry_set_text((GtkEntry *) search_entry, current_word);
 			g_free(current_word);
 		}
 	}

@@ -29,10 +29,6 @@
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-cvs-plugin.glade"
 
-extern GType cvs_plugin_type;
-#define CVS_PLUGIN_TYPE (cvs_plugin_type)
-#define CVS_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), CVS_PLUGIN_TYPE, CVSPlugin))
-
 typedef struct _CVSPlugin CVSPlugin;
 typedef struct _CVSPluginClass CVSPluginClass;
 

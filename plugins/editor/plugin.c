@@ -65,7 +65,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	/* EditorPlugin *eplugin = EDITOR_PLUGIN (obj); */
+	/* EditorPlugin *eplugin = (EditorPlugin*)obj; */
 
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
@@ -73,7 +73,7 @@ dispose (GObject *obj)
 static void
 editor_plugin_instance_init (GObject *obj)
 {
-	/* EditorPlugin *plugin = EDITOR_PLUGIN (obj); */
+	/* EditorPlugin *plugin = (EditorPlugin*)obj; */
 }
 
 static void
@@ -111,8 +111,8 @@ itext_editor_factory_iface_init (IAnjutaEditorFactoryIface *iface)
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
+	EditorPlugin* plugin = (EditorPlugin*)ipref;
 	GladeXML* gxml;
-	EditorPlugin* plugin = EDITOR_PLUGIN (ipref);
 	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
 	plugin->style_button = glade_xml_get_widget(gxml, "style_button");
 	g_signal_connect(G_OBJECT(plugin->style_button), "clicked", 
@@ -125,7 +125,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	EditorPlugin* plugin = EDITOR_PLUGIN (ipref);
+	EditorPlugin* plugin = (EditorPlugin*)ipref;
 	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->style_button), 
 		G_CALLBACK(on_style_button_clicked), 
 		anjuta_shell_get_preferences(ANJUTA_PLUGIN(plugin)->shell, NULL));

@@ -172,7 +172,7 @@ atp_plugin_dispose (GObject *obj)
 static gboolean
 atp_plugin_activate (AnjutaPlugin *plugin)
 {
-	ATPPlugin *this = ATP_PLUGIN (plugin);
+	ATPPlugin *this = (ATPPlugin*)plugin;
 	AnjutaUI *ui;
 	GtkMenu* menu;
 	GtkWidget* sep;
@@ -212,7 +212,7 @@ atp_plugin_activate (AnjutaPlugin *plugin)
 static gboolean
 atp_plugin_deactivate (AnjutaPlugin *plugin)
 {
-	ATPPlugin *this = ATP_PLUGIN (plugin);
+	ATPPlugin *this = (ATPPlugin*)plugin;
 	AnjutaUI *ui;
 
 	DEBUG_PRINT ("Tools Plugin: Deactivating tools plugin...");
@@ -255,23 +255,23 @@ atp_plugin_get_app_window (const ATPPlugin *this)
 ATPToolList*
 atp_plugin_get_tool_list (const ATPPlugin* this)
 {
-	return &(ATP_PLUGIN (this)->list);
+	return &(((ATPPlugin *)this)->list);
 }
 
 ATPToolDialog*
 atp_plugin_get_tool_dialog (const ATPPlugin *this)
 {
-	return &(ATP_PLUGIN (this)->dialog);
+	return &(((ATPPlugin *)this)->dialog);
 }
 
 ATPVariable*
 atp_plugin_get_variable (const ATPPlugin *this)
 {
-	return &(ATP_PLUGIN (this)->variable);
+	return &(((ATPPlugin *)this)->variable);
 }
 
 ATPContextList* 
 atp_plugin_get_context_list (const ATPPlugin *this)
 {
-	return &(ATP_PLUGIN (this)->context);
+	return &(((ATPPlugin *)this)->context);
 }

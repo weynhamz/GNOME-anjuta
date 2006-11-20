@@ -134,7 +134,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	filename = gnome_vfs_get_local_path_from_uri (uri);
 	g_return_if_fail (filename != NULL);
 
-	Subversion *subversion = SUBVERSION (plugin);
+	Subversion *subversion = (Subversion*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	if (subversion->fm_current_filename)
@@ -191,7 +191,7 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	AnjutaUI *ui;
 	GtkAction *action;
 	
-	Subversion *subversion = SUBVERSION (plugin);
+	Subversion *subversion = (Subversion*)plugin;
 	
 	if (subversion->fm_current_filename)
 		g_free (subversion->fm_current_filename);
@@ -209,7 +209,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	Subversion *bb_plugin;
 	const gchar *root_uri;
 
-	bb_plugin = SUBVERSION (plugin);
+	bb_plugin = (Subversion *) plugin;
 	
 	DEBUG_PRINT ("Project added");
 	
@@ -235,7 +235,7 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 {
 	Subversion *bb_plugin;
 
-	bb_plugin = SUBVERSION (plugin);
+	bb_plugin = (Subversion *) plugin;
 	if (bb_plugin->project_root_dir)
 		g_free (bb_plugin->project_root_dir);
 	bb_plugin->project_root_dir = NULL;
@@ -252,7 +252,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	editor = g_value_get_object (value);
 	
-	Subversion *subversion = SUBVERSION (plugin);
+	Subversion *subversion = (Subversion*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	if (subversion->current_editor_filename)
@@ -276,7 +276,7 @@ static void
 value_removed_current_editor (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
-	Subversion *subversion = SUBVERSION (plugin);
+	Subversion *subversion = (Subversion*)plugin;
 	
 	if (subversion->current_editor_filename)
 		g_free (subversion->current_editor_filename);
@@ -296,7 +296,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	Subversion *subversion;
 	
 	DEBUG_PRINT ("Subversion: Activating Subversion plugin ...");
-	subversion = SUBVERSION (plugin);
+	subversion = (Subversion*) plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -344,36 +344,36 @@ activate_plugin (AnjutaPlugin *plugin)
 static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
-	Subversion *subversion = SUBVERSION (plugin);
+	Subversion *subversion = (Subversion*) plugin;
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	DEBUG_PRINT ("Subversion: Dectivating Subversion plugin ...");
 	anjuta_plugin_remove_watch (plugin, subversion->fm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, subversion->project_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, subversion->editor_watch_id, TRUE);
-	anjuta_ui_unmerge (ui, SUBVERSION (plugin)->uiid);
-	anjuta_ui_remove_action_group (ui, SUBVERSION (plugin)->action_group);
-	anjuta_ui_remove_action_group (ui, SUBVERSION (plugin)->popup_action_group);
+	anjuta_ui_unmerge (ui, ((Subversion*)plugin)->uiid);
+	anjuta_ui_remove_action_group (ui, ((Subversion*)plugin)->action_group);
+	anjuta_ui_remove_action_group (ui, ((Subversion*)plugin)->popup_action_group);
 	return TRUE;
 }
 
 static void
 finalize (GObject *obj)
 {
-	// Subversion *plugin = SUBVERSION (obj);
+	// Subversion *plugin = (Subversion*)obj;
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
 
 static void
 dispose (GObject *obj)
 {
-	// Subversion *plugin = SUBVERSION (obj);
+	// Subversion *plugin = (Subversion*)obj;
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (G_OBJECT(obj)));
 }
 
 static void
 subversion_instance_init (GObject *obj)
 {
-	Subversion *plugin = SUBVERSION (obj);
+	Subversion *plugin = (Subversion*)obj;
 	plugin->uiid = 0;
 	plugin->mesg_view = NULL;
 	plugin->launcher = NULL;
@@ -403,7 +403,7 @@ static void
 ianjuta_subversion_add (IAnjutaVcs *obj, const gchar* filename, 
 	GError **err)
 {
-	Subversion* plugin = SUBVERSION (obj);
+	Subversion* plugin = (Subversion*)obj;
 	svn_backend_add(plugin->backend, filename, FALSE, FALSE);
 }
 	
@@ -411,14 +411,14 @@ static void
 ianjuta_subversion_commit (IAnjutaVcs *obj, const gchar* filename, const gchar* log, 
 						 gboolean recurse, GError **err)
 {
-	Subversion* plugin = SUBVERSION (obj);
+	Subversion* plugin = (Subversion*)obj;
 	svn_backend_commit(plugin->backend, filename, log, recurse);
 }
 
 static void
 ianjuta_subversion_remove (IAnjutaVcs *obj, const gchar* filename, GError **err)
 {
-	Subversion* plugin = SUBVERSION (obj);
+	Subversion* plugin = (Subversion*)obj;
 	svn_backend_remove(plugin->backend, filename, FALSE);
 }
 
@@ -426,7 +426,7 @@ ianjuta_subversion_remove (IAnjutaVcs *obj, const gchar* filename, GError **err)
 static void
 ianjuta_subversion_update (IAnjutaVcs *obj, const gchar* filename, gboolean recurse, GError **err)
 {
-	Subversion* plugin = SUBVERSION (obj);
+	Subversion* plugin = (Subversion*)obj;
 	svn_backend_update(plugin->backend, filename, NULL, recurse);
 }
 

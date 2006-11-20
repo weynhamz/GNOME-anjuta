@@ -145,7 +145,7 @@ on_cvs_message (AnjutaLauncher *launcher,
 					   AnjutaLauncherOutputType output_type,
 					   const gchar * mesg, gpointer user_data)
 {
-	CVSPlugin* plugin = CVS_PLUGIN (user_data);
+	CVSPlugin* plugin = (CVSPlugin*)user_data;
 	if (plugin->mesg_view)
 		ianjuta_message_view_buffer_append (plugin->mesg_view, mesg, NULL);
 }
@@ -155,7 +155,7 @@ on_cvs_status(AnjutaLauncher *launcher,
 					   AnjutaLauncherOutputType output_type,
 					   const gchar * mesg, gpointer user_data)
 {
-	CVSPlugin* plugin = CVS_PLUGIN (user_data);
+	CVSPlugin* plugin = (CVSPlugin*)user_data;
 	switch(output_type)
 	{
 		case ANJUTA_LAUNCHER_OUTPUT_STDERR:
@@ -186,7 +186,7 @@ on_cvs_diff(AnjutaLauncher *launcher,
 			const gchar * mesg, gpointer user_data)
 {
 	g_return_if_fail (user_data != NULL);
-	CVSPlugin* plugin = CVS_PLUGIN (user_data);
+	CVSPlugin* plugin = (CVSPlugin*)user_data;
 	
 	switch(output_type)
 	{

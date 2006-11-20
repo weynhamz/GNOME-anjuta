@@ -1,5 +1,12 @@
 2006-11-20  Johannes Schmid <jhs@gnome.org>
 
+	* configure.in
+	* plugins/*/*.[ch]:
+	Removed patches from Sylvain and Günther. They caused not problems but
+	Naba was against them.
+
+2006-11-20  Johannes Schmid <jhs@gnome.org>
+
 	* Removed me from MAINTAINERS
 
 2006-11-14  Günther Brammer <GBrammer@gmx.de>

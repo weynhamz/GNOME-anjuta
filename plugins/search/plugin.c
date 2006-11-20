@@ -120,7 +120,7 @@ on_enterselection (GtkAction * action, gpointer user_data)
 	gchar *selectionText = NULL;
 	GSList *proxies;
 	
-	plugin = SEARCH_PLUGIN (user_data);
+	plugin = (SearchPlugin *) user_data;
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
 	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
 										IAnjutaDocumentManager, NULL);
@@ -157,7 +157,7 @@ on_prev_occur(GtkAction * action, gpointer user_data)
     gint return_;
 	gchar *buffer = NULL;
 	
-	plugin = SEARCH_PLUGIN (user_data);
+	plugin = (SearchPlugin *) user_data;
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										IAnjutaDocumentManager, NULL);
 	te = ianjuta_document_manager_get_current_editor (docman, NULL);
@@ -191,7 +191,7 @@ on_next_occur(GtkAction * action, gpointer user_data)
     gint return_;
 	gchar *buffer = NULL;
 	
-	plugin = SEARCH_PLUGIN (user_data);
+	plugin = (SearchPlugin *) user_data;
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										IAnjutaDocumentManager, NULL);
 	te = ianjuta_document_manager_get_current_editor (docman, NULL);
@@ -257,7 +257,7 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 	AnjutaStatus *status; 
 	AnjutaUI* ui;
 	
-	plugin = SEARCH_PLUGIN (user_data);
+	plugin = (SearchPlugin *) user_data;
 	docman = plugin->docman;
 	te = ianjuta_document_manager_get_current_editor(docman, NULL);
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
@@ -349,7 +349,7 @@ on_toolbar_find_start_over (GtkAction * action, gpointer user_data)
 	IAnjutaDocumentManager *docman;
 	SearchPlugin *plugin;
 	
-	plugin = SEARCH_PLUGIN (user_data);
+	plugin = (SearchPlugin *) user_data;
 	docman = plugin->docman;
 	te = ianjuta_document_manager_get_current_editor(docman, NULL);
 	
@@ -368,7 +368,7 @@ on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data)
 	GSList *entries, *node;
 	static GHashTable *entries_connected = NULL;
 	
-	plugin = SEARCH_PLUGIN (user_data);
+	plugin = (SearchPlugin *) user_data;
 	docman = plugin->docman;
 	te = ianjuta_document_manager_get_current_editor(docman, NULL);
 
@@ -417,7 +417,7 @@ on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data)
 	IncrementalSearch *search_params;
 	AnjutaStatus *status; 
 	
-	plugin = SEARCH_PLUGIN (user_data);
+	plugin = (SearchPlugin *) user_data;
 	docman = plugin->docman;
 	te = ianjuta_document_manager_get_current_editor(docman, NULL);
 
@@ -445,7 +445,7 @@ on_toolbar_find_incremental (GtkAction *action, gpointer user_data)
 	SearchPlugin *plugin;
 	IncrementalSearch *search_params;
 	
-	plugin = SEARCH_PLUGIN (user_data);
+	plugin = (SearchPlugin *) user_data;
 	docman = plugin->docman;
 	te = ianjuta_document_manager_get_current_editor(docman, NULL);
 	
@@ -529,7 +529,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	GtkActionGroup* group;
 	GtkAction*  action;
-	SearchPlugin* splugin = SEARCH_PLUGIN (plugin);
+	SearchPlugin* splugin = (SearchPlugin*) plugin;
 	IAnjutaDocumentManager* docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
 																IAnjutaDocumentManager, NULL);
 	
@@ -585,7 +585,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	//SearchPlugin *plugin = SEARCH_PLUGIN (obj);
+	//SearchPlugin *plugin = (SearchPlugin*)obj;
 	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
@@ -593,7 +593,7 @@ dispose (GObject *obj)
 static void
 search_plugin_instance_init (GObject *obj)
 {
-	//SearchPlugin *plugin = SEARCH_PLUGIN (obj);
+	//SearchPlugin *plugin = (SearchPlugin*)obj;
 }
 
 static void

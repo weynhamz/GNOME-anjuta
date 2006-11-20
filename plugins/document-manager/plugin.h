@@ -1,5 +1,3 @@
-#ifndef __PLUGIN_H__
-#define __PLUGIN_H__
 
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-preferences.h>
@@ -7,10 +5,6 @@
 
 #include "indent-util.h"
 #include "indent-dialog.h"
-
-extern GType docman_plugin_type;
-#define DOCMAN_PLUGIN_TYPE (docman_plugin_type)
-#define DOCMAN_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), DOCMAN_PLUGIN_TYPE, DocmanPlugin))
 
 typedef struct _DocmanPlugin DocmanPlugin;
 typedef struct _DocmanPluginClass DocmanPluginClass;
@@ -44,5 +38,3 @@ struct _DocmanPlugin{
 struct _DocmanPluginClass{
 	AnjutaPluginClass parent_class;
 };
-
-#endif

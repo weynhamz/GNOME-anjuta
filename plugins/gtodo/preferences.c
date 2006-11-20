@@ -15,7 +15,7 @@ static void preferences_cb_toggle_show_category_column(GtkWidget *chbox);
 static void preferences_cb_toggle_show_priority_column(GtkWidget *chbox);
 static void preferences_cb_toggle_enable_tray(GtkWidget *chbox);
 
-void gui_preferences(void)
+void gui_preferences()
 {
 	GtkWidget *dialog;
 	GtkWidget *notebook;
@@ -360,12 +360,10 @@ static void  pref_gconf_changed_auto_purge(GConfClient *client)
 	settings.auto_purge = gconf_client_get_bool(client,"/apps/gtodo/prefs/auto-purge",NULL);
 }    
 
-#if 0
 static void  pref_gconf_changed_auto_purge_days(GConfClient *client)
 {
 	settings.purge_days = gconf_client_get_int(client, "/apps/gtodo/prefs/auto-purge-days",NULL);
 }    
-#endif
 static void  pref_gconf_changed_sort_type(GConfClient *client)
 {
 	settings.sorttype = gconf_client_get_int(client, "/apps/gtodo/prefs/sort-type",NULL);
@@ -376,7 +374,7 @@ static void  pref_gconf_changed_sort_order(GConfClient *client)
 	settings.sortorder = gconf_client_get_int(client, "/apps/gtodo/prefs/sort-order",NULL);
 	if(settings.sortorder == 0)gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Sorting/Sort Ascending"))), TRUE);		
 	else gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Sorting/Sort Descending"))), TRUE);		
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (mw.sortmodel),0 , settings.sortorder);
+	gtk_tree_sortable_set_sort_column_id((GtkTreeSortable *)mw.sortmodel,0 , settings.sortorder);
 }    
 
 static void  pref_gconf_changed_hide_done(GConfClient *client)

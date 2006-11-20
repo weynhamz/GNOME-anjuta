@@ -27,10 +27,6 @@
 #define CLASS_GOC_HEADER_TEMPLATE	"goc_template_header"
 #define CLASS_GOC_SOURCE_TEMPLATE	"goc_template_source"
 
-extern GType class_gen_type;
-#define ANJUTA_CLASS_GEN_PLUGIN_TYPE (class_gen_type)
-#define ANJUTA_CLASS_GEN_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_CLASS_GEN_PLUGIN_TYPE, AnjutaClassGenPlugin))
-
 typedef struct _AnjutaClassGenPlugin AnjutaClassGenPlugin;
 typedef struct _AnjutaClassGenPluginClass AnjutaClassGenPluginClass;
 	

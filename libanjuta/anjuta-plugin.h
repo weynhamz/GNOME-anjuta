@@ -127,7 +127,6 @@ void anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
  * ANJUTA_PLUGIN_ADD_INTERFACE() macro.
  */
 #define ANJUTA_PLUGIN_BEGIN(class_name, prefix)                          \
-GType prefix##_type = 0;                                                 \
 static GType                                                             \
 prefix##_get_type (GluePlugin *plugin)                                   \
 {                                                                        \
@@ -147,8 +146,7 @@ prefix##_get_type (GluePlugin *plugin)                                   \
 		type = g_type_module_register_type (G_TYPE_MODULE (plugin),      \
 						    ANJUTA_TYPE_PLUGIN,                          \
 						    #class_name,                                 \
-						    &type_info, 0);                              \
-		prefix##_type = type;
+						    &type_info, 0);
 /**
  * ANJUTA_PLUGIN_END:
  * 

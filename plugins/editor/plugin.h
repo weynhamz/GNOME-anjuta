@@ -21,10 +21,6 @@
 
 #include "style-editor.h"
 
-extern GType editor_plugin_type;
-#define EDITOR_PLUGIN_TYPE (editor_plugin_type)
-#define EDITOR_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), EDITOR_PLUGIN_TYPE, EditorPlugin))
-
 typedef struct _EditorPlugin EditorPlugin;
 typedef struct _EditorPluginClass EditorPluginClass;
 

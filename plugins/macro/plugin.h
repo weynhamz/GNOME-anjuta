@@ -26,10 +26,6 @@
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-macro.glade"
 
-extern GType macro_plugin_type;
-#define MACRO_PLUGIN_TYPE (macro_plugin_type)
-#define MACRO_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), MACRO_PLUGIN_TYPE, MacroPlugin))
-
 typedef struct _MacroPlugin MacroPlugin;
 typedef struct _MacroPluginClass MacroPluginClass;
 #include "macro-db.h"

@@ -485,8 +485,8 @@ static void
 ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
-	// const gchar* lang;
-	// IAnjutaLanguageSupport* lang_support;
+	const gchar* lang;
+	IAnjutaLanguageSupport* lang_support;
 	sourceview_remove_monitor(sv);
 	anjuta_document_load(sv->priv->document, uri, NULL,
 						 -1, FALSE);
@@ -648,7 +648,6 @@ static gchar* ieditor_get_text(IAnjutaEditor* editor, gint position,
 									&start_iter, &end_iter, FALSE);
 }
 
-#if 0
 static IAnjutaEditorAttribute*
 ieditor_get_attributes(IAnjutaEditor* editor, 
 					   gint positon, gint length, GError **e)
@@ -663,7 +662,6 @@ ieditor_get_attributes(IAnjutaEditor* editor,
 	}
 	return attribs;
 }
-#endif
 
 /* Get cursor position */
 static gint ieditor_get_position(IAnjutaEditor* editor, GError **e)

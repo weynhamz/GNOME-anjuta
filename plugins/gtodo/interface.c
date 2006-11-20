@@ -234,8 +234,8 @@ GtkWidget * gui_create_todo_widget()
 	gtk_tree_view_column_set_sort_column_id (column, SUMMARY);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mw.treeview), column);    
 
-	gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE (mw.sortmodel),0, (GtkTreeIterCompareFunc)sort_function_test, NULL, NULL);
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (mw.sortmodel),0, settings.sortorder);	    
+	gtk_tree_sortable_set_sort_func((GtkTreeSortable *)mw.sortmodel,0, (GtkTreeIterCompareFunc)sort_function_test, NULL, NULL);
+	gtk_tree_sortable_set_sort_column_id((GtkTreeSortable *)mw.sortmodel,0, settings.sortorder);	    
 
 	// gtk_tree_view_column_set_fixed_width(column, 10);
 	gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -329,7 +329,7 @@ static void stock_icons()
 
 void gtodo_set_hide_done(gboolean hide_it)
 {
-	/*    settings.hide_done = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (gtk_item_factory_get_widget(mw.item_factory, N_("/View/Todo List/Hide Completed Items"))));*/
+	/*    settings.hide_done = gtk_check_menu_item_get_active((GtkCheckMenuItem *)gtk_item_factory_get_widget(mw.item_factory, N_("/View/Todo List/Hide Completed Items")));*/
 	settings.hide_done = hide_it;
 	gconf_client_set_bool(client, "/apps/gtodo/prefs/hide-done", settings.hide_done,NULL);
 }
@@ -350,13 +350,13 @@ void gtodo_set_sorting_order (gboolean ascending_sort)
 {
 	settings.sortorder = ascending_sort;
 	gconf_client_set_int(client, "/apps/gtodo/prefs/sort-order",settings.sortorder,NULL);
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (mw.sortmodel),0, settings.sortorder);
+	gtk_tree_sortable_set_sort_column_id((GtkTreeSortable *)mw.sortmodel,0, settings.sortorder);
 }
 
 void gtodo_set_sorting_type (int sorting_type)
 {
 	settings.sorttype = sorting_type;
 	gconf_client_set_int(client, "/apps/gtodo/prefs/sort-type",sorting_type,NULL);
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (gtk_tree_view_get_model(GTK_TREE_VIEW(mw.treeview))),0, settings.sortorder);
+	gtk_tree_sortable_set_sort_column_id((GtkTreeSortable *)gtk_tree_view_get_model(GTK_TREE_VIEW(mw.treeview)),0, settings.sortorder);
 	category_changed();
 }

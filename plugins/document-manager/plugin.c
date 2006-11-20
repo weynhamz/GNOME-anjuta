@@ -480,7 +480,7 @@ ui_states_init (AnjutaPlugin *plugin)
 		VIEW_LINE_WRAP
 	};
 	
-	eplugin = DOCMAN_PLUGIN (plugin);
+	eplugin = (DocmanPlugin*)plugin;
 	for (i = 0; i < sizeof (actions_view)/sizeof(GtkToggleActionEntry); i++)
 	{
 		GtkAction *action;
@@ -952,7 +952,7 @@ on_editor_added (AnjutaDocman *docman, IAnjutaEditor *te,
 				   AnjutaPlugin *plugin)
 {
 	GtkWidget *highlight_submenu, *highlight_menu;
-	DocmanPlugin *editor_plugin = DOCMAN_PLUGIN (plugin);
+	DocmanPlugin *editor_plugin = (DocmanPlugin *)plugin;
 	
 	/* Create Highlight submenu */
 	highlight_submenu = 
@@ -979,7 +979,7 @@ static void
 on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 				   AnjutaPlugin *plugin)
 {
-	DocmanPlugin *docman_plugin = DOCMAN_PLUGIN (plugin);
+	DocmanPlugin *docman_plugin = (DocmanPlugin *)plugin;
 	
 	update_status (docman_plugin, te);
 	update_editor_ui (plugin, te);
@@ -1215,7 +1215,7 @@ on_save_prompt_save_editor (AnjutaSavePrompt *save_prompt,
 {
 	DocmanPlugin *plugin;
 	
-	plugin = DOCMAN_PLUGIN (user_data);
+	plugin = (DocmanPlugin*)user_data;
 	return anjuta_docman_save_editor (ANJUTA_DOCMAN (plugin->docman),
 									  IANJUTA_EDITOR (item),
 									  GTK_WIDGET (save_prompt));
@@ -1281,23 +1281,23 @@ static void
 on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
 					   GConfEntry *entry, gpointer user_data)
 {
-	DocmanPlugin *ep = DOCMAN_PLUGIN (user_data);
+	DocmanPlugin *ep = (DocmanPlugin*)user_data;
 	docman_plugin_set_tab_pos (ep);
 }
 
 static gboolean
 on_docman_auto_save (gpointer data)
 {
-	DocmanPlugin *plugin = DOCMAN_PLUGIN (data);
+	DocmanPlugin *plugin = (DocmanPlugin*)data;
 	AnjutaShell* shell;
 	AnjutaPreferences* prefs;
-	AnjutaDocman *docman;
-	AnjutaStatus* status;
+    AnjutaDocman *docman;
+    AnjutaStatus* status;
 	IAnjutaEditor* editor;
 	GList* editors;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	
-	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
+    g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
 	prefs = anjuta_shell_get_preferences(shell, NULL);
 	status = anjuta_shell_get_status(shell, NULL);
 	
@@ -1315,11 +1315,11 @@ on_docman_auto_save (gpointer data)
 		editor = IANJUTA_EDITOR(editors->data);
 		if (ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(editor), NULL))
 		{
-			if (ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL) != NULL)
-			{
-				ianjuta_file_savable_save(IANJUTA_FILE_SAVABLE(editor), NULL);
-			}
-		}
+            if (ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL) != NULL)
+            {
+                ianjuta_file_savable_save(IANJUTA_FILE_SAVABLE(editor), NULL);
+            }
+        }
 		editors = g_list_next(editors);
 	}
 	// TODO: Check for errors
@@ -1336,7 +1336,7 @@ static void
 on_gconf_notify_timer (GConfClient *gclient, guint cnxn_id,
 					   GConfEntry *entry, gpointer user_data)
 {
-	DocmanPlugin *ep = DOCMAN_PLUGIN (user_data);
+	DocmanPlugin *ep = (DocmanPlugin*)user_data;
 	AnjutaShell* shell;
 	AnjutaPreferences* prefs;
 	gint auto_save_timer;
@@ -1426,13 +1426,13 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("DocmanPlugin: Activating Editor plugin...");
 	
-	editor_plugin = DOCMAN_PLUGIN (plugin);
+	editor_plugin = (DocmanPlugin*) plugin;
 	editor_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	editor_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	status = anjuta_shell_get_status (plugin->shell, NULL);
 	
 	ui = editor_plugin->ui;
-	docman = anjuta_docman_new (editor_plugin, editor_plugin->prefs);
+	docman = anjuta_docman_new (editor_plugin->prefs);
 	editor_plugin->docman = docman;
 	ANJUTA_DOCMAN(docman)->shell = plugin->shell;
 	g_signal_connect (G_OBJECT (docman), "editor-added",
@@ -1555,7 +1555,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("DocmanPlugin: Dectivating Editor plugin...");
 	
-	eplugin = DOCMAN_PLUGIN (plugin);
+	eplugin = (DocmanPlugin*)plugin;
 
 	prefs_finalize (eplugin);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
@@ -1587,7 +1587,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	node = eplugin->action_groups;
 	while (node)
 	{
-		GtkActionGroup *group = GTK_ACTION_GROUP (node->data);
+		GtkActionGroup *group = (GtkActionGroup*)node->data;
 		anjuta_ui_remove_action_group (ui, group);
 		node = g_list_next (node);
 	}
@@ -1607,14 +1607,14 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	// DocmanPlugin *eplugin = DOCMAN_PLUGIN (obj);
+	// DocmanPlugin *eplugin = (DocmanPlugin*)obj;
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void
 docman_plugin_instance_init (GObject *obj)
 {
-	DocmanPlugin *plugin = DOCMAN_PLUGIN (obj);
+	DocmanPlugin *plugin = (DocmanPlugin*)obj;
 	plugin->uiid = 0;
 	plugin->g_tabbing = FALSE;
 	plugin->gconf_notify_ids = NULL;
@@ -1638,7 +1638,7 @@ static const gchar *
 ianjuta_docman_get_full_filename (IAnjutaDocumentManager *plugin,
 		const gchar *file, GError **e)
 {
-	AnjutaDocman *docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	AnjutaDocman *docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	return anjuta_docman_get_full_filename (ANJUTA_DOCMAN (docman), file);
 }
 
@@ -1646,14 +1646,14 @@ static IAnjutaEditor*
 ianjuta_docman_find_editor_with_path (IAnjutaDocumentManager *plugin,
 		const gchar *file_path, GError **e)
 {
-	AnjutaDocman *docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	AnjutaDocman *docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	return anjuta_docman_find_editor_with_path (ANJUTA_DOCMAN (docman), file_path);
 }
 
 static IAnjutaEditor*
 ianjuta_docman_get_current_editor (IAnjutaDocumentManager *plugin, GError **e)
 {
-	AnjutaDocman *docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	AnjutaDocman *docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	return anjuta_docman_get_current_editor (ANJUTA_DOCMAN (docman));
 }
 
@@ -1661,7 +1661,7 @@ static void
 ianjuta_docman_set_current_editor (IAnjutaDocumentManager *plugin,
 								   IAnjutaEditor *editor, GError **e)
 {
-	AnjutaDocman *docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	AnjutaDocman *docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	anjuta_docman_set_current_editor (ANJUTA_DOCMAN (docman),
 									  editor);
 }
@@ -1671,7 +1671,7 @@ ianjuta_docman_get_editors (IAnjutaDocumentManager *plugin, GError **e)
 {
 	AnjutaDocman *docman;
 	GList * editors = NULL;
-	docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	editors = anjuta_docman_get_all_editors (docman);
 	return editors;
 }
@@ -1681,7 +1681,7 @@ ianjuta_docman_goto_file_line (IAnjutaDocumentManager *plugin,
 							   const gchar *uri, gint linenum, GError **e)
 {
 	AnjutaDocman *docman;
-	docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	anjuta_docman_goto_file_line (docman, uri, linenum);
 }
 
@@ -1690,7 +1690,7 @@ ianjuta_docman_goto_file_line_mark (IAnjutaDocumentManager *plugin,
 		const gchar *uri, gint linenum, gboolean mark, GError **e)
 {
 	AnjutaDocman *docman;
-	docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	anjuta_docman_goto_file_line_mark (docman, uri, linenum, mark);
 }
 
@@ -1701,7 +1701,7 @@ ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 {
 	AnjutaDocman *docman;
 	IAnjutaEditor *te;
-	docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	te = anjuta_docman_add_editor (docman, NULL, filename);
 	if (te)
 	{
@@ -1720,7 +1720,7 @@ ianjuta_docman_remove_buffer (IAnjutaDocumentManager *plugin,
 {
 	gint ret_val = TRUE;
 	AnjutaDocman *docman;
-	docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	
 	if (save_before)
 	{
@@ -1753,7 +1753,7 @@ ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 {
 	AnjutaDocman *docman;
 	
-	docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	anjuta_docman_goto_file_line (docman, uri, -1);
 }
 
@@ -1762,7 +1762,7 @@ ifile_get_uri (IAnjutaFile* plugin, GError** e)
 {
 	AnjutaDocman *docman;
 	IAnjutaEditor* editor;
-	docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	editor = anjuta_docman_get_current_editor (docman);
 	if (editor != NULL)
 		return g_strdup (ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL));
@@ -1787,7 +1787,7 @@ isaveable_save (IAnjutaFileSavable* plugin, GError** e)
 	AnjutaDocman *docman;
 	IAnjutaEditor* editor;
 	GList* editors;
-	docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	editors = anjuta_docman_get_all_editors(docman);
 	while(editors)
 	{
@@ -1816,7 +1816,7 @@ isavable_is_dirty(IAnjutaFileSavable* plugin, GError** e)
 	IAnjutaEditor* editor;
 	GList* editors;
 	gboolean retval = FALSE;
-	docman = ANJUTA_DOCMAN ((DOCMAN_PLUGIN (plugin)->docman));
+	docman = ANJUTA_DOCMAN ((((DocmanPlugin*)plugin)->docman));
 	editors = anjuta_docman_get_all_editors(docman);
 	while(editors)
 	{
@@ -1868,25 +1868,25 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	anjuta_encodings_init (prefs, gxml);
 		
 	indent_combo = glade_xml_get_widget (gxml, "pref_indent_style_combobox");
-	DOCMAN_PLUGIN (plugin)->idt->pref_indent_combo = indent_combo;
+	((DocmanPlugin*)plugin)->idt->pref_indent_combo = indent_combo;
 	g_signal_connect (G_OBJECT (indent_combo), "changed",
 						  G_CALLBACK (on_style_combo_changed), plugin);
 		
 		
 	indent_entry = glade_xml_get_widget (gxml, "preferences_style_entry");
-	DOCMAN_PLUGIN (plugin)->idt->pref_indent_options = indent_entry;
-	DOCMAN_PLUGIN (plugin)->idt->prefs = DOCMAN_PLUGIN (plugin)->prefs;
-	indent_init_load_style(DOCMAN_PLUGIN (plugin)->idt);
+	((DocmanPlugin*)plugin)->idt->pref_indent_options = indent_entry;
+	((DocmanPlugin*)plugin)->idt->prefs = ((DocmanPlugin*)plugin)->prefs;
+	indent_init_load_style(((DocmanPlugin*)plugin)->idt);
 		
 	g_object_unref (G_OBJECT (gxml));
-	prefs_init(DOCMAN_PLUGIN (plugin));
-	pref_set_style_combo(DOCMAN_PLUGIN (plugin)->idt); 
+	prefs_init((DocmanPlugin*)plugin);
+	pref_set_style_combo(((DocmanPlugin*)plugin)->idt); 
 }
 
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	DocmanPlugin* plugin = DOCMAN_PLUGIN (ipref);
+	DocmanPlugin* plugin = (DocmanPlugin*) ipref;
 	prefs_finalize(plugin);
 	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), 
 		_("Documents"));

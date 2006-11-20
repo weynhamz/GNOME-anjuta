@@ -40,7 +40,7 @@ static gpointer parent_class;
 static void
 npw_plugin_instance_init (GObject *obj)
 {
-	NPWPlugin *this = NPW_PLUGIN (obj);
+	NPWPlugin *this = (NPWPlugin*)obj;
 
 	this->druid = NULL;
 	this->install = NULL;
@@ -52,7 +52,7 @@ npw_plugin_instance_init (GObject *obj)
 static void
 npw_plugin_dispose (GObject *obj)
 {
-	NPWPlugin *this = NPW_PLUGIN (obj);
+	NPWPlugin *this = (NPWPlugin*)obj;
 
 	/* Warning this function could be called several times */
 	if (this->view != NULL)
@@ -96,7 +96,7 @@ npw_plugin_class_init (GObjectClass *klass)
 static void
 iwizard_activate (IAnjutaWizard *wiz, GError **err)
 {
-	NPWPlugin *this = NPW_PLUGIN (wiz);
+	NPWPlugin *this = (NPWPlugin *)wiz;
 	
 	if (this->install != NULL)
 	{

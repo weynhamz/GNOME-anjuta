@@ -499,7 +499,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	gchar dir[2048];
 	gchar *summary = NULL;
 	gchar *freeptr = NULL;
-	BasicAutotoolsPlugin *p = BASIC_AUTOTOOLS_PLUGIN (context->plugin);
+	BasicAutotoolsPlugin *p = (BasicAutotoolsPlugin*) context->plugin;
 	
 	g_return_if_fail (one_line != NULL);
 	
@@ -717,7 +717,7 @@ on_message_view_destroyed (BuildContext *context, GtkWidget *view)
 {
 	DEBUG_PRINT ("Destroying build context");
 	context->message_view = NULL;
-	build_release_context (BASIC_AUTOTOOLS_PLUGIN (context->plugin), context);
+	build_release_context ((BasicAutotoolsPlugin*)(context->plugin), context);
 }
 
 static BuildContext*
@@ -1568,7 +1568,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	filename = gnome_vfs_get_local_path_from_uri (uri);
 	g_return_if_fail (filename != NULL);
 
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (plugin);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	if (ba_plugin->fm_current_filename)
@@ -1602,7 +1602,7 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 {
 	AnjutaUI *ui;
 	GtkAction *action;
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (plugin);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
 	if (ba_plugin->fm_current_filename)
 		g_free (ba_plugin->fm_current_filename);
@@ -1632,7 +1632,7 @@ value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
 		return;
 	*/
 	
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (plugin);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	if (ba_plugin->pm_current_filename)
@@ -1666,7 +1666,7 @@ value_removed_pm_current_uri (AnjutaPlugin *plugin,
 {
 	AnjutaUI *ui;
 	GtkAction *action;
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (plugin);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
 	if (ba_plugin->pm_current_filename)
 		g_free (ba_plugin->pm_current_filename);
@@ -1684,7 +1684,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	BasicAutotoolsPlugin *bb_plugin;
 	const gchar *root_uri;
 
-	bb_plugin = BASIC_AUTOTOOLS_PLUGIN (plugin);
+	bb_plugin = (BasicAutotoolsPlugin *) plugin;
 	
 	DEBUG_PRINT ("Project added");
 	
@@ -1709,7 +1709,7 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 {
 	BasicAutotoolsPlugin *bb_plugin;
 
-	bb_plugin = BASIC_AUTOTOOLS_PLUGIN (plugin);
+	bb_plugin = (BasicAutotoolsPlugin *) plugin;
 	
 	g_free (bb_plugin->project_root_dir);
 	g_free (bb_plugin->program_args);
@@ -1726,7 +1726,7 @@ static gint
 on_update_indicators_idle (gpointer data)
 {
 	AnjutaPlugin *plugin = ANJUTA_PLUGIN (data);
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (data);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)data;
 	IAnjutaEditor *editor = ba_plugin->current_editor;
 	
 	/* If indicators are not yet updated in the editor, do it */
@@ -1782,7 +1782,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	editor = g_value_get_object (value);
 	
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (plugin);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	g_free (ba_plugin->current_editor_filename);
@@ -1807,7 +1807,7 @@ static void
 value_removed_current_editor (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (plugin);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
 	if (ba_plugin->indicators_updated_editors &&
 		g_hash_table_lookup (ba_plugin->indicators_updated_editors,
@@ -1830,7 +1830,7 @@ activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	static gboolean initialized = FALSE;
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (plugin);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -1887,7 +1887,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (plugin);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*)plugin;
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -1922,7 +1922,7 @@ dispose (GObject *obj)
 static void
 finalize (GObject *obj)
 {
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (obj);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*) obj;
 	
 	g_free (ba_plugin->fm_current_filename);
 	g_free (ba_plugin->pm_current_filename);
@@ -1947,7 +1947,7 @@ finalize (GObject *obj)
 static void
 basic_autotools_plugin_instance_init (GObject *obj)
 {
-	BasicAutotoolsPlugin *ba_plugin = BASIC_AUTOTOOLS_PLUGIN (obj);
+	BasicAutotoolsPlugin *ba_plugin = (BasicAutotoolsPlugin*) obj;
 	ba_plugin->fm_current_filename = NULL;
 	ba_plugin->pm_current_filename = NULL;
 	ba_plugin->project_root_dir = NULL;
@@ -1978,7 +1978,7 @@ static void
 ibuildable_compile (IAnjutaBuildable *manager, const gchar * filename,
 					GError **err)
 {
-	BasicAutotoolsPlugin *plugin = BASIC_AUTOTOOLS_PLUGIN (manager);
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
 	build_compile_file_real (plugin, filename);
 }
 #endif
@@ -1987,7 +1987,7 @@ static void
 ibuildable_build (IAnjutaBuildable *manager, const gchar *directory,
 				  GError **err)
 {
-	BasicAutotoolsPlugin *plugin = BASIC_AUTOTOOLS_PLUGIN (manager);
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
 	build_execute_command (plugin, directory, MAKE_COMMAND, TRUE);
 }
 
@@ -1995,7 +1995,7 @@ static void
 ibuildable_clean (IAnjutaBuildable *manager, const gchar *directory,
 				  GError **err)
 {
-	BasicAutotoolsPlugin *plugin = BASIC_AUTOTOOLS_PLUGIN (manager);
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
 	build_execute_command (plugin, directory, MAKE_COMMAND" clean", FALSE);
 }
 
@@ -2003,7 +2003,7 @@ static void
 ibuildable_install (IAnjutaBuildable *manager, const gchar *directory,
 					GError **err)
 {
-	BasicAutotoolsPlugin *plugin = BASIC_AUTOTOOLS_PLUGIN (manager);
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
 	build_execute_command (plugin, directory, MAKE_COMMAND" install", TRUE);
 }
 
@@ -2011,7 +2011,7 @@ static void
 ibuildable_configure (IAnjutaBuildable *manager, const gchar *directory,
 					  GError **err)
 {
-	BasicAutotoolsPlugin *plugin = BASIC_AUTOTOOLS_PLUGIN (manager);
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
 	build_execute_command (plugin, directory, "./configure", TRUE);
 }
 
@@ -2019,7 +2019,7 @@ static void
 ibuildable_generate (IAnjutaBuildable *manager, const gchar *directory,
 					 GError **err)
 {
-	BasicAutotoolsPlugin *plugin = BASIC_AUTOTOOLS_PLUGIN (manager);
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
 	build_execute_command (plugin, directory, "./autogen.sh", FALSE);
 }
 
@@ -2027,7 +2027,7 @@ static void
 ibuildable_execute (IAnjutaBuildable *manager, const gchar *uri,
 					GError **err)
 {
-	BasicAutotoolsPlugin *plugin = BASIC_AUTOTOOLS_PLUGIN (manager);
+	BasicAutotoolsPlugin *plugin = (BasicAutotoolsPlugin*)ANJUTA_PLUGIN (manager);
 	if (uri && strlen (uri) > 0)
 		execute_program (plugin, uri);
 	else

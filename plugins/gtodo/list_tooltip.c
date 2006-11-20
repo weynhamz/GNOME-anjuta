@@ -9,11 +9,11 @@ gulong gtodo_timeout = 0; /* Variable name conflict during linking */
 static gboolean mw_tooltip_timeout(GtkWidget *tv);
 PangoLayout *layout = NULL;
 
-static
 gchar *get_tooltip_text()
 {
-	gchar *retval = NULL;
+	gchar *summary, *comment = NULL, *due_date = NULL,*priority = NULL, *retval = NULL, *category = NULL;
 	GString *string;
+	gint prio;
 	guint64 id;
 	GtkTreePath *path;
 	GtkTreeIter iterp, iter;
@@ -92,7 +92,6 @@ gchar *get_tooltip_text()
 
 
 
-static
 void mw_paint_tip(GtkWidget *widget, GdkEventExpose *event)
 {
 	GtkStyle *style;

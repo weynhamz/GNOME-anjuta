@@ -21,10 +21,6 @@
 
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
-extern GType search_plugin_type;
-#define SEARCH_PLUGIN_TYPE (search_plugin_type)
-#define SEARCH_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), SEARCH_PLUGIN_TYPE, SearchPlugin))
-
 typedef struct _SearchPlugin SearchPlugin;
 typedef struct _SearchPluginClass SearchPluginClass;
 

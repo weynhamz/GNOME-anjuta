@@ -66,23 +66,21 @@ typedef struct _InspectDialog InspectDialog;
 /* Private functions
  *---------------------------------------------------------------------------*/
 
-#if 0
 static void
 on_entry_updated (const gchar *value, gpointer user_data, GError *err)
 {
-	GtkWidget *entry = GTK_WIDGET (user_data);
+	GtkWidget *entry = (GtkWidget *)user_data;
 	
 	gtk_entry_set_text (GTK_ENTRY (entry), value);
 	gtk_widget_unref (entry);
 }
-#endif
 
 static void
 debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 {
 	GladeXML *gxml;
 	gint reply;
-	// const gchar *value;
+	const gchar *value;
 	InspectDialog dlg;
 	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
 
@@ -95,12 +93,12 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 
 	printf ("dlg.value_treeview %p\n", dlg.treeview);
 	/* Create debug tree */
-	dlg.tree = debug_tree_new_with_view (ANJUTA_PLUGIN (ew->plugin), GTK_TREE_VIEW (dlg.treeview));
+	dlg.tree = debug_tree_new_with_view (ew->plugin, dlg.treeview);
 	if (ew->debugger)
 		debug_tree_connect (dlg.tree, ew->debugger);
 	if (expression != NULL)
 	{
-		var.expression = (gchar *)expression;
+		var.expression = expression;
 		debug_tree_add_watch (dlg.tree, &var, FALSE);
 	}
 	else
@@ -179,7 +177,7 @@ debug_tree_add_watch_dialog (ExprWatch *ew, const gchar* expression)
 	reply = gtk_dialog_run (GTK_DIALOG (dialog));
 	if (reply == GTK_RESPONSE_OK)
 	{
-		var.expression = (gchar *)gtk_entry_get_text (GTK_ENTRY (name_entry));
+		var.expression = gtk_entry_get_text (GTK_ENTRY (name_entry));
 		debug_tree_add_watch (ew->debug_tree, &var,
 							  gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (auto_update_check)));
 	}

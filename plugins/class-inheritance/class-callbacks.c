@@ -31,7 +31,7 @@ gint
 on_canvas_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data) 
 {
 	AnjutaClassInheritance *plugin;
-	plugin = CLASS_INHERITANCE_PLUGIN (data);
+	plugin = (AnjutaClassInheritance*)data;
 	
 	switch (event->type)
 	{

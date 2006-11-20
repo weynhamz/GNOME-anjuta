@@ -8,7 +8,6 @@ void add_edit_completed_toggled(GtkWidget *checkbox, GtkWidget *rlabel);
 
 void add_edit_option_changed(GtkOptionMenu *option, GtkWidget *menu);
 
-static
 void check_length(GtkWidget *entry, GtkWidget *button)
 {
 	if(strlen(gtk_entry_get_text(GTK_ENTRY(entry))) > 0)
@@ -21,8 +20,6 @@ void check_length(GtkWidget *entry, GtkWidget *button)
 	}
 }
 
-#if 0
-static
 void add_edit_comment_keybord_focus_in_event(GtkWidget *menu)
 {
 	/* No default selection for now */
@@ -38,13 +35,11 @@ void add_edit_comment_keybord_focus_in_event(GtkWidget *menu)
 	if(GTK_MINOR_VERSION >= 3) gtk_text_buffer_select_range(tb, &eiter,&biter); 
 #endif
 }
-#endif
 
 /* this function is called when the egg_datetime entry changes	*
  * It checks if there is an end date and an end time and makes 	*
  * the notify button sensitive if so.				*/
 
-static
 void date_time_changed(GtkWidget *eg, GtkWidget *notify)
 {
 	int minute, hour;

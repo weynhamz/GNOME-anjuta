@@ -55,10 +55,10 @@ subversion_add_dialog(GtkAction* action, Subversion* plugin, gchar *filename)
 	GtkWidget* fileentry;
 	SubversionData* data;
 	gxml = glade_xml_new(GLADE_FILE, "subversion_add", NULL);
+	GtkWidget* force = glade_xml_get_widget(gxml, "subversion_force");
 	
 #if SVN_MINOR_VERSION >= 1
-	gtk_widget_set_sensitive(
-            glade_xml_get_widget(gxml, "subversion_force"), TRUE);
+	gtk_widget_set_sensitive(force, TRUE);
 #endif
 	
 	dialog = glade_xml_get_widget(gxml, "subversion_add");

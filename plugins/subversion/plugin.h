@@ -27,10 +27,6 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
-extern GType subversion_type;
-#define SUBVERSION_TYPE (subversion_type)
-#define SUBVERSION(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), SUBVERSION_TYPE, Subversion))
-
 typedef struct _Subversion Subversion;
 typedef struct _SubversionClass SubversionClass;
 

@@ -22,13 +22,8 @@
 #define GDB_PLUGIN_H
 
 #include <glib.h>
-#include <glib-object.h>
 
 G_BEGIN_DECLS
-
-extern GType gdb_plugin_type;
-#define GDB_PLUGIN_TYPE (gdb_plugin_type)
-#define GDB_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), GDB_PLUGIN_TYPE, GdbPlugin))
 
 typedef struct _GdbPlugin GdbPlugin;
 typedef struct _GdbPluginClass GdbPluginClass;

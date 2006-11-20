@@ -2218,7 +2218,7 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 		if (literal)
 		{
 			value = gdbmi_value_literal_get (literal);
-			bp.file = (gchar *)value;
+			bp.file = value;
 		}
 	
 		literal = gdbmi_value_hash_lookup (brkpnt, "line");
@@ -2273,7 +2273,7 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 		if (literal)
 		{
 			value = gdbmi_value_literal_get (literal);
-			bp.function = (gchar *)value;
+			bp.function = value;
 		}
 	
 		literal = gdbmi_value_hash_lookup (brkpnt, "times");
@@ -2480,7 +2480,7 @@ debugger_evaluate_finish (Debugger *debugger, const GDBMIValue *mi_results, cons
 	
 	/* Call user function */
 	if (callback != NULL)
-		callback (value == NULL ? "?" : (char *)gdbmi_value_literal_get (value), user_data, NULL);
+		callback (value == NULL ? "?" : gdbmi_value_literal_get (value), user_data, NULL);
 }
 
 void
@@ -2525,7 +2525,7 @@ debugger_list_local_finish (Debugger *debugger, const GDBMIValue *mi_results, co
 					if (var)
 					{
 						name = gdbmi_value_literal_get (var);
-						list = g_list_prepend (list, (gchar *)name);
+						list = g_list_prepend (list, name);
 					}
 				}
 
@@ -2543,7 +2543,7 @@ debugger_list_local_finish (Debugger *debugger, const GDBMIValue *mi_results, co
 			if (var)
 			{
 				name = gdbmi_value_literal_get (var);
-				list = g_list_prepend (list, (gchar *)name);
+				list = g_list_prepend (list, name);
 			}
 		}
 	}
@@ -2555,6 +2555,8 @@ debugger_list_local_finish (Debugger *debugger, const GDBMIValue *mi_results, co
 void
 debugger_list_local (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
+	gchar *buff;
+	
 	DEBUG_PRINT ("In function: debugger_list_local()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
@@ -2595,7 +2597,7 @@ debugger_list_argument_finish (Debugger *debugger, const GDBMIValue *mi_results,
 			if (var)
 			{
 				name = gdbmi_value_literal_get (var);
-				list = g_list_prepend (list, (gchar *)name);
+				list = g_list_prepend (list, name);
 			}
 		}
 	}
@@ -2607,6 +2609,8 @@ debugger_list_argument_finish (Debugger *debugger, const GDBMIValue *mi_results,
 void
 debugger_list_argument (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
+	gchar *buff;
+	
 	DEBUG_PRINT ("In function: debugger_list_argument()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
@@ -2622,7 +2626,7 @@ debugger_info_finish (Debugger *debugger, const GDBMIValue *mi_results, const GL
 	gpointer user_data = debugger->priv->current_cmd.user_data;
 
 	if (callback != NULL)
-		callback ((GList *)cli_results, user_data, NULL);
+		callback (cli_results, user_data, NULL);
 }
 
 void
@@ -2834,7 +2838,7 @@ add_frame (const GDBMIValue *frame_hash, GList** stack)
 	if (literal == NULL)
 		literal = gdbmi_value_hash_lookup (frame_hash, "file");
 	if (literal)
-		frame->file = (gchar *)gdbmi_value_literal_get (literal);
+		frame->file = gdbmi_value_literal_get (literal);
 	
 	literal = gdbmi_value_hash_lookup (frame_hash, "line");
 	if (literal)
@@ -2842,7 +2846,7 @@ add_frame (const GDBMIValue *frame_hash, GList** stack)
 	
 	literal = gdbmi_value_hash_lookup (frame_hash, "func");
 	if (literal)
-		frame->function = (gchar *)gdbmi_value_literal_get (literal);
+		frame->function = gdbmi_value_literal_get (literal);
 	
 	literal = gdbmi_value_hash_lookup (frame_hash, "addr");
 	if (literal)
@@ -2972,7 +2976,7 @@ add_register_name (const GDBMIValue *reg_literal, GList** list)
 	
 	reg = g_new0 (IAnjutaDebuggerRegister, 1);
 	*list = g_list_prepend (prev, reg);
-	reg->name = (gchar *)gdbmi_value_literal_get (reg_literal);
+	reg->name = gdbmi_value_literal_get (reg_literal);
 	reg->num = prev == NULL ? 0 : ((IAnjutaDebuggerRegister *)prev->data)->num + 1;
 }
 
@@ -2998,7 +3002,7 @@ add_register_value (const GDBMIValue *reg_hash, GList** list)
 	reg = g_new0 (IAnjutaDebuggerRegister, 1);
 	*list = g_list_prepend (prev, reg);
 	reg->num = num;
-	reg->value = (gchar *)gdbmi_value_literal_get (literal);
+	reg->value = gdbmi_value_literal_get (literal);
 }
 
 static void
@@ -3159,7 +3163,7 @@ gdb_var_evaluate_expression (Debugger *debugger,
 		if (gdbmi_value != NULL)
 			value = gdbmi_value_literal_get (gdbmi_value);
 	}
-	callback ((const gpointer)value, user_data, NULL);
+	callback (value, user_data, NULL);
 }
 
 void
@@ -3222,19 +3226,19 @@ gdb_var_list_children (Debugger *debugger,
 
 		       	literal  = gdbmi_value_hash_lookup (gdbmi_chl, "name");
 			if (literal)
-  				var->name = (gchar *)gdbmi_value_literal_get (literal);
+  				var->name = gdbmi_value_literal_get (literal);
 
 			literal = gdbmi_value_hash_lookup (gdbmi_chl, "exp");
 			if (literal)
-				var->expression = (gchar *)gdbmi_value_literal_get(literal);
+				var->expression = gdbmi_value_literal_get(literal);
                 
 			literal = gdbmi_value_hash_lookup (gdbmi_chl, "type");
 			if (literal)
-				var->type = (gchar *)gdbmi_value_literal_get(literal);
+				var->type = gdbmi_value_literal_get(literal);
 
         		literal = gdbmi_value_hash_lookup (gdbmi_chl, "value");
 			if (literal)
-				var->value = (gchar *)gdbmi_value_literal_get(literal);
+				var->value = gdbmi_value_literal_get(literal);
 
         		literal = gdbmi_value_hash_lookup (gdbmi_chl, "numchild");
 			if (literal)
@@ -3276,10 +3280,10 @@ gdb_var_create (Debugger *debugger,
 	if ((error == NULL) && (mi_results != NULL)) 
 	{
 		result = gdbmi_value_hash_lookup (mi_results, "name");
-		var.name = (gchar *)gdbmi_value_literal_get(result);
+		var.name = gdbmi_value_literal_get(result);
 	
 		result = gdbmi_value_hash_lookup (mi_results, "type");
-		var.type = (gchar *)gdbmi_value_literal_get (result);
+		var.type = gdbmi_value_literal_get (result);
 
 		result = gdbmi_value_hash_lookup (mi_results, "numchild");
 		var.children = strtoul (gdbmi_value_literal_get(result), NULL, 10);
@@ -3328,7 +3332,7 @@ gdb_var_update (Debugger *debugger,
 			gdbmi_val = gdbmi_value_hash_lookup (gdbmi_change, "name");
 			var = g_new0 (IAnjutaDebuggerVariable, 1);
 			var->changed = TRUE;
-			var->name = (gchar *)gdbmi_value_literal_get(gdbmi_val);
+			var->name = gdbmi_value_literal_get(gdbmi_val);
 			
 			list = g_list_prepend (list, var);
 		}
@@ -3411,7 +3415,7 @@ debugger_class_init (DebuggerClass * klass)
 	GObjectClass *object_class;
 	
 	g_return_if_fail (klass != NULL);
-	object_class = G_OBJECT_CLASS (klass);
+	object_class = (GObjectClass *) klass;
 	
 	DEBUG_PRINT ("Initializing debugger class");
 	

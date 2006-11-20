@@ -26,10 +26,6 @@
 #include <gbf/gbf-project-model.h>
 #include <gbf/gbf-project-view.h>
 
-extern GType project_manager_plugin_type;
-#define PROJECT_MANAGER_PLUGIN_TYPE (project_manager_plugin_type)
-#define PROJECT_MANAGER_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), PROJECT_MANAGER_PLUGIN_TYPE, ProjectManagerPlugin))
-
 typedef struct _ProjectManagerPlugin ProjectManagerPlugin;
 typedef struct _ProjectManagerPluginClass ProjectManagerPluginClass;
 typedef struct _PMProject PMProject;

@@ -196,7 +196,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	static gboolean initialized = FALSE;
 	
 	DEBUG_PRINT ("MessageViewPlugin: Activating MessageView plugin ...");
-	mv_plugin = MESSAGE_VIEW_PLUGIN (plugin);
+	mv_plugin = (MessageViewPlugin*) plugin;
 	
 	if (!initialized)
 	{
@@ -233,7 +233,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("MessageViewPlugin: Dectivating message view plugin ...");
 	
-	mplugin = MESSAGE_VIEW_PLUGIN (plugin);
+	mplugin = (MessageViewPlugin *)plugin;
 	
 	/* Disconnect signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
@@ -258,21 +258,21 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 message_view_plugin_dispose (GObject *obj)
 {
-	// MessageViewPlugin *plugin = MESSAGE_VIEW_PLUGIN (obj);
+	// MessageViewPlugin *plugin = (MessageViewPlugin*)obj;
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void
 message_view_plugin_finalize (GObject *obj)
 {
-	// MessageViewPlugin *plugin = MESSAGE_VIEW_PLUGIN (obj);
+	// MessageViewPlugin *plugin = (MessageViewPlugin*)obj;
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
 message_view_plugin_instance_init (GObject *obj)
 {
-	MessageViewPlugin *plugin = MESSAGE_VIEW_PLUGIN (obj);
+	MessageViewPlugin *plugin = (MessageViewPlugin*)obj;
 	plugin->action_group = NULL;
 	plugin->msgman = NULL;
 	plugin->uiid = 0;
@@ -300,7 +300,7 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 						 GError **e)
 {
 	MessageView* message_view;
-	GtkWidget *msgman = MESSAGE_VIEW_PLUGIN (plugin)->msgman;
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
 	message_view = anjuta_msgman_add_view (ANJUTA_MSGMAN (msgman), file, icon);
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
 								 msgman, NULL);
@@ -312,7 +312,7 @@ ianjuta_msgman_remove_view (IAnjutaMessageManager *plugin,
 							IAnjutaMessageView * view,
 							GError **e)
 {
-	GtkWidget *msgman = MESSAGE_VIEW_PLUGIN (plugin)->msgman;
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
 	anjuta_msgman_remove_view (ANJUTA_MSGMAN (msgman), MESSAGE_VIEW (view));
 }
 
@@ -320,7 +320,7 @@ static IAnjutaMessageView*
 ianjuta_msgman_get_current_view (IAnjutaMessageManager *plugin,
 								 GError **e)
 {
-	GtkWidget *msgman = MESSAGE_VIEW_PLUGIN (plugin)->msgman;
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
 	return IANJUTA_MESSAGE_VIEW (anjuta_msgman_get_current_view
 				     (ANJUTA_MSGMAN (msgman)));
 }
@@ -330,7 +330,7 @@ ianjuta_msgman_get_view_by_name (IAnjutaMessageManager *plugin,
 								 const gchar * name,
 								 GError ** e)
 {
-	GtkWidget *msgman = MESSAGE_VIEW_PLUGIN (plugin)->msgman;
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
 	return IANJUTA_MESSAGE_VIEW (anjuta_msgman_get_view_by_name
 				     (ANJUTA_MSGMAN (msgman), name));
 }
@@ -339,7 +339,7 @@ static GList *
 ianjuta_msgman_get_all_views (IAnjutaMessageManager *plugin,
 							  GError ** e)
 {
-	GtkWidget *msgman = MESSAGE_VIEW_PLUGIN (plugin)->msgman;
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
 	return anjuta_msgman_get_all_views (ANJUTA_MSGMAN (msgman));
 }
 
@@ -349,7 +349,7 @@ ianjuta_msgman_set_current_view (IAnjutaMessageManager *plugin,
 								 GError ** e)
 {
 	AnjutaShell* shell;
-	GtkWidget *msgman = MESSAGE_VIEW_PLUGIN (plugin)->msgman;
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
 								 msgman, NULL);
 	anjuta_msgman_set_current_view (ANJUTA_MSGMAN (msgman),
@@ -365,7 +365,7 @@ ianjuta_msgman_set_view_title (IAnjutaMessageManager *plugin,
 							   IAnjutaMessageView *message_view,
 							   const gchar *title, GError ** e)
 {
-	GtkWidget *msgman = MESSAGE_VIEW_PLUGIN (plugin)->msgman;
+	GtkWidget *msgman = ((MessageViewPlugin*)plugin)->msgman;
 	anjuta_msgman_set_view_title (ANJUTA_MSGMAN (msgman),
 								  MESSAGE_VIEW (message_view), title);
 }
@@ -388,7 +388,7 @@ static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 		GladeXML *gxml;
-		MessageViewPlugin* plugin = MESSAGE_VIEW_PLUGIN (ipref);
+		MessageViewPlugin* plugin = (MessageViewPlugin*) ipref;
 		/* Create the messages preferences page */
 		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_messages", NULL);
 		anjuta_preferences_add_page (prefs, gxml,

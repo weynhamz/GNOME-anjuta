@@ -202,7 +202,7 @@ an_symbol_search_class_init (AnjutaSymbolSearchClass * klass)
 {
 	GObjectClass *object_class;
 
-	object_class = G_OBJECT_CLASS (klass);
+	object_class = (GObjectClass *) klass;
 	parent_class = g_type_class_peek_parent (klass);
 
 	object_class->finalize = an_symbol_search_finalize;

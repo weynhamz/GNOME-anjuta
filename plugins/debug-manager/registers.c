@@ -162,11 +162,7 @@ on_cpu_registers_changed (GtkCellRendererText *cell,
 		reg.name = name;
 		
 		ianjuta_cpu_debugger_write_register (IANJUTA_CPU_DEBUGGER (this->debugger), &reg, NULL);
-		ianjuta_cpu_debugger_update_register (
-				IANJUTA_CPU_DEBUGGER (this->debugger),
-				(IAnjutaDebuggerCallback)on_cpu_registers_updated,
-				this,
-				NULL);
+		ianjuta_cpu_debugger_update_register (IANJUTA_CPU_DEBUGGER (this->debugger), on_cpu_registers_updated, this, NULL);
 		g_free (name);
 	}
 }
@@ -176,11 +172,7 @@ cpu_registers_update (CpuRegisters *this)
 {
 	if ((this->debugger != NULL) && GTK_WIDGET_MAPPED (this->scrolledwindow))
 	{
-		ianjuta_cpu_debugger_update_register (
-				IANJUTA_CPU_DEBUGGER (this->debugger),
-				(IAnjutaDebuggerCallback)on_cpu_registers_updated,
-				this,
-				NULL);
+		ianjuta_cpu_debugger_update_register (IANJUTA_CPU_DEBUGGER (this->debugger), on_cpu_registers_updated, this, NULL);
 	}
 }
 
@@ -281,11 +273,7 @@ static void
 on_debugger_started (CpuRegisters *this)
 {
 	create_cpu_registers_gui (this);
-	ianjuta_cpu_debugger_list_register (
-			IANJUTA_CPU_DEBUGGER (this->debugger),
-			(IAnjutaDebuggerCallback)on_cpu_registers_updated,
-			this,
-			NULL);
+	ianjuta_cpu_debugger_list_register (IANJUTA_CPU_DEBUGGER (this->debugger), on_cpu_registers_updated, this, NULL);
 }
 
 static void

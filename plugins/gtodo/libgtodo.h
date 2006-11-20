@@ -113,7 +113,7 @@ enum 	{
 gboolean gtodo_client_get_read_only(GTodoClient *cl);
 /********************** GTodoItem *************************/
 /* create an empty GTodoItem.. THIS HAS NO UID YET */
-GTodoItem * gtodo_client_create_empty_todo_item(void);
+GTodoItem * gtodo_client_create_empty_todo_item();
 
 /* create a new unique GTodoItem,use this to add an todo item */
 GTodoItem * gtodo_client_create_new_todo_item(GTodoClient *cl);

@@ -92,7 +92,7 @@ gotoline_class_init (GotoLineClass * klass)
   GObjectClass *object_class;
   assert (klass != NULL);
   parent_class = g_type_class_peek_parent (klass);
-  object_class = G_OBJECT_CLASS (klass);
+  object_class = (GObjectClass *) klass;
   object_class->finalize = gotoline_finalize;
 
   //g_object_class_add_signals (object_class, gotoline_signals, LAST_SIGNAL);
@@ -168,7 +168,7 @@ on_go_to_line_response (GtkDialog* dialog, gint response, gpointer user_data)
 
   if (response == GTK_RESPONSE_OK) 
   {
-	ne = GTK_ENTRY (user_data);
+	ne = (GtkEntry *) user_data;
 	te = GOTOLINE (dialog)->priv->te;
 	num = atoi (gtk_entry_get_text (ne));
 	if (te)

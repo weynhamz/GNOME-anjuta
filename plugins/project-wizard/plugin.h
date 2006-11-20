@@ -25,10 +25,6 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/anjuta-preferences.h>
 
-extern GType npw_plugin_type;
-#define NPW_PLUGIN_TYPE (npw_plugin_type)
-#define NPW_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), NPW_PLUGIN_TYPE, NPWPlugin))
-
 typedef struct _NPWPlugin NPWPlugin;
 typedef struct _NPWPluginClass NPWPluginClass;
 

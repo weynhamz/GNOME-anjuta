@@ -110,28 +110,28 @@ void gtodo_set_sorting_type (int sorting_type);
 /* callback.c*/
 void remove_todo_item(GtkWidget *fake, gboolean internall);
 int tray_clicked(GtkWidget *image, GdkEventButton *event);
-void read_categorys(void);
-void load_category(void);
-/* void save_category(); */
-void category_changed(void);
+void read_categorys();
+void load_category();
+void save_category();
+void category_changed();
 extern int categorys;
-/* void save_categorys(); */
-/* void change_category(); */
-/* void delete_category(); */
+void save_categorys();
+void change_category();
+void delete_category();
 extern gulong shand;
-/* void add_category(); */
+void add_category();
 int tree_clicked(GtkWidget *tree, GdkEventButton *event);
 void list_toggled_done(GtkCellRendererToggle *cell, gchar *path_str);
 extern int hidden;
 void tray_destroyed(GtkObject *object, gpointer data);
-void gui_preferences(void);
-void purge_category(void);
+void gui_preferences();
+void purge_category();
 int message_box(gchar *text,gchar *buttext, GtkMessageType type);
-void category_manager(void);
+void category_manager();
 extern gboolean tray;
 gboolean mw_motion_cb (GtkWidget *tv, GdkEventMotion *event, gpointer null);
 void mw_leave_cb (GtkWidget *w, GdkEventCrossing *e, gpointer n);
-int  get_all_past_purge(void);
+int  get_all_past_purge();
 /* void update_settings(); */
 
 /* preferences */
@@ -144,10 +144,10 @@ gint sort_function_test(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpoint
 void set_sorting_menu_item();
 void windows_moved(GtkWidget *window);
 
-int check_for_notification_event(void);
+int check_for_notification_event();
 void pref_gconf_set_notifications(GConfClient *client);
 
-void export_gui(void);
-void open_playlist(void);
-void create_playlist(void);
-void export_backup_xml(void);
+void export_gui();
+void open_playlist();
+void create_playlist();
+void export_backup_xml();

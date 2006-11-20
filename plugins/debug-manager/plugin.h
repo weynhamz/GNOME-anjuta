@@ -28,10 +28,6 @@
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.glade"
 
-extern GType dma_plugin_type;
-#define DEBUG_MANAGER_PLUGIN_TYPE (dma_plugin_type)
-#define DEBUG_MANAGER_PLUGIN(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), DEBUG_MANAGER_PLUGIN_TYPE, DebugManagerPlugin))
-
 typedef struct _DebugManagerPlugin DebugManagerPlugin;
 typedef struct _DebugManagerPluginClass DebugManagerPluginClass;
 

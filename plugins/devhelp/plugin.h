@@ -32,10 +32,6 @@
 #include <devhelp/dh-base.h>
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 
-extern GType devhelp_type;
-#define DEVHELP_TYPE (devhelp_type)
-#define DEVHELP(o)   (G_TYPE_CHECK_INSTANCE_CAST ((o), DEVHELP_TYPE, AnjutaDevhelp))
-
 typedef struct _AnjutaDevhelp AnjutaDevhelp;
 typedef struct _AnjutaDevhelpClass AnjutaDevhelpClass;
 

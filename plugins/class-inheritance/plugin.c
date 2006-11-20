@@ -43,7 +43,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	AnjutaClassInheritance *ci_plugin;
 	const gchar *root_uri;
 
-	ci_plugin = CLASS_INHERITANCE_PLUGIN (plugin);
+	ci_plugin = (AnjutaClassInheritance*) plugin;
 	root_uri = g_value_get_string (value);
 	
 	if (root_uri)
@@ -69,7 +69,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
 	AnjutaClassInheritance *ci_plugin;
-	ci_plugin = CLASS_INHERITANCE_PLUGIN (plugin);
+	ci_plugin = (AnjutaClassInheritance*) plugin;
 	
 	/* clean up the canvas */
 	class_inheritance_clean_canvas (ci_plugin);
@@ -118,7 +118,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	register_stock_icons (plugin);
 	
-	class_inheritance = CLASS_INHERITANCE_PLUGIN (plugin);
+	class_inheritance = (AnjutaClassInheritance*) plugin;
 	
 	class_inheritance_base_gui_init (class_inheritance);
 	
@@ -142,16 +142,14 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	DEBUG_PRINT ("AnjutaClassInheritance: Dectivating plugin ...");
-	AnjutaClassInheritance* class_inheritance;
-	class_inheritance = CLASS_INHERITANCE_PLUGIN (plugin);
 
 	/* clean up the canvas [e.g. destroys it's elements */
-	class_inheritance_clean_canvas (class_inheritance);
+	class_inheritance_clean_canvas ((AnjutaClassInheritance*)plugin);
 	
 	/* destroy the nodestatus hash table */
-	if (class_inheritance->expansion_node_list) {
-		g_hash_table_destroy (class_inheritance->expansion_node_list);
-		class_inheritance->expansion_node_list = NULL;
+	if (((AnjutaClassInheritance*)plugin)->expansion_node_list) {
+		g_hash_table_destroy (((AnjutaClassInheritance*)plugin)->expansion_node_list);
+		((AnjutaClassInheritance*)plugin)->expansion_node_list = NULL;
 	}
 	
 	/* Container holds the last ref to this widget so it will be destroyed as
@@ -160,12 +158,13 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	 * destruction, because when you destroy a toplevel its children will 
 	 * be destroyed as well. */
 	anjuta_shell_remove_widget (plugin->shell,
-								class_inheritance->widget,
+								((AnjutaClassInheritance*)plugin)->widget,
 								NULL);
 
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin,
-								class_inheritance->root_watch_id,
+								((AnjutaClassInheritance*)
+								 plugin)->root_watch_id,
 								TRUE);
 	return TRUE;
 }
@@ -174,7 +173,7 @@ static void
 class_inheritance_finalize (GObject *obj)
 {
 	AnjutaClassInheritance *ci_plugin;
-	ci_plugin = CLASS_INHERITANCE_PLUGIN (obj);
+	ci_plugin = (AnjutaClassInheritance *) obj;
 	
 	if (ci_plugin->top_dir)
 		g_free (ci_plugin->top_dir);
@@ -193,7 +192,7 @@ class_inheritance_dispose (GObject *obj)
 static void
 class_inheritance_instance_init (GObject *obj)
 {
-	AnjutaClassInheritance *plugin = CLASS_INHERITANCE_PLUGIN (obj);
+	AnjutaClassInheritance *plugin = (AnjutaClassInheritance*)obj;
 
 	plugin->uiid = 0;
 
