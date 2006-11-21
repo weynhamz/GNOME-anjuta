@@ -1,3 +1,7 @@
+2006-11-21  Naba Kumar  <naba@gnome.org>
+
+	* plugins/search/search_preferences.c: Fixed build break.
+	
 2006-11-20  Naba Kumar  <naba@gnome.org>
 	
 	Patch from Kjartan Maraas:
