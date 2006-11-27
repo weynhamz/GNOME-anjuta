@@ -677,12 +677,6 @@ on_info_memory_activate (GtkAction * action, DebugManagerPlugin *plugin)
 }*/
 
 static void
-on_debugger_registers_activate (GtkAction * action, DebugManagerPlugin *plugin)
-{
-//	cpu_registers_show (plugin->registers);
-}
-
-static void
 on_debugger_sharedlibs_activate (GtkAction * action, DebugManagerPlugin *plugin)
 {
 	sharedlibs_show (plugin->sharedlibs);
@@ -692,11 +686,6 @@ static void
 on_debugger_signals_activate (GtkAction * action, DebugManagerPlugin *plugin)
 {
 	signals_show (plugin->signals);
-}
-
-static void
-on_debugger_signal_activate (GtkAction * action, DebugManagerPlugin *plugin)
-{
 }
 
 /* Actions table
@@ -807,7 +796,7 @@ static GtkActionEntry actions_loaded[] =
 	{
 		"ActionGdbViewSharedlibs",
 		NULL,
-		N_("Shared Libraries..."),
+		N_("Shared Libraries"),
 		NULL,
 		N_("Show shared libraries mappings"),
 		G_CALLBACK (on_debugger_sharedlibs_activate)
@@ -815,7 +804,7 @@ static GtkActionEntry actions_loaded[] =
 	{
 		"ActionGdbViewSignals",
 		NULL,
-		N_("Kernel Signals..."),
+		N_("Kernel Signals"),
 		NULL,
 		N_("Show kernel signals"),
 		G_CALLBACK (on_debugger_signals_activate)
@@ -913,25 +902,9 @@ static GtkActionEntry actions_stopped[] =
 		G_CALLBACK (on_info_args_activate)
 	},
 	{
-		"ActionGdbSignalProgram",
-		NULL,
-		N_("Si_gnal to Process"),
-		NULL,
-		N_("Send a kernel signal to the process being debugged"),
-		G_CALLBACK (on_debugger_signal_activate)
-	},
-	{
-		"ActionGdbViewRegisters",
-		NULL,
-		N_("Registers..."),
-		NULL,
-		N_("Show CPU register contents"),
-		G_CALLBACK (on_debugger_registers_activate)
-	},
-	{
 		"ActionGdbViewSharedlibs",
 		NULL,
-		N_("Shared Libraries..."),
+		N_("Shared Libraries"),
 		NULL,
 		N_("Show shared libraries mappings"),
 		G_CALLBACK (on_debugger_sharedlibs_activate)
@@ -939,7 +912,7 @@ static GtkActionEntry actions_stopped[] =
 	{
 		"ActionGdbViewSignals",
 		NULL,
-		N_("Kernel Signals..."),
+		N_("Kernel Signals"),
 		NULL,
 		N_("Show kernel signals"),
 		G_CALLBACK (on_debugger_signals_activate)

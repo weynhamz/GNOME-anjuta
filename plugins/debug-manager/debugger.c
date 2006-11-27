@@ -1134,7 +1134,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 			ianjuta_debugger_info_sharedlib (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_FRAME_COMMAND:
-			ianjuta_debugger_info_signal (this->debugger, cmd->callback, cmd->user_data, &err);	
+			ianjuta_debugger_info_frame (this->debugger, 0, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_ARGS_COMMAND:
 			ianjuta_debugger_info_args (this->debugger, cmd->callback, cmd->user_data, &err);	

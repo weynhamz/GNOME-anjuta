@@ -1413,10 +1413,8 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->skip_next_prompt = FALSE;
 	debugger->priv->terminating = FALSE;
-	g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
-	/*debugger_initialize2 (debugger);*/
-	/* debugger_start (debugger, NULL, NULL, FALSE); */
-	/* TODO	anjuta_update_app_status (TRUE, NULL); */
+	if (debugger->priv->instance)
+		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
 }
 
 static void
@@ -1478,8 +1476,7 @@ debugger_abort (Debugger *debugger)
 	debugger->priv->terminating = TRUE;
 
 	/* Stop gdb */
-	g_object_unref (debugger->priv->launcher);
-	debugger->priv->launcher = NULL;
+ 	anjuta_launcher_reset (debugger->priv->launcher);
 	
 	/* Stop inferior */	
 	if ((debugger->priv->prog_is_attached == FALSE) && (debugger->priv->inferior_pid != 0))
@@ -1491,13 +1488,15 @@ debugger_abort (Debugger *debugger)
 	debugger_queue_clear (debugger);
 	g_list_foreach (debugger->priv->search_dirs, (GFunc)g_free, NULL);
 	g_list_free (debugger->priv->search_dirs);
+	debugger->priv->search_dirs = NULL;
 
-	/* Signal end of debugger */
-	g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
 
 	/* Disconnect */
 	if (debugger->priv->instance != NULL)
 	{
+		/* Signal end of debugger */
+		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
+
 		g_object_remove_weak_pointer (debugger->priv->instance, (gpointer *)&debugger->priv->instance);
 		debugger->priv->instance = NULL;
 	}
@@ -3393,6 +3392,13 @@ debugger_dispose (GObject *obj)
 		debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
 							   "Debugging session completed.\n",
 							   debugger->priv->output_user_data);
+	}
+
+	if (debugger->priv->launcher)
+	{
+ 		anjuta_launcher_reset (debugger->priv->launcher);
+		g_object_unref (debugger->priv->launcher);
+		debugger->priv->launcher = NULL;
 	}
 
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));

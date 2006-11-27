@@ -27,10 +27,8 @@
 				<menuitem name="Inspect" action="ActionDmaInspect" />
 				<separator name="separator8"/>
 				<menu name="Info" action="ActionMenuGdbInformation">
-					<menuitem name="Registers" action="ActionGdbViewRegisters" />
 					<menuitem name="Sharedlibs" action="ActionGdbViewSharedlibs" />
 					<menuitem name="Signals" action="ActionGdbViewSignals" />
-					<menuitem name="SignalProgram" action="ActionGdbSignalProgram" />
 					<separator name="separator4"/>
 					<menuitem name="TargetFiles" action="ActionGdbInfoTargetFiles"/>
 					<menuitem name="Program" action="ActionGdbInfoProgram" />

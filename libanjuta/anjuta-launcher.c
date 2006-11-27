@@ -812,18 +812,30 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 	while (g_main_context_pending (NULL))
 		g_main_context_iteration (NULL, FALSE);
 	
-	g_io_channel_shutdown (launcher->priv->stdout_channel, emit_signal, NULL);
-	g_io_channel_shutdown (launcher->priv->stderr_channel, emit_signal, NULL);
-	g_io_channel_shutdown (launcher->priv->pty_channel, emit_signal, NULL);
+	/* Can be called again, while waiting in the previous line
+	 * Do nothing if clean up is already done */
+	if (launcher->priv->stdout_channel)
+	{	
+		g_io_channel_shutdown (launcher->priv->stdout_channel, emit_signal, NULL);
+		g_io_channel_unref (launcher->priv->stdout_channel);
+		g_source_remove (launcher->priv->stdout_watch);
+	}
+
+	if (launcher->priv->stderr_channel)
+	{
+		g_io_channel_shutdown (launcher->priv->stderr_channel, emit_signal, NULL);
+		g_io_channel_unref (launcher->priv->stderr_channel);
+		g_source_remove (launcher->priv->stderr_watch);
+	}
+
+	if (launcher->priv->pty_channel)
+	{
+		g_io_channel_shutdown (launcher->priv->pty_channel, emit_signal, NULL);
+		g_io_channel_unref (launcher->priv->pty_channel);
 	
-	g_io_channel_unref (launcher->priv->stdout_channel);
-	g_io_channel_unref (launcher->priv->stderr_channel);
-	g_io_channel_unref (launcher->priv->pty_channel);
-	
-	g_source_remove (launcher->priv->pty_watch);
-	g_source_remove (launcher->priv->stdout_watch);
-	g_source_remove (launcher->priv->stderr_watch);
-	
+		g_source_remove (launcher->priv->pty_watch);
+	}
+
 	if (launcher->priv->pty_output_buffer)
 		g_free (launcher->priv->pty_output_buffer);
 	if (launcher->priv->stdout_buffer)

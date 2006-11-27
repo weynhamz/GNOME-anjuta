@@ -1095,6 +1095,26 @@ breakpoints_dbase_disconnect (BreakpointsDBase *bd)
 /* Callbacks
  *---------------------------------------------------------------------------*/
 
+static void
+on_jump_to_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
+{
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	gboolean valid;
+
+	selection =	gtk_tree_view_get_selection (bd->treeview);
+	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
+	if (valid)
+	{
+		BreakpointItem *bi;
+		
+		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
+		
+		goto_location_in_editor (bd->plugin, bi->uri, bi->bp->line);
+	}
+}
+
 static gboolean
 on_breakpoints_button_press (GtkWidget * widget, GdkEventButton * bevent, BreakpointsDBase *bd)
 {
@@ -1102,6 +1122,11 @@ on_breakpoints_button_press (GtkWidget * widget, GdkEventButton * bevent, Breakp
 	{
 		gtk_menu_popup (bd->popup, NULL, NULL, NULL, NULL,
 						bevent->button, bevent->time);
+	}
+	else if ((bevent->type == GDK_2BUTTON_PRESS) && (bevent->button == 1))
+	{
+		/* Double left mousr click */
+		on_jump_to_breakpoint_activate (NULL, bd);
 	}
 	
 	return FALSE;
@@ -1258,26 +1283,6 @@ on_edit_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 		
 		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 		breakpoints_dbase_edit_breakpoint (bd, bi);
-	}
-}
-
-static void
-on_jump_to_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
-{
-	GtkTreeModel *model;
-	GtkTreeSelection *selection;
-	GtkTreeIter iter;
-	gboolean valid;
-
-	selection =	gtk_tree_view_get_selection (bd->treeview);
-	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
-	if (valid)
-	{
-		BreakpointItem *bi;
-		
-		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
-		
-		goto_location_in_editor (bd->plugin, bi->uri, bi->bp->line);
 	}
 }
 
