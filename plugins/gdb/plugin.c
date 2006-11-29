@@ -653,7 +653,7 @@ idebugger_list_frame (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback 
 static gboolean
 idebugger_list_register (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	//GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
 	//debugger_list_register (this->debugger, callback, user_data);
 
@@ -671,11 +671,11 @@ idebugger_enable_log (IAnjutaDebugger *plugin, IAnjutaMessageView *log, GError *
 }
 
 static void
-idebugger_disable_log (IAnjutaDebugger *plugin, IAnjutaMessageView *log, GError **err)
+idebugger_disable_log (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
-	this->view = log;
+	this->view = NULL;
 	if (this->debugger)
 		debugger_set_log (this->debugger, NULL);
 }
@@ -756,7 +756,7 @@ icpu_debugger_update_register (IAnjutaCpuDebugger *plugin, IAnjutaDebuggerCallba
 }
 
 static gboolean
-icpu_debugger_write_register (IAnjutaDebugger *plugin, IAnjutaDebuggerRegister *value, gpointer user_data, GError **err)
+icpu_debugger_write_register (IAnjutaCpuDebugger *plugin, IAnjutaDebuggerRegister *value, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
@@ -766,7 +766,7 @@ icpu_debugger_write_register (IAnjutaDebugger *plugin, IAnjutaDebuggerRegister *
 }
 
 static gboolean
-icpu_debugger_inspect_memory (IAnjutaDebugger *plugin, const void *address, unsigned int length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+icpu_debugger_inspect_memory (IAnjutaCpuDebugger *plugin, const void *address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 

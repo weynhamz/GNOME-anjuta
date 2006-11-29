@@ -22,6 +22,7 @@
 #include "anjuta-marshal.h"
 
 #include <string.h>
+#include <glib/gprintf.h>
 
 enum
 {
@@ -178,7 +179,7 @@ dma_data_buffer_find_node (DmaDataBuffer *buffer, gulong address)
 		{
 			if (i == 0)
 			{
-				*node = g_new0 (DmaDataBufferLastNode, 1);
+				*node = (DmaDataBufferNode *)g_new0 (DmaDataBufferLastNode, 1);
 			}
 			else
 			{
@@ -192,6 +193,7 @@ dma_data_buffer_find_node (DmaDataBuffer *buffer, gulong address)
 	return node;
 }
 
+#if 0
 static DmaDataBufferPage* 
 dma_data_buffer_get_page (DmaDataBuffer *buffer, gulong address)
 {
@@ -201,6 +203,7 @@ dma_data_buffer_get_page (DmaDataBuffer *buffer, gulong address)
 
 	return (DmaDataBufferPage *)*node;
 }
+#endif
 
 static DmaDataBufferPage* 
 dma_data_buffer_add_page (DmaDataBuffer *buffer, gulong address)
@@ -212,7 +215,7 @@ dma_data_buffer_add_page (DmaDataBuffer *buffer, gulong address)
 	
 	if (*node == NULL)
 	{
-		*node = g_new0 (DmaDataBufferPage, 1);
+		*node = (DmaDataBufferNode *)g_new0 (DmaDataBufferPage, 1);
 		page = (DmaDataBufferPage *)*node;
 		page->validation = buffer->validation - 1;
 	}
@@ -333,8 +336,8 @@ dma_data_buffer_get_data (DmaDataBuffer *buffer, gulong lower, guint length, gui
 	DmaDisplayDataFunc display;
 	guint inc;
     gchar dummy[16];
-    gchar *data;
-	gchar *tag;
+    gchar *data = NULL;
+	gchar *tag = NULL;
 	guint len;
 
 	line = (length + step - 1) / step;

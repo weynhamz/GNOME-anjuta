@@ -205,7 +205,7 @@ svn_auth_ssl_client_cert_prompt_func_cb (svn_auth_cred_ssl_client_cert_t **cred,
 										 svn_boolean_t may_save,
 										 apr_pool_t *pool)
 {
-	SVN *svn = (SVN*)baton;
+	// SVN *svn = (SVN*)baton;
 	
 	/* Ask for the file where client certificate of authenticity is.
 	 * I think it is some sort of private key. */
@@ -218,7 +218,7 @@ svn_auth_ssl_client_cert_pw_prompt_func_cb (svn_auth_cred_ssl_client_cert_pw_t *
 										   svn_boolean_t may_save,
 										   apr_pool_t *pool)
 {
-	SVN *svn = (SVN*)baton;
+	// SVN *svn = (SVN*)baton;
 	
 	/* Prompt for password only. I think it is pass-phrase of the above key. */
 	return SVN_NO_ERROR;;

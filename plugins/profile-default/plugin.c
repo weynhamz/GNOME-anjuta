@@ -642,8 +642,8 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 			continue;
 		}
 		
-		name = xmlGetProp (xml_node, (const xmlChar*)"name");
-		url = xmlGetProp (xml_node, (const xmlChar*)"url");
+		name = (gchar *)xmlGetProp (xml_node, (const xmlChar*)"name");
+		url = (gchar *)xmlGetProp (xml_node, (const xmlChar*)"url");
 		
 		/* Ensure that both name is given */
 		if (!name)
@@ -656,7 +656,7 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 			url = g_strdup ("http://anjuta.org/plugins/");
 		
 		/* Check if the plugin is mandatory */
-		mandatory_text = xmlGetProp (xml_node, (const xmlChar*)"mandatory");
+		mandatory_text = (gchar *)xmlGetProp (xml_node, (const xmlChar*)"mandatory");
 		if (mandatory_text && strcasecmp (mandatory_text, "yes") == 0)
 			mandatory = TRUE;
 		else
@@ -676,9 +676,9 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 				xml_require_node = xml_require_node->next;
 				continue;
 			}
-			group = xmlGetProp(xml_require_node, (const xmlChar *)"group");
-			attrib = xmlGetProp(xml_require_node, (const xmlChar *)"attribute");
-			value = xmlGetProp(xml_require_node, (const xmlChar *)"value");
+			group = (gchar *)xmlGetProp(xml_require_node, (const xmlChar *)"group");
+			attrib = (gchar *)xmlGetProp(xml_require_node, (const xmlChar *)"attribute");
+			value = (gchar *)xmlGetProp(xml_require_node, (const xmlChar *)"value");
 			
 			if (group && attrib && value)
 			{

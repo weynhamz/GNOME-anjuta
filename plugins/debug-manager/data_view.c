@@ -80,6 +80,7 @@ static GtkWidgetClass *parent_class = NULL;
 /* Helper functions
  *---------------------------------------------------------------------------*/
 
+#if 0
 static void
 get_widget_char_size (GtkWidget *widget, gint *width, gint *height)
 {
@@ -101,6 +102,7 @@ get_widget_char_size (GtkWidget *widget, gint *width, gint *height)
 	pango_font_metrics_unref (metrics);
 	pango_font_description_free (font_desc);
 }
+#endif
 
 /* Goto address window
  *---------------------------------------------------------------------------*/

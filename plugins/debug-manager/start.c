@@ -809,7 +809,7 @@ dma_start_load_uri (DmaStart *this)
 	GnomeVFSURI *vfs_uri;
 	gchar *mime_type;
 	const gchar *filename;
-	GList *node;
+	// GList *node;
 
 	if ((this->target_uri != NULL) && (*(this->target_uri) != '\0'))
 	{

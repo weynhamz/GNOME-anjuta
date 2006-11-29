@@ -156,9 +156,9 @@ dma_chunk_view_finalize (GObject *object)
 static void
 dma_chunk_view_instance_init (DmaChunkView *view)
 {
-	GtkAdjustment *adj;
-	GtkWidget* wid;
-	PangoFontDescription *font_desc;
+	// GtkAdjustment *adj;
+	// GtkWidget* wid;
+	// PangoFontDescription *font_desc;
 
 }
 

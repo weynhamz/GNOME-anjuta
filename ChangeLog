@@ -1,6 +1,10 @@
 2006-11-22  Sylvain Defresne  <sdefresne@gmail.com>
 
 	Reviewed by: Naba Kumar  <naba@gnome.org>
+	* plugins/*/*.[ch]: Corrected warnings occuring when compiling with
+	GCC 4.1.2 (there are only two warnings remaining now when compiling
+	plugins).
+
 	* plugins/*/*.[ch]: Use class macro for type casting (ANJUTA_PLUGIN_*).
 
 	* libanjuta/anjuta-plugin.h: Modification of the ANJUTA_PLUGIN_BEGIN

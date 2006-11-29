@@ -41,7 +41,7 @@
 /* Private type
  *---------------------------------------------------------------------------*/
 
-typedef enum
+enum
 {
 	COMMAND_MASK = 0xff,
 	NEED_DEBUGGER_STOPPED = 1 << 8,
@@ -386,6 +386,16 @@ struct _DmaDebuggerQueueClass {
 	GObjectClass parent;
  };
 
+/*
+ * Functions declaration
+ *---------------------------------------------------------------------------*/
+
+gboolean
+dma_queue_check_status (DmaDebuggerQueue *this, DmaDebuggerCommandType type, GError **err);
+
+void
+dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus status);
+
 /* Message functions
  *---------------------------------------------------------------------------*/
 
@@ -699,12 +709,14 @@ dma_debugger_end_command (DmaDebuggerQueue *this)
 	}
 }
 
+#if 0
 /* Avoid passing a NULL argument to ianjuter_debugger_initialize */
 static void
 null_function(void)
 {
 	return;
 }
+#endif
 
 gboolean
 dma_queue_check_status (DmaDebuggerQueue *this, DmaDebuggerCommandType type, GError **err)
@@ -822,8 +834,8 @@ dma_queue_update_queue_status (DmaDebuggerQueue *this, DmaDebuggerCommandType ty
 void
 dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus status)
 {
-	DmaQueueCommand *head;
-	DmaQueueCommand *tail;
+	// DmaQueueCommand *head;
+	// DmaQueueCommand *tail;
 	const char* signal = NULL;
 
 	this->queue_command = FALSE;
@@ -1002,6 +1014,7 @@ dma_debugger_queue_append (DmaDebuggerQueue *this, DmaDebuggerCommandType type, 
 	return cmd;
 }
 
+#if 0
 static DmaQueueCommand*
 dma_debugger_queue_prepend (DmaDebuggerQueue *this)
 {
@@ -1020,6 +1033,7 @@ dma_debugger_queue_prepend (DmaDebuggerQueue *this)
 	
 	return cmd;
 }
+#endif
 
 static void
 dma_debugger_queue_execute (DmaDebuggerQueue *this)
@@ -1173,7 +1187,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 			ianjuta_cpu_debugger_write_register (this->cpu_debugger, &reg, &err);	
 			break;
 		case INSPECT_MEMORY_COMMAND:
-			ianjuta_cpu_debugger_inspect_memory (this->debugger, cmd->mem.address, cmd->mem.length, cmd->callback, cmd->user_data, &err);	
+			ianjuta_cpu_debugger_inspect_memory (this->cpu_debugger, cmd->mem.address, cmd->mem.length, cmd->callback, cmd->user_data, &err);	
 			break;
 		case BREAK_LINE_COMMAND:
 			ianjuta_debugger_set_breakpoint_at_line (this->debugger, cmd->pos.file, cmd->pos.line, cmd->callback, cmd->user_data, &err);	
@@ -1371,7 +1385,7 @@ idebugger_initialize (IAnjutaDebugger *iface, IAnjutaDebuggerOutputCallback call
 	cmd = dma_debugger_queue_append (this, DMA_INITIALIZE_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
-	cmd->callback = callback;
+	cmd->callback = (IAnjutaDebuggerCallback)callback;
 	cmd->user_data = user_data;
 	dma_debugger_queue_execute (this);
 	
@@ -2125,7 +2139,7 @@ icpu_debugger_update_register (IAnjutaCpuDebugger *iface, IAnjutaDebuggerCallbac
 }
 
 static gboolean
-icpu_debugger_write_register (IAnjutaCpuDebugger *iface, IAnjutaDebuggerRegister *value, gpointer user_data, GError **err)
+icpu_debugger_write_register (IAnjutaCpuDebugger *iface, IAnjutaDebuggerRegister *value, GError **err)
 {
 	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
 	DmaQueueCommand *cmd;
@@ -2142,7 +2156,7 @@ icpu_debugger_write_register (IAnjutaCpuDebugger *iface, IAnjutaDebuggerRegister
 }
 
 static gboolean
-icpu_debugger_inspect_memory (IAnjutaDebugger *iface, const void *address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+icpu_debugger_inspect_memory (IAnjutaCpuDebugger *iface, const void *address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
 	DmaQueueCommand *cmd;

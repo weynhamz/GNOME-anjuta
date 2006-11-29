@@ -29,10 +29,10 @@ static GtkItemFactoryEntry tray_icon_menu[] =
 static int ntray_icon_menu = sizeof (tray_icon_menu) / sizeof (tray_icon_menu[0]);
 
 
+static
 void tray_paint_tip(GtkWidget *widget, GdkEventExpose *event)
 {
 	int width = 0, height = 0;
-	int number_rows = 0;
 	GTodoList *list = NULL;
 
 	gtk_paint_flat_box (widget->style, widget->window, GTK_STATE_NORMAL, GTK_SHADOW_OUT,
@@ -80,13 +80,13 @@ void tray_paint_tip(GtkWidget *widget, GdkEventExpose *event)
 	}
 }
 
+static
 gboolean tray_motion_cb (GtkWidget *tv, GdkEventCrossing *event, gpointer n)
 {
 	int width = 0,height = 0;
 	GdkRectangle msize;
 	int x,y;
 	char *tooltiptext = NULL;
-	int number_rows = 0;
 	GTodoList *list = NULL;
 	int monitor = gdk_screen_get_monitor_at_window(
 			gtk_widget_get_screen(tv), tv->window);
@@ -179,6 +179,7 @@ gboolean tray_motion_cb (GtkWidget *tv, GdkEventCrossing *event, gpointer n)
 
 }
 
+static
 void tray_leave_cb (GtkWidget *w, GdkEventCrossing *e, gpointer n)
 {
 	//	if(tray_timeout != -1) g_source_remove(tray_timeout);
@@ -200,6 +201,7 @@ void tray_icon_remove()
 }
 
 /* if the tray is destroyed, recreate it again */
+static
 void tray_icon_destroy(GtkWidget *ticon, GtkWidget *window)
 {
 	if(gconf_client_get_bool(client, "/apps/gtodo/view/enable-tray",NULL))
@@ -226,6 +228,7 @@ void tray_hide_show_window()
 	}
 }
 
+static
 int tray_mouse_click(GtkWidget *wid, GdkEventButton *event)
 {
 	GtkWidget *window;
@@ -255,6 +258,7 @@ int tray_mouse_click(GtkWidget *wid, GdkEventButton *event)
 		gtk_menu_popup(GTK_MENU(gtk_item_factory_get_widget(GTK_ITEM_FACTORY(item), "<tablepop>")),
 				NULL,NULL,NULL, NULL, event->button, event->time);
 	}
+	return TRUE;
 }
 
 

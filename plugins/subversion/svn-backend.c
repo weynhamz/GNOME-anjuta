@@ -43,12 +43,14 @@ print_svn_error (svn_error_t *error)
 
 	while (itr)
 	{
+#ifdef DEBUG
 		char buffer[256] = { 0 };
 
 		DEBUG_PRINT ("SVN: Source error code: %d (%s)\n",
 				   error->apr_err,
 				   svn_strerror (itr->apr_err, buffer, sizeof (buffer)));
 		DEBUG_PRINT ("SVN: Error description: %s\n", error->message);
+#endif
 				
 		itr = itr->child;
 	}

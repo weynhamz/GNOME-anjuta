@@ -379,6 +379,7 @@ on_remove_project_tm_files (gpointer key, gpointer val, gpointer data)
 	return FALSE;
 }
 
+#if 0
 static gboolean
 on_treeview_row_search (GtkTreeModel * model, gint column,
 			const gchar * key, GtkTreeIter * iter, gpointer data)
@@ -386,6 +387,7 @@ on_treeview_row_search (GtkTreeModel * model, gint column,
 	DEBUG_PRINT ("Search key == '%s'", key);
 	return FALSE;
 }
+#endif
 
 static AnjutaSymbolInfo *
 sv_current_symbol (AnjutaSymbolView * sv)
@@ -789,7 +791,7 @@ void anjuta_symbol_view_update_source_from_buffer (AnjutaSymbolView *sv, const g
 	}	
 	
 	timer = g_timer_new ();
-	tm_source_file_buffer_update (tm_file, text_buffer, buffer_size, TRUE);
+	tm_source_file_buffer_update (tm_file, (unsigned char *)text_buffer, buffer_size, TRUE);
 	
 	g_timer_stop (timer);
 	g_timer_elapsed (timer, &ms);

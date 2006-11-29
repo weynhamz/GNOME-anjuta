@@ -770,7 +770,7 @@ static void
 npw_druid_add_default_property (NPWDruid* this)
 {
 	NPWValue* value;
-	const gchar* s;
+	gchar* s;
 	/* gchar* email; */
 	AnjutaPreferences* pref;
 
@@ -787,7 +787,7 @@ npw_druid_add_default_property (NPWDruid* this)
 	s = anjuta_preferences_get (pref, "anjuta.user.name");
 	if (!s || strlen(s) == 0)
 	{
-		s = g_get_real_name();
+		s = (gchar *)g_get_real_name();
 		npw_value_heap_set_value (this->values, value, s, NPW_VALID_VALUE);
 	}
 	else

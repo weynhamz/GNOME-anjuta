@@ -399,6 +399,7 @@ dma_plugin_location_changed (DebugManagerPlugin *this, const gchar* file, guint 
 
 /* Called when a program is unloaded */
 
+#if 0
 static void
 dma_plugin_program_unload (DebugManagerPlugin *this)
 {
@@ -431,6 +432,7 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 	gtk_action_group_set_visible (this->running_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
 }
+#endif
 
 /* Called when the debugger is stopped */
 

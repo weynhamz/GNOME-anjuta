@@ -84,8 +84,8 @@ main(int argc, char **argv)
 {
 	GDBMIValue *val;
 	gchar *ptr;
-	Debugger *debugger;
-	GtkWidget *win, *entry;
+	/* Debugger *debugger; */
+	/* GtkWidget *win, *entry; */
 	
 	printf("Test GDB MI interface.\n");
 	ptr = gdb_test_line;

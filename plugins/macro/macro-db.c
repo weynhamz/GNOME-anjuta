@@ -137,13 +137,13 @@ read_macros (xmlDocPtr doc, xmlNodePtr cur, GtkTreeStore * tree_store,
 			xmlChar *shortcut;
 			xmlChar *text;
 			
-			name = xmlGetProp(cur, "_name");
-			category = xmlGetProp(cur, "_category");
-			shortcut = xmlGetProp(cur, "_shortcut");
+			name = xmlGetProp(cur, (const xmlChar *)"_name");
+			category = xmlGetProp(cur, (const xmlChar *)"_category");
+			shortcut = xmlGetProp(cur, (const xmlChar *)"_shortcut");
 			text = xmlNodeListGetString (doc, cur->xmlChildrenNode, 1);
 			
-			macro_db_add_real (tree_store, iter, name,
-					   category, shortcut, text,
+			macro_db_add_real (tree_store, iter, (const gchar *)name,
+					   (const gchar *)category, (const gchar *)shortcut, (const gchar *)text,
 					   pre_defined);
 			xmlFree(name);
 			xmlFree(category);

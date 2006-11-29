@@ -283,10 +283,12 @@ devhelp_activate (AnjutaPlugin *plugin)
 
 	AnjutaUI *ui;
 	AnjutaDevhelp *devhelp;
+
+#ifndef DISABLE_EMBEDDED_DEVHELP
 	GNode *books;
 	GList *keywords;
-	
 	GtkWidget* books_sw;
+#endif
 	
 	DEBUG_PRINT ("AnjutaDevhelp: Activating AnjutaDevhelp plugin ...");
 	devhelp = ANJUTA_PLUGIN_DEVHELP (plugin);
