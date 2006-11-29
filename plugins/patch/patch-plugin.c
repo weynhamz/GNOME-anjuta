@@ -187,7 +187,7 @@ on_msg_arrived (AnjutaLauncher *launcher,
 {	
 	g_return_if_fail (line != NULL);	
 	
-	PatchPlugin* p_plugin = (PatchPlugin*)data;
+	PatchPlugin* p_plugin = ANJUTA_PLUGIN_PATCH (data);
 	ianjuta_message_view_buffer_append (p_plugin->mesg_view, line, NULL);
 }
 
@@ -198,7 +198,7 @@ on_patch_terminated (AnjutaLauncher *launcher,
 {
 	g_return_if_fail (launcher != NULL);
 	
-	PatchPlugin* plugin = (PatchPlugin*)data;
+	PatchPlugin* plugin = ANJUTA_PLUGIN_PATCH (data);
 	
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (on_patch_terminated),

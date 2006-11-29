@@ -3421,7 +3421,7 @@ debugger_class_init (DebuggerClass * klass)
 	GObjectClass *object_class;
 	
 	g_return_if_fail (klass != NULL);
-	object_class = (GObjectClass *) klass;
+	object_class = G_OBJECT_CLASS (klass);
 	
 	DEBUG_PRINT ("Initializing debugger class");
 	

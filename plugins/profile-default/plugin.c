@@ -242,7 +242,7 @@ static void
 value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 							  const GValue *value, gpointer data)
 {
-	DefaultProfilePlugin* pf_plugin = (DefaultProfilePlugin*) plugin;
+	DefaultProfilePlugin* pf_plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (plugin);
 	const gchar* uri = g_value_get_string(value);
 	
 	GSList* project_node =
@@ -256,7 +256,7 @@ static void
 value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 								gpointer data)
 {
-	/*DefaultProfilePlugin* pf_plugin = (DefaultProfilePlugin*) plugin;
+	/*DefaultProfilePlugin* pf_plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (plugin);
 	g_free (pf_plugin->project_uri);
 	pf_plugin->project_uri = NULL;*/
 }
@@ -266,7 +266,7 @@ default_profile_plugin_activate_plugin (AnjutaPlugin *plugin)
 {
 	DefaultProfilePlugin *pf_plugin;
 	
-	pf_plugin = (DefaultProfilePlugin *)plugin;
+	pf_plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (plugin);
 	
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
@@ -286,7 +286,7 @@ default_profile_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	DefaultProfilePlugin *pf_plugin;
 	
-	pf_plugin = (DefaultProfilePlugin *)plugin;
+	pf_plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
@@ -306,7 +306,7 @@ default_profile_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 static void
 default_profile_plugin_dispose (GObject *obj)
 {
-	DefaultProfilePlugin* plugin = (DefaultProfilePlugin *)obj;
+	DefaultProfilePlugin* plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (obj);
 	if (plugin->default_profile)
 	{
 		g_free (plugin->default_profile);
@@ -333,7 +333,7 @@ default_profile_plugin_dispose (GObject *obj)
 static void
 default_profile_plugin_instance_init (GObject *obj)
 {
-	DefaultProfilePlugin* plugin = (DefaultProfilePlugin*)obj;
+	DefaultProfilePlugin* plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (obj);
 	plugin->project_uri = NULL;
 	plugin->merge_id = 0;
 	plugin->action_group = NULL;
@@ -940,7 +940,7 @@ iprofile_load (IAnjutaProfile *profile, GError **err)
 	AnjutaStatus *status;
 	DefaultProfilePlugin *plugin;
 	
-	plugin = (DefaultProfilePlugin*)ANJUTA_PLUGIN (profile);
+	plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (profile);
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (profile)->shell, NULL);
 	
 	anjuta_status_progress_add_ticks (status, 1);
@@ -964,7 +964,7 @@ iprofile_unload (IAnjutaProfile *iprofile,
 	gchar* uri;
 	gchar* session_dir;
 	
-	plugin = (DefaultProfilePlugin*)G_OBJECT (iprofile);
+	plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (iprofile);
 	
 	/* Save project session */
 	session_dir = default_profile_plugin_get_session_dir (plugin);
@@ -1005,7 +1005,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	GValue *value;
 	GSList *selected_plugins, *temp_plugins;
 	
-	plugin = (DefaultProfilePlugin*)G_OBJECT (ifile);
+	plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (ifile);
 	
 	/* First check if this uri was already opened */
 	if (g_slist_find_custom (plugin->root_uris, uri, uri_strcmp) != NULL)
@@ -1132,7 +1132,7 @@ ifile_get_uri (IAnjutaFile *ifile, GError **e)
 {
 	DefaultProfilePlugin *plugin;
 	
-	plugin = (DefaultProfilePlugin*)G_OBJECT (ifile);
+	plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (ifile);
 	if (plugin->project_uri)
 		return g_strdup (plugin->project_uri);
 	else

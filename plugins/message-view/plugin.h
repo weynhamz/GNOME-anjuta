@@ -20,6 +20,14 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
+extern GType message_view_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_MESSAGE_VIEW         (message_view_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_MESSAGE_VIEW(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_MESSAGE_VIEW, MessageViewPlugin))
+#define ANJUTA_PLUGIN_MESSAGE_VIEW_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_MESSAGE_VIEW, MessageViewPluginClass))
+#define ANJUTA_IS_PLUGIN_MESSAGE_VIEW(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_MESSAGE_VIEW))
+#define ANJUTA_IS_PLUGIN_MESSAGE_VIEW_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_MESSAGE_VIEW))
+#define ANJUTA_PLUGIN_MESSAGE_VIEW_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_MESSAGE_VIEW, MessageViewPluginClass))
+
 typedef struct _MessageViewPlugin MessageViewPlugin;
 typedef struct _MessageViewPluginClass MessageViewPluginClass;
 

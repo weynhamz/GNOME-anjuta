@@ -374,7 +374,7 @@ static void  pref_gconf_changed_sort_order(GConfClient *client)
 	settings.sortorder = gconf_client_get_int(client, "/apps/gtodo/prefs/sort-order",NULL);
 	if(settings.sortorder == 0)gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Sorting/Sort Ascending"))), TRUE);		
 	else gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Sorting/Sort Descending"))), TRUE);		
-	gtk_tree_sortable_set_sort_column_id((GtkTreeSortable *)mw.sortmodel,0 , settings.sortorder);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (mw.sortmodel),0 , settings.sortorder);
 }    
 
 static void  pref_gconf_changed_hide_done(GConfClient *client)

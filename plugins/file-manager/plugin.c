@@ -71,7 +71,7 @@ static void
 on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
 					   GConfEntry *entry, gpointer user_data)
 {
-	FileManagerPlugin *fv = (FileManagerPlugin*)user_data;
+	FileManagerPlugin *fv = ANJUTA_PLUGIN_FILE_MANAGER (user_data);
 	if (fv->project_is_loaded == FALSE)
 		set_default_root_directory (fv);
 	else
@@ -118,7 +118,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	FileManagerPlugin *fm_plugin;
 	const gchar *root_uri;
 
-	fm_plugin = (FileManagerPlugin *)plugin;
+	fm_plugin = ANJUTA_PLUGIN_FILE_MANAGER (plugin);
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
@@ -127,7 +127,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		{
 			fv_set_root (fm_plugin, root_dir);
 			fv_refresh (fm_plugin, FALSE);
-			((FileManagerPlugin *)plugin)->project_is_loaded = TRUE;
+			ANJUTA_PLUGIN_FILE_MANAGER (plugin)->project_is_loaded = TRUE;
 		}
 		else
 			set_default_root_directory (fm_plugin);
@@ -141,8 +141,8 @@ static void
 project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
-	set_default_root_directory ((FileManagerPlugin *)plugin);
-	((FileManagerPlugin *)plugin)->project_is_loaded = FALSE;
+	set_default_root_directory (ANJUTA_PLUGIN_FILE_MANAGER (plugin));
+	ANJUTA_PLUGIN_FILE_MANAGER (plugin)->project_is_loaded = FALSE;
 }
 
 static gboolean
@@ -153,7 +153,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("FileManagerPlugin: Activating File Manager plugin ...");
 	
-	fm_plugin = (FileManagerPlugin*) plugin;
+	fm_plugin = ANJUTA_PLUGIN_FILE_MANAGER (plugin);
 	fm_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	fm_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	fv_init (fm_plugin);
@@ -190,7 +190,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	GtkWidget *widget_to_remove;
 	FileManagerPlugin *fm_plugin;
 	
-	fm_plugin = (FileManagerPlugin*) plugin;
+	fm_plugin = ANJUTA_PLUGIN_FILE_MANAGER (plugin);
 	
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, fm_plugin->root_watch_id, FALSE);
@@ -222,7 +222,7 @@ dispose (GObject *obj)
 static void
 file_manager_plugin_instance_init (GObject *obj)
 {
-	FileManagerPlugin *plugin = (FileManagerPlugin*) obj;
+	FileManagerPlugin *plugin = ANJUTA_PLUGIN_FILE_MANAGER (obj);
 	plugin->tree = NULL;
 	plugin->scrolledwindow = NULL;
 	plugin->top_dir = NULL;
@@ -247,7 +247,7 @@ static void
 ifile_manager_set_root (IAnjutaFileManager *file_manager,
 						const gchar *root, GError **err)
 {
-	fv_set_root ((FileManagerPlugin*) file_manager, root);
+	fv_set_root (ANJUTA_PLUGIN_FILE_MANAGER (file_manager), root);
 }
 
 static void
@@ -259,7 +259,7 @@ ifile_manager_set_selected (IAnjutaFileManager *file_manager,
 static gchar*
 ifile_manager_get_selected (IAnjutaFileManager *file_manager, GError **err)
 {
-	return fv_get_selected_file_path((FileManagerPlugin*) file_manager);
+	return fv_get_selected_file_path(ANJUTA_PLUGIN_FILE_MANAGER (file_manager));
 }
 
 static void
@@ -273,7 +273,7 @@ ifile_manager_iface_init(IAnjutaFileManagerIface *iface)
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	FileManagerPlugin* fm_plugin = (FileManagerPlugin*) ipref;
+	FileManagerPlugin* fm_plugin = ANJUTA_PLUGIN_FILE_MANAGER (ipref);
 	/* Add preferences */
 	GladeXML *gxml = glade_xml_new (PREFS_GLADE, "dialog.file.filter", NULL);
 		
@@ -287,7 +287,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	FileManagerPlugin* fm_plugin = (FileManagerPlugin*) ipref;
+	FileManagerPlugin* fm_plugin = ANJUTA_PLUGIN_FILE_MANAGER (ipref);
 	prefs_finalize (fm_plugin);
 	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), _("File Manager"));
 }

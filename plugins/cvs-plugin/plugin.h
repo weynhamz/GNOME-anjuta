@@ -29,6 +29,14 @@
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-cvs-plugin.glade"
 
+extern GType cvs_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_CVS         (cvs_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_CVS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_CVS, CVSPlugin))
+#define ANJUTA_PLUGIN_CVS_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_CVS, CVSPluginClass))
+#define ANJUTA_IS_PLUGIN_CVS(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_CVS))
+#define ANJUTA_IS_PLUGIN_CVS_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_CVS))
+#define ANJUTA_PLUGIN_CVS_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_CVS, CVSPluginClass))
+
 typedef struct _CVSPlugin CVSPlugin;
 typedef struct _CVSPluginClass CVSPluginClass;
 

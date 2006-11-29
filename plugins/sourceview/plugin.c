@@ -146,7 +146,7 @@ static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	/* Add preferences */
-	SourceviewPlugin* plugin = (SourceviewPlugin*)(ipref); 
+	SourceviewPlugin* plugin = ANJUTA_PLUGIN_SOURCEVIEW (ipref);
 	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
 	anjuta_preferences_add_page (prefs,
 								 gxml, "Editor", _("GtkSourceView Editor"), ICON_FILE);
@@ -160,7 +160,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	SourceviewPlugin* plugin = (SourceviewPlugin*)(ipref); 
+	SourceviewPlugin* plugin = ANJUTA_PLUGIN_SOURCEVIEW (ipref);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->check_color), 
 		G_CALLBACK(on_color_check_toggled), gxml);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->check_font), 

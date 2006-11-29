@@ -716,7 +716,7 @@ anjuta_symbol_view_add_source (AnjutaSymbolView * sv, const gchar *filename)
 /*
 	for (tmp = app->text_editor_list; tmp; tmp = g_list_next(tmp))
 	{
-		te = (TextEditor *) tmp->data;
+		te = TEXT_EDITOR (tmp->data);
 		if (te && !te->tm_file && (0 == strcmp(te->full_filename, filename)))
 			te->tm_file = tm_workspace_find_object(TM_WORK_OBJECT(app->tm_workspace)
 			  , filename, FALSE);
@@ -746,7 +746,7 @@ anjuta_symbol_view_remove_source (AnjutaSymbolView *sv, const gchar *filename)
 		sv->priv->symbols_need_update = TRUE;
 /*		for (node = app->text_editor_list; node; node = g_list_next(node))
 		{
-			te = (TextEditor *) node->data;
+			te = TEXT_EDITOR (node->data);
 			if (te && (source_file == te->tm_file))
 				te->tm_file = NULL;
 		}
@@ -995,7 +995,7 @@ anjuta_symbol_view_instance_init (GObject * obj)
 	if (!tm_workspace_load_global_tags (system_tags_path))
 	{
 		g_idle_add((GSourceFunc) symbol_browser_prefs_create_global_tags, 
-			(SymbolBrowserPlugin*) obj);
+			ANJUTA_PLUGIN_SYMBOL_BROWSER (obj));
 	}
 
 	/* let's create symbol_view tree and other gui stuff */

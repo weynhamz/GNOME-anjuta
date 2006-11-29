@@ -386,7 +386,7 @@ static void
 dma_data_view_size_request (GtkWidget *widget,
                        GtkRequisition *requisition)
 {
-	DmaDataView *view = (DmaDataView *)widget;
+	DmaDataView *view = DMA_DATA_VIEW (widget);
 	GtkRequisition child_requisition;
 	
 	gtk_widget_size_request (view->range, requisition);
@@ -417,7 +417,7 @@ static void
 dma_data_view_size_allocate (GtkWidget *widget,
                              GtkAllocation *allocation)
 {
-	DmaDataView *view = (DmaDataView *)widget;
+	DmaDataView *view = DMA_DATA_VIEW (widget);
 	GtkAllocation child_allocation;
 	GtkRequisition range_requisition;
 	GtkRequisition address_requisition;
@@ -863,11 +863,11 @@ dma_data_view_class_init (DmaDataViewClass * klass)
 
 	g_return_if_fail (klass != NULL);
 	
-	gobject_class = (GObjectClass *) klass;
-	object_class = (GtkObjectClass *) klass;
+	gobject_class = G_OBJECT_CLASS (klass);
+	object_class = GTK_OBJECT_CLASS (klass);
 	widget_class = GTK_WIDGET_CLASS (klass);
 	container_class = GTK_CONTAINER_CLASS (klass);
-	parent_class = (GtkWidgetClass*) g_type_class_peek_parent (klass);
+	parent_class = GTK_WIDGET_CLASS (g_type_class_peek_parent (klass));
 	
 	gobject_class->dispose = dma_data_view_dispose;
 	gobject_class->finalize = dma_data_view_finalize;

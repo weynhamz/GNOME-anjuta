@@ -626,7 +626,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("GladePlugin: Activating Glade plugin...");
 	
-	glade_plugin = (GladePlugin*) plugin;
+	glade_plugin = ANJUTA_PLUGIN_GLADE (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	priv = glade_plugin->priv;
@@ -727,7 +727,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 {
 	GladePluginPriv *priv;
 	
-	priv = ((GladePlugin*)plugin)->priv;
+	priv = ANJUTA_PLUGIN_GLADE (plugin)->priv;
 	
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -781,7 +781,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 glade_plugin_dispose (GObject *obj)
 {
-	// GladePlugin *plugin = (GladePlugin*)obj;
+	// GladePlugin *plugin = ANJUTA_PLUGIN_GLADE (obj);
 	
 	/* FIXME: Glade widgets should be destroyed */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
@@ -790,7 +790,7 @@ glade_plugin_dispose (GObject *obj)
 static void
 glade_plugin_finalize (GObject *obj)
 {
-	GladePlugin *plugin = (GladePlugin*)obj;
+	GladePlugin *plugin = ANJUTA_PLUGIN_GLADE (obj);
 	g_free (plugin->priv);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -799,7 +799,7 @@ static void
 glade_plugin_instance_init (GObject *obj)
 {
 	GladePluginPriv *priv;
-	GladePlugin *plugin = (GladePlugin*)obj;
+	GladePlugin *plugin = ANJUTA_PLUGIN_GLADE (obj);
 	
 	plugin->priv = (GladePluginPriv *) g_new0 (GladePluginPriv, 1);
 	priv = plugin->priv;
@@ -831,7 +831,7 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	
 	g_return_if_fail (uri != NULL);
 	
-	priv = ((GladePlugin*)G_OBJECT (ifile))->priv;
+	priv = ANJUTA_PLUGIN_GLADE (ifile)->priv;
 	
 	filename = gnome_vfs_get_local_path_from_uri (uri);
 	if (!filename)
@@ -870,7 +870,7 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 	GtkListStore *store;
 	GtkTreeIter iter;
 	
-	priv = ((GladePlugin*)G_OBJECT (iwizard))->priv;
+	priv = ANJUTA_PLUGIN_GLADE (iwizard)->priv;
 
 	project = glade_project_new (TRUE);
 	if (!project)

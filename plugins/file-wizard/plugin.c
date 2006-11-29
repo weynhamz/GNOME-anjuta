@@ -41,7 +41,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	AnjutaFileWizardPlugin *w_plugin;
 	const gchar *root_uri;
 
-	w_plugin = (AnjutaFileWizardPlugin*) plugin;
+	w_plugin = ANJUTA_PLUGIN_FILE_WIZARD (plugin);
 	root_uri = g_value_get_string (value);
 	
 	if (root_uri)
@@ -62,7 +62,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
 	AnjutaFileWizardPlugin *w_plugin;
-	w_plugin = (AnjutaFileWizardPlugin*) plugin;
+	w_plugin = ANJUTA_PLUGIN_FILE_WIZARD (plugin);
 	
 	g_free (w_plugin->top_dir);
 	w_plugin->top_dir = NULL;
@@ -75,7 +75,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	static gboolean initialized = FALSE;
 	
 	DEBUG_PRINT ("AnjutaFileWizardPlugin: Activating File wizard plugin ...");
-	w_plugin = (AnjutaFileWizardPlugin*) plugin;
+	w_plugin = ANJUTA_PLUGIN_FILE_WIZARD (plugin);
 	w_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
 	/* set up project directory watch */
@@ -92,7 +92,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaFileWizardPlugin *w_plugin;
-	w_plugin = (AnjutaFileWizardPlugin*) plugin;
+	w_plugin = ANJUTA_PLUGIN_FILE_WIZARD (plugin);
 	anjuta_plugin_remove_watch (plugin, w_plugin->root_watch_id, TRUE);
 	return TRUE;
 }
@@ -106,7 +106,7 @@ dispose (GObject *obj)
 static void
 file_wizard_plugin_instance_init (GObject *obj)
 {
-	AnjutaFileWizardPlugin *plugin = (AnjutaFileWizardPlugin*) obj;
+	AnjutaFileWizardPlugin *plugin = ANJUTA_PLUGIN_FILE_WIZARD (obj);
 	plugin->top_dir = NULL;
 }
 
@@ -128,7 +128,7 @@ iwizard_activate (IAnjutaWizard *wiz, GError **err)
 	AnjutaFileWizardPlugin *plugin;
 	IAnjutaDocumentManager *docman;
 	
-	plugin = (AnjutaFileWizardPlugin *)ANJUTA_PLUGIN (wiz);
+	plugin = ANJUTA_PLUGIN_FILE_WIZARD (wiz);
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (wiz)->shell,
 										 IAnjutaDocumentManager, NULL);
 	display_new_file(plugin, docman);

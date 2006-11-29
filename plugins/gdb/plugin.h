@@ -22,8 +22,17 @@
 #define GDB_PLUGIN_H
 
 #include <glib.h>
+#include "libanjuta/glue-plugin.h"
 
 G_BEGIN_DECLS
+
+extern GType gdb_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_GDB         (gdb_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_GDB(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_GDB, GdbPlugin))
+#define ANJUTA_PLUGIN_GDB_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_GDB, GdbPluginClass))
+#define ANJUTA_IS_PLUGIN_GDB(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_GDB))
+#define ANJUTA_IS_PLUGIN_GDB_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_GDB))
+#define ANJUTA_PLUGIN_GDB_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_GDB, GdbPluginClass))
 
 typedef struct _GdbPlugin GdbPlugin;
 typedef struct _GdbPluginClass GdbPluginClass;

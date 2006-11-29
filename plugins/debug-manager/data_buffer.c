@@ -482,9 +482,9 @@ dma_data_buffer_class_init (DmaDataBufferClass * klass)
 
 	g_return_if_fail (klass != NULL);
 	
-	parent_class = (GObjectClass*) g_type_class_peek_parent (klass);
+	parent_class = G_OBJECT_CLASS (g_type_class_peek_parent (klass));
 	
-	object_class = (GObjectClass *) klass;
+	object_class = G_OBJECT_CLASS (klass);
 	object_class->dispose = dma_data_buffer_dispose;
 	object_class->finalize = dma_data_buffer_finalize;
 

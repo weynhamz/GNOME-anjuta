@@ -1,3 +1,15 @@
+2006-11-22  Sylvain Defresne  <sdefresne@gmail.com>
+
+	Reviewed by: Naba Kumar  <naba@gnome.org>
+	* plugins/*/*.[ch]: Use class macro for type casting (ANJUTA_PLUGIN_*).
+
+	* libanjuta/anjuta-plugin.h: Modification of the ANJUTA_PLUGIN_BEGIN
+	macro so that the generated function support a NULL plugin parameter.
+ 
+	* plugins/debug-manager/debug_tree.c: Fix an incorrect call to gfree
+	in debug_tree_find_expression by freeing memory returned by the call
+	to gtk_tree_model_get instead of the parameter string.
+
 2006-11-26 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/breakpoints.c:

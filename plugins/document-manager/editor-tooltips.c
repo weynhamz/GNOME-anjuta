@@ -98,13 +98,13 @@ editor_tooltips_get_type (void)
 }
 
 static void
-editor_tooltips_class_init (EditorTooltipsClass * class)
+editor_tooltips_class_init (EditorTooltipsClass * klass)
 {
 	GtkObjectClass *object_class;
 
-	object_class = (GtkObjectClass *) class;
+	object_class = GTK_OBJECT_CLASS (klass);
 
-	parent_class = g_type_class_peek_parent (class);
+	parent_class = g_type_class_peek_parent (klass);
 
 	object_class->destroy = editor_tooltips_destroy;
 }
@@ -459,7 +459,7 @@ editor_tooltips_draw_tips (EditorTooltips * tooltips)
 static gint
 editor_tooltips_timeout (gpointer data)
 {
-	EditorTooltips *tooltips = (EditorTooltips *) data;
+	EditorTooltips *tooltips = EDITOR_TOOLTIPS (data);
 
 	GDK_THREADS_ENTER ();
 

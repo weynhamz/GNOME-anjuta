@@ -26,6 +26,14 @@
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-macro.glade"
 
+extern GType macro_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_MACRO         (macro_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_MACRO(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_MACRO, MacroPlugin))
+#define ANJUTA_PLUGIN_MACRO_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_MACRO, MacroPluginClass))
+#define ANJUTA_IS_PLUGIN_MACRO(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_MACRO))
+#define ANJUTA_IS_PLUGIN_MACRO_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_MACRO))
+#define ANJUTA_PLUGIN_MACRO_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_MACRO, MacroPluginClass))
+
 typedef struct _MacroPlugin MacroPlugin;
 typedef struct _MacroPluginClass MacroPluginClass;
 #include "macro-db.h"

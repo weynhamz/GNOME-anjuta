@@ -91,17 +91,17 @@ static void sorting_callback(GtkWidget *widget, int data, GtkWidget *wid2)
 
 static void gconf_set_hide_done()
 {
-	gtodo_set_hide_done (gtk_check_menu_item_get_active((GtkCheckMenuItem *)gtk_item_factory_get_widget(mw.item_factory, "/View/Hide Completed Items")));
+	gtodo_set_hide_done (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (gtk_item_factory_get_widget(mw.item_factory, "/View/Hide Completed Items"))));
 }
 
 static void gconf_set_hide_nodate()
 {
-	gtodo_set_hide_nodate (gtk_check_menu_item_get_active((GtkCheckMenuItem *)gtk_item_factory_get_widget(mw.item_factory, "/View/Hide Items Without an End Date")));
+	gtodo_set_hide_nodate (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (gtk_item_factory_get_widget(mw.item_factory, "/View/Hide Items Without an End Date"))));
 }
 
 static void gconf_set_hide_due()
 {
-	gtodo_set_hide_due (gtk_check_menu_item_get_active((GtkCheckMenuItem *)gtk_item_factory_get_widget(mw.item_factory, "/View/Hide Items that Are Past Due Date")));
+	gtodo_set_hide_due (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM (gtk_item_factory_get_widget(mw.item_factory, "/View/Hide Items that Are Past Due Date"))));
 }
 
 void windows_moved(GtkWidget *window)
@@ -194,9 +194,9 @@ GtkWidget* gui_create_main_window() {
 	g_signal_connect(window, "destroy-event", G_CALLBACK(quit_program), NULL);
 	gtk_window_add_accel_group(GTK_WINDOW(window), mw.accel_group);
 
-	gtk_check_menu_item_set_active((GtkCheckMenuItem *)gtk_item_factory_get_widget(mw.item_factory, N_("/View/Hide Completed Items")),settings.hide_done);
-	gtk_check_menu_item_set_active((GtkCheckMenuItem *)gtk_item_factory_get_widget(mw.item_factory, N_("/View/Hide Items that Are Past Due Date")),settings.hide_due);
-	gtk_check_menu_item_set_active((GtkCheckMenuItem *)gtk_item_factory_get_widget(mw.item_factory, N_("/View/Hide Items Without an End Date")), settings.hide_nodate);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM (gtk_item_factory_get_widget(mw.item_factory, N_("/View/Hide Completed Items"))),settings.hide_done);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM (gtk_item_factory_get_widget(mw.item_factory, N_("/View/Hide Items that Are Past Due Date"))),settings.hide_due);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM (gtk_item_factory_get_widget(mw.item_factory, N_("/View/Hide Items Without an End Date"))), settings.hide_nodate);
 
 	if(settings.sortorder == 0)gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Sorting/Sort Ascending"))), TRUE);		
 	else gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Sorting/Sort Descending"))), TRUE);		

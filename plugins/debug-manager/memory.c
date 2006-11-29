@@ -97,7 +97,7 @@ read_memory_block (gulong address, gulong length, gpointer user_data)
 	
 	if (mem->debugger != NULL)
 	{	
-		ianjuta_cpu_debugger_inspect_memory ((IAnjutaCpuDebugger *)mem->debugger, (const gchar *)address, (guint)length, on_memory_block_read, mem, NULL);
+		ianjuta_cpu_debugger_inspect_memory (IANJUTA_CPU_DEBUGGER (mem->debugger), (const gchar *)address, (guint)length, on_memory_block_read, mem, NULL);
 	}
 }
 

@@ -25,6 +25,14 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-ui.h>
 
+extern GType project_import_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_PROJECT_IMPORT         (project_import_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_PROJECT_IMPORT(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_PROJECT_IMPORT, AnjutaProjectImportPlugin))
+#define ANJUTA_PLUGIN_PROJECT_IMPORT_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_PROJECT_IMPORT, AnjutaProjectImportPluginClass))
+#define ANJUTA_IS_PLUGIN_PROJECT_IMPORT(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_PROJECT_IMPORT))
+#define ANJUTA_IS_PLUGIN_PROJECT_IMPORT_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_PROJECT_IMPORT))
+#define ANJUTA_PLUGIN_PROJECT_IMPORT_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_PROJECT_IMPORT, AnjutaProjectImportPluginClass))
+
 typedef struct _AnjutaProjectImportPlugin AnjutaProjectImportPlugin;
 typedef struct _AnjutaProjectImportPluginClass AnjutaProjectImportPluginClass;
 

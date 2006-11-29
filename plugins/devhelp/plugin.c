@@ -255,7 +255,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 {
 	GtkAction *action;
 	GObject *editor;
-	AnjutaDevhelp* devhelp = (AnjutaDevhelp*) data;
+	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (data);
 
 	editor = g_value_get_object (value);
 	devhelp->editor = IANJUTA_EDITOR(editor);
@@ -269,7 +269,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
 	GtkAction *action;
-	AnjutaDevhelp* devhelp = (AnjutaDevhelp*) data;	
+	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (data);	
 		
 	devhelp->editor = NULL;
 	action = gtk_action_group_get_action (devhelp->action_group,
@@ -289,7 +289,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	GtkWidget* books_sw;
 	
 	DEBUG_PRINT ("AnjutaDevhelp: Activating AnjutaDevhelp plugin ...");
-	devhelp = (AnjutaDevhelp*) plugin;
+	devhelp = ANJUTA_PLUGIN_DEVHELP (plugin);
 
 	/* Add all UI actions and merge UI */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
@@ -360,7 +360,7 @@ static gboolean
 devhelp_deactivate (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
-	AnjutaDevhelp* devhelp = (AnjutaDevhelp*) plugin;
+	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (plugin);
 
 	DEBUG_PRINT ("AnjutaDevhelp: Dectivating AnjutaDevhelp plugin ...");
 
@@ -411,7 +411,7 @@ static void
 devhelp_finalize (GObject *obj)
 {
 	/* Finalization codes here */
-	AnjutaDevhelp *plugin = (AnjutaDevhelp*)obj;
+	AnjutaDevhelp *plugin = ANJUTA_PLUGIN_DEVHELP (obj);
 	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -419,7 +419,7 @@ devhelp_finalize (GObject *obj)
 static void
 devhelp_dispose (GObject *obj)
 {
-	AnjutaDevhelp* devhelp = (AnjutaDevhelp*) obj;
+	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (obj);
 	
 	/* Destroy devhelp - seems not to work... */
 	// g_object_unref(G_OBJECT(devhelp->base));
@@ -432,7 +432,7 @@ devhelp_dispose (GObject *obj)
 static void
 devhelp_instance_init (GObject *obj)
 {
-	AnjutaDevhelp *plugin = (AnjutaDevhelp*)obj;
+	AnjutaDevhelp *plugin = ANJUTA_PLUGIN_DEVHELP (obj);
 	
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
@@ -466,7 +466,7 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 {
 	AnjutaDevhelp *plugin;
 	
-	plugin = (AnjutaDevhelp*)help;
+	plugin = ANJUTA_PLUGIN_DEVHELP (help);
 	
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
 								 plugin->control_notebook, NULL);
@@ -482,7 +482,7 @@ ihelp_search (IAnjutaHelp *help, const gchar *query, GError **err)
 {
 	AnjutaDevhelp *plugin;
 	
-	plugin = (AnjutaDevhelp*)help;
+	plugin = ANJUTA_PLUGIN_DEVHELP (help);
 	
 	if (!anjuta_util_prog_is_installed ("devhelp", TRUE))
 	{

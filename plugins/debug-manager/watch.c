@@ -69,7 +69,7 @@ typedef struct _InspectDialog InspectDialog;
 static void
 on_entry_updated (const gchar *value, gpointer user_data, GError *err)
 {
-	GtkWidget *entry = (GtkWidget *)user_data;
+	GtkWidget *entry = GTK_WIDGET (user_data);
 	
 	gtk_entry_set_text (GTK_ENTRY (entry), value);
 	gtk_widget_unref (entry);
@@ -93,7 +93,7 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 
 	printf ("dlg.value_treeview %p\n", dlg.treeview);
 	/* Create debug tree */
-	dlg.tree = debug_tree_new_with_view (ew->plugin, dlg.treeview);
+	dlg.tree = debug_tree_new_with_view (ANJUTA_PLUGIN (ew->plugin), GTK_TREE_VIEW (dlg.treeview));
 	if (ew->debugger)
 		debug_tree_connect (dlg.tree, ew->debugger);
 	if (expression != NULL)

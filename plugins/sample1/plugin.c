@@ -68,7 +68,7 @@ sample_plugin_activate_plugin (AnjutaPlugin *plugin)
 	SamplePlugin *sample_plugin;
 	
 	DEBUG_PRINT ("SamplePlugin: Activating Sample plugin ...");
-	sample_plugin = (SamplePlugin*) plugin;
+	sample_plugin = ANJUTA_PLUGIN_SAMPLE (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	wid = gtk_label_new ("This is a sample plugin");
@@ -92,9 +92,9 @@ sample_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	DEBUG_PRINT ("SamplePlugin: Dectivating Sample plugin ...");
-	anjuta_shell_remove_widget (plugin->shell, ((SamplePlugin*)plugin)->widget,
+	anjuta_shell_remove_widget (plugin->shell, ANJUTA_PLUGIN_SAMPLE (plugin)->widget,
 								NULL);
-	anjuta_ui_unmerge (ui, ((SamplePlugin*)plugin)->uiid);
+	anjuta_ui_unmerge (ui, ANJUTA_PLUGIN_SAMPLE (plugin)->uiid);
 	return TRUE;
 }
 
@@ -113,14 +113,14 @@ sample_plugin_dispose (GObject *obj)
 }
 
 static void
-sample_plugin_instance_init (GObject *obj)
+anjuta_sample_plugin_instance_init (GObject *obj)
 {
-	SamplePlugin *plugin = (SamplePlugin*)obj;
+	SamplePlugin *plugin = ANJUTA_PLUGIN_SAMPLE (obj);
 	plugin->uiid = 0;
 }
 
 static void
-sample_plugin_class_init (GObjectClass *klass) 
+anjuta_sample_plugin_class_init (GObjectClass *klass) 
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -132,5 +132,5 @@ sample_plugin_class_init (GObjectClass *klass)
 	klass->dispose = sample_plugin_dispose;
 }
 
-ANJUTA_PLUGIN_BOILERPLATE (SamplePlugin, sample_plugin);
-ANJUTA_SIMPLE_PLUGIN (SamplePlugin, sample_plugin);
+ANJUTA_PLUGIN_BOILERPLATE (SamplePlugin, anjuta_sample_plugin);
+ANJUTA_SIMPLE_PLUGIN (SamplePlugin, anjuta_sample_plugin);

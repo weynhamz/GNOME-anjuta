@@ -1111,7 +1111,7 @@ on_jump_to_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 		
 		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 		
-		goto_location_in_editor (bd->plugin, bi->uri, bi->bp->line);
+		goto_location_in_editor (ANJUTA_PLUGIN (bd->plugin), bi->uri, bi->bp->line);
 	}
 }
 
@@ -1412,7 +1412,7 @@ breakpoints_dbase_new (AnjutaPlugin *plugin)
 		GtkTreeViewColumn *column;
 		int i;
 
-		bd->plugin = (DebugManagerPlugin*)plugin; /* FIXME */
+		bd->plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin); /* FIXME */
 
 
 		/* Connect to Load and Save event */

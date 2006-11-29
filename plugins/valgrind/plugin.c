@@ -85,7 +85,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	AnjutaValgrindPlugin *val_plugin;
 	const gchar *root_uri;
 
-	val_plugin = ANJUTA_VALGRIND_PLUGIN (plugin);
+	val_plugin = ANJUTA_PLUGIN_VALGRIND (plugin);
 	root_uri = g_value_get_string (value);
 	
 	if (root_uri)
@@ -106,7 +106,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
 	AnjutaValgrindPlugin *val_plugin;
-	val_plugin = ANJUTA_VALGRIND_PLUGIN (plugin);
+	val_plugin = ANJUTA_PLUGIN_VALGRIND (plugin);
 	
 	if (val_plugin->project_root_uri)
 		g_free(val_plugin->project_root_uri);
@@ -548,7 +548,7 @@ valgrind_activate (AnjutaPlugin *plugin)
 	AnjutaValgrindPlugin *valgrind;
 	
 	DEBUG_PRINT ("AnjutaValgrindPlugin: Activating AnjutaValgrindPlugin plugin ...");
-	valgrind = ANJUTA_VALGRIND_PLUGIN (plugin);
+	valgrind = ANJUTA_PLUGIN_VALGRIND (plugin);
 
 	if (!initialized) {
 		register_stock_icons (plugin);
@@ -595,7 +595,7 @@ valgrind_deactivate (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	AnjutaValgrindPlugin* valgrind;
 	
-	valgrind = ANJUTA_VALGRIND_PLUGIN (plugin);
+	valgrind = ANJUTA_PLUGIN_VALGRIND (plugin);
 	
 	DEBUG_PRINT ("AnjutaValgrindPlugin: Dectivating AnjutaValgrindPlugin plugin ...");
 
@@ -631,9 +631,9 @@ valgrind_dispose (GObject *obj)
 }
 
 static void
-valgrind_instance_init (GObject *obj)
+anjuta_valgrind_plugin_instance_init (GObject *obj)
 {
-	AnjutaValgrindPlugin *plugin = ANJUTA_VALGRIND_PLUGIN (obj);
+	AnjutaValgrindPlugin *plugin = ANJUTA_PLUGIN_VALGRIND (obj);
 
 	plugin->uiid = 0;
 
@@ -643,7 +643,7 @@ valgrind_instance_init (GObject *obj)
 }
 
 static void
-valgrind_class_init (GObjectClass *klass) 
+anjuta_valgrind_plugin_class_init (GObjectClass *klass) 
 {
 	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
 
@@ -659,7 +659,7 @@ static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	GdkPixbuf* pixbuf;
-	AnjutaValgrindPlugin* valgrind = ANJUTA_VALGRIND_PLUGIN (ipref);
+	AnjutaValgrindPlugin* valgrind = ANJUTA_PLUGIN_VALGRIND (ipref);
 
 	valgrind->general_prefs = valgrind_plugin_prefs_get_anj_prefs ();
 	valgrind->val_prefs = valgrind_plugin_prefs_new ();
@@ -675,7 +675,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	AnjutaValgrindPlugin* valgrind = ANJUTA_VALGRIND_PLUGIN (ipref);
+	AnjutaValgrindPlugin* valgrind = ANJUTA_PLUGIN_VALGRIND (ipref);
 
 	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), 
 		_("Valgrind"));
@@ -694,11 +694,8 @@ ipreferences_iface_init(IAnjutaPreferencesIface* iface)
 	iface->unmerge = ipreferences_unmerge;	
 }
 
-GType anjuta_valgrind_plugin_type = 0;
-
-ANJUTA_PLUGIN_BEGIN (AnjutaValgrindPlugin, valgrind);
+ANJUTA_PLUGIN_BEGIN (AnjutaValgrindPlugin, anjuta_valgrind_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(ipreferences, IANJUTA_TYPE_PREFERENCES);
-anjuta_valgrind_plugin_type = type;
 ANJUTA_PLUGIN_END;
 
-ANJUTA_SIMPLE_PLUGIN (AnjutaValgrindPlugin, valgrind);
+ANJUTA_SIMPLE_PLUGIN (AnjutaValgrindPlugin, anjuta_valgrind_plugin);

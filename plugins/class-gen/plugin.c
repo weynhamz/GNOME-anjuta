@@ -39,7 +39,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	AnjutaClassGenPlugin *cg_plugin;
 	const gchar *root_uri;
 
-	cg_plugin = (AnjutaClassGenPlugin*) plugin;
+	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (plugin);
 	root_uri = g_value_get_string (value);
 	
 	if (root_uri)
@@ -60,7 +60,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
 	AnjutaClassGenPlugin *cg_plugin;
-	cg_plugin = (AnjutaClassGenPlugin*) plugin;
+	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (plugin);
 	
 	if (cg_plugin->top_dir)
 		g_free(cg_plugin->top_dir);
@@ -73,7 +73,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaClassGenPlugin *cg_plugin;
 	
 	DEBUG_PRINT ("AnjutaClassGenPlugin: Activating ClassGen plugin...");
-	cg_plugin = (AnjutaClassGenPlugin *)plugin;
+	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (plugin);
 	cg_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	
 	g_return_val_if_fail (cg_plugin->prefs != NULL, FALSE);
@@ -92,7 +92,7 @@ static gboolean
 deactivate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaClassGenPlugin *cg_plugin;
-	cg_plugin = (AnjutaClassGenPlugin *) plugin;
+	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (plugin);
 	DEBUG_PRINT ("AnjutaClassGenPlugin: Deactivating ClassGen plugin ...");
 	
 	/* Remove watches */
@@ -111,7 +111,7 @@ static void
 finalize (GObject *obj)
 {
 	AnjutaClassGenPlugin *cg_plugin;
-	cg_plugin = (AnjutaClassGenPlugin *) obj;
+	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (obj);
 	g_free (cg_plugin->top_dir);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -132,7 +132,7 @@ class_gen_plugin_class_init (GObjectClass *klass)
 static void
 class_gen_plugin_instance_init (GObject *obj)
 {
-	AnjutaClassGenPlugin *plugin = (AnjutaClassGenPlugin *)obj;
+	AnjutaClassGenPlugin *plugin = ANJUTA_PLUGIN_CLASS_GEN (obj);
 	plugin->root_watch_id = 0;
 	plugin->top_dir = NULL;
 }
@@ -143,7 +143,7 @@ iwizard_activate (IAnjutaWizard *wiz, GError **err)
 	/* IAnjutaProjectManager *pm; */
 	AnjutaClassGenPlugin *cg_plugin;
 	
-	cg_plugin = (AnjutaClassGenPlugin*)wiz;
+	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (wiz);
 	on_classgen_new (cg_plugin);
 }
 

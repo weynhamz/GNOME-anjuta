@@ -21,6 +21,14 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
+extern GType cpp_java_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_CPP_JAVA         (cpp_java_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_CPP_JAVA(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_CPP_JAVA, CppJavaPlugin))
+#define ANJUTA_PLUGIN_CPP_JAVA_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_CPP_JAVA, CppJavaPluginClass))
+#define ANJUTA_IS_PLUGIN_CPP_JAVA(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_CPP_JAVA))
+#define ANJUTA_IS_PLUGIN_CPP_JAVA_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_CPP_JAVA))
+#define ANJUTA_PLUGIN_CPP_JAVA_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_CPP_JAVA, CppJavaPluginClass))
+
 typedef struct _CppJavaPlugin CppJavaPlugin;
 typedef struct _CppJavaPluginClass CppJavaPluginClass;
 

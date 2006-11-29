@@ -38,6 +38,14 @@
 
 /*---------------------------------------------------------------------------*/
 
+extern GType atp_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_ATP         (atp_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_ATP(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_ATP, ATPPlugin))
+#define ANJUTA_PLUGIN_ATP_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_ATP, ATPPluginClass))
+#define ANJUTA_IS_PLUGIN_ATP(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_ATP))
+#define ANJUTA_IS_PLUGIN_ATP_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_ATP))
+#define ANJUTA_PLUGIN_ATP_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_ATP, ATPPluginClass))
+
 typedef struct _ATPPlugin ATPPlugin;
 typedef struct _ATPPluginClass ATPPluginClass;
 

@@ -27,6 +27,14 @@
 #define CLASS_GOC_HEADER_TEMPLATE	"goc_template_header"
 #define CLASS_GOC_SOURCE_TEMPLATE	"goc_template_source"
 
+extern GType class_gen_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_CLASS_GEN         (class_gen_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_CLASS_GEN(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_CLASS_GEN, AnjutaClassGenPlugin))
+#define ANJUTA_PLUGIN_CLASS_GEN_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_CLASS_GEN, AnjutaClassGenPluginClass))
+#define ANJUTA_IS_PLUGIN_CLASS_GEN(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_CLASS_GEN))
+#define ANJUTA_IS_PLUGIN_CLASS_GEN_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_CLASS_GEN))
+#define ANJUTA_PLUGIN_CLASS_GEN_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_CLASS_GEN, AnjutaClassGenPluginClass))
+
 typedef struct _AnjutaClassGenPlugin AnjutaClassGenPlugin;
 typedef struct _AnjutaClassGenPluginClass AnjutaClassGenPluginClass;
 	

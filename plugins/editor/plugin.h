@@ -21,6 +21,14 @@
 
 #include "style-editor.h"
 
+extern GType editor_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_EDITOR         (editor_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_EDITOR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_EDITOR, EditorPlugin))
+#define ANJUTA_PLUGIN_EDITOR_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_EDITOR, EditorPluginClass))
+#define ANJUTA_IS_PLUGIN_EDITOR(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_EDITOR))
+#define ANJUTA_IS_PLUGIN_EDITOR_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_EDITOR))
+#define ANJUTA_PLUGIN_EDITOR_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_EDITOR, EditorPluginClass))
+
 typedef struct _EditorPlugin EditorPlugin;
 typedef struct _EditorPluginClass EditorPluginClass;
 

@@ -27,6 +27,14 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 
+extern GType subversion_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_SUBVERSION         (subversion_get_type (NULL))
+#define ANJUTA_PLUGIN_SUBVERSION(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_SUBVERSION, Subversion))
+#define ANJUTA_PLUGIN_SUBVERSION_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_SUBVERSION, SubversionClass))
+#define ANJUTA_IS_PLUGIN_SUBVERSION(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_SUBVERSION))
+#define ANJUTA_IS_PLUGIN_SUBVERSION_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_SUBVERSION))
+#define ANJUTA_PLUGIN_SUBVERSION_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_SUBVERSION, SubversionClass))
+
 typedef struct _Subversion Subversion;
 typedef struct _SubversionClass SubversionClass;
 

@@ -799,7 +799,7 @@ attach_process_destroy (AttachProcess * ap)
 static void
 on_select_target (GtkButton *button, gpointer user_data)
 {
-	gtk_dialog_response ((GtkDialog *)user_data, ANJUTA_RESPONSE_SELECT_TARGET);
+	gtk_dialog_response (GTK_DIALOG (user_data), ANJUTA_RESPONSE_SELECT_TARGET);
 }
 
 static void

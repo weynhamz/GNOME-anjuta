@@ -26,6 +26,14 @@
 #include <gbf/gbf-project-model.h>
 #include <gbf/gbf-project-view.h>
 
+extern GType project_manager_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_PROJECT_MANAGER         (project_manager_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_PROJECT_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_PROJECT_MANAGER, ProjectManagerPlugin))
+#define ANJUTA_PLUGIN_PROJECT_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_PROJECT_MANAGER, ProjectManagerPluginClass))
+#define ANJUTA_IS_PLUGIN_PROJECT_MANAGER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_PROJECT_MANAGER))
+#define ANJUTA_IS_PLUGIN_PROJECT_MANAGER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_PROJECT_MANAGER))
+#define ANJUTA_PLUGIN_PROJECT_MANAGER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_PROJECT_MANAGER, ProjectManagerPluginClass))
+
 typedef struct _ProjectManagerPlugin ProjectManagerPlugin;
 typedef struct _ProjectManagerPluginClass ProjectManagerPluginClass;
 typedef struct _PMProject PMProject;

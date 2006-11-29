@@ -629,7 +629,7 @@ on_create_submenu (gpointer user_data)
 	GtkWidget *submenu = NULL;
 	GSList *plugin_descs = NULL;
 	
-	loader = (AnjutaFileLoaderPlugin *)user_data;
+	loader = ANJUTA_PLUGIN_FILE_LOADER (user_data);
 	
 	submenu = gtk_menu_new ();
 	gtk_widget_show (submenu);
@@ -972,7 +972,7 @@ value_added_fm_current_uri (AnjutaPlugin *plugin, const char *name,
 	uri = g_value_get_string (value);
 	g_return_if_fail (name != NULL);
 
-	fl_plugin = (AnjutaFileLoaderPlugin*) plugin;
+	fl_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupPopupLoader", "ActionPopupOpen");
@@ -1002,7 +1002,7 @@ value_removed_fm_current_uri (AnjutaPlugin *plugin,
 	GtkAction *action;
 	AnjutaFileLoaderPlugin *fl_plugin;
 
-	fl_plugin = (AnjutaFileLoaderPlugin*)plugin;
+	fl_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	
 	if (fl_plugin->fm_current_uri)
 		g_free (fl_plugin->fm_current_uri);
@@ -1030,7 +1030,7 @@ value_added_pm_current_uri (AnjutaPlugin *plugin, const char *name,
 	uri = g_value_get_string (value);
 	g_return_if_fail (name != NULL);
 	
-	fl_plugin = (AnjutaFileLoaderPlugin*) plugin;
+	fl_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupPopupLoader", "ActionPopupPMOpen");
@@ -1060,7 +1060,7 @@ value_removed_pm_current_uri (AnjutaPlugin *plugin,
 	GtkAction *action;
 	AnjutaFileLoaderPlugin *fl_plugin;
 
-	fl_plugin = (AnjutaFileLoaderPlugin*)plugin;
+	fl_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	
 	if (fl_plugin->pm_current_uri)
 		g_free (fl_plugin->pm_current_uri);
@@ -1164,7 +1164,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	// EggRecentViewGtk *recent_view;
 	GtkActionGroup *group;
 	
-	loader_plugin = (AnjutaFileLoaderPlugin*)plugin;
+	loader_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	
 	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Activating File Loader plugin...");
 	
@@ -1248,7 +1248,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	AnjutaFileLoaderPlugin *loader_plugin;
 	
-	loader_plugin = (AnjutaFileLoaderPlugin*)plugin;
+	loader_plugin = ANJUTA_PLUGIN_FILE_LOADER (plugin);
 	
 	DEBUG_PRINT ("AnjutaFileLoaderPlugin: Deactivating File Loader plugin...");
 	
@@ -1274,7 +1274,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 static void
 dispose (GObject *obj)
 {
-	AnjutaFileLoaderPlugin *plugin = (AnjutaFileLoaderPlugin*)obj;
+	AnjutaFileLoaderPlugin *plugin = ANJUTA_PLUGIN_FILE_LOADER (obj);
 	if (plugin->recent_files_model_top)
 	{
 		g_object_unref (plugin->recent_files_model_top);
@@ -1291,7 +1291,7 @@ dispose (GObject *obj)
 static void
 anjuta_file_loader_plugin_instance_init (GObject *obj)
 {
-	AnjutaFileLoaderPlugin *plugin = (AnjutaFileLoaderPlugin*)obj;
+	AnjutaFileLoaderPlugin *plugin = ANJUTA_PLUGIN_FILE_LOADER (obj);
 	
 	plugin->fm_current_uri = NULL;
 	plugin->pm_current_uri = NULL;
@@ -1340,7 +1340,7 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	
 	if (mime_type == NULL)
 	{
-		launch_application_failure ((AnjutaFileLoaderPlugin*)(ANJUTA_PLUGIN (loader)),
+		launch_application_failure (ANJUTA_PLUGIN_FILE_LOADER (loader),
 									new_uri, GNOME_VFS_ERROR_NOT_FOUND);
 		g_free (new_uri);
 		return NULL;
@@ -1381,12 +1381,12 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	}
 	else
 	{
-		launch_in_default_application ((AnjutaFileLoaderPlugin*)loader, mime_type, uri);
+		launch_in_default_application (ANJUTA_PLUGIN_FILE_LOADER (loader), mime_type, uri);
 	}
 	if (plugin)
 		ianjuta_file_open (IANJUTA_FILE(plugin), uri, NULL);
 	
-	set_recent_file ((AnjutaFileLoaderPlugin*)loader, new_uri, mime_type);
+	set_recent_file (ANJUTA_PLUGIN_FILE_LOADER (loader), new_uri, mime_type);
 	
 	if (plugin_descs)
 		g_slist_free (plugin_descs);

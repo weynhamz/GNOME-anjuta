@@ -26,6 +26,14 @@
 
 G_BEGIN_DECLS
 
+extern GType symbol_browser_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER         (symbol_browser_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_SYMBOL_BROWSER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER, SymbolBrowserPlugin))
+#define ANJUTA_PLUGIN_SYMBOL_BROWSER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER, SymbolBrowserPluginClass))
+#define ANJUTA_IS_PLUGIN_SYMBOL_BROWSER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER))
+#define ANJUTA_IS_PLUGIN_SYMBOL_BROWSER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER))
+#define ANJUTA_PLUGIN_SYMBOL_BROWSER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER, SymbolBrowserPluginClass))
+
 typedef struct _SymbolBrowserPlugin SymbolBrowserPlugin;
 typedef struct _SymbolBrowserPluginClass SymbolBrowserPluginClass;
 

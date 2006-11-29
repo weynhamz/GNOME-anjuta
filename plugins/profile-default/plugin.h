@@ -20,6 +20,14 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
+extern GType default_profile_plugin_get_type (GluePlugin *plugin);
+#define ANJUTA_TYPE_PLUGIN_DEFAULT_PROFILE         (default_profile_plugin_get_type (NULL))
+#define ANJUTA_PLUGIN_DEFAULT_PROFILE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_DEFAULT_PROFILE, DefaultProfilePlugin))
+#define ANJUTA_PLUGIN_DEFAULT_PROFILE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_DEFAULT_PROFILE, DefaultProfilePluginClass))
+#define ANJUTA_IS_PLUGIN_DEFAULT_PROFILE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_DEFAULT_PROFILE))
+#define ANJUTA_IS_PLUGIN_DEFAULT_PROFILE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_DEFAULT_PROFILE))
+#define ANJUTA_PLUGIN_DEFAULT_PROFILE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_DEFAULT_PROFILE, DefaultProfilePluginClass))
+
 typedef struct _DefaultProfilePlugin DefaultProfilePlugin;
 typedef struct _DefaultProfilePluginClass DefaultProfilePluginClass;
 
