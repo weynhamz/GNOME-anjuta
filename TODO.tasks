@@ -406,22 +406,22 @@ Test and fix all project wizard templates and set reasonable version numbers for
 Implement missing features of CVS and subversion in their respective plugins. Basic features are already implemented, but we are missing many advanced yet powerful features of these version control systems.</comment>
     </item>
     <item>
-      <attribute id="1159556239" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159556239"/>
+      <attribute id="1159555638" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159556331"/>
+      <summary>Apply http://live.gnome.org/GnomeGoals</summary>
+      <comment>[Skill: Low, Work: 20hrs]
+
+Investigate general usability and HIG issues in Anjuta, come up with solutions that counter them and solve them. Issues such as Dialog consistencies, Navigational usabilities, Menus organization, features usablities should be investigated.</comment>
+    </item>
+    <item>
+      <attribute id="1159556239" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1165175119"/>
       <summary>Use class macros for type casting in all plugin classes</summary>
-      <comment>[Skill: Basic, Work: 1hr, Bounty: $20]
+      <comment>[Skill: Basic, Work: 1hr, Bounty: $20, Status: Completed, Bug: #374665]
 
 As a bad trend from the beginning, all plugin classes (derived from AnjutaPluing class) do not define any class macros, resulting in bad type castings in wherever these classes are used. These need to be fixed to follow the right procedure.
 
 The work is mostly search and replace work and could possibly be done quickly using sed and friends. Go through all the plugins in plugins/ directory, locate the class definitions of plugins (usually defined in plugin.h), add class macros and use them wherever there are force typecasting used.
 
 Example: (DocmanPlugin*)plugin -&gt; DOCMAN_PLUGIN (plugin)</comment>
-    </item>
-    <item>
-      <attribute id="1159555638" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159556331"/>
-      <summary>Apply http://live.gnome.org/GnomeGoals</summary>
-      <comment>[Skill: Low, Work: 20hrs]
-
-Investigate general usability and HIG issues in Anjuta, come up with solutions that counter them and solve them. Issues such as Dialog consistencies, Navigational usabilities, Menus organization, features usablities should be investigated.</comment>
     </item>
   </category>
   <category title="Plugin: Macros" place="13">
