@@ -307,7 +307,25 @@ if test "$user_disabled_glade" = 1; then
 	libgladeui_found="no"
 else
 	AC_MSG_RESULT(no)
-	PKG_CHECK_MODULES(PLUGIN_GLADE, [libgladeui-1.0 >= $LIBGLADEUI_REQUIRED], [libgladeui_found="yes"], [libgladeui_found="no"])
+	PKG_CHECK_MODULES(PLUGIN_GLADE, [libgladeui-1.0 = $LIBGLADEUI_REQUIRED],
+		[
+			libgladeui_found="old"
+		], [
+			libgladeui_found="no"
+		])
+	if test x$libgladeui_found = xold; then
+		libgladeui_found="yes"
+		AC_DEFINE_UNQUOTED(LIBGLADEUI_3_0_2, [1], [LIBGLADEUI version])
+		AC_SUBST(LIBGLADEUI_3_0_2)
+	fi
+	if test x$libgladeui_found = xno; then
+		PKG_CHECK_MODULES(PLUGIN_GLADE, [libgladeui-1.0 > $LIBGLADEUI_REQUIRED],
+			[
+				libgladeui_found="yes"
+			], [
+				libgladeui_found="no"
+			])
+	fi
 	AC_SUBST(PLUGIN_GLADE_CFLAGS)
 	AC_SUBST(PLUGIN_GLADE_LIBS)
 fi

@@ -656,8 +656,11 @@ activate_plugin (AnjutaPlugin *plugin)
 		g_object_unref (G_OBJECT (store));
 		gtk_box_pack_start (GTK_BOX (priv->view_box), priv->projects_combo,
 							FALSE, FALSE, 0);
-		
+#ifdef LIBGLADEUI_3_0_2
 		priv->view = GLADE_PROJECT_VIEW (glade_project_view_new (GLADE_PROJECT_VIEW_TREE));
+#else
+		priv->view = GLADE_PROJECT_VIEW (glade_project_view_new ());
+#endif
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->view),
 						GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
