@@ -17,9 +17,13 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+/*
+ * It is a GtkTextView with an associated GtkAjustment, allowing to put in the
+ * GtkTextView only a part of a big amount of text. Cursor movements are not
+ * limited by the GtkTextView content but by the GtkAjustment.
+ *---------------------------------------------------------------------------*/
+ 
 #include "chunk_view.h"
-
-#include "data_buffer.h"
 
 struct _DmaChunkView
 {

@@ -2398,6 +2398,7 @@ interface IAnjutaDebugger
 		NOT_IMPLEMENTED = -7,
 		CANCEL,
 		UNABLE_TO_CREATE_VARIABLE,
+		UNABLE_TO_ACCESS_MEMORY,
 		UNKNOWN_ERROR
 	}
 
@@ -2486,9 +2487,22 @@ interface IAnjutaDebugger
 
 	struct Memory
 	{
-		gchar *address;
+		guint address;
 		guint length;
 		gchar *data;
+	}
+
+
+	struct ALine
+	{
+		guint address;
+		gchar *text;
+	}
+
+	struct Disassembly
+	{
+		guint size;
+		ALine data[0];	
 	}	
 
 	/* Call back functions */
@@ -3151,7 +3165,19 @@ interface IAnjutaDebugger
 	*/
 	gboolean send_command (const gchar *command);
 
-	
+	/**
+	* ianjuta_debugger_callback:
+	* @obj: Self
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean callback (Callback callback, gpointer user_data);
+
 	/**
 	* ianjuta_debugger_enable_log:
 	* @obj: Self
@@ -3234,7 +3260,23 @@ interface IAnjutaCpuDebugger
 	*
 	* Returns: fixme
 	*/
-	gboolean inspect_memory (const void* address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
+	gboolean inspect_memory (guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+	/**
+	* ianjuta_debugger_disassemble:
+	* @obj: Self
+	* @address: fixme
+	* @length: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* Disassemble a part of the memory
+	*
+	* Returns: TRUE if sucessful else FALSE and check err to get more
+	*          detail.
+	*/
+	gboolean disassemble (guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
 }
 
 interface IAnjutaVariableDebugger

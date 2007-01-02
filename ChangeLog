@@ -1,3 +1,31 @@
+2006-12-31 Sebastien Granjoux <seb.sfo@free.fr>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/Makefile.am,
+	plugins/debug-manager/anjuta-marshal.list,
+	plugins/debug-manager/debugger.c,
+	plugins/debug-manager/sparse_buffer.c,
+	plugins/debug-manager/sparse_buffer.h,
+	plugins/debug-manager/sparse_view.c,
+	plugins/debug-manager/sparse_view.h,
+	plugins/debug-manager/disassemble.h,
+	plugins/debug-manager/disassemble.c,
+	plugins/debug-manager/anjuta-marshal.list,
+	plugins/debug-manager/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/gdb/plugin.c:
+	Add a disassembly view window
+
+	* plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/chunk_view.c,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/memory.c,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/stack_trace.c:
+	Add some debugging information 
+
 2006-12-03  Naba Kumar  <naba@gnome.org>
 	
 	* TODO.tasks: Marked a bounty completed.

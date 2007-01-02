@@ -26,6 +26,9 @@
 #include <string.h>
 
 #include <gnome.h>
+
+#include <libanjuta/anjuta-debug.h>
+
 #include "memory.h"
 
 #include "data_view.h"

@@ -31,6 +31,7 @@
 #include <gnome.h>
 
 #include <libanjuta/resources.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 

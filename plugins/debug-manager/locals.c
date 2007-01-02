@@ -24,6 +24,8 @@
 
 #include "debug_tree.h"
 
+#include <libanjuta/anjuta-debug.h>
+
 struct _Locals
 {
 	IAnjutaDebugger *debugger;

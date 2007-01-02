@@ -20,6 +20,8 @@
 #  include <config.h>
 #endif
 
+#include "registers.h"
+
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
@@ -27,8 +29,9 @@
 #include <gnome.h>
 
 #include <libanjuta/resources.h>
+#include <libanjuta/anjuta-debug.h>
+
 #include "utilities.h"
-#include "registers.h"
 
 /* Constants
  *---------------------------------------------------------------------------*/

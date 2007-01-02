@@ -50,6 +50,7 @@ ianjuta-debugger
 @status_changed: 
 @abort: 
 @attach: 
+@callback: 
 @clear_breakpoint: 
 @condition_breakpoint: 
 @disable_log: 

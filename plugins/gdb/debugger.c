@@ -19,7 +19,7 @@
 #  include <config.h>
 #endif
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -134,6 +134,49 @@ static void on_gdb_terminated (AnjutaLauncher *launcher,
 
 static void debugger_class_init (DebuggerClass *klass);
 static void debugger_instance_init (Debugger *debugger);
+
+/* Useful functions
+ *---------------------------------------------------------------------------*/
+
+typedef struct _GdbMessageCode GdbMessageCode;
+
+struct _GdbMessageCode
+{
+	const gchar *msg;
+	guint code;
+};
+
+const static GdbMessageCode GdbErrorMessage[] = 
+	{{"mi_cmd_var_create: unable to create variable object",
+	IANJUTA_DEBUGGER_UNABLE_TO_CREATE_VARIABLE},
+	{"Cannot access memory at address ",
+	IANJUTA_DEBUGGER_UNABLE_TO_ACCESS_MEMORY},
+	{NULL, 0}};
+
+static guint
+gdb_match_error(const gchar *message)
+{
+	GdbMessageCode* msg;
+	guint code;
+
+	for (msg = GdbErrorMessage; msg->msg != NULL; msg++)
+	{
+		gsize len = strlen (msg->msg);
+		
+		if (!isspace (msg->msg[len - 1]))
+		{
+			/* Match the whole string */
+			len++;
+		}
+
+		if (memcmp (msg->msg, message, len) == 0)
+		{
+			return msg->code;
+		}
+	}
+
+	return IANJUTA_DEBUGGER_UNKNOWN_ERROR;
+}
 
 static void
 debugger_initialize (Debugger *debugger)
@@ -935,19 +978,16 @@ gdb_parse_error (Debugger *debugger, const GDBMIValue *mi_results)
 	const gchar *literal;
 	guint code = IANJUTA_DEBUGGER_UNKNOWN_ERROR;
 
+	message = gdbmi_value_hash_lookup (mi_results, "msg");
+	literal = gdbmi_value_literal_get (message);
+
 	if ((mi_results != NULL)
 	&& ((message = gdbmi_value_hash_lookup (mi_results, "msg")) != NULL)
 	&& ((literal = gdbmi_value_literal_get (message)) != NULL)
 	&& (*literal != '\0'))
 	{
-		guint code = IANJUTA_DEBUGGER_UNKNOWN_ERROR;
-
-		/* Try to recognize some common errors */
-		if (strcmp (literal, "mi_cmd_var_create: unable to create variable object") == 0)
-		{
-			code = IANJUTA_DEBUGGER_UNABLE_TO_CREATE_VARIABLE;
-		}
-
+		code = gdb_match_error (literal);
+		DEBUG_PRINT ("error code %d", code);
 	}
 	else
 	{
@@ -1476,8 +1516,8 @@ debugger_abort (Debugger *debugger)
 	debugger->priv->terminating = TRUE;
 
 	/* Stop gdb */
- 	anjuta_launcher_reset (debugger->priv->launcher);
-	
+	anjuta_launcher_reset (debugger->priv->launcher);
+
 	/* Stop inferior */	
 	if ((debugger->priv->prog_is_attached == FALSE) && (debugger->priv->inferior_pid != 0))
 	{
@@ -1489,7 +1529,6 @@ debugger_abort (Debugger *debugger)
 	g_list_foreach (debugger->priv->search_dirs, (GFunc)g_free, NULL);
 	g_list_free (debugger->priv->search_dirs);
 	debugger->priv->search_dirs = NULL;
-
 
 	/* Disconnect */
 	if (debugger->priv->instance != NULL)
@@ -2803,7 +2842,7 @@ debugger_read_memory_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 }
 
 void
-debugger_inspect_memory (Debugger *debugger, const void *address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_inspect_memory (Debugger *debugger, guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -2811,8 +2850,92 @@ debugger_inspect_memory (Debugger *debugger, const void *address, guint length, 
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("-data-read-memory 0x%x x 1 1 %d", (guint)address, length);
-	debugger_queue_command (debugger, buff, TRUE, FALSE, debugger_read_memory_finish, callback, user_data);
+	buff = g_strdup_printf ("-data-read-memory 0x%x x 1 1 %d", address, length);
+	debugger_queue_command (debugger, buff, FALSE, FALSE, debugger_read_memory_finish, callback, user_data);
+	g_free (buff);
+}
+
+static void
+debugger_disassemble_finish (Debugger *debugger, const GDBMIValue *mi_results, const GList *cli_results, GError *error)
+
+{
+	const GDBMIValue *literal;
+	const GDBMIValue *line;
+	const GDBMIValue *mem;
+	const gchar *value;
+	guint i;
+	IAnjutaDebuggerCallback callback = debugger->priv->current_cmd.callback;
+	gpointer user_data = debugger->priv->current_cmd.user_data;
+	IAnjutaDebuggerDisassembly *read = NULL;
+
+	if (error != NULL)
+	{
+		/* Command fail */
+		callback (NULL, user_data, error);
+
+		return;
+	}
+
+
+	mem = gdbmi_value_hash_lookup (mi_results, "asm_insns");
+	if (mem)
+	{
+		guint size;
+	
+		size = gdbmi_value_get_size (mem);
+		read = (IAnjutaDebuggerDisassembly *)g_malloc0(sizeof (IAnjutaDebuggerDisassembly) + sizeof(IAnjutaDebuggerALine) * size);
+		read->size = size;
+
+		for (i = 0; i < size; i++)
+		{
+			line = gdbmi_value_list_get_nth (mem, i);
+			if (line)
+			{
+				/* Get address */
+				literal = gdbmi_value_hash_lookup (line, "address");
+				if (literal)
+				{
+					value = gdbmi_value_literal_get (literal);
+					read->data[i].address = strtoul (value, NULL, 0);
+				}
+
+				/* Get disassembly line */
+				literal = gdbmi_value_hash_lookup (line, "inst");
+				if (literal)
+				{
+					read->data[i].text = gdbmi_value_literal_get (literal);
+				}
+			}
+		}
+
+		/* Remove last line to mark end */
+		read->data[i - 1].text = NULL;
+
+		callback (read, user_data, NULL);
+
+		g_free (read);
+	}
+	else
+	{
+		callback (NULL, user_data, NULL);
+	}
+}
+
+void
+debugger_disassemble (Debugger *debugger, guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data)
+{
+	gchar *buff;
+	guint end;
+	
+	DEBUG_PRINT ("In function: debugger_disassemble()");
+
+	g_return_if_fail (IS_DEBUGGER (debugger));
+
+
+	/* Handle overflow */
+	if (address + length < address) length = G_MAXUINT - address;
+	buff = g_strdup_printf ("-data-disassemble -s 0x%x -e 0x%x  -- 0", address, address + length);
+	debugger_queue_command (debugger, buff, FALSE, FALSE, debugger_disassemble_finish, callback, user_data);
 	g_free (buff);
 }
 

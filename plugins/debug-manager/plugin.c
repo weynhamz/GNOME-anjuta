@@ -20,7 +20,7 @@
 
 #include <config.h>
 
-#define DEBUG
+//#define DEBUG
 
 #include "plugin.h"
 
@@ -30,6 +30,7 @@
 #include "stack_trace.h"
 #include "info.h"
 #include "memory.h"
+#include "disassemble.h"
 #include "signals.h"
 #include "sharedlib.h"
 #include "registers.h"
@@ -102,6 +103,7 @@ struct _DebugManagerPlugin
 	Sharedlibs *sharedlibs;
 	Signals *signals;	
 	DmaMemory *memory;
+	DmaDisassemble *disassemble;
 	
 	/* Debugger status */
 	DebugManagerState state;
@@ -1009,6 +1011,9 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	/* Memory window */
 	this->memory = dma_memory_new (plugin, this->debugger);
 
+	/* Disassembly window */
+	this->disassemble = dma_disassemble_new (plugin, this->debugger);
+	
 	/* Start debugger part */
 	this->start = dma_start_new (plugin, this->debugger);
 	
@@ -1074,6 +1079,9 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	
 	dma_memory_free (this->memory);
 	this->memory = NULL;
+	
+	dma_disassemble_free (this->disassemble);
+	this->disassemble = NULL;
 	
 	dma_start_free (this->start);
 	this->start = NULL;

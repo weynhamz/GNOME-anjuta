@@ -24,7 +24,7 @@
 
 #include <config.h>
 
-#define DEBUG
+//#define DEBUG
 
 #include "debugger.h"
 
@@ -65,6 +65,7 @@ enum
 typedef enum
 {
 	EMPTY_COMMAND ,
+	CALLBACK_COMMAND,
 	INITIALIZE_COMMAND,     /* Debugger stopped */
 	LOAD_COMMAND,           /* Debugger started */
 	ATTACH_COMMAND,
@@ -72,6 +73,7 @@ typedef enum
 	ABORT_COMMAND,
 	USER_COMMAND,
 	INSPECT_MEMORY_COMMAND,
+	DISASSEMBLE_COMMAND,
 	LIST_REGISTER_COMMAND,
 	UNLOAD_COMMAND,         /* Program loaded */
 	START_COMMAND,         
@@ -119,6 +121,9 @@ typedef enum
 
 typedef enum
 {
+	DMA_CALLBACK_COMMAND =
+		CALLBACK_COMMAND |
+		NEED_DEBUGGER_STOPPED | NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED | NEED_PROGRAM_RUNNING,
 	DMA_INITIALIZE_COMMAND =
 		INITIALIZE_COMMAND | START_DEBUGGER |
 		NEED_DEBUGGER_STOPPED,
@@ -139,6 +144,9 @@ typedef enum
 	    NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
 	DMA_INSPECT_MEMORY_COMMAND =
 		INSPECT_MEMORY_COMMAND |
+		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
+	DMA_DISASSEMBLE_COMMAND =
+		DISASSEMBLE_COMMAND |
 		NEED_DEBUGGER_STARTED | NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED,
 	DMA_LIST_REGISTER_COMMAND =
 		LIST_REGISTER_COMMAND |
@@ -343,7 +351,7 @@ typedef struct _DmaQueueCommand
 			guint frame;
 		} frame;
 		struct {
-			const void *address;
+			guint address;
 			guint length;
 		} mem;
 		struct {
@@ -484,6 +492,7 @@ dma_debugger_command_free (DmaQueueCommand *cmd)
 	switch (cmd->type & COMMAND_MASK)
 	{
 	case EMPTY_COMMAND:
+	case CALLBACK_COMMAND:
 	case INITIALIZE_COMMAND:
 	case UNLOAD_COMMAND:
 	case QUIT_COMMAND:
@@ -516,6 +525,7 @@ dma_debugger_command_free (DmaQueueCommand *cmd)
 	case SET_FRAME_COMMAND:
 	case LIST_FRAME_COMMAND:
 	case INSPECT_MEMORY_COMMAND:
+	case DISASSEMBLE_COMMAND:
 		break;
 	case INSPECT_COMMAND:
 	case EVALUATE_COMMAND:
@@ -1070,6 +1080,9 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 		{
 		case EMPTY_COMMAND:
 			break;
+		case CALLBACK_COMMAND:
+			ianjuta_debugger_callback (this->debugger, cmd->callback, cmd->user_data, &err);	
+			break;
 		case INITIALIZE_COMMAND:
 		    //dma_debugger_create_view (this);
 		    this->output_callback = (IAnjutaDebuggerOutputCallback)cmd->callback;
@@ -1188,6 +1201,9 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 			break;
 		case INSPECT_MEMORY_COMMAND:
 			ianjuta_cpu_debugger_inspect_memory (this->cpu_debugger, cmd->mem.address, cmd->mem.length, cmd->callback, cmd->user_data, &err);	
+			break;
+		case DISASSEMBLE_COMMAND:
+			ianjuta_cpu_debugger_disassemble (this->debugger, cmd->mem.address, cmd->mem.length, cmd->callback, cmd->user_data, &err);	
 			break;
 		case BREAK_LINE_COMMAND:
 			ianjuta_debugger_set_breakpoint_at_line (this->debugger, cmd->pos.file, cmd->pos.line, cmd->callback, cmd->user_data, &err);	
@@ -2032,6 +2048,22 @@ idebugger_list_register (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callbac
 	return TRUE;
 }
 
+static gboolean
+idebugger_callback (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+{
+	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
+	DmaQueueCommand *cmd;
+	
+	cmd = dma_debugger_queue_append (this, DMA_CALLBACK_COMMAND, err);
+	if (cmd == NULL) return FALSE;
+		
+	cmd->callback = callback;
+	cmd->user_data = user_data;
+	dma_debugger_queue_execute (this);
+	
+	return TRUE;
+}
+
 static void
 idebugger_enable_log (IAnjutaDebugger *iface, IAnjutaMessageView *log, GError **err)
 {
@@ -2094,6 +2126,7 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->list_frame = idebugger_list_frame;
 	iface->set_frame = idebugger_set_frame;
 	iface->list_register = idebugger_list_register;
+	iface->callback = idebugger_callback;
 
 	iface->enable_log = idebugger_enable_log;
 	iface->disable_log = idebugger_disable_log;
@@ -2156,12 +2189,30 @@ icpu_debugger_write_register (IAnjutaCpuDebugger *iface, IAnjutaDebuggerRegister
 }
 
 static gboolean
-icpu_debugger_inspect_memory (IAnjutaCpuDebugger *iface, const void *address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+icpu_debugger_inspect_memory (IAnjutaCpuDebugger *iface, guint address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
 	DmaQueueCommand *cmd;
 	
 	cmd = dma_debugger_queue_append (this, DMA_INSPECT_MEMORY_COMMAND, err);
+	if (cmd == NULL) return FALSE;
+
+	cmd->mem.address = address;
+	cmd->mem.length = length;
+	cmd->callback = callback;
+	cmd->user_data = user_data;
+	dma_debugger_queue_execute (this);
+	
+	return TRUE;
+}
+
+static gboolean
+icpu_debugger_disassemble (IAnjutaDebugger *iface, guint address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+{
+	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
+	DmaQueueCommand *cmd;
+	
+	cmd = dma_debugger_queue_append (this, DMA_DISASSEMBLE_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 
 	cmd->mem.address = address;
@@ -2180,6 +2231,7 @@ icpu_debugger_iface_init (IAnjutaCpuDebuggerIface *iface)
 	iface->update_register = icpu_debugger_update_register;
 	iface->write_register = icpu_debugger_write_register;
 	iface->inspect_memory = icpu_debugger_inspect_memory;
+	iface->disassemble = icpu_debugger_disassemble;
 }
 
 /* Implementation of IAnjutaVariableDebugger interface

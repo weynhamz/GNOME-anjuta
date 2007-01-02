@@ -41,7 +41,7 @@
 #  include <config.h>
 #endif
 
-#define DEBUG
+//#define DEBUG
 
 #include <sys/stat.h>
 #include <unistd.h>
