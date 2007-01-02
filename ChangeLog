@@ -1,3 +1,7 @@
+2006-12-18  Naba Kumar  <naba@gnome.org>
+	
+	* plugins/glade/plugin.c: Make it work with glade-3 svn.
+	
 2006-12-31 Sebastien Granjoux <seb.sfo@free.fr>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
@@ -25,6 +29,11 @@
 	plugins/debug-manager/registers.c,
 	plugins/debug-manager/stack_trace.c:
 	Add some debugging information 
+
+2006-12-18  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, plugins/glade/plugin.c: Allow building against both
+	glade == 3.0.2 and glade > 3.0.2 (~ cvs).
 
 2006-12-03  Naba Kumar  <naba@gnome.org>
 	
