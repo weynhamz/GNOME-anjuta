@@ -1,5 +1,9 @@
 2007-01-04  Naba Kumar  <naba@gnome.org>
 
+	Patch from Nick Treleaven:
+	* tagmanager/tm-tag.c: Fixes Bug #389764 – Tags search do not retrieve
+	all matching symbols.
+	
 	Patches from  Maik Beckmann and Sébastien Granjoux:
 	* plugins/profile-default/plugin.c,
 	plugins/project-manager/plugin.c: Unescape project name. Fixes

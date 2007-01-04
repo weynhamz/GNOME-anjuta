@@ -559,15 +559,30 @@ TMTag **tm_tags_find (const GPtrArray *sorted_tags_array, const char *name,
 	s_partial = partial;
 	result = (TMTag **) bsearch(&tag, sorted_tags_array->pdata, sorted_tags_array->len
 	  , sizeof(gpointer), tm_tag_compare);
+	/* There can be matches on both sides of result */
 	if (result)
 	{
-		for (; result >= (TMTag **) sorted_tags_array->pdata; -- result) {
+		TMTag **last = (TMTag **) &sorted_tags_array->pdata[sorted_tags_array->len - 1];
+		TMTag **adv;
+
+		/* First look for any matches after result */
+		adv = result;
+		adv++;
+		for (; *adv && adv <= last; ++ adv)
+		{
+			if (0 != tm_tag_compare(&tag, adv))
+				break;
+			++tagMatches;
+		}
+		/* Now look for matches from result and below */
+		for (; result >= (TMTag **) sorted_tags_array->pdata; -- result)
+		{
 			if (0 != tm_tag_compare(&tag, (TMTag **) result))
 				break;
 			++tagMatches;
 		}
 		*tagCount=tagMatches;
-		++ result;
+		++ result;	/* orrect address for the last successful match */
 	}
 	s_partial = FALSE;
 	return (TMTag **) result;
