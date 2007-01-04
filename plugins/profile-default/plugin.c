@@ -1000,7 +1000,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 {
 	AnjutaStatus *status;
 	GnomeVFSURI *vfs_uri;
-	gchar *dirname, *vfs_dir, *session_dir, *session_plugins, *profile_name;
+	gchar *dirname, *dirname_tmp, *vfs_dir, *session_dir, *session_plugins, *profile_name;
 	DefaultProfilePlugin *plugin;
 	GValue *value;
 	GSList *selected_plugins, *temp_plugins;
@@ -1050,7 +1050,9 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	
 	/* Load project session plugins */
 	vfs_uri = gnome_vfs_uri_new (uri);
-	dirname = gnome_vfs_uri_extract_dirname (vfs_uri);
+	dirname_tmp = gnome_vfs_uri_extract_dirname (vfs_uri);
+	dirname = gnome_vfs_unescape_string(dirname_tmp, "");
+	g_free(dirname_tmp);
 	profile_name = g_path_get_basename (plugin->default_profile);
 	gnome_vfs_uri_unref (vfs_uri);
 	session_plugins = g_build_filename (dirname, ".anjuta",

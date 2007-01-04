@@ -83,8 +83,15 @@ static void update_title(ProjectManagerPlugin* plugin, PMProject* project)
 	if (project)
 	{
 		gchar* title;
-		title = g_strdup_printf("%s - Anjuta", g_basename(project->root_uri));
+		gchar* uri_basename;
+		gchar* unescape_basename;
+
+		uri_basename = g_path_get_basename(project->root_uri);
+		unescape_basename = gnome_vfs_unescape_string(uri_basename, "");
+		title = g_strdup_printf("%s - Anjuta", unescape_basename);
 		gtk_window_set_title(GTK_WINDOW(ANJUTA_PLUGIN(plugin)->shell), title);
+		g_free(unescape_basename);
+		g_free(uri_basename);
 		g_free(title);
 	}
 	else
@@ -1324,6 +1331,8 @@ project_manager_plugin_add_project_page(ProjectManagerPlugin *pm_plugin, PMProje
 	GtkTreeSelection *selection;
 	GtkListStore* store;
 	GtkTreeIter iter;
+	gchar *uri_basename;
+	gchar *unescape_basename;
 	
 	/* create model & view and bind them */
 	model = gbf_project_model_new (NULL);
@@ -1364,7 +1373,12 @@ project_manager_plugin_add_project_page(ProjectManagerPlugin *pm_plugin, PMProje
 	
 	store = GTK_LIST_STORE(gtk_combo_box_get_model(GTK_COMBO_BOX(pm_plugin->combo)));
 	gtk_list_store_append(store, &iter);
-	gtk_list_store_set(store, &iter, 0, g_basename(project->root_uri), 1, project, -1);
+	
+	uri_basename = g_path_get_basename(project->root_uri);
+	unescape_basename = gnome_vfs_unescape_string(uri_basename, "");
+	gtk_list_store_set(store, &iter, 0, unescape_basename, 1, project, -1);
+	g_free (unescape_basename);
+	g_free (uri_basename);
 	gtk_combo_box_set_active_iter(GTK_COMBO_BOX(pm_plugin->combo), &iter);
 }
 

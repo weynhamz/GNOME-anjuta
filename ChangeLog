@@ -1,5 +1,12 @@
 2007-01-04  Naba Kumar  <naba@gnome.org>
 
+	Patches from  Maik Beckmann and Sébastien Granjoux:
+	* plugins/profile-default/plugin.c,
+	plugins/project-manager/plugin.c: Unescape project name. Fixes
+	Bug #357151
+
+2007-01-04  Naba Kumar  <naba@gnome.org>
+
 	* plugins/glade/plugin.c: Fixed compilation with
 	older glade-3 version.
 	
