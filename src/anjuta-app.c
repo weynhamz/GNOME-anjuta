@@ -417,7 +417,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	GtkAction* action;
 	
 	GdkGeometry size_hints = {
-    	100, 100, 0, 0, 100, 100, 0, 0, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST  
+    	100, 100, 0, 0, 100, 100, 1, 1, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST
   	};
 	
 	DEBUG_PRINT ("Initializing Anjuta...");

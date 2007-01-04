@@ -24,13 +24,15 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
-#ifndef sun
-#ifndef FREEBSD
-#include <pty.h>
-#else
-#include <libutil.h>
+
+#if !defined(__sun) && !defined(__NetBSD__)
+#  ifndef FREEBSD
+#    include <pty.h>
+#  else
+#    include <libutil.h>
+#  endif
 #endif
-#endif
+
 #include <assert.h>
 #include <termios.h>
 

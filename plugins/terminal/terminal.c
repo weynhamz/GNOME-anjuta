@@ -19,6 +19,9 @@
 */
 
 #include <config.h>
+
+#include <signal.h>
+
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-children.h>
 #include <libanjuta/anjuta-debug.h>

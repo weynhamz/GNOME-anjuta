@@ -20,7 +20,9 @@
 
 #include <config.h>
 #include <glade.h>
-#include <glade-design-view.h>
+#ifndef LIBGLADEUI_3_0_2
+#  include <glade-design-view.h>
+#endif
 
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-shell.h>

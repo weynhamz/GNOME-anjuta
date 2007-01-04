@@ -172,7 +172,7 @@ static GtkActionEntry actions_file[] = {
 };
 
 static GtkActionEntry actions_print[] = {
-  { "ActionPrintFile", N_("_Print"), GTK_STOCK_PRINT, "<control>p",
+  { "ActionPrintFile", N_("_Print..."), GTK_STOCK_PRINT, "<control>p",
 	N_("Print the current file"), G_CALLBACK (anjuta_print_cb)},
   { "ActionPrintPreview", N_("_Print Preview"), NULL, NULL,
 	N_("Print preview of the current file"),

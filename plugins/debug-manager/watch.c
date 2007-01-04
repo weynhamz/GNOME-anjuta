@@ -376,7 +376,7 @@ static GtkActionEntry actions_watch[] = {
 	{
 		"ActionDmaAddWatch",                      
 		NULL,                                     
-		N_("Add Watch"),                      
+		N_("Add Watch..."),                      
 		NULL,                                    
 		NULL,                                     
 		G_CALLBACK (on_debug_tree_add_watch)     

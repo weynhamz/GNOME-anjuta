@@ -679,17 +679,17 @@ static GtkActionEntry pm_actions[] =
 	},
 	{
 		"ActionProjectAddGroup", GTK_STOCK_ADD,
-		N_("Add _Group"), NULL, N_("Add a group to project"),
+		N_("Add _Group..."), NULL, N_("Add a group to project"),
 		G_CALLBACK (on_add_group)
 	},
 	{
 		"ActionProjectAddTarget", GTK_STOCK_ADD,
-		N_("Add _Target"), NULL, N_("Add a target to project"),
+		N_("Add _Target..."), NULL, N_("Add a target to project"),
 		G_CALLBACK (on_add_target)
 	},
 	{
 		"ActionProjectAddSource", GTK_STOCK_ADD,
-		N_("Add _Source File"), NULL, N_("Add a source file to project"),
+		N_("Add _Source File..."), NULL, N_("Add a source file to project"),
 		G_CALLBACK (on_add_source)
 	}
 };

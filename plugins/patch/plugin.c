@@ -66,7 +66,7 @@ static GtkActionEntry actions_tools[] = {
 	{
 		"ActionToolsPatch",		/* Action name */
 		"patch-plugin-icon",							/* Stock icon, if any */
-		N_("_Patch"), 				/* Display label */
+		N_("_Patch..."), 				/* Display label */
 		NULL, 						/* short-cut */
 		NULL, 						/* Tooltip */
 		G_CALLBACK (on_patch_action_activate) /* action callback */

@@ -22,6 +22,10 @@
 #  include <config.h>
 #endif
 
+#ifdef ENABLE_NLS
+#  include <locale.h>
+#endif
+
 #include <sys/stat.h>
 
 #include <gnome.h>

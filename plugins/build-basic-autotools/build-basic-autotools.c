@@ -1197,7 +1197,7 @@ static GtkActionEntry build_actions[] =
 	{
 		"ActionBuildAutogen", NULL,
 		N_("Run _Autogenerate..."), NULL,
-		N_("Autogenrate project files"),
+		N_("Autogenerate project files"),
 		G_CALLBACK (build_autogen_project)
 	},
 	{
@@ -1208,7 +1208,7 @@ static GtkActionEntry build_actions[] =
 	},
 	{
 		"ActionBuildExecute", NULL,
-		N_("_Execute Program"), "F3",
+		N_("_Execute Program..."), "F3",
 		N_("Execute program"),
 		G_CALLBACK (build_execute_project)
 	},
