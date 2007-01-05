@@ -729,7 +729,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkColorButton" id="preferences_color:color:#00FF00:0:messages.color.warning">
+		<widget class="GtkColorButton" id="preferences_color:color:#F05000:0:messages.color.warning">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="use_alpha">False</property>
@@ -746,7 +746,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkColorButton" id="preferences_color:color:#00FF00:0:messages.color.error">
+		<widget class="GtkColorButton" id="preferences_color:color:#E00000:0:messages.color.error">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="use_alpha">False</property>

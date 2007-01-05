@@ -1,3 +1,65 @@
+2007-01-05  Adam Dingle  <adam@medovina.org>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* plugins/message-view/anjuta-message-manager-plugin.glade:
+	Fixed bug #377903 (improve message color defaults).
+
+2007-01-05  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Completed Bounty bug #359862, Improve class wizard.
+	
+2007-01-03  Armin Burgmeier  <armin@arbur.net>
+
+	Reviewed by  Naba Kumar  <naba@gnome.org>:
+	* plugins/symbol-browser/test-class.h: Fixed block ends.
+
+	* libanjuta/anjuta-plugin.c: Changed a C++-style-//-comment to a
+	C-style-block comment.
+
+	* plugins/project-wizard/autogen.c: (Hopefully) temporary hack to
+	allow lists when writing autogen definition files. This is required
+	for the new class generator. Also fixed a wrong return value in
+	npw_autogen_write_definition_file and set a GError in
+	npw_autogen_execute when the output file could not be opened.
+
+	* plugins/class-gen/anjuta-class-gen-plugin.glade: New class generator
+	user interface.
+
+	* plugins/class-gen/Makefile.am: Added templates subdir, removed
+	goc_template_header and goc_template_source, added top_srcdir to
+	includes, link against project wizard (also hopefully temporarily),
+	removed class_gen.h, class_gen.c, action-callbacks.h,
+	action-callbacks.c.
+
+	* libanjuta/anjuta-marshal.list: Added VOID:BOXED marshaller.
+
+	* plugins/class-gen/cell-renderer-flags.h:
+	* plugins/class-gen/cell-renderer-flags.c:
+	* plugins/class-gen/combo-flags.h:
+	* plugins/class-gen/combo-flags.c:
+	* plugins/class-gen/element-editor.c:
+	* plugins/class-gen/element-editor.h:
+	* plugins/class-gen/generator.c:
+	* plugins/class-gen/generator.h:
+	* plugins/class-gen/plugin.h:
+	* plugins/class-gen/plugin.c:
+	* plugins/class-gen/transform.c:
+	* plugins/class-gen/transform.h:
+	* plugins/class-gen/validator.c:
+	* plugins/class-gen/validator.h:
+	* plugins/class-gen/window.c:
+	* plugins/class-gen/window.h: Rewrote class generator, it now allows
+	adding of several class elements and uses autogen.
+
+	* plugins/class-gen/templates/cc-header.tpl:
+	* plugins/class-gen/templates/cc-source.tpl:
+	* plugins/class-gen/templates/go-header.tpl:
+	* plugins/class-gen/templates/go-source.tpl:
+	* plugins/class-gen/templates/Makefile.am: Added Autogen templates
+	for the class generator.
+
+	* configure.in: Added plugins/class-gen/templates/Makefile to output.
+
 2007-01-04  Naba Kumar  <naba@gnome.org>
 
 	Patch from Nick Treleaven:

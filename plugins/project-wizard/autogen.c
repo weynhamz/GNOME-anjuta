@@ -35,6 +35,9 @@
 
 #include <libanjuta/anjuta-launcher.h>
 
+#include <glib/gstdio.h>
+#include <glib/gfileutils.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -120,7 +123,10 @@ cb_autogen_write_definition (const gchar* name, const gchar* value, NPWValueTag 
 
 	if ((tag & NPW_VALID_VALUE) && (value != NULL))
 	{
-		fprintf (def, "%s = \"%s\";\n", name, value);
+		if(value[0] == '{') /* Seems to be a list, so do not quote */
+			fprintf(def, "%s = %s;\n", name, value);
+		else
+			fprintf (def, "%s = \"%s\";\n", name, value);
 	}
 }
 
@@ -141,7 +147,7 @@ npw_autogen_write_definition_file (NPWAutogen* this, NPWValueHeap* values)
 
 	fclose (def);
 
-	return FALSE;
+	return TRUE;
 }
 
 /* Set input and output
@@ -322,7 +328,19 @@ npw_autogen_execute (NPWAutogen* this, NPWAutogenFunc func, gpointer data, GErro
 	{
 		/* Open file if it's not already done */
 		this->output = fopen (this->outfilename, "wt");
-		if (this->output == NULL) return FALSE;
+		if (this->output == NULL)
+		{
+			g_set_error(
+				error,
+				G_FILE_ERROR,
+				g_file_error_from_errno(errno),
+				"Could not open file \"%s\": %s",
+				this->outfilename,
+				g_strerror(errno)
+			);
+
+			return FALSE;
+		}
 		this->empty = TRUE;
 	}
 	

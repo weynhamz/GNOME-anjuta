@@ -3,10 +3,7 @@ clsgen_gladedir = $(anjuta_glade_dir)
 clsgen_glade_DATA = anjuta-class-gen-plugin.glade
 
 # Templates
-clsgen_appdatadir = "$(datadir)/anjuta/class-templates/"
-clsgen_appdata_DATA = \
-	goc_template_header \
-	goc_template_source 
+SUBDIRS = templates
 
 # Plugin Icon file
 plugin_in_files = anjuta-class-gen.plugin.in
@@ -26,25 +23,36 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-class-gen.la
 
 INCLUDES = \
+	-I${top_srcdir} \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
 
 libanjuta_class_gen_la_LIBADD = \
+	${top_srcdir}/plugins/project-wizard/libanjuta-project-wizard.la \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_class_gen_la_SOURCES= \
+	cell-renderer-flags.h \
+	cell-renderer-flags.c \
+	combo-flags.h \
+	combo-flags.c \
+	element-editor.c \
+	element-editor.h \
+	generator.c \
+	generator.h \
 	plugin.c \
 	plugin.h \
-	class_gen.c \
-	class_gen.h \
-	action-callbacks.c \
-	action-callbacks.h 
+	transform.c \
+	transform.h \
+	validator.c \
+	validator.h \
+	window.c \
+	window.h
 	
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(clsgen_pixmaps_DATA) \
 	$(clsgen_glade_DATA) \
-	$(clsgen_appdata_DATA) \
 	$(clsgen_plugin_DATA)

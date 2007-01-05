@@ -585,9 +585,9 @@ Also, the the glade widget editor should be embed in Anjuta (glade-3 already has
   </category>
   <category title="Pluing: Class wizard" place="20">
     <item>
-      <attribute id="1159534023" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1160076729"/>
+      <attribute id="1159534023" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1167998401"/>
       <summary>Improve class wizard</summary>
-      <comment>[Skill: Medium, Work: 20hrs, Bounty: $200, Status: Assigned, Bug: #359862]
+      <comment>[Skill: Medium, Work: 20hrs, Bounty: $200, Status: Completed, Bug: #359862]
 
 Fix c++/gobject class generator to allow adding members, methods, signals, properties and other class elements.</comment>
     </item>
