@@ -69,7 +69,6 @@ struct _AnjutaDocumentPrivate
 	gint	     last_save_was_manually : 1; 	
 	gint	     language_set_by_user : 1;
 	gint         is_saving_as : 1;
-	gint         has_selection : 1;
 	gint         stop_cursor_moved_emission : 1;
 
 	gchar	    *uri;
@@ -103,8 +102,7 @@ enum {
 	PROP_SHORTNAME,
 	PROP_MIME_TYPE,
 	PROP_READ_ONLY,
-	PROP_ENCODING,
-	PROP_HAS_SELECTION,
+	PROP_ENCODING
 };
 
 enum {
@@ -236,9 +234,6 @@ anjuta_document_get_property (GObject    *object,
 		case PROP_ENCODING:
 			g_value_set_boxed (value, doc->priv->encoding);
 			break;
-		case PROP_HAS_SELECTION:
-			g_value_set_boolean (value, doc->priv->has_selection);
-			break;
 		default:
 			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 			break;
@@ -283,22 +278,6 @@ anjuta_document_mark_set (GtkTextBuffer     *buffer,
 		GTK_TEXT_BUFFER_CLASS (anjuta_document_parent_class)->mark_set (buffer,
 									       iter,
 									       mark);
-
-	if (mark == gtk_text_buffer_get_insert (buffer) ||
-	    mark == gtk_text_buffer_get_selection_bound (buffer))
-	{
-		gboolean has_selection;
-
-		has_selection = gtk_text_buffer_get_selection_bounds (buffer,
-								      NULL,
-								      NULL);
-
-		if (has_selection != doc->priv->has_selection)
-		{
-			doc->priv->has_selection = has_selection;
-			g_object_notify (G_OBJECT (doc), "has-selection");
-		}
-	}
 
 	if (mark == gtk_text_buffer_get_insert (buffer))
 	{
@@ -357,16 +336,6 @@ anjuta_document_class_init (AnjutaDocumentClass *klass)
 					 		     "The AnjutaEncoding used for the document",
 					 		     ANJUTA_TYPE_ENCODING,
 					 		     G_PARAM_READABLE));
-
-	/* This has been properly moved in GtkTextBuffer in gtk 2.10, so when
-	 * we switch to 2.10 we can remove it and part of with anjuta_document_mark_set.
-	 */
-	g_object_class_install_property (object_class, PROP_HAS_SELECTION,
-					 g_param_spec_boolean ("has-selection",
-					 		       "Has selection",
-					 		       "Wheter the document has selected text",
-					 		       FALSE,
-					 		       G_PARAM_READABLE));
 
 	/* This signal is used to update the cursor position is the statusbar,
 	 * it's emitted either when the insert mark is moved explicitely or
@@ -506,7 +475,6 @@ anjuta_document_init (AnjutaDocument *doc)
 
 	doc->priv->readonly = FALSE;
 
-	doc->priv->has_selection = FALSE;
 	doc->priv->stop_cursor_moved_emission = FALSE;
 
 	doc->priv->last_save_was_manually = TRUE;
@@ -1056,14 +1024,6 @@ anjuta_document_get_deleted (AnjutaDocument *doc)
 		return FALSE;
 		
 	return !gnome_vfs_uri_exists (doc->priv->vfs_uri);
-}
-
-gboolean
-_anjuta_document_get_has_selection (AnjutaDocument *doc)
-{
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), FALSE);
-
-	return doc->priv->has_selection;
 }
 
 /*

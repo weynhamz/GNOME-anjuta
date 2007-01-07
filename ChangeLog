@@ -1,3 +1,14 @@
+2007-01-07  Johannes Schmid <jhs@gnome.org>
+
+  * plugins/sourceview/sourceview.c:
+  Fixed  #388731 – Odd editor behaviour after performing block-text operations
+  
+  * plugins/sourceview/anjuta-document.h/c:
+  Removed deprecated has_selection() method which is now in Gtk (>= 2.10)
+  
+  * configure.in:
+  Require Gtk+ >= 2.10 for sourceview plugin
+
 2007-01-06  Curtis Magyar <curtm4n@gmail.com>
 
 	* libanjuta/anjuta-status.c:

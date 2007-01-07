@@ -1152,17 +1152,17 @@ static void
 iselect_clear(IAnjutaEditorSelection* edit, GError** ee)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	if (_anjuta_document_get_has_selection(sv->priv->document))
+	if (gtk_text_buffer_get_has_selection(GTK_TEXT_BUFFER(sv->priv->document)))
 		anjuta_view_delete_selection(sv->priv->view);
 	else
 	{
 		GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-		GtkTextIter start, end;
-		gtk_text_buffer_get_iter_at_mark(buffer, &start, gtk_text_buffer_get_insert(buffer));
-		gtk_text_buffer_get_iter_at_mark(buffer, &end, gtk_text_buffer_get_insert(buffer));
-		gtk_text_iter_forward_char(&end);
-		 
-		gtk_text_buffer_delete(buffer, &start, &end);
+		GtkTextIter cursor;
+		gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer));
+		
+		/* Fix #388731 */
+		gtk_text_iter_forward_char(&cursor);
+		gtk_text_buffer_backspace(buffer, &cursor, TRUE, TRUE);
 	}
 }
 

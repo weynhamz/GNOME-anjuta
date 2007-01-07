@@ -199,10 +199,6 @@ gboolean	_anjuta_document_is_saving_as	(AnjutaDocument       *doc);
 // CHECK: va bene un gint?
 glong		 _anjuta_document_get_seconds_since_last_save_or_load 
 						(AnjutaDocument       *doc);
-
-/* private because the property will move to gtk */
-gboolean	 _anjuta_document_get_has_selection
-						(AnjutaDocument       *doc);
 						  
 G_END_DECLS
 
