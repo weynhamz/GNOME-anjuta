@@ -437,6 +437,8 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 					 
 	/* Create View instance */
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document));
+	/* Fix #388727 */
+	g_object_set(G_OBJECT(sv->priv->view), "indent_on_tab", TRUE, NULL);
 	g_signal_connect_after(G_OBJECT(sv->priv->view), "char_added",
 					G_CALLBACK(on_document_char_added), sv);
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);

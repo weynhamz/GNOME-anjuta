@@ -1,7 +1,8 @@
 2007-01-07  Johannes Schmid <jhs@gnome.org>
 
   * plugins/sourceview/sourceview.c:
-  Fixed  #388731 – Odd editor behaviour after performing block-text operations
+  Fixed #388731 – Odd editor behaviour after performing block-text operations
+  Fixed #388727 – Block-tab does not work
   
   * plugins/sourceview/anjuta-document.h/c:
   Removed deprecated has_selection() method which is now in Gtk (>= 2.10)
