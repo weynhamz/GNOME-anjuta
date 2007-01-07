@@ -1139,15 +1139,23 @@ pm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 static void
 pm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	gchar *dir;
+  gchar *dir;
+	gchar* root; 
+	gchar* command; 
 	
 	g_return_if_fail (plugin->pm_current_filename != NULL);
+	
+	root = get_root_install_command(plugin);
+	command = g_strdup_printf("%s %s %s", root, MAKE_COMMAND,
+		"install");
+	g_free(root);
 	
 	if (g_file_test (plugin->pm_current_filename, G_FILE_TEST_IS_DIR))
 		dir = g_strdup (plugin->pm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->pm_current_filename);
-	build_execute_command (plugin, dir, MAKE_COMMAND" install", TRUE);
+	build_execute_command (plugin, dir, command, TRUE);
+	g_free(command);
 }
 
 static void
@@ -2004,7 +2012,12 @@ ibuildable_install (IAnjutaBuildable *manager, const gchar *directory,
 					GError **err)
 {
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
-	build_execute_command (plugin, directory, MAKE_COMMAND" install", TRUE);
+	gchar* root = get_root_install_command(plugin);
+	gchar* command = g_strdup_printf("%s %s %s", root, MAKE_COMMAND,
+		"install");
+	g_free(root);
+	build_execute_command (plugin, directory, command, TRUE);
+	g_free(command);
 }
 
 static void
