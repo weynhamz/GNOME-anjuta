@@ -92,7 +92,9 @@ struct _TerminalPlugin{
 	GtkWidget *pref_default_button;
 	GList *gconf_notify_ids;
 	gboolean child_initizlized;
+#if OLD_VTE == 1
 	gboolean first_time_realization;
+#endif
 };
 
 struct _TerminalPluginClass{
@@ -378,15 +380,8 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 
 	env = get_child_environment ();
 	
-#if OLD_VTE == 1
-	if (dir)
-		chdir (dir);
-	term_plugin->child_pid = vte_terminal_fork_command (term, args[0],
-														args, env);
-#else
 	term_plugin->child_pid = vte_terminal_fork_command (term, args[0], args,
 														env, dir, 0, 0, 0);
-#endif
 	g_free (dir);
 	g_strfreev (env);
 	g_free (args);
@@ -469,6 +464,7 @@ terminal_keypress_cb (GtkWidget *widget, GdkEventKey  *event,
 	return FALSE;
 }
 
+#if OLD_VTE == 1
 /* VTE has a terrible bug where it could crash when container is changed.
  * The problem has been traced in vte where its style-set handler does not
  * adequately check if the widget is realized, resulting in a crash when
@@ -511,6 +507,7 @@ terminal_unrealize_cb (GtkWidget *term, TerminalPlugin *plugin)
 											 NULL);
 	DEBUG_PRINT ("Blocked %d terminal signal", count);
 }
+#endif
 
 static void
 terminal_destroy_cb (GtkWidget *widget, TerminalPlugin *term)
@@ -541,11 +538,12 @@ terminal_create (TerminalPlugin *term_plugin)
 					  G_CALLBACK (terminal_destroy_cb), term_plugin);
 	g_signal_connect (G_OBJECT (term_plugin->term), "event",
 					  G_CALLBACK (terminal_keypress_cb), term_plugin);
+#if OLD_VTE == 1
 	g_signal_connect (G_OBJECT (term_plugin->term), "realize",
 					  G_CALLBACK (terminal_realize_cb), term_plugin);
 	g_signal_connect (G_OBJECT (term_plugin->term), "unrealize",
 					  G_CALLBACK (terminal_unrealize_cb), term_plugin);
-
+#endif
 	sb = gtk_vscrollbar_new (GTK_ADJUSTMENT (VTE_TERMINAL (term_plugin->term)->adjustment));
 	GTK_WIDGET_UNSET_FLAGS (sb, GTK_CAN_FOCUS);
 	
@@ -629,7 +627,12 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	term_plugin = ANJUTA_PLUGIN_TERMINAL (plugin);
 	
 	prefs_finalize (term_plugin);
-	
+
+#if OLD_VTE == 1
+	g_signal_handlers_disconnect_by_func (G_OBJECT (term_plugin->term),
+			 G_CALLBACK (terminal_unrealize_cb), term_plugin);
+#endif
+
 	/* terminal plugin widgets are destroyed as soon as it is removed */
 	anjuta_shell_remove_widget (plugin->shell, term_plugin->frame, NULL);
 	
@@ -643,7 +646,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	term_plugin->scrollbar = NULL;
 	term_plugin->hbox = NULL;
 	term_plugin->child_initizlized = FALSE;
+#if OLD_VTE == 1
 	term_plugin->first_time_realization = TRUE;
+#endif
 
 	// terminal_finalize (term_plugin);
 	return TRUE;
@@ -667,7 +672,9 @@ terminal_plugin_instance_init (GObject *obj)
 	TerminalPlugin *plugin = ANJUTA_PLUGIN_TERMINAL (obj);
 	plugin->gconf_notify_ids = NULL;
 	plugin->child_initizlized = FALSE;
+#if OLD_VTE == 1
 	plugin->first_time_realization = TRUE;
+#endif
 }
 
 static void

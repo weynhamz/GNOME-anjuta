@@ -360,8 +360,8 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 											  percentage);
 		progressbar = gnome_appbar_get_progress (GNOME_APPBAR (status));
 		statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
-		gtk_widget_draw (GTK_WIDGET (statusbar), NULL);
-		gtk_widget_draw (GTK_WIDGET (progressbar), NULL);
+		gtk_widget_queue_draw (GTK_WIDGET (statusbar));
+		gtk_widget_queue_draw (GTK_WIDGET (progressbar));
 	}
 }
 
@@ -393,8 +393,8 @@ anjuta_status_progress_tick (AnjutaStatus *status,
 											  percentage);
 		progressbar = gnome_appbar_get_progress (GNOME_APPBAR (status));
 		statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
-		gtk_widget_draw (GTK_WIDGET (statusbar), NULL);
-		gtk_widget_draw (GTK_WIDGET (progressbar), NULL);
+		gtk_widget_queue_draw (GTK_WIDGET (statusbar));
+		gtk_widget_queue_draw (GTK_WIDGET (progressbar));
 	}
 	if (status->priv->current_ticks >= status->priv->total_ticks)
 		anjuta_status_progress_reset (status);
