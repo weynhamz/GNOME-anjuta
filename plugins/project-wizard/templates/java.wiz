@@ -66,7 +66,7 @@
 		</directory>
 		[+ENDIF+]
 		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
-		<file source="configure.in.tpl" destination="configure.in"/>
+		<file source="configure.ac.tpl" destination="configure.ac"/>
 		<directory source="src">
 			<file source="main.java" destination="[+MainClass+].java"/>
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>

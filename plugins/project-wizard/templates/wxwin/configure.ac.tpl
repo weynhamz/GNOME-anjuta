@@ -2,8 +2,9 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Created by Anjuta application wizard.
 
-AC_INIT(configure.in)
-AM_INIT_AUTOMAKE([+NameLower+], [+Version+])
+AC_INIT([+NameLower+], [+Version+])
+
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
 
@@ -57,9 +58,9 @@ AM_PROG_LIBTOOL
 [+ENDIF+]
 
 [+IF (=(get "HavePackage") "1")+]
-PKG_CHECK_MODULES(PACKAGE, [[+PackageModule1+] [+PackageModule2+] [+PackageModule3+] [+PackageModule4+] [+PackageModule5+]])
-AC_SUBST(PACKAGE_CFLAGS)
-AC_SUBST(PACKAGE_LIBS)
+PKG_CHECK_MODULES([+NameCUpper+], [[+PackageModule1+] [+PackageModule2+] [+PackageModule3+] [+PackageModule4+] [+PackageModule5+]])
+AC_SUBST([+NameCUpper+]_CFLAGS)
+AC_SUBST([+NameCUpper+]_LIBS)
 [+ENDIF+]
 
 AC_OUTPUT([

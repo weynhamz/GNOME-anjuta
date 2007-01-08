@@ -6,7 +6,7 @@ wizard_files_DATA = \
 	AUTHORS \
 	ChangeLog \
 	autogen.sh \
-	configure.in.tpl \
+	configure.ac.tpl \
 	Makefile.am.tpl \
 	NEWS \
 	project.anjuta \

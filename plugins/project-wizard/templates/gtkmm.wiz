@@ -62,8 +62,10 @@
 		</directory>
 		[+ENDIF+]
 	</directory>
+	<directory source="cpp" destination="[+Destination+]">
+	  <file source="configure.ac.tpl" destination="configure.ac"/>
+	</directory>
 	<directory source="gtkmm" destination="[+Destination+]">
-		<file source="configure.in.tpl" destination="configure.in"/>
 		<directory source="src">
 			<file source="main.cc"/>
 			<file source="project.glade" destination="[+NameLower+].glade"/>

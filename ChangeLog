@@ -1,3 +1,52 @@
+2007-01-08  Johannes Schmid <jhs@gnome.org>
+
+  * plugins/project-wizard/templates/gtkmm/configure.in.tpl
+  * plugins/project-wizard/templates/gtkmm/Makefile.am
+  * plugins/project-wizard/templates/python/configure.ac.tpl
+  * plugins/project-wizard/templates/python/configure.in.tpl
+  * plugins/project-wizard/templates/python/Makefile.am
+  * plugins/project-wizard/templates/cpp/configure.ac.tpl
+  * plugins/project-wizard/templates/cpp/configure.in.tpl
+  * plugins/project-wizard/templates/cpp/Makefile.am
+  * plugins/project-wizard/templates/terminal.wiz
+  * plugins/project-wizard/templates/xlib-dock.wiz
+  * plugins/project-wizard/templates/wxwin.wiz
+  * plugins/project-wizard/templates/java.wiz
+  * plugins/project-wizard/templates/xlib/configure.ac.tpl
+  * plugins/project-wizard/templates/xlib/configure.in.tpl
+  * plugins/project-wizard/templates/xlib/Makefile.am
+  * plugins/project-wizard/templates/gcj/configure.ac.tpl
+  * plugins/project-wizard/templates/gcj/configure.in.tpl
+  * plugins/project-wizard/templates/gcj/Makefile.am
+  * plugins/project-wizard/templates/terminal/configure.ac.tpl
+  * plugins/project-wizard/templates/terminal/configure.in.tpl
+  * plugins/project-wizard/templates/terminal/Makefile.am
+  * plugins/project-wizard/templates/terminal/autogen.sh
+  * plugins/project-wizard/templates/wxwin/configure.ac.tpl
+  * plugins/project-wizard/templates/wxwin/configure.in.tpl
+  * plugins/project-wizard/templates/wxwin/Makefile.am
+  * plugins/project-wizard/templates/gnome.wiz 
+  * plugins/project-wizard/templates/java/configure.ac.tpl
+  * plugins/project-wizard/templates/java/configure.in.tpl
+  * plugins/project-wizard/templates/java/Makefile.am
+  * plugins/project-wizard/templates/anjuta-plugin.wiz
+  * plugins/project-wizard/templates/gtkmm.wiz
+  * plugins/project-wizard/templates/python.wiz
+  * plugins/project-wizard/templates/cpp.wiz
+  * plugins/project-wizard/templates/gtk.wiz
+  * plugins/project-wizard/templates/gcj.wiz
+  * plugins/project-wizard/templates/anjuta-plugin/configure.ac.tpl
+  * plugins/project-wizard/templates/anjuta-plugin/configure.in.tpl
+  * plugins/project-wizard/templates/anjuta-plugin/Makefile.am:
+
+  Starting fixing of all project wizards:
+  - rename configure.in to configure.ac
+  - use proper names for PKG_CONFIG_PATH variables instead of just 'PACKAGE'
+  - fix AC_INIT and AM_INIT_AUTOMAKE to use the correct project names
+  (See #394184)
+  
+  * TODO.task: Added bug number to bounty
+
 2007-01-07  Johannes Schmid <jhs@gnome.org>
 
   *  plugins/build-basic-autotools.c:

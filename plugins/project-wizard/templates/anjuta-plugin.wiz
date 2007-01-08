@@ -80,7 +80,7 @@
 		[+ENDIF+]
 	</directory>
 	<directory source="anjuta-plugin" destination="[+Destination+]">
-		<file source="configure.in.tpl" destination="configure.in"/>
+		<file source="configure.ac.tpl" destination="configure.ac"/>
 		<directory source="src">
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 			<file source="plugin.c"/>

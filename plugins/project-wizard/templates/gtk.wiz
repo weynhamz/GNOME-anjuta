@@ -50,7 +50,7 @@
 		<file source="NEWS"/>
 		<file source="README"/>
 		<file source="autogen.sh" executable="yes"/>
-		<file source="configure.in.tpl" destination="configure.in"/>
+		<file source="configure.ac.tpl" destination="configure.ac"/>
 		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
 		<file source="cvsignore" destination=".cvsignore"/>
 		<directory source="src">

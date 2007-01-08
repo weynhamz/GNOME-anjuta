@@ -63,7 +63,7 @@
 		[+ENDIF+]
 	</directory>
 	<directory source="xlib" destination="[+Destination+]">
-		<file source="configure.in.tpl" destination="configure.in"/>
+		<file source="configure.ac.tpl" destination="configure.ac"/>
 	</directory>
 	<directory source="xlib-dock" destination="[+Destination+]">
 		<directory source="src">
