@@ -1,3 +1,19 @@
+2007-01-06  Armin Burgmeier  <armin@arbur.net>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>
+	* plugins/class-gen/combo-flags.h:
+	* plugins/class-gen/combo-flags.c: Added CgComboFlagsSelectionType
+	enum, added a type parameter to selected signal. Select highlighted
+	entry when pressing enter (but not unselect it if it was already
+	selected) before closing the popup. Also accept input when clicking
+	not into the popup.
+
+	* plugins/class-gen/cell-renderer-flags.c: Do appropriate action
+	according to selection type.
+
+	* libanjuta/anjuta-marshal.list: Changed VOID:BOXED marshaller to
+	VOID:BOXED,ENUM.
+
 2007-01-08  Johannes Schmid <jhs@gnome.org>
 
   * plugins/project-wizard/templates/gtkmm/configure.in.tpl

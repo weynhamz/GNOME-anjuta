@@ -459,7 +459,7 @@ cg_combo_flags_treeview_button_press_cb (G_GNUC_UNUSED GtkWidget *widget,
 		if(gtk_tree_selection_get_selected (selection, NULL, &iter) == TRUE)
 		{
 			g_signal_emit (G_OBJECT (combo), combo_flags_signals[SELECTED],
-			               0, &iter);
+			               0, &iter, CG_COMBO_FLAGS_SELECTION_TOGGLE);
 
 			return TRUE;
 		}
@@ -500,7 +500,7 @@ cg_combo_flags_treeview_key_press_cb (G_GNUC_UNUSED GtkWidget *widget,
 		if(gtk_tree_selection_get_selected (selection, NULL, &iter) == TRUE)
 		{
 			g_signal_emit (G_OBJECT (combo), combo_flags_signals[SELECTED],
-			               0, &iter);
+			               0, &iter, CG_COMBO_FLAGS_SELECTION_TOGGLE);
 
 			return TRUE;
 		}
@@ -509,6 +509,15 @@ cg_combo_flags_treeview_key_press_cb (G_GNUC_UNUSED GtkWidget *widget,
 		break;
 	case GDK_Return:
 	case GDK_KP_Enter:
+		selection =
+			gtk_tree_view_get_selection (GTK_TREE_VIEW (priv->treeview));
+
+		if(gtk_tree_selection_get_selected (selection, NULL, &iter) == TRUE)
+		{
+			g_signal_emit (G_OBJECT (combo), combo_flags_signals[SELECTED],
+			               0, &iter, CG_COMBO_FLAGS_SELECTION_SELECT);
+		}
+
 		priv->editing_canceled = FALSE;
 		cg_combo_flags_popdown (combo);
 		return TRUE;
@@ -532,7 +541,7 @@ cg_combo_flags_window_button_press_cb (G_GNUC_UNUSED GtkWidget *widget,
 	combo = CG_COMBO_FLAGS (data);
 	priv = CG_COMBO_FLAGS_PRIVATE (combo);
 	
-	priv->editing_canceled = TRUE;
+	priv->editing_canceled = FALSE;
 	cg_combo_flags_popdown (combo);
 
 	return TRUE;
@@ -677,10 +686,11 @@ cg_combo_flags_class_init (CgComboFlagsClass *klass)
 		             G_SIGNAL_RUN_LAST,
 		             0, /* no default handler */
 		             NULL, NULL,
-		             anjuta_cclosure_marshal_VOID__BOXED,
+		             anjuta_cclosure_marshal_VOID__BOXED_ENUM,
 		             G_TYPE_NONE,
-		             1,
-		             GTK_TYPE_TREE_ITER);
+		             2,
+		             GTK_TYPE_TREE_ITER,
+	                     CG_TYPE_COMBO_FLAGS_SELECTION_TYPE);
 }
 
 static void
@@ -803,6 +813,28 @@ cg_combo_flags_popdown_idle (gpointer data)
 {
 	gtk_widget_destroy (GTK_WIDGET (data));
 	return FALSE;
+}
+
+GType
+cg_combo_flags_selection_type_get_type (void)
+{
+	static GType our_type = 0;
+
+	if(our_type == 0)
+	{
+		static const GEnumValue values[] =
+		{
+			{ CG_COMBO_FLAGS_SELECTION_NONE, "CG_COMBO_FLAGS_SELECTION_NONE", "none" },
+			{ CG_COMBO_FLAGS_SELECTION_UNSELECT, "CG_COMBO_FLAGS_SELECTION_UNSELECT", "unselect" },
+			{ CG_COMBO_FLAGS_SELECTION_SELECT, "CG_COMBO_FLAGS_SELECTION_SELECT", "select" },
+			{ CG_COMBO_FLAGS_SELECTION_TOGGLE, "CG_COMBO_FLAGS_SELECTION_TOGGLE", "toggle" },
+			{ 0, NULL, NULL }
+		};
+
+		our_type = g_enum_register_static("CgComboFlagsSelectionType", values);
+	}
+
+	return our_type;
 }
 
 GType

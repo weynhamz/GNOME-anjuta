@@ -224,10 +224,12 @@ cg_cell_renderer_flags_editing_done (GtkCellEditable *editable,
 static void
 cg_cell_renderer_flags_selected (CgComboFlags *combo,
                                  GtkTreeIter *iter,
+                                 CgComboFlagsSelectionType type,
                                  gpointer user_data)
 {
 	CgCellRendererFlags *cell_flags;
 	CgCellRendererFlagsPrivate *priv;
+	gpointer result;
 	gchar *name;
 	gchar *abbr;
 
@@ -238,16 +240,43 @@ cg_cell_renderer_flags_selected (CgComboFlags *combo,
 	                    priv->abbr_column, &abbr, -1);
 	
 	g_assert (priv->edit_status != NULL);
-	if (GPOINTER_TO_INT (g_hash_table_lookup (priv->edit_status, abbr)) == 1)
+	result = g_hash_table_lookup (priv->edit_status, abbr);
+
+	/* abbr needs not to be freed if it gets inserted into the hash table
+	 * because the hash table then takes ownership of it. */
+	switch (type)
 	{
-		g_hash_table_remove (priv->edit_status, abbr);
+	case CG_COMBO_FLAGS_SELECTION_NONE:
 		g_free (abbr);
-	}
-	else
-	{
-		g_hash_table_insert (priv->edit_status, abbr, GINT_TO_POINTER (1));
-		/* Don't free abbr here because we gave ownership to the hash
-		 * table - note that we did not g_strdup it above. */
+		break;
+	case CG_COMBO_FLAGS_SELECTION_SELECT:
+		if (GPOINTER_TO_INT(result) != 1)
+			g_hash_table_insert (priv->edit_status, abbr, GINT_TO_POINTER (1));
+		else
+			g_free (abbr);
+
+		break;
+	case CG_COMBO_FLAGS_SELECTION_UNSELECT:
+		if (GPOINTER_TO_INT (result) == 1)
+			g_hash_table_remove(priv->edit_status, abbr);
+
+		g_free (abbr);
+		break;
+	case CG_COMBO_FLAGS_SELECTION_TOGGLE:
+		if (GPOINTER_TO_INT (result) == 1)
+		{
+			g_hash_table_remove (priv->edit_status, abbr);
+			g_free(abbr);
+		}
+		else
+		{
+			g_hash_table_insert (priv->edit_status, abbr, GINT_TO_POINTER (1));
+		}
+
+		break;
+	default:
+		g_assert_not_reached ();
+		break;
 	}
 
 	/* This is done to get GTK+ to re-render this row with the changed flag
@@ -283,14 +312,17 @@ cg_cell_renderer_flags_set_data_func (G_GNUC_UNUSED GtkCellLayout *cell_layout,
 	cell_flags = CG_CELL_RENDERER_FLAGS (data);
 	priv = CG_CELL_RENDERER_FLAGS_PRIVATE (cell_flags);
 
-	gtk_tree_model_get (model, iter, priv->abbr_column, &abbr, -1);
+	if(priv->edit_status != NULL)
+	{
+		gtk_tree_model_get (model, iter, priv->abbr_column, &abbr, -1);
 
-	if (g_hash_table_lookup (priv->edit_status, abbr) != NULL)
-		g_object_set (G_OBJECT (cell), "active", TRUE, NULL);
-	else
-		g_object_set (G_OBJECT (cell), "active", FALSE, NULL);
+		if (g_hash_table_lookup (priv->edit_status, abbr) != NULL)
+			g_object_set (G_OBJECT (cell), "active", TRUE, NULL);
+		else
+			g_object_set (G_OBJECT (cell), "active", FALSE, NULL);
 
-	g_free (abbr);
+		g_free (abbr);
+	}
 }
 
 static GtkCellEditable *
@@ -368,7 +400,7 @@ cg_cell_renderer_flags_start_editing (GtkCellRenderer *cell,
 
 	gtk_widget_show (combo);
 
-	g_signal_connect (G_OBJECT (combo), "editing_done",
+	g_signal_connect (G_OBJECT (combo), "editing-done",
 	                  G_CALLBACK (cg_cell_renderer_flags_editing_done),
                       cell_flags);
 

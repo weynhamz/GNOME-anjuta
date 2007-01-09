@@ -34,6 +34,8 @@ G_BEGIN_DECLS
 #define CG_IS_COMBO_FLAGS_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), CG_TYPE_COMBO_FLAGS))
 #define CG_COMBO_FLAGS_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), CG_TYPE_COMBO_FLAGS, CgComboFlagsClass))
 
+#define CG_TYPE_COMBO_FLAGS_SELECTION_TYPE (cg_combo_flags_selection_type_get_type ())
+
 typedef struct _CgComboFlagsClass CgComboFlagsClass;
 typedef struct _CgComboFlags CgComboFlags;
 
@@ -65,6 +67,15 @@ struct _CgComboFlags
 	GtkHBox parent_instance;
 };
 
+typedef enum _CgComboFlagsSelectionType
+{
+	CG_COMBO_FLAGS_SELECTION_NONE,
+	CG_COMBO_FLAGS_SELECTION_UNSELECT,
+	CG_COMBO_FLAGS_SELECTION_SELECT,
+	CG_COMBO_FLAGS_SELECTION_TOGGLE
+} CgComboFlagsSelectionType;
+
+GType cg_combo_flags_selection_type_get_type (void) G_GNUC_CONST;
 GType cg_combo_flags_get_type (void) G_GNUC_CONST;
 
 GtkWidget *cg_combo_flags_new (void);
