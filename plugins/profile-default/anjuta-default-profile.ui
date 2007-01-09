@@ -1,0 +1,11 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuFile" action="ActionMenuFile">
+			<placeholder name="PlaceholderProjectMenus">
+				<menuitem name="CloseProfile" action="ActionProfileCloseProject" />
+				<separator name="seperator10"/>
+			</placeholder>
+		</menu>
+	</menubar>
+</ui>

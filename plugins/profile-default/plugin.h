@@ -59,17 +59,8 @@ struct _DefaultProfilePlugin{
 	GSList *system_plugins;
 	GSList *project_plugins;
 	
-	/* 
-	 * List of loaded project_root_uris: We have to keep this to no remerge the
-	 * plugin set when is already loaded and the user tries to load it again. 
-	*/
-	GSList* root_uris;
-	
 	/* A flag to indicate that session ops is by this plugin */
 	gboolean session_by_me;
-	
-	/* Watch-ID for "project_root_uri" */
-	gint project_watch_id;
 };
 
 struct _DefaultProfilePluginClass{

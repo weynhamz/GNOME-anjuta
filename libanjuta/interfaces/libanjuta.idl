@@ -530,15 +530,6 @@ interface IAnjutaProfile
 	* Load the default profile
 	*/
 	void load ();
-	
-	/**
-	* ianjuta_profile_unload:
-	* @obj: Self
-	* @err: Error propagation and reporting
-	*
-	* Unload the current "project_root_uri
-	*/
-	void unload ();	
 }
 
 interface IAnjutaHelp

@@ -36,23 +36,18 @@ extern GType project_manager_plugin_get_type (GluePlugin *plugin);
 
 typedef struct _ProjectManagerPlugin ProjectManagerPlugin;
 typedef struct _ProjectManagerPluginClass ProjectManagerPluginClass;
-typedef struct _PMProject PMProject;
-
 
 struct _ProjectManagerPlugin{
 	AnjutaPlugin parent;
 	
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
-	
-	GtkWidget* notebook;
-	GtkWidget* combo;
-	GtkWidget* vbox;
-	
-	PMProject* active_project;
+	GbfProject *project;
+	GtkWidget *view;
+	GbfProjectModel *model;
+	GtkWidget *scrolledwindow;
 	
 	GtkActionGroup *pm_action_group;
-	GtkActionGroup *pf_action_group;
 	GtkActionGroup *popup_action_group;
 	gint merge_id;
 	
@@ -62,6 +57,12 @@ struct _ProjectManagerPlugin{
 	
 	gchar *fm_current_uri;
 	gchar *current_editor_uri;
+	gchar *project_root_uri;
+	
+	/* Update state recording */
+	GList *pre_update_sources;
+	GList *pre_update_targets;
+	GList *pre_update_groups;
 };
 
 struct _ProjectManagerPluginClass{
