@@ -1,5 +1,8 @@
 2007-01-09  Naba Kumar  <naba@gnome.org>
 
+	* plugins/profile-default/plugin.c: Save project session before
+	a new one is opened.
+
 	* plugins/project-manager/plugin.c,
 	plugins/project-manager/plugin.h,
 	plugins/project-manager/anjuta-project-manager.ui,

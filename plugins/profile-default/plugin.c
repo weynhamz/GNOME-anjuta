@@ -902,7 +902,7 @@ default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 }
 
 static void
-default_profile_plugin_close (DefaultProfilePlugin *plugin)
+default_profile_plugin_save_current (DefaultProfilePlugin *plugin)
 {
 	gchar *session_dir;
 	
@@ -918,7 +918,13 @@ default_profile_plugin_close (DefaultProfilePlugin *plugin)
 		plugin->session_by_me = FALSE;
 		g_free (session_dir);
 	}
-	
+}
+
+static void
+default_profile_plugin_close (DefaultProfilePlugin *plugin)
+{
+	g_return_if_fail (plugin->project_uri != NULL);
+	default_profile_plugin_save_current (plugin);
 	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
 							   "project_root_uri", NULL);
 	
@@ -1031,6 +1037,11 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 											  plugin->system_plugins);
 		g_free (dir);
 	}
+	else /* Save current project session */
+	{
+		default_profile_plugin_save_current (plugin);
+	}
+	
 	default_profile_plugin_load (plugin, selected_plugins, e);
 	g_slist_free (selected_plugins);
 	
