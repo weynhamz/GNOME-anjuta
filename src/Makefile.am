@@ -21,7 +21,7 @@ INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\"
 
 
-include $(top_srcdir)/scintilla/lexers.make
+include $(top_srcdir)/plugins/editor/scintilla/lexers.make
 
 bin_PROGRAMS = anjuta anjuta-shell
 

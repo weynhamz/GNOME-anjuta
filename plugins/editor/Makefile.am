@@ -1,3 +1,6 @@
+
+SUBDIRS = scintilla
+
 if HAVE_PLUGIN_SCINTILLA
 
 # Plugin glade file
@@ -24,7 +27,7 @@ INCLUDES = \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GNOME_VFS_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
-	-I$(top_srcdir)/scintilla/include \
+	-I$(srcdir)/scintilla/include \
 	-I$(top_srcdir)/tagmanager/include
 
 libanjuta_editor_la_LIBADD = \
@@ -32,7 +35,7 @@ libanjuta_editor_la_LIBADD = \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_VFS_LIBS) \
 	$(LIBANJUTA_LIBS) \
-	$(top_builddir)/scintilla/libanjuta-scintilla.la \
+	scintilla/libanjuta-scintilla.la \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 
 libanjuta_editor_la_SOURCES= \

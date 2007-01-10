@@ -1048,13 +1048,11 @@ po/Makefile.in
 tagmanager/Makefile
 tagmanager/include/Makefile
 global-tags/Makefile
-scintilla/Makefile
 libegg/Makefile
 libegg/util/Makefile
 libegg/treeviewutils/Makefile
 libegg/menu/Makefile
 libegg/recent-files/Makefile
-scintilla/include/Makefile
 anjuta.spec
 libanjuta/Makefile
 libanjuta/libanjuta-1.0.pc
@@ -1077,6 +1075,8 @@ plugins/class-gen/Makefile
 plugins/class-gen/templates/Makefile
 plugins/patch/Makefile
 plugins/editor/Makefile
+plugins/editor/scintilla/Makefile
+plugins/editor/scintilla/include/Makefile
 plugins/document-manager/Makefile
 plugins/search/Makefile
 plugins/message-view/Makefile

@@ -1,3 +1,12 @@
+2007-01-10  Naba Kumar  <naba@gnome.org>
+
+	* (removed) scintilla, (added) plugins/editor/scintilla,
+	plugins/editor/scintilla/lexers.make,
+	plugins/editor/scintilla/Makefile.am,
+	plugins/editor/Makefile.am
+	configure.in, manuals/reference/libanjuta/Makefile.am
+	Makefile.am: Moved scintilla to its right place.
+
 2007-01-09  Naba Kumar  <naba@gnome.org>
 
 	* plugins/profile-default/plugin.c: Save project session before

@@ -72,14 +72,14 @@ INCLUDES =						\
 	-I$(top_srcdir) 				\
 	-I$(top_builddir) 				\
 	-I$(top_builddir)/libanjuta			\
-	-I$(top_builddir)/scintilla/include		\
+	-I$(top_builddir)/plugins/editor/scintilla/include \
 	$(LIBANJUTA_CFLAGS)
 
 GTKDOC_LIBS =						\
 	-lutil \
 	$(top_builddir)/libanjuta/libanjuta.la \
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
-	$(top_builddir)/scintilla/libanjuta-scintilla.la \
+	$(top_builddir)/plugins/editor/scintilla/libanjuta-scintilla.la \
 	$(LIBANJUTA_LIBS)
 else
 INCLUDES =						\
