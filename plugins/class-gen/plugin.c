@@ -31,7 +31,7 @@
 #include <plugins/project-wizard/autogen.h>
 
 #include "plugin.h"
-#include "class_gen.h"
+/* #include "class_gen.h" */
 
 #include "window.h"
 

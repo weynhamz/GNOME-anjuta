@@ -10,7 +10,8 @@ tools_DATA = tools-2.xml
 
 EXTRA_DIST = \
 	$(tools_SCRIPTS) \
-	$(tools_DATA)
+	$(tools_DATA) \
+	tools-2.xml.in
 
 # from the autoconf manual
 edit = sed \
@@ -24,3 +25,4 @@ tools-2.xml: Makefile
 	mv $@.tmp $@
      
 tools-2.xml: tools-2.xml.in
+

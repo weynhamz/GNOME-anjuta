@@ -1,5 +1,20 @@
 2007-01-10  Naba Kumar  <naba@gnome.org>
 
+	* tagmanager/tm_workspace.c,
+	po/POTFILES.in,
+	plugins/debug-manager/Makefile.am,
+	plugins/tools/scripts/Makefile.am,
+	plugins/class-gen/plugin.c,
+	plugins/class-gen/Makefile.am,
+	global-tags/Makefile.am: Fixed make distcheck.
+
+	* plugins/debug-manager/attach_process.c,
+	plugins/debug-manager/attach_process.h,
+	plugins/class-gen/action-callbacks.h,
+	plugins/class-gen/action-callbacks.c,
+	plugins/class-gen/class_gen.h,
+	plugins/class-gen/class_gen.c: Deleted unused/old files.
+
 	* (removed) scintilla, (added) plugins/editor/scintilla,
 	plugins/editor/scintilla/lexers.make,
 	plugins/editor/scintilla/Makefile.am,

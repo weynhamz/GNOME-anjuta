@@ -10,7 +10,7 @@
 
 #include "general.h"
 
-#include <libanjuta/anjuta-debug.h>
+/* #include <libanjuta/anjuta-debug.h> */
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -30,7 +30,7 @@ INCLUDES = \
 
 
 libanjuta_class_gen_la_LIBADD = \
-	${top_srcdir}/plugins/project-wizard/libanjuta-project-wizard.la \
+	${top_builddir}/plugins/project-wizard/libanjuta-project-wizard.la \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_class_gen_la_SOURCES= \

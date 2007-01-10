@@ -37,10 +37,8 @@ plugins/build-basic-autotools/build-basic-autotools.c
 plugins/build-basic-autotools/executer.c
 plugins/class-inheritance/class-inherit.c
 plugins/class-inheritance/plugin.c
-plugins/class-gen/action-callbacks.c
 plugins/class-gen/anjuta-class-gen-plugin.glade
 plugins/class-gen/cell-renderer-flags.c
-plugins/class-gen/class_gen.c
 plugins/class-gen/combo-flags.c
 plugins/class-gen/element-editor.c
 plugins/class-gen/generator.c
@@ -55,7 +53,6 @@ plugins/cvs-plugin/cvs-execute.c
 plugins/cvs-plugin/plugin.c
 plugins/debug-manager/anjuta-debug-manager.glade
 plugins/debug-manager/anjuta-marshal.c
-plugins/debug-manager/attach_process.c
 plugins/debug-manager/breakpoints.c
 plugins/debug-manager/chunk_view.c
 plugins/debug-manager/data_buffer.c

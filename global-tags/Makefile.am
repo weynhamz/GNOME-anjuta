@@ -21,7 +21,7 @@ edit = sed \
 
 create_global_tags.sh: Makefile create_global_tags.sh.in
 	rm -f create_global_tags.sh
-	$(edit) create_global_tags.sh.in > create_global_tags.sh
+	$(edit) $(srcdir)/create_global_tags.sh.in > create_global_tags.sh
 	chmod +x create_global_tags.sh
 
-EXTRA_DIST = $(dist_bin_SCRIPTS)
+EXTRA_DIST = $(dist_bin_SCRIPTS) create_global_tags.sh.in
