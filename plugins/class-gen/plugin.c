@@ -342,7 +342,7 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 		manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 		                                      IAnjutaProjectManager, NULL);
 
-		if (manager != NULL)
+		if (manager != NULL && plugin->top_dir != NULL)
 		{
 			/* Use basename of the project's root URI as project name. */
 			name = g_path_get_basename (plugin->top_dir);

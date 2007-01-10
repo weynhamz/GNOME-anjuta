@@ -556,7 +556,7 @@ cg_window_go_members_transform_func (GHashTable *table,
 
 	if (g_str_has_prefix (name, func_prefix))
 	{
-		name = g_strdup (name + strlen (func_prefix));
+		name = g_strdup (name + strlen (func_prefix) + 1);
 		g_hash_table_insert (table, "Name", name);
 	}
 	

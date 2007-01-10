@@ -102,26 +102,16 @@ cg_element_editor_select (CgElementEditor *editor,
 	{
 		gtk_widget_grab_focus (GTK_WIDGET (priv->view));
 		
+
+		gtk_tree_view_scroll_to_cell (priv->view, path,
+		                              priv->columns[column].column, FALSE,
+		                              0.0, 0.0);
+
 		gtk_tree_view_set_cursor_on_cell (priv->view, path,
 		                                  priv->columns[column].column,
 		                                  priv->columns[column].renderer,
 		                                  TRUE);
 	}
-}
-
-static void
-cg_element_editor_row_inserted_cb (G_GNUC_UNUSED GtkTreeModel *model,
-                                   GtkTreePath *path,
-                                   G_GNUC_UNUSED GtkTreeIter *iter,
-                                   gpointer user_data)
-{
-	CgElementEditor *editor;
-	CgElementEditorPrivate *priv;
-
-	editor = CG_ELEMENT_EDITOR (user_data);
-	priv = CG_ELEMENT_EDITOR_PRIVATE (editor);
-	
-	cg_element_editor_select(editor, path, 0);
 }
 
 static gboolean
@@ -137,10 +127,33 @@ cg_element_editor_edited_idle_cb (gpointer user_data)
 	path = gtk_tree_path_new_from_string (ref->path_str);
 
 	cg_element_editor_select (ref->column->parent, path,
-	                          ref->column - priv->columns + 1);
+	                          ref->column - priv->columns);
 
 	gtk_tree_path_free (path);
 	return FALSE;
+}
+
+static void
+cg_element_editor_row_inserted_cb (G_GNUC_UNUSED GtkTreeModel *model,
+                                   GtkTreePath *path,
+                                   G_GNUC_UNUSED GtkTreeIter *iter,
+                                   gpointer user_data)
+{
+	CgElementEditor *editor;
+	CgElementEditorPrivate *priv;
+	CgElementEditorReference* ref;
+	gchar* path_str;
+
+	editor = CG_ELEMENT_EDITOR (user_data);
+	priv = CG_ELEMENT_EDITOR_PRIVATE (editor);
+	
+	path_str = gtk_tree_path_to_string(path);
+	ref = cg_element_editor_reference_new (&priv->columns[0], path_str);
+	g_free(path_str);
+
+	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+	                 cg_element_editor_edited_idle_cb, ref,
+	                 (GDestroyNotify) cg_element_editor_reference_free);
 }
 
 static void
@@ -165,15 +178,17 @@ cg_element_editor_list_edited_cb (G_GNUC_UNUSED GtkCellRendererText *renderer,
 	                    column - priv->columns, text, -1);
 	gtk_tree_path_free (path);
 
-	/* We do not immediately select the new column because if this entry
-	 * caused the column to be resized we first want to get the resize done.
-	 * Otherwise, the next editing widget would appear at the old position
-	 * of the next column (before the resize of this one). */
-	new_ref = cg_element_editor_reference_new (column, path_str);
-	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
-	                 cg_element_editor_edited_idle_cb, new_ref,
-	                 (GDestroyNotify) cg_element_editor_reference_free);
-	
+	if(column - priv->columns + 1 < priv->n_columns)
+	{
+		/* We do not immediately select the new column because if this entry
+		 * caused the column to be resized we first want to get the resize done.
+		 * Otherwise, the next editing widget would appear at the old position
+		 * of the next column (before the resize of this one). */
+		new_ref = cg_element_editor_reference_new (column + 1, path_str);
+		g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+		                 cg_element_editor_edited_idle_cb, new_ref,
+		                 (GDestroyNotify) cg_element_editor_reference_free);
+	}
 }
 
 static void
@@ -203,19 +218,26 @@ static void
 cg_element_editor_string_activate_cb (G_GNUC_UNUSED GtkEntry *entry,
                                       gpointer user_data)
 {
+	CgElementEditorPrivate* priv;
 	CgElementEditorReference *ref;
 	CgElementEditorReference *new_ref;
 
 	ref = (CgElementEditorReference *) user_data;
-	new_ref = cg_element_editor_reference_new (ref->column, ref->path_str);
+	priv = CG_ELEMENT_EDITOR_PRIVATE(ref->column->parent);
 
 	/* We do not immediately select the new column because if this entry
 	 * caused the column to be resized we first want to get the resize done.
 	 * Otherwise, the next editing widget would appear at the old position
 	 * of the next column (before the resize of this one). */
-	g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
-	                 cg_element_editor_edited_idle_cb, new_ref,
-	                 (GDestroyNotify) cg_element_editor_reference_free);
+	if(ref->column - priv->columns + 1 < priv->n_columns)
+	{
+		new_ref = cg_element_editor_reference_new (ref->column + 1,
+		                                           ref->path_str);
+
+		g_idle_add_full (G_PRIORITY_DEFAULT_IDLE,
+		                 cg_element_editor_edited_idle_cb, new_ref,
+		                 (GDestroyNotify) cg_element_editor_reference_free);
+	}
 }
 
 static void

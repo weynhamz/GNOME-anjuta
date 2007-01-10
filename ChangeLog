@@ -1,3 +1,21 @@
+2007-01-11  Armin Burgmeier  <armin@arbur.net>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* plugins/class-gen/element-editor.c: Scroll to a cell if it is
+	selected for editing. This fixes bug #394218.
+
+	* plugins/class-gen/plugin.c: Do not use project's root URI as project
+	name if said URI is not known.
+
+	* plugins/class-gen/window.c: When stripping function prefix away,
+	include the trailing underscore because it is already set by the
+	template.
+
+	* plugins/class-gen/transform.c: Include "const char*" and "const
+	gchar*" in the list for transforming a default C type to a GType.
+	Don't access invalid memory when writing pointer_str in
+	cg_transform_first_argument.
+
 2007-01-11  Naba Kumar  <naba@gnome.org>
 
 	* pixmaps/anjuta.png, (renamed) pixmaps/anjuta_icon.svg

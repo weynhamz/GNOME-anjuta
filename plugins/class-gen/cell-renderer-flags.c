@@ -301,9 +301,9 @@ cg_cell_renderer_flags_focus_out_event (GtkWidget *widget,
 static void
 cg_cell_renderer_flags_set_data_func (G_GNUC_UNUSED GtkCellLayout *cell_layout,
                                       GtkCellRenderer *cell,
-									  GtkTreeModel *model,
-									  GtkTreeIter *iter,
-									  gpointer data)
+	                                  GtkTreeModel *model,
+	                                  GtkTreeIter *iter,
+	                                  gpointer data)
 {
 	CgCellRendererFlags *cell_flags;
 	CgCellRendererFlagsPrivate *priv;
@@ -331,7 +331,7 @@ cg_cell_renderer_flags_start_editing (GtkCellRenderer *cell,
                                       G_GNUC_UNUSED GtkWidget *widget,
                                       const gchar *path,
                                       G_GNUC_UNUSED GdkRectangle
-									  *background_area,
+                                      *background_area,
                                       G_GNUC_UNUSED GdkRectangle *cell_area,
                                       G_GNUC_UNUSED GtkCellRendererState flags)
 {

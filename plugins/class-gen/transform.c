@@ -88,6 +88,10 @@ cg_transform_default_c_type_to_g_type (const gchar *c_type,
 		{ "gchar*", "G", "STRING" },
 		{ "char *", "G", "STRING" },
 		{ "gchar *", "G", "STRING" },
+		{ "const char*", "G", "STRING" },
+		{ "const gchar*", "G", "STRING" },
+		{ "const char *", "G", "STRING" },
+		{ "const gchar *", "G", "STRING" },
 		{ "gpointer", "G", "POINTER" },
 		{ "void*", "G", "POINTER" },
 		{ "void *", "G", "POINTER" },
@@ -508,7 +512,7 @@ cg_transform_first_argument (GHashTable *table,
 	 * basic type to get the final type. */
 	pointer_str = g_malloc ((pointer_count + 2) * sizeof(gchar));
 	pointer_str[0] = ' ';
-	pointer_str[pointer_count + 2] = '\0';
+	pointer_str[pointer_count + 1] = '\0';
 	for (i = 0; i < pointer_count; ++ i) pointer_str[i + 1] = '*';
 	
 	/* We do not just prepend type to the argument string because then
