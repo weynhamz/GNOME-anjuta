@@ -362,6 +362,12 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 		statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
 		gtk_widget_queue_draw (GTK_WIDGET (statusbar));
 		gtk_widget_queue_draw (GTK_WIDGET (progressbar));
+		if (GTK_WIDGET(progressbar)->window != NULL &&
+			GDK_IS_WINDOW(GTK_WIDGET(progressbar)->window))
+			gdk_window_process_updates (GTK_WIDGET(progressbar)->window, TRUE);
+		if (GTK_WIDGET(statusbar)->window != NULL &&
+			GDK_IS_WINDOW(GTK_WIDGET(statusbar)->window))
+			gdk_window_process_updates (GTK_WIDGET(statusbar)->window, TRUE);
 	}
 }
 
@@ -395,6 +401,12 @@ anjuta_status_progress_tick (AnjutaStatus *status,
 		statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
 		gtk_widget_queue_draw (GTK_WIDGET (statusbar));
 		gtk_widget_queue_draw (GTK_WIDGET (progressbar));
+		if (GTK_WIDGET(progressbar)->window != NULL &&
+			GDK_IS_WINDOW(GTK_WIDGET(progressbar)->window))
+			gdk_window_process_updates (GTK_WIDGET(progressbar)->window, TRUE);
+		if (GTK_WIDGET(statusbar)->window != NULL &&
+			GDK_IS_WINDOW(GTK_WIDGET(statusbar)->window))
+			gdk_window_process_updates (GTK_WIDGET(statusbar)->window, TRUE);
 	}
 	if (status->priv->current_ticks >= status->priv->total_ticks)
 		anjuta_status_progress_reset (status);

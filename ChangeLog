@@ -1,3 +1,10 @@
+2007-01-09  Curtis Magyar  <curtm4n@gmail.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* libanjuta/anjuta-status.c: fixed anjuta_status_progress_tick()
+	and anjuta_status_progress_add_ticks() to check for progressbar 
+	being realized before trying to update it.
+
 2007-01-10  Naba Kumar  <naba@gnome.org>
 
 	* tagmanager/tm_workspace.c,
