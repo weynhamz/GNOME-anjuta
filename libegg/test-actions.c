@@ -88,7 +88,7 @@ create_model ()
 	while (*idx)
 	{
 		GdkPixbuf *pixbuf;
-		pixbuf = gdk_pixbuf_new_from_file_at_size (PACKAGE_PIXMAPS_DIR"/anjuta_icon.png",
+		pixbuf = gdk_pixbuf_new_from_file_at_size (PACKAGE_PIXMAPS_DIR"/anjuta.png",
 												   16, 16, NULL);
 		gtk_tree_store_append (store, &iter, NULL);
 		gtk_tree_store_set (store, &iter,

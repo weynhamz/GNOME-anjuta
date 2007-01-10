@@ -2,6 +2,10 @@
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
   <mime-type type="application/x-anjuta">
     <comment>Anjuta IDE Project</comment>
+	<magic priority="80">
+	   <match value="# Anjuta" type="string" offset="0"/>
+       <match value="&lt;anjuta&gt;" type="string" offset="20:100"/>
+     </magic>
     <glob pattern="*.anjuta"/>
     <glob pattern="*.prj"/>
   </mime-type>

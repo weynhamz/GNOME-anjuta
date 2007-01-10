@@ -46,7 +46,7 @@ project.config.disable.overwriting=1 1 1 1 1 1 1 1 1
 project.menu.entry=Anjuta IDE
 project.menu.group=Application
 project.menu.comment=Integrated Development Environment
-project.menu.icon=pixmaps/anjuta_icon.png
+project.menu.icon=anjuta.png
 project.menu.need.terminal=0
 
 project.configure.options=
@@ -453,7 +453,7 @@ module.source.files=\
 module.pixmap.name=.
 module.pixmap.type=
 module.pixmap.files=\
-	pixmaps/anjuta_icon.png\
+	pixmaps/anjuta.png\
 	pixmaps/anjuta_logo.png\
 	pixmaps/anjuta_logo1.png\
 	pixmaps/anjuta_splash.png\

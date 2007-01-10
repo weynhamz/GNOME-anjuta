@@ -361,7 +361,7 @@ main (int argc, char *argv[])
 		g_warning ("Cannot create the 'anjuta' connection.");
 	
 	g_set_application_name (_("Anjuta"));
-	gtk_window_set_default_icon_name ("anjuta_icon");
+	gtk_window_set_default_icon_name ("anjuta");
 	gtk_window_set_auto_startup_notification(FALSE);
 
 	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);

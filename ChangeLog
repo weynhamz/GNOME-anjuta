@@ -1,3 +1,20 @@
+2007-01-11  Naba Kumar  <naba@gnome.org>
+
+	* pixmaps/anjuta.png, (renamed) pixmaps/anjuta_icon.svg
+	pixmaps/anjuta.svg, pixmaps/Makefile.am,
+	(renamed) pixmaps/anjuta_icon.png, src/main.c,
+	libegg/test-actions.c, anjuta.desktop.in.in,
+	anjuta.prj: Renamed application icon to 'anjuta.png' from
+	'anjuta_icon.png'. Added more fields in desktop file.
+
+	* mime/anjuta.xml: Added magic section.
+	
+	* (removed) mime/anjuta.applications,
+	(removed) mime/anjuta.mime, mime/Makefile.am,
+	(removed) mime/anjuta.keys,
+	mime/gnome-mime-application-x-anjuta.svg: Removed deprecated mime
+	registeration and added scalable icon.
+
 2007-01-09  Curtis Magyar  <curtm4n@gmail.com>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
