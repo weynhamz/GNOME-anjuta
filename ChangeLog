@@ -31,7 +31,7 @@
 	(removed) mime/anjuta.mime, mime/Makefile.am,
 	(removed) mime/anjuta.keys,
 	mime/gnome-mime-application-x-anjuta.svg: Removed deprecated mime
-	registeration and added scalable icon.
+	registeration and added scalable icon. Also fixes bug #393680
 
 2007-01-09  Curtis Magyar  <curtm4n@gmail.com>
 
