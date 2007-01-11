@@ -30,7 +30,7 @@ DmaStart *dma_start_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger);
 void dma_start_free (DmaStart *this);
 
 void dma_attach_to_process (DmaStart *this);
-void dma_run_target (DmaStart *this);
-gboolean dma_set_parameters (DmaStart *this);
+gboolean dma_run_target (DmaStart *this);
+gboolean dma_rerun_target (DmaStart *this);
 
 #endif

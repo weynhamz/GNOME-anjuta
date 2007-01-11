@@ -835,49 +835,7 @@ dma_start_load_uri (DmaStart *this)
 	}
 }
 
-/* Public functions
- *---------------------------------------------------------------------------*/
-
-void
-dma_attach_to_process (DmaStart* this)
-{
-	pid_t selected_pid;
-	GtkWindow *parent;
-	AttachProcess *attach_process = NULL;
-	
-	parent = GTK_WINDOW (ANJUTA_PLUGIN (this->plugin)->shell);
-	attach_process = attach_process_new();
-	
-	selected_pid = attach_process_show (attach_process, parent);
-	if (selected_pid > 0)
-	{
-		long lpid = selected_pid;
-		GList *search_dirs;
-		
-		search_dirs = get_source_directories (this->plugin);
-		ianjuta_debugger_interrupt (this->debugger, NULL);
-		ianjuta_debugger_quit (this->debugger, NULL);
-		ianjuta_debugger_attach (this->debugger, lpid, search_dirs, NULL);
-		free_source_directories (search_dirs);
-	}
-	attach_process_destroy(attach_process);
-}
-
-void
-dma_run_target (DmaStart *this)
-{
-	if (this->target_uri == NULL)
-	{
-		if (dma_set_parameters (this) == FALSE) return;
-	}
-
-	dma_start_load_uri (this);
-	ianjuta_debugger_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, NULL);
-	
-	return;
-}
-
-gboolean
+static gboolean
 dma_set_parameters (DmaStart *this)
 {
 	GladeXML *gxml;
@@ -891,8 +849,6 @@ dma_set_parameters (DmaStart *this)
 	GtkTreeIter iter;
 	GValue value = {0,};
 	const gchar *project_root_uri;
-
-	
 	
 	parent = GTK_WINDOW (this->plugin->shell);
 	gxml = glade_xml_new (GLADE_FILE, PARAMETER_DIALOG, NULL);
@@ -925,12 +881,6 @@ dma_set_parameters (DmaStart *this)
 	model = GTK_TREE_MODEL (gtk_list_store_new (1, GTK_TYPE_STRING));
 	gtk_combo_box_set_model (target, model);
 	gtk_combo_box_entry_set_text_column( GTK_COMBO_BOX_ENTRY(target), 0);
-	if (this->target_uri != NULL)
-	{
-		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-		gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, this->target_uri, -1);
-		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (target)->child), this->target_uri);
-	}
 
     anjuta_shell_get_value (this->plugin->shell, "project_root_uri", &value, NULL);
     project_root_uri = g_value_get_string (&value);
@@ -954,22 +904,38 @@ dma_set_parameters (DmaStart *this)
 
 			for (node = exec_targets; node; node = g_list_next (node))
 			{
-				gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-				gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, node->data, -1);
+				if ((this->target_uri == NULL) || (strcmp(this->target_uri, node->data) != 0))
+				{
+					gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+					gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, node->data, -1);
+				}
 				g_free (node->data);
-				node = g_list_next (node);
 			}
 			g_list_free (exec_targets);
 		}
 	}
-	
 	g_object_unref (model);
 
+	if (this->target_uri != NULL)
+	{
+		gtk_list_store_prepend (GTK_LIST_STORE (model), &iter);
+		gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, this->target_uri, -1);
+		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (target)->child), this->target_uri);
+	}
+	else if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &iter))
+	{
+		gchar *txt;
+		
+		gtk_tree_model_get (GTK_TREE_MODEL (model), &iter, 0, &txt, -1);
+		gtk_entry_set_text (GTK_ENTRY (GTK_BIN (target)->child), txt);
+		g_free (txt);
+	}
+	
 	/* Set terminal option */	
 	if (this->run_in_terminal) gtk_toggle_button_set_active (term, TRUE);
 	
 	gtk_window_set_transient_for (GTK_WINDOW (dlg), parent);
-			
+	
 	/* Run dialog */
 	for (;;)
 	{
@@ -1057,17 +1023,58 @@ dma_set_parameters (DmaStart *this)
 	}
 	gtk_widget_destroy (dlg);
 	
-	if (response == GTK_RESPONSE_APPLY)
+	return response == GTK_RESPONSE_OK;
+}
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+void
+dma_attach_to_process (DmaStart* this)
+{
+	pid_t selected_pid;
+	GtkWindow *parent;
+	AttachProcess *attach_process = NULL;
+	
+	parent = GTK_WINDOW (ANJUTA_PLUGIN (this->plugin)->shell);
+	attach_process = attach_process_new();
+	
+	selected_pid = attach_process_show (attach_process, parent);
+	if (selected_pid > 0)
 	{
-		return TRUE;
+		long lpid = selected_pid;
+		GList *search_dirs;
+		
+		search_dirs = get_source_directories (this->plugin);
+		ianjuta_debugger_interrupt (this->debugger, NULL);
+		ianjuta_debugger_quit (this->debugger, NULL);
+		ianjuta_debugger_attach (this->debugger, lpid, search_dirs, NULL);
+		free_source_directories (search_dirs);
 	}
-	else if (response == GTK_RESPONSE_OK)
-	{
+	attach_process_destroy(attach_process);
+}
+
+gboolean
+dma_run_target (DmaStart *this)
+{
+	if (dma_set_parameters (this) == TRUE)
+	{       
 		dma_start_load_uri (this);
 		ianjuta_debugger_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, NULL);
 	}
 	
-	return FALSE;
+	return this->target_uri != NULL;
+}
+
+gboolean
+dma_rerun_target (DmaStart *this)
+{
+	if (this->target_uri == NULL) return FALSE;
+
+	dma_start_load_uri (this);
+	ianjuta_debugger_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, NULL);
+	
+	return TRUE;
 }
 
 /* Constructor & Destructor

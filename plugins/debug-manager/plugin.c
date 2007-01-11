@@ -477,7 +477,20 @@ static void
 on_start_debug_activate (GtkAction* action, DebugManagerPlugin* this)
 {
 	enable_log_view (this, TRUE);
-	dma_run_target (this->start);
+	if (dma_run_target (this->start))
+	{
+		GtkAction *action;
+		action = gtk_action_group_get_action (this->start_group, "ActionDebuggerRestartTarget");
+		gtk_action_set_sensitive (action, TRUE);
+	}
+
+}
+
+static void
+on_restart_debug_activate (GtkAction* action, DebugManagerPlugin* this)
+{
+	enable_log_view (this, TRUE);
+	dma_rerun_target (this->start);
 }
 
 static void
@@ -490,19 +503,11 @@ on_attach_to_project_action_activate (GtkAction* action, DebugManagerPlugin* thi
 static void
 on_debugger_stop_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
-//	enable_log_view (plugin, FALSE);
 	if (plugin->debugger)
 	{
 		ianjuta_debugger_interrupt (plugin->debugger, NULL);
 		ianjuta_debugger_quit (plugin->debugger, NULL);
 	}
-//	dma_plugin_debugger_stopped (plugin);
-}
-
-static void
-on_debugger_parameter_activate (GtkAction* action, DebugManagerPlugin* this)
-{
-	dma_set_parameters (this->start);
 }
 
 /* Execute call back
@@ -722,6 +727,14 @@ static GtkActionEntry actions_start[] =
 		G_CALLBACK (on_start_debug_activate)
 	},
 	{
+		"ActionDebuggerRestartTarget",
+		NULL,
+		N_("Restart Target"),
+		NULL,
+		N_("restart the same target for debugging"),
+		G_CALLBACK (on_restart_debug_activate)
+	},
+	{
 		"ActionDebuggerAttachProcess",
 		"debugger-detach",
 		N_("_Attach to Process..."),
@@ -737,14 +750,6 @@ static GtkActionEntry actions_start[] =
 		N_("Say goodbye to the debugger"),
 		G_CALLBACK (on_debugger_stop_activate)
 	},
-	{
-		"ActionDebuggerParameter",
-		NULL,
-		N_("Parameters"), 
-		NULL,
-		N_("Set debugger parameters"),
-		G_CALLBACK (on_debugger_parameter_activate)
-	}
 };
 
 static GtkActionEntry actions_loaded[] =
@@ -944,6 +949,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	DebugManagerPlugin *this;
     static gboolean initialized = FALSE;
 	AnjutaUI *ui;
+	GtkAction *action;
 	
 	DEBUG_PRINT ("DebugManagerPlugin: Activating Debug Manager plugin...");
 	this = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
@@ -1019,6 +1025,8 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	
 
 	dma_plugin_debugger_stopped (this);
+	action = gtk_action_group_get_action (this->start_group, "ActionDebuggerRestartTarget");
+	gtk_action_set_sensitive (action, FALSE);
 	
 	/* Add watches */
 	this->project_watch_id = 

@@ -3,12 +3,10 @@
 	<menubar name="MenuMain">
 		<placeholder name="PlaceHolderDebugMenus">
 			<menu name="MenuDebug" action="ActionMenuDebug">
-				<menu name="Start" action="ActionMenuStart">
-					<menuitem name="RunTarget" action="ActionDebuggerRunTarget" />
-					<menuitem name="AttachProcess" action="ActionDebuggerAttachProcess" />
-				</menu>
+				<menuitem name="RunTarget" action="ActionDebuggerRunTarget" />
+				<menuitem name="RestartTarget" action="ActionDebuggerRestartTarget" />
+				<menuitem name="AttachProcess" action="ActionDebuggerAttachProcess" />
 				<menuitem name="Stop" action="ActionDebuggerStop" />
-				<menuitem name="Parameter" action="ActionDebuggerParameter" />
 				<separator name="separator3"/>
 
 				<menuitem name="Run" action="ActionDebuggerRunContinue" />
