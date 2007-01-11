@@ -316,9 +316,14 @@ fun void MarkerDefinePixmap=2049(int markerNumber, string pixmap)
 # Add a set of markers to a line.
 fun void MarkerAddSet=2466(int line, int set)
 
+# Set the alpha used for a marker that is drawn in the text area, not the margin.
+fun void MarkerSetAlpha=2476(int markerNumber, int alpha)
+
 enu MarginType=SC_MARGIN_
 val SC_MARGIN_SYMBOL=0
 val SC_MARGIN_NUMBER=1
+val SC_MARGIN_BACK=2
+val SC_MARGIN_FORE=3
 
 # Set a margin to be either numeric or symbolic.
 set void SetMarginTypeN=2240(int margin, int marginType)
@@ -430,6 +435,12 @@ fun void SetSelFore=2067(bool useSetting, colour fore)
 
 # Set the background colour of the selection and whether to use this setting.
 fun void SetSelBack=2068(bool useSetting, colour back)
+
+# Get the alpha of the selection.
+get int GetSelAlpha=2477(,)
+
+# Set the alpha of the selection.
+set void SetSelAlpha=2478(int alpha,)
 
 # Set the foreground colour of the caret.
 set void SetCaretFore=2069(colour fore,)
@@ -2681,6 +2692,7 @@ val SCE_AU3_PREPROCESSOR=11
 val SCE_AU3_SPECIAL=12
 val SCE_AU3_EXPAND=13
 val SCE_AU3_COMOBJ=14
+val SCE_AU3_UDF=15
 # Lexical states for SCLEX_APDL
 lex APDL=SCLEX_APDL SCE_APDL_
 val SCE_APDL_DEFAULT=0

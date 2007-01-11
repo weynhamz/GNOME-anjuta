@@ -1,3 +1,30 @@
+2007-01-11  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/scintilla/LineMarker.h,
+	plugins/editor/scintilla/LexBasic.cxx,
+	plugins/editor/scintilla/LexHTML.cxx,
+	plugins/editor/scintilla/include/SciLexer.h,
+	plugins/editor/scintilla/include/Scintilla.h,
+	plugins/editor/scintilla/include/Scintilla.iface,
+	plugins/editor/scintilla/include/ScintillaWidget.h,
+	plugins/editor/scintilla/LexBash.cxx,
+	plugins/editor/scintilla/PlatGTK.cxx,
+	plugins/editor/scintilla/ViewStyle.h,
+	plugins/editor/scintilla/Editor.cxx,
+	plugins/editor/scintilla/StyleContext.h,
+	plugins/editor/scintilla/LexCPP.cxx,
+	plugins/editor/scintilla/Converter.h,
+	plugins/editor/scintilla/LexAU3.cxx,
+	plugins/editor/scintilla/Editor.h,
+	plugins/editor/scintilla/LexPerl.cxx,
+	plugins/editor/scintilla/LexVB.cxx,
+	plugins/editor/scintilla/ScintillaGTK.cxx,
+	plugins/editor/scintilla/ViewStyle.cxx,
+	plugins/editor/scintilla/PropSet.cxx,
+	plugins/editor/scintilla/LexSQL.cxx,
+	plugins/editor/scintilla/ScintillaBase.cxx: Updated scintilla to
+	version 1.71
+
 2007-01-11  Armin Burgmeier  <armin@arbur.net>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
