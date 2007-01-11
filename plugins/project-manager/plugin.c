@@ -40,33 +40,8 @@
 
 static gpointer parent_class;
 
-static void update_ui (ProjectManagerPlugin *plugin);
 static gboolean uri_is_inside_project (ProjectManagerPlugin *plugin,
 									   const gchar *uri);
-#if 0
-static void
-update_title (ProjectManagerPlugin* plugin, PMProject* project)
-{
-	if (project)
-	{
-		gchar* title;
-		gchar* uri_basename;
-		gchar* unescape_basename;
-
-		uri_basename = g_path_get_basename(project->root_uri);
-		unescape_basename = gnome_vfs_unescape_string(uri_basename, "");
-		title = g_strdup_printf("%s - Anjuta", unescape_basename);
-		gtk_window_set_title(GTK_WINDOW(ANJUTA_PLUGIN(plugin)->shell), title);
-		g_free(unescape_basename);
-		g_free(uri_basename);
-		g_free(title);
-	}
-	else
-	{
-		gtk_window_set_title(GTK_WINDOW(ANJUTA_PLUGIN(plugin)->shell), "Anjuta");
-	}
-}
-#endif
 
 static GtkWindow*
 get_plugin_parent_window (ProjectManagerPlugin *plugin)
@@ -1070,7 +1045,6 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	/* gtk_widget_destroy (progress_win); */
 	
 	anjuta_status_set_default (status, _("Project"), g_basename (dirname));
-	/* update_title (plugin, g_basename (dirname)); */
 	anjuta_status_pop (status);
 	anjuta_status_busy_pop (status);
 	g_free (dirname);

@@ -45,6 +45,32 @@ static void default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 												 GError **err);
 
 static void
+update_title (DefaultProfilePlugin* plugin, const gchar *project_uri)
+{
+	AnjutaStatus *status;
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	if (project_uri)
+	{
+		gchar* uri_basename;
+		gchar* unescape_basename;
+		gchar* ext;
+		
+		uri_basename = g_path_get_basename (project_uri);
+		unescape_basename = gnome_vfs_unescape_string (uri_basename, "");
+		ext = strrchr (unescape_basename, '.');
+		if (ext)
+			*ext = '\0';
+		anjuta_status_set_title (status, unescape_basename);
+		g_free (unescape_basename);
+		g_free (uri_basename);
+	}
+	else
+	{
+		anjuta_status_set_title (status, NULL);
+	}
+}
+
+static void
 default_profile_plugin_write_to_file (DefaultProfilePlugin *plugin,
 									  const gchar *dir,
 									  GSList *plugins_to_exclude)
@@ -225,6 +251,7 @@ on_close_project_idle (gpointer plugin)
 	default_profile_plugin_close (ANJUTA_PLUGIN_DEFAULT_PROFILE (plugin));
 	default_profile_plugin_load_default (ANJUTA_PLUGIN_DEFAULT_PROFILE (plugin),
 										 NULL);
+	update_title (ANJUTA_PLUGIN_DEFAULT_PROFILE (plugin), NULL);
 	return FALSE;
 }
 
@@ -1095,6 +1122,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 		g_free (session_dir);
 	}
 	anjuta_status_progress_tick (status, NULL, _("Loaded Profile..."));
+	update_title (ANJUTA_PLUGIN_DEFAULT_PROFILE (plugin), plugin->project_uri);
 }
 
 static gchar*

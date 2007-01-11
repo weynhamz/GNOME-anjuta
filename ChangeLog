@@ -1,3 +1,12 @@
+2007-01-12  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta-app.c,
+	plugins/project-manager/plugin.c,
+	plugins/profile-default/plugin.c,
+	libanjuta/anjuta-status.c,
+	libanjuta/anjuta-status.h: Introduced an API for application title
+	in AnjutaStatus. Set application title to project name.
+
 2007-01-11  Massimo Cora' <maxcvs@email.i>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:

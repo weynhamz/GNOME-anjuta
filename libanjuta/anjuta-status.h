@@ -53,8 +53,8 @@ GType anjuta_status_get_type (void);
 GtkWidget* anjuta_status_new (void);
 
 /* Status bar text manipulation */
-void anjuta_status_set (AnjutaStatus *status, gchar * mesg, ...);
-void anjuta_status_push (AnjutaStatus *status, gchar * mesg, ...);
+void anjuta_status_set (AnjutaStatus *status, const gchar * mesg, ...);
+void anjuta_status_push (AnjutaStatus *status, const gchar * mesg, ...);
 #define anjuta_status_pop(obj) gnome_appbar_pop(GNOME_APPBAR((obj)));
 #define anjuta_status_clear_stack(obj) gnome_appbar_clear_stack(GNOME_APPBAR((obj)));
 void anjuta_status_busy_push (AnjutaStatus *status);
@@ -62,7 +62,9 @@ void anjuta_status_busy_pop (AnjutaStatus *status);
 void anjuta_status_set_default (AnjutaStatus *status, const gchar *label,
 								const gchar *value_format, ...);
 void anjuta_status_add_widget (AnjutaStatus *status, GtkWidget *widget);
-void anjuta_status(AnjutaStatus *status, gchar *mesg, gint timeout);
+void anjuta_status (AnjutaStatus *status, const gchar *mesg, gint timeout);
+void anjuta_status_set_title_window (AnjutaStatus *status, GtkWidget *window);
+void anjuta_status_set_title (AnjutaStatus *status, const gchar *title);
 
 /* Status bar progress manipulation */
 void anjuta_status_progress_set_splash (AnjutaStatus *status, const gchar *splash_file, gint splash_progress_position);

@@ -17,6 +17,8 @@
  * Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
 
+#include <config.h>
+#include <gtk/gtkwindow.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
@@ -37,6 +39,9 @@ struct _AnjutaStatusPriv
 	gboolean disable_splash;
 	gchar *splash_file;
 	gint splash_progress_position;
+	
+	/* Title window */
+	GtkWindow *window;
 };
 
 enum {
@@ -141,7 +146,7 @@ anjuta_status_new (void)
 }
 
 void
-anjuta_status_set (AnjutaStatus *status, gchar * mesg, ...)
+anjuta_status_set (AnjutaStatus *status, const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -157,7 +162,7 @@ anjuta_status_set (AnjutaStatus *status, gchar * mesg, ...)
 }
 
 void
-anjuta_status_push (AnjutaStatus *status, gchar * mesg, ...)
+anjuta_status_push (AnjutaStatus *status, const gchar * mesg, ...)
 {
 	gchar* message;
 	va_list args;
@@ -428,23 +433,54 @@ anjuta_status_progress_reset (AnjutaStatus *status)
 }
 
 static gboolean
-anjuta_status_timeout(AnjutaStatus *status)
+anjuta_status_timeout (AnjutaStatus *status)
 {
-	anjuta_status_pop(status);
+	anjuta_status_pop (status);
 	return FALSE;
 }
 
 /* Display message in status until timeout (secondes) */
 void
-anjuta_status(AnjutaStatus *status, gchar *mesg, gint timeout)
+anjuta_status (AnjutaStatus *status, const gchar *mesg, gint timeout)
 {
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
 	g_return_if_fail (mesg != NULL);
-	anjuta_status_push(status, mesg);
+	anjuta_status_push (status, "%s", mesg);
 	g_timeout_add (timeout * 1000, (void*) anjuta_status_timeout, status);
-	
 }
 
+void
+anjuta_status_set_title_window (AnjutaStatus *status, GtkWidget *window)
+{
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	g_return_if_fail (GTK_IS_WINDOW (window));
+	status->priv->window = GTK_WINDOW (window);
+	g_object_add_weak_pointer (G_OBJECT (window),
+							   (gpointer*)&status->priv->window);
+}
+
+void
+anjuta_status_set_title (AnjutaStatus *status, const gchar *title)
+{
+	g_return_if_fail (ANJUTA_IS_STATUS (status));
+	
+	if (!status->priv->window)
+		return;
+	
+	if (title)
+	{
+		gchar *str;
+		str = g_strconcat (title, " - ",
+						   g_get_application_name(), NULL);
+		gtk_window_set_title (status->priv->window, str);
+		g_free (str);
+	}
+	else
+	{
+		gtk_window_set_title (status->priv->window,
+							  g_get_application_name ());
+	}
+}
 
 ANJUTA_TYPE_BEGIN(AnjutaStatus, anjuta_status, GNOME_TYPE_APPBAR);
 ANJUTA_TYPE_END;

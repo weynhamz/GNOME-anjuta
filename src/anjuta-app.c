@@ -465,6 +465,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 							  
 	/* Status bar */
 	app->status = ANJUTA_STATUS (anjuta_status_new ());
+	anjuta_status_set_title_window (app->status, GTK_WIDGET (app));
 	gtk_widget_show (GTK_WIDGET (app->status));
 	gnome_app_set_statusbar (GNOME_APP (app), GTK_WIDGET (app->status));
 	g_object_ref (G_OBJECT (app->status));
