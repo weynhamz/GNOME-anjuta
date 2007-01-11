@@ -24,6 +24,7 @@
 #include <gnome.h>
 
 #include <libanjuta/resources.h>
+#include <libanjuta/interfaces/ianjuta-markable.h>
 
 #include "goto_line.h"
 
@@ -173,6 +174,14 @@ on_go_to_line_response (GtkDialog* dialog, gint response, gpointer user_data)
 	num = atoi (gtk_entry_get_text (ne));
 	if (te)
 		ianjuta_editor_goto_line (te, num, NULL);
+		if (IANJUTA_IS_MARKABLE (te))
+		{
+			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (te),
+												 IANJUTA_MARKABLE_BASIC,
+												 NULL);
+			ianjuta_markable_mark (IANJUTA_MARKABLE (te),
+								   num, IANJUTA_MARKABLE_BASIC, NULL);
+		}
   }
   gtk_widget_hide (GTK_WIDGET(dialog));
 }

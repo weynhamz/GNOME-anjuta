@@ -1,5 +1,36 @@
 2007-01-11  Naba Kumar  <naba@gnome.org>
 
+	* src/anjuta.c: Load project seperately from session,
+	so that project session is also loaded.
+	
+	* plugins/profile-default/plugin.c: Load project in new
+	anjuta if there already is one loaded currently (disabled
+	code for now).
+	
+	* plugins/editor/aneditor.cxx: Disconnect focus in/out
+	signals when editor is destroyed. Fixes a crash bug.
+	
+	* plugins/editor/text_editor.c: Do not mark line in
+	ianjuta_editor_goto_line() implementation.
+	
+	* plugins/search/search-replace.c: Always check for markable
+	interface availablility because its optional for an editor.
+	
+	* plugins/document-manager/goto_line.c,
+	plugins/document-manager/action-callbacks.c: Mark lines for
+	goto line commands (from dialog and from menu entry box).
+	
+	* plugins/file-manager/plugin.c, plugins/file-manager/plugin.h,
+	plugins/file-manager/an_file_view.c: Expand file manager
+	nodes in idle loop, one at a time. Did as a possible work
+	around for bug #361763, but it didn't make any difference.
+	However, it could still be useful in situations where there
+	are lots to expand.
+	
+	* libanjuta/anjuta-serializer.c: Avoid an unnecessary warning.
+
+2007-01-11  Naba Kumar  <naba@gnome.org>
+
 	* plugins/editor/scintilla/LineMarker.h,
 	plugins/editor/scintilla/LexBasic.cxx,
 	plugins/editor/scintilla/LexHTML.cxx,

@@ -572,7 +572,7 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 				{
 					ignore_files = g_list_prepend (ignore_files,
 												   g_strdup (*ptrv));
-					DEBUG_PRINT ("Ignoring: %s", *ptrv);
+					/* DEBUG_PRINT ("Ignoring: %s", *ptrv); */
 					ptrv++;
 				}
 				g_strfreev (strv);
@@ -627,6 +627,7 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 							REV_COLUMN, "",
 							-1);
 			} else {
+				/* DEBUG_PRINT ("Rendering file: %s", file); */
 				files = g_slist_prepend (files, g_strdup (file));
 			}
 		}
@@ -948,6 +949,7 @@ fv_finalize (FileManagerPlugin *fv)
 	
 	/* Object will be destroyed when removed from container */
 	/* gtk_widget_destroy (fv->scrolledwindow); */
+	fv_cancel_node_expansion (fv);
 	fv->top_dir = NULL;
 	fv->tree = NULL;
 	fv->scrolledwindow = NULL;
@@ -987,25 +989,70 @@ fv_get_node_expansion_states (FileManagerPlugin *fv)
 	return map;
 }
 
+static gboolean
+on_fv_node_expansion_on_idle (gpointer user_data)
+{
+	GtkTreePath *path;
+	GtkTreeModel *model;
+	FileManagerPlugin *fv = ANJUTA_PLUGIN_FILE_MANAGER (user_data);
+	gchar *node_path = (gchar*)fv->nodes_to_expand->data;
+	
+	fv->nodes_to_expand = g_list_remove (fv->nodes_to_expand,
+											   node_path);
+	/* Expand node_path */
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree));
+	path = gtk_tree_path_new_from_string (node_path);
+	DEBUG_PRINT ("Expanding node: %s", node_path);
+	gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
+	
+	/* Clean up */
+	gtk_tree_path_free (path);
+	g_free (node_path);
+	
+	/* End of this cycle */
+	if (fv->nodes_to_expand == NULL)
+		return FALSE; /* End */
+	else
+		return TRUE; /* Continue */
+}
+
+static void
+fv_queue_node_expansion (FileManagerPlugin *fv, const gchar *node_path)
+{
+	fv->nodes_to_expand = g_list_append (fv->nodes_to_expand,
+										 g_strdup (node_path));
+	if (fv->idle_id <= 0)
+		fv->idle_id = g_idle_add (on_fv_node_expansion_on_idle, fv);
+}
+
 void
 fv_set_node_expansion_states (FileManagerPlugin *fv, GList *expansion_states)
 {
-	/* Restore expanded nodes */	
+	/* Queue expanded nodes */	
 	if (expansion_states)
 	{
-		GtkTreePath *path;
-		GtkTreeModel *model;
 		GList *node;
 		node = expansion_states;
 		
-		model = gtk_tree_view_get_model (GTK_TREE_VIEW (fv->tree));
 		while (node)
 		{
-			path = gtk_tree_path_new_from_string (node->data);
-			gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
-			gtk_tree_path_free (path);
+			fv_queue_node_expansion (fv, (gchar *)node->data);
 			node = g_list_next (node);
 		}
+	}
+}
+
+void
+fv_cancel_node_expansion (FileManagerPlugin *fv)
+{
+	if (fv->idle_id)
+		g_source_remove (fv->idle_id);
+	fv->idle_id = 0;
+	if (fv->nodes_to_expand)
+	{
+		g_list_foreach (fv->nodes_to_expand, (GFunc)g_free, NULL);
+		g_list_free (fv->nodes_to_expand);
+		fv->nodes_to_expand = NULL;
 	}
 }
 
@@ -1034,11 +1081,15 @@ fv_refresh (FileManagerPlugin *fv, gboolean save_states)
 	GtkTreeStore *store;
 	GdkPixbuf *pixbuf;
 	gchar *project_dir;
-
+	gchar *root_node_path;
+	
 	if (busy)
 		return;
 	else
 		busy = TRUE;
+	
+	/* Make sure node expansion is stoped */
+	fv_cancel_node_expansion (fv);
 	
 	if (icon_set == NULL)
 		icon_set = gdl_icons_new (16);
@@ -1048,7 +1099,7 @@ fv_refresh (FileManagerPlugin *fv, gboolean save_states)
 	
 	fv_disconnect (fv);
 	if (save_states)
-  	selected_items = fv_get_node_expansion_states (fv);
+		selected_items = fv_get_node_expansion_states (fv);
 	fv_clear (fv);
 
 	project_dir = g_path_get_basename (fv->top_dir);
@@ -1073,14 +1124,21 @@ fv_refresh (FileManagerPlugin *fv, gboolean save_states)
 				REV_COLUMN, "",
 				-1);
 
-	/* Expand first node */
-	gtk_tree_model_get_iter_first (model, &iter);
-	path = gtk_tree_model_get_path (model, &iter);
-	gtk_tree_view_expand_row (GTK_TREE_VIEW (fv->tree), path, FALSE);
-	gtk_tree_path_free (path);
-
 	if (save_states)
-  	fv_set_node_expansion_states (fv, selected_items);
+	{
+		fv_set_node_expansion_states (fv, selected_items);
+	}
+	else
+	{
+		/* Expand first node */
+		gtk_tree_model_get_iter_first (model, &iter);
+		path = gtk_tree_model_get_path (model, &iter);
+		root_node_path = gtk_tree_path_to_string (path);
+		fv_queue_node_expansion (fv, root_node_path);
+		gtk_tree_path_free (path);
+		g_free (root_node_path);
+	}
+	
 	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (model),
 										  GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
 										  GTK_SORT_ASCENDING);

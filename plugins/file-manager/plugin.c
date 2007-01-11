@@ -158,6 +158,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	fm_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	fv_init (fm_plugin);
 	
+	fm_plugin->idle_id = 0;
+	fm_plugin->nodes_to_expand = NULL;
+	
 	/* Add action group */
 	fm_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (fm_plugin->ui,

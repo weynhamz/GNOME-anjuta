@@ -972,7 +972,16 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	GSList *selected_plugins, *temp_plugins;
 	
 	plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (ifile);
-	
+#if 1 /* Enable it now */
+	/* If there is already a project loaded, load in separate anjuta window */
+	if (plugin->project_uri)
+	{
+		gchar *cmd = g_strconcat ("anjuta --no-splash --no-client ", uri, NULL);
+		anjuta_util_execute_shell (NULL, cmd);
+		g_free (cmd);
+		return;
+	}
+#endif
 	/* Load system default plugins */
 	selected_plugins = default_profile_plugin_read (plugin,
 													plugin->default_profile);

@@ -2075,7 +2075,7 @@ itext_editor_set_use_spaces (IAnjutaEditor *editor, gboolean use_spaces, GError 
 static void
 itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 {
-	text_editor_goto_line (TEXT_EDITOR (editor), lineno, TRUE, TRUE);
+	text_editor_goto_line (TEXT_EDITOR (editor), lineno, FALSE, TRUE);
 }
 
 static void

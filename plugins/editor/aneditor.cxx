@@ -3150,6 +3150,13 @@ aneditor_destroy(AnEditorID id)
   /* We'll simply make it NULL to indicate that the */
   /* editor is destroyed */
   g_list_nth(editors, id)->data = NULL;
+	
+  /* Disconnect the focus in/out signals */
+  g_signal_handlers_disconnect_by_func (ed->GetID(),
+				   (void*)G_CALLBACK(on_aneditor_focus_in), ed);
+  g_signal_handlers_disconnect_by_func (ed->GetID(),
+				   (void*)G_CALLBACK(on_aneditor_focus_out), ed);
+
   delete ed;
 }
 
@@ -3190,13 +3197,15 @@ aneditor_set_parent(AnEditorID id, AnEditorID parent_id)
 	editor->SetParent(parent);
 }
 
-gint on_aneditor_focus_in(GtkWidget* widget, gpointer* unused, AnEditor* ed)
+gint
+on_aneditor_focus_in (GtkWidget* widget, gpointer* unused, AnEditor* ed)
 {
 	ed->FocusInEvent(widget);
 	return FALSE;
 }
 
-gint on_aneditor_focus_out(GtkWidget* widget, gpointer * unused, AnEditor* ed)
+gint
+on_aneditor_focus_out (GtkWidget* widget, gpointer * unused, AnEditor* ed)
 {
 	ed->EndDebugEval();
 	ed->FocusOutEvent(widget);

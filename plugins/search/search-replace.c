@@ -329,7 +329,7 @@ search_and_replace (void)
 			fb->pos = se->start_pos;
 			offset = 0;
 			
-			if (s->action == SA_BOOKMARK)
+			if (s->action == SA_BOOKMARK && IANJUTA_IS_MARKABLE (fb->te))
 				ianjuta_markable_delete_all_markers(IANJUTA_MARKABLE(fb->te), 
 				                                    IANJUTA_MARKABLE_ATTENTIVE, NULL);
 			if (s->action == SA_HIGHLIGHT)	
@@ -373,10 +373,13 @@ search_and_replace (void)
 						
 						if (found_line != mi->line + 1)
 						{
-							ianjuta_markable_mark (IANJUTA_MARKABLE(fb->te), 
-							                       mi->line + 1,
-							                       IANJUTA_MARKABLE_ATTENTIVE,
-							                       NULL);
+							if (IANJUTA_IS_MARKABLE (fb->te))
+							{
+								ianjuta_markable_mark (IANJUTA_MARKABLE(fb->te), 
+													   mi->line + 1,
+													   IANJUTA_MARKABLE_ATTENTIVE,
+													   NULL);
+							}
 							found_line = mi->line + 1;
 						}
 						break;

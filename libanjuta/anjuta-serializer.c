@@ -90,8 +90,10 @@ anjuta_serializer_set_property (GObject * object,
 			self->priv->stream = fopen (self->priv->filepath, "w");
 		if (self->priv->stream == NULL)
 		{
+			/*
 			g_warning ("Could not open %s for serialization: %s",
 					   self->priv->filepath, g_strerror (errno));
+			*/
 		}
 		break;
 	default:

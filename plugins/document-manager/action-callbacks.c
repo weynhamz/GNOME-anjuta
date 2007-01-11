@@ -22,6 +22,7 @@
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-utils.h>
 
+#include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
@@ -674,15 +675,14 @@ on_toolbar_goto_clicked (GtkAction *action, gpointer user_data)
 	{
 		line = atoi (line_ascii);
 		ianjuta_editor_goto_line(te, line, NULL);
-		/* FIXME
-		if (text_editor_goto_line (te, line, TRUE, TRUE) == FALSE)
+		if (IANJUTA_IS_MARKABLE (te))
 		{
-			GtkWidget *parent;
-			parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
-			anjuta_util_dialog_error (GTK_WINDOW (parent),
-									  _("There is no line number %d in \"%s\"."),
-									  line, te->filename);
-		}*/
+			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (te),
+												 IANJUTA_MARKABLE_BASIC,
+												 NULL);
+			ianjuta_markable_mark (IANJUTA_MARKABLE (te),
+								   line, IANJUTA_MARKABLE_BASIC, NULL);
+		}
 	}
 }
 

@@ -18,12 +18,14 @@
  * Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
 
+#include <string.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-save-prompt.h>
 #include <libanjuta/plugins.h>
 #include <libanjuta/interfaces/ianjuta-profile.h>
+#include <libanjuta/interfaces/ianjuta-file.h>
 
 #include "anjuta.h"
 
@@ -133,6 +135,7 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	GnomeClient *client;
 	GnomeClientFlags flags;
 	IAnjutaProfile *profile;
+	const gchar *project_file = NULL;
 	
 	/* Initialize application */
 	app = ANJUTA_APP (anjuta_app_new ());
@@ -183,6 +186,7 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	else if (prog_args || geometry)
 	{
 		AnjutaSession *session;
+		GList *node, *files_load = NULL;
 		
 		/* Reset default session */
 		session_dir = g_build_filename (g_get_home_dir (), ".anjuta",
@@ -192,9 +196,35 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 		if (geometry)
 			anjuta_session_set_string (session, "Anjuta", "Geometry",
 									   geometry);
-		if (prog_args)
+		
+		/* Identify non-project files and set them for loading in session */
+		node = prog_args;
+		while (node)
+		{
+			const gchar *ext;
+			const gchar *filename = node->data;
+			
+			ext = strrchr (filename, '.');
+			
+			if (!ext ||
+				(strcmp (ext, ".anjuta") != 0 &&
+				 strcmp (ext, ".prj") != 0))
+			{
+				files_load = g_list_prepend (files_load, node->data);
+			}
+			else if (project_file == NULL)
+			{
+				/* Pick up the first project file for loading later */
+				project_file = filename;
+			}
+			node = g_list_next (node);
+		}
+		if (files_load)
+		{
 			anjuta_session_set_string_list (session, "File Loader", "Files",
-											prog_args);
+										files_load);
+			g_list_free (files_load);
+		}
 	}
 	else
 	{
@@ -218,6 +248,11 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	/* Restore session */
 	anjuta_shell_session_load (ANJUTA_SHELL (app), session_dir, NULL);
 	g_free (session_dir);
+	
+	/* Load project file */
+	if (project_file)
+		ianjuta_file_open (IANJUTA_FILE(profile), project_file, NULL);
+	
 	anjuta_status_progress_tick (status, NULL, _("Loaded Session..."));
 	return app;
 }
