@@ -81,7 +81,7 @@ libanjuta_ctags_la_SOURCES =\
 
 libanjuta_ctags_la_LIBADD = $(GLIB_LIBS)
 
-bin_PROGRAMS = \
+noinst_PROGRAMS = \
 	test_tm_buffer 
 	
 

@@ -65,7 +65,7 @@ EXTRA_DIST = \
 	$(symbol_browser_glade_DATA) \
 	$(symbol_browser_ui_DATA)
 
-bin_PROGRAMS = \
+noinst_PROGRAMS = \
 	test-class-symbol-parsing 
 
 test_class_symbol_parsing_SOURCES = \
