@@ -1,3 +1,23 @@
+2007-01-12  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/project-wizard/anjuta-plugin/src/Makefile.am.tpl:
+	* plugins/project-wizard/cpp/src/Makefile.am.tpl:
+	* plugins/project-wizard/gcj/src/Makefile.am.tpl:
+	* plugins/project-wizard/gnome/src/Makefile.am.tpl:
+	* plugins/project-wizard/gtk/src/Makefile.am.tpl:
+	* plugins/project-wizard/gtkmm/src/Makefile.am.tpl:
+	* plugins/project-wizard/terminal/src/Makefile.am.tpl:
+	* plugins/project-wizard/wxwin/src/Makefile.am.tpl:
+	* plugins/project-wizard/xlib/src/Makefile.am.tpl:
+	* plugins/project-wizard/xlib-dock/src/Makefile.am.tpl:
+	
+	Fixed #395767: Changed PACKAGE_LIBS and PACKAGE_CFLAGS to
+	[+NameCUpper+]_CFLAGS/LIBS in Makefile.am.tpl
+	
+	* plugins/sourceview/sourceview.c:
+	Use gtk_text_buffer_get_slice() instead of gtk_text_buffer_get_text because we rely
+	on character positions.
+	
 2007-01-12  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta-app.c,

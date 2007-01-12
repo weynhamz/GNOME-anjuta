@@ -15,4 +15,4 @@ bin_PROGRAMS = [+NameLower+]
 [+NameCLower+]_LDFLAGS = \
 	--main=[+MainClass+]
 
-[+NameCLower+]_LDADD = $(PACKAGE_LIBS)
+[+NameCLower+]_LDADD = $([+NameCUpper+]_LIBS)

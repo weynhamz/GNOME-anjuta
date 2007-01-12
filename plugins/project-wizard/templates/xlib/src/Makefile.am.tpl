@@ -6,7 +6,7 @@
 INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
-	-DPACKAGE_DATA_DIR=\""$(datadir)"\" [+IF (=(get "HavePackage") "1")+]$(PACKAGE_CFLAGS)[+ENDIF+]
+	-DPACKAGE_DATA_DIR=\""$(datadir)"\" [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_CFLAGS)[+ENDIF+]
 
 AM_CFLAGS =\
 	 -Wall\
@@ -20,7 +20,7 @@ bin_PROGRAMS = [+NameLower+]
 [+NameCLower+]_LDFLAGS = 
 
 [+NameCLower+]_LDADD = \
-	[+IF (=(get "HavePackage") "1")+]$(PACKAGE_LIBS)[+ENDIF+] \
+	[+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_LIBS)[+ENDIF+] \
 	-lX11 -lXpm -lXext \
 	$(X_LIBS) \
 	$(X_EXTRA_LIBS)

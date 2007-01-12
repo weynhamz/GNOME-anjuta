@@ -39,7 +39,7 @@ INCLUDES = \
 	-DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" \
 	-DPACKAGE_DATA_DIR=\"$(datadir)\" \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
-	$(LIBANJUTA_CFLAGS) [+IF (=(get "HavePackage") "1")+]$(PACKAGE_CFLAGS)[+ENDIF+]
+	$(LIBANJUTA_CFLAGS) [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_CFLAGS)[+ENDIF+]
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
@@ -52,7 +52,7 @@ lib[+NameCLower+]_la_SOURCES = plugin.c plugin.h
 
 # Plugin dependencies
 lib[+NameCLower+]_la_LIBADD = \
-	$(LIBANJUTA_LIBS) [+IF (=(get "HavePackage") "1")+]$(PACKAGE_LIBS)[+ENDIF+]
+	$(LIBANJUTA_LIBS) [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_LIBS)[+ENDIF+]
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

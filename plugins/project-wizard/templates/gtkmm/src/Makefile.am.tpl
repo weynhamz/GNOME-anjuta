@@ -10,7 +10,7 @@ INCLUDES = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" \
-	$(PACKAGE_CFLAGS)
+	$([+NameCUpper+]_CFLAGS)
 
 AM_CFLAGS =\
 	 -Wall\
@@ -23,6 +23,6 @@ bin_PROGRAMS = [+NameLower+]
 
 [+NameCLower+]_LDFLAGS = 
 
-[+NameCLower+]_LDADD = $(PACKAGE_LIBS)
+[+NameCLower+]_LDADD = $([+NameCUpper+]_LIBS)
 
 EXTRA_DIST = $(glade_DATA)
