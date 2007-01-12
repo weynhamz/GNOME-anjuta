@@ -646,8 +646,8 @@ static gchar* ieditor_get_text(IAnjutaEditor* editor, gint position,
 	else
 		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
 										   &end_iter, -1);
-	return gtk_text_buffer_get_text(GTK_TEXT_BUFFER(sv->priv->document),
-									&start_iter, &end_iter, FALSE);
+	return gtk_text_buffer_get_slice(GTK_TEXT_BUFFER(sv->priv->document),
+									&start_iter, &end_iter, TRUE);
 }
 
 #if 0
@@ -709,8 +709,8 @@ static gint ieditor_get_length(IAnjutaEditor *editor, GError **e)
 								   &start_iter);
 	gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(sv->priv->document),
 								   &end_iter);
-	text = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(sv->priv->document),
-									&start_iter, &end_iter, FALSE);
+	text = gtk_text_buffer_get_slice(GTK_TEXT_BUFFER(sv->priv->document),
+									&start_iter, &end_iter, TRUE);
 	length = g_utf8_strlen(text,  -1);
 	g_free(text);
 
@@ -996,8 +996,9 @@ iselect_block(IAnjutaEditorSelection* edit, GError** e)
 								   &start_iter);
 	gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(sv->priv->document),
 								   &end_iter);
-	text = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(sv->priv->document),
-										&start_iter, &end_iter, FALSE);
+	text = gtk_text_buffer_get_slice
+	(GTK_TEXT_BUFFER(sv->priv->document),
+										&start_iter, &end_iter, TRUE);
 	if (text)
 	{
 		gboolean found = FALSE;
@@ -1074,8 +1075,8 @@ static gchar* iselect_get(IAnjutaEditorSelection* editor, GError **e)
 	if (gtk_text_buffer_get_selection_bounds(GTK_TEXT_BUFFER(sv->priv->document),
 										 &start_iter, &end_iter))
 	{
-		return gtk_text_buffer_get_text(GTK_TEXT_BUFFER(sv->priv->document),
-										&start_iter, &end_iter, FALSE);
+		return gtk_text_buffer_get_slice(GTK_TEXT_BUFFER(sv->priv->document),
+										&start_iter, &end_iter, TRUE);
 	}
 	else
 		return NULL;
