@@ -1,3 +1,364 @@
+Anjuta 2.0.3 (14 Jan 2007) -- Naba Kumar
+
+New: Debug manager and gdb plugins.
+New: Disassembly window in debugger.
+New: C++ and gobject class wizard.
+New: Mime icons in editor tabs.
+New: Improvements in project templates.
+New: C++ and java indentation plugin.
+New: Save prompt implemented for unsaved data.
+New: Documentation updates, both API and users manual.
+New: Improvements in glade-3 integration.
+
+Full changes:
+* Fixed #395767: Changed PACKAGE_LIBS and PACKAGE_CFLAGS to [+NameCUpper+]_CFLAGS/LIBS in Makefile.am.tpl
+* Use gtk_text_buffer_get_slice() instead of gtk_text_buffer_get_text because we rely on character positions.
+* Introduced an API for application title in AnjutaStatus. Set application title to project name.
+* removed installation for test programs.
+* Partial fix for bug #392537
+* Fix bug #392543
+* Load project seperately from session, so that project session is also loaded.
+* Load project in new anjuta if there already is one loaded currently (disabled code for now).
+* Disconnect focus in/out signals when editor is destroyed. Fixes a crash bug.
+* Do not mark line in ianjuta_editor_goto_line() implementation.
+* Always check for markable interface availablility because its optional for an editor.
+* Mark lines for goto line commands (from dialog and from menu entry box).
+* Expand file manager nodes in idle loop, one at a time. Did as a possible work around for bug #361763, but it didn't make any difference. However, it could still be useful in situations where there are lots to expand.
+* Avoid an unnecessary warning.
+* Updated scintilla to version 1.71
+* Scroll to a cell if it is selected for editing. This fixes bug #394218.
+* Do not use project's root URI as project name if said URI is not known.
+* When stripping function prefix away, include the trailing underscore because it is already set by the template.
+* Include "const char*" and "const gchar*" in the list for transforming a default C type to a GType. Don't access invalid memory when writing pointer_str in cg_transform_first_argument.
+* Renamed application icon to 'anjuta.png' from 'anjuta_icon.png'. Added more fields in desktop file.
+* Added magic section.
+* Removed deprecated mime registeration and added scalable icon. Also fixes bug #393680
+* fixed anjuta_status_progress_tick() and anjuta_status_progress_add_ticks() to check for progressbarbeing realized before trying to update it.
+* Fixed make distcheck.
+* Deleted unused/old files.
+* Moved scintilla to its right place.
+* Save project session before a new one is opened.
+* Reverted back incomplete multiple projects support.
+* Added CgComboFlagsSelectionType enum, added a type parameter to selected signal. Select highlighted entry when pressing enter (but not unselect it if it was already selected) before closing the popup. Also accept input when clicking not into the popup.
+* Do appropriate action according to selection type.
+* Changed VOID:BOXED marshaller to VOID:BOXED,ENUM.
+* Starting fixing of all project wizards:- rename configure.in to configure.ac- use proper names for PKG_CONFIG_PATH variables instead of just 'PACKAGE'- fix AC_INIT and AM_INIT_AUTOMAKE to use the correct project names(See #394184)* TODO.task: Added bug number to bounty
+* Fixed #392290 – Missed install as root option in project manager
+* Fixed #388731 – Odd editor behaviour after performing block-text operationsFixed #388727 – Block-tab does not work* plugins/sourceview/anjuta-document.h/c:Removed deprecated has_selection() method which is now in Gtk (>= 2.10)* configure.in:Require Gtk+ >= 2.10 for sourceview plugin
+* Replaced deprecated gtk_widget_draw() with gtk_widget_queue_draw()
+* Fix bug #377027 remove support for VTE < 0.9
+* Updated
+* Fixed bug #377903 (improve message color defaults).
+* Completed Bounty bug #359862, Improve class wizard.
+* Fixed block ends.
+* Changed a C++-style-//-comment to a C-style-block comment.
+* (Hopefully) temporary hack to allow lists when writing autogen definition files. This is required for the new class generator. Also fixed a wrong return value in npw_autogen_write_definition_file and set a GError in npw_autogen_execute when the output file could not be opened.
+* New class generator user interface.
+* Added templates subdir, removed goc_template_header and goc_template_source, added top_srcdir to includes, link against project wizard (also hopefully temporarily), removed class_gen.h, class_gen.c, action-callbacks.h, action-callbacks.c.
+* Added VOID:BOXED marshaller.
+* Rewrote class generator, it now allows adding of several class elements and uses autogen.
+* Added Autogen templates for the class generator.
+* Added plugins/class-gen/templates/Makefile to output.
+* Fixes Bug #389764 – Tags search do not retrieve all matching symbols.
+* Unescape project name. Fixes Bug #357151
+* Fixed compilation with older glade-3 version.
+* Fixed Bug 392699 Some patches are necessary to build anjuta on NetBSD 3.0
+* Fixed Bug #377767 – resize crashes window manager in gnome.
+* Make it work with glade-3 svn.
+* Add a disassembly view window
+* Add some debugging information* Allow building against both glade == 3.0.2 and glade > 3.0.2 (~ cvs).
+* Marked a bounty completed.
+* Fixed bug #378879 (several command names need ellipses).
+* Corrected warnings occuring when compiling with GCC 4.1.2 (there are only two warnings remaining now when compiling plugins).
+* Use class macro for type casting (ANJUTA_PLUGIN_*).
+* Modification of the ANJUTA_PLUGIN_BEGIN macro so that the generated function support a NULL plugin parameter.Fix an incorrect call to gfree in debug_tree_find_expression by freeing memory returned by the call to gtk_tree_model_get instead of the parameter string.
+* Fix bug #378850
+* Fix bug #378871
+* Fix bug #377061
+* Fixed build break.
+* Fix a bunch of memory leaks. Fixes bug #377115.
+* Enable files in fileselection dialog. Fixes bug #376031.
+* Fixed bug #376335 "menu items should be capitalized".Minor grammar edits.
+* Fixed build.
+* Make subvesion plugin build for apr 1.x. Fixes: Bug #364754.
+* Use apr-1 instead of apr-0
+* Correct a bug when environment variable $PKG_CONFIG_PATH point to an empty or non-existent directory, and another bug occuring when parsing .pc file containing quotes.
+* Use class macro for type casting.
+* Corrected warnings occuring when compiling with GCC 4.1.2 (there are only two warnings remaining now when compiling plugins).
+* corrected a invalid free and a memory leak in debug_tree_find_expression; g_free was called on the parameter instead of the memory allocated by gtk_tree_model_get.
+* updated the ANJUTA_PLUGIN_BEGIN macro to declare and initialize the global type variable of the plugin.
+* Added an end message.
+* Fixed indentation.
+* Fixed system tags creation to a) append the messages in right way, b) Connect signals to the view properly and c) Recreate the system-tags.cache at the end of the generation.
+* Fixed action path (double click on sysmbols was not working).
+* Fixed typedef and removed dead code.
+* Took the latest version from ctags source repository, because the one we had (from ctags 5.6) was broken.
+* Used /bin/bash to fix the bashism and generated separate log files for each tag files in the same directory.
+* Use a temporary file to save the editor and move it at the end to original file. This will prevent data corruption if file save failed for any reason. Also report proper errors when file save fails. Fixes bug #346575.
+* Do not load the same files with different path more than once (happens with symlinked files). Fixes Bug #323591.
+* Fixed a warning.
+* Correct memory leaks in vg_tool_view_set_{argv,srcdir}.
+* No more warning during compilation with GCC 4.1. Program is still buggy in order to be used as a test of the plugin.
+* No more warning during compilation with GCC 4.1.
+* Correct call to vg_tool_view_set_{argv,srcdir} to conform to prototype (was missing from previous patch).
+* Show glade tree view, not list view.
+* Fixed crash when Anjuta is exited with glade plugin still loaded. Fixes Bug #364755.
+* Added application/x-reject in accepted mime-types.
+* Fixed changelog alignments.
+* Use class macro for type casting.
+* Don't force cast a GtkActionGroup to a GtkAction.
+* Use correct API to get path of the preoject root when building the list of targets for the run action. Correct ordering of the construction of the preferences widgets. Only remove the valgrind widget if it is currently displayed.
+* Return if check_valgrind_binary() fails. The ValgrindPluginPrefs object is initialized after the call to vg_action_new. Take a handle to the location of the pointer to the future object.
+* Updated coding sample.
+* Fixed block ends.
+* Correctly handle the argv / srcdir of vg_tool_view object. Do not leak memory associated with those arrays.
+* Support unloading / reloading of the module (for example when closing a project and opening another one).
+* Remove plugin widget before removing plugin itself, preventing a crash with valgrind plugin.
+* Do not use the page_num returned by gtk_notebook_append_page to remove the page as it cause bugs when pages removal is not done in LIFO.
+* Fix some GTK+ warnings.
+* Rewrite script to remove bash-ism and use pkg-config directly instead of parsing the *.pc file by hand. This solve problems that occurred when one of the directory in PKG_CONFIG_PATH is empty.
+* Fix build (#363884)
+* Fix possible crasher when changing project-root uri when we try to restore open nodesUpdated
+* Include glade header correctly.
+* Fix bug #358134 (Goto memory prompt) Use sexy-icon-entry from libsexy 0.1.10
+* Better error handling when starting and stopping debugger
+* Fixed bug #361830 (AboutDialog does not close) which is causeddue to a change in Gtk+ 2.10* Fixed bug #357537 (allow double click in plugin selection dialog).
+* Fixed bug #358068 (indicate when Find in Files is complete)
+* fixed bug #357542 (plugins window is too narrow)
+* Fixed bug #359663 (make line highlighting optional in GtkSourceView editor).
+* fixed bug #359730 (Anjuta can't launch help files).
+* Fixed bug #359750 (fix find/replace shortcut keys).
+* fixed bug #351387 (don't use Alt+key for shortcuts)
+* Fixed bug #359317 (can't load debug manager)
+* Fixed bug #359259 (highlight modes listed in reversealphabetical order).
+* Add scrollbars to glade project window
+* Fixed Makefile with broke build
+* Fixed enum types generation
+* Fixed some strange typo
+* Fixed enum-types.h generation
+* char* => gchar* IAnjutaTODO::load should take const gchar* argument Remove include to libanjuta/e-splash.h which is not installed as header file Disable get_attributes for now
+* Disabled get_attributes
+* itodo_load now with const gchar* argument
+* Set 'Improve class widzard' task to assigned. Set bug id for 'Profiler plugin' task.
+* Set 'Profiler plugin' task to assigned. Added new tasks 'Automated tests for Anjuta' and 'Bug fixing batch #1'
+* Added a new API in IAnjutaDocumentManager called ianjuta_document_manager_remove_editor(). Added some documentation. On project close, close all editors that has files opened for the project.
+* Remove client widgets from the containers on anjuta_shell_remove_widget(). Do not destroy glade widgets once created.
+* const-List<> => const List<> List-free<> => List<>
+* Reenabled launcher
+* Install libanjuta.idl
+* fixed bug #357542 (plugins window is too narrow)
+* fixed bug #357534removed 2 unused declarations
+* disabled anjuta-launcher
+* Added support for C++ plugins. Those have a Language=C++ tag in their .plugin file
+* List<Type> => List of Type List-free<Type> => List of Type, it is up to the caller to free items and list const-List(-free)<Type> = const List of Types These three all wrap to GList* in C but will be handled differently in C++, Python, etc.
+* Adapted to new project_manager interface
+* Do not use C++ keyword "delete" for interface name
+* Added m4 to mime-types
+* Changed interface to use GList instead of GList* (needs new gnome-build CVS)
+* Added a simple UI file used when out-of-process devhelp is used instead of embedded devhelp.
+* Build devhelp plugin, but use out-of-process devhelp if devhelp plugin is disabled (either by user or devhelp is not installed). Disabled devhelp plugin by default. Added it in default profile.
+* Possible fix for crash bug #358583.
+* Enabled glade plugin and set dep to last version 3.0.2.
+* Use the right action group for getting popup actions (Fixes lots of assertion failures).
+* use separate action group for profie actions.
+* Disconnect session load signal on plugin deactivation (fixes a crash).
+* Added a few debugger tasks from Sebastien (two bounties).Assigned a bounty to Massimo.
+* Fixed build errors.
+* Add a new abort command to quit debugger without waiting
+* Send a signal directly to the debugged program Implement abort command
+* Fix bug #358163
+* Fix bug #358009
+* Updated.
+* Fixed text wrapping and item edit dialog.
+* Added more tasks and bounties. Marked a few completed.
+* Updated in light of the word wrapping fix in Tasks Manager. Added a test bounty entry.
+* Added four bounties.
+* Added 'customizable' parameter to anjuta_ui_add_action_group_entries() and similar functions to allow user configuration of the actions. Filter out actions that are not configurable items (such as submenu items). Now the 'Customize shortcuts' dialog is much better listed.
+* Fixed to take care of above change in API of AnjutaUI. Properly added/removed action groups in some plugins. Split action groups into customization and non-customizable groups and added them separately.
+* Close files belonging to project when project is closed (not complete).
+* Enabled wrapping of tasks texts and vertical aligned cell entries.
+* Define macros for the placeholder names. Set default widths and heights of the default placeholders, so that newly docked widgets are correclty sized.
+* Fixed to generated correct actions addition/removal code.
+* Implemented serialization class.
+* Serialize messages panes in session save and deserialize them in session load so that build messages persistant.
+* Really fixed #355407
+* Change one variable sign
+* Few small interface changes
+* Big rewrite of debugger queue Allow to cancel command
+* Fix a bug if a command is cancelled
+* Restore tree representation for local variable Add argument in local variable list Use gdb variable object to get all informations
+* Added missing files that implements AnjutaSavePrompt class.
+* Fixed indentation.
+* Impletemnted save prompt dialog to prompt for unsaved items during exit. A new signal is added in shell interface called 'save-prompt' to collect all unsaved items. Create AnjutaSavePrompt class (dialog) to process unsaved items. Fixed document manager to use the new save-prompt signal in shell and AnjutaSavePrompt object for unsaved files. Cleaned up AnjutaDocman to synchronously save new files. Fixed function names.
+* Added gdl-gnome-1.0 to depencies and bumped gdl requirement to 0.7.0
+* Fixed #355407
+* Fixed #349374
+* Fixed crasher
+* (update_editor_symbol_model): Fixed gtk critical
+* (on_add_merge_widget), (on_widget_remove): More reasonable toolbar creation/deletition though it does not completly work!
+* Fixed #355168
+* Support unloading / reloading of the module (for example when closing a project and opening another one).
+* Really fixed #355148 (Show project name in title bar)
+* Fixed #355156 (Show plugins in alphabetical order)
+* Fixed #355148 (Show project name in title bar)
+* Fixed crasher if project cannot be opened
+* Impletemnted UI for auto indent.
+* Added gvim anjuta plugin. Not included in build yet.
+* Fixed possible infinite loop.
+* Fixed bug 346775 ("no highlight styles to edit are shown in the preferences dialog in anjuta"). Removed unused widgets from the style editor dialog.
+* Emit language-changed signal at the end of document loading.
+* Fixed plugin loading.
+* Implemented emacs-style mode line parsing. Indentation parameters initialized based on mode line parameters.
+* Fixed indentation in comments.
+* Updated ctags to version 5.6 and namespace completion fixed.
+* Updated.
+* Implemented ianjuta_iterable_clone(), ianjuta_iterable_assign(), ianjuta_editor_begin_action (), ianjuta_editor_end_action().
+* Improved auto-indentation.
+* Fixed debugger widgets layout.
+* Disabled automatic indentation codes and dead codes. Removed automatic indentation prefs.
+* no inline in header files (preferences_set/get) - correct signal names - correct GError** argument in anjuta_shell_freeze/thaw - include correct files in libanjuta.h
+* Fixed two crashers
+* Disabled inbuilt autoindentation.
+* Pass the right position for char added signal.
+* Emit char-added signal for tab.
+* Fixed memory corruption.
+* Fixed get_character () to return the right character at the iter position and get_char() to not leak memory.
+* Fixed get_line_begin_position() to set to character offset and not byte index.
+* Improved auto-indentation login. Indents opening and closing braces correctly.
+* Required automake = 1.9
+* Fixed libanjuta to be able to wrap it - G_BEGIN_DECLS, G_END_DECLS - include all necessary files in libanjuta.h
+* Some build fixes for freebsd
+* Remove auto-indent feature as it is now in language-support
+* Added missing files.
+* Implemented get_tabsize(), get_use_spaces(), set_tabsize() and set_use_spaces().
+* Only merge preferences if the plugin succeeded in activating.
+* Added debug message.
+* Implemented get_tabsize(), get_use_spaces(), set_tabsize() and set_use_spaces().
+* Used editor parameters for indentation. Added preferences page for paramenters.
+* Updated.
+* Added grab_focus() in IAnjutaEditor and implemented it for both scintilla and sourceview.
+* Use the new grab_focus() to transfer focus back to editor (happens when pressing esc in incremental search box).
+* Implemented editor attributes methods.
+* Disabled old indentation code.
+* Implemented indentation code (not complete yet).
+* Updated.
+* Fixed ieditor_goto_position implementation.
+* Add a more informative text to valgrind plugin
+* Modified Preferences tasl* Added IAnjutaPreferences interface which every plugin that has preferences should implement. Call merge() and unmerge() at plugin activation/deactivation. Fixed preferences_page_remove()
+* Updated preference loading/unloading for all plugins
+* Do not define PACKAGE_*_DIR in config.h, use -D compiler arguments instead as recommended by the autoconf manual.- Fixes compiling with autoconf 2.60.
+* Silence a warning about datarootdir
+* Fixed session handling
+* Disabled devhelp and glade for now as they do not work (#341073 and #341170)
+* Limted multiple project support #315043
+* Added ianjuta_profile_unload
+* Fixed text iteration andIAnjutaEditor implementations in both scintilla and sourceview. Cleand up libanjuta API: Removed redundant erase_range() method from IAnjutaEditor interface, fixed ianjuta_editor_get_text to take length instead of range (consistency). autoindentation in both sourceview and scintilla more or less works, but still disabled for now because there are still some anomalies in text iteration.
+* Fixed indentation code.
+* Fixed API changes.
+* Wrote a new "char_added" implementation, I hope this one is good
+* Fixed typo: "text_iter" instead of "iter"
+* Fixed iter navigation.
+* use gnome-autogen.sh from gnome-coomen
+* Use IAnjutaIndicable to mark debugger position
+* Define colors for IAnjutaIndicable
+* Added toolbar and some icons
+* Improved patch plugin (GUI and function)
+* Fixed another Gtk-Critical
+* Put Patch plugin in tools menu and changed ui file
+* Fixed accelator Gtk-Warning
+* Fixed Gtk-Warning
+* Wrote a better emitter for the char-added signal
+* Fixed Redo/Undo to void Gtk-Criticals
+* Adapted to new IAnjutaIterator API
+* More accurate comments.
+* AnjutaSymbolIter is now subclass of AnjutaSymbol so that the symbol is accessible from the iter in light of changes in IAnjutaIterable.
+* Fixed based on changes implementation of IAnjutaIterable.
+* Removed get data methods in IAnjutaIterable. They were kind of useless since the interface is defined on the data object itself. Added set_position() method in IAnjutaIterable to allow setting arbitrary current index to the iter. Added erase() and erase_range() in IAnjutaEditor.
+* Fixedplugins/editor/text_editor.c: Implemented erase() and erase_range() methods in editor. Fixed get_line_from_position() method.
+* Fixed indentation code. It's disabled for now.
+* Fixed IAnjutaIterable implementation.
+* Fixed IAnjutaEditorCell to work only on a single line Fixed crasher in finalize
+* Philip van Hoof pointed out that it is a bad idea to depend on PATH for script installation
+* Fixed IAnjutaEditorCell and IAnjutaEditorCellStyle interfaces to not inherit IAnjutaEditor.
+* Updated.
+* Fixed dynamic loading of support plugins
+* Fixed ianjuta_editor_get_text method to work correctly, it was ignoring start and end parameters. Fixed TextEditorCell implementation. Fixed 'char-added' signal emission.
+* Fixed indentation engine.
+* fix a matching case into sv_extract_type_qualifier_from_expr ()and some minor issues.
+* Fixed to work kind of with sourceview editor* Fixed IAnjutaEditorCell and "char-added" signal
+* Initial implementedion for loading support plugins.
+* Fixed IAnjutaEditorLanguage implementation.
+* Fixed syntax highlighting when indicators are cleared (that leaved grey texts).
+* Add a parameter for reporting error Add a new interface for using gdb variable object Allow to cancel commands Rewrite handling of debugger state
+* Create and destroy local and stack trace windows when needed
+* Fixed "Automatic" highlighting
+* Added support for IAnjutaEditorLanguage
+* fix a popup-menu issue
+* Check for C/C++-Compiler correctly
+* Destroy stack window when debuuger is disabled (#347414)
+* Fix a crash with popup-menu (#347412)
+* Implemented text iterator (not tested yet).
+* Preliminary indentation code.
+* Fixed a leak.
+* Fixed Bug #342937
+* Do not use the page_num returned by gtk_notebook_append_page to remove the page as it cause bugs when pages removal is not done in LIFO.
+* makes Anjuta display dock_items which have previously been hidden
+* Fixed bugs #346450 and #346295
+* Fixed close button/icon size (like in docman)
+* Fixed goto line to mark the line being set.
+* Move inspect_memory function in IAnjutaCpuDebugger interface Rename Boolean type to State
+* Rename Boolean type to State
+* Rewrite memory window using a special widget Rename Boolean type to State
+* Do not return garbage characters and return NULL when there is no current word.
+* Fixed next occurance and prev occurance to work correctly.
+* Fixed a mem leak.
+* Added debug message (see #343522)
+* Fixed #344015
+* Implemented IAnjutaEditor->get_begin/end_line_position (crashed automatic highlight of build messages)
+* Implemented IAnjutaEditorLanguage interface for language highlight selection and langauge change signal.
+* Added language support plugin for cpp and java.
+* merged anjuta-new-debugger branch into trunck. (cvs -z3 up -j anjuta-merged-from-trunk-to-new-debugger -j anjuta-new-debugger)
+* Add new IAnjutaCpuDebugger interface to access cpu register Run gdb instead of /usr/local/bin/gdb
+* Rewrite register window Rename Load target menu item to Run target
+* Fix crash: disconnect save and load session signals
+* Add a value parameter for evaluate command
+* Create new dialog box for watches using glade
+* Move watch menu items near the end Move breakpoint menu items outside the sub menu
+* Move all GUI code from watch.c to debug_tree.c Add an auto update property to watches
+* Register actions before starting debugger
+* Do not call callback function if not present
+* Add a popup menu in stack frame window Add a new frame-changed event Use MI command for getting stack informations Get filename with full path (need gdb > 6.3)
+* Pass watch data with string instead of Watch structures Use debug_tree in local window Remove info local Remove parser.{ch}
+* Use a GtkListStore instead of a GtkTreeStore move goto_location_in_editor in utilities.c
+* Add a breakpoint type Add new popup menu in breakpoint window Add toggle breakpoint in editor popup menu Save and restore breakpoint enable Fix bug in clear all breakpoints Remove old useless code
+* Fix some problem with debugger states
+* Update documentation
+* Move gdb.init crom data to plugins/gdb
+* Support pending breakpoints Rewrite debugger states Split ianjuta_debugger_log into _enable_log and _disable_log
+* Remove some useless lines
+* Update documentation
+* Fixed debug-manager name.
+* Remove those files
+* Move types definitions from libanjuta/anjuta-debugger.{ch} Rename types from AnjutaDebugger* to IAnjutaDebugger*
+* Remove user interface from gdb plugin
+* anjuta-merged-from-trunk-to-new-debugger)
+* Fixes #342447
+* Implemented IAnjutaEditorCell
+* Fixed zooming and added icons and shortcuts for zoom menu items.
+* Fixed api documentation and whitespaces.
+* Fixed close button reaction by setting the correct current editor
+* Compile fix when NLS is enabled
+* AUTHORS: Added Marc
+* Prevent infinite recursive (detectedwhile loading abiword-2.4.4/abi project).
+* Fixed zooming.
+* Defined IAnjutaEditorCell interface for character iteration and IAnjutaEditorAssist interface for autocompletions and editor tips.
+* Make tabs smaller but keep nice closing icon
+* Added nice mime-icons to the editor tabs
+* Bumped version to 2.0.3 (pre-release increment)
+* Fixed crasher - Fixed symbol searching (Yang Hong (#341997))
+* Fixed devhelp plugin
+* Only add a marker to a line where it makes sense! 
+
 Anjuta 2.0.2 (15 May 2006) -- Naba Kumar
 
 New: GtkSourceView based editor

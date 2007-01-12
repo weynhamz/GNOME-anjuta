@@ -1,3 +1,7 @@
+2007-01-13  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated for release.
+
 2007-01-12  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/project-wizard/anjuta-plugin/src/Makefile.am.tpl:
