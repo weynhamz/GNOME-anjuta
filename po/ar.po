@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-17 21:14+0000\n"
+"POT-Creation-Date: 2007-01-04 01:55+0000\n"
 "PO-Revision-Date: 2006-11-17 23:57+0100\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n == 0 ? 0 : n == 1 ? 1 : n == 2 ? 2 : n >= 3 && n <= 10 ? 3 : n >= 11 && n <= 99 ? 4 : 5;\n"
+"Plural-Forms: nplurals=6; plural=n == 0 ? 0 : n == 1 ? 1 : n == 2 ? 2 : n >= "
+"3 && n <= 10 ? 3 : n >= 11 && n <= 99 ? 4 : 5;\n"
 "X-Poedit-Language: Arabic\n"
 
 #: ../anjuta.desktop.in.in.h:1
@@ -22,18 +23,14 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "فعِّل محاكاة IDE SCSI"
 
-#: ../anjuta.desktop.in.in.h:2
-#: ../src/about.c:185
-#: ../src/about.c:195
+#: ../anjuta.desktop.in.in.h:2 ../src/about.c:185 ../src/about.c:195
 #: ../src/main.c:321
 #, fuzzy
 msgid "Integrated Development Environment"
 msgstr "وظائف و أسماء المحيط"
 
-#: ../libanjuta/anjuta-encodings.c:130
-#: ../libanjuta/anjuta-encodings.c:156
-#: ../libanjuta/anjuta-encodings.c:197
-#: ../libanjuta/anjuta-encodings.c:238
+#: ../libanjuta/anjuta-encodings.c:130 ../libanjuta/anjuta-encodings.c:156
+#: ../libanjuta/anjuta-encodings.c:197 ../libanjuta/anjuta-encodings.c:238
 #: ../plugins/sourceview/anjuta-encodings.c:151
 #: ../plugins/sourceview/anjuta-encodings.c:177
 #: ../plugins/sourceview/anjuta-encodings.c:223
@@ -42,8 +39,7 @@ msgstr "وظائف و أسماء المحيط"
 msgid "Western"
 msgstr "غربي"
 
-#: ../libanjuta/anjuta-encodings.c:132
-#: ../libanjuta/anjuta-encodings.c:199
+#: ../libanjuta/anjuta-encodings.c:132 ../libanjuta/anjuta-encodings.c:199
 #: ../libanjuta/anjuta-encodings.c:234
 #: ../plugins/sourceview/anjuta-encodings.c:153
 #: ../plugins/sourceview/anjuta-encodings.c:225
@@ -58,8 +54,7 @@ msgstr "وسط أوروبيّة"
 msgid "South European"
 msgstr "جنوب اوروبا"
 
-#: ../libanjuta/anjuta-encodings.c:136
-#: ../libanjuta/anjuta-encodings.c:152
+#: ../libanjuta/anjuta-encodings.c:136 ../libanjuta/anjuta-encodings.c:152
 #: ../libanjuta/anjuta-encodings.c:248
 #: ../plugins/sourceview/anjuta-encodings.c:157
 #: ../plugins/sourceview/anjuta-encodings.c:173
@@ -68,10 +63,8 @@ msgstr "جنوب اوروبا"
 msgid "Baltic"
 msgstr "البلطيقيّة"
 
-#: ../libanjuta/anjuta-encodings.c:138
-#: ../libanjuta/anjuta-encodings.c:201
-#: ../libanjuta/anjuta-encodings.c:214
-#: ../libanjuta/anjuta-encodings.c:218
+#: ../libanjuta/anjuta-encodings.c:138 ../libanjuta/anjuta-encodings.c:201
+#: ../libanjuta/anjuta-encodings.c:214 ../libanjuta/anjuta-encodings.c:218
 #: ../libanjuta/anjuta-encodings.c:236
 #: ../plugins/sourceview/anjuta-encodings.c:159
 #: ../plugins/sourceview/anjuta-encodings.c:227
@@ -83,8 +76,7 @@ msgstr "البلطيقيّة"
 msgid "Cyrillic"
 msgstr "السّريليّة"
 
-#: ../libanjuta/anjuta-encodings.c:140
-#: ../libanjuta/anjuta-encodings.c:207
+#: ../libanjuta/anjuta-encodings.c:140 ../libanjuta/anjuta-encodings.c:207
 #: ../libanjuta/anjuta-encodings.c:246
 #: ../plugins/sourceview/anjuta-encodings.c:161
 #: ../plugins/sourceview/anjuta-encodings.c:233
@@ -93,8 +85,7 @@ msgstr "السّريليّة"
 msgid "Arabic"
 msgstr "عربي"
 
-#: ../libanjuta/anjuta-encodings.c:142
-#: ../libanjuta/anjuta-encodings.c:240
+#: ../libanjuta/anjuta-encodings.c:142 ../libanjuta/anjuta-encodings.c:240
 #: ../plugins/sourceview/anjuta-encodings.c:163
 #: ../plugins/sourceview/anjuta-encodings.c:268
 #, fuzzy
@@ -107,8 +98,7 @@ msgstr "اليونانيّة"
 msgid "Hebrew Visual"
 msgstr "عبري مرئي"
 
-#: ../libanjuta/anjuta-encodings.c:146
-#: ../libanjuta/anjuta-encodings.c:205
+#: ../libanjuta/anjuta-encodings.c:146 ../libanjuta/anjuta-encodings.c:205
 #: ../libanjuta/anjuta-encodings.c:244
 #: ../plugins/sourceview/anjuta-encodings.c:167
 #: ../plugins/sourceview/anjuta-encodings.c:231
@@ -117,8 +107,7 @@ msgstr "عبري مرئي"
 msgid "Hebrew"
 msgstr "العبريّة"
 
-#: ../libanjuta/anjuta-encodings.c:148
-#: ../libanjuta/anjuta-encodings.c:203
+#: ../libanjuta/anjuta-encodings.c:148 ../libanjuta/anjuta-encodings.c:203
 #: ../libanjuta/anjuta-encodings.c:242
 #: ../plugins/sourceview/anjuta-encodings.c:169
 #: ../plugins/sourceview/anjuta-encodings.c:229
@@ -145,10 +134,8 @@ msgstr "كلتي"
 msgid "Romanian"
 msgstr "روماني"
 
-#: ../libanjuta/anjuta-encodings.c:161
-#: ../libanjuta/anjuta-encodings.c:163
-#: ../libanjuta/anjuta-encodings.c:165
-#: ../libanjuta/anjuta-encodings.c:167
+#: ../libanjuta/anjuta-encodings.c:161 ../libanjuta/anjuta-encodings.c:163
+#: ../libanjuta/anjuta-encodings.c:165 ../libanjuta/anjuta-encodings.c:167
 #: ../plugins/sourceview/anjuta-encodings.c:137
 #: ../plugins/sourceview/anjuta-encodings.c:182
 #: ../plugins/sourceview/anjuta-encodings.c:184
@@ -164,8 +151,7 @@ msgstr "يونيكود"
 msgid "Armenian"
 msgstr "ارميني"
 
-#: ../libanjuta/anjuta-encodings.c:172
-#: ../libanjuta/anjuta-encodings.c:174
+#: ../libanjuta/anjuta-encodings.c:172 ../libanjuta/anjuta-encodings.c:174
 #: ../libanjuta/anjuta-encodings.c:183
 #: ../plugins/sourceview/anjuta-encodings.c:193
 #: ../plugins/sourceview/anjuta-encodings.c:195
@@ -180,8 +166,7 @@ msgstr "صيني تقليدي"
 msgid "Cyrillic/Russian"
 msgstr "سرياني/روسي"
 
-#: ../libanjuta/anjuta-encodings.c:179
-#: ../libanjuta/anjuta-encodings.c:210
+#: ../libanjuta/anjuta-encodings.c:179 ../libanjuta/anjuta-encodings.c:210
 #: ../libanjuta/anjuta-encodings.c:223
 #: ../plugins/sourceview/anjuta-encodings.c:200
 #: ../plugins/sourceview/anjuta-encodings.c:202
@@ -192,10 +177,8 @@ msgstr "سرياني/روسي"
 msgid "Japanese"
 msgstr "اليابانية"
 
-#: ../libanjuta/anjuta-encodings.c:181
-#: ../libanjuta/anjuta-encodings.c:212
-#: ../libanjuta/anjuta-encodings.c:216
-#: ../libanjuta/anjuta-encodings.c:229
+#: ../libanjuta/anjuta-encodings.c:181 ../libanjuta/anjuta-encodings.c:212
+#: ../libanjuta/anjuta-encodings.c:216 ../libanjuta/anjuta-encodings.c:229
 #: ../plugins/sourceview/anjuta-encodings.c:207
 #: ../plugins/sourceview/anjuta-encodings.c:238
 #: ../plugins/sourceview/anjuta-encodings.c:242
@@ -204,10 +187,8 @@ msgstr "اليابانية"
 msgid "Korean"
 msgstr "الكوريّة"
 
-#: ../libanjuta/anjuta-encodings.c:186
-#: ../libanjuta/anjuta-encodings.c:188
-#: ../libanjuta/anjuta-encodings.c:190
-#: ../libanjuta/anjuta-encodings.c:194
+#: ../libanjuta/anjuta-encodings.c:186 ../libanjuta/anjuta-encodings.c:188
+#: ../libanjuta/anjuta-encodings.c:190 ../libanjuta/anjuta-encodings.c:194
 #: ../plugins/sourceview/anjuta-encodings.c:212
 #: ../plugins/sourceview/anjuta-encodings.c:214
 #: ../plugins/sourceview/anjuta-encodings.c:216
@@ -228,8 +209,7 @@ msgstr "جورجي"
 msgid "Cyrillic/Ukrainian"
 msgstr "سرياني/اكرايني"
 
-#: ../libanjuta/anjuta-encodings.c:225
-#: ../libanjuta/anjuta-encodings.c:231
+#: ../libanjuta/anjuta-encodings.c:225 ../libanjuta/anjuta-encodings.c:231
 #: ../libanjuta/anjuta-encodings.c:250
 #: ../plugins/sourceview/anjuta-encodings.c:253
 #: ../plugins/sourceview/anjuta-encodings.c:259
@@ -258,17 +238,14 @@ msgstr "تشفيرات أخرى"
 msgid "launcher.c: Error while reading child pty\n"
 msgstr ""
 
-#: ../libanjuta/anjuta-launcher.c:962
-#: ../libanjuta/resources.c:253
-#: ../libanjuta/resources.c:262
-#: ../plugins/devhelp/plugin.c:500
-#: ../plugins/devhelp/plugin.c:509
-#: ../plugins/gdb/utilities.c:279
+#: ../libanjuta/anjuta-launcher.c:974 ../libanjuta/resources.c:253
+#: ../libanjuta/resources.c:262 ../plugins/devhelp/plugin.c:500
+#: ../plugins/devhelp/plugin.c:509 ../plugins/gdb/utilities.c:279
 #, fuzzy, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "لا يمكن تشغيل الأمر  '%s': %s."
 
-#: ../libanjuta/anjuta-launcher.c:963
+#: ../libanjuta/anjuta-launcher.c:975
 #, fuzzy
 msgid "execvp failed"
 msgstr "فشل الاختبار %d"
@@ -283,8 +260,7 @@ msgid "Anjuta shell that will contain the plugin"
 msgstr ""
 
 #: ../libanjuta/anjuta-preferences-dialog.c:128
-#: ../plugins/gtodo/interface.c:226
-#: ../plugins/gtodo/mcategory.c:36
+#: ../plugins/gtodo/interface.c:226 ../plugins/gtodo/mcategory.c:36
 #, fuzzy
 msgid "Category"
 msgstr "الصنف"
@@ -392,14 +368,12 @@ msgstr "جسم بيكسبف"
 msgid "The pixbuf to render."
 msgstr "بيكسبف للترجمة"
 
-#: ../libanjuta/plugins.c:994
-#: ../plugins/symbol-browser/an_symbol_prefs.c:783
+#: ../libanjuta/plugins.c:994 ../plugins/symbol-browser/an_symbol_prefs.c:783
 #, fuzzy
 msgid "Load"
 msgstr "تحميل"
 
-#: ../libanjuta/plugins.c:1016
-#: ../libanjuta/plugins.c:1636
+#: ../libanjuta/plugins.c:1016 ../libanjuta/plugins.c:1636
 #, fuzzy
 msgid "Available Plugins"
 msgstr "الملحقات المت_وفرة:"
@@ -413,8 +387,7 @@ msgstr ""
 msgid "Widget not found: %s"
 msgstr "لم يعثر على المستخدم"
 
-#: ../libanjuta/resources.c:65
-#: ../libanjuta/resources.c:87
+#: ../libanjuta/resources.c:65 ../libanjuta/resources.c:87
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr ""
@@ -429,14 +402,12 @@ msgstr "النّموذج"
 msgid "Model for the combo box"
 msgstr "نموذج لصندوق المجموعات"
 
-#: ../libegg/egg-combo-action.c:126
-#: ../libegg/egg-entry-action.c:139
+#: ../libegg/egg-combo-action.c:126 ../libegg/egg-entry-action.c:139
 #, fuzzy
 msgid "Width"
 msgstr "العرض"
 
-#: ../libegg/egg-combo-action.c:127
-#: ../libegg/egg-entry-action.c:140
+#: ../libegg/egg-combo-action.c:127 ../libegg/egg-entry-action.c:140
 #, fuzzy
 msgid "Width of the entry."
 msgstr "إدخال مباشر"
@@ -452,14 +423,12 @@ msgstr "رمز <<"
 msgid "Text in the entry"
 msgstr "مُدْخل في اللوحة"
 
-#: ../libegg/eggcellrendererkeys.c:160
-#: ../libegg/eggcellrendererkeys.c:161
+#: ../libegg/eggcellrendererkeys.c:160 ../libegg/eggcellrendererkeys.c:161
 #, fuzzy
 msgid "Accelerator key"
 msgstr "مفتاح الاختصار"
 
-#: ../libegg/eggcellrendererkeys.c:170
-#: ../libegg/eggcellrendererkeys.c:171
+#: ../libegg/eggcellrendererkeys.c:170 ../libegg/eggcellrendererkeys.c:171
 #, fuzzy
 msgid "Accelerator modifiers"
 msgstr "مفاتيح الإختصار للمغيّرات"
@@ -474,14 +443,12 @@ msgstr "نسق مفتاح الإختصار"
 msgid "The type of accelerator."
 msgstr "نوع مفتاح الاختصار."
 
-#: ../libegg/eggcellrendererkeys.c:219
-#: ../plugins/tools/editor.c:534
+#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:534
 #, fuzzy
 msgid "Disabled"
 msgstr "معطل"
 
-#: ../libegg/eggcellrendererkeys.c:330
-#: ../libegg/eggcellrendererkeys.c:564
+#: ../libegg/eggcellrendererkeys.c:330 ../libegg/eggcellrendererkeys.c:564
 #, fuzzy
 msgid "Type a new accelerator, or press Backspace to clear"
 msgstr "اكتب مسرعا جديدا، أو أنقر Backspace للمسح"
@@ -602,8 +569,7 @@ msgstr ""
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
-#: ../plugins/gdb/anjuta-gdb.glade.h:1
-#: ../plugins/macro/anjuta-macro.glade.h:1
+#: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 #: ../src/anjuta.glade.h:1
@@ -636,10 +602,8 @@ msgstr "_تحميل"
 msgid "_Lock dock items"
 msgstr "حذف أيّ عناصر"
 
-#: ../libegg/test-actions.c:140
-#: ../plugins/devhelp/plugin.c:337
-#: ../plugins/search/plugin.c:547
-#: ../plugins/search/search-replace.c:838
+#: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:337
+#: ../plugins/search/plugin.c:547 ../plugins/search/search-replace.c:838
 #: ../plugins/search/search-replace.c:1475
 #: ../plugins/search/search-replace.c:1482
 #: ../plugins/search/search-replace.c:1494
@@ -649,20 +613,17 @@ msgstr "حذف أيّ عناصر"
 msgid "Search"
 msgstr "بحث"
 
-#: ../libegg/test-actions.c:141
-#: ../plugins/search/plugin.c:548
+#: ../libegg/test-actions.c:141 ../plugins/search/plugin.c:548
 #, fuzzy
 msgid "Incremental search"
 msgstr "بحث في الويب"
 
-#: ../libegg/test-actions.c:155
-#: ../plugins/file-loader/plugin.c:1207
+#: ../libegg/test-actions.c:155 ../plugins/file-loader/plugin.c:1207
 #, fuzzy
 msgid "Open _Recent"
 msgstr "فتح التعديلات الأخيرة"
 
-#: ../libegg/test-actions.c:156
-#: ../plugins/file-loader/plugin.c:1218
+#: ../libegg/test-actions.c:156 ../plugins/file-loader/plugin.c:1218
 #, fuzzy
 msgid "Open recent files"
 msgstr "العدد الأقصى للملفّات الحديثة"
@@ -827,7 +788,7 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1211
 #, fuzzy
-msgid "_Execute program"
+msgid "_Execute Program"
 msgstr "تشغيل برنامج"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1212
@@ -997,6 +958,8 @@ msgstr "عرض الفيديو الافتراضي"
 
 #: ../plugins/class-inheritance/class-inherit.c:914
 #: ../plugins/subversion/svn-notify.c:119
+#: ../plugins/debug-manager/sharedlib.c:129
+#: ../plugins/debug-manager/signals.c:273
 #, fuzzy
 msgid "Update"
 msgstr "تحديث"
@@ -1060,7 +1023,8 @@ msgid "* Output Source File:"
 msgstr "لا يمكن إنشاء ملف المصدر"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
-msgid "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
+msgid ""
+"<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
@@ -1148,7 +1112,9 @@ msgid "Enter the name of the class your new class will inherit from."
 msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
-msgid "Enter the name of the class your new class will inherit from. Default is GObject."
+msgid ""
+"Enter the name of the class your new class will inherit from. Default is "
+"GObject."
 msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
@@ -1187,7 +1153,10 @@ msgid "Source/Header Headings:"
 msgstr "اسم ترويسة HTTP"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:37
-msgid "This plugin will create a class of the type you specify and add it to your project. Note that the creating class's parameters will be taken from the active tab. Please be sure to fill all required fields marked by *."
+msgid ""
+"This plugin will create a class of the type you specify and add it to your "
+"project. Note that the creating class's parameters will be taken from the "
+"active tab. Please be sure to fill all required fields marked by *."
 msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:38
@@ -1210,8 +1179,7 @@ msgstr "مفتاح الموضوع العام"
 
 #: ../plugins/class-gen/class_gen.c:106
 #: ../plugins/document-manager/anjuta-docman.c:790
-#: ../plugins/file-wizard/file.c:229
-#: ../plugins/valgrind/plugin.c:386
+#: ../plugins/file-wizard/file.c:229 ../plugins/valgrind/plugin.c:386
 #, fuzzy, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -1222,8 +1190,7 @@ msgstr ""
 
 #: ../plugins/class-gen/class_gen.c:114
 #: ../plugins/document-manager/anjuta-docman.c:798
-#: ../plugins/file-wizard/file.c:237
-#: ../plugins/valgrind/plugin.c:394
+#: ../plugins/file-wizard/file.c:237 ../plugins/valgrind/plugin.c:394
 #: ../src/anjuta-callbacks.c:79
 #, fuzzy
 msgid "_Replace"
@@ -1235,11 +1202,12 @@ msgid "Please check your required fields."
 msgstr "الرجاء التثبت من تثبيتك لبلاكجاك"
 
 #: ../plugins/class-gen/class_gen.c:284
-msgid "An error occurred when trying to write GObject Class Template. Check file permissions."
+msgid ""
+"An error occurred when trying to write GObject Class Template. Check file "
+"permissions."
 msgstr ""
 
-#: ../plugins/class-gen/class_gen.c:484
-#: ../plugins/class-gen/class_gen.c:492
+#: ../plugins/class-gen/class_gen.c:484 ../plugins/class-gen/class_gen.c:492
 #, fuzzy
 msgid "Please fill required fields."
 msgstr "رجاءً املأ الكومة الفارغة أوّلاً."
@@ -1280,7 +1248,9 @@ msgstr "<b>الخيارات</b>"
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
-"Pressing OK will delete the file from disk and from CVS. Of course the file won't be removed from CVS before you use CVS Commit. <b>You have been warned!</b>"
+"Pressing OK will delete the file from disk and from CVS. Of course the file "
+"won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
+"</b>"
 msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
@@ -1360,6 +1330,7 @@ msgid "Choose file or directory to commit:"
 msgstr "انقل الملف أو الدليل المنتقى إلى سلة المهملات"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 #, fuzzy
 msgid "Choose file or directory to diff:"
 msgstr "انقل الملف أو الدليل المنتقى إلى سلة المهملات"
@@ -1373,13 +1344,13 @@ msgid "Choose file or directory to get the status from:"
 msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 #, fuzzy
 msgid "Choose file or directory to remove:"
 msgstr "الدليل للازالة من ملف الإعدادات"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 #, fuzzy
 msgid "Choose file or directory to update:"
 msgstr "انقل الملف أو الدليل المنتقى إلى سلة المهملات"
@@ -1399,7 +1370,7 @@ msgid "Delete empty directories"
 msgstr "دلائل خصائص اللغة"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 #, fuzzy
 msgid "Do not act recursively"
 msgstr "لا ت_طبيق للخط"
@@ -1421,7 +1392,7 @@ msgid ""
 msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 #, fuzzy
 msgid "Log message:"
 msgstr "إر_سال رسالة"
@@ -1472,7 +1443,7 @@ msgid "Unified format instead of context format"
 msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:24
+#: ../plugins/subversion/anjuta-subversion.glade.h:26
 #, fuzzy
 msgid "Use revision/tag: "
 msgstr "قوائم العلامة المتوفرة"
@@ -1483,7 +1454,7 @@ msgid "Use revision: "
 msgstr "تاريخ التنقيح"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#: ../plugins/subversion/anjuta-subversion.glade.h:27
 #, fuzzy
 msgid "Username: "
 msgstr "اسم المستخدم: "
@@ -1494,7 +1465,7 @@ msgid "Vendor tag:"
 msgstr "قائمة"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
-#: ../plugins/subversion/anjuta-subversion.glade.h:26
+#: ../plugins/subversion/anjuta-subversion.glade.h:28
 #, fuzzy
 msgid "Whole project"
 msgstr "فحص كل نظام الملفّات"
@@ -1573,28 +1544,24 @@ msgid "CVS command is running - please wait until it finishes!"
 msgstr ""
 
 #: ../plugins/cvs-plugin/cvs-execute.c:231
-#: ../plugins/cvs-plugin/cvs-execute.c:235
-#: ../plugins/cvs-plugin/plugin.c:486
+#: ../plugins/cvs-plugin/cvs-execute.c:235 ../plugins/cvs-plugin/plugin.c:486
 #: ../plugins/cvs-plugin/plugin.c:494
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
-#: ../plugins/macro/macros.xml.h:9
-#: ../plugins/search/anjuta-search.glade.h:14
+#: ../plugins/macro/macros.xml.h:9 ../plugins/search/anjuta-search.glade.h:14
 #, fuzzy
 msgid "CVS"
 msgstr "سي-في-إس-متحكَّم"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:45
-#: ../plugins/cvs-plugin/plugin.c:120
+#: ../plugins/cvs-plugin/plugin.c:45 ../plugins/cvs-plugin/plugin.c:120
 #, fuzzy
 msgid "_CVS"
 msgstr "سي-في-إس-متحكَّم"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:53
-#: ../plugins/subversion/plugin.c:52
+#: ../plugins/cvs-plugin/plugin.c:53 ../plugins/subversion/plugin.c:52
 #, fuzzy
 msgid "_Add"
 msgstr "إ_ضافة"
@@ -1607,8 +1574,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:61
-#: ../plugins/subversion/plugin.c:60
+#: ../plugins/cvs-plugin/plugin.c:61 ../plugins/subversion/plugin.c:60
 #, fuzzy
 msgid "_Remove"
 msgstr "إ_زالة"
@@ -1622,28 +1588,23 @@ msgstr "الدليل للازالة من ملف الإعدادات"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:69
-#: ../plugins/cvs-plugin/plugin.c:128
-#: ../plugins/subversion/plugin.c:68
-#: ../plugins/subversion/plugin.c:103
+#: ../plugins/cvs-plugin/plugin.c:69 ../plugins/cvs-plugin/plugin.c:128
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:103
 #, fuzzy
 msgid "_Commit"
 msgstr "خطأ تغيير الإرسال."
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:71
-#: ../plugins/cvs-plugin/plugin.c:130
+#: ../plugins/cvs-plugin/plugin.c:71 ../plugins/cvs-plugin/plugin.c:130
 msgid "Commit your changes to the CVS tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:77
-#: ../plugins/cvs-plugin/plugin.c:136
+#: ../plugins/cvs-plugin/plugin.c:77 ../plugins/cvs-plugin/plugin.c:136
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:43
-#: ../plugins/gdb/anjuta-gdb.glade.h:37
-#: ../plugins/subversion/plugin.c:76
+#: ../plugins/gdb/anjuta-gdb.glade.h:37 ../plugins/subversion/plugin.c:76
 #: ../plugins/subversion/plugin.c:111
 #, fuzzy
 msgid "_Update"
@@ -1651,15 +1612,13 @@ msgstr "_تحديث"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:79
-#: ../plugins/cvs-plugin/plugin.c:138
+#: ../plugins/cvs-plugin/plugin.c:79 ../plugins/cvs-plugin/plugin.c:138
 msgid "Sync your local copy with the CVS tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:85
-#: ../plugins/cvs-plugin/plugin.c:144
+#: ../plugins/cvs-plugin/plugin.c:85 ../plugins/cvs-plugin/plugin.c:144
 #: ../plugins/subversion/plugin.c:84
 #, fuzzy
 msgid "_Diff"
@@ -1667,39 +1626,34 @@ msgstr "الاختلافات"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:87
-#: ../plugins/cvs-plugin/plugin.c:146
+#: ../plugins/cvs-plugin/plugin.c:87 ../plugins/cvs-plugin/plugin.c:146
 msgid "Show differences between your local copy and the tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:93
-#: ../plugins/cvs-plugin/plugin.c:152
+#: ../plugins/cvs-plugin/plugin.c:93 ../plugins/cvs-plugin/plugin.c:152
 #, fuzzy
 msgid "_Show Status"
 msgstr "إظهار عمود حالة"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:95
-#: ../plugins/cvs-plugin/plugin.c:154
+#: ../plugins/cvs-plugin/plugin.c:95 ../plugins/cvs-plugin/plugin.c:154
 #, fuzzy
 msgid "Show the status of a file/directory"
 msgstr "الدليل الجذري لمتصفح الملفات "
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:101
-#: ../plugins/cvs-plugin/plugin.c:160
+#: ../plugins/cvs-plugin/plugin.c:101 ../plugins/cvs-plugin/plugin.c:160
 #, fuzzy
 msgid "_Show Log"
 msgstr "أظهر سجل تقويم"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:103
-#: ../plugins/cvs-plugin/plugin.c:162
+#: ../plugins/cvs-plugin/plugin.c:103 ../plugins/cvs-plugin/plugin.c:162
 #, fuzzy
 msgid "Show the log of a file/directory"
 msgstr "الدليل الجذري لمتصفح الملفات "
@@ -1732,6 +1686,7 @@ msgid "<b>Debugger:</b>"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:2
+#: ../plugins/debug-manager/watch.c:379
 #, fuzzy
 msgid "Add Watch"
 msgstr "إضافة تطبيق"
@@ -1750,6 +1705,7 @@ msgstr "خصائص القائمة"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
+#: ../plugins/debug-manager/breakpoints.c:1535
 msgid "Breakpoints"
 msgstr ""
 
@@ -1827,6 +1783,7 @@ msgid "Inspect/Evaluate"
 msgstr "تعبير الاستعلام لالتقييم"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
+#: ../plugins/debug-manager/plugin.c:811 ../plugins/debug-manager/plugin.c:919
 #: ../plugins/gdb/anjuta-gdb.glade.h:16
 #, fuzzy
 msgid "Kernel Signals"
@@ -1839,13 +1796,13 @@ msgid "Location"
 msgstr "الموقع"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
-#: ../plugins/gdb/anjuta-gdb.glade.h:18
+#: ../plugins/gdb/anjuta-gdb.glade.h:18 ../plugins/debug-manager/memory.c:136
 #, fuzzy
 msgid "Memory"
 msgstr "الذاكرة"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/gdb/anjuta-gdb.glade.h:19
+#: ../plugins/gdb/anjuta-gdb.glade.h:19 ../plugins/debug-manager/signals.c:474
 #, fuzzy
 msgid "Pass:"
 msgstr "كلمة الس_ر..."
@@ -1878,7 +1835,7 @@ msgid "SIGINT"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:28
-#: ../plugins/gdb/anjuta-gdb.glade.h:24
+#: ../plugins/gdb/anjuta-gdb.glade.h:24 ../plugins/debug-manager/signals.c:422
 #, fuzzy
 msgid "Set Signal Property"
 msgstr "لا يمكن ضبط قناع الإشارة!"
@@ -1904,6 +1861,9 @@ msgstr "تو_قف"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
 #: ../plugins/gdb/anjuta-gdb.glade.h:28
 #: ../plugins/project-wizard/property.c:207
+#: ../plugins/debug-manager/signals.c:192
+#: ../plugins/debug-manager/signals.c:205
+#: ../plugins/debug-manager/signals.c:218
 #, fuzzy
 msgid "Yes"
 msgstr "نعم"
@@ -1982,27 +1942,31 @@ msgid "dialog2"
 msgstr ""
 
 #: ../plugins/debug-manager/attach_process.c:74
+#: ../plugins/debug-manager/start.c:90
 #, fuzzy
 msgid "Pid"
 msgstr "PID"
 
 #: ../plugins/debug-manager/attach_process.c:74
+#: ../plugins/debug-manager/start.c:90
 #, fuzzy
 msgid "User"
 msgstr "مستخدم"
 
 #: ../plugins/debug-manager/attach_process.c:74
-#: ../plugins/gtodo/egg-datetime.c:2292
+#: ../plugins/gtodo/egg-datetime.c:2292 ../plugins/debug-manager/start.c:90
 #, fuzzy
 msgid "Time"
 msgstr "الوقت"
 
 #: ../plugins/debug-manager/attach_process.c:74
+#: ../plugins/debug-manager/start.c:90
 #, fuzzy
 msgid "Command"
 msgstr "الأمر"
 
 #: ../plugins/debug-manager/attach_process.c:408
+#: ../plugins/debug-manager/start.c:593
 #, fuzzy, c-format
 msgid "Unable to execute: %s."
 msgstr ""
@@ -2011,266 +1975,233 @@ msgstr ""
 "التفاصيل: %s"
 
 #: ../plugins/debug-manager/attach_process.c:422
+#: ../plugins/debug-manager/start.c:607
 #, fuzzy, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "لا يمكن فتح ملف الحالة المحفوظ '%s': %s"
 
-#: ../plugins/debug-manager/plugin.c:226
+#: ../plugins/debug-manager/plugin.c:228
 #, fuzzy
 msgid "Debugger Log"
 msgstr "اخرج"
 
-#: ../plugins/debug-manager/plugin.c:375
+#: ../plugins/debug-manager/plugin.c:377
 #, fuzzy, c-format
 msgid "Location: %s, line %d\n"
 msgstr "لف السّطور"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:712
-#: ../plugins/valgrind/plugin.c:448
+#: ../plugins/debug-manager/plugin.c:703 ../plugins/valgrind/plugin.c:448
 #, fuzzy
 msgid "_Debug"
 msgstr "تنقيح"
 
-#: ../plugins/debug-manager/plugin.c:720
+#: ../plugins/debug-manager/plugin.c:711
 #, fuzzy
 msgid "_Start Debugger"
 msgstr "إبدأ مخفياً"
 
-#: ../plugins/debug-manager/plugin.c:728
+#: ../plugins/debug-manager/plugin.c:719
 #, fuzzy
-msgid "Run target..."
+msgid "Run Target..."
 msgstr "هدف الإطار"
 
-#: ../plugins/debug-manager/plugin.c:730
+#: ../plugins/debug-manager/plugin.c:721
 msgid "load and start the target for debugging"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:736
+#: ../plugins/debug-manager/plugin.c:727
 #, fuzzy
 msgid "_Attach to Process..."
 msgstr "خطأ: لم يمكن معالجة الإمتداد"
 
-#: ../plugins/debug-manager/plugin.c:738
+#: ../plugins/debug-manager/plugin.c:729
 #, fuzzy
 msgid "Attach to a running program"
 msgstr "اختر برنامج لتحرير الفيديو"
 
-#: ../plugins/debug-manager/plugin.c:744
+#: ../plugins/debug-manager/plugin.c:735
 #, fuzzy
 msgid "Stop Debugger"
 msgstr "إيقاف المعالجة"
 
-#: ../plugins/debug-manager/plugin.c:746
+#: ../plugins/debug-manager/plugin.c:737
 msgid "Say goodbye to the debugger"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:752
+#: ../plugins/debug-manager/plugin.c:743
 #, fuzzy
 msgid "Parameters"
 msgstr "ال_مُعامِلات:"
 
-#: ../plugins/debug-manager/plugin.c:754
+#: ../plugins/debug-manager/plugin.c:745
 #, fuzzy
 msgid "Set debugger parameters"
 msgstr "اضبط الأصوات ومتغيراتها"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:764
-#: ../plugins/debug-manager/plugin.c:872
+#: ../plugins/debug-manager/plugin.c:755 ../plugins/debug-manager/plugin.c:863
 #, fuzzy
-msgid "Debugger command..."
+msgid "Debugger Command..."
 msgstr "سطر الأوامر"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:766
-#: ../plugins/debug-manager/plugin.c:874
+#: ../plugins/debug-manager/plugin.c:757 ../plugins/debug-manager/plugin.c:865
 #, fuzzy
 msgid "Custom debugger command"
 msgstr "ا_ستعمل امرا مخصصا"
 
-#: ../plugins/debug-manager/plugin.c:772
-#: ../plugins/debug-manager/plugin.c:880
+#: ../plugins/debug-manager/plugin.c:763 ../plugins/debug-manager/plugin.c:871
 #, fuzzy
 msgid "_Info"
 msgstr "معلومات التّرتيب"
 
-#: ../plugins/debug-manager/plugin.c:780
+#: ../plugins/debug-manager/plugin.c:771
 #, fuzzy
 msgid "Info _Target Files"
 msgstr "خواتم وقتية للملفات الجديدة"
 
-#: ../plugins/debug-manager/plugin.c:782
+#: ../plugins/debug-manager/plugin.c:773
 msgid "Display information on the files the debugger is active with"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:788
+#: ../plugins/debug-manager/plugin.c:779
 #, fuzzy
 msgid "Info _Program"
 msgstr "تشغيل برنامج"
 
-#: ../plugins/debug-manager/plugin.c:790
+#: ../plugins/debug-manager/plugin.c:781
 msgid "Display information on the execution status of the program"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:796
+#: ../plugins/debug-manager/plugin.c:787
 msgid "Info _Kernel User Struct"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:798
+#: ../plugins/debug-manager/plugin.c:789
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:812
-#: ../plugins/debug-manager/plugin.c:936
+#: ../plugins/debug-manager/plugin.c:803 ../plugins/debug-manager/plugin.c:911
 #, fuzzy
-msgid "Shared Libraries..."
+msgid "Shared Libraries"
 msgstr "الذاكرة المشتركة"
 
-#: ../plugins/debug-manager/plugin.c:814
-#: ../plugins/debug-manager/plugin.c:938
+#: ../plugins/debug-manager/plugin.c:805 ../plugins/debug-manager/plugin.c:913
 msgid "Show shared libraries mappings"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:820
-#: ../plugins/debug-manager/plugin.c:944
-#, fuzzy
-msgid "Kernel Signals..."
-msgstr "صورة النواة"
-
-#: ../plugins/debug-manager/plugin.c:822
-#: ../plugins/debug-manager/plugin.c:946
+#: ../plugins/debug-manager/plugin.c:813 ../plugins/debug-manager/plugin.c:921
 #, fuzzy
 msgid "Show kernel signals"
 msgstr "اختر صورة النواة"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:832
+#: ../plugins/debug-manager/plugin.c:823
 #, fuzzy
 msgid "Run/_Continue"
 msgstr "_مواصلة العمل"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:834
+#: ../plugins/debug-manager/plugin.c:825
 #, fuzzy
 msgid "Continue the execution of the program"
 msgstr "الرزمة المحتوية على البرنامج"
 
-#: ../plugins/debug-manager/plugin.c:840
+#: ../plugins/debug-manager/plugin.c:831
 #, fuzzy
 msgid "Step _In"
 msgstr "تكبير"
 
-#: ../plugins/debug-manager/plugin.c:842
+#: ../plugins/debug-manager/plugin.c:833
 msgid "Single step into function"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:848
+#: ../plugins/debug-manager/plugin.c:839
 #, fuzzy
 msgid "Step O_ver"
 msgstr "تدريج شدّة الصوت"
 
-#: ../plugins/debug-manager/plugin.c:850
+#: ../plugins/debug-manager/plugin.c:841
 msgid "Single step over function"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:856
+#: ../plugins/debug-manager/plugin.c:847
 #, fuzzy
 msgid "Step _Out"
 msgstr "اخرج"
 
-#: ../plugins/debug-manager/plugin.c:858
+#: ../plugins/debug-manager/plugin.c:849
 msgid "Single step out of the function"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:864
+#: ../plugins/debug-manager/plugin.c:855
 #, fuzzy
-msgid "_Run to cursor"
+msgid "_Run to Cursor"
 msgstr "فيما إذا سيومض المؤشّر"
 
-#: ../plugins/debug-manager/plugin.c:866
+#: ../plugins/debug-manager/plugin.c:857
 #, fuzzy
 msgid "Run to the cursor"
 msgstr "فيما إذا سيومض المؤشّر"
 
-#: ../plugins/debug-manager/plugin.c:888
+#: ../plugins/debug-manager/plugin.c:879
 #, fuzzy
 msgid "Info _Threads"
 msgstr "معلومات التّرتيب"
 
-#: ../plugins/debug-manager/plugin.c:890
+#: ../plugins/debug-manager/plugin.c:881
 msgid "Display the IDs of currently known threads"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:896
+#: ../plugins/debug-manager/plugin.c:887
 #, fuzzy
-msgid "Info _Global variables"
+msgid "Info _Global Variables"
 msgstr "حافظ على متغيرات LD_* "
 
-#: ../plugins/debug-manager/plugin.c:898
+#: ../plugins/debug-manager/plugin.c:889
 msgid "Display all global and static variables of the program"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:904
+#: ../plugins/debug-manager/plugin.c:895
 #, fuzzy
 msgid "Info _Current Frame"
 msgstr "فق_ط الاطار المختار"
 
-#: ../plugins/debug-manager/plugin.c:906
+#: ../plugins/debug-manager/plugin.c:897
 msgid "Display information about the current frame of execution"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:912
+#: ../plugins/debug-manager/plugin.c:903
 #, fuzzy
 msgid "Info Function _Arguments"
 msgstr "استدعاء التابع ملغى"
 
-#: ../plugins/debug-manager/plugin.c:914
+#: ../plugins/debug-manager/plugin.c:905
 msgid "Display function arguments of the current frame"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:920
-#, fuzzy
-msgid "Si_gnal to Process"
-msgstr "خطأ: لم يمكن معالجة الإمتداد"
-
-#: ../plugins/debug-manager/plugin.c:922
-msgid "Send a kernel signal to the process being debugged"
-msgstr ""
-
-#: ../plugins/debug-manager/plugin.c:928
-#, fuzzy
-msgid "Registers..."
-msgstr "سجلات الذاكرة"
-
-#: ../plugins/debug-manager/plugin.c:930
-#, fuzzy
-msgid "Show CPU register contents"
-msgstr "اعرض المحتويات بتفاصيل أكثر"
-
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:956
+#: ../plugins/debug-manager/plugin.c:931
 #, fuzzy
 msgid "Pa_use Program"
 msgstr "تشغيل / إ_يقاف"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:958
+#: ../plugins/debug-manager/plugin.c:933
 #, fuzzy
 msgid "Pauses the execution of the program"
 msgstr "الرزمة المحتوية على البرنامج"
 
-#: ../plugins/debug-manager/plugin.c:986
-#: ../plugins/debug-manager/plugin.c:992
-#: ../plugins/debug-manager/plugin.c:998
-#: ../plugins/debug-manager/plugin.c:1004
+#: ../plugins/debug-manager/plugin.c:961 ../plugins/debug-manager/plugin.c:967
+#: ../plugins/debug-manager/plugin.c:973 ../plugins/debug-manager/plugin.c:979
 #, fuzzy
 msgid "Debugger operations"
 msgstr "إعرض تاريخ العمليات"
@@ -2280,10 +2211,8 @@ msgstr "إعرض تاريخ العمليات"
 msgid "Search Help:"
 msgstr "رسالة مساعدة"
 
-#: ../plugins/devhelp/plugin.c:202
-#: ../plugins/document-manager/plugin.c:232
-#: ../plugins/message-view/plugin.c:71
-#: ../plugins/symbol-browser/plugin.c:275
+#: ../plugins/devhelp/plugin.c:202 ../plugins/document-manager/plugin.c:232
+#: ../plugins/message-view/plugin.c:71 ../plugins/symbol-browser/plugin.c:275
 #, fuzzy
 msgid "_Goto"
 msgstr "اذهب إلى الأب"
@@ -2310,7 +2239,7 @@ msgstr "إذهب إلى الصفحة التي زيرة تالية"
 
 #: ../plugins/devhelp/plugin.c:227
 #, fuzzy
-msgid "_API references"
+msgid "_API Reference"
 msgstr "شروحات و مراجع متداخلة"
 
 #: ../plugins/devhelp/plugin.c:229
@@ -2347,8 +2276,7 @@ msgstr "رسالة مساعدة"
 msgid "Books"
 msgstr "كتب فكاهية"
 
-#: ../plugins/devhelp/plugin.c:342
-#: ../src/anjuta-app.c:515
+#: ../plugins/devhelp/plugin.c:342 ../src/anjuta-app.c:515
 #, fuzzy
 msgid "Help"
 msgstr "مساعدة"
@@ -2387,8 +2315,7 @@ msgid ""
 msgstr ""
 
 #: ../plugins/document-manager/action-callbacks.c:293
-#: ../plugins/editor/text_editor.c:348
-#: ../plugins/sourceview/sourceview.c:178
+#: ../plugins/editor/text_editor.c:348 ../plugins/sourceview/sourceview.c:178
 #, fuzzy
 msgid "_Reload"
 msgstr "إ_عادة التحميل"
@@ -2399,10 +2326,8 @@ msgid "Close file"
 msgstr "غلق الملف الحالي"
 
 #: ../plugins/document-manager/anjuta-docman.c:702
-#: ../plugins/file-loader/plugin.c:558
-#: ../plugins/file-loader/plugin.c:834
-#: ../plugins/file-loader/plugin.c:844
-#: ../plugins/file-loader/plugin.c:857
+#: ../plugins/file-loader/plugin.c:558 ../plugins/file-loader/plugin.c:834
+#: ../plugins/file-loader/plugin.c:844 ../plugins/file-loader/plugin.c:857
 #, fuzzy
 msgid "Open file"
 msgstr "فتح ملف"
@@ -2557,7 +2482,9 @@ msgid "Continue at Parenth."
 msgstr "بدء العدّاد عند:"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:31
-msgid "Create a new style with name defined in \"New Style\" entry (\"-gnu\" parameters by default)."
+msgid ""
+"Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
+"parameters by default)."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:32
@@ -2565,7 +2492,8 @@ msgid "Cuddle Else"
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:33
-msgid "Cuddle up to the immediately preceding '}' in an if-then-else construct."
+msgid ""
+"Cuddle up to the immediately preceding '}' in an if-then-else construct."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:34
@@ -2644,7 +2572,8 @@ msgid "Force a space between a 'for' and the following parenthesis (default)."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:50
-msgid "Force a space between a 'while' and the following parenthesis (default)."
+msgid ""
+"Force a space between a 'while' and the following parenthesis (default)."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:51
@@ -2682,6 +2611,7 @@ msgstr "<b>تعيينات المؤشر</b>"
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:58
 #: ../plugins/editor/editor.glade.h:45
 #: ../plugins/sourceview/sourceview.glade.h:21
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
 #, fuzzy
 msgid "Indentation"
 msgstr "الإزاحة"
@@ -2722,7 +2652,10 @@ msgid "Line before Box "
 msgstr "رسم حدود الصناديق"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:66
-msgid "Line up continuation line to start at the character position just after the left parenthesis if a line has a left parenthesis which is not closed on that line."
+msgid ""
+"Line up continuation line to start at the character position just after the "
+"left parenthesis if a line has a left parenthesis which is not closed on "
+"that line."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:67
@@ -2733,7 +2666,10 @@ msgid ""
 msgstr "فا_صل جديد"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:69
-msgid "Note: If there is a project open, the preferences in this page are project preferences and will be loaded from and saved with the project. If there is no project open, they will be global preferences."
+msgid ""
+"Note: If there is a project open, the preferences in this page are project "
+"preferences and will be loaded from and saved with the project. If there is "
+"no project open, they will be global preferences."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:70
@@ -2746,7 +2682,8 @@ msgid "Place a space after a cast operator."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:72
-msgid "Place a space between the name of the procedure being called and the '('."
+msgid ""
+"Place a space between the name of the procedure being called and the '('."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:73
@@ -2879,11 +2816,15 @@ msgid "Specify the column of identifiers."
 msgstr "عمود لون الخلفيّة"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:102
-msgid "Specify the indentation level when a statement is broken across two lines (default 0)."
+msgid ""
+"Specify the indentation level when a statement is broken across two lines "
+"(default 0)."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:103
-msgid "Specify the maximum length of a line of C code, not including possible comments that follow it."
+msgid ""
+"Specify the maximum length of a line of C code, not including possible "
+"comments that follow it."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:104
@@ -2895,7 +2836,9 @@ msgid "Specify the number of spaces by which braces are indented."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:106
-msgid "Specify the number of spaces that 'case' labels should be indented to the right of the containing 'switch' statement."
+msgid ""
+"Specify the number of spaces that 'case' labels should be indented to the "
+"right of the containing 'switch' statement."
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:107
@@ -2969,8 +2912,7 @@ msgstr "أسلوب الإطار له قطعة في الموقع %s"
 msgid "This Style is not modifiable !"
 msgstr "لا يمكن الكتابة على هذا المفتاح"
 
-#: ../plugins/document-manager/plugin.c:151
-#: ../plugins/glade/plugin.c:506
+#: ../plugins/document-manager/plugin.c:151 ../plugins/glade/plugin.c:531
 #, fuzzy
 msgid "_Save"
 msgstr "_حفظ"
@@ -2980,8 +2922,7 @@ msgstr "_حفظ"
 msgid "Save current file"
 msgstr "حفظ الملف الحالي"
 
-#: ../plugins/document-manager/plugin.c:153
-#: ../plugins/glade/plugin.c:514
+#: ../plugins/document-manager/plugin.c:153 ../plugins/glade/plugin.c:539
 #, fuzzy
 msgid "Save _As..."
 msgstr "حفظ _بإسم..."
@@ -3092,7 +3033,7 @@ msgid "Make the selected text lowercase"
 msgstr "اختيار لون النص المنتقى"
 
 #: ../plugins/document-manager/plugin.c:190
-msgid "Convert EOL chars to CRLF"
+msgid "Convert EOL to CRLF"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:191
@@ -3100,7 +3041,7 @@ msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:193
-msgid "Convert EOL chars to LF"
+msgid "Convert EOL to LF"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:194
@@ -3108,7 +3049,7 @@ msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:196
-msgid "Convert EOL chars to CR"
+msgid "Convert EOL to CR"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:197
@@ -3116,7 +3057,7 @@ msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:199
-msgid "Convert EOL chars to majority EOL"
+msgid "Convert EOL to Majority EOL"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:200
@@ -3160,8 +3101,8 @@ msgstr "اختر الل_غة للمستند الحالي."
 
 #: ../plugins/document-manager/plugin.c:219
 #, fuzzy
-msgid "Co_mment code"
-msgstr "نوع محنوى الشفرة"
+msgid "Co_mment"
+msgstr "تعليق:"
 
 #: ../plugins/document-manager/plugin.c:220
 #, fuzzy
@@ -3206,7 +3147,7 @@ msgstr "حدد وصف ذي اسطر عديدة للإدخال في سيمة."
 
 #: ../plugins/document-manager/plugin.c:237
 #, fuzzy
-msgid "_Line number..."
+msgid "_Line Number..."
 msgstr "رقم ال_حساب:"
 
 #: ../plugins/document-manager/plugin.c:241
@@ -3220,7 +3161,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:245
 #, fuzzy
-msgid "_Start of block"
+msgid "_Start of Block"
 msgstr "بلوك آيلاند"
 
 #: ../plugins/document-manager/plugin.c:247
@@ -3229,7 +3170,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:249
 #, fuzzy
-msgid "_End of block"
+msgid "_End of Block"
 msgstr "بلوك آيلاند"
 
 #: ../plugins/document-manager/plugin.c:251
@@ -3238,7 +3179,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:253
 #, fuzzy
-msgid "Previous _history"
+msgid "Previous _History"
 msgstr "م_سح التاريخ"
 
 #: ../plugins/document-manager/plugin.c:255
@@ -3248,7 +3189,7 @@ msgstr "اظهر الصفحة السابقة في التاريخ"
 
 #: ../plugins/document-manager/plugin.c:257
 #, fuzzy
-msgid "Next histor_y"
+msgid "Next Histor_y"
 msgstr "الصّورة ال_تّالية"
 
 #: ../plugins/document-manager/plugin.c:259
@@ -3256,12 +3197,10 @@ msgstr "الصّورة ال_تّالية"
 msgid "Goto next history"
 msgstr "اظهر الصفحة التالية في التاريخ"
 
-#: ../plugins/document-manager/plugin.c:264
-#: ../plugins/gtodo/interface.c:170
+#: ../plugins/document-manager/plugin.c:264 ../plugins/gtodo/interface.c:170
 #: ../plugins/tools/anjuta-tools.glade.h:18
-#: ../plugins/valgrind/vgrule-list.c:405
-#: ../src/anjuta-actions.h:30
-#: ../src/shell.c:76
+#: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
+#: ../src/shell.c:76 ../plugins/language-support-cpp-java/plugin.c:1251
 #, fuzzy
 msgid "_Edit"
 msgstr "_تحرير"
@@ -3299,9 +3238,8 @@ msgstr ""
 msgid "Undo the last action"
 msgstr "تراجع عن العمل الأخير"
 
-#: ../plugins/document-manager/plugin.c:275
-#: ../plugins/glade/plugin.c:106
-#: ../plugins/glade/plugin.c:458
+#: ../plugins/document-manager/plugin.c:275 ../plugins/glade/plugin.c:110
+#: ../plugins/glade/plugin.c:483
 #, fuzzy
 msgid "_Redo"
 msgstr "_إعادة"
@@ -3320,8 +3258,7 @@ msgstr "_قص"
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:281
-#: ../plugins/glade/plugin.c:474
+#: ../plugins/document-manager/plugin.c:281 ../plugins/glade/plugin.c:499
 #: ../plugins/valgrind/vgdefaultview.c:1153
 #, fuzzy
 msgid "_Copy"
@@ -3332,8 +3269,7 @@ msgstr "_نسخ"
 msgid "Copy the selected text to the clipboard"
 msgstr "انسخ النص المنتقى للحافظة"
 
-#: ../plugins/document-manager/plugin.c:284
-#: ../plugins/glade/plugin.c:482
+#: ../plugins/document-manager/plugin.c:284 ../plugins/glade/plugin.c:507
 #: ../plugins/valgrind/vgdefaultview.c:1154
 #, fuzzy
 msgid "_Paste"
@@ -3364,7 +3300,7 @@ msgstr "نموذج مبني على الكلمات"
 
 #: ../plugins/document-manager/plugin.c:297
 #, fuzzy
-msgid "_Line numbers margin"
+msgid "_Line Number Margin"
 msgstr "ألفا خط الحاشية "
 
 #: ../plugins/document-manager/plugin.c:298
@@ -3374,17 +3310,17 @@ msgstr "إظهار/إخفاء شريط حالة النّافذة."
 
 #: ../plugins/document-manager/plugin.c:300
 #, fuzzy
-msgid "_Markers Margin"
+msgid "_Marker Margin"
 msgstr "<b>الحاشية اليمنى</b>"
 
 #: ../plugins/document-manager/plugin.c:301
 #, fuzzy
-msgid "Show/Hide markers margin"
+msgid "Show/Hide marker margin"
 msgstr "إظهار/إخفاء شريط حالة النّافذة."
 
 #: ../plugins/document-manager/plugin.c:303
 #, fuzzy
-msgid "_Code fold margin"
+msgid "_Code Fold Margin"
 msgstr "عرض الحاشية اليمنى"
 
 #: ../plugins/document-manager/plugin.c:304
@@ -3393,7 +3329,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:306
 #, fuzzy
-msgid "_Indentation guides"
+msgid "_Indentation Guides"
 msgstr "<b>تجويف آلي</b>"
 
 #: ../plugins/document-manager/plugin.c:307
@@ -3403,7 +3339,7 @@ msgstr "إظهار/إخفاء شريط حالة النّافذة."
 
 #: ../plugins/document-manager/plugin.c:309
 #, fuzzy
-msgid "_White spaces"
+msgid "_White Space"
 msgstr "إدرج فضاءات"
 
 #: ../plugins/document-manager/plugin.c:310
@@ -3413,7 +3349,7 @@ msgstr "إظهار/إخفاء شريط حالة النّافذة."
 
 #: ../plugins/document-manager/plugin.c:312
 #, fuzzy
-msgid "_Line end characters"
+msgid "_Line End Characters"
 msgstr "رموز (لا فضاءات)"
 
 #: ../plugins/document-manager/plugin.c:313
@@ -3422,7 +3358,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:315
 #, fuzzy
-msgid "Line _wrapping"
+msgid "Line _Wrapping"
 msgstr "نمط لف السطر"
 
 #: ../plugins/document-manager/plugin.c:316
@@ -3432,7 +3368,7 @@ msgstr "طباعة نمط لف السطور"
 
 #: ../plugins/document-manager/plugin.c:321
 #, fuzzy
-msgid "Zoom in"
+msgid "Zoom In"
 msgstr "تكبير"
 
 #: ../plugins/document-manager/plugin.c:322
@@ -3442,7 +3378,7 @@ msgstr "حجم الخط بوحدات بانكو"
 
 #: ../plugins/document-manager/plugin.c:324
 #, fuzzy
-msgid "Zoom out"
+msgid "Zoom Out"
 msgstr "تصغير"
 
 #: ../plugins/document-manager/plugin.c:325
@@ -3516,7 +3452,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:369
 #, fuzzy
-msgid "_Toggle bookmark"
+msgid "_Toggle Bookmark"
 msgstr "افتح المؤشرة %s"
 
 #: ../plugins/document-manager/plugin.c:371
@@ -3525,7 +3461,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:373
 #, fuzzy
-msgid "_First bookmark"
+msgid "_First Bookmark"
 msgstr "افتح المؤشرة %s"
 
 #: ../plugins/document-manager/plugin.c:375
@@ -3534,7 +3470,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:377
 #, fuzzy
-msgid "_Previous bookmark"
+msgid "_Previous Bookmark"
 msgstr "افتح المؤشرة %s"
 
 #: ../plugins/document-manager/plugin.c:379
@@ -3543,7 +3479,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:381
 #, fuzzy
-msgid "_Next bookmark"
+msgid "_Next Bookmark"
 msgstr "افتح المؤشرة %s"
 
 #: ../plugins/document-manager/plugin.c:383
@@ -3552,7 +3488,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:385
 #, fuzzy
-msgid "_Last bookmark"
+msgid "_Last Bookmark"
 msgstr "افتح المؤشرة %s"
 
 #: ../plugins/document-manager/plugin.c:387
@@ -3561,7 +3497,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:389
 #, fuzzy
-msgid "_Clear all bookmarks"
+msgid "_Clear All Bookmarks"
 msgstr "اختيار كل المؤشّرات أو النّصوص"
 
 #: ../plugins/document-manager/plugin.c:391
@@ -3631,6 +3567,7 @@ msgid "Editor view settings"
 msgstr "إعرض إعدادات الصوت"
 
 #: ../plugins/document-manager/plugin.c:505
+#: ../libanjuta/anjuta-save-prompt.c:186
 #, fuzzy
 msgid "Save"
 msgstr "حفظ"
@@ -3663,6 +3600,8 @@ msgstr "التكبير"
 
 #: ../plugins/document-manager/plugin.c:836
 #: ../plugins/document-manager/plugin.c:847
+#: ../plugins/debug-manager/breakpoints.c:133
+#: ../plugins/debug-manager/stack_trace.c:391
 #, fuzzy
 msgid "Line"
 msgstr "لف السّطور"
@@ -3851,6 +3790,7 @@ msgid "Enable HTML tags folding"
 msgstr ""
 
 #: ../plugins/editor/editor.glade.h:31
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
 #, fuzzy
 msgid "Enable automatic indentation"
 msgstr "_تفعيل التجويف الآلي"
@@ -3934,10 +3874,10 @@ msgstr "مائل"
 msgid "Line numbers margin width in pixels"
 msgstr "العرض بالبكسلات لسطر مؤشر التركيز"
 
-#: ../plugins/editor/editor.glade.h:49
-#: ../plugins/editor/print.c:1040
+#: ../plugins/editor/editor.glade.h:49 ../plugins/editor/print.c:1040
 #: ../plugins/sourceview/sourceview.glade.h:23
 #: ../plugins/sourceview/sourceview-print.c:99
+#: ../plugins/debug-manager/info.c:126
 #, fuzzy
 msgid "Lines"
 msgstr "خطوط"
@@ -3985,6 +3925,7 @@ msgid "Pressing backspace un-indents"
 msgstr "يزيح أو يزيل إزاحة السّطور المنتقاة."
 
 #: ../plugins/editor/editor.glade.h:58
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:8
 #, fuzzy
 msgid "Pressing tab indents"
 msgstr "تقلل ازاحة الفقرة"
@@ -4090,14 +4031,13 @@ msgstr "الملف: %s"
 msgid "%d"
 msgstr ""
 
-#: ../plugins/editor/print.c:872
-#: ../plugins/editor/print.c:884
+#: ../plugins/editor/print.c:872 ../plugins/editor/print.c:884
 #, fuzzy
 msgid "Printing..."
 msgstr "طباعة"
 
-#: ../plugins/editor/print.c:1031
-#: ../plugins/sourceview/sourceview-print.c:89
+#: ../plugins/editor/print.c:1031 ../plugins/sourceview/sourceview-print.c:89
+#: ../plugins/debug-manager/signals.c:339
 #, fuzzy
 msgid "Print"
 msgstr "طباعة"
@@ -4112,8 +4052,7 @@ msgstr "معاينة الطّباعة."
 msgid "Scintilla Editor"
 msgstr "<b>خط المحرر:</b>"
 
-#: ../plugins/editor/text_editor.c:334
-#: ../plugins/sourceview/sourceview.c:166
+#: ../plugins/editor/text_editor.c:334 ../plugins/sourceview/sourceview.c:166
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4143,7 +4082,10 @@ msgstr ""
 "%s"
 
 #: ../plugins/editor/text_editor.c:1335
-msgid "The file does not look like a text file or the file encoding is not supported. Please check if the encoding of file is in the supported encodings list. If not, add it from the preferences."
+msgid ""
+"The file does not look like a text file or the file encoding is not "
+"supported. Please check if the encoding of file is in the supported "
+"encodings list. If not, add it from the preferences."
 msgstr ""
 
 #: ../plugins/editor/text_editor.c:1492
@@ -4349,15 +4291,13 @@ msgid "Tags"
 msgstr "علامات"
 
 #. 13
-#: ../plugins/editor/text_editor_menu.c:320
-#: ../plugins/gdb/utilities.c:327
+#: ../plugins/editor/text_editor_menu.c:320 ../plugins/gdb/utilities.c:327
 #, fuzzy
 msgid "Debug"
 msgstr "تنقيح"
 
 #. 15
-#: ../plugins/editor/text_editor_menu.c:330
-#: ../plugins/valgrind/plugin.c:148
+#: ../plugins/editor/text_editor_menu.c:330 ../plugins/valgrind/plugin.c:148
 #, fuzzy
 msgid "Options"
 msgstr "خيارات"
@@ -4385,7 +4325,8 @@ msgstr ""
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
 "\n"
-"There is no plugin, default action, or application configured to handle this file type.\n"
+"There is no plugin, default action, or application configured to handle this "
+"file type.\n"
 "\n"
 "Mime type: %s.\n"
 "\n"
@@ -4403,7 +4344,7 @@ msgstr "الفتح بـاستخدام"
 msgid "Document Manager"
 msgstr "مدير المحفوظات"
 
-#: ../plugins/file-loader/plugin.c:464
+#: ../plugins/file-loader/plugin.c:464 ../plugins/debug-manager/start.c:1017
 #, fuzzy
 msgid "All files"
 msgstr "جميع الملفات"
@@ -4491,32 +4432,27 @@ msgstr "اضف دليل فارغ جديد"
 msgid "_Open..."
 msgstr "_فتح..."
 
-#: ../plugins/file-loader/plugin.c:843
-#: ../plugins/file-loader/plugin.c:856
+#: ../plugins/file-loader/plugin.c:843 ../plugins/file-loader/plugin.c:856
 #, fuzzy
 msgid "_Open"
 msgstr "_فتح"
 
-#: ../plugins/file-loader/plugin.c:850
-#: ../plugins/file-loader/plugin.c:863
+#: ../plugins/file-loader/plugin.c:850 ../plugins/file-loader/plugin.c:863
 #, fuzzy
 msgid "Open _With"
 msgstr "الفتح بـاستخدام"
 
-#: ../plugins/file-loader/plugin.c:851
-#: ../plugins/file-loader/plugin.c:864
+#: ../plugins/file-loader/plugin.c:851 ../plugins/file-loader/plugin.c:864
 #, fuzzy
 msgid "Open with"
 msgstr "الفتح بـاستخدام"
 
-#: ../plugins/file-loader/plugin.c:1176
-#: ../plugins/file-loader/plugin.c:1182
+#: ../plugins/file-loader/plugin.c:1176 ../plugins/file-loader/plugin.c:1182
 #, fuzzy
 msgid "File Loader"
 msgstr "إنتقاء ملف"
 
-#: ../plugins/file-loader/plugin.c:1188
-#: ../plugins/file-loader/plugin.c:1198
+#: ../plugins/file-loader/plugin.c:1188 ../plugins/file-loader/plugin.c:1198
 #, fuzzy
 msgid "New"
 msgstr "جديد"
@@ -4558,8 +4494,9 @@ msgid "Loading..."
 msgstr "تحميل..."
 
 #. Register actions
-#: ../plugins/file-manager/an_file_view.c:913
-#: ../src/anjuta-app.c:493
+#: ../plugins/file-manager/an_file_view.c:913 ../src/anjuta-app.c:493
+#: ../plugins/debug-manager/breakpoints.c:133
+#: ../plugins/debug-manager/stack_trace.c:382
 #, fuzzy
 msgid "File"
 msgstr "الملف"
@@ -4575,7 +4512,9 @@ msgstr ""
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
 #: ../plugins/search/anjuta-search.glade.h:3
-msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4"
+msgid ""
+"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
+"README AUTHORS ChangeLog *.m4"
 msgstr ""
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
@@ -4669,8 +4608,7 @@ msgstr ""
 msgid "dialog3"
 msgstr ""
 
-#: ../plugins/file-manager/plugin.c:49
-#: ../plugins/project-manager/plugin.c:677
+#: ../plugins/file-manager/plugin.c:49 ../plugins/project-manager/plugin.c:677
 #: ../plugins/symbol-browser/plugin.c:323
 #, fuzzy
 msgid "_Refresh"
@@ -4691,8 +4629,7 @@ msgstr "اظهر الدليل في مدير الملفات"
 msgid "Files"
 msgstr "ملفات"
 
-#: ../plugins/file-manager/plugin.c:281
-#: ../plugins/file-manager/plugin.c:292
+#: ../plugins/file-manager/plugin.c:281 ../plugins/file-manager/plugin.c:292
 #, fuzzy
 msgid "File Manager"
 msgstr "مدير الملفات"
@@ -4828,18 +4765,17 @@ msgstr "تشغيل برنامج"
 msgid "Run in Terminal"
 msgstr "تنفيذ في _شاشة طرفية"
 
-#: ../plugins/gdb/debugger.c:569
-#: ../plugins/gdb/debugger.c:761
+#: ../plugins/gdb/debugger.c:612 ../plugins/gdb/debugger.c:804
 #, fuzzy
 msgid "Loading Executable: "
 msgstr "تحميل \"%s\"..."
 
-#: ../plugins/gdb/debugger.c:599
+#: ../plugins/gdb/debugger.c:642
 #, fuzzy
 msgid "Loading Core: "
 msgstr "الكلمات النووية"
 
-#: ../plugins/gdb/debugger.c:635
+#: ../plugins/gdb/debugger.c:678
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4847,312 +4783,313 @@ msgid ""
 "Make sure Anjuta is installed correctly."
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:755
+#: ../plugins/gdb/debugger.c:798
 msgid "Getting ready to start debugging session...\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:770
+#: ../plugins/gdb/debugger.c:813
 #, fuzzy
 msgid "No executable specified.\n"
 msgstr "لم يحدّد عنوان"
 
-#: ../plugins/gdb/debugger.c:773
+#: ../plugins/gdb/debugger.c:816
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:782
+#: ../plugins/gdb/debugger.c:825
 #, fuzzy
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "حصل خطأ اثناء تشغيل أداة لوحة المفاتيح: %s"
 
-#: ../plugins/gdb/debugger.c:786
+#: ../plugins/gdb/debugger.c:829
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1059
+#: ../plugins/gdb/debugger.c:1099
 #, fuzzy
 msgid "Program exited normally\n"
 msgstr "خرج الأمر بشذوذ."
 
-#: ../plugins/gdb/debugger.c:1070
+#: ../plugins/gdb/debugger.c:1110
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1087
+#: ../plugins/gdb/debugger.c:1127
 #, c-format
 msgid "Program received signal %s (%s) and exited\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1105
+#: ../plugins/gdb/debugger.c:1145
 #, fuzzy, c-format
 msgid "Program received signal %s (%s)\n"
 msgstr "تلقيت اﻻشارة %d، سيغلق الحاسوب بسلامة"
 
-#: ../plugins/gdb/debugger.c:1120
+#: ../plugins/gdb/debugger.c:1160
 #, fuzzy, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "إصابة ناعمة 17"
 
-#: ../plugins/gdb/debugger.c:1129
+#: ../plugins/gdb/debugger.c:1169
 #, fuzzy
 msgid "Function finished\n"
 msgstr "دالة جيب التمام"
 
-#: ../plugins/gdb/debugger.c:1135
+#: ../plugins/gdb/debugger.c:1175
 #, fuzzy
 msgid "Stepping finished\n"
 msgstr "إنتهاء اكتشاف NAT"
 
-#: ../plugins/gdb/debugger.c:1141
+#: ../plugins/gdb/debugger.c:1181
 #, fuzzy
 msgid "Location reached\n"
 msgstr "تم الوصول إلى فترة الاستراحة"
 
-#: ../plugins/gdb/debugger.c:1216
+#: ../plugins/gdb/debugger.c:1256
 #, fuzzy
 msgid "Debugger is ready.\n"
 msgstr "شاشة تسجيل ال_دخول جاهزة:"
 
-#: ../plugins/gdb/debugger.c:1407
+#: ../plugins/gdb/debugger.c:1447
 #, c-format
 msgid "gdb terminated unexpectedly with error code %d\n"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1447
+#: ../plugins/gdb/debugger.c:1485
 msgid ""
-"Program is ATTACHED.\n"
-"Do you still want to stop Debugger?"
+"The program is attached.\n"
+"Do you still want to stop the debugger?"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1450
+#: ../plugins/gdb/debugger.c:1488
 msgid ""
-"Program is RUNNING.\n"
-"Do you still want to stop Debugger?"
+"The program is running.\n"
+"Do you still want to stop the debugger?"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1704
+#: ../plugins/gdb/debugger.c:1742
 #, fuzzy
 msgid "Cannot execute gnome-terminal"
 msgstr "شاشة طرفية لسطح المكتب جنوم"
 
-#: ../plugins/gdb/debugger.c:1740
+#: ../plugins/gdb/debugger.c:1778
 msgid "Cannot start terminal for debugging."
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1843
+#: ../plugins/gdb/debugger.c:1881
 #, fuzzy
 msgid "Program attached\n"
 msgstr "تشغيل برنامج"
 
-#: ../plugins/gdb/debugger.c:1860
+#: ../plugins/gdb/debugger.c:1898
 #, fuzzy, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "خطأ: لم يمكن معالجة الإمتداد"
 
-#: ../plugins/gdb/debugger.c:1886
+#: ../plugins/gdb/debugger.c:1924
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1903
+#: ../plugins/gdb/debugger.c:1941
 msgid "Anjuta is unable to attach to itself."
 msgstr ""
 
-#: ../plugins/gdb/debugger.c:1953
+#: ../plugins/gdb/debugger.c:1991
 #, fuzzy
 msgid "Program terminated\n"
 msgstr "تشغيل برنامج"
 
-#: ../plugins/gdb/debugger.c:1968
+#: ../plugins/gdb/debugger.c:2006
 #, fuzzy
 msgid "Program detached\n"
 msgstr "تشغيل برنامج"
 
-#: ../plugins/gdb/debugger.c:1987
+#: ../plugins/gdb/debugger.c:2025
 #, fuzzy
 msgid "Detaching the process...\n"
 msgstr "قيد العمل"
 
-#: ../plugins/gdb/debugger.c:2009
+#: ../plugins/gdb/debugger.c:2047
 #, fuzzy
 msgid "Interrupting the process\n"
 msgstr "قيد العمل"
 
-#: ../plugins/gdb/debugger.c:3446
+#: ../plugins/gdb/debugger.c:3575
 #, fuzzy, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "%s: خطأ في ضبط الإشارة %d لـ %s"
 
-#: ../plugins/gdb/debugger.c:3472
+#: ../plugins/gdb/debugger.c:3601
 #, fuzzy
 msgid "Error whilst signaling the process."
 msgstr "خطأ: لم يمكن معالجة الإمتداد"
 
-#: ../plugins/glade/plugin.c:91
+#: ../plugins/glade/plugin.c:95
 #, fuzzy, c-format
 msgid "_Undo: %s"
 msgstr "إ_لغاء"
 
-#: ../plugins/glade/plugin.c:96
-#: ../plugins/glade/plugin.c:450
+#: ../plugins/glade/plugin.c:100 ../plugins/glade/plugin.c:475
 #, fuzzy
 msgid "_Undo"
 msgstr "إ_لغاء"
 
-#: ../plugins/glade/plugin.c:101
+#: ../plugins/glade/plugin.c:105
 #, fuzzy, c-format
 msgid "_Redo: %s"
 msgstr "تكرار"
 
-#: ../plugins/glade/plugin.c:183
-#: ../plugins/glade/plugin.c:207
+#: ../plugins/glade/plugin.c:187 ../plugins/glade/plugin.c:211
 #, fuzzy
 msgid "Invalid glade file name"
 msgstr "اسم ملف البرنامج المنهار"
 
 #. FIXME: gpw_refresh_project_entry (gpw, project);
-#: ../plugins/glade/plugin.c:187
-#: ../plugins/glade/plugin.c:204
+#: ../plugins/glade/plugin.c:191 ../plugins/glade/plugin.c:208
 #, fuzzy, c-format
 msgid "Glade project '%s' saved"
 msgstr "_تحرير.البحوث المحفوظة..."
 
 #. If instead we dont have a path yet, fire up a file selector
-#: ../plugins/glade/plugin.c:213
+#: ../plugins/glade/plugin.c:217
 #, fuzzy
 msgid "Save glade file..."
 msgstr "حفظ الملف كـ"
 
-#: ../plugins/glade/plugin.c:238
+#: ../plugins/glade/plugin.c:242
 #, fuzzy
 msgid "Save glade file as..."
 msgstr "حفظ ملف لوحة المفاتيح كـ"
 
-#: ../plugins/glade/plugin.c:266
+#: ../plugins/glade/plugin.c:270
 #, c-format
 msgid ""
-"<span weight=\"bold\" size=\"larger\">Save changes to glade project \"%s\" before closing?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Save changes to glade project \"%s\" "
+"before closing?</span>\n"
 "\n"
 "Your changes will be lost if you don't save them.\n"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:279
+#: ../plugins/glade/plugin.c:283
 #, fuzzy
 msgid "_Close without Saving"
 msgstr "غلق _دون حفظ"
 
-#: ../plugins/glade/plugin.c:301
+#: ../plugins/glade/plugin.c:305
 #, fuzzy
 msgid "Save glade project..."
 msgstr "احفظ و اخرج"
 
-#: ../plugins/glade/plugin.c:442
+#: ../plugins/glade/plugin.c:467
 msgid "_Glade"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:452
+#: ../plugins/glade/plugin.c:477
 #, fuzzy
 msgid "Undo last action"
 msgstr "تراجع عن العمل الأخير"
 
-#: ../plugins/glade/plugin.c:460
+#: ../plugins/glade/plugin.c:485
 #, fuzzy
 msgid "Redo last undone action"
 msgstr "تكرار آخر عملية متراجع عنها"
 
-#: ../plugins/glade/plugin.c:466
-#: ../plugins/valgrind/vgdefaultview.c:1152
+#: ../plugins/glade/plugin.c:491 ../plugins/valgrind/vgdefaultview.c:1152
 #, fuzzy
 msgid "Cu_t"
 msgstr "_قص"
 
-#: ../plugins/glade/plugin.c:468
+#: ../plugins/glade/plugin.c:493
 #, fuzzy
 msgid "Cut selection"
 msgstr "قص المنتقى"
 
-#: ../plugins/glade/plugin.c:476
+#: ../plugins/glade/plugin.c:501
 #, fuzzy
 msgid "Copy selection"
 msgstr "نسخ المنتقى"
 
-#: ../plugins/glade/plugin.c:484
+#: ../plugins/glade/plugin.c:509
 #, fuzzy
 msgid "Paste selection"
 msgstr "لصق المنتقى"
 
-#: ../plugins/glade/plugin.c:490
+#: ../plugins/glade/plugin.c:515
 #, fuzzy
 msgid "_Delete"
 msgstr "إح_ذف"
 
-#: ../plugins/glade/plugin.c:492
+#: ../plugins/glade/plugin.c:517
 #, fuzzy
 msgid "Delete selection"
 msgstr "حذف المنتقى من المحفوظة"
 
-#: ../plugins/glade/plugin.c:498
+#: ../plugins/glade/plugin.c:523
 #, fuzzy
 msgid "_Show Clipboard"
 msgstr "لصق الحافظة الوسيطة"
 
-#: ../plugins/glade/plugin.c:500
+#: ../plugins/glade/plugin.c:525
 #, fuzzy
 msgid "Show clipboard"
 msgstr "لصق الحافظة الوسيطة"
 
-#: ../plugins/glade/plugin.c:508
+#: ../plugins/glade/plugin.c:533
 #, fuzzy
 msgid "Save glade project"
 msgstr "احفظ و اخرج"
 
-#: ../plugins/glade/plugin.c:516
+#: ../plugins/glade/plugin.c:541
 #, fuzzy
 msgid "Save as glade project"
 msgstr "حفظ نتائج البحث كـ..."
 
-#: ../plugins/glade/plugin.c:522
+#: ../plugins/glade/plugin.c:547
 #, fuzzy
 msgid "Clos_e"
 msgstr "اغل_ق جميع المجلّدات"
 
-#: ../plugins/glade/plugin.c:524
+#: ../plugins/glade/plugin.c:549
 #, fuzzy
 msgid "Close current glade project"
 msgstr "حفظ الملف الحالي ثم غلق النافذة"
 
-#: ../plugins/glade/plugin.c:688
+#: ../plugins/glade/plugin.c:751
 #, fuzzy
 msgid "Glade operations"
 msgstr "إعرض تاريخ العمليات"
 
-#: ../plugins/glade/plugin.c:706
+#: ../plugins/glade/plugin.c:774
 msgid "Widgets"
 msgstr ""
 
-#: ../plugins/glade/plugin.c:711
+#: ../plugins/glade/plugin.c:779
 #, fuzzy
 msgid "Palette"
 msgstr "ال_لوحة:"
 
-#: ../plugins/glade/plugin.c:716
+#: ../plugins/glade/plugin.c:784
 #, fuzzy
 msgid "Properties"
 msgstr "خصائص"
 
-#: ../plugins/glade/plugin.c:840
+#: ../plugins/glade/plugin.c:790
+msgid "Designer"
+msgstr ""
+
+#: ../plugins/glade/plugin.c:920
 #, fuzzy, c-format
 msgid "Not local file: %s"
 msgstr "ملف البريد المحلّي %s"
 
-#: ../plugins/glade/plugin.c:848
+#: ../plugins/glade/plugin.c:928
 #, fuzzy, c-format
 msgid "Could not open: %s"
 msgstr "تعذّر فتح `%s'"
 
-#: ../plugins/glade/plugin.c:879
+#: ../plugins/glade/plugin.c:959
 msgid "Could not create a new glade project."
 msgstr ""
 
@@ -5187,10 +5124,8 @@ msgstr "الملخّص:"
 msgid "Category:"
 msgstr "الصنف"
 
-#: ../plugins/gtodo/add_edit_item.c:186
-#: ../plugins/gtodo/add_edit_item.c:469
-#: ../plugins/gtodo/mcategory.c:20
-#: ../plugins/gtodo/todo_db.c:67
+#: ../plugins/gtodo/add_edit_item.c:186 ../plugins/gtodo/add_edit_item.c:469
+#: ../plugins/gtodo/mcategory.c:20 ../plugins/gtodo/todo_db.c:67
 #: ../plugins/gtodo/todo_db.c:68
 #, fuzzy
 msgid "Edit Categories"
@@ -5212,23 +5147,20 @@ msgstr "التنبيه حين اكتمال الشحن"
 msgid "Priority:"
 msgstr "الأولويّة:"
 
-#: ../plugins/gtodo/add_edit_item.c:242
-#: ../plugins/gtodo/list_tooltip.c:69
+#: ../plugins/gtodo/add_edit_item.c:242 ../plugins/gtodo/list_tooltip.c:69
 #: ../plugins/gtodo/todo_db.c:124
 #, fuzzy
 msgid "High"
 msgstr "عال"
 
-#: ../plugins/gtodo/add_edit_item.c:244
-#: ../plugins/gtodo/list_tooltip.c:65
+#: ../plugins/gtodo/add_edit_item.c:244 ../plugins/gtodo/list_tooltip.c:65
 #: ../plugins/gtodo/todo_db.c:123
 #, fuzzy
 msgid "Medium"
 msgstr "متوسط"
 
 #. create a priority string
-#: ../plugins/gtodo/add_edit_item.c:246
-#: ../plugins/gtodo/list_tooltip.c:61
+#: ../plugins/gtodo/add_edit_item.c:246 ../plugins/gtodo/list_tooltip.c:61
 #: ../plugins/gtodo/todo_db.c:122
 #, fuzzy
 msgid "Low"
@@ -5259,8 +5191,7 @@ msgstr "بادئ"
 msgid "<i>stopped: n/a</i>"
 msgstr "وقف."
 
-#: ../plugins/gtodo/add_edit_item.c:334
-#: ../plugins/gtodo/add_edit_item.c:335
+#: ../plugins/gtodo/add_edit_item.c:334 ../plugins/gtodo/add_edit_item.c:335
 msgid "n/a"
 msgstr ""
 
@@ -5288,8 +5219,7 @@ msgstr ""
 msgid "Are you sure you want to remove the selected todo item?"
 msgstr "أمتأكدٌ أنّك تريد حذف العنصر المنتقى نهائيّاً؟"
 
-#: ../plugins/gtodo/callback.c:15
-#: ../plugins/gtodo/callback.c:101
+#: ../plugins/gtodo/callback.c:15 ../plugins/gtodo/callback.c:101
 #, fuzzy
 msgid "Remove"
 msgstr "احذف"
@@ -5300,7 +5230,9 @@ msgstr ""
 
 #: ../plugins/gtodo/callback.c:99
 #, c-format
-msgid "Are you sure you want to remove all the completed todo items in the category \"%s\"?"
+msgid ""
+"Are you sure you want to remove all the completed todo items in the category "
+"\"%s\"?"
 msgstr ""
 
 #: ../plugins/gtodo/egg-datetime.c:296
@@ -5514,15 +5446,13 @@ msgstr "تاريخ آخر"
 msgid "24hr: no"
 msgstr "لا تاريخ"
 
-#: ../plugins/gtodo/egg-datetime.c:796
-#: ../plugins/gtodo/egg-datetime.c:1340
+#: ../plugins/gtodo/egg-datetime.c:796 ../plugins/gtodo/egg-datetime.c:1340
 #: ../plugins/gtodo/egg-datetime.c:1344
 #, fuzzy
 msgid "AM"
 msgstr "ص"
 
-#: ../plugins/gtodo/egg-datetime.c:798
-#: ../plugins/gtodo/egg-datetime.c:1341
+#: ../plugins/gtodo/egg-datetime.c:798 ../plugins/gtodo/egg-datetime.c:1341
 #: ../plugins/gtodo/egg-datetime.c:1348
 #, fuzzy
 msgid "PM"
@@ -5552,8 +5482,7 @@ msgstr "%d:%02d"
 msgid "%02d:%02d"
 msgstr "%d:%02d"
 
-#: ../plugins/gtodo/egg-datetime.c:1243
-#: ../plugins/gtodo/egg-datetime.c:1295
+#: ../plugins/gtodo/egg-datetime.c:1243 ../plugins/gtodo/egg-datetime.c:1295
 #: ../plugins/gtodo/todo_db.c:157
 #, fuzzy
 msgid "No Date"
@@ -5566,8 +5495,7 @@ msgstr "تاريخ آخر"
 msgid "%04d-%02d-%02d"
 msgstr "(%d:%02d:%d متبقيّة)"
 
-#: ../plugins/gtodo/egg-datetime.c:1279
-#: ../plugins/gtodo/egg-datetime.c:2323
+#: ../plugins/gtodo/egg-datetime.c:1279 ../plugins/gtodo/egg-datetime.c:2323
 #, fuzzy
 msgid "no end time"
 msgstr "زمن الإنتهاء خاطئ"
@@ -5593,8 +5521,7 @@ msgstr "إتجاه الطبق."
 msgid "Export to"
 msgstr "تصدير بصيغة HTML"
 
-#: ../plugins/gtodo/interface.c:34
-#: ../src/anjuta-actions.h:34
+#: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:34
 #: ../src/shell.c:77
 #, fuzzy
 msgid "_View"
@@ -5670,7 +5597,9 @@ msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
 msgstr ""
 
 #: ../plugins/gtodo/interface.c:279
-msgid "<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)</span>"
+msgid ""
+"<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux."
+"org)</span>"
 msgstr ""
 
 #: ../plugins/gtodo/libgtodo.c:609
@@ -5678,8 +5607,7 @@ msgstr ""
 msgid "No permission to read the file."
 msgstr "فشلت القراءة من الملف '%s': %s"
 
-#: ../plugins/gtodo/libgtodo.c:636
-#: ../plugins/gtodo/libgtodo.c:646
+#: ../plugins/gtodo/libgtodo.c:636 ../plugins/gtodo/libgtodo.c:646
 #, fuzzy
 msgid "Failed to parse xml structure"
 msgstr "خطأ في إعراب ملف XML"
@@ -5780,14 +5708,12 @@ msgstr "تعليق:"
 msgid "When you delete the category \"%s\", all containing items are lost"
 msgstr ""
 
-#: ../plugins/gtodo/mcategory.c:146
-#: ../plugins/subversion/svn-notify.c:79
+#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:79
 #, fuzzy
 msgid "Delete"
 msgstr "حذف"
 
-#: ../plugins/gtodo/mcategory.c:166
-#: ../plugins/gtodo/mcategory.c:174
+#: ../plugins/gtodo/mcategory.c:166 ../plugins/gtodo/mcategory.c:174
 #, fuzzy
 msgid "enter name"
 msgstr "ادخل اسم تقويم"
@@ -5795,7 +5721,8 @@ msgstr "ادخل اسم تقويم"
 #: ../plugins/gtodo/notification.c:65
 #, c-format
 msgid ""
-"<spam weight=\"bold\" size=\"larger\">The following item is due in %i minutes:</span>\n"
+"<spam weight=\"bold\" size=\"larger\">The following item is due in %i "
+"minutes:</span>\n"
 " %s"
 msgstr ""
 
@@ -5828,7 +5755,7 @@ msgid "Hide completed todo items"
 msgstr "إ_خفاء المهام المُنجزة بعد"
 
 #: ../plugins/gtodo/plugin.c:83
-msgid "Hide items that are past _due date"
+msgid "Hide Items Past _Due Date"
 msgstr ""
 
 #: ../plugins/gtodo/plugin.c:85
@@ -5836,7 +5763,7 @@ msgid "Hide items that are past due date"
 msgstr ""
 
 #: ../plugins/gtodo/plugin.c:92
-msgid "Hide items without an _end date"
+msgid "Hide Items Without _End Date"
 msgstr ""
 
 #: ../plugins/gtodo/plugin.c:94
@@ -5858,8 +5785,7 @@ msgstr "اظهر الدليل في مدير الملفات"
 msgid "Tasks"
 msgstr "المهام"
 
-#: ../plugins/gtodo/plugin.c:266
-#: ../plugins/gtodo/plugin.c:275
+#: ../plugins/gtodo/plugin.c:266 ../plugins/gtodo/plugin.c:275
 #, fuzzy
 msgid "Todo Manager"
 msgstr "مدير المحفوظات"
@@ -5982,7 +5908,8 @@ msgstr "عرض خيارات الأسئلة"
 #: ../plugins/gtodo/preferences.c:294
 msgid ""
 "Showing Tooltips in the todo list is still very alpha.\n"
-"Because of some weird behaviour in gtk it only works with the column headers disabled.\n"
+"Because of some weird behaviour in gtk it only works with the column headers "
+"disabled.\n"
 "I hope to get this fixed soon"
 msgstr ""
 
@@ -6051,8 +5978,7 @@ msgstr ""
 msgid "/_Quit"
 msgstr "إ_نهي"
 
-#: ../plugins/gtodo/tray-icon.c:74
-#: ../plugins/gtodo/tray-icon.c:132
+#: ../plugins/gtodo/tray-icon.c:74 ../plugins/gtodo/tray-icon.c:132
 #, fuzzy
 msgid "Todo List"
 msgstr "قائمة الحسابات"
@@ -6426,8 +6352,7 @@ msgid "Warnings:"
 msgstr "تجاهل الأخطاء"
 
 #: ../plugins/message-view/message-view.c:663
-#: ../plugins/message-view/plugin.c:216
-#: ../plugins/message-view/plugin.c:395
+#: ../plugins/message-view/plugin.c:216 ../plugins/message-view/plugin.c:395
 #: ../plugins/message-view/plugin.c:407
 #, fuzzy
 msgid "Messages"
@@ -6440,7 +6365,7 @@ msgstr "خطأ في كتابة الملف '%s': %s"
 
 #: ../plugins/message-view/plugin.c:73
 #, fuzzy
-msgid "_Next message"
+msgid "_Next Message"
 msgstr "الرّسالة ال_تّالية"
 
 #: ../plugins/message-view/plugin.c:74
@@ -6450,7 +6375,7 @@ msgstr "الرّسالة ال_تّالية"
 
 #: ../plugins/message-view/plugin.c:77
 #, fuzzy
-msgid "_Previous message"
+msgid "_Previous Message"
 msgstr "ال_رّسالة السابقة"
 
 #: ../plugins/message-view/plugin.c:78
@@ -6460,7 +6385,7 @@ msgstr "ال_رّسالة السابقة"
 
 #: ../plugins/message-view/plugin.c:81
 #, fuzzy
-msgid "_Save message"
+msgid "_Save Message"
 msgstr "حفظ الرّسالة..."
 
 #: ../plugins/message-view/plugin.c:82
@@ -6483,8 +6408,7 @@ msgstr "الدليل للاضافته الى ملف الإعدادات"
 msgid "Patch file"
 msgstr "إنتقاء ملف"
 
-#: ../plugins/patch/patch-plugin.c:118
-#: ../plugins/patch/patch-plugin.glade.h:2
+#: ../plugins/patch/patch-plugin.c:118 ../plugins/patch/patch-plugin.glade.h:2
 msgid "Patch"
 msgstr ""
 
@@ -6519,8 +6443,7 @@ msgstr "تشغيل برنامج"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:61
-#: ../plugins/tools/plugin.c:135
+#: ../plugins/patch/plugin.c:61 ../plugins/tools/plugin.c:135
 #, fuzzy
 msgid "_Tools"
 msgstr "أد_وات"
@@ -6608,12 +6531,15 @@ msgid "Import Project"
 msgstr "استيراد مؤشّرات"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
-msgid "This wizard will help you to import an existing project into anjuta."
+msgid "This wizard will import an existing project into Anjuta."
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:95
 #, c-format
-msgid "Could not find a valid project backend for the directory given (%s). Please select a different directory, or try upgrading to a newer version of the Gnome Build Framework."
+msgid ""
+"Could not find a valid project backend for the directory given (%s). Please "
+"select a different directory, or try upgrading to a newer version of the "
+"Gnome Build Framework."
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:116
@@ -6625,12 +6551,16 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:294
-msgid "Generation of project file failed. Cannot find an appropriate project template to use. Please make sure your version of Anjuta is up to date."
+msgid ""
+"Generation of project file failed. Cannot find an appropriate project "
+"template to use. Please make sure your version of Anjuta is up to date."
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:324
 #, c-format
-msgid "Generation of project file failed. Please check if you have write access to the project directory: %s"
+msgid ""
+"Generation of project file failed. Please check if you have write access to "
+"the project directory: %s"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:268
@@ -6875,7 +6805,11 @@ msgid "Project Type"
 msgstr "نوع التّنبيه"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
-msgid "The Application Wizard will generate a basic skeleton for a project, including all of the build files. It will ask for details of the initial structure for the application. Please answer the questions carefully, as it may not be possible to change some of the settings later."
+msgid ""
+"The Application Wizard will generate a basic skeleton for a project, "
+"including all of the build files. It will ask for details of the initial "
+"structure for the application. Please answer the questions carefully, as it "
+"may not be possible to change some of the settings later."
 msgstr ""
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
@@ -6912,7 +6846,9 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:512
 #, c-format
-msgid "Directory \"%s\" is not empty. Project creation could fail if some files cannot be written. Do you want to continue?"
+msgid ""
+"Directory \"%s\" is not empty. Project creation could fail if some files "
+"cannot be written. Do you want to continue?"
 msgstr ""
 
 #: ../plugins/project-wizard/druid.c:514
@@ -6920,11 +6856,13 @@ msgstr ""
 msgid "File \"%s\" already exists. Do you want to overwrite it ?"
 msgstr "هناك ملف باسم '%s' موجود حاليا. هل تريد تنميقه؟"
 
-#: ../plugins/project-wizard/druid.c:825
-msgid "Could not find autogen version 5, please install the autogen package. You can get it from http://autogen.sourceforge.net"
+#: ../plugins/project-wizard/druid.c:828
+msgid ""
+"Could not find autogen version 5, please install the autogen package. You "
+"can get it from http://autogen.sourceforge.net"
 msgstr ""
 
-#: ../plugins/project-wizard/druid.c:833
+#: ../plugins/project-wizard/druid.c:836
 msgid "Unable to build project wizard user interface"
 msgstr ""
 
@@ -6971,6 +6909,9 @@ msgstr "خواتم وقتية للملفات الجديدة"
 
 #: ../plugins/project-wizard/property.c:209
 #: ../plugins/project-wizard/property.c:223
+#: ../plugins/debug-manager/signals.c:194
+#: ../plugins/debug-manager/signals.c:207
+#: ../plugins/debug-manager/signals.c:220
 #, fuzzy
 msgid "No"
 msgstr "لا"
@@ -7212,7 +7153,9 @@ msgstr ""
 
 #: ../plugins/search/plugin.c:329
 #, c-format
-msgid "Incremental search for '%s' failed. Press Enter or click Find to continue searching at the top."
+msgid ""
+"Incremental search for '%s' failed. Press Enter or click Find to continue "
+"searching at the top."
 msgstr ""
 
 #: ../plugins/search/plugin.c:336
@@ -7239,8 +7182,7 @@ msgstr ""
 msgid "Find _Next"
 msgstr "بحث عن ال_تالي"
 
-#: ../plugins/search/plugin.c:494
-#: ../plugins/search/plugin.c:498
+#: ../plugins/search/plugin.c:494 ../plugins/search/plugin.c:498
 msgid "Repeat the last Find command"
 msgstr ""
 
@@ -7255,7 +7197,8 @@ msgid "Find and R_eplace..."
 msgstr "ابحث و استبدل"
 
 #: ../plugins/search/plugin.c:502
-msgid "Search for and replace a string or regular expression with another string"
+msgid ""
+"Search for and replace a string or regular expression with another string"
 msgstr ""
 
 #: ../plugins/search/plugin.c:504
@@ -7287,7 +7230,7 @@ msgstr ""
 
 #: ../plugins/search/plugin.c:515
 #, fuzzy
-msgid "Ne_xt occurrence"
+msgid "Ne_xt Occurrence"
 msgstr "إيجاد الت_الي"
 
 #: ../plugins/search/plugin.c:516
@@ -7297,7 +7240,7 @@ msgstr "ايجاد الحدث التالي لالسلسلة أو الجملة"
 
 #: ../plugins/search/plugin.c:519
 #, fuzzy
-msgid "Pre_vious occurrence"
+msgid "Pre_vious Occurrence"
 msgstr "إيجاد ال_سابق"
 
 #: ../plugins/search/plugin.c:520
@@ -7323,13 +7266,13 @@ msgstr "عرض عمود الأدوات"
 msgid "Basic Search"
 msgstr "بحث في الويب"
 
-#: ../plugins/search/search_preferences.c:520
+#: ../plugins/search/search_preferences.c:523
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
 #, fuzzy
 msgid "Default"
 msgstr "الافتراضي"
 
-#: ../plugins/search/search_preferences.c:531
+#: ../plugins/search/search_preferences.c:534
 #, fuzzy
 msgid "Name"
 msgstr "اسم"
@@ -7480,88 +7423,92 @@ msgstr "لمحة الطباعة"
 msgid "<b>Subversion Options</b>"
 msgstr "<b>خيارات العرض:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 #, fuzzy
 msgid "Force"
 msgstr "إجبار الإنهاء"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
 #, fuzzy
 msgid "Password:"
 msgstr "كلمة المرور:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
 #, fuzzy
 msgid "Realm:"
 msgstr " النّطاق:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
 #, fuzzy
 msgid "Realm: "
 msgstr " النّطاق:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
 msgid "Recurse"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
+#: ../plugins/subversion/anjuta-subversion.glade.h:15
 #, fuzzy
 msgid "Remember Password"
 msgstr "تذكّر كلمة المرور هذه"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:15
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 #, fuzzy
 msgid "Remember this decision"
 msgstr "تذكّر كلمة المرور هذه"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 #, fuzzy
 msgid "Repository authorization"
 msgstr "المستودع غير متّصل"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 #, fuzzy
 msgid "Subversion Preferences"
 msgstr "خيارات داشر"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 #, fuzzy
 msgid "Subversion: Add file/directory"
 msgstr "الدليل للاضافته الى ملف الإعدادات"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:19
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 #, fuzzy
 msgid "Subversion: Commit file/directory"
 msgstr "الدليل الجذري لمتصفح الملفات "
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:20
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
+#, fuzzy
+msgid "Subversion: Diff file/directory"
+msgstr "الدليل للاضافته الى ملف الإعدادات"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 #, fuzzy
 msgid "Subversion: Remove file/directory"
 msgstr "الدليل للازالة من ملف الإعدادات"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:21
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
 #, fuzzy
 msgid "Subversion: Update file/directory"
 msgstr "الدليل الجذري لمتصفح الملفات "
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:22
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
 msgid "TODO!"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:23
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
 #, fuzzy
 msgid "Trust server"
 msgstr "نادل STUN"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:27
+#: ../plugins/subversion/anjuta-subversion.glade.h:29
 #, fuzzy
 msgid "realm"
 msgstr " النّطاق:"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:44
-#: ../plugins/subversion/plugin.c:95
+#: ../plugins/subversion/plugin.c:44 ../plugins/subversion/plugin.c:95
 msgid "_Subversion"
 msgstr ""
 
@@ -7580,15 +7527,13 @@ msgstr "الدليل للازالة من ملف الإعدادات"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:70
-#: ../plugins/subversion/plugin.c:105
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:105
 msgid "Commit your changes to the Subversion tree"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:78
-#: ../plugins/subversion/plugin.c:113
+#: ../plugins/subversion/plugin.c:78 ../plugins/subversion/plugin.c:113
 msgid "Sync your local copy with the Subversion tree"
 msgstr ""
 
@@ -7617,8 +7562,7 @@ msgstr ""
 msgid "svn.diff"
 msgstr "ملف الاختلافات"
 
-#: ../plugins/subversion/svn-auth.c:88
-#: ../plugins/subversion/svn-auth.c:138
+#: ../plugins/subversion/svn-auth.c:88 ../plugins/subversion/svn-auth.c:138
 #: ../plugins/subversion/svn-auth.c:195
 #, fuzzy
 msgid "Authentication canceled"
@@ -7743,8 +7687,7 @@ msgstr "خطأ تغيير الإرسال."
 msgid "Blame revision"
 msgstr "تاريخ التنقيح"
 
-#: ../plugins/subversion/svn-thread.c:73
-#: ../plugins/subversion/svn-thread.c:78
+#: ../plugins/subversion/svn-thread.c:73 ../plugins/subversion/svn-thread.c:78
 msgid "Subversion"
 msgstr ""
 
@@ -7922,9 +7865,8 @@ msgstr "إ_ستخدام خط الشاشة الطرفية المحدّد من ق�
 msgid "Use currently selected profile in GNOME terminal"
 msgstr ""
 
-#: ../plugins/terminal/terminal.c:603
-#: ../plugins/terminal/terminal.c:704
-#: ../plugins/terminal/terminal.c:721
+#: ../plugins/terminal/terminal.c:613 ../plugins/terminal/terminal.c:714
+#: ../plugins/terminal/terminal.c:731
 #, fuzzy
 msgid "Terminal"
 msgstr "شاشة طرفية"
@@ -8043,7 +7985,7 @@ msgstr "غير معرّف"
 msgid "Unable to build user interface for tool variable"
 msgstr ""
 
-#: ../plugins/tools/editor.c:456
+#: ../plugins/tools/editor.c:456 ../plugins/debug-manager/debug_tree.c:152
 #, fuzzy
 msgid "Variable"
 msgstr "متغير"
@@ -8052,7 +7994,8 @@ msgstr "متغير"
 msgid "Meaning"
 msgstr ""
 
-#: ../plugins/tools/editor.c:462
+#: ../plugins/tools/editor.c:462 ../plugins/debug-manager/debug_tree.c:152
+#: ../plugins/debug-manager/registers.c:257
 #, fuzzy
 msgid "Value"
 msgstr "القيمة"
@@ -8072,7 +8015,9 @@ msgid "A tool with the same name already exists!"
 msgstr ""
 
 #: ../plugins/tools/editor.c:730
-msgid "The shortcut is already used by another component in Anjuta. Do you want to keep it anyway ?"
+msgid ""
+"The shortcut is already used by another component in Anjuta. Do you want to "
+"keep it anyway ?"
 msgstr ""
 
 #: ../plugins/tools/editor.c:815
@@ -8214,15 +8159,14 @@ msgstr "عرض هدف الشاشة"
 msgid "Select debugging target"
 msgstr "عرض هدف الشاشة"
 
-#: ../plugins/valgrind/plugin.c:315
-#: ../plugins/valgrind/plugin.c:436
-#: ../plugins/valgrind/plugin.c:671
-#: ../plugins/valgrind/plugin.c:681
+#: ../plugins/valgrind/plugin.c:315 ../plugins/valgrind/plugin.c:436
+#: ../plugins/valgrind/plugin.c:671 ../plugins/valgrind/plugin.c:681
 msgid "Valgrind"
 msgstr ""
 
 #: ../plugins/valgrind/plugin.c:343
-msgid "No executable target selected for debugging with Valgrind.Please select one."
+msgid ""
+"No executable target selected for debugging with Valgrind.Please select one."
 msgstr ""
 
 #: ../plugins/valgrind/plugin.c:352
@@ -8250,28 +8194,28 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:464
 #, fuzzy
-msgid "_Select tool and run..."
+msgid "_Select Tool and Run..."
 msgstr "قاموس و أداة تهجئة"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:472
 #, fuzzy
-msgid "_Kill execution"
+msgid "_Kill Execution"
 msgstr "قتل الجلسة"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:480
 #, fuzzy
-msgid "_Load log"
+msgid "_Load Log"
 msgstr "اخرج"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/valgrind/plugin.c:488
 #, fuzzy
-msgid "S_ave log"
+msgid "S_ave Log"
 msgstr "اخرج"
 
 #. Action name
@@ -8323,11 +8267,12 @@ msgstr ""
 
 #: ../plugins/valgrind/vgactions.c:205
 #, c-format
-msgid "Valgrind binary [%s] does not exist. Please check the preferences or install Valgrind package."
+msgid ""
+"Valgrind binary [%s] does not exist. Please check the preferences or install "
+"Valgrind package."
 msgstr ""
 
-#: ../plugins/valgrind/vgactions.c:241
-#: ../plugins/valgrind/vgactions.c:248
+#: ../plugins/valgrind/vgactions.c:241 ../plugins/valgrind/vgactions.c:248
 msgid "Could not get the right pipe for the process."
 msgstr ""
 
@@ -8398,8 +8343,7 @@ msgstr ""
 msgid "Edit in Custom Editor"
 msgstr "المحرّر (قراءة، إنشاء، تحرير)"
 
-#: ../plugins/valgrind/vggeneralprefs.c:172
-#: ../src/anjuta-app.c:558
+#: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta-app.c:558
 #, fuzzy
 msgid "General"
 msgstr "عامّ"
@@ -8502,6 +8446,8 @@ msgid "Work around bugs generated by gcc 2.96"
 msgstr ""
 
 #: ../plugins/valgrind/vgrule-editor.c:133
+#: ../plugins/debug-manager/breakpoints.c:134
+#: ../plugins/debug-manager/stack_trace.c:400
 #, fuzzy
 msgid "Function"
 msgstr "الوظيفة"
@@ -8552,8 +8498,7 @@ msgstr "اتصال من %s"
 msgid "Error saving to suppression file `%s': %s"
 msgstr "فشلت الكتابة إلى ملف الصورة: %s"
 
-#: ../plugins/valgrind/vgrule-list.c:176
-#: ../plugins/valgrind/vgrule-list.c:245
+#: ../plugins/valgrind/vgrule-list.c:176 ../plugins/valgrind/vgrule-list.c:245
 msgid "You have forgotten to name your suppression rule."
 msgstr ""
 
@@ -8566,8 +8511,7 @@ msgstr ""
 msgid "You have not set a suppressions file in your settings."
 msgstr ""
 
-#: ../src/about.c:184
-#: ../src/about.c:193
+#: ../src/about.c:184 ../src/about.c:193
 #, fuzzy
 msgid "Copyright (c) Naba Kumar"
 msgstr "حقوق النشر © 2006 Travis Watkins"
@@ -8581,15 +8525,16 @@ msgstr ""
 msgid "Anjuta Plugin"
 msgstr "مُلحق الصوت"
 
-#: ../src/action-callbacks.c:101
-#: ../src/action-callbacks.c:116
+#: ../src/action-callbacks.c:101 ../src/action-callbacks.c:116
 #: ../src/shell.c:65
 #, fuzzy
 msgid "Anjuta Plugins"
 msgstr "تنشيط الملحقات %s"
 
 #: ../src/action-callbacks.c:130
-msgid "Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"
+msgid ""
+"Unable to display help. Please make sure Anjuta documentation package is "
+"install. It can be downloaded from http://anjuta.org"
 msgstr ""
 
 #: ../src/anjuta.c:221
@@ -8617,14 +8562,12 @@ msgstr "عنوان البريد الالكتروني للموصول"
 msgid "User name"
 msgstr "اسم المستخدم"
 
-#: ../src/anjuta-actions.h:23
-#: ../src/shell.c:75
+#: ../src/anjuta-actions.h:23 ../src/shell.c:75
 #, fuzzy
 msgid "_File"
 msgstr "_ملف"
 
-#: ../src/anjuta-actions.h:24
-#: ../src/shell.c:83
+#: ../src/anjuta-actions.h:24 ../src/shell.c:83
 #, fuzzy
 msgid "_Quit"
 msgstr "إ_نهي"
@@ -8667,17 +8610,15 @@ msgstr "تصميم الجورجية الروسية"
 msgid "Lock the current dock layout so that widgets cannot be moved"
 msgstr ""
 
-#: ../src/anjuta-actions.h:54
-#: ../src/shell.c:78
+#: ../src/anjuta-actions.h:54 ../src/shell.c:78
 #, fuzzy
 msgid "_Settings"
 msgstr "_تعيينات"
 
 #: ../src/anjuta-actions.h:56
-#: ../src/shell.c:91
 #, fuzzy
-msgid "_Preferences..."
-msgstr "_خصائص"
+msgid "_Preferences"
+msgstr "تفضيلات"
 
 #: ../src/anjuta-actions.h:57
 msgid "Do you prefer coffee to tea? Check it out."
@@ -8694,39 +8635,37 @@ msgid "But I prefer tea."
 msgstr "افضل نصا عاديا"
 
 #: ../src/anjuta-actions.h:64
-#: ../src/shell.c:99
 #, fuzzy
-msgid "C_ustomize shortcuts"
+msgid "C_ustomize Shortcuts"
 msgstr "اختصارات لوحة المفاتيح"
 
-#: ../src/anjuta-actions.h:65
-#: ../src/shell.c:101
+#: ../src/anjuta-actions.h:65 ../src/shell.c:101
 msgid "Customize shortcuts associated with menu items"
 msgstr ""
 
 #: ../src/anjuta-actions.h:68
 #, fuzzy
-msgid "Plugins manager"
-msgstr "مدير المحفوظات"
+msgid "Plugins"
+msgstr "أوامر SQL*Plus"
 
 #: ../src/anjuta-actions.h:69
-msgid "Manipulate plugins manager items"
-msgstr ""
+#, fuzzy
+msgid "Manipulate plugins"
+msgstr "الملحقات المت_وفرة:"
 
-#: ../src/anjuta-actions.h:74
-#: ../src/shell.c:79
+#: ../src/anjuta-actions.h:74 ../src/shell.c:79
 #, fuzzy
 msgid "_Help"
 msgstr "م_ساعدة"
 
 #: ../src/anjuta-actions.h:76
 #, fuzzy
-msgid "_Users manual"
+msgid "_User's Manual"
 msgstr "فتح الدليل"
 
 #: ../src/anjuta-actions.h:77
 #, fuzzy
-msgid "Anjuta users manual"
+msgid "Anjuta user's manual"
 msgstr "فتح دليل gedit"
 
 #: ../src/anjuta-actions.h:80
@@ -8749,7 +8688,7 @@ msgid "Anjuta advanced tutorial"
 msgstr "إعدادات الجودة المتقدمة"
 
 #: ../src/anjuta-actions.h:88
-msgid "_Frequently asked questions"
+msgid "_Frequently Asked Questions"
 msgstr ""
 
 #: ../src/anjuta-actions.h:89
@@ -8775,7 +8714,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:100
 #, fuzzy
-msgid "Ask a _question"
+msgid "Ask a _Question"
 msgstr "خيارات الأسئلة"
 
 #: ../src/anjuta-actions.h:101
@@ -8821,8 +8760,7 @@ msgstr "وضعية _ العرض"
 msgid "Settings"
 msgstr "التعيينات"
 
-#: ../src/anjuta-app.c:784
-#: ../src/shell.c:213
+#: ../src/anjuta-app.c:784 ../src/shell.c:213
 #, fuzzy
 msgid "Value doesn't exist"
 msgstr "الدّليل غير موجود"
@@ -8870,10 +8808,20 @@ msgstr ""
 msgid "Quit Anjuta Test Shell"
 msgstr ""
 
+#: ../src/shell.c:91
+#, fuzzy
+msgid "_Preferences..."
+msgstr "_خصائص"
+
 #: ../src/shell.c:93
 #, fuzzy
 msgid "Preferences"
 msgstr "تفضيلات"
+
+#: ../src/shell.c:99
+#, fuzzy
+msgid "C_ustomize shortcuts"
+msgstr "اختصارات لوحة المفاتيح"
 
 #: ../src/shell.c:164
 #, fuzzy
@@ -8885,3 +8833,458 @@ msgstr "اسم لمجموعة العمليات."
 msgid "Anjuta test shell"
 msgstr "هيكل شريط جنوم"
 
+#: ../libanjuta/anjuta-save-prompt.c:156
+#, fuzzy
+msgid "Select the items to save:"
+msgstr "إذهب إلى موقع محدد"
+
+#: ../libanjuta/anjuta-save-prompt.c:179
+msgid "If you do not save, all your changes will be lost."
+msgstr ""
+
+#: ../libanjuta/anjuta-save-prompt.c:193
+#, fuzzy
+msgid "Item"
+msgstr "إضافة مادة جديدة"
+
+#: ../libanjuta/anjuta-save-prompt.c:199
+msgid "_Discard changes"
+msgstr ""
+
+#: ../libanjuta/anjuta-save-prompt.c:290
+#, c-format
+msgid ""
+"<b>There are %d items with unsaved changes. Save changes before closing?</b>"
+msgstr ""
+
+#: ../libanjuta/anjuta-save-prompt.c:296
+msgid ""
+"<b>There is an item with unsaved changes. Save changes before closing?</b>"
+msgstr ""
+
+#: ../plugins/debug-manager/breakpoints.c:133
+#, fuzzy
+msgid "Enb"
+msgstr "مفعّل"
+
+#: ../plugins/debug-manager/breakpoints.c:133
+msgid "ID"
+msgstr ""
+
+#: ../plugins/debug-manager/breakpoints.c:134
+#: ../plugins/debug-manager/debug_tree.c:152
+#, fuzzy
+msgid "Type"
+msgstr "النّوع:"
+
+#: ../plugins/debug-manager/breakpoints.c:134
+#: ../plugins/debug-manager/stack_trace.c:409
+#, fuzzy
+msgid "Address"
+msgstr "اضافة"
+
+#: ../plugins/debug-manager/breakpoints.c:134
+#: ../plugins/debug-manager/signals.c:343
+#, fuzzy
+msgid "Pass"
+msgstr "كلمة الس_ر..."
+
+#: ../plugins/debug-manager/breakpoints.c:135
+#, fuzzy
+msgid "Times"
+msgstr "الوقت"
+
+#: ../plugins/debug-manager/breakpoints.c:135
+#, fuzzy
+msgid "Condition"
+msgstr "حالة الخطأ الحالية"
+
+#: ../plugins/debug-manager/breakpoints.c:135
+msgid "Disp"
+msgstr ""
+
+#: ../plugins/debug-manager/breakpoints.c:1232
+#, fuzzy
+msgid "Are you sure you want to delete all the breakpoints?"
+msgstr "هل أنت متأكّدٌ أنّك تريد حذف الحساب  %s؟"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/breakpoints.c:1343
+#, fuzzy
+msgid "_Breakpoints"
+msgstr "خصائص القائمة"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/breakpoints.c:1351
+#, fuzzy
+msgid "Toggle Breakpoint"
+msgstr "<b>مفاتيح التحول</b>"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/breakpoints.c:1353
+msgid "Toggle breakpoint at the current location"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/breakpoints.c:1359
+#, fuzzy
+msgid "Add Breakpoint..."
+msgstr "_اضافة مركب..."
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/breakpoints.c:1361
+#, fuzzy
+msgid "Add a breakpoint"
+msgstr "<b>مفاتيح التحول</b>"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/breakpoints.c:1367
+#, fuzzy
+msgid "Remove Breakpoint"
+msgstr "<b>مفاتيح التحول</b>"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/breakpoints.c:1369
+#, fuzzy
+msgid "Remove a breakpoint"
+msgstr "<b>مفاتيح التحول</b>"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/breakpoints.c:1375
+#, fuzzy
+msgid "Jump to Breakpoint"
+msgstr "<b>مفاتيح التحول</b>"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/breakpoints.c:1377
+msgid "Jump to breakpoint location"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/breakpoints.c:1383
+#, fuzzy
+msgid "Edit Breakpoint"
+msgstr "<b>مفاتيح التحول</b>"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/breakpoints.c:1385
+#, fuzzy
+msgid "Edit breakpoint properties"
+msgstr "خصائص القائمة"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/breakpoints.c:1391
+#, fuzzy
+msgid "Enable Breakpoint"
+msgstr "<b>مفاتيح التحول</b>"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/breakpoints.c:1393
+#, fuzzy
+msgid "Enable a breakpoint"
+msgstr "<b>مفاتيح التحول</b>"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/breakpoints.c:1399
+#, fuzzy
+msgid "Disable All Breakpoints"
+msgstr "<b>مفاتيح التحول</b>"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/breakpoints.c:1401
+msgid "Deactivate all breakpoints"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/breakpoints.c:1407
+#, fuzzy
+msgid "C_lear All Breakpoints"
+msgstr "اختيار كل المؤشّرات أو النّصوص"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/breakpoints.c:1409
+#, fuzzy
+msgid "Delete all breakpoints"
+msgstr "<b>مفاتيح التحول</b>"
+
+#: ../plugins/debug-manager/breakpoints.c:1517
+#, fuzzy
+msgid "Breakpoint operations"
+msgstr "خصائص القائمة"
+
+#: ../plugins/debug-manager/info.c:51 ../plugins/debug-manager/info.c:100
+#, fuzzy
+msgid "Information"
+msgstr "معلومات %s"
+
+#: ../plugins/debug-manager/locals.c:88
+#, fuzzy
+msgid "Locals"
+msgstr "تحميل"
+
+#: ../plugins/debug-manager/registers.c:250
+#, fuzzy
+msgid "Register"
+msgstr "سجلات الذاكرة"
+
+#: ../plugins/debug-manager/registers.c:277
+#, fuzzy
+msgid "Registers"
+msgstr "سجلات الذاكرة"
+
+#: ../plugins/debug-manager/sharedlib.c:160
+#, fuzzy
+msgid "Shared libraries"
+msgstr "الذاكرة المشتركة"
+
+#: ../plugins/debug-manager/sharedlib.c:182
+#, fuzzy
+msgid "  Shared Object  "
+msgstr "مميّز الجسم (%s)"
+
+#: ../plugins/debug-manager/sharedlib.c:186
+msgid "From"
+msgstr ""
+
+#: ../plugins/debug-manager/sharedlib.c:190
+#, fuzzy
+msgid "To"
+msgstr "الأعلى"
+
+#: ../plugins/debug-manager/sharedlib.c:194
+msgid "Sysm Read"
+msgstr ""
+
+#: ../plugins/debug-manager/signals.c:259
+#, fuzzy
+msgid "Modify Signal"
+msgstr "_تعديل"
+
+#: ../plugins/debug-manager/signals.c:266
+#, fuzzy
+msgid "Send to process"
+msgstr "خطأ: لم يمكن معالجة الإمتداد"
+
+#: ../plugins/debug-manager/signals.c:308
+#, fuzzy
+msgid "Kernel signals"
+msgstr "صورة النواة"
+
+#: ../plugins/debug-manager/signals.c:331
+#, fuzzy
+msgid "Signal"
+msgstr "الإشارة"
+
+#: ../plugins/debug-manager/signals.c:335
+#, fuzzy
+msgid "Stop"
+msgstr "تو_قف"
+
+#: ../plugins/debug-manager/signals.c:347
+#, fuzzy
+msgid "Description"
+msgstr "الوصف:"
+
+#: ../plugins/debug-manager/signals.c:466
+#, fuzzy
+msgid " Stop: "
+msgstr "تو_قف"
+
+#: ../plugins/debug-manager/signals.c:470
+#, fuzzy
+msgid " Print: "
+msgstr "طباعة"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/stack_trace.c:309
+#, fuzzy
+msgid "Set current frame"
+msgstr "حفظ الملف الحالي"
+
+#: ../plugins/debug-manager/stack_trace.c:317
+msgid "View Source"
+msgstr ""
+
+#: ../plugins/debug-manager/stack_trace.c:355
+#, fuzzy
+msgid "Active"
+msgstr "حدث"
+
+#: ../plugins/debug-manager/stack_trace.c:366
+#, fuzzy
+msgid "Frame"
+msgstr "اسم"
+
+#: ../plugins/debug-manager/stack_trace.c:418
+#, fuzzy
+msgid "Arguments"
+msgstr "المتغيرات"
+
+#: ../plugins/debug-manager/stack_trace.c:443
+#, fuzzy
+msgid "Stack"
+msgstr "إلى الخلف"
+
+#: ../plugins/debug-manager/stack_trace.c:507
+#, fuzzy
+msgid "Stack frame operations"
+msgstr "_اضافة مركب..."
+
+#: ../plugins/debug-manager/start.c:901
+#, fuzzy, c-format
+msgid "Missing file %s"
+msgstr "الاسم مطلوب"
+
+#: ../plugins/debug-manager/start.c:1009
+msgid "Load Target to debug"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/watch.c:371
+#, fuzzy
+msgid "Ins_pect/Evaluate..."
+msgstr "تعبير الاستعلام لالتقييم"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/watch.c:373
+msgid "Inspect or evaluate an expression or variable"
+msgstr ""
+
+#: ../plugins/debug-manager/watch.c:387
+#, fuzzy
+msgid "Remove Watch"
+msgstr "نسخ ال_كل"
+
+#: ../plugins/debug-manager/watch.c:395
+#, fuzzy
+msgid "Update Watch"
+msgstr "إضافة تطبيق"
+
+#: ../plugins/debug-manager/watch.c:403
+#, fuzzy
+msgid "Change Value"
+msgstr "تغيير كلمة المرور"
+
+#: ../plugins/debug-manager/watch.c:411
+#, fuzzy
+msgid "Update all"
+msgstr "إضافة تطبيق"
+
+#: ../plugins/debug-manager/watch.c:419
+#, fuzzy
+msgid "Remove all"
+msgstr "نسخ ال_كل"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/watch.c:430
+#, fuzzy
+msgid "Automatic update"
+msgstr "التحديث التالي:"
+
+#: ../plugins/debug-manager/watch.c:456 ../plugins/debug-manager/watch.c:462
+#, fuzzy
+msgid "Watch operations"
+msgstr "_اضافة مركب..."
+
+#: ../plugins/debug-manager/watch.c:544
+#, fuzzy
+msgid "Watches"
+msgstr "إضافة تطبيق"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
+#, fuzzy
+msgid "<b>C, C++ and Java Indentation</b>"
+msgstr "الإزاحة"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:2
+#, fuzzy
+msgid "<b>Indentation parameters</b>"
+msgstr "الإزاحة"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:3
+#, fuzzy
+msgid "Autocompletion"
+msgstr "التّكملة التّلقائية"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:4
+#, fuzzy
+msgid "Brace indentation size in spaces:"
+msgstr "حجم الخط بالنقاط"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
+#, fuzzy
+msgid "Enable adaptive indentation"
+msgstr "_تفعيل التجويف الآلي"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:9
+#, fuzzy
+msgid "Statement indentation size in spaces:"
+msgstr "حجم الخط بالنقاط"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1257
+#, fuzzy
+msgid "Auto Indent"
+msgstr "إزاحة"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1258
+msgid "Auto indent current line or selection based on indentation settings"
+msgstr ""
+
+#: ../plugins/language-support-cpp-java/plugin.c:1276
+#, fuzzy
+msgid "Autoindent"
+msgstr "فراغ آلي"
+
+#: ../plugins/language-support-cpp-java/plugin.c:1359
+#: ../plugins/language-support-cpp-java/plugin.c:1369
+msgid "C/C++/Java"
+msgstr ""
+
+#: ../plugins/sourceview/plugin.c:152 ../plugins/sourceview/plugin.c:169
+msgid "GtkSourceView Editor"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Kernel Signals..."
+#~ msgstr "صورة النواة"
+
+#, fuzzy
+#~ msgid "Show CPU register contents"
+#~ msgstr "اعرض المحتويات بتفاصيل أكثر"
+
+#, fuzzy
+#~ msgid "_Execute program"
+#~ msgstr "تشغيل برنامج"
+
+#, fuzzy
+#~ msgid "Co_mment code"
+#~ msgstr "نوع محنوى الشفرة"
+
+#, fuzzy
+#~ msgid "_Toggle bookmark"
+#~ msgstr "افتح المؤشرة %s"
+
+#, fuzzy
+#~ msgid "Plugins manager"
+#~ msgstr "مدير المحفوظات"
