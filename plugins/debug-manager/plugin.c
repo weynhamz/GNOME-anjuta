@@ -400,8 +400,6 @@ dma_plugin_location_changed (DebugManagerPlugin *this, const gchar* file, guint 
 }
 
 /* Called when a program is unloaded */
-
-#if 0
 static void
 dma_plugin_program_unload (DebugManagerPlugin *this)
 {
@@ -434,7 +432,6 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 	gtk_action_group_set_visible (this->running_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
 }
-#endif
 
 /* Called when the debugger is stopped */
 
@@ -446,7 +443,7 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *this)
 
 	DEBUG_PRINT ("DMA: dma_plugin_debugger_stopped");
 
-//	dma_plugin_program_unload (this);
+	dma_plugin_program_unload (this);
 	
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);

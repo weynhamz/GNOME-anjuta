@@ -1,3 +1,9 @@
+2007-01-12 Sebastien Granjoux <seb.sfo@free.fr>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* plugins/debug-manager/plugin.c:
+	Bug fix: breakpoints cannot be added after stopping the debugger
+
 2007-01-13  Naba Kumar  <naba@gnome.org>
 
 	* NEWS: Updated for release.
