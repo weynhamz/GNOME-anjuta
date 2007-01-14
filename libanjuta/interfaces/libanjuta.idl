@@ -672,6 +672,22 @@ interface IAnjutaEditor
 	void   ::char_added (gint position, gchar ch);
 	
 	/**
+	 * IAnjutaEditor::changed:
+	 * @position: The position where change happend.
+	 * @added: TRUE if added, FALSE if deleted.
+	 * @length: Length of the text changed.
+	 * @lines: Number of lines added or removed.
+	 * @text: The text added or removed.
+	 * @obj: Self
+	 * 
+	 * This signal is emitted when any text change happens in editor.
+	 * The changes begin at @position. @text is not garanteed to be NULL
+	 * terminated. Use @length to read the text. @lines represent the
+	 * number of line breaks in the added or removed text.
+	 */
+	void   ::changed (gint position, gboolean added, gint length, gint lines, const gchar *text);
+	
+	/**
 	 * IAnjutaEditor::update_ui:
 	 * @obj: Self
 	 * 

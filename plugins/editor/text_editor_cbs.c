@@ -167,12 +167,20 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 		
 	case SCN_CHARADDED:
 		te->current_line = text_editor_get_current_lineno (te);
-		// text_editor_set_indicator (te, te->current_line, -1);
 		position = text_editor_get_current_position (te) - 1;
 		g_signal_emit_by_name(G_OBJECT (te), "char_added", position,
 							  (gchar)nt->ch);
 		return;
 
+	case SCN_MODIFIED:
+		if (nt->modificationType & (SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT))
+		{
+			gboolean added = nt->modificationType & SC_MOD_INSERTTEXT;
+			g_signal_emit_by_name (G_OBJECT (te), "changed", nt->position,
+								   added, nt->length, nt->linesAdded,
+								   nt->text);
+		}
+		return;
 	case SCN_MARGINCLICK:
 		line =	text_editor_get_line_from_position (te, nt->position);
 		if (nt->margin == 1)  /*  Bookmarks and Breakpoints  margin */

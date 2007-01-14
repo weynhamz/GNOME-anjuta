@@ -207,6 +207,10 @@ text_editor_add_view (TextEditor *te)
 	editor_id = aneditor_new (sci_prop_get_pointer (te->props_base));
 	scintilla = aneditor_get_widget (editor_id);
 	
+	/* Set notifications to receive */
+	scintilla_send_message (SCINTILLA (scintilla), SCI_SETMODEVENTMASK,
+							(SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT), 0);
+	
 	/* Set parent, if it is not primary view */
 	if (te->views)
 	{

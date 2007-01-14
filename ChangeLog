@@ -1,7 +1,13 @@
 2007-01-14  Naba Kumar  <naba@gnome.org>
 
 	* NEWS: Updated for release.
+	
 	* libanjuta/anjuta-launcher.c: Fixed a possible timer leak.
+	
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/editor/text_editor_cbs.c,
+	plugins/editor/text_editor.c: Added 'changed' signal in IAnjutaEditor
+	interface and implemented it for scintilla.
 	
 2007-01-12 Sebastien Granjoux <seb.sfo@free.fr>
 
