@@ -1,3 +1,8 @@
+2007-01-14  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated for release.
+	* libanjuta/anjuta-launcher.c: Fixed a possible timer leak.
+	
 2007-01-12 Sebastien Granjoux <seb.sfo@free.fr>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
@@ -2087,8 +2092,8 @@
 
 	Patch from Yang Hong <yanghong@ccoss.com.cn>:
 	* plugins/document-manager/anjuta-docman.c
-        - Fix close button, you can close any tab as you wish now.
-        - Fadeout mime icon as the same as close image	
+	- Fix close button, you can close any tab as you wish now.
+	- Fadeout mime icon as the same as close image	
 
 2006-05-20  Johannes Schmid <jhs@cvs.gnome.org>
 
@@ -2100,7 +2105,7 @@
 2006-05-20  Naba Kumar  <naba@gnome.org>
 
 	* tagmanager/tm_symbol.c: Prevent infinite recursive (detected
-        while loading abiword-2.4.4/abi project).
+	while loading abiword-2.4.4/abi project).
 
 2006-05-18 Naba Kumar  <naba@gnome.org>
 
@@ -2118,8 +2123,8 @@
 2006-05-18  Johannes Schmid <jhs@cvs.gnome.org>
 
 	Patch from Günther Brammer <GBrammer@gmx.de>:
-		* plugins/document-manager/anjuta-docman.c:
-		Make tabs smaller but keep nice closing icon
+	* plugins/document-manager/anjuta-docman.c:
+	Make tabs smaller but keep nice closing icon
 
 	* plugins/document-manager/anjuta-docman.c:
 	* plugins/document-manager/Makefile.am:

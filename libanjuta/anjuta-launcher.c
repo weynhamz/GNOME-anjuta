@@ -407,7 +407,7 @@ anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 	{
 		launcher->priv->in_synchronization = TRUE;
 		
-		if (launcher->priv->completion_check_timeout)
+		if (launcher->priv->completion_check_timeout >= 0)
 			g_source_remove (launcher->priv->completion_check_timeout);
 		launcher->priv->completion_check_timeout = 
 		    g_timeout_add (50, anjuta_launcher_check_for_execution_done,
@@ -420,6 +420,8 @@ anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 			 launcher->priv->stderr_is_done)
 	{
 		/* DEBUG_PRINT ("Child has't exited yet waiting for 200ms"); */
+		if (launcher->priv->completion_check_timeout >= 0)
+			g_source_remove (launcher->priv->completion_check_timeout);
 		launcher->priv->completion_check_timeout = 
 		    g_timeout_add(200, anjuta_launcher_check_for_execution_done,
 							launcher);

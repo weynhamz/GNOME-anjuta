@@ -10,7 +10,163 @@ New: Save prompt implemented for unsaved data.
 New: Documentation updates, both API and users manual.
 New: Improvements in glade-3 integration.
 
+Bugs fixed:
+===========
+#167534 Multiple errors in strings
+#168274 anjuta creates an empty system.tags file
+#168301 the new project druid should be center on the anjuta window
+#169068 Unclear new strings, with misspellings
+#169137 Missing spaces from changed strings
+#169138 Spelling error in modified string
+#169139 Missing spaces from changed string
+#170406 problem when creating a new projects
+#170467 crash when changing fonts and color in the preferences dialog
+#172666 cvs diff does not always obtain full diff
+#173048 library selection plugin
+#300228 Ctrl + S intermittent behaviour
+#300229 Replace button fault
+#300231 Find pane non-functional
+#301054 Help window not docked - Anjuta closes when Help window is closed.
+#304495 Project saved as fullscreen
+#304515 can not edit project properties
+#304523 Crashes while importing a project
+#304641 Can't type the "-character
+#304650 make -j CPUS doesn't always work for anjuta2
+#304651 Restoring the project doesn't restore the cursor location of the files
+#304652 Possibility to set breakpoints in libraries that will be dlopen()'ed
+#304829 questions on use anjuta 2.0
+#305076 anjuta 2.0.0: edge column editor preference not functionnal
+#305299 Error in anjuta.desktop file
+#305301 In menu tree "Settings"->"Customize shortcuts" there are two lines "Task In menu tree "Settings"->"Customize shortcuts" there are two similar lines "Task manager"
+#305303 Error while installing anjuta-devel rpm package
+#306085 Keybindings are not saved.
+#306187 bad definition of PACKAGE_LOCALE_DIR
+#306474 The ordering of the buttons in the file open dialog is reversed.
+#306582 Anjuta crashes when typing "std::"
+#306790 doble click in a message, doesn't find the file.
+#306966 Search tool on the tool bar don't work correctly
+#306970 The order of the command buttons "Close" - "Search" - "Stop" in the Search Dialog, is useless; the sugestion is: "Search" - "Stop" - "Close"
+#307800 Crashes when project directory removed from command line.
+#307810 Can't configure a project after creating with new project wizard
+#307872 Remember Configure and autogen options for the next time
+#307886 Activated plugins not remembered
+#308007 Bad interpreter in global-tags/create_global_tags.sh
+#308870 Glade Plugin Won't open Glade file.
+#309153 code cleanup use glib/gi18n.h
+#309154 gnome_color_picker is deprecated
+#309348 Anjuta 2.0.1, Anjuta application crash upon build (F9)
+#309688 When committing a file that is loaded, I get a file-modification warning
+#311420 Crash on terminal deactivation
+#311948 some strings untranslatedable Preference dialog
+#312227 Crash when selecting debug command
+#312566 Patch that will fix another make -j 10 problem
+#312666 Return "F3" to execute project
+#314069 Window gets hidden when using glade3 plugin
+#315188 Project Wizard Problems
+#315218 anjuta 2.0 freeze on opening my project
+#315521 Failed to compile HEAD-hourly-2005-09-05-18
+#316731 Can not add new encodings
+#317454 Anjuta crash when array lenght is incorrect
+#320191 It's a chore adding/removing files and setting up targets
+#320338 Colors of tab menu labels
+#320341 Critical error in debugger "locals" window.
+#321090 Wrong array/struct/union var type display in locals windows
+#321455 Ask for root password when installing
+#322634 anjuta_ui_add_action_group_entries : Anjuta Developers Reference Manual incorrect
+#322744 New anjuta plugin project configured incorrectly
+#323591 Data lost, two tab of the same file
+#324572 anjuta crashes on open
+#328209 Crash when opening a file while an unsaved new file is open
+#332084 Anjuta crashes, when Ctrl+c is pressed.
+#332161 Test editor not opening
+#332954 No read permission for: file:///usr/share/anjuta/profiles/default.anjuta
+#333601 GPL headers are first to c-header template.
+#333606 Macro contain hyphen
+#334546 No more lookup widget
+#334663 Allow to set a parent class to new GObject class
+#335142 crash when opeing a second file
+#335981 Migration from popt to GOption
+#336389 Should check for libwnck
+#339296 Wizard can't cope with insufficient permissions in project target directory
+#341359 Search function doesnt doing their job.
+#341997 The 'Tree' tab in the symbol-browser is not type-to-search able
+#342352 Can't close file which in not the current editor
+#342375 configure doesn't check for g++
+#342401 Compile fix when NLS is enabled
+#342447 Crash when using the live-search-entry
+#342937 crash after accepting Reload Warning Dialog
+#343023 make gives strange error
+#344015 on_build_mesg_format prepends an absolute path with the current dir
+#344099 valgrind plugin is not built
+#346295 Crash when removing breakpoint
+#346450 Crash when removing all breakpoints
+#346575 data loss when disk is full
+#346775 No highlight styles to edit are shown in the preferences dialog in anjuta
+#347412 crash when opening file with sourceview plugin
+#347414 Stack trace window
+#349374 Compilation on FreeBSD 6.1
+#351387 don't use Alt+key combinations for shortcut keys
+#355148 title bar should show name of active project
+#355149 Anjuta should warn if I try to exit with unsaved edits
+#355156 plugins window should sort plugins alphabetically
+#355168 color selection is broken in messages preferences
+#355407 The create_global_tags script doesn't find the anjuta-tags bin
+#357151 a + character in a directory name confuses anjuta
+#357534 syntax coloring fails and breaks selection display
+#357537 allow double click in plugin selection dialog
+#357542 Anjuta Plugins window is too narrow
+#357546 add keyboard shortcut for toggling breakpoint
+#358009 activating stack frame in debugger should also jump to source
+#358068 indicate when Find in Files is complete
+#358134 Goto Address command should prompt more clearly
+#358163 debug Inspect/Evaluate dialog leads to crash
+#358583 close any project => crash
+#359118 Anjuta crashes when trying to open "src folder" after finishing creating/loading a project
+#359259 highlight modes listed in reverse alphabetical order
+#359317 can't load debug manager
+#359663 make line highlighting optional in GtkSourceView editor
+#359730 Anjuta can't launch help files
+#359750 fix find/replace shortcut keys
+#359862 Bounty: Improve class wizard
+#361830 AboutDialog does not close
+#363884 CVS head of 21/10 doesn't compile
+#363953 create_global_tags.sh contains bash-ism
+#364133 There are some GTK+ warning caused by document-manager plugins
+#364135 Incorrect widget removed from notebook if call to anjuta_preferences_dialog_remove_page are not in LIFO
+#364137 The valgrind plugin can cause anjuta to crash
+#364142 Valgrind plugin crash when unloaded
+#364144 There is a warning when closing and reloading a plugin using the symbol-browser plugin
+#364179 Usage of srcdir and argv fields of vg_action object is incorrect
+#364754 Subversion plugin doesn't compile with apr 1.2.X
+#364755 Glade plugin crashes on anjuta exit
+#364801 Unable to edit glade windows in fullscreen mode
+#364900 Warning during compilation of valgrind plugin
+#364903 Memory leak in valgrind plugin
+#369030 create_global_tags.sh has some errors
+#374665 Bounty: Use class macros for type casting in all plugin classes
+#376031 [PATCH] CVS command file entry dialog show only directories
+#376335 menu items should be capitalized
+#377027 crash after unloading Terminal plugin
+#377043 Intltool-update -m complains about missing files from POTFILES.in
+#377061 close project while debugging => Anjuta hangs
+#377767 resize crashes window manager in gnome
+#377903 improve message color defaults
+#378850 double clicking breakpoint should jump to its source
+#378871 Debug / Info command problems
+#378879 several command names need ellipses
+#383319 GLADE_PROJECT_VIEW_TREE error with glade 3.1.2
+#385597 Closed one project and attempted to open another
+#388727 Block-tab does not work
+#388731 Odd editor behaviour after performing block-text operations
+#389764 Tags search do not retrieve all matching symbols
+#392290 Missed install as root option in project manager
+#392699 Some patches are necessary to build anjuta on NetBSD 3.0
+#393680 huge icon on the files pane for .anjuta files
+#394218 Signals list view in gobject class creation tab does not scroll horiz.
+#395767 when selecting a GTK+ project the sample files generated do not compile
+
 Full changes:
+* Bug fix: breakpoints cannot be added after stopping the debugger
 * Fixed #395767: Changed PACKAGE_LIBS and PACKAGE_CFLAGS to [+NameCUpper+]_CFLAGS/LIBS in Makefile.am.tpl
 * Use gtk_text_buffer_get_slice() instead of gtk_text_buffer_get_text because we rely on character positions.
 * Introduced an API for application title in AnjutaStatus. Set application title to project name.
