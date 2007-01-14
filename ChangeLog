@@ -1,5 +1,7 @@
 2007-01-14  Naba Kumar  <naba@gnome.org>
 
+	* configure.in: Removed reference of mkfile project
+	template to fix distcheck build error.
 	* AUTHORS: Updated.
 	* NEWS: Updated.
 	* configure.in: Bumped version to 2.1.0 for beta release.
