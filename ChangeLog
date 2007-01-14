@@ -1,17 +1,17 @@
 2007-01-14  Johannes Schmid <jhs@gnome.org>
 
-  * configure.in
-  * po/LINGUAS:
-  Applied http://live.gnome.org/GnomeGoals/PoLinguas
-  
-  * tagmanager/c.c:
-  Patch from Massimo Cora' to hopefully fix #395362
-  
-  * plugins/project-wizard/templates/*:
-  
-  Fixed and tested all project-wizards. Deactivated mkfile project because it was totally
-  broken and I don't see any real use for it.
-  Applied http://live.gnome.org/GnomeGoals/PoLinguas to all projects
+	* configure.in
+	* po/LINGUAS:
+	Applied http://live.gnome.org/GnomeGoals/PoLinguas
+
+	* tagmanager/c.c:
+	Patch from Massimo Cora' to hopefully fix #395362
+
+	* plugins/project-wizard/templates/*:
+
+	Fixed and tested all project-wizards. Deactivated mkfile project because
+	it was totally broken and I don't see any real use for it.
+	Applied http://live.gnome.org/GnomeGoals/PoLinguas to all projects
 
 2007-01-14  Naba Kumar  <naba@gnome.org>
 
@@ -23,6 +23,15 @@
 	plugins/editor/text_editor_cbs.c,
 	plugins/editor/text_editor.c: Added 'changed' signal in IAnjutaEditor
 	interface and implemented it for scintilla.
+	
+	* plugins/editor/text-editor.c: Fixed highlighing issues when
+	used with indicators (particularly when the file is just opened).
+	Fixes bug #377477 – when debugging, scintilla editor grays out all
+	lines before current line.
+	
+	* plugins/build-basic-autotools/build-basic-autotools.[ch]:
+	Maintain a separate list of indicated edtitors for separate contexts.
+	Fixes bug 342717 – Build errors redisplayed AFTER a successful build.
 	
 2007-01-12 Sebastien Granjoux <seb.sfo@free.fr>
 

@@ -888,6 +888,7 @@ text_editor_set_indicator (TextEditor *te, gint start,
 {
 	gchar ch;
 	glong indic_mask[] = {INDIC0_MASK, INDIC1_MASK, INDIC2_MASK};
+	gint current_styling_pos;
 	
 	g_return_val_if_fail (te != NULL, -1);
 	g_return_val_if_fail (IS_SCINTILLA (te->scintilla) == TRUE, -1);
@@ -912,6 +913,8 @@ text_editor_set_indicator (TextEditor *te, gint start,
 		end++;
 		if (end < start) return -1;
 		
+		current_styling_pos = scintilla_send_message (SCINTILLA (te->scintilla),
+													  SCI_GETENDSTYLED, 0, 0);
 		if (indicator >= 0 && indicator < 3) {
 			char current_mask;
 			current_mask =
@@ -929,13 +932,19 @@ text_editor_set_indicator (TextEditor *te, gint start,
 			scintilla_send_message (SCINTILLA (te->scintilla),
 									SCI_SETSTYLING, end-start+1, 0);
 		}
+		if (current_styling_pos < start)
+			scintilla_send_message (SCINTILLA (te->scintilla),
+									SCI_STARTSTYLING, current_styling_pos,
+									0x1F);
 	} else {
 		if (indicator < 0) {
 			char current_mask;
-			glong i, last;
+			glong i, last, start_style_pos = 0;
 			
 			last = scintilla_send_message (SCINTILLA (te->scintilla),
 										   SCI_GETTEXTLENGTH, 0, 0);
+			current_styling_pos = scintilla_send_message (SCINTILLA (te->scintilla),
+														  SCI_GETENDSTYLED, 0, 0);
 			for (i = 0; i < last; i++)
 			{
 				current_mask =
@@ -944,12 +953,18 @@ text_editor_set_indicator (TextEditor *te, gint start,
 				current_mask &= INDICS_MASK;
 				if (current_mask != 0)
 				{
+					if (start_style_pos == 0)
+						start_style_pos = i;
 					scintilla_send_message (SCINTILLA (te->scintilla),
 											SCI_STARTSTYLING, i, INDICS_MASK);
 					scintilla_send_message (SCINTILLA (te->scintilla),
 											SCI_SETSTYLING, 1, 0);
 				}
 			}
+			if (current_styling_pos < start_style_pos)
+				scintilla_send_message (SCINTILLA (te->scintilla),
+										SCI_STARTSTYLING, current_styling_pos,
+										0x1F);
 		}
 	}
 	return 0;

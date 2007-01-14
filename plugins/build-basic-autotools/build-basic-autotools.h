@@ -42,9 +42,6 @@ struct _BasicAutotoolsPlugin{
 	/* Build contexts pool */
 	GList *contexts_pool;
 
-	/* Editors in which indicators have been updated */
-	GHashTable *indicators_updated_editors;
-	
 	/* Watch IDs */
 	gint fm_watch_id;
 	gint pm_watch_id;
@@ -69,6 +66,9 @@ struct _BasicAutotoolsPlugin{
 	/* Execution parameters */
 	gchar *program_args;
 	gboolean run_in_terminal;
+	
+	/* Editors that have been created so far */
+	GHashTable *editors_created;
 };
 
 struct _BasicAutotoolsPluginClass{

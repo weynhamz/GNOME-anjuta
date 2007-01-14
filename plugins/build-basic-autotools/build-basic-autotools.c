@@ -78,6 +78,9 @@ typedef struct
 	
 	/* Indicator locations */
 	GSList *locations;
+	
+	/* Editors in which indicators have been updated */
+	GHashTable *indicators_updated_editors;
 } BuildContext;
 
 static GList *patterns_list = NULL;
@@ -238,6 +241,8 @@ build_context_destroy (BuildContext *context)
 	}
 	if (context->build_dir_stack)
 		g_hash_table_destroy (context->build_dir_stack);
+	if (context->indicators_updated_editors)
+		g_hash_table_destroy (context->indicators_updated_editors);
 	g_free (context->command);
 	
 	g_slist_foreach (context->locations, (GFunc) build_indicator_location_free,
@@ -772,6 +777,9 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 		/* If no free context found, create one */
 		context = g_new0 (BuildContext, 1);
 		context->plugin = ANJUTA_PLUGIN(plugin);
+		context->indicators_updated_editors =
+			g_hash_table_new (g_direct_hash,
+							  g_direct_equal);
 		
 		context->message_view =
 			ianjuta_message_manager_add_view (mesg_manager, mname,
@@ -799,10 +807,7 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	if (IANJUTA_IS_INDICABLE (plugin->current_editor))
 		ianjuta_indicable_clear (IANJUTA_INDICABLE (plugin->current_editor),
 								 NULL);
-	if (plugin->indicators_updated_editors)
-		g_hash_table_destroy (plugin->indicators_updated_editors);
-	plugin->indicators_updated_editors = g_hash_table_new (g_direct_hash,
-														   g_direct_equal);
+	g_hash_table_remove_all (context->indicators_updated_editors);
 	
 	return context;
 }
@@ -1744,26 +1749,18 @@ on_update_indicators_idle (gpointer data)
 																  NULL),
 									PREF_INDICATORS_AUTOMATIC))
 	{
-		if (ba_plugin->indicators_updated_editors == NULL)
+		GList *node;
+		node = ba_plugin->contexts_pool;
+		while (node)
 		{
-			ba_plugin->indicators_updated_editors = 
-			    g_hash_table_new (g_direct_hash, g_direct_equal);
-		}
-		
-		if (g_hash_table_lookup (ba_plugin->indicators_updated_editors,
-								 editor) == NULL)
-		{
-			GList *node;
-			
-			ianjuta_indicable_clear (IANJUTA_INDICABLE (editor), NULL);
-			
-			node = ba_plugin->contexts_pool;
-			while (node)
+			BuildContext *context = node->data;
+			if (g_hash_table_lookup (context->indicators_updated_editors,
+									 editor) == NULL)
 			{
-				BuildContext *context;
 				GSList *loc_node;
+				ianjuta_indicable_clear (IANJUTA_INDICABLE (editor), NULL);
 				
-				context = (BuildContext*)node->data;
+					
 				loc_node = context->locations;
 				while (loc_node)
 				{
@@ -1771,13 +1768,42 @@ on_update_indicators_idle (gpointer data)
 					IANJUTA_EDITOR (editor), ba_plugin->current_editor_filename);
 					loc_node = g_slist_next (loc_node);
 				}
-				node = g_list_next (node);
+				g_hash_table_insert (context->indicators_updated_editors,
+									 editor, editor);
 			}
-			g_hash_table_insert (ba_plugin->indicators_updated_editors,
-								 editor, editor);
+			node = g_list_next (node);
 		}
 	}
 	return FALSE;
+}
+
+static void
+on_editor_destroy (IAnjutaEditor *editor, BasicAutotoolsPlugin *ba_plugin)
+{
+	g_hash_table_remove (ba_plugin->editors_created, editor);
+}
+
+static void
+on_editor_changed (IAnjutaEditor *editor, gint position, gboolean added,
+				   gint length, gint lines, const gchar *text,
+				   BasicAutotoolsPlugin *ba_plugin)
+{
+	gint line, begin_pos, end_pos;
+	if (g_hash_table_lookup (ba_plugin->editors_created,
+							 editor) == NULL)
+		return;
+	line  = ianjuta_editor_get_line_from_position (editor, position, NULL);
+	begin_pos = ianjuta_editor_get_line_begin_position (editor, line, NULL);
+	end_pos = ianjuta_editor_get_line_end_position (editor, line, NULL);
+	if (IANJUTA_IS_INDICABLE (editor))
+	{
+		DEBUG_PRINT ("Clearing indicator on line %d", line);
+		ianjuta_indicable_set (IANJUTA_INDICABLE (editor), begin_pos,
+							   end_pos, IANJUTA_INDICABLE_NONE, NULL);
+	}
+	DEBUG_PRINT ("Editor changed: position = %d, added = %d,"
+				 " length = %d, lines = %d, text = \'%s\'",
+				 position, added, length, lines, text);
 }
 
 static void
@@ -1796,6 +1822,18 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	g_free (ba_plugin->current_editor_filename);
 	ba_plugin->current_editor_filename = NULL;
 	ba_plugin->current_editor = IANJUTA_EDITOR (editor);
+	
+	if (g_hash_table_lookup (ba_plugin->editors_created,
+							 ba_plugin->current_editor) == NULL)
+	{
+		g_hash_table_insert (ba_plugin->editors_created,
+							 ba_plugin->current_editor,
+							 ba_plugin->current_editor);
+		g_signal_connect (ba_plugin->current_editor, "destroy",
+						  G_CALLBACK (on_editor_destroy), plugin);
+		g_signal_connect (ba_plugin->current_editor, "changed",
+						  G_CALLBACK (on_editor_changed), plugin);
+	}
 	
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 	if (uri)
@@ -1816,7 +1854,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
-	
+#if 0
 	if (ba_plugin->indicators_updated_editors &&
 		g_hash_table_lookup (ba_plugin->indicators_updated_editors,
 							 ba_plugin->current_editor))
@@ -1824,7 +1862,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 		g_hash_table_remove (ba_plugin->indicators_updated_editors,
 							 ba_plugin->current_editor);
 	}
-	
+#endif
 	if (ba_plugin->current_editor_filename)
 		g_free (ba_plugin->current_editor_filename);
 	ba_plugin->current_editor_filename = NULL;
@@ -1938,8 +1976,6 @@ finalize (GObject *obj)
 	g_free (ba_plugin->current_editor_filename);
 	g_free (ba_plugin->program_args);
 	g_free (ba_plugin->configure_args);
-	if (ba_plugin->indicators_updated_editors)
-		g_hash_table_destroy (ba_plugin->indicators_updated_editors);
 	
 	ba_plugin->fm_current_filename = NULL;
 	ba_plugin->pm_current_filename = NULL;
@@ -1947,7 +1983,6 @@ finalize (GObject *obj)
 	ba_plugin->current_editor_filename = NULL;
 	ba_plugin->program_args = NULL;
 	ba_plugin->configure_args = NULL;
-	ba_plugin->indicators_updated_editors = NULL;
 	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
@@ -1965,7 +2000,8 @@ basic_autotools_plugin_instance_init (GObject *obj)
 	ba_plugin->configure_args = NULL;
 	ba_plugin->program_args = NULL;
 	ba_plugin->run_in_terminal = TRUE;
-	ba_plugin->indicators_updated_editors = NULL;
+	ba_plugin->editors_created = g_hash_table_new (g_direct_hash,
+												   g_direct_equal);
 }
 
 static void
