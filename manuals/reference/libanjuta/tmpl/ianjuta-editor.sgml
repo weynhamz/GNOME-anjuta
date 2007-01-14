@@ -43,6 +43,7 @@
 </para>
 
 @g_iface: 
+@changed: 
 @char_added: 
 @update_ui: 
 @append: 

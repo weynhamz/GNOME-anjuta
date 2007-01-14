@@ -798,9 +798,12 @@ void anjuta_symbol_view_update_source_from_buffer (AnjutaSymbolView *sv, const g
 	
 	DEBUG_PRINT ("updating took %d microseconds", (unsigned int)ms );
 	
-	DEBUG_PRINT ("total tags discovered AFTER buffer updating...: %d", 
-			TM_PROJECT(sv->priv->tm_project)->work_object.tags_array->len);	
-	
+	if (sv->priv->tm_project &&
+		TM_PROJECT(sv->priv->tm_project)->work_object.tags_array)
+	{
+		DEBUG_PRINT ("total tags discovered AFTER buffer updating...: %d", 
+				TM_PROJECT(sv->priv->tm_project)->work_object.tags_array->len);	
+	}
 }
 
 

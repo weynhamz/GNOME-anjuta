@@ -12,6 +12,10 @@ New: Improvements in glade-3 integration.
 
 Bugs fixed:
 ===========
+#396571 Anjuta crashes as soon as editing starts in normal text files.
+#395362 Tagmanager crashes on update - Probably because of project reload
+#377477 when debugging, scintilla editor grays out all lines before current line.
+#342717 Build errors redisplayed AFTER a successful build.
 #167534 Multiple errors in strings
 #168274 anjuta creates an empty system.tags file
 #168301 the new project druid should be center on the anjuta window

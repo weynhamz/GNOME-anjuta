@@ -1,3 +1,10 @@
+2007-01-14  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated.
+	* configure.in: Bumped version to 2.1.0 for beta release.
+	* plugins/symbol-browser/an_symbol_view.c: Fixed Bug #396571: Anjuta
+	crashes as soon as editing starts in normal text files.
+
 2007-01-14  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in
@@ -31,7 +38,7 @@
 	
 	* plugins/build-basic-autotools/build-basic-autotools.[ch]:
 	Maintain a separate list of indicated edtitors for separate contexts.
-	Fixes bug 342717 – Build errors redisplayed AFTER a successful build.
+	Fixes bug 342717 - Build errors redisplayed AFTER a successful build.
 	
 2007-01-12 Sebastien Granjoux <seb.sfo@free.fr>
 
