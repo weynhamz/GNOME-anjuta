@@ -9,14 +9,14 @@ AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
 
 [+IF (=(get "HaveI18n") "1")+]
-dnl Set gettext package name
+dnl ***************************************************************************
+dnl Internatinalization
+dnl ***************************************************************************
 GETTEXT_PACKAGE=[+NameLower+]
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
-
-dnl Add the languages which your application supports here.
-ALL_LINGUAS=""
 AM_GLIB_GNU_GETTEXT
+IT_PROG_INTLTOOL([0.35.0])
 [+ENDIF+]
 
 [+IF (=(get "HavePackage") "1")+]

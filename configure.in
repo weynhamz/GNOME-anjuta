@@ -116,9 +116,6 @@ AC_DEFINE_UNQUOTED(PREF_SUFFIX,
       "${PREF_SUFFIX}",
 	  [Suffix to add to preferences directory])
 
-dnl Initialize xml-i18n-tools
-AC_PROG_INTLTOOL
-
 #Check for C Compiler
 AC_PROG_CC
 AC_PROG_CPP
@@ -534,11 +531,11 @@ AC_SUBST(GLIB_MKENUMS)
 dnl ***************************************************************************
 dnl Internatinalization
 dnl ***************************************************************************
-ALL_LINGUAS="az ar be bg ca cs da de el en_CA en_GB es fi fr ga gl hi hr hu it ja ko mk ml ms nb ne nl pl pa pt pt_BR ru rw sk sq sr sr@Latn sv tr uk zh_CN zh_TW"
 GETTEXT_PACKAGE=anjuta
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
 AM_GLIB_GNU_GETTEXT
+IT_PROG_INTLTOOL([0.35.0])
 
 dnl gtk-doc
 dnl GTK_DOC_CHECK([1.0])

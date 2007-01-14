@@ -58,12 +58,13 @@
 		<directory source="po">
 			<file source="ChangeLog"/>
 			<file source="POTFILES.in"/>
+			<file source="LINGUAS" />
 			<file source="cvsignore" destination=".cvsignore"/>
 		</directory>
 		[+ENDIF+]
 	</directory>
 	<directory source="xlib" destination="[+Destination+]">
-		<file source="configure.in.tpl" destination="configure.in"/>
+		<file source="configure.ac.tpl" destination="configure.ac"/>
 		<directory source="src">
 			<file source="main.c"/>
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>

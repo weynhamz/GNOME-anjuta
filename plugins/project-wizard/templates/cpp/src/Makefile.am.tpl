@@ -15,7 +15,7 @@ AM_CFLAGS =\
 bin_PROGRAMS = [+NameLower+]
 
 [+NameCLower+]_SOURCES = \
-	main.cpp
+	main.cc
 
 [+NameCLower+]_LDFLAGS = 
 

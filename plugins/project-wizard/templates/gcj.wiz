@@ -32,6 +32,7 @@
 
 [+IF (=(get "HavePackageExtra") "1")+]
 <page name="packages" _label="Configure external packages" _description="Configure external packages">
+	<property type="string" name="PackageModule1" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'" mandatory="yes"/>
 	<property type="string" name="PackageModule2" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'" mandatory="yes"/>
 	<property type="string" name="PackageModule3" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
 	<property type="string" name="PackageModule4" _label="Require Package:" _description="Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 &gt;= 2.2.0'"/>
@@ -55,6 +56,7 @@
 		[+IF (=(get "HaveI18n") "1") +]
 		<directory source="po">
 			<file source="ChangeLog"/>
+			<file source="LINGUAS" />
 			<file source="cvsignore" destination=".cvsignore"/>
 		</directory>
 		[+ENDIF+]

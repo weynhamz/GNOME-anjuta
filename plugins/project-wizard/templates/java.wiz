@@ -55,6 +55,7 @@
 		[+IF (=(get "HaveI18n") "1") +]
 		<directory source="po">
 			<file source="ChangeLog"/>
+			<file source="LINGUAS" />
 			<file source="cvsignore" destination=".cvsignore"/>
 		</directory>
 		[+ENDIF+]

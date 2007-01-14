@@ -57,6 +57,7 @@
 		<directory source="po">
 			<file source="ChangeLog"/>
 			<file source="POTFILES.in"/>
+			<file source="LINGUAS" />
 			<file source="cvsignore" destination=".cvsignore"/>
 		</directory>
 		[+ENDIF+]

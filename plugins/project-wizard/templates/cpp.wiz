@@ -39,30 +39,40 @@
 [+ENDIF+]
 
 <content>
-	<directory source="cpp" destination="[+Destination+]">
+	<directory source="terminal" destination="[+Destination+]">
 		<file source="AUTHORS"/>
 		<file source="ChangeLog"/>
 		<file source="Makefile.am.tpl" destination="Makefile.am"/>
 		<file source="NEWS"/>
 		<file source="README"/>
 		<file source="autogen.sh" executable="yes"/>
-		<file source="configure.ac.tpl" destination="configure.ac"/>
 		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
 		<file source="cvsignore" destination=".cvsignore"/>
 		<directory source="src">
-			<file source="Makefile.am.tpl" destination="Makefile.am"/>
-			<file source="main.cpp"/>
 			<file source="cvsignore" destination=".cvsignore"/>
 		</directory>
 		[+IF (=(get "HaveI18n") "1") +]
 		<directory source="po">
 			<file source="ChangeLog"/>
-			<file source="POTFILES.in"/>
+			<file source="LINGUAS" />
 			<file source="cvsignore" destination=".cvsignore"/>
-  		</directory>
+		</directory>
 		[+ENDIF+]
-  	</directory>
+	</directory>
+	<directory source="cpp" destination="[+Destination+]">
+	  <file source="configure.ac.tpl" destination="configure.ac"/>
+		<directory source="src">
+			<file source="main.cc"/>
+			<file source="Makefile.am.tpl" destination="Makefile.am"/>
+		</directory>
+	[+IF (=(get "HaveI18n") "1")+]
+		<directory source="po">
+			<file source="POTFILES.in"/>
+		</directory>
+	[+ENDIF+]
+	</directory>
 </content>
+
 
 <action>
 	<run command="sh -c 'cd [+Destination+] &amp;&amp; ./autogen.sh'"/>
