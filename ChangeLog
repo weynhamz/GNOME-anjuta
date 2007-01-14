@@ -1,5 +1,6 @@
 2007-01-14  Naba Kumar  <naba@gnome.org>
 
+	* AUTHORS: Updated.
 	* NEWS: Updated.
 	* configure.in: Bumped version to 2.1.0 for beta release.
 	* plugins/symbol-browser/an_symbol_view.c: Fixed Bug #396571: Anjuta
