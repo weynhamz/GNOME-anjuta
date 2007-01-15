@@ -69,7 +69,7 @@
 		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
 		<file source="configure.ac.tpl" destination="configure.ac"/>
 		<directory source="src">
-			<file source="main.py"/>
+			<file source="main.py" destination="[+NameCLower+].py" executable="yes"/>
 			<file source="Makefile.am.tpl" destination="Makefile.am"/>
 		</directory>
 	</directory>

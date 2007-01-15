@@ -1,3 +1,12 @@
+2007-01-15  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/project-manager/plugin.c:
+	* plugins/project-wizard/templates/python.wiz
+	* plugins/project-wizard/templates/python/src/Makefile.am.tpl:
+	
+	Fixed #335235 python programs are not executeable/ do not start when pressing F3
+	You will also need latest gnome-build svn	
+
 === anjuta 2.1.0 ===
 
 2007-01-14  Naba Kumar  <naba@gnome.org>

@@ -88,7 +88,7 @@ libanjuta_sourceview_la_SOURCES = \
 	sourceview-args.h \
 	sourceview-cell.c \
 	sourceview-cell.h 
-	
+
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \
 	$(PCRE_LIBS) \
@@ -106,3 +106,5 @@ EXTRA_DIST = \
 	$(sourceview_plugin_DATA) \
 	$(sourceview_pixmaps_DATA) \
 	$(sourceview_glade_DATA)
+
+

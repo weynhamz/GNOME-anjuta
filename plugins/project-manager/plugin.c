@@ -1615,7 +1615,7 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 	const gchar *target_id;
 	GList *elements;
 	ProjectManagerPlugin *plugin;
-	const gchar *target_type_str;
+	GList *target_types = NULL;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager), NULL);
 	
@@ -1625,15 +1625,17 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 	switch (target_type)
 	{
 		case IANJUTA_PROJECT_MANAGER_TARGET_SHAREDLIB:
-			target_type_str = "shared_lib";
+			target_types = g_list_append(target_types, "shared_lib");
 			break;
 		case IANJUTA_PROJECT_MANAGER_TARGET_STATICLIB:
-			target_type_str = "static_lib";
+			target_types = g_list_append(target_types, "static_lib");
 			break;
 		case IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE:
-			target_type_str = "program";
+			target_types = g_list_append(target_types, "program");
+			target_types = g_list_append(target_types, "script");
 			break;
 		default:
+			/* FIXME: there are some more target types */
 			g_warning ("Unsupported target type");
 			return NULL;
 	}
@@ -1650,11 +1652,15 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 		t_type = strrchr (target_id, ':');
 		if (t_type && strlen (t_type) > 2)
 		{
+			GList* type_node;
 			t_type++;
-			if (strcmp (t_type, target_type_str) == 0)
+			for (type_node = target_types; type_node != NULL; type_node = type_node->next)
 			{
-				gchar *target_uri = get_element_uri_from_id (plugin, target_id);
-				elements = g_list_prepend (elements, target_uri);
+				if (strcmp (t_type, type_node->data) == 0)
+				{
+					gchar *target_uri = get_element_uri_from_id (plugin, target_id);
+					elements = g_list_prepend (elements, target_uri);
+				}
 			}
 		}
 		g_free (node->data);
