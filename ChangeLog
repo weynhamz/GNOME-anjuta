@@ -1,3 +1,7 @@
+2007-01-18  Johannes Schmid <jhs@gnome.org>
+
+	* src/about.c: Do not show empty license information instead hide the button (#397883)
+
 2007-01-15  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/project-manager/plugin.c:

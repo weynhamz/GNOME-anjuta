@@ -177,14 +177,6 @@ about_box_new ()
 	
 	pix = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ANJUTA_PIXMAP_LOGO,
 									NULL);
-
-/* Use GTK 2.6 about dialog */
-#if 0
-	dialog = gnome_about_new ("Anjuta", VERSION, 
-							  _("Copyright (c) Naba Kumar"),
-							  _("Integrated Development Environment"),
-							  authors, documenters, translators, pix);
-#endif
 	
 	dialog = gtk_about_dialog_new();
 	gtk_about_dialog_set_name(GTK_ABOUT_DIALOG(dialog), "Anjuta");
@@ -194,7 +186,7 @@ about_box_new ()
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),
 		_("Integrated Development Environment"));
 	gtk_about_dialog_set_license(GTK_ABOUT_DIALOG(dialog), 
-		_("GNU General Public License"));
+		NULL);
 	gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(dialog), "www.anjuta.org");
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pix);
 	
