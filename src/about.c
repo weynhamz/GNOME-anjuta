@@ -23,7 +23,7 @@
 #endif
 
 #include <gtk/gtkaboutdialog.h>
-#include <libanjuta/plugins.h>
+#include <libanjuta/anjuta-plugin-manager.h>
 
 #include "about.h"
 
@@ -240,7 +240,8 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
 	gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog),d);
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(dialog), pix);
 	
-	gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog), authors_v);
+	gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(dialog),
+								 (const gchar **)authors_v);
 	
 	gtk_widget_show (dialog);
 	g_object_unref (pix);
@@ -255,7 +256,7 @@ void
 about_create_plugins_submenu (AnjutaShell *shell, GtkWidget *menuitem)
 {
 	GtkWidget *submenu;
-	GSList *plugin_descs, *node;
+	GList *plugin_descs, *node;
 	
 	g_return_if_fail (ANJUTA_IS_SHELL (shell));
 	g_return_if_fail (GTK_IS_MENU_ITEM (menuitem));
@@ -264,7 +265,9 @@ about_create_plugins_submenu (AnjutaShell *shell, GtkWidget *menuitem)
 	gtk_widget_show (submenu);
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (menuitem), submenu);
 	
-	plugin_descs = anjuta_plugins_query (shell, NULL, NULL, NULL, NULL);
+	plugin_descs =
+		anjuta_plugin_manager_query (anjuta_shell_get_plugin_manager (shell, NULL),
+									 NULL, NULL, NULL, NULL);
 	node = plugin_descs;
 	while (node)
 	{
@@ -288,6 +291,6 @@ about_create_plugins_submenu (AnjutaShell *shell, GtkWidget *menuitem)
 			}
 			g_free (label);
 		}
-		node = g_slist_next (node);
+		node = g_list_next (node);
 	}
 }

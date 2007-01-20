@@ -32,7 +32,6 @@
 #include <gtk/gtkwindow.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/resources.h>
-#include <libanjuta/plugins.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 
@@ -304,7 +303,6 @@ main (int argc, char *argv[])
 {
 	GnomeProgram *program;
 	gchar *data_dir;
-	GList *plugins_dirs = NULL;
 	char *im_file;
 	
 #ifdef ENABLE_NLS
@@ -366,10 +364,7 @@ main (int argc, char *argv[])
 
 	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 	
-	/* Initialize plugins */
-	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
-	anjuta_plugins_init (plugins_dirs);
-	
+	/* Initialize applicatoin */
 	app = anjuta_new (argv[0], file_list, no_splash, im_file,
 					  proper_shutdown, anjuta_geometry);
 	
@@ -380,8 +375,5 @@ main (int argc, char *argv[])
 	gtk_window_set_auto_startup_notification(TRUE);
 	gtk_widget_show (GTK_WIDGET (app));
 	gtk_main();
-	
-	/* Finalize plugins system */
-	anjuta_plugins_finalize ();
 	return 0;
 }

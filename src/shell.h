@@ -45,6 +45,7 @@ struct _AnjutaTestShell
 	AnjutaStatus *status;
 	AnjutaUI *ui;
 	AnjutaPreferences *preferences;
+	AnjutaPluginManager *plugin_manager;
 	
 	gint merge_id;
 };

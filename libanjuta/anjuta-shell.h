@@ -5,9 +5,11 @@
 #include <glib-object.h>
 #include <gtk/gtkwidget.h>
 
+#include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>
+#include <libanjuta/anjuta-plugin-manager.h>
 #include <libanjuta/anjuta-session.h>
 #include <libanjuta/anjuta-save-prompt.h>
 
@@ -55,6 +57,8 @@ struct _AnjutaShellIface {
 	AnjutaStatus* (*get_status) (AnjutaShell  *shell, GError **err);
 	AnjutaUI* (*get_ui) (AnjutaShell  *shell, GError **err);
 	AnjutaPreferences* (*get_preferences) (AnjutaShell *shell, GError **err);
+	AnjutaPluginManager* (*get_plugin_manager) (AnjutaShell *shell,
+												GError **err);
 	
 	void (*add_widget)        (AnjutaShell  *shell,
 							   GtkWidget    *widget,
@@ -94,6 +98,9 @@ AnjutaUI* anjuta_shell_get_ui (AnjutaShell *shell, GError **error);
 
 AnjutaPreferences* anjuta_shell_get_preferences (AnjutaShell *shell,
 												 GError **error);
+
+AnjutaPluginManager* anjuta_shell_get_plugin_manager (AnjutaShell *shell,
+													  GError **error);
 
 void anjuta_shell_freeze (AnjutaShell *shell, GError **error);
 void anjuta_shell_thaw (AnjutaShell *shell, GError **error);

@@ -26,7 +26,6 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
-#include <libanjuta/plugins.h>
 #include <libanjuta/anjuta-debug.h>
 
 #include "plugin.h"

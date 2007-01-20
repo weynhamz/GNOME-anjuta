@@ -33,7 +33,6 @@
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
-#include <libanjuta/plugins.h>
 #include <libegg/menu/egg-combo-action.h>
 
 #include <tm_tagmanager.h>

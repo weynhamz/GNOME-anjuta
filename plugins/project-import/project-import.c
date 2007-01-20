@@ -31,9 +31,9 @@
 static GObjectClass *parent_class = NULL;
 
 static void
-on_import_cancel(GnomeDruid* druid, ProjectImport* pi)
+on_import_cancel (GnomeDruid* druid, ProjectImport* pi)
 {
-	g_object_unref(G_OBJECT(pi));
+	g_object_unref (G_OBJECT(pi));
 }
 
 static gboolean
@@ -130,17 +130,18 @@ on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 }
 
 static gboolean
-on_import_finish(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
+on_import_finish (GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 {
-	const gchar* name = gtk_entry_get_text(GTK_ENTRY(pi->import_name));
-	const gchar* path = gtk_entry_get_text(GTK_ENTRY(pi->import_path));
+	const gchar* name = gtk_entry_get_text (GTK_ENTRY(pi->import_name));
+	const gchar* path = gtk_entry_get_text (GTK_ENTRY(pi->import_path));
 	
-	gchar* project_file = g_strconcat(path, "/", name, ".", "anjuta", NULL);
+	gchar* project_file = g_strconcat (path, "/", name, ".", "anjuta", NULL);
 	
 	IAnjutaFileLoader* loader;
 	
-	if (!project_import_generate_file(pi, project_file))
+	if (!project_import_generate_file (pi, project_file))
 	{
+		g_free (project_file);
 		return TRUE;
 	}
 	
@@ -149,14 +150,15 @@ on_import_finish(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 	if (!loader)
 	{
 		g_warning("No IAnjutaFileLoader interface! Cannot open project file!");
-		g_object_unref(G_OBJECT(pi));
+		g_object_unref (G_OBJECT (pi));
+		g_free (project_file);
 		return FALSE;
 	}
-	ianjuta_file_loader_load(loader, project_file, FALSE, NULL);
-	g_object_unref(G_OBJECT(pi));
+	ianjuta_file_loader_load (loader, project_file, FALSE, NULL);
+	g_object_unref (G_OBJECT (pi));
+	g_free (project_file);
 	return FALSE;
 }
-
 
 static void
 project_import_init(ProjectImport *pi)

@@ -28,7 +28,6 @@
 
 #include "debugger.h"
 
-#include <libanjuta/plugins.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-variable-debugger.h>

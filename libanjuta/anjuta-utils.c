@@ -897,13 +897,16 @@ FIXME: Find a better algorithm, this seems ineffective */
 gboolean anjuta_util_diff(const gchar* uri, const gchar* text)
 {
 	GnomeVFSFileSize bytes_read;
-	
 	gchar* file_text;
-	
-	GnomeVFSHandle* handle = NULL;
 	GnomeVFSFileInfo info;
+	GnomeVFSHandle* handle = NULL;
 	
 	gnome_vfs_get_file_info(uri, &info, GNOME_VFS_FILE_INFO_DEFAULT);
+	
+	if (info.size == 0 && text == NULL)
+		return FALSE;
+	else if (info.size == 0 || text == NULL)
+		return TRUE;
 	
 	file_text = g_new0(gchar, info.size + 1);
 	

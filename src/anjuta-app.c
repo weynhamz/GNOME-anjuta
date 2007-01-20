@@ -37,7 +37,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
-#include <libanjuta/plugins.h>
+#include <libanjuta/anjuta-plugin-manager.h>
 #include <libanjuta/anjuta-debug.h>
 
 #include "anjuta-app.h"
@@ -383,6 +383,10 @@ anjuta_app_dispose (GObject *widget)
 		g_object_unref (app->layout_manager);
 		app->layout_manager = NULL;
 	}
+	if (app->plugin_manager) {
+		g_object_unref (G_OBJECT (app->plugin_manager));
+		app->plugin_manager = NULL;
+	}
 	if (app->status) {
 		g_object_unref (G_OBJECT (app->status));
 		app->status = NULL;
@@ -415,7 +419,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	GtkWidget *dockbar;
 	GtkAccelGroup *accel_group;
 	GtkAction* action;
-	
+	GList *plugins_dirs = NULL;
 	GdkGeometry size_hints = {
     	100, 100, 0, 0, 100, 100, 1, 1, 0.0, 0.0, GDK_GRAVITY_NORTH_WEST
   	};
@@ -489,6 +493,13 @@ anjuta_app_instance_init (AnjutaApp *app)
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  app);
 	g_object_add_weak_pointer (G_OBJECT (app->ui), (gpointer*)&app->ui);
+	
+	/* Plugin Manager */
+	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
+	app->plugin_manager = anjuta_plugin_manager_new (G_OBJECT (app),
+													 app->status,
+													 plugins_dirs);
+	g_list_free (plugins_dirs);
 	
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
@@ -1053,7 +1064,8 @@ anjuta_app_get_object  (AnjutaShell *shell, const char *iface_name,
 {
 	g_return_val_if_fail (ANJUTA_IS_APP (shell), NULL);
 	g_return_val_if_fail (iface_name != NULL, NULL);
-	return anjuta_plugins_get_plugin (shell, iface_name);
+	return anjuta_plugin_manager_get_plugin (ANJUTA_APP (shell)->plugin_manager,
+											 iface_name);
 }
 
 static AnjutaStatus*
@@ -1077,6 +1089,13 @@ anjuta_app_get_preferences  (AnjutaShell *shell, GError **error)
 	return ANJUTA_APP (shell)->preferences;
 }
 
+static AnjutaPluginManager *
+anjuta_app_get_plugin_manager  (AnjutaShell *shell, GError **error)
+{
+	g_return_val_if_fail (ANJUTA_IS_APP (shell), NULL);
+	return ANJUTA_APP (shell)->plugin_manager;
+}
+
 static void
 anjuta_shell_iface_init (AnjutaShellIface *iface)
 {
@@ -1090,6 +1109,7 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->get_status = anjuta_app_get_status;
 	iface->get_ui = anjuta_app_get_ui;
 	iface->get_preferences = anjuta_app_get_preferences;
+	iface->get_plugin_manager = anjuta_app_get_plugin_manager;
 }
 
 ANJUTA_TYPE_BEGIN(AnjutaApp, anjuta_app, GNOME_TYPE_APP);

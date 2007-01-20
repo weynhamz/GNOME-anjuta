@@ -24,7 +24,6 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/plugins.h>
 
 #include "shell.h"
 
@@ -33,7 +32,7 @@
 static void
 shutdown (AnjutaTestShell *shell)
 {
-	anjuta_plugins_unload_all (ANJUTA_SHELL (shell));
+	anjuta_plugin_manager_unload_all_plugins (shell->plugin_manager);
 	gtk_main_quit ();
 }
 
@@ -129,6 +128,7 @@ static void
 anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 {
 	GtkWidget *plugins;
+	GList *plugins_dirs = NULL;
 	
 	shell->values = g_hash_table_new (g_str_hash, g_str_equal);
 	shell->widgets = g_hash_table_new (g_str_hash, g_str_equal);
@@ -143,7 +143,14 @@ anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 	gtk_box_pack_end (GTK_BOX (shell->box), GTK_WIDGET (shell->status),
 					  FALSE, FALSE, 0);
 	
-	plugins = anjuta_plugins_get_installed_dialog (ANJUTA_SHELL (shell));
+	/* Initialize plugins */
+	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
+	shell->plugin_manager = anjuta_plugin_manager_new (G_OBJECT (shell),
+													   shell->status,
+													   plugins_dirs);
+	g_list_free (plugins_dirs);
+	
+	plugins = anjuta_plugin_manager_get_dialog (shell->plugin_manager);
 	gtk_box_pack_end_defaults (GTK_BOX (shell->box), plugins);
 	
 	/* Preferencesnces */
@@ -318,7 +325,8 @@ static GObject*
 anjuta_test_shell_get_object  (AnjutaShell *shell, const char *iface_name,
 					    GError **error)
 {
-	return anjuta_plugins_get_plugin (shell, iface_name);
+	return anjuta_plugin_manager_get_plugin (ANJUTA_TEST_SHELL (shell)->plugin_manager,
+											 iface_name);
 }
 
 static AnjutaStatus*
@@ -395,7 +403,6 @@ main (int argc, char *argv[])
 	GtkWidget *shell;
 	GnomeProgram *program;
 	gchar *data_dir;
-	GList *plugins_dirs = NULL;
 	// GList* command_args;
 
 #ifdef ENABLE_NLS
@@ -417,15 +424,10 @@ main (int argc, char *argv[])
 			    NULL);
 	g_free (data_dir);
 	
-	/* Initialize plugins */
-	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
-	anjuta_plugins_init (plugins_dirs);
-
 	shell = anjuta_test_shell_new ();
 	g_signal_connect (G_OBJECT (shell), "delete-event",
 					  G_CALLBACK (on_delete_event), NULL);
 	gtk_widget_show_all (GTK_WIDGET (shell));
 	gtk_main();
-	anjuta_plugins_finalize ();
 	return 0;
 }

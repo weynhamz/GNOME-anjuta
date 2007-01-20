@@ -56,8 +56,8 @@ struct _DefaultProfilePlugin{
 	 *
 	 * The keys are plugin IDs. The values are irrelevent.
 	 */
-	GSList *system_plugins;
-	GSList *project_plugins;
+	GList *system_plugins;
+	GList *project_plugins;
 	
 	/* A flag to indicate that session ops is by this plugin */
 	gboolean session_by_me;

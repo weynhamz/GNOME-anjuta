@@ -29,7 +29,6 @@
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-profile.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
-#include <libanjuta/plugins.h>
 #include <libgnomevfs/gnome-vfs.h>
 
 #include "plugin.h"
@@ -73,29 +72,32 @@ update_title (DefaultProfilePlugin* plugin, const gchar *project_uri)
 static void
 default_profile_plugin_write_to_file (DefaultProfilePlugin *plugin,
 									  const gchar *dir,
-									  GSList *plugins_to_exclude)
+									  GList *plugins_to_exclude)
 {
 	gchar *profile_name, *profile_file;
 	GnomeVFSHandle* vfs_write;
 	GnomeVFSResult result;
 	GnomeVFSFileSize nchars;
-	GSList *active_plugins, *node;
+	GList *active_plugins, *node;
 	GHashTable *base_plugins_hash;
 	GString *str;
-
+	AnjutaPluginManager *plugin_manager;
+	
 	profile_name = g_path_get_basename (plugin->default_profile);
 	profile_file = g_build_filename (dir, profile_name, NULL);
 	g_free (profile_name);
 	
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
+													  NULL);
 	/* Prepare the write data */
 	base_plugins_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
 	node = plugins_to_exclude;
 	while (node)
 	{
 		g_hash_table_insert (base_plugins_hash, node->data, node->data);
-		node = g_slist_next (node);
+		node = g_list_next (node);
 	}
-	active_plugins = anjuta_plugins_get_active_plugins (ANJUTA_PLUGIN (plugin)->shell);
+	active_plugins = anjuta_plugin_manager_get_active_plugins (plugin_manager);
 	str = g_string_new ("<?xml version=\"1.0\"?>\n<anjuta>\n");
 	node = active_plugins;
 	while (node)
@@ -115,8 +117,8 @@ default_profile_plugin_write_to_file (DefaultProfilePlugin *plugin,
 			if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 													  "Location", &plugin_id))
 			{
-				plugin_object = anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN (plugin)->shell,
-																 plugin_id);
+				plugin_object = anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
+																		plugin_id);
 				if (plugin_object != G_OBJECT (plugin))
 				{
 					g_string_append (str, "    <plugin name=\"");
@@ -133,7 +135,7 @@ default_profile_plugin_write_to_file (DefaultProfilePlugin *plugin,
 			}
 			g_free (name);
 		}
-		node = g_slist_next (node);
+		node = g_list_next (node);
 	}
 	g_string_append (str, "</anjuta>\n");
 	
@@ -146,7 +148,7 @@ default_profile_plugin_write_to_file (DefaultProfilePlugin *plugin,
 		gnome_vfs_close(vfs_write);
 	}
 	g_hash_table_destroy (base_plugins_hash);
-	g_slist_free (active_plugins);
+	g_list_free (active_plugins);
 	g_string_free (str, TRUE);
 }
 													 
@@ -336,12 +338,12 @@ default_profile_plugin_dispose (GObject *obj)
 	}
 	if (plugin->system_plugins)
 	{
-		g_slist_free (plugin->system_plugins);
+		g_list_free (plugin->system_plugins);
 		plugin->system_plugins = NULL;
 	}
 	if (plugin->project_plugins)
 	{
-		g_slist_free (plugin->project_plugins);
+		g_list_free (plugin->project_plugins);
 		plugin->project_plugins = NULL;
 	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
@@ -373,22 +375,24 @@ default_profile_plugin_class_init (GObjectClass *klass)
 }
 
 /* Returns a list of matching plugins */
-static GSList*
+static GList*
 default_profile_plugin_query_plugins (DefaultProfilePlugin *plugin,
-									  GSList *groups, GSList *attribs,
-									  GSList *values)
+									  GList *groups, GList *attribs,
+									  GList *values)
 {
 	gchar *sec[5];
 	gchar *att[5];
 	gchar *val[5];
-	GSList *sec_node, *att_node, *val_node;
+	GList *sec_node, *att_node, *val_node;
 	gint length, i;
+	AnjutaPluginManager *plugin_manager;
 	
 	/* FIXME: How to call a variable arguments function dynamically !! */
-	length = g_slist_length (groups);
+	length = g_list_length (groups);
 	
 	g_return_val_if_fail ((length > 0 && length <= 5), NULL);
-	
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
+													  NULL);
 	i = 0;
 	sec_node = groups;
 	att_node = attribs;
@@ -399,87 +403,93 @@ default_profile_plugin_query_plugins (DefaultProfilePlugin *plugin,
 		att[i] = att_node->data;
 		val[i] = val_node->data;
 		
-		sec_node = g_slist_next (sec_node);
-		att_node = g_slist_next (att_node);
-		val_node = g_slist_next (val_node);
+		sec_node = g_list_next (sec_node);
+		att_node = g_list_next (att_node);
+		val_node = g_list_next (val_node);
 		i++;
 	}
 	
 	switch (length)
 	{
 	case 1:
-		return anjuta_plugins_query (ANJUTA_PLUGIN (plugin)->shell,
-									 sec[0], att[0], val[0], NULL);
+		return anjuta_plugin_manager_query (plugin_manager,
+											sec[0], att[0], val[0], NULL);
 	case 2:
-		return anjuta_plugins_query (ANJUTA_PLUGIN (plugin)->shell,
-									 sec[0], att[0], val[0],
-									 sec[1], att[1], val[1],
-									 NULL);
+		return anjuta_plugin_manager_query (plugin_manager,
+											sec[0], att[0], val[0],
+											sec[1], att[1], val[1],
+											NULL);
 	case 3:
-		return anjuta_plugins_query (ANJUTA_PLUGIN (plugin)->shell,
-									 sec[0], att[0], val[0],
-									 sec[1], att[1], val[1],
-									 sec[2], att[2], val[2],
-									 NULL);
+		return anjuta_plugin_manager_query (plugin_manager,
+											sec[0], att[0], val[0],
+											sec[1], att[1], val[1],
+											sec[2], att[2], val[2],
+											NULL);
 	case 4:
-		return anjuta_plugins_query (ANJUTA_PLUGIN (plugin)->shell,
-									 sec[0], att[0], val[0],
-									 sec[1], att[1], val[1],
-									 sec[2], att[2], val[2],
-									 sec[3], att[3], val[3],
-									 NULL);
+		return anjuta_plugin_manager_query (plugin_manager,
+											sec[0], att[0], val[0],
+											sec[1], att[1], val[1],
+											sec[2], att[2], val[2],
+											sec[3], att[3], val[3],
+											NULL);
 	case 5:
-		return anjuta_plugins_query (ANJUTA_PLUGIN (plugin)->shell,
-									 sec[0], att[0], val[0],
-									 sec[1], att[1], val[1],
-									 sec[2], att[2], val[2],
-									 sec[3], att[3], val[3],
-									 sec[4], att[4], val[4],
-									 NULL);
+		return anjuta_plugin_manager_query (plugin_manager,
+											sec[0], att[0], val[0],
+											sec[1], att[1], val[1],
+											sec[2], att[2], val[2],
+											sec[3], att[3], val[3],
+											sec[4], att[4], val[4],
+											NULL);
 	default:
 		g_warning ("FIXME: How to call a variable args function dynamically !!");
 	}
 	return NULL;
 }
 
-static GSList*
+static GList*
 default_profile_plugin_select_plugins (DefaultProfilePlugin *plugin,
-									   GSList *descs_list)
+									   GList *descs_list)
 {
-	GSList *selected_plugins = NULL;
-	GSList *node = descs_list;
+	AnjutaPluginManager *plugin_manager;
+	GList *selected_plugins = NULL;
+	GList *node = descs_list;
+	
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
+													  NULL);
 	while (node)
 	{
-		GSList *descs = node->data;
-		if (g_slist_length (descs) == 1)
+		GList *descs = node->data;
+		if (g_list_length (descs) == 1)
 		{
-			selected_plugins = g_slist_prepend (selected_plugins, descs->data);
+			selected_plugins = g_list_prepend (selected_plugins, descs->data);
 		}
 		else
 		{
 			AnjutaPluginDescription* d;
-			d = anjuta_plugins_select (ANJUTA_PLUGIN (plugin)->shell,
-									   "Select a plugin",
-									   "Please select a plugin from the list",
-									   descs);
+			d = anjuta_plugin_manager_select (plugin_manager,
+											  "Select a plugin",
+											  "Please select a plugin from the list",
+											  descs);
 			if (d)
-				selected_plugins = g_slist_prepend (selected_plugins, d);
+				selected_plugins = g_list_prepend (selected_plugins, d);
 		}
-		node = g_slist_next (node);
+		node = g_list_next (node);
 	}
-	return g_slist_reverse (selected_plugins);
+	return g_list_reverse (selected_plugins);
 }
 
 static void
 default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
-										 GSList *selected_plugins)
+										 GList *selected_plugins)
 {
+	AnjutaPluginManager *plugin_manager;
 	AnjutaStatus *status;
 	GdkPixbuf *icon_pixbuf;
-	GSList *node;
+	GList *node;
 	
 	/* Freeze shell operations */
 	anjuta_shell_freeze (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	
 	/* First of all close existing project profile */
@@ -489,7 +499,7 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 	}
 	if (selected_plugins)
 		anjuta_status_progress_add_ticks (status,
-										  g_slist_length (selected_plugins));
+										  g_list_length (selected_plugins));
 	
 	node = selected_plugins;
 	while (node)
@@ -532,8 +542,8 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 			GObject *plugin_obj;
 			
 			plugin_obj =
-				anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN (plugin)->shell,
-												 plugin_id);
+				anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
+														plugin_id);
 			g_free (plugin_id);
 		}
 		anjuta_status_progress_tick (status, icon_pixbuf, label);
@@ -541,14 +551,14 @@ default_profile_plugin_activate_plugins (DefaultProfilePlugin *plugin,
 		if (icon_pixbuf)
 			g_object_unref (icon_pixbuf);
 		
-		node = g_slist_next (node);
+		node = g_list_next (node);
 	}
 	
 	/* Thaw shell operations */
 	anjuta_shell_thaw (ANJUTA_PLUGIN (plugin)->shell, NULL);
 }
 
-static GSList*
+static GList*
 default_profile_plugin_read (DefaultProfilePlugin *plugin,
 							 const gchar *xml_uri)
 {
@@ -557,7 +567,7 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 	GnomeVFSHandle *handle;
 	GnomeVFSFileInfo info;
 	GnomeVFSResult result;
-	GSList *descs_list, *selected_plugins, *not_found_names, *not_found_urls;
+	GList *descs_list, *selected_plugins, *not_found_names, *not_found_urls;
 	int perm, read;
 	gboolean error = FALSE;
 	gchar *read_buf = NULL;
@@ -643,10 +653,10 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 	xml_node = xml_root->xmlChildrenNode;
 	while (xml_node && !error)
 	{
-		GSList *groups = NULL;
-		GSList *attribs = NULL;
-		GSList *values = NULL;
-		GSList *plugin_descs;
+		GList *groups = NULL;
+		GList *attribs = NULL;
+		GList *values = NULL;
+		GList *plugin_descs;
 		gchar *name, *url, *mandatory_text;
 		xmlNodePtr xml_require_node;
 		gboolean mandatory;
@@ -698,9 +708,9 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 			
 			if (group && attrib && value)
 			{
-				groups = g_slist_prepend (groups, group);
-				attribs = g_slist_prepend (attribs, attrib);
-				values = g_slist_prepend (values, value);
+				groups = g_list_prepend (groups, group);
+				attribs = g_list_prepend (attribs, attrib);
+				values = g_list_prepend (values, value);
 			}
 			else
 			{
@@ -715,17 +725,17 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 		}
 		if (error)
 		{
-			g_slist_foreach (groups, (GFunc)xmlFree, NULL);
-			g_slist_foreach (attribs, (GFunc)xmlFree, NULL);
-			g_slist_foreach (values, (GFunc)xmlFree, NULL);
-			g_slist_free (groups);
-			g_slist_free (attribs);
-			g_slist_free (values);
+			g_list_foreach (groups, (GFunc)xmlFree, NULL);
+			g_list_foreach (attribs, (GFunc)xmlFree, NULL);
+			g_list_foreach (values, (GFunc)xmlFree, NULL);
+			g_list_free (groups);
+			g_list_free (attribs);
+			g_list_free (values);
 			xmlFree (name);
 			xmlFree (url);
 			break;
 		}
-		if (g_slist_length (groups) == 0)
+		if (g_list_length (groups) == 0)
 		{
 			error = TRUE;
 			g_warning ("XML Error: No attributes to match given");
@@ -733,7 +743,7 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 			xmlFree (url);
 			break;
 		}
-		if (g_slist_length (groups) > 5)
+		if (g_list_length (groups) > 5)
 		{
 			error = TRUE;
 			g_warning ("XML Error: Maximum 5 attributes can be given (FIXME)");
@@ -745,14 +755,14 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 															 attribs, values);
 		if (plugin_descs)
 		{
-			descs_list = g_slist_prepend (descs_list, plugin_descs);
+			descs_list = g_list_prepend (descs_list, plugin_descs);
 			xmlFree (name);
 			xmlFree (url);
 		}
 		else if (mandatory)
 		{
-			not_found_names = g_slist_prepend (not_found_names, name);
-			not_found_urls = g_slist_prepend (not_found_urls, url);
+			not_found_names = g_list_prepend (not_found_names, name);
+			not_found_urls = g_list_prepend (not_found_urls, url);
 		}
 		else
 		{
@@ -763,12 +773,12 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 	}
 	if (error)
 	{
-		g_slist_foreach (not_found_names, (GFunc)xmlFree, NULL);
-		g_slist_foreach (not_found_urls, (GFunc)xmlFree, NULL);
-		g_slist_foreach (descs_list, (GFunc)g_slist_free, NULL);
-		g_slist_free (not_found_names);
-		g_slist_free (not_found_urls);
-		g_slist_free (descs_list);
+		g_list_foreach (not_found_names, (GFunc)xmlFree, NULL);
+		g_list_foreach (not_found_urls, (GFunc)xmlFree, NULL);
+		g_list_foreach (descs_list, (GFunc)g_list_free, NULL);
+		g_list_free (not_found_names);
+		g_list_free (not_found_urls);
+		g_list_free (descs_list);
 		return NULL;
 	}
 	if (not_found_names)
@@ -777,10 +787,10 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 		 * FIXME: Present a nice dialog box to promt the user to download
 		 * the plugin from corresponding URLs, install them and proceed.
 		 */
-		GSList *node_name, *node_url;
+		GList *node_name, *node_url;
 		
-		not_found_names = g_slist_reverse (not_found_names);
-		not_found_urls = g_slist_reverse (not_found_urls);
+		not_found_names = g_list_reverse (not_found_names);
+		not_found_urls = g_list_reverse (not_found_urls);
 		
 		node_name = not_found_names;
 		node_url = not_found_urls;
@@ -788,27 +798,27 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 		{
 			g_warning ("FIXME: Download plugin '%s' from '%s'",
 					   (char *)node_name->data, (char*)node_url->data);
-			node_name = g_slist_next (node_name);
-			node_url = g_slist_next (node_url);
+			node_name = g_list_next (node_name);
+			node_url = g_list_next (node_url);
 		}
 		
 		/* FIXME: It should not return like this ... */
-		g_slist_foreach (not_found_names, (GFunc)xmlFree, NULL);
-		g_slist_foreach (not_found_urls, (GFunc)xmlFree, NULL);
-		g_slist_foreach (descs_list, (GFunc)g_slist_free, NULL);
-		g_slist_free (not_found_names);
-		g_slist_free (not_found_urls);
-		g_slist_free (descs_list);
+		g_list_foreach (not_found_names, (GFunc)xmlFree, NULL);
+		g_list_foreach (not_found_urls, (GFunc)xmlFree, NULL);
+		g_list_foreach (descs_list, (GFunc)g_list_free, NULL);
+		g_list_free (not_found_names);
+		g_list_free (not_found_urls);
+		g_list_free (descs_list);
 		return NULL;
 	}
 	if (descs_list)
 	{
 		/* Now everything okay. Select the plugins */
-		descs_list = g_slist_reverse (descs_list);
+		descs_list = g_list_reverse (descs_list);
 		selected_plugins = default_profile_plugin_select_plugins (plugin,
 																  descs_list);
-		g_slist_foreach (descs_list, (GFunc)g_slist_free, NULL);
-		g_slist_free (descs_list);
+		g_list_foreach (descs_list, (GFunc)g_list_free, NULL);
+		g_list_free (descs_list);
 		return selected_plugins;
 	}
 	return NULL;
@@ -816,23 +826,26 @@ default_profile_plugin_read (DefaultProfilePlugin *plugin,
 
 static void
 default_profile_plugin_load (DefaultProfilePlugin *plugin,
-							 GSList *selected_plugins, GError **e)
+							 GList *selected_plugins, GError **e)
 {
-	GSList *active_plugins, *node, *plugins_to_activate;
+	AnjutaPluginManager *plugin_manager;
+	GList *active_plugins, *node, *plugins_to_activate;
 	GHashTable *active_plugins_hash, *plugins_to_activate_hash;
 	
+	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
+													  NULL);
 	/* Prepare plugins to activate */
 	plugins_to_activate_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
 	node = selected_plugins;
 	while (node)
 	{
 		g_hash_table_insert (plugins_to_activate_hash, node->data, node->data);
-		node = g_slist_next (node);
+		node = g_list_next (node);
 	}
 	
 	/* Deactivate plugins that are already active, but are not requested to
 	 * to be active */
-	active_plugins = anjuta_plugins_get_active_plugins (ANJUTA_PLUGIN (plugin)->shell);
+	active_plugins = anjuta_plugin_manager_get_active_plugins (plugin_manager);
 	active_plugins_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
 	node = active_plugins;
 	while (node)
@@ -848,20 +861,20 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 												  "Location", &plugin_id);
 			g_assert (plugin_id != NULL);
 			
-			plugin_object = anjuta_plugins_get_plugin_by_id (ANJUTA_PLUGIN (plugin)->shell,
-															 plugin_id);
+			plugin_object = anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
+																	plugin_id);
 			g_assert (plugin_object != NULL);
 			
 			/* Refrain from unloading self. bah */
 			if (G_OBJECT (plugin) != plugin_object)
 			{
-				anjuta_plugins_unload_plugin (ANJUTA_PLUGIN (plugin)->shell,
-											  plugin_object);
+				anjuta_plugin_manager_unload_plugin (plugin_manager,
+													 plugin_object);
 			}
 			g_free (plugin_id);
 		}
 		g_hash_table_insert (active_plugins_hash, node->data, node->data);
-		node = g_slist_next (node);
+		node = g_list_next (node);
 	}
 	
 	/* Prepare the plugins to activate */
@@ -870,20 +883,20 @@ default_profile_plugin_load (DefaultProfilePlugin *plugin,
 	while (node)
 	{
 		if (!g_hash_table_lookup (active_plugins_hash, node->data))
-			plugins_to_activate = g_slist_prepend (plugins_to_activate,
+			plugins_to_activate = g_list_prepend (plugins_to_activate,
 												   node->data);
-		node = g_slist_next (node);
+		node = g_list_next (node);
 	}
 	
 	/* Now activate the plugins */
 	if (plugins_to_activate)
 	{
 		/* Activate them */
-		plugins_to_activate = g_slist_reverse (plugins_to_activate);
+		plugins_to_activate = g_list_reverse (plugins_to_activate);
 		default_profile_plugin_activate_plugins (plugin, plugins_to_activate);
 	}
-	g_slist_free (plugins_to_activate);
-	g_slist_free (active_plugins);
+	g_list_free (plugins_to_activate);
+	g_list_free (active_plugins);
 	g_hash_table_destroy (plugins_to_activate_hash);
 	g_hash_table_destroy (active_plugins_hash);
 }
@@ -894,7 +907,7 @@ default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 {
 	AnjutaStatus *status;
 	gchar *session_plugins, *profile_name;
-	GSList *selected_plugins, *temp_plugins;
+	GList *selected_plugins, *temp_plugins;
 	
 	g_return_if_fail (plugin->default_profile != NULL);
 	
@@ -906,10 +919,10 @@ default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 	
 	/* Save the list for later comparision */
 	if (plugin->system_plugins) {
-		g_slist_free (plugin->system_plugins);
+		g_list_free (plugin->system_plugins);
 		plugin->system_plugins = NULL;
 	}
-	plugin->system_plugins = g_slist_copy (selected_plugins);
+	plugin->system_plugins = g_list_copy (selected_plugins);
 	
 	/* Load user session plugins */
 	profile_name = g_path_get_basename (plugin->default_profile);
@@ -919,12 +932,12 @@ default_profile_plugin_load_default (DefaultProfilePlugin *plugin,
 	if (g_file_test (session_plugins, G_FILE_TEST_EXISTS))
 	{
 		temp_plugins = default_profile_plugin_read (plugin, session_plugins);
-		selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
+		selected_plugins = g_list_concat (selected_plugins, temp_plugins);
 	}
 	default_profile_plugin_load (plugin, selected_plugins, err);
 	anjuta_status_progress_tick (status, NULL, _("Loaded default profile..."));
 	
-	g_slist_free (selected_plugins);
+	g_list_free (selected_plugins);
 	g_free (session_plugins);
 }
 
@@ -996,7 +1009,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	gchar *dirname, *dirname_tmp, *vfs_dir, *session_dir, *session_plugins, *profile_name;
 	DefaultProfilePlugin *plugin;
 	GValue *value;
-	GSList *selected_plugins, *temp_plugins;
+	GList *selected_plugins, *temp_plugins;
 	
 	plugin = ANJUTA_PLUGIN_DEFAULT_PROFILE (ifile);
 #if 1 /* Enable it now */
@@ -1022,17 +1035,17 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 								  _("Cannot open: %s\n"
 									"Does not look like a valid Anjuta project."),
 								  uri);
-		g_slist_free (selected_plugins);
+		g_list_free (selected_plugins);
 		return; /* FIXME: Propagate error */
 	}
-	selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
+	selected_plugins = g_list_concat (selected_plugins, temp_plugins);
 	
 	/* Save the list for later comparision */
 	if (plugin->project_plugins) {
-		g_slist_free (plugin->project_plugins);
+		g_list_free (plugin->project_plugins);
 		plugin->project_plugins = NULL;
 	}
-	plugin->project_plugins = g_slist_copy (selected_plugins);
+	plugin->project_plugins = g_list_copy (selected_plugins);
 	
 	/* Freeze shell */
 	anjuta_shell_freeze (ANJUTA_PLUGIN (ifile)->shell, NULL);
@@ -1056,7 +1069,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	if (g_file_test (session_plugins, G_FILE_TEST_EXISTS))
 	{
 		temp_plugins = default_profile_plugin_read (plugin, session_plugins);
-		selected_plugins = g_slist_concat (selected_plugins, temp_plugins);
+		selected_plugins = g_list_concat (selected_plugins, temp_plugins);
 	}
 	g_free (session_plugins);
 	
@@ -1079,7 +1092,7 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri,
 	}
 	
 	default_profile_plugin_load (plugin, selected_plugins, e);
-	g_slist_free (selected_plugins);
+	g_list_free (selected_plugins);
 	
 	/* Set project uri */
 	vfs_dir = gnome_vfs_get_uri_from_local_path (dirname);

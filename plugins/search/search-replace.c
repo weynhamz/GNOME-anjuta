@@ -32,7 +32,6 @@
 #include <glade/glade.h>
 
 #include <libanjuta/anjuta-utils.h>
-#include <libanjuta/plugins.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>

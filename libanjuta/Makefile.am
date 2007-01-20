@@ -37,6 +37,8 @@ libanjuta_la_SOURCES= \
 	anjuta-preferences.c \
 	anjuta-plugin.c \
 	anjuta-plugin-description.c \
+	anjuta-plugin-manager.c \
+	anjuta-profile.c \
 	anjuta-ui.c \
 	anjuta-launcher.c \
 	anjuta-utils.c \
@@ -46,13 +48,12 @@ libanjuta_la_SOURCES= \
 	resources.h \
 	glue-plugin.c \
 	glue-factory.c \
-	plugins.c \
-	plugins.h \
 	glue-cpp.h \
 	glue-cpp.c \
 	anjuta-save-prompt.c \
 	anjuta-serializer.c \
-	anjuta-serializer.h 
+	anjuta-plugin-handle.h \
+	anjuta-plugin-handle.c 
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 
@@ -64,6 +65,8 @@ libanjuta_include = \
 	anjuta-encodings.h \
 	anjuta-plugin.h \
 	anjuta-plugin-description.h \
+	anjuta-plugin-manager.h \
+	anjuta-profile.h \
 	anjuta-marshal.h \
 	anjuta-utils.h \
 	anjuta-preferences-dialog.h \
@@ -130,6 +133,8 @@ EXTRA_DIST = \
 	$(libanjutainclude_HEADERS) \
 	libanjuta-1.0.pc.in \
 	anjuta-marshal.list
+
+
 
 
 

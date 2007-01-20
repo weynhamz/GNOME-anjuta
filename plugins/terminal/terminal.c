@@ -28,7 +28,6 @@
 
 #include <libanjuta/interfaces/ianjuta-terminal.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
-#include <libanjuta/plugins.h>
 
 #include <signal.h>
 

@@ -610,6 +610,24 @@ anjuta_shell_get_preferences (AnjutaShell *shell, GError **error)
 	return ANJUTA_SHELL_GET_IFACE (shell)->get_preferences (shell, error);
 }
 
+/**
+ * anjuta_shell_get_plugin_manager:
+ * @shell: A #AnjutaShell interface
+ * @error: Error propagation object
+ *
+ * Retrieves the #AnjutaPluginManager object associated with the shell.
+ *
+ * Return value: The #AnjutaPluginManager object.
+ */
+AnjutaPluginManager*
+anjuta_shell_get_plugin_manager (AnjutaShell *shell, GError **error)
+{
+	g_return_val_if_fail (shell != NULL, NULL);
+	g_return_val_if_fail (ANJUTA_IS_SHELL (shell), NULL);
+
+	return ANJUTA_SHELL_GET_IFACE (shell)->get_plugin_manager (shell, error);
+}
+
 void
 anjuta_shell_session_save (AnjutaShell *shell, const gchar *session_directory,
 						   GError **error)

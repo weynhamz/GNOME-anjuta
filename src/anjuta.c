@@ -23,7 +23,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-save-prompt.h>
-#include <libanjuta/plugins.h>
+#include <libanjuta/anjuta-plugin-manager.h>
 #include <libanjuta/interfaces/ianjuta-profile.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 
@@ -70,7 +70,7 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 	if (g_object_get_data (G_OBJECT (app), "__proper_shutdown"))
 	{
 		gtk_widget_hide (GTK_WIDGET (app));
-		anjuta_plugins_unload_all (ANJUTA_SHELL (app));
+		anjuta_plugin_manager_unload_all_plugins (anjuta_shell_get_plugin_manager (ANJUTA_SHELL (app), NULL));
 	}
 	return FALSE;
 }

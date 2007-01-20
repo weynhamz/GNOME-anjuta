@@ -23,7 +23,6 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-encodings.h>
-#include <libanjuta/plugins.h>
 
 #include <libegg/menu/egg-entry-action.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -994,8 +993,9 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 	
 	if (te)
 	{
+		AnjutaPluginManager *plugin_manager;
 		const gchar *language;
-		GSList *support_plugin_descs, *node;
+		GList *support_plugin_descs, *node;
 		
 		GValue *value = g_new0 (GValue, 1);
 		g_value_init (value, G_TYPE_OBJECT);
@@ -1006,15 +1006,16 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 		DEBUG_PRINT ("Editor Added");
 		
 		/* Load current language editor support plugins */
+		plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
 		if (IANJUTA_IS_EDITOR_LANGUAGE (te)) {
 			language = ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (te), NULL);
-			support_plugin_descs = anjuta_plugins_query (plugin->shell,
-														 "Anjuta Plugin",
-														 "Interfaces",
-														 "IAnjutaLanguageSupport",
-														 "Language Support",
-														 "Languages",
-														 language, NULL);
+			support_plugin_descs = anjuta_plugin_manager_query (plugin_manager,
+																"Anjuta Plugin",
+																"Interfaces",
+																"IAnjutaLanguageSupport",
+																"Language Support",
+																"Languages",
+																language, NULL);
 			node = support_plugin_descs;
 			while (node) {
 				gchar *plugin_id;
@@ -1023,8 +1024,8 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 				AnjutaPluginDescription *desc = node->data;
 				anjuta_plugin_description_get_string (desc, "Anjuta Plugin", "Location",
 													  &plugin_id);
-				plugin_object = anjuta_plugins_get_plugin_by_id (plugin->shell,
-																 plugin_id);
+				plugin_object = anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
+																		plugin_id);
 				/* anjuta_plugin_activate (ANJUTA_PLUGIN (plugin_object)); */
 				if (plugin_object)
 				{
@@ -1038,7 +1039,7 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 				node = node->next;
 				g_free (plugin_id);
 			}
-			g_slist_free (support_plugin_descs);
+			g_list_free (support_plugin_descs);
 		}
 	}
 	else

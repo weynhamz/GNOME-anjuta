@@ -40,7 +40,6 @@
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/plugins.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
