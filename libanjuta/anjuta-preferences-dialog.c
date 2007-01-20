@@ -1,4 +1,6 @@
-/* Anjuta
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/*
+ * Anjuta
  * Copyright (C) 2002 Dave Camp
  *
  * This program is free software; you can redistribute it and/or modify
@@ -105,7 +107,7 @@ anjuta_preferences_dialog_class_init (AnjutaPreferencesDialogClass *class)
 	object_class->dispose = anjuta_preferences_dialog_dispose;
 	object_class->finalize = anjuta_preferences_dialog_finalize;
 
-	// dialog_class->response = anjuta_preferences_dialog_response;
+	/* dialog_class->response = anjuta_preferences_dialog_response; */
 	dialog_class->close = anjuta_preferences_dialog_close;
 }
 

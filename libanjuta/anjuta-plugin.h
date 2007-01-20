@@ -1,5 +1,7 @@
-/* Anjuta
- * Copyright (C) 2000 Dave Camp
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/*
+ * Anjuta
+ * Copyright (C) 2000 Dave Camp, Naba Kumar  <naba@gnome.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

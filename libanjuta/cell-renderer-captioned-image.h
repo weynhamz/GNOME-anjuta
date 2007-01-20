@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 8 -*- */
 /* prefs-cell-renderer.h
  *
  * Copyright (C) 2002 Dave Camp

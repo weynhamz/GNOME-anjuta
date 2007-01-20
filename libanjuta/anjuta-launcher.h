@@ -1,6 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
-/* anjuta-launcher.h
- * Copyright (C) 2003 Naba Kumar
+/*
+ * anjuta-launcher.h
+ * Copyright (C) 2003 Naba Kumar  <naba@gnome.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public

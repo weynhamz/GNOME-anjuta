@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * glue-cpp.c (c) 2006 Johannes Schmid
  * This program is free software; you can redistribute it and/or modify

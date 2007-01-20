@@ -1,4 +1,6 @@
-/* Anjuta
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/*
+ * Anjuta
  * 
  * Copyright (C) 2002 Dave Camp
  *

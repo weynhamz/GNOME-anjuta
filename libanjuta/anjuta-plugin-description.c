@@ -1,4 +1,5 @@
-/* AnjutaPluginDescription - Plugin meta data
+/*
+ * AnjutaPluginDescription - Plugin meta data
  * anjuta-plugin-description.c Copyright (C) 2002 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
