@@ -1,5 +1,7 @@
 2007-01-21  Naba Kumar  <naba@gnome.org>
 
+	* po/POTFILES.in: Updated.
+
 	* libanjuta/anjuta-marshal.list,
 	(added) libanjuta/anjuta-plugin-handle.c,
 	(added) libanjuta/anjuta-plugin-handle.h,

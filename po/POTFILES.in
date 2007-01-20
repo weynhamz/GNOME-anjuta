@@ -9,6 +9,9 @@ libanjuta/anjuta-launcher.c
 libanjuta/anjuta-marshal.c
 libanjuta/anjuta-plugin.c
 libanjuta/anjuta-plugin-description.c
+libanjuta/anjuta-plugin-handle.c
+libanjuta/anjuta-plugin-manager.c
+libanjuta/anjuta-profile.c
 libanjuta/anjuta-preferences.c
 libanjuta/anjuta-preferences-dialog.c
 libanjuta/anjuta-save-prompt.c
@@ -23,7 +26,6 @@ libanjuta/e-splash.c
 libanjuta/glue-cpp.c
 libanjuta/glue-factory.c
 libanjuta/glue-plugin.c
-libanjuta/plugins.c
 libanjuta/resources.c
 libegg/egg-combo-action.c
 libegg/egg-entry-action.c
