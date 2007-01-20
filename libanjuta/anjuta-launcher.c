@@ -43,7 +43,6 @@
 
 #include <libgnome/gnome-macros.h>
 
-
 #include "anjuta-children.h"
 #include "anjuta-utils.h"
 #include "anjuta-marshal.h"
@@ -92,7 +91,7 @@ struct _AnjutaLauncherPriv
 	/* Output of the pty is constantly stored here.*/
 	gchar *pty_output_buffer;
 
-	/* Terminal ehco */
+	/* Terminal echo */
 	gboolean terminal_echo_on;
 	
 	/* The child */
@@ -103,7 +102,10 @@ struct _AnjutaLauncherPriv
 	/* Synchronization in progress */
 	gboolean in_synchronization;
 	guint completion_check_timeout;
-	
+
+	/* Terminate child on child exit */
+	gboolean terminate_on_exit;
+
 	/* Start time of execution */
 	time_t start_time;
 	
@@ -130,6 +132,7 @@ enum
 
 static void anjuta_launcher_class_init (AnjutaLauncherClass * klass);
 static void anjuta_launcher_init (AnjutaLauncher * obj);
+static gboolean anjuta_launcher_call_execution_done (gpointer data);
 static gboolean anjuta_launcher_check_for_execution_done (gpointer data);
 static void anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 													gboolean emit_signal);
@@ -172,6 +175,9 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	obj->priv->in_synchronization = FALSE;
 	obj->priv->completion_check_timeout = -1;
 	
+	/* Terminate child on child exit */
+	obj->priv->terminate_on_exit = FALSE;
+
 	/* Start time of execution */
 	obj->priv->start_time = 0;
 	
@@ -246,6 +252,20 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 	/* DEBUG_PRINT ("Initializing launcher class"); */
 	
 	parent_class = g_type_class_peek_parent (klass);
+
+	/**
+	 * AnjutaLauncher::child-exited
+ 	 * @launcher: a #AnjutaLancher object.
+	 * @child_pid: process ID of the child
+	 * @status: status as returned by waitpid function
+	 * @time: time in seconds taken by the child
+	 * 
+	 * Emitted when the child has exited and all i/o channels have
+	 * been closed. If the terminate on exit flag is set, the i/o
+	 * channels are automatically closed when the child exit.
+	 * You need to use WEXITSTATUS and friend to get the child exit
+	 * code from the status returned.
+	 **/
 	launcher_signals[CHILD_EXITED_SIGNAL] =
 		g_signal_new ("child-exited",
 					G_TYPE_FROM_CLASS (object_class),
@@ -257,6 +277,15 @@ anjuta_launcher_class_init (AnjutaLauncherClass * klass)
 					G_TYPE_NONE, 3, G_TYPE_INT,
 					G_TYPE_INT, G_TYPE_ULONG);
 	
+	/**
+	 * AnjutaLauncher::busy
+ 	 * @launcher: a #AnjutaLancher object.
+	 * @busy: TRUE is a child is currently running
+	 * 
+	 * Emitted when a child starts after a call to one execute function
+	 * (busy is TRUE) or when a child exits and all i/o channels are
+	 * closed (busy is FALSE).
+	 **/
 	launcher_signals[BUSY_SIGNAL] =
 		g_signal_new ("busy",
 					G_TYPE_FROM_CLASS (object_class),
@@ -424,6 +453,17 @@ anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 			g_source_remove (launcher->priv->completion_check_timeout);
 		launcher->priv->completion_check_timeout = 
 		    g_timeout_add(200, anjuta_launcher_check_for_execution_done,
+							launcher);
+	}
+	/* Add this case for gdb. It creates child inheriting gdb
+	 * pipes which are not closed if gdb crashes */
+	else if (launcher->priv->child_has_terminated &&
+			launcher->priv->terminate_on_exit)
+	{
+		if (launcher->priv->completion_check_timeout >= 0)
+			g_source_remove (launcher->priv->completion_check_timeout);
+		launcher->priv->completion_check_timeout = 
+		    g_timeout_add(0, anjuta_launcher_call_execution_done,
 							launcher);
 	}
 }
@@ -811,7 +851,7 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 	
 	if (launcher->priv->completion_check_timeout >= 0)
 		g_source_remove (launcher->priv->completion_check_timeout);
-	
+
 	/* Make sure all pending I/O are flushed out */
 	while (g_main_context_pending (NULL))
 		g_main_context_iteration (NULL, FALSE);
@@ -848,7 +888,7 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 		g_free (launcher->priv->stdout_buffer);
 	
 	/* Save them before we re-initialize */
-	child_status = WEXITSTATUS(launcher->priv->child_status);
+	child_status = launcher->priv->child_status;
 	child_pid = launcher->priv->child_pid;
 	start_time = launcher->priv->start_time;
 	
@@ -866,6 +906,19 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 		g_signal_emit_by_name (launcher, "child-exited", child_pid,
 							   child_status,
 							   time (NULL) - start_time);
+}
+
+/* Using this function is necessary because
+ * anjuta_launcher_execution_done_cleanup needs to be called in the same
+ * thread than the gtk main loop */
+static gboolean
+anjuta_launcher_call_execution_done (gpointer data)
+{
+	AnjutaLauncher *launcher = data;
+
+	launcher->priv->completion_check_timeout = -1;
+	anjuta_launcher_execution_done_cleanup (launcher, TRUE);
+	return FALSE;
 }
 
 /* monitors closure of stdout stderr and pty through a gtk_timeout_add setup */
@@ -1139,14 +1192,14 @@ anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,
 }
 
 /**
- * anjuta_launcher_echo:
+ * anjuta_launcher_set_terminal_echo:
  * @launcher: a #AnjutaLancher object.
  * @echo_on: Echo ON flag.
  * 
  * Sets if input (those given in STDIN) should enabled or disabled. By default,
  * it is disabled.
  *
- * Return value: TRUE if successfully set, otherwise FALSE.
+ * Return value: Previous flag value
  */
 gboolean
 anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
@@ -1155,6 +1208,25 @@ anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
 	gboolean past_value = launcher->priv->terminal_echo_on;
 	launcher->priv->terminal_echo_on = echo_on;
 	return past_value;
+}
+
+/**
+ * anjuta_launcher_set_terminate_on_exit:
+ * @launcher: a #AnjutaLancher object.
+ * @terminate_on_exit: terminate on exit flag
+ * 
+ * When this flag is set, al i/o channels are closed and the child-exit
+ * signal is emitted as soon as the child exit. By default, or when this
+ * flag is clear, the launcher object wait until the i/o channels are
+ * closed.
+ *
+ * Return value: Previous flag value
+ */
+void
+anjuta_launcher_set_terminate_on_exit (AnjutaLauncher *launcher,
+						gboolean terminate_on_exit)
+{
+	launcher->priv->terminate_on_exit = terminate_on_exit;
 }
 
 /**

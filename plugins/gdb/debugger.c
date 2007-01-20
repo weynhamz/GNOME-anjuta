@@ -780,6 +780,7 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 
 	/* Prepare for launch. */
 	launcher = debugger->priv->launcher;
+	anjuta_launcher_set_terminate_on_exit (launcher, TRUE);
 	g_signal_connect (G_OBJECT (launcher), "child-exited",
 					  G_CALLBACK (on_gdb_terminated), debugger);
 	ret = anjuta_launcher_execute (launcher, command_str,
@@ -1444,7 +1445,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	if (!debugger->priv->terminating)
 	{
 		anjuta_util_dialog_error (debugger->priv->parent_win,
-		_("gdb terminated unexpectedly with error code %d\n"), status);
+		_("gdb terminated unexpectedly with status %d\n"), status);
 	}
 	debugger_stop_terminal (debugger);
 	debugger->priv->prog_is_running = FALSE;

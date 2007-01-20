@@ -19,6 +19,7 @@
 #ifndef __ANJUTA_LAUNCHER_H__
 #define __ANJUTA_LAUNCHER_H__
 
+#include <sys/wait.h>
 #include <glib.h>
 #include <glib-object.h>
 
@@ -101,6 +102,8 @@ void anjuta_launcher_set_check_passwd_prompt (AnjutaLauncher *launcher,
 /* Returns old value */
 gboolean anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
 											gboolean echo_on);
+void anjuta_launcher_set_terminate_on_exit (AnjutaLauncher *launcher,
+		gboolean terminate_on_exit);
 
 G_END_DECLS
 

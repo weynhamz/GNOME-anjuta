@@ -1,3 +1,16 @@
+2007-01-19 Sebastien Granjoux <seb.sfo@free.fr>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* libanjuta/anjuta-launcher.c,
+	libanjuta/anjuta-launcher.h:
+	Add a new function anjuta_set_terminate_on_exit to close the i/o
+	channel when the child exit
+	Return directly the status and not the exit code in child-exited
+	signal
+
+	* plugins/gdb/debugger.c:
+	Use new function in debugger plugin
+
 2007-01-18  Johannes Schmid <jhs@gnome.org>
 
 	* src/about.c: Do not show empty license information instead hide the button (#397883)
