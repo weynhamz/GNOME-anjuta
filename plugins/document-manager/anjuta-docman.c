@@ -573,6 +573,7 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 
 	label = gtk_label_new (ianjuta_editor_get_filename (IANJUTA_EDITOR(page->widget),
 														NULL));
+	gtk_misc_set_alignment (GTK_MISC(label), 0.0, 0.5);
 	gtk_widget_show (label);
 
 	menu_label = gtk_label_new (ianjuta_editor_get_filename (IANJUTA_EDITOR(page->widget),
@@ -621,7 +622,7 @@ editor_tab_widget_new(AnjutaDocmanPage* page, AnjutaDocman* docman)
 	g_object_set_data (G_OBJECT (box), "event_box", event_box);
 	
 	/* pack our top-level layout box */
-	gtk_box_pack_start (GTK_BOX (box), event_box, TRUE, FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (box), event_box, TRUE, TRUE, 0);
 	
 	/* show the widgets of the tab */
 	gtk_widget_show_all(box);

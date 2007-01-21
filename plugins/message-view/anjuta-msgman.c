@@ -67,6 +67,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	page->widget = GTK_WIDGET (view);
 	
 	page->label = gtk_label_new (name);
+	gtk_misc_set_alignment (GTK_MISC(page->label), 0.0, 0.5);
 	page->box = gtk_hbox_new (FALSE, 0);
 	gtk_box_set_spacing (GTK_BOX (page->box), 5);
 	if (pixmap  && strlen(pixmap))
@@ -74,7 +75,7 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 		GtkStockItem unused;
 		if (gtk_stock_lookup(pixmap, &unused))
 		{
-			page->pixmap = gtk_image_new_from_stock(pixmap, GTK_ICON_SIZE_SMALL_TOOLBAR);
+			page->pixmap = gtk_image_new_from_stock(pixmap, GTK_ICON_SIZE_MENU);
 		}
 		else
 		{

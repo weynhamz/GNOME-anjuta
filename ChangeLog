@@ -1,3 +1,10 @@
+2007-01-21 Yang Hong <yanghong@ccoss.com.cn>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* plugins/document-manager/anjuta-docman.c,
+	plugins/message-view/anjuta-msgman.c
+	Set right alignment to the label widget in the tab title.
+
 2007-01-21  Naba Kumar  <naba@gnome.org>
 	
 	* libegg/egg-combo-action.c: Fixed mode line.
