@@ -338,6 +338,25 @@ cg_window_class_name_to_file_name (const gchar *class_name)
 }
 
 static void
+cg_window_add_project_toggled_cb (GtkToggleButton *button,
+                                  gpointer user_data)
+{
+	CgWindow *window;
+	CgWindowPrivate *priv;
+	
+	window = CG_WINDOW (user_data);
+	priv = CG_WINDOW_PRIVATE (window);
+
+	gtk_widget_set_sensitive (
+		glade_xml_get_widget (priv->gxml, "browse_header"),
+		!gtk_toggle_button_get_active (button));
+
+	gtk_widget_set_sensitive (
+		glade_xml_get_widget (priv->gxml, "browse_source"),
+		!gtk_toggle_button_get_active (button));
+}
+
+static void
 cg_window_cc_name_changed_cb (GtkEntry *entry,
                               gpointer user_data)
 {
@@ -528,6 +547,19 @@ cg_window_set_glade_xml (CgWindow *window,
 	g_signal_connect (
 		G_OBJECT (glade_xml_get_widget (priv->gxml, "cc_name")), "changed",
 		G_CALLBACK (cg_window_cc_name_changed_cb), window);
+
+	g_signal_connect (
+		G_OBJECT (glade_xml_get_widget(priv->gxml, "add_project")), "toggled",
+		G_CALLBACK (cg_window_add_project_toggled_cb), window);
+
+	if(cg_window_fetch_boolean(window, "add_project") == TRUE)
+	{
+		gtk_widget_set_sensitive (
+			glade_xml_get_widget (priv->gxml, "browse_header"), FALSE);
+
+		gtk_widget_set_sensitive (
+			glade_xml_get_widget (priv->gxml, "browse_source"), FALSE);
+	}
 
 	/* Selected page is CC */
 	cg_window_validate_cc (window);

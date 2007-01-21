@@ -221,6 +221,7 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 	{
 		*new_header_file = added_files->data;
 		*new_source_file = g_list_next (added_files)->data;
+
 		result = TRUE;
 	}
 
@@ -271,10 +272,7 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 	AnjutaClassGenPlugin *plugin;
 	const gchar *header_file;
 	const gchar *source_file;
-	gchar *new_header_file;
-	gchar *new_source_file;
 	IAnjutaFileLoader *loader;
-	gboolean result;
 
 	plugin = (AnjutaClassGenPlugin *) user_data;
 	header_file = cg_generator_get_header_destination (generator);
@@ -283,41 +281,16 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 	                                     IAnjutaFileLoader, NULL);
 
-	if (cg_window_get_add_to_project (plugin->window))
+	if (cg_window_get_add_to_repository (plugin->window))
 	{
-		result = cg_plugin_add_to_project (plugin, header_file, source_file,
-		                                   &new_header_file, &new_source_file);
-	}
-	else
-	{
-		new_header_file = g_strdup (header_file);
-		new_source_file = g_strdup (source_file);
-
-		result = TRUE;
+		cg_plugin_add_to_repository (plugin, header_file, source_file);
 	}
 
-	if (result == TRUE)
-	{
-		if (cg_window_get_add_to_repository (plugin->window))
-		{
-			cg_plugin_add_to_repository (plugin, new_header_file,
-			                             new_source_file);
-		}
+	ianjuta_file_loader_load (loader, header_file, FALSE, NULL);
+	ianjuta_file_loader_load (loader, source_file, FALSE, NULL);
 
-		ianjuta_file_loader_load (loader, new_header_file, FALSE, NULL);
-		ianjuta_file_loader_load (loader, new_source_file, FALSE, NULL);
-
-		g_free (new_header_file);
-		g_free (new_source_file);
-
-		g_object_unref (G_OBJECT (plugin->window));
-		plugin->window = NULL;
-	}
-	else
-	{
-		gtk_widget_set_sensitive (
-			GTK_WIDGET (cg_window_get_dialog (plugin->window)), TRUE);
-	}
+	g_object_unref (G_OBJECT (plugin->window));
+	plugin->window = NULL;
 }
 
 static void
@@ -332,63 +305,87 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 	GError *error;
 	gchar *name;
 
+	gchar *header_file;
+	gchar *source_file;
+	gboolean result;
+
 	plugin = (AnjutaClassGenPlugin *) user_data;
 	error = NULL;
 
 	if (response_id == GTK_RESPONSE_ACCEPT)
 	{
-		values = cg_window_create_value_heap (plugin->window);
-
-		manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
-		                                      IAnjutaProjectManager, NULL);
-
-		if (manager != NULL && plugin->top_dir != NULL)
-		{
-			/* Use basename of the project's root URI as project name. */
-			name = g_path_get_basename (plugin->top_dir);
-			value = npw_value_heap_find_value (values, "ProjectName");
-			npw_value_heap_set_value (values, value, name, NPW_VALID_VALUE);
-			g_free (name);
+    	if (cg_window_get_add_to_project (plugin->window))
+	    {
+		    result = cg_plugin_add_to_project (
+		    	plugin, cg_window_get_header_file (plugin->window),
+				cg_window_get_source_file (plugin->window),
+				&header_file, &source_file);
 		}
 		else
 		{
-			name = g_path_get_basename (cg_window_get_source_file(
-			                            plugin->window));
-			value = npw_value_heap_find_value (values, "ProjectName");
-			npw_value_heap_set_value (values, value, name, NPW_VALID_VALUE);
-			g_free (name);
+		    header_file = g_strdup (cg_window_get_header_file (plugin->window));
+		    source_file = g_strdup (cg_window_get_source_file (plugin->window));
+
+		    result = TRUE;
 		}
-
-		plugin->generator = cg_generator_new (
-			cg_window_get_header_template(plugin->window),
-			cg_window_get_source_template(plugin->window),
-			cg_window_get_header_file(plugin->window),
-			cg_window_get_source_file(plugin->window));
-
-		if (cg_generator_run(plugin->generator, values, &error) == FALSE)
+    	
+		if(result == TRUE)
 		{
-			anjuta_util_dialog_error (
-				GTK_WINDOW (cg_window_get_dialog (plugin->window)),
-				_("Failed to execute autogen: %s"), error->message);
+			values = cg_window_create_value_heap (plugin->window);
 
-			g_object_unref (G_OBJECT (plugin->generator));
-			g_error_free (error);
+			manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+			                                      IAnjutaProjectManager, NULL);
+
+			if (manager != NULL && plugin->top_dir != NULL)
+			{
+				/* Use basename of the project's root URI as project name. */
+				name = g_path_get_basename (plugin->top_dir);
+				value = npw_value_heap_find_value (values, "ProjectName");
+				npw_value_heap_set_value (values, value, name, NPW_VALID_VALUE);
+				g_free (name);
+			}
+			else
+			{
+				name = g_path_get_basename (cg_window_get_source_file(
+				                            plugin->window));
+				value = npw_value_heap_find_value (values, "ProjectName");
+				npw_value_heap_set_value (values, value, name, NPW_VALID_VALUE);
+				g_free (name);
+			}
+
+    		plugin->generator = cg_generator_new (
+				cg_window_get_header_template(plugin->window),
+				cg_window_get_source_template(plugin->window),
+				header_file,
+				source_file);
+
+			if (cg_generator_run (plugin->generator, values, &error) == FALSE)
+			{
+				anjuta_util_dialog_error (
+					GTK_WINDOW (cg_window_get_dialog (plugin->window)),
+					_("Failed to execute autogen: %s"), error->message);
+
+				g_object_unref (G_OBJECT (plugin->generator));
+				g_error_free (error);
+			}
+			else
+			{
+				g_signal_connect (G_OBJECT (plugin->generator), "error",
+				                  G_CALLBACK (cg_plugin_generator_error_cb),
+				                  plugin);
+
+				g_signal_connect (G_OBJECT (plugin->generator), "created",
+				                 G_CALLBACK (cg_plugin_generator_created_cb),
+								 plugin);
+
+				gtk_widget_set_sensitive (
+					GTK_WIDGET (cg_window_get_dialog (plugin->window)), FALSE);
+			}
+
+			npw_value_heap_free (values);
+			g_free (header_file);
+			g_free (source_file);
 		}
-		else
-		{
-			g_signal_connect (G_OBJECT (plugin->generator), "error",
-			                  G_CALLBACK (cg_plugin_generator_error_cb),
-			                  plugin);
-
-			g_signal_connect (G_OBJECT (plugin->generator), "created",
-			                 G_CALLBACK (cg_plugin_generator_created_cb),
-							 plugin);
-
-			gtk_widget_set_sensitive (
-				GTK_WIDGET (cg_window_get_dialog (plugin->window)), FALSE);
-		}
-
-		npw_value_heap_free (values);
 	}
 	else
 	{

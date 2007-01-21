@@ -1712,6 +1712,38 @@ Properties
 @df: 
 @Returns: 
 
+<!-- ##### FUNCTION anjuta_plugins_finalize ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### FUNCTION anjuta_plugins_get_active_plugins ##### -->
+<para>
+
+</para>
+
+@shell: 
+@Returns: 
+
+<!-- ##### FUNCTION anjuta_plugins_get_description ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin: 
+@Returns: 
+
+<!-- ##### FUNCTION anjuta_plugins_get_description_by_id ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin_id: 
+@Returns: 
+
 <!-- ##### FUNCTION anjuta_plugins_get_description_by_name ##### -->
 <para>
 
@@ -1720,6 +1752,23 @@ Properties
 @shell: 
 @plugin_name: 
 @Returns: 
+
+<!-- ##### FUNCTION anjuta_plugins_get_installed_dialog ##### -->
+<para>
+
+</para>
+
+@shell: 
+@Returns: 
+
+<!-- ##### MACRO anjuta_plugins_get_interface ##### -->
+<para>
+
+</para>
+
+@shell: 
+@iface_type: 
+@error: 
 
 <!-- ##### FUNCTION anjuta_plugins_get_object ##### -->
 <para>
@@ -1730,6 +1779,24 @@ Properties
 @interface_name: 
 @Returns: 
 
+<!-- ##### FUNCTION anjuta_plugins_get_plugin ##### -->
+<para>
+
+</para>
+
+@shell: 
+@iface_name: 
+@Returns: 
+
+<!-- ##### FUNCTION anjuta_plugins_get_plugin_by_id ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin_id: 
+@Returns: 
+
 <!-- ##### FUNCTION anjuta_plugins_get_plugin_by_location ##### -->
 <para>
 
@@ -1738,6 +1805,13 @@ Properties
 @shell: 
 @plugin_location: 
 @Returns: 
+
+<!-- ##### FUNCTION anjuta_plugins_init ##### -->
+<para>
+
+</para>
+
+@plugin_dirs: 
 
 <!-- ##### FUNCTION anjuta_plugins_load ##### -->
 <para>
@@ -1751,6 +1825,40 @@ Properties
 @prefs: 
 @splash: 
 
+<!-- ##### FUNCTION anjuta_plugins_query ##### -->
+<para>
+
+</para>
+
+@shell: 
+@section_name: 
+@attribute_name: 
+@attribute_value: 
+@Varargs: 
+@Returns: 
+
+<!-- ##### FUNCTION anjuta_plugins_select ##### -->
+<para>
+
+</para>
+
+@shell: 
+@title: 
+@description: 
+@plugin_descriptions: 
+@Returns: 
+
+<!-- ##### FUNCTION anjuta_plugins_select_and_activate ##### -->
+<para>
+
+</para>
+
+@shell: 
+@title: 
+@description: 
+@plugin_descriptions: 
+@Returns: 
+
 <!-- ##### FUNCTION anjuta_plugins_unload ##### -->
 <para>
 
@@ -1758,6 +1866,31 @@ Properties
 
 @shell: 
 @name: 
+@Returns: 
+
+<!-- ##### FUNCTION anjuta_plugins_unload_all ##### -->
+<para>
+
+</para>
+
+@shell: 
+
+<!-- ##### FUNCTION anjuta_plugins_unload_plugin ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin: 
+@Returns: 
+
+<!-- ##### FUNCTION anjuta_plugins_unload_plugin_by_id ##### -->
+<para>
+
+</para>
+
+@shell: 
+@plugin_id: 
 @Returns: 
 
 <!-- ##### FUNCTION anjuta_preferences_default_get ##### -->

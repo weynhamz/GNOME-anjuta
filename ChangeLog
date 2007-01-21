@@ -1,4 +1,20 @@
 2007-01-21  Naba Kumar  <naba@gnome.org>
+	
+	* libegg/egg-combo-action.c: Fixed mode line.
+	* manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml,
+	manuals/reference/libanjuta/tmpl/plugins.sgml: Updated.
+
+2007-01-21  Armin Burgmeier  <armin@arbur.net>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* plugins/class-gen/plugin.c: Prompt for target before actually
+	generating the class files. This ensures that the files are created in
+	the correct directory. Fixes bug #397406.
+
+	* plugins/class-gen/window.c: Set browse buttons to insensitive when
+	the class is added to the project.
+
+2007-01-21  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-plugin-description.c,
 	libanjuta/anjuta-ui.h,
