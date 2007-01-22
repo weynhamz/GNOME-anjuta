@@ -207,3 +207,34 @@ plugins/debug-manager/watch.c
 plugins/language-support-cpp-java/anjuta-language-cpp-java.glade
 plugins/language-support-cpp-java/plugin.c
 plugins/sourceview/plugin.c
+[type: gettext/ini]plugins/gdb/anjuta-gdb.plugin.in
+[type: gettext/ini]plugins/gvim/anjuta-vim.plugin.in
+[type: gettext/ini]plugins/devhelp/anjuta-devhelp.plugin.in
+[type: gettext/ini]plugins/document-manager/anjuta-document-manager.plugin.in
+[type: gettext/ini]plugins/file-wizard/anjuta-file-wizard.plugin.in
+[type: gettext/ini]plugins/subversion/anjuta-subversion.plugin.in
+[type: gettext/ini]plugins/class-inheritance/anjuta-class-inheritance.plugin.in
+[type: gettext/ini]plugins/glade/anjuta-glade.plugin.in
+[type: gettext/ini]plugins/gtodo/anjuta-gtodo.plugin.in
+[type: gettext/ini]plugins/macro/anjuta-macro.plugin.in
+[type: gettext/ini]plugins/patch/anjuta-patch.plugin.in
+[type: gettext/ini]plugins/tools/anjuta-tools.plugin.in
+[type: gettext/ini]plugins/sample1/anjuta-sample.plugin.in
+[type: gettext/ini]plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in
+[type: gettext/ini]plugins/terminal/anjuta-terminal.plugin.in
+[type: gettext/ini]plugins/cvs-plugin/anjuta-cvs.plugin.in
+[type: gettext/ini]plugins/project-import/anjuta-project-import.plugin.in
+[type: gettext/ini]plugins/sourceview/sourceview.plugin.in
+[type: gettext/ini]plugins/editor/anjuta-editor.plugin.in
+[type: gettext/ini]plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in
+[type: gettext/ini]plugins/file-manager/anjuta-file-manager.plugin.in
+[type: gettext/ini]plugins/project-wizard/anjuta-project-wizard.plugin.in
+[type: gettext/ini]plugins/profile-default/anjuta-default-profile.plugin.in
+[type: gettext/ini]plugins/search/anjuta-search.plugin.in
+[type: gettext/ini]plugins/class-gen/anjuta-class-gen.plugin.in
+[type: gettext/ini]plugins/project-manager/anjuta-project-manager.plugin.in
+[type: gettext/ini]plugins/symbol-browser/anjuta-symbol-browser.plugin.in
+[type: gettext/ini]plugins/message-view/anjuta-message-manager.plugin.in
+[type: gettext/ini]plugins/valgrind/anjuta-valgrind.plugin.in
+[type: gettext/ini]plugins/file-loader/anjuta-loader.plugin.in
+[type: gettext/ini]plugins/debug-manager/anjuta-debug-manager.plugin.in

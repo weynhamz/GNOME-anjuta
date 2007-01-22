@@ -1,3 +1,8 @@
+2007-01-22  Naba Kumar  <naba@gnome.org>
+	
+	Patch from Gabor Kelemen:
+	* po/POTFILES.in: Added .plugin.in files.
+
 2007-01-21 Yang Hong <yanghong@ccoss.com.cn>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
