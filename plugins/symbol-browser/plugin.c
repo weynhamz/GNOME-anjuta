@@ -38,6 +38,7 @@
 #include <tm_tagmanager.h>
 #include "an_symbol_view.h"
 #include "an_symbol_search.h"
+#include "anjuta-symbol-locals.h"
 #include "an_symbol_info.h"
 #include "an_symbol_prefs.h"
 #include "an_symbol_iter.h"
@@ -528,35 +529,57 @@ trees_signals_unblock (SymbolBrowserPlugin *sv_plugin)
 }
 
 static void
+goto_tree_iter (SymbolBrowserPlugin *sv_plugin, GtkTreeIter *iter)
+{
+	gint line;
+	
+	/* FIXME: */
+	line = anjuta_symbol_view_workspace_get_line (ANJUTA_SYMBOL_VIEW
+												  (sv_plugin->sv_tree),
+												  iter);
+
+	if (line > 0 && sv_plugin->current_editor)
+	{
+		/* Goto line number */
+		ianjuta_editor_goto_line (IANJUTA_EDITOR (sv_plugin->current_editor),
+								  line, NULL);
+		if (IANJUTA_IS_MARKABLE (sv_plugin->current_editor))
+		{
+			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (sv_plugin->current_editor),
+												 IANJUTA_MARKABLE_BASIC,
+												 NULL);
+
+			ianjuta_markable_mark (IANJUTA_MARKABLE (sv_plugin->current_editor),
+								   line, IANJUTA_MARKABLE_BASIC, NULL);
+		}
+	}
+}
+
+static void
 on_symbol_selected (GtkAction *action, SymbolBrowserPlugin *sv_plugin)
 {
 	GtkTreeIter iter;
 	
 	if (egg_combo_action_get_active_iter (EGG_COMBO_ACTION (action), &iter))
 	{
-		gint line;
-		line = anjuta_symbol_view_workspace_get_line (ANJUTA_SYMBOL_VIEW
-													  (sv_plugin->sv_tree),
-													  &iter);
-
-		if (line > 0 && sv_plugin->current_editor)
-		{
-			/* Goto line number */
-			ianjuta_editor_goto_line (IANJUTA_EDITOR (sv_plugin->current_editor),
-									  line, NULL);
-			if (IANJUTA_IS_MARKABLE (sv_plugin->current_editor))
-			{
-				ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (sv_plugin->current_editor),
-													 IANJUTA_MARKABLE_BASIC,
-													 NULL);
-
-				ianjuta_markable_mark (IANJUTA_MARKABLE (sv_plugin->current_editor),
-									   line, IANJUTA_MARKABLE_BASIC, NULL);
-			}
-		}
+		goto_tree_iter (sv_plugin, &iter);
 	}
 }
 
+static void
+on_local_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
+								 GtkTreeViewColumn *arg2,
+								 SymbolBrowserPlugin *sv_plugin)
+{
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+
+	selection = gtk_tree_view_get_selection (view);
+	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+		return;
+	goto_tree_iter (sv_plugin, &iter);
+}
 
 /* -----------------------------------------------------------------------------
  * will manage the click of mouse and other events on search->hitlist treeview
@@ -644,8 +667,12 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		g_object_set_data (G_OBJECT (editor), "tm_file",
 						   g_object_get_data (G_OBJECT (file_symbol_model),
 											  "tm_file"));
-		
+		/* Set toolbar version */
 		egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
+		/* Set local view version */
+		gtk_tree_view_set_model (GTK_TREE_VIEW (sv_plugin->sl_tree),
+								 file_symbol_model);
+		
 		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
 			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 		else
@@ -725,9 +752,13 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 			g_object_set_data (G_OBJECT (editor), "tm_file",
 						   g_object_get_data (G_OBJECT (file_symbol_model),
 											  "tm_file"));
+			/* Set toolbar version */
 			egg_combo_action_set_model (EGG_COMBO_ACTION (action), file_symbol_model);
-		
-		
+			
+			/* Set local view version */
+			gtk_tree_view_set_model (GTK_TREE_VIEW (sv_plugin->sl_tree),
+									 file_symbol_model);
+			
 			if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
 				g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 			else
@@ -891,16 +922,35 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Create widgets */
 	sv_plugin->sw = gtk_notebook_new();
 
-	/* create symbol-view scrolled window */
+	/* Local symbols */
+	sv_plugin->sl = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sv_plugin->sl),
+										 GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv_plugin->sl),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	
+	sv_plugin->sl_tab_label = gtk_label_new (_("Local" ));
+	sv_plugin->sl_tree = anjuta_symbol_locals_new ();
+	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sl_tree),
+							   (gpointer*)&sv_plugin->sl_tree);
+	g_signal_connect (G_OBJECT (sv_plugin->sl_tree), "row_activated",
+					  G_CALLBACK (on_local_treeview_row_activated), plugin);
+	gtk_container_add (GTK_CONTAINER(sv_plugin->sl), sv_plugin->sl_tree);
+	
+	/* add the scrolled window to the notebook */
+	gtk_notebook_append_page (GTK_NOTEBOOK(sv_plugin->sw),
+							  sv_plugin->sl, sv_plugin->sl_tab_label );
+
+	/* Global symbols */
 	sv_plugin->sv = gtk_scrolled_window_new (NULL, NULL);
-	sv_plugin->sv_tab_label = gtk_label_new (_("Tree" ));
-	/* setting up some properties */
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sv_plugin->sv),
 										 GTK_SHADOW_IN);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv_plugin->sv),
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
 	
+	sv_plugin->sv_tab_label = gtk_label_new (_("Global" ));
 	sv_plugin->sv_tree = anjuta_symbol_view_new ();
 	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sv_tree),
 							   (gpointer*)&sv_plugin->sv_tree);
@@ -911,12 +961,12 @@ activate_plugin (AnjutaPlugin *plugin)
 					  G_CALLBACK (on_treeview_row_activated), plugin);
 
 	gtk_container_add (GTK_CONTAINER(sv_plugin->sv), sv_plugin->sv_tree);
+	
 	/* add the scrolled window to the notebook */
 	gtk_notebook_append_page (GTK_NOTEBOOK(sv_plugin->sw),
 							  sv_plugin->sv, sv_plugin->sv_tab_label );
 
 	/* anjuta symbol search */
-	
 	sv_plugin->ss =
 		anjuta_symbol_search_new (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
 	sv_plugin->ss_tab_label = gtk_label_new (_("Search" ));
@@ -936,8 +986,7 @@ activate_plugin (AnjutaPlugin *plugin)
 
 	
 	/* setting focus to the tree_view*/
-	gtk_widget_grab_focus(sv_plugin->sv_tree);
-	
+	gtk_notebook_set_current_page (GTK_NOTEBOOK (sv_plugin->sw), 0);
 	
 	/* Add action group */
 	sv_plugin->action_group = 
@@ -1030,6 +1079,8 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->editor_watch_id = 0;
 	sv_plugin->merge_id = 0;
 	sv_plugin->sw = NULL;
+	sv_plugin->sl = NULL;
+	sv_plugin->sl_tree = NULL;
 	sv_plugin->sv = NULL;
 	sv_plugin->sv_tree = NULL;
 	sv_plugin->ss = NULL;

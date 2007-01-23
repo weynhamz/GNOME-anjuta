@@ -44,6 +44,9 @@ struct _SymbolBrowserPlugin{
 	AnjutaPreferences *prefs;
 	
 	GtkWidget *sw;             /* symbol main window [gtk_notebook] */
+	GtkWidget *sl;             /* symbol locals scrolledwindow */
+	GtkWidget *sl_tree;        /* anjuta_symbol_locals */
+	GtkWidget *sl_tab_label;
 	GtkWidget *sv;             /* symbol view scrolledwindow */
 	GtkWidget *sv_tree;        /* anjuta_symbol_view */
 	GtkWidget *sv_tab_label;

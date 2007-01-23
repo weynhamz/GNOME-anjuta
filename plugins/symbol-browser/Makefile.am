@@ -50,7 +50,9 @@ libanjuta_symbol_browser_la_SOURCES = \
 	an_symbol_prefs.c \
 	an_symbol_prefs.h \
 	plugin.c \
-	plugin.h
+	plugin.h \
+	anjuta-symbol-locals.h \
+	anjuta-symbol-locals.c 
 
 # Plugin dependencies
 libanjuta_symbol_browser_la_LIBADD = \
@@ -71,5 +73,7 @@ noinst_PROGRAMS = \
 test_class_symbol_parsing_SOURCES = \
 	test-class.cpp             \
 	test-class.h 
+
+
 
 

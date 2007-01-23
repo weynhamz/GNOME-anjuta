@@ -1,3 +1,12 @@
+2007-01-24  Naba Kumar  <naba@gnome.org>
+	
+	* (added) plugins/symbol-browser/anjuta-symbol-locals.c,
+	(added) plugins/symbol-browser/anjuta-symbol-locals.h,
+	plugins/symbol-browser/plugin.h,
+	plugins/symbol-browser/plugin.c,
+	plugins/symbol-browser/Makefile.am: Added current file (local)
+	symbols view (Seriously getting bored with the browse toolbar).
+
 2007-01-22  Naba Kumar  <naba@gnome.org>
 	
 	Patch from Gabor Kelemen:
