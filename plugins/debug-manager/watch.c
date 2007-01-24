@@ -105,7 +105,7 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 	}
 	else
 	{
-		debug_tree_add_dummy (dlg.tree);
+		debug_tree_add_dummy (dlg.tree, NULL);
 	}
 
 	for(;;)

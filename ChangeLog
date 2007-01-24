@@ -1,3 +1,13 @@
+2007-01-24 Sebastien Granjoux <seb.sfo@free.fr>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/watch.c:
+	Partial rewrite of the variable object code, find and fix a few bugs
+	Fix bug #395808: gdb can still crash but children are listed
+	on request only so you can avoid the crash
+
 2007-01-24  Naba Kumar  <naba@gnome.org>
 	
 	* (added) plugins/symbol-browser/anjuta-symbol-locals.c,
