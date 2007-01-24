@@ -1,3 +1,8 @@
+2007-01-24  Naba Kumar  <naba@gnome.org>
+	
+	* plugins/devhelp/htmlview.c: Fixed crash during project load.
+	Fixed mem leak and source leak.
+	
 2007-01-24 Sebastien Granjoux <seb.sfo@free.fr>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:

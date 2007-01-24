@@ -30,6 +30,7 @@ struct _HtmlViewPrivate {
 	DhHtml* html;
 	AnjutaDevhelp* devhelp;
 	gchar* uri;
+	guint idle_realize;
 };
 
 G_DEFINE_TYPE(HtmlView, html_view, GTK_TYPE_HBOX)
@@ -64,7 +65,7 @@ html_view_create_html(HtmlView* html_view)
 	priv->html = dh_html_new();
 	
 	if (!priv->html || !DH_IS_HTML(priv->html))	
-		return TRUE;
+		return TRUE; /* I think the idea is to wait until we get a widget? */
 	
 	view = dh_html_get_widget(priv->html);
 	gtk_box_pack_start(GTK_BOX(html_view), dh_html_get_widget(priv->html), TRUE, TRUE, 1);
@@ -77,12 +78,12 @@ html_view_create_html(HtmlView* html_view)
 			  priv->devhelp);
 	
 	/* Hack to get GtkMozEmbed to work properly. */
-	dh_html_clear(priv->html);
+	gtk_widget_realize (view);
 
 	if (priv->uri)
 		dh_html_open_uri(priv->html, priv->uri);
 	else
-		dh_html_open_uri(priv->html, "about:blank");
+		dh_html_clear(priv->html);
 	
 	gtk_widget_show (view);
 	
@@ -92,8 +93,13 @@ html_view_create_html(HtmlView* html_view)
 static void
 html_view_realize(GtkWidget* widget)
 {
-	g_idle_add((GSourceFunc) html_view_create_html, HTML_VIEW(widget));
+	HtmlView* html_view = HTML_VIEW(widget);
 	
+	if (html_view->priv->idle_realize == 0)
+	{
+		html_view->priv->idle_realize =
+			g_idle_add((GSourceFunc) html_view_create_html, html_view);
+	}	
 	(* GTK_WIDGET_CLASS (html_view_parent_class)->realize)(widget);
 }
 
@@ -101,6 +107,12 @@ static void
 html_view_unrealize(GtkWidget* widget)
 {
 	HtmlView* html_view = HTML_VIEW(widget);
+	
+	if (html_view->priv->idle_realize > 0)
+	{
+		g_source_remove (html_view->priv->idle_realize);
+		html_view->priv->idle_realize = 0;
+	}
 	
 	if (html_view->priv->html != NULL)
 	{
@@ -147,7 +159,7 @@ html_view_finalize(GObject *object)
 	/* Free private members, etc. */
 	if (cobj->priv->html)
 		gtk_widget_destroy(dh_html_get_widget(cobj->priv->html));
-		
+	g_free (cobj->priv->uri);	
 	g_free(cobj->priv);
 	G_OBJECT_CLASS(html_view_parent_class)->finalize(object);
 }
