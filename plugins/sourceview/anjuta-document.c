@@ -909,15 +909,15 @@ document_saver_saving (AnjutaDocumentSaver *saver,
 				      TRUE);
 		}
 
+		/* the saver has been used, throw it away */
+		g_object_unref (doc->priv->saver);
+		doc->priv->saver = NULL;
+		doc->priv->is_saving_as = FALSE;		
+		
 		g_signal_emit (doc,
 			       document_signals[SAVED],
 			       0,
 			       error);
-
-		/* the saver has been used, throw it away */
-		g_object_unref (doc->priv->saver);
-		doc->priv->saver = NULL;
-		doc->priv->is_saving_as = FALSE;
 	}
 	else
 	{

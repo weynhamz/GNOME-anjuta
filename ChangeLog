@@ -1,3 +1,13 @@
+2007-01-26  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/anjuta-document-saver.c:
+	(anjuta_document_saver_save):
+	* plugins/sourceview/anjuta-document.c: (document_saver_saving):
+	* plugins/sourceview/sourceview.c: (save_if_modified),
+	(on_document_saved), (ifile_savable_save), (ifile_savable_save_as):
+	Proper error handling, for example if a file was modified externally. Use backup files
+	to avoid data-loss on disk full.
+
 2007-01-24  Naba Kumar  <naba@gnome.org>
 	
 	* plugins/devhelp/htmlview.c: Fixed crash during project load.

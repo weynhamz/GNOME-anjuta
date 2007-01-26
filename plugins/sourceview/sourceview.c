@@ -277,19 +277,54 @@ static void on_document_saving(AnjutaDocument    *document,
 	anjuta_status_progress_tick(status, NULL, _("Saving..."));
 }
 
+static gboolean save_if_modified(AnjutaDocument* doc, GtkWindow* parent)
+{
+	GtkWidget* dialog = gtk_message_dialog_new(parent,
+    	GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, 
+    	_("The file %s was modified by another application. Save it anyway?"), anjuta_document_get_uri_for_display(doc));
+    int result = gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+    switch (result)
+    {
+    	case GTK_RESPONSE_YES:
+    	{
+    		return TRUE;
+   		}
+   		default:
+   			return FALSE;
+   	}
+}
+
 /* Called when document is saved completly */
 static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 {
 	if (err)
 	{
-		anjuta_util_dialog_error(NULL,
-			 "Could not save file: %s", err->message);
+		switch(err->code)
+		{
+			case ANJUTA_DOCUMENT_ERROR_EXTERNALLY_MODIFIED:
+			{
+    			if (save_if_modified(doc, GTK_WINDOW(sv->priv->plugin->shell)))
+    			{
+    				anjuta_document_save(doc, ANJUTA_DOCUMENT_SAVE_IGNORE_MTIME);
+    			}
+    			break;
+			}
+			default:
+			{
+				anjuta_util_dialog_error(NULL,
+				 		"Could not save file %s: %s",anjuta_document_get_uri_for_display(doc),  err->message);
+				break;
+			}
+		}
 	}
-	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
-	g_signal_emit_by_name(G_OBJECT(sv), "save_point",
-						  TRUE);
-	sourceview_add_monitor(sv);
-	sv->priv->saving = FALSE;
+	else
+	{
+		gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
+		g_signal_emit_by_name(G_OBJECT(sv), "save_point", TRUE);
+		sourceview_add_monitor(sv);
+		sv->priv->saving = FALSE;
+	}
 }
 
 static void 
@@ -512,7 +547,7 @@ ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
 					 
-	anjuta_document_save(sv->priv->document, ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);
+	anjuta_document_save(sv->priv->document, 0);
 }
 
 /* Save file as */
@@ -523,8 +558,7 @@ ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 	sourceview_remove_monitor(sv);
 	/* TODO: Set correct encoding */
 	anjuta_document_save_as(sv->priv->document, 
-							uri, anjuta_encoding_get_current(),
-							ANJUTA_DOCUMENT_SAVE_IGNORE_BACKUP);
+							uri, anjuta_encoding_get_current(), 0);
 	if (sv->priv->filename)
 	{
 		g_free(sv->priv->filename);

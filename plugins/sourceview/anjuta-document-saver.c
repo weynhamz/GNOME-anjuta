@@ -1248,8 +1248,8 @@ anjuta_document_saver_save (AnjutaDocumentSaver     *saver,
 	if ((flags & ANJUTA_DOCUMENT_SAVE_PRESERVE_BACKUP) != 0)
 		saver->priv->keep_backup = FALSE;
 	else
-		/* FIXME */
-		saver->priv->keep_backup = FALSE;
+		/* FIXME: This should be configurable */
+		saver->priv->keep_backup =TRUE;
 
 	/* TODO: add support for configurable backup dir */
 	saver->priv->backups_in_curr_dir = TRUE;
