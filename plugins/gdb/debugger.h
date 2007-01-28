@@ -81,7 +81,7 @@ Debugger* debugger_new (GtkWindow *parent_win, GObject* instance);
 void debugger_free (Debugger *debugger);
 
 gboolean debugger_start (Debugger *debugger, const GList *search_dirs,
-							const gchar *prog, gboolean is_libtool_prog);
+							const gchar *prog, gboolean is_libtool_prog, gboolean terminal);
 
 gboolean debugger_stop (Debugger *debugger);
 gboolean debugger_abort (Debugger *debugger);
@@ -111,7 +111,7 @@ void debugger_attach_process (Debugger *debugger, pid_t pid);
 void debugger_detach_process (Debugger *debugger);
 
 /* Execution */
-void debugger_start_program (Debugger *debugger, const gchar* args, gboolean terminal);
+void debugger_start_program (Debugger *debugger, const gchar* args);
 void debugger_stop_program (Debugger *debugger);
 void debugger_restart_program (Debugger *debugger);
 void debugger_interrupt (Debugger *debugger);

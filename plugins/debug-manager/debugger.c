@@ -305,10 +305,10 @@ typedef struct _DmaQueueCommand
 			gchar *file;
 			gchar *type;
 			GList *dirs;
+			gboolean terminal;
 		} load;
 		struct {
 			gchar *args;
-			gboolean terminal;
 		} start;
 		struct {
 			pid_t pid;
@@ -1089,7 +1089,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 	 	    ianjuta_debugger_initialize (this->debugger, on_debugger_output, this, &err);
 		    break;
 		case LOAD_COMMAND:
-			ianjuta_debugger_load (this->debugger, cmd->load.file, cmd->load.type, cmd->load.dirs, &err);	
+			ianjuta_debugger_load (this->debugger, cmd->load.file, cmd->load.type, cmd->load.dirs, cmd->load.terminal, &err);	
 			break;
   	    case ATTACH_COMMAND:
 			ianjuta_debugger_attach (this->debugger, cmd->attach.pid, cmd->load.dirs, &err);	
@@ -1106,7 +1106,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 			ianjuta_debugger_abort (this->debugger, &err);
 			break;
 		case START_COMMAND:
-			ianjuta_debugger_start (this->debugger, cmd->start.args, cmd->start.terminal, &err);
+			ianjuta_debugger_start (this->debugger, cmd->start.args, &err);
 		    break;
 		case RUN_COMMAND:
 			ianjuta_debugger_run (this->debugger, &err);	
@@ -1409,7 +1409,7 @@ idebugger_initialize (IAnjutaDebugger *iface, IAnjutaDebuggerOutputCallback call
 
 static gboolean
 idebugger_load (IAnjutaDebugger *iface, const gchar *file, const gchar* mime_type,
-				const GList *search_dirs, GError **err)
+				const GList *search_dirs, gboolean terminal, GError **err)
 {
 	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
 	DmaQueueCommand *cmd;
@@ -1421,6 +1421,7 @@ idebugger_load (IAnjutaDebugger *iface, const gchar *file, const gchar* mime_typ
 	cmd->load.file = g_strdup (file);
 	cmd->load.type = g_strdup (mime_type);
 	cmd->load.dirs = NULL;
+	cmd->load.terminal = terminal;
 	for (node = search_dirs; node != NULL; node = g_list_next (node))
 	{
 		cmd->load.dirs = g_list_prepend (cmd->load.dirs, g_strdup (node->data));
@@ -1456,7 +1457,7 @@ idebugger_attach (IAnjutaDebugger *iface, pid_t pid, const GList *search_dirs, G
 }
 
 static gboolean
-idebugger_start (IAnjutaDebugger *iface, const gchar *args, gboolean terminal, GError **err)
+idebugger_start (IAnjutaDebugger *iface, const gchar *args, GError **err)
 {
 	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
 	DmaQueueCommand *cmd;
@@ -1465,7 +1466,6 @@ idebugger_start (IAnjutaDebugger *iface, const gchar *args, gboolean terminal, G
 	if (cmd == NULL) return FALSE;
 		
 	cmd->start.args = args == NULL ? NULL : g_strdup (args);
-	cmd->start.terminal = terminal;
 	dma_debugger_queue_execute (this);
 	
 	return TRUE;

@@ -655,7 +655,8 @@ debugger_load_core (Debugger *debugger, const gchar *core)
 
 gboolean
 debugger_start (Debugger *debugger, const GList *search_dirs,
-				const gchar *prog, gboolean is_libtool_prog)
+				const gchar *prog, gboolean is_libtool_prog,
+				gboolean terminal)
 {
 	gchar *command_str, *dir, *tmp, *text, *msg;
 	gchar *exec_dir;
@@ -663,9 +664,23 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	const GList *node;
 	AnjutaLauncher *launcher;
 	GList *dir_list = NULL;
+	gchar *term = NULL;
 	
 	DEBUG_PRINT ("In function: debugger_start(%s) libtool %d", prog == NULL ? "(null)" : prog, is_libtool_prog);
 
+	/* Without a terminal, the output of the debugged program
+	 * are lost */
+	if (terminal)
+	{
+		term = debugger_start_terminal (debugger);
+		if (term)
+		{
+			tmp = g_strconcat (" -tty=", term, NULL);
+			g_free(term);
+			term = tmp;
+		}
+	}
+	
 	if (anjuta_util_prog_is_installed ("gdb", TRUE) == FALSE)
 		return FALSE;
 
@@ -744,15 +759,15 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 			chdir (exec_dir);
 		if (is_libtool_prog == FALSE)
 		{
-			command_str = g_strdup_printf (GDB_PATH " -f -n -i=mi2 %s -cd=%s "
-										   "-x %s/gdb.init %s", dir, tmp,
+			command_str = g_strdup_printf (GDB_PATH " -f -n -i=mi2 %s %s "
+										   "-x %s/gdb.init %s", dir, term == NULL ? "" : term,
 										   PACKAGE_DATA_DIR, prog);
 		}
 		else
 		{
 			command_str = g_strdup_printf ("libtool --mode=execute " GDB_PATH
-										   " -f -n -i=mi2 %s -cd=%s "
-										   "-x %s/gdb.init %s", dir, tmp,
+										   " -f -n -i=mi2 %s %s "
+										   "-x %s/gdb.init %s", dir, term == NULL ? "" : term,
 										   PACKAGE_DATA_DIR, prog);
 		}
 	}
@@ -760,19 +775,20 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	{
 		if (is_libtool_prog == FALSE)
 		{
-			command_str = g_strdup_printf (GDB_PATH " -f -n -i=mi2 %s "
-										   "-x %s/gdb.init ",
+			command_str = g_strdup_printf (GDB_PATH " -f -n -i=mi2 %s %s "
+										   "-x %s/gdb.init ", term == NULL ? "" : term,
 										   dir, PACKAGE_DATA_DIR);
 		}
 		else
 		{
 			command_str = g_strdup_printf ("libtool --mode=execute " GDB_PATH
-										   " -f -n -i=mi2 %s -x "
+										   " -f -n -i=mi2 %s %s -x "
 										   "%s/gdb.init ",
-										   dir, PACKAGE_DATA_DIR);
+										   dir, term == NULL ? "" : term, PACKAGE_DATA_DIR);
 		}
 	}
 	g_free (dir);
+	g_free (term);
 	debugger->priv->starting = TRUE;
 	debugger->priv->terminating = FALSE;
 	debugger->priv->loading = prog != NULL ? TRUE : FALSE;
@@ -1835,9 +1851,9 @@ debugger_info_program_finish (Debugger *debugger, const GDBMIValue *mi_results,
 }
 
 void
-debugger_start_program (Debugger *debugger, const gchar* args, gboolean terminal)
+debugger_start_program (Debugger *debugger, const gchar* args)
 {
-	gchar *term, *cmd;
+	gchar *cmd;
 
 	DEBUG_PRINT ("In function: debugger_start_program()");
 
@@ -1853,19 +1869,8 @@ debugger_start_program (Debugger *debugger, const gchar* args, gboolean terminal
 		g_free (cmd);
 	}
 
-	term = debugger_start_terminal (debugger);
-	if (term)
-	{
-		cmd = g_strconcat ("tty ", term, NULL);
-		debugger_queue_command (debugger, cmd, FALSE, FALSE, NULL, NULL, NULL);
-		debugger_queue_command (debugger, "-exec-run", FALSE, FALSE, NULL, NULL, NULL);
-		g_free (cmd);
-		g_free (term);
-	}
-	else
-	{
-		debugger_queue_command (debugger, "-exec-run", FALSE, FALSE, NULL, NULL, NULL);
-	}
+	debugger_queue_command (debugger, "-exec-run", FALSE, FALSE, NULL, NULL, NULL);
+	
 	/* Get pid of program on next stop */
 	debugger_queue_command (debugger, "info program", FALSE, FALSE, debugger_info_program_finish, NULL, NULL);
 	debugger->priv->post_execution_flag = DEBUGGER_NONE;

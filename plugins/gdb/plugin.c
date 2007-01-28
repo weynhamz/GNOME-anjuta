@@ -199,7 +199,7 @@ idebugger_initialize (IAnjutaDebugger *plugin, IAnjutaDebuggerOutputCallback cal
 
 static gboolean
 idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_type,
-				const GList *search_dirs, GError **err)
+				const GList *search_dirs, gboolean terminal, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	gboolean is_libtool = FALSE;
@@ -229,8 +229,8 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_ty
 		
 	// Start debugger
 	gdb_plugin_initialize (this);
-	//return debugger_start (this->debugger, search_dirs, file, is_libtool) ? IANJUTA_DEBUGGER_OK : IANJUTA_DEBUGGER_NOT_STARTED;
-	return debugger_start (this->debugger, search_dirs, file, is_libtool);
+	
+	return debugger_start (this->debugger, search_dirs, file, is_libtool, terminal);
 }
 
 static gboolean
@@ -250,18 +250,18 @@ idebugger_attach (IAnjutaDebugger *plugin, pid_t pid, const GList *search_dirs, 
 
 	// Start debugger
 	gdb_plugin_initialize (this);
-	debugger_start (this->debugger, search_dirs, NULL, FALSE);
+	debugger_start (this->debugger, search_dirs, NULL, FALSE, FALSE);
 	debugger_attach_process (this->debugger, pid);
 	
 	return TRUE;
 }
 
 static gboolean
-idebugger_start (IAnjutaDebugger *plugin, const gchar *argument, gboolean terminal, GError **err)
+idebugger_start (IAnjutaDebugger *plugin, const gchar *argument, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
-	debugger_start_program (this->debugger, argument, terminal);
+	debugger_start_program (this->debugger, argument);
 
 	return TRUE;
 }
@@ -787,7 +787,7 @@ icpu_debugger_inspect_memory (IAnjutaCpuDebugger *plugin, guint address, guint l
 }
 
 static gboolean
-icpu_debugger_disassemble (IAnjutaDebugger *plugin, guint address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+icpu_debugger_disassemble (IAnjutaCpuDebugger *plugin, guint address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = (GdbPlugin *)plugin;
 

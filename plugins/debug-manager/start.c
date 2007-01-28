@@ -255,10 +255,11 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
 	
 	/* The flag is store as 1 == FALSE, 2 == TRUE */
     run_in_terminal = anjuta_session_get_int (session, "Execution", "Run in terminal");
-	run_in_terminal--;
 
-    if (run_in_terminal >= 0)
-		this->run_in_terminal = run_in_terminal;
+    if (run_in_terminal == 0)
+		this->run_in_terminal = TRUE;	/* Default value */
+	else
+		this->run_in_terminal = run_in_terminal - 1;
 }
 
 /* Attach to process private functions
@@ -826,7 +827,7 @@ dma_start_load_uri (DmaStart *this)
 
 		ianjuta_debugger_interrupt (this->debugger, NULL);
 		ianjuta_debugger_quit (this->debugger, NULL);
-		ianjuta_debugger_load (this->debugger, filename, mime_type, search_dirs, NULL);
+		ianjuta_debugger_load (this->debugger, filename, mime_type, search_dirs, this->run_in_terminal, NULL);
 		
 		g_free (mime_type);
 		gnome_vfs_uri_unref (vfs_uri);
@@ -1060,7 +1061,7 @@ dma_run_target (DmaStart *this)
 	if (dma_set_parameters (this) == TRUE)
 	{       
 		dma_start_load_uri (this);
-		ianjuta_debugger_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, NULL);
+		ianjuta_debugger_start (this->debugger, this->program_args == NULL ? "" : this->program_args, NULL);
 	}
 	
 	return this->target_uri != NULL;
@@ -1072,7 +1073,7 @@ dma_rerun_target (DmaStart *this)
 	if (this->target_uri == NULL) return FALSE;
 
 	dma_start_load_uri (this);
-	ianjuta_debugger_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, NULL);
+	ianjuta_debugger_start (this->debugger, this->program_args == NULL ? "" : this->program_args, NULL);
 	
 	return TRUE;
 }
