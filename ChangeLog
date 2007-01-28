@@ -6,6 +6,8 @@
 	* configure.in, src/Makefile.am: Cleaned up dead codes. Added ldflags
 	from devhelp (won't work untill devhelp is fixed: bug #341170).
 	
+	* plugins/symbol-browser/an_symbol_prefs.c: Code cleanup.
+	
 2007-01-26 Sebastien Granjoux <seb.sfo@free.fr>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
