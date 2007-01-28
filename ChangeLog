@@ -1,3 +1,9 @@
+2007-01-28  Naba Kumar  <naba@gnome.org>
+	
+	* src/anjuta.glade, src/anjuta.c, src/main.c, src/anjuta.h:
+	Implemented --no-files and --no-session command line options and
+	corresponding preferernces checkboxes in General tab.
+
 2007-01-28  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/subversion/plugin.c:

@@ -30,6 +30,7 @@
 #include "anjuta.h"
 
 #define ANJUTA_SESSION_SKIP_LAST "anjuta.session.skip.last"
+#define ANJUTA_SESSION_SKIP_LAST_FILES "anjuta.session.skip.last.files"
 
 static gboolean
 on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
@@ -126,6 +127,7 @@ on_anjuta_session_die (GnomeClient * client, gpointer data)
 
 AnjutaApp*
 anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
+			gboolean no_session, gboolean no_files,
 			const gchar *im_file,
 			gboolean proper_shutdown, const gchar *geometry)
 {
@@ -225,6 +227,8 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 										files_load);
 			g_list_free (files_load);
 		}
+		anjuta_session_sync (session);
+		g_object_unref (session);
 	}
 	else
 	{
@@ -233,15 +237,26 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 		/* Load default session */
 		session_dir = g_build_filename (g_get_home_dir (), ".anjuta",
 										"session", NULL);
-		/* If preferences is not set to load last session, clear it */
-		if (anjuta_preferences_get_int (app->preferences,
+		/* If preferences is set to not load last session, clear it */
+		if (no_session ||
+			anjuta_preferences_get_int (app->preferences,
 										ANJUTA_SESSION_SKIP_LAST))
 		{
 			/* Reset default session */
-			session_dir = g_build_filename (g_get_home_dir (), ".anjuta",
-											"session", NULL);
 			session = anjuta_session_new (session_dir);
 			anjuta_session_clear (session);
+			g_object_unref (session);
+		}
+		/* If preferences is set to not load last project, clear it */
+		else if (no_files ||
+				 anjuta_preferences_get_int (app->preferences,
+											 ANJUTA_SESSION_SKIP_LAST_FILES))
+		{
+			session = anjuta_session_new (session_dir);
+			anjuta_session_set_string_list (session, "File Loader",
+											"Files", NULL);
+			anjuta_session_sync (session);
+			g_object_unref (session);
 		}
 	}
 	

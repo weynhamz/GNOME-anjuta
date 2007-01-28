@@ -25,6 +25,7 @@
 #include "anjuta-app.h"
 
 AnjutaApp* anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
+					   gboolean no_session, gboolean no_files,
 					   const gchar *im_file, gboolean proper_shutdown,
 					   const gchar *geometry);
 

@@ -57,6 +57,8 @@ static gint line_position = 0;
 static GList *file_list = NULL;
 static gboolean no_splash = 0;
 static gboolean no_client = 0;
+static gboolean no_session = 0;
+static gboolean no_files = 0;
 static gboolean proper_shutdown = 0;
 static gchar *anjuta_geometry = NULL;
 
@@ -84,6 +86,18 @@ poptOption anjuta_options[] = {
 		"no-client", 'c', POPT_ARG_NONE,
 		&no_client, 0,
 		N_("Start a new instance and do not open the file in a existing"),
+		NULL
+	},
+	{
+		"no-session", 'n', POPT_ARG_NONE,
+		&no_session, 0,
+		N_("Do not open last session on startup"),
+		NULL
+	},
+	{
+		"no-project", 'j', POPT_ARG_NONE,
+		&no_files, 0,
+		N_("Do not open last project and files on startup"),
 		NULL
 	},
 	{
@@ -365,8 +379,8 @@ main (int argc, char *argv[])
 	im_file = anjuta_res_get_pixmap_file (ANJUTA_PIXMAP_SPLASH_SCREEN);
 	
 	/* Initialize applicatoin */
-	app = anjuta_new (argv[0], file_list, no_splash, im_file,
-					  proper_shutdown, anjuta_geometry);
+	app = anjuta_new (argv[0], file_list, no_splash, no_session, no_files,
+					  im_file, proper_shutdown, anjuta_geometry);
 	
 	g_free (im_file);
 	gtk_window_set_role (GTK_WINDOW (app), "anjuta-app");
