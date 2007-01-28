@@ -1,3 +1,11 @@
+2007-01-28  Naba Kumar  <naba@gnome.org>
+	
+	* configure.in, plugins/glade/plugin.c: Make it work with
+	glade svn. Based on patch from  Vincent Geddes. Fixes bug #400833.
+	
+	* configure.in, src/Makefile.am: Cleaned up dead codes. Added ldflags
+	from devhelp (won't work untill devhelp is fixed: bug #341170).
+	
 2007-01-26 Sebastien Granjoux <seb.sfo@free.fr>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:

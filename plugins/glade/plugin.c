@@ -19,9 +19,17 @@
 */
 
 #include <config.h>
-#include <glade.h>
-#ifndef LIBGLADEUI_3_0_2
-#  include <glade-design-view.h>
+
+#ifdef GLADEUI_OLD
+# include <glade.h>
+#else
+# ifdef GLADEUI_LAST_PUBLIC
+#   include <glade.h>
+#   include <glade-design-view.h>
+# else /* SVN */
+#   include <gladeui/glade.h>
+#   include <gladeui/glade-design-view.h>
+# endif
 #endif
 
 #include <libgnomevfs/gnome-vfs-utils.h>
@@ -46,7 +54,7 @@ struct _GladePluginPriv
 	GtkActionGroup *action_group;
 	GladeApp *gpw;
 	GladeProjectView *view;
-#ifndef LIBGLADEUI_3_0_2
+#ifndef GLADEUI_OLD
 	GtkWidget *design_notebook;
 #endif
 	GtkWidget *view_box;
@@ -373,7 +381,7 @@ on_api_help (GladeEditor* editor,
 static void
 glade_do_close (GladePlugin *plugin, GladeProject *project)
 {
-#ifndef LIBGLADEUI_3_0_2
+#ifndef GLADEUI_OLD
 	GtkWidget *design_view;
 
 	design_view = g_object_get_data (G_OBJECT (project), "design_view");
@@ -443,14 +451,14 @@ on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
 	{
 		GladeProject *project;
 		
-#ifndef LIBGLADEUI_3_0_2
+#ifndef GLADEUI_OLD
 		GtkWidget *design_view;
 		gint design_pagenum;
 #endif
 		gtk_tree_model_get (model, &iter, PROJECT_COL, &project, -1);
 		glade_app_set_project (project);
 		
-#ifndef LIBGLADEUI_3_0_2
+#ifndef GLADEUI_OLD
 		design_view = g_object_get_data (G_OBJECT (project), "design_view");
 		design_pagenum = gtk_notebook_page_num (GTK_NOTEBOOK (plugin->priv->design_notebook),
 												design_view);
@@ -641,7 +649,7 @@ on_shell_destroy (AnjutaShell *shell, GladePlugin *glade_plugin)
 	gtk_container_remove (GTK_CONTAINER (parent), wid);
 }
 
-#ifndef LIBGLADEUI_3_0_2
+#ifndef GLADEUI_OLD
 static void
 glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 {
@@ -709,7 +717,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		g_object_unref (G_OBJECT (store));
 		gtk_box_pack_start (GTK_BOX (priv->view_box), priv->projects_combo,
 							FALSE, FALSE, 0);
-#ifndef LIBGLADEUI_3_0_2
+#ifndef GLADEUI_OLD
 		priv->view = GLADE_PROJECT_VIEW (glade_project_view_new ());
 #else
 		/* Old glade-3 */
@@ -727,7 +735,7 @@ activate_plugin (AnjutaPlugin *plugin)
 									 TRUE);
 		gtk_notebook_popup_enable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook));
 		
-#ifndef LIBGLADEUI_3_0_2
+#ifndef GLADEUI_OLD
 		/* Create design_notebook */
 		priv->design_notebook = gtk_notebook_new ();
 		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (priv->design_notebook), FALSE);
@@ -764,7 +772,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_object_ref (glade_app_get_palette ());
 	g_object_ref (glade_app_get_editor ());
 	g_object_ref (priv->view_box);
-#ifndef LIBGLADEUI_3_0_2
+#ifndef GLADEUI_OLD
 	g_object_ref (priv->design_notebook);
 #endif
 	gtk_widget_show (GTK_WIDGET (glade_app_get_palette ()));
@@ -786,7 +794,7 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "AnjutaGladeEditor", _("Properties"),
 							 "glade-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
-#ifndef LIBGLADEUI_3_0_2
+#ifndef GLADEUI_OLD
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 							 GTK_WIDGET (priv->design_notebook),
 							 "AnjutaGladeDesigner", _("Designer"),
@@ -837,7 +845,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_remove_widget (plugin->shell,
 								GTK_WIDGET (priv->view_box),
 								NULL);
-#ifndef LIBGLADEUI_3_0_2
+#ifndef GLADEUI_OLD
 	anjuta_shell_remove_widget (plugin->shell,
 								GTK_WIDGET (priv->design_notebook),
 								NULL);

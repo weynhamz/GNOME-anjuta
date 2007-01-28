@@ -46,6 +46,8 @@ anjuta_LDADD =  \
 	$(GDL_LIBS) \
 	$(top_builddir)/libanjuta/libanjuta.la
 
+anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
+
 anjuta_shell_SOURCES = shell.c shell.h
 anjuta_shell_LDADD =  \
 	$(top_builddir)/libanjuta/libanjuta.la
