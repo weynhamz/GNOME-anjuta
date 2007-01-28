@@ -110,6 +110,7 @@ ianjuta-debugger
 @file: 
 @mime_type: 
 @source_search_directories: 
+@terminal: 
 @err: 
 @Returns: 
 

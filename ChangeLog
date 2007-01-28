@@ -1,3 +1,17 @@
+2007-01-28  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/subversion/plugin.c:
+	* plugins/subversion/plugin.h:
+	* plugins/subversion/svn-notify.c: (svn_show_info),
+	(show_svn_error), (on_svn_notify):
+	* plugins/subversion/svn-notify.h:
+	* plugins/subversion/svn-thread.c: (create_message_view),
+	(svn_thread_start):
+	Fixed error handling and fixed #394216 – No indication of subversion commands running
+	
+	* plugins/tools/execute.c: (atp_output_context_print):
+	Show name of tool in message pane
+
 2007-01-28  Naba Kumar  <naba@gnome.org>
 	
 	* configure.in, plugins/glade/plugin.c: Make it work with

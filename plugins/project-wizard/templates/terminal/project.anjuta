@@ -27,15 +27,13 @@
                  attribute="Supported-Build-Types"
                  value="make"/>
 	</plugin>
-	<plugin name="CVS Version Control System"
-            url="http://anjuta.org/plugins/"
-            mandatory="no">
+	<plugin name="Subversion" mandatory="no">
+        <require group="Anjuta Plugin"
+                 attribute="Location"
+                 value="anjuta-subversion:Subversion"/>
 		<require group="Anjuta Plugin"
                   attribute="Interfaces"
                   value="IAnjutaVcs"/>
-		<require group="Version Control"
-                 attribute="Supported-Vcs-Types"
-                 value="cvs"/>
 	</plugin>
 	<plugin name="Task Manager"
             url="http://anjuta.org/plugins/"

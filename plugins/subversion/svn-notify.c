@@ -19,8 +19,8 @@
 #include "svn-notify.h"
 #include "svn-backend-priv.h"
 
-static void
-show_info(SVNBackend* backend, const gchar* type, const gchar* file)
+void
+svn_show_info(SVNBackend* backend, const gchar* type, const gchar* file)
 {
 	gchar* message;
 	
@@ -41,7 +41,7 @@ show_svn_error(svn_error_t *error, SVN* svn)
 
 	while (itr)
 	{
-		gchar* message = g_strdup_printf("SVN Error: %s!", error->message);
+		gchar* message = g_strdup_printf("SVN Error: %s!", itr->message);
 		g_mutex_lock(svn->thread.mutex);
 		g_queue_push_tail(svn->thread.error_messages, message);
 		g_mutex_unlock(svn->thread.mutex);
@@ -66,111 +66,112 @@ on_svn_notify (gpointer baton,
 	{
 		case svn_wc_notify_add:
 		{
-			show_info(backend, _("Add"), path);
+			svn_show_info(backend, _("Add"), path);
 			break;
 		}
 		case svn_wc_notify_copy:
 		{
-			show_info(backend, _("Copy"), path);
+			svn_show_info(backend, _("Copy"), path);
 			break;
 		}
 		case svn_wc_notify_delete:
 		{
-			show_info(backend, _("Delete"), path);
+			svn_show_info(backend, _("Delete"), path);
 			break;
 		}
 		case svn_wc_notify_restore:
 		{
-			show_info(backend, _("Restore"), path);
+			svn_show_info(backend, _("Restore"), path);
 			break;
 		}
 		case svn_wc_notify_revert:
 		{
-			show_info(backend, _("Revert"), path);
+			svn_show_info(backend, _("Revert"), path);
 			break;
 		}
 		case svn_wc_notify_failed_revert:
 		{
-			show_info(backend, _("Revert failed"), path);
+			svn_show_info(backend, _("Revert failed"), path);
 			break;
 		}
 		case svn_wc_notify_resolved:
 		{
-			show_info(backend, _("Resolved"), path);
+			svn_show_info(backend, _("Resolved"), path);
 			break;
 		}
 		case svn_wc_notify_skip:
 		{
-			show_info(backend, _("Skip"), path);
+			svn_show_info(backend, _("Skip"), path);
 			break;
 		}
 		case svn_wc_notify_update_delete:
 		{
-			show_info (backend, _("Update delete"), path);
+			svn_show_info (backend, _("Update delete"), path);
 			break;
 		}
 		case svn_wc_notify_update_add:
 		{
-			show_info (backend, _("Update add"), path);
+			svn_show_info (backend, _("Update add"), path);
 			break;
 		}
 		case svn_wc_notify_update_update:
 		{
-			show_info (backend, _("Update"), path);
+			svn_show_info (backend, _("Update"), path);
 			break;
 		}
 		case svn_wc_notify_update_completed:
 		{
-			show_info (backend, _("Update completed"), path);
+			svn_show_info (backend, _("Update completed"), path);
 			break;
 		}
 		case svn_wc_notify_update_external:
 		{
-			show_info (backend, _("Update external"), path);
+			svn_show_info (backend, _("Update external"), path);
 			break;
 		}
 		case svn_wc_notify_status_completed:
 		{
-			show_info (backend, _("Status completed"), path);
+			svn_show_info (backend, _("Status completed"), path);
 			break;
 		}
 		case svn_wc_notify_status_external:
 		{
-			show_info (backend, _("Status external"), path);
+			svn_show_info (backend, _("Status external"), path);
 			break;
 		}
 		case svn_wc_notify_commit_modified:
 		{
-			show_info (backend, _("Commit modified"), path);
+			svn_show_info (backend, _("Commit modified"), path);
 			break;
 		}
 		case svn_wc_notify_commit_added:
 		{
-			show_info (backend, _("Commit added"), path);
+			svn_show_info (backend, _("Commit added"), path);
 			break;
 		}
 		case svn_wc_notify_commit_deleted:
 		{
-			show_info (backend, _("Commit deleted"), path);
+			svn_show_info (backend, _("Commit deleted"), path);
 			break;
 		}
 		case svn_wc_notify_commit_replaced:
 		{
-			show_info (backend, _("Commit replaced"), path);
+			svn_show_info (backend, _("Commit replaced"), path);
 			break;
 		}
 		case svn_wc_notify_commit_postfix_txdelta:
 		{
-			show_info (backend, _("Commit postfix"), path);
+			svn_show_info (backend, _("Commit postfix"), path);
 			break;
 		}
 		case svn_wc_notify_blame_revision:
 		{
-			show_info (backend, _("Blame revision"), path);
+			svn_show_info (backend, _("Blame revision"), path);
 			break;
 		}		
 		default:
 		{
+		  svn_show_info (backend, _("Unknown notification"), path);
 			g_warning("Unknown notification");
 			break;
 		}

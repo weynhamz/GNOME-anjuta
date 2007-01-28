@@ -73,14 +73,14 @@ create_message_view(Subversion* plugin)
 	    ianjuta_message_manager_get_view_by_name(mesg_manager, _("Subversion"), NULL);
 	if (!plugin->mesg_view)
 	{
-		/* FIXME: We need an Icon */
 		plugin->mesg_view =
 		     ianjuta_message_manager_add_view (mesg_manager, _("Subversion"), 
-											   "", NULL);
+											   ICON_FILE, NULL);
 		g_object_weak_ref (G_OBJECT (plugin->mesg_view), 
 						  (GWeakNotify)on_mesg_view_destroy, plugin);
 	}
 	ianjuta_message_view_clear(plugin->mesg_view, NULL);
+	ianjuta_message_manager_set_current_view(mesg_manager, plugin->mesg_view, NULL);
 }
 
 static void
@@ -175,6 +175,7 @@ void svn_thread_start(SVNBackend* backend, GThreadFunc func, gpointer data)
 	create_message_view(backend->plugin);
 	
 	backend->svn->busy = TRUE;
+	svn_show_info(backend, _("Subversion thread started..."), "");
 	g_thread_create(func, data, TRUE, NULL);
 #else
 	#error Subversion plugin does not work without thread support!

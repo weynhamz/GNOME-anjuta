@@ -33,7 +33,6 @@
 #include "svn-backend.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-subversion.ui"
-#define ICON_FILE "anjuta-subversion.png"
 
 static gpointer parent_class;
 

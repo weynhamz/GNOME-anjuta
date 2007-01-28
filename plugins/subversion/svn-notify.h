@@ -35,4 +35,8 @@ on_svn_notify (gpointer baton,
 void
 show_svn_error(svn_error_t *error, SVN* backend);
 
+void
+svn_show_info(SVNBackend* backend, const gchar* type, const gchar* file);
+
+
 #endif

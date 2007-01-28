@@ -373,13 +373,13 @@ atp_output_context_print (ATPOutputContext *this, const gchar* text)
 		if (this->created == FALSE)
 		{
 			IAnjutaMessageManager *man;
-			gchar* title;
+			gchar* title  = this->execution->name;
 
 			man = anjuta_shell_get_interface (this->execution->plugin->shell,
 											  IAnjutaMessageManager, NULL);
 			if (this->view == NULL)
 			{
-				this->view = ianjuta_message_manager_add_view (man, "",
+				this->view = ianjuta_message_manager_add_view (man, title,
 															   ICON_FILE,
 															   NULL);
 				g_signal_connect (G_OBJECT (this->view), "buffer_flushed",

@@ -41,7 +41,7 @@ typedef struct _SubversionClass SubversionClass;
 #include "svn-backend.h"
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-subversion.glade"
-
+#define ICON_FILE "anjuta-subversion.png"
 
 
 struct _Subversion{
