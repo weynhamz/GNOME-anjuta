@@ -1,5 +1,17 @@
 2007-01-29  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/plugin.c: (on_editor_changed):
+	Added DEBUG_PRINT(...)
+	* plugins/editor/text_editor.c: (itext_editor_set_auto_indent):
+	implemented
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in:
+	Fix language support plugin for sourceview editor (add some new language names)
+	
+	* plugins/sourceview/sourceview.c: (iindic_clear):
+	Clear all indicators
+
+2007-01-29  Johannes Schmid <jhs@gnome.org>
+
 	* TODO.tasks:
 	Minor task currentions
 	

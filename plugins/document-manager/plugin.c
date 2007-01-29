@@ -1029,6 +1029,7 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 				/* anjuta_plugin_activate (ANJUTA_PLUGIN (plugin_object)); */
 				if (plugin_object)
 				{
+					DEBUG_PRINT("Loaded language support plugin: %s", plugin_id);
 					docman_plugin->support_plugins = g_list_prepend (docman_plugin->support_plugins,
 																	 plugin_object);
 				}

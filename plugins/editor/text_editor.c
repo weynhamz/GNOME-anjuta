@@ -2094,7 +2094,7 @@ itext_editor_set_use_spaces (IAnjutaEditor *editor, gboolean use_spaces, GError 
 static void
 itext_editor_set_auto_indent (IAnjutaEditor *editor, gboolean auto_indent, GError **e)
 {
-  /* FIXME */
+  text_editor_command (TEXT_EDITOR(editor), ANE_SETINDENTMAINTAIN, auto_indent, 0);
 }
 
 static void

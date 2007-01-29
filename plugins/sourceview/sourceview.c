@@ -1440,7 +1440,12 @@ iindic_clear (IAnjutaIndicable *indic, GError **e)
 	gtk_text_buffer_remove_tag_by_name (GTK_TEXT_BUFFER(sv->priv->document),
 	                                     IMPORTANT_INDIC,
 	                                     &start, &end);
-	// Remove warning_indic, critical_indic
+	gtk_text_buffer_remove_tag_by_name (GTK_TEXT_BUFFER(sv->priv->document),
+	                                     WARNING_INDIC,
+	                                     &start, &end);
+	gtk_text_buffer_remove_tag_by_name (GTK_TEXT_BUFFER(sv->priv->document),
+	                                     CRITICAL_INDIC,
+	                                     &start, &end);
 }
 
 static void
