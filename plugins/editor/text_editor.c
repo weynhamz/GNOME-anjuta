@@ -2092,6 +2092,12 @@ itext_editor_set_use_spaces (IAnjutaEditor *editor, gboolean use_spaces, GError 
 }
 
 static void
+itext_editor_set_auto_indent (IAnjutaEditor *editor, gboolean auto_indent, GError **e)
+{
+  /* FIXME */
+}
+
+static void
 itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 {
 	text_editor_goto_line (TEXT_EDITOR (editor), lineno, FALSE, TRUE);
@@ -2331,6 +2337,7 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->set_tabsize = itext_editor_set_tab_size;
 	iface->get_use_spaces = itext_editor_get_use_spaces;
 	iface->set_use_spaces = itext_editor_set_use_spaces;
+	iface->set_auto_indent = itext_editor_set_auto_indent;	
 	iface->goto_line = itext_editor_goto_line;
 	iface->goto_position = itext_editor_goto_position;
 	iface->get_text = itext_editor_get_text;

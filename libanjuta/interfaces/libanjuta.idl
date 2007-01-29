@@ -749,6 +749,17 @@ interface IAnjutaEditor
 	void   set_use_spaces (gboolean use_spaces);
 	
 	/**
+	 * ianjuta_editor_set_auto_indent:
+	 * @obj: Self
+	 * @auto_indent: TRUE to enable auto-indent, FALSE to disable
+	 *
+	 * Sets whether the editor should auto-indent itself. A plugin that does
+	 * custom auto-indent can set this to false and override the preferences
+	 * setting
+	 */
+	void set_auto_indent(gboolean auto_indent);
+	
+	/**
 	 * ianjuta_editor_erase:
 	 * @obj: Self
 	 * @position: Start position of chars to erase. Must be 0 or more.
@@ -855,7 +866,7 @@ interface IAnjutaEditor
 	 * characters starting at begining position and ending at end position.
 	 * The returned buffer must be freed when no longer required.
 	 */
-	//List<Attribute> get_attributes (gint start, gint length);
+	Attribute* get_attributes (gint start, gint length);
 
 	/*
 	 * ianjuta_editor_get_position:

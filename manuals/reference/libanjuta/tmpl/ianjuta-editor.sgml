@@ -53,6 +53,7 @@
 @end_undo_action: 
 @erase: 
 @erase_all: 
+@get_attributes: 
 @get_cell_iter: 
 @get_column: 
 @get_current_word: 
@@ -72,6 +73,7 @@
 @grab_focus: 
 @insert: 
 @redo: 
+@set_auto_indent: 
 @set_popup_menu: 
 @set_tabsize: 
 @set_use_spaces: 
@@ -123,6 +125,18 @@
 
 @obj: 
 @err: 
+
+
+<!-- ##### FUNCTION ianjuta_editor_get_attributes ##### -->
+<para>
+
+</para>
+
+@obj: 
+@start: 
+@length: 
+@err: 
+@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_editor_get_column ##### -->

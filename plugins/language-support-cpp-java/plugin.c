@@ -1148,6 +1148,8 @@ install_support (CppJavaPlugin *lang_plugin)
 	{
 		return;
 	}
+	/* Disable editor intern auto-indent */
+	ianjuta_editor_set_auto_indent(IANJUTA_EDITOR(lang_plugin->current_editor), FALSE, NULL);
 	lang_plugin->support_installed = TRUE;
 }
 

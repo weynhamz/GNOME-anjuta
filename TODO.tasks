@@ -14,11 +14,6 @@ development and what's new in Anjuta 2.0 release.</comment>
 box (instead of hardcoded names in the source).</comment>
     </item>
     <item>
-      <attribute id="1142156720" priority="1" done="0" start_date="732382" enddate="99999999" notify="0" endtime="-60" last_edited="1142156720"/>
-      <summary>Implement IAnjutaEditorPrint</summary>
-      <comment>Implement it using GnomePrint</comment>
-    </item>
-    <item>
       <attribute id="1142156772" priority="1" done="1" start_date="732382" completed_date="732391" notify="0" last_edited="1142930663"/>
       <summary>Implement IAnjutaPrint</summary>
       <comment>A generic print interface</comment>
@@ -47,6 +42,11 @@ Implement automated tests for Anjuta using either LDTP (http://ldtp.freedesktop.
       <comment>[Skill: medium, Work: 30hrs, Bounty: $500, Status: Assigned, Bug: #359478]
 
 gprof is a command line tool for profiling program performance. The executable is required to be compiled with -p flag and when the program is executed, a profiling info is collected in a file. After the execution is done, gprof can be used to interpret the profile data. This plugin parses the output from gprof and presents the information in different views -- text, lists and graphs.</comment>
+    </item>
+    <item>
+      <attribute id="1142156720" priority="1" done="0" start_date="732382" enddate="99999999" notify="0" endtime="-60" last_edited="1170019417"/>
+      <summary>Implement IAnjutaEditorPrint</summary>
+      <comment>Implement it using Gtk 2.10 Printing stuff</comment>
     </item>
   </category>
   <category title="libanjuta" place="2">

@@ -1,3 +1,20 @@
+2007-01-29  Johannes Schmid <jhs@gnome.org>
+
+	* TODO.tasks:
+	Minor task currentions
+	
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/editor/text_editor.c: (itext_editor_set_auto_indent),
+	(itext_editor_iface_init):
+	* plugins/language-support-cpp-java/plugin.c: (install_support):
+	* plugins/sourceview/sourceview.c: (ieditor_set_auto_indent),
+	(ieditor_get_attributes), (ieditor_iface_init):
+	Added ianjuta_editor_set_auto_indent to disable auto-indent from language support
+	plugins.
+	
+	* plugins/sourceview/sourceview.glade:
+	Fixed sourceview preference window
+
 2007-01-28  Naba Kumar  <naba@gnome.org>
 	
 	* src/anjuta.glade, src/anjuta.c, src/main.c, src/anjuta.h:
