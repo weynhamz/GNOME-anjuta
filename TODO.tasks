@@ -380,9 +380,9 @@ templates. For example, 'Creating project-name/file-path/file-name.c'
 instead of full path names.</comment>
     </item>
     <item>
-      <attribute id="1159556062" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1168252098"/>
+      <attribute id="1159556062" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1170364132"/>
       <summary>Test and fix all project wizards templates</summary>
-      <comment>[Skill: basic, Work: 5hr, Bounty: $50, Status: Assinged, Bug #394184 ]
+      <comment>[Skill: basic, Work: 5hr, Bounty: $50, Status: Completed, Bug #394184 ]
 
 Test and fix all project wizard templates and set reasonable version numbers for the dependencies</comment>
     </item>

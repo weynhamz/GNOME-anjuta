@@ -1,3 +1,10 @@
+2007-02-01  Naba Kumar  <naba@gnome.org>
+
+	* src/main.c: Renamed option name.
+
+	* TODO.tasks: Marked "Test and fix all project wizards templates"
+	bounty completed.
+	
 2007-01-29  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c: (on_editor_changed):
@@ -5,7 +12,8 @@
 	* plugins/editor/text_editor.c: (itext_editor_set_auto_indent):
 	implemented
 	* plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in:
-	Fix language support plugin for sourceview editor (add some new language names)
+	Fix language support plugin for sourceview editor (add some new
+	language names)
 	
 	* plugins/sourceview/sourceview.c: (iindic_clear):
 	Clear all indicators
