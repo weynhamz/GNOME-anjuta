@@ -95,7 +95,7 @@ poptOption anjuta_options[] = {
 		NULL
 	},
 	{
-		"no-project", 'j', POPT_ARG_NONE,
+		"no-files", 'f', POPT_ARG_NONE,
 		&no_files, 0,
 		N_("Do not open last project and files on startup"),
 		NULL
