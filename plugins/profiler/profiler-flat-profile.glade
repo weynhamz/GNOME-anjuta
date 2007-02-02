@@ -1,0 +1,45 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
+
+<glade-interface>
+
+<widget class="GtkWindow" id="flat_profile">
+  <property name="title" translatable="yes"></property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">False</property>
+  <property name="default_width">500</property>
+  <property name="default_height">400</property>
+  <property name="resizable">True</property>
+  <property name="destroy_with_parent">False</property>
+  <property name="decorated">True</property>
+  <property name="skip_taskbar_hint">False</property>
+  <property name="skip_pager_hint">False</property>
+  <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
+  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <signal name="delete_event" handler="on_main window_delete_event" last_modification_time="Wed, 15 Nov 2006 07:29:39 GMT"/>
+
+  <child>
+    <widget class="GtkScrolledWindow" id="flat_profile_scrolled">
+      <property name="visible">True</property>
+      <property name="can_focus">True</property>
+      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+      <property name="shadow_type">GTK_SHADOW_IN</property>
+      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+      <child>
+	<widget class="GtkTreeView" id="flat_profile_view">
+	  <property name="visible">True</property>
+	  <property name="can_focus">True</property>
+	  <property name="headers_visible">True</property>
+	  <property name="rules_hint">True</property>
+	  <property name="reorderable">False</property>
+	  <property name="enable_search">True</property>
+	</widget>
+      </child>
+    </widget>
+  </child>
+</widget>
+
+</glade-interface>

@@ -6,6 +6,8 @@ INCLUDES = \
 	$(DEPRECATED_FLAGS) \
 	$(GNOME_UI_CFLAGS) \
 	$(GLADE_CFLAGS) \
+	$(LIBXML_CFLAGS) \
+	$(GNOMEVFS_CFAGS) \
 	-I$(top_srcdir) \
 	-DPACKAGE_PIXMAPS_DIR="\"$(datadir)/pixmaps/$(PACKAGE)\"" \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \

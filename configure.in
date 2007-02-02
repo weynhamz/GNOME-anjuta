@@ -348,7 +348,7 @@ fi
 
 AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [test x$libgladeui_found = xyes])
 
-dnl Check for graphviz (class inheritance plugin)
+dnl Check for graphviz (class inheritance and profiler plugins)
 dnl --------------------------------------------------------------------------
 dnl FIXME: For some strange reason graphviz-devel rpm install the *.pc files
 dnl in /usr/lib/graphviz/pkgconfig, instead of usual /usr/lib/pkgconfig. This
@@ -358,15 +358,15 @@ dnl /usr/local/lib/pkgconfig paths. If graphviz is installed in other prefix
 dnl (other than /usr or /usr/local or the current installation prefix),
 dnl following pkgconfig check will fail.
 dnl --------------------------------------------------------------------------
-AC_ARG_ENABLE(plugin-class-inheritance,
-	[ --disable-plugin-class-inheritance		Disable class inheritance graphing plugin support in Anjuta], 
+AC_ARG_ENABLE(graphviz,
+	[ --disable-graphviz		Disable GraphViz support in Anjuta], 
 	[ if test "$enableval" = "no"; then
-		user_disabled_inheritance=1
+		user_disabled_graphviz=1
 	  fi ],
-	[ user_disabled_inheritance=0 ])
+	[ user_disabled_graphviz=0 ])
 
-AC_MSG_CHECKING(if class inheritance plugin is disabled)
-if test "$user_disabled_inheritance" = 1; then
+AC_MSG_CHECKING(if GraphViz support is disabled)
+if test "$user_disabled_graphviz" = 1; then
 	AC_MSG_RESULT(yes)
 	libgraphviz_found="no"
 else
@@ -386,19 +386,25 @@ else
 	prefix="$anjuta_save_prefix"
 
 	export PKG_CONFIG_PATH
-	PKG_CHECK_MODULES(PLUGIN_CLASS_INHERITANCE,
+	PKG_CHECK_MODULES(GRAPHVIZ,
 		[libgvc >= $LIBGRAPHVIZ_REQUIRED], 
 		[libgraphviz_found="yes"],
 		[libgraphviz_found="no"])
-	AC_SUBST(PLUGIN_CLASS_INHERITANCE_CFLAGS)
-	AC_SUBST(PLUGIN_CLASS_INHERITANCE_LIBS)
+	AC_SUBST(GRAPHVIZ_CFLAGS)
+	AC_SUBST(GRAPHVIZ_LIBS)
 	
 	dnl Restore pkgconfig path
 	PKG_CONFIG_PATH="${ANJUTA_PKG_CONFIG_PATH_SAVE}"
 	export PKG_CONFIG_PATH
 fi
 
-AM_CONDITIONAL(HAVE_PLUGIN_CLASS_INHERITANCE, [test x$libgraphviz_found = xyes])
+AM_CONDITIONAL(HAVE_GRAPHVIZ, [test x$libgraphviz_found = xyes])
+
+dnl Define HAVE_GRAPHVIZ to disable Function Call Chart in the Profiler if 
+dnl Graphviz isn't on the system
+if test "$libgraphviz_found" = yes; then
+	AC_DEFINE(HAVE_GRAPHVIZ, [], [Define if we have GraphViz >= 2.6.0])
+fi
 
 dnl Build gtksourceview plugin only on gnome 2.14 and gtk 2.10
 dnl -------------------------------------------------------------
@@ -1106,6 +1112,7 @@ plugins/file-wizard/Makefile
 plugins/terminal/Makefile
 plugins/build-basic-autotools/Makefile
 plugins/profile-default/Makefile
+plugins/profiler/Makefile
 plugins/project-manager/Makefile
 plugins/symbol-browser/Makefile
 plugins/symbol-browser/images/Makefile
@@ -1196,9 +1203,12 @@ fi
 
 if [ test x$libgraphviz_found = xyes ]; then
         echo "Building class inheritance plugin: .....................YES"
+        echo "Building performance profiler with function call chart: YES"
 else
         echo "Building class inheritance plugin: .....................NO"
-		echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
+        echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
+        echo "Building performance profiler with function call chart: NO"
+	 echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
 fi
 
 if [ test x$valgrind = xyes ]; then

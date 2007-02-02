@@ -1,5 +1,5 @@
 
-if HAVE_PLUGIN_CLASS_INHERITANCE
+if HAVE_GRAPHVIZ
 
 # Plugin Icon file
 cls_inheritance_pixmapsdir = $(anjuta_image_dir)
@@ -26,7 +26,7 @@ INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(GDL_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(PLUGIN_CLASS_INHERITANCE_CFLAGS)
+	$(GRAPHVIZ_CFLAGS)
 
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
@@ -37,7 +37,7 @@ plugin_LTLIBRARIES = libanjuta-class-inheritance.la
 # Plugin dependencies
 libanjuta_class_inheritance_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
-	$(PLUGIN_CLASS_INHERITANCE_LIBS)
+	$(GRAPHVIZ_LIBS)
 
 # Plugin sources
 libanjuta_class_inheritance_la_SOURCES = \
