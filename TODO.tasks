@@ -42,7 +42,7 @@ Implement automated tests for Anjuta using either LDTP (http://ldtp.freedesktop.
       <comment>Implement it using Gtk 2.10 Printing stuff</comment>
     </item>
     <item>
-      <attribute id="1159555748" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1170408823"/>
+      <attribute id="1159555748" priority="1" done="1" start_date="732583" completed_date="732709" notify="0" last_edited="1170409063"/>
       <summary>Performance Profiler plugin</summary>
       <comment>[Skill: medium, Work: 30hrs, Bounty: $500, Status: Completed, Bug: #359478]
 
@@ -413,7 +413,7 @@ Implement missing features of CVS and subversion in their respective plugins. Ba
 Investigate general usability and HIG issues in Anjuta, come up with solutions that counter them and solve them. Issues such as Dialog consistencies, Navigational usabilities, Menus organization, features usablities should be investigated.</comment>
     </item>
     <item>
-      <attribute id="1159556239" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1165175119"/>
+      <attribute id="1159556239" priority="1" done="1" start_date="732583" completed_date="732709" notify="0" last_edited="1170409095"/>
       <summary>Use class macros for type casting in all plugin classes</summary>
       <comment>[Skill: Basic, Work: 1hr, Bounty: $20, Status: Completed, Bug: #374665]
 
@@ -585,7 +585,7 @@ Also, the the glade widget editor should be embed in Anjuta (glade-3 already has
   </category>
   <category title="Pluing: Class wizard" place="20">
     <item>
-      <attribute id="1159534023" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1167998401"/>
+      <attribute id="1159534023" priority="1" done="1" start_date="732583" completed_date="732709" notify="0" last_edited="1170409133"/>
       <summary>Improve class wizard</summary>
       <comment>[Skill: Medium, Work: 20hrs, Bounty: $200, Status: Completed, Bug: #359862]
 
