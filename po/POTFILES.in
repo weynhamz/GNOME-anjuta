@@ -131,6 +131,24 @@ plugins/patch/patch-plugin.c
 plugins/patch/patch-plugin.glade
 plugins/patch/plugin.c
 plugins/profile-default/plugin.c
+plugins/profiler/gprof-call-graph-block.c
+plugins/profiler/gprof-call-graph-block-entry.c
+plugins/profiler/gprof-call-graph.c
+plugins/profiler/gprof-call-graph-view.c
+plugins/profiler/gprof-flat-profile.c
+plugins/profiler/gprof-flat-profile-entry.c
+plugins/profiler/gprof-flat-profile.h
+plugins/profiler/gprof-flat-profile-view.c
+plugins/profiler/gprof-function-call-tree-view.c
+plugins/profiler/gprof-profile-data.c
+plugins/profiler/gprof-view.c
+plugins/profiler/gprof-view-manager.c
+plugins/profiler/plugin.c
+plugins/profiler/profiler-call-graph.glade
+plugins/profiler/profiler-flat-profile.glade
+plugins/profiler/profiler-function-call-tree.glade
+plugins/profiler/profiler.glade
+plugins/profiler/string-utils.c
 plugins/project-import/anjuta-project-import.glade
 plugins/project-import/project-import.c
 plugins/project-manager/plugin.c
@@ -156,6 +174,7 @@ plugins/subversion/subversion-callbacks.c
 plugins/subversion/svn-auth.c
 plugins/subversion/svn-notify.c
 plugins/subversion/svn-thread.c
+plugins/symbol-browser/anjuta-symbol-locals.c
 plugins/symbol-browser/an_symbol_info.c
 plugins/symbol-browser/an_symbol_prefs.c
 plugins/symbol-browser/an_symbol_search.c
@@ -230,6 +249,7 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/file-manager/anjuta-file-manager.plugin.in
 [type: gettext/ini]plugins/project-wizard/anjuta-project-wizard.plugin.in
 [type: gettext/ini]plugins/profile-default/anjuta-default-profile.plugin.in
+[type: gettext/ini]plugins/profiler/profiler.plugin.in
 [type: gettext/ini]plugins/search/anjuta-search.plugin.in
 [type: gettext/ini]plugins/class-gen/anjuta-class-gen.plugin.in
 [type: gettext/ini]plugins/project-manager/anjuta-project-manager.plugin.in

@@ -9,6 +9,8 @@ plugins/build/configurer.c
 plugins/build/executer.c
 plugins/gtodo/gtodo.c
 plugins/gtodo/main.c
+plugins/profiler/gprof-function-call-chart-view.c
+plugins/profiler/main.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.glade
 plugins/project-wizard/templates/gnome/src/main.c
