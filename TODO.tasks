@@ -37,16 +37,16 @@ box (instead of hardcoded names in the source).</comment>
 Implement automated tests for Anjuta using either LDTP (http://ldtp.freedesktop.org/wiki/) or Dogtail (http://people.redhat.com/zcerza/dogtail/), which ever is better. Test cases should cover existing features and be able to easily extend for future features. The implementation should alow running the test cases in an automated setup (such as a remote server with a sutable running platform).</comment>
     </item>
     <item>
-      <attribute id="1159555748" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1160076674"/>
-      <summary>Performance Profiler plugin</summary>
-      <comment>[Skill: medium, Work: 30hrs, Bounty: $500, Status: Assigned, Bug: #359478]
-
-gprof is a command line tool for profiling program performance. The executable is required to be compiled with -p flag and when the program is executed, a profiling info is collected in a file. After the execution is done, gprof can be used to interpret the profile data. This plugin parses the output from gprof and presents the information in different views -- text, lists and graphs.</comment>
-    </item>
-    <item>
       <attribute id="1142156720" priority="1" done="0" start_date="732382" enddate="99999999" notify="0" endtime="-60" last_edited="1170019417"/>
       <summary>Implement IAnjutaEditorPrint</summary>
       <comment>Implement it using Gtk 2.10 Printing stuff</comment>
+    </item>
+    <item>
+      <attribute id="1159555748" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1170408823"/>
+      <summary>Performance Profiler plugin</summary>
+      <comment>[Skill: medium, Work: 30hrs, Bounty: $500, Status: Completed, Bug: #359478]
+
+gprof is a command line tool for profiling program performance. The executable is required to be compiled with -p flag and when the program is executed, a profiling info is collected in a file. After the execution is done, gprof can be used to interpret the profile data. This plugin parses the output from gprof and presents the information in different views -- text, lists and graphs.</comment>
     </item>
   </category>
   <category title="libanjuta" place="2">
