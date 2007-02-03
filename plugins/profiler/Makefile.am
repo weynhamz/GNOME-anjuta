@@ -48,33 +48,33 @@ plugin_LTLIBRARIES = libanjuta-profiler.la
 
 # Plugin sources
 libanjuta_profiler_la_SOURCES = \
-						 		plugin.c \
-						 		plugin.h \
-						 		gprof-call-graph.c \
-						 		gprof-call-graph.h \
-						 		gprof-call-graph-block.c \
-						 		gprof-call-graph-block.h \
-						 		gprof-call-graph-block-entry.c \
-						 		gprof-call-graph-block-entry.h \
-						 		gprof-call-graph-view.c \
-						 		gprof-call-graph-view.h \
-						 		gprof-flat-profile.c \
-						 		gprof-flat-profile.h \
-						 		gprof-flat-profile-entry.c \
-						 		gprof-flat-profile-entry.h \
-						 		gprof-flat-profile-view.c \
-						 		gprof-flat-profile-view.h \
-						 		gprof-function-call-tree-view.c \
-						 		gprof-function-call-tree-view.h \
-						 		gprof-profile-data.c \
-						 		gprof-profile-data.h \
-						 		gprof-view.c \
-						 		gprof-view.h \
-						 		gprof-view-manager.c \
-						 		gprof-view-manager.h \
-						 		string-utils.c \
-						 		string-utils.h
-						 
+	gprof-call-graph.c \
+	gprof-call-graph.h \
+	gprof-call-graph-block.c \
+	gprof-call-graph-block.h \
+	gprof-call-graph-block-entry.c \
+	gprof-call-graph-block-entry.h \
+	gprof-call-graph-view.c \
+	gprof-call-graph-view.h \
+	gprof-flat-profile.c \
+	gprof-flat-profile.h \
+	gprof-flat-profile-entry.c \
+	gprof-flat-profile-entry.h \
+	gprof-flat-profile-view.c \
+	gprof-flat-profile-view.h \
+	gprof-function-call-tree-view.c \
+	gprof-function-call-tree-view.h \
+	gprof-profile-data.c \
+	gprof-profile-data.h \
+	gprof-view.c \
+	gprof-view.h \
+	gprof-view-manager.c \
+	gprof-view-manager.h \
+	string-utils.c \
+	string-utils.h \
+	plugin.c \
+	plugin.h
+
 if HAVE_GRAPHVIZ
 libanjuta_profiler_la_SOURCES += \
 						  		 gprof-function-call-chart-view.c \

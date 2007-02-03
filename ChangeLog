@@ -1,3 +1,9 @@
+2007-02-03  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Depend on devhelp 0.13 and fixed gecko home
+	path variable.
+	* plugins/profiler/Makefile.am: Fixed indentation.
+	
 2007-02-02 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* libanjuta/interfaces/libanjuta.idl,
@@ -47,8 +53,6 @@
 	ianjuta_document_manager_goto_file_line* functions
 	Emit a change-location signal even if the program counter is in an
 	unknown file
-
-2007-02-02  Naba Kumar  <naba@gnome.org>
 
 2007-02-02  Naba Kumar  <naba@gnome.org>
 
