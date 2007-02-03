@@ -1,7 +1,23 @@
-AC_PREREQ(2.53)
-AC_INIT(src/Makefile.am)
+dnl Process this file with autoconf to produce a configure script.
 
-ANJUTA_VERSION=2.1.0
+AC_PREREQ(2.59)
+
+m4_define(anjuta_major_version,  2)
+m4_define(anjuta_minor_version, 1)
+m4_define(anjuta_micro_version,  0)
+m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version)
+
+AC_INIT(anjuta, anjuta_version, http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta)
+AC_CONFIG_SRCDIR(src/main.c)
+
+AC_DEFINE(ANJUTA_MAJOR_VERSION, anjuta_major_version, [Anjuta major version])
+AC_SUBST(ANJUTA_MAJOR_VERSION, anjuta_major_version)
+AC_DEFINE(ANJUTA_MINOR_VERSION, anjuta_minor_version, [Anjuta minor version])
+AC_SUBST(ANJUTA_MINOR_VERSION, anjuta_minor_version)
+AC_DEFINE(ANJUTA_MICRO_VERSION, anjuta_micro_version, [Anjuta micro version])
+AC_SUBST(ANJUTA_MICRO_VERSION, anjuta_micro_version)
+AC_DEFINE(ANJUTA_VERSION, anjuta_version, [Anjuta version])
+AC_SUBST(ANJUTA_VERSION)
 
 GLIB_REQUIRED=2.8.0
 GOBJECT_REQUIRED=2.8.0
@@ -72,8 +88,9 @@ AC_SUBST(LIBWNCK_REQUIRED)
 
 dnl AC_SUBST(LIBGTODO_REQUIRED)
 
-AM_INIT_AUTOMAKE(anjuta, $ANJUTA_VERSION)
-AM_CONFIG_HEADER(config.h)
+AM_INIT_AUTOMAKE([1.9 dist-bzip2 no-dist-gzip])
+AC_CONFIG_HEADERS(config.h)
+AC_DISABLE_STATIC
 AM_MAINTAINER_MODE
 
 CFLAGS_WARNINGS="-Wall -Wmissing-prototypes -Wmissing-declarations -Wparentheses -Wpointer-arith"

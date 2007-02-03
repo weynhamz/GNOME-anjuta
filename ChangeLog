@@ -1,3 +1,18 @@
+2007-02-03  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in:
+	Fixed AC_INIT and seperated version to major, minor, micro
+
+	* anjuta.anjuta:
+	Load Subversion instead of CVS
+	
+	* anjuta.desktop.in.in:
+	Fixed bug-buddy component
+
+	Original patch from Rob Bradfort <robster@debian.org>:
+	* src/main.c: (get_command_line_args), (main):
+	Bug 335981 – Migration from popt to GOption
+
 2007-02-03  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Depend on devhelp 0.13 and fixed gecko home

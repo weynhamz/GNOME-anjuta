@@ -15,4 +15,4 @@ X-GNOME-DocPath=anjuta/anjuta-manual.xml
 X-GNOME-Bugzilla-Bugzilla=GNOME
 X-GNOME-Bugzilla-Product=anjuta
 X-GNOME-Bugzilla-Version=@VERSION@
-X-GNOME-Bugzilla-Component=general
+X-GNOME-Bugzilla-Component=unknown
