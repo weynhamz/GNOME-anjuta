@@ -1,7 +1,7 @@
 2007-02-03  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Depend on devhelp 0.13 and fixed gecko home
-	path variable.
+	path variable. Fixed bug #341170.
 	* plugins/profiler/Makefile.am: Fixed indentation.
 	
 2007-02-02 Sebastien Granjoux <seb.sfo@free.fr>
