@@ -64,7 +64,12 @@ libanjuta_editor_la_SOURCES= \
 	style-editor.c \
 	style-editor.h \
 	print.c \
-	print.h
+	print.h \
+	bookmark.xpm \
+	breakpoint-disabled.xpm \
+	breakpoint-enabled.xpm \
+	program-counter.xpm \
+	linemarker.xpm
 
 endif
 

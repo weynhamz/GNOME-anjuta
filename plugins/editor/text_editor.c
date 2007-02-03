@@ -71,29 +71,35 @@
 #include "aneditor.h"
 #include "text_editor_prefs.h"
 
-/* Marker 0 is defined for bookmarks */
+/* Order is important, as marker with the lowest number is drawn first */
 #define TEXT_EDITOR_BOOKMARK                0
-#define TEXT_EDITOR_LINEMARKER              1
-#define TEXT_EDITOR_BREAKPOINT_DISABLED     2
-#define TEXT_EDITOR_BREAKPOINT_ENABLED      3
+#define TEXT_EDITOR_BREAKPOINT_DISABLED     1
+#define TEXT_EDITOR_BREAKPOINT_ENABLED      2
+#define TEXT_EDITOR_PROGRAM_COUNTER         3
+#define TEXT_EDITOR_LINEMARKER              4
 
-#define MARKER_PROP_END 0xaaaaaa /* Do not define any color with this value */
+/* Include marker pixmaps */
+#include "bookmark.xpm"
+#include "breakpoint-disabled.xpm"
+#include "breakpoint-enabled.xpm"
+#include "program-counter.xpm"
+#include "linemarker.xpm"
+
+static gchar* marker_pixmap[] = 
+{
+	bookmark_xpm,
+	breakpoint_disabled_xpm,
+	breakpoint_enabled_xpm,
+	program_counter_xpm,
+	linemarker_xpm,
+	NULL
+};
 
 /* Editor language supports */
 static GList *supported_languages = NULL;
 static GHashTable *supported_languages_name = NULL;
 static GHashTable *supported_languages_ext = NULL;
 static GHashTable *supported_languages_by_lexer = NULL;
-
-/* marker fore and back colors */
-static glong marker_prop[] = 
-{
-	SC_MARK_ROUNDRECT,      0x00007f, 0xffff80,	/* Bookmark */
-	SC_MARK_SHORTARROW,     0x00007f, 0x00ffff,	/* Line mark */
-	SC_MARK_CIRCLE,         0x00007f, 0xffffff,	/* Breakpoint mark (disabled) */
-	SC_MARK_CIRCLE,         0x00007f, 0xff80ff,	/* Breakpoint mark (enabled) */
-	MARKER_PROP_END,	                        /* end */
-};
 
 static void text_editor_finalize (GObject *obj);
 static void text_editor_dispose (GObject *obj);
@@ -154,20 +160,15 @@ check_tm_file(TextEditor *te)
 static void
 initialize_markers (TextEditor* te, GtkWidget *scintilla)
 {
-	gint i, marker;
+	gint marker;
+	gchar **xpm;
 	g_return_if_fail (te != NULL);
 	
 	marker = 0;
-	for (i = 0;; i += 3)
+	for (xpm = marker_pixmap;*xpm != NULL; xpm++)
 	{
-		if (marker_prop[i] == MARKER_PROP_END)
-			break;
-		scintilla_send_message (SCINTILLA (scintilla), SCI_MARKERDEFINE,
-			marker, marker_prop[i+0]);
-		scintilla_send_message (SCINTILLA (scintilla), SCI_MARKERSETFORE,
-			marker, marker_prop[i+1]);
-		scintilla_send_message (SCINTILLA (scintilla), SCI_MARKERSETBACK,
-			marker, marker_prop[i+2]);
+		scintilla_send_message (SCINTILLA (scintilla), SCI_MARKERDEFINEPIXMAP,
+			marker, *xpm);
 		marker++;
 	}
 }
@@ -2607,17 +2608,20 @@ marker_ianjuta_to_editor (IAnjutaMarkableMarker marker)
 	gint mark;
 	switch (marker)
 	{
-		case IANJUTA_MARKABLE_BASIC:
+		case IANJUTA_MARKABLE_LINEMARKER:
 			mark = TEXT_EDITOR_LINEMARKER;
 			break;
-		case IANJUTA_MARKABLE_LIGHT:
+		case IANJUTA_MARKABLE_BOOKMARK:
 			mark = TEXT_EDITOR_BOOKMARK;
 			break;
-		case IANJUTA_MARKABLE_ATTENTIVE:
+		case IANJUTA_MARKABLE_BREAKPOINT_DISABLED:
 			mark = TEXT_EDITOR_BREAKPOINT_DISABLED;
 			break;
-		case IANJUTA_MARKABLE_INTENSE:
+		case IANJUTA_MARKABLE_BREAKPOINT_ENABLED:
 			mark = TEXT_EDITOR_BREAKPOINT_ENABLED;
+			break;
+		case IANJUTA_MARKABLE_PROGRAM_COUNTER:
+			mark = TEXT_EDITOR_PROGRAM_COUNTER;
 			break;
 		default:
 			mark = TEXT_EDITOR_LINEMARKER;

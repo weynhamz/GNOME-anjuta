@@ -177,10 +177,10 @@ on_go_to_line_response (GtkDialog* dialog, gint response, gpointer user_data)
 		if (IANJUTA_IS_MARKABLE (te))
 		{
 			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (te),
-												 IANJUTA_MARKABLE_BASIC,
+												 IANJUTA_MARKABLE_LINEMARKER,
 												 NULL);
 			ianjuta_markable_mark (IANJUTA_MARKABLE (te),
-								   num, IANJUTA_MARKABLE_BASIC, NULL);
+								   num, IANJUTA_MARKABLE_LINEMARKER, NULL);
 		}
   }
   gtk_widget_hide (GTK_WIDGET(dialog));

@@ -931,12 +931,12 @@ static void
 debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 {
 	const GDBMIValue *file, *line, *frame, *addr, *fullname;
-	const gchar *file_str, *line_str, *addr_str, *fullname_str;
+	const gchar *file_str, *fullname_str;
+	gint line_num;
+	guint addr_num;
 	
 	if (!val)
 		return;
-	
-	fullname_str = file_str = line_str = addr_str = NULL;
 	
 	g_return_if_fail (val != NULL);
 	
@@ -945,23 +945,17 @@ debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 	frame = gdbmi_value_hash_lookup (val, "frame");
 	addr = gdbmi_value_hash_lookup (val, "addr");
 	fullname = gdbmi_value_hash_lookup (val, "fullname");
-	
+
 	if (file && line)
 	{
 		file_str = gdbmi_value_literal_get (file);
-		line_str = gdbmi_value_literal_get (line);
+		line_num = atoi(gdbmi_value_literal_get (line));
 
-		if (fullname)
-		       	fullname_str = gdbmi_value_literal_get (fullname);
+		fullname_str = fullname ? gdbmi_value_literal_get (fullname) : NULL;
+		addr_num = addr ? strtoul (gdbmi_value_literal_get (addr), NULL, 0) : 0;
 		
-		if (addr)
-			addr_str = gdbmi_value_literal_get (addr);
-		
-		if (file_str && line_str)
-		{
-			debugger_change_location (debugger, fullname_str ? fullname_str : file_str,
-									  atoi(line_str), addr_str);
-		}
+		debugger_change_location (debugger, fullname_str ? fullname_str : file_str,
+					line_num, addr_num);
 	}
 	else if (frame)
 	{
@@ -969,22 +963,13 @@ debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 		line = gdbmi_value_hash_lookup (frame, "line");
 		fullname = gdbmi_value_hash_lookup (frame, "fullname");
 		
-		if (fullname)
-		       	fullname_str = gdbmi_value_literal_get (fullname);
+		fullname_str = fullname ? gdbmi_value_literal_get (fullname) : NULL;
 		
-		if (addr)
-			addr_str = gdbmi_value_literal_get (addr);
-	
-		if (file && line)
-		{
-			file_str = gdbmi_value_literal_get (file);
-			line_str = gdbmi_value_literal_get (line);
-			if (file_str && line_str)
-			{
-				debugger_change_location (debugger, fullname_str ? fullname_str : file_str,
-										  atoi(line_str), addr_str);
-			}
-		}
+		addr_num = addr ? strtoul (gdbmi_value_literal_get (addr), NULL, 0) : 0;
+		file_str = file ? gdbmi_value_literal_get (file) : NULL;
+		line_num = line ? atoi(gdbmi_value_literal_get (line)) : 0;
+		debugger_change_location (debugger, fullname_str ? fullname_str : file_str,
+					line_num, addr_num);
 	}
 }
 
@@ -1089,7 +1074,7 @@ debugger_parse_stopped (Debugger *debugger)
 	{
 		gboolean program_exited = FALSE;		
 		GDBMIValue *val;
-		
+
 		/* Check if program has exited */
 		val = gdbmi_value_parse (line);
 		if (val)
@@ -1618,8 +1603,7 @@ debugger_change_location (Debugger *debugger, const gchar *file,
 {
 	gchar *src_path;
 	
-	g_return_if_fail (file != NULL);
-	if (*file != G_DIR_SEPARATOR)
+	if ((file != NULL) && (*file != G_DIR_SEPARATOR))
 	{
 		src_path = debugger_get_source_path (debugger, file);
 		g_signal_emit_by_name (debugger->priv->instance, "location-changed", src_path, line, address);

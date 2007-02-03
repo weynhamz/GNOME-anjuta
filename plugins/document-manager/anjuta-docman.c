@@ -1378,10 +1378,10 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 				if (mark)
   	            {
   	            	ianjuta_markable_delete_all_markers(IANJUTA_MARKABLE(te),
-  	                									IANJUTA_MARKABLE_BASIC,
+  	                									IANJUTA_MARKABLE_LINEMARKER,
   	                                                    NULL);
 					ianjuta_markable_mark(IANJUTA_MARKABLE(te), lineno,
-  	                				IANJUTA_MARKABLE_BASIC, NULL);
+  	                				IANJUTA_MARKABLE_LINEMARKER, NULL);
 				}
   	        }
 			anjuta_docman_show_editor (docman, GTK_WIDGET (te));
@@ -1406,7 +1406,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
             if (mark)
   	        {
   	        	ianjuta_markable_mark(IANJUTA_MARKABLE(te), lineno,
-  	            					IANJUTA_MARKABLE_BASIC, NULL);
+  	            					IANJUTA_MARKABLE_LINEMARKER, NULL);
 			}
 		}
 	}

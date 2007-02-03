@@ -1678,7 +1678,7 @@ ianjuta_docman_get_editors (IAnjutaDocumentManager *plugin, GError **e)
 	return editors;
 }
 
-static void
+static IAnjutaEditor*
 ianjuta_docman_goto_file_line (IAnjutaDocumentManager *plugin,
 							   const gchar *uri, gint linenum, GError **e)
 {
@@ -1687,7 +1687,7 @@ ianjuta_docman_goto_file_line (IAnjutaDocumentManager *plugin,
 	anjuta_docman_goto_file_line (docman, uri, linenum);
 }
 
-static void
+static IAnjutaEditor*
 ianjuta_docman_goto_file_line_mark (IAnjutaDocumentManager *plugin,
 		const gchar *uri, gint linenum, gboolean mark, GError **e)
 {

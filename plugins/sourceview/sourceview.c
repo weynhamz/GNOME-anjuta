@@ -367,18 +367,18 @@ sourceview_finalize(GObject *object)
 
 /* Sync with IANJUTA_MARKABLE_MARKER  */
 
-#define MARKER_PIXMAP_BASIC "marker-basic.png"
-#define MARKER_PIXMAP_LIGHT "marker-light.png"
-#define MARKER_PIXMAP_ATTENTIVE "marker-attentive.png"
-#define MARKER_PIXMAP_INTENSE "marker-intense.png"
+#define MARKER_PIXMAP_LINEMARKER "linemarker.png"
+#define MARKER_PIXMAP_PROGRAM_COUNTER "program-counter.png"
+#define MARKER_PIXMAP_BREAKPOINT_DISABLED "breakpoint-disabled.png"
+#define MARKER_PIXMAP_BREAKPOINT_ENABLED "breakpoint-enabled.png"
 
 #define MARKER_PIXMAP_BOOKMARK "bookmark.png"
 
-#define MARKER_NONE "sv-mark-none"
-#define MARKER_BASIC "sv-mark-basic"
-#define MARKER_LIGHT "sv-mark-light"
-#define MARKER_ATTENTIVE "sv-mark-attentive"
-#define MARKER_INTENSE "sv-mark-intense"
+#define MARKER_NONE "sv-none"
+#define MARKER_LINEMARKER "sv-linemarker"
+#define MARKER_PROGRAM_COUNTER "sv-program-counter"
+#define MARKER_BREAKPOINT_DISABLED "sv-breakpoint-disabled"
+#define MARKER_BREAKPOINT_ENABLED "sv-breakpoint-enabled"
 
 #define MARKER_BOOKMARK "sv-bookmark"
 
@@ -395,34 +395,34 @@ static void sourceview_create_markers(Sourceview* sv)
 	GtkSourceView* view = 	GTK_SOURCE_VIEW(sv->priv->view);
 
 	
-	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BASIC, NULL)))
-	{
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_BASIC, pixbuf);
-		g_object_unref (pixbuf);
-	}
-	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_LIGHT, NULL)))
-	{
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_LIGHT, pixbuf);
-		g_object_unref (pixbuf);
-	}
-	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_ATTENTIVE, NULL)))
-	{
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_ATTENTIVE, pixbuf);
-		g_object_unref (pixbuf);
-	}
-	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_INTENSE, NULL)))
-	{
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_INTENSE, pixbuf);
-		g_object_unref (pixbuf);
-	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BOOKMARK, NULL)))
 	{
 		gtk_source_view_set_marker_pixbuf (view, 
 			MARKER_BOOKMARK, pixbuf);
+		g_object_unref (pixbuf);
+	}
+	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_DISABLED, NULL)))
+	{
+		gtk_source_view_set_marker_pixbuf (view, 
+			MARKER_BREAKPOINT_DISABLED, pixbuf);
+		g_object_unref (pixbuf);
+	}
+	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_ENABLED, NULL)))
+	{
+		gtk_source_view_set_marker_pixbuf (view, 
+			MARKER_BREAKPOINT_ENABLED, pixbuf);
+		g_object_unref (pixbuf);
+	}
+	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_PROGRAM_COUNTER, NULL)))
+	{
+		gtk_source_view_set_marker_pixbuf (view, 
+			MARKER_PROGRAM_COUNTER, pixbuf);
+		g_object_unref (pixbuf);
+	}
+	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_LINEMARKER, NULL)))
+	{
+		gtk_source_view_set_marker_pixbuf (view, 
+			MARKER_LINEMARKER, pixbuf);
 		g_object_unref (pixbuf);
 	}
 }
@@ -1306,23 +1306,23 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 									 &iter, location  - 1);
 	switch (marker)
 	{
-		case IANJUTA_MARKABLE_NONE:
-			name = MARKER_NONE;
+		case IANJUTA_MARKABLE_LINEMARKER:
+			name = MARKER_LINEMARKER;
 			break;
-		case IANJUTA_MARKABLE_BASIC:
-			name = MARKER_BASIC;
+		case IANJUTA_MARKABLE_PROGRAM_COUNTER:
+			name = MARKER_PROGRAM_COUNTER;
 			break;
-		case IANJUTA_MARKABLE_LIGHT:
-			name = MARKER_LIGHT;
+		case IANJUTA_MARKABLE_BOOKMARK:
+			name = MARKER_BOOKMARK;
 			break;
-		case IANJUTA_MARKABLE_INTENSE:
-			name = MARKER_INTENSE;
+		case IANJUTA_MARKABLE_BREAKPOINT_DISABLED:
+			name = MARKER_BREAKPOINT_DISABLED;
 			break;
-		case IANJUTA_MARKABLE_ATTENTIVE:
-			name = MARKER_ATTENTIVE;
+		case IANJUTA_MARKABLE_BREAKPOINT_ENABLED:
+			name = MARKER_BREAKPOINT_ENABLED;
 			break;
 		default:
-			DEBUG_PRINT("Unkonown marker type: %d!", marker);
+			DEBUG_PRINT("Unknown marker type: %d!", marker);
 			name = MARKER_NONE;
 	}
 		

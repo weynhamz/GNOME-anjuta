@@ -330,7 +330,7 @@ search_and_replace (void)
 			
 			if (s->action == SA_BOOKMARK && IANJUTA_IS_MARKABLE (fb->te))
 				ianjuta_markable_delete_all_markers(IANJUTA_MARKABLE(fb->te), 
-				                                    IANJUTA_MARKABLE_ATTENTIVE, NULL);
+				                                    IANJUTA_MARKABLE_LINEMARKER, NULL);
 			if (s->action == SA_HIGHLIGHT)	
 				ianjuta_indicable_clear (IANJUTA_INDICABLE(fb->te), NULL); 				
 	
@@ -376,7 +376,7 @@ search_and_replace (void)
 							{
 								ianjuta_markable_mark (IANJUTA_MARKABLE(fb->te), 
 													   mi->line + 1,
-													   IANJUTA_MARKABLE_ATTENTIVE,
+													   IANJUTA_MARKABLE_LINEMARKER,
 													   NULL);
 							}
 							found_line = mi->line + 1;

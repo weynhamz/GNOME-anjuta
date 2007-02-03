@@ -1,3 +1,55 @@
+2007-02-02 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/sourceview/sourceview.c,
+	plugins/editor/text-editor.c,
+	plugins/symbol-browser/plugin.c,
+	plugins/search/search-replace.c,
+	plugins/document-manager/goto_line.c,
+	plugins/document-manager/action-callbacks.c,
+	plugins/document-manager/anjuta-docman.c:
+	Rename markers of anjuta interface
+	IANJUTA_MARKABLE_NONE has been removed
+	IANJUTA_MARKABLE_BASIC renamed in IANJUTA_MARKABLE_LINEMARKER
+	IANJUTA_MARKABLE_LIGHT renamed in IANJUTA_MARKABLE_BOOKMARK
+	IANJUTA_MARKABLE_ATTENTIVE renamed in
+		IANJUTA_MARKABLE_BREAKPOINT_DISABLED
+	IANJUTA_MARKABLE_INTENSE renamed in
+		IANJUTA_MARKABLE_BREAKPOINT_ENABLED
+	IANJUTA_MARKABLE_PROGRAM_COUNTER has been created
+
+	* (removed) plugins/sourceview/marker-light.png,
+	(removed) plugins/sourceview/marker-basic.png,
+	(removed) plugins/sourceview/marker-attentive.png,
+	(removed) plugins/sourceview/marker-intense.png,
+	plugins/sourceview/bookmark.png,
+	(added) plugins/sourceview/breakpoint-disabled.png,
+	(added) plugins/sourceview/breakpoint-enabled.png,
+	(added) plugins/sourceview/program-counter.png,
+	(added) plugins/sourceview/linemarker.png,
+	plugins/sourceview/Makefile.am,
+	(added) plugins/editor/bookmark.xpm,
+	(added) plugins/editor/breakpoint-disabled.xpm,
+	(added) plugins/editor/breakpoint-enabled.xpm,
+	(added) plugins/editor/program-counter.xpm,
+	(added) plugins/editor/linemarker.xpm,
+	plugins/editor/Makefile.am:
+	Add or change marker pixmaps in scintilla and sourceview editor
+
+	* plugins/document-manager/plugin.c,
+	libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/breakpoints.c
+	plugins/gdb/debugger.c:
+	Fix bug #376404, program counter marker is not displayed when debugger
+	is inactive
+	Return the selected editor or NULL (if file does not exist) with 
+	ianjuta_document_manager_goto_file_line* functions
+	Emit a change-location signal even if the program counter is in an
+	unknown file
+
+2007-02-02  Naba Kumar  <naba@gnome.org>
+
 2007-02-02  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Marked bounty bug #359478 completed. And checked

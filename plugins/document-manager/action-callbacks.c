@@ -678,10 +678,10 @@ on_toolbar_goto_clicked (GtkAction *action, gpointer user_data)
 		if (IANJUTA_IS_MARKABLE (te))
 		{
 			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (te),
-												 IANJUTA_MARKABLE_BASIC,
+												 IANJUTA_MARKABLE_LINEMARKER,
 												 NULL);
 			ianjuta_markable_mark (IANJUTA_MARKABLE (te),
-								   line, IANJUTA_MARKABLE_BASIC, NULL);
+								   line, IANJUTA_MARKABLE_LINEMARKER, NULL);
 		}
 	}
 }

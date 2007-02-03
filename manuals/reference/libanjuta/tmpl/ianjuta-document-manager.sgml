@@ -124,6 +124,7 @@
 @file: 
 @lineno: 
 @err: 
+@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_document_manager_goto_file_line_mark ##### -->
@@ -136,6 +137,7 @@
 @lineno: 
 @mark: 
 @err: 
+@Returns: 
 
 
 <!-- ##### FUNCTION ianjuta_document_manager_set_current_editor ##### -->

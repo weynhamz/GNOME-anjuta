@@ -546,11 +546,11 @@ goto_tree_iter (SymbolBrowserPlugin *sv_plugin, GtkTreeIter *iter)
 		if (IANJUTA_IS_MARKABLE (sv_plugin->current_editor))
 		{
 			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (sv_plugin->current_editor),
-												 IANJUTA_MARKABLE_BASIC,
+												 IANJUTA_MARKABLE_LINEMARKER,
 												 NULL);
 
 			ianjuta_markable_mark (IANJUTA_MARKABLE (sv_plugin->current_editor),
-								   line, IANJUTA_MARKABLE_BASIC, NULL);
+								   line, IANJUTA_MARKABLE_LINEMARKER, NULL);
 		}
 	}
 }

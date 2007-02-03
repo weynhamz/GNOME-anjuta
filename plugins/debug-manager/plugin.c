@@ -20,7 +20,7 @@
 
 #include <config.h>
 
-//#define DEBUG
+/*#define DEBUG*/
 
 #include "plugin.h"
 
@@ -43,6 +43,7 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
+#include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-debug-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -91,6 +92,8 @@ struct _DebugManagerPlugin
 	/* Editor */
 	IAnjutaEditor *current_editor;
 	guint editor_watch_id;
+	IAnjutaEditor *pc_editor;
+	guint pc_line;
 	
 	/* Debugger components */
 	Locals *locals;
@@ -154,6 +157,79 @@ register_stock_icons (AnjutaPlugin *plugin)
 }
 
 static void
+show_program_counter(DebugManagerPlugin *dma)
+{
+	IAnjutaEditor *editor = dma->current_editor;
+	
+	if ((editor != NULL) && (dma->pc_editor == editor))
+	{
+		if (IANJUTA_IS_MARKABLE (editor))
+		{
+			ianjuta_markable_mark(IANJUTA_MARKABLE (editor), dma->pc_line, IANJUTA_MARKABLE_PROGRAM_COUNTER, NULL);
+		}
+		if (IANJUTA_IS_INDICABLE(editor))
+		{
+			gint begin = ianjuta_editor_get_line_begin_position(editor, dma->pc_line, NULL);
+			gint end = ianjuta_editor_get_line_end_position(editor, dma->pc_line, NULL);
+			
+			ianjuta_indicable_set(IANJUTA_INDICABLE(editor), begin, end, IANJUTA_INDICABLE_IMPORTANT,
+				NULL);
+		}		
+	}
+}
+
+static void
+hide_program_counter(DebugManagerPlugin *dma)
+{
+	IAnjutaEditor *editor = dma->current_editor;
+	
+	if ((editor != NULL) && (dma->pc_editor == editor))
+	{
+		if (IANJUTA_IS_MARKABLE (editor))
+		{
+			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (editor), IANJUTA_MARKABLE_PROGRAM_COUNTER, NULL);
+		}
+		if (IANJUTA_IS_INDICABLE(editor))
+		{
+			ianjuta_indicable_clear(IANJUTA_INDICABLE(editor), NULL);			
+		}		
+	}
+}
+
+static void
+add_program_counter(DebugManagerPlugin *dma, const gchar* file, guint line)
+{
+	IAnjutaDocumentManager *docman = NULL;
+	gchar *msg, *file_uri;
+
+	/* Remove previous marker */
+	hide_program_counter (dma);
+	
+	dma->pc_editor = NULL;
+	
+	if (file == NULL) return;	/* Remove mark */
+	
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (dma)->shell, IAnjutaDocumentManager, NULL);
+	file_uri = g_strconcat ("file://", file, NULL);
+	if (docman)
+	{
+		const gchar *path;
+		IAnjutaEditor* editor;
+		GError *err = NULL;
+		
+		editor = ianjuta_document_manager_goto_file_line(docman, file_uri, line, NULL);
+		
+		if (editor != NULL)
+		{
+			dma->pc_editor = editor;
+			dma->pc_line = line;
+			show_program_counter (dma);
+		}
+	}		
+	g_free (file_uri);
+}
+
+static void
 value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 							  const GValue *value, gpointer user_data)
 {
@@ -191,27 +267,32 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
 	IAnjutaEditor *editor;
-	DebugManagerPlugin *dm_plugin;
+	DebugManagerPlugin *dma;
 
 	editor = IANJUTA_EDITOR (g_value_get_object (value));
-	dm_plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
-	dm_plugin->current_editor = editor;
+	dma = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
+	dma->current_editor = editor;
 	
     /* Restore breakpoints */
-	breakpoints_dbase_set_all_in_editor (dm_plugin->breakpoints, editor);
+	breakpoints_dbase_set_all_in_editor (dma->breakpoints, editor);
 	
+	/* Restore program counter marker */
+	show_program_counter (dma);
 }
 
 static void
 value_removed_current_editor (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
-	DebugManagerPlugin *dm_plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
+	DebugManagerPlugin *dma = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
 
-	if (dm_plugin->current_editor)
-		breakpoints_dbase_clear_all_in_editor (dm_plugin->breakpoints,
-            dm_plugin->current_editor);
-	dm_plugin->current_editor = NULL;
+	if (dma->current_editor)
+		breakpoints_dbase_clear_all_in_editor (dma->breakpoints,
+            dma->current_editor);
+	
+	hide_program_counter (dma);
+	
+	dma->current_editor = NULL;
 }
 
 static void
@@ -340,6 +421,8 @@ dma_plugin_program_running (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_sensitive (this->running_group, TRUE);
+
+	add_program_counter(this, NULL, 0);
 }
 
 /* Called when the program is stopped */
@@ -361,6 +444,7 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
+
 }
 
 /* Called when the program postion change */
@@ -368,8 +452,7 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 static void
 dma_plugin_location_changed (DebugManagerPlugin *this, const gchar* file, guint line, const gchar* address)
 {
-	IAnjutaDocumentManager *docman = NULL;
-	gchar *msg, *file_uri;
+	gchar *msg;
 
 	DEBUG_PRINT ("DMA: dma_plugin_location_changed %s %d", file, line);
 	
@@ -377,25 +460,7 @@ dma_plugin_location_changed (DebugManagerPlugin *this, const gchar* file, guint 
 	dma_debugger_message (this->queue, msg);
 	g_free (msg);
 
-	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this)->shell, IAnjutaDocumentManager, NULL);
-	file_uri = g_strconcat ("file://", file, NULL);
-	if (docman)
-	{
-		IAnjutaEditor* editor;
-		ianjuta_document_manager_goto_file_line_mark (docman, file_uri, line, TRUE, NULL);
-		editor = ianjuta_document_manager_get_current_editor(docman, NULL);
-		if (editor && IANJUTA_IS_INDICABLE(editor))
-		{
-			gint begin = ianjuta_editor_get_line_begin_position(editor, line, NULL);
-			gint end = ianjuta_editor_get_line_end_position(editor, line, NULL);
-			
-			ianjuta_indicable_clear(IANJUTA_INDICABLE(editor), NULL);			
-
-			ianjuta_indicable_set(IANJUTA_INDICABLE(editor), begin, end, IANJUTA_INDICABLE_IMPORTANT,
-				NULL);
-		}
-	}		
-	g_free (file_uri);
+	add_program_counter (this, file, line);
 }
 
 /* Called when a program is unloaded */
@@ -458,10 +523,7 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
 
 	/* clear indicator */
-	if (this->current_editor && IANJUTA_IS_INDICABLE(this->current_editor))
-	{
-		ianjuta_indicable_clear(IANJUTA_INDICABLE(this->current_editor), NULL);
-	}
+	add_program_counter (this, NULL, 0);
 	
 	enable_log_view (this, FALSE);
 }

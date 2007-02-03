@@ -165,11 +165,11 @@ interface IAnjutaMarkable
 
 	enum Marker
 	{
-		NONE,
-		BASIC,
-		LIGHT,
-		ATTENTIVE,
-		INTENSE
+		LINEMARKER,
+		BOOKMARK,
+		BREAKPOINT_DISABLED,
+		BREAKPOINT_ENABLED,
+		PROGRAM_COUNTER
 	}
 
 	void ::marker_clicked (gboolean double_click, gint location);
@@ -1838,8 +1838,10 @@ interface IAnjutaDocumentManager
 	* 
 	* Loads the given file if not loaded yet, set its editor as current editor
 	* and moves cursor to the given line in the editor.
+	* 
+	* Return value: the editor where the mark has been put. NULL if none.
 	*/
-	void goto_file_line (const gchar *file, gint lineno);
+	IAnjutaEditor* goto_file_line (const gchar *file, gint lineno);
 	
 	/** 
 	* ianjuta_document_manager_goto_file_line_mark:
@@ -1852,8 +1854,10 @@ interface IAnjutaDocumentManager
 	* Loads the given file if not loaded yet, set its editor as current editor
 	* and moves cursor to the given line in the editor. Optionally also marks
 	* the line with line marker if @mark is given TRUE.
+	* 
+	* Return value: the editor where the mark has been put. NULL if none.
 	*/
-	void goto_file_line_mark (const gchar *file, gint lineno, gboolean mark);
+	IAnjutaEditor* goto_file_line_mark (const gchar *file, gint lineno, gboolean mark);
 	
 	/**
 	* ianjuta_document_manager_get_current_editor:
