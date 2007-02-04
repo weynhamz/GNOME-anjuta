@@ -93,7 +93,6 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 	dlg.treeview = glade_xml_get_widget (gxml, VALUE_TREE);
 	g_object_unref (gxml);
 
-	printf ("dlg.value_treeview %p\n", dlg.treeview);
 	/* Create debug tree */
 	dlg.tree = debug_tree_new_with_view (ANJUTA_PLUGIN (ew->plugin), GTK_TREE_VIEW (dlg.treeview));
 	if (ew->debugger)
@@ -140,10 +139,8 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 			expression = gtk_entry_get_text (GTK_ENTRY (dlg.name_entry));
 		    gtk_widget_ref (dlg.value_treeview);
 		    debug_tree_remove_all (dlg.tree);
-		    printf("update watch %s\n", expression);
 		    var.expression = expression;
 			debug_tree_add_watch (dlg.tree, &var, FALSE);
-		    printf("get back\n");
 		    #endif
 			continue;
 		default:
@@ -474,9 +471,7 @@ create_expr_watch_gui (ExprWatch * ew)
 void
 expr_watch_cmd_queqe (ExprWatch *ew)
 {
-	printf ("update watch begin\n");
 	debug_tree_update_all (ew->debug_tree);
-	printf ("update watch end\n");
 }
 
 void

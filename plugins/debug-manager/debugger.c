@@ -841,10 +841,33 @@ dma_queue_update_queue_status (DmaDebuggerQueue *this, DmaDebuggerCommandType ty
 }
 
 void
+dma_queue_emit_debugger_ready (DmaDebuggerQueue *queue)
+{
+	IAnjutaDebuggerStatus stat;
+	static gboolean busy = FALSE;
+	
+	if ((queue->head == NULL) && (queue->ready))
+	{
+		stat = queue->queue_status;
+		busy = FALSE;
+	}
+	else if (busy)
+	{
+		/* Busy signal already emitted, do nothing */
+		return;
+	}
+	else
+	{
+		stat = IANJUTA_DEBUGGER_BUSY;
+		busy = TRUE;
+	}
+	
+	g_signal_emit_by_name (queue, "debugger-ready", stat);
+}
+
+void
 dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus status)
 {
-	// DmaQueueCommand *head;
-	// DmaQueueCommand *tail;
 	const char* signal = NULL;
 
 	this->queue_command = FALSE;
@@ -1270,6 +1293,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 			g_error_free (err);
 		}
 	}
+	dma_queue_emit_debugger_ready (this);
 }
 
 /* Public message functions

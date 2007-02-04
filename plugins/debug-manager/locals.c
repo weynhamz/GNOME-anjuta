@@ -48,11 +48,8 @@ locals_updated (const gpointer data, gpointer user_data, GError *error)
 	if (g_list_length ((GList*)list) < 1)
 		return;
 
-	printf ("replace list\n");
 	debug_tree_replace_list (locals->debug_tree, list);
-	printf ("update all\n");
 	debug_tree_update_all(locals->debug_tree);
-	printf ("replace list end\n");
 }
 
 /* Private functions

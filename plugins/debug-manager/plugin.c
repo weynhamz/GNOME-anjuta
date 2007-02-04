@@ -40,6 +40,7 @@
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-status.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
@@ -60,15 +61,6 @@
 
 /* Plugin type
  *---------------------------------------------------------------------------*/
-
-typedef enum _DebugManagerState
-{
-	DMA_DEBUGGER_STOPPED,
-	DMA_DEBUGGER_STARTED,
-	DMA_PROGRAM_LOADED,
-	DMA_PROGRAM_BROKEN,
-	DMA_PROGRAM_RUNNING
-} DebugManagerState;
 
 struct _DebugManagerPlugin
 {
@@ -94,6 +86,7 @@ struct _DebugManagerPlugin
 	guint editor_watch_id;
 	IAnjutaEditor *pc_editor;
 	guint pc_line;
+	gboolean busy;
 	
 	/* Debugger components */
 	Locals *locals;
@@ -107,8 +100,6 @@ struct _DebugManagerPlugin
 	DmaMemory *memory;
 	DmaDisassemble *disassemble;
 	
-	/* Debugger status */
-	DebugManagerState state;
 	
 	/* Logging view */
 	IAnjutaMessageView* view;
@@ -352,6 +343,27 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 /* State functions
  *---------------------------------------------------------------------------*/
 
+static void
+dma_plugin_debugger_ready (DebugManagerPlugin *self, IAnjutaDebuggerStatus stat)
+{
+	AnjutaStatus* status;
+
+	if ((stat == IANJUTA_DEBUGGER_BUSY) != self->busy)
+	{
+		status = anjuta_shell_get_status(ANJUTA_PLUGIN (self)->shell, NULL);
+		if (!self->busy)
+		{
+			anjuta_status_busy_push (status);
+			self->busy = TRUE;
+		}
+		else
+		{
+			anjuta_status_busy_pop (status);
+			self->busy = FALSE;
+		}
+	}
+}
+
 /* Called when the debugger is started but no program is loaded */
 
 static void
@@ -359,6 +371,7 @@ dma_plugin_debugger_started (DebugManagerPlugin *this)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
+	AnjutaStatus* status;
 
 	DEBUG_PRINT ("DMA: dma_plugin_debugger_started");
 	
@@ -373,6 +386,11 @@ dma_plugin_debugger_started (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_visible (this->running_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
+	
+	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
+	anjuta_status_set_default (status, _("Debugger"), _("Started"));
+	
+	dma_plugin_debugger_ready (this, IANJUTA_DEBUGGER_STARTED);
 }
 
 /* Called when a program is loaded */
@@ -381,6 +399,7 @@ static void
 dma_plugin_program_loaded (DebugManagerPlugin *this)
 {
 	AnjutaUI *ui;
+	AnjutaStatus* status;
 
 	DEBUG_PRINT ("DMA: dma_plugin_program_loaded");
 	
@@ -405,6 +424,9 @@ dma_plugin_program_loaded (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
+	
+	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
+	anjuta_status_set_default (status, _("Debugger"), _("Loaded"));
 }
 
 /* Called when the program is running */
@@ -413,6 +435,7 @@ static void
 dma_plugin_program_running (DebugManagerPlugin *this)
 {
 	AnjutaUI *ui;
+	AnjutaStatus* status;
 
 	DEBUG_PRINT ("DMA: dma_plugin_program_running");
 	
@@ -421,6 +444,9 @@ dma_plugin_program_running (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_sensitive (this->running_group, TRUE);
+	
+	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
+	anjuta_status_set_default (status, _("Debugger"), _("Running..."));
 
 	add_program_counter(this, NULL, 0);
 }
@@ -431,6 +457,7 @@ static void
 dma_plugin_program_stopped (DebugManagerPlugin *this)
 {
 	AnjutaUI *ui;
+	AnjutaStatus* status;
 	
 	DEBUG_PRINT ("DMA: dma_plugin_program_broken");
 	
@@ -445,6 +472,8 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->stopped_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
 
+	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
+	anjuta_status_set_default (status, _("Debugger"), _("Stopped"));
 }
 
 /* Called when the program postion change */
@@ -468,6 +497,7 @@ static void
 dma_plugin_program_unload (DebugManagerPlugin *this)
 {
 	AnjutaUI *ui;
+	AnjutaStatus* status;
 
 	DEBUG_PRINT ("DMA: dma_plugin_program_unload");
 	
@@ -495,6 +525,9 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
 	gtk_action_group_set_visible (this->running_group, TRUE);
 	gtk_action_group_set_sensitive (this->running_group, FALSE);
+	
+	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
+	anjuta_status_set_default (status, _("Debugger"), _("Unloaded"));
 }
 
 /* Called when the debugger is stopped */
@@ -504,6 +537,7 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *this)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
+	AnjutaStatus* status;
 
 	DEBUG_PRINT ("DMA: dma_plugin_debugger_stopped");
 
@@ -526,6 +560,11 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *this)
 	add_program_counter (this, NULL, 0);
 	
 	enable_log_view (this, FALSE);
+	
+	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
+	anjuta_status_set_default (status, _("Debugger"), NULL);
+	
+	dma_plugin_debugger_ready (this, IANJUTA_DEBUGGER_STOPPED);
 }
 
 /* Start/Stop menu functions
@@ -753,6 +792,12 @@ static void
 on_debugger_signals_activate (GtkAction * action, DebugManagerPlugin *plugin)
 {
 	signals_show (plugin->signals);
+}
+
+static void
+on_debugger_ready_signal (IAnjutaDebugger* dbg, IAnjutaDebuggerStatus stat, DebugManagerPlugin *plugin)
+{
+	dma_plugin_debugger_ready (plugin, stat);
 }
 
 /* Actions table
@@ -1056,6 +1101,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	g_signal_connect_swapped (this->debugger, "program-stopped", G_CALLBACK (dma_plugin_program_stopped), this);
 	g_signal_connect_swapped (this->debugger, "program-exited", G_CALLBACK (dma_plugin_program_loaded), this);
 	g_signal_connect_swapped (this->debugger, "location-changed", G_CALLBACK (dma_plugin_location_changed), this);
+	g_signal_connect (this->debugger, "debugger-ready", G_CALLBACK (on_debugger_ready_signal), this);
 
 	/* Watch expression */
 	this->watch = expr_watch_new (ANJUTA_PLUGIN (plugin), this->debugger);
@@ -1122,6 +1168,7 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_program_running), this);
 	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_program_stopped), this);
 	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_location_changed), this);
+	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (on_debugger_ready_signal), this);
 	dma_debugger_queue_free (this->queue);
 	this->queue = NULL;
 

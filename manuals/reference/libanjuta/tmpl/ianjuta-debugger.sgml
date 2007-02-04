@@ -45,9 +45,7 @@ ianjuta-debugger
 @program_loaded: 
 @program_running: 
 @program_stopped: 
-@send: 
 @sharedlib_event: 
-@status_changed: 
 @abort: 
 @attach: 
 @callback: 

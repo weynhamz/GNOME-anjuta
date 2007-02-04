@@ -2539,25 +2539,6 @@ interface IAnjutaDebugger
 	/* Signals */
 
 	/**
-	* IAnjutaDebugger::status_changed:
-	* @obj: Self
-	* @status: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*/
-	void ::status_changed (Status status);
-
-	/**
-	* IAnjutaDebugger::send:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*/
-	void ::send ();
-
-	/**
 	* IAnjutaDebugger::debugger_started:
 	* @obj: Self
 	* @err: Error propagation and reporting.
