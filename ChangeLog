@@ -1,3 +1,9 @@
+2007-02-05  Naba Kumar  <naba@gnome.org>
+
+	Patch from parmigio@2ainfo.it:
+	* plugins/document-manager/anjuta-document-manager.plugin.in:
+	Added xml file type in supported mime types list.
+	
 2007-02-04 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/debugger.c,
@@ -76,9 +82,8 @@
 	plugins/debug-manager/breakpoints.c
 	plugins/gdb/debugger.c:
 	Fix bug #376404, program counter marker is not displayed when debugger
-	is inactive
-	Return the selected editor or NULL (if file does not exist) with 
-	ianjuta_document_manager_goto_file_line* functions
+ 	Return the selected editor or NULL (if file does not exist) with 
+ 	ianjuta_document_manager_goto_file_line* functions
 	Emit a change-location signal even if the program counter is in an
 	unknown file
 
