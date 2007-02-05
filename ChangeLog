@@ -1,5 +1,8 @@
 2007-02-05  Naba Kumar  <naba@gnome.org>
 
+	* configure.in: Enabled devhelp plugin by default now that
+	it works.
+	
 	Patch from parmigio@2ainfo.it:
 	* plugins/document-manager/anjuta-document-manager.plugin.in:
 	Added xml file type in supported mime types list.
