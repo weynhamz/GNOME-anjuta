@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
-<!DOCTYPE manual PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+	<!ENTITY mdash  "&#38;#x2014;">
+  <!ENTITY hellip "&#x2026;">
   <!ENTITY introduction SYSTEM "introduction.xml">
   <!ENTITY interface SYSTEM "interface.xml">
   <!ENTITY fileoperations SYSTEM "fileoperations.xml">
@@ -24,36 +26,33 @@
  <bookinfo>
   <title>Anjuta IDE Manual</title>
   <edition>v1.0.0</edition>
-
-<!--  other GNOME docs do not have this
-<authorgroup>
-   <author>
-    <firstname>Naba</firstname>
-    <surname>Kumar</surname>
-    <authorblurb>
-     <para>
-      <email>
-       naba@gnome.org
-      </email>
-     </para>
-    </authorblurb>
-   </author>
-  </authorgroup>
--->  
+  <abstract role="description">
+  	<para>Manual for the Anjuta IDE</para>
+  </abstract>
+  
+	<author role="maintainer">
+		<firstname>Naba</firstname>
+		<surname>Kumar</surname>
+	</author>
+	<author>
+		<firstname>Andy</firstname>
+		<surname>Piper</surname>
+	</author>
+	<author>
+		<firstname>Biswapesh</firstname>
+		<surname>Chattopadhyayr</surname>
+	</author>
+	<author>
+		<firstname>Johannes</firstname>
+		<surname>Schmid</surname>
+	</author>
 
   <copyright>
    <year>2001-2002</year>
-   <holder>Naba Kumar, Andy Piper, Biswapesh Chattopadhyay</holder>
    <year>2006</year>
+   <holder>Naba Kumar, Andy Piper, Biswapesh Chattopadhyay</holder>
    <holder>Johannes Schmid</holder>
   </copyright>
-
-<!-- translators: uncomment this:
-  <copyright>
-   <year>2001</year>
-   <holder>ME-THE-TRANSLATOR </holder>
-  </copyright>
--->
   
   <legalnotice>
    <para>
@@ -77,10 +76,18 @@
    </para>
   </legalnotice>
 
-  <!-- this is the version of manual, not application --> 
-  <releaseinfo>
-   This is version 0.1.0 of the Anjuta IDE Manual
-  </releaseinfo>
+	<revhistory>
+		<revision>
+		  <revnumber>Anjuta Manual 2.1.0</revnumber>
+		  <date>2007</date>
+		  <revdescription>
+			 <para role="author">Johannes Schmid<email>jhs@gnome.org</email>
+				</para>
+			 <para role="publisher">Anjuta Team</para>
+		  </revdescription>
+		</revision>
+	</revhistory>
+		
  </bookinfo>
  <!-- Document Body -->
  <!-- Introduction -->

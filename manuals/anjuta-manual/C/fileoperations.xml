@@ -634,7 +634,7 @@
         Item highlighted in red is the active item. Item by defaultt is the search
 		setting which is loaded at Anjuta launching.
       </para>
-      <figure id="search-setting">
+      <figure id="search-setting-fig">
       <title>Search Setting dialog</title>
         <screenshot>
         <graphic fileref="figures/search_setting.png" format="PNG" srccredit="jnoel"></graphic>

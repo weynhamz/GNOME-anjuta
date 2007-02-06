@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
 "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+	<!ENTITY mdash  "&#38;#x2014;">
   <!ENTITY legal SYSTEM "legal.xml">
   <!ENTITY appversion "2.0.2">
   <!ENTITY manrevision "0.2">
@@ -12,6 +13,27 @@
  <!-- ============= Document Header ============================= -->
  <articleinfo> 
   <title>Anjuta FAQ</title>
+  <abstract role="description">
+  	<para>Frequently asked questions with Anjuta IDE</para>
+  </abstract>
+  
+  <author role="maintainer">
+		<firstname>Naba</firstname>
+		<surname>Kumar</surname>
+	</author>
+	<author>
+		<firstname>Andy</firstname>
+		<surname>Piper</surname>
+	</author>
+	<author>
+		<firstname>Biswapesh</firstname>
+		<surname>Chattopadhyayr</surname>
+	</author>
+	<author>
+		<firstname>Johannes</firstname>
+		<surname>Schmid</surname>
+	</author>
+  
   <copyright>
    <year>2001</year>
    <holder>Andy Piper</holder>
@@ -59,9 +81,17 @@
    </para>
   </legalnotice>
 
-  <releaseinfo>
-   This is version 1.2 of the Anjuta FAQ
-  </releaseinfo>
+  <revhistory>
+		<revision>
+		  <revnumber>Anjuta FAQ 2.1.0</revnumber>
+		  <date>2007</date>
+		  <revdescription>
+			 <para role="author">Johannes Schmid<email>jhs@gnome.org</email>
+				</para>
+			 <para role="publisher">Anjuta Team</para>
+		  </revdescription>
+		</revision>
+	</revhistory>
  </articleinfo>
 
  
@@ -712,7 +742,7 @@
     </para>
     </question>
     <answer>
-    Definitly use Anjuta 2 because it has more features, has become quite stable and is blending-edge ;-)
+    <para>Definitly use Anjuta 2 because it has more features, has become quite stable and is blending-edge ;-)</para>
     </answer>
    </qandaentry>
 

@@ -92,6 +92,7 @@ AM_INIT_AUTOMAKE([1.9 dist-bzip2 no-dist-gzip])
 AC_CONFIG_HEADERS(config.h)
 AC_DISABLE_STATIC
 AM_MAINTAINER_MODE
+GNOME_DOC_INIT
 
 CFLAGS_WARNINGS="-Wall -Wmissing-prototypes -Wmissing-declarations -Wparentheses -Wpointer-arith"
 WCXXFLAGS_WARNINGS="-Wall -Wparentheses -Wpointer-arith"
@@ -1187,9 +1188,8 @@ manuals/Makefile
 manuals/reference/Makefile
 manuals/reference/libanjuta/Makefile
 manuals/reference/libanjuta/version.xml
-manuals/C/Makefile
-manuals/C/anjuta-manual/Makefile
-manuals/C/anjuta-faqs/Makefile
+manuals/anjuta-manual/Makefile
+manuals/anjuta-faqs/Makefile
 mime/Makefile
 ])
 echo " "
