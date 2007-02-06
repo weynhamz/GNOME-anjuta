@@ -1,3 +1,10 @@
+2007-02-06 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/gdb/debugger.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Fix bug #404755
+	Fix handling of missing source file
+
 2007-02-06  Naba Kumar  <naba@gnome.org>
 
 	Patch from James Liggett  <jrliggett@cox.net>:

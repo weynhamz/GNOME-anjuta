@@ -151,6 +151,8 @@ const static GdbMessageCode GdbErrorMessage[] =
 	IANJUTA_DEBUGGER_UNABLE_TO_CREATE_VARIABLE},
 	{"Cannot access memory at address ",
 	IANJUTA_DEBUGGER_UNABLE_TO_ACCESS_MEMORY},
+	{"No source file named  ",
+	IANJUTA_DEBUGGER_UNABLE_TO_OPEN_FILE},
 	{NULL, 0}};
 
 static guint
@@ -531,11 +533,7 @@ debugger_queue_command (Debugger *debugger, const gchar *cmd,
 		dc->keep_result = keep_result;
 	}
 	debugger->priv->cmd_queqe = g_list_append (debugger->priv->cmd_queqe, dc);
-	if (!debugger->priv->debugger_is_busy &&
-		g_list_length (debugger->priv->cmd_queqe) >= 1)
-	{
-		debugger_queue_execute_command (debugger);
-	}
+	debugger_queue_execute_command (debugger);
 }
 
 static void
@@ -581,10 +579,14 @@ debugger_queue_execute_command (Debugger *debugger)
 {
 	DEBUG_PRINT ("In function: debugger_queue_execute_command()");
 
-	debugger_clear_buffers (debugger);
-	if (debugger_queue_set_next_command (debugger))
-//	if (strlen (debugger->priv->current_cmd.cmd))
+	if (!debugger->priv->debugger_is_busy &&
+		!debugger->priv->starting &&
+		g_list_length (debugger->priv->cmd_queqe) >= 1)
+	{
+		debugger_clear_buffers (debugger);
+		if (debugger_queue_set_next_command (debugger))
 		debugger_execute_command (debugger, debugger->priv->current_cmd.cmd);
+	}
 }
 
 static void
@@ -1230,12 +1232,7 @@ debugger_parse_prompt (Debugger *debugger)
 	}
 	
 	debugger->priv->debugger_is_busy--;
-
-	if (!debugger->priv->debugger_is_busy &&
-		g_list_length (debugger->priv->cmd_queqe) >= 1)
-	{
-		debugger_queue_execute_command (debugger);	/* Next command. Go. */
-	}
+	debugger_queue_execute_command (debugger);	/* Next command. Go. */
 	debugger_emit_status (debugger);
 	
 	#if 0
@@ -1873,7 +1870,7 @@ debugger_attach_process_finish (Debugger *debugger, const GDBMIValue *mi_results
 	}
 	debugger->priv->prog_is_attached = TRUE;
 	debugger->priv->prog_is_running = TRUE;
-	g_signal_emit_by_name (debugger->priv->instance, "program-exited");
+	debugger_emit_status (debugger->priv->instance);
 }
 
 static void
@@ -2221,15 +2218,13 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 
 	bp.enable = IANJUTA_DEBUGGER_UNDEFINED;
 	bp.keep = IANJUTA_DEBUGGER_UNDEFINED;
-	if (mi_results == NULL)
+	
+	if ((error == NULL) || (value == NULL))
 	{
-		if (strncmp((const gchar *)cli_results->data,"&No source file named ", 22) == 0)
-		{
-			/* Breakpoint cannot be set, dynamic library not loaded ? */
-		}
-		/* Useful for enable that doesn't return anything */
+		/* Call callback in all case (useful for enable that doesn't return
+ 		* anything */
 		if (callback != NULL)
-			callback (NULL, user_data, NULL);
+			callback (NULL, user_data, error);
 	}
 	else
 	{
@@ -2330,12 +2325,13 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 		{       
 			value = gdbmi_value_literal_get (literal);
 		}
-
+		
 		/* Call callback in all case (useful for enable that doesn't return
-	 	* anything */
+ 		* anything */
 		if (callback != NULL)
-			callback (&bp, user_data, NULL);
+			callback (NULL, user_data, error);
 	}
+	
 }
 	
 void
