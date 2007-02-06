@@ -158,7 +158,10 @@ gprof_flat_profile_new (FILE *stream)
 	/* Read to beginning of flat profile data */
 	do
 	{
-		fgets (buffer, PATH_MAX, stream);
+		/* Don't loop infinitely if we don't have any data */
+		if (!fgets (buffer, PATH_MAX, stream))
+			return flat_profile;
+			
 	} while (!strchr (buffer, '%'));
 	
 	/* Skip the second line of the column header */

@@ -100,7 +100,7 @@ gprof_profile_data_free (GProfProfileData *self)
 	g_object_unref (self);
 }
 
-void
+gboolean
 gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
 								 GPtrArray *options)
 {
@@ -112,6 +112,8 @@ gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
 	GPtrArray *gprof_args;
 	gchar *mime_type;
 	gboolean is_libtool_target = FALSE;
+	GPid gprof_pid;
+	gint gprof_status;
 	
 	/* Determine target mime type */
 	mime_type = gnome_vfs_get_mime_type (path);
@@ -145,8 +147,12 @@ gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
 	g_ptr_array_add (gprof_args, NULL);
 	
 	g_spawn_async_with_pipes (NULL, (gchar **) gprof_args->pdata, 
-							  NULL, G_SPAWN_SEARCH_PATH, NULL,
-							  NULL, NULL, NULL, &stdout_pipe, NULL, NULL);
+							  NULL, 
+							  G_SPAWN_SEARCH_PATH | 
+							  G_SPAWN_DO_NOT_REAP_CHILD |
+							  G_SPAWN_STDERR_TO_DEV_NULL, 
+							  NULL, NULL, &gprof_pid, NULL, &stdout_pipe, 
+							  NULL, NULL);
 	
 	g_ptr_array_free (gprof_args, TRUE);
 	g_free (gmon_out_path);
@@ -167,6 +173,14 @@ gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
 	
 	fclose (stdout_stream);
 	close (stdout_pipe);
+	
+	waitpid (gprof_pid, &gprof_status, 0);
+	g_spawn_close_pid (gprof_pid);
+
+	if (WIFEXITED (gprof_status) && WEXITSTATUS (gprof_status) != 0)
+		return FALSE;
+	
+	return TRUE;
 }
 
 GProfFlatProfile *

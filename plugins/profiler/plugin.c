@@ -166,9 +166,16 @@ profiler_get_data (Profiler *profiler)
 	{
 
 		options = setup_options (profiler);
-		gprof_profile_data_init_profile (profiler->profile_data, 
-										 profiler->profile_target_path,
-										 options);
+		if (!gprof_profile_data_init_profile (profiler->profile_data, 
+										 	 profiler->profile_target_path,
+										 	 options))
+		{
+			anjuta_util_dialog_error (ANJUTA_PLUGIN (profiler)->shell,
+									  _("Could not get profiling data."
+										"\n\n"
+										"Please check the path to "
+										"this target's profiling data file"));
+		}
 											 
 		option_strings = (gchar **) g_ptr_array_free (options, FALSE);
 		g_strfreev (option_strings);
@@ -244,6 +251,12 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 									   on_profile_data_changed,
 									   (gpointer) profiler);
 			}
+			
+			/* Show user the profiler views if they aren't visible so they
+			 * know what happened */
+			anjuta_shell_present_widget (ANJUTA_PLUGIN (profiler)->shell,
+										 gprof_view_manager_get_notebook (profiler->view_manager),
+										 NULL);
 		}
 		else
 		{

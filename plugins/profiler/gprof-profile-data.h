@@ -26,6 +26,9 @@
 
 #include <glib-object.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include "gprof-flat-profile.h"
 #include "gprof-call-graph.h"
 
@@ -56,8 +59,8 @@ GType gprof_profile_data_get_type ();
 GProfProfileData *gprof_profile_data_new ();
 void gprof_profile_data_free (GProfProfileData *self);
 
-void gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
-									  GPtrArray *options);
+gboolean gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
+									  	  GPtrArray *options);
 
 GProfFlatProfile *gprof_profile_data_get_flat_profile (GProfProfileData *self);
 GProfCallGraph *gprof_profile_data_get_call_graph (GProfProfileData *self);

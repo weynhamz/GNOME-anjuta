@@ -245,7 +245,10 @@ gprof_call_graph_new (FILE *stream, GProfFlatProfile *flat_profile)
      * "index" */
 	do 
 	{
-		fgets (buffer, PATH_MAX, stream);
+		/* Don't loop infinitely if we don't have any data */
+		if (!fgets (buffer, PATH_MAX, stream))
+			return call_graph;
+			
 	} while (strncmp ("index", buffer, 5) != 0);
 	
 	block = NULL; 
