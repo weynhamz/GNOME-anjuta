@@ -1,5 +1,10 @@
 2007-02-07  Johannes Schmid <jhs@gnome.org>
 
+	* anjuta.desktop.in.in:
+	Fixed spelling
+
+2007-02-07  Johannes Schmid <jhs@gnome.org>
+
 	* configure.in:
 	* manuals/anjuta-manual/*
 	* manuals/anjuta-faqs/*:

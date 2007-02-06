@@ -1,7 +1,7 @@
 [Desktop Entry]
 _Name=Anjuta IDE
 _GenericName=Integrated Development Environment
-_Comment=Develop softwares in an integrated development environment
+_Comment=Develop software in an integrated development environment
 Exec=anjuta %F
 Icon=anjuta
 Terminal=false
