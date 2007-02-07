@@ -227,7 +227,6 @@ plugins/language-support-cpp-java/anjuta-language-cpp-java.glade
 plugins/language-support-cpp-java/plugin.c
 plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/gdb/anjuta-gdb.plugin.in
-[type: gettext/ini]plugins/gvim/anjuta-vim.plugin.in
 [type: gettext/ini]plugins/devhelp/anjuta-devhelp.plugin.in
 [type: gettext/ini]plugins/document-manager/anjuta-document-manager.plugin.in
 [type: gettext/ini]plugins/file-wizard/anjuta-file-wizard.plugin.in
