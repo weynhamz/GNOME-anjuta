@@ -148,16 +148,27 @@ on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
 	{
 		if (!dock_item)
 		{
+			static gint count;
+			gchar *unique_name = g_strdup_printf ("%s-%d", name, count);
+			
+			/* gnome_app_add_docked() does not allow adding a widget using
+			 * a previously used name (even if the previous widget has
+			 * has be destroyed. Hence a unique_name is used by using a 
+			 * static counter */
+			DEBUG_PRINT ("Adding dock item %s", unique_name);
+			
 			/* Widget not yet added to the dock. Add it */
 			gnome_app_add_docked (GNOME_APP (app), widget,
-								  name,
+								  unique_name,
 								  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL |
 								  BONOBO_DOCK_ITEM_BEH_NEVER_FLOATING,
 								  BONOBO_DOCK_TOP, band, 0, 0);
 		
 			dock_item = gnome_app_get_dock_item_by_name (GNOME_APP (app),
-														 name);
+														 unique_name);
 			g_object_set_data (G_OBJECT(widget), "dock_item", dock_item);
+			g_free (unique_name);
+			count++;
 		}
 		gtk_widget_show (GTK_WIDGET (dock_item));
 		gtk_widget_show (GTK_BIN (dock_item)->child);
@@ -167,6 +178,13 @@ on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
 		gtk_widget_hide (GTK_WIDGET (dock_item));
 		gtk_widget_hide (GTK_BIN (dock_item)->child);
 	}
+}
+
+static void
+on_merge_widget_destroy (GtkWidget *merge_widget, GtkWidget *menuitem)
+{
+	toolbars = g_list_remove (toolbars, merge_widget);
+	gtk_widget_destroy (menuitem);
 }
 
 static void
@@ -221,6 +239,13 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 		g_signal_connect (G_OBJECT (menuitem), "toggled",
 						  G_CALLBACK (on_toolbar_view_toggled), widget);
 		g_object_set_data(G_OBJECT(widget), "menuitem", menuitem);
+		
+		/* When the toolbar is destroyed make sure corresponding menuitem is
+		 * also destroyed */
+		g_signal_connect (widget, "destroy",
+						  G_CALLBACK (on_merge_widget_destroy),
+						  menuitem);
+		
 		toolbars = g_list_append(toolbars, widget);
 
 		/* Show/hide toolbar */
@@ -266,7 +291,6 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		}
 		node = g_list_next(node);
 	}
-
 	
 	/* Save geometry */
 	state = gdk_window_get_state (GTK_WIDGET (app)->window);
@@ -402,7 +426,7 @@ anjuta_app_finalize (GObject *widget)
 	g_return_if_fail (ANJUTA_IS_APP (widget));
 	
 	app = ANJUTA_APP (widget);
-
+	
 	gtk_widget_destroy (GTK_WIDGET (app->ui));
 	gtk_widget_destroy (GTK_WIDGET (app->preferences));
 	

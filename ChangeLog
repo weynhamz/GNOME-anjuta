@@ -1,3 +1,8 @@
+2007-02-08  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta-app.c: Destroy toolbar menuitem when the toolbar
+	itself is destroyed. Fixes bug #355160.
+	
 2007-02-08  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/profiler/profiler.plugin: 
