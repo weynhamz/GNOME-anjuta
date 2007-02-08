@@ -4,9 +4,7 @@
 anjuta.desktop.in.in
 libanjuta/anjuta-children.c
 libanjuta/anjuta-encodings.c
-libanjuta/anjuta-enum-types.c
 libanjuta/anjuta-launcher.c
-libanjuta/anjuta-marshal.c
 libanjuta/anjuta-plugin.c
 libanjuta/anjuta-plugin-description.c
 libanjuta/anjuta-plugin-handle.c
@@ -54,7 +52,6 @@ plugins/cvs-plugin/cvs-callbacks.c
 plugins/cvs-plugin/cvs-execute.c
 plugins/cvs-plugin/plugin.c
 plugins/debug-manager/anjuta-debug-manager.glade
-plugins/debug-manager/anjuta-marshal.c
 plugins/debug-manager/breakpoints.c
 plugins/debug-manager/chunk_view.c
 plugins/debug-manager/data_buffer.c
