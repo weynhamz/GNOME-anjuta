@@ -125,6 +125,7 @@ static const CgElementEditorFlags GO_SIGNAL_FLAGS[] =
 	{ NULL, NULL }
 };
 
+#if 0
 static void
 cg_window_browse_button_clicked_cb (GtkButton *button,
                                     gpointer user_data)
@@ -160,6 +161,7 @@ cg_window_browse_button_clicked_cb (GtkButton *button,
 	
 	gtk_widget_destroy (GTK_WIDGET (dialog));
 }
+#endif
 
 static gchar *
 cg_window_fetch_string (CgWindow *window,
@@ -347,13 +349,16 @@ cg_window_add_project_toggled_cb (GtkToggleButton *button,
 	window = CG_WINDOW (user_data);
 	priv = CG_WINDOW_PRIVATE (window);
 
-	gtk_widget_set_sensitive (
-		glade_xml_get_widget (priv->gxml, "browse_header"),
-		!gtk_toggle_button_get_active (button));
-
-	gtk_widget_set_sensitive (
-		glade_xml_get_widget (priv->gxml, "browse_source"),
-		!gtk_toggle_button_get_active (button));
+	if (gtk_toggle_button_get_active (button) == FALSE)
+	{
+		gtk_widget_set_sensitive (glade_xml_get_widget(
+			priv->gxml, "add_repository"), FALSE);
+	}
+	else
+	{
+		gtk_widget_set_sensitive (glade_xml_get_widget (
+			priv->gxml, "add_repository"), TRUE);
+	}
 }
 
 static void
@@ -445,6 +450,7 @@ cg_window_go_name_changed_cb (GtkEntry *entry,
 	g_free (str_filesource);
 }
 
+#if 0
 static void
 cg_window_associate_browse_button (GladeXML *xml,
                                    const gchar *button_id,
@@ -461,6 +467,7 @@ cg_window_associate_browse_button (GladeXML *xml,
 	g_signal_connect(G_OBJECT(button), "clicked",
 	                 G_CALLBACK(cg_window_browse_button_clicked_cb), entry);
 }
+#endif
 
 static void
 cg_window_set_glade_xml (CgWindow *window,
@@ -474,11 +481,13 @@ cg_window_set_glade_xml (CgWindow *window,
 
 	priv->window = glade_xml_get_widget (priv->gxml, "classgen_main");
 
+#if 0
 	cg_window_associate_browse_button (priv->gxml, "browse_header",
 	                                   "header_file");
 
 	cg_window_associate_browse_button (priv->gxml, "browse_source",
 	                                   "source_file");
+#endif
 
 	priv->editor_cc = cg_element_editor_new (
 		GTK_TREE_VIEW (glade_xml_get_widget (priv->gxml, "cc_elements")),
@@ -552,14 +561,8 @@ cg_window_set_glade_xml (CgWindow *window,
 		G_OBJECT (glade_xml_get_widget(priv->gxml, "add_project")), "toggled",
 		G_CALLBACK (cg_window_add_project_toggled_cb), window);
 
-	if(cg_window_fetch_boolean(window, "add_project") == TRUE)
-	{
-		gtk_widget_set_sensitive (
-			glade_xml_get_widget (priv->gxml, "browse_header"), FALSE);
-
-		gtk_widget_set_sensitive (
-			glade_xml_get_widget (priv->gxml, "browse_source"), FALSE);
-	}
+	cg_window_add_project_toggled_cb (GTK_TOGGLE_BUTTON (
+		glade_xml_get_widget (priv->gxml, "add_project")), window);
 
 	/* Selected page is CC */
 	cg_window_validate_cc (window);
@@ -1132,7 +1135,14 @@ gboolean
 cg_window_get_add_to_repository (CgWindow *window)
 {
 	CgWindowPrivate *priv;
+	GtkWidget *button;
 	priv = CG_WINDOW_PRIVATE (window);
+
+	/* It can happen that the checkbox is checked and then somehow
+	 * disabled (for example by unchecking add to project). In this
+	 * case add to repository should also be FALSE. */
+	button = glade_xml_get_widget (priv->gxml, "add_repository");
+	if (GTK_WIDGET_IS_SENSITIVE(button) == FALSE) return FALSE;
 
 	return cg_window_fetch_boolean (window, "add_repository");
 }

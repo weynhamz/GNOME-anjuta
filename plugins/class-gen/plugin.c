@@ -27,6 +27,7 @@
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-vcs.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 #include <plugins/project-wizard/autogen.h>
 
@@ -265,6 +266,43 @@ cg_plugin_generator_error_cb (G_GNUC_UNUSED CgGenerator *generator,
 		GTK_WIDGET (cg_window_get_dialog (plugin->window)), TRUE);
 }
 
+static gboolean
+cg_plugin_load (AnjutaClassGenPlugin *plugin,
+                CgGenerator *generator,
+                const gchar *file,
+                GError **error)
+{
+	IAnjutaDocumentManager *docman;
+	IAnjutaEditor *editor;
+	gchar *name;
+	gchar *contents;
+	gboolean result;
+
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+	                                     IAnjutaDocumentManager, NULL);	
+
+	if(g_file_get_contents(file, &contents, NULL, error) == FALSE)
+		return FALSE;
+
+	name = g_path_get_basename (file);
+
+	result = FALSE;
+	/* The content argument seems not to work */
+	editor = ianjuta_document_manager_add_buffer (docman, name, "", error);
+
+	if(editor != NULL)
+	{
+		ianjuta_editor_append(editor, contents, -1, error);
+		if(!error || *error == NULL)
+			result = TRUE;
+	}
+	
+	g_free(contents);
+	g_free(name);
+	
+	return result;
+}
+
 static void
 cg_plugin_generator_created_cb (CgGenerator *generator,
                                 gpointer user_data)
@@ -286,8 +324,19 @@ cg_plugin_generator_created_cb (CgGenerator *generator,
 		cg_plugin_add_to_repository (plugin, header_file, source_file);
 	}
 
-	ianjuta_file_loader_load (loader, header_file, FALSE, NULL);
-	ianjuta_file_loader_load (loader, source_file, FALSE, NULL);
+	if (cg_window_get_add_to_project (plugin->window))
+	{
+		ianjuta_file_loader_load (loader, header_file, FALSE, NULL);
+		ianjuta_file_loader_load (loader, source_file, FALSE, NULL);
+	}
+	else
+	{
+		/* We do not just use ianjuta_file_leader_load here to ensure that
+		 * the new documents are flagged as changed and no path is
+		 * already set. */
+		cg_plugin_load (plugin, generator, header_file, NULL);
+		cg_plugin_load (plugin, generator, source_file, NULL);
+	}
 
 	g_object_unref (G_OBJECT (plugin->window));
 	plugin->window = NULL;
@@ -323,8 +372,10 @@ cg_plugin_window_response_cb (G_GNUC_UNUSED GtkDialog *dialog,
 		}
 		else
 		{
-		    header_file = g_strdup (cg_window_get_header_file (plugin->window));
-		    source_file = g_strdup (cg_window_get_source_file (plugin->window));
+		    header_file = g_build_filename (g_get_tmp_dir (),
+		    	cg_window_get_header_file (plugin->window), NULL);
+		    source_file = g_build_filename (g_get_tmp_dir (),
+		    	cg_window_get_source_file (plugin->window), NULL);
 
 		    result = TRUE;
 		}
