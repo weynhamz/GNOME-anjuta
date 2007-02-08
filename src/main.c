@@ -323,6 +323,13 @@ main (int argc, char *argv[])
 	data_dir = g_strdup (PACKAGE_DATA_DIR);
 	data_dir[strlen (data_dir) - strlen (PACKAGE) - 1] = '\0';
 	
+    /* Initialize threads, if possible */
+#ifdef G_THREADS_ENABLED    
+    if (!g_thread_supported()) g_thread_init(NULL);
+#else
+#warning "Some plugins won't work without thread support
+#endif
+    
 	/* Initialize gnome program */
 	g_option_context_parse (context, &argc, &argv, NULL);
 	program = gnome_program_init (PACKAGE, VERSION,

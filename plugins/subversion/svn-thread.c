@@ -167,8 +167,6 @@ svn_thread_flush(SVNBackend* backend)
 void svn_thread_start(SVNBackend* backend, GThreadFunc func, gpointer data)
 {
 #ifdef G_THREADS_ENABLED
-	if (!g_thread_supported()) g_thread_init(NULL);
-	
 	svn_thread_init(&backend->svn->thread);
 	g_idle_add((GSourceFunc)svn_thread_flush, backend);
 	
