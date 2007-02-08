@@ -10,7 +10,7 @@
 	* plugins/subversion/svn-thread.c: (svn_thread_start):
 	* src/main.c: (main):
 	
-	Fixed #355160 about initialisation of threads too late
+	Fixed #395875 about initialisation of threads too late
 
 2007-02-07  Armin Burgmeier  <armin@arbur.net>
 
