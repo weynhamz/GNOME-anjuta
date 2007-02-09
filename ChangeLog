@@ -1,3 +1,9 @@
+2007-02-09  Johannes Schmid <jhs@gnome.org>
+
+	* scripts/glade2schema.pl:
+	Added script to convert glade preferences into gconf schema files.
+	See #406061
+
 2007-02-08  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta-app.c: Destroy toolbar menuitem when the toolbar
