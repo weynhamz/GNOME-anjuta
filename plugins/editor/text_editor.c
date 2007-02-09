@@ -168,7 +168,7 @@ initialize_markers (TextEditor* te, GtkWidget *scintilla)
 	for (xpm = marker_pixmap;*xpm != NULL; xpm++)
 	{
 		scintilla_send_message (SCINTILLA (scintilla), SCI_MARKERDEFINEPIXMAP,
-			marker, *xpm);
+								marker, GPOINTER_TO_INT (*xpm));
 		marker++;
 	}
 }
@@ -327,8 +327,7 @@ on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
 		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
 		return;
 	
-	if (!anjuta_util_diff(te->uri, ianjuta_editor_get_text(IANJUTA_EDITOR(te),
-														   0, -1, NULL)))
+	if (!anjuta_util_diff (te->uri, te->last_saved_content))
 		return;
 	
 	if (strcmp (monitor_uri, info_uri) != 0)
@@ -457,6 +456,11 @@ void
 text_editor_dispose (GObject *obj)
 {
 	TextEditor *te = TEXT_EDITOR (obj);
+	if (te->file_modified_timer > 0)
+	{
+		g_source_remove (te->file_modified_timer);
+		te->file_modified_timer = 0;
+	}
 	if (te->monitor)
 	{
 		text_editor_update_monitor (te, TRUE);
@@ -467,7 +471,6 @@ text_editor_dispose (GObject *obj)
 		g_object_unref (te->popup_menu);
 		te->popup_menu = NULL;
 	}
-	
 	if (te->views)
 	{
 		GtkWidget *scintilla;
@@ -510,14 +513,11 @@ void
 text_editor_finalize (GObject *obj)
 {
 	TextEditor *te = TEXT_EDITOR (obj);
-	if (te->filename)
-		g_free (te->filename);
-	if (te->uri)
-		g_free (te->uri);
-	if (te->encoding)
-		g_free (te->encoding);
-	if (te->force_hilite)
-		g_free (te->force_hilite);
+	g_free (te->filename);
+	g_free (te->uri);
+	g_free (te->encoding);
+	g_free (te->force_hilite);
+	g_free (te->last_saved_content);
 	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(te)));
 }
@@ -1370,7 +1370,10 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_ADDTEXT,
 							nchars, (long) buffer);
 	
-	g_free (buffer);
+	/* Save the buffer as last saved content */
+	g_free (te->last_saved_content);
+	te->last_saved_content = buffer;
+	
 	gnome_vfs_close(vfs_read);
 	return TRUE;
 }
@@ -1483,14 +1486,17 @@ save_to_file (TextEditor *te, gchar * uri)
 		if (editor_mode == SC_EOL_CRLF && dos_filter)
 		{
 			DEBUG_PRINT ("Filtering Extrageneous DOS characters in dos mode [Unix => Dos]");
-			size = save_filtered_in_dos_mode(vfs_write, data, size);
+			size = save_filtered_in_dos_mode (vfs_write, data, size);
 		}
 		else
 		{
 			result = gnome_vfs_write(vfs_write, data, size, &nchars);
 		}
-		g_free (data);
 	}
+	
+	/* Set last content saved to data */
+	g_free (te->last_saved_content);
+	te->last_saved_content = data;
 	
 	if (result == GNOME_VFS_OK)
 		result = gnome_vfs_close(vfs_write);
@@ -1510,7 +1516,9 @@ text_editor_load_file (TextEditor * te)
 	if (IS_SCINTILLA (te->scintilla) == FALSE)
 		return FALSE;
 	anjuta_status (te->status, _("Loading file..."), 5); 
+	
 	text_editor_freeze (te);
+	
 	// te->modified_time = time (NULL);
 	text_editor_update_monitor (te, FALSE);
 	if (load_from_file (te, te->uri, &err) == FALSE)

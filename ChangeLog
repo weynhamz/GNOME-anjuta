@@ -1,3 +1,9 @@
+2007-02-08  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/text_editor.h, plugins/editor/text_editor.c:
+	Prevented spurious 'file modified' dialogs in scintilla editor
+	when the file is saved.
+
 2007-02-09  Johannes Schmid <jhs@gnome.org>
 
 	* scripts/glade2schema.pl:

@@ -99,6 +99,18 @@ struct _TextEditor
 	
 	/* Current zoom factor */
 	gint zoom_factor;
+	
+	/* Last saved content for comparision on external modifications on
+	 * the file. The content is copied here during file saves.
+	 */
+	gchar *last_saved_content;
+	
+	/* When a file is saved, gnome-vfs also notifies changes to the file
+	 * resulting in unneccessary processing. To avoid this, file modified
+	 * notifications from gnome-vfs are dampped for 1 sec. After the 1 sec
+	 * timeout, if the file is still different, the user is notified.
+	 */
+	gint file_modified_timer;
 };
 
 struct _TextEditorClass
