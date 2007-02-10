@@ -307,31 +307,16 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, TextEditor *te)
 		text_editor_load_file (te);
 	}
 	gtk_widget_destroy (dlg);
+	te->file_modified_widget = NULL;
+	DEBUG_PRINT ("File modified dialog responded");
 }
 
-static void
-on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
-							const gchar *monitor_uri,
-							const gchar *info_uri,
-							GnomeVFSMonitorEventType event_type,
-							gpointer user_data)
+static gboolean
+on_text_editor_uri_changed_prompt (TextEditor *te)
 {
 	GtkWidget *dlg;
 	GtkWidget *parent;
 	gchar *buff;
-	TextEditor *te = TEXT_EDITOR (user_data);
-	
-	DEBUG_PRINT ("File changed!!!");
-	
-	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
-		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
-		return;
-	
-	if (!anjuta_util_diff (te->uri, te->last_saved_content))
-		return;
-	
-	if (strcmp (monitor_uri, info_uri) != 0)
-		return;
 	
 	buff =
 		g_strdup_printf (_
@@ -364,6 +349,50 @@ on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
 					  G_CALLBACK (gtk_widget_destroy),
 					  dlg);
 	gtk_widget_show (dlg);
+	
+	te->file_modified_widget = dlg;
+
+	return FALSE;
+}
+
+static void
+on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
+							const gchar *monitor_uri,
+							const gchar *info_uri,
+							GnomeVFSMonitorEventType event_type,
+							gpointer user_data)
+{
+	TextEditor *te = TEXT_EDITOR (user_data);
+	
+	DEBUG_PRINT ("File changed!!!");
+	
+	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
+		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
+		return;
+	
+	if (!anjuta_util_diff (te->uri, te->last_saved_content))
+	{
+		/* The file content is same. Remove any previous prompt for reload */
+		if (te->file_modified_widget)
+			gtk_widget_destroy (te->file_modified_widget);
+		te->file_modified_widget = NULL;
+		return;
+	}
+	
+	if (strcmp (monitor_uri, info_uri) != 0)
+		return;
+	
+	/* If the file modified dialog is already shown, don't bother showing it
+	 * again.
+	 */
+	if (te->file_modified_widget)
+		return;
+	
+	/* Set up 1 sec timer */
+	if (te->file_modified_timer > 0)
+ 		g_source_remove (te->file_modified_timer);
+	te->file_modified_timer = g_timeout_add (1000,
+							(GSourceFunc)on_text_editor_uri_changed_prompt, te);
 }
 
 static void
@@ -584,7 +613,7 @@ text_editor_hilite_one (TextEditor * te, AnEditorID editor_id,
 	else
 	{
 		aneditor_command (editor_id, ANE_SETHILITE, (guint) "plain.txt", 0);
-	}
+	} 
 }
 
 void
@@ -1284,7 +1313,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	GnomeVFSResult result;
 	GnomeVFSFileInfo info;
 	GnomeVFSFileSize nchars;
-
+	gchar *file_content;
 	gchar *buffer;
 	gint dos_filter, editor_mode;
 
@@ -1319,8 +1348,13 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 		*err = g_strdup (_("Error while reading from file"));
 		return FALSE;
 	}
+	
+	file_content = g_strdup (buffer);
 
-	if (info.size != nchars) DEBUG_PRINT ("File size and loaded size not matching");
+	if (info.size != nchars)
+	{
+		DEBUG_PRINT ("File size and loaded size not matching");
+	}
 	dos_filter = 
 		anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
 									DOS_EOL_CHECK);
@@ -1352,6 +1386,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 			{
 				/* bail out */
 				g_free (buffer);
+				g_free (file_content);
 				*err = g_strdup (_("The file does not look like a text file or the file encoding is not supported."
 								   " Please check if the encoding of file is in the supported encodings list."
 								   " If not, add it from the preferences."));
@@ -1370,9 +1405,11 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_ADDTEXT,
 							nchars, (long) buffer);
 	
+	g_free (buffer);
+	
 	/* Save the buffer as last saved content */
 	g_free (te->last_saved_content);
-	te->last_saved_content = buffer;
+	te->last_saved_content = file_content;
 	
 	gnome_vfs_close(vfs_read);
 	return TRUE;

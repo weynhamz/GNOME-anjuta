@@ -1,6 +1,15 @@
 2007-02-08  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/text_editor.h, plugins/editor/text_editor.c:
+	Delay showing the 'file modified on disk' dialog for one sec
+	from the last notification to insure multiple notifications for
+	the same file are treated as one. Do not same multiple dialogs
+	for the same file. Make sure to destory the dialog if later
+	the conent is no longer different.
+	
+2007-02-08  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/text_editor.h, plugins/editor/text_editor.c:
 	Prevented spurious 'file modified' dialogs in scintilla editor
 	when the file is saved.
 

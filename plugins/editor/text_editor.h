@@ -111,6 +111,7 @@ struct _TextEditor
 	 * timeout, if the file is still different, the user is notified.
 	 */
 	gint file_modified_timer;
+	GtkWidget *file_modified_widget;
 };
 
 struct _TextEditorClass
