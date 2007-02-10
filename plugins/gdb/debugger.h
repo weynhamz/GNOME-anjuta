@@ -101,7 +101,7 @@ void debugger_command (Debugger *debugger, const gchar *command,
 					   gpointer user_data);
 
 void debugger_change_location (Debugger *debugger, const gchar *file,
-							   gint line, const gchar *address);
+							   gint line, guint address);
 gchar* debugger_get_source_path (Debugger *debugger, const gchar *file);
 
 /* Program loading */

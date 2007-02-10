@@ -2612,7 +2612,7 @@ interface IAnjutaDebugger
 	* 
 	* fixme
 	*/
-	void ::location_changed (const gchar* file, guint line, const gchar* address);	
+	void ::location_changed (const gchar* file, guint line, guint address);	
 
 	/**
 	* IAnjutaDebugger::frame_changed:

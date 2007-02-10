@@ -24,7 +24,7 @@
 
 #include <config.h>
 
-//#define DEBUG
+/*#define DEBUG*/
 
 #include "debugger.h"
 
@@ -840,7 +840,7 @@ dma_queue_update_queue_status (DmaDebuggerQueue *this, DmaDebuggerCommandType ty
 	}
 }
 
-void
+static void
 dma_queue_emit_debugger_ready (DmaDebuggerQueue *queue)
 {
 	IAnjutaDebuggerStatus stat;
@@ -1225,7 +1225,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 			ianjuta_cpu_debugger_inspect_memory (this->cpu_debugger, cmd->mem.address, cmd->mem.length, cmd->callback, cmd->user_data, &err);	
 			break;
 		case DISASSEMBLE_COMMAND:
-			ianjuta_cpu_debugger_disassemble (this->debugger, cmd->mem.address, cmd->mem.length, cmd->callback, cmd->user_data, &err);	
+			ianjuta_cpu_debugger_disassemble (this->cpu_debugger, cmd->mem.address, cmd->mem.length, cmd->callback, cmd->user_data, &err);	
 			break;
 		case BREAK_LINE_COMMAND:
 			ianjuta_debugger_set_breakpoint_at_line (this->debugger, cmd->pos.file, cmd->pos.line, cmd->callback, cmd->user_data, &err);	
@@ -1381,7 +1381,7 @@ on_dma_program_exited (DmaDebuggerQueue *this)
 }
 
 static void
-on_dma_location_changed (DmaDebuggerQueue *this, const gchar* src_path, guint line, const gchar* address)
+on_dma_location_changed (DmaDebuggerQueue *this, const gchar* src_path, guint line, guint address)
 {
 	DEBUG_PRINT ("From debugger: location changed");
 	g_signal_emit_by_name (this, "location-changed", src_path, line, address);
@@ -2230,7 +2230,7 @@ icpu_debugger_inspect_memory (IAnjutaCpuDebugger *iface, guint address, guint le
 }
 
 static gboolean
-icpu_debugger_disassemble (IAnjutaDebugger *iface, guint address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+icpu_debugger_disassemble (IAnjutaCpuDebugger *iface, guint address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	DmaDebuggerQueue *this = (DmaDebuggerQueue *)iface;
 	DmaQueueCommand *cmd;

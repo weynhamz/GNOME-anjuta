@@ -158,8 +158,7 @@ const static GdbMessageCode GdbErrorMessage[] =
 static guint
 gdb_match_error(const gchar *message)
 {
-	GdbMessageCode* msg;
-	guint code;
+	const GdbMessageCode* msg;
 
 	for (msg = GdbErrorMessage; msg->msg != NULL; msg++)
 	{
@@ -933,45 +932,47 @@ static void
 debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 {
 	const GDBMIValue *file, *line, *frame, *addr, *fullname;
-	const gchar *file_str, *fullname_str;
-	gint line_num;
-	guint addr_num;
-	
-	if (!val)
-		return;
+	const gchar *file_str = NULL;
+	guint line_num = 0;
+	gulong addr_num = 0;
 	
 	g_return_if_fail (val != NULL);
 	
-	file = gdbmi_value_hash_lookup (val, "file");
-	line = gdbmi_value_hash_lookup (val, "line");
 	frame = gdbmi_value_hash_lookup (val, "frame");
-	addr = gdbmi_value_hash_lookup (val, "addr");
-	fullname = gdbmi_value_hash_lookup (val, "fullname");
-
-	if (file && line)
+	if (frame)
 	{
-		file_str = gdbmi_value_literal_get (file);
-		line_num = atoi(gdbmi_value_literal_get (line));
-
-		fullname_str = fullname ? gdbmi_value_literal_get (fullname) : NULL;
-		addr_num = addr ? strtoul (gdbmi_value_literal_get (addr), NULL, 0) : 0;
-		
-		debugger_change_location (debugger, fullname_str ? fullname_str : file_str,
-					line_num, addr_num);
-	}
-	else if (frame)
-	{
-		file = gdbmi_value_hash_lookup (frame, "file");
-		line = gdbmi_value_hash_lookup (frame, "line");
 		fullname = gdbmi_value_hash_lookup (frame, "fullname");
-		
-		fullname_str = fullname ? gdbmi_value_literal_get (fullname) : NULL;
-		
-		addr_num = addr ? strtoul (gdbmi_value_literal_get (addr), NULL, 0) : 0;
-		file_str = file ? gdbmi_value_literal_get (file) : NULL;
-		line_num = line ? atoi(gdbmi_value_literal_get (line)) : 0;
-		debugger_change_location (debugger, fullname_str ? fullname_str : file_str,
-					line_num, addr_num);
+		fullname = NULL;
+		if (fullname)
+		{
+			file_str = gdbmi_value_literal_get (fullname);
+			if (*file_str == '\0') file_str = NULL;
+		}
+		else
+		{
+			file = gdbmi_value_hash_lookup (frame, "file");
+			if (file)
+			{
+				file_str = gdbmi_value_literal_get (file);
+				if (*file_str == '\0') file_str = NULL;
+			}
+		}
+
+		if (file_str != NULL)
+		{
+			line = gdbmi_value_hash_lookup (frame, "line");
+			if (line)
+			{
+				line_num = strtoul (gdbmi_value_literal_get (line), NULL, 0);
+			}
+		}
+
+		addr = gdbmi_value_hash_lookup (frame, "addr");
+		if (addr)
+		{
+			addr_num = strtoul (gdbmi_value_literal_get (addr), NULL, 0);
+		}
+		debugger_change_location (debugger, file_str, line_num, addr_num);
 	}
 }
 
@@ -1021,7 +1022,7 @@ debugger_parse_output (Debugger *debugger)
 		gdb_util_parse_error_line (&(line[2]), &filename, &lineno);
 		if (filename)
 		{
-			debugger_change_location (debugger, filename, lineno, NULL);
+			debugger_change_location (debugger, filename, lineno, 0);
 			g_free (filename);
 		}
 	}
@@ -1596,7 +1597,7 @@ debugger_set_output_callback (Debugger *debugger, IAnjutaDebuggerOutputCallback 
 
 void
 debugger_change_location (Debugger *debugger, const gchar *file,
-						  gint line, const gchar *address)
+						  gint line, guint address)
 {
 	gchar *src_path;
 	
@@ -1870,7 +1871,7 @@ debugger_attach_process_finish (Debugger *debugger, const GDBMIValue *mi_results
 	}
 	debugger->priv->prog_is_attached = TRUE;
 	debugger->priv->prog_is_running = TRUE;
-	debugger_emit_status (debugger->priv->instance);
+	debugger_emit_status (debugger);
 }
 
 static void
@@ -2219,7 +2220,7 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 	bp.enable = IANJUTA_DEBUGGER_UNDEFINED;
 	bp.keep = IANJUTA_DEBUGGER_UNDEFINED;
 	
-	if ((error == NULL) || (value == NULL))
+	if ((error == NULL) || (mi_results == NULL))
 	{
 		/* Call callback in all case (useful for enable that doesn't return
  		* anything */
@@ -2762,7 +2763,7 @@ debugger_read_memory_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 	const gchar *value;
 	gchar *data;
 	gchar *ptr;
-	gchar *address;
+	guint address;
 	guint len;
 	guint i;
 	IAnjutaDebuggerCallback callback = debugger->priv->current_cmd.callback;
@@ -2779,7 +2780,7 @@ debugger_read_memory_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 		memset (data + len, 0, len);
 
 		literal = gdbmi_value_hash_lookup (mi_results, "addr");
-		address = (char *)strtoul (gdbmi_value_literal_get (literal), NULL, 0);
+		address = strtoul (gdbmi_value_literal_get (literal), NULL, 0);
 	
 		ptr = data;
 		size = 0;
@@ -2911,7 +2912,6 @@ void
 debugger_disassemble (Debugger *debugger, guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
-	guint end;
 	
 	DEBUG_PRINT ("In function: debugger_disassemble()");
 

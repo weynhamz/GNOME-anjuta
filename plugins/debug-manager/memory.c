@@ -65,7 +65,7 @@ on_memory_block_read (const IAnjutaDebuggerMemory *block, DmaMemory *mem, GError
 	
 	guint length = block->length;
 	gchar *data = block->data;
-	gchar *address = block->address;
+	guint address = block->address;
 	
 	tag = data + length;
 	while (length != 0)
@@ -87,7 +87,7 @@ on_memory_block_read (const IAnjutaDebuggerMemory *block, DmaMemory *mem, GError
 			length--;
 		}
 		
-		dma_data_buffer_set_data (mem->buffer, (gulong)address, tag - start, data);
+		dma_data_buffer_set_data (mem->buffer, address, tag - start, data);
 		data += tag - start;
 		address += tag - start;
 	}

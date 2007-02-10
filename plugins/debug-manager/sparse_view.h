@@ -68,5 +68,7 @@ void dma_sparse_view_refresh (DmaSparseView *view);
 DmaSparseBuffer * dma_sparse_view_get_sparse_buffer (DmaSparseView *view);
 void dma_sparse_view_set_sparse_buffer (DmaSparseView *view, DmaSparseBuffer *buffer);
 
+void dma_sparse_view_goto (DmaSparseView *view, guint location);
+
 G_END_DECLS
 #endif /* _SPARSE_VIEW_H */

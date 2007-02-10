@@ -1,6 +1,23 @@
 2007-02-10 Sebastien Granjoux <seb.sfo@free.fr>
 
-	* plugins/gdb/debug_tree.c:
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/sparse_view.c,
+	plugins/debug-manager/sparse_view.h:
+	Reorder some code
+
+	* plugins/gdb/debugger.c,
+	plugins/debug-manager/debugger.c,
+	plugins/debug-manager/memory.c,
+	plugins/debug-manager/sparse_buffer.c
+	plugins/gdb/debugger.h,
+	libanjuta/interfaces/libanjuta.idl:
+	Clean up, remove some warnings
+	Use guint everywhere for addresses
+	Rewrite code parsing position in debugger
+
+2007-02-10 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/debug_tree.c:
 	Use GtkTreeRowReference instead of GtkTreeIter as callback data
 	Fix bug #406113
 

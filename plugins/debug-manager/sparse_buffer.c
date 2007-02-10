@@ -489,7 +489,7 @@ dma_sparse_iter_insert_lines (DmaSparseIter *src, GtkTextIter *dst, guint count)
 static void
 dma_sparse_buffer_dispose (GObject *object)
 {
-	/*DmaSparseBuffer *this = DMA_DATA_BUFFER (object);*/
+	/*DmaSparseBuffer *self = DMA_DATA_BUFFER (object);*/
 	
 	G_OBJECT_CLASS (parent_class)->dispose (object);
 }

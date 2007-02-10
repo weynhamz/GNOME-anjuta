@@ -159,9 +159,7 @@ dma_sparse_view_goto_key_press_event (GtkWidget *widget,
 		if ((*text != '\0') && (*end == '\0'))
 		{
 			/* Valid input goto to address */
-			dma_sparse_iter_move_at (&view->priv->start, adr);
-			gtk_adjustment_set_value (view->priv->vadjustment, (gdouble)adr);
-			gtk_adjustment_value_changed (view->priv->vadjustment);
+			dma_sparse_view_goto (view, adr);
 		}
 		
 		dma_sparse_view_goto_window_hide (view);
@@ -585,6 +583,7 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 	do
 	{
 		gint pos;
+		guint address;
 		
 		gtk_text_view_buffer_to_window_coords (text_view,
 						       GTK_TEXT_WINDOW_LEFT,
@@ -593,10 +592,11 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 						       NULL,
 						       &pos);
 
+		address = dma_sparse_iter_get_address (&buf_iter);
+		
 		if (view->priv->show_line_numbers) 
 		{
-			g_snprintf (str, sizeof (str),"0x%0*lX", margin_length,
-						dma_sparse_iter_get_address (&buf_iter));
+			g_snprintf (str, sizeof (str),"0x%0*lX", margin_length, (long unsigned int)address);
 			pango_layout_set_markup (layout, str, -1);
 
 			gtk_paint_layout (GTK_WIDGET (view)->style,
@@ -740,6 +740,14 @@ dma_sparse_view_refresh (DmaSparseView *view)
 	gtk_text_iter_set_offset (&cur, offset);
 	gtk_text_buffer_move_mark_by_name (buffer, "insert", &cur);
 	gtk_text_buffer_move_mark_by_name (buffer, "selection_bound", &cur);
+}
+
+void
+dma_sparse_view_goto (DmaSparseView *view, guint location)
+{
+       dma_sparse_iter_move_at (&view->priv->start, location);
+       gtk_adjustment_set_value (view->priv->vadjustment, (gdouble)location);
+       gtk_adjustment_value_changed (view->priv->vadjustment);
 }
 
 /* GtkWidget functions
@@ -889,7 +897,7 @@ dma_sparse_view_finalize (GObject *object)
 	g_return_if_fail (DMA_IS_SPARSE_VIEW (object));
 
 	view = DMA_SPARSE_VIEW (object);
-
+	
 	g_free (view->priv);
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -911,7 +919,7 @@ dma_sparse_view_instance_init (DmaSparseView *view)
 	view->priv->goto_entry = NULL;
 
 	view->priv->show_line_numbers = TRUE;
-	view->priv->show_line_markers = FALSE;
+	view->priv->show_line_markers = TRUE;
 	
 	view->priv->stamp = 0;
 
