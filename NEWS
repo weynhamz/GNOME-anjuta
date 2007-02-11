@@ -1,3 +1,44 @@
+Anjuta 2.1.1 (11 Feb 2007) -- Naba Kumar
+
+New: gprof based program profiler plugin.
+New: Several improvements in debugger plugin.
+New: Several improvements in editor plugins.
+New: Enabled integrated devhelp now that it works.
+New: Use pixmaps for editor markers.
+New: Several minor improvements.
+
+Translation updates
+===================
+* en_GB, sv, ja, Swedish translation of manual.
+
+Bugs fixed
+==========
+#335235 python programs are not executeable/ do not start when pr...
+#335981 Migration from popt to GOption
+#340618 Application wizards should use gtkmm-2.4 API
+#355160 show debug toolbar without debugger plugin => crash
+#357997 add a new project variable => crash
+#374709 Anjuta Crash activating devhelp plugin
+#394216 No indication of subversion commands running
+#395875 upon startup i get this big fat warning -- crash when add...
+#398067 plugin.in files are not localized
+#398930 Set alignment in the tab page header widget
+#398991 Anjuta manuals does not use the gnome-doc-utils format
+#400833 Changes in libgladeui ABI
+#404561 xml and xsl editing is not possible
+#397406 Class files are not created in the right directory
+#394184 [Bounty] Test and fix all project wizards templates
+#359478 Bounty: Gprof performance profiler plugin
+#403501 Proper handling of parsing error
+#403515 When a target is selected, the profiler widget should be ...
+#391728 Program crashes when accepting save directory.
+#378600 indicate debugger state
+#392537 Starting debugger is very confusing: UI suggestions
+#395808 breakpoints don't seem to work
+#404755 Multiple instances of debugger views
+#406113 debugger crash on 'Run/continue'
+#376404 show current line arrow only when debugger running
+
 Anjuta 2.1.0 (14 Jan 2007) -- Naba Kumar
 
 New: Debug manager and gdb plugins.
