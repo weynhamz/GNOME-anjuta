@@ -45,7 +45,7 @@ struct _StackTraceGui
 {
 	GtkWidget *scrolledwindow;
 	GtkTreeView *clist;
-	GtkWidget *menu;
+	GtkMenu *menu;
 	GtkWidget *menu_set;
 	GtkWidget *menu_info;
 	GtkWidget *menu_update;
@@ -276,6 +276,7 @@ on_stack_trace_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer
 	if ((bevent->type == GDK_BUTTON_PRESS) && (bevent->button == 3))
 	{
 		/* Right mouse click */
+		g_return_val_if_fail (st->widgets.menu != NULL, FALSE);
 		gtk_menu_popup (GTK_MENU (st->widgets.menu), NULL, NULL, NULL, NULL,
 						bevent->button, bevent->time);
 	}
@@ -331,7 +332,6 @@ create_stack_trace_gui(StackTrace *st)
 	AnjutaUI *ui;
 
 	g_return_if_fail (st->widgets.scrolledwindow == NULL);
-	g_return_if_fail (st->widgets.menu == NULL);
 	
 	/* Create tree view */
 	model = GTK_TREE_MODEL(gtk_list_store_new (STACK_TRACE_N_COLUMNS,
@@ -420,8 +420,7 @@ create_stack_trace_gui(StackTrace *st)
 	
 	/* Create popup menu */
 	ui = anjuta_shell_get_ui (st->plugin->shell, NULL);
-	st->widgets.menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupStack");
-	gtk_widget_ref (st->widgets.menu);
+	st->widgets.menu = GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupStack"));
 	
 	/* Connect signal */
 	g_signal_connect (st->widgets.clist, "button-press-event", G_CALLBACK (on_stack_trace_button_press), st);  
@@ -449,12 +448,6 @@ create_stack_trace_gui(StackTrace *st)
 static void
 destroy_stack_trace_gui (StackTrace *st)
 {
-	if (st->widgets.menu != NULL)
-	{
-		gtk_widget_unref (st->widgets.menu);
-		gtk_widget_destroy (st->widgets.menu);
-		st->widgets.menu = NULL;
-	}
 	if (st->widgets.scrolledwindow != NULL)
 	{
 		gtk_widget_destroy (st->widgets.scrolledwindow);

@@ -1,3 +1,12 @@
+2007-02-10 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/stack_trace.c:
+	Fix bug #407115
+
+	* plugins/debug-manager/watch.c,
+	plugins/debug-manager/breakpoints.c:
+	Same bug than above, wrong use of gtk_ui_manager_get_widget
+
 === anjuta 2.1.1 ===
 
 2007-02-11  Naba Kumar  <naba@gnome.org>

@@ -1161,6 +1161,7 @@ on_breakpoints_button_press (GtkWidget * widget, GdkEventButton * bevent, Breakp
 {
 	if (bevent->button == 3)
 	{
+		g_return_val_if_fail (bd->popup != NULL, FALSE);
 		gtk_menu_popup (bd->popup, NULL, NULL, NULL, NULL,
 						bevent->button, bevent->time);
 	}
@@ -1543,11 +1544,7 @@ breakpoints_dbase_new (AnjutaPlugin *plugin)
 
 		/* Add popup menu */
 		bd->popup =  GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupBreakpoint"));
-		if (bd->popup)
-		{	
-			gtk_widget_ref (GTK_WIDGET(bd->popup));
-			g_signal_connect (bd->treeview, "button-press-event", G_CALLBACK (on_breakpoints_button_press), bd);  
-		}
+		g_signal_connect (bd->treeview, "button-press-event", G_CALLBACK (on_breakpoints_button_press), bd);  
 			
 	}
 
@@ -1582,7 +1579,6 @@ breakpoints_dbase_destroy (BreakpointsDBase * bd)
 		g_free (bd->loc_history);
 
 	gtk_widget_destroy (bd->scrolledwindow);
-	if (bd->popup) gtk_widget_unref (GTK_WIDGET (bd->popup));
 	g_free (bd);
 }
 

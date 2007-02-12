@@ -39,8 +39,6 @@ struct _ExprWatch
 	/* Menu action */
 	GtkActionGroup *action_group;
 	GtkActionGroup *toggle_group;
-	
-	GtkWidget* middle_click_menu;
 };
 
 struct _InspectDialog
@@ -328,6 +326,7 @@ on_debug_tree_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer 
 		GtkAction *action;
 		AnjutaUI *ui;
 		GtkTreeIter iter;
+		GtkWidget *middle_click_menu;
 
 		ui = anjuta_shell_get_ui (ew->plugin->shell, NULL);
 		action = anjuta_ui_get_action (ui, "ActionGroupWatchToggle", "ActionDmaAutoUpdateWatch");
@@ -344,14 +343,9 @@ on_debug_tree_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer 
 		action = anjuta_ui_get_action (ui, "ActionGroupWatch", "ActionDmaEditWatch");
 		gtk_action_set_sensitive (GTK_ACTION (action), FALSE);   // FIXME: Not implemented
 		
-		if (ew->middle_click_menu == NULL)
-		{
-			ew->middle_click_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupWatch");
-			g_object_ref (ew->middle_click_menu);
-			//g_signal_connect (debug_tree_get_tree_widget(ew->debug_tree), "hide", G_CALLBACK (on_debug_tree_hide_popup), NULL);  
-			
-		}
-		gtk_menu_popup (GTK_MENU (ew->middle_click_menu), NULL, NULL, NULL, NULL,
+		middle_click_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupWatch");
+		g_return_val_if_fail (middle_click_menu != NULL, FALSE);
+		gtk_menu_popup (GTK_MENU (middle_click_menu), NULL, NULL, NULL, NULL,
 						bevent->button, bevent->time);
 	}
 	
@@ -559,12 +553,6 @@ expr_watch_destroy (ExprWatch * ew)
 	anjuta_ui_remove_action_group (ui, ew->action_group);
 	anjuta_ui_remove_action_group (ui, ew->toggle_group);
 
-	if (ew->middle_click_menu != NULL)
-	{
-		g_object_unref (ew->middle_click_menu);
-		gtk_widget_destroy (ew->middle_click_menu);
-	}
-	
 	debug_tree_free (ew->debug_tree);
 	gtk_widget_destroy (ew->scrolledwindow);
 	g_free (ew);
