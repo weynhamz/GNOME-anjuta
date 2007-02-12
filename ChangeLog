@@ -1,4 +1,9 @@
-2007-02-10 Sebastien Granjoux <seb.sfo@free.fr>
+2007-02-13  Naba Kumar  <naba@gnome.org>
+
+	* plugins/class-gen/element-editor.c: Included missing headers to
+	prevent build failures in some cases.
+	
+2007-02-13 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/stack_trace.c:
 	Fix bug #407115

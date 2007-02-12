@@ -24,6 +24,8 @@
 #include <gtk/gtkcellrenderercombo.h>
 #include <gtk/gtkcellrenderertext.h>
 #include <gtk/gtkcellrenderer.h>
+#include <gtk/gtkliststore.h>
+#include <gtk/entry.h>
 
 typedef struct _CgElementEditorColumn CgElementEditorColumn;
 struct _CgElementEditorColumn
