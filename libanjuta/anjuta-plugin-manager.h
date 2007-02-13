@@ -46,10 +46,13 @@ struct _AnjutaPluginManagerClass
 	/* Signals */
 	void(* profile_pushed) (AnjutaPluginManager *self, AnjutaProfile* profile);
 	void(* profile_popped) (AnjutaPluginManager *self, AnjutaProfile* profile);
-	void(* plugins_to_load) (AnjutaPluginManager *self, GList* plugins_to_load);
-	void(* plugins_to_unload) (AnjutaPluginManager *self, GList* plugins_to_unload);
-	void(* plugin_activated) (AnjutaPluginManager *self, AnjutaProfile* profile, AnjutaPluginDescription* plugin_desc, GObject *plugin);
-	void(* plugin_deactivated) (AnjutaPluginManager *self, AnjutaProfile* profile, AnjutaPluginDescription* plugin_desc);
+	void(* plugin_activated) (AnjutaPluginManager *self,
+							  AnjutaProfile* profile,
+							  AnjutaPluginDescription* plugin_desc,
+							  GObject *plugin);
+	void(* plugin_deactivated) (AnjutaPluginManager *self,
+								AnjutaProfile* profile,
+								AnjutaPluginDescription* plugin_desc);
 };
 
 struct _AnjutaPluginManager
@@ -64,10 +67,17 @@ AnjutaPluginManager* anjuta_plugin_manager_new (GObject *shell,
 												GList* plugin_search_paths);
 
 /* Plugin profiles */
-void anjuta_plugin_manager_push_profile (const gchar *profile_name,
-										 const gchar* profile_xml_file,
-										 gboolean readonly);
-void anjuta_plugin_manager_pop_profile (const gchar *profile_name);
+gboolean anjuta_plugin_manager_push_profile (AnjutaPluginManager *plugin_manager,
+											 const gchar *profile_name,
+											 const gchar* profile_xml_file,
+											 gboolean readonly,
+											 gboolean unload_rest);
+gboolean anjuta_plugin_manager_pop_profile (AnjutaPluginManager *plugin_manager,
+											const gchar *profile_name);
+
+void anjuta_plugin_manager_freeze (AnjutaPluginManager *plugin_manager);
+gboolean anjuta_plugin_manager_thaw (AnjutaPluginManager *plugin_manager,
+									 GError **error);
 
 /* Plugin activation, deactivation and retrival */
 GObject* anjuta_plugin_manager_get_plugin (AnjutaPluginManager *plugin_manager,

@@ -56,7 +56,8 @@ struct _AnjutaProfile
 };
 
 GType anjuta_profile_get_type (void) G_GNUC_CONST;
-AnjutaProfile* anjuta_profile_new (const gchar* name, GList* plugins);
+AnjutaProfile* anjuta_profile_new (const gchar* name, gboolean readonly,
+								   GList* plugins);
 AnjutaProfile* anjuta_profile_new_from_xml (const gchar* name,
 											const gchar* xml_text,
 											GError **err);
@@ -67,6 +68,7 @@ void anjuta_profile_remove_plugin (AnjutaProfile *profile,
 gboolean anjuta_profile_has_plugin (AnjutaProfile *profile,
 									AnjutaPluginDescription *plugin);
 gchar* anjuta_profile_to_xml (AnjutaProfile *profile);
+GList* anjuta_profile_get_plugins (AnjutaProfile *profile);
 GList* anjuta_profile_difference_positive (AnjutaProfile *profile,
 										   AnjutaProfile *profile_to_diff);
 GList* anjuta_profile_difference_negative (AnjutaProfile *profile,

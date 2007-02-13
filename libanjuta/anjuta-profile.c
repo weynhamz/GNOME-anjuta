@@ -25,6 +25,7 @@
 enum
 {
 	PROP_0,
+	PROP_READONLY,
 	PROP_PROFILE_NAME,
 	PROP_PROFILE_PLUGINS
 };
@@ -40,6 +41,7 @@ enum
 struct _AnjutaProfilePriv
 {
 	gchar *name;
+	gboolean readonly;
 	GList *plugins;
 };
 
@@ -74,6 +76,9 @@ anjuta_profile_set_property (GObject *object, guint prop_id,
 
 	switch (prop_id)
 	{
+	case PROP_READONLY:
+		priv->readonly = g_value_get_boolean (value);
+		break;
 	case PROP_PROFILE_NAME:
 		g_return_if_fail (g_value_get_string (value) == NULL);
 		g_free (priv->name);
@@ -103,6 +108,9 @@ anjuta_profile_get_property (GObject *object, guint prop_id,
 
 	switch (prop_id)
 	{
+	case PROP_READONLY:
+		g_value_set_boolean (value, priv->readonly);
+		break;
 	case PROP_PROFILE_NAME:
 		g_value_set_string (value, priv->name);
 		break;
@@ -146,6 +154,14 @@ anjuta_profile_class_init (AnjutaProfileClass *klass)
 	klass->plugin_removed = anjuta_profile_plugin_removed;
 	klass->changed = anjuta_profile_changed;
 
+	g_object_class_install_property (object_class,
+	                                 PROP_READONLY,
+	                                 g_param_spec_boolean ("readonly",
+											  _("Readonly"),
+											  _("The plugin profile is readonly"),
+											  FALSE,
+											  G_PARAM_READABLE |
+											  G_PARAM_WRITABLE));
 	g_object_class_install_property (object_class,
 	                                 PROP_PROFILE_NAME,
 	                                 g_param_spec_string ("profile-name",
@@ -224,20 +240,13 @@ anjuta_profile_get_type (void)
 }
 
 AnjutaProfile*
-anjuta_profile_new (const gchar* name, GList* plugins)
+anjuta_profile_new (const gchar* name, gboolean readonly, GList* plugins)
 {
 	GObject *profile;
 	profile = g_object_new (ANJUTA_TYPE_PROFILE, "name", name,
+							"readonly", readonly,
 							"plugins", plugins, NULL);
 	return ANJUTA_PROFILE (profile);
-}
-
-AnjutaProfile*
-anjuta_profile_new_from_xml (const gchar* name, const gchar* xml_text,
-							 GError **err)
-{
-	/* TODO: Add public function implementation here */
-	return NULL;
 }
 
 void
@@ -284,11 +293,13 @@ anjuta_profile_has_plugin (AnjutaProfile *profile,
 			g_list_find (priv->plugins, plugin) != NULL);
 }
 
-gchar*
-anjuta_profile_to_xml (AnjutaProfile *profile)
+GList*
+anjuta_profile_get_plugins (AnjutaProfile *profile)
 {
-	/* TODO: Add public function implementation here */
-	return NULL;
+	AnjutaProfilePriv *priv;
+	g_return_val_if_fail (ANJUTA_IS_PROFILE (profile), FALSE);
+	priv = ANJUTA_PROFILE (profile)->priv;
+	return priv->plugins;
 }
 
 GList*
