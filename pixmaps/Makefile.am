@@ -20,30 +20,8 @@ anjuta_pixmapsdir = $(anjuta_image_dir)
 
 anjuta_pixmaps_DATA = \
 	anjuta.png \
-	anjuta_logo1.png \
 	anjuta_logo2.png \
 	anjuta_splash.png \
-	anjuta_splash_mini.png \
-	applogo.png \
-	appwizard.png \
-	appwiz_bonobo2.png \
-	appwiz_bonobo.png \
-	appwiz_gnome2.png \
-	appwiz_gnomemm2.png \
-	appwiz_gnomemm.png \
-	appwiz_gnome.png \
-	appwiz_gtk2.png \
-	appwiz_gtkmm2.png \
-	appwiz_gtkmm.png \
-	appwiz_gtk.png \
-	appwiz_libglade2.png \
-	appwiz_libglade.png \
-	appwiz_opengl.png \
-	appwiz_sdl.png \
-	appwiz_terminal.png \
-	appwiz_wxwin.png \
-	appwiz_xlib.png \
-	close_project.png \
 	directory.png \
 	directory-accept.png \
 	password.png \
@@ -59,4 +37,3 @@ EXTRA_DIST = $(anjuta_pixmaps_DATA) \
 						$(anjuta_glade_pixmaps_DATA) \
 						$(icon_DATA) \
 						$(svgicon_DATA)
-
