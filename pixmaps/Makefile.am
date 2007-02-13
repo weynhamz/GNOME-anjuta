@@ -20,7 +20,7 @@ anjuta_pixmapsdir = $(anjuta_image_dir)
 
 anjuta_pixmaps_DATA = \
 	anjuta.png \
-	anjuta_logo2.png \
+	anjuta_logo.png \
 	anjuta_splash.png \
 	directory.png \
 	directory-accept.png \

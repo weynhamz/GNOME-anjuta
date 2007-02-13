@@ -27,7 +27,7 @@
 
 #include "about.h"
 
-#define ANJUTA_PIXMAP_LOGO			"anjuta_logo2.png"
+#define ANJUTA_PIXMAP_LOGO			"anjuta_logo.png"
 #define ABOUT_AUTHORS				"AUTHORS"	
 #define MAX_CAR 256
 #define MAX_CREDIT 500

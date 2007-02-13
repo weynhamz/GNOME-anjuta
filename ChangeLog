@@ -5,6 +5,9 @@
 	pixmaps/applogo.png, pixmaps/anjuta_logo.png,
 	pixmaps/open_project.png, pixmaps/close_project.png:
 	Removed more old icons.
+	* pixmaps/anjuta_logo2.png, pixmaps/anjuta_logo.png,
+	pixmaps/Makefile.am, src/about.c: Renmaed anjuta_logo2.png to
+	anjuta_logo.png
 	
 2007-02-13  Naba Kumar  <naba@gnome.org>
 
