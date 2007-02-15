@@ -132,6 +132,7 @@
 			<toolitem name="Previous" action="ActionBookmarkPrevious"/>
 			<toolitem name="Next" action="ActionBookmarkNext"/>
 			<toolitem name="Last" action="ActionBookmarkLast"/>
+			<toolitem name="Clear" action="ActionBookmarkClear"/>
 			<separator name="separator1" />
 			<toolitem name="BlockStart" action="ActionEditGotoBlockStart"/>
 			<toolitem name="BlockEnd" action="ActionEditGotoBlockEnd"/>

@@ -31,15 +31,12 @@ document_manager_pixmaps_DATA = \
 	block-start-16.png \
 	block-start.png \
 	block_select.xpm \
-	bookmark-first-16.png \
 	bookmark-first.png \
-	bookmark-prev-16.png \
 	bookmark-prev.png \
-	bookmark-next-16.png \
 	bookmark-next.png \
-	bookmark-last-16.png \
 	bookmark-last.png \
-	bookmark_toggle.xpm
+	bookmark-toggle.png \
+	bookmark-clear.png
 
 # Plugin Icon file
 plugin_in_files = anjuta-document-manager.plugin.in

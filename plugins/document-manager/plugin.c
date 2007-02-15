@@ -55,11 +55,12 @@
 #define ANJUTA_PIXMAP_SWAP                "undock.png"
 #define ANJUTA_PIXMAP_INDENT              "indent.xpm"
 #define ANJUTA_PIXMAP_SYNTAX              "syntax.xpm"
-#define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "bookmark_toggle.xpm"
+#define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "bookmark-toggle.png"
 #define ANJUTA_PIXMAP_BOOKMARK_FIRST      "bookmark-first.png"
 #define ANJUTA_PIXMAP_BOOKMARK_PREV       "bookmark-prev.png"
 #define ANJUTA_PIXMAP_BOOKMARK_NEXT       "bookmark-next.png"
 #define ANJUTA_PIXMAP_BOOKMARK_LAST       "bookmark-last.png"
+#define ANJUTA_PIXMAP_BOOKMARK_CLEAR      "bookmark-clear.png"
 #define ANJUTA_PIXMAP_ERROR_PREV          "error-prev.png"
 #define ANJUTA_PIXMAP_ERROR_NEXT          "error-next.png"
 
@@ -99,7 +100,7 @@
 #define ANJUTA_STOCK_BOOKMARK_PREV            "anjuta-bookmark-previous"
 #define ANJUTA_STOCK_BOOKMARK_NEXT            "anjuta-bookmark-next"
 #define ANJUTA_STOCK_BOOKMARK_LAST            "anjuta-bookmark-last"
-
+#define ANJUTA_STOCK_BOOKMARK_CLEAR           "anjuta-bookmark-clear"
 
 static gpointer parent_class;
 
@@ -386,7 +387,7 @@ static GtkActionEntry actions_bookmark[] = {
 	N_("Jump to the last bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_last_activate)},
   { "ActionBookmarkClear", N_("_Clear All Bookmarks"),
-	NULL, NULL,
+	ANJUTA_STOCK_BOOKMARK_CLEAR, NULL,
 	N_("Clear bookmarks"),
     G_CALLBACK (on_editor_command_bookmark_clear_activate)},
 };
@@ -779,6 +780,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_PREV, ANJUTA_STOCK_BOOKMARK_PREV);
 	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_NEXT, ANJUTA_STOCK_BOOKMARK_NEXT);
 	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_LAST, ANJUTA_STOCK_BOOKMARK_LAST);
+	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_CLEAR, ANJUTA_STOCK_BOOKMARK_CLEAR);
 	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_START, ANJUTA_STOCK_BLOCK_START);
 	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_END, ANJUTA_STOCK_BLOCK_END);
 }
@@ -1684,7 +1686,7 @@ ianjuta_docman_goto_file_line (IAnjutaDocumentManager *plugin,
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	anjuta_docman_goto_file_line (docman, uri, linenum);
+	return anjuta_docman_goto_file_line (docman, uri, linenum);
 }
 
 static IAnjutaEditor*
@@ -1693,7 +1695,7 @@ ianjuta_docman_goto_file_line_mark (IAnjutaDocumentManager *plugin,
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	anjuta_docman_goto_file_line_mark (docman, uri, linenum, mark);
+	return anjuta_docman_goto_file_line_mark (docman, uri, linenum, mark);
 }
 
 static IAnjutaEditor*
