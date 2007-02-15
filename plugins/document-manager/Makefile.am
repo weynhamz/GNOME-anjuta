@@ -15,7 +15,7 @@ document_manager_pixmapsdir = $(anjuta_image_dir)
 document_manager_pixmaps_DATA = \
 	anjuta-document-manager.png \
 	preferences-editor.png \
-	undock.png \
+	swap.png \
 	fold_toggle.xpm \
 	fold_open.xpm \
 	fold_close.xpm \

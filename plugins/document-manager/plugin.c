@@ -52,7 +52,7 @@
 #define ICON_FILE "anjuta-document-manager.png"
 
 /* Pixmaps */
-#define ANJUTA_PIXMAP_SWAP                "undock.png"
+#define ANJUTA_PIXMAP_SWAP                "swap.png"
 #define ANJUTA_PIXMAP_INDENT              "indent.xpm"
 #define ANJUTA_PIXMAP_SYNTAX              "syntax.xpm"
 #define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "bookmark-toggle.png"
