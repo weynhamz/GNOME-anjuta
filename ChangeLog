@@ -1,3 +1,8 @@
+2007-02-16  Naba Kumar  <naba@gnome.org>
+
+	* manuals/reference/libanjuta/project-wizard-format.sgml: Removed
+	unnecessary sub-sections.
+	
 2007-02-15  Naba Kumar  <naba@gnome.org>
 
 	* (removed) plugins/document-manager/bookmark-prev-16.png,

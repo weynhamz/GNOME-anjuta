@@ -21,83 +21,68 @@
 			the resulting file must be a valid xml file. The transformation
 			pass use <ulink url="http://autogen.sourceforge.net">autogen</ulink>.
 		</para>
-		<sect2>
-			<title>Autogen</title>
-			<para>
-			Autogen is a quite complete text transformation program, 
-			it is able to make string substitutions, conditionally
-			generate text, include files and it can even be extended with the
-			guile language. Autogen takes as input a template file which is
-			the wizard template file and some definitions which are generated
-			at run time according to the user choices. Note that the first
-			line of an autogen template need to have special format not
-			compatible with an xml file, so this line is added at run time
-			when needed. It defines the
-			start and end macros marker of autogen which is fixed and
-			defined as "[+" and "+]" in the wizard template.
-			</para>
-		</sect2>
-		<sect2>
-			<title>Header</title>
-			<para>
-			The header block is the only exception, it is read 
-			directly from the template file and do not use autogen.
-			It must be the first block and must be valid a xml
-			block, that's why the first line of the template could not
-			contains the autogen special line. The parsing is stopped when
-			 the end of this block is
-			reached, so we do not care for the remaining of the file. This
-			block contains informations about the project kind like a name and
-			a short description.
-			</para>
-		</sect2>
-		<sect2>
-			<title>Page</title>
-			<para>
-			The page blocks are read one by one after being transformed by
-			autogen, they define some properties of the project which could
-			be changed by the user, things like project name or use of a
-		 	particular library. The graphical interface is created at run
-			time according to these properties. Each page is generated when
-			the user has completed all previous pages.
-			You can ask the user for something on one
-			page and his answers become available as autogen variables for
-			generating the next page. You can, by example, skip a complete page
-			for configuring a CVS reposit, if the user has decided to
-			not use it. In case you insert or remove a complete page you need
-			to take care to not do it before one already displayed.
-			</para>
-		</sect2>
-		<sect2>
-			<title>Content</title>
-			<para>
-			When all pages have been displayed. The program will read the content
-			block which defined all files and directories needed by the project.
-			This block goes through autogen so you can use this to adjust file
-			names and paths. Typically, at least creating a project file with
-			the name given by the user. Note that the project files itself are
-			transformed with autogen if needed.
-			</para>
-		</sect2>
-		<sect2>
-			<title>Action</title>
-			<para>
-			Finally, if it exist the action block is read and the
-			corresponding commands are executed in their order of apparition.
-			Typically, it is useful for
-			loading in Anjuta the newly created project.
-			</para>
-		</sect2>
+		<para>
+		<emphasis>Autogen</emphasis> is a quite complete text transformation program, 
+		it is able to make string substitutions, conditionally
+		generate text, include files and it can even be extended with the
+		guile language. Autogen takes as input a template file which is
+		the wizard template file and some definitions which are generated
+		at run time according to the user choices. Note that the first
+		line of an autogen template need to have special format not
+		compatible with an xml file, so this line is added at run time
+		when needed. It defines the
+		start and end macros marker of autogen which is fixed and
+		defined as "[+" and "+]" in the wizard template.
+		</para>
+		<para>
+		The <emphasis>header</emphasis> block is the only exception, it is read 
+		directly from the template file and do not use autogen.
+		It must be the first block and must be valid a xml
+		block, that's why the first line of the template could not
+		contains the autogen special line. The parsing is stopped when
+		 the end of this block is
+		reached, so we do not care for the remaining of the file. This
+		block contains informations about the project kind like a name and
+		a short description.
+		</para>
+		<para>
+		The <emphasis>page</emphasis> blocks are read one by one after being transformed by
+		autogen, they define some properties of the project which could
+		be changed by the user, things like project name or use of a
+		particular library. The graphical interface is created at run
+		time according to these properties. Each page is generated when
+		the user has completed all previous pages.
+		You can ask the user for something on one
+		page and his answers become available as autogen variables for
+		generating the next page. You can, by example, skip a complete page
+		for configuring a CVS reposit, if the user has decided to
+		not use it. In case you insert or remove a complete page you need
+		to take care to not do it before one already displayed.
+		</para>
+		<para>
+		When all pages have been displayed. The program will read the <emphasis>content</emphasis>
+		block which defined all files and directories needed by the project.
+		This block goes through autogen so you can use this to adjust file
+		names and paths. Typically, at least creating a project file with
+		the name given by the user. Note that the project files itself are
+		transformed with autogen if needed.
+		</para>
+		<para>
+		Finally, if it exist the <emphasis>action</emphasis> block is read and the
+		corresponding commands are executed in their order of apparition.
+		Typically, it is useful for
+		loading in Anjuta the newly created project.
+		</para>
 	</sect1>
-	<sect1 id="header_block">
-		<title>Header</title>
+	<sect1 id="header-block">
+		<title>Wizard header</title>
 		<para>
 			Here is all the xml element used in the header block.
 			As this block is read directly from the file, it
 			can not contains autogen variables.
 		</para>
-		<sect2 id="project-wizard">
-			<title>project-wizard</title>
+		<para>
+			<emphasis>project-wizard</emphasis>
 			<programlisting>
 &lt;project-wizard&gt;
 	&lt;_name&gt;
@@ -108,9 +93,9 @@
 			</programlisting>
 			It represents the header block, and contains all other
 			elements.
-		</sect2>
-		<sect2 id="name">
-			<title>name</title>
+		</para>
+		<para>
+			<emphasis>name</emphasis>
 			<programlisting>
 &lt;_name&gt;
 	text				
@@ -118,9 +103,9 @@
 			</programlisting>
 			text is the name of the project, its name start with
 			a underscore to mark a translatable element.
-		</sect2>
-		<sect2 id="description">
-			<title>description</title>
+		</para>
+		<para>
+			<emphasis>description</emphasis>
 			<programlisting>
 &lt;_description&gt;
 	text				
@@ -129,9 +114,9 @@
 			text gives a short description of the project, it appears when
 			the project is selection. It's a translatable element too 
 			which explains the underscore.
-		</sect2>
-		<sect2 id="icon">
-			<title>icon</title>
+		</para>
+		<para>
+			<emphasis>icon</emphasis>
 			<programlisting>
 &lt;_icon&gt;
 	filename				
@@ -141,9 +126,9 @@
 			the project, it must be in the same directory than the
 			project template file. The picture must be of 48 by
 			48 pixels in png format.
-		</sect2>
-		<sect2 id="category">
-			<title>category</title>
+		</para>
+		<para>
+			<emphasis>category</emphasis>
 			<programlisting>
 &lt;_category&gt;
 	text					
@@ -152,10 +137,10 @@
 			text is a category name. It is a way to group related
 			project, it is typically the programming language name,
 			like C or C++.
-		</sect2>
+		</para>
 	</sect1>
-	<sect1 id="page_block">
-		<title>Page</title>
+	<sect1 id="page-block">
+		<title>Wizard pages</title>
 		<para>
 			This block defines all properties use by the project
 			and the corresponding graphical interface. These properties
@@ -164,8 +149,8 @@
 			already defined in previous pages. This allows you
 			to generate pages according to the user inputs on the previous one.
 		</para>
-		<sect2 id="page">
-			<title>page</title>
+		<para>
+			<emphasis>page</emphasis>
 			<programlisting>
 &lt;page name=name _label=label _description=description &gt;
 	&lt;property&gt;
@@ -185,9 +170,9 @@
 			<para>
 				description is a translatable sub title for the project page.
 			</para>
-		</sect2>
-		<sect2 id="property">
-			<title>property</title>
+		</para>
+		<para>
+			<emphasis>property</emphasis>
 			<programlisting>
 &lt;property type=hidden|boolean|integer|string|list|directory|file|icon
 	name = name _label=label [_description=description] [default=default]
@@ -331,9 +316,9 @@
 				attribute is set to yes, by default or if it is set to no
 				the property is not displayed.
 			</para>
-		</sect2>
-		<sect2 id="item">
-			<title>item</title>
+		</para>
+		<para>
+			<emphasis>item</emphasis>
 			<programlisting>
 &lt;item _name=name [_label=label] /&gt;
 			</programlisting>
@@ -350,16 +335,16 @@
 				interface, typically a list box. If it does not exist
 				the value of the name attribute is used.
 			</para>
-		</sect2>
+		</para>
 	</sect1>
-	<sect1 id="content_block">
-		<title>Content</title>
+	<sect1 id="content-block">
+		<title>Wizard content</title>
 		<para>
 			This block defines all files and directories used by the
 			project.
 		</para>
-		<sect2 id="content">
-			<title>content</title>
+		<para>
+			<emphasis>content</emphasis>
 			<programlisting>
 &lt;content&gt;
 	&lt;directory&gt;
@@ -370,9 +355,9 @@
 			It represents the content block and contains any number
 			of directory elements.
 			</para>
-		</sect2>
-		<sect2 id="directory">
-			<title>directory</title>
+		</para>
+		<para>
+			<emphasis>directory</emphasis>
 			<programlisting>
 &lt;directory source=source_name [destination=destination_name] &gt;
 	&lt;directory&gt;
@@ -392,9 +377,9 @@
 			reverse. If you specify only the source directory, the
 			destination will use the same value.
 			</para>
-		</sect2>
-		<sect2 id="file">
-			<title>file</title>
+		</para>
+		<para>
+			<emphasis>file</emphasis>
 			<programlisting>
 &lt;file source=source_name [destination=destination_name] [executable=yes|no] [autogen=yes|no] /&gt;
 			</programlisting>
@@ -417,16 +402,16 @@
 				file will get all definitions those have been used for
 				generating the content block of the wizard template.
 			</para>
-		</sect2>
+		</para>
 	</sect1>
-	<sect1 id="action_block">
-		<title>Action</title>
+	<sect1 id="action-block">
+		<title>Wizard actions</title>
 		<para>
 			This block is optional, it defines additional actions to do after
 			creating the project.
 		</para>
-		<sect2 id="action">
-			<title>action</title>
+		<para>
+			<emphasis>action</emphasis>
 			<programlisting>
 &lt;action&gt;
 	&lt;run&gt;
@@ -439,9 +424,9 @@
 			It represents the action block and contains any number
 			of run and open elements. All these actions are executed in order.
 			</para>
-		</sect2>
-		<sect2 id="run">
-			<title>run</title>
+		</para>
+		<para>
+			<emphasis>run</emphasis>
 			<programlisting>
 &lt;run command=command /&gt;
 			</programlisting>
@@ -450,9 +435,9 @@
 			       	the new project. The output of the command is redirected to
 				one Anjuta message window.
 			</para>
-		</sect2>
-		<sect2 id="open">
-			<title>open</title>
+		</para>
+		<para>
+			<emphasis>open</emphasis>
 			<programlisting>
 &lt;open file=file_name /&gt;
 			</programlisting>
@@ -460,6 +445,6 @@
 				This element will open the file file_name
 				in Anjuta.
 			</para>
-		</sect2>
+		</para>
 	</sect1>
 </chapter>
