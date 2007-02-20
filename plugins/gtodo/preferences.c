@@ -119,7 +119,9 @@ GtkWidget *preferences_widget()
 	gtk_container_set_border_width(GTK_CONTAINER(vbox), 12);
 	frame = gtk_frame_new(_("Show in main window"));
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);	
-	gtk_label_set_markup(GTK_LABEL(gtk_frame_get_label_widget(GTK_FRAME(frame))), _("<b>Show in main window</b>"));
+	tmp = g_strdup_printf("<b>%s</b>", _("Show in main window"));
+	gtk_label_set_markup(GTK_LABEL(gtk_frame_get_label_widget(GTK_FRAME(frame))), tmp);
+	g_free(tmp);
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 
@@ -130,7 +132,10 @@ GtkWidget *preferences_widget()
 	vbox = gtk_vbox_new(FALSE, 0);
 	frame = gtk_frame_new(_("Highlight"));
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);	
-	gtk_label_set_markup(GTK_LABEL(gtk_frame_get_label_widget(GTK_FRAME(frame))), _("<b>Highlight</b>"));
+	tmp = g_strdup_printf("<b>%s</b>", _("Highlight"));
+	gtk_label_set_markup(GTK_LABEL(gtk_frame_get_label_widget(GTK_FRAME(frame))), tmp);
+	g_free(tmp);
+	
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 	gtk_container_set_border_width(GTK_CONTAINER(vbox), 12);
@@ -179,6 +184,7 @@ GtkWidget *preferences_widget()
 	gtk_box_pack_start(GTK_BOX(vbox),hbox, FALSE, TRUE, 0); 
 	g_signal_connect(G_OBJECT(cb_auto_purge), "toggled", G_CALLBACK(preferences_cb_auto_purge), hbox);
 
+	
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb_auto_purge), settings.auto_purge);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(sp_purge_days), settings.purge_days);
 	/* make sure the sensitive is ok */
@@ -187,7 +193,9 @@ GtkWidget *preferences_widget()
 	gtk_container_set_border_width(GTK_CONTAINER(vbox), 12);
 	frame = gtk_frame_new(_("Auto Purge"));
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);	
-	gtk_label_set_markup(GTK_LABEL(gtk_frame_get_label_widget(GTK_FRAME(frame))), _("<b>Auto Purge</b>"));
+	tmp = g_strdup_printf("<b>%s</b>", _("Auto Purge"));
+	gtk_label_set_markup(GTK_LABEL(gtk_frame_get_label_widget(GTK_FRAME(frame))), tmp);
+	g_free(tmp);
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 
@@ -199,7 +207,9 @@ GtkWidget *preferences_widget()
 	gtk_container_set_border_width(GTK_CONTAINER(vbox), 12);
 	frame = gtk_frame_new(_("Notification"));
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);	
-	gtk_label_set_markup(GTK_LABEL(gtk_frame_get_label_widget(GTK_FRAME(frame))), _("<b>Notification</b>"));
+	tmp = g_strdup_printf("<b>%s</b>", _("Notification"));
+	gtk_label_set_markup(GTK_LABEL(gtk_frame_get_label_widget(GTK_FRAME(frame))), tmp);
+	g_free(tmp);
 	gtk_container_set_border_width(GTK_CONTAINER(frame), 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 

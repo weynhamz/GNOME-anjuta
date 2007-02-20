@@ -65,9 +65,6 @@ libanjuta_gtodo_la_SOURCES=\
 	tray-icon.c\
 	tray-icon.h
 
-#	main.c\
-#	gtodo.c
-
 EXTRA_DIST = \
 	$(gtodo_pixmaps_DATA) \
 	$(plugin_in_files) \

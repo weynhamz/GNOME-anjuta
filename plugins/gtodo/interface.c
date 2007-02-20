@@ -251,44 +251,6 @@ GtkWidget * gui_create_todo_widget()
 	return mw.vbox;
 }
 
-void about_window()
-{
-	GtkWidget *dialog, *label, *image, *vbox;
-	gchar *buf;
-	dialog = gtk_dialog_new_with_buttons(_("About gToDo"), GTK_WINDOW(mw.window), 
-			GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT, NULL);
-	gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL);    
-
-	vbox = gtk_vbox_new(FALSE, 0);
-	image = gtk_image_new_from_stock("gtodo", GTK_ICON_SIZE_DIALOG);
-	gtk_box_pack_start(GTK_BOX(vbox), image,FALSE, FALSE, 6);
-
-	buf = g_strdup_printf(_("gToDo %s"),VERSION);
-	label = gtk_label_new(buf);
-	g_free(buf);
-
-	buf =  g_strdup_printf(_("<span size=\"xx-large\"><b>gToDo %s</b></span>"),VERSION);
-	gtk_label_set_markup(GTK_LABEL(label),buf);
-	g_free(buf);
-	gtk_box_pack_start(GTK_BOX(vbox), label,FALSE, FALSE, 6);
-
-	label = gtk_label_new(_("gToDo is a small and simple todo list written in gtk+-2.0"));
-	gtk_box_pack_start(GTK_BOX(vbox), label,FALSE, FALSE, 6);
-
-	label = gtk_label_new(_("Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"));
-	gtk_label_set_markup(GTK_LABEL(label), _("<span size=\"small\">""Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)""</span>"));
-	gtk_box_pack_start(GTK_BOX(vbox), label,FALSE, FALSE, 6);
-
-	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), vbox);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
-	gtk_container_set_border_width(GTK_CONTAINER(GTK_DIALOG(dialog)), 6);
-
-	gtk_dialog_set_has_separator(GTK_DIALOG(dialog), FALSE);
-	gtk_widget_show_all(dialog);
-	gtk_dialog_run(GTK_DIALOG(dialog));    
-	gtk_widget_destroy(dialog);
-}
-
 static void stock_icons()
 {
 	GtkIconFactory *factory;

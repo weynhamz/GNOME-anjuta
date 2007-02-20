@@ -3,7 +3,18 @@
 	* plugins/subversion/plugin.c: Added "..." menuitems.
 	* ROADMAP, README: Updated.
 	* libanjuta/anjuta-profile.c: Fixed bugs.
-	
+
+	* (removed)plugins/gtodo/gtodo.c, (removed)plugins/gtodo/main.c,
+	plugins/gtodo/Makefile.am: Removed dead code.
+
+	Patch from  Antoine Cailliau  <a.cailliau@ac-graphic.net>:
+	* plugins/gtodo/interface.c, plugins/gtodo/preferences.c,
+	plugins/gtodo/notification.c, plugins/gtodo/add_edit_item.c,
+	plugins/gtodo/list_tooltip.c,
+	plugins/document-manager/goto_line.c, plugins/glade/plugin.c,
+	libanjuta/anjuta-save-prompt.c: Fixed translatable strings to
+	not contain markups. Fixes Bug #360462.
+
 2007-02-16  Naba Kumar  <naba@gnome.org>
 
 	* manuals/reference/libanjuta/project-wizard-format.sgml: Removed

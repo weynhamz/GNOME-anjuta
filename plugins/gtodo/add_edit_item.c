@@ -76,7 +76,6 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	GtkSizeGroup *sglabel, *sgdd;
 	GtkWidget *rlabel=NULL, *notify_cb, *llabel=NULL;
 	gchar *tempstr;
-	gchar *temp1;
 	guint64 idvalue;
 	int i;
 	int edit = GPOINTER_TO_INT(data);
@@ -132,7 +131,6 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 		gtk_widget_set_sensitive(addbut, FALSE);
 	}
 
-
 	/* the main hbox, that spilts the window in 2 */
 
 	/* the vbox for the selectors, buttons */
@@ -140,12 +138,13 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), vbox, TRUE, TRUE, 0);
 	gtk_container_set_border_width(GTK_CONTAINER(vbox), 9);
 
-
 	/* summary label */
 	hbox2 = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox2, FALSE, TRUE, 6);
 	label = gtk_label_new(_("Summary:"));
-	gtk_label_set_markup(GTK_LABEL(label), _("<b>Summary:</b>"));
+	tempstr = g_strdup_printf("<b>%s</b>", _("Summary:"));
+	gtk_label_set_markup(GTK_LABEL(label), tempstr);
+	g_free(tempstr);
 	gtk_misc_set_alignment(GTK_MISC(label), 1,0.5);
 	gtk_box_pack_start(GTK_BOX(hbox2), label, FALSE, TRUE,0);
 	gtk_size_group_add_widget(sglabel, label);
@@ -153,7 +152,6 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	summary = gtk_entry_new_with_max_length(64);
 	gtk_box_pack_start(GTK_BOX(hbox2), summary, TRUE, TRUE, 0);
 	g_signal_connect(G_OBJECT(summary), "changed", G_CALLBACK(check_length), addbut);
-
 
 	/* add category switch */
 	/* hbox for the label switch and toggle but */
@@ -199,7 +197,6 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 	gtk_box_pack_start(GTK_BOX(vbox), hbox2, FALSE, TRUE, 6); 
 	gtk_misc_set_alignment(GTK_MISC(label), 1,0.5);
 	gtk_size_group_add_widget(sglabel, label);
-
 
 	cals[0] = egg_datetime_new();
 	gtk_box_pack_start(GTK_BOX(hbox2), cals[0],TRUE, TRUE, 0);    
@@ -249,17 +246,15 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 		gtk_option_menu_set_history(GTK_OPTION_MENU(priority), 1);
 		gtk_box_pack_start(GTK_BOX(hbox2), priority,TRUE, TRUE, 0);
 		gtk_size_group_add_widget(sgdd, priority);
-
-
 	}
-
-
 
 	/* comment label */
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), vbox2, TRUE, TRUE, 6);
 	label = gtk_label_new(_("Comment:"));
-	gtk_label_set_markup(GTK_LABEL(label), _("<b>Comment:</b>"));
+	tempstr = g_strdup_printf("<b>%s</b>", _("Comment:"));
+	gtk_label_set_markup(GTK_LABEL(label), tempstr);
+	g_free(tempstr);
 	gtk_misc_set_alignment(GTK_MISC(label), 0,0.5);
 	gtk_box_pack_start(GTK_BOX(vbox2), label, FALSE, TRUE, 6);
 	gtk_size_group_add_widget(sglabel, label);
@@ -287,26 +282,25 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 		llabel = gtk_label_new("");
 
 		hbox2 = gtk_hbox_new(FALSE,12);
-		gtk_label_set_markup(GTK_LABEL(llabel), _("<i>started: n/a</i>"));
+		tempstr = g_strdup_printf("<i>%s %s</i>", _("started:"), _("n/a"));
+		gtk_label_set_markup(GTK_LABEL(llabel), tempstr);
 		gtk_box_pack_start(GTK_BOX(hbox2),llabel, TRUE, TRUE, 6);
 		gtk_misc_set_alignment(GTK_MISC(llabel), 0,0.5);	
+		g_free(tempstr);
+
 		rlabel = gtk_label_new("");	
-		gtk_label_set_markup(GTK_LABEL(rlabel), _("<i>stopped: n/a</i>"));
+		tempstr = g_strdup_printf("<i>%s %s</i>", _("stopped:"), _("n/a"));
+		gtk_label_set_markup(GTK_LABEL(rlabel), tempstr);
 		gtk_box_pack_start(GTK_BOX(hbox2),rlabel, TRUE, TRUE, 6);
 		gtk_misc_set_alignment(GTK_MISC(rlabel), 1,0.5);
-
+		g_free(tempstr);
 		gtk_box_pack_start(GTK_BOX(vbox), hbox2, FALSE, TRUE, 6);
-
-
 	}
 
 	gtk_widget_grab_default(addbut);
 	gtk_entry_set_activates_default(GTK_ENTRY(summary), TRUE);
 
 	gtk_widget_show_all(GTK_WIDGET(GTK_DIALOG(dialog)));
-
-
-
 
 	/* this needs to be after show all or the show_all will make this command useless 
 	//    egg_datetime_set_display_mode(EGG_DATETIME(cals[0]), EGG_DATETIME_DISPLAY_DATE);
@@ -334,12 +328,13 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 			if((buffer1 = gtodo_todo_item_get_stop_date_as_string(item)) == NULL)  buffer1 = g_strdup_printf(_("n/a"));
 			if((buffer = gtodo_todo_item_get_start_date_as_string(item)) == NULL)  buffer = g_strdup_printf(_("n/a"));		
 
-			tempstr = g_strdup_printf( _("<i>started: %s</i>"), buffer);
+			tempstr = g_strdup_printf("<i>%s %s</i>", _("started:"), buffer);
 			gtk_label_set_markup(GTK_LABEL(llabel),tempstr);
 			g_free(tempstr);
-			tempstr = g_strdup_printf( _("<i>stopped: %s</i>"), buffer1);
+			
+			tempstr = g_strdup_printf("<i>%s %s</i>", _("stopped:"), buffer1);
 			gtk_label_set_markup(GTK_LABEL(rlabel),tempstr);
-			g_free(tempstr);	
+			g_free(tempstr);
 			g_free(buffer);
 			g_free(buffer1);
 		}
@@ -400,9 +395,9 @@ void gui_add_todo_item(GtkWidget *useless, gpointer data, guint32 openid){
 
 	      gtodo_todo_item_set_summary(item,(gchar *)gtk_entry_get_text(GTK_ENTRY(summary)));
 	      gtodo_todo_item_set_notify(item, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(notify_cb)));    
-	      temp1 = gtk_text_buffer_get_text(buffer, &first, &last, FALSE);
-	      gtodo_todo_item_set_comment(item,temp1);
-	      g_free(temp1);
+	      tempstr = gtk_text_buffer_get_text(buffer, &first, &last, FALSE);
+	      gtodo_todo_item_set_comment(item,tempstr);
+	      g_free(tempstr);
 
 
 
@@ -422,7 +417,7 @@ void add_edit_completed_toggled(GtkWidget *checkbox, GtkWidget *rlabel)
 {	
 	GDate *date, *date1;
 	gchar buffer[64], buffer1[64];
-	gchar *data;
+	gchar *tempstr;
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbox))){
 		date = g_date_new();
 		g_date_set_time(date, time(NULL));
@@ -444,9 +439,12 @@ void add_edit_completed_toggled(GtkWidget *checkbox, GtkWidget *rlabel)
 		g_date_free(date1);
 	}
 	else strcpy(buffer1, "n/a");
-	data = g_strdup_printf(_("<i>started: %s \tstopped: %s</i>"),buffer, buffer1);
-	gtk_label_set_markup(GTK_LABEL(rlabel), data);
-	g_free(data);
+	
+	tempstr = g_strdup_printf("<i>%s %s \t%s %s</i>",
+							  _("started:"), _("stopped:"),
+							  buffer, buffer1);
+	gtk_label_set_markup(GTK_LABEL(rlabel), tempstr);
+	g_free(tempstr);
 }
 
 void add_edit_option_changed(GtkOptionMenu *option, GtkWidget *menu)

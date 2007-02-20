@@ -271,15 +271,18 @@ glade_confirm_close_project (GladePlugin *plugin, GladeProject *project)
 	GladeApp *gpw;
 	GtkWidget *dialog;
 	gboolean close = FALSE;
-	char *msg;
+	gchar *msg, *string; 
 	gint ret;
 
 	g_return_val_if_fail (GLADE_IS_PROJECT (project), FALSE);
 
 	gpw = plugin->priv->gpw;
-	msg = g_strdup_printf (_("<span weight=\"bold\" size=\"larger\">Save changes to glade project \"%s\" before closing?</span>\n\n"
-				 "Your changes will be lost if you don't save them.\n"), project->name);
-
+	string = g_strdup_printf(
+					"<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s", 				
+					_("Save changes to glade project \"%s\" before closing?"), 
+					_("Your changes will be lost if you don't save them."));
+	msg = g_strdup_printf (string, project->name);
+	g_free(string);
 	dialog = gtk_message_dialog_new (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 					 GTK_DIALOG_MODAL,
 					 GTK_MESSAGE_QUESTION,

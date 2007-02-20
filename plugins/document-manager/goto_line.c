@@ -108,6 +108,7 @@ gotoline_init (GotoLine * obj)
   GtkWidget *numberentry;
   GtkWidget *vbox;
   GtkWidget *label;
+  gchar *string;
 	
   assert (obj != NULL);
 
@@ -122,7 +123,9 @@ gotoline_init (GotoLine * obj)
   gtk_widget_show (dialog_vbox);
 
   label = gtk_label_new(NULL);
-  gtk_label_set_markup (GTK_LABEL (label), _("<b>Go to Line number:</b>"));
+  string = g_strdup_printf ("<b>%s</b>", _("Go to Line number:"));
+  gtk_label_set_markup (GTK_LABEL (label), string);
+  g_free(string);
   gtk_widget_show (label);
   frame = gtk_frame_new (NULL);
   gtk_frame_set_label_widget (GTK_FRAME (frame), label);

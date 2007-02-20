@@ -39,18 +39,19 @@ gchar *get_tooltip_text()
 			
 			if(gtodo_todo_item_get_summary(item) != NULL)
 			{
-				g_string_append_printf(string, _("<b>Summary:</b>\t%s"), 
+				g_string_append_printf(string, "<b>%s</b>\t%s", _("Summary:"),
 						gtodo_todo_item_get_summary(item));
 			}
 
 			if(gtodo_todo_item_get_due_date(item) != NULL 
 					&& gtodo_todo_item_get_due_time_houre(item) == -1){
-			       	g_string_append_printf(string, _("\n<b>Due date:</b>\t%s"), 
+			       	g_string_append_printf(string, "\n<b>%s</b>\t%s", _("Due date:"), 
 						gtodo_todo_item_get_due_date_as_string(item));
 			}
 			else if(gtodo_todo_item_get_due_date(item) != NULL)
 			{
-				g_string_append_printf(string, _("\n<b>Due date:</b>\t%s at %02i:%02i") , 
+				g_string_append_printf(string, "\n<b>%s</b>\t%s at %02i:%02i" , 
+						_("Due date:") , 
 						gtodo_todo_item_get_due_date_as_string(item), 
 						gtodo_todo_item_get_due_time_houre(item), 
 						gtodo_todo_item_get_due_time_minute(item));
@@ -58,19 +59,27 @@ gchar *get_tooltip_text()
 
 			if(gtodo_todo_item_get_priority(item) == 0)
 			{
-				g_string_append_printf(string, _("\n<b>Priority:</b>\t\t<span color=\"dark green\">%s</span>"), _("Low"));
+				g_string_append_printf(string, 
+					"\n<b>%s</b>\t\t<span color=\"dark green\">%s</span>", 
+					_("Priority:"),
+					_("Low"));
 			}
 			else if(gtodo_todo_item_get_priority(item) == 1)
 			{
-				g_string_append_printf(string, _("\n<b>Priority:</b>\t\t%s"), _("Medium"));
+				g_string_append_printf(string, 
+					"\n<b>%s</b>\t\t%s", 
+					_("Priority:"), _("Medium"));
 			}
 			else
 			{
-				g_string_append_printf(string, _("\n<b>Priority:</b>\t\t<span color=\"red\">%s</span>"), _("High"));
+				g_string_append_printf(string, 
+					"\n<b>%s</b>\t\t<span color=\"red\">%s</span>", 
+					_("Priority:"), _("High"));
 			}
 			if(gtodo_todo_item_get_comment(item) != NULL && strlen(gtodo_todo_item_get_comment(item)))
 			{
-				g_string_append_printf(string, _("\n<b>Comment:</b>\t%s"), gtodo_todo_item_get_comment(item)); 
+				g_string_append_printf(string, "\n<b>%s</b>\t%s", _("Comment:"), 
+					gtodo_todo_item_get_comment(item)); 
 			}
 
 			gtodo_todo_item_free(item);
@@ -89,8 +98,6 @@ gchar *get_tooltip_text()
 	}
 	else return g_strdup("oeps");
 }
-
-
 
 static
 void mw_paint_tip(GtkWidget *widget, GdkEventExpose *event)

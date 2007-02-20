@@ -43,7 +43,7 @@ void create_notification_window(GTodoItem *item)
 {
 	GtkWidget *dialog, *but_cancel, *image, *ck_but;
 	GtkWidget *hbox, *label, *vbox;
-	gchar *buffer;
+	gchar *buffer, *tempstr;
 	if(table == NULL) table = g_array_new(TRUE, TRUE, sizeof(GtkWidget *));
 	else{
 		not_window *test=NULL;
@@ -62,9 +62,18 @@ void create_notification_window(GTodoItem *item)
 	}
 	if(gtodo_todo_item_check_due(item) == 0 && gtodo_todo_item_check_due_time_minutes_left(item) > 0 )
 	{
-		buffer = g_strdup_printf(_("<spam weight=\"bold\" size=\"larger\">The following item is due in %i minutes:</span>\n %s"),gtodo_todo_item_check_due_time_minutes_left(item), gtodo_todo_item_get_summary(item));
+		tempstr = g_strdup_printf("<span weight=\"bold\" size=\"larger\">%s</span>\n\"%s\"",
+			_("The following item is due in %i minutes:"), gtodo_todo_item_get_summary(item));
+		buffer = g_strdup_printf(tempstr,
+			gtodo_todo_item_check_due_time_minutes_left(item));
+		g_free(tempstr);
 	}
-	else buffer = g_strdup_printf(_("<span weight=\"bold\" size=\"larger\">The following item is due:</span>\n\"%s\""), gtodo_todo_item_get_summary(item));
+	else 
+	{	
+		buffer = g_strdup_printf("<span weight=\"bold\" size=\"larger\">%s</span>\n\"%s\"",
+			_("The following item is due:"),
+			gtodo_todo_item_get_summary(item));
+	}
 	/* create image and more stuff in dialog */
 	dialog = gtk_dialog_new();
 	gtk_container_set_border_width(GTK_CONTAINER(GTK_DIALOG(dialog)), 6);
