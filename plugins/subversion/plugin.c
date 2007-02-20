@@ -48,7 +48,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionAdd",                       /* Action name */
 		GTK_STOCK_ADD,                            /* Stock icon, if any */
-		N_("_Add"),                     /* Display label */
+		N_("_Add..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add a new file/directory to the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_add)    /* action callback */
@@ -56,7 +56,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionRemove",                       /* Action name */
 		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
-		N_("_Remove"),                     /* Display label */
+		N_("_Remove..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Remove a file/directory from Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_remove)    /* action callback */
@@ -64,7 +64,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionCommit",                       /* Action name */
 		GTK_STOCK_YES,                            /* Stock icon, if any */
-		N_("_Commit"),                     /* Display label */
+		N_("_Commit..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Commit your changes to the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_commit)    /* action callback */
@@ -72,7 +72,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionUpdate",                       /* Action name */
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
-		N_("_Update"),                     /* Display label */
+		N_("_Update..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Sync your local copy with the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_update)    /* action callback */
@@ -80,7 +80,7 @@ static GtkActionEntry actions_subversion[] = {
 	{
 		"ActionSubversionDiff",                       /* Action name */
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
-		N_("_Diff"),                     /* Display label */
+		N_("_Diff..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Diff local tree with repositry"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_diff)    /* action callback */
@@ -99,7 +99,7 @@ static GtkActionEntry popup_actions_subversion[] = {
 	{
 		"ActionPopupSubversionCommit",                       /* Action name */
 		GTK_STOCK_YES,                            /* Stock icon, if any */
-		N_("_Commit"),                     /* Display label */
+		N_("_Commit..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Commit your changes to the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_fm_subversion_commit)    /* action callback */
@@ -107,7 +107,7 @@ static GtkActionEntry popup_actions_subversion[] = {
 	{
 		"ActionPopupSubversionUpdate",                       /* Action name */
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
-		N_("_Update"),                     /* Display label */
+		N_("_Update..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Sync your local copy with the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_fm_subversion_update)    /* action callback */

@@ -80,7 +80,7 @@ anjuta_profile_set_property (GObject *object, guint prop_id,
 		priv->readonly = g_value_get_boolean (value);
 		break;
 	case PROP_PROFILE_NAME:
-		g_return_if_fail (g_value_get_string (value) == NULL);
+		g_return_if_fail (g_value_get_string (value) != NULL);
 		g_free (priv->name);
 		priv->name = g_strdup (g_value_get_string (value));
 		break;
@@ -243,7 +243,7 @@ AnjutaProfile*
 anjuta_profile_new (const gchar* name, gboolean readonly, GList* plugins)
 {
 	GObject *profile;
-	profile = g_object_new (ANJUTA_TYPE_PROFILE, "name", name,
+	profile = g_object_new (ANJUTA_TYPE_PROFILE, "profile-name", name,
 							"readonly", readonly,
 							"plugins", plugins, NULL);
 	return ANJUTA_PROFILE (profile);

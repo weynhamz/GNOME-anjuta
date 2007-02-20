@@ -8,12 +8,8 @@ of common development tools. libanjuta is the framework that realizes the
 Anjuta IDE plugin framework and Anjuta DevStudio realizes many of the common
 development plugins.
 
-Anjuta branches:
-----------------
-Anjuta currently has two main branches, ANJUTA_1_2_0 and HEAD. The ANJUTA_1_2_0
-branch is stable branch and corresponds to anjuta-1.x release series. The
-HEAD branch is the anjuta-2.x releases and is the latest development series.
-
+Anjuta 2.x (trunk):
+-------------------
 Anjuta 2.x development series has new extensible plugin architecture and all
 the plugins have been ported to this new plateform. The libanjuta interface
 defines all the IDE APIs and is used to write anjuta plugins. In addition, it
@@ -23,21 +19,11 @@ Following are the major milestones that we will attempt to reach by the
 estimated dates given. There will be smaller releases in-between, mainly
 stablization and bugfix releases.
 
-Milestone 2.0.2 - (Estimated release time April 2006)
-- Compelete autotools project management implementation (gnome-build)
+Milestone 2.2.0 - (Estimated release time Apr 2007):
 - Complete libanjuta API definition and documentation
 - Partial user documentation
-
-Milestone 2.1.0 - (Estimated release time Oct 2006):
-- Complete Users manual, tutorials and FAQ
-- Include new debugger from anjuta-new-debugger branch
 - Fix GDL to restore widgets dock locations correctly.
-- Fix GDL to restore widgets geometry correctly on dock.
 - Complete glade plugin integration
-- Complete API implementations in plugins (i.e no missing implementation stubs).
-
-
-Milestone 2.2.0 - (Estimated release time Jan 2007):
 - Bug fixing and stable release.
 
 Optional other stuff
@@ -84,14 +70,15 @@ plugin).
 Links:
 - gtranslator: http://gtranslator.sourceforge.net/
 
-Performance Profiler plugin:
-----------------------------
-gprof is a command line tool for profiling program performance. The executable
-is required to be compiled with -p flag and when the program is executed,
-a profiling info is collected in a file. After the execution is done, gprof
-can be used to interpret the profile data. This plugin parses the output from
-gprof and presents the information in different views -- text, lists
-and graphs. It is similar to the valgrind plugin given below.
+conglomerate integration
+------------------------
+conglomerate is a nice application for editing xml files, such as docbook
+articles and book. In anjuta, it will be particularly helpful to write
+software documentations. Integrating it will pretty much follow the same
+approach as with devhelp and gtranslator.
+
+Links:
+-http://www.conglomerate.org/
 
 Users manual, tutorials and FAQ update:
 ---------------------------------------
@@ -112,13 +99,8 @@ and answers that would qualify for FAQ.
 
 Glade3 Integration:
 -------------------
-We already have glade3 integration in anjuta working. But the implementation
-is incomplete and not fully usable. The main reason is that glade3 is not
-fully ready for general consumption. One part of this task involve
-collaborating with glade3 developers and helping them complete it so that it
-is fully compatible with glade2 files and libglade.
-
-The second part involves interfacing it with anjuta glade plugin for
+We already have glade3 integration in anjuta working.
+The improvements involve interfacing it with anjuta glade plugin for
 signals navigation, stubs creations and project files negotiations.
 
 Signals navigation" means when user selects a signal in glade properties editor,

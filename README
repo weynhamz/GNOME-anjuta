@@ -15,11 +15,11 @@ version controls, integrated GUI designing and other tools.
 
 Anjuta is an effort to marry the flexibility and power of text-based 
 command-line tools with the ease-of-use of the GNOME graphical user 
-interface. That is why it has been made as user-friendly as possible.
+interface. We thrive to make it very usable by eleminating developers
+burden with mudane programming tasks.
 
 Anjuta 2.x is the next generation Anjuta development studio with extensible
-plugin architecture. There has been a complete change in architecture of
-Anjuta since 1.x series. The new architecture allows writing independent
+plugin architecture. The new architecture allows writing independent
 plugins that could interact with existing plugins. Most of the older
 features have been already ported to the new architecture and are working.
 
@@ -41,23 +41,6 @@ as helping the Open Source community. Please read the file COPYRIGHT for
 details. 
 
 Any sort of suggestions or patches for Anjuta are also most welcome. 
-
-Copyright (C) 2000-2002 Naba Kumar <naba@gnome.org>
----------------------------------------------------
-
-This program is free software; you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation; either version 2 of the License, or (at your option) any later
-version. 
-
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with
-this program; if not, write to the Free Software Foundation, Inc., 59 Temple
-Place, Suite 330, Boston, MA 02111-1307 USA 
-
 
 Presently available features in Anjuta:
 ---------------------------------------
@@ -136,13 +119,7 @@ Mailing lists:
 REQUIREMENTS:
 -------------
 
-Installation should be a breeze on any reasonably up-to-date *NIX system
-with GNOME 2.x .The following are the minimum requirements. Until the code
-reaches some kind stability it is always good to use the latest stable
-version of the libraries
-
-1) Installation
-# From Tarball:
+1) Installation from tarball:
 	* GTK libs (2.0 or later)
 	* GNOME libs (2.0 or later)
 	* gnome-xml (aka libxml1) (1.4.0 or later)
@@ -150,23 +127,24 @@ version of the libraries
 	* gdk-pixbuf
 	* scrollkeeper
 	* pkgconfig
-	* gnome-build (from GNOME CVS, no tarball yet)
-	* gdl (from GNOME CVS)
+	* gnome-build (the latest release)
+	* gdl (the latest release)
 
 	Optional:
-	* glade3 (from GNOME CVS) to build glade plugin
-	* libsvn (www.subversion.org) to build subversion plugin
-	* graphviz
+	* devhelp (0.13 or later): for integrated API help
+	* glade3 (3.1.5 or later): for integrated UI designing
+	* libsvn: (www.subversion.org) to build subversion plugin
+	* graphviz: for class hierarchy view and profiler.
 
-# From CVS:
+2) Installation from repository:
 	* All the requirements for tarball
 	* GNU gettext 0.10.x (or later)
 	* Automake 1.4 (or later)
 	* Autoconf 2.13 (or later)
 
-2) Running
-	* X-Windows, any window manager should do as long
-	as the gnome libs are installed)
+3) Running
+	* X-Windows, any window manager should do as long as the gnome libs
+	  are installed)
 	* Bash command shell
 	* GNU Indent
 	* yelp to browse docs
@@ -180,10 +158,9 @@ version of the libraries
 INSTALLATION:
 -------------
 
-# From Tarball:
-	Note:- The package as an example is taken as anjuta-1.0.tar.gz
-	and '#' is the shell prompt. You must be logged in as root to
-	install Anjuta.
+Note:- The package as an example is taken as anjuta-1.0.tar.gz
+and '#' is the shell prompt. You must be logged in as root to
+install Anjuta.
 
 	1) Get the tarball
 	2) copy it to your home dir.
@@ -193,23 +170,13 @@ INSTALLATION:
 	6) Type:  # make
 	7) Type:  # make install
 
-	That's all. If everything went smoothly, congratulations. If not,
-	then please check that you have the latest libgnome and libgnomeui
-	installed. Get them if you don't have and repeat the above steps.
+That's all. If everything went smoothly, congratulations. If not,
+then please check that you have the latest libgnome and libgnomeui
+installed. Get them if you don't have and repeat the above steps.
 
 
 KNOWN ISSUES:
 -------------
-	* Printing is unstable with older versions of gnome-print and FreeType.
-	If you experience crashes while printing, please upgrade gnome-print
-	and FreeType to the latest stable versions (currently 0.36 and 2.1.2
-	respectively).
-	
-	* Debugger stepping may not work correctly if executables are compiled
-	with optimization enabled (This is a GCC/GDB issue). If you plan to
-	debug your application from Anjuta, please turn off optimization for
-	debug builds.
-
 	* Calltips flicker when the cursor touches them if you have your window
 	manager set to follow-mouse-cursor for focus. Change it to focus-follow
 	mouse click to fix it.
@@ -217,8 +184,8 @@ KNOWN ISSUES:
 RUNNING:
 --------
 
-To run Anjuta, choose Development->Anjuta from the GNOME Main Menu, 
-or type:   # anjuta
+To run Anjuta, choose Applications->Programming->Anjuta IDE from the GNOME
+Main Menu, or type:   # anjuta
 
 If you get the shell error 'Command not found', then make sure your PATH
 variable contains the executable path of Anjuta binary (by default:
