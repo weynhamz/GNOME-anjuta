@@ -1,3 +1,8 @@
+2007-02-20  Jean-Noel Guiheneuf  <guiheneuf.jean-noel@wanadoo.fr>
+
+	* plugins/debug-manager/breakpoints.c: Enabled/Disabled breakpoints.
+
+
 2007-02-20  Naba Kumar  <naba@gnome.org>
 
 	* plugins/subversion/plugin.c: Added "..." menuitems.

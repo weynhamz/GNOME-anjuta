@@ -48,6 +48,15 @@ ianjuta-markable
 </para>
 
 
+<!-- ##### SIGNAL IAnjutaMarkable::marker-clicked ##### -->
+<para>
+
+</para>
+
+@ianjutamarkable: the object which received the signal.
+@arg1: 
+@arg2: 
+
 <!-- ##### STRUCT IAnjutaMarkableIface ##### -->
 <para>
 

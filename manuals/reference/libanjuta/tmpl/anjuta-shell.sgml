@@ -75,6 +75,49 @@ Application shell interface
 </para>
 
 
+<!-- ##### SIGNAL AnjutaShell::load-session ##### -->
+<para>
+
+</para>
+
+@anjutashell: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL AnjutaShell::save-prompt ##### -->
+<para>
+
+</para>
+
+@anjutashell: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL AnjutaShell::save-session ##### -->
+<para>
+
+</para>
+
+@anjutashell: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL AnjutaShell::value-added ##### -->
+<para>
+
+</para>
+
+@anjutashell: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL AnjutaShell::value-removed ##### -->
+<para>
+
+</para>
+
+@anjutashell: the object which received the signal.
+@arg1: 
+
 <!-- ##### STRUCT AnjutaShellIface ##### -->
 <para>
 

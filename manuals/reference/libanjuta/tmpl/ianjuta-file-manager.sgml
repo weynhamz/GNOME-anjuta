@@ -30,6 +30,14 @@ ianjuta-file-manager
 </para>
 
 
+<!-- ##### SIGNAL IAnjutaFileManager::section-changed ##### -->
+<para>
+
+</para>
+
+@ianjutafilemanager: the object which received the signal.
+@arg1: 
+
 <!-- ##### STRUCT IAnjutaFileManagerIface ##### -->
 <para>
 

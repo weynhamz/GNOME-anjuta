@@ -40,6 +40,22 @@
 </para>
 
 
+<!-- ##### SIGNAL IAnjutaMessageView::buffer-flushed ##### -->
+<para>
+
+</para>
+
+@ianjutamessageview: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaMessageView::message-clicked ##### -->
+<para>
+
+</para>
+
+@ianjutamessageview: the object which received the signal.
+@arg1: 
+
 <!-- ##### STRUCT IAnjutaMessageViewIface ##### -->
 <para>
 

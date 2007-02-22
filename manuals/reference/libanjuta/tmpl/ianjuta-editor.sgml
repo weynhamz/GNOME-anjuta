@@ -37,6 +37,34 @@
 </para>
 
 
+<!-- ##### SIGNAL IAnjutaEditor::changed ##### -->
+<para>
+
+</para>
+
+@ianjutaeditor: the object which received the signal.
+@arg1: 
+@arg2: 
+@arg3: 
+@arg4: 
+@arg5: 
+
+<!-- ##### SIGNAL IAnjutaEditor::char-added ##### -->
+<para>
+
+</para>
+
+@ianjutaeditor: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL IAnjutaEditor::update-ui ##### -->
+<para>
+
+</para>
+
+@ianjutaeditor: the object which received the signal.
+
 <!-- ##### STRUCT IAnjutaEditorIface ##### -->
 <para>
 

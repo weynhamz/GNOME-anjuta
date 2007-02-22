@@ -1175,19 +1175,10 @@ on_breakpoints_button_press (GtkWidget * widget, GdkEventButton * bevent, Breakp
 }
 
 static void
-on_treeview_enabled_toggled (GtkCellRendererToggle *cell,
-							 gchar			       *path_str,
-							 BreakpointsDBase      *bd)
+breakpoint_enable_disable (GtkTreeModel *model, GtkTreeIter iter, BreakpointsDBase *bd)
 {
 	BreakpointItem *bi;
-	GtkTreeModel *model;
-	GtkTreeIter iter;
-	GtkTreePath *path;
 	
-	path = gtk_tree_path_new_from_string (path_str);
-
-	model = gtk_tree_view_get_model (bd->treeview);
-	gtk_tree_model_get_iter (model, &iter, path);
 	gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 
 	if (bi->bp->enable == IANJUTA_DEBUGGER_YES)
@@ -1218,7 +1209,26 @@ on_treeview_enabled_toggled (GtkCellRendererToggle *cell,
 		gtk_list_store_set (GTK_LIST_STORE (model), &bi->iter,
 						ENABLED_COLUMN, bi->bp->enable == IANJUTA_DEBUGGER_YES ? TRUE : FALSE,
 						-1);
+		set_breakpoint_in_editor (bi, bi->bp->enable == IANJUTA_DEBUGGER_YES ? 
+								  BREAKPOINT_ENABLED : BREAKPOINT_DISABLED, TRUE);	
 	}
+}
+
+static void
+on_treeview_enabled_toggled (GtkCellRendererToggle *cell,
+							 gchar			       *path_str,
+							 BreakpointsDBase      *bd)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkTreePath *path;
+	
+	path = gtk_tree_path_new_from_string (path_str);
+
+	model = gtk_tree_view_get_model (bd->treeview);
+	gtk_tree_model_get_iter (model, &iter, path);
+	
+	breakpoint_enable_disable (model, iter, bd);
 }
 
 static void
@@ -1334,6 +1344,22 @@ on_edit_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	}
 }
 
+static void
+on_enable_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
+{
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	gboolean valid;
+
+	selection =	gtk_tree_view_get_selection (bd->treeview);
+	valid = gtk_tree_selection_get_selected (selection, &model, &iter);
+	if (valid)
+	{
+		breakpoint_enable_disable (model, iter, bd);
+	}
+}
+
 /* Actions table
  *---------------------------------------------------------------------------*/
 
@@ -1392,7 +1418,7 @@ static GtkActionEntry actions_breakpoints[] = {
 		N_("Enable Breakpoint"),                  /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Enable a breakpoint"),                /* Tooltip */
-		G_CALLBACK (on_add_breakpoint_activate)   /* action callback */
+		G_CALLBACK (on_enable_breakpoint_activate)   /* action callback */
 	},
 	{
 		"ActionGdbDisableAllBreakpoints",         /* Action name */

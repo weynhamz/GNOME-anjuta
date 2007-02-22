@@ -1451,6 +1451,21 @@ Properties
 @down: 
 @up: 
 
+<!-- ##### SIGNAL IAnjutaDebugger::send ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+
+<!-- ##### SIGNAL IAnjutaDebugger::status-changed ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+@arg1: 
+
 <!-- ##### STRUCT IAnjutaDebuggerManager ##### -->
 <para>
 
