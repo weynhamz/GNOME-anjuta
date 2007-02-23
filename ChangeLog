@@ -1,4 +1,4 @@
-2007-02-20  Naba kumar  <naba@gnome.org>
+2007-02-24  Naba kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/Makefile.am.iface: Added log domain.
 	
@@ -20,7 +20,7 @@
 	
 	* manuals/reference/libanjuta/tmpl/anjuta-shell.sgml: Updated.
 
-2007-02-20  Naba kumar  <naba@gnome.org>
+2007-02-23  Naba kumar  <naba@gnome.org>
 
 	src/main.c: Fixed missing end quote.
 
