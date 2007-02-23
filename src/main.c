@@ -327,7 +327,7 @@ main (int argc, char *argv[])
 #ifdef G_THREADS_ENABLED    
     if (!g_thread_supported()) g_thread_init(NULL);
 #else
-#warning "Some plugins won't work without thread support
+#warning "Some plugins won't work without thread support"
 #endif
     
 	/* Initialize gnome program */
