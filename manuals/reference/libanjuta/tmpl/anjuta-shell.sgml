@@ -133,6 +133,7 @@ Application shell interface
 @get_ui: 
 @get_preferences: 
 @get_plugin_manager: 
+@get_profile_manager: 
 @add_widget: 
 @remove_widget: 
 @present_widget: 

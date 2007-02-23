@@ -1,5 +1,27 @@
 2007-02-20  Naba kumar  <naba@gnome.org>
 
+	* libanjuta/interfaces/Makefile.am.iface: Added log domain.
+	
+	* libanjuta/anjuta-marshal.list, libanjuta/anjuta-plugin-manager.c,
+	libanjuta/anjuta-plugin-manager.h, libanjuta/anjuta-profile.c,
+	libanjuta/anjuta-profile.h, libanjuta/Makefile.am,
+	(added) libanjuta/anjuta-profile-manager.c,
+	(added) libanjuta/anjuta-profile-manager.h: Implemented profile
+	manager.
+	Implemented profile pushing and popping. Implemented profile xml
+	synchronization. Implemented error handling in profiles. Implemented
+	activation and deactivation signals in plugin manager.
+	
+	* libanjuta/Makefile.am: Added libanjuta log domain.
+	
+	* libanjuta/anjuta-shell.c, libanjuta/anjuta-shell.h,
+	src/anjuta-app.c, src/anjuta-app.h: Added get_profile_manager()
+	in AnjutaShell interface and implemented it in AnjutaApp.
+	
+	* manuals/reference/libanjuta/tmpl/anjuta-shell.sgml: Updated.
+
+2007-02-20  Naba kumar  <naba@gnome.org>
+
 	src/main.c: Fixed missing end quote.
 
 2007-02-20  Jean-Noel Guiheneuf  <guiheneuf.jean-noel@wanadoo.fr>

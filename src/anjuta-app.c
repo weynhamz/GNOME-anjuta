@@ -407,6 +407,10 @@ anjuta_app_dispose (GObject *widget)
 		g_object_unref (app->layout_manager);
 		app->layout_manager = NULL;
 	}
+	if (app->profile_manager) {
+		g_object_unref (G_OBJECT (app->profile_manager));
+		app->profile_manager = NULL;
+	}
 	if (app->plugin_manager) {
 		g_object_unref (G_OBJECT (app->plugin_manager));
 		app->plugin_manager = NULL;
@@ -523,6 +527,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->plugin_manager = anjuta_plugin_manager_new (G_OBJECT (app),
 													 app->status,
 													 plugins_dirs);
+	app->profile_manager = anjuta_profile_manager_new (app->plugin_manager);
 	g_list_free (plugins_dirs);
 	
 	/* Register actions */
@@ -1120,6 +1125,13 @@ anjuta_app_get_plugin_manager  (AnjutaShell *shell, GError **error)
 	return ANJUTA_APP (shell)->plugin_manager;
 }
 
+static AnjutaProfileManager *
+anjuta_app_get_profile_manager (AnjutaShell *shell, GError **error)
+{
+	g_return_val_if_fail (ANJUTA_IS_APP (shell), NULL);
+	return ANJUTA_APP (shell)->profile_manager;
+}
+
 static void
 anjuta_shell_iface_init (AnjutaShellIface *iface)
 {
@@ -1134,6 +1146,7 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->get_ui = anjuta_app_get_ui;
 	iface->get_preferences = anjuta_app_get_preferences;
 	iface->get_plugin_manager = anjuta_app_get_plugin_manager;
+	iface->get_profile_manager = anjuta_app_get_profile_manager;
 }
 
 ANJUTA_TYPE_BEGIN(AnjutaApp, anjuta_app, GNOME_TYPE_APP);

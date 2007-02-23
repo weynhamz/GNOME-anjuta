@@ -23,7 +23,6 @@
 
 #include <glib-object.h>
 #include <libanjuta/anjuta-status.h>
-#include <libanjuta/anjuta-profile.h>
 #include <libanjuta/anjuta-plugin-description.h>
 
 G_BEGIN_DECLS
@@ -34,6 +33,14 @@ G_BEGIN_DECLS
 #define ANJUTA_IS_PLUGIN_MANAGER(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), ANJUTA_TYPE_PLUGIN_MANAGER))
 #define ANJUTA_IS_PLUGIN_MANAGER_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass), ANJUTA_TYPE_PLUGIN_MANAGER))
 #define ANJUTA_PLUGIN_MANAGER_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), ANJUTA_TYPE_PLUGIN_MANAGER, AnjutaPluginManagerClass))
+#define ANJUTA_PLUGIN_MANAGER_ERROR            (anjuta_plugin_manager_error_quark())
+
+typedef enum
+{
+	ANJUTA_PLUGIN_MANAGER_ERROR_INVALID_TYPE,
+	ANJUTA_PLUGIN_MANAGER_ERROR_UNKNOWN
+} AnjutaPluginManagerError;
+
 
 typedef struct _AnjutaPluginManagerClass AnjutaPluginManagerClass;
 typedef struct _AnjutaPluginManager AnjutaPluginManager;
@@ -44,15 +51,12 @@ struct _AnjutaPluginManagerClass
 	GObjectClass parent_class;
 
 	/* Signals */
-	void(* profile_pushed) (AnjutaPluginManager *self, AnjutaProfile* profile);
-	void(* profile_popped) (AnjutaPluginManager *self, AnjutaProfile* profile);
 	void(* plugin_activated) (AnjutaPluginManager *self,
-							  AnjutaProfile* profile,
 							  AnjutaPluginDescription* plugin_desc,
 							  GObject *plugin);
 	void(* plugin_deactivated) (AnjutaPluginManager *self,
-								AnjutaProfile* profile,
-								AnjutaPluginDescription* plugin_desc);
+								AnjutaPluginDescription* plugin_desc,
+								GObject *plugin);
 };
 
 struct _AnjutaPluginManager
@@ -61,23 +65,11 @@ struct _AnjutaPluginManager
 	AnjutaPluginManagerPriv *priv;
 };
 
+GQuark anjuta_plugin_manager_error_quark (void);
 GType anjuta_plugin_manager_get_type (void) G_GNUC_CONST;
 AnjutaPluginManager* anjuta_plugin_manager_new (GObject *shell,
 												AnjutaStatus *status,
 												GList* plugin_search_paths);
-
-/* Plugin profiles */
-gboolean anjuta_plugin_manager_push_profile (AnjutaPluginManager *plugin_manager,
-											 const gchar *profile_name,
-											 const gchar* profile_xml_file,
-											 gboolean readonly,
-											 gboolean unload_rest);
-gboolean anjuta_plugin_manager_pop_profile (AnjutaPluginManager *plugin_manager,
-											const gchar *profile_name);
-
-void anjuta_plugin_manager_freeze (AnjutaPluginManager *plugin_manager);
-gboolean anjuta_plugin_manager_thaw (AnjutaPluginManager *plugin_manager,
-									 GError **error);
 
 /* Plugin activation, deactivation and retrival */
 GObject* anjuta_plugin_manager_get_plugin (AnjutaPluginManager *plugin_manager,
@@ -111,6 +103,10 @@ GObject* anjuta_plugin_manager_select_and_activate (AnjutaPluginManager *plugin_
 													gchar *title,
 													gchar *description,
 													GList *plugin_descriptions);
+
+void anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
+											 GList *plugin_descs);
+
 void anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager);
 
 /**

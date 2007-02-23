@@ -3,7 +3,8 @@ INCLUDES = \
 	$(GTK_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS) \
-	-I$(top_srcdir)
+	-I$(top_srcdir) \
+	-DG_LOG_DOMAIN=\"libanjuta-interfaces\"
 
 MODULE_NAME = libanjuta
 MODULE_VESION = 0.1

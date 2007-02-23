@@ -13,7 +13,8 @@ INCLUDES = \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
 	-DPACKAGE_HELP_DIR="\"$(datadir)/gnome/help/$(PACKAGE)\"" \
 	-DPACKAGE_DOC_DIR="\"$(datadir)/doc/$(PACKAGE)\"" \
-	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\""
+	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
+	-DG_LOG_DOMAIN=\"libanjuta\"
 
 lib_LTLIBRARIES=libanjuta.la
 
@@ -27,10 +28,6 @@ libanjuta_la_LIBADD = \
 libanjuta_la_SOURCES= \
 	anjuta-enum-types.h \
 	anjuta-enum-types.c \
-	cell-renderer-captioned-image.c	\
-	cell-renderer-captioned-image.h \
-	e-splash.h \
-	e-splash.c \
 	anjuta-marshal.c \
 	anjuta-shell.c \
 	anjuta-status.c \
@@ -38,24 +35,29 @@ libanjuta_la_SOURCES= \
 	anjuta-preferences-dialog.c \
 	anjuta-preferences.c \
 	anjuta-plugin.c \
+	anjuta-plugin-handle.h \
+	anjuta-plugin-handle.c \
 	anjuta-plugin-description.c \
 	anjuta-plugin-manager.c \
 	anjuta-profile.c \
+	anjuta-profile-manager.c \
 	anjuta-ui.c \
 	anjuta-launcher.c \
 	anjuta-utils.c \
 	anjuta-children.c \
 	anjuta-session.c \
+	anjuta-save-prompt.c \
+	anjuta-serializer.c \
 	resources.c \
 	resources.h \
 	glue-plugin.c \
 	glue-factory.c \
 	glue-cpp.h \
 	glue-cpp.c \
-	anjuta-save-prompt.c \
-	anjuta-serializer.c \
-	anjuta-plugin-handle.h \
-	anjuta-plugin-handle.c 
+	cell-renderer-captioned-image.c	\
+	cell-renderer-captioned-image.h \
+	e-splash.h \
+	e-splash.c
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 
@@ -69,6 +71,7 @@ libanjuta_include = \
 	anjuta-plugin-description.h \
 	anjuta-plugin-manager.h \
 	anjuta-profile.h \
+	anjuta-profile-manager.h \
 	anjuta-marshal.h \
 	anjuta-utils.h \
 	anjuta-preferences-dialog.h \
@@ -135,6 +138,8 @@ EXTRA_DIST = \
 	$(libanjutainclude_HEADERS) \
 	libanjuta-1.0.pc.in \
 	anjuta-marshal.list
+
+
 
 
 

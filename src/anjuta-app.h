@@ -28,6 +28,7 @@
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-plugin-manager.h>
+#include <libanjuta/anjuta-profile-manager.h>
 
 G_BEGIN_DECLS
 
@@ -57,6 +58,7 @@ struct _AnjutaApp
 	AnjutaUI *ui;
 	AnjutaPreferences *preferences;
 	AnjutaPluginManager *plugin_manager;
+	AnjutaProfileManager *profile_manager;
 };
 
 struct _AnjutaAppClass

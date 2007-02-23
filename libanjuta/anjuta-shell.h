@@ -28,6 +28,7 @@
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-plugin-manager.h>
+#include <libanjuta/anjuta-profile-manager.h>
 #include <libanjuta/anjuta-session.h>
 #include <libanjuta/anjuta-save-prompt.h>
 
@@ -77,6 +78,8 @@ struct _AnjutaShellIface {
 	AnjutaPreferences* (*get_preferences) (AnjutaShell *shell, GError **err);
 	AnjutaPluginManager* (*get_plugin_manager) (AnjutaShell *shell,
 												GError **err);
+	AnjutaProfileManager* (*get_profile_manager) (AnjutaShell *shell,
+												  GError **err);
 	
 	void (*add_widget)        (AnjutaShell  *shell,
 							   GtkWidget    *widget,
@@ -119,6 +122,9 @@ AnjutaPreferences* anjuta_shell_get_preferences (AnjutaShell *shell,
 
 AnjutaPluginManager* anjuta_shell_get_plugin_manager (AnjutaShell *shell,
 													  GError **error);
+
+AnjutaProfileManager* anjuta_shell_get_profile_manager (AnjutaShell *shell,
+														GError **error);
 
 void anjuta_shell_freeze (AnjutaShell *shell, GError **error);
 void anjuta_shell_thaw (AnjutaShell *shell, GError **error);

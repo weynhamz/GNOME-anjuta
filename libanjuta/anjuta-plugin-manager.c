@@ -22,9 +22,6 @@
 #include <dirent.h>
 #include <string.h>
 
-#include <libxml/parser.h>
-#include <libxml/tree.h>
-#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-plugin-manager.h>
 #include <libanjuta/anjuta-marshal.h>
 #include <libanjuta/anjuta-debug.h>
@@ -60,7 +57,6 @@ struct _AnjutaPluginManagerPriv
 {
 	GObject      *shell;
 	AnjutaStatus *status;
-	GList        *profiles;
 	GList        *plugin_dirs;
 	GList        *available_plugins;
 	
@@ -71,16 +67,6 @@ struct _AnjutaPluginManagerPriv
 	
 	/* Plugins that are currently activated */
 	GHashTable   *activated_plugins;
-	
-	/* Freeze count. Pending profiles are loaded when it reaches 0 */
-	gint          freeze_count;
-	
-	/* If un-selected plugins (plugins that are not in the pending
-	 * profiles) should be disabled when loading the pending profiles */
-	gboolean      profile_load_disable_rest;
-	
-	/* Pending queue. Profiles are queued until freeze count becomes 0 */
-	GList        *profiles_to_add;
 	
 	/* Plugins that have been previously loaded but current deactivated */
 	GHashTable   *plugins_cache;
@@ -106,6 +92,17 @@ static guint plugin_manager_signals[LAST_SIGNAL] = { 0 };
 static GHashTable* plugin_set_update (AnjutaPluginManager *plugin_manager,
 									AnjutaPluginHandle* selected_plugin,
 									gboolean load);
+
+GQuark 
+anjuta_plugin_manager_error_quark (void)
+{
+	static GQuark quark = 0;
+	
+	if (quark == 0) {
+		quark = g_quark_from_static_string ("anjuta-plugin-manager-quark");
+	}
+	return quark;
+}
 
 /** Dependency Resolution **/
 
@@ -474,6 +471,10 @@ on_plugin_activated (AnjutaPlugin *plugin_object, AnjutaPluginHandle *plugin)
 						 G_OBJECT (plugin_object));
 	if (g_hash_table_lookup (priv->plugins_cache, plugin))
 		g_hash_table_remove (priv->plugins_cache, plugin);
+	
+	g_signal_emit_by_name (plugin_manager, "plugin-activated",
+						   anjuta_plugin_handle_get_description (plugin),
+						   plugin_object);
 }
 
 static void
@@ -488,10 +489,15 @@ on_plugin_deactivated (AnjutaPlugin *plugin_object, AnjutaPluginHandle *plugin)
 	
 	g_hash_table_insert (priv->plugins_cache, plugin, G_OBJECT (plugin_object));
 	g_hash_table_remove (priv->activated_plugins, plugin);
+	
+	g_signal_emit_by_name (plugin_manager, "plugin-deactivated",
+						   anjuta_plugin_handle_get_description (plugin),
+						   plugin_object);
 }
 
 static GObject *
-activate_plugin (AnjutaPluginManager *plugin_manager, AnjutaPluginHandle *plugin)
+activate_plugin (AnjutaPluginManager *plugin_manager,
+				 AnjutaPluginHandle *plugin, GError **error)
 {
 	AnjutaPluginManagerPriv *priv;
 	GType type;
@@ -522,7 +528,9 @@ activate_plugin (AnjutaPluginManager *plugin_manager, AnjutaPluginHandle *plugin
 			g_strfreev (pieces);
 			if (ret == NULL)
 			{
-				g_warning ("Could not load C++ plugin: %s\n", plugin_id);
+				g_set_error (error, ANJUTA_PLUGIN_MANAGER_ERROR,
+							 ANJUTA_PLUGIN_MANAGER_ERROR_INVALID_TYPE,
+							 _("Invalid plugin: %s"), plugin_id);
 				return NULL;
 			}
 			g_object_set (ret, "shell", priv->shell, NULL);
@@ -550,7 +558,9 @@ activate_plugin (AnjutaPluginManager *plugin_manager, AnjutaPluginHandle *plugin
 	
 	if (type == G_TYPE_INVALID)
 	{
-		g_warning ("Invalid type: Can not load %s\n", plugin_id);
+		g_set_error (error, ANJUTA_PLUGIN_MANAGER_ERROR,
+					 ANJUTA_PLUGIN_MANAGER_ERROR_INVALID_TYPE,
+					 _("Invalid plugin: %s"), plugin_id);
 		ret = NULL;
 	}
 	else
@@ -743,7 +753,12 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 				GObject *plugin_obj;
 				plugin_obj = g_hash_table_lookup (priv->plugins_cache, plugin);
 				if (!plugin_obj)
-					plugin_obj = activate_plugin (plugin_manager, plugin);
+				{
+					GError *error = NULL;
+					plugin_obj = activate_plugin (plugin_manager, plugin,
+												  &error);
+				}
+				
 				if (plugin_obj)
 				{
 					anjuta_plugin_activate (ANJUTA_PLUGIN (plugin_obj));
@@ -1654,18 +1669,6 @@ anjuta_plugin_manager_finalize (GObject *object)
 {
 	AnjutaPluginManagerPriv *priv;
 	priv = ANJUTA_PLUGIN_MANAGER (object)->priv;
-	if (priv->profiles)
-	{
-		g_list_foreach (priv->profiles, (GFunc)g_object_unref, NULL);
-		g_list_free (priv->profiles);
-		priv->profiles = NULL;
-	}
-	if (priv->profiles_to_add)
-	{
-		g_list_foreach (priv->profiles_to_add, (GFunc)g_object_unref, NULL);
-		g_list_free (priv->profiles_to_add);
-		priv->profiles_to_add = NULL;
-	}
 	if (priv->available_plugins)
 	{
 		/* anjuta_plugin_manager_unload_all_plugins (ANJUTA_PLUGIN_MANAGER (object)); */
@@ -1737,17 +1740,6 @@ anjuta_plugin_manager_set_property (GObject *object, guint prop_id,
 	case PROP_SHELL:
 		priv->shell = g_value_get_object (value);
 		break;
-#if 0 /* Non setable properties */
-	case PROP_PROFILES:
-		/* TODO: Add setter for "profiles" property here */
-		break;
-	case PROP_AVAILABLE_PLUGINS:
-		/* TODO: Add setter for "available-plugins" property here */
-		break;
-	case PROP_ACTIVATED_PLUGINS:
-		/* TODO: Add setter for "activated-plugins" property here */
-		break;
-#endif
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -1771,9 +1763,6 @@ anjuta_plugin_manager_get_property (GObject *object, guint prop_id,
 	case PROP_STATUS:
 		g_value_set_object (value, priv->status);
 		break;
-	case PROP_PROFILES:
-		g_value_set_pointer (value, priv->profiles);
-		break;
 	case PROP_AVAILABLE_PLUGINS:
 		g_value_set_pointer (value, priv->available_plugins);
 		break;
@@ -1785,24 +1774,8 @@ anjuta_plugin_manager_get_property (GObject *object, guint prop_id,
 		break;
 	}
 }
-
-static void
-anjuta_plugin_manager_profile_pushed (AnjutaPluginManager *self,
-									  AnjutaProfile* profile)
-{
-	/* TODO: Add default signal handler implementation here */
-}
-
-static void
-anjuta_plugin_manager_profile_popped (AnjutaPluginManager *self,
-									  AnjutaProfile* profile)
-{
-	/* TODO: Add default signal handler implementation here */
-}
-
 static void
 anjuta_plugin_manager_plugin_activated (AnjutaPluginManager *self,
-										AnjutaProfile* profile,
 										AnjutaPluginDescription* plugin_desc,
 										GObject *plugin)
 {
@@ -1811,8 +1784,8 @@ anjuta_plugin_manager_plugin_activated (AnjutaPluginManager *self,
 
 static void
 anjuta_plugin_manager_plugin_deactivated (AnjutaPluginManager *self,
-										  AnjutaProfile* profile,
-										  AnjutaPluginDescription* plugin_desc)
+										  AnjutaPluginDescription* plugin_desc,
+										  GObject *plugin)
 {
 	/* TODO: Add default signal handler implementation here */
 }
@@ -1827,8 +1800,6 @@ anjuta_plugin_manager_class_init (AnjutaPluginManagerClass *klass)
 	object_class->set_property = anjuta_plugin_manager_set_property;
 	object_class->get_property = anjuta_plugin_manager_get_property;
 
-	klass->profile_pushed = anjuta_plugin_manager_profile_pushed;
-	klass->profile_popped = anjuta_plugin_manager_profile_popped;
 	klass->plugin_activated = anjuta_plugin_manager_plugin_activated;
 	klass->plugin_deactivated = anjuta_plugin_manager_plugin_deactivated;
 
@@ -1870,28 +1841,6 @@ anjuta_plugin_manager_class_init (AnjutaPluginManagerClass *klass)
 														  G_PARAM_WRITABLE |
 														  G_PARAM_CONSTRUCT));
 	
-	plugin_manager_signals[PROFILE_PUSHED] =
-		g_signal_new ("profile-pushed",
-		              G_OBJECT_CLASS_TYPE (klass),
-		              G_SIGNAL_RUN_FIRST,
-		              G_STRUCT_OFFSET (AnjutaPluginManagerClass,
-									   profile_pushed),
-		              NULL, NULL,
-		              anjuta_cclosure_marshal_VOID__OBJECT,
-		              G_TYPE_NONE, 1,
-		              ANJUTA_TYPE_PROFILE);
-
-	plugin_manager_signals[PROFILE_POPPED] =
-		g_signal_new ("profile-popped",
-		              G_OBJECT_CLASS_TYPE (klass),
-		              G_SIGNAL_RUN_FIRST,
-		              G_STRUCT_OFFSET (AnjutaPluginManagerClass,
-									   profile_popped),
-		              NULL, NULL,
-					  anjuta_cclosure_marshal_VOID__OBJECT,
-		              G_TYPE_NONE, 1,
-		              ANJUTA_TYPE_PROFILE);
-	
 	plugin_manager_signals[PLUGIN_ACTIVATED] =
 		g_signal_new ("plugin-activated",
 		              G_OBJECT_CLASS_TYPE (klass),
@@ -1899,9 +1848,9 @@ anjuta_plugin_manager_class_init (AnjutaPluginManagerClass *klass)
 		              G_STRUCT_OFFSET (AnjutaPluginManagerClass,
 									   plugin_activated),
 		              NULL, NULL,
-					  anjuta_cclosure_marshal_VOID__OBJECT_POINTER_OBJECT,
-		              G_TYPE_NONE, 3,
-		              ANJUTA_TYPE_PROFILE, G_TYPE_POINTER, ANJUTA_TYPE_PLUGIN);
+					  anjuta_cclosure_marshal_VOID__POINTER_OBJECT,
+		              G_TYPE_NONE, 2,
+		              G_TYPE_POINTER, ANJUTA_TYPE_PLUGIN);
 
 	plugin_manager_signals[PLUGIN_DEACTIVATED] =
 		g_signal_new ("plugin-deactivated",
@@ -1910,9 +1859,9 @@ anjuta_plugin_manager_class_init (AnjutaPluginManagerClass *klass)
 		              G_STRUCT_OFFSET (AnjutaPluginManagerClass,
 									   plugin_deactivated),
 		              NULL, NULL,
-					  anjuta_cclosure_marshal_VOID__OBJECT_POINTER,
+					  anjuta_cclosure_marshal_VOID__POINTER_OBJECT,
 		              G_TYPE_NONE, 2,
-		              ANJUTA_TYPE_PROFILE, G_TYPE_POINTER);
+		              G_TYPE_POINTER, ANJUTA_TYPE_PLUGIN);
 }
 
 GType
@@ -2000,107 +1949,7 @@ anjuta_plugin_manager_new (GObject *shell, AnjutaStatus *status,
 	return plugin_manager;
 }
 
-/* Profile processing */
-/* Returns a list of matching plugins */
-static GList*
-anjuta_plugin_manager_query_plugins (AnjutaPluginManager *plugin_manager,
-									 GList *groups, GList *attribs,
-									 GList *values)
-{
-	gchar *sec[5];
-	gchar *att[5];
-	gchar *val[5];
-	GList *sec_node, *att_node, *val_node;
-	gint length, i;
-	
-	/* FIXME: How to call a variable arguments function dynamically !! */
-	length = g_list_length (groups);
-	
-	g_return_val_if_fail ((length > 0 && length <= 5), NULL);
-	
-	i = 0;
-	sec_node = groups;
-	att_node = attribs;
-	val_node = values;
-	while (sec_node)
-	{
-		sec[i] = sec_node->data;
-		att[i] = att_node->data;
-		val[i] = val_node->data;
-		
-		sec_node = g_list_next (sec_node);
-		att_node = g_list_next (att_node);
-		val_node = g_list_next (val_node);
-		i++;
-	}
-	
-	switch (length)
-	{
-	case 1:
-		return anjuta_plugin_manager_query (plugin_manager,
-											sec[0], att[0], val[0], NULL);
-	case 2:
-		return anjuta_plugin_manager_query (plugin_manager,
-											sec[0], att[0], val[0],
-											sec[1], att[1], val[1],
-											NULL);
-	case 3:
-		return anjuta_plugin_manager_query (plugin_manager,
-											sec[0], att[0], val[0],
-											sec[1], att[1], val[1],
-											sec[2], att[2], val[2],
-											NULL);
-	case 4:
-		return anjuta_plugin_manager_query (plugin_manager,
-											sec[0], att[0], val[0],
-											sec[1], att[1], val[1],
-											sec[2], att[2], val[2],
-											sec[3], att[3], val[3],
-											NULL);
-	case 5:
-		return anjuta_plugin_manager_query (plugin_manager,
-											sec[0], att[0], val[0],
-											sec[1], att[1], val[1],
-											sec[2], att[2], val[2],
-											sec[3], att[3], val[3],
-											sec[4], att[4], val[4],
-											NULL);
-	default:
-		g_warning ("FIXME: How to call a variable args function dynamically !!");
-	}
-	return NULL;
-}
-
-static GList*
-anjuta_plugin_manager_select_plugins (AnjutaPluginManager *plugin_manager,
-									  GList *descs_list)
-{
-	GList *selected_plugins = NULL;
-	GList *node = descs_list;
-	
-	while (node)
-	{
-		GList *descs = node->data;
-		if (g_list_length (descs) == 1)
-		{
-			selected_plugins = g_list_prepend (selected_plugins, descs->data);
-		}
-		else
-		{
-			AnjutaPluginDescription* d;
-			d = anjuta_plugin_manager_select (plugin_manager,
-											  "Select a plugin",
-											  "Please select a plugin from the list",
-											  descs);
-			if (d)
-				selected_plugins = g_list_prepend (selected_plugins, d);
-		}
-		node = g_list_next (node);
-	}
-	return g_list_reverse (selected_plugins);
-}
-
-static void
+void
 anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 										GList *plugins_to_activate)
 {
@@ -2112,13 +1961,6 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 	
 	/* Freeze shell operations */
 	anjuta_shell_freeze (ANJUTA_SHELL (priv->shell), NULL);
-#if 0 /* FIXME: Should be part of pop_profile */
-	/* First of all close existing project profile */
-	if (plugin->project_uri)
-	{
-		default_profile_plugin_close (plugin);
-	}
-#endif
 	if (plugins_to_activate)
 	{
 		anjuta_status_progress_add_ticks (ANJUTA_STATUS (priv->status),
@@ -2167,12 +2009,6 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 			plugin_obj =
 				anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
 														plugin_id);
-#if 0 /* FIXME: */
-			/* Notify plugin activation */
-			g_signal_emit_by_name (plugin_manager, "plugin-activated",
-								   profile, d, plugin_obj);
-#endif
-			/* FIXME: Connect to plugin for deactivation notification */
 			g_free (plugin_id);
 		}
 		anjuta_status_progress_tick (ANJUTA_STATUS (priv->status),
@@ -2186,485 +2022,4 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 	
 	/* Thaw shell operations */
 	anjuta_shell_thaw (ANJUTA_SHELL (priv->shell), NULL);
-}
-
-static gboolean
-anjuta_plugin_manager_load_pending_profiles (AnjutaPluginManager *plugin_manager,
-											 GError **error)
-{
-	AnjutaPluginManagerPriv *priv;
-	GList *profile_node;
-	GList *active_plugins, *node;
-	GList *plugins_to_activate, *plugins_to_deactivate;
-	GList *grand_selected_plugins;
-	GHashTable *active_plugins_hash, *plugins_to_activate_hash;
-	
-	priv = plugin_manager->priv;
-	
-	/* Prepare plugins to activate */
-	plugins_to_activate_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
-	grand_selected_plugins = NULL;
-	
-	/* Go through all the pending profiles */
-	profile_node = priv->profiles_to_add;
-	while (profile_node)
-	{
-		AnjutaProfile *profile;
-		GList *selected_plugins;
-		
-		profile = ANJUTA_PROFILE (profile_node->data);
-		selected_plugins = anjuta_profile_get_plugins (profile);
-	
-		node = selected_plugins;
-		while (node)
-		{
-			g_hash_table_insert (plugins_to_activate_hash, node->data, node->data);
-			node = g_list_next (node);
-		}
-		grand_selected_plugins = g_list_concat (grand_selected_plugins,
-												selected_plugins);
-		profile_node = g_list_next (profile_node);
-	}
-	
-	/* Prepare active plugins hash */
-	active_plugins = anjuta_plugin_manager_get_active_plugins (plugin_manager);
-	active_plugins_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
-	node = active_plugins;
-	while (node)
-	{
-		g_hash_table_insert (active_plugins_hash, node->data, node->data);
-		node = g_list_next (node);
-	}
-	
-	plugins_to_deactivate = NULL;
-	if (priv->profile_load_disable_rest)
-	{
-		/* Prepare plugins to deactiveate that are already active, but are
-		 * not requested to be active
-		 */
-		node = active_plugins;
-		while (node)
-		{
-			if (!g_hash_table_lookup (plugins_to_activate_hash, node->data))
-			{
-				plugins_to_deactivate = g_list_prepend (plugins_to_deactivate,
-														node->data);
-			}
-		}
-		plugins_to_deactivate = g_list_reverse (plugins_to_deactivate);
-	
-		/* Deactivate plugins */
-		node = plugins_to_deactivate;
-		while (node)
-		{
-			AnjutaPluginDescription *desc;
-			GObject *plugin_object;
-			gchar *plugin_id = NULL;
-			
-			desc = (AnjutaPluginDescription *)node->data;
-			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-			"Location", &plugin_id);
-			g_assert (plugin_id != NULL);
-			
-			plugin_object = anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
-																	plugin_id);
-			g_assert (plugin_object != NULL);
-			
-			anjuta_plugin_manager_unload_plugin (plugin_manager,
-												 plugin_object);
-			g_free (plugin_id);
-			node = g_list_next (node);
-		}
-	}
-	
-	/* Prepare the plugins to activate */
-	plugins_to_activate = NULL;
-	node = grand_selected_plugins;
-	while (node)
-	{
-		if (!g_hash_table_lookup (active_plugins_hash, node->data))
-			plugins_to_activate = g_list_prepend (plugins_to_activate,
-												   node->data);
-		node = g_list_next (node);
-	}
-	
-	/* Now activate the plugins */
-	if (plugins_to_activate)
-	{
-		/* Activate them */
-		plugins_to_activate = g_list_reverse (plugins_to_activate);
-		anjuta_plugin_manager_activate_plugins (plugin_manager,
-												plugins_to_activate);
-	}
-	
-	/* Push the profiles in stack */
-	priv->profiles = g_list_concat (priv->profiles, priv->profiles_to_add);
-	priv->profiles_to_add = NULL;
-	
-	g_list_free (plugins_to_activate);
-	g_list_free (active_plugins);
-	
-	g_hash_table_destroy (plugins_to_activate_hash);
-	g_hash_table_destroy (active_plugins_hash);
-	
-	priv->profile_load_disable_rest = FALSE;
-	
-	return TRUE;
-}
-
-static gboolean
-anjuta_plugin_manager_queue_load_profile (AnjutaPluginManager *plugin_manager,
-										  AnjutaProfile *profile,
-										  gboolean disable_rest,
-										  GError **error)
-{
-	AnjutaPluginManagerPriv *priv;
-	
-	priv = plugin_manager->priv;
-	priv->profile_load_disable_rest = disable_rest;
-	priv->profiles_to_add = g_list_prepend (priv->profiles_to_add,
-											profile);
-	if (priv->freeze_count <= 0)
-	{
-		/* If there is no freeze load the profile now */
-		return anjuta_plugin_manager_load_pending_profiles (plugin_manager,
-															error);
-	}
-	else
-	{
-		return FALSE;
-	}
-}
-
-gboolean
-anjuta_plugin_manager_push_profile (AnjutaPluginManager *plugin_manager,
-									const gchar *profile_name,
-									const gchar* profile_xml_uri,
-									gboolean readonly,
-									gboolean unload_rest)
-{
-	AnjutaPluginManagerPriv *priv;
-	xmlDocPtr xml_doc;
-	xmlNodePtr xml_root, xml_node;
-	GnomeVFSHandle *handle;
-	GnomeVFSFileInfo info;
-	GnomeVFSResult result;
-	int perm, read;
-	GList *descs_list = NULL;
-	GList *selected_plugins = NULL;
-	GList *not_found_names = NULL;
-	GList *not_found_urls = NULL;
-	gboolean error = FALSE;
-	gchar *read_buf = NULL;
-	
-	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), FALSE);
-	priv = plugin_manager->priv;
-	
-	result = gnome_vfs_get_file_info (profile_xml_uri, &info,
-									  GNOME_VFS_FILE_INFO_DEFAULT |
-									  GNOME_VFS_FILE_INFO_GET_ACCESS_RIGHTS);
-
-	/* If I got the info to check it out */
-	if(result != GNOME_VFS_OK )
-	{
-		anjuta_util_dialog_error (GTK_WINDOW (priv->shell),
-								  _("Cannot open: %s\n&s"),
-								  profile_xml_uri,
-								  gnome_vfs_result_to_string (result));
-		return FALSE;
-	}
-	
-	/* FIXME: Fix this bit masking */
-	perm = (info.permissions-(int)(info.permissions/65536)*65536);
-	read = (int)(perm/256);
-
-	if(read == 0)
-	{
-		anjuta_util_dialog_error (GTK_WINDOW (priv->shell),
-								  _("No read permission for: %s"),
-								  profile_xml_uri);
-		return FALSE;
-	}
-	if((result = gnome_vfs_open (&handle, profile_xml_uri,
-								 GNOME_VFS_OPEN_READ)) != GNOME_VFS_OK)
-	{
-		anjuta_util_dialog_error (GTK_WINDOW (priv->shell),
-								  _("Cannot open: %s\n&s"),
-								  profile_xml_uri,
-								  gnome_vfs_result_to_string(result));
-		return FALSE;
-	}
-	read_buf = g_new0(char, info.size + 1);
-	
-	result = gnome_vfs_read (handle, read_buf, info.size, NULL);
-	if(!(result == GNOME_VFS_OK || result == GNOME_VFS_ERROR_EOF))
-	{
-		g_free (read_buf);
-		anjuta_util_dialog_error (GTK_WINDOW (priv->shell),
-								  _("Cannot open: %s\n&s"),
-								  profile_xml_uri,
-								  gnome_vfs_result_to_string(result));
-		return FALSE;
-	}
-	gnome_vfs_close (handle);
-	xml_doc = xmlParseMemory (read_buf, info.size);
-	g_free(read_buf);
-	if(xml_doc == NULL)
-	{
-		anjuta_util_dialog_error (GTK_WINDOW (priv->shell),
-								  _("Cannot open: %s\nXML parse error."),
-								  profile_xml_uri);
-		return FALSE;
-	}
-	
-	xml_root = xmlDocGetRootElement(xml_doc);
-	if(xml_root == NULL)
-	{
-		anjuta_util_dialog_error (GTK_WINDOW (priv->shell),
-								  _("Cannot open: %s\nXML parse error."),
-								  profile_xml_uri);
-		/* Free xml doc */
-		return FALSE;
-	}
-	
-	if(!xml_root->name ||
-	   !xmlStrEqual(xml_root->name, (const xmlChar *)"anjuta"))
-	{
-		anjuta_util_dialog_error (GTK_WINDOW (priv->shell),
-								  _("Cannot open: %s\nDoes not look like a valid Anjuta project."),
-								  profile_xml_uri);
-		return FALSE;
-	}
-	
-	error = FALSE;
-	descs_list = NULL;
-	not_found_names = NULL;
-	not_found_urls = NULL;
-	
-	xml_node = xml_root->xmlChildrenNode;
-	while (xml_node && !error)
-	{
-		GList *groups = NULL;
-		GList *attribs = NULL;
-		GList *values = NULL;
-		GList *plugin_descs;
-		gchar *name, *url, *mandatory_text;
-		xmlNodePtr xml_require_node;
-		gboolean mandatory;
-
-		if (!xml_node->name ||
-			!xmlStrEqual (xml_node->name, (const xmlChar*)"plugin"))
-		{
-			xml_node = xml_node->next;
-			continue;
-		}
-		
-		name = (gchar*) xmlGetProp (xml_node, (const xmlChar*)"name");
-		url = (gchar*) xmlGetProp (xml_node, (const xmlChar*)"url");
-		
-		/* Ensure that both name is given */
-		if (!name)
-		{
-			g_warning ("XML error: Plugin name should be present in plugin tag");
-			error = TRUE;
-			break;
-		}
-		if (!url)
-			url = g_strdup ("http://anjuta.org/plugins/");
-		
-		/* Check if the plugin is mandatory */
-		mandatory_text = (gchar*) xmlGetProp (xml_node, (const xmlChar*)"mandatory");
-		if (mandatory_text && strcasecmp (mandatory_text, "yes") == 0)
-			mandatory = TRUE;
-		else
-			mandatory = FALSE;
-		
-		/* For all plugin attribute conditions */
-		xml_require_node = xml_node->xmlChildrenNode;
-		while (xml_require_node && !error)
-		{
-			gchar *group;
-			gchar *attrib;
-			gchar *value;
-			
-			if (!xml_require_node->name ||
-				!xmlStrEqual (xml_require_node->name, (const xmlChar*)"require"))
-			{
-				xml_require_node = xml_require_node->next;
-				continue;
-			}
-			group = (gchar*) xmlGetProp (xml_require_node, (const xmlChar *)"group");
-			attrib = (gchar*) xmlGetProp(xml_require_node, (const xmlChar *)"attribute");
-			value = (gchar*) xmlGetProp(xml_require_node, (const xmlChar *)"value");
-			
-			if (group && attrib && value)
-			{
-				groups = g_list_prepend (groups, group);
-				attribs = g_list_prepend (attribs, attrib);
-				values = g_list_prepend (values, value);
-			}
-			else
-			{
-				if (group) xmlFree (group);
-				if (attrib) xmlFree (attrib);
-				if (value) xmlFree (value);
-				error = TRUE;
-				g_warning ("XML parse error: group, attribute and value should be defined in require");
-				break;
-			}
-			xml_require_node = xml_require_node->next;
-		}
-		if (error)
-		{
-			g_list_foreach (groups, (GFunc)xmlFree, NULL);
-			g_list_foreach (attribs, (GFunc)xmlFree, NULL);
-			g_list_foreach (values, (GFunc)xmlFree, NULL);
-			g_list_free (groups);
-			g_list_free (attribs);
-			g_list_free (values);
-			xmlFree (name);
-			xmlFree (url);
-			break;
-		}
-		if (g_list_length (groups) == 0)
-		{
-			error = TRUE;
-			g_warning ("XML Error: No attributes to match given");
-			xmlFree (name);
-			xmlFree (url);
-			break;
-		}
-		if (g_list_length (groups) > 5)
-		{
-			error = TRUE;
-			g_warning ("XML Error: Maximum 5 attributes can be given (FIXME)");
-			xmlFree (name);
-			xmlFree (url);
-			break;
-		}
-		plugin_descs = anjuta_plugin_manager_query_plugins (plugin_manager,
-															groups, attribs,
-															values);
-		if (plugin_descs)
-		{
-			descs_list = g_list_prepend (descs_list, plugin_descs);
-			xmlFree (name);
-			xmlFree (url);
-		}
-		else if (mandatory)
-		{
-			not_found_names = g_list_prepend (not_found_names, name);
-			not_found_urls = g_list_prepend (not_found_urls, url);
-		}
-		else
-		{
-			xmlFree (name);
-			xmlFree (url);
-		}
-		xml_node = xml_node->next;
-	}
-	if (error)
-	{
-		g_list_foreach (not_found_names, (GFunc)xmlFree, NULL);
-		g_list_foreach (not_found_urls, (GFunc)xmlFree, NULL);
-		g_list_foreach (descs_list, (GFunc)g_list_free, NULL);
-		g_list_free (not_found_names);
-		g_list_free (not_found_urls);
-		g_list_free (descs_list);
-		return FALSE;
-	}
-	if (not_found_names)
-	{
-		/*
-		 * FIXME: Present a nice dialog box to promt the user to download
-		 * the plugin from corresponding URLs, install them and proceed.
-		 */
-		GList *node_name, *node_url;
-		
-		not_found_names = g_list_reverse (not_found_names);
-		not_found_urls = g_list_reverse (not_found_urls);
-		
-		node_name = not_found_names;
-		node_url = not_found_urls;
-		while (node_name)
-		{
-			g_warning ("FIXME: Download plugin '%s' from '%s'",
-					   (char *)node_name->data, (char*)node_url->data);
-			node_name = g_list_next (node_name);
-			node_url = g_list_next (node_url);
-		}
-		
-		/* FIXME: It should not return like this ... */
-		g_list_foreach (not_found_names, (GFunc)xmlFree, NULL);
-		g_list_foreach (not_found_urls, (GFunc)xmlFree, NULL);
-		g_list_foreach (descs_list, (GFunc)g_list_free, NULL);
-		g_list_free (not_found_names);
-		g_list_free (not_found_urls);
-		g_list_free (descs_list);
-		return FALSE;
-	}
-	if (descs_list)
-	{
-		AnjutaProfile *profile;
-		GError *error = NULL;
-		
-		/* Now everything okay. Select the plugins */
-		descs_list = g_list_reverse (descs_list);
-		selected_plugins =
-			anjuta_plugin_manager_select_plugins (plugin_manager, descs_list);
-		g_list_foreach (descs_list, (GFunc)g_list_free, NULL);
-		g_list_free (descs_list);
-		
-		profile = anjuta_profile_new (profile_name, readonly, selected_plugins);
-		g_list_free (selected_plugins);
-		
-		/* Emit profile push signal */
-		g_signal_emit_by_name (plugin_manager, "profile-pushed",
-							   profile);
-		
-		anjuta_plugin_manager_queue_load_profile (plugin_manager, profile,
-												  unload_rest, &error);
-		return TRUE;
-	}
-	return FALSE;
-}
-
-gboolean
-anjuta_plugin_manager_pop_profile (AnjutaPluginManager *plugin_manager,
-								   const gchar *profile_name)
-{
-	/* FIXME: TODO */
-	return FALSE;
-}
-
-void
-anjuta_plugin_manager_freeze (AnjutaPluginManager *plugin_manager)
-{
-	AnjutaPluginManagerPriv *priv;
-	g_return_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager));
-	priv = plugin_manager->priv;
-	priv->freeze_count++;
-}
-
-gboolean
-anjuta_plugin_manager_thaw (AnjutaPluginManager *plugin_manager,
-							GError **error)
-{
-	AnjutaPluginManagerPriv *priv;
-	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), FALSE);
-	priv = plugin_manager->priv;
-	
-	if (priv->freeze_count > 0)
-		priv->freeze_count--;
-	
-	if (priv->freeze_count <= 0)
-	{
-		/* Load the profile */
-		return anjuta_plugin_manager_load_pending_profiles (plugin_manager,
-															error);
-	}
-	else
-	{
-		return FALSE;
-	}
 }
