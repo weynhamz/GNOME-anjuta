@@ -725,6 +725,12 @@ on_message_view_destroyed (BuildContext *context, GtkWidget *view)
 	build_release_context (ANJUTA_PLUGIN_BASIC_AUTOTOOLS (context->plugin), context);
 }
 
+static gboolean
+g_hashtable_foreach_true (gpointer key, gpointer value, gpointer user_data)
+{
+	return TRUE;
+}
+
 static BuildContext*
 build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 				   const gchar *command)
@@ -778,8 +784,7 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 		context = g_new0 (BuildContext, 1);
 		context->plugin = ANJUTA_PLUGIN(plugin);
 		context->indicators_updated_editors =
-			g_hash_table_new (g_direct_hash,
-							  g_direct_equal);
+			g_hash_table_new (g_direct_hash, g_direct_equal);
 		
 		context->message_view =
 			ianjuta_message_manager_add_view (mesg_manager, mname,
@@ -807,7 +812,11 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	if (IANJUTA_IS_INDICABLE (plugin->current_editor))
 		ianjuta_indicable_clear (IANJUTA_INDICABLE (plugin->current_editor),
 								 NULL);
+	/* This is only since glib 2.12.
 	g_hash_table_remove_all (context->indicators_updated_editors);
+	*/
+	g_hash_table_foreach_remove (context->indicators_updated_editors,
+								 g_hashtable_foreach_true, NULL);
 	
 	return context;
 }

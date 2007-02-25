@@ -90,8 +90,8 @@ static GObjectClass* parent_class = NULL;
 static guint plugin_manager_signals[LAST_SIGNAL] = { 0 };
 
 static GHashTable* plugin_set_update (AnjutaPluginManager *plugin_manager,
-									AnjutaPluginHandle* selected_plugin,
-									gboolean load);
+									  AnjutaPluginHandle* selected_plugin,
+									  gboolean load);
 
 GQuark 
 anjuta_plugin_manager_error_quark (void)
@@ -241,13 +241,10 @@ unresolve_dependencies (AnjutaPluginManager *plugin_manager)
 	
 	priv = plugin_manager->priv;
 	
-	for (l = priv->available_plugins; l != NULL; l = l->next) {
+	for (l = priv->available_plugins; l != NULL; l = l->next)
+	{
 		AnjutaPluginHandle *plugin = l->data;
-		
-		g_hash_table_remove_all (anjuta_plugin_handle_get_dependencies (plugin));
-		g_hash_table_remove_all (anjuta_plugin_handle_get_dependents (plugin));
-		anjuta_plugin_handle_set_can_load (plugin, TRUE);
-		anjuta_plugin_handle_set_resolve_pass (plugin, -1);
+		anjuta_plugin_handle_unresolve_dependencies (plugin);
 	}	
 }
 
@@ -574,6 +571,12 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 	return ret;
 }
 
+static gboolean
+g_hashtable_foreach_true (gpointer key, gpointer value, gpointer user_data)
+{
+	return TRUE;
+}
+
 void
 anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 {
@@ -599,7 +602,8 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 				}
 				node = g_list_next (node);
 			}
-			g_hash_table_remove_all (priv->activated_plugins);
+			g_hash_table_foreach_remove (priv->activated_plugins,
+										 g_hashtable_foreach_true, NULL);
 		}
 		if (g_hash_table_size (priv->plugins_cache) > 0)
 		{
@@ -611,7 +615,7 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 				AnjutaPluginHandle *selected_plugin = node->data;
 				
 				plugin_obj = g_hash_table_lookup (priv->plugins_cache,
-												selected_plugin);
+												  selected_plugin);
 				if (plugin_obj)
 				{
 					DEBUG_PRINT ("Destroying plugin: %s",
@@ -620,7 +624,8 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 				}
 				node = g_list_next (node);
 			}
-			g_hash_table_remove_all (priv->plugins_cache);
+			g_hash_table_foreach_remove (priv->plugins_cache,
+										 g_hashtable_foreach_true, NULL);
 		}
 		priv->available_plugins = g_list_reverse (priv->available_plugins);
 	}
@@ -1698,7 +1703,6 @@ anjuta_plugin_manager_finalize (GObject *object)
 	}
 	if (priv->plugins_by_interfaces)
 	{
-		g_hash_table_remove_all (priv->plugins_by_interfaces);
 		g_hash_table_destroy (priv->plugins_by_interfaces);
 		priv->plugins_by_interfaces = NULL;
 	}

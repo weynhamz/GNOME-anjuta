@@ -69,6 +69,8 @@ void anjuta_plugin_handle_set_checked (AnjutaPluginHandle *plugin_handle,
 									   gboolean checked);
 void anjuta_plugin_handle_set_resolve_pass (AnjutaPluginHandle *plugin_handle,
 											gboolean resolve_pass);
+void anjuta_plugin_handle_unresolve_dependencies (AnjutaPluginHandle *plugin_handle);
+
 G_END_DECLS
 
 #endif /* _ANJUTA_PLUGIN_HANDLE_H_ */

@@ -607,3 +607,25 @@ anjuta_plugin_handle_set_resolve_pass (AnjutaPluginHandle *plugin_handle,
 	g_return_if_fail (ANJUTA_IS_PLUGIN_HANDLE (plugin_handle));
 	plugin_handle->priv->resolve_pass = resolve_pass;
 }
+
+static gboolean
+g_hashtable_foreach_true (gpointer key, gpointer value, gpointer user_data)
+{
+	return TRUE;
+}
+
+void
+anjuta_plugin_handle_unresolve_dependencies (AnjutaPluginHandle *plugin_handle)
+{
+	AnjutaPluginHandlePriv *priv;
+	
+	g_return_if_fail (ANJUTA_IS_PLUGIN_HANDLE (plugin_handle));
+	priv = plugin_handle->priv;
+	
+	g_hash_table_foreach_remove (priv->dependencies, g_hashtable_foreach_true,
+								 NULL);
+	g_hash_table_foreach_remove (priv->dependents, g_hashtable_foreach_true,
+								 NULL);
+	priv->can_load = TRUE;
+	priv->resolve_pass = -1;
+}
