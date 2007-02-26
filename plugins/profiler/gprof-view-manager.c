@@ -70,7 +70,7 @@ gprof_view_manager_class_init (GProfViewManagerClass *klass)
 }
 
 GType 
-gprof_view_manager_get_type ()
+gprof_view_manager_get_type (void)
 {
 	static GType obj_type = 0;
 	
@@ -96,7 +96,7 @@ gprof_view_manager_get_type ()
 }
 
 GProfViewManager *
-gprof_view_manager_new ()
+gprof_view_manager_new (void)
 {
 	return g_object_new (GPROF_VIEW_MANAGER_TYPE, NULL);	
 }

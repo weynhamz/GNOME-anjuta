@@ -195,7 +195,7 @@ gprof_function_call_tree_view_class_init (GProfFunctionCallTreeViewClass *klass)
 }
 
 GType
-gprof_function_call_tree_view_get_type ()
+gprof_function_call_tree_view_get_type (void)
 {
 	static GType obj_type = 0;
 	

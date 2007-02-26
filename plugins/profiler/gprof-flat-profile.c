@@ -120,7 +120,7 @@ gprof_flat_profile_add_entry (GProfFlatProfile *self,
 }
 
 GType
-gprof_flat_profile_get_type ()
+gprof_flat_profile_get_type (void)
 {
 	static GType obj_type = 0;
 	

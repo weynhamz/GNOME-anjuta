@@ -51,9 +51,9 @@ struct _GProfCallGraphBlockClass
 	GObjectClass parent_class;
 };
 
-GType gprof_call_graph_block_get_type ();
+GType gprof_call_graph_block_get_type (void);
 
-GProfCallGraphBlock *gprof_call_graph_block_new ();
+GProfCallGraphBlock *gprof_call_graph_block_new (void);
 void gprof_call_graph_block_free (GProfCallGraphBlock *self);
 
 void gprof_call_graph_block_add_primary_entry (GProfCallGraphBlock *self,

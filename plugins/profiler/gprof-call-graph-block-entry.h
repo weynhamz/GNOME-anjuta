@@ -51,7 +51,7 @@ struct _GProfCallGraphBlockEntryClass
 	GObjectClass parent_class;
 };
 
-GType gprof_call_graph_block_entry_get_type ();
+GType gprof_call_graph_block_entry_get_type (void);
 
 GProfCallGraphBlockEntry *gprof_call_graph_block_primary_entry_new (gchar **fields);
 GProfCallGraphBlockEntry *gprof_call_graph_block_secondary_entry_new (gchar **fields);

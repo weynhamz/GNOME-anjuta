@@ -63,7 +63,7 @@ gprof_profile_data_class_init (GProfProfileDataClass *klass)
 }
 
 GType
-gprof_profile_data_get_type ()
+gprof_profile_data_get_type (void)
 {
 	static GType obj_type = 0;
 	
@@ -89,7 +89,7 @@ gprof_profile_data_get_type ()
 }
 
 GProfProfileData *
-gprof_profile_data_new ()
+gprof_profile_data_new (void)
 {
 	return g_object_new (GPROF_PROFILE_DATA_TYPE, NULL);;
 }

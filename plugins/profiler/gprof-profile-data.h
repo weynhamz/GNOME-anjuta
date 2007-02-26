@@ -55,8 +55,8 @@ struct _GProfProfileDataClass
 	GObjectClass parent_class;
 };
 
-GType gprof_profile_data_get_type ();
-GProfProfileData *gprof_profile_data_new ();
+GType gprof_profile_data_get_type (void);
+GProfProfileData *gprof_profile_data_new (void);
 void gprof_profile_data_free (GProfProfileData *self);
 
 gboolean gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,

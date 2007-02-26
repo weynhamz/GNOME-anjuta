@@ -483,7 +483,7 @@ gprof_function_call_chart_view_class_init (GProfFunctionCallChartViewClass *klas
 }
 
 GType
-gprof_function_call_chart_view_get_type ()
+gprof_function_call_chart_view_get_type (void)
 {
 	static GType obj_type = 0;
 	

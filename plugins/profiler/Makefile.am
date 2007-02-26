@@ -6,9 +6,9 @@ profiler_ui_DATA =  profiler.ui
 # Plugin glade file
 profiler_gladedir = $(anjuta_glade_dir)
 profiler_glade_DATA = profiler.glade \
-					  profiler-flat-profile.glade \
-					  profiler-call-graph.glade \
-					  profiler-function-call-tree.glade
+	profiler-flat-profile.glade \
+	profiler-call-graph.glade \
+	profiler-function-call-tree.glade
 
 # Plugin Icon file
 profiler_pixmapsdir = $(anjuta_image_dir)
@@ -31,11 +31,12 @@ profiler_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
 INCLUDES = \
-		   $(LIBANJUTA_CFLAGS) \
-		   $(WARN_CFLAGS) \
-		   $(GDL_CFLAGS) \
-		   $(DEPRECATED_FLAGS)
-		   
+	$(LIBANJUTA_CFLAGS) \
+	$(GNOME_VFS_MODULE_CFLAGS) \
+	$(WARN_CFLAGS) \
+	$(GDL_CFLAGS) \
+	$(DEPRECATED_FLAGS)
+
 if HAVE_GRAPHVIZ
 INCLUDES += $(GRAPHVIZ_CFLAGS)
 endif
@@ -77,21 +78,21 @@ libanjuta_profiler_la_SOURCES = \
 
 if HAVE_GRAPHVIZ
 libanjuta_profiler_la_SOURCES += \
-						  		 gprof-function-call-chart-view.c \
-						  		 gprof-function-call-chart-view.h 
+	gprof-function-call-chart-view.c \
+	gprof-function-call-chart-view.h 
 endif
 
 # Plugin dependencies
-libanjuta_profiler_la_LIBADD = $(LIBANJUTA_LIBS)
+libanjuta_profiler_la_LIBADD = $(LIBANJUTA_LIBS) $(GNOME_VFS_MODULE_LIBS)
 
 if HAVE_GRAPHVIZ
 libanjuta_profiler_la_LIBADD += $(GRAPHVIZ_LIBS)
 endif
 
 EXTRA_DIST = \
-			 $(plugin_in_files) \
-			 $(profiler_plugin_DATA) \
-			 $(profiler_ui_DATA) \
-			 $(profiler_pixmaps_DATA) \
-			 $(profiler_glade_DATA)
+	$(plugin_in_files) \
+	$(profiler_plugin_DATA) \
+	$(profiler_ui_DATA) \
+	$(profiler_pixmaps_DATA) \
+	$(profiler_glade_DATA)
 

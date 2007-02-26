@@ -528,7 +528,7 @@ gprof_call_graph_view_class_init (GProfCallGraphViewClass *klass)
 }
 
 GType
-gprof_call_graph_view_get_type ()
+gprof_call_graph_view_get_type (void)
 {
 	static GType obj_type = 0;
 	

@@ -170,7 +170,7 @@ profiler_get_data (Profiler *profiler)
 										 	 profiler->profile_target_path,
 										 	 options))
 		{
-			anjuta_util_dialog_error (ANJUTA_PLUGIN (profiler)->shell,
+			anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (profiler)->shell),
 									  _("Could not get profiling data."
 										"\n\n"
 										"Please check the path to "

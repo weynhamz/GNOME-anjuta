@@ -1,5 +1,35 @@
 2007-02-26  Naba Kumar  <naba@gnome.org>
 
+	* plugins/profiler/gprof-flat-profile-entry.c,
+	plugins/profiler/gprof-flat-profile.c,
+	plugins/profiler/gprof-flat-profile-entry.h,
+	plugins/profiler/gprof-flat-profile.h,
+	plugins/profiler/gprof-flat-profile-view.c,
+	plugins/profiler/gprof-flat-profile-view.h,
+	plugins/profiler/gprof-call-graph-block-entry.c,
+	plugins/profiler/gprof-call-graph-block.c,
+	plugins/profiler/gprof-function-call-chart-view.c,
+	plugins/profiler/gprof-call-graph-block-entry.h,
+	plugins/profiler/gprof-profile-data.c,
+	plugins/profiler/gprof-call-graph-block.h,
+	plugins/profiler/gprof-view.c,
+	plugins/profiler/gprof-call-graph.c,
+	plugins/profiler/gprof-function-call-chart-view.h,
+	plugins/profiler/gprof-profile-data.h,
+	plugins/profiler/gprof-call-graph.h,
+	plugins/profiler/gprof-view.h,
+	plugins/profiler/gprof-view-manager.c,
+	plugins/profiler/gprof-call-graph-view.c,
+	plugins/profiler/plugin.c,
+	plugins/profiler/gprof-view-manager.h,
+	plugins/profiler/gprof-call-graph-view.h,
+	plugins/profiler/gprof-function-call-tree-view.c,
+	plugins/profiler/gprof-function-call-tree-view.h,
+	plugins/profiler/Makefile.am: Fix compiler warnings and link with
+	gnome-vfs. Fixes bug #411377.
+
+2007-02-26  Naba Kumar  <naba@gnome.org>
+
 	* plugins/profiler/gprof-profile-data.c: Fixes bug #411623,
 
 	Patch from James Liggett  <jrliggett@cox.net>:

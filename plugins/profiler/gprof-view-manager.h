@@ -54,9 +54,9 @@ struct _GProfViewManagerClass
 	GObjectClass parent_class;
 };
 
-GType gprof_view_manager_get_type ();
+GType gprof_view_manager_get_type (void);
 
-GProfViewManager *gprof_view_manager_new ();
+GProfViewManager *gprof_view_manager_new (void);
 void gprof_view_manager_free (GProfViewManager *self);
 
 void gprof_view_manager_add_view (GProfViewManager *self, GProfView *view, 

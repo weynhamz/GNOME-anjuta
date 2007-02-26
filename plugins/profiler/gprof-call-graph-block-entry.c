@@ -61,7 +61,7 @@ gprof_call_graph_block_entry_class_init (GProfCallGraphBlockEntryClass *klass)
 }
 
 GType
-gprof_call_graph_block_entry_get_type ()
+gprof_call_graph_block_entry_get_type (void)
 {
 	static GType obj_type = 0;
 	

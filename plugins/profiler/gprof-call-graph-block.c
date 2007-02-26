@@ -86,7 +86,7 @@ gprof_call_graph_block_class_init (GProfCallGraphBlockClass *klass)
 }
 
 GType
-gprof_call_graph_block_get_type ()
+gprof_call_graph_block_get_type (void)
 {
 	static GType obj_type = 0;
 	
@@ -113,7 +113,7 @@ gprof_call_graph_block_get_type ()
 }
 
 GProfCallGraphBlock *
-gprof_call_graph_block_new ()
+gprof_call_graph_block_new (void)
 {
 	return g_object_new (GPROF_CALL_GRAPH_BLOCK_TYPE, NULL);
 }

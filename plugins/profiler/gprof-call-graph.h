@@ -54,7 +54,7 @@ struct _GProfCallGraphClass
 	GObjectClass parent_class;
 };
 
-GType gprof_call_graph_get_type ();
+GType gprof_call_graph_get_type (void);
 
 GProfCallGraph *gprof_call_graph_new (FILE *stream, 
 									  GProfFlatProfile *flat_profile);

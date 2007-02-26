@@ -62,7 +62,7 @@ gprof_flat_profile_entry_class_init (GProfFlatProfileEntryClass *klass)
 }
 
 GType
-gprof_flat_profile_entry_get_type ()
+gprof_flat_profile_entry_get_type (void)
 {
 	static GType obj_type = 0;
 	

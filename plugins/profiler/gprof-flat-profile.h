@@ -54,7 +54,7 @@ struct _GProfFlatProfileClass
 	GObjectClass parent_class;
 };
 
-GType gprof_flat_profile_get_type ();
+GType gprof_flat_profile_get_type (void);
 GProfFlatProfile *gprof_flat_profile_new (FILE *stream);
 void gprof_flat_profile_free (GProfFlatProfile *self);
 

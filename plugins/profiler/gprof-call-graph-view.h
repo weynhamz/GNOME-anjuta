@@ -54,7 +54,7 @@ struct _GProfCallGraphViewClass
 	GProfViewClass parent_class;
 };
 
-GType gprof_call_graph_view_get_type ();
+GType gprof_call_graph_view_get_type (void);
 
 GProfCallGraphView *gprof_call_graph_view_new (GProfProfileData *profile_data,
 											   IAnjutaSymbolManager *symbol_manager,

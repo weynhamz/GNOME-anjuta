@@ -55,7 +55,7 @@ struct _GProfFunctionCallChartViewClass
 	GProfViewClass parent_class;
 };
 
-GType gprof_function_call_chart_view_get_type ();
+GType gprof_function_call_chart_view_get_type (void);
 
 GProfFunctionCallChartView *gprof_function_call_chart_view_new (GProfProfileData *profile_data,
 																IAnjutaSymbolManager *symbol_manager,

@@ -83,7 +83,7 @@ get_primary_line_fields(gchar *buffer)
 	gchar *line;  /* line data without leading index number */
 	gchar *calls_field;  /* Pointer to string that begins at the calls field */
 	gint i;
-	guint pos; /* Where are we in the buffer? */
+	gint pos; /* Where are we in the buffer? */
 	
 	string_table = g_new0 (gchar *, 6);  /* NULL terminated */
 	
@@ -201,7 +201,7 @@ gprof_call_graph_add_block (GProfCallGraph *self, GProfCallGraphBlock *block)
 }
 
 GType
-gprof_call_graph_get_type ()
+gprof_call_graph_get_type (void)
 {
 	static GType obj_type = 0;
 	

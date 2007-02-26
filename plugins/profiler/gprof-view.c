@@ -60,7 +60,7 @@ gprof_view_class_init (GProfViewClass *klass)
 }
 
 GType 
-gprof_view_get_type ()
+gprof_view_get_type (void)
 {
 	static GType obj_type = 0;
 	

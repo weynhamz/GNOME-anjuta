@@ -198,7 +198,7 @@ gprof_flat_profile_view_class_init (GProfFlatProfileViewClass *klass)
 }
 
 GType
-gprof_flat_profile_view_get_type ()
+gprof_flat_profile_view_get_type (void)
 {
 	static GType obj_type = 0;
 	

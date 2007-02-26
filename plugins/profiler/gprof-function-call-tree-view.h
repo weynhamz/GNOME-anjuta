@@ -54,7 +54,7 @@ struct _GProfFunctionCallTreeViewClass
 	GProfViewClass parent_class;
 };
 
-GType gprof_flat_profile_view_get_type ();
+GType gprof_function_call_tree_view_get_type (void);
 
 GProfFunctionCallTreeView * gprof_function_call_tree_view_new (GProfProfileData *profile_data,
 															   IAnjutaSymbolManager *symbol_manager,

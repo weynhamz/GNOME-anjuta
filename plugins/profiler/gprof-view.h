@@ -60,7 +60,7 @@ struct _GProfViewClass
 	GtkWidget * (*get_widget) (GProfView *self);
 };
 
-GType gprof_view_get_type ();
+GType gprof_view_get_type (void);
 
 void gprof_view_set_data (GProfView *self, GProfProfileData *profile_data);
 void gprof_view_set_symbol_manager (GProfView *self, 
