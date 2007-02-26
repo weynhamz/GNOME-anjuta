@@ -121,9 +121,37 @@ gprof_function_call_tree_view_add_function (GProfFunctionCallTreeView *self,
 	
 }
 
+static void 
+on_list_view_row_activated (GtkTreeView *list_view,
+							GtkTreePath *path,
+							GtkTreeViewColumn *col,												 
+							gpointer user_data)
+{
+	GProfView *self;
+	GtkTreeIter list_iter;
+	GtkTreeModel *model;
+	gchar *selected_function_name;
+	
+	self = GPROF_VIEW (user_data);
+	model = gtk_tree_view_get_model (list_view);
+	
+	if (gtk_tree_model_get_iter (model, &list_iter, path))
+	{
+		gtk_tree_model_get (model,
+							&list_iter, COL_NAME, 
+							&selected_function_name, -1);
+		
+		gprof_view_show_symbol_in_editor (self, selected_function_name);
+		
+		g_free (selected_function_name);
+	}	
+}
+
 static void
 gprof_function_call_tree_view_init (GProfFunctionCallTreeView *self)
 {
+	GtkWidget *list_view;
+	
 	self->priv = g_new0 (GProfFunctionCallTreeViewPriv, 1);
 	
 	self->priv->gxml = glade_xml_new (PACKAGE_DATA_DIR
@@ -133,6 +161,12 @@ gprof_function_call_tree_view_init (GProfFunctionCallTreeView *self)
 												 G_TYPE_STRING);
 	
 	gprof_function_call_tree_view_create_columns (self);
+	
+	list_view = glade_xml_get_widget (self->priv->gxml, "function_call_tree_view");
+	
+	g_signal_connect (list_view, "row-activated",
+					  G_CALLBACK (on_list_view_row_activated),
+					  (gpointer) self);
 }
 
 static void
@@ -188,12 +222,16 @@ gprof_function_call_tree_view_get_type ()
 }
 
 GProfFunctionCallTreeView *
-gprof_function_call_tree_view_new (GProfProfileData *profile_data)
+gprof_function_call_tree_view_new (GProfProfileData *profile_data,
+								   IAnjutaSymbolManager *symbol_manager,
+								   IAnjutaDocumentManager *document_manager)
 {
 	GProfFunctionCallTreeView *view;
 	
 	view = g_object_new (GPROF_FUNCTION_CALL_TREE_VIEW_TYPE, NULL);
 	gprof_view_set_data (GPROF_VIEW (view), profile_data);
+	gprof_view_set_symbol_manager (GPROF_VIEW (view), symbol_manager);
+	gprof_view_set_document_manager (GPROF_VIEW (view), document_manager);
 	
 	return view;
 }

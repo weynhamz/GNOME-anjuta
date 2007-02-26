@@ -21,7 +21,7 @@
  *            Boston,  MA  02111-1307, USA.
  */
 
-#include <libgnomevfs/gnome-vfs-mime.h>
+#include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include "gprof-profile-data.h"
 
 struct _GProfProfileDataPriv

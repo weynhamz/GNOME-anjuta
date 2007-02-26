@@ -199,6 +199,55 @@ gprof_function_call_chart_view_clear_canvas (GProfFunctionCallChartView *self)
 	}
 }
 
+static gint
+on_node_event (GnomeCanvasItem *item, GdkEvent *event, gpointer data)
+{
+	GProfFunctionCallChartView *self;
+	gchar *function_name;
+	
+	self = GPROF_FUNCTION_CALL_CHART_VIEW (data);
+	
+	
+	switch (event->type)
+	{
+		case GDK_ENTER_NOTIFY:
+			/* Make the outline wide */
+			gnome_canvas_item_set (item,
+							   	   "width_units", 2.5,
+							   	   "fill_color_gdk",
+							   	   &self->priv->canvas->style->base[GTK_STATE_PRELIGHT],
+							   	   "outline_color_gdk",
+							   	   &self->priv->canvas->style->text[GTK_STATE_PRELIGHT],
+							   	   NULL);
+		
+			return TRUE;
+			break;
+		case GDK_LEAVE_NOTIFY:
+			/* Make the outline thin */
+			gnome_canvas_item_set (item,
+							   	   "width_units", 1.0,
+							   	   "fill_color_gdk",
+							   	   &self->priv->canvas->style->base[GTK_STATE_NORMAL],
+							   	   "outline_color_gdk",
+							   	   &self->priv->canvas->style->text[GTK_STATE_NORMAL],	
+							   	   NULL);
+			return TRUE;
+			break;
+		case GDK_2BUTTON_PRESS:
+			function_name = (gchar *)g_object_get_data (G_OBJECT (item), 
+													    "function-name");
+			gprof_view_show_symbol_in_editor (GPROF_VIEW (self), function_name);
+			g_free (function_name);
+		
+			return TRUE;
+			break;
+		default:
+			break;
+	}
+	
+	return FALSE;
+}
+
 static void
 gprof_function_call_chart_view_draw_node (GProfFunctionCallChartView *self,
 										  Agnode_t *node, point *node_pos,
@@ -226,6 +275,12 @@ gprof_function_call_chart_view_draw_node (GProfFunctionCallChartView *self,
 						   		  "width_units", 
 						   		  1.0,
 						   		  NULL);
+	
+	g_object_set_data_full (G_OBJECT (item), "function-name", g_strdup (node->name),
+							g_free);
+	g_signal_connect (GTK_OBJECT (item), "event", G_CALLBACK (on_node_event),
+					  (gpointer) self);
+					  
 	self->priv->canvas_items = g_list_append (self->priv->canvas_items, item);
 						   
 	/* Label */
@@ -454,12 +509,16 @@ gprof_function_call_chart_view_get_type ()
 }
 
 GProfFunctionCallChartView *
-gprof_function_call_chart_view_new (GProfProfileData *profile_data)
+gprof_function_call_chart_view_new (GProfProfileData *profile_data,
+									IAnjutaSymbolManager *symbol_manager,
+									IAnjutaDocumentManager *document_manager)
 {
 	GProfFunctionCallChartView *view;
 	
 	view = g_object_new (GPROF_FUNCTION_CALL_CHART_VIEW_TYPE, NULL);
 	gprof_view_set_data (GPROF_VIEW (view), profile_data);
+	gprof_view_set_symbol_manager (GPROF_VIEW (view), symbol_manager);
+	gprof_view_set_document_manager (GPROF_VIEW (view), document_manager);
 	
 	return view;
 }

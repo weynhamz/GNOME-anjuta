@@ -209,6 +209,32 @@ gprof_call_graph_view_select_function (GProfCallGraphView *self, gchar *name)
 	}
 }
 
+static void 
+on_functions_list_view_row_activated (GtkTreeView *list_view,
+									  GtkTreePath *path,
+									  GtkTreeViewColumn *col,												 
+									  gpointer user_data)
+{
+	GProfView *self;
+	GtkTreeIter list_iter;
+	GtkTreeModel *model;
+	gchar *selected_function_name;
+	
+	self = GPROF_VIEW (user_data);
+	model = gtk_tree_view_get_model (list_view);
+	
+	if (gtk_tree_model_get_iter (model, &list_iter, path))
+	{
+		gtk_tree_model_get (model,
+							&list_iter, CALLED_COL_NAME, 
+							&selected_function_name, -1);
+		
+		gprof_view_show_symbol_in_editor (self, selected_function_name);
+		
+		g_free (selected_function_name);
+	}	
+}
+
 /* Called/Called By list row activation callbacks */
 static void on_called_list_view_row_activated (GtkTreeView *list_view,
 											   GtkTreePath *path,
@@ -461,6 +487,9 @@ gprof_call_graph_view_init (GProfCallGraphView *self)
 	called_by_jump_to_button = glade_xml_get_widget (self->priv->gxml, 
 												  	 "called_by_jump_to_button");
 													 
+	g_signal_connect (functions_list_view, "row-activated", 
+					  G_CALLBACK (on_functions_list_view_row_activated), 
+					  (gpointer) self);
 	g_signal_connect (called_list_view, "row-activated", 
 					  G_CALLBACK (on_called_list_view_row_activated), 
 					  (gpointer) self);
@@ -525,12 +554,16 @@ gprof_call_graph_view_get_type ()
 }
 
 GProfCallGraphView *
-gprof_call_graph_view_new (GProfProfileData *profile_data)
+gprof_call_graph_view_new (GProfProfileData *profile_data,
+						   IAnjutaSymbolManager *symbol_manager,
+						   IAnjutaDocumentManager *document_manager)
 {
 	GProfCallGraphView *view;
 	
 	view = g_object_new (GPROF_CALL_GRAPH_VIEW_TYPE, NULL);
 	gprof_view_set_data (GPROF_VIEW (view), profile_data);
+	gprof_view_set_symbol_manager (GPROF_VIEW (view), symbol_manager);
+	gprof_view_set_document_manager (GPROF_VIEW (view), document_manager);
 	
 	return view;
 }

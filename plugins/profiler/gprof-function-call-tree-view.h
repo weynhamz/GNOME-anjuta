@@ -56,7 +56,9 @@ struct _GProfFunctionCallTreeViewClass
 
 GType gprof_flat_profile_view_get_type ();
 
-GProfFunctionCallTreeView * gprof_function_call_tree_view_new (GProfProfileData *profile_data);
+GProfFunctionCallTreeView * gprof_function_call_tree_view_new (GProfProfileData *profile_data,
+															   IAnjutaSymbolManager *symbol_manager,
+															   IAnjutaDocumentManager *document_manager);
 
 void gprof_function_call_tree_view_refresh (GProfView *view);
 GtkWidget *gprof_function_call_tree_view_get_widget (GProfView *view);

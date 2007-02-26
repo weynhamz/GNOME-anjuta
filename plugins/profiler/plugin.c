@@ -642,6 +642,8 @@ profiler_activate (AnjutaPlugin *plugin)
 
 	AnjutaUI *ui;
 	Profiler *profiler;
+	IAnjutaSymbolManager *symbol_manager;
+	IAnjutaDocumentManager *document_manager;
 	
 	DEBUG_PRINT ("Profiler: Activating Profiler plugin ...");
 	profiler = PROFILER (plugin);
@@ -662,19 +664,35 @@ profiler_activate (AnjutaPlugin *plugin)
 	profiler->view_manager = gprof_view_manager_new ();
 	profiler->profile_data = gprof_profile_data_new ();
 	
+	symbol_manager = anjuta_shell_get_interface (plugin->shell, 
+												 IAnjutaSymbolManager,
+												 NULL);
+	
+	document_manager = anjuta_shell_get_interface (plugin->shell, 
+												   IAnjutaDocumentManager,
+												   NULL);
+	
 	gprof_view_manager_add_view (profiler->view_manager,
-								 GPROF_VIEW (gprof_flat_profile_view_new (profiler->profile_data)),
+								 GPROF_VIEW (gprof_flat_profile_view_new (profiler->profile_data,
+																		  symbol_manager,
+																		  document_manager)),
 								 _("Flat Profile"));
 	gprof_view_manager_add_view (profiler->view_manager,
-								 GPROF_VIEW (gprof_call_graph_view_new (profiler->profile_data)),
+								 GPROF_VIEW (gprof_call_graph_view_new (profiler->profile_data,
+																		symbol_manager,
+																		document_manager)),
 								 _("Call Graph"));
 	gprof_view_manager_add_view (profiler->view_manager,
-								 GPROF_VIEW (gprof_function_call_tree_view_new (profiler->profile_data)),
+								 GPROF_VIEW (gprof_function_call_tree_view_new (profiler->profile_data,
+																				symbol_manager,
+																				document_manager)),
 								 _("Function Call Tree"));
 	
 #ifdef HAVE_GRAPHVIZ
 	gprof_view_manager_add_view (profiler->view_manager,
-								 GPROF_VIEW (gprof_function_call_chart_view_new (profiler->profile_data)),
+								 GPROF_VIEW (gprof_function_call_chart_view_new (profiler->profile_data,
+																				 symbol_manager,
+																				 document_manager)),
 								 _("Function Call Chart"));
 #endif
 								 

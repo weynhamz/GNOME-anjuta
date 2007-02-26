@@ -26,6 +26,8 @@
 struct _GProfViewPriv
 {
 	GProfProfileData *profile_data;
+	IAnjutaSymbolManager *symbol_manager;
+	IAnjutaDocumentManager *document_manager;
 };
 
 static void
@@ -93,6 +95,54 @@ GProfProfileData *
 gprof_view_get_data (GProfView *self)
 {
 	return self->priv->profile_data;
+}
+
+void
+gprof_view_set_symbol_manager (GProfView *self, 
+							   IAnjutaSymbolManager *symbol_manager)
+{
+	self->priv->symbol_manager = symbol_manager;
+}
+
+void
+gprof_view_set_document_manager (GProfView *self, 
+							   	 IAnjutaDocumentManager *document_manager)
+{
+	self->priv->document_manager = document_manager;
+}
+
+void 
+gprof_view_show_symbol_in_editor (GProfView *self,
+								  const gchar *symbol_name)
+{
+	IAnjutaIterable *symbol_iter;
+	IAnjutaSymbol *symbol;
+	const gchar *file;
+	guint line;
+	
+	if (self->priv->symbol_manager &&
+		self->priv->document_manager)
+	{									   	
+		symbol_iter = ianjuta_symbol_manager_search (self->priv->symbol_manager,
+													 IANJUTA_SYMBOL_TYPE_FUNCTION,
+													 symbol_name,
+													 FALSE,
+													 TRUE,
+													 NULL);
+		
+		if (symbol_iter &&
+			ianjuta_iterable_get_length (symbol_iter, NULL) > 0)
+		{
+			symbol = IANJUTA_SYMBOL (symbol_iter);
+			file = ianjuta_symbol_file (symbol, NULL);
+			line = ianjuta_symbol_line (symbol, NULL);
+			
+			ianjuta_document_manager_goto_file_line (self->priv->document_manager, 
+													 file, line, NULL);
+			
+			g_object_unref (symbol_iter);
+		}
+	}
 }
 
 void 

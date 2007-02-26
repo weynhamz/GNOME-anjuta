@@ -56,7 +56,9 @@ struct _GProfFlatProfileViewClass
 
 GType gprof_flat_profile_view_get_type ();
 
-GProfFlatProfileView *gprof_flat_profile_view_new (GProfProfileData *profile_data);
+GProfFlatProfileView *gprof_flat_profile_view_new (GProfProfileData *profile_data,
+												   IAnjutaSymbolManager *symbol_manager,
+												   IAnjutaDocumentManager *document_manager);
 
 void gprof_flat_profile_view_refresh (GProfView *view);
 GtkWidget *gprof_flat_profile_view_get_widget (GProfView *view);

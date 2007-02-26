@@ -27,6 +27,8 @@
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
+#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+#include <libanjuta/interfaces/ianjuta-document-manager.h>
 #include "gprof-profile-data.h"
 
 G_BEGIN_DECLS
@@ -61,6 +63,12 @@ struct _GProfViewClass
 GType gprof_view_get_type ();
 
 void gprof_view_set_data (GProfView *self, GProfProfileData *profile_data);
+void gprof_view_set_symbol_manager (GProfView *self, 
+									IAnjutaSymbolManager *symbol_manager);
+void gprof_view_set_document_manager (GProfView *self, 
+									  IAnjutaDocumentManager *document_manager);
+void gprof_view_show_symbol_in_editor (GProfView *self, 
+									   const gchar *symbol_name);
 GProfProfileData *gprof_view_get_data (GProfView *self);
 
 void gprof_view_refresh (GProfView *self);
