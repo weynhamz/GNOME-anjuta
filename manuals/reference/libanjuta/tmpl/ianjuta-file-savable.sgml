@@ -30,22 +30,6 @@ ianjuta-file-savable
 </para>
 
 
-<!-- ##### SIGNAL IAnjutaFileSavable::save-point ##### -->
-<para>
-
-</para>
-
-@ianjutafilesavable: the object which received the signal.
-@arg1: 
-
-<!-- ##### SIGNAL IAnjutaFileSavable::saved ##### -->
-<para>
-
-</para>
-
-@ianjutafilesavable: the object which received the signal.
-@arg1: 
-
 <!-- ##### STRUCT IAnjutaFileSavableIface ##### -->
 <para>
 

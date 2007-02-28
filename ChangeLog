@@ -1,3 +1,23 @@
+2007-02-28  Johannes Schmid <jhs@gnome.org>
+
+	* manuals/reference/libanjuta/tmpl/anjuta-shell.sgml:
+	* manuals/reference/libanjuta/tmpl/ianjuta-debugger.sgml:
+	* manuals/reference/libanjuta/tmpl/ianjuta-editor-assist.sgml:
+	* manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml:
+	* manuals/reference/libanjuta/tmpl/ianjuta-file-manager.sgml:
+	* manuals/reference/libanjuta/tmpl/ianjuta-file-savable.sgml:
+	* manuals/reference/libanjuta/tmpl/ianjuta-markable.sgml:
+	* manuals/reference/libanjuta/tmpl/ianjuta-message-view.sgml:
+	* manuals/reference/libanjuta/tmpl/ianjuta-project-manager.sgml:
+	* manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml:
+	Updated (why do they need to be under version control?)
+	
+	* plugins/message-view/anjuta-msgman.c: (on_msgman_close_all),
+	(create_tab_popup_menu), (on_msgman_popup_menu),
+	(on_tab_button_press_event), (anjuta_msgman_page_new),
+	(anjuta_msgman_finalize), (anjuta_msgman_instance_init):
+	Added "Close all message tabs" popup menu
+
 2007-02-26  Naba Kumar  <naba@gnome.org>
 
 	* plugins/profiler/gprof-flat-profile-entry.c,

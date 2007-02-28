@@ -50,30 +50,6 @@ ianjuta-project-manager
 </para>
 
 
-<!-- ##### SIGNAL IAnjutaProjectManager::element-added ##### -->
-<para>
-
-</para>
-
-@ianjutaprojectmanager: the object which received the signal.
-@arg1: 
-
-<!-- ##### SIGNAL IAnjutaProjectManager::element-removed ##### -->
-<para>
-
-</para>
-
-@ianjutaprojectmanager: the object which received the signal.
-@arg1: 
-
-<!-- ##### SIGNAL IAnjutaProjectManager::element-selected ##### -->
-<para>
-
-</para>
-
-@ianjutaprojectmanager: the object which received the signal.
-@arg1: 
-
 <!-- ##### STRUCT IAnjutaProjectManagerIface ##### -->
 <para>
 

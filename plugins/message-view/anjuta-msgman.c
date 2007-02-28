@@ -28,6 +28,7 @@ struct _AnjutaMsgmanPriv
 {
 	AnjutaPreferences *preferences;
 	GtkWidget* popup_menu;
+	GtkWidget* tab_popup;
 	MessageView *current_view;
 	GList *views;
 };
@@ -51,6 +52,53 @@ on_msgman_close_page (GtkButton* button,
 	MessageView *view = MESSAGE_VIEW (g_object_get_data (G_OBJECT (button),
 														 "message_view"));
 	anjuta_msgman_remove_view (msgman, view);
+}
+
+static void 
+on_msgman_close_all(GtkMenuItem* item, AnjutaMsgman* msgman)
+{
+	
+	anjuta_msgman_remove_all_views(msgman);
+}
+
+static GtkWidget*
+create_tab_popup_menu(AnjutaMsgman* msgman)
+{
+	GtkWidget* menu;
+	GtkWidget* item_close_all;
+	
+	menu = gtk_menu_new();
+	
+	item_close_all = gtk_menu_item_new_with_label(_("Close all message tabs"));
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu), item_close_all);
+	g_signal_connect(G_OBJECT(item_close_all), "activate", G_CALLBACK(on_msgman_close_all),
+					 msgman);
+	gtk_widget_show_all(menu);
+	
+	gtk_menu_attach_to_widget(GTK_MENU(menu), GTK_WIDGET(msgman), NULL);
+	return menu;
+}
+
+static void
+on_msgman_popup_menu(GtkWidget* widget, AnjutaMsgman* msgman)
+{
+	gtk_menu_popup(GTK_MENU(msgman->priv->tab_popup),
+				   NULL, NULL, NULL, NULL, 0, gtk_get_current_event_time());
+}
+
+static gboolean
+on_tab_button_press_event(GtkWidget* widget, GdkEventButton* event, AnjutaMsgman* msgman)
+{
+	if (event->type == GDK_BUTTON_PRESS)
+	{
+		if (event->button == 3)
+		{
+				gtk_menu_popup(GTK_MENU(msgman->priv->tab_popup), NULL, NULL, NULL, NULL, 
+							   event->button, event->time);
+			return TRUE;
+		}
+	}
+	return FALSE;
 }
 
 static AnjutaMsgmanPage *
@@ -102,8 +150,8 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	gtk_box_pack_start (GTK_BOX (page->box), page->button, FALSE, FALSE, 0);
 	
 	g_object_set_data (G_OBJECT (page->button), "message_view", page->widget);
-	gtk_signal_connect (GTK_OBJECT (page->button), "clicked",
-						GTK_SIGNAL_FUNC(on_msgman_close_page),
+	g_signal_connect (GTK_OBJECT (page->button), "clicked",
+						G_CALLBACK(on_msgman_close_page),
 						msgman);
 	
 	gtk_widget_show_all (page->box);
@@ -146,6 +194,7 @@ static void
 anjuta_msgman_finalize (GObject *obj)
 {
 	AnjutaMsgman *msgman = ANJUTA_MSGMAN (obj);
+	gtk_widget_destroy(msgman->priv->tab_popup);
 	if (msgman->priv)
 	{
 		g_free (msgman->priv);
@@ -163,6 +212,11 @@ anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 	msgman->priv = g_new0(AnjutaMsgmanPriv, 1);
 	msgman->priv->views = NULL;
 	msgman->priv->current_view = NULL;
+	msgman->priv->tab_popup = create_tab_popup_menu(msgman);
+	g_signal_connect(GTK_OBJECT(msgman), "popup-menu", 
+                       G_CALLBACK(on_msgman_popup_menu), msgman);
+    g_signal_connect(GTK_OBJECT(msgman), "button-press-event", 
+                       G_CALLBACK(on_tab_button_press_event), msgman);
 }
 
 static void

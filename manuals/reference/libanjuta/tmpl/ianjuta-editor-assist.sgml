@@ -30,44 +30,6 @@ ianjuta-editor-assist
 </para>
 
 
-<!-- ##### SIGNAL IAnjutaEditorAssist::assist-begin ##### -->
-<para>
-
-</para>
-
-@ianjutaeditorassist: the object which received the signal.
-@arg1: 
-
-<!-- ##### SIGNAL IAnjutaEditorAssist::assist-canceled ##### -->
-<para>
-
-</para>
-
-@ianjutaeditorassist: the object which received the signal.
-
-<!-- ##### SIGNAL IAnjutaEditorAssist::assist-choosen ##### -->
-<para>
-
-</para>
-
-@ianjutaeditorassist: the object which received the signal.
-@arg1: 
-
-<!-- ##### SIGNAL IAnjutaEditorAssist::assist-end ##### -->
-<para>
-
-</para>
-
-@ianjutaeditorassist: the object which received the signal.
-
-<!-- ##### SIGNAL IAnjutaEditorAssist::assist-update ##### -->
-<para>
-
-</para>
-
-@ianjutaeditorassist: the object which received the signal.
-@arg1: 
-
 <!-- ##### STRUCT IAnjutaEditorAssistIface ##### -->
 <para>
 

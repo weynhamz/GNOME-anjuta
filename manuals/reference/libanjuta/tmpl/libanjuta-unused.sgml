@@ -1222,6 +1222,49 @@ Properties
 </para>
 
 
+<!-- ##### SIGNAL AnjutaShell::load-session ##### -->
+<para>
+
+</para>
+
+@anjutashell: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL AnjutaShell::save-prompt ##### -->
+<para>
+
+</para>
+
+@anjutashell: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL AnjutaShell::save-session ##### -->
+<para>
+
+</para>
+
+@anjutashell: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL AnjutaShell::value-added ##### -->
+<para>
+
+</para>
+
+@anjutashell: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL AnjutaShell::value-removed ##### -->
+<para>
+
+</para>
+
+@anjutashell: the object which received the signal.
+@arg1: 
+
 <!-- ##### STRUCT AnjutaStatus ##### -->
 <para>
 
@@ -1451,7 +1494,82 @@ Properties
 @down: 
 @up: 
 
+<!-- ##### SIGNAL IAnjutaDebugger::debugger-ready ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaDebugger::debugger-started ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+
+<!-- ##### SIGNAL IAnjutaDebugger::debugger-stopped ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+
+<!-- ##### SIGNAL IAnjutaDebugger::frame-changed ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaDebugger::location-changed ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+@arg1: 
+@arg2: 
+@arg3: 
+
+<!-- ##### SIGNAL IAnjutaDebugger::program-exited ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+
+<!-- ##### SIGNAL IAnjutaDebugger::program-loaded ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+
+<!-- ##### SIGNAL IAnjutaDebugger::program-running ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+
+<!-- ##### SIGNAL IAnjutaDebugger::program-stopped ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+
 <!-- ##### SIGNAL IAnjutaDebugger::send ##### -->
+<para>
+
+</para>
+
+@ianjutadebugger: the object which received the signal.
+
+<!-- ##### SIGNAL IAnjutaDebugger::sharedlib-event ##### -->
 <para>
 
 </para>
@@ -1483,6 +1601,72 @@ Properties
 @start: 
 @stop: 
 
+<!-- ##### SIGNAL IAnjutaEditor::changed ##### -->
+<para>
+
+</para>
+
+@ianjutaeditor: the object which received the signal.
+@arg1: 
+@arg2: 
+@arg3: 
+@arg4: 
+@arg5: 
+
+<!-- ##### SIGNAL IAnjutaEditor::char-added ##### -->
+<para>
+
+</para>
+
+@ianjutaeditor: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL IAnjutaEditor::update-ui ##### -->
+<para>
+
+</para>
+
+@ianjutaeditor: the object which received the signal.
+
+<!-- ##### SIGNAL IAnjutaEditorAssist::assist-begin ##### -->
+<para>
+
+</para>
+
+@ianjutaeditorassist: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaEditorAssist::assist-canceled ##### -->
+<para>
+
+</para>
+
+@ianjutaeditorassist: the object which received the signal.
+
+<!-- ##### SIGNAL IAnjutaEditorAssist::assist-choosen ##### -->
+<para>
+
+</para>
+
+@ianjutaeditorassist: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaEditorAssist::assist-end ##### -->
+<para>
+
+</para>
+
+@ianjutaeditorassist: the object which received the signal.
+
+<!-- ##### SIGNAL IAnjutaEditorAssist::assist-update ##### -->
+<para>
+
+</para>
+
+@ianjutaeditorassist: the object which received the signal.
+@arg1: 
+
 <!-- ##### STRUCT IAnjutaEditorEdit ##### -->
 <para>
 
@@ -1512,6 +1696,30 @@ Properties
 @to_upper: 
 @undo: 
 
+<!-- ##### SIGNAL IAnjutaFileManager::section-changed ##### -->
+<para>
+
+</para>
+
+@ianjutafilemanager: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaFileSavable::save-point ##### -->
+<para>
+
+</para>
+
+@ianjutafilesavable: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaFileSavable::saved ##### -->
+<para>
+
+</para>
+
+@ianjutafilesavable: the object which received the signal.
+@arg1: 
+
 <!-- ##### ENUM IAnjutaIterableError ##### -->
 <para>
 
@@ -1530,6 +1738,55 @@ Properties
 @c: 
 @d: 
 @e: 
+
+<!-- ##### SIGNAL IAnjutaMarkable::marker-clicked ##### -->
+<para>
+
+</para>
+
+@ianjutamarkable: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL IAnjutaMessageView::buffer-flushed ##### -->
+<para>
+
+</para>
+
+@ianjutamessageview: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaMessageView::message-clicked ##### -->
+<para>
+
+</para>
+
+@ianjutamessageview: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaProjectManager::element-added ##### -->
+<para>
+
+</para>
+
+@ianjutaprojectmanager: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaProjectManager::element-removed ##### -->
+<para>
+
+</para>
+
+@ianjutaprojectmanager: the object which received the signal.
+@arg1: 
+
+<!-- ##### SIGNAL IAnjutaProjectManager::element-selected ##### -->
+<para>
+
+</para>
+
+@ianjutaprojectmanager: the object which received the signal.
+@arg1: 
 
 <!-- ##### STRUCT IAnjutaRenderable ##### -->
 <para>
