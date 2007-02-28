@@ -41,7 +41,7 @@
 #  include <config.h>
 #endif
 
-//#define DEBUG
+/*#define DEBUG*/
 
 #include <sys/stat.h>
 #include <unistd.h>
@@ -295,6 +295,7 @@ breakpoint_item_new_from_uri (BreakpointsDBase *bd, const gchar* uri, guint line
 	bi = g_new0 (BreakpointItem, 1);
 	bi->bd = bd;
 	bi->bp = anjuta_breakpoint_new();
+	bi->bp->type = IANJUTA_DEBUGGER_BREAK_ON_LINE;
 	if (uri != NULL)
 	{
 		bi->uri = g_strdup (uri);
@@ -492,7 +493,10 @@ breakpoint_item_update_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 	{
 			set_breakpoint_in_editor (bi, bi->bp->enable == IANJUTA_DEBUGGER_YES ? BREAKPOINT_ENABLED : BREAKPOINT_DISABLED, FALSE);
 	}
-	
+
+	/* Emit signal */
+	g_signal_emit_by_name (bi->bd->plugin, "breakpoint-changed", bi->bp);
+
 }
 
 static void
@@ -523,7 +527,11 @@ breakpoint_item_remove_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 
 	/* Delete breakpoint marker from screen */
 	set_breakpoint_in_editor (bi, BREAKPOINT_NONE, FALSE);
-		
+
+	/* Emit signal */
+	bi->bp->type = IANJUTA_DEBUGGER_BREAK_REMOVED;
+	g_signal_emit_by_name (bi->bd->plugin, "breakpoint-changed", bi->bp);
+	
 	breakpoint_item_free (bi);
 }
 
@@ -584,6 +592,9 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 					bi,
 					NULL);
 		    break;
+		default:
+			g_return_if_reached();
+			break;
 		}
 	}
 	else
@@ -1036,8 +1047,6 @@ breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 	GtkTreeIter iter;
 	gchar *uri;
 	
-	DEBUG_PRINT("DMA: set_all_in_editor %p", te);
-	
 	g_return_if_fail (te != NULL);
 	g_return_if_fail (bd != NULL);
 	g_return_if_fail (bd->treeview != NULL);
@@ -1079,8 +1088,6 @@ breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 
-	DEBUG_PRINT("DMA: clear_all_in_editor %p", te);
-	
 	g_return_if_fail (te != NULL);
 	g_return_if_fail (bd != NULL);
 	g_return_if_fail (bd->treeview != NULL);
@@ -1279,7 +1286,7 @@ on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	if (bi == NULL)
 	{
 		bi = breakpoint_item_new_from_uri (bd, uri, line, TRUE);
-		
+	
 		breakpoints_dbase_add_breakpoint (bd, bi);
 	}
 	else

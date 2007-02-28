@@ -27,6 +27,7 @@
 
 /*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-markable.h>
 
 #include "sexy-icon-entry.h"
 
@@ -43,6 +44,22 @@
 /* Minimum size left window showing address */
 #define MIN_NUMBER_WINDOW_WIDTH		20
 #define GUTTER_PIXMAP 			16
+#define COMPOSITE_ALPHA                 225
+
+#define MAX_MARKER		32	/* Must be smaller than the number of bits in an int */
+
+/* Order is important, as marker with the lowest number is drawn first */
+#define SPARSE_VIEW_BOOKMARK                0
+#define SPARSE_VIEW_BREAKPOINT_DISABLED     1
+#define SPARSE_VIEW_BREAKPOINT_ENABLED      2
+#define SPARSE_VIEW_PROGRAM_COUNTER         3
+#define SPARSE_VIEW_LINEMARKER              4
+
+#define MARKER_PIXMAP_BOOKMARK "bookmark.png"
+#define MARKER_PIXMAP_LINEMARKER "linemarker.png"
+#define MARKER_PIXMAP_PROGRAM_COUNTER "program-counter.png"
+#define MARKER_PIXMAP_BREAKPOINT_DISABLED "breakpoint-disabled.png"
+#define MARKER_PIXMAP_BREAKPOINT_ENABLED "breakpoint-enabled.png"
 
 /* Types
  *---------------------------------------------------------------------------*/
@@ -71,6 +88,8 @@ struct _DmaSparseViewPrivate
 	gint char_by_line;
 	
 	guint stamp;
+	
+	GdkPixbuf *marker_pixbuf[MAX_MARKER];
 };
 
 /* Used in dispose and finalize */
@@ -396,6 +415,62 @@ dma_sparse_view_set_show_line_markers (DmaSparseView *view, gboolean show)
 	}
 }
 
+/* Markers private functions
+ *---------------------------------------------------------------------------*/
+
+static gint
+marker_ianjuta_to_view (IAnjutaMarkableMarker marker)
+{
+        gint mark;
+        switch (marker)
+        {
+                case IANJUTA_MARKABLE_LINEMARKER:
+                        mark = SPARSE_VIEW_LINEMARKER;
+                        break;
+                case IANJUTA_MARKABLE_BOOKMARK:
+                        mark = SPARSE_VIEW_BOOKMARK;
+                        break;
+                case IANJUTA_MARKABLE_BREAKPOINT_DISABLED:
+                        mark = SPARSE_VIEW_BREAKPOINT_DISABLED;
+                        break;
+                case IANJUTA_MARKABLE_BREAKPOINT_ENABLED:
+                        mark = SPARSE_VIEW_BREAKPOINT_ENABLED;
+                        break;
+                case IANJUTA_MARKABLE_PROGRAM_COUNTER:
+                        mark = SPARSE_VIEW_PROGRAM_COUNTER;
+                        break;
+                default:
+                        mark = SPARSE_VIEW_LINEMARKER;
+        }
+	
+        return mark;
+}
+
+static void
+dma_sparse_view_initialize_marker (DmaSparseView *view)
+{
+	view->priv->marker_pixbuf[SPARSE_VIEW_BOOKMARK] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BOOKMARK, NULL);
+	view->priv->marker_pixbuf[SPARSE_VIEW_BREAKPOINT_DISABLED] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_DISABLED, NULL);
+	view->priv->marker_pixbuf[SPARSE_VIEW_BREAKPOINT_ENABLED] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_ENABLED, NULL);
+	view->priv->marker_pixbuf[SPARSE_VIEW_PROGRAM_COUNTER] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_PROGRAM_COUNTER, NULL);
+	view->priv->marker_pixbuf[SPARSE_VIEW_LINEMARKER] = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_LINEMARKER, NULL);
+}
+
+static void
+dma_sparse_view_free_marker (DmaSparseView *view)
+{
+	gint i;
+	
+	for (i = 0; i < MAX_MARKER; i++)
+	{
+		if (view->priv->marker_pixbuf[i] != NULL)
+		{
+			g_object_unref (view->priv->marker_pixbuf[i]);
+			view->priv->marker_pixbuf[i] = NULL;
+		}
+	}
+}
+
 /* Private functions
  *---------------------------------------------------------------------------*/
 
@@ -483,6 +558,79 @@ dma_sparse_view_synchronize_iter (DmaSparseView *view, DmaSparseIter *iter)
             dma_sparse_iter_round (iter, FALSE);
         }
 		gtk_adjustment_set_value (view->priv->vadjustment, (gdouble)dma_sparse_iter_get_address (iter));
+	}
+}
+
+static void
+draw_line_markers (DmaSparseView *view,
+		   gint		current_marker,
+		   gint     x,
+		   gint     y)
+{
+	GdkPixbuf *composite;
+	gint width, height;
+	gint i;
+	
+	composite = NULL;
+	width = height = 0;
+
+	/* composite all the pixbufs for the markers present at the line */
+	for (i = 0; i < MAX_MARKER; i++)
+	{
+		if (current_marker & (1 << i))
+		{
+			GdkPixbuf *pixbuf = view->priv->marker_pixbuf[i];
+			
+			if (pixbuf)
+			{
+				if (!composite)
+				{
+					composite = gdk_pixbuf_copy (pixbuf);
+					width = gdk_pixbuf_get_width (composite);
+					height = gdk_pixbuf_get_height (composite);
+				}
+				else
+				{
+					gint pixbuf_w;
+					gint pixbuf_h;
+
+					pixbuf_w = gdk_pixbuf_get_width (pixbuf);
+					pixbuf_h = gdk_pixbuf_get_height (pixbuf);
+					gdk_pixbuf_composite (pixbuf,
+							      composite,
+							      0, 0,
+						    	  width, height,
+							      	0, 0,
+							      	(double) pixbuf_w / width,
+							      (double) pixbuf_h / height,
+							      GDK_INTERP_BILINEAR,
+							      COMPOSITE_ALPHA);
+				}
+				//g_object_unref (pixbuf);
+			}
+			else
+			{
+				g_warning ("Unknown marker %d used", i);
+			}
+			current_marker &= ~ (1 << i);
+			if (current_marker == 0) break;
+		}
+	}
+	
+	/* render the result to the left window */
+	if (composite)
+	{
+		GdkWindow *window;
+		gint i;
+
+		window = gtk_text_view_get_window (GTK_TEXT_VIEW (view),
+						   GTK_TEXT_WINDOW_LEFT);
+
+		gdk_draw_pixbuf (GDK_DRAWABLE (window), NULL, composite,
+					 0, 0, x, y,
+					 width, height,
+				 	GDK_RGB_DITHER_NORMAL, 0, 0);
+		g_object_unref (composite);
 	}
 }
 
@@ -609,6 +757,24 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 					  text_width + 2, 
 					  pos,
 					  layout);
+		}
+
+		/* Display marker */
+		if (view->priv->show_line_markers) 
+		{
+			gint current_marker = dma_sparse_buffer_get_marks (view->priv->buffer, address);
+
+			if (current_marker)
+			{
+				gint x;
+				
+				if (view->priv->show_line_numbers)
+					x = text_width + 4;
+				else
+					x = 0;
+				
+				draw_line_markers (view, current_marker, x, pos);
+			}
 		}
 		
 		if (!dma_sparse_iter_forward_lines (&buf_iter, 1)) return;
@@ -742,12 +908,37 @@ dma_sparse_view_refresh (DmaSparseView *view)
 	gtk_text_buffer_move_mark_by_name (buffer, "selection_bound", &cur);
 }
 
+/* Markers functions
+ *---------------------------------------------------------------------------*/
+
+gint
+dma_sparse_view_mark (DmaSparseView *view, guint location, gint marker)
+{
+	dma_sparse_buffer_add_mark (view->priv->buffer, location, marker_ianjuta_to_view (marker));
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+	
+	return (gint)location;
+}
+
+void
+dma_sparse_view_unmark (DmaSparseView *view, guint location, gint marker)
+{
+	dma_sparse_buffer_remove_mark (view->priv->buffer, location, marker_ianjuta_to_view (marker));
+	gtk_widget_queue_draw (GTK_WIDGET (view));
+}
+
+void
+dma_sparse_view_delete_all_markers (DmaSparseView *view, gint marker)
+{
+	dma_sparse_buffer_remove_all_mark (view->priv->buffer, marker_ianjuta_to_view(marker));
+}
+
 void
 dma_sparse_view_goto (DmaSparseView *view, guint location)
 {
-       dma_sparse_iter_move_at (&view->priv->start, location);
-       gtk_adjustment_set_value (view->priv->vadjustment, (gdouble)location);
-       gtk_adjustment_value_changed (view->priv->vadjustment);
+	dma_sparse_iter_move_at (&view->priv->start, location);
+	gtk_adjustment_set_value (view->priv->vadjustment, (gdouble)location);
+	gtk_adjustment_value_changed (view->priv->vadjustment);
 }
 
 /* GtkWidget functions
@@ -898,6 +1089,8 @@ dma_sparse_view_finalize (GObject *object)
 
 	view = DMA_SPARSE_VIEW (object);
 	
+	dma_sparse_view_free_marker (view);
+
 	g_free (view->priv);
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -923,6 +1116,8 @@ dma_sparse_view_instance_init (DmaSparseView *view)
 	
 	view->priv->stamp = 0;
 
+	memset (view->priv->marker_pixbuf, 0, sizeof (view->priv->marker_pixbuf));
+
 	gtk_text_view_set_left_margin (GTK_TEXT_VIEW (view), 2);
 	gtk_text_view_set_right_margin (GTK_TEXT_VIEW (view), 2);	
 	
@@ -936,6 +1131,8 @@ dma_sparse_view_instance_init (DmaSparseView *view)
 	font_desc = pango_font_description_from_string ("Monospace 10");
 	gtk_widget_modify_font (GTK_WIDGET (view), font_desc);
 	pango_font_description_free (font_desc);
+	
+	dma_sparse_view_initialize_marker (view);
 }
 
 /* class_init intialize the class itself not the instance */

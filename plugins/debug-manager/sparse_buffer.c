@@ -320,6 +320,89 @@ dma_sparse_buffer_changed (const DmaSparseBuffer *buffer)
 		g_signal_emit (G_OBJECT (buffer), signals[CHANGED], 0);
 }
 
+void
+dma_sparse_buffer_add_mark (DmaSparseBuffer *buffer, guint address, gint mark)
+{
+	gint markers;
+	
+	if (buffer->mark == NULL)
+	{
+		/* Create new hash table */
+		buffer->mark = g_hash_table_new (g_direct_hash, g_direct_equal);
+	}
+	
+	/* Add mark */
+	markers = GPOINTER_TO_INT (g_hash_table_lookup (buffer->mark, GINT_TO_POINTER (address)));
+	markers |= 1 << mark;
+	g_hash_table_replace (buffer->mark, GINT_TO_POINTER (address), GINT_TO_POINTER (markers)); 
+}
+
+void
+dma_sparse_buffer_remove_mark (DmaSparseBuffer *buffer, guint address, gint mark)
+{
+	gint markers;
+
+	if (buffer->mark == NULL) return;	/* No mark */
+	
+	/* Remove one mark */
+	markers = GPOINTER_TO_INT (g_hash_table_lookup (buffer->mark, GINT_TO_POINTER (address)));
+	markers &= ~ (1 << mark);
+	
+	if (markers == 0)
+	{
+		g_hash_table_remove (buffer->mark, GINT_TO_POINTER (address));
+	}
+	else
+	{
+		g_hash_table_replace (buffer->mark, GINT_TO_POINTER (address), GINT_TO_POINTER (markers)); 
+	}
+}
+
+struct RemoveMarkPacket
+{
+	GHashTable *hash;
+	gint mark;
+};
+
+static void
+on_remove_mark (gpointer key, gpointer value, gpointer user_data)
+{
+	struct RemoveMarkPacket* pack = (struct RemoveMarkPacket *)user_data;
+	
+	value = GINT_TO_POINTER (GPOINTER_TO_INT (value) & ~(1<< pack->mark));
+	g_hash_table_replace (pack->hash, key, value); 
+}
+
+static gboolean
+on_remove_empty_mark (gpointer key, gpointer value, gpointer user_data)
+{
+	return (value == NULL);
+}
+
+void
+dma_sparse_buffer_remove_all_mark (DmaSparseBuffer *buffer, gint mark)
+{
+	/* marker hash table could be null, is no marks have been set */
+	if (buffer->mark != NULL)
+	{
+		struct RemoveMarkPacket pack;
+	
+		pack.hash = buffer->mark;
+		pack.mark = mark;
+
+		g_hash_table_foreach (buffer->mark, on_remove_mark, &pack);
+		g_hash_table_foreach_remove (buffer->mark, on_remove_empty_mark, NULL);
+	}
+}
+
+gint
+dma_sparse_buffer_get_marks (DmaSparseBuffer *buffer, guint address)
+{
+	if (buffer->mark == NULL) return 0;
+	
+	return GPOINTER_TO_INT (g_hash_table_lookup (buffer->mark, GINT_TO_POINTER (address)));
+}
+
 /* Iterator private functions
  *---------------------------------------------------------------------------*/
 
@@ -515,6 +598,13 @@ dma_sparse_buffer_finalize (GObject *object)
 		trans = next;
 	}
 	
+	/* Free marker hash table */
+	if (buffer->mark != NULL)
+	{
+		g_hash_table_destroy (buffer->mark);
+		buffer->mark = NULL;
+	}
+	
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -532,6 +622,7 @@ dma_sparse_buffer_instance_init (DmaSparseBuffer *buffer)
 	buffer->head = NULL;
 	buffer->stamp = 0;
 	buffer->pending = NULL;
+	buffer->mark = NULL;
 }
 
 /* class_init intialize the class itself not the instance */

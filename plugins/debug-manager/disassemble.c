@@ -24,6 +24,8 @@
 /*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
 
+#include <libanjuta/interfaces/ianjuta-markable.h>
+
 
 #include <sys/stat.h>
 #include <unistd.h>
@@ -66,7 +68,7 @@ typedef struct _DmaDisassemblyViewClass DmaDisassemblyViewClass;
 struct _DmaDisassemble
 {
 	IAnjutaDebugger *debugger;
-	AnjutaPlugin *plugin;
+	DebugManagerPlugin *plugin;
 	GtkWidget *window;
 	GtkWidget *menu;
 	DmaSparseBuffer* buffer;
@@ -717,6 +719,19 @@ on_disassembly_buffer_changed (DmaDisassemblyBuffer *buffer, DmaSparseView *view
 	dma_sparse_view_refresh (view);
 }
 
+static void
+on_breakpoint_changed (DmaDisassemble *self, IAnjutaDebuggerBreakpoint *bp)
+{
+	g_return_if_fail (bp != NULL);
+	
+	dma_disassemble_unmark (self, bp->address, IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
+	dma_disassemble_unmark (self, bp->address, IANJUTA_MARKABLE_BREAKPOINT_ENABLED);
+	if (bp->type != IANJUTA_DEBUGGER_BREAK_REMOVED)
+	{
+		dma_disassemble_mark (self, bp->address, bp->enable ? IANJUTA_MARKABLE_BREAKPOINT_ENABLED : IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
+	}
+}
+
 static GtkWidget*
 create_disassemble_gui (DmaDisassemble *self)
 {
@@ -733,7 +748,7 @@ create_disassemble_gui (DmaDisassemble *self)
 									 GTK_SHADOW_IN);
 	gtk_container_add (GTK_CONTAINER (self->window), GTK_WIDGET (dataview));
 	
-	anjuta_shell_add_widget (self->plugin->shell,
+	anjuta_shell_add_widget (ANJUTA_PLUGIN (self->plugin)->shell,
 							 self->window,
                              "AnjutaDebuggerDisassemble", _("Disassembly"),
                              NULL, ANJUTA_SHELL_PLACEMENT_LEFT,
@@ -751,6 +766,8 @@ on_debugger_started (DmaDisassemble *self)
 	self->buffer = DMA_SPARSE_BUFFER (dma_disassembly_buffer_new (self->debugger, 0x00000000U,0xFFFFFFFFU));
 
 	self->view = DMA_SPARSE_VIEW (create_disassemble_gui (self));
+
+	g_signal_connect_swapped (self->plugin, "breakpoint-changed", G_CALLBACK (on_breakpoint_changed), self);
 	
 	g_signal_connect (G_OBJECT (self->buffer), 
 			"changed", 
@@ -761,6 +778,8 @@ on_debugger_started (DmaDisassemble *self)
 static void
 destroy_disassemble_gui (DmaDisassemble *self)
 {
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_breakpoint_changed), self);
+
 	/* Destroy menu */
 	if (self->menu != NULL)
 	{
@@ -789,6 +808,45 @@ on_debugger_stopped (DmaDisassemble *self)
 	destroy_disassemble_gui (self);
 }
 
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+void
+dma_disassemble_mark (DmaDisassemble *self, guint address, gint marker)
+{
+	g_return_if_fail (self != NULL);
+	g_return_if_fail (self->view != NULL);
+	
+	dma_sparse_view_mark (self->view, address, marker);
+}
+
+void
+dma_disassemble_unmark (DmaDisassemble *self, guint address, gint marker)
+{
+	g_return_if_fail (self != NULL);
+	g_return_if_fail (self->view != NULL);
+	
+	dma_sparse_view_unmark (self->view, address, marker);
+}
+
+void
+dma_disassemble_clear_all_mark (DmaDisassemble *self, gint marker)
+{
+	g_return_if_fail (self != NULL);
+	/* Accept to clear mark without a view, used at initialization */
+	if (self->view != NULL)
+		dma_sparse_view_delete_all_markers (self->view, marker);
+}
+
+void
+dma_disassemble_goto_address (DmaDisassemble *self, guint address)
+{
+	g_return_if_fail (self != NULL);
+	g_return_if_fail (self->view != NULL);
+	
+	dma_sparse_view_goto (self->view, address);
+}
+
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
 
@@ -801,13 +859,13 @@ dma_disassemble_new(AnjutaPlugin *plugin, IAnjutaDebugger *debugger)
 	
 	self->debugger = debugger;
 	if (debugger != NULL) g_object_ref (debugger);
-	self->plugin = plugin;
+	self->plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
 	self->buffer = NULL;
 	self->view = NULL;
 
 	g_signal_connect_swapped (self->debugger, "debugger-started", G_CALLBACK (on_debugger_started), self);
 	g_signal_connect_swapped (self->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
-
+	
 	return self;
 }
 

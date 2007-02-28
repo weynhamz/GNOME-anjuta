@@ -2219,8 +2219,8 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 
 	bp.enable = IANJUTA_DEBUGGER_UNDEFINED;
 	bp.keep = IANJUTA_DEBUGGER_UNDEFINED;
-	
-	if ((error == NULL) || (mi_results == NULL))
+
+	if ((error != NULL) || (mi_results == NULL))
 	{
 		/* Call callback in all case (useful for enable that doesn't return
  		* anything */
@@ -2330,7 +2330,7 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 		/* Call callback in all case (useful for enable that doesn't return
  		* anything */
 		if (callback != NULL)
-			callback (NULL, user_data, error);
+			callback (&bp, user_data, error);
 	}
 	
 }

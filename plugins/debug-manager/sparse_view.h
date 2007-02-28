@@ -70,5 +70,11 @@ void dma_sparse_view_set_sparse_buffer (DmaSparseView *view, DmaSparseBuffer *bu
 
 void dma_sparse_view_goto (DmaSparseView *view, guint location);
 
+gint dma_sparse_view_mark (DmaSparseView *view, guint location, gint marker);
+void dma_sparse_view_unmark (DmaSparseView *view, guint location, gint marker);
+void dma_sparse_view_delete_all_markers (DmaSparseView *view, gint marker);
+
+void dma_sparse_view_goto (DmaSparseView *view, guint location);
+
 G_END_DECLS
 #endif /* _SPARSE_VIEW_H */

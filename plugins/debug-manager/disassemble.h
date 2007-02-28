@@ -31,6 +31,12 @@ typedef struct _DmaDisassemble DmaDisassemble;
 DmaDisassemble* dma_disassemble_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger);
 void dma_disassemble_free(DmaDisassemble *self);
 
+void dma_disassemble_mark (DmaDisassemble *self, guint address, gint marker);
+void dma_disassemble_unmark (DmaDisassemble *self, guint address, gint marker);
+void dma_disassemble_goto_address (DmaDisassemble *self, guint address);
+void dma_disassemble_clear_all_mark (DmaDisassemble *self, gint marker);
+
+
 G_END_DECLS
 
 #endif /* _DISASSEMBLE_H */

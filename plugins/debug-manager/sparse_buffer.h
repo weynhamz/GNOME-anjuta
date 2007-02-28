@@ -52,6 +52,11 @@ guint dma_sparse_buffer_get_upper (const DmaSparseBuffer *buffer);
 
 void dma_sparse_buffer_changed (const DmaSparseBuffer *buffer);
 
+void dma_sparse_buffer_add_mark (DmaSparseBuffer *buffer, guint address, gint mark);
+void dma_sparse_buffer_remove_mark (DmaSparseBuffer *buffer, guint address, gint mark);
+void dma_sparse_buffer_remove_all_mark (DmaSparseBuffer *buffer, gint mark);
+gint dma_sparse_buffer_get_marks (DmaSparseBuffer *buffer, guint address);
+
 void dma_sparse_buffer_get_iterator_at_address (DmaSparseBuffer *buffer, DmaSparseIter *iter, guint address);
 void dma_sparse_buffer_get_iterator_near_address (DmaSparseBuffer *buffer, DmaSparseIter *iter, guint address);
 void dma_sparse_iter_copy (DmaSparseIter *dst, const DmaSparseIter *src);
@@ -62,7 +67,6 @@ void dma_sparse_iter_round (DmaSparseIter *iter, gboolean round_up);
 void dma_sparse_iter_insert_lines (DmaSparseIter *iter, GtkTextIter *dst, guint count);
 gboolean dma_sparse_iter_forward_lines (DmaSparseIter *iter, gint count);
 gulong dma_sparse_iter_get_address (DmaSparseIter *iter);
-
 
 DmaSparseBufferTransport* dma_sparse_buffer_alloc_transport (DmaSparseBuffer *buffer, guint lines, guint chars);
 void dma_sparse_buffer_free_transport (DmaSparseBufferTransport *trans);
@@ -83,6 +87,8 @@ struct _DmaSparseBuffer
 	
 	gint stamp;
 	DmaSparseBufferTransport *pending;
+	
+	GHashTable* mark;
 };
 
 struct _DmaSparseBufferClass

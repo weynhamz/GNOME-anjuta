@@ -86,6 +86,7 @@ struct _DebugManagerPlugin
 	guint editor_watch_id;
 	IAnjutaEditor *pc_editor;
 	guint pc_line;
+	guint pc_address;
 	gboolean busy;
 	
 	/* Debugger components */
@@ -173,6 +174,13 @@ show_program_counter_in_editor(DebugManagerPlugin *self)
 }
 
 static void
+show_program_counter_in_disassembler(DebugManagerPlugin *self)
+{
+	dma_disassemble_mark (self->disassemble, self->pc_address, IANJUTA_MARKABLE_PROGRAM_COUNTER);
+	dma_disassemble_goto_address (self->disassemble, self->pc_address);
+}
+
+static void
 hide_program_counter_in_editor(DebugManagerPlugin *self)
 {
 	IAnjutaEditor *editor = self->current_editor;
@@ -191,6 +199,12 @@ hide_program_counter_in_editor(DebugManagerPlugin *self)
 }
 
 static void
+hide_program_counter_in_disassembler(DebugManagerPlugin *self)
+{
+	dma_disassemble_clear_all_mark (self->disassemble, IANJUTA_MARKABLE_PROGRAM_COUNTER);
+}
+
+static void
 set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, guint address)
 {
 	IAnjutaDocumentManager *docman = NULL;
@@ -198,7 +212,12 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gui
 
 	/* Remove previous marker */
 	hide_program_counter_in_editor (self);
+	hide_program_counter_in_disassembler (self);
 	self->pc_editor = NULL;
+	self->pc_address = address;
+
+	if (address != 0)
+		show_program_counter_in_disassembler (self);
 
 	if (file != NULL)
 	{

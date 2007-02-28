@@ -1,3 +1,27 @@
+2007-02-28 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* (added) plugins/debug-manager/bookmark.png,
+	(added) plugins/debug-manager/breakpoint-disabled.png,
+	(added) plugins/debug-manager/breakpoint-enabled.png,
+	(added) plugins/debug-manager/program-counter.png,
+	(added) plugins/debug-manager/linemarker.png,
+	plugins/debug-manager/Makefile.am,
+	plugins/debug-manager/disassemble.c,
+	plugins/debug-manager/disassemble.h,
+	plugins/debug-manager/sparse_buffer.c,
+	plugins/debug-manager/sparse_buffer.h,
+	plugins/debug-manager/sparse_view.c,
+	plugins/debug-manager/sparse_view.h,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/breakpoints.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Add markers in the disassembly view
+	Display program counter and breakpoints in disassembly view
+
+	* plugins/gdb/debugger.c:
+	Fix a bug added with my previous patch, setting and clearing
+	breakpoints was not working
+
 2007-02-28  Johannes Schmid <jhs@gnome.org>
 
 	* manuals/reference/libanjuta/tmpl/anjuta-shell.sgml:

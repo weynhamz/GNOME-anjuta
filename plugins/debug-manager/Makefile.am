@@ -4,7 +4,12 @@ anjuta_glade_DATA = anjuta-debug-manager.glade
 
 plugin_pixmapsdir = $(anjuta_image_dir)
 plugin_pixmaps_DATA = \
-	anjuta-debug-manager.plugin.png
+	anjuta-debug-manager.plugin.png \
+	linemarker.png \
+	program-counter.png \
+	breakpoint-disabled.png \
+	breakpoint-enabled.png \
+	bookmark.png
 
 anjuta_uidir = $(anjuta_ui_dir)
 anjuta_ui_DATA =  anjuta-debug-manager.ui
