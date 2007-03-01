@@ -812,11 +812,23 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 								  node->data))
 		{
 			AnjutaPluginDescription *desc;
+			gchar *user_activatable = NULL;
 			gchar *name = NULL, *plugin_id = NULL;
 			
 			desc = (AnjutaPluginDescription *)node->data;
 			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-													  "Name", &name);
+												  "UserActivatable",
+												  &user_activatable);
+			/* Do not save plugins that are auto activated */
+			if (user_activatable && strcmp (user_activatable, "no") == 0)
+			{
+				g_free (user_activatable);
+				break;
+			}
+			g_free (user_activatable);
+			
+			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+												  "Name", &name);
 			if (!name)
 				name = g_strdup ("Unknown");
 			

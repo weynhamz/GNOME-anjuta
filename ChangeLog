@@ -1,3 +1,11 @@
+2007-03-01  Naba Kumasr  <naba@gnome.org>
+
+	* TODO.tasks: Added a bounty for creating icons.
+
+	* libanjuta/anjuta-profile.c, libanjuta/anjuta-profile-manager.c,
+	libanjuta/anjuta-profile-manager.h: Fixed infinite loop. Added
+	profile-changed signal. Do not sync non-user-activatable plugins.
+
 2007-02-29 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/disassemble.c,

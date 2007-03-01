@@ -37,6 +37,7 @@ enum
 {
 	PROFILE_PUSHED,
 	PROFILE_POPPED,
+	PROFILE_CHANGED,
 	LAST_SIGNAL
 };
 
@@ -132,6 +133,13 @@ anjuta_profile_manager_popped (AnjutaProfileManager *self,
 }
 
 static void
+anjuta_profile_manager_changed (AnjutaProfileManager *self,
+							    AnjutaProfile* profile)
+{
+	/* TODO: Add default signal handler implementation here */
+}
+
+static void
 anjuta_profile_manager_set_property (GObject *object, guint prop_id,
 									 const GValue *value, GParamSpec *pspec)
 {
@@ -188,6 +196,7 @@ anjuta_profile_manager_class_init (AnjutaProfileManagerClass *klass)
 	object_class->get_property = anjuta_profile_manager_get_property;
 	klass->profile_pushed = anjuta_profile_manager_pushed;
 	klass->profile_popped = anjuta_profile_manager_popped;
+	klass->profile_changed = anjuta_profile_manager_changed;
 	
 	g_object_class_install_property (object_class,
 	                                 PROP_PLUGIN_MANAGER,
@@ -208,13 +217,22 @@ anjuta_profile_manager_class_init (AnjutaProfileManagerClass *klass)
 		              anjuta_cclosure_marshal_VOID__OBJECT,
 		              G_TYPE_NONE, 1,
 		              ANJUTA_TYPE_PROFILE);
-
 	profile_manager_signals[PROFILE_POPPED] =
 		g_signal_new ("profile-popped",
 		              G_OBJECT_CLASS_TYPE (klass),
 		              G_SIGNAL_RUN_FIRST,
 		              G_STRUCT_OFFSET (AnjutaProfileManagerClass,
 									   profile_popped),
+		              NULL, NULL,
+					  anjuta_cclosure_marshal_VOID__OBJECT,
+		              G_TYPE_NONE, 1,
+		              ANJUTA_TYPE_PROFILE);
+	profile_manager_signals[PROFILE_CHANGED] =
+		g_signal_new ("profile-changed",
+		              G_OBJECT_CLASS_TYPE (klass),
+		              G_SIGNAL_RUN_FIRST,
+		              G_STRUCT_OFFSET (AnjutaProfileManagerClass,
+									   profile_changed),
 		              NULL, NULL,
 					  anjuta_cclosure_marshal_VOID__OBJECT,
 		              G_TYPE_NONE, 1,
@@ -321,6 +339,7 @@ anjuta_profile_manager_load_profile (AnjutaProfileManager *profile_manager,
 			plugins_to_deactivate = g_list_prepend (plugins_to_deactivate,
 													node->data);
 		}
+		node = g_list_next (node);
 	}
 	plugins_to_deactivate = g_list_reverse (plugins_to_deactivate);
 
@@ -334,8 +353,10 @@ anjuta_profile_manager_load_profile (AnjutaProfileManager *profile_manager,
 		
 		desc = (AnjutaPluginDescription *)node->data;
 		anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-		"Location", &plugin_id);
+											  "Location", &plugin_id);
 		g_assert (plugin_id != NULL);
+		
+		DEBUG_PRINT ("Profile: deactivating %s", plugin_id);
 		
 		plugin_object =
 			anjuta_plugin_manager_get_plugin_by_id (priv->plugin_manager,
