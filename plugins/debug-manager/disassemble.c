@@ -44,6 +44,7 @@
 
 enum {DMA_DISASSEMBLY_BUFFER_BLOCK_SIZE = 256,
 	DMA_DISASSEMBLY_SKIP_BEGINNING_LINE = 4,
+	DMA_DISASSEMBLY_TAB_LENGTH = 4,
 	DMA_DISASSEMBLY_DEFAULT_LINE_LENGTH = 8,
 	DMA_DISASSEMBLY_PAGE_DISTANCE = 4 * 60,
 	DMA_DISASSEMBLY_VALID_ADDRESS = 0,
@@ -228,23 +229,27 @@ dma_disassembly_iter_refresh (DmaSparseIter *iter)
 			for (;;)
 			{
 				gint len = node->size - line;
-				
+
 				if (up < len)
 				{
 					iter->node = (DmaSparseBufferNode *)node;
 					iter->line = line + up;
 					iter->base = node->data[iter->line].address;
 					iter->offset = 0;
-					break;
+					
+					return TRUE;
 				}
 
 				if (iter->node->upper == dma_sparse_buffer_get_upper (iter->buffer))
 				{
+					gboolean move = iter->line != node->size - 1;
+					
 					iter->node = (DmaSparseBufferNode *)node;
 					iter->line = node->size - 1;
 					iter->base = node->data[iter->line].address;
 					iter->offset = 0;
-					break;
+					
+					return move;
 				}
 
 				up -= len;
@@ -284,16 +289,20 @@ dma_disassembly_iter_refresh (DmaSparseIter *iter)
 					iter->line = line - down;
 					iter->base = node->data[iter->line].address;
 					iter->offset = 0;
-					break;
+					
+					return TRUE;
 				}
 
 				if (iter->node->lower == dma_sparse_buffer_get_lower (iter->buffer))
 				{
+					gboolean move = iter->line != 0;
+					
 					iter->node = (DmaSparseBufferNode *)node;
 					iter->line = 0;
 					iter->base = node->data[0].address;
 					iter->offset = 0;
-					break;
+					
+					return move;
 				}
 
 				down -= len;
@@ -323,54 +332,52 @@ dma_disassembly_iter_refresh (DmaSparseIter *iter)
 	if (iter->offset < 0)
 	{
 		gulong address;
+		gboolean move = TRUE;
 					
 		address = iter->offset + iter->base;
 		if ((address < dma_sparse_buffer_get_lower (iter->buffer)) || (address > iter->base))
 		{
 			address = dma_sparse_buffer_get_lower (iter->buffer);
+			move = FALSE;
 		}
 		address -= address % DMA_DISASSEMBLY_DEFAULT_LINE_LENGTH;
 		iter->offset = address - iter->base;
+		
+		return move;
 	}		
 	else if ((iter->offset > 0) || (iter->line == DMA_DISASSEMBLY_UNKNOWN_ADDRESS))
 	{
 		gulong address;
+		gboolean move = TRUE;
 					
 		address = iter->offset + iter->base;
 		if ((address > dma_sparse_buffer_get_upper (iter->buffer)) || (address < iter->base))
 		{
 			address = dma_sparse_buffer_get_upper (iter->buffer);
+			move = FALSE;
 		}
 		address -= address % DMA_DISASSEMBLY_DEFAULT_LINE_LENGTH;
 		iter->offset = address - iter->base;
+		
+		return move;
 	}
 	
-	/* TODO: return FALSE if iterator reach the lower or upper limit */
+	/* return FALSE if iterator reach the lower or upper limit */
 	return TRUE;
 }
 
 static gboolean
 dma_disassembly_iter_backward_line (DmaSparseIter *iter)
 {
-	gulong old_base = iter->base;
-	gulong old_offset = iter->offset;
-	
 	iter->offset -= DMA_DISASSEMBLY_DEFAULT_LINE_LENGTH;
-	dma_disassembly_iter_refresh (iter);
-	
-	return (old_base != iter->base) || (old_offset != iter->offset);
+	return dma_disassembly_iter_refresh (iter);
 }
 
 static gboolean
 dma_disassembly_iter_forward_line (DmaSparseIter *iter)
 {
-	gulong old_base = iter->base;
-	gulong old_offset = iter->offset;
-
 	iter->offset += DMA_DISASSEMBLY_DEFAULT_LINE_LENGTH;
-	dma_disassembly_iter_refresh (iter);
-	
-	return (old_base != iter->base) || (old_offset != iter->offset);
+	return dma_disassembly_iter_refresh (iter);
 }
 
 
@@ -387,7 +394,6 @@ on_disassemble (const IAnjutaDebuggerDisassembly *block, DmaSparseBufferTranspor
 	DmaDisassemblyBufferNode *node;
 	DmaDisassemblyBuffer *buffer = (DmaDisassemblyBuffer *)trans->buffer;
 	DmaSparseBufferNode *next;
-	guint size;
 	guint i;
 	char *dst;
 	
@@ -438,37 +444,64 @@ on_disassemble (const IAnjutaDebuggerDisassembly *block, DmaSparseBufferTranspor
 	}
 	else
 	{
+		guint size = 0;
+		guint line = 0;
+		
 		DEBUG_PRINT ("on disassemble size %d", block->size);
 		/* Compute size of all data */
-		size = 0;
 		/* use size -1 because last block has no data (NULL) */
 		for (i = trans->tag == DMA_DISASSEMBLY_KEEP_ALL ? 0 : 4; i < block->size - 1; i++)
 		{	
-			size += strlen(block->data[i].text) + 1;
+			if (block->data[i].label)
+			{
+				size += strlen(block->data[i].label) + 2;
+				line++;
+			}
+			size += strlen(block->data[i].text) + 1 + DMA_DISASSEMBLY_TAB_LENGTH;
+			line++;
 		}
 	
-		node = (DmaDisassemblyBufferNode *)g_malloc0 (sizeof(DmaDisassemblyBufferNode) + sizeof(DmaDisassemblyLine) * block->size + size);
+		node = (DmaDisassemblyBufferNode *)g_malloc0 (sizeof(DmaDisassemblyBufferNode) + sizeof(DmaDisassemblyLine) * line + size);
 	
 		/* Copy all data */
-		size = 0;
-		dst = (gchar *)&(node->data[block->size]);
+		dst = (gchar *)&(node->data[line]);
+		line = 0;
 		for (i = trans->tag == DMA_DISASSEMBLY_KEEP_ALL ? 0 : DMA_DISASSEMBLY_SKIP_BEGINNING_LINE; i < block->size - 1; i++)
 		{
 			gsize len;
 
 			if ((next != NULL) && (block->data[i].address == next->lower)) break;
-			
+
+			/* Add label if exist */
+			if (block->data[i].label != NULL)
+			{
+				len = strlen(block->data[i].label);
+				
+				node->data[line].address = block->data[i].address;
+				node->data[line].text = dst;
+				
+				memcpy(dst, block->data[i].label, len);
+				dst[len] = ':';
+				dst[len + 1] = '\0';
+				
+				dst += len + 2;
+				line++;
+			}
+				
+			/* Add disassembled instruction */
 			len = strlen(block->data[i].text) + 1;
 
-			node->data[i - (trans->tag == DMA_DISASSEMBLY_KEEP_ALL ? 0 : DMA_DISASSEMBLY_SKIP_BEGINNING_LINE)].address = block->data[i].address;
-			node->data[i - (trans->tag == DMA_DISASSEMBLY_KEEP_ALL ? 0 : DMA_DISASSEMBLY_SKIP_BEGINNING_LINE)].text = dst;
+			node->data[line].address = block->data[i].address;
+			node->data[line].text = dst;
 		
-			memcpy (dst, block->data[i].text, len);
-			dst += len;
+			memset (dst, ' ', DMA_DISASSEMBLY_TAB_LENGTH);
+			memcpy (dst + DMA_DISASSEMBLY_TAB_LENGTH, block->data[i].text, len);
+			dst += len + DMA_DISASSEMBLY_TAB_LENGTH;
+			line++;
 		}
 
 		/* fill last block */
-		node->size = i - (trans->tag == DMA_DISASSEMBLY_KEEP_ALL ? 1 : DMA_DISASSEMBLY_SKIP_BEGINNING_LINE + 1 );
+		node->size = line;
 		node->parent.lower = node->data[0].address;
 		node->parent.upper = block->data[i].address - 1;
 	
@@ -499,7 +532,7 @@ dma_disassembly_buffer_insert_line (DmaSparseIter *iter, GtkTextIter *dst)
 				gulong end_adr;
 				gint margin;
 			
-				DEBUG_PRINT("no data at address %x + %d", iter->base, iter->offset);
+				DEBUG_PRINT("no data at address %lx + %ld", iter->base, iter->offset);
 				
 				/* If following line is define, get a block stopping here */
 				dma_sparse_iter_copy (&end, iter);

@@ -1,3 +1,11 @@
+2007-02-29 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/disassemble.c,
+	plugins/debug-manager/sparse_view.c,
+	plugins/gdb/debugger.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Display function name in disassembly view
+
 2007-02-28 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* (added) plugins/debug-manager/bookmark.png,

@@ -2886,6 +2886,23 @@ debugger_disassemble_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 					read->data[i].address = strtoul (value, NULL, 0);
 				}
 
+				/* Get label if one exist */
+				literal = gdbmi_value_hash_lookup (line, "offset");
+				if (literal)
+				{
+					value = gdbmi_value_literal_get (literal);
+					if ((value != NULL) && (strtoul (value, NULL, 0) == 0))
+					{
+						literal = gdbmi_value_hash_lookup (line, "func-name");
+						if (literal)
+						{
+							read->data[i].label = gdbmi_value_literal_get (literal);
+						}
+					}
+
+				}
+						
+
 				/* Get disassembly line */
 				literal = gdbmi_value_hash_lookup (line, "inst");
 				if (literal)

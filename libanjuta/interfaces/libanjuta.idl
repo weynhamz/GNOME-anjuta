@@ -2515,7 +2515,8 @@ interface IAnjutaDebugger
 	struct ALine
 	{
 		guint address;
-		gchar *text;
+		const gchar *label;
+		const gchar *text;
 	}
 
 	struct Disassembly

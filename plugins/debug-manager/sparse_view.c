@@ -621,7 +621,6 @@ draw_line_markers (DmaSparseView *view,
 	if (composite)
 	{
 		GdkWindow *window;
-		gint i;
 
 		window = gtk_text_view_get_window (GTK_TEXT_VIEW (view),
 						   GTK_TEXT_WINDOW_LEFT);
@@ -649,6 +648,7 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 	gint text_width;
 	DmaSparseIter buf_iter;
 	GtkTextIter text_iter;
+	guint prev_address = G_MAXUINT;
 
 	
 	text_view = GTK_TEXT_VIEW (view);
@@ -760,7 +760,7 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 		}
 
 		/* Display marker */
-		if (view->priv->show_line_markers) 
+		if ((prev_address != address) && (view->priv->show_line_markers)) 
 		{
 			gint current_marker = dma_sparse_buffer_get_marks (view->priv->buffer, address);
 
@@ -774,12 +774,14 @@ dma_sparse_view_paint_margin (DmaSparseView *view,
 					x = 0;
 				
 				draw_line_markers (view, current_marker, x, pos);
+				prev_address = address;
 			}
 		}
 		
 		if (!dma_sparse_iter_forward_lines (&buf_iter, 1)) return;
 		if (!gtk_text_iter_forward_line (&text_iter)) return;
 		gtk_text_view_get_line_yrange (text_view, &text_iter, &y, &height);
+		
 	} while (y < y2);
 		
 	g_object_unref (G_OBJECT (layout));	
