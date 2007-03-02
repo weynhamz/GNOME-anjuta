@@ -1,3 +1,18 @@
+2007-03-02  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/search/anjuta-search.ui:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.ui:
+	Break toolbars into smaller peaces: ToolbarBookmark, ToolbarSymbols, ToolbarFind
+
+	* src/anjuta-app.c: (on_toolbar_view_toggled),
+	(on_add_merge_widget), (on_session_save), (on_widget_remove):
+	Save toolbar positions, don't use fixed toolbar style
+	
+	All in all this will allow more complex toolbar configurations and might gain some space
+	on smaller displays because the user can disable toolbar parts he does not use. Also
+	allows to use any toolbar style without looking too ugly.
+
 2007-03-01  Naba Kumasr  <naba@gnome.org>
 
 	* TODO.tasks: Added a bounty for creating icons.

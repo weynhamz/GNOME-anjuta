@@ -24,7 +24,7 @@
 		</menu>
 		</placeholder>
 	</menubar>
-	<toolbar name="ToolbarMain">
+	<toolbar name="ToolbarFind">
 		<placeholder name="PlaceholderFindToolbar">
 			<toolitem name="SearchNext" action="ActionEditSearchFindNext" />
 			<toolitem name="SearchEntry" action="ActionEditSearchEntry" />

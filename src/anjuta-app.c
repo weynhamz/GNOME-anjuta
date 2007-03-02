@@ -34,6 +34,8 @@
 #include <gdl/gdl-dock.h>
 #include <gdl/gdl-dock-bar.h>
 
+#include <bonobo/bonobo-dock-item.h>
+
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
@@ -138,11 +140,17 @@ on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
 	BonoboDockItem *dock_item;
 	const gchar *name;
 	gint band;
+	gint position;
+	gint offset;
+
 	
 	name = gtk_widget_get_name (widget);
 	app = g_object_get_data (G_OBJECT(widget), "app");
 	dock_item = g_object_get_data (G_OBJECT(widget), "dock_item");
 	band = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(widget), "band"));
+	position = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(widget), "position"));
+	offset = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(widget), "offset"));
+
 	
 	if (gtk_check_menu_item_get_active (menuitem))
 	{
@@ -155,19 +163,20 @@ on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
 			 * a previously used name (even if the previous widget has
 			 * has be destroyed. Hence a unique_name is used by using a 
 			 * static counter */
-			DEBUG_PRINT ("Adding dock item %s", unique_name);
+			DEBUG_PRINT ("Adding dock item %s band %d, offset %d, position %d", unique_name,
+						 band, offset, position);
 			
 			/* Widget not yet added to the dock. Add it */
 			gnome_app_add_docked (GNOME_APP (app), widget,
 								  unique_name,
 								  BONOBO_DOCK_ITEM_BEH_NEVER_VERTICAL |
 								  BONOBO_DOCK_ITEM_BEH_NEVER_FLOATING,
-								  BONOBO_DOCK_TOP, band, 0, 0);
-		
+								  BONOBO_DOCK_TOP, band, position, offset);
+									   									   
 			dock_item = gnome_app_get_dock_item_by_name (GNOME_APP (app),
 														 unique_name);
+			g_object_set_data (G_OBJECT(dock_item), "unique_name", unique_name);
 			g_object_set_data (G_OBJECT(widget), "dock_item", dock_item);
-			g_free (unique_name);
 			count++;
 		}
 		gtk_widget_show (GTK_WIDGET (dock_item));
@@ -202,29 +211,42 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 	{
 		static gint count = 0;
 		const gchar *toolbarname;
-		gchar* key;
+		gchar* visible_key;
+		gchar* band_key;
+		gchar* position_key;
+		gchar* offset_key;		
 		AnjutaPreferences *pr;
 		GtkWidget *menuitem;
+		gint band;
+		gint position;
+		gint offset;
+		pr = ANJUTA_PREFERENCES (ANJUTA_APP(ui_container)->preferences);
 		
-		/*
-		gtk_toolbar_set_icon_size (GTK_TOOLBAR (widget),
-								   GTK_ICON_SIZE_SMALL_TOOLBAR);
-		*/
+		/* Showing the arrows seem to break anything completly! */
 		gtk_toolbar_set_show_arrow (GTK_TOOLBAR (widget), FALSE);
-		
-		/* FIXME: This is probably not HIG-friendly. But the text/both
-		 * toolbar styles in anjuta is horible. We need to fix that first.
-		 */
-		gtk_toolbar_set_style (GTK_TOOLBAR (widget), GTK_TOOLBAR_BOTH_HORIZ);
-		
-		toolbarname = gtk_widget_get_name (widget);
-		
-		DEBUG_PRINT ("Adding toolbar: %s", toolbarname);
 		
 		gtk_widget_show (widget);
 		g_object_set_data (G_OBJECT (widget), "app", ui_container);
+		
+		/* Load toolbar position */
+		toolbarname = gtk_widget_get_name (widget);
+		band_key = g_strconcat (toolbarname, ".band", NULL);
+		position_key = g_strconcat (toolbarname, ".position", NULL);
+		offset_key = g_strconcat (toolbarname, ".offset", NULL);		
+		band = anjuta_preferences_get_int_with_default(pr, band_key, -1);
+		position = anjuta_preferences_get_int_with_default(pr, position_key, 0);
+		offset = anjuta_preferences_get_int_with_default(pr, offset_key, 0);		
+		/* Without these check you might see odd results */
+		if (band < 1)
+			band = count + 1;
+		g_object_set_data(G_OBJECT(widget), "position", GINT_TO_POINTER(position));
+		g_object_set_data(G_OBJECT(widget), "offset", GINT_TO_POINTER(offset));
 		g_object_set_data (G_OBJECT (widget), "band",
-						   GINT_TO_POINTER(count+1));
+						   GINT_TO_POINTER(band));
+		g_free(offset_key);
+		g_free(position_key);
+		g_free(band_key);
+		DEBUG_PRINT ("Adding toolbar: %s", toolbarname);
 		
 		if (!ANJUTA_APP (ui_container)->toolbars_menu)
 		{
@@ -249,15 +271,14 @@ on_add_merge_widget (GtkUIManager *merge, GtkWidget *widget,
 		toolbars = g_list_append(toolbars, widget);
 
 		/* Show/hide toolbar */
-		pr = ANJUTA_PREFERENCES (ANJUTA_APP(ui_container)->preferences);
-		key = g_strconcat (toolbarname, ".visible", NULL);
-		if (anjuta_preferences_get_int_with_default (pr, key,
+		visible_key = g_strconcat (toolbarname, ".visible", NULL);
+		if (anjuta_preferences_get_int_with_default (pr, visible_key,
 													 (count == 0)? 1:0))
 		{
 			gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (menuitem),
 											TRUE);
 		}
-		g_free (key);
+		g_free (visible_key);
 		count ++;
 	}
 }
@@ -281,13 +302,39 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		GtkWidget* dock_item = g_object_get_data (G_OBJECT(widget), "dock_item");;
 		const gchar* toolbarname = gtk_widget_get_name(widget);
 		AnjutaPreferences* pr = ANJUTA_PREFERENCES (app->preferences);
-		gboolean visible;
+				
 		if (dock_item)
 		{
+			gboolean visible;
 			gchar* key = g_strconcat (toolbarname, ".visible", NULL);
+			gchar* band_key = g_strconcat (toolbarname, ".band", NULL);
+			gchar* position_key = g_strconcat (toolbarname, ".position", NULL);
+			gchar* offset_key = g_strconcat (toolbarname, ".offset", NULL);
+			GnomeApp* gnome_app = GNOME_APP(app);
+			
+			/* Save visibility */
 			g_object_get(G_OBJECT(dock_item), "visible", &visible, NULL);
 			anjuta_preferences_set_int(pr, key, visible);
 			g_free(key);
+			
+			/* Save toolbar position */
+			if (gnome_app->dock != NULL)
+			{
+				guint band;
+				guint position;
+				guint offset;
+				BonoboDockPlacement placement;
+				gchar* unique_name = g_object_get_data(G_OBJECT(dock_item), "unique_name");
+				
+				BonoboDockItem* item = bonobo_dock_get_item_by_name(BONOBO_DOCK(gnome_app->dock), 
+																  unique_name, &placement, 
+																   &band, &position, &offset);
+				g_return_if_fail(item != NULL);
+			
+				anjuta_preferences_set_int(pr, band_key, band);
+				anjuta_preferences_set_int(pr, position_key, position);
+				anjuta_preferences_set_int(pr, offset_key, offset);
+			}
 		}
 		node = g_list_next(node);
 	}
@@ -898,6 +945,8 @@ on_widget_remove (GtkWidget *container, GtkWidget *widget, AnjutaApp *app)
 	dock_item = g_object_get_data (G_OBJECT (widget), "dockitem");
 	if (dock_item)
 	{
+		gchar* unique_name = g_object_get_data(G_OBJECT(dock_item), "unique_name");
+		g_free(unique_name);
 		g_signal_handlers_disconnect_by_func (G_OBJECT (dock_item),
 					G_CALLBACK (on_widget_remove), app);
 		gdl_dock_item_unbind (GDL_DOCK_ITEM(dock_item));

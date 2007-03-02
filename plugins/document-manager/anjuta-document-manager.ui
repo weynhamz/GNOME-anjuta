@@ -117,15 +117,10 @@
 			<separator name="separator2" />
 			<toolitem name="Print" action="ActionPrintFile" />
 			<separator name="separator3"/>
-			<placeholder name="PlaceholderFindToolbar" />
-			<separator name="separator4"/>
-			<toolitem name="GotoLine" action="ActionEditGotoLineActivate" />
-			<toolitem name="GotoLineEntry" action="ActionEditGotoLineEntry" />
-			<separator name="separator5"/>
 			<toolitem name="Swap" action="ActionFileSwap" />
 		</placeholder>
 	</toolbar>
-	<toolbar name="ToolbarBrowser">
+	<toolbar name="ToolbarBookmark">
 		<placeholder name="PlaceholderBrowserToolbar" >
 			<toolitem name="Toggle" action="ActionBookmarkToggle"/>
 			<toolitem name="First" action="ActionBookmarkFirst"/>
@@ -137,6 +132,12 @@
 			<toolitem name="BlockStart" action="ActionEditGotoBlockStart"/>
 			<toolitem name="BlockEnd" action="ActionEditGotoBlockEnd"/>
 			<separator name="separator2" />
+		</placeholder>
+	</toolbar>
+	<toolbar name="ToolbarFind">
+		<placeholder name="PlaceholderFindToolbar">
+			<toolitem name="GotoLine" action="ActionEditGotoLineActivate" />
+			<toolitem name="GotoLineEntry" action="ActionEditGotoLineEntry" />
 		</placeholder>
 	</toolbar>
 	<popup name="PopupDocumentManager">

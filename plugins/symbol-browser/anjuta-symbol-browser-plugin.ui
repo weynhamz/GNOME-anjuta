@@ -8,7 +8,7 @@
 			</menu>
 		</placeholder>
 	</menubar>
-	<toolbar name="ToolbarBrowser">
+	<toolbar name="ToolbarSymbols">
 		<toolitem name="Symbol" action="ActionGotoSymbol"/>
 	</toolbar>
 	<popup name="PopupSymbolBrowser">
