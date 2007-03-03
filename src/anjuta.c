@@ -35,7 +35,7 @@
 #define USER_SESSION_PATH_NEW (g_build_filename (g_get_home_dir (), ".anjuta", \
 												 "session", NULL))
 
-#define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.anjuta"
+#define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.profile"
 #define USER_PROFILE_NAME "user"
 
 static gboolean

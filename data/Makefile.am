@@ -7,9 +7,11 @@
 SUBDIRS = properties
 
 anjuta_datadir = $(anjuta_data_dir)
+anjuta_profiledir = $(anjuta_data_dir)/profiles
 
-anjuta_data_DATA = \
-	welcome.txt
+anjuta_data_DATA = welcome.txt
+
+anjuta_profile_DATA = default.profile
 
 EXTRA_DIST = $(anjuta_data_DATA)
 

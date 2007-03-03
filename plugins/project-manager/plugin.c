@@ -38,7 +38,7 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-project-manager.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-project-manager-plugin.glade"
 #define ICON_FILE "anjuta-project-manager-plugin.png"
-#define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.anjuta"
+#define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.profile"
 #define PROJECT_PROFILE_NAME "project"
 
 static gpointer parent_class;

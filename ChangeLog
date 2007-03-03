@@ -1,3 +1,10 @@
+2007-03-04  Naba Kumar  <naba@gnome.org>
+
+	* data/default.proflie, data/Makefile.am, src/anjuta.c,
+	plugins/project-manager/plugin.c:
+	Restored default profile and renamed it from "default.anjuta" to
+	"default.profile".
+	
 2007-03-03 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/debugger.c,
