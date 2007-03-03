@@ -480,8 +480,11 @@ anjuta_plugin_handle_new (const gchar *plugin_desc_path)
 		if (str && strcasecmp (str, "no") == 0)
 		{
 			plugin_handle->priv->user_activatable = FALSE;
+			/*
 			DEBUG_PRINT ("Plugin '%s' is not user activatable",
-						 plugin_handle->priv->name? plugin_handle->priv->name : "Unknown");
+						 plugin_handle->priv->name?
+						 plugin_handle->priv->name : "Unknown");
+			*/
 		}
 		g_free (str);
 	}

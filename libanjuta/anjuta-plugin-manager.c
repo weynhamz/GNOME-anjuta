@@ -21,6 +21,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <string.h>
+#include <libgnomevfs/gnome-vfs.h>
 
 #include <libanjuta/anjuta-plugin-manager.h>
 #include <libanjuta/anjuta-marshal.h>
@@ -70,6 +71,9 @@ struct _AnjutaPluginManagerPriv
 	
 	/* Plugins that have been previously loaded but current deactivated */
 	GHashTable   *plugins_cache;
+	
+	/* Remember plugin selection */
+	GHashTable   *remember_plugins;
 };
 
 enum {
@@ -126,7 +130,7 @@ collect_cycle (AnjutaPluginManager *plugin_manager,
 			if (dep == base_plugin)
 			{
 				*cycle = g_list_prepend (NULL, dep);
-				DEBUG_PRINT ("%s ", anjuta_plugin_handle_get_name (dep));
+				/* DEBUG_PRINT ("%s ", anjuta_plugin_handle_get_name (dep)); */
 				return TRUE;
 			}
 			else
@@ -134,7 +138,7 @@ collect_cycle (AnjutaPluginManager *plugin_manager,
 				if (collect_cycle (plugin_manager, base_plugin, dep, cycle))
 				{
 					*cycle = g_list_prepend (*cycle, dep);
-					DEBUG_PRINT ("%s ", anjuta_plugin_handle_get_name (dep));
+					/* DEBUG_PRINT ("%s ", anjuta_plugin_handle_get_name (dep)); */
 					return TRUE;
 				}
 			}
@@ -544,7 +548,7 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 	if (!type)
 	{
 		char **pieces;
-		DEBUG_PRINT ("Loading: %s", plugin_id);
+		/* DEBUG_PRINT ("Loading: %s", plugin_id); */
 		pieces = g_strsplit (plugin_id, ":", -1);
 		type = glue_factory_get_object_type (glue_factory,
 										     pieces[0], pieces[1]);
@@ -597,8 +601,9 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 				if (g_hash_table_lookup (priv->activated_plugins, selected_plugin))
 				{
 					plugin_set_update (plugin_manager, selected_plugin, FALSE);
-					DEBUG_PRINT ("Unloading plugin: %s",
+					/* DEBUG_PRINT ("Unloading plugin: %s",
 								 anjuta_plugin_handle_get_id (selected_plugin));
+					*/
 				}
 				node = g_list_next (node);
 			}
@@ -618,8 +623,9 @@ anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager)
 												  selected_plugin);
 				if (plugin_obj)
 				{
-					DEBUG_PRINT ("Destroying plugin: %s",
+					/* DEBUG_PRINT ("Destroying plugin: %s",
 								 anjuta_plugin_handle_get_id (selected_plugin));
+					*/
 					g_object_unref (plugin_obj);
 				}
 				node = g_list_next (node);
@@ -1419,8 +1425,8 @@ anjuta_plugin_manager_query (AnjutaPluginManager *plugin_manager,
 		if (satisfied)
 		{
 			selected_plugins = g_list_prepend (selected_plugins, desc);
-			DEBUG_PRINT ("Satisfied, Adding %s",
-						 anjuta_plugin_handle_get_name (plugin));
+			/* DEBUG_PRINT ("Satisfied, Adding %s",
+						 anjuta_plugin_handle_get_name (plugin));*/
 		}
 		available = g_list_next (available);
 	}
@@ -1452,7 +1458,23 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 							  gchar *title, gchar *description,
 							  GList *plugin_descriptions)
 {
+	AnjutaPluginDescription *desc;
 	AnjutaPluginManagerPriv *priv;
+	GtkWidget *dlg;
+	GtkTreeModel *model;
+	GtkWidget *view;
+	GtkTreeViewColumn *column;
+	GtkCellRenderer *renderer;
+	GList *node;
+	GtkWidget *label;
+	GtkWidget *sc;
+	GtkWidget *remember_checkbox;
+	gint response;
+	GtkTreeIter selected;
+	GtkTreeSelection *selection;
+	GtkTreeModel *store;
+	GList *selection_ids = NULL;
+	GString *remember_key = g_string_new ("");
 	
 	g_return_val_if_fail (title != NULL, NULL);
 	g_return_val_if_fail (description != NULL, NULL);
@@ -1460,163 +1482,198 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 
 	priv = plugin_manager->priv;
 	
-	if (g_list_length (plugin_descriptions) > 0)
+	if (g_list_length (plugin_descriptions) <= 0)
+		return NULL;
+		
+	dlg = gtk_dialog_new_with_buttons (title, GTK_WINDOW (priv->shell),
+									   GTK_DIALOG_DESTROY_WITH_PARENT,
+									   GTK_STOCK_CANCEL,
+									   GTK_RESPONSE_CANCEL,
+									   GTK_STOCK_OK, GTK_RESPONSE_OK,
+									   NULL);
+	gtk_widget_set_size_request (dlg, 400, 300);
+	gtk_window_set_default_size (GTK_WINDOW (dlg), 400, 300);
+
+	label = gtk_label_new (description);
+	gtk_widget_show (label);
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), label,
+						FALSE, FALSE, 5);
+	
+	sc = gtk_scrolled_window_new (NULL, NULL);
+	gtk_widget_show (sc);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sc),
+										 GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sc),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(dlg)->vbox), sc,
+						TRUE, TRUE, 5);
+	
+	model = GTK_TREE_MODEL (gtk_list_store_new (N_COLUMNS, GDK_TYPE_PIXBUF,
+										   G_TYPE_STRING, G_TYPE_POINTER));
+	view = gtk_tree_view_new_with_model (model);
+	gtk_widget_show (view);
+	gtk_container_add (GTK_CONTAINER (sc), view);
+	
+	column = gtk_tree_view_column_new ();
+	gtk_tree_view_column_set_sizing (column,
+									 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_title (column, _("Available Plugins"));
+
+	renderer = gtk_cell_renderer_pixbuf_new ();
+	gtk_tree_view_column_pack_start (column, renderer, FALSE);
+	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
+										PIXBUF_COLUMN);
+
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start (column, renderer, TRUE);
+	gtk_tree_view_column_add_attribute (column, renderer, "markup",
+										PLUGIN_COLUMN);
+
+	gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
+	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (view), column);
+	
+	g_signal_connect (view, "row-activated",
+					  G_CALLBACK (on_plugin_list_row_activated),
+					  GTK_DIALOG(dlg));
+	remember_checkbox =
+		gtk_check_button_new_with_label (_("Remember this selection"));
+	gtk_container_set_border_width (GTK_CONTAINER (remember_checkbox), 10);
+	gtk_widget_show (remember_checkbox);
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG(dlg)->vbox), remember_checkbox,
+						FALSE, FALSE, 0);
+	
+	node = plugin_descriptions;
+	while (node)
 	{
-		GtkWidget *dlg;
-		GtkTreeModel *model;
-		GtkWidget *view;
-		GtkTreeViewColumn *column;
-		GtkCellRenderer *renderer;
-		GList *node;
-		GtkWidget *label;
-		GtkWidget *sc;
-		gint response;
+		GdkPixbuf *icon_pixbuf = NULL;
+		gchar *plugin_name = NULL;
+		gchar *plugin_desc = NULL;
+		gchar *icon_filename = NULL;
+		gchar *location = NULL;
 		
-		dlg = gtk_dialog_new_with_buttons (title, GTK_WINDOW (priv->shell),
-										   GTK_DIALOG_DESTROY_WITH_PARENT,
-										   GTK_STOCK_CANCEL,
-										   GTK_RESPONSE_CANCEL,
-										   GTK_STOCK_OK, GTK_RESPONSE_OK,
-										   NULL);
-		gtk_widget_set_size_request (dlg, 400, 300);
-		gtk_window_set_default_size (GTK_WINDOW (dlg), 400, 300);
-
-		label = gtk_label_new (description);
-		gtk_widget_show (label);
-		gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), label,
-							FALSE, FALSE, 5);
+		desc = (AnjutaPluginDescription*)node->data;
 		
-		sc = gtk_scrolled_window_new (NULL, NULL);
-		gtk_widget_show (sc);
-		gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (sc),
-											 GTK_SHADOW_IN);
-		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sc),
-										GTK_POLICY_AUTOMATIC,
-										GTK_POLICY_AUTOMATIC);
-		
-		gtk_box_pack_start (GTK_BOX (GTK_DIALOG(dlg)->vbox), sc,
-							TRUE, TRUE, 5);
-		
-		model = GTK_TREE_MODEL (gtk_list_store_new (N_COLUMNS, GDK_TYPE_PIXBUF,
-											   G_TYPE_STRING, G_TYPE_POINTER));
-		view = gtk_tree_view_new_with_model (model);
-		gtk_widget_show (view);
-		gtk_container_add (GTK_CONTAINER (sc), view);
-		
-		column = gtk_tree_view_column_new ();
-		gtk_tree_view_column_set_sizing (column,
-										 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-		gtk_tree_view_column_set_title (column, _("Available Plugins"));
-	
-		renderer = gtk_cell_renderer_pixbuf_new ();
-		gtk_tree_view_column_pack_start (column, renderer, FALSE);
-		gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
-											PIXBUF_COLUMN);
-	
-		renderer = gtk_cell_renderer_text_new ();
-		gtk_tree_view_column_pack_start (column, renderer, TRUE);
-		gtk_tree_view_column_add_attribute (column, renderer, "markup",
-											PLUGIN_COLUMN);
-	
-		gtk_tree_view_append_column (GTK_TREE_VIEW (view), column);
-		gtk_tree_view_set_expander_column (GTK_TREE_VIEW (view), column);
-		
-		g_signal_connect (view, "row-activated",
-						  G_CALLBACK (on_plugin_list_row_activated),
-						  GTK_DIALOG(dlg));
-
-		node = plugin_descriptions;
-		while (node)
+		if (anjuta_plugin_description_get_string (desc,
+												  "Anjuta Plugin",
+												  "Icon",
+												  &icon_filename))
 		{
-			GdkPixbuf *icon_pixbuf = NULL;
-			gchar *plugin_name = NULL;
-			gchar *plugin_desc = NULL;
-			gchar *icon_filename = NULL;
+			gchar *icon_path = NULL;
+			icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
+									 icon_filename, NULL);
+			/* DEBUG_PRINT ("Icon: %s", icon_path); */
+			icon_pixbuf = 
+				gdk_pixbuf_new_from_file (icon_path, NULL);
+			if (icon_pixbuf == NULL)
+			{
+				g_warning ("Plugin pixmap not found: %s", plugin_name);
+			}
+			g_free (icon_path);
+		}
+		else
+		{
+			g_warning ("Plugin does not define Icon attribute");
+		}
+		if (!anjuta_plugin_description_get_string (desc,
+												  "Anjuta Plugin",
+												  "Name",
+												  &plugin_name))
+		{
+			g_warning ("Plugin does not define Name attribute");
+		}
+		if (!anjuta_plugin_description_get_string (desc,
+												  "Anjuta Plugin",
+												  "Description",
+												  &plugin_desc))
+		{
+			g_warning ("Plugin does not define Description attribute");
+		}
+		if (!anjuta_plugin_description_get_string (desc,
+												  "Anjuta Plugin",
+												  "Location",
+												  &location))
+		{
+			g_warning ("Plugin does not define Location attribute");
+		}
+		
+		if (plugin_name && plugin_desc)
+		{
+			GtkTreeIter iter;
+			gchar *text;
 			
-			AnjutaPluginDescription *desc =
-				(AnjutaPluginDescription*)node->data;
-			
-			if (anjuta_plugin_description_get_string (desc,
-													  "Anjuta Plugin",
-													  "Icon",
-													  &icon_filename))
-			{
-				gchar *icon_path = NULL;
-				icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
-										 icon_filename, NULL);
-				DEBUG_PRINT ("Icon: %s", icon_path);
-				icon_pixbuf = 
-					gdk_pixbuf_new_from_file (icon_path, NULL);
-				if (icon_pixbuf == NULL)
-				{
-					g_warning ("Plugin pixmap not found: %s", plugin_name);
-				}
-				g_free (icon_path);
-			}
-			else
-			{
-				g_warning ("Plugin does not define Icon attribute");
-			}
-			if (!anjuta_plugin_description_get_string (desc,
-													  "Anjuta Plugin",
-													  "Name",
-													  &plugin_name))
-			{
-				g_warning ("Plugin does not define Name attribute");
-			}
-			if (!anjuta_plugin_description_get_string (desc,
-													  "Anjuta Plugin",
-													  "Description",
-													  &plugin_desc))
-			{
-				g_warning ("Plugin does not define Description attribute");
-			}
-			if (plugin_name && plugin_desc)
-			{
-				GtkTreeIter iter;
-				gchar *text;
-				
-				text = g_markup_printf_escaped ("<span size=\"larger\" weight=\"bold\">%s</span>\n%s", plugin_name, plugin_desc);
+			text = g_markup_printf_escaped ("<span size=\"larger\" weight=\"bold\">%s</span>\n%s", plugin_name, plugin_desc);
 
-				gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+			gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+			gtk_list_store_set (GTK_LIST_STORE (model), &iter,
+								PLUGIN_COLUMN, text,
+								PLUGIN_DESCRIPTION_COLUMN, desc, -1);
+			if (icon_pixbuf) {
 				gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-									PLUGIN_COLUMN, text,
-									PLUGIN_DESCRIPTION_COLUMN, desc, -1);
-				if (icon_pixbuf) {
-					gtk_list_store_set (GTK_LIST_STORE (model), &iter,
-										PIXBUF_COLUMN, icon_pixbuf, -1);
-					g_object_unref (icon_pixbuf);
-				}
-				g_free (text);
+									PIXBUF_COLUMN, icon_pixbuf, -1);
+				g_object_unref (icon_pixbuf);
 			}
-			node = g_list_next (node);
+			g_free (text);
+			
+			selection_ids = g_list_prepend (selection_ids, location);
 		}
-		response = gtk_dialog_run (GTK_DIALOG (dlg));
-		switch (response)
-		{
-		case GTK_RESPONSE_OK:
-			{
-				GtkTreeIter selected;
-				GtkTreeSelection *selection;
-				GtkTreeModel *store;
-				
-				selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
-				if (gtk_tree_selection_get_selected (selection, &store,
-													 &selected))
-				{
-					AnjutaPluginDescription *d;
-					gtk_tree_model_get (model, &selected,
-										PLUGIN_DESCRIPTION_COLUMN, &d, -1);
-					if (d)
-					{
-						gtk_widget_destroy (dlg);
-						return d;
-					}
-				}
-			}
-		}
-		gtk_widget_destroy (dlg);
+		node = g_list_next (node);
 	}
+	
+	/* Prepare remembering key */
+	selection_ids = g_list_sort (selection_ids,
+								 (GCompareFunc)strcmp);
+	node = selection_ids;
+	while (node)
+	{
+		g_string_append (remember_key, (gchar*)node->data);
+		g_string_append (remember_key, ",");
+		node = g_list_next (node);
+	}
+	g_list_foreach (selection_ids, (GFunc) g_free, NULL);
+	g_list_free (selection_ids);
+	
+	/* Find if the selection is remembered */
+	desc = g_hash_table_lookup (priv->remember_plugins, remember_key->str);
+	if (desc)
+	{
+		g_string_free (remember_key, TRUE);
+		gtk_widget_destroy (dlg);
+		return desc;
+	}
+	
+	/* Prompt dialog */
+	response = gtk_dialog_run (GTK_DIALOG (dlg));
+	switch (response)
+	{
+	case GTK_RESPONSE_OK:
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
+		if (gtk_tree_selection_get_selected (selection, &store,
+											 &selected))
+		{
+			gtk_tree_model_get (model, &selected,
+								PLUGIN_DESCRIPTION_COLUMN, &desc, -1);
+			if (desc)
+			{
+				/* Remember selection */
+				if (gtk_toggle_button_get_active
+					(GTK_TOGGLE_BUTTON (remember_checkbox)))
+				{
+					/* DEBUG_PRINT ("Remembering selection '%s'",
+								 remember_key->str);*/
+					g_hash_table_insert (priv->remember_plugins,
+										 g_strdup (remember_key->str), desc);
+				}
+				g_string_free (remember_key, TRUE);
+				gtk_widget_destroy (dlg);
+				return desc;
+			}
+		}
+		break;
+	}
+	g_string_free (remember_key, TRUE);
+	gtk_widget_destroy (dlg);
 	return NULL;
 }
 
@@ -1667,6 +1724,9 @@ anjuta_plugin_manager_init (AnjutaPluginManager *object)
 													  g_direct_equal);
 	object->priv->plugins_cache = g_hash_table_new (g_direct_hash,
 												  g_direct_equal);
+	object->priv->remember_plugins = g_hash_table_new_full (g_str_hash,
+															g_str_equal,
+															g_free, NULL);
 }
 
 static void
@@ -2026,4 +2086,83 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 	
 	/* Thaw shell operations */
 	anjuta_shell_thaw (ANJUTA_SHELL (priv->shell), NULL);
+}
+
+static void
+on_collect (gpointer key, gpointer value, gpointer user_data)
+{
+	gchar *id;
+	gchar *query = (gchar*) key;
+	AnjutaPluginDescription *desc = (AnjutaPluginDescription *) value;
+	GString *write_buffer = (GString *) user_data;
+	
+	anjuta_plugin_description_get_string (desc, "Anjuta Plugin", "Location",
+										  &id);
+	g_string_append_printf (write_buffer, "%s=%s;", query, id);
+	g_free (id);
+}
+
+gchar*
+anjuta_plugin_manager_get_remembered_plugins (AnjutaPluginManager *plugin_manager)
+{
+	AnjutaPluginManagerPriv *priv;
+	GString *write_buffer = g_string_new ("");
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), FALSE);
+	
+	priv = plugin_manager->priv;
+	g_hash_table_foreach (priv->remember_plugins, on_collect,
+						  write_buffer);
+	return g_string_free (write_buffer, FALSE);
+}
+
+static gboolean
+on_foreach_remove_true (gpointer k, gpointer v, gpointer d)
+{
+	return TRUE;
+}
+
+void
+anjuta_plugin_manager_set_remembered_plugins (AnjutaPluginManager *plugin_manager,
+											  const gchar *remembered_plugins)
+{
+	AnjutaPluginManagerPriv *priv;
+	gchar **strv_lines, **line_idx;
+	
+	g_return_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager));
+	g_return_if_fail (remembered_plugins != NULL);
+	
+	priv = plugin_manager->priv;
+	
+	g_hash_table_foreach_remove (priv->remember_plugins,
+								 on_foreach_remove_true, NULL);
+	
+	strv_lines = g_strsplit (remembered_plugins, ";", -1);
+	line_idx = strv_lines;
+	while (*line_idx)
+	{
+		gchar **strv_keyvals;
+		strv_keyvals = g_strsplit (*line_idx, "=", -1);
+		if (strv_keyvals && strv_keyvals[0] && strv_keyvals[1])
+		{
+			AnjutaPluginHandle *plugin;
+			plugin = g_hash_table_lookup (priv->plugins_by_name,
+										  strv_keyvals[1]);
+			if (plugin)
+			{
+				AnjutaPluginDescription *desc;
+				desc = anjuta_plugin_handle_get_description (plugin);
+				/*
+				DEBUG_PRINT ("Restoring remember plugin: %s=%s",
+							 strv_keyvals[0],
+							 strv_keyvals[1]);
+				*/
+				g_hash_table_insert (priv->remember_plugins,
+									 g_strdup (strv_keyvals[0]), desc);
+			}
+			g_strfreev (strv_keyvals);
+		}
+		line_idx++;
+	}
+	g_strfreev (strv_lines);
 }

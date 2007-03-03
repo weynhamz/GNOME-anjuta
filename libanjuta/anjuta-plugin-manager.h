@@ -109,6 +109,10 @@ void anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager
 
 void anjuta_plugin_manager_unload_all_plugins (AnjutaPluginManager *plugin_manager);
 
+gchar* anjuta_plugin_manager_get_remembered_plugins (AnjutaPluginManager *plugin_manager);
+void anjuta_plugin_manager_set_remembered_plugins (AnjutaPluginManager *plugin_manager,
+												   const gchar *remembered_plugins);
+
 /**
  * anjuta_plugin_manager_get_interface:
  * @plugin_manager: A #AnjutaPluginManager object

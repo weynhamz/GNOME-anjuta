@@ -45,8 +45,10 @@ struct _AnjutaProfileManagerClass
 							AnjutaProfile* profile);
 	void(* profile_popped) (AnjutaProfileManager *self,
 							AnjutaProfile* profile);
-	void(* profile_changed) (AnjutaProfileManager *self,
-							 AnjutaProfile* profile);
+	void(* profile_descoped) (AnjutaProfileManager *self,
+							  AnjutaProfile* profile);
+	void(* profile_scoped) (AnjutaProfileManager *self,
+							AnjutaProfile* profile);
 };
 
 struct _AnjutaProfileManager

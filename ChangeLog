@@ -1,3 +1,26 @@
+2007-03-03  Naba Kumar  <naba@gnome.org>
+
+	* TODO.tasks: Icons bounty added.
+
+	* libanjuta/anjuta-plugin-manager.[ch]: Implemented remember plugin
+	choise selection.
+	
+	* libanjuta/anjuta-profile-manager.[ch]: Implemented profile scoping
+	and descoping.
+
+	* configure.in, src/anjuta.c, plugins/project-manager/plugin.[ch],
+	plugins/Makefile.am, (removed) plugins/profile-default/*,
+	plugins/project-manager/anjuta-project-manager.plugin.in,
+	plugins/project-manager/anjuta-project-manager.ui: Use the new plugins
+	profile implementation to load user profile and projects. Store and
+	restore remembered plugins. Use profile scoping and descoping for
+	saving and loading sesstions.
+	
+	* libanjuta/anjuta-plugin-handle.c, libanjuta/anjuta-plugin-manager.c,
+	libanjuta/anjuta-shell.c, libanjuta/anjuta-preferences.c,
+	libanjuta/anjuta-profile-manager.c, libanjuta/anjuta-ui.c: Disabled
+	DEBUG_PRINTs.
+
 2007-03-03 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/debug_tree.c
@@ -12,15 +35,17 @@
 	* plugins/document-manager/anjuta-document-manager.ui:
 	* plugins/search/anjuta-search.ui:
 	* plugins/symbol-browser/anjuta-symbol-browser-plugin.ui:
-	Break toolbars into smaller peaces: ToolbarBookmark, ToolbarSymbols, ToolbarFind
+	Break toolbars into smaller peaces: ToolbarBookmark, ToolbarSymbols,
+	ToolbarFind
 
 	* src/anjuta-app.c: (on_toolbar_view_toggled),
 	(on_add_merge_widget), (on_session_save), (on_widget_remove):
 	Save toolbar positions, don't use fixed toolbar style
 	
-	All in all this will allow more complex toolbar configurations and might gain some space
-	on smaller displays because the user can disable toolbar parts he does not use. Also
-	allows to use any toolbar style without looking too ugly.
+	All in all this will allow more complex toolbar configurations and
+	might gain some space on smaller displays because the user can disable
+	toolbar parts he does not use. Also allows to use any toolbar style
+	without looking too ugly.
 
 2007-03-01  Naba Kumasr  <naba@gnome.org>
 

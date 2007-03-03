@@ -37,7 +37,8 @@ enum
 {
 	PROFILE_PUSHED,
 	PROFILE_POPPED,
-	PROFILE_CHANGED,
+	PROFILE_DESCOPED,
+	PROFILE_SCOPED,
 	LAST_SIGNAL
 };
 
@@ -117,28 +118,6 @@ anjuta_profile_manager_finalize (GObject *object)
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
-
-static void
-anjuta_profile_manager_pushed (AnjutaProfileManager *self,
-							   AnjutaProfile* profile)
-{
-	/* TODO: Add default signal handler implementation here */
-}
-
-static void
-anjuta_profile_manager_popped (AnjutaProfileManager *self,
-							   AnjutaProfile* profile)
-{
-	/* TODO: Add default signal handler implementation here */
-}
-
-static void
-anjuta_profile_manager_changed (AnjutaProfileManager *self,
-							    AnjutaProfile* profile)
-{
-	/* TODO: Add default signal handler implementation here */
-}
-
 static void
 anjuta_profile_manager_set_property (GObject *object, guint prop_id,
 									 const GValue *value, GParamSpec *pspec)
@@ -194,9 +173,6 @@ anjuta_profile_manager_class_init (AnjutaProfileManagerClass *klass)
 	object_class->finalize = anjuta_profile_manager_finalize;
 	object_class->set_property = anjuta_profile_manager_set_property;
 	object_class->get_property = anjuta_profile_manager_get_property;
-	klass->profile_pushed = anjuta_profile_manager_pushed;
-	klass->profile_popped = anjuta_profile_manager_popped;
-	klass->profile_changed = anjuta_profile_manager_changed;
 	
 	g_object_class_install_property (object_class,
 	                                 PROP_PLUGIN_MANAGER,
@@ -227,12 +203,22 @@ anjuta_profile_manager_class_init (AnjutaProfileManagerClass *klass)
 					  anjuta_cclosure_marshal_VOID__OBJECT,
 		              G_TYPE_NONE, 1,
 		              ANJUTA_TYPE_PROFILE);
-	profile_manager_signals[PROFILE_CHANGED] =
-		g_signal_new ("profile-changed",
+	profile_manager_signals[PROFILE_DESCOPED] =
+		g_signal_new ("profile-descoped",
 		              G_OBJECT_CLASS_TYPE (klass),
 		              G_SIGNAL_RUN_FIRST,
 		              G_STRUCT_OFFSET (AnjutaProfileManagerClass,
-									   profile_changed),
+									   profile_descoped),
+		              NULL, NULL,
+					  anjuta_cclosure_marshal_VOID__OBJECT,
+		              G_TYPE_NONE, 1,
+		              ANJUTA_TYPE_PROFILE);
+	profile_manager_signals[PROFILE_SCOPED] =
+		g_signal_new ("profile-scoped",
+		              G_OBJECT_CLASS_TYPE (klass),
+		              G_SIGNAL_RUN_FIRST,
+		              G_STRUCT_OFFSET (AnjutaProfileManagerClass,
+									   profile_scoped),
 		              NULL, NULL,
 					  anjuta_cclosure_marshal_VOID__OBJECT,
 		              G_TYPE_NONE, 1,
@@ -280,6 +266,7 @@ anjuta_profile_manager_new (AnjutaPluginManager *plugin_manager)
 static gboolean
 anjuta_profile_manager_load_profile (AnjutaProfileManager *profile_manager,
 									 AnjutaProfile *profile,
+									 AnjutaProfile *previous_profile,
 									 GError **error)
 {
 	AnjutaProfileManagerPriv *priv;
@@ -298,6 +285,13 @@ anjuta_profile_manager_load_profile (AnjutaProfileManager *profile_manager,
 	g_signal_handlers_block_by_func (priv->plugin_manager,
 									 G_CALLBACK (on_plugin_deactivated),
 									 profile_manager);
+	
+	/* Emit pre-change for the last profile */
+	if (previous_profile)
+	{
+		g_signal_emit_by_name (profile_manager, "profile-descoped",
+							   previous_profile);
+	}
 	
 	/* Prepare plugins to activate */
 	plugins_to_activate_hash = g_hash_table_new (g_direct_hash, g_direct_equal);
@@ -356,7 +350,7 @@ anjuta_profile_manager_load_profile (AnjutaProfileManager *profile_manager,
 											  "Location", &plugin_id);
 		g_assert (plugin_id != NULL);
 		
-		DEBUG_PRINT ("Profile: deactivating %s", plugin_id);
+		/* DEBUG_PRINT ("Profile: deactivating %s", plugin_id); */
 		
 		plugin_object =
 			anjuta_plugin_manager_get_plugin_by_id (priv->plugin_manager,
@@ -402,6 +396,7 @@ anjuta_profile_manager_load_profile (AnjutaProfileManager *profile_manager,
 	g_signal_handlers_unblock_by_func (priv->plugin_manager,
 									   G_CALLBACK (on_plugin_deactivated),
 									   profile_manager);
+	g_signal_emit_by_name (profile_manager, "profile-scoped", profile);
 	return TRUE;
 }
 
@@ -418,12 +413,18 @@ anjuta_profile_manager_queue_profile (AnjutaProfileManager *profile_manager,
 	/* If there is no freeze load profile now */
 	if (priv->freeze_count <= 0)
 	{
+		AnjutaProfile *previous_profile = NULL;
+		
+		if (priv->profiles)
+			previous_profile = priv->profiles->data;
+		
 		/* Push queued profiles in stack */
 		priv->profiles = g_list_concat (priv->profiles_queue, priv->profiles);
 		priv->profiles_queue = NULL;
 		
 		return anjuta_profile_manager_load_profile (profile_manager,
 										ANJUTA_PROFILE (priv->profiles->data),
+													previous_profile,
 													error);
 	}
 	else
@@ -486,21 +487,21 @@ anjuta_profile_manager_pop (AnjutaProfileManager *profile_manager,
 		g_signal_emit_by_name (profile_manager, "profile-popped",
 							   profile);
 		
-		g_object_unref (profile);
-		
 		/* Restore the next profile in the stack */
 		if (priv->profiles)
 		{
 			return anjuta_profile_manager_load_profile (profile_manager,
 									ANJUTA_PROFILE (priv->profiles->data),
+														profile,
 														error);
 		}
 		else
 		{
 			return anjuta_profile_manager_load_profile (profile_manager,
-														NULL,
+														NULL, profile,
 														error);
 		}
+		g_object_unref (profile);
 	}
 	
 	g_warning ("No profiles in the stack. Can not pop out any profile: %s",
@@ -530,9 +531,19 @@ anjuta_profile_manager_thaw (AnjutaProfileManager *profile_manager,
 	
 	if (priv->freeze_count <= 0 && priv->profiles_queue)
 	{
+		AnjutaProfile *previous_profile = NULL;
+		
+		if (priv->profiles)
+			previous_profile = priv->profiles->data;
+		
+		/* Push queued profiles in stack */
+		priv->profiles = g_list_concat (priv->profiles_queue, priv->profiles);
+		priv->profiles_queue = NULL;
+		
 		/* Load the profile */
 		return anjuta_profile_manager_load_profile (profile_manager,
-													ANJUTA_PROFILE (priv->profiles->data),
+										ANJUTA_PROFILE (priv->profiles->data),
+													previous_profile,
 													error);
 	}
 	else

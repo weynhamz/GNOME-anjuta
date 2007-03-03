@@ -10,7 +10,6 @@ SUBDIRS = . \
 	terminal \
 	build-basic-autotools \
 	file-loader \
-	profile-default \
 	file-wizard \
 	project-wizard \
 	project-manager \

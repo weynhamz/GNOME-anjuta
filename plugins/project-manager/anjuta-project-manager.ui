@@ -1,6 +1,12 @@
 <!--*- xml -*-->
 <ui>
 	<menubar name="MenuMain">
+	<menu name="MenuFile" action="ActionMenuFile">
+		<placeholder name="PlaceholderProjectMenus">
+			<menuitem name="CloseProject" action="ActionFileCloseProject" />
+			<separator name="seperator10"/>
+		</placeholder>
+	</menu>
 	<placeholder name="PlaceHolderProjectMenus">
 		<menu name="MenuProject" action="ActionMenuProject">
 				<menuitem name="AddGroup" action="ActionProjectAddGroup" />

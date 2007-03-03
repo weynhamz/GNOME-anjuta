@@ -53,16 +53,19 @@ struct _ProjectManagerPlugin{
 	
 	gint fm_watch_id;
 	gint editor_watch_id;
-	gint project_watch_id;
 	
 	gchar *fm_current_uri;
 	gchar *current_editor_uri;
 	gchar *project_root_uri;
+	gchar *project_uri;
 	
 	/* Update state recording */
 	GList *pre_update_sources;
 	GList *pre_update_targets;
 	GList *pre_update_groups;
+	
+	/* Session flag */
+	gboolean session_by_me;
 };
 
 struct _ProjectManagerPluginClass{

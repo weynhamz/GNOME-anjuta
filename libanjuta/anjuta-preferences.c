@@ -660,7 +660,7 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 				font_name = g_strconcat (tmp, " 12", NULL);
 				g_free (tmp);
 				
-				DEBUG_PRINT ("Font set as: %s", font_name);
+				/* DEBUG_PRINT ("Font set as: %s", font_name); */
 				
 				gtk_font_button_set_font_name (GTK_FONT_BUTTON
 												 (prop->object), font_name);
@@ -798,7 +798,7 @@ get_property (GConfClient *gclient, guint cnxt_id,
 	AnjutaProperty *p = (AnjutaProperty *) user_data;
 	key = gconf_entry_get_key (entry);
 	value = gconf_entry_get_value (entry);
-	DEBUG_PRINT ("Preference changed %s", key);
+	/* DEBUG_PRINT ("Preference changed %s", key); */
 
 	if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL)
 	{
@@ -953,8 +953,8 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 				old_value = anjuta_preferences_get (pr, p->key);
 				if (old_value == NULL && vstr[0])
 				{
-					DEBUG_PRINT ("Setting default pref value: %s = %s",
-								 p->key, default_value);
+					/* DEBUG_PRINT ("Setting default pref value: %s = %s",
+								 p->key, default_value); */
 					anjuta_preferences_set (pr, p->key, vstr[0]);
 				}
 				if (old_value)
@@ -967,8 +967,8 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 				old_value = anjuta_preferences_get (pr, p->key);
 				if (old_value == NULL)
 				{
-					DEBUG_PRINT ("Setting default pref value: %s = %s",
-								 p->key, default_value);
+					/* DEBUG_PRINT ("Setting default pref value: %s = %s",
+								 p->key, default_value);*/
 					anjuta_preferences_set (pr, p->key, default_value);
 				}
 				if (old_value)
@@ -980,8 +980,8 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 										  build_key (p->key), NULL);
 				if (value == NULL)
 				{
-					DEBUG_PRINT ("Setting default pref value: %s = %s",
-								 p->key, default_value);
+					/* DEBUG_PRINT ("Setting default pref value: %s = %s",
+								 p->key, default_value);*/
 					if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
 						gconf_client_set_int (pr->priv->gclient,
 											  build_key (p->key),
@@ -1074,8 +1074,8 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 			old_value = anjuta_preferences_get (pr, p->key);
 			if (old_value == NULL)
 			{
-				DEBUG_PRINT ("Setting default pref value: %s = %s",
-							 p->key, default_value);
+				/* DEBUG_PRINT ("Setting default pref value: %s = %s",
+							 p->key, default_value); */
 				anjuta_preferences_set (pr, p->key, default_value);
 			}
 			if (old_value)
@@ -1087,8 +1087,8 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 									  build_key (p->key), NULL);
 			if (value == NULL)
 			{
-				DEBUG_PRINT ("Setting default pref value: %s = %s",
-							 p->key, default_value);
+				/* DEBUG_PRINT ("Setting default pref value: %s = %s",
+							 p->key, default_value);*/
 				if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
 					gconf_client_set_int (pr->priv->gclient,
 										  build_key (p->key),
@@ -1468,7 +1468,7 @@ anjuta_preferences_instance_init (AnjutaPreferences *pr)
 	pr->priv = g_new0(AnjutaPreferencesPriv, 1);
 	pr->priv->properties = NULL;
 	
-	DEBUG_PRINT ("Initializing AP Instance");
+	/* DEBUG_PRINT ("Initializing AP Instance"); */
 	
 	pr->priv->is_showing = FALSE;
 	pr->priv->gclient = gconf_client_get_default();

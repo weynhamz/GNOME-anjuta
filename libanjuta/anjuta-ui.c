@@ -789,7 +789,7 @@ anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename)
 void
 anjuta_ui_unmerge (AnjutaUI *ui, gint id)
 {
-	DEBUG_PRINT ("Menu unmerging %d", id);
+	/* DEBUG_PRINT ("Menu unmerging %d", id); */
 	g_return_if_fail (ANJUTA_IS_UI (ui));
 	gtk_ui_manager_remove_ui(GTK_UI_MANAGER (ui), id);
 }
@@ -928,6 +928,6 @@ anjuta_ui_dump_tree (AnjutaUI *ui)
 	
 	gtk_ui_manager_ensure_update (GTK_UI_MANAGER (ui));
 	ui_str = gtk_ui_manager_get_ui (GTK_UI_MANAGER (ui));
-	DEBUG_PRINT ("%s", ui_str);
+	/* DEBUG_PRINT ("%s", ui_str); */
 	g_free (ui_str);
 }

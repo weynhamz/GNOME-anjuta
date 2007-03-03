@@ -26,6 +26,7 @@
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libanjuta/anjuta-profile-manager.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-status.h>
 
@@ -37,11 +38,14 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-project-manager.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-project-manager-plugin.glade"
 #define ICON_FILE "anjuta-project-manager-plugin.png"
+#define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.anjuta"
+#define PROJECT_PROFILE_NAME "project"
 
 static gpointer parent_class;
 
 static gboolean uri_is_inside_project (ProjectManagerPlugin *plugin,
 									   const gchar *uri);
+static void project_manager_plugin_close (ProjectManagerPlugin *plugin);
 
 static GtkWindow*
 get_plugin_parent_window (ProjectManagerPlugin *plugin)
@@ -55,6 +59,106 @@ get_plugin_parent_window (ProjectManagerPlugin *plugin)
 	else
 		win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
 	return win;
+}
+
+static void
+update_title (ProjectManagerPlugin* plugin, const gchar *project_uri)
+{
+	AnjutaStatus *status;
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	if (project_uri)
+	{
+		gchar* uri_basename;
+		gchar* unescape_basename;
+		gchar* ext;
+		
+		uri_basename = g_path_get_basename (project_uri);
+		unescape_basename = gnome_vfs_unescape_string (uri_basename, "");
+		ext = strrchr (unescape_basename, '.');
+		if (ext)
+			*ext = '\0';
+		anjuta_status_set_title (status, unescape_basename);
+		g_free (unescape_basename);
+		g_free (uri_basename);
+	}
+	else
+	{
+		anjuta_status_set_title (status, NULL);
+	}
+}
+
+static gchar*
+get_session_dir (ProjectManagerPlugin *plugin)
+{
+	GnomeVFSURI *vfs_uri;
+	gchar *session_dir = NULL;
+	
+	g_return_val_if_fail (plugin->project_root_uri, NULL);
+	
+	vfs_uri = gnome_vfs_uri_new (plugin->project_root_uri);
+	if (vfs_uri && gnome_vfs_uri_is_local (vfs_uri))
+	{
+		gchar *local_dir;
+		
+		local_dir = gnome_vfs_get_local_path_from_uri (plugin->project_root_uri);
+		if (local_dir)
+		{
+			session_dir = g_build_filename (local_dir, ".anjuta", "session",
+											NULL);
+		}
+		g_free (local_dir);
+	}
+	if (vfs_uri)
+		gnome_vfs_uri_unref (vfs_uri);
+	
+	return session_dir;
+}
+
+static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, ProjectManagerPlugin *plugin)
+{
+	GList *files;
+	const gchar *dir;
+	
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	
+	/* Save currently active plugins */
+	dir = anjuta_session_get_session_directory (session);
+	/*
+	 * When a project session is being saved (session_by_me == TRUE),
+	 * we should not save the current project uri, because project 
+	 * sessions are loaded when the project has already been loaded.
+	 */
+	if (plugin->project_uri && !plugin->session_by_me)
+	{
+		files = anjuta_session_get_string_list (session,
+												"File Loader",
+												"Files");
+		files = g_list_append (files, g_strdup (plugin->project_uri));
+		anjuta_session_set_string_list (session, "File Loader",
+										"Files", files);
+		g_list_foreach (files, (GFunc)g_free, NULL);
+		g_list_free (files);
+	}
+}
+
+static gboolean
+on_close_project_idle (gpointer plugin)
+{
+	project_manager_plugin_close (ANJUTA_PLUGIN_PROJECT_MANAGER (plugin));
+	/* Self destruct */
+	anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
+	
+	return FALSE;
+}
+
+static void
+on_close_project (GtkAction *action, ProjectManagerPlugin *plugin)
+{
+	if (plugin->project_uri)
+		g_idle_add (on_close_project_idle, plugin);
 }
 
 static GList *
@@ -239,9 +343,9 @@ on_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 	if (properties)
 	{
 		win = gtk_dialog_new_with_buttons (_("Project properties"),
-										   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-										   GTK_DIALOG_DESTROY_WITH_PARENT,
-										   GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
+									GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+									GTK_DIALOG_DESTROY_WITH_PARENT,
+									GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
 		g_signal_connect_swapped (win, "response",
 								  G_CALLBACK (gtk_widget_destroy), win);
 		
@@ -265,9 +369,10 @@ on_add_group (GtkAction *action, ProjectManagerPlugin *plugin)
 		default_group_uri = g_path_get_dirname (plugin->current_editor_uri);
 	else
 		default_group_uri = g_strdup ("");
-	group_uri = ianjuta_project_manager_add_group (IANJUTA_PROJECT_MANAGER (plugin),
-												   "", default_group_uri,
-												   NULL);
+	group_uri =
+		ianjuta_project_manager_add_group (IANJUTA_PROJECT_MANAGER (plugin),
+										   "", default_group_uri,
+										   NULL);
 	g_free (group_uri);
 	g_free (default_group_uri);
 }
@@ -280,9 +385,10 @@ on_add_target (GtkAction *action, ProjectManagerPlugin *plugin)
 		default_group_uri = g_path_get_dirname (plugin->current_editor_uri);
 	else
 		default_group_uri = g_strdup ("");
-	target_uri = ianjuta_project_manager_add_target (IANJUTA_PROJECT_MANAGER (plugin),
-													 "", default_group_uri,
-													 NULL);
+	target_uri =
+		ianjuta_project_manager_add_target (IANJUTA_PROJECT_MANAGER (plugin),
+											"", default_group_uri,
+											NULL);
 	g_free (target_uri);
 	g_free (default_group_uri);
 }
@@ -303,9 +409,10 @@ on_add_source (GtkAction *action, ProjectManagerPlugin *plugin)
 		default_group_uri = g_strdup ("");
 		default_source_uri = "";
 	}
-	source_uri = ianjuta_project_manager_add_source (IANJUTA_PROJECT_MANAGER (plugin),
-													 default_source_uri,
-													 default_group_uri, NULL);
+	source_uri =
+		ianjuta_project_manager_add_source (IANJUTA_PROJECT_MANAGER (plugin),
+											default_source_uri,
+											default_group_uri, NULL);
 	g_free (source_uri);
 	g_free (default_group_uri);
 }
@@ -328,9 +435,9 @@ on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 		if (properties)
 		{
 			win = gtk_dialog_new_with_buttons (_("Target properties"),
-											   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-											   GTK_DIALOG_DESTROY_WITH_PARENT,
-											   GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
+								   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+								   GTK_DIALOG_DESTROY_WITH_PARENT,
+								   GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL, NULL);
 			g_signal_connect_swapped (win, "response",
 									  G_CALLBACK (gtk_widget_destroy), win);
 			
@@ -342,7 +449,7 @@ on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 		else
 		{
 			anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-									 _("No properties available for this target"));
+								 _("No properties available for this target"));
 		}
 		return;
 	}
@@ -357,9 +464,9 @@ on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 		if (properties)
 		{
 			win = gtk_dialog_new_with_buttons (_("Group properties"),
-											   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-											   GTK_DIALOG_DESTROY_WITH_PARENT,
-											   _("Close"), GTK_RESPONSE_CANCEL, NULL);
+								   GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
+								   GTK_DIALOG_DESTROY_WITH_PARENT,
+								   _("Close"), GTK_RESPONSE_CANCEL, NULL);
 			g_signal_connect_swapped (win, "response",
 									  G_CALLBACK (gtk_widget_destroy), win);
 			
@@ -371,7 +478,7 @@ on_popup_properties (GtkAction *action, ProjectManagerPlugin *plugin)
 		else
 		{
 			anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
-									 _("No properties available for this group"));
+								 _("No properties available for this group"));
 		}
 		return;
 	}
@@ -553,10 +660,11 @@ on_popup_add_to_project (GtkAction *action, ProjectManagerPlugin *plugin)
 		else
 		{
 			gchar *source_id =
-				ianjuta_project_manager_add_source (IANJUTA_PROJECT_MANAGER (plugin),
-												plugin->fm_current_uri,
-												parent_directory,
-												NULL);
+				ianjuta_project_manager_add_source (IANJUTA_PROJECT_MANAGER
+													(plugin),
+													plugin->fm_current_uri,
+													parent_directory,
+													NULL);
 			g_free(source_id);
 		}
 		g_free (filename);
@@ -632,7 +740,12 @@ static GtkActionEntry pm_actions[] =
 		"ActionProjectAddSource", GTK_STOCK_ADD,
 		N_("Add _Source File..."), NULL, N_("Add a source file to project"),
 		G_CALLBACK (on_add_source)
-	}
+	},
+	{
+		"ActionFileCloseProject", NULL,
+		N_("Close Pro_ject"), NULL, N_("Close project"),
+		G_CALLBACK (on_close_project)
+	},
 };
 
 static GtkActionEntry popup_actions[] = 
@@ -913,44 +1026,17 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	pm_plugin->current_editor_uri = NULL;
 }
 
-#if 0
-static GtkWidget *
-show_loading_progress (AnjutaPlugin *plugin)
-{
-	GtkWidget *win, *label;
-	label = gtk_label_new (_("Loading project. Please wait ..."));
-	win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-	gtk_window_set_transient_for (GTK_WINDOW (win), GTK_WINDOW (plugin->shell));
-	gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER_ON_PARENT);
-	gtk_container_add (GTK_CONTAINER (win), label);
-	gtk_container_set_border_width (GTK_CONTAINER (win), 20);
-	gtk_widget_show_all (win);
-	while (gtk_events_pending ())
-		gtk_main_iteration ();
-	return win;
-}
-#endif
-
 static void
-value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
-							  const GValue *value, gpointer data)
+project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 {
-	ProjectManagerPlugin *pm_plugin;
 	AnjutaStatus *status;
-	/* GtkWidget *progress_win; */
 	gchar *dirname;
 	const gchar *root_uri;
 	GSList *l;
 	GError *error = NULL;
 	GbfBackend *backend = NULL;
 	
-	pm_plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (plugin);
-	
-	g_free (pm_plugin->project_root_uri);
-	pm_plugin->project_root_uri = g_value_dup_string (value);
 	root_uri = pm_plugin->project_root_uri;
-	
-	/* progress_win = show_loading_progress (plugin); */
 	
 	dirname = gnome_vfs_get_local_path_from_uri (root_uri);
 	
@@ -1001,7 +1087,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 		return;
 	}
 	
-	status = anjuta_shell_get_status (plugin->shell, NULL);
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (pm_plugin)->shell, NULL);
 	anjuta_status_progress_add_ticks (status, 1);
 	anjuta_status_push (status, _("Loading project: %s"), g_basename (dirname));
 	anjuta_status_busy_push (status);
@@ -1022,7 +1108,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 		if (toplevel && GTK_IS_WINDOW (toplevel))
 			win = GTK_WINDOW (toplevel);
 		else
-			win = GTK_WINDOW (plugin->shell);
+			win = GTK_WINDOW (ANJUTA_PLUGIN (pm_plugin)->shell);
 		
 		anjuta_util_dialog_error (win, _("Failed to load project %s: %s"),
 								  dirname, error->message);
@@ -1042,7 +1128,6 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (pm_plugin)->shell,
 								 pm_plugin->scrolledwindow,
 								 NULL);
-	/* gtk_widget_destroy (progress_win); */
 	
 	anjuta_status_set_default (status, _("Project"), g_basename (dirname));
 	anjuta_status_pop (status);
@@ -1051,19 +1136,16 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 }
 
 static void
-value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
-								gpointer data)
+project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 {
-	ProjectManagerPlugin *pm_plugin;
 	AnjutaStatus *status;
 	
-	pm_plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (plugin);
 	if (pm_plugin->project)
 	{
 		IAnjutaDocumentManager *docman;
 		
 		/* Close files that belong to this project (that are saved) */
-		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (pm_plugin)->shell,
 											 IAnjutaDocumentManager, NULL);
 		if (docman)
 		{
@@ -1072,7 +1154,8 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 			GList *node;
 			
 			editors =
-				ianjuta_document_manager_get_editors (IANJUTA_DOCUMENT_MANAGER (docman), NULL);
+				ianjuta_document_manager_get_editors (IANJUTA_DOCUMENT_MANAGER
+													  (docman), NULL);
 			node = editors;
 			while (node)
 			{
@@ -1114,17 +1197,114 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 		pm_plugin->project = NULL;
 		g_object_set (G_OBJECT (pm_plugin->model), "project", NULL, NULL);
 		update_ui (pm_plugin);
-		status = anjuta_shell_get_status (plugin->shell, NULL);
+		status = anjuta_shell_get_status (ANJUTA_PLUGIN (pm_plugin)->shell,
+										  NULL);
 		anjuta_status_set_default (status, _("Project"), NULL);
+	}
+}
+
+static void
+on_profile_scoped (AnjutaProfileManager *profile_manager,
+				   AnjutaProfile *profile, ProjectManagerPlugin *plugin)
+{
+	GValue *value;
+	gchar *session_dir;
+	DEBUG_PRINT ("Profile scoped: %s", anjuta_profile_get_name (profile));
+	if (strcmp (anjuta_profile_get_name (profile), PROJECT_PROFILE_NAME) != 0)
+		return;
+	
+	DEBUG_PRINT ("Project profile loaded; Restoring project session");
+	
+	/* Load gbf project */
+	project_manager_load_gbf (plugin);
+	
+	/* Export project */
+	value = g_new0 (GValue, 1);
+	g_value_init (value, G_TYPE_STRING);
+	g_value_set_string (value, plugin->project_root_uri);
+	
+	anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
+							"project_root_uri",
+							value, NULL);
+	
+	/* If profile scoped to "project", restore project session */
+	session_dir = get_session_dir (plugin);
+	g_return_if_fail (session_dir != NULL);
+	
+	/*
+	 * If there is a session load already in progress (that is this
+	 * project is being opened in session restoration), our session
+	 * load would be ignored. Good thing.
+	 */
+	plugin->session_by_me = TRUE;
+	anjuta_shell_session_load (ANJUTA_PLUGIN (plugin)->shell,
+							   session_dir, NULL);
+	plugin->session_by_me = FALSE;
+	g_free (session_dir);
+}
+
+static void
+on_profile_descoped (AnjutaProfileManager *profile_manager,
+					 AnjutaProfile *profile, ProjectManagerPlugin *plugin)
+{
+	gchar *session_dir;
+	
+	DEBUG_PRINT ("Profile descoped: %s", anjuta_profile_get_name (profile));
+	
+	if (strcmp (anjuta_profile_get_name (profile), PROJECT_PROFILE_NAME) != 0)
+		return;
+	
+	DEBUG_PRINT ("Project profile descoped; Saving project session");
+	
+	/* Save current project session */
+	g_return_if_fail (plugin->project_root_uri != NULL);
+	
+	/* Save project session */
+	session_dir = get_session_dir (plugin);
+	g_return_if_fail (session_dir != NULL);
+	
+	plugin->session_by_me = TRUE;
+	anjuta_shell_session_save (ANJUTA_PLUGIN (plugin)->shell,
+							   session_dir, NULL);
+	plugin->session_by_me = FALSE;
+	g_free (session_dir);
+	
+	/* Close current project */
+	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
+							   "project_root_uri", NULL);
+	project_manager_unload_gbf (plugin);
 		
-		g_free (pm_plugin->project_root_uri);
-		pm_plugin->project_root_uri = NULL;
+	g_free (plugin->project_root_uri);
+	g_free (plugin->project_uri);
+	plugin->project_uri = NULL;
+	plugin->project_root_uri = NULL;
+	
+	update_title (ANJUTA_PLUGIN_PROJECT_MANAGER (plugin), NULL);
+}
+
+static void
+project_manager_plugin_close (ProjectManagerPlugin *plugin)
+{
+	AnjutaProfileManager *profile_manager;
+	GError *error = NULL;
+	
+	/* Remove project profile */
+	profile_manager = 
+		anjuta_shell_get_profile_manager (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	anjuta_profile_manager_pop (profile_manager, PROJECT_PROFILE_NAME, &error);
+	if (error)
+	{
+		anjuta_util_dialog_error (get_plugin_parent_window (plugin),
+								  _("Error closing project: %s"),
+								  error->message);
+		g_error_free (error);
 	}
 }
 
 static gboolean
-activate_plugin (AnjutaPlugin *plugin)
+project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 {
+	AnjutaProfileManager *profile_manager;
 	GtkWidget *view, *scrolled_window;
 	GbfProjectModel *model;
 	static gboolean initialized = FALSE;
@@ -1221,25 +1401,45 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
-	pm_plugin->project_watch_id = 
-		anjuta_plugin_add_watch (plugin, "project_root_uri",
-								 value_added_project_root_uri,
-								 value_removed_project_root_uri, NULL);
+	/* Connect to save session */
+	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
+					  G_CALLBACK (on_session_save), plugin);
+	profile_manager = anjuta_shell_get_profile_manager (plugin->shell, NULL);
+
+	/* Connect to profile scoping */
+	g_signal_connect (profile_manager, "profile-scoped",
+					  G_CALLBACK (on_profile_scoped), plugin);
+	g_signal_connect (profile_manager, "profile-descoped",
+					  G_CALLBACK (on_profile_descoped), plugin);
 	return TRUE;
 }
 
 static gboolean
-deactivate_plugin (AnjutaPlugin *plugin)
+project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 {
+	AnjutaProfileManager *profile_manager;
 	ProjectManagerPlugin *pm_plugin;
 	pm_plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (plugin);
 	
+	/* Close project if it's open */
+	if (pm_plugin->project_root_uri)
+		project_manager_plugin_close (pm_plugin);
+	
+	profile_manager = anjuta_shell_get_profile_manager (plugin->shell, NULL);
+
+	/* Disconnect signals */
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_session_save),
+										  plugin);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (profile_manager),
+										  G_CALLBACK (on_profile_descoped),
+										  plugin);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (profile_manager),
+										  G_CALLBACK (on_profile_scoped),
+										  plugin);
 	/* Remove watches */
 	anjuta_plugin_remove_watch (plugin, pm_plugin->fm_watch_id, TRUE);
 	anjuta_plugin_remove_watch (plugin, pm_plugin->editor_watch_id, TRUE);
-	
-	/* Project is also closed with this */
-	anjuta_plugin_remove_watch (plugin, pm_plugin->project_watch_id, TRUE);
 	
 	g_object_unref (G_OBJECT (pm_plugin->model));
 	
@@ -1248,20 +1448,21 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	anjuta_ui_unmerge (pm_plugin->ui, pm_plugin->merge_id);
 	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->pm_action_group);
-	anjuta_ui_remove_action_group (pm_plugin->ui, pm_plugin->popup_action_group);
+	anjuta_ui_remove_action_group (pm_plugin->ui,
+								   pm_plugin->popup_action_group);
 	
 	return TRUE;
 }
 
 static void
-finalize (GObject *obj)
+project_manager_plugin_finalize (GObject *obj)
 {
 	/* FIXME: */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
 
 static void
-dispose (GObject *obj)
+project_manager_plugin_dispose (GObject *obj)
 {
 	/* FIXME: */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
@@ -1279,8 +1480,10 @@ project_manager_plugin_instance_init (GObject *obj)
 	plugin->pre_update_targets = NULL;
 	plugin->pre_update_groups = NULL;
 	plugin->project_root_uri = NULL;
+	plugin->project_uri = NULL;
 	plugin->fm_current_uri = NULL;
 	plugin->current_editor_uri = NULL;
+	plugin->session_by_me = FALSE;
 }
 
 static void
@@ -1290,10 +1493,10 @@ project_manager_plugin_class_init (GObjectClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	plugin_class->activate = activate_plugin;
-	plugin_class->deactivate = deactivate_plugin;
-	klass->dispose = finalize;
-	klass->dispose = dispose;
+	plugin_class->activate = project_manager_plugin_activate_plugin;
+	plugin_class->deactivate = project_manager_plugin_deactivate_plugin;
+	klass->dispose = project_manager_plugin_finalize;
+	klass->dispose = project_manager_plugin_dispose;
 }
 
 /* IAnjutaProjectManager implementation */
@@ -1309,23 +1512,19 @@ get_uri_vfs_type (const gchar *uri)
 static gboolean
 uri_is_inside_project (ProjectManagerPlugin *plugin, const gchar *uri)
 {
-	const gchar *root_uri;
-
-	/* DEBUG_PRINT ("Is '%s' inside project", uri); */
-	anjuta_shell_get (ANJUTA_PLUGIN (plugin)->shell, "project_root_uri",
-					  G_TYPE_STRING, &root_uri, NULL);
-
-	if (strncmp (uri, root_uri, strlen (root_uri)) == 0)
+	if (strncmp (uri, plugin->project_root_uri,
+				 strlen (plugin->project_root_uri)) == 0)
 		return TRUE;
 	
 	if (uri[0] == '/')
 	{
-		const gchar *project_root_path = strchr (root_uri, ':');
+		const gchar *project_root_path = strchr (plugin->project_root_uri, ':');
 		if (project_root_path)
 			project_root_path += 3;
 		else
-			project_root_path = root_uri;
-		return (strncmp (uri, project_root_path, strlen (project_root_path)) == 0);
+			project_root_path = plugin->project_root_uri;
+		return (strncmp (uri, project_root_path,
+						 strlen (project_root_path)) == 0);
 	}
 	return FALSE;
 }
@@ -1404,21 +1603,24 @@ get_target_from_uri (ProjectManagerPlugin *plugin, const gchar *uri)
 	/* FIXME: More target types should be handled */
 	/* Test for shared lib */
 	test_id = g_strconcat (rel_path, ":shared_lib", NULL);
-	data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
+	data = gbf_project_get_target (GBF_PROJECT (plugin->project),
+								   test_id, NULL);
 	g_free (test_id);
 	
 	if (!data)
 	{
 		/* Test for static lib */
 		test_id = g_strconcat (rel_path, ":static_lib", NULL);
-		data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
+		data = gbf_project_get_target (GBF_PROJECT (plugin->project),
+									   test_id, NULL);
 		g_free (test_id);
 	}
 	if (!data)
 	{
 		/* Test for program */
 		test_id = g_strconcat (rel_path, ":program", NULL);
-		data = gbf_project_get_target (GBF_PROJECT (plugin->project), test_id, NULL);
+		data = gbf_project_get_target (GBF_PROJECT (plugin->project),
+									   test_id, NULL);
 		g_free (test_id);
 	}
 	return data;
@@ -1531,7 +1733,7 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 			{
 				elements = g_list_prepend (elements,
 										   get_element_uri_from_id (plugin,
-																	(const gchar *)node->data));
+												(const gchar *)node->data));
 				g_free (node->data);
 				node = node->next;
 			}
@@ -1547,7 +1749,7 @@ iproject_manager_get_elements (IAnjutaProjectManager *project_manager,
 			{
 				elements = g_list_prepend (elements,
 										   get_element_uri_from_id (plugin,
-																	(const gchar *)node->data));
+												(const gchar *)node->data));
 				g_free (node->data);
 				node = node->next;
 			}
@@ -1654,11 +1856,13 @@ iproject_manager_get_targets (IAnjutaProjectManager *project_manager,
 		{
 			GList* type_node;
 			t_type++;
-			for (type_node = target_types; type_node != NULL; type_node = type_node->next)
+			for (type_node = target_types; type_node != NULL;
+				 type_node = type_node->next)
 			{
 				if (strcmp (t_type, type_node->data) == 0)
 				{
-					gchar *target_uri = get_element_uri_from_id (plugin, target_id);
+					gchar *target_uri = get_element_uri_from_id (plugin,
+																 target_id);
 					elements = g_list_prepend (elements, target_uri);
 				}
 			}
@@ -1781,21 +1985,21 @@ iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 	if (default_location_type == IANJUTA_PROJECT_MANAGER_GROUP)
 	{
 		source_id = gbf_project_util_add_source (plugin->model,
-												 get_plugin_parent_window (plugin),
+											get_plugin_parent_window (plugin),
 												 NULL, location_id,
 												 source_uri_to_add);
 	}
 	else if (default_location_type == IANJUTA_PROJECT_MANAGER_TARGET)
 	{
 		source_id = gbf_project_util_add_source (plugin->model,
-												 get_plugin_parent_window (plugin),
+											 get_plugin_parent_window (plugin),
 												 location_id, NULL,
 												 source_uri_to_add);
 	}
 	else
 	{
 		source_id = gbf_project_util_add_source (plugin->model,
-												 get_plugin_parent_window (plugin),
+											 get_plugin_parent_window (plugin),
 												 NULL, NULL,
 												 source_uri_to_add);
 	}
@@ -1832,23 +2036,25 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 	if (default_location_type == IANJUTA_PROJECT_MANAGER_GROUP)
 	{
 		source_ids = gbf_project_util_add_source_multi (plugin->model,
-												 get_plugin_parent_window (plugin),
+											 get_plugin_parent_window (plugin),
 												 NULL, location_id,
 												 source_add_uris);
 	}
 	else if (default_location_type == IANJUTA_PROJECT_MANAGER_TARGET)
 	{
-		source_ids = gbf_project_util_add_source_multi (plugin->model,
-												 get_plugin_parent_window (plugin),
-												 location_id, NULL,
-												 source_add_uris);
+		source_ids =
+			gbf_project_util_add_source_multi (plugin->model,
+										   get_plugin_parent_window (plugin),
+										   location_id, NULL,
+										   source_add_uris);
 	}
 	else
 	{
-		source_ids = gbf_project_util_add_source_multi (plugin->model,
-												 get_plugin_parent_window (plugin),
-												 NULL, NULL,
-												 source_add_uris);
+		source_ids =
+			gbf_project_util_add_source_multi (plugin->model,
+										   get_plugin_parent_window (plugin),
+										   NULL, NULL,
+										   source_add_uris);
 	}
 	update_operation_end (plugin, TRUE);
 	
@@ -1856,7 +2062,7 @@ iproject_manager_add_source_multi (IAnjutaProjectManager *project_manager,
 	{
 		source_uris = g_list_append (source_uris,
 									 get_element_uri_from_id (plugin,
-															  source_ids->data));
+														  source_ids->data));
 		g_free (source_ids->data);
 		source_ids = g_list_next(source_ids);
 	}
@@ -1949,8 +2155,154 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 	iface->is_open = iproject_manager_is_open;
 }
 
+static void
+ifile_open (IAnjutaFile *ifile, const gchar* uri, GError **e)
+{
+	AnjutaProfile *profile;
+	AnjutaProfileManager *profile_manager;
+	AnjutaPluginManager *plugin_manager;
+	AnjutaStatus *status;
+	GnomeVFSURI *vfs_uri;
+	gchar *dirname, *dirname_tmp, *vfs_dir;
+	gchar *session_profile, *profile_name;
+	ProjectManagerPlugin *plugin;
+	GError *error = NULL;
+	
+	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (ifile);
+	
+#if 1 /* Enable it now */
+	/* If there is already a project loaded, load in separate anjuta window */
+	if (plugin->project_root_uri)
+	{
+		gchar *cmd = g_strconcat ("anjuta --no-splash --no-client ", uri, NULL);
+		anjuta_util_execute_shell (NULL, cmd);
+		g_free (cmd);
+		return;
+	}
+#endif
+	
+	plugin_manager  =
+		anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (ifile)->shell, NULL);
+	profile_manager =
+		anjuta_shell_get_profile_manager (ANJUTA_PLUGIN (ifile)->shell, NULL);
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (ifile)->shell, NULL);
+	
+	anjuta_status_progress_add_ticks (status, 2);
+#if 0	
+	/* Freeze shell */
+	anjuta_shell_freeze (ANJUTA_PLUGIN (ifile)->shell, NULL);
+#endif
+	/* Prepare profile */
+	profile = anjuta_profile_new (PROJECT_PROFILE_NAME, plugin_manager);
+	
+	/* System default profile */
+	anjuta_profile_add_plugins_from_xml (profile, DEFAULT_PROFILE,
+										 TRUE, &error);
+	if (error)
+	{
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
+								  "%s", error->message);
+		g_error_free (error);
+		error = NULL;
+	}
+	
+	/* Project default profile */
+	anjuta_profile_add_plugins_from_xml (profile, uri, TRUE, &error);
+	if (error)
+	{
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
+								  "%s", error->message);
+		g_error_free (error);
+		error = NULL;
+	}
+	
+	/* Project session profile */
+	vfs_uri = gnome_vfs_uri_new (uri);
+	
+	dirname_tmp = gnome_vfs_uri_extract_dirname (vfs_uri);
+	dirname = gnome_vfs_unescape_string (dirname_tmp, "");
+	g_free (dirname_tmp);
+	
+	profile_name = g_path_get_basename (DEFAULT_PROFILE);
+	gnome_vfs_uri_unref (vfs_uri);
+	
+	session_profile = g_build_filename (dirname, ".anjuta",
+										profile_name, NULL);
+	DEBUG_PRINT ("Loading project session profile: %s", session_profile);
+
+	if (g_file_test (session_profile, G_FILE_TEST_EXISTS))
+	{
+		anjuta_profile_add_plugins_from_xml (profile, session_profile,
+											 FALSE, &error);
+		if (error)
+		{
+			anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
+									  "%s", error->message);
+			g_error_free (error);
+			error = NULL;
+		}
+	}
+	anjuta_profile_set_sync_uri (profile, session_profile); 
+	g_free (session_profile);
+	g_free (profile_name);
+	
+	/* Set project uri */
+	g_free (plugin->project_root_uri);
+	g_free (plugin->project_uri);
+	
+	vfs_dir = gnome_vfs_get_uri_from_local_path (dirname);
+	plugin->project_uri = g_strdup (uri);
+	plugin->project_root_uri = vfs_dir;
+	g_free (dirname);
+	
+	/* Load profile */
+	anjuta_profile_manager_push (profile_manager, profile, &error);
+	if (error)
+	{
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
+								  "%s", error->message);
+		g_error_free (error);
+		error = NULL;
+	}
+	
+	anjuta_status_progress_tick (status, NULL,
+								 _("Loaded Project... Initializing"));
+	update_ui (plugin);
+#if 0
+	/* Thaw shell */
+	/* FIXME: The shell can not be thawed after the session is loaded,
+	 * because the layout is loaded in the session. If shell is not thawed
+	 * before that, the widgets on which layout is applied are not present
+	 * side the shell (freezing delays the widgets addition).
+	 */
+	anjuta_shell_thaw (ANJUTA_PLUGIN (ifile)->shell, NULL);
+#endif
+	anjuta_status_progress_tick (status, NULL, _("Loaded Project..."));
+	update_title (plugin, plugin->project_root_uri);
+}
+
+static gchar*
+ifile_get_uri (IAnjutaFile *ifile, GError **e)
+{
+	ProjectManagerPlugin *plugin;
+	
+	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (ifile);
+	if (plugin->project_root_uri)
+		return g_strdup (plugin->project_root_uri);
+	else
+		return NULL;
+}
+
+static void
+ifile_iface_init(IAnjutaFileIface *iface)
+{
+	iface->open = ifile_open;
+	iface->get_uri = ifile_get_uri;
+}
+
 ANJUTA_PLUGIN_BEGIN (ProjectManagerPlugin, project_manager_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE (iproject_manager, IANJUTA_TYPE_PROJECT_MANAGER);
+ANJUTA_PLUGIN_ADD_INTERFACE (ifile, IANJUTA_TYPE_FILE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (ProjectManagerPlugin, project_manager_plugin);

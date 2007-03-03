@@ -1131,7 +1131,6 @@ plugins/file-loader/Makefile
 plugins/file-wizard/Makefile
 plugins/terminal/Makefile
 plugins/build-basic-autotools/Makefile
-plugins/profile-default/Makefile
 plugins/profiler/Makefile
 plugins/project-manager/Makefile
 plugins/symbol-browser/Makefile
