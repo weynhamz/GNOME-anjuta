@@ -30,6 +30,7 @@
 #include <ctype.h>
 #include <gnome.h>
 
+/*#define DEBUG*/
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
@@ -156,8 +157,16 @@ on_stack_trace_updated (const GList *stack, gpointer data)
 			pic = NULL;
 
 		adr = g_strdup_printf ("0x%x", frame->address);
-		uri = g_strconcat ("file://", frame->file, NULL);
-		file = strrchr(uri, '/') + 1;
+		if (frame->file)
+		{
+			uri = g_strconcat ("file://", frame->file, NULL);
+			file = strrchr(uri, '/') + 1;
+		}
+		else
+		{
+			uri = NULL;
+			file = frame->library;
+		}
 		
 		gtk_list_store_set(model, &iter, 
 					   STACK_TRACE_ACTIVE_COLUMN, pic,

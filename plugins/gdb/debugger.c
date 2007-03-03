@@ -1094,7 +1094,32 @@ debugger_parse_stopped (Debugger *debugger)
 			{
 				program_exited = TRUE;
 			}
-			
+	
+			/* Emit signal received if necessary */	
+			if (str && strcmp (str, "exited-signalled") == 0)
+			{
+				const GDBMIValue *signal_name, *signal_meaning;
+				const gchar *signal_str, *signal_meaning_str;
+
+				signal_name = gdbmi_value_hash_lookup (val, "signal-name");
+				signal_str = gdbmi_value_literal_get (signal_name);
+				signal_meaning = gdbmi_value_hash_lookup (val, "signal-meaning");
+				signal_meaning_str = gdbmi_value_literal_get (signal_meaning);
+				g_signal_emit_by_name (debugger->priv->instance, "signal-received", signal_str, signal_meaning_str);
+			}
+			else if (str && strcmp (str, "signal-received") == 0)
+			{
+				const GDBMIValue *signal_name, *signal_meaning;
+				const gchar *signal_str, *signal_meaning_str;
+
+				signal_name = gdbmi_value_hash_lookup (val, "signal-name");
+				signal_str = gdbmi_value_literal_get (signal_name);
+				signal_meaning = gdbmi_value_hash_lookup (val, "signal-meaning");
+				signal_meaning_str = gdbmi_value_literal_get (signal_meaning);
+	
+				g_signal_emit_by_name (debugger->priv->instance, "signal-received", signal_str, signal_meaning_str);
+			}
+
 			if (debugger->priv->output_callback)
 			{	
 				if (str && strcmp (str, "exited-normally") == 0)
@@ -1113,41 +1138,6 @@ debugger_parse_stopped (Debugger *debugger)
 					errcode_str = gdbmi_value_literal_get (errcode);
 					msg = g_strdup_printf (_("Program exited with error code %s\n"),
 									   errcode_str);
-					debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
-										   msg, debugger->priv->output_user_data);
-					g_free (msg);
-				}
-				else if (str && strcmp (str, "exited-signalled") == 0)
-				{
-					const GDBMIValue *signal_name, *signal_meaning;
-					const gchar *signal_str, *signal_meaning_str;
-					gchar *msg;
-			
-					signal_name = gdbmi_value_hash_lookup (val, "signal-name");
-					signal_str = gdbmi_value_literal_get (signal_name);
-					signal_meaning = gdbmi_value_hash_lookup (val,
-														  "signal-meaning");
-					signal_meaning_str = gdbmi_value_literal_get (signal_meaning);
-					msg = g_strdup_printf (_("Program received signal %s (%s) and exited\n"),
-									   signal_str, signal_meaning_str);
-					debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
-										   msg, debugger->priv->output_user_data);
-					g_free (msg);
-				}
-				else if (str && strcmp (str, "signal-received") == 0)
-				{
-					const GDBMIValue *signal_name, *signal_meaning;
-					const gchar *signal_str, *signal_meaning_str;
-					gchar *msg;
-					
-					signal_name = gdbmi_value_hash_lookup (val, "signal-name");
-					signal_str = gdbmi_value_literal_get (signal_name);
-					signal_meaning = gdbmi_value_hash_lookup (val,
-														  "signal-meaning");
-					signal_meaning_str = gdbmi_value_literal_get (signal_meaning);
-		
-					msg = g_strdup_printf (_("Program received signal %s (%s)\n"),
-									   signal_str, signal_meaning_str);
 					debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
 										   msg, debugger->priv->output_user_data);
 					g_free (msg);
@@ -1309,26 +1299,40 @@ debugger_stdo_flush (Debugger *debugger)
 	if (strncasecmp (line, "^error", 6) == 0)
 	{
 		/* GDB reported error */
-		if (debugger->priv->current_cmd.suppress_error == FALSE)
+		if ((debugger->priv->current_cmd.keep_result)  || (debugger->priv->stdo_acc->len != 0))
 		{
-			GDBMIValue *val = gdbmi_value_parse (line);
-			GError *error;
+			/* Keep result for next command */
 
-			error = gdb_parse_error (debugger, val);
-
-			if (debugger->priv->current_cmd.parser != NULL)
+			if (debugger->priv->stdo_acc->len == 0)
 			{
-				debugger->priv->current_cmd.parser (debugger, val, debugger->priv->cli_lines, error);
-				debugger->priv->command_output_sent = TRUE;				}
+				g_string_append (debugger->priv->stdo_acc, line);
+			}
 			else
 			{
-				anjuta_util_dialog_error (debugger->priv->parent_win,
-										  "%s",
-										  error->message);
+				line = strchr (line, ',');
+				if (line != NULL)
+				{
+					g_string_append (debugger->priv->stdo_acc, line);
+				}
 			}
-			g_error_free (error);
-			gdbmi_value_free (val);
+			line = debugger->priv->stdo_acc->str;
 		}
+
+		GDBMIValue *val = gdbmi_value_parse (line);
+		GError *error;
+
+		error = gdb_parse_error (debugger, val);
+
+		if (debugger->priv->current_cmd.parser != NULL)
+		{
+			debugger->priv->current_cmd.parser (debugger, val, debugger->priv->cli_lines, error);
+			debugger->priv->command_output_sent = TRUE;				}
+		else
+		{
+			anjuta_util_dialog_error (debugger->priv->parent_win, "%s", error->message);
+		}
+		g_error_free (error);
+		gdbmi_value_free (val);
 	}
 	else if (strncasecmp(line, "^running", 8) == 0)
 	{
@@ -1440,11 +1444,11 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	//debugger_stop_terminal (debugger);
 
 	/* Good Bye message */
-	if (!debugger->priv->terminating)
+	/*if (!debugger->priv->terminating)
 	{
 		anjuta_util_dialog_error (debugger->priv->parent_win,
 		_("gdb terminated unexpectedly with status %d\n"), status);
-	}
+	}*/
 	debugger_stop_terminal (debugger);
 	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->term_is_running = FALSE;
@@ -1453,7 +1457,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	debugger->priv->skip_next_prompt = FALSE;
 	debugger->priv->terminating = FALSE;
 	if (debugger->priv->instance)
-		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
+		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", status);
 }
 
 static void
@@ -1533,7 +1537,7 @@ debugger_abort (Debugger *debugger)
 	if (debugger->priv->instance != NULL)
 	{
 		/* Signal end of debugger */
-		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped");
+		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", 0);
 
 		g_object_remove_weak_pointer (debugger->priv->instance, (gpointer *)&debugger->priv->instance);
 		debugger->priv->instance = NULL;
@@ -2968,6 +2972,10 @@ add_frame (const GDBMIValue *frame_hash, GList** stack)
 	if (literal)
 		frame->function = (gchar *)gdbmi_value_literal_get (literal);
 	
+	literal = gdbmi_value_hash_lookup (frame_hash, "from");
+	if (literal)
+		frame->library = (gchar *)gdbmi_value_literal_get (literal);
+
 	literal = gdbmi_value_hash_lookup (frame_hash, "addr");
 	if (literal)
 		frame->address = strtoul (gdbmi_value_literal_get (literal), NULL, 16);

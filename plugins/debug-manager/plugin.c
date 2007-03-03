@@ -553,38 +553,58 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 /* Called when the debugger is stopped */
 
 static void
-dma_plugin_debugger_stopped (DebugManagerPlugin *this)
+dma_plugin_debugger_stopped (DebugManagerPlugin *self, gint status)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
-	AnjutaStatus* status;
+	AnjutaStatus* state;
 
 	DEBUG_PRINT ("DMA: dma_plugin_debugger_stopped");
 
-	dma_plugin_program_unload (this);
+	dma_plugin_program_unload (self);
 	
 	/* Update ui */
-	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
-	gtk_action_group_set_visible (this->start_group, TRUE);
-	gtk_action_group_set_sensitive (this->start_group, TRUE);
-	action = gtk_action_group_get_action (this->start_group, "ActionDebuggerStop");
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (self)->shell, NULL);
+	gtk_action_group_set_visible (self->start_group, TRUE);
+	gtk_action_group_set_sensitive (self->start_group, TRUE);
+	action = gtk_action_group_get_action (self->start_group, "ActionDebuggerStop");
 	gtk_action_set_sensitive (action, FALSE);
-	gtk_action_group_set_visible (this->loaded_group, TRUE);
-	gtk_action_group_set_sensitive (this->loaded_group, FALSE);
-	gtk_action_group_set_visible (this->stopped_group, TRUE);
-	gtk_action_group_set_sensitive (this->stopped_group, FALSE);
-	gtk_action_group_set_visible (this->running_group, TRUE);
-	gtk_action_group_set_sensitive (this->running_group, FALSE);
+	gtk_action_group_set_visible (self->loaded_group, TRUE);
+	gtk_action_group_set_sensitive (self->loaded_group, FALSE);
+	gtk_action_group_set_visible (self->stopped_group, TRUE);
+	gtk_action_group_set_sensitive (self->stopped_group, FALSE);
+	gtk_action_group_set_visible (self->running_group, TRUE);
+	gtk_action_group_set_sensitive (self->running_group, FALSE);
 
 	/* clear indicator */
-	set_program_counter (this, NULL, 0, 0);
+	set_program_counter (self, NULL, 0, 0);
 	
-	enable_log_view (this, FALSE);
+	enable_log_view (self, FALSE);
 	
-	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
-	anjuta_status_set_default (status, _("Debugger"), NULL);
+	state = anjuta_shell_get_status(ANJUTA_PLUGIN (self)->shell, NULL);
+	anjuta_status_set_default (state, _("Debugger"), NULL);
 	
-	dma_plugin_debugger_ready (this, IANJUTA_DEBUGGER_STOPPED);
+	dma_plugin_debugger_ready (self, IANJUTA_DEBUGGER_STOPPED);
+	
+	/* Display a warning if debugger stop unexpectedly */
+	if (status != 0)
+	{
+		GtkWindow *parent = GTK_WINDOW (ANJUTA_PLUGIN(self)->shell);
+		anjuta_util_dialog_error (parent, _("gdb terminated unexpectedly with status %d\n"), status);
+	}
+		
+}
+
+static void
+dma_plugin_signal_received (DebugManagerPlugin *self, const gchar *name, const gchar *description)
+{
+	GtkWindow *parent = GTK_WINDOW (ANJUTA_PLUGIN (self)->shell);
+	
+	/* Skip SIGINT signal */
+	if (strcmp(name, "SIGINT") != 0)
+	{
+		anjuta_util_dialog_warning (parent, _("Program has received signal: %s\n"), description);
+	}
 }
 
 /* Start/Stop menu functions
@@ -1121,6 +1141,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	g_signal_connect_swapped (this->debugger, "program-stopped", G_CALLBACK (dma_plugin_program_stopped), this);
 	g_signal_connect_swapped (this->debugger, "program-exited", G_CALLBACK (dma_plugin_program_loaded), this);
 	g_signal_connect_swapped (this->debugger, "location-changed", G_CALLBACK (dma_plugin_location_changed), this);
+	g_signal_connect_swapped (this->debugger, "signal-received", G_CALLBACK (dma_plugin_signal_received), this);
 	g_signal_connect (this->debugger, "debugger-ready", G_CALLBACK (on_debugger_ready_signal), this);
 
 	/* Watch expression */
@@ -1148,7 +1169,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	this->start = dma_start_new (plugin, this->debugger);
 	
 
-	dma_plugin_debugger_stopped (this);
+	dma_plugin_debugger_stopped (this, 0);
 	action = gtk_action_group_get_action (this->start_group, "ActionDebuggerRestartTarget");
 	gtk_action_set_sensitive (action, FALSE);
 	
@@ -1180,7 +1201,7 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	this = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
 
 	/* Stop debugger */
-	dma_plugin_debugger_stopped (this);
+	dma_plugin_debugger_stopped (this, 0);
 	
 	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_debugger_started), this);
 	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_debugger_stopped), this);

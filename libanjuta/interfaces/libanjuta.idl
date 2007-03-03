@@ -2491,6 +2491,7 @@ interface IAnjutaDebugger
 		gchar *file;
 		guint line;
 		gchar *function;
+		gchar *library;
 		guint address;
 	}
 
@@ -2548,11 +2549,12 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::debugger_stopped:
 	* @obj: Self
+	* @status: Status as returned by waitpid
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
-	void ::debugger_stopped ();
+	void ::debugger_stopped (gint status);
 
 	/**
 	* IAnjutaDebugger::program_loaded:
@@ -2620,6 +2622,17 @@ interface IAnjutaDebugger
 	* fixme
 	*/
 	void ::frame_changed (guint frame);	
+
+	/**
+	* IAnjutaDebugger::signal_received:
+	* @obj: Self
+	* @name: Signal name
+	* @description: Signal description
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::signal_received (const gchar* name, const gchar* description);	
 
 	/**
 	* IAnjutaDebugger::debugger_ready:

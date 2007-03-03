@@ -401,7 +401,7 @@ gboolean
 dma_queue_check_status (DmaDebuggerQueue *this, DmaDebuggerCommandType type, GError **err);
 
 void
-dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus status);
+dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus state, gint status);
 
 /* Message functions
  *---------------------------------------------------------------------------*/
@@ -866,12 +866,12 @@ dma_queue_emit_debugger_ready (DmaDebuggerQueue *queue)
 }
 
 void
-dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus status)
+dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus state, gint status)
 {
 	const char* signal = NULL;
 
 	this->queue_command = FALSE;
-	switch (status)
+	switch (state)
 	{
 	case IANJUTA_DEBUGGER_BUSY:
 		/* Debugger is busy, nothing to do */
@@ -966,7 +966,7 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *this, IAnjutaDebuggerStatus 
 	/* Emit signal */
 	if (signal != NULL)
 	{
-		g_signal_emit_by_name (this, signal);
+		g_signal_emit_by_name (this, signal, status);
 	}
 	this->queue_command = TRUE;
 }
@@ -1083,7 +1083,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 		IAnjutaDebuggerStatus status;
 		/* Recheck status in case of desynchronization */
 		status = ianjuta_debugger_get_status (this->debugger, NULL);
-		dma_queue_update_debugger_status (this, status);
+		dma_queue_update_debugger_status (this, status, 0);
 	}
 
 	/* Check if there is something to execute */
@@ -1121,9 +1121,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 		    ianjuta_debugger_unload (this->debugger, &err);
 		    break;
 		case QUIT_COMMAND:
-			DEBUG_PRINT ("quit command %p", err);
 			ret = ianjuta_debugger_quit (this->debugger, &err);
-			DEBUG_PRINT ("quit command %p ret %d", err, ret);
 			break;
 		case ABORT_COMMAND:
 			ianjuta_debugger_abort (this->debugger, &err);
@@ -1328,7 +1326,7 @@ static void
 on_dma_debugger_ready (DmaDebuggerQueue *this, IAnjutaDebuggerStatus status)
 {
 	DEBUG_PRINT ("From debugger: receive debugger ready");
-	dma_queue_update_debugger_status (this, status);
+	dma_queue_update_debugger_status (this, status, 0);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
 
@@ -1337,15 +1335,15 @@ on_dma_debugger_started (DmaDebuggerQueue *this)
 {
 	/* Nothing do to */
 	DEBUG_PRINT ("From debugger: receive debugger started");
-	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_STARTED);
+	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_STARTED, 0);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
 
 static void
-on_dma_debugger_stopped (DmaDebuggerQueue *this)
+on_dma_debugger_stopped (DmaDebuggerQueue *this, gint status)
 {
 	DEBUG_PRINT ("From debugger: receive debugger stopped");
-	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_STOPPED);
+	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_STOPPED, status);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
 
@@ -1353,7 +1351,7 @@ static void
 on_dma_program_loaded (DmaDebuggerQueue *this)
 {
 	DEBUG_PRINT ("From debugger: receive program loaded");
-	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_LOADED);
+	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_LOADED, 0);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
 
@@ -1361,14 +1359,14 @@ static void
 on_dma_program_running (DmaDebuggerQueue *this)
 {
 	DEBUG_PRINT ("From debugger: debugger_program_running");
-	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_RUNNING);
+	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_RUNNING, 0);
 }
 
 static void
 on_dma_program_stopped (DmaDebuggerQueue *this)
 {
 	DEBUG_PRINT ("From debugger: receive program stopped");
-	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_STOPPED);
+	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_STOPPED, 0);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
 
@@ -1376,7 +1374,7 @@ static void
 on_dma_program_exited (DmaDebuggerQueue *this)
 {
 	DEBUG_PRINT ("From debugger: receive program exited");
-	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_LOADED);
+	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_LOADED, 0);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
 
@@ -1395,11 +1393,18 @@ on_dma_frame_changed (DmaDebuggerQueue *this, guint frame)
 }
 
 static void
+on_dma_signal_received (DmaDebuggerQueue *this, const gchar* name, const gchar* description)
+{
+	DEBUG_PRINT ("From debugger: signal received");
+	g_signal_emit_by_name (this, "signal-received", name, description);
+}
+
+static void
 on_dma_sharedlib_event (DmaDebuggerQueue *this)
 {
 	DEBUG_PRINT ("From debugger: shared lib event");
 	this->stop_on_sharedlib = TRUE;
-	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_STOPPED);
+	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_STOPPED, 0);
 	g_signal_emit_by_name (this, "sharedlib-event");
 	ianjuta_debugger_run (IANJUTA_DEBUGGER (this), NULL);
 }
@@ -2518,6 +2523,7 @@ dma_debugger_queue_new (AnjutaPlugin *plugin)
 		g_signal_connect_swapped (this->debugger, "program-stopped", G_CALLBACK (on_dma_program_stopped), this);
 		g_signal_connect_swapped (this->debugger, "program-exited", G_CALLBACK (on_dma_program_exited), this);
 		g_signal_connect_swapped (this->debugger, "location-changed", G_CALLBACK (on_dma_location_changed), this);
+		g_signal_connect_swapped (this->debugger, "signal-received", G_CALLBACK (on_dma_signal_received), this);
 		g_signal_connect_swapped (this->debugger, "frame-changed", G_CALLBACK (on_dma_frame_changed), this);
 		g_signal_connect_swapped (this->debugger, "sharedlib-event", G_CALLBACK (on_dma_sharedlib_event), this);
 	}

@@ -1,3 +1,13 @@
+2007-03-03 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/debugger.c,
+	plugins/debug-manager/plugin.c,
+	plugins/gdb/debugger.c,
+	libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/stack_trace.c:
+	Add a dialog box when a signal is received (except SIGINT)
+	Display stack frame even if arguments are not available
+
 2007-03-03  Naba Kumar  <naba@gnome.org>
 
 	* TODO.tasks: Icons bounty added.
