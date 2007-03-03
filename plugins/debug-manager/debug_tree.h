@@ -49,7 +49,7 @@ GList* debug_tree_get_full_watch_list (DebugTree *this);
 
 GtkWidget *debug_tree_get_tree_widget (DebugTree *tree);
 gboolean debug_tree_get_current (DebugTree *tree, GtkTreeIter* iter);
-void debug_tree_remove (DebugTree *tree, GtkTreeIter* iter);
+gboolean debug_tree_remove (DebugTree *tree, GtkTreeIter* iter);
 gboolean debug_tree_update (DebugTree *tree, GtkTreeIter* iter, gboolean force);
 void debug_tree_set_auto_update (DebugTree* this, GtkTreeIter* iter, gboolean state);
 gboolean debug_tree_get_auto_update (DebugTree* this, GtkTreeIter* iter);

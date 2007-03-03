@@ -34,7 +34,7 @@
 #include "plugin.h"
 #include "memory.h"
 
-#define DEBUG
+/*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
 
 #include <libgnome/gnome-i18n.h>
@@ -483,9 +483,7 @@ destroy_non_analyzed (DebugTree *tree, GtkTreeModel* model)
 		gtk_tree_model_get(model, &iter, DTREE_ENTRY_COLUMN, &data, -1);
 		if ((data != NULL) && (data->analyzed == FALSE))
 		{
-			debug_tree_remove (tree, &iter);
-			
-			success = gtk_tree_store_remove (GTK_TREE_STORE (model), &iter);
+			success = debug_tree_remove (tree, &iter);
 		}
 		else
 		{
@@ -1197,19 +1195,20 @@ debug_tree_get_current (DebugTree *tree, GtkTreeIter* iter)
 	return get_current_iter (GTK_TREE_VIEW (tree->view), iter);
 }
 
-void
+/* Return TRUE if iter is still valid (point to next item) */
+gboolean
 debug_tree_remove (DebugTree *tree, GtkTreeIter* iter)
 {
 	GtkTreeModel *model;
 
-	g_return_if_fail (tree);
-	g_return_if_fail (tree->view);
-	g_return_if_fail (iter);
+	g_return_val_if_fail (tree, FALSE);
+	g_return_val_if_fail (tree->view, FALSE);
+	g_return_val_if_fail (iter, FALSE);
 
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
 	
 	delete_parent (model, NULL, iter, tree);
-	gtk_tree_store_remove (GTK_TREE_STORE (model), iter);
+	return gtk_tree_store_remove (GTK_TREE_STORE (model), iter);
 }
 
 gboolean

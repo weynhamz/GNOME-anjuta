@@ -1,3 +1,12 @@
+2007-03-03 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/debug_tree.c
+	plugins/debug-manager/debug_tree.h:
+	Bug fix, deleting wrong variable
+
+	* plugins/gdb/debugger.c:
+	Bug fix, remove forgotten debugging code
+
 2007-03-02  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-document-manager.ui:

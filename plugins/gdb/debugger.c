@@ -942,7 +942,6 @@ debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 	if (frame)
 	{
 		fullname = gdbmi_value_hash_lookup (frame, "fullname");
-		fullname = NULL;
 		if (fullname)
 		{
 			file_str = gdbmi_value_literal_get (fullname);
