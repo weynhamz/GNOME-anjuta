@@ -193,6 +193,7 @@ static void
 on_merge_widget_destroy (GtkWidget *merge_widget, GtkWidget *menuitem)
 {
 	toolbars = g_list_remove (toolbars, merge_widget);
+	DEBUG_PRINT ("Destroying menuitem for toolbar widget");
 	gtk_widget_destroy (menuitem);
 }
 
@@ -417,7 +418,8 @@ static void
 anjuta_app_dispose (GObject *widget)
 {
 	AnjutaApp *app;
-
+	GList *tmp_list;
+	
 	g_return_if_fail (ANJUTA_IS_APP (widget));
 	
 	app = ANJUTA_APP (widget);
@@ -449,6 +451,18 @@ anjuta_app_dispose (GObject *widget)
 		g_hash_table_destroy (app->values);
 		app->values = NULL;
 	}
+	
+	/* We need to destroy to the toolbars now so that the
+	 * on_merge_widget_destroy() does not produce a error trying to destory
+	 * already destroyed menuitems which happen when the window is being
+	 * destroyed
+	 *
+	 * Make a tmp list because the handler removes items from 'toolbars' list.
+	 * FIXME: Why is 'toolbars' a global static variable?
+	 */
+	tmp_list = g_list_copy (toolbars);
+	g_list_foreach (tmp_list, (GFunc)gtk_widget_destroy, NULL);
+	g_list_free (tmp_list);
 	
 	if (app->layout_manager) {
 		g_object_unref (app->layout_manager);
