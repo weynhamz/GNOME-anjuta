@@ -1,7 +1,9 @@
 2007-03-05  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta-app.c: Fixes gtk-critical messages at shutdown.
-
+	* plugins/editor/text_editor.c: Disabled DEBUG_PRINTs and fixed
+	compiler warnings.
+	
 2007-03-04  Johannes Schmid <jhs@gnome.org>
 
 	* data/Makefile.am:

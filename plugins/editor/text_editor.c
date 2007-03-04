@@ -85,7 +85,7 @@
 #include "program-counter.xpm"
 #include "linemarker.xpm"
 
-static gchar* marker_pixmap[] = 
+static gchar** marker_pixmap[] = 
 {
 	bookmark_xpm,
 	breakpoint_disabled_xpm,
@@ -161,7 +161,7 @@ static void
 initialize_markers (TextEditor* te, GtkWidget *scintilla)
 {
 	gint marker;
-	gchar **xpm;
+	gchar ***xpm;
 	g_return_if_fail (te != NULL);
 	
 	marker = 0;
@@ -308,7 +308,7 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, TextEditor *te)
 	}
 	gtk_widget_destroy (dlg);
 	te->file_modified_widget = NULL;
-	DEBUG_PRINT ("File modified dialog responded");
+	/* DEBUG_PRINT ("File modified dialog responded"); */
 }
 
 static gboolean
@@ -364,7 +364,7 @@ on_text_editor_uri_changed (GnomeVFSMonitorHandle *handle,
 {
 	TextEditor *te = TEXT_EDITOR (user_data);
 	
-	DEBUG_PRINT ("File changed!!!");
+	/* DEBUG_PRINT ("File changed!!!"); */
 	
 	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
 		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
@@ -407,7 +407,7 @@ text_editor_update_monitor (TextEditor *te, gboolean disable_it)
 	if (te->uri && !disable_it)
 	{
 		GnomeVFSResult res;
-		DEBUG_PRINT ("Setting up Monitor for %s", te->uri);
+		/* DEBUG_PRINT ("Setting up Monitor for %s", te->uri); */
 		res = gnome_vfs_monitor_add (&te->monitor, te->uri,
 									 GNOME_VFS_MONITOR_FILE,
 									 on_text_editor_uri_changed, te);
@@ -472,7 +472,7 @@ text_editor_new (AnjutaStatus *status, AnjutaPreferences *eo, const gchar *uri, 
 	
 	/* Apply font zoom separately */
 	zoom_factor = anjuta_preferences_get_int (te->preferences, TEXT_ZOOM_FACTOR);
-	DEBUG_PRINT ("Initializing zoom factor to: %d", zoom_factor);
+	/* DEBUG_PRINT ("Initializing zoom factor to: %d", zoom_factor); */
 	text_editor_set_zoom_factor (te, zoom_factor);
 	
 #ifdef DEBUG
@@ -1192,8 +1192,8 @@ determine_editor_mode(gchar* buffer, glong size)
 		mode = SC_EOL_CR;
 		max_mode = cr;
 	}
-	DEBUG_PRINT ("EOL chars: LR = %d, CR = %d, CRLF = %d", lf, cr, crlf);
-	DEBUG_PRINT ("Autodetected Editor mode [%d]", mode);
+	/* DEBUG_PRINT ("EOL chars: LR = %d, CR = %d, CRLF = %d", lf, cr, crlf); */
+	/* DEBUG_PRINT ("Autodetected Editor mode [%d]", mode); */
 	return mode;
 }
 
@@ -1209,7 +1209,7 @@ convert_to_utf8_from_charset (const gchar *content,
 
 	g_return_val_if_fail (content != NULL, NULL);
 
-	DEBUG_PRINT ("Trying to convert from %s to UTF-8", charset);
+	/* DEBUG_PRINT ("Trying to convert from %s to UTF-8", charset); */
 
 	converted_contents = g_convert (content, len, "UTF-8",
 									charset, NULL, &bytes_written,
@@ -1218,7 +1218,7 @@ convert_to_utf8_from_charset (const gchar *content,
 	if ((conv_error != NULL) || (converted_contents == NULL)  ||
 	    !g_utf8_validate (converted_contents, bytes_written, NULL))		
 	{
-		DEBUG_PRINT ("Couldn't convert from %s to UTF-8.", charset);
+		/* DEBUG_PRINT ("Couldn't convert from %s to UTF-8.", charset); */
 		
 		if (converted_contents != NULL)
 			g_free (converted_contents);
@@ -1231,7 +1231,7 @@ convert_to_utf8_from_charset (const gchar *content,
 
 		utf8_content = NULL;
 	} else {
-		DEBUG_PRINT ("Converted from %s to UTF-8.", charset);
+		/* DEBUG_PRINT ("Converted from %s to UTF-8.", charset); */
 		utf8_content = converted_contents;
 	}
 	return utf8_content;
@@ -1264,7 +1264,7 @@ convert_to_utf8 (PropsID props, const gchar *content, gsize len,
 			locale_encoding = anjuta_encoding_get_from_charset (locale_charset);
 			encodings = g_list_prepend (encodings,
 						(gpointer) locale_encoding);
-			DEBUG_PRINT ("Current charset = %s", locale_charset);
+			/* DEBUG_PRINT ("Current charset = %s", locale_charset); */
 		}
 	}
 
@@ -1280,7 +1280,7 @@ convert_to_utf8 (PropsID props, const gchar *content, gsize len,
 
 		charset = anjuta_encoding_get_charset (enc);
 
-		DEBUG_PRINT ("Trying to convert %d bytes of data into UTF-8.", len);
+		/* DEBUG_PRINT ("Trying to convert %d bytes of data into UTF-8.", len); */
 		
 		fflush (stdout);
 		utf8_content = convert_to_utf8_from_charset (content, len, charset);
@@ -1329,7 +1329,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	buffer = g_malloc (info.size);
 	if (buffer == NULL && info.size != 0)
 	{
-		DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
+		/* DEBUG_PRINT ("This file is too big. Unable to allocate memory."); */
 		*err = g_strdup (_("This file is too big. Unable to allocate memory."));
 		return FALSE;
 	}
@@ -1353,7 +1353,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 
 	if (info.size != nchars)
 	{
-		DEBUG_PRINT ("File size and loaded size not matching");
+		/* DEBUG_PRINT ("File size and loaded size not matching"); */
 	}
 	dos_filter = 
 		anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
@@ -1364,7 +1364,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_SETEOLMODE, editor_mode, 0);
 
-	DEBUG_PRINT ("Loaded in editor mode [%d]", editor_mode);
+	/* DEBUG_PRINT ("Loaded in editor mode [%d]", editor_mode); */
 
 	/* Determine character encoding and convert to utf-8*/
 	if (nchars > 0)
@@ -1399,7 +1399,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 		}
 	}
 	if (dos_filter && editor_mode == SC_EOL_CRLF){
-		DEBUG_PRINT ("Filtering Extrageneous DOS characters in dos mode [Dos => Unix]");
+		/* DEBUG_PRINT ("Filtering Extrageneous DOS characters in dos mode [Dos => Unix]"); */
 		nchars = filter_chars_in_dos_mode( buffer, nchars );
 	}
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_ADDTEXT,
@@ -1447,7 +1447,7 @@ save_to_file (TextEditor *te, gchar * uri)
 			GError *conv_error = NULL;
 			gchar* converted_file_contents = NULL;
 
-			DEBUG_PRINT ("Using current locale's encoding");
+			/* DEBUG_PRINT ("Using current locale's encoding"); */
 
 			converted_file_contents = g_locale_from_utf8 (data, -1, NULL,
 														  NULL, &conv_error);
@@ -1474,7 +1474,7 @@ save_to_file (TextEditor *te, gchar * uri)
 				GError *conv_error = NULL;
 				gchar* converted_file_contents = NULL;
 	
-				DEBUG_PRINT ("Using encoding %s", te->encoding);
+				/* DEBUG_PRINT ("Using encoding %s", te->encoding); */
 
 				/* Try to convert it from UTF-8 to original encoding */
 				converted_file_contents = g_convert (data, -1, 
@@ -1497,7 +1497,7 @@ save_to_file (TextEditor *te, gchar * uri)
 			else
 			{
 				/* Save in utf-8 */
-				DEBUG_PRINT ("Using utf-8 encoding");
+				/* DEBUG_PRINT ("Using utf-8 encoding"); */
 			}				
 		}
 		
@@ -1518,11 +1518,11 @@ save_to_file (TextEditor *te, gchar * uri)
 												 DOS_EOL_CHECK);
 		editor_mode =  scintilla_send_message (SCINTILLA (te->scintilla),
 											   SCI_GETEOLMODE, 0, 0);
-		DEBUG_PRINT ("Saving in editor mode [%d]", editor_mode);
+		/* DEBUG_PRINT ("Saving in editor mode [%d]", editor_mode); */
 		nchars = size;
 		if (editor_mode == SC_EOL_CRLF && dos_filter)
 		{
-			DEBUG_PRINT ("Filtering Extrageneous DOS characters in dos mode [Unix => Dos]");
+			/* DEBUG_PRINT ("Filtering Extrageneous DOS characters in dos mode [Unix => Dos]"); */
 			size = save_filtered_in_dos_mode (vfs_write, data, size);
 		}
 		else
@@ -1999,7 +1999,7 @@ text_editor_get_props ()
 	propdir = g_build_filename (PACKAGE_DATA_DIR, "properties/", NULL);
 	propfile = g_build_filename (PACKAGE_DATA_DIR, "properties",
 								 "anjuta.properties", NULL);
-	DEBUG_PRINT ("Reading file: %s", propfile);
+	/* DEBUG_PRINT ("Reading file: %s", propfile); */
 	
 	if (g_file_test (propfile, G_FILE_TEST_EXISTS) == FALSE)
 	{
@@ -2017,7 +2017,7 @@ text_editor_get_props ()
 	propdir = g_build_filename (g_get_home_dir(), ".anjuta" PREF_SUFFIX "/", NULL);
 	propfile = g_build_filename (g_get_home_dir(), ".anjuta" PREF_SUFFIX,
 								 "editor-style.properties", NULL);
-	DEBUG_PRINT ("Reading file: %s", propfile);
+	/* DEBUG_PRINT ("Reading file: %s", propfile); */
 	
 	/* Create user.properties file, if it doesn't exist */
 	if (g_file_test (propfile, G_FILE_TEST_EXISTS) == FALSE) {
@@ -2625,7 +2625,7 @@ isavable_is_dirty (IAnjutaFileSavable* editor, GError** e)
 static void
 isavable_set_dirty (IAnjutaFileSavable* editor, gboolean dirty, GError** e)
 {
-	DEBUG_PRINT("set_dirty: Not implemented in EditorPlugin");
+	/* DEBUG_PRINT("set_dirty: Not implemented in EditorPlugin"); */
 }
 
 
@@ -3227,7 +3227,7 @@ ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
 				/* We only map the first (which is hopefully the true) language */
 				if (!g_hash_table_lookup (supported_languages_by_lexer, lexer))
 				{
-					DEBUG_PRINT ("Mapping (lexer)%s to (language)%s", lexer, lang->str);
+					/* DEBUG_PRINT ("Mapping (lexer)%s to (language)%s", lexer, lang->str); */
 					g_hash_table_insert (supported_languages_by_lexer,
 										 lexer, lang->str);
 					/* lexer is taken in the hash, so no free */
@@ -3299,7 +3299,7 @@ ilanguage_get_language (IAnjutaEditorLanguage *ilanguage, GError **err)
 				ilanguage_get_supported_languages (ilanguage, NULL);
 			
 			language = g_hash_table_lookup (supported_languages_by_lexer, lexer);
-			DEBUG_PRINT ("Found (language)%s for (lexer)%s", language, lexer);
+			/* DEBUG_PRINT ("Found (language)%s for (lexer)%s", language, lexer); */
 			g_free (lexer);
 		}
 	}
