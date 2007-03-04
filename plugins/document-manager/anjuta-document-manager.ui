@@ -116,9 +116,10 @@
 			<toolitem name="Redo" action="ActionEditRedo" />
 			<separator name="separator2" />
 			<toolitem name="Print" action="ActionPrintFile" />
-			<separator name="separator3"/>
-			<toolitem name="Swap" action="ActionFileSwap" />
 		</placeholder>
+	</toolbar>
+	<toolbar name="ToolbarBrowser">
+		<toolitem name="Swap" action="ActionFileSwap" />
 	</toolbar>
 	<toolbar name="ToolbarBookmark">
 		<placeholder name="PlaceholderBrowserToolbar" >

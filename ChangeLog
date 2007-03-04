@@ -1,3 +1,16 @@
+2007-03-04  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/anjuta-document-manager.ui:
+	Move "Swap .c/.h from Main to Browser toolbar
+
+	Modified Patch from Yang Hong <yanghong@ccoss.com.cn>:
+	* plugins/file-manager/an_file_view.c: (fv_prefs_new),
+	(fv_prefs_free), (fv_add_tree_entry):
+	* plugins/file-manager/anjuta-file-manager-plugin.glade:
+	* plugins/file-manager/plugin.c: (prefs_init):
+	
+	Bug 387208 – [Patch] Add custom file-manager ignore pattern support
+
 2007-03-04  Naba Kumar  <naba@gnome.org>
 
 	* data/default.proflie, data/Makefile.am, src/anjuta.c,

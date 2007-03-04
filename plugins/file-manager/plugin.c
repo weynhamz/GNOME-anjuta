@@ -88,6 +88,7 @@ prefs_init (FileManagerPlugin *fv)
 	guint notify_id;
 	REGISTER_NOTIFY ("root.dir", on_gconf_notify_prefs);
 	REGISTER_NOTIFY ("filter.dir.ignore.hidden", on_gconf_notify_prefs);
+	REGISTER_NOTIFY ("filter.dir.ignore.pattern", on_gconf_notify_prefs);
 	REGISTER_NOTIFY ("filter.dir.match", on_gconf_notify_prefs);
 	REGISTER_NOTIFY ("filter.dir.unmatch", on_gconf_notify_prefs);
 	REGISTER_NOTIFY ("filter.file.ignore.hidden", on_gconf_notify_prefs);

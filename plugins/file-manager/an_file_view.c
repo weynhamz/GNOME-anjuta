@@ -61,6 +61,7 @@ typedef struct _FileFilter
 	GList *file_unmatch;
 	GList *dir_match;
 	GList *dir_unmatch;
+	GList *ignore_pattern;
 	gboolean ignore_hidden_files;
 	gboolean ignore_hidden_dirs;
 	gboolean ignore_nonrepo_files;
@@ -294,6 +295,8 @@ anjuta_fv_open_file (FileManagerPlugin * fv, const char *path)
 #define DIR_FILTER_IGNORE_HIDDEN "filter.dir.ignore.hidden"
 #define FILE_FILTER_IGNORE_NONREPO "filter.file.ignore.nonrepo"
 
+#define DIR_FILTER_IGNORE_PATTERN "filter.file.ignore.pattern"
+
 #define GET_PREF(var, P) \
 	if (ff->var) \
 		anjuta_util_glist_strings_free(ff->var); \
@@ -320,6 +323,9 @@ fv_prefs_new (FileManagerPlugin *fv)
 	GET_PREF(dir_unmatch, DIR_FILTER_UNMATCH);
 	GET_PREF_BOOL(ignore_hidden_dirs, DIR_FILTER_IGNORE_HIDDEN);
 	GET_PREF_BOOL(ignore_nonrepo_files, FILE_FILTER_IGNORE_NONREPO);
+
+	GET_PREF(ignore_pattern, DIR_FILTER_IGNORE_PATTERN);
+
 	return ff;
 }
 
@@ -335,6 +341,8 @@ fv_prefs_free (FileFilter *ff)
 		anjuta_util_glist_strings_free (ff->dir_match);
 	if (ff->dir_unmatch)
 		anjuta_util_glist_strings_free (ff->dir_unmatch);
+	if (ff->ignore_pattern)
+		anjuta_util_glist_strings_free (ff->ignore_pattern);
 	g_free (ff);
 	ff = NULL;
 }
@@ -580,7 +588,20 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 			}
 		}
 	}
-	
+
+	/* add ignore pattern */
+	{
+		GList *li;
+
+		li = ff->ignore_pattern;
+		while (li != NULL)
+		{
+			ignore_files = g_list_prepend (ignore_files, g_strdup (li->data));
+			DEBUG_PRINT ("Ignoring: %s", li->data);
+			li = g_list_next (li);
+		}
+	}
+
 	if (NULL != (dir = opendir(path)))
 	{
 		while (NULL != (dir_entry = readdir(dir)))
