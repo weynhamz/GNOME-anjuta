@@ -1,5 +1,11 @@
 2007-03-04  Johannes Schmid <jhs@gnome.org>
 
+	* data/Makefile.am:
+	* po/POTFILES.in:
+	Fixed distcheck (well, partly)
+
+2007-03-04  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/document-manager/anjuta-document-manager.ui:
 	Move "Swap .c/.h from Main to Browser toolbar
 

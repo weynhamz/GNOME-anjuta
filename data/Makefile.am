@@ -13,7 +13,7 @@ anjuta_data_DATA = welcome.txt
 
 anjuta_profile_DATA = default.profile
 
-EXTRA_DIST = $(anjuta_data_DATA)
+EXTRA_DIST = $(anjuta_data_DATA) $(anjuta_profile_DATA)
 
 uninstall-local:
 	@rm -fv $(anjuta_datadir)/system.tags
