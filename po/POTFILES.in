@@ -122,12 +122,12 @@ plugins/macro/macro-util.c
 plugins/macro/macros.xml
 plugins/macro/plugin.c
 plugins/message-view/anjuta-message-manager-plugin.glade
+plugins/message-view/anjuta-msgman.c
 plugins/message-view/message-view.c
 plugins/message-view/plugin.c
 plugins/patch/patch-plugin.c
 plugins/patch/patch-plugin.glade
 plugins/patch/plugin.c
-plugins/profile-default/plugin.c
 plugins/profiler/gprof-call-graph-block.c
 plugins/profiler/gprof-call-graph-block-entry.c
 plugins/profiler/gprof-call-graph.c
@@ -244,7 +244,6 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in
 [type: gettext/ini]plugins/file-manager/anjuta-file-manager.plugin.in
 [type: gettext/ini]plugins/project-wizard/anjuta-project-wizard.plugin.in
-[type: gettext/ini]plugins/profile-default/anjuta-default-profile.plugin.in
 [type: gettext/ini]plugins/profiler/profiler.plugin.in
 [type: gettext/ini]plugins/search/anjuta-search.plugin.in
 [type: gettext/ini]plugins/class-gen/anjuta-class-gen.plugin.in
