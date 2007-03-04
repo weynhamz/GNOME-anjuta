@@ -168,7 +168,7 @@ initialize_markers (TextEditor* te, GtkWidget *scintilla)
 	for (xpm = marker_pixmap;*xpm != NULL; xpm++)
 	{
 		scintilla_send_message (SCINTILLA (scintilla), SCI_MARKERDEFINEPIXMAP,
-								marker, GPOINTER_TO_INT (*xpm));
+								marker, (sptr_t)*xpm);
 		marker++;
 	}
 }
@@ -177,13 +177,13 @@ initialize_markers (TextEditor* te, GtkWidget *scintilla)
 static void
 on_scintila_already_destroyed (gpointer te, GObject *obj)
 {
-	DEBUG_PRINT ("Scintilla object has been destroyed");
+	/* DEBUG_PRINT ("Scintilla object has been destroyed"); */
 }
 
 static void
 on_te_already_destroyed (gpointer te, GObject *obj)
 {
-	DEBUG_PRINT ("TextEditor object has been destroyed");
+	/* DEBUG_PRINT ("TextEditor object has been destroyed"); */
 }
 #endif
 
@@ -1879,10 +1879,12 @@ gchar
 			buf = NULL;
 		}
 	}
+/*
 #ifdef DEBUG
 	if (buf)
 		DEBUG_PRINT ("Current word is '%s'", buf);
 #endif
+*/
 	return buf;
 }
 

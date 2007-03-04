@@ -3,6 +3,8 @@
 	* src/anjuta-app.c: Fixes gtk-critical messages at shutdown.
 	* plugins/editor/text_editor.c: Disabled DEBUG_PRINTs and fixed
 	compiler warnings.
+	* plugins/editor/text_editor.c: Fixes a crash on 64 bit arch
+	(Bug #412186)
 	
 2007-03-04  Johannes Schmid <jhs@gnome.org>
 
