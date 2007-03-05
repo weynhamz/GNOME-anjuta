@@ -1,5 +1,4 @@
 anjuta.glade
-anjuta.desktop.in
 plugins/build/build_file.c
 plugins/build/build_project.c
 plugins/build/clean_project.c
@@ -7,8 +6,6 @@ plugins/build/compile.c
 plugins/build/compiler_options.c
 plugins/build/configurer.c
 plugins/build/executer.c
-plugins/gtodo/gtodo.c
-plugins/gtodo/main.c
 plugins/profiler/gprof-function-call-chart-view.c
 plugins/profiler/main.c
 plugins/project-wizard/templates/anjuta-plugin/src/plugin.c
