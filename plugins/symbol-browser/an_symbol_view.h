@@ -51,6 +51,10 @@ enum {
 	COMPLETION_ACCESS_STATIC
 };
 
+enum
+{
+	COL_PIX, COL_NAME, COL_LINE, N_COLS
+};
 
 GType anjuta_symbol_view_get_type (void);
 GtkWidget *anjuta_symbol_view_new (void);

@@ -973,11 +973,6 @@ anjuta_symbol_view_dispose (GObject * obj)
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
-enum
-{
-	COL_PIX, COL_NAME, COL_LINE, N_COLS
-};
-
 /* Anjuta symbol view class */
 static void
 anjuta_symbol_view_instance_init (GObject * obj)

@@ -814,6 +814,59 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	return TRUE;
 }
 
+static gboolean
+iter_matches(SymbolBrowserPlugin *sv_plugin, GtkTreeIter* iter, 
+					  GtkTreeModel* model, gint lineno)
+{
+	gint line;
+	gtk_tree_model_get(model, iter, COL_LINE, &line, -1);
+	if (line == lineno)
+	{
+		GtkTreePath* path = gtk_tree_model_get_path(model, iter);
+		GtkAction* action = anjuta_ui_get_action (sv_plugin->ui, 
+													  "ActionGroupSymbolNavigation",
+													  "ActionGotoSymbol");
+			
+		egg_combo_action_set_active_iter (EGG_COMBO_ACTION (action), iter);
+		gtk_tree_view_set_cursor(GTK_TREE_VIEW(sv_plugin->sl_tree), path, NULL, FALSE);
+		gtk_tree_path_free(path);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+static void
+on_editor_update_ui (IAnjutaEditor *editor,
+				 SymbolBrowserPlugin *sv_plugin) 
+{
+	static gint last_line = 0;
+	gint lineno = ianjuta_editor_get_lineno(editor, NULL);
+	
+	GtkTreeModel* model = anjuta_symbol_view_get_file_symbol_model(
+																   ANJUTA_SYMBOL_VIEW(sv_plugin->sv_tree));
+	GtkTreeIter iter;
+	gboolean found = FALSE;
+	
+	if (last_line == lineno)
+		return;
+	last_line = lineno;
+	
+	if (!gtk_tree_model_get_iter_first(model, &iter))
+		return;
+	while (!found && lineno >= 0)
+	{
+		gtk_tree_model_get_iter_first(model, &iter);
+		do
+		{
+			found = iter_matches(sv_plugin, &iter, model, lineno);
+			if (found)
+				break;
+		}
+		while (gtk_tree_model_iter_next(model, &iter));
+		lineno--;
+	}
+}
+
 static void
 on_char_added (IAnjutaEditor *editor, gint position, gchar ch,
 				 SymbolBrowserPlugin *sv_plugin) {
@@ -874,6 +927,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 						  
 		g_signal_connect (G_OBJECT (editor), "char-added",
 						  G_CALLBACK (on_char_added),
+						  sv_plugin);
+		g_signal_connect (G_OBJECT(editor), "update_ui",
+						  G_CALLBACK (on_editor_update_ui),
 						  sv_plugin);
 	}
 	g_free (uri);

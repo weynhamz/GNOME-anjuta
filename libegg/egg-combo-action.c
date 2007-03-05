@@ -459,3 +459,49 @@ egg_combo_action_get_active_iter (EggComboAction *action, GtkTreeIter *iter)
 	}
 	return FALSE;
 }
+
+void 
+egg_combo_action_set_active_iter (EggComboAction *action,
+				       GtkTreeIter* iter)
+{
+	GSList *slist;
+	
+	for (slist = gtk_action_get_proxies (GTK_ACTION (action));
+		 slist; slist = slist->next)
+	{
+		GtkWidget *proxy = slist->data;
+		
+		gtk_action_block_activate_from (GTK_ACTION (action), proxy);
+		if (GTK_IS_TOOL_ITEM (proxy))
+		{
+			GtkWidget *combo;
+			combo = gtk_bin_get_child (GTK_BIN (proxy));
+			if (EGG_IS_COMBO_SELECT (combo))
+			{
+				if (action->priv->active_iter)
+					gtk_tree_iter_free(action->priv->active_iter);
+				action->priv->active_iter = gtk_tree_iter_copy(iter);
+				g_signal_handlers_block_by_func (combo,
+												 G_CALLBACK (on_change),
+												 action);
+				egg_combo_select_set_active_iter (EGG_COMBO_SELECT (combo),
+										  action->priv->active_iter);
+				action->priv->active_index = egg_combo_select_get_active(EGG_COMBO_SELECT(combo));
+				g_signal_handlers_unblock_by_func (combo,
+												   G_CALLBACK (on_change),
+												   action);
+			}
+			else
+			{
+				g_warning ("Don't know how to change `%s' widgets",
+				G_OBJECT_TYPE_NAME (proxy));
+			}
+		}
+		else
+		{
+			g_warning ("Don't know how to change `%s' widgets",
+						G_OBJECT_TYPE_NAME (proxy));
+		}
+		gtk_action_unblock_activate_from (GTK_ACTION (action), proxy);
+	}
+}

@@ -75,7 +75,7 @@ static void sourceview_instance_init(Sourceview *sv);
 static void sourceview_finalize(GObject *object);
 static GObjectClass *parent_class = NULL;
 
-static void sourceview_add_monitor(Sourceview* sv);
+static gboolean sourceview_add_monitor(Sourceview* sv);
 
 /* Callbacks */
 
@@ -114,6 +114,7 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, Sourceview *sv)
 						  anjuta_document_get_uri(sv->priv->document), NULL);
 	}
 	gtk_widget_destroy (dlg);
+	sv->priv->file_modified_widget = NULL;
 }
 
 /* Update Monitor on load/save */
@@ -130,44 +131,22 @@ sourceview_remove_monitor(Sourceview* sv)
 	}
 }
 
-/* VFS-Monitor Callback */
-static void
-on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
-							const gchar *monitor_uri,
-							const gchar *info_uri,
-							GnomeVFSMonitorEventType event_type,
-							gpointer user_data)
+static gboolean
+on_sourceview_uri_changed_prompt (Sourceview* sv)
 {
 	GtkWidget *dlg;
+	GtkWidget *parent;
 	gchar *buff;
-	Sourceview *sv = ANJUTA_SOURCEVIEW (user_data);
-	
-	DEBUG_PRINT ("File changed!!!");
-	
-	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
-		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
-		return;
-	
-	sourceview_remove_monitor(sv);
-	
-	if (!anjuta_util_diff(anjuta_document_get_uri(sv->priv->document), 
-						  ianjuta_editor_get_text(IANJUTA_EDITOR(sv),
-												  0, -1, NULL)))
-	{
-		sourceview_add_monitor(sv);
-		return;
-	}
-	
-	if (strcmp (monitor_uri, info_uri) != 0)
-		return;
 	
 	buff =
 		g_strdup_printf (_
 						 ("The file '%s' on the disk is more recent than\n"
 						  "the current buffer.\nDo you want to reload it?"),
-						 g_basename(anjuta_document_get_uri(sv->priv->document)));
+						 ianjuta_editor_get_filename(IANJUTA_EDITOR(sv), NULL));
 	
-	dlg = gtk_message_dialog_new (NULL,
+	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv));
+	
+	dlg = gtk_message_dialog_new (GTK_WINDOW (parent),
 								  GTK_DIALOG_DESTROY_WITH_PARENT,
 								  GTK_MESSAGE_WARNING,
 								  GTK_BUTTONS_NONE, buff);
@@ -180,6 +159,9 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 								   GTK_RESPONSE_YES);
 	g_free (buff);
 	
+	gtk_window_set_transient_for (GTK_WINDOW (dlg),
+								  GTK_WINDOW (parent));
+	
 	g_signal_connect (dlg, "response",
 					  G_CALLBACK (on_reload_dialog_response),
 					  sv);
@@ -187,21 +169,68 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 					  G_CALLBACK (gtk_widget_destroy),
 					  dlg);
 	gtk_widget_show (dlg);
+	
+	sv->priv->file_modified_widget = dlg;
+
+	return FALSE;
 }
 
-static void 
+static void
+on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
+							const gchar *monitor_uri,
+							const gchar *info_uri,
+							GnomeVFSMonitorEventType event_type,
+							gpointer user_data)
+{
+	Sourceview *sv = ANJUTA_SOURCEVIEW (user_data);
+	
+	/* DEBUG_PRINT ("File changed!!!"); */
+	
+	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
+		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
+		return;
+	
+	if (!anjuta_util_diff (anjuta_document_get_uri(sv->priv->document), sv->priv->last_saved_content))
+	{
+		/* The file content is same. Remove any previous prompt for reload */
+		if (sv->priv->file_modified_widget)
+			gtk_widget_destroy (sv->priv->file_modified_widget);
+		sv->priv->file_modified_widget = NULL;
+		return;
+	}
+	DEBUG_PRINT("Files differ");
+	
+	
+	if (strcmp (monitor_uri, info_uri) != 0)
+		return;
+	
+	/* If the file modified dialog is already shown, don't bother showing it
+	 * again.
+	 */
+	if (sv->priv->file_modified_widget)
+		return;
+	
+	/* Set up 1 sec timer */
+	if (sv->priv->file_modified_timer > 0)
+ 		g_source_remove (sv->priv->file_modified_timer);
+	sv->priv->file_modified_timer = g_timeout_add (1000,
+							(GSourceFunc)on_sourceview_uri_changed_prompt, sv);
+}
+
+static gboolean 
 sourceview_add_monitor(Sourceview* sv)
 {
 	gboolean monitor_enabled = anjuta_preferences_get_int (sv->priv->prefs, MONITOR_KEY);
 
 	if (monitor_enabled)
 	{
-		g_return_if_fail(sv->priv->monitor == NULL);
-		DEBUG_PRINT ("Monitor added for %s", anjuta_document_get_uri(sv->priv->document)); 
+		g_return_val_if_fail(sv->priv->monitor == NULL, FALSE);
+		DEBUG_PRINT ("Monitor added for %s", anjuta_document_get_uri(sv->priv->document)); 	
 		gnome_vfs_monitor_add(&sv->priv->monitor, anjuta_document_get_uri(sv->priv->document),
 							  GNOME_VFS_MONITOR_FILE,
 						  on_sourceview_uri_changed, sv);
 	}
+	return FALSE; /* for g_idle_add */
 }
 
 /* Called when document is loaded completly */
@@ -322,7 +351,11 @@ static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 	{
 		gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
 		g_signal_emit_by_name(G_OBJECT(sv), "save_point", TRUE);
-		sourceview_add_monitor(sv);
+		/* Set up 2 sec timer */
+		if (sv->priv->monitor_delay > 0)
+ 			g_source_remove (sv->priv->monitor_delay);
+		sv->priv->monitor_delay = g_timeout_add (2000,
+							(GSourceFunc)sourceview_add_monitor, sv);
 		sv->priv->saving = FALSE;
 	}
 }
@@ -353,6 +386,11 @@ sourceview_finalize(GObject *object)
 	cobj = ANJUTA_SOURCEVIEW(object);
 	
 	/* Free private members, etc. */
+	if (cobj->priv->file_modified_timer > 0)
+	{
+		g_source_remove (cobj->priv->file_modified_timer);
+		cobj->priv->file_modified_timer = 0;
+	}
 	
 	sourceview_remove_monitor(cobj);
 	
@@ -484,6 +522,11 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->scope));
 	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->autocomplete));
 	
+	/* VFS monitor */
+	sv->priv->last_saved_content = NULL;
+	sv->priv->file_modified_timer = 0;
+	sv->priv->file_modified_widget = NULL;
+	
 	/* Apply Preferences */
 	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
 	sv->priv->prefs = anjuta_shell_get_preferences(shell, NULL);
@@ -552,9 +595,16 @@ ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 static void 
 ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 {
+	GtkTextIter start_iter;
+	GtkTextIter end_iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
 	/* TODO: Set correct encoding */
+	gtk_text_buffer_get_bounds (GTK_TEXT_BUFFER(sv->priv->document),
+								&start_iter, &end_iter);
+	sv->priv->last_saved_content = gtk_text_buffer_get_slice (
+															  GTK_TEXT_BUFFER(sv->priv->document),
+															  &start_iter, &end_iter, TRUE);
 	anjuta_document_save_as(sv->priv->document, 
 							uri, anjuta_encoding_get_current(), 0);
 	if (sv->priv->filename)

@@ -1,3 +1,15 @@
+2007-03-05  Johannes Schmid,,,  <jhs@idefix>
+
+	reviewed by: <delete if not using a buddy>
+
+	* egg-combo-action.h:
+
+2007-03-05  Johannes Schmid,,,  <jhs@idefix>
+
+	reviewed by: <delete if not using a buddy>
+
+	* egg-combo-action.h:
+
 2003-09-06  Matthias Clasen  <maclas@gmx.de>
 
 	* egg-action.c (egg_action_connect_proxy): Disconnect from the

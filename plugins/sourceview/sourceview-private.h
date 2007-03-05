@@ -47,6 +47,10 @@ struct SourceviewPrivate {
 	
 	/* VFS Monitor */
 	GnomeVFSMonitorHandle* monitor;
+	gchar* last_saved_content;
+	gint file_modified_timer;
+	gboolean monitor_delay;
+	GtkWidget *file_modified_widget;
 	
 	/* Preferences */
 	AnjutaPreferences* prefs;

@@ -1,3 +1,23 @@
+2007-03-05  Johannes Schmid <jhs@gnome.org>
+
+	* libegg/egg-combo-action.c: (egg_combo_action_set_active_iter):
+	Added method to select specific iter
+	
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview.c: (on_reload_dialog_response),
+	(on_sourceview_uri_changed_prompt), (on_sourceview_uri_changed),
+	(sourceview_add_monitor), (on_document_saved),
+	(sourceview_finalize), (sourceview_new), (ifile_savable_save_as):
+	Fixed vfs monitoring (mostly ported code from text_editor.c)
+	
+	* plugins/symbol-browser/an_symbol_view.c:
+	* plugins/symbol-browser/an_symbol_view.h:
+	* plugins/symbol-browser/plugin.c: (iter_matches),
+	(on_editor_update_ui), (value_added_current_editor):
+	Select the current tag in locals window and symbol toolbar. If there
+	is no tag at the current line, reserve backward for the next tag. This will
+	select the correct tag if inside a function.
+
 2007-03-05  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta-app.c: Fixes gtk-critical messages at shutdown.
