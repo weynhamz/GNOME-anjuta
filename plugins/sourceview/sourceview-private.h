@@ -36,10 +36,6 @@ struct SourceviewPrivate {
 	/* Filename */
 	gchar* filename;
 	
-	/* Markers */
-	GList* markers;
-	gint marker_count;
-	
 	/* Highlight Tag */
 	GtkTextTag *important_indic;
 	GtkTextTag *warning_indic;
@@ -48,7 +44,6 @@ struct SourceviewPrivate {
 	/* VFS Monitor */
 	GnomeVFSMonitorHandle* monitor;
 	gchar* last_saved_content;
-	gint file_modified_timer;
 	gboolean monitor_delay;
 	GtkWidget *file_modified_widget;
 	

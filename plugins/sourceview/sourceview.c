@@ -162,16 +162,17 @@ on_sourceview_uri_changed_prompt (Sourceview* sv)
 	gtk_window_set_transient_for (GTK_WINDOW (dlg),
 								  GTK_WINDOW (parent));
 	
-	g_signal_connect (dlg, "response",
+	g_signal_connect (G_OBJECT(dlg), "response",
 					  G_CALLBACK (on_reload_dialog_response),
 					  sv);
-	g_signal_connect_swapped (dlg, "delete-event",
-					  G_CALLBACK (gtk_widget_destroy),
-					  dlg);
 	gtk_widget_show (dlg);
 	
 	sv->priv->file_modified_widget = dlg;
 
+	g_signal_connect_swapped (G_OBJECT(dlg), "delete-event",
+					  G_CALLBACK (gtk_widget_destroy),
+					  dlg);
+	
 	return FALSE;
 }
 
@@ -210,11 +211,7 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 	if (sv->priv->file_modified_widget)
 		return;
 	
-	/* Set up 1 sec timer */
-	if (sv->priv->file_modified_timer > 0)
- 		g_source_remove (sv->priv->file_modified_timer);
-	sv->priv->file_modified_timer = g_timeout_add (1000,
-							(GSourceFunc)on_sourceview_uri_changed_prompt, sv);
+	on_sourceview_uri_changed_prompt(sv);	
 }
 
 static gboolean 
@@ -385,13 +382,6 @@ sourceview_finalize(GObject *object)
 	Sourceview *cobj;
 	cobj = ANJUTA_SOURCEVIEW(object);
 	
-	/* Free private members, etc. */
-	if (cobj->priv->file_modified_timer > 0)
-	{
-		g_source_remove (cobj->priv->file_modified_timer);
-		cobj->priv->file_modified_timer = 0;
-	}
-	
 	sourceview_remove_monitor(cobj);
 	
 	gtk_widget_destroy(GTK_WIDGET(cobj->priv->tag_window));
@@ -524,7 +514,6 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 	
 	/* VFS monitor */
 	sv->priv->last_saved_content = NULL;
-	sv->priv->file_modified_timer = 0;
 	sv->priv->file_modified_widget = NULL;
 	
 	/* Apply Preferences */
@@ -1332,15 +1321,6 @@ static void iassist_iface_init(IAnjutaEditorAssistIface* iface)
 	iface->autocomplete = iassist_autocomplete;
 }
 
-/* Marker Struture to connect handles and markers */
-typedef struct
-{
-	gint handle;
-	GtkSourceMarker* marker;
-	gint location;
-	IAnjutaMarkableMarker type;
-} SVMarker;
-
 static gint
 imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 		   GError **e)
@@ -1349,6 +1329,7 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 	GtkTextIter iter;
 	GtkSourceMarker* source_marker;
 	gchar* name;
+	static gint marker_count = 0;
 	
 	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document),
 									 &iter, location  - 1);
@@ -1376,15 +1357,12 @@ imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 		
 	source_marker = gtk_source_buffer_create_marker(GTK_SOURCE_BUFFER(sv->priv->document), 
 													NULL, name, &iter);
-	SVMarker* sv_marker = g_new0(SVMarker, 1);
-	sv_marker->handle = sv->priv->marker_count++;
-	sv_marker->marker = source_marker;
-	sv_marker->location = location;
-	sv_marker->type = marker;
+
+	g_object_set_data(G_OBJECT(source_marker), "handle", GINT_TO_POINTER(marker_count++));
+	g_object_set_data(G_OBJECT(source_marker), "type", GINT_TO_POINTER(marker));
+	g_object_set_data(G_OBJECT(source_marker), "location", GINT_TO_POINTER(location));
 	
-	sv->priv->markers = g_list_append(sv->priv->markers, sv_marker);
-	
-	return sv_marker->handle;
+	return marker_count;
 }
 
 static void
@@ -1392,19 +1370,16 @@ imark_unmark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 			 GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
-	GList* node = sv->priv->markers;
-	while (node)
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
+	GtkSourceMarker* smarker;
+	for (smarker = gtk_source_buffer_get_first_marker(buffer);
+		 smarker != NULL; smarker = gtk_source_marker_next(smarker))
 	{
-		SVMarker* sv_marker = node->data;
-		if (sv_marker->location == location)
-		{
-			gtk_source_buffer_delete_marker(GTK_SOURCE_BUFFER(sv->priv->document),
-											sv_marker->marker);
-			sv->priv->markers = g_list_remove(sv->priv->markers, node->data);
-			return;
-		}
-		node = g_list_next(node);
-	}	
+		int marker_location = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(smarker), "location"));
+		if (marker_location == location)
+			gtk_source_buffer_delete_marker(buffer, smarker);
+		/* We do not break here because there might be multiple markers at this location */
+	}
 }
 
 static gboolean
@@ -1412,15 +1387,14 @@ imark_is_marker_set(IAnjutaMarkable* mark, gint location,
 					IAnjutaMarkableMarker marker, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
-	GList* node = sv->priv->markers;
-	while (node)
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
+	GtkSourceMarker* smarker;
+	for (smarker = gtk_source_buffer_get_first_marker(buffer);
+		 smarker != NULL; smarker = gtk_source_marker_next(smarker))
 	{
-		SVMarker* sv_marker = node->data;
-		if (sv_marker->location == location)
-		{
+		int marker_location = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(smarker), "location"));
+		if (marker_location == location)
 			return TRUE;
-		}
-		node = g_list_next(node);
 	}
 	return FALSE;
 }
@@ -1429,17 +1403,16 @@ static gint
 imark_location_from_handle(IAnjutaMarkable* mark, gint handle, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
-	GList* node = sv->priv->markers;
-	while (node)
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
+	GtkSourceMarker* marker;
+	for (marker = gtk_source_buffer_get_first_marker(buffer);
+		 marker != NULL; marker = gtk_source_marker_next(marker))
 	{
-		SVMarker* sv_marker = node->data;
-		if (sv_marker->handle == handle)
-		{
-			return sv_marker->location;
-		}
-		node = g_list_next(node);
+		int marker_handle = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(marker), "handle"));
+		if (marker_handle == handle)
+			return GPOINTER_TO_INT(g_object_get_data(G_OBJECT(marker), "location"));
 	}
-	return FALSE;
+	return 0;
 }
 
 static void
@@ -1447,18 +1420,15 @@ imark_delete_all_markers(IAnjutaMarkable* mark, IAnjutaMarkableMarker marker,
 						 GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
-	GList* node = sv->priv->markers;
-	while (node)
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
+	GtkSourceMarker* smarker;
+	for (smarker = gtk_source_buffer_get_first_marker(buffer);
+		 smarker != NULL; smarker = gtk_source_marker_next(smarker))
 	{
-		SVMarker* sv_marker = node->data;
-		if (sv_marker->type == marker)
-		{
-			gtk_source_buffer_delete_marker(GTK_SOURCE_BUFFER(sv->priv->document),
-											sv_marker->marker);
-			sv->priv->markers = g_list_delete_link(sv->priv->markers, node);
-			node = sv->priv->markers;
-		}
-		node = g_list_next(node);
+		IAnjutaMarkableMarker type = 
+			GPOINTER_TO_INT(g_object_get_data(G_OBJECT(smarker), "type"));
+		if (type == marker)
+			gtk_source_buffer_delete_marker(buffer, smarker);
 	}
 }
 

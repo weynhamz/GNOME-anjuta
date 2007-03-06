@@ -48,8 +48,6 @@ static gpointer parent_class;
 #define EDITOR_TABS_RECENT_FIRST   "editor.tabs.recent.first"
 
 
-#define DRAG_AFTER_ALL_TABS -1
-
 struct _AnjutaDocmanPriv {
 	DocmanPlugin *plugin;
 	AnjutaPreferences *preferences;
@@ -60,17 +58,6 @@ struct _AnjutaDocmanPriv {
 	GList *editors;
 	GtkWidget *popup_menu;
 	gboolean shutingdown;
-	
-	gint x_start;
-	gint y_start;
-	gulong grab_notify_handler_id;
-	gulong motion_notify_handler_id;
-	gulong toplevel_grab_broken_handler_id;
-	gulong toplevel_motion_notify_handler_id;
-	gulong toplevel_button_release_handler_id;
-	gboolean drag_in_progress;
-	gint tab_num_drag_start;
-	gint tab_num_drag_curr;
 };
 
 struct _AnjutaDocmanPage {
@@ -86,14 +73,9 @@ struct _AnjutaDocmanPage {
 
 typedef struct _AnjutaDocmanPage AnjutaDocmanPage;
 
-/* Local variables */
-static GdkCursor *cursor = NULL;
-
-
-static const GtkTargetEntry drag_types [] = 
-{
-	{ "AnjutaDocmanPage",   0, 0 }
-};
+static void on_notebook_switch_page (GtkNotebook * notebook,
+									 GtkNotebookPage * page,
+									 gint page_num, AnjutaDocman *docman);
 
 
 static void anjuta_docman_order_tabs(AnjutaDocman *docman);
@@ -102,374 +84,6 @@ static void anjuta_docman_grab_text_focus (AnjutaDocman *docman);
 static void on_notebook_switch_page (GtkNotebook * notebook,
 									 GtkNotebookPage * page,
 									 gint page_num, AnjutaDocman *docman);
-static void on_notebook_drag_data_received (GtkWidget* widget, GdkDragContext *context,
-				gint x, gint y, GtkSelectionData *selection_data,
-				guint info, guint time, AnjutaDocmanPage *page);
-
-
-static gint
-find_tab_num_at_pos (AnjutaDocman *docman, gint abs_x, gint abs_y)
-{
-	GtkPositionType tab_pos;
-	int page_num = 0;
-	GtkNotebook *nb = GTK_NOTEBOOK (docman);
-	GtkWidget *page;
-
-	tab_pos = gtk_notebook_get_tab_pos (GTK_NOTEBOOK (docman));
-
-	if (GTK_NOTEBOOK (docman)->first_tab == NULL)
-	{
-		return DRAG_AFTER_ALL_TABS;
-	}
-
-	while ((page = gtk_notebook_get_nth_page (nb, page_num)))
-	{
-		GtkWidget *tab;
-		gint max_x, max_y;
-		gint x_root, y_root;
-
-		tab = gtk_notebook_get_tab_label (nb, page);
-		g_return_val_if_fail (tab != NULL, -1);
-
-		if (!GTK_WIDGET_MAPPED (GTK_WIDGET (tab)))
-		{
-			page_num++;
-			continue;
-		}
-
-		gdk_window_get_origin (GDK_WINDOW (tab->window),
-				       &x_root, &y_root);
-
-		max_x = x_root + tab->allocation.x + tab->allocation.width;
-		max_y = y_root + tab->allocation.y + tab->allocation.height;
-
-		if (((tab_pos == GTK_POS_TOP)
-		     || (tab_pos == GTK_POS_BOTTOM))
-		    &&(abs_x<=max_x))
-		{
-			return page_num;
-		}
-		else if (((tab_pos == GTK_POS_LEFT)
-			  || (tab_pos == GTK_POS_RIGHT))
-			 && (abs_y<=max_y))
-		{
-			return page_num;
-		}
-
-		page_num++;
-	}
-	return DRAG_AFTER_ALL_TABS;
-}
-
-static void
-drag_stop (AnjutaDocman *docman,
-	   guint32 time)
-{
-	AnjutaDocmanPriv *priv = docman->priv;
-	GtkWidget *widget = GTK_WIDGET (docman);
-	GtkWidget *toplevel, *child;
-
-	if (priv->drag_in_progress)
-	{
-		DEBUG_PRINT ("Drag Stop");
-
-		toplevel = gtk_widget_get_toplevel (widget);
-		g_return_if_fail (GTK_WIDGET_TOPLEVEL (toplevel));
-
-		child = gtk_bin_get_child (GTK_BIN (toplevel));
-		g_return_if_fail (child != NULL);
-
-		/* disconnect the signals before ungrabbing! */
-		if (priv->toplevel_grab_broken_handler_id != 0)
-		{
-			g_signal_handler_disconnect (toplevel,
-						     priv->toplevel_grab_broken_handler_id);
-			priv->toplevel_grab_broken_handler_id = 0;
-		}
-		if (priv->grab_notify_handler_id != 0)
-		{
-			g_signal_handler_disconnect (docman,
-						     priv->grab_notify_handler_id);
-			priv->grab_notify_handler_id = 0;
-		}
-		if (priv->toplevel_motion_notify_handler_id != 0)
-		{
-			g_signal_handler_disconnect (toplevel,
-						     priv->toplevel_motion_notify_handler_id);
-			priv->toplevel_motion_notify_handler_id = 0;
-		}
-		if (priv->toplevel_button_release_handler_id != 0)
-		{
-			g_signal_handler_disconnect (toplevel,
-						     priv->toplevel_button_release_handler_id);
-			priv->toplevel_button_release_handler_id = 0;
-		}
-
-		/* ungrab the pointer if it's grabbed */
-		/* FIXME multihead */
-		if (gdk_pointer_is_grabbed ())
-		{
-			gdk_pointer_ungrab (time);
-		}
-
-		gtk_grab_remove (toplevel);
-	}
-
-	if (priv->motion_notify_handler_id != 0)
-	{
-		g_signal_handler_disconnect (docman,
-					     priv->motion_notify_handler_id);
-		priv->motion_notify_handler_id = 0;
-	}
-
-	priv->drag_in_progress = FALSE;
-}
-
-
-/* this function is only called during dnd, the tabs will be reordered_id
- * only after a toplevel_button_release
- */
-static void
-drag_move_tab (AnjutaDocman *docman, gint dest_position)
-{
-	gint cur_page_num;
-	AnjutaDocmanPriv *priv;
-	
-	priv = docman->priv;
-
-	cur_page_num = gtk_notebook_get_current_page (GTK_NOTEBOOK (docman));
-
-	/* we set the current tab position */
-	if (dest_position != cur_page_num)
-	{	
-		priv->tab_num_drag_curr = cur_page_num;	
-	}
-}
-
-/* this function should be used when an external tab is dragged into Anjuta'docman 
- * one, so it can be useless here, but can be important for future expansions 
- */
-static void
-on_grab_notify (GtkWidget *widget,
-	        gboolean was_grabbed,
-	        AnjutaDocman *docman)
-{
-	DEBUG_PRINT ("Grab Notify [%p, was-grabbed:%s]", docman, was_grabbed ? "t" : "f");
-
-	drag_stop (docman, GDK_CURRENT_TIME /* FIXME? */);
-}
-
-/* this function should be used when an external tab is dragged into Anjuta'docman 
- * one, so it can be useless here, but can be important for future expansions 
- */
-static gboolean
-on_grab_broken_event (GtkWidget *widget,
-		      GdkEventGrabBroken *event,
-		      AnjutaDocman *docman)
-{
-	DEBUG_PRINT ("Grab Broken [%p]", docman);
-
-	drag_stop (docman, GDK_CURRENT_TIME /* FIXME? */);
-
-	return FALSE;
-}
-
-/* called when, while dragging, the button mouse is released 
- */
-static gboolean
-on_toplevel_button_release (GtkWidget *toplevel,
-			    GdkEventButton *event,
-			    AnjutaDocman *docman)
-{
-	AnjutaDocmanPriv *priv;
-	
-	priv = docman->priv;
-	
-	/* This must be called even if a drag isn't happening */
-	drag_stop (docman, event->time);
-
-	priv->tab_num_drag_curr = 
-					find_tab_num_at_pos (docman, event->x_root, event->y_root);
-
-	if (event->button == 1)
-	{
-		if (priv->tab_num_drag_curr == -1)
-		{
-			/* consume event, so that we don't pop up the context menu when
-			 * the mouse if not over a tab label
-			 */
-			return TRUE;
-		}
-		else
-		{
-			GtkWidget *cur_tab;
-			DEBUG_PRINT ("going to set the current page to %d", 
-							priv->tab_num_drag_curr );
-			
-			cur_tab = gtk_notebook_get_nth_page (GTK_NOTEBOOK (docman),
-						     priv->tab_num_drag_start);
-		
-			gtk_notebook_reorder_child (GTK_NOTEBOOK (docman), cur_tab, 
-										priv->tab_num_drag_curr);
-		}
-	}
-		 
-	return FALSE;
-}
-
-static gboolean
-on_toplevel_motion_notify (GtkWidget *toplevel,
-			   GdkEventMotion *event,
-			   AnjutaDocman *docman)
-{
-	gint new_tab_pos;
-
-	new_tab_pos = find_tab_num_at_pos (docman, event->x_root, event->y_root);
-
-	g_assert (new_tab_pos >= -1);
-	drag_move_tab (docman, new_tab_pos);
-
-	return FALSE;
-}
-
-static gboolean
-drag_start (AnjutaDocman *docman,
-	    guint32 time)
-{
-	AnjutaDocmanPriv *priv = docman->priv;
-	GtkWidget *widget = GTK_WIDGET (docman);
-	GtkWidget *toplevel, *child;
-
-	/* FIXME multihead */
-	if (priv->drag_in_progress || gdk_pointer_is_grabbed ()) return FALSE;
-
-	DEBUG_PRINT ("drag start");
-
-	priv->drag_in_progress = TRUE;
-
-	/* get a new cursor, if necessary */
-	/* FIXME multi-head */
-	if (!cursor) cursor = gdk_cursor_new (GDK_FLEUR);
-
-	toplevel = gtk_widget_get_toplevel (widget);
-	g_return_val_if_fail (GTK_WIDGET_TOPLEVEL (toplevel), FALSE);
-
-	child = gtk_bin_get_child (GTK_BIN (toplevel));
-	g_return_val_if_fail (child != NULL, FALSE);
-
-	/* grab the pointer */
-	gtk_grab_add (toplevel);
-
-	/* FIXME multi-head */
-	if (gdk_pointer_grab (toplevel->window,
-			      FALSE,
-			      GDK_BUTTON1_MOTION_MASK | GDK_BUTTON_RELEASE_MASK,
-			      NULL, cursor, time) != GDK_GRAB_SUCCESS)
-	{
-		drag_stop (docman, time);
-		return FALSE;
-	}
-
-	g_return_val_if_fail (priv->toplevel_grab_broken_handler_id == 0, FALSE);
-	g_return_val_if_fail (priv->toplevel_motion_notify_handler_id == 0, FALSE);
-	g_return_val_if_fail (priv->toplevel_button_release_handler_id == 0, FALSE);
-	g_return_val_if_fail (priv->grab_notify_handler_id == 0, FALSE);
-
-	priv->toplevel_grab_broken_handler_id =
-		g_signal_connect (toplevel, "grab-broken-event",
-				  G_CALLBACK (on_grab_broken_event), docman);
-
-	priv->toplevel_motion_notify_handler_id =
-		g_signal_connect (toplevel, "motion-notify-event",
-				  G_CALLBACK (on_toplevel_motion_notify), docman);
-
-	priv->toplevel_button_release_handler_id =
-		g_signal_connect (toplevel, "button-release-event",
-				  G_CALLBACK (on_toplevel_button_release), docman);
-				  
-	priv->grab_notify_handler_id =
-		g_signal_connect (docman, "grab-notify",
-				  G_CALLBACK (on_grab_notify), docman);
-
-	DEBUG_PRINT ("drag started successfully");
-	return TRUE;
-}
-
-/* a motion is notified into docman 
- */
-static gboolean
-on_docman_motion_notify (AnjutaDocman *docman,
-		  GdkEventMotion *event,
-		  gpointer data)
-{
-	AnjutaDocmanPriv *priv = docman->priv;
-
-	if (priv->drag_in_progress == FALSE)
-	{
-		if (gtk_drag_check_threshold (GTK_WIDGET (docman),
-					      priv->x_start,
-					      priv->y_start,
-					      event->x_root, event->y_root))
-		{
-			return drag_start (docman, event->time);
-		}
-
-		return FALSE;
-	}
-
-	return FALSE;
-}
-
-static gboolean
-on_docman_button_press (AnjutaDocman *docman,
-		 GdkEventButton *event,
-		 gpointer data) {
-
-	AnjutaDocmanPriv *priv;
-	gint tab_clicked;
-
-	priv = docman->priv;
-	
-	tab_clicked = find_tab_num_at_pos (docman, event->x_root, event->y_root);
-	DEBUG_PRINT ( "detected tab_clicked %d", tab_clicked );
-	/* FIXME: how could there be a drag in progress!? */
-
-	if (priv->drag_in_progress)
-	{
-		return TRUE;
-	}
-
-	if ((event->button == 1) && (event->type == GDK_BUTTON_PRESS)
-	    && (tab_clicked >= 0))
-	{
-		priv->x_start = event->x_root;
-		priv->y_start = event->y_root;
-		priv->motion_notify_handler_id =
-			g_signal_connect (G_OBJECT (docman), "motion-notify-event",
-					  G_CALLBACK (on_docman_motion_notify), NULL);
-	}
-
-	/* we set here the initial tab number. It's ok to set here even if the drag
-	 * won't start: the parameter tab_num_start won't affect anything also because 
-	 * it will be used only with a drag */
-	priv->tab_num_drag_start = tab_clicked;
-
-	return FALSE;		 
-
-}
-
-static gboolean
-on_docman_button_release (AnjutaDocman *docman,
-		 GdkEventButton *event,
-		 gpointer data) {
-
-	DEBUG_PRINT ("on_docman_button_release ");
-	
-	/* This must be called even if a drag isn't happening */
-	drag_stop (docman, event->time);
-	
-	return FALSE;
-}
 
 static void
 on_text_editor_notebook_close_page (GtkButton* button, 
@@ -903,26 +517,6 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (docman), TRUE);
 	g_signal_connect (G_OBJECT(docman), "switch-page",
 					  G_CALLBACK (on_notebook_switch_page), docman);
-
-	/* Set up the button press and release to the Docman */
-	g_signal_connect (G_OBJECT (docman), "button-press-event",
-			  (GCallback)on_docman_button_press, NULL);
-	g_signal_connect (G_OBJECT (docman), "button-release-event",
-			  (GCallback)on_docman_button_release, NULL);
-	
-	/* add some mask events to permit the motion/drag */
-	gtk_widget_add_events (GTK_WIDGET (docman), GDK_BUTTON1_MOTION_MASK);
-
-	/* Set up drag-and-drop target to notebook. */
-	g_signal_connect (G_OBJECT(docman), "drag_data_received",
-			  G_CALLBACK(on_notebook_drag_data_received),
-			  NULL);
-
-	/* we set the destination as the notebook */
-	gtk_drag_dest_set (GTK_WIDGET (docman), GTK_DEST_DEFAULT_MOTION |
-			   GTK_DEST_DEFAULT_DROP,
-			   drag_types, G_N_ELEMENTS (drag_types),
-			   GDK_ACTION_MOVE | GDK_ACTION_COPY);
 }
 
 static void
@@ -1002,16 +596,6 @@ on_notebook_switch_page (GtkNotebook * notebook,
 			gtk_notebook_reorder_child (notebook, widget, 0);
 		}
 	}
-}
-
-static void 
-on_notebook_drag_data_received (GtkWidget* widget, GdkDragContext *context,
-				gint x, gint y, GtkSelectionData *selection_data,
-				guint info, guint time, AnjutaDocmanPage *page) {
-
-	/* TODO: if we need to perform some action when something external Anjuta is 
-	 * dragged here, this is the function to implement */
-	
 }
 
 static AnjutaDocmanPage *
@@ -1151,7 +735,8 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 
 	gtk_notebook_prepend_page_menu (GTK_NOTEBOOK (docman), GTK_WIDGET(te), page->box, 
 									page->menu_label);
-									
+	gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(docman), GTK_WIDGET(te), TRUE);
+	
 	g_signal_handlers_block_by_func (GTK_OBJECT (docman),
 				       GTK_SIGNAL_FUNC (on_notebook_switch_page),
 				       docman);
@@ -1169,15 +754,6 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 					  G_CALLBACK (on_editor_save_point), docman);
 	g_signal_connect (G_OBJECT (te), "destroy",
 					  G_CALLBACK (on_editor_destroy), docman);
-	
-	/* Set up drag-and-drop target */
-	g_signal_connect (G_OBJECT (te), "drag_data_received",
-				  G_CALLBACK (on_notebook_drag_data_received), page);
- 	/* Sets the label widget as a potential drop destination. 
- 	 * mainly done to receive soruces from other apps/positions than Anjuta */
-	gtk_drag_dest_set (page->box, GTK_DEST_DEFAULT_ALL,
-				   drag_types, G_N_ELEMENTS (drag_types),
-				   GDK_ACTION_MOVE | GDK_ACTION_COPY);
 				   
 	g_signal_emit_by_name (docman, "editor-added", te);
 	anjuta_docman_set_current_editor(docman, te);

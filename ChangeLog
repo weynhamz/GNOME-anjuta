@@ -1,3 +1,21 @@
+2007-03-06  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in:
+	GTK_REQUIRED = 2.10.0 (required for GtkRecent and Docman tabs)
+	
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_instance_init), (anjuta_docman_add_editor):
+	Removed old and ugly tab drag&drop code and use built-in gtk stuff
+	instead (required GTK >= 2.10)
+	
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview.c:
+	(on_sourceview_uri_changed_prompt), (on_sourceview_uri_changed),
+	(sourceview_finalize), (sourceview_new), (imark_mark),
+	(imark_unmark), (imark_is_marker_set),
+	(imark_location_from_handle), (imark_delete_all_markers):
+	Fixed marker handling and worked a bit more on vfs monitoring
+
 2007-03-05  Johannes Schmid <jhs@gnome.org>
 
 	* libegg/egg-combo-action.c: (egg_combo_action_set_active_iter):
