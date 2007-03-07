@@ -1,3 +1,8 @@
+2007-03-07  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta.c: Make launching projects work from command line. Also
+	fixes gnome session restart command.
+	
 2007-03-07  Johannes Schmid <jhs@gnome.org>
 
 	Patch from Lucas Mazzardo Veloso <lmveloso@gmail.com>

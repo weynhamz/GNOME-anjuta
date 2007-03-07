@@ -24,7 +24,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-save-prompt.h>
 #include <libanjuta/anjuta-plugin-manager.h>
-#include <libanjuta/interfaces/ianjuta-profile.h>
+#include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 
 #include "anjuta.h"
@@ -120,8 +120,9 @@ on_anjuta_session_save_yourself (GnomeClient * client, gint phase,
 	gnome_client_set_discard_command (client, 3, argv);
 	
 	argv[0] = "anjuta";
-	gnome_client_set_restart_command(client, 1, argv);
-	gnome_client_set_restart_style  (client, GNOME_RESTART_IF_RUNNING);
+	argv[1] = "--no-client";
+	gnome_client_set_restart_command (client, 2, argv);
+	gnome_client_set_restart_style (client, GNOME_RESTART_IF_RUNNING);
 	
 	/*
 	 * We want to be somewhere at last to start, otherwise bonobo-activation
@@ -275,6 +276,7 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	g_free (profile_name);
 	
 	/* Load profile */
+	anjuta_profile_manager_freeze (profile_manager);
 	anjuta_profile_manager_push (profile_manager, profile, &error);
 	if (error)
 	{
@@ -386,8 +388,19 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	
 	/* Load project file */
 	if (project_file)
-		ianjuta_file_open (IANJUTA_FILE(profile), project_file, NULL);
-
+	{
+		IAnjutaFileLoader *loader;
+		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
+											 IAnjutaFileLoader, NULL);
+		ianjuta_file_loader_load (loader, project_file, FALSE, NULL);
+	}
+	anjuta_profile_manager_thaw (profile_manager, &error);
+	if (error)
+	{
+		anjuta_util_dialog_error (GTK_WINDOW (app), "%s", error->message);
+		g_error_free (error);
+		error = NULL;
+	}
 	anjuta_status_progress_tick (status, NULL, _("Loaded Session..."));
 	return app;
 }
