@@ -523,6 +523,7 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 	GSList *files = NULL;
 	GList *ignore_files = NULL;
 	gchar *entries = NULL;
+	GtkTreeViewColumn* column;
 
 	g_return_if_fail (path != NULL);
 
@@ -539,6 +540,7 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 			{
 				g_free(entries);
 				entries = NULL;
+				
 			}
 			else
 			{
@@ -552,6 +554,9 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 			}
 		}
 	}
+	column = gtk_tree_view_get_column(GTK_TREE_VIEW(fv->tree), 2);
+	gtk_tree_view_column_set_visible(column, entries != NULL);
+															 
 	
 	g_snprintf(file_name, PATH_MAX, "%s/.cvsignore", path);
 	if (ff->ignore_nonrepo_files && 0 == stat(file_name, &s))
@@ -597,7 +602,7 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 		while (li != NULL)
 		{
 			ignore_files = g_list_prepend (ignore_files, g_strdup (li->data));
-			DEBUG_PRINT ("Ignoring: %s", li->data);
+			DEBUG_PRINT ("Ignoring: %s", (gchar*)li->data);
 			li = g_list_next (li);
 		}
 	}
@@ -638,7 +643,7 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 				gtk_tree_store_set (store, &iter,
 							PIXBUF_COLUMN, pixbuf,
 							FILENAME_COLUMN, file,
-							REV_COLUMN, "D",
+							REV_COLUMN, "",
 							IS_DIR_COLUMN, 1,
 							-1);
 				g_object_unref (pixbuf);

@@ -1,5 +1,22 @@
 2007-03-07  Johannes Schmid <jhs@gnome.org>
 
+	Patch from Lucas Mazzardo Veloso <lmveloso@gmail.com>
+	* plugins/class-gen/plugin.c: (iwizard_activate):
+	Fixed #408218
+	
+	* plugins/cvs-plugin/cvs-callbacks.c: (on_cvs_import_response):
+	Fixed #402774
+	
+	* plugins/file-manager/an_file_view.c: (fv_add_tree_entry):
+	Fixed #377483 (It's not possible to know if directories have
+	a version in CVS. Show version column only if there are version
+	informations availible
+
+	* plugins/sourceview/sourceview-cell.c: (icell_get_attribute):
+	Fixed memory leak
+
+2007-03-07  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/sourceview/sourceview-prefs.c: (get_bool):
 	Fixed #409408
 	* plugins/symbol-browser/an_symbol_prefs.c:

@@ -457,9 +457,9 @@ on_cvs_import_response(GtkDialog* dialog, gint response, CVSData* data)
 				GTK_BUTTONS_YES_NO, 
 				_("Are you sure that you do not want a log message?"));
 				result = gtk_dialog_run(GTK_DIALOG(dlg));
+				gtk_widget_destroy(dlg);
 				if (result == GTK_RESPONSE_NO)
 					break;
-				gtk_widget_destroy(dlg);
 			}
 			
 			anjuta_cvs_import(ANJUTA_PLUGIN(data->plugin),

@@ -171,6 +171,7 @@ icell_get_attribute (IAnjutaEditorCell* icell, GError **e)
 				DEBUG_PRINT("unknown GtkSourceTag id = %s", id);
 		}
 	}
+	g_slist_free(tags);
 	return attrib;
 }
 
