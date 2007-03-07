@@ -200,7 +200,8 @@ project_import_finalize(GObject *object)
 	gtk_widget_destroy(cobj->window);
 	
 	/* Deactivate plugin once wizard is finished */
-	anjuta_plugin_deactivate (cobj->plugin);
+	if (anjuta_plugin_is_active(cobj->plugin))
+		anjuta_plugin_deactivate (cobj->plugin);
 	G_OBJECT_CLASS(parent_class)->finalize(object);
 }
 

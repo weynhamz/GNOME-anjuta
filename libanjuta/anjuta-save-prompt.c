@@ -203,7 +203,8 @@ anjuta_save_prompt_init(AnjutaSavePrompt *obj)
 							GTK_STOCK_SAVE,
 							ANJUTA_SAVE_PROMPT_RESPONSE_SAVE_CLOSE,
 							NULL);
-	gtk_dialog_set_has_separator (GTK_DIALOG (obj), TRUE);
+	/* TRUE is the default and Gtk warns that this has no effect */
+	/* gtk_dialog_set_has_separator (GTK_DIALOG (obj), TRUE); */
 	gtk_dialog_set_default_response (GTK_DIALOG (obj),
 									 ANJUTA_SAVE_PROMPT_RESPONSE_SAVE_CLOSE);
 	g_signal_connect (obj, "response",
@@ -234,7 +235,8 @@ anjuta_save_prompt_new (GtkWindow *parent)
 	obj = ANJUTA_SAVE_PROMPT(g_object_new(ANJUTA_TYPE_SAVE_PROMPT,
 										  "message-type", GTK_MESSAGE_QUESTION,
 										  NULL));
-	gtk_dialog_set_has_separator (GTK_DIALOG (obj), TRUE);
+	/* Gtk warns that this has no effect
+	gtk_dialog_set_has_separator (GTK_DIALOG (obj), TRUE); */
 	gtk_window_set_transient_for (GTK_WINDOW (obj), parent);
 	return obj;
 }
