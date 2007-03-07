@@ -586,13 +586,14 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 		
 		if (comment_begun)
 			g_string_append_c (comment_text, ch);
+		
 	}
 	while (ianjuta_iterable_next (iter, NULL));
 	
-	DEBUG_PRINT ("Comment text: %s", comment_text->str);
-	
+	/* DEBUG_PRINT ("Comment text: %s", comment_text->str);*/
 	if (comment_text->len > 0)
 	{
+		
 		/* First comment found */
 		gchar *modeline = extract_mode_line (comment_text->str);
 		if (modeline)

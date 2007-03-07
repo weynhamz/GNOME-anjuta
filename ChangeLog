@@ -1,3 +1,15 @@
+2007-03-07  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c:
+	(initialize_indentation_params):
+	Removed annoying DEBUG_PRINT
+	
+	* plugins/sourceview/sourceview-cell.c:
+	(sourceview_cell_instance_init), (icell_get_character),
+	(icell_get_length), (icell_get_char), (icell_get_attribute):
+	Improved code to be faster
+	Implemented attribute handling so that indentation really works in any case
+
 2007-03-06  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in:

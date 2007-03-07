@@ -32,6 +32,8 @@
 
 #include <gtk/gtktextview.h>
 #include <string.h>
+
+#include <gtksourceview/gtksourcetag.h>
  
 static void sourceview_cell_class_init(SourceviewCellClass *klass);
 static void sourceview_cell_instance_init(SourceviewCell *sp);
@@ -59,7 +61,8 @@ static void
 sourceview_cell_instance_init(SourceviewCell *obj)
 {
 	obj->priv = g_new0(SourceviewCellPrivate, 1);
-	/* Initialize private members, etc. */
+	
+	/* Initialize private members, etc. */	
 }
 
 static void
@@ -95,50 +98,79 @@ static gchar*
 icell_get_character(IAnjutaEditorCell* icell, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
-	GtkTextIter iter, iter_next;
+	GtkTextIter iter;
+	gchar outbuf[7];
+	int length;	
 	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &iter,
 									 cell->priv->mark);
-	iter_next = iter;
-	if (gtk_text_iter_forward_char (&iter_next))
-	{
-		return gtk_text_iter_get_text (&iter, &iter_next);
-	}
-	else /* This should never happen, as the iter is always at least one less
-		  * then last
-		  */
-		return strdup("");
+	length = g_unichar_to_utf8(gtk_text_iter_get_char(&iter), outbuf);
+	outbuf[length] = '\0';
+	return g_strdup(outbuf);
 }
 
 static gint 
 icell_get_length(IAnjutaEditorCell* icell, GError** e)
 {
-	/* FIXME: This is not efficient */
-	gint length;
-	gchar* s = icell_get_character(icell, NULL);
-	length = strlen(s);
-	g_free (s);
-	return length;
+	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &iter,
+									 cell->priv->mark);
+	return g_unichar_to_utf8(gtk_text_iter_get_char(&iter), NULL);
 }
 
 static gchar
 icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 {
 	gchar ch = '\0';
-	gchar* characters = icell_get_character(icell, NULL);
-	
-	if (characters && strlen(characters) > index)
-		ch = characters[index];
-	g_free (characters);
+	gchar* utf8 = icell_get_character(icell, NULL);
+	gsize bytes_written, bytes_read;
+	GError* error = NULL;
+	gchar* locale = g_locale_from_utf8(utf8, -1, &bytes_read, &bytes_written, &error);
+	if (error)
+		DEBUG_PRINT("Error: %s", error->message);
+	if (bytes_written >= 1)
+		ch = locale[0];	
+	g_free(utf8);
+	g_free(locale);
 	return ch;
 }
 
 static IAnjutaEditorAttribute
-icell_get_attribute (IAnjutaEditorCell* cell, GError **e)
+icell_get_attribute (IAnjutaEditorCell* icell, GError **e)
 {
-	IAnjutaEditorAttribute attrib;
-	
-	/* FIXME */
-	attrib = IANJUTA_EDITOR_TEXT;
+	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
+	IAnjutaEditorAttribute attrib = IANJUTA_EDITOR_TEXT;
+	GtkTextIter iter;
+	GSList* tags;
+	gtk_text_buffer_get_iter_at_mark(cell->priv->buffer, &iter,
+									 cell->priv->mark);
+	/* This is a kind of ugly hack. GtkSourceview does not really expose an
+		API to get the type of tag but the id holds the important stuff */
+	for (tags = gtk_text_iter_get_tags(&iter); tags != NULL; tags = tags->next)
+	{
+		if (GTK_IS_SOURCE_TAG(tags->data))
+		{
+			gchar* id;
+			g_object_get(G_OBJECT(tags->data), "id", &id, NULL);
+			if (g_str_has_prefix(id, "Keyword") || g_str_has_suffix(id, "Keyword"))
+			{
+				attrib = IANJUTA_EDITOR_KEYWORD;
+				break;
+			}
+			if (g_str_has_prefix(id, "Comment") || g_str_has_suffix(id, "Comment"))
+			{
+				attrib = IANJUTA_EDITOR_COMMENT;
+				break;
+			}
+			if (g_str_has_prefix(id, "String") || g_str_has_suffix(id, "String"))
+			{
+				attrib = IANJUTA_EDITOR_STRING;
+				break;
+			}
+			else
+				DEBUG_PRINT("unknown GtkSourceTag id = %s", id);
+		}
+	}
 	return attrib;
 }
 
