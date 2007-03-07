@@ -1,5 +1,13 @@
 2007-03-07  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/sourceview-prefs.c: (get_bool):
+	Fixed #409408
+	* plugins/symbol-browser/an_symbol_prefs.c:
+	(on_update_global_clicked):
+	Fixed ##409176
+
+2007-03-07  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-save-prompt.c: (anjuta_save_prompt_init),
 	(anjuta_save_prompt_new):
 	* plugins/project-import/project-import.c:

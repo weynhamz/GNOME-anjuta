@@ -57,7 +57,10 @@ static gboolean
 get_bool(GConfEntry* entry)
 {
     GConfValue* value = gconf_entry_get_value(entry);
-	return gconf_value_get_bool(value);
+	/* Usually we would use get_bool but anjuta_preferences saves bool as int 
+		#409408
+	*/
+	return gconf_value_get_int(value);
 }
 
 static void

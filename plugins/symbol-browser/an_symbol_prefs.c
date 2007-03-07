@@ -724,9 +724,10 @@ on_update_global_clicked(GtkWidget *button, SymbolBrowserPlugin *plugin)
 	waitpid (pid, NULL, 0);
 	g_free (tmp);
 
+	/* This is useless because it obviously not in PATH (#409176) */
 	/* Make sure program anjuta-tags can be found */
-	if (!anjuta_util_prog_is_installed (CREATE_GLOBAL_TAGS, TRUE))
-		return;
+	/*if (!anjuta_util_prog_is_installed (CREATE_GLOBAL_TAGS, TRUE))
+		return;*/
 	
 	mesg_manager = anjuta_shell_get_interface 
 		(ANJUTA_PLUGIN (plugin)->shell,	IAnjutaMessageManager, NULL);
