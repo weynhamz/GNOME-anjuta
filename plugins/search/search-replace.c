@@ -214,10 +214,10 @@ static void search_direction_changed(SearchDirection dir);
 static void search_set_direction(SearchDirection dir);
 static void search_set_toggle_direction(SearchDirection dir);
 static void search_disconnect_set_toggle_connect(const gchar *name, 
-	GtkSignalFunc function, gboolean active);
+	GCallback function, gboolean active);
 static void search_replace_next_previous(SearchDirection dir);
 static void search_set_combo(gchar *name_combo, gchar *name_entry, 
-	GtkSignalFunc function, gint command);
+	GCallback function, gint command);
 static gint search_get_item_combo(GtkEditable *editable, AnjutaUtilStringMap *map);
 static gint search_get_item_combo_name(gchar *name, AnjutaUtilStringMap *map);
 static void basic_search_toggled(void);
@@ -703,7 +703,7 @@ sr_get_gladewidget(const gchar *name)
 }
 
 static void
-search_set_combo(gchar *name_combo, gchar *name_entry, GtkSignalFunc function,
+search_set_combo(gchar *name_combo, gchar *name_entry, GCallback function,
                  gint command)
 {
 	GtkCombo *combo;
@@ -711,32 +711,32 @@ search_set_combo(gchar *name_combo, gchar *name_entry, GtkSignalFunc function,
 	
 	combo = GTK_COMBO(sr_get_gladewidget(name_combo)->widget);
 	entry = sr_get_gladewidget(name_entry)->widget;
-	g_signal_handlers_disconnect_by_func(G_OBJECT(entry),(GtkSignalFunc)
-	                              function , NULL);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(entry),
+										 G_CALLBACK(function) , NULL);
 	
 	gtk_list_select_item(GTK_LIST(combo->list), command);
-	g_signal_connect(G_OBJECT(entry),"changed", (GtkSignalFunc)
-	                   function, NULL);
+	g_signal_connect(G_OBJECT(entry),"changed", 
+					 G_CALLBACK(function), NULL);
 }
 
 static void
 search_set_action(SearchAction action)
 {
-	search_set_combo(SEARCH_ACTION_COMBO, SEARCH_ACTION, (GtkSignalFunc)
+	search_set_combo(SEARCH_ACTION_COMBO, SEARCH_ACTION, (GCallback)
 		on_search_action_changed, action);
 }
 
 static void
 search_set_target(SearchRangeType target)
 {
-	search_set_combo(SEARCH_TARGET_COMBO, SEARCH_TARGET, (GtkSignalFunc)
+	search_set_combo(SEARCH_TARGET_COMBO, SEARCH_TARGET, (GCallback)
 		on_search_target_changed, target);
 }
 
 static void
 search_set_direction(SearchDirection dir)
 {
-	search_set_combo(SEARCH_DIRECTION_COMBO, SEARCH_DIRECTION, (GtkSignalFunc)
+	search_set_combo(SEARCH_DIRECTION_COMBO, SEARCH_DIRECTION, (GCallback)
 		on_search_direction_changed, dir);
 }
 
@@ -1090,7 +1090,7 @@ create_dialog(void)
 	sg->dialog = glade_xml_get_widget(sg->xml, SEARCH_REPLACE_DIALOG);
 	/* gtk_window_set_transient_for (GTK_WINDOW(sg->dialog)
 	  , GTK_WINDOW(app->widgets.window)); */
-	
+		
 	for (i=0; NULL != glade_widgets[i].name; ++i)
 	{
 		w = &(glade_widgets[i]);
@@ -1103,7 +1103,6 @@ create_dialog(void)
 			g_list_free(combo_strings);
 		}
 	}
-	
 	
 	search_preferences_initialize_setting_treeview(sg->dialog);
 	search_preferences_init();
@@ -1327,7 +1326,7 @@ on_search_dialog_key_press_event(GtkWidget *widget, GdkEventKey *event,
 }
 
 static void
-search_disconnect_set_toggle_connect(const gchar *name, GtkSignalFunc function, 
+search_disconnect_set_toggle_connect(const gchar *name, GCallback function, 
 	                                 gboolean active)
 {
 	GtkWidget *button;
@@ -1345,9 +1344,9 @@ on_search_match_whole_word_toggled (GtkToggleButton *togglebutton,
 {
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)))
 	{
-		search_disconnect_set_toggle_connect(WHOLE_LINE, (GtkSignalFunc) 
+		search_disconnect_set_toggle_connect(WHOLE_LINE, (GCallback) 
 				on_search_match_whole_line_toggled, FALSE);
-		search_disconnect_set_toggle_connect(WORD_START, (GtkSignalFunc) 
+		search_disconnect_set_toggle_connect(WORD_START, (GCallback) 
 				on_search_match_word_start_toggled, FALSE);
 	}
 }
@@ -1358,9 +1357,9 @@ on_search_match_whole_line_toggled (GtkToggleButton *togglebutton,
 {
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)))
 	{
-		search_disconnect_set_toggle_connect(WHOLE_WORD, (GtkSignalFunc) 
+		search_disconnect_set_toggle_connect(WHOLE_WORD, (GCallback) 
 				on_search_match_whole_word_toggled, FALSE);
-		search_disconnect_set_toggle_connect(WORD_START, (GtkSignalFunc) 
+		search_disconnect_set_toggle_connect(WORD_START, (GCallback) 
 				on_search_match_word_start_toggled, FALSE);
 	}
 }
@@ -1371,9 +1370,9 @@ on_search_match_word_start_toggled (GtkToggleButton *togglebutton,
 {	
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(togglebutton)))
 	{
-		search_disconnect_set_toggle_connect(WHOLE_WORD, (GtkSignalFunc) 
+		search_disconnect_set_toggle_connect(WHOLE_WORD, (GCallback) 
 				on_search_match_whole_word_toggled, FALSE);
-		search_disconnect_set_toggle_connect(WHOLE_LINE, (GtkSignalFunc) 
+		search_disconnect_set_toggle_connect(WHOLE_LINE, (GCallback) 
 				on_search_match_whole_line_toggled, FALSE);
 	}
 }
@@ -1436,15 +1435,15 @@ search_set_toggle_direction(SearchDirection dir)
 	switch (dir)
 	{
 		case SD_FORWARD :
-			search_disconnect_set_toggle_connect(SEARCH_FORWARD, (GtkSignalFunc) 
+			search_disconnect_set_toggle_connect(SEARCH_FORWARD, (GCallback) 
 				on_search_forward_toggled, TRUE);
 			break;
 		case SD_BACKWARD :
-			search_disconnect_set_toggle_connect(SEARCH_BACKWARD, (GtkSignalFunc) 
+			search_disconnect_set_toggle_connect(SEARCH_BACKWARD, (GCallback) 
 				on_search_backward_toggled, TRUE);
 			break;
 		case SD_BEGINNING :
-			search_disconnect_set_toggle_connect(SEARCH_FULL_BUFFER, (GtkSignalFunc) 
+			search_disconnect_set_toggle_connect(SEARCH_FULL_BUFFER, (GCallback) 
 				on_search_full_buffer_toggled, TRUE);
 			break;
 	}

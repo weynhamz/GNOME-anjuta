@@ -1,3 +1,20 @@
+2007-03-08  Johannes Schmid,,,  <jhs@idefix>
+
+	* plugins/search/search-replace.c: (search_set_combo),
+	(search_set_action), (search_set_target), (search_set_direction),
+	(create_dialog), (search_disconnect_set_toggle_connect),
+	(on_search_match_whole_word_toggled),
+	(on_search_match_whole_line_toggled),
+	(on_search_match_word_start_toggled),
+	(search_set_toggle_direction):
+	Use GCallback instead of GSignalFunc! We need to fix this code anyway,
+	it's somehow ugly and uses many deprecated widgets
+	
+	Patch from Ritesh Khadgaray <baby.linux@gmail.com>:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
+	Fix #394709
+	
+
 2007-03-07  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.c: Make launching projects work from command line. Also
