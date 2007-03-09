@@ -1,3 +1,14 @@
+2007-03-09  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta.c: Fixed session restoration.
+	
+	* plugins/symbol-browser/plugin.c: Fixed crashes due to dangling
+	signal handlers after symbol browser plugin is deactivated.
+	
+	* plugins/editor/editor.glade,
+	plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
+	Fixed indentation confustion in preferences.
+
 2007-03-08  Johannes Schmid,,,  <jhs@idefix>
 
 	* plugins/search/search-replace.c: (search_set_combo),
@@ -14,7 +25,6 @@
 	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
 	Fix #394709
 	
-
 2007-03-07  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.c: Make launching projects work from command line. Also

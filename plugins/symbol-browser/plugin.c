@@ -64,6 +64,11 @@ static void on_treesearch_symbol_selected_event (AnjutaSymbolSearch *search,
 												 SymbolBrowserPlugin *sv_plugin);
 static void update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin);
 
+static void on_editor_update_ui (IAnjutaEditor *editor,
+								 SymbolBrowserPlugin *sv_plugin);
+static void on_char_added (IAnjutaEditor *editor, gint position, gchar ch,
+						   SymbolBrowserPlugin *sv_plugin);
+
 #define REGISTER_ICON(icon, stock_id) \
 	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
 	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
@@ -601,7 +606,6 @@ on_treesearch_symbol_selected_event (AnjutaSymbolSearch *search,
 	}
 }
 
-
 static void
 on_editor_destroy (SymbolBrowserPlugin *sv_plugin, IAnjutaEditor *editor)
 {
@@ -618,7 +622,6 @@ on_editor_destroy (SymbolBrowserPlugin *sv_plugin, IAnjutaEditor *editor)
 	}
 	g_hash_table_remove (sv_plugin->editor_connected, G_OBJECT (editor));
 }
-
 
 static void
 on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
@@ -697,6 +700,12 @@ on_editor_foreach_disconnect (gpointer key, gpointer value, gpointer user_data)
 {
 	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
 										  G_CALLBACK (on_editor_saved),
+										  user_data);
+	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
+										  G_CALLBACK (on_editor_update_ui),
+										  user_data);
+	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
+										  G_CALLBACK (on_char_added),
 										  user_data);
 	g_object_weak_unref (G_OBJECT(key),
 						 (GWeakNotify) (on_editor_destroy),
@@ -836,8 +845,7 @@ iter_matches(SymbolBrowserPlugin *sv_plugin, GtkTreeIter* iter,
 }
 
 static void
-on_editor_update_ui (IAnjutaEditor *editor,
-				 SymbolBrowserPlugin *sv_plugin) 
+on_editor_update_ui (IAnjutaEditor *editor, SymbolBrowserPlugin *sv_plugin) 
 {
 	static gint last_line = 0;
 	gint lineno = ianjuta_editor_get_lineno(editor, NULL);
@@ -869,9 +877,8 @@ on_editor_update_ui (IAnjutaEditor *editor,
 
 static void
 on_char_added (IAnjutaEditor *editor, gint position, gchar ch,
-				 SymbolBrowserPlugin *sv_plugin) {
-	
-	
+			   SymbolBrowserPlugin *sv_plugin)
+{
 	DEBUG_PRINT ("char added @ %d : %c [int %d]", position, ch, ch);
 	
 	/* try to force the update if a "." or a "->" is pressed */

@@ -38,6 +38,8 @@
 #define DEFAULT_PROFILE "file://"PACKAGE_DATA_DIR"/profiles/default.profile"
 #define USER_PROFILE_NAME "user"
 
+static gchar *system_restore_session = NULL;
+
 static gboolean
 on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 {
@@ -149,7 +151,7 @@ on_profile_scoped (AnjutaProfileManager *profile_manager,
 				   AnjutaProfile *profile, AnjutaApp *app)
 {
 	gchar *session_dir;
-	AnjutaSession *session;
+	static gboolean first_time = TRUE;
 	
 	DEBUG_PRINT ("Profile scoped: %s", anjuta_profile_get_name (profile));
 	if (strcmp (anjuta_profile_get_name (profile), USER_PROFILE_NAME) != 0)
@@ -158,10 +160,24 @@ on_profile_scoped (AnjutaProfileManager *profile_manager,
 	DEBUG_PRINT ("User profile loaded; Restoring user session");
 	
 	/* If profile scoped to "user", restore user session */
-	session_dir = USER_SESSION_PATH_NEW;
-	
-	/* Clear the files list since we don't want to load them */
+	if (system_restore_session)
 	{
+		session_dir = system_restore_session;
+		system_restore_session = NULL;
+	}
+	else
+	{
+		session_dir = USER_SESSION_PATH_NEW;
+	}
+	
+	if (first_time)
+	{
+		first_time = FALSE;
+	}
+	else
+	{
+		/* Clear the files list since we don't want to load them later */
+		AnjutaSession *session;
 		session = anjuta_session_new (session_dir);
 		anjuta_session_set_string_list (session, "File Loader",
 										"Files", NULL);
@@ -202,7 +218,6 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 {
 	AnjutaPluginManager *plugin_manager;
 	AnjutaProfileManager *profile_manager;
-	gchar *session_dir;
 	AnjutaApp *app;
 	AnjutaStatus *status;
 	GnomeClient *client;
@@ -300,10 +315,11 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 		/* Load the last session */
 		const gchar *prefix;
 		prefix = gnome_client_get_config_prefix (client);
-		session_dir = gnome_config_get_real_path (prefix);
+		system_restore_session = gnome_config_get_real_path (prefix);
 	}
 	else if (prog_args || geometry)
 	{
+		gchar *session_dir;
 		AnjutaSession *session;
 		GList *node, *files_load = NULL;
 		
@@ -345,9 +361,11 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 		}
 		anjuta_session_sync (session);
 		g_object_unref (session);
+		g_free (session_dir);
 	}
 	else
 	{
+		gchar *session_dir;
 		AnjutaSession *session;
 		
 		/* Load user session */
@@ -374,18 +392,12 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 			anjuta_session_sync (session);
 			g_object_unref (session);
 		}
+		g_free (session_dir);
 	}
 	
-	/* Restore session */
-	anjuta_shell_session_load (ANJUTA_SHELL (app), session_dir, NULL);
-	g_free (session_dir);
-
 	/* Prepare for session save and load on profile change */
 	g_signal_connect (profile_manager, "profile-scoped",
 					  G_CALLBACK (on_profile_scoped), app);
-	g_signal_connect (profile_manager, "profile-descoped",
-					  G_CALLBACK (on_profile_descoped), app);
-	
 	/* Load project file */
 	if (project_file)
 	{
@@ -395,12 +407,16 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 		ianjuta_file_loader_load (loader, project_file, FALSE, NULL);
 	}
 	anjuta_profile_manager_thaw (profile_manager, &error);
+	
 	if (error)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (app), "%s", error->message);
 		g_error_free (error);
 		error = NULL;
 	}
+	g_signal_connect (profile_manager, "profile-descoped",
+					  G_CALLBACK (on_profile_descoped), app);
+	
 	anjuta_status_progress_tick (status, NULL, _("Loaded Session..."));
 	return app;
 }
