@@ -1,3 +1,11 @@
+2007-03-09  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/Makefile.am.iface:
+	Fixed installtion of header files
+	
+	* plugins/sourceview/sourceview.c: (set_select):
+	do not scroll to much in interactive search
+
 2007-03-09  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.c: Fixed session restoration.
@@ -9,7 +17,7 @@
 	plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
 	Fixed indentation confustion in preferences.
 
-2007-03-08  Johannes Schmid,,,  <jhs@idefix>
+2007-03-08  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/search/search-replace.c: (search_set_combo),
 	(search_set_action), (search_set_target), (search_set_direction),

@@ -1037,8 +1037,9 @@ set_select(Sourceview* sv, GtkTextIter* start_iter, GtkTextIter* end_iter)
 									  "insert", start_iter);
 	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->document),
 									  "selection_bound", end_iter);
-	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(sv->priv->view),
-		 gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)));			
+	gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(sv->priv->view),
+								 gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)),
+								 0,  FALSE, 0, 0);			
 }
 
 /* IAnjutaEditorSelection */
