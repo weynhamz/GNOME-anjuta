@@ -114,7 +114,6 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, Sourceview *sv)
 						  anjuta_document_get_uri(sv->priv->document), NULL);
 	}
 	gtk_widget_destroy (dlg);
-	sv->priv->file_modified_widget = NULL;
 }
 
 /* Update Monitor on load/save */
@@ -166,8 +165,6 @@ on_sourceview_uri_changed_prompt (Sourceview* sv)
 					  G_CALLBACK (on_reload_dialog_response),
 					  sv);
 	gtk_widget_show (dlg);
-	
-	sv->priv->file_modified_widget = dlg;
 
 	g_signal_connect_swapped (G_OBJECT(dlg), "delete-event",
 					  G_CALLBACK (gtk_widget_destroy),
@@ -185,30 +182,17 @@ on_sourceview_uri_changed (GnomeVFSMonitorHandle *handle,
 {
 	Sourceview *sv = ANJUTA_SOURCEVIEW (user_data);
 	
-	/* DEBUG_PRINT ("File changed!!!"); */
-	
 	if (!(event_type == GNOME_VFS_MONITOR_EVENT_CHANGED ||
 		  event_type == GNOME_VFS_MONITOR_EVENT_CREATED))
 		return;
 	
 	if (!anjuta_util_diff (anjuta_document_get_uri(sv->priv->document), sv->priv->last_saved_content))
 	{
-		/* The file content is same. Remove any previous prompt for reload */
-		if (sv->priv->file_modified_widget)
-			gtk_widget_destroy (sv->priv->file_modified_widget);
-		sv->priv->file_modified_widget = NULL;
 		return;
 	}
-	DEBUG_PRINT("Files differ");
 	
 	
 	if (strcmp (monitor_uri, info_uri) != 0)
-		return;
-	
-	/* If the file modified dialog is already shown, don't bother showing it
-	 * again.
-	 */
-	if (sv->priv->file_modified_widget)
 		return;
 	
 	on_sourceview_uri_changed_prompt(sv);	
@@ -514,7 +498,6 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 	
 	/* VFS monitor */
 	sv->priv->last_saved_content = NULL;
-	sv->priv->file_modified_widget = NULL;
 	
 	/* Apply Preferences */
 	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
@@ -591,6 +574,7 @@ ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 	/* TODO: Set correct encoding */
 	gtk_text_buffer_get_bounds (GTK_TEXT_BUFFER(sv->priv->document),
 								&start_iter, &end_iter);
+	g_free(sv->priv->last_saved_content);
 	sv->priv->last_saved_content = gtk_text_buffer_get_slice (
 															  GTK_TEXT_BUFFER(sv->priv->document),
 															  &start_iter, &end_iter, TRUE);

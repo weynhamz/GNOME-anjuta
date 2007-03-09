@@ -554,7 +554,7 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 			}
 		}
 	}
-	column = gtk_tree_view_get_column(GTK_TREE_VIEW(fv->tree), 2);
+	column = gtk_tree_view_get_column(GTK_TREE_VIEW(fv->tree), 1);
 	gtk_tree_view_column_set_visible(column, entries != NULL);
 															 
 	
