@@ -714,21 +714,6 @@ static gchar* ieditor_get_text(IAnjutaEditor* editor, gint position,
 									&start_iter, &end_iter, TRUE);
 }
 
-static IAnjutaEditorAttribute*
-ieditor_get_attributes(IAnjutaEditor* editor, 
-					   gint positon, gint length, GError **e)
-{
-	gint i;
-	IAnjutaEditorAttribute *attribs = g_new0(IAnjutaEditorAttribute, length);
-	
-	for (i = 0; i < length; i++)
-	{
-		/* FIXME */
-		attribs[i] = IANJUTA_EDITOR_TEXT;
-	}
-	return attribs;
-}
-
 /* Get cursor position */
 static gint ieditor_get_position(IAnjutaEditor* editor, GError **e)
 {
@@ -985,11 +970,10 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->set_tabsize = ieditor_set_tab_size;
 	iface->get_use_spaces = ieditor_get_use_spaces;
 	iface->set_use_spaces = ieditor_set_use_spaces;
-  iface->set_auto_indent = ieditor_set_auto_indent;
+    iface->set_auto_indent = ieditor_set_auto_indent;
 	iface->goto_line = ieditor_goto_line;
 	iface->goto_position = ieditor_goto_position;
 	iface->get_text = ieditor_get_text;
-  iface->get_attributes = ieditor_get_attributes;
 	iface->get_position = ieditor_get_position;
 	iface->get_lineno = ieditor_get_lineno;
 	iface->get_length = ieditor_get_length;

@@ -27,6 +27,7 @@
 
 #include "anjuta-profile.h"
 #include "anjuta-marshal.h"
+#include "anjuta-debug.h"
 
 enum
 {
@@ -808,14 +809,16 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 	node = priv->plugins;
 	while (node)
 	{
+		AnjutaPluginDescription *desc;
+		desc = (AnjutaPluginDescription *)node->data;
 		if (!g_hash_table_lookup (priv->plugins_to_exclude_from_sync,
 								  node->data))
 		{
-			AnjutaPluginDescription *desc;
+			
 			gchar *user_activatable = NULL;
 			gchar *name = NULL, *plugin_id = NULL;
 			
-			desc = (AnjutaPluginDescription *)node->data;
+			
 			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 												  "UserActivatable",
 												  &user_activatable);
@@ -829,6 +832,7 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 			
 			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 												  "Name", &name);
+			DEBUG_PRINT("Saving plugin: %s", name);
 			if (!name)
 				name = g_strdup ("Unknown");
 			
@@ -848,6 +852,14 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 				g_free (plugin_id);
 			}
 			g_free (name);
+		}
+		else
+		{
+			gchar* name;
+			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+												  "Name", &name);
+			DEBUG_PRINT("excluding plugin: %s", name);
+			g_free(name);
 		}
 		node = g_list_next (node);
 	}

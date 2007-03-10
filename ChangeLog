@@ -1,3 +1,23 @@
+2007-03-10  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-profile.c: (anjuta_profile_to_xml):
+	Added some debug output but could not figure out why 
+	some plugins are not kept.
+	
+	* libanjuta/interfaces/libanjuta.idl:
+	* manuals/reference/libanjuta/tmpl/ianjuta-editor.sgml:
+	* manuals/reference/libanjuta/tmpl/libanjuta-unused.sgml:
+	Added IAnjutaEditorGoto::matching_brace
+	
+	* plugins/document-manager/action-callbacks.c:
+	(on_editor_command_match_brace_activate):
+	* plugins/document-manager/plugin.c:
+	(update_editor_ui_interface_items):
+	* plugins/editor/text_editor.c: (igoto_matching_brace),
+	(igoto_iface_init):
+	* plugins/sourceview/sourceview.c: (ieditor_iface_init):
+	Fixed #355155 (matching brace for scintilla, disabled for sourceview)
+
 2007-03-09  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/file-manager/an_file_view.c: (fv_add_tree_entry):

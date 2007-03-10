@@ -415,8 +415,7 @@ on_editor_command_select_block_activate (GtkAction * action, gpointer data)
 void
 on_editor_command_match_brace_activate (GtkAction * action, gpointer data)
 {
-	// FIXME:
-	// on_editor_command_activate (action, ANE_MATCHBRACE, data);
+	ianjuta_editor_goto_matching_brace (IANJUTA_EDITOR_GOTO (get_current_editor(data)), NULL);
 }
 
 void

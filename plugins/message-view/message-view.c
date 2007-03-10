@@ -868,9 +868,9 @@ void message_view_next(MessageView* view)
 			{
 				GtkTreePath *path;
 				path = gtk_tree_model_get_path (model, &iter);
-				gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW
+				gtk_tree_view_set_cursor (GTK_TREE_VIEW
 											  (view->privat->tree_view),
-											  path, NULL, FALSE, 0, 0);
+											  path, NULL, FALSE);
 				gtk_tree_path_free (path);
 				g_signal_emit_by_name (G_OBJECT (view), "message_clicked", 
 									   message);

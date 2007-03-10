@@ -3140,10 +3140,18 @@ igoto_end_block(IAnjutaEditorGoto* editor, GError** e)
 }
 
 static void
+igoto_matching_brace(IAnjutaEditorGoto* editor, GError** e)
+{
+	TextEditor* te = TEXT_EDITOR(editor);
+	text_editor_command (te, ANE_MATCHBRACE, 0, 0);
+}
+
+static void
 igoto_iface_init(IAnjutaEditorGotoIface* iface)
 {
 	iface->start_block = igoto_start_block;
 	iface->end_block = igoto_end_block;
+	iface->matching_brace = igoto_matching_brace;
 }
 
 static const GList*

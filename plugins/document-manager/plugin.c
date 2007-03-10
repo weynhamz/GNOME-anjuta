@@ -720,6 +720,8 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 	g_object_set(G_OBJECT (action), "visible", flag, NULL);
 	action = anjuta_ui_get_action(ui,  "ActionGroupEditorNavigate", "ActionEditGotoBlockEnd");
 	g_object_set(G_OBJECT (action), "visible", flag, NULL);
+	action = anjuta_ui_get_action(ui,  "ActionGroupEditorNavigate", "ActionEditGotoMatchingBrace");
+	g_object_set(G_OBJECT (action), "visible", flag, NULL);	
 }
 
 static void

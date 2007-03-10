@@ -845,28 +845,6 @@ interface IAnjutaEditor
 	 * The returned buffer must be freed when no longer required.
 	 */
 	gchar* get_text (gint position, gint length);
-	
-	/**
-	 * ianjuta_editor_get_attributes:
-	 * @obj: Self
-	 * @start: Begining position
-	 * @end: End position
-	 * @err: Error propagation and reporting
-	 *
-	 * Gets the character attributes for characters between begining
-	 * position and end position (including themselves). Character attributes
-	 * are really only meaningful in the editor context from which it was
-	 * taken. Therefore, the returned data is mainly to be passed back to
-	 * the editor.
-	 *
-	 * Character attributes chould contain display information of the
-	 * character, such as font, size, color, highlight information etc.
-	 * 
-	 * Returns: A buffer of character attributes, indexed in sequence for
-	 * characters starting at begining position and ending at end position.
-	 * The returned buffer must be freed when no longer required.
-	 */
-	Attribute* get_attributes (gint start, gint length);
 
 	/*
 	 * ianjuta_editor_get_position:
@@ -1639,6 +1617,16 @@ interface IAnjutaEditor
 		 * Moves cursor to the end of the current block
 		 */
 		void end_block();
+
+		/**
+		 * ianjuta_editor_goto_matching_brace()
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Moves cursor to matching brace
+		 */
+		void matching_brace();
+		
 	}
 }
 
