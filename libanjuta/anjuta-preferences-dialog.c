@@ -18,6 +18,17 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+/**
+ * SECTION:anjuta-preferences-dialog
+ * @short_description: Preferences dialog
+ * @see_also: #AnjutaPreferences
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-preferences-dialog.h
+ * 
+ * Plugins can added preferences page with anjuta_preferences_dialog_add_page().
+ * However, read #AnjutaPreferences for adding proper preferences pages.
+ */
+
 #include <config.h>
 
 #include <glib/gi18n.h>

@@ -26,6 +26,16 @@
  */
  /* Stolen from gedit - Naba */
 
+/**
+ * SECTION:anjuta-encodings
+ * @title: AnjutaEncoding
+ * @short_description: Text encoding and decoding
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-encodings.h
+ * 
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif

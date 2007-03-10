@@ -17,6 +17,58 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+/**
+ * SECTION:anjuta-shell
+ * @title: AnjutaShell
+ * @short_description: Application shell interface
+ * @see_also:
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-shell.h
+ * 
+ * Shell is the playground where plugins are loaded and their UI
+ * widgets shown. It is also a place where plugins export objects for letting
+ * other pluings to use. Plugins are loaded into shell on demand, but some
+ * plugins are loaded on startup (such as help and text editor plugin).
+ * Demand to load a plugin can be made by requesting for a primary inferface
+ * using anjuta_shell_get_interface() or anjuta_shell_get_object().
+ * 
+ * Plugins can add widgets in shell with
+ * anjuta_shell_add_widget() and remove with anjuta_shell_remove_widget()
+ * functions.
+ * 
+ * In Anjuta, shell is implemented using an advanced widget docking system,
+ * allowing plugin widgets to dock, undock and layout in any fashion. Dock
+ * layout is also maintained internally and is transparent to plugin
+ * implementations.
+ * 
+ * #AnjutaShell allows plugins to export arbitrary objects as <emphasis>
+ * values</emphasis> in its <emphasis>Values System</emphasis>. "value_added"
+ * and "value_removed" signals are emitted when a value is added to or
+ * removed from the <emphasis>Values System</emphasis>, hence notifying
+ * plugins of its state. However, plugins should really not connect directly
+ * to these signals, because they are emitted for all values
+ * and not just for the values the plugin is interested in. Instead,
+ * to monitor specific <emphasis>Values</emphasis>, plugins should
+ * setup watches using anjuta_plugin_add_watch().
+ * 
+ * <emphasis>Values</emphasis> are added, get or removed with
+ * anjuta_shell_add_value() and anjuta_shell_get_value() or
+ * anjuta_shell_remove_value(). There multi-valued equivalent functions
+ * can be used to manipulate multiple values at once.
+ * 
+ * <emphasis>Values</emphasis> are identified with names. Since <emphasis>
+ * Values</emphasis> are effectively variables, their names should follow
+ * the standard GNOME variable naming convention and should be as descriptive
+ * as possible (e.g project_root_directory, project_name etc.). It is also
+ * essential that meaningful prefix be given to names so that <emphasis>
+ * Values</emphasis> are easily grouped (e.g all values exported by a 
+ * project manager should start with project_ prefix).
+ * 
+ * Plugins can find other plugins with anjuta_shell_get_object() or 
+ * anjuta_shell_get_interface() based on their primary interfaces.
+ */
+
 #include <config.h>
 #include <string.h>
 #include <gobject/gvaluecollector.h>

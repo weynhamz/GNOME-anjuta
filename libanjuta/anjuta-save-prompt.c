@@ -18,6 +18,15 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/**
+ * SECTION:anjuta-save-prompt
+ * @short_description: Save dialog prompt for unsaved data
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-save-prompt.h
+ * 
+ */
+
 #include <glib/gi18n.h>
 #include <gtk/gtktreeview.h>
 #include <gtk/gtkliststore.h>

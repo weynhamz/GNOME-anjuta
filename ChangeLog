@@ -1,3 +1,33 @@
+2007-03-11  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, manuals/reference/libanjuta/Makefile.am: Fixed to use
+	gtk-doc properly. Bumped gtk-doc requirement to 1.4
+
+	* manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta.types,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	manuals/reference/libanjuta/.cvsignore,
+	(removed) manuals/reference/libanjuta/tmpl/*: Updated API docs
+	infrastructure. Got rid of tmpl/ directory and moved all section
+	documenation to source code (requires gtk-doc >= 1.4).
+	
+	* libanjuta/anjuta-plugin-description.c,
+	libanjuta/interfaces/libanjuta.idl,	libanjuta/anjuta-status.c,
+	libanjuta/cell-renderer-captioned-image.c,
+	libanjuta/anjuta-plugin-handle.c, libanjuta/resources.c,
+	libanjuta/anjuta-debug.h, libanjuta/glue-cpp.c,
+	libanjuta/e-splash.c, libanjuta/anjuta-plugin.c,
+	libanjuta/anjuta-preferences-dialog.c, libanjuta/libanjuta.h,
+	libanjuta/anjuta-plugin-manager.c, libanjuta/anjuta-shell.c,
+	libanjuta/glue-plugin.c, libanjuta/anjuta-encodings.c,
+	libanjuta/anjuta-save-prompt.c, libanjuta/glue-factory.c,
+	libanjuta/anjuta-session.c, libanjuta/anjuta-children.c,
+	libanjuta/anjuta-utils.c, libanjuta/anjuta-profile.c,
+	libanjuta/anjuta-preferences.c, libanjuta/anjuta-launcher.c,
+	libanjuta/anjuta-profile-manager.c, libanjuta/anjuta-serializer.c,
+	libanjuta/anjuta-ui.c: Added inline API documentation. Moved section
+	documentation from templates to source code.
+
 2007-03-10  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-profile.c: (anjuta_profile_to_xml):

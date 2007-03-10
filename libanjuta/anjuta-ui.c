@@ -17,6 +17,48 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+/**
+ * SECTION:anjuta-ui
+ * @short_description: User Interface manager
+ * @see_also: #GtkAction, #GtkActionEntry, #GtkToggleAction,
+ *   #GtkToggleActionEntry, #GtkRadioAction, #GtkRadioActionEntry,
+ *   #GtkActionGroup, #GtkUIManager
+ * @stability: Unstable
+ * @include: libanjuta/
+ * 
+ * #AnjutaUI subclasses #GtkUIManager, so you should really read #GtkUIManager
+ * documentation first to know about Actions, UI merging and UI XML file
+ * format. This documentation will cover only the relevent	APIs.
+ * 
+ * #AnjutaUI has its own methods for adding action groups, which is differnt
+ * from #GtkUIManager methods. All #AnjutaPlugin based classes should use
+ * these methods instead of #GtkUIManager methods. The reason is, in addition
+ * to adding the actions and groups to the UI manager, it also resgisters
+ * them for UI customization and accellerators editing. It also keeps
+ * record of all actions.
+ * 
+ * An interesting side effect of this is that these
+ * actions could be conveniently accessed or activated with
+ * anjuta_ui_get_action() or anjuta_ui_activate_action_by_path(), without
+ * the need of original action group object. This makes it is possible for
+ * activating actions remotely from other plugins.
+ * 
+ * anjuta_ui_get_accel_editor() will return a widget containing the
+ * UI customization and accellerators editor. All actions and action groups
+ * are organized into a tree view, which should be added to a visible
+ * container (e.g. a #GtkDialog based object) and displayed to users.
+ * 
+ * <note>
+ * 	<para>
+ * 		Any actions additions/removals using #GtkUIManager are not
+ * 		registred with #AnjutaUI and hence their accellerators
+ * 		cannot be edited. Nor will they be listed in UI manager
+ * 		dialog. Hence, use #AnjutaUI methods whenever possible.
+ * 	</para>
+ * </note>
+ */
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif

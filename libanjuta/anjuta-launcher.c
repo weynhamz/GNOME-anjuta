@@ -17,6 +17,16 @@
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
+
+/**
+ * SECTION:anjuta-launcher
+ * @short_description: External process launcher with async input/output
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-launcher.h
+ * 
+ */
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif

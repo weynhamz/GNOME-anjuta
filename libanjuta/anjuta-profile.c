@@ -18,6 +18,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+/**
+ * SECTION:anjuta-profile
+ * @short_description: Profile is a collection of plugins
+ * @see_also: #AnjutaProfileManager, #AnjutaPlugin
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-profile.h
+ * 
+ */
+
 #include <glib/gi18n.h>
 #include <glib/gerror.h>
 #include <string.h>

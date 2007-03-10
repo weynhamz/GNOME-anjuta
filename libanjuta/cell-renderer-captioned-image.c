@@ -18,6 +18,15 @@
  * Boston, MA 02111-1307, USA.
  */
 
+/**
+ * SECTION:cell-renderer-captioned-image
+ * @short_description: Captioned image cell renderer
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/cell-renderer-captioned-image.h
+ * 
+ */
+
 #include <stdlib.h>
 #include <glib/gi18n.h>
 

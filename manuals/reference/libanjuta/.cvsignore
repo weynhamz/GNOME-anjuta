@@ -13,6 +13,7 @@ libanjuta.signals
 deprecated
 html
 xml
+tmpl
 *.stamp
 *.lo
 .libs

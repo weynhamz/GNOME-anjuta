@@ -18,6 +18,15 @@
  * Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
 
+/**
+ * SECTION:anjuta-status
+ * @short_description: Program status such as status message, progress etc. 
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-status.h
+ * 
+ */
+
 #include <config.h>
 #include <gtk/gtkwindow.h>
 #include <libanjuta/anjuta-status.h>

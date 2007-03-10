@@ -1,3 +1,13 @@
+
+/**
+ * SECTION:glue-factory
+ * @short_description: Underlying plugin factory
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/glue-factory.h
+ * 
+ */
+
 #include <string.h>
 #include <gmodule.h>
 #include "glue-factory.h"

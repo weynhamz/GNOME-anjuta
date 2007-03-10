@@ -18,6 +18,18 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+/**
+ * SECTION:anjuta-plugin-handle
+ * @short_description: Handle used by plugin manager to keep track of plugins.
+ * @see_also: #AnjutaPluginManager, #AnjutaPluginDescription, #AnjutaPlugin
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-plugin-handle.h
+ *
+ * Plugin handle is wrapper for installed plugins. For each installed plugin
+ * there will be one corresponding plugin handle. It is mainly used by
+ * plugin manager to keep track of loading and unloading of plugins.
+ */
+
 #include <string.h>
 #include "anjuta-plugin-handle.h"
 #include "resources.h"

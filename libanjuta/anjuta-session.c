@@ -18,6 +18,15 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/**
+ * SECTION:anjuta-session
+ * @short_description: Program session
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-session.h
+ * 
+ */
+
 #include <stdlib.h>
 #include <string.h>
 #include <libgnome/gnome-config.h>

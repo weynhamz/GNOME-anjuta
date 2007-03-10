@@ -1,3 +1,13 @@
+
+/**
+ * SECTION:glue-plugin
+ * @short_description: Glue plugin
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/glue-plugin.h
+ * 
+ */
+
 #include "glue-plugin.h"
 
 static void glue_plugin_init       (GluePlugin *plugin);

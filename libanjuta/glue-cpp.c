@@ -16,6 +16,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor Boston, MA 02110-1301,  USA
  */
 
+/**
+ * SECTION:glue-cpp
+ * @title: GlueCpp
+ * @short_description: C++ glue code
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/glue-cpp.h
+ * 
+ */
+
 #include "glue-cpp.h"
 #include "glue-factory.h"
 

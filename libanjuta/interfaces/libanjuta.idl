@@ -21,10 +21,16 @@
 #include <glib-object.h>
 
 /**
-* IAnjutaFile:
-* 
-* Implemented by all plugins that can open files.
-*/
+ * SECTION:ianjuta-file
+ * @short_description: Implemented by all plugins that can open files.
+ * @see_also: #IAnjutaFileSavable
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-file.h
+ * 
+ * Any plugin that can open files should implemented this interface. Along
+ * with the 'File Loader::SupportedMimeTypes' property of the plugin in
+ * .plugin file, it will be used by the loader to open files of that type.
+ */
 interface IAnjutaFile
 {
 	/**
@@ -48,7 +54,16 @@ interface IAnjutaFile
 	 */
 	gchar* get_uri ();
 	
-	// Implemented by plugins which can also edit the files
+	/**
+	 * SECTION:ianjuta-file-savable
+	 * @short_description: Implemented by plugins that can save files.
+	 * @see_also: #IAnjutaFile
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-file-savable.h
+	 * 
+	 * Plugins implementing #IAnjutaFile inteface that can also save files
+	 * should also implement this interface.
+	 */
 	interface IAnjutaFileSavable
 	{
 		// Signals

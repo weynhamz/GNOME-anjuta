@@ -17,6 +17,17 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/**
+ * SECTION:anjuta-debug
+ * @title: Debugging
+ * @short_description: Debug functions 
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-debug.h
+ * 
+ */
+
 #ifndef __ANJUTA_DEBUG__
 #define __ANJUTA_DEBUG__
 
@@ -26,6 +37,7 @@
  * Equivalent to g_message(), except it has only effect when DEBUG is
  * defined. Used for printing debug messages.
  */
+
 #ifdef DEBUG
 #  define DEBUG_PRINT g_message
 #else

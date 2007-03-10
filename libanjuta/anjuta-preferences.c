@@ -17,6 +17,46 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+/**
+ * SECTION:anjuta-preferences
+ * @short_description: Anjuta Prefereces system.
+ * @see_also: #AnjutaPreferencesDialog
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-preferences.h
+ * 
+ * #AnjutaPreferences is a way to let plugins register their preferences. There
+ * are mainly two ways a plugin could register its preferences in Anjuta.
+ * 
+ * First is to not use #AnjutaPreferences at all. Simply register a
+ * preferences page in #AnjutaPreferencesDialog using the function
+ * anjuta_preferences_dialog_add_page(). The plugin should take
+ * care of loading, saving and widgets synchronization of the
+ * preferences values. It is particularly useful if the plugin
+ * uses gconf system for its preferences. Also no "changed"
+ * signal will be emitted from it.
+ * 
+ * Second is to use anjuta_preferences_add_page(), which will
+ * automatically register the preferences keys and values from
+ * a glade xml file. The glade xml file contains a preferences
+ * page of the plugin. The widget names in the page are
+ * given in a particular way (see anjuta_preferences_add_page()) to
+ * let it know property key details. Loading, saving and
+ * widget synchronization are automatically done. "changed" signal is
+ * emitted when a preference is changed.
+ * 
+ * anjuta_preferences_register_all_properties_from_glade_xml() only registers
+ * the preferences propery keys for automatic loading, saving and widget
+ * syncrhronization, but does not add the page in preferences dialog. It
+ * is useful if the plugin wants to show the preferences page somewhere else.
+ * 
+ * anjuta_preferences_register_property_from_string() is similar to 
+ * anjuta_preferences_register_all_properties_from_glade_xml(), but it only
+ * registers one property, the detail of which is given in its arguments.
+ * anjuta_preferences_register_property_custom() is used to register a
+ * property that uses a widget which is not supported by #AnjutaPreferences.
+ */
+
 #ifdef HAVE_CONFIG_H
 #  include <config.h>
 #endif

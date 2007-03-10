@@ -18,6 +18,26 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/**
+ * SECTION:anjuta-children
+ * @title: Children management
+ * @short_description: Children management in Anjuta
+ * @see_also:
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-children.h
+ * 
+ * All child processes in anjuta are registred using API here. SIGCHLD should
+ * never be used directly. Use anjuta_children_register() or
+ * anjuta_children_unregister() to register or unregister a child process.
+ * Notifications are sent if callback function is given in
+ * anjuta_children_register(), which can be used in lieu of hooking SIGCHLD
+ * signal.
+ * 
+ * plugin developers should not bother about anjuta_children_init() and
+ * anjuta_children_finalize() functions. They are only for the shell
+ * implementor.
+ */
+
 #include <signal.h>
 
 #include <libanjuta/anjuta-children.h>

@@ -18,6 +18,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+/**
+ * SECTION:anjuta-plugin-manager
+ * @short_description: Plugins management and activation
+ * @see_also: #AnjutaPlugin, #AnjutaProfileManager
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-plugin-manager.h
+ * 
+ */
+
 #include <sys/types.h>
 #include <dirent.h>
 #include <string.h>

@@ -21,6 +21,15 @@
  * Author: Ettore Perazzoli
  */
 
+/**
+ * SECTION:e-splash
+ * @short_description: Splash screen
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/e-splash.h
+ * 
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif

@@ -17,6 +17,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+/**
+ * SECTION:anjuta-profile-manager
+ * @short_description: Managers a stack of plugins profiles
+ * @see_also: #AnjutaPluginManager, #AnjutaProfile
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-profile-manager.h
+ * 
+ */
+
 #include <string.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>

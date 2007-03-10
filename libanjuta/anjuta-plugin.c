@@ -19,6 +19,157 @@
  * Boston, MA 02111-1307, USA.  
  */
 
+/**
+ * SECTION:anjuta-plugin
+ * @short_description: Anjuta plugin base class from which all plugins are
+ * derived.
+ * @see_also: #AnjutaPluginManager, #AnjutaProfileManager
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-plugin.h
+ * 
+ * Anjuta plugins are components which are loaded in Anjuta IDE shell
+ * either on startup or on demand to perform various subtasks. Plugins are
+ * specialized in doing only a very specific task and can let other plugins
+ * interract with it using interfaces.
+ * 
+ * A plugin class is derived from #AnjutaPlugin class and will be used by
+ * shell to instanciate any number of plugin objects.
+ * 
+ * When a plugin class is derived from #AnjutaPlugin, the virtual mehtods 
+ * <emphasis>activate</emphasis> and <emphasis>deactivate</emphasis> must 
+ * be implemented. The <emphasis>activate</emphasis> method is used to
+ * activate the plugin. Note that plugin activation is different from plugin
+ * instance initialization. Instance initialization is use to do internal
+ * initialization, while <emphasis>activate</emphasis> method is used to
+ * setup the plugin in shell, UI and preferences. Other plugins can also
+ * be queried in <emphasis>activate</emphasis> method.
+ * 
+ * Following things should be done in <emphasis>activate</emphasis> method.
+ * <orderedlist>
+ * 	<listitem>
+ * 		<para>
+ * 			Register UI Actions: Use anjuta_ui_add_action_group_entries() or 
+ * 			anjuta_ui_add_toggle_action_group_entries() to add your action
+ * 			groups.
+ * 		</para>
+ * 	</listitem>
+ * 	<listitem>
+ * 		<para>
+ * 			Merge UI definition file: Use anjuta_ui_merge() to merge a UI
+ * 			file. See #AnjutaUI for more detail.
+ * 		</para>
+ * 	</listitem>
+ * 	<listitem>
+ * 		<para>
+ * 			Add widgets to Anjuta Shell: If the plugin has one or more
+ * 			widgets as its User Interface, they can be added with
+ * 			anjuta_shell_add_widget().
+ * 		</para>
+ * 	</listitem>
+ * 	<listitem>
+ * 		<para>
+ * 			Setup value watches with anjuta_plugin_add_watch().
+ * 		</para>
+ * 	</listitem>
+ * </orderedlist>
+ * 
+ * <emphasis>deactivate</emphasis> method undos all the above. That is, it
+ * removes widgets from the shell, unmerges UI and removes the action groups.
+ * 
+ * Plugins interact with each other using interfaces. A plugin can expose an
+ * interface which will let other plugins find it. Any number of interfaces can
+ * be exposed by a plugin. These exposed interfaces are called
+ * <emphasis>Primary</emphasis> interfaces of the plugin. The condition for
+ * the interfaces to be primary is that they should be independent (i.e.
+ * an external entity requesting to use a primary interface should not require
+ * other primary interfaces). For example, an editor plugin can implement
+ * #IAnjutaEditor, #IAnjutaStream and #IAnjutaFile interfaces and expose them
+ * as primary interfaces, because they are independent.
+ * <emphasis>Primary</emphasis> interfaces exposed by a plugin are exported in
+ * its plugin meta-data file, so that plugin manager could register them.
+ * 
+ * Any other interfaces implemented by the plugin are called
+ * <emphasis>Secondary</emphasis> interfaces and they generally depend on
+ * one or more primary interfaces.
+ * For example, #IAnjutaEditor is the primary interface of anjuta-editor plugin,
+ * but it also implements secondary interfaces #IAnjutaEditorGutter and
+ * #IAnjutaEditorBuffer. Notice that secondary interfaces #IAnjutaEditorGutter
+ * and #IAnjutaEditorBuffer depend on #IAnjutaEditor interface.
+ * 
+ * The purpose of distinguishing between primary and
+ * secondary interfaces is only at plugin level. At code level, they behave
+ * just the same and there is no difference.
+ * So, a natural sequence for a plugin to communicate with another plugin is:
+ * <orderedlist>
+ * 	<listitem>
+ * 		<para>
+ * 			Query the shell for a plugin implemeting the primary interface
+ * 			using anjuta_shell_get_interface(). It will return an
+ * 			implemetation of the interface (or NULL if not found).
+ * 			Do not save this object for longer use, because the implementor
+ * 			plugin can change anytime and a different plugin implementing
+ * 			the same primary interface may be activated.
+ * 				<programlisting>
+ * GError *err = NULL;
+ * IAnjutaDocumentManager *docman;
+ * IAnjutaEditor *editor;
+ * 
+ * docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
+ *                                      IAnjutaDocumentManager, &amp;err);
+ * if (err)
+ * {
+ * 	g_warning ("Error encountered: %s", err->message);
+ * 	g_error_free (err);
+ * 	return;
+ * }
+ * 
+ * editor = ianjuta_document_manager_get_current_editor (docman, &amp;err);
+ * if (err)
+ * {
+ * 	g_warning ("Error encountered: %s", err->message);
+ * 	g_error_free (err);
+ * 	return;
+ * }
+ * 
+ * ianjuta_editor_goto_line (editor, 200);
+ * ...
+ * 			</programlisting>
+ * 		</para>
+ * </listitem>
+ * <listitem>
+ * 	<para>
+ * 	A primary interface of a plugin can be directly used, but
+ * 	to use a secondary interface, make sure to check if the plugin
+ * 	object implements it. For example, to check if editor plugin
+ * 	implements IAnjutaEditorGutter interface, do something like:
+ * 		<programlisting>
+ * 
+ * if (IANJUTA_IS_EDITOR_GUTTER(editor))
+ * {
+ * 	ianjuta_editor_gutter_set_marker(IANJUTA_EDITOR_GUTTER (editor),
+ * 	                                 ANJUTA_EDITOR_MARKER_1,
+ * 	                                 line_number, &amp;err);
+ * }
+ * 			</programlisting>
+ * 		</para>
+ * 	</listitem>
+ * </orderedlist>
+ * 
+ * Plugins can also communicate with outside using Shell's <emphasis>Values
+ * System</emphasis>. Values are objects exported by plugins to make them
+ * available to other plugins. Read #AnjutaShell documentation for more
+ * detail on <emphasis>Values System</emphasis>. A plugin can set up watches
+ * with anjuta_plugin_add_watch() to get notifications for values exported
+ * by other plugins.
+ * 
+ * Values are very unreliable way of passing objects between plugins, but are
+ * nevertheless very useful (and quicker to code). It must be used with care.
+ * As a rule of thumb, a plugin should only watch values of other trusted
+ * plugins. For example, a group of plugins forming a subsystem can comfortably
+ * use values to pass objects and notifications. Use anjuta_plugin_add_watch()
+ * and anjuta_plugin_remove_watch() to add or remove value watches.
+ */
+
 #include <config.h>
 #include <string.h>
 #include <libanjuta/anjuta-marshal.h>

@@ -18,6 +18,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
+/**
+ * SECTION:anjuta-plugin-description
+ * @title: AnjutaPluginDescription
+ * @short_description: Plugin description from .plugin file
+ * @see_also: #AnjutaPlugin, #AnjutaPluginHandle
+ * @stability: Unstable
+ * @include: libanjuta/anjuta-plugin-description.h
+ * 
+ */
+
 #include <string.h>
 #include <locale.h>
 #include <stdlib.h>
