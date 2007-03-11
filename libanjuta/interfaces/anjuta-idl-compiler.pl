@@ -652,7 +652,7 @@ sub compile_struct
 		$not_classes->{$struct_fullname} = 1;
 		
 		# Add to $type_map
-		print "haha struct $struct_fullname\n";
+		## print "haha struct $struct_fullname\n";
 		$type_map_item_hr->{'gtype'} = 'G_TYPE_POINTER';
 		$type_map_item_hr->{'rettype'} = 'NULL';
 		$type_map_item_hr->{'type'} = "G_TYPE_POINTER";
@@ -667,7 +667,7 @@ sub generate_files
 	foreach my $c (sort keys %$data_hr)
 	{
 		my $parent = $data_hr->{$c}->{'__parent'};
-		print "Generating Interface $c";
+		print "Evaluating Interface $c";
 		if ($parent ne '') {
 			print ": $parent";
 		}
@@ -1177,6 +1177,11 @@ G_END_DECLS
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+";
+	# Added class (section) comments
+	$answer .= $class_hr->{"__comments"};
+	$answer .=
+"
 #include \"$headerfile\"
 #include \"$module_name-iface-marshallers.h\"
 

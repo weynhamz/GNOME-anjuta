@@ -22,7 +22,8 @@
 
 /**
  * SECTION:ianjuta-file
- * @short_description: Implemented by all plugins that can open files.
+ * @title: IAnjutaFile
+ * @short_description: Implemented by plugins that can open files.
  * @see_also: #IAnjutaFileSavable
  * @stability: Unstable
  * @include: libanjuta/interfaces/ianjuta-file.h
@@ -56,6 +57,7 @@ interface IAnjutaFile
 	
 	/**
 	 * SECTION:ianjuta-file-savable
+	 * @title: IAnjutaFileSavable
 	 * @short_description: Implemented by plugins that can save files.
 	 * @see_also: #IAnjutaFile
 	 * @stability: Unstable
@@ -66,7 +68,6 @@ interface IAnjutaFile
 	 */
 	interface IAnjutaFileSavable
 	{
-		// Signals
 		/**
 		 * IAnjutaFileSavable::save_point:
 		 * @obj: Self
@@ -132,11 +133,15 @@ interface IAnjutaFile
 	}
 }
 
-/** 
-* IAnjutaStream:
-*
-* Stream interface
-*/
+/**
+ * SECTION:ianjuta-stream
+ * @title: IAnjutaStream
+ * @short_description: Implemented by plugins that can open file streams
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-stream.h
+ * 
+ */
 interface IAnjutaStream
 {
 	#include <stdio.h>
@@ -151,6 +156,15 @@ interface IAnjutaStream
 	 */
 	void open (FILE* stream);
 	
+	/**
+	 * SECTION:ianjuta-stream-savable
+	 * @title: IAnjutaStreamSavable
+	 * @short_description: Implemented by plugins that can save file streams
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-stream-savable.h
+	 * 
+	 */
 	interface IAnjutaStreamSavable
 	{
 		/**
@@ -166,11 +180,14 @@ interface IAnjutaStream
 }
 
 /**
-* IAnjutaMarkable:
-*
-* Markables.
-* For example, IAnjutaEditor extension - editor capable of marking lines.
-*/
+ * SECTION:ianjuta-markable
+ * @title: IAnjutaMarkable
+ * @short_description: Implemented by editors (or views) with markers support
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-markable.h
+ * 
+ */
 interface IAnjutaMarkable
 {
 	enum Error
@@ -256,6 +273,15 @@ interface IAnjutaMarkable
 	void delete_all_markers (Marker marker);
 }
 
+/**
+ * SECTION:ianjuta-indicable
+ * @title: IAnjutaIndicable
+ * @short_description: Implemented by indicate that indicate a range
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-indicable.h
+ * 
+ */
 interface IAnjutaIndicable
 {
 	enum Indicator
@@ -270,6 +296,15 @@ interface IAnjutaIndicable
 	void clear ();
 }
 
+/**
+ * SECTION:ianjuta-iterable
+ * @title: IAnjutaIterable
+ * @short_description: Implemented by objects that can iterate
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-iterable.h
+ * 
+ */
 interface IAnjutaIterable
 {
 	/**
@@ -397,6 +432,15 @@ interface IAnjutaIterable
 	*/
 	void assign (IAnjutaIterable *src_iter);
 
+	/**
+	 * SECTION:ianjuta-iterable-tree
+	 * @title: IAnjutaIterableTree
+	 * @short_description: Implemented by tree objects that can iterate
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-iterable-tree.h
+	 * 
+	 */
 	interface IAnjutaIterableTree
 	{
 	
@@ -460,10 +504,14 @@ interface IAnjutaIterable
 }
 
 /**
-* IAnjutaBuildable:
-*
-* Implemented by plugins which can build (e.g module manager plugins).
-*/
+ * SECTION:ianjuta-buildable
+ * @title: IAnjutaBuildable
+ * @short_description: Implemented by plugins that can build
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-buildable.h
+ * 
+ */
 interface IAnjutaBuildable
 {
 
@@ -529,24 +577,14 @@ interface IAnjutaBuildable
 }
 
 /**
-* IAnjutaProfile:
-*
-* Studio profile. Like c++ profile, java profile etc.
-*/
-interface IAnjutaProfile
-{
-	/* #include <libanjuta/e-splash.h>*/
-	
-	/**
-	* ianjuta_profile_load:
-	* @obj: Self
-	* @err: Error propagation and reporting
-	*
-	* Load the default profile
-	*/
-	void load ();
-}
-
+ * SECTION:ianjuta-help
+ * @title: IAnjutaHelp
+ * @short_description: Implemented by plugins that can provide help support
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-help.h
+ * 
+ */
 interface IAnjutaHelp
 {
 
@@ -562,14 +600,19 @@ interface IAnjutaHelp
 }
 
 /**
-* IAnjutaLoader:
-*
-* Loaders can deterime correct plugin to open a file or stream.  They
-* themselves can not load it, but will correctly redirect the request to
-* an implementor of IAnjutaFile, IAnjutaFileSavable, IAnjutaStream or
-* IAnjutaStreamSavable, depending on the mime-type, meta-type or any other
-* requirements.
-*/
+ * SECTION:ianjuta-loader
+ * @title: IAnjutaLoader
+ * @short_description: Interface to load file or stream
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-loader.h
+ * 
+ * Loaders can deterime correct plugin to open a file or stream.  They
+ * themselves can not load it, but will correctly redirect the request to
+ * an implementor of IAnjutaFile, IAnjutaFileSavable, IAnjutaStream or
+ * IAnjutaStreamSavable, depending on the mime-type, meta-type or any other
+ * requirements.
+ */
 interface IAnjutaLoader
 {
 	#include <libanjuta/anjuta-plugin.h>
@@ -583,10 +626,15 @@ interface IAnjutaLoader
 	List<AnjutaPlugin*> find_plugins ();
 	
 	/**
-	* IAnjutaFileLoader:
-	*
-	* Loaders can deterime correct plugin to open a file.
-	*/
+	 * SECTION:ianjuta-file-loader
+	 * @title: IAnjutaFileLoader
+	 * @short_description: Loader to load files 
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-file-loader.h
+	 * 
+	 * Loaders can deterime correct plugin to open a file.
+	 */
 	interface IAnjutaFileLoader
 	{
 		/**
@@ -618,10 +666,15 @@ interface IAnjutaLoader
 	}
 	
 	/**
-	* IAnjutaStreamLoader:
-	*
-	* StreamLoaders can deterime correct plugin to open a stream.
-	*/
+	 * SECTION:ianjuta-stream-loader
+	 * @title: IAnjutaStreamLoader
+	 * @short_description: Loader to load streams 
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-stream-loader.h
+	 * 
+	 * StreamLoaders can deterime correct plugin to open a stream.
+	 */
 	interface IAnjutaStreamLoader
 	{
 		#include <stdio.h>
@@ -655,6 +708,15 @@ interface IAnjutaLoader
 	}
 }
 
+/**
+ * SECTION:ianjuta-editor
+ * @title: IAnjutaEditor
+ * @short_description: Text editor interface
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-editor.h
+ * 
+ */
 interface IAnjutaEditor
 {
 	#include <gtk/gtkwidget.h>
@@ -672,8 +734,6 @@ interface IAnjutaEditor
 		COMMENT,
 		STRING
 	}
-	
-	// Signals.
 	
 	/**
 	 * IAnjutaEditor::char_added:
@@ -1074,6 +1134,15 @@ interface IAnjutaEditor
 	 */
 	IAnjutaIterable* get_cell_iter (gint position);
 
+	/**
+	 * SECTION:ianjuta-editor-selection
+	 * @title: IAnjutaEditorSelection
+	 * @short_description: Text editor selection interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-selection.h
+	 * 
+	 */
 	interface IAnjutaEditorSelection
 	{
 		/**
@@ -1214,6 +1283,15 @@ interface IAnjutaEditor
 		void clear ();
 	}
 	
+	/**
+	 * SECTION:ianjuta-editor-convert
+	 * @title: IAnjutaEditorConvert
+	 * @short_description: Text editor convert interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-convert.h
+	 * 
+	 */
 	interface IAnjutaEditorConvert
 	{
 		/**
@@ -1241,6 +1319,15 @@ interface IAnjutaEditor
 		void to_lower (gint start_position, gint end_position);
 	}
 	
+	/**
+	 * SECTION:ianjuta-editor-line-mode
+	 * @title: IAnjutaEditorLineMode
+	 * @short_description: Text editor line mode
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-line-mode.h
+	 * 
+	 */
 	interface IAnjutaEditorLineMode
 	{
 		enum Type
@@ -1294,7 +1381,15 @@ interface IAnjutaEditor
 		void fix ();
 	}
 	
-	/* Editor assistance framework */
+	/**
+	 * SECTION:ianjuta-editor-assist
+	 * @title: IAnjutaEditorAssist
+	 * @short_description: Editor assistance framework
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-assist.h
+	 * 
+	 */
 	interface IAnjutaEditorAssist
 	{
 		/* IAnjutaEdiotrAssist::assist_begin:
@@ -1469,6 +1564,15 @@ interface IAnjutaEditor
 		void autocomplete ();
 	}
 	
+	/**
+	 * SECTION:ianjuta-editor-hover
+	 * @title: IAnjutaEditorHover
+	 * @short_description: Text editor hover interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-hover
+	 * 
+	 */
 	interface IAnjutaEditorHover
 	{
 		void ::hover_over (gint position);
@@ -1478,6 +1582,15 @@ interface IAnjutaEditor
 		void display (const gchar *info);
 	}
 	
+	/**
+	 * SECTION:ianjuta-editor-language
+	 * @title: IAnjutaEditorLanguage
+	 * @short_description: Text editor language interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-language.h
+	 * 
+	 */
 	interface IAnjutaEditorLanguage
 	{
 		void ::language_changed (const gchar *language);
@@ -1488,6 +1601,15 @@ interface IAnjutaEditor
 		void set_language (const gchar* language);
 	}
 	
+	/**
+	 * SECTION:ianjuta-editor-folds
+	 * @title: IAnjutaEditorFolds
+	 * @short_description: Text editor folds inteface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-folds.h
+	 * 
+	 */
 	interface IAnjutaEditorFolds
 	{
 		/**
@@ -1522,7 +1644,13 @@ interface IAnjutaEditor
 	}
 	
 	/**
-	 * IAnjutaEditorView:
+	 * SECTION:ianjuta-editor-view
+	 * @title: IAnjutaEditorView
+	 * @short_description: Text editor view interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-view.h
+	 * 
 	 * An editor view is a visual representation of the editor. An editor
 	 * can have multiple views. All views of an editor show the same editor
 	 * content (buffer). Consequently, any change done in one view is
@@ -1562,6 +1690,15 @@ interface IAnjutaEditor
 		gint get_count ();
 	}
 	
+	/**
+	 * SECTION:ianjuta-editor-comment
+	 * @title: IAnjutaEditorComment
+	 * @short_description: Text editor comment interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-comment.h
+	 * 
+	 */
 	interface IAnjutaEditorComment
 	{
 		/**
@@ -1592,6 +1729,15 @@ interface IAnjutaEditor
 		void stream();
 	}
 	
+	/**
+	 * SECTION:ianjuta-editor-zoom
+	 * @title: IAnjutaEditorZoom
+	 * @short_description: Text editor zoom interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-zoom.h
+	 * 
+	 */
 	interface IAnjutaEditorZoom
 	{
 		/**
@@ -1613,6 +1759,15 @@ interface IAnjutaEditor
 		void out ();
 	}
 	
+	/**
+	 * SECTION:ianjuta-editor-goto
+	 * @title: IAnjutaEditorGoto
+	 * @short_description: Text editor navigation interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-goto.h
+	 * 
+	 */
 	interface IAnjutaEditorGoto
 	{
 		/**
@@ -1646,7 +1801,13 @@ interface IAnjutaEditor
 }
 
 /**
- * IAnjutaEditorCell:
+ * SECTION:ianjuta-editor-cell
+ * @title: IAnjutaEditorCell
+ * @short_description: Text editor character cell
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-editor-cell.h
+ * 
  * Represents a cell in editor. A cell corresponds to a unicode
  * character along with all associated styles (such as colors and font).
  * A cell may or may not have style. If style is supported in the
@@ -1704,6 +1865,15 @@ interface IAnjutaEditorCell
 	
 	IAnjutaEditorAttribute get_attribute ();
 	
+	/**
+	 * SECTION:ianjuta-editor-cell-style
+	 * @title: IAnjutaEditorCellStyle
+	 * @short_description: Text editor cell style interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-cell-style.h
+	 * 
+	 */
 	interface IAnjutaEditorCellStyle
 	{
 		gchar* get_font_description ();

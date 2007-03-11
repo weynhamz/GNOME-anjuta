@@ -1,5 +1,16 @@
 2007-03-11  Naba Kumar  <naba@gnome.org>
 
+	* libanjuta/interfaces/anjuta-idl-compiler.pl: Generate class comments.
+	
+	* libanjuta/interfaces/libanjuta.idl: Fixed and added API docs.
+	
+	* manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	manuals/reference/libanjuta/libanjuta.types: Updated to contain latest
+	interfaces.
+
+2007-03-11  Naba Kumar  <naba@gnome.org>
+
 	* configure.in, manuals/reference/libanjuta/Makefile.am: Fixed to use
 	gtk-doc properly. Bumped gtk-doc requirement to 1.4
 

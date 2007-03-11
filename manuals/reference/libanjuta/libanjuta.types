@@ -1,41 +1,5 @@
 #include <libanjuta/libanjuta.h>
-#include <libanjuta/interfaces/ianjuta-bookmark.h>
-#include <libanjuta/interfaces/ianjuta-buildable.h>
-#include <libanjuta/interfaces/ianjuta-debug-manager.h>
-#include <libanjuta/interfaces/ianjuta-debugger.h>
-#include <libanjuta/interfaces/ianjuta-document-manager.h>
-#include <libanjuta/interfaces/ianjuta-editor-assist.h>
-#include <libanjuta/interfaces/ianjuta-editor-convert.h>
-#include <libanjuta/interfaces/ianjuta-editor-factory.h>
-#include <libanjuta/interfaces/ianjuta-editor-folds.h>
-#include <libanjuta/interfaces/ianjuta-editor.h>
-#include <libanjuta/interfaces/ianjuta-editor-line-mode.h>
-#include <libanjuta/interfaces/ianjuta-editor-selection.h>
-#include <libanjuta/interfaces/ianjuta-editor-view.h>
-#include <libanjuta/interfaces/ianjuta-file.h>
-#include <libanjuta/interfaces/ianjuta-file-loader.h>
-#include <libanjuta/interfaces/ianjuta-file-manager.h>
-#include <libanjuta/interfaces/ianjuta-file-savable.h>
-#include <libanjuta/interfaces/ianjuta-help.h>
-#include <libanjuta/interfaces/ianjuta-indicable.h>
-#include <libanjuta/interfaces/ianjuta-iterable.h>
-#include <libanjuta/interfaces/ianjuta-iterable-tree.h>
-#include <libanjuta/interfaces/ianjuta-loader.h>
-#include <libanjuta/interfaces/ianjuta-macro.h>
-#include <libanjuta/interfaces/ianjuta-markable.h>
-#include <libanjuta/interfaces/ianjuta-message-manager.h>
-#include <libanjuta/interfaces/ianjuta-message-view.h>
-#include <libanjuta/interfaces/ianjuta-profile.h>
-#include <libanjuta/interfaces/ianjuta-project-manager.h>
-#include <libanjuta/interfaces/ianjuta-stream.h>
-#include <libanjuta/interfaces/ianjuta-stream-loader.h>
-#include <libanjuta/interfaces/ianjuta-stream-savable.h>
-#include <libanjuta/interfaces/ianjuta-symbol.h>
-#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
-#include <libanjuta/interfaces/ianjuta-terminal.h>
-#include <libanjuta/interfaces/ianjuta-todo.h>
-#include <libanjuta/interfaces/ianjuta-vcs.h>
-#include <libanjuta/interfaces/ianjuta-wizard.h>
+#include <libanjuta/interfaces/libanjuta-interfaces.h>
 
 anjuta_shell_get_type
 anjuta_preferences_get_type
@@ -53,17 +17,25 @@ anjuta_serializer_get_type
 anjuta_session_get_type
 ianjuta_bookmark_get_type
 ianjuta_buildable_get_type
-ianjuta_debug_manager_get_type
+ianjuta_cpu_debugger_get_type
 ianjuta_debugger_get_type
+ianjuta_debug_manager_get_type
 ianjuta_document_manager_get_type
 ianjuta_editor_assist_get_type
+ianjuta_editor_cell_get_type
+ianjuta_editor_cell_style_get_type
+ianjuta_editor_comment_get_type
 ianjuta_editor_convert_get_type
 ianjuta_editor_factory_get_type
 ianjuta_editor_folds_get_type
+ianjuta_editor_goto_get_type
 ianjuta_editor_get_type
+ianjuta_editor_hover_get_type
+ianjuta_editor_language_get_type
 ianjuta_editor_line_mode_get_type
 ianjuta_editor_selection_get_type
 ianjuta_editor_view_get_type
+ianjuta_editor_zoom_get_type
 ianjuta_file_get_type
 ianjuta_file_loader_get_type
 ianjuta_file_manager_get_type
@@ -72,12 +44,14 @@ ianjuta_help_get_type
 ianjuta_indicable_get_type
 ianjuta_iterable_get_type
 ianjuta_iterable_tree_get_type
+ianjuta_language_support_get_type
 ianjuta_loader_get_type
 ianjuta_macro_get_type
 ianjuta_markable_get_type
 ianjuta_message_manager_get_type
 ianjuta_message_view_get_type
-ianjuta_profile_get_type
+ianjuta_preferences_get_type
+ianjuta_print_get_type
 ianjuta_project_manager_get_type
 ianjuta_stream_get_type
 ianjuta_stream_loader_get_type
@@ -86,5 +60,6 @@ ianjuta_symbol_get_type
 ianjuta_symbol_manager_get_type
 ianjuta_terminal_get_type
 ianjuta_todo_get_type
+ianjuta_variable_debugger_get_type
 ianjuta_vcs_get_type
 ianjuta_wizard_get_type
