@@ -611,16 +611,6 @@ idebugger_info_udot (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback ,
 }
 
 static gboolean
-idebugger_info_threads (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
-{
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-
-	debugger_info_threads (this->debugger, callback, user_data);
-
-	return TRUE;
-}
-
-static gboolean
 idebugger_info_variables (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
@@ -646,6 +636,36 @@ idebugger_list_frame (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback 
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
 	debugger_list_frame (this->debugger, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+idebugger_set_thread (IAnjutaDebugger *plugin, guint thread, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+
+	debugger_set_thread (this->debugger, thread);
+
+	return TRUE;
+}
+
+static gboolean
+idebugger_list_thread (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+
+	debugger_list_thread (this->debugger, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+idebugger_info_thread (IAnjutaDebugger *plugin, guint thread, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+
+	debugger_info_thread (this->debugger, thread, callback, user_data);
 
 	return TRUE;
 }
@@ -728,11 +748,13 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->info_target = idebugger_info_target;
 	iface->info_program = idebugger_info_program;
 	iface->info_udot = idebugger_info_udot;
-	iface->info_threads = idebugger_info_threads;
 	iface->info_variables = idebugger_info_variables;
 	iface->handle_signal = idebugger_handle_signal;
 	iface->list_frame = idebugger_list_frame;
 	iface->set_frame = idebugger_set_frame;
+	iface->list_thread = idebugger_list_thread;
+	iface->set_thread = idebugger_set_thread;
+	iface->info_thread = idebugger_info_thread;
 	iface->list_register = idebugger_list_register;
 
 	iface->send_command = idebugger_send_command;

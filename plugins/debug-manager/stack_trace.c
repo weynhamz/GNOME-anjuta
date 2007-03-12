@@ -186,7 +186,7 @@ on_stack_trace_updated (const GList *stack, gpointer data)
 }
 
 static void
-on_stack_trace_frame_changed (StackTrace *st, guint frame)
+on_stack_trace_frame_changed (StackTrace *st, guint frame, guint thread)
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
@@ -291,7 +291,7 @@ on_stack_trace_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer
 	}
 	else if ((bevent->type == GDK_2BUTTON_PRESS) && (bevent->button == 1))
 	{
-		/* Double left mousr click */
+		/* Double left mouse click */
 		on_stack_view_src_activate (NULL, user_data);
 	}
 	

@@ -2659,6 +2659,7 @@ interface IAnjutaDebugger
 
 	struct Frame
 	{
+		guint thread;
 		guint level;
 		gchar *args;
 		gchar *file;
@@ -2750,11 +2751,15 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::program_stopped:
 	* @obj: Self
+	* @thread: fixme
+	* @file: fixme
+	* @line: fixme
+	* @address: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
-	void ::program_stopped ();
+	void ::program_stopped (guint thread);	
 
 	/**
 	* IAnjutaDebugger::program_exited:
@@ -2777,6 +2782,7 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::location_changed:
 	* @obj: Self
+	* @thread: fixme
 	* @file: fixme
 	* @line: fixme
 	* @address: fixme
@@ -2790,11 +2796,12 @@ interface IAnjutaDebugger
 	* IAnjutaDebugger::frame_changed:
 	* @obj: Self
 	* @frame: fixme
+	* @thread: thread
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
-	void ::frame_changed (guint frame);	
+	void ::frame_changed (guint frame, guint thread);	
 
 	/**
 	* IAnjutaDebugger::signal_received:
@@ -3275,18 +3282,6 @@ interface IAnjutaDebugger
 	*/
 	gboolean info_udot (Callback callback, gpointer user_data);
 	
-	/**
-	* ianjuta_debugger_info_threads:
-	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean info_threads (Callback callback, gpointer user_data);
 	
 	/**
 	* ianjuta_debugger_info_variables:
@@ -3326,7 +3321,45 @@ interface IAnjutaDebugger
 	*/
 	gboolean set_frame (guint frame);
 
+	/**
+	* ianjuta_debugger_list_thread:
+	* @obj: Self
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean list_thread (Callback callback, gpointer user_data);
 	
+	/**
+	* ianjuta_debugger_set_thread:
+	* @obj: Self
+	* @frame: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean set_thread (guint thread);
+
+	/**
+	* ianjuta_debugger_info_threads:
+	* @obj: Self
+	* @thread: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean info_thread (guint thread, Callback callback, gpointer user_data);
+
 	/**
 	* ianjuta_debugger_list_register:
 	* @obj: Self

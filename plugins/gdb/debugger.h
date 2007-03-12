@@ -145,7 +145,6 @@ void debugger_info_args (Debugger *debugger, IAnjutaDebuggerCallback func, gpoin
 void debugger_info_target (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
 void debugger_info_program (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
 void debugger_info_udot (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_info_threads (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
 void debugger_info_variables (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
 void debugger_inspect_memory (Debugger *debugger, guint address, guint length, IAnjutaDebuggerCallback func, gpointer user_data);
 void debugger_disassemble (Debugger *debugger, guint address, guint length, IAnjutaDebuggerCallback func, gpointer user_data);
@@ -160,6 +159,11 @@ void debugger_write_register (Debugger *debugger, const gchar *name, const gchar
 void debugger_list_argument (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
 void debugger_list_frame (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
 void debugger_set_frame (Debugger *debugger, guint frame);
+
+/* Thread */
+void debugger_list_thread (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
+void debugger_set_thread (Debugger *debugger, guint thread);
+void debugger_info_thread (Debugger *debugger, guint thread, IAnjutaDebuggerCallback func, gpointer user_data);
 
 /* Log */
 void debugger_set_log (Debugger *debugger, IAnjutaMessageView *view);

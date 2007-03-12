@@ -97,10 +97,12 @@ typedef enum
 	HANDLE_SIGNAL_COMMAND,
 	LIST_LOCAL_COMMAND,
 	LIST_ARG_COMMAND,
+	LIST_THREAD_COMMAND,
+	SET_THREAD_COMMAND,
+	INFO_THREAD_COMMAND,
 	INFO_SIGNAL_COMMAND,    /* 0x20 */
 	INFO_FRAME_COMMAND,
 	INFO_ARGS_COMMAND,
-	INFO_THREADS_COMMAND,
 	INFO_VARIABLES_COMMAND,
 	SET_FRAME_COMMAND,
 	LIST_FRAME_COMMAND,
@@ -219,6 +221,15 @@ typedef enum
 	DMA_LIST_ARG_COMMAND =
 		LIST_ARG_COMMAND |
 		NEED_PROGRAM_STOPPED,
+	DMA_LIST_THREAD_COMMAND =
+		LIST_THREAD_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_SET_THREAD_COMMAND =
+		SET_THREAD_COMMAND |
+		NEED_PROGRAM_STOPPED,
+	DMA_INFO_THREAD_COMMAND =
+		INFO_THREAD_COMMAND |
+		NEED_PROGRAM_STOPPED,
 	DMA_INFO_SIGNAL_COMMAND =
 		INFO_SIGNAL_COMMAND |
 		NEED_PROGRAM_STOPPED,
@@ -227,9 +238,6 @@ typedef enum
 		NEED_PROGRAM_STOPPED,
 	DMA_INFO_ARGS_COMMAND =
 		INFO_ARGS_COMMAND |
-		NEED_PROGRAM_STOPPED,
-	DMA_INFO_THREADS_COMMAND =
-		INFO_THREADS_COMMAND |
 		NEED_PROGRAM_STOPPED,
 	DMA_INFO_VARIABLES_COMMAND =
 		INFO_VARIABLES_COMMAND |
@@ -509,6 +517,9 @@ dma_debugger_command_free (DmaQueueCommand *cmd)
 	    break;
 	case LIST_LOCAL_COMMAND:
 	case LIST_ARG_COMMAND:
+	case INFO_THREAD_COMMAND:
+	case LIST_THREAD_COMMAND:
+	case SET_THREAD_COMMAND:
 	case INFO_SIGNAL_COMMAND:
 	case INFO_SHAREDLIB_COMMAND:
 	case INFO_FRAME_COMMAND:
@@ -516,7 +527,6 @@ dma_debugger_command_free (DmaQueueCommand *cmd)
 	case INFO_TARGET_COMMAND:
 	case INFO_PROGRAM_COMMAND:
 	case INFO_UDOT_COMMAND:
-	case INFO_THREADS_COMMAND:
 	case INFO_VARIABLES_COMMAND:
 	case LIST_REGISTER_COMMAND:
 	case UPDATE_REGISTER_COMMAND:
@@ -1174,6 +1184,15 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 		case LIST_ARG_COMMAND:
 			ianjuta_debugger_list_argument (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
+		case LIST_THREAD_COMMAND:
+			ianjuta_debugger_list_thread (this->debugger, cmd->callback, cmd->user_data, &err);	
+			break;
+		case SET_THREAD_COMMAND:
+			ianjuta_debugger_set_thread (this->debugger, cmd->frame.frame, &err);	
+			break;
+		case INFO_THREAD_COMMAND:
+			ianjuta_debugger_info_thread (this->debugger, cmd->info.id, cmd->callback, cmd->user_data, &err);	
+			break;
 		case INFO_SIGNAL_COMMAND:
 			ianjuta_debugger_info_signal (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
@@ -1194,9 +1213,6 @@ dma_debugger_queue_execute (DmaDebuggerQueue *this)
 			break;
 		case INFO_UDOT_COMMAND:
 			ianjuta_debugger_info_udot (this->debugger, cmd->callback, cmd->user_data, &err);	
-			break;
-		case INFO_THREADS_COMMAND:
-			ianjuta_debugger_info_threads (this->debugger, cmd->callback, cmd->user_data, &err);	
 			break;
 		case INFO_VARIABLES_COMMAND:
 			ianjuta_debugger_info_variables (this->debugger, cmd->callback, cmd->user_data, &err);	
@@ -1363,10 +1379,10 @@ on_dma_program_running (DmaDebuggerQueue *this)
 }
 
 static void
-on_dma_program_stopped (DmaDebuggerQueue *this)
+on_dma_program_stopped (DmaDebuggerQueue *this, guint thread)
 {
 	DEBUG_PRINT ("From debugger: receive program stopped");
-	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_STOPPED, 0);
+	dma_queue_update_debugger_status (this, IANJUTA_DEBUGGER_PROGRAM_STOPPED, thread);
 	if (this->ready) dma_debugger_queue_execute (this);
 }
 
@@ -1386,10 +1402,10 @@ on_dma_location_changed (DmaDebuggerQueue *this, const gchar* src_path, guint li
 }
 
 static void
-on_dma_frame_changed (DmaDebuggerQueue *this, guint frame)
+on_dma_frame_changed (DmaDebuggerQueue *this, guint frame, guint thread)
 {
 	DEBUG_PRINT ("From debugger: frame changed");
-	g_signal_emit_by_name (this, "frame-changed", frame);
+	g_signal_emit_by_name (this, "frame-changed", frame, thread);
 }
 
 static void
@@ -1867,6 +1883,54 @@ idebugger_list_argument (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callbac
 }
 
 static gboolean
+idebugger_list_thread (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+{
+	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
+	DmaQueueCommand *cmd;
+	
+	cmd = dma_debugger_queue_append (this, DMA_LIST_THREAD_COMMAND, err);
+	if (cmd == NULL) return FALSE;
+		
+	cmd->callback = callback;
+	cmd->user_data = user_data;
+	dma_debugger_queue_execute (this);
+	
+	return TRUE;
+}
+
+static gboolean
+idebugger_set_thread (IAnjutaDebugger *iface, guint thread, GError **err)
+{
+	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
+	DmaQueueCommand *cmd;
+	
+	cmd = dma_debugger_queue_append (this, DMA_SET_THREAD_COMMAND, err);
+	if (cmd == NULL) return FALSE;
+		
+	cmd->frame.frame = thread;
+	dma_debugger_queue_execute (this);
+	
+	return TRUE;
+}
+
+static gboolean
+idebugger_info_thread (IAnjutaDebugger *iface, guint thread, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+{
+	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
+	DmaQueueCommand *cmd;
+	
+	cmd = dma_debugger_queue_append (this, DMA_INFO_THREAD_COMMAND, err);
+	if (cmd == NULL) return FALSE;
+		
+	cmd->callback = callback;
+	cmd->user_data = user_data;
+	cmd->info.id = thread;
+	dma_debugger_queue_execute (this);
+	
+	return TRUE;
+}
+
+static gboolean
 idebugger_info_signal (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
@@ -1988,22 +2052,6 @@ idebugger_info_udot (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback , 
 	DmaQueueCommand *cmd;
 	
 	cmd = dma_debugger_queue_append (this, DMA_INFO_UDOT_COMMAND, err);
-	if (cmd == NULL) return FALSE;
-		
-	cmd->callback = callback;
-	cmd->user_data = user_data;
-	dma_debugger_queue_execute (this);
-	
-	return TRUE;
-}
-
-static gboolean
-idebugger_info_threads (IAnjutaDebugger *iface, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
-{
-	DmaDebuggerQueue *this = DMA_DEBUGGER_QUEUE (iface);
-	DmaQueueCommand *cmd;
-	
-	cmd = dma_debugger_queue_append (this, DMA_INFO_THREADS_COMMAND, err);
 	if (cmd == NULL) return FALSE;
 		
 	cmd->callback = callback;
@@ -2148,11 +2196,13 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->info_target = idebugger_info_target;
 	iface->info_program = idebugger_info_program;
 	iface->info_udot = idebugger_info_udot;
-	iface->info_threads = idebugger_info_threads;
 	iface->info_variables = idebugger_info_variables;
 	iface->handle_signal = idebugger_handle_signal;
 	iface->list_frame = idebugger_list_frame;
 	iface->set_frame = idebugger_set_frame;
+	iface->list_thread = idebugger_list_thread;
+	iface->set_thread = idebugger_set_thread;
+	iface->info_thread = idebugger_info_thread;
 	iface->list_register = idebugger_list_register;
 	iface->callback = idebugger_callback;
 

@@ -31,7 +31,6 @@
 					<menuitem name="TargetFiles" action="ActionGdbInfoTargetFiles"/>
 					<menuitem name="Program" action="ActionGdbInfoProgram" />
 					<menuitem name="KernelUserStruct" action="ActionGdbInfoKernelUserStruct" />
-					<menuitem name="Threads" action="ActionGdbInfoThreads" />
 					<menuitem name="GlobalVariables" action="ActionGdbInfoGlobalVariables" />
 					<menuitem name="CurrentFrame" action="ActionGdbInfoCurrentFrame" />
 					<menuitem name="FunctionArgs" action="ActionGdbInfoFunctionArgs" />
@@ -84,4 +83,9 @@
 		<menuitem name="UpdateAllWatch" action="ActionDmaUpdateAllWatch" />
 		<menuitem name="RemoveAllWatch" action="ActionDmaRemoveAllWatch" />
 	</popup>
+	<popup name="PopupThread">
+		<menuitem name="SetCurrentThread" action="ActionDmaSetCurrentThread" />
+		<menuitem name="JumpToThread" action="ActionDmaJumpToThread" />
+	</popup>
+
 </ui>

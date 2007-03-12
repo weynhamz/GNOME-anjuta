@@ -1,3 +1,28 @@
+2007-03-12 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/anjuta-debug-manager.ui,
+	libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/debugger.c,
+	(added) plugins/debug-manager/threads.c,
+	(added) plugins/debug-manager/threads.h,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/Makefile.am,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h:
+	Add a window displaying all threads
+	Add needed functions
+	Switching to a different thread is still not done
+
+	* plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/stack_trace.c:
+	Small cosmetic changes
+
+	* plugins/gdb/gdbmi.c:
+	Keep all elements in gdbmi hash
+	Even if using the same key like in -threads-list-ids
+
 2007-03-11  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl: Generate class comments.

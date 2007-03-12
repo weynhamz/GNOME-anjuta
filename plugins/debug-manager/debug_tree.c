@@ -1057,7 +1057,7 @@ static void
 on_debug_tree_changed (gpointer data, gpointer user_data)
 {
 	IAnjutaDebuggerVariable *var = (IAnjutaDebuggerVariable *)data;
-	
+
 	if (var->name != NULL)
 	{
 		/* Search corresponding variable in one tree */

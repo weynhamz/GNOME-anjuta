@@ -46,6 +46,8 @@ struct _GDBMIForeachHashData
 	gpointer user_data;
 };
 
+static guint GDBMI_deleted_hash_value = 0;
+
 void
 gdbmi_value_free (GDBMIValue *val)
 {
@@ -202,11 +204,28 @@ gdbmi_value_literal_get (const GDBMIValue* val)
 void
 gdbmi_value_hash_insert (GDBMIValue* val, const gchar *key, GDBMIValue *value)
 {
+	gpointer orig_key;
+	gpointer orig_value;
+
 	g_return_if_fail (val != NULL);
 	g_return_if_fail (key != NULL);
 	g_return_if_fail (value != NULL);
 	g_return_if_fail (val->type == GDBMI_DATA_HASH);
-	
+
+	/* GDBMI hash table could contains several data with the same
+	 * key (output of -thread-list-ids)
+	 * Keep old value under a random name, we get them using
+	 * foreach function */
+	if (g_hash_table_lookup_extended (val->data.hash, key, &orig_key, &orig_value))
+	{
+		/* Key already exist, remove it and insert value with
+		 * another name */
+		g_hash_table_steal (val->data.hash, key);
+		g_free (orig_key);
+		gchar *new_key = g_strdup_printf("[%d]", GDBMI_deleted_hash_value++);
+		g_hash_table_insert (val->data.hash, new_key, orig_value);
+
+	}
 	g_hash_table_insert (val->data.hash, g_strdup (key), value);
 }
 

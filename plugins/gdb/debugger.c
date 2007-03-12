@@ -106,7 +106,8 @@ struct _DebuggerPriv
 	gboolean term_is_running;
 	pid_t term_pid;
 	pid_t inferior_pid;
-    gint gnome_terminal_type;
+    	gint gnome_terminal_type;
+	guint current_thread;
 	
 	GObject* instance;
 
@@ -134,6 +135,12 @@ static void on_gdb_terminated (AnjutaLauncher *launcher,
 
 static void debugger_class_init (DebuggerClass *klass);
 static void debugger_instance_init (Debugger *debugger);
+
+typedef struct _GdbGListPacket
+{
+	GList* list;
+	gint tag;
+} GdbGListPacket;
 
 /* Useful functions
  *---------------------------------------------------------------------------*/
@@ -397,7 +404,7 @@ debugger_emit_status (Debugger *debugger)
 			debugger->priv->exiting = FALSE;
 			debugger->priv->stopping = FALSE;
 			debugger->priv->solib_event = FALSE;
-			g_signal_emit_by_name (debugger->priv->instance, "program-stopped");
+			g_signal_emit_by_name (debugger->priv->instance, "program-stopped", debugger->priv->current_thread);
 		}
 		else
 		{
@@ -931,13 +938,19 @@ debugger_handle_post_execution (Debugger *debugger)
 static void
 debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 {
-	const GDBMIValue *file, *line, *frame, *addr, *fullname;
+	const GDBMIValue *file, *line, *frame, *addr, *fullname, *thread;
 	const gchar *file_str = NULL;
 	guint line_num = 0;
 	gulong addr_num = 0;
 	
 	g_return_if_fail (val != NULL);
-	
+
+	thread = gdbmi_value_hash_lookup (val, "thread-id");
+	if (thread)
+	{
+		debugger->priv->current_thread = strtoul (gdbmi_value_literal_get (thread), NULL, 0);
+	}
+
 	frame = gdbmi_value_hash_lookup (val, "frame");
 	if (frame)
 	{
@@ -1387,10 +1400,10 @@ debugger_stdo_flush (Debugger *debugger)
 				/*g_signal_emit_by_name (debugger, "results-arrived",
 								   debugger->priv->current_cmd.cmd, val);*/
 			}
-		
+	
 			if (val)
 			{
-				debugger_process_frame (debugger, val);
+				/*debugger_process_frame (debugger, val);*/
 				gdbmi_value_free (val);
 			}
 		}
@@ -2738,16 +2751,6 @@ debugger_info_udot (Debugger *debugger, IAnjutaDebuggerCallback callback, gpoint
 }
 
 void
-debugger_info_threads (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
-{
-	DEBUG_PRINT ("In function: debugger_info_threads()");
-
-	g_return_if_fail (IS_DEBUGGER (debugger));
-
-	debugger_queue_command (debugger, "info threads", TRUE, FALSE, (DebuggerParserFunc)debugger_info_finish, callback, user_data);
-}
-
-void
 debugger_info_variables (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	DEBUG_PRINT ("In function: debugger_info_variables()");
@@ -2946,40 +2949,61 @@ debugger_disassemble (Debugger *debugger, guint address, guint length, IAnjutaDe
 }
 
 static void
-add_frame (const GDBMIValue *frame_hash, GList** stack)
+parse_frame (IAnjutaDebuggerFrame *frame, const GDBMIValue *frame_hash)
 {
 	const GDBMIValue *literal;
-	IAnjutaDebuggerFrame* frame;
-	
-	frame = g_new0 (IAnjutaDebuggerFrame, 1);
-	*stack = g_list_prepend (*stack, frame);
 	
 	literal = gdbmi_value_hash_lookup (frame_hash, "level");
 	if (literal)
 		frame->level = strtoul (gdbmi_value_literal_get (literal), NULL, 10);
+	else
+		frame->level = 0;
 
 	literal = gdbmi_value_hash_lookup (frame_hash, "fullname");
 	if (literal == NULL)
 		literal = gdbmi_value_hash_lookup (frame_hash, "file");
 	if (literal)
 		frame->file = (gchar *)gdbmi_value_literal_get (literal);
+	else
+		frame->file = NULL;
 	
 	literal = gdbmi_value_hash_lookup (frame_hash, "line");
 	if (literal)
 		frame->line = strtoul (gdbmi_value_literal_get (literal), NULL, 10);
+	else
+		frame->line = 0;
 	
 	literal = gdbmi_value_hash_lookup (frame_hash, "func");
 	if (literal)
 		frame->function = (gchar *)gdbmi_value_literal_get (literal);
+	else
+		frame->function = NULL;
 	
 	literal = gdbmi_value_hash_lookup (frame_hash, "from");
 	if (literal)
 		frame->library = (gchar *)gdbmi_value_literal_get (literal);
+	else
+		frame->library = NULL;
 
 	literal = gdbmi_value_hash_lookup (frame_hash, "addr");
 	if (literal)
 		frame->address = strtoul (gdbmi_value_literal_get (literal), NULL, 16);
+	else
+		frame->address = 0;
 	
+}
+
+
+static void
+add_frame (const GDBMIValue *frame_hash, GdbGListPacket* pack)
+{
+	IAnjutaDebuggerFrame* frame;
+	
+	frame = g_new0 (IAnjutaDebuggerFrame, 1);
+	pack->list = g_list_prepend (pack->list, frame);
+
+	frame->thread = pack->tag;
+	parse_frame (frame, frame_hash);	
 }
 
 static void
@@ -3043,7 +3067,7 @@ static void
 debugger_stack_finish (Debugger *debugger, const GDBMIValue *mi_results, const GList *cli_results, GError *error)
 
 {
-	GList* stack = NULL;
+	GdbGListPacket pack = {NULL, 0};
 	GList* node;
 	const GDBMIValue *stack_list;
 	IAnjutaDebuggerCallback callback = debugger->priv->current_cmd.callback;
@@ -3054,28 +3078,31 @@ debugger_stack_finish (Debugger *debugger, const GDBMIValue *mi_results, const G
 	
 	stack_list = gdbmi_value_hash_lookup (mi_results, "stack");
 	if (stack_list)
-		gdbmi_value_foreach (stack_list, (GFunc)add_frame, &stack);
-
-	if (stack)
 	{
-		stack = g_list_reverse (stack);
-		node = g_list_first (stack);	
+		pack.tag = debugger->priv->current_thread;
+		gdbmi_value_foreach (stack_list, (GFunc)add_frame, &pack);
+	}
+
+	if (pack.list)
+	{
+		pack.list = g_list_reverse (pack.list);
+		node = g_list_first (pack.list);	
 		stack_list = gdbmi_value_hash_lookup (mi_results, "stack-args");
 		if (stack_list)
 			gdbmi_value_foreach (stack_list, (GFunc)set_func_args, &node);
 
 		// Call call back function
 		if (callback != NULL)
-			callback (stack, user_data, NULL);
+			callback (pack.list, user_data, NULL);
 
 		// Free data
-		for (node = g_list_first (stack); node != NULL; node = g_list_next (node))
+		for (node = g_list_first (pack.list); node != NULL; node = g_list_next (node))
 		{
 			g_free ((gchar *)((IAnjutaDebuggerFrame *)node->data)->args);
 			g_free (node->data);
 		}
 	
-		g_list_free (stack);
+		g_list_free (pack.list);
 	}
 	else
 	{
@@ -3094,6 +3121,185 @@ debugger_list_frame (Debugger *debugger, IAnjutaDebuggerCallback callback, gpoin
 
 	debugger_queue_command (debugger, "-stack-list-frames", TRUE, TRUE, NULL, NULL, NULL);
 	debugger_queue_command (debugger, "-stack-list-arguments 1", TRUE, FALSE, debugger_stack_finish, callback, user_data);
+}
+
+/* Thread functions
+ *---------------------------------------------------------------------------*/
+
+static void
+debugger_set_thread_finish (Debugger *debugger, const GDBMIValue *mi_results, const GList *cli_results, GError *error)
+{
+	const GDBMIValue *literal;
+	guint id;
+
+	if (mi_results == NULL) return;
+
+	literal = gdbmi_value_hash_lookup (mi_results, "new-thread-id");
+	if (literal == NULL) return;
+
+	id = strtoul (gdbmi_value_literal_get (literal), NULL, 10);
+	if (id == 0) return;
+
+	debugger->priv->current_thread = id;
+	g_signal_emit_by_name (debugger->priv->instance, "frame-changed", 0, debugger->priv->current_thread);
+	       
+	return;	
+}
+
+void
+debugger_set_thread (Debugger *debugger, guint thread)
+{
+	gchar *buff;
+	
+	DEBUG_PRINT ("In function: debugger_set_thread()");
+
+	g_return_if_fail (IS_DEBUGGER (debugger));
+
+	buff = g_strdup_printf ("-thread-select %d", thread);
+
+	debugger_queue_command (debugger, buff, FALSE, FALSE, (DebuggerParserFunc)debugger_set_thread_finish, NULL, NULL);
+	g_free (buff);
+}
+
+static void
+add_thread_id (const GDBMIValue *thread_hash, GList** list)
+{
+	IAnjutaDebuggerFrame* frame;
+	guint thread;
+
+	thread = strtoul (gdbmi_value_literal_get (thread_hash), NULL, 10);
+	if (thread == 0) return;
+
+	frame = g_new0 (IAnjutaDebuggerFrame, 1);
+	*list = g_list_prepend (*list, frame);
+
+	frame->thread = thread;
+}
+
+static void
+debugger_list_thread_finish (Debugger *debugger, const GDBMIValue *mi_results, const GList *cli_results, GError *error)
+
+{
+	const GDBMIValue *id_list;
+	gpointer user_data = debugger->priv->current_cmd.user_data;
+	IAnjutaDebuggerCallback callback = debugger->priv->current_cmd.callback;
+	GList* thread_list = NULL;
+
+	for (;;)
+	{
+		if (mi_results == NULL) break;
+
+		id_list = gdbmi_value_hash_lookup (mi_results, "thread-ids");
+		if (id_list == NULL) break;
+
+		gdbmi_value_foreach (id_list, (GFunc)add_thread_id, &thread_list);
+		thread_list = g_list_reverse (thread_list);
+		break;
+	}
+
+	if (callback != NULL)
+		callback (thread_list, user_data, error);
+
+	if (thread_list != NULL)
+	{
+		g_list_foreach (thread_list, (GFunc)g_free, NULL);
+		g_list_free (thread_list);
+	}
+}
+
+void
+debugger_list_thread (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
+{
+	DEBUG_PRINT ("In function: debugger_list_thread()");
+
+	g_return_if_fail (IS_DEBUGGER (debugger));
+
+	debugger_queue_command (debugger, "-thread-list-ids", TRUE, FALSE, debugger_list_thread_finish, callback, user_data);
+}
+
+static void
+debugger_info_set_thread_finish (Debugger *debugger, const GDBMIValue *mi_results, const GList *cli_results, GError *error)
+{
+	const GDBMIValue *literal;
+	guint id;
+
+	if (mi_results == NULL) return;
+
+	literal = gdbmi_value_hash_lookup (mi_results, "new-thread-id");
+	if (literal == NULL) return;
+
+	id = strtoul (gdbmi_value_literal_get (literal), NULL, 10);
+	if (id == 0) return;
+
+	debugger->priv->current_thread = id;
+	/* Do not emit a signal notification as the current thread will
+	 * be restored when needed */
+	       
+	return;	
+}
+
+static void
+debugger_info_thread_finish (Debugger *debugger, const GDBMIValue *mi_results, const GList *cli_results, GError *error)
+{
+	const GDBMIValue *frame;
+	IAnjutaDebuggerFrame top_frame;
+	IAnjutaDebuggerFrame *top;
+	IAnjutaDebuggerCallback callback = debugger->priv->current_cmd.callback;
+	gpointer user_data = debugger->priv->current_cmd.user_data;
+
+	for (top = NULL;;)
+	{
+		DEBUG_PRINT("look for stack %p", mi_results);
+		if (mi_results == NULL) break;
+
+		frame = gdbmi_value_hash_lookup (mi_results, "stack");
+		if (frame == NULL) break;
+
+		DEBUG_PRINT("get stack");
+
+		frame = gdbmi_value_list_get_nth (frame, 0);
+		if (frame == NULL) break;
+
+		DEBUG_PRINT("get nth element");
+
+		/*frame = gdbmi_value_hash_lookup (frame, "frame");
+		DEBUG_PRINT("get frame %p", frame);
+		if (frame == NULL) break;*/
+
+		DEBUG_PRINT("get frame");
+
+		top = &top_frame;
+		top->thread = debugger->priv->current_thread;
+
+		parse_frame (top, frame);
+		break;	
+	}
+
+	if (callback != NULL)
+		callback (top, user_data, error);
+	       
+	return;	
+}
+
+void
+debugger_info_thread (Debugger *debugger, guint thread, IAnjutaDebuggerCallback callback, gpointer user_data)
+{
+	gchar *buff;
+	guint orig_thread;
+
+	DEBUG_PRINT ("In function: debugger_info_thread()");
+
+	g_return_if_fail (IS_DEBUGGER (debugger));
+
+	orig_thread = debugger->priv->current_thread;
+	buff = g_strdup_printf ("-thread-select %d", thread);
+	debugger_queue_command (debugger, buff, FALSE, FALSE, (DebuggerParserFunc)debugger_info_set_thread_finish, NULL, NULL);
+	g_free (buff);
+	debugger_queue_command (debugger, "-stack-list-frames 0 0", FALSE, FALSE, (DebuggerParserFunc)debugger_info_thread_finish, callback, user_data);
+
+	buff = g_strdup_printf ("-thread-select %d", orig_thread);
+	debugger_queue_command (debugger, buff, FALSE, FALSE, (DebuggerParserFunc)debugger_info_set_thread_finish, NULL, NULL);
+	g_free (buff);
 }
 
 static void
@@ -3233,7 +3439,7 @@ debugger_set_frame_finish (Debugger *debugger, const GDBMIValue *mi_results, con
 {
 	guint frame  = (guint)debugger->priv->current_cmd.user_data;
 	
-	g_signal_emit_by_name (debugger->priv->instance, "frame-changed", frame);
+	g_signal_emit_by_name (debugger->priv->instance, "frame-changed", frame, debugger->priv->current_thread);
 }
 
 void

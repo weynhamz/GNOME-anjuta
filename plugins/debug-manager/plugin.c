@@ -28,6 +28,7 @@
 #include "watch.h"
 #include "locals.h"
 #include "stack_trace.h"
+#include "threads.h"
 #include "info.h"
 #include "memory.h"
 #include "disassemble.h"
@@ -100,6 +101,7 @@ struct _DebugManagerPlugin
 	Signals *signals;	
 	DmaMemory *memory;
 	DmaDisassemble *disassemble;
+	DmaThreads *thread;
 	
 	
 	/* Logging view */
@@ -503,7 +505,7 @@ dma_plugin_location_changed (DebugManagerPlugin *this, const gchar* file, guint 
 {
 	gchar *msg;
 
-	DEBUG_PRINT ("DMA: dma_plugin_location_changed %s %d", file, line);
+	DEBUG_PRINT ("DMA: dma_plugin_location_changed %s %d %x", file, line, address);
 	
 	msg = g_strdup_printf (_("Location: %s, line %d\n"), file, line);
 	dma_debugger_message (this->queue, msg);
@@ -785,12 +787,6 @@ on_info_udot_activate (GtkAction *action, DebugManagerPlugin *plugin)
 }
 
 static void
-on_info_threads_activate (GtkAction *action, DebugManagerPlugin *plugin)
-{
-	ianjuta_debugger_info_threads (plugin->debugger, on_debugger_dialog_message, plugin, NULL);
-}
-
-static void
 on_info_variables_activate (GtkAction *action, DebugManagerPlugin *plugin)
 {
 	ianjuta_debugger_info_variables (plugin->debugger, on_debugger_dialog_message, plugin, NULL);
@@ -1022,14 +1018,6 @@ static GtkActionEntry actions_stopped[] =
 		NULL
 	},
 	{
-		"ActionGdbInfoThreads",
-		NULL,
-		N_("Info _Threads"),
-		NULL,
-		N_("Display the IDs of currently known threads"),
-		G_CALLBACK (on_info_threads_activate)
-	},
-	{
 		"ActionGdbInfoGlobalVariables",
 		NULL,
 		N_("Info _Global Variables"),
@@ -1153,6 +1141,9 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	/* Stack trace */
 	this->stack = stack_trace_new (this->debugger, ANJUTA_PLUGIN (this));
 
+	/* Thread list */
+	this->thread = dma_threads_new (this->debugger, ANJUTA_PLUGIN (this));
+	
 	/* Create breakpoints list */
 	this->breakpoints = breakpoints_dbase_new (plugin);
 
@@ -1164,7 +1155,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 
 	/* Disassembly window */
 	this->disassemble = dma_disassemble_new (plugin, this->debugger);
-	
+
 	/* Start debugger part */
 	this->start = dma_start_new (plugin, this->debugger);
 	
@@ -1236,6 +1227,9 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	
 	dma_disassemble_free (this->disassemble);
 	this->disassemble = NULL;
+	
+	dma_threads_free (this->thread);
+	this->thread = NULL;
 	
 	dma_start_free (this->start);
 	this->start = NULL;
