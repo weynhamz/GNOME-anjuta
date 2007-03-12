@@ -1,3 +1,7 @@
+2007-03-12  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl: Added more API section headers.
+
 2007-03-12 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/anjuta-debug-manager.ui,
@@ -23,6 +27,7 @@
 	Keep all elements in gdbmi hash
 	Even if using the same key like in -threads-list-ids
 
+>>>>>>> .r2868
 2007-03-11  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl: Generate class comments.

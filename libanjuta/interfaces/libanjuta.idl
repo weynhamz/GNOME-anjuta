@@ -1882,6 +1882,15 @@ interface IAnjutaEditorCell
 	}
 }
 
+/**
+ * SECTION:ianjuta-bookmark
+ * @title: IAnjutaBookmark
+ * @short_description: Bookmark interface
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-bookmark.h
+ * 
+ */
 interface IAnjutaBookmark
 {
 	/**
@@ -1947,6 +1956,15 @@ interface IAnjutaBookmark
 	void clear_all ();
 }
 
+/**
+ * SECTION:ianjuta-editor-factory
+ * @title: IAnjutaEditorFactory
+ * @short_description: Text editor factory that creates IAnjutaEditor objects
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-editor-factory.h
+ * 
+ */
 interface IAnjutaEditorFactory
 {
 	#include "ianjuta-editor.h"
@@ -1965,6 +1983,15 @@ interface IAnjutaEditorFactory
 	IAnjutaEditor* new_editor (const gchar* uri, const gchar* filename);
 }
 
+/**
+ * SECTION:ianjuta-document-manager
+ * @title: IAnjutaDocumentManager
+ * @short_description: Interface for plugin that manages all the editors
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-document-manager.h
+ * 
+ */
 interface IAnjutaDocumentManager
 {
 	#include "ianjuta-editor.h"
@@ -2094,6 +2121,15 @@ interface IAnjutaDocumentManager
 	gboolean remove_buffer (IAnjutaEditor *editor, gboolean save_before);
 }
 
+/**
+ * SECTION:ianjuta-message-view
+ * @title: IAnjutaMessageView
+ * @short_description: A view where messages of different kind can be shown
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-message-view.h
+ * 
+ */
 interface IAnjutaMessageView
 {
 	enum Type
@@ -2192,6 +2228,15 @@ interface IAnjutaMessageView
 	List<const gchar*> get_all_messages ();
 }
 
+/**
+ * SECTION:ianjuta-message-manager
+ * @title: IAnjutaMessageManager
+ * @short_description: The plugin that managers all message views
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-message-manager.h
+ * 
+ */
 interface IAnjutaMessageManager
 {
 	#include "ianjuta-message-view.h"
@@ -2286,6 +2331,15 @@ interface IAnjutaMessageManager
 	void set_view_title (IAnjutaMessageView *view, const gchar *title);
 }
 
+/**
+ * SECTION:ianjuta-file-manager
+ * @title: IAnjutaFileManager
+ * @short_description: File manager plugin
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-file-manager.h
+ * 
+ */
 interface IAnjutaFileManager
 {
 
@@ -2328,6 +2382,15 @@ interface IAnjutaFileManager
 	void set_selected (const gchar *uri);
 }
 
+/**
+ * SECTION:ianjuta-terminal
+ * @title: IAnjutaTerminal
+ * @short_description: Interface for command line terminals
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-terminal.h
+ * 
+ */
 interface IAnjutaTerminal
 {
 	#include <sys/types.h>
@@ -2346,6 +2409,15 @@ interface IAnjutaTerminal
 	pid_t execute_command (const gchar* directory, const gchar *command);
 }
 
+/**
+ * SECTION:ianjuta-project-manager
+ * @title: IAnjutaProjectManager
+ * @short_description: Interface for project managers
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-project-manager.h
+ * 
+ */
 interface IAnjutaProjectManager
 {
 	enum ElementType
@@ -2486,8 +2558,8 @@ interface IAnjutaProjectManager
 	* @default_location_uri: fixme
 	* @err: Error propagation and reporting.
 	*
-	* Prompt the user to add a file to the project. If the user selects multiple files only
-	* the first uri is returned.
+	* Prompt the user to add a file to the project. If the user selects
+	* multiple files only the first uri is returned.
 	*
 	* Returns: element URIs. Must be freed when no longer required.
 	*/
@@ -2500,8 +2572,8 @@ interface IAnjutaProjectManager
 	* @default_location_uri: fixme
 	* @err: Error propagation and reporting.
 	*
-	* Prompt the user to add a file to the project. If the user selects multiple files only
-	* the first uri is returned.
+	* Prompt the user to add a file to the project. If the user selects
+	* multiple files only the first uri is returned.
 	*
 	* Returns: element URIs. Must be freed when no longer required.
 	*/
@@ -2543,6 +2615,15 @@ interface IAnjutaProjectManager
 	gboolean is_open ();
 }
 
+/**
+ * SECTION:ianjuta-todo
+ * @title: IAnjutaTodo
+ * @short_description: Task manager interface
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-todo.h
+ * 
+ */
 interface IAnjutaTodo
 {
 
@@ -2557,6 +2638,15 @@ interface IAnjutaTodo
 	void load(const gchar *uri);
 }
 
+/**
+ * SECTION:ianjuta-wizard
+ * @title: IAnjutaWizard
+ * @short_description: Interface for wizards that can create new stuffs
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-wizard.h
+ * 
+ */
 interface IAnjutaWizard
 {
 
@@ -2570,6 +2660,15 @@ interface IAnjutaWizard
 	void activate();
 }
 
+/**
+ * SECTION:ianjuta-debugger
+ * @title: IAnjutaDebugger
+ * @short_description: Debugger interface
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-debugger.h
+ * 
+ */
 interface IAnjutaDebugger
 {
 	#include "ianjuta-message-view.h"
@@ -3422,6 +3521,15 @@ interface IAnjutaDebugger
 	void disable_log ();
 }
 
+/**
+ * SECTION:ianjuta-cpu-debugger
+ * @title: IAnjutaCpuDebugger
+ * @short_description: CPU specific debugger interface
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-cpu-debugger.h
+ * 
+ */
 interface IAnjutaCpuDebugger
 {
 	#include "ianjuta-debug-manager.h"
@@ -3499,6 +3607,15 @@ interface IAnjutaCpuDebugger
 	gboolean disassemble (guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
 }
 
+/**
+ * SECTION:ianjuta-variable-debugger
+ * @title: IAnjutaVariableDebugger
+ * @short_description: Variables interface for debuggers
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-variable-debugger.h
+ * 
+ */
 interface IAnjutaVariableDebugger
 {
 	#include "ianjuta-debug-manager.h"
@@ -3587,6 +3704,15 @@ interface IAnjutaVariableDebugger
 	gboolean delete_var (const gchar *name);
 }
 
+/**
+ * SECTION:ianjuta-debug-manager
+ * @title: IAnjutaDebugManager
+ * @short_description: Interface for plugin that manages debuggers
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-debug-manager.h
+ * 
+ */
 interface IAnjutaDebugManager
 {
 	#include "ianjuta-debugger.h"
@@ -3604,6 +3730,15 @@ interface IAnjutaDebugManager
 	void ::breakpoint_changed (IAnjutaDebuggerBreakpoint *breakpoint);
 }
 
+/**
+ * SECTION:ianjuta-vcs
+ * @title: IAnjutaVcs
+ * @short_description: Version control system interface
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-vcs.h
+ * 
+ */
 interface IAnjutaVcs
 {
 	/**
@@ -3652,6 +3787,15 @@ interface IAnjutaVcs
 	void commit(const gchar* filename, const gchar* log, gboolean recurse);	
 }
 
+/**
+ * SECTION:ianjuta-macro
+ * @title: IAnjutaMacro
+ * @short_description: Macro processor interface
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-macro.h
+ * 
+ */
 interface IAnjutaMacro
 {
 	/**
@@ -3665,6 +3809,15 @@ interface IAnjutaMacro
 	void insert(const gchar* key);
 }
 
+/**
+ * SECTION:ianjuta-symbol
+ * @title: IAnjutaSymbol
+ * @short_description: Source code symbol interface
+ * @see_also: #IAnjutaSymbolManager
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-symbol.h
+ * 
+ */
 interface IAnjutaSymbol
 {
 	#include <gdk/gdkpixbuf.h>
@@ -3735,6 +3888,15 @@ interface IAnjutaSymbol
 	GdkPixbuf *icon ();          // Pixbuf icon representing the symbol
 }
 
+/**
+ * SECTION:ianjuta-symbol-manager
+ * @title: IAnjutaSymbolManager
+ * @short_description: Source code symbols manager inteface
+ * @see_also: #IAnjutaSymbol
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-symbol-manager.h
+ * 
+ */
 interface IAnjutaSymbolManager
 {
 	#include "ianjuta-iterable.h"
@@ -3793,6 +3955,15 @@ interface IAnjutaSymbolManager
 	IAnjutaIterable* get_completions_at_position (const gchar* file_uri, const gchar *text_buffer, const gint text_length, const gint text_pos);
 }
 
+/**
+ * SECTION:ianjuta-print
+ * @title: IAnjutaPrint
+ * @short_description: Print interface
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-print.h
+ * 
+ */
 interface IAnjutaPrint
 {
 	/**
@@ -3816,12 +3987,30 @@ interface IAnjutaPrint
 	void print_preview();
 }
 
+/**
+ * SECTION:ianjuta-language-support
+ * @title: IAnjutaLanguageSupport
+ * @short_description: Programming language specific supports from plugins
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-language-support.h
+ * 
+ */
 interface IAnjutaLanguageSupport
 {
     List<const gchar*> get_supported_languages ();
     gboolean supports(const gchar *language);
 }
 
+/**
+ * SECTION:ianjuta-preferences
+ * @title: IAnjutaPreferences
+ * @short_description: Preferences interface
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-preferences
+ * 
+ */
 interface IAnjutaPreferences
 {
 	#include <libanjuta/anjuta-preferences.h>
@@ -3845,4 +4034,3 @@ interface IAnjutaPreferences
 	 */
 	void unmerge(AnjutaPreferences* prefs);
 }
-	
