@@ -823,7 +823,6 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 		if (!g_hash_table_lookup (priv->plugins_to_exclude_from_sync,
 								  node->data))
 		{
-			
 			gchar *user_activatable = NULL;
 			gchar *name = NULL, *plugin_id = NULL;
 			
@@ -835,7 +834,8 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 			if (user_activatable && strcmp (user_activatable, "no") == 0)
 			{
 				g_free (user_activatable);
-				break;
+				node = g_list_next (node);
+				continue;
 			}
 			g_free (user_activatable);
 			

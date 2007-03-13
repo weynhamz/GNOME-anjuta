@@ -1,3 +1,8 @@
+2007-03-14  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-profile.c: Fixed a bug where some plugins would
+	not randomly save (it was a wrong looping).
+	
 2007-03-12  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl: Added more API section headers.
