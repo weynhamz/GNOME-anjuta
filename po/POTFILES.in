@@ -71,6 +71,7 @@ plugins/debug-manager/sparse_buffer.c
 plugins/debug-manager/sparse_view.c
 plugins/debug-manager/stack_trace.c
 plugins/debug-manager/start.c
+plugins/debug-manager/threads.c
 plugins/debug-manager/utilities.c
 plugins/debug-manager/watch.c
 plugins/devhelp/plugin.c
