@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta 1.20\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-10 16:49+0000\n"
-"PO-Revision-Date: 2007-03-10 17:17-0000\n"
+"POT-Creation-Date: 2007-03-14 07:00+0000\n"
+"PO-Revision-Date: 2007-03-14 07:00-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English/GB <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,10 +30,10 @@ msgstr "Develop software in an integrated development environment"
 msgid "Integrated Development Environment"
 msgstr "Integrated Development Environment"
 
-#: ../libanjuta/anjuta-encodings.c:130
-#: ../libanjuta/anjuta-encodings.c:156
-#: ../libanjuta/anjuta-encodings.c:197
-#: ../libanjuta/anjuta-encodings.c:238
+#: ../libanjuta/anjuta-encodings.c:140
+#: ../libanjuta/anjuta-encodings.c:166
+#: ../libanjuta/anjuta-encodings.c:207
+#: ../libanjuta/anjuta-encodings.c:248
 #: ../plugins/sourceview/anjuta-encodings.c:151
 #: ../plugins/sourceview/anjuta-encodings.c:177
 #: ../plugins/sourceview/anjuta-encodings.c:223
@@ -41,34 +41,34 @@ msgstr "Integrated Development Environment"
 msgid "Western"
 msgstr "Western"
 
-#: ../libanjuta/anjuta-encodings.c:132
-#: ../libanjuta/anjuta-encodings.c:199
-#: ../libanjuta/anjuta-encodings.c:234
+#: ../libanjuta/anjuta-encodings.c:142
+#: ../libanjuta/anjuta-encodings.c:209
+#: ../libanjuta/anjuta-encodings.c:244
 #: ../plugins/sourceview/anjuta-encodings.c:153
 #: ../plugins/sourceview/anjuta-encodings.c:225
 #: ../plugins/sourceview/anjuta-encodings.c:262
 msgid "Central European"
 msgstr "Central European"
 
-#: ../libanjuta/anjuta-encodings.c:134
+#: ../libanjuta/anjuta-encodings.c:144
 #: ../plugins/sourceview/anjuta-encodings.c:155
 msgid "South European"
 msgstr "South European"
 
-#: ../libanjuta/anjuta-encodings.c:136
-#: ../libanjuta/anjuta-encodings.c:152
-#: ../libanjuta/anjuta-encodings.c:248
+#: ../libanjuta/anjuta-encodings.c:146
+#: ../libanjuta/anjuta-encodings.c:162
+#: ../libanjuta/anjuta-encodings.c:258
 #: ../plugins/sourceview/anjuta-encodings.c:157
 #: ../plugins/sourceview/anjuta-encodings.c:173
 #: ../plugins/sourceview/anjuta-encodings.c:276
 msgid "Baltic"
 msgstr "Baltic"
 
-#: ../libanjuta/anjuta-encodings.c:138
-#: ../libanjuta/anjuta-encodings.c:201
-#: ../libanjuta/anjuta-encodings.c:214
-#: ../libanjuta/anjuta-encodings.c:218
-#: ../libanjuta/anjuta-encodings.c:236
+#: ../libanjuta/anjuta-encodings.c:148
+#: ../libanjuta/anjuta-encodings.c:211
+#: ../libanjuta/anjuta-encodings.c:224
+#: ../libanjuta/anjuta-encodings.c:228
+#: ../libanjuta/anjuta-encodings.c:246
 #: ../plugins/sourceview/anjuta-encodings.c:159
 #: ../plugins/sourceview/anjuta-encodings.c:227
 #: ../plugins/sourceview/anjuta-encodings.c:240
@@ -78,64 +78,64 @@ msgstr "Baltic"
 msgid "Cyrillic"
 msgstr "Cyrillic"
 
-#: ../libanjuta/anjuta-encodings.c:140
-#: ../libanjuta/anjuta-encodings.c:207
-#: ../libanjuta/anjuta-encodings.c:246
+#: ../libanjuta/anjuta-encodings.c:150
+#: ../libanjuta/anjuta-encodings.c:217
+#: ../libanjuta/anjuta-encodings.c:256
 #: ../plugins/sourceview/anjuta-encodings.c:161
 #: ../plugins/sourceview/anjuta-encodings.c:233
 #: ../plugins/sourceview/anjuta-encodings.c:274
 msgid "Arabic"
 msgstr "Arabic"
 
-#: ../libanjuta/anjuta-encodings.c:142
-#: ../libanjuta/anjuta-encodings.c:240
+#: ../libanjuta/anjuta-encodings.c:152
+#: ../libanjuta/anjuta-encodings.c:250
 #: ../plugins/sourceview/anjuta-encodings.c:163
 #: ../plugins/sourceview/anjuta-encodings.c:268
 msgid "Greek"
 msgstr "Greek"
 
-#: ../libanjuta/anjuta-encodings.c:144
+#: ../libanjuta/anjuta-encodings.c:154
 #: ../plugins/sourceview/anjuta-encodings.c:165
 msgid "Hebrew Visual"
 msgstr "Hebrew Visual"
 
-#: ../libanjuta/anjuta-encodings.c:146
-#: ../libanjuta/anjuta-encodings.c:205
-#: ../libanjuta/anjuta-encodings.c:244
+#: ../libanjuta/anjuta-encodings.c:156
+#: ../libanjuta/anjuta-encodings.c:215
+#: ../libanjuta/anjuta-encodings.c:254
 #: ../plugins/sourceview/anjuta-encodings.c:167
 #: ../plugins/sourceview/anjuta-encodings.c:231
 #: ../plugins/sourceview/anjuta-encodings.c:272
 msgid "Hebrew"
 msgstr "Hebrew"
 
-#: ../libanjuta/anjuta-encodings.c:148
-#: ../libanjuta/anjuta-encodings.c:203
-#: ../libanjuta/anjuta-encodings.c:242
+#: ../libanjuta/anjuta-encodings.c:158
+#: ../libanjuta/anjuta-encodings.c:213
+#: ../libanjuta/anjuta-encodings.c:252
 #: ../plugins/sourceview/anjuta-encodings.c:169
 #: ../plugins/sourceview/anjuta-encodings.c:229
 #: ../plugins/sourceview/anjuta-encodings.c:270
 msgid "Turkish"
 msgstr "Turkish"
 
-#: ../libanjuta/anjuta-encodings.c:150
+#: ../libanjuta/anjuta-encodings.c:160
 #: ../plugins/sourceview/anjuta-encodings.c:171
 msgid "Nordic"
 msgstr "Nordic"
 
-#: ../libanjuta/anjuta-encodings.c:154
+#: ../libanjuta/anjuta-encodings.c:164
 #: ../plugins/sourceview/anjuta-encodings.c:175
 msgid "Celtic"
 msgstr "Celtic"
 
-#: ../libanjuta/anjuta-encodings.c:158
+#: ../libanjuta/anjuta-encodings.c:168
 #: ../plugins/sourceview/anjuta-encodings.c:179
 msgid "Romanian"
 msgstr "Romanian"
 
-#: ../libanjuta/anjuta-encodings.c:161
-#: ../libanjuta/anjuta-encodings.c:163
-#: ../libanjuta/anjuta-encodings.c:165
-#: ../libanjuta/anjuta-encodings.c:167
+#: ../libanjuta/anjuta-encodings.c:171
+#: ../libanjuta/anjuta-encodings.c:173
+#: ../libanjuta/anjuta-encodings.c:175
+#: ../libanjuta/anjuta-encodings.c:177
 #: ../plugins/sourceview/anjuta-encodings.c:137
 #: ../plugins/sourceview/anjuta-encodings.c:182
 #: ../plugins/sourceview/anjuta-encodings.c:184
@@ -144,28 +144,28 @@ msgstr "Romanian"
 msgid "Unicode"
 msgstr "Unicode"
 
-#: ../libanjuta/anjuta-encodings.c:170
+#: ../libanjuta/anjuta-encodings.c:180
 #: ../plugins/sourceview/anjuta-encodings.c:191
 msgid "Armenian"
 msgstr "Armenian"
 
-#: ../libanjuta/anjuta-encodings.c:172
-#: ../libanjuta/anjuta-encodings.c:174
-#: ../libanjuta/anjuta-encodings.c:183
+#: ../libanjuta/anjuta-encodings.c:182
+#: ../libanjuta/anjuta-encodings.c:184
+#: ../libanjuta/anjuta-encodings.c:193
 #: ../plugins/sourceview/anjuta-encodings.c:193
 #: ../plugins/sourceview/anjuta-encodings.c:195
 #: ../plugins/sourceview/anjuta-encodings.c:209
 msgid "Chinese Traditional"
 msgstr "Chinese Traditional"
 
-#: ../libanjuta/anjuta-encodings.c:176
+#: ../libanjuta/anjuta-encodings.c:186
 #: ../plugins/sourceview/anjuta-encodings.c:197
 msgid "Cyrillic/Russian"
 msgstr "Cyrillic/Russian"
 
-#: ../libanjuta/anjuta-encodings.c:179
-#: ../libanjuta/anjuta-encodings.c:210
-#: ../libanjuta/anjuta-encodings.c:223
+#: ../libanjuta/anjuta-encodings.c:189
+#: ../libanjuta/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:233
 #: ../plugins/sourceview/anjuta-encodings.c:200
 #: ../plugins/sourceview/anjuta-encodings.c:202
 #: ../plugins/sourceview/anjuta-encodings.c:204
@@ -174,10 +174,10 @@ msgstr "Cyrillic/Russian"
 msgid "Japanese"
 msgstr "Japanese"
 
-#: ../libanjuta/anjuta-encodings.c:181
-#: ../libanjuta/anjuta-encodings.c:212
-#: ../libanjuta/anjuta-encodings.c:216
-#: ../libanjuta/anjuta-encodings.c:229
+#: ../libanjuta/anjuta-encodings.c:191
+#: ../libanjuta/anjuta-encodings.c:222
+#: ../libanjuta/anjuta-encodings.c:226
+#: ../libanjuta/anjuta-encodings.c:239
 #: ../plugins/sourceview/anjuta-encodings.c:207
 #: ../plugins/sourceview/anjuta-encodings.c:238
 #: ../plugins/sourceview/anjuta-encodings.c:242
@@ -185,10 +185,10 @@ msgstr "Japanese"
 msgid "Korean"
 msgstr "Korean"
 
-#: ../libanjuta/anjuta-encodings.c:186
-#: ../libanjuta/anjuta-encodings.c:188
-#: ../libanjuta/anjuta-encodings.c:190
-#: ../libanjuta/anjuta-encodings.c:194
+#: ../libanjuta/anjuta-encodings.c:196
+#: ../libanjuta/anjuta-encodings.c:198
+#: ../libanjuta/anjuta-encodings.c:200
+#: ../libanjuta/anjuta-encodings.c:204
 #: ../plugins/sourceview/anjuta-encodings.c:212
 #: ../plugins/sourceview/anjuta-encodings.c:214
 #: ../plugins/sourceview/anjuta-encodings.c:216
@@ -196,45 +196,45 @@ msgstr "Korean"
 msgid "Chinese Simplified"
 msgstr "Chinese Simplified"
 
-#: ../libanjuta/anjuta-encodings.c:192
+#: ../libanjuta/anjuta-encodings.c:202
 #: ../plugins/sourceview/anjuta-encodings.c:218
 msgid "Georgian"
 msgstr "Georgian"
 
-#: ../libanjuta/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:230
 #: ../plugins/sourceview/anjuta-encodings.c:248
 msgid "Cyrillic/Ukrainian"
 msgstr "Cyrillic/Ukrainian"
 
-#: ../libanjuta/anjuta-encodings.c:225
-#: ../libanjuta/anjuta-encodings.c:231
-#: ../libanjuta/anjuta-encodings.c:250
+#: ../libanjuta/anjuta-encodings.c:235
+#: ../libanjuta/anjuta-encodings.c:241
+#: ../libanjuta/anjuta-encodings.c:260
 #: ../plugins/sourceview/anjuta-encodings.c:253
 #: ../plugins/sourceview/anjuta-encodings.c:259
 #: ../plugins/sourceview/anjuta-encodings.c:278
 msgid "Vietnamese"
 msgstr "Vietnamese"
 
-#: ../libanjuta/anjuta-encodings.c:227
+#: ../libanjuta/anjuta-encodings.c:237
 #: ../plugins/sourceview/anjuta-encodings.c:255
 msgid "Thai"
 msgstr "Thai"
 
-#: ../libanjuta/anjuta-encodings.c:762
+#: ../libanjuta/anjuta-encodings.c:772
 msgid "Stock Encodings"
 msgstr "Stock Encodings"
 
-#: ../libanjuta/anjuta-encodings.c:781
+#: ../libanjuta/anjuta-encodings.c:791
 msgid "Supported Encodings"
 msgstr "Supported Encodings"
 
-#: ../libanjuta/anjuta-launcher.c:820
+#: ../libanjuta/anjuta-launcher.c:830
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Error while reading child pty\n"
 
-#: ../libanjuta/anjuta-launcher.c:1032
-#: ../libanjuta/resources.c:253
-#: ../libanjuta/resources.c:262
+#: ../libanjuta/anjuta-launcher.c:1042
+#: ../libanjuta/resources.c:264
+#: ../libanjuta/resources.c:273
 #: ../plugins/devhelp/plugin.c:500
 #: ../plugins/devhelp/plugin.c:509
 #: ../plugins/gdb/utilities.c:279
@@ -242,150 +242,150 @@ msgstr "launcher.c: Error while reading child pty\n"
 msgid "Cannot execute command: \"%s\""
 msgstr "Cannot execute command: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1033
+#: ../libanjuta/anjuta-launcher.c:1043
 msgid "execvp failed"
 msgstr "execvp failed"
 
-#: ../libanjuta/anjuta-plugin.c:176
-#: ../libanjuta/anjuta-plugin-manager.c:1892
+#: ../libanjuta/anjuta-plugin.c:327
+#: ../libanjuta/anjuta-plugin-manager.c:1901
 msgid "Anjuta Shell"
 msgstr "Anjuta Shell"
 
-#: ../libanjuta/anjuta-plugin.c:177
+#: ../libanjuta/anjuta-plugin.c:328
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Anjuta shell that will contain the plugin"
 
-#: ../libanjuta/anjuta-plugin-manager.c:534
-#: ../libanjuta/anjuta-plugin-manager.c:564
+#: ../libanjuta/anjuta-plugin-manager.c:543
+#: ../libanjuta/anjuta-plugin-manager.c:573
 #, c-format
 msgid "Invalid plugin: %s"
 msgstr "Invalid plugin: %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:865
+#: ../libanjuta/anjuta-plugin-manager.c:874
 #: ../plugins/symbol-browser/an_symbol_prefs.c:785
 msgid "Load"
 msgstr "Load"
 
-#: ../libanjuta/anjuta-plugin-manager.c:887
-#: ../libanjuta/anjuta-plugin-manager.c:1522
+#: ../libanjuta/anjuta-plugin-manager.c:896
+#: ../libanjuta/anjuta-plugin-manager.c:1531
 msgid "Available Plugins"
 msgstr "Available Plugins"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1000
+#: ../libanjuta/anjuta-plugin-manager.c:1009
 msgid "Only show user activatable plugins"
 msgstr "Only show user activatable plugins"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1541
+#: ../libanjuta/anjuta-plugin-manager.c:1550
 msgid "Remember this selection"
 msgstr "Remember this selection"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1873
+#: ../libanjuta/anjuta-plugin-manager.c:1882
 msgid "Profiles"
 msgstr "Profiles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1874
+#: ../libanjuta/anjuta-plugin-manager.c:1883
 msgid "Current stack of profiles"
 msgstr "Current stack of profiles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1879
+#: ../libanjuta/anjuta-plugin-manager.c:1888
 msgid "Available plugins"
 msgstr "Available plugins"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1880
+#: ../libanjuta/anjuta-plugin-manager.c:1889
 msgid "Currently available plugins found in plugin paths"
 msgstr "Currently available plugins found in plugin paths"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1886
+#: ../libanjuta/anjuta-plugin-manager.c:1895
 msgid "Activated plugins"
 msgstr "Activated plugins"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1887
+#: ../libanjuta/anjuta-plugin-manager.c:1896
 msgid "Currently activated plugins"
 msgstr "Currently activated plugins"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1893
+#: ../libanjuta/anjuta-plugin-manager.c:1902
 msgid "Anjuta shell for which the plugins are"
 msgstr "Anjuta shell for which the plugins are"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1901
+#: ../libanjuta/anjuta-plugin-manager.c:1910
 msgid "Anjuta Status"
 msgstr "Anjuta Status"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1902
+#: ../libanjuta/anjuta-plugin-manager.c:1911
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Anjuta status to use in loading and unloading of plugins"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2059
+#: ../libanjuta/anjuta-plugin-manager.c:2068
 msgid "Loaded: "
 msgstr "Loaded: "
 
-#: ../libanjuta/anjuta-plugin-manager.c:2059
+#: ../libanjuta/anjuta-plugin-manager.c:2068
 msgid "..."
 msgstr "..."
 
-#: ../libanjuta/anjuta-profile.c:205
+#: ../libanjuta/anjuta-profile.c:214
 msgid "Plugin Manager"
 msgstr "Plugin Manager"
 
-#: ../libanjuta/anjuta-profile.c:206
+#: ../libanjuta/anjuta-profile.c:215
 msgid "The plugin manager to use for resolving plugins"
 msgstr "The plugin manager to use for resolving plugins"
 
-#: ../libanjuta/anjuta-profile.c:214
+#: ../libanjuta/anjuta-profile.c:223
 msgid "Profile Name"
 msgstr "Profile Name"
 
-#: ../libanjuta/anjuta-profile.c:215
+#: ../libanjuta/anjuta-profile.c:224
 msgid "Name of the plugin profile"
 msgstr "Name of the plugin profile"
 
-#: ../libanjuta/anjuta-profile.c:223
+#: ../libanjuta/anjuta-profile.c:232
 msgid "Profile Plugins"
 msgstr "Profile Plugins"
 
-#: ../libanjuta/anjuta-profile.c:224
+#: ../libanjuta/anjuta-profile.c:233
 msgid "List of plugins for this profile"
 msgstr "List of plugins for this profile"
 
-#: ../libanjuta/anjuta-profile.c:231
+#: ../libanjuta/anjuta-profile.c:240
 msgid "Synchronization URI"
 msgstr "Synchronisation URI"
 
-#: ../libanjuta/anjuta-profile.c:232
+#: ../libanjuta/anjuta-profile.c:241
 msgid "URI to sync the proflie xml"
 msgstr "URI to synchronise the proflie xml"
 
-#: ../libanjuta/anjuta-profile.c:503
-#: ../libanjuta/anjuta-profile.c:526
-#: ../libanjuta/anjuta-profile.c:539
+#: ../libanjuta/anjuta-profile.c:512
+#: ../libanjuta/anjuta-profile.c:535
+#: ../libanjuta/anjuta-profile.c:548
 #, c-format
 msgid "Failed to read '%s': %s"
 msgstr "Failed to read '%s': %s"
 
-#: ../libanjuta/anjuta-profile.c:517
+#: ../libanjuta/anjuta-profile.c:526
 #, c-format
 msgid "No read permission for: %s"
 msgstr "No read permission for: %s"
 
-#: ../libanjuta/anjuta-profile.c:551
-#: ../libanjuta/anjuta-profile.c:561
+#: ../libanjuta/anjuta-profile.c:560
+#: ../libanjuta/anjuta-profile.c:570
 #, c-format
 msgid "Failed to read '%s': XML parse error"
 msgstr "Failed to read '%s': XML parse error"
 
-#: ../libanjuta/anjuta-profile.c:572
-#: ../libanjuta/anjuta-profile.c:721
+#: ../libanjuta/anjuta-profile.c:581
+#: ../libanjuta/anjuta-profile.c:730
 #, c-format
 msgid "Failed to read '%s': XML parse error.Invalid or corrupted anjuta plugins profile."
 msgstr "Failed to read '%s': XML parse error.Invalid or corrupted anjuta plugins profile."
 
-#: ../libanjuta/anjuta-profile.c:742
+#: ../libanjuta/anjuta-profile.c:751
 #, c-format
 msgid "%s: Install it from '%s'\n"
 msgstr "%s: Install it from '%s'\n"
 
-#: ../libanjuta/anjuta-profile.c:750
+#: ../libanjuta/anjuta-profile.c:759
 #, c-format
 msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
@@ -394,7 +394,7 @@ msgstr ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1251
+#: ../libanjuta/anjuta-preferences.c:1291
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -402,86 +402,86 @@ msgstr ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
 
-#: ../libanjuta/anjuta-preferences.c:1255
+#: ../libanjuta/anjuta-preferences.c:1295
 msgid "_Reset"
 msgstr "_Reset"
 
-#: ../libanjuta/anjuta-preferences.c:1554
+#: ../libanjuta/anjuta-preferences.c:1594
 msgid "Anjuta Preferences"
 msgstr "Anjuta Preferences"
 
-#: ../libanjuta/anjuta-preferences-dialog.c:130
+#: ../libanjuta/anjuta-preferences-dialog.c:141
 #: ../plugins/gtodo/interface.c:226
 #: ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "Category"
 
-#: ../libanjuta/anjuta-preferences-dialog.c:239
+#: ../libanjuta/anjuta-preferences-dialog.c:250
 msgid "Anjuta Preferences Dialog"
 msgstr "Anjuta Preferences Dialogue"
 
-#: ../libanjuta/anjuta-save-prompt.c:156
+#: ../libanjuta/anjuta-save-prompt.c:165
 msgid "Select the items to save:"
 msgstr "Select the items to save:"
 
-#: ../libanjuta/anjuta-save-prompt.c:179
+#: ../libanjuta/anjuta-save-prompt.c:188
 msgid "If you do not save, all your changes will be lost."
 msgstr "If you do not save, all your changes will be lost."
 
-#: ../libanjuta/anjuta-save-prompt.c:186
+#: ../libanjuta/anjuta-save-prompt.c:195
 #: ../plugins/document-manager/plugin.c:505
 msgid "Save"
 msgstr "Save"
 
-#: ../libanjuta/anjuta-save-prompt.c:193
+#: ../libanjuta/anjuta-save-prompt.c:202
 msgid "Item"
 msgstr "Item"
 
-#: ../libanjuta/anjuta-save-prompt.c:199
+#: ../libanjuta/anjuta-save-prompt.c:208
 msgid "_Discard changes"
 msgstr "_Discard changes"
 
-#: ../libanjuta/anjuta-save-prompt.c:294
+#: ../libanjuta/anjuta-save-prompt.c:303
 #, c-format
 msgid "There are %d items with unsaved changes. Save changes before closing?"
 msgstr "There are %d items with unsaved changes. Save changes before closing?"
 
-#: ../libanjuta/anjuta-save-prompt.c:301
+#: ../libanjuta/anjuta-save-prompt.c:310
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr "There is an item with unsaved changes. Save changes before closing?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:837
+#: ../libanjuta/anjuta-ui.c:879
 msgid "Action"
 msgstr "Action"
 
-#: ../libanjuta/anjuta-ui.c:855
+#: ../libanjuta/anjuta-ui.c:897
 msgid "Visible"
 msgstr "Visible"
 
-#: ../libanjuta/anjuta-ui.c:866
+#: ../libanjuta/anjuta-ui.c:908
 msgid "Sensitive"
 msgstr "Sensitive"
 
-#: ../libanjuta/anjuta-ui.c:875
+#: ../libanjuta/anjuta-ui.c:917
 msgid "Shortcut"
 msgstr "Shortcut"
 
-#: ../libanjuta/anjuta-utils.c:61
+#: ../libanjuta/anjuta-utils.c:72
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "Unable to read file: %s."
 
-#: ../libanjuta/anjuta-utils.c:71
+#: ../libanjuta/anjuta-utils.c:82
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "Unable to create file: %s."
 
-#: ../libanjuta/anjuta-utils.c:107
+#: ../libanjuta/anjuta-utils.c:118
 msgid "Unable to complete file copy"
 msgstr "Unable to complete file copy"
 
-#: ../libanjuta/anjuta-utils.c:320
+#: ../libanjuta/anjuta-utils.c:331
 msgid ""
 "\n"
 "System: "
@@ -489,7 +489,7 @@ msgstr ""
 "\n"
 "System: "
 
-#: ../libanjuta/anjuta-utils.c:458
+#: ../libanjuta/anjuta-utils.c:469
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -498,40 +498,40 @@ msgstr ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
 
-#: ../libanjuta/anjuta-utils.c:758
+#: ../libanjuta/anjuta-utils.c:769
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Cannot execute command: %s (using shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:762
+#: ../libanjuta/anjuta-utils.c:773
 #, c-format
 msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "Cannot execute command %s (using shell %s)\n"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:210
+#: ../libanjuta/cell-renderer-captioned-image.c:219
 #: ../libegg/egg-entry-action.c:131
 msgid "Text"
 msgstr "Text"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:211
+#: ../libanjuta/cell-renderer-captioned-image.c:220
 msgid "Text to render"
 msgstr "Text to render"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:217
+#: ../libanjuta/cell-renderer-captioned-image.c:226
 msgid "Pixbuf Object"
 msgstr "Pixbuf Object"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:218
+#: ../libanjuta/cell-renderer-captioned-image.c:227
 msgid "The pixbuf to render."
 msgstr "The pixbuf to render."
 
-#: ../libanjuta/resources.c:49
+#: ../libanjuta/resources.c:60
 #, c-format
 msgid "Widget not found: %s"
 msgstr "Widget not found: %s"
 
-#: ../libanjuta/resources.c:65
-#: ../libanjuta/resources.c:87
+#: ../libanjuta/resources.c:76
+#: ../libanjuta/resources.c:98
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "Could not find application pixmap file: %s"
@@ -1736,8 +1736,8 @@ msgid "Inspect/Evaluate"
 msgstr "Inspect/Evaluate"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
-#: ../plugins/debug-manager/plugin.c:959
-#: ../plugins/debug-manager/plugin.c:1067
+#: ../plugins/debug-manager/plugin.c:955
+#: ../plugins/debug-manager/plugin.c:1055
 #: ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "Kernel Signals"
@@ -1885,6 +1885,7 @@ msgstr "ID"
 #. Register actions
 #: ../plugins/debug-manager/breakpoints.c:133
 #: ../plugins/debug-manager/stack_trace.c:391
+#: ../plugins/debug-manager/threads.c:426
 #: ../plugins/file-manager/an_file_view.c:940
 #: ../src/anjuta-app.c:595
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
@@ -1893,6 +1894,7 @@ msgstr "File"
 
 #: ../plugins/debug-manager/breakpoints.c:133
 #: ../plugins/debug-manager/stack_trace.c:400
+#: ../plugins/debug-manager/threads.c:435
 #: ../plugins/document-manager/plugin.c:839
 #: ../plugins/document-manager/plugin.c:850
 msgid "Line"
@@ -1900,6 +1902,7 @@ msgstr "Line"
 
 #: ../plugins/debug-manager/breakpoints.c:134
 #: ../plugins/debug-manager/stack_trace.c:409
+#: ../plugins/debug-manager/threads.c:444
 #: ../plugins/valgrind/vgrule-editor.c:133
 msgid "Function"
 msgstr "Function"
@@ -1911,6 +1914,7 @@ msgstr "Type"
 
 #: ../plugins/debug-manager/breakpoints.c:134
 #: ../plugins/debug-manager/stack_trace.c:418
+#: ../plugins/debug-manager/threads.c:453
 msgid "Address"
 msgstr "Address"
 
@@ -2069,252 +2073,244 @@ msgstr "Information"
 msgid "Lines"
 msgstr "Lines"
 
-#: ../plugins/debug-manager/locals.c:85
+#: ../plugins/debug-manager/locals.c:86
 msgid "Locals"
 msgstr "Locals"
 
-#: ../plugins/debug-manager/plugin.c:319
+#: ../plugins/debug-manager/plugin.c:321
 msgid "Debugger Log"
 msgstr "Debugger Log"
 
-#: ../plugins/debug-manager/plugin.c:411
-#: ../plugins/debug-manager/plugin.c:449
-#: ../plugins/debug-manager/plugin.c:469
-#: ../plugins/debug-manager/plugin.c:496
-#: ../plugins/debug-manager/plugin.c:550
-#: ../plugins/debug-manager/plugin.c:585
+#: ../plugins/debug-manager/plugin.c:413
+#: ../plugins/debug-manager/plugin.c:451
+#: ../plugins/debug-manager/plugin.c:471
+#: ../plugins/debug-manager/plugin.c:498
+#: ../plugins/debug-manager/plugin.c:552
+#: ../plugins/debug-manager/plugin.c:587
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "Debugger"
 
-#: ../plugins/debug-manager/plugin.c:411
+#: ../plugins/debug-manager/plugin.c:413
 msgid "Started"
 msgstr "Started"
 
-#: ../plugins/debug-manager/plugin.c:449
+#: ../plugins/debug-manager/plugin.c:451
 msgid "Loaded"
 msgstr "Loaded"
 
-#: ../plugins/debug-manager/plugin.c:469
+#: ../plugins/debug-manager/plugin.c:471
 msgid "Running..."
 msgstr "Running..."
 
-#: ../plugins/debug-manager/plugin.c:496
+#: ../plugins/debug-manager/plugin.c:498
 msgid "Stopped"
 msgstr "Stopped"
 
-#: ../plugins/debug-manager/plugin.c:508
+#: ../plugins/debug-manager/plugin.c:510
 #, c-format
 msgid "Location: %s, line %d\n"
 msgstr "Location: %s, line %d\n"
 
-#: ../plugins/debug-manager/plugin.c:550
+#: ../plugins/debug-manager/plugin.c:552
 msgid "Unloaded"
 msgstr "Unloaded"
 
-#: ../plugins/debug-manager/plugin.c:593
+#: ../plugins/debug-manager/plugin.c:595
 #, c-format
 msgid "gdb terminated unexpectedly with status %d\n"
 msgstr "gdb terminated unexpectedly with status %d\n"
 
-#: ../plugins/debug-manager/plugin.c:606
+#: ../plugins/debug-manager/plugin.c:608
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "Program has received signal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:851
+#: ../plugins/debug-manager/plugin.c:847
 #: ../plugins/valgrind/plugin.c:448
 msgid "_Debug"
 msgstr "_Debug"
 
-#: ../plugins/debug-manager/plugin.c:859
+#: ../plugins/debug-manager/plugin.c:855
 msgid "_Start Debugger"
 msgstr "_Start Debugger"
 
-#: ../plugins/debug-manager/plugin.c:867
+#: ../plugins/debug-manager/plugin.c:863
 msgid "Run Target..."
 msgstr "Run Target..."
 
-#: ../plugins/debug-manager/plugin.c:869
+#: ../plugins/debug-manager/plugin.c:865
 msgid "load and start the target for debugging"
 msgstr "load and start the target for debugging"
 
-#: ../plugins/debug-manager/plugin.c:875
+#: ../plugins/debug-manager/plugin.c:871
 msgid "Restart Target"
 msgstr "Restart Target"
 
-#: ../plugins/debug-manager/plugin.c:877
+#: ../plugins/debug-manager/plugin.c:873
 msgid "restart the same target for debugging"
 msgstr "restart the same target for debugging"
 
-#: ../plugins/debug-manager/plugin.c:883
+#: ../plugins/debug-manager/plugin.c:879
 msgid "_Attach to Process..."
 msgstr "_Attach to Process..."
 
-#: ../plugins/debug-manager/plugin.c:885
+#: ../plugins/debug-manager/plugin.c:881
 msgid "Attach to a running program"
 msgstr "Attach to a running program"
 
-#: ../plugins/debug-manager/plugin.c:891
+#: ../plugins/debug-manager/plugin.c:887
 msgid "Stop Debugger"
 msgstr "Stop Debugger"
 
-#: ../plugins/debug-manager/plugin.c:893
+#: ../plugins/debug-manager/plugin.c:889
 msgid "Say goodbye to the debugger"
 msgstr "Say goodbye to the debugger"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:903
-#: ../plugins/debug-manager/plugin.c:1011
+#: ../plugins/debug-manager/plugin.c:899
+#: ../plugins/debug-manager/plugin.c:1007
 msgid "Debugger Command..."
 msgstr "Debugger Command..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:905
-#: ../plugins/debug-manager/plugin.c:1013
+#: ../plugins/debug-manager/plugin.c:901
+#: ../plugins/debug-manager/plugin.c:1009
 msgid "Custom debugger command"
 msgstr "Custom debugger command"
 
-#: ../plugins/debug-manager/plugin.c:911
-#: ../plugins/debug-manager/plugin.c:1019
+#: ../plugins/debug-manager/plugin.c:907
+#: ../plugins/debug-manager/plugin.c:1015
 msgid "_Info"
 msgstr "_Info"
 
-#: ../plugins/debug-manager/plugin.c:919
+#: ../plugins/debug-manager/plugin.c:915
 msgid "Info _Target Files"
 msgstr "Info _Target Files"
 
-#: ../plugins/debug-manager/plugin.c:921
+#: ../plugins/debug-manager/plugin.c:917
 msgid "Display information on the files the debugger is active with"
 msgstr "Display information on the files the debugger is active with"
 
-#: ../plugins/debug-manager/plugin.c:927
+#: ../plugins/debug-manager/plugin.c:923
 msgid "Info _Program"
 msgstr "Info _Program"
 
-#: ../plugins/debug-manager/plugin.c:929
+#: ../plugins/debug-manager/plugin.c:925
 msgid "Display information on the execution status of the program"
 msgstr "Display information on the execution status of the program"
 
-#: ../plugins/debug-manager/plugin.c:935
+#: ../plugins/debug-manager/plugin.c:931
 msgid "Info _Kernel User Struct"
 msgstr "Info _Kernel User Struct"
 
-#: ../plugins/debug-manager/plugin.c:937
+#: ../plugins/debug-manager/plugin.c:933
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Display the contents of kernel 'struct user' for current child"
 
-#: ../plugins/debug-manager/plugin.c:951
-#: ../plugins/debug-manager/plugin.c:1059
+#: ../plugins/debug-manager/plugin.c:947
+#: ../plugins/debug-manager/plugin.c:1047
 msgid "Shared Libraries"
 msgstr "Shared Libraries"
 
-#: ../plugins/debug-manager/plugin.c:953
-#: ../plugins/debug-manager/plugin.c:1061
+#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:1049
 msgid "Show shared libraries mappings"
 msgstr "Show shared libraries mappings"
 
-#: ../plugins/debug-manager/plugin.c:961
-#: ../plugins/debug-manager/plugin.c:1069
+#: ../plugins/debug-manager/plugin.c:957
+#: ../plugins/debug-manager/plugin.c:1057
 msgid "Show kernel signals"
 msgstr "Show kernel signals"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:971
+#: ../plugins/debug-manager/plugin.c:967
 msgid "Run/_Continue"
 msgstr "Run/_Continue"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:973
+#: ../plugins/debug-manager/plugin.c:969
 msgid "Continue the execution of the program"
 msgstr "Continue the execution of the program"
 
-#: ../plugins/debug-manager/plugin.c:979
+#: ../plugins/debug-manager/plugin.c:975
 msgid "Step _In"
 msgstr "Step _In"
 
-#: ../plugins/debug-manager/plugin.c:981
+#: ../plugins/debug-manager/plugin.c:977
 msgid "Single step into function"
 msgstr "Single step into function"
 
-#: ../plugins/debug-manager/plugin.c:987
+#: ../plugins/debug-manager/plugin.c:983
 msgid "Step O_ver"
 msgstr "Step O_ver"
 
-#: ../plugins/debug-manager/plugin.c:989
+#: ../plugins/debug-manager/plugin.c:985
 msgid "Single step over function"
 msgstr "Single step over function"
 
-#: ../plugins/debug-manager/plugin.c:995
+#: ../plugins/debug-manager/plugin.c:991
 msgid "Step _Out"
 msgstr "Step _Out"
 
-#: ../plugins/debug-manager/plugin.c:997
+#: ../plugins/debug-manager/plugin.c:993
 msgid "Single step out of the function"
 msgstr "Single step out of the function"
 
-#: ../plugins/debug-manager/plugin.c:1003
+#: ../plugins/debug-manager/plugin.c:999
 msgid "_Run to Cursor"
 msgstr "_Run to Cursor"
 
-#: ../plugins/debug-manager/plugin.c:1005
+#: ../plugins/debug-manager/plugin.c:1001
 msgid "Run to the cursor"
 msgstr "Run to the cursor"
 
-#: ../plugins/debug-manager/plugin.c:1027
-msgid "Info _Threads"
-msgstr "Info _Threads"
-
-#: ../plugins/debug-manager/plugin.c:1029
-msgid "Display the IDs of currently known threads"
-msgstr "Display the IDs of currently known threads"
-
-#: ../plugins/debug-manager/plugin.c:1035
+#: ../plugins/debug-manager/plugin.c:1023
 msgid "Info _Global Variables"
 msgstr "Info _Global Variables"
 
-#: ../plugins/debug-manager/plugin.c:1037
+#: ../plugins/debug-manager/plugin.c:1025
 msgid "Display all global and static variables of the program"
 msgstr "Display all global and static variables of the program"
 
-#: ../plugins/debug-manager/plugin.c:1043
+#: ../plugins/debug-manager/plugin.c:1031
 msgid "Info _Current Frame"
 msgstr "Info _Current Frame"
 
-#: ../plugins/debug-manager/plugin.c:1045
+#: ../plugins/debug-manager/plugin.c:1033
 msgid "Display information about the current frame of execution"
 msgstr "Display information about the current frame of execution"
 
-#: ../plugins/debug-manager/plugin.c:1051
+#: ../plugins/debug-manager/plugin.c:1039
 msgid "Info Function _Arguments"
 msgstr "Info Function _Arguments"
 
-#: ../plugins/debug-manager/plugin.c:1053
+#: ../plugins/debug-manager/plugin.c:1041
 msgid "Display function arguments of the current frame"
 msgstr "Display function arguments of the current frame"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1079
+#: ../plugins/debug-manager/plugin.c:1067
 msgid "Pa_use Program"
 msgstr "Pa_use Program"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1081
+#: ../plugins/debug-manager/plugin.c:1069
 msgid "Pauses the execution of the program"
 msgstr "Pauses the execution of the program"
 
+#: ../plugins/debug-manager/plugin.c:1098
+#: ../plugins/debug-manager/plugin.c:1104
 #: ../plugins/debug-manager/plugin.c:1110
 #: ../plugins/debug-manager/plugin.c:1116
-#: ../plugins/debug-manager/plugin.c:1122
-#: ../plugins/debug-manager/plugin.c:1128
 msgid "Debugger operations"
 msgstr "Debugger operations"
 
@@ -2415,10 +2411,12 @@ msgid "Set current frame"
 msgstr "Set current frame"
 
 #: ../plugins/debug-manager/stack_trace.c:327
+#: ../plugins/debug-manager/threads.c:365
 msgid "View Source"
 msgstr "View Source"
 
 #: ../plugins/debug-manager/stack_trace.c:364
+#: ../plugins/debug-manager/threads.c:401
 msgid "Active"
 msgstr "Active"
 
@@ -2478,6 +2476,24 @@ msgstr "Load Target to debug"
 #: ../plugins/file-loader/plugin.c:470
 msgid "All files"
 msgstr "All files"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/threads.c:357
+msgid "Set current thread"
+msgstr "Set current thread"
+
+#: ../plugins/debug-manager/threads.c:411
+msgid "Id"
+msgstr "Id"
+
+#: ../plugins/debug-manager/threads.c:481
+msgid "Thread"
+msgstr "Thread"
+
+#: ../plugins/debug-manager/threads.c:543
+msgid "Thread operations"
+msgstr "Thread operations"
 
 #. Action name
 #. Stock icon, if any
@@ -4689,16 +4705,16 @@ msgstr "Execute Program"
 msgid "Run in Terminal"
 msgstr "Run in Terminal"
 
-#: ../plugins/gdb/debugger.c:613
-#: ../plugins/gdb/debugger.c:822
+#: ../plugins/gdb/debugger.c:620
+#: ../plugins/gdb/debugger.c:829
 msgid "Loading Executable: "
 msgstr "Loading Executable: "
 
-#: ../plugins/gdb/debugger.c:643
+#: ../plugins/gdb/debugger.c:650
 msgid "Loading Core: "
 msgstr "Loading Core: "
 
-#: ../plugins/gdb/debugger.c:694
+#: ../plugins/gdb/debugger.c:701
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4709,57 +4725,57 @@ msgstr ""
 "Unable to initialize debugger.\n"
 "Make sure Anjuta is installed correctly."
 
-#: ../plugins/gdb/debugger.c:816
+#: ../plugins/gdb/debugger.c:823
 msgid "Getting ready to start debugging session...\n"
 msgstr "Getting ready to start debugging session...\n"
 
-#: ../plugins/gdb/debugger.c:831
+#: ../plugins/gdb/debugger.c:838
 msgid "No executable specified.\n"
 msgstr "No executable specified.\n"
 
-#: ../plugins/gdb/debugger.c:834
+#: ../plugins/gdb/debugger.c:841
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Open an executable or attach to a process to start debugging.\n"
 
-#: ../plugins/gdb/debugger.c:843
+#: ../plugins/gdb/debugger.c:850
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "There was an error whilst launching the debugger.\n"
 
-#: ../plugins/gdb/debugger.c:847
+#: ../plugins/gdb/debugger.c:854
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Make sure 'gdb' is installed on the system.\n"
 
-#: ../plugins/gdb/debugger.c:1128
+#: ../plugins/gdb/debugger.c:1141
 msgid "Program exited normally\n"
 msgstr "Program exited normally\n"
 
-#: ../plugins/gdb/debugger.c:1139
+#: ../plugins/gdb/debugger.c:1152
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "Program exited with error code %s\n"
 
-#: ../plugins/gdb/debugger.c:1154
+#: ../plugins/gdb/debugger.c:1167
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Breakpoint number %s hit\n"
 
-#: ../plugins/gdb/debugger.c:1163
+#: ../plugins/gdb/debugger.c:1176
 msgid "Function finished\n"
 msgstr "Function finished\n"
 
-#: ../plugins/gdb/debugger.c:1169
+#: ../plugins/gdb/debugger.c:1182
 msgid "Stepping finished\n"
 msgstr "Stepping finished\n"
 
-#: ../plugins/gdb/debugger.c:1175
+#: ../plugins/gdb/debugger.c:1188
 msgid "Location reached\n"
 msgstr "Location reached\n"
 
-#: ../plugins/gdb/debugger.c:1245
+#: ../plugins/gdb/debugger.c:1258
 msgid "Debugger is ready.\n"
 msgstr "Debugger is ready.\n"
 
-#: ../plugins/gdb/debugger.c:1488
+#: ../plugins/gdb/debugger.c:1501
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4767,7 +4783,7 @@ msgstr ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
 
-#: ../plugins/gdb/debugger.c:1491
+#: ../plugins/gdb/debugger.c:1504
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -4775,24 +4791,24 @@ msgstr ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
 
-#: ../plugins/gdb/debugger.c:1744
+#: ../plugins/gdb/debugger.c:1757
 msgid "Cannot execute gnome-terminal"
 msgstr "Cannot execute gnome-terminal"
 
-#: ../plugins/gdb/debugger.c:1780
+#: ../plugins/gdb/debugger.c:1793
 msgid "Cannot start terminal for debugging."
 msgstr "Cannot start terminal for debugging."
 
-#: ../plugins/gdb/debugger.c:1872
+#: ../plugins/gdb/debugger.c:1885
 msgid "Program attached\n"
 msgstr "Program attached\n"
 
-#: ../plugins/gdb/debugger.c:1889
+#: ../plugins/gdb/debugger.c:1902
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Attaching to process: %d...\n"
 
-#: ../plugins/gdb/debugger.c:1915
+#: ../plugins/gdb/debugger.c:1928
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4800,32 +4816,32 @@ msgstr ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
 
-#: ../plugins/gdb/debugger.c:1932
+#: ../plugins/gdb/debugger.c:1945
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta is unable to attach to itself."
 
-#: ../plugins/gdb/debugger.c:1982
+#: ../plugins/gdb/debugger.c:1995
 msgid "Program terminated\n"
 msgstr "Program terminated\n"
 
-#: ../plugins/gdb/debugger.c:1997
+#: ../plugins/gdb/debugger.c:2010
 msgid "Program detached\n"
 msgstr "Program detached\n"
 
-#: ../plugins/gdb/debugger.c:2016
+#: ../plugins/gdb/debugger.c:2029
 msgid "Detaching the process...\n"
 msgstr "Detaching the process...\n"
 
-#: ../plugins/gdb/debugger.c:2038
+#: ../plugins/gdb/debugger.c:2051
 msgid "Interrupting the process\n"
 msgstr "Interrupting the process\n"
 
-#: ../plugins/gdb/debugger.c:3585
+#: ../plugins/gdb/debugger.c:3791
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Sending signal %s to the process: %d"
 
-#: ../plugins/gdb/debugger.c:3611
+#: ../plugins/gdb/debugger.c:3817
 msgid "Error whilst signaling the process."
 msgstr "Error whilst signaling the process."
 
@@ -8591,6 +8607,8 @@ msgstr "File loader to load different files"
 msgid "Debug Manager plugin."
 msgstr "Debug Manager plugin."
 
+#~ msgid "Display the IDs of currently known threads"
+#~ msgstr "Display the IDs of currently known threads"
 #~ msgid ""
 #~ "Cannot open: %s\n"
 #~ "&s"
@@ -9330,8 +9348,6 @@ msgstr "Debug Manager plugin."
 #~ "Insert the CVS Header keyword (full path revision, date, author, state)"
 #~ msgstr ""
 #~ "Insert the CVS Header keyword (full path, revision, date, author, state)"
-#~ msgid "_Id"
-#~ msgstr "_Id"
 #~ msgid "Insert the CVS Id keyword (file revision, date, author)"
 #~ msgstr "Insert the CVS Id keyword (file revision, date, author)"
 #~ msgid "_Log"
