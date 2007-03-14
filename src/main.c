@@ -166,8 +166,7 @@ display_open_if_needed (const gchar *name)
 
 /* serverside */
 static void
-on_message_received (const char *message,
-		     gpointer    data)
+on_message_received (const char *message, gpointer    data)
 {
 	gchar **commands;
 	gchar **params;
@@ -194,6 +193,7 @@ on_message_received (const char *message,
 	g_strfreev (params);
 
 	/* body */
+	gtk_window_present (GTK_WINDOW (app));
 	i = 1;
 	while (commands[i])
 	{

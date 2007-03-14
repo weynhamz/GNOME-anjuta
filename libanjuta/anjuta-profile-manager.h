@@ -69,6 +69,7 @@ gboolean anjuta_profile_manager_pop (AnjutaProfileManager *profile_manager,
 void anjuta_profile_manager_freeze (AnjutaProfileManager *profile_manager);
 gboolean anjuta_profile_manager_thaw (AnjutaProfileManager *plugin_manager,
 									 GError **error);
+AnjutaProfile* anjuta_profile_manager_get_current (AnjutaProfileManager *profile_manager);
 
 G_END_DECLS
 

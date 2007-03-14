@@ -44,13 +44,15 @@ static gboolean
 on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 {
 	AnjutaPluginManager *plugin_manager;
+	AnjutaProfileManager *profile_manager;
+	AnjutaProfile *current_profile;
 	AnjutaSavePrompt *save_prompt;
-	gchar *session_dir;
 	gchar *remembered_plugins;
 	
 	DEBUG_PRINT ("AnjutaApp delete event");
 	
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_SHELL (app), NULL);
+	profile_manager = anjuta_shell_get_profile_manager (ANJUTA_SHELL (app), NULL);
 	
 	/* Save remembered plugins */
 	remembered_plugins =
@@ -79,11 +81,20 @@ on_anjuta_delete_event (AnjutaApp *app, GdkEvent *event, gpointer data)
 		}
 	}
 	
-	/* Save current session as default session */
-	session_dir = USER_SESSION_PATH_NEW;
-	anjuta_shell_session_save (ANJUTA_SHELL (app), session_dir, NULL);
-	g_free (session_dir);
-
+	/* If current active profile is "user", save current session as
+	 * default session
+	 */
+	current_profile = anjuta_profile_manager_get_current (profile_manager);
+	if (strcmp (anjuta_profile_get_name (current_profile), "user") == 0)
+	{
+		gchar *session_dir;
+		session_dir = USER_SESSION_PATH_NEW;
+		anjuta_shell_session_save (ANJUTA_SHELL (app), session_dir, NULL);
+		g_free (session_dir);
+	}
+	
+	anjuta_shell_notify_exit (ANJUTA_SHELL (app), NULL);
+	
 	gtk_widget_destroy (GTK_WIDGET (save_prompt));
 	
 	/* Shutdown */
@@ -210,6 +221,59 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 	g_free (session_dir);
 }
 
+/* This extracts the project URI saved in the session so that it could be
+ * loaded sequencially. Returned string must be freed.
+ */
+static gchar*
+extract_project_from_session (const gchar* session_dir)
+{
+	AnjutaSession *session;
+	GList *node, *files, *new_files = NULL;
+	gchar *project_uri = NULL;
+	
+	session = anjuta_session_new (session_dir);
+	
+	files = anjuta_session_get_string_list (session, "File Loader", "Files");
+	if (!files)
+		return NULL;
+	
+	/* Open project files first and then regular files */
+	node = files;
+	while (node)
+	{
+		gchar *uri = node->data;
+		if (uri)
+		{
+			gchar *mime_type;
+			mime_type = anjuta_util_get_uri_mime_type (uri);
+			if (mime_type && strcmp (mime_type, "application/x-anjuta") == 0)
+			{
+				g_free (project_uri);
+				project_uri = uri;
+			}
+			else
+			{
+				new_files = g_list_prepend (new_files, uri);
+			}
+			g_free (mime_type);
+		}
+		node = g_list_next (node);
+	}
+	/* anjuta_session_set_string_list (session, "File Loader", "Files", new_files);
+	anjuta_session_sync (session); */
+	g_object_unref (session);
+	
+	if (new_files)
+	{
+		g_list_foreach (new_files, (GFunc)g_free, NULL);
+		g_list_free (new_files);
+	}
+	if (files)
+		g_list_free (files);
+	return project_uri;
+}
+
+/* FIXME: Clean this mess */
 AnjutaApp*
 anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 			gboolean no_session, gboolean no_files,
@@ -225,7 +289,7 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	AnjutaProfile *profile;
 	gchar *session_profile;
 	gchar *remembered_plugins;
-	const gchar *project_file = NULL;
+	gchar *project_file = NULL;
 	gchar *profile_name = NULL;
 	GError *error = NULL;
 	
@@ -316,15 +380,19 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 		const gchar *prefix;
 		prefix = gnome_client_get_config_prefix (client);
 		system_restore_session = gnome_config_get_real_path (prefix);
+		project_file = extract_project_from_session (system_restore_session);
 	}
 	else if (prog_args || geometry)
-	{
+	{                 
 		gchar *session_dir;
 		AnjutaSession *session;
 		GList *node, *files_load = NULL;
 		
 		/* Reset default session */
 		session_dir = USER_SESSION_PATH_NEW;
+		
+		project_file = extract_project_from_session (session_dir);
+		
 		session = anjuta_session_new (session_dir);
 		anjuta_session_clear (session);
 		if (geometry)
@@ -349,7 +417,7 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 			else if (project_file == NULL)
 			{
 				/* Pick up the first project file for loading later */
-				project_file = filename;
+				project_file = g_strdup (filename);
 			}
 			node = g_list_next (node);
 		}
@@ -392,6 +460,11 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 			anjuta_session_sync (session);
 			g_object_unref (session);
 		}
+		/* Otherwise, load session normally */
+		else
+		{
+			project_file = extract_project_from_session (session_dir);
+		}
 		g_free (session_dir);
 	}
 	
@@ -405,6 +478,7 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 		loader = anjuta_shell_get_interface (ANJUTA_SHELL (app),
 											 IAnjutaFileLoader, NULL);
 		ianjuta_file_loader_load (loader, project_file, FALSE, NULL);
+		g_free (project_file);
 	}
 	anjuta_profile_manager_thaw (profile_manager, &error);
 	

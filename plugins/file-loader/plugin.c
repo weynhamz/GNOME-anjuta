@@ -62,66 +62,6 @@ sort_wizards(gconstpointer wizard1, gconstpointer wizard2)
 		return 0;
 }
 
-static gboolean
-path_has_extension (const gchar *path, const gchar *ext)
-{
-	if (strlen (path) <= strlen (ext))
-		return FALSE;
-	if ((path[strlen (path) - strlen (ext) - 1] == '.') &&
-		(strcmp (&path[strlen (path) - strlen (ext)], ext) == 0))
-		return TRUE;
-	return FALSE;
-}
-
-static gchar *
-get_uri_mime_type (const gchar *uri)
-{
-	GnomeVFSURI *vfs_uri;
-	const gchar *path;
-	gchar *mime_type;
-	
-	g_return_val_if_fail (uri != NULL, NULL);
-	
-	vfs_uri = gnome_vfs_uri_new (uri);
-	if (vfs_uri)
-		path = gnome_vfs_uri_get_path (vfs_uri);
-	else
-		path = NULL;
-	
-	/* If Anjuta is not installed in system gnome prefix, the mime types 
-	 * may not have been correctly registed. In that case, we use the
-	 * following mime detection
-	 */
-	if (!path)
-	{
-		mime_type = gnome_vfs_get_mime_type (uri);
-	}
-	else if (path_has_extension (path, "anjuta"))
-	{
-		mime_type = g_strdup ("application/x-anjuta");
-	}
-	else if (path_has_extension (path, "prj"))
-	{
-		mime_type = g_strdup ("application/x-anjuta-old");
-	}
-	else if (path_has_extension (path, "ui"))
-	{
-		mime_type = g_strdup ("text/xml");
-	}
-	else if (path_has_extension (path, "glade"))
-	{
-		mime_type = g_strdup ("application/x-glade");
-	}
-	else
-	{
-		mime_type = gnome_vfs_get_mime_type (uri);
-	}
-	
-	if (vfs_uri)
-		gnome_vfs_uri_unref (vfs_uri);
-	return mime_type;
-}
-
 static void
 set_recent_file (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 				 const gchar *mime)
@@ -751,7 +691,7 @@ open_file_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
 														 "desc");
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
 													  NULL);
-	mime_type = get_uri_mime_type (uri);
+	mime_type = anjuta_util_get_uri_mime_type (uri);
 	mime_apps = gnome_vfs_mime_get_all_applications (mime_type);
 	
 	/* Open with plugin */
@@ -896,7 +836,7 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 	gtk_widget_show (menu);
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (parentmenu), menu);
 	
-	mime_type = get_uri_mime_type (uri);
+	mime_type = anjuta_util_get_uri_mime_type (uri);
 	if (mime_type == NULL)
 		return FALSE;
 	
@@ -1126,7 +1066,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 			{
 				gchar *label, *filename;
 				
-				mime_type = get_uri_mime_type (uri);
+				mime_type = anjuta_util_get_uri_mime_type (uri);
 				
 				filename = g_path_get_basename (uri);
 				if (strchr (filename, '#'))
@@ -1138,8 +1078,11 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 					strcmp (mime_type, "application/x-anjuta") == 0)
 				{
 					/* Project files first */
+					/* FIXME: Ignore project files for now */
+					/*
 					ianjuta_file_loader_load (IANJUTA_FILE_LOADER (plugin),
 											  uri, FALSE, NULL);
+					*/
 					anjuta_status_progress_tick (status, NULL, label);
 				}
 				else if (i != 0 &&
@@ -1348,7 +1291,7 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	vfs_uri = gnome_vfs_uri_new (uri);
 	new_uri = gnome_vfs_uri_to_string (vfs_uri,
 									   GNOME_VFS_URI_HIDE_FRAGMENT_IDENTIFIER);
-	mime_type = get_uri_mime_type (new_uri);
+	mime_type = anjuta_util_get_uri_mime_type (new_uri);
 	gnome_vfs_uri_unref (vfs_uri);
 	
 	if (mime_type == NULL)

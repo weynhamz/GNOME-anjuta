@@ -64,13 +64,14 @@ struct _AnjutaShellIface {
 	GTypeInterface g_iface;
 	
 	/* Signals */
-	void (*value_added) (AnjutaShell *shell, char *name, GValue *value);
+	void (*value_added)  (AnjutaShell *shell, char *name, GValue *value);
 	void (*value_removed) (AnjutaShell *shell, char *name);
 	void (*save_session) (AnjutaShell *shell, AnjutaSessionPhase phase,
 						  AnjutaSession *session);
 	void (*load_session) (AnjutaShell *shell, AnjutaSessionPhase phase,
 						  AnjutaSession *session);
 	void (*save_prompt)  (AnjutaShell *shell, AnjutaSavePrompt *save_prompt);
+	void (*exiting)      (AnjutaShell *shell);
 	
 	/* Virtual Table */
 	AnjutaStatus* (*get_status) (AnjutaShell  *shell, GError **err);
@@ -182,6 +183,7 @@ void anjuta_shell_session_load      (AnjutaShell *shell,
 void anjuta_shell_save_prompt       (AnjutaShell *shell,
 									 AnjutaSavePrompt *prompt,
 									 GError **error);
+void anjuta_shell_notify_exit       (AnjutaShell *shell, GError **error);
 
 /**
  * anjuta_shell_get_interface:

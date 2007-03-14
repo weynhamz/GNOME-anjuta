@@ -115,17 +115,28 @@ get_session_dir (ProjectManagerPlugin *plugin)
 }
 
 static void
+project_manager_save_session (ProjectManagerPlugin *plugin)
+{
+	gchar *session_dir;
+	session_dir = get_session_dir (plugin);
+	g_return_if_fail (session_dir != NULL);
+	
+	plugin->session_by_me = TRUE;
+	anjuta_shell_session_save (ANJUTA_PLUGIN (plugin)->shell,
+							   session_dir, NULL);
+	plugin->session_by_me = FALSE;
+	g_free (session_dir);
+}
+
+static void
 on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, ProjectManagerPlugin *plugin)
 {
 	GList *files;
-	const gchar *dir;
-	
+
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 	
-	/* Save currently active plugins */
-	dir = anjuta_session_get_session_directory (session);
 	/*
 	 * When a project session is being saved (session_by_me == TRUE),
 	 * we should not save the current project uri, because project 
@@ -141,6 +152,16 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 										"Files", files);
 		g_list_foreach (files, (GFunc)g_free, NULL);
 		g_list_free (files);
+	}
+}
+
+static void
+on_shell_exiting (AnjutaShell *shell, ProjectManagerPlugin *plugin)
+{
+	if (plugin->project_uri)
+	{
+		/* Also make sure we save the project session also */
+		project_manager_save_session (plugin);
 	}
 }
 
@@ -1247,8 +1268,6 @@ static void
 on_profile_descoped (AnjutaProfileManager *profile_manager,
 					 AnjutaProfile *profile, ProjectManagerPlugin *plugin)
 {
-	gchar *session_dir;
-	
 	DEBUG_PRINT ("Profile descoped: %s", anjuta_profile_get_name (profile));
 	
 	if (strcmp (anjuta_profile_get_name (profile), PROJECT_PROFILE_NAME) != 0)
@@ -1260,14 +1279,7 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 	g_return_if_fail (plugin->project_root_uri != NULL);
 	
 	/* Save project session */
-	session_dir = get_session_dir (plugin);
-	g_return_if_fail (session_dir != NULL);
-	
-	plugin->session_by_me = TRUE;
-	anjuta_shell_session_save (ANJUTA_PLUGIN (plugin)->shell,
-							   session_dir, NULL);
-	plugin->session_by_me = FALSE;
-	g_free (session_dir);
+	project_manager_save_session (plugin);
 	
 	/* Close current project */
 	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
@@ -1404,6 +1416,8 @@ project_manager_plugin_activate_plugin (AnjutaPlugin *plugin)
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
 					  G_CALLBACK (on_session_save), plugin);
+	g_signal_connect (G_OBJECT (plugin->shell), "exiting",
+					  G_CALLBACK (on_shell_exiting), plugin);
 	profile_manager = anjuta_shell_get_profile_manager (plugin->shell, NULL);
 
 	/* Connect to profile scoping */
@@ -1430,6 +1444,9 @@ project_manager_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	/* Disconnect signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_save),
+										  plugin);
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_shell_exiting),
 										  plugin);
 	g_signal_handlers_disconnect_by_func (G_OBJECT (profile_manager),
 										  G_CALLBACK (on_profile_descoped),

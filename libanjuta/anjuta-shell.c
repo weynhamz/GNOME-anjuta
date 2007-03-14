@@ -776,6 +776,14 @@ anjuta_shell_save_prompt (AnjutaShell *shell,
 	g_signal_emit_by_name (shell, "save-prompt", save_prompt);
 }
 
+void
+anjuta_shell_notify_exit (AnjutaShell *shell,
+						  GError **error)
+{
+	g_return_if_fail (ANJUTA_IS_SHELL (shell));
+	g_signal_emit_by_name (shell, "exiting");
+}
+
 static void
 anjuta_shell_base_init (gpointer gclass)
 {
@@ -825,6 +833,13 @@ anjuta_shell_base_init (gpointer gclass)
 			      anjuta_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_OBJECT);
+		g_signal_new ("exiting",
+			      ANJUTA_TYPE_SHELL,
+			      G_SIGNAL_RUN_LAST,
+			      G_STRUCT_OFFSET (AnjutaShellIface, exiting),
+			      NULL, NULL,
+			      anjuta_cclosure_marshal_VOID__VOID,
+			      G_TYPE_NONE, 0);
 		initialized = TRUE;
 	}
 }

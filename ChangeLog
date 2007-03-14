@@ -1,3 +1,26 @@
+2007-03-15  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-profile-manager.c,
+	libanjuta/anjuta-profile-manager.h: Added method to get current
+	profile.
+
+	* libanjuta/anjuta-shell.c, libanjuta/anjuta-shell.h: Added "exiting"
+	signal and anjuta_shell_notify_exit(). Signal is emitted when anjuta
+	is exiting.
+
+	* libanjuta/anjuta-utils.c, libanjuta/anjuta-utils.h,
+	plugins/file-loader/plugin.c: Moved to functions as utility functions.
+	Also, not load project files in session load in loader plugin.
+	
+	* plugins/project-manager/plugin.c, src/anjuta.c:
+	Emit "exiting" signal in shell when exiting anjuta. project manager
+	listens to exiting signal and saves session. anjuta.c saves session
+	only when current projfile is 'user'. Load project saved in session
+	differently then the rest of the session. This should fix all the
+	session restoration bugs.
+	
+	src/main.c: Present anjuta window when becon message is received.
+
 2007-03-14  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-profile.c: Fixed a bug where some plugins would
@@ -32,7 +55,6 @@
 	Keep all elements in gdbmi hash
 	Even if using the same key like in -threads-list-ids
 
->>>>>>> .r2868
 2007-03-11  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl: Generate class comments.

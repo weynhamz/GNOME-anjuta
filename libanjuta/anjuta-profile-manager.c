@@ -561,3 +561,15 @@ anjuta_profile_manager_thaw (AnjutaProfileManager *profile_manager,
 		return FALSE;
 	}
 }
+
+AnjutaProfile*
+anjuta_profile_manager_get_current (AnjutaProfileManager *profile_manager)
+{
+	g_return_val_if_fail (ANJUTA_IS_PROFILE_MANAGER (profile_manager), NULL);
+	if (profile_manager->priv->profiles_queue)
+		return ANJUTA_PROFILE (profile_manager->priv->profiles_queue->data);
+	else if (profile_manager->priv->profiles)
+		return ANJUTA_PROFILE (profile_manager->priv->profiles->data);
+	else
+		return NULL;
+}
