@@ -1,3 +1,8 @@
+2007-03-16  Naba Kumar  <naba@gnome.org>
+
+	Patch from James Liggett <jrliggett@cox.net>:
+	plugins/profiler/gprof-profile-data.c: Fixed a crash.
+	
 2007-03-15  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-profile-manager.c,

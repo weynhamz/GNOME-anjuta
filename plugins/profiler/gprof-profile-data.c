@@ -109,6 +109,7 @@ gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
 	FILE *stdout_stream;
 	gchar *program_dir;
 	gchar *gmon_out_path;
+	gchar *path_uri;
 	GPtrArray *gprof_args;
 	gchar *mime_type;
 	gboolean is_libtool_target = FALSE;
@@ -116,10 +117,18 @@ gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
 	gint gprof_status;
 	
 	/* Determine target mime type */
-	mime_type = gnome_vfs_get_mime_type (path);
-	if (strcmp (mime_type, "application/x-shellscript") == 0)
-		is_libtool_target = TRUE;
-	g_free (mime_type);
+	path_uri = gnome_vfs_get_uri_from_local_path (path);
+	mime_type = gnome_vfs_get_mime_type (path_uri);
+	
+	if (mime_type)
+	{
+		if (strcmp (mime_type, "application/x-shellscript") == 0)
+			is_libtool_target = TRUE;
+		
+		g_free (mime_type);
+	}
+	
+	g_free (path_uri);
 	
 	/* Run gprof with -b given the path to a program run with profiling */
 	
