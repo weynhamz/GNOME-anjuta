@@ -1,5 +1,9 @@
 2007-03-16  Naba Kumar  <naba@gnome.org>
 
+	* src/anjuta.c: Fixed project loading from command line.
+
+2007-03-16  Naba Kumar  <naba@gnome.org>
+
 	Patch from James Liggett <jrliggett@cox.net>:
 	plugins/profiler/gprof-profile-data.c: Fixed a crash.
 	

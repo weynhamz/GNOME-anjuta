@@ -414,9 +414,10 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 			{
 				files_load = g_list_prepend (files_load, node->data);
 			}
-			else if (project_file == NULL)
+			else
 			{
 				/* Pick up the first project file for loading later */
+				g_free (project_file);
 				project_file = g_strdup (filename);
 			}
 			node = g_list_next (node);
