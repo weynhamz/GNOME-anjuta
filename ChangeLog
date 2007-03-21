@@ -1,3 +1,9 @@
+2007-03-22  Naba Kumar  <naba@gnome.org>
+
+    * tagmanager/c.c, plugins/symbol-browser/plugin.c: Restored c.c to
+    ctags svn version and reopened bug #395362. Fixes tags parsing that
+    seemed to have stopped working recently.
+
 2007-03-21  Naba Kumar  <naba@gnome.org>
 
 	* tagmanager/tm_source_file.c, tagmanager/options.c,

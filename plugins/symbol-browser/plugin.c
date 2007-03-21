@@ -810,8 +810,11 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		return FALSE;
 	
 	if (uri) {
+		/* FIXME: Only uncomment after investigating bug 395362 */
+		/*
 		anjuta_symbol_view_update_source_from_buffer (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree), 
 				uri, current_buffer, buffer_size);
+		*/
 		g_free (uri);
 	}
 	
