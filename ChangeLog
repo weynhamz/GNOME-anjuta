@@ -1,3 +1,10 @@
+2007-03-21  Naba Kumar  <naba@gnome.org>
+
+	* tagmanager/tm_source_file.c, tagmanager/options.c,
+	global-tags/create_global_tags.sh.in: Fixed c++ parsing (to some
+	extend .. more needs to be investigated and fixed). Enabled some
+	debugging.
+
 2007-03-16  Naba Kumar  <naba@gnome.org>
 
 	* src/anjuta.c: Fixed project loading from command line.

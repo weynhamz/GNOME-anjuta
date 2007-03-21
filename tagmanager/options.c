@@ -348,7 +348,7 @@ static boolean parseFileOptions (const char *const fileName);
 
 extern void verbose (const char *const format, ...)
 {
-	if (Option.verbose)
+	if (1/*Option.verbose*/)
 	{
 		va_list ap;
 		va_start (ap, format);

@@ -132,7 +132,7 @@ gboolean tm_source_file_parse(TMSourceFile *source_file)
 	}
 	else
 	{
-		int passCount = 0;
+		int passCount = 1;
 		while ((TRUE == status) && (passCount < 3))
 		{
 			if (source_file->work_object.tags_array)
@@ -202,7 +202,7 @@ gboolean tm_source_file_buffer_parse(TMSourceFile *source_file, unsigned char* t
 	}
 	else
 	{
-		int passCount = 0;
+		int passCount = 1;
 		while ((TRUE == status) && (passCount < 3))
 		{
 			if (source_file->work_object.tags_array)
