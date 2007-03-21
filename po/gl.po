@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-13 11:17+0100\n"
-"PO-Revision-Date: 2007-03-13 11:22+0100\n"
+"POT-Creation-Date: 2007-03-21 17:22+0100\n"
+"PO-Revision-Date: 2007-03-21 17:26+0100\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@cvs.gnome.org>\n"
 "Language-Team: Galego <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
-msgstr "Anjuta IDE"
+msgstr "IDE Anjuta"
 
 #: ../anjuta.desktop.in.in.h:2
 #, fuzzy
@@ -329,7 +329,7 @@ msgstr "Lista de complementos para este perfil"
 
 #: ../libanjuta/anjuta-profile.c:240
 msgid "Synchronization URI"
-msgstr ""
+msgstr "URI de sincronización"
 
 #: ../libanjuta/anjuta-profile.c:241
 msgid "URI to sync the proflie xml"
@@ -715,11 +715,11 @@ msgstr "Buscar"
 msgid "Incremental search"
 msgstr "Busca incremental"
 
-#: ../libegg/test-actions.c:155 ../plugins/file-loader/plugin.c:1219
+#: ../libegg/test-actions.c:155 ../plugins/file-loader/plugin.c:1162
 msgid "Open _Recent"
 msgstr "Abrir _recente"
 
-#: ../libegg/test-actions.c:156 ../plugins/file-loader/plugin.c:1230
+#: ../libegg/test-actions.c:156 ../plugins/file-loader/plugin.c:1173
 msgid "Open recent files"
 msgstr "Abre ficheiros recentes"
 
@@ -1179,9 +1179,8 @@ msgid "File to which the processed template will be written"
 msgstr ""
 
 #: ../plugins/class-gen/generator.c:402
-#, fuzzy
 msgid "Failed to write autogen definition file"
-msgstr "Fallou ao escribir os datos ao ficheiro."
+msgstr "Fallou ao escribir o ficheiro de definición de autogen"
 
 #: ../plugins/class-gen/plugin.c:99 ../plugins/project-wizard/druid.c:828
 msgid ""
@@ -2421,7 +2420,7 @@ msgstr "Falta o ficheiro %s"
 msgid "Load Target to debug"
 msgstr "Cargar obxectivo para depurar"
 
-#: ../plugins/debug-manager/start.c:984 ../plugins/file-loader/plugin.c:470
+#: ../plugins/debug-manager/start.c:984 ../plugins/file-loader/plugin.c:410
 msgid "All files"
 msgstr "Todos os ficheiros"
 
@@ -2599,8 +2598,8 @@ msgid "Close file"
 msgstr "Pechar ficheiro"
 
 #: ../plugins/document-manager/anjuta-docman.c:317
-#: ../plugins/file-loader/plugin.c:564 ../plugins/file-loader/plugin.c:846
-#: ../plugins/file-loader/plugin.c:856 ../plugins/file-loader/plugin.c:869
+#: ../plugins/file-loader/plugin.c:504 ../plugins/file-loader/plugin.c:786
+#: ../plugins/file-loader/plugin.c:796 ../plugins/file-loader/plugin.c:809
 msgid "Open file"
 msgstr "Abrir ficheiro"
 
@@ -3940,7 +3939,7 @@ msgstr "Sangrar chaves de apertura"
 #: ../plugins/editor/editor.glade.h:44
 #: ../plugins/sourceview/sourceview.glade.h:21
 msgid "Indentation size in spaces:"
-msgstr "Tamaño de sangrado en espacios:"
+msgstr "Tamaño de sangrado en espazos:"
 
 #: ../plugins/editor/editor.glade.h:45
 msgid "Italic"
@@ -4004,12 +4003,12 @@ msgstr "Primeiro plano da selección:"
 
 #: ../plugins/editor/editor.glade.h:60
 msgid "Strip trailling spaces on file save"
-msgstr "Eliminar espacios finais ao gardar"
+msgstr "Eliminar espazos finais ao gardar"
 
 #: ../plugins/editor/editor.glade.h:61
 #: ../plugins/sourceview/sourceview.glade.h:28
 msgid "Tab size in spaces:"
-msgstr "Tamaño do tabulador en espacios:"
+msgstr "Tamaño do tabulador en espazos:"
 
 #: ../plugins/editor/editor.glade.h:62
 msgid "Underlined"
@@ -4038,11 +4037,11 @@ msgstr "Ver axuste de liña"
 
 #: ../plugins/editor/editor.glade.h:68
 msgid "View Whitespaces"
-msgstr "Ver espacios en branco"
+msgstr "Ver espazos en branco"
 
 #: ../plugins/editor/editor.glade.h:69
 msgid "View indentation whitespaces"
-msgstr "Ver espacios en branco da sangría"
+msgstr "Ver espazos en branco da sangría"
 
 #: ../plugins/editor/editor.glade.h:70
 #: ../plugins/sourceview/sourceview.glade.h:33
@@ -4315,7 +4314,7 @@ msgstr "Buscar uso"
 
 #. 18
 #: ../plugins/editor/text_editor_menu.c:348
-#: ../plugins/project-manager/plugin.c:469
+#: ../plugins/project-manager/plugin.c:490
 msgid "Close"
 msgstr "Pechar"
 
@@ -4324,7 +4323,7 @@ msgstr "Pechar"
 msgid "Docked"
 msgstr "Empotrado"
 
-#: ../plugins/file-loader/plugin.c:201
+#: ../plugins/file-loader/plugin.c:141
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -4344,115 +4343,115 @@ msgstr ""
 "Tipo Mime: %s.\n"
 "Quizais queira tentar abrilo cos seguintes complementos ou aplicacións."
 
-#: ../plugins/file-loader/plugin.c:221
+#: ../plugins/file-loader/plugin.c:161
 msgid "Open with:"
 msgstr "Abrir con:"
 
 #. Document manager plugin
-#: ../plugins/file-loader/plugin.c:229
+#: ../plugins/file-loader/plugin.c:169
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
 msgstr "Xestor de documentación"
 
-#: ../plugins/file-loader/plugin.c:475
+#: ../plugins/file-loader/plugin.c:415
 msgid "Anjuta Projects"
 msgstr "Proxectos de Anjuta"
 
-#: ../plugins/file-loader/plugin.c:481
+#: ../plugins/file-loader/plugin.c:421
 msgid "C/C++ source files"
 msgstr "Ficheiros de código fonte C/C++"
 
-#: ../plugins/file-loader/plugin.c:493
+#: ../plugins/file-loader/plugin.c:433
 msgid "C# source files"
 msgstr "Ficheiros de código fonte C#"
 
-#: ../plugins/file-loader/plugin.c:499
+#: ../plugins/file-loader/plugin.c:439
 msgid "Java source files"
 msgstr "Ficheiros de código fonte Java"
 
-#: ../plugins/file-loader/plugin.c:505
+#: ../plugins/file-loader/plugin.c:445
 msgid "Pascal source files"
 msgstr "Ficheiros de código fonte Pascal"
 
-#: ../plugins/file-loader/plugin.c:510
+#: ../plugins/file-loader/plugin.c:450
 msgid "PHP source files"
 msgstr "Ficheiros de código fonte PHP"
 
-#: ../plugins/file-loader/plugin.c:517
+#: ../plugins/file-loader/plugin.c:457
 msgid "Perl source files"
 msgstr "Ficheiros de código fonte Perl"
 
-#: ../plugins/file-loader/plugin.c:523
+#: ../plugins/file-loader/plugin.c:463
 msgid "Python source files"
 msgstr "Ficheiros de código fonte Python"
 
-#: ../plugins/file-loader/plugin.c:528
+#: ../plugins/file-loader/plugin.c:468
 msgid "Hyper text markup files"
 msgstr "Ficheiros de marcado de hipertexto"
 
-#: ../plugins/file-loader/plugin.c:537
+#: ../plugins/file-loader/plugin.c:477
 msgid "Shell scripts files"
 msgstr "Ficheiros script de shell"
 
-#: ../plugins/file-loader/plugin.c:542
+#: ../plugins/file-loader/plugin.c:482
 msgid "Makefiles"
 msgstr "Makefiles"
 
-#: ../plugins/file-loader/plugin.c:548
+#: ../plugins/file-loader/plugin.c:488
 msgid "Lua files"
 msgstr "Ficheiros Lua"
 
-#: ../plugins/file-loader/plugin.c:553
+#: ../plugins/file-loader/plugin.c:493
 msgid "Diff files"
 msgstr "Ficheiros Diff"
 
-#: ../plugins/file-loader/plugin.c:780
+#: ../plugins/file-loader/plugin.c:720
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "Fallou ao activar o complemento: %s"
 
-#: ../plugins/file-loader/plugin.c:836
+#: ../plugins/file-loader/plugin.c:776
 msgid "_New..."
 msgstr "_Novo..."
 
-#: ../plugins/file-loader/plugin.c:838
+#: ../plugins/file-loader/plugin.c:778
 msgid "New empty editor."
 msgstr "Novo editor baleiro."
 
-#: ../plugins/file-loader/plugin.c:844
+#: ../plugins/file-loader/plugin.c:784
 msgid "_Open..."
 msgstr "_Abrir..."
 
-#: ../plugins/file-loader/plugin.c:855 ../plugins/file-loader/plugin.c:868
+#: ../plugins/file-loader/plugin.c:795 ../plugins/file-loader/plugin.c:808
 msgid "_Open"
 msgstr "_Abrir"
 
-#: ../plugins/file-loader/plugin.c:862 ../plugins/file-loader/plugin.c:875
+#: ../plugins/file-loader/plugin.c:802 ../plugins/file-loader/plugin.c:815
 msgid "Open _With"
 msgstr "Abrir _con"
 
-#: ../plugins/file-loader/plugin.c:863 ../plugins/file-loader/plugin.c:876
+#: ../plugins/file-loader/plugin.c:803 ../plugins/file-loader/plugin.c:816
 msgid "Open with"
 msgstr "Abrir con"
 
-#: ../plugins/file-loader/plugin.c:1188 ../plugins/file-loader/plugin.c:1194
+#: ../plugins/file-loader/plugin.c:1131 ../plugins/file-loader/plugin.c:1137
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "Cargador de ficheiros"
 
-#: ../plugins/file-loader/plugin.c:1200 ../plugins/file-loader/plugin.c:1210
+#: ../plugins/file-loader/plugin.c:1143 ../plugins/file-loader/plugin.c:1153
 msgid "New"
 msgstr "Novo"
 
-#: ../plugins/file-loader/plugin.c:1201
+#: ../plugins/file-loader/plugin.c:1144
 msgid "New file, project and project components."
 msgstr "Novo ficheiro, proxecto e compoñentes de proxectos."
 
-#: ../plugins/file-loader/plugin.c:1213
+#: ../plugins/file-loader/plugin.c:1156
 msgid "Open"
 msgstr "Abrir"
 
-#: ../plugins/file-loader/plugin.c:1220
+#: ../plugins/file-loader/plugin.c:1163
 msgid "Open recent file"
 msgstr "Abrir ficheiro recente"
 
@@ -4525,14 +4524,14 @@ msgstr ""
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:13
 msgid "Space-separated list of file name patterns to ignore"
-msgstr "Lista separada por espacios de patróns de nomes de ficheiro a ignorar"
+msgstr "Lista separada por espazos de patróns de nomes de ficheiro a ignorar"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
 msgid "dialog3"
 msgstr "diálogo3"
 
-#: ../plugins/file-manager/plugin.c:48 ../plugins/project-manager/plugin.c:726
+#: ../plugins/file-manager/plugin.c:48 ../plugins/project-manager/plugin.c:747
 #: ../plugins/symbol-browser/plugin.c:328
 msgid "_Refresh"
 msgstr "_Recargar"
@@ -5921,9 +5920,8 @@ msgid "Warnings:"
 msgstr "Avisos:"
 
 #: ../plugins/message-view/anjuta-msgman.c:72
-#, fuzzy
 msgid "Close all message tabs"
-msgstr "Sen detalles das mensaxes"
+msgstr "Pechar tódalas solapas de mensaxes"
 
 #: ../plugins/message-view/message-view.c:663
 #: ../plugins/message-view/plugin.c:216 ../plugins/message-view/plugin.c:395
@@ -6236,34 +6234,34 @@ msgstr ""
 "A xeneración do ficheiro do proxecto fallou. Comprobe se ten acceso de "
 "escritura ao directorio do proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:322
+#: ../plugins/project-manager/plugin.c:343
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "Fallou ao refrescar o proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:345
-#: ../plugins/project-manager/plugin.c:721
+#: ../plugins/project-manager/plugin.c:366
+#: ../plugins/project-manager/plugin.c:742
 msgid "Project properties"
 msgstr "Propiedades do proxecto"
 
-#: ../plugins/project-manager/plugin.c:360
-#: ../plugins/project-manager/plugin.c:452
+#: ../plugins/project-manager/plugin.c:381
+#: ../plugins/project-manager/plugin.c:473
 msgid "No properties available for this target"
 msgstr "Sen propiedades dispoñibles para este destino"
 
-#: ../plugins/project-manager/plugin.c:437
+#: ../plugins/project-manager/plugin.c:458
 msgid "Target properties"
 msgstr "Propiedades do destino"
 
-#: ../plugins/project-manager/plugin.c:466
+#: ../plugins/project-manager/plugin.c:487
 msgid "Group properties"
 msgstr "Propiedades do grupo"
 
-#: ../plugins/project-manager/plugin.c:481
+#: ../plugins/project-manager/plugin.c:502
 msgid "No properties available for this group"
 msgstr "Sen propiedades dispoñibles para este grupo"
 
-#: ../plugins/project-manager/plugin.c:563
+#: ../plugins/project-manager/plugin.c:584
 #, c-format
 msgid ""
 "%sGroup: %s\n"
@@ -6274,12 +6272,12 @@ msgstr ""
 "\n"
 "O grupo non será borrado do sistema de ficheiros."
 
-#: ../plugins/project-manager/plugin.c:566
+#: ../plugins/project-manager/plugin.c:587
 #, c-format
 msgid "%sTarget: %s"
 msgstr "%s Obxectivo: %s"
 
-#: ../plugins/project-manager/plugin.c:569
+#: ../plugins/project-manager/plugin.c:590
 #, c-format
 msgid ""
 "%sSource: %s\n"
@@ -6290,7 +6288,7 @@ msgstr ""
 "\n"
 "O ficheiro fonte non será borrado do sistema."
 
-#: ../plugins/project-manager/plugin.c:578
+#: ../plugins/project-manager/plugin.c:599
 msgid ""
 "Are you sure you want to remove the following from project?\n"
 "\n"
@@ -6298,7 +6296,7 @@ msgstr ""
 "Está seguro de que quere eliminar o seguinte proxecto?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:624
+#: ../plugins/project-manager/plugin.c:645
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6307,131 +6305,131 @@ msgstr ""
 "Fallou ao eliminar '%s':\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:680
+#: ../plugins/project-manager/plugin.c:701
 msgid "URI is link"
 msgstr "A URI é un ligazón"
 
-#: ../plugins/project-manager/plugin.c:682
+#: ../plugins/project-manager/plugin.c:703
 #, c-format
 msgid "Failed to retried URI info of %s: %s"
 msgstr "Fallou ao obter URI info de %s: %s"
 
-#: ../plugins/project-manager/plugin.c:717
+#: ../plugins/project-manager/plugin.c:738
 msgid "_Project"
 msgstr "_Proxecto"
 
-#: ../plugins/project-manager/plugin.c:721
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:742
+#: ../plugins/project-manager/plugin.c:776
 msgid "_Properties"
 msgstr "_Propiedades"
 
-#: ../plugins/project-manager/plugin.c:726
+#: ../plugins/project-manager/plugin.c:747
 msgid "Refresh project manager tree"
 msgstr "Refrescar a árbore do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:731
+#: ../plugins/project-manager/plugin.c:752
 msgid "Add _Group..."
 msgstr "Engadir _grupo..."
 
-#: ../plugins/project-manager/plugin.c:731
-#: ../plugins/project-manager/plugin.c:765
+#: ../plugins/project-manager/plugin.c:752
+#: ../plugins/project-manager/plugin.c:786
 msgid "Add a group to project"
 msgstr "Engadir un grupo ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:736
+#: ../plugins/project-manager/plugin.c:757
 msgid "Add _Target..."
 msgstr "Engadir _obxectivo..."
 
-#: ../plugins/project-manager/plugin.c:736
-#: ../plugins/project-manager/plugin.c:770
+#: ../plugins/project-manager/plugin.c:757
+#: ../plugins/project-manager/plugin.c:791
 msgid "Add a target to project"
 msgstr "Engadir un obxectivo ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:741
+#: ../plugins/project-manager/plugin.c:762
 msgid "Add _Source File..."
 msgstr "Engadir ficheiro _fonte..."
 
-#: ../plugins/project-manager/plugin.c:741
-#: ../plugins/project-manager/plugin.c:760
-#: ../plugins/project-manager/plugin.c:775
+#: ../plugins/project-manager/plugin.c:762
+#: ../plugins/project-manager/plugin.c:781
+#: ../plugins/project-manager/plugin.c:796
 msgid "Add a source file to project"
 msgstr "Engadir un ficheiro fonte ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:746
+#: ../plugins/project-manager/plugin.c:767
 msgid "Close Pro_ject"
 msgstr "Pechar pro_xecto"
 
-#: ../plugins/project-manager/plugin.c:746
+#: ../plugins/project-manager/plugin.c:767
 msgid "Close project"
 msgstr "Pechar proxecto"
 
-#: ../plugins/project-manager/plugin.c:755
+#: ../plugins/project-manager/plugin.c:776
 msgid "Properties of group/target/source"
 msgstr "Propiedades do grupo/obxectivo/fonte"
 
-#: ../plugins/project-manager/plugin.c:760
+#: ../plugins/project-manager/plugin.c:781
 msgid "_Add To Project"
 msgstr "_Engadir ao proxecto"
 
-#: ../plugins/project-manager/plugin.c:765
+#: ../plugins/project-manager/plugin.c:786
 msgid "Add _Group"
 msgstr "Engadir _grupo"
 
-#: ../plugins/project-manager/plugin.c:770
+#: ../plugins/project-manager/plugin.c:791
 msgid "Add _Target"
 msgstr "Engadir _obxectivo"
 
-#: ../plugins/project-manager/plugin.c:775
+#: ../plugins/project-manager/plugin.c:796
 msgid "Add _Source File"
 msgstr "Engadir ficheiro _fonte"
 
-#: ../plugins/project-manager/plugin.c:780
+#: ../plugins/project-manager/plugin.c:801
 msgid "Re_move"
 msgstr "E_liminar"
 
-#: ../plugins/project-manager/plugin.c:780
+#: ../plugins/project-manager/plugin.c:801
 msgid "Remove from project"
 msgstr "Eliminar do proxecto"
 
-#: ../plugins/project-manager/plugin.c:1092
+#: ../plugins/project-manager/plugin.c:1113
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1100
+#: ../plugins/project-manager/plugin.c:1121
 msgid "Created project view..."
 msgstr "Visor de proxecto creado..."
 
-#: ../plugins/project-manager/plugin.c:1113
+#: ../plugins/project-manager/plugin.c:1134
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "Fallou ao cargar o proxecto %s: %s"
 
-#: ../plugins/project-manager/plugin.c:1132
-#: ../plugins/project-manager/plugin.c:1202
-#: ../plugins/project-manager/plugin.c:1382
+#: ../plugins/project-manager/plugin.c:1153
+#: ../plugins/project-manager/plugin.c:1223
+#: ../plugins/project-manager/plugin.c:1394
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proxecto"
 
-#: ../plugins/project-manager/plugin.c:1298
+#: ../plugins/project-manager/plugin.c:1310
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Erro pechando o proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1361
+#: ../plugins/project-manager/plugin.c:1373
 msgid "Project manager actions"
 msgstr "Accións do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:1369
+#: ../plugins/project-manager/plugin.c:1381
 msgid "Project manager popup actions"
 msgstr "Accións emerxentes do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:2269
+#: ../plugins/project-manager/plugin.c:2286
 msgid "Loaded Project... Initializing"
 msgstr "Proxecto cargado... Inicializando"
 
-#: ../plugins/project-manager/plugin.c:2280
+#: ../plugins/project-manager/plugin.c:2297
 msgid "Loaded Project..."
 msgstr "Proxecto cargado..."
 
@@ -6766,19 +6764,19 @@ msgstr "Configuración"
 
 #: ../plugins/search/anjuta-search.glade.h:46
 msgid "Space-seperated list of directory name patterns to ignore"
-msgstr "Lista separada por espacios de patróns de nomes de directorio a ignorar"
+msgstr "Lista separada por espazos de patróns de nomes de directorio a ignorar"
 
 #: ../plugins/search/anjuta-search.glade.h:47
 msgid "Space-seperated list of directory name patterns to match"
-msgstr "Lista separada por espacios de patróns de nomes de directorio a coincidir"
+msgstr "Lista separada por espazos de patróns de nomes de directorio a coincidir"
 
 #: ../plugins/search/anjuta-search.glade.h:48
 msgid "Space-seperated list of file name patterns to ignore"
-msgstr "Lista separada por espacios de patróns de nomes de ficheiro a ignorar"
+msgstr "Lista separada por espazos de patróns de nomes de ficheiro a ignorar"
 
 #: ../plugins/search/anjuta-search.glade.h:49
 msgid "Space-seperated list of file name patterns to match"
-msgstr "Lista separada por espacios de patróns de nomes de ficheiro a coincidir"
+msgstr "Lista separada por espazos de patróns de nomes de ficheiro a coincidir"
 
 #: ../plugins/search/plugin.c:319
 msgid "No matches. Wrap search around the document?"
@@ -8019,7 +8017,7 @@ msgstr ""
 "Non se puido mostrar a axuda. Asegúrese de que o paquete de documentación "
 "está instalado. Pode ser descargado desde http://anjuta.org"
 
-#: ../src/anjuta.c:420
+#: ../src/anjuta.c:495
 msgid "Loaded Session..."
 msgstr "Sesión cargada..."
 
@@ -8311,7 +8309,7 @@ msgstr "<b>Parámetros do sangrado</b>"
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:3
 #, fuzzy
 msgid "Brace indentation size in spaces:"
-msgstr "Tamaño de sangrado en espacios:"
+msgstr "Tamaño de sangrado en espazos:"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:4
 msgid "Enable adaptive indentation"
@@ -8332,7 +8330,7 @@ msgstr "Sangrado intelixente"
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:8
 #, fuzzy
 msgid "Statement indentation size in spaces:"
-msgstr "Tamaño de sangrado en espacios:"
+msgstr "Tamaño de sangrado en espazos:"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1300
 msgid "Auto Indent"
@@ -8468,7 +8466,7 @@ msgstr "Complemento de Terminal para Anjuta."
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "A version control system plugin"
-msgstr ""
+msgstr "Un complemento de sistema de control de versións."
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:2
 msgid "CVS Plugin"
@@ -8577,7 +8575,6 @@ msgid "File loader to load different files"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
-#, fuzzy
 msgid "Debug Manager plugin."
-msgstr "Manipular complementos"
+msgstr ""
 
