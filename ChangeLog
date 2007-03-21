@@ -1,5 +1,9 @@
 2007-03-22  Naba Kumar  <naba@gnome.org>
 
+	* tagmanager/c.c: Enabled 'prototype' tags so that autocomplete
+	and calltips would work again for functions from global tags (Needs
+	regenerating global tags).
+
 	* tagmanager/c.c, plugins/symbol-browser/plugin.c: Restored c.c to
 	ctags svn version and reopened bug #395362. Fixes tags parsing that
 	seemed to have stopped working recently.

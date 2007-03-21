@@ -282,7 +282,7 @@ static kindOption CKinds [] = {
 	{ FALSE, 'l', "local",      "local variables"},
 	{ TRUE,  'm', "member",     "class, struct, and union members"},
 	{ TRUE,  'n', "namespace",  "namespaces"},
-	{ FALSE, 'p', "prototype",  "function prototypes"},
+	{ TRUE/*FALSE*/, 'p', "prototype",  "function prototypes"},
 	{ TRUE,  's', "struct",     "structure names"},
 	{ TRUE,  't', "typedef",    "typedefs"},
 	{ TRUE,  'u', "union",      "union names"},
