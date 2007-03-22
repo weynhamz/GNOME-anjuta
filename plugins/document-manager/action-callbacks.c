@@ -181,6 +181,17 @@ on_save_all_activate (GtkAction * action, gpointer user_data)
 	}
 }
 
+static gboolean
+on_save_prompt_save_editor (AnjutaSavePrompt *save_prompt,
+							gpointer item, gpointer user_data)
+{
+	AnjutaDocman *docman;
+	
+	docman = ANJUTA_DOCMAN (user_data);
+	return anjuta_docman_save_editor (docman, IANJUTA_EDITOR (item),
+									  GTK_WIDGET (save_prompt));
+}
+
 void
 on_close_file_activate (GtkAction * action, gpointer user_data)
 {
@@ -199,38 +210,29 @@ on_close_file_activate (GtkAction * action, gpointer user_data)
 
 	if (ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE (te), NULL))
 	{
-		gchar *mesg;
-		GtkWidget *dialog;
-		gint res;
+		gchar *uri;
+		AnjutaSavePrompt *save_prompt;
 		
-		mesg = g_strdup_printf (_("The file '%s' is not saved.\n"
-								"Do you want to save it before closing?"),
-								ianjuta_editor_get_filename(te, NULL));
-		dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
-										 GTK_DIALOG_DESTROY_WITH_PARENT,
-										 GTK_MESSAGE_QUESTION,
-										 GTK_BUTTONS_NONE, mesg);
-		g_free (mesg);
-		gtk_dialog_add_button (GTK_DIALOG (dialog), 
-							   GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-		anjuta_util_dialog_add_button (GTK_DIALOG (dialog), _("Do_n't save"),
-									   GTK_STOCK_NO, GTK_RESPONSE_NO);
-		gtk_dialog_add_button (GTK_DIALOG (dialog),
-							   GTK_STOCK_SAVE, GTK_RESPONSE_YES);
-		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
-										 GTK_RESPONSE_CANCEL);
-		res = gtk_dialog_run (GTK_DIALOG (dialog));
+		/* Prompt for unsaved data */
+		save_prompt = anjuta_save_prompt_new (GTK_WINDOW (parent));
+		uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
+		anjuta_save_prompt_add_item (save_prompt,
+									 ianjuta_editor_get_filename (te, NULL),
+									 uri, te, on_save_prompt_save_editor,
+									 docman);
 		
-		gtk_widget_destroy (dialog);
-		if (res == GTK_RESPONSE_YES)
+		switch (gtk_dialog_run (GTK_DIALOG (save_prompt)))
 		{
-			anjuta_docman_save_editor (docman, te, NULL);
-			anjuta_docman_remove_editor (docman, te);
+			case ANJUTA_SAVE_PROMPT_RESPONSE_CANCEL:
+				/* Do not close */
+				break;
+			case ANJUTA_SAVE_PROMPT_RESPONSE_DISCARD:
+			case ANJUTA_SAVE_PROMPT_RESPONSE_SAVE_CLOSE:
+				/* Close it */
+				anjuta_docman_remove_editor (docman, te);
+				break;
 		}
-		else if (res == GTK_RESPONSE_NO)
-		{
-			anjuta_docman_remove_editor (docman, te);
-		}
+		gtk_widget_destroy (GTK_WIDGET (save_prompt));
 	}
 	else
 		anjuta_docman_remove_editor (docman, te);

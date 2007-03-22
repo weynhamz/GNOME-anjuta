@@ -1,5 +1,12 @@
 2007-03-23  Naba Kumar  <naba@gnome.org>
 
+	* plugins/document-manager/anjuta-docman.c,
+	plugins/document-manager/plugin.c: Fixed many memory leaks.
+	(ianjuta_file_get_uri() returns a new string).
+
+	* plugins/document-manager/action-callbacks.c: Use AnjutaSavePrompt
+	widget for save dialogs.
+	
 	* tagmanager/tm_tag.c, tagmanager/entry.h: Restored entry.h from
 	svn and fixed to get function/prototype/member args list. Call tips
 	also work fine now.

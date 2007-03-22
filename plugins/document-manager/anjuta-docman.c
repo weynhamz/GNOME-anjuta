@@ -362,7 +362,7 @@ anjuta_docman_save_editor_as (AnjutaDocman *docman, IAnjutaEditor *te,
 {
 	gchar* uri;
 	GnomeVFSURI* vfs_uri;
-	const gchar* file_uri;
+	gchar* file_uri;
 	const gchar* filename;
 	GtkWidget *parent;
 	GtkWidget *dialog;
@@ -380,7 +380,10 @@ anjuta_docman_save_editor_as (AnjutaDocman *docman, IAnjutaEditor *te,
 	dialog = create_file_save_dialog_gui (GTK_WINDOW (parent), docman);
 	
 	if ((file_uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL)) != NULL)
+	{
 		gtk_file_chooser_set_uri (GTK_FILE_CHOOSER(dialog), file_uri);
+		g_free (file_uri);
+	}
 	else if ((filename = ianjuta_editor_get_filename(te, NULL)) != NULL)
 		gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER(dialog), filename);
 	else
@@ -439,17 +442,23 @@ gboolean
 anjuta_docman_save_editor (AnjutaDocman *docman, IAnjutaEditor *te,
 						   GtkWidget *parent_window)
 {
-	if (ianjuta_file_get_uri(IANJUTA_FILE(te), NULL) == NULL)
+	gchar *uri;
+	gboolean ret = TRUE;
+	
+	uri = ianjuta_file_get_uri (IANJUTA_FILE(te), NULL);
+	
+	if (uri == NULL)
 	{
 		anjuta_docman_set_current_editor (docman, te);
-		return anjuta_docman_save_editor_as (docman, te, parent_window);
+		ret = anjuta_docman_save_editor_as (docman, te, parent_window);
 	}
 	else
 	{
 		/* TODO: Error checking */
-		ianjuta_file_savable_save(IANJUTA_FILE_SAVABLE(te), NULL);
+		ianjuta_file_savable_save (IANJUTA_FILE_SAVABLE(te), NULL);
 	}
-	return TRUE;
+	g_free (uri);
+	return ret;
 }
 
 static void
@@ -792,6 +801,7 @@ anjuta_docman_get_current_editor (AnjutaDocman *docman)
 void
 anjuta_docman_set_current_editor (AnjutaDocman *docman, IAnjutaEditor * te)
 {
+	gchar *uri;
 	IAnjutaEditor *ote = docman->priv->current_editor;
 	
 	if (ote == te)
@@ -845,14 +855,13 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, IAnjutaEditor * te)
 		chdir (dir);
 	}
 */
-	
-	if (te && ianjuta_file_get_uri(IANJUTA_FILE(te), NULL))
+	uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
+	if (te && uri)
 	{
 		gchar *hostname;
 		gchar *filename;
 		
-		filename = g_filename_from_uri (ianjuta_file_get_uri(IANJUTA_FILE(te), NULL),
-										&hostname, NULL);
+		filename = g_filename_from_uri (uri, &hostname, NULL);
 		if (hostname == NULL && filename)
 		{
 			gchar *dir;
@@ -864,6 +873,7 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, IAnjutaEditor * te)
 		g_free (hostname);
 		g_free (filename);
 	}
+	g_free (uri);
 	g_signal_emit_by_name (G_OBJECT (docman), "editor_changed", te);
 	return;
 }
@@ -879,7 +889,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 								   glong line, gboolean mark)
 {
 	gchar *uri;
-	gchar *te_uri;
 	GnomeVFSURI* vfs_uri;
 	GList *node;
 	const gchar *linenum;
@@ -924,6 +933,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	{
 		AnjutaDocmanPage *page;
 		gboolean te_is_local_uri;
+		gchar *te_uri;
 		gchar *te_normalized_path = NULL;
 		
 		page = (AnjutaDocmanPage *) node->data;
@@ -961,13 +971,14 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 				}
   	        }
 			anjuta_docman_show_editor (docman, GTK_WIDGET (te));
+			an_file_history_push (te_uri, lineno);
 			g_free (uri);
+			g_free (te_uri);
 			g_free (normalized_path);
 			g_free (te_normalized_path);
-			an_file_history_push (ianjuta_file_get_uri(IANJUTA_FILE(te),
-													   NULL), lineno);
 			return te;
 		}
+		g_free (te_uri);
 		g_free (te_normalized_path);
 		node = g_list_next (node);
 	}
@@ -1037,7 +1048,7 @@ anjuta_docman_get_full_filename (AnjutaDocman *docman, const gchar *fn)
 		if (strcmp(ianjuta_editor_get_filename(te, NULL), fname) == 0)
 		{
 			g_free (fname);
-			return g_strdup (ianjuta_file_get_uri(IANJUTA_FILE(te), NULL));
+			return ianjuta_file_get_uri (IANJUTA_FILE(te), NULL);
 		}
 	}
 	/* Next, see if the name matches any of the opened files */
@@ -1049,7 +1060,7 @@ anjuta_docman_get_full_filename (AnjutaDocman *docman, const gchar *fn)
 		if (strcmp(fname, ianjuta_editor_get_filename(te, NULL)) == 0)
 		{
 			g_free (fname);
-			return g_strdup(ianjuta_file_get_uri(IANJUTA_FILE(te), NULL));
+			return ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
 		}
 	}
 	g_free (fname);
@@ -1089,6 +1100,7 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te_widget)
 	GdkColor tmpcolor, *colorp = NULL;
 	AnjutaDocmanPage *page;
 	gchar *basename;
+	gchar *uri;
 	IAnjutaEditor *te;
 	const gchar* te_filename;
 	
@@ -1122,13 +1134,15 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te_widget)
   	gtk_widget_modify_fg (page->menu_label, GTK_STATE_ACTIVE, colorp);
   	gtk_widget_modify_fg (page->menu_label, GTK_STATE_PRELIGHT, colorp);
   	gtk_widget_modify_fg (page->menu_label, GTK_STATE_SELECTED, colorp);
-  	 
-	if (ianjuta_file_get_uri(IANJUTA_FILE(te), NULL))
+	
+	uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
+	if (uri)
 	{
-		basename = g_path_get_basename (ianjuta_file_get_uri(IANJUTA_FILE(te), NULL));
+		basename = g_path_get_basename (uri);
 		gtk_label_set_text (GTK_LABEL (page->label), basename);
 		gtk_label_set_text (GTK_LABEL (page->menu_label), basename);
 		g_free (basename);
+		g_free (uri);
 	}
 	else if ((te_filename = ianjuta_editor_get_filename(te, NULL)) != NULL)
 	{
@@ -1169,40 +1183,46 @@ anjuta_docman_delete_all_indicators (AnjutaDocman *docman)
 	node = docman->priv->editors;
 	while (node)
 	{
+		gchar *uri;
 		AnjutaDocmanPage *page;
+		
 		page = node->data;
 		te = IANJUTA_EDITOR (page->widget);
-		if (ianjuta_file_get_uri(IANJUTA_FILE(te), NULL) == NULL)
+		uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
+		if (uri == NULL)
 		{
 			node = g_list_next (node);
 			continue;
 		}
+		g_free (uri);
 		ianjuta_markable_unmark(IANJUTA_MARKABLE(te), -1, -1, NULL);
 		node = g_list_next (node);
 	}
 }
 
 IAnjutaEditor *
-anjuta_docman_get_editor_from_path (AnjutaDocman *docman, const gchar *szFullPath )
+anjuta_docman_get_editor_from_path (AnjutaDocman *docman, const gchar *szFullPath)
 {
 	GList *node;
 	AnjutaDocmanPage *page;
 	IAnjutaEditor *te;
-	gchar* uri;
 	
 	g_return_val_if_fail (szFullPath != NULL, NULL);
 	node = docman->priv->editors;
 	while (node)
 	{
+		gchar* uri;
 		page = node->data;
 		te = IANJUTA_EDITOR (page->widget);
-		uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
+		uri = ianjuta_file_get_uri (IANJUTA_FILE(te), NULL);
 		if (uri != NULL)
 		{
-			if ( !strcmp ( szFullPath, uri) )
+			if (strcmp (szFullPath, uri) == 0)
 			{
+				g_free (uri);
 				return te ;
 			}
+			g_free (uri);
 		}
 		node = g_list_next (node);
 	}
@@ -1325,21 +1345,26 @@ anjuta_docman_find_editor_with_path (AnjutaDocman *docman,
 {
 	IAnjutaEditor *te;
 	GList *tmp;
-	gchar* uri;
 	
 	te = NULL;
 	for (tmp = docman->priv->editors; tmp; tmp = g_list_next(tmp))
 	{
+		gchar* uri;
 		AnjutaDocmanPage *page;
+		
 		page = (AnjutaDocmanPage *) tmp->data;
 		if (!page)
 			continue;
 		te = IANJUTA_EDITOR(page->widget);
 		if (!te)
 			continue;
-		uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
-		if (uri && 0 == strcmp(file_path, uri))
-		return te;
+		uri = ianjuta_file_get_uri (IANJUTA_FILE(te), NULL);
+		if (uri && 0 == strcmp (file_path, uri))
+		{
+			g_free (uri);
+			return te;
+		}
+		g_free (uri);
 	}
 	return NULL;
 }

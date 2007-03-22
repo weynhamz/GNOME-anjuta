@@ -1196,16 +1196,20 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	while (node)
 	{
 		IAnjutaEditor *te;
+		gchar *te_uri;
+		
 		te = IANJUTA_EDITOR (node->data);
-		if (ianjuta_file_get_uri(IANJUTA_FILE(te), NULL))
+		te_uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
+		if (te_uri)
 		{
 			gchar *uri;
 			/* Save line locations also */
-			uri = g_strdup_printf ("%s#%d", ianjuta_file_get_uri(IANJUTA_FILE(te), NULL),
+			uri = g_strdup_printf ("%s#%d", te_uri,
 								  ianjuta_editor_get_lineno(IANJUTA_EDITOR(te), NULL));
 			files = g_list_prepend (files, uri);
 			/* uri not be freed here */
 		}
+		g_free (te_uri);
 		node = g_list_next (node);
 	}
 	files = g_list_reverse (files);
@@ -1241,12 +1245,13 @@ on_save_prompt (AnjutaShell *shell, AnjutaSavePrompt *save_prompt,
 		if (ianjuta_file_savable_is_dirty (editor, NULL))
 		{
 			const gchar *name;
-			const gchar *uri;
+			gchar *uri;
 			
 			name = ianjuta_editor_get_filename (IANJUTA_EDITOR (editor), NULL);
 			uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 			anjuta_save_prompt_add_item (save_prompt, name, uri, editor,
 										 on_save_prompt_save_editor, plugin);
+			g_free (uri);
 		}
 		node = g_list_next (node);
 	}
@@ -1321,9 +1326,11 @@ on_docman_auto_save (gpointer data)
 		editor = IANJUTA_EDITOR(editors->data);
 		if (ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(editor), NULL))
 		{
-			if (ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL) != NULL)
+			gchar *uri = ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL);
+			if (uri != NULL)
 			{
 				ianjuta_file_savable_save(IANJUTA_FILE_SAVABLE(editor), NULL);
+				g_free (uri);
 			}
 		}
 		editors = g_list_next(editors);
@@ -1771,7 +1778,7 @@ ifile_get_uri (IAnjutaFile* plugin, GError** e)
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
 	editor = anjuta_docman_get_current_editor (docman);
 	if (editor != NULL)
-		return g_strdup (ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL));
+		return ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL);
 	else if (ianjuta_editor_get_filename(editor, NULL))
 		return gnome_vfs_get_uri_from_local_path (ianjuta_editor_get_filename(editor, NULL));
 	else
@@ -1797,12 +1804,15 @@ isaveable_save (IAnjutaFileSavable* plugin, GError** e)
 	editors = anjuta_docman_get_all_editors(docman);
 	while(editors)
 	{
+		gchar *uri;
 		editor = IANJUTA_EDITOR(editors->data);
-		if (ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL) != NULL &&
+		uri = ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL);
+		if (uri != NULL &&
 			ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(editor), NULL))
 		{
 			ianjuta_file_savable_save(IANJUTA_FILE_SAVABLE(editor), NULL);
 		}
+		g_free (uri);
 		editors = g_list_next(editors);
 	}
 	g_list_free(editors);
