@@ -137,11 +137,10 @@ gboolean tm_tag_init(TMTag *tag, TMSourceFile *file, const tagEntryInfo *tag_ent
 		tag->name = g_strdup(tag_entry->name);
 		tag->type = get_tag_type(tag_entry->kindName);
 		tag->atts.entry.local = tag_entry->isFileScope;
-		tag->atts.entry.pointerOrder = tag_entry->pointerOrder;
+		tag->atts.entry.pointerOrder = 0; /*FIXME: tag_entry->pointerOrder; */
 		tag->atts.entry.line = tag_entry->lineNumber;
-		if (NULL != tag_entry->extensionFields.arglist)
-			tag->atts.entry.arglist = g_strdup(tag_entry->extensionFields.arglist);
-			
+		if (NULL != tag_entry->extensionFields.signature)
+			tag->atts.entry.arglist = g_strdup(tag_entry->extensionFields.signature);
 		if ((NULL != tag_entry->extensionFields.scope[1]) &&
 			(isalpha(tag_entry->extensionFields.scope[1][0]) || 
 			 tag_entry->extensionFields.scope[1][0] == '_')) {

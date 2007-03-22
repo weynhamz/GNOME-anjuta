@@ -1,3 +1,9 @@
+2007-03-23  Naba Kumar  <naba@gnome.org>
+
+	* tagmanager/tm_tag.c, tagmanager/entry.h: Restored entry.h from
+	svn and fixed to get function/prototype/member args list. Call tips
+	also work fine now.
+
 2007-03-22  Naba Kumar  <naba@gnome.org>
 
 	* tagmanager/c.c: Enabled 'prototype' tags so that autocomplete
