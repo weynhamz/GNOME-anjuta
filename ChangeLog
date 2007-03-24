@@ -1,5 +1,10 @@
 2007-03-24 Sebastien Granjoux <seb.sfo@free.fr>
 
+	* plugins/gdb/debugger.c:
+	Avoid empty debugger log window by limiting line to 90 characters
+
+2007-03-24 Sebastien Granjoux <seb.sfo@free.fr>
+
 	* plugins/debug-manager/plugin.c,
 	plugins/debug-manager/plugin.h,
 	plugins/debug-manager/threads.c,

@@ -47,6 +47,8 @@
 #define PREF_TERMINAL_COMMAND "anjuta.command.terminal"
 #define FILE_BUFFER_SIZE 1024
 #define GDB_PATH "gdb"
+#define SUMMARY_MAX_LENGTH   90	 /* Should be smaller than 4K to be displayed
+				  * in GtkCellRendererCell */
 
 enum {
 	DEBUGGER_NONE,
@@ -188,6 +190,27 @@ gdb_match_error(const gchar *message)
 }
 
 static void
+debugger_message_view_append (Debugger *debugger, IAnjutaMessageViewType type, const char *message)
+{
+	guint len = strlen(message);
+	gchar buf[SUMMARY_MAX_LENGTH];
+	const gchar* summary = message;
+	const gchar* detail = "";
+
+
+	if (len > SUMMARY_MAX_LENGTH)
+	{
+
+		memcpy(buf, message, SUMMARY_MAX_LENGTH - 4);
+		memcpy(buf + SUMMARY_MAX_LENGTH - 4, "...", 4);
+		summary = buf;
+		detail = message;
+	}
+
+	ianjuta_message_view_append (debugger->priv->log, type, summary, detail, NULL);
+}
+
+static void
 debugger_initialize (Debugger *debugger)
 {
 	DEBUG_PRINT ("In function: debugger_init()");
@@ -303,7 +326,7 @@ debugger_log_command (Debugger *debugger, const gchar *command)
 
 		/* Log only MI command as other are echo */
 		DEBUG_PRINT ("Cmd: %s", str);
-		ianjuta_message_view_append (debugger->priv->log, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, str, "", NULL);
+		debugger_message_view_append (debugger, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, str);
 		g_free (str);
 	}
 }
@@ -341,24 +364,24 @@ debugger_log_output (Debugger *debugger, const gchar *line)
 		/* Remove trailing carriage return */
 		if (str[len - 1] == '\n') str[len - 1] = '\0';
 
-		ianjuta_message_view_append (debugger->priv->log, type, str, "", NULL);
+		debugger_message_view_append (debugger, type, str);
 		g_free (str);
 		break;
 	case '^':
 		if (strncmp(line + 1, "error", 5) == 0)
 		{
-			ianjuta_message_view_append (debugger->priv->log, IANJUTA_MESSAGE_VIEW_TYPE_ERROR, line + 1, "", NULL);
+			debugger_message_view_append (debugger, IANJUTA_MESSAGE_VIEW_TYPE_ERROR, line + 1);
 		}
 		else
 		{
-			ianjuta_message_view_append (debugger->priv->log, IANJUTA_MESSAGE_VIEW_TYPE_WARNING, line + 1, "", NULL);
+			debugger_message_view_append (debugger, IANJUTA_MESSAGE_VIEW_TYPE_WARNING, line + 1);
 		}
 		break;
 	case '@':
-		ianjuta_message_view_append (debugger->priv->log, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, line + 1, "", NULL);
+		debugger_message_view_append (debugger, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, line + 1);
 		break;
 	default:
-		ianjuta_message_view_append (debugger->priv->log, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, line, "", NULL);
+		debugger_message_view_append (debugger, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, line);
 		break;
 	}
 }
