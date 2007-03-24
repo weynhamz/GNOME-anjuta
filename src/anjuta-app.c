@@ -543,7 +543,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 					  G_CALLBACK (on_layout_dirty_notify), app);
 	g_signal_connect (app->layout_manager->master, "notify::locked",
 					  G_CALLBACK (on_layout_locked_notify), app);
-	
+#if 0
 	/* Create placeholders for default widget positions */
 	gdl_dock_placeholder_new (DOCK_PH_TOP, GDL_DOCK_OBJECT (app->dock),
 							  GDL_DOCK_TOP, FALSE);
@@ -555,7 +555,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 							  GDL_DOCK_RIGHT, FALSE);
 	gdl_dock_placeholder_new ("ph_center", GDL_DOCK_OBJECT (app->dock),
 							  GDL_DOCK_CENTER, FALSE);
-							  
+#endif
 	/* Status bar */
 	app->status = ANJUTA_STATUS (anjuta_status_new ());
 	anjuta_status_set_title_window (app->status, GTK_WIDGET (app));
@@ -755,6 +755,7 @@ anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry)
 			gtk_window_move (GTK_WINDOW (app), posx, posy);
 		}
 	}
+#if 0
 	/* Set default placeholders geometry */
 	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock),
 													DOCK_PH_TOP);
@@ -772,6 +773,7 @@ anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry)
 													DOCK_PH_RIGHT);
 	g_object_set (placeholder, "width", GINT_TO_POINTER((gint)(0.25 * width)),
 				  NULL);
+#endif
 }
 
 static void
@@ -1042,7 +1044,7 @@ anjuta_app_add_widget (AnjutaShell *shell,
 		item = gdl_dock_item_new_with_stock (name, title, stock_id,
 											 GDL_DOCK_ITEM_BEH_NORMAL);
 	gtk_container_add (GTK_CONTAINER (item), widget);
-	
+#if 0
 	if (placement != GDL_DOCK_FLOATING)
 	{
 		switch (placement)
@@ -1063,6 +1065,9 @@ anjuta_app_add_widget (AnjutaShell *shell,
         gdl_dock_add_item (GDL_DOCK (app->dock),
                            GDL_DOCK_ITEM (item), GDL_DOCK_FLOATING);
 	}
+#endif
+    gdl_dock_add_item (GDL_DOCK (app->dock),
+                       GDL_DOCK_ITEM (item), placement);
 	gtk_widget_show_all (item);
 	
 	/* Add toggle button for the widget */

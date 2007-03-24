@@ -1,3 +1,8 @@
+2007-03-24  Naba Kumar  <naba@gnome.org>
+
+	* configure.in, src/anjuta-app.c: Use the new docking algorithm
+	in gdl 0.7.3 (svn trunk).
+	
 2007-03-24 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/threads.c,
