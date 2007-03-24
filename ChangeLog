@@ -1,3 +1,18 @@
+2007-03-24 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/plugin.h,
+	plugins/debug-manager/threads.c,
+	plugins/debug-manager/threads.h,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/breakpoints.h,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/stack_trace.h:
+	View code action now changes location in disassembly view too
+
+	* plugins/debug-manager/anjuta-debug-manager.ui:
+	Rename breakpoint actions
+
 2007-03-24  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, src/anjuta-app.c: Use the new docking algorithm

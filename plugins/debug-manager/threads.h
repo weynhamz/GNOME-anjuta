@@ -20,6 +20,8 @@
 #ifndef _THREADS_H_
 #define _THREADS_H_
 
+#include "plugin.h"
+
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
@@ -29,7 +31,7 @@
 
 typedef struct _DmaThreads DmaThreads;
 
-DmaThreads *dma_threads_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin);
+DmaThreads *dma_threads_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin);
 void dma_threads_free (DmaThreads *self);
 
 #endif

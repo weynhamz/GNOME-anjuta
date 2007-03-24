@@ -20,6 +20,8 @@
 #ifndef _BREAKPOINTS_DBASE_H_
 #define _BREAKPOINTS_DBASE_H_
 
+#include "plugin.h"
+
 #include <glade/glade.h>
 #include <stdio.h>
 #include <libanjuta/anjuta-plugin.h>
@@ -30,7 +32,7 @@ G_BEGIN_DECLS
 
 typedef struct _BreakpointsDBase BreakpointsDBase;
 
-BreakpointsDBase *breakpoints_dbase_new (AnjutaPlugin *plugin);
+BreakpointsDBase *breakpoints_dbase_new (DebugManagerPlugin *plugin);
 void breakpoints_dbase_destroy (BreakpointsDBase * bd);
 
 void breakpoints_dbase_connect (BreakpointsDBase *bd, IAnjutaDebugger *debugger);

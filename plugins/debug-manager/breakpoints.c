@@ -58,7 +58,6 @@
 #include <libanjuta/interfaces/ianjuta-file.h>
 
 #include "breakpoints.h"
-#include "plugin.h"
 #include "utilities.h"
 
 /* Markers definition */
@@ -1158,8 +1157,8 @@ on_jump_to_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 		BreakpointItem *bi;
 		
 		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
-		
-		goto_location_in_editor (ANJUTA_PLUGIN (bd->plugin), bi->uri, bi->bp->line);
+
+		dma_debug_manager_goto_code (bd->plugin, bi->uri, bi->bp->line, bi->bp->address);
 	}
 }
 
@@ -1372,7 +1371,7 @@ on_enable_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 
 static GtkActionEntry actions_breakpoints[] = {
 	{
-		"ActionMenuGdbBreakpoints",               /* Action name */
+		"ActionMenuDmaBreakpoints",               /* Action name */
 		NULL,                                     /* Stock icon, if any */
 		N_("_Breakpoints"),                       /* Display label */
 		NULL,                                     /* short-cut */
@@ -1380,7 +1379,7 @@ static GtkActionEntry actions_breakpoints[] = {
 		NULL                                      /* action callback */
 	},
 	{
-		"ActionGdbToggleBreakpoint",              /* Action name */
+		"ActionDmaToggleBreakpoint",              /* Action name */
 		"gdb-breakpoint-toggle",                  /* Stock icon, if any */
 		N_("Toggle Breakpoint"),                  /* Display label */
 		"<control>b",                             /* short-cut */
@@ -1388,7 +1387,7 @@ static GtkActionEntry actions_breakpoints[] = {
 		G_CALLBACK (on_toggle_breakpoint_activate) /* action callback */
 	},
 	{
-		"ActionGdbSetBreakpoint",                 /* Action name */
+		"ActionDmaSetBreakpoint",                 /* Action name */
 		"gdb-breakpoint-toggle",                  /* Stock icon, if any */
 		N_("Add Breakpoint..."),                  /* Display label */
 		NULL,                                     /* short-cut */
@@ -1396,7 +1395,7 @@ static GtkActionEntry actions_breakpoints[] = {
 		G_CALLBACK (on_add_breakpoint_activate)   /* action callback */
 	},
 	{
-		"ActionGdbClearBreakpoint",               /* Action name */
+		"ActionDmaClearBreakpoint",               /* Action name */
 		NULL,                                     /* Stock icon, if any */
 		N_("Remove Breakpoint"),                  /* Display label */
 		NULL,                                     /* short-cut */
@@ -1404,7 +1403,7 @@ static GtkActionEntry actions_breakpoints[] = {
 		G_CALLBACK (on_remove_breakpoint_activate)   /* action callback */
 	},
 	{
-		"ActionGdbJumpToBreakpoint",              /* Action name */
+		"ActionDmaJumpToBreakpoint",              /* Action name */
 		NULL,                                     /* Stock icon, if any */
 		N_("Jump to Breakpoint"),                 /* Display label */
 		NULL,                                     /* short-cut */
@@ -1412,7 +1411,7 @@ static GtkActionEntry actions_breakpoints[] = {
 		G_CALLBACK (on_jump_to_breakpoint_activate)   /* action callback */
 	},
 	{
-		"ActionGdbEditBreakpoint",                /* Action name */
+		"ActionDmaEditBreakpoint",                /* Action name */
 		NULL,                                     /* Stock icon, if any */
 		N_("Edit Breakpoint"),                    /* Display label */
 		NULL,                                     /* short-cut */
@@ -1420,7 +1419,7 @@ static GtkActionEntry actions_breakpoints[] = {
 		G_CALLBACK (on_edit_breakpoint_activate)   /* action callback */
 	},
 	{
-		"ActionGdbEnableDisableBreakpoint",       /* Action name */
+		"ActionDmaEnableDisableBreakpoint",       /* Action name */
 		NULL,                                     /* Stock icon, if any */
 		N_("Enable Breakpoint"),                  /* Display label */
 		NULL,                                     /* short-cut */
@@ -1428,7 +1427,7 @@ static GtkActionEntry actions_breakpoints[] = {
 		G_CALLBACK (on_enable_breakpoint_activate)   /* action callback */
 	},
 	{
-		"ActionGdbDisableAllBreakpoints",         /* Action name */
+		"ActionDmaDisableAllBreakpoints",         /* Action name */
 		NULL,                                     /* Stock icon, if any */
 		N_("Disable All Breakpoints"),            /* Display label */
 		NULL,                                     /* short-cut */
@@ -1436,7 +1435,7 @@ static GtkActionEntry actions_breakpoints[] = {
 		G_CALLBACK (on_disable_all_breakpoints_activate)/* action callback */
 	},
 	{
-		"ActionGdbClearAllBreakpoints",           /* Action name */
+		"ActionDmaClearAllBreakpoints",           /* Action name */
 		NULL,                                     /* Stock icon, if any */
 		N_("C_lear All Breakpoints"),             /* Display label */
 		NULL,                                     /* short-cut */
@@ -1480,7 +1479,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
  *---------------------------------------------------------------------------*/
 
 BreakpointsDBase *
-breakpoints_dbase_new (AnjutaPlugin *plugin)
+breakpoints_dbase_new (DebugManagerPlugin *plugin)
 {
 	BreakpointsDBase *bd;
 	AnjutaUI *ui;
@@ -1497,9 +1496,9 @@ breakpoints_dbase_new (AnjutaPlugin *plugin)
 
 
 		/* Connect to Load and Save event */
-		g_signal_connect (plugin->shell, "save-session",
+		g_signal_connect (ANJUTA_PLUGIN(plugin)->shell, "save-session",
 					  G_CALLBACK (on_session_save), bd);
-		g_signal_connect (plugin->shell, "load-session",
+		g_signal_connect (ANJUTA_PLUGIN(plugin)->shell, "load-session",
 					  G_CALLBACK (on_session_load), bd);
 		
 		/* breakpoints dialog */
@@ -1545,7 +1544,7 @@ breakpoints_dbase_new (AnjutaPlugin *plugin)
 		}
 
 		/* Register menu actions */
-		ui = anjuta_shell_get_ui (plugin->shell, NULL);
+		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
 		bd->action_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupBreakpoint",
 											_("Breakpoint operations"),
@@ -1564,7 +1563,7 @@ breakpoints_dbase_new (AnjutaPlugin *plugin)
 		gtk_container_add (GTK_CONTAINER (bd->scrolledwindow), GTK_WIDGET (bd->treeview));
 		gtk_widget_show_all (bd->scrolledwindow);
 		
-		anjuta_shell_add_widget (plugin->shell,
+		anjuta_shell_add_widget (ANJUTA_PLUGIN(plugin)->shell,
 							 bd->scrolledwindow,
                              "AnjutaDebuggerBreakpoints", _("Breakpoints"),
                              "gdb-breakpoint-toggle", ANJUTA_SHELL_PLACEMENT_BOTTOM,

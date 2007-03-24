@@ -22,8 +22,6 @@
 
 #include "stack_trace.h"
 
-#include "plugin.h"
-
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
@@ -49,7 +47,7 @@ typedef struct _DmaThreadStackTrace
 
 struct _StackTrace
 {
-	AnjutaPlugin *plugin;
+	DebugManagerPlugin *plugin;
 	IAnjutaDebugger *debugger;
 	
 	GtkActionGroup *action_group;
@@ -326,7 +324,7 @@ on_stack_frame_set_activate (GtkAction *action, gpointer user_data)
 }
 
 static void
-on_stack_view_src_activate (GtkAction *action, gpointer user_data)
+on_stack_view_source_activate (GtkAction *action, gpointer user_data)
 {
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
@@ -334,6 +332,8 @@ on_stack_view_src_activate (GtkAction *action, gpointer user_data)
 	GtkTreeView *view;
 	gchar *uri;
 	guint line;
+	gchar *adr;
+	guint address;
 	
 	StackTrace* st = (StackTrace*) user_data;		
 
@@ -346,10 +346,13 @@ on_stack_view_src_activate (GtkAction *action, gpointer user_data)
 	gtk_tree_model_get (model, &iter,
 						STACK_TRACE_URI_COLUMN, &uri,
 						STACK_TRACE_LINE_COLUMN, &line,
+						STACK_TRACE_ADDR_COLUMN, &adr,
 						-1);
 	
-	goto_location_in_editor (st->plugin, uri, line);
+	address = adr != NULL ? strtoul (adr, NULL, 0) : 0;
+	dma_debug_manager_goto_code (st->plugin, uri, line, address);
 	g_free (uri);
+	g_free (adr);
 }
 
 static void
@@ -376,7 +379,7 @@ on_stack_trace_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer
 	else if ((bevent->type == GDK_2BUTTON_PRESS) && (bevent->button == 1))
 	{
 		/* Double left mouse click */
-		on_stack_view_src_activate (NULL, user_data);
+		on_stack_view_source_activate (NULL, user_data);
 	}
 	
 	return FALSE;
@@ -400,7 +403,7 @@ static GtkActionEntry actions_stack_trace[] = {
 		N_("View Source"),
 		NULL,
 		NULL,
-		G_CALLBACK (on_stack_view_src_activate)
+		G_CALLBACK (on_stack_view_source_activate)
 	}
 };		
 
@@ -501,7 +504,7 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_append_column (st->treeview, column);
 	
 	/* Create popup menu */
-	ui = anjuta_shell_get_ui (st->plugin->shell, NULL);
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(st->plugin)->shell, NULL);
 	st->menu = GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupStack"));
 	
 	/* Connect signal */
@@ -519,7 +522,7 @@ create_stack_trace_gui(StackTrace *st)
 					   GTK_WIDGET (st->treeview));
 	gtk_widget_show_all (st->scrolledwindow);
 	
-	anjuta_shell_add_widget (st->plugin->shell,
+	anjuta_shell_add_widget (ANJUTA_PLUGIN(st->plugin)->shell,
 							 st->scrolledwindow,
 							 "AnjutaDebuggerStack", _("Stack"),
 							 "gdb-stack-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
@@ -564,7 +567,7 @@ on_debugger_stopped (StackTrace *self)
  *---------------------------------------------------------------------------*/
 
 StackTrace *
-stack_trace_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin)
+stack_trace_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin)
 {
 	StackTrace *st;
 	AnjutaUI *ui;
@@ -577,7 +580,7 @@ stack_trace_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin)
 	if (debugger != NULL) g_object_ref (debugger);
 
 	/* Register actions */
-	ui = anjuta_shell_get_ui (st->plugin->shell, NULL);
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(st->plugin)->shell, NULL);
 	st->action_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupStack",
 											_("Stack frame operations"),

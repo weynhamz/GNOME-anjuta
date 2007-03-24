@@ -44,4 +44,6 @@ ACTION_GROUP_DEFAULT = 0,
 ACTION_GROUP_EXECUTE = 1,
 LAST_ACTION_GROUP };
 
+void dma_debug_manager_goto_code (DebugManagerPlugin *self, const gchar *uri, guint line, guint address);
+
 #endif

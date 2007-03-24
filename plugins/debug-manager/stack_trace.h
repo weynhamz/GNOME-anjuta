@@ -20,6 +20,8 @@
 #ifndef _STACK_TRACE_H_
 #define _STACK_TRACE_H_
 
+#include "plugin.h"
+
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
@@ -29,7 +31,7 @@
 
 typedef struct _StackTrace StackTrace;
 
-StackTrace *stack_trace_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin);
+StackTrace *stack_trace_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin);
 void stack_trace_free (StackTrace *st);
 
 #endif

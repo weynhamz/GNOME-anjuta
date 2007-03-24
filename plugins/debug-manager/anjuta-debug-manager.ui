@@ -16,10 +16,10 @@
 				<menuitem name="StepOut" action="ActionDebuggerStepOut" />
 				<menuitem name="PauseProgram" action="ActionGdbPauseProgram" />
 				<separator name="separator4"/>
-				<menuitem name="SetBreakpoint" action="ActionGdbSetBreakpoint" />
-                		<menuitem name="ToggleBreakpoint" action="ActionGdbToggleBreakpoint" />
-				<menuitem name="DisableAllBreakpoints" action="ActionGdbDisableAllBreakpoints" />
-				<menuitem name="ClearAllBreakpoints" action="ActionGdbClearAllBreakpoints" />
+				<menuitem name="SetBreakpoint" action="ActionDmaSetBreakpoint" />
+                		<menuitem name="ToggleBreakpoint" action="ActionDmaToggleBreakpoint" />
+				<menuitem name="DisableAllBreakpoints" action="ActionDmaDisableAllBreakpoints" />
+				<menuitem name="ClearAllBreakpoints" action="ActionDmaClearAllBreakpoints" />
 				<separator name="separator7"/>
 				<menuitem name="AddWatch" action="ActionDmaAddWatch" />
 				<menuitem name="Inspect" action="ActionDmaInspect" />
@@ -50,24 +50,24 @@
 			<toolitem name="StepOut" action="ActionDebuggerStepOut" />
 			<toolitem name="PauseProgram" action="ActionGdbPauseProgram" />
 			<separator name="separator1"/>
-			<toolitem name="ToggleBreakpoint" action="ActionGdbToggleBreakpoint" />
+			<toolitem name="ToggleBreakpoint" action="ActionDmaToggleBreakpoint" />
 			<separator name="separator2" />
 		</placeholder>
 	</toolbar>
 	<popup name="PopupDocumentManager">
 		<separator name="separator1"/>
-		<menuitem name="ToggleBreakpoint" action="ActionGdbToggleBreakpoint" />
+		<menuitem name="ToggleBreakpoint" action="ActionDmaToggleBreakpoint" />
 		<menuitem name="InspectVariable" action="ActionDmaInspect" />
 	</popup>
 	<popup name="PopupBreakpoint">
-		<menuitem name="SetBreakpoint" action="ActionGdbSetBreakpoint" />
-		<menuitem name="ClearBreakpoint" action="ActionGdbClearBreakpoint" />
-		<menuitem name="JumpToBreakpoint" action="ActionGdbJumpToBreakpoint" />
-		<menuitem name="EditBreakpoint" action="ActionGdbEditBreakpoint" />
-		<menuitem name="EnableDisableBreakpoint" action="ActionGdbEnableDisableBreakpoint" />
+		<menuitem name="SetBreakpoint" action="ActionDmaSetBreakpoint" />
+		<menuitem name="ClearBreakpoint" action="ActionDmaClearBreakpoint" />
+		<menuitem name="JumpToBreakpoint" action="ActionDmaJumpToBreakpoint" />
+		<menuitem name="EditBreakpoint" action="ActionDmaEditBreakpoint" />
+		<menuitem name="EnableDisableBreakpoint" action="ActionDmaEnableDisableBreakpoint" />
 		<separator name="separator1"/>
-		<menuitem name="DisableAllBreakpoints" action="ActionGdbDisableAllBreakpoints" />
-		<menuitem name="ClearAllBreakpoints" action="ActionGdbClearAllBreakpoints" />
+	<menuitem name="DisableAllBreakpoints" action="ActionDmaDisableAllBreakpoints" />
+		<menuitem name="ClearAllBreakpoints" action="ActionDmaClearAllBreakpoints" />
 	</popup>
 	<popup name="PopupStack">
 		<menuitem name="SetCurrentFrame" action="ActionDmaSetCurrentFrame" />

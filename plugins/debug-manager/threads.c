@@ -22,8 +22,6 @@
 
 #include "threads.h"
 
-#include "plugin.h"
-
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
@@ -43,7 +41,7 @@
 
 struct _DmaThreads
 {
-	AnjutaPlugin *plugin;
+	DebugManagerPlugin *plugin;
 	IAnjutaDebugger *debugger;
 
 	/* GUI */
@@ -145,7 +143,7 @@ on_threads_set_activate (GtkAction *action, gpointer user_data)
 }
 
 static void
-on_threads_src_activate (GtkAction *action, gpointer user_data)
+on_threads_source_activate (GtkAction *action, gpointer user_data)
 {
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
@@ -153,6 +151,8 @@ on_threads_src_activate (GtkAction *action, gpointer user_data)
 	GtkTreeView *view;
 	gchar *uri;
 	guint line;
+	gchar *adr;
+	guint address;
 	DmaThreads* self = (DmaThreads*) user_data;		
 
 	view = self->list;
@@ -164,14 +164,13 @@ on_threads_src_activate (GtkAction *action, gpointer user_data)
 	gtk_tree_model_get (model, &iter,
 						THREAD_URI_COLUMN, &uri,
 						THREAD_LINE_COLUMN, &line,
+						THREAD_ADDR_COLUMN, &adr,
 						-1);
 
-	/* URI is NULL if file is unknown */
-	if (uri != NULL)
-	{
-		goto_location_in_editor (self->plugin, uri, line);
-		g_free (uri);
-	}
+	address = adr != NULL ? strtoul (adr, NULL, 0) : 0;
+	dma_debug_manager_goto_code (self->plugin, uri, line, address);
+	g_free (uri);
+	g_free (adr);
 }
 
 static void
@@ -198,7 +197,7 @@ on_threads_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer use
 	else if ((bevent->type == GDK_2BUTTON_PRESS) && (bevent->button == 1))
 	{
 		/* Double left mouse click */
-		on_threads_src_activate (NULL, user_data);
+		on_threads_source_activate (NULL, user_data);
 	}
 	
 	return FALSE;
@@ -368,7 +367,7 @@ static GtkActionEntry actions_threads[] = {
 		N_("View Source"),
 		NULL,
 		NULL,
-		G_CALLBACK (on_threads_src_activate)
+		G_CALLBACK (on_threads_source_activate)
 	}
 };		
 
@@ -457,7 +456,7 @@ dma_threads_create_gui(DmaThreads *self)
 	gtk_tree_view_append_column (self->list, column);
 	
 	/* Create popup menu */
-	ui = anjuta_shell_get_ui (self->plugin->shell, NULL);
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(self->plugin)->shell, NULL);
 	self->menu = GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupThread"));
 	
 	/* Connect signal */
@@ -475,7 +474,7 @@ dma_threads_create_gui(DmaThreads *self)
 					   GTK_WIDGET (self->list));
 	gtk_widget_show_all (self->scrolledwindow);
 	
-	anjuta_shell_add_widget (self->plugin->shell,
+	anjuta_shell_add_widget (ANJUTA_PLUGIN(self->plugin)->shell,
 							 self->scrolledwindow,
 							 "AnjutaDebuggerThread", _("Thread"),
 							 "gdb-stack-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
@@ -564,7 +563,7 @@ on_frame_changed (DmaThreads *self, guint frame, guint thread)
  *---------------------------------------------------------------------------*/
 
 DmaThreads*
-dma_threads_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin)
+dma_threads_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin)
 {
 	DmaThreads* self;
 	AnjutaUI *ui;
@@ -577,7 +576,7 @@ dma_threads_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin)
 	if (debugger != NULL) g_object_ref (debugger);
 
 	/* Register actions */
-	ui = anjuta_shell_get_ui (self->plugin->shell, NULL);
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(self->plugin)->shell, NULL);
 	DEBUG_PRINT("add actions");
 	self->action_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupThread",

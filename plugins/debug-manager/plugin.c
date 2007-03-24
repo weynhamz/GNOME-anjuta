@@ -1139,13 +1139,13 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	this->locals = locals_new (ANJUTA_PLUGIN (plugin), this->debugger);
 
 	/* Stack trace */
-	this->stack = stack_trace_new (this->debugger, ANJUTA_PLUGIN (this));
+	this->stack = stack_trace_new (this->debugger, this);
 
 	/* Thread list */
-	this->thread = dma_threads_new (this->debugger, ANJUTA_PLUGIN (this));
+	this->thread = dma_threads_new (this->debugger, this);
 	
 	/* Create breakpoints list */
-	this->breakpoints = breakpoints_dbase_new (plugin);
+	this->breakpoints = breakpoints_dbase_new (this);
 
 	/* Register list */
 	this->registers = cpu_registers_new (plugin, this->debugger);
@@ -1247,6 +1247,25 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	}
 	
 	return TRUE;
+}
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+void
+dma_debug_manager_goto_code (DebugManagerPlugin *self, const gchar *uri, guint line, guint address)
+{
+	/* Go to address in disassembly view */
+	if (address != 0)
+	{
+		dma_disassemble_goto_address (self->disassemble, address);	
+	}
+
+	/* Go to location in editor */
+	if (uri != NULL)
+	{
+		goto_location_in_editor (ANJUTA_PLUGIN (self), uri, line);
+	}
 }
 
 
