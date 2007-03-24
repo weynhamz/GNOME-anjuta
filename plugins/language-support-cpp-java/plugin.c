@@ -450,13 +450,13 @@ set_indentation_param (CppJavaPlugin* plugin, const gchar *param,
 	DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
 	if (strcasecmp (param, "indent-tabs-mode") == 0)
 	{
-		if (strcasecmp (value, "t"))
+		if (strcasecmp (value, "t") == 0)
 		{
 			plugin->param_use_spaces = 0;
 			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
 										   FALSE, NULL);
 		}
-		else if (strcasecmp (value, "t"))
+		else if (strcasecmp (value, "nil") == 0)
 		{
 			plugin->param_use_spaces = 1;
 			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
@@ -490,7 +490,8 @@ parse_mode_line (CppJavaPlugin *plugin, const gchar *modeline)
 		{
 			g_strstrip (keyval[0]);
 			g_strstrip (keyval[1]);
-			set_indentation_param (plugin, keyval[0], keyval[1]);
+			set_indentation_param (plugin, g_strchug (keyval[0]),
+                                   g_strchug (keyval[1]));
 		}
 		g_strfreev (keyval);
 		ptr++;

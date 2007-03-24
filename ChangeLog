@@ -1,5 +1,7 @@
 2007-03-25  Naba Kumar  <naba@gnome.org>
 
+	* plugins/language-support-cpp-java/plugin.c: Fixed modeline parsing.
+	
 	* src/anjuta-app.c: Removed dead codes.
 	
 	* plugins/symbol-browser/an_symbol_prefs.c: Show message view when
