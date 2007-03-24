@@ -1,3 +1,57 @@
+2007-03-25  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta-app.c: Removed dead codes.
+	
+	* plugins/symbol-browser/an_symbol_prefs.c: Show message view when
+	global tags generation starts.
+	
+	* plugins/debug-manager/chunk_view.c,
+	plugins/debug-manager/start.h,
+	plugins/debug-manager/chunk_view.h,
+	plugins/debug-manager/utilities.c,
+	plugins/debug-manager/utilities.h,
+	plugins/debug-manager/debugger.c,
+	plugins/debug-manager/threads.c,
+	plugins/debug-manager/disassemble.c,
+	plugins/debug-manager/info.c,
+	plugins/debug-manager/sharedlib.c,
+	plugins/debug-manager/threads.h,
+	plugins/debug-manager/disassemble.h,
+	plugins/debug-manager/signals.c,
+	plugins/debug-manager/info.h,
+	plugins/debug-manager/sharedlib.h,
+	plugins/debug-manager/data_buffer.c,
+	plugins/debug-manager/data_view.c,
+	plugins/debug-manager/signals.h,
+	plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/data_buffer.h,
+	plugins/debug-manager/data_view.h,
+	plugins/debug-manager/memory.c,
+	plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/watch.h,
+	plugins/debug-manager/registers.h,
+	plugins/debug-manager/memory.h,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/sexy-icon-entry.c,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/locals.h,
+	plugins/debug-manager/sexy-icon-entry.h,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/breakpoints.h,
+	plugins/debug-manager/sparse_buffer.c,
+	plugins/debug-manager/sparse_view.c,
+	plugins/debug-manager/stack_trace.h,
+	plugins/debug-manager/sparse_buffer.h,
+	plugins/debug-manager/sparse_view.h,
+	plugins/debug-manager/start.c,
+	plugins/gdb/utilities.c,
+	plugins/gdb/utilities.h,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h: Added indentation modeline for easy indentation
+	setup.
+
 2007-03-24 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/gdb/debugger.c:
@@ -22,6 +76,7 @@
 
 	* configure.in, src/anjuta-app.c: Use the new docking algorithm
 	in gdl 0.7.3 (svn trunk).
+	* src/anjuta-app.c: Removed dead codes and fixed compiler warnings.
 	
 2007-03-24 Sebastien Granjoux <seb.sfo@free.fr>
 

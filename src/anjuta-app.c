@@ -543,31 +543,18 @@ anjuta_app_instance_init (AnjutaApp *app)
 					  G_CALLBACK (on_layout_dirty_notify), app);
 	g_signal_connect (app->layout_manager->master, "notify::locked",
 					  G_CALLBACK (on_layout_locked_notify), app);
-#if 0
-	/* Create placeholders for default widget positions */
-	gdl_dock_placeholder_new (DOCK_PH_TOP, GDL_DOCK_OBJECT (app->dock),
-							  GDL_DOCK_TOP, FALSE);
-	gdl_dock_placeholder_new (DOCK_PH_BOTTOM, GDL_DOCK_OBJECT (app->dock),
-							  GDL_DOCK_BOTTOM, FALSE);
-	gdl_dock_placeholder_new (DOCK_PH_LEFT, GDL_DOCK_OBJECT (app->dock),
-							  GDL_DOCK_LEFT, FALSE);
-	gdl_dock_placeholder_new (DOCK_PH_RIGHT, GDL_DOCK_OBJECT (app->dock),
-							  GDL_DOCK_RIGHT, FALSE);
-	gdl_dock_placeholder_new ("ph_center", GDL_DOCK_OBJECT (app->dock),
-							  GDL_DOCK_CENTER, FALSE);
-#endif
 	/* Status bar */
 	app->status = ANJUTA_STATUS (anjuta_status_new ());
 	anjuta_status_set_title_window (app->status, GTK_WIDGET (app));
 	gtk_widget_show (GTK_WIDGET (app->status));
 	gnome_app_set_statusbar (GNOME_APP (app), GTK_WIDGET (app->status));
 	g_object_ref (G_OBJECT (app->status));
-	g_object_add_weak_pointer (G_OBJECT (app->status), (gpointer*)&app->status);
+	g_object_add_weak_pointer (G_OBJECT (app->status), (gpointer)&app->status);
 	
 	/* Preferences */
 	app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
 	g_object_add_weak_pointer (G_OBJECT (app->preferences),
-							   (gpointer*)&app->preferences);
+							   (gpointer)&app->preferences);
 	anjuta_status_add_widget (ANJUTA_STATUS (app->status),
 							  GTK_WIDGET (app->preferences));
 	/* UI engine */
@@ -581,7 +568,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 	g_signal_connect (G_OBJECT (app->ui),
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  app);
-	g_object_add_weak_pointer (G_OBJECT (app->ui), (gpointer*)&app->ui);
+	g_object_add_weak_pointer (G_OBJECT (app->ui), (gpointer)&app->ui);
 	
 	/* Plugin Manager */
 	plugins_dirs = g_list_prepend (plugins_dirs, PACKAGE_PLUGIN_DIR);
@@ -716,7 +703,6 @@ anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry)
 {
 	gint width, height, posx, posy;
 	gboolean geometry_set = FALSE;
-	GdlDockPlaceholder *placeholder;
 	
 	if (geometry && strlen (geometry) > 0)
 	{
@@ -755,25 +741,6 @@ anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry)
 			gtk_window_move (GTK_WINDOW (app), posx, posy);
 		}
 	}
-#if 0
-	/* Set default placeholders geometry */
-	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock),
-													DOCK_PH_TOP);
-	g_object_set (placeholder, "height", GINT_TO_POINTER((gint)(0.25 * height)),
-				  NULL);
-	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock),
-													DOCK_PH_BOTTOM);
-	g_object_set (placeholder, "height", GINT_TO_POINTER((gint)(0.25 * height)),
-				  NULL);
-	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock),
-													DOCK_PH_LEFT);
-	g_object_set (placeholder, "width", GINT_TO_POINTER((gint)(0.25 * width)),
-				  NULL);
-	placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock),
-													DOCK_PH_RIGHT);
-	g_object_set (placeholder, "width", GINT_TO_POINTER((gint)(0.25 * width)),
-				  NULL);
-#endif
 }
 
 static void
@@ -916,8 +883,8 @@ anjuta_app_remove_value (AnjutaShell *shell, const char *name, GError **error)
 	*/
 	
 	if (app->values && g_hash_table_lookup_extended (app->values, name, 
-													 (gpointer*)&key,
-													 (gpointer*)&value)) {
+													 (gpointer)&key,
+													 (gpointer)&value)) {
 		g_signal_emit_by_name (app, "value_removed", name);
 		g_hash_table_remove (app->values, name);
 	}
@@ -1012,8 +979,6 @@ anjuta_app_add_widget (AnjutaShell *shell,
 	AnjutaApp *app;
 	GtkWidget *item;
 	GtkCheckMenuItem* menuitem;
-	GdlDockPlaceholder* placeholder;
-	const gchar *placeholder_name;
 
 	g_return_if_fail (ANJUTA_IS_APP (shell));
 	g_return_if_fail (GTK_IS_WIDGET (widget));
@@ -1044,28 +1009,6 @@ anjuta_app_add_widget (AnjutaShell *shell,
 		item = gdl_dock_item_new_with_stock (name, title, stock_id,
 											 GDL_DOCK_ITEM_BEH_NORMAL);
 	gtk_container_add (GTK_CONTAINER (item), widget);
-#if 0
-	if (placement != GDL_DOCK_FLOATING)
-	{
-		switch (placement)
-		{
-			case GDL_DOCK_TOP: placeholder_name = DOCK_PH_TOP; break;
-			case GDL_DOCK_BOTTOM: placeholder_name = DOCK_PH_BOTTOM; break;
-			case GDL_DOCK_LEFT: placeholder_name = DOCK_PH_LEFT; break;
-			case GDL_DOCK_RIGHT: placeholder_name = DOCK_PH_RIGHT; break;
-			default: placeholder_name = "ph_center";
-		}
-		
-		placeholder = gdl_dock_get_placeholder_by_name (GDL_DOCK (app->dock), 
-														placeholder_name);
-		gtk_container_add (GTK_CONTAINER (placeholder), GTK_WIDGET (item));
-	}
-	else
-	{
-        gdl_dock_add_item (GDL_DOCK (app->dock),
-                           GDL_DOCK_ITEM (item), GDL_DOCK_FLOATING);
-	}
-#endif
     gdl_dock_add_item (GDL_DOCK (app->dock),
                        GDL_DOCK_ITEM (item), placement);
 	gtk_widget_show_all (item);
@@ -1220,42 +1163,3 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 ANJUTA_TYPE_BEGIN(AnjutaApp, anjuta_app, GNOME_TYPE_APP);
 ANJUTA_TYPE_ADD_INTERFACE(anjuta_shell, ANJUTA_TYPE_SHELL);
 ANJUTA_TYPE_END;
-
-#if 0 /* FIXME: Implement progress bar in AnjutaShell */
-gboolean
-anjuta_app_progress_init (AnjutaApp *app, gchar * description,
-						  gdouble full_value,
-						  GnomeAppProgressCancelFunc cancel_cb,
-						  gpointer data)
-{
-	if (app->in_progress)
-		return FALSE;
-	app->in_progress = TRUE;
-	app->progress_value = 0.0;
-	app->progress_full_value = full_value;
-	app->progress_cancel_cb = cancel_cb;
-	app->progress_key =
-		gnome_app_progress_timeout (GNOME_APP (app),
-					    description,
-					    100,
-					    on_anjuta_progress_cb,
-					    on_anjuta_progress_cancel, data);
-	return TRUE;
-}
-
-void
-anjuta_app_progress_set (AnjutaApp *app, gdouble value)
-{
-	if (app->in_progress)
-		app->progress_value = value / app->progress_full_value;
-}
-
-void
-anjuta_app_progress_done (AnjutaApp *app, gchar * end_mesg)
-{
-	if (app->in_progress)
-		gnome_app_progress_done (app->progress_key);
-	anjuta_status (end_mesg);
-	app->in_progress = FALSE;
-}
-#endif

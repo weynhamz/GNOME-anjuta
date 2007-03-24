@@ -707,7 +707,7 @@ on_mesg_view_destroy(SymbolBrowserPlugin* plugin, gpointer destroyed_view)
 }
 
 static void 
-on_update_global_clicked(GtkWidget *button, SymbolBrowserPlugin *plugin)
+on_update_global_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 {
 	gchar* tmp;
 	gint pid;
@@ -724,11 +724,6 @@ on_update_global_clicked(GtkWidget *button, SymbolBrowserPlugin *plugin)
 	waitpid (pid, NULL, 0);
 	g_free (tmp);
 
-	/* This is useless because it obviously not in PATH (#409176) */
-	/* Make sure program anjuta-tags can be found */
-	/*if (!anjuta_util_prog_is_installed (CREATE_GLOBAL_TAGS, TRUE))
-		return;*/
-	
 	mesg_manager = anjuta_shell_get_interface 
 		(ANJUTA_PLUGIN (plugin)->shell,	IAnjutaMessageManager, NULL);
 	
@@ -753,6 +748,8 @@ on_update_global_clicked(GtkWidget *button, SymbolBrowserPlugin *plugin)
 						  (GWeakNotify)on_mesg_view_destroy, plugin);
 	}
 	ianjuta_message_view_clear(plugin->mesg_view, NULL);
+	ianjuta_message_manager_set_current_view (mesg_manager,
+											  plugin->mesg_view, NULL);
 	
 	launcher = anjuta_launcher_new ();
 	g_signal_connect (G_OBJECT (launcher), "child-exited",

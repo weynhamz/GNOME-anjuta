@@ -1,3 +1,4 @@
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     stack_trace.c
     Copyright (C) 2000  Kh. Naba Kumar Singh
