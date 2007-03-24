@@ -1,3 +1,20 @@
+2007-03-24 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/threads.c,
+	plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/stack_trace.c:
+	Allow to change current thread updating register, stack and locals
+	Allow to change current stack frame updating locals
+
+	* plugins/gdb/debugger.c:
+	Read argument of selected stack frame
+
+	* plugins/debug-manager/data_view.c:
+	Fix an unrelated bug
+
 2007-03-23  Naba Kumar  <naba@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c,

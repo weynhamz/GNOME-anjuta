@@ -80,7 +80,6 @@ struct _DebugTree {
 	IAnjutaDebugger *debugger;
 	AnjutaPlugin *plugin;
 	GtkWidget* view;        /* the tree widget */
-	GSList* free_list;
 	gboolean auto_expand;
 };
 
@@ -789,8 +788,7 @@ debug_tree_remove_all (DebugTree *tree)
 	g_return_if_fail (tree->view);
 
 	model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
-	my_gtk_tree_model_foreach_child (model, NULL, delete_parent, tree);
-	gtk_tree_store_clear (GTK_TREE_STORE (model));
+	debug_tree_remove_model (tree, model);
 }
 
 static gboolean
@@ -1068,7 +1066,7 @@ on_debug_tree_changed (gpointer data, gpointer user_data)
 			GtkTreeIter iter;
 			GtkTreeModel *model;
 			
-			model = gtk_tree_view_get_model (GTK_TREE_VIEW (((DebugTree *)tree->data)->view));
+			model =  GTK_TREE_MODEL (tree->data);
 			
 			if (debug_tree_find_name (model, &iter, var->name))
 			{
@@ -1328,6 +1326,39 @@ debug_tree_disconnect (DebugTree *this)
 	this->debugger = NULL;
 }
 
+GtkTreeModel *
+debug_tree_get_model (DebugTree *tree)
+{
+	return gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
+}
+
+void
+debug_tree_set_model (DebugTree *tree, GtkTreeModel *model)
+{
+	gtk_tree_view_set_model (GTK_TREE_VIEW (tree->view), model);
+}
+
+void
+debug_tree_new_model (DebugTree *tree)
+{
+	GtkTreeModel * model = GTK_TREE_MODEL (gtk_tree_store_new
+		                     (N_COLUMNS, 
+	                          G_TYPE_STRING, 
+	                          G_TYPE_STRING,
+                              G_TYPE_STRING,
+				              G_TYPE_BOOLEAN,
+			                  G_TYPE_POINTER));
+
+	gtk_tree_view_set_model (GTK_TREE_VIEW (tree->view), model);
+}
+
+void
+debug_tree_remove_model (DebugTree *tree, GtkTreeModel *model)
+{
+	my_gtk_tree_model_foreach_child (model, NULL, delete_parent, tree);
+	gtk_tree_store_clear (GTK_TREE_STORE (model));
+}
+
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
 
@@ -1336,13 +1367,15 @@ DebugTree *
 debug_tree_new_with_view (AnjutaPlugin *plugin, GtkTreeView *view)
 {
 	DebugTree *tree = g_new0 (DebugTree, 1);
+	GtkTreeModel *model;	
 
 	tree->plugin = plugin;
 	tree->view = debug_tree_create(tree, view);
 	tree->auto_expand = FALSE;
 
-	/* Add this tree in list */
-	gTreeList = g_list_prepend (gTreeList, tree);
+	/* Add this model in list */
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
+	gTreeList = g_list_prepend (gTreeList, model);
 	
 	/* Connect signal */
     g_signal_connect(GTK_TREE_VIEW (tree->view), "row_expanded", G_CALLBACK (on_treeview_row_expanded), tree);
@@ -1361,22 +1394,24 @@ debug_tree_new (AnjutaPlugin* plugin)
 
 /* DebugTree destructor */
 void
-debug_tree_free (DebugTree * d_tree)
+debug_tree_free (DebugTree * tree)
 {
+	GtkTreeModel *model;
 	// AnjutaUI *ui;
 	
-	g_return_if_fail (d_tree);
+	g_return_if_fail (tree);
 
-	debug_tree_remove_all (d_tree);
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
+	debug_tree_remove_all (tree);
 
 	/* Remove from list */
-	gTreeList = g_list_remove (gTreeList, d_tree);
+	gTreeList = g_list_remove (gTreeList, model);
 	
-	g_signal_handlers_disconnect_by_func (GTK_TREE_VIEW (d_tree->view),
-				  G_CALLBACK (on_treeview_row_expanded), d_tree);
+	g_signal_handlers_disconnect_by_func (GTK_TREE_VIEW (tree->view),
+				  G_CALLBACK (on_treeview_row_expanded), tree);
 	
-	gtk_widget_destroy (d_tree->view);
+	gtk_widget_destroy (tree->view);
 	
 	
-	g_free (d_tree);
+	g_free (tree);
 }

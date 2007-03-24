@@ -108,6 +108,7 @@ struct _DebuggerPriv
 	pid_t inferior_pid;
     	gint gnome_terminal_type;
 	guint current_thread;
+	guint current_frame;
 	
 	GObject* instance;
 
@@ -950,6 +951,7 @@ debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 	{
 		debugger->priv->current_thread = strtoul (gdbmi_value_literal_get (thread), NULL, 0);
 	}
+	debugger->priv->current_frame = 0;
 
 	frame = gdbmi_value_hash_lookup (val, "frame");
 	if (frame)
@@ -2596,11 +2598,14 @@ debugger_list_local_finish (Debugger *debugger, const GDBMIValue *mi_results, co
 void
 debugger_list_local (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
+	gchar *buff;
 	DEBUG_PRINT ("In function: debugger_list_local()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "-stack-list-arguments 0 0 0", TRUE, TRUE, NULL, NULL, NULL);
+	buff = g_strdup_printf("-stack-list-arguments 0 %d %d", debugger->priv->current_frame, debugger->priv->current_frame);
+	debugger_queue_command (debugger, buff, TRUE, TRUE, NULL, NULL, NULL);
+	g_free (buff);
 	debugger_queue_command (debugger, "-stack-list-locals 0", TRUE, FALSE, debugger_list_local_finish, callback, user_data);
 }
 
@@ -2648,11 +2653,15 @@ debugger_list_argument_finish (Debugger *debugger, const GDBMIValue *mi_results,
 void
 debugger_list_argument (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
+	gchar *buff;
+
 	DEBUG_PRINT ("In function: debugger_list_argument()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	debugger_queue_command (debugger, "-stack-list-argument 0 0 0", TRUE, FALSE, debugger_list_argument_finish, callback, user_data);
+	buff = g_strdup_printf("-stack-list-arguments 0 %d %d", debugger->priv->current_frame, debugger->priv->current_frame);
+	debugger_queue_command (debugger, buff, TRUE, FALSE, debugger_list_argument_finish, callback, user_data);
+	g_free (buff);
 }
 
 static void
@@ -3438,6 +3447,7 @@ debugger_set_frame_finish (Debugger *debugger, const GDBMIValue *mi_results, con
 
 {
 	guint frame  = (guint)debugger->priv->current_cmd.user_data;
+	debugger->priv->current_frame = frame;
 	
 	g_signal_emit_by_name (debugger->priv->instance, "frame-changed", frame, debugger->priv->current_thread);
 }

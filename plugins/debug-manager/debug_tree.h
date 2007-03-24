@@ -31,29 +31,33 @@ typedef struct _DebugTree DebugTree;
 
 DebugTree* debug_tree_new (AnjutaPlugin* plugin);
 DebugTree* debug_tree_new_with_view (AnjutaPlugin *plugin, GtkTreeView *view);
-void debug_tree_free (DebugTree *this);
+void debug_tree_free (DebugTree *tree);
 
-void debug_tree_connect (DebugTree *this, IAnjutaDebugger *debugger);
-void debug_tree_disconnect (DebugTree *this);
+void debug_tree_connect (DebugTree *tree, IAnjutaDebugger *debugger);
+void debug_tree_disconnect (DebugTree *tree);
 
-void debug_tree_remove_all (DebugTree *this);
-void debug_tree_replace_list (DebugTree *this, const GList *expressions);
-void debug_tree_add_watch (DebugTree *this, const IAnjutaDebuggerVariable* var, gboolean auto_update);
-void debug_tree_add_dummy (DebugTree *this, GtkTreeIter *parent);
-void debug_tree_add_full_watch_list (DebugTree *this, GList *expressions);
-void debug_tree_add_watch_list (DebugTree *this, GList *expressions, gboolean auto_update);
-void debug_tree_update_all (DebugTree *this);
+void debug_tree_remove_all (DebugTree *tree);
+void debug_tree_replace_list (DebugTree *tree, const GList *expressions);
+void debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariable* var, gboolean auto_update);
+void debug_tree_add_dummy (DebugTree *tree, GtkTreeIter *parent);
+void debug_tree_add_full_watch_list (DebugTree *tree, GList *expressions);
+void debug_tree_add_watch_list (DebugTree *tree, GList *expressions, gboolean auto_update);
+void debug_tree_update_all (DebugTree *tree);
 
-GList* debug_tree_get_full_watch_list (DebugTree *this);
+GList* debug_tree_get_full_watch_list (DebugTree *tree);
 
 
 GtkWidget *debug_tree_get_tree_widget (DebugTree *tree);
 gboolean debug_tree_get_current (DebugTree *tree, GtkTreeIter* iter);
 gboolean debug_tree_remove (DebugTree *tree, GtkTreeIter* iter);
 gboolean debug_tree_update (DebugTree *tree, GtkTreeIter* iter, gboolean force);
-void debug_tree_set_auto_update (DebugTree* this, GtkTreeIter* iter, gboolean state);
-gboolean debug_tree_get_auto_update (DebugTree* this, GtkTreeIter* iter);
+void debug_tree_set_auto_update (DebugTree* tree, GtkTreeIter* iter, gboolean state);
+gboolean debug_tree_get_auto_update (DebugTree* tree, GtkTreeIter* iter);
 
+GtkTreeModel *debug_tree_get_model (DebugTree *tree);
+void debug_tree_set_model (DebugTree *tree, GtkTreeModel *model);
+void debug_tree_new_model (DebugTree *tree);
+void debug_tree_remove_model (DebugTree *tree, GtkTreeModel *model);
 
 G_END_DECLS
 

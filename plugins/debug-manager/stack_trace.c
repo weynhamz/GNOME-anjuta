@@ -41,25 +41,27 @@
 
 #define ANJUTA_PIXMAP_POINTER PACKAGE_PIXMAPS_DIR"/pointer.png"
 
-typedef struct _StackTraceGui StackTraceGui;
-struct _StackTraceGui
+typedef struct _DmaThreadStackTrace
 {
-	GtkWidget *scrolledwindow;
-	GtkTreeView *clist;
-	GtkMenu *menu;
-	GtkWidget *menu_set;
-	GtkWidget *menu_info;
-	GtkWidget *menu_update;
-	GtkWidget *menu_view;
-};
+	GtkTreeModel *model;
+	guint thread;
+} DmaThreadStackTrace;
 
 struct _StackTrace
 {
 	AnjutaPlugin *plugin;
 	IAnjutaDebugger *debugger;
+	
 	GtkActionGroup *action_group;
-	StackTraceGui widgets;
+	
+	DmaThreadStackTrace* current;
+	GList *list;
+
 	gint current_frame;
+	
+	GtkTreeView *treeview;
+	GtkMenu *menu;
+	GtkWidget *scrolledwindow;
 };
 
 enum {
@@ -94,12 +96,12 @@ get_current_index (StackTrace* st)
 {
 	GtkTreeIter iter;
 	
-	if (get_current_iter (st->widgets.clist, &iter))
+	if (get_current_iter (st->treeview, &iter))
 	{
 		GtkTreeModel *model;
 		gint frame_no;
 	
-		model = gtk_tree_view_get_model (st->widgets.clist);		
+		model = gtk_tree_view_get_model (st->treeview);		
 		gtk_tree_model_get (model, &iter, STACK_TRACE_FRAME_COLUMN, &frame_no, -1);
 		
 		return frame_no;
@@ -114,28 +116,33 @@ get_current_index (StackTrace* st)
  *---------------------------------------------------------------------------*/
 
 static void
-stack_trace_clear (StackTrace * st)
+on_clear_stack_trace (gpointer data, gpointer user_data)
 {
-	GtkTreeModel* model;
+	DmaThreadStackTrace *trace = (DmaThreadStackTrace *) data;
 	
-	model = gtk_tree_view_get_model (st->widgets.clist);
-	gtk_list_store_clear (GTK_LIST_STORE (model));
+	g_object_unref (G_OBJECT (trace->model));
+	g_free (trace);
 }
 
-/* Callback functions
- *---------------------------------------------------------------------------*/
+static void
+dma_thread_clear_all_stack_trace (StackTrace *self)
+{
+	/* Clear all GtkListStore */
+	g_list_foreach (self->list, (GFunc)on_clear_stack_trace, NULL);
+	g_list_free (self->list);
+	
+	self->current = NULL;
+	self->list = NULL;
+}
 
 static void
-on_stack_trace_updated (const GList *stack, gpointer data)
+on_stack_trace_updated (const GList *stack, gpointer user_data)
 {
-	StackTrace *st;
+	StackTrace *self = (StackTrace *)user_data;
 	const GList *node;
 	GtkListStore *model;		
 
-	st = (StackTrace *) data;
-	stack_trace_clear (st);
-
-	model = GTK_LIST_STORE (gtk_tree_view_get_model (st->widgets.clist));
+	model = GTK_LIST_STORE (self->current->model);
 
 	for (node = stack; node != NULL; node = node->next)
 	{
@@ -151,7 +158,7 @@ on_stack_trace_updated (const GList *stack, gpointer data)
 		gtk_list_store_append (model, &iter);
 
 		/* if we are on the current frame set iterator and pixmap correctly */
-		if (frame->level == st->current_frame)
+		if (frame->level == self->current_frame)
 			pic = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);
 		else
 			pic = NULL;
@@ -185,15 +192,92 @@ on_stack_trace_updated (const GList *stack, gpointer data)
 	}
 }
 
+static DmaThreadStackTrace*
+dma_thread_create_new_stack_trace (StackTrace *self, guint thread)
+{
+	DmaThreadStackTrace *trace;
+	GtkListStore *store;
+	
+	/* Create new list store */
+	store = gtk_list_store_new (STACK_TRACE_N_COLUMNS,
+								  GDK_TYPE_PIXBUF,
+								   G_TYPE_UINT,
+								   G_TYPE_STRING,
+								   G_TYPE_UINT,
+								   G_TYPE_STRING,
+								   G_TYPE_STRING,
+								   G_TYPE_STRING,
+								   G_TYPE_STRING);
+		
+	trace = g_new (DmaThreadStackTrace, 1);
+	trace->thread = thread;
+	trace->model = GTK_TREE_MODEL (store);
+
+	self->current = trace;
+		
+	/* Ask debugger to get all frame data */
+	ianjuta_debugger_list_frame (
+			self->debugger,
+			(IAnjutaDebuggerCallback)on_stack_trace_updated,
+			self,
+			NULL);
+	
+	self->list = g_list_append (self->list, trace);
+	
+	return trace;
+}
+
+static gboolean
+on_find_stack_trace (gconstpointer a, gconstpointer b)
+{
+	const DmaThreadStackTrace *trace = (const DmaThreadStackTrace *)a;
+	guint thread = (guint)b;
+	
+	return trace->thread != thread;
+}
+
 static void
-on_stack_trace_frame_changed (StackTrace *st, guint frame, guint thread)
+dma_thread_set_stack_trace (StackTrace *self, guint thread)
+{
+	GList *list;
+	DmaThreadStackTrace *trace;
+
+	if ((self->current == NULL) || (self->current->thread != thread))
+	{
+		self->current_frame = 0;
+		
+		list = g_list_find_custom (self->list, (gconstpointer) thread, on_find_stack_trace);
+	
+		if (list == NULL)
+		{
+			/* Create new stack trace */
+			trace = dma_thread_create_new_stack_trace(self, thread);
+		}
+		else
+		{
+			trace = (DmaThreadStackTrace *)list->data;
+			self->current = trace;
+		}
+		gtk_tree_view_set_model (self->treeview, trace->model);
+	}
+}
+
+/* Callback functions
+ *---------------------------------------------------------------------------*/
+
+static void
+on_frame_changed (StackTrace *self, guint frame, guint thread)
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
+
+	/* Change thread */
+	dma_thread_set_stack_trace (self, thread);
 	
-	st->current_frame = frame;
+	/* Change frame */
+	self->current_frame = frame;
 	
-	model = gtk_tree_view_get_model (st->widgets.clist);
+	model = self->current->model;
 	
 	/* Clear old pointer */
 	if(gtk_tree_model_get_iter_first (model, &iter))
@@ -207,7 +291,7 @@ on_stack_trace_frame_changed (StackTrace *st, guint frame, guint thread)
 	}
 	
 	/* Set pointer to current frame */
-	if (gtk_tree_model_iter_nth_child (model, &iter, NULL, st->current_frame))
+	if (gtk_tree_model_iter_nth_child (model, &iter, NULL, self->current_frame))
 	{
 		GdkPixbuf *pointer_pix = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);
 		
@@ -253,7 +337,7 @@ on_stack_view_src_activate (GtkAction *action, gpointer user_data)
 	
 	StackTrace* st = (StackTrace*) user_data;		
 
-	view = st->widgets.clist;
+	view = st->treeview;
 	selection = gtk_tree_view_get_selection (view);
 	if (!gtk_tree_selection_get_selected (selection, &model, &iter))
 		return;
@@ -285,8 +369,8 @@ on_stack_trace_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer
 	if ((bevent->type == GDK_BUTTON_PRESS) && (bevent->button == 3))
 	{
 		/* Right mouse click */
-		g_return_val_if_fail (st->widgets.menu != NULL, FALSE);
-		gtk_menu_popup (GTK_MENU (st->widgets.menu), NULL, NULL, NULL, NULL,
+		g_return_val_if_fail (st->menu != NULL, FALSE);
+		gtk_menu_popup (GTK_MENU (st->menu), NULL, NULL, NULL, NULL,
 						bevent->button, bevent->time);
 	}
 	else if ((bevent->type == GDK_2BUTTON_PRESS) && (bevent->button == 1))
@@ -296,17 +380,6 @@ on_stack_trace_button_press (GtkWidget *widget, GdkEventButton *bevent, gpointer
 	}
 	
 	return FALSE;
-}
-
-static void
-stack_trace_update (StackTrace *st)
-{
-	st->current_frame = 0;
-	ianjuta_debugger_list_frame (
-			st->debugger,
-			(IAnjutaDebuggerCallback)on_stack_trace_updated,
-			st,
-			NULL);
 }
 
 /* Actions table
@@ -340,7 +413,7 @@ create_stack_trace_gui(StackTrace *st)
 	GtkCellRenderer *renderer;
 	AnjutaUI *ui;
 
-	g_return_if_fail (st->widgets.scrolledwindow == NULL);
+	g_return_if_fail (st->scrolledwindow == NULL);
 	
 	/* Create tree view */
 	model = GTK_TREE_MODEL(gtk_list_store_new (STACK_TRACE_N_COLUMNS,
@@ -352,10 +425,10 @@ create_stack_trace_gui(StackTrace *st)
 											   G_TYPE_STRING,
 											   G_TYPE_STRING,
 											   G_TYPE_STRING));
-	st->widgets.clist = GTK_TREE_VIEW (gtk_tree_view_new_with_model (model));
+	st->treeview = GTK_TREE_VIEW (gtk_tree_view_new_with_model (model));
 	g_object_unref (G_OBJECT (model));
 	
-	selection = gtk_tree_view_get_selection (st->widgets.clist);
+	selection = gtk_tree_view_get_selection (st->treeview);
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
 
 	/* Columns */
@@ -366,8 +439,8 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
 										STACK_TRACE_ACTIVE_COLUMN);
-	gtk_tree_view_append_column (st->widgets.clist, column);
-	gtk_tree_view_set_expander_column (st->widgets.clist,
+	gtk_tree_view_append_column (st->treeview, column);
+	gtk_tree_view_set_expander_column (st->treeview,
 									   column);
 	
 	column = gtk_tree_view_column_new ();
@@ -378,8 +451,8 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
 										STACK_TRACE_FRAME_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_append_column (st->widgets.clist, column);
-	gtk_tree_view_set_expander_column (st->widgets.clist,
+	gtk_tree_view_append_column (st->treeview, column);
+	gtk_tree_view_set_expander_column (st->treeview,
 									   column);
 	
 	column = gtk_tree_view_column_new ();
@@ -389,7 +462,7 @@ create_stack_trace_gui(StackTrace *st)
 										STACK_TRACE_FILE_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("File"));
-	gtk_tree_view_append_column (st->widgets.clist, column);
+	gtk_tree_view_append_column (st->treeview, column);
 
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
@@ -398,7 +471,7 @@ create_stack_trace_gui(StackTrace *st)
 										STACK_TRACE_LINE_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Line"));
-	gtk_tree_view_append_column (st->widgets.clist, column);
+	gtk_tree_view_append_column (st->treeview, column);
 	
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
@@ -407,7 +480,7 @@ create_stack_trace_gui(StackTrace *st)
 										STACK_TRACE_FUNC_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Function"));
-	gtk_tree_view_append_column (st->widgets.clist, column);
+	gtk_tree_view_append_column (st->treeview, column);
 	
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
@@ -416,7 +489,7 @@ create_stack_trace_gui(StackTrace *st)
 										STACK_TRACE_ADDR_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Address"));
-	gtk_tree_view_append_column (st->widgets.clist, column);
+	gtk_tree_view_append_column (st->treeview, column);
 	
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();
@@ -425,29 +498,29 @@ create_stack_trace_gui(StackTrace *st)
 										STACK_TRACE_ARGS_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Arguments"));
-	gtk_tree_view_append_column (st->widgets.clist, column);
+	gtk_tree_view_append_column (st->treeview, column);
 	
 	/* Create popup menu */
 	ui = anjuta_shell_get_ui (st->plugin->shell, NULL);
-	st->widgets.menu = GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupStack"));
+	st->menu = GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupStack"));
 	
 	/* Connect signal */
-	g_signal_connect (st->widgets.clist, "button-press-event", G_CALLBACK (on_stack_trace_button_press), st);  
-	g_signal_connect (st->widgets.clist, "row-activated", G_CALLBACK (on_stack_trace_row_activated), st);  
+	g_signal_connect (st->treeview, "button-press-event", G_CALLBACK (on_stack_trace_button_press), st);  
+	g_signal_connect (st->treeview, "row-activated", G_CALLBACK (on_stack_trace_row_activated), st);  
 	
 	/* Add stack window */
-	st->widgets.scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (st->widgets.scrolledwindow),
+	st->scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (st->scrolledwindow),
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (st->widgets.scrolledwindow),
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (st->scrolledwindow),
 										 GTK_SHADOW_IN);
-	gtk_container_add (GTK_CONTAINER (st->widgets.scrolledwindow),
-					   GTK_WIDGET (st->widgets.clist));
-	gtk_widget_show_all (st->widgets.scrolledwindow);
+	gtk_container_add (GTK_CONTAINER (st->scrolledwindow),
+					   GTK_WIDGET (st->treeview));
+	gtk_widget_show_all (st->scrolledwindow);
 	
 	anjuta_shell_add_widget (st->plugin->shell,
-							 st->widgets.scrolledwindow,
+							 st->scrolledwindow,
 							 "AnjutaDebuggerStack", _("Stack"),
 							 "gdb-stack-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
 							 NULL);
@@ -457,30 +530,31 @@ create_stack_trace_gui(StackTrace *st)
 static void
 destroy_stack_trace_gui (StackTrace *st)
 {
-	if (st->widgets.scrolledwindow != NULL)
+	if (st->scrolledwindow != NULL)
 	{
-		gtk_widget_destroy (st->widgets.scrolledwindow);
-		st->widgets.scrolledwindow = NULL;
+		gtk_widget_destroy (st->scrolledwindow);
+		st->scrolledwindow = NULL;
 	}
 }
 
 static void
-on_program_stopped (StackTrace *st)
+on_program_stopped (StackTrace *self, guint thread)
 {
-	stack_trace_update (st);
+	dma_thread_clear_all_stack_trace (self);
+	dma_thread_set_stack_trace (self, thread);
 }
 
 static void
-on_debugger_started (StackTrace *st)
+on_debugger_started (StackTrace *self)
 {
-	create_stack_trace_gui (st);
+	create_stack_trace_gui (self);
 }
 
 static void
-on_debugger_stopped (StackTrace *st)
+on_debugger_stopped (StackTrace *self)
 {
-	stack_trace_clear (st);
-	destroy_stack_trace_gui (st);
+	dma_thread_clear_all_stack_trace (self);
+	destroy_stack_trace_gui (self);
 }
 
 /* Public functions
@@ -514,7 +588,7 @@ stack_trace_new (IAnjutaDebugger *debugger, AnjutaPlugin *plugin)
 	g_signal_connect_swapped (st->debugger, "debugger-started", G_CALLBACK (on_debugger_started), st);
 	g_signal_connect_swapped (st->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), st);
 	g_signal_connect_swapped (st->debugger, "program-stopped", G_CALLBACK (on_program_stopped), st);
-	g_signal_connect_swapped (st->debugger, "frame-changed", G_CALLBACK (on_stack_trace_frame_changed), st);
+	g_signal_connect_swapped (st->debugger, "frame-changed", G_CALLBACK (on_frame_changed), st);
 	
 	return st;
 }
@@ -532,7 +606,7 @@ stack_trace_free (StackTrace * st)
 		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_debugger_started), st);
 		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_debugger_stopped), st);
 		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_program_stopped), st);
-		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_stack_trace_frame_changed), st);
+		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_frame_changed), st);
 		g_object_unref (st->debugger);	
 	}
 

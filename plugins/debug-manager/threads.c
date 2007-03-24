@@ -30,7 +30,7 @@
 #include <ctype.h>
 #include <gnome.h>
 
-#define DEBUG
+/*#define DEBUG*/
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
@@ -165,9 +165,13 @@ on_threads_src_activate (GtkAction *action, gpointer user_data)
 						THREAD_URI_COLUMN, &uri,
 						THREAD_LINE_COLUMN, &line,
 						-1);
-	
-	goto_location_in_editor (self->plugin, uri, line);
-	g_free (uri);
+
+	/* URI is NULL if file is unknown */
+	if (uri != NULL)
+	{
+		goto_location_in_editor (self->plugin, uri, line);
+		g_free (uri);
+	}
 }
 
 static void
@@ -276,7 +280,6 @@ on_list_thread (const GList *threads, gpointer user_data)
 
 		gtk_list_store_append (model, &iter);
 
-		DEBUG_PRINT("frame thread %d current thread %d", frame->thread, self->current_thread);
 		/* if we are on the current frame set iterator and pixmap correctly */
 		if (frame->thread == self->current_thread)
 			pic = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);
@@ -457,10 +460,6 @@ dma_threads_create_gui(DmaThreads *self)
 	ui = anjuta_shell_get_ui (self->plugin->shell, NULL);
 	self->menu = GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupThread"));
 	
-	/* FIXME: Temporary disable set thread menu item */
-	GtkAction *action = anjuta_ui_get_action (ui, "ActionGroupThread", "ActionDmaSetCurrentThread");
-	gtk_action_set_sensitive (GTK_ACTION (action), FALSE);
-	
 	/* Connect signal */
 	g_signal_connect (self->list, "button-press-event", G_CALLBACK (on_threads_button_press), self);  
 	g_signal_connect (self->list, "row-activated", G_CALLBACK (on_threads_row_activated), self);  
@@ -514,9 +513,51 @@ on_debugger_stopped (DmaThreads *self)
 	dma_destroy_threads_gui (self);
 }
 
+static gboolean
+on_mark_selected_thread (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer user_data)
+{
+	DmaThreads* self = (DmaThreads *)user_data;
+	GdkPixbuf *pic;
+	guint thread;
+
+	gtk_tree_model_get (model, iter, THREAD_ACTIVE_COLUMN, &pic, THREAD_ID_COLUMN, &thread, -1);
+	
+	if (pic != NULL)
+	{
+		/* Remove previously selected thread marker */
+		gdk_pixbuf_unref (pic);
+		pic = NULL;
+	}		
+	
+	if (self->current_thread == thread)
+	{
+		/* Create marker if needed */
+		pic = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);
+	}
+		
+	gtk_list_store_set (GTK_LIST_STORE (model), iter, 
+						   	THREAD_ACTIVE_COLUMN, pic, -1);
+	
+	if (pic != NULL)
+	{
+		gdk_pixbuf_unref (pic);
+	}
+	
+	return FALSE;
+}
+
 static void
 on_frame_changed (DmaThreads *self, guint frame, guint thread)
 {
+	if (thread != self->current_thread)
+	{
+		GtkTreeModel *model;
+	
+		self->current_thread = thread;
+		model = gtk_tree_view_get_model (self->list);		
+		
+		gtk_tree_model_foreach (model, on_mark_selected_thread, self);
+	}
 }
 
 /* Constructor & Destructor

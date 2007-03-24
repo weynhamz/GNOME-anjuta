@@ -281,7 +281,7 @@ dma_data_view_goto_activate (GtkWidget   *menu_item,
 	gtk_entry_set_text (GTK_ENTRY (view->goto_entry), "0x");
 	gtk_widget_show (view->goto_window);
 	
-	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (view), FALSE);
+	gtk_text_view_set_cursor_visible (GTK_TEXT_VIEW (view->address), FALSE);
     gtk_widget_grab_focus (view->goto_entry);
     send_focus_change (view->goto_entry, TRUE);
 	gtk_editable_set_position (GTK_EDITABLE (view->goto_entry), -1);
