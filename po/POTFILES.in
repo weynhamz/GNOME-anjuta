@@ -155,6 +155,7 @@ plugins/project-wizard/druid.c
 plugins/project-wizard/install.c
 plugins/project-wizard/plugin.c
 plugins/project-wizard/property.c
+plugins/project-wizard/templates/translatable-strings.h
 plugins/sample1/plugin.c
 plugins/search/anjuta-search.glade
 plugins/search/plugin.c

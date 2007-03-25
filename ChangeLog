@@ -1,3 +1,11 @@
+2007-03-26  Naba Kumar  <naba@gnome.org>
+
+	* (added)
+	plugins/project-wizard/templates/extract-translatable-strings.pl
+	plugins/project-wizard/templates/Makefile.am, Makefile.am,
+	po/POTFILES.in: Generated translatable strings for .wiz files and
+	added them in POTFILES.in for translation. Fixes bug #398035
+
 2007-03-25  Naba Kumar  <naba@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c: Fixed modeline parsing.
