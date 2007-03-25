@@ -31,7 +31,7 @@ wizard_files_DATA = \
 #  mkfile.wiz \
 #  mkfile-logo.png
 
-BUILT_SOURCES = translatable-strings.h
+BUILT_SOURCES = translatable-strings.h extract-translatable-strings.pl
 translatable-strings.h: $(wizard_files_DATA)
 	perl $(srcdir)/extract-translatable-strings.pl $(wizard_files_DATA) > translatable-strings.h
 
