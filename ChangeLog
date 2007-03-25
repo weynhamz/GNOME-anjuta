@@ -1,5 +1,9 @@
 2007-03-26  Naba Kumar  <naba@gnome.org>
 
+	* (added) plugins/project-wizard/templates/translatable-strings.pl,
+	Makefile.am: Added the generated translatable file (required for
+	translations for svn checkouts).
+
 	* (added)
 	plugins/project-wizard/templates/extract-translatable-strings.pl
 	plugins/project-wizard/templates/Makefile.am, Makefile.am,
