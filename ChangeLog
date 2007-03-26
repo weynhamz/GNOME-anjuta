@@ -1,3 +1,9 @@
+2007-03-26  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/tools/scripts/prepare-changelog.pl,
+	plugins/tools/scripts/tools-2.xml.in: Updated prepare changelog
+	script to a better one (that works on both cvs and svn).
+
 2007-03-26  Naba Kumar  <naba@gnome.org>
 
 	* (added) plugins/project-wizard/templates/translatable-strings.pl,

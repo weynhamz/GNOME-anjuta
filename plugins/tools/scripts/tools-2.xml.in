@@ -2,8 +2,8 @@
 <anjuta-tools>
 	<tool name="Prepare ChangeLog">
 		<command>@ANJUTA_DATA_DIR@/tools/prepare-changelog.pl</command>
-		<parameter>$(project_root_directory)</parameter>
-		<working_dir></working_dir>
+		<parameter></parameter>
+		<working_dir>$(project_root_directory)</working_dir>
 		<enabled>1</enabled>
 		<autosave>0</autosave>
 		<run_in_terminal>0</run_in_terminal>
