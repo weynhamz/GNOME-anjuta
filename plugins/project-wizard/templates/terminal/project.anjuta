@@ -27,14 +27,6 @@
                  attribute="Supported-Build-Types"
                  value="make"/>
 	</plugin>
-	<plugin name="Subversion" mandatory="no">
-        <require group="Anjuta Plugin"
-                 attribute="Location"
-                 value="anjuta-subversion:Subversion"/>
-		<require group="Anjuta Plugin"
-                  attribute="Interfaces"
-                  value="IAnjutaVcs"/>
-	</plugin>
 	<plugin name="Task Manager"
             url="http://anjuta.org/plugins/"
             mandatory="no">
