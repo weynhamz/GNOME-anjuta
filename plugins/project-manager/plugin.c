@@ -815,8 +815,10 @@ update_ui (ProjectManagerPlugin *plugin)
 	{
 		action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
 									   pm_actions[j].name);
-		if (pm_actions[j].callback)
+		if (pm_actions[j].callback &&
+			strcmp (pm_actions[j].name, "ActionFileCloseProject") != 0)
 		{
+			/* 'close' menuitem is never disabled */
 			g_object_set (G_OBJECT (action), "sensitive",
 						  (plugin->project != NULL), NULL);
 		}

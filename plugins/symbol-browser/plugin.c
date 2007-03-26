@@ -675,6 +675,8 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 		/* Set local view version */
 		gtk_tree_view_set_model (GTK_TREE_VIEW (sv_plugin->sl_tree),
 								 file_symbol_model);
+		sv_plugin->locals_line_number = 0;
+		on_editor_update_ui (editor, sv_plugin);
 		
 		if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
 			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
@@ -767,6 +769,8 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 			/* Set local view version */
 			gtk_tree_view_set_model (GTK_TREE_VIEW (sv_plugin->sl_tree),
 									 file_symbol_model);
+			sv_plugin->locals_line_number = 0;
+			on_editor_update_ui (IANJUTA_EDITOR (editor), sv_plugin);
 			
 			if (gtk_tree_model_iter_n_children (file_symbol_model, NULL) > 0)
 				g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
@@ -827,21 +831,22 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 }
 
 static gboolean
-iter_matches(SymbolBrowserPlugin *sv_plugin, GtkTreeIter* iter, 
-					  GtkTreeModel* model, gint lineno)
+iter_matches (SymbolBrowserPlugin *sv_plugin, GtkTreeIter* iter, 
+			  GtkTreeModel* model, gint lineno)
 {
 	gint line;
-	gtk_tree_model_get(model, iter, COL_LINE, &line, -1);
+	gtk_tree_model_get (model, iter, COL_LINE, &line, -1);
 	if (line == lineno)
 	{
-		GtkTreePath* path = gtk_tree_model_get_path(model, iter);
+		GtkTreePath* path = gtk_tree_model_get_path (model, iter);
 		GtkAction* action = anjuta_ui_get_action (sv_plugin->ui, 
-													  "ActionGroupSymbolNavigation",
-													  "ActionGotoSymbol");
-			
+												  "ActionGroupSymbolNavigation",
+												  "ActionGotoSymbol");
+		
 		egg_combo_action_set_active_iter (EGG_COMBO_ACTION (action), iter);
-		gtk_tree_view_set_cursor(GTK_TREE_VIEW(sv_plugin->sl_tree), path, NULL, FALSE);
-		gtk_tree_path_free(path);
+		gtk_tree_view_set_cursor (GTK_TREE_VIEW (sv_plugin->sl_tree), path, NULL,
+								 FALSE);
+		gtk_tree_path_free (path);
 		return TRUE;
 	}
 	return FALSE;
@@ -850,30 +855,29 @@ iter_matches(SymbolBrowserPlugin *sv_plugin, GtkTreeIter* iter,
 static void
 on_editor_update_ui (IAnjutaEditor *editor, SymbolBrowserPlugin *sv_plugin) 
 {
-	static gint last_line = 0;
-	gint lineno = ianjuta_editor_get_lineno(editor, NULL);
+	gint lineno = ianjuta_editor_get_lineno (editor, NULL);
 	
-	GtkTreeModel* model = anjuta_symbol_view_get_file_symbol_model(
-																   ANJUTA_SYMBOL_VIEW(sv_plugin->sv_tree));
+	GtkTreeModel* model = anjuta_symbol_view_get_file_symbol_model
+							(ANJUTA_SYMBOL_VIEW(sv_plugin->sv_tree));
 	GtkTreeIter iter;
 	gboolean found = FALSE;
 	
-	if (last_line == lineno)
+	if (sv_plugin->locals_line_number == lineno)
 		return;
-	last_line = lineno;
+	sv_plugin->locals_line_number = lineno;
 	
-	if (!gtk_tree_model_get_iter_first(model, &iter))
+	if (!gtk_tree_model_get_iter_first (model, &iter))
 		return;
 	while (!found && lineno >= 0)
 	{
-		gtk_tree_model_get_iter_first(model, &iter);
+		gtk_tree_model_get_iter_first (model, &iter);
 		do
 		{
-			found = iter_matches(sv_plugin, &iter, model, lineno);
+			found = iter_matches (sv_plugin, &iter, model, lineno);
 			if (found)
 				break;
 		}
-		while (gtk_tree_model_iter_next(model, &iter));
+		while (gtk_tree_model_iter_next (model, &iter));
 		lineno--;
 	}
 }
@@ -945,7 +949,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	g_free (uri);
 	
 	/* add a default timeout to the updating of buffer symbols */	
-	timeout_id = g_timeout_add (TIMEOUT_INTERVAL_SYMBOLS_UPDATE, on_editor_buffer_symbols_update_timeout, plugin);								 
+	timeout_id = g_timeout_add (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
+								on_editor_buffer_symbols_update_timeout,
+								plugin);
 	need_symbols_update = FALSE;
 	
 }
@@ -999,7 +1005,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->sl_tab_label = gtk_label_new (_("Local" ));
 	sv_plugin->sl_tree = anjuta_symbol_locals_new ();
 	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sl_tree),
-							   (gpointer*)&sv_plugin->sl_tree);
+							   (gpointer)&sv_plugin->sl_tree);
 	g_signal_connect (G_OBJECT (sv_plugin->sl_tree), "row_activated",
 					  G_CALLBACK (on_local_treeview_row_activated), plugin);
 	gtk_container_add (GTK_CONTAINER(sv_plugin->sl), sv_plugin->sl_tree);
@@ -1019,7 +1025,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->sv_tab_label = gtk_label_new (_("Global" ));
 	sv_plugin->sv_tree = anjuta_symbol_view_new ();
 	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sv_tree),
-							   (gpointer*)&sv_plugin->sv_tree);
+							   (gpointer)&sv_plugin->sv_tree);
 
 	g_signal_connect (G_OBJECT (sv_plugin->sv_tree), "event-after",
 					  G_CALLBACK (on_treeview_event), plugin);
@@ -1038,7 +1044,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->ss_tab_label = gtk_label_new (_("Search" ));
 
 	g_object_add_weak_pointer (G_OBJECT (sv_plugin->ss),
-							   (gpointer*)&sv_plugin->ss);
+							   (gpointer)&sv_plugin->ss);
 
 	gtk_notebook_append_page (GTK_NOTEBOOK(sv_plugin->sw), sv_plugin->ss,
 							  sv_plugin->ss_tab_label );
@@ -1176,7 +1182,7 @@ dispose (GObject *obj)
 	*/
 	
 	g_object_remove_weak_pointer (G_OBJECT (sv_plugin->ss),
-										   (gpointer*)&sv_plugin->ss);
+										   (gpointer)&sv_plugin->ss);
 
 	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
@@ -1198,6 +1204,7 @@ symbol_browser_plugin_instance_init (GObject *obj)
 	plugin->sw = NULL;
 	plugin->sv = NULL;
 	plugin->gconf_notify_ids = NULL;
+	plugin->locals_line_number = 0;
 }
 
 static void

@@ -1,4 +1,19 @@
 2007-03-26  Naba Kumar  <naba.kumar@gnome.org>
+	
+	* AUTHORS, NEWS, TODO.tasks: Updated.
+	
+	* plugins/project-manager/plugin.c: (update_ui): Do not insensitise
+	close menuitem.
+	
+	* plugins/symbol-browser/plugin.c: (on_editor_saved),
+	(update_editor_symbol_model), (iter_matches),
+	(on_editor_update_ui), (value_added_current_editor),
+	(activate_plugin), (dispose),
+	(symbol_browser_plugin_instance_init):
+	* plugins/symbol-browser/plugin.h: update line on editor save
+	and editor change. Code clean up and fixed warnings.
+
+2007-03-26  Naba Kumar  <naba.kumar@gnome.org>
 
 	* plugins/project-wizard/templates/java/project.anjuta,
 	plugins/project-wizard/templates/python/project.anjuta,

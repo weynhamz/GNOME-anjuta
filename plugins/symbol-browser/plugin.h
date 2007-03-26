@@ -65,6 +65,7 @@ struct _SymbolBrowserPlugin{
 	GHashTable *editor_connected;
 	GList *gconf_notify_ids;
 	
+	gint locals_line_number;
 	IAnjutaMessageView* mesg_view;
 };
 

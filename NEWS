@@ -1,3 +1,23 @@
+Anjuta 2.1.2 (26 March 2007) -- Naba Kumar
+
+New: Plugin profiles. Each project and user session would remember their plugins.
+New: Improvements and clean up of icons.
+New: API docs improvements.
+New: Translatable strings cleanups.
+New: Display program counter and breakpoints in disassembly view
+New: Add markers in the disassembly view
+New: Display function name in disassembly view
+New: Segmentated toolbars for added configurability. Store and restore toolbar states.
+New: Several stability improvements in debugger and others.
+New: Improved local tags navigation
+New: Fixed/improved global/project tags navigation (highlighting, autocompletion, calltips work now)
+New: Improved gtksourceview editor component.
+New: Improved autoindentation
+New: Add a window displaying all threads in debugger
+New: Several improvements in debugger navigation.
+New: Improved prepare changelog tool script
+New: Improved docking strategy. No more docking anomalies when enabling new plugins
+
 Anjuta 2.1.1 (11 Feb 2007) -- Naba Kumar
 
 New: gprof based program profiler plugin.

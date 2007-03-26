@@ -108,6 +108,11 @@ Then AnjutaPreferences class should be fixed not to preemptively create the dial
       <summary>Preferences keys with no defaults do not register</summary>
       <comment>Preferences keys without default values (defined in .glade file) are not registered during preferences registeration. This results in gconf type mismatch when the keys are queried.</comment>
     </item>
+    <item>
+      <attribute id="1174914002" priority="1" done="0" start_date="732761" enddate="99999999" notify="0" endtime="-60" last_edited="1174914002"/>
+      <summary>Add a 'Remembered plugins' page in Settings-&gt;plugins dialog</summary>
+      <comment>Add a new page in Settings-&gt;plugins dialog, along side Available plugins page, that lists the plugins that have been remembered from plugin query and selection dialog. And for 'Forget' and 'Forget all' buttons.</comment>
+    </item>
   </category>
   <category title="Plugin: Editor" place="5">
     <item>
@@ -229,6 +234,11 @@ merge context menu into project manager.</comment>
       <attribute id="1100521161" priority="1" done="0" start_date="731900" enddate="99999999" notify="0" endtime="-60" last_edited="1159482687"/>
       <summary>Define compile commands</summary>
       <comment>Define compile commands for various file extensions. Normally, plugin should search for a Makefile and invoke it with correct target (for example for a c file, it will be 'make file.o'). There should be a file that contains regexs for deriving target from a file name for invoking 'make'. Also, if there is no Makefile found in the directory with which to invoke the compile command, user should be prompted to create a Makefile (possibly filling it up with some template contents).</comment>
+    </item>
+    <item>
+      <attribute id="1174914425" priority="1" done="0" start_date="732761" enddate="99999999" notify="0" endtime="-60" last_edited="1174914425"/>
+      <summary>Build parameters dialog</summary>
+      <comment>Add a 'Build parameters dialog' in Build menu that brings up a dialog to configure environment variables and make parameters for the build. They would be set when ever the build is started. Also they need to be session saved and restored.</comment>
     </item>
   </category>
   <category title="Plugin: Symbol Browser" place="10">
@@ -386,7 +396,7 @@ templates. For example, 'Creating project-name/file-path/file-name.c'
 instead of full path names.</comment>
     </item>
     <item>
-      <attribute id="1159556062" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1170364449"/>
+      <attribute id="1159556062" priority="1" done="1" start_date="732583" completed_date="732761" notify="0" last_edited="1174914110"/>
       <summary>Test and fix all project wizards templates</summary>
       <comment>[Skill: basic, Work: 5hr, Bounty: $50, Status: Completed, Bug: #394184 ]
 
