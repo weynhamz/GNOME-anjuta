@@ -1,3 +1,9 @@
+2007-03-27  Kamil Páral  <ripper42@gmail.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* anjuta.desktop.in.in: Remove "Application" category from desktop
+	file and add "GNOME". GNOME Goal #3 (fixes bug #417612).
+	
 2007-03-27  Naba Kumar  <naba.kumar@gnome.org>
 	
 	* configure.in, plugins/document-manager/anjuta-docman.c:
