@@ -744,7 +744,12 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 
 	gtk_notebook_prepend_page_menu (GTK_NOTEBOOK (docman), GTK_WIDGET(te), page->box, 
 									page->menu_label);
-	gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(docman), GTK_WIDGET(te), TRUE);
+	
+	/* Tab dnd ordering is only in gtk >= 2.10 */
+#if (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 10))
+	gtk_notebook_set_tab_reorderable (GTK_NOTEBOOK (docman), GTK_WIDGET(te),
+									  TRUE);
+#endif
 	
 	g_signal_handlers_block_by_func (GTK_OBJECT (docman),
 				       GTK_SIGNAL_FUNC (on_notebook_switch_page),
