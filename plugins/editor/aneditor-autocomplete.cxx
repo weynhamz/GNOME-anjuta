@@ -101,6 +101,7 @@ bool AnEditor::StartAutoComplete() {
 			g_string_append(words, tag->name);
 		}
 		SendEditor(SCI_AUTOCSETAUTOHIDE, 1);
+		SendEditor(SCI_AUTOCSETDROPRESTOFWORD, 1);
 		SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
 		g_string_free(words, TRUE);
 	}
@@ -155,6 +156,7 @@ bool AnEditor::SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
 			g_completion_add_items (autocompletion, aclist);
 		
 			SendEditor(SCI_AUTOCSETAUTOHIDE, 0);
+			SendEditor(SCI_AUTOCSETDROPRESTOFWORD, 1);
 			//SendEditorString(SCI_AUTOCSHOW, 0, words->str);
 			SendEditorString(SCI_USERLISTSHOW, 0, words->str);
 		}
@@ -877,6 +879,7 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 		}
 		if (prefix && completed_list) {
 				SendEditor(SCI_AUTOCSETAUTOHIDE, 1);
+				SendEditor(SCI_AUTOCSETDROPRESTOFWORD, 1);
 				SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
 				// SendEditor(SCI_AUTOCSETAUTOHIDE, 1);
 				// SendEditorString(SCI_USERLISTSHOW, 0, words->str);
@@ -993,6 +996,7 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	size_t length = (words->str) ? strlen (words->str) : 0;
 	if ((length > 2) && (autoShowCount <= 0 || (minWordLength > rootlen))) {
 		SendEditor(SCI_AUTOCSETAUTOHIDE, 1);
+		SendEditor(SCI_AUTOCSETDROPRESTOFWORD, 1);
 		SendEditorString(SCI_AUTOCSHOW, rootlen, words->str);
 	} else {
 		SendEditor(SCI_AUTOCCANCEL);

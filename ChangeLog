@@ -1,3 +1,9 @@
+2007-03-27  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/editor/aneditor-autocomplete.cxx: Replace the complete
+	word when autocompleting without leaving any trailing part of
+	the word.
+
 2007-03-27  Kamil Páral  <ripper42@gmail.com>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
