@@ -2,8 +2,12 @@
 	
 	* configure.in, plugins/document-manager/anjuta-docman.c:
 	(anjuta_docman_add_editor): Conditionally compile notebook tab
-	reordering feature for gtk > 2.10. Reduced dependency on gtk to 2.8.0
+	reordering feature for gtk >= 2.10. Reduced dependency on gtk to 2.8.0
 
+	Patch from Halton Huo:
+	* configure.in, global-tags/Makefile.am: Do not pass -Wall to
+	non gcc compiler flags. Fixes bug #423089.
+	
 2007-03-26  Naba Kumar  <naba.kumar@gnome.org>
 	
 	* AUTHORS, NEWS, TODO.tasks: Updated.

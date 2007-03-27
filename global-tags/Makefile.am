@@ -7,7 +7,7 @@
 bindir = $(anjuta_data_dir)/scripts
 dist_bin_SCRIPTS = create_global_tags.sh
 
-INCLUDES = -I$(top_srcdir)/tagmanager/include -Wall $(GLIB_CFLAGS)
+INCLUDES = -I$(top_srcdir)/tagmanager/include $(GLIB_CFLAGS)
 
 bin_PROGRAMS = anjuta-tags
 
