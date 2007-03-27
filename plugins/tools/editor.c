@@ -713,7 +713,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 			anjuta_util_dialog_error(GTK_WINDOW (this->dialog), _("A tool with the same name already exists!"));
 			return;
 		}
-
+		g_free (name);
 		
 		if (this->shortcut == NULL)
 		{
@@ -835,11 +835,10 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 			}
 			g_free (data);
 		}
-
-		atp_tool_dialog_refresh (this->parent, name);
-		g_free(name);
 	}
-
+	
+	atp_tool_dialog_refresh (this->parent, atp_user_tool_get_name (this->tool));
+	
 	atp_tool_editor_free (this);
 }
 

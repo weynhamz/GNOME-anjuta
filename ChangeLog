@@ -1,3 +1,8 @@
+2007-03-27 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/tools/editor.c:
+	Fix bug #423270
+
 2007-03-27  Naba Kumar  <naba.kumar@gnome.org>
 
 	* plugins/editor/aneditor-autocomplete.cxx: Replace the complete
