@@ -1,3 +1,7 @@
+2007-03-28  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/editor/bookmark.xpm: Improved breakpoint marker icon.
+
 2007-03-27 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/tools/editor.c:
