@@ -1,6 +1,14 @@
 2007-03-28  Naba Kumar  <naba.kumar@gnome.org>
 
-	* plugins/editor/bookmark.xpm: Improved breakpoint marker icon.
+	* configure.in: Bumped version to 2.1.2
+	* NEWS: Updated for release.
+	
+	* plugins/editor/bookmark.xpm, plugins/sourceview/bookmark.png:
+	Improved breakpoint marker icon.
+	
+	* plugins/editor/anjuta-editor.plugin.in,
+	plugins/sourceview/sourceview.plugin.in: Made editor plugins
+	non user activable since they are now remembered properly.
 
 2007-03-27 Sebastien Granjoux <seb.sfo@free.fr>
 

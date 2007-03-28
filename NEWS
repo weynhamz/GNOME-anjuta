@@ -1,4 +1,5 @@
-Anjuta 2.1.2 (26 March 2007) -- Naba Kumar
+Anjuta 2.1.2 (28 March 2007) -- Naba Kumar
+------------------------------------------
 
 New: Plugin profiles. Each project and user session would remember their plugins.
 New: Improvements and clean up of icons.
@@ -18,7 +19,48 @@ New: Several improvements in debugger navigation.
 New: Improved prepare changelog tool script
 New: Improved docking strategy. No more docking anomalies when enabling new plugins
 
+Translation updates
+===================
+gl, en_GB, dz. hu, ca
+
+Bugs fixed
+==========
+#306971 The auto-ident in swich/case doesn't work in an intelligent way (the best is for version 1.2.x series)
+#355155 Goto / Matching Brace does nothing
+#357541 can't launch Anjuta project file from Nautilus
+#360462 Avoid markup in translatable messages
+#374709 Anjuta Crash activating devhelp plugin
+#377483 don't display "D" beside each directory in Files view
+#378927 allow switching threads in debugger
+#387208 [Patch] Add custom file-manager ignore pattern support
+#392904 Disassembly view navigation is uncomfortable
+#394709 symbol browser preference window is does re-size correctly
+#397981 Automatic indentation does not work in some cases
+#398035 Project manager templates are not localized
+#398985 File symbol list as a combo box is useless. It should just be a button with popdown
+#402774 No button at Empty Log message
+#403514 Double clicking on the function names does not do anything
+#407115 debugger crash on right-click on a frame in stack trace pane
+#407314 build breakage in class-gen plugin
+#407473 refresh dialog appears after saving a file
+#408218 cass-gen is setting gtk.entries with null 'name' and 'email' values
+#409176 Create Tags produces "The anjuta-tags utility is not installed. Please install it."
+#409216 crash periodically
+#409410 crash in Anjuta IDE: Right click in the sourc...
+#409592 crash in Anjuta IDE: I closed the application...
+#411377 Build breakage in profiler plugin
+#411623 GLIB_REQUIRED should be 2.12
+#412186 crash in Anjuta IDE: Crash on initial app. st...
+#417612 GNOME Goal #3: Remove "Application" category from .desktop files
+#418174 toolbar size
+#418448 crash in Anjuta IDE: I just installed Anjunta...
+#421525 Locals view does not update when stack frame is changed
+#421529 Disassembly view is not updated when strack frame is changed
+#423111 Wall can not build with sun cc
+#423270 crash in Anjuta IDE: Crash on adding a new tool item
+
 Anjuta 2.1.1 (11 Feb 2007) -- Naba Kumar
+----------------------------------------
 
 New: gprof based program profiler plugin.
 New: Several improvements in debugger plugin.
