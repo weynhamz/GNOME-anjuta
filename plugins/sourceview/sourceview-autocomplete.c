@@ -38,6 +38,7 @@ static void sourceview_autocomplete_finalize(GObject *object);
 
 struct _SourceviewAutocompletePrivate {
 	/* Place Private Members Here */
+	int tmp;  /* Dummy member, sun cc does not accept empty structure */
 };
 
 G_DEFINE_TYPE(SourceviewAutocomplete, sourceview_autocomplete, TAG_TYPE_WINDOW);

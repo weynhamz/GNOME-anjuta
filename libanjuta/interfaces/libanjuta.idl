@@ -2796,7 +2796,7 @@ interface IAnjutaDebugger
 	struct Disassembly
 	{
 		guint size;
-		ALine data[0];	
+		ALine data[];	
 	}	
 
 	/* Call back functions */

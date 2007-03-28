@@ -1,3 +1,17 @@
+2007-03-27  Halton Huo  <halton.huo@sun.com>
+
+	Reviewed by Sebastien Granjoux  <seb.sfo@free.fr>:
+
+	* plugins/sourceview/sourceview-autocomplete.c
+	plugins/debug-manager/disassemble.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Remove array with 0 size and empty structure as it is not
+	supported by sun cc, Fixes bug #423682
+
+	* plugins/debug-manager/debugger.c:
+	Remove anonymous union as it is not supported by sun cc,
+	Fixes bug #423680
+
 === anjuta 2.1.2 ===
 
 2007-03-28  Naba Kumar  <naba.kumar@gnome.org>

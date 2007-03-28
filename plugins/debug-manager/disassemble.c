@@ -103,7 +103,7 @@ struct _DmaDisassemblyBufferNode
 	DmaSparseBufferNode parent;
 	guint size;
 	
-	DmaDisassemblyLine data[0];
+	DmaDisassemblyLine data[];
 };
 
 #define DMA_DISASSEMBLY_BUFFER_TYPE              (dma_disassembly_buffer_get_type ())
