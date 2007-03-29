@@ -1360,6 +1360,45 @@ debug_tree_remove_model (DebugTree *tree, GtkTreeModel *model)
 	gtk_tree_store_clear (GTK_TREE_STORE (model));
 }
 
+gchar *
+debug_tree_get_selected (DebugTree *tree)
+{
+	GtkTreeIter iter;
+	gchar *exp = NULL;
+
+	if (get_current_iter (GTK_TREE_VIEW (tree->view), &iter))
+	{
+		GtkTreeModel *model;
+
+		model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
+		if (model != NULL)
+		{
+			gtk_tree_model_get(model, &iter, VARIABLE_COLUMN, &exp, -1);
+		}
+	}
+	
+	return exp;
+}
+
+gchar *
+debug_tree_get_first (DebugTree *tree)
+{
+	GtkTreeIter iter;
+	gchar *exp = NULL;
+	GtkTreeModel *model;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
+	if (model != NULL)
+	{
+		if (gtk_tree_model_get_iter_first (model, &iter))
+		{
+			gtk_tree_model_get(model, &iter, VARIABLE_COLUMN, &exp, -1);
+		}
+	}
+	
+	return exp;
+}
+
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
 

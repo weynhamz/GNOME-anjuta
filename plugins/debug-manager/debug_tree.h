@@ -60,6 +60,9 @@ void debug_tree_set_model (DebugTree *tree, GtkTreeModel *model);
 void debug_tree_new_model (DebugTree *tree);
 void debug_tree_remove_model (DebugTree *tree, GtkTreeModel *model);
 
+gchar *debug_tree_get_selected (DebugTree *tree);
+gchar *debug_tree_get_first (DebugTree *tree);
+
 G_END_DECLS
 
 #endif

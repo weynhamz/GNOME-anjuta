@@ -1,3 +1,12 @@
+2007-03-29 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/anjuta-debug-manager.glade:
+	Inspect variable at cursor
+	Fix buttons in inspect dialog
+
 2007-03-27  Halton Huo  <halton.huo@sun.com>
 
 	Reviewed by Sebastien Granjoux  <seb.sfo@free.fr>:

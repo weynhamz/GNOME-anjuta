@@ -24,6 +24,10 @@
 #include "debug_tree.h"
 #include "plugin.h"
 
+/*#define DEBUG*/
+#include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-editor-selection.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
 /* Type
@@ -81,6 +85,7 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 {
 	GladeXML *gxml;
 	gint reply;
+	gchar *new_expr;
 	// const gchar *value;
 	InspectDialog dlg;
 	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
@@ -113,35 +118,15 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 		{
 		case GTK_RESPONSE_OK:
 			/* Add in watch window */
-			#if 0
-			expression = gtk_entry_get_text (GTK_ENTRY (dlg.name_entry));
-		    var.expression = expression;
-			debug_tree_add_watch (ew->debug_tree, &var, FALSE);
-		    #endif
-		    continue;
-		case GTK_RESPONSE_APPLY:
-			/* Update value */
-			#if 0
-			expression = gtk_entry_get_text (GTK_ENTRY (dlg.name_entry));
-			value = gtk_entry_get_text (GTK_ENTRY (dlg.value_treeview));
-		    gtk_widget_ref (dlg.value_treeview);
-		    if (ew->debugger != NULL)
+			new_expr = debug_tree_get_first (dlg.tree);
+
+			if (new_expr != NULL)
 			{
-				ianjuta_debugger_evaluate (ew->debugger, expression, value, NULL, &dlg, NULL);
-				ianjuta_debugger_inspect (ew->debugger, expression, on_entry_updated, &dlg, NULL);
+		    	var.expression = new_expr;
+				debug_tree_add_watch (ew->debug_tree, &var, FALSE);
+				g_free (new_expr);
 			}
-			#endif
-			continue;
-		case GTK_RESPONSE_ACCEPT:
-			/* Update variable */
-			#if 0
-			expression = gtk_entry_get_text (GTK_ENTRY (dlg.name_entry));
-		    gtk_widget_ref (dlg.value_treeview);
-		    debug_tree_remove_all (dlg.tree);
-		    var.expression = expression;
-			debug_tree_add_watch (dlg.tree, &var, FALSE);
-		    #endif
-			continue;
+			break;
 		default:
 			break;
 		}
@@ -228,7 +213,7 @@ on_debug_tree_inspect (GtkAction *action, gpointer user_data)
 	GObject *obj;
 	IAnjutaDocumentManager *docman = NULL;
 	IAnjutaEditor *te = NULL;
-	const gchar *expression = NULL;
+	gchar *expression = NULL;
 	
 	/* Get current editor and line */
 	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (ew->plugin)->shell,
@@ -237,9 +222,15 @@ on_debug_tree_inspect (GtkAction *action, gpointer user_data)
 	if (docman != NULL)
 	{
 		te = ianjuta_document_manager_get_current_editor (docman, NULL);
+		expression = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL);
+		if (expression == NULL)
+		{
+			expression = ianjuta_editor_get_current_word (IANJUTA_EDITOR (te), NULL);
+		}
 	}
 	
 	debug_tree_inspect_evaluate_dialog (ew, expression);
+	g_free (expression);
 }
 
 static void
