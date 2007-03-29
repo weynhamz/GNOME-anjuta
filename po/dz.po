@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-09 03:15+0000\n"
-"PO-Revision-Date: 2007-02-21 23:16+0530\n"
+"POT-Creation-Date: 2007-03-26 03:15+0100\n"
+"PO-Revision-Date: 2007-03-28 21:21+0530\n"
 "Last-Translator: yangka <yanang_ka@hotmail.com>\n"
 "Language-Team: dzongkha <pgeyleg@dit.gov.bt>\n"
 "MIME-Version: 1.0\n"
@@ -33,10 +33,10 @@ msgstr "ཆིག་སྒྲིལ་འབད་ཡོད་མི་གོང
 msgid "Integrated Development Environment"
 msgstr "གོང་འཕེལ་མཐའ་འཁོར་གྱི་ཆིག་སྒྲིལ་འབད་ཡོད་མི།"
 
-#: ../libanjuta/anjuta-encodings.c:130
-#: ../libanjuta/anjuta-encodings.c:156
-#: ../libanjuta/anjuta-encodings.c:197
-#: ../libanjuta/anjuta-encodings.c:238
+#: ../libanjuta/anjuta-encodings.c:140
+#: ../libanjuta/anjuta-encodings.c:166
+#: ../libanjuta/anjuta-encodings.c:207
+#: ../libanjuta/anjuta-encodings.c:248
 #: ../plugins/sourceview/anjuta-encodings.c:151
 #: ../plugins/sourceview/anjuta-encodings.c:177
 #: ../plugins/sourceview/anjuta-encodings.c:223
@@ -44,34 +44,34 @@ msgstr "གོང་འཕེལ་མཐའ་འཁོར་གྱི་ཆི
 msgid "Western"
 msgstr "ནུབ་ཕྱོགས།"
 
-#: ../libanjuta/anjuta-encodings.c:132
-#: ../libanjuta/anjuta-encodings.c:199
-#: ../libanjuta/anjuta-encodings.c:234
+#: ../libanjuta/anjuta-encodings.c:142
+#: ../libanjuta/anjuta-encodings.c:209
+#: ../libanjuta/anjuta-encodings.c:244
 #: ../plugins/sourceview/anjuta-encodings.c:153
 #: ../plugins/sourceview/anjuta-encodings.c:225
 #: ../plugins/sourceview/anjuta-encodings.c:262
 msgid "Central European"
 msgstr "དབུས་་ ཡུ་རོ་པི་ཡཱན།"
 
-#: ../libanjuta/anjuta-encodings.c:134
+#: ../libanjuta/anjuta-encodings.c:144
 #: ../plugins/sourceview/anjuta-encodings.c:155
 msgid "South European"
 msgstr "ལྷོ་ཡུ་རོ་པི་ཡཱན།"
 
-#: ../libanjuta/anjuta-encodings.c:136
-#: ../libanjuta/anjuta-encodings.c:152
-#: ../libanjuta/anjuta-encodings.c:248
+#: ../libanjuta/anjuta-encodings.c:146
+#: ../libanjuta/anjuta-encodings.c:162
+#: ../libanjuta/anjuta-encodings.c:258
 #: ../plugins/sourceview/anjuta-encodings.c:157
 #: ../plugins/sourceview/anjuta-encodings.c:173
 #: ../plugins/sourceview/anjuta-encodings.c:276
 msgid "Baltic"
 msgstr "བཱལ་ཊིཀ།"
 
-#: ../libanjuta/anjuta-encodings.c:138
-#: ../libanjuta/anjuta-encodings.c:201
-#: ../libanjuta/anjuta-encodings.c:214
-#: ../libanjuta/anjuta-encodings.c:218
-#: ../libanjuta/anjuta-encodings.c:236
+#: ../libanjuta/anjuta-encodings.c:148
+#: ../libanjuta/anjuta-encodings.c:211
+#: ../libanjuta/anjuta-encodings.c:224
+#: ../libanjuta/anjuta-encodings.c:228
+#: ../libanjuta/anjuta-encodings.c:246
 #: ../plugins/sourceview/anjuta-encodings.c:159
 #: ../plugins/sourceview/anjuta-encodings.c:227
 #: ../plugins/sourceview/anjuta-encodings.c:240
@@ -81,64 +81,64 @@ msgstr "བཱལ་ཊིཀ།"
 msgid "Cyrillic"
 msgstr "སི་རི་ལིཀ"
 
-#: ../libanjuta/anjuta-encodings.c:140
-#: ../libanjuta/anjuta-encodings.c:207
-#: ../libanjuta/anjuta-encodings.c:246
+#: ../libanjuta/anjuta-encodings.c:150
+#: ../libanjuta/anjuta-encodings.c:217
+#: ../libanjuta/anjuta-encodings.c:256
 #: ../plugins/sourceview/anjuta-encodings.c:161
 #: ../plugins/sourceview/anjuta-encodings.c:233
 #: ../plugins/sourceview/anjuta-encodings.c:274
 msgid "Arabic"
 msgstr "ཨ་ར་བིག"
 
-#: ../libanjuta/anjuta-encodings.c:142
-#: ../libanjuta/anjuta-encodings.c:240
+#: ../libanjuta/anjuta-encodings.c:152
+#: ../libanjuta/anjuta-encodings.c:250
 #: ../plugins/sourceview/anjuta-encodings.c:163
 #: ../plugins/sourceview/anjuta-encodings.c:268
 msgid "Greek"
 msgstr "གིརིཀ"
 
-#: ../libanjuta/anjuta-encodings.c:144
+#: ../libanjuta/anjuta-encodings.c:154
 #: ../plugins/sourceview/anjuta-encodings.c:165
 msgid "Hebrew Visual"
 msgstr "ཧེ་བིརིའུ་བི་ཤུ་ཡལ།"
 
-#: ../libanjuta/anjuta-encodings.c:146
-#: ../libanjuta/anjuta-encodings.c:205
-#: ../libanjuta/anjuta-encodings.c:244
+#: ../libanjuta/anjuta-encodings.c:156
+#: ../libanjuta/anjuta-encodings.c:215
+#: ../libanjuta/anjuta-encodings.c:254
 #: ../plugins/sourceview/anjuta-encodings.c:167
 #: ../plugins/sourceview/anjuta-encodings.c:231
 #: ../plugins/sourceview/anjuta-encodings.c:272
 msgid "Hebrew"
 msgstr "ཧེ་བིརིའུ།"
 
-#: ../libanjuta/anjuta-encodings.c:148
-#: ../libanjuta/anjuta-encodings.c:203
-#: ../libanjuta/anjuta-encodings.c:242
+#: ../libanjuta/anjuta-encodings.c:158
+#: ../libanjuta/anjuta-encodings.c:213
+#: ../libanjuta/anjuta-encodings.c:252
 #: ../plugins/sourceview/anjuta-encodings.c:169
 #: ../plugins/sourceview/anjuta-encodings.c:229
 #: ../plugins/sourceview/anjuta-encodings.c:270
 msgid "Turkish"
 msgstr "ཊར་ཀིཤ"
 
-#: ../libanjuta/anjuta-encodings.c:150
+#: ../libanjuta/anjuta-encodings.c:160
 #: ../plugins/sourceview/anjuta-encodings.c:171
 msgid "Nordic"
 msgstr "ནོར་ཌིཀ"
 
-#: ../libanjuta/anjuta-encodings.c:154
+#: ../libanjuta/anjuta-encodings.c:164
 #: ../plugins/sourceview/anjuta-encodings.c:175
 msgid "Celtic"
 msgstr "སིལ་ཊིཀ"
 
-#: ../libanjuta/anjuta-encodings.c:158
+#: ../libanjuta/anjuta-encodings.c:168
 #: ../plugins/sourceview/anjuta-encodings.c:179
 msgid "Romanian"
 msgstr "རོ་མ་ནི་ཡཱན།"
 
-#: ../libanjuta/anjuta-encodings.c:161
-#: ../libanjuta/anjuta-encodings.c:163
-#: ../libanjuta/anjuta-encodings.c:165
-#: ../libanjuta/anjuta-encodings.c:167
+#: ../libanjuta/anjuta-encodings.c:171
+#: ../libanjuta/anjuta-encodings.c:173
+#: ../libanjuta/anjuta-encodings.c:175
+#: ../libanjuta/anjuta-encodings.c:177
 #: ../plugins/sourceview/anjuta-encodings.c:137
 #: ../plugins/sourceview/anjuta-encodings.c:182
 #: ../plugins/sourceview/anjuta-encodings.c:184
@@ -147,28 +147,28 @@ msgstr "རོ་མ་ནི་ཡཱན།"
 msgid "Unicode"
 msgstr "ཡུ་ནི་ཀོཌི།"
 
-#: ../libanjuta/anjuta-encodings.c:170
+#: ../libanjuta/anjuta-encodings.c:180
 #: ../plugins/sourceview/anjuta-encodings.c:191
 msgid "Armenian"
 msgstr "ཨར་མི་ནི་ཡཱན།"
 
-#: ../libanjuta/anjuta-encodings.c:172
-#: ../libanjuta/anjuta-encodings.c:174
-#: ../libanjuta/anjuta-encodings.c:183
+#: ../libanjuta/anjuta-encodings.c:182
+#: ../libanjuta/anjuta-encodings.c:184
+#: ../libanjuta/anjuta-encodings.c:193
 #: ../plugins/sourceview/anjuta-encodings.c:193
 #: ../plugins/sourceview/anjuta-encodings.c:195
 #: ../plugins/sourceview/anjuta-encodings.c:209
 msgid "Chinese Traditional"
 msgstr "རྒྱ་ནག་གི་སྔོན་སྲོལ།"
 
-#: ../libanjuta/anjuta-encodings.c:176
+#: ../libanjuta/anjuta-encodings.c:186
 #: ../plugins/sourceview/anjuta-encodings.c:197
 msgid "Cyrillic/Russian"
 msgstr "སི་རི་ལིཀ་/ར་ཤི་ཡཱན།"
 
-#: ../libanjuta/anjuta-encodings.c:179
-#: ../libanjuta/anjuta-encodings.c:210
-#: ../libanjuta/anjuta-encodings.c:223
+#: ../libanjuta/anjuta-encodings.c:189
+#: ../libanjuta/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:233
 #: ../plugins/sourceview/anjuta-encodings.c:200
 #: ../plugins/sourceview/anjuta-encodings.c:202
 #: ../plugins/sourceview/anjuta-encodings.c:204
@@ -177,10 +177,10 @@ msgstr "སི་རི་ལིཀ་/ར་ཤི་ཡཱན།"
 msgid "Japanese"
 msgstr "ཇ་པ་ནིསི།"
 
-#: ../libanjuta/anjuta-encodings.c:181
-#: ../libanjuta/anjuta-encodings.c:212
-#: ../libanjuta/anjuta-encodings.c:216
-#: ../libanjuta/anjuta-encodings.c:229
+#: ../libanjuta/anjuta-encodings.c:191
+#: ../libanjuta/anjuta-encodings.c:222
+#: ../libanjuta/anjuta-encodings.c:226
+#: ../libanjuta/anjuta-encodings.c:239
 #: ../plugins/sourceview/anjuta-encodings.c:207
 #: ../plugins/sourceview/anjuta-encodings.c:238
 #: ../plugins/sourceview/anjuta-encodings.c:242
@@ -188,10 +188,10 @@ msgstr "ཇ་པ་ནིསི།"
 msgid "Korean"
 msgstr "ཀོ་རི་ཡའི།"
 
-#: ../libanjuta/anjuta-encodings.c:186
-#: ../libanjuta/anjuta-encodings.c:188
-#: ../libanjuta/anjuta-encodings.c:190
-#: ../libanjuta/anjuta-encodings.c:194
+#: ../libanjuta/anjuta-encodings.c:196
+#: ../libanjuta/anjuta-encodings.c:198
+#: ../libanjuta/anjuta-encodings.c:200
+#: ../libanjuta/anjuta-encodings.c:204
 #: ../plugins/sourceview/anjuta-encodings.c:212
 #: ../plugins/sourceview/anjuta-encodings.c:214
 #: ../plugins/sourceview/anjuta-encodings.c:216
@@ -199,132 +199,205 @@ msgstr "ཀོ་རི་ཡའི།"
 msgid "Chinese Simplified"
 msgstr "རྒྱ་ནག་གི་སྐད་འཇམ་སམ་བཟོས་ཡོདཔ།"
 
-#: ../libanjuta/anjuta-encodings.c:192
+#: ../libanjuta/anjuta-encodings.c:202
 #: ../plugins/sourceview/anjuta-encodings.c:218
 msgid "Georgian"
 msgstr "ཇི་འོར་ཇི་ཡཱན།"
 
-#: ../libanjuta/anjuta-encodings.c:220
+#: ../libanjuta/anjuta-encodings.c:230
 #: ../plugins/sourceview/anjuta-encodings.c:248
 msgid "Cyrillic/Ukrainian"
 msgstr "སི་ལིཀ/ཡུཀ་རའི་ནི་ཡཱན།"
 
-#: ../libanjuta/anjuta-encodings.c:225
-#: ../libanjuta/anjuta-encodings.c:231
-#: ../libanjuta/anjuta-encodings.c:250
+#: ../libanjuta/anjuta-encodings.c:235
+#: ../libanjuta/anjuta-encodings.c:241
+#: ../libanjuta/anjuta-encodings.c:260
 #: ../plugins/sourceview/anjuta-encodings.c:253
 #: ../plugins/sourceview/anjuta-encodings.c:259
 #: ../plugins/sourceview/anjuta-encodings.c:278
 msgid "Vietnamese"
 msgstr "ཝེཊི་ན་མིསི།"
 
-#: ../libanjuta/anjuta-encodings.c:227
+#: ../libanjuta/anjuta-encodings.c:237
 #: ../plugins/sourceview/anjuta-encodings.c:255
 msgid "Thai"
 msgstr "ཐཱའི།"
 
-#: ../libanjuta/anjuta-encodings.c:762
+#: ../libanjuta/anjuta-encodings.c:772
 msgid "Stock Encodings"
 msgstr "ཨིན་ཀོ་ཌིངསི་གི་ཅ་མཛོད།"
 
-#: ../libanjuta/anjuta-encodings.c:781
+#: ../libanjuta/anjuta-encodings.c:791
 msgid "Supported Encodings"
 msgstr "རྒྱབ་སྐྱོར་འབད་ཡོད་མི་ཨིན་ཀོ་ཌིངསི།"
 
-#: ../libanjuta/anjuta-launcher.c:820
+#: ../libanjuta/anjuta-launcher.c:830
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "གསར་བཙུགས་འབད་མི་.སི་ ཆ་ལག་པི་ཊི་ཝའི་ལྷག་པའི་སྐབས་འཛོལ་བ་འབྱུང་ཡོདཔ\n"
 
-#: ../libanjuta/anjuta-launcher.c:1032
-#: ../libanjuta/resources.c:253
-#: ../libanjuta/resources.c:262
+#: ../libanjuta/anjuta-launcher.c:1042
+#: ../libanjuta/resources.c:264
+#: ../libanjuta/resources.c:273
 #: ../plugins/devhelp/plugin.c:500
 #: ../plugins/devhelp/plugin.c:509
-#: ../plugins/gdb/utilities.c:279
+#: ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "བརྡ་བཀོད་ལག་ལེན་འཐབ་མ་ཚུགསཔ: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1033
+#: ../libanjuta/anjuta-launcher.c:1043
 msgid "execvp failed"
 msgstr "ལག་ལེན་འཐབ་ནི་ཝི་པི་འཐུས་ཤོར་འབྱུང་ཡོདཔ།"
 
-#: ../libanjuta/anjuta-plugin.c:176
-#: ../libanjuta/anjuta-plugin-manager.c:1854
+#: ../libanjuta/anjuta-plugin.c:327
+#: ../libanjuta/anjuta-plugin-manager.c:1901
 msgid "Anjuta Shell"
 msgstr "ཨན་ཇུ་ཊ་ཤལ།"
 
-#: ../libanjuta/anjuta-plugin.c:177
+#: ../libanjuta/anjuta-plugin.c:328
 msgid "Anjuta shell that will contain the plugin"
 msgstr "ཨན་ཇུ་ཊ་ཤལ་ནང་པ་ལག་ཨིན་འདི་ཤོམ་འོང།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:826
-#: ../plugins/symbol-browser/an_symbol_prefs.c:784
+#: ../libanjuta/anjuta-plugin-manager.c:543
+#: ../libanjuta/anjuta-plugin-manager.c:573
+#, c-format
+msgid "Invalid plugin: %s"
+msgstr "ནུས་མེད་པ་ལག་ཨིན། %s"
+
+#: ../libanjuta/anjuta-plugin-manager.c:874
+#: ../plugins/symbol-browser/an_symbol_prefs.c:782
 msgid "Load"
 msgstr "མངོན་གསལ་འབད་ནི།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:848
-#: ../libanjuta/anjuta-plugin-manager.c:1476
+#: ../libanjuta/anjuta-plugin-manager.c:896
+#: ../libanjuta/anjuta-plugin-manager.c:1531
 msgid "Available Plugins"
 msgstr "ཐོབ་ཚུགས་པའི་པ་ལག་ཨིན་ཚུ།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:961
+#: ../libanjuta/anjuta-plugin-manager.c:1009
 msgid "Only show user activatable plugins"
 msgstr "ལག་ལེན་པའི་ཤུགས་ལྡན་བཟོ་བཏུབ་པའི་པ་ལག་ཨིན་ཚུ་རྐྱངམ་ཅིག་སྟོན།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1835
+#: ../libanjuta/anjuta-plugin-manager.c:1550
+msgid "Remember this selection"
+msgstr "སེལ་འཐུ་འདི་སེམས་ཁར་བཞག"
+
+#: ../libanjuta/anjuta-plugin-manager.c:1882
 msgid "Profiles"
 msgstr "གསལ་སྡུད་ཚུ།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1836
+#: ../libanjuta/anjuta-plugin-manager.c:1883
 msgid "Current stack of profiles"
 msgstr "གསལ་སྡུད་ཚུ་གི་ད་ལྟོའི་བརྩེགས་ཕུང་།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1841
+#: ../libanjuta/anjuta-plugin-manager.c:1888
 msgid "Available plugins"
 msgstr "ཐོབ་ཚུགས་པའི་པ་ལག་ཨིནསི།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1842
+#: ../libanjuta/anjuta-plugin-manager.c:1889
 msgid "Currently available plugins found in plugin paths"
 msgstr "པ་ལག་ཨིན་འགྲུལ་ལམ་ཚུ་ནང་ད་ལྟོ་ཐོབ་ཙུགས་པའི་པ་ལག་ཨིནསི་ཐོབ་ཡོདཔ།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1848
+#: ../libanjuta/anjuta-plugin-manager.c:1895
 msgid "Activated plugins"
 msgstr "ཤུགས་ལྡན་བཟོ་ཡོད་མི་པ་ལག་ཨིནསི།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1849
+#: ../libanjuta/anjuta-plugin-manager.c:1896
 msgid "Currently activated plugins"
 msgstr "ད་ལྟོ་ཤུགས་ལྡན་བཟོ་ཡོད་མི་པ་ལག་ཨིནསི།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1855
+#: ../libanjuta/anjuta-plugin-manager.c:1902
 msgid "Anjuta shell for which the plugins are"
 msgstr "པ་ལག་ཨིནསི་གི་དོན་ལུ་ཨན་ཇུ་ཊ་ཤལ།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1863
+#: ../libanjuta/anjuta-plugin-manager.c:1910
 msgid "Anjuta Status"
 msgstr "ཨན་ཇུ་ཊ་གནས་ཚད།"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1864
+#: ../libanjuta/anjuta-plugin-manager.c:1911
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "པ་ལག་ཨིནསི་གི་མངོན་གསལ་འབད་ནི་དང་མངོན་གསལ་བཤོལ་འབད་ནི་ནང་ལག་ལེན་འཐབ་ནི་ལུ་ཨན་ཇུ་ཊ་གནས་ཚད།"
 
-#: ../libanjuta/anjuta-profile.c:152
+#. DEBUG_PRINT ("Icon: %s", icon_path);
+#: ../libanjuta/anjuta-plugin-manager.c:2068
+msgid "Loaded: "
+msgstr "མངོནས་གསལ་འབད་ཡོདཔ།"
+
+#: ../libanjuta/anjuta-plugin-manager.c:2068
+msgid "..."
+msgstr "..."
+
+#: ../libanjuta/anjuta-profile.c:214
+msgid "Plugin Manager"
+msgstr "པ་ལག་ཨིན་་འཛིན་སྐྱོང་པ།"
+
+#: ../libanjuta/anjuta-profile.c:215
+msgid "The plugin manager to use for resolving plugins"
+msgstr "པ་ལག་ཨིན་ཚུ་ཧུམ་ཆ་འབད་ནི་དོན་ལུ་ལག་ལེན་འཐབ་ནི་ལུ་པ་ལག་ཨིན་འཛིན་སྐྱོང་པ་འདི།"
+
+#: ../libanjuta/anjuta-profile.c:223
 msgid "Profile Name"
 msgstr "གསལ་སྡུད་ཀྱི་མིང་།"
 
-#: ../libanjuta/anjuta-profile.c:153
+#: ../libanjuta/anjuta-profile.c:224
 msgid "Name of the plugin profile"
 msgstr "པ་ལག་ཨིན་གསལ་སྡུད་འདི་གི་མིང་།"
 
-#: ../libanjuta/anjuta-profile.c:162
+#: ../libanjuta/anjuta-profile.c:232
 msgid "Profile Plugins"
 msgstr "གསལ་སྡུད་ཀྱི་པ་ལག་ཨིནསི།"
 
-#: ../libanjuta/anjuta-profile.c:163
+#: ../libanjuta/anjuta-profile.c:233
 msgid "List of plugins for this profile"
 msgstr "གསལ་སྡུད་འདིའི་དོན་ལུ་པ་ལག་ཨིནསི་གི་ཐོ་ཡིག"
 
-#: ../libanjuta/anjuta-preferences.c:1251
+#: ../libanjuta/anjuta-profile.c:240
+msgid "Synchronization URI"
+msgstr "མཉམ་འབྱུང་འབད་ནི་ཡུ་ཨར་ཨའི།"
+
+#: ../libanjuta/anjuta-profile.c:241
+msgid "URI to sync the proflie xml"
+msgstr "གསལ་སྡུད་ཨེགསི་ཨེམ་ཨེལ་འདི་མཉམ་འབྱུང་ལུ་ཡུ་ཨར་ཨའི།"
+
+#: ../libanjuta/anjuta-profile.c:512
+#: ../libanjuta/anjuta-profile.c:535
+#: ../libanjuta/anjuta-profile.c:548
+#, c-format
+msgid "Failed to read '%s': %s"
+msgstr "ལྷག་ནི་ལུ་འཐུས་ཤོར་འབྱུང་ཡོདཔ '%s': %s"
+
+#: ../libanjuta/anjuta-profile.c:526
+#, c-format
+msgid "No read permission for: %s"
+msgstr "དོན་ལུ་ལྷག་ནི་གནང་བ་མེད། %s"
+
+#: ../libanjuta/anjuta-profile.c:560
+#: ../libanjuta/anjuta-profile.c:570
+#, c-format
+msgid "Failed to read '%s': XML parse error"
+msgstr "ཨེགསི་ཨེམ་ཨེལ་མིང་དཔྱད་འབད་ནི་འཛོལ་བ་ '%s': ལྷག་ནི་ལུ་འཐུས་ཤོར་འབྱུང་ཡོདཔ།"
+
+#: ../libanjuta/anjuta-profile.c:581
+#: ../libanjuta/anjuta-profile.c:730
+#, c-format
+msgid "Failed to read '%s': XML parse error.Invalid or corrupted anjuta plugins profile."
+msgstr "ཨེགསི་ཨེམ་ཨེལ་མིང་དཔྱད་འབད་ནི་འཛོལ་བ་ '%s'ལྷག་ནི་འཐུས་ཤོར་འབྱུང་ཡོདཔ། ནུས་མེད་ཡང་ན་ངན་ཅན་བཟོ་ཡོད་པའི་ཨན་ཇུ་ཏ་པ་ལག་ཨིན་ཚུའི་གསལ་སྡུད།"
+
+#: ../libanjuta/anjuta-profile.c:751
+#, c-format
+msgid "%s: Install it from '%s'\n"
+msgstr "%s: ལས་འདི་གཞི་བཙུགས་འབད། '%s'\n"
+
+#: ../libanjuta/anjuta-profile.c:759
+#, c-format
+msgid ""
+"Failed to read '%s': Following mandatory plugins are missing:\n"
+"%s"
+msgstr ""
+"ལྷག་ནི་འཐུས་ཤོར་འབྱུང་ཡོདཔ '%s' འོག་གི་ངེས་མཁོ་པ་ལག་ཨིན་ཚུ་བརླག་སྟོར་ཞུགས་ཡོདཔ།\n"
+"%s"
+
+#: ../libanjuta/anjuta-preferences.c:1291
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -332,86 +405,86 @@ msgstr ""
 "ཁྱོད་ཀྱིས་དགའ་གདམ་ཚུ་ཁོང་རའི་སྔོན་སྒྲིག་སྒྲིག་སྟངས་ཚུ་ལུ་\n"
 "སླར་སྒྲིག་འབད་ནི་ངེས་གཏན་ཨིན་ན?"
 
-#: ../libanjuta/anjuta-preferences.c:1255
+#: ../libanjuta/anjuta-preferences.c:1295
 msgid "_Reset"
 msgstr "སླར་སྒྲིག(_R)"
 
-#: ../libanjuta/anjuta-preferences.c:1554
+#: ../libanjuta/anjuta-preferences.c:1594
 msgid "Anjuta Preferences"
 msgstr "ཨན་ཇུ་ཊ་དགའ་གདམ་ཚུ།"
 
-#: ../libanjuta/anjuta-preferences-dialog.c:130
+#: ../libanjuta/anjuta-preferences-dialog.c:141
 #: ../plugins/gtodo/interface.c:226
 #: ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "དབྱེ་རིམ།"
 
-#: ../libanjuta/anjuta-preferences-dialog.c:239
+#: ../libanjuta/anjuta-preferences-dialog.c:250
 msgid "Anjuta Preferences Dialog"
 msgstr "ཨན་ཇུ་ཊ་དགའ་གདམ་ཚུའི་ཌའི་ལོག"
 
-#: ../libanjuta/anjuta-save-prompt.c:156
+#: ../libanjuta/anjuta-save-prompt.c:165
 msgid "Select the items to save:"
 msgstr "སྲུང་བཞག་འབད་ནི་ལུ་རྣམ་གྲངས་འདི་ཚུ་སེལ་འཐུ་འབད།"
 
-#: ../libanjuta/anjuta-save-prompt.c:179
+#: ../libanjuta/anjuta-save-prompt.c:188
 msgid "If you do not save, all your changes will be lost."
 msgstr "ཁྱོད་ཀྱིས་སྲུང་བཞག་མ་འབད་བ་ཅིན་ ཁྱོད་རའི་བསྒྱུར་བཅོས་ཚུ་ཆ་མཉམ་བརླག་སྟོར་ཞུགས་འོང་།"
 
-#: ../libanjuta/anjuta-save-prompt.c:186
-#: ../plugins/document-manager/plugin.c:504
+#: ../libanjuta/anjuta-save-prompt.c:195
+#: ../plugins/document-manager/plugin.c:505
 msgid "Save"
 msgstr "སྲུངས།"
 
-#: ../libanjuta/anjuta-save-prompt.c:193
+#: ../libanjuta/anjuta-save-prompt.c:202
 msgid "Item"
 msgstr "རྣམ་གྲངས།"
 
-#: ../libanjuta/anjuta-save-prompt.c:199
+#: ../libanjuta/anjuta-save-prompt.c:208
 msgid "_Discard changes"
 msgstr "བསྒྱུར་བཅོས་ཚུ་བཏོན་བཀོག(_D)"
 
-#: ../libanjuta/anjuta-save-prompt.c:290
+#: ../libanjuta/anjuta-save-prompt.c:303
 #, c-format
-msgid "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
-msgstr "<b>སྲུང་བཞག་མ་འབད་མི་བསྒྱུར་བཅོས་ཚུ་དང་གཅིག་ཁར་ %d རྣམ་གྲངས་ཚུ་ཡོདཔ། ཁ་བསྡམ་པའི་ཧེ་མ་བསྒྱུར་བཅོས་ཚུ་སྲུང་བཞག་འབད་ནི་ཨིན་ན?</b>"
+msgid "There are %d items with unsaved changes. Save changes before closing?"
+msgstr "རྣམ་གྲངས་ཚུ་དང་གཅིག་ཁར %d སྲུང་བཞག་མ་འབད་བའི་བསྒྱུར་བཅོས་ཚུ་ཡོདཔ། ཁ་བསྡམ་པའི་ཧེ་མ་བསྒྱུར་བཅོས་ཚུ་སྲུང་བཞག་འབད་ནི་ཨིན་ན?"
 
-#: ../libanjuta/anjuta-save-prompt.c:296
-msgid "<b>There is an item with unsaved changes. Save changes before closing?</b>"
-msgstr "<b>རྣམ་གྲངས་ཅིག་དང་གཅིག་ཁར་སྲུང་བཞག་མ་འབད་བའི་བསྒྱུར་བཅོས་ཚུ་ཡོདཔ། ཁ་བསྡམ་པའི་ཧེ་མ་བསྒྱུར་བཅོས་ཚུ་སྲུང་བཞག་འབད་ནི་ཨིན་ན?</b>"
+#: ../libanjuta/anjuta-save-prompt.c:310
+msgid "There is an item with unsaved changes. Save changes before closing?"
+msgstr "རྣམ་གྲངས་ཅིག་དང་གཅིག་ཁར་སྲུང་བཞག་མ་འབད་བའི་བསྒྱུར་བཅོས་ཚུ་ཡོདཔ། ཁ་བསྡམ་པའི་ཧེ་མ་བསྒྱུར་བཅོས་ཚུ་སྲུང་བཞག་འབད་ནི་ཨིན་ན?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:837
+#: ../libanjuta/anjuta-ui.c:879
 msgid "Action"
 msgstr "བྱ་བ།"
 
-#: ../libanjuta/anjuta-ui.c:855
+#: ../libanjuta/anjuta-ui.c:897
 msgid "Visible"
 msgstr "མཐོང་ཚུགསཔ།"
 
-#: ../libanjuta/anjuta-ui.c:866
+#: ../libanjuta/anjuta-ui.c:908
 msgid "Sensitive"
 msgstr "ཉེན་ཅན།"
 
-#: ../libanjuta/anjuta-ui.c:875
+#: ../libanjuta/anjuta-ui.c:917
 msgid "Shortcut"
 msgstr "མགྱོགས་ཐབས།"
 
-#: ../libanjuta/anjuta-utils.c:61
+#: ../libanjuta/anjuta-utils.c:72
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "ཡིག་སྣོད་ལྷག་མ་ཚུགསཔ།: %s."
 
-#: ../libanjuta/anjuta-utils.c:71
+#: ../libanjuta/anjuta-utils.c:82
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "ཡིག་སྣོད་གསར་བསྐྲུན་འབད་མ་ཚུགསཔ།: %s."
 
-#: ../libanjuta/anjuta-utils.c:107
+#: ../libanjuta/anjuta-utils.c:118
 msgid "Unable to complete file copy"
 msgstr "ཡིག་སྣོད་འདྲ་བཤུས་མཇུག་བསྡུ་མ་ཚུགསཔ།"
 
-#: ../libanjuta/anjuta-utils.c:320
+#: ../libanjuta/anjuta-utils.c:331
 msgid ""
 "\n"
 "System: "
@@ -419,7 +492,7 @@ msgstr ""
 "\n"
 "རིམ་ལུགས།: "
 
-#: ../libanjuta/anjuta-utils.c:458
+#: ../libanjuta/anjuta-utils.c:469
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -428,40 +501,40 @@ msgstr ""
 "སྤྱོད་ཆས་འདི\"%s\" ་གཞི་བཙུགས་མ་འབད་བར་ཡོདཔ།\n"
 "གཞི་བཙུགས་འབད་གནང་།"
 
-#: ../libanjuta/anjuta-utils.c:758
+#: ../libanjuta/anjuta-utils.c:769
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "བརྡ་བཀོད་ལག་ལེན་འཐབ་མ་ཚུགསཔ་: %s (ཤལ་ལག་ལེན་འཐབ་དེ་ %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:762
+#: ../libanjuta/anjuta-utils.c:773
 #, c-format
 msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "བརྡ་བཀོད་ལག་ལེན་འཐབ་མ་ཚུགསཔ %s (ཤལ་ལག་ལེན་འཐབ་དེ་ %s)\n"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:210
+#: ../libanjuta/cell-renderer-captioned-image.c:219
 #: ../libegg/egg-entry-action.c:131
 msgid "Text"
 msgstr "ཚིག་ཡིག"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:211
+#: ../libanjuta/cell-renderer-captioned-image.c:220
 msgid "Text to render"
 msgstr "ཚིག་ཡིག་ལྷག་སྟོན་འབད་ནི།"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:217
+#: ../libanjuta/cell-renderer-captioned-image.c:226
 msgid "Pixbuf Object"
 msgstr "པར་ཁོངས་དངོས་པོ།"
 
-#: ../libanjuta/cell-renderer-captioned-image.c:218
+#: ../libanjuta/cell-renderer-captioned-image.c:227
 msgid "The pixbuf to render."
 msgstr "པར་ཁོངས་འདི་ལྷག་སྟོན་འབད་ནི་ལུ།"
 
-#: ../libanjuta/resources.c:49
+#: ../libanjuta/resources.c:60
 #, c-format
 msgid "Widget not found: %s"
 msgstr "ཝི་གེཊི་འཚོལ་མ་ཐོབ།: %s"
 
-#: ../libanjuta/resources.c:65
-#: ../libanjuta/resources.c:87
+#: ../libanjuta/resources.c:76
+#: ../libanjuta/resources.c:98
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "གློག་རིམ་པར་ཁྲ་ཡིག་སྣོད་འཚོལ་མ་ཐོབ%s"
@@ -631,7 +704,6 @@ msgstr "རྣམ་གྲངས་འདི་ལུ་<cell>ཆ་ལག་ཚ
 
 #: ../libegg/layout.glade.h:1
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1
 #: ../plugins/macro/anjuta-macro.glade.h:1
@@ -664,11 +736,11 @@ msgstr "ཌོཀ་རྣམ་གྲངས་ཚུ་བསྡམ་བཞག
 #: ../plugins/devhelp/plugin.c:337
 #: ../plugins/search/plugin.c:547
 #: ../plugins/search/search-replace.c:840
-#: ../plugins/search/search-replace.c:1477
-#: ../plugins/search/search-replace.c:1484
-#: ../plugins/search/search-replace.c:1496
-#: ../plugins/search/search-replace.c:1799
-#: ../plugins/symbol-browser/plugin.c:972
+#: ../plugins/search/search-replace.c:1476
+#: ../plugins/search/search-replace.c:1483
+#: ../plugins/search/search-replace.c:1495
+#: ../plugins/search/search-replace.c:1798
+#: ../plugins/symbol-browser/plugin.c:1038
 msgid "Search"
 msgstr "འཚོལ་ཞིབ།"
 
@@ -678,12 +750,12 @@ msgid "Incremental search"
 msgstr "ཡར་འཕར་འཚོལ་ཞིབ།"
 
 #: ../libegg/test-actions.c:155
-#: ../plugins/file-loader/plugin.c:1219
+#: ../plugins/file-loader/plugin.c:1162
 msgid "Open _Recent"
 msgstr "ཁ་ཕྱེ་ད་ལྟོ(_R)"
 
 #: ../libegg/test-actions.c:156
-#: ../plugins/file-loader/plugin.c:1230
+#: ../plugins/file-loader/plugin.c:1173
 msgid "Open recent files"
 msgstr "ད་ལྟོའི་ཡིག་སྣོད་ཚུ་ཁ་ཕྱེ།"
 
@@ -757,184 +829,184 @@ msgstr "མཇུག་བསྡུ་ཡོདཔ་་་མཐར་མ་འ
 msgid "Completed... successful\n"
 msgstr "མཇུག་བསྡུ་ཡོདཔ་་་མཐར་འཁྱོལ་ཡོདཔ\n"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:742
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:748
 #, c-format
 msgid "Build %d: %s"
 msgstr "བཟོ་བརྩིགས %d: %s"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:961
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:989
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:970
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:998
 msgid "Configure Parameters:"
 msgstr "རིམ་སྒྲིག་ཚད་བཟུང་ཚུ་:"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1184
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1258
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1268
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1286
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1296
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1465
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1193
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1267
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1277
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1295
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1305
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1474
 msgid "_Build"
 msgstr "བཟོ་བརྩིགས(_B)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1188
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1197
 msgid "_Build Project"
 msgstr "ལས་འགུལ་བཟོ་བརྩིགས(_B)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1189
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1198
 msgid "Build whole project"
 msgstr "ལས་འགུལ་ཧྲིལ་བུམ་བཟོ་བརྩིགས་འབད།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1194
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1203
 msgid "_Install Project"
 msgstr "ལས་འགུལ་གཞི་བཙུགས་འབད།(_I)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1195
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1204
 msgid "Install whole project"
 msgstr "ལས་འགུལ་ཧྲིལ་བུམ་གཞི་བཙུགས་འབད།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1200
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1209
 msgid "_Clean Project"
 msgstr "ལས་འགུལ་བསལ།(_C)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1201
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1210
 msgid "Clean whole project"
 msgstr "ལས་འགུལ་ཧྲིལ་བུམ་བསལ།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1206
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1215
 msgid "Run C_onfigure..."
 msgstr "རིམ་སྒྲིག་གཡོག་བཀོལ།(_o)་་་"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1207
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1216
 msgid "Configure project"
 msgstr "རིམ་སྒྲིག་ལས་འགུལ།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1212
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1221
 msgid "Run _Autogenerate..."
 msgstr "རང་བཞིན་གྱིས་བཟོ་བཏོན་འབད་ནི་གཡོག་བཀོལ(_A)་་་"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1213
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1222
 msgid "Autogenerate project files"
 msgstr "རང་བཞིགན་གྱིས་བཟོ་བཏོན་ལས་འགུལ་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1218
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1227
 msgid "Build _Tarball"
 msgstr "ཊར་བཱལ་བཟོ་བཏོན་འབད།(_T)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1219
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1228
 msgid "Build project tarball distribution"
 msgstr "ལས་འགུལ་གྱི་ཊར་བཱལ་བགོ་བཀྲམ་བཟོ་བརྩིགས་འབད།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1224
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1233
 msgid "_Execute Program..."
 msgstr "ལས་རིམ་ལག་ལེན་འཐབ།(_E)་་་"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1225
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1234
 msgid "Execute program"
 msgstr "ལས་རིམ་ལག་ལེན་འཐབ།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1230
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1239
 msgid "_Build Module"
 msgstr "དཔེ་ཚན་བཟོ་བརྩིགས།(_B)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1231
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1240
 msgid "Build module associated with current file"
 msgstr "དཔེ་ཚད་འབྲེལ་བ་ཡོད་པའི་ད་ལྟོའི་ཡིག་སྣོད་བཟོ་བརྩིགས་འབད།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1236
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1245
 msgid "_Install Module"
 msgstr "དཔེ་ཚད་གཞི་བཙུགས་འབད།(_I)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1237
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1246
 msgid "Install module associated with current file"
 msgstr "དཔེ་ཚད་དང་འབྲེལ་བ་ཡོད་མི་ད་ལྟོའི་ཡིག་སྣོད་གཞི་བཙུགས་འབད།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1242
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1251
 msgid "_Clean Module"
 msgstr "དཔེ་ཚད་བསལ།(_C)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1243
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1252
 msgid "Clean module associated with current file"
 msgstr "དཔེ་ཚད་དང་འབྲེལ་བ་ཡོད་མི་ད་ལྟོའི་ཡིག་སྣོད་བསལ།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1248
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1257
 msgid "Co_mpile File"
 msgstr "ཡིག་སྣོད་ཕྱོགས་སྒྲིག་འབད།(_m)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1249
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1258
 msgid "Compile current editor file"
 msgstr "ད་ལྟོའི་ཞུན་དག་པའི་ཡིག་སྣོད་ཕྱོགས་སྒྲིག་འབད།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1262
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1290
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1271
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1299
 msgid "_Compile"
 msgstr "ཕྱོགས་སྒྲིག(_C)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1263
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1291
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1272
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1300
 msgid "Complie file"
 msgstr "ཡིག་སྣོད་ཕྱོགས་སྒྲིག"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1269
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1297
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1278
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1306
 msgid "Build module"
 msgstr "དཔེ་ཚད་བཟོ་བརྩིགས་འབད།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1274
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1302
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1469
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1283
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1311
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1478
 msgid "_Install"
 msgstr "གཞི་བཙུགས།(_I)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1275
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1303
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1284
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1312
 msgid "Install module"
 msgstr "དཔེ་ཚད་གཞི་བཙུགས།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1280
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1308
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1473
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1289
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1317
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1482
 msgid "_Clean"
 msgstr "བསལ།(_C)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1281
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1309
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1290
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1318
 msgid "Clean module"
 msgstr "དཔེ་ཚད་བསལ།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1477
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1486
 msgid "Co_mpile"
 msgstr "ཕྱོགས་སྒྲིག(_m)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1486
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1495
 #, c-format
 msgid "_Build (%s)"
 msgstr "བཟོ་བརྩིགས(_B) (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1493
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1502
 #, c-format
 msgid "_Install (%s)"
 msgstr "གཞི་བཙུགས(_I) (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1500
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1509
 #, c-format
 msgid "_Clean (%s)"
 msgstr "བསལ་(_C)(%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1507
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1516
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr "ཕྱོགས་སྒྲིག(_m) (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1894
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1903
 msgid "Build commands"
 msgstr "བརྡ་བཀོད་ཚུ་བཟོ་བརྩིགས།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1901
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1910
 msgid "Build popup commands"
 msgstr "པོཔ་ཨཔ་བརྡ་བཀོད་ཚུ་བཟོ་བརྩིགས།"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2133
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2148
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2142
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2157
 msgid "Build Autotools"
 msgstr "རང་བཞིན་གྱིས་ལག་ཆས་ཚུ་བཟོ་བརྩིགས་འབད།"
 
@@ -976,8 +1048,8 @@ msgid "Fixed data-view"
 msgstr "གཏན་བཟོ་ཡོད་མི་གནས་སྡུད་སྟོན།"
 
 #: ../plugins/class-inheritance/class-inherit.c:914
-#: ../plugins/debug-manager/sharedlib.c:129
-#: ../plugins/debug-manager/signals.c:273
+#: ../plugins/debug-manager/sharedlib.c:130
+#: ../plugins/debug-manager/signals.c:274
 #: ../plugins/subversion/svn-notify.c:119
 msgid "Update"
 msgstr "ཐུས་མཐོན་བཟོ་ནི།"
@@ -1084,7 +1156,7 @@ msgid "Member Functions/Variables"
 msgstr "འཐུས་མི་ལས་འགན་ཚུ་/ཐོབ་ཚུགས་མི་ཚུ།"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
-#: ../plugins/glade/plugin.c:794
+#: ../plugins/glade/plugin.c:797
 msgid "Properties"
 msgstr "རྒྱུ་དངོས་ཚུ།"
 
@@ -1431,6 +1503,7 @@ msgid "Release"
 msgstr "འཛིན་གྲོལ།"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:447
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:6
 msgid "Directory"
 msgstr "སྣོད་ཐོ།"
 
@@ -1451,7 +1524,6 @@ msgstr "སི་ཝི་ཨེསི་བརྡ་བཀོད་གཡོག
 #: ../plugins/cvs-plugin/cvs-execute.c:235
 #: ../plugins/cvs-plugin/plugin.c:486
 #: ../plugins/cvs-plugin/plugin.c:494
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
 #: ../plugins/macro/macros.xml.h:9
 #: ../plugins/search/anjuta-search.glade.h:14
 msgid "CVS"
@@ -1467,7 +1539,6 @@ msgstr "སི་ཝི་ཨེསི(_C)"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:53
-#: ../plugins/subversion/plugin.c:51
 msgid "_Add"
 msgstr "ཁ་སྐོང་བརྐྱབ།(_A)"
 
@@ -1480,7 +1551,6 @@ msgstr "སི་ཝི་ཨེསི་རྩ་འབྲེལ་འདི་
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:61
-#: ../plugins/subversion/plugin.c:59
 msgid "_Remove"
 msgstr "རྩ་བསྐྲད་གཏང་།(_R)"
 
@@ -1494,8 +1564,6 @@ msgstr "སི་ཝི་ཨེསི་རྩ་འབྲེལ་ལས་ཡ
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:69
 #: ../plugins/cvs-plugin/plugin.c:128
-#: ../plugins/subversion/plugin.c:67
-#: ../plugins/subversion/plugin.c:102
 msgid "_Commit"
 msgstr "ཁས་ལེན་ནི།(_C)"
 
@@ -1512,8 +1580,6 @@ msgstr "ཁྱོད་རའི་བསྒྱུར་བཅོས་ཚུ་
 #: ../plugins/cvs-plugin/plugin.c:136
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:43
 #: ../plugins/gdb/anjuta-gdb.glade.h:37
-#: ../plugins/subversion/plugin.c:75
-#: ../plugins/subversion/plugin.c:110
 msgid "_Update"
 msgstr "དུས་མཐུན་བཟོ།(_U)"
 
@@ -1528,7 +1594,6 @@ msgstr "ཁྱོད་ཀྱི་ཉེན་གནས་འདྲ་བཤུ
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:85
 #: ../plugins/cvs-plugin/plugin.c:144
-#: ../plugins/subversion/plugin.c:83
 msgid "_Diff"
 msgstr "ཁྱད་པར།(_D)"
 
@@ -1606,7 +1671,7 @@ msgid "Breakpoint properties"
 msgstr "བེརེཀ་པོ་ཡིནཊི་རྒྱུ་དངོས་ཚུ།"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1535
+#: ../plugins/debug-manager/breakpoints.c:1569
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "བེརེཀ་པོ་ཡིནཊིསི།"
@@ -1674,8 +1739,8 @@ msgid "Inspect/Evaluate"
 msgstr "ཞིབ་དཔྱད་འབད་ནི/བརྟག་ཞིབ་འབད་ནི།"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
-#: ../plugins/debug-manager/plugin.c:919
-#: ../plugins/debug-manager/plugin.c:1027
+#: ../plugins/debug-manager/plugin.c:955
+#: ../plugins/debug-manager/plugin.c:1055
 #: ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "ཀར་ནེལ་བརྡ་རྟགས་ཚུ།"
@@ -1686,13 +1751,13 @@ msgid "Location"
 msgstr "གནས་ཁོངས།"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:21
-#: ../plugins/debug-manager/memory.c:136
+#: ../plugins/debug-manager/memory.c:137
 #: ../plugins/gdb/anjuta-gdb.glade.h:18
 msgid "Memory"
 msgstr "དྲན་ཚད།"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/debug-manager/signals.c:474
+#: ../plugins/debug-manager/signals.c:475
 #: ../plugins/gdb/anjuta-gdb.glade.h:19
 msgid "Pass:"
 msgstr "རྩིས་སྤྲོད།"
@@ -1721,7 +1786,7 @@ msgid "SIGINT"
 msgstr "ཨེསི་ཨའི་ཇི་ཨའི་ཨེན་ཊི།"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:28
-#: ../plugins/debug-manager/signals.c:422
+#: ../plugins/debug-manager/signals.c:423
 #: ../plugins/gdb/anjuta-gdb.glade.h:24
 msgid "Set Signal Property"
 msgstr "བརྡ་རྟགས་རྒྱུ་དངོས་གཞི་སྒྲིག་འབད།"
@@ -1742,9 +1807,9 @@ msgid "Stop:"
 msgstr "འགག"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
-#: ../plugins/debug-manager/signals.c:192
-#: ../plugins/debug-manager/signals.c:205
-#: ../plugins/debug-manager/signals.c:218
+#: ../plugins/debug-manager/signals.c:193
+#: ../plugins/debug-manager/signals.c:206
+#: ../plugins/debug-manager/signals.c:219
 #: ../plugins/gdb/anjuta-gdb.glade.h:28
 #: ../plugins/project-wizard/property.c:207
 msgid "Yes"
@@ -1822,38 +1887,42 @@ msgstr "ཨའི་ཌི།"
 
 #. Register actions
 #: ../plugins/debug-manager/breakpoints.c:133
-#: ../plugins/debug-manager/stack_trace.c:382
-#: ../plugins/file-manager/an_file_view.c:914
-#: ../src/anjuta-app.c:529
+#: ../plugins/debug-manager/stack_trace.c:468
+#: ../plugins/debug-manager/threads.c:429
+#: ../plugins/file-manager/an_file_view.c:940
+#: ../src/anjuta-app.c:582
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "ཡིག་སྣོད།"
 
 #: ../plugins/debug-manager/breakpoints.c:133
-#: ../plugins/debug-manager/stack_trace.c:391
-#: ../plugins/document-manager/plugin.c:835
-#: ../plugins/document-manager/plugin.c:846
+#: ../plugins/debug-manager/stack_trace.c:477
+#: ../plugins/debug-manager/threads.c:438
+#: ../plugins/document-manager/plugin.c:839
+#: ../plugins/document-manager/plugin.c:850
 msgid "Line"
 msgstr "གྱལ།"
 
 #: ../plugins/debug-manager/breakpoints.c:134
-#: ../plugins/debug-manager/stack_trace.c:400
+#: ../plugins/debug-manager/stack_trace.c:486
+#: ../plugins/debug-manager/threads.c:447
 #: ../plugins/valgrind/vgrule-editor.c:133
 msgid "Function"
 msgstr "ལས་འགན།"
 
 #: ../plugins/debug-manager/breakpoints.c:134
-#: ../plugins/debug-manager/debug_tree.c:125
+#: ../plugins/debug-manager/debug_tree.c:124
 msgid "Type"
 msgstr "དབྱེ་བ།"
 
 #: ../plugins/debug-manager/breakpoints.c:134
-#: ../plugins/debug-manager/stack_trace.c:409
+#: ../plugins/debug-manager/stack_trace.c:495
+#: ../plugins/debug-manager/threads.c:456
 msgid "Address"
 msgstr "ཁ་བྱང་།"
 
 #: ../plugins/debug-manager/breakpoints.c:134
-#: ../plugins/debug-manager/signals.c:343
+#: ../plugins/debug-manager/signals.c:344
 msgid "Pass"
 msgstr "རྩིས་སྤྲོད།"
 
@@ -1869,592 +1938,614 @@ msgstr "གནས་སྟངས།"
 msgid "Disp"
 msgstr "ཌིསི་པི"
 
-#: ../plugins/debug-manager/breakpoints.c:1232
+#: ../plugins/debug-manager/breakpoints.c:1250
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "ཁྱོད་ཀྱིས་བེརེཀ་པོ་ཡིནཊིསི་ཆ་མཉམ་བཏོན་གཏང་ནི་དེ་ངེས་གཏན་ཨིན་ན?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1343
+#: ../plugins/debug-manager/breakpoints.c:1377
 msgid "_Breakpoints"
 msgstr "བེརེཀ་པོ་ཡིནཊིསི།(_B)"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1351
+#: ../plugins/debug-manager/breakpoints.c:1385
 msgid "Toggle Breakpoint"
 msgstr "བེརེཀ་པོ་ཡིནཊི་སོར་སྟོན་འབད།"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1353
+#: ../plugins/debug-manager/breakpoints.c:1387
 msgid "Toggle breakpoint at the current location"
 msgstr "ད་ལྟོའི་གནས་ཁོངས་འདི་ལུ་བེརེཀ་པོ་ཡིནཊི་སོར་སྟོན་འབད།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1359
+#: ../plugins/debug-manager/breakpoints.c:1393
 msgid "Add Breakpoint..."
 msgstr "བེརེཀ་པོ་ཡིནཊི་ཁ་སྐོང་བརྐྱབ་་་"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1361
+#: ../plugins/debug-manager/breakpoints.c:1395
 msgid "Add a breakpoint"
 msgstr "བེརེཀ་པོ་ཡིནཊི་ཅིག་ཁ་སྐོང་བརྐྱབ།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1367
+#: ../plugins/debug-manager/breakpoints.c:1401
 msgid "Remove Breakpoint"
 msgstr "བེརེཀ་པོ་ཡིནཊི་རྩ་བསྐྲད་གཏང་།"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1369
+#: ../plugins/debug-manager/breakpoints.c:1403
 msgid "Remove a breakpoint"
 msgstr "བེརེཀ་པོ་ཡིནཊི་ཅིག་རྩ་བསྐྲད་གཏང་།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1375
+#: ../plugins/debug-manager/breakpoints.c:1409
 msgid "Jump to Breakpoint"
 msgstr "བེརེཀ་པོ་ཡིནཊི་ལུ་མཆོང་།"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1377
+#: ../plugins/debug-manager/breakpoints.c:1411
 msgid "Jump to breakpoint location"
 msgstr "བེརེཀ་པོ་ཡིནཊི་གནས་ཁོངས་ལུ་མཆོང་།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1383
+#: ../plugins/debug-manager/breakpoints.c:1417
 msgid "Edit Breakpoint"
 msgstr "བེརེཀ་པོ་ཡིནཊི་ཞུན་དག་འབད།"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1385
+#: ../plugins/debug-manager/breakpoints.c:1419
 msgid "Edit breakpoint properties"
 msgstr "བེརེཀ་པོ་ཡིནཊི་རྒྱུ་དངོས་ཚུ་ཞུན་དག་འབད།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1391
+#: ../plugins/debug-manager/breakpoints.c:1425
 msgid "Enable Breakpoint"
 msgstr "བེརེཀ་པོ་ཡིནཊི་ལྕོགས་ཅན་བཟོ།"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1393
+#: ../plugins/debug-manager/breakpoints.c:1427
 msgid "Enable a breakpoint"
 msgstr "བེརེཀ་པོ་ཡིནཊི་ཅིག་ལྕོགས་ཅན་བཟོ།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1399
+#: ../plugins/debug-manager/breakpoints.c:1433
 msgid "Disable All Breakpoints"
 msgstr "བེརེཀ་པོ་ཡིནཊི་ཆ་མཉམ་ལྕོགས་མིན་བཟོ།"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1401
+#: ../plugins/debug-manager/breakpoints.c:1435
 msgid "Deactivate all breakpoints"
 msgstr "བེརེཀ་པོ་ཡིནཊི་ཆ་མཉམ་ཤུགས་མེད་བཟོ།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1407
+#: ../plugins/debug-manager/breakpoints.c:1441
 msgid "C_lear All Breakpoints"
 msgstr "བེརེཀ་པོ་ཡིནཊིསི་ཆ་མཉམ་བསལ།(_l)"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1409
+#: ../plugins/debug-manager/breakpoints.c:1443
 msgid "Delete all breakpoints"
 msgstr "བེརེཀ་པོ་ཡིནཊིསི་ཆ་མཉམ་བཏོན་གཏང།"
 
-#: ../plugins/debug-manager/breakpoints.c:1517
+#: ../plugins/debug-manager/breakpoints.c:1551
 msgid "Breakpoint operations"
 msgstr "བེརེཀ་པོ་ཡིནཊི་དགའ་གདམ་ཚུ།"
 
-#: ../plugins/debug-manager/debug_tree.c:125
+#: ../plugins/debug-manager/debug_tree.c:124
 #: ../plugins/tools/editor.c:456
 msgid "Variable"
 msgstr "འགྱུར་ཅན།"
 
-#: ../plugins/debug-manager/debug_tree.c:125
-#: ../plugins/debug-manager/registers.c:257
+#: ../plugins/debug-manager/debug_tree.c:124
+#: ../plugins/debug-manager/registers.c:408
 #: ../plugins/tools/editor.c:462
 msgid "Value"
 msgstr "གནས་གོང་།"
 
-#: ../plugins/debug-manager/disassemble.c:738
+#: ../plugins/debug-manager/disassemble.c:787
 msgid "Disassembly"
 msgstr "ཚང་སྒྲིག་མེདཔ།"
 
-#: ../plugins/debug-manager/info.c:51
-#: ../plugins/debug-manager/info.c:100
+#: ../plugins/debug-manager/info.c:52
+#: ../plugins/debug-manager/info.c:101
 msgid "Information"
 msgstr "བརྡ་དོན།"
 
-#: ../plugins/debug-manager/info.c:126
-#: ../plugins/editor/editor.glade.h:49
+#: ../plugins/debug-manager/info.c:127
+#: ../plugins/editor/editor.glade.h:47
 #: ../plugins/editor/print.c:1040
 #: ../plugins/sourceview/sourceview.glade.h:22
 #: ../plugins/sourceview/sourceview-print.c:99
 msgid "Lines"
 msgstr "གྱལ་ཚུ།"
 
-#: ../plugins/debug-manager/locals.c:85
+#: ../plugins/debug-manager/locals.c:105
 msgid "Locals"
 msgstr "ཉེ་གནས་ཚུ།"
 
-#: ../plugins/debug-manager/plugin.c:299
+#: ../plugins/debug-manager/plugin.c:321
 msgid "Debugger Log"
 msgstr "རྐྱེན་སེལ་འབད་མི་དྲན་དེབ།"
 
-#: ../plugins/debug-manager/plugin.c:391
-#: ../plugins/debug-manager/plugin.c:429
-#: ../plugins/debug-manager/plugin.c:449
-#: ../plugins/debug-manager/plugin.c:476
-#: ../plugins/debug-manager/plugin.c:530
-#: ../plugins/debug-manager/plugin.c:565
+#: ../plugins/debug-manager/plugin.c:413
+#: ../plugins/debug-manager/plugin.c:451
+#: ../plugins/debug-manager/plugin.c:471
+#: ../plugins/debug-manager/plugin.c:498
+#: ../plugins/debug-manager/plugin.c:552
+#: ../plugins/debug-manager/plugin.c:587
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "རྐྱེན་སེལ་འབད་མི།"
 
-#: ../plugins/debug-manager/plugin.c:391
+#: ../plugins/debug-manager/plugin.c:413
 msgid "Started"
 msgstr "འགོ་བཙུགས་ཡོདཔ།"
 
-#: ../plugins/debug-manager/plugin.c:429
+#: ../plugins/debug-manager/plugin.c:451
 msgid "Loaded"
 msgstr "མངོན་གསལ་འབད་ཡོདཔ།"
 
-#: ../plugins/debug-manager/plugin.c:449
+#: ../plugins/debug-manager/plugin.c:471
 msgid "Running..."
 msgstr "གཡོག་བཀོལ་དོ་་་"
 
-#: ../plugins/debug-manager/plugin.c:476
+#: ../plugins/debug-manager/plugin.c:498
 msgid "Stopped"
 msgstr "འགག་ཡོདཔ།"
 
-#: ../plugins/debug-manager/plugin.c:488
+#: ../plugins/debug-manager/plugin.c:510
 #, c-format
 msgid "Location: %s, line %d\n"
 msgstr "གནས་ཁོངས་ %s, གྱལ %d\n"
 
-#: ../plugins/debug-manager/plugin.c:530
+#: ../plugins/debug-manager/plugin.c:552
 msgid "Unloaded"
 msgstr "མངོན་གསལ་མ་འབད་བར་ཡོདཔ།"
 
+#: ../plugins/debug-manager/plugin.c:595
+#, c-format
+msgid "gdb terminated unexpectedly with status %d\n"
+msgstr "ཇི་ཌི་བི་རྩ་གྲོལ་གཏང་ཡོད་མི་རེ་བ་མེདཔ་དང་གཅིག་ཁར་གནས་ཚད།%d\n"
+
+#: ../plugins/debug-manager/plugin.c:608
+#, c-format
+msgid "Program has received signal: %s\n"
+msgstr "ལས་རིམ་འདི་ལུ་བརྡ་རྟགས་ཐོབ་ཡོདཔ། %s\n"
+
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:811
+#: ../plugins/debug-manager/plugin.c:847
 #: ../plugins/valgrind/plugin.c:448
 msgid "_Debug"
 msgstr "རྐྱེན་སེལ་འབད་ནི།(_D)"
 
-#: ../plugins/debug-manager/plugin.c:819
+#: ../plugins/debug-manager/plugin.c:855
 msgid "_Start Debugger"
 msgstr "རྐྱེན་སེལ་འབད་མི་འགོ་བཙུགས།(_S)"
 
-#: ../plugins/debug-manager/plugin.c:827
+#: ../plugins/debug-manager/plugin.c:863
 msgid "Run Target..."
 msgstr "མིགས་གཏད་གཡོག་བཀོལ་་་"
 
-#: ../plugins/debug-manager/plugin.c:829
+#: ../plugins/debug-manager/plugin.c:865
 msgid "load and start the target for debugging"
 msgstr "རྐྱེན་སེལ་འབད་ནི་དོན་ལུ་དམིགས་གཏད་འདི་འགོ་བཙུགས་ནི་དང་མངོན་གསལ་འབད།"
 
-#: ../plugins/debug-manager/plugin.c:835
+#: ../plugins/debug-manager/plugin.c:871
 msgid "Restart Target"
 msgstr "དམིགས་གཏད་ལོག་འགོ་བཙུགས།"
 
-#: ../plugins/debug-manager/plugin.c:837
+#: ../plugins/debug-manager/plugin.c:873
 msgid "restart the same target for debugging"
 msgstr "རྐྱེན་སེལ་འབད་མི་དོན་ལུ་དམིགས་གཏད་ཅོག་འཐདཔ་འདི་ལོག་འགོ་བཙུགས།"
 
-#: ../plugins/debug-manager/plugin.c:843
+#: ../plugins/debug-manager/plugin.c:879
 msgid "_Attach to Process..."
 msgstr "ལས་སྦྱོར་ལུ་སྦྱར།(_A)་་་"
 
-#: ../plugins/debug-manager/plugin.c:845
+#: ../plugins/debug-manager/plugin.c:881
 msgid "Attach to a running program"
 msgstr "ལས་རིམ་གཡོག་བཀོལ་ནི་ཅིག་ལུ་སྦྱར།"
 
-#: ../plugins/debug-manager/plugin.c:851
+#: ../plugins/debug-manager/plugin.c:887
 msgid "Stop Debugger"
 msgstr "རྐྱེན་སེལ་འབད་མི་འགག"
 
-#: ../plugins/debug-manager/plugin.c:853
+#: ../plugins/debug-manager/plugin.c:889
 msgid "Say goodbye to the debugger"
 msgstr "རྐྱེན་སེལ་ནི་འདི་ལུ་ཁ་འབྱལ་ལེགས་སྨོན་སླབ།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:863
-#: ../plugins/debug-manager/plugin.c:971
+#: ../plugins/debug-manager/plugin.c:899
+#: ../plugins/debug-manager/plugin.c:1007
 msgid "Debugger Command..."
 msgstr "རྐྱེན་སེལ་འབད་མི་བརྡ་བཀོད་་་"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:865
-#: ../plugins/debug-manager/plugin.c:973
+#: ../plugins/debug-manager/plugin.c:901
+#: ../plugins/debug-manager/plugin.c:1009
 msgid "Custom debugger command"
 msgstr "སྲོལ་སྒྲིག་རྐྱེན་སེལ་འབད་མི་བརྡ་བཀོད།"
 
-#: ../plugins/debug-manager/plugin.c:871
-#: ../plugins/debug-manager/plugin.c:979
+#: ../plugins/debug-manager/plugin.c:907
+#: ../plugins/debug-manager/plugin.c:1015
 msgid "_Info"
 msgstr "བརྡ་དོན།(_I)"
 
-#: ../plugins/debug-manager/plugin.c:879
+#: ../plugins/debug-manager/plugin.c:915
 msgid "Info _Target Files"
 msgstr "བརྡ་དོན་དམིགས་གཏད་ཡིག་སྣོད་ཚུ།(_T)"
 
-#: ../plugins/debug-manager/plugin.c:881
+#: ../plugins/debug-manager/plugin.c:917
 msgid "Display information on the files the debugger is active with"
 msgstr "རྐྱེན་སེལ་འབད་མི་འདི་ཤུགས་ལྡན་བཟོ་མི་ཡག་སྣོད་ཚུ་གུ་བརྡ་དོན་བཀྲམ་སྟོན་འབད།"
 
-#: ../plugins/debug-manager/plugin.c:887
+#: ../plugins/debug-manager/plugin.c:923
 msgid "Info _Program"
 msgstr "བརྡ་དོན་ལས་རིམ།(_P)"
 
-#: ../plugins/debug-manager/plugin.c:889
+#: ../plugins/debug-manager/plugin.c:925
 msgid "Display information on the execution status of the program"
 msgstr "ལས་རིམ་འདི་གི་ལག་ལེན་འཐབ་ནི་གནས་ཚད་འདི་གུ་བརྡ་དོན་བཀྲམ་སྟོན་འབད།"
 
-#: ../plugins/debug-manager/plugin.c:895
+#: ../plugins/debug-manager/plugin.c:931
 msgid "Info _Kernel User Struct"
 msgstr "བརྡ་དོན་ཀར་ནེལ་ལག་ལེན་པའི་གཞི་བཀོད།(_K)"
 
-#: ../plugins/debug-manager/plugin.c:897
+#: ../plugins/debug-manager/plugin.c:933
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "ད་ལྟོའི་ཆ་ལག་གི་དོན་ལུ་'struct user'ཀར་ནེལ་གྱི་ནང་དོན་ཚུ་བཀྲམ་སྟོན་འབད།"
 
-#: ../plugins/debug-manager/plugin.c:911
-#: ../plugins/debug-manager/plugin.c:1019
+#: ../plugins/debug-manager/plugin.c:947
+#: ../plugins/debug-manager/plugin.c:1047
 msgid "Shared Libraries"
 msgstr "རུམ་སྤྱོད་འབད་ཡོད་མི་དཔེར་མཛོད་ཚུ།"
 
-#: ../plugins/debug-manager/plugin.c:913
-#: ../plugins/debug-manager/plugin.c:1021
+#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:1049
 msgid "Show shared libraries mappings"
 msgstr "རུབ་སྤྱོད་འབད་ཡོད་མི་དཔེར་མཛོད་ས་ཁྲ་བཟོ་བ་ཚུ་སྟོན།"
 
-#: ../plugins/debug-manager/plugin.c:921
-#: ../plugins/debug-manager/plugin.c:1029
+#: ../plugins/debug-manager/plugin.c:957
+#: ../plugins/debug-manager/plugin.c:1057
 msgid "Show kernel signals"
 msgstr "ཀར་ནེལ་བརྡ་སྟོན་ཚུ་སྟོན།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:931
+#: ../plugins/debug-manager/plugin.c:967
 msgid "Run/_Continue"
 msgstr "གཡོག་བཀོལ་/འཕྲོ་མཐུད།(_C)"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:969
 msgid "Continue the execution of the program"
 msgstr "ལས་རིམ་འདི་གི་ལག་ལེན་འཐབ་ནི་འཕྲོ་མཐུད།"
 
-#: ../plugins/debug-manager/plugin.c:939
+#: ../plugins/debug-manager/plugin.c:975
 msgid "Step _In"
 msgstr "ནང་གོམ།(_I)"
 
-#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:977
 msgid "Single step into function"
 msgstr "ལས་འགན་ནང་ན་གོམ་རྐྱང་པ།"
 
-#: ../plugins/debug-manager/plugin.c:947
+#: ../plugins/debug-manager/plugin.c:983
 msgid "Step O_ver"
 msgstr "ལྟག་གོམ།(_v)"
 
-#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:985
 msgid "Single step over function"
 msgstr "ལས་འགན་ལྟག་ལུ་གོམ་རྐྱང་པ།"
 
-#: ../plugins/debug-manager/plugin.c:955
+#: ../plugins/debug-manager/plugin.c:991
 msgid "Step _Out"
 msgstr "ཕྱི་ཁ་གོམ།(_O)"
 
-#: ../plugins/debug-manager/plugin.c:957
+#: ../plugins/debug-manager/plugin.c:993
 msgid "Single step out of the function"
 msgstr "ལས་འགན་འདི་གི་ཕྱི་ཁའི་གོམ་རྐྱང་པ།"
 
-#: ../plugins/debug-manager/plugin.c:963
+#: ../plugins/debug-manager/plugin.c:999
 msgid "_Run to Cursor"
 msgstr "འོད་རྟགས་ལུ་གཡོག་བཀོལ།(_R)"
 
-#: ../plugins/debug-manager/plugin.c:965
+#: ../plugins/debug-manager/plugin.c:1001
 msgid "Run to the cursor"
 msgstr "འོད་རྟགས་འདི་ལུ་གཡོག་བཀོལ།"
 
-#: ../plugins/debug-manager/plugin.c:987
-msgid "Info _Threads"
-msgstr "བརྡ་དོན་ཐེརེཌིསི།(_T)"
-
-#: ../plugins/debug-manager/plugin.c:989
-msgid "Display the IDs of currently known threads"
-msgstr "ད་ལྟོའི་ཐེརེཌིསི་ཤེས་མི་གི་ཨའི་ཌི་ཚུ་བཀྲམ་སྟོན་འབད།"
-
-#: ../plugins/debug-manager/plugin.c:995
+#: ../plugins/debug-manager/plugin.c:1023
 msgid "Info _Global Variables"
 msgstr "བརྡ་དོན་སྤྱི་ཁྱབ་འགྱུར་ཅན་ཚུ།(_G)"
 
-#: ../plugins/debug-manager/plugin.c:997
+#: ../plugins/debug-manager/plugin.c:1025
 msgid "Display all global and static variables of the program"
 msgstr "ལས་རིམ་འདི་གི་སྤྱི་ཁྱབ་དང་རྟག་བརྟན་འགྱུར་ཅན་ཚུ་ཆ་མཉམ་བཀྲམ་སྟོན་འབད།"
 
-#: ../plugins/debug-manager/plugin.c:1003
+#: ../plugins/debug-manager/plugin.c:1031
 msgid "Info _Current Frame"
 msgstr "བརྡ་དོན་ད་ལྟོའི་གཞི་ཁྲམ།(_C)"
 
-#: ../plugins/debug-manager/plugin.c:1005
+#: ../plugins/debug-manager/plugin.c:1033
 msgid "Display information about the current frame of execution"
 msgstr "ད་ལྟོའི་གཞི་ཁྲམ་ལག་ལེན་འཐབ་ནིའི་སྐོར་ལས་བརྡ་དོན་བཀྲམ་སྟོན་འབད།"
 
-#: ../plugins/debug-manager/plugin.c:1011
+#: ../plugins/debug-manager/plugin.c:1039
 msgid "Info Function _Arguments"
 msgstr "བརྡ་དོན་ལས་འགན་སྒྲུབ་རྟགས་ཚུ།(_A)"
 
-#: ../plugins/debug-manager/plugin.c:1013
+#: ../plugins/debug-manager/plugin.c:1041
 msgid "Display function arguments of the current frame"
 msgstr "ད་ལྟོའི་གཞི་ཁྲམ་འདི་གི་ལས་འགན་སྒྲུབ་རྟགས་ཚུ་བཀྲམ་སྟོན་འབད།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1039
+#: ../plugins/debug-manager/plugin.c:1067
 msgid "Pa_use Program"
 msgstr "ལས་རིམ་ཐེམ་བཞག(_u)"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1041
+#: ../plugins/debug-manager/plugin.c:1069
 msgid "Pauses the execution of the program"
 msgstr "ལས་རིམ་འདི་གི་ལག་ལེན་འཐབ་ནི་འདི་ཐེམ་བཞགཔ་ཨིན།"
 
-#: ../plugins/debug-manager/plugin.c:1070
-#: ../plugins/debug-manager/plugin.c:1076
-#: ../plugins/debug-manager/plugin.c:1082
-#: ../plugins/debug-manager/plugin.c:1088
+#: ../plugins/debug-manager/plugin.c:1098
+#: ../plugins/debug-manager/plugin.c:1104
+#: ../plugins/debug-manager/plugin.c:1110
+#: ../plugins/debug-manager/plugin.c:1116
 msgid "Debugger operations"
 msgstr "རྐྱེན་སེལ་འབད་མི་བཀོལ་སྤྱོད་ཚུ།"
 
-#: ../plugins/debug-manager/registers.c:250
+#: ../plugins/debug-manager/registers.c:401
 msgid "Register"
 msgstr "ཐོ་འགོད།"
 
-#: ../plugins/debug-manager/registers.c:277
+#: ../plugins/debug-manager/registers.c:428
 msgid "Registers"
 msgstr "ཐོ་འགོད་ཚུ།"
 
-#: ../plugins/debug-manager/sharedlib.c:160
+#: ../plugins/debug-manager/sharedlib.c:161
 msgid "Shared libraries"
 msgstr "རུབ་སྤྱོད་འབད་ཡོད་མི་དཔེར་མཛོད་ཚུ།"
 
-#: ../plugins/debug-manager/sharedlib.c:182
+#: ../plugins/debug-manager/sharedlib.c:183
 msgid "  Shared Object  "
 msgstr "རུབ་སྤྱོད་ཡོད་མི་དངོས་པོ།"
 
-#: ../plugins/debug-manager/sharedlib.c:186
+#: ../plugins/debug-manager/sharedlib.c:187
 msgid "From"
 msgstr "ལས།"
 
-#: ../plugins/debug-manager/sharedlib.c:190
+#: ../plugins/debug-manager/sharedlib.c:191
 msgid "To"
 msgstr "ལུ།"
 
-#: ../plugins/debug-manager/sharedlib.c:194
+#: ../plugins/debug-manager/sharedlib.c:195
 msgid "Sysm Read"
 msgstr "རིམ་ལུགས་ལྷག"
 
-#: ../plugins/debug-manager/signals.c:194
-#: ../plugins/debug-manager/signals.c:207
-#: ../plugins/debug-manager/signals.c:220
+#: ../plugins/debug-manager/signals.c:195
+#: ../plugins/debug-manager/signals.c:208
+#: ../plugins/debug-manager/signals.c:221
 #: ../plugins/project-wizard/property.c:209
 #: ../plugins/project-wizard/property.c:223
 msgid "No"
 msgstr "མེན།"
 
-#: ../plugins/debug-manager/signals.c:259
+#: ../plugins/debug-manager/signals.c:260
 msgid "Modify Signal"
 msgstr "བརྡ་སྟོན་ལེགས་བཅོས་འབད།"
 
-#: ../plugins/debug-manager/signals.c:266
+#: ../plugins/debug-manager/signals.c:267
 msgid "Send to process"
 msgstr "ལས་སྦྱོར་ལུ་གཏང་།"
 
-#: ../plugins/debug-manager/signals.c:308
+#: ../plugins/debug-manager/signals.c:309
 msgid "Kernel signals"
 msgstr "ཀར་ནེལ་བརྡ་སྟོན་ཚུ།"
 
-#: ../plugins/debug-manager/signals.c:331
+#: ../plugins/debug-manager/signals.c:332
 msgid "Signal"
 msgstr "བརྡ་སྟོན།"
 
-#: ../plugins/debug-manager/signals.c:335
+#: ../plugins/debug-manager/signals.c:336
 msgid "Stop"
 msgstr "འགག"
 
-#: ../plugins/debug-manager/signals.c:339
+#: ../plugins/debug-manager/signals.c:340
 #: ../plugins/editor/print.c:1031
 #: ../plugins/sourceview/sourceview-print.c:89
 msgid "Print"
 msgstr "དཔར་བསྐྲུན་འབད་ནི།"
 
-#: ../plugins/debug-manager/signals.c:347
+#: ../plugins/debug-manager/signals.c:348
 msgid "Description"
 msgstr "འགྲེལ་བཤད།"
 
-#: ../plugins/debug-manager/signals.c:466
+#: ../plugins/debug-manager/signals.c:467
 msgid " Stop: "
 msgstr "འགག"
 
-#: ../plugins/debug-manager/signals.c:470
+#: ../plugins/debug-manager/signals.c:471
 msgid " Print: "
 msgstr "དཔར་བསྐྲུན་འབད་ནི།"
 
-#: ../plugins/debug-manager/sparse_view.c:967
+#: ../plugins/debug-manager/sparse_view.c:1175
 msgid "Show Line Numbers"
 msgstr "གྱལ་ཨང་ཚུ་སྟོན།"
 
-#: ../plugins/debug-manager/sparse_view.c:968
+#: ../plugins/debug-manager/sparse_view.c:1176
 msgid "Whether to display line numbers"
 msgstr "གྱལ་ཨང་ཚུ་བཀྲམ་སྟོན་འབད་ནི་ཨིན་ན་མེན་ན།"
 
-#: ../plugins/debug-manager/sparse_view.c:975
+#: ../plugins/debug-manager/sparse_view.c:1183
 msgid "Show Line Markers"
 msgstr "གྱལ་རྟགས་བཀོདཔ་སྟོན།"
 
-#: ../plugins/debug-manager/sparse_view.c:976
+#: ../plugins/debug-manager/sparse_view.c:1184
 msgid "Whether to display line marker pixbufs"
 msgstr "གྱལ་རྟགས་བཀོདཔ་པར་ཁོངས་བཀྲམ་སྟོན་འབད་ནི་ཨིན་ན་མེན་ན།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/stack_trace.c:309
+#: ../plugins/debug-manager/stack_trace.c:396
 msgid "Set current frame"
 msgstr "ད་ལྟོའི་གཞི་ཁྲམ་གཞི་སྒྲིག་འབད།"
 
-#: ../plugins/debug-manager/stack_trace.c:317
+#: ../plugins/debug-manager/stack_trace.c:404
+#: ../plugins/debug-manager/threads.c:368
 msgid "View Source"
 msgstr "འབྱུང་ཁུངས་སྟོན།"
 
-#: ../plugins/debug-manager/stack_trace.c:355
+#: ../plugins/debug-manager/stack_trace.c:441
+#: ../plugins/debug-manager/threads.c:404
 msgid "Active"
 msgstr "ཤུགས་ལྡན།"
 
-#: ../plugins/debug-manager/stack_trace.c:366
+#: ../plugins/debug-manager/stack_trace.c:452
 msgid "Frame"
 msgstr "གཞི་ཁྲམ།"
 
-#: ../plugins/debug-manager/stack_trace.c:418
+#: ../plugins/debug-manager/stack_trace.c:504
 msgid "Arguments"
 msgstr "སྒྲུབ་རྟགས་ཚུ།"
 
-#: ../plugins/debug-manager/stack_trace.c:443
+#: ../plugins/debug-manager/stack_trace.c:528
 msgid "Stack"
 msgstr "བརྩེགས་ཕུང་།"
 
-#: ../plugins/debug-manager/stack_trace.c:507
+#: ../plugins/debug-manager/stack_trace.c:587
 msgid "Stack frame operations"
 msgstr "བརྩེགས་ཕུང་གཞི་ཁྲམ་གྱི་བཀོལ་སྤྱོད་ཚུ།"
 
-#: ../plugins/debug-manager/start.c:90
+#: ../plugins/debug-manager/start.c:91
 msgid "Pid"
 msgstr "པི་ཨའི་ཌི།"
 
-#: ../plugins/debug-manager/start.c:90
+#: ../plugins/debug-manager/start.c:91
 msgid "User"
 msgstr "ལག་ལེན་པ།"
 
-#: ../plugins/debug-manager/start.c:90
+#: ../plugins/debug-manager/start.c:91
 #: ../plugins/gtodo/egg-datetime.c:2292
 msgid "Time"
 msgstr "དུས་ཚོད།"
 
-#: ../plugins/debug-manager/start.c:90
+#: ../plugins/debug-manager/start.c:91
 msgid "Command"
 msgstr "བརྡ་བཀོད།"
 
-#: ../plugins/debug-manager/start.c:594
+#: ../plugins/debug-manager/start.c:595
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "ལག་ལེན་འཐབ་མ་ཚུགསཔ། %s."
 
-#: ../plugins/debug-manager/start.c:608
+#: ../plugins/debug-manager/start.c:609
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་མ་ཚུགསཔ། %s\n"
 
-#: ../plugins/debug-manager/start.c:858
+#: ../plugins/debug-manager/start.c:859
 #, c-format
 msgid "Missing file %s"
 msgstr "ཡིག་སྣོད་བརླག་སྟོར་ཞུགས་ཡོདཔ། %s"
 
-#: ../plugins/debug-manager/start.c:976
+#: ../plugins/debug-manager/start.c:977
 msgid "Load Target to debug"
 msgstr "རྐྱེན་སེལ་ལུ་དམིགས་གཏད་མངོན་གསལ་འབད།"
 
-#: ../plugins/debug-manager/start.c:984
-#: ../plugins/file-loader/plugin.c:470
+#: ../plugins/debug-manager/start.c:985
+#: ../plugins/file-loader/plugin.c:410
 msgid "All files"
 msgstr "ཡིག་སྣོད་ཚུ་ཆ་མཉམ།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:368
+#: ../plugins/debug-manager/threads.c:360
+msgid "Set current thread"
+msgstr "ད་ལྟོའི་ཐེ་རེཌི་གཞི་སྒྲིག"
+
+#: ../plugins/debug-manager/threads.c:414
+msgid "Id"
+msgstr "ཨའི་ཌི།"
+
+#: ../plugins/debug-manager/threads.c:480
+msgid "Thread"
+msgstr "ཐེ་རེཌི།"
+
+#: ../plugins/debug-manager/threads.c:584
+msgid "Thread operations"
+msgstr "ཐེ་རེཌི་བཀོལ་སྤྱོད་འབད་ནི་ཚུ།"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/watch.c:363
 msgid "Ins_pect/Evaluate..."
 msgstr "ཞིབ་དཔྱད་འབད་ནི/བརྟག་ཞིབ་འབད་ནི་་་"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:370
+#: ../plugins/debug-manager/watch.c:365
 msgid "Inspect or evaluate an expression or variable"
 msgstr "གསལ་བརྗོད་ཡང་ན་འགྱུར་ཅན་ཅིག་ཞིབད་དཔྱད་འབད་ནི་ཡང་ན་བརྟག་ཞིབ་འབད་ནི།"
 
-#: ../plugins/debug-manager/watch.c:376
+#: ../plugins/debug-manager/watch.c:371
 msgid "Add Watch..."
 msgstr "བལྟ་ཞིབ་འབད་ནི་ཁ་སྐོང་བརྐྱབ་་་"
 
-#: ../plugins/debug-manager/watch.c:384
+#: ../plugins/debug-manager/watch.c:379
 msgid "Remove Watch"
 msgstr "བལྟ་ཞིབ་འབད་ནི་རྩ་བསྐྲད་གཏང་།"
 
-#: ../plugins/debug-manager/watch.c:392
+#: ../plugins/debug-manager/watch.c:387
 msgid "Update Watch"
 msgstr "བལྟ་ཞིབ་འབད་ནི་དུས་མཐུན་བཟོ།"
 
-#: ../plugins/debug-manager/watch.c:400
+#: ../plugins/debug-manager/watch.c:395
 msgid "Change Value"
 msgstr "གནས་གོང་བསྒྱུར་བཙོས་འབད།"
 
-#: ../plugins/debug-manager/watch.c:408
+#: ../plugins/debug-manager/watch.c:403
 msgid "Update all"
 msgstr "ཆ་མཉམ་དུས་མཐུན་བཟོ།"
 
-#: ../plugins/debug-manager/watch.c:416
+#: ../plugins/debug-manager/watch.c:411
 msgid "Remove all"
 msgstr "ཆ་མཉམ་རྩ་བསྐྲད་གཏང་།"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:427
+#: ../plugins/debug-manager/watch.c:422
 msgid "Automatic update"
 msgstr "རང་བཞིན་གྱིས་དུས་མཐུན་བཟོ།"
 
-#: ../plugins/debug-manager/watch.c:453
-#: ../plugins/debug-manager/watch.c:459
+#: ../plugins/debug-manager/watch.c:448
+#: ../plugins/debug-manager/watch.c:454
 msgid "Watch operations"
 msgstr "བཀོལ་སྤྱོད་ཚུ་བལྟ་ཞིབ་འབད།"
 
-#: ../plugins/debug-manager/watch.c:539
+#: ../plugins/debug-manager/watch.c:534
 msgid "Watches"
 msgstr "བལྟ་ཞིབ་འབད་ནི་ཚུ།"
 
@@ -2463,9 +2554,9 @@ msgid "Search Help:"
 msgstr "གྲོགས་རམ་འཚོལ་ཞིབ་འབད།"
 
 #: ../plugins/devhelp/plugin.c:202
-#: ../plugins/document-manager/plugin.c:231
+#: ../plugins/document-manager/plugin.c:232
 #: ../plugins/message-view/plugin.c:71
-#: ../plugins/symbol-browser/plugin.c:275
+#: ../plugins/symbol-browser/plugin.c:280
 msgid "_Goto"
 msgstr "ལུ་འགྱོ།(_G)"
 
@@ -2518,7 +2609,7 @@ msgid "Books"
 msgstr "དེབ་ཚུ།"
 
 #: ../plugins/devhelp/plugin.c:342
-#: ../src/anjuta-app.c:551
+#: ../src/anjuta-app.c:604
 msgid "Help"
 msgstr "གྲོགས་རམ།"
 
@@ -2535,20 +2626,7 @@ msgstr "རང་བཞིན་གྱི་རྩ་སྒྲིག་འདི
 msgid "Anjuta does not know %s!"
 msgstr "ཨན་ཇུ་ཊ་གིས་མི་ཤེས %s!"
 
-#: ../plugins/document-manager/action-callbacks.c:206
-#, c-format
-msgid ""
-"The file '%s' is not saved.\n"
-"Do you want to save it before closing?"
-msgstr ""
-"ཡིག་འདི་ '%s' སྲུངས་བཞག་ཡོདཔ།\n"
-"ཁྱོད་ཀྱིས་ཁ་བསྡམ་པའི་ཧེ་མ་སྲུང་བཞག་འབད་ནི་ཨིན་ན?"
-
-#: ../plugins/document-manager/action-callbacks.c:216
-msgid "Do_n't save"
-msgstr "སྲུང་བཞག་མ་འབད།(_n)"
-
-#: ../plugins/document-manager/action-callbacks.c:283
+#: ../plugins/document-manager/action-callbacks.c:285
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -2557,30 +2635,30 @@ msgstr ""
 "ཁྱོད་ཀྱིས་བསྐྱར་མངོན་གསལ་འབད་ནི་ཨིན་ན '%s'?\n"
 "སྲུང་བཞག་མ་འབད་མི་བསྒྱུར་བཅོས་གང་རུང་ཚུ་བརླག་སྟོར་ཞུགས་འོང་།"
 
-#: ../plugins/document-manager/action-callbacks.c:294
-#: ../plugins/editor/text_editor.c:353
-#: ../plugins/sourceview/sourceview.c:178
+#: ../plugins/document-manager/action-callbacks.c:296
+#: ../plugins/editor/text_editor.c:337
+#: ../plugins/sourceview/sourceview.c:156
 msgid "_Reload"
 msgstr "ཡར་བསྐྱར་མངོན་གསལ།(_R)"
 
-#: ../plugins/document-manager/anjuta-docman.c:571
+#: ../plugins/document-manager/anjuta-docman.c:185
 msgid "Close file"
 msgstr "ཡིག་སྣོད་བསྡམ།"
 
-#: ../plugins/document-manager/anjuta-docman.c:703
-#: ../plugins/file-loader/plugin.c:564
-#: ../plugins/file-loader/plugin.c:846
-#: ../plugins/file-loader/plugin.c:856
-#: ../plugins/file-loader/plugin.c:869
+#: ../plugins/document-manager/anjuta-docman.c:317
+#: ../plugins/file-loader/plugin.c:504
+#: ../plugins/file-loader/plugin.c:786
+#: ../plugins/file-loader/plugin.c:796
+#: ../plugins/file-loader/plugin.c:809
 msgid "Open file"
 msgstr "ཡིག་སྣོད་ཁ་ཕྱེ།"
 
-#: ../plugins/document-manager/anjuta-docman.c:722
+#: ../plugins/document-manager/anjuta-docman.c:336
 #: ../plugins/message-view/message-view.c:89
 msgid "Save file as"
 msgstr "བཟུམ་སྦེ་ཡིག་སྣོད་སྲུང་བཞག་འབད།"
 
-#: ../plugins/document-manager/anjuta-docman.c:791
+#: ../plugins/document-manager/anjuta-docman.c:408
 #: ../plugins/file-wizard/file.c:229
 #: ../plugins/valgrind/plugin.c:386
 #, c-format
@@ -2591,14 +2669,14 @@ msgstr ""
 "ཡིག་སྣོད་འདི་ '%s' ཧེ་མ་ལས་ཡོདཔ།\n"
 "ཁྱོད་ཀྱིས་སྲུང་བཞག་འབད་མི་གཅིགཔ་དང་གཅིག་ཁར་ཚབ་བཙུགས་འབད་ནི་ཨིན་ན?"
 
-#: ../plugins/document-manager/anjuta-docman.c:799
+#: ../plugins/document-manager/anjuta-docman.c:416
 #: ../plugins/file-wizard/file.c:237
 #: ../plugins/valgrind/plugin.c:394
 #: ../src/anjuta-callbacks.c:79
 msgid "_Replace"
 msgstr "ཚབ་བཙུགས།(_R)"
 
-#: ../plugins/document-manager/anjuta-docman.c:1145
+#: ../plugins/document-manager/anjuta-docman.c:738
 msgid "Path:"
 msgstr "འགྲུལ་ལམ།"
 
@@ -2762,9 +2840,9 @@ msgid "Do not show tabs"
 msgstr "མཆོང་ལྡེ་ཚུ་མ་སྟོན།"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:41
-#: ../plugins/document-manager/plugin.c:1522
-#: ../plugins/document-manager/plugin.c:1869
-#: ../plugins/document-manager/plugin.c:1894
+#: ../plugins/document-manager/plugin.c:1533
+#: ../plugins/document-manager/plugin.c:1883
+#: ../plugins/document-manager/plugin.c:1908
 msgid "Documents"
 msgstr "ཡིག་ཆས་ཚུ་"
 
@@ -2833,8 +2911,6 @@ msgid "Indent Setting"
 msgstr "འགོ་མཚམས་སྒྲིག་སྟངས།"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:58
-#: ../plugins/editor/editor.glade.h:45
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
 msgid "Indentation"
 msgstr "འགོ་མཚམས་བཀལ།"
 
@@ -3080,9 +3156,9 @@ msgstr ""
 "ཁོང་་ཐད་ཁར་དུ་ཞུན་དག་འབད་དེ་ \n"
 "ལེགས་བཅོས་འབད་བཏུབ་ཨིན། (འགོ་མཚམས་ལག་དེབ་བལྟ།)"
 
-#: ../plugins/document-manager/goto_line.c:125
-msgid "<b>Go to Line number:</b>"
-msgstr "<b>གྱལ་ཨང་ལུ་འགྱོ</b>"
+#: ../plugins/document-manager/goto_line.c:126
+msgid "Go to Line number:"
+msgstr "གྱལ་ཨང་ལུ་འགྱོ།"
 
 #: ../plugins/document-manager/indent-dialog.c:418
 #: ../plugins/document-manager/indent-dialog.c:445
@@ -3098,424 +3174,424 @@ msgstr "བཟོ་རྣམ་ཅིག་ལུ་མིང་འདི་ཧ
 msgid "This Style is not modifiable !"
 msgstr "བཟོ་རྣམ་འདི་ལེགས་བཅོས་འབད་མ་བཏུབ !"
 
-#: ../plugins/document-manager/plugin.c:150
-#: ../plugins/glade/plugin.c:541
+#: ../plugins/document-manager/plugin.c:151
+#: ../plugins/glade/plugin.c:544
 msgid "_Save"
 msgstr "སྲུངས།(_S)"
 
-#: ../plugins/document-manager/plugin.c:151
+#: ../plugins/document-manager/plugin.c:152
 msgid "Save current file"
 msgstr "ད་ལྟོའི་ཡིག་སྣོད་སྲུང་བཞག་འབད།"
 
-#: ../plugins/document-manager/plugin.c:152
-#: ../plugins/glade/plugin.c:549
+#: ../plugins/document-manager/plugin.c:153
+#: ../plugins/glade/plugin.c:552
 msgid "Save _As..."
 msgstr "བཟུམ་སྦེ་སྲུངས།(_A)་་་"
 
-#: ../plugins/document-manager/plugin.c:153
+#: ../plugins/document-manager/plugin.c:154
 msgid "Save the current file with a different name"
 msgstr "ད་ལྟོའི་ཡིག་སྣོད་དང་གཅིག་ཁར་མིང་སོ་སོ་སྲུང་བཞག་འབད།"
 
-#: ../plugins/document-manager/plugin.c:155
+#: ../plugins/document-manager/plugin.c:156
 msgid "Save A_ll"
 msgstr "ཆ་མཉམ་སྲུང་བཞག་འབད།(_l)"
 
-#: ../plugins/document-manager/plugin.c:156
+#: ../plugins/document-manager/plugin.c:157
 msgid "Save all currently open files, except new files"
 msgstr "ཡིག་སྣོད་གསརཔ་ཚུ་མ་གཏོགས་ ད་ལྟོ་ཁ་ཕྱེ་མི་ཡིག་སྣོད་ཚུ་ཆ་མཉམ་སྲུང་བཞག་འབད།"
 
-#: ../plugins/document-manager/plugin.c:158
+#: ../plugins/document-manager/plugin.c:159
 msgid "_Close File"
 msgstr "ཡིག་སྣོད་ཁ་བསྡམ།(_C)"
 
-#: ../plugins/document-manager/plugin.c:159
+#: ../plugins/document-manager/plugin.c:160
 msgid "Close current file"
 msgstr "ད་ལྟོའི་ཡིག་སྣོད་ཁ་བསྡམ།"
 
-#: ../plugins/document-manager/plugin.c:161
+#: ../plugins/document-manager/plugin.c:162
 msgid "Close All Files"
 msgstr "ཡིག་སྣོད་ཚུ་ཆ་མཉམ་ཁ་བསྡམ།"
 
-#: ../plugins/document-manager/plugin.c:162
+#: ../plugins/document-manager/plugin.c:163
 msgid "Close all files"
 msgstr "ཡིག་སྣོད་ཚུ་ཆ་མཉམ་ཁ་བསྡམ།"
 
-#: ../plugins/document-manager/plugin.c:164
+#: ../plugins/document-manager/plugin.c:165
 msgid "Reload F_ile"
 msgstr "ཡིག་སྣོད་ཡང་བསྐྱར་མངོན་གསལ་འབད།(_i)"
 
-#: ../plugins/document-manager/plugin.c:165
+#: ../plugins/document-manager/plugin.c:166
 msgid "Reload current file"
 msgstr "ད་ལྟོའི་ཡིག་སྣོད་ཡང་བསྐྱར་མངོན་གསལ་འབད།"
 
 #. 8
-#: ../plugins/document-manager/plugin.c:167
+#: ../plugins/document-manager/plugin.c:168
 #: ../plugins/editor/text_editor_menu.c:292
 msgid "Swap .h/.c"
 msgstr "བརྗེ་སོར་འབད་ནི། .h/.c"
 
-#: ../plugins/document-manager/plugin.c:168
+#: ../plugins/document-manager/plugin.c:169
 msgid "Swap c header and source file"
 msgstr "སི་མགོ་ཡིག་དང་འབྱུང་ཁུངས་ཡིག་སྣོད་བརྗེ་སོར་འབད།"
 
-#: ../plugins/document-manager/plugin.c:170
+#: ../plugins/document-manager/plugin.c:171
 msgid "Recent _Files"
 msgstr "ད་ལྟོའི་ཡིག་སྣོད་ཚུ།(_F)"
 
-#: ../plugins/document-manager/plugin.c:174
+#: ../plugins/document-manager/plugin.c:175
 msgid "_Print..."
 msgstr "དཔར་བསྐྲུན།(_P)་་་"
 
-#: ../plugins/document-manager/plugin.c:175
+#: ../plugins/document-manager/plugin.c:176
 msgid "Print the current file"
 msgstr "ད་ལྟོའི་ཡིག་སྣོད་དཔར་བསྐྲུན་འབད།"
 
-#: ../plugins/document-manager/plugin.c:176
+#: ../plugins/document-manager/plugin.c:177
 msgid "_Print Preview"
 msgstr "དཔར་བསྐྲུན་སྔོན་ལྟ།(_P)"
 
-#: ../plugins/document-manager/plugin.c:177
+#: ../plugins/document-manager/plugin.c:178
 msgid "Print preview of the current file"
 msgstr "ད་ལྟོའི་ཡིག་སྣོད་འདི་གི་དཔར་བསྐྲུན་སྔོན་ལྟ།"
 
-#: ../plugins/document-manager/plugin.c:182
+#: ../plugins/document-manager/plugin.c:183
 msgid "_Transform"
 msgstr "བཟོ་བསྒྱུར།(_T)"
 
-#: ../plugins/document-manager/plugin.c:183
+#: ../plugins/document-manager/plugin.c:184
 msgid "_Make Selection Uppercase"
 msgstr "མགྱོགས་ཡིག་སེལ་འཐུ་བཟོ།(_M)"
 
-#: ../plugins/document-manager/plugin.c:184
+#: ../plugins/document-manager/plugin.c:185
 msgid "Make the selected text uppercase"
 msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་འདི་ཚུགས་ཡིག་བཟོ།"
 
-#: ../plugins/document-manager/plugin.c:186
+#: ../plugins/document-manager/plugin.c:187
 msgid "Make Selection Lowercase"
 msgstr "མགྱོགས་ཡིག་སེལ་འཐུ་བཟོ།"
 
-#: ../plugins/document-manager/plugin.c:187
+#: ../plugins/document-manager/plugin.c:188
 msgid "Make the selected text lowercase"
 msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་འདི་མགྱོགས་ཡིག་བཟོ།"
 
-#: ../plugins/document-manager/plugin.c:189
+#: ../plugins/document-manager/plugin.c:190
 msgid "Convert EOL to CRLF"
 msgstr "ཨི་ཨོ་ཨེལ་སི་ཨར་ཨེལ་ཨེཕ་ལུ་གཞི་བསྒྱུར་འབད།"
 
-#: ../plugins/document-manager/plugin.c:190
+#: ../plugins/document-manager/plugin.c:191
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "གྱལ་ཡིག་འབྲུ་ཚུ་ཌི་ཨོ་ཨེསི་ ཨི་ཨོ་ཨེལ་(སི་ཨར་ཨེལ་ཨེཕ)གི་མཇུག་གཞི་བསྒྱུར་འབད།"
 
-#: ../plugins/document-manager/plugin.c:192
+#: ../plugins/document-manager/plugin.c:193
 msgid "Convert EOL to LF"
 msgstr "ཨི་ཨོ་ཨེལ་ཨེལ་ཨེཕ་ལུ་གཞི་བསྒྱུར་འབད།"
 
-#: ../plugins/document-manager/plugin.c:193
+#: ../plugins/document-manager/plugin.c:194
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "གྱལ་ཡིག་འབྲུ་ཚུ་ཡུ་ནིགསི་ཨི་ཨོ་ཨེལ་(ཨེལ་ཨེཕ)གྱི་མཇུག་གཞི་བསྒྱུར་འབད།"
 
-#: ../plugins/document-manager/plugin.c:195
+#: ../plugins/document-manager/plugin.c:196
 msgid "Convert EOL to CR"
 msgstr "ཨི་ཨོ་ཨེལ་སི་ཨར་ལུ་གཞི་བསྒྱུར་འབད།"
 
-#: ../plugins/document-manager/plugin.c:196
+#: ../plugins/document-manager/plugin.c:197
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "གྱལ་ཡིག་འབྲུ་ཚུ་མེཀ་ཨོ་ཨེསི་ ཨི་ཨོ་ཨེལ་(སི་ཨར)གྱི་མཇུག་གཞི་བསྒྱུར་འབད།"
 
-#: ../plugins/document-manager/plugin.c:198
+#: ../plugins/document-manager/plugin.c:199
 msgid "Convert EOL to Majority EOL"
 msgstr "ཨི་ཨོ་ཨེལ་ ཨི་ཨོ་ཨེལ་ཤུགས་ཅན་ལུ་གཞི་བསྒྱུར་འབད།"
 
-#: ../plugins/document-manager/plugin.c:199
+#: ../plugins/document-manager/plugin.c:200
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr "ཡིག་སྣོད་འདི་ནང་ཐོབ་ཡོད་མི་ཨི་ཨོ་ཨེལ་འདི་གི་ཤུགས་ཅན་ལུ་གྱལ་ཡིག་འབྲུ་ཚུ་གི་མཇུག་གཞི་བསྒྱུར་འབད།"
 
-#: ../plugins/document-manager/plugin.c:204
+#: ../plugins/document-manager/plugin.c:205
 msgid "_Select"
 msgstr "སེལ་འཐུ་འབད་ནི།(_S)"
 
-#: ../plugins/document-manager/plugin.c:205
+#: ../plugins/document-manager/plugin.c:206
 msgid "Select _All"
 msgstr "ཆ་མཉམ་སེལ་འཐུ་འབད་ནི།(_A)"
 
-#: ../plugins/document-manager/plugin.c:206
+#: ../plugins/document-manager/plugin.c:207
 msgid "Select all text in the editor"
 msgstr "ཞུན་དགཔ་འདི་ནང་ཚིག་ཡིག་ཆ་མཉམ་སེལ་འཐུ་འབད།"
 
-#: ../plugins/document-manager/plugin.c:208
+#: ../plugins/document-manager/plugin.c:209
 msgid "Select to _Brace"
 msgstr "གུག་ཤད་ལུ་སེལ་འཐུ་འབད།(_B)"
 
-#: ../plugins/document-manager/plugin.c:209
+#: ../plugins/document-manager/plugin.c:210
 msgid "Select the text in the matching braces"
 msgstr "མཐུན་སྒྲིག་འབད་མི་གུག་ཤད་ཚུ་ནང་ཚིག་ཡིག་འདི་སེལ་འཐུ་འབད་ནི།"
 
-#: ../plugins/document-manager/plugin.c:211
+#: ../plugins/document-manager/plugin.c:212
 msgid "Select _Code Block"
 msgstr "ཨང་རྟགས་ལེམ་དུམ་སེལ་འཐུ་འབད་ནི།(_C)"
 
-#: ../plugins/document-manager/plugin.c:213
+#: ../plugins/document-manager/plugin.c:214
 msgid "Select the current code block"
 msgstr "ད་ལྟོའི་ཨང་རྟགས་ལེབ་དུམ་སེལ་འཐུ་འབད།"
 
-#: ../plugins/document-manager/plugin.c:218
+#: ../plugins/document-manager/plugin.c:219
 msgid "Co_mment"
 msgstr "བསམ་བཀོད།(_m)"
 
-#: ../plugins/document-manager/plugin.c:219
+#: ../plugins/document-manager/plugin.c:220
 msgid "_Block Comment/Uncomment"
 msgstr "བསམ་བཀོད་བཀག/བསམ་བཀོད་བཤོལ།(_B)"
 
-#: ../plugins/document-manager/plugin.c:220
+#: ../plugins/document-manager/plugin.c:221
 msgid "Block comment the selected text"
 msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་འདི་ལེབ་དུམ་བསམ་བཀོད།"
 
-#: ../plugins/document-manager/plugin.c:222
+#: ../plugins/document-manager/plugin.c:223
 msgid "Bo_x Comment/Uncomment"
 msgstr "བསམ་བཀོད་སྒྲོམ/བསམ་བཀོད་བཤོལ།(_x)"
 
-#: ../plugins/document-manager/plugin.c:223
+#: ../plugins/document-manager/plugin.c:224
 msgid "Box comment the selected text"
 msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་འདི་བསམ་བཀོད་སྒྲོམ།"
 
-#: ../plugins/document-manager/plugin.c:225
+#: ../plugins/document-manager/plugin.c:226
 msgid "_Stream Comment/Uncomment"
 msgstr "རྒྱུན་རིམ་བསམ་བཀོད/བསམ་བཀོད་བཤོལ།(_S)"
 
-#: ../plugins/document-manager/plugin.c:226
+#: ../plugins/document-manager/plugin.c:227
 msgid "Stream comment the selected text"
 msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་འདི་རྒྱུན་རིམ་བསམ་བཀོད།"
 
-#: ../plugins/document-manager/plugin.c:232
+#: ../plugins/document-manager/plugin.c:233
 msgid "_Goto Line number"
 msgstr "གྱལ་ཨང་ལུ་འགྱོ།(_G)"
 
-#: ../plugins/document-manager/plugin.c:234
-#: ../plugins/document-manager/plugin.c:238
+#: ../plugins/document-manager/plugin.c:235
+#: ../plugins/document-manager/plugin.c:239
 msgid "Go to a particular line in the editor"
 msgstr "ཞུན་དགཔ་འདི་ནང་བྱེ་བྲག་གྱལ་ཅིག་ལུ་འགྱོ།"
 
-#: ../plugins/document-manager/plugin.c:236
+#: ../plugins/document-manager/plugin.c:237
 msgid "_Line Number..."
 msgstr "གྱལ་ཨང་།(_L)་་་"
 
-#: ../plugins/document-manager/plugin.c:240
+#: ../plugins/document-manager/plugin.c:241
 msgid "Matching _Brace"
 msgstr "གུག་ཤད་མཐུན་སྒྲིག་འབད་དོ།(_B)"
 
-#: ../plugins/document-manager/plugin.c:242
+#: ../plugins/document-manager/plugin.c:243
 msgid "Go to the matching brace in the editor"
 msgstr "ཞུན་དགཔ་འདི་ནང་མཐུན་སྒྲིག་འབད་མི་གུག་ཤད་འདི་ལུ་འགྱོ།"
 
-#: ../plugins/document-manager/plugin.c:244
+#: ../plugins/document-manager/plugin.c:245
 msgid "_Start of Block"
 msgstr "ལེབ་དུམ་གྱི་འགོ་བཙུགས།(_S)"
 
-#: ../plugins/document-manager/plugin.c:246
+#: ../plugins/document-manager/plugin.c:247
 msgid "Go to the start of the current block"
 msgstr "ད་ལྟོའི་དེབ་འདི་གི་འགོ་བཙུགས་ལུ་འགྱོ།"
 
-#: ../plugins/document-manager/plugin.c:248
+#: ../plugins/document-manager/plugin.c:249
 msgid "_End of Block"
 msgstr "ལེབ་དུམ་གྱི་མཇུག(_E)"
 
-#: ../plugins/document-manager/plugin.c:250
+#: ../plugins/document-manager/plugin.c:251
 msgid "Go to the end of the current block"
 msgstr "ད་ལྟོའི་དེབ་འདི་གི་མཇུག་ལུ་འགྱོ།"
 
-#: ../plugins/document-manager/plugin.c:252
+#: ../plugins/document-manager/plugin.c:253
 msgid "Previous _History"
 msgstr "ཧེ་མམ་གྱི་ལོ་རྒྱུས།(_H)"
 
-#: ../plugins/document-manager/plugin.c:254
+#: ../plugins/document-manager/plugin.c:255
 msgid "Goto previous history"
 msgstr "ཧེ་མམ་གྱི་ལོ་རྒྱུས་ལུ་འགྱོ།"
 
-#: ../plugins/document-manager/plugin.c:256
+#: ../plugins/document-manager/plugin.c:257
 msgid "Next Histor_y"
 msgstr "ཤུལ་མམ་གྱི་ལོ་རྒྱུས།(_y)"
 
-#: ../plugins/document-manager/plugin.c:258
+#: ../plugins/document-manager/plugin.c:259
 msgid "Goto next history"
 msgstr "ཤུལ་མམ་གྱི་ལོ་རྒྱུས་ལུ་འགྱོ།"
 
-#: ../plugins/document-manager/plugin.c:263
+#: ../plugins/document-manager/plugin.c:264
 #: ../plugins/gtodo/interface.c:170
 #: ../plugins/tools/anjuta-tools.glade.h:18
 #: ../plugins/valgrind/vgrule-list.c:405
 #: ../src/anjuta-actions.h:30
 #: ../src/shell.c:75
-#: ../plugins/language-support-cpp-java/plugin.c:1253
+#: ../plugins/language-support-cpp-java/plugin.c:1295
 msgid "_Edit"
 msgstr "ཞུན་དག(_E)"
 
-#: ../plugins/document-manager/plugin.c:264
+#: ../plugins/document-manager/plugin.c:265
 msgid "_Editor"
 msgstr "ཞུན་དགཔ།(_E)"
 
-#: ../plugins/document-manager/plugin.c:265
+#: ../plugins/document-manager/plugin.c:266
 msgid "_Add Editor View"
 msgstr "ཞུན་དགཔ་ཁ་སྐོང་སྟོན།(_A)"
 
-#: ../plugins/document-manager/plugin.c:266
+#: ../plugins/document-manager/plugin.c:267
 msgid "Add one more view of current document"
 msgstr "ད་ལྟོའི་ཡིག་ཆའི་ཁ་སྐོང་ཧེང་བཀེལ་གཅིག་སྟོན།"
 
-#: ../plugins/document-manager/plugin.c:268
+#: ../plugins/document-manager/plugin.c:269
 msgid "_Remove Editor View"
 msgstr "ཞུན་དགཔ་སྟོན་རྩ་བསྐྲད་གཏང་།(_R)"
 
-#: ../plugins/document-manager/plugin.c:269
+#: ../plugins/document-manager/plugin.c:270
 msgid "Remove current view of the document"
 msgstr "ཡིག་ཆའི་ད་ལྟོའི་མཐོང་སྣང་རྩ་བསྐྲད་གཏང་།"
 
-#: ../plugins/document-manager/plugin.c:271
+#: ../plugins/document-manager/plugin.c:272
 msgid "U_ndo"
 msgstr "འབད་བཤོལ།(_n)"
 
-#: ../plugins/document-manager/plugin.c:272
+#: ../plugins/document-manager/plugin.c:273
 msgid "Undo the last action"
 msgstr "མཇུག་གི་བྱ་བ་འདི་འབད་བཤོལ།"
 
-#: ../plugins/document-manager/plugin.c:274
+#: ../plugins/document-manager/plugin.c:275
 #: ../plugins/glade/plugin.c:120
-#: ../plugins/glade/plugin.c:493
+#: ../plugins/glade/plugin.c:496
 msgid "_Redo"
 msgstr "ལོག་འབད།(_R)"
 
-#: ../plugins/document-manager/plugin.c:275
+#: ../plugins/document-manager/plugin.c:276
 msgid "Redo the last undone action"
 msgstr "མཇུག་གི་འབད་བཤོལ་ཡོད་མི་འདི་ལོག་འབད།"
 
-#: ../plugins/document-manager/plugin.c:277
+#: ../plugins/document-manager/plugin.c:278
 msgid "C_ut"
 msgstr "བཏོག(_u)"
 
-#: ../plugins/document-manager/plugin.c:278
+#: ../plugins/document-manager/plugin.c:279
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "ཞུན་དགཔ་ལས་འཛིན་དཔང་ལུ་སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་འདི་བཏོག"
 
-#: ../plugins/document-manager/plugin.c:280
-#: ../plugins/glade/plugin.c:509
+#: ../plugins/document-manager/plugin.c:281
+#: ../plugins/glade/plugin.c:512
 #: ../plugins/valgrind/vgdefaultview.c:1153
 msgid "_Copy"
 msgstr "འདྲ་བཤུས་བརྐྱབ།(_C)"
 
-#: ../plugins/document-manager/plugin.c:281
+#: ../plugins/document-manager/plugin.c:282
 msgid "Copy the selected text to the clipboard"
 msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་འདི་འཛིན་དཔང་འདི་ལུ་འདྲ་བཤུས་བརྐྱབ།"
 
-#: ../plugins/document-manager/plugin.c:283
-#: ../plugins/glade/plugin.c:517
+#: ../plugins/document-manager/plugin.c:284
+#: ../plugins/glade/plugin.c:520
 #: ../plugins/valgrind/vgdefaultview.c:1154
 msgid "_Paste"
 msgstr "སྦྱར།(_P)"
 
-#: ../plugins/document-manager/plugin.c:284
+#: ../plugins/document-manager/plugin.c:285
 msgid "Paste the content of clipboard at the current position"
 msgstr "ད་ལྟོའི་གནས་ས་འདི་ལུ་འཛིན་དཔང་གི་ནང་དོན་འདི་སྦྱར།"
 
-#: ../plugins/document-manager/plugin.c:286
+#: ../plugins/document-manager/plugin.c:287
 msgid "_Clear"
 msgstr "བསལ།(_C)"
 
-#: ../plugins/document-manager/plugin.c:287
+#: ../plugins/document-manager/plugin.c:288
 msgid "Delete the selected text from the editor"
 msgstr "ཞུན་དགཔ་ལས་སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་འདི་བཏོན་གཏང།"
 
-#: ../plugins/document-manager/plugin.c:289
+#: ../plugins/document-manager/plugin.c:290
 msgid "_AutoComplete"
 msgstr "རང་བཞིན་གྱིས་མཇུག་བསྡུ།(_A)"
 
-#: ../plugins/document-manager/plugin.c:291
+#: ../plugins/document-manager/plugin.c:292
 msgid "AutoComplete the current word"
 msgstr "ད་ལྟོའི་མིང་ཚིག་འདི་རང་བཞིན་གྱིས་མཇུག་བསྡུ།"
 
-#: ../plugins/document-manager/plugin.c:296
+#: ../plugins/document-manager/plugin.c:297
 msgid "_Line Number Margin"
 msgstr "གྱལ་ཨང་ས་སྟོང་།(_L)"
 
-#: ../plugins/document-manager/plugin.c:297
+#: ../plugins/document-manager/plugin.c:298
 msgid "Show/Hide line numbers"
 msgstr "སྦ་ཡོད་མི་/གྱལ་ཨང་ཚུ་སྟོན།"
 
-#: ../plugins/document-manager/plugin.c:299
+#: ../plugins/document-manager/plugin.c:300
 msgid "_Marker Margin"
 msgstr "རྟགས་བཀོདཔ་ས་སྟོང་།(_M)"
 
-#: ../plugins/document-manager/plugin.c:300
+#: ../plugins/document-manager/plugin.c:301
 msgid "Show/Hide marker margin"
 msgstr "སྦ་/བའི་རྟགས་བཀོདཔ་ས་སྟོང་སྟོན།"
 
-#: ../plugins/document-manager/plugin.c:302
+#: ../plugins/document-manager/plugin.c:303
 msgid "_Code Fold Margin"
 msgstr "ཨང་རྟགས་བལྟབས་མཚམས་ཀྱི་ས་སྟོང་།(_C)"
 
-#: ../plugins/document-manager/plugin.c:303
+#: ../plugins/document-manager/plugin.c:304
 msgid "Show/Hide code fold margin"
 msgstr "སྦ་ཡོད་མི་ཨང་རྟགས་བལྟབས་མཚམས་ཀྱི་ས་སྟོང་/སྟོན།"
 
-#: ../plugins/document-manager/plugin.c:305
+#: ../plugins/document-manager/plugin.c:306
 msgid "_Indentation Guides"
 msgstr "འགོ་མཚམས་བཀལ་ནི་ལམ་སྟོན་ཚུ།(_I)"
 
-#: ../plugins/document-manager/plugin.c:306
+#: ../plugins/document-manager/plugin.c:307
 msgid "Show/Hide indentation guides"
 msgstr "སྦ་/བའི་འགོ་མཚམས་བཀལ་ནི་ལམ་སྟོན་ཚུ་སྟོན།"
 
-#: ../plugins/document-manager/plugin.c:308
+#: ../plugins/document-manager/plugin.c:309
 msgid "_White Space"
 msgstr "བར་སྟོང་དཀརཔོ།(_W)"
 
-#: ../plugins/document-manager/plugin.c:309
+#: ../plugins/document-manager/plugin.c:310
 msgid "Show/Hide white spaces"
 msgstr "སྦ་/བའི་བར་སྟོང་དཀརཔོ་ཚུ་སྟོན།"
 
-#: ../plugins/document-manager/plugin.c:311
+#: ../plugins/document-manager/plugin.c:312
 msgid "_Line End Characters"
 msgstr "གྱལ་མཇུག་ཡིག་འབྲུ་ཚུ།(_L)"
 
-#: ../plugins/document-manager/plugin.c:312
+#: ../plugins/document-manager/plugin.c:313
 msgid "Show/Hide line end characters"
 msgstr "སྦ་/བའི་གྱལ་མཇུག་ཡིག་འབྲུ་ཚུ་སྟོན།"
 
-#: ../plugins/document-manager/plugin.c:314
+#: ../plugins/document-manager/plugin.c:315
 msgid "Line _Wrapping"
 msgstr "གྱལ་ལོག་མཚམས་བཟོ་ནི།(_W)"
 
-#: ../plugins/document-manager/plugin.c:315
+#: ../plugins/document-manager/plugin.c:316
 msgid "Enable/disable line wrapping"
 msgstr "གྱལ་ལོག་མཚམ་བཟོ་ནི་ལྕོགས་ཅན་/ལྕོགས་མིན་བཟོ།"
 
-#: ../plugins/document-manager/plugin.c:320
+#: ../plugins/document-manager/plugin.c:321
 msgid "Zoom In"
 msgstr "ཕྱིར་རྒྱས།"
 
-#: ../plugins/document-manager/plugin.c:321
+#: ../plugins/document-manager/plugin.c:322
 msgid "Zoom in: Increase font size"
 msgstr "ཕྱིར་རྒྱས་ ཡིག་གཟུགས་ཀྱི་ཚད་ཡར་འཕར།"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:324
 msgid "Zoom Out"
 msgstr "ནང་རྒྱས།"
 
-#: ../plugins/document-manager/plugin.c:324
+#: ../plugins/document-manager/plugin.c:325
 msgid "Zoom out: Decrease font size"
 msgstr "ནང་རྒྱས་ ཡིག་གཟུགས་ཀྱི་ཚད་མར་ཕབ།"
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:330
 msgid "_Highlight Mode"
 msgstr "ཐབས་ལམ་གཙོ་དམིགས་བཟོ།(_H)"
 
-#: ../plugins/document-manager/plugin.c:333
+#: ../plugins/document-manager/plugin.c:334
 msgid "For_mat"
 msgstr "རྩ་སྒྲིག(_m)"
 
-#: ../plugins/document-manager/plugin.c:334
+#: ../plugins/document-manager/plugin.c:335
 msgid "Auto _Format"
 msgstr "རང་བཞིན་གྱིས་རྩ་སྒྲིག(_F)"
 
-#: ../plugins/document-manager/plugin.c:336
+#: ../plugins/document-manager/plugin.c:337
 msgid "Autoformat the current source file"
 msgstr "ད་ལྟོའི་འབྱུང་ཁུངས་ཡིག་སྣོད་འདི་རང་བཞིན་གྱིས་རྩ་སྒྲིག"
 
@@ -3533,176 +3609,176 @@ msgstr "ད་ལྟོའི་འབྱུང་ཁུངས་ཡིག་ས
 #. N_("Decrease indentation of line/selection"),
 #. G_CALLBACK (on_editor_command_indent_decrease_activate)},
 #.
-#: ../plugins/document-manager/plugin.c:352
+#: ../plugins/document-manager/plugin.c:353
 msgid "_Close All Folds"
 msgstr "བལྟབས་མཚམས་ཚུ་ཆ་མཉམ་ཁ་བསྡམ།(_C)"
 
-#: ../plugins/document-manager/plugin.c:354
+#: ../plugins/document-manager/plugin.c:355
 msgid "Close all code folds in the editor"
 msgstr "ཞུན་དགཔ་ནང་ཨང་རྟགས་བལྟབས་མཚམས་ཚུ་ཆ་མཉམ་བསྡམ།"
 
-#: ../plugins/document-manager/plugin.c:356
+#: ../plugins/document-manager/plugin.c:357
 msgid "_Open All Folds"
 msgstr "བལྟབས་མཚམས་ཚེ་ཆ་མཉམ་ཁ་ཕྱེ།(_O)"
 
-#: ../plugins/document-manager/plugin.c:358
+#: ../plugins/document-manager/plugin.c:359
 msgid "Open all code folds in the editor"
 msgstr "ཞུན་དགཔ་ནང་ཨང་རྟགས་བལྟབས་མཚམས་ཚུ་ཆ་མཉམ་ཁ་ཕྱེ།"
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:361
 msgid "_Toggle Current Fold"
 msgstr "ད་ལྟོའི་བལྟབས་མཚམས་སོར་སྟོན་འབད།(_T)"
 
-#: ../plugins/document-manager/plugin.c:362
+#: ../plugins/document-manager/plugin.c:363
 msgid "Toggle current code fold in the editor"
 msgstr "ཞུན་དགཔ་ནང་ད་ལྟོའི་ཨང་རྟགས་བལྟབས་མཚམས་སོར་སྟོན་འབད།"
 
-#: ../plugins/document-manager/plugin.c:367
+#: ../plugins/document-manager/plugin.c:368
 msgid "Bookmar_k"
 msgstr "དེབ་རྟགས།(_k)"
 
-#: ../plugins/document-manager/plugin.c:368
+#: ../plugins/document-manager/plugin.c:369
 msgid "_Toggle Bookmark"
 msgstr "དེབ་རྟགས་སོར་སྟོན་འབད།(_T)"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:371
 msgid "Toggle a bookmark at the current line position"
 msgstr "ད་ལྟོའི་གྱལ་གནས་ས་འདི་ལུ་དེབ་རྟགས་ཅིག་སོར་སྟོན་འབད།"
 
-#: ../plugins/document-manager/plugin.c:372
+#: ../plugins/document-manager/plugin.c:373
 msgid "_First Bookmark"
 msgstr "དེབ་རྟགས་དང་པམ།(_F)"
 
-#: ../plugins/document-manager/plugin.c:374
+#: ../plugins/document-manager/plugin.c:375
 msgid "Jump to the first bookmark in the file"
 msgstr "ཡིག་སྣོད་འདི་ནང་དེབ་རྟགས་དང་པམ་འདི་ལུ་མཆོངས།"
 
-#: ../plugins/document-manager/plugin.c:376
+#: ../plugins/document-manager/plugin.c:377
 msgid "_Previous Bookmark"
 msgstr "ཧེ་མམ་གྱི་དེབ་རྟགས།(_P)"
 
-#: ../plugins/document-manager/plugin.c:378
+#: ../plugins/document-manager/plugin.c:379
 msgid "Jump to the previous bookmark in the file"
 msgstr "ཡིག་སྣོད་འདི་ནང་ཧེ་མམ་གྱི་དེབ་རྟགས་འདི་ལུ་མཆོངས།"
 
-#: ../plugins/document-manager/plugin.c:380
+#: ../plugins/document-manager/plugin.c:381
 msgid "_Next Bookmark"
 msgstr "ཤུལ་མམ་གྱི་དེབ་རྟགས།(_N)"
 
-#: ../plugins/document-manager/plugin.c:382
+#: ../plugins/document-manager/plugin.c:383
 msgid "Jump to the next bookmark in the file"
 msgstr "ཡིག་སྣོད་འདི་ནང་ཤུལ་མམ་གྱི་དེབ་རྟགས་འདི་ལུ་མཆོངས།"
 
-#: ../plugins/document-manager/plugin.c:384
+#: ../plugins/document-manager/plugin.c:385
 msgid "_Last Bookmark"
 msgstr "མཇུག་གི་དེབ་རྟགས།(_L)"
 
-#: ../plugins/document-manager/plugin.c:386
+#: ../plugins/document-manager/plugin.c:387
 msgid "Jump to the last bookmark in the file"
 msgstr "ཡིག་སྣོད་འདི་ནང་མཇུག་གི་དེབ་རྟགས་འདི་ལུ་མཆོངས།"
 
-#: ../plugins/document-manager/plugin.c:388
+#: ../plugins/document-manager/plugin.c:389
 msgid "_Clear All Bookmarks"
 msgstr "དེབ་རྟགས་ཚུ་ཆ་མཉམ་ཕསལ།(_C)"
 
-#: ../plugins/document-manager/plugin.c:390
+#: ../plugins/document-manager/plugin.c:391
 msgid "Clear bookmarks"
 msgstr "དེབ་རྟགས་ཚུ་བསལ།"
 
-#: ../plugins/document-manager/plugin.c:409
+#: ../plugins/document-manager/plugin.c:410
 msgid "Editor file operations"
 msgstr "ཞུན་དག་པའི་ཡིག་སྣོད་བཀོལ་སྤྱོད་ཚུ།"
 
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:411
 msgid "Editor print operations"
 msgstr "ཞུན་དག་པའི་དཔར་བསྐྲུན་བཀོལ་སྤྱོད་ཚུ།"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:412
 msgid "Editor text transformation"
 msgstr "ཞུན་དག་པའི་ཚིག་ཡིག་བཟོ་བསྒྱུར།"
 
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:413
 msgid "Editor text selection"
 msgstr "ཞུན་དག་པའི་ཚིག་ཡིག་སེལ་འཐུ།"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor code commenting"
 msgstr "ཞུན་དག་པའི་ཨང་རྟགས་བསམ་བཀོད་འབད་དོ།"
 
-#: ../plugins/document-manager/plugin.c:415
+#: ../plugins/document-manager/plugin.c:416
 msgid "Editor navigations"
 msgstr "ཞུན་དག་པའི་འགྲུལ་བསྐྱོད་ཚུ།"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:417
 msgid "Editor edit operations"
 msgstr "ཞུན་དག་པའི་ཞུན་དག་བཀོལ་སྤྱོད་ཚུ།"
 
-#: ../plugins/document-manager/plugin.c:417
+#: ../plugins/document-manager/plugin.c:418
 msgid "Editor zoom operations"
 msgstr "ཞུན་དག་པའི་བཟུམ་བཀོལ་སྤྱོད་ཚུ།"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:419
 msgid "Editor syntax highlighting styles"
 msgstr "ཚིག་སྦྱོར་གཙོ་དམིགས་བཀོད་ནི་བཟོ་རྣམ་ཚུ་ཞུན་དགཔ།"
 
-#: ../plugins/document-manager/plugin.c:419
+#: ../plugins/document-manager/plugin.c:420
 msgid "Editor text formating"
 msgstr "ཞུན་དག་པའི་ཚིག་ཡིག་རྩ་སྒྲིག་འབད་དོ།"
 
-#: ../plugins/document-manager/plugin.c:420
+#: ../plugins/document-manager/plugin.c:421
 msgid "Editor bookmarks"
 msgstr "ཞུན་དག་པའི་དེབ་རྟགས་ཚུ།"
 
-#: ../plugins/document-manager/plugin.c:424
+#: ../plugins/document-manager/plugin.c:425
 msgid "Editor view settings"
 msgstr "ཞུན་དག་པའི་མཐོང་སྣང་སྒྲིག་སྟངས་ཚུ།"
 
-#: ../plugins/document-manager/plugin.c:508
+#: ../plugins/document-manager/plugin.c:509
 msgid "Reload"
 msgstr "ཡང་བསྐྱར་མངོན་གསལ།"
 
-#: ../plugins/document-manager/plugin.c:514
+#: ../plugins/document-manager/plugin.c:515
 msgid "Goto"
 msgstr "ལུ་འགྱོ།"
 
-#: ../plugins/document-manager/plugin.c:828
+#: ../plugins/document-manager/plugin.c:832
 msgid "OVR"
 msgstr "ཨོ་ཝི་ཨཡ།"
 
-#: ../plugins/document-manager/plugin.c:832
+#: ../plugins/document-manager/plugin.c:836
 msgid "INS"
 msgstr "ཨའི་ཨེན་ཨེསི།"
 
-#: ../plugins/document-manager/plugin.c:834
-#: ../plugins/document-manager/plugin.c:845
+#: ../plugins/document-manager/plugin.c:838
+#: ../plugins/document-manager/plugin.c:849
 msgid "Zoom"
 msgstr "རྒྱས་ཟུམ།"
 
-#: ../plugins/document-manager/plugin.c:836
-#: ../plugins/document-manager/plugin.c:847
+#: ../plugins/document-manager/plugin.c:840
+#: ../plugins/document-manager/plugin.c:851
 msgid "Col"
 msgstr "སི་ཨོ་ཨེལ།"
 
-#: ../plugins/document-manager/plugin.c:837
-#: ../plugins/document-manager/plugin.c:848
+#: ../plugins/document-manager/plugin.c:841
+#: ../plugins/document-manager/plugin.c:852
 msgid "Mode"
 msgstr "ཐབས་ལམ།"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:914
+#: ../plugins/document-manager/plugin.c:918
 msgid "Automatic"
 msgstr "རང་བཞིན་གྱིས།"
 
-#: ../plugins/document-manager/plugin.c:1506
+#: ../plugins/document-manager/plugin.c:1517
 msgid "Goto line"
 msgstr "གྱལ་ལུ་འགྱོ།"
 
-#: ../plugins/document-manager/plugin.c:1507
+#: ../plugins/document-manager/plugin.c:1518
 msgid "Enter the line number to jump and press enter"
 msgstr "མཆོང་ནི་ལུ་གྱལ་ཨང་འདི་བཙུགས་སྦེ་ བཙུགས་ཨེབ།"
 
-#: ../plugins/document-manager/plugin.c:1516
+#: ../plugins/document-manager/plugin.c:1527
 msgid "Editor quick navigations"
 msgstr "ཞུན་དགཔ་འཕྲལ་མགྱོགས་འགྲུལ་བསྐྱོད་ཚུ།"
 
@@ -3712,17 +3788,16 @@ msgid "<b>Autocompletion</b>"
 msgstr "<b>རང་བཞིན་ཡོངས་སྒྲུབ།</b>"
 
 #: ../plugins/editor/editor.glade.h:2
+msgid "<b>Basic Indentation</b>"
+msgstr "<b>གཞི་རིམ་འགོ་མཚམས་བཀལ་བ།</b>"
+
+#: ../plugins/editor/editor.glade.h:3
 msgid "<b>Code folding</b>"
 msgstr "<b>ཨང་རྟགས་བལྟབས་མཚམས།</b>"
 
-#: ../plugins/editor/editor.glade.h:3
+#: ../plugins/editor/editor.glade.h:4
 msgid "<b>Highlight style</b>"
 msgstr "<b>གཙོ་དམིགས་བཟོ་རྣམ</b>"
-
-#: ../plugins/editor/editor.glade.h:4
-#: ../plugins/sourceview/sourceview.glade.h:4
-msgid "<b>Indentation and auto-format options</b>"
-msgstr "<b>འགོ་མཚམས་བཀལ་ནི་དང་རང་བཞིན་རྩ་སྒྲིག་གདམ་ཁ་ཚུ་</b>"
 
 #: ../plugins/editor/editor.glade.h:5
 #: ../plugins/sourceview/sourceview.glade.h:5
@@ -3749,25 +3824,25 @@ msgid "Add page header"
 msgstr "ཤོག་ལེབ་མགོ་ཡིག་ཁ་སྐོང་བརྐྱབ།"
 
 #: ../plugins/editor/editor.glade.h:10
-msgid "Arrows"
-msgstr "མདའ་རྟགས་ཚུ་"
-
-#: ../plugins/editor/editor.glade.h:11
 msgid "Attributes:"
 msgstr "ཁྱད་ཆོས་ཚུ་"
 
-#: ../plugins/editor/editor.glade.h:12
+#: ../plugins/editor/editor.glade.h:11
 msgid "Autocomplete XML/HTML closing tags"
 msgstr "རང་བཞིན་མཇུག་བསྡུ་ཨེགསི་ཨེམ་ཨེལ་/ཨེཆ་ཊི་ཨེམ་ཨེལ་ཁ་བསྡམ་ནི་ངོ་རྟགས་ཚུ།"
 
-#: ../plugins/editor/editor.glade.h:13
+#: ../plugins/editor/editor.glade.h:12
 #: ../plugins/sourceview/sourceview.glade.h:9
 msgid "Autocompletion pop up choices"
 msgstr "རང་བཞིན་ཡོངས་སྒྲུབ་པོཔ་ཨཔ་གདམ་ཁ་ཚུ།"
 
-#: ../plugins/editor/editor.glade.h:14
+#: ../plugins/editor/editor.glade.h:13
 msgid "Back color:"
 msgstr "རྒྱབ་ཀྱི་ཚོས་གཞི།"
+
+#: ../plugins/editor/editor.glade.h:14
+msgid "Basic Indentation"
+msgstr "གཞི་རིམ་འགོ་མཚམས་བཀལ་བ།"
 
 #: ../plugins/editor/editor.glade.h:15
 msgid "Bold"
@@ -3790,227 +3865,213 @@ msgid "Choose autocomplete for single match"
 msgstr "མཐུན་སྒྲིག་རྐྱང་པའི་དོན་ལུ་རང་བཞིན་མཇུག་བསྡུ་གདམ།"
 
 #: ../plugins/editor/editor.glade.h:20
-msgid "Circular"
-msgstr "ཐད་སྒོརམ།"
-
-#: ../plugins/editor/editor.glade.h:21
 msgid "Collapse all code folds on file open"
 msgstr "ཨང་རྟགས་བལྟབས་མཚམས་ཚུ་ཆ་མཉམ་ཡིག་སྣོད་ཁ་ཕྱེ་གུ་ཧྲམ།"
 
-#: ../plugins/editor/editor.glade.h:22
+#: ../plugins/editor/editor.glade.h:21
 msgid "Colors & Fonts"
 msgstr "ཚོས་གཞི་ ཡིག་གཟུགས།(&)"
 
-#: ../plugins/editor/editor.glade.h:23
+#: ../plugins/editor/editor.glade.h:22
 #: ../plugins/sourceview/sourceview.glade.h:11
 msgid "Colour"
 msgstr "ཚོས་གཞི།"
 
-#: ../plugins/editor/editor.glade.h:24
+#: ../plugins/editor/editor.glade.h:23
 msgid "Compact folding"
 msgstr "སྲབ་ཆུང་བལྟབས་མཚམས།"
 
-#: ../plugins/editor/editor.glade.h:25
+#: ../plugins/editor/editor.glade.h:24
 #: ../plugins/sourceview/sourceview.glade.h:12
 msgid "Disable syntax highlighting"
 msgstr "ཚིག་སྦྱོར་གཙོ་དམིགས་བཟོ་ནི་ལྕོགས་མིན་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:26
+#: ../plugins/editor/editor.glade.h:25
 msgid "Draw line below folded lines"
 msgstr "བལྟབས་མཚམས་འབད་ཡོད་མི་གྱལ་ཚུ་གི་འོག་ལུ་གྱལ་འབྲི།"
 
-#: ../plugins/editor/editor.glade.h:27
+#: ../plugins/editor/editor.glade.h:26
 msgid "Edge column"
 msgstr "མཐའམ་ཀེར་ཐིག"
 
-#: ../plugins/editor/editor.glade.h:28
+#: ../plugins/editor/editor.glade.h:27
 #: ../plugins/sourceview/sourceview.glade.h:13
 msgid "Editor"
 msgstr "ཞུན་དགཔ།"
 
-#: ../plugins/editor/editor.glade.h:29
+#: ../plugins/editor/editor.glade.h:28
 msgid "Editor caret (cursor) width in pixels"
 msgstr "པིག་སེལ་ཚུ་ནང་(འོག་རྟགས)ཞུན་དགཔ་ཀེ་རེཊི་རྒྱ་ཚད།"
 
-#: ../plugins/editor/editor.glade.h:30
+#: ../plugins/editor/editor.glade.h:29
 msgid "Enable HTML tags folding"
 msgstr "ཨེཆ་ཊི་ཨེམ་ཨེལ་ངོ་རྟགས་བལྟབས་མཚམས་ལྕོགས་ཅན་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:31
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
+#: ../plugins/editor/editor.glade.h:30
 msgid "Enable automatic indentation"
 msgstr "རང་བཞིན་གྱིས་འགོ་མཚམས་ལྕོགས་ཅན་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:32
+#: ../plugins/editor/editor.glade.h:31
 #: ../plugins/sourceview/sourceview.glade.h:15
 msgid "Enable braces check"
 msgstr "གུག་ཤད་ཞིབ་དཔྱད་འབད་ནི་ལྕོགས་ཅན་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:33
+#: ../plugins/editor/editor.glade.h:32
 msgid "Enable code folding"
 msgstr "ཨང་རྟགས་བལྟབས་མཚམས་ལྕོགས་ཅན་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:34
+#: ../plugins/editor/editor.glade.h:33
 msgid "Enable comments folding"
 msgstr "བསམ་བཀོད་བལྟབས་མཚམས་ལྕོགས་ཅན་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:35
+#: ../plugins/editor/editor.glade.h:34
 #: ../plugins/sourceview/sourceview.glade.h:17
 msgid "Enable line wrap"
 msgstr "གྱལ་ལོག་མཚམས་ལྕོགས་ཅན་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:36
+#: ../plugins/editor/editor.glade.h:35
 msgid "Enable python comments folding"
 msgstr "པའི་ཐོན་བསམ་བཀོད་བལྟབས་མཚམས་ལྕོགས་ཅན་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:37
+#: ../plugins/editor/editor.glade.h:36
 msgid "Enable python quoted strings folding"
 msgstr "པའི་ཐོན་འདྲེན་རྟགས་ནང་བཙུགས་ཡོད་མི་ཡིག་རྒྱུན་བལྟབས་མཚམས་ལྕོགས་ཅན་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:38
+#: ../plugins/editor/editor.glade.h:37
 msgid "Filter extraneous characters in DOS mode"
 msgstr "ཌི་ཨོ་ཨེསི་ཐབས་ལམ་ནང་ཕྱི་ཁའི་ཡིག་འབྲུ་ཚུ་ཚགས་མ་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:39
+#: ../plugins/editor/editor.glade.h:38
 msgid "Fold style:"
 msgstr "བལྟབས་མཚམས་བཟོ་རྣམ།"
 
-#: ../plugins/editor/editor.glade.h:40
+#: ../plugins/editor/editor.glade.h:39
 msgid "Font:"
 msgstr "ཡིག་གཟུགས།"
 
-#: ../plugins/editor/editor.glade.h:41
+#: ../plugins/editor/editor.glade.h:40
 msgid "Fonts and colors for editor"
 msgstr "ཞུན་དགཔ་གི་དོན་ལུ་ཡིག་གཟུགས་ཚུ་དང་ཚོས་གཞི་ཚུ།"
 
-#: ../plugins/editor/editor.glade.h:42
+#: ../plugins/editor/editor.glade.h:41
 msgid "Fore color:"
 msgstr "སྔོན་གྱི་ཚོས་གཞི།"
 
-#: ../plugins/editor/editor.glade.h:43
+#: ../plugins/editor/editor.glade.h:42
 msgid "Indent closing braces"
 msgstr "ཁ་བསདམ་ནི་གུག་ཤད་ཚུ་འགོ་མཚམས་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:44
+#: ../plugins/editor/editor.glade.h:43
 msgid "Indent opening braces"
 msgstr "ཁ་ཕྱེ་མི་གུག་ཤད་ཚུ་འགོ་མཚམས་བཟོ།"
 
-#: ../plugins/editor/editor.glade.h:46
+#: ../plugins/editor/editor.glade.h:44
 #: ../plugins/sourceview/sourceview.glade.h:21
 msgid "Indentation size in spaces:"
 msgstr "བར་སྟོང་ཚུ་ནང་འགོ་མཚམས་བཀལ་ནི་ཚད།"
 
-#: ../plugins/editor/editor.glade.h:47
+#: ../plugins/editor/editor.glade.h:45
 msgid "Italic"
 msgstr "ཨི་ཊ་ལིཀ།"
 
-#: ../plugins/editor/editor.glade.h:48
+#: ../plugins/editor/editor.glade.h:46
 msgid "Line numbers margin width in pixels"
 msgstr "པིག་སེལ་ཚུ་ནང་གྱལ་ཨང་ཚུའི་ས་སྟོང་རྒྱ་ཚད།"
 
-#: ../plugins/editor/editor.glade.h:50
+#: ../plugins/editor/editor.glade.h:48
 msgid "Maintain past Indentation"
 msgstr "འདས་པའི་འགོ་མཚམས་བཀལ་ནི་རྒྱུན་སྐྱོང་འབད།"
 
-#: ../plugins/editor/editor.glade.h:51
+#: ../plugins/editor/editor.glade.h:49
 msgid "Margin Fold visible"
 msgstr "ས་སྟོང་བལྟབས་མཚམས་མཐོང་ཚུགསཔ།"
 
-#: ../plugins/editor/editor.glade.h:52
+#: ../plugins/editor/editor.glade.h:50
 msgid "Margin Linenum visible"
 msgstr "གྱལ་ཨང་མཐོང་ཚུགས་པའི་ས་སྟོང་།"
 
-#: ../plugins/editor/editor.glade.h:53
+#: ../plugins/editor/editor.glade.h:51
 msgid "Margin Marker visible"
 msgstr "རྟགས་བཀོདཔ་མཐོང་ཚུགས་པའི་ས་སྟོང་།"
 
-#: ../plugins/editor/editor.glade.h:54
+#: ../plugins/editor/editor.glade.h:52
 #: ../plugins/sourceview/sourceview.glade.h:23
 msgid "Mode:"
 msgstr "ཐབས་ལམ།"
 
-#: ../plugins/editor/editor.glade.h:55
+#: ../plugins/editor/editor.glade.h:53
 #: ../plugins/sourceview/sourceview.glade.h:24
 msgid "Monochrome"
 msgstr "མོ་ནོ་ཀོརོམ།"
 
-#: ../plugins/editor/editor.glade.h:56
-msgid "Plus/Minus"
-msgstr "བསྡོམས་རྟགས/ཕབ་རྟགས།"
-
-#: ../plugins/editor/editor.glade.h:57
+#: ../plugins/editor/editor.glade.h:54
 msgid "Pressing backspace un-indents"
 msgstr "རྒྱབ་བཤུད་འགོ་མཚམས་བཤོལ་ཨེབ་དོ།"
 
-#: ../plugins/editor/editor.glade.h:58
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:8
-msgid "Pressing tab indents"
-msgstr "མཆོང་ལྡེ་འགོ་མཚམས་ཚུ་ཨེབ་དོ།"
+#: ../plugins/editor/editor.glade.h:55
+msgid "Pressing tab inserts indentation"
+msgstr "འགོ་མཚམས་བཀལ་བ་བཙུགས་ནི་མཆོང་ལྡེ་ཨེབ་དོ།"
 
-#: ../plugins/editor/editor.glade.h:59
+#: ../plugins/editor/editor.glade.h:56
 #: ../plugins/sourceview/sourceview.glade.h:25
 msgid "Printing"
 msgstr "དཔར་བསྐྲུན་འབད་དོ།"
 
-#: ../plugins/editor/editor.glade.h:60
+#: ../plugins/editor/editor.glade.h:57
 msgid "Select highlight style to edit:"
 msgstr "ཞུན་དག་འབད་ནི་ལུ་གཙོག་དམིགས་བཟོ་རྣམ་སེལ་འཐུ་འབད།"
 
-#: ../plugins/editor/editor.glade.h:61
+#: ../plugins/editor/editor.glade.h:58
 msgid "Selection background:"
 msgstr "སེལ་འཐུའི་རྒྱབ་གཞི།"
 
-#: ../plugins/editor/editor.glade.h:62
+#: ../plugins/editor/editor.glade.h:59
 msgid "Selection foreground:"
 msgstr "སེལ་འཐུའི་གདོང་གཞི།"
 
-#: ../plugins/editor/editor.glade.h:63
-msgid "Squares"
-msgstr "གྲུ་བཞི་ནར་མོ།"
-
-#: ../plugins/editor/editor.glade.h:64
+#: ../plugins/editor/editor.glade.h:60
 msgid "Strip trailling spaces on file save"
 msgstr "ཡིག་སྣོད་སྲུང་བཞག་གུ་བར་སྟོང་རྒྱབ་ལུས་མི་བཤུབ།"
 
-#: ../plugins/editor/editor.glade.h:65
+#: ../plugins/editor/editor.glade.h:61
 #: ../plugins/sourceview/sourceview.glade.h:28
 msgid "Tab size in spaces:"
 msgstr "བར་སྟོང་ཚུ་ནང་མཆོང་ལྡེའི་ཚད།"
 
-#: ../plugins/editor/editor.glade.h:66
+#: ../plugins/editor/editor.glade.h:62
 msgid "Underlined"
 msgstr "འོག་ཐིག་ཐེན་ཡོདཔ།"
 
-#: ../plugins/editor/editor.glade.h:67
+#: ../plugins/editor/editor.glade.h:63
 msgid "Use default"
 msgstr "སྔོན་སྒྲིག་ལག་ལེན་འཐབ།"
 
-#: ../plugins/editor/editor.glade.h:68
+#: ../plugins/editor/editor.glade.h:64
 #: ../plugins/sourceview/sourceview.glade.h:30
 msgid "Use tabs for indentation"
 msgstr "འགོ་མཚམས་ཀྱི་དོན་ལུ་མཆོང་ལྡེ་ཚུ་ལག་ལེན་འཐབ།"
 
-#: ../plugins/editor/editor.glade.h:69
+#: ../plugins/editor/editor.glade.h:65
 msgid "View EOL chars"
 msgstr "ཨི་ཨོ་ཨེལ་ཡིག་འབྲུ་ཚུ་སྟོན།"
 
-#: ../plugins/editor/editor.glade.h:70
+#: ../plugins/editor/editor.glade.h:66
 msgid "View Indentation Guides"
 msgstr "འགོ་མཚམས་ལམ་སྟོན་ཚུ་སྟོན།"
 
-#: ../plugins/editor/editor.glade.h:71
+#: ../plugins/editor/editor.glade.h:67
 msgid "View Line Wrap"
 msgstr "གྱལ་ལོག་མཚམས་སྟོན།"
 
-#: ../plugins/editor/editor.glade.h:72
+#: ../plugins/editor/editor.glade.h:68
 msgid "View Whitespaces"
 msgstr "བར་སྟོང་དཀརཔོ་སྟོན།"
 
-#: ../plugins/editor/editor.glade.h:73
+#: ../plugins/editor/editor.glade.h:69
 msgid "View indentation whitespaces"
 msgstr "འགོ་མཚམས་བར་སྟོང་དཀརཔོ་སྟོན།"
 
-#: ../plugins/editor/editor.glade.h:74
+#: ../plugins/editor/editor.glade.h:70
 #: ../plugins/sourceview/sourceview.glade.h:33
 msgid "Wrap bookmarks search around"
 msgstr "དེབ་རྟགས་ཚུ་འཚོལ་ཞིབ་མཐའ་འཁོར་ལོག་མཚམས་བཟོ།"
@@ -4047,8 +4108,8 @@ msgstr "སྔོན་ལྟ་དཔར་བསྐྲུན་འབད།"
 msgid "Scintilla Editor"
 msgstr "སིན་ཊིལ་ལ་ཞུན་དགཔ།"
 
-#: ../plugins/editor/text_editor.c:339
-#: ../plugins/sourceview/sourceview.c:166
+#: ../plugins/editor/text_editor.c:323
+#: ../plugins/sourceview/sourceview.c:142
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4059,31 +4120,32 @@ msgstr ""
 "འཕྲལ་གྱི་་མངམ་ཨིན།\n"
 "ཁྱོད་ཀྱིས་ཡང་བསྐྱར་མངོན་གསལ་འབད་ནི་ཨིན་ན?"
 
-#: ../plugins/editor/text_editor.c:1297
+#: ../plugins/editor/text_editor.c:1326
 msgid "Could not get file info"
 msgstr "ཡིག་སྣོད་ཀྱི་བརད་དོན་ཐོབ་མ་ཚུགསཔ།"
 
-#: ../plugins/editor/text_editor.c:1304
+#. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
+#: ../plugins/editor/text_editor.c:1333
 msgid "This file is too big. Unable to allocate memory."
 msgstr "ཡིག་སྣོད་འདི་གནམ་མེད་ས་མེད་སྦོམ་ཨིན་མས། དྲན་ཚད་སྤྲོད་་ཚུགསཔ།"
 
-#: ../plugins/editor/text_editor.c:1311
+#: ../plugins/editor/text_editor.c:1340
 msgid "Could not open file"
 msgstr "ཡིག་སྣོད་ཁ་ཕྱེ་མ་ཚུགས།"
 
-#: ../plugins/editor/text_editor.c:1319
+#: ../plugins/editor/text_editor.c:1348
 msgid "Error while reading from file"
 msgstr "ཡིག་སྣོད་ལས་ལྷག་པའི་སྐབས་འཛོལ་བ་འབྱུང་ཡོདཔ།"
 
-#: ../plugins/editor/text_editor.c:1355
+#: ../plugins/editor/text_editor.c:1390
 msgid "The file does not look like a text file or the file encoding is not supported. Please check if the encoding of file is in the supported encodings list. If not, add it from the preferences."
 msgstr "ཡིག་སྣོད་འདི་ཚིག་ཡིག་ཡིག་སྣོད་ཅིག་བཟུམ་མ་མཐོངམ་ཡང་ན་ཡིག་སྣོད་ཨིན་ཀོ་ཌིང་འདི་རྒྱབ་སྐྱོར་མ་འབད་བར་ཡོདཔ། ཡིག་སྣོད་ཀྱི་ཨིན་ཀོ་ཌིང་འདི་རྒྱབ་སྐྱོར་འབད་ཡོད་མི་ཨིན་ཀོ་ཌིང་ཐོ་ཡིག་ནང་ཡོད་ག་ཞིབ་དཔྱད་འབད་གནང་། མེད་པ་ཅིན་དགའ་གདམ་ཚུ་ལས་ཁ་སྐོང་བརྐྱབ།"
 
-#: ../plugins/editor/text_editor.c:1512
+#: ../plugins/editor/text_editor.c:1555
 msgid "Loading file..."
 msgstr "ཡིག་སྣོད་མངོན་གསལ་འབད་དོ།་་་"
 
-#: ../plugins/editor/text_editor.c:1519
+#: ../plugins/editor/text_editor.c:1564
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -4094,29 +4156,29 @@ msgstr ""
 "\n"
 "མངོན་གསལ་འབད་མ་ཚུགས། %s"
 
-#: ../plugins/editor/text_editor.c:1539
+#: ../plugins/editor/text_editor.c:1584
 msgid "File loaded successfully"
 msgstr "ཡིག་སྣོད་མངོན་གསལ་འབད་ནི་མཐར་འཁྱོར་ཡོདཔ།"
 
-#: ../plugins/editor/text_editor.c:1560
+#: ../plugins/editor/text_editor.c:1605
 msgid "Saving file..."
 msgstr "ཡིག་སྣོད་སྲུང་བཞག་འབད་དོ།་་་"
 
-#: ../plugins/editor/text_editor.c:1572
+#: ../plugins/editor/text_editor.c:1617
 #, c-format
 msgid "Could not save intermediate file %s: %s."
 msgstr "བར་མའི་ཡིག་སྣོད་སྲུང་བཞག་འབད་མ་ཚུགས། %s: %s."
 
-#: ../plugins/editor/text_editor.c:1604
+#: ../plugins/editor/text_editor.c:1649
 #, c-format
 msgid "Could not save file %s: %s."
 msgstr "ཡིག་སྣོད་སྲུང་བཞག་འབད་མ་ཚུགས། %s: %s."
 
-#: ../plugins/editor/text_editor.c:1613
+#: ../plugins/editor/text_editor.c:1658
 msgid "File saved successfully"
 msgstr "ཡིག་སྣོད་སྲུང་བཞག་འབད་ནི་མཐར་འཁྱོལ་ཡོདཔ།"
 
-#: ../plugins/editor/text_editor.c:1962
+#: ../plugins/editor/text_editor.c:2009
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4260,7 +4322,7 @@ msgstr "ངོ་རྟགས་ཚུ།"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/editor/text_editor_menu.c:320
-#: ../plugins/gdb/utilities.c:327
+#: ../plugins/gdb/utilities.c:328
 #: ../plugins/profiler/plugin.c:574
 msgid "Debug"
 msgstr "རྐྱེན་སེལ་ནི།"
@@ -4278,7 +4340,7 @@ msgstr "བེད་སྤྱོད་འཚོལ།"
 
 #. 18
 #: ../plugins/editor/text_editor_menu.c:348
-#: ../plugins/project-manager/plugin.c:362
+#: ../plugins/project-manager/plugin.c:490
 msgid "Close"
 msgstr "ཁ་བསྡམ།"
 
@@ -4287,7 +4349,7 @@ msgstr "ཁ་བསྡམ།"
 msgid "Docked"
 msgstr "ཌོཀཌི།"
 
-#: ../plugins/file-loader/plugin.c:201
+#: ../plugins/file-loader/plugin.c:141
 #, c-format
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
@@ -4306,239 +4368,202 @@ msgstr ""
 "\n"
 "ཁྱོད་ཀྱིས་འོག་གི་པ་ལག་ཨིནསི་ཡང་ན་གློག་རིམ་དང་གཅིག་ཁར་ཁ་ཕྱེ་ནི་འབད་རྩོལ་བསྐྱེད་ནི་ལུ་གདམ་ནི་མས།"
 
-#: ../plugins/file-loader/plugin.c:221
+#: ../plugins/file-loader/plugin.c:161
 msgid "Open with:"
 msgstr "དང་གཅིག་ཁར་ཁ་ཕྱེ།"
 
 #. Document manager plugin
-#: ../plugins/file-loader/plugin.c:229
+#: ../plugins/file-loader/plugin.c:169
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:1
 msgid "Document Manager"
 msgstr "ཡིག་སྣོད་འཛིན་སྐྱོང་པ།"
 
-#: ../plugins/file-loader/plugin.c:475
+#: ../plugins/file-loader/plugin.c:415
 msgid "Anjuta Projects"
 msgstr "ཨན་ཇུ་ཊ་ལས་འགུལ་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:481
+#: ../plugins/file-loader/plugin.c:421
 msgid "C/C++ source files"
 msgstr "སི་/སི་++འབྱུང་ཁུངས་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:493
+#: ../plugins/file-loader/plugin.c:433
 msgid "C# source files"
 msgstr "སི་#འབྱུང་ཁུངས་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:499
+#: ../plugins/file-loader/plugin.c:439
 msgid "Java source files"
 msgstr "ཇ་བ་འབྱུང་ཁུངས་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:505
+#: ../plugins/file-loader/plugin.c:445
 msgid "Pascal source files"
 msgstr "པཱསི་ཀལ་འབྱུང་ཁུངས་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:510
+#: ../plugins/file-loader/plugin.c:450
 msgid "PHP source files"
 msgstr "པི་ཨེཆ་པི་འབྱུང་ཁུངས་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:517
+#: ../plugins/file-loader/plugin.c:457
 msgid "Perl source files"
 msgstr "པརཱལ་འབྱུང་ཁུངས་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:523
+#: ../plugins/file-loader/plugin.c:463
 msgid "Python source files"
 msgstr "པ་འི་ཐོན་འབྱུང་ཁུངས་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:528
+#: ../plugins/file-loader/plugin.c:468
 msgid "Hyper text markup files"
 msgstr "ཚད་བརྒལ་ཚིག་ཡིག་རྟགས་བཀོད་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:537
+#: ../plugins/file-loader/plugin.c:477
 msgid "Shell scripts files"
 msgstr "ཤལ་ཡིག་ཚུགས་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:542
+#: ../plugins/file-loader/plugin.c:482
 msgid "Makefiles"
 msgstr "ཡིག་སྣོད་ཚུ་བཟོ།"
 
-#: ../plugins/file-loader/plugin.c:548
+#: ../plugins/file-loader/plugin.c:488
 msgid "Lua files"
 msgstr "ལུ་འ་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-loader/plugin.c:553
+#: ../plugins/file-loader/plugin.c:493
 msgid "Diff files"
 msgstr "ཡིག་སྣོད་ཚུའི་ཁྱད་པར།"
 
-#: ../plugins/file-loader/plugin.c:780
+#: ../plugins/file-loader/plugin.c:720
 #, c-format
 msgid "Failed to activate plugin: %s"
 msgstr "པ་ལག་ཨིན་ཤུགས་ལྡན་བཟོ་ནི་འཐུས་ཤོར་ཡོདཔ། %s"
 
-#: ../plugins/file-loader/plugin.c:836
+#: ../plugins/file-loader/plugin.c:776
 msgid "_New..."
 msgstr "གསརཔ།(_N)་་་"
 
-#: ../plugins/file-loader/plugin.c:838
+#: ../plugins/file-loader/plugin.c:778
 msgid "New empty editor."
 msgstr "ཞུན་དགཔ་སྟོངམ་གསརཔ།"
 
-#: ../plugins/file-loader/plugin.c:844
+#: ../plugins/file-loader/plugin.c:784
 msgid "_Open..."
 msgstr "ཁ་ཕྱེ།(_O)་་་"
 
-#: ../plugins/file-loader/plugin.c:855
-#: ../plugins/file-loader/plugin.c:868
+#: ../plugins/file-loader/plugin.c:795
+#: ../plugins/file-loader/plugin.c:808
 msgid "_Open"
 msgstr "ཁ་ཕྱེ།(_O)"
 
-#: ../plugins/file-loader/plugin.c:862
-#: ../plugins/file-loader/plugin.c:875
+#: ../plugins/file-loader/plugin.c:802
+#: ../plugins/file-loader/plugin.c:815
 msgid "Open _With"
 msgstr "དང་གཅིག་ཁར་ཁ་ཕྱེ།(_W)"
 
-#: ../plugins/file-loader/plugin.c:863
-#: ../plugins/file-loader/plugin.c:876
+#: ../plugins/file-loader/plugin.c:803
+#: ../plugins/file-loader/plugin.c:816
 msgid "Open with"
 msgstr "དང་གཅིག་ཁར་ཁ་ཕྱེ།"
 
-#: ../plugins/file-loader/plugin.c:1188
-#: ../plugins/file-loader/plugin.c:1194
+#: ../plugins/file-loader/plugin.c:1131
+#: ../plugins/file-loader/plugin.c:1137
 #: ../plugins/file-loader/anjuta-loader.plugin.in.h:1
 msgid "File Loader"
 msgstr "ཡིག་སྣོད་མངོན་གསལ་འབད་མི།"
 
-#: ../plugins/file-loader/plugin.c:1200
-#: ../plugins/file-loader/plugin.c:1210
+#: ../plugins/file-loader/plugin.c:1143
+#: ../plugins/file-loader/plugin.c:1153
 msgid "New"
 msgstr "གསརཔ།"
 
-#: ../plugins/file-loader/plugin.c:1201
+#: ../plugins/file-loader/plugin.c:1144
 msgid "New file, project and project components."
 msgstr "ཡིག་སྣོད་ ལས་འགུལ་ དང་ལས་འགུལ་ཆ་ཤས་ཚུ་གསརཔ།"
 
-#: ../plugins/file-loader/plugin.c:1213
+#: ../plugins/file-loader/plugin.c:1156
 msgid "Open"
 msgstr "ཁ་ཕྱེ།"
 
-#: ../plugins/file-loader/plugin.c:1220
+#: ../plugins/file-loader/plugin.c:1163
 msgid "Open recent file"
 msgstr "འཕྲལ་གྱི་ཡིག་སྣོད་ཁ་ཕྱེ།"
 
-#: ../plugins/file-manager/an_file_view.c:107
+#: ../plugins/file-manager/an_file_view.c:108
 #: ../plugins/message-view/message-view.c:267
 #: ../plugins/message-view/message-view.c:301
 #: ../plugins/symbol-browser/an_symbol_view.c:170
 msgid "No message details"
 msgstr "འཕྲིན་དོན་རྒྱས་བཤད་ཚུ་མེདཔ།"
 
-#: ../plugins/file-manager/an_file_view.c:141
+#: ../plugins/file-manager/an_file_view.c:142
 #: ../plugins/symbol-browser/an_symbol_view.c:204
 msgid "No file details"
 msgstr "ཡིག་སྣོད་རྒྱས་བཤད་ཚུ་མེདཔ།"
 
-#: ../plugins/file-manager/an_file_view.c:626
-#: ../plugins/file-manager/an_file_view.c:795
-#: ../plugins/file-manager/an_file_view.c:1123
+#: ../plugins/file-manager/an_file_view.c:652
+#: ../plugins/file-manager/an_file_view.c:821
+#: ../plugins/file-manager/an_file_view.c:1149
 #: ../plugins/symbol-browser/an_symbol_view.c:867
 msgid "Loading..."
 msgstr "མངོན་གསལ་འབད་དོ།་་་"
 
-#: ../plugins/file-manager/an_file_view.c:928
+#: ../plugins/file-manager/an_file_view.c:954
 msgid "Rev"
 msgstr "ཨར་ཨི་ཝི།"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
-#: ../plugins/search/anjuta-search.glade.h:2
-msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-msgstr "*སི་ *སི་པི་པི་ *སི་ཨེགསི་ཨེགསི་ *སི་སི་ *སི་ *ཨེཆ *ཨེཆ *ཨེཆ་ཨེཆ *ཨེཆ་ཨེགསི་ཨེགསི *ཨེཆ་པི་པི།"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
-#: ../plugins/search/anjuta-search.glade.h:3
-msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4"
-msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* རིཌི་མི་རྩོམ་པ་པོ་ཚུའི་བསྒྱུར་བཅོས་དྲན་དེབ *.m4"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
-#: ../plugins/search/anjuta-search.glade.h:4
-msgid "*.so *.o *.a *.la"
-msgstr "*ཨེསི་ཨོ་ *ཨོ *ཨེ *ཨེལ་ཨེ།"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
-#: ../plugins/search/anjuta-search.glade.h:5
-msgid "*\\.*"
-msgstr "*\\.*"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:6
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
 msgid "<b>Directory filter:</b>"
 msgstr "<b>སྣོད་ཐོ་ཚགས་མ།</b>"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:7
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
 msgid "<b>File filter:</b>"
 msgstr "<b>ཡིག་སྣོད་ཚགས་མ།</b>"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:8
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
 msgid "<b>Root directory if no project is open:</b>"
 msgstr "<b>ལས་འགུལ་འདི་ཁ་ཕྱེ་མེད་པ་ཅིན་རྩ་བའི་སྣོད་ཐོ།</b>"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:10
-#: ../plugins/search/anjuta-search.glade.h:15
-msgid "CVS intl po"
-msgstr "སི་ཝི་ཨེསི་ཨིན་ཊེལ་པོ།"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
 msgid "Choose directories"
 msgstr "སྣོད་ཐོ་ཚུ་གདམ།"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:12
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
 msgid "Choose files"
 msgstr "ཡིག་སྣོད་ཚུ་གདམ།"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:13
-msgid "Directory "
-msgstr "སྣོད་ཐོ།"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:7
 msgid "Do not show files ignored by version control"
 msgstr "ཐོན་རིམ་ཚད་འཛིན་གྱིས་སྣང་མེད་བཞག་ཡོད་མི་ཡིག་སྣོད་ཚུ་མ་སྟོན།"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:15
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:8
 msgid "Do not show hidden directories"
 msgstr "སྣོད་ཐོ་སྦ་ཡོད་མི་མ་སྟོན།"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:16
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
 msgid "Do not show hidden files"
 msgstr "སྦ་ཡོད་མི་སྣོད་ཐོ་ཚུ་མ་སྟོན།"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:17
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:10
 msgid "Ignore directories"
 msgstr "སྣང་མེད་སྣོད་ཐོ་ཚུ།"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:18
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
 msgid "Ignore files"
 msgstr "ཡིག་སྣོད་ཚུ་སྣང་མེད་བཞག"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:19
-msgid "Space-separated list of directory name patterns to ignore"
-msgstr "སྣོད་ཐོ་མིང་གི་དཔེ་གཞི་སྣང་མེད་བཞག་ནི་གི་སོ་སོ་ཁ་འཕྱལཡོད་མི་ཐོ་ཡིག་གི་བར་སྟོང་།"
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:12
+msgid "Ignore files (space seperated shell patterns):"
+msgstr "ཡིག་སྣོད་ཚུ་སྣང་མེད་བཞག(བར་སྟོང་སོ་སོ་དབྱེ་བྱེད་འབད་ཡོད་པའི་ཤལ་དཔེ་གཞི་ཚུ་)"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:20
-msgid "Space-separated list of directory name patterns to match"
-msgstr "སྣོད་ཐོ་མིང་དཔེ་གཞི་ཚུ་མཐུན་སྒྲིག་འབད་ནི་གི་བར་སྟོང་སོ་སོ་ཁ་འཕྱལ་ཡོད་མི་ཐོ་ཡིག"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:21
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:13
 msgid "Space-separated list of file name patterns to ignore"
 msgstr "ཡིག་སྣོད་མིང་དཔེ་གཞི་ཚུ་སྣང་མེད་བཞག་ནི་གི་བར་སྟོང་སོ་སོ་ཁ་འཕྱལ་ཡོད་མི་ཐོ་ཡིག"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:22
-msgid "Space-separated list of file name patterns to match"
-msgstr "ཡིག་སྣོད་མིང་དཔེ་གཞི་ཚུ་མཐུན་སྒྲིག་འབད་ནི་གི་བར་སྟོང་སོ་སོ་ཁ་འཕྱལ་ཡོད་མི་ཐོ་ཡིག"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:23
+#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
 msgid "dialog3"
 msgstr "ཌའི་ལོག་༣"
 
 #: ../plugins/file-manager/plugin.c:48
-#: ../plugins/project-manager/plugin.c:618
-#: ../plugins/symbol-browser/plugin.c:323
+#: ../plugins/project-manager/plugin.c:747
+#: ../plugins/symbol-browser/plugin.c:328
 msgid "_Refresh"
 msgstr "ཡར་སེལ་འབད།(_R)"
 
@@ -4546,16 +4571,16 @@ msgstr "ཡར་སེལ་འབད།(_R)"
 msgid "Refresh file manager tree"
 msgstr "ཡིག་སྣོད་འཛིན་སྐྱོང་པའི་རྩ་འབྲེལ་ཡང་སེལ་འབད།"
 
-#: ../plugins/file-manager/plugin.c:167
+#: ../plugins/file-manager/plugin.c:168
 msgid "File manager popup actions"
 msgstr "ཡིག་སྣོད་འཛིན་སྐྱོང་པའི་པོཔ་ཨཔ་བྱ་བ་ཚུ།"
 
-#: ../plugins/file-manager/plugin.c:177
+#: ../plugins/file-manager/plugin.c:178
 msgid "Files"
 msgstr "ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/file-manager/plugin.c:283
-#: ../plugins/file-manager/plugin.c:294
+#: ../plugins/file-manager/plugin.c:284
+#: ../plugins/file-manager/plugin.c:295
 #: ../plugins/file-manager/anjuta-file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "ཡིག་སྣོད་འཛིན་སྐྱོང་པ།"
@@ -4670,16 +4695,16 @@ msgstr "ལས་རིམ་ལག་ལེན་འཐབ།"
 msgid "Run in Terminal"
 msgstr "ཊར་མི་ནལ་ནང་ལག་ལེན་འཐབ།"
 
-#: ../plugins/gdb/debugger.c:614
-#: ../plugins/gdb/debugger.c:823
+#: ../plugins/gdb/debugger.c:645
+#: ../plugins/gdb/debugger.c:854
 msgid "Loading Executable: "
 msgstr "ལག་ལེན་འཐབ་བཏུབ་མི་མངོན་གསལ་འབད་དོ།"
 
-#: ../plugins/gdb/debugger.c:644
+#: ../plugins/gdb/debugger.c:675
 msgid "Loading Core: "
 msgstr "ནང་སྙིང་མངོན་གསལ་འབད་དོ།"
 
-#: ../plugins/gdb/debugger.c:695
+#: ../plugins/gdb/debugger.c:726
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4690,72 +4715,57 @@ msgstr ""
 "རྐྱེན་སེལ་འབད་ནི་འགོ་འབྱེད་མ་ཚུགསཔ།\n"
 "ཨན་ཇུ་ཊ་འདི་ངེས་བདེན་སྦེ་གཞི་བཙུགས་འབད་ཡོདཔ་ངེས་གཏན་བཟོ།"
 
-#: ../plugins/gdb/debugger.c:817
+#: ../plugins/gdb/debugger.c:848
 msgid "Getting ready to start debugging session...\n"
 msgstr "རྐྱེན་སེལ་འབད་ནི་ལཱ་ཡུན་འགོ་བཙུགས་ནི་གྲ་སྒྲིག་བརྐྱབ་དོ།\n"
 
-#: ../plugins/gdb/debugger.c:832
+#: ../plugins/gdb/debugger.c:863
 msgid "No executable specified.\n"
 msgstr "ལག་ལེན་འཐབ་བཏུབ་གསལ་བཀོད་འབད་མེདཔ།\n"
 
-#: ../plugins/gdb/debugger.c:835
+#: ../plugins/gdb/debugger.c:866
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "རྐྱེན་སེལ་འབད་ནི་འགོ་བཙུགས་ནི་ལུ་ལག་ལེན་འཐབ་བཏུབ་མི་ཅིག་ཁ་ཕྱེ་ཡང་ན་ལས་སྦྱོར་ཅིག་ལུ་སྦྱར།\n"
 
-#: ../plugins/gdb/debugger.c:844
+#: ../plugins/gdb/debugger.c:875
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "རྐྱེན་སེལ་འབད་ནི་གསར་བཙུགས་འབད་བའི་སྐབས་འཛོལ་བ་ཅིག་འབྱུང་ཡོདཔ།\n"
 
-#: ../plugins/gdb/debugger.c:848
+#: ../plugins/gdb/debugger.c:879
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "རིམ་ལུགས་འདི་གུ་ 'gdb' གཞི་བཙུགས་འབད་ཡོདཔ་ངེས་གཏན་བཟོ།\n"
 
-#: ../plugins/gdb/debugger.c:1103
+#: ../plugins/gdb/debugger.c:1167
 msgid "Program exited normally\n"
 msgstr "སྤྱིར་བཏང་གི་ལས་རིམ་ཕྱིར་བཏོན་གཏང་ཡོདཔ།\n"
 
-#: ../plugins/gdb/debugger.c:1114
+#: ../plugins/gdb/debugger.c:1178
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "ལས་རིམ་དང་གཅིག་ཁར་ཨང་རྟགས་འཛོལ་བ་ཕྱིར་བཏོན་གཏང་ཡོདཔ། %s\n"
 
-#: ../plugins/gdb/debugger.c:1131
-#, c-format
-msgid "Program received signal %s (%s) and exited\n"
-msgstr "ལས་རིམ་གྱིས་བརྡ་རྟགས་ཐོབ་ཡོདཔ་ལས་ %s (%s) ཕྱིར་ཐོན་གཏང་ཡོདཔ།\n"
-
-#: ../plugins/gdb/debugger.c:1149
-#, c-format
-msgid "Program received signal %s (%s)\n"
-msgstr "ལས་རིམ་གྱིས་བརྡ་རྟགས་ཐོབ་ཡོདཔ། %s (%s)\n"
-
-#: ../plugins/gdb/debugger.c:1164
+#: ../plugins/gdb/debugger.c:1193
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "བེརེཀ་པོ་ཡིནཊི་ཨང་ %s ཨེབ།\n"
 
-#: ../plugins/gdb/debugger.c:1173
+#: ../plugins/gdb/debugger.c:1202
 msgid "Function finished\n"
 msgstr "ལས་འགན་མཇུག་བསྡུ་ཡོདཔ།\n"
 
-#: ../plugins/gdb/debugger.c:1179
+#: ../plugins/gdb/debugger.c:1208
 msgid "Stepping finished\n"
 msgstr "གོམ་སྤོ་ནི་མཇུག་བསྡུ་ཡོདཔ།\n"
 
-#: ../plugins/gdb/debugger.c:1185
+#: ../plugins/gdb/debugger.c:1214
 msgid "Location reached\n"
 msgstr "གནས་ཁོངས་ལྷོད་ཡོདཔ།\n"
 
-#: ../plugins/gdb/debugger.c:1255
+#: ../plugins/gdb/debugger.c:1284
 msgid "Debugger is ready.\n"
 msgstr "རྐྱེན་སེལ་འབད་ནི་འདི་གྲ་སྒྲིག་ཡོད\n"
 
-#: ../plugins/gdb/debugger.c:1446
-#, c-format
-msgid "gdb terminated unexpectedly with status %d\n"
-msgstr "ཇི་ཌི་བི་རྩ་གྲོལ་གཏང་ཡོད་མི་རེ་བ་མེདཔ་དང་གཅིག་ཁར་གནས་ཚད།%d\n"
-
-#: ../plugins/gdb/debugger.c:1484
+#: ../plugins/gdb/debugger.c:1527
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4763,7 +4773,7 @@ msgstr ""
 "ལས་རིམ་འདི་མཉམ་སྒྲགས་ཡོདཔ།\n"
 "ཁྱོད་ད་ལྟོ་ཡང་རྐྱེན་སེལ་འབད་ནི་འདི་བཀག་ནི་ཨིན་ན?"
 
-#: ../plugins/gdb/debugger.c:1487
+#: ../plugins/gdb/debugger.c:1530
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -4771,24 +4781,24 @@ msgstr ""
 "ལས་རིམ་འདི་གཡོག་བཀོལ་དོ།\n"
 "ཁྱོད་ཀྱིས་ད་ལྟོ་ཡང་རྐྱེན་སེལ་འབད་ནི་འདི་བཀག་ནི་ཨིན་ན?"
 
-#: ../plugins/gdb/debugger.c:1740
+#: ../plugins/gdb/debugger.c:1783
 msgid "Cannot execute gnome-terminal"
 msgstr "ཇི་ནོམ་ཊར་མི་ནལ་ལག་ལེན་འཐབ་མ་བཏུབ།"
 
-#: ../plugins/gdb/debugger.c:1776
+#: ../plugins/gdb/debugger.c:1819
 msgid "Cannot start terminal for debugging."
 msgstr "རྐྱེན་སེལ་འབད་ནི་དོན་ལུ་ཊར་མི་ནལ་འགོ་བཙུགས་མ་ཚུགསཔ།"
 
-#: ../plugins/gdb/debugger.c:1868
+#: ../plugins/gdb/debugger.c:1911
 msgid "Program attached\n"
 msgstr "ལས་རིམ་མཉམ་སྦྲགས་ཡོདཔ།\n"
 
-#: ../plugins/gdb/debugger.c:1885
+#: ../plugins/gdb/debugger.c:1928
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "ལས་སྦྱོར་ལུ་མཉམ་སྦྲགས་འབད་དོ། %d...\n"
 
-#: ../plugins/gdb/debugger.c:1911
+#: ../plugins/gdb/debugger.c:1954
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4796,32 +4806,32 @@ msgstr ""
 "ལས་སྦྱོར་འདི་ཧེ་མ་ལས་གཡོག་བཀོལ་དོ།\n"
 "ཁྱོད་ཀྱིས་འདི་རྩ་གྲོལ་གཏང་སྦེ་ལས་སྦྱོར་གསརཔ་འདི་མཉམ་སྦྲགས་འབད་ནི་ཨིན་ན?"
 
-#: ../plugins/gdb/debugger.c:1928
+#: ../plugins/gdb/debugger.c:1971
 msgid "Anjuta is unable to attach to itself."
 msgstr "ཨན་ཇུ་ཊ་འདི་འདི་ལུ་རང་མཉམ་སྦྲགས་འབད་མ་བཏུབ།"
 
-#: ../plugins/gdb/debugger.c:1978
+#: ../plugins/gdb/debugger.c:2021
 msgid "Program terminated\n"
 msgstr "ལས་རིམ་རྩ་གྲོལ་གཏང་ཡོདཔ།\n"
 
-#: ../plugins/gdb/debugger.c:1993
+#: ../plugins/gdb/debugger.c:2036
 msgid "Program detached\n"
 msgstr "ལས་རིམ་ཁ་འཕྱལ་ཡོདཔ།\n"
 
-#: ../plugins/gdb/debugger.c:2012
+#: ../plugins/gdb/debugger.c:2055
 msgid "Detaching the process...\n"
 msgstr "ལས་སྦྱོར་ཁ་འཕྱལ་དོ།་་་\n"
 
-#: ../plugins/gdb/debugger.c:2034
+#: ../plugins/gdb/debugger.c:2077
 msgid "Interrupting the process\n"
 msgstr "ལས་སྦྱོར་འདི་བར་དཀྲོགས་དོ།\n"
 
-#: ../plugins/gdb/debugger.c:3561
+#: ../plugins/gdb/debugger.c:3825
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "ལས་སྦྱོར་འདི་ལུ་ %s བརྡ་རྟགས་གཏང་དོ། %d"
 
-#: ../plugins/gdb/debugger.c:3587
+#: ../plugins/gdb/debugger.c:3851
 msgid "Error whilst signaling the process."
 msgstr "ལས་སྦྱོར་འདི་བརྡ་རྟགས་གཏང་བའི་སྐབས་འཛོལ་བ་འབྱུང་ཡོདཔ།"
 
@@ -4831,7 +4841,7 @@ msgid "_Undo: %s"
 msgstr "འབད་བཤོལ།(_U) %s"
 
 #: ../plugins/glade/plugin.c:110
-#: ../plugins/glade/plugin.c:485
+#: ../plugins/glade/plugin.c:488
 msgid "_Undo"
 msgstr "འབད་བཤོལ།(_U)"
 
@@ -4861,221 +4871,211 @@ msgstr "གེལེཌི་ཡིག་སྣོད་སྲུང་བཞག
 msgid "Save glade file as..."
 msgstr "བཟུམ་སྦེ་གེལེཌི་ཡིག་སྣོད་སྲུང་བཞག་འབད།་་་"
 
-#: ../plugins/glade/plugin.c:280
+#: ../plugins/glade/plugin.c:282
 #, c-format
-msgid ""
-"<span weight=\"bold\" size=\"larger\">Save changes to glade project \"%s\" before closing?</span>\n"
-"\n"
-"Your changes will be lost if you don't save them.\n"
-msgstr ""
-"<span weight=\"bold\" size=\"larger\">ཁ་བསྡམ་ནིའི་ཧེ་མ་ \"%s\" གེལེཌི་ལས་འགུལ་ལུ་བསྒྱུར་བཅོས་ཚུ་སྲུང་བཞག་འབད་ནི་ཨིན་ན?</span>\n"
-"\n"
-"ཁྱོད་ཀྱིས་སྲུང་བཞག་མ་འབད་བ་ཅིན་ཁྱོད་རའི་བསྒྱུར་བཅོས་ཚུ་བརླག་སྟོར་ཞུགས་འོང་།་\n"
+msgid "Save changes to glade project \"%s\" before closing?"
+msgstr "ཁ་བསྡམ་པའི་ཧེ་མ་ \"%s\" གེ་ལེཌི་ལས་འགུལ་ལུ་བསྒྱུར་བཅོས་ཚུ་སྲུང་བཞག་འབད་ནི་ཨིན་ན?"
 
-#: ../plugins/glade/plugin.c:293
+#: ../plugins/glade/plugin.c:283
+msgid "Your changes will be lost if you don't save them."
+msgstr "ཁྱོད་ཀྱིས་སྲུང་བཞག་མ་འབད་བ་ཅིན་ཁྱོད་ཀྱི་བསྒྱུར་བཅོས་ཚུ་བརླག་སྟོར་ཞུགས་པ་ཨིན།"
+
+#: ../plugins/glade/plugin.c:296
 msgid "_Close without Saving"
 msgstr "སྲུང་བཞག་མེདཔ་སྦེ་ཁ་བསྡམ།(_C)"
 
-#: ../plugins/glade/plugin.c:315
+#: ../plugins/glade/plugin.c:318
 msgid "Save glade project..."
 msgstr "གེལེཌི་ལས་འགུལ་སྲུང་བཞག་འབད།་་་"
 
-#: ../plugins/glade/plugin.c:477
+#: ../plugins/glade/plugin.c:480
 msgid "_Glade"
 msgstr "གེལེཌི།(_G)"
 
-#: ../plugins/glade/plugin.c:487
+#: ../plugins/glade/plugin.c:490
 msgid "Undo last action"
 msgstr "མཇུག་གི་བྱ་བ་འབད་བཤོལ།"
 
-#: ../plugins/glade/plugin.c:495
+#: ../plugins/glade/plugin.c:498
 msgid "Redo last undone action"
 msgstr "མཇུག་གི་འབད་བཤོལ་བྱ་བ་ལོག་འབད།"
 
-#: ../plugins/glade/plugin.c:501
+#: ../plugins/glade/plugin.c:504
 #: ../plugins/valgrind/vgdefaultview.c:1152
 msgid "Cu_t"
 msgstr "བཏོག(_t)"
 
-#: ../plugins/glade/plugin.c:503
+#: ../plugins/glade/plugin.c:506
 msgid "Cut selection"
 msgstr "སེལ་འཐུ་བཏོག"
 
-#: ../plugins/glade/plugin.c:511
+#: ../plugins/glade/plugin.c:514
 msgid "Copy selection"
 msgstr "སེལ་འཐུ་འདྲ་བཤུས་འབད།"
 
-#: ../plugins/glade/plugin.c:519
+#: ../plugins/glade/plugin.c:522
 msgid "Paste selection"
 msgstr "སེལ་འཐུ་སྦྱར།"
 
-#: ../plugins/glade/plugin.c:525
+#: ../plugins/glade/plugin.c:528
 msgid "_Delete"
 msgstr "བཏོན་གཏང་།(_D)"
 
-#: ../plugins/glade/plugin.c:527
+#: ../plugins/glade/plugin.c:530
 msgid "Delete selection"
 msgstr "སེལ་འཐི་བཏོན་གཏང་།"
 
-#: ../plugins/glade/plugin.c:533
+#: ../plugins/glade/plugin.c:536
 msgid "_Show Clipboard"
 msgstr "འཛིན་དཔང་སྟོན།(_S)"
 
-#: ../plugins/glade/plugin.c:535
+#: ../plugins/glade/plugin.c:538
 msgid "Show clipboard"
 msgstr "འཛིན་དཔང་སྟོན།"
 
-#: ../plugins/glade/plugin.c:543
+#: ../plugins/glade/plugin.c:546
 msgid "Save glade project"
 msgstr "གེལེཌི་ལས་འགུལ་སྲུང་བཞག་འབད།"
 
-#: ../plugins/glade/plugin.c:551
+#: ../plugins/glade/plugin.c:554
 msgid "Save as glade project"
 msgstr "གེལེཌི་ལས་འགུལ་བཟུམ་སྦེ་སྲུང་བཞག་འབད།"
 
-#: ../plugins/glade/plugin.c:557
+#: ../plugins/glade/plugin.c:560
 msgid "Clos_e"
 msgstr "ཁ་བསྡམ།(_e)"
 
-#: ../plugins/glade/plugin.c:559
+#: ../plugins/glade/plugin.c:562
 msgid "Close current glade project"
 msgstr "ད་ལྟོའི་གེལེཌི་ལས་འགུལ་ཁ་བསྡམ།"
 
-#: ../plugins/glade/plugin.c:761
+#: ../plugins/glade/plugin.c:764
 msgid "Glade operations"
 msgstr "གེལེཌི་བཀོལ་བསྐྱོད་ཚུ།"
 
-#: ../plugins/glade/plugin.c:784
+#: ../plugins/glade/plugin.c:787
 msgid "Widgets"
 msgstr "ཝི་གེཌིསི།"
 
-#: ../plugins/glade/plugin.c:789
+#: ../plugins/glade/plugin.c:792
 msgid "Palette"
 msgstr "པེ་ལེཊི།"
 
-#: ../plugins/glade/plugin.c:800
+#: ../plugins/glade/plugin.c:803
 msgid "Designer"
 msgstr "བཀོད་སྒྲིགཔ།"
 
-#: ../plugins/glade/plugin.c:930
+#: ../plugins/glade/plugin.c:933
 #, c-format
 msgid "Not local file: %s"
 msgstr "ཉེ་གནས་ཡིག་སྣོད་མེདཔ། %s"
 
-#: ../plugins/glade/plugin.c:938
+#: ../plugins/glade/plugin.c:941
 #, c-format
 msgid "Could not open: %s"
 msgstr "ཁ་ཕྱེ་མ་ཚུགསཔ། %s"
 
-#: ../plugins/glade/plugin.c:969
+#: ../plugins/glade/plugin.c:972
 msgid "Could not create a new glade project."
 msgstr "གེལེཌི་ལས་འགུལ་གསརཔ་ཅིག་གསར་བསྐྲུན་འབད་མ་ཚུགསཔ།"
 
-#: ../plugins/gtodo/add_edit_item.c:92
+#: ../plugins/gtodo/add_edit_item.c:91
 msgid "You need to select a to do item before you can edit it"
 msgstr "ཁྱོད་ཀྱི་ཞུན་དག་འབད་བའི་ཧེ་མ་ཊུ་ཌུ་རྣམ་གྲངས་ཅིག་སེལ་འཐུ་འབད་དགོཔ་ཨིན།"
 
-#: ../plugins/gtodo/add_edit_item.c:111
+#: ../plugins/gtodo/add_edit_item.c:110
 msgid "Add Item"
 msgstr "རྣམ་གྲངས་ཁ་སྐོང་བརྐྱབ།"
 
-#: ../plugins/gtodo/add_edit_item.c:114
+#: ../plugins/gtodo/add_edit_item.c:113
 msgid "Edit Item"
 msgstr "རྣམ་གྲངས་ཞུན་དག་འབད།"
 
-#: ../plugins/gtodo/add_edit_item.c:147
+#: ../plugins/gtodo/add_edit_item.c:144
+#: ../plugins/gtodo/add_edit_item.c:145
+#: ../plugins/gtodo/list_tooltip.c:42
 msgid "Summary:"
 msgstr "བཅུད་དོན།"
 
-#: ../plugins/gtodo/add_edit_item.c:148
-msgid "<b>Summary:</b>"
-msgstr "<b>བཅུད་དོན།</b>"
-
 #. option menu label
-#: ../plugins/gtodo/add_edit_item.c:164
+#: ../plugins/gtodo/add_edit_item.c:162
 #: ../plugins/macro/anjuta-macro.glade.h:5
 msgid "Category:"
 msgstr "དབྱེ་རིམ།"
 
-#: ../plugins/gtodo/add_edit_item.c:186
-#: ../plugins/gtodo/add_edit_item.c:469
+#: ../plugins/gtodo/add_edit_item.c:184
+#: ../plugins/gtodo/add_edit_item.c:467
 #: ../plugins/gtodo/mcategory.c:20
 #: ../plugins/gtodo/todo_db.c:67
 #: ../plugins/gtodo/todo_db.c:68
 msgid "Edit Categories"
 msgstr "དབྱེ་རིམ་ཚུ་ཞུན་དག་འབད།"
 
-#: ../plugins/gtodo/add_edit_item.c:197
+#: ../plugins/gtodo/add_edit_item.c:195
+#: ../plugins/gtodo/list_tooltip.c:48
+#: ../plugins/gtodo/list_tooltip.c:54
 msgid "Due date:"
 msgstr "ཚེས་གྲངས་རན་པ།"
 
-#: ../plugins/gtodo/add_edit_item.c:217
+#: ../plugins/gtodo/add_edit_item.c:214
 msgid "Notify when due"
 msgstr "རན་པའི་སྐབས་བརྡ་བསྐུལ་འབད།"
 
 #. label
-#: ../plugins/gtodo/add_edit_item.c:230
+#: ../plugins/gtodo/add_edit_item.c:227
+#: ../plugins/gtodo/list_tooltip.c:64
+#: ../plugins/gtodo/list_tooltip.c:71
+#: ../plugins/gtodo/list_tooltip.c:77
 msgid "Priority:"
 msgstr "གཙོ་རིམ།"
 
-#: ../plugins/gtodo/add_edit_item.c:242
-#: ../plugins/gtodo/list_tooltip.c:69
+#: ../plugins/gtodo/add_edit_item.c:239
+#: ../plugins/gtodo/list_tooltip.c:77
 #: ../plugins/gtodo/todo_db.c:124
 msgid "High"
 msgstr "མཐོ།"
 
-#: ../plugins/gtodo/add_edit_item.c:244
-#: ../plugins/gtodo/list_tooltip.c:65
+#: ../plugins/gtodo/add_edit_item.c:241
+#: ../plugins/gtodo/list_tooltip.c:71
 #: ../plugins/gtodo/todo_db.c:123
 msgid "Medium"
 msgstr "བར་མ།"
 
 #. create a priority string
-#: ../plugins/gtodo/add_edit_item.c:246
-#: ../plugins/gtodo/list_tooltip.c:61
+#: ../plugins/gtodo/add_edit_item.c:243
+#: ../plugins/gtodo/list_tooltip.c:65
 #: ../plugins/gtodo/todo_db.c:122
 msgid "Low"
 msgstr "དམའ་སུ།"
 
-#: ../plugins/gtodo/add_edit_item.c:261
+#: ../plugins/gtodo/add_edit_item.c:254
+#: ../plugins/gtodo/add_edit_item.c:255
+#: ../plugins/gtodo/list_tooltip.c:81
 msgid "Comment:"
 msgstr "བསམ་བཀོད།"
 
-#: ../plugins/gtodo/add_edit_item.c:262
-msgid "<b>Comment:</b>"
-msgstr "<b>བསམ་བཀོད།</b>"
-
-#: ../plugins/gtodo/add_edit_item.c:284
+#: ../plugins/gtodo/add_edit_item.c:279
 msgid "Completed"
 msgstr "མཇུག་བསྡུ་ཡོདཔ།"
 
-#: ../plugins/gtodo/add_edit_item.c:290
-msgid "<i>started: n/a</i>"
-msgstr "<i>འགོ་བཙུགས་ཡོདཔ། n/a</i>"
+#: ../plugins/gtodo/add_edit_item.c:285
+#: ../plugins/gtodo/add_edit_item.c:331
+#: ../plugins/gtodo/add_edit_item.c:444
+msgid "started:"
+msgstr "འགོ་བཙུགས་ཡོདཔ"
 
-#: ../plugins/gtodo/add_edit_item.c:294
-msgid "<i>stopped: n/a</i>"
-msgstr "<i>བཀག་ཡོདཔ། n/a</i>"
-
-#: ../plugins/gtodo/add_edit_item.c:334
-#: ../plugins/gtodo/add_edit_item.c:335
+#: ../plugins/gtodo/add_edit_item.c:285
+#: ../plugins/gtodo/add_edit_item.c:292
+#: ../plugins/gtodo/add_edit_item.c:328
+#: ../plugins/gtodo/add_edit_item.c:329
 msgid "n/a"
 msgstr "n/a"
 
-#: ../plugins/gtodo/add_edit_item.c:337
-#, c-format
-msgid "<i>started: %s</i>"
-msgstr "<i>འགོ་བཙུགས་ཡོདཔ། %s</i>"
-
-#: ../plugins/gtodo/add_edit_item.c:340
-#, c-format
-msgid "<i>stopped: %s</i>"
-msgstr "<i>བཀག་ཡོདཔ། %s</i>"
-
-#: ../plugins/gtodo/add_edit_item.c:447
-#, c-format
-msgid "<i>started: %s \tstopped: %s</i>"
-msgstr "<i>འགོ་བཙུགས་ཡོདཔ %s \tབཀག་ཡོདཔ། %s</i>"
+#: ../plugins/gtodo/add_edit_item.c:292
+#: ../plugins/gtodo/add_edit_item.c:335
+#: ../plugins/gtodo/add_edit_item.c:444
+msgid "stopped:"
+msgstr "འགག་ཡོདཔ"
 
 #: ../plugins/gtodo/callback.c:12
 msgid "You need to select a todo item before you can remove it"
@@ -5394,32 +5394,6 @@ msgstr "ཚེས་གྲངས་རན་པ།"
 msgid "Summary"
 msgstr "བཅུད་དོན།"
 
-#: ../plugins/gtodo/interface.c:258
-msgid "About gToDo"
-msgstr "ཇི་ཊུ་ཌུ་གི་སྐོར་ལས།"
-
-#: ../plugins/gtodo/interface.c:266
-#, c-format
-msgid "gToDo %s"
-msgstr "ཇི་ཊུ་ཌུ་ %s"
-
-#: ../plugins/gtodo/interface.c:270
-#, c-format
-msgid "<span size=\"xx-large\"><b>gToDo %s</b></span>"
-msgstr "<span size=\"xx-large\"><b>ཇི་ཊུ་ཌུ་ %s</b></span>"
-
-#: ../plugins/gtodo/interface.c:275
-msgid "gToDo is a small and simple todo list written in gtk+-2.0"
-msgstr "ཇི་ཊུ་ཌུ་འདི་ཇི་ཊི་ཀེ་+-༢.༠་བྲིས་ཡོད་མི་ཐོ་ཡིག་འཇམ་སམ་དང་ཆུང་ཀུ་ཅིག་ཨིན།"
-
-#: ../plugins/gtodo/interface.c:278
-msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
-msgstr "འདྲ་བཤུས་དབང་ཆ་ © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
-
-#: ../plugins/gtodo/interface.c:279
-msgid "<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)</span>"
-msgstr "<span size=\"small\">འདྲ་བཤུས་དབང་ཆ་ © 2003-2004 Qball Cow (Qball@qball.homelinux.org)</span>"
-
 #: ../plugins/gtodo/libgtodo.c:609
 msgid "No permission to read the file."
 msgstr "ཡིག་སྣོད་འདི་ལྷག་ནིའི་གནང་བ་མེད།"
@@ -5466,65 +5440,6 @@ msgstr "ཡིག་སྣོད་ལུ་གནས་སྡུད་འབྲ
 msgid "No filename supplied."
 msgstr "ཡིག་སྣོད་མིང་སྤེལ་བཀྲམ་འབད་མེད།"
 
-#: ../plugins/gtodo/list_tooltip.c:42
-#, c-format
-msgid "<b>Summary:</b>\t%s"
-msgstr "<b>བཅུད་དོན།</b>\t%s"
-
-#: ../plugins/gtodo/list_tooltip.c:48
-#, c-format
-msgid ""
-"\n"
-"<b>Due date:</b>\t%s"
-msgstr ""
-"\n"
-"<b>ཚེས་གྲངས་རན་པ་</b>\t%s"
-
-#: ../plugins/gtodo/list_tooltip.c:53
-#, c-format
-msgid ""
-"\n"
-"<b>Due date:</b>\t%s at %02i:%02i"
-msgstr ""
-"\n"
-"<b>ཚེས་གྲངས་རན་པ་</b>\t%s ལུ་ %02i:%02i"
-
-#: ../plugins/gtodo/list_tooltip.c:61
-#, c-format
-msgid ""
-"\n"
-"<b>Priority:</b>\t\t<span color=\"dark green\">%s</span>"
-msgstr ""
-"\n"
-"<b>གཙོ་རིམ་</b>\t\t<span color=\"dark green\">%s</span>"
-
-#: ../plugins/gtodo/list_tooltip.c:65
-#, c-format
-msgid ""
-"\n"
-"<b>Priority:</b>\t\t%s"
-msgstr ""
-"\n"
-"<b>གཙོ་རིམ</b>\t\t%s"
-
-#: ../plugins/gtodo/list_tooltip.c:69
-#, c-format
-msgid ""
-"\n"
-"<b>Priority:</b>\t\t<span color=\"red\">%s</span>"
-msgstr ""
-"\n"
-"<b>གཙོ་རིམ</b>\t\t<span color=\"red\">%s</span>"
-
-#: ../plugins/gtodo/list_tooltip.c:73
-#, c-format
-msgid ""
-"\n"
-"<b>Comment:</b>\t%s"
-msgstr ""
-"\n"
-"<b>བསམ་བགོད།</b>\t%s"
-
 #: ../plugins/gtodo/mcategory.c:145
 #, c-format
 msgid "When you delete the category \"%s\", all containing items are lost"
@@ -5540,26 +5455,17 @@ msgstr "བཏོན་གཏང་།"
 msgid "enter name"
 msgstr "མིང་བཙུགས།"
 
-#: ../plugins/gtodo/notification.c:65
+#: ../plugins/gtodo/notification.c:66
 #, c-format
-msgid ""
-"<spam weight=\"bold\" size=\"larger\">The following item is due in %i minutes:</span>\n"
-" %s"
-msgstr ""
-"<spam weight=\"bold\" size=\"larger\">འོག་གི་རྣམ་གྲངས་འདི་%i སྐར་མ་ཚུ་ནང་ཆད་ཡོད།</span>\n"
-" %s"
+msgid "The following item is due in %i minutes:"
+msgstr "འོག་གི་རྣམ་གྲངས་འདི་ %i སྐར་ཆག་ཚུ་ནང་ཆད་ཡོདཔ།"
 
-#: ../plugins/gtodo/notification.c:67
-#, c-format
-msgid ""
-"<span weight=\"bold\" size=\"larger\">The following item is due:</span>\n"
-"\"%s\""
-msgstr ""
-"<span weight=\"bold\" size=\"larger\">འོག་གི་རྣམ་གྲངས་འདི་ཆད་ཡོད།</span>\n"
-"\"%s\""
+#: ../plugins/gtodo/notification.c:74
+msgid "The following item is due:"
+msgstr "འོག་གི་རྣམ་གྲངས་འདི་ཆད་ཡོདཔ།"
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
-#: ../plugins/gtodo/notification.c:105
+#: ../plugins/gtodo/notification.c:114
 msgid "_Do not show again"
 msgstr "ལོག་མ་སྟོན།(_D)"
 
@@ -5633,79 +5539,67 @@ msgid "Tooltips in list"
 msgstr "ལག་ཆས་ཕན་བསླབ་ཐོ་ཡིག་ནང་།"
 
 #: ../plugins/gtodo/preferences.c:120
+#: ../plugins/gtodo/preferences.c:122
 msgid "Show in main window"
 msgstr "ཝིནཌོ་གཙོ་བོ་ནང་སྟོན།"
 
-#: ../plugins/gtodo/preferences.c:122
-msgid "<b>Show in main window</b>"
-msgstr "<b>ཝིནཌོ་གཙོ་བོ་ནང་སྟོན།</b>"
-
-#: ../plugins/gtodo/preferences.c:131
+#: ../plugins/gtodo/preferences.c:133
+#: ../plugins/gtodo/preferences.c:135
 msgid "Highlight"
 msgstr "གཙོ་དམིགས།"
 
-#: ../plugins/gtodo/preferences.c:133
-msgid "<b>Highlight</b>"
-msgstr "<b>གཙོ་དམིགས།</b>"
-
 #. tb for highlighting due today
-#: ../plugins/gtodo/preferences.c:140
+#: ../plugins/gtodo/preferences.c:145
 msgid "items that are due today"
 msgstr "ད་རིས་ཆད་མི་རྣམ་གྲངས་ཚུ།"
 
 #. tb for highlighting due
-#: ../plugins/gtodo/preferences.c:146
+#: ../plugins/gtodo/preferences.c:151
 msgid "items that are past due"
 msgstr "འདས་པའི་ཆད་མི་རྣམ་གྲངས་ཚུ།"
 
 #. tb for highlighting in x days
-#: ../plugins/gtodo/preferences.c:152
+#: ../plugins/gtodo/preferences.c:157
 #, c-format
 msgid "items that are due in the next %i days"
 msgstr "ཤུལ་མམ་གྱི་ཉིནམ་ཚུ་ནང་%i ཆད་མི་རྣམ་གྲངས་ཚུ།"
 
-#: ../plugins/gtodo/preferences.c:164
+#: ../plugins/gtodo/preferences.c:169
 msgid "Misc"
 msgstr "སྣ་ཚོགས།"
 
-#: ../plugins/gtodo/preferences.c:167
+#: ../plugins/gtodo/preferences.c:172
 msgid "Auto purge completed items"
 msgstr "རང་བཞིན་ཕྱིར་བསྐྲད་མཇུག་བསྡུ་ཡོད་མི་རྣམ་གྲངས་ཚུ།"
 
-#: ../plugins/gtodo/preferences.c:172
+#: ../plugins/gtodo/preferences.c:177
 msgid "Purge items after"
 msgstr "ཕྱིར་བསྐྲད་རྣམ་གྲངས་ཚུའི་ཤུལ་མ།"
 
-#: ../plugins/gtodo/preferences.c:176
+#: ../plugins/gtodo/preferences.c:181
 msgid "days."
 msgstr "ཉིནམ་ཚུ།"
 
-#: ../plugins/gtodo/preferences.c:188
+#: ../plugins/gtodo/preferences.c:194
+#: ../plugins/gtodo/preferences.c:196
 msgid "Auto Purge"
 msgstr "རང་བཞིན་ཕྱིར་བསྐྲད།"
 
-#: ../plugins/gtodo/preferences.c:190
-msgid "<b>Auto Purge</b>"
-msgstr "<b>རང་བཞིན་ཕྱིར་བསྐྲད།</b>"
-
-#: ../plugins/gtodo/preferences.c:200
+#: ../plugins/gtodo/preferences.c:208
+#: ../plugins/gtodo/preferences.c:210
 msgid "Notification"
 msgstr "བརྡ་བསྐུལ།"
 
-#: ../plugins/gtodo/preferences.c:202
-msgid "<b>Notification</b>"
-msgstr "<b>བརྡ་བསྐུལ།</b>"
-
-#: ../plugins/gtodo/preferences.c:207
+#: ../plugins/gtodo/preferences.c:217
 #, c-format
 msgid "Allow to do items to notifiy me when they are due in %i minutes"
 msgstr "ཁོང་ཆ་ཁྱབ་%i སྐར་མ་ཚུ་ནང་ཆད་པའི་སྐབས་ང་ལུ་བརད་བསྐུལ་འབད་ནི་ལུ་ཊུ་ཌུ་རྣམ་གྲངས་ཚུ་འབད་བཅུགཔ་ཨིན།"
 
-#: ../plugins/gtodo/preferences.c:214
+#: ../plugins/gtodo/preferences.c:224
 msgid "Show Notification Tray Icon"
 msgstr "བརྡ་བསྐུལ་ཤོག་སྣོད་ངོས་དཔར་སྟོན།"
 
-#: ../plugins/gtodo/preferences.c:294
+#: ../plugins/gtodo/preferences.c:304
 msgid ""
 "Showing Tooltips in the todo list is still very alpha.\n"
 "Because of some weird behaviour in gtk it only works with the column headers disabled.\n"
@@ -5715,31 +5609,31 @@ msgstr ""
 "ཇི་ཊི་ཀེ་ནང་ཝེརཌི་སྤྱོད་ལམ་ལ་ལོ་གི་རྒྱུ་མཚན་ལུ་རྟེན་ཀེར་ཐིག་མགོ་ཡིག་ལྕགོས་མིན་བཟོ་ཡོད་མི་དང་གཅིག་ཁར་རྐྱངམ་ཅིག་ལཱ་འབདཝ་ཨིན།\n"
 "མགྱོགས་པ་རང་འདི་གཏན་བཟོ་འབད་ཚུགས་པའི་རེ་སྨོན་ང་ལས་ཡོད།"
 
-#: ../plugins/gtodo/preferences.c:377
+#: ../plugins/gtodo/preferences.c:387
 msgid "/View/Sorting/Sort Ascending"
 msgstr "/དབྱེ་སེལ་/ཡར་འཕར་དབྱེ་སེལ/སྟོན།"
 
-#: ../plugins/gtodo/preferences.c:378
+#: ../plugins/gtodo/preferences.c:388
 msgid "/View/Sorting/Sort Descending"
 msgstr "/དབྱེ་སེལ་འབད་དོ་/མར་ཕབ་དབྱེ་སེལ་/སྟོན།"
 
 #. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Completed Items"))),settings.hide_done);
 #.
-#: ../plugins/gtodo/preferences.c:387
+#: ../plugins/gtodo/preferences.c:397
 msgid "/View/Hide Completed Items"
 msgstr "/མཇུག་བསྡུ་ཡོད་མི་རྣམ་གྲངས་ཚུ་སྦ་བཞག་མི/་སྟོན།"
 
 #. "/schemas
 #. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items that are past due"))),settings.hide_due);
 #.
-#: ../plugins/gtodo/preferences.c:396
+#: ../plugins/gtodo/preferences.c:406
 msgid "/View/Hide Items that Are Past Due Date"
 msgstr "འདས་པའི་ཚེས་གྲངས་ཆད་མི་སྦ་བའི་རྣམ་གྲངས་ཚུ་/སྟོན/"
 
 #. "/schemas
 #. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items without an end date"))), settings.hide_nodate);
 #.
-#: ../plugins/gtodo/preferences.c:405
+#: ../plugins/gtodo/preferences.c:415
 msgid "/View/Hide Items Without an End Date"
 msgstr "མཇུག་གི་ཚེས་གྲངས་ཅིག་མེད་མི་སྦ་བའི་རྣམ་གྲངས་ཚུ་/སྟོན/"
 
@@ -6081,6 +5975,10 @@ msgstr "འཕྲིན་དོན་བརྡ་སྟོན་པའི་བ
 msgid "Warnings:"
 msgstr "ཉེན་བརྡ་ཚུ།"
 
+#: ../plugins/message-view/anjuta-msgman.c:72
+msgid "Close all message tabs"
+msgstr "འཕྲིན་དོན་མཆོང་ལྡེ་ཚུ་ཆ་མཉམ་ཁ་བསྡམ།"
+
 #: ../plugins/message-view/message-view.c:663
 #: ../plugins/message-view/plugin.c:216
 #: ../plugins/message-view/plugin.c:395
@@ -6182,76 +6080,6 @@ msgstr "འགོ་མཚམས།(_P)་་་"
 msgid "Patch files/directories"
 msgstr "ཡིག་སྣོད་ཚུ/སྣོད་ཐོ་ཚུ་འགོ་མཚམས་འབད།"
 
-#: ../plugins/profile-default/plugin.c:271
-msgid "Close Pro_ject"
-msgstr "ལས་འགུལ་ཁ་བསྡམ།(_j)"
-
-#: ../plugins/profile-default/plugin.c:271
-msgid "Close project"
-msgstr "ལས་འགུལ་ཁ་བསྡམ།"
-
-#: ../plugins/profile-default/plugin.c:290
-msgid "Profile actions"
-msgstr "གསལ་སྡུད་ཀྱི་བྱ་བ་ཚུ།"
-
-#. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../plugins/profile-default/plugin.c:530
-msgid "Loaded: "
-msgstr "མངོནས་གསལ་འབད་ཡོདཔ།"
-
-#: ../plugins/profile-default/plugin.c:530
-msgid "..."
-msgstr "..."
-
-#: ../plugins/profile-default/plugin.c:583
-#: ../plugins/profile-default/plugin.c:603
-#: ../plugins/profile-default/plugin.c:614
-#, c-format
-msgid ""
-"Cannot open: %s\n"
-"&s"
-msgstr ""
-"ཁ་ཕྱེ་མ་བཏུབ། %s\n"
-"&s"
-
-#: ../plugins/profile-default/plugin.c:595
-#, c-format
-msgid "No read permission for: %s"
-msgstr "དོན་ལུ་ལྷག་ནི་གནང་བ་མེད། %s"
-
-#: ../plugins/profile-default/plugin.c:624
-#: ../plugins/profile-default/plugin.c:633
-#, c-format
-msgid ""
-"Cannot open: %s\n"
-"XML parse error."
-msgstr ""
-"ཁ་ཕྱེ་མ་བཏུབ། %s\n"
-"ཨེགསི་ཨེམ་ཨེལ་མིང་དཔྱད་འབད་ནི་འཛོལ་བ།"
-
-#: ../plugins/profile-default/plugin.c:643
-#: ../plugins/profile-default/plugin.c:1035
-#, c-format
-msgid ""
-"Cannot open: %s\n"
-"Does not look like a valid Anjuta project."
-msgstr ""
-"ཁ་ཕྱེ་མ་བཏུབ། %s\n"
-"ནུས་ཅན་ཨན་ཇུ་ཊ་ལས་འགུལ་ཅིག་བཟུམ་མི་མཐོང་མས།"
-
-#: ../plugins/profile-default/plugin.c:938
-msgid "Loaded default profile..."
-msgstr "སྔོན་སྒྲིག་གསལ་སྡུད་མངོན་གསལ་འབད་ཡོདཔ།་་་"
-
-#: ../plugins/profile-default/plugin.c:994
-#: ../plugins/profile-default/plugin.c:1137
-msgid "Loaded Profile..."
-msgstr "མངོན་གསལ་འབད་ཡོད་མི་གསལ་སྡུད།་་་"
-
-#: ../plugins/profile-default/plugin.c:1107
-msgid "Loaded Project... Initializing"
-msgstr "མངོན་གསལ་འབད་ཡོད་མི་ལས་འགུལ་འགོ་འབྱེད་འབད་དོ།་་་"
-
 #: ../plugins/profiler/plugin.c:174
 msgid ""
 "Could not get profiling data.\n"
@@ -6275,7 +6103,7 @@ msgstr ""
 #. Action name
 #. Stock icon, if any
 #: ../plugins/profiler/plugin.c:582
-#: ../plugins/profiler/plugin.c:684
+#: ../plugins/profiler/plugin.c:702
 #: ../plugins/profiler/profiler.plugin.in.h:3
 msgid "Profiler"
 msgstr "གསལ་སྡུདཔ།"
@@ -6298,24 +6126,24 @@ msgstr "ཡང་སེལ་འབད་ནི།"
 msgid "Delete Data"
 msgstr "གནས་སྡུད་བཏོན་གཏང་།"
 
-#: ../plugins/profiler/plugin.c:655
+#: ../plugins/profiler/plugin.c:657
 msgid "Application Performance Profiler"
 msgstr "གློག་རིམ་ལཱ་ཤུགས་གསལ་སྡུདཔ།"
 
-#: ../plugins/profiler/plugin.c:667
+#: ../plugins/profiler/plugin.c:679
 msgid "Flat Profile"
 msgstr "གསལ་སྡུད་ལེབ་ཏེམ།"
 
-#: ../plugins/profiler/plugin.c:670
+#: ../plugins/profiler/plugin.c:684
 #: ../plugins/profiler/profiler.glade.h:5
 msgid "Call Graph"
 msgstr "ཚད་རིས་འབོད།"
 
-#: ../plugins/profiler/plugin.c:673
+#: ../plugins/profiler/plugin.c:689
 msgid "Function Call Tree"
 msgstr "ལས་འགན་བོད་རྩ་འབྲེལ།"
 
-#: ../plugins/profiler/plugin.c:678
+#: ../plugins/profiler/plugin.c:696
 msgid "Function Call Chart"
 msgstr "ལས་འགན་བོད་དཔེ་རིས།"
 
@@ -6373,7 +6201,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:13
 #: ../plugins/valgrind/vggeneralprefs.c:172
-#: ../src/anjuta-app.c:594
+#: ../src/anjuta-app.c:647
 msgid "General"
 msgstr "ཡོངས་ཁྱབ།"
 
@@ -6446,43 +6274,43 @@ msgstr ""
 "ལས་འགུལ་དབྱེ་བ། %s\n"
 "ལས་འགུལ་འགྲུལ་ལམ། %s\n"
 
-#: ../plugins/project-import/project-import.c:296
+#: ../plugins/project-import/project-import.c:297
 msgid "Generation of project file failed. Cannot find an appropriate project template to use. Please make sure your version of Anjuta is up to date."
 msgstr "ལས་འགུལ་ཡིག་སྣོད་ཀྱི་བཟོ་བཏོན་འཐུས་ཤོར་འབྱུང་ཡོདཔ། ལག་ལེན་འཐབ་ནི་ལུ་འོས་ལྡན་ལས་འགུལ་ཅིག་འཚོལ་མ་ཐོབ། ཁྱོད་ཀྱི་ཨན་ཇུ་ཊ་གི་ཐོན་རིམ་འདི་ཚེས་གྲངས་ལུ་ཡོདཔ་ངེས་གཏན་བཟོ་གནང་།"
 
-#: ../plugins/project-import/project-import.c:326
+#: ../plugins/project-import/project-import.c:327
 #, c-format
 msgid "Generation of project file failed. Please check if you have write access to the project directory: %s"
 msgstr "ལས་འགུལ་ཡིག་སྣོད་ཀྱི་བཟོ་བཏོན་འཐུས་ཤོར་འབྱུང་ཡོདཔ། ཁྱོད་ཀྱིས་ལས་འགུལ་སྣོད་ཐོ་འདི་ལུ་འཛུལ་སྤྱོད་འབད་ནི་འབྲི་ཡོད་པ་ཅིན་ཞིབ་དཔྱད་འབད་གནང་།%s"
 
-#: ../plugins/project-manager/plugin.c:218
+#: ../plugins/project-manager/plugin.c:343
 #, c-format
 msgid "Failed to refresh project: %s"
 msgstr "ལས་འགུལ་ཡང་སེལ་འབད་ནི་འཐུས་ཤོར་འབྱུང་ཡོདཔ། %s"
 
-#: ../plugins/project-manager/plugin.c:241
-#: ../plugins/project-manager/plugin.c:613
+#: ../plugins/project-manager/plugin.c:366
+#: ../plugins/project-manager/plugin.c:742
 msgid "Project properties"
 msgstr "ལས་འགུལ་རྒྱུ་དངོས་ཚུ།"
 
-#: ../plugins/project-manager/plugin.c:256
-#: ../plugins/project-manager/plugin.c:345
+#: ../plugins/project-manager/plugin.c:381
+#: ../plugins/project-manager/plugin.c:473
 msgid "No properties available for this target"
 msgstr "དམིགས་གཏད་འདིའི་དོན་ལུ་རྒྱུ་དངོས་ཚུ་ཐོབ་ཚུགསཔ་མེད།"
 
-#: ../plugins/project-manager/plugin.c:330
+#: ../plugins/project-manager/plugin.c:458
 msgid "Target properties"
 msgstr "དམིགས་གཏད་རྒྱུ་དངོས་ཚུ།"
 
-#: ../plugins/project-manager/plugin.c:359
+#: ../plugins/project-manager/plugin.c:487
 msgid "Group properties"
 msgstr "སྡེ་ཚན་གྱི་རྒྱུ་དངོས་ཚུ།"
 
-#: ../plugins/project-manager/plugin.c:374
+#: ../plugins/project-manager/plugin.c:502
 msgid "No properties available for this group"
 msgstr "སྡེ་ཚན་འདིའི་དོན་ལུ་རྒྱུ་དངོས་ཚུ་ཐོབ་ཚུགསཔ་མེད།"
 
-#: ../plugins/project-manager/plugin.c:456
+#: ../plugins/project-manager/plugin.c:584
 #, c-format
 msgid ""
 "%sGroup: %s\n"
@@ -6493,12 +6321,12 @@ msgstr ""
 "\n"
 "ཡིག་སྣོད་རིམ་ལུགས་ལས་སྡེ་ཚན་འདི་བཏོན་མི་གཏང་།"
 
-#: ../plugins/project-manager/plugin.c:459
+#: ../plugins/project-manager/plugin.c:587
 #, c-format
 msgid "%sTarget: %s"
 msgstr "%sདམིགས་གཏད། %s"
 
-#: ../plugins/project-manager/plugin.c:462
+#: ../plugins/project-manager/plugin.c:590
 #, c-format
 msgid ""
 "%sSource: %s\n"
@@ -6509,7 +6337,7 @@ msgstr ""
 "\n"
 "ཡིག་སྣོད་རིམ་ལུགས་ལས་འབྱུང་ཁུངས་འདི་བཏོན་མི་གཏང་།"
 
-#: ../plugins/project-manager/plugin.c:471
+#: ../plugins/project-manager/plugin.c:599
 msgid ""
 "Are you sure you want to remove the following from project?\n"
 "\n"
@@ -6517,7 +6345,7 @@ msgstr ""
 "ཁྱོད་ཀྱིས་ལས་འགུལ་ལས་འོག་གི་འདི་རྩ་བསྐྲད་གཏང་ནི་དེ་ངེས་གཏན་ཨིན་ན?\n"
 "\n"
 
-#: ../plugins/project-manager/plugin.c:517
+#: ../plugins/project-manager/plugin.c:645
 #, c-format
 msgid ""
 "Failed to remove '%s':\n"
@@ -6526,117 +6354,133 @@ msgstr ""
 "རྩ་བསྐྲད་གཏང་ནི་འཐུས་ཤོར་འབྱུང་ཡོདཔ། '%s':\n"
 "%s"
 
-#: ../plugins/project-manager/plugin.c:572
+#: ../plugins/project-manager/plugin.c:701
 msgid "URI is link"
 msgstr "ཡུ་ཨར་ཨའི་འདི་འབྲེལ་ལམ་ཨིན།"
 
-#: ../plugins/project-manager/plugin.c:574
+#: ../plugins/project-manager/plugin.c:703
 #, c-format
 msgid "Failed to retried URI info of %s: %s"
 msgstr "གི་ཡུ་ཨར་ཨའི་བརྡ་དོན་ལོག་འབད་རྩོལ་བསྐྱེད་ཡོད་མི་ལུ་འཐུས་ཤོར་འབྱུང་ཡོདཔ། %s: %s"
 
-#: ../plugins/project-manager/plugin.c:609
+#: ../plugins/project-manager/plugin.c:738
 msgid "_Project"
 msgstr "ལས་འགུལ།(_P)"
 
-#: ../plugins/project-manager/plugin.c:613
-#: ../plugins/project-manager/plugin.c:642
+#: ../plugins/project-manager/plugin.c:742
+#: ../plugins/project-manager/plugin.c:776
 msgid "_Properties"
 msgstr "རྒྱུ་དངོས་ཚུ།(_P)"
 
-#: ../plugins/project-manager/plugin.c:618
+#: ../plugins/project-manager/plugin.c:747
 msgid "Refresh project manager tree"
 msgstr "ལས་འགུལ་འཛིན་སྐྱོང་པའི་རྩ་འབྲེལ་ཡང་སེལ་འབད།"
 
-#: ../plugins/project-manager/plugin.c:623
+#: ../plugins/project-manager/plugin.c:752
 msgid "Add _Group..."
 msgstr "སྡེ་ཚན་ཁ་སྐོང་བརྐྱབ།(_G)་་་"
 
-#: ../plugins/project-manager/plugin.c:623
-#: ../plugins/project-manager/plugin.c:652
+#: ../plugins/project-manager/plugin.c:752
+#: ../plugins/project-manager/plugin.c:786
 msgid "Add a group to project"
 msgstr "ལས་འགུལ་ལུ་སྡེ་ཚན་ཅིག་ཁ་སྐོང་བརྐྱབ།"
 
-#: ../plugins/project-manager/plugin.c:628
+#: ../plugins/project-manager/plugin.c:757
 msgid "Add _Target..."
 msgstr "དམིགས་གཏད་ཁ་སྐོང་བརྐྱབ།(_T)་་་"
 
-#: ../plugins/project-manager/plugin.c:628
-#: ../plugins/project-manager/plugin.c:657
+#: ../plugins/project-manager/plugin.c:757
+#: ../plugins/project-manager/plugin.c:791
 msgid "Add a target to project"
 msgstr "ལས་འགུལ་ལུ་དམིགས་གཏད་ཅིག་ཁ་སྐོང་བརྐྱབ།"
 
-#: ../plugins/project-manager/plugin.c:633
+#: ../plugins/project-manager/plugin.c:762
 msgid "Add _Source File..."
 msgstr "འབྱུང་ཁུངས་ཡིག་སྣོད་ཁ་སྐོང་བརྐྱབ།(_S)་་་"
 
-#: ../plugins/project-manager/plugin.c:633
-#: ../plugins/project-manager/plugin.c:647
-#: ../plugins/project-manager/plugin.c:662
+#: ../plugins/project-manager/plugin.c:762
+#: ../plugins/project-manager/plugin.c:781
+#: ../plugins/project-manager/plugin.c:796
 msgid "Add a source file to project"
 msgstr "ལས་འགུལ་ལུ་འབྱུང་ཁུངས་ཡིག་སྣོད་ཅིག་ཁ་སྐོང་བརྐྱབ།"
 
-#: ../plugins/project-manager/plugin.c:642
+#: ../plugins/project-manager/plugin.c:767
+msgid "Close Pro_ject"
+msgstr "ལས་འགུལ་ཁ་བསྡམ།(_j)"
+
+#: ../plugins/project-manager/plugin.c:767
+msgid "Close project"
+msgstr "ལས་འགུལ་ཁ་བསྡམ།"
+
+#: ../plugins/project-manager/plugin.c:776
 msgid "Properties of group/target/source"
 msgstr "སྡེ་ཚན་/དམིགས་གཏད/འབྱུང་ཁུངས་ཀྱི་རྒྱུ་དངོས་ཚུ།"
 
-#: ../plugins/project-manager/plugin.c:647
+#: ../plugins/project-manager/plugin.c:781
 msgid "_Add To Project"
 msgstr "ལས་འགུལ་ལུ་ཁ་སྐོང་བརྐྱབ།(_A)"
 
-#: ../plugins/project-manager/plugin.c:652
+#: ../plugins/project-manager/plugin.c:786
 msgid "Add _Group"
 msgstr "སྡེ་ཚན་ཁ་སྐོང་བརྐྱབ།(_G)"
 
-#: ../plugins/project-manager/plugin.c:657
+#: ../plugins/project-manager/plugin.c:791
 msgid "Add _Target"
 msgstr "དམིགས་གཏད་ཁ་སྐོང་བརྐྱབ།(_T)"
 
-#: ../plugins/project-manager/plugin.c:662
+#: ../plugins/project-manager/plugin.c:796
 msgid "Add _Source File"
 msgstr "འབྱུངས་ཁུངས་ཡིག་སྣོད་ཁ་སྐོང་བརྐྱབ།(_S)"
 
-#: ../plugins/project-manager/plugin.c:667
+#: ../plugins/project-manager/plugin.c:801
 msgid "Re_move"
 msgstr "རྩ་བསྐྲད་གཏང་།(_m)"
 
-#: ../plugins/project-manager/plugin.c:667
+#: ../plugins/project-manager/plugin.c:801
 msgid "Remove from project"
 msgstr "ལས་འགུལ་ལས་རྩ་བསྐྲད་གཏང་།"
 
-#: ../plugins/project-manager/plugin.c:921
-msgid "Loading project. Please wait ..."
-msgstr "ལས་འགུལ་མངོན་གསལ་འབད་དོ། བསྒུག་གནང་།་་་"
-
-#: ../plugins/project-manager/plugin.c:1006
+#: ../plugins/project-manager/plugin.c:1113
 #, c-format
 msgid "Loading project: %s"
 msgstr "ལས་འགུལ་མངོན་གསལ་འབད་དོ། %s"
 
-#: ../plugins/project-manager/plugin.c:1014
+#: ../plugins/project-manager/plugin.c:1121
 msgid "Created project view..."
 msgstr "གསར་བསྐྲུན་འབད་ཡོད་མི་ལས་འགུལ་སྟོན།་་་"
 
-#: ../plugins/project-manager/plugin.c:1027
+#: ../plugins/project-manager/plugin.c:1134
 #, c-format
 msgid "Failed to load project %s: %s"
 msgstr "ལས་འགུལ་མངོན་གསལ་འབད་ནི་འཐུས་ཤོར་འབྱུང་ཡོདཔ། %s: %s"
 
-#. gtk_widget_destroy (progress_win);
-#: ../plugins/project-manager/plugin.c:1047
-#: ../plugins/project-manager/plugin.c:1118
-#: ../plugins/project-manager/plugin.c:1202
+#: ../plugins/project-manager/plugin.c:1153
+#: ../plugins/project-manager/plugin.c:1223
+#: ../plugins/project-manager/plugin.c:1394
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "ལས་འགུལ།"
 
-#: ../plugins/project-manager/plugin.c:1181
+#: ../plugins/project-manager/plugin.c:1310
+#, c-format
+msgid "Error closing project: %s"
+msgstr "ལས་འགུལ་ཁ་བསྡམ་ནི་འཛོལ་བ་%s"
+
+#: ../plugins/project-manager/plugin.c:1373
 msgid "Project manager actions"
 msgstr "ལས་འགུལ་འཛིན་སྐྱོང་པའི་བྱ་བ་ཚུ།"
 
-#: ../plugins/project-manager/plugin.c:1189
+#: ../plugins/project-manager/plugin.c:1381
 msgid "Project manager popup actions"
 msgstr "ལས་འགུལ་འཛིན་སྐྱོང་པའི་པོཔ་ཨཔ་བྱ་བ་ཚུ།"
+
+#: ../plugins/project-manager/plugin.c:2286
+msgid "Loaded Project... Initializing"
+msgstr "མངོན་གསལ་འབད་ཡོད་མི་ལས་འགུལ་འགོ་འབྱེད་འབད་དོ།་་་"
+
+#: ../plugins/project-manager/plugin.c:2297
+msgid "Loaded Project..."
+msgstr "མངོན་གསལ་འབད་ཡོད་པའི་ལས་འགུལ་་་"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 msgid "<b>Project description:</b>"
@@ -6651,6 +6495,7 @@ msgid "Application Wizard"
 msgstr "གློག་རིམ་གྱི་ཝི་ཛརཌི།"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
+#: ../plugins/project-wizard/templates/translatable-strings.h:8
 msgid "Author:"
 msgstr "རྩོམ་པ་པོ།"
 
@@ -6659,6 +6504,7 @@ msgid "Basic Information"
 msgstr "གཞི་རིམ་གྱི་བརྡ་དོན།"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
+#: ../plugins/project-wizard/templates/translatable-strings.h:16
 msgid "Destination:"
 msgstr "འགྲོ་ཡུལ།"
 
@@ -6667,6 +6513,7 @@ msgid "Enter the basic Project information"
 msgstr "གཞི་རིམ་ལས་འགུལ་གྱི་བརྡ་དོན་འདི་བཙུགས།"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "Project Name:"
 msgstr "ལས་འགུལ་མིང་།"
 
@@ -6679,6 +6526,7 @@ msgid "The Application Wizard will generate a basic skeleton for a project, incl
 msgstr "བཟོ་བརྩིགས་ཡིག་སྣོད་ཚུ་གི་གྲངས་སུ་རྩིས་དེ་ ལས་འགུལ་ཅིག་གི་དོན་ལུ་གློག་རིམ་ཝི་ཛརཌི་འདི་གིས་གཞི་རིམ་སི་ཀེལ་ལོ་ཊོན་ཅིག་བཟོ་བཏོན་་འབད་འོང་། གློག་རིམ་འདིའི་དོན་ལུ་འགོ་འབྱེད་འབད་ནི་གཞི་བཀོད་ཀྱི་རྒྱས་བཤད་ཚུ་གི་དོན་ལུ་དྲི་འོང་། ཤུལ་མ་སྒྲིག་སྟངས་ཚུ་ལ་ལོ་བསྒྱུར་་བཅོས་འབད་མི་བཏུབ་འོང་ དེ་འབདཝ་ལས་དྲི་བ་ཚུ་དྲན་ཤེས་ཀྱི་སྒོ་ལས་ལེན་བརྐྱབ་གནང་།"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Version:"
 msgstr "ཐོན་རིམ།"
 
@@ -6762,6 +6610,214 @@ msgstr "ལས་འགུལ་ཝི་ཛརཌི་གསརཔ།"
 msgid "Icon choice"
 msgstr "ངོས་དཔར་གདམ་ཁ།"
 
+#: ../plugins/project-wizard/templates/translatable-strings.h:1
+msgid "Add C++ support:"
+msgstr "སི་++རྒྱབ་སྐྱོར་ཁ་སྐོང་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:2
+msgid "Add gtk-doc system:"
+msgstr "ཇི་ཊི་ཀེ་ཡིག་ཆའི་རིམ་ལུགས་ཁ་སྐོང་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:3
+msgid "Add internationalization:"
+msgstr "རྒྱལ་སྤྱི་བཟོ་ནི་ཁ་སྐོང་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:4
+msgid "Add shared library support:"
+msgstr "རུབ་སྤྱོད་འབད་ཡོད་པའི་རྒྱབ་སྐྱོར་ཁ་སྐོང་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:5
+msgid "Adds c++ support to the project so that c++ source files can be built"
+msgstr "སི་++འབྱུང་ཁུངས་ཡིག་སྣོད་ཚུ་བཟོ་བརྩིགས་འབད་བཏུབ་ནི་དོན་ལུ་ལས་འགུལ་ལུ་སི་++རྒྱབ་སྐྱོར་ཁ་སྐོང་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:6
+msgid "Adds supports for building shared libraries in your project"
+msgstr "ཁྱོད་ཀྱི་ལས་འགུལ་ནང་རུབ་སྤྱོད་འབད་ཡོད་པའི་དཔེར་མཛོད་ཚུ་བཟོ་བརྩིགས་འབད་ནི་དོན་ལུ་རྒྱབ་སྐྱོར་ཚུ་ཁ་སྐོང་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:7
+msgid "Adds supports for internationalization so that your project can have translations in different languages"
+msgstr "ཁྱོད་ཀྱི་ལས་འགུལ་དེ་ནང་ཁ་སྐད་ཚུ་སོ་སོ་ནང་སྐད་བསྒྱུར་འབད་ཚུགས་ནི་ལུ་རྒྱལ་སྤྱི་གི་དོན་ལུ་རྒྱབ་སྐྱོར་ཚུ་ཁ་སྐོང་འབདཝ་ཨིན།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:9
+msgid "Basic information"
+msgstr "གཞི་རིམ་བརྡ་དོན།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:10
+msgid "Berkeley Software Distribution License(BSD)"
+msgstr "བཀ་ཀི་ལི་མཉེན་ཆས་བགོ་བཀྲམ་ཆོག་ཐམ་ལག་འཁྱེར(བི་ཨེསི་ཌི)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:11
+msgid "Comma separated, other plugins that this plugin depends on. It could be either primary interface name or plugin location (library:class)"
+msgstr "པ་ལག་ཨིན་འདི་གུ་བརྟེན་པའི་པ་ལག་ཨིན་གཞན་ཚུ་ལྷོད་རྟགས་ཀྱིས་སོ་སོ་ཁ་འཕྱལ་ཡོདཔ། འདི་ཡང་་གཞི་རིམ་ངོས་འདྲ་བའི་མིང་ཡང་ན་པ་ལག་ཨིན་གནས་ཁོངས་འབད་རུང་བཏུབ་ཨིན(དཔེར་མཛོད་ དབྱེ་རིགས་)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:12
+msgid "Configure external packages"
+msgstr "ཕྱིའི་ཐུམ་སྒྲིལ་ཚུ་རིམ་སྒྲིག་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:13
+msgid "Configure external packages:"
+msgstr "ཕྱིའི་ཐུམ་སྒྲིལ་ཚུ་རིམ་སྒྲིག་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:14
+msgid "Create a template glade interface file"
+msgstr "ཊེམ་ལེཊི་གེ་ལེཌི་ངོས་འདྲ་བའི་ཡིག་སྣོད་ཅིག་གསར་བསྐྲུན་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:15
+msgid "Create glade interface file"
+msgstr "གེལེཌི་ངོས་འདྲ་བའི་ཡིག་སྣོད་གསར་བསྐྲུན་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:17
+msgid "Display description of the plugin"
+msgstr "པ་ལག་ཨིན་གྱི་འགྲེལ་བཤད་བཀྲམ་སྟོན་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:18
+msgid "Display title of the plugin"
+msgstr "པ་ལག་ཨིན་གྱི་མགོ་མིང་བཀྲམ་སྟོན་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:19
+msgid "Email address:"
+msgstr "གློག་འཕྲིན་ཁ་བྱང་།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
+msgid "GCJ needs to know which class contains the main() function"
+msgstr "ཇི་སི་ཇེ་གིས་དབྱེ་རིགས་ག་གིས་ལས་འགན་()གཙོ་བོ་ག་འདི་ནང་ཡོདཔ་ཨིན་ན་ཤེས་དགོཔ་ཨིན།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
+msgid "General Project Information"
+msgstr "ཡོངས་ཁྱབ་ལས་འགུལ་བརྡ་དོན།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
+msgid "General Project Infromation"
+msgstr "ཡོངས་ཁྱབ་ལས་འགུལ་བརྡ་དོན།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
+msgid "General Public License(GPL)"
+msgstr "ཡོངས་ཁྱབ་མི་མང་གི་ཆོག་ཐམ་ལག་འཁྱེར་(ཇི་པི་ཨེལ)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
+msgid "Give a package name that your project require. You may also mention what is the required version of the package. For example, 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'"
+msgstr "ཁྱོད་ཀྱི་ལས་འགུལ་ལུ་དགོ་མཁོ་ཡོད་པའི་ཐུམ་སྒྲིལ་མིག་ཅིག་བྱིན། ཁྱོད་ཀྱིས་ཡང་ཐུམ་སྒྲིལ་འདི་གི་དགོ་མཁོ་ཡོད་པའི་ཐོན་རིམ་ག་ཅིག་ཨིན་ན་ཐོ་བཀོད་འབད། དཔེར་ན་ 'libgnomeui-2.0' or 'libgnomeui-2.0 >= 2.2.0'བཟུམ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
+msgid "Icon File:"
+msgstr "ངོས་དཔར་ཡིག་སྣོད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
+msgid "Icon file for the plugin"
+msgstr "པ་ལག་ཨིན་གྱི་དོན་ལུ་ངོ་དཔར་ཡིག་སྣོད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
+msgid "Implement plugin interfaces"
+msgstr "པ་ལག་ཨིན་ངོས་འདྲ་བ་ཚུ་བསྟར་སྤྱོད་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
+msgid "Interface implemented by the plugin"
+msgstr "པ་ལག་ཨིན་གྱིས་བསྟར་སྤྱོད་འབད་ཡོད་མི་ངོས་འདྲ་བ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
+msgid "Interface:"
+msgstr "ངོས་འདྲ་བ་"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
+msgid "Lesser General Public License(LGPL)"
+msgstr "ལེ་སར་ཡོངས་ཁྱབ་མི་མང་གི་ཆོག་ཐམ་ལག་འཁྱེར(ཨེལ་ཇི་པི་ཨེལ)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
+msgid "License"
+msgstr "ཆོག་ཐམ་ལག་འཁྱེར།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
+msgid "Main Class:"
+msgstr "དབྱེ་རིགས་གཙོ་རིམ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
+msgid "Main class"
+msgstr "དབྱེ་རིགས་གཙོ་བོ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
+msgid "Name of the value to watch"
+msgstr "བལྟ་ཞིབ་འབད་ནི་གནས་གོང་གི་མིང་།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
+msgid "No license"
+msgstr "ཆོག་ཐམ་ལག་འཁྱེར་མེདཔ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
+msgid "Options for project build system"
+msgstr "ལས་འགུལ་བཟོ་བརྩིགས་རིམ་ལུགས་ཀྱི་དོན་ལུ་གདམ་ཁ་ཚུ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
+msgid "Plugin Class Name:"
+msgstr "པ་ལག་ཨིན་དབྱེ་རིགས་མིང་།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
+msgid "Plugin Dependencies:"
+msgstr "པ་ལག་ཨིན་གཞི་རྟེན་ཚུ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
+msgid "Plugin Description:"
+msgstr "པ་ལག་ཨིན་འགྲེལ་བཤད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
+msgid "Plugin Title:"
+msgstr "པ་ལག་ཨིན་མགོ་མིང་།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
+msgid "Plugin class name"
+msgstr "པ་ལག་ཨིན་དབྱེ་རིགས་མིང་།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
+msgid "Plugin has menus or/and toolbars"
+msgstr "པ་ལག་ཨིན་ལུ་དཀར་ཆག་ཚུ་ཡང་ན་/དང་ལག་ཆས་ཕྲ་རིང་ཚུ་ཡོདཔ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
+msgid "Plugin interfaces to implement"
+msgstr "བསྟར་སྤྱོད་འབད་ནི་པ་ལག་ཨིན་ངོས་འདྲ་བ་ཚུ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
+msgid "Project name must not contain spaces, because it will be the name of the project build target (executable, library etc.)"
+msgstr "ལས་འགུལ་མིང་འདི་བར་སྟོང་མེདཔ་དགོཔ་ ག་ཅིག་སྨོ་ཟེར་བ་ཅིན་འདི་ལས་འགུལ་བཟོ་བརྩིགས་དམིགས་གཏད་ཀྱི་མིང་ཨིནམ(འཛུལ་སྤྱོད་འབད་བཏུབ་པའི་དཔེར་མཛོད་ལ་སོགས་པ།)"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
+msgid "Project options"
+msgstr "ལས་འགུལ་གདམ་ཁ་ཚུ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
+msgid "Require Package:"
+msgstr "ཐུམ་སྒྲིལ་དགོ་མཁོ་ཡོདཔ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
+msgid "Select code license"
+msgstr "ཨང་རྟགས་ཆོག་ཐམ་ལག་འཁྱེར་སེལ་འཐུ་འབད།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
+msgid "Shell values to watch"
+msgstr "བལྟ་ཞིབ་འབད་ནི་ཤལ་གནས་གོང་ཚུ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
+msgid "Use pkg-config to add library supports from other packages"
+msgstr "གཞན་ཐུམ་སྒྲིལ་ཚུ་ལས་དཔེར་མཛོད་རྒྱབ་སྐྱོར་ཚུ་ཁ་སྐོང་འབད་ནི་ལུ་ཐུམ་སྒྲིལ་རིམ་སྒྲིག་ལག་ལེན་འཐབ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
+msgid "Value Name:"
+msgstr "གནས་གོང་མིང་།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
+msgid "Values to watch"
+msgstr "བལྟ་ཞིབ་འབད་ནི་གནས་གོང་ཚུ།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
+msgid "Whether the plugin has menus or toolbars"
+msgstr "པ་ལག་ཨིན་འདི་ལུ་དཀར་ཆག་ཚུ་ཡང་ན་ལག་ཆས་ཕྲ་རིང་ཚུ་ཡོད་རུང་།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
+msgid "gtk-doc is used to compile API documentations for GObject based classes"
+msgstr "ཇི་ཊི་ཀེ་ཡིག་ཆ་འདི་དངོས་པོ་གཞི་རྟེན་ཡོད་མི་དབྱེ་རིགས་ཚུ་གི་དོན་ལུ་ ཨེ་པི་ཨའི་ཡིག་ཐོག་བཀོད་ནི་ཚུ་ཕྱོགས་སྒྲིག་འབད་ནི་ལུ་ལག་ལེན་འཐབ་ཡོདཔ་ཨིན།"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
+msgid "project name"
+msgstr "ལས་འགུལ་མིང་"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/sample1/plugin.c:56
@@ -6785,6 +6841,22 @@ msgstr "དཔེ་ཚད་པ་ལག་ཨིན།"
 #: ../plugins/search/anjuta-search.glade.h:1
 msgid "$(module.source.files) $(module.include.files)"
 msgstr "$(module.source.files) $(module.include.files)"
+
+#: ../plugins/search/anjuta-search.glade.h:2
+msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
+msgstr "*སི་ *སི་པི་པི་ *སི་ཨེགསི་ཨེགསི་ *སི་སི་ *སི་ *ཨེཆ *ཨེཆ *ཨེཆ་ཨེཆ *ཨེཆ་ཨེགསི་ཨེགསི *ཨེཆ་པི་པི།"
+
+#: ../plugins/search/anjuta-search.glade.h:3
+msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4"
+msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* རིཌི་མི་རྩོམ་པ་པོ་ཚུའི་བསྒྱུར་བཅོས་དྲན་དེབ *.m4"
+
+#: ../plugins/search/anjuta-search.glade.h:4
+msgid "*.so *.o *.a *.la"
+msgstr "*ཨེསི་ཨོ་ *ཨོ *ཨེ *ཨེལ་ཨེ།"
+
+#: ../plugins/search/anjuta-search.glade.h:5
+msgid "*\\.*"
+msgstr "*\\.*"
 
 #: ../plugins/search/anjuta-search.glade.h:6
 msgid "<b>Actions</b>"
@@ -6813,6 +6885,10 @@ msgstr "རྒྱབ་བསྐྱོད།"
 #: ../plugins/search/anjuta-search.glade.h:13
 msgid "Basic Search & Replace"
 msgstr "གཞི་རིམ་འཚོལ་ཞིབ་ ཚབ་བཙུགས།(&R)"
+
+#: ../plugins/search/anjuta-search.glade.h:15
+msgid "CVS intl po"
+msgstr "སི་ཝི་ཨེསི་ཨིན་ཊེལ་པོ།"
 
 #: ../plugins/search/anjuta-search.glade.h:16
 msgid "Case insensitive"
@@ -7070,7 +7146,7 @@ msgid "Search complete"
 msgstr "འཚོལ་ཞིབ་མཇུག་བསྡུ།"
 
 #: ../plugins/search/search-replace.c:843
-#: ../plugins/search/search-replace.c:1491
+#: ../plugins/search/search-replace.c:1490
 msgid "Replace All"
 msgstr "ཆ་མཉམ་ཚབ་བཙུགས།"
 
@@ -7112,15 +7188,15 @@ msgstr "སྲུང་བཞག་མ་འབད་བའི་ཡིག་ཆ
 msgid "Unknown"
 msgstr "མ་ཤེསཔ།"
 
-#: ../plugins/sourceview/sourceview.c:254
+#: ../plugins/sourceview/sourceview.c:264
 msgid "Loading"
 msgstr "མངོན་གསལ་འབད་དོ།"
 
-#: ../plugins/sourceview/sourceview.c:277
+#: ../plugins/sourceview/sourceview.c:287
 msgid "Saving..."
 msgstr "སྲུང་བཞག་འབད་དོ།་་་"
 
-#: ../plugins/sourceview/sourceview.c:284
+#: ../plugins/sourceview/sourceview.c:294
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr "ཡིག་སྣོད%s་འདི་གཞན་གློག་རིམ་གྱིས་ལེགས་བཅོས་འབད་ཡོདཔ། ག་དེ་ཨིན་རུང་སྲུང་བཞག་འབད་ནི་ཨིན་ན?"
@@ -7132,6 +7208,10 @@ msgstr "<b>ཚོས་གཞི་ཚུ་</b>"
 #: ../plugins/sourceview/sourceview.glade.h:3
 msgid "<b>Font:</b>"
 msgstr "<b>ཡིག་གཟུགས།</b>"
+
+#: ../plugins/sourceview/sourceview.glade.h:4
+msgid "<b>Indentation and auto-format options</b>"
+msgstr "<b>འགོ་མཚམས་བཀལ་ནི་དང་རང་བཞིན་རྩ་སྒྲིག་གདམ་ཁ་ཚུ་</b>"
 
 #: ../plugins/sourceview/sourceview.glade.h:10
 msgid "Background:"
@@ -7260,17 +7340,36 @@ msgstr "རིག་པའི་ཁམས།"
 msgid "_Subversion"
 msgstr "ཐོན་རིམ་འོགམ།(_S)"
 
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:51
+msgid "_Add..."
+msgstr "ཁ་སྐོང་བརྐྱབ།(_A)་་་"
+
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:53
 msgid "Add a new file/directory to the Subversion tree"
 msgstr "ཡིག་སྣོད་/སྣོད་ཐོ་གསརཔ་ཅིག་ཐོན་རིམ་འོག་མའི་རྩ་འབྲེལ་ལུ་ཁ་སྐོང་བརྐྱབ།"
 
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:59
+msgid "_Remove..."
+msgstr "རྩ་བསྐྲད་གཏང་།(_R)་་་"
+
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:61
 msgid "Remove a file/directory from Subversion tree"
 msgstr "ཡིག་སྣོད་ཅིག་/སྣོད་ཐོ་ཐོན་རིམ་འོག་མའི་རྩ་འབྲེལ་ལས་རྩ་བསྐྲད་གཏང་།"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:67
+#: ../plugins/subversion/plugin.c:102
+msgid "_Commit..."
+msgstr "ཁས་ལེན་ནི།(_C)་་་"
 
 #. Display label
 #. short-cut
@@ -7279,12 +7378,25 @@ msgstr "ཡིག་སྣོད་ཅིག་/སྣོད་ཐོ་ཐོ�
 msgid "Commit your changes to the Subversion tree"
 msgstr "ཁྱོད་རའི་བསྒྱུར་བཅོས་ཚུ་ཐོན་རིམ་འོག་མའི་རྩ་འབྲེལ་ལུ་ཁས་ལེན་འབད།"
 
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:75
+#: ../plugins/subversion/plugin.c:110
+msgid "_Update..."
+msgstr "དུས་མཐུན་བཟོ།(_U)་་་"
+
 #. Display label
 #. short-cut
 #: ../plugins/subversion/plugin.c:77
 #: ../plugins/subversion/plugin.c:112
 msgid "Sync your local copy with the Subversion tree"
 msgstr "ཁྱོད་ཀྱི་ཉེ་གནས་འདྲ་བཤུས་དང་གཅིག་ཁར་ཐོན་རིམ་འོག་མའི་རྩ་འབྲེལ་མཉམ་འབྱུང་འབད།"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:83
+msgid "_Diff..."
+msgstr "ཁྱད་པར།(_D)་་་"
 
 #. Display label
 #. short-cut
@@ -7445,18 +7557,18 @@ msgstr "མིང་ཅིག་བཙུགས་སྦེ་ཉུང་མཐ
 msgid "Anjuta tags files"
 msgstr "ཨན་ཇུ་ཊ་ངོ་རྟགས་ཡིག་སྣོད་ཚུ།"
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:738
-#: ../plugins/symbol-browser/an_symbol_prefs.c:744
+#: ../plugins/symbol-browser/an_symbol_prefs.c:734
+#: ../plugins/symbol-browser/an_symbol_prefs.c:740
 msgid "Create global tags"
 msgstr "སྤྱི་ཁྱབ་ངོ་རྟགས་ཚུ་གསར་བསྐྲུན་འབད།"
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:773
-#: ../plugins/symbol-browser/an_symbol_prefs.c:864
+#: ../plugins/symbol-browser/an_symbol_prefs.c:771
+#: ../plugins/symbol-browser/an_symbol_prefs.c:862
 #: ../plugins/symbol-browser/anjuta-symbol-browser.plugin.in.h:1
 msgid "Symbol Browser"
 msgstr "བརྡ་མཚོན་པའི་བརད་འཚོལ།"
 
-#: ../plugins/symbol-browser/an_symbol_prefs.c:792
+#: ../plugins/symbol-browser/an_symbol_prefs.c:790
 msgid "API Tags"
 msgstr "ཨེ་ཨཔི་ཨའི་ངོ་རྟགས་ཚུ།"
 
@@ -7484,77 +7596,77 @@ msgstr "གསར་བསྐྲུན་འབད་ནི།(_t)"
 msgid "Update globale tags"
 msgstr "སྤྱི་ཁྱབ་ངོ་རྟགས་ཚུ་དུས་མཐུན་བཟོ།"
 
-#: ../plugins/symbol-browser/plugin.c:279
+#: ../plugins/symbol-browser/plugin.c:284
 msgid "Tag _Definition"
 msgstr "ངོ་རྟགས་ངེས་འཛིན།(_D)"
 
-#: ../plugins/symbol-browser/plugin.c:281
-#: ../plugins/symbol-browser/plugin.c:301
+#: ../plugins/symbol-browser/plugin.c:286
+#: ../plugins/symbol-browser/plugin.c:306
 msgid "Goto symbol definition"
 msgstr "བརད་མཚོན་ངེས་འཛིན་ལུ་འགྱོ།"
 
-#: ../plugins/symbol-browser/plugin.c:287
+#: ../plugins/symbol-browser/plugin.c:292
 msgid "Tag De_claration"
 msgstr "ངོ་རྟགས་གསལ་བསྒྲགས།(_c)"
 
-#: ../plugins/symbol-browser/plugin.c:289
-#: ../plugins/symbol-browser/plugin.c:309
+#: ../plugins/symbol-browser/plugin.c:294
+#: ../plugins/symbol-browser/plugin.c:314
 msgid "Goto symbol declaration"
 msgstr "བརད་མཚོན་གསལ་བསྒྲགས་ལུ་འགྱོ།"
 
-#: ../plugins/symbol-browser/plugin.c:299
+#: ../plugins/symbol-browser/plugin.c:304
 msgid "Goto _Definition"
 msgstr "ངེས་འཛིན་འབད་ནི་ལུ་འགྱོ།(_D)"
 
-#: ../plugins/symbol-browser/plugin.c:307
+#: ../plugins/symbol-browser/plugin.c:312
 msgid "Goto De_claration"
 msgstr "གསལ་བསྒྲགས་ལུ་འགྱོ།(_c)"
 
-#: ../plugins/symbol-browser/plugin.c:315
+#: ../plugins/symbol-browser/plugin.c:320
 msgid "_Find Usage"
 msgstr "བེད་སྤྱོད་འཚོལ།(_F)"
 
-#: ../plugins/symbol-browser/plugin.c:317
+#: ../plugins/symbol-browser/plugin.c:322
 msgid "Find usage of symbol in project"
 msgstr "ལས་འགུལ་ནང་བརད་མཚོན་གྱི་བེད་སྤྱོད་འཚོལ།"
 
-#: ../plugins/symbol-browser/plugin.c:325
+#: ../plugins/symbol-browser/plugin.c:330
 msgid "Refresh symbol browser tree"
 msgstr "བརད་མཚོན་བརད་འཚོལ་རྩ་འབྲེལ་ཡང་སེལ་འབད།"
 
-#: ../plugins/symbol-browser/plugin.c:394
+#: ../plugins/symbol-browser/plugin.c:399
 msgid "Created symbols..."
 msgstr "གསར་་བསྐྲུན་འབད་ཡོད་མི་བརད་མཚོན་ཚུ་་་"
 
-#: ../plugins/symbol-browser/plugin.c:933
+#: ../plugins/symbol-browser/plugin.c:999
 msgid "Local"
 msgstr "ཉེ་གནས།"
 
-#: ../plugins/symbol-browser/plugin.c:953
+#: ../plugins/symbol-browser/plugin.c:1019
 msgid "Global"
 msgstr "སྤྱི་ཁྱབ།"
 
-#: ../plugins/symbol-browser/plugin.c:995
+#: ../plugins/symbol-browser/plugin.c:1061
 msgid "Symbol browser actions"
 msgstr "བརད་མཚོན་བརད་འཚོལ་བྱ་བ་ཚུ།"
 
-#: ../plugins/symbol-browser/plugin.c:1002
+#: ../plugins/symbol-browser/plugin.c:1068
 msgid "Symbol browser popup actions"
 msgstr "བརྡ་མཚོན་བརད་འཚོལ་པོཔ་ཨཔ་བྱ་བ་ཚུ།"
 
-#: ../plugins/symbol-browser/plugin.c:1011
+#: ../plugins/symbol-browser/plugin.c:1077
 msgid "Goto symbol"
 msgstr "བརད་མཚོན་ལུ་འགྱོ།"
 
-#: ../plugins/symbol-browser/plugin.c:1012
+#: ../plugins/symbol-browser/plugin.c:1078
 msgid "Select the symbol to go"
 msgstr "འགྱོ་ནི་ལུ་བརད་མཚོན་འདི་སེལ་འཐུ་འབད།"
 
-#: ../plugins/symbol-browser/plugin.c:1021
+#: ../plugins/symbol-browser/plugin.c:1087
 msgid "Symbol navigations"
 msgstr "བརད་མཚོན་འགྲུལ་བསྐྱོད་ཚུ།"
 
-#: ../plugins/symbol-browser/plugin.c:1030
+#: ../plugins/symbol-browser/plugin.c:1096
 msgid "Symbols"
 msgstr "བརྡ་མཚོན་ཚུ།"
 
@@ -8140,7 +8252,7 @@ msgstr "ཨན་ཇུ་ཊ་པ་ལག་ཨིནསི།"
 msgid "Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"
 msgstr "གྲོགས་རམ་བཀྲམ་སྟོན་འབད་མ་ཚུགསཔ། ཨན་ཇུ་ཊ་ཡིག་ཐོག་བཀོད་པའི་ཐུམ་སྒྲིལ་འདི་གཞི་བཙུགས་འབད་ཡོདཔ་ངེས་གཏན་བཟོ་གནང་། འདི་ཡང་http://anjuta.org ཕབ་ལེན་འབད་བཏུབ་ཨིན།"
 
-#: ../src/anjuta.c:271
+#: ../src/anjuta.c:495
 msgid "Loaded Session..."
 msgstr "མངོནས་གལས་འབད་ཡོད་མི་ལཱ་ཡུན།་་་"
 
@@ -8329,23 +8441,23 @@ msgstr "ཕྱིའི་པ་ལག་ཨིནསི་གི་སྐོར
 msgid "About third party Anjuta plugins"
 msgstr "ཨན་ཇུ་ཊ་པ་ལག་ཨིནསི་སྡེ་ཚོགས་གཙོ་བོ་གསུམ་པའི་སྐོར་ལས།"
 
-#: ../src/anjuta-app.c:533
+#: ../src/anjuta-app.c:586
 msgid "Edit"
 msgstr "ཞུན་དག"
 
-#: ../src/anjuta-app.c:537
+#: ../src/anjuta-app.c:590
 msgid "View"
 msgstr "སྟོན།"
 
-#: ../src/anjuta-app.c:542
+#: ../src/anjuta-app.c:595
 msgid "Toggle View"
 msgstr "སོར་སྟོན་སྟོན།"
 
-#: ../src/anjuta-app.c:547
+#: ../src/anjuta-app.c:600
 msgid "Settings"
 msgstr "སྒྲིག་སྟངས་ཚུ།"
 
-#: ../src/anjuta-app.c:820
+#: ../src/anjuta-app.c:855
 #: ../src/shell.c:220
 msgid "Value doesn't exist"
 msgstr "གནས་གོང་འདི་མེདཔ།"
@@ -8424,43 +8536,51 @@ msgid "Anjuta test shell"
 msgstr "ཨན་ཇུ་ཊ་བརྟག་ཞིབ་ཤལ།"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
-msgid "<b>C, C++ and Java Indentation</b>"
-msgstr "<b>སི་ སི་++་དང་ཇ་བ་འགོ་མཚམས་བཀལ་ནི།</b>"
+msgid "<b>C, C++ and Java smart Indentation</b>"
+msgstr "<b>སི་ སི་ སི་++་དང་ཇ་བ་འགོ་མཚམས་བཀལ་ནི།</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:2
 msgid "<b>Indentation parameters</b>"
 msgstr "<b>འགོ་མཚམས་བཀལ་ནི་ཚད་བཟུང་ཚུ་</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:3
-msgid "Autocompletion"
-msgstr "རང་བཞིན་ཡངོས་སྒྲུབ།"
-
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:4
 msgid "Brace indentation size in spaces:"
 msgstr "གུག་ཤད་འགོ་མཚམས་ཀྱི་ཚད་བར་སྟོང་ཚུ་ནང་།"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:4
 msgid "Enable adaptive indentation"
 msgstr "མཐུན་ཅན་འགོ་མཚམས་བཀལ་ནི་ལྕོགས་ཅན་བཟོ།"
 
-#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:9
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
+msgid "Enable smart indentation"
+msgstr "སྤུར་བསྒྱིར་དྲགས་་འགོ་མཚམས་ལྕོགས་ཅན་བཟོ"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
+msgid "Pressing tab indents"
+msgstr "མཆོང་ལྡེ་འགོ་མཚམས་ཚུ་ཨེབ་དོ།"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
+msgid "Smart Indentation"
+msgstr "འགོ་མཚམས་བཀལ་བ་སྤུར་བསྒྱིར་དྲགས།"
+
+#: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:8
 msgid "Statement indentation size in spaces:"
 msgstr "གསལ་བཤད་འགོ་མཚམས་བཀལ་ནིའི་ཚད་བར་སྟོང་ཚུ་ནང་།"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1259
+#: ../plugins/language-support-cpp-java/plugin.c:1301
 msgid "Auto Indent"
 msgstr "རང་བཞིན་འགོ་མཚམས།"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1260
+#: ../plugins/language-support-cpp-java/plugin.c:1302
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr "རང་བཞིན་འགོ་མཚམས་ཀྱི་ད་རཝལྟོའི་གྱལ་ཡང་ན་འགོ་མཚམས་སྒྲིག་སྟངས་ཚུ་གུ་སེལ་འཐུ་གཞི་བཞག་ཡོདཔ།"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1278
+#: ../plugins/language-support-cpp-java/plugin.c:1320
 msgid "Autoindent"
 msgstr "རང་བཞིན་འགོ་མཚམས།"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1361
-#: ../plugins/language-support-cpp-java/plugin.c:1371
+#: ../plugins/language-support-cpp-java/plugin.c:1403
+#: ../plugins/language-support-cpp-java/plugin.c:1413
 msgid "C/C++/Java"
 msgstr "སི་/སི་++/ཇ་བ།"
 
@@ -8625,14 +8745,6 @@ msgstr "ཨན་ཇུ་ཊ་གི་དོན་ལུ་ཡིག་སྣ
 msgid "Project Wizard"
 msgstr "ལས་འགུལ་ཝི་ཛརཌི།"
 
-#: ../plugins/profile-default/anjuta-default-profile.plugin.in.h:1
-msgid "Anjuta default profile"
-msgstr "ཨན་ཇུ་ཊ་སྔོན་སྒྲིག་གསལ་སྡུད།"
-
-#: ../plugins/profile-default/anjuta-default-profile.plugin.in.h:2
-msgid "Default Profile"
-msgstr "སྔོན་སྒྲིག་གསལ་སྡུད།"
-
 #: ../plugins/profiler/profiler.plugin.in.h:1
 msgid "Application performance profiler"
 msgstr "གློག་རིམ་ལཱ་ཤུགས་གསལ་སྡུད་པ།"
@@ -8696,4 +8808,151 @@ msgstr "ཡིག་སྣོད་སོ་སོ་མངོན་གསལ་
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
 msgstr "རྐྱེན་སེལ་འཛིན་སྐྱོང་པའི་པ་ལག་ཨིན།"
+
+#~ msgid "Display the IDs of currently known threads"
+#~ msgstr "ད་ལྟོའི་ཐེརེཌིསི་ཤེས་མི་གི་ཨའི་ཌི་ཚུ་བཀྲམ་སྟོན་འབད།"
+#~ msgid ""
+#~ "The file '%s' is not saved.\n"
+#~ "Do you want to save it before closing?"
+#~ msgstr ""
+#~ "ཡིག་འདི་ '%s' སྲུངས་བཞག་ཡོདཔ།\n"
+#~ "ཁྱོད་ཀྱིས་ཁ་བསྡམ་པའི་ཧེ་མ་སྲུང་བཞག་འབད་ནི་ཨིན་ན?"
+#~ msgid "Do_n't save"
+#~ msgstr "སྲུང་བཞག་མ་འབད།(_n)"
+#~ msgid "<b>Go to Line number:</b>"
+#~ msgstr "<b>གྱལ་ཨང་ལུ་འགྱོ</b>"
+#~ msgid "Arrows"
+#~ msgstr "མདའ་རྟགས་ཚུ་"
+#~ msgid "Circular"
+#~ msgstr "ཐད་སྒོརམ།"
+#~ msgid "Plus/Minus"
+#~ msgstr "བསྡོམས་རྟགས/ཕབ་རྟགས།"
+#~ msgid "Squares"
+#~ msgstr "གྲུ་བཞི་ནར་མོ།"
+#~ msgid "Directory "
+#~ msgstr "སྣོད་ཐོ།"
+#~ msgid "Space-separated list of directory name patterns to ignore"
+#~ msgstr "སྣོད་ཐོ་མིང་གི་དཔེ་གཞི་སྣང་མེད་བཞག་ནི་གི་སོ་སོ་ཁ་འཕྱལཡོད་མི་ཐོ་ཡིག་གི་བར་སྟོང་།"
+#~ msgid "Space-separated list of directory name patterns to match"
+#~ msgstr "སྣོད་ཐོ་མིང་དཔེ་གཞི་ཚུ་མཐུན་སྒྲིག་འབད་ནི་གི་བར་སྟོང་སོ་སོ་ཁ་འཕྱལ་ཡོད་མི་ཐོ་ཡིག"
+#~ msgid "Space-separated list of file name patterns to match"
+#~ msgstr "ཡིག་སྣོད་མིང་དཔེ་གཞི་ཚུ་མཐུན་སྒྲིག་འབད་ནི་གི་བར་སྟོང་སོ་སོ་ཁ་འཕྱལ་ཡོད་མི་ཐོ་ཡིག"
+#~ msgid "Program received signal %s (%s) and exited\n"
+#~ msgstr "ལས་རིམ་གྱིས་བརྡ་རྟགས་ཐོབ་ཡོདཔ་ལས་ %s (%s) ཕྱིར་ཐོན་གཏང་ཡོདཔ།\n"
+#~ msgid ""
+#~ "<span weight=\"bold\" size=\"larger\">Save changes to glade project \"%s"
+#~ "\" before closing?</span>\n"
+#~ "\n"
+#~ "Your changes will be lost if you don't save them.\n"
+#~ msgstr ""
+#~ "<span weight=\"bold\" size=\"larger\">ཁ་བསྡམ་ནིའི་ཧེ་མ་ \"%s\" གེལེཌི་ལས་འགུལ་ལུ་"
+#~ "བསྒྱུར་བཅོས་ཚུ་སྲུང་བཞག་འབད་ནི་ཨིན་ན?</span>\n"
+#~ "\n"
+#~ "ཁྱོད་ཀྱིས་སྲུང་བཞག་མ་འབད་བ་ཅིན་ཁྱོད་རའི་བསྒྱུར་བཅོས་ཚུ་བརླག་སྟོར་ཞུགས་འོང་།་\n"
+#~ msgid "<b>Summary:</b>"
+#~ msgstr "<b>བཅུད་དོན།</b>"
+#~ msgid "<b>Comment:</b>"
+#~ msgstr "<b>བསམ་བཀོད།</b>"
+#~ msgid "<i>started: n/a</i>"
+#~ msgstr "<i>འགོ་བཙུགས་ཡོདཔ། n/a</i>"
+#~ msgid "<i>stopped: n/a</i>"
+#~ msgstr "<i>བཀག་ཡོདཔ། n/a</i>"
+#~ msgid "<i>started: %s</i>"
+#~ msgstr "<i>འགོ་བཙུགས་ཡོདཔ། %s</i>"
+#~ msgid "<i>stopped: %s</i>"
+#~ msgstr "<i>བཀག་ཡོདཔ། %s</i>"
+#~ msgid "<i>started: %s \tstopped: %s</i>"
+#~ msgstr "<i>འགོ་བཙུགས་ཡོདཔ %s \tབཀག་ཡོདཔ། %s</i>"
+#~ msgid "About gToDo"
+#~ msgstr "ཇི་ཊུ་ཌུ་གི་སྐོར་ལས།"
+#~ msgid "gToDo %s"
+#~ msgstr "ཇི་ཊུ་ཌུ་ %s"
+#~ msgid "<span size=\"xx-large\"><b>gToDo %s</b></span>"
+#~ msgstr "<span size=\"xx-large\"><b>ཇི་ཊུ་ཌུ་ %s</b></span>"
+#~ msgid "gToDo is a small and simple todo list written in gtk+-2.0"
+#~ msgstr "ཇི་ཊུ་ཌུ་འདི་ཇི་ཊི་ཀེ་+-༢.༠་བྲིས་ཡོད་མི་ཐོ་ཡིག་འཇམ་སམ་དང་ཆུང་ཀུ་ཅིག་ཨིན།"
+#~ msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
+#~ msgstr "འདྲ་བཤུས་དབང་ཆ་ © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
+#~ msgid ""
+#~ "<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball."
+#~ "homelinux.org)</span>"
+#~ msgstr ""
+#~ "<span size=\"small\">འདྲ་བཤུས་དབང་ཆ་ © 2003-2004 Qball Cow (Qball@qball."
+#~ "homelinux.org)</span>"
+#~ msgid "<b>Summary:</b>\t%s"
+#~ msgstr "<b>བཅུད་དོན།</b>\t%s"
+#~ msgid ""
+#~ "\n"
+#~ "<b>Due date:</b>\t%s"
+#~ msgstr ""
+#~ "\n"
+#~ "<b>ཚེས་གྲངས་རན་པ་</b>\t%s"
+#~ msgid ""
+#~ "\n"
+#~ "<b>Due date:</b>\t%s at %02i:%02i"
+#~ msgstr ""
+#~ "\n"
+#~ "<b>ཚེས་གྲངས་རན་པ་</b>\t%s ལུ་ %02i:%02i"
+#~ msgid ""
+#~ "\n"
+#~ "<b>Priority:</b>\t\t<span color=\"dark green\">%s</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<b>གཙོ་རིམ་</b>\t\t<span color=\"dark green\">%s</span>"
+#~ msgid ""
+#~ "\n"
+#~ "<b>Priority:</b>\t\t%s"
+#~ msgstr ""
+#~ "\n"
+#~ "<b>གཙོ་རིམ</b>\t\t%s"
+#~ msgid ""
+#~ "\n"
+#~ "<b>Priority:</b>\t\t<span color=\"red\">%s</span>"
+#~ msgstr ""
+#~ "\n"
+#~ "<b>གཙོ་རིམ</b>\t\t<span color=\"red\">%s</span>"
+#~ msgid ""
+#~ "\n"
+#~ "<b>Comment:</b>\t%s"
+#~ msgstr ""
+#~ "\n"
+#~ "<b>བསམ་བགོད།</b>\t%s"
+#~ msgid ""
+#~ "<span weight=\"bold\" size=\"larger\">The following item is due:</span>\n"
+#~ "\"%s\""
+#~ msgstr ""
+#~ "<span weight=\"bold\" size=\"larger\">འོག་གི་རྣམ་གྲངས་འདི་ཆད་ཡོད།</span>\n"
+#~ "\"%s\""
+#~ msgid "<b>Show in main window</b>"
+#~ msgstr "<b>ཝིནཌོ་གཙོ་བོ་ནང་སྟོན།</b>"
+#~ msgid "<b>Highlight</b>"
+#~ msgstr "<b>གཙོ་དམིགས།</b>"
+#~ msgid "<b>Auto Purge</b>"
+#~ msgstr "<b>རང་བཞིན་ཕྱིར་བསྐྲད།</b>"
+#~ msgid "<b>Notification</b>"
+#~ msgstr "<b>བརྡ་བསྐུལ།</b>"
+#~ msgid "Profile actions"
+#~ msgstr "གསལ་སྡུད་ཀྱི་བྱ་བ་ཚུ།"
+#~ msgid ""
+#~ "Cannot open: %s\n"
+#~ "&s"
+#~ msgstr ""
+#~ "ཁ་ཕྱེ་མ་བཏུབ། %s\n"
+#~ "&s"
+#~ msgid ""
+#~ "Cannot open: %s\n"
+#~ "Does not look like a valid Anjuta project."
+#~ msgstr ""
+#~ "ཁ་ཕྱེ་མ་བཏུབ། %s\n"
+#~ "ནུས་ཅན་ཨན་ཇུ་ཊ་ལས་འགུལ་ཅིག་བཟུམ་མི་མཐོང་མས།"
+#~ msgid "Loaded default profile..."
+#~ msgstr "སྔོན་སྒྲིག་གསལ་སྡུད་མངོན་གསལ་འབད་ཡོདཔ།་་་"
+#~ msgid "Loading project. Please wait ..."
+#~ msgstr "ལས་འགུལ་མངོན་གསལ་འབད་དོ། བསྒུག་གནང་།་་་"
+#~ msgid "Autocompletion"
+#~ msgstr "རང་བཞིན་ཡངོས་སྒྲུབ།"
+#~ msgid "Anjuta default profile"
+#~ msgstr "ཨན་ཇུ་ཊ་སྔོན་སྒྲིག་གསལ་སྡུད།"
+#~ msgid "Default Profile"
+#~ msgstr "སྔོན་སྒྲིག་གསལ་སྡུད།"
 
