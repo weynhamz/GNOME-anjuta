@@ -63,6 +63,7 @@ enum
 	COLUMN_COLOR = 0,
 	COLUMN_SUMMARY,
 	COLUMN_MESSAGE,
+	COLUMN_PIXBUF,
 	N_COLUMNS
 };
 
@@ -634,7 +635,9 @@ message_view_instance_init (MessageView * self)
 {
 	GtkWidget *scrolled_win;
 	GtkCellRenderer *renderer;
+	GtkCellRenderer *renderer_pixbuf;
 	GtkTreeViewColumn *column;
+	GtkTreeViewColumn *column_pixbuf;
 	GtkTreeSelection *select;
 	GtkListStore *model;
 	GtkAdjustment* adj;
@@ -647,15 +650,23 @@ message_view_instance_init (MessageView * self)
 
 	/* Create the tree widget */
 	model = gtk_list_store_new (N_COLUMNS, GDK_TYPE_COLOR,
-								G_TYPE_STRING,
-								MESSAGE_TYPE);
+								G_TYPE_STRING, MESSAGE_TYPE,  G_TYPE_STRING);
 	self->privat->tree_view =
 		gtk_tree_view_new_with_model (GTK_TREE_MODEL (model));
 	gtk_widget_show (self->privat->tree_view);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW
 									   (self->privat->tree_view), FALSE);
 
-	/* Creat columns to hold text and color of a line, this
+	/* Create pixbuf column */
+	renderer_pixbuf = gtk_cell_renderer_pixbuf_new ();
+	column_pixbuf = gtk_tree_view_column_new ();
+	gtk_tree_view_column_set_title (column_pixbuf, _("Icon"));
+	gtk_tree_view_column_pack_start (column_pixbuf, renderer_pixbuf, TRUE);
+	gtk_tree_view_column_add_attribute
+		(column_pixbuf, renderer_pixbuf, "stock-id", COLUMN_PIXBUF);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (self->privat->tree_view),
+								 column);
+	/* Create columns to hold text and color of a line, this
 	 * columns are invisible of course. */
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new ();
@@ -1145,6 +1156,7 @@ imessage_view_append (IAnjutaMessageView *message_view,
 	gboolean highlite;
 	gchar *utf8_msg;
 	gchar *escaped_str;
+	gchar* stock_id;
 	
 	MessageView *view;
 	Message *message;
@@ -1164,14 +1176,18 @@ imessage_view_append (IAnjutaMessageView *message_view,
 			case IANJUTA_MESSAGE_VIEW_TYPE_INFO:
 				color = anjuta_util_convert_color(view->privat->prefs,
 									  "messages.color.info");
+				stock_id = GTK_STOCK_INFO;
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_WARNING:
 				color = anjuta_util_convert_color(view->privat->prefs,
 									  "messages.color.warning");
+				/* FIXME: There is no GTK_STOCK_WARNING which would fit better here */
+				stock_id = GTK_STOCK_DIALOG_WARNING;
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_ERROR:
 				color = anjuta_util_convert_color(view->privat->prefs,
 									  "messages.color.error");
+				stock_id = GTK_STOCK_STOP;
 				break;
 			default:
 				color = NULL;
@@ -1204,6 +1220,7 @@ imessage_view_append (IAnjutaMessageView *message_view,
 							COLUMN_COLOR, color,
 							COLUMN_SUMMARY, escaped_str,
 							COLUMN_MESSAGE, message,
+							COLUMN_PIXBUF, stock_id,
 							-1);
 	
 		/* Can we free the color when it's in the tree_view? */

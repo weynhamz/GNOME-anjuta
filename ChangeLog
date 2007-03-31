@@ -1,4 +1,11 @@
 2007-03-31  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/message-view/message-view.c:
+	(message_view_instance_init), (imessage_view_append):
+	Show nice icons beside the messages for info, warning and error. This is a completly
+	cosmetic change so if someone dislikes it he is free to remove it.
+
+2007-03-31  Johannes Schmid <jhs@gnome.org>
 	
 	* plugins/message-view/anjuta-msgman.c: (on_notebook_switch_page),
 	(anjuta_msgman_class_init), (anjuta_msgman_append_view),
