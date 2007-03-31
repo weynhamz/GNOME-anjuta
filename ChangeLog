@@ -1,3 +1,22 @@
+2007-03-31  Johannes Schmid <jhs@gnome.org>
+	
+	* plugins/message-view/anjuta-msgman.c: (on_notebook_switch_page),
+	(anjuta_msgman_class_init), (anjuta_msgman_append_view),
+	(anjuta_msgman_remove_view), (anjuta_msgman_set_current_view):
+	* plugins/message-view/anjuta-msgman.h:
+	* plugins/message-view/message-view.h:
+	* plugins/message-view/plugin.c: (on_view_changed),
+	(activate_plugin):
+	Fixed #359399 and made next/previous insensitive when not availible
+	
+	* plugins/sourceview/anjuta-languages-manager.c: (color_to_string),
+	(tag_style_to_string):
+	Fixed namespace Problem with gdk >= 2.11
+	
+	* plugins/sourceview/sourceview-autocomplete.c:
+	(sourceview_autocomplete_init):
+	Removed structure, follow-up of #423682
+
 2007-03-29 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/debug_tree.c,

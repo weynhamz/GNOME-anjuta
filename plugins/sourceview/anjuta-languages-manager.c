@@ -111,7 +111,7 @@ get_gconf_key (GtkSourceLanguage *language, const gchar *tag_id)
 }
 
 static gchar * 
-gdk_color_to_string (GdkColor color)
+color_to_string (GdkColor color)
 {
 	return g_strdup_printf ("#%04x%04x%04x",
 				color.red, 
@@ -126,8 +126,8 @@ tag_style_to_string (const GtkSourceTagStyle *style)
 	gchar *background;
 	gchar *foreground;
 
-	background = gdk_color_to_string (style->background);
-	foreground = gdk_color_to_string (style->foreground);
+	background = color_to_string (style->background);
+	foreground = color_to_string (style->foreground);
 
 	res = g_strdup_printf ("%d/%s/%s/%d/%d/%d/%d",
 			style->mask,

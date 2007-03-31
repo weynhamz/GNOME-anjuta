@@ -54,8 +54,6 @@ struct _MessageView
 struct _MessageViewClass
 {
 	GtkHBoxClass parent;
-	
-	// void (*message_clicked) (GObject* view, const gchar* message);
 };	
 
 /* Note: MessageView implements IAnjutaMessageView interface */

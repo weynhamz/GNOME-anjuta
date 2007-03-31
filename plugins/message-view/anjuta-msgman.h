@@ -38,6 +38,9 @@ struct _AnjutaMsgman
 {
 	GtkNotebook parent;
 	AnjutaMsgmanPriv *priv;
+	
+	/* Signal */
+	void (*view_changed) (AnjutaMsgman *obj);
 };
 
 struct _AnjutaMsgmanClass

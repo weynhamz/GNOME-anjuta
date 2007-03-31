@@ -172,9 +172,8 @@ on_notebook_switch_page (GtkNotebook * notebook,
 	g_return_if_fail (notebook != NULL);
 	g_return_if_fail (page != NULL);
 	g_return_if_fail (msgman != NULL);
-
-	msgman->priv->current_view =
-		MESSAGE_VIEW (gtk_notebook_get_nth_page (notebook, page_num));
+	
+	anjuta_msgman_set_current_view(msgman, NULL);
 }
 
 static gpointer parent_class;
@@ -222,7 +221,24 @@ anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 static void
 anjuta_msgman_class_init (AnjutaMsgmanClass * klass)
 {
+	static gboolean initialized = FALSE;
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	
+	if (!initialized) {
+		/* Signal */
+		g_signal_new ("view-changed",
+			ANJUTA_TYPE_MSGMAN,
+			G_SIGNAL_RUN_LAST,
+			G_STRUCT_OFFSET (AnjutaMsgman, view_changed),
+			NULL, NULL,
+			g_cclosure_marshal_VOID__VOID,
+			G_TYPE_NONE,
+			0,
+			NULL);
+
+
+		initialized = TRUE;
+	}
 	
 	parent_class = g_type_class_peek_parent (klass);
 	gobject_class->finalize = anjuta_msgman_finalize;
@@ -349,6 +365,7 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 									 GTK_SIGNAL_FUNC
 									 (on_notebook_switch_page), msgman);
 	msgman->priv->current_view = MESSAGE_VIEW (mv);
+	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
 	msgman->priv->views =
 		g_list_prepend (msgman->priv->views, (gpointer) page);
 
@@ -390,6 +407,7 @@ anjuta_msgman_remove_view (AnjutaMsgman * msgman, MessageView *passed_view)
 
 	g_return_if_fail (view != NULL);
 	gtk_widget_destroy (GTK_WIDGET (view));
+	anjuta_msgman_set_current_view(msgman, NULL);
 }
 
 void
@@ -460,17 +478,31 @@ void
 anjuta_msgman_set_current_view (AnjutaMsgman * msgman, MessageView * mv)
 {
 	g_return_if_fail (msgman != NULL);
-//	g_return_if_fail (mv != NULL);
-	if (mv == NULL) return;
-
 	AnjutaMsgmanPage *page;
 	gint page_num;
 
-	page = anjuta_msgman_page_from_widget (msgman, mv);
-	page_num =
-		gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
-				       GTK_WIDGET (mv));
-	gtk_notebook_set_page (GTK_NOTEBOOK (msgman), page_num);
+	if (mv == NULL)
+	{
+		if (gtk_notebook_get_n_pages == 0)
+		{
+			msgman->priv->current_view = NULL;
+		}
+		else
+		{
+			msgman->priv->current_view = 
+				MESSAGE_VIEW(gtk_notebook_get_nth_page(GTK_NOTEBOOK(msgman),
+													   gtk_notebook_get_current_page(GTK_NOTEBOOK(msgman))));
+		}
+	}
+	else
+	{
+		page = anjuta_msgman_page_from_widget (msgman, mv);
+		page_num =
+			gtk_notebook_page_num (GTK_NOTEBOOK (msgman),
+					       GTK_WIDGET (mv));
+		gtk_notebook_set_page (GTK_NOTEBOOK (msgman), page_num);
+	}
+	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
 }
 
 GList *

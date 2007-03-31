@@ -36,11 +36,6 @@ static void sourceview_autocomplete_class_init(SourceviewAutocompleteClass *klas
 static void sourceview_autocomplete_init(SourceviewAutocomplete *sp);
 static void sourceview_autocomplete_finalize(GObject *object);
 
-struct _SourceviewAutocompletePrivate {
-	/* Place Private Members Here */
-	int tmp;  /* Dummy member, sun cc does not accept empty structure */
-};
-
 G_DEFINE_TYPE(SourceviewAutocomplete, sourceview_autocomplete, TAG_TYPE_WINDOW);
 
 /* Maximal found autocompletition words */
@@ -231,7 +226,6 @@ sourceview_autocomplete_class_init(SourceviewAutocompleteClass *klass)
 static void
 sourceview_autocomplete_init(SourceviewAutocomplete *obj)
 {
-	obj->priv = g_new0(SourceviewAutocompletePrivate, 1);
 
 }
 

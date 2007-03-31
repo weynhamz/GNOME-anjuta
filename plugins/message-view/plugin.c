@@ -83,6 +83,19 @@ static GtkActionEntry actions_goto[] = {
     G_CALLBACK (on_save_message)}
 };
 
+static void on_view_changed(AnjutaMsgman* msgman, MessageViewPlugin* plugin)
+{
+	AnjutaUI* ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
+	GtkAction* action_next = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
+								   "ActionMessageNext");
+	GtkAction* action_prev = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
+								   "ActionMessagePrev");
+	gboolean sensitive = (anjuta_msgman_get_current_view(msgman) != NULL);
+	DEBUG_PRINT("Changed view: sensitive: %d", sensitive);
+	g_object_set (G_OBJECT (action_next), "sensitive", sensitive, NULL);
+	g_object_set (G_OBJECT (action_prev), "sensitive", sensitive, NULL);
+}
+
 static gpointer parent_class;
 
 #define REGISTER_ICON(icon, stock_id) \
@@ -211,7 +224,13 @@ activate_plugin (AnjutaPlugin *plugin)
 											GETTEXT_PACKAGE, TRUE, plugin);
 	mv_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
 	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupMessageView");
-	mv_plugin->msgman = anjuta_msgman_new(anjuta_shell_get_preferences(plugin->shell, NULL), popup);
+	mv_plugin->msgman = 
+		anjuta_msgman_new(anjuta_shell_get_preferences(plugin->shell, NULL), popup);
+	g_signal_connect(G_OBJECT(mv_plugin->msgman), "view_changed", 
+					 G_CALLBACK(on_view_changed), mv_plugin);
+	/* Call once to ensure proper state */
+	on_view_changed(ANJUTA_MSGMAN(mv_plugin->msgman), mv_plugin);
+	
 	anjuta_shell_add_widget (plugin->shell, mv_plugin->msgman,
 							 "AnjutaMessageView", _("Messages"),
 							 "message-manager-plugin-icon",
