@@ -90,8 +90,9 @@ static void on_view_changed(AnjutaMsgman* msgman, MessageViewPlugin* plugin)
 								   "ActionMessageNext");
 	GtkAction* action_prev = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
 								   "ActionMessagePrev");
+	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
+								 GTK_WIDGET(msgman), NULL);
 	gboolean sensitive = (anjuta_msgman_get_current_view(msgman) != NULL);
-	DEBUG_PRINT("Changed view: sensitive: %d", sensitive);
 	g_object_set (G_OBJECT (action_next), "sensitive", sensitive, NULL);
 	g_object_set (G_OBJECT (action_prev), "sensitive", sensitive, NULL);
 }
@@ -321,8 +322,6 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 	MessageView* message_view;
 	GtkWidget *msgman = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->msgman;
 	message_view = anjuta_msgman_add_view (ANJUTA_MSGMAN (msgman), file, icon);
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-								 msgman, NULL);
 	return IANJUTA_MESSAGE_VIEW (message_view);
 }
 
@@ -369,14 +368,11 @@ ianjuta_msgman_set_current_view (IAnjutaMessageManager *plugin,
 {
 	AnjutaShell* shell;
 	GtkWidget *msgman = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->msgman;
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-								 msgman, NULL);
 	anjuta_msgman_set_current_view (ANJUTA_MSGMAN (msgman),
 					       MESSAGE_VIEW (message_view));
 	
 	/* Ensure the message-view is visible! */
 	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
-	anjuta_shell_present_widget(shell, GTK_WIDGET(msgman), NULL);
 }
 
 static void

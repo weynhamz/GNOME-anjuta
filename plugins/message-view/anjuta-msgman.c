@@ -365,7 +365,6 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 									 GTK_SIGNAL_FUNC
 									 (on_notebook_switch_page), msgman);
 	msgman->priv->current_view = MESSAGE_VIEW (mv);
-	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
 	msgman->priv->views =
 		g_list_prepend (msgman->priv->views, (gpointer) page);
 
@@ -377,6 +376,7 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
 									   GTK_SIGNAL_FUNC
 									   (on_notebook_switch_page), msgman);
+	g_signal_emit_by_name(G_OBJECT(msgman), "view_changed");
 }
 
 MessageView *
