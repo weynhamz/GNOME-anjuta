@@ -665,7 +665,7 @@ message_view_instance_init (MessageView * self)
 	gtk_tree_view_column_add_attribute
 		(column_pixbuf, renderer_pixbuf, "stock-id", COLUMN_PIXBUF);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (self->privat->tree_view),
-								 column);
+								 column_pixbuf);
 	/* Create columns to hold text and color of a line, this
 	 * columns are invisible of course. */
 	renderer = gtk_cell_renderer_text_new ();

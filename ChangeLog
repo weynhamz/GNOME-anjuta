@@ -1,3 +1,8 @@
+2007-04-01  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/message-view/message-view.c:
+	(message_view_instance_init): Fixed message icons to appear.
+
 2007-03-31  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/message-view/anjuta-msgman.c:
