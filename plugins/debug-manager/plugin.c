@@ -1091,6 +1091,19 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 		register_stock_icons (ANJUTA_PLUGIN (plugin));
 	}
 
+	/* Load debugger */
+	this->queue = dma_debugger_queue_new (plugin);
+	this->debugger = IANJUTA_DEBUGGER (this->queue);
+	g_signal_connect_swapped (this->debugger, "debugger-started", G_CALLBACK (dma_plugin_debugger_started), this);
+	g_signal_connect_swapped (this->debugger, "debugger-stopped", G_CALLBACK (dma_plugin_debugger_stopped), this);
+	g_signal_connect_swapped (this->debugger, "program-loaded", G_CALLBACK (dma_plugin_program_loaded), this);
+	g_signal_connect_swapped (this->debugger, "program-running", G_CALLBACK (dma_plugin_program_running), this);
+	g_signal_connect_swapped (this->debugger, "program-stopped", G_CALLBACK (dma_plugin_program_stopped), this);
+	g_signal_connect_swapped (this->debugger, "program-exited", G_CALLBACK (dma_plugin_program_loaded), this);
+	g_signal_connect_swapped (this->debugger, "location-changed", G_CALLBACK (dma_plugin_location_changed), this);
+	g_signal_connect_swapped (this->debugger, "signal-received", G_CALLBACK (dma_plugin_signal_received), this);
+	g_signal_connect (this->debugger, "debugger-ready", G_CALLBACK (on_debugger_ready_signal), this);
+
 	/* Add all our debug manager actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	this->start_group =
@@ -1118,20 +1131,8 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 											G_N_ELEMENTS (actions_running),
 											GETTEXT_PACKAGE, TRUE, this);	
 	this->uiid = anjuta_ui_merge (ui, UI_FILE);
-	
-	/* Load debugger */
-	this->queue = dma_debugger_queue_new (plugin);
-	this->debugger = IANJUTA_DEBUGGER (this->queue);
-	g_signal_connect_swapped (this->debugger, "debugger-started", G_CALLBACK (dma_plugin_debugger_started), this);
-	g_signal_connect_swapped (this->debugger, "debugger-stopped", G_CALLBACK (dma_plugin_debugger_stopped), this);
-	g_signal_connect_swapped (this->debugger, "program-loaded", G_CALLBACK (dma_plugin_program_loaded), this);
-	g_signal_connect_swapped (this->debugger, "program-running", G_CALLBACK (dma_plugin_program_running), this);
-	g_signal_connect_swapped (this->debugger, "program-stopped", G_CALLBACK (dma_plugin_program_stopped), this);
-	g_signal_connect_swapped (this->debugger, "program-exited", G_CALLBACK (dma_plugin_program_loaded), this);
-	g_signal_connect_swapped (this->debugger, "location-changed", G_CALLBACK (dma_plugin_location_changed), this);
-	g_signal_connect_swapped (this->debugger, "signal-received", G_CALLBACK (dma_plugin_signal_received), this);
-	g_signal_connect (this->debugger, "debugger-ready", G_CALLBACK (on_debugger_ready_signal), this);
 
+	
 	/* Watch expression */
 	this->watch = expr_watch_new (ANJUTA_PLUGIN (plugin), this->debugger);
 	

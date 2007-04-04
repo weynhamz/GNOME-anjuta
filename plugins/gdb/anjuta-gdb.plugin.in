@@ -5,3 +5,6 @@ Location=anjuta-gdb:GdbPlugin
 Icon=anjuta-gdb.plugin.png
 UserActivatable=no
 Interfaces=IAnjutaDebugger,IAnjutaCpuDebugger
+
+[File Loader]
+SupportedMimeTypes=application/x-executable,application/x-core,application/x-shellscript
