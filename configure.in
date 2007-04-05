@@ -219,14 +219,6 @@ PKG_CHECK_MODULES(GCONF, gconf-2.0 >= $GCONF_REQUIRED)
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
-dnl PKG_CHECK_MODULES(BONOBO, libbonobo-2.0 >= $BONOBO_REQUIRED)
-dnl AC_SUBST(BONOBO_CFLAGS)
-dnl AC_SUBST(BONOBO_LIBS)
-
-dnl PKG_CHECK_MODULES(BONOBO_UI, libbonobo-2.0 >= $BONOBO_UI_REQUIRED)
-dnl AC_SUBST(BONOBO_UI_CFLAGS)
-dnl AC_SUBST(BONOBO_UI_LIBS)
-
 PKG_CHECK_MODULES(VTE, vte >= $VTE_REQUIRED)
 AC_SUBST(VTE_CFLAGS)
 AC_SUBST(VTE_LIBS)
@@ -1117,6 +1109,9 @@ plugins/class-inheritance/Makefile
 plugins/valgrind/Makefile
 plugins/project-import/Makefile
 plugins/project-wizard/templates/Makefile
+plugins/project-wizard/templates/mkfile/Makefile
+plugins/project-wizard/templates/mkfile/src/Makefile
+plugins/project-wizard/templates/mkfile/po/Makefile
 plugins/project-wizard/templates/terminal/Makefile
 plugins/project-wizard/templates/terminal/src/Makefile
 plugins/project-wizard/templates/terminal/po/Makefile

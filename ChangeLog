@@ -1,3 +1,13 @@
+2007-04-05  Naba Kumar  <naba.kumar@gnome.org>
+
+	* anjuta.spec.in, configure.in: Removed dead codes.
+	
+	Patch from Jos Dehaes:
+	* configure.in, plugins/project-wizard/templates/Makefile.am,
+	plugins/project-wizard/templates/mkfile.wiz,
+	plugins/project-wizard/templates/translatable-strings.h: Enabled
+	makefile-based project creation and import. Fixes bug #355145
+
 2007-04-04 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/debugger.c,
