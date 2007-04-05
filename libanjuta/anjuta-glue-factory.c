@@ -1,44 +1,44 @@
 
 /**
- * SECTION:glue-factory
+ * SECTION:anjuta-glue-factory
  * @short_description: Underlying plugin factory
  * @see_also: 
  * @stability: Unstable
- * @include: libanjuta/glue-factory.h
+ * @include: libanjuta/anjuta-glue-factory.h
  * 
  */
 
 #include <string.h>
 #include <gmodule.h>
-#include "glue-factory.h"
-#include "glue-plugin.h"
+#include "anjuta-glue-factory.h"
+#include "anjuta-glue-plugin.h"
 
-static void glue_factory_init       (GlueFactory *factory);
-static void glue_factory_class_init (GlueFactoryClass *class);
+static void anjuta_glue_factory_init       (AnjutaGlueFactory *factory);
+static void anjuta_glue_factory_class_init (AnjutaGlueFactoryClass *class);
 
-typedef GType (*GluePluginGetTypeFunc) (GluePlugin *plugin, const char *name);
+typedef GType (*AnjutaGluePluginGetTypeFunc) (AnjutaGluePlugin *plugin, const char *name);
 
 typedef struct
 {
-  GluePlugin *plugin;
-  GluePluginGetTypeFunc get_type_func;
+  AnjutaGluePlugin *plugin;
+  AnjutaGluePluginGetTypeFunc get_type_func;
   const gchar *name;
 } LoadedPlugin;
 
-struct _GlueFactory
+struct _AnjutaGlueFactory
 {
   GObject parent;
   
   GList *paths;
 };
 
-struct _GlueFactoryClass
+struct _AnjutaGlueFactoryClass
 {
   GObjectClass parent_class;
 };
 
 GType
-glue_factory_get_type (void)
+anjuta_glue_factory_get_type (void)
 {
   static GType type = 0;
 
@@ -46,47 +46,47 @@ glue_factory_get_type (void)
     {
       static const GTypeInfo type_info =
       {
-        sizeof (GlueFactoryClass),
+        sizeof (AnjutaGlueFactoryClass),
         (GBaseInitFunc) NULL,
         (GBaseFinalizeFunc) NULL,
-        (GClassInitFunc) glue_factory_class_init,
+        (GClassInitFunc) anjuta_glue_factory_class_init,
         (GClassFinalizeFunc) NULL,
         NULL,
         
-        sizeof (GlueFactory),
+        sizeof (AnjutaGlueFactory),
         0, /* n_preallocs */
-        (GInstanceInitFunc) glue_factory_init,
+        (GInstanceInitFunc) anjuta_glue_factory_init,
       };
 
       type = g_type_register_static (G_TYPE_OBJECT,
-				     "GlueFactory",
+				     "AnjutaGlueFactory",
 				     &type_info, 0);
     }
   return type;
 }
 
 static void
-glue_factory_class_init (GlueFactoryClass *class)
+anjuta_glue_factory_class_init (AnjutaGlueFactoryClass *class)
 {
 }
 
 static void
-glue_factory_init (GlueFactory *factory)
+anjuta_glue_factory_init (AnjutaGlueFactory *factory)
 {
 }
 
-GlueFactory *
-glue_factory_new (void)
+AnjutaGlueFactory *
+anjuta_glue_factory_new (void)
 {
-  GlueFactory *factory;
+  AnjutaGlueFactory *factory;
 
-  factory = g_object_new (glue_factory_get_type (), NULL);
+  factory = g_object_new (anjuta_glue_factory_get_type (), NULL);
 
   return factory;
 }
 
 gboolean
-glue_factory_add_path (GlueFactory *factory, const gchar *path)
+anjuta_glue_factory_add_path (AnjutaGlueFactory *factory, const gchar *path)
 {
   GList *p;
   PathEntry *entry;
@@ -117,13 +117,13 @@ glue_factory_add_path (GlueFactory *factory, const gchar *path)
   return TRUE;
 }
 
-GList* glue_factory_get_path(GlueFactory *factory)
+GList* anjuta_glue_factory_get_path(AnjutaGlueFactory *factory)
 {
 	return factory->paths;
 }
 
 static LoadedPlugin *
-get_already_loaded_module (GlueFactory *factory,
+get_already_loaded_module (AnjutaGlueFactory *factory,
 			   const gchar *component_name,
 			   const gchar *type_name)
 {
@@ -147,7 +147,7 @@ get_already_loaded_module (GlueFactory *factory,
 }
 
 static LoadedPlugin *
-load_plugin (GlueFactory *factory, const gchar *component_name, const gchar *type_name)
+load_plugin (AnjutaGlueFactory *factory, const gchar *component_name, const gchar *type_name)
 {
   GList *p;
   gchar *plugin_name;
@@ -171,9 +171,9 @@ load_plugin (GlueFactory *factory, const gchar *component_name, const gchar *typ
 	
 	if (file_name && strcmp (file_name, plugin_name) == 0) {
 	  GModule *module;
-	  GluePlugin *glue_plugin;
+	  AnjutaGluePlugin *anjuta_glue_plugin;
 	  gchar *plugin_path;
-	  GluePluginGetTypeFunc get_type_func;
+	  AnjutaGluePluginGetTypeFunc get_type_func;
 	  LoadedPlugin *plugin;
 	  
 	  /* We have found a matching module */
@@ -185,24 +185,24 @@ load_plugin (GlueFactory *factory, const gchar *component_name, const gchar *typ
 	      goto move_to_next_dir;
 	    }
 
-	  if (!g_module_symbol (module, "glue_get_component_type", (gpointer *)&get_type_func))
+	  if (!g_module_symbol (module, "anjuta_glue_get_component_type", (gpointer *)&get_type_func))
 	    {
 	      g_module_close (module);
 	      goto move_to_next_dir;
 	    }
 
 	  /* Now create a new glue plugin */
-	  glue_plugin = glue_plugin_new (module);
-	  if ((* get_type_func) (glue_plugin, type_name) == G_TYPE_INVALID)
+	  anjuta_glue_plugin = anjuta_glue_plugin_new (module);
+	  if ((* get_type_func) (anjuta_glue_plugin, type_name) == G_TYPE_INVALID)
 	    {
-	      g_object_unref (glue_plugin);
+	      g_object_unref (anjuta_glue_plugin);
 	      g_module_close (module);
 	      goto move_to_next_dir;
 	    }
 	  
 	  /* Everything seems to be in order */
 	  plugin = g_new (LoadedPlugin, 1);
-	  plugin->plugin = glue_plugin;
+	  plugin->plugin = anjuta_glue_plugin;
 	  plugin->get_type_func = get_type_func;
 	  plugin->name = g_strdup (component_name);
 	  g_type_module_set_name (G_TYPE_MODULE (plugin->plugin), plugin->name);
@@ -227,7 +227,7 @@ move_to_next_dir:
 }
 
 GType
-glue_factory_get_object_type (GlueFactory  *factory,
+anjuta_glue_factory_get_object_type (AnjutaGlueFactory  *factory,
 			      const gchar  *component_name,
 			      const gchar  *type_name)
 {

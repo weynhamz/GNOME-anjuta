@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
- * glue-cpp.c (c) 2006 Johannes Schmid
+ * anjuta-glue-cpp.c (c) 2006 Johannes Schmid
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -17,32 +17,31 @@
  */
 
 /**
- * SECTION:glue-cpp
- * @title: GlueCpp
- * @short_description: C++ glue code
+ * SECTION:anjuta-glue-cpp
+ * @title: AnjutaAnjutaGlueCpp
+ * @short_description: C++ Anjuta glue code
  * @see_also: 
  * @stability: Unstable
- * @include: libanjuta/glue-cpp.h
+ * @include: libanjuta/anjuta-glue-cpp.h
  * 
  */
 
-#include "glue-cpp.h"
-#include "glue-factory.h"
+#include "anjuta-glue-cpp.h"
 
 #include <string.h>
 #include <gmodule.h>
 
-typedef GObject* (*Glue_constructor)();
+typedef GObject* (*AnjutaGlue_constructor)();
 
 GObject*
-glue_cpp_load_plugin(GlueFactory* factory, const gchar* component_name, const gchar* type_name)
+anjuta_glue_cpp_load_plugin(AnjutaGlueFactory* factory, const gchar* component_name, const gchar* type_name)
 {
-	GList* p = glue_factory_get_path(factory);
+	GList* p = anjuta_glue_factory_get_path(factory);
 	gchar *plugin_name;
   
 	plugin_name = g_module_build_path (NULL, component_name);
   
-  	Glue_constructor constructor;
+  	AnjutaGlue_constructor constructor;
   
 	while (p)
     {
@@ -72,7 +71,7 @@ glue_cpp_load_plugin(GlueFactory* factory, const gchar* component_name, const gc
 	     		 	goto move_to_next_dir;
 	    		}
 
-	  			if (!g_module_symbol (module, "glue_constructor", (gpointer *)&constructor))
+	  			if (!g_module_symbol (module, "anjuta_glue_constructor", (gpointer *)&constructor))
 	    		{
 	      			g_module_close (module);
 	      			goto move_to_next_dir;

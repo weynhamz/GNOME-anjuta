@@ -25,7 +25,7 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/anjuta-preferences.h>
 
-extern GType npw_plugin_get_type (GluePlugin *plugin);
+extern GType npw_plugin_get_type (AnjutaGluePlugin *plugin);
 #define ANJUTA_TYPE_PLUGIN_NPW         (npw_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_NPW(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_NPW, NPWPlugin))
 #define ANJUTA_PLUGIN_NPW_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_NPW, NPWPluginClass))

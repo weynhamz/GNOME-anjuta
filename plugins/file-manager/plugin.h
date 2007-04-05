@@ -4,7 +4,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
-extern GType file_manager_plugin_get_type (GluePlugin *plugin);
+extern GType file_manager_plugin_get_type (AnjutaGluePlugin *plugin);
 #define ANJUTA_TYPE_PLUGIN_FILE_MANAGER         (file_manager_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_FILE_MANAGER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_FILE_MANAGER, FileManagerPlugin))
 #define ANJUTA_PLUGIN_FILE_MANAGER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_FILE_MANAGER, FileManagerPluginClass))

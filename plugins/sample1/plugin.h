@@ -1,7 +1,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
-extern GType anjuta_sample_plugin_get_type (GluePlugin *plugin);
+extern GType anjuta_sample_plugin_get_type (AnjutaGluePlugin *plugin);
 #define ANJUTA_TYPE_PLUGIN_SAMPLE         (anjuta_sample_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_SAMPLE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_SAMPLE, SamplePlugin))
 #define ANJUTA_PLUGIN_SAMPLE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_SAMPLE, SamplePluginClass))

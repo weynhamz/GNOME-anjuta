@@ -2,7 +2,7 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libegg/recent-files/egg-recent-model.h>
 
-extern GType anjuta_file_loader_plugin_get_type (GluePlugin *plugin);
+extern GType anjuta_file_loader_plugin_get_type (AnjutaGluePlugin *plugin);
 #define ANJUTA_TYPE_PLUGIN_FILE_LOADER         (anjuta_file_loader_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_FILE_LOADER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_FILE_LOADER, AnjutaFileLoaderPlugin))
 #define ANJUTA_PLUGIN_FILE_LOADER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_FILE_LOADER, AnjutaFileLoaderPluginClass))

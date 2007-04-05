@@ -25,7 +25,7 @@
 
 #define ICON_FILE "anjuta-patch-plugin.png"
 
-extern GType patch_plugin_get_type (GluePlugin *plugin);
+extern GType patch_plugin_get_type (AnjutaGluePlugin *plugin);
 #define ANJUTA_TYPE_PLUGIN_PATCH         (patch_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_PATCH(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_PATCH, PatchPlugin))
 #define ANJUTA_PLUGIN_PATCH_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_PATCH, PatchPluginClass))

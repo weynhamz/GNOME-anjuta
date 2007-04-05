@@ -37,8 +37,8 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-plugin-handle.h>
 #include <libanjuta/anjuta-plugin.h>
-#include <libanjuta/glue-factory.h>
-#include <libanjuta/glue-cpp.h>
+#include <libanjuta/anjuta-glue-factory.h>
+#include <libanjuta/anjuta-glue-cpp.h>
 
 enum
 {
@@ -97,7 +97,7 @@ enum {
 /* Plugin class types */
 
 static GHashTable  *plugin_types = NULL;
-static GlueFactory *glue_factory = NULL;
+static AnjutaGlueFactory *anjuta_glue_factory = NULL;
 
 static GObjectClass* parent_class = NULL;
 static guint plugin_manager_signals[LAST_SIGNAL] = { 0 };
@@ -534,7 +534,7 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 		{
 			char **pieces;
 			pieces = g_strsplit (plugin_id, ":", -1);
-			ret = glue_cpp_load_plugin (glue_factory, pieces[0], pieces[1]);
+			ret = anjuta_glue_cpp_load_plugin (anjuta_glue_factory, pieces[0], pieces[1]);
 			g_strfreev (pieces);
 			if (ret == NULL)
 			{
@@ -559,7 +559,7 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 		char **pieces;
 		/* DEBUG_PRINT ("Loading: %s", plugin_id); */
 		pieces = g_strsplit (plugin_id, ":", -1);
-		type = glue_factory_get_object_type (glue_factory,
+		type = anjuta_glue_factory_get_object_type (anjuta_glue_factory,
 										     pieces[0], pieces[1]);
 		g_hash_table_insert (plugin_types, g_strdup (plugin_id),
 							 GUINT_TO_POINTER (type));
@@ -1787,10 +1787,10 @@ anjuta_plugin_manager_finalize (GObject *object)
 		g_hash_table_destroy (plugin_types);
 		plugin_types = NULL;
 	}
-	if (glue_factory)
+	if (anjuta_glue_factory)
 	{
-		g_object_unref (glue_factory);
-		glue_factory = NULL;
+		g_object_unref (anjuta_glue_factory);
+		anjuta_glue_factory = NULL;
 	}
 #endif
 	G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -1983,9 +1983,9 @@ anjuta_plugin_manager_new (GObject *shell, AnjutaStatus *status,
 								   "shell", shell, "status", status, NULL);
 	plugin_manager = ANJUTA_PLUGIN_MANAGER (manager_object);
 	
-	if (glue_factory == NULL)
+	if (anjuta_glue_factory == NULL)
 	{
-		glue_factory = glue_factory_new ();
+		anjuta_glue_factory = anjuta_glue_factory_new ();
 	}
 	
 	gnome2_path = g_getenv ("GNOME2_PATH");
@@ -1995,7 +1995,7 @@ anjuta_plugin_manager_new (GObject *shell, AnjutaStatus *status,
 		for (p = pathv; *p != NULL; p++) {
 			char *path = g_strdup (*p);
 			plugin_dirs = g_list_prepend (plugin_dirs, path);
-			glue_factory_add_path (glue_factory, path);
+			anjuta_glue_factory_add_path (anjuta_glue_factory, path);
 		}
 		g_strfreev (pathv);
 	}
@@ -2006,7 +2006,7 @@ anjuta_plugin_manager_new (GObject *shell, AnjutaStatus *status,
 			continue;
 		char *path = g_strdup (node->data);
 		plugin_dirs = g_list_prepend (plugin_dirs, path);
-		glue_factory_add_path (glue_factory, path);
+		anjuta_glue_factory_add_path (anjuta_glue_factory, path);
 		node = g_list_next (node);
 	}
 	plugin_dirs = g_list_reverse (plugin_dirs);

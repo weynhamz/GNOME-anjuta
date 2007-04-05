@@ -1,4 +1,64 @@
 2007-04-05  Naba Kumar  <naba.kumar@gnome.org>
+ 
+	Patch from Halton Huo:
+	* libanjuta/Makefile.am:
+	* libanjuta/anjuta-glue-cpp.c: (anjuta_glue_cpp_load_plugin):
+	* libanjuta/anjuta-glue-cpp.h:
+	* libanjuta/anjuta-glue-factory.c: (anjuta_glue_factory_get_type),
+	(anjuta_glue_factory_class_init), (anjuta_glue_factory_init),
+	(anjuta_glue_factory_new), (anjuta_glue_factory_add_path),
+	(anjuta_glue_factory_get_path), (get_already_loaded_module),
+	(load_plugin), (anjuta_glue_factory_get_object_type):
+	* libanjuta/anjuta-glue-factory.h:
+	* libanjuta/anjuta-glue-plugin.c: (anjuta_glue_plugin_get_type),
+	(anjuta_glue_plugin_load), (anjuta_glue_plugin_unload),
+	(anjuta_glue_plugin_class_init), (anjuta_glue_plugin_init),
+	(anjuta_glue_plugin_new):
+	* libanjuta/anjuta-glue-plugin.h:
+	* libanjuta/anjuta-plugin-manager.c: (activate_plugin),
+	(anjuta_plugin_manager_finalize), (anjuta_plugin_manager_new):
+	* libanjuta/anjuta-plugin.h:
+	* libanjuta/glue-cpp.c:
+	* libanjuta/glue-cpp.h:
+	* libanjuta/glue-factory.c:
+	* libanjuta/glue-factory.h:
+	* libanjuta/glue-plugin.c:
+	* libanjuta/glue-plugin.h:
+	* plugins/build-basic-autotools/build-basic-autotools.h:
+	* plugins/class-gen/plugin.h:
+	* plugins/class-inheritance/plugin.h:
+	* plugins/cvs-plugin/plugin.h:
+	* plugins/debug-manager/plugin.h:
+	* plugins/devhelp/plugin.h:
+	* plugins/document-manager/plugin.h:
+	* plugins/editor/plugin.h:
+	* plugins/file-loader/plugin.h:
+	* plugins/file-manager/plugin.h:
+	* plugins/file-wizard/plugin.h:
+	* plugins/gdb/plugin.h:
+	* plugins/glade/plugin.h:
+	* plugins/gtodo/plugin.h:
+	* plugins/language-support-cpp-java/plugin.h:
+	* plugins/macro/plugin.h:
+	* plugins/message-view/plugin.h:
+	* plugins/patch/plugin.h:
+	* plugins/profiler/plugin.h:
+	* plugins/project-import/plugin.h:
+	* plugins/project-manager/plugin.h:
+	* plugins/project-wizard/plugin.h:
+	* plugins/sample1/plugin.h:
+	* plugins/search/plugin.h:
+	* plugins/sourceview/plugin.h:
+	* plugins/subversion/plugin.h:
+	* plugins/symbol-browser/plugin.h:
+	* plugins/terminal/terminal.c:
+	* plugins/tools/plugin.h:
+	* plugins/tools/scripts/tools-2.xml.in:
+	* plugins/valgrind/plugin.h:
+
+	Renamed Glue to AnjutaGlue to avoid namespace conflicts.
+
+2007-04-05  Naba Kumar  <naba.kumar@gnome.org>
 
 	* anjuta.spec.in, configure.in: Removed dead codes.
 	

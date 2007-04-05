@@ -21,7 +21,7 @@
 
 #include "style-editor.h"
 
-extern GType editor_plugin_get_type (GluePlugin *plugin);
+extern GType editor_plugin_get_type (AnjutaGluePlugin *plugin);
 #define ANJUTA_TYPE_PLUGIN_EDITOR         (editor_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_EDITOR(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_EDITOR, EditorPlugin))
 #define ANJUTA_PLUGIN_EDITOR_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_EDITOR, EditorPluginClass))

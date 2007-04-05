@@ -30,7 +30,7 @@
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
-#include <libanjuta/glue-plugin.h>
+#include <libanjuta/anjuta-glue-plugin.h>
 
 G_BEGIN_DECLS
 
@@ -130,7 +130,7 @@ void anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
  */
 #define ANJUTA_PLUGIN_BEGIN(class_name, prefix)                          \
 extern GType                                                             \
-prefix##_get_type (GluePlugin *plugin)                                   \
+prefix##_get_type (AnjutaGluePlugin *plugin)                                   \
 {                                                                        \
 	static GType type = 0;                                               \
 	if (G_UNLIKELY (!type)) {                                            \
@@ -205,15 +205,15 @@ ANJUTA_PLUGIN_END
  * and member functions definitions. 
  */
 #define ANJUTA_SIMPLE_PLUGIN(class_name, prefix)                      \
-G_MODULE_EXPORT void glue_register_components (GluePlugin *plugin);   \
-G_MODULE_EXPORT GType glue_get_component_type (GluePlugin *plugin, const char *name); \
+G_MODULE_EXPORT void anjuta_glue_register_components (AnjutaGluePlugin *plugin);   \
+G_MODULE_EXPORT GType anjuta_glue_get_component_type (AnjutaGluePlugin *plugin, const char *name); \
 G_MODULE_EXPORT void                                                  \
-glue_register_components (GluePlugin *plugin)                         \
+anjuta_glue_register_components (AnjutaGluePlugin *plugin)                         \
 {                                                                     \
 	prefix##_get_type (plugin);                                       \
 }                                                                     \
 G_MODULE_EXPORT GType                                                 \
-glue_get_component_type (GluePlugin *plugin, const char *name)        \
+anjuta_glue_get_component_type (AnjutaGluePlugin *plugin, const char *name)        \
 {                                                                     \
 	if (!strcmp (name, #class_name)) {                                \
 		return prefix##_get_type (plugin);                            \
