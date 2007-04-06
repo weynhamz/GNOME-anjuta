@@ -21,9 +21,9 @@ libanjuta/anjuta-ui.c
 libanjuta/anjuta-utils.c
 libanjuta/cell-renderer-captioned-image.c
 libanjuta/e-splash.c
-libanjuta/glue-cpp.c
-libanjuta/glue-factory.c
-libanjuta/glue-plugin.c
+libanjuta/anjuta-glue-cpp.c
+libanjuta/anjuta-glue-factory.c
+libanjuta/anjuta-glue-plugin.c
 libanjuta/resources.c
 libegg/egg-combo-action.c
 libegg/egg-entry-action.c

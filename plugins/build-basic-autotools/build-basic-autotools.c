@@ -510,31 +510,39 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	
 	/* FIXME: What about translations in the following sscanf strings */
 	/* The translations should match that of 'make' program */
-	if ((sscanf (one_line, _("make[%d]: Entering directory `%s'"), &dummy_int, dir) == 2) ||
-		(sscanf (one_line, _("make: Entering directory `%s'"), dir) == 1))
+	if ((sscanf (one_line, _("make[%d]: Entering directory '%s'"), &dummy_int, dir) == 2) ||
+		(sscanf (one_line, _("make: Entering directory '%s'"), dir) == 1))
 	{
+		gchar* summary;
 		/* FIXME: Hack to remove the last ' */
 		gchar *idx = strchr (dir, '\'');
 		if (idx != NULL)
 		{
 			*idx = '\0';
 		}
-		// DEBUG_PRINT ("Entering: %s", dir);
+		summary = g_strdup_printf(_("Entering: %s"), dir);
+		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, 
+									 summary, one_line, NULL);
+		g_free(summary);
 		build_context_push_dir (context, "default", dir);
 		return;
 	}
 	/* Translation for the following should match that of 'make' program */
-	if ((sscanf (one_line, _("make[%d]: Leaving directory `%s'"), &dummy_int, dir) == 2) ||
-		(sscanf (one_line, _("make: Leaving directory `%s'"), dir) == 1))
+	if ((sscanf (one_line, _("make[%d]: Leaving directory '%s'"), &dummy_int, dir) == 2) ||
+		(sscanf (one_line, _("make: Leaving directory '%s'"), dir) == 1))
 	{
+		gchar* summary;
 		/* FIXME: Hack to remove the last ' */
 		gchar *idx = strchr (dir, '\'');
 		if (idx != NULL)
 		{
 			*idx = '\0';
 		}
-		// DEBUG_PRINT ("Leaving: %s", dir);
+		summary = g_strdup_printf(_("Leaving: %s"), dir);
+		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, 
+									 summary, one_line, NULL);
 		build_context_pop_dir (context, "default", dir);
+		g_free(summary);
 		return;
 	}
 	
@@ -578,6 +586,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		DEBUG_PRINT ("mid_str = %s, line = %s", mid_str, line);
 		start_str = g_strndup (line, mid_str - line);
 		end_str = line + strlen (start_str) + strlen (dummy_fn);
+		DEBUG_PRINT("dummy_fn: %s", dummy_fn);
 		if (g_path_is_absolute(dummy_fn))
 		{
 			mid_str = g_strdup(dummy_fn);
@@ -587,7 +596,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 			mid_str = g_build_filename (build_context_get_dir (context, "default"),
 										dummy_fn, NULL);
 		}
-		DEBUG_PRINT (mid_str);
+		DEBUG_PRINT ("mid_str: %s", mid_str);
 		
 		if (mid_str)
 		{
@@ -659,7 +668,7 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 											 IAnjutaDocumentManager,
 											 NULL);
 		
-		/* FIXME: Determine full file path */
+		/* Full path is detected from parse_error_line() */
 		ianjuta_document_manager_goto_file_line_mark(docman, filename, lineno, TRUE, NULL);
 		g_free(filename);
 	}
