@@ -1,5 +1,4 @@
 anjuta.glade
-anjuta.desktop.in
 plugins/build/build_file.c
 plugins/build/build_project.c
 plugins/build/clean_project.c
