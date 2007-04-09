@@ -1,3 +1,11 @@
+2007-04-09  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/editor/print.c: (anjuta_print_show_header):
+	* plugins/file-manager/anjuta-file-manager-plugin.glade:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
+
+  Some string changes (#427395 and #427399)
+
 2007-04-06  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c:

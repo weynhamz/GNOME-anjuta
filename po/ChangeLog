@@ -1,3 +1,11 @@
+2007-04-09  Johannes Schmid <jhs@gnome.org>
+
+	* POTFILES.in:
+	* POTFILES.skip:
+	Moved libegg/* to POTFILES.skip as they will be removed ASAP
+	
+	* de.po: Updated
+
 2007-04-08  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	* gl.po: Updated Galician Translation.

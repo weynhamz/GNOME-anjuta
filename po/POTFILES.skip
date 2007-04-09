@@ -14,6 +14,13 @@ plugins/project-wizard/templates/gnome/src/main.c
 plugins/project-wizard/templates/gnome/src/project.glade
 plugins/project-wizard/templates/gtk/src/project.glade
 plugins/project-wizard/templates/gtkmm/src/project.glade
+libegg/egg-combo-action.c
+libegg/egg-entry-action.c
+libegg/eggcellrendererkeys.c
+libegg/eggtreemodelfilter.c
+libegg/eggtreeviewstate.c
+libegg/layout.glade
+libegg/test-actions.c
 src/anjuta_cbs.c
 src/utilities.c
 

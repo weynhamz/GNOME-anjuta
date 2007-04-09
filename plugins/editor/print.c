@@ -757,7 +757,7 @@ static void
 anjuta_print_show_header (PrintJobInfo * pji)
 {
 	guchar *text1 = (guchar *)g_strdup_printf (_("File: %s"), pji->te->filename);
-	guchar *text2 = (guchar *)g_strdup_printf (_("%d"), pji->current_page);
+	guchar *text2 = (guchar *)g_strdup_printf ("%d", pji->current_page);
 	gfloat width;
 	gboolean save_wrapping;
 

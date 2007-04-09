@@ -25,13 +25,6 @@ libanjuta/anjuta-glue-cpp.c
 libanjuta/anjuta-glue-factory.c
 libanjuta/anjuta-glue-plugin.c
 libanjuta/resources.c
-libegg/egg-combo-action.c
-libegg/egg-entry-action.c
-libegg/eggcellrendererkeys.c
-libegg/eggtreemodelfilter.c
-libegg/eggtreeviewstate.c
-libegg/layout.glade
-libegg/test-actions.c
 plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade
 plugins/build-basic-autotools/build-basic-autotools.c
 plugins/build-basic-autotools/executer.c
