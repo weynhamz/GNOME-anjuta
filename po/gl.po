@@ -2475,7 +2475,7 @@ msgstr "<b>Declaracións</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:9
 msgid "<b>Editor tabs</b>"
-msgstr "<b>Solapas do editor</b>"
+msgstr "<b>Separadores do editor</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:10
 msgid "<b>Encoding to use when saving files</b>"
@@ -5708,7 +5708,7 @@ msgstr "Riscado"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:15
 msgid "Tabs position:"
-msgstr "Posición das solapas:"
+msgstr "Posición dos separadores:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:17
 msgid "Truncate long messages"
@@ -5736,7 +5736,7 @@ msgstr "Avisos:"
 
 #: ../plugins/message-view/anjuta-msgman.c:72
 msgid "Close all message tabs"
-msgstr "Pechar tódalas solapas de mensaxes"
+msgstr "Pechar todos os separadores de mensaxes"
 
 #: ../plugins/message-view/message-view.c:663
 msgid "Icon"
