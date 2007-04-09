@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-08 21:12+0200\n"
-"PO-Revision-Date: 2007-04-05 14:22+0200\n"
+"POT-Creation-Date: 2007-04-09 15:36+0200\n"
+"PO-Revision-Date: 2007-04-09 15:49+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@cvs.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -270,8 +270,7 @@ msgstr "Complementos dispoñibles"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1889
 msgid "Currently available plugins found in plugin paths"
-msgstr ""
-"Complementos dispoñibles actualmente que se encontran na ruta de complementos"
+msgstr "Complementos dispoñibles actualmente que se encontran na ruta de complementos"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1895
 msgid "Activated plugins"
@@ -282,9 +281,8 @@ msgid "Currently activated plugins"
 msgstr "Complementos activados actualmente"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1902
-#, fuzzy
 msgid "Anjuta shell for which the plugins are"
-msgstr "O shell de Anjuta que contendrá o complemento"
+msgstr "O shell de Anjuta que conterá os complementos"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1910
 msgid "Anjuta Status"
@@ -488,7 +486,6 @@ msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "Non se pode executar o comando %s (usando shell %s)\n"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:219
-#: ../libegg/egg-entry-action.c:131
 msgid "Text"
 msgstr "Texto"
 
@@ -513,214 +510,6 @@ msgstr "Widget non atopado: %s"
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "Non se puido atopar o ficheiro pixmap da aplicación: %s"
-
-#: ../libegg/egg-combo-action.c:119
-msgid "Model"
-msgstr "Modelo"
-
-#: ../libegg/egg-combo-action.c:120
-msgid "Model for the combo box"
-msgstr "Modelo da caixa combo"
-
-#: ../libegg/egg-combo-action.c:126 ../libegg/egg-entry-action.c:139
-msgid "Width"
-msgstr "Ancho"
-
-#: ../libegg/egg-combo-action.c:127 ../libegg/egg-entry-action.c:140
-msgid "Width of the entry."
-msgstr "Ancho da entrada."
-
-#: ../libegg/egg-combo-action.c:294
-#: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
-#: ../plugins/symbol-browser/an_symbol_view.c:565
-msgid "Symbol"
-msgstr "Símbolo"
-
-#: ../libegg/egg-entry-action.c:132
-msgid "Text in the entry"
-msgstr "Texto na entrada"
-
-#: ../libegg/eggcellrendererkeys.c:160 ../libegg/eggcellrendererkeys.c:161
-msgid "Accelerator key"
-msgstr "Tecla aceleradora"
-
-#: ../libegg/eggcellrendererkeys.c:170 ../libegg/eggcellrendererkeys.c:171
-msgid "Accelerator modifiers"
-msgstr "Modificadores do acelerador"
-
-#: ../libegg/eggcellrendererkeys.c:180
-msgid "Accelerator Mode"
-msgstr "Modo do acelerador"
-
-#: ../libegg/eggcellrendererkeys.c:181
-msgid "The type of accelerator."
-msgstr "O tipo do acelerador."
-
-#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:534
-msgid "Disabled"
-msgstr "Desactivado"
-
-#: ../libegg/eggcellrendererkeys.c:330 ../libegg/eggcellrendererkeys.c:564
-msgid "Type a new accelerator, or press Backspace to clear"
-msgstr "Teclee un novo acelerador, ou prema na tecla de retroceso para borrar"
-
-#: ../libegg/eggcellrendererkeys.c:567
-msgid "Type a new accelerator"
-msgstr "Teclee un novo acelerador"
-
-#: ../libegg/eggtreemodelfilter.c:267
-msgid "The child model"
-msgstr "O modelo fillo"
-
-#: ../libegg/eggtreemodelfilter.c:268
-msgid "The model for the filtermodel to filter"
-msgstr "O modelo para o filtermodel para filtrar"
-
-#: ../libegg/eggtreemodelfilter.c:275
-msgid "The virtual root"
-msgstr "A raíz virtual"
-
-#: ../libegg/eggtreemodelfilter.c:276
-msgid "The virtual root (relative to the child model) for this filtermodel"
-msgstr "A raíz virtual (relativa ao modelo fillo) para este filtermodel"
-
-#: ../libegg/eggtreeviewstate.c:54
-#, c-format
-msgid "Line %d character %d: %s"
-msgstr "Liña %d carácter %d: %s"
-
-#: ../libegg/eggtreeviewstate.c:109
-#, c-format
-msgid "Could not parse \"%s\" as an integer"
-msgstr "Non se puido analizar \"%s\" como un enteiro"
-
-#: ../libegg/eggtreeviewstate.c:118
-#, c-format
-msgid "Did not understand trailing characters \"%s\" in string \"%s\""
-msgstr "Non se entenden os caracteres do final \"%s\" na cadea \"%s\""
-
-#: ../libegg/eggtreeviewstate.c:127
-#, c-format
-msgid "Integer %ld must be positive"
-msgstr "O enteiro %ld debe ser positivo"
-
-#: ../libegg/eggtreeviewstate.c:135
-#, c-format
-msgid "Integer %ld is too large, current max is %d"
-msgstr "O enteiro %ld é demasiado grande, o máximo actual é %d"
-
-#: ../libegg/eggtreeviewstate.c:181
-#, c-format
-msgid "Boolean values must be \"true\" or \"false\" not \"%s\""
-msgstr "Os valores booleanos deben ser \"true\" ou \"false\" non \"%s\""
-
-#: ../libegg/eggtreeviewstate.c:204
-#, c-format
-msgid "The value \"%s\" is not part of the enum \"%s\""
-msgstr "O valor \"%s\" non é parte do tipo enumerado \"%s\""
-
-#: ../libegg/eggtreeviewstate.c:234
-#, c-format
-msgid "The type \"%s\" can't be parsed from a string"
-msgstr "O tipo \"%s\" non pode ser analizado desde unha cadea"
-
-#: ../libegg/eggtreeviewstate.c:255
-#, c-format
-msgid "The property \"%s\" does not exist"
-msgstr "A propiedade \"%s\" non existe"
-
-#: ../libegg/eggtreeviewstate.c:310
-msgid "The type attribute can only be specified once."
-msgstr "O tipo do atributo só pode ser especificado unha vez."
-
-#: ../libegg/eggtreeviewstate.c:319
-#, c-format
-msgid "The type \"%s\" is not a valid type."
-msgstr "O tipo \"%s\" non é un tipo válido."
-
-#: ../libegg/eggtreeviewstate.c:327
-#, c-format
-msgid "The type \"%s\" is not a cell renderer type."
-msgstr "O tipo \"%s\" non é un tipo de renderizador de celas."
-
-#: ../libegg/eggtreeviewstate.c:339
-msgid "No type attribute specified."
-msgstr "Non se especificou o tipo de atributo."
-
-#: ../libegg/eggtreeviewstate.c:457
-#, c-format
-msgid "Outermost element in theme must be <treeview_state> not <%s>"
-msgstr "O elemento máis externo no tema debe ser <treeview_state> non <%s>"
-
-#: ../libegg/eggtreeviewstate.c:467
-#, c-format
-msgid "Element inside of <treeview_state> must be <treeview> not <%s>"
-msgstr "O elemento dentro de <treeview_state> debe ser <treeview> non <%s>"
-
-#: ../libegg/eggtreeviewstate.c:477
-#, c-format
-msgid "Element inside of <treeview> must be <column> not <%s>"
-msgstr "O elemento dentro de <treeview> debe ser <column> non <%s>"
-
-#: ../libegg/eggtreeviewstate.c:488
-#, c-format
-msgid "Element inside of <column> must be <cell> not <%s>"
-msgstr "O elemento dentro de <column> debe ser <cell> non <%s>"
-
-#: ../libegg/eggtreeviewstate.c:494
-msgid "The <cell> element must not have any children."
-msgstr "O elemento <cell> non debe ter ningún descendente."
-
-#: ../libegg/layout.glade.h:1
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
-#: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../libegg/layout.glade.h:2
-msgid "Dock items"
-msgstr "Elementos empotrables"
-
-#: ../libegg/layout.glade.h:3
-msgid "Layout Managment"
-msgstr "Xestor de distribución"
-
-#: ../libegg/layout.glade.h:4
-msgid "Saved layouts"
-msgstr "Distribucións gardadas"
-
-#: ../libegg/layout.glade.h:5
-msgid "_Load"
-msgstr "_Cargar"
-
-#: ../libegg/layout.glade.h:6
-msgid "_Lock dock items"
-msgstr "_Bloquear elementos empotrables"
-
-#: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:337
-#: ../plugins/search/plugin.c:547 ../plugins/search/search-replace.c:840
-#: ../plugins/search/search-replace.c:1476
-#: ../plugins/search/search-replace.c:1483
-#: ../plugins/search/search-replace.c:1495
-#: ../plugins/search/search-replace.c:1798
-#: ../plugins/symbol-browser/plugin.c:1044
-msgid "Search"
-msgstr "Buscar"
-
-#: ../libegg/test-actions.c:141 ../plugins/search/plugin.c:548
-msgid "Incremental search"
-msgstr "Busca incremental"
-
-#: ../libegg/test-actions.c:155 ../plugins/file-loader/plugin.c:1162
-msgid "Open _Recent"
-msgstr "Abrir _recente"
-
-#: ../libegg/test-actions.c:156 ../plugins/file-loader/plugin.c:1173
-msgid "Open recent files"
-msgstr "Abre ficheiros recentes"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
 msgid "<b>Build</b>"
@@ -754,35 +543,35 @@ msgstr "Seleccione o programa a executar e os argumentos"
 #. FIXME: What about translations in the following sscanf strings
 #. The translations should match that of 'make' program
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:513
-#, fuzzy, c-format
+#, c-format
 msgid "make[%d]: Entering directory '%s'"
 msgstr "make [%d]: Entrando no directorio '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:514
-#, fuzzy, c-format
+#, c-format
 msgid "make: Entering directory '%s'"
 msgstr "make: Entrando no directorio '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:523
-#, fuzzy, c-format
+#, c-format
 msgid "Entering: %s"
-msgstr "Abrindo %s"
+msgstr "Entrando: %s"
 
 #. Translation for the following should match that of 'make' program
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:531
-#, fuzzy, c-format
+#, c-format
 msgid "make[%d]: Leaving directory '%s'"
 msgstr "make [%d]: Deixando o directorio '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:532
-#, fuzzy, c-format
+#, c-format
 msgid "make: Leaving directory '%s'"
 msgstr "make: Deixando o directorio '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:541
-#, fuzzy, c-format
+#, c-format
 msgid "Leaving: %s"
-msgstr "Abrindo %s"
+msgstr "Deixando: %s"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:574
 #: ../plugins/tools/execute.c:328
@@ -1207,6 +996,14 @@ msgstr "Fallou ao executar autogen: %s"
 #: ../plugins/class-gen/window.c:816
 msgid "XML description of the user interface"
 msgstr "Descrición XML da interface de usuario"
+
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
+#: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "/usr/bin/cvs"
@@ -1691,7 +1488,7 @@ msgstr "Introduza un enderezo Hexa ou seleccione un nos datos"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
 #: ../plugins/gdb/anjuta-gdb.glade.h:14
 msgid "Hide process para_meters"
-msgstr "Agochar pará_metros do proceso"
+msgstr "Ocultar pará_metros do proceso"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
 #: ../plugins/editor/text_editor_menu.c:175
@@ -1883,9 +1680,8 @@ msgstr "Enderezo"
 
 #: ../plugins/debug-manager/breakpoints.c:134
 #: ../plugins/debug-manager/signals.c:344
-#, fuzzy
 msgid "Pass"
-msgstr "Pasar:"
+msgstr "Pasar"
 
 #: ../plugins/debug-manager/breakpoints.c:135
 msgid "Times"
@@ -1918,9 +1714,8 @@ msgstr "Alternar punto de parada"
 #. Display label
 #. short-cut
 #: ../plugins/debug-manager/breakpoints.c:1387
-#, fuzzy
 msgid "Toggle breakpoint at the current location"
-msgstr "Alternar un marcador na posición de liña actual"
+msgstr "Conmutar punto de parada na localización actual"
 
 #. Action name
 #. Stock icon, if any
@@ -2016,13 +1811,12 @@ msgid "Unable to find one debugger plugin acception %s mime type"
 msgstr ""
 
 #: ../plugins/debug-manager/debugger.c:1421
-#, fuzzy
 msgid "Select a plugin"
-msgstr "Seleccione un obxectivo de Valgrind"
+msgstr "Seleccionar un complemento"
 
 #: ../plugins/debug-manager/debugger.c:1422
 msgid "Please select a plugin to activate"
-msgstr ""
+msgstr "Seleccione un complemento para activar"
 
 #: ../plugins/debug-manager/debug_tree.c:124 ../plugins/tools/editor.c:456
 msgid "Variable"
@@ -2360,20 +2154,20 @@ msgstr " Imprimir: "
 
 #: ../plugins/debug-manager/sparse_view.c:1175
 msgid "Show Line Numbers"
-msgstr "Amosar números de liña"
+msgstr "Mostrar números de liña"
 
 #: ../plugins/debug-manager/sparse_view.c:1176
 msgid "Whether to display line numbers"
-msgstr "Indica cando amosar os números de liña"
+msgstr "Indica cando mostrar os números de liña"
 
 #: ../plugins/debug-manager/sparse_view.c:1183
 msgid "Show Line Markers"
-msgstr "Amosar marcadores de liña"
+msgstr "Mostrar marcadores de liña"
 
 #: ../plugins/debug-manager/sparse_view.c:1184
 #, fuzzy
 msgid "Whether to display line marker pixbufs"
-msgstr "Indica cando amosar"
+msgstr "Indica cando mostrar"
 
 #. Action name
 #. Stock icon, if any
@@ -2571,6 +2365,16 @@ msgstr "Operacións de axuda"
 msgid "Books"
 msgstr "Libros"
 
+#: ../plugins/devhelp/plugin.c:337 ../plugins/search/plugin.c:547
+#: ../plugins/search/search-replace.c:840
+#: ../plugins/search/search-replace.c:1476
+#: ../plugins/search/search-replace.c:1483
+#: ../plugins/search/search-replace.c:1495
+#: ../plugins/search/search-replace.c:1798
+#: ../plugins/symbol-browser/plugin.c:1044
+msgid "Search"
+msgstr "Buscar"
+
 #: ../plugins/devhelp/plugin.c:342 ../src/anjuta-app.c:604
 msgid "Help"
 msgstr "Axuda"
@@ -2581,8 +2385,7 @@ msgstr "Mostrar axuda"
 
 #: ../plugins/document-manager/action-callbacks.c:74
 msgid "Auto format is currently disabled. Change the setting in Preferences."
-msgstr ""
-"Auto formato desactivado actualmente. Se quere pode activalo en Preferencias."
+msgstr "Auto formato desactivado actualmente. Se quere pode activalo en Preferencias."
 
 #: ../plugins/document-manager/action-callbacks.c:90
 #, c-format
@@ -2771,8 +2574,7 @@ msgid "Cuddle Else"
 msgstr "Arrimar Else"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:33
-msgid ""
-"Cuddle up to the immediately preceding '}' in an if-then-else construct."
+msgid "Cuddle up to the immediately preceding '}' in an if-then-else construct."
 msgstr "Arrimarse ao '}' inmediatamente nunha construcción if-then-else."
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:34
@@ -2797,7 +2599,7 @@ msgstr "Desactivar autoformato"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:39
 msgid "Display the indent output according the selected parameters."
-msgstr "Amosar a saída de indent de acordo cos parámetros seleccionados."
+msgstr "Mostrar a saída de indent de acordo cos parámetros seleccionados."
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:40
 msgid "Do not show tabs"
@@ -2824,8 +2626,7 @@ msgstr "Primeira columna"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:45
 msgid "Foece a space between an 'if' and the following parenthesis (default)."
-msgstr ""
-"Forzar un espazo entre un 'if' e os seguintes parénteses (por defecto)."
+msgstr "Forzar un espazo entre un 'if' e os seguintes parénteses (por defecto)."
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:46
 msgid "Force a blank line after every block of declarations."
@@ -2844,10 +2645,8 @@ msgid "Force a space between a 'for' and the following parenthesis (default)."
 msgstr "Forza un espazo entre un 'for' e o seguinte paréntese (por defecto)."
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:50
-msgid ""
-"Force a space between a 'while' and the following parenthesis (default)."
-msgstr ""
-"Forza un espazo entre un 'while' e o seguinte paréntese (predeterminado)."
+msgid "Force a space between a 'while' and the following parenthesis (default)."
+msgstr "Forza un espazo entre un 'while' e o seguinte paréntese (predeterminado)."
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:51
 msgid "Format comments which begin after the first column."
@@ -2947,8 +2746,7 @@ msgid "Place a space after a cast operator."
 msgstr "Colocar un espazo despois dun operador cast."
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:72
-msgid ""
-"Place a space between the name of the procedure being called and the '('."
+msgid "Place a space between the name of the procedure being called and the '('."
 msgstr "Coloca un espazo entre o nome do procedemento que se chama e o '('."
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:73
@@ -2985,8 +2783,7 @@ msgstr "Posición:"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:81
 msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
-msgstr ""
-"Preferir romper liñas longas antes dos operadores booleanos '&&' e '||'."
+msgstr "Preferir romper liñas longas antes dos operadores booleanos '&&' e '||'."
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:82
 #: ../plugins/valgrind/preferences.c:162
@@ -3297,8 +3094,7 @@ msgstr "Converter caracteres EOL a maioría de EOL"
 
 #: ../plugins/document-manager/plugin.c:200
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr ""
-"Converte os caracteres de fin de liña á maioría dos EOL atopados no ficheiro"
+msgstr "Converte os caracteres de fin de liña á maioría dos EOL atopados no ficheiro"
 
 #: ../plugins/document-manager/plugin.c:205
 msgid "_Select"
@@ -3501,7 +3297,7 @@ msgstr "Numeración de _liñas na marxe"
 
 #: ../plugins/document-manager/plugin.c:298
 msgid "Show/Hide line numbers"
-msgstr "Mostrar/Agochar o número de liña"
+msgstr "Mostrar/Ocultar o número de liña"
 
 #: ../plugins/document-manager/plugin.c:300
 msgid "_Marker Margin"
@@ -3509,7 +3305,7 @@ msgstr "Marcadores de _marxe"
 
 #: ../plugins/document-manager/plugin.c:301
 msgid "Show/Hide marker margin"
-msgstr "Amosar/Agochar marcadores de marxes"
+msgstr "Mostrar/Ocultar marcadores de marxes"
 
 #: ../plugins/document-manager/plugin.c:303
 msgid "_Code Fold Margin"
@@ -3517,7 +3313,7 @@ msgstr "Marxe de _código"
 
 #: ../plugins/document-manager/plugin.c:304
 msgid "Show/Hide code fold margin"
-msgstr "Amosar/Agochar marxe de código"
+msgstr "Mostrar/Ocultar marxe de código"
 
 #: ../plugins/document-manager/plugin.c:306
 msgid "_Indentation Guides"
@@ -3525,7 +3321,7 @@ msgstr "Guías de _sangrado"
 
 #: ../plugins/document-manager/plugin.c:307
 msgid "Show/Hide indentation guides"
-msgstr "Amosar/Agochar as guías de sangría"
+msgstr "Mostrar/Ocultar as guías de sangría"
 
 #: ../plugins/document-manager/plugin.c:309
 msgid "_White Space"
@@ -3533,7 +3329,7 @@ msgstr "_Espazos en branco"
 
 #: ../plugins/document-manager/plugin.c:310
 msgid "Show/Hide white spaces"
-msgstr "Amosar/Agochar espazos en branco"
+msgstr "Mostrar/Ocultar espazos en branco"
 
 #: ../plugins/document-manager/plugin.c:312
 msgid "_Line End Characters"
@@ -3541,7 +3337,7 @@ msgstr "Caracteres de fin de _liña"
 
 #: ../plugins/document-manager/plugin.c:313
 msgid "Show/Hide line end characters"
-msgstr "Amosar/Agochar caracteres de fin de liña"
+msgstr "Mostrar/Ocultar caracteres de fin de liña"
 
 #: ../plugins/document-manager/plugin.c:315
 msgid "Line _Wrapping"
@@ -4077,11 +3873,6 @@ msgstr "Non se puido obter o búfer de texto para imprimir"
 msgid "File: %s"
 msgstr "Ficheiro: %s"
 
-#: ../plugins/editor/print.c:760
-#, c-format
-msgid "%d"
-msgstr "%d"
-
 #: ../plugins/editor/print.c:872 ../plugins/editor/print.c:884
 msgid "Printing..."
 msgstr "Imprimindo..."
@@ -4113,8 +3904,7 @@ msgstr "Non se puido obter a información do ficheiro"
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
 #: ../plugins/editor/text_editor.c:1333
 msgid "This file is too big. Unable to allocate memory."
-msgstr ""
-"Este ficheiro é demasiado grande. Non se pode reservar suficiente memoria."
+msgstr "Este ficheiro é demasiado grande. Non se pode reservar suficiente memoria."
 
 #: ../plugins/editor/text_editor.c:1340
 msgid "Could not open file"
@@ -4468,9 +4258,17 @@ msgstr "Novo ficheiro, proxecto e compoñentes de proxectos."
 msgid "Open"
 msgstr "Abrir"
 
+#: ../plugins/file-loader/plugin.c:1162
+msgid "Open _Recent"
+msgstr "Abrir _recente"
+
 #: ../plugins/file-loader/plugin.c:1163
 msgid "Open recent file"
 msgstr "Abrir ficheiro recente"
+
+#: ../plugins/file-loader/plugin.c:1173
+msgid "Open recent files"
+msgstr "Abre ficheiros recentes"
 
 #: ../plugins/file-manager/an_file_view.c:108
 #: ../plugins/message-view/message-view.c:268
@@ -4709,8 +4507,7 @@ msgstr "Non se especificou o executable.\n"
 
 #: ../plugins/gdb/debugger.c:866
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr ""
-"Abrir un executable ou adxuntar a un proceso para iniciar depuración.\n"
+msgstr "Abrir un executable ou adxuntar a un proceso para iniciar depuración.\n"
 
 #: ../plugins/gdb/debugger.c:875
 msgid "There was an error whilst launching the debugger.\n"
@@ -5058,8 +4855,7 @@ msgstr "Eliminar"
 
 #: ../plugins/gtodo/callback.c:98
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr ""
-"Está seguro que quere eliminar todos os elementos pendentes completados?"
+msgstr "Está seguro que quere eliminar todos os elementos pendentes completados?"
 
 #: ../plugins/gtodo/callback.c:99
 #, c-format
@@ -5072,7 +4868,7 @@ msgstr ""
 
 #: ../plugins/gtodo/egg-datetime.c:296
 msgid "Display flags"
-msgstr "Amosar flags"
+msgstr "Mostrar flags"
 
 #: ../plugins/gtodo/egg-datetime.c:297
 msgid "Displayed date and/or time properties"
@@ -5433,7 +5229,7 @@ msgstr ""
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
 #: ../plugins/gtodo/notification.c:114
 msgid "_Do not show again"
-msgstr "_Non amosar de novo"
+msgstr "_Non mostrar de novo"
 
 #: ../plugins/gtodo/plugin.c:65
 msgid "_Tasks"
@@ -5441,27 +5237,27 @@ msgstr "_Tarefas"
 
 #: ../plugins/gtodo/plugin.c:74
 msgid "Hide _Completed Items"
-msgstr "Agochar elementos _completados"
+msgstr "Ocultar elementos _completados"
 
 #: ../plugins/gtodo/plugin.c:76
 msgid "Hide completed todo items"
-msgstr "Agochar elementos pendentes completados"
+msgstr "Ocultar elementos pendentes completados"
 
 #: ../plugins/gtodo/plugin.c:83
 msgid "Hide Items Past _Due Date"
-msgstr "Agochar elementos que son posteriores á súa data de _vencemento"
+msgstr "Ocultar elementos que son posteriores á súa data de _vencemento"
 
 #: ../plugins/gtodo/plugin.c:85
 msgid "Hide items that are past due date"
-msgstr "Agochar elementos que teñan unha data de vencemento pasada"
+msgstr "Ocultar elementos que teñan unha data de vencemento pasada"
 
 #: ../plugins/gtodo/plugin.c:92
 msgid "Hide Items Without _End Date"
-msgstr "Agochar elementos sen data de _finalización"
+msgstr "Ocultar elementos sen data de _finalización"
 
 #: ../plugins/gtodo/plugin.c:94
 msgid "Hide items without an end date"
-msgstr "Agochar elementos sen unha data de finalización"
+msgstr "Ocultar elementos sen unha data de finalización"
 
 #: ../plugins/gtodo/plugin.c:160
 msgid "Tasks manager"
@@ -5489,15 +5285,15 @@ msgstr "Interface"
 
 #: ../plugins/gtodo/preferences.c:91
 msgid "Show due date column"
-msgstr "Amosar columna de data de vencemento"
+msgstr "Mostrar columna de data de vencemento"
 
 #: ../plugins/gtodo/preferences.c:99
 msgid "Show category column"
-msgstr "Amosar columna de categoría"
+msgstr "Mostrar columna de categoría"
 
 #: ../plugins/gtodo/preferences.c:104
 msgid "Show priority column"
-msgstr "Amosar columna de prioridade"
+msgstr "Mostrar columna de prioridade"
 
 #: ../plugins/gtodo/preferences.c:109
 msgid "Tooltips in list"
@@ -5505,7 +5301,7 @@ msgstr "Consellos na lista"
 
 #: ../plugins/gtodo/preferences.c:120 ../plugins/gtodo/preferences.c:122
 msgid "Show in main window"
-msgstr "Amosar a ventá principal"
+msgstr "Mostrar a ventá principal"
 
 #: ../plugins/gtodo/preferences.c:133 ../plugins/gtodo/preferences.c:135
 msgid "Highlight"
@@ -5554,8 +5350,7 @@ msgstr "Notificación"
 #: ../plugins/gtodo/preferences.c:217
 #, c-format
 msgid "Allow to do items to notifiy me when they are due in %i minutes"
-msgstr ""
-"Permitir aos elementos pendentes notificarme cando venzan en %i minutos"
+msgstr "Permitir aos elementos pendentes notificarme cando venzan en %i minutos"
 
 #: ../plugins/gtodo/preferences.c:224
 msgid "Show Notification Tray Icon"
@@ -5586,21 +5381,21 @@ msgstr "/Ver/Ordenar/Orden descendente"
 #.
 #: ../plugins/gtodo/preferences.c:397
 msgid "/View/Hide Completed Items"
-msgstr "/Ver/Agochar elementos completados"
+msgstr "/Ver/Ocultar elementos completados"
 
 #. "/schemas
 #. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items that are past due"))),settings.hide_due);
 #.
 #: ../plugins/gtodo/preferences.c:406
 msgid "/View/Hide Items that Are Past Due Date"
-msgstr "/Ver/Agochar elementos que son posteriores a súa data de vencemento"
+msgstr "/Ver/Ocultar elementos que son posteriores a súa data de vencemento"
 
 #. "/schemas
 #. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items without an end date"))), settings.hide_nodate);
 #.
 #: ../plugins/gtodo/preferences.c:415
 msgid "/View/Hide Items Without an End Date"
-msgstr "/Ver/Agochar elementos sen data de finalización"
+msgstr "/Ver/Ocultar elementos sen data de finalización"
 
 #: ../plugins/gtodo/tasklists.c:9
 msgid "Open a Task List"
@@ -5616,7 +5411,7 @@ msgstr "/_Novo"
 
 #: ../plugins/gtodo/tray-icon.c:23
 msgid "/_Hide"
-msgstr "/_Agochar"
+msgstr "/_Ocultar"
 
 #: ../plugins/gtodo/tray-icon.c:24
 msgid "/_Show"
@@ -5944,9 +5739,8 @@ msgid "Close all message tabs"
 msgstr "Pechar tódalas solapas de mensaxes"
 
 #: ../plugins/message-view/message-view.c:663
-#, fuzzy
 msgid "Icon"
-msgstr "Acción"
+msgstr "Icona"
 
 #: ../plugins/message-view/message-view.c:674
 #: ../plugins/message-view/plugin.c:236 ../plugins/message-view/plugin.c:410
@@ -6067,7 +5861,7 @@ msgstr ""
 #: ../plugins/profiler/profiler.plugin.in.h:3
 #, fuzzy
 msgid "Profiler"
-msgstr "Accións de perfiles"
+msgstr "Perfil"
 
 #. Action name
 #. Stock icon, if any
@@ -6131,9 +5925,8 @@ msgid "<b>Symbols</b>"
 msgstr "<b>Símbolos</b>"
 
 #: ../plugins/profiler/profiler.glade.h:3
-#, fuzzy
 msgid "<b>Time Propagation</b>"
-msgstr "<b>Opcións misceláneas</b>"
+msgstr "<b>Propagación de tempo</b>"
 
 #: ../plugins/profiler/profiler.glade.h:4
 msgid "Automatically refresh profile data display"
@@ -6141,15 +5934,15 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:6
 msgid "Do not propagate time for these symbols:"
-msgstr ""
+msgstr "Sen tempo de propagación para este símbolos:"
 
 #: ../plugins/profiler/profiler.glade.h:7
 msgid "Do not show static functions"
-msgstr "Non amosar funcións estáticas"
+msgstr "Non mostrar funcións estáticas"
 
 #: ../plugins/profiler/profiler.glade.h:8
 msgid "Do not show these symbols:"
-msgstr "Non amosar estes símbolos:"
+msgstr "Non mostrar estes símbolos:"
 
 #: ../plugins/profiler/profiler.glade.h:9
 msgid ""
@@ -6176,11 +5969,11 @@ msgstr "Accións de perfiles"
 
 #: ../plugins/profiler/profiler.glade.h:16
 msgid "Propagate time for all symbols"
-msgstr ""
+msgstr "Tempo de propagación para todos os símbolos"
 
 #: ../plugins/profiler/profiler.glade.h:17
 msgid "Propagate time for only these symbols:"
-msgstr ""
+msgstr "Tempo de propagación só para estes símbolos:"
 
 #: ../plugins/profiler/profiler.glade.h:18
 #, fuzzy
@@ -6189,7 +5982,7 @@ msgstr "Seleccione un obxectivo de Valgrind"
 
 #: ../plugins/profiler/profiler.glade.h:19
 msgid "Show all symbols"
-msgstr "Amosar tódolos símbolos"
+msgstr "Mostrar tódolos símbolos"
 
 #: ../plugins/profiler/profiler.glade.h:20
 msgid "Show functions that could have been called but never were"
@@ -6197,7 +5990,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:21
 msgid "Show only these symbols:"
-msgstr "Amosar só estes símbolos:"
+msgstr "Mostrar só estes símbolos:"
 
 #: ../plugins/profiler/profiler.glade.h:22
 msgid "Show uncalled functions"
@@ -6601,20 +6394,19 @@ msgstr "Elección da icona"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
 msgid "Add C++ support:"
-msgstr ""
+msgstr "Engadir soporte C++:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "Add gtk-doc system:"
-msgstr ""
+msgstr "Engadir sistema gtk-doc:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
 msgid "Add internationalization:"
-msgstr ""
+msgstr "Engadir internacionalización:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
-#, fuzzy
 msgid "Add shared library support:"
-msgstr "Bibliotecas compartidas"
+msgstr "Engadir soporte de bibliotecas compartidas:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "Adds c++ support to the project so that c++ source files can be built"
@@ -6622,16 +6414,15 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
 msgid "Adds supports for building shared libraries in your project"
-msgstr ""
+msgstr "Engade soporte para construír bibliotecas compartidas no seu proxecto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid ""
 "Adds supports for internationalization so that your project can have "
 "translations in different languages"
-msgstr ""
+msgstr "Engade soporte de internacionalización para que o seu proxecto poida ser traducido a diferentes idiomas"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
-#, fuzzy
 msgid "Basic information"
 msgstr "Información básica"
 
@@ -6646,57 +6437,48 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
-#, fuzzy
 msgid "Configure external packages"
-msgstr "Configurar ferramentas externas"
+msgstr "Configurar paquetes externos"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:13
-#, fuzzy
 msgid "Configure external packages:"
-msgstr "Configurar ferramentas externas"
+msgstr "Configurar paquetes externos:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Create a template glade interface file"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:15
-#, fuzzy
 msgid "Create glade interface file"
-msgstr "Deseñador de interfaces Glade"
+msgstr "Crear un ficheiro de interface glade"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:17
-#, fuzzy
 msgid "Display description of the plugin"
-msgstr "Descrición XML da interface de usuario"
+msgstr "Mostra a descrición do complemento"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:18
-#, fuzzy
 msgid "Display title of the plugin"
-msgstr "Nome do perfil do complemento"
+msgstr "Mostra o título do complemento"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:19
-#, fuzzy
 msgid "Email address:"
-msgstr "Correo-e do usuario"
+msgstr "Enderezo de correo-e:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid "GCJ needs to know which class contains the main() function"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
-#, fuzzy
 msgid "General Project Information"
-msgstr "Introduza a información básica do proxecto"
+msgstr "Información xeral do proxecto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
-#, fuzzy
 msgid "General Project Infromation"
-msgstr "Introduza a información básica do proxecto"
+msgstr "Información xeral do proxecto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:23
-#, fuzzy
 msgid "General Public License(GPL)"
-msgstr "General Public License (GPL)"
+msgstr "Licenza pública xeral (GPL)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid ""
@@ -6706,13 +6488,12 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:25
-#, fuzzy
 msgid "Icon File:"
-msgstr "Ignorar ficheiros:"
+msgstr "Ficheiro de icona:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Icon file for the plugin"
-msgstr ""
+msgstr "Ficheiro de icona para o complemento"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Implement plugin interfaces"
@@ -6723,9 +6504,8 @@ msgid "Interface implemented by the plugin"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:29
-#, fuzzy
 msgid "Interface:"
-msgstr "Interface"
+msgstr "Interface:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:30
 #, fuzzy
@@ -6733,18 +6513,16 @@ msgid "Lesser General Public License(LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:31
-#, fuzzy
 msgid "License"
-msgstr "Licenza:"
+msgstr "Licenza"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:32
-#, fuzzy
 msgid "Main Class:"
-msgstr "Clase base:"
+msgstr "Clase principal:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Main class"
-msgstr ""
+msgstr "Clase principal"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:34
 #, fuzzy
@@ -6752,41 +6530,36 @@ msgid "Name of the value to watch"
 msgstr "Nome do perfil do complemento"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
-#, fuzzy
 msgid "No license"
-msgstr "Licenza:"
+msgstr "Sen licenza"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "Options for project build system"
-msgstr ""
+msgstr "Opcións para o sistema de construción do proxecto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:37
-#, fuzzy
 msgid "Plugin Class Name:"
-msgstr "Nome da clase:"
+msgstr "Nome da clase do complemento:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "Plugin Dependencies:"
-msgstr ""
+msgstr "Dependencias do complemento:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:39
-#, fuzzy
 msgid "Plugin Description:"
-msgstr "Descrición:"
+msgstr "Descrición do complemento:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:40
-#, fuzzy
 msgid "Plugin Title:"
-msgstr "Complementos"
+msgstr "Título do complemento:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:41
-#, fuzzy
 msgid "Plugin class name"
-msgstr "Xestor de complementos"
+msgstr "Nome da clase do complemento"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "Plugin has menus or/and toolbars"
-msgstr ""
+msgstr "O complemento ten menús e/ou barras de ferramentas"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "Plugin interfaces to implement"
@@ -6794,12 +6567,11 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:45
 msgid "Project directory, output file etc."
-msgstr ""
+msgstr "Directorio do proxecto, ficheiro de destino etc"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:46
-#, fuzzy
 msgid "Project directory:"
-msgstr "Directorio raíz do proxecto:"
+msgstr "Directorio do proxecto:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid ""
@@ -6808,14 +6580,12 @@ msgid ""
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:48
-#, fuzzy
 msgid "Project name:"
 msgstr "Nome do proxecto:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
-#, fuzzy
 msgid "Project options"
-msgstr "Propiedades do proxecto"
+msgstr "Opcións do proxecto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Require Package:"
@@ -6837,7 +6607,7 @@ msgstr ""
 #: ../plugins/project-wizard/templates/translatable-strings.h:54
 #, fuzzy
 msgid "Value Name:"
-msgstr "Nome novo:"
+msgstr "Nome do valor:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Values to watch"
@@ -6845,16 +6615,15 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Whether the plugin has menus or toolbars"
-msgstr ""
+msgstr "Indica se o complemento ten menús e barras de ferramentas"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:59
-#, fuzzy
 msgid "project name"
-msgstr "Nome do proxecto:"
+msgstr "nome do proxecto"
 
 #. Action name
 #. Stock icon, if any
@@ -7054,8 +6823,7 @@ msgstr "Lista separada por espazos de patróns de nomes de directorio a ignorar"
 
 #: ../plugins/search/anjuta-search.glade.h:47
 msgid "Space-seperated list of directory name patterns to match"
-msgstr ""
-"Lista separada por espazos de patróns de nomes de directorio a coincidir"
+msgstr "Lista separada por espazos de patróns de nomes de directorio a coincidir"
 
 #: ../plugins/search/anjuta-search.glade.h:48
 msgid "Space-seperated list of file name patterns to ignore"
@@ -7112,8 +6880,7 @@ msgid "Find and R_eplace..."
 msgstr "Buscar e r_emprazar..."
 
 #: ../plugins/search/plugin.c:502
-msgid ""
-"Search for and replace a string or regular expression with another string"
+msgid "Search for and replace a string or regular expression with another string"
 msgstr "Buscar e substituír unha cadea ou expresión con outra cadea"
 
 #: ../plugins/search/plugin.c:504
@@ -7159,6 +6926,10 @@ msgstr "Buscar a aparición anterior da palabra actual"
 #: ../plugins/search/plugin.c:539
 msgid "Searching..."
 msgstr "Procurando..."
+
+#: ../plugins/search/plugin.c:548
+msgid "Incremental search"
+msgstr "Busca incremental"
 
 #. FIXME: For some reason, if can_customize is set TRUE, AnjutaUI
 #. * can't find this action
@@ -7460,8 +7231,7 @@ msgstr "Operacións emerxentes de Subversion"
 
 #: ../plugins/subversion/subversion-callbacks.c:72
 msgid "Subversion command is running! Please wait until it is finished!"
-msgstr ""
-"Hay un comando Subversion en execución! Por favor, agarde ata que remate!"
+msgstr "Hay un comando Subversion en execución! Por favor, agarde ata que remate!"
 
 #: ../plugins/subversion/subversion-callbacks.c:298
 msgid "svn.diff"
@@ -7585,6 +7355,11 @@ msgstr "O comando Subversion rematou!"
 #, fuzzy
 msgid "Subversion thread started..."
 msgstr "O comando Subversion rematou!"
+
+#: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
+#: ../plugins/symbol-browser/an_symbol_view.c:565
+msgid "Symbol"
+msgstr "Símbolo"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:329
 #: ../plugins/symbol-browser/an_symbol_prefs.c:525
@@ -7809,8 +7584,7 @@ msgstr "Está seguro de que quere eliminar a ferramenta '%s'?"
 
 #: ../plugins/tools/dialog.c:340
 msgid "Unable to build user interface for tool list"
-msgstr ""
-"Non se puido construír a interface de usuario para a lista de ferramentas"
+msgstr "Non se puido construír a interface de usuario para a lista de ferramentas"
 
 #: ../plugins/tools/dialog.c:360
 msgid "Tool"
@@ -7826,12 +7600,15 @@ msgstr "indefinido"
 
 #: ../plugins/tools/editor.c:443
 msgid "Unable to build user interface for tool variable"
-msgstr ""
-"Non se puido construír a interface de usuario para a ferramenta de variable"
+msgstr "Non se puido construír a interface de usuario para a ferramenta de variable"
 
 #: ../plugins/tools/editor.c:459
 msgid "Meaning"
 msgstr "Significado"
+
+#: ../plugins/tools/editor.c:534
+msgid "Disabled"
+msgstr "Desactivado"
 
 #: ../plugins/tools/editor.c:697
 msgid "You must provide a tool name!"
@@ -7863,8 +7640,7 @@ msgstr "Acelerador novo..."
 
 #: ../plugins/tools/editor.c:975
 msgid "Unable to build user interface for tool editor"
-msgstr ""
-"Non se puido construír a interface de usuario para o editor de ferramentas"
+msgstr "Non se puido construír a interface de usuario para o editor de ferramentas"
 
 #: ../plugins/tools/execute.c:312
 #, c-format
@@ -7980,8 +7756,7 @@ msgid "Valgrind"
 msgstr "Valgrind"
 
 #: ../plugins/valgrind/plugin.c:343
-msgid ""
-"No executable target selected for debugging with Valgrind.Please select one."
+msgid "No executable target selected for debugging with Valgrind.Please select one."
 msgstr ""
 "Non se seleccionou un obxectivo executable para depurar con Valgrind. "
 "Seleccione un."
@@ -8158,7 +7933,7 @@ msgstr "Desresolver os nomes de símbolos c++"
 
 #: ../plugins/valgrind/vggeneralprefs.c:186
 msgid "Show"
-msgstr "Amosar"
+msgstr "Mostrar"
 
 #: ../plugins/valgrind/vggeneralprefs.c:198
 msgid "callers in stack trace"
@@ -8206,7 +7981,7 @@ msgstr "Asumir que as pilas do fío úsanse de maneira privada"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:179
 msgid "Show location of last word access on error:"
-msgstr "Amosar a ubicación do acceso da última palabra no erro:"
+msgstr "Mostrar a ubicación do acceso da última palabra no erro:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:189
 msgid "Memcheck"
@@ -8222,7 +7997,7 @@ msgstr "Comprobación de pérdida:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:210
 msgid "Show reachable blocks in leak check"
-msgstr "Amosar bloques accesibles na comprobación de pérdidas"
+msgstr "Mostrar bloques accesibles na comprobación de pérdidas"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:218
 msgid "Leak resolution:"
@@ -8559,8 +8334,7 @@ msgstr "Non abrir o último proxecto e ficheiros ao inicio"
 
 #: ../src/main.c:100
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr ""
-"Deter anjuta apropiadamente soltando todos os recursos (para depuración)"
+msgstr "Deter anjuta apropiadamente soltando todos os recursos (para depuración)"
 
 #: ../src/main.c:312
 msgid "- Integrated Development Environment"
@@ -8821,7 +8595,7 @@ msgstr "Perfil"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:1
 msgid "Component for searching"
-msgstr ""
+msgstr "Compoñente para buscar"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:2
 msgid "Searching"
@@ -8876,12 +8650,3 @@ msgstr ""
 msgid "Debug Manager plugin."
 msgstr "Complemento de xestor de depuración."
 
-#~ msgid ""
-#~ "The file '%s' is not saved.\n"
-#~ "Do you want to save it before closing?"
-#~ msgstr ""
-#~ "O ficheiro '%s' non foi gardado.\n"
-#~ "Quere gardalo antes de pechar?"
-
-#~ msgid "Do_n't save"
-#~ msgstr "_Non gardar"
