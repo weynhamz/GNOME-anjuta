@@ -1,3 +1,16 @@
+2007-04-11 Halton Huo <halton.huo@sun.com>
+
+	reviewed by: <jhs@gnome.org>
+
+	* configure.in:
+	* libanjuta/Makefile.am:
+	* libanjuta/anjuta-utils.c:
+	* libanjuta/anjuta-utils.h:
+	* manuals/reference/libanjuta/Makefile.am:
+	
+	Fixed compilation on sun by deploying the libutil methods
+	in anjuta-utils.h and building them on condition.
+
 2007-04-11  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c: (on_editor_destroy),

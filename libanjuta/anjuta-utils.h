@@ -26,6 +26,8 @@
 
 #include <libanjuta/anjuta-preferences.h>
 
+#include "config.h"
+
 G_BEGIN_DECLS
 
 gboolean anjuta_util_copy_file (gchar * src, gchar * dest, gboolean show_error);
@@ -111,15 +113,10 @@ gboolean anjuta_util_path_has_extension (const gchar *path, const gchar *ext);
 
 gchar* anjuta_util_get_uri_mime_type (const gchar *uri);
 
-/* FIXME: Instead of this, check for forkpty implementation in configure.in
- * Sun specific implementations
- *
- */
-#ifdef sun
+#ifndef HAVE_LIBUTIL
 #include <grp.h>
 int forkpty(int *amaster, char *name, struct termios *termp, struct winsize *winp);
-int alphasort (const struct dirent **a, const struct dirent **b);
-#endif /* sun */
+#endif /* HAVE_LIBUTIL */
 
 /* Temporarily copied here */
 

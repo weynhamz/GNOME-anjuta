@@ -19,7 +19,6 @@ INCLUDES = \
 lib_LTLIBRARIES=libanjuta.la
 
 libanjuta_la_LIBADD = \
-	-lutil \
 	$(GNOME_UI_LIBS) \
 	$(GLADE_LIBS) \
 	$(top_builddir)/libegg/libanjuta-egg.la \

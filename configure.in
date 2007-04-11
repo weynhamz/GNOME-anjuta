@@ -693,6 +693,9 @@ if test yes = "$have_st_ino"; then
 fi
 
 
+dnl Check for function forkpty in libutil
+AC_CHECK_LIB(util, forkpty)
+
 dnl Checks for library functions.
 AC_CHECK_FUNCS(fnmatch)
 AC_CHECK_FUNCS(strstr)

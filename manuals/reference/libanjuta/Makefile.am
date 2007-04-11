@@ -76,7 +76,6 @@ INCLUDES =						\
 	$(LIBANJUTA_CFLAGS)
 
 GTKDOC_LIBS =						\
-	-lutil \
 	$(top_builddir)/libanjuta/libanjuta.la \
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
 	$(top_builddir)/plugins/editor/scintilla/libanjuta-scintilla.la \
@@ -89,7 +88,6 @@ INCLUDES =						\
 	$(LIBANJUTA_CFLAGS)
 	
 GTKDOC_LIBS =						\
-	-lutil \
 	$(top_builddir)/libanjuta/libanjuta.la \
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
 	$(LIBANJUTA_LIBS)

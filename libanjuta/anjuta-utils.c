@@ -1005,11 +1005,7 @@ anjuta_util_get_uri_mime_type (const gchar *uri)
 	return mime_type;
 }
 
-/*
- * Sun specific implementations
- *
- */
-#ifdef sun
+#ifndef HAVE_LIBUTIL
 #include <grp.h>
 
 static int ptym_open (char *pts_name);
@@ -1301,9 +1297,4 @@ int scandir(const char *dir, struct dirent ***namelist,
   return(i);
 }
 
-int alphasort (const struct dirent **a, const struct dirent **b)
-{
-    return (strcmp((*a)->d_name, (*b)->d_name));
-}
-
-#endif /* sun */
+#endif /* HAVE_LIBUTIL */
