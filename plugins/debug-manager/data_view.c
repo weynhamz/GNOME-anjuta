@@ -823,6 +823,7 @@ dma_data_view_dispose (GObject *object)
 						      dma_data_view_changed_notify,
 						      view);
 		g_object_unref (view->buffer);
+		view->buffer = NULL;
 	}
 	
 	G_OBJECT_CLASS (parent_class)->dispose (object);

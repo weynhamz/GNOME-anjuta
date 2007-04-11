@@ -1,3 +1,10 @@
+2007-04-11 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/data_buffer.c
+	plugins/debug-manager/data_view.c,
+	plugins/debug-manager/memory.c:
+	Fixes for bug #418523, bug #427090 and bug #428174
+
 2007-04-11 Halton Huo <halton.huo@sun.com>
 
 	reviewed by: <jhs@gnome.org>

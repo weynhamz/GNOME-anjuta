@@ -143,7 +143,10 @@ create_memory_gui (DmaMemory *mem)
 static void
 on_debugger_started (DmaMemory *mem)
 {
-	mem->buffer = dma_data_buffer_new (0x0000, 0xFFFFFFFFU, read_memory_block, NULL, mem);
+	if (mem->buffer == NULL)
+	{
+		mem->buffer = dma_data_buffer_new (0x0000, 0xFFFFFFFFU, read_memory_block, NULL, mem);
+	}
 	create_memory_gui (mem);
 }
 
@@ -198,6 +201,8 @@ dma_memory_free(DmaMemory* mem)
 	g_return_if_fail (mem != NULL);
 
 	destroy_memory_gui (mem);
+	
+	if (mem->buffer != NULL) g_object_unref (mem->buffer);
 
 	if (mem->debugger != NULL)	g_object_unref (mem->debugger);
 	g_free(mem);

@@ -22,6 +22,9 @@
 
 #include "anjuta-marshal.h"
 
+/*#define DEBUG*/
+#include <libanjuta/anjuta-debug.h>
+
 #include <string.h>
 #include <glib/gprintf.h>
 
@@ -475,6 +478,7 @@ dma_data_buffer_instance_init (DmaDataBuffer *this)
 {
 	this->lower = 0;
 	this->upper = 0;
+	this->top = NULL;
 }
 
 /* class_init intialize the class itself not the instance */
