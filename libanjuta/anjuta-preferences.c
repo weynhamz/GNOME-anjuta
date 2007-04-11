@@ -122,7 +122,10 @@ build_key (const gchar *key)
  *
  * Return value: Key value as string or NULL if the key is not defined.
  */
-inline gchar *
+#ifdef __GNUC__
+inline
+#endif
+gchar *
 anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
 {
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), NULL);
@@ -141,7 +144,10 @@ anjuta_preferences_get (AnjutaPreferences *pr, const gchar *key)
  *
  * Return value: Key list or NULL if the key is not defined.
  */
-inline GSList *
+#ifdef __GNUC__
+inline
+#endif
+GSList *
 anjuta_preferences_get_list (AnjutaPreferences *pr, const gchar *key,
                              GConfValueType list_type)
 {
@@ -164,7 +170,10 @@ anjuta_preferences_get_list (AnjutaPreferences *pr, const gchar *key,
  *
  * Return value: TRUE or FALSE.
  */
-inline gboolean
+#ifdef __GNUC__
+inline
+#endif
+gboolean
 anjuta_preferences_get_pair (AnjutaPreferences *pr, const gchar *key,
                              GConfValueType car_type, GConfValueType cdr_type,
                              gpointer car_retloc, gpointer cdr_retloc)
@@ -186,7 +195,10 @@ anjuta_preferences_get_pair (AnjutaPreferences *pr, const gchar *key,
  *
  * Return value: Key value as integer or 0 if the key is not defined.
  */
-inline gint
+#ifdef __GNUC__
+inline
+#endif
+gint
 anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
 {
 	gint ret_val;
@@ -228,7 +240,10 @@ anjuta_preferences_get_int (AnjutaPreferences *pr, const gchar *key)
  * Return value: Key value as integer or @default_value if the
  * key is not defined.
  */
-inline gint
+#ifdef __GNUC__
+inline
+#endif
+gint
 anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
 										 const gchar *key, gint default_value)
 {
@@ -269,7 +284,10 @@ anjuta_preferences_get_int_with_default (AnjutaPreferences *pr,
  *
  * Return value: Default key value as string or NULL if not defined.
  */
-inline gchar *
+#ifdef __GNUC__
+inline
+#endif
+gchar *
 anjuta_preferences_default_get (AnjutaPreferences * pr, const gchar * key)
 {
 	GConfValue *val;
@@ -300,7 +318,10 @@ anjuta_preferences_default_get (AnjutaPreferences * pr, const gchar * key)
  *
  * Return value: Default key value as integer or 0 if the key is not defined.
  */
-inline gint
+#ifdef __GNUC__
+inline
+#endif
+gint
 anjuta_preferences_default_get_int (AnjutaPreferences *pr, const gchar *key)
 {
 	GConfValue *val;
@@ -327,7 +348,10 @@ anjuta_preferences_default_get_int (AnjutaPreferences *pr, const gchar *key)
  *
  * Sets the value of @key in current session.
  */
-inline void
+#ifdef __GNUC__
+inline
+#endif
+void
 anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
 						const gchar *value)
 {
@@ -353,7 +377,10 @@ anjuta_preferences_set (AnjutaPreferences *pr, const gchar *key,
  *
  * Sets a list in current session.
  */
-inline void
+#ifdef __GNUC__
+inline
+#endif
+void
 anjuta_preferences_set_list (AnjutaPreferences *pr, const gchar *key,
 					         GConfValueType list_type, GSList *list)
 {
@@ -374,7 +401,10 @@ anjuta_preferences_set_list (AnjutaPreferences *pr, const gchar *key,
  * @address_of_cdr: Address of the cdr.
  *
  */
-inline gboolean
+#ifdef __GNUC__
+inline
+#endif
+gboolean
 anjuta_preferences_set_pair (AnjutaPreferences *pr, const gchar *key,
 					         GConfValueType car_type, GConfValueType cdr_type,
                              gconstpointer address_of_car,
@@ -397,7 +427,10 @@ anjuta_preferences_set_pair (AnjutaPreferences *pr, const gchar *key,
  *
  * Sets the value of @key in current session.
  */
-inline void
+#ifdef __GNUC__
+inline
+#endif
+void
 anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
 							gint value)
 {
@@ -1657,7 +1690,10 @@ anjuta_preferences_get_prefix (AnjutaPreferences *pr)
  *
  * Returns TRUE if dir exists.
  */
-inline gboolean
+#ifdef __GNUC__
+inline
+#endif
+gboolean
 anjuta_preferences_dir_exists (AnjutaPreferences *pr, const gchar *dir)
 {
 	g_return_val_if_fail (ANJUTA_IS_PREFERENCES (pr), FALSE);
@@ -1674,7 +1710,10 @@ anjuta_preferences_dir_exists (AnjutaPreferences *pr, const gchar *dir)
  *
  * Add a directory to the list of directories the GConfClient.
  */
-inline void
+#ifdef __GNUC__
+inline
+#endif
+void
 anjuta_preferences_add_dir (AnjutaPreferences *pr, const gchar *dir, 
                                GConfClientPreloadType preload)
 {
@@ -1692,7 +1731,10 @@ anjuta_preferences_add_dir (AnjutaPreferences *pr, const gchar *dir,
  *
  * Remove a directory from the list of directories.
  */
-inline void
+#ifdef __GNUC__
+inline
+#endif
+void
 anjuta_preferences_remove_dir (AnjutaPreferences *pr, const gchar *dir)
 {
 	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));

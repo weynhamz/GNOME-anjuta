@@ -1,3 +1,27 @@
+2007-04-11  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-launcher.c:
+	(anjuta_launcher_execution_done_cleanup),
+	(anjuta_launcher_child_terminated):
+	Possible fix for #428363 and added a g_return_if_fail
+
+	* plugins/message-view/plugin.c: (activate_plugin):
+	Fixed a Gtk/Gdl-Critical
+	
+	Patches from Étienne Bersac <bersace03@laposte.net>
+	* plugins/class-gen/templates/go-source.tpl:
+	* plugins/macro/macros.xml:
+	Use better template for GObjects (#417875 and #417918)
+	
+	Patches from Halton Huo <halton.huo@sun.com>
+	* libanjuta/anjuta-launcher.h:
+	* libanjuta/anjuta-preferences.c:
+	* libanjuta/anjuta-utils.c:
+	* plugins/class-gen/window.c: (cg_window_set_add_to_project),
+	(cg_window_set_add_to_repository):
+	* plugins/class-inheritance/class-inherit.c:
+	Fix build with suncc (#423727, #423730, #423733, #423768, #423772)
+
 2007-04-09  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/editor/print.c: (anjuta_print_show_header):

@@ -38,6 +38,9 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/fcntl.h>
+#include <sys/termios.h>
+#include <dirent.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>

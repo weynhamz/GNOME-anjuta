@@ -52,6 +52,7 @@ enum
 };[+
 ENDIF+]
 
+
 static [+BaseClass+]Class* parent_class = NULL;[+
 IF (not (=(get "Signals[0].Name") ""))+]
 static guint [+ (string-downcase(get "TypeSuffix")) +]_signals[LAST_SIGNAL] = { 0 };[+
@@ -68,6 +69,8 @@ static [+Type+]
 		ENDIF+][+
 	ENDIF+][+
 ENDFOR+]
+
+G_DEFINE_TYPE ([+ClassName+], [+FuncPrefix+], [+BaseTypePrefix+]_TYPE_[+BaseTypeSuffix+]);
 
 static void
 [+FuncPrefix+]_init ([+ClassName+] *object)
@@ -299,34 +302,7 @@ IF (not (=(get "Signals[0].Name") "")) +]
 	ENDFOR+][+
 ENDIF +]
 }
-
-GType
-[+FuncPrefix+]_get_type (void)
-{
-	static GType our_type = 0;
-
-	if(our_type == 0)
-	{
-		static const GTypeInfo our_info =
-		{
-			sizeof ([+ClassName+]Class), /* class_size */
-			(GBaseInitFunc) NULL, /* base_init */
-			(GBaseFinalizeFunc) NULL, /* base_finalize */
-			(GClassInitFunc) [+FuncPrefix+]_class_init, /* class_init */
-			(GClassFinalizeFunc) NULL, /* class_finalize */
-			NULL /* class_data */,
-			sizeof ([+ClassName+]), /* instance_size */
-			0, /* n_preallocs */
-			(GInstanceInitFunc) [+FuncPrefix+]_init, /* instance_init */
-			NULL /* value_table */
-		};
-
-		our_type = g_type_register_static ([+BaseTypePrefix+]_TYPE_[+BaseTypeSuffix+], [+ (c-string (get "ClassName")) +],
-		                                   &our_info, 0);
-	}
-
-	return our_type;
-}[+
+[+
 FOR Members+][+
 	IF (=(get "Scope") "public")+][+
 		IF (not(=(get "Arguments") ""))+]

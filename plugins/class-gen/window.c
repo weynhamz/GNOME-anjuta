@@ -1105,7 +1105,7 @@ cg_window_set_add_to_project (CgWindow *window,
 	button = GTK_CHECK_BUTTON (glade_xml_get_widget (priv->gxml,
 	                                                 "add_project"));
 
-	return gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), enable);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), enable);
 }
 
 void
@@ -1119,7 +1119,7 @@ cg_window_set_add_to_repository (CgWindow *window,
 	button = GTK_CHECK_BUTTON (glade_xml_get_widget (priv->gxml,
 	                                                 "add_repository"));
 
-	return gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), enable);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), enable);
 }
 
 gboolean

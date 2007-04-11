@@ -32,10 +32,10 @@
 
 /* some macros to access deep graphviz's node structures */
 #define NODE_LOWER_LEFT(node,main_index,rec_index) \
-	((point)((field_t*)ND_shape_info (node))->fld[main_index]->fld[rec_index]->b.LL)
+	(((field_t*)ND_shape_info (node))->fld[main_index]->fld[rec_index]->b.LL)
 
 #define NODE_UPPER_RIGHT(node,main_index,rec_index) \
-	((point)((field_t*)ND_shape_info (node))->fld[main_index]->fld[rec_index]->b.UR)
+	(((field_t*)ND_shape_info (node))->fld[main_index]->fld[rec_index]->b.UR)
 
 #define NODE_NUM_FIELDS(node) \
 	((field_t*)ND_shape_info (node))->n_flds

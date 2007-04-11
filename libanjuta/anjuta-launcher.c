@@ -857,13 +857,18 @@ static void
 anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 										gboolean emit_signal)
 {
+	static gboolean block = FALSE;
 	gint child_status, child_pid;
 	time_t start_time;
 	
 	if (launcher->priv->completion_check_timeout >= 0)
 		g_source_remove (launcher->priv->completion_check_timeout);
-
+	
+	if (block)
+		return;
+	
 	/* Make sure all pending I/O are flushed out */
+	block = TRUE;
 	while (g_main_context_pending (NULL))
 		g_main_context_iteration (NULL, FALSE);
 	
@@ -917,6 +922,8 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 		g_signal_emit_by_name (launcher, "child-exited", child_pid,
 							   child_status,
 							   time (NULL) - start_time);
+		
+	block = FALSE;
 }
 
 /* Using this function is necessary because
@@ -959,6 +966,8 @@ static void
 anjuta_launcher_child_terminated (int status, gpointer data)
 {
 	AnjutaLauncher *launcher = data;
+	
+	g_return_if_fail(ANJUTA_IS_LAUNCHER(launcher));
 	
 	/* Save child exit code */
 	launcher->priv->child_status = status;

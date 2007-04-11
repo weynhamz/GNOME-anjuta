@@ -229,8 +229,12 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_msgman_new(anjuta_shell_get_preferences(plugin->shell, NULL), popup);
 	g_signal_connect(G_OBJECT(mv_plugin->msgman), "view_changed", 
 					 G_CALLBACK(on_view_changed), mv_plugin);
-	/* Call once to ensure proper state */
-	on_view_changed(ANJUTA_MSGMAN(mv_plugin->msgman), mv_plugin);
+	GtkAction* action_next = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
+								   "ActionMessageNext");
+	GtkAction* action_prev = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
+								   "ActionMessagePrev");
+	g_object_set (G_OBJECT (action_next), "sensitive", FALSE, NULL);
+	g_object_set (G_OBJECT (action_prev), "sensitive", FALSE, NULL);
 	
 	anjuta_shell_add_widget (plugin->shell, mv_plugin->msgman,
 							 "AnjutaMessageView", _("Messages"),

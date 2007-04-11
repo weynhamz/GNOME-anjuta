@@ -93,7 +93,7 @@ void anjuta_launcher_send_stdin (AnjutaLauncher *launcher,
 								 const gchar *input_str);
 void anjuta_launcher_send_ptyin (AnjutaLauncher *launcher,
 								 const gchar *input_str);
-gint anjuta_launcher_get_child_pid (AnjutaLauncher *launcher);
+pid_t anjuta_launcher_get_child_pid (AnjutaLauncher *launcher);
 void anjuta_launcher_reset (AnjutaLauncher *launcher);
 void anjuta_launcher_signal (AnjutaLauncher *launcher, int sig);
 void anjuta_launcher_set_buffered_output (AnjutaLauncher *launcher,
