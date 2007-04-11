@@ -373,6 +373,8 @@ sourceview_finalize(GObject *object)
 	Sourceview *cobj;
 	cobj = ANJUTA_SOURCEVIEW(object);
 	
+	DEBUG_PRINT("=========== finalise =============");
+	
 	sourceview_remove_monitor(cobj);
 	sourceview_prefs_destroy(cobj);
 	

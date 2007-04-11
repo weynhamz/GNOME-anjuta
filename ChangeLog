@@ -1,5 +1,14 @@
 2007-04-11  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/anjuta-docman.c: (on_editor_destroy),
+	(anjuta_docman_add_editor):
+	Hold a reference on the editor as long as we use it.
+	
+	* plugins/document-manager/plugin.c: (on_editor_changed):
+	Destroy GValue to fix a memoery leak.
+
+2007-04-11  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/document-manager/plugin.c: (on_editor_changed):
 	Fixed reference counting for editor by using g_value_take_object instead
 	of g_value_set_object. The editors are now correctly finalized and thus

@@ -676,6 +676,7 @@ on_editor_destroy (IAnjutaEditor *te, AnjutaDocman *docman)
 			anjuta_docman_set_current_editor (docman, IANJUTA_EDITOR (current_editor));
 		}
 	}
+	g_object_unref(G_OBJECT(te));
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
 			    GTK_SIGNAL_FUNC (on_notebook_switch_page),
 			    docman);
@@ -772,6 +773,7 @@ anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 	g_signal_emit_by_name (docman, "editor-added", te);
 	anjuta_docman_set_current_editor(docman, te);
 	anjuta_shell_present_widget( ANJUTA_SHELL (docman->shell), GTK_WIDGET (docman), NULL);
+	g_object_ref(G_OBJECT(te));
 	return te;
 }
 

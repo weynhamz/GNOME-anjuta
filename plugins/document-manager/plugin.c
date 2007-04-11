@@ -1001,12 +1001,13 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 		const gchar *language;
 		GList *support_plugin_descs, *node;
 		
-		GValue *value = g_new0 (GValue, 1);
-		g_value_init (value, G_TYPE_OBJECT);
-		g_value_take_object (value, te);
+		GValue value = {0, };
+		g_value_init (&value, G_TYPE_OBJECT);
+		g_value_set_object (&value, te);
 		anjuta_shell_add_value (plugin->shell,
 								"document_manager_current_editor",
-								value, NULL);
+								&value, NULL);
+		g_value_unset(&value);
 		DEBUG_PRINT ("Editor Added");
 		
 		/* Load current language editor support plugins */
