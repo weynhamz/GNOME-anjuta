@@ -55,12 +55,8 @@
 #include "anjuta-view.h"
 
 #include "sourceview.h"
-#include "sourceview-prefs.h"
-#include "sourceview-autocomplete.h"
 #include "sourceview-private.h"
-#include "sourceview-tags.h"
-#include "sourceview-scope.h"
-#include "sourceview-args.h"
+#include "sourceview-prefs.h"
 #include "sourceview-print.h"
 #include "sourceview-cell.h"
 #include "plugin.h"
@@ -239,6 +235,9 @@ static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 
 	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
 	g_signal_emit_by_name (sv, "language-changed", lang);
+	
+	/* Get rid of reference from ifile_open */
+	g_object_unref(G_OBJECT(sv));
 }
 
 /* Show nice progress bar */
@@ -305,6 +304,13 @@ static gboolean save_if_modified(AnjutaDocument* doc, GtkWindow* parent)
    	}
 }
 
+/* Need to avoid crash when unref is done before add_monitor */
+static gboolean timeout_unref(Sourceview* sv)
+{
+	g_object_unref(G_OBJECT(sv));
+	return FALSE;
+}
+
 /* Called when document is saved completly */
 static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 {
@@ -339,6 +345,7 @@ static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 							(GSourceFunc)sourceview_add_monitor, sv);
 		sv->priv->saving = FALSE;
 	}
+	g_timeout_add(3000, (GSourceFunc)timeout_unref, sv);
 }
 
 static void 
@@ -367,11 +374,9 @@ sourceview_finalize(GObject *object)
 	cobj = ANJUTA_SOURCEVIEW(object);
 	
 	sourceview_remove_monitor(cobj);
+	sourceview_prefs_destroy(cobj);
 	
-	gtk_widget_destroy(GTK_WIDGET(cobj->priv->tag_window));
-	gtk_widget_destroy(GTK_WIDGET(cobj->priv->autocomplete));
-	gtk_widget_destroy(GTK_WIDGET(cobj->priv->args));
-	gtk_widget_destroy(GTK_WIDGET(cobj->priv->scope));
+	g_object_unref(cobj->priv->view);
 	
 	g_free(cobj->priv);
 	G_OBJECT_CLASS(parent_class)->finalize(object);
@@ -487,14 +492,7 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 	g_signal_connect_after(G_OBJECT(sv->priv->view), "char_added",
 					G_CALLBACK(on_document_char_added), sv);
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
-	sv->priv->tag_window = sourceview_tags_new(plugin);
-	sv->priv->autocomplete = sourceview_autocomplete_new();
-	sv->priv->args = sourceview_args_new(plugin, sv->priv->view);
-	sv->priv->scope = sourceview_scope_new(plugin, sv->priv->view);
-	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->tag_window));
-	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->args));
-	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->scope));
-	anjuta_view_register_completion(sv->priv->view, TAG_WINDOW(sv->priv->autocomplete));
+	g_object_ref(sv->priv->view);
 	
 	/* VFS monitor */
 	sv->priv->last_saved_content = NULL;
@@ -525,6 +523,8 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 	/* Create Higlight Tag */
 	sourceview_create_highligth_indic(sv);
 	
+	DEBUG_PRINT("============ Creating new editor =============");
+	
 	return sv;
 }
 
@@ -535,9 +535,9 @@ static void
 ifile_open (IAnjutaFile* file, const gchar *uri, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
-	// const gchar* lang;
-	// IAnjutaLanguageSupport* lang_support;
 	sourceview_remove_monitor(sv);
+	/* Hold a reference here to avoid a destroyed editor */
+	g_object_ref(G_OBJECT(sv));
 	anjuta_document_load(sv->priv->document, uri, NULL,
 						 -1, FALSE);
 }
@@ -559,7 +559,8 @@ ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
 	sourceview_remove_monitor(sv);
-					 
+	
+	g_object_ref(G_OBJECT(sv));
 	anjuta_document_save(sv->priv->document, 0);
 }
 
@@ -578,6 +579,7 @@ ifile_savable_save_as (IAnjutaFileSavable* file, const gchar *uri, GError** e)
 	sv->priv->last_saved_content = gtk_text_buffer_get_slice (
 															  GTK_TEXT_BUFFER(sv->priv->document),
 															  &start_iter, &end_iter, TRUE);
+	g_object_ref(G_OBJECT(sv));
 	anjuta_document_save_as(sv->priv->document, 
 							uri, anjuta_encoding_get_current(), 0);
 	if (sv->priv->filename)
@@ -1274,22 +1276,6 @@ iconvert_iface_init(IAnjutaEditorConvertIface* iface)
 	iface->to_lower = iconvert_to_lower;
 }
 
-
-/* IAnjutaAssist Interface */
-static void 
-iassist_autocomplete(IAnjutaEditorAssist* edit, GError** ee)
-{
-    Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-    
-    if (tag_window_update(TAG_WINDOW(sv->priv->autocomplete), GTK_WIDGET(sv->priv->view)))
-    	gtk_widget_show(GTK_WIDGET(sv->priv->autocomplete));
-}
-
-static void iassist_iface_init(IAnjutaEditorAssistIface* iface)
-{
-	iface->autocomplete = iassist_autocomplete;
-}
-
 static gint
 imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 		   GError **e)
@@ -1753,7 +1739,7 @@ ANJUTA_TYPE_ADD_INTERFACE(ieditor, IANJUTA_TYPE_EDITOR);
 ANJUTA_TYPE_ADD_INTERFACE(imark, IANJUTA_TYPE_MARKABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iindic, IANJUTA_TYPE_INDICABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iselect, IANJUTA_TYPE_EDITOR_SELECTION);
-ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
+//ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);

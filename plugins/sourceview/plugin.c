@@ -132,7 +132,7 @@ ieditor_factory_new_editor(IAnjutaEditorFactory* factory,
 								GError** error)
 {
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN(factory);
-	IAnjutaEditor* editor = IANJUTA_EDITOR(sourceview_new(uri, filename, plugin));
+	IAnjutaEditor* editor = IANJUTA_EDITOR(sourceview_new(uri, filename, plugin));	return editor;
 	return editor;
 }
 

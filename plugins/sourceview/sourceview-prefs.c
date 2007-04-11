@@ -18,13 +18,15 @@
 #include "sourceview-private.h"
 #include <gtksourceview/gtksourceview.h>
 
+#include <libanjuta/anjuta-debug.h>
+
 static AnjutaPreferences* prefs = NULL;
 
 #define REGISTER_NOTIFY(key, func) \
 	notify_id = anjuta_preferences_notify_add (sv->priv->prefs, \
 											   key, func, sv, NULL); \
 	sv->priv->gconf_notify_ids = g_list_prepend (sv->priv->gconf_notify_ids, \
-										   (gpointer)(notify_id));
+										   GUINT_TO_POINTER(notify_id));
 /* Editor preferences */
 #define DISABLE_SYNTAX_HILIGHTING  "disable.syntax.hilighting"
 #define HIGHLIGHT_CURRENT_LINE	   "sourceview.highlightcurrentline"
@@ -93,8 +95,11 @@ on_gconf_notify_tab_size (GConfClient *gclient, guint cnxn_id,
 {
 	Sourceview *sv;
 	gint tab_size = get_int(entry);
+	
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
+	g_return_if_fail(GTK_IS_SOURCE_VIEW(sv->priv->view));
+    
 	gtk_source_view_set_tabs_width(GTK_SOURCE_VIEW(sv->priv->view), tab_size);
 }
 
@@ -265,7 +270,7 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);
 	REGISTER_NOTIFY (DISABLE_SYNTAX_HILIGHTING, on_gconf_notify_disable_hilite);
-        REGISTER_NOTIFY (HIGHLIGHT_CURRENT_LINE, on_gconf_notify_highlight_current_line);
+	REGISTER_NOTIFY (HIGHLIGHT_CURRENT_LINE, on_gconf_notify_highlight_current_line);
 	REGISTER_NOTIFY (BRACES_CHECK, on_gconf_notify_braces_check);
 	REGISTER_NOTIFY (VIEW_MARKER_MARGIN, on_gconf_notify_view_markers);
 	REGISTER_NOTIFY (VIEW_LINENUMBERS_MARGIN, on_gconf_notify_view_linenums);
@@ -278,6 +283,19 @@ sourceview_prefs_init(Sourceview* sv)
 	REGISTER_NOTIFY (FONT, on_gconf_notify_font);
 	
 }
+
+void sourceview_prefs_destroy(Sourceview* sv)
+{
+	AnjutaPreferences* prefs = sv->priv->prefs;
+	GList* id;
+	DEBUG_PRINT("Destroying preferences");
+	for (id = sv->priv->gconf_notify_ids; id != NULL; id = id->next)
+	{
+		anjuta_preferences_notify_remove(prefs,GPOINTER_TO_UINT(id->data));
+	}
+	g_list_free(sv->priv->gconf_notify_ids);
+}
+	
 
 AnjutaPreferences*
 sourceview_get_prefs()

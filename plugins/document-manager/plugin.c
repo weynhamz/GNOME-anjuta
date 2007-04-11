@@ -1003,7 +1003,7 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 		
 		GValue *value = g_new0 (GValue, 1);
 		g_value_init (value, G_TYPE_OBJECT);
-		g_value_set_object (value, te);
+		g_value_take_object (value, te);
 		anjuta_shell_add_value (plugin->shell,
 								"document_manager_current_editor",
 								value, NULL);

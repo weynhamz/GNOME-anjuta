@@ -1,5 +1,31 @@
 2007-04-11  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/plugin.c: (on_editor_changed):
+	Fixed reference counting for editor by using g_value_take_object instead
+	of g_value_set_object. The editors are now correctly finalized and thus
+	we do not lack so much memory anymore.
+	
+	* plugins/sourceview/anjuta-view.c: (anjuta_view_init),
+	(anjuta_view_finalize), (anjuta_view_focus_out),
+	(anjuta_view_key_press_event), (anjuta_view_button_press_event):
+	* plugins/sourceview/anjuta-view.h:
+	* plugins/sourceview/plugin.c: (ieditor_factory_new_editor):
+	* plugins/sourceview/sourceview-prefs.c:
+	(on_gconf_notify_tab_size), (sourceview_prefs_destroy):
+	* plugins/sourceview/sourceview-prefs.h:
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview.c: (on_document_loaded),
+	(timeout_unref), (on_document_saved), (sourceview_finalize),
+	(sourceview_new), (ifile_open), (ifile_savable_save),
+	(ifile_savable_save_as):
+
+	Several changes to fix things when the editor is correctly destroyed.
+	Fixed preferences (which led me to the refcounting issue, #409412)
+	and removed deprecated completition code that will be replace by
+	IAnjutaAssist interface soon. 
+
+2007-04-11  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-launcher.c:
 	(anjuta_launcher_execution_done_cleanup),
 	(anjuta_launcher_child_terminated):

@@ -34,7 +34,6 @@
 #include <gtk/gtk.h>
 
 #include "anjuta-document.h"
-#include "tag-window.h"
 #include <gtksourceview/gtksourceview.h>
 
 G_BEGIN_DECLS
@@ -104,8 +103,6 @@ void 		 anjuta_view_set_colors 		(AnjutaView       *view,
 void 		 anjuta_view_set_font		(AnjutaView       *view,
 						 gboolean         def,
 						 const gchar     *font_name);
-
-void 		 anjuta_view_register_completion(AnjutaView* view, TagWindow* tagwin);
 
 G_END_DECLS
 

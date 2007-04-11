@@ -783,7 +783,7 @@ anjuta_docman_remove_editor (AnjutaDocman *docman, IAnjutaEditor* te)
 
 	if (te == NULL)
 		return;
-
+	
 	gtk_widget_destroy (GTK_WIDGET (te));
 }
 
