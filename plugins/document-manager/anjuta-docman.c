@@ -478,7 +478,7 @@ anjuta_docman_dispose (GObject *obj)
 	}
 	if (docman->priv->editors)
 	{
-		/* Destroy all text editors. Note that by call gtk_widget_destroy,
+		/* Destroy all text editors. Note that by calling remove editor,
 		   we are ensuring "destroy" signal is emitted in case other plugins
 		   hold refs on the editors
 		*/
@@ -488,7 +488,7 @@ anjuta_docman_dispose (GObject *obj)
 		node = editors;
 		while (node)
 		{
-			gtk_widget_destroy (node->data);
+			anjuta_docman_remove_editor (docman, IANJUTA_EDITOR (node->data));
 			node = g_list_next (node);
 		}
 		g_list_free (docman->priv->editors);
@@ -676,12 +676,11 @@ on_editor_destroy (IAnjutaEditor *te, AnjutaDocman *docman)
 			anjuta_docman_set_current_editor (docman, IANJUTA_EDITOR (current_editor));
 		}
 	}
-	g_object_unref(G_OBJECT(te));
+	g_object_unref (G_OBJECT(te));
 	gtk_signal_handler_unblock_by_func (GTK_OBJECT (docman),
 			    GTK_SIGNAL_FUNC (on_notebook_switch_page),
 			    docman);
 }
-
 
 IAnjutaEditor *
 anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
@@ -785,7 +784,7 @@ anjuta_docman_remove_editor (AnjutaDocman *docman, IAnjutaEditor* te)
 
 	if (te == NULL)
 		return;
-	
+	gtk_container_remove (GTK_CONTAINER (docman), GTK_WIDGET (te));
 	gtk_widget_destroy (GTK_WIDGET (te));
 }
 

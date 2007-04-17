@@ -1,3 +1,12 @@
+2007-04-18  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_dispose), (on_editor_destroy),
+	(anjuta_docman_remove_editor): Remove the editor widget from
+	the parent container before calling destroy, otherwise container
+	removal happens after TextEditor is disposed resulting in call
+	to value-remove for a TextEditor which is half-dead (crash).
+
 2007-04-11 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/data_buffer.c
