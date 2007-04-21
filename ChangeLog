@@ -1,5 +1,10 @@
 2007-04-21 Sebastien Granjoux <seb.sfo@free.fr>
 
+	* plugins/debug-manager/stack_trace.c:
+	Fix a missing case in the previous changes
+
+2007-04-21 Sebastien Granjoux <seb.sfo@free.fr>
+
 	* plugins/debug-manager/plugin.c:
 	Fix bug #430401
 

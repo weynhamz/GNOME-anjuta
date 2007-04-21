@@ -253,9 +253,9 @@ on_stack_trace_updated (const GList *stack, gpointer user_data)
 				
 				/* Check previous frame */
 				exist = my_gtk_tree_model_iter_prev (GTK_TREE_MODEL (model), &iter);
-				if (node->prev != NULL)
+				if (!exist || (node->prev != NULL))
 				{
-					/* Upper frame still exist */
+					/* Last frame or Upper frame still exist */
 					continue;
 				}
 				/* Upper frame do not exist, remove all them */
