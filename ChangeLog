@@ -1,3 +1,15 @@
+2007-04-21 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/plugin.c:
+	Fix bug #430401
+
+	* plugins/debug-manager/breakpoints.c,
+	plugins/gdb/plugin.c:
+	Fix adding breakpoint on a function
+
+	* plugins/debug-manager/stack_trace.c:
+	Highlight changed stack frame
+
 2007-04-18  Naba Kumar  <naba.kumar@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c:

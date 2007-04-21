@@ -394,7 +394,7 @@ idebugger_add_breakpoint_at_function (IAnjutaDebugger *plugin, const gchar* file
 	/* NULL breakpoint is used to detect available feature */
 	if (function == NULL) return TRUE;
 
-	debugger_add_breakpoint_at_function (this->debugger, file, function, callback, user_data);
+	debugger_add_breakpoint_at_function (this->debugger, *file == '\0' ? NULL : file, function, callback, user_data);
 
 	return TRUE;
 }

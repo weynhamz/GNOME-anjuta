@@ -44,6 +44,7 @@ typedef struct _DmaThreadStackTrace
 {
 	GtkTreeModel *model;
 	guint thread;
+	guint last_update;
 } DmaThreadStackTrace;
 
 struct _StackTrace
@@ -57,6 +58,7 @@ struct _StackTrace
 	GList *list;
 
 	gint current_frame;
+	guint current_update;
 	
 	GtkTreeView *treeview;
 	GtkMenu *menu;
@@ -72,6 +74,7 @@ enum {
 	STACK_TRACE_ADDR_COLUMN,
 	STACK_TRACE_ARGS_COLUMN,
 	STACK_TRACE_URI_COLUMN,
+	STACK_TRACE_COLOR_COLUMN,
 	STACK_TRACE_N_COLUMNS
 };
 
@@ -111,6 +114,60 @@ get_current_index (StackTrace* st)
 	}
 }
 
+static gboolean
+my_gtk_tree_model_get_iter_last(GtkTreeModel *model, GtkTreeIter *last)
+{
+	gboolean exist;
+ 	GtkTreeIter iter;
+
+	exist = gtk_tree_model_get_iter_first(model, &iter);
+	if (!exist) return FALSE;
+
+	do
+	{
+		*last = iter;
+    	exist = gtk_tree_model_iter_next(model, &iter);
+    }
+	while (exist);
+	
+	return TRUE;
+}
+
+static gboolean
+my_gtk_tree_model_iter_prev(GtkTreeModel *model, GtkTreeIter *iter)
+{
+	GtkTreePath* path;
+	gboolean exist;
+	
+	path = gtk_tree_model_get_path (model, iter);
+	exist = gtk_tree_path_prev (path);
+	if (exist)
+	{
+		exist = gtk_tree_model_get_iter (model, iter, path);
+	}
+	gtk_tree_path_free (path);
+	
+	return exist;
+}
+
+static gint
+my_gtk_tree_iter_compare(GtkTreeModel *model, GtkTreeIter *itera, GtkTreeIter *iterb)
+{
+	GtkTreePath* patha;
+	GtkTreePath* pathb;
+	gint comp;
+
+	patha = gtk_tree_model_get_path (model, itera);
+	pathb = gtk_tree_model_get_path (model, iterb);
+
+	comp = gtk_tree_path_compare (patha, pathb);
+	
+	gtk_tree_path_free (patha);
+	gtk_tree_path_free (pathb);
+	
+	return comp;
+}
+
 /* Private functions
  *---------------------------------------------------------------------------*/
 
@@ -140,13 +197,18 @@ on_stack_trace_updated (const GList *stack, gpointer user_data)
 	StackTrace *self = (StackTrace *)user_data;
 	const GList *node;
 	GtkListStore *model;		
+	GtkTreeIter iter;
+	gboolean exist;
+	GdkPixbuf *pic;
 
 	model = GTK_LIST_STORE (self->current->model);
 
-	for (node = stack; node != NULL; node = node->next)
+	pic = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);
+	
+	exist = my_gtk_tree_model_get_iter_last (GTK_TREE_MODEL (model), &iter);
+	
+	for (node = (const GList *)g_list_last((GList *)stack); node != NULL; node = node->prev)
 	{
-		GdkPixbuf *pic;
-		GtkTreeIter iter;
 		IAnjutaDebuggerFrame *frame;
 		gchar *adr;
 		gchar *uri;
@@ -154,13 +216,72 @@ on_stack_trace_updated (const GList *stack, gpointer user_data)
 
 		frame = (IAnjutaDebuggerFrame *)node->data;
 
-		gtk_list_store_append (model, &iter);
+		if (exist)
+		{
+			/* Check if it's the same stack frame */
+			gchar *adr;
+			gchar *args;
+			guint address;
+			guint line;
+			gboolean same;
+			
+			gtk_tree_model_get (GTK_TREE_MODEL (model), &iter,
+									STACK_TRACE_ADDR_COLUMN, &adr,
+									STACK_TRACE_LINE_COLUMN, &line,
+									STACK_TRACE_ARGS_COLUMN, &args,
+								-1);
+			address = adr != NULL ? strtoul (adr, NULL, 0) : 0;
+			same = (address == frame->address) && (line == frame->line);
+			if ((args == NULL) || (frame->args == NULL))
+			{
+				same = same && (args == frame->args);
+			}
+			else
+			{
+				same = same && (strcmp (args, frame->args) == 0);
+			}
+			g_free (adr);
+			g_free (args);
+			
+			if (same)
+			{
+				/* Same frame, just change the color */
+				gtk_list_store_set (model, &iter, 
+								   	STACK_TRACE_ACTIVE_COLUMN, frame->level == self->current_frame ? pic : NULL,
+									STACK_TRACE_FRAME_COLUMN, frame->level,
+								   	STACK_TRACE_COLOR_COLUMN, "black", -1);
+				
+				/* Check previous frame */
+				exist = my_gtk_tree_model_iter_prev (GTK_TREE_MODEL (model), &iter);
+				if (node->prev != NULL)
+				{
+					/* Upper frame still exist */
+					continue;
+				}
+				/* Upper frame do not exist, remove all them */
+			}
+			
+			/* New frame, remove all previous frame */
+			GtkTreeIter first;
+				
+			gtk_tree_model_get_iter_first (GTK_TREE_MODEL (model), &first);
+			while (my_gtk_tree_iter_compare (GTK_TREE_MODEL (model), &first, &iter) < 0)
+			{
+				gtk_list_store_remove (model, &first);
+			}
+			gtk_list_store_remove (model, &first);
 
-		/* if we are on the current frame set iterator and pixmap correctly */
-		if (frame->level == self->current_frame)
-			pic = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);
-		else
-			pic = NULL;
+			if (same)
+			{
+				break;
+			}
+			else
+			{
+				exist = FALSE;
+			}
+		}
+					
+		gtk_list_store_prepend (model, &iter);
 
 		adr = g_strdup_printf ("0x%x", frame->address);
 		if (frame->file)
@@ -175,7 +296,7 @@ on_stack_trace_updated (const GList *stack, gpointer user_data)
 		}
 		
 		gtk_list_store_set(model, &iter, 
-					   STACK_TRACE_ACTIVE_COLUMN, pic,
+					   STACK_TRACE_ACTIVE_COLUMN, frame->level == self->current_frame ? pic : NULL,
 					   STACK_TRACE_FRAME_COLUMN, frame->level, 
 					   STACK_TRACE_FILE_COLUMN, file,
 					   STACK_TRACE_LINE_COLUMN, frame->line,
@@ -183,12 +304,13 @@ on_stack_trace_updated (const GList *stack, gpointer user_data)
 					   STACK_TRACE_ADDR_COLUMN, adr,
 					   STACK_TRACE_ARGS_COLUMN, frame->args,
 					   STACK_TRACE_URI_COLUMN, uri,
+					   STACK_TRACE_COLOR_COLUMN, "red",
 					   -1);
 		g_free (uri);
 		g_free (adr);
-		if (pic)
-			gdk_pixbuf_unref (pic);
 	}
+	gdk_pixbuf_unref (pic);
+	
 }
 
 static DmaThreadStackTrace*
@@ -206,11 +328,13 @@ dma_thread_create_new_stack_trace (StackTrace *self, guint thread)
 								   G_TYPE_STRING,
 								   G_TYPE_STRING,
 								   G_TYPE_STRING,
+								   G_TYPE_STRING,
 								   G_TYPE_STRING);
 		
 	trace = g_new (DmaThreadStackTrace, 1);
 	trace->thread = thread;
 	trace->model = GTK_TREE_MODEL (store);
+	trace->last_update = self->current_update;
 
 	self->current = trace;
 		
@@ -222,6 +346,23 @@ dma_thread_create_new_stack_trace (StackTrace *self, guint thread)
 			NULL);
 	
 	self->list = g_list_append (self->list, trace);
+	
+	return trace;
+}
+
+static DmaThreadStackTrace*
+dma_thread_update_stack_trace (StackTrace *self, DmaThreadStackTrace *trace)
+{
+	GtkListStore *store;
+	
+	trace->last_update = self->current_update;
+	
+	/* Ask debugger to get all frame data */
+	ianjuta_debugger_list_frame (
+			self->debugger,
+			(IAnjutaDebuggerCallback)on_stack_trace_updated,
+			self,
+			NULL);
 	
 	return trace;
 }
@@ -241,7 +382,7 @@ dma_thread_set_stack_trace (StackTrace *self, guint thread)
 	GList *list;
 	DmaThreadStackTrace *trace;
 
-	if ((self->current == NULL) || (self->current->thread != thread))
+	if ((self->current == NULL) || (self->current->thread != thread) || (self->current->last_update != self->current_update))
 	{
 		self->current_frame = 0;
 		
@@ -256,6 +397,12 @@ dma_thread_set_stack_trace (StackTrace *self, guint thread)
 		{
 			trace = (DmaThreadStackTrace *)list->data;
 			self->current = trace;
+			
+			if (trace->last_update != self->current_update)
+			{
+				/* Update stack trace */
+				dma_thread_update_stack_trace (self, trace);
+			}
 		}
 		gtk_tree_view_set_model (self->treeview, trace->model);
 	}
@@ -428,6 +575,7 @@ create_stack_trace_gui(StackTrace *st)
 											   G_TYPE_STRING,
 											   G_TYPE_STRING,
 											   G_TYPE_STRING,
+											   G_TYPE_STRING,
 											   G_TYPE_STRING));
 	st->treeview = GTK_TREE_VIEW (gtk_tree_view_new_with_model (model));
 	g_object_unref (G_OBJECT (model));
@@ -454,6 +602,8 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
 										STACK_TRACE_FRAME_COLUMN);
+	gtk_tree_view_column_add_attribute (column, renderer, "foreground",
+										STACK_TRACE_COLOR_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_append_column (st->treeview, column);
 	gtk_tree_view_set_expander_column (st->treeview,
@@ -464,6 +614,8 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
 										STACK_TRACE_FILE_COLUMN);
+	gtk_tree_view_column_add_attribute (column, renderer, "foreground",
+										STACK_TRACE_COLOR_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("File"));
 	gtk_tree_view_append_column (st->treeview, column);
@@ -473,6 +625,8 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
 										STACK_TRACE_LINE_COLUMN);
+	gtk_tree_view_column_add_attribute (column, renderer, "foreground",
+										STACK_TRACE_COLOR_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Line"));
 	gtk_tree_view_append_column (st->treeview, column);
@@ -482,6 +636,8 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
 										STACK_TRACE_FUNC_COLUMN);
+	gtk_tree_view_column_add_attribute (column, renderer, "foreground",
+											STACK_TRACE_COLOR_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Function"));
 	gtk_tree_view_append_column (st->treeview, column);
@@ -491,6 +647,8 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
 										STACK_TRACE_ADDR_COLUMN);
+	gtk_tree_view_column_add_attribute (column, renderer, "foreground",
+										STACK_TRACE_COLOR_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Address"));
 	gtk_tree_view_append_column (st->treeview, column);
@@ -500,6 +658,8 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (column, renderer, "text",
 										STACK_TRACE_ARGS_COLUMN);
+	gtk_tree_view_column_add_attribute (column, renderer, "foreground",
+										STACK_TRACE_COLOR_COLUMN);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 	gtk_tree_view_column_set_title (column, _("Arguments"));
 	gtk_tree_view_append_column (st->treeview, column);
@@ -544,13 +704,14 @@ destroy_stack_trace_gui (StackTrace *st)
 static void
 on_program_stopped (StackTrace *self, guint thread)
 {
-	dma_thread_clear_all_stack_trace (self);
+	self->current_update++;
 	dma_thread_set_stack_trace (self, thread);
 }
 
 static void
 on_debugger_started (StackTrace *self)
 {
+	self->current_update = 0;
 	create_stack_trace_gui (self);
 }
 

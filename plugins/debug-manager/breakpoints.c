@@ -365,6 +365,7 @@ breakpoint_item_new_from_string (BreakpointsDBase *bd, const gchar* string, cons
 	}
 	
 	bi->uri = g_strdup (uri);
+	bi->bp->enable = IANJUTA_DEBUGGER_YES;
 
 	return bi;
 }
@@ -447,13 +448,20 @@ breakpoint_item_update_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 	
 	/* Update node information */
 	adr = g_strdup_printf ("0x%x", bi->bp->address);
-	filename = strrchr(bi->bp->file, G_DIR_SEPARATOR);
-	filename = filename == NULL ? bi->bp->file : filename + 1; /* display name only */
+	if (bi->bp->file != NULL)
+	{
+		filename = strrchr(bi->bp->file, G_DIR_SEPARATOR);
+		filename = filename == NULL ? bi->bp->file : filename + 1; /* display name only */
+	}
+	else
+	{
+		filename = NULL;
+	}
 	gtk_list_store_set (store, &bi->iter,
 						ENABLED_COLUMN, bi->bp->enable == IANJUTA_DEBUGGER_YES ? TRUE : FALSE,
 						NUMBER_COLUMN, bi->bp->id,
 						DISP_COLUMN, bi->bp->keep == IANJUTA_DEBUGGER_YES ? "keep" : "nokeep",
-						FILENAME_COLUMN, filename,
+						FILENAME_COLUMN, filename == NULL ? "??" : filename,
 						LINENO_COLUMN, bi->bp->line,
 						ADDRESS_COLUMN, adr,
 						TYPE_COLUMN, "breakpoint",
@@ -578,7 +586,7 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 		case IANJUTA_DEBUGGER_BREAK_ON_FUNCTION:
 			ianjuta_debugger_set_breakpoint_at_function (
 					bd->debugger,
-					bi->bp->file,
+					bi->bp->file == NULL ? "" : bi->bp->file,
 					bi->bp->function,
 					(IAnjutaDebuggerCallback)on_breakpoint_item_update_in_ui,
 					bi,
