@@ -1,5 +1,10 @@
 2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
 
+	* plugins/subversion/anjuta-subversion.glade: Set expansion for
+	the log entry widget and made the dialog little larger.
+
+2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
+
 	Patch from Halton Huo:
 	* configure.in:
 	* plugins/project-wizard/property.c:
