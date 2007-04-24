@@ -137,11 +137,3 @@ EXTRA_DIST = \
 	$(libanjutainclude_HEADERS) \
 	libanjuta-1.0.pc.in \
 	anjuta-marshal.list
-
-
-
-
-
-
-
-

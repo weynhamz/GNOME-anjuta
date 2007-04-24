@@ -25,6 +25,7 @@
 	<property type="hidden" name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
 	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
 	<property type="hidden" name="HavePackage" default="0"/>
+	<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds supports for building shared libraries in your project" default="1"/>
 	<property type="hidden" name="HaveGtkDoc" _label="Add gtk-doc system:" _description="gtk-doc is used to compile API documentations for GObject based classes" default="0"/>
 	<property type="hidden" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="0"/>
 	<property type="hidden" name="HavePackageExtra" _label="Configure external packages:" _description="Use pkg-config to add library supports from other packages" default="0"/>
