@@ -93,14 +93,14 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("Tag Definition"),
 	 NULL,
-	 on_goto_tag_activate, (gpointer) TRUE, NULL,
+	 on_goto_tag_activate, GINT_TO_POINTER (TRUE), NULL,
 	 PIX_FILE(TAG),
  	 0, 0, NULL}
 	 ,
 	{
 	 GNOME_APP_UI_ITEM, N_("Tag Declaration"),
 	 NULL,
-	 on_goto_tag_activate, (gboolean) FALSE, NULL,
+	 on_goto_tag_activate, GINT_TO_POINTER (FALSE), NULL,
 	 PIX_STOCK(GTK_STOCK_JUMP_TO),
  	 0, 0, NULL}
 	 ,
@@ -120,13 +120,13 @@ GnomeUIInfo text_editor_menu_goto_submenu_uiinfo[] = {
 	{
 	 GNOME_APP_UI_ITEM, N_("Prev bookmark"),
 	 NULL,
-	 on_editor_command_activate, (gpointer) (ANE_BOOKMARK_PREV), NULL,
+	 on_editor_command_activate, GINT_TO_POINTER (ANE_BOOKMARK_PREV), NULL,
 	 PIX_FILE(BOOKMARK_PREV),
 	 0, 0, NULL},
 	{
 	 GNOME_APP_UI_ITEM, N_("Next bookmark"),
 	 NULL,
-	 on_editor_command_activate, (gpointer) (ANE_BOOKMARK_NEXT), NULL,
+	 on_editor_command_activate, GINT_TO_POINTER (ANE_BOOKMARK_NEXT), NULL,
 	 PIX_FILE(BOOKMARK_NEXT),
 	 0, 0, NULL},
 	GNOMEUIINFO_END
@@ -239,7 +239,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 /* 0 */
 	 GNOME_APP_UI_ITEM, N_("Cut"),
 	 NULL,
-	 on_editor_command_activate, (gpointer) ANE_CUT, NULL,
+	 on_editor_command_activate, GINT_TO_POINTER (ANE_CUT), NULL,
 	 PIX_STOCK(GTK_STOCK_CUT),
 	 GDK_x, GDK_CONTROL_MASK, NULL}
 	,
@@ -247,7 +247,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 /* 1 */
 	 GNOME_APP_UI_ITEM, N_("Copy"),
 	 NULL,
-	 on_editor_command_activate, (gpointer) ANE_COPY, NULL,
+	 on_editor_command_activate, GINT_TO_POINTER (ANE_COPY), NULL,
 	 PIX_STOCK(GTK_STOCK_COPY),
 	 GDK_c, GDK_CONTROL_MASK, NULL}
 	,
@@ -255,7 +255,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 /* 2 */
 	 GNOME_APP_UI_ITEM, N_("Paste"),
 	 NULL,
-	 on_editor_command_activate, (gpointer) ANE_PASTE, NULL,
+	 on_editor_command_activate, GINT_TO_POINTER (ANE_PASTE), NULL,
 	 PIX_STOCK(GTK_STOCK_PASTE),
 	 GDK_v, GDK_CONTROL_MASK, NULL}
 	,
@@ -275,7 +275,7 @@ GnomeUIInfo text_editor_menu_uiinfo[] = {
 	 /* 6 */
 	 GNOME_APP_UI_ITEM, N_("Toggle Bookmark"),
 	 NULL,
-	 on_editor_command_activate, (gpointer) ANE_BOOKMARK_TOGGLE, NULL,
+	 on_editor_command_activate, GINT_TO_POINTER (ANE_BOOKMARK_TOGGLE), NULL,
 	 PIX_FILE(BOOKMARK_TOGGLE),
 	 0, 0, NULL}
 	,

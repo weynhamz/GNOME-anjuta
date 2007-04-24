@@ -81,7 +81,7 @@ on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
 	notify_id = anjuta_preferences_notify_add (fv->prefs, \
 											   key, func, fv, NULL); \
 	fv->gconf_notify_ids = g_list_prepend (fv->gconf_notify_ids, \
-										   (gpointer)(notify_id));
+										   GUINT_TO_POINTER (notify_id));
 static void
 prefs_init (FileManagerPlugin *fv)
 {
@@ -104,7 +104,8 @@ prefs_finalize (FileManagerPlugin *fv)
 	node = fv->gconf_notify_ids;
 	while (node)
 	{
-		anjuta_preferences_notify_remove (fv->prefs, (guint)node->data);
+		anjuta_preferences_notify_remove (fv->prefs,
+										  GPOINTER_TO_UINT (node->data));
 		node = g_list_next (node);
 	}
 	g_list_free (fv->gconf_notify_ids);

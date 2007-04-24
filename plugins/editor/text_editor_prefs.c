@@ -385,7 +385,7 @@ on_gconf_notify_edge_column (GConfClient *gclient, guint cnxn_id,
 	notify_id = anjuta_preferences_notify_add (te->preferences, \
 											   key, func, te, NULL); \
 	te->gconf_notify_ids = g_list_prepend (te->gconf_notify_ids, \
-										   (gpointer)(notify_id));
+										   GUINT_TO_POINTER (notify_id));
 
 void
 text_editor_prefs_init (TextEditor *te)
@@ -463,7 +463,8 @@ text_editor_prefs_finalize (TextEditor *te)
 	node = te->gconf_notify_ids;
 	while (node)
 	{
-		anjuta_preferences_notify_remove (te->preferences, (guint)node->data);
+		anjuta_preferences_notify_remove (te->preferences,
+										  GPOINTER_TO_UINT (node->data));
 		node = g_list_next (node);
 	}
 	g_list_free (te->gconf_notify_ids);

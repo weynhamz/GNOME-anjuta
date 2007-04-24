@@ -686,7 +686,7 @@ open_file_with (AnjutaFileLoaderPlugin *plugin, GtkMenuItem *menuitem,
 	AnjutaPluginDescription *desc;
 	AnjutaPluginManager *plugin_manager;
 	
-	idx = (gint) g_object_get_data (G_OBJECT (menuitem), "index");
+	idx = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (menuitem), "index"));
 	desc = (AnjutaPluginDescription*) g_object_get_data (G_OBJECT (menuitem),
 														 "desc");
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN (plugin)->shell,
@@ -865,7 +865,7 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 												  "Location", &name);
 		}
 		menuitem = gtk_menu_item_new_with_label (name);
-		g_object_set_data (G_OBJECT (menuitem), "index", (gpointer)(idx));
+		g_object_set_data (G_OBJECT (menuitem), "index", GINT_TO_POINTER (idx));
 		g_object_set_data (G_OBJECT (menuitem), "desc", (gpointer)(desc));
 		g_signal_connect (G_OBJECT (menuitem), "activate",
 						  G_CALLBACK (callback), callback_data);
@@ -890,7 +890,7 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 	{
 		mime_app = (GnomeVFSMimeApplication *)(node->data);
 		menuitem = gtk_menu_item_new_with_label (mime_app->name);
-		g_object_set_data (G_OBJECT (menuitem), "index", (gpointer)(idx));
+		g_object_set_data (G_OBJECT (menuitem), "index", GINT_TO_POINTER (idx));
 		g_signal_connect (G_OBJECT (menuitem), "activate",
 						  G_CALLBACK (callback), callback_data);
 		gtk_menu_append (menu, menuitem);

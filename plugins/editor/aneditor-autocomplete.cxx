@@ -135,7 +135,7 @@ bool AnEditor::SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
 											(gconstpointer) tag->name))
 			{
 				g_hash_table_insert(wordhash,
-									g_strdup(tag->name), (gpointer) 1);
+									g_strdup(tag->name), GINT_TO_POINTER (1));
 				aclist = g_list_prepend (aclist, tag->name);
 				
 				if (words->len > 0)
@@ -863,7 +863,8 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 			GList *node = completed_list;
 			while (node) {
 				gchar *item = (gchar *)node->data;
-				g_hash_table_insert(wordhash, g_strdup(item), (gpointer) 1);
+				g_hash_table_insert(wordhash, g_strdup(item),
+									GINT_TO_POINTER (1));
 			
 				wordlen = strlen(item);
 				if (minWordLength < wordlen)
@@ -913,7 +914,7 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 				  , (gconstpointer)	tag->name))
 				{
 					g_hash_table_insert(wordhash, g_strdup(tag->name),
-										(gpointer) 1);
+										GINT_TO_POINTER (1));
 					if (words->len > 0)
 						g_string_append_c(words, ' ');
 					g_string_append(words, tag->name);
@@ -974,7 +975,7 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 			if (NULL == g_hash_table_lookup(wordhash, wordstart))
 			{
 				g_hash_table_insert(wordhash, g_strdup(wordstart),
-									(gpointer) 1);
+									GINT_TO_POINTER (1));
 				if (0 < words->len)
 					g_string_append_c(words, ' ');
 				g_string_append(words, wordstart);

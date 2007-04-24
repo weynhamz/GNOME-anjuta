@@ -1,5 +1,17 @@
 2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
 
+	* plugins/document-manager/plugin.c: (prefs_finalize):
+	* plugins/editor/aneditor-autocomplete.cxx:
+	* plugins/editor/text_editor_menu.c:
+	* plugins/editor/text_editor_prefs.c: (text_editor_prefs_finalize):
+	* plugins/file-loader/plugin.c: (open_file_with),
+	(create_open_with_submenu):
+	* plugins/file-manager/plugin.c: (prefs_finalize):
+	* plugins/terminal/terminal.c: (prefs_finalize): Fixed int to
+	pointer type castings.
+
+2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
+
 	Patch from s|s  <supreet.sethi@gmail.com>:
 	* (added) plugins/project-wizard/templates/django-logo.png:
 	* (added) plugins/project-wizard/templates/django.wiz:

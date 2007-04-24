@@ -275,7 +275,7 @@ on_gconf_notify_prefs (GConfClient *gclient, guint cnxn_id,
 	notify_id = anjuta_preferences_notify_add (tp->prefs, \
 											   key, func, tp, NULL); \
 	tp->gconf_notify_ids = g_list_prepend (tp->gconf_notify_ids, \
-										   (gpointer)(notify_id));
+										   GUINT_TO_POINTER (notify_id));
 static void
 prefs_init (TerminalPlugin *tp)
 {
@@ -291,7 +291,8 @@ prefs_finalize (TerminalPlugin *tp)
 	node = tp->gconf_notify_ids;
 	while (node)
 	{
-		anjuta_preferences_notify_remove (tp->prefs, (guint)node->data);
+		anjuta_preferences_notify_remove (tp->prefs,
+										  GPOINTER_TO_UINT (node->data));
 		node = g_list_next (node);
 	}
 	g_list_free (tp->gconf_notify_ids);
