@@ -16,6 +16,7 @@ char *s = N_("Create glade interface file");
 char *s = N_("Destination:");
 char *s = N_("Display description of the plugin");
 char *s = N_("Display title of the plugin");
+char *s = N_("Django Project information");
 char *s = N_("Email address:");
 char *s = N_("GCJ needs to know which class contains the main() function");
 char *s = N_("General Project Information");

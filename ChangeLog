@@ -1,5 +1,14 @@
 2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
 
+	Patch from s|s  <supreet.sethi@gmail.com>:
+	* (added) plugins/project-wizard/templates/django-logo.png:
+	* (added) plugins/project-wizard/templates/django.wiz:
+	* plugins/project-wizard/templates/Makefile.am:
+	* plugins/project-wizard/templates/translatable-strings.h: Added
+	django project template. http://www.djangoproject.com/
+
+2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
+
 	* plugins/subversion/anjuta-subversion.glade: Set expansion for
 	the log entry widget and made the dialog little larger.
 

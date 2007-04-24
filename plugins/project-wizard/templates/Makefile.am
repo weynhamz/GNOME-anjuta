@@ -9,6 +9,8 @@ wizard_files_DATA = \
 	terminal-logo.png \
 	cpp.wiz \
 	cpp-logo.png \
+	django.wiz \
+	django-logo.png \
 	gtk.wiz \
 	gtk-logo.png \
 	anjuta-plugin.wiz \
