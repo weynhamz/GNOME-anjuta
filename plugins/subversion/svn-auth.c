@@ -16,8 +16,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <subversion-1/svn_auth.h>
-#include <subversion-1/svn_pools.h>
+#include <svn_auth.h>
+#include <svn_pools.h>
 #include "svn-backend-priv.h"
 #include "svn-auth.h"
 #include "plugin.h"

@@ -871,6 +871,10 @@ else
 		SVN_INCLUDE=""
 		for VALUE in $SVN_INCLUDES ; do
 				if test -f $VALUE/subversion-1/svn_types.h ; then
+						SVN_INCLUDE=$VALUE/subversion-1
+						break
+				fi
+				if test -f $VALUE/svn_types.h ; then
 						SVN_INCLUDE=$VALUE
 						break
 				fi

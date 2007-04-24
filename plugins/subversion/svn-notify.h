@@ -19,7 +19,7 @@
 #ifndef SVN_NOTIFY
 #define SVN_NOTIFY
 
-#include <subversion-1/svn_client.h>
+#include <svn_client.h>
 #include "svn-backend.h"
 
 void

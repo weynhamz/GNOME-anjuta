@@ -19,7 +19,7 @@
 #ifndef SVN_BACKEND_PRIV_H
 #define SVN_BACKEND_PRIV_H
 
-#include "subversion-1/svn_client.h"
+#include "svn_client.h"
 #include <glib.h>
 #include "svn-backend.h"
 

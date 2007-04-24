@@ -24,8 +24,8 @@
 #include "plugin.h"
 #include "libanjuta/anjuta-debug.h"
 
-#include <subversion-1/svn_pools.h>
-#include <subversion-1/svn_config.h>
+#include <svn_pools.h>
+#include <svn_config.h>
 /*
 #include <apr.h>
 #include <apr_date.h>

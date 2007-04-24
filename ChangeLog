@@ -1,5 +1,17 @@
 2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
 
+	Patch from Halton Huo:
+	* configure.in:
+	* plugins/project-wizard/property.c:
+	* plugins/subversion/svn-auth.c:
+	* plugins/subversion/svn-backend-priv.h:
+	* plugins/subversion/svn-backend.c:
+	* plugins/subversion/svn-backend.h:
+	* plugins/subversion/svn-notify.h: Proper use of subversion
+	headers. Fixes build issues in solaris (bug #426701).
+
+2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
+
 	* libanjuta/Makefile.am: Removed bogus newlines at the end of file.
 	
 	* plugins/project-wizard/templates/cpp.wiz:

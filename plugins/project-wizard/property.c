@@ -70,14 +70,16 @@ struct _NPWItem {
 	const gchar* label;
 };
 
-static const gchar* NPWPropertyTypeString[] = {"hidden",
-       						"boolean",
-					       	"integer",
-					        "string",
-						"list",
-						"directory",
-						"file",
-						"icon"};
+static const gchar* NPWPropertyTypeString[] = {
+	"hidden",
+	"boolean",
+	"integer",
+	"string",
+	"list",
+	"directory",
+	"file",
+	"icon"
+};
 
 /* Property object
  *---------------------------------------------------------------------------*/

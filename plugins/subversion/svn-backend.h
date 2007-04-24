@@ -22,7 +22,7 @@
 #include <glib-object.h>
 #include <gnome.h>
 #include <libanjuta/anjuta-plugin.h>
-#include <subversion-1/svn_client.h>
+#include <svn_client.h>
 
 typedef struct _SVNBackend SVNBackend;
 typedef struct _SVNBackendClass SVNBackendClass;
