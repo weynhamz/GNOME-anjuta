@@ -1,3 +1,9 @@
+2007-04-26  Brian Pepple  <bpepple@fedoraproject.org>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* pixmaps/Makefile.am (update-icon-cache): fix gtk-update-icon-cache
+	for uninstall-hook.
+
 2007-04-26  Jason Switzer  <jswitzer@gmail.com>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
