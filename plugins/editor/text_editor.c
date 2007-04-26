@@ -593,26 +593,26 @@ text_editor_hilite_one (TextEditor * te, AnEditorID editor_id,
 		anjuta_preferences_get_int (ANJUTA_PREFERENCES (te->preferences),
 									DISABLE_SYNTAX_HILIGHTING))
 	{
-		aneditor_command (editor_id, ANE_SETHILITE, (guint) "plain.txt", 0);
+		aneditor_command (editor_id, ANE_SETHILITE, (glong) "plain.txt", 0);
 	}
 	else if (te->force_hilite)
 	{
-		aneditor_command (editor_id, ANE_SETHILITE, (guint) te->force_hilite, 0);
+		aneditor_command (editor_id, ANE_SETHILITE, (glong) te->force_hilite, 0);
 	}
 	else if (te->uri)
 	{
 		gchar *basename;
 		basename = g_path_get_basename (te->uri);
-		aneditor_command (editor_id, ANE_SETHILITE, (guint) basename, 0);
+		aneditor_command (editor_id, ANE_SETHILITE, (glong) basename, 0);
 		g_free (basename);
 	}
 	else if (te->filename)
 	{
-		aneditor_command (editor_id, ANE_SETHILITE, (guint) te->filename, 0);
+		aneditor_command (editor_id, ANE_SETHILITE, (glong) te->filename, 0);
 	}
 	else
 	{
-		aneditor_command (editor_id, ANE_SETHILITE, (guint) "plain.txt", 0);
+		aneditor_command (editor_id, ANE_SETHILITE, (glong) "plain.txt", 0);
 	} 
 }
 
