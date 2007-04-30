@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-09 15:36+0200\n"
-"PO-Revision-Date: 2007-04-09 15:49+0200\n"
+"POT-Creation-Date: 2007-04-30 14:42+0200\n"
+"PO-Revision-Date: 2007-04-30 14:47+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@cvs.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -213,14 +213,14 @@ msgstr "Codificacións soportadas"
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: Erro ao ler pty fillo\n"
 
-#: ../libanjuta/anjuta-launcher.c:1042 ../libanjuta/resources.c:264
+#: ../libanjuta/anjuta-launcher.c:1051 ../libanjuta/resources.c:264
 #: ../libanjuta/resources.c:273 ../plugins/devhelp/plugin.c:500
 #: ../plugins/devhelp/plugin.c:509 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "Non se pode executar o comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1043
+#: ../libanjuta/anjuta-launcher.c:1052
 msgid "execvp failed"
 msgstr "fallou execvp"
 
@@ -290,7 +290,7 @@ msgstr "Estado de Anjuta"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1911
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr ""
+msgstr "Estado de Anjuta a usar na activación e desactivación de complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #: ../libanjuta/anjuta-plugin-manager.c:2068
@@ -359,7 +359,7 @@ msgstr ""
 #: ../libanjuta/anjuta-profile.c:751
 #, c-format
 msgid "%s: Install it from '%s'\n"
-msgstr ""
+msgstr "%s: Instalalo desde '%s'\n"
 
 #: ../libanjuta/anjuta-profile.c:759
 #, c-format
@@ -368,7 +368,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../libanjuta/anjuta-preferences.c:1291
+#: ../libanjuta/anjuta-preferences.c:1324
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -376,11 +376,11 @@ msgstr ""
 "Está seguro de que quere reiniciar as preferencias\n"
 "aos seus valores predeterminados?"
 
-#: ../libanjuta/anjuta-preferences.c:1295
+#: ../libanjuta/anjuta-preferences.c:1328
 msgid "_Reset"
 msgstr "_Reiniciar"
 
-#: ../libanjuta/anjuta-preferences.c:1594
+#: ../libanjuta/anjuta-preferences.c:1627
 msgid "Anjuta Preferences"
 msgstr "Preferencias de Anjuta"
 
@@ -444,21 +444,21 @@ msgstr "Distinguir maiúsculas"
 msgid "Shortcut"
 msgstr "Atallo"
 
-#: ../libanjuta/anjuta-utils.c:72
+#: ../libanjuta/anjuta-utils.c:75
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "Non se pode ler o ficheiro : %s."
 
-#: ../libanjuta/anjuta-utils.c:82
+#: ../libanjuta/anjuta-utils.c:85
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "Non se pode crear o ficheiro : %s."
 
-#: ../libanjuta/anjuta-utils.c:118
+#: ../libanjuta/anjuta-utils.c:121
 msgid "Unable to complete file copy"
 msgstr "Non se pode completar a copia do ficheiro"
 
-#: ../libanjuta/anjuta-utils.c:331
+#: ../libanjuta/anjuta-utils.c:334
 msgid ""
 "\n"
 "System: "
@@ -466,7 +466,7 @@ msgstr ""
 "\n"
 "Sistema: "
 
-#: ../libanjuta/anjuta-utils.c:469
+#: ../libanjuta/anjuta-utils.c:472
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
@@ -475,12 +475,12 @@ msgstr ""
 "A utilidade \"%s\" non está instalada.\n"
 "Instálea por favor."
 
-#: ../libanjuta/anjuta-utils.c:769
+#: ../libanjuta/anjuta-utils.c:772
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "Non se pode executar o comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:773
+#: ../libanjuta/anjuta-utils.c:776
 #, c-format
 msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "Non se pode executar o comando %s (usando shell %s)\n"
@@ -1433,7 +1433,7 @@ msgid "Breakpoint properties"
 msgstr "Propiedades dos puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1569
+#: ../plugins/debug-manager/breakpoints.c:1577
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Puntos de parada"
@@ -1501,8 +1501,8 @@ msgid "Inspect/Evaluate"
 msgstr "Inspeccionar/Evaluar"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
-#: ../plugins/debug-manager/plugin.c:955
-#: ../plugins/debug-manager/plugin.c:1055 ../plugins/gdb/anjuta-gdb.glade.h:16
+#: ../plugins/debug-manager/plugin.c:959
+#: ../plugins/debug-manager/plugin.c:1059 ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "Sinais do núcleo"
 
@@ -1568,7 +1568,7 @@ msgstr "Deter:"
 #: ../plugins/debug-manager/signals.c:193
 #: ../plugins/debug-manager/signals.c:206
 #: ../plugins/debug-manager/signals.c:219 ../plugins/gdb/anjuta-gdb.glade.h:28
-#: ../plugins/project-wizard/property.c:207
+#: ../plugins/project-wizard/property.c:209
 msgid "Yes"
 msgstr "Si"
 
@@ -1645,7 +1645,7 @@ msgstr "ID"
 
 #. Register actions
 #: ../plugins/debug-manager/breakpoints.c:133
-#: ../plugins/debug-manager/stack_trace.c:468
+#: ../plugins/debug-manager/stack_trace.c:620
 #: ../plugins/debug-manager/threads.c:429
 #: ../plugins/file-manager/an_file_view.c:940 ../src/anjuta-app.c:582
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
@@ -1653,7 +1653,7 @@ msgid "File"
 msgstr "Ficheiro"
 
 #: ../plugins/debug-manager/breakpoints.c:133
-#: ../plugins/debug-manager/stack_trace.c:477
+#: ../plugins/debug-manager/stack_trace.c:631
 #: ../plugins/debug-manager/threads.c:438
 #: ../plugins/document-manager/plugin.c:839
 #: ../plugins/document-manager/plugin.c:850
@@ -1661,7 +1661,7 @@ msgid "Line"
 msgstr "Liña"
 
 #: ../plugins/debug-manager/breakpoints.c:134
-#: ../plugins/debug-manager/stack_trace.c:486
+#: ../plugins/debug-manager/stack_trace.c:642
 #: ../plugins/debug-manager/threads.c:447
 #: ../plugins/valgrind/vgrule-editor.c:133
 msgid "Function"
@@ -1673,7 +1673,7 @@ msgid "Type"
 msgstr "Tipo"
 
 #: ../plugins/debug-manager/breakpoints.c:134
-#: ../plugins/debug-manager/stack_trace.c:495
+#: ../plugins/debug-manager/stack_trace.c:653
 #: ../plugins/debug-manager/threads.c:456
 msgid "Address"
 msgstr "Enderezo"
@@ -1695,113 +1695,113 @@ msgstr "Condición"
 msgid "Disp"
 msgstr "Disp"
 
-#: ../plugins/debug-manager/breakpoints.c:1250
+#: ../plugins/debug-manager/breakpoints.c:1258
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Está seguro de que quere eliminar tódolos puntos de parada?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1377
+#: ../plugins/debug-manager/breakpoints.c:1385
 msgid "_Breakpoints"
 msgstr "_Puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1385
+#: ../plugins/debug-manager/breakpoints.c:1393
 msgid "Toggle Breakpoint"
 msgstr "Alternar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1387
+#: ../plugins/debug-manager/breakpoints.c:1395
 msgid "Toggle breakpoint at the current location"
 msgstr "Conmutar punto de parada na localización actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1393
+#: ../plugins/debug-manager/breakpoints.c:1401
 msgid "Add Breakpoint..."
 msgstr "Engadir punto de parada..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1395
+#: ../plugins/debug-manager/breakpoints.c:1403
 msgid "Add a breakpoint"
 msgstr "Engadir un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1401
+#: ../plugins/debug-manager/breakpoints.c:1409
 msgid "Remove Breakpoint"
 msgstr "Eliminar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1403
+#: ../plugins/debug-manager/breakpoints.c:1411
 msgid "Remove a breakpoint"
 msgstr "Eliminar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1409
+#: ../plugins/debug-manager/breakpoints.c:1417
 msgid "Jump to Breakpoint"
 msgstr "Saltar ao punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1411
+#: ../plugins/debug-manager/breakpoints.c:1419
 msgid "Jump to breakpoint location"
 msgstr "Saltar ao punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1417
+#: ../plugins/debug-manager/breakpoints.c:1425
 msgid "Edit Breakpoint"
 msgstr "Editar puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1419
+#: ../plugins/debug-manager/breakpoints.c:1427
 msgid "Edit breakpoint properties"
 msgstr "Editar as propiedades dos puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1425
+#: ../plugins/debug-manager/breakpoints.c:1433
 msgid "Enable Breakpoint"
 msgstr "Activar puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1427
+#: ../plugins/debug-manager/breakpoints.c:1435
 msgid "Enable a breakpoint"
 msgstr "Activar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1433
+#: ../plugins/debug-manager/breakpoints.c:1441
 msgid "Disable All Breakpoints"
 msgstr "Desactivar tódolos puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1435
+#: ../plugins/debug-manager/breakpoints.c:1443
 msgid "Deactivate all breakpoints"
 msgstr "Desactiva tódolos puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1441
+#: ../plugins/debug-manager/breakpoints.c:1449
 msgid "C_lear All Breakpoints"
 msgstr "_Limpar tódolos puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1443
+#: ../plugins/debug-manager/breakpoints.c:1451
 msgid "Delete all breakpoints"
 msgstr "Borrar tódolos puntos de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1551
+#: ../plugins/debug-manager/breakpoints.c:1559
 msgid "Breakpoint operations"
 msgstr "Operacións de puntos de parada"
 
@@ -1846,236 +1846,236 @@ msgstr "Liñas"
 msgid "Locals"
 msgstr "Locais"
 
-#: ../plugins/debug-manager/plugin.c:321
+#: ../plugins/debug-manager/plugin.c:325
 msgid "Debugger Log"
 msgstr "Rexistro do depurador"
 
-#: ../plugins/debug-manager/plugin.c:413 ../plugins/debug-manager/plugin.c:451
-#: ../plugins/debug-manager/plugin.c:471 ../plugins/debug-manager/plugin.c:498
-#: ../plugins/debug-manager/plugin.c:552 ../plugins/debug-manager/plugin.c:587
+#: ../plugins/debug-manager/plugin.c:417 ../plugins/debug-manager/plugin.c:455
+#: ../plugins/debug-manager/plugin.c:475 ../plugins/debug-manager/plugin.c:502
+#: ../plugins/debug-manager/plugin.c:556 ../plugins/debug-manager/plugin.c:591
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "Depurador"
 
-#: ../plugins/debug-manager/plugin.c:413
+#: ../plugins/debug-manager/plugin.c:417
 msgid "Started"
 msgstr "Iniciado"
 
-#: ../plugins/debug-manager/plugin.c:451
+#: ../plugins/debug-manager/plugin.c:455
 msgid "Loaded"
 msgstr "Cargado"
 
-#: ../plugins/debug-manager/plugin.c:471
+#: ../plugins/debug-manager/plugin.c:475
 msgid "Running..."
 msgstr "Executando..."
 
-#: ../plugins/debug-manager/plugin.c:498
+#: ../plugins/debug-manager/plugin.c:502
 msgid "Stopped"
 msgstr "Detido"
 
-#: ../plugins/debug-manager/plugin.c:510
+#: ../plugins/debug-manager/plugin.c:514
 #, c-format
 msgid "Location: %s, line %d\n"
 msgstr "Ubicación: %s, liña %d\n"
 
-#: ../plugins/debug-manager/plugin.c:552
+#: ../plugins/debug-manager/plugin.c:556
 msgid "Unloaded"
 msgstr "Sen cargar"
 
-#: ../plugins/debug-manager/plugin.c:595
+#: ../plugins/debug-manager/plugin.c:599
 #, c-format
 msgid "gdb terminated unexpectedly with status %d\n"
 msgstr "gdb rematou inesperadamente con estado %d\n"
 
-#: ../plugins/debug-manager/plugin.c:608
+#: ../plugins/debug-manager/plugin.c:612
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "O programa recibiu o sinal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:847 ../plugins/valgrind/plugin.c:448
+#: ../plugins/debug-manager/plugin.c:851 ../plugins/valgrind/plugin.c:448
 msgid "_Debug"
 msgstr "_Depurar"
 
-#: ../plugins/debug-manager/plugin.c:855
+#: ../plugins/debug-manager/plugin.c:859
 msgid "_Start Debugger"
 msgstr "_Iniciar depurador"
 
-#: ../plugins/debug-manager/plugin.c:863
+#: ../plugins/debug-manager/plugin.c:867
 msgid "Run Target..."
 msgstr "Executar destino..."
 
-#: ../plugins/debug-manager/plugin.c:865
+#: ../plugins/debug-manager/plugin.c:869
 msgid "load and start the target for debugging"
 msgstr "carga e inicia o obxectivo para depuración"
 
-#: ../plugins/debug-manager/plugin.c:871
+#: ../plugins/debug-manager/plugin.c:875
 msgid "Restart Target"
 msgstr "Reiniciar obxectivo"
 
-#: ../plugins/debug-manager/plugin.c:873
+#: ../plugins/debug-manager/plugin.c:877
 msgid "restart the same target for debugging"
 msgstr "reinicia o mesmo obxectivo para depuración"
 
-#: ../plugins/debug-manager/plugin.c:879
+#: ../plugins/debug-manager/plugin.c:883
 msgid "_Attach to Process..."
 msgstr "_Adxuntar ao proceso..."
 
-#: ../plugins/debug-manager/plugin.c:881
+#: ../plugins/debug-manager/plugin.c:885
 msgid "Attach to a running program"
 msgstr "Adxuntar nun proceso executándose"
 
-#: ../plugins/debug-manager/plugin.c:887
+#: ../plugins/debug-manager/plugin.c:891
 msgid "Stop Debugger"
 msgstr "Deter depurador"
 
-#: ../plugins/debug-manager/plugin.c:889
+#: ../plugins/debug-manager/plugin.c:893
 msgid "Say goodbye to the debugger"
 msgstr "Despídase do depurador"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:899
-#: ../plugins/debug-manager/plugin.c:1007
+#: ../plugins/debug-manager/plugin.c:903
+#: ../plugins/debug-manager/plugin.c:1011
 msgid "Debugger Command..."
 msgstr "Comando de depuración..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:901
-#: ../plugins/debug-manager/plugin.c:1009
+#: ../plugins/debug-manager/plugin.c:905
+#: ../plugins/debug-manager/plugin.c:1013
 msgid "Custom debugger command"
 msgstr "Comando personalizado de depuración"
 
-#: ../plugins/debug-manager/plugin.c:907
-#: ../plugins/debug-manager/plugin.c:1015
+#: ../plugins/debug-manager/plugin.c:911
+#: ../plugins/debug-manager/plugin.c:1019
 msgid "_Info"
 msgstr "_Info"
 
-#: ../plugins/debug-manager/plugin.c:915
+#: ../plugins/debug-manager/plugin.c:919
 msgid "Info _Target Files"
 msgstr "Información de ficheiros _obxectivo"
 
-#: ../plugins/debug-manager/plugin.c:917
+#: ../plugins/debug-manager/plugin.c:921
 msgid "Display information on the files the debugger is active with"
 msgstr "Mostrar información dos ficheiros cos que o depurador está traballando"
 
-#: ../plugins/debug-manager/plugin.c:923
+#: ../plugins/debug-manager/plugin.c:927
 msgid "Info _Program"
 msgstr "Información do _programa"
 
-#: ../plugins/debug-manager/plugin.c:925
+#: ../plugins/debug-manager/plugin.c:929
 msgid "Display information on the execution status of the program"
 msgstr "Mostrar información sobre o estado da execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:931
+#: ../plugins/debug-manager/plugin.c:935
 msgid "Info _Kernel User Struct"
 msgstr "Información do User Struct do _núcleo"
 
-#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:937
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Mostrar o contido da 'struct user' do núcleo para o fillo actual"
 
-#: ../plugins/debug-manager/plugin.c:947
-#: ../plugins/debug-manager/plugin.c:1047
+#: ../plugins/debug-manager/plugin.c:951
+#: ../plugins/debug-manager/plugin.c:1051
 msgid "Shared Libraries"
 msgstr "Bibliotecas compartidas..."
 
-#: ../plugins/debug-manager/plugin.c:949
-#: ../plugins/debug-manager/plugin.c:1049
+#: ../plugins/debug-manager/plugin.c:953
+#: ../plugins/debug-manager/plugin.c:1053
 msgid "Show shared libraries mappings"
 msgstr "Mostrar mapas de bibliotecas compartidas"
 
-#: ../plugins/debug-manager/plugin.c:957
-#: ../plugins/debug-manager/plugin.c:1057
+#: ../plugins/debug-manager/plugin.c:961
+#: ../plugins/debug-manager/plugin.c:1061
 msgid "Show kernel signals"
 msgstr "Mostrar sinais do núcleo"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:967
+#: ../plugins/debug-manager/plugin.c:971
 msgid "Run/_Continue"
 msgstr "E_xecutar/Continuar"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:969
+#: ../plugins/debug-manager/plugin.c:973
 msgid "Continue the execution of the program"
 msgstr "Continuar a execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:975
+#: ../plugins/debug-manager/plugin.c:979
 msgid "Step _In"
 msgstr "Avan_zar"
 
-#: ../plugins/debug-manager/plugin.c:977
+#: ../plugins/debug-manager/plugin.c:981
 msgid "Single step into function"
 msgstr "Avanzar un paso na función"
 
-#: ../plugins/debug-manager/plugin.c:983
+#: ../plugins/debug-manager/plugin.c:987
 msgid "Step O_ver"
 msgstr "Avanzar _sobre"
 
-#: ../plugins/debug-manager/plugin.c:985
+#: ../plugins/debug-manager/plugin.c:989
 msgid "Single step over function"
 msgstr "Avanzar ata chamada a función"
 
-#: ../plugins/debug-manager/plugin.c:991
+#: ../plugins/debug-manager/plugin.c:995
 msgid "Step _Out"
 msgstr "Avanzar ao fi_nal"
 
-#: ../plugins/debug-manager/plugin.c:993
+#: ../plugins/debug-manager/plugin.c:997
 msgid "Single step out of the function"
 msgstr "Avanzar ata o final da función actual"
 
-#: ../plugins/debug-manager/plugin.c:999
+#: ../plugins/debug-manager/plugin.c:1003
 msgid "_Run to Cursor"
 msgstr "_Executar ata cursor"
 
-#: ../plugins/debug-manager/plugin.c:1001
+#: ../plugins/debug-manager/plugin.c:1005
 msgid "Run to the cursor"
 msgstr "Executar ata o cursor"
 
-#: ../plugins/debug-manager/plugin.c:1023
+#: ../plugins/debug-manager/plugin.c:1027
 msgid "Info _Global Variables"
 msgstr "Info das variables _globais"
 
-#: ../plugins/debug-manager/plugin.c:1025
+#: ../plugins/debug-manager/plugin.c:1029
 msgid "Display all global and static variables of the program"
 msgstr "Mostrar todas as variables globais e estáticas do programa"
 
-#: ../plugins/debug-manager/plugin.c:1031
+#: ../plugins/debug-manager/plugin.c:1035
 msgid "Info _Current Frame"
 msgstr "Info do marco _actual"
 
-#: ../plugins/debug-manager/plugin.c:1033
+#: ../plugins/debug-manager/plugin.c:1037
 msgid "Display information about the current frame of execution"
 msgstr "Mostrar información sobre o marco actual de execución"
 
-#: ../plugins/debug-manager/plugin.c:1039
+#: ../plugins/debug-manager/plugin.c:1043
 msgid "Info Function _Arguments"
 msgstr "Info dos _argumentos de función"
 
-#: ../plugins/debug-manager/plugin.c:1041
+#: ../plugins/debug-manager/plugin.c:1045
 msgid "Display function arguments of the current frame"
 msgstr "Mostrar os argumentos de función do marco actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1067
+#: ../plugins/debug-manager/plugin.c:1071
 msgid "Pa_use Program"
 msgstr "Pa_usar programa"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1069
+#: ../plugins/debug-manager/plugin.c:1073
 msgid "Pauses the execution of the program"
 msgstr "Pausa a execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:1111
-#: ../plugins/debug-manager/plugin.c:1117
-#: ../plugins/debug-manager/plugin.c:1123
-#: ../plugins/debug-manager/plugin.c:1129
+#: ../plugins/debug-manager/plugin.c:1115
+#: ../plugins/debug-manager/plugin.c:1121
+#: ../plugins/debug-manager/plugin.c:1127
+#: ../plugins/debug-manager/plugin.c:1133
 msgid "Debugger operations"
 msgstr "Operacións de depuración"
 
@@ -2110,8 +2110,8 @@ msgstr ""
 #: ../plugins/debug-manager/signals.c:195
 #: ../plugins/debug-manager/signals.c:208
 #: ../plugins/debug-manager/signals.c:221
-#: ../plugins/project-wizard/property.c:209
-#: ../plugins/project-wizard/property.c:223
+#: ../plugins/project-wizard/property.c:211
+#: ../plugins/project-wizard/property.c:225
 msgid "No"
 msgstr "Non"
 
@@ -2171,33 +2171,33 @@ msgstr "Indica cando mostrar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/stack_trace.c:396
+#: ../plugins/debug-manager/stack_trace.c:543
 msgid "Set current frame"
 msgstr "Establecer o marco actual"
 
-#: ../plugins/debug-manager/stack_trace.c:404
+#: ../plugins/debug-manager/stack_trace.c:551
 #: ../plugins/debug-manager/threads.c:368
 msgid "View Source"
 msgstr "Ver fonte"
 
-#: ../plugins/debug-manager/stack_trace.c:441
+#: ../plugins/debug-manager/stack_trace.c:589
 #: ../plugins/debug-manager/threads.c:404
 msgid "Active"
 msgstr "Activo"
 
-#: ../plugins/debug-manager/stack_trace.c:452
+#: ../plugins/debug-manager/stack_trace.c:600
 msgid "Frame"
 msgstr "Marco"
 
-#: ../plugins/debug-manager/stack_trace.c:504
+#: ../plugins/debug-manager/stack_trace.c:664
 msgid "Arguments"
 msgstr "Argumentos"
 
-#: ../plugins/debug-manager/stack_trace.c:528
+#: ../plugins/debug-manager/stack_trace.c:688
 msgid "Stack"
 msgstr "Pila"
 
-#: ../plugins/debug-manager/stack_trace.c:587
+#: ../plugins/debug-manager/stack_trace.c:748
 msgid "Stack frame operations"
 msgstr "Operacións de marcos de pila"
 
@@ -2402,7 +2402,7 @@ msgstr ""
 "Perderá as modificacións sen gardar."
 
 #: ../plugins/document-manager/action-callbacks.c:296
-#: ../plugins/editor/text_editor.c:337 ../plugins/sourceview/sourceview.c:156
+#: ../plugins/editor/text_editor.c:337 ../plugins/sourceview/sourceview.c:152
 msgid "_Reload"
 msgstr "_Recargar"
 
@@ -2606,9 +2606,9 @@ msgid "Do not show tabs"
 msgstr "Non mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:41
-#: ../plugins/document-manager/plugin.c:1533
-#: ../plugins/document-manager/plugin.c:1883
-#: ../plugins/document-manager/plugin.c:1908
+#: ../plugins/document-manager/plugin.c:1535
+#: ../plugins/document-manager/plugin.c:1885
+#: ../plugins/document-manager/plugin.c:1910
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3554,15 +3554,15 @@ msgstr "Modo"
 msgid "Automatic"
 msgstr "Automático"
 
-#: ../plugins/document-manager/plugin.c:1517
+#: ../plugins/document-manager/plugin.c:1519
 msgid "Goto line"
 msgstr "Ir á liña"
 
-#: ../plugins/document-manager/plugin.c:1518
+#: ../plugins/document-manager/plugin.c:1520
 msgid "Enter the line number to jump and press enter"
 msgstr "Introduza o número de liña ao que desexa saltar e prema intro"
 
-#: ../plugins/document-manager/plugin.c:1527
+#: ../plugins/document-manager/plugin.c:1529
 msgid "Editor quick navigations"
 msgstr "Navegación rápida co editor"
 
@@ -3886,7 +3886,7 @@ msgstr "Previsualización da impresión"
 msgid "Scintilla Editor"
 msgstr "Editor Scintilla"
 
-#: ../plugins/editor/text_editor.c:323 ../plugins/sourceview/sourceview.c:142
+#: ../plugins/editor/text_editor.c:323 ../plugins/sourceview/sourceview.c:138
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -4355,15 +4355,15 @@ msgstr "_Recargar"
 msgid "Refresh file manager tree"
 msgstr "Recargar a árbore do xestor de ficheiros"
 
-#: ../plugins/file-manager/plugin.c:168
+#: ../plugins/file-manager/plugin.c:169
 msgid "File manager popup actions"
 msgstr "Accións emerxentes do xestor de ficheiros"
 
-#: ../plugins/file-manager/plugin.c:178
+#: ../plugins/file-manager/plugin.c:179
 msgid "Files"
 msgstr "Ficheiros"
 
-#: ../plugins/file-manager/plugin.c:284 ../plugins/file-manager/plugin.c:295
+#: ../plugins/file-manager/plugin.c:285 ../plugins/file-manager/plugin.c:296
 #: ../plugins/file-manager/anjuta-file-manager.plugin.in.h:1
 msgid "File Manager"
 msgstr "Xestor de ficheiros"
@@ -5743,8 +5743,8 @@ msgid "Icon"
 msgstr "Icona"
 
 #: ../plugins/message-view/message-view.c:674
-#: ../plugins/message-view/plugin.c:236 ../plugins/message-view/plugin.c:410
-#: ../plugins/message-view/plugin.c:422
+#: ../plugins/message-view/plugin.c:240 ../plugins/message-view/plugin.c:414
+#: ../plugins/message-view/plugin.c:426
 msgid "Messages"
 msgstr "Mensaxes"
 
@@ -6282,7 +6282,7 @@ msgid "Enter the basic Project information"
 msgstr "Introduza a información básica do proxecto"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
 msgid "Project Name:"
 msgstr "Nome do proxecto:"
 
@@ -6304,7 +6304,7 @@ msgstr ""
 "tarde."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Version:"
 msgstr "Versión:"
 
@@ -6388,7 +6388,7 @@ msgstr "Executando: "
 msgid "New Project Wizard"
 msgstr "Asistente de creación de proxectos"
 
-#: ../plugins/project-wizard/property.c:262
+#: ../plugins/project-wizard/property.c:264
 msgid "Icon choice"
 msgstr "Elección da icona"
 
@@ -6420,7 +6420,9 @@ msgstr "Engade soporte para construír bibliotecas compartidas no seu proxecto"
 msgid ""
 "Adds supports for internationalization so that your project can have "
 "translations in different languages"
-msgstr "Engade soporte de internacionalización para que o seu proxecto poida ser traducido a diferentes idiomas"
+msgstr ""
+"Engade soporte de internacionalización para que o seu proxecto poida ser "
+"traducido a diferentes idiomas"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid "Basic information"
@@ -6446,7 +6448,7 @@ msgstr "Configurar paquetes externos:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:14
 msgid "Create a template glade interface file"
-msgstr ""
+msgstr "Crear un ficheiro de interface de glade de modelos"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:15
 msgid "Create glade interface file"
@@ -6461,167 +6463,170 @@ msgid "Display title of the plugin"
 msgstr "Mostra o título do complemento"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:19
+#, fuzzy
+msgid "Django Project information"
+msgstr "Información xeral do proxecto"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid "Email address:"
 msgstr "Enderezo de correo-e:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:20
+#: ../plugins/project-wizard/templates/translatable-strings.h:21
 msgid "GCJ needs to know which class contains the main() function"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:21
+#: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "General Project Information"
 msgstr "Información xeral do proxecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:22
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "General Project Infromation"
 msgstr "Información xeral do proxecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
+#: ../plugins/project-wizard/templates/translatable-strings.h:24
 msgid "General Public License(GPL)"
 msgstr "Licenza pública xeral (GPL)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:24
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Icon File:"
 msgstr "Ficheiro de icona:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Icon file for the plugin"
 msgstr "Ficheiro de icona para o complemento"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Implement plugin interfaces"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
-msgid "Interface implemented by the plugin"
-msgstr ""
-
 #: ../plugins/project-wizard/templates/translatable-strings.h:29
+msgid "Interface implemented by the plugin"
+msgstr "Interface implementada polo complemento"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Interface:"
 msgstr "Interface:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:31
 #, fuzzy
 msgid "Lesser General Public License(LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:31
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "License"
 msgstr "Licenza"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Main Class:"
 msgstr "Clase principal:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Main class"
 msgstr "Clase principal"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 #, fuzzy
 msgid "Name of the value to watch"
 msgstr "Nome do perfil do complemento"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "No license"
 msgstr "Sen licenza"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "Options for project build system"
 msgstr "Opcións para o sistema de construción do proxecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "Plugin Class Name:"
 msgstr "Nome da clase do complemento:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
 msgid "Plugin Dependencies:"
 msgstr "Dependencias do complemento:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
 msgid "Plugin Description:"
 msgstr "Descrición do complemento:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "Plugin Title:"
 msgstr "Título do complemento:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "Plugin class name"
 msgstr "Nome da clase do complemento"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "Plugin has menus or/and toolbars"
 msgstr "O complemento ten menús e/ou barras de ferramentas"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "Plugin interfaces to implement"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "Project directory, output file etc."
 msgstr "Directorio do proxecto, ficheiro de destino etc"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "Project directory:"
 msgstr "Directorio do proxecto:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid "Project name:"
 msgstr "Nome do proxecto:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Project options"
 msgstr "Opcións do proxecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Require Package:"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
-#, fuzzy
-msgid "Select code license"
-msgstr "Seleccionar bloque de _código"
-
 #: ../plugins/project-wizard/templates/translatable-strings.h:52
+msgid "Select code license"
+msgstr "Seleccionar a licenza do código"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Shell values to watch"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Use pkg-config to add library supports from other packages"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
-#, fuzzy
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Value Name:"
 msgstr "Nome do valor:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "Values to watch"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Indica se o complemento ten menús e barras de ferramentas"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "project name"
 msgstr "nome do proxecto"
 
@@ -7008,15 +7013,15 @@ msgstr "Documento %d sen gardar"
 msgid "Unknown"
 msgstr "Descoñecido"
 
-#: ../plugins/sourceview/sourceview.c:264
+#: ../plugins/sourceview/sourceview.c:263
 msgid "Loading"
 msgstr "Cargando"
 
-#: ../plugins/sourceview/sourceview.c:287
+#: ../plugins/sourceview/sourceview.c:286
 msgid "Saving..."
 msgstr "Gardando..."
 
-#: ../plugins/sourceview/sourceview.c:294
+#: ../plugins/sourceview/sourceview.c:293
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr ""
@@ -7503,8 +7508,8 @@ msgstr "Usar o perfil do terminal de Gnome:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Usar o perfil actualmente seleccionado no terminal de Gnome"
 
-#: ../plugins/terminal/terminal.c:613 ../plugins/terminal/terminal.c:723
-#: ../plugins/terminal/terminal.c:740
+#: ../plugins/terminal/terminal.c:614 ../plugins/terminal/terminal.c:724
+#: ../plugins/terminal/terminal.c:741
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
