@@ -1212,6 +1212,41 @@ anjuta_launcher_execute (AnjutaLauncher *launcher, const gchar *command_str,
 }
 
 /**
+ * anjuta_launcher_set_buffered_output:
+ * @launcher: a #AnjutaLancher object.
+ * @buffered: buffer output.
+ * 
+ * Sets if output should buffered or not. By default, it is buffered.
+ *
+ * Return value: Previous flag value
+ */
+gboolean
+anjuta_launcher_set_buffered_output (AnjutaLauncher *launcher, gboolean buffered)
+{
+	gboolean past_value = launcher->priv->buffered_output;
+	launcher->priv->buffered_output = buffered;
+	return past_value;
+}
+
+/**
+ * anjuta_launcher_set_check_passwd_prompt:
+ * @launcher: a #AnjutaLancher object.
+ * @check_passwd: check for password.
+ * 
+ * Set if output is checked for a password prompti. A special dialog box
+ * is use to enter it in this case. By default, this behavior is enabled.
+ *
+ * Return value: Previous flag value
+ */
+gboolean
+anjuta_launcher_set_check_passwd_prompt (AnjutaLauncher *launcher, gboolean check_passwd)
+{
+	gboolean past_value = launcher->priv->check_for_passwd_prompt;
+	launcher->priv->check_for_passwd_prompt = check_passwd;
+	return past_value;
+}
+
+/**
  * anjuta_launcher_set_terminal_echo:
  * @launcher: a #AnjutaLancher object.
  * @echo_on: Echo ON flag.
@@ -1242,11 +1277,13 @@ anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
  *
  * Return value: Previous flag value
  */
-void
+gboolean
 anjuta_launcher_set_terminate_on_exit (AnjutaLauncher *launcher,
 						gboolean terminate_on_exit)
 {
+	gboolean past_value = launcher->priv->terminate_on_exit;
 	launcher->priv->terminate_on_exit = terminate_on_exit;
+	return past_value;
 }
 
 /**

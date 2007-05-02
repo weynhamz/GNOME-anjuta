@@ -1,3 +1,9 @@
+2007-04-21 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-launcher.c,
+	libanjuta/anjuta-launcher.h:
+	Add some missing implementation
+
 2007-04-26  Brian Pepple  <bpepple@fedoraproject.org>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:

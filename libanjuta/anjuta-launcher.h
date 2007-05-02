@@ -96,14 +96,14 @@ void anjuta_launcher_send_ptyin (AnjutaLauncher *launcher,
 pid_t anjuta_launcher_get_child_pid (AnjutaLauncher *launcher);
 void anjuta_launcher_reset (AnjutaLauncher *launcher);
 void anjuta_launcher_signal (AnjutaLauncher *launcher, int sig);
-void anjuta_launcher_set_buffered_output (AnjutaLauncher *launcher,
+gboolean anjuta_launcher_set_buffered_output (AnjutaLauncher *launcher,
 										  gboolean buffered);
-void anjuta_launcher_set_check_passwd_prompt (AnjutaLauncher *launcher,
+gboolean anjuta_launcher_set_check_passwd_prompt (AnjutaLauncher *launcher,
 											  gboolean check_passwd);
 /* Returns old value */
 gboolean anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
 											gboolean echo_on);
-void anjuta_launcher_set_terminate_on_exit (AnjutaLauncher *launcher,
+gboolean anjuta_launcher_set_terminate_on_exit (AnjutaLauncher *launcher,
 		gboolean terminate_on_exit);
 
 G_END_DECLS
