@@ -54,6 +54,7 @@ libanjuta_egg_la_SOURCES = \
 	gtkcellview.h \
 	egg-submenu-action.c 
 
+libanjuta_egg_la_LDFLAGS = $(ANJUTA_LDFLAGS)
 libanjuta_egg_la_LIBADD = \
 	$(GNOME_VFS_MODULE_LIBS) \
 	$(GNOME_UI_LIBS) \

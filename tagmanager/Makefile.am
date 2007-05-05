@@ -78,7 +78,7 @@ libanjuta_ctags_la_SOURCES =\
         vstring.h\
         yacc.c
 
-
+libanjuta_ctags_la_LDFLAGS = $(ANJUTA_LDFLAGS)
 libanjuta_ctags_la_LIBADD = $(GLIB_LIBS)
 
 noinst_PROGRAMS = \

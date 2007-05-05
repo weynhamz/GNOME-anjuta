@@ -27,8 +27,13 @@ INCLUDES= \
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-macro.la
 
+libanjuta_macro_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 libanjuta_macro_la_LIBADD = \
+	$(GLADE_LIBS) \
+	$(GNOME_VFS_LIBS) \
 	$(LIBANJUTA_LIBS) $(PCRE_LIBS)
+
 libanjuta_macro_la_SOURCES = \
 	plugin.c\
 	plugin.h\

@@ -28,10 +28,12 @@ INCLUDES= \
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-debug-manager.la
 
-libanjuta_debug_manager_la_LIADD = $(LIBANJUTA_LIBS)
+libanjuta_debug_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 libanjuta_debug_manager_la_LIBADD = \
-	$(top_builddir)/libanjuta/libanjuta.la \
-	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la
+	$(GNOME_UI_LIBS) \
+	$(GLADE_LIBS) \
+	$(LIBANJUTA_LIBS)
 
 # Marshallers
 BUILT_SOURCES = 			\

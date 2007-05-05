@@ -45,7 +45,11 @@ libanjuta_build_basic_autotools_la_SOURCES = \
 # Plugin dependencies
 libanjuta_build_basic_autotools_la_LIBADD = \
 	$(PCRE_LIBS) \
+	$(GLADE_LIBS) \
+	$(GNOME_LIBS) \
 	$(LIBANJUTA_LIBS)
+
+libanjuta_build_basic_autotools_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

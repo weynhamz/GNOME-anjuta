@@ -28,11 +28,15 @@ INCLUDES = \
 	$(LIBANJUTA_CFLAGS) \
 	-I$(top_srcdir)/tagmanager/include
 
+libanjuta_search_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 libanjuta_search_la_LIBADD = \
 	$(PCRE_LIBS) \
 	$(GNOME_PRINT_UI_LIBS) \
-	$(GNOME_VFS_LIBS) \
+	$(GNOME_UI_LIBS) \
+	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS) \
+	$(top_builddir)/libegg/libanjuta-egg.la \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 
 libanjuta_search_la_SOURCES= \

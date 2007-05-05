@@ -27,7 +27,11 @@ INCLUDES = \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
+libanjuta_tools_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 libanjuta_tools_la_LIBADD = \
+	$(GNOME_UI_LIBS) \
+	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_tools_la_SOURCES= \

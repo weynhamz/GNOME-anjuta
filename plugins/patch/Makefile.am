@@ -38,8 +38,11 @@ libanjuta_patch_la_SOURCES = \
 	patch-plugin.c \
 	patch-plugin.h
 
+libanjuta_patch_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libanjuta_patch_la_LIBADD = \
+	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS) 
 
 EXTRA_DIST = \

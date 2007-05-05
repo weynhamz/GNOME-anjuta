@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <gmodule.h>
 #include "gdbmi.h"
 
 #define GDBMI_DUMP_INDENT_SIZE 4
@@ -268,7 +269,7 @@ gdbmi_value_dump_foreach (const GDBMIValue *val, gpointer indent_level)
 	gdbmi_value_dump (val, GPOINTER_TO_INT (indent_level));
 }
 
-void
+G_MODULE_EXPORT void
 gdbmi_value_dump (const GDBMIValue *val, gint indent_level)
 {
 	gint i, next_indent;
@@ -496,7 +497,7 @@ gdbmi_value_parse_real (gchar **ptr)
 	return val;
 }
 
-GDBMIValue*
+G_MODULE_EXPORT GDBMIValue*
 gdbmi_value_parse (const gchar *message)
 {
 	GDBMIValue *val;

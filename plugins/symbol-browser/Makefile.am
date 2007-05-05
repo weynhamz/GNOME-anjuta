@@ -54,10 +54,14 @@ libanjuta_symbol_browser_la_SOURCES = \
 	anjuta-symbol-locals.h \
 	anjuta-symbol-locals.c 
 
+libanjuta_symbol_browser_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libanjuta_symbol_browser_la_LIBADD = \
 	$(GDL_LIBS) \
+	$(GNOME_UI_LIBS) \
 	$(LIBANJUTA_LIBS) \
+	$(top_builddir)/libegg/libanjuta-egg.la \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 
 EXTRA_DIST = \

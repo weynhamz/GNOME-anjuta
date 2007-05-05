@@ -1413,7 +1413,7 @@ sub write_makefile
 	$iface_sources .= "\\\n\t$s";
     }
     
-    my $iface_rules = "lib_LTLIBRARIES = $module_name-interfaces.la\n";
+    my $iface_rules = "noinst_LTLIBRARIES = $module_name-interfaces.la\n";
     $iface_rules .= "${module_name}_interfaces_la_LIBADD = \$(MODULE_LIBS)\n";
 ##    $iface_rules .= "${module_name}_interfaces_la_LIBADD = \n";
     $iface_rules .= "${module_name}_interfaces_la_SOURCES = $iface_sources\n";

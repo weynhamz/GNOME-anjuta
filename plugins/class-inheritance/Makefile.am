@@ -34,9 +34,12 @@ plugindir = $(anjuta_plugin_dir)
 # The plugin
 plugin_LTLIBRARIES = libanjuta-class-inheritance.la
 
+libanjuta_class_inheritance_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libanjuta_class_inheritance_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
+	$(GNOME_UI_LIBS) \
 	$(GRAPHVIZ_LIBS)
 
 # Plugin sources

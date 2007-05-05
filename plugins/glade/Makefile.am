@@ -33,6 +33,8 @@ plugin_LTLIBRARIES = libanjuta-glade.la
 # Plugin sources
 libanjuta_glade_la_SOURCES = plugin.c plugin.h
 
+libanjuta_glade_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libanjuta_glade_la_LIBADD = \
 	$(PLUGIN_GLADE_LIBS) \

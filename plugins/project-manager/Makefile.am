@@ -31,9 +31,12 @@ libanjuta_project_manager_la_SOURCES = \
 	plugin.c \
 	plugin.h
 
+libanjuta_project_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libanjuta_project_manager_la_LIBADD = \
 	$(PLUGIN_GNOMEBUILD_LIBS) \
+	$(GNOME_UI_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 EXTRA_DIST = \

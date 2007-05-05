@@ -89,12 +89,15 @@ libanjuta_sourceview_la_SOURCES = \
 	sourceview-cell.c \
 	sourceview-cell.h 
 
+libanjuta_sourceview_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \
 	$(PCRE_LIBS) \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_VFS_LIBS) \
 	$(PLUGIN_SOURCEVIEW_LIBS) \
+	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS) \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 

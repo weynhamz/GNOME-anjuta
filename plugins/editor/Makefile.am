@@ -30,11 +30,14 @@ INCLUDES = \
 	-I$(srcdir)/scintilla/include \
 	-I$(top_srcdir)/tagmanager/include
 
+libanjuta_editor_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 libanjuta_editor_la_LIBADD = \
 	$(PCRE_LIBS) \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_VFS_LIBS) \
 	$(LIBANJUTA_LIBS) \
+	$(GLADE_LIBS) \
 	scintilla/libanjuta-scintilla.la \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 

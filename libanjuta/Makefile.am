@@ -17,12 +17,12 @@ INCLUDES = \
 	-DG_LOG_DOMAIN=\"libanjuta\"
 
 lib_LTLIBRARIES=libanjuta.la
-
+libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS)
 libanjuta_la_LIBADD = \
-	$(GNOME_UI_LIBS) \
-	$(GLADE_LIBS) \
 	$(top_builddir)/libegg/libanjuta-egg.la \
-	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la
+	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
+	$(GNOME_UI_LIBS) \
+	$(GLADE_LIBS)
 
 libanjuta_la_SOURCES= \
 	anjuta-enum-types.h \
@@ -116,7 +116,7 @@ stamp-anjuta-enum-types.h: Makefile $(libanjuta_include) anjuta-enum-types.c
 	&& (cmp -s xgen-geth anjuta-enum-types.h || cp xgen-geth anjuta-enum-types.h ) \
 	&& rm -f xgen-geth \
 	&& echo timestamp > $(@F)
-	
+
 anjuta-enum-types.c: Makefile
 	( cd $(srcdir) && $(GLIB_MKENUMS) \
 			--fhead "#include \"anjuta-enum-types.h\"\n" \

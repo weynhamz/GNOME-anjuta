@@ -1,3 +1,46 @@
+2007-05-05  Naba Kumar  <naba.kumar@gnome.org>
+
+	Patch from Cygwin Ports maintainer  <yselkowitz@users.sourceforge.net>:
+ 
+	* configure.in: Define GNOME_CANVAS and fix GRAPHVIZ and SVN cflags/libs.
+	* libanjuta/anjuta-launcher.c: Cygwin does not have B460800 or ECHOPRT.
+	* libanjuta/interfaces/Makefile.am.iface: Fixed a typo.
+	* libanjuta/interfaces/anjuta-idl-compiler.pl: Make a convenience library
+	instead of a real one, fixes interdependency with libanjuta.
+	* plugins/gdb/gdbmi.c: G_MODULE_EXPORT for gdbmi-test linking on Cygwin.
+	* libanjuta/Makefile.am: 
+	* libegg/Makefile.am:
+	* plugins/build-basic-autotools/Makefile.am:
+	* plugins/class-gen/Makefile.am:
+	* plugins/class-inheritance/Makefile.am:
+	* plugins/cvs-plugin/Makefile.am:
+	* plugins/debug-manager/Makefile.am:
+	* plugins/devhelp/Makefile.am:
+	* plugins/document-manager/Makefile.am:
+	* plugins/editor/Makefile.am:
+	* plugins/file-loader/Makefile.am:
+	* plugins/file-manager/Makefile.am:
+	* plugins/file-wizard/Makefile.am:
+	* plugins/gdb/Makefile.am:
+	* plugins/glade/Makefile.am:
+	* plugins/gtodo/Makefile.am:
+	* plugins/language-support-cpp-java/Makefile.am:
+	* plugins/macro/Makefile.am:
+	* plugins/message-view/Makefile.am:
+	* plugins/patch/Makefile.am:
+	* plugins/profiler/Makefile.am:
+	* plugins/project-import/Makefile.am:
+	* plugins/project-manager/Makefile.am:
+	* plugins/project-wizard/Makefile.am:
+	* plugins/sample1/Makefile.am:
+	* plugins/search/Makefile.am:
+	* plugins/sourceview/Makefile.am:
+	* plugins/subversion/Makefile.am:
+	* plugins/symbol-browser/Makefile.am:
+	* plugins/terminal/Makefile.am:
+	* plugins/tools/Makefile.am:
+	* tagmanager/Makefile.am: Properly define LDFLAGS and LIBADD.
+
 2007-05-05 Vincent Geddes  <vincent.geddes@gmail.com>
 
 	* plugins/glade/anjuta-glade-plugin.png: Update Glade icon.

@@ -64,7 +64,11 @@
 #define ANJUTA_PIXMAP_PASSWORD "password.png"
 #define FILE_BUFFER_SIZE 1024
 #ifndef __MAX_BAUD
+#ifdef __CYGWIN__
+#define __MAX_BAUD B256000
+#else
 #define __MAX_BAUD B460800
+#endif
 #endif
 
 /*
@@ -1098,7 +1102,10 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 
 	if (!launcher->priv->terminal_echo_on)
 	{
-		termios_flags.c_lflag &= ~(ECHOKE | ECHOE | ECHO | ECHONL | ECHOPRT |
+		termios_flags.c_lflag &= ~(ECHOKE | ECHOE | ECHO | ECHONL | 
+#ifdef ECHOPRT
+						ECHOPRT |
+#endif
 						ECHOCTL | ISIG | ICANON | IEXTEN | NOFLSH | TOSTOP);
 	}
 //	termios_flags.c_lflag |= 0;

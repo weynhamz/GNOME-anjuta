@@ -7,7 +7,7 @@ INCLUDES = \
 	-DG_LOG_DOMAIN=\"libanjuta-interfaces\"
 
 MODULE_NAME = libanjuta
-MODULE_VESION = 0.1
+MODULE_VERSION = 0.1
 MODULE_INCLUDEDIR = $(includedir)/libanjuta-1.0/libanjuta/interfaces
 MODULE_LIBS = $(GTK_LIBS)
 

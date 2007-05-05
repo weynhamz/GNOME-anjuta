@@ -37,6 +37,8 @@ libanjuta_file_manager_la_SOURCES = \
 	plugin.h \
 	an_file_view.c
 
+libanjuta_file_manager_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libanjuta_file_manager_la_LIBADD = \
 	$(GDL_LIBS) \

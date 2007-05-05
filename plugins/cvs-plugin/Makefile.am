@@ -24,7 +24,11 @@ INCLUDES= \
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-cvs-plugin.la
 
+libanjuta_cvs_plugin_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 libanjuta_cvs_plugin_la_LIBADD = \
+	$(GLADE_LIBS) \
+	$(GNOME_VFS_LIBS) \
 	$(LIBANJUTA_LIBS) $(PCRE_LIBS)
 
 libanjuta_cvs_plugin_la_SOURCES = \

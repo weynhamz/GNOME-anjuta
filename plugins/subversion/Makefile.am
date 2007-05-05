@@ -30,8 +30,12 @@ plugindir = $(anjuta_plugin_dir)
 
 plugin_LTLIBRARIES = libanjuta-subversion.la
 
+libanjuta_subversion_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 libanjuta_subversion_la_LIBADD = \
+	$(GLADE_LIBS) $(GNOME_VFS_LIBS) \
 	$(LIBANJUTA_LIBS) $(PCRE_LIBS) $(SVN_LIB)
+
 libanjuta_subversion_la_SOURCES = \
 	svn-backend.c \
 	svn-backend.h \

@@ -28,9 +28,12 @@ INCLUDES = \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
+libanjuta_class_gen_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 libanjuta_class_gen_la_LIBADD = \
 	${top_builddir}/plugins/project-wizard/libanjuta-project-wizard.la \
+	$(GLADE_LIBS) \
+	$(GNOME_VFS_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 libanjuta_class_gen_la_SOURCES= \

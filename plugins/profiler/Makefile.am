@@ -82,8 +82,10 @@ libanjuta_profiler_la_SOURCES += \
 	gprof-function-call-chart-view.h 
 endif
 
+libanjuta_profiler_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
-libanjuta_profiler_la_LIBADD = $(LIBANJUTA_LIBS) $(GNOME_VFS_MODULE_LIBS)
+libanjuta_profiler_la_LIBADD = $(LIBANJUTA_LIBS) $(GLADE_LIBS) $(GNOME_CANVAS_LIBS) $(GNOME_VFS_MODULE_LIBS)
 
 if HAVE_GRAPHVIZ
 libanjuta_profiler_la_LIBADD += $(GRAPHVIZ_LIBS)

@@ -33,6 +33,8 @@ plugindir = $(anjuta_plugin_dir)
 # The plugin
 plugin_LTLIBRARIES = libanjuta-devhelp.la
 
+libanjuta_devhelp_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin sources
 libanjuta_devhelp_la_SOURCES = \
 	plugin.c \
@@ -46,6 +48,7 @@ endif
 
 # Plugin dependencies
 libanjuta_devhelp_la_LIBADD = \
+	$(GTK_LIBS) \
 	$(LIBANJUTA_LIBS)
 
 if HAVE_PLUGIN_DEVHELP
