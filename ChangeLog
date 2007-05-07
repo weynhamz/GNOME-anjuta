@@ -1,4 +1,17 @@
-2007-05-05  Naba Kumar  <naba.kumar@gnome.org>
+2007-05-07  Naba Kumar  <naba@gnome.org>
+
+	* configure.in:
+	* plugins/project-wizard/templates/Makefile.am:
+	* plugins/project-wizard/templates/minimal.wiz:
+	* plugins/project-wizard/templates/minimal/.cvsignore:
+	* plugins/project-wizard/templates/minimal/Makefile.am:
+	* plugins/project-wizard/templates/minimal/Makefile.am.tpl:
+	* plugins/project-wizard/templates/minimal/autogen.sh:
+	* plugins/project-wizard/templates/minimal/configure.ac.tpl:
+	* plugins/project-wizard/templates/minimal/project.anjuta:
+	Added 'minimal', a generic and flat, project template.
+	
+2007-05-05  Naba Kumar  <naba@gnome.org>
 
 	Patch from Cygwin Ports maintainer  <yselkowitz@users.sourceforge.net>:
  
@@ -63,7 +76,7 @@
 	* plugins/editor/text_editor.c: Large memory addresses were being
 	truncated, switched to glong (bug #422143).
 
-2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
+2007-04-24  Naba Kumar  <naba@gnome.org>
 
 	* plugins/document-manager/plugin.c: (prefs_finalize):
 	* plugins/editor/aneditor-autocomplete.cxx:
@@ -75,7 +88,7 @@
 	* plugins/terminal/terminal.c: (prefs_finalize): Fixed int to
 	pointer type castings.
 
-2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
+2007-04-24  Naba Kumar  <naba@gnome.org>
 
 	Patch from s|s  <supreet.sethi@gmail.com>:
 	* (added) plugins/project-wizard/templates/django-logo.png:
@@ -84,12 +97,12 @@
 	* plugins/project-wizard/templates/translatable-strings.h: Added
 	django project template. http://www.djangoproject.com/
 
-2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
+2007-04-24  Naba Kumar  <naba@gnome.org>
 
 	* plugins/subversion/anjuta-subversion.glade: Set expansion for
 	the log entry widget and made the dialog little larger.
 
-2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
+2007-04-24  Naba Kumar  <naba@gnome.org>
 
 	Patch from Halton Huo:
 	* configure.in:
@@ -101,7 +114,7 @@
 	* plugins/subversion/svn-notify.h: Proper use of subversion
 	headers. Fixes build issues in solaris (bug #426701).
 
-2007-04-24  Naba Kumar  <naba.kumar@gnome.org>
+2007-04-24  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/Makefile.am: Removed bogus newlines at the end of file.
 	
@@ -137,7 +150,7 @@
 	* plugins/debug-manager/stack_trace.c:
 	Highlight changed stack frame
 
-2007-04-18  Naba Kumar  <naba.kumar@gnome.org>
+2007-04-18  Naba Kumar  <naba@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c:
 	(anjuta_docman_dispose), (on_editor_destroy),
@@ -239,7 +252,7 @@
 	(on_build_mesg_format), (on_build_mesg_parse):
 	Fixed full path detection
 
-2007-04-05  Naba Kumar  <naba.kumar@gnome.org>
+2007-04-05  Naba Kumar  <naba@gnome.org>
  
 	Patch from Halton Huo:
 	* libanjuta/Makefile.am:
@@ -299,7 +312,7 @@
 
 	Renamed Glue to AnjutaGlue to avoid namespace conflicts.
 
-2007-04-05  Naba Kumar  <naba.kumar@gnome.org>
+2007-04-05  Naba Kumar  <naba@gnome.org>
 
 	* anjuta.spec.in, configure.in: Removed dead codes.
 	
@@ -318,7 +331,7 @@
 	Add information about supported format in debugger plugin
 	Activate debugger plugin according to the target format
 
-2007-04-01  Naba Kumar  <naba.kumar@gnome.org>
+2007-04-01  Naba Kumar  <naba@gnome.org>
 
 	* plugins/message-view/message-view.c:
 	(message_view_instance_init): Fixed message icons to appear.
@@ -383,7 +396,7 @@
 
 === anjuta 2.1.2 ===
 
-2007-03-28  Naba Kumar  <naba.kumar@gnome.org>
+2007-03-28  Naba Kumar  <naba@gnome.org>
 
 	* configure.in: Bumped version to 2.1.2
 	* NEWS: Updated for release.
@@ -400,7 +413,7 @@
 	* plugins/tools/editor.c:
 	Fix bug #423270
 
-2007-03-27  Naba Kumar  <naba.kumar@gnome.org>
+2007-03-27  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/aneditor-autocomplete.cxx: Replace the complete
 	word when autocompleting without leaving any trailing part of
@@ -412,7 +425,7 @@
 	* anjuta.desktop.in.in: Remove "Application" category from desktop
 	file and add "GNOME". GNOME Goal #3 (fixes bug #417612).
 	
-2007-03-27  Naba Kumar  <naba.kumar@gnome.org>
+2007-03-27  Naba Kumar  <naba@gnome.org>
 	
 	* configure.in, plugins/document-manager/anjuta-docman.c:
 	(anjuta_docman_add_editor): Conditionally compile notebook tab
@@ -422,7 +435,7 @@
 	* configure.in, global-tags/Makefile.am: Do not pass -Wall to
 	non gcc compiler flags. Fixes bug #423089.
 	
-2007-03-26  Naba Kumar  <naba.kumar@gnome.org>
+2007-03-26  Naba Kumar  <naba@gnome.org>
 	
 	* AUTHORS, NEWS, TODO.tasks: Updated.
 	
@@ -437,7 +450,7 @@
 	* plugins/symbol-browser/plugin.h: update line on editor save
 	and editor change. Code clean up and fixed warnings.
 
-2007-03-26  Naba Kumar  <naba.kumar@gnome.org>
+2007-03-26  Naba Kumar  <naba@gnome.org>
 
 	* plugins/project-wizard/templates/java/project.anjuta,
 	plugins/project-wizard/templates/python/project.anjuta,

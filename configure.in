@@ -1130,6 +1130,7 @@ plugins/project-wizard/templates/Makefile
 plugins/project-wizard/templates/mkfile/Makefile
 plugins/project-wizard/templates/mkfile/src/Makefile
 plugins/project-wizard/templates/mkfile/po/Makefile
+plugins/project-wizard/templates/minimal/Makefile
 plugins/project-wizard/templates/terminal/Makefile
 plugins/project-wizard/templates/terminal/src/Makefile
 plugins/project-wizard/templates/terminal/po/Makefile
