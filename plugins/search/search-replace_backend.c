@@ -475,6 +475,9 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 	{
 		/* Simple string search - this needs to be performance-tuned */
 		int match_len = strlen(s->search_str);
+
+		if (match_len == 0) return mi;
+
 		if (SD_BACKWARD == direction)
 		{
 			/* Backward matching. */

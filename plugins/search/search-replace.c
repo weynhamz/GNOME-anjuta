@@ -69,6 +69,7 @@ void on_replace_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data
 void on_search_regex_toggled (GtkToggleButton *togglebutton, gpointer user_data);
 void on_search_action_changed (GtkEditable *editable, gpointer user_data);
 void on_search_target_changed(GtkEditable *editable, gpointer user_data);
+void on_search_expression_changed(GtkEditable *editable, gpointer user_data);
 void on_actions_no_limit_clicked(GtkButton *button, gpointer user_data);
 void on_search_button_close_clicked(GtkButton *button, gpointer user_data);
 void on_search_button_close_clicked(GtkButton *button, gpointer user_data);
@@ -299,7 +300,7 @@ search_and_replace (void)
 			ianjuta_message_view_clear(view, NULL);
 		ianjuta_message_manager_set_current_view(msgman, view, NULL);
 	}
-
+	gtk_widget_set_sensitive (sr_get_gladewidget(STOP_BUTTON)->widget, TRUE);
 	nb_results = 0;
 	for (tmp = entries; tmp && (nb_results <= s->expr.actions_max); 
 		 tmp = g_list_next(tmp))
@@ -509,6 +510,7 @@ search_and_replace (void)
 		if (SA_SELECT == s->action && nb_results > 0)
 			break;
 	}  // for
+	gtk_widget_set_sensitive (sr_get_gladewidget(STOP_BUTTON)->widget, FALSE);
 	
 	if (s->range.type == SR_BLOCK || s->range.type == SR_FUNCTION || 
 		s->range.type == SR_SELECTION)
@@ -1072,6 +1074,7 @@ static gboolean
 create_dialog(void)
 {
 	GladeWidget *w;
+	GtkWidget *widget;
 	GList *combo_strings;
 	int i;
 
@@ -1103,7 +1106,10 @@ create_dialog(void)
 			g_list_free(combo_strings);
 		}
 	}
-	
+
+	widget = sr_get_gladewidget(SEARCH_STRING)->widget;
+	g_signal_connect (widget, "changed", G_CALLBACK (on_search_expression_changed), NULL);
+
 	search_preferences_initialize_setting_treeview(sg->dialog);
 	search_preferences_init();
 	
@@ -1257,6 +1263,9 @@ search_update_dialog(void)
 	widget = sr_get_gladewidget(REPLACE_REGEX)->widget;	
 	gtk_widget_set_sensitive(widget, sr->search.expr.regex);
 	
+	widget = sr_get_gladewidget(SEARCH_BUTTON)->widget; 	
+	gtk_widget_set_sensitive (widget, FALSE);
+
 	widget = sr_get_gladewidget(SEARCH_STRING)->widget;
 	if (s->expr.search_str)
 		gtk_entry_set_text(GTK_ENTRY(widget), s->expr.search_str);
@@ -1274,7 +1283,10 @@ search_update_dialog(void)
 	
 	widget = sr_get_gladewidget(SEARCH_BASIC)->widget;
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), s->basic_search);
-	
+
+	widget = sr_get_gladewidget(STOP_BUTTON)->widget; 	
+	gtk_widget_set_sensitive (widget, FALSE);
+
 	basic_search_toggled();
 }
 
@@ -1553,6 +1565,17 @@ on_search_target_changed(GtkEditable *editable, gpointer user_data)
 	reset_flags_and_search_button();
 	/*  Resize dialog  */
 	gtk_window_resize(GTK_WINDOW(sg->dialog), 10, 10);
+}
+
+void
+on_search_expression_changed(GtkEditable *editable, gpointer user_data)
+{
+	GtkWidget *search_entry = sr_get_gladewidget(SEARCH_STRING)->widget;
+	GtkWidget *widget = sr_get_gladewidget(SEARCH_BUTTON)->widget;
+	gboolean sensitive;
+
+	sensitive = *gtk_entry_get_text (GTK_ENTRY (search_entry)) == '\0' ? FALSE: TRUE;
+	gtk_widget_set_sensitive (widget, sensitive);
 }
 
 

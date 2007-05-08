@@ -1,3 +1,9 @@
+2007-04-08 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/search/search-replace.c,
+	plugins/search/search-replace_backend.c:
+	Disable search button if search expression is empty (bug #378193)
+
 2007-05-08  Naba Kumar  <naba@gnome.org>
 
 	* plugins/project-wizard/templates/minimal/Makefile.am: Fixed
