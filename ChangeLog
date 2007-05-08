@@ -1,3 +1,8 @@
+2007-05-08  Naba Kumar  <naba@gnome.org>
+
+	* plugins/project-wizard/templates/minimal/Makefile.am: Fixed
+	build error.
+
 2007-05-07  Naba Kumar  <naba@gnome.org>
 
 	* configure.in:
