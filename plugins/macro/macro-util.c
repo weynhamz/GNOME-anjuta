@@ -82,6 +82,8 @@ get_username(MacroPlugin * plugin)
 	prefs = anjuta_shell_get_preferences ((ANJUTA_PLUGIN(plugin))->shell, NULL);
 	username = anjuta_preferences_get (prefs, "anjuta.project.user");
 	if (!username || strlen(username) == 0)
+		username = anjuta_preferences_get (prefs, "anjuta.user.name");
+	if (!username || strlen(username) == 0)
 		username = getenv("USERNAME");
 	if (!username || strlen(username) == 0)
 		username = getenv("USER");
@@ -99,6 +101,8 @@ get_email(MacroPlugin * plugin)
 	
 	prefs = anjuta_shell_get_preferences ((ANJUTA_PLUGIN(plugin))->shell, NULL);
 	email = anjuta_preferences_get (prefs, "anjuta.project.email");
+	if (!email || strlen(email) == 0)
+		email = anjuta_preferences_get (prefs, "anjuta.user.email");
 	if (!email || strlen(email) == 0)
 	{
 		gchar* host = getenv("HOSTNAME");
@@ -185,10 +189,10 @@ get_filename_up(MacroPlugin * plugin)
 	gchar *filename = get_filename(plugin);
 	name = g_ascii_strup(filename, -1);
 	
-	/* Fix bug #333606 */
-	score = strchr(name, '-');
-	if (score != NULL)
-		*score = '_';
+	/* Fix bug #333606 and bug #419036,
+	 * Replace all invalid C character by underscore */
+	for (score = name; *score != '\0'; score++)
+		if (!g_ascii_isalnum (*score)) *score = '_';
 	
 	g_free(filename);
 	return name;

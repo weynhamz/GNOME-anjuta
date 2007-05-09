@@ -1,4 +1,12 @@
-2007-04-08 Sebastien Granjoux <seb.sfo@free.fr>
+2007-05-09 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/macro/macro-util.c:
+	Fix bug #419008 and bug #419036
+	When creating new header file, use name and email set in
+	preferences and replace invalid C character by underscore
+	in guards
+
+2007-05-08 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/search/search-replace.c,
 	plugins/search/search-replace_backend.c:
