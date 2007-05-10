@@ -26,7 +26,7 @@ msgstr ""
 "Last-Translator:  <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 
 #: ../anjuta.desktop.in.in.h:1
@@ -230,9 +230,9 @@ msgstr "launcher.c: Fehler beim Lesen der Kind pty\n"
 #: ../libanjuta/anjuta-launcher.c:1042 ../libanjuta/resources.c:264
 #: ../libanjuta/resources.c:273 ../plugins/devhelp/plugin.c:500
 #: ../plugins/devhelp/plugin.c:509 ../plugins/gdb/utilities.c:280
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot execute command: \"%s\""
-msgstr "Kommando %s kann nicht ausgeführt werden"
+msgstr "%s kann nicht ausgeführt werden"
 
 #: ../libanjuta/anjuta-launcher.c:1043
 msgid "execvp failed"
@@ -292,7 +292,7 @@ msgstr "Komponenten geladen"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1896
 msgid "Currently activated plugins"
-msgstr "Im Moment geladene Komponenten"
+msgstr "Geladene Komponenten"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1902
 msgid "Anjuta shell for which the plugins are"
@@ -308,7 +308,6 @@ msgstr "Anjuta Status, das zum laden und entladen der Komponenten benutzt wird"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #: ../libanjuta/anjuta-plugin-manager.c:2068
-#, fuzzy
 msgid "Loaded: "
 msgstr "Geladen: "
 
@@ -334,7 +333,7 @@ msgstr "Name des Komponenten-Profils"
 
 #: ../libanjuta/anjuta-profile.c:232
 msgid "Profile Plugins"
-msgstr "Profil Komponenten"
+msgstr "Komponenten des Profils"
 
 #: ../libanjuta/anjuta-profile.c:233
 msgid "List of plugins for this profile"
@@ -369,7 +368,7 @@ msgstr "'%s' schlug fehl: XML Lesefehler"
 msgid ""
 "Failed to read '%s': XML parse error.Invalid or corrupted anjuta plugins "
 "profile."
-msgstr "%"
+msgstr ""
 
 #: ../libanjuta/anjuta-profile.c:751
 #, c-format
@@ -398,7 +397,6 @@ msgid "_Reset"
 msgstr "_Zurücksetzen"
 
 #: ../libanjuta/anjuta-preferences.c:1594
-#, fuzzy
 msgid "Anjuta Preferences"
 msgstr "Anjuta Einstellungen"
 
@@ -607,12 +605,12 @@ msgstr "Fertig gestellt ... gescheitert\n"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:700
 msgid "Completed... successful\n"
-msgstr "Fertig gestellt ... gelungen\n"
+msgstr "Fertig gestellt ... erfolgreich\n"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:757
 #, c-format
 msgid "Build %d: %s"
-msgstr "Übersetzung %d: %s"
+msgstr "Generierung %d: %s"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:979
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1007
@@ -1331,35 +1329,29 @@ msgstr "Die Kopiervorgang konnte nicht beendet werden"
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:458
 #: ../plugins/subversion/subversion-callbacks.c:243
-#, fuzzy
 msgid "Are you sure that you do not want a log message?"
-msgstr "Soll die Liste wirklich geleert werden?"
+msgstr "Soll der Log-Eintrag wirklich leer bleiben?"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:434
-#, fuzzy
 msgid "CVSROOT"
-msgstr "CVS"
+msgstr "CVSROOT"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:437
-#, fuzzy
 msgid "Module"
-msgstr "Module"
+msgstr "Modul"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:440
-#, fuzzy
 msgid "Vendor"
-msgstr "Wiederholen"
+msgstr "Hersteller"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:443
-#, fuzzy
 msgid "Release"
-msgstr "Ersetzen"
+msgstr "Version"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:447
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:6
-#, fuzzy
 msgid "Directory"
-msgstr " Verzeichnisse "
+msgstr "Verzeichnisse"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:128
 msgid "CVS command failed! - See above for details"
@@ -1384,16 +1376,14 @@ msgstr "CVS"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:45 ../plugins/cvs-plugin/plugin.c:120
-#, fuzzy
 msgid "_CVS"
-msgstr "CVS"
+msgstr "_CVS"
 
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:53
-#, fuzzy
 msgid "_Add"
-msgstr "Hinzufügen"
+msgstr "_Hinzufügen"
 
 #. Display label
 #. short-cut
@@ -1404,9 +1394,8 @@ msgstr "Ein neue Datei/neues Verzeichnis zum CVS Baum hinzufügen"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:61
-#, fuzzy
 msgid "_Remove"
-msgstr "Entfernen"
+msgstr "_Entfernen"
 
 #. Display label
 #. short-cut
@@ -1417,9 +1406,8 @@ msgstr "Eine Datei/Ein Verzeichnis vom CVS Baum entfernen"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:69 ../plugins/cvs-plugin/plugin.c:128
-#, fuzzy
 msgid "_Commit"
-msgstr "Kommentar:"
+msgstr "Ein_checken"
 
 #. Display label
 #. short-cut
