@@ -1,3 +1,8 @@
+2007-05-10  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/search/plugin.c:
+	Make incremental search behave less annoying
+	
 2007-05-09 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/macro/macro-util.c:
