@@ -222,6 +222,8 @@ typedef struct
 {
 	gint pos;
 	gboolean wrap;
+	gboolean end;
+	gchar* last;
 	
 } IncrementalSearch;
 
@@ -292,6 +294,14 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 	}
 	
 	expression = g_strdup(string);
+	if (search_params->end &&
+		g_str_has_prefix(expression, search_params->last))
+	{
+		g_free(expression);
+		return;
+	}
+	else
+		search_params->end = FALSE;
 	if (search_wrap)
 	{
 		ianjuta_editor_goto_position(te, 0, NULL);
@@ -305,7 +315,8 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 	
 	status = anjuta_shell_get_status (ANJUTA_PLUGIN (user_data)->shell, NULL);
 	
-	if (ret == FALSE) {
+	if (ret == FALSE) 
+	{
 		if (search_params->pos < 0)
 		{
 			GtkWindow *parent;
@@ -333,13 +344,17 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 			}
 			else
 			{
+				search_params->end = TRUE;
 				anjuta_status_push (status, _("Incremental search for '%s' (continued at top) failed."), 
 				                    string);
+				search_params->wrap = 0;
 			}
 		}
 	}
 	else
 		anjuta_status_clear_stack (status);
+	g_free(search_params->last);
+	search_params->last = expression;
 }
 
 static void
