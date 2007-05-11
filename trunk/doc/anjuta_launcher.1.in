@@ -1,0 +1,28 @@
+.TH "anjuta_launcher" "1" "@VERSION@" "Jens Georg" ""
+.SH "NAME"
+.LP
+anjuta_launcher \- GNOME Integrated Development Environment
+.LP
+anjuta_launcher normally is not called directly by the user but invoked by
+anjuta
+.SH "SYNTAX"
+.LP
+anjuta_launcher [ \fIoption\fP ] program_name [ \fIprogram_parameter ... \fP]
+.SH "DESCRIPTION"
+This program is part of the Anjuta GNOME IDE. It is used to launch programs
+from within the IDE and to initialize a terminal for a debugging session.
+.SH "OPTIONS"
+.TP
+\fB\-\-version\fR
+Output version information and exit.
+.TP
+\fB\-\-__debug_terminal\fR
+Initalize a terminal for a debugging session. With this options, the second
+parameter is a temporary file where the name of the tty/terminal is written
+to.
+.SH "AUTHORS"
+.LP 
+This man page was written by Jens Georg <mail@jensgeorg.de>. Anjuta was developed by Kh. Naba Kumar Singh <kh_naba@users.sourceforge.net>
+.SH "SEE ALSO"
+.LP 
+anjuta(1)

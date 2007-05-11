@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=API Help
+_Description=Devhelp Plugin for Anjuta.
+Location=anjuta-devhelp:AnjutaDevhelp
+Icon=anjuta-devhelp-plugin.png
+Interfaces=IAnjutaHelp

@@ -1,0 +1,10 @@
+[Anjuta Plugin]
+Location=anjuta-profiler:Profiler
+Icon=profiler.png
+_Name=Profiler
+_Description=Application performance profiler
+Interfaces=IAnjutaFile
+
+[File Loader]
+_Title=Profile
+SupportedMimeTypes=application/x-executable

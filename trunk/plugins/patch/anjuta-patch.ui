@@ -1,0 +1,13 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<placeholder name="PlaceHolderToolMenus">
+		<menu name="MenuTools" action="ActionMenuTools">
+			<placeholder name="PlaceholderPatchMenus">			
+				<separator name="separator1"/>
+				<menuitem name="Patch" action="ActionToolsPatch" />
+			</placeholder>
+		</menu>
+		</placeholder>
+	</menubar>
+</ui>

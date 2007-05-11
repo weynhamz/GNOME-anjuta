@@ -1,0 +1,772 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+	<!ENTITY mdash  "&#38;#x2014;">
+  <!ENTITY legal SYSTEM "legal.xml">
+  <!ENTITY appversion "2.0.2">
+  <!ENTITY manrevision "0.2">
+  <!ENTITY date "April 2006">
+  <!ENTITY app "anjuta">
+]>
+
+<article class="faq" id="index"> <!-- please do not change the id -->
+ <!-- ============= Document Header ============================= -->
+ <articleinfo> 
+  <title>Anjuta FAQ</title>
+  <abstract role="description">
+  	<para>Frequently asked questions with Anjuta IDE</para>
+  </abstract>
+  
+  <author role="maintainer">
+		<firstname>Naba</firstname>
+		<surname>Kumar</surname>
+	</author>
+	<author>
+		<firstname>Andy</firstname>
+		<surname>Piper</surname>
+	</author>
+	<author>
+		<firstname>Biswapesh</firstname>
+		<surname>Chattopadhyayr</surname>
+	</author>
+	<author>
+		<firstname>Johannes</firstname>
+		<surname>Schmid</surname>
+	</author>
+  
+  <copyright>
+   <year>2001</year>
+   <holder>Andy Piper</holder>
+  </copyright>
+  <copyright>
+   <year>2002</year>
+   <holder>Biswapesh Chatopadhyay</holder>
+  </copyright>
+ <copyright>
+   <year>2006</year>
+   <holder>Johannes Schmid</holder>
+  </copyright>
+
+  <!-- translators: uncomment this:
+
+  <copyright>
+   <year>2000</year>
+   <holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+
+   -->
+
+  <!-- do not put authorname in the header except in copyright - use
+  section "authors" below -->
+
+  <legalnotice>
+   <para>
+    Permission is granted to copy, distribute and/or modify this
+    document under the terms of the <citetitle>GNU Free Documentation
+    License</citetitle>, Version 1.1 or any later version published
+    by the Free Software Foundation with no Invariant Sections, no
+    Front-Cover Texts, and no Back-Cover Texts. You may obtain a copy
+    of the <citetitle>GNU Free Documentation License</citetitle> from
+    the Free Software Foundation by visiting <ulink type="http"
+    url="http://www.fsf.org">their Web site</ulink> or by writing to:
+    Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA 02111-1307, USA.
+   </para>
+   <para>
+    Many of the names used by companies to distinguish their products and
+    services are claimed as trademarks. Where those names appear in any
+    GNOME documentation, and those trademarks are made aware to the members
+    of the GNOME Documentation Project, the names have been printed in caps
+    or initial caps.
+   </para>
+  </legalnotice>
+
+  <revhistory>
+		<revision>
+		  <revnumber>Anjuta FAQ 2.1.0</revnumber>
+		  <date>2007</date>
+		  <revdescription>
+			 <para role="author">Johannes Schmid<email>jhs@gnome.org</email>
+				</para>
+			 <para role="publisher">Anjuta Team</para>
+		  </revdescription>
+		</revision>
+	</revhistory>
+ </articleinfo>
+
+ 
+ <!-- ============= Document Body ============================= -->
+
+ <sect1 id="qanda">
+  <title>Anjuta FAQ</title>
+
+ <para>
+  This is a list of the most frequently asked questions for the
+  <application>Anjuta</application> C/C++ IDE. If you have got a question which
+  is not listed, feel free to contact the <application>Anjuta</application> developers 
+  via the mailing lists
+ </para>
+
+ <!-- Cut this out to add a new question and answer.
+   <qandaentry>
+    <question>
+     <para>
+     </para>
+    </question>
+    <answer>
+     <para>
+     </para>
+    </answer>
+   </qandaentry> 
+ -->
+
+  <qandaset>
+    <!-- ============= General Information =========== -->
+    <qandadiv>
+    <title>General Information</title>
+ 
+    <qandaentry>
+     <question>
+      <para>
+      What does the name <citetitle>Anjuta</citetitle> stand for? It does 
+      not look like one of those recursive names
+      </para>
+     </question>
+     <answer>
+      <para>
+      It stands for nothing. Naba Kumar started writing <application>Anjuta</application>, 
+      and named it after his girlfriend &mdash; this software is dedicated to her.
+      </para>
+      </answer>
+     </qandaentry>
+
+    <qandaentry>
+     <question>
+      <para>
+      Is here/will there ever be <citetitle>Anjuta</citetitle> for Windows ?
+      </para>
+     </question>
+     <answer>
+      <para>
+		No, unless GNOME itself is ported to Windows first. Anjuta depends a lot on features
+		provided by GNOME and UNIX.
+     </para>
+      </answer>
+     </qandaentry>
+
+    <qandaentry>
+     <question>
+      <para>
+      How about a GNOME2 version of <citetitle>Anjuta</citetitle> ?
+      </para>
+     </question>
+     <answer>
+      <para>
+	 Anjuta 1.2 and Anjuta 2.0 are GNOME2 software!
+     </para>
+      </answer>
+     </qandaentry>
+	</qandadiv>    
+
+    <!-- ============= Build =========== -->
+   <qandadiv>
+    <title>Building <application>Anjuta</application></title>
+ 
+   <qandaentry>
+    <question>
+     <para>
+     Where can I find the latest source for <application>Anjuta</application>? There is 
+     no CVS repository on the project page at SourceForge!
+     </para>
+    </question>
+    <answer>
+     <para>
+     That is because <application>Anjuta</application> is a GNOME application, and is 
+	 in <ulink type="http" url="http://cvs.gnome.org">GNOME CVS</ulink>. You can find 
+	 out more about how to obtain the CVS sources at the GNOME site, or at the 
+     <ulink type="http" url="http://anjuta.org/">project home page</ulink>.
+     </para>
+    </answer>
+   </qandaentry> 
+
+   <qandaentry>
+    <question>
+     <para>
+	I don't have CVS access - how do I access the latest Anjuta source ?
+     </para>
+    </question>
+    <answer>
+     <para>
+	Latest nightly tarballs of Anjuta are available 
+	<ulink type="http" url="http://anjuta.org/cvs/">here</ulink>.
+     </para>
+    </answer>
+   </qandaentry> 
+
+   <qandaentry>
+    <question>
+     <para>
+	There is no configure script in CVS version !
+     </para>
+    </question>
+    <answer>
+     <para>
+	You'll have to generate the configure script using the autogen.sh script that
+	is included with the distribution. Note that you will need compatible versions of
+	automake, autoconf and libtool.
+     </para>
+    </answer>
+   </qandaentry> 
+
+	<qandaentry>
+    <question>
+     <para>
+	How can I switch between the two editors with Anjuta >= 2.0.2?
+     </para>
+    </question>
+    <answer>
+     <para>
+	You can select the appropriate editor in Settings->Plugin Manager.
+     </para>
+    </answer>
+   </qandaentry> 
+
+    <qandaentry>
+     <question>
+      <para>
+      When I build the <application>Anjuta</application> source, I get compiler errors 
+	  for some missing header files / missing library / etc.
+      </para>
+     </question>
+     <answer>
+      <para>
+      The missing header files probably belong to the GNOME libraries. You may have 
+      an old version of the GNOME libraries. You should upgrade to a full GNOME 2.14
+	  installation. 
+      </para>
+      </answer>
+     </qandaentry>
+
+    <qandaentry>
+     <question>
+      <para>
+		I can't compile <application>Anjuta</application> - complains about missing
+		package. But I have the package RPMs installed.
+      </para>
+     </question>
+     <answer>
+      <para>
+		If you want to compile Anjuta from source tarballs/CVS, you'll need the devel
+		versions of the packages as well. For example, Anjuta requires gnome-print. So,
+		you'll need to install gnome-print as well as gnome-print-devel.
+      </para>
+      </answer>
+     </qandaentry>
+
+    <qandaentry>
+     <question>
+      <para>
+      When I try to build <application>Anjuta</application> from source, 
+	  <application>make</application> fails in the <filename class="directory">intl</filename> 
+	  directory.
+      </para>
+     </question>
+     <answer>
+      <para>
+      Look at the output from <application>configure</application>. There may be 
+	  errors like:
+	  <screen>
+      checking for xgettext... (cached) /usr/bin/xgettext
+      checking for catalogs to be installed...  es fr it ja pl ru sv tr uk
+      sed: can't read ./intl/po2tbl.sed.in: No such file or directory
+      creating ./config.status
+      creating Makefile
+      creating intl/Makefile
+      sed: can't read ./intl/Makefile.in: No such file or directory
+      creating po/Makefile.in
+      </screen>
+	  This means that the build failure is probably due to the infamous 
+	  <application>gettext</application> bug. This sometimes causes the files required 
+	  to build message translations to be destroyed (note: this is not an 
+	  <application>Anjuta</application> issue!). You should reinstall 
+	  <application>gettext</application> or use a working version. version 0.10.x
+	  if known to work well.
+      </para>
+      </answer>
+     </qandaentry>
+    </qandadiv>
+ 
+   <!-- ============= Installation =========== -->
+   <qandadiv>
+    <title>Installing <application>Anjuta</application></title>
+ 
+    <qandaentry>
+     <question>
+      <para>
+      Can I install <application>Anjuta</application> locally, in my home directory?
+      </para>
+     </question>
+     <answer>
+      <para>
+      It is best to do a system installation (as root) and not local installation. 
+      <application>Anjuta</application> depends on GNOME for supplying pixmaps, and 
+      the help system works with <application>gnome-help-browser</application> 
+      or <application>Nautilus</application>, none of which will be happy if you do a 
+      local installation.
+      </para>
+	  <para>
+	  Having said that, Anjuta mostly works fine from a local installtion and Anjuta
+	  hackers do it all the time. You might experience some problems with the Help
+	  entries, but that's about it. If you encounter such a problem (missing Help
+	  entries), install the stable version in the GNOME install prefix and then
+	  install the latest version in a local directory.
+	  </para>
+      </answer>
+     </qandaentry>
+
+    <qandaentry>
+     <question>
+      <para>
+		I get lots of jade errors while building documentation.
+      </para>
+     </question>
+     <answer>
+      <para>
+		You probably do not have updated Docbook stylesheets and/or OpenJade. You can ignore
+		the errors since Anjuta will install fine even if the documentation could not be built.
+	  </para>
+      </answer>
+     </qandaentry>
+
+    </qandadiv>    
+
+   <!-- ============= Getting Involved =========== -->
+   <qandadiv>
+    <title>Getting Involved with <application>Anjuta</application> development</title>
+ 
+    <qandaentry>
+     <question>
+      <para>
+		  Why doesn't Anjuta have my favourite XYZ feature ?
+      </para>
+     </question>
+     <answer>
+      <para>
+      Because you haven't added them ? This is free software. You are free to, even encouraged
+	  to take the source code and add the features you need. If you don't think yourself to
+	  be capable of doing that, file a request for enhancement or send a mail to the devel list.
+      </para>
+      </answer>
+     </qandaentry>
+
+	<qandaentry>
+    <question>
+     <para>
+		Why doesn't Anjuta compile/work on my favourite platform ?
+     </para>
+    </question>
+    <answer>
+     <para>
+		Because you haven't sent us patches/bug reports. Please send log messages and, if
+		possible, patches to anjuta-devel mailing list. You can also file it as a bug or
+		feature request.
+	</para>
+    </answer>
+   </qandaentry> 
+
+     <qandaentry>
+     <question>
+      <para>
+      Anjuta crashes/does strange things when I do this.
+      </para>
+     </question>
+     <answer>
+      <para>
+		File a <ulink url="http://bugzilla.gnome.org/browse.cgi?product=anjuta" type="http">bug report</ulink>.
+	  </para>
+      </answer>
+     </qandaentry>
+
+    <qandaentry>
+     <question>
+      <para>
+      I want to help to develop <application>Anjuta</application> &mdash; where can 
+	  I find out what tasks need to be done?
+      </para>
+     </question>
+     <answer>
+      <para>
+      Check the <ulink url="http://bugzilla.gnome.org/browse.cgi?product=anjuta" type="http">Product summary</ulink>
+	  at Bugzilla. There are always plenty of bugs and feature requests to pick up.
+	  It is a good idea to join the anjuta-devel mailing list (anjuta-devel@list.sf.net) first, though. Start small
+	  and then gradually tackle bigger and bigger thngs.
+      </para>
+      </answer>
+     </qandaentry>
+
+    <qandaentry>
+     <question>
+      <para>
+      I want to add XYZ feature/new language to the editor.
+      </para>
+     </question>
+     <answer>
+      <para>
+      If you want to improve Anjuta's editor, it is better to hack on
+	  <ulink url="http://www.scintilla.org/" type="http">Scintilla</ulink> instead.
+	  Anjuta simply uses the Scintilla editor widget with some minor changes.
+
+		Since Anjuta 2.0.2 we also use the <ulink url="http://gtksourceview.sf.net" type="http">GtkSourceView</ulink>
+		editor.  This is the same library gedit is based on!
+      </para>
+      </answer>
+     </qandaentry>
+
+    <qandaentry>
+     <question>
+      <para>
+      I am a hacker - should I start with Anjuta or Anjuta2 ?
+      </para>
+     </question>
+     <answer>
+      <para>
+		Start with Anjuta2. You will need a full GNOME2 installation. Asking quesitons
+		on anjuta-devel list is a good way to start. Anjuta2 has improved a lot in the last months
+		and is in beta stage now.
+	  </para>
+      </answer>
+     </qandaentry>
+
+    <qandaentry>
+     <question>
+      <para>
+      I have added this cool feature to my copy of Anjuta - where do I send a patch ?
+      </para>
+     </question>
+     <answer>
+      <para>
+		Send it to the developer's mailing list. It is a good idea to subscribe to the
+		develeper's mailing list if you plan to do some hacking. You can find links
+		<ulink url="http://sf.net/projects/anjuta/" type="http">here</ulink>.
+	  </para>
+      </answer>
+     </qandaentry>
+
+
+	</qandadiv>
+
+   <!-- ============= Using Anjuta =========== -->
+   <qandadiv>
+    <title>Using <application>Anjuta</application></title>
+
+   <qandaentry>
+    <question>
+     <para>
+		 What is the correct way of including the GTk header files in my applications ?
+     </para>
+    </question>
+    <answer>
+     <para>
+		It depends on the GTK verion you are using. If you are using GTK 1.x, you should add
+		the output of 'gtk-config --cflags' to your compiler flags. If you are using GTK 2.x,
+		you'll need to use the command 'pkg-config --cflags gtk-2.0' instead.
+     </para>
+    </answer>
+   </qandaentry> 
+
+   <qandaentry>
+    <question>
+     <para>
+		I want to organize my code into multiple directories.
+     </para>
+    </question>
+    <answer>
+     <para>
+		This is one of the cool features of Anjuta 2 and a really good reason to update!
+     </para>
+    </answer>
+   </qandaentry> 
+
+   <qandaentry>
+    <question>
+     <para>
+		Anjuta crashes during printing/preview.
+     </para>
+    </question>
+    <answer>
+     <para>
+		There are known issues with gnome-print. please upgrade gnome-print to the
+		latest version.
+     </para>
+    </answer>
+   </qandaentry> 
+
+   <qandaentry>
+    <question>
+     <para>
+		How do I copy/print messages that appear during build ?
+     </para>
+    </question>
+    <answer>
+     <para>
+		Right-click in the message pane ->Save messages!
+     </para>
+    </answer>
+   </qandaentry> 
+
+   <qandaentry>
+    <question>
+     <para>
+		What flag do I specify if I want to link my project to libxxx.a or libxxx.so ?
+     </para>
+    </question>
+    <answer>
+     <para>
+		In general, to link against any external library which has a name lib[name].a or
+		lib[name].so, you need to add '-l[name]' to linker flags. 
+     </para>
+    </answer>
+   </qandaentry> 
+
+	<qandaentry>
+    <question>
+     <para>
+		What does this error message COLLECT 2: LD RETURN / EXIT STATES mean?
+     </para>
+    </question>
+    <answer>
+     <para>
+		This means that the linker failed. This usualay happens when you do not
+		link your application with the necessary libaries or object files.
+     </para>
+    </answer>
+   </qandaentry> 
+   
+	<qandaentry>
+    <question>
+     <para>
+		I cannot use names like 'my-project' for project names.
+     </para>
+    </question>
+    <answer>
+     <para>
+	You can only use alphabets, numbers and the underscore character in project names.
+	</para>
+    </answer>
+   </qandaentry> 
+
+	<qandaentry>
+    <question>
+     <para>
+		How do I add multiple files at once to my project or open multiple
+		files at once? Adding/opening single file repeatedly is very tedious.
+     </para>
+    </question>
+    <answer>
+     <para>
+	 Press <emphasis>CTRL</emphasis> in the fileselector and it will enter
+	 multiple select mode. You can then select all the files to add and
+	 press OK. Ditto for opening files.
+	</para>
+    </answer>
+   </qandaentry>
+   
+	<qandaentry>
+    <question>
+     <para>
+		How do I define another projects directory other than the default
+		"~/Projects"?
+     </para>
+    </question>
+    <answer>
+     <para>
+	 In <menuchoice><guimenu>Settings</guimenu><guisubmenu>Preferences</guisubmenu>
+	 <guimenuitem>General</guimenuitem></menuchoice>, you should be able to change the
+	 default projects directory.
+	</para>
+    </answer>
+   </qandaentry> 
+
+	<qandaentry>
+    <question>
+     <para>
+		How do I change shortcuts for common commands ?
+     </para>
+    </question>
+    <answer>
+     <para>
+		Use Settings->Customize shortcuts.
+	</para>
+    </answer>
+   </qandaentry> 
+
+	<qandaentry>
+    <question>
+     <para>
+	 I cannot use a standard shortcut with Anjuta. All shortcuts seem to be
+	 messed up !
+     </para>
+    </question>
+    <answer>
+     <para>
+	 Exit from Anjuta, delete $HOME/.gnome/accels/anjuta and restart. This will
+	 restore the shortcut to the (sane) default values.
+	</para>
+    </answer>
+   </qandaentry>
+
+	<qandaentry>
+    <question>
+     <para>
+		Why don't you add file manipulation commands on the file pane like 'Rename', 'Delete', etc. ?
+     </para>
+    </question>
+    <answer>
+     <para>
+		Because we feel that these commands are better off being in your file manager and not in
+		the IDE. However, you can always try and convince us otherwise ;-)
+	</para>
+    </answer>
+   </qandaentry> 
+   
+	<qandaentry>
+    <question>
+     <para>
+		Project wizards do not work on RH8.
+     </para>
+    </question>
+    <answer>
+     <para>
+		This might be a configuration or package version problem. Please send detailed bug reports
+		to the devel mailing list or file a bug report.
+	</para>
+    </answer>
+   </qandaentry>
+
+	<qandaentry>
+    <question>
+     <para>
+		Context help does not work/is disabled.
+     </para>
+    </question>
+    <answer>
+     <para>
+		You probably do not have Devhelp installed. please install
+		<ulink url="http://developer.imendio.com/wiki/Devhelp" type="http">DevHelp</ulink>.
+	</para>
+    </answer>
+   </qandaentry>
+
+	<qandaentry>
+    <question>
+     <para>
+		I can't stop the debuger/debugger hangs.
+     </para>
+    </question>
+    <answer>
+     <para>
+		You are probably trying to debug a multi-theaded program on Linux. This is a known issue.
+	</para>
+    </answer>
+   </qandaentry>
+
+	<qandaentry>
+    <question>
+     <para>
+		Find in files/Show Usage do not work properly.
+     </para>
+    </question>
+    <answer>
+     <para>
+		You probably do not have GNU grep installed. GNU grep is required for the Find functionality
+		to work corectly. Please install <ulink url="ftp://ftp.gnu.org/" type="http">GNU Grep</ulink>.
+	</para>
+     <para>
+	   Note that it is quite easy to customize your own grep command by adding a
+	   new tool using the Tools Editor.
+	</para>
+    </answer>
+   </qandaentry>
+
+	<qandaentry>
+    <question>
+     <para>
+		The project/messages panes keep shrinking back to zero size ?
+     </para>
+    </question>
+    <answer>
+     <para>
+		This is a known problem with Xenophilia based themes when the window manager is not set
+		to remember all window positions automatically. See if changing the GTK theme works.
+	</para>
+    </answer>
+   </qandaentry>
+
+	<qandaentry>
+    <question>
+     <para>
+		I already have a project tree. How do I use Anjuta ?
+    </para>
+    </question>
+    <answer>
+     <para>
+		If your project is autoconf/automake based, simply run File->New->Project from existing sources
+		to import your project.
+	</para>
+    </answer>
+   </qandaentry>
+
+	<qandaentry>
+    <question>
+     <para>
+		I hate the editor fonts/colors/XYZ feature. How do I have better control
+		of editor preferences ?
+    </para>
+    </question>
+    <answer>
+     <para>
+		Go to Settings->Preferences. You can find most of the editor preferences
+		unset the 'Styles' and 'Editor' tabs. However, not all preferences are
+		available through the GUI. If you want more control over the editor, open
+		$HOME/.anjuta/session.properties, $HOME/.anjuta/user.properties and
+		$prefix/share/anjuta/properties/anjuta.properties and edit them by
+		hand. Make sure that Anjuta if not running when you do this, however !
+	</para>
+    </answer>
+   </qandaentry>
+
+	<qandaentry>
+    <question>
+     <para>
+		Should I use Anjuta 1.2 or Anjuta 2 ?
+    </para>
+    </question>
+    <answer>
+    <para>Definitly use Anjuta 2 because it has more features, has become quite stable and is blending-edge ;-)</para>
+    </answer>
+   </qandaentry>
+
+	</qandadiv>
+</qandaset>
+ <!-- ============= Authors ================================ -->
+
+  <para>
+   This FAQ was compiled by Andy Piper(<email>andy.piper@freeuk.com</email>)
+   ,Biswapesh Chatopadhyay (<email>biswapesh_chatterjee@tcscal.co.in</email>)
+	and Johannes Schmid (<email>johannes.schmid@gmx.de</email>)
+   Please send all comments and suggestions regarding the FAQ to the authors.
+    For more information on <application>Anjuta</application> or the
+    <application>Anjuta</application> mailing lists, please visit the
+    <ulink url="http://anjuta.org/" type="http">Anjuta Home Page</ulink>.
+   </para>
+
+   <!-- For translations: uncomment this:
+   <para>
+    Latin translation was done by ME
+    (<email>MYNAME@MYADDRESS</email>). Please send all  comments  and
+    suggestions regarding this translation to SOMEWHERE.
+   </para>
+   -->
+
+ </sect1>
+</article>

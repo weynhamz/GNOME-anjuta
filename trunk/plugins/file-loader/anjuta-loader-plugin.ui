@@ -1,0 +1,36 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuFile" action="ActionMenuFile">
+			<placeholder name="PlaceholderFileMenus">
+				<menuitem name="New" action="ActionFileNew" />
+				<menuitem name="Wizard" action="ActionFileWizard" />
+				<menuitem name="Open" action="ActionFileOpen" />
+				<menuitem name="OpenRecent" action="ActionFileOpenRecent" />
+				<separator/>
+			</placeholder>
+		</menu>
+	</menubar>
+	<popup name="PopupFileManager">
+		<placeholder name="PlaceholderPopupFileOpen">
+			<menuitem name="Open" action="ActionPopupOpen"/>
+			<menuitem name="OpenWith" action="ActionPopupOpenWith"/>
+			<separator/>
+		</placeholder>
+	</popup>
+	<popup name="PopupProjectManager">
+		<placeholder name="PlaceholderPopupProjectOpen">
+			<menuitem name="Open" action="ActionPopupPMOpen"/>
+			<menuitem name="OpenWith" action="ActionPopupPMOpenWith"/>
+			<separator/>
+		</placeholder>
+	</popup>
+	<toolbar name="ToolbarMain">
+		<placeholder name="PlaceholderFileToolbar">
+			<toolitem name="New" action="ActionFileNew" />
+			<toolitem name="Wizard" action="ActionFileWizard" />
+			<toolitem name="Open" action="ActionFileOpen" />
+			<toolitem name="OpenRecent" action="ActionFileOpenRecent"/>
+		</placeholder>
+	</toolbar>
+</ui>

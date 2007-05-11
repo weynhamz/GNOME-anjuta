@@ -1,0 +1,7 @@
+Makefile
+Makefile.in
+.nautilus-metafile.xml
+index.html
+anjuta-tutorial
+omf_timestamp
+*.omf.out

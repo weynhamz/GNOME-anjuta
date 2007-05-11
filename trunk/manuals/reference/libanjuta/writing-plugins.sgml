@@ -1,0 +1,452 @@
+<chapter id="writing-plugins">
+	<title>Writing plugins</title>
+	<para>
+		Before writing any Anjuta plugin, please read
+		<xref linkend="anjuta-architecture"/>
+		to get a picture of how plugins interact with Anjuta shell and other
+		plugins. Only a general overview is necessary for now. Eventually, as
+		we procceed through this article, you can visit respective sections
+		to read more.
+		This is a tutorial style article and is never meant to be a cover-all
+		document. You should read other relevent documents linked at respective
+		places throughout this document to know further.
+	</para>
+	<para>
+		We are going to write the legacy <emphasis>Hello World</emphasis> plugin.
+		It really doesn't do anything other than displaying hello world. We
+		will then continue with an advanced version of this plugin.
+		Unlike the basic Hello world plugin, this advanced version
+		will have much more. In addition to having
+		a widget where <emphasis>Hello World</emphasis> is displayed, it will also
+		have a menu enty (UI) to display a dialog, implement a
+		<link linkend="IAnjutaFile"><type>IAnjutaFile</type></link> interface
+		and access other plugins using their interfaces.
+	</para>
+	<sect1 id="writing-plugins-description">
+		<title>Hello world plugin description, icon and UI files</title>
+		<para>
+			We first begin by creating three helper files for our plugin. The
+			first file is called <xref linkend="plugin-description-file">Plugin
+			description file</xref>. This file describes our plugin to Anjuta
+			plugin loader. Various plugin meta information are store in this
+			file, including its name and description. Before a plugin is loaded
+			into memory, Anjuta will examine this file and accordingly decide to
+			load it when required.
+			<programlisting>
+[Anjuta Plugin]
+_Name=Hellow
+_Description=An example hello world plugin.
+Location=anjuta-hello-world:HelloWorldPlugin
+Icon=anjuta-hello-world-plugin.png
+			</programlisting>
+			The first two fields are name and description field. They start
+			with '_', because the fields are translatable. Location field
+			tells where the plugin class is located. It is of the form
+			library:class, where library is the shared library name without
+			the 'lib' prefix and '.so' suffix. <emphasis>class</emphasis> is
+			the plugin class we define. Our plugin library is
+			libanjuta-hello-world.so, so the plugin location would be
+			<emphasis>anjuta-hello-world:HelloWorldPlugin</emphasis>.
+			More details in	<xref linkend="plugin-description-file"/>.
+			Next field 'Icon', gives the name of icon file for our
+			hello world plugin.
+		</para>
+		<para>
+			Next file is the XML UI definition file. This file describes the UI
+			structure of our plugin and how it should be connected to our action
+			functions. More details in
+			<link linkend="AnjutaUI"><type>AnjutaUI</type></link>. The first
+			hello world plugin doesn't use this file, but the second advanced
+			one uses it.
+			<programlisting>
+&lt;!--*- xml -*--&gt;
+&lt;ui&gt;
+  &lt;menubar name="MenuMain"&gt;
+    &lt;menu name="MenuFile" action="ActionMenuFile"&gt;
+      &lt;placeholder name="PlaceholderFileMenus"&gt;
+        &lt;menuitem name="HelloWorldAction" action="ActionFileHelloWorld" /&gt;
+      &lt;/placeholder&gt;
+    &lt;/menu&gt;
+  &lt;/menubar&gt;
+&lt;/ui&gt;
+			</programlisting>			
+		</para>
+		<para>
+			The last file is the icon file in PNG format. All these three files
+			are installed in different places. The prefix of their installation
+			should match with that of Anjuta, otherwise Anjuta will not be able
+			to find our plugin. See <xref linkend="writing-plugins-build-setup">Build
+			setup</xref> for installation of these files.
+		</para>
+	</sect1>
+	<sect1 id="writing-plugins-simple">
+		<title>Hello world plugin</title>
+		<para>
+			This plugin does nothing other then displaying "Hello World Plugin!!"
+			widget. The widget is added to Shell and appear as separate window.
+			You can drag the widget and dock it various ways. This section is
+			meant to give a quick look at how plugins are derived from
+			<link linkend="AnjutaPlugin"><type>AnjutaPlugin</type></link>
+			base class. Most of the things will be explained in
+			<xref linkend="writing-plugins-sources">Hello World Advanced plugin
+			</xref>. First the plugin
+			class is derived from the abstract class and two virtual methods
+			activate() and deactivate() are implemented. In activate() method,
+			we are create a label and add it to shell. Consequently, we also
+			remove this widget in deactivate() call.
+			<programlisting>
+#include &lt;libanjuta/anjuta-plugin.h&gt;
+
+typedef struct {
+	AnjutaPlugin parent;
+	
+	/* Hello world widget */
+	GtkWidget *widget;
+	
+} HelloWorldPlugin;
+
+typedef struct {
+	AnjutaPluginClass parent_class;
+} HelloWorldPluginClass;
+
+static void
+activate_plugin (AnjutaPlugin *plugin)
+{
+	HelloWorldPlugin *hello_plugin = (HelloWorldPlugin*) plugin;
+	
+	/* Create hello plugin widget */
+	hello_plugin->widget = gtk_label_new ("Hello World Plugin!!");
+	
+	/* Add widget in Shell. Any number of widgets can be added */
+	anjuta_shell_add_widget (plugin->shell, hello_plugin->widget,
+	                         "AnjutaHelloWorldPlugin",
+	                         _("Hello world plugin"), NULL);
+	
+	return TRUE; /* FALSE if activation failed */
+}
+
+static gboolean
+deactivate_plugin (AnjutaPlugin *plugin)
+{
+	HelloWorldPlugin *hello_plugin;
+	
+	/* Remove widgets from Shell */
+	anjuta_shell_remove_widget (plugin->shell, hello_plugin->widget, NULL);
+	
+	return TRUE; /* FALSE if plugin doesn't want to deactivate */
+}
+
+static void
+hello_world_plugin_instance_init (GObject *obj)
+{
+}
+
+static void
+hello_world_plugin_class_init (GObjectClass *klass) 
+{
+	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
+	plugin_class->activate = activate_plugin;
+	plugin_class->deactivate = deactivate_plugin;
+}
+
+ANJUTA_PLUGIN_BOILERPLATE (HelloWorldPlugin, hello_world_plugin);
+ANJUTA_SIMPLE_PLUGIN (HelloWorldPlugin, hello_world_plugin);
+			</programlisting>
+		</para>
+	</sect1>
+	<sect1 id="writing-plugins-sources">
+		<title>Hello world advanced plugin</title>
+		<para>
+			We begin by writing the header file hello-world.h. It is a
+			standard <link linkend-="GObject"><type>GObject</type></link>
+			class definition, minus
+			the standard macro definitions. You can define the macros if
+			you want, but for our hello-world plugin, we don't need it and
+			have been removed for simplicity. Notice that our HelloWorldPlugin
+			class is derived from abstract <link linkend-="AnjutaPlugin">
+			<type>AnjutaPlugin</type></link>
+			class. All Anjuta plugins derive from this base class.
+
+			<programlisting>
+#ifndef _HELLO_WORLD_PLUGIN_
+#define _HELLO_WORLD_PLUGIN_
+
+#include &lt;libanjuta/anjuta-plugin.h&gt;
+
+typedef struct {
+	AnjutaPlugin parent;
+	
+	/* Hello world widget */
+	GtkWidget *widget;
+	
+	/* Action group */
+	GObject* action_group;
+	
+	/* UI merge ID. Required to unmerge it later */
+	gint uiid;
+	
+} HelloWorldPlugin;
+
+typedef struct {
+	AnjutaPluginClass parent_class;
+} HelloWorldPluginClass;
+
+#endif
+			</programlisting>
+		</para>
+		<para>
+			Next implement our plugin in hello-world.c file. We
+			will be accessing a Document Manager plugin using
+			<link linkend="IAnjutaDocumentManager"><type>IAnjutaDocumentManager</type></link>
+			interface, because
+			all document manager plugins implement and expose this interface.
+			If you use other interfaces, you can include their respective
+			<xref linkend="plugin-interfaces"/>. For our hello-world plugin
+			we begin by including following header files.
+			<programlisting>
+/* Project configuration file */
+#include &lt;config.h&gt;
+
+/* Document manager interface */
+#include &lt;libanjuta/interfaces/ianjuta-document-manager.h&gt;
+
+/* plugin header file */
+#include "hello-world.h"
+
+/* Parent class. Part of standard class definition */
+gpointer parent_class;
+			</programlisting>
+		</para>
+		<para>
+			We have one action in our plugin and here is the callback for that.
+			In this function, we are quering
+			<link linkend="AnjutaShell"><type>AnjutaShell</type></link>
+			for a plugin implementing
+			<link linkend="IAnjutaDocumentManager"><type>IAnjutaDocumentManager</type></link>
+			interface and getting the current Editor. Editor is then checked
+			to see if it implements
+			<link linkend="IAnjutaFile"><type>IAnjutaFile</type></link>
+			interface,
+			using which we deternime filename of currently active editor. If
+			the editor doesn't support
+			<link linkend="IAnjutaFile"><type>IAnjutaFile</type></link>
+			interface, we show an error dialog.
+			<programlisting>
+static void
+on_hello_action_activate (GtkAction *action, HelloWorldPlugin *plugin)
+{
+	IAnjutaFile *file;
+	IAnjutaEditor *editor;
+	IAnjutaDocumentManager *docman;
+	GtkWindow *parent_win;
+	
+	/* We are using Anjuta widow as parent for displaying the dialog */
+	parent_win = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
+	
+	/* Query for object implementing IAnjutaDocumentManager interface */
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+	                                     IAnjutaDocumentManager, NULL);
+	
+	/* Get current editor */
+	editor = ianjuta_document_manager_get_current_editor (docman, NULL);
+	
+	/* Check if IAnjutaFile is implemented by the editor */
+	if (IANJUTA_IS_FILE(editor)
+	{
+		/* Editor implements IAnjutaFile interface */
+		gchar *filename = ianjuta_file_get_filename (IANJUTA_FILE(editor));
+		
+		/* Display the filename */
+		anjuta_util_dialog_info (parent_win,
+		                         "Current filename is: %s", filename);
+		g_free (filename);
+	}
+	else
+	{
+		/* Editor doesn't support IAnjutaFile interface */
+		/* Display the filename */
+		anjuta_util_dialog_error (parent_win,
+		                          "Editor doesn't support IAnjutaFile Interface");
+	}
+}
+			</programlisting>
+		</para>
+		<para>
+			We then define our action entry. This is required for registering
+			actions and UI merging. If your plugin doesn't have UI, they are
+			not required. We have only one action, so there is only one entry
+			defined. Read <link linkend="AnjutaUI"><type>AnjutaUI</type></link>
+			and <link linkend="GtkUIManager"><type>GtkUIManager</type></link>
+			for more details.
+			<programlisting>
+static GtkActionEntry actions = {
+	{
+		"ActionFileHelloWorld",                   /* Action name */
+		GTK_STOCK_NEW,                            /* Stock icon, if any */
+		N_("_Hello world action"),                /* Display label */
+		NULL,                                     /* short-cut */
+		N_("This is hello world action"),         /* Tooltip */
+		G_CALLBACK (on_hello_action_activate)    /* action callback */
+	}
+};
+			</programlisting>
+		</para>
+		<para>
+			We then implement <emphasis>activate()</emphasis> and <emphasis>
+			deactivate()</emphasis> virtual methods of <link linkend="AnjutaPlugin">
+			<type>AnjutaPlugin</type></link>
+			class. They are called when plugin is activated and deactivated
+			respectively. We put our UI merging, action registration and
+			widgets additions in activate() method and undo them in deactivate()
+			method.
+			<programlisting>
+#define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-hello-world.ui"
+
+static void
+activate_plugin (AnjutaPlugin *plugin)
+{
+	GtkWidget *wid;
+	AnjutaUI *ui;
+	HelloWorldPlugin *hello_plugin;
+	GtkActionGroup* action_group;
+	
+	hello_plugin = (HelloWorldPlugin*) plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	/* Create hello plugin widget */
+	wid = gtk_label_new ("Hello World Plugin!!");
+	hello_plugin->widget = wid;
+	
+	/* Add our actions */
+	action_group =
+	    anjuta_ui_add_action_group_entries (ui, "ActionGroupHello",
+	                                        _("Hello world"),
+	                                        actions,
+	                                        G_N_ELEMENTS (actions),
+	                                        plugin);
+	hello_plugin->action_group = action_group;
+	
+	/* Merge UI */
+	hello_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
+	
+	/* Add widget in Shell. Any number of widgets can be added */
+	anjuta_shell_add_widget (plugin->shell, wid,
+	                         "AnjutaHelloWorldPlugin",
+	                         _("HelloWorldPlugin"), NULL);
+	
+	return TRUE; /* FALSE if activation failed */
+}
+
+static gboolean
+deactivate_plugin (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	HelloWorldPlugin *hello_plugin;
+	
+	hello_plugin = (HelloWorldPlugin*) plugin;
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	/* Remove widgets from Shell */
+	anjuta_shell_remove_widget (plugin->shell,
+	                            hello_plugin->widget,
+	                            NULL);
+	/* Unmerge UI */
+	anjuta_ui_unmerge (ui, hello_plugin->uiid);
+	
+	/* Remove Action groups */
+	anjuta_ui_remove_action_groups (ui, hello_plugin->action_group);
+	
+	/* FALSE if plugin doesn't want to deactivate */
+	return TRUE;
+}
+			</programlisting>
+		</para>
+		<para>
+			Followed by standard class definition. Notice that activate()
+			and deactivate() methods are overridden in class_init() function.
+			<programlisting>
+static void
+hello_world_plugin_instance_init (GObject *obj)
+{
+	HelloWorldPlugin *plugin = (HelloWorldPlugin*) obj;
+	plugin->uiid = 0;
+	plugin->widget = NULL;
+	plugin->action_group = NULL;
+}
+
+static void
+hello_world_plugin_class_init (GObjectClass *klass) 
+{
+	AnjutaPluginClass *plugin_class = ANJUTA_PLUGIN_CLASS (klass);
+
+	parent_class = g_type_class_peek_parent (klass);
+
+	plugin_class->activate = activate_plugin;
+	plugin_class->deactivate = deactivate_plugin;
+}
+
+/* This line will change when we implement interfaces */
+ANJUTA_PLUGIN_BOILERPLATE (HelloWorldPlugin, hello_world_plugin);
+
+/* This sets up codes to register our plugin */
+ANJUTA_SIMPLE_PLUGIN (HelloWorldPlugin, hello_world_plugin);
+			</programlisting>
+			That's it. We can now create the build structure to build it.
+		</para>
+	</sect1>
+	<sect1 id="writing-plugins-build-setup">
+		<title>Build setup</title>
+		<para>
+			To check for libanjuta library and setup compiler flags, add the
+			following lines in your projects's configure.in file:
+			<programlisting>
+PKG_CONFIG_PACKAGE(LIBANJUTA, libanjuta >= 2.0)
+AC_SUBST(LIBANJUTA_CFLAGS)
+AC_SUBST(LIBANJUTA_LIBS)
+			</programlisting>
+			Configure variables LIBANJUTA_CFLAGS and LIBANJUTA_LIBS will contain
+			the necessary compiler flags and libraries to include and are
+			available to be used in your Makefile.am file. In your Makefile.am
+			(of the directory where your plugin sources reside), use 
+			above configure variables.
+		</para>
+		<para>
+			Add the following lines in Makefile.am to install the UI file
+			correctly. If you plugin doesn't have a UI, this could be skipped.
+			<programlisting>
+# Plugin UI file
+anjuta_uidir = $(datadir)/anjuta/ui
+anjuta_ui_DATA =  anjuta-hello.ui
+			</programlisting>
+			Following lines to install the icon file.
+			<programlisting>
+# Plugin Icon file
+plugin_icondir = $(datadir)/pixmaps/anjuta
+plugin_icon_DATA = anjuta-hello-plugin.png
+			</programlisting>
+			Following lines to install the plugin description file. This make
+			rule will automatically merge translations and create .plugin file
+			from .plugin.in file.
+			<programlisting>
+# Plugin description file
+plugin_in_files = anjuta-hello.plugin.in
+%.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; \
+	$(INTLTOOL_MERGE) $(top_srcdir)/po $&lt; $@ -d -u \
+		-c $(top_builddir)/po/.intltool-merge-cache
+anjuta_plugindir = $(libdir)/anjuta
+anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
+			</programlisting>
+			Add following lines to build and install our plugin shared
+			library. Notice that we are using libanjuta configure variables
+			now.
+			<programlisting>
+INCLUDES = $(LIBANJUTA_CFLAGS)
+plugin_LTLIBRARIES = libanjuta-hello.la
+libanjuta_hello_SOURCES = \
+	hello-world.c \
+	hello-world.h
+libanjuta_hello_LIADD = $(LIBANJUTA_LIBS)
+			</programlisting>
+		</para>
+	</sect1>
+</chapter>

@@ -1,0 +1,1223 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.59)
+
+m4_define(anjuta_major_version,  2)
+m4_define(anjuta_minor_version, 1)
+m4_define(anjuta_micro_version,  3)
+m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version)
+
+AC_INIT(anjuta, anjuta_version, http://bugzilla.gnome.org/enter_bug.cgi?product=anjuta)
+AC_CONFIG_SRCDIR(src/main.c)
+
+AC_DEFINE(ANJUTA_MAJOR_VERSION, anjuta_major_version, [Anjuta major version])
+AC_SUBST(ANJUTA_MAJOR_VERSION, anjuta_major_version)
+AC_DEFINE(ANJUTA_MINOR_VERSION, anjuta_minor_version, [Anjuta minor version])
+AC_SUBST(ANJUTA_MINOR_VERSION, anjuta_minor_version)
+AC_DEFINE(ANJUTA_MICRO_VERSION, anjuta_micro_version, [Anjuta micro version])
+AC_SUBST(ANJUTA_MICRO_VERSION, anjuta_micro_version)
+AC_DEFINE(ANJUTA_VERSION, anjuta_version, [Anjuta version])
+AC_SUBST(ANJUTA_VERSION)
+
+GLIB_REQUIRED=2.8.0
+GOBJECT_REQUIRED=2.8.0
+GMODULE_REQUIRED=2.8.0
+GTHREAD_REQUIRED=2.8.0
+GDK_PIXBUF_REQUIRED=2.0.0
+GTK_REQUIRED=2.8.0
+ORBIT_REQUIRED=2.6.0
+LIBGLADE_REQUIRED=2.3.0
+GNOME_REQUIRED=2.12.0
+GNOME_CANVAS_REQUIRED=2.12.0
+GNOME_UI_REQUIRED=2.12.0
+GNOME_PRINT_REQUIRED=2.12.0
+GNOME_PRINT_UI_REQUIRED=2.12.0
+GNOME_VFS_REQUIRED=2.10.0
+GCONF_REQUIRED=2.12.0
+VTE_REQUIRED=0.9.0
+VTE_NEW_REQUIRED=0.13.1
+LIBXML_REQUIRED=2.4.23
+PANGO_REQUIRED=1.1.1
+PCRE_REQUIRED=3.9
+LIBDEVHELP_REQUIRED=0.13
+GDL_REQUIRED=0.7.3
+GNOMEBUILD_REQUIRED=0.1.4
+GLADEUI_REQUIRED=3.0.2
+LIBGRAPHVIZ_REQUIRED=1.0
+NEON_REQUIRED=0.24.5
+SUBVERSION_REQUIRED=1.0.2
+GTKSOURCEVIEW_REQUIRED=1.4.0
+GTKSOURCEVIEW_GNOME_REQUIRED=2.14
+GTKSOURCEVIEW_GTK_REQUIRED=2.10
+BINUTILS_REQUIRED=2.15.92
+LIBWNCK_REQUIRED=2.12
+
+dnl LIBGTODO_REQUIRED=0.15
+
+AC_SUBST(GLIB_REQUIRED)
+AC_SUBST(GOBJECT_REQUIRED)
+AC_SUBST(GMODULE_REQUIRED)
+AC_SUBST(GDK_PIXBUF_REQUIRED)
+AC_SUBST(GTK_REQUIRED)
+AC_SUBST(ORBIT_REQUIRED)
+AC_SUBST(LIBGLADE_REQUIRED)
+AC_SUBST(GNOME_REQUIRED)
+AC_SUBST(GNOME_CANVAS_REQUIRED)
+AC_SUBST(GNOME_UI_REQUIRED)
+AC_SUBST(GNOME_PRINT_REQUIRED)
+AC_SUBST(GNOME_PRINT_UI_REQUIRED)
+AC_SUBST(GNOME_VFS_REQUIRED)
+AC_SUBST(GCONF_REQUIRED)
+AC_SUBST(VTE_REQUIRED)
+AC_SUBST(LIBXML_REQUIRED)
+AC_SUBST(PANGO_REQUIRED)
+AC_SUBST(VTE_NEW_REQUIRED)
+AC_SUBST(PCRE_REQUIRED)
+AC_SUBST(LIBDEVHELP_REQUIRED)
+AC_SUBST(GDL_REQUIRED)
+AC_SUBST(GNOMEBUILD_REQUIRED)
+AC_SUBST(GLADEUI_REQUIRED)
+AC_SUBST(GLADEUI_SVN_REQUIRED)
+AC_SUBST(LIBGRAPHVIZ_REQUIRED)
+AC_SUBST(NEON_REQUIRED)
+AC_SUBST(SUBVERSION_REQUIRED)
+AC_SUBST(GTKSOURCEVIEW_REQUIRED)
+AC_SUBST(GTKSOURCEVIEW_GNOME_REQUIRED)
+AC_SUBST(GTKSOURCEVIEW_GTK_REQUIRED)
+AC_SUBST(BINUTILS_REQUIRED)
+AC_SUBST(LIBWNCK_REQUIRED)
+
+dnl AC_SUBST(LIBGTODO_REQUIRED)
+
+AM_INIT_AUTOMAKE([1.9 dist-bzip2 no-dist-gzip])
+AC_CONFIG_HEADERS(config.h)
+AC_DISABLE_STATIC
+AM_MAINTAINER_MODE
+GNOME_DOC_INIT
+
+CFLAGS_WARNINGS="-Wall -Wmissing-prototypes -Wmissing-declarations -Wparentheses -Wpointer-arith"
+WCXXFLAGS_WARNINGS="-Wall -Wparentheses -Wpointer-arith"
+
+if test "x$GCC" = x; then
+    CFLAGS_WARNINGS=""
+    CXXFLAGS_WARNINGS=""
+fi
+
+AM_CFLAGS="$AM_CFLAGS $CFLAGS_WARNINGS"
+AM_CXXFLAGS="$AM_CXXFLAGS $CXXFLAGS_WARNINGS"
+
+dnl Enable debugging mode
+AC_ARG_ENABLE(debug,
+  [  --enable-debug           Enable debug messages],
+  AM_CFLAGS="$AM_CFLAGS -DDEBUG"
+  AM_CXXFLAGS="$AM_CXXFLAGS -DDEBUG")
+AC_SUBST(AM_CFLAGS)
+AC_SUBST(AM_CXXFLAGS)
+
+ANJUTA_LDFLAGS="-no-undefined"
+ANJUTA_PLUGIN_LDFLAGS="-module -avoid-version -no-undefined"
+AC_SUBST(ANJUTA_LDFLAG)
+AC_SUBST(ANJUTA_PLUGIN_LDFLAGS)
+
+dnl Disable deprecated APIs
+AC_ARG_ENABLE(deprecated,
+  [  --disable-deprecated     Disable deprecated APIs],
+  [ if test "$enableval" = "no"; then
+    DEPRECATED_FLAGS="-DG_DISABLE_DEPRECATED -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGNOME_DISABLE_DEPRECATED -DBONOBO_DISABLE_DEPRECATED -DBONOBO_UI_DISABLE_DEPRECATED"
+  fi ],
+ [ DEPRECATED_FLAGS="" ])
+AC_SUBST(DEPRECATED_FLAGS)
+
+dnl Enable versioned user preferences directory
+AC_ARG_WITH(pref-suffix,
+  [  --with-pref-suffix=VALUE Suffix to add to user preferences dir.],
+  PREF_SUFFIX="$withval")
+
+AC_SUBST(PREF_SUFFIX)
+AC_DEFINE_UNQUOTED(PREF_SUFFIX,
+      "${PREF_SUFFIX}",
+	  [Suffix to add to preferences directory])
+
+#Check for C Compiler
+AC_PROG_CC
+AC_PROG_CPP
+AC_LANG_C
+
+#Check for C++ Compiler
+AC_PROG_CXX
+AC_LANG_CPLUSPLUS
+
+AC_ISC_POSIX
+AC_HEADER_STDC
+AM_DISABLE_STATIC
+AM_PROG_LIBTOOL
+
+AC_TYPE_SIGNAL
+
+dnl ***************************************************************************
+dnl Check for pkgconfig
+dnl ***************************************************************************
+AC_PATH_PROG(PKGCONFIG_CONFIG, pkg-config,no)
+if test x$PKGCONFIG_CONFIG = xno; then
+  AC_MSG_ERROR(Please install the pkg-config package from http://www.freedesktop.org/software/pkgconfig/)
+fi
+
+dnl pkg checks are split into separate packages instead of single package
+dnl because different plugins have different requirements.
+
+PKG_CHECK_MODULES(GLIB, glib-2.0 >= $GLIB_REQUIRED)
+AC_SUBST(GLIB_CFLAGS)
+AC_SUBST(GLIB_LIBS)
+
+PKG_CHECK_MODULES(GOBJECT, gobject-2.0 >= $GOBJECT_REQUIRED)
+AC_SUBST(GOBJECT_CFLAGS)
+AC_SUBST(GOBJECT_LIBS)
+
+PKG_CHECK_MODULES(GMODULE, gmodule-2.0 >= $GMODULE_REQUIRED)
+AC_SUBST(GMODULE_CFLAGS)
+AC_SUBST(GMODULE_LIBS)
+
+PKG_CHECK_MODULES(GTHREAD, gthread-2.0 >= $GTHREAD_REQUIRED)
+AC_SUBST(GTHREAD_CFLAGS)
+AC_SUBST(GTHREAD_LIBS)
+
+PKG_CHECK_MODULES(GTK, gtk+-2.0 >= $GTK_REQUIRED)
+AC_SUBST(GTK_CFLAGS)
+AC_SUBST(GTK_LIBS)
+
+PKG_CHECK_MODULES(GDK_PIXBUF, gdk-pixbuf-2.0 >= $GDK_PIXBUF_REQUIRED)
+AC_SUBST(GDK_PIXBUF_CFLAGS)
+AC_SUBST(GDK_PIXBUF_LIBS)
+
+PKG_CHECK_MODULES(ORBIT, ORBit-2.0 >= $ORBIT_REQUIRED)
+AC_SUBST(ORBIT_CFLAGS)
+AC_SUBST(ORBIT_LIBS)
+
+PKG_CHECK_MODULES(GLADE, libglade-2.0 >= $LIBGLADE_REQUIRED)
+AC_SUBST(GLADE_CFLAGS)
+AC_SUBST(GLADE_LIBS)
+
+PKG_CHECK_MODULES(GNOME, libgnome-2.0 >= $GNOME_REQUIRED)
+AC_SUBST(GNOME_CFLAGS)
+AC_SUBST(GNOME_LIBS)
+
+PKG_CHECK_MODULES(GNOME_CANVAS, libgnomecanvas-2.0 >= $GNOME_CANVAS_REQUIRED)
+AC_SUBST(GNOME_CANVAS_CFLAGS)
+AC_SUBST(GNOME_CANVAS_LIBS)
+
+PKG_CHECK_MODULES(GNOME_UI, libgnomeui-2.0 >= $GNOME_UI_REQUIRED)
+AC_SUBST(GNOME_UI_CFLAGS)
+AC_SUBST(GNOME_UI_LIBS)
+
+PKG_CHECK_MODULES(GNOME_PRINT, libgnomeprint-2.2 >= $GNOME_PRINT_REQUIRED)
+AC_SUBST(GNOME_PRINT_CFLAGS)
+AC_SUBST(GNOME_PRINT_LIBS)
+
+PKG_CHECK_MODULES(GNOME_PRINT_UI, libgnomeprintui-2.2 >= $GNOME_PRINT_UI_REQUIRED)
+AC_SUBST(GNOME_PRINT_UI_CFLAGS)
+AC_SUBST(GNOME_PRINT_UI_LIBS)
+
+PKG_CHECK_MODULES(GNOME_VFS, gnome-vfs-2.0 >= $GNOME_VFS_REQUIRED)
+AC_SUBST(GNOME_VFS_CFLAGS)
+AC_SUBST(GNOME_VFS_LIBS)
+
+PKG_CHECK_MODULES(GNOME_VFS_MODULE, gnome-vfs-module-2.0 >= $GNOME_VFS_REQUIRED)
+AC_SUBST(GNOME_VFS_MODULE_CFLAGS)
+AC_SUBST(GNOME_VFS_MODULE_LIBS)
+
+PKG_CHECK_MODULES(GCONF, gconf-2.0 >= $GCONF_REQUIRED)
+AC_SUBST(GCONF_CFLAGS)
+AC_SUBST(GCONF_LIBS)
+
+PKG_CHECK_MODULES(VTE, vte >= $VTE_REQUIRED)
+AC_SUBST(VTE_CFLAGS)
+AC_SUBST(VTE_LIBS)
+
+PKG_CHECK_MODULES(LIBXML, libxml-2.0 >= $LIBXML_REQUIRED)
+AC_SUBST(LIBXML_CFLAGS)
+AC_SUBST(LIBXML_LIBS)
+
+PKG_CHECK_MODULES(PANGO, pango >= $PANGO_REQUIRED)
+AC_SUBST(PANGO_CFLAGS)
+AC_SUBST(PANGO_LIBS)
+
+PKG_CHECK_MODULES(GDL, gdl-1.0 >= $GDL_REQUIRED gdl-gnome-1.0 >= $GDL_REQUIRED)
+AC_SUBST(GDL_CFLAGS)
+AC_SUBST(GDL_LIBS)
+
+PKG_CHECK_MODULES(LIBXSLT, libxslt)
+AC_SUBST(LIBXSLT_CFLAGS)
+AC_SUBST(LIBXSLT_LIBS)
+
+dnl Check for autogen
+dnl -----------------
+AC_PATH_PROG(AUTOGEN_PATH, autogen,no)
+if test x$AUTOGEN_PATH = xno; then
+   AC_MSG_ERROR([Couldn't find autogen, please install the autogen package. You can get it from http://autogen.sourceforge.net/])
+fi
+
+dnl Check for Devhelp
+dnl -----------------
+
+AC_ARG_ENABLE(plugin-devhelp,
+  [  --disable-plugin-devhelp        Disable devhelp plugin support in Anjuta.],
+  [ if test "$enableval" = "no"; then
+       user_disabled_devhelp=1
+    fi ],
+  [ user_disabled_devhelp=0 ] )
+
+AC_MSG_CHECKING(if devhelp plugin is disabled)
+if test "$user_disabled_devhelp" = 1; then
+	AC_MSG_RESULT(yes)
+	devhelp_enabled="no"
+else
+	AC_MSG_RESULT(no)
+	devhelp_old=yes
+	PKG_CHECK_MODULES(PLUGIN_DEVHELP, 
+				[libdevhelp-1.0 >= $LIBDEVHELP_REQUIRED],
+					 [
+					    devhelp_old=no
+						devhelp_enabled=yes
+					 ], [
+						   AC_MSG_RESULT([version >= 0.11 not found])
+						   devhelp_old=yes
+						   devhelp_enabled=no
+					 ])
+	if test x$devhelp_old = xyes; then
+	  PKG_CHECK_MODULES(PLUGIN_DEVHELP, [libdevhelp-1.0 >= 0.9], [devhelp_enabled=yes], [devhelp_enabled=no])
+		if test x$devhelp_enabled = xyes; then
+	      AC_DEFINE(HAVE_OLD_DEVHELP, 1, [If old devhelp (>= 0.9 < 0.11) is installed])
+		fi
+	fi
+	AC_SUBST(PLUGIN_DEVHELP_CFLAGS)
+	AC_SUBST(PLUGIN_DEVHELP_LIBS)
+fi
+
+if test x$devhelp_enabled = xyes; then
+	GECKO_HOME=`$PKGCONFIG_CONFIG --variable=gecko_home libdevhelp-1.0`
+	if test x$GECKO_HOME != x; then
+		ANJUTA_LDFLAGS="$ANJUTA_LDFLAGS -R$GECKO_HOME"
+	fi
+fi
+AC_SUBST(ANJUTA_LDFLAGS)
+
+AM_CONDITIONAL(HAVE_PLUGIN_DEVHELP, [test x$devhelp_enabled = xyes])
+
+dnl Check for GTodo
+dnl -----------------
+dnl PKG_CHECK_MODULES(PLUGIN_GTODO, libgtodo-1.0 >= $LIBGTODO_REQUIRED)
+dnl AC_SUBST(PLUGIN_GTODO_CFLAGS)
+dnl AC_SUBST(PLUGIN_GTODO_LIBS)
+
+dnl Check for Gnome Build
+dnl ---------------------
+
+PKG_CHECK_MODULES(PLUGIN_GNOMEBUILD, gnome-build-1.0 >= $GNOMEBUILD_REQUIRED)
+AC_SUBST(PLUGIN_GNOMEBUILD_CFLAGS)
+AC_SUBST(PLUGIN_GNOMEBUILD_LIBS)
+
+dnl Check for Glade3
+dnl ---------------------
+
+AC_ARG_ENABLE(plugin-glade,
+  [  --disable-plugin-glade        Disable glade plugin support in Anjuta.],
+  [ if test "$enableval" = "no"; then
+       user_disabled_glade=1
+    fi ],
+  [ user_disabled_glade=0 ] )
+
+AC_MSG_CHECKING(if glade plugin is disabled)
+if test "$user_disabled_glade" = 1; then
+	AC_MSG_RESULT(yes)
+	libgladeui_found="no"
+else
+	AC_MSG_RESULT(no)
+	AC_PATH_PROG(PKG_PATH, pkg-config, no)
+	gladeui_version=0
+	PKG_CHECK_MODULES(PLUGIN_GLADE, gladeui-1.0,
+	    [
+		libgladeui_found="yes"
+		gladeui_version=`$PKG_PATH --modversion gladeui-1.0 | sed -e 's,\.,,g'`
+	    ], [
+		libgladeui_found="no"
+	    ])
+	if test x$libgladeui_found = xno; then
+	    PKG_CHECK_MODULES(PLUGIN_GLADE, [libgladeui-1.0 >= $GLADEUI_REQUIRED],
+		[
+			libgladeui_found="yes"
+			gladeui_version=`$PKG_PATH --modversion libgladeui-1.0 | sed -e 's,\.,,g'`
+		], [
+			libgladeui_found="no"
+		])
+	fi
+	AC_DEFINE_UNQUOTED(GLADEUI_VERSION, [$gladeui_version], [GLADEUI version])
+	AC_SUBST(GLADEUI_VERSION)
+	AC_SUBST(PLUGIN_GLADE_CFLAGS)
+	AC_SUBST(PLUGIN_GLADE_LIBS)
+fi
+
+AM_CONDITIONAL(HAVE_PLUGIN_GLADE, [test x$libgladeui_found = xyes])
+
+dnl Check for graphviz (class inheritance and profiler plugins)
+dnl --------------------------------------------------------------------------
+dnl FIXME: For some strange reason graphviz-devel rpm install the *.pc files
+dnl in /usr/lib/graphviz/pkgconfig, instead of usual /usr/lib/pkgconfig. This
+dnl makes pkgconfig check fail if we don't add the above path in
+dnl PKG_CONFIG_PATH. We have added both /usr/lib/graphviz/pkgconfig and
+dnl /usr/local/lib/pkgconfig paths. If graphviz is installed in other prefix
+dnl (other than /usr or /usr/local or the current installation prefix),
+dnl following pkgconfig check will fail.
+dnl --------------------------------------------------------------------------
+AC_ARG_ENABLE(graphviz,
+	[ --disable-graphviz		Disable GraphViz support in Anjuta], 
+	[ if test "$enableval" = "no"; then
+		user_disabled_graphviz=1
+	  fi ],
+	[ user_disabled_graphviz=0 ])
+
+AC_MSG_CHECKING(if GraphViz support is disabled)
+if test "$user_disabled_graphviz" = 1; then
+	AC_MSG_RESULT(yes)
+	libgraphviz_found="no"
+else
+	AC_MSG_RESULT(no)
+	
+	dnl Set pkgconfig path
+	ANJUTA_PKG_CONFIG_PATH_SAVE="${PKG_CONFIG_PATH}"
+	PKG_CONFIG_PATH="/usr/lib/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+	PKG_CONFIG_PATH="/usr/local/lib/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+	PKG_CONFIG_PATH="/usr/lib64/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+	PKG_CONFIG_PATH="/usr/local/lib64/graphviz/pkgconfig:$PKG_CONFIG_PATH"
+	
+	anjuta_save_prefix="$prefix"
+	test "x$prefix" = xNONE && prefix=$ac_default_prefix
+	graphviz_pkgconfig=`eval echo ${libdir}/graphviz/pkgconfig`
+	PKG_CONFIG_PATH="$graphviz_pkgconfig:$PKG_CONFIG_PATH"
+	prefix="$anjuta_save_prefix"
+
+	export PKG_CONFIG_PATH
+	PKG_CHECK_MODULES(GRAPHVIZ,
+		[libgvc >= $LIBGRAPHVIZ_REQUIRED libgraph >= $LIBGRAPHVIZ_REQUIRED], 
+		[libgraphviz_found="yes"],
+		[libgraphviz_found="no"])
+	AC_SUBST(GRAPHVIZ_CFLAGS)
+	AC_SUBST(GRAPHVIZ_LIBS)
+	
+	dnl Restore pkgconfig path
+	PKG_CONFIG_PATH="${ANJUTA_PKG_CONFIG_PATH_SAVE}"
+	export PKG_CONFIG_PATH
+fi
+
+AM_CONDITIONAL(HAVE_GRAPHVIZ, [test x$libgraphviz_found = xyes])
+
+dnl Define HAVE_GRAPHVIZ to disable Function Call Chart in the Profiler if 
+dnl Graphviz isn't on the system
+if test "$libgraphviz_found" = yes; then
+	AC_DEFINE(HAVE_GRAPHVIZ, [], [Define if we have GraphViz >= 2.6.0])
+fi
+
+dnl Build gtksourceview plugin only on gnome 2.14 and gtk 2.10
+dnl -------------------------------------------------------------
+
+AC_ARG_ENABLE(plugin-sourceview,
+	[ --disable-plugin-sourceview	Disable gtksourceview based editor in Anjuta], 
+	[ if test "$enableval" = "no"; then
+		user_disabled_sourceview=1
+	  fi ],
+	[ user_disabled_sourceview=0 ])
+
+AC_MSG_CHECKING(if sourceview plugin is disabled)
+if test "$user_disabled_sourceview" = 1; then
+	AC_MSG_RESULT(yes)
+	sourceview="no"
+else
+	AC_MSG_RESULT(no)
+	
+	PKG_CHECK_MODULES(PLUGIN_SOURCEVIEW,
+		[libgnome-2.0 >= $GTKSOURCEVIEW_GNOME_REQUIRED,
+		gtk+-2.0 >= $GTKSOURCEVIEW_GTK_REQUIRED,
+		gtksourceview-1.0 >= $GTKSOURCEVIEW_REQUIRED],
+		[sourceview="yes"],
+		[sourceview="no"])
+	AC_SUBST(PLUGIN_SOURCEVIEW_CFLAGS)
+	AC_SUBST(PLUGIN_SOURCEVIEW_LIBS)
+fi
+
+AM_CONDITIONAL(HAVE_PLUGIN_SOURCEVIEW, [test x$sourceview = xyes])
+
+dnl Scintilla Editor
+dnl -------------------------------------------------------------
+
+AC_ARG_ENABLE(plugin-scintilla,
+	[ --disable-plugin-scintilla	Disable Scintilla based editor in Anjuta], 
+	[ if test "$enableval" = "no"; then
+		user_disabled_scintilla=1
+	  fi ],
+	[ user_disabled_scintilla=0 ])
+
+AC_MSG_CHECKING(if scintilla plugin is disabled)
+if test "$user_disabled_scintilla" = 1; then
+	AC_MSG_RESULT(yes)
+	scintilla="no"
+else
+	AC_MSG_RESULT(no)
+	scintilla="yes"
+fi
+AM_CONDITIONAL(HAVE_PLUGIN_SCINTILLA, [test x$scintilla = xyes])
+
+dnl Valgrind plugin
+dnl check for libbfd
+dnl -------------------------------------------------------------
+
+AC_ARG_ENABLE(plugin-valgrind,
+	[ --disable-plugin-valgrind	Disable Valgrind plugin], 
+	[ if test "$enableval" = "no"; then
+		user_disabled_valgrind=1
+	  fi ],
+	[ user_disabled_valgrind=0 ])
+
+AC_MSG_CHECKING(if valgrind plugin is disabled)
+if test "$user_disabled_valgrind" = 1; then
+	AC_MSG_RESULT(yes)
+	valgrind="no"
+else
+	AC_MSG_RESULT(no)
+	valgrind="yes"
+fi
+
+AC_CHECK_LIB(bfd, bfd_get_error, [PLUGIN_VALGRIND_LIBS="-Wl,-Bstatic -lbfd -liberty -Wl,-Bdynamic"],
+   valgrind="no",
+  -liberty)
+
+AC_SUBST(PLUGIN_VALGRIND_LIBS)
+AM_CONDITIONAL(HAVE_PLUGIN_VALGRIND, [test x$valgrind = xyes])
+
+
+
+
+dnl we need gconftool-2 in order to install the schema
+AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
+
+if test "x$GCONFTOOL" = "xno"; then
+  AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
+fi
+
+AM_GCONF_SOURCE_2
+
+
+
+
+dnl check for bfd_get_section_size_before_reloc() in libbfd
+AC_MSG_CHECKING(for bfd_get_section_size_before_reloc)
+AC_TRY_LINK([
+        #include <bfd.h>
+        ], [
+        asection *section;
+
+        bfd_get_section_size_before_reloc (section);
+        ],
+        AC_MSG_RESULT(yes)
+        AC_DEFINE(HAVE_BFD_GET_SECTION_SIZE_BEFORE_RELOC, [], [Define if libbfd
+contains the function bfd_get_section_size_before_reloc])
+,
+        AC_MSG_RESULT(no)
+)
+
+
+
+
+dnl Setup Anjuta Library flags
+dnl --------------------------
+LIBANJUTA_CFLAGS='$(GNOME_UI_CFLAGS) $(GLADE_CFLAGS) -I$(top_srcdir) -DPACKAGE_PIXMAPS_DIR=\""$(datadir)/pixmaps/$(PACKAGE)\"" -DPACKAGE_DATA_DIR=\""$(datadir)/$(PACKAGE)"\"'
+LIBANJUTA_LIBS='$(top_builddir)/libanjuta/libanjuta.la'
+AC_SUBST(LIBANJUTA_CFLAGS)
+AC_SUBST(LIBANJUTA_LIBS)
+
+dnl Setup Plugin directories
+dnl ------------------------
+anjuta_plugin_dir='$(libdir)/anjuta'
+anjuta_data_dir='$(datadir)/anjuta'
+anjuta_ui_dir='$(datadir)/anjuta/ui'
+anjuta_glade_dir='$(datadir)/anjuta/glade'
+anjuta_image_dir='$(datadir)/pixmaps/anjuta'
+AC_SUBST(anjuta_plugin_dir)
+AC_SUBST(anjuta_data_dir)
+AC_SUBST(anjuta_ui_dir)
+AC_SUBST(anjuta_glade_dir)
+AC_SUBST(anjuta_image_dir)
+
+dnl ***************************************************************************
+dnl Check for old vte version
+dnl ***************************************************************************
+PKG_CHECK_MODULES(VTE, vte >= $VTE_NEW_REQUIRED, OLD_VTE=0, OLD_VTE=1)
+AC_SUBST(OLD_VTE)
+AC_DEFINE_UNQUOTED(OLD_VTE, $OLD_VTE, [Old version of vte])
+
+dnl ***************************************************************************
+dnl Check for marshal and enum generators
+dnl ***************************************************************************
+GLIB_GENMARSHAL="`$PKG_CONFIG --variable=glib_genmarshal glib-2.0`"
+AC_SUBST(GLIB_GENMARSHAL)
+GLIB_MKENUMS="`$PKG_CONFIG --variable=glib_mkenums glib-2.0`"
+AC_SUBST(GLIB_MKENUMS)
+
+dnl ***************************************************************************
+dnl Internatinalization
+dnl ***************************************************************************
+GETTEXT_PACKAGE=anjuta
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [GETTEXT package name])
+AM_GLIB_GNU_GETTEXT
+IT_PROG_INTLTOOL([0.35.0])
+
+dnl ***************************************************************************
+dnl Check for gtk-doc.
+dnl ***************************************************************************
+GTK_DOC_CHECK([1.4])
+
+dnl ***************************************************************************
+dnl Check for Gnome XML [Is this still required?]
+dnl ***************************************************************************
+dnl GNOME_XML_CHECK
+
+dnl ***************************************************************************
+dnl Check for ScrollKeeper [No documentation for now]
+dnl ***************************************************************************
+dnl AC_PATH_PROG(SCROLLKEEPER_CONFIG, scrollkeeper-config,no)
+dnl if test x$SCROLLKEEPER_CONFIG = xno; then
+dnl   AC_MSG_ERROR(Couldn't find scrollkeeper-config, please install the scrollkeeper package. You can get it from http://scrollkeeper.sourceforge.net/)
+dnl fi
+dnl SCROLLKEEPER_REQUIRED=0.1.4
+dnl AC_SUBST(SCROLLKEEPER_REQUIRED)
+
+dnl ***************************************************************************
+dnl Checking for scrollkeeper version [No documentation for now]
+dnl ***************************************************************************
+dnl AC_MSG_CHECKING(for scrollkeeper version number)
+dnl if scrollkeeper-config --version > /dev/null 2>&1; then 
+dnl    version=`scrollkeeper-config --version`; \
+dnl    vers=`echo $version | awk 'BEGIN { FS = "."; } { print $1 * 1000 + $2;}'`; \
+dnl    AC_MSG_RESULT(found $version)
+dnl    SCROLLKEEPER_VERSION_NUM=$vers
+dnl else
+dnl    AC_MSG_ERROR(Did not find scrollkeeper installed)
+dnl fi
+dnl AC_SUBST(SCROLLKEEPER_VERSION_NUM)
+
+dnl ***************************************************************************
+dnl Check for PCRE
+dnl ***************************************************************************
+dnl Check for PCRE
+AC_PATH_PROG(PCRE_CONFIG, pcre-config,no)
+if test x$PCRE_CONFIG = xno; then
+  AC_MSG_ERROR(Please install the PCRE package from http://www.pcre.org/)
+fi
+PCRE_CFLAGS=`pcre-config --cflags`
+PCRE_LIBS=`pcre-config --libs`
+AC_SUBST(PCRE_LIBS)
+AC_SUBST(PCRE_CFLAGS)
+
+dnl ***************************************************************************
+dnl Tagmanager checks.
+dnl ***************************************************************************
+
+dnl Define convenience macros
+dnl -------------------------
+dnl CHECK_HEADER_DEFINE(LABEL, HEADER [,ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND ] ])
+AC_DEFUN([CHECK_HEADER_DEFINE],
+[
+	AC_MSG_CHECKING("if $1 is defined in $2")
+	AC_EGREP_CPP(yes,
+[#include <$2>
+#ifdef $1
+  yes
+#endif
+], [
+	AC_MSG_RESULT(yes)
+	$3
+], [
+	AC_MSG_RESULT(no)
+	$4
+]) ])
+
+dnl Checks for header files.
+AC_CHECK_HEADERS(dirent.h fcntl.h fnmatch.h stat.h stdlib.h string.h stdint.h)
+AC_CHECK_HEADERS(time.h types.h unistd.h)
+AC_CHECK_HEADERS(sys/dir.h sys/stat.h sys/times.h sys/types.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+
+dnl Disable cygwin check until someone fixes that stupid autoconf warnings.
+dnl AC_CYGWIN
+dnl AC_MINGW
+
+AC_C_CONST
+AC_OBJEXT
+AC_EXEEXT
+
+AC_TYPE_SIZE_T
+AC_TYPE_OFF_T
+
+AC_MSG_CHECKING("for fpos_t")
+AC_EGREP_HEADER(fpos_t, stdio.h, AC_MSG_RESULT(yes),
+[
+    AC_MSG_RESULT(no)
+    AC_DEFINE(fpos_t, long, [fpos_t is type long])
+])
+
+AC_MSG_CHECKING("for clock_t")
+AC_EGREP_HEADER(clock_t, time.h, AC_MSG_RESULT(yes),
+[
+    AC_MSG_RESULT(no)
+    AC_DEFINE(clock_t, long, [clock_t is type long])
+])
+
+CHECK_HEADER_DEFINE(L_tmpnam, stdio.h,, AC_DEFINE(L_tmpnam, 20, [L_tmpname is 20]))
+
+CHECK_HEADER_DEFINE(INT_MAX, limits.h,,
+    CHECK_HEADER_DEFINE(MAXINT, limits.h,
+        AC_DEFINE(INT_MAX, MAXINT, [Maximum int size]), AC_DEFINE(INT_MAX, 32767, [Maximum int size])))
+
+AC_MSG_CHECKING(if struct stat contains st_ino)
+AC_TRY_COMPILE([#include <sys/stat.h>], [
+    struct stat st;
+    stat(".", &st);
+    if (st.st_ino > 0)
+        exit(0);
+], have_st_ino=yes, have_st_ino=no)
+AC_MSG_RESULT($have_st_ino)
+if test yes = "$have_st_ino"; then
+    AC_DEFINE(HAVE_STAT_ST_INO,,[Have stat st_ino])
+fi
+
+
+dnl Check for function forkpty in libutil
+AC_CHECK_LIB(util, forkpty)
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(fnmatch)
+AC_CHECK_FUNCS(strstr)
+AC_CHECK_FUNCS(stricmp)
+AC_CHECK_FUNCS(strnicmp)
+AC_CHECK_FUNCS(getline)
+
+AC_CHECK_FUNCS(fgetpos, have_fgetpos=yes)
+
+dnl SEEK_SET should be in stdio.h, but may be in unistd.h on SunOS 4.1.x
+if test "$have_fgetpos" != yes ; then
+    CHECK_HEADER_DEFINE(SEEK_SET, stdio.h,,
+        CHECK_HEADER_DEFINE(SEEK_SET, unistd.h,,
+            AC_DEFINE(SEEK_SET, 0, [Seek set 0])))
+fi
+
+AC_CHECK_FUNCS(mkstemp, have_mkstemp=yes)
+if test "$have_mkstemp" != yes ; then
+    AC_CHECK_FUNCS(chmod)
+    if test "$tmpdir_specified" = yes ; then
+        AC_MSG_RESULT(use of tmpnam overrides temporary directory selection)
+    fi
+else
+    AC_MSG_CHECKING(directory to use for temporary files)
+    if test -z "$enable_tmpdir" -o "$enable_tmpdir" = no -o "$enable_tmpdir" = yes ;
+        then tmpdir=/tmp
+        else tmpdir="$enable_tmpdir"
+    fi
+    if test -d $tmpdir ; then
+        AC_MSG_RESULT($tmpdir)
+        AC_DEFINE_UNQUOTED(TMPDIR, "$tmpdir", [Directory for temporary files])
+    else
+        AC_MSG_WARN($tmpdir does not exist)
+    fi
+fi
+
+AC_CHECK_FUNCS(strerror opendir)
+AC_CHECK_FUNCS(clock times, break)
+AC_CHECK_FUNCS(remove, have_remove=yes,
+    CHECK_HEADER_DEFINE(remove, unistd.h,, AC_DEFINE(remove, unlink, [Remove is unlink])))
+
+AC_CHECK_FUNCS(truncate, have_truncate=yes)
+dnl === Cannot nest AC_CHECK_FUNCS() calls
+if test "$have_truncate" != yes  ; then
+    AC_CHECK_FUNCS(ftruncate, have_ftruncate=yes)
+    if test "$have_ftruncate" != yes ; then
+        AC_CHECK_FUNCS(chsize)
+    fi
+fi
+
+AC_CHECK_FUNCS(setenv, have_setenv=yes)
+dnl === Cannot nest AC_CHECK_FUNCS() calls
+if test "$have_setenv" != yes ; then
+    AC_CHECK_FUNCS(putenv, have_putenv=yes)
+    if test "$have_putenv" = yes ; then
+        AC_EGREP_HEADER(putenv, stdlib.h, have_putenv_prototype=yes)
+        if test "$have_putenv_prototype" = yes ; then
+            AC_MSG_CHECKING("putenv prototype")
+            AC_EGREP_HEADER([[^A-Za-zo-9_]putenv[   ]*\(.*const.*\)[    ]*;],
+                stdlib.h, AC_MSG_RESULT(correct),
+                [
+                    AC_MSG_RESULT(no const)
+                    AC_DEFINE(NON_CONST_PUTENV_PROTOTYPE,,[putenv has non constant prototype])
+                ])
+        fi
+    fi
+fi
+
+dnl
+dnl if test yes = "$CYGWIN"; then with_posix_regex=no; fi
+if test no != "$with_posix_regex"; then
+    AC_CHECK_FUNCS(regcomp)
+    AC_MSG_CHECKING(if regcomp works)
+    AC_TRY_RUN([
+#include <sys/types.h>
+#include <regex.h>
+main() {
+    regex_t patbuf;
+    exit (regcomp (&patbuf, "/hello/", 0) != 0);
+}],regcomp_works=yes,regcomp_works=no,AC_DEFINE(CHECK_REGCOMP,,[Check regcomp]))
+    AC_MSG_RESULT($regcomp_works)
+    if test yes != "$regcomp_works"; then
+        AC_DEFINE(REGCOMP_BROKEN,,[Regcomp is broken])
+    fi
+fi
+
+dnl -----------------------------
+dnl Checks for FreeBSD Build
+dnl -----------------------------
+AC_MSG_CHECKING(if building on FreeBSD)
+
+if test `uname -s` = "FreeBSD" ; then
+        AC_MSG_RESULT(yes)
+        FREEBSD_BUILD=-DFREEBSD
+        AC_SUBST(FREEBSD_BUILD)
+	AC_PATH_PROG(GMAKE, gmake, no)
+	if test "x$GMAKE" = "xno"; then
+		AC_ERROR(You need gmake installed to build Anjuta!)
+	fi
+else
+        AC_MSG_RESULT(no)
+	GMAKE="make"
+fi
+
+AC_SUBST(GMAKE)
+ 
+dnl Checks for missing prototypes
+dnl -----------------------------
+AC_CHECKING("for missing prototypes")
+
+AC_DEFUN([CHECK_PROTO], [AC_EGREP_HEADER([[^A-Za-z0-9_]$1([   ]+[A-Za-z0-9_]*)?\(], $2,, AC_DEFINE(patsubst([NEED_PROTO_NAME], [NAME], translit($1, [a-z], [A-Z])),,[Do not know]) AC_MSG_RESULT(adding prototype for $1))])
+
+if test "$have_remove" = yes ; then
+    CHECK_PROTO(remove, stdio.h)
+else
+    CHECK_PROTO(unlink, unistd.h)
+fi
+CHECK_PROTO(malloc, stdlib.h)
+CHECK_PROTO(getenv, stdlib.h)
+CHECK_PROTO(stat,   sys/stat.h)
+CHECK_PROTO(lstat,  sys/stat.h)
+if test "$have_fgetpos" = yes ; then
+    CHECK_PROTO(fgetpos, stdio.h)
+fi
+if test "$have_truncate" = yes ; then
+    CHECK_PROTO(truncate, unistd.h)
+fi
+if test "$have_ftruncate" = yes ; then
+    CHECK_PROTO(ftruncate, unistd.h)
+fi
+
+dnl  **********************************************************
+dnl  check if we have svn libraries to build subversion plugin
+dnl  (stolen from kdevelop ;-)
+dnl  **********************************************************
+
+AC_MSG_CHECKING(for Subversion svn-config)
+AC_ARG_WITH(subversion-dir,
+		[  --with-subversion-dir=DIR           where Subversion is installed ],
+		[
+				SVNCONFIG="$withval/bin/svn-config"
+		])
+
+if test -z "$SVNCONFIG"; then
+		_SVNCONFIG="`svn-config --prefix 2> /dev/null`"
+		if test -n "$_SVNCONFIG"; then
+				SVNCONFIG="$_SVNCONFIG/bin/svn-config"
+		fi
+fi
+
+AC_SUBST(SVNCONFIG)
+if test -x "$SVNCONFIG"; then
+		SVNLD="`$SVNCONFIG --ldflags 2> /dev/null`"
+		SVN_LIB="`$SVNCONFIG --libs --cflags 2> /dev/null` -lsvn_client-1 -lsvn_subr-1"
+		dnl ugly hack for subversion svn-config problems in 0.14.x, to be removed when svn-config is fixed
+		SVN_INCLUDE="`$SVNCONFIG --includes 2> /dev/null` -I$_SVNCONFIG/include/subversion-1/"
+		AC_MSG_RESULT(yes)
+else
+		AC_MSG_RESULT(not found)
+		
+		dnl just a fallback to debian's config so that it works for me :)
+		AC_ARG_WITH(svn-include,
+								[[  --with-svn-include=DIR   Use the given path to the subversion headers.]],
+								[
+								if test "$withval" != "yes" -a "$withval" != ""; then
+										SVN_INCLUDES=$withval
+								fi
+								])
+		if test -z "$SVN_INCLUDES"; then
+			SVN_INCLUDES="/usr/local/include /usr/include"
+		fi
+		AC_MSG_CHECKING([for Subversion headers])
+		SVN_INCLUDE=""
+		for VALUE in $SVN_INCLUDES ; do
+				if test -f $VALUE/subversion-1/svn_types.h ; then
+						SVN_INCLUDE=$VALUE/subversion-1
+						break
+				fi
+				if test -f $VALUE/svn_types.h ; then
+						SVN_INCLUDE=$VALUE
+						break
+				fi
+		done
+		if test $SVN_INCLUDE ; then
+				AC_MSG_RESULT([found])
+		else
+				AC_MSG_RESULT([not found])
+		fi
+		SVN_LIBS="/usr/local/lib /usr/lib"
+		AC_ARG_WITH(svn-lib,
+						[[  --with-svn-lib=DIR  Use the given path to the subversion libraries.]],
+						[
+							if test "$withval" != "yes" -a "$withval" != ""; then
+								SVN_LIBS=$withval
+							fi
+						])
+		AC_MSG_CHECKING([for Subversion libraries])
+		SVN_LIB=""
+		for VALUE in $SVN_LIBS ; do
+				if ls $VALUE/libsvn_client-1.* 1>/dev/null 2>&1; then
+						SVN_LIB=$VALUE
+						break
+				fi
+		done
+		if test $SVN_LIB ; then
+				AC_MSG_RESULT([found])
+		else
+				AC_MSG_RESULT([not found])
+		fi
+fi
+
+dnl ******************************************************************
+dnl Check for extra libs required by subversion.
+dnl FIXME: This should actually be done by subversion and not by us.
+dnl ******************************************************************
+
+AC_ARG_ENABLE(plugin-subversion,
+  [  --disable-plugin-subversion        Disable subversion support in Anjuta.],
+  [ if test "$enableval" = "no"; then
+        user_disabled_subversion=1
+    fi ],
+  [ user_disabled_subversion=0 ] )
+
+AC_MSG_CHECKING(if subversion support is disabled)
+if test "$user_disabled_subversion" = 1; then
+	AC_MSG_RESULT(yes)
+	SVN_INCLUDE=""
+	SVN_LIB=""
+else
+	AC_MSG_RESULT(no)
+fi
+
+if test -n "$SVN_INCLUDE" ; then
+	dnl ------------------------------------
+	dnl APR. Required by subversion (devel)
+	dnl ------------------------------------
+	
+	APR_CONFIGS="apr-config /usr/local/apr/bin/apr-config/ apr-1-config "
+	AC_ARG_WITH(apr-config,
+	[[  --with-apr-config=FILE    Use the given path to apr-config when determining
+								APR configuration; defaults to "apr-config"]],
+	[
+	if test "$withval" != "yes" -a "$withval" != ""; then
+	  APR_CONFIGS=$withval
+	fi
+	])
+	AC_MSG_CHECKING([for APR])
+	APR_CONFIG=""
+	for VALUE in $APR_CONFIGS ; do
+			if $VALUE --cflags > /dev/null 2>&1 ; then
+					APR_CONFIG=$VALUE
+					break
+			fi
+	done
+	test $VALUE && APR_CONFIG=$VALUE
+	if test $APR_CONFIG ; then
+		AC_MSG_RESULT([found])
+		APR_CFLAGS="`$APR_CONFIG --cflags` `$APR_CONFIG --cppflags`"
+		APR_INCLUDE="`$APR_CONFIG --includes`"
+		APR_LIBS="`$APR_CONFIG --link-ld --libs`"
+	else
+		AC_MSG_RESULT([not found])
+		dnl AC_MSG_ERROR([APR is required. Try --with-apr-config.])
+	fi
+	
+	dnl -----------------------------------------
+	dnl APR util. Required by subversion (devel)
+	dnl------------------------------------------
+	
+	APU_CONFIGS="apu-config /usr/local/apr/bin/apu-config apu-1-config"
+	AC_ARG_WITH(apu-config,
+	[[  --with-apu-config=FILE    Use the given path to apu-config when determining
+								APR util configuration; defaults to "apu-config"]],
+	[
+		if test "$withval" != "yes" -a "$withval" != ""; then
+			APU_CONFIGS=$withval
+		fi
+	])
+	AC_MSG_CHECKING([for APR util])
+	APU_CONFIG=""
+	for VALUE in $APU_CONFIGS ; do
+			if $VALUE --includes > /dev/null 2>&1 ; then
+					APU_CONFIG=$VALUE
+					break
+			fi
+	done
+	if test $APU_CONFIG ; then
+		AC_MSG_RESULT([found])
+		APR_INCLUDE="$APR_INCLUDE `$APU_CONFIG --includes`"
+		APR_LIBS="$APR_LIBS `$APU_CONFIG --link-ld --libs`"
+	else
+		AC_MSG_RESULT([not found])
+	fi
+	
+	dnl -----------------------------------------
+	dnl NEON. Required by subversion (devel)
+	dnl------------------------------------------
+
+	dnl Check for neon. It is required by subversion libs, but for
+	dnl for some strange reason it's not in it's dependencies.
+	dnl subversion plugin will be disabled if neon (devel) is not
+	dnl installed, even if subversion (devel) is installed.
+
+	NEON_CONFIGS="neon-config"
+	AC_ARG_WITH(neon-config,
+	[[  --with-neon-config=FILE    Use the given path to neon-config when determining
+								Neon configuration; defaults to "neon-config"]],
+	[
+		if test "$withval" != "yes" -a "$withval" != ""; then
+			NEON_CONFIGS=$withval
+		fi
+	])
+	AC_MSG_CHECKING([for Neon])
+	NEON_CONFIG=""
+	for VALUE in $NEON_CONFIGS ; do
+			if $VALUE --cflags > /dev/null 2>&1 ; then
+					NEON_CONFIG=$VALUE
+					break
+			fi
+	done
+	if test $NEON_CONFIG ; then
+		AC_MSG_RESULT([found])
+	else
+		AC_MSG_RESULT([not found])
+		SVN_INCLUDE=""
+		SVN_LIB=""
+	fi
+fi
+
+dnl ------------------------------------------
+dnl Finally prepare subversion build flags
+dnl ------------------------------------------
+
+if test -n "$SVN_INCLUDE" ; then
+	SVN_INCLUDE="-I$SVN_INCLUDE $APR_INCLUDE"
+	SVN_LIB="-L$SVN_LIB $APR_LIBS -lsvn_client-1 -lsvn_subr-1"
+	SVN_CFLAGS="$APR_CFLAGS"
+fi
+
+AM_CONDITIONAL(BUILD_SVN, [test -n "$SVN_INCLUDE"])
+AC_SUBST(SVN_INCLUDE)
+AC_SUBST(SVN_LIB)
+AC_SUBST(SVN_CFLAGS)
+
+dnl --------- help outputs -----------
+dnl manuals/C/Makefile
+dnl manuals/C/anjuta-tutorial/Makefile
+dnl manuals/C/anjuta-advanced-tutorial/Makefile
+dnl manuals/C/anjuta-faqs/Makefile
+dnl manuals/C/anjuta-manual/Makefile
+dnl manuals/de/Makefile
+dnl manuals/de/anjuta-tutorial/Makefile
+dnl manuals/ja/Makefile
+dnl manuals/ja/anjuta-faqs/Makefile
+dnl manuals/ja/anjuta-manual/Makefile
+
+AC_OUTPUT([
+Makefile
+po/Makefile.in
+tagmanager/Makefile
+tagmanager/include/Makefile
+global-tags/Makefile
+libegg/Makefile
+libegg/util/Makefile
+libegg/treeviewutils/Makefile
+libegg/menu/Makefile
+libegg/recent-files/Makefile
+anjuta.spec
+libanjuta/Makefile
+libanjuta/libanjuta-1.0.pc
+libanjuta/interfaces/Makefile
+src/Makefile
+pixmaps/Makefile
+data/Makefile
+data/welcome.txt
+data/properties/Makefile
+doc/anjuta.1
+doc/anjuta_launcher.1
+doc/Makefile
+scripts/Makefile
+scripts/anjuta_import.sh
+launcher/Makefile
+plugins/Makefile
+plugins/sample1/Makefile
+plugins/gtodo/Makefile
+plugins/class-gen/Makefile
+plugins/class-gen/templates/Makefile
+plugins/patch/Makefile
+plugins/editor/Makefile
+plugins/editor/scintilla/Makefile
+plugins/editor/scintilla/include/Makefile
+plugins/document-manager/Makefile
+plugins/search/Makefile
+plugins/message-view/Makefile
+plugins/gdb/Makefile
+plugins/gdb/images/Makefile
+plugins/debug-manager/Makefile
+plugins/debug-manager/images/Makefile
+plugins/devhelp/Makefile
+plugins/glade/Makefile
+plugins/file-manager/Makefile
+plugins/file-loader/Makefile
+plugins/file-wizard/Makefile
+plugins/terminal/Makefile
+plugins/build-basic-autotools/Makefile
+plugins/profiler/Makefile
+plugins/project-manager/Makefile
+plugins/symbol-browser/Makefile
+plugins/symbol-browser/images/Makefile
+plugins/cvs-plugin/Makefile
+plugins/project-wizard/Makefile
+plugins/macro/Makefile
+plugins/subversion/Makefile
+plugins/sourceview/Makefile
+plugins/tools/Makefile
+plugins/tools/scripts/Makefile
+plugins/class-inheritance/Makefile
+plugins/valgrind/Makefile
+plugins/project-import/Makefile
+plugins/project-wizard/templates/Makefile
+plugins/project-wizard/templates/mkfile/Makefile
+plugins/project-wizard/templates/mkfile/src/Makefile
+plugins/project-wizard/templates/mkfile/po/Makefile
+plugins/project-wizard/templates/minimal/Makefile
+plugins/project-wizard/templates/terminal/Makefile
+plugins/project-wizard/templates/terminal/src/Makefile
+plugins/project-wizard/templates/terminal/po/Makefile
+plugins/project-wizard/templates/cpp/Makefile
+plugins/project-wizard/templates/cpp/src/Makefile
+plugins/project-wizard/templates/cpp/po/Makefile
+plugins/project-wizard/templates/gtk/Makefile
+plugins/project-wizard/templates/gtk/src/Makefile
+plugins/project-wizard/templates/gtk/po/Makefile
+plugins/project-wizard/templates/anjuta-plugin/Makefile
+plugins/project-wizard/templates/anjuta-plugin/src/Makefile
+plugins/project-wizard/templates/anjuta-plugin/po/Makefile
+plugins/project-wizard/templates/gnome/Makefile
+plugins/project-wizard/templates/gnome/src/Makefile
+plugins/project-wizard/templates/gnome/po/Makefile
+plugins/project-wizard/templates/gtkmm/Makefile
+plugins/project-wizard/templates/gtkmm/src/Makefile
+plugins/project-wizard/templates/gtkmm/po/Makefile
+plugins/project-wizard/templates/gcj/Makefile
+plugins/project-wizard/templates/gcj/src/Makefile
+plugins/project-wizard/templates/java/Makefile
+plugins/project-wizard/templates/java/src/Makefile
+plugins/project-wizard/templates/java/po/Makefile
+plugins/project-wizard/templates/python/Makefile
+plugins/project-wizard/templates/python/src/Makefile
+plugins/project-wizard/templates/python/po/Makefile
+plugins/project-wizard/templates/wxwin/Makefile
+plugins/project-wizard/templates/wxwin/src/Makefile
+plugins/project-wizard/templates/wxwin/po/Makefile
+plugins/project-wizard/templates/xlib/Makefile
+plugins/project-wizard/templates/xlib/src/Makefile
+plugins/project-wizard/templates/xlib/po/Makefile
+plugins/project-wizard/templates/xlib-dock/Makefile
+plugins/project-wizard/templates/xlib-dock/src/Makefile
+plugins/project-wizard/templates/xlib-dock/po/Makefile
+plugins/language-support-cpp-java/Makefile
+anjuta.desktop.in
+manuals/Makefile
+manuals/reference/Makefile
+manuals/reference/libanjuta/Makefile
+manuals/reference/libanjuta/version.xml
+manuals/anjuta-manual/Makefile
+manuals/anjuta-faqs/Makefile
+mime/Makefile
+])
+echo " "
+echo "-------------------------------------------------------------------"
+echo "Conditionally built plugins:"
+echo "-------------------------------------------------------------------"
+if [ test -n "$SVN_INCLUDE" ]; then
+        echo "Building subversion plugin: ............................YES"
+else
+        echo "Building subversion plugin: ............................NO"
+		echo "        Requires apr (>= 0.9.4); http://subversion.org"
+		echo "        Requires apr-util (>= 0.9.4); http://subversion.org"
+		echo "        Requires neon (>= 0.24.5); http://subversion.org"
+		echo "        Requires subversion (>= 1.0.2); http://subversion.org"
+fi
+
+if [ test x$libgladeui_found = xyes ]; then
+       echo "Building glade plugin: .................................YES"
+else
+       echo "Building glade plugin: .................................NO"
+       echo "        Requires glade-3 (>= 3.0.2)"
+fi
+
+if [ test x$devhelp_enabled = xyes ]; then
+       echo "Building devhelp plugin: ...............................YES"
+else
+       echo "Building devhelp plugin: ...............................NO"
+       echo "        Requires devhelp"
+fi
+
+if [ test x$libgraphviz_found = xyes ]; then
+        echo "Building class inheritance plugin: .....................YES"
+        echo "Building performance profiler with function call chart: YES"
+else
+        echo "Building class inheritance plugin: .....................NO"
+        echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
+        echo "Building performance profiler with function call chart: NO"
+	 echo "        Requires graphviz (>= 2.6.0); http://graphviz.org"
+fi
+
+if [ test x$valgrind = xyes ]; then
+        echo "Building Valgrind debugger plugin: .....................YES"
+else
+        echo "Building Valgrind debugger plugin: .....................NO"
+	echo "		Requires binutils-dev"
+fi
+
+if [ test x$sourceview = xyes ]; then
+        echo "Building GtkSourceView based editor: ...................YES"
+else
+        echo "Building GtkSourceView based editor: ...................NO"
+fi
+
+if [ test x$scintilla = xyes ]; then
+        echo "Building Scintilla based editor: .......................YES"
+else
+        echo "Building Scintilla based editor: .......................NO"
+fi
+echo "-------------------------------------------------------------------"
+

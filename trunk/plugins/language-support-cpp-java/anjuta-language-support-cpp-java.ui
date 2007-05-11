@@ -1,0 +1,8 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<menu name="MenuEdit" action="ActionMenuEdit">
+			<menuitem name="AutoindentAction" action="ActionEditAutoindent" />
+		</menu>
+	</menubar>
+</ui>

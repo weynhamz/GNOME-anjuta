@@ -1,0 +1,611 @@
+<?xml version="1.0"?>
+<gtodo>
+  <category title="Unfiled" place="0">
+    <item>
+      <attribute id="1098255975" priority="2" done="1" start_date="731874" completed_date="731972" notify="0" last_edited="1106752594"/>
+      <summary>Anjuta 2.0 write up</summary>
+      <comment>Write a publication describing what's happening with anjuta
+development and what's new in Anjuta 2.0 release.</comment>
+    </item>
+    <item>
+      <attribute id="1108355059" priority="1" done="1" start_date="731991" completed_date="732012" enddate="99999999" notify="0" endtime="-60" last_edited="1110211623"/>
+      <summary>Update credit list in AUTHORS file</summary>
+      <comment>Update credit list in AUTHORS file and use this file in about dialog
+box (instead of hardcoded names in the source).</comment>
+    </item>
+    <item>
+      <attribute id="1142156772" priority="1" done="1" start_date="732382" completed_date="732391" notify="0" last_edited="1142930663"/>
+      <summary>Implement IAnjutaPrint</summary>
+      <comment>A generic print interface</comment>
+    </item>
+    <item>
+      <attribute id="1159907132" priority="1" done="0" start_date="732587" enddate="99999999" notify="0" endtime="-60" last_edited="1159907262"/>
+      <summary>Bug fixing batch #1</summary>
+      <comment>[Skill: Medium, Work: 12hrs, Bounty: $25]
+
+* Bug #346777    Cannot change the editor font
+* Bug #351214    Anjuta doesn't respect Gnome blinking cursor preference
+* Bug #357151    a + character in a directory name confuses anjuta
+* Bug #357541    can't launch Anjuta project file from Nautilus
+* Bug #357820    Goto / Previous history should return to previous cursor ...</comment>
+    </item>
+    <item>
+      <attribute id="1159907660" priority="1" done="0" start_date="732587" enddate="99999999" notify="0" endtime="-60" last_edited="1159907660"/>
+      <summary>Automated tests for Anjuta</summary>
+      <comment>[Skill: Basic, Work: 20hrs]
+
+Implement automated tests for Anjuta using either LDTP (http://ldtp.freedesktop.org/wiki/) or Dogtail (http://people.redhat.com/zcerza/dogtail/), which ever is better. Test cases should cover existing features and be able to easily extend for future features. The implementation should alow running the test cases in an automated setup (such as a remote server with a sutable running platform).</comment>
+    </item>
+    <item>
+      <attribute id="1142156720" priority="1" done="0" start_date="732382" enddate="99999999" notify="0" endtime="-60" last_edited="1170019417"/>
+      <summary>Implement IAnjutaEditorPrint</summary>
+      <comment>Implement it using Gtk 2.10 Printing stuff</comment>
+    </item>
+    <item>
+      <attribute id="1159555748" priority="1" done="1" start_date="732583" completed_date="732709" notify="0" last_edited="1170409063"/>
+      <summary>Performance Profiler plugin</summary>
+      <comment>[Skill: medium, Work: 30hrs, Bounty: $500, Status: Completed, Bug: #359478]
+
+gprof is a command line tool for profiling program performance. The executable is required to be compiled with -p flag and when the program is executed, a profiling info is collected in a file. After the execution is done, gprof can be used to interpret the profile data. This plugin parses the output from gprof and presents the information in different views -- text, lists and graphs.</comment>
+    </item>
+    <item>
+      <attribute id="1172700477" priority="1" done="0" start_date="732736" enddate="99999999" notify="0" endtime="-60" last_edited="1172700524"/>
+      <summary>Better toolbar and plugins icons</summary>
+      <comment>[Skill: medium, Work: 30h, Bounty: $100]
+Create better icons for toolbars and plugin icons following the tango style guidelines to make them consistent with rest of the GNOME icons.</comment>
+    </item>
+  </category>
+  <category title="libanjuta" place="2">
+    <item>
+      <attribute id="1098253934" priority="1" done="1" start_date="731874" completed_date="731901" notify="0" last_edited="1100584623"/>
+      <summary>Key notification API</summary>
+      <comment>Add anjuta_preferences_add_notify(), anjuta_preferences_remove_notify()
+and anjuta_preferences_get_prefix() API.</comment>
+    </item>
+    <item>
+      <attribute id="1098256119" priority="1" done="1" start_date="731874" completed_date="731901" notify="0" last_edited="1100584631"/>
+      <summary>Plugins unloading</summary>
+      <comment>Do not destroy plugin objects when they are deactivated.
+We have problem with dynamic class registeration.
+Until we figure out that, the plugins should not be unloaded
+when deactivated.</comment>
+    </item>
+    <item>
+      <attribute id="1107253918" priority="1" done="1" start_date="731978" completed_date="732118" notify="0" last_edited="1119330389"/>
+      <summary>Progress bar</summary>
+      <comment>Implement  multiple progress bars in AnjutaStatus class. Any
+number of progressbar should be acceptable. All of them
+should be shown side-by-side in status bar.</comment>
+    </item>
+    <item>
+      <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159483377"/>
+      <summary>Move encodings source files</summary>
+      <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c) by CVS surgery into editor plugin.</comment>
+    </item>
+    <item>
+      <attribute id="1107255619" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483386"/>
+      <summary>Plugins reference counting</summary>
+      <comment>Implement plugins reference counting. Loading a plugin gets 1 ref and when ref count reaches 0, plugin is deactivated.</comment>
+    </item>
+    <item>
+      <attribute id="1109399546" priority="1" done="1" start_date="732003" completed_date="732583" notify="0" last_edited="1159555532"/>
+      <summary>Implement preferences as interface</summary>
+      <comment>Create the preference dialog only if it is shown and destroy it afterwards.</comment>
+    </item>
+    <item>
+      <attribute id="1159555613" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159560494"/>
+      <summary>On demand preferences widgets creation</summary>
+      <comment>[Skill: High, Work: 30hrs]
+
+Currently, preferences are registered at plugins activation time. This has a real drawback that we spend unnecessary time at startup that could easily be avoided by on-demand creation of the preferences. One reason why it isn't straightforward is because preferences dialogs contain the schemas for preference keys, so unless the glade files (of the plugin preferences dialogs) are loaded, the default values of the keys are not available.
+
+It should be fixed such that gconf schema files are automatically generated from the dialogs by grepping for the preferences keys schemas defined in the widget names (in the glade files) during build time and installed correctly during install time.
+
+Then AnjutaPreferences class should be fixed not to preemptively create the dialog widgets on plugin activations, but rather do it at IAnjutaPreferences::merge() and IAnjutaPreferences::unmerge() implementations in plugins. The plugins would still need to setup notifications in IAnjutaPreferences::init() implementation. To accomplish all this, it might involve substantial changes in AnjutaPreferences class.</comment>
+    </item>
+    <item>
+      <attribute id="1098253494" priority="2" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159560595"/>
+      <summary>Preferences keys with no defaults do not register</summary>
+      <comment>Preferences keys without default values (defined in .glade file) are not registered during preferences registeration. This results in gconf type mismatch when the keys are queried.</comment>
+    </item>
+    <item>
+      <attribute id="1174914002" priority="1" done="0" start_date="732761" enddate="99999999" notify="0" endtime="-60" last_edited="1174914002"/>
+      <summary>Add a 'Remembered plugins' page in Settings-&gt;plugins dialog</summary>
+      <comment>Add a new page in Settings-&gt;plugins dialog, along side Available plugins page, that lists the plugins that have been remembered from plugin query and selection dialog. And for 'Forget' and 'Forget all' buttons.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Editor" place="5">
+    <item>
+      <attribute id="1098255400" priority="1" done="1" start_date="731874" completed_date="731902" notify="0" last_edited="1100696776"/>
+      <summary>Add "saved" signal</summary>
+      <comment>Saved signal to notify that document has been just saved.</comment>
+    </item>
+    <item>
+      <attribute id="1107240087" priority="1" done="1" start_date="731978" completed_date="731987" notify="0" last_edited="1108058172"/>
+      <summary>Enable 'Tab' auto-indentation</summary>
+      <comment>Automatic indentation (ala emacs) is working in Editor. For cpp lexer,
+'Tab' should be be trapped from the editor and used to auto-indent
+current line. Currently, trapping 'Tab' key in editor does not work.</comment>
+    </item>
+    <item>
+      <attribute id="1100696849" priority="1" done="1" start_date="731902" completed_date="732042" notify="0" last_edited="1112766406"/>
+      <summary>Update UI based on save point state.</summary>
+      <comment>Connect to save point state signal of editor and
+accordingly update undo/redo ui sensitivity.</comment>
+    </item>
+    <item>
+      <attribute id="1107240796" priority="1" done="1" start_date="731978" completed_date="732042" notify="0" last_edited="1112766570"/>
+      <summary>Add editor view on idle</summary>
+      <comment>Add editor view using gtk_idle_add() to minimize UI freeze. Also set
+busy/unbusy on AnjutaStatus during split operation</comment>
+    </item>
+    <item>
+      <attribute id="1108352735" priority="1" done="1" start_date="731991" completed_date="732042" notify="0" last_edited="1112766585"/>
+      <summary>Hover tooltip on editor tabs</summary>
+      <comment>Implement a hover tooltip (similar to gedit) giving details of the
+current file. Details like Directory path, cvs rev number etc. should be there.</comment>
+    </item>
+    <item>
+      <attribute id="1107253663" priority="1" done="1" start_date="731978" completed_date="732049" notify="0" last_edited="1113397470"/>
+      <summary>gnome vfs notification for 'File changed on disk'</summary>
+      <comment>Implement gnome vfs monitor for file changed on disk and
+prompt user to reload it.</comment>
+    </item>
+    <item>
+      <attribute id="1107240185" priority="1" done="1" start_date="731978" completed_date="732419" notify="0" last_edited="1145355619"/>
+      <summary>Expose editor functions to IAnjutaEditor</summary>
+      <comment>Currently, only a limited numbers of Editor are exposed through
+IAnjutaEditor, IAnjutaMarkable and IAnjutaFileSavable interface.
+Most of the API should be exposed.</comment>
+    </item>
+    <item>
+      <attribute id="1098253642" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159483408"/>
+      <summary>Apply prefererences</summary>
+      <comment>Hidden editor preferences (those which are not settable from preferences dialog) are not applied now.</comment>
+    </item>
+    <item>
+      <attribute id="1098253712" priority="2" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159483581"/>
+      <summary>Update on configure syntax highlighting</summary>
+      <comment>When syntax highlighting colors/fonts are changed, the changes are not propagated to all editors, but it should, just like a gconf key.</comment>
+    </item>
+    <item>
+      <attribute id="1159556116" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159560459"/>
+      <summary>Relocate 'Autoformat' code from document-manager plugin</summary>
+      <comment>[Skill: Basic, Work: 3hr, Bounty: $50]
+
+Relocate 'Autoformat' code from document-manager plugin to language-support-cpp-java plugin.
+
+Currently Autoformat code that is specific to c and c++ (uses indent program) is located in document-manager plugin (legacy). It should now be moved to language-support-cpp-java plugin that specializes in c/c++ processing. Preferences, UI, and processing should all be moved to the new place. At the same time, the indent configuration dialog should be fixed to fit in smaller size, presumably using notebook widget (currently it is huge and not screen appropriate for lower resolution).</comment>
+    </item>
+    <item>
+      <attribute id="1107240279" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159560523"/>
+      <summary>Move CVS directories</summary>
+      <comment>Move data/properties/ and scintilla/ directories (by CVS surgery, and not by add/remove) into plugins/editor/ directory.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Project Manager" place="8">
+    <item>
+      <attribute id="1100059875" priority="1" done="1" start_date="731895" completed_date="731972" notify="0" last_edited="1106752638"/>
+      <summary>Error messages for loading project</summary>
+      <comment>Display error messages after loading of project fails.</comment>
+    </item>
+    <item>
+      <attribute id="1107240342" priority="1" done="1" start_date="731978" completed_date="732058" notify="0" last_edited="1114162543"/>
+      <summary>Implemente IAnjutaProjectManager</summary>
+      <comment>Implemente IAnjutaProjectManager interface.</comment>
+    </item>
+    <item>
+      <attribute id="1100059926" priority="1" done="1" start_date="731895" completed_date="732058" notify="0" last_edited="1114162550"/>
+      <summary>Display progress window</summary>
+      <comment>Display a "Loading project" window before loading a project and update gtk events.</comment>
+    </item>
+    <item>
+      <attribute id="1098254033" priority="1" done="1" start_date="731874" completed_date="732058" notify="0" last_edited="1114162746"/>
+      <summary>Context menu</summary>
+      <comment>Add target and source selected signals in gbf project.
+Export currenct selected target or source.
+Added context menu based on current selected target or source.</comment>
+    </item>
+    <item>
+      <attribute id="1114162826" priority="1" done="1" start_date="732058" completed_date="732119" notify="0" last_edited="1119425386"/>
+      <summary>Implemente "Properties" method</summary>
+      <comment>Implement "Configure" method in gnome-build for the automake backend.
+This will correspond to the "Properties" method in our project manager.</comment>
+    </item>
+    <item>
+      <attribute id="1159539525" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159550650"/>
+      <summary>Complete Makefile project manager backend</summary>
+      <comment>[Skill: High, Work: 50hrs, Bounty: $700]
+
+There is some initial work done for makefile based project management in gnome-build (src/backends/libgbf_mkfile) and Anjuta. Most of the base implementations have been done. The tasks is to completed this backend so that it works just like automake-backend. All the project interfaces from Anjuta via gnome-build should work meaningfully for this backend (as far as Makefile based structure would allow). Further details can be acquired by following the mailing list thread:
+
+http://sourceforge.net/mailarchive/message.php?msg_id=12687933</comment>
+    </item>
+  </category>
+  <category title="Plugin: File Manager" place="7"/>
+  <category title="Plugin: Automake Build" place="4">
+    <item>
+      <attribute id="1098254207" priority="1" done="1" start_date="731874" completed_date="732059" notify="0" last_edited="1114205327"/>
+      <summary>Project manager watch</summary>
+      <comment>Watch current project's target or source and depending on it,
+merge context menu into project manager.</comment>
+    </item>
+    <item>
+      <attribute id="1100521161" priority="1" done="0" start_date="731900" enddate="99999999" notify="0" endtime="-60" last_edited="1159482687"/>
+      <summary>Define compile commands</summary>
+      <comment>Define compile commands for various file extensions. Normally, plugin should search for a Makefile and invoke it with correct target (for example for a c file, it will be 'make file.o'). There should be a file that contains regexs for deriving target from a file name for invoking 'make'. Also, if there is no Makefile found in the directory with which to invoke the compile command, user should be prompted to create a Makefile (possibly filling it up with some template contents).</comment>
+    </item>
+    <item>
+      <attribute id="1174914425" priority="1" done="0" start_date="732761" enddate="99999999" notify="0" endtime="-60" last_edited="1174914425"/>
+      <summary>Build parameters dialog</summary>
+      <comment>Add a 'Build parameters dialog' in Build menu that brings up a dialog to configure environment variables and make parameters for the build. They would be set when ever the build is started. Also they need to be session saved and restored.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Symbol Browser" place="10">
+    <item>
+      <attribute id="1098256806" priority="1" done="1" start_date="731874" completed_date="731874" notify="0" last_edited="1098286218"/>
+      <summary>Destroy file tags</summary>
+      <comment>Connect to "destroy" signal of editor and destroy file tags when
+the editor is destroyed.</comment>
+    </item>
+    <item>
+      <attribute id="1098255828" priority="1" done="1" start_date="731874" completed_date="732042" notify="0" last_edited="1112766624"/>
+      <summary>Apply autocompletion patch</summary>
+      <comment>Apply class autocompletion patch from SF traker.</comment>
+    </item>
+    <item>
+      <attribute id="1107253892" priority="1" done="1" start_date="731978" completed_date="732058" notify="0" last_edited="1114161970"/>
+      <summary>Refresh symbol-view on idle</summary>
+      <comment>Implement symbol-view refresh on idle and show progress in a progress bar.</comment>
+    </item>
+    <item>
+      <attribute id="1100059961" priority="1" done="1" start_date="731895" completed_date="732058" notify="0" last_edited="1114161986"/>
+      <summary>Display progress window</summary>
+      <comment>Display progress window when refreshing symbols.</comment>
+    </item>
+    <item>
+      <attribute id="1107240408" priority="1" done="1" start_date="731978" completed_date="732058" notify="0" last_edited="1114162066"/>
+      <summary>Update on Add/Remove files in project</summary>
+      <comment>Using IAnjutaProjectManager interface, update symbol database
+on add/remove of sources.</comment>
+    </item>
+    <item>
+      <attribute id="1098255485" priority="1" done="1" start_date="731874" completed_date="732058" notify="0" last_edited="1114162225"/>
+      <summary>Updated tags image on file save</summary>
+      <comment>Connect to "saved" signal of editor and update necessary
+tags in database.</comment>
+    </item>
+    <item>
+      <attribute id="1114162285" priority="1" done="1" start_date="732058" completed_date="732065" notify="0" last_edited="1114713785"/>
+      <summary>Add dialog to create symbol tags in preferences</summary>
+      <comment>Add dialog to create symbol tags in preferences</comment>
+    </item>
+    <item>
+      <attribute id="1114330128" priority="1" done="1" start_date="732060" completed_date="732072" notify="0" last_edited="1115364308"/>
+      <summary>Create IAnjutaSymbols interface</summary>
+      <comment>Create and implement IAnjutaSymbols interface for symbol-browser
+plugin that can work with most languages type system.</comment>
+    </item>
+    <item>
+      <attribute id="1107240571" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483466"/>
+      <summary>Possible memory leak</summary>
+      <comment>Investigate possible memory lead on load/unload of symbol-browser.</comment>
+    </item>
+    <item>
+      <attribute id="1100698396" priority="1" done="0" start_date="731902" enddate="99999999" notify="0" endtime="-60" last_edited="1159483495"/>
+      <summary>Workspace symbols not updated</summary>
+      <comment>Although, file symbols are updated when the file is saved, corresponding workspace symbols are not updated. That is when "goto symbol" to a symbol in this file from some other place is activated (eg. symbol pane), the old location is used.</comment>
+    </item>
+    <item>
+      <attribute id="1107240520" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483529"/>
+      <summary>Tags search do not retrieve all matching symbols</summary>
+      <comment>Tags search (plugins/editor/aneditor.cxx) during calltips query do not retrieve all matching function prototypes. Perhaps, the tags are not sorted, leading to incomplete binary search. Investigate it in tag-manager/ directory.</comment>
+    </item>
+    <item>
+      <attribute id="1159539232" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159616893"/>
+      <summary>Rewrite symbol-browser plugin</summary>
+      <comment>[Skill: High, Work: 200hr, Bounty: $1500, Status: Assigned, Bug: #358479]
+
+A rewrite of symbol-browser plugin is in place. The rewrite is about view/model/store of the symbols database. It will use sqllite for the database for primary storage and implement a GtkTreeModel interface exclusively for using it in Views. A store class will be created that proxies the sqllite database and provide GtkTreeModel interface. The design for this work is still under sketch. Following the given thread for more details:
+
+http://sourceforge.net/mailarchive/message.php?msg_id=36842046</comment>
+    </item>
+  </category>
+  <category title="Documentation" place="21">
+    <item>
+      <attribute id="1098255636" priority="1" done="0" start_date="731874" notify="0" last_edited="1101603303"/>
+      <summary>Update</summary>
+      <comment>All documents need update.</comment>
+    </item>
+    <item>
+      <attribute id="1107512738" priority="1" done="1" start_date="731981" completed_date="732090" notify="0" last_edited="1116916023"/>
+      <summary>Update README, HACKING and ROADMAP files</summary>
+      <comment>Update README, HACKING and ROADMAP files</comment>
+    </item>
+  </category>
+  <category title="Plugin: File Loader" place="6">
+    <item>
+      <attribute id="1098256384" priority="1" done="1" start_date="731874" completed_date="732012" notify="0" last_edited="1110230616"/>
+      <summary>Open with plugins</summary>
+      <comment>Add open with plugins menus along with open with programs menus.</comment>
+    </item>
+    <item>
+      <attribute id="1098254131" priority="1" done="1" start_date="731874" completed_date="732059" notify="0" last_edited="1114205338"/>
+      <summary>Project manager watch</summary>
+      <comment>Watch current project target or source and merge open
+with context menu in project manager.</comment>
+    </item>
+  </category>
+  <category title="libanjuta-interfaces" place="3">
+    <item>
+      <attribute id="1107240705" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107240705"/>
+      <summary>Documentation</summary>
+      <comment>Add gdoc API documentation in libanjuta.idl.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Task Manager" place="11">
+    <item>
+      <attribute id="1107240984" priority="1" done="1" start_date="731978" completed_date="731978" notify="0" last_edited="1107250499"/>
+      <summary>Scrollbars</summary>
+      <comment>Set horizontal and vertical scrollbars AUTOMATIC.</comment>
+    </item>
+    <item>
+      <attribute id="1107241255" priority="1" done="1" start_date="731978" completed_date="731978" notify="0" last_edited="1107250502"/>
+      <summary>Remove text nodes during save</summary>
+      <comment>Remove text nodes between tags that do not have text contents.
+It can be done either during save or load. Without this fix, the save xml is distorted.</comment>
+    </item>
+    <item>
+      <attribute id="1107253814" priority="1" done="1" start_date="731978" completed_date="732012" notify="0" last_edited="1110211719"/>
+      <summary>Column sorting</summary>
+      <comment>Implement column sorting (ala evolution).</comment>
+    </item>
+    <item>
+      <attribute id="1107240955" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483549"/>
+      <summary>Proper deactivation</summary>
+      <comment>Some stuffs are left out during deactivation of the plugin. For example, gnome-vfs monitor for TODO.tasks is not removed, leading to crash when the file changes when the plugin is not active.</comment>
+    </item>
+    <item>
+      <attribute id="1107241155" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483646"/>
+      <summary>Create text version TODO file</summary>
+      <comment>Create human readable TODO file, which will be plain text, during save.</comment>
+    </item>
+    <item>
+      <attribute id="1107241016" priority="1" done="1" start_date="731978" completed_date="732583" notify="0" last_edited="1159555711"/>
+      <summary>Text wrap</summary>
+      <comment>Text (title and description) are not automatically wrapped for long lines.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Project Wizard" place="9">
+    <item>
+      <attribute id="1107241649" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107241649"/>
+      <summary>More templates</summary>
+      <comment>Create more project templates, such as gnome, sdl, x11 etc..</comment>
+    </item>
+    <item>
+      <attribute id="1107241699" priority="1" done="1" start_date="731978" completed_date="731999" notify="0" last_edited="1109054075"/>
+      <summary>Prompt error when autogen could not be found</summary>
+      <comment>Prompt user with an error when 'autogen' could not be found and
+abort the process.</comment>
+    </item>
+    <item>
+      <attribute id="1107241611" priority="1" done="1" start_date="731978" completed_date="731999" notify="0" last_edited="1109054089"/>
+      <summary>Proper message output</summary>
+      <comment>Produce a proper message output when files are created from
+templates. For example, 'Creating project-name/file-path/file-name.c'
+instead of full path names.</comment>
+    </item>
+    <item>
+      <attribute id="1159556062" priority="1" done="1" start_date="732583" completed_date="732761" notify="0" last_edited="1174914110"/>
+      <summary>Test and fix all project wizards templates</summary>
+      <comment>[Skill: basic, Work: 5hr, Bounty: $50, Status: Completed, Bug: #394184 ]
+
+Test and fix all project wizard templates and set reasonable version numbers for the dependencies</comment>
+    </item>
+  </category>
+  <category title="anjuta" place="1">
+    <item>
+      <attribute id="1107253737" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107253737"/>
+      <summary>Save and load user sessions</summary>
+      <comment>Save and load user sessions</comment>
+    </item>
+    <item>
+      <attribute id="1107253772" priority="1" done="1" start_date="731978" completed_date="732405" notify="0" last_edited="1144149839"/>
+      <summary>Show toolbars</summary>
+      <comment>Show toolbars that were shown in last session.</comment>
+    </item>
+    <item>
+      <attribute id="1159539123" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159539726"/>
+      <summary>Improve subvestion and cvs plugins</summary>
+      <comment>[Skill: Medium, Work: 40hrs, Bounty: $300]
+
+Implement missing features of CVS and subversion in their respective plugins. Basic features are already implemented, but we are missing many advanced yet powerful features of these version control systems.</comment>
+    </item>
+    <item>
+      <attribute id="1159555638" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159556331"/>
+      <summary>Apply http://live.gnome.org/GnomeGoals</summary>
+      <comment>[Skill: Low, Work: 20hrs]
+
+Investigate general usability and HIG issues in Anjuta, come up with solutions that counter them and solve them. Issues such as Dialog consistencies, Navigational usabilities, Menus organization, features usablities should be investigated.</comment>
+    </item>
+    <item>
+      <attribute id="1159556239" priority="1" done="1" start_date="732583" completed_date="732709" notify="0" last_edited="1170409095"/>
+      <summary>Use class macros for type casting in all plugin classes</summary>
+      <comment>[Skill: Basic, Work: 1hr, Bounty: $20, Status: Completed, Bug: #374665]
+
+As a bad trend from the beginning, all plugin classes (derived from AnjutaPluing class) do not define any class macros, resulting in bad type castings in wherever these classes are used. These need to be fixed to follow the right procedure.
+
+The work is mostly search and replace work and could possibly be done quickly using sed and friends. Go through all the plugins in plugins/ directory, locate the class definitions of plugins (usually defined in plugin.h), add class macros and use them wherever there are force typecasting used.
+
+Example: (DocmanPlugin*)plugin -&gt; DOCMAN_PLUGIN (plugin)</comment>
+    </item>
+  </category>
+  <category title="Plugin: Macros" place="13">
+    <item>
+      <attribute id="1107522700" priority="1" done="1" start_date="731981" completed_date="732012" enddate="99999999" notify="0" endtime="-60" last_edited="1110211761"/>
+      <summary>Dialogs do not close with escape</summary>
+      <comment>Pressing escape should close all dialogs.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Message Manager" place="14">
+    <item>
+      <attribute id="1108060925" priority="1" done="1" start_date="731988" completed_date="731992" notify="0" last_edited="1108466518"/>
+      <summary>Make next/previous work</summary>
+      <comment>Make next/previous action work</comment>
+    </item>
+    <item>
+      <attribute id="1110343095" priority="1" done="1" start_date="732014" completed_date="732087" notify="0" last_edited="1116682790"/>
+      <summary>Next/Prev shortcuts</summary>
+      <comment>Next and prev menuitems should have shortcuts similar
+to anjuta 1.x.</comment>
+    </item>
+    <item>
+      <attribute id="1110343137" priority="1" done="1" start_date="732014" completed_date="732087" notify="0" last_edited="1116682791"/>
+      <summary>Save messages</summary>
+      <comment>There should be a menuitem "Save messages ..." similar to anjuta 1.x.</comment>
+    </item>
+    <item>
+      <attribute id="1114162476" priority="1" done="1" start_date="732058" completed_date="732113" notify="0" last_edited="1118908979"/>
+      <summary>Complete preferences hooks</summary>
+      <comment>Tab position preferences does not work.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Debugger" place="15">
+    <item>
+      <attribute id="1108355482" priority="1" done="1" start_date="731991" completed_date="732054" notify="0" last_edited="1113828071"/>
+      <summary>Executable choices when starting debugger</summary>
+      <comment>In debugger-manager, when the debugger is started, the user
+should be presented with a list available exec targets in the
+project and prompted to select one. If there is only one exec
+target in the project, that should be considered selected and
+user should be not prompted. If there is no project open,
+the debugger should start anyway without loading any exec.</comment>
+    </item>
+    <item>
+      <attribute id="1108355236" priority="2" done="1" start_date="731991" completed_date="732090" notify="0" last_edited="1116915999"/>
+      <summary>Use gdb MI interface</summary>
+      <comment>Current CLI parsing is inefficient and prone to failures across different gdb
+releases. Use gdb's MI interface to communicate with it.</comment>
+    </item>
+    <item>
+      <attribute id="1108355203" priority="2" done="1" start_date="731991" completed_date="732526" notify="0" last_edited="1154629179"/>
+      <summary>Complete UI and other porting</summary>
+      <comment>Complete debugger UI in gdb plugin. Complete porting of debugger.</comment>
+    </item>
+    <item>
+      <attribute id="1159648703" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648703"/>
+      <summary>Multi-thread support</summary>
+      <comment>[Skill: medium, Work: 30h, Bounty: $150]
+Displaying all threads and selecting one should be rather easy. But this might have some impact on the display of local variables.</comment>
+    </item>
+    <item>
+      <attribute id="1159648774" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648774"/>
+      <summary>Remote debugging support</summary>
+      <comment>[Skill: medium, Work: 40h]
+Remote debugging support in Anjuta debugger.</comment>
+    </item>
+    <item>
+      <attribute id="1159648963" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648963"/>
+      <summary>Rewrite a working inspect/evaluate dialog</summary>
+      <comment>[Skill: Medium, Work: 20hrs]
+
+Currently, this dialog use the same debug tree widget used by the local  variables and watch display. I think we should keep the same widget for all this but we need perhaps to add a few options (local variables cannot be removed by example).</comment>
+    </item>
+    <item>
+      <attribute id="1159648879" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648975"/>
+      <summary>Add a disassembly window</summary>
+      <comment>[Skill: Medium, Work: 40hrs]
+
+The same widget that it already used for the memory view can possibly used for this view with a few improvements. It's a text widget allocating memory only for displayed text. This widget should be improved too, as currently it doesn't free any memory.</comment>
+    </item>
+    <item>
+      <attribute id="1159649070" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159649070"/>
+      <summary>Cleaning the debugger plugin code</summary>
+      <comment>[Skill: Basic, Work: 10hrs, Bounty: $20]
+There are some warning when compiling the gdb plugin code and some useless code that should be removed.
+</comment>
+    </item>
+  </category>
+  <category title="Plugin: Terminal" place="16">
+    <item>
+      <attribute id="1109412369" priority="1" done="0" start_date="732003" enddate="99999999" notify="0" endtime="-60" last_edited="1109412369"/>
+      <summary>Be able to create multiple terminals</summary>
+      <comment>Be able to create multiple terminals</comment>
+    </item>
+    <item>
+      <attribute id="1114162428" priority="1" done="1" start_date="732058" completed_date="732061" notify="0" last_edited="1114423086"/>
+      <summary>Fix crash on docking</summary>
+      <comment>Terminal plugin crashes Anjuta when docking. A serious bug (could be in GDL).</comment>
+    </item>
+  </category>
+  <category title="Plugin: Default Profile" place="17">
+    <item>
+      <attribute id="1110343521" priority="1" done="1" start_date="732014" completed_date="732117" notify="0" last_edited="1119260206"/>
+      <summary>The profile should record user activated plugins</summary>
+      <comment>During the course of usage, the user could have activated
+or deactived various plugins. The profile plugin should record this
+events as a diff of the default selected plugins. That is, if any
+of the default plugins have been deactivated or non-default
+plugins have been deactivated. Then these should be
+saved in session. If project is open, the session should be
+project session and the default plugins are the ones determined
+by the project file. Other the session is global and default plugins
+are the system default plugins.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Subversion" place="18">
+    <item>
+      <attribute id="1114163071" priority="1" done="0" start_date="732058" enddate="99999999" notify="0" endtime="-60" last_edited="1114163071"/>
+      <summary>Completed the remaining subversion operations</summary>
+      <comment>Completed the remaining subversion operations.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Executer" place="12">
+    <item>
+      <attribute id="1114329750" priority="1" done="1" start_date="732060" completed_date="732068" notify="0" last_edited="1115021443"/>
+      <summary>Create executor plugin</summary>
+      <comment>Create executer plugin that implements IAnjutaFile interface
+and merges a menuitem called "Execute" in 'Project' submenu
+that will prompt the user with the list of executatable targets
+in the project. User then selects one of them and executes.</comment>
+    </item>
+  </category>
+  <category title="Plugin: Glade" place="19">
+    <item>
+      <attribute id="1114329978" priority="1" done="0" start_date="732060" enddate="99999999" notify="0" endtime="-60" last_edited="1114329978"/>
+      <summary>Polish up interface</summary>
+      <comment>Add a label before the list of loaded glade projects ("Files:").
+Add stock icon. Deactivate glade plugin when last glade file is closed.</comment>
+    </item>
+    <item>
+      <attribute id="1114330065" priority="1" done="0" start_date="732060" enddate="99999999" notify="0" endtime="-60" last_edited="1159483571"/>
+      <summary>Connect callback signal</summary>
+      <comment>Connect signal callback selection signal from glade and goto the signal implementation when a signal handler is selected in glade. Create the signal prototype if it is not found.</comment>
+    </item>
+    <item>
+      <attribute id="1159555859" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159560780"/>
+      <summary>Complete Glade 3 integration</summary>
+      <comment>[Skill: High, Work: 30hrs, Bounty: $100]
+
+We already have glade3 integration in anjuta working. But the implementation is incomplete and not fully usable. It should interface with Anjuta glade plugin for signals navigation, stubs creations and project files negotiations.
+
+Signals navigation" means when user selects a signal in glade properties editor, Anjuta automatically brings up the implementation of that signal in its editor. This can be accomplished with SymbolBrowser plugin in anjuta, that keeps tab on all symbol updates in the project. Using the signal handler signature, Anjuta glade plugin can take help of symbol-browser plugin to find the location of function definitions in the project.
+
+"Stubs creation" means when the user adds new signals, Anjuta glade plugin automatically creates the stub for the signal handler using gtk signal introspection. The signal prototype can be identified with the introspection. Where and how the stubs are added in project is a matter
+of dissussion.
+
+"Project files negotiation" means when user adds file via glade (e.g. images in dialogs), glade will notify anjuta to add the file in project and give a change to relocate it within the project. Anjuta needs to handle this request and add the files in project (possibly prompting user for relocation). Anjuta also needs to make sure glade is able to find them later.
+
+Also, the the glade widget editor should be embed in Anjuta (glade-3 already has the necessary widgets).</comment>
+    </item>
+  </category>
+  <category title="Pluing: Class wizard" place="20">
+    <item>
+      <attribute id="1159534023" priority="1" done="1" start_date="732583" completed_date="732709" notify="0" last_edited="1170409133"/>
+      <summary>Improve class wizard</summary>
+      <comment>[Skill: Medium, Work: 20hrs, Bounty: $200, Status: Completed, Bug: #359862]
+
+Fix c++/gobject class generator to allow adding members, methods, signals, properties and other class elements.</comment>
+    </item>
+  </category>
+</gtodo>

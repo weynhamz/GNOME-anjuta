@@ -1,0 +1,11 @@
+Makefile
+Makefile.in
+*.o
+*~
+.*swp
+.gdbinit
+.deps
+.libs
+.sources
+.nautilus-metafile.xml
+anjuta_launcher

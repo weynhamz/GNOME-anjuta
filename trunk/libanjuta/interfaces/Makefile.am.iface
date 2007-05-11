@@ -1,0 +1,40 @@
+INCLUDES = \
+	$(WARN_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(DEPRECATED_FLAGS) \
+	$(LIBANJUTA_CFLAGS) \
+	-I$(top_srcdir) \
+	-DG_LOG_DOMAIN=\"libanjuta-interfaces\"
+
+MODULE_NAME = libanjuta
+MODULE_VERSION = 0.1
+MODULE_INCLUDEDIR = $(includedir)/libanjuta-1.0/libanjuta/interfaces
+MODULE_LIBS = $(GTK_LIBS)
+
+@@IFACE_RULES@@
+
+BUILT_SOURCES = iface-built.stamp
+
+libanjuta_interfaces_include_HEADERS =  $(libanjuta_interfaces_include)
+
+iface-built.stamp: libanjuta.idl Makefile.am.iface anjuta-idl-compiler.pl
+	savedir=`pwd` && \
+	cd $(srcdir) && perl $(srcdir)/anjuta-idl-compiler.pl libanjuta && \
+	echo 'GInterface' > hierarchy.txt && grep -e '^[[:space:]|\t]*interface' \
+	libanjuta.idl  | sed -e 's/\binterface\b\s*/\t/' | sed -e 's/\t/    /g' \
+	>> hierarchy.txt && \
+	touch $(srcdir)/iface-built.stamp && \
+	echo "changing to $$savedir" && \
+	make && \
+	cd $$savedir
+	
+files_idl = libanjuta.idl
+idldir = $(MODULE_INCLUDEDIR)
+idl_HEADERS = $(files_idl)
+
+EXTRA_DIST = \
+	iface-built.stamp \
+	$(libanjuta_interfaces_include) \
+	$(files_idl) \
+	Makefile.am.iface \
+	anjuta-idl-compiler.pl

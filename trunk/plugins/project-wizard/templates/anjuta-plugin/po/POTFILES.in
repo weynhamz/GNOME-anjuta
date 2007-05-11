@@ -1,0 +1,5 @@
+[+ autogen5 template +]
+# List of source files containing translatable strings.
+
+src/plugin.c
+src/[+NameLower+].plugin.in
