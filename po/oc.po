@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta 2.0.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-15 18:48+0100\n"
-"PO-Revision-Date: 2007-05-09 17:41+0200\n"
+"PO-Revision-Date: 2007-05-11 15:05+0200\n"
 "Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,7 @@ msgstr ""
 
 #: ../anjuta.glade.h:6
 msgid "Additional Options"
-msgstr ""
+msgstr "Opcions suplementàrias"
 
 #: ../anjuta.glade.h:7
 msgid "Additional build options:"
@@ -153,7 +153,7 @@ msgstr ""
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
 #: ../plugins/macro/macros.xml.h:9
 msgid "CVS"
-msgstr ""
+msgstr "CVS"
 
 #: ../anjuta.glade.h:27
 msgid "CVS command options"
@@ -846,7 +846,7 @@ msgstr ""
 
 #: ../anjuta.glade.h:177
 msgid "_Language:"
-msgstr ""
+msgstr "_Lenga :"
 
 #: ../anjuta.glade.h:178
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:31
@@ -882,7 +882,7 @@ msgstr ""
 
 #: ../anjuta.glade.h:184
 msgid "_Terminal:"
-msgstr ""
+msgstr "_Terminal :"
 
 #. Action name
 #. Stock icon, if any
@@ -1061,7 +1061,7 @@ msgstr ""
 
 #: ../libanjuta/anjuta-preferences.c:1552
 msgid "Anjuta Preferences"
-msgstr ""
+msgstr "Preferéncias d'Anjuta"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 #: ../libanjuta/anjuta-ui.c:804
@@ -1088,7 +1088,7 @@ msgstr ""
 #: ../libanjuta/anjuta-utils.c:69 ../src/utilities.c:705
 #, c-format
 msgid "Unable to create file: %s."
-msgstr ""
+msgstr "Impossible de crear lo fichièr %s."
 
 #: ../libanjuta/anjuta-utils.c:105 ../src/utilities.c:739
 msgid "Unable to complete file copy"
@@ -1140,7 +1140,7 @@ msgstr "Carga"
 
 #: ../libanjuta/plugins.c:990 ../libanjuta/plugins.c:1587
 msgid "Available Plugins"
-msgstr ""
+msgstr "Ajustons disponibles"
 
 #: ../libanjuta/plugins.c:1086
 msgid "Only show user activatable plugins"
@@ -1450,7 +1450,7 @@ msgstr ""
 
 #: ../plugins/build/build_project.c:339 ../plugins/build/build_project.c:374
 msgid "Install Project"
-msgstr ""
+msgstr "Installar un projècte"
 
 #: ../plugins/build/build_project.c:341 ../plugins/build/build_project.c:376
 msgid "Installing the Project: "
@@ -1669,7 +1669,7 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1012
 msgid "_Install Project"
-msgstr ""
+msgstr "_Installar un projècte"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1013
 msgid "Install whole project"
@@ -1725,7 +1725,7 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1054
 msgid "_Install Module"
-msgstr ""
+msgstr "_Installar un modul"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1055
 msgid "Install module associated with current file"
@@ -1771,7 +1771,7 @@ msgstr "_Installar"
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1089
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1117
 msgid "Install module"
-msgstr ""
+msgstr "Installar un modul"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1094
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1122
@@ -1796,7 +1796,7 @@ msgstr ""
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1307
 #, c-format
 msgid "_Install (%s)"
-msgstr ""
+msgstr "_Installar (%s)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1314
 #, c-format
@@ -1899,12 +1899,12 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
 msgid "Add to current Project?"
-msgstr ""
+msgstr "Apondre al projècte actiu ?"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:5
 msgid "Add to project"
-msgstr ""
+msgstr "Apondre al projècte"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
 msgid "Author Email:"
@@ -1912,7 +1912,7 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:14
 msgid "Author Name:"
-msgstr ""
+msgstr "Nom de l'autor :"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:15
 msgid "Author/Date-Time"
@@ -2048,7 +2048,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
 msgid "<b>CVS Options</b>"
-msgstr ""
+msgstr "<b>Opcions CVS</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
 msgid "<b>Module Details:</b>"
@@ -2057,7 +2057,7 @@ msgstr ""
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Options:</b>"
-msgstr ""
+msgstr "<b>Opcions :</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:6
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:25
@@ -2128,7 +2128,7 @@ msgstr ""
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
 #: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "Choose file or directory to add:"
-msgstr ""
+msgstr "Causissètz un fichièr o un repertòri d'apondre :"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
 #: ../plugins/subversion/anjuta-subversion.glade.h:4
@@ -2150,12 +2150,12 @@ msgstr ""
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
 #: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to remove:"
-msgstr ""
+msgstr "Causissètz un fichièr ou un repertòri de suprimir :"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
 #: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to update:"
-msgstr ""
+msgstr "Causissètz un fichièr o un repertòri d'actualizar :"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
 msgid "Compression Level (0=off, 10=max):"
@@ -2279,7 +2279,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:153
 msgid "Unable to delete file"
-msgstr ""
+msgstr "Impossible de suprimir lo fichièr"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:458
@@ -2324,7 +2324,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:44 ../plugins/cvs-plugin/plugin.c:116
 msgid "_CVS"
-msgstr ""
+msgstr "_CVS"
 
 #. Action name
 #. Stock icon, if any
@@ -2699,7 +2699,7 @@ msgstr ""
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:4
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
 msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-msgstr ""
+msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:5
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
@@ -2716,7 +2716,7 @@ msgstr ""
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
 msgid "*\\.*"
-msgstr ""
+msgstr "*\\.*"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:8
 msgid "<b>'indent' arguments</b>"
@@ -2724,7 +2724,7 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:9
 msgid "<b>Actions</b>"
-msgstr ""
+msgstr "<b>Accions</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:10
 msgid "<b>Autocompletion</b>"
@@ -2736,7 +2736,7 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:12
 msgid "<b>Autosave</b>"
-msgstr ""
+msgstr "<b>Enregistrament automatic</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:13
 msgid "<b>Blank Lines</b>"
@@ -2752,7 +2752,7 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:16
 msgid "<b>Comments</b>"
-msgstr ""
+msgstr "<b>Comentaris</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:17
 msgid "<b>Declarations</b>"
@@ -2788,11 +2788,11 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:26
 msgid "<b>Other colors</b>"
-msgstr ""
+msgstr "<b>Autras colors</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:27
 msgid "<b>Parameters</b>"
-msgstr ""
+msgstr "<b>Paramètres</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:28
 msgid "<b>Print options</b>"
@@ -2937,11 +2937,11 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:65
 msgid "Choose Directories:"
-msgstr ""
+msgstr "Causir de repertòris :"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:66
 msgid "Choose Files:"
-msgstr ""
+msgstr "Causir de fichièrs :"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:67
 msgid "Choose autocomplete for single match"
@@ -2957,11 +2957,11 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:70
 msgid "Colors and fonts"
-msgstr ""
+msgstr "Colors e poliças"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:71
 msgid "Colour"
-msgstr ""
+msgstr "Color"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:72
 msgid "Compact folding"
@@ -3097,7 +3097,7 @@ msgstr "Recèrcar e remplaçar"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:104
 msgid "First Column"
-msgstr ""
+msgstr "Primièra colomna"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:105
 msgid "Foece a space between an 'if' and the following parenthesis (default)."
@@ -3232,7 +3232,7 @@ msgstr "Esquèrra"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:137
 msgid "Length       "
-msgstr ""
+msgstr "Longor"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:138
 msgid "Level              "
@@ -3319,7 +3319,7 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:158
 msgid "New Name:"
-msgstr ""
+msgstr "Novèl nom :"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:159
 msgid "No Limit"
@@ -3671,7 +3671,7 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:246
 msgid "_Save Theme As"
-msgstr ""
+msgstr "_Enregistrar lo tèma coma"
 
 #: ../plugins/document-manager/goto_line.c:124
 msgid "<b>Go to Line number:</b>"
@@ -3717,7 +3717,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:146
 msgid "_Close File"
-msgstr ""
+msgstr "_Barrar lo fichièr"
 
 #: ../plugins/document-manager/plugin.c:147
 msgid "Close current file"
@@ -3725,11 +3725,11 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:149
 msgid "Close All Files"
-msgstr ""
+msgstr "Barrar totes los fichièrs"
 
 #: ../plugins/document-manager/plugin.c:150
 msgid "Close all files"
-msgstr ""
+msgstr "Barrar totes los fichièrs"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "Reload F_ile"
@@ -3932,7 +3932,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:252
 msgid "_Editor"
-msgstr ""
+msgstr "_Editor"
 
 #: ../plugins/document-manager/plugin.c:253
 msgid "_Add Editor View"
@@ -3952,7 +3952,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:259
 msgid "U_ndo"
-msgstr ""
+msgstr "A_nullar"
 
 #: ../plugins/document-manager/plugin.c:260
 msgid "Undo the last action"
@@ -4349,12 +4349,12 @@ msgstr ""
 
 #: ../plugins/editor/text_editor.c:1469
 msgid "Saving file..."
-msgstr ""
+msgstr "Enregistrament del fichièr..."
 
 #: ../plugins/editor/text_editor.c:1478
 #, c-format
 msgid "Could not save file: %s."
-msgstr ""
+msgstr "Impossible d'enregistrar lo fichièr : %s."
 
 #: ../plugins/editor/text_editor.c:1489
 msgid "File saved successfully"
@@ -4572,7 +4572,7 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:447
 msgid "Anjuta Projects"
-msgstr ""
+msgstr "Projèctes d'Anjuta"
 
 #: ../plugins/file-loader/plugin.c:453
 msgid "C/C++ source files"
@@ -4616,7 +4616,7 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:520
 msgid "Lua files"
-msgstr ""
+msgstr "Fichièrs Lua"
 
 #: ../plugins/file-loader/plugin.c:525
 msgid "Diff files"
@@ -4700,15 +4700,15 @@ msgstr ""
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
 msgid "Choose directories"
-msgstr ""
+msgstr "Causir de repertòris"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:12
 msgid "Choose files"
-msgstr ""
+msgstr "Causir de fichièrs"
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:13
 msgid "Directory "
-msgstr ""
+msgstr "Repertòri "
 
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
 msgid "Do not show files ignored by version control"
@@ -4866,7 +4866,7 @@ msgstr ""
 
 #: ../plugins/file-wizard/plugin.c:51
 msgid "_Insert text"
-msgstr ""
+msgstr "_Inserir de tèxt"
 
 #: ../plugins/file-wizard/plugin.c:52
 msgid "C _template"
@@ -4882,7 +4882,7 @@ msgstr "_General"
 
 #: ../plugins/file-wizard/plugin.c:55 ../plugins/file-wizard/plugin.c:97
 msgid "_Header"
-msgstr ""
+msgstr "_Encap"
 
 #: ../plugins/file-wizard/plugin.c:56
 msgid "Insert a file header"
@@ -4914,7 +4914,7 @@ msgstr ""
 
 #: ../plugins/file-wizard/plugin.c:67
 msgid "Current _Username"
-msgstr ""
+msgstr "Nom d'_utilizaire actual"
 
 #: ../plugins/file-wizard/plugin.c:68
 msgid "Insert name of current user"
@@ -4922,7 +4922,7 @@ msgstr ""
 
 #: ../plugins/file-wizard/plugin.c:70
 msgid "Current _Date & Time"
-msgstr ""
+msgstr "_Data e ora actualas"
 
 #: ../plugins/file-wizard/plugin.c:71
 msgid "Insert current date & time"
@@ -4978,7 +4978,7 @@ msgstr ""
 
 #: ../plugins/file-wizard/plugin.c:91
 msgid "_Author"
-msgstr ""
+msgstr "_Autor"
 
 #: ../plugins/file-wizard/plugin.c:92
 msgid "Insert the CVS Author keyword (author of the change)"
@@ -5128,7 +5128,7 @@ msgstr ""
 
 #: ../plugins/gdb/debug_tree.c:1575
 msgid "Binary"
-msgstr ""
+msgstr "Binari"
 
 #: ../plugins/gdb/debug_tree.c:1578
 msgid "Octal"
@@ -5660,7 +5660,7 @@ msgstr "Suprimir"
 
 #: ../plugins/gdb/watch_gui.c:49
 msgid "Update all"
-msgstr ""
+msgstr "Tot actualizar"
 
 #: ../plugins/gdb/watch_gui.c:55
 msgid "Clear"
@@ -5701,7 +5701,7 @@ msgstr ""
 #: ../plugins/glade/plugin.c:110
 #, c-format
 msgid "_Undo: %s"
-msgstr ""
+msgstr "_Anullar : %s"
 
 #: ../plugins/glade/plugin.c:115 ../plugins/glade/plugin.c:438
 msgid "_Undo"
@@ -5750,7 +5750,7 @@ msgstr ""
 
 #: ../plugins/glade/plugin.c:430
 msgid "_Glade"
-msgstr ""
+msgstr "_Glade"
 
 #: ../plugins/glade/plugin.c:440
 msgid "Undo last action"
@@ -5802,7 +5802,7 @@ msgstr ""
 
 #: ../plugins/glade/plugin.c:510
 msgid "Clos_e"
-msgstr ""
+msgstr "Barr_ar"
 
 #: ../plugins/glade/plugin.c:512
 msgid "Close current glade project"
@@ -5832,7 +5832,7 @@ msgstr ""
 #: ../plugins/glade/plugin.c:779
 #, c-format
 msgid "Could not open: %s"
-msgstr ""
+msgstr "Impossible de dubrir : %s"
 
 #: ../plugins/glade/plugin.c:810
 msgid "Could not create a new glade project."
@@ -5905,7 +5905,7 @@ msgstr "Comentari :"
 
 #: ../plugins/gtodo/add_edit_item.c:251
 msgid "<b>Comment:</b>"
-msgstr ""
+msgstr "<b>Comentari :</b>"
 
 #: ../plugins/gtodo/add_edit_item.c:272
 msgid "Completed"
@@ -6124,18 +6124,18 @@ msgstr ""
 
 #: ../plugins/gtodo/egg-datetime.c:545
 msgid "_Today"
-msgstr ""
+msgstr "_Uèi"
 
 #: ../plugins/gtodo/egg-datetime.c:546
 msgid "_No Date"
-msgstr ""
+msgstr "_Pas de data"
 
 #. Translators: set this to anything else if you want to use a
 #. * 24 hour clock.
 #.
 #: ../plugins/gtodo/egg-datetime.c:792
 msgid "24hr: no"
-msgstr ""
+msgstr "24hr : yes"
 
 #: ../plugins/gtodo/egg-datetime.c:796 ../plugins/gtodo/egg-datetime.c:1340
 #: ../plugins/gtodo/egg-datetime.c:1344
@@ -6151,37 +6151,37 @@ msgstr ""
 #: ../plugins/gtodo/egg-datetime.c:806
 #, c-format
 msgid "%02d:%02d:%02d %s"
-msgstr ""
+msgstr "%02d:%02d:%02d %s"
 
 #. Translators: This is hh:mm AM/PM.
 #: ../plugins/gtodo/egg-datetime.c:809
 #, c-format
 msgid "%02d:%02d %s"
-msgstr ""
+msgstr "%02d:%02d %s"
 
 #. Translators: This is hh:mm:ss.
 #: ../plugins/gtodo/egg-datetime.c:813
 #, c-format
 msgid "%02d:%02d:%02d"
-msgstr ""
+msgstr "%02d:%02d:%02d"
 
 #. Translators: This is hh:mm.
 #: ../plugins/gtodo/egg-datetime.c:816
 #, c-format
 msgid "%02d:%02d"
-msgstr ""
+msgstr "%02d:%02d"
 
 #: ../plugins/gtodo/egg-datetime.c:1243 ../plugins/gtodo/egg-datetime.c:1295
 #: ../plugins/gtodo/todo_db.c:158
 msgid "No Date"
-msgstr ""
+msgstr "Pas de data"
 
 #. TODO: should handle other display modes as well...
 #. Translators: This is yyyy-mm-dd.
 #: ../plugins/gtodo/egg-datetime.c:1255
 #, c-format
 msgid "%04d-%02d-%02d"
-msgstr ""
+msgstr "%04d-%02d-%02d"
 
 #: ../plugins/gtodo/egg-datetime.c:1279 ../plugins/gtodo/egg-datetime.c:2323
 msgid "no end time"
@@ -6274,19 +6274,19 @@ msgstr ""
 
 #: ../plugins/gtodo/gtodo.c:134
 msgid "/_Item"
-msgstr ""
+msgstr "/_Element"
 
 #: ../plugins/gtodo/gtodo.c:135
 msgid "/Item/_Add"
-msgstr ""
+msgstr "/Element/_Apondre"
 
 #: ../plugins/gtodo/gtodo.c:136
 msgid "/Item/_Edit"
-msgstr ""
+msgstr "/Element/_Modificar"
 
 #: ../plugins/gtodo/gtodo.c:137
 msgid "/Item/_Remove"
-msgstr ""
+msgstr "/Element/_Suprimir"
 
 #: ../plugins/gtodo/gtodo.c:138
 msgid "/Item/Remove _Completed Items"
@@ -6294,7 +6294,7 @@ msgstr ""
 
 #: ../plugins/gtodo/gtodo.c:139
 msgid "/_View"
-msgstr ""
+msgstr "/_Visualizacion"
 
 #: ../plugins/gtodo/gtodo.c:140
 msgid "/_View/_Sorting"
@@ -6353,15 +6353,15 @@ msgstr "_Mostrar"
 
 #: ../plugins/gtodo/interface.c:36
 msgid "/Item/Edit"
-msgstr ""
+msgstr "/Element/Modificar"
 
 #: ../plugins/gtodo/interface.c:37
 msgid "/Item/Remove"
-msgstr ""
+msgstr "/Element/Suprimir"
 
 #: ../plugins/gtodo/interface.c:38
 msgid "/Item/Add"
-msgstr ""
+msgstr "/Element/Apondre"
 
 #: ../plugins/gtodo/interface.c:39
 msgid "/Item/Remove Completed Items"
@@ -6390,7 +6390,7 @@ msgstr "Somari"
 
 #: ../plugins/gtodo/interface.c:253
 msgid "About gToDo"
-msgstr ""
+msgstr "A prepaus de gToDo"
 
 #: ../plugins/gtodo/interface.c:261
 #, c-format
@@ -6408,7 +6408,7 @@ msgstr ""
 
 #: ../plugins/gtodo/interface.c:273
 msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
-msgstr ""
+msgstr "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
 
 #: ../plugins/gtodo/interface.c:274
 msgid ""
@@ -6507,6 +6507,8 @@ msgid ""
 "\n"
 "<b>Comment:</b>\t%s"
 msgstr ""
+"\n"
+"<b>Comentari :</b>\t%s"
 
 #: ../plugins/gtodo/main.c:191
 msgid "--help"
@@ -6569,7 +6571,7 @@ msgstr ""
 
 #: ../plugins/gtodo/plugin.c:64
 msgid "_Tasks"
-msgstr ""
+msgstr "_Prètzfaches"
 
 #: ../plugins/gtodo/plugin.c:73
 msgid "Hide _Completed Items"
@@ -6677,7 +6679,7 @@ msgstr ""
 
 #: ../plugins/gtodo/preferences.c:148
 msgid "days."
-msgstr ""
+msgstr "jorns."
 
 #: ../plugins/gtodo/preferences.c:160
 msgid "Auto Purge"
@@ -6722,15 +6724,15 @@ msgstr ""
 
 #: ../plugins/gtodo/tray-icon.c:20
 msgid "/_New"
-msgstr ""
+msgstr "/_Novèl"
 
 #: ../plugins/gtodo/tray-icon.c:21
 msgid "/_Hide"
-msgstr ""
+msgstr "/_Amagar"
 
 #: ../plugins/gtodo/tray-icon.c:22
 msgid "/_Show"
-msgstr ""
+msgstr "/_Visualizar"
 
 #: ../plugins/gtodo/tray-icon.c:23
 msgid "/sep1"
@@ -6795,35 +6797,35 @@ msgstr ""
 
 #: ../plugins/macro/macro-util.c:59
 msgid "%Y-%m-%d"
-msgstr ""
+msgstr "%d/%m/%Y"
 
 #: ../plugins/macro/macro-util.c:72
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: ../plugins/macro/macros.xml.h:1
 msgid "# GPL"
-msgstr ""
+msgstr "# GPL"
 
 #: ../plugins/macro/macros.xml.h:2
 msgid "# LGPL"
-msgstr ""
+msgstr "# LGPL"
 
 #: ../plugins/macro/macros.xml.h:3
 msgid "/* GPL */"
-msgstr ""
+msgstr "/* GPL */"
 
 #: ../plugins/macro/macros.xml.h:4
 msgid "/* LGPL */"
-msgstr ""
+msgstr "/* LGPL */"
 
 #: ../plugins/macro/macros.xml.h:5
 msgid "// GPL"
-msgstr ""
+msgstr "// GPL"
 
 #: ../plugins/macro/macros.xml.h:6
 msgid "// LGPL"
-msgstr ""
+msgstr "// LGPL"
 
 #: ../plugins/macro/macros.xml.h:7
 msgid "Basic"
@@ -6843,7 +6845,7 @@ msgstr ""
 
 #: ../plugins/macro/macros.xml.h:12
 msgid "Copyright"
-msgstr ""
+msgstr "Copyright"
 
 #: ../plugins/macro/macros.xml.h:13
 msgid "Date_Time"
@@ -6887,7 +6889,7 @@ msgstr ""
 
 #: ../plugins/macro/macros.xml.h:23
 msgid "azerty"
-msgstr ""
+msgstr "azerty"
 
 #: ../plugins/macro/macros.xml.h:24
 msgid "cvs_author"
@@ -7086,11 +7088,11 @@ msgstr ""
 
 #: ../plugins/message-view/plugin.c:80
 msgid "_Save message"
-msgstr ""
+msgstr "_Enregistrar lo messatge"
 
 #: ../plugins/message-view/plugin.c:81
 msgid "Save message"
-msgstr ""
+msgstr "Enregistrar lo messatge"
 
 #: ../plugins/message-view/plugin.c:150
 msgid "Next/Prev Message"
@@ -7174,11 +7176,11 @@ msgstr "Previsualizacion de l'estampatge"
 
 #: ../plugins/profile-default/plugin.c:242
 msgid "Close Pro_ject"
-msgstr ""
+msgstr "Barrar lo pro_jècte"
 
 #: ../plugins/profile-default/plugin.c:242
 msgid "Close project"
-msgstr ""
+msgstr "Barrar lo projècte"
 
 #: ../plugins/profile-default/plugin.c:261
 msgid "Profile actions"
@@ -7246,7 +7248,7 @@ msgstr ""
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:3
 msgid "Import Project"
-msgstr ""
+msgstr "Importar un projècte"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
 msgid "This wizard will help you to import an existing project into anjuta."
@@ -7401,7 +7403,7 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:645
 msgid "_Add To Project"
-msgstr ""
+msgstr "_Apondre al projècte"
 
 #: ../plugins/project-manager/plugin.c:665
 msgid "Re_move"
@@ -7540,7 +7542,7 @@ msgstr ""
 #: ../plugins/project-wizard/install.c:464
 #, c-format
 msgid "Creating %s"
-msgstr ""
+msgstr "Creacion de %s"
 
 #: ../plugins/project-wizard/install.c:535
 msgid "Executing: "
@@ -7976,11 +7978,11 @@ msgstr ""
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:5
 msgid "Add directory"
-msgstr ""
+msgstr "Apondre un repertòri"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
 msgid "Crea_te"
-msgstr ""
+msgstr "Crea_r"
 
 #: ../plugins/symbol-browser/plugin.c:273
 msgid "Tag _Definition"
@@ -8103,7 +8105,7 @@ msgstr ""
 
 #: ../plugins/tools/dialog.c:360
 msgid "Tool"
-msgstr ""
+msgstr "Esplech"
 
 #: ../plugins/tools/editor.c:304
 msgid "ask at runtime"
@@ -8158,7 +8160,7 @@ msgstr "Dubertura de %s"
 
 #: ../plugins/tools/execute.c:332
 msgid "error:"
-msgstr ""
+msgstr "error :"
 
 #. Only for output data
 #: ../plugins/tools/execute.c:403
@@ -8168,7 +8170,7 @@ msgstr ""
 #. Only for error data
 #: ../plugins/tools/execute.c:408
 msgid "(error)"
-msgstr ""
+msgstr "(error)"
 
 #: ../plugins/tools/execute.c:459
 msgid "Running command: "
@@ -8229,7 +8231,7 @@ msgstr ""
 
 #: ../src/about.c:184 ../src/about.c:193
 msgid "Copyright (c) Naba Kumar"
-msgstr ""
+msgstr "Copyright (c) Naba Kumar"
 
 #: ../src/about.c:197
 msgid "GNU General Public License"
@@ -8237,12 +8239,12 @@ msgstr ""
 
 #: ../src/about.c:247
 msgid "Anjuta Plugin"
-msgstr ""
+msgstr "Ajuston d'Anjuta"
 
 #: ../src/action-callbacks.c:101 ../src/action-callbacks.c:116
 #: ../src/shell.c:65
 msgid "Anjuta Plugins"
-msgstr ""
+msgstr "Ajustons d'Anjuta"
 
 #: ../src/action-callbacks.c:130
 msgid ""
@@ -8292,7 +8294,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:39
 msgid "_Toolbars"
-msgstr ""
+msgstr "Barras d'_espleches"
 
 #: ../src/anjuta-actions.h:44
 msgid "_Full Screen"
@@ -8400,7 +8402,7 @@ msgstr ""
 
 #: ../src/anjuta-actions.h:100
 msgid "Ask a _question"
-msgstr ""
+msgstr "Pausar una _question"
 
 #: ../src/anjuta-actions.h:101
 msgid "Submit a question for FAQs"
@@ -8412,7 +8414,7 @@ msgstr "_A prepaus"
 
 #: ../src/anjuta-actions.h:105
 msgid "About Anjuta"
-msgstr ""
+msgstr "A prepaus d'Anjuta"
 
 #: ../src/anjuta-actions.h:108
 msgid "About External _Plugins"
