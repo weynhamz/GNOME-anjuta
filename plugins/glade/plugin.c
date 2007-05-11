@@ -23,10 +23,10 @@
 #if (GLADEUI_VERSION <= 302)
 # include <glade.h>
 #else
-# if (GLADEUI_VERSION < 314)
+# if (GLADEUI_VERSION <= 314)
 #   include <glade.h>
 #   include <glade-design-view.h>
-# else /* Since 3.1.4 */
+# else /* Since 3.1.5 */
 #   include <gladeui/glade.h>
 #   include <gladeui/glade-design-view.h>
 # endif
