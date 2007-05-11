@@ -1,3 +1,58 @@
+Anjuta 2.1.3 (11 May 2007) -- Naba Kumar
+----------------------------------------
+
+Changes:
+========
+* Fixed glade plugin build against glade3 svn trunk
+* Fixes for sun cc compiler
+* Fixes for cygwin
+* Debugger fixes
+* Icons for build messages.
+* Enabled makefile based projects (not fully working)
+* Resolved namespace conflicts
+* Better templates for GObject class generator.
+* Fixes to editor life-cycle
+* Support for shared library in new project templates.
+* Fixes subversion build.
+* New django project template
+* New minimal and flat project template
+
+Translation updates
+===================
+dz, hu, ja, de, gl, ar, en_GB
+
+Bugs fixed
+==========
+#346355 search in project files don't work the first time
+#355145 makefile-based projects are broken
+#359399 Anjuta crash, I don't know (remember) why
+#378193 Find in Files for empty string hangs Anjuta
+#397505 code errors reported by compiler
+#397509 Close project menu-item is disabled when no project file is open
+#406963 File > New > Glade File does nothing
+#409412 crash in Anjuta IDE: Changing font preference...
+#417875 Use G_DEFINE_TYPE in plugins:class-gen
+#417918 Use G_*_DECLS macro in Header_c maco
+#419008 Does not use prefence set e-mail
+#419036 Only one hyphen is replaced by underscore in macros
+#422143 Crash when loading multiple files or several files quickly
+#423680 sun cc can not compile anonymous union
+#423682 sun cc can not compile with zero subscript
+#423727 sun cc can not compile with inline function can not use static function
+#423730 build fail on different return value of function anjuta_launcher_get_child_pid
+#423733 build fail on solaris: missing header files in anjuta-utils.c
+#423737 build fail on solaris: can not find lib util
+#423768 compile fail on plugins/class-gen/window.c: void function cannot return value
+#423772 compile fail on plugins/class-inheritance/class-inherit.c: invalid cast expression
+#424121 anjuta Cygwin fixes
+#424845 crash in Anjuta IDE: I was closing a project ...
+#425850 anjuta crashes on import project from existing sources
+#426701 can not find subversion --with-svn-include
+#427395 Typo in configuration GUI
+#427399 Typo in configuration GUI
+#430401 Anjuta crash when closing file when debugger active
+#433070 [Patch] Run gtk-update-icon-cache in uninstall-hook
+
 Anjuta 2.1.2 (28 March 2007) -- Naba Kumar
 ------------------------------------------
 
