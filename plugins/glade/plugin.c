@@ -20,13 +20,13 @@
 
 #include <config.h>
 
-#ifdef GLADEUI_OLD
+#if (GLADEUI_VERSION <= 302)
 # include <glade.h>
 #else
-# ifdef GLADEUI_LAST_PUBLIC
+# if (GLADEUI_VERSION < 314)
 #   include <glade.h>
 #   include <glade-design-view.h>
-# else /* SVN */
+# else /* Since 3.1.4 */
 #   include <gladeui/glade.h>
 #   include <gladeui/glade-design-view.h>
 # endif
@@ -54,7 +54,7 @@ struct _GladePluginPriv
 	GtkActionGroup *action_group;
 	GladeApp *gpw;
 	GladeProjectView *view;
-#ifndef GLADEUI_OLD
+#if (GLADEUI_VERSION > 302)
 	GtkWidget *design_notebook;
 #endif
 	GtkWidget *view_box;
@@ -70,9 +70,14 @@ enum {
 static void
 glade_update_ui (GladeApp *app, GladePlugin *plugin)
 {
+#if (GLADEUI_VERSION >= 330)
+	GladeCommand *undo_item;
+	GladeCommand *redo_item;
+#else
 	GList *prev_redo_item;
 	GList *undo_item;
 	GList *redo_item;
+#endif
 	const gchar *undo_description = NULL;
 	const gchar *redo_description = NULL;
 	GladeProject *project;
@@ -90,13 +95,21 @@ glade_update_ui (GladeApp *app, GladePlugin *plugin)
 	}
 	else
 	{
+#if (GLADEUI_VERSION >= 330)
+		undo_item = glade_project_next_undo_item(project);
+		redo_item = glade_project_next_redo_item(project);
+		if (undo_item)
+			undo_description = undo_item->description;
+		if (redo_item)
+			redo_description = redo_item->description;
+#else
 		undo_item = prev_redo_item = project->prev_redo_item;
 		redo_item = (prev_redo_item == NULL) ? project->undo_stack : prev_redo_item->next;
-
 		if (undo_item && undo_item->data)
 			undo_description = GLADE_COMMAND (undo_item->data)->description;
 		if (redo_item && redo_item->data)
 			redo_description = GLADE_COMMAND (redo_item->data)->description;
+#endif
 	}
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupGlade", "ActionGladeUndo");
@@ -198,7 +211,12 @@ glade_save (GladePlugin *plugin, GladeProject *project, const gchar *path)
 		return;
 	}
 	// FIXME: gpw_refresh_project_entry (gpw, project);
+#if (GLADEUI_VERSION >= 330)
+	anjuta_status_set (status, _("Glade project '%s' saved"),
+					   glade_project_get_name(project));
+#else
 	anjuta_status_set (status, _("Glade project '%s' saved"), project->name);
+#endif
 }
 
 static void
@@ -210,12 +228,25 @@ on_save_activated (GtkAction *action, GladePlugin *plugin)
 
 	project = glade_app_get_project ();
 
+#if (GLADEUI_VERSION >= 330)
+	if (glade_project_get_path(project) != NULL) {
+#else
 	if (project->path != NULL) {
+#endif
 		AnjutaStatus *status;
 		
 		status = anjuta_shell_get_status (ANJUTA_PLUGIN(plugin)->shell, NULL);
+		
+#if (GLADEUI_VERSION >= 330)
+		if (glade_project_save (project, glade_project_get_path(project),
+								NULL)) {
+			anjuta_status_set (status, _("Glade project '%s' saved"),
+							   glade_project_get_name(project));
+#else	
 		if (glade_project_save (project, project->path, NULL)) {
-			anjuta_status_set (status, _("Glade project '%s' saved"), project->name);
+			anjuta_status_set (status, _("Glade project '%s' saved"),
+							   project->name);
+#endif
 		} else {
 			anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
 										_("Invalid glade file name"));
@@ -281,7 +312,11 @@ glade_confirm_close_project (GladePlugin *plugin, GladeProject *project)
 					"<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s", 				
 					_("Save changes to glade project \"%s\" before closing?"), 
 					_("Your changes will be lost if you don't save them."));
+#if (GLADEUI_VERSION >= 330)
+	msg = g_strdup_printf (string, glade_project_get_name(project));
+#else
 	msg = g_strdup_printf (string, project->name);
+#endif
 	g_free(string);
 	dialog = gtk_message_dialog_new (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
 					 GTK_DIALOG_MODAL,
@@ -306,10 +341,19 @@ glade_confirm_close_project (GladePlugin *plugin, GladeProject *project)
 		 * since it saves the current project, while the modified 
                  * project we are saving may be not the current one.
 		 */
+#if (GLADEUI_VERSION >= 330)
+		if (glade_project_get_path(project) != NULL)
+ 		{
+			close = glade_project_save (project,
+										glade_project_get_path(project),
+										NULL);
+ 		}
+#else
 		if (project->path != NULL)
 		{
 			close = glade_project_save (project, project->path, NULL);
 		}
+#endif
 		else
 		{
 			GtkWidget *filechooser;
@@ -384,7 +428,7 @@ on_api_help (GladeEditor* editor,
 static void
 glade_do_close (GladePlugin *plugin, GladeProject *project)
 {
-#ifndef GLADEUI_OLD
+#if (GLADEUI_VERSION > 302)
 	GtkWidget *design_view;
 
 	design_view = g_object_get_data (G_OBJECT (project), "design_view");
@@ -414,7 +458,11 @@ on_close_activated (GtkAction *action, GladePlugin *plugin)
 		return;
 	}
 	
+#if (GLADEUI_VERSION >= 330)
+	if (glade_project_get_changed(project))
+#else
 	if (project->changed)
+#endif
 	{
 		close = glade_confirm_close_project (plugin, project);
 			if (!close)
@@ -454,14 +502,14 @@ on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
 	{
 		GladeProject *project;
 		
-#ifndef GLADEUI_OLD
+#if (GLADEUI_VERSION > 302)
 		GtkWidget *design_view;
 		gint design_pagenum;
 #endif
 		gtk_tree_model_get (model, &iter, PROJECT_COL, &project, -1);
 		glade_app_set_project (project);
 		
-#ifndef GLADEUI_OLD
+#if (GLADEUI_VERSION > 302)
 		design_view = g_object_get_data (G_OBJECT (project), "design_view");
 		design_pagenum = gtk_notebook_page_num (GTK_NOTEBOOK (plugin->priv->design_notebook),
 												design_view);
@@ -612,9 +660,18 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 			gchar *uri;
 			GladeProject *project;
 			gtk_tree_model_get (model, &iter, PROJECT_COL, &project, -1);
+#if (GLADEUI_VERSION >= 330)
+			if (glade_project_get_path(project))
+#else
 			if (project->path)
+#endif
 			{
+#if (GLADEUI_VERSION >= 330)
+				uri = gnome_vfs_get_uri_from_local_path
+							(glade_project_get_path(project));
+#else
 				uri = gnome_vfs_get_uri_from_local_path (project->path);
+#endif
 				if (uri)
 					files = g_list_prepend (files, uri);
 				/* URI is not freed here */
@@ -652,7 +709,7 @@ on_shell_destroy (AnjutaShell *shell, GladePlugin *glade_plugin)
 	gtk_container_remove (GTK_CONTAINER (parent), wid);
 }
 
-#ifndef GLADEUI_OLD
+#if (GLADEUI_VERSION > 302)
 static void
 glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 {
@@ -720,7 +777,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		g_object_unref (G_OBJECT (store));
 		gtk_box_pack_start (GTK_BOX (priv->view_box), priv->projects_combo,
 							FALSE, FALSE, 0);
-#ifndef GLADEUI_OLD
+#if (GLADEUI_VERSION > 302)
 		priv->view = GLADE_PROJECT_VIEW (glade_project_view_new ());
 #else
 		/* Old glade-3 */
@@ -738,7 +795,7 @@ activate_plugin (AnjutaPlugin *plugin)
 									 TRUE);
 		gtk_notebook_popup_enable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook));
 		
-#ifndef GLADEUI_OLD
+#if (GLADEUI_VERSION > 302)
 		/* Create design_notebook */
 		priv->design_notebook = gtk_notebook_new ();
 		gtk_notebook_set_show_tabs (GTK_NOTEBOOK (priv->design_notebook), FALSE);
@@ -775,7 +832,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_object_ref (glade_app_get_palette ());
 	g_object_ref (glade_app_get_editor ());
 	g_object_ref (priv->view_box);
-#ifndef GLADEUI_OLD
+#if (GLADEUI_VERSION > 302)
 	g_object_ref (priv->design_notebook);
 #endif
 	gtk_widget_show (GTK_WIDGET (glade_app_get_palette ()));
@@ -797,7 +854,7 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "AnjutaGladeEditor", _("Properties"),
 							 "glade-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
-#ifndef GLADEUI_OLD
+#if (GLADEUI_VERSION > 302)
 	anjuta_shell_add_widget (ANJUTA_PLUGIN (plugin)->shell,
 							 GTK_WIDGET (priv->design_notebook),
 							 "AnjutaGladeDesigner", _("Designer"),
@@ -848,7 +905,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_remove_widget (plugin->shell,
 								GTK_WIDGET (priv->view_box),
 								NULL);
-#ifndef GLADEUI_OLD
+#if (GLADEUI_VERSION > 302)
 	anjuta_shell_remove_widget (plugin->shell,
 								GTK_WIDGET (priv->design_notebook),
 								NULL);
@@ -943,8 +1000,13 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	}
 	store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->projects_combo)));
 	gtk_list_store_append (store, &iter);
+#if (GLADEUI_VERSION >= 330)
+	gtk_list_store_set (store, &iter, NAME_COL, glade_project_get_name(project),
+						PROJECT_COL, project, -1);
+#else
 	gtk_list_store_set (store, &iter, NAME_COL, project->name,
 						PROJECT_COL, project, -1);
+#endif
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (ifile), project);
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (ifile)->shell, priv->view_box, NULL);
 }
@@ -965,7 +1027,11 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 	
 	priv = ANJUTA_PLUGIN_GLADE (iwizard)->priv;
 
+#if (GLADEUI_VERSION >= 330)
+	project = glade_project_new ();
+#else
 	project = glade_project_new (TRUE);
+#endif
 	if (!project)
 	{
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (iwizard)->shell),
@@ -974,8 +1040,13 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 	}
 	store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->projects_combo)));
 	gtk_list_store_append (store, &iter);
+#if (GLADEUI_VERSION >= 330)
+	gtk_list_store_set (store, &iter, NAME_COL, glade_project_get_name(project),
+ 						PROJECT_COL, project, -1);
+#else
 	gtk_list_store_set (store, &iter, NAME_COL, project->name,
 						PROJECT_COL, project, -1);
+#endif
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (iwizard), project);
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (iwizard)->shell,
 				     GTK_WIDGET (glade_app_get_palette ()), NULL);

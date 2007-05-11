@@ -43,7 +43,6 @@ LIBDEVHELP_REQUIRED=0.13
 GDL_REQUIRED=0.7.3
 GNOMEBUILD_REQUIRED=0.1.4
 GLADEUI_REQUIRED=3.0.2
-GLADEUI_SVN_REQUIRED=3.1.4
 LIBGRAPHVIZ_REQUIRED=1.0
 NEON_REQUIRED=0.24.5
 SUBVERSION_REQUIRED=1.0.2
@@ -333,38 +332,26 @@ if test "$user_disabled_glade" = 1; then
 	libgladeui_found="no"
 else
 	AC_MSG_RESULT(no)
-	PKG_CHECK_MODULES(PLUGIN_GLADE, [gladeui-1.0 >= $GLADEUI_SVN_REQUIRED],
+	AC_PATH_PROG(PKG_PATH, pkg-config, no)
+	gladeui_version=0
+	PKG_CHECK_MODULES(PLUGIN_GLADE, gladeui-1.0,
+	    [
+		libgladeui_found="yes"
+		gladeui_version=`$PKG_PATH --modversion gladeui-1.0 | sed -e 's,\.,,g'`
+	    ], [
+		libgladeui_found="no"
+	    ])
+	if test x$libgladeui_found = xno; then
+	    PKG_CHECK_MODULES(PLUGIN_GLADE, [libgladeui-1.0 >= $GLADEUI_REQUIRED],
 		[
 			libgladeui_found="yes"
+			gladeui_version=`$PKG_PATH --modversion libgladeui-1.0 | sed -e 's,\.,,g'`
 		], [
 			libgladeui_found="no"
 		])
-	if test x$libgladeui_found = xno; then
-		PKG_CHECK_MODULES(PLUGIN_GLADE, [libgladeui-1.0 > $GLADEUI_REQUIRED],
-			[
-				libgladeui_found="old"
-			], [
-				libgladeui_found="no"
-			])
 	fi
-	if test x$libgladeui_found = xold; then
-		libgladeui_found="yes"
-		AC_DEFINE_UNQUOTED(GLADEUI_LAST_PUBLIC, [1], [Last public GLADEUI version])
-		AC_SUBST(GLADEUI_LAST_PUBLIC)
-	fi
-	if test x$libgladeui_found = xno; then
-		PKG_CHECK_MODULES(PLUGIN_GLADE, [libgladeui-1.0 = $GLADEUI_REQUIRED],
-			[
-				libgladeui_found="old"
-			], [
-				libgladeui_found="no"
-			])
-	fi
-	if test x$libgladeui_found = xold; then
-		libgladeui_found="yes"
-		AC_DEFINE_UNQUOTED(GLADEUI_OLD, [1], [Older GLADEUI version])
-		AC_SUBST(GLADEUI_OLD)
-	fi
+	AC_DEFINE_UNQUOTED(GLADEUI_VERSION, [$gladeui_version], [GLADEUI version])
+	AC_SUBST(GLADEUI_VERSION)
 	AC_SUBST(PLUGIN_GLADE_CFLAGS)
 	AC_SUBST(PLUGIN_GLADE_LIBS)
 fi

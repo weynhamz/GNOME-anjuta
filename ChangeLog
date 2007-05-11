@@ -1,3 +1,10 @@
+2007-05-11  Naba Kumar  <naba@gnome.org>
+
+	* configure.in:
+	* plugins/glade/plugin.c: (glade_update_ui), (glade_save):
+	Fixed glade plugin compilation for glade3 svn version (> 3.3.0)
+	based on patch from Jaap Versteegh  <j_r_versteegh@hotmail.com>.
+
 2007-05-10  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/search/plugin.c:
