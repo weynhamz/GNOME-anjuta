@@ -29,6 +29,9 @@ struct _AnjutaGluePlugin
 struct _AnjutaGluePluginClass
 {
   GTypeModuleClass parent_class;
+	
+  gboolean (*set_module_path) (AnjutaGluePlugin* plugin, const gchar *path, const gchar *plugin_name);
+  GType (*get_component_type) (AnjutaGluePlugin* plugin, GType parent, const gchar *type_name);	
 };
 
 struct _AnjutaGluePluginComponent
@@ -38,7 +41,9 @@ struct _AnjutaGluePluginComponent
 };
 
 GType       anjuta_glue_plugin_get_type      (void);
-AnjutaGluePlugin *anjuta_glue_plugin_new           (GModule *module);
+AnjutaGluePlugin *anjuta_glue_plugin_new     (void);
+gboolean	anjuta_glue_plugin_set_module_path	(AnjutaGluePlugin *plugin, const gchar *path, const gchar* name);
+GType       anjuta_glue_plugin_get_component_type	(AnjutaGluePlugin *plugin, GType parent, const gchar* name);
 
 #define ANJUTA_GLUE_PLUGIN_MODULE(components) \
 ANJUTA_GLUE_REGISTER_COMPONENTS(components) \

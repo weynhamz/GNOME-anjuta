@@ -512,7 +512,7 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 	AnjutaPluginManagerPriv *priv;
 	GType type;
 	GObject *ret;
-	gchar* lang;
+	gchar* lang = NULL;
 	const gchar *plugin_id;
 	AnjutaPluginDescription *plugin_desc;
 	
@@ -560,11 +560,12 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 		/* DEBUG_PRINT ("Loading: %s", plugin_id); */
 		pieces = g_strsplit (plugin_id, ":", -1);
 		type = anjuta_glue_factory_get_object_type (anjuta_glue_factory,
-										     pieces[0], pieces[1]);
+										     pieces[0], pieces[1], lang);
 		g_hash_table_insert (plugin_types, g_strdup (plugin_id),
 							 GUINT_TO_POINTER (type));
 		g_strfreev (pieces);
 	}
+	g_free (lang);
 	
 	if (type == G_TYPE_INVALID)
 	{

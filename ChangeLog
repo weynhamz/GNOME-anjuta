@@ -1,3 +1,18 @@
+2007-05-12 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-glue-plugin.c,
+	libanjuta/anjuta-glue-plugin.h,
+	libanjuta/anjuta-glue-factory.c,
+	libanjuta/anjuta-glue-factory.h,
+	ibanjuta/anjuta-plugin-manager.c:
+	Move code used to load a C plugin from glue-factory to glue-plugin
+	So loading a plugin written in another language could be done by
+	just using another object derived from AnjutaGluePlugin
+
+	* libanjuta/libanjuta.h:
+	Remove anjuta-plugin-handle header, it's not installed as libanjuta
+	includes
+
 === anjuta 2.1.3 ===
 
 2007-05-11  Naba Kumar  <naba@gnome.org>

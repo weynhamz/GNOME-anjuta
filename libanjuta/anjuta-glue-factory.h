@@ -27,11 +27,13 @@ gboolean     anjuta_glue_factory_add_path        (AnjutaGlueFactory  *factory,
 					   const char   *path);
 GType        anjuta_glue_factory_get_object_type (AnjutaGlueFactory  *factory,
 					   const gchar  *component_name,
-					   const gchar  *type_name);
+					   const gchar  *type_name,
+					   const gchar	*language);
 
 GObject     *anjuta_glue_factory_create_object   (AnjutaGlueFactory  *factory,
 					   const gchar  *component_name,
 					   const gchar  *type_name,
+					   const gchar	*language,
 					   ...);
 GList*			anjuta_glue_factory_get_path (AnjutaGlueFactory *factory);
 					   

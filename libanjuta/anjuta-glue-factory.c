@@ -1,4 +1,4 @@
-
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /**
  * SECTION:anjuta-glue-factory
  * @short_description: Underlying plugin factory
@@ -9,21 +9,12 @@
  */
 
 #include <string.h>
-#include <gmodule.h>
 #include "anjuta-glue-factory.h"
 #include "anjuta-glue-plugin.h"
+#include "anjuta-plugin.h"
 
 static void anjuta_glue_factory_init       (AnjutaGlueFactory *factory);
 static void anjuta_glue_factory_class_init (AnjutaGlueFactoryClass *class);
-
-typedef GType (*AnjutaGluePluginGetTypeFunc) (AnjutaGluePlugin *plugin, const char *name);
-
-typedef struct
-{
-  AnjutaGluePlugin *plugin;
-  AnjutaGluePluginGetTypeFunc get_type_func;
-  const gchar *name;
-} LoadedPlugin;
 
 struct _AnjutaGlueFactory
 {
@@ -110,7 +101,7 @@ anjuta_glue_factory_add_path (AnjutaGlueFactory *factory, const gchar *path)
 
   entry = g_new (PathEntry, 1);
   entry->path = g_strdup (path);
-  entry->loaded_plugins = g_hash_table_new (NULL, NULL);
+  entry->loaded_plugins = g_hash_table_new_full (NULL, NULL, g_free, g_object_unref);
   
   factory->paths = g_list_prepend (factory->paths, entry);
     
@@ -122,125 +113,70 @@ GList* anjuta_glue_factory_get_path(AnjutaGlueFactory *factory)
 	return factory->paths;
 }
 
-static LoadedPlugin *
+static AnjutaGluePlugin *
 get_already_loaded_module (AnjutaGlueFactory *factory,
 			   const gchar *component_name,
 			   const gchar *type_name)
 {
-  GList *p;
+	GList *p;
 
-  p = factory->paths;
-  while (p)
-    {
-      PathEntry *entry = p->data;
-      LoadedPlugin *plugin;
+	for (p = factory->paths; p != NULL; p = p->next)
+	{
+    	PathEntry *entry = p->data;
+      	AnjutaGluePlugin *plugin;
 
-      plugin = g_hash_table_lookup (entry->loaded_plugins, component_name);
+		plugin = g_hash_table_lookup (entry->loaded_plugins, component_name);
 
-      if (plugin && (* plugin->get_type_func) (plugin->plugin, type_name) != G_TYPE_INVALID)
-	return plugin;
-      
-      p = p->next;
-    }
+		if (plugin && anjuta_glue_plugin_get_component_type (plugin, ANJUTA_TYPE_PLUGIN, type_name) != G_TYPE_INVALID)
+			return plugin;
+	}
 
-  return NULL;
+	return NULL;
 }
 
-static LoadedPlugin *
+static AnjutaGluePlugin *
 load_plugin (AnjutaGlueFactory *factory, const gchar *component_name, const gchar *type_name)
 {
-  GList *p;
-  gchar *plugin_name;
+	GList *p;
+	AnjutaGluePlugin *plugin;
   
-  p = factory->paths;
-  plugin_name = g_module_build_path (NULL, component_name);
-  
-  while (p)
-    {
-      const gchar *file_name;
-      PathEntry *entry = p->data;
-      GDir *dir;
-      
-      dir = g_dir_open (entry->path, 0, NULL);
-
-      if (dir == NULL)
-	continue;
-      
-      do {
-	file_name = g_dir_read_name (dir);
+	plugin = anjuta_glue_plugin_new ();
 	
-	if (file_name && strcmp (file_name, plugin_name) == 0) {
-	  GModule *module;
-	  AnjutaGluePlugin *anjuta_glue_plugin;
-	  gchar *plugin_path;
-	  AnjutaGluePluginGetTypeFunc get_type_func;
-	  LoadedPlugin *plugin;
-	  
-	  /* We have found a matching module */
-	  plugin_path = g_module_build_path (entry->path, plugin_name);
-	  module = g_module_open (plugin_path, 0);
-	  if (module == NULL)
-	    {
-	      g_warning ("Could not open module: %s\n", g_module_error ());
-	      goto move_to_next_dir;
-	    }
+	for (p = factory->paths; p != NULL; p = p->next)
+    {
+    	PathEntry *entry = p->data;
 
-	  if (!g_module_symbol (module, "anjuta_glue_get_component_type", (gpointer *)&get_type_func))
-	    {
-	      g_module_close (module);
-	      goto move_to_next_dir;
-	    }
-
-	  /* Now create a new glue plugin */
-	  anjuta_glue_plugin = anjuta_glue_plugin_new (module);
-	  if ((* get_type_func) (anjuta_glue_plugin, type_name) == G_TYPE_INVALID)
-	    {
-	      g_object_unref (anjuta_glue_plugin);
-	      g_module_close (module);
-	      goto move_to_next_dir;
-	    }
-	  
-	  /* Everything seems to be in order */
-	  plugin = g_new (LoadedPlugin, 1);
-	  plugin->plugin = anjuta_glue_plugin;
-	  plugin->get_type_func = get_type_func;
-	  plugin->name = g_strdup (component_name);
-	  g_type_module_set_name (G_TYPE_MODULE (plugin->plugin), plugin->name);
-	  g_hash_table_insert (entry->loaded_plugins, (gpointer)plugin->name, plugin);
-	  
-	  g_dir_close (dir);
-	  g_free (plugin_name);
-	  return plugin;
-
+		if (anjuta_glue_plugin_set_module_path (plugin, entry->path, component_name))
+		{
+			g_hash_table_insert (entry->loaded_plugins,
+								 (gpointer)strdup (component_name),
+								 plugin);
+			
+			return plugin;
+		}
 	}
 	
-      } while (file_name != NULL);
-      
-move_to_next_dir:	  
-      g_dir_close (dir);
-      
-      p = p->next;
-    }
-
-  g_free (plugin_name);
-  return NULL;
+	/* Plugin file not found, free object */
+	g_object_unref (G_OBJECT (plugin));
+					
+ 	return NULL;
 }
 
 GType
 anjuta_glue_factory_get_object_type (AnjutaGlueFactory  *factory,
 			      const gchar  *component_name,
-			      const gchar  *type_name)
+			      const gchar  *type_name,
+			      const gchar  *language)
 {
-  LoadedPlugin *plugin;
+	AnjutaGluePlugin *plugin;
 
-  plugin = get_already_loaded_module (factory, component_name, type_name);
+	plugin = get_already_loaded_module (factory, component_name, type_name);
   
-  if (!plugin)
-    plugin = load_plugin (factory, component_name, type_name);
+	if (!plugin)
+    	plugin = load_plugin (factory, component_name, type_name);
 
-  if (plugin) {
-    return (* plugin->get_type_func) (plugin->plugin, type_name);
-  }
-  else
-    return G_TYPE_INVALID;
+	if (plugin)
+		return anjuta_glue_plugin_get_component_type (plugin, ANJUTA_TYPE_PLUGIN, type_name);
+	else
+    	return G_TYPE_INVALID;
 }

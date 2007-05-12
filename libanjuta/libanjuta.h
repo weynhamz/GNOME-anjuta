@@ -29,7 +29,6 @@
 #include <libanjuta/anjuta-marshal.h>
 #include <libanjuta/anjuta-plugin-description.h>
 #include <libanjuta/anjuta-plugin.h>
-#include <libanjuta/anjuta-plugin-handle.h>
 #include <libanjuta/anjuta-plugin-manager.h>
 #include <libanjuta/anjuta-preferences-dialog.h>
 #include <libanjuta/anjuta-preferences.h>
