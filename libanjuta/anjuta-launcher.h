@@ -20,7 +20,7 @@
 #ifndef __ANJUTA_LAUNCHER_H__
 #define __ANJUTA_LAUNCHER_H__
 
-#include <sys/wait.h>
+#include <sys/types.h>
 #include <glib.h>
 #include <glib-object.h>
 
