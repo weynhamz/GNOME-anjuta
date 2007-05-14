@@ -34,6 +34,7 @@
 #include <gtk/gtk.h>
 
 #include "anjuta-document.h"
+#include "sourceview.h"
 #include <gtksourceview/gtksourceview.h>
 
 G_BEGIN_DECLS
@@ -68,7 +69,7 @@ struct _AnjutaView
  * Class definition
  */
 typedef struct _AnjutaViewClass		AnjutaViewClass;
- 
+
 struct _AnjutaViewClass
 {
 	GtkSourceViewClass parent_class;
@@ -83,7 +84,7 @@ struct _AnjutaViewClass
  */
 GtkType		 anjuta_view_get_type     	(void) G_GNUC_CONST;
 
-GtkWidget	*anjuta_view_new			(AnjutaDocument   *doc);
+GtkWidget	*anjuta_view_new			(Sourceview   *sv);
 
 void		 anjuta_view_cut_clipboard 	(AnjutaView       *view);
 void		 anjuta_view_copy_clipboard 	(AnjutaView       *view);

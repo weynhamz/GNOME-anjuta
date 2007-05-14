@@ -1090,7 +1090,7 @@ anjuta_document_get_encoding (AnjutaDocument *doc)
 gchar* anjuta_document_get_current_word(AnjutaDocument* doc)
 {
 	pcre *re;
-    gint err_offset;
+  gint err_offset;
 	const gchar* err;
 	gint rc, start, end;
 	int ovector[2];

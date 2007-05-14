@@ -1,3 +1,52 @@
+2007-05-14  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/language-support-cpp-java/plugin.c: (on_assist_begin),
+	(assist_cleanup), (on_assist_end), (on_assist_cancel),
+	(on_assist_chosen), (on_assist_update), (get_context),
+	(dot_member_parser), (pointer_member_parser), (cpp_member_parser),
+	(install_assist), (uninstall_assist), (install_support),
+	(on_editor_language_changed), (cpp_java_plugin_activate_plugin),
+	(cpp_java_plugin_instance_init):
+	* plugins/language-support-cpp-java/plugin.h:
+	Use IAnjutaEditorAssist to show language specific suggestions
+	
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-view.c: (anjuta_view_new),
+	(anjuta_view_key_press_event), (anjuta_view_button_press_event):
+	* plugins/sourceview/anjuta-view.h:
+	* plugins/sourceview/assist-window.c: (assist_window_expose),
+	(assist_window_set_property), (assist_window_get_property),
+	(assist_window_class_init), (assist_activated),
+	(assist_window_init), (assist_window_finalize),
+	(assist_window_select), (assist_window_first),
+	(assist_window_last), (assist_window_up), (assist_window_down),
+	(get_coordinates), (assist_window_move), (assist_window_update),
+	(assist_window_filter_keypress), (assist_window_is_active),
+	(assist_window_new), (assist_window_get_trigger),
+	(assist_window_get_position):
+	* plugins/sourceview/assist-window.h:
+	* plugins/sourceview/sourceview-args.c (removed):
+	* plugins/sourceview/sourceview-args.h (removed):
+	* plugins/sourceview/sourceview-autocomplete.c (removed):
+	* plugins/sourceview/sourceview-autocomplete.h (removed):
+	* plugins/sourceview/sourceview-cell.c: (icell_get_attribute):
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview-scope.c(removed):
+	* plugins/sourceview/sourceview-scope.h(removed):
+	* plugins/sourceview/sourceview.c: (on_assist_chosen),
+	(on_assist_cancel), (on_document_char_added),
+	(on_reload_dialog_response), (sourceview_class_init),
+	(sourceview_dispose), (sourceview_new), (iassist_add_trigger),
+	(iassist_remove_trigger), (iassist_autocomplete),
+	(iassist_get_suggestions), (iassist_suggest), (iassist_tip),
+	(iassist_react), (iassist_iface_init):
+	* plugins/sourceview/tag-window.c (moved to assist-window.c):
+	* plugins/sourceview/tag-window.h (moved to assist-window.c):
+	
+	- Implemented IAnjutaEditorAssist for sourceview editor (without tooltips)
+	- Mark files dirty if reload dialog is canceled.
+
 2007-05-12  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-launcher.h: Corrected include file.

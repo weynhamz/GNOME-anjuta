@@ -1395,6 +1395,7 @@ interface IAnjutaEditor
 		/* IAnjutaEdiotrAssist::assist_begin:
 		 * @obj: self
 		 * @context: context where assistance is required.
+		 * @trigger: trigger that caused this signal
 		 * 
 		 * When certain context is encountered and assistance is required
 		 * to complete it, this signal is emitted by the editor. For example
@@ -1419,7 +1420,7 @@ interface IAnjutaEditor
 		 * case the whole assist stack is collapsed and everything is reset.
 		 * 
 		 */
-		void ::assist_begin (const gchar *context);
+		void ::assist_begin (const gchar *context, const gchar* trigger);
 		
 		/* IAnjutaEdiotrAssist::assist_update:
 		 * @obj: self
@@ -1432,13 +1433,13 @@ interface IAnjutaEditor
 		 */
 		void ::assist_update (const gchar *context);
 		
-		/* IAnjutaEdiotrAssist::assist_choosen:
+		/* IAnjutaEdiotrAssist::assist_chosen:
 		 * @obj: self
 		 *
 		 * User's selection from the choices. It is the index of the choice
 		 * presented with ianjuta_editor_assist_suggest().
 		 */
-		void ::assist_choosen (gint selection);
+		void ::assist_chosen (gint selection);
 		
 		/* IAnjutaEdiotrAssist::assist_end:
 		 * @obj: self
@@ -1491,17 +1492,16 @@ interface IAnjutaEditor
 		 * ianjuta_editor_assist_suggest:
 		 * @obj: Self
 		 * @choices: list of choices.
-		 * @char_alignment: Character alignment.
+ 		 * @char_alignment: Character alignment.
 		 * @err: Error propagation and reporting
 		 * 
-		 * Suggest a list of choices to the user. @char_alignment indicates
-		 * the position before which is the known context and after which are
-		 * the suggestions. Usually the editor would use this to
-		 * align the choices displayed such that the carat is just at this
-		 * position when the choices are displayed.
+		 * Suggest a list of choices to the user. The suggestions are viewed 
+		 * at char_alignment which should be the beginning of the completed word.
+		 * If choices is NULL, and assist_end signal
+		 * will occur
 		 *
 		 */
-		void suggest (List<const gchar*> choices, gint char_alignment);
+		void suggest (List<const gchar*> choices, int char_alignment);
 		
 		/**
 		 * ianjuta_editor_assist_tip:
@@ -1524,7 +1524,6 @@ interface IAnjutaEditor
 		 * ianjuta_editor_assist_react:
 		 * @obj: Self
 		 * @selection: The user selection index.
-		 * @context: The context to react in.
 		 * @completion: corresponding completion.
 		 * @err: Error propagation and reporting
 		 * 
@@ -1532,10 +1531,10 @@ interface IAnjutaEditor
 		 * it. Usually the editor inserts it at the current carat position
 		 * and end or update current assist context.
 		 */
-		void react (gint selection, const gchar *context, const gchar *completion);
+		void react (gint selection, const gchar *completion);
 		
 		/**
-		 * ianjuta_editor_assist_react:
+		 * ianjuta_editor_assist_get_suggestions:
 		 * @obj: Self
 		 * @context: The context for the suggestions.
 		 * @err: Error propagation and reporting

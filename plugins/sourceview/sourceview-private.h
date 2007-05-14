@@ -20,7 +20,10 @@
 #include "anjuta-view.h"
 #include "anjuta-document.h"
 
+#include "assist-window.h"
+
 #include <libanjuta/anjuta-plugin.h>
+#include <glib.h>
 
 struct SourceviewPrivate {
 	/* GtkSouceView */
@@ -57,6 +60,10 @@ struct SourceviewPrivate {
 	gboolean loading;
 	gboolean saving;
 	gint goto_line;
+	
+	/* Assist */
+	GHashTable* triggers;
+	AssistWindow* assist_win;
 	
 	/* Plugin */
 	AnjutaPlugin* plugin;

@@ -48,7 +48,6 @@
 #include "anjuta-encodings.h"
 #include "sourceview.h"
 #include "sourceview-private.h"
-#include "tag-window.h"
 #include "anjuta-marshal.h"
 
 #define ANJUTA_VIEW_SCROLL_MARGIN 0.02
@@ -79,6 +78,7 @@ struct _AnjutaViewPrivate
 	GtkTooltips *tooltips;
 	GtkWidget* popup;
 	guint scroll_idle;
+  Sourceview* sv;
 };
 
 static void	anjuta_view_destroy		(GtkObject       *object);
@@ -392,35 +392,37 @@ anjuta_view_focus_out (GtkWidget *widget, GdkEventFocus *event)
 
 /**
  * anjuta_view_new:
- * @doc: a #AnjutaDocument
+ * @sv: a #Sourceview
  * 
- * Creates a new #AnjutaView object displaying the @doc document. 
+ * Creates a new #AnjutaView object displaying the @sv->priv->doc document. 
  * @doc cannot be NULL.
  *
  * Return value: a new #AnjutaView
  **/
 GtkWidget *
-anjuta_view_new (AnjutaDocument *doc)
+anjuta_view_new (Sourceview *sv)
 {
 	GtkWidget *view;
 
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), NULL);
+	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (sv->priv->document), NULL);
 
 	view = GTK_WIDGET (g_object_new (ANJUTA_TYPE_VIEW, NULL));
 	
 	gtk_text_view_set_buffer (GTK_TEXT_VIEW (view),
-				  GTK_TEXT_BUFFER (doc));
+				  GTK_TEXT_BUFFER (sv->priv->document));
   		
-	g_signal_connect (doc,
+	g_signal_connect (sv->priv->document,
 			  "notify::read-only",
 			  G_CALLBACK (document_read_only_notify_handler),
 			  view);
 
 	gtk_text_view_set_editable (GTK_TEXT_VIEW (view), 
-				    !anjuta_document_get_readonly (doc));					  
+				    !anjuta_document_get_readonly (sv->priv->document));					  
 
 	gtk_widget_show_all (view);
 
+  ANJUTA_VIEW(view)->priv->sv = sv;
+  
 	return view;
 }
 
@@ -759,7 +761,17 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 
 	pos = gtk_text_iter_get_offset(&iter);
 
-	 switch (event->keyval)
+	AssistWindow* assist_win = view->priv->sv->priv->assist_win;
+	if (assist_win)
+	{
+	  if (assist_window_filter_keypress(assist_win, event->keyval))
+	  {
+		DEBUG_PRINT("key filtered: %d", event->keyval);
+		return TRUE;
+	  }
+	}
+  
+	switch (event->keyval)
 	 {
 		case GDK_Shift_L:
 		case GDK_Shift_R:
@@ -767,7 +779,7 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 			return TRUE;
 		}
 		default:
-		{
+		 {
 			gboolean retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
 			
 			/* Handle char_added signal here */
@@ -780,6 +792,11 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 			{
 				g_signal_emit_by_name (G_OBJECT(view), "char_added",
 									   pos, '\t');
+			}
+			else if (event->keyval == GDK_BackSpace)
+			{
+				g_signal_emit_by_name(G_OBJECT(view), "char_added", 
+									  pos, '\0');
 			}
 			else
 			{
@@ -804,7 +821,8 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 	}
 }
 
-static gboolean	anjuta_view_button_press_event		(GtkWidget         *widget, GdkEventButton       *event)
+static gboolean	
+anjuta_view_button_press_event	(GtkWidget *widget, GdkEventButton *event)
 {
 	AnjutaView* view = ANJUTA_VIEW(widget);
 	

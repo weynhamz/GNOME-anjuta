@@ -55,6 +55,8 @@ libanjuta_sourceview_la_SOURCES = \
 	plugin.h \
 	sourceview.c \
 	sourceview.h \
+	assist-window.h \
+	assist-window.c \
 	anjuta-view.h \
 	anjuta-view.c \
 	anjuta-document-loader.c \
@@ -74,18 +76,8 @@ libanjuta_sourceview_la_SOURCES = \
 	sourceview-prefs.h \
 	sourceview-prefs.c \
 	sourceview-private.h \
-	sourceview-autocomplete.c \
-	sourceview-autocomplete.h \
-	sourceview-tags.c \
-	sourceview-tags.h \
-	tag-window.c \
-	tag-window.h \
 	sourceview-print.c \
 	sourceview-print.h \
-	sourceview-scope.c \
-	sourceview-scope.h \
-	sourceview-args.c \
-	sourceview-args.h \
 	sourceview-cell.c \
 	sourceview-cell.h 
 

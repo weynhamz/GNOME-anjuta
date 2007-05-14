@@ -69,19 +69,100 @@
 static void sourceview_class_init(SourceviewClass *klass);
 static void sourceview_instance_init(Sourceview *sv);
 static void sourceview_finalize(GObject *object);
+static void sourceview_dispose(GObject *object);
 static GObjectClass *parent_class = NULL;
 
 static gboolean sourceview_add_monitor(Sourceview* sv);
 
 /* Callbacks */
 
+static void on_assist_chosen(AssistWindow* assist_win, gint num, Sourceview* sv)
+{
+	g_signal_emit_by_name(G_OBJECT(sv), "assist_chosen", num);
+	DEBUG_PRINT("Assist-choosen");
+	gtk_widget_hide(GTK_WIDGET(sv->priv->assist_win));
+	gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
+}
+
+static void on_assist_cancel(AssistWindow* assist_win, Sourceview* sv)
+{
+	g_signal_emit_by_name(G_OBJECT(sv), "assist_canceled");
+	DEBUG_PRINT("Assist-cancel");
+	gtk_widget_hide(GTK_WIDGET(sv->priv->assist_win));
+	gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
+}
+
 /* Called when a character is added */
 static void on_document_char_added(AnjutaView* view, gint pos,
 								   gchar ch,
 								   Sourceview* sv)
 {
-	DEBUG_PRINT("char-added: %c", ch);
-	g_signal_emit_by_name(G_OBJECT(sv), "char_added", pos, ch);
+	gint i;
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	GtkTextIter begin;
+	GtkTextIter end;
+	DEBUG_PRINT("on_document_char_added, assist: %d", sv->priv->assist_win != NULL);
+	if (sv->priv->assist_win)
+	{
+		gtk_text_buffer_get_iter_at_mark(buffer, &begin,
+										 gtk_text_buffer_get_insert(buffer));
+		gtk_text_buffer_get_iter_at_offset(buffer, &end,
+										   assist_window_get_position(sv->priv->assist_win));
+		gchar* context = gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
+		g_signal_emit_by_name(G_OBJECT(sv), "assist_update", context);
+	}
+	/* FIXME: triggers with more than 5 characters? */
+	else
+	{
+		gboolean found = FALSE;
+		for (i = 1; i < 5; i++)
+		{
+			gchar* text;
+			IAnjutaEditorAssistContextParser parser = 0;
+			gtk_text_buffer_get_iter_at_mark(buffer, &begin, gtk_text_buffer_get_insert(buffer));
+			gtk_text_buffer_get_iter_at_mark(buffer, &end, gtk_text_buffer_get_insert(buffer));		
+			gtk_text_iter_backward_chars(&begin, i);
+			text = gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
+			parser = g_hash_table_lookup(sv->priv->triggers, text);
+			if (parser)
+			{
+				gchar* context = parser(IANJUTA_EDITOR(sv), gtk_text_iter_get_offset(&end));
+				sv->priv->assist_win = assist_window_new(GTK_TEXT_VIEW(sv->priv->view), text, -1);
+				g_signal_connect(G_OBJECT(sv->priv->assist_win), "destroy", 
+								 G_CALLBACK(gtk_widget_destroyed), &sv->priv->assist_win);
+				g_signal_connect(G_OBJECT(sv->priv->assist_win), "chosen", 
+								 G_CALLBACK(on_assist_chosen), sv);
+				g_signal_connect(G_OBJECT(sv->priv->assist_win), "cancel", 
+								 G_CALLBACK(on_assist_cancel), sv);
+				g_signal_emit_by_name(G_OBJECT(sv), "assist_begin", context, text);
+				g_free(text);
+				found = TRUE;
+				break;
+			}
+			g_free(text);
+		}
+		if (!found)
+		{
+			gchar* word = anjuta_document_get_current_word(
+														   ANJUTA_DOCUMENT(sv->priv->document));
+			if (word != NULL && strlen(word) >= 3)
+			{
+				gtk_text_buffer_get_iter_at_mark(buffer, &begin, gtk_text_buffer_get_insert(buffer));
+				gtk_text_iter_backward_chars(&begin, strlen(word));
+				sv->priv->assist_win = assist_window_new(GTK_TEXT_VIEW(sv->priv->view), NULL,
+														 gtk_text_iter_get_offset(&begin));
+				g_signal_connect(G_OBJECT(sv->priv->assist_win), "destroy", 
+							 G_CALLBACK(gtk_widget_destroyed), &sv->priv->assist_win);
+				g_signal_connect(G_OBJECT(sv->priv->assist_win), "chosen", 
+							 G_CALLBACK(on_assist_chosen), sv);
+				g_signal_connect(G_OBJECT(sv->priv->assist_win), "cancel", 
+							 G_CALLBACK(on_assist_cancel), sv);
+				g_signal_emit_by_name(G_OBJECT(sv), "assist_begin", word, NULL);
+			}
+		}	
+	}
+	if (ch != '\0')
+		g_signal_emit_by_name(G_OBJECT(sv), "char_added", pos, ch);
 }
 
 /* Called whenever the document is changed */
@@ -108,6 +189,11 @@ on_reload_dialog_response (GtkWidget *dlg, gint res, Sourceview *sv)
 	{
 		ianjuta_file_open(IANJUTA_FILE(sv),
 						  anjuta_document_get_uri(sv->priv->document), NULL);
+	}
+	else
+	{
+		/* Set dirty */
+		gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(sv->priv->document), TRUE);
 	}
 	gtk_widget_destroy (dlg);
 }
@@ -360,11 +446,21 @@ sourceview_class_init(SourceviewClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
 	parent_class = g_type_class_peek_parent(klass);
+	object_class->dispose = sourceview_dispose;
 	object_class->finalize = sourceview_finalize;
 	
 	/* Create signals here:
 	   sourceview_signals[SIGNAL_TYPE_EXAMPLE] = g_signal_new(...)
  	*/
+}
+
+static void
+sourceview_dispose(GObject *object)
+{
+	Sourceview *cobj = ANJUTA_SOURCEVIEW(object);
+	if (cobj->priv->assist_win)
+		on_assist_cancel(cobj->priv->assist_win, cobj);
+	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
 static void
@@ -490,7 +586,7 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 					 G_CALLBACK(on_document_saving), sv);
 					 
 	/* Create View instance */
-	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv->priv->document));
+	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv));
 	g_signal_connect_after(G_OBJECT(sv->priv->view), "char_added",
 					G_CALLBACK(on_document_char_added), sv);
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
@@ -1734,6 +1830,101 @@ ilanguage_iface_init (IAnjutaEditorLanguageIface *iface)
 	iface->set_language = ilanguage_set_language;
 }
 
+static void
+iassist_add_trigger (IAnjutaEditorAssist* iassist, const gchar* trigger,
+					 IAnjutaEditorAssistContextParser context_parser, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	if (!sv->priv->triggers)
+	{
+		sv->priv->triggers = g_hash_table_new(g_str_hash, g_str_equal);
+	}
+	g_hash_table_insert(sv->priv->triggers, (gchar*) trigger, context_parser);
+}
+
+static void
+iassist_remove_trigger (IAnjutaEditorAssist* iassist, const gchar* trigger, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	if (sv->priv->triggers)
+	{
+		g_hash_table_remove(sv->priv->triggers, trigger);
+	}
+}
+
+/* Deprecated... */
+static void
+iassist_autocomplete (IAnjutaEditorAssist* iassist, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	DEBUG_PRINT("Called Assist->Autocomplete which is deprecated");
+}
+
+static GList*
+iassist_get_suggestions (IAnjutaEditorAssist *iassist, const gchar *context, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	/* We don't make own suggestions yet */
+	return NULL;
+}
+
+static void
+iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices, int char_alignment, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	g_return_if_fail(sv->priv->assist_win != NULL);
+	if (choices == NULL)
+	{
+		g_signal_emit_by_name(G_OBJECT(sv), "assist_end");
+		gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
+		sv->priv->assist_win = NULL;
+	}
+	else
+	{
+		assist_window_update(sv->priv->assist_win, choices);
+		gtk_widget_show(GTK_WIDGET(sv->priv->assist_win));
+		if (char_alignment != -1)
+			assist_window_move(sv->priv->assist_win, char_alignment);
+	}
+}
+
+static void 
+iassist_tip (IAnjutaEditorAssist *iassist, GList* tips,  gint char_alignment, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+}
+
+static void
+iassist_react (IAnjutaEditorAssist *iassist, gint selection,  
+			   const gchar *completion, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	GtkTextIter begin, end;
+	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
+															   &begin, assist_window_get_position(sv->priv->assist_win));
+	gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(sv->priv->document), &end, 
+										   gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)));
+	g_signal_handlers_block_by_func(G_OBJECT(sv->priv->document), 
+									on_document_char_added, sv);
+	gtk_text_buffer_delete(GTK_TEXT_BUFFER(sv->priv->document), &begin, &end);
+	gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER(sv->priv->document),
+									 completion, strlen(completion));
+	g_signal_handlers_unblock_by_func(G_OBJECT(sv->priv->document), 
+									on_document_char_added, sv);	
+}
+
+static void
+iassist_iface_init(IAnjutaEditorAssistIface* iface)
+{
+	iface->autocomplete = iassist_autocomplete;
+	iface->add_trigger = iassist_add_trigger;
+	iface->remove_trigger = iassist_remove_trigger;
+	iface->suggest = iassist_suggest;
+	iface->get_suggestions = iassist_get_suggestions;
+	iface->tip = iassist_tip;
+	iface->react = iassist_react;
+}
+
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -1741,7 +1932,7 @@ ANJUTA_TYPE_ADD_INTERFACE(ieditor, IANJUTA_TYPE_EDITOR);
 ANJUTA_TYPE_ADD_INTERFACE(imark, IANJUTA_TYPE_MARKABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iindic, IANJUTA_TYPE_INDICABLE);
 ANJUTA_TYPE_ADD_INTERFACE(iselect, IANJUTA_TYPE_EDITOR_SELECTION);
-//ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
+ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);

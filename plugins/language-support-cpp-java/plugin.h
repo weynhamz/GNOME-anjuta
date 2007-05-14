@@ -20,6 +20,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 
 extern GType cpp_java_plugin_get_type (AnjutaGluePlugin *plugin);
 #define ANJUTA_TYPE_PLUGIN_CPP_JAVA         (cpp_java_plugin_get_type (NULL))
@@ -51,6 +52,10 @@ struct _CppJavaPlugin {
 	gint param_brace_indentation;
 	gint param_case_indentation;
 	gint param_label_indentation;
+	
+	/* Assist */
+	GList* suggestions;
+	IAnjutaSymbolManager* symbol_browser;
 };
 
 struct _CppJavaPluginClass {

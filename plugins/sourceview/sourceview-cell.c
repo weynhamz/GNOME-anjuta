@@ -168,7 +168,8 @@ icell_get_attribute (IAnjutaEditorCell* icell, GError **e)
 				break;
 			}
 			else
-				DEBUG_PRINT("unknown GtkSourceTag id = %s", id);
+				;
+				//DEBUG_PRINT("unknown GtkSourceTag id = %s", id);
 		}
 	}
 	g_slist_free(tags);
