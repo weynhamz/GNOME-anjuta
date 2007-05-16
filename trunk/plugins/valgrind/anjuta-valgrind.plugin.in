@@ -1,5 +1,0 @@
-[Anjuta Plugin]
-Location=anjuta-valgrind:AnjutaValgrindPlugin
-Icon=anjuta-valgrind.png
-_Name=Valgrind Plugin
-_Description=Powerful debugging tool.

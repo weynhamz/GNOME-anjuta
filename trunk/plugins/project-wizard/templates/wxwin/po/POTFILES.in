@@ -1,4 +1,0 @@
-[+ autogen5 template +]
-# List of source files containing translatable strings.
-
-src/main.cc

@@ -1,8 +1,0 @@
-Makefile.in
-Makefile
-test_tm_buffer
-*.o
-*.lo
-*.la
-*~
-*.bak

@@ -1,5 +1,0 @@
-[Anjuta Plugin]
-_Name=Tools
-_Description=Use external program from Anjuta
-Location=anjuta-tools:ATPPlugin
-Icon=anjuta-tools-plugin.png

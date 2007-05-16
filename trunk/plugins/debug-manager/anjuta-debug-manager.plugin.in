@@ -1,6 +1,0 @@
-[Anjuta Plugin]
-_Name=Debugger
-_Description=Debug Manager plugin.
-Location=anjuta-debug-manager:DebugManagerPlugin
-Icon=anjuta-debug-manager.plugin.png
-Interfaces=IAnjutaDebugManager

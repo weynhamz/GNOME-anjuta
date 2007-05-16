@@ -1,9 +1,0 @@
-Makefile.in
-Makefile
-*.lo
-*.o
-*.la
-*.swp
-*.plugin
-.deps
-.libs
