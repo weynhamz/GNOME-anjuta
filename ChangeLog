@@ -1,5 +1,29 @@
 2007-05-17 Sebastien Granjoux <seb.sfo@free.fr>
 
+	* libanjuta/interfaces/libanjuta.idl:
+	Add a new interface allowing to implement plugin able
+	to load other plugins (not written in C)
+
+	* libanjuta/anjuta-plugin-handle.c,
+	libanjuta/anjuta-plugin-handle.h:
+	Add a language and a resident plugin properties
+
+	* libanjuta/anjuta-glue-plugin.c,
+	libanjuta/anjuta-glue-plugin.h,
+	(added)libanjuta/anjuta-glue-c.c,
+	(added)libanjuta/anjuta-glue-c.h,
+	libanjuta/Makefile.am:
+	Split code used to load a C plugin into a common part
+	in anjuta-glue-plugin and a specific part in anjuta-glue-c
+
+	* libanjuta/anjuta-glue-factory.c,
+	libanjuta/anjuta-glue-factory.h,
+	libanjuta/anjuta-plugin-manager.c:
+	Allow to load plugin not written in C and search for the
+	additional needed code in another plugin
+
+2007-05-17 Sebastien Granjoux <seb.sfo@free.fr>
+
 	* plugins/editor/text_editor.c:
 	Add an empty implementation of IAnjutaEditorAssist for scintilla,
 	avoiding a crash if scintilla is used

@@ -3,6 +3,8 @@
 
 #include <glib-object.h>
 
+#include <anjuta-plugin-manager.h>
+
 G_BEGIN_DECLS
 
 #define ANJUTA_GLUE_TYPE_FACTORY            (anjuta_glue_factory_get_type ())
@@ -28,12 +30,14 @@ gboolean     anjuta_glue_factory_add_path        (AnjutaGlueFactory  *factory,
 GType        anjuta_glue_factory_get_object_type (AnjutaGlueFactory  *factory,
 					   const gchar  *component_name,
 					   const gchar  *type_name,
-					   const gchar	*language);
+					   const gboolean resident,
+					   const GType language);
 
 GObject     *anjuta_glue_factory_create_object   (AnjutaGlueFactory  *factory,
 					   const gchar  *component_name,
 					   const gchar  *type_name,
-					   const gchar	*language,
+					   const gboolean resident,
+					   const GType language,
 					   ...);
 GList*			anjuta_glue_factory_get_path (AnjutaGlueFactory *factory);
 					   

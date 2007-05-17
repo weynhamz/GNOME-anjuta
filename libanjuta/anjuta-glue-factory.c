@@ -8,9 +8,10 @@
  * 
  */
 
-#include <string.h>
 #include "anjuta-glue-factory.h"
-#include "anjuta-glue-plugin.h"
+
+#include <string.h>
+
 #include "anjuta-plugin.h"
 
 static void anjuta_glue_factory_init       (AnjutaGlueFactory *factory);
@@ -114,7 +115,7 @@ GList* anjuta_glue_factory_get_path(AnjutaGlueFactory *factory)
 }
 
 static AnjutaGluePlugin *
-get_already_loaded_module (AnjutaGlueFactory *factory,
+get_already_loaded_component (AnjutaGlueFactory *factory,
 			   const gchar *component_name,
 			   const gchar *type_name)
 {
@@ -134,49 +135,81 @@ get_already_loaded_module (AnjutaGlueFactory *factory,
 	return NULL;
 }
 
-static AnjutaGluePlugin *
-load_plugin (AnjutaGlueFactory *factory, const gchar *component_name, const gchar *type_name)
+static GType
+load_plugin (AnjutaGlueFactory *factory, const gchar *component_name, const gchar *type_name, AnjutaGluePlugin *glue)
 {
 	GList *p;
-	AnjutaGluePlugin *plugin;
-  
-	plugin = anjuta_glue_plugin_new ();
-	
+	const gchar *plugin_name;
+	GList *descs = NULL;
+	AnjutaPluginDescription *plugin;
+	gchar *value;	
+
+    plugin_name = anjuta_glue_plugin_build_component_path (glue, NULL, component_name);
 	for (p = factory->paths; p != NULL; p = p->next)
     {
+		const gchar *file_name;
     	PathEntry *entry = p->data;
-
-		if (anjuta_glue_plugin_set_module_path (plugin, entry->path, component_name))
+		GDir *dir;
+		
+		dir = g_dir_open (entry->path, 0, NULL);
+		if (dir == NULL) continue;
+						  
+		/* Search for corresponding file */
+		for(file_name = g_dir_read_name (dir); file_name != NULL; file_name = g_dir_read_name (dir))
 		{
-			g_hash_table_insert (entry->loaded_plugins,
+			if (file_name && strcmp (file_name, plugin_name) == 0)
+			{
+				GType type;
+				
+				/* We have found a matching component */
+				anjuta_glue_plugin_build_component_path (glue, entry->path, component_name);
+				
+				/* Load module to check if type really exist */
+				g_type_module_use (G_TYPE_MODULE (glue));
+				type = anjuta_glue_plugin_get_component_type (glue, ANJUTA_TYPE_PLUGIN, type_name);
+				g_type_module_unuse (G_TYPE_MODULE (glue));
+				if (type != G_TYPE_INVALID)
+				{
+					g_hash_table_insert (entry->loaded_plugins,
 								 (gpointer)strdup (component_name),
-								 plugin);
+								 glue);
 			
-			return plugin;
-		}
-	}
+					return type;
+				}
+				break;
+			}
+        }
+        g_dir_close (dir);
+	}		  
 	
-	/* Plugin file not found, free object */
-	g_object_unref (G_OBJECT (plugin));
+	/* Plugin file not found, free glue object */
+	g_object_unref (G_OBJECT (glue));
 					
- 	return NULL;
+ 	return G_TYPE_INVALID;
 }
 
 GType
 anjuta_glue_factory_get_object_type (AnjutaGlueFactory  *factory,
 			      const gchar  *component_name,
 			      const gchar  *type_name,
-			      const gchar  *language)
+			      gboolean     resident,
+			      GType        language)
 {
-	AnjutaGluePlugin *plugin;
+	AnjutaGluePlugin *glue;
 
-	plugin = get_already_loaded_module (factory, component_name, type_name);
+	glue = get_already_loaded_component (factory, component_name, type_name);
   
-	if (!plugin)
-    	plugin = load_plugin (factory, component_name, type_name);
-
-	if (plugin)
-		return anjuta_glue_plugin_get_component_type (plugin, ANJUTA_TYPE_PLUGIN, type_name);
+	if (!glue)
+	{
+		AnjutaGluePlugin *glue;
+		GType type;
+		
+		glue = (AnjutaGluePlugin *)g_object_new (language, NULL);
+		anjuta_glue_plugin_set_resident (glue, resident);
+    	return load_plugin (factory, component_name, type_name, glue);
+	}
 	else
-    	return G_TYPE_INVALID;
+	{
+		return anjuta_glue_plugin_get_component_type (glue, ANJUTA_TYPE_PLUGIN, type_name);
+	}
 }

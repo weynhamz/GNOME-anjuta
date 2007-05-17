@@ -44,6 +44,8 @@ enum
 	PROP_ABOUT,
 	PROP_ICON_PATH,
 	PROP_USER_ACTIVATABLE,
+	PROP_RESIDENT,
+	PROP_LANGUAGE,
 	PROP_DESCRIPTION,
 	PROP_DEPENDENCY_NAMES,
 	PROP_DEPENDENCIES,
@@ -61,6 +63,8 @@ struct _AnjutaPluginHandlePriv
 	char *about;
 	char *icon_path;
 	gboolean user_activatable;
+	gboolean resident;
+	char *language;
 	
 	AnjutaPluginDescription *description;
 
@@ -114,6 +118,8 @@ anjuta_plugin_handle_finalize (GObject *object)
 	priv->name = NULL;
 	g_free (priv->icon_path);
 	priv->icon_path = NULL;
+	g_free (priv->language);
+	priv->language = NULL;
 	
 	g_list_foreach (priv->dependency_names, (GFunc)g_free, NULL);
 	g_list_free (priv->dependency_names);
@@ -156,6 +162,12 @@ anjuta_plugin_handle_set_property (GObject *object, guint prop_id,
 		break;
 	case PROP_USER_ACTIVATABLE:
 		/* TODO: Add setter for "user-activatable" property here */
+		break;
+	case PROP_RESIDENT:
+		/* TODO: Add setter for "resident" property here */
+		break;
+	case PROP_LANGUAGE:
+		/* TODO: Add setter for "language" property here */
 		break;
 	case PROP_DESCRIPTION:
 		/* TODO: Add setter for "description" property here */
@@ -212,6 +224,12 @@ anjuta_plugin_handle_get_property (GObject *object, guint prop_id,
 		break;
 	case PROP_USER_ACTIVATABLE:
 		g_value_set_boolean (value, priv->user_activatable);
+		break;
+	case PROP_RESIDENT:
+		g_value_set_boolean (value, priv->resident);
+		break;
+	case PROP_LANGUAGE:
+		g_value_set_string (value, priv->language);
 		break;
 	case PROP_DESCRIPTION:
 		g_value_set_pointer (value, priv->description);
@@ -292,6 +310,22 @@ anjuta_plugin_handle_class_init (AnjutaPluginHandleClass *klass)
 	                                                       "If the plugin is user activatable",
 	                                                       FALSE,
 	                                                       G_PARAM_READABLE));
+
+	g_object_class_install_property (object_class,
+	                                 PROP_RESIDENT,
+	                                 g_param_spec_boolean ("resident",
+	                                                       "Resident",
+	                                                       "If the plugin cannot be unloaded",
+	                                                       FALSE,
+	                                                       G_PARAM_READABLE));
+
+	g_object_class_install_property (object_class,
+	                                 PROP_LANGUAGE,
+	                                 g_param_spec_string ("language",
+	                                                      "Language",
+	                                                      "Language used to write the plugin",
+	                                                      NULL,
+	                                                      G_PARAM_READABLE));
 
 	g_object_class_install_property (object_class,
 	                                 PROP_DESCRIPTION,
@@ -442,6 +476,7 @@ anjuta_plugin_handle_new (const gchar *plugin_desc_path)
 	/* Initialize plugin handle */
 	plugin_handle->priv->description = desc;
 	plugin_handle->priv->user_activatable = TRUE;
+	plugin_handle->priv->resident = TRUE;
 	
 	if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 											  "Location", &str)) {
@@ -500,6 +535,21 @@ anjuta_plugin_handle_new (const gchar *plugin_desc_path)
 		}
 		g_free (str);
 	}
+	
+	if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+											  "Resident", &str)) {
+		if (str && strcasecmp (str, "no") == 0)
+		{
+			plugin_handle->priv->resident = FALSE;
+		}
+		g_free (str);
+	}
+
+	if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
+											  "Language", &str)) {
+		plugin_handle->priv->language = str;
+	}
+	
 	if (!success) {
 		g_object_unref (plugin_handle);
 		plugin_handle = NULL;
@@ -541,6 +591,20 @@ anjuta_plugin_handle_get_user_activatable (AnjutaPluginHandle *plugin_handle)
 {
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN_HANDLE (plugin_handle), FALSE);
 	return plugin_handle->priv->user_activatable;
+}
+
+gboolean
+anjuta_plugin_handle_get_resident (AnjutaPluginHandle *plugin_handle)
+{
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN_HANDLE (plugin_handle), FALSE);
+	return plugin_handle->priv->resident;
+}
+
+const char*
+anjuta_plugin_handle_get_language (AnjutaPluginHandle *plugin_handle)
+{
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN_HANDLE (plugin_handle), NULL);
+	return plugin_handle->priv->language;
 }
 
 AnjutaPluginDescription*

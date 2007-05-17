@@ -4033,3 +4033,25 @@ interface IAnjutaPreferences
 	 */
 	void unmerge(AnjutaPreferences* prefs);
 }
+
+/**
+ * SECTION:ianjuta-plugin-loader
+ * @title: IAnjutaPluginLoader
+ * @short_description: Interface for loading other plugins
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-plugin-loader.h
+ * 
+ */
+interface IAnjutaPluginLoader
+{
+	/**
+	 * ianjuta_plugin_loader_glue_plugin_new:
+	 * @obj: Self
+	 * @err: Error propagation and reporting.
+	 * 
+	 * When called, should return the type of an object derivated from
+	 * AnjutaGluePlugin
+	 */
+	GType glue_plugin_get_type ();
+}

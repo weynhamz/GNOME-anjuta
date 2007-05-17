@@ -51,6 +51,8 @@ libanjuta_la_SOURCES= \
 	resources.h \
 	anjuta-glue-plugin.c \
 	anjuta-glue-factory.c \
+	anjuta-glue-c.h \
+	anjuta-glue-c.c \
 	anjuta-glue-cpp.h \
 	anjuta-glue-cpp.c \
 	cell-renderer-captioned-image.c	\

@@ -38,7 +38,8 @@
 #include <libanjuta/anjuta-plugin-handle.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-glue-factory.h>
-#include <libanjuta/anjuta-glue-cpp.h>
+#include <libanjuta/anjuta-glue-c.h>
+#include <libanjuta/interfaces/ianjuta-plugin-loader.h>
 
 enum
 {
@@ -105,6 +106,9 @@ static guint plugin_manager_signals[LAST_SIGNAL] = { 0 };
 static GHashTable* plugin_set_update (AnjutaPluginManager *plugin_manager,
 									  AnjutaPluginHandle* selected_plugin,
 									  gboolean load);
+
+static GType get_plugin_loader_type (AnjutaPluginManager *plugin_manager,
+								  const gchar *language);
 
 GQuark 
 anjuta_plugin_manager_error_quark (void)
@@ -511,10 +515,12 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 {
 	AnjutaPluginManagerPriv *priv;
 	GType type;
+	GType glue_type;
 	GObject *ret;
 	gchar* lang = NULL;
 	const gchar *plugin_id;
-	AnjutaPluginDescription *plugin_desc;
+	const gchar *language;
+	gboolean resident;
 	
 	priv = plugin_manager->priv;
 	
@@ -524,32 +530,18 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 	}
 	
 	plugin_id = anjuta_plugin_handle_get_id (plugin);
-	plugin_desc = anjuta_plugin_handle_get_description (plugin);
 	
-	if (anjuta_plugin_description_get_locale_string (plugin_desc,
-													 "Anjuta Plugin",
-													 "Language", &lang))
+	resident = anjuta_plugin_handle_get_resident (plugin);
+	language = anjuta_plugin_handle_get_language (plugin);
+	
+	glue_type = get_plugin_loader_type (plugin_manager, language);
+	if (glue_type == G_TYPE_INVALID)
 	{
-		if (g_str_equal(lang, "C++"))
-		{
-			char **pieces;
-			pieces = g_strsplit (plugin_id, ":", -1);
-			ret = anjuta_glue_cpp_load_plugin (anjuta_glue_factory, pieces[0], pieces[1]);
-			g_strfreev (pieces);
-			if (ret == NULL)
-			{
-				g_set_error (error, ANJUTA_PLUGIN_MANAGER_ERROR,
-							 ANJUTA_PLUGIN_MANAGER_ERROR_INVALID_TYPE,
-							 _("Invalid plugin: %s"), plugin_id);
-				return NULL;
-			}
-			g_object_set (ret, "shell", priv->shell, NULL);
-			g_signal_connect (ret, "activated",
-							  G_CALLBACK (on_plugin_activated), plugin);
-			g_signal_connect (ret, "deactivated",
-							  G_CALLBACK (on_plugin_deactivated), plugin);
-			return ret;
-		}
+		g_set_error (error, ANJUTA_PLUGIN_MANAGER_ERROR,
+					 ANJUTA_PLUGIN_MANAGER_ERROR_INVALID_TYPE,
+					 _("Invalid plugin: %s"), plugin_id);
+		
+		return NULL;
 	}
 	
 	type = GPOINTER_TO_UINT (g_hash_table_lookup (plugin_types, plugin_id));
@@ -560,7 +552,8 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 		/* DEBUG_PRINT ("Loading: %s", plugin_id); */
 		pieces = g_strsplit (plugin_id, ":", -1);
 		type = anjuta_glue_factory_get_object_type (anjuta_glue_factory,
-										     pieces[0], pieces[1], lang);
+										     pieces[0], pieces[1],
+										     resident, glue_type);
 		g_hash_table_insert (plugin_types, g_strdup (plugin_id),
 							 GUINT_TO_POINTER (type));
 		g_strfreev (pieces);
@@ -1044,6 +1037,148 @@ create_plugin_page (AnjutaPluginManager *plugin_manager)
 	return vbox;
 }
 
+static GList *
+property_to_list (const char *value)
+{
+	GList *l = NULL;
+	char **split_str;
+	char **p;
+	
+	split_str = g_strsplit (value, ",", -1);
+	for (p = split_str; *p != NULL; p++) {
+		l = g_list_prepend (l, g_strdup (g_strstrip (*p)));
+	}
+	g_strfreev (split_str);
+	return l;
+}
+
+static GType
+get_plugin_loader_type (AnjutaPluginManager *plugin_manager,
+								  const gchar *language)
+{
+	AnjutaPluginManagerPriv *priv;
+	AnjutaPluginHandle *plugin;
+	GList *loader_plugins, *node;
+	GList *valid_plugins;
+	GObject *obj = NULL;
+	static int bug = 0;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), G_TYPE_INVALID);
+
+	
+	if ((language == NULL) || (g_ascii_strcasecmp (language, "C") == 0))
+	{
+		/* Support of C plugin is built-in */
+		return ANJUTA_GLUE_TYPE_C_PLUGIN;
+	}
+	
+	priv = plugin_manager->priv;
+	plugin = NULL;
+		
+	/* Find all plugins implementing the IAnjutaPluginLoader interface. */
+	loader_plugins = g_hash_table_lookup (priv->plugins_by_interfaces, "IAnjutaPluginLoader");
+
+	/* Create a list of loader supporting this language */
+	node = loader_plugins;
+	valid_plugins = NULL;
+	while (node)
+	{
+		AnjutaPluginDescription *desc;
+		gchar *val;
+		GList *vals = NULL;
+		GList *l_node;
+		gboolean found;
+		
+		plugin = node->data;
+
+		desc = anjuta_plugin_handle_get_description (plugin);
+		if (anjuta_plugin_description_get_string (desc, "Plugin Loader", "SupportedLanguage", &val))		
+		{
+			if (val != NULL)
+			{	
+				vals = property_to_list (val);
+				g_free (val);
+			}
+		}
+		
+		found = FALSE;
+		l_node = vals;
+		while (l_node)
+		{
+			if (!found && (g_ascii_strcasecmp (l_node->data, language) == 0))
+			{
+				found = TRUE;
+			}
+			g_free (l_node->data);
+			l_node = g_list_next (l_node);
+		}
+		g_list_free (vals);
+
+		if (found)
+		{
+			valid_plugins = g_list_prepend (valid_plugins, plugin);
+		}
+		
+		node = g_list_next (node);
+	}
+	
+	/* Find the first installed plugin from the valid plugins */
+	node = valid_plugins;
+	while (node)
+	{
+		plugin = node->data;
+		obj = g_hash_table_lookup (priv->activated_plugins, plugin);
+		if (obj) break;
+		node = g_list_next (node);
+	}
+
+	/* If no plugin is installed yet, do something */
+	if ((obj == NULL) && valid_plugins && g_list_length (valid_plugins) == 1)
+	{
+		/* If there is just one plugin, consider it selected */
+		plugin = valid_plugins->data;
+		
+		/* Install and return it */
+		plugin_set_update (plugin_manager, plugin, TRUE);
+		obj = g_hash_table_lookup (priv->activated_plugins, plugin);
+	}
+	else if ((obj == NULL) && valid_plugins)
+	{
+		/* Prompt the user to select one of these plugins */
+
+		GList *descs = NULL;
+		node = valid_plugins;
+		while (node)
+		{
+			plugin = node->data;
+			descs = g_list_prepend (descs, anjuta_plugin_handle_get_description (plugin));
+			node = g_list_next (node);
+		}
+		descs = g_list_reverse (descs);
+		obj = anjuta_plugin_manager_select_and_activate (plugin_manager,
+								  "Select a plugin",
+								  "Please select a plugin to activate",
+								  descs);
+		g_list_free (descs);
+	}
+	g_list_free (valid_plugins);
+
+	if (obj != NULL)
+	{
+		/* Get type of glue object */
+		IAnjutaPluginLoader *loader;
+			
+		loader = IANJUTA_PLUGIN_LOADER (ANJUTA_PLUGIN(obj));
+		
+		return ianjuta_plugin_loader_glue_plugin_get_type (loader, NULL);
+	}
+	
+	/* No plugin implementing this interface found */
+	g_warning ("No plugin found to load a %s plugin.", language);
+	
+	return G_TYPE_INVALID;
+}
+
 /**
  * anjuta_plugin_manager_get_plugin:
  * @plugin_manager: A #AnjutaPluginManager object
@@ -1264,21 +1399,6 @@ GtkWidget *
 anjuta_plugin_manager_get_dialog (AnjutaPluginManager *plugin_manager)
 {
 	return create_plugin_page (plugin_manager);
-}
-
-static GList *
-property_to_list (const char *value)
-{
-	GList *l = NULL;
-	char **split_str;
-	char **p;
-	
-	split_str = g_strsplit (value, ",", -1);
-	for (p = split_str; *p != NULL; p++) {
-		l = g_list_prepend (l, g_strdup (g_strstrip (*p)));
-	}
-	g_strfreev (split_str);
-	return l;
 }
 
 GList*
