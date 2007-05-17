@@ -2879,9 +2879,56 @@ iassist_autocomplete(IAnjutaEditorAssist* te, GError** ee)
 }
 
 static void
+iassist_add_trigger (IAnjutaEditorAssist* iassist, const gchar* trigger,
+					 IAnjutaEditorAssistContextParser context_parser, GError **err)
+{
+	/* FIXME: Implement new IAnjutaEditorAssist interface */
+}
+
+static void
+iassist_remove_trigger (IAnjutaEditorAssist* iassist, const gchar* trigger, GError **err)
+{
+	/* FIXME: Implement new IAnjutaEditorAssist interface */
+}
+
+static void
+iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices, int char_alignment, GError **err)
+{
+	/* FIXME: Implement new IAnjutaEditorAssist interface */
+}
+
+static GList*
+iassist_get_suggestions (IAnjutaEditorAssist *iassist, const gchar *context, GError **err)
+{
+	/* FIXME: Implement new IAnjutaEditorAssist interface */
+
+	return NULL;
+}
+
+static void 
+iassist_tip (IAnjutaEditorAssist *iassist, GList* tips,  gint char_alignment, GError **err)
+{
+	/* FIXME: Implement new IAnjutaEditorAssist interface */
+}
+
+static void
+iassist_react (IAnjutaEditorAssist *iassist, gint selection,  
+			   const gchar *completion, GError **err)
+{
+
+	/* FIXME: Implement new IAnjutaEditorAssist interface */
+}
+
+static void
 iassist_iface_init(IAnjutaEditorAssistIface* iface)
 {
 	iface->autocomplete = iassist_autocomplete;
+	iface->add_trigger = iassist_add_trigger;
+	iface->remove_trigger = iassist_remove_trigger;
+	iface->suggest = iassist_suggest;
+	iface->get_suggestions = iassist_get_suggestions;
+	iface->tip = iassist_tip;
+	iface->react = iassist_react;
 }
 
 /* IAnutaEditorFolds implementation */

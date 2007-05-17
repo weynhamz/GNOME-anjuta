@@ -1,3 +1,9 @@
+2007-05-17 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/editor/text_editor.c:
+	Add an empty implementation of IAnjutaEditorAssist for scintilla,
+	avoiding a crash if scintilla is used
+
 2007-05-14  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
