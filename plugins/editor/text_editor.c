@@ -2872,6 +2872,7 @@ ilinemode_iface_init (IAnjutaEditorLineModeIface *iface)
 }
 
 /* IAnjutaEditorAssist implementation */
+#if 0
 static void 
 iassist_autocomplete(IAnjutaEditorAssist* te, GError** ee)
 {
@@ -2930,6 +2931,8 @@ iassist_iface_init(IAnjutaEditorAssistIface* iface)
 	iface->tip = iassist_tip;
 	iface->react = iassist_react;
 }
+#endif
+
 
 /* IAnutaEditorFolds implementation */
 
@@ -3379,7 +3382,7 @@ ANJUTA_TYPE_ADD_INTERFACE(itext_editor, IANJUTA_TYPE_EDITOR);
 ANJUTA_TYPE_ADD_INTERFACE(ilinemode, IANJUTA_TYPE_EDITOR_LINE_MODE);
 ANJUTA_TYPE_ADD_INTERFACE(iselection, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
-ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
+//ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
 ANJUTA_TYPE_ADD_INTERFACE(iview, IANJUTA_TYPE_EDITOR_VIEW);
 ANJUTA_TYPE_ADD_INTERFACE(ifolds, IANJUTA_TYPE_EDITOR_FOLDS);

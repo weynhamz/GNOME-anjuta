@@ -1,3 +1,13 @@
+2007-05-18  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/editor/text_editor.c:
+	* plugins/language-support-cpp-java/plugin.c:
+	(on_editor_language_changed), (on_value_added_current_editor),
+	(on_value_removed_current_editor):
+	
+	Remove IAnjutaEditorAssist from Scintilla for now as it is not supported
+	Fix assist support in language-support-plugin.
+
 2007-05-17 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* libanjuta/interfaces/libanjuta.idl:
