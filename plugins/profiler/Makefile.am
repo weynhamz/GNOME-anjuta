@@ -35,6 +35,7 @@ INCLUDES = \
 	$(GNOME_VFS_MODULE_CFLAGS) \
 	$(WARN_CFLAGS) \
 	$(GDL_CFLAGS) \
+	$(LIBXML_CFLAGS) \
 	$(DEPRECATED_FLAGS)
 
 if HAVE_GRAPHVIZ
@@ -74,7 +75,9 @@ libanjuta_profiler_la_SOURCES = \
 	string-utils.c \
 	string-utils.h \
 	plugin.c \
-	plugin.h
+	plugin.h \
+	gprof-options.c \
+	gprof-options.h 
 
 if HAVE_GRAPHVIZ
 libanjuta_profiler_la_SOURCES += \
@@ -85,7 +88,7 @@ endif
 libanjuta_profiler_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
-libanjuta_profiler_la_LIBADD = $(LIBANJUTA_LIBS) $(GLADE_LIBS) $(GNOME_CANVAS_LIBS) $(GNOME_VFS_MODULE_LIBS)
+libanjuta_profiler_la_LIBADD = $(LIBANJUTA_LIBS) $(GLADE_LIBS) $(GNOME_CANVAS_LIBS) $(GNOME_VFS_MODULE_LIBS) $(LIBXML_LIBS)
 
 if HAVE_GRAPHVIZ
 libanjuta_profiler_la_LIBADD += $(GRAPHVIZ_LIBS)

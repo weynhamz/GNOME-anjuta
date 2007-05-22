@@ -1,3 +1,12 @@
+2007-05-22  Naba Kumar  <naba@gnome.org>
+
+	* plugins/valgrind/Makefile.am: Added ldflags.
+
+	Patch from James Liggett:
+	* plugins/profiler/gprof-options.[ch], plugins/profiler/plugin.[ch],
+	plugins/profiler/Makefile.am: Fixes bug #403503. Implemented target
+	specific options.
+
 2007-05-18  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/editor/text_editor.c:

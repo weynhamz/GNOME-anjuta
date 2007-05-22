@@ -67,42 +67,35 @@ setup_options (Profiler *profiler)
 	options = g_ptr_array_new ();
 	
 	/* First handle the easy ones: -a, -c, and -z */
-	if (anjuta_preferences_get_int (profiler->prefs, 
-									"profiler.no_show_static"))
+	if (gprof_options_get_int (profiler->options, "no_show_static"))
 	{
 		g_ptr_array_add (options, g_strdup ("-a"));
 	}
 	
-	if (anjuta_preferences_get_int (profiler->prefs,
-								    "profiler.show_possible_called"))
+	if (gprof_options_get_int (profiler->options, "show_possible_called"))
 	{
 		g_ptr_array_add (options, g_strdup ("-c"));
 	}
 	
-	if (anjuta_preferences_get_int (profiler->prefs,
-									"profiler.show_uncalled"))
+	if (gprof_options_get_int (profiler->options, "show_uncalled"))
 	{
 		g_ptr_array_add (options, g_strdup ("-z"));
 	}
 	
 	/* If the user wants to modify the call graph, put in -p so we have a flat
 	 * profile. */
-	if (!anjuta_preferences_get_int (profiler->prefs,
-									 "profiler.show_all_symbols"))
+	if (!gprof_options_get_int (profiler->options, "show_all_symbols"))
 	{
 		g_ptr_array_add (options, g_strdup ("-p"));
 		
-		symbols = anjuta_preferences_get (profiler->prefs,
-										  "profiler.symbols");
+		symbols = gprof_options_get_string (profiler->options, "symbols");
 	
-		if (anjuta_preferences_get_int (profiler->prefs,
-										"profiler.include_symbols"))
+		if (gprof_options_get_int (profiler->options, "include_symbols"))
 		{
 			add_options_strings (options, "-q", symbols);
 		}
 		
-		if (anjuta_preferences_get_int (profiler->prefs,
-										"profiler.exclude_symbols"))
+		if (gprof_options_get_int (profiler->options, "exclude_symbols"))
 		{
 			add_options_strings (options, "-Q", symbols);
 		}
@@ -111,21 +104,20 @@ setup_options (Profiler *profiler)
 	}
 	
 	/* Time propagation options */
-	if (!anjuta_preferences_get_int (profiler->prefs,
-									 "profiler_propagate_all_symbols"))
+	if (!gprof_options_get_int (profiler->options, "propagate_all_symbols"))
 	{
 	
-		symbols = anjuta_preferences_get (profiler->prefs,
-										  "profiler.propagation_symbols");
+		symbols = gprof_options_get_string (profiler->options,
+										  	 "propagation_symbols");
 		
-		if (anjuta_preferences_get_int (profiler->prefs,
-										"profiler.propagate_include_symbols"))
+		if (gprof_options_get_int (profiler->options,
+								   "propagate_include_symbols"))
 		{
 			add_options_strings (options, "-n", symbols);
 		}
 		
-		if (anjuta_preferences_get_int (profiler->prefs,
-										"profiler.propagate_exclude_symbols"))
+		if (gprof_options_get_int (profiler->options,
+								   "propagate_exclude_symbols"))
 		{
 			add_options_strings (options, "-N", symbols);
 		}
@@ -144,8 +136,7 @@ setup_options (Profiler *profiler)
 	 
 	 if (profiler->profile_data_monitor)
 	 {
-	 	if (!anjuta_preferences_get_int (profiler->prefs,
-	 									 "profiler.automatic_refresh"))
+	 	if (!gprof_options_get_int (profiler->options, "automatic_refresh"))
 	 	{
 	 		gnome_vfs_monitor_cancel (profiler->profile_data_monitor);
 	 		profiler->profile_data_monitor = NULL;
@@ -239,8 +230,8 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 		
 		
 			/* Set up a file change monitor for automatic refresh if enabled */
-			if (anjuta_preferences_get_int (profiler->prefs, 
-											"profiler.automatic_refresh"))
+			if (gprof_options_get_int (profiler->options, 
+									   "automatic_refresh"))
 			{
 				/* Cancel any existing monitor */
 				if (profiler->profile_data_monitor)
@@ -275,117 +266,108 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 	}
 }
 
-static AnjutaPreferences *
-register_preferences (GladeXML *gxml)
+static GProfOptions *
+register_options ()
 {
-	AnjutaPreferences *preferences;
-	GtkWidget *prefs_widget;  /* Widget regestered with prefs */
+	GProfOptions *options;
 	
-	preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
+	options = gprof_options_new ();
 	
-	prefs_widget = glade_xml_get_widget (gxml, "automatic_refresh_check");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.automatic_refresh",
-											  "0", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-											  ANJUTA_PROPERTY_DATA_TYPE_BOOL);
+	gprof_options_register_key (options, "automatic_refresh", "0",
+								"automatic_refresh_check", 
+								OPTION_TYPE_TOGGLE);
 	
-	prefs_widget = glade_xml_get_widget (gxml, "no_show_static_check");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.no_show_static",
-											  "0", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-											  ANJUTA_PROPERTY_DATA_TYPE_BOOL);
+	gprof_options_register_key (options, "no_show_static", "0",
+								"no_show_static_check", 
+								OPTION_TYPE_TOGGLE);
 											  
-	prefs_widget = glade_xml_get_widget (gxml, "show_possible_called_check");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.show_possible_called",
-											  "0", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-											  ANJUTA_PROPERTY_DATA_TYPE_BOOL);
-											  
-	prefs_widget = glade_xml_get_widget (gxml, "show_uncalled_check");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.show_uncalled",
-											  "0", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-											  ANJUTA_PROPERTY_DATA_TYPE_BOOL);
+	gprof_options_register_key (options, "show_possible_called", "0",
+								"show_possible_called_check",
+								OPTION_TYPE_TOGGLE);
+																		  
+	gprof_options_register_key (options, "show_uncalled", "0",
+								"show_uncalled_check", 
+								OPTION_TYPE_TOGGLE);
 	
-	prefs_widget = glade_xml_get_widget (gxml, "show_all_symbols_radio");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.show_all_symbols",
-											  "1", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-											  ANJUTA_PROPERTY_DATA_TYPE_BOOL);
+	gprof_options_register_key (options, "show_all_symbols", "1",
+								"show_all_symbols_radio",
+								OPTION_TYPE_TOGGLE);
 	
-	prefs_widget = glade_xml_get_widget (gxml, "include_symbols_radio");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.include_symbols",
-											  "0", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-											  ANJUTA_PROPERTY_DATA_TYPE_BOOL);
+	gprof_options_register_key (options, "include_symbols", "0",
+								"include_symbols_radio",
+								OPTION_TYPE_TOGGLE);
 	
-	prefs_widget = glade_xml_get_widget (gxml, "exclude_symbols_radio");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.exclude_symbols",
-											  "0", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-											  ANJUTA_PROPERTY_DATA_TYPE_BOOL);
-											  
-	prefs_widget = glade_xml_get_widget (gxml, "symbols_text_view");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.symbols",
-											  "", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TEXT,
-											  ANJUTA_PROPERTY_DATA_TYPE_TEXT);
-											  
+	gprof_options_register_key (options, "exclude_symbols", "0",
+								"exclude_symbols_radio",
+								OPTION_TYPE_TOGGLE);
 	
-	prefs_widget = glade_xml_get_widget (gxml, "propagate_all_symbols_radio");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.propagate_all_symbols",
-											  "0", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-											  ANJUTA_PROPERTY_DATA_TYPE_BOOL);
+	gprof_options_register_key (options, "symbols", "", "symbols_text_view",
+								OPTION_TYPE_TEXT_ENTRY);
 											  
-	prefs_widget = glade_xml_get_widget (gxml, "propagate_include_symbols_radio");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.propagate_include_symbols",
-											  "0", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-											  ANJUTA_PROPERTY_DATA_TYPE_BOOL);
-											  
-	prefs_widget = glade_xml_get_widget (gxml, "propagate_exclude_symbols_radio");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.propagate_exclude_symbols",
-											  "0", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TOGGLE,
-											  ANJUTA_PROPERTY_DATA_TYPE_BOOL);
-											  
-	prefs_widget = glade_xml_get_widget (gxml, "propagation_text_view");
-	anjuta_preferences_register_property_raw (preferences, prefs_widget, 
-											  "profiler.propagation_symbols",
-											  "", 0, 
-											  ANJUTA_PROPERTY_OBJECT_TYPE_TEXT,
-											  ANJUTA_PROPERTY_DATA_TYPE_TEXT);										  
+	gprof_options_register_key (options, "propagate_all_symbols", "1",
+								"propagate_all_symbols_radio",
+								OPTION_TYPE_TOGGLE);
 	
-	return preferences;
+	gprof_options_register_key (options, "propagate_include_symbols", "0",
+								"propagate_include_symbols_radio",
+								OPTION_TYPE_TOGGLE);
+											  
+	gprof_options_register_key (options, "propagate_exclude_symbols", "0",
+								"propagate_exclude_symbols_radio", 
+								OPTION_TYPE_TOGGLE);
+											  
+	gprof_options_register_key (options, "propagation_symbols", "",
+								"propagation_text_view",
+								OPTION_TYPE_TEXT_ENTRY);										  
+	
+	return options;
 }
 
 static void
 on_profiling_options_button_clicked (GtkButton *button, gpointer *user_data)
 {													 
 	Profiler *profiler;
+	GladeXML *gxml;
 	GtkWidget *profiling_options_dialog;
-	
+	GtkWidget *closebutton;
+
 	profiler = PROFILER (user_data);
-	profiling_options_dialog = glade_xml_get_widget (profiler->prefs_gxml,
-													 "profiling_options_dialog");
+	gxml = glade_xml_new (GLADE_FILE, "profiling_options_dialog",
+						  NULL);
+	profiling_options_dialog = glade_xml_get_widget (gxml, "profiling_options_dialog");
+	closebutton = glade_xml_get_widget (gxml, "closebutton");
 	
-	gtk_widget_show (GTK_WIDGET (profiler->prefs));
-	gtk_widget_hide (GTK_WIDGET (profiler->prefs));
+	g_signal_connect (profiling_options_dialog, "response", G_CALLBACK (gtk_widget_hide),
+					  profiling_options_dialog);
+	
+	gprof_options_create_window (profiler->options, gxml);
+	
+	gtk_window_set_transient_for (GTK_WINDOW (profiling_options_dialog),
+								  GTK_WINDOW (ANJUTA_PLUGIN(profiler)->shell));
+	
 	gtk_dialog_run (GTK_DIALOG (profiling_options_dialog));
 	
-	gtk_widget_hide (profiling_options_dialog);
+	g_object_unref (gxml);
+}
+
+static gboolean
+on_target_selected (GtkTreeSelection *selection, GtkTreeModel *model, 
+					GtkTreePath *path, gboolean path_currently_selected,
+					Profiler *profiler)
+{
+	GtkTreeIter list_iter;
+	gchar *target_uri;
+	
+	gtk_tree_model_get_iter (model, &list_iter, path);
+	gtk_tree_model_get (model, &list_iter, 1, &target_uri, -1);
+	
+	if (target_uri)
+	{
+		gprof_options_set_target (profiler->options, target_uri);
+		g_free (target_uri);
+	}
+	
+	return TRUE;
 }
 
 static void
@@ -438,9 +420,11 @@ on_profiler_select_target (GtkAction *action, Profiler *profiler)
 		if (exec_targets)
 		{
 			/* Populate listview */
-			gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW
-																	  (targets_list_view)),
-										 							  GTK_SELECTION_BROWSE);
+			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (targets_list_view));
+			gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
+			gtk_tree_selection_set_select_function (selection, 
+													(GtkTreeSelectionFunc) on_target_selected,
+													profiler, NULL);
 			targets_list_store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
 			current_target = exec_targets;
 			
@@ -477,9 +461,7 @@ on_profiler_select_target (GtkAction *action, Profiler *profiler)
 		response = gtk_dialog_run (GTK_DIALOG (select_target_dialog));
 		
 		if (response == GTK_RESPONSE_OK)
-		{
-			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (targets_list_view));
-				
+		{		
 			if (gtk_tree_selection_get_selected (selection, &model, &iter))
 			{
 				gtk_tree_model_get (model, &iter, 1, &target, -1);
@@ -565,6 +547,47 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 }
 
+static void
+on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session,
+				 Profiler *plugin)
+{
+	const gchar *session_dir;
+	gchar *settings_file_path;
+	
+	if (phase == ANJUTA_SESSION_PHASE_NORMAL)
+	{
+		session_dir = anjuta_session_get_session_directory (session);
+		settings_file_path = g_build_filename (session_dir, 
+											   "profiler-settings.xml", 
+											   NULL);
+	
+		gprof_options_load (plugin->options, settings_file_path);
+	
+		g_free (settings_file_path);
+	}
+}
+
+static void
+on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session,
+				 Profiler *plugin)
+{
+	const gchar *session_dir;
+	gchar *settings_file_path;
+	
+	if (phase == ANJUTA_SESSION_PHASE_NORMAL)
+	{
+		session_dir = anjuta_session_get_session_directory (session);
+		settings_file_path = g_build_filename (session_dir, 
+											   "profiler-settings.xml", 
+											   NULL);
+	
+		gprof_options_save (plugin->options, settings_file_path);
+	
+		g_free (settings_file_path);
+	}
+}
 
 
 static GtkActionEntry actions_file[] = {
@@ -708,9 +731,14 @@ profiler_activate (AnjutaPlugin *plugin)
 										 				  project_root_added, 
 										 				  project_root_removed, NULL);
 										 				  
-	profiler->prefs_gxml = glade_xml_new (GLADE_FILE, "profiling_options_dialog",
-										  NULL);
-	profiler->prefs = register_preferences (profiler->prefs_gxml);
+	profiler->options = register_options ();
+	
+	/* Set up session save/load */
+	g_signal_connect (G_OBJECT (plugin->shell), "save_session", 
+					  G_CALLBACK (on_session_save), plugin);
+	
+	g_signal_connect (G_OBJECT (plugin->shell), "load_session", 
+					  G_CALLBACK (on_session_load), plugin);
 
 	return TRUE;
 }
@@ -740,7 +768,7 @@ profiler_deactivate (AnjutaPlugin *plugin)
 	gprof_view_manager_free (profiler->view_manager);
 	gprof_profile_data_free (profiler->profile_data);
 	
-	g_object_unref (profiler->prefs_gxml);
+	gprof_options_destroy (profiler->options);
 	
 	g_free (profiler->project_root_uri);
 	

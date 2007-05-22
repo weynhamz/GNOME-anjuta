@@ -29,7 +29,6 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
@@ -39,6 +38,7 @@
 #include "gprof-flat-profile-view.h"
 #include "gprof-call-graph-view.h"
 #include "gprof-function-call-tree-view.h"
+#include "gprof-options.h"
 
 #ifdef HAVE_GRAPHVIZ
 #include "gprof-function-call-chart-view.h"
@@ -61,7 +61,7 @@ struct _Profiler
 	
 	gint uiid;
 	GtkActionGroup *action_group;
-	AnjutaPreferences *prefs;
+	GProfOptions *options;
 	GladeXML *prefs_gxml;
 	GProfViewManager *view_manager;
 	GProfProfileData *profile_data;

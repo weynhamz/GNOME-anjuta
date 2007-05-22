@@ -42,6 +42,8 @@ plugindir = $(anjuta_plugin_dir)
 # The plugin
 plugin_LTLIBRARIES = libanjuta-valgrind.la
 
+libanjuta_valgrind_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin dependencies
 libanjuta_valgrind_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
