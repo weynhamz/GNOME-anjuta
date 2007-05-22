@@ -52,8 +52,7 @@ enum
 };[+
 ENDIF+]
 
-
-static [+BaseClass+]Class* parent_class = NULL;[+
+[+
 IF (not (=(get "Signals[0].Name") ""))+]
 static guint [+ (string-downcase(get "TypeSuffix")) +]_signals[LAST_SIGNAL] = { 0 };[+
 ENDIF+][+
@@ -83,7 +82,7 @@ static void
 {
 	/* TODO: Add deinitalization code here */
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS ([+FuncPrefix+]_parent_class)->finalize (object);
 }[+
 IF (not (=(get "Properties[0].Name") ""))+]
 
@@ -139,7 +138,7 @@ static void
 [+FuncPrefix+]_class_init ([+ClassName+]Class *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	parent_class = [+BaseTypePrefix+]_[+BaseTypeSuffix+]_CLASS (g_type_class_peek_parent (klass));[+
+	[+BaseClass+]Class* parent_class = [+BaseTypePrefix+]_[+BaseTypeSuffix+]_CLASS (klass);[+
 IF (not (=(get "PrivateVariableCount") "0"))+]
 
 	g_type_class_add_private (klass, sizeof ([+ClassName+]Private));[+
