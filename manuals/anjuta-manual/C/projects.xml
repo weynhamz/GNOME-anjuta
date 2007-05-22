@@ -198,31 +198,23 @@
   
   <sect1 id="add-rm-files">
    <title>Adding and Removing Files</title>
-   <para>
-    There are various different types of file that <application>Anjuta</application> will 
-	manage for you in the project:
-   </para>
-   <para>
-    <orderedlist>
-      <listitem><para>Source files</para></listitem>
-      <listitem><para>Document files</para></listitem>
-      <listitem><para>Pixmap files</para></listitem>
-      <listitem><para>Help files</para></listitem> 
-      <listitem><para>Data files</para></listitem>
-      <listitem><para>PO files</para></listitem> 
-    </orderedlist>
-   </para>
-   <para>
-   Each of these different types exist in their own specific directories inside the project.
-   </para>
    <sect2 id="addingfiles">
     <title>Adding Files</title>
     <para>
-     Choose the corresponding menu item from
-     the <menuchoice><guisubmenu>Project</guisubmenu>
-	 <guimenuitem>Add Source file</guimenuitem></menuchoice> submenu.
-	Select the file you want to add and the target you want to add it to in 
-	 the dialog and click <guibutton>OK</guibutton>. 
+     Select menu item <menuchoice><guisubmenu>Project</guisubmenu>
+	 <guimenuitem>Add Source File...</guimenuitem></menuchoice>.
+	From the dialog, select the target to which the file should be added and
+    the file itself. You can add multiple files at once. To do that, select
+    multiple files from the fileselection dialog using either SHIFT or CONTROL
+    key. Then click <guibutton>Add</guibutton> button to finally add the
+    files in project.
+    </para>
+    <para>
+    By default, current editor file would be preselected for addtion in the
+    dialog. Other convenient way to add a file is to select it in
+    <interface>File Manager</interface> and choosing
+    <guimenuitem>Add to project</guimenuitem> from the
+    <guimenu>Operation</guimenu> popup menu.	
     </para>
     <para>
      If the file you choose has already been added to the project, then
@@ -230,17 +222,17 @@
      It will also give you a warning that the file is already added.
     </para>
     <para>
-     If the file you choose is not in the directory corresponding to the type 
-	 you have selected, you will be asked to confirm that you wish to copy the file 
-	 into that directory. <application>Anjuta</application> cannot add files which are 
-	 outside of their correct directories.
+     If the file you choose is not in the project directory, you will be asked
+     to confirm that you wish to copy the file into the target's directory.
+     <application>Anjuta</application> cannot add files which are 
+	 outside of target's directory.
     </para>
    </sect2>
    <sect2 id="removingfiles">
     <title>Removing Files</title>
     <para>
      To remove a file from the project, select the file you want to remove
-     from the <interface>Project Listing</interface>, right-click to open the 
+     from the <interface>Project View</interface>, right-click to open the 
 	 <guimenu>Operation</guimenu> popup menu and choose 
 	 <guimenuitem>Remove</guimenuitem>.
     </para>
