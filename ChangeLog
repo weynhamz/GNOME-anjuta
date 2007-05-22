@@ -1,5 +1,11 @@
 2007-05-22  Naba Kumar  <naba@gnome.org>
 
+	* manuals/anjuta-manual/C/introduction.xml,
+	manuals/anjuta-manual/C/projects.xml,
+	manuals/anjuta-manual/C/interface.xml: Updated documentation.
+
+2007-05-22  Naba Kumar  <naba@gnome.org>
+
 	Patch from Étienne Bersac:
 	* plugins/class-gen/templates/go-source.tpl: use G_TYPE_DEFINE parent
 	class in generated class.

@@ -80,7 +80,7 @@
      </listitem>
      <listitem>
       <para>
-	   <emphasis>Context Help:</emphasis> CTRL-H -- Keep the cursor on the word (for example, the
+	   <emphasis>Context Help:</emphasis> SHIFT-F1 -- Keep the cursor on the word (for example, the
 	   function name) for which you want to get the API help and press the shortcut. Context help
 	   only works if you have <application>DevHelp</application> installed. If you do not have
 	   <application>DevHelp</application> installed, the context help menu and toolbar button

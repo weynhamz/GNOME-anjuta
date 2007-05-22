@@ -12,29 +12,82 @@
    your program and its resources. Such a <emphasis>program</emphasis> 
    becomes a <emphasis>project</emphasis>.
   </para>
-  
+
+  <para>
+  Anjuta has a very powerful Project Manager plugin which can open pretty much
+  any automake/autoconf based project on the planet. It might fail on some
+  oddly configured projects, but as long as the project is done by using
+  automake/autoconf properly it should work.
+  </para>
+
+  <para>
+  The neat thing is that it does not store any project information beyond what
+  is already available in project struture. That is, there is no separate
+  project data maintained by Anjuta and all project processing are done
+  directly within the project structure. This allows the project to be
+  maintained or developed outside Anjuta without having to, so called,
+  'porting' or 'switching' to a new platform. Since technically Anjuta
+  projects are just automake projects, mixed development of it (Anjuta and
+  non-Anjuta users) or switching back and forth between Anjuta and other
+  tools is quite possible without any hindrance.
+  </para>
+
+  <para>
+  Project Manager lists the project in standard automake heirarchy organized
+  into groups of targets. Groups corresponds to directories in your project
+  and targets corresponds to normal automake targets (not to be confused
+  with make targets). Project manager view actually has two parts; one part
+  (lower one) shows complete project heirarchy and the other part (upper one)
+  lists important targets directly. Important targets constitute executable
+  and library targets -- making them extremely accessible in the project
+  view. This is particularly useful in big projects where the heirarchy
+  could be deep and hard to navigate from the tree alone. Targets are in
+  turn composed of source files.
+  </para>
+
+  <para>
+  Each of the project groups and targets is configurable in standard
+  automake way. You can set complier and linker flags directly for each
+  target, or set configure variables. Groups allow setting installation
+  destinations for the targets.
+  </para>
+
+  <para>
+  Just like file manager, project manager view also has convenience actions
+  for the source files and targets accessible from the context menu. 
+  </para>
+
   <para>
    Many command-line tools are available to maintain and manage a project, 
-   and each tool has its own specific rules and capabilities. Do not worry &mdash; 
-   <application>Anjuta</application> will take care of everything. 
+   and each tool has its own specific rules and capabilities.
+   <application>Anjuta</application> tries to automate most of the common
+   operations using plugins. However, you might occationally still need
+   to do them manually.
   </para>
   
   <para>
-   It is still possible to make use of other tools, which has the added 
-   advantage of making your project more flexible and more adaptable. However, 
-   before you start editing all those makefiles, bear in mind the files that 
-   <application>Anjuta</application> manages. These files will all be 
-   overwritten.
-  </para>
-  
-  <para>
-   If you do not want to get involved with manually editing project files, just 
-   relax and let <application>Anjuta</application> do it all.
+   It is possible to make use of other tools or hand edit the project
+   files simulaneously. It doesn't matter if the project is loaded in
+   <application>Anjuta</application> or not. <application>Anjuta</application>
+   would update itself with any external changes made to project.
   </para>
   </sect1>
-  
+
   <sect1 id="new-projects">
    <title>Creating a New Project</title>
+
+   <para>
+   The project wizard plugin uses a powerful template processing engine
+   called <application>autogen</application>. All new projects are created from
+   templates that
+   are written in <application>autogen</application> syntax. Project wizard
+   lets you create new
+   projects from a selection of project templates. The selection includes
+   simple generic, flat (no subdirectory), gtk+, gnome, java, python
+   projects and more. New templates can be easily downloaded and
+   installed since they are just a collection of text files.
+   </para>
+
    <para>
     Choose the menu item <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</guisubmenu>
     <guimenuitem>Project &hellip;</guimenuitem></menuchoice>
@@ -47,13 +100,18 @@
     <interface>second page</interface>.
     Click on <guibutton>Next</guibutton> to proceed.   
    </para>
+
    <para>
     On the next pages, enter all the necessary
-    details for your project. You cannot change these settings later. 
-    No white spaces or any non-alphanumeric characters, except 
-    underscore (_) and dash (-), are allowed in any of the entry boxes 
-	in this page (except the <guilabel>Author</guilabel> text box).
-	</para> 
+    details for your project. You can change these settings later also, but
+    it is advicable to put them right in first run to maintain the project's
+    integrity.
+    White spaces or any non-alphanumeric characters, except 
+    underscore (_) and dash (-), are not allowed in many of the entry boxes 
+	that would follow in the wizard pages (except perhaps the
+    <guilabel>Author</guilabel> text box).
+	</para>
+
    <para>
     You can also specify whether your  
     project will have <emphasis>internationalization support</emphasis> 
@@ -63,12 +121,18 @@
 	different regional languages such as English, French, Dutch etc..
     The rest of the options are for setting whether the GNU copyright 
 	statement should appear in the comments at the top of each file, and 
-	enabling GNOME desktop menu information if necessary. 
+	enabling GNOME desktop menu information if necessary. Shared library
+    support allows adding shared library modules later in the project. If
+    you plan to have libraries in your project, it would be good to enable.
+    Depending on the project type that is being created, there would be
+    other information requested.
    </para>
+
    <para>
     The final step is to verify the information you have just supplied.
 	Click on <guibutton>Finish</guibutton> to start generating the project.
    </para>
+
    <para>
     Once project generation is over, you can try it out by 
     building the project and executing it.
@@ -85,6 +149,7 @@
      Select the project file (<filename>*.anjuta</filename>) in the dialog 
 	 and click <guibutton>OK</guibutton>.
     </para> 
+
     <para>
      If the project has recently been opened, then you will find it listed in the 
      menu <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>Recent</guisubmenu></menuchoice>. 
