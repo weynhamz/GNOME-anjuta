@@ -1,5 +1,6 @@
 2007-05-22  Naba Kumar  <naba@gnome.org>
 
+	* plugins/profiler/plugin.c: Fixed a compiler warning.
 	* plugins/valgrind/Makefile.am: Added ldflags.
 
 	Patch from James Liggett:

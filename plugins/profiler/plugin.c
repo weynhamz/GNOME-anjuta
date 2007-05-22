@@ -462,6 +462,7 @@ on_profiler_select_target (GtkAction *action, Profiler *profiler)
 		
 		if (response == GTK_RESPONSE_OK)
 		{		
+			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (targets_list_view));
 			if (gtk_tree_selection_get_selected (selection, &model, &iter))
 			{
 				gtk_tree_model_get (model, &iter, 1, &target, -1);
