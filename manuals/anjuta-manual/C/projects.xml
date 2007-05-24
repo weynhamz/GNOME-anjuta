@@ -2,8 +2,6 @@
  <chapter id="project-management">
   <title>Project Management</title>
   
-  <sect1 id="projects-intro">
-  <title>Introduction to managing projects</title>
   <para>
    If the program or application you are developing is a small one, and 
    it is only going to be run on your computer, then a single source file 
@@ -15,7 +13,7 @@
 
   <para>
   Anjuta has a very powerful Project Manager plugin which can open pretty much
-  any automake/autoconf based project on the planet. It might fail on some
+  any <ulink type="info" url="info:automake">automake/autoconf</ulink> based project on the planet. It might fail on some
   oddly configured projects, but as long as the project is done by using
   automake/autoconf properly it should work.
   </para>
@@ -32,50 +30,10 @@
   tools is quite possible without any hindrance.
   </para>
 
-  <para>
-  Project Manager lists the project in standard automake heirarchy organized
-  into groups of targets. Groups corresponds to directories in your project
-  and targets corresponds to normal automake targets (not to be confused
-  with make targets). Project manager view actually has two parts; one part
-  (lower one) shows complete project heirarchy and the other part (upper one)
-  lists important targets directly. Important targets constitute executable
-  and library targets -- making them extremely accessible in the project
-  view. This is particularly useful in big projects where the heirarchy
-  could be deep and hard to navigate from the tree alone. Targets are in
-  turn composed of source files.
-  </para>
-
-  <para>
-  Each of the project groups and targets is configurable in standard
-  automake way. You can set complier and linker flags directly for each
-  target, or set configure variables. Groups allow setting installation
-  destinations for the targets.
-  </para>
-
-  <para>
-  Just like file manager, project manager view also has convenience actions
-  for the source files and targets accessible from the context menu. 
-  </para>
-
-  <para>
-   Many command-line tools are available to maintain and manage a project, 
-   and each tool has its own specific rules and capabilities.
-   <application>Anjuta</application> tries to automate most of the common
-   operations using plugins. However, you might occationally still need
-   to do them manually.
-  </para>
-  
-  <para>
-   It is possible to make use of other tools or hand edit the project
-   files simulaneously. It doesn't matter if the project is loaded in
-   <application>Anjuta</application> or not. <application>Anjuta</application>
-   would update itself with any external changes made to project.
-  </para>
-  </sect1>
-
-  <sect1 id="new-projects">
+  <sect1 id="new-project">
    <title>Creating a New Project</title>
-
+   <sect2 id="new-project-from-template">
+   <title>New project from template</title>
    <para>
    The project wizard plugin uses a powerful template processing engine
    called <application>autogen</application>. All new projects are created from
@@ -137,11 +95,30 @@
     Once project generation is over, you can try it out by 
     building the project and executing it.
    </para>
+  </sect2>
+   <sect2 id="importing-project">
+    <title>Importing Projects</title>
+    <para>
+     The import project feature is used to import an already existing project and convert it into
+     <application>anjuta</application> projcect. Activate the import project wizard from
+     <menuchoice><guimenu>File</guimenu><guimenu>New</guimenu>
+	<guimenuitem>Project from existing sources</guimenuitem></menuchoice>
+     and follow instructions dictated by the wizard. Once the project is imported, it could be
+     opened in <application>anjuta</application> subsequently just like any other <application>
+     anjuta</application> project.
+    </para>
+	<note>
+	<para>
+	The import project features only works if your existing project is
+    using <ulink type="info" url="info:automake">autoconf/automake</ulink>
+	</para>
+	</note>
+   </sect2>
   </sect1>
   
-  <sect1 id="loadsave-prjs">
+  <sect1 id="load-save-projects">
    <title>Loading and Saving Projects</title>
-   <sect2 id="loadingprj">
+   <sect2 id="loading-project">
     <title>Loading Projects</title>
     <para>
      To open a project, choose the menu item <menuchoice><guisubmenu>File</guisubmenu>
@@ -170,24 +147,7 @@
      listing on the right of file names in the file view pane.
     </para>
    </sect2>
-   <sect2 id="importingprj">
-    <title>Importing Projects</title>
-    <para>
-     The import project feature is used to import an already existing project and convert it into
-     <application>anjuta</application> projcect. Activate the import project wizard from
-     <menuchoice><guimenu>File</guimenu><guimenu>New</guimenu>
-	<guimenuitem>Project from existing sources</guimenuitem></menuchoice>
-     and follow instructions dictated by the wizard. Once the project is imported, it could be
-     opened in <application>anjuta</application> subsequently just like any other <application>
-     anjuta</application> project.
-    </para>
-	<note>
-	<para>
-	The import project features only works if your existing project is using autoconf/automake.
-	</para>
-	</note>
-   </sect2>
-   <sect2 id="savingprj">
+   <sect2 id="saving-project">
     <title>Saving Projects</title>
     <para>
     The project is automatically saved when you close because all changes are made
@@ -195,14 +155,244 @@
     </para>
    </sect2>
   </sect1>
+
+  <sect1 id="projects-structure">
+  <title>Project structure</title>
+  <para>
+  <interface>Project Manager</interface> lists the project in standard
+  <ulink type="info" url="info:automake"><application>automake</application></ulink>
+  heirarchy organized
+  into groups of targets. <emphasis>Groups</emphasis> corresponds to
+  directories in your project and <emphasis>targets</emphasis>
+  corresponds to normal <application>automake</application> targets (not to be confused
+  with make targets). <interface>Project manager</interface> view actually
+  has two parts; one part
+  (lower one) shows complete project heirarchy and the other part (upper one)
+  lists important targets directly. Important targets constitute executable
+  and library targets -- making them extremely accessible in the project
+  view. This is particularly useful in big projects where the heirarchy
+  could be deep and hard to navigate from the tree alone. Targets are in
+  turn composed of source files.
+  </para>
+
+  <para>
+  <itemizedlist>
+   <listitem>
+    <para>
+      <emphasis>Groups</emphasis> are used to logically organize targets.
+      A project can contain any number of groups. Each group can have sub-groups
+      as well as targets. In automake projects, groups are just sub-directories
+      in the project. The top level group is called root and is always "/".
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      <emphasis>Targets</emphasis> are the build targets in project, such as
+      programs (executable binaries), scripts, libraries, miscellaneous data
+      etc. Not all target types are built from sources, but exist just to
+      organize the sources and therefore may not exist physically (e.g. data).
+      Targets exist under groups. See <link linkend="adding-target">"Adding targets"</link> for
+      full list of available target types.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+      <emphasis>Source files</emphasis> are the files used to build the targets
+      or just to be part of it. They exist only under targets. Many target types
+      expect certain type of source files (e.g. as programs, libraries), but
+      some can except any file (e.g. Miscellaneous data target).
+    </para>
+   </listitem>
+  </itemizedlist>
+  </para>
+
+  <para>
+  Each of the project groups and targets is configurable in standard
+  <application>automake</application> way. You can set complier and linker
+  flags directly for each target, or set configure variables. Groups allow
+  setting installation destinations for the targets.
+  </para>
+
+  <para>
+  Just like file manager, project manager view also has convenience actions
+  for the source files and targets accessible from the context menu. 
+  </para>
+
+  <para>
+   Many command-line tools are available to maintain and manage a project, 
+   and each tool has its own specific rules and capabilities.
+   <application>Anjuta</application> tries to automate most of the common
+   operations using plugins. However, you might occationally still need
+   to do them manually.
+  </para>
   
-  <sect1 id="add-rm-files">
+  <para>
+   It is possible to make use of other tools or hand edit the project
+   files simulaneously. It doesn't matter if the project is loaded in
+   <application>Anjuta</application> or not. <application>Anjuta</application>
+   would update itself with any external changes made to project.
+  </para>
+  </sect1>
+ 
+  <sect1 id="groups-and-targets">
+   <title>Groups and targets</title>
+
+   <sect2 id="adding-groups">
+    <title>Adding Groups</title>
+    <para>
+     To add a new group (a directory in automake based projects),
+     select <menuchoice><guisubmenu>Project</guisubmenu>
+	 <guimenuitem>Add Group</guimenuitem></menuchoice> and a dialog to
+     add a new group would popup. Select the group under which to add new
+     group, give a name of the new group and click Ok. With automake projects,
+     a new directory with the given name would be created under the parent
+     group's directory.
+    </para>
+    <para>
+     New group can also be added from the <guimenu>Operation</guimenu> menu
+     in <interface>Project View</interface> by
+     selecting <guimenuitem>Add Group</guimenuitem>. First select the group
+     under which to add the group in <interface>Project View</interface>.
+    </para>
+   </sect2>
+
+   <sect2 id="removing-group">
+    <title>Removing Groups</title>
+    <para>
+      To remove a group, select the target in <interface>Project Manager view</interface>
+      and select <guimenuitem>Remove</guimenuitem> from the
+      <guimenu>Operation</guimenu> menu. The target and sources associated
+      with the group will also be removed from the project (they are not
+      deleted from the file system, though. so you can still add them later).
+    </para>
+   </sect2>
+
+   <sect2 id="adding-target">
+    <title>Adding Targets</title>
+    <para>
+     To add a new target, select <menuchoice><guisubmenu>Project</guisubmenu>
+	 <guimenuitem>Add Target</guimenuitem></menuchoice> and a dialog to
+     add a new target would popup. Select the group under which to add the target,
+     select the target type, give a name of the new target and click Ok.
+    </para>
+    <para>
+     New target can also be added from the <guimenu>Operation</guimenu> menu
+     in <interface>Project View</interface> by
+     selecting <guimenuitem>Add target</guimenuitem>. First select the group
+     under which to add the target in <interface>Project View</interface>.
+    </para>
+    <para>
+     Target names usually require some standard prefix and suffix, depending
+     on the type of target. Anjuta would warn if the name is not valid and
+     may give an example of a name.
+    </para>
+    <para>
+     There are several target types for automake project. They are:
+    <itemizedlist>
+     <listitem>
+      <para>
+       <emphasis>Program</emphasis> target type is for executable binaries. Select
+       this if you want to add an executable to the project. By default, all program
+       targets would be installed in standard executable directory, e.g.
+       /usr/bin or /usr/local/bin. You can override it by specifying a different
+       installation directory in its group properties.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <emphasis>Shared Library</emphasis> target type is for shared or dynamic libraries.
+       Select this if you are adding a shared library to the project. By default, all
+       shared libraries are installed in standard libraries directory, e.g.
+       /usr/lib or /usr/local/lib. You can override it by specifying a different
+       installation directory in its group properties.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <emphasis>Static Library</emphasis> target type is for static library.
+       Select this if you are adding a static library to the project. By default,
+       all static libraries are installed in standard libraries directory, e.g.
+       /usr/lib or /usr/local/lib. You can override it by specifying a different
+       installation directory in its group properties.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       <emphasis>Java module</emphasis> target type is for java module. Select
+       this if you are grouping java sources into a module. You need to provide
+       an installation directory for this target where the .class files will
+       be installed. It can be set in group properties of the group where this
+       target belongs.
+      </para>
+      <note>
+       <para>
+         There can really be only one java module in a group. This is a
+         restriction put by automake. Please read automake info page for more
+         details.
+       </para>
+      </note>
+     </listitem>
+     <listitem>
+      <para>
+       <emphasis>Python module</emphasis> target type is for python module. Select
+       this if you are grouping python sources into a module. You need to provide
+       an installation directory for this target where the sources will
+       be installed. It can be set in group properties of the group where this
+       target belongs.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+        <emphasis>Scripts</emphasis> target is to group scripts. They will be
+        installed in standard executable directory.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+        <emphasis>Miscellaneous Data</emphasis> target type is to group
+        simple files in the project. An installation directory needs to be
+        specified in its group properties.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+        <emphasis>Header Files</emphasis> target type is to group C/C++
+        header files that need to be installed in system (for example as part
+        of library API). For header files that do not need to be installed,
+        make them part of the Program target along with the sources. They will
+        be installed in standard include directory unless installation path
+        is specified in its group properties.
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+        <emphasis>Man documentation</emphasis> and <emphasis>Info documentation</emphasis>
+        target types are for grouping man and info documentation respectively.
+        By default, they will be installed in standard installation directories.
+      </para>
+     </listitem>
+    </itemizedlist>
+    </para>
+   </sect2>
+   <sect2 id="removing-target">
+    <title>Removing Targets</title>
+    <para>
+      To remove a target, select the target in <interface>Project Manager view</interface>
+      and select <guimenuitem>Remove</guimenuitem> from the
+      <guimenu>Operation</guimenu> menu. The sources associated with the targets
+      will also be removed from the project (they are not deleted from the
+      file system, though).
+    </para>
+   </sect2>
+  </sect1>
+
+  <sect1 id="adding-removing-sources">
    <title>Adding and Removing Files</title>
-   <sect2 id="addingfiles">
-    <title>Adding Files</title>
+   <sect2 id="adding-sources">
+    <title>Adding Source Files</title>
     <para>
      Select menu item <menuchoice><guisubmenu>Project</guisubmenu>
-	 <guimenuitem>Add Source File...</guimenuitem></menuchoice>.
+	 <guimenuitem>Add Source File</guimenuitem></menuchoice>.
 	From the dialog, select the target to which the file should be added and
     the file itself. You can add multiple files at once. To do that, select
     multiple files from the fileselection dialog using either SHIFT or CONTROL
@@ -228,8 +418,8 @@
 	 outside of target's directory.
     </para>
    </sect2>
-   <sect2 id="removingfiles">
-    <title>Removing Files</title>
+   <sect2 id="removing-sources">
+    <title>Removing Source Files</title>
     <para>
      To remove a file from the project, select the file you want to remove
      from the <interface>Project View</interface>, right-click to open the 
@@ -288,7 +478,7 @@
   </sect1>
   
   <sect1 id="project-build">
-   <title>Compiling, Building and Executing a Project</title>
+   <title>Compiling and Building</title>
    <sect2 id="project-basics">
     <title>Overview</title>
     <para>
