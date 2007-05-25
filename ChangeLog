@@ -1,3 +1,18 @@
+2007-05-25  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(on_sb_check_toggled), (build_execute_command),
+	(ipreferences_merge), (ipreferences_unmerge):
+	Added support for building inside scratchbox environment
+	
+	Patch from James Liggett <jrliggett@cox.net>:
+	* plugins/message-view/anjuta-msgman.c: (anjuta_msgman_page_new),
+	(anjuta_msgman_append_view):
+
+	Fix 440866 
+	  – Anjuta aborts with numerous assertion failures when adding a new message view tab
+
 2007-05-23  Naba Kumar  <naba@gnome.org>
 
 	* manuals/anjuta-manual/C/projects.xml: Updated project

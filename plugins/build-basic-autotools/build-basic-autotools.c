@@ -46,9 +46,13 @@
 #define PREF_INDICATORS_AUTOMATIC "indicators.automatic"
 #define PREF_INSTALL_ROOT "build.install.root"
 #define PREF_INSTALL_ROOT_COMMAND "build.install.root.command"
+#define PREF_USE_SB "build.use_scratchbox"
+#define PREF_SB_PATH "build.scratchbox.path"
 
 #define CHECK_BUTTON "preferences_toggle:bool:0:0:build.install.root"
 #define ENTRY "preferences_entry:text:sudo:0:build.install.root.command"
+#define SB_CHECK "preferences_toggle:bool:0:0:build.use_scratchbox"
+#define SB_ENTRY "preferences_entry:text:/scratchbox:0:build.scratchbox.path"
 
 static gpointer parent_class;
 
@@ -90,6 +94,12 @@ static void on_root_check_toggled(GtkWidget* toggle_button, GtkWidget* entry)
 {
 		gtk_widget_set_sensitive(entry, 
 			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button)));
+}
+
+static void on_sb_check_toggled(GtkWidget* toggle_button, GtkWidget* entry)
+{
+	gtk_widget_set_sensitive(entry, 
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(toggle_button)));	
 }
 
 static gchar*
@@ -847,17 +857,34 @@ save_all_files (AnjutaPlugin *plugin)
 }
 
 static void
-build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
+build_execute_command (BasicAutotoolsPlugin* bplugin, const gchar *dir,
 					   const gchar *command,
 					   gboolean save_file)
 {
+	AnjutaPlugin* plugin = ANJUTA_PLUGIN(bplugin);
+	AnjutaPreferences* prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	BuildContext *context;
+	gchar* real_command;
 	
 	g_return_if_fail (command != NULL);
 
-	if (save_file) save_all_files (ANJUTA_PLUGIN (plugin));
+	if (save_file) 
+		save_all_files (ANJUTA_PLUGIN (plugin));
 	
-	context = build_get_context (plugin, dir, command);
+	context = build_get_context (bplugin, dir, command);
+	
+	if (anjuta_preferences_get_int (prefs , PREF_USE_SB))
+	{
+		const gchar* sb_path = anjuta_preferences_get(prefs, PREF_SB_PATH);
+		/* we need to skip the /scratchbox/users part, maybe could be done more clever */
+		const gchar* real_dir = strstr(dir, "/home");
+		real_command = g_strdup_printf("%s/login -d %s \"%s\"", sb_path,
+									  real_dir, command);
+	}
+	else
+	{
+		real_command = g_strdup(command);
+	}
 	
 	ianjuta_message_view_buffer_append (context->message_view,
 										"Building in directory: ", NULL);
@@ -866,8 +893,9 @@ build_execute_command (BasicAutotoolsPlugin* plugin, const gchar *dir,
 	ianjuta_message_view_buffer_append (context->message_view, command, NULL);
 	ianjuta_message_view_buffer_append (context->message_view, "\n", NULL);
 	
-	anjuta_launcher_execute (context->launcher, command,
+	anjuta_launcher_execute (context->launcher, real_command,
 							 on_build_mesg_arrived, context);
+	g_free(real_command);
 }
 
 static gboolean
@@ -2140,14 +2168,21 @@ static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	GtkWidget *root_check;
+	GtkWidget *sb_check;
 	GtkWidget *entry;
+	GtkWidget *sb_entry;
 		
 	/* Create the preferences page */
 	gxml = glade_xml_new (GLADE_FILE, "preferences_dialog_build", NULL);
 	root_check = glade_xml_get_widget(gxml, CHECK_BUTTON);
+	sb_check = glade_xml_get_widget(gxml, SB_CHECK);
 	entry = glade_xml_get_widget(gxml, ENTRY);
+	sb_entry = glade_xml_get_widget(gxml, SB_ENTRY);
+	
 	g_signal_connect(G_OBJECT(root_check), "toggled", G_CALLBACK(on_root_check_toggled), entry);
-		
+	g_signal_connect(G_OBJECT(sb_check), "toggled", G_CALLBACK(on_sb_check_toggled), sb_entry);
+	
+	
 	anjuta_preferences_add_page (prefs, gxml, "Build", _("Build Autotools"),  ICON_FILE);
 }
 
@@ -2155,12 +2190,18 @@ static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	GtkWidget *root_check;
+	GtkWidget *sb_check;
 	GtkWidget *entry;
-	
+	GtkWidget *sb_entry;
+
 	root_check = glade_xml_get_widget(gxml, CHECK_BUTTON);
+	sb_check = glade_xml_get_widget(gxml, SB_CHECK);
 	entry = glade_xml_get_widget(gxml, ENTRY);
+	sb_entry = glade_xml_get_widget(gxml, SB_ENTRY);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
 		G_CALLBACK(on_root_check_toggled), entry);
+	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
+		G_CALLBACK(on_sb_check_toggled), sb_entry);
 		
 	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs),
 		_("Build Autotools"));

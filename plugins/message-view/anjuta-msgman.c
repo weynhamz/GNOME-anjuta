@@ -153,8 +153,6 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	g_signal_connect (GTK_OBJECT (page->button), "clicked",
 						G_CALLBACK(on_msgman_close_page),
 						msgman);
-	
-	gtk_widget_show_all (page->box);
 	return page;
 }
 
@@ -370,6 +368,7 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (msgman), mv, page->box);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (msgman), 0);
+	gtk_widget_show_all (page->box);
 	
 	g_signal_connect (G_OBJECT (mv), "destroy",
 					  G_CALLBACK (on_message_view_destroy), msgman);
