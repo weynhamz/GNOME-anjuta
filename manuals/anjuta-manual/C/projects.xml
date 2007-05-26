@@ -3,19 +3,11 @@
   <title>Project Management</title>
   
   <para>
-   If the program or application you are developing is a small one, and 
-   it is only going to be run on your computer, then a single source file 
-   will often serve the purpose. If the application is more complex, with 
-   multiple source files, it is useful to be able to keep track of 
-   your program and its resources. Such a <emphasis>program</emphasis> 
-   becomes a <emphasis>project</emphasis>.
-  </para>
-
-  <para>
-  Anjuta has a very powerful Project Manager plugin which can open pretty much
-  any <ulink type="info" url="info:automake">automake/autoconf</ulink> based project on the planet. It might fail on some
+  Anjuta has a powerful Project Manager plugin which can open most
+  <ulink type="info" url="info:automake">automake/autoconf</ulink> based projects.
+  It might fail on some
   oddly configured projects, but as long as the project is done by using
-  automake/autoconf properly it should work.
+  automake/autoconf in a typical way, it should work.
   </para>
 
   <para>
@@ -23,7 +15,7 @@
   is already available in project struture. That is, there is no separate
   project data maintained by Anjuta and all project processing are done
   directly within the project structure. This allows the project to be
-  maintained or developed outside Anjuta without having to, so called,
+  maintained or developed outside Anjuta without having to so-called
   'porting' or 'switching' to a new platform. Since technically Anjuta
   projects are just automake projects, mixed development of it (Anjuta and
   non-Anjuta users) or switching back and forth between Anjuta and other
@@ -60,13 +52,13 @@
    </para>
 
    <para>
-    On the next pages, enter all the necessary
+    On the next pages, enter all necessary
     details for your project. You can change these settings later also, but
     it is advicable to put them right in first run to maintain the project's
     integrity.
     White spaces or any non-alphanumeric characters, except 
     underscore (_) and dash (-), are not allowed in many of the entry boxes 
-	that would follow in the wizard pages (except perhaps the
+	that would follow (except perhaps the
     <guilabel>Author</guilabel> text box).
 	</para>
 
@@ -110,7 +102,8 @@
 	<note>
 	<para>
 	The import project features only works if your existing project is
-    using <ulink type="info" url="info:automake">autoconf/automake</ulink>
+    using <ulink type="info" url="info:automake">autoconf/automake</ulink> and,
+    to a very limited extend, plain makefiles.
 	</para>
 	</note>
    </sect2>
@@ -143,7 +136,7 @@
      operation submenu.
     </para>
     <para>
-     If the project is also a CVS tree, then corrosponing file revision numbers are also
+     If the project is also a CVS tree, then corresponing file revision numbers are also
      listing on the right of file names in the file view pane.
     </para>
    </sect2>
@@ -151,7 +144,7 @@
     <title>Saving Projects</title>
     <para>
     The project is automatically saved when you close because all changes are made
-	directly in the Makefile.am.
+	directly in the project structure.
     </para>
    </sect2>
   </sect1>
@@ -159,20 +152,20 @@
   <sect1 id="projects-structure">
   <title>Project structure</title>
   <para>
-  <interface>Project Manager</interface> lists the project in standard
+  <interface>Project View</interface> lists the project in standard
   <ulink type="info" url="info:automake"><application>automake</application></ulink>
   heirarchy organized
-  into groups of targets. <emphasis>Groups</emphasis> corresponds to
+  into groups of targets. <emphasis>Groups</emphasis> correspond to
   directories in your project and <emphasis>targets</emphasis>
-  corresponds to normal <application>automake</application> targets (not to be confused
-  with make targets). <interface>Project manager</interface> view actually
+  correspond to normal <application>automake</application> targets (not to be confused
+  with make targets). <interface>Project View</interface> actually
   has two parts; one part
   (lower one) shows complete project heirarchy and the other part (upper one)
   lists important targets directly. Important targets constitute executable
-  and library targets -- making them extremely accessible in the project
-  view. This is particularly useful in big projects where the heirarchy
-  could be deep and hard to navigate from the tree alone. Targets are in
-  turn composed of source files.
+  and library targets -- making them very accessible in from the view.
+  This is particularly useful in big projects where the heirarchy
+  could be deep and hard to navigate from the tree alone. Targets are, in
+  turn, composed of source files.
   </para>
 
   <para>
@@ -190,7 +183,8 @@
       <emphasis>Targets</emphasis> are the build targets in project, such as
       programs (executable binaries), scripts, libraries, miscellaneous data
       etc. Not all target types are built from sources, but exist just to
-      organize the sources and therefore may not exist physically (e.g. data).
+      organize the sources and therefore may not exist physically (e.g.
+      Miscellaneous data target).
       Targets exist under groups. See <link linkend="adding-target">"Adding targets"</link> for
       full list of available target types.
     </para>
@@ -199,8 +193,8 @@
     <para>
       <emphasis>Source files</emphasis> are the files used to build the targets
       or just to be part of it. They exist only under targets. Many target types
-      expect certain type of source files (e.g. as programs, libraries), but
-      some can except any file (e.g. Miscellaneous data target).
+      expect certain type of source files (e.g. programs and libraries target
+      types), but some can accept any file (e.g. Miscellaneous data target).
     </para>
    </listitem>
   </itemizedlist>
@@ -210,12 +204,12 @@
   Each of the project groups and targets is configurable in standard
   <application>automake</application> way. You can set complier and linker
   flags directly for each target, or set configure variables. Groups allow
-  setting installation destinations for the targets.
+  setting installation destinations for its targets.
   </para>
 
   <para>
   Just like file manager, project manager view also has convenience actions
-  for the source files and targets accessible from the context menu. 
+  (accessible from context menu) for the source files and targets. 
   </para>
 
   <para>
@@ -263,7 +257,7 @@
       and select <guimenuitem>Remove</guimenuitem> from the
       <guimenu>Operation</guimenu> menu. The target and sources associated
       with the group will also be removed from the project (they are not
-      deleted from the file system, though. so you can still add them later).
+      deleted from the file system, though. You can still add them later).
     </para>
    </sect2>
 
@@ -445,8 +439,67 @@
   <sect1 id="project-config">
    <title>Project Configuration</title>
    <para>
-    Choose <menuchoice><guisubmenu>Project</guisubmenu>
-	 <guimenuitem>Properties</guimenuitem></menuchoice> to change the project configuration.
+    Project configuration involves setting the correct build flags for
+    targets, groups and project itself. You can set these flags in their
+    respective properties dialog.
+   </para>
+
+   <para>
+    You can freely use autoconf and automake variables that are automatically
+    set for the project during configuration. Apart from these automatically
+    set variables, you can also defined your own variables in
+    <link linkend="project-properties">Project Properties</link> use them in
+    properties. This will make it easy to update flags later, especially when
+    the variable is used in several targets.
+   </para>
+
+   <para>
+    Some of the many common variables are listed here. For full list of them
+    see <ulink url="info:automake">automake info documentation</ulink>.
+    <para>
+     <itemizedlist>
+      <listitem>
+       <para>
+         <emphasis>$(prefix)</emphasis>: The installation prefix. The project
+         is installed under various sub-directories under this prefix. By default
+         it is /usr/local.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+         <emphasis>$(bindir)</emphasis>: The installation directory for
+         executable binaries. All your executable and scripts targets would
+         be installed in this directory. By default, it is $(prefix)/bin.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+         <emphasis>$(libdir)</emphasis>: The installation directory for
+         libraries. All your library targets (both shared and static) would
+         be installed in this directory or a subdirectory below it.
+         By default, it is $(prefix)/lib.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+         <emphasis>$(module_CFLAGS)</emphasis> and $(module_LIBS): These
+         flags are set by configure for the packages that your project
+         depends on. The packages used by the project are set in
+         <link linkend="project-properties">Project Properties</link>. 'module'
+         is the packages group that you give in project properties.
+       </para>
+      </listitem>
+     </itemizedlist>
+    </para>
+   </para>
+
+
+   <sect2 id="project-properties">
+    <title>Project properties</title>
+    <para>
+    Project properties dialog can be only brought by
+    choosing <menuchoice><guisubmenu>Project</guisubmenu>
+	 <guimenuitem>Properties</guimenuitem></menuchoice>.
 	You can add and remove depencies for your project there.
 	 <figure>
        <title>Project properties dialog</title>
@@ -456,25 +509,117 @@
        </screenshot>
      </figure>
    </para>
-  </sect1>
-  
-  <sect1 id="project-files">
-   <title>Managing Project Files</title>
-   <para>
-   Anjuta manages all Makefile.am (or Makefile, in case of a Makefile based project) files for you. A tree
-	of the scanned files is shown in the <interface>Project</interface> window.
-   </para>
-   <para>
-   You can use <menuchoice><guisubmenu>Project</guisubmenu>
-	 <guimenuitem>Add Target</guimenuitem></menuchoice> to add a new target (executable,
-	 library, ...) to the project. To add files to the new target see <emphasis>Adding and Removing Files
-	 </emphasis> above.
-	</para>
-	<para>
-	To add a new group to your project, use <menuchoice><guisubmenu>Project</guisubmenu>
-	 <guimenuitem>Add Groups</guimenuitem></menuchoice>. In most project backends (Automake,
-	 Makefile) group simply means directory. After you created a group you can add targets to that group.
-	 </para>
+   </sect2>
+
+   <sect2 id="group-properties">
+    <title>Group properties</title>
+    <para>
+    To set group properties, select
+    it in the <interface>Project View</interface> and active it. You can also
+    bring it by selecting <menuchoice><guimenu>Operation menu</guimenu>
+    <guimenuitem>Properties</guimenuitem></menuchoice>
+    </para>
+
+    <para>
+         <emphasis>Group Properties</emphasis> set to a group applies to all
+         the targets under it. So any compiler or linker flags set there would
+         be automatically be part of all the targets in it (in addition the
+         targets individual properties). Folowing flags are available in group
+         properties.
+         <para>
+		   <itemizedlist>
+		    <listitem>
+		     <para>
+                <emphasis>Includes</emphasis>: Set your $(module_CFLAGS) variables
+                and other include directories for your c and c++ targets.
+                You need to provide the full include options of the compiler
+                here, e.g. -I/usr/include/blah. The include paths will be use
+                to find the include files in your source files. You can also
+                add other sort of compiler flags here, but they are prefered
+                to be set in their respective compiler flags properties
+                (see below).
+             </para>
+             <para>
+                Usually your configure script would also make some automatically
+                determined compiler flags. The variables usually end with
+                _CFLAGS, e.g $(PACKAGE_CFLAGS). They are also set here.
+                See setting
+                <link linkend="project-properties">Project properties</link>
+                for more details on these variables.
+             </para>
+           </listitem>
+		    <listitem>
+		     <para>
+                <emphasis>Compiler settings</emphasis>: Set your compiler specific
+                flags here. There are different fields for different compiler
+                categories. Flags that can be set here depend on the actual
+                compiler used. The default compiler use for c/c++ is gcc/g++
+                (gnu c compiler). Check out <ulink url="info:gcc">gcc info
+                documentation</ulink> for more details.
+             </para>
+           </listitem>
+		    <listitem>
+		     <para>
+                <emphasis>Install directories</emphasis>: Targets in the group
+                that require installation directories would each get a field
+                to enter the installation directory. Set their installation
+                directories as relative to one of the many automake
+                directory variables, such as $(prefix), $(bindir), $(libdir),
+                $(datadir) etc.
+             </para>
+           </listitem>
+          </itemizedlist>
+         </para>
+    </para>
+   </sect2>
+
+   <sect2 id="target-properties">
+    <title>Target properties</title>
+    <para>
+    To set target properties, select
+    it in the <interface>Project View</interface> and active it. You can also
+    bring it by selecting <menuchoice><guimenu>Operation menu</guimenu>
+    <guimenuitem>Properties</guimenuitem></menuchoice>
+    </para>
+
+    <para>
+         <emphasis>Target Properties</emphasis> set to a target applies to that
+         target. So any compiler or linker flags set there would
+         be just part of it (in addition the its group properties).
+         Folowing flags are available in target properties.
+         <para>
+		   <itemizedlist>
+		    <listitem>
+		     <para>
+                <emphasis>Compiler settings</emphasis>: Set your compiler specific
+                flags here. There are different fields for different compiler
+                categories. Flags that can be set here depend on the actual
+                compiler used. The default compiler use for c/c++ is gcc/g++
+                (gnu c compiler). Check out <ulink url="info:gcc">gcc info
+                documentation</ulink> for more details.
+             </para>
+            </listitem>
+		    <listitem>
+		     <para>
+                <emphasis>Linker flags</emphasis>: Set linker flags that should
+                be used when linking the target. It applies only to Program
+                and library targets. See <ulink url="info:ld">ld info documentation</ulink>
+                for available linker options.
+             </para>
+            </listitem>
+		    <listitem>
+		     <para>
+                <emphasis>Libraries</emphasis>: Set the libraries that the
+                target depends on. Usually they are the $(module_LIBS)
+                configure variables. See setting
+                <link linkend="project-properties">Project properties</link>
+                for more details on these variables.
+             </para>
+           </listitem>
+          </itemizedlist>
+         </para>
+    </para>
+   </sect2>
   </sect1>
   
   <sect1 id="project-build">

@@ -1,31 +1,8 @@
 <chapter id="familiar">
   <title>Getting Familiar with Anjuta</title>
  <!-- ============= Getting Familiar: Menus  ============-->
-  <sect1 id="launch">
-   <title>Starting Anjuta</title>
-   <para>To start <application>Anjuta</application>, open the 
-   GNOME <guimenu>Main Menu</guimenu>. <application>Anjuta</application> is 
-   found on the <guisubmenu>Development</guisubmenu> submenu. In RedHat 8.0 or later
-   anjuta can be found in <guisubmenu>Extra</guisubmenu> submenu and then
-   <guisubmenu>Programming</guisubmenu> submenu.
-   </para>
-    <figure id="anjutaicon">
-      <title>Anjuta application icon</title>
-	  <screenshot>
-      <screeninfo>Anjuta application icon on the Development menu</screeninfo>
-       <graphic fileref="figures/devt_menu.png" format="PNG" srccredit="andyp"></graphic>
-      </screenshot>
-    </figure>
-   <para>
-   Click on the <application>Anjuta</application> icon to start. The IDE (<emphasis>Integrated 
-   Development Environment</emphasis>) will open. Alternatively, <application>anjuta</application>
-   can be started from a terminal by issuing the command <command>anjuta</command>.
-   If <application>anjuta</application> us started for the first time, it will greet you with
-	a welcome message.
-   </para>
-  </sect1>
-  <sect1 id="menu">
-   <title>Menus</title>
+  <sect1 id="menu-and-shortcuts">
+   <title>Menus and shortcuts</title>
    <para>
    At the top of the <application>Anjuta</application> main window is the menubar. 
    Almost all of the functions are available by activating the appropriate 
@@ -60,13 +37,9 @@
     Shortcut keys are available for many of the menu options. All of the shortcut 
 	keys are shown alongside the corresponding menu items. A useful reference to 
 	the shortcut keys which are not directly attachted with the menu is also available
-	in the next section. 
+	in the next section. Some useful shortcuts are listed here.
    </para>
 	
-  </sect1>
-<!-- ============= Getting Familiar: Shortcuts  ============-->
-  <sect1 id="shortcuts">
-   <title>Useful Shortcuts</title>
    <para>
     <itemizedlist>
      <listitem>
@@ -111,82 +84,16 @@
    </tip>
    </para>
   </sect1>
-<!-- ============= Getting Familiar: Toolbars  ============-->
-  <sect1 id="toolbars">
-   <title>Toolbars</title>
-   <para>
-    The operations which used most often are made available from the toolbars. 
-	There are five toolbars on the main window.
-   </para>
-   
-   <para>
-    <itemizedlist>
-     <listitem><para><interface>Main Toolbar</interface> - file and editing functions</para></listitem>
-     <listitem><para><interface>Browser Toolbar</interface> - browse bookmarks and function tags</para></listitem>
-    </itemizedlist>
-   </para>
- 
-    <figure id="toolbar-detach">
-	<title>Main toolbar</title>
-     <screenshot>
-     <screeninfo>Main toolbar</screeninfo>
-	  <graphic fileref="figures/toolbar_main.png" format="PNG" srccredit="jhs"></graphic>
-     </screenshot>
-    </figure>
- 
-   <para>
-    Move the mouse pointer over any toolbar button.	A tooltip describing the function of the button will appear.
-   </para>
-   
-   <para>
-    There are some drop-down combination boxes on the toolbars. These are 
-	explained in later sections of the manual.
-   </para>
- 
-  </sect1>
 
 <!-- ============= Getting Familiar: Main window  ============-->
   <sect1 id="main-win">
    <title>Main Window</title>
    <para>
-    In the main window, there are several frames which can be attached/detached and reordered by
-	clicking on the title bar:
+    In the main window, there are several views which can be reordered by
+	dragging on their title bars. They can also be minimized by clicking on the
+    minimize buttons on the left of title bars.
    </para>
-   
-   <para>
-    <itemizedlist>
-     <listitem>
-      <para>
-       <interface>Documents</interface>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <interface>Project</interface>
-      </para>
-     </listitem>
-	 <listitem>
-      <para>
-       <interface>Files</interface>
-      </para>
-     </listitem>
-	 <listitem>
-      <para>
-       <interface>Symbols</interface>
-      </para>
-     </listitem>
-     <listitem>
-      <para>
-       <interface>Messages</interface>
-      </para>
-     </listitem>
-	 <listitem>
-      <para>
-       <interface>Terminal</interface>
-      </para>
-     </listitem>
-    </itemizedlist>
-   </para>
+
    <para>
     <orderedlist>
      <listitem>
