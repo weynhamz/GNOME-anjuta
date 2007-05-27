@@ -503,6 +503,26 @@ parse_error_line (const gchar * line, gchar ** filename, int *lineno)
 	return FALSE;
 }
 
+static gchar* get_real_directory(BuildContext* context, gchar* dir)
+{
+	AnjutaPreferences* prefs = anjuta_shell_get_preferences (context->plugin->shell, NULL);
+	gchar* real_dir = dir;
+	if (anjuta_preferences_get_int (prefs, PREF_USE_SB))
+	{
+			gchar* username = getenv("USERNAME");
+			if (!username || strlen(username) == 0)
+				username = getenv("USER");
+			if (!username || strlen(username) == 0)
+				return real_dir;
+		
+		const gchar* sb_dir = anjuta_preferences_get(prefs, PREF_SB_PATH);
+		real_dir = g_strdup_printf("%s/users/%s%s", sb_dir, username, dir);
+		g_free(dir);
+		DEBUG_PRINT("sb_dir = %s", real_dir);
+	}
+	return real_dir;
+}
+
 static void
 on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 					  BuildContext *context)
@@ -511,17 +531,18 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	gint dummy_int;
 	IAnjutaMessageViewType type;
 	GList *node;
-	gchar dir[2048];
+	gchar* dir = g_new0(gchar, 2048);
 	gchar *summary = NULL;
 	gchar *freeptr = NULL;
 	BasicAutotoolsPlugin *p = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (context->plugin);
 	
 	g_return_if_fail (one_line != NULL);
 	
-	/* FIXME: What about translations in the following sscanf strings */
 	/* The translations should match that of 'make' program */
 	if ((sscanf (one_line, _("make[%d]: Entering directory '%s'"), &dummy_int, dir) == 2) ||
-		(sscanf (one_line, _("make: Entering directory '%s'"), dir) == 1))
+		(sscanf (one_line, _("make: Entering directory '%s'"), dir) == 1) ||
+		(sscanf (one_line, _("make[%d]: Entering directory `%s'"), &dummy_int, dir) == 2) ||
+		(sscanf (one_line, _("make: Entering directory `%s'"), dir) == 1))
 	{
 		gchar* summary;
 		/* FIXME: Hack to remove the last ' */
@@ -529,29 +550,35 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		if (idx != NULL)
 		{
 			*idx = '\0';
-		}
+		}		
+		dir = get_real_directory(context, dir);
+		build_context_push_dir (context, "default", dir);
 		summary = g_strdup_printf(_("Entering: %s"), dir);
 		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, 
 									 summary, one_line, NULL);
 		g_free(summary);
-		build_context_push_dir (context, "default", dir);
+
 		return;
 	}
 	/* Translation for the following should match that of 'make' program */
 	if ((sscanf (one_line, _("make[%d]: Leaving directory '%s'"), &dummy_int, dir) == 2) ||
-		(sscanf (one_line, _("make: Leaving directory '%s'"), dir) == 1))
+		(sscanf (one_line, _("make: Leaving directory '%s'"), dir) == 1) ||
+		(sscanf (one_line, _("make[%d]: Leaving directory `%s'"), &dummy_int, dir) == 2) ||
+		(sscanf (one_line, _("make: Leaving directory `%s'"), dir) == 1))
 	{
 		gchar* summary;
+		gchar* real_dir;
 		/* FIXME: Hack to remove the last ' */
 		gchar *idx = strchr (dir, '\'');
 		if (idx != NULL)
 		{
 			*idx = '\0';
 		}
+		dir = get_real_directory(context, dir);
+		build_context_pop_dir (context, "default", dir);
 		summary = g_strdup_printf(_("Leaving: %s"), dir);
 		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO, 
 									 summary, one_line, NULL);
-		build_context_pop_dir (context, "default", dir);
 		g_free(summary);
 		return;
 	}
