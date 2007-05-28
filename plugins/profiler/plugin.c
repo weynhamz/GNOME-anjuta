@@ -350,6 +350,43 @@ on_profiling_options_button_clicked (GtkButton *button, gpointer *user_data)
 	g_object_unref (gxml);
 }
 
+static void
+on_select_other_target_button_clicked (GtkButton *button, 
+									   GtkTreeView *targets_list_view)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gchar *selected_target_path;
+	gchar *selected_target_uri;
+	GtkWidget *target_chooser_dialog;
+	
+	model = gtk_tree_view_get_model (targets_list_view);
+	target_chooser_dialog = gtk_file_chooser_dialog_new ("Select Target",
+														 NULL,
+														 GTK_FILE_CHOOSER_ACTION_OPEN,
+														 GTK_STOCK_CANCEL, 
+														 GTK_RESPONSE_CANCEL,
+														 GTK_STOCK_OPEN,
+														 GTK_RESPONSE_ACCEPT,
+														 NULL);
+	
+	if (gtk_dialog_run (GTK_DIALOG (target_chooser_dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		selected_target_path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (target_chooser_dialog));
+		selected_target_uri = gnome_vfs_get_uri_from_local_path (selected_target_path);
+		
+		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+		gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, 
+							selected_target_path, 1,
+							selected_target_uri, -1);
+		
+		g_free (selected_target_path);
+		g_free (selected_target_uri);
+	}
+	
+	gtk_widget_destroy (target_chooser_dialog);
+}
+
 static gboolean
 on_target_selected (GtkTreeSelection *selection, GtkTreeModel *model, 
 					GtkTreePath *path, gboolean path_currently_selected,
@@ -376,6 +413,7 @@ on_profiler_select_target (GtkAction *action, Profiler *profiler)
 	GladeXML *gxml;
 	GtkWidget *select_target_dialog;
 	GtkWidget *profiling_options_button;
+	GtkWidget *select_other_target_button;
 	GtkWidget *targets_list_view;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
@@ -391,6 +429,45 @@ on_profiler_select_target (GtkAction *action, Profiler *profiler)
 	gchar *relative_path;
 	guint project_root_uri_length;
 	
+	gxml = glade_xml_new (GLADE_FILE, "select_target_dialog", NULL);
+	select_target_dialog = glade_xml_get_widget (gxml, 
+												 "select_target_dialog");
+	targets_list_view = glade_xml_get_widget (gxml, 
+											  "targets_list_view");
+	profiling_options_button = glade_xml_get_widget (gxml,
+													 "profiling_options_button");
+	select_other_target_button = glade_xml_get_widget (gxml,
+													   "select_other_target_button");
+														 
+	g_signal_connect (profiling_options_button, "clicked",
+					  G_CALLBACK (on_profiling_options_button_clicked),
+					  profiler);
+	
+	g_signal_connect (select_other_target_button, "clicked",
+					  G_CALLBACK (on_select_other_target_button_clicked),
+					  targets_list_view);
+		
+	gtk_window_set_transient_for (GTK_WINDOW (select_target_dialog),
+								  GTK_WINDOW (ANJUTA_PLUGIN(profiler)->shell));
+	
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (targets_list_view));
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
+	gtk_tree_selection_set_select_function (selection, 
+											(GtkTreeSelectionFunc) on_target_selected,
+											profiler, NULL);
+	targets_list_store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+	
+	column = gtk_tree_view_column_new ();
+	gtk_tree_view_column_set_sizing (column,
+									 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start (column, renderer, FALSE);
+	gtk_tree_view_column_add_attribute (column, renderer, "text",
+												0);
+	gtk_tree_view_append_column (GTK_TREE_VIEW (targets_list_view), column);
+	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (targets_list_view), column);
+	
 	if (profiler->project_root_uri)
 	{
 		project_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN (profiler)->shell,
@@ -401,31 +478,10 @@ on_profiler_select_target (GtkAction *action, Profiler *profiler)
 											 				NULL);
 											 				
 		project_root_uri_length = strlen (profiler->project_root_uri) + 1;
-	
-		gxml = glade_xml_new (GLADE_FILE, "select_target_dialog", NULL);
-		select_target_dialog = glade_xml_get_widget (gxml, 
-													 "select_target_dialog");
-		targets_list_view = glade_xml_get_widget (gxml, 
-												  "targets_list_view");
-		profiling_options_button = glade_xml_get_widget (gxml,
-														 "profiling_options_button");
-														 
-		g_signal_connect (profiling_options_button, "clicked",
-						  G_CALLBACK (on_profiling_options_button_clicked),
-						  profiler);
-		
-		gtk_window_set_transient_for (GTK_WINDOW (select_target_dialog),
-									  GTK_WINDOW (ANJUTA_PLUGIN(profiler)->shell));
-			
+				
 		if (exec_targets)
 		{
 			/* Populate listview */
-			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (targets_list_view));
-			gtk_tree_selection_set_mode (selection, GTK_SELECTION_BROWSE);
-			gtk_tree_selection_set_select_function (selection, 
-													(GtkTreeSelectionFunc) on_target_selected,
-													profiler, NULL);
-			targets_list_store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
 			current_target = exec_targets;
 			
 			while (current_target)
@@ -444,40 +500,35 @@ on_profiler_select_target (GtkAction *action, Profiler *profiler)
 			gtk_tree_view_set_model (GTK_TREE_VIEW (targets_list_view),
 									 GTK_TREE_MODEL (targets_list_store));
 			g_object_unref (targets_list_store);
-			
-			column = gtk_tree_view_column_new ();
-			gtk_tree_view_column_set_sizing (column,
-											 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-
-			renderer = gtk_cell_renderer_text_new ();
-			gtk_tree_view_column_pack_start (column, renderer, FALSE);
-			gtk_tree_view_column_add_attribute (column, renderer, "text",
-												0);
-			gtk_tree_view_append_column (GTK_TREE_VIEW (targets_list_view), column);
-			gtk_tree_view_set_expander_column (GTK_TREE_VIEW (targets_list_view), column);
 		}
-		
-		/* Run dialog */
-		response = gtk_dialog_run (GTK_DIALOG (select_target_dialog));
-		
-		if (response == GTK_RESPONSE_OK)
-		{		
-			selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (targets_list_view));
-			if (gtk_tree_selection_get_selected (selection, &model, &iter))
-			{
-				gtk_tree_model_get (model, &iter, 1, &target, -1);
-				profiler_set_target (profiler, target);
-				
-				if (profiler_get_data (profiler))
-					gprof_view_manager_refresh_views (profiler->view_manager);
-			}
-			else
-				profiler_set_target (profiler, NULL);
-		}
-		
-		gtk_widget_destroy (select_target_dialog);
-		g_object_unref (gxml);
 	}
+	else
+	{
+		gtk_tree_view_set_model (GTK_TREE_VIEW (targets_list_view),
+								 GTK_TREE_MODEL (targets_list_store));
+		g_object_unref (targets_list_store);
+	}
+	
+	/* Run dialog */
+	response = gtk_dialog_run (GTK_DIALOG (select_target_dialog));
+		
+	if (response == GTK_RESPONSE_OK)
+	{		
+		selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (targets_list_view));
+		if (gtk_tree_selection_get_selected (selection, &model, &iter))
+		{
+			gtk_tree_model_get (model, &iter, 1, &target, -1);
+			profiler_set_target (profiler, target);
+				
+			if (profiler_get_data (profiler))
+				gprof_view_manager_refresh_views (profiler->view_manager);
+		}
+		else
+				profiler_set_target (profiler, NULL);
+	}
+		
+	gtk_widget_hide (select_target_dialog);
+	g_object_unref (gxml);
 }
 
 static void
@@ -510,9 +561,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					const GValue *value, gpointer user_data)
 {
 	Profiler *profiler;
-	AnjutaUI *ui;
 	const gchar *root_uri;
-	GtkAction *action;
 	
 	profiler = PROFILER (plugin);
 	root_uri = g_value_get_string (value);
@@ -521,10 +570,6 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	{
 		g_free (profiler->project_root_uri);
 		profiler->project_root_uri = g_strdup (root_uri);
-		
-		ui = anjuta_shell_get_ui (plugin->shell, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupProfiler", "ActionMenuProfiler");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 	}
 	
 	
@@ -535,17 +580,11 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
 	Profiler *profiler;
-	AnjutaUI *ui;
-	GtkAction *action;
 	
 	profiler = PROFILER (plugin);
 	
 	g_free (profiler->project_root_uri);
 	profiler->project_root_uri = NULL;
-	
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupProfiler", "ActionMenuProfiler");
-	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 }
 
 static void
