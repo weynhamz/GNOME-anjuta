@@ -375,10 +375,6 @@ on_create_tags_clicked (GtkButton *widget, SymbolBrowserPlugin *plugin)
 	AnjutaPreferences *pref;
 	GladeXML *gxml;
 	
-	/* Make sure program anjuta-tags can be found */
-	if (!anjuta_util_prog_is_installed ("anjuta-tags", TRUE))
-		return;
-	
 	pref = plugin->prefs;
 	gxml = glade_xml_new (GLADE_FILE, "create.symbol.tags.dialog", NULL);
 	
@@ -489,7 +485,8 @@ on_create_tags_clicked (GtkButton *widget, SymbolBrowserPlugin *plugin)
 		/* Execute anjuta-tags to create tags for the given files */
 		if ((pid = fork()) == 0)
 		{
-			execvp ("anjuta-tags", argv);
+			execvp (g_build_filename (PACKAGE_DATA_DIR, "scripts",
+									  "anjuta-tags"), argv);
 			perror ("Could not execute anjuta-tags");
 		}
 		waitpid (pid, NULL, 0);

@@ -995,7 +995,7 @@ anjuta_symbol_view_instance_init (GObject * obj)
 	if (!tm_workspace_load_global_tags (system_tags_path))
 	{
 		g_idle_add((GSourceFunc) symbol_browser_prefs_create_global_tags, 
-			ANJUTA_PLUGIN_SYMBOL_BROWSER (obj));
+				   ANJUTA_SYMBOL_VIEW (obj));
 	}
 
 	/* let's create symbol_view tree and other gui stuff */
@@ -2563,7 +2563,3 @@ extract:
 
 	return tag_type;
 }
-
-
-
-
