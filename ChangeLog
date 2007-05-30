@@ -1,5 +1,9 @@
 2007-05-30  Naba Kumar  <naba@gnome.org>
 
+	* plugins/build-basic-autotools/build-basic-autotools.c: Fixed
+	Bug 442315 – After calling configure, the build menus are still insensitive,
+	Bug 442314 – Autogeneration fails when there is no autogen.sh
+
 	* plugins/project-manager/plugin.c: Fixed mem corruption when it
 	fails to remove target/source/group. Fixes bug #440196 – crash in
 	Anjuta IDE: removing a target

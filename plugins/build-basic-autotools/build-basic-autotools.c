@@ -87,6 +87,10 @@ typedef struct
 	GHashTable *indicators_updated_editors;
 } BuildContext;
 
+/* Declarations */
+static void update_project_ui (BasicAutotoolsPlugin *bb_plugin);
+static gboolean directory_has_file (const gchar *dirname, const gchar *filename);
+
 static GList *patterns_list = NULL;
 
 /* Allow installation as root (#321455) */
@@ -737,13 +741,7 @@ on_build_terminated (AnjutaLauncher *launcher,
 									   _("Completed... successful\n"), NULL);
 		}
 		ianjuta_message_view_buffer_append (context->message_view, buff1, NULL);
-		/*
-		if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
-										BEEP_ON_BUILD_COMPLETE))
-			gdk_beep ();
-		*/
 		g_free (buff1);
-		/* anjuta_update_app_status (TRUE, NULL); */
 		
 		/* Goto the first error if it exists */
 		/* if (anjuta_preferences_get_int (ANJUTA_PREFERENCES (app->preferences),
@@ -754,6 +752,7 @@ on_build_terminated (AnjutaLauncher *launcher,
 	if (context->launcher)
 		g_object_unref (context->launcher);
 	context->launcher = NULL;
+	update_project_ui (ANJUTA_PLUGIN_BASIC_AUTOTOOLS (context->plugin));
 }
 
 static void
@@ -1063,16 +1062,24 @@ build_autogen_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 										 plugin->configure_args, &input);
 	if (response)
 	{
+		gboolean has_autogen = directory_has_file (plugin->project_root_dir,
+												   "autogen.sh");
 		gchar *cmd;
 		if (input)
 		{
-			cmd = g_strconcat ("./autogen.sh ", input, NULL);
+			if (has_autogen)
+				cmd = g_strconcat ("./autogen.sh ", input, NULL);
+			else
+				cmd = g_strconcat ("autoreconf -i --force ", input, NULL);
 			g_free (plugin->configure_args);
 			plugin->configure_args = input;
 		}
 		else
 		{
-			cmd = g_strdup ("./autogen.sh");
+			if (has_autogen)
+				cmd = g_strdup ("./autogen.sh");
+			else
+				cmd = g_strdup ("autoreconf -i --force");
 		}
 		build_execute_command (plugin, plugin->project_root_dir, cmd, TRUE);
 		g_free (cmd);
@@ -1478,12 +1485,9 @@ update_project_ui (BasicAutotoolsPlugin *bb_plugin)
 									   "ActionBuildConfigure");
 		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 	}
-	if (directory_has_file (bb_plugin->project_root_dir, "autogen.sh"))
-	{
-		action = anjuta_ui_get_action (ui, "ActionGroupBuild",
-									   "ActionBuildAutogen");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-	}
+	action = anjuta_ui_get_action (ui, "ActionGroupBuild",
+								   "ActionBuildAutogen");
+	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 }
 
 static gchar*
@@ -2142,7 +2146,15 @@ ibuildable_generate (IAnjutaBuildable *manager, const gchar *directory,
 					 GError **err)
 {
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
-	build_execute_command (plugin, directory, "./autogen.sh", FALSE);
+	if (directory_has_file (plugin->project_root_dir, "autogen.sh"))
+	{
+		build_execute_command (plugin, directory, "./autogen.sh", FALSE);
+	}
+	else
+	{
+		build_execute_command (plugin, directory,
+							   "autoreconf -i --force", FALSE);
+	}
 }
 
 static void
