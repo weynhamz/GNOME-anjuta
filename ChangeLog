@@ -1,3 +1,9 @@
+2007-05-30  Naba Kumar  <naba@gnome.org>
+
+	* plugins/project-manager/plugin.c: Fixed mem corruption when it
+	fails to remove target/source/group. Fixes bug #440196 – crash in
+	Anjuta IDE: removing a target
+
 2007-05-29  Naba Kumar  <naba@gnome.org>
 
 	* plugins/symbol-browser/an_symbol_view.c,

@@ -643,7 +643,7 @@ on_popup_remove (GtkAction *action, ProjectManagerPlugin *plugin)
 			{
 				anjuta_util_dialog_error (get_plugin_parent_window (plugin),
 										  _("Failed to remove '%s':\n%s"),
-										  err->message);
+										  data->name, err->message);
 				g_error_free (err);
 			}
 		}
