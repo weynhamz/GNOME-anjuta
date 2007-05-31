@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: anjuta 1.2.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-22 14:47+0200\n"
-"PO-Revision-Date: 2005-05-17 01:35+0800\n"
-"Last-Translator: Zhuo Li <mada@geekbone.org>\n"
+"PO-Revision-Date: 2007-05-31 13:41+0700\n"
+"Last-Translator: Yang Zhang <zyangmath@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,9 @@ msgstr ""
 msgid "Anjuta IDE"
 msgstr "Anjuta IDE"
 
-#: ../anjuta.desktop.in.in.h:2 ../src/about.c:182 ../src/about.c:194
+#: ../anjuta.desktop.in.in.h:2
+#: ../src/about.c:182
+#: ../src/about.c:194
 #: ../src/main.c:142
 msgid "Integrated Development Environment"
 msgstr "集成开发环境"
@@ -29,7 +31,8 @@ msgstr "集成开发环境"
 msgid "    "
 msgstr "    "
 
-#: ../anjuta.glade.h:2 ../libegg/layout.glade.h:1
+#: ../anjuta.glade.h:2
+#: ../libegg/layout.glade.h:1
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
@@ -37,7 +40,8 @@ msgstr "    "
 #: ../plugins/editor/anjuta-document-manager.glade.h:2
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
-#: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
+#: ../plugins/gdb/anjuta-gdb.glade.h:1
+#: ../plugins/macro/anjuta-macro.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
@@ -117,7 +121,8 @@ msgstr "断点属性"
 msgid "Breakpoints"
 msgstr "断点"
 
-#: ../anjuta.glade.h:19 ../plugins/build/build_file.c:102
+#: ../anjuta.glade.h:19
+#: ../plugins/build/build_file.c:102
 msgid "Build"
 msgstr "生成"
 
@@ -143,11 +148,13 @@ msgstr "自动生成符号浏览器"
 
 #: ../anjuta.glade.h:25
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:6
-#: ../plugins/gdb/anjuta-gdb.glade.h:5 ../plugins/gdb/registers.c:261
+#: ../plugins/gdb/anjuta-gdb.glade.h:5
+#: ../plugins/gdb/registers.c:261
 msgid "CPU Registers"
 msgstr "CPU 寄存器"
 
-#: ../anjuta.glade.h:26 ../plugins/cvs-plugin/cvs-execute.c:231
+#: ../anjuta.glade.h:26
+#: ../plugins/cvs-plugin/cvs-execute.c:231
 #: ../plugins/cvs-plugin/cvs-execute.c:235
 #: ../plugins/editor/anjuta-document-manager.glade.h:40
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
@@ -189,11 +196,13 @@ msgstr "下拉列表框："
 msgid "Command Line Parameters"
 msgstr "命令行参数"
 
-#: ../anjuta.glade.h:35 ../plugins/tools/variable.c:464
+#: ../anjuta.glade.h:35
+#: ../plugins/tools/variable.c:464
 msgid "Command line parameters"
 msgstr "命令行参数"
 
-#: ../anjuta.glade.h:36 ../plugins/tools/anjuta-tools.glade.h:1
+#: ../anjuta.glade.h:36
+#: ../plugins/tools/anjuta-tools.glade.h:1
 msgid "Command:"
 msgstr "命令："
 
@@ -235,7 +244,8 @@ msgstr "数据模块内的 Makefile.am"
 
 #. 13
 #. Debugger message manager management
-#: ../anjuta.glade.h:46 ../plugins/editor/text_editor_menu.c:320
+#: ../anjuta.glade.h:46
+#: ../plugins/editor/text_editor_menu.c:320
 #: ../plugins/gdb/utilities.c:326
 msgid "Debug"
 msgstr "调试"
@@ -280,7 +290,8 @@ msgstr "不要再显示打开方式对话框。"
 msgid "Document module Makefile.am"
 msgstr "文档模块内的 Makefile.am"
 
-#: ../anjuta.glade.h:56 ../src/anjuta-app.c:459
+#: ../anjuta.glade.h:56
+#: ../src/anjuta-app.c:459
 msgid "Edit"
 msgstr "编辑"
 
@@ -298,7 +309,8 @@ msgstr "生成监管信息"
 msgid "Enable _all"
 msgstr "全部启用(_A)"
 
-#: ../anjuta.glade.h:60 ../plugins/tools/anjuta-tools.glade.h:4
+#: ../anjuta.glade.h:60
+#: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "已启用"
 
@@ -315,8 +327,10 @@ msgid "Execute Program"
 msgstr "执行程序"
 
 #. Register actions
-#: ../anjuta.glade.h:63 ../plugins/file-manager/an_file_view.c:710
-#: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:566
+#: ../anjuta.glade.h:63
+#: ../plugins/file-manager/an_file_view.c:710
+#: ../plugins/gdb/breakpoints.c:129
+#: ../plugins/gdb/stack_trace.c:566
 #: ../src/anjuta-app.c:455
 msgid "File"
 msgstr "文件"
@@ -342,24 +356,12 @@ msgid "General"
 msgstr "常规"
 
 #: ../anjuta.glade.h:69
-msgid ""
-"Give a space separated list of directories to be built after source module. "
-"This will be set in configure and Makefiles will be generated for them. They "
-"will be built after the source (src/) directory during \"make\"."
-msgstr ""
-"给出一个以空格分隔的目录列表，这些目录会在源码模块之后编译。这将被设置在 "
-"configure 文件中，并为它们生成 Makefile 文件。在执行“make”时，它们将在源代码"
-"(src/)目录之后被编译。"
+msgid "Give a space separated list of directories to be built after source module. This will be set in configure and Makefiles will be generated for them. They will be built after the source (src/) directory during \"make\"."
+msgstr "给出一个以空格分隔的目录列表，这些目录会在源码模块之后编译。这将被设置在 configure 文件中，并为它们生成 Makefile 文件。在执行“make”时，它们将在源代码(src/)目录之后被编译。"
 
 #: ../anjuta.glade.h:70
-msgid ""
-"Give a space separated list of directories to be built before source module. "
-"This will be set in configure.in and Makefiles will be generated for them. "
-"They will be built before the source (src/) directory during \"make\"."
-msgstr ""
-"给出一个以空格分隔的目录列表，这些目录会在源码模块之前编译。这将被设置在 "
-"configure.in 文件中，并为它们生成 Makefile 文件。在执行“make”时，它们将在源代"
-"码(src/)目录之前被编译。"
+msgid "Give a space separated list of directories to be built before source module. This will be set in configure.in and Makefiles will be generated for them. They will be built before the source (src/) directory during \"make\"."
+msgstr "给出一个以空格分隔的目录列表，这些目录会在源码模块之前编译。这将被设置在 configure.in 文件中，并为它们生成 Makefile 文件。在执行“make”时，它们将在源代码(src/)目录之前被编译。"
 
 #: ../anjuta.glade.h:71
 msgid "Gnome API"
@@ -400,13 +402,8 @@ msgid "Import Wizard"
 msgstr "导入向导"
 
 #: ../anjuta.glade.h:80
-msgid ""
-"Import existing project. The Import Wizard will guide you to import an "
-"existing Project into Anjuta and convert it into Anjuta Project. There will "
-"be no data loss or modification done to the project."
-msgstr ""
-"导入已存在的工程。导入向导会引导您导入一个已存在的工程到 Anjuta 中，并且把该"
-"项目转换成 Anjuta 的工程格式。这个过程将不会导致原有工程的数据丢失或更改。"
+msgid "Import existing project. The Import Wizard will guide you to import an existing Project into Anjuta and convert it into Anjuta Project. There will be no data loss or modification done to the project."
+msgstr "导入已存在的工程。导入向导会引导您导入一个已存在的工程到 Anjuta 中，并且把该项目转换成 Anjuta 的工程格式。这个过程将不会导致原有工程的数据丢失或更改。"
 
 #: ../anjuta.glade.h:81
 msgid "Include Paths"
@@ -505,7 +502,8 @@ msgstr "菜单位置："
 msgid "Modules"
 msgstr "模块"
 
-#: ../anjuta.glade.h:103 ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
+#: ../anjuta.glade.h:103
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
@@ -519,17 +517,14 @@ msgstr "新建文件"
 msgid "No Optimization"
 msgstr "不进行优化"
 
-#: ../anjuta.glade.h:106 ../plugins/editor/anjuta-document-manager.glade.h:112
-msgid ""
-"Note: If there is a project open, the preferences in this page are project "
-"preferences and will be loaded from and saved with the project. If there is "
-"no project open, they will be global preferences."
-msgstr ""
-"备注：如果有一个打开的工程，则此页面中的首选项就是工程自己的首选项，这些首选"
-"项将会在工程中装入并保存。如果没有工程被打开，则首选项就是全局首选项。"
+#: ../anjuta.glade.h:106
+#: ../plugins/editor/anjuta-document-manager.glade.h:112
+msgid "Note: If there is a project open, the preferences in this page are project preferences and will be loaded from and saved with the project. If there is no project open, they will be global preferences."
+msgstr "备注：如果有一个打开的工程，则此页面中的首选项就是工程自己的首选项，这些首选项将会在工程中装入并保存。如果没有工程被打开，则首选项就是全局首选项。"
 
 #. Must declare static, because it will be used forever
-#: ../anjuta.glade.h:107 ../plugins/project-manager/project_dbase.c:198
+#: ../anjuta.glade.h:107
+#: ../plugins/project-manager/project_dbase.c:198
 msgid "Open Project"
 msgstr "打开工程"
 
@@ -541,9 +536,12 @@ msgstr "打开已有工程。"
 msgid "Open existing file or create a new file."
 msgstr "打开已有文件或创建新文件。"
 
-#: ../anjuta.glade.h:110 ../plugins/editor/anjuta-docman.c:320
-#: ../plugins/file-loader/plugin.c:536 ../plugins/file-loader/plugin.c:811
-#: ../plugins/file-loader/plugin.c:818 ../plugins/file-loader/plugin.c:831
+#: ../anjuta.glade.h:110
+#: ../plugins/editor/anjuta-docman.c:320
+#: ../plugins/file-loader/plugin.c:536
+#: ../plugins/file-loader/plugin.c:811
+#: ../plugins/file-loader/plugin.c:818
+#: ../plugins/file-loader/plugin.c:831
 msgid "Open file"
 msgstr "打开文件"
 
@@ -556,7 +554,8 @@ msgid "Optimization"
 msgstr "优化"
 
 #. 15
-#: ../anjuta.glade.h:113 ../plugins/editor/text_editor_menu.c:330
+#: ../anjuta.glade.h:113
+#: ../plugins/editor/text_editor_menu.c:330
 msgid "Options"
 msgstr "选项"
 
@@ -570,7 +569,8 @@ msgstr "输出文件"
 
 #: ../anjuta.glade.h:116
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
-#: ../plugins/gdb/anjuta-gdb.glade.h:19 ../plugins/gdb/signals.c:489
+#: ../plugins/gdb/anjuta-gdb.glade.h:19
+#: ../plugins/gdb/signals.c:489
 msgid "Pass:"
 msgstr "遍数:"
 
@@ -599,7 +599,8 @@ msgid "Programs"
 msgstr "程序"
 
 #. gtk_widget_destroy (progress_win);
-#: ../anjuta.glade.h:122 ../plugins/project-manager/plugin.c:1042
+#: ../anjuta.glade.h:122
+#: ../plugins/project-manager/plugin.c:1042
 #: ../plugins/project-manager/plugin.c:1062
 #: ../plugins/project-manager/plugin.c:1141
 #: ../plugins/project-manager/project_dbase_gui.c:581
@@ -668,7 +669,8 @@ msgstr "在终端中运行"
 msgid "SIGINT"
 msgstr ""
 
-#: ../anjuta.glade.h:137 ../plugins/tools/anjuta-tools.glade.h:9
+#: ../anjuta.glade.h:137
+#: ../plugins/tools/anjuta-tools.glade.h:9
 msgid "Save all files"
 msgstr "保存全部文件"
 
@@ -678,15 +680,18 @@ msgstr "顶层目录内 Makefile.am 文件末端的脚本"
 
 #: ../anjuta.glade.h:139
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:22
-#: ../plugins/gdb/anjuta-gdb.glade.h:24 ../plugins/gdb/signals.c:437
+#: ../plugins/gdb/anjuta-gdb.glade.h:24
+#: ../plugins/gdb/signals.c:437
 msgid "Set Signal Property"
 msgstr "设置信号属性"
 
-#: ../anjuta.glade.h:140 ../src/anjuta-app.c:473
+#: ../anjuta.glade.h:140
+#: ../src/anjuta-app.c:473
 msgid "Settings"
 msgstr "设置"
 
-#: ../anjuta.glade.h:141 ../plugins/tools/anjuta-tools.glade.h:10
+#: ../anjuta.glade.h:141
+#: ../plugins/tools/anjuta-tools.glade.h:10
 msgid "Short cut:"
 msgstr "快捷方式："
 
@@ -714,26 +719,24 @@ msgstr "源代码目录"
 msgid "Source module Makefile.am"
 msgstr "源码模块内的 Makefile.am"
 
-#: ../anjuta.glade.h:147 ../plugins/tools/anjuta-tools.glade.h:11
+#: ../anjuta.glade.h:147
+#: ../plugins/tools/anjuta-tools.glade.h:11
 msgid "Standard error:"
 msgstr "标准错误："
 
-#: ../anjuta.glade.h:148 ../plugins/tools/anjuta-tools.glade.h:12
+#: ../anjuta.glade.h:148
+#: ../plugins/tools/anjuta-tools.glade.h:12
 msgid "Standard input:"
 msgstr "标准输入："
 
-#: ../anjuta.glade.h:149 ../plugins/tools/anjuta-tools.glade.h:13
+#: ../anjuta.glade.h:149
+#: ../plugins/tools/anjuta-tools.glade.h:13
 msgid "Standard output:"
 msgstr "标准输出："
 
 #: ../anjuta.glade.h:150
-msgid ""
-"Start with a new Project. Application wizard will guide you with Project "
-"creation. With the Application Wizard, you will be able to create the "
-"skeleton of various Project types."
-msgstr ""
-"打开一个新工程。应用程序向导会引导您创建工程。通过应用程序向导，您可以创建不"
-"同类型的工程骨架。"
+msgid "Start with a new Project. Application wizard will guide you with Project creation. With the Application Wizard, you will be able to create the skeleton of various Project types."
+msgstr "打开一个新工程。应用程序向导会引导您创建工程。通过应用程序向导，您可以创建不同类型的工程骨架。"
 
 #: ../anjuta.glade.h:151
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:25
@@ -753,7 +756,8 @@ msgstr ""
 msgid "Target:"
 msgstr "目标："
 
-#: ../anjuta.glade.h:155 ../plugins/tools/anjuta-tools.glade.h:14
+#: ../anjuta.glade.h:155
+#: ../plugins/tools/anjuta-tools.glade.h:14
 msgid "Tool Editor"
 msgstr "工具编辑器"
 
@@ -761,9 +765,12 @@ msgstr "工具编辑器"
 msgid "Top level Makefile.am"
 msgstr "顶层目录内的 Makefile.am"
 
-#: ../anjuta.glade.h:157 ../plugins/class-inheritance/class-inherit.c:931
-#: ../plugins/gdb/registers.c:227 ../plugins/gdb/sharedlib.c:128
-#: ../plugins/gdb/signals.c:288 ../plugins/gdb/stack_trace.c:459
+#: ../anjuta.glade.h:157
+#: ../plugins/class-inheritance/class-inherit.c:931
+#: ../plugins/gdb/registers.c:227
+#: ../plugins/gdb/sharedlib.c:128
+#: ../plugins/gdb/signals.c:288
+#: ../plugins/gdb/stack_trace.c:459
 #: ../plugins/subversion/svn-notify.c:119
 msgid "Update"
 msgstr "更新"
@@ -772,7 +779,8 @@ msgstr "更新"
 msgid "Update tags image automatically"
 msgstr "自动更新标签图像"
 
-#: ../anjuta.glade.h:159 ../plugins/tools/anjuta-tools.glade.h:15
+#: ../anjuta.glade.h:159
+#: ../plugins/tools/anjuta-tools.glade.h:15
 msgid "User Tools"
 msgstr "用户工具"
 
@@ -788,12 +796,14 @@ msgstr "用户信息"
 msgid "User name:"
 msgstr "用户名："
 
-#: ../anjuta.glade.h:163 ../plugins/project-manager/project_dbase_gui.c:871
+#: ../anjuta.glade.h:163
+#: ../plugins/project-manager/project_dbase_gui.c:871
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 msgid "Version:"
 msgstr "版本："
 
-#: ../anjuta.glade.h:164 ../src/anjuta-app.c:463
+#: ../anjuta.glade.h:164
+#: ../src/anjuta-app.c:463
 msgid "View"
 msgstr "查看"
 
@@ -805,15 +815,18 @@ msgstr "在Makefile中发现使用未定义变量时发出警告"
 msgid "Warnings"
 msgstr "警告"
 
-#: ../anjuta.glade.h:167 ../plugins/tools/anjuta-tools.glade.h:17
+#: ../anjuta.glade.h:167
+#: ../plugins/tools/anjuta-tools.glade.h:17
 msgid "Working directory:"
 msgstr "工作目录："
 
 #. For the time being
 #: ../anjuta.glade.h:168
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:26
-#: ../plugins/gdb/anjuta-gdb.glade.h:28 ../plugins/gdb/signals.c:190
-#: ../plugins/gdb/signals.c:203 ../plugins/gdb/signals.c:216
+#: ../plugins/gdb/anjuta-gdb.glade.h:28
+#: ../plugins/gdb/signals.c:190
+#: ../plugins/gdb/signals.c:203
+#: ../plugins/gdb/signals.c:216
 #: ../plugins/project-manager/project_dbase.c:1466
 #: ../plugins/project-manager/project_dbase.c:1472
 #: ../plugins/project-manager/project_dbase.c:1475
@@ -844,9 +857,12 @@ msgstr "条件(_C)："
 msgid "_Disable all"
 msgstr "全部禁用(_D)"
 
-#: ../anjuta.glade.h:173 ../plugins/editor/plugin.c:289
-#: ../plugins/gtodo/interface.c:170 ../plugins/tools/anjuta-tools.glade.h:18
-#: ../src/anjuta-actions.h:30 ../src/shell.c:76
+#: ../anjuta.glade.h:173
+#: ../plugins/editor/plugin.c:289
+#: ../plugins/gtodo/interface.c:170
+#: ../plugins/tools/anjuta-tools.glade.h:18
+#: ../src/anjuta-actions.h:30
+#: ../src/shell.c:76
 msgid "_Edit"
 msgstr "编辑(_E)"
 
@@ -906,10 +922,12 @@ msgstr "终端(_T)："
 
 #. Action name
 #. Stock icon, if any
-#: ../anjuta.glade.h:185 ../plugins/cvs-plugin/plugin.c:76
+#: ../anjuta.glade.h:185
+#: ../plugins/cvs-plugin/plugin.c:76
 #: ../plugins/cvs-plugin/plugin.c:132
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
-#: ../plugins/gdb/anjuta-gdb.glade.h:37 ../plugins/subversion/plugin.c:76
+#: ../plugins/gdb/anjuta-gdb.glade.h:37
+#: ../plugins/subversion/plugin.c:76
 #: ../plugins/subversion/plugin.c:108
 msgid "_Update"
 msgstr "更新(_U)"
@@ -924,12 +942,15 @@ msgstr ""
 msgid "dialog4"
 msgstr ""
 
-#: ../libanjuta/anjuta-encodings.c:129 ../libanjuta/anjuta-encodings.c:155
-#: ../libanjuta/anjuta-encodings.c:196 ../libanjuta/anjuta-encodings.c:237
+#: ../libanjuta/anjuta-encodings.c:129
+#: ../libanjuta/anjuta-encodings.c:155
+#: ../libanjuta/anjuta-encodings.c:196
+#: ../libanjuta/anjuta-encodings.c:237
 msgid "Western"
 msgstr "西方"
 
-#: ../libanjuta/anjuta-encodings.c:131 ../libanjuta/anjuta-encodings.c:198
+#: ../libanjuta/anjuta-encodings.c:131
+#: ../libanjuta/anjuta-encodings.c:198
 #: ../libanjuta/anjuta-encodings.c:233
 msgid "Central European"
 msgstr "中欧"
@@ -938,23 +959,28 @@ msgstr "中欧"
 msgid "South European"
 msgstr "南欧"
 
-#: ../libanjuta/anjuta-encodings.c:135 ../libanjuta/anjuta-encodings.c:151
+#: ../libanjuta/anjuta-encodings.c:135
+#: ../libanjuta/anjuta-encodings.c:151
 #: ../libanjuta/anjuta-encodings.c:247
 msgid "Baltic"
 msgstr "波罗的海文"
 
-#: ../libanjuta/anjuta-encodings.c:137 ../libanjuta/anjuta-encodings.c:200
-#: ../libanjuta/anjuta-encodings.c:213 ../libanjuta/anjuta-encodings.c:217
+#: ../libanjuta/anjuta-encodings.c:137
+#: ../libanjuta/anjuta-encodings.c:200
+#: ../libanjuta/anjuta-encodings.c:213
+#: ../libanjuta/anjuta-encodings.c:217
 #: ../libanjuta/anjuta-encodings.c:235
 msgid "Cyrillic"
 msgstr "西里尔文"
 
-#: ../libanjuta/anjuta-encodings.c:139 ../libanjuta/anjuta-encodings.c:206
+#: ../libanjuta/anjuta-encodings.c:139
+#: ../libanjuta/anjuta-encodings.c:206
 #: ../libanjuta/anjuta-encodings.c:245
 msgid "Arabic"
 msgstr "阿拉伯文"
 
-#: ../libanjuta/anjuta-encodings.c:141 ../libanjuta/anjuta-encodings.c:239
+#: ../libanjuta/anjuta-encodings.c:141
+#: ../libanjuta/anjuta-encodings.c:239
 #: ../plugins/project-manager/project_dbase_gui.c:1081
 msgid "Greek"
 msgstr "希腊文"
@@ -963,12 +989,14 @@ msgstr "希腊文"
 msgid "Hebrew Visual"
 msgstr "可视希伯来文"
 
-#: ../libanjuta/anjuta-encodings.c:145 ../libanjuta/anjuta-encodings.c:204
+#: ../libanjuta/anjuta-encodings.c:145
+#: ../libanjuta/anjuta-encodings.c:204
 #: ../libanjuta/anjuta-encodings.c:243
 msgid "Hebrew"
 msgstr "希伯来文"
 
-#: ../libanjuta/anjuta-encodings.c:147 ../libanjuta/anjuta-encodings.c:202
+#: ../libanjuta/anjuta-encodings.c:147
+#: ../libanjuta/anjuta-encodings.c:202
 #: ../libanjuta/anjuta-encodings.c:241
 #: ../plugins/project-manager/project_dbase_gui.c:1101
 msgid "Turkish"
@@ -987,8 +1015,10 @@ msgstr "凯尔特文"
 msgid "Romanian"
 msgstr "罗马尼亚文"
 
-#: ../libanjuta/anjuta-encodings.c:160 ../libanjuta/anjuta-encodings.c:162
-#: ../libanjuta/anjuta-encodings.c:164 ../libanjuta/anjuta-encodings.c:166
+#: ../libanjuta/anjuta-encodings.c:160
+#: ../libanjuta/anjuta-encodings.c:162
+#: ../libanjuta/anjuta-encodings.c:164
+#: ../libanjuta/anjuta-encodings.c:166
 msgid "Unicode"
 msgstr "Unicode"
 
@@ -996,7 +1026,8 @@ msgstr "Unicode"
 msgid "Armenian"
 msgstr "亚美尼亚文"
 
-#: ../libanjuta/anjuta-encodings.c:171 ../libanjuta/anjuta-encodings.c:173
+#: ../libanjuta/anjuta-encodings.c:171
+#: ../libanjuta/anjuta-encodings.c:173
 #: ../libanjuta/anjuta-encodings.c:182
 msgid "Chinese Traditional"
 msgstr "繁体中文"
@@ -1005,19 +1036,24 @@ msgstr "繁体中文"
 msgid "Cyrillic/Russian"
 msgstr "西里尔文/俄罗斯文"
 
-#: ../libanjuta/anjuta-encodings.c:178 ../libanjuta/anjuta-encodings.c:209
+#: ../libanjuta/anjuta-encodings.c:178
+#: ../libanjuta/anjuta-encodings.c:209
 #: ../libanjuta/anjuta-encodings.c:222
 msgid "Japanese"
 msgstr "日文"
 
-#: ../libanjuta/anjuta-encodings.c:180 ../libanjuta/anjuta-encodings.c:211
-#: ../libanjuta/anjuta-encodings.c:215 ../libanjuta/anjuta-encodings.c:228
+#: ../libanjuta/anjuta-encodings.c:180
+#: ../libanjuta/anjuta-encodings.c:211
+#: ../libanjuta/anjuta-encodings.c:215
+#: ../libanjuta/anjuta-encodings.c:228
 #: ../plugins/project-manager/project_dbase_gui.c:1092
 msgid "Korean"
 msgstr "朝鲜文"
 
-#: ../libanjuta/anjuta-encodings.c:185 ../libanjuta/anjuta-encodings.c:187
-#: ../libanjuta/anjuta-encodings.c:189 ../libanjuta/anjuta-encodings.c:193
+#: ../libanjuta/anjuta-encodings.c:185
+#: ../libanjuta/anjuta-encodings.c:187
+#: ../libanjuta/anjuta-encodings.c:189
+#: ../libanjuta/anjuta-encodings.c:193
 msgid "Chinese Simplified"
 msgstr "简体中文"
 
@@ -1029,7 +1065,8 @@ msgstr "乔治亚文"
 msgid "Cyrillic/Ukrainian"
 msgstr "西里尔文/乌克兰"
 
-#: ../libanjuta/anjuta-encodings.c:224 ../libanjuta/anjuta-encodings.c:230
+#: ../libanjuta/anjuta-encodings.c:224
+#: ../libanjuta/anjuta-encodings.c:230
 #: ../libanjuta/anjuta-encodings.c:249
 msgid "Vietnamese"
 msgstr "越南"
@@ -1050,8 +1087,10 @@ msgstr "支持的编码"
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c： 读取子pty设备时出错\n"
 
-#: ../libanjuta/anjuta-launcher.c:942 ../libanjuta/resources.c:253
-#: ../libanjuta/resources.c:262 ../plugins/gdb/utilities.c:279
+#: ../libanjuta/anjuta-launcher.c:942
+#: ../libanjuta/resources.c:253
+#: ../libanjuta/resources.c:262
+#: ../plugins/gdb/utilities.c:279
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "无法执行命令：“%s”"
@@ -1066,7 +1105,8 @@ msgid "Anjuta shell that will contain the plugin"
 msgstr "Anjuta shell包括工具"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:127
-#: ../plugins/gtodo/interface.c:222 ../plugins/gtodo/mcategory.c:36
+#: ../plugins/gtodo/interface.c:222
+#: ../plugins/gtodo/mcategory.c:36
 msgid "Category"
 msgstr "类别"
 
@@ -1105,12 +1145,14 @@ msgstr "敏感"
 msgid "Shortcut"
 msgstr "快捷方式"
 
-#: ../libanjuta/anjuta-utils.c:56 ../src/utilities.c:697
+#: ../libanjuta/anjuta-utils.c:56
+#: ../src/utilities.c:697
 #, c-format
 msgid "Unable to read file: %s."
 msgstr "无法读取文件：%s"
 
-#: ../libanjuta/anjuta-utils.c:66 ../plugins/project-manager/source.c:120
+#: ../libanjuta/anjuta-utils.c:66
+#: ../plugins/project-manager/source.c:120
 #: ../plugins/project-manager/source.c:167
 #: ../plugins/project-manager/source.c:205
 #: ../plugins/project-manager/source.c:455
@@ -1150,12 +1192,14 @@ msgstr "无法读取文件：%s"
 #: ../plugins/project-manager/source.c:2199
 #: ../plugins/project-manager/source.c:2262
 #: ../plugins/project-manager/source.c:2568
-#: ../plugins/project-manager/source.c:2703 ../src/utilities.c:705
+#: ../plugins/project-manager/source.c:2703
+#: ../src/utilities.c:705
 #, c-format
 msgid "Unable to create file: %s."
 msgstr "无法创建文件：%s"
 
-#: ../libanjuta/anjuta-utils.c:102 ../src/utilities.c:739
+#: ../libanjuta/anjuta-utils.c:102
+#: ../src/utilities.c:739
 msgid "Unable to complete file copy"
 msgstr "无法完成复制文件"
 
@@ -1203,11 +1247,13 @@ msgstr "Pixbuf 对象"
 msgid "The pixbuf to render."
 msgstr "要执行的pixbuf"
 
-#: ../libanjuta/plugins.c:968 ../plugins/symbol-browser/an_symbol_prefs.c:655
+#: ../libanjuta/plugins.c:968
+#: ../plugins/symbol-browser/an_symbol_prefs.c:655
 msgid "Load"
 msgstr "装入"
 
-#: ../libanjuta/plugins.c:990 ../libanjuta/plugins.c:1587
+#: ../libanjuta/plugins.c:990
+#: ../libanjuta/plugins.c:1587
 msgid "Available Plugins"
 msgstr "可用的插件"
 
@@ -1220,7 +1266,8 @@ msgstr "只显示用户激活的插件"
 msgid "Widget not found: %s"
 msgstr "找不到部件：%s"
 
-#: ../libanjuta/resources.c:65 ../libanjuta/resources.c:87
+#: ../libanjuta/resources.c:65
+#: ../libanjuta/resources.c:87
 #, c-format
 msgid "Could not find application pixmap file: %s"
 msgstr "找不到应用程序位图文件：%s"
@@ -1233,11 +1280,13 @@ msgstr "模型"
 msgid "Model for the combo box"
 msgstr ""
 
-#: ../libegg/egg-combo-action.c:126 ../libegg/egg-entry-action.c:139
+#: ../libegg/egg-combo-action.c:126
+#: ../libegg/egg-entry-action.c:139
 msgid "Width"
 msgstr "宽度"
 
-#: ../libegg/egg-combo-action.c:127 ../libegg/egg-entry-action.c:140
+#: ../libegg/egg-combo-action.c:127
+#: ../libegg/egg-entry-action.c:140
 msgid "Width of the entry."
 msgstr "该项的宽度"
 
@@ -1250,11 +1299,13 @@ msgstr "符号"
 msgid "Text in the entry"
 msgstr "该项目中的文本"
 
-#: ../libegg/eggcellrendererkeys.c:160 ../libegg/eggcellrendererkeys.c:161
+#: ../libegg/eggcellrendererkeys.c:160
+#: ../libegg/eggcellrendererkeys.c:161
 msgid "Accelerator key"
 msgstr "快捷按键"
 
-#: ../libegg/eggcellrendererkeys.c:170 ../libegg/eggcellrendererkeys.c:171
+#: ../libegg/eggcellrendererkeys.c:170
+#: ../libegg/eggcellrendererkeys.c:171
 msgid "Accelerator modifiers"
 msgstr "快捷键修饰"
 
@@ -1266,11 +1317,13 @@ msgstr "快捷模式"
 msgid "The type of accelerator."
 msgstr "快捷方式类型。"
 
-#: ../libegg/eggcellrendererkeys.c:219 ../plugins/tools/editor.c:534
+#: ../libegg/eggcellrendererkeys.c:219
+#: ../plugins/tools/editor.c:534
 msgid "Disabled"
 msgstr "禁用"
 
-#: ../libegg/eggcellrendererkeys.c:330 ../libegg/eggcellrendererkeys.c:564
+#: ../libegg/eggcellrendererkeys.c:330
+#: ../libegg/eggcellrendererkeys.c:564
 msgid "Type a new accelerator, or press Backspace to clear"
 msgstr "输入新的快捷方式，或按 Backspace 键清除"
 
@@ -1401,8 +1454,10 @@ msgstr "装入(_L)"
 msgid "_Lock dock items"
 msgstr "锁定停靠项(_L)"
 
-#: ../libegg/test-actions.c:140 ../plugins/devhelp/plugin.c:270
-#: ../plugins/editor/plugin.c:1183 ../plugins/editor/search-replace.c:793
+#: ../libegg/test-actions.c:140
+#: ../plugins/devhelp/plugin.c:270
+#: ../plugins/editor/plugin.c:1183
+#: ../plugins/editor/search-replace.c:793
 #: ../plugins/editor/search-replace.c:1425
 #: ../plugins/editor/search-replace.c:1432
 #: ../plugins/editor/search-replace.c:1444
@@ -1411,15 +1466,18 @@ msgstr "锁定停靠项(_L)"
 msgid "Search"
 msgstr "搜索"
 
-#: ../libegg/test-actions.c:141 ../plugins/editor/plugin.c:1184
+#: ../libegg/test-actions.c:141
+#: ../plugins/editor/plugin.c:1184
 msgid "Incremental search"
 msgstr "增量查找"
 
-#: ../libegg/test-actions.c:155 ../plugins/file-loader/plugin.c:1175
+#: ../libegg/test-actions.c:155
+#: ../plugins/file-loader/plugin.c:1175
 msgid "Open _Recent"
 msgstr "打开最近(_R)"
 
-#: ../libegg/test-actions.c:156 ../plugins/file-loader/plugin.c:1186
+#: ../libegg/test-actions.c:156
+#: ../plugins/file-loader/plugin.c:1186
 msgid "Open recent files"
 msgstr "打开最近的文件"
 
@@ -1461,20 +1519,24 @@ msgstr "已完成 ... 失败"
 msgid "Completed ... successful\n"
 msgstr "已完成...成功\n"
 
-#: ../plugins/build/build_file.c:149 ../plugins/tools/execute.c:516
+#: ../plugins/build/build_file.c:149
+#: ../plugins/tools/execute.c:516
 msgid "Completed ... successful"
 msgstr "已完成...成功"
 
-#: ../plugins/build/build_project.c:76 ../plugins/build/compile.c:61
+#: ../plugins/build/build_project.c:76
+#: ../plugins/build/compile.c:61
 msgid "Unable to build module. Check Settings->Commands."
 msgstr "无法生成模块。请检查设置->命令。"
 
-#: ../plugins/build/build_project.c:95 ../plugins/build/build_project.c:160
+#: ../plugins/build/build_project.c:95
+#: ../plugins/build/build_project.c:160
 #: ../plugins/build/compile.c:74
 msgid "Build Project"
 msgstr "生成工程"
 
-#: ../plugins/build/build_project.c:97 ../plugins/build/compile.c:76
+#: ../plugins/build/build_project.c:97
+#: ../plugins/build/compile.c:76
 msgid "Building source directory of the Project: "
 msgstr "工程的生成源代码目录："
 
@@ -1514,15 +1576,18 @@ msgstr "自动生成工程"
 msgid "Auto generating the Project: "
 msgstr "自动生成工程："
 
-#: ../plugins/build/build_project.c:324 ../plugins/build/build_project.c:362
+#: ../plugins/build/build_project.c:324
+#: ../plugins/build/build_project.c:362
 msgid "Unable to install Project. Check Settings->Commands."
 msgstr "无法安装工程。请检查设置->命令。"
 
-#: ../plugins/build/build_project.c:339 ../plugins/build/build_project.c:374
+#: ../plugins/build/build_project.c:339
+#: ../plugins/build/build_project.c:374
 msgid "Install Project"
 msgstr "安装工程"
 
-#: ../plugins/build/build_project.c:341 ../plugins/build/build_project.c:376
+#: ../plugins/build/build_project.c:341
+#: ../plugins/build/build_project.c:376
 msgid "Installing the Project: "
 msgstr "安装工程："
 
@@ -1593,7 +1658,8 @@ msgstr "名称"
 #: ../plugins/build/compiler_options.c:805
 #: ../plugins/build/compiler_options.c:881
 #: ../plugins/build/compiler_options.c:904
-#: ../plugins/build/compiler_options.c:949 ../plugins/gdb/signals.c:362
+#: ../plugins/build/compiler_options.c:949
+#: ../plugins/gdb/signals.c:362
 msgid "Description"
 msgstr "描述"
 
@@ -1654,7 +1720,8 @@ msgstr "工程的目标可执行程序不存在 "
 msgid "No file or Project opened."
 msgstr "没有打开的文件或工程。"
 
-#: ../plugins/build/executer.c:82 ../plugins/build/executer.c:101
+#: ../plugins/build/executer.c:82
+#: ../plugins/build/executer.c:101
 #: ../plugins/build-basic-autotools/executer.c:321
 msgid "No executable for this file."
 msgstr "此文件不可执行。"
@@ -1963,8 +2030,7 @@ msgid "* Output Source File:"
 msgstr "* 输出源文件："
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
-msgid ""
-"<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
+msgid "<span size=\"large\" weight=\"bold\">GObject Class Template Builder</span>"
 msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
@@ -2065,10 +2131,7 @@ msgid "Source/Header Headings:"
 msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:35
-msgid ""
-"This plugin will create a class of the type you specify and add it to your "
-"project. Note that the creating class's parameters will be taken from the "
-"active tab. Please be sure to fill all required fields marked by *."
+msgid "This plugin will create a class of the type you specify and add it to your project. Note that the creating class's parameters will be taken from the active tab. Please be sure to fill all required fields marked by *."
 msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:36
@@ -2086,8 +2149,10 @@ msgid ""
 "private"
 msgstr ""
 
-#: ../plugins/class-gen/class_gen.c:106 ../plugins/editor/anjuta-docman.c:293
-#: ../plugins/file-wizard/file.c:229 ../src/anjuta_cbs.c:426
+#: ../plugins/class-gen/class_gen.c:106
+#: ../plugins/editor/anjuta-docman.c:293
+#: ../plugins/file-wizard/file.c:229
+#: ../src/anjuta_cbs.c:426
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2096,9 +2161,12 @@ msgstr ""
 "文件“%s”已存在。\n"
 "是否确定用当前文件替换这个文件？"
 
-#: ../plugins/class-gen/class_gen.c:114 ../plugins/editor/anjuta-docman.c:300
-#: ../plugins/file-wizard/file.c:237 ../src/anjuta-callbacks.c:79
-#: ../src/anjuta_cbs.c:433 ../src/anjuta_cbs.c:497
+#: ../plugins/class-gen/class_gen.c:114
+#: ../plugins/editor/anjuta-docman.c:300
+#: ../plugins/file-wizard/file.c:237
+#: ../src/anjuta-callbacks.c:79
+#: ../src/anjuta_cbs.c:433
+#: ../src/anjuta_cbs.c:497
 msgid "_Replace"
 msgstr "替换(_R)"
 
@@ -2108,12 +2176,11 @@ msgid "Please check your required fields."
 msgstr "请填完所需的全部字段"
 
 #: ../plugins/class-gen/class_gen.c:281
-msgid ""
-"An error occurred when trying to write GObject Class Template. Check file "
-"permissions."
+msgid "An error occurred when trying to write GObject Class Template. Check file permissions."
 msgstr ""
 
-#: ../plugins/class-gen/class_gen.c:480 ../plugins/class-gen/class_gen.c:488
+#: ../plugins/class-gen/class_gen.c:480
+#: ../plugins/class-gen/class_gen.c:488
 #, fuzzy
 msgid "Please fill required fields."
 msgstr "关闭全部文件"
@@ -2149,9 +2216,7 @@ msgstr "<b>选项</b>"
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
-"Pressing OK will delete the file from disk and from CVS. Of course the file "
-"won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
-"</b>"
+"Pressing OK will delete the file from disk and from CVS. Of course the file won't be removed from CVS before you use CVS Commit. <b>You have been warned!</b>"
 msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
@@ -2428,13 +2493,15 @@ msgstr "这里仍然一些任务在运行中，请等待它们完成"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:44 ../plugins/cvs-plugin/plugin.c:116
+#: ../plugins/cvs-plugin/plugin.c:44
+#: ../plugins/cvs-plugin/plugin.c:116
 msgid "_CVS"
 msgstr "_CVS"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:52 ../plugins/subversion/plugin.c:52
+#: ../plugins/cvs-plugin/plugin.c:52
+#: ../plugins/subversion/plugin.c:52
 msgid "_Add"
 msgstr "添加(_A)"
 
@@ -2446,7 +2513,8 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:60 ../plugins/subversion/plugin.c:60
+#: ../plugins/cvs-plugin/plugin.c:60
+#: ../plugins/subversion/plugin.c:60
 msgid "_Remove"
 msgstr "删除(_R)"
 
@@ -2458,58 +2526,68 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:68 ../plugins/cvs-plugin/plugin.c:124
-#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:100
+#: ../plugins/cvs-plugin/plugin.c:68
+#: ../plugins/cvs-plugin/plugin.c:124
+#: ../plugins/subversion/plugin.c:68
+#: ../plugins/subversion/plugin.c:100
 msgid "_Commit"
 msgstr "提交(_C)"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:70 ../plugins/cvs-plugin/plugin.c:126
+#: ../plugins/cvs-plugin/plugin.c:70
+#: ../plugins/cvs-plugin/plugin.c:126
 #, fuzzy
 msgid "Commit your changes to the CVS tree"
 msgstr "将更改提交到仓库"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:78 ../plugins/cvs-plugin/plugin.c:134
+#: ../plugins/cvs-plugin/plugin.c:78
+#: ../plugins/cvs-plugin/plugin.c:134
 msgid "Sync your local copy with the CVS tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:84 ../plugins/cvs-plugin/plugin.c:140
+#: ../plugins/cvs-plugin/plugin.c:84
+#: ../plugins/cvs-plugin/plugin.c:140
 #: ../plugins/subversion/plugin.c:84
 msgid "_Diff"
 msgstr "_Diff"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:86 ../plugins/cvs-plugin/plugin.c:142
+#: ../plugins/cvs-plugin/plugin.c:86
+#: ../plugins/cvs-plugin/plugin.c:142
 msgid "Show differences between your local copy and the tree"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:92 ../plugins/cvs-plugin/plugin.c:148
+#: ../plugins/cvs-plugin/plugin.c:92
+#: ../plugins/cvs-plugin/plugin.c:148
 msgid "_Show Status"
 msgstr "显示状态(_S)"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:94 ../plugins/cvs-plugin/plugin.c:150
+#: ../plugins/cvs-plugin/plugin.c:94
+#: ../plugins/cvs-plugin/plugin.c:150
 msgid "Show the status of a file/directory"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/cvs-plugin/plugin.c:100 ../plugins/cvs-plugin/plugin.c:156
+#: ../plugins/cvs-plugin/plugin.c:100
+#: ../plugins/cvs-plugin/plugin.c:156
 msgid "_Show Log"
 msgstr "显示日志(_S)"
 
 #. Display label
 #. short-cut
-#: ../plugins/cvs-plugin/plugin.c:102 ../plugins/cvs-plugin/plugin.c:158
+#: ../plugins/cvs-plugin/plugin.c:102
+#: ../plugins/cvs-plugin/plugin.c:158
 #, fuzzy
 msgid "Show the log of a file/directory"
 msgstr "选择目录"
@@ -2570,7 +2648,8 @@ msgstr "无法打开文件：%s\n"
 msgid "Load Target to debug"
 msgstr ""
 
-#: ../plugins/debug-manager/plugin.c:151 ../plugins/file-loader/plugin.c:442
+#: ../plugins/debug-manager/plugin.c:151
+#: ../plugins/file-loader/plugin.c:442
 #: ../plugins/project-manager/project_dbase.c:363
 #: ../plugins/project-manager/project_dbase_gui.c:153
 #: ../plugins/project-manager/project_dbase_gui.c:170
@@ -2588,7 +2667,8 @@ msgstr "选择调试目标"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:457 ../plugins/gdb/plugin.c:52
+#: ../plugins/debug-manager/plugin.c:457
+#: ../plugins/gdb/plugin.c:52
 msgid "_Debug"
 msgstr "调试(_D)"
 
@@ -2720,13 +2800,16 @@ msgstr "内容"
 
 #. 7
 #. 9
-#: ../plugins/devhelp/plugin.c:304 ../plugins/devhelp/plugin.c:531
+#: ../plugins/devhelp/plugin.c:304
+#: ../plugins/devhelp/plugin.c:531
 #: ../plugins/devhelp/plugin.c:544
-#: ../plugins/project-manager/project_dbase_gui.c:343 ../src/anjuta-app.c:477
+#: ../plugins/project-manager/project_dbase_gui.c:343
+#: ../src/anjuta-app.c:477
 msgid "Help"
 msgstr "帮助"
 
-#: ../plugins/devhelp/plugin.c:307 ../plugins/devhelp/plugin.c:547
+#: ../plugins/devhelp/plugin.c:307
+#: ../plugins/devhelp/plugin.c:547
 msgid "Help display"
 msgstr "帮助显示"
 
@@ -2734,8 +2817,10 @@ msgstr "帮助显示"
 msgid "Search Help:"
 msgstr "搜索帮助："
 
-#: ../plugins/devhelp/plugin.c:428 ../plugins/editor/plugin.c:249
-#: ../plugins/message-view/plugin.c:70 ../plugins/symbol-browser/plugin.c:269
+#: ../plugins/devhelp/plugin.c:428
+#: ../plugins/editor/plugin.c:249
+#: ../plugins/message-view/plugin.c:70
+#: ../plugins/symbol-browser/plugin.c:269
 msgid "_Goto"
 msgstr "转到(_G)"
 
@@ -2835,9 +2920,7 @@ msgstr "无匹配。是否要从头开始寻找？"
 
 #: ../plugins/editor/action-callbacks.c:1297
 #, c-format
-msgid ""
-"Incremental search for '%s' failed. Press Enter or click Find to continue "
-"searching at the top."
+msgid "Incremental search for '%s' failed. Press Enter or click Find to continue searching at the top."
 msgstr ""
 
 #: ../plugins/editor/action-callbacks.c:1304
@@ -2865,12 +2948,8 @@ msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:4
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
-msgid ""
-"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
-"README AUTHORS ChangeLog *.m4"
-msgstr ""
-"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* "
-"README AUTHORS ChangeLog *.m4"
+msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4"
+msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:5
 #: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
@@ -3147,9 +3226,7 @@ msgid "Encodings"
 msgstr "编码"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:73
-msgid ""
-"Enter the command line arguments for the 'indent' program. Read the info "
-"page for 'indent' for more details"
+msgid "Enter the command line arguments for the 'indent' program. Read the info page for 'indent' for more details"
 msgstr "输入“indent”程序的命令行参数。更多细节，请阅读“indent”的信息页。"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:74
@@ -3251,7 +3328,8 @@ msgid "Line numbers margin width in pixels"
 msgstr "行号区的宽度(像素单位)"
 
 #: ../plugins/editor/anjuta-document-manager.glade.h:98
-#: ../plugins/editor/print.c:1038 ../plugins/gdb/info.c:126
+#: ../plugins/editor/print.c:1038
+#: ../plugins/gdb/info.c:126
 msgid "Lines"
 msgstr "行"
 
@@ -3516,7 +3594,8 @@ msgstr "主题另存为(_S)"
 msgid "<b>Go to Line number:</b>"
 msgstr "<b>转到行号：</b>"
 
-#: ../plugins/editor/plugin.c:139 ../plugins/glade/plugin.c:494
+#: ../plugins/editor/plugin.c:139
+#: ../plugins/glade/plugin.c:494
 msgid "_Save"
 msgstr "保存(_S)"
 
@@ -3524,7 +3603,8 @@ msgstr "保存(_S)"
 msgid "Save current file"
 msgstr "保存当前文件"
 
-#: ../plugins/editor/plugin.c:141 ../plugins/glade/plugin.c:502
+#: ../plugins/editor/plugin.c:141
+#: ../plugins/glade/plugin.c:502
 msgid "Save _As ..."
 msgstr "另存为(_A)..."
 
@@ -3565,7 +3645,8 @@ msgid "Reload current file"
 msgstr "重新载入当前文件"
 
 #. 8
-#: ../plugins/editor/plugin.c:156 ../plugins/editor/text_editor_menu.c:292
+#: ../plugins/editor/plugin.c:156
+#: ../plugins/editor/text_editor_menu.c:292
 msgid "Swap .h/.c"
 msgstr "交换 .h /.c"
 
@@ -3690,7 +3771,8 @@ msgstr "在编辑器中搜索一个字符串或正则表达式"
 msgid "Find _Next"
 msgstr "查找下一个(_N)"
 
-#: ../plugins/editor/plugin.c:212 ../plugins/editor/plugin.c:216
+#: ../plugins/editor/plugin.c:212
+#: ../plugins/editor/plugin.c:216
 msgid "Repeat the last Find command"
 msgstr "重复上次查找命令"
 
@@ -3703,8 +3785,7 @@ msgid "Find and R_eplace ..."
 msgstr "查找并替换(_E)..."
 
 #: ../plugins/editor/plugin.c:220
-msgid ""
-"Search for and replace a string or regular expression with another string"
+msgid "Search for and replace a string or regular expression with another string"
 msgstr "查找一个字符串或匹配一个正则表达式，并且用另外的字符串进行替换。"
 
 #: ../plugins/editor/plugin.c:222
@@ -3763,7 +3844,8 @@ msgstr "将选中文本设置为流注释"
 msgid "_Goto Line number"
 msgstr "转到行号(_G)"
 
-#: ../plugins/editor/plugin.c:252 ../plugins/editor/plugin.c:256
+#: ../plugins/editor/plugin.c:252
+#: ../plugins/editor/plugin.c:256
 msgid "Go to a particular line in the editor"
 msgstr "转到编辑器中指定行"
 
@@ -3859,7 +3941,8 @@ msgstr "撤消(_N)"
 msgid "Undo the last action"
 msgstr "撤消上次操作"
 
-#: ../plugins/editor/plugin.c:300 ../plugins/glade/plugin.c:125
+#: ../plugins/editor/plugin.c:300
+#: ../plugins/glade/plugin.c:125
 #: ../plugins/glade/plugin.c:446
 msgid "_Redo"
 msgstr "重做(_R)"
@@ -3876,7 +3959,8 @@ msgstr "剪切(_U)"
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "将选中文字剪切到剪贴板"
 
-#: ../plugins/editor/plugin.c:306 ../plugins/glade/plugin.c:462
+#: ../plugins/editor/plugin.c:306
+#: ../plugins/glade/plugin.c:462
 msgid "_Copy"
 msgstr "复制(_C)"
 
@@ -3884,7 +3968,8 @@ msgstr "复制(_C)"
 msgid "Copy the selected text to the clipboard"
 msgstr "将选中文字复制到剪贴板"
 
-#: ../plugins/editor/plugin.c:309 ../plugins/glade/plugin.c:470
+#: ../plugins/editor/plugin.c:309
+#: ../plugins/glade/plugin.c:470
 msgid "_Paste"
 msgstr "粘贴(_P)"
 
@@ -4176,22 +4261,27 @@ msgstr ""
 msgid "INS"
 msgstr ""
 
-#: ../plugins/editor/plugin.c:729 ../plugins/editor/plugin.c:740
+#: ../plugins/editor/plugin.c:729
+#: ../plugins/editor/plugin.c:740
 #, fuzzy
 msgid "Zoom"
 msgstr "++放大"
 
-#: ../plugins/editor/plugin.c:730 ../plugins/editor/plugin.c:741
-#: ../plugins/gdb/breakpoints.c:129 ../plugins/gdb/stack_trace.c:575
+#: ../plugins/editor/plugin.c:730
+#: ../plugins/editor/plugin.c:741
+#: ../plugins/gdb/breakpoints.c:129
+#: ../plugins/gdb/stack_trace.c:575
 msgid "Line"
 msgstr "行"
 
-#: ../plugins/editor/plugin.c:731 ../plugins/editor/plugin.c:742
+#: ../plugins/editor/plugin.c:731
+#: ../plugins/editor/plugin.c:742
 #, fuzzy
 msgid "Col"
 msgstr "彩色"
 
-#: ../plugins/editor/plugin.c:732 ../plugins/editor/plugin.c:743
+#: ../plugins/editor/plugin.c:732
+#: ../plugins/editor/plugin.c:743
 #, fuzzy
 msgid "Mode"
 msgstr "模式："
@@ -4239,7 +4329,8 @@ msgstr "正在打印..."
 msgid "Printing ..."
 msgstr "正在打印..."
 
-#: ../plugins/editor/print.c:1029 ../plugins/gdb/signals.c:354
+#: ../plugins/editor/print.c:1029
+#: ../plugins/gdb/signals.c:354
 msgid "Print"
 msgstr "打印"
 
@@ -4325,13 +4416,8 @@ msgid "Error while reading from file"
 msgstr "写入文件时出错：%s。"
 
 #: ../plugins/editor/text_editor.c:1256
-msgid ""
-"The file does not look like a text file or the file encoding is not "
-"supported. Please check if the encoding of file is in the supported "
-"encodings list. If not, add it from the preferences."
-msgstr ""
-"该文件看上去不是一个文本文件，或者不支持该文件编码格式。清检查该文件的编码格"
-"式是否在编码格式支持列表中。如果不在，请从首选项中加入对这种编码格式的支持。"
+msgid "The file does not look like a text file or the file encoding is not supported. Please check if the encoding of file is in the supported encodings list. If not, add it from the preferences."
+msgstr "该文件看上去不是一个文本文件，或者不支持该文件编码格式。清检查该文件的编码格式是否在编码格式支持列表中。如果不在，请从首选项中加入对这种编码格式的支持。"
 
 #: ../plugins/editor/text_editor.c:1421
 #, c-format
@@ -4420,7 +4506,8 @@ msgstr "下一个书签"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/editor/text_editor_menu.c:137 ../plugins/gdb/plugin.c:68
+#: ../plugins/editor/text_editor_menu.c:137
+#: ../plugins/gdb/plugin.c:68
 msgid "Toggle breakpoint"
 msgstr "切换断点状态"
 
@@ -4535,8 +4622,7 @@ msgstr "停靠"
 msgid ""
 "<b>Cannot open \"%s\"</b>.\n"
 "\n"
-"There is no plugin, default action, or application configured to handle this "
-"file type.\n"
+"There is no plugin, default action, or application configured to handle this file type.\n"
 "\n"
 "Mime type: %s.\n"
 "\n"
@@ -4625,15 +4711,18 @@ msgstr "选择目录"
 msgid "_Open ..."
 msgstr "打开(_O)..."
 
-#: ../plugins/file-loader/plugin.c:817 ../plugins/file-loader/plugin.c:830
+#: ../plugins/file-loader/plugin.c:817
+#: ../plugins/file-loader/plugin.c:830
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: ../plugins/file-loader/plugin.c:824 ../plugins/file-loader/plugin.c:837
+#: ../plugins/file-loader/plugin.c:824
+#: ../plugins/file-loader/plugin.c:837
 msgid "Open _With"
 msgstr "打开方式(_W)"
 
-#: ../plugins/file-loader/plugin.c:825 ../plugins/file-loader/plugin.c:838
+#: ../plugins/file-loader/plugin.c:825
+#: ../plugins/file-loader/plugin.c:838
 msgid "Open with"
 msgstr "打开方式"
 
@@ -4748,7 +4837,8 @@ msgstr "用于匹配的文件名列表，以空格分隔"
 msgid "dialog3"
 msgstr ""
 
-#: ../plugins/file-manager/plugin.c:48 ../plugins/project-manager/plugin.c:616
+#: ../plugins/file-manager/plugin.c:48
+#: ../plugins/project-manager/plugin.c:616
 #: ../plugins/symbol-browser/plugin.c:313
 #, fuzzy
 msgid "_Refresh"
@@ -4884,7 +4974,8 @@ msgstr "_CVS 关键字"
 msgid "_General"
 msgstr "常规(_G)"
 
-#: ../plugins/file-wizard/plugin.c:55 ../plugins/file-wizard/plugin.c:97
+#: ../plugins/file-wizard/plugin.c:55
+#: ../plugins/file-wizard/plugin.c:97
 msgid "_Header"
 msgstr "文件头(_H)"
 
@@ -5069,7 +5160,8 @@ msgstr "结束"
 msgid "ID"
 msgstr ""
 
-#: ../plugins/gdb/breakpoints.c:130 ../plugins/gdb/stack_trace.c:584
+#: ../plugins/gdb/breakpoints.c:130
+#: ../plugins/gdb/stack_trace.c:584
 msgid "Function"
 msgstr "函数"
 
@@ -5077,12 +5169,14 @@ msgstr "函数"
 msgid "Type"
 msgstr ""
 
-#: ../plugins/gdb/breakpoints.c:130 ../plugins/gdb/stack_trace.c:593
+#: ../plugins/gdb/breakpoints.c:130
+#: ../plugins/gdb/stack_trace.c:593
 #, fuzzy
 msgid "Address"
 msgstr "添加表达式"
 
-#: ../plugins/gdb/breakpoints.c:130 ../plugins/gdb/signals.c:358
+#: ../plugins/gdb/breakpoints.c:130
+#: ../plugins/gdb/signals.c:358
 msgid "Pass"
 msgstr "遍数"
 
@@ -5123,13 +5217,16 @@ msgstr "您是否确定要删除全部断点？"
 msgid "All breakpoints removed.\n"
 msgstr "全部断点已删除：\n"
 
-#: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/watch_gui.c:122
+#: ../plugins/gdb/debug_tree.c:109
+#: ../plugins/gdb/watch_gui.c:122
 #: ../plugins/tools/editor.c:456
 msgid "Variable"
 msgstr "变量"
 
-#: ../plugins/gdb/debug_tree.c:109 ../plugins/gdb/registers.c:316
-#: ../plugins/gdb/watch_gui.c:131 ../plugins/tools/editor.c:462
+#: ../plugins/gdb/debug_tree.c:109
+#: ../plugins/gdb/registers.c:316
+#: ../plugins/gdb/watch_gui.c:131
+#: ../plugins/tools/editor.c:462
 msgid "Value"
 msgstr "数值"
 
@@ -5169,7 +5266,8 @@ msgstr "字符"
 msgid "Inspect memory"
 msgstr "查看内存"
 
-#: ../plugins/gdb/debugger.c:483 ../plugins/gdb/debugger.c:653
+#: ../plugins/gdb/debugger.c:483
+#: ../plugins/gdb/debugger.c:653
 msgid "Loading Executable: "
 msgstr "载入可执行文件："
 
@@ -5328,7 +5426,8 @@ msgstr "将信号 %s 发送给进程：%d\n"
 msgid "Error whilst signaling the process."
 msgstr "给进程发送信号时出错。"
 
-#: ../plugins/gdb/info.c:51 ../plugins/gdb/info.c:100
+#: ../plugins/gdb/info.c:51
+#: ../plugins/gdb/info.c:100
 msgid "Information"
 msgstr "信息"
 
@@ -5634,7 +5733,8 @@ msgstr "到"
 msgid "Sysm Read"
 msgstr "读Sysm"
 
-#: ../plugins/gdb/signals.c:192 ../plugins/gdb/signals.c:205
+#: ../plugins/gdb/signals.c:192
+#: ../plugins/gdb/signals.c:205
 #: ../plugins/gdb/signals.c:218
 #: ../plugins/project-manager/project_dbase.c:1468
 #: ../plugins/project-manager/project_dbase.c:1477
@@ -5706,7 +5806,8 @@ msgid "Add expression"
 msgstr "添加表达式"
 
 #. 3
-#: ../plugins/gdb/watch_gui.c:43 ../plugins/gtodo/callback.c:15
+#: ../plugins/gdb/watch_gui.c:43
+#: ../plugins/gtodo/callback.c:15
 #: ../plugins/gtodo/callback.c:101
 #: ../plugins/project-manager/project_dbase_gui.c:323
 msgid "Remove"
@@ -5757,7 +5858,8 @@ msgstr "添加到监视"
 msgid "_Undo: %s"
 msgstr "撤销(_U)：%s"
 
-#: ../plugins/glade/plugin.c:115 ../plugins/glade/plugin.c:438
+#: ../plugins/glade/plugin.c:115
+#: ../plugins/glade/plugin.c:438
 msgid "_Undo"
 msgstr "撤消(_U)"
 
@@ -5766,13 +5868,15 @@ msgstr "撤消(_U)"
 msgid "_Redo: %s"
 msgstr "重做(_R)：%s"
 
-#: ../plugins/glade/plugin.c:202 ../plugins/glade/plugin.c:228
+#: ../plugins/glade/plugin.c:202
+#: ../plugins/glade/plugin.c:228
 #, fuzzy
 msgid "Invalid glade file name"
 msgstr "无效的文件名 %s。"
 
 #. FIXME: gpw_refresh_project_entry (gpw, project);
-#: ../plugins/glade/plugin.c:206 ../plugins/glade/plugin.c:225
+#: ../plugins/glade/plugin.c:206
+#: ../plugins/glade/plugin.c:225
 #, fuzzy, c-format
 msgid "Glade project '%s' saved"
 msgstr "正在载入工程...\n"
@@ -5791,8 +5895,7 @@ msgstr "文件另存为"
 #: ../plugins/glade/plugin.c:289
 #, c-format
 msgid ""
-"<span weight=\"bold\" size=\"larger\">Save changes to glade project \"%s\" "
-"before closing?</span>\n"
+"<span weight=\"bold\" size=\"larger\">Save changes to glade project \"%s\" before closing?</span>\n"
 "\n"
 "Your changes will be lost if you don't save them.\n"
 msgstr ""
@@ -5936,8 +6039,10 @@ msgstr "<b>概要：</b>"
 msgid "Category:"
 msgstr "类别："
 
-#: ../plugins/gtodo/add_edit_item.c:175 ../plugins/gtodo/add_edit_item.c:457
-#: ../plugins/gtodo/mcategory.c:20 ../plugins/gtodo/todo_db.c:67
+#: ../plugins/gtodo/add_edit_item.c:175
+#: ../plugins/gtodo/add_edit_item.c:457
+#: ../plugins/gtodo/mcategory.c:20
+#: ../plugins/gtodo/todo_db.c:67
 #: ../plugins/gtodo/todo_db.c:68
 msgid "Edit Categories"
 msgstr "编辑类别"
@@ -5956,18 +6061,21 @@ msgstr ""
 msgid "Priority:"
 msgstr "优先级："
 
-#: ../plugins/gtodo/add_edit_item.c:231 ../plugins/gtodo/list_tooltip.c:69
+#: ../plugins/gtodo/add_edit_item.c:231
+#: ../plugins/gtodo/list_tooltip.c:69
 #: ../plugins/gtodo/todo_db.c:125
 msgid "High"
 msgstr "高"
 
-#: ../plugins/gtodo/add_edit_item.c:233 ../plugins/gtodo/list_tooltip.c:65
+#: ../plugins/gtodo/add_edit_item.c:233
+#: ../plugins/gtodo/list_tooltip.c:65
 #: ../plugins/gtodo/todo_db.c:124
 msgid "Medium"
 msgstr "中"
 
 #. create a priority string
-#: ../plugins/gtodo/add_edit_item.c:235 ../plugins/gtodo/list_tooltip.c:61
+#: ../plugins/gtodo/add_edit_item.c:235
+#: ../plugins/gtodo/list_tooltip.c:61
 #: ../plugins/gtodo/todo_db.c:123
 msgid "Low"
 msgstr "低"
@@ -5993,7 +6101,8 @@ msgstr ""
 msgid "<i>stopped: n/a</i>"
 msgstr ""
 
-#: ../plugins/gtodo/add_edit_item.c:322 ../plugins/gtodo/add_edit_item.c:323
+#: ../plugins/gtodo/add_edit_item.c:322
+#: ../plugins/gtodo/add_edit_item.c:323
 msgid "n/a"
 msgstr ""
 
@@ -6028,9 +6137,7 @@ msgstr "您是否确定要删除全部断点？"
 
 #: ../plugins/gtodo/callback.c:99
 #, fuzzy, c-format
-msgid ""
-"Are you sure you want to remove all the completed todo items in the category "
-"\"%s\"?"
+msgid "Are you sure you want to remove all the completed todo items in the category \"%s\"?"
 msgstr "您确定想要从工程中删除项目“%s”吗？"
 
 #: ../plugins/gtodo/egg-datetime.c:296
@@ -6213,15 +6320,17 @@ msgstr "无日期(_N)"
 msgid "24hr: no"
 msgstr ""
 
-#: ../plugins/gtodo/egg-datetime.c:796 ../plugins/gtodo/egg-datetime.c:1340
+#: ../plugins/gtodo/egg-datetime.c:796
+#: ../plugins/gtodo/egg-datetime.c:1340
 #: ../plugins/gtodo/egg-datetime.c:1344
 msgid "AM"
-msgstr ""
+msgstr "AM"
 
-#: ../plugins/gtodo/egg-datetime.c:798 ../plugins/gtodo/egg-datetime.c:1341
+#: ../plugins/gtodo/egg-datetime.c:798
+#: ../plugins/gtodo/egg-datetime.c:1341
 #: ../plugins/gtodo/egg-datetime.c:1348
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #. Translators: This is hh:mm:ss AM/PM.
 #: ../plugins/gtodo/egg-datetime.c:806
@@ -6247,7 +6356,8 @@ msgstr ""
 msgid "%02d:%02d"
 msgstr ""
 
-#: ../plugins/gtodo/egg-datetime.c:1243 ../plugins/gtodo/egg-datetime.c:1295
+#: ../plugins/gtodo/egg-datetime.c:1243
+#: ../plugins/gtodo/egg-datetime.c:1295
 #: ../plugins/gtodo/todo_db.c:158
 msgid "No Date"
 msgstr "无日期"
@@ -6259,7 +6369,8 @@ msgstr "无日期"
 msgid "%04d-%02d-%02d"
 msgstr ""
 
-#: ../plugins/gtodo/egg-datetime.c:1279 ../plugins/gtodo/egg-datetime.c:2323
+#: ../plugins/gtodo/egg-datetime.c:1279
+#: ../plugins/gtodo/egg-datetime.c:2323
 msgid "no end time"
 msgstr ""
 
@@ -6281,30 +6392,38 @@ msgstr "托盘的方向。"
 msgid "Export to"
 msgstr "导出至"
 
-#: ../plugins/gtodo/gtodo.c:52 ../plugins/gtodo/gtodo.c:141
-#: ../plugins/gtodo/gtodo.c:142 ../plugins/gtodo/gtodo.c:143
-#: ../plugins/gtodo/gtodo.c:144 ../plugins/gtodo/gtodo.c:145
+#: ../plugins/gtodo/gtodo.c:52
+#: ../plugins/gtodo/gtodo.c:141
+#: ../plugins/gtodo/gtodo.c:142
+#: ../plugins/gtodo/gtodo.c:143
+#: ../plugins/gtodo/gtodo.c:144
+#: ../plugins/gtodo/gtodo.c:145
 #: ../plugins/gtodo/gtodo.c:146
 msgid "/View/Sorting/Done, Date, Priority"
 msgstr ""
 
-#: ../plugins/gtodo/gtodo.c:56 ../plugins/gtodo/gtodo.c:142
+#: ../plugins/gtodo/gtodo.c:56
+#: ../plugins/gtodo/gtodo.c:142
 msgid "/View/Sorting/Done, Priority, Date"
 msgstr ""
 
-#: ../plugins/gtodo/gtodo.c:60 ../plugins/gtodo/gtodo.c:143
+#: ../plugins/gtodo/gtodo.c:60
+#: ../plugins/gtodo/gtodo.c:143
 msgid "/View/Sorting/Priority, Date, Done"
 msgstr ""
 
-#: ../plugins/gtodo/gtodo.c:64 ../plugins/gtodo/gtodo.c:144
+#: ../plugins/gtodo/gtodo.c:64
+#: ../plugins/gtodo/gtodo.c:144
 msgid "/View/Sorting/Priority, Done, Date"
 msgstr ""
 
-#: ../plugins/gtodo/gtodo.c:68 ../plugins/gtodo/gtodo.c:145
+#: ../plugins/gtodo/gtodo.c:68
+#: ../plugins/gtodo/gtodo.c:145
 msgid "/View/Sorting/Date, Priority, Done"
 msgstr ""
 
-#: ../plugins/gtodo/gtodo.c:72 ../plugins/gtodo/gtodo.c:146
+#: ../plugins/gtodo/gtodo.c:72
+#: ../plugins/gtodo/gtodo.c:146
 msgid "/View/Sorting/Date, Done, Priority"
 msgstr ""
 
@@ -6382,19 +6501,23 @@ msgstr "/查看(_V)"
 msgid "/_View/_Sorting"
 msgstr ""
 
-#: ../plugins/gtodo/gtodo.c:148 ../plugins/gtodo/gtodo.c:149
-#: ../plugins/gtodo/gtodo.c:201 ../plugins/gtodo/preferences.c:347
+#: ../plugins/gtodo/gtodo.c:148
+#: ../plugins/gtodo/gtodo.c:149
+#: ../plugins/gtodo/gtodo.c:201
+#: ../plugins/gtodo/preferences.c:347
 msgid "/View/Sorting/Sort Ascending"
 msgstr ""
 
-#: ../plugins/gtodo/gtodo.c:149 ../plugins/gtodo/gtodo.c:202
+#: ../plugins/gtodo/gtodo.c:149
+#: ../plugins/gtodo/gtodo.c:202
 #: ../plugins/gtodo/preferences.c:348
 msgid "/View/Sorting/Sort Descending"
 msgstr ""
 
 #. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Completed Items"))),settings.hide_done);
 #.
-#: ../plugins/gtodo/gtodo.c:150 ../plugins/gtodo/gtodo.c:197
+#: ../plugins/gtodo/gtodo.c:150
+#: ../plugins/gtodo/gtodo.c:197
 #: ../plugins/gtodo/preferences.c:357
 msgid "/View/Hide Completed Items"
 msgstr ""
@@ -6402,7 +6525,8 @@ msgstr ""
 #. "/schemas
 #. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items that are past due"))),settings.hide_due);
 #.
-#: ../plugins/gtodo/gtodo.c:151 ../plugins/gtodo/gtodo.c:198
+#: ../plugins/gtodo/gtodo.c:151
+#: ../plugins/gtodo/gtodo.c:198
 #: ../plugins/gtodo/preferences.c:366
 msgid "/View/Hide Items that Are Past Due Date"
 msgstr ""
@@ -6410,7 +6534,8 @@ msgstr ""
 #. "/schemas
 #. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items without an end date"))), settings.hide_nodate);
 #.
-#: ../plugins/gtodo/gtodo.c:152 ../plugins/gtodo/gtodo.c:199
+#: ../plugins/gtodo/gtodo.c:152
+#: ../plugins/gtodo/gtodo.c:199
 #: ../plugins/gtodo/preferences.c:375
 msgid "/View/Hide Items Without an End Date"
 msgstr ""
@@ -6423,13 +6548,15 @@ msgstr "/帮助(_H)"
 msgid "/Help/_About"
 msgstr "/帮助(H)/关于(_A)"
 
-#: ../plugins/gtodo/gtodo.c:173 ../plugins/gtodo/tray-icon.c:72
+#: ../plugins/gtodo/gtodo.c:173
+#: ../plugins/gtodo/tray-icon.c:72
 #: ../plugins/gtodo/tray-icon.c:130
 #, fuzzy
 msgid "Todo List"
 msgstr "工具编辑器"
 
-#: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:34
+#: ../plugins/gtodo/interface.c:34
+#: ../src/anjuta-actions.h:34
 #: ../src/shell.c:77
 msgid "_View"
 msgstr "查看(_V)"
@@ -6498,16 +6625,15 @@ msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
 msgstr ""
 
 #: ../plugins/gtodo/interface.c:274
-msgid ""
-"<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux."
-"org)</span>"
+msgid "<span size=\"small\">Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)</span>"
 msgstr ""
 
 #: ../plugins/gtodo/libgtodo.c:609
 msgid "No permission to read the file."
 msgstr ""
 
-#: ../plugins/gtodo/libgtodo.c:636 ../plugins/gtodo/libgtodo.c:646
+#: ../plugins/gtodo/libgtodo.c:636
+#: ../plugins/gtodo/libgtodo.c:646
 msgid "Failed to parse xml structure"
 msgstr ""
 
@@ -6633,12 +6759,14 @@ msgstr ""
 msgid "When you delete the category \"%s\", all containing items are lost"
 msgstr ""
 
-#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:79
+#: ../plugins/gtodo/mcategory.c:146
+#: ../plugins/subversion/svn-notify.c:79
 #, fuzzy
 msgid "Delete"
 msgstr "删除文件"
 
-#: ../plugins/gtodo/mcategory.c:166 ../plugins/gtodo/mcategory.c:174
+#: ../plugins/gtodo/mcategory.c:166
+#: ../plugins/gtodo/mcategory.c:174
 #, fuzzy
 msgid "enter name"
 msgstr "项名称："
@@ -6646,8 +6774,7 @@ msgstr "项名称："
 #: ../plugins/gtodo/notification.c:65
 #, c-format
 msgid ""
-"<spam weight=\"bold\" size=\"larger\">The following item is due in %i "
-"minutes:</span>\n"
+"<spam weight=\"bold\" size=\"larger\">The following item is due in %i minutes:</span>\n"
 " %s"
 msgstr ""
 
@@ -6693,7 +6820,8 @@ msgstr ""
 msgid "Hide items without an end date"
 msgstr ""
 
-#: ../plugins/gtodo/plugin.c:169 ../plugins/gtodo/plugin.c:175
+#: ../plugins/gtodo/plugin.c:169
+#: ../plugins/gtodo/plugin.c:175
 #, fuzzy
 msgid "Tasks manager"
 msgstr "布局管理器"
@@ -6810,8 +6938,7 @@ msgstr ""
 #: ../plugins/gtodo/preferences.c:266
 msgid ""
 "Showing Tooltips in the todo list is still very alpha.\n"
-"Because of some weird behaviour in gtk it only works with the column headers "
-"disabled.\n"
+"Because of some weird behaviour in gtk it only works with the column headers disabled.\n"
 "I hope to get this fixed soon"
 msgstr ""
 
@@ -7259,16 +7386,19 @@ msgstr "下一个信息"
 msgid "Next/Prev Message"
 msgstr "上一个信息"
 
-#: ../plugins/patch/patch-plugin.c:67 ../plugins/patch/patch-plugin.c:77
+#: ../plugins/patch/patch-plugin.c:67
+#: ../plugins/patch/patch-plugin.c:77
 #, fuzzy
 msgid "File/Directory to patch"
 msgstr "要打补丁的文件/目录"
 
-#: ../plugins/patch/patch-plugin.c:69 ../plugins/patch/patch-plugin.c:78
+#: ../plugins/patch/patch-plugin.c:69
+#: ../plugins/patch/patch-plugin.c:78
 msgid "Patch file"
 msgstr "补丁文件"
 
-#: ../plugins/patch/patch-plugin.c:119 ../plugins/patch/patch-plugin.glade.h:1
+#: ../plugins/patch/patch-plugin.c:119
+#: ../plugins/patch/patch-plugin.glade.h:1
 msgid "Patch"
 msgstr "补丁"
 
@@ -7401,9 +7531,7 @@ msgid "Import Project"
 msgstr "CVS：导入工程"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
-msgid ""
-"This wizard will help you to import an existing automake/autoconf managed "
-"project into anjuta."
+msgid "This wizard will help you to import an existing automake/autoconf managed project into anjuta."
 msgstr ""
 
 #: ../plugins/project-import/project-import.c:89
@@ -7421,9 +7549,7 @@ msgstr ""
 
 #: ../plugins/project-import/project-import.c:284
 #, c-format
-msgid ""
-"Generation of project file failed. Please check if you have write access to "
-"the project directory: %s"
+msgid "Generation of project file failed. Please check if you have write access to the project directory: %s"
 msgstr ""
 
 #: ../plugins/project-manager/plugin.c:217
@@ -7636,13 +7762,8 @@ msgid "Unable to save the Project."
 msgstr "无法保存工程。"
 
 #: ../plugins/project-manager/project_dbase.c:1543
-msgid ""
-"A .glade file does not exist in the top level Project directory. If you do "
-"not use glade for GUI editing,  please specify a custom command for it in "
-"[Project]->[Project Configuration]->[GUI editor command]"
-msgstr ""
-"在工程顶级目录中不存在 .glade 文件。如果您不使用 glade 来进行 GUI 编辑，请在"
-"[工程]->[工程配置]->[GUI 编辑器命令]中设置一个自定义命令。"
+msgid "A .glade file does not exist in the top level Project directory. If you do not use glade for GUI editing,  please specify a custom command for it in [Project]->[Project Configuration]->[GUI editor command]"
+msgstr "在工程顶级目录中不存在 .glade 文件。如果您不使用 glade 来进行 GUI 编辑，请在[工程]->[工程配置]->[GUI 编辑器命令]中设置一个自定义命令。"
 
 #: ../plugins/project-manager/project_dbase.c:1605
 msgid ""
@@ -7884,11 +8005,11 @@ msgstr "Po 文件："
 
 #: ../plugins/project-manager/project_dbase_gui.c:894
 msgid "GUI editable by Glade:"
-msgstr "可用 Glade 编辑 GUI："
+msgstr "可用 Glade 编辑的 GUI："
 
 #: ../plugins/project-manager/project_dbase_gui.c:916
 msgid "Makefiles managed:"
-msgstr "可管理 Makefiles："
+msgstr "可管理的 Makefiles："
 
 #: ../plugins/project-manager/project_dbase_gui.c:958
 msgid "Gettext support:"
@@ -8227,11 +8348,7 @@ msgstr "工程类型"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
 #, fuzzy
-msgid ""
-"The Application Wizard will generate a basic skeleton for a project, "
-"including all of the build files. It will ask for details of the initial "
-"structure for the application. Please answer the questions carefully, as it "
-"may not be possible to change some of the settings later."
+msgid "The Application Wizard will generate a basic skeleton for a project, including all of the build files. It will ask for details of the initial structure for the application. Please answer the questions carefully, as it may not be possible to change some of the settings later."
 msgstr ""
 "应用程序向导将会生成工程的基本框架，其中包\n"
 "含生成文件。它将询问有关应用程序初始结构的\n"
@@ -8269,15 +8386,11 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:497
 #, c-format
-msgid ""
-"Directory \"%s\" already exists. Project creation could fail if some files "
-"cannot be written. Do you want to continue?"
+msgid "Directory \"%s\" already exists. Project creation could fail if some files cannot be written. Do you want to continue?"
 msgstr ""
 
 #: ../plugins/project-wizard/druid.c:809
-msgid ""
-"Could not find autogen version 5, please install the autogen package. You "
-"can get it from http://autogen.sourceforge.net"
+msgid "Could not find autogen version 5, please install the autogen package. You can get it from http://autogen.sourceforge.net"
 msgstr ""
 
 #: ../plugins/project-wizard/druid.c:817
@@ -8401,7 +8514,8 @@ msgstr "编号"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:44 ../plugins/subversion/plugin.c:92
+#: ../plugins/subversion/plugin.c:44
+#: ../plugins/subversion/plugin.c:92
 msgid "_Subversion"
 msgstr "_Subversion"
 
@@ -8420,14 +8534,16 @@ msgstr "CVS：删除文件"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:102
+#: ../plugins/subversion/plugin.c:70
+#: ../plugins/subversion/plugin.c:102
 #, fuzzy
 msgid "Commit your changes to the Subversion tree"
 msgstr "将更改提交到仓库"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:78 ../plugins/subversion/plugin.c:110
+#: ../plugins/subversion/plugin.c:78
+#: ../plugins/subversion/plugin.c:110
 msgid "Sync your local copy with the Subversion tree"
 msgstr ""
 
@@ -8542,7 +8658,8 @@ msgstr "提交文件"
 msgid "Blame revision"
 msgstr "修订："
 
-#: ../plugins/subversion/svn-thread.c:73 ../plugins/subversion/svn-thread.c:78
+#: ../plugins/subversion/svn-thread.c:73
+#: ../plugins/subversion/svn-thread.c:78
 #, fuzzy
 msgid "Subversion"
 msgstr "版本："
@@ -8751,9 +8868,7 @@ msgid "A tool with the same name already exists!"
 msgstr "已经存在名为“%s”的工具！"
 
 #: ../plugins/tools/editor.c:728
-msgid ""
-"The shortcut is already used by another component in Anjuta. Do you want to "
-"keep it anyway ?"
+msgid "The shortcut is already used by another component in Anjuta. Do you want to keep it anyway ?"
 msgstr ""
 
 #: ../plugins/tools/editor.c:813
@@ -8850,7 +8965,8 @@ msgstr "配置外部工具"
 msgid "Tool operations"
 msgstr "工具操作"
 
-#: ../src/about.c:181 ../src/about.c:192
+#: ../src/about.c:181
+#: ../src/about.c:192
 msgid "Copyright (c) Naba Kumar"
 msgstr "版权 (c) Naba Kumar"
 
@@ -8862,17 +8978,15 @@ msgstr "GNU General Public License"
 msgid "Anjuta plugin"
 msgstr "Anjuta 插件"
 
-#: ../src/action-callbacks.c:101 ../src/action-callbacks.c:116
+#: ../src/action-callbacks.c:101
+#: ../src/action-callbacks.c:116
 #: ../src/shell.c:65
 msgid "Anjuta Plugins"
 msgstr "Anjuta 插件"
 
 #: ../src/action-callbacks.c:130
-msgid ""
-"Unable to display help. Please make sure Anjuta documentation package is "
-"install. It can be downloaded from http://anjuta.org"
-msgstr ""
-"无法显示帮助。请确定已经安装了 Anjuta 文档包。您可从 http://anjuta.org 下载。"
+msgid "Unable to display help. Please make sure Anjuta documentation package is install. It can be downloaded from http://anjuta.org"
+msgstr "无法显示帮助。请确定已经安装了 Anjuta 文档包。您可从 http://anjuta.org 下载。"
 
 #: ../src/anjuta.c:199
 #, fuzzy
@@ -8896,11 +9010,13 @@ msgstr "用户电子邮件地址"
 msgid "User name"
 msgstr "用户名"
 
-#: ../src/anjuta-actions.h:23 ../src/shell.c:75
+#: ../src/anjuta-actions.h:23
+#: ../src/shell.c:75
 msgid "_File"
 msgstr "文件(_F)"
 
-#: ../src/anjuta-actions.h:24 ../src/shell.c:83
+#: ../src/anjuta-actions.h:24
+#: ../src/shell.c:83
 msgid "_Quit"
 msgstr "退出(_Q)"
 
@@ -8936,11 +9052,13 @@ msgstr "锁定停靠布局(_L)"
 msgid "Lock the current dock layout so that widgets cannot be moved"
 msgstr ""
 
-#: ../src/anjuta-actions.h:54 ../src/shell.c:78
+#: ../src/anjuta-actions.h:54
+#: ../src/shell.c:78
 msgid "_Settings"
 msgstr "设置(_S)"
 
-#: ../src/anjuta-actions.h:56 ../src/shell.c:91
+#: ../src/anjuta-actions.h:56
+#: ../src/shell.c:91
 msgid "_Preferences ..."
 msgstr "首选项(_P)..."
 
@@ -8956,11 +9074,13 @@ msgstr "设置默认首选项(_D)"
 msgid "But I prefer tea."
 msgstr "我的喜好。"
 
-#: ../src/anjuta-actions.h:64 ../src/shell.c:99
+#: ../src/anjuta-actions.h:64
+#: ../src/shell.c:99
 msgid "C_ustomize shortcuts"
 msgstr "自定义快捷键(_U)"
 
-#: ../src/anjuta-actions.h:65 ../src/shell.c:101
+#: ../src/anjuta-actions.h:65
+#: ../src/shell.c:101
 msgid "Customize shortcuts associated with menu items"
 msgstr "自定义与菜单项关联的快捷键"
 
@@ -8972,7 +9092,8 @@ msgstr "插件管理器"
 msgid "Manipulate plugins manager items"
 msgstr "操纵插件管理器项目"
 
-#: ../src/anjuta-actions.h:74 ../src/shell.c:79
+#: ../src/anjuta-actions.h:74
+#: ../src/shell.c:79
 msgid "_Help"
 msgstr "帮助(_H)"
 
@@ -9056,15 +9177,18 @@ msgstr ""
 msgid "Toggle View"
 msgstr "隐藏/显示缩进导线"
 
-#: ../src/anjuta-app.c:722 ../src/shell.c:213
+#: ../src/anjuta-app.c:722
+#: ../src/shell.c:213
 msgid "Value doesn't exist"
 msgstr "值不存在"
 
-#: ../src/anjuta-callbacks.c:48 ../src/anjuta_cbs.c:466
+#: ../src/anjuta-callbacks.c:48
+#: ../src/anjuta_cbs.c:466
 msgid "Could not open file for writing"
 msgstr "无法打开文件进行写入"
 
-#: ../src/anjuta-callbacks.c:72 ../src/anjuta_cbs.c:490
+#: ../src/anjuta-callbacks.c:72
+#: ../src/anjuta_cbs.c:490
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -9091,7 +9215,7 @@ msgstr "WIDTHxHEIGHT+XOFF+YOFF"
 
 #: ../src/main.c:60
 msgid "Do not show the splashscreen"
-msgstr "不显示飞溅屏幕"
+msgstr "不显示启动屏幕"
 
 #: ../src/main.c:66
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
@@ -9112,3 +9236,4 @@ msgstr ""
 #: ../src/shell.c:415
 msgid "Anjuta test shell"
 msgstr "Anjuta 测试 Shell"
+
