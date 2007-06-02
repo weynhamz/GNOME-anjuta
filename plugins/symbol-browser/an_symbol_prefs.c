@@ -638,31 +638,54 @@ on_remove_tags_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 }
 
 static void
-on_message_buffer_flush (IAnjutaMessageView *mesg_view,
-						 const gchar * mesg_line,
-						 gpointer user_data)
-{
-	SymbolBrowserPlugin* plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (user_data);
-	if (plugin->mesg_view)
-		ianjuta_message_view_append (plugin->mesg_view,
-									 IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-									 mesg_line, "", NULL);
-}
-
-static void
 on_message (AnjutaLauncher *launcher,
 			AnjutaLauncherOutputType output_type,
 			const gchar * mesg, gpointer user_data)
 {
+	gchar **lines, **line;
 	SymbolBrowserPlugin* plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (user_data);
-	if (plugin->mesg_view)
-		ianjuta_message_view_buffer_append (plugin->mesg_view,
-											mesg, NULL);
+	
+	lines = g_strsplit (mesg, "\n", -1);
+	if (!lines)
+		return;
+	
+	line = lines;
+	while (*line)
+	{
+		if (plugin->packages_count < 0)
+		{
+			gint packages_count;
+			if (sscanf (*line, "Scanning %d packages", &packages_count) == 1)
+			{
+				plugin->packages_count = packages_count;
+			}
+		}
+		else
+		{
+			if (strstr (*line, "anjutatags.gz"))
+			{
+				gchar *progress_text;
+				plugin->current_count++;
+				gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (plugin->progress_bar),
+											   ((double) plugin->current_count) /
+											   plugin->packages_count);
+				progress_text = g_strdup_printf ("%d/%d packages",
+												 plugin->current_count,
+												 plugin->packages_count);
+				gtk_progress_bar_set_text (GTK_PROGRESS_BAR (plugin->progress_bar),
+										   progress_text);
+				g_free (progress_text);
+			}
+		}
+		line++;
+	}
+	g_strfreev (lines);
 }
 
 static void
-refresh_list (AnjutaLauncher *launcher, gint child_pid, gint status,
-			  gulong time_taken, SymbolBrowserPlugin *plugin)
+on_system_tags_update_finished (AnjutaLauncher *launcher, gint child_pid,
+								gint status, gulong time_taken,
+								SymbolBrowserPlugin *plugin)
 {
 	GList *enabled_paths = NULL;
 	GtkTreeIter iter;
@@ -695,22 +718,31 @@ refresh_list (AnjutaLauncher *launcher, gint child_pid, gint status,
 	}
 	g_list_foreach (enabled_paths, (GFunc)g_free, NULL);
 	g_list_free (enabled_paths);
+	
+	gtk_widget_destroy (plugin->system_tags);
+	plugin->system_tags = NULL;
 }
 
-static void
-on_mesg_view_destroy(SymbolBrowserPlugin* plugin, gpointer destroyed_view)
+gint
+on_system_tags_window_delete_event (GtkWidget *window, GdkEvent *event,
+									gpointer plugin)
 {
-	plugin->mesg_view = NULL;
+	return TRUE;
 }
 
 static void 
 on_update_global_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 {
+	GtkWidget *top_level;
+	GladeXML *gxml;
 	gchar* tmp;
 	gint pid;
 	AnjutaLauncher* launcher;
 	IAnjutaMessageManager* mesg_manager;
 
+	if (plugin->system_tags)
+		return; /* Already running */
+	
 	/* Create local tags directory */	
 	tmp = g_build_filename (g_get_home_dir (), LOCAL_TAGS_DIR, NULL);
 	if ((pid = fork()) == 0)
@@ -720,37 +752,33 @@ on_update_global_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 	}
 	waitpid (pid, NULL, 0);
 	g_free (tmp);
-
-	mesg_manager = anjuta_shell_get_interface 
-		(ANJUTA_PLUGIN (plugin)->shell,	IAnjutaMessageManager, NULL);
 	
-	if (!plugin->mesg_view)
+	gxml = glade_xml_new (PREFS_GLADE, "system_tags_window", NULL);
+	plugin->packages_count = -1;
+	plugin->current_count = 0;
+	plugin->system_tags = glade_xml_get_widget (gxml, "system_tags_window");
+	plugin->progress_bar = glade_xml_get_widget (gxml, "progressbar");
+	g_object_unref (gxml);
+	
+	gtk_widget_show_all (plugin->system_tags);
+	g_signal_connect (G_OBJECT (plugin->system_tags), "delete-event",
+					  G_CALLBACK (on_system_tags_window_delete_event),
+					  plugin);
+	if (button)
 	{
-		plugin->mesg_view = 
-			ianjuta_message_manager_get_view_by_name(mesg_manager,
-													 _("Create global tags"),
-													 NULL);
-		if (!plugin->mesg_view)
-		{
-			plugin->mesg_view =
-				 ianjuta_message_manager_add_view (mesg_manager,
-												   _("Create global tags"), 
-												  "anjuta-symbol-browser-plugin.png",
-												   NULL);
-		}
-		g_signal_connect (plugin->mesg_view, "buffer-flushed",
-						  G_CALLBACK (on_message_buffer_flush),
-						  plugin);
-		g_object_weak_ref (G_OBJECT (plugin->mesg_view), 
-						  (GWeakNotify)on_mesg_view_destroy, plugin);
+		top_level = gtk_widget_get_toplevel (button);
 	}
-	ianjuta_message_view_clear(plugin->mesg_view, NULL);
-	ianjuta_message_manager_set_current_view (mesg_manager,
-											  plugin->mesg_view, NULL);
+	else
+	{
+		top_level = GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell);
+	}
+	gtk_window_set_transient_for (GTK_WINDOW (plugin->system_tags),
+								  GTK_WINDOW (top_level));
 	
 	launcher = anjuta_launcher_new ();
 	g_signal_connect (G_OBJECT (launcher), "child-exited",
-					  G_CALLBACK (refresh_list), plugin);
+					  G_CALLBACK (on_system_tags_update_finished), plugin);
+	anjuta_launcher_set_buffered_output (launcher, TRUE);
 	anjuta_launcher_execute (launcher, CREATE_GLOBAL_TAGS, on_message, plugin);
 }
 

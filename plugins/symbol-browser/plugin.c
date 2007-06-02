@@ -24,7 +24,6 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-help.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
-#include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -45,7 +44,6 @@
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-browser-plugin.ui"
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-symbol-browser-plugin.glade"
 #define ICON_FILE "anjuta-symbol-browser-plugin.png"
 
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10000
@@ -1156,7 +1154,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	sv_plugin->sv = NULL;
 	sv_plugin->sv_tree = NULL;
 	sv_plugin->ss = NULL;
-	
+	sv_plugin->system_tags = NULL;
 	return TRUE;
 }
 

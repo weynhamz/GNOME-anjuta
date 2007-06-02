@@ -74,6 +74,17 @@ if ( [ ! -z $PKG_CONFIG ] && [ -x $PKG_CONFIG ] ) ; then
     PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$PKG_DEFAULT_CONFIG_PATH"
 	
     PKG_CONFIG_PATH_PROPER=`echo $PKG_CONFIG_PATH | sed -e 's/\:/ /g'`
+
+    pkg_files_count=0
+    for pkg_path in $PKG_CONFIG_PATH_PROPER; do
+	for pkg_file in `find "$pkg_path" -name '*.pc' 2>/dev/null`; do
+	    pkg_files_count=`expr $pkg_files_count + 1`
+	done
+    done
+
+    ## This line is important for the progress bar. Don't change it.
+    echo "Scanning $pkg_files_count packages"
+
     for pkg_path in $PKG_CONFIG_PATH_PROPER; do
 	for pkg_file in `find "$pkg_path" -name '*.pc' 2>/dev/null`; do
 		# echo "Scanning package: $pkg_file"
