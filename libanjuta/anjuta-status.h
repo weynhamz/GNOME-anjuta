@@ -68,8 +68,10 @@ void anjuta_status_set_title_window (AnjutaStatus *status, GtkWidget *window);
 void anjuta_status_set_title (AnjutaStatus *status, const gchar *title);
 
 /* Status bar progress manipulation */
-void anjuta_status_progress_set_splash (AnjutaStatus *status, const gchar *splash_file, gint splash_progress_position);
-void anjuta_status_progress_disable_splash (AnjutaStatus *status, gboolean disable_splash);
+void anjuta_status_set_splash (AnjutaStatus *status, const gchar *splash_file,
+							   gint splash_progress_position);
+void anjuta_status_disable_splash (AnjutaStatus *status,
+								   gboolean disable_splash);
 void anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks);
 void anjuta_status_progress_tick (AnjutaStatus *status,
 								  GdkPixbuf *icon, const gchar *text);

@@ -642,6 +642,7 @@ on_message (AnjutaLauncher *launcher,
 			AnjutaLauncherOutputType output_type,
 			const gchar * mesg, gpointer user_data)
 {
+	AnjutaStatus *status;
 	gchar **lines, **line;
 	SymbolBrowserPlugin* plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (user_data);
 	
@@ -649,33 +650,34 @@ on_message (AnjutaLauncher *launcher,
 	if (!lines)
 		return;
 	
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	
 	line = lines;
 	while (*line)
 	{
-		if (plugin->packages_count < 0)
+		gint packages_count;
+		gchar *pos;
+		
+		if (sscanf (*line, "Scanning %d packages", &packages_count) == 1)
+			anjuta_status_progress_add_ticks (status, packages_count + 1);
+		else if ((pos = strstr (*line, ".anjutatags.gz")))
 		{
-			gint packages_count;
-			if (sscanf (*line, "Scanning %d packages", &packages_count) == 1)
+			const gchar *package_name;
+		
+			/* Get the name of the package */
+			*pos = '\0';
+			package_name = g_strrstr (*line, "/");
+			if (package_name)
 			{
-				plugin->packages_count = packages_count;
+				gchar *status_mesg;
+				package_name++;
+				status_mesg = g_strdup_printf (_("Scanning package: %s"),
+											   package_name);
+				anjuta_status_progress_tick (status, NULL, status_mesg);
+				g_free (status_mesg);
 			}
-		}
-		else
-		{
-			if (strstr (*line, "anjutatags.gz"))
-			{
-				gchar *progress_text;
-				plugin->current_count++;
-				gtk_progress_bar_set_fraction (GTK_PROGRESS_BAR (plugin->progress_bar),
-											   ((double) plugin->current_count) /
-											   plugin->packages_count);
-				progress_text = g_strdup_printf ("%d/%d packages",
-												 plugin->current_count,
-												 plugin->packages_count);
-				gtk_progress_bar_set_text (GTK_PROGRESS_BAR (plugin->progress_bar),
-										   progress_text);
-				g_free (progress_text);
-			}
+			else
+				anjuta_status_progress_tick (status, NULL, *line);
 		}
 		line++;
 	}
@@ -687,6 +689,7 @@ on_system_tags_update_finished (AnjutaLauncher *launcher, gint child_pid,
 								gint status, gulong time_taken,
 								SymbolBrowserPlugin *plugin)
 {
+	AnjutaStatus *statusbar;
 	GList *enabled_paths = NULL;
 	GtkTreeIter iter;
 	gchar *tag_path;
@@ -719,28 +722,21 @@ on_system_tags_update_finished (AnjutaLauncher *launcher, gint child_pid,
 	g_list_foreach (enabled_paths, (GFunc)g_free, NULL);
 	g_list_free (enabled_paths);
 	
-	gtk_widget_destroy (plugin->system_tags);
-	plugin->system_tags = NULL;
-}
-
-gint
-on_system_tags_window_delete_event (GtkWidget *window, GdkEvent *event,
-									gpointer plugin)
-{
-	return TRUE;
+	g_object_unref (plugin->launcher);
+	plugin->launcher = NULL;
+	statusbar = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	anjuta_status_progress_tick (statusbar, NULL,
+								 _("Completed system tags generation"));
 }
 
 static void 
 on_update_global_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 {
-	GtkWidget *top_level;
-	GladeXML *gxml;
 	gchar* tmp;
 	gint pid;
-	AnjutaLauncher* launcher;
 	IAnjutaMessageManager* mesg_manager;
 
-	if (plugin->system_tags)
+	if (plugin->launcher)
 		return; /* Already running */
 	
 	/* Create local tags directory */	
@@ -753,33 +749,12 @@ on_update_global_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 	waitpid (pid, NULL, 0);
 	g_free (tmp);
 	
-	gxml = glade_xml_new (PREFS_GLADE, "system_tags_window", NULL);
-	plugin->packages_count = -1;
-	plugin->current_count = 0;
-	plugin->system_tags = glade_xml_get_widget (gxml, "system_tags_window");
-	plugin->progress_bar = glade_xml_get_widget (gxml, "progressbar");
-	g_object_unref (gxml);
-	
-	gtk_widget_show_all (plugin->system_tags);
-	g_signal_connect (G_OBJECT (plugin->system_tags), "delete-event",
-					  G_CALLBACK (on_system_tags_window_delete_event),
-					  plugin);
-	if (button)
-	{
-		top_level = gtk_widget_get_toplevel (button);
-	}
-	else
-	{
-		top_level = GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell);
-	}
-	gtk_window_set_transient_for (GTK_WINDOW (plugin->system_tags),
-								  GTK_WINDOW (top_level));
-	
-	launcher = anjuta_launcher_new ();
-	g_signal_connect (G_OBJECT (launcher), "child-exited",
+	plugin->launcher = anjuta_launcher_new ();
+	g_signal_connect (G_OBJECT (plugin->launcher), "child-exited",
 					  G_CALLBACK (on_system_tags_update_finished), plugin);
-	anjuta_launcher_set_buffered_output (launcher, TRUE);
-	anjuta_launcher_execute (launcher, CREATE_GLOBAL_TAGS, on_message, plugin);
+	anjuta_launcher_set_buffered_output (plugin->launcher, TRUE);
+	anjuta_launcher_execute (plugin->launcher, CREATE_GLOBAL_TAGS,
+							 on_message, plugin);
 }
 
 static GtkWidget *

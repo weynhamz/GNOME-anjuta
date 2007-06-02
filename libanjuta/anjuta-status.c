@@ -317,8 +317,8 @@ anjuta_status_add_widget (AnjutaStatus *status, GtkWidget *widget)
 }
 
 void
-anjuta_status_progress_set_splash (AnjutaStatus *status, const gchar *splash_file,
-								   gint splash_progress_position)
+anjuta_status_set_splash (AnjutaStatus *status, const gchar *splash_file,
+						  gint splash_progress_position)
 {
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
 	g_return_if_fail (splash_file != NULL);
@@ -330,12 +330,18 @@ anjuta_status_progress_set_splash (AnjutaStatus *status, const gchar *splash_fil
 }
 
 void
-anjuta_status_progress_disable_splash (AnjutaStatus *status,
-									   gboolean disable_splash)
+anjuta_status_disable_splash (AnjutaStatus *status,
+							  gboolean disable_splash)
 {
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
 
 	status->priv->disable_splash = disable_splash;
+	if (status->priv->splash)
+	{
+		gtk_widget_destroy (status->priv->splash);
+		status->priv->splash = NULL;
+		anjuta_status_progress_add_ticks (status, 0);
+	}
 }
 
 void
@@ -344,7 +350,7 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 	gfloat percentage;
 	
 	g_return_if_fail (ANJUTA_IS_STATUS (status));
-	g_return_if_fail (ticks > 0);
+	g_return_if_fail (ticks >= 0);
 	
 	status->priv->total_ticks += ticks;
 	if (!GTK_WIDGET_REALIZED (status))
@@ -359,7 +365,6 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 		}
 	}
 	percentage = ((gfloat)status->priv->current_ticks)/status->priv->total_ticks;
-	
 	if (status->priv->splash)
 	{
 		e_splash_set (E_SPLASH(status->priv->splash), NULL, NULL, NULL,

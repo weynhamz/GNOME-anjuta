@@ -22,6 +22,7 @@
 #define _SYMBOL_BROWSER_PLUGIN_H_
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/anjuta-launcher.h>
 
 G_BEGIN_DECLS
 
@@ -32,8 +33,6 @@ extern GType symbol_browser_plugin_get_type (AnjutaGluePlugin *plugin);
 #define ANJUTA_IS_PLUGIN_SYMBOL_BROWSER(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER))
 #define ANJUTA_IS_PLUGIN_SYMBOL_BROWSER_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER))
 #define ANJUTA_PLUGIN_SYMBOL_BROWSER_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER, SymbolBrowserPluginClass))
-
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-symbol-browser-plugin.glade"
 
 typedef struct _SymbolBrowserPlugin SymbolBrowserPlugin;
 typedef struct _SymbolBrowserPluginClass SymbolBrowserPluginClass;
@@ -67,12 +66,7 @@ struct _SymbolBrowserPlugin{
 	GList *gconf_notify_ids;
 	
 	gint locals_line_number;
-	
-	/* System tags scanning dialog */
-	GtkWidget *system_tags;
-	GtkWidget *progress_bar;
-	gint packages_count;
-	gint current_count;
+	AnjutaLauncher *launcher;
 };
 
 struct _SymbolBrowserPluginClass{

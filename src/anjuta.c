@@ -299,9 +299,9 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 	anjuta_status_progress_add_ticks (status, 1);
 	
 	if (im_file)
-		anjuta_status_progress_set_splash (status, im_file, 100);
+		anjuta_status_set_splash (status, im_file, 100);
 	if (no_splash)
-		anjuta_status_progress_disable_splash (status, no_splash);
+		anjuta_status_disable_splash (status, no_splash);
 
 	if (proper_shutdown)
 	{
@@ -493,5 +493,6 @@ anjuta_new (gchar *prog_name, GList *prog_args, gboolean no_splash,
 					  G_CALLBACK (on_profile_descoped), app);
 	
 	anjuta_status_progress_tick (status, NULL, _("Loaded Session..."));
+	anjuta_status_disable_splash (status, TRUE);
 	return app;
 }
