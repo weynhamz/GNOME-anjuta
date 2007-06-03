@@ -178,7 +178,7 @@
        </figure>
 	  </para>
 	  <para>
-	   The <bold>Show Hidden</bold>, if switched on (Click right), will make the hidden
+	   The <emphasis>Show Hidden</emphasis>, if switched on (Click right), will make the hidden
 	   files (files starting with "."; visible in the file list. Depress it to make
 	   them hide. <application>Anjuta</application> fileselection dialog also has inbuild
 	   file type filter. Select the appropiate file type filter in the dialog and the file

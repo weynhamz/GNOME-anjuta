@@ -2,8 +2,8 @@ include $(top_srcdir)/gnome-doc-utils.make
 dist-hook: doc-dist-hook
 DOC_MODULE = anjuta-manual
 DOC_ENTITIES = legal.xml debugger.xml introduction.xml  projects.xml \
-	authors.xml execute.xml legal.xml template.xml \
-	build.xml fileoperations.xml license.xml tools.xml \
+	authors.xml legal.xml template.xml \
+	fileoperations.xml license.xml tools.xml \
 	interface.xml preferences.xml
 DOC_INCLUDES =
 DOC_FIGURES = figures/a2ps.png      \

@@ -234,11 +234,21 @@
    <sect2 id="adding-groups">
     <title>Adding Groups</title>
     <para>
-     To add a new group (a directory in automake based projects),
-     select <menuchoice><guisubmenu>Project</guisubmenu>
-	 <guimenuitem>Add Group</guimenuitem></menuchoice> and a dialog to
-     add a new group would popup. Select the group under which to add new
-     group, give a name of the new group and click Ok. With automake projects,
+     To add a new group (a directory in automake based projects):
+        <itemizedlist>
+         <listitem>
+           Select <menuchoice><guisubmenu>Project</guisubmenu>
+	   <guimenuitem>Add Group</guimenuitem></menuchoice> and a dialog to
+           add a new group would popup. 
+         </listitem>
+         <listitem>
+           Select the group under which to add new group.
+         </listitem>
+         <listitem>
+            Give a name of the new group and click Ok.
+         </listitem>
+        </itemizedlist>
+     With automake projects,
      a new directory with the given name would be created under the parent
      group's directory.
     </para>
@@ -253,9 +263,17 @@
    <sect2 id="removing-group">
     <title>Removing Groups</title>
     <para>
-      To remove a group, select the target in <interface>Project Manager view</interface>
-      and select <guimenuitem>Remove</guimenuitem> from the
-      <guimenu>Operation</guimenu> menu. The target and sources associated
+    To remove a group:
+    <itemizedlist>
+     <listitem>
+       Select the target in <interface>Project Manager view</interface>.
+     </listitem>
+     <listitem>
+       Select <guimenuitem>Remove</guimenuitem> from the
+       <guimenu>Operation</guimenu> menu.
+     </listitem>
+    </itemizedlist>
+      The target and sources associated
       with the group will also be removed from the project (they are not
       deleted from the file system, though. You can still add them later).
     </para>
@@ -264,10 +282,23 @@
    <sect2 id="adding-target">
     <title>Adding Targets</title>
     <para>
-     To add a new target, select <menuchoice><guisubmenu>Project</guisubmenu>
-	 <guimenuitem>Add Target</guimenuitem></menuchoice> and a dialog to
-     add a new target would popup. Select the group under which to add the target,
-     select the target type, give a name of the new target and click Ok.
+     To add a new target:
+     <itemizedlist>
+      <listitem>
+       Select <menuchoice><guisubmenu>Project</guisubmenu>
+       <guimenuitem>Add Target</guimenuitem></menuchoice> and a dialog to
+       add a new target would popup.
+     </listitem>
+     <listitem>
+      Select the group under which to add the target.
+     </listitem>
+     <listitem>
+      Select the target type.
+     </listitem>
+     <listitem>
+      Give a name of the new target and click Ok.
+     </listitem>
+    </itemizedlist>
     </para>
     <para>
      New target can also be added from the <guimenu>Operation</guimenu> menu
@@ -371,9 +402,17 @@
    <sect2 id="removing-target">
     <title>Removing Targets</title>
     <para>
-      To remove a target, select the target in <interface>Project Manager view</interface>
-      and select <guimenuitem>Remove</guimenuitem> from the
-      <guimenu>Operation</guimenu> menu. The sources associated with the targets
+      To remove a target:
+      <itemizedlist>
+       <listitem>
+        Select the target in <interface>Project Manager view</interface>;
+       </listitem>
+       <listitem>
+        Select <guimenuitem>Remove</guimenuitem> from the
+        <guimenu>Operation</guimenu> menu.
+       </listitem>
+      </itemizedlist>
+      The sources associated with the targets
       will also be removed from the project (they are not deleted from the
       file system, though).
     </para>
@@ -499,15 +538,86 @@
     <para>
     Project properties dialog can be only brought by
     choosing <menuchoice><guisubmenu>Project</guisubmenu>
-	 <guimenuitem>Properties</guimenuitem></menuchoice>.
-	You can add and remove depencies for your project there.
-	 <figure>
+    <guimenuitem>Properties</guimenuitem></menuchoice>. You can:
+    <itemizedlist>
+     <listitem>
+      Set project name, version and URL in <guibutton>General</guibutton> page.
+      Configure variables can also be use in these fields. The URL is the
+      bug report URL for the project.
+     </listitem>
+     <listitem>
+      Add and remove dependencies for your project in
+      <guibutton>Packages</guibutton> page. See below for details.
+     </listitem>
+     <listitem>
+      Create more configure variables in <guibutton>Variables</guibutton> page
+      to use in group and target properties.
+     </listitem>
+    </itemizedlist>
+    </para>
+    <para>
+    Dependencies
+    are external packages that the project uses and hence required
+    to build it. Only packages installed using
+    <ulink url="info:pkg-config">pkg-config</ulink>
+    can be added from this interface. For others, the configure.ac file can
+    be edited manually.
+    <figure>
        <title>Project properties dialog</title>
        <screenshot>
 	   <screeninfo>Project properties dialog</screeninfo>
         <graphic fileref="figures/project_info.png" format="PNG" srccredit="jhs"></graphic>
        </screenshot>
      </figure>
+   </para>
+   <para>
+    External package dependencies are grouped into <emphasis>modules</emphasis>,
+    so that their combined build flags can be conviniently added to different
+    targets. <emphasis>Modules</emphasis> are just arbitrary names given to
+    group the packages and can be named anything (only alphanumeric and _ are
+    allowed in module name). Usually, they follow the name of
+    targets they would be use in. Consequently, for small projects with single 
+    targets, just one module to hold all dependencies is enough.
+   </para>
+   <para>
+    Each package exports a set of <emphasis>compiler flags</emphasis>
+    and <emphasis>libraries</emphasis>. They are aggregated together for
+    all packages under a module and configure variables
+    <emphasis>$(module_CFLAGS)</emphasis> and
+    <emphasis>$(module_LIBS)</emphasis> are defined. These variables can then
+    be used in <link linkend="group-properties">Group properties</link>
+    and <link linkend="target-properties">Target properties</link>.
+   </para>
+   <para>
+    To add a package dependency:
+    <itemizedlist>
+     <listitem>
+      Select <menuchoice><guisubmenu>Project</guisubmenu>
+      <guimenuitem>Properties</guimenuitem></menuchoice> to bring up project
+      properties dialog.
+     </listitem>
+     <listitem>
+      Select the tab <guibutton>Packages</guibutton> to bring up packages
+      page.
+     </listitem>
+     <listitem>
+      Select the <emphasis>module</emphasis> to add the package to. If there
+      is no module created yet or there is no appropriate module, create one
+      by clicking <guibutton>Add module</guibutton>. Give a sensible name to the
+      module, preferably in UPPERCASE to match with rest of configure variables
+      (only use alphanumeric and '_' characters) and press <keycap>Enter</keycap>
+      to create it.
+     </listitem>
+     <listitem>
+      Click <guibutton>Add package</guibutton> to bring up package selection dialog.
+     </listitem>
+     <listitem>
+      Select the package to add and click <guibutton>Add</guibutton>.
+     </listitem>
+     <listitem>
+      Click <guibutton>Close</guibutton> to close the properties dialog.
+     </listitem>
+    </itemizedlist>
    </para>
    </sect2>
 
@@ -665,9 +775,8 @@
     </para>
     <para>
      To compile a file, choose the menu item <menuchoice><guisubmenu>Build</guisubmenu>
-	 <guimenuitem>Compile</guimenuitem></menuchoice> or click on the 
-	 <guibutton>Compile</guibutton> icon on the extended toolbar. This will 
-	 compile the active file.
+     <guimenuitem>Compile</guimenuitem></menuchoice> or  press <keycap>F11</keycap>.
+     This will compile the active file.
     </para>
    </sect2>
    <sect2 id="building-exec">
@@ -843,5 +952,31 @@
     </para>
    </sect2>
   </sect1>
- 
+ <sect1 id="executing-program">
+ <title>Executing program</title>
+   <para>
+    Once an executable is ready after the build, you can execute it by choosing the menu item
+    <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Execute</guimenuitem></menuchoice>, 
+    or pressing <keycap>F3</keycap>. You can specify which executable you want to use in case your project
+    provides more than one and specify command line arguments. 
+   </para>
+   <note>
+   <title>Dependencies</title>
+   <para>
+    Unlike the build stage, execution doesn't check for dependencies 
+	(at least for the time being). In other words, it does not check if the 
+	executable is up-to-date before it executes the program. 
+	So, <emphasis>you must take care of that yourself.</emphasis>
+   </para>
+   </note>
+   <para>
+  </para>
+  <figure id="params">
+   <title>Choose executable and set program parameters</title>
+   <screenshot>
+   <screeninfo>Setting program parameters</screeninfo>
+    <graphic fileref="figures/arguments.png" format="PNG" srccredit="jhs"></graphic>
+   </screenshot>
+  </figure>
+ </sect1>
  </chapter>
