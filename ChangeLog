@@ -1,3 +1,8 @@
+2007-05-17 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* manuals/anjuta-manual/C/debugger.xml:
+	First update of the debugger documentation
+
 2007-05-30  Naba Kumar  <naba@gnome.org>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c: Fixed
