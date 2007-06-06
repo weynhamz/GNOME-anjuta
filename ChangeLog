@@ -3,6 +3,35 @@
 	* manuals/anjuta-manual/C/debugger.xml:
 	First update of the debugger documentation
 
+2007-06-04  Naba Kumar  <naba.kumar@nokia.com>
+
+	* manuals/anjuta-manual/C/fileoperations.xml,
+	manuals/anjuta-manual/C/projects.xml,
+	manuals/anjuta-manual/C/anjuta-manual.xml,
+	manuals/anjuta-manual/C/build.xml,
+	manuals/anjuta-manual/C/execute.xml,
+	manuals/anjuta-manual/Makefile.am: Updated more documentation.
+	Added project properties documentation. Moved execution section
+	inside project management. Removed dead documentation.
+
+2007-06-02  Naba Kumar  <naba.kumar@nokia.com>
+
+	* src/anjuta.c, plugins/symbol-browser/plugin.c,
+	plugins/symbol-browser/plugin.h,
+	plugins/symbol-browser/an_symbol_prefs.c,
+	plugins/symbol-browser/anjuta-symbol-browser-plugin.glade,
+	libanjuta/anjuta-status.c, libanjuta/anjuta-status.h: Use internal
+	progress bar instead of separate window for system tags
+	generation. Renamed AnjutaStatus methods to a proper ones.
+
+	* plugins/symbol-browser/plugin.c,
+	plugins/symbol-browser/plugin.h,
+	plugins/symbol-browser/an_symbol_prefs.c,
+	plugins/symbol-browser/anjuta-symbol-browser-plugin.glade,
+	global-tags/create_global_tags.sh.in: Get rid of message window
+	for showing global tags creation and use a small window with
+	progress bar.
+
 2007-05-30  Naba Kumar  <naba@gnome.org>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c: Fixed
