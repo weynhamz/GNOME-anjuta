@@ -1,0 +1,72 @@
+<project-wizard>
+	<name>SDL</name>
+	<description>A sample SDL project</description>
+	<icon>appwiz_sdl.png</icon>
+	<category>C</category>
+</project-wizard>
+
+<page name="basic" _label="Basic information" _description="General Project Infromation">
+	<property type="string" name="Name" _label="Project Name:" _description="project name" default="sdl-foobar" summary="yes" mandatory="yes"/>
+	<property type="string" name="Author" _label="Author:" _description="" default="[+UserName+]" mandatory="yes"/>
+	<property type="string" name="Email" _label="Email address:" _description="" default="[+EmailAddress+]" mandatory="no"/>
+	<property type="string" name="Version" _label="Version:" default="0.1" mandatory="yes"/>
+</page>
+
+<page name="options" _label="Project options" _description="Options for project build system">
+	<property type="hidden" name="NameUpper" default="[+(string-upcase (get "Name"))+]"/>
+	<property type="hidden" name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
+	<property type="hidden" name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
+	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
+	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]/[+(string-downcase (get "Name"))+]" mandatory="yes" exist="no" summary="yes"/>
+	<property type="list" name="License" _label="License" _description="Select code license" default="GPL" editable="no">
+		<item name="GPL" _label="General Public License(GPL)"/>
+		<item name="LGPL" _label="Lesser General Public License(LGPL)"/>
+		<item name="BSD" _label="Berkeley Software Distribution License(BSD)"/>
+		<item name="None" _label="No license"/>
+	</property>
+	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
+	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
+	<property type="string" name="SDL_Version" _label="Require SDL version:" _description="Mininum SDL version required" default="1.2.0"/>
+	<property type="boolean" name="HaveSDL_image" _label="Require SDL_image:" _description="Require SDL_image library" default="0"/>
+	<property type="boolean" name="HaveSDL_gfx" _label="Require SDL_gfx:" _description="Require SDL_gfx library" default="0"/>
+	<property type="boolean" name="HaveSDL_ttf" _label="Require SDL_ttf:" _description="Require SDL_ttf library" default="0"/>
+	<property type="boolean" name="HaveSDL_mixer" _label="Require SDL_mixer:" _description="Require SDL_mixer library" default="0"/>
+	<property type="boolean" name="HaveSDL_net" _label="Require SDL_net:" _description="Require SDL_net library" default="0"/>
+</page>
+
+<content>
+	<directory source="terminal" destination="[+Destination+]">
+		<file source="AUTHORS"/>
+		<file source="ChangeLog"/>
+		<file source="Makefile.am.tpl" destination="Makefile.am"/>
+		<file source="NEWS"/>
+		<file source="README"/>
+		<file source="autogen.sh" executable="yes"/>
+		<file destination="[+NameLower+].anjuta" source="project.anjuta"/>
+		<file source="cvsignore" destination=".cvsignore"/>
+		<directory source="src">
+			<file source="cvsignore" destination=".cvsignore"/>
+		</directory>
+		[+IF (=(get "HaveI18n") "1") +]
+		<directory source="po">
+			<file source="ChangeLog"/>
+			<file source="POTFILES.in"/>
+			<file source="LINGUAS" />
+			<file source="cvsignore" destination=".cvsignore"/>
+		</directory>
+		[+ENDIF+]
+	</directory>
+	<directory source="sdl" destination="[+Destination+]">
+		<file source="configure.ac.tpl" destination="configure.ac"/>
+		<file source="acinclude.m4.tpl" destination="acinclude.m4"/>
+		<directory source="src">
+			<file source="main.c"/>
+			<file source="Makefile.am.tpl" destination="Makefile.am"/>
+		</directory>
+	</directory>
+</content>
+
+<action>
+	<run command="sh -c 'cd [+Destination+] &amp;&amp; ./autogen.sh'"/>
+	<open file="[+Destination+]/[+NameLower+].anjuta"/>
+</action>

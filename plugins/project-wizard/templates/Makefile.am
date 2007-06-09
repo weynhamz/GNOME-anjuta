@@ -1,7 +1,7 @@
 
 SUBDIRS = minimal terminal cpp gtk anjuta-plugin gnome \
 	gtkmm wxwin xlib xlib-dock gcj java \
-	python mkfile
+	python mkfile sdl
 
 wizard_filesdir = $(anjuta_data_dir)/project
 wizard_files_DATA = \
@@ -32,7 +32,10 @@ wizard_files_DATA = \
 	python.wiz \
 	python-logo.png \
 	mkfile.wiz \
-	mkfile-logo.png
+	mkfile-logo.png \
+	sdl.wiz \
+	appwiz_sdl.png
+
 
 BUILT_SOURCES = translatable-strings.h extract-translatable-strings.pl
 translatable-strings.h: $(wizard_files_DATA)

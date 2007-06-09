@@ -1,3 +1,26 @@
+2007-06-09 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/project-wizard/templates/mkfile.wiz:
+	Fix bug #442038: missing project.sh file
+
+	* configure.in,
+	plugins/project-wizard/templates/Makefile.am,
+	plugins/project-wizard/templates/translatable-strings.h,
+	(added) plugins/project-wizard/templates/sdl.wiz,
+	(added) plugins/project-wizard/templates/appwiz_sdl.png,
+	(added) plugins/project-wizard/templates/sdl/configure.ac.tpl,
+	(added) plugins/project-wizard/templates/sdl/acinclude.m4.tpl,
+	(added) plugins/project-wizard/templates/sdl/Makefile.am,
+	(added) plugins/project-wizard/templates/sdl/.cvsignore,
+	(added) plugins/project-wizard/templates/sdl/src/main.c,
+	(added) plugins/project-wizard/templates/sdl/src/Makefile.am.tpl,
+	(added) plugins/project-wizard/templates/sdl/src/Makefile.am,
+	(added) plugins/project-wizard/templates/sdl/src/.cvsignore,
+	(added) plugins/project-wizard/templates/sdl/po/Makefile.am,
+	(added) plugins/project-wizard/templates/sdl/po/POTFILES.in,
+	(added) plugins/project-wizard/templates/sdl/po/.cvsignore:
+	Fix bug #315635: add a SDL project wizard
+
 2007-06-09  Naba Kumar  <naba.kumar@nokia.com>
 
 	* libanjuta/anjuta-children.c: Avoid a race condition and deadlock
@@ -5,7 +28,7 @@
 	happens when child_exited callback also accesses main loop context.
 	Happens particularly badly in debug target exiting.
 
-2007-05-17 Sebastien Granjoux <seb.sfo@free.fr>
+2007-06-05 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* manuals/anjuta-manual/C/debugger.xml:
 	First update of the debugger documentation

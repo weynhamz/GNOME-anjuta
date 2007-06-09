@@ -12,7 +12,6 @@
 
 <content>
 	<directory source="mkfile" destination="[+Destination+]">
-		<file source="project.sh" executable="yes"/>
 		<file destination="[+Destination+]/[+Name+].anjuta" source="project.anjuta"/>
 		<file destination="[+Destination+]/[+Name+].c" source="src/main.c"/>
 		<file destination="[+Destination+]/Makefile" source="src/Makefile.tpl"/>
