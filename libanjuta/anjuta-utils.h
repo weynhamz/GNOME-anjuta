@@ -26,8 +26,6 @@
 
 #include <libanjuta/anjuta-preferences.h>
 
-#include "config.h"
-
 G_BEGIN_DECLS
 
 gboolean anjuta_util_copy_file (gchar * src, gchar * dest, gboolean show_error);
@@ -112,11 +110,6 @@ gchar* anjuta_util_escape_quotes(const gchar* str);
 gboolean anjuta_util_path_has_extension (const gchar *path, const gchar *ext);
 
 gchar* anjuta_util_get_uri_mime_type (const gchar *uri);
-
-#ifndef HAVE_LIBUTIL
-#include <grp.h>
-int forkpty(int *amaster, char *name, struct termios *termp, struct winsize *winp);
-#endif /* HAVE_LIBUTIL */
 
 /* Temporarily copied here */
 

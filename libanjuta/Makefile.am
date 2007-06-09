@@ -43,6 +43,7 @@ libanjuta_la_SOURCES= \
 	anjuta-ui.c \
 	anjuta-launcher.c \
 	anjuta-utils.c \
+	anjuta-utils-priv.h \
 	anjuta-children.c \
 	anjuta-session.c \
 	anjuta-save-prompt.c \

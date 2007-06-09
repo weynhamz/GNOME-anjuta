@@ -1,5 +1,13 @@
 2007-06-09 Sebastien Granjoux <seb.sfo@free.fr>
 
+	* (added) libanjuta/anjuta-utils-priv.h,
+	libanjuta/anjuta-utils.h,
+	libanjuta/anjuta-launcher.c,
+	libanjuta/Makefile.am:
+	Fix bug #440801: do not use config.h in public include files
+
+2007-06-09 Sebastien Granjoux <seb.sfo@free.fr>
+
 	* plugins/project-wizard/templates/mkfile.wiz:
 	Fix bug #442038: missing project.sh file
 

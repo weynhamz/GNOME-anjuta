@@ -43,6 +43,7 @@
 #    include <libutil.h>
 #  endif
 #endif
+#include "anjuta-utils-priv.h"
 
 #include <assert.h>
 #include <termios.h>
