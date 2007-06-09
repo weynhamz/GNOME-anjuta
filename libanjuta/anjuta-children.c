@@ -39,25 +39,90 @@
  */
 
 #include <signal.h>
-
 #include <libanjuta/anjuta-children.h>
-#include <signal.h>
+#include <libanjuta/anjuta-debug.h>
+#define EXIT_POLL_TIMEOUT 100 /* 100 ms */
 
 static GList *registered_child_processes = NULL;
 static GList *registered_child_processes_cb = NULL;
 static GList *registered_child_processes_cb_data = NULL;
+static GList *pending_exit_notifies = NULL;
+static gint exit_poll_timeout = 0;
+
+typedef struct {
+	int status;
+	pid_t pid;
+} ExitNotifyData;
+
+static gboolean
+on_notify_child_exit (gpointer user_data)
+{
+	gint idx;
+	int (*callback) (int st, gpointer d);
+	gpointer cb_data;
+	ExitNotifyData *idle_data; /* = (ExitNotifyData*) user_data; */
+	pid_t pid;
+	int status;
+	
+	/* If no child is currently registered, remove timer */
+	if (registered_child_processes == NULL)
+	{
+		DEBUG_PRINT ("No child process to monitor, destroying poll timer");
+		exit_poll_timeout = 0;
+		return FALSE;
+	}
+	
+	/* If nothing pending, wait for next poll */
+	if (pending_exit_notifies == NULL)
+		return TRUE;
+
+	idle_data = pending_exit_notifies->data;
+	pending_exit_notifies = g_list_remove_link (pending_exit_notifies,
+												pending_exit_notifies);
+	pid = idle_data->pid;
+	status = idle_data->status;
+	g_free (idle_data);
+	
+	idx = g_list_index (registered_child_processes, (int *) pid);
+	if (idx < 0)
+		return TRUE; /* Continue polling */
+
+	callback =
+		g_list_nth_data (registered_child_processes_cb, idx);
+	g_return_if_fail (callback != NULL);
+	
+	cb_data = g_list_nth_data (registered_child_processes_cb_data, idx);
+	if (callback)
+		(*callback) (status, cb_data);
+	anjuta_children_unregister (pid);
+
+	/* If no child is currently registered, remove timer */
+	if (registered_child_processes == NULL)
+	{
+		DEBUG_PRINT ("No child process to monitor, destroying poll timer");
+		exit_poll_timeout = 0;
+		return FALSE;
+	}
+	return TRUE; /* Otherwise continue polling */
+}
 
 static void
 anjuta_child_terminated (int t)
 {
-	int status;
 	gint idx;
+	int status;
 	pid_t pid;
-	int (*callback) (int st, gpointer d);
-	gpointer cb_data;
+	sigset_t set, oldset;
 	
+	/* block other incoming SIGCHLD signals */
+	sigemptyset(&set);
+	sigaddset(&set, SIGCHLD);
+	sigprocmask(SIG_BLOCK, &set, &oldset);
+
 	while (1)
 	{
+		ExitNotifyData *idle_data;
+		
 		pid = waitpid (-1, &status, WNOHANG);
 		
 		if (pid < 1)
@@ -65,16 +130,26 @@ anjuta_child_terminated (int t)
 		idx = g_list_index (registered_child_processes, (int *) pid);
 		if (idx < 0)
 			continue;
-		callback =
-			g_list_nth_data (registered_child_processes_cb, idx);
-		g_return_if_fail (callback != NULL);
 		
-		cb_data = g_list_nth_data (registered_child_processes_cb_data, idx);
-		if (callback)
-			(*callback) (status, cb_data);
-		anjuta_children_unregister (pid);
-		anjuta_children_recover ();
+		idle_data = g_new0 (ExitNotifyData, 1);
+		idle_data->pid = pid;
+		idle_data->status = status;
+		
+		/* Queue the exit notify so that it is handled in proper main loop
+		 * context.
+		 * FIXME: This is not thread safe. We should instead created a GSource
+		 * class for this 'event'.
+		 */
+		pending_exit_notifies = g_list_append (pending_exit_notifies,
+											   idle_data);
 	}
+	/* re-install the signal handler (some systems need this) */
+	anjuta_children_recover ();
+
+	/* and unblock it */
+	sigemptyset(&set);
+	sigaddset(&set, SIGCHLD);
+	sigprocmask(SIG_UNBLOCK, &set, &oldset);	
 }
 
 /**
@@ -117,6 +192,20 @@ anjuta_children_register (pid_t pid,
 		g_list_append (registered_child_processes_cb, ch_terminated);
 	registered_child_processes_cb_data =
 		g_list_append (registered_child_processes_cb_data, data);
+	
+	/* Start exit poll if not yet running */
+
+	/* Callback is notified in idle to ensure it is process in
+	 * main loop. Otherwise a deadlock could occur if the SIGCHLD was
+	 * received after a lock in mainloop and the callback tries to
+	 * use mainloop again (e.g. adding/removing a idle/timeout function.
+	 */
+	if (exit_poll_timeout == 0)
+	{
+		DEBUG_PRINT ("Setting up child process monitor poll timer");
+		exit_poll_timeout = g_timeout_add (EXIT_POLL_TIMEOUT,
+										   on_notify_child_exit, NULL);
+	}
 }
 
 /**
@@ -172,4 +261,7 @@ void
 anjuta_children_finalize()
 {
 	signal(SIGCHLD, SIG_DFL);
+	if (exit_poll_timeout)
+		g_source_remove (exit_poll_timeout);
+	exit_poll_timeout = 0;
 }

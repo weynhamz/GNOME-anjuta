@@ -1,3 +1,10 @@
+2007-06-09  Naba Kumar  <naba.kumar@nokia.com>
+
+	* libanjuta/anjuta-children.c: Avoid a race condition and deadlock
+	when SIGCHLD is triggered when main loop context is locked. Dead lock
+	happens when child_exited callback also accesses main loop context.
+	Happens particularly badly in debug target exiting.
+
 2007-05-17 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* manuals/anjuta-manual/C/debugger.xml:
