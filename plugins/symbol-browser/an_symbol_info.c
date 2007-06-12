@@ -70,6 +70,7 @@ symbol_info_dup (const AnjutaSymbolInfo *from)
 	if (NULL != from)
 	{
 		AnjutaSymbolInfo *to = g_new0 (AnjutaSymbolInfo, 1);
+		to->node_type = from->node_type;
 		if (from->sym_name)
 			to->sym_name = g_strdup (from->sym_name);
 		if (from->def.name)

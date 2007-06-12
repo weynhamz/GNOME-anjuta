@@ -121,34 +121,34 @@ about_read_file(void)
 	gint i_auth = 0;
 	gint i_doc = 0;
 
-	if ( (fp = fopen(PACKAGE_DOC_DIR"/"ABOUT_AUTHORS, "r")) )
+	fp = fopen(PACKAGE_DATA_DIR"/"ABOUT_AUTHORS, "r");
+	
+	g_return_if_fail (fp != NULL);
+	line = about_read_line(fp);
+	do
 	{
-		line = about_read_line(fp);
-		do
+		line = g_strchomp(line);
+		if (g_str_has_suffix(line, "Developer:") ||
+			g_str_has_suffix(line, "Developers:") ||
+			g_str_has_suffix(line, "Contributors:") ||
+			g_str_has_suffix(line, "Note:"))
 		{
-			line = g_strchomp(line);
-			if (g_str_has_suffix(line, "Developer:") ||
-				g_str_has_suffix(line, "Developers:") ||
-				g_str_has_suffix(line, "Contributors:") ||
-				g_str_has_suffix(line, "Note:"))
-			{
-				line = about_read_developers(fp, line, &i_auth, authors);
-			}
-			else if (g_str_has_suffix(line, "Website:") ||
-					 g_str_has_suffix(line, "Documenters:") )
-			{
-				line = read_documenters(fp, line, &i_doc, documenters);
-			}
-			else if (g_str_has_suffix(line, "Translators:")  )
-			{
-				line = read_translators(fp, line);
-			}
-			else
-				line = about_read_line(fp);
+			line = about_read_developers(fp, line, &i_auth, authors);
 		}
-		while (line);
-		fclose(fp);
+		else if (g_str_has_suffix(line, "Website:") ||
+				 g_str_has_suffix(line, "Documenters:") )
+		{
+			line = read_documenters(fp, line, &i_doc, documenters);
+		}
+		else if (g_str_has_suffix(line, "Translators:")  )
+		{
+			line = read_translators(fp, line);
+		}
+		else
+			line = about_read_line(fp);
 	}
+	while (line);
+	fclose(fp);
 }
 
 static void

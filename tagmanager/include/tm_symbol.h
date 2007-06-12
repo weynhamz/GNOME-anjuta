@@ -31,7 +31,7 @@ typedef struct _TMSymbol
 {
 	TMTag *tag; /*!< The tag corresponding to this symbol */
 	struct _TMSymbol *parent; /*!< Parent class/struct for functions/variables */
-	union
+	struct
 	{
 		GPtrArray *children; /*!< Array of child symbols */
 		TMTag *equiv; /*!< Prototype tag for functions */

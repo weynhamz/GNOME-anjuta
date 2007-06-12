@@ -748,7 +748,7 @@ tm_get_current_function (GPtrArray * file_tags, const gulong line)
 static int
 find_scope_members_tags (const GPtrArray * all, GPtrArray * tags,
 						 const langType langJava, const char *name,
-						 const char *filename)
+						 const char *filename, gboolean no_definitions)
 {
 	GPtrArray *local = g_ptr_array_new ();
 	unsigned int i;
@@ -757,7 +757,7 @@ find_scope_members_tags (const GPtrArray * all, GPtrArray * tags,
 	for (i = 0; (i < all->len); ++i)
 	{
 		tag = TM_TAG (all->pdata[i]);
-		if (filename && tag->atts.entry.file &&
+		if (no_definitions && filename && tag->atts.entry.file &&
 			0 != strcmp (filename,
 						 tag->atts.entry.file->work_object.short_name))
 		{
@@ -1062,11 +1062,9 @@ tm_workspace_find_namespace_members (const GPtrArray * file_tags, const char *na
 	return tags;
 }
 
-
-
 const GPtrArray *
 tm_workspace_find_scope_members (const GPtrArray * file_tags, const char *name,
-								 gboolean search_global)
+								 gboolean search_global, gboolean no_definitions)
 {
 	static GPtrArray *tags = NULL;
 	GPtrArray *local = NULL;
@@ -1154,7 +1152,7 @@ tm_workspace_find_scope_members (const GPtrArray * file_tags, const char *name,
 
 	g_ptr_array_set_size (tags, 0);
 
-	if (tag && tag->atts.entry.file)
+	if (no_definitions && tag && tag->atts.entry.file)
 	{
 		local = tm_tags_extract (tag->atts.entry.file->work_object.tags_array,
 								 (tm_tag_function_t | tm_tag_prototype_t |
@@ -1170,8 +1168,8 @@ tm_workspace_find_scope_members (const GPtrArray * file_tags, const char *name,
 	}
 	if (local)
 	{
-		found = find_scope_members_tags (local, tags,
-										 langJava, new_name, filename);
+		found = find_scope_members_tags (local, tags, langJava, new_name,
+										 filename, no_definitions);
 		g_ptr_array_free (local, TRUE);
 	}
 	if (!found && search_global)
@@ -1183,14 +1181,12 @@ tm_workspace_find_scope_members (const GPtrArray * file_tags, const char *name,
 											  tm_tag_method_t |
 											  tm_tag_function_t |
 											  tm_tag_enumerator_t
-											  
-											  								  
 											  |tm_tag_struct_t | tm_tag_typedef_t |
 											  tm_tag_union_t | tm_tag_enum_t));
 		if (global)
 		{
-			find_scope_members_tags (global, tags, langJava,
-									 new_name, filename);
+			find_scope_members_tags (global, tags, langJava, new_name,
+									 filename, no_definitions);
 			g_ptr_array_free (global, TRUE);
 		}
 	}

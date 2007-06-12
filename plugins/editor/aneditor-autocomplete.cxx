@@ -119,7 +119,8 @@ bool AnEditor::SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
 	if( !(ScanType && ScanType[0] != '\0') ) return false;
 		
 	const GPtrArray *tags = tm_workspace_find_scope_members(CurrentFileTags,
-															ScanType, TRUE);
+															ScanType, TRUE,
+															TRUE);
 	
 	if ((tags) && (tags->len > 0))
 	{	
@@ -710,7 +711,8 @@ bool AnEditor::StartAutoCompleteRecordsFields (char ch)
 	
 	while(was_long_decl)
 	{
-		tags = tm_workspace_find_scope_members(CurrentFileTags, name, TRUE);
+		tags = tm_workspace_find_scope_members(CurrentFileTags, name, TRUE,
+											   TRUE);
 		if (!((tags) && (tags->len > 0)))
 		{
 			if(new_name) g_free(new_name);

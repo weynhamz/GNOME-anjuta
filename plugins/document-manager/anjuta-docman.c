@@ -861,7 +861,9 @@ anjuta_docman_set_current_editor (AnjutaDocman *docman, IAnjutaEditor * te)
 		chdir (dir);
 	}
 */
-	uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
+	uri = NULL;
+	if (te)
+		uri = ianjuta_file_get_uri (IANJUTA_FILE(te), NULL);
 	if (te && uri)
 	{
 		gchar *hostname;

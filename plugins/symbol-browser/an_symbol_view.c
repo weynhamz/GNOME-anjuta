@@ -812,7 +812,8 @@ anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
 								 GtkTreeStore *store,
 								 GtkTreeIter *iter)
 {
-	if (((iter == NULL) || (tm_tag_function_t != sym->tag->type)) &&
+	if ((iter == NULL || (tm_tag_function_t != sym->tag->type &&
+						  tm_tag_prototype_t != sym->tag->type)) &&
 		(sym->info.children) && (sym->info.children->len > 0))
 	{
 		unsigned int j;
@@ -858,8 +859,9 @@ anjuta_symbol_view_add_children (AnjutaSymbolView *sv, TMSymbol *sym,
 								SYMBOL_NODE, sym1,
 								-1);
 			
-			if (((tm_tag_function_t != sym1->tag->type)) &&
-				(sym1->info.children) && (sym1->info.children->len > 0))
+			if (tm_tag_function_t != sym1->tag->type &&
+				tm_tag_prototype_t != sym1->tag->type &&
+				sym1->info.children && sym1->info.children->len > 0)
 			{
 				/* Append a dummy children node */
 				gtk_tree_store_append (store, &child_iter, &sub_iter);
@@ -1505,9 +1507,6 @@ anjuta_symbol_view_get_file_symbol (AnjutaSymbolView * sv,
 	return FALSE;
 }
 
-
-
-
 /*
  * for a given expression "myvar->getX().toFloat"
  * the function should just return "myvar"
@@ -1747,8 +1746,7 @@ sv_get_type_of_token (const gchar* ident, const gchar* klass, const TMTag* local
 	if (klass == NULL || (strcmp("", klass) == 0))
 		return NULL;
 	
-	tags_array = tm_workspace_find_scope_members (NULL, klass,
-												  TRUE);
+	tags_array = tm_workspace_find_scope_members (NULL, klass, TRUE, TRUE);
 	
 	if (tags_array != NULL)
 	{
@@ -1845,7 +1843,8 @@ anjuta_symbol_view_get_completable_members (TMTag* klass_tag, gboolean include_p
 			GPtrArray *completable_array;
 			gint i;
 			/* we should list all members of our struct/typedef/union...*/
-			tags_array = tm_workspace_find_scope_members (NULL, symbol_name, TRUE);
+			tags_array = tm_workspace_find_scope_members (NULL, symbol_name,
+														  TRUE, TRUE);
 			if (tags_array == NULL) {
 				DEBUG_PRINT ("returning NULL from struct-completable");
 				return NULL;
@@ -1885,7 +1884,8 @@ anjuta_symbol_view_get_completable_members (TMTag* klass_tag, gboolean include_p
 				DEBUG_PRINT ("scope with ::. FIXME");
 			}					
 			
-			tags_array = tm_workspace_find_scope_members (NULL, symbol_name, TRUE);
+			tags_array = tm_workspace_find_scope_members (NULL, symbol_name,
+														  TRUE, TRUE);
 			if (tags_array == NULL) {
 				DEBUG_PRINT ("returning NULL from class&c-completable with symbol name %s [scope of klass_tag: %s]",
 							symbol_name, klass_tag->atts.entry.scope);
@@ -1923,7 +1923,7 @@ anjuta_symbol_view_get_completable_members (TMTag* klass_tag, gboolean include_p
 					continue;
 				
 				if ( (tmp_parents_array = tm_workspace_find_scope_members (NULL, 
-						cur_parent_tag->name, TRUE)) == NULL) {
+						cur_parent_tag->name, TRUE, TRUE)) == NULL) {
 					continue;		
 				}
 					

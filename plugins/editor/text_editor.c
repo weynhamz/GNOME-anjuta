@@ -1313,9 +1313,9 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 	GnomeVFSResult result;
 	GnomeVFSFileInfo info;
 	GnomeVFSFileSize nchars;
-	gchar *file_content;
-	gchar *buffer;
 	gint dos_filter, editor_mode;
+	gchar *file_content = NULL;
+	gchar *buffer = NULL;
 
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_CLEARALL,
 							0, 0);
@@ -1326,7 +1326,7 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 		*err = g_strdup (_("Could not get file info"));
 		return FALSE;
 	}
-	buffer = g_malloc (info.size);
+	buffer = g_malloc (info.size + 1);
 	if (buffer == NULL && info.size != 0)
 	{
 		/* DEBUG_PRINT ("This file is too big. Unable to allocate memory."); */
@@ -1349,8 +1349,12 @@ load_from_file (TextEditor *te, gchar *uri, gchar **err)
 		return FALSE;
 	}
 	
-	file_content = g_strdup (buffer);
-
+	if (buffer)
+	{
+		buffer[info.size] = '\0';
+		file_content = g_strdup (buffer);
+	}
+	
 	if (info.size != nchars)
 	{
 		/* DEBUG_PRINT ("File size and loaded size not matching"); */

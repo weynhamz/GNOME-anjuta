@@ -1,3 +1,34 @@
+2007-06-12  Naba Kumar  <naba@gnome.org>
+
+	* Makefile.am, src/about.c: Install AUTHORS file in datadir also
+	because it is used in credits listing and packaging could compress
+	it in docdir. Fixes bug #397881: The credits are empty
+
+	* tagmanager/tm_tag.c, tagmanager/include/tm_tag.h,
+	tagmanager/include/tm_workspace.h, tagmanager/include/tm_symbol.h,
+	tagmanager/tm_workspace.c, tagmanager/tm_symbol.c,
+	plugins/symbol-browser/an_symbol_info.c,
+	plugins/symbol-browser/plugin.c,
+	plugins/symbol-browser/an_symbol_view.c,
+	plugins/editor/aneditor-autocomplete.cxx:
+
+	- Do not access TMTag
+	member in TMSymbol when freeing it because by then the tags
+	could have changed. Avoids dangerous memory corruptions by freeing
+	someone else's memory (Could explain those random crashes when
+	refreshing symbols or re-loading a different project or closing
+	a project). Anything that tries to refresh symbols could trigger
+	this corruptions.
+	- Added a flag to also retrieve method definitions as part of
+	the class's scope members. And used it to set both function prototype
+	and definition in symbols. Fixes navigation to prototype and
+	function definitions from symbol browser (bug #440370)
+
+	* plugins/editor/text_editor.c: Avoid invalid reads beyond allocated
+	memory. Could fix those bogus 'file changed' dialogs.
+
+	* plugins/document-manager/anjuta-docman.c: Avoid runtime warning.
+
 2007-06-09 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* (added) libanjuta/anjuta-utils-priv.h,

@@ -1260,7 +1260,7 @@ isymbol_manager_get_members (IAnjutaSymbolManager *sm,
 	AnjutaSymbolIter *iter = NULL;
 	
 	tags_array = tm_workspace_find_scope_members (NULL, symbol_name,
-												  global_search);
+												  global_search, TRUE);
 												  
 	
 	if (tags_array)

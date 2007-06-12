@@ -161,7 +161,8 @@ const GPtrArray *tm_workspace_find(const char *name, int type, TMTagAttrType *at
  \return A GPtrArray of TMTag pointers to struct/union/class members */
 const GPtrArray *tm_workspace_find_scope_members(const GPtrArray *file_tags,
 												 const char *scope_name,
-												 gboolean find_global);
+												 gboolean find_global,
+												 gboolean no_definitions);
 
 
 // DEBUG.

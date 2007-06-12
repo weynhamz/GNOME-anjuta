@@ -20,8 +20,11 @@ anjutadoc_DATA = \
 	ROADMAP\
 	THANKS
 
-## anjuta_glade_filedir = $(anjuta_glade_dir)
-## anjuta_glade_file_DATA = anjuta.glade
+## Install it separately in datadir also because it is used in credits
+## listing and packaging could compress the ones in docs dir.
+
+anjuta_datadir = $(datadir)/anjuta
+anjuta_data_DATA = AUTHORS
 
 EXTRA_DIST = \
 	anjuta.desktop.in.in \

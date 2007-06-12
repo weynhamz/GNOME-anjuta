@@ -33,8 +33,14 @@ void tm_symbol_print(TMSymbol *sym, guint level)
 	fprintf(stderr, "%s\n", (sym->tag)?sym->tag->name:"Root");
 	if (sym->info.children)
 	{
-		if (sym->tag && tm_tag_function_t == sym->tag->type)
-			tm_tag_print(sym->info.equiv, stderr);
+		if (sym->tag)
+	    	{
+			if (tm_tag_function_t == sym->tag->type ||
+			    tm_tag_prototype_t == sym->tag->type)
+			{
+				tm_tag_print(sym->info.equiv, stderr);
+			}
+		}
 		else
 		{
 			for (i=0; i < sym->info.children->len; ++i)
@@ -82,8 +88,8 @@ int tm_symbol_compare(const void *p1, const void *p2)
  */
 int tm_arglist_compare(const TMTag* t1, const TMTag* t2)
 {
-	return strcmp(NVL(t1->atts.entry.arglist, ""),
-			NVL(t2->atts.entry.arglist, ""));
+	return strcmp(NVL(t1->atts.entry.arglist, "()"),
+			NVL(t2->atts.entry.arglist, "()"));
 }
 
 /* Need this custom compare function to generate a symbol tree
@@ -163,13 +169,13 @@ int tm_symbol_tag_compare(const TMTag **t1, const TMTag **t2)
 static void
 check_children_symbols(TMSymbol *sym, const char *name, gint level)
 {
-    if (level > 5) {
-        g_warning ("Infinite recursion detected (symbol name = %s) !!", name);
-        return;
-    }
+  if (level > 5) {
+    g_warning ("Infinite recursion detected (symbol name = %s) !!", name);
+    return;
+  }
   if(sym && name)
   {
-    const GPtrArray *scope_tags;
+    GPtrArray *scope_tags;
     TMTag *tag;  
     TMSymbol *sym1 = sym->parent;
     
@@ -182,16 +188,36 @@ check_children_symbols(TMSymbol *sym, const char *name, gint level)
       sym1 = sym1->parent;
     }
     
-    scope_tags = tm_workspace_find_scope_members(NULL, name, FALSE);
+    scope_tags = tm_tags_extract (tm_workspace_find_scope_members (NULL, name, FALSE, FALSE), tm_tag_max_t);
     if(scope_tags && scope_tags->len > 0)
     {
       unsigned int j;
       sym1 = NULL;
-            
+      
+      tm_tags_custom_sort (scope_tags,
+			   (TMTagCompareFunc) tm_symbol_tag_compare,
+			   FALSE);
       sym->info.children = g_ptr_array_sized_new(scope_tags->len);
       for (j=0; j < scope_tags->len; ++j)
       {
         tag = TM_TAG(scope_tags->pdata[j]);
+	if (tm_tag_prototype_t == tag->type)
+	{
+		/* Since the tags are sorted, we can now expect to find
+		 * identical definitions/declarations in the previous element.
+		 * Functions will come before their prototypes.
+		 */
+		if (sym1 && (tm_tag_function_t == sym1->tag->type) &&
+		  (!sym1->info.equiv) &&
+		  (0 == strcmp(NVL(tag->atts.entry.scope, ""),
+			       NVL(sym1->tag->atts.entry.scope, ""))) &&
+		  (0 == strcmp(tag->name, sym1->tag->name)) &&
+		  (0 == tm_arglist_compare(tag, sym1->tag)))
+		{
+		  	sym1->info.equiv = tag;
+		  	continue;
+		}
+	}
 	if (strcmp(tag->name, sym->tag->name) == 0)
 	{
             continue; /* Avoid recursive definition */
@@ -211,10 +237,11 @@ check_children_symbols(TMSymbol *sym, const char *name, gint level)
                                  level + 1);
       }
     }
+    if (scope_tags)
+      g_ptr_array_free (scope_tags, TRUE);
   }
   return;
 }
-
 
 static int
 tm_symbol_get_root_index (TMSymbol * sym)
@@ -378,11 +405,10 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 				 */
 				if (sym && (tm_tag_function_t == sym->tag->type) &&
 				  (!sym->info.equiv) &&
-				  (0 == strcmp(NVL(tag->atts.entry.scope, "")
-							 , NVL(sym->tag->atts.entry.scope, ""))) &&
+				  (0 == strcmp(NVL(tag->atts.entry.scope, ""),
+					       NVL(sym->tag->atts.entry.scope, ""))) &&
 				  (0 == strcmp(tag->name, sym->tag->name)) &&
-				  (0 == tm_arglist_compare(tag,
-										   sym->tag)))
+				  (0 == tm_arglist_compare(tag, sym->tag)))
 				{
 					sym->info.equiv = tag;
 					continue;
@@ -392,7 +418,7 @@ TMSymbol *tm_symbol_tree_new(GPtrArray *tags_array)
 			if(tag->atts.entry.scope)
 			{
 				if ((tm_tag_class_t | tm_tag_enum_t |
-					 tm_tag_struct_t | tm_tag_union_t ) & tag->type)
+				     tm_tag_struct_t | tm_tag_union_t) & tag->type)
 				{
 					/* this is Hack an shold be fixed by adding this info in tag struct */
 					if(NULL != strstr(tag->name, "_fake_"))
@@ -443,17 +469,13 @@ static void tm_symbol_free(TMSymbol *sym)
 {
 	if (!sym)
 		return;
-	if ((!sym->tag) || ((tm_tag_function_t != sym->tag->type) &&
-		    (tm_tag_prototype_t != sym->tag->type)))
+	if (sym->info.children)
 	{
-		if (sym->info.children)
-		{
-			guint i;
-			for (i=0; i < sym->info.children->len; ++i)
-				tm_symbol_free(TM_SYMBOL(sym->info.children->pdata[i]));
-			g_ptr_array_free(sym->info.children, TRUE);
-			sym->info.children = NULL;
-		}
+		guint i;
+		for (i=0; i < sym->info.children->len; ++i)
+			tm_symbol_free(TM_SYMBOL(sym->info.children->pdata[i]));
+		g_ptr_array_free(sym->info.children, TRUE);
+		sym->info.children = NULL;
 	}
 	SYM_FREE(sym);
 }

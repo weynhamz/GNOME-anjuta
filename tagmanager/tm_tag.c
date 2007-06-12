@@ -509,7 +509,7 @@ gboolean tm_tags_custom_sort(GPtrArray *tags_array, TMTagCompareFunc compare_fun
 	return TRUE;
 }
 
-GPtrArray *tm_tags_extract(GPtrArray *tags_array, guint tag_types)
+GPtrArray *tm_tags_extract(const GPtrArray *tags_array, guint tag_types)
 {
 	GPtrArray *new_tags;
 	guint i;

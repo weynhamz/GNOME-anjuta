@@ -252,7 +252,7 @@ gboolean tm_tags_custom_sort(GPtrArray *tags_array, TMTagCompareFunc compare_fun
  the original array.
  \return an array of tags (NULL on failure)
 */
-GPtrArray *tm_tags_extract(GPtrArray *tags_array, guint tag_types);
+GPtrArray *tm_tags_extract(const GPtrArray *tags_array, guint tag_types);
 
 /*!
  Removes NULL tag entries from an array of tags. Called after tm_tags_dedup() and
