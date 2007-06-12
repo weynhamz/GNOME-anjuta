@@ -242,9 +242,9 @@ on_subversion_commit_response(GtkDialog* dialog, gint response, SubversionData* 
 														GTK_BUTTONS_YES_NO, 
 														_("Are you sure that you do not want a log message?"));
 				result = gtk_dialog_run(GTK_DIALOG(dlg));
+				gtk_widget_destroy(dlg);
 				if (result == GTK_RESPONSE_NO)
 					break;
-				gtk_widget_destroy(dlg);
 			}
 			
 			norecurse = glade_xml_get_widget(data->gxml, "subversion_norecurse");
@@ -253,16 +253,13 @@ on_subversion_commit_response(GtkDialog* dialog, gint response, SubversionData* 
 				break;	
 			
 			svn_backend_commit(data->plugin->backend, filename, log,
-							   !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)));		
-			
-			subversion_data_free(data);
-			gtk_widget_destroy(GTK_WIDGET(dialog));
+							   !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)));
 			break;
 		}
 		default:
 		{
-			gtk_widget_destroy (GTK_WIDGET(dialog));
 			subversion_data_free(data);
+			gtk_widget_destroy(GTK_WIDGET(dialog));
 			break;
 		}
 	}

@@ -90,9 +90,10 @@ static void on_view_changed(AnjutaMsgman* msgman, MessageViewPlugin* plugin)
 								   "ActionMessageNext");
 	GtkAction* action_prev = anjuta_ui_get_action (ui, "ActionGroupGotoMessages",
 								   "ActionMessagePrev");
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
-								 GTK_WIDGET(msgman), NULL);
 	gboolean sensitive = (anjuta_msgman_get_current_view(msgman) != NULL);
+	if (sensitive)
+		anjuta_shell_present_widget (ANJUTA_PLUGIN (plugin)->shell,
+								 GTK_WIDGET(msgman), NULL);
 	g_object_set (G_OBJECT (action_next), "sensitive", sensitive, NULL);
 	g_object_set (G_OBJECT (action_prev), "sensitive", sensitive, NULL);
 }
@@ -324,7 +325,9 @@ ianjuta_msgman_add_view (IAnjutaMessageManager *plugin,
 						 GError **e)
 {
 	MessageView* message_view;
+	AnjutaShell* shell = ANJUTA_PLUGIN(plugin)->shell;
 	GtkWidget *msgman = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin)->msgman;
+	anjuta_shell_present_widget(shell, msgman, NULL);
 	message_view = anjuta_msgman_add_view (ANJUTA_MSGMAN (msgman), file, icon);
 	return IANJUTA_MESSAGE_VIEW (message_view);
 }

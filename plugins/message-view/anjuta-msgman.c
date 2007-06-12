@@ -356,9 +356,10 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 	g_return_if_fail (mv != NULL);
 	g_return_if_fail (name != NULL);
 
-	gtk_widget_show (mv);
+	gtk_widget_show_all (mv);
 	page = anjuta_msgman_page_new (mv, name, pixmap, msgman);
-
+	gtk_widget_show_all (page->box);
+	
 	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
 									 GTK_SIGNAL_FUNC
 									 (on_notebook_switch_page), msgman);
@@ -368,7 +369,6 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 
 	gtk_notebook_prepend_page (GTK_NOTEBOOK (msgman), mv, page->box);
 	gtk_notebook_set_current_page (GTK_NOTEBOOK (msgman), 0);
-	gtk_widget_show_all (page->box);
 	
 	g_signal_connect (G_OBJECT (mv), "destroy",
 					  G_CALLBACK (on_message_view_destroy), msgman);
@@ -482,7 +482,7 @@ anjuta_msgman_set_current_view (AnjutaMsgman * msgman, MessageView * mv)
 
 	if (mv == NULL)
 	{
-		if (gtk_notebook_get_n_pages == 0)
+		if (gtk_notebook_get_n_pages(GTK_NOTEBOOK(msgman)) == 0)
 		{
 			msgman->priv->current_view = NULL;
 		}

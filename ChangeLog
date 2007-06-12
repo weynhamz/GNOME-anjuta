@@ -1,3 +1,21 @@
+2007-06-13  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in:
+	Use GNOME_COMPILE_WARNINGS(maximum) instead of hand-written macro. Show
+	most warnings to avoid simple coding problems.
+	
+	* plugins/message-view/anjuta-msgman.c:
+	(anjuta_msgman_append_view), (anjuta_msgman_set_current_view):
+	* plugins/message-view/plugin.c: (on_view_changed),
+	(ianjuta_msgman_add_view):
+	
+	Fixed #440866 by always presenting the message-manager when a tab is
+	added because Gtk+ seems to have problems to add tabs to hidden widgets.
+	
+	* plugins/subversion/subversion-callbacks.c:
+	(on_subversion_commit_response):
+	Destroy dialog if user clicks "No"
+
 2007-06-12  Naba Kumar  <naba@gnome.org>
 
 	* tagmanager/tm_tag.c, tagmanager/tm_workspace.c: Fixes an invalid
