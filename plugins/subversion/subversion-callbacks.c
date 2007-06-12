@@ -254,6 +254,8 @@ on_subversion_commit_response(GtkDialog* dialog, gint response, SubversionData* 
 			
 			svn_backend_commit(data->plugin->backend, filename, log,
 							   !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)));
+			subversion_data_free(data);
+			gtk_widget_destroy(GTK_WIDGET(dialog));
 			break;
 		}
 		default:
