@@ -665,6 +665,7 @@ fill_find_tags_array (GPtrArray * dst, const GPtrArray * src,
 			return 0;
 	}
 
+	count = 0;
 	match = tm_tags_find (src, name, partial, &count);
 	if (count && match && *match)
 	{

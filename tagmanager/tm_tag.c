@@ -567,7 +567,7 @@ TMTag **tm_tags_find (const GPtrArray *sorted_tags_array, const char *name,
 		/* First look for any matches after result */
 		adv = result;
 		adv++;
-		for (; *adv && adv <= last; ++ adv)
+		for (; adv <= last && *adv; ++ adv)
 		{
 			if (0 != tm_tag_compare(&tag, adv))
 				break;
@@ -581,7 +581,7 @@ TMTag **tm_tags_find (const GPtrArray *sorted_tags_array, const char *name,
 			++tagMatches;
 		}
 		*tagCount=tagMatches;
-		++ result;	/* orrect address for the last successful match */
+		++ result;	/* Correct address for the last successful match */
 	}
 	s_partial = FALSE;
 	return (TMTag **) result;

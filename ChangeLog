@@ -1,5 +1,8 @@
 2007-06-12  Naba Kumar  <naba@gnome.org>
 
+	* tagmanager/tm_tag.c, tagmanager/tm_workspace.c: Fixes an invalid
+	read and use of uninitialized variable.
+
 	* Makefile.am, src/about.c: Install AUTHORS file in datadir also
 	because it is used in credits listing and packaging could compress
 	it in docdir. Fixes bug #397881: The credits are empty
