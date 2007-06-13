@@ -1,5 +1,8 @@
 2007-06-13  Naba Kumar  <naba@gnome.org>
 
+	* plugins/sourceview/sourceview-prefs.c: Initialize font
+	on startup correctly if use_theme is set.
+
 	* plugins/sourceview/sourceview-prefs.c: Use desktop fixed font
 	if available for default font. Fixes bug #447304.
 

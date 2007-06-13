@@ -241,6 +241,21 @@ init_colors_and_fonts(Sourceview* sv)
 	{
 		on_gconf_notify_font(NULL, 0, NULL, sv);
 	}
+	else
+	{
+		GConfClient *gclient;
+                gchar *desktop_fixed_font;
+
+		gclient = gconf_client_get_default ();
+                desktop_fixed_font =
+                        gconf_client_get_string (gclient, DESKTOP_FIXED_FONT, NULL);
+                if (desktop_fixed_font)
+                        anjuta_view_set_font(sv->priv->view, FALSE, desktop_fixed_font);
+                else
+                        anjuta_view_set_font(sv->priv->view, TRUE, NULL);
+                g_free (desktop_fixed_font);
+		g_object_unref (gclient);
+	}
 	
 	if (!color_theme)
 	{
