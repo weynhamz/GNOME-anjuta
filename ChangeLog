@@ -1,5 +1,8 @@
 2007-06-13  Naba Kumar  <naba@gnome.org>
 
+	* plugins/sourceview/sourceview-prefs.c: Use desktop fixed font
+	if available for default font. Fixes bug #447304.
+
 	* plugins/sourceview/sourceview-prefs.c: Return value based
 	on right data type. Fixes Bug #438878 – Using gtksourceview editor
 	for the first time has black background

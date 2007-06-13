@@ -47,6 +47,7 @@ static AnjutaPreferences* prefs = NULL;
 
 #define FONT_THEME "sourceview.font.use_theme"
 #define FONT "sourceview.font"
+#define DESKTOP_FIXED_FONT "/desktop/gnome/interface/monospace_font_name"
 
 static int
 get_int(GConfEntry* entry)
@@ -214,7 +215,14 @@ on_gconf_notify_font_theme (GConfClient *gclient, guint cnxn_id,
 	
 	if (use_theme)
 	{
-		anjuta_view_set_font(sv->priv->view, TRUE, NULL);
+		gchar *desktop_fixed_font;
+		desktop_fixed_font =
+			gconf_client_get_string (gclient, DESKTOP_FIXED_FONT, NULL);
+		if (desktop_fixed_font)
+			anjuta_view_set_font(sv->priv->view, FALSE, desktop_fixed_font);
+		else
+			anjuta_view_set_font(sv->priv->view, TRUE, NULL);
+		g_free (desktop_fixed_font);
 	}
 	else
 		on_gconf_notify_font(NULL, 0, NULL, sv);
