@@ -270,6 +270,7 @@ anjuta_serializer_read_buffer (AnjutaSerializer *serializer,
 		g_free (buffer);
 		return FALSE;
 	}
+	/* Is it dangerous to use the same buffer to shift the text up? */
 	strcpy (buffer, buffer + strlen (name) + 2);
 	*value = buffer;
 	

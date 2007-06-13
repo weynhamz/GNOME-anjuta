@@ -1133,7 +1133,8 @@ project_manager_load_gbf (ProjectManagerPlugin *pm_plugin)
 		else
 			win = GTK_WINDOW (ANJUTA_PLUGIN (pm_plugin)->shell);
 		
-		anjuta_util_dialog_error (win, _("Failed to load project %s: %s"),
+		anjuta_util_dialog_error (win, _("Failed to parse project (the project is opened, but there will be no project view) %s: %s\n"
+										 ""),
 								  dirname, error->message);
 		/* g_propagate_error (err, error); */
 		g_object_unref (pm_plugin->project);

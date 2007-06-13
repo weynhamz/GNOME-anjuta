@@ -1,3 +1,10 @@
+2007-06-13  Naba Kumar  <naba@gnome.org>
+
+	* plugins/project-manager/plugin.c: Give a better error message
+	when project could not be loaded.
+
+	* libanjuta/anjuta-serializer.c: Added a comment.
+
 2007-06-13  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in:
