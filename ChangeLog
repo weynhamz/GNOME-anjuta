@@ -1,3 +1,9 @@
+2007-06-16  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/plugin-manager.c: Added remembered plugins page in plugins
+	dialog to allow forgetting them if user chooses to select a different
+	one.
+
 2007-06-13  Naba Kumar  <naba@gnome.org>
 
 	* plugins/sourceview/sourceview-prefs.c: Initialize font

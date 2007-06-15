@@ -71,7 +71,7 @@ struct _AnjutaPluginManagerPriv
 	GList        *plugin_dirs;
 	GList        *available_plugins;
 	
-	/* Indexes */
+	/* Indexes => plugin handles */
 	GHashTable   *plugins_by_interfaces;
 	GHashTable   *plugins_by_name;
 	GHashTable   *plugins_by_description;
@@ -86,6 +86,7 @@ struct _AnjutaPluginManagerPriv
 	GHashTable   *remember_plugins;
 };
 
+/* Available plugins page treeview */
 enum {
 	COL_ACTIVABLE,
 	COL_ENABLED,
@@ -94,7 +95,15 @@ enum {
 	COL_PLUGIN,
 	N_COLS
 };
-	
+
+/* Remembered plugins page treeview */
+enum {
+	COL_REM_ICON,
+	COL_REM_NAME,
+	COL_REM_PLUGIN_KEY,
+	N_REM_COLS
+};
+
 /* Plugin class types */
 
 static GHashTable  *plugin_types = NULL;
@@ -977,6 +986,88 @@ populate_plugin_model (AnjutaPluginManager *plugin_manager,
 	}
 }
 
+static GtkWidget *
+create_remembered_plugins_tree (void)
+{
+	GtkListStore *store;
+	GtkWidget *tree;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+
+	store = gtk_list_store_new (N_REM_COLS, GDK_TYPE_PIXBUF, G_TYPE_STRING,
+								G_TYPE_STRING);
+	tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
+	
+	column = gtk_tree_view_column_new ();
+	renderer = gtk_cell_renderer_pixbuf_new ();
+	gtk_tree_view_column_pack_start (column, renderer, FALSE);
+	gtk_tree_view_column_add_attribute (column, renderer, "pixbuf",
+										COL_REM_ICON);
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_tree_view_column_pack_start (column, renderer, FALSE);
+	gtk_tree_view_column_add_attribute (column, renderer, "markup",
+										COL_REM_NAME);
+	gtk_tree_view_column_set_sizing (column,
+									 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_column_set_title (column, _("Preferred plugins"));
+	gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
+	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (tree), column);
+	
+	g_object_unref (store);
+	return tree;
+}
+
+static void
+foreach_remembered_plugin (gpointer key, gpointer value, gpointer user_data)
+{
+	AnjutaPluginDescription *desc = (AnjutaPluginDescription *) value;
+	GtkListStore *store = GTK_LIST_STORE (user_data);
+	AnjutaPluginManager *manager = g_object_get_data (G_OBJECT (store),
+													  "plugin-manager");
+	AnjutaPluginHandle *plugin =
+		g_hash_table_lookup (manager->priv->plugins_by_description, desc);
+	g_return_if_fail (plugin != NULL);
+	
+	if (anjuta_plugin_handle_get_name (plugin) &&
+		anjuta_plugin_handle_get_description (plugin))
+	{
+		GtkTreeIter iter;
+		gchar *text;
+		
+		text = g_markup_printf_escaped ("<span size=\"larger\" weight=\"bold\">%s</span>\n%s",
+										anjuta_plugin_handle_get_name (plugin),
+										anjuta_plugin_handle_get_about (plugin));
+
+		gtk_list_store_append (store, &iter);
+		gtk_list_store_set (store, &iter,
+							COL_REM_NAME, text,
+							COL_REM_PLUGIN_KEY, key,
+							-1);
+		if (anjuta_plugin_handle_get_icon_path (plugin))
+		{
+			GdkPixbuf *icon;
+			icon = gdk_pixbuf_new_from_file_at_size (anjuta_plugin_handle_get_icon_path (plugin),
+													 48, 48, NULL);
+			if (icon) {
+				gtk_list_store_set (store, &iter,
+									COL_REM_ICON, icon, -1);
+				gdk_pixbuf_unref (icon);
+			}
+		}
+		g_free (text);
+	}
+}
+
+static void
+populate_remembered_plugins_model (AnjutaPluginManager *plugin_manager,
+								   GtkListStore *store)
+{
+	AnjutaPluginManagerPriv *priv = plugin_manager->priv;
+	gtk_list_store_clear (store);
+	g_hash_table_foreach (priv->remember_plugins, foreach_remembered_plugin,
+						  store);
+}
+
 static void
 on_show_all_plugins_toggled (GtkToggleButton *button, GtkListStore *store)
 {
@@ -989,21 +1080,62 @@ on_show_all_plugins_toggled (GtkToggleButton *button, GtkListStore *store)
 						   !gtk_toggle_button_get_active (button));
 }
 
+static void
+on_forget_plugin_clicked (GtkWidget *button, GtkTreeView *view)
+{
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	GtkTreeSelection *selection = gtk_tree_view_get_selection (view);
+	if (gtk_tree_selection_get_selected (selection, &model, &iter))
+	{
+		gchar *plugin_key;
+		AnjutaPluginManager *manager = g_object_get_data (G_OBJECT (model),
+														  "plugin-manager");
+		gtk_tree_model_get (model, &iter, COL_REM_PLUGIN_KEY, &plugin_key, -1);
+		g_hash_table_remove (manager->priv->remember_plugins, plugin_key);
+		gtk_list_store_remove (GTK_LIST_STORE (model), &iter);
+		g_free (plugin_key);
+	}
+}
+
+static void
+on_forget_plugin_sel_changed (GtkTreeSelection *selection,
+							  GtkWidget *button)
+{
+	GtkTreeIter iter;
+	
+	if (gtk_tree_selection_get_selected (selection, NULL, &iter))
+		gtk_widget_set_sensitive (button, TRUE);
+	else
+		gtk_widget_set_sensitive (button, FALSE);
+}
+
 static GtkWidget *
 create_plugin_page (AnjutaPluginManager *plugin_manager)
 {
+	GtkWidget *notebook;
+	GtkWidget *page_label;
 	GtkWidget *vbox;
 	GtkWidget *checkbutton;
 	GtkWidget *tree;
 	GtkWidget *scrolled;
 	GtkListStore *store;
-
+	GtkWidget *hbox;
+	GtkWidget *display_label;
+	GtkWidget *forget_button;
+	GtkTreeSelection *selection;
+	
+	notebook = gtk_notebook_new ();
+	
+	/* Plugins page */
 	vbox = gtk_vbox_new (FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+	page_label = gtk_label_new (_("Plugins"));
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), vbox, page_label);
 	
 	checkbutton = gtk_check_button_new_with_label (_("Only show user activatable plugins"));
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton), 10);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (checkbutton), TRUE);
-	gtk_widget_show (checkbutton);
 	gtk_box_pack_start (GTK_BOX (vbox), checkbutton, FALSE, FALSE, 0);
 	
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
@@ -1017,24 +1149,69 @@ create_plugin_page (AnjutaPluginManager *plugin_manager)
 	tree = create_plugin_tree ();
 	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (tree)));
 
-	populate_plugin_model (plugin_manager,
-						   GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (tree))),
-						   NULL, plugin_manager->priv->activated_plugins, FALSE);
+	populate_plugin_model (plugin_manager, store, NULL,
+						   plugin_manager->priv->activated_plugins, FALSE);
 	
 	gtk_container_add (GTK_CONTAINER (scrolled), tree);
 	g_object_set_data (G_OBJECT (store), "plugin-manager", plugin_manager);
 
-	gtk_widget_show_all (vbox);
-	
-	if (plugin_manager->priv->status)
-		anjuta_status_add_widget (plugin_manager->priv->status, vbox);
 	
 	g_object_set_data (G_OBJECT (checkbutton), "__plugin_manager", plugin_manager);
 	g_signal_connect (G_OBJECT (checkbutton), "toggled",
 					  G_CALLBACK (on_show_all_plugins_toggled),
 					  store);
 	
-	return vbox;
+	/* Remembered plugin */
+	vbox = gtk_vbox_new (FALSE, 10);
+	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
+	
+	display_label = gtk_label_new (_("These are the plugins selected by you "
+									 "when Anjuta prompted to choose one of "
+									 "many suitable plugins. Removing the "
+									 "preferred plugin will let Anjuta prompt "
+									 "you again to choose different plugin."));
+	gtk_label_set_line_wrap (GTK_LABEL (display_label), TRUE);
+	gtk_box_pack_start (GTK_BOX (vbox), display_label, FALSE, FALSE, 0);
+
+	page_label = gtk_label_new (_("Preferred plugins"));
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), vbox, page_label);
+	
+	scrolled = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled),
+									     GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolled),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	gtk_box_pack_start (GTK_BOX (vbox), scrolled, TRUE, TRUE, 0);
+	
+	tree = create_remembered_plugins_tree ();
+	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (tree)));
+
+	gtk_container_add (GTK_CONTAINER (scrolled), tree);
+	g_object_set_data (G_OBJECT (store), "plugin-manager", plugin_manager);
+	populate_remembered_plugins_model (plugin_manager, store);
+	
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_container_set_border_width (GTK_CONTAINER (hbox), 5);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
+	forget_button = gtk_button_new_with_label ("Forget selected plugin");
+	gtk_widget_set_sensitive (forget_button, FALSE);
+	gtk_box_pack_end (GTK_BOX (hbox), forget_button, FALSE, FALSE, 0);
+	
+	g_signal_connect (forget_button, "clicked",
+					  G_CALLBACK (on_forget_plugin_clicked),
+					  tree);
+	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree));
+	g_signal_connect (selection, "changed",
+					  G_CALLBACK (on_forget_plugin_sel_changed),
+					  forget_button);
+	
+	/* For cursor status */
+	
+	gtk_widget_show_all (notebook);
+	if (plugin_manager->priv->status)
+		anjuta_status_add_widget (plugin_manager->priv->status, notebook);
+	return notebook;
 }
 
 static GList *
