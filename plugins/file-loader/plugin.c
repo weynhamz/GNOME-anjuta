@@ -21,6 +21,7 @@
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
+#include <libgnomevfs/gnome-vfs-ops.h>
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-status.h>
@@ -1289,6 +1290,15 @@ iloader_load (IAnjutaFileLoader *loader, const gchar *uri,
 	
 	g_return_val_if_fail (uri != NULL, NULL);
 	vfs_uri = gnome_vfs_uri_new (uri);
+	
+	if (!gnome_vfs_uri_exists (vfs_uri))
+	{
+		launch_application_failure (ANJUTA_PLUGIN_FILE_LOADER (loader),
+									uri, GNOME_VFS_ERROR_NOT_FOUND);
+		gnome_vfs_uri_unref (vfs_uri);
+		return NULL;
+	}
+	
 	new_uri = gnome_vfs_uri_to_string (vfs_uri,
 									   GNOME_VFS_URI_HIDE_FRAGMENT_IDENTIFIER);
 	mime_type = anjuta_util_get_uri_mime_type (new_uri);

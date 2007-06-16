@@ -1769,7 +1769,7 @@ ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 	AnjutaDocman *docman;
 	
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	anjuta_docman_goto_file_line (docman, uri, -1);
+	anjuta_docman_goto_file_line_mark (docman, uri, -1, TRUE);
 }
 
 static gchar*
