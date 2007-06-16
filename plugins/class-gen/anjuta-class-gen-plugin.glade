@@ -114,7 +114,7 @@
                                 <child>
                                   <widget class="GtkComboBox" id="cc_inheritance">
                                     <property name="visible">True</property>
-                                    <property name="items" translatable="yes">public
+                                    <property name="items" translatable="no">public
 protected
 private</property>
                                   </widget>
