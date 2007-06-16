@@ -1,5 +1,13 @@
 2007-06-16 Sebastien Granjoux <seb.sfo@free.fr>
 
+	* plugins/search/search-replace.c,
+	plugins/search/search-replace.h,
+	plugins/search/anjuta-search.glade:
+	Replace deprecated GtkCombo by GtkComboBox or GtkComboBoxEntry
+	Fixes bug #355166
+
+2007-06-16 Sebastien Granjoux <seb.sfo@free.fr>
+
 	* plugins/debug-manager/plugin.c,
 	plugins/debug-manager/breakpoints.c:
 	Add weak references, fixes bug #448053 ?
