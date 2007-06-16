@@ -1,3 +1,9 @@
+2007-06-16 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/breakpoints.c:
+	Add weak references, fixes bug #448053 ?
+
 2007-06-16  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/plugin-manager.c: Added remembered plugins page in plugins

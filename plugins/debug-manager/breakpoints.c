@@ -488,6 +488,7 @@ breakpoint_item_update_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 			if ((ed != NULL) && (IANJUTA_IS_MARKABLE (ed)))
 			{
 				bi->editor = ed;
+				g_object_add_weak_pointer (G_OBJECT (ed), (gpointer)&bi->editor);
 			}
 		}
 		
@@ -1083,6 +1084,7 @@ breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 			if (strcmp (uri, bi->uri) == 0)
 			{
 				bi->editor = te;
+				g_object_add_weak_pointer (G_OBJECT (te), (gpointer)&bi->editor);
 				set_breakpoint_in_editor (bi, bi->bp->enable == IANJUTA_DEBUGGER_YES ? BREAKPOINT_ENABLED : BREAKPOINT_DISABLED, FALSE);
 			}
 		} while (gtk_tree_model_iter_next (model, &iter));
@@ -1110,7 +1112,11 @@ breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 		
 			gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 
-			if (bi->editor == te) bi->editor = NULL;
+			if (bi->editor == te)
+			{       
+				bi->editor = NULL;
+				g_object_remove_weak_pointer (G_OBJECT (te), (gpointer)&bi->editor);
+			}
 		} while (gtk_tree_model_iter_next (model, &iter));
 	}
 }

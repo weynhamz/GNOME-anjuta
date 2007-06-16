@@ -215,7 +215,11 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gui
 	/* Remove previous marker */
 	hide_program_counter_in_editor (self);
 	hide_program_counter_in_disassembler (self);
-	self->pc_editor = NULL;
+	if (self->pc_editor != NULL)
+	{
+		g_object_remove_weak_pointer (G_OBJECT (self->pc_editor), (gpointer)&self->pc_editor);
+		self->pc_editor = NULL;
+	}
 	self->pc_address = address;
 
 	if (address != 0)
@@ -234,6 +238,7 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gui
 			if (editor != NULL)
 			{
 				self->pc_editor = editor;
+				g_object_add_weak_pointer (G_OBJECT (editor), (gpointer)&self->pc_editor);
 				self->pc_line = line;
 				show_program_counter_in_editor (self);
 			}
