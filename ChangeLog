@@ -1,3 +1,10 @@
+2007-06-17  Naba Kumar  <naba@gnome.org>
+
+	* plugins/sourceview/sourceview.glade: Set correct font
+	default value and use monospace instead of sans. Fixes
+	bug #448408 – crash in Anjuta IDE: Trying to change the
+	editor
+
 2007-06-16 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/search/search-replace.c,

@@ -400,7 +400,7 @@
                         <property name="n_rows">2</property>
                         <property name="n_columns">2</property>
                         <child>
-                          <widget class="GtkFontButton" id="preferences_font:font:Sans:0:sourceview.font">
+                          <widget class="GtkFontButton" id="preferences_font:font:Monospace 12:0:sourceview.font">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                           </widget>
