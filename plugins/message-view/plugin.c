@@ -144,6 +144,8 @@ register_stock_icons (AnjutaPlugin *plugin)
 	gtk_icon_source_free (source);
 }
 
+#if 0 /* Disable session saving/loading until a way is found to avoid
+       * number of message panes infinitely growing */
 static void
 on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, MessageViewPlugin *plugin)
@@ -201,6 +203,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	g_object_unref (serializer);
 	g_free (messages_file);
 }
+#endif
 
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
@@ -241,11 +244,13 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "AnjutaMessageView", _("Messages"),
 							 "message-manager-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
+#if 0
 	/* Connect to save and load session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save-session",
 					  G_CALLBACK (on_session_save), plugin);
 	g_signal_connect (G_OBJECT (plugin->shell), "load-session",
 					  G_CALLBACK (on_session_load), plugin);
+#endif
 	initialized = TRUE;
 	return TRUE;
 }
@@ -259,7 +264,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	DEBUG_PRINT ("MessageViewPlugin: Dectivating message view plugin ...");
 	
 	mplugin = ANJUTA_PLUGIN_MESSAGE_VIEW (plugin);
-	
+#if 0
 	/* Disconnect signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_save),
@@ -267,7 +272,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_load),
 										  plugin);
-	
+#endif
 	/* Widget is destroyed as soon as it is removed */
 	anjuta_shell_remove_widget (plugin->shell, mplugin->msgman, NULL);
 	anjuta_ui_unmerge (ui, mplugin->uiid);

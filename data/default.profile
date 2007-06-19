@@ -21,6 +21,7 @@
                  attribute="Location"
                  value="anjuta-file-wizard:AnjutaFileWizardPlugin"/>
     </plugin>
+<!--
     <plugin name="Message Manager"
             url="http://anjuta.org/plugins/"
             mandatory="yes">
@@ -28,6 +29,7 @@
                  attribute="Interfaces"
                  value="IAnjutaMessageManager"/>
     </plugin>
+-->
     <plugin name="Search Plugin"
             url="http://anjuta.org/plugins/"
             mandatory="yes">

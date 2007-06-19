@@ -4,6 +4,11 @@
 	Bug #448491 Empty Lines Problem.
 
 	* libanjuta/anjuta-utils.c: Return incompletly transformed text too.
+	
+	* data/default.profile, plugins/message-view/plugin.c: Do not
+	restore session for messages.
+	Fixes bug #377461 – don't create new message window for each
+	build/find.
 
 2007-06-17  Naba Kumar  <naba@gnome.org>
 
