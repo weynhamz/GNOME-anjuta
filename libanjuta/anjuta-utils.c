@@ -799,8 +799,8 @@ anjuta_util_convert_to_utf8 (const gchar *str)
 		if (error != NULL) {
 			g_warning ("g_locale_to_utf8 failed: %s\n", error->message);
 			g_error_free (error);
-			g_free (utf8_msg_string);
-			return NULL;
+			/* g_free (utf8_msg_string);
+			return NULL; */
 		}
 	}
 	return utf8_msg_string;

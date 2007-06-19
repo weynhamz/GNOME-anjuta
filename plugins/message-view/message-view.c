@@ -669,6 +669,8 @@ message_view_instance_init (MessageView * self)
 	/* Create columns to hold text and color of a line, this
 	 * columns are invisible of course. */
 	renderer = gtk_cell_renderer_text_new ();
+	g_object_set (renderer, "yalign", 0.0, "wrap-mode", PANGO_WRAP_WORD,
+				  "wrap-width", 1000, NULL);
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_set_title (column, _("Messages"));

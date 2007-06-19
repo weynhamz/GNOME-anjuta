@@ -1,3 +1,10 @@
+2007-06-19  Naba Kumar  <naba@gnome.org>
+
+	* plugins/message-view/message-view.c: Wrap long lines (at 1000px)
+	Bug #448491 Empty Lines Problem.
+
+	* libanjuta/anjuta-utils.c: Return incompletly transformed text too.
+
 2007-06-17  Naba Kumar  <naba@gnome.org>
 
 	* plugins/sourceview/sourceview.glade: Set correct font
