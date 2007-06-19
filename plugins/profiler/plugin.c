@@ -792,6 +792,13 @@ profiler_deactivate (AnjutaPlugin *plugin)
 	
 	DEBUG_PRINT ("Profiler: Dectivating Profiler plugin ...");
 
+	/* Disconnect session save/load */
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell), 
+										  G_CALLBACK (on_session_save), plugin);
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_session_load), plugin);
+
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	profiler = PROFILER (plugin);
 	

@@ -10,6 +10,9 @@
 	Fixes bug #377461 – don't create new message window for each
 	build/find.
 
+	* plugins/profiler/plugin.c: Disconnect session signals on deactivate.
+	Fixes a crash on exit/project-close if profiler plugin is loaded.
+
 2007-06-17  Naba Kumar  <naba@gnome.org>
 
 	* plugins/sourceview/sourceview.glade: Set correct font
