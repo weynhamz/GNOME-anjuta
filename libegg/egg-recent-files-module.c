@@ -396,7 +396,7 @@ do_seek (GnomeVFSMethod       *method,
 static GnomeVFSResult
 do_tell (GnomeVFSMethod       *method,
 	 GnomeVFSMethodHandle *method_handle,
-	 GnomeVFSFileOffset   *offset_return)
+	 GnomeVFSFileSize     *offset_return)
 {
 	GnomeVFSHandle *handle = (GnomeVFSHandle *)method_handle;
 
@@ -650,7 +650,7 @@ do_set_file_info (GnomeVFSMethod          *method,
 	if (!text_uri)
 		return GNOME_VFS_ERROR_INVALID_URI;
 
-	res = gnome_vfs_set_file_info (text_uri, info, mask);
+	res = gnome_vfs_set_file_info (text_uri, (GnomeVFSFileInfo  *)info, mask);
 	g_free (text_uri);
 
 	return res;
@@ -763,8 +763,9 @@ static GnomeVFSMethod method = {
 	NULL, /* do_create_symbolic_link */
 	do_monitor_add,
 	do_monitor_cancel,
-	do_file_control
-
+	do_file_control,
+	NULL, /* do_forget_cache */
+	NULL /* do_get_freespace */
 };
 
 

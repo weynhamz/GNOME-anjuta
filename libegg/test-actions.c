@@ -1,5 +1,6 @@
 #include <config.h>
 #include <gtk/gtk.h>
+#include <string.h>
 #include <libegg/menu/egg-combo-action.h>
 #include <libegg/menu/egg-recent-action.h>
 //#include <libegg/menu/egg-markup.h>

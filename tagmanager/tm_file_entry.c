@@ -277,7 +277,7 @@ GList *tm_file_entry_list(TMFileEntry *entry, GList *files)
 	{
 		files = tm_file_entry_list((TMFileEntry *) tmp->data, files);
 	}
-	if (!files)
-		g_list_reverse(files);
+	if (files)
+		files = g_list_reverse(files);
 	return files;
 }
