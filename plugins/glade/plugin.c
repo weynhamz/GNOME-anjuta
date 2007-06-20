@@ -52,8 +52,8 @@ struct _GladePluginPriv
 {
 	gint uiid;
 	GtkActionGroup *action_group;
-	GladeApp *gpw;
-	GladeProjectView *view;
+	GladeApp  *gpw;
+	GtkWidget *inspector;
 #if (GLADEUI_VERSION > 302)
 	GtkWidget *design_notebook;
 #endif
@@ -459,7 +459,7 @@ on_close_activated (GtkAction *action, GladePlugin *plugin)
 	}
 	
 #if (GLADEUI_VERSION >= 330)
-	if (glade_project_get_changed(project))
+	if (glade_project_get_has_unsaved_changes (project))
 #else
 	if (project->changed)
 #endif
@@ -515,6 +515,10 @@ on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
 												design_view);
 		gtk_notebook_set_current_page (GTK_NOTEBOOK (plugin->priv->design_notebook),
 									   design_pagenum);
+#  if (GLADEUI_VERSION >= 330)
+        glade_inspector_set_project (GLADE_INSPECTOR (plugin->priv->inspector), project);
+#  endif								   
+									   
 #endif
 	}
 }
@@ -735,6 +739,21 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 }
 #endif
 
+#if (GLADEUI_VERSION >= 330)
+static void
+inspector_item_activated_cb (GladeInspector     *inspector,
+							 AnjutaPlugin       *plugin)
+{
+	GList *item = glade_inspector_get_selected_items (inspector);
+	g_assert (GLADE_IS_WIDGET (item->data) && (item->next == NULL));
+	
+	/* switch to this widget in the workspace */
+	glade_widget_show (GLADE_WIDGET (item->data));
+	
+	g_list_free (item);
+}
+#endif
+
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
@@ -778,22 +797,33 @@ activate_plugin (AnjutaPlugin *plugin)
 		gtk_box_pack_start (GTK_BOX (priv->view_box), priv->projects_combo,
 							FALSE, FALSE, 0);
 #if (GLADEUI_VERSION > 302)
-		priv->view = GLADE_PROJECT_VIEW (glade_project_view_new ());
+#  if (GLADEUI_VERSION >= 330)
+        priv->inspector = glade_inspector_new ();
+        
+        g_signal_connect (priv->inspector, "item-activated",
+        				  G_CALLBACK (inspector_item_activated_cb),
+        				  plugin);
+#  else
+		priv->inspector = glade_project_view_new ();
+#  endif
 #else
-		/* Old glade-3 */
-		priv->view = GLADE_PROJECT_VIEW (glade_project_view_new (GLADE_PROJECT_VIEW_TREE));
+		priv->inspector = glade_project_view_new (GLADE_PROJECT_VIEW_TREE);
 #endif
-		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->view),
-						GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 
-		glade_app_add_project_view (priv->view);
-		gtk_box_pack_start (GTK_BOX (priv->view_box), GTK_WIDGET (priv->view),
+#if (GLADEUI_VERSION < 330)
+		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->inspector),
+										GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+		glade_app_add_project_view (GLADE_PROJECT_VIEW (priv->inspector));
+#endif
+		gtk_box_pack_start (GTK_BOX (priv->view_box), GTK_WIDGET (priv->inspector),
 							TRUE, TRUE, 0);
 		
 		gtk_widget_show_all (priv->view_box);
 		gtk_notebook_set_scrollable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook),
 									 TRUE);
 		gtk_notebook_popup_enable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook));
+
 		
 #if (GLADEUI_VERSION > 302)
 		/* Create design_notebook */
@@ -990,7 +1020,11 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 								    _("Not local file: %s"), uri);
 		return;
 	}
+#if (GLADEUI_VERSION >= 330)
+	project = glade_project_load (filename);
+#else
 	project = glade_project_open (filename);
+#endif
 	g_free (filename);
 	if (!project)
 	{
