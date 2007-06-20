@@ -58,7 +58,8 @@ elsif (-e "CVS/Root")
   }
 else
   {
-    die "There is not known revision system.\n"
+    my $curr_dir = getcwd();
+    die "There is not known revision system in $curr_dir.\n"
   }
 
 # Update the change log file.
@@ -217,6 +218,8 @@ foreach my $chlog (reverse sort keys %changelogs) {
     
     # Done.
     print STDERR "  Done editing ${chlog}/ChangeLog.\n";
+    # To open the changelog file in emacs/similar editor 	 
+    print "\032\032${chlog}/ChangeLog:0\n";
     last if not (keys %function_lists);
 }
 

@@ -2,6 +2,9 @@
 
 	* plugins/tools/scripts/prepare-changelog.pl: Updated newer version.
 
+	* manuals/anjuta-faqs/C/anjuta-faqs.xml: Updated.
+	* plugins/tools/scripts/prepare-changelog.pl: Fixed opening file.
+
 2007-06-20 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/plugin.c,

@@ -97,9 +97,6 @@
  
  <!-- ============= Document Body ============================= -->
 
- <sect1 id="qanda">
-  <title>Anjuta FAQ</title>
-
  <para>
   This is a list of the most frequently asked questions for the
   <application>Anjuta</application> C/C++ IDE. If you have got a question which
@@ -134,8 +131,8 @@
      </question>
      <answer>
       <para>
-      It stands for nothing. Naba Kumar started writing <application>Anjuta</application>, 
-      and named it after his girlfriend &mdash; this software is dedicated to her.
+      <application>Anjuta</application> is the name of Naba Kumar's (founder) girlfriend
+      &mdash; this software is dedicated to her.
       </para>
       </answer>
      </qandaentry>
@@ -148,25 +145,14 @@
      </question>
      <answer>
       <para>
-		No, unless GNOME itself is ported to Windows first. Anjuta depends a lot on features
-		provided by GNOME and UNIX.
+		There is no native port for Windows and it most likely won't ever be. Anjuta uses
+        GNOME platform, so it requires GNOME itself to be ported natively to Windows first. However,
+        there is cywin port of Anjuta (and GNOME) which you can try out on Windows. It's going to
+        be slow to run, but it works: http://cygwinports.dotsrc.org/
      </para>
       </answer>
      </qandaentry>
-
-    <qandaentry>
-     <question>
-      <para>
-      How about a GNOME2 version of <citetitle>Anjuta</citetitle> ?
-      </para>
-     </question>
-     <answer>
-      <para>
-	 Anjuta 1.2 and Anjuta 2.0 are GNOME2 software!
-     </para>
-      </answer>
-     </qandaentry>
-	</qandadiv>    
+   </qandadiv>
 
     <!-- ============= Build =========== -->
    <qandadiv>
@@ -175,15 +161,14 @@
    <qandaentry>
     <question>
      <para>
-     Where can I find the latest source for <application>Anjuta</application>? There is 
-     no CVS repository on the project page at SourceForge!
+     Where can I find the latest source for <application>Anjuta</application>?
      </para>
     </question>
     <answer>
      <para>
-     That is because <application>Anjuta</application> is a GNOME application, and is 
-	 in <ulink type="http" url="http://cvs.gnome.org">GNOME CVS</ulink>. You can find 
-	 out more about how to obtain the CVS sources at the GNOME site, or at the 
+     <application>Anjuta</application> can be found in
+      <ulink type="http" url="http://cvs.gnome.org">GNOME Subversion repository</ulink>. You can find 
+      out more about how to obtain the SVN sources at the GNOME site, or at the 
      <ulink type="http" url="http://anjuta.org/">project home page</ulink>.
      </para>
     </answer>
@@ -192,28 +177,15 @@
    <qandaentry>
     <question>
      <para>
-	I don't have CVS access - how do I access the latest Anjuta source ?
-     </para>
-    </question>
-    <answer>
-     <para>
-	Latest nightly tarballs of Anjuta are available 
-	<ulink type="http" url="http://anjuta.org/cvs/">here</ulink>.
-     </para>
-    </answer>
-   </qandaentry> 
-
-   <qandaentry>
-    <question>
-     <para>
-	There is no configure script in CVS version !
+	There is no configure script in SVN version !
      </para>
     </question>
     <answer>
      <para>
 	You'll have to generate the configure script using the autogen.sh script that
-	is included with the distribution. Note that you will need compatible versions of
-	automake, autoconf and libtool.
+	is included with the source. Note that you will need compatible versions of
+	automake, autoconf, libtool and other tools necessary. The script will tell you
+    what things you need.
      </para>
     </answer>
    </qandaentry> 
@@ -226,7 +198,11 @@
     </question>
     <answer>
      <para>
-	You can select the appropriate editor in Settings->Plugin Manager.
+	Anjuta will prompt you to select one of them when it first (as of the runtime)
+    requires an editor. If you check mark the 'Remember this selection' in the
+    selection dialog, Anjuta will remember your selection and never prompt again
+    in subsequent runs. You can 'forget' this selection from Settings->Plugins->Preferred plugins
+    dialog.
      </para>
     </answer>
    </qandaentry> 
@@ -235,30 +211,16 @@
      <question>
       <para>
       When I build the <application>Anjuta</application> source, I get compiler errors 
-	  for some missing header files / missing library / etc.
+	  for some missing packages or .pc files.
       </para>
      </question>
      <answer>
       <para>
-      The missing header files probably belong to the GNOME libraries. You may have 
-      an old version of the GNOME libraries. You should upgrade to a full GNOME 2.14
-	  installation. 
-      </para>
-      </answer>
-     </qandaentry>
-
-    <qandaentry>
-     <question>
-      <para>
-		I can't compile <application>Anjuta</application> - complains about missing
-		package. But I have the package RPMs installed.
-      </para>
-     </question>
-     <answer>
-      <para>
-		If you want to compile Anjuta from source tarballs/CVS, you'll need the devel
-		versions of the packages as well. For example, Anjuta requires gnome-print. So,
-		you'll need to install gnome-print as well as gnome-print-devel.
+        Obviously you need to install those missing packages along with there corresponding
+        development packages. Check out your distribution to find them. For example, on
+        debian based systems, the packages are usually named *-dev and on RedHat based
+        systems, they are *-devel. Make sure you install the packages as requested by the
+        configure script.
       </para>
       </answer>
      </qandaentry>
@@ -307,15 +269,8 @@
       </para>
      </question>
      <answer>
-      <para>
-      It is best to do a system installation (as root) and not local installation. 
-      <application>Anjuta</application> depends on GNOME for supplying pixmaps, and 
-      the help system works with <application>gnome-help-browser</application> 
-      or <application>Nautilus</application>, none of which will be happy if you do a 
-      local installation.
-      </para>
 	  <para>
-	  Having said that, Anjuta mostly works fine from a local installtion and Anjuta
+	  Anjuta mostly works fine from a local installation and Anjuta
 	  hackers do it all the time. You might experience some problems with the Help
 	  entries, but that's about it. If you encounter such a problem (missing Help
 	  entries), install the stable version in the GNOME install prefix and then
@@ -347,7 +302,7 @@
     <qandaentry>
      <question>
       <para>
-		  Why doesn't Anjuta have my favourite XYZ feature ?
+		  Why doesn't Anjuta have my favourite XYZ feature?
       </para>
      </question>
      <answer>
@@ -362,14 +317,17 @@
 	<qandaentry>
     <question>
      <para>
-		Why doesn't Anjuta compile/work on my favourite platform ?
+		Why doesn't Anjuta compile/work on my favourite platform?
      </para>
     </question>
     <answer>
      <para>
 		Because you haven't sent us patches/bug reports. Please send log messages and, if
 		possible, patches to anjuta-devel mailing list. You can also file it as a bug or
-		feature request.
+		feature request. Anjuta developers are poor guys that do not have the luxary to
+        own all sorts of hardware/OS, so if you want it fixed for those platforms, the
+        best thing to do is to try fixing it yourself and give us the patches or file a
+        bug report in bugzilla so that someone else with the platform can fix it.
 	</para>
     </answer>
    </qandaentry> 
@@ -397,7 +355,8 @@
      <answer>
       <para>
       Check the <ulink url="http://bugzilla.gnome.org/browse.cgi?product=anjuta" type="http">Product summary</ulink>
-	  at Bugzilla. There are always plenty of bugs and feature requests to pick up.
+	  at Bugzilla and <ulink url="http://anjuta.org/tasks">Pending Tasks</ulink> at Anjuta website. Some tasks
+      even have bounties on them. There are always plenty of bugs and feature requests to pick up.
 	  It is a good idea to join the anjuta-devel mailing list (anjuta-devel@list.sf.net) first, though. Start small
 	  and then gradually tackle bigger and bigger thngs.
       </para>
@@ -413,27 +372,10 @@
      <answer>
       <para>
       If you want to improve Anjuta's editor, it is better to hack on
-	  <ulink url="http://www.scintilla.org/" type="http">Scintilla</ulink> instead.
-	  Anjuta simply uses the Scintilla editor widget with some minor changes.
-
-		Since Anjuta 2.0.2 we also use the <ulink url="http://gtksourceview.sf.net" type="http">GtkSourceView</ulink>
-		editor.  This is the same library gedit is based on!
+	  <ulink url="http://www.scintilla.org/" type="http">Scintilla</ulink> or
+      <ulink url="http://gtksourceview.sf.net" type="http">GtkSourceView</ulink> instead.
+	  Anjuta simply uses the editors widget directly.
       </para>
-      </answer>
-     </qandaentry>
-
-    <qandaentry>
-     <question>
-      <para>
-      I am a hacker - should I start with Anjuta or Anjuta2 ?
-      </para>
-     </question>
-     <answer>
-      <para>
-		Start with Anjuta2. You will need a full GNOME2 installation. Asking quesitons
-		on anjuta-devel list is a good way to start. Anjuta2 has improved a lot in the last months
-		and is in beta stage now.
-	  </para>
       </answer>
      </qandaentry>
 
@@ -445,13 +387,13 @@
      </question>
      <answer>
       <para>
-		Send it to the developer's mailing list. It is a good idea to subscribe to the
+		Create a <ulink href="http://bugzilla.gnome.org/simple-bug-guide.cgi?product=anjuta">bugzilla entry</ulink>
+        and attach your patch there. We will look at it in due time. It is a good idea to subscribe to the
 		develeper's mailing list if you plan to do some hacking. You can find links
 		<ulink url="http://sf.net/projects/anjuta/" type="http">here</ulink>.
 	  </para>
       </answer>
      </qandaentry>
-
 
 	</qandadiv>
 
@@ -462,14 +404,14 @@
    <qandaentry>
     <question>
      <para>
-		 What is the correct way of including the GTk header files in my applications ?
+		 What is the correct way of using an external library such as GTK+ in my applications?
+         Or what flag do I specify if I want to link my project to libxxx.a or libxxx.so ?
      </para>
     </question>
     <answer>
      <para>
-		It depends on the GTK verion you are using. If you are using GTK 1.x, you should add
-		the output of 'gtk-config --cflags' to your compiler flags. If you are using GTK 2.x,
-		you'll need to use the command 'pkg-config --cflags gtk-2.0' instead.
+      Use project and target properties to add them to your project. Please refer to Anjuta Users Manual
+      for detailed instruction on this.
      </para>
     </answer>
    </qandaentry> 
@@ -482,21 +424,9 @@
     </question>
     <answer>
      <para>
-		This is one of the cool features of Anjuta 2 and a really good reason to update!
-     </para>
-    </answer>
-   </qandaentry> 
-
-   <qandaentry>
-    <question>
-     <para>
-		Anjuta crashes during printing/preview.
-     </para>
-    </question>
-    <answer>
-     <para>
-		There are known issues with gnome-print. please upgrade gnome-print to the
-		latest version.
+		Use 'groups' in Anjuta project. They are the sub-directories in your project. They
+        can be easily added and removed. Please refer to Anjuta Users Manual
+       for detailed instruction on this.
      </para>
     </answer>
    </qandaentry> 
@@ -510,20 +440,6 @@
     <answer>
      <para>
 		Right-click in the message pane ->Save messages!
-     </para>
-    </answer>
-   </qandaentry> 
-
-   <qandaentry>
-    <question>
-     <para>
-		What flag do I specify if I want to link my project to libxxx.a or libxxx.so ?
-     </para>
-    </question>
-    <answer>
-     <para>
-		In general, to link against any external library which has a name lib[name].a or
-		lib[name].so, you need to add '-l[name]' to linker flags. 
      </para>
     </answer>
    </qandaentry> 
@@ -550,7 +466,8 @@
     </question>
     <answer>
      <para>
-	You can only use alphabets, numbers and the underscore character in project names.
+       You can only use alphabets, numbers and the underscore character in project names.
+       (can anyone confirm this if this is still the case in newer versions?)
 	</para>
     </answer>
    </qandaentry> 
@@ -604,12 +521,12 @@
     <question>
      <para>
 	 I cannot use a standard shortcut with Anjuta. All shortcuts seem to be
-	 messed up !
+	 messed up!
      </para>
     </question>
     <answer>
      <para>
-	 Exit from Anjuta, delete $HOME/.gnome/accels/anjuta and restart. This will
+	 Exit from Anjuta, delete $HOME/.gnome2/accels/anjuta and restart. This will
 	 restore the shortcut to the (sane) default values.
 	</para>
     </answer>
@@ -632,20 +549,6 @@
 	<qandaentry>
     <question>
      <para>
-		Project wizards do not work on RH8.
-     </para>
-    </question>
-    <answer>
-     <para>
-		This might be a configuration or package version problem. Please send detailed bug reports
-		to the devel mailing list or file a bug report.
-	</para>
-    </answer>
-   </qandaentry>
-
-	<qandaentry>
-    <question>
-     <para>
 		Context help does not work/is disabled.
      </para>
     </question>
@@ -653,51 +556,7 @@
      <para>
 		You probably do not have Devhelp installed. please install
 		<ulink url="http://developer.imendio.com/wiki/Devhelp" type="http">DevHelp</ulink>.
-	</para>
-    </answer>
-   </qandaentry>
-
-	<qandaentry>
-    <question>
-     <para>
-		I can't stop the debuger/debugger hangs.
-     </para>
-    </question>
-    <answer>
-     <para>
-		You are probably trying to debug a multi-theaded program on Linux. This is a known issue.
-	</para>
-    </answer>
-   </qandaentry>
-
-	<qandaentry>
-    <question>
-     <para>
-		Find in files/Show Usage do not work properly.
-     </para>
-    </question>
-    <answer>
-     <para>
-		You probably do not have GNU grep installed. GNU grep is required for the Find functionality
-		to work corectly. Please install <ulink url="ftp://ftp.gnu.org/" type="http">GNU Grep</ulink>.
-	</para>
-     <para>
-	   Note that it is quite easy to customize your own grep command by adding a
-	   new tool using the Tools Editor.
-	</para>
-    </answer>
-   </qandaentry>
-
-	<qandaentry>
-    <question>
-     <para>
-		The project/messages panes keep shrinking back to zero size ?
-     </para>
-    </question>
-    <answer>
-     <para>
-		This is a known problem with Xenophilia based themes when the window manager is not set
-		to remember all window positions automatically. See if changing the GTK theme works.
+        Check also that you have devhelp plugin enabled in Settings->Plugins.
 	</para>
     </answer>
    </qandaentry>
@@ -734,18 +593,6 @@
 	</para>
     </answer>
    </qandaentry>
-
-	<qandaentry>
-    <question>
-     <para>
-		Should I use Anjuta 1.2 or Anjuta 2 ?
-    </para>
-    </question>
-    <answer>
-    <para>Definitly use Anjuta 2 because it has more features, has become quite stable and is blending-edge ;-)</para>
-    </answer>
-   </qandaentry>
-
 	</qandadiv>
 </qandaset>
  <!-- ============= Authors ================================ -->
@@ -768,5 +615,5 @@
    </para>
    -->
 
- </sect1>
 </article>
+
