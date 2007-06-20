@@ -102,33 +102,58 @@ gprof_profile_data_free (GProfProfileData *self)
 
 gboolean
 gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
+								 gchar *alternate_profile_data_path, 
 								 GPtrArray *options)
 {
 	gint stdout_pipe;
 	gint i;
 	FILE *stdout_stream;
 	gchar *program_dir;
-	gchar *gmon_out_path;
+	gchar *profile_data_path;
+	gchar *profile_data_uri;
+	gchar *profile_data_mime_type;
 	gchar *path_uri;
 	GPtrArray *gprof_args;
-	gchar *mime_type;
+	gchar *target_mime_type;
 	gboolean is_libtool_target = FALSE;
 	GPid gprof_pid;
 	gint gprof_status;
 	
 	/* Determine target mime type */
 	path_uri = gnome_vfs_get_uri_from_local_path (path);
-	mime_type = gnome_vfs_get_mime_type (path_uri);
+	target_mime_type = gnome_vfs_get_mime_type (path_uri);
 	
-	if (mime_type)
+	if (target_mime_type)
 	{
-		if (strcmp (mime_type, "application/x-shellscript") == 0)
+		if (strcmp (target_mime_type, "application/x-shellscript") == 0)
 			is_libtool_target = TRUE;
 		
-		g_free (mime_type);
+		g_free (target_mime_type);
 	}
 	
 	g_free (path_uri);
+	
+	/* If the user gave us a path to a data file, check the mime type to make
+	 * sure the user gave us an actual profile dump, or else we could hang 
+	 * because gprof doesn't handle this itself, and will keep allocating 
+	 * memory until it sucks the system dry. */
+	if (alternate_profile_data_path)
+	{
+		profile_data_uri = gnome_vfs_get_uri_from_local_path (alternate_profile_data_path);
+		profile_data_mime_type = gnome_vfs_get_mime_type (profile_data_uri);
+		
+		if (strcmp (profile_data_mime_type, "application/x-profile") != 0)
+		{
+			g_free (profile_data_uri);
+			g_free (profile_data_mime_type);
+			return FALSE;
+		}
+		
+		g_free (profile_data_uri);
+		g_free (profile_data_mime_type);
+	}
+	
+	
 	
 	/* Run gprof with -b given the path to a program run with profiling */
 	
@@ -150,9 +175,17 @@ gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
 	
 	/* Also give the path of the gmon.out file */
 	
-	program_dir = g_path_get_dirname (path);
-	gmon_out_path = g_build_filename (program_dir, "gmon.out", NULL);
-	g_ptr_array_add (gprof_args, gmon_out_path);
+	profile_data_path = NULL;
+	program_dir = NULL;
+	
+	if (alternate_profile_data_path)
+		g_ptr_array_add (gprof_args, alternate_profile_data_path);
+	else
+	{
+		program_dir = g_path_get_dirname (path);
+		profile_data_path = g_build_filename (program_dir, "gmon.out", NULL);
+		g_ptr_array_add (gprof_args, profile_data_path);
+	}
 	g_ptr_array_add (gprof_args, NULL);
 	
 	g_spawn_async_with_pipes (NULL, (gchar **) gprof_args->pdata, 
@@ -164,7 +197,7 @@ gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
 							  NULL, NULL);
 	
 	g_ptr_array_free (gprof_args, TRUE);
-	g_free (gmon_out_path);
+	g_free (profile_data_path);
 	g_free (program_dir);
 
 	stdout_stream = fdopen (stdout_pipe, "r");

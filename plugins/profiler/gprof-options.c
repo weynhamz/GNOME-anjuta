@@ -194,9 +194,21 @@ on_option_focus_out (GtkWidget *text_view, GdkEventFocus *event,
 }
 
 static void
+on_option_changed (GtkEditable *editable, Key *key)
+{
+	gchar *string;
+	
+	string = gtk_editable_get_chars (editable, 0, -1);
+	gprof_options_set_string (key->options, key->name, string);
+	
+	g_free (string);
+}
+
+static void
 setup_widgets (gchar *key_name, Key *key, GladeXML *gxml)
 {
 	GtkWidget *widget;
+	GtkWidget *file_chooser_dialog;
 	GtkTextBuffer *buffer;
 	gchar *string;
 	
@@ -221,6 +233,15 @@ setup_widgets (gchar *key_name, Key *key, GladeXML *gxml)
 				g_signal_connect (widget, "focus-out-event", G_CALLBACK (on_option_focus_out),
 								  key);
 			
+				g_free (string);
+				break;
+			case OPTION_TYPE_ENTRY:
+				string = gprof_options_get_string (key->options, key->name);
+				gtk_entry_set_text (GTK_ENTRY (widget), string);
+				
+				g_signal_connect (widget, "changed", G_CALLBACK (on_option_changed),
+								  key);
+				
 				g_free (string);
 				break;
 			default:

@@ -1,5 +1,24 @@
 2007-06-20  Naba Kumar  <naba.kumar@gnome.org>
 
+	Patch from James Liggett:
+
+	* plugins/profiler/gprof-options.c: (on_option_changed),
+	(setup_widgets):
+	* plugins/profiler/gprof-options.h:
+	* plugins/profiler/gprof-profile-data.c:
+	(gprof_profile_data_init_profile):
+	* plugins/profiler/gprof-profile-data.h:
+	* plugins/profiler/plugin.c: (profiler_get_data),
+	(profiler_set_target), (register_options),
+	(on_profile_data_browse_button_clicked),
+	(on_profiling_options_button_clicked), (on_profiler_delete_data):
+	* plugins/profiler/profiler.glade: implements independent targets.
+	implements the ability to select arbitrary gmon.out files.
+	Fixes bug #403502 – User should also be allowed to select an
+	independent executable target.
+
+2007-06-20  Naba Kumar  <naba.kumar@gnome.org>
+
 	* plugins/tools/scripts/prepare-changelog.pl: Updated newer version.
 
 	* manuals/anjuta-faqs/C/anjuta-faqs.xml: Updated.

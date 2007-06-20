@@ -151,15 +151,27 @@ profiler_get_data (Profiler *profiler)
 {
 	GPtrArray *options;
 	gchar **option_strings;
+	gchar *profiling_data_path;
+	gchar *profiling_data_path_from_options;
 	gboolean ret = FALSE;
 	
 	if (profiler->profile_target_path)
 	{
 
 		options = setup_options (profiler);
+		
+		profiling_data_path_from_options = gprof_options_get_string (profiler->options,
+																	 "profile_data_file");
+		
+		if (strlen (profiling_data_path_from_options) > 0)
+			profiling_data_path = profiling_data_path_from_options;
+		else
+			profiling_data_path = NULL;
+		
 		if (!gprof_profile_data_init_profile (profiler->profile_data, 
-										 	 profiler->profile_target_path,
-										 	 options))
+										 	  profiler->profile_target_path,
+											  profiling_data_path,
+										 	  options))
 		{
 			anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (profiler)->shell),
 									  _("Could not get profiling data."
@@ -169,6 +181,7 @@ profiler_get_data (Profiler *profiler)
 		}
 											 
 		option_strings = (gchar **) g_ptr_array_free (options, FALSE);
+		g_free (profiling_data_path_from_options);
 		g_strfreev (option_strings);
 		
 		ret = TRUE;
@@ -207,8 +220,9 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 {
 	gchar *profile_target_path;
 	gchar *profile_target_dir;
-	gchar *gmon_out_path;
-	gchar *gmon_out_uri;
+	gchar *profile_data_path;
+	gchar *profile_data_path_from_options;
+	gchar *profile_data_uri;
 	
 	if (profiler->profile_target_path)
 	{
@@ -219,12 +233,27 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 	if (profile_target_uri)
 	{
 		profile_target_path = gnome_vfs_get_local_path_from_uri (profile_target_uri);
-		profile_target_dir = g_path_get_dirname (profile_target_path);
-		gmon_out_path = g_build_filename (profile_target_dir, "gmon.out", 
-										  NULL);
-		gmon_out_uri = gnome_vfs_get_uri_from_local_path (gmon_out_path);
 		
-		if (g_file_test (gmon_out_path, G_FILE_TEST_EXISTS))
+		profile_data_path_from_options = gprof_options_get_string (profiler->options,
+																   "profile_data_file");
+		
+		if (strlen (profile_data_path_from_options) > 0)
+		{
+			profile_data_path = g_strdup (profile_data_path_from_options);
+			profile_target_dir = NULL;
+		}
+		else
+		{
+			profile_target_dir = g_path_get_dirname (profile_target_path);
+			profile_data_path = g_build_filename (profile_target_dir, "gmon.out", 
+										  		  NULL);
+		}
+		
+		g_free (profile_data_path_from_options);
+		
+		profile_data_uri = gnome_vfs_get_uri_from_local_path (profile_data_path);
+		
+		if (g_file_test (profile_data_path, G_FILE_TEST_EXISTS))
 		{
 			profiler->profile_target_path = profile_target_path;
 		
@@ -238,7 +267,7 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 					gnome_vfs_monitor_cancel (profiler->profile_data_monitor);
 				
 				gnome_vfs_monitor_add (&profiler->profile_data_monitor,
-									   gmon_out_uri, GNOME_VFS_MONITOR_FILE,  
+									   profile_data_uri, GNOME_VFS_MONITOR_FILE,  
 									   on_profile_data_changed,
 									   (gpointer) profiler);
 			}
@@ -261,8 +290,8 @@ profiler_set_target (Profiler *profiler, const gchar *profile_target_uri)
 		}
 		
 		g_free (profile_target_dir);
-		g_free (gmon_out_path);
-		g_free (gmon_out_uri);
+		g_free (profile_data_path);
+		g_free (profile_data_uri);
 	}
 }
 
@@ -318,9 +347,43 @@ register_options ()
 											  
 	gprof_options_register_key (options, "propagation_symbols", "",
 								"propagation_text_view",
-								OPTION_TYPE_TEXT_ENTRY);										  
+								OPTION_TYPE_TEXT_ENTRY);
+	
+	gprof_options_register_key (options, "profile_data_file", "",
+								"profile_data_file_entry",
+								OPTION_TYPE_ENTRY);
 	
 	return options;
+}
+
+static void
+on_profile_data_browse_button_clicked (GtkButton *button, GladeXML *gxml)
+{
+	GtkWidget *select_file_dialog;
+	GtkWidget *profile_data_file_entry;
+	GtkWidget *profiling_options_dialog;
+	gchar *selected_file;
+	
+	profile_data_file_entry = glade_xml_get_widget (gxml, "profile_data_file_entry");
+	profiling_options_dialog = glade_xml_get_widget (gxml,
+													 "profiling_options_dialog");
+	select_file_dialog = gtk_file_chooser_dialog_new ("Select Data File",
+													  GTK_WINDOW (profiling_options_dialog),
+													  GTK_FILE_CHOOSER_ACTION_OPEN,
+													  GTK_STOCK_CANCEL, 
+													  GTK_RESPONSE_CANCEL,
+													  GTK_STOCK_OPEN,
+													  GTK_RESPONSE_ACCEPT,
+													  NULL);
+	
+	if (gtk_dialog_run (GTK_DIALOG (select_file_dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		selected_file = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (select_file_dialog));
+		gtk_entry_set_text (GTK_ENTRY (profile_data_file_entry), selected_file);
+		g_free (selected_file);
+	}
+	
+	gtk_widget_destroy (select_file_dialog);
 }
 
 static void
@@ -329,13 +392,18 @@ on_profiling_options_button_clicked (GtkButton *button, gpointer *user_data)
 	Profiler *profiler;
 	GladeXML *gxml;
 	GtkWidget *profiling_options_dialog;
-	GtkWidget *closebutton;
+	GtkWidget *profile_data_browse_button;
 
 	profiler = PROFILER (user_data);
 	gxml = glade_xml_new (GLADE_FILE, "profiling_options_dialog",
 						  NULL);
 	profiling_options_dialog = glade_xml_get_widget (gxml, "profiling_options_dialog");
-	closebutton = glade_xml_get_widget (gxml, "closebutton");
+	profile_data_browse_button = glade_xml_get_widget (gxml,
+													   "profile_data_browse_button");
+	
+	g_signal_connect (profile_data_browse_button, "clicked",
+					  G_CALLBACK (on_profile_data_browse_button_clicked),
+					  gxml);
 	
 	g_signal_connect (profiling_options_dialog, "response", G_CALLBACK (gtk_widget_hide),
 					  profiling_options_dialog);
@@ -542,17 +610,30 @@ static void
 on_profiler_delete_data (GtkAction *action, Profiler *profiler)
 {
 	gchar *profile_target_dir;
-	gchar *gmon_out_path;
+	gchar *profile_data_path_from_options;
+	gchar *profile_data_path;
 	
 	if (profiler->profile_target_path)
 	{
-		profile_target_dir = g_path_get_dirname (profiler->profile_target_path);
-		gmon_out_path = g_build_filename (profile_target_dir, "gmon.out", NULL);
+		profile_data_path_from_options = gprof_options_get_string (profiler->options,
+																   "profile_data_file");
+		/* Delete given path if we have one, or just use the default */
+		if (strlen (profile_data_path_from_options) > 0)
+			g_unlink (profile_data_path_from_options);
+		else
+		{
 		
-		g_unlink (gmon_out_path);
+			profile_target_dir = g_path_get_dirname (profiler->profile_target_path);
+			profile_data_path = g_build_filename (profile_target_dir, 
+											  	  "gmon.out", NULL);
 		
-		g_free (profile_target_dir);
-		g_free (gmon_out_path);
+			g_unlink (profile_data_path);
+			
+			g_free (profile_target_dir);
+			g_free (profile_data_path);
+		}
+		
+		g_free (profile_data_path_from_options);
 	}
 }
 

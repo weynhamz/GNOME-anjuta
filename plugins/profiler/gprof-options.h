@@ -60,7 +60,8 @@ struct _GProfOptionsClass
 typedef enum
 {
 	OPTION_TYPE_TOGGLE,
-	OPTION_TYPE_TEXT_ENTRY
+	OPTION_TYPE_TEXT_ENTRY,
+	OPTION_TYPE_ENTRY
 } OptionWidgetType;
 
 GType gprof_options_get_type (void);

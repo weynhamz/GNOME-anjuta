@@ -60,6 +60,7 @@ GProfProfileData *gprof_profile_data_new (void);
 void gprof_profile_data_free (GProfProfileData *self);
 
 gboolean gprof_profile_data_init_profile (GProfProfileData *self, gchar *path,
+										  gchar *alternate_profile_data_path,
 									  	  GPtrArray *options);
 
 GProfFlatProfile *gprof_profile_data_get_flat_profile (GProfProfileData *self);
