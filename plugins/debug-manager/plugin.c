@@ -217,7 +217,7 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gui
 	hide_program_counter_in_disassembler (self);
 	if (self->pc_editor != NULL)
 	{
-		g_object_remove_weak_pointer (G_OBJECT (self->pc_editor), (gpointer)&self->pc_editor);
+		g_object_remove_weak_pointer (G_OBJECT (self->pc_editor), (gpointer *)&self->pc_editor);
 		self->pc_editor = NULL;
 	}
 	self->pc_address = address;
@@ -312,7 +312,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	
 		hide_program_counter_in_editor (self);
 
-		g_object_remove_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)&(self->current_editor));
+		g_object_remove_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)&self->current_editor);
 		self->current_editor = NULL;
 	}
 }
@@ -1298,6 +1298,7 @@ dma_plugin_instance_init (GObject* obj)
 	plugin->project_root_uri = NULL;
 	plugin->debugger = NULL;
 	plugin->current_editor = NULL;
+	plugin->pc_editor = NULL;
 	plugin->editor_watch_id = 0;
 	plugin->project_watch_id = 0;
 	plugin->breakpoints = NULL;
@@ -1329,6 +1330,17 @@ dma_plugin_dispose (GObject* obj)
 static void
 dma_plugin_finalize (GObject* obj)
 {
+	DebugManagerPlugin *self = ANJUTA_PLUGIN_DEBUG_MANAGER (obj);
+
+	if (self->pc_editor != NULL)
+	{
+		g_object_remove_weak_pointer (G_OBJECT (self->pc_editor), (gpointer *)&self->pc_editor);
+	}
+	if (self->current_editor != NULL)
+	{
+		g_object_remove_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)&self->current_editor);
+	}
+	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT (obj)));
 }
 

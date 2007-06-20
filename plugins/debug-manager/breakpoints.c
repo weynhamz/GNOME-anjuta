@@ -376,6 +376,12 @@ breakpoint_item_free (BreakpointItem *bi)
 	g_return_if_fail (bi != NULL);
 
 	anjuta_breakpoint_free (bi->bp);
+	
+	if (bi->editor != NULL)
+	{
+		g_object_remove_weak_pointer (G_OBJECT (bi->editor), (gpointer *)&bi->editor);
+	}
+	
 	g_free (bi);
 }
 
@@ -1115,7 +1121,7 @@ breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 			if (bi->editor == te)
 			{       
 				bi->editor = NULL;
-				g_object_remove_weak_pointer (G_OBJECT (te), (gpointer)&bi->editor);
+				g_object_remove_weak_pointer (G_OBJECT (te), (gpointer *)&bi->editor);
 			}
 		} while (gtk_tree_model_iter_next (model, &iter));
 	}
@@ -1483,7 +1489,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 
-	/* breakpoints_dbase_remove_all (bd); */
+	breakpoints_dbase_remove_all (bd);
 	list = anjuta_session_get_string_list (session, "Debugger", "Breakpoint");
 	if (list != NULL)
 		breakpoints_dbase_add_breakpoint_list (bd, list);

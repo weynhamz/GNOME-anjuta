@@ -1,3 +1,10 @@
+2007-06-20 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/breakpoints.c:
+	Remove weak pointers when owner is destroyed
+	Remove all breakpoints before loading new one
+
 2007-06-20  Vincent Geddes  <vincent.geddes@gmail.com>
 
         * plugins/glade/plugin.c: Update for API changes in glade 3.3.0 and above.
