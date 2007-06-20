@@ -48,13 +48,13 @@ use File::Basename;
 
 # Check for cvs or svn system
 my $command;
-if (-e "CVS/Root")
-  {
-    $command = "cvs";
-  }
-elsif (-e ".svn/README.txt")
+if (-e ".svn/entries")
   {
     $command = "svn";
+  }
+elsif (-e "CVS/Root")
+  {
+    $command = "cvs";
   }
 else
   {
@@ -189,8 +189,9 @@ my $name = $ENV{CHANGE_LOG_NAME}
   || "set REAL_NAME environment variable";
 my $email_address = $ENV{CHANGE_LOG_EMAIL_ADDRESS}
   || $ENV{EMAIL_ADDRESS}
+  || ((getlogin || getpwuid($<)) . "@" . `hostname`)
   || "set EMAIL_ADDRESS environment variable";
-
+chomp($email_address);
 foreach my $chlog (reverse sort keys %changelogs) {
     update_change_log ("$chlog/ChangeLog");
     # It's less efficient to read the whole thing into memory than it would be
@@ -216,8 +217,6 @@ foreach my $chlog (reverse sort keys %changelogs) {
     
     # Done.
     print STDERR "  Done editing ${chlog}/ChangeLog.\n";
-    # To open the changelog file in emacs/similar editor
-    print "\032\032${chlog}/ChangeLog:0\n";
     last if not (keys %function_lists);
 }
 
