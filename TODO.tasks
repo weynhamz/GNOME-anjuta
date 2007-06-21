@@ -93,17 +93,6 @@ should be shown side-by-side in status bar.</comment>
       <comment>Create the preference dialog only if it is shown and destroy it afterwards.</comment>
     </item>
     <item>
-      <attribute id="1159555613" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1159560494"/>
-      <summary>On demand preferences widgets creation</summary>
-      <comment>[Skill: High, Work: 30hrs]
-
-Currently, preferences are registered at plugins activation time. This has a real drawback that we spend unnecessary time at startup that could easily be avoided by on-demand creation of the preferences. One reason why it isn't straightforward is because preferences dialogs contain the schemas for preference keys, so unless the glade files (of the plugin preferences dialogs) are loaded, the default values of the keys are not available.
-
-It should be fixed such that gconf schema files are automatically generated from the dialogs by grepping for the preferences keys schemas defined in the widget names (in the glade files) during build time and installed correctly during install time.
-
-Then AnjutaPreferences class should be fixed not to preemptively create the dialog widgets on plugin activations, but rather do it at IAnjutaPreferences::merge() and IAnjutaPreferences::unmerge() implementations in plugins. The plugins would still need to setup notifications in IAnjutaPreferences::init() implementation. To accomplish all this, it might involve substantial changes in AnjutaPreferences class.</comment>
-    </item>
-    <item>
       <attribute id="1098253494" priority="2" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159560595"/>
       <summary>Preferences keys with no defaults do not register</summary>
       <comment>Preferences keys without default values (defined in .glade file) are not registered during preferences registeration. This results in gconf type mismatch when the keys are queried.</comment>
@@ -112,6 +101,17 @@ Then AnjutaPreferences class should be fixed not to preemptively create the dial
       <attribute id="1174914002" priority="1" done="0" start_date="732761" enddate="99999999" notify="0" endtime="-60" last_edited="1174914002"/>
       <summary>Add a 'Remembered plugins' page in Settings-&gt;plugins dialog</summary>
       <comment>Add a new page in Settings-&gt;plugins dialog, along side Available plugins page, that lists the plugins that have been remembered from plugin query and selection dialog. And for 'Forget' and 'Forget all' buttons.</comment>
+    </item>
+    <item>
+      <attribute id="1159555613" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1182419093"/>
+      <summary>On demand preferences widgets creation</summary>
+      <comment>[Skill: High, Work: 30hrs, Bounty: $100, Status: Assigned, Bug: #445314]
+
+Currently, preferences are registered at plugins activation time. This has a real drawback that we spend unnecessary time at startup that could easily be avoided by on-demand creation of the preferences. One reason why it isn't straightforward is because preferences dialogs contain the schemas for preference keys, so unless the glade files (of the plugin preferences dialogs) are loaded, the default values of the keys are not available.
+
+It should be fixed such that gconf schema files are automatically generated from the dialogs by grepping for the preferences keys schemas defined in the widget names (in the glade files) during build time and installed correctly during install time.
+
+Then AnjutaPreferences class should be fixed not to preemptively create the dialog widgets on plugin activations, but rather do it at IAnjutaPreferences::merge() and IAnjutaPreferences::unmerge() implementations in plugins. The plugins would still need to setup notifications in IAnjutaPreferences::init() implementation. To accomplish all this, it might involve substantial changes in AnjutaPreferences class.</comment>
     </item>
   </category>
   <category title="Plugin: Editor" place="5">
