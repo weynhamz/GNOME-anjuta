@@ -8,7 +8,7 @@
 /* the GError stuff */
 #define LIBGTODO_ERROR g_quark_from_static_string("libgtodo-error-quark")
 
-enum{
+typedef enum {
 	LIBGTODO_ERROR_OK, /* no error */
 	LIBGTODO_ERROR_FAILED,
 	LIBGTODO_ERROR_GENERIC,	
@@ -18,7 +18,7 @@ enum{
 	LIBGTODO_ERROR_NO_PERMISSION,
 	LIBGTODO_ERROR_GNOME_VFS,
 	LIBGTODO_ERROR_XML
-}LibGTodoError;
+} LibGTodoError;
 
 enum {
 	GTODO_DUE_TIME_HOURE,

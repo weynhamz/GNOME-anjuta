@@ -1,5 +1,15 @@
 2007-06-21  Naba Kumar  <naba.kumar@gnome.org>
 
+	* manuals/anjuta-faqs/C/anjuta-faqs.xml,
+	manuals/anjuta-manual/C/fileoperations.xml,
+	manuals/anjuta-manual/C/projects.xml: Fixd validation errors.
+
+	* plugins/gtodo/libgtodo.h: Give a typedef for enum.
+
+	* libanjuta/anjuta-children.c: Fixed a bad compile warning.
+
+2007-06-21  Naba Kumar  <naba.kumar@gnome.org>
+
 	* TODO.tasks: Added bounty for on-demand preferences.
 
 	Patch from Thierry Moisan:

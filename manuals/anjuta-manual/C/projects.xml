@@ -237,15 +237,17 @@
      To add a new group (a directory in automake based projects):
         <itemizedlist>
          <listitem>
+           <para>
            Select <menuchoice><guisubmenu>Project</guisubmenu>
 	   <guimenuitem>Add Group</guimenuitem></menuchoice> and a dialog to
            add a new group would popup. 
+           </para>
          </listitem>
          <listitem>
-           Select the group under which to add new group.
+           <para>Select the group under which to add new group.</para>
          </listitem>
          <listitem>
-            Give a name of the new group and click Ok.
+            <para>Give a name of the new group and click Ok.</para>
          </listitem>
         </itemizedlist>
      With automake projects,
@@ -266,11 +268,11 @@
     To remove a group:
     <itemizedlist>
      <listitem>
-       Select the target in <interface>Project Manager view</interface>.
+       <para>Select the target in <interface>Project Manager view</interface>.</para>
      </listitem>
      <listitem>
-       Select <guimenuitem>Remove</guimenuitem> from the
-       <guimenu>Operation</guimenu> menu.
+       <para>Select <guimenuitem>Remove</guimenuitem> from the
+       <guimenu>Operation</guimenu> menu.</para>
      </listitem>
     </itemizedlist>
       The target and sources associated
@@ -285,18 +287,18 @@
      To add a new target:
      <itemizedlist>
       <listitem>
-       Select <menuchoice><guisubmenu>Project</guisubmenu>
+       <para>Select <menuchoice><guisubmenu>Project</guisubmenu>
        <guimenuitem>Add Target</guimenuitem></menuchoice> and a dialog to
-       add a new target would popup.
+       add a new target would popup.</para>
      </listitem>
      <listitem>
-      Select the group under which to add the target.
+      <para>Select the group under which to add the target.</para>
      </listitem>
      <listitem>
-      Select the target type.
+      <para>Select the target type.</para>
      </listitem>
      <listitem>
-      Give a name of the new target and click Ok.
+      <para>Give a name of the new target and click Ok.</para>
      </listitem>
     </itemizedlist>
     </para>
@@ -405,11 +407,11 @@
       To remove a target:
       <itemizedlist>
        <listitem>
-        Select the target in <interface>Project Manager view</interface>;
+        <para>Select the target in <interface>Project Manager view</interface></para>
        </listitem>
        <listitem>
-        Select <guimenuitem>Remove</guimenuitem> from the
-        <guimenu>Operation</guimenu> menu.
+        <para>Select <guimenuitem>Remove</guimenuitem> from the
+        <guimenu>Operation</guimenu> menu.</para>
        </listitem>
       </itemizedlist>
       The sources associated with the targets
@@ -495,7 +497,7 @@
    <para>
     Some of the many common variables are listed here. For full list of them
     see <ulink url="info:automake">automake info documentation</ulink>.
-    <para>
+
      <itemizedlist>
       <listitem>
        <para>
@@ -529,7 +531,7 @@
        </para>
       </listitem>
      </itemizedlist>
-    </para>
+
    </para>
 
 
@@ -541,17 +543,23 @@
     <guimenuitem>Properties</guimenuitem></menuchoice>. You can:
     <itemizedlist>
      <listitem>
+      <para>
       Set project name, version and URL in <guibutton>General</guibutton> page.
       Configure variables can also be use in these fields. The URL is the
       bug report URL for the project.
+      </para>
      </listitem>
      <listitem>
+      <para>
       Add and remove dependencies for your project in
       <guibutton>Packages</guibutton> page. See below for details.
+      </para>
      </listitem>
      <listitem>
+      <para>
       Create more configure variables in <guibutton>Variables</guibutton> page
       to use in group and target properties.
+      </para>
      </listitem>
     </itemizedlist>
     </para>
@@ -592,30 +600,34 @@
     To add a package dependency:
     <itemizedlist>
      <listitem>
+      <para>
       Select <menuchoice><guisubmenu>Project</guisubmenu>
       <guimenuitem>Properties</guimenuitem></menuchoice> to bring up project
       properties dialog.
+      </para>
      </listitem>
      <listitem>
-      Select the tab <guibutton>Packages</guibutton> to bring up packages
-      page.
+      <para>Select the tab <guibutton>Packages</guibutton> to bring up packages
+      page.</para>
      </listitem>
      <listitem>
+      <para>
       Select the <emphasis>module</emphasis> to add the package to. If there
       is no module created yet or there is no appropriate module, create one
       by clicking <guibutton>Add module</guibutton>. Give a sensible name to the
       module, preferably in UPPERCASE to match with rest of configure variables
       (only use alphanumeric and '_' characters) and press <keycap>Enter</keycap>
       to create it.
+      </para>
      </listitem>
      <listitem>
-      Click <guibutton>Add package</guibutton> to bring up package selection dialog.
+      <para>Click <guibutton>Add package</guibutton> to bring up package selection dialog.</para>
      </listitem>
      <listitem>
-      Select the package to add and click <guibutton>Add</guibutton>.
+      <para>Select the package to add and click <guibutton>Add</guibutton>.</para>
      </listitem>
      <listitem>
-      Click <guibutton>Close</guibutton> to close the properties dialog.
+      <para>Click <guibutton>Close</guibutton> to close the properties dialog.</para>
      </listitem>
     </itemizedlist>
    </para>
@@ -636,7 +648,7 @@
          be automatically be part of all the targets in it (in addition the
          targets individual properties). Folowing flags are available in group
          properties.
-         <para>
+
 		   <itemizedlist>
 		    <listitem>
 		     <para>
@@ -679,7 +691,7 @@
              </para>
            </listitem>
           </itemizedlist>
-         </para>
+
     </para>
    </sect2>
 
@@ -697,7 +709,7 @@
          target. So any compiler or linker flags set there would
          be just part of it (in addition the its group properties).
          Folowing flags are available in target properties.
-         <para>
+
 		   <itemizedlist>
 		    <listitem>
 		     <para>
@@ -727,7 +739,7 @@
              </para>
            </listitem>
           </itemizedlist>
-         </para>
+
     </para>
    </sect2>
   </sect1>

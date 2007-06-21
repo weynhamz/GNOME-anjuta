@@ -15,6 +15,13 @@
      <filename>newfile#2</filename>, <filename>newfile#3</filename> and 
      so on. 
      </para>
+	   <important>
+	   <title>Save file</title>
+	   <para>
+		You should save new documents as soon as possible to avoid any data 
+		loss in case of a crash.
+	   </para>
+	   </important>
     </sect2>
     <sect2 id="file-wizard">
     <title>File Wizard</title>
@@ -125,14 +132,6 @@
         </para>
       </sect3>
      </sect2>
-
-   <important>
-   <title>Save file</title>
-   <para>
-    You should save new documents as soon as possible to avoid any data 
-    loss in case of a crash.
-   </para>
-   </important>
   </sect1>
 
  <!-- ============= File operations: Opening and saving files === -->
@@ -201,6 +200,16 @@
             <graphic fileref="figures/save_as_file.png" format="PNG" srccredit="jnoel"></graphic>
            </screenshot>
       </para>
+	   <note>
+	   <title>File auto save</title>
+		<para>
+		If you have enabled auto-save, it will not auto-save any new files. 
+		You must first save them manually. The same applies to the 
+		<guimenuitem>Save All</guimenuitem> option: it will not save new files, 
+		if you haven't saved them first manually. <emphasis>You must save a file manually 
+		before auto-save or <guimenuitem>Save All</guimenuitem> will work with it.</emphasis>    
+		</para>
+	   </note>
      </listitem>
 
      <listitem>
@@ -238,16 +247,6 @@
      </listitem> 
     </orderedlist>
    </para>
-   <note>
-   <title>File auto save</title>
-    <para>
-	If you have enabled auto-save, it will not auto-save any new files. 
-	You must first save them manually. The same applies to the 
-	<guimenuitem>Save All</guimenuitem> option: it will not save new files, 
-	if you haven't saved them first manually. <emphasis>You must save a file manually 
-	before auto-save or <guimenuitem>Save All</guimenuitem> will work with it.</emphasis>    
-	</para>
-   </note>
   </sect1>
  
  <!-- ============= File operations: Editing files === -->
@@ -371,12 +370,13 @@
      thousands of lines. Once the folds are closed, the document appears to become 
 	 smaller, facilitating easy browsing and editing of the file.
     </para>
-   </sect2>
-   <note>
-   <para>
-	Please note that code folding and editor guides are only avalible in the scintilla based editor.
-	</para>
+    <note>
+     <para>
+	  Please note that code folding and editor guides are only avalible in
+      the scintilla based editor.
+	 </para>
 	</note>
+   </sect2>
    <sect2 id="autoformat">
     <title>Auto-formatting source code</title>
     <para>

@@ -387,7 +387,7 @@
      </question>
      <answer>
       <para>
-		Create a <ulink href="http://bugzilla.gnome.org/simple-bug-guide.cgi?product=anjuta">bugzilla entry</ulink>
+		Create a <ulink url="http://bugzilla.gnome.org/simple-bug-guide.cgi?product=anjuta">bugzilla entry</ulink>
         and attach your patch there. We will look at it in due time. It is a good idea to subscribe to the
 		develeper's mailing list if you plan to do some hacking. You can find links
 		<ulink url="http://sf.net/projects/anjuta/" type="http">here</ulink>.

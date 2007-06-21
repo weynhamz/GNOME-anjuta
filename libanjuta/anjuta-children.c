@@ -89,7 +89,7 @@ on_notify_child_exit (gpointer user_data)
 
 	callback =
 		g_list_nth_data (registered_child_processes_cb, idx);
-	g_return_if_fail (callback != NULL);
+	g_return_val_if_fail (callback != NULL, TRUE);
 	
 	cb_data = g_list_nth_data (registered_child_processes_cb_data, idx);
 	if (callback)
