@@ -287,7 +287,7 @@
 	  <para><emphasis>Markers Margin</emphasis> is the next margin which can be made visible or
 	   invisible by selecting <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
 	   <guimenuitem>Markers Margin</guimenuitem></menuchoice>. This margin displays graphical icons
-	   to mark the give line. The markers which will be displayed in this margin are Bookmark marker
+	   to mark the given line. The markers which will be displayed in this margin are Bookmark marker
 	   (rectangular blue colored icon), Breakpoint marker (circular red colored) and Line indicator
 	   (pointed arrow yellow colored). Bookmark marker is used to indicate bookmaked lines which could
 	   be toggled from <menuchoice><guimenu>Goto</guimenu><guisubmenu>Bookmark</guisubmenu><guimenuitem>
