@@ -1,5 +1,7 @@
 2007-06-22  Naba Kumar  <naba.kumar@gnome.org>
 
+	* pixmaps/anjuta_splash.png: Updated.
+	
 	* plugins/search/search-replace.c
 	(anjuta_search_replace_activate): Fixed "Find in Files" to select
 	the right target (project).
