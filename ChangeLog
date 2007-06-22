@@ -1,3 +1,10 @@
+2007-06-22  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/search/search-replace.c
+	(anjuta_search_replace_activate): Fixed "Find in Files" to select
+	the right target (project).
+	* ChangeLog: Added missing log.
+
 2007-06-21  Naba Kumar  <naba.kumar@gnome.org>
 
 	* manuals/anjuta-faqs/C/anjuta-faqs.xml,
@@ -79,6 +86,19 @@
 
 	* plugins/profiler/plugin.c: Disconnect session signals on deactivate.
 	Fixes a crash on exit/project-close if profiler plugin is loaded.
+
+2007-06-17  Naba Kumar  <naba@gnome.org>
+
+	* plugins/class-gen/anjuta-class-gen-plugin.glade: Do not translate
+	C keywords. Fixes bug #447655 – C keyword must NOT be localised.
+
+	* plugins/file-loader/plugin.c: Fail on opening non existent files.
+	Bug #448034 – Anjuta crashes on starting (when the last project
+	directory was deleted).
+
+	* plugins/document-manager/plugin.c: Set line markers for files
+	opened via IAnjutaFile::open(). Fixes missing line markers while
+	navigating symbols.
 
 2007-06-17  Naba Kumar  <naba@gnome.org>
 

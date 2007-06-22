@@ -1918,7 +1918,7 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 		if (!replace)
 		{
 			search_set_action (SA_FIND_PANE);
-			search_set_direction (SD_FORWARD);
+			search_set_direction (SD_BEGINNING);
 		}
 	}
 	show_jump_button(FALSE);
