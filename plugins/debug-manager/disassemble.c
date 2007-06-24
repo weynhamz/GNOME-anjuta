@@ -150,7 +150,7 @@ dma_disassembly_iter_refresh (DmaSparseIter *iter)
 	gint line = -1;
 	DmaDisassemblyBufferNode *node = (DmaDisassemblyBufferNode *)iter->node;
 	
-	DEBUG_PRINT("iter_refresh iter->node %p (%x, %d), base %x offset %d", iter->node, iter->node != NULL ? iter->node->lower : 0, iter->node != NULL ? ((DmaDisassemblyBufferNode *)iter->node)->size : 0, iter->base, iter->offset);
+	DEBUG_PRINT("iter_refresh iter->node %p (%x, %d), base %lx offset %ld", iter->node, iter->node != NULL ? iter->node->lower : 0, iter->node != NULL ? ((DmaDisassemblyBufferNode *)iter->node)->size : 0, iter->base, iter->offset);
 	if (iter->node != NULL)
 	{
 		/* Find line corresponding to base */
@@ -219,7 +219,7 @@ dma_disassembly_iter_refresh (DmaSparseIter *iter)
 	}
 
 	/* Try to reduce offset */
-	DEBUG_PRINT("iter_refresh offset iter->node %p, base %x offset %d line %d line %d", iter->node, iter->base, iter->offset, iter->line, line);
+	DEBUG_PRINT("iter_refresh offset iter->node %p, base %lx offset %ld line %d line %d", iter->node, iter->base, iter->offset, iter->line, line);
 	if (line != -1)
 	{
 		if (iter->offset > 0)
@@ -329,7 +329,7 @@ dma_disassembly_iter_refresh (DmaSparseIter *iter)
 	}
 	
 	/* Round offset */
-	DEBUG_PRINT("iter_refresh round iter->node %p, base %x offset %d line %d line %d", iter->node, iter->base, iter->offset, iter->line, line);
+	DEBUG_PRINT("iter_refresh round iter->node %p, base %lx offset %ld line %d line %d", iter->node, iter->base, iter->offset, iter->line, line);
 	if (iter->offset < 0)
 	{
 		gulong address;

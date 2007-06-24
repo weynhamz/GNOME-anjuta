@@ -1382,6 +1382,32 @@ interface IAnjutaEditor
 	}
 	
 	/**
+	 * SECTION:ianjuta-editor-autocomplete
+	 * @title: IAnjutaEditorAutocomplete
+	 * @short_description: Editor autocomplete framework
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-autocomplete.h
+	 * 
+	 * This interface is deprecated in favour of IAnjutaEditorAssist and
+	 * is only here for backwards compatibility.
+	 */
+	interface IAnjutaEditorAutocomplete
+	{
+		
+		/**
+		 * ianjuta_editor_autocomplete_activate:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Auto complete current word. This is a left over of old api for
+		 * backward compatibility. It will be removed once we move to
+		 * the new api using IAnjutaEditorAssist.
+		 */
+		void activate ();
+	}
+	
+	/**
 	 * SECTION:ianjuta-editor-assist
 	 * @title: IAnjutaEditorAssist
 	 * @short_description: Editor assistance framework
@@ -1550,17 +1576,6 @@ interface IAnjutaEditor
 		 * list, including the the strings should be freed when done.
 		 */
 		List<const gchar*> get_suggestions (const gchar *context);
-		
-		/**
-		 * ianjuta_editor_edit_autocomplete:
-		 * @obj: Self
-		 * @err: Error propagation and reporting
-		 *
-		 * Auto complete current word. This is a left over of old api for
-		 * backward compatibility. It will be removed once we move to
-		 * the new api.
-		 */
-		void autocomplete ();
 	}
 	
 	/**

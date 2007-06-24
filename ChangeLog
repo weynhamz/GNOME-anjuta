@@ -1,3 +1,26 @@
+2007-06-24  Naba Kumar  <naba.kumar@gnome.org>
+
+	* configure.in: Bumped version to 2.1.4 (RC1 for 2.2.0).
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/action-callbacks.c:
+	(on_editor_command_complete_word_activate):
+	* plugins/document-manager/plugin.c:
+	(update_editor_ui_interface_items):
+	* plugins/editor/text_editor.c: (iautocomplete_activate),
+	(iautocomplete_iface_init):
+	* plugins/sourceview/sourceview.c: (iassist_iface_init):
+
+	Moved autocomplete() method away from IAnjutaEditorAssist into
+	a new deprecated IAnjutaEditorAutocomplete. This restores scintilla
+	autocomplete and does not crash with sourceview. Fixes Bug #449620
+	– The auto completion functionality not work. Also sets menuitem 
+	insensitive when hiding them.
+
+	* plugins/debug-manager/disassemble.c:
+	(dma_disassembly_iter_refresh): Fixed compiler warnings for incorrect
+	printf types.
+
 2007-06-22  Naba Kumar  <naba.kumar@gnome.org>
 
 	* pixmaps/anjuta_splash.png: Updated.

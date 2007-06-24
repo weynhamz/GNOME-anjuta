@@ -1852,14 +1852,6 @@ iassist_remove_trigger (IAnjutaEditorAssist* iassist, const gchar* trigger, GErr
 	}
 }
 
-/* Deprecated... */
-static void
-iassist_autocomplete (IAnjutaEditorAssist* iassist, GError **err)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
-	DEBUG_PRINT("Called Assist->Autocomplete which is deprecated");
-}
-
 static GList*
 iassist_get_suggestions (IAnjutaEditorAssist *iassist, const gchar *context, GError **err)
 {
@@ -1916,7 +1908,6 @@ iassist_react (IAnjutaEditorAssist *iassist, gint selection,
 static void
 iassist_iface_init(IAnjutaEditorAssistIface* iface)
 {
-	iface->autocomplete = iassist_autocomplete;
 	iface->add_trigger = iassist_add_trigger;
 	iface->remove_trigger = iassist_remove_trigger;
 	iface->suggest = iassist_suggest;

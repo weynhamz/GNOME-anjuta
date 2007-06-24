@@ -32,7 +32,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
 #include <libanjuta/interfaces/ianjuta-editor-view.h>
 #include <libanjuta/interfaces/ianjuta-editor-line-mode.h>
-#include <libanjuta/interfaces/ianjuta-editor-assist.h>
+#include <libanjuta/interfaces/ianjuta-editor-autocomplete.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-editor-folds.h>
 #include <libanjuta/interfaces/ianjuta-editor-comment.h>
@@ -605,123 +605,127 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorStyle",
 								   "ActionMenuFormatStyle");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	/* IAnjutaEditorSelection */
 	flag = IANJUTA_IS_EDITOR_SELECTION (editor);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditCut");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditCopy");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditPaste");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditClear");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorSelect",
 								   "ActionEditSelectAll");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorSelect",
 								   "ActionEditSelectToBrace");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorSelect",
 								   "ActionEditSelectBlock");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	/* IAnjutaEditorConvert */
 	flag = IANJUTA_IS_EDITOR_CONVERT (editor);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
 								   "ActionEditMakeSelectionUppercase");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
 								   "ActionEditMakeSelectionLowercase");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	/* IAnjutaEditorLineMode */
 	flag = IANJUTA_IS_EDITOR_LINE_MODE (editor);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
 								   "ActionEditConvertCRLF");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
 								   "ActionEditConvertLF");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
 								   "ActionEditConvertCR");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorTransform",
 								   "ActionEditConvertEOL");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	/* IAnjutaEditorView */
 	flag = IANJUTA_IS_EDITOR_VIEW (editor);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionViewEditorAddView");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionViewEditorRemoveView");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
-	/* IAnjutaEditorAssist */
-	flag = IANJUTA_IS_EDITOR_ASSIST (editor);
+	/* IAnjutaEditorAutocomplete */
+	flag = IANJUTA_IS_EDITOR_AUTOCOMPLETE (editor);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditAutocomplete");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	/* IAnjutaEditorFolds */
-	flag = IANJUTA_IS_EDITOR_FOLDS(editor);
-	action = anjuta_ui_get_action(ui, "ActionGroupEditorFormat", 
-		"ActionFormatFoldCloseAll");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	flag = IANJUTA_IS_EDITOR_FOLDS (editor);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorFormat", 
+								   "ActionFormatFoldCloseAll");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
-	flag = IANJUTA_IS_EDITOR_FOLDS(editor);
-	action = anjuta_ui_get_action(ui, "ActionGroupEditorFormat", 
-		"ActionFormatFoldOpenAll");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	flag = IANJUTA_IS_EDITOR_FOLDS (editor);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorFormat", 
+								   "ActionFormatFoldOpenAll");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 
-	flag = IANJUTA_IS_EDITOR_FOLDS(editor);
-	action = anjuta_ui_get_action(ui, "ActionGroupEditorFormat", 
-		"ActionFormatFoldToggle");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	flag = IANJUTA_IS_EDITOR_FOLDS (editor);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorFormat", 
+								   "ActionFormatFoldToggle");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
-	flag = IANJUTA_IS_EDITOR_FOLDS(editor);
-	action = anjuta_ui_get_action(ui, "ActionGroupEditorView", 
-		"ActionViewEditorFolds");
-	g_object_set (G_OBJECT (action), "visible", flag, NULL);
+	flag = IANJUTA_IS_EDITOR_FOLDS (editor);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorView", 
+								   "ActionViewEditorFolds");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	/* IAnjutaEditorComment */
-	
-	flag = IANJUTA_IS_EDITOR_COMMENT(editor);
-	action = anjuta_ui_get_action(ui, "ActionGroupEditorComment", "ActionMenuEditComment");
-	g_object_set(G_OBJECT (action), "visible", flag, NULL);
+	flag = IANJUTA_IS_EDITOR_COMMENT (editor);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorComment",
+								   "ActionMenuEditComment");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	/* IAnjutaEditorZoom */
-	
-	flag = IANJUTA_IS_EDITOR_ZOOM(editor);
-	action = anjuta_ui_get_action(ui,  "ActionGroupEditorZoom", "ActionViewEditorZoomIn");
-	g_object_set(G_OBJECT (action), "visible", flag, NULL);
-	action = anjuta_ui_get_action(ui,  "ActionGroupEditorZoom", "ActionViewEditorZoomOut");
-	g_object_set(G_OBJECT (action), "visible", flag, NULL);
+	flag = IANJUTA_IS_EDITOR_ZOOM (editor);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorZoom",
+								   "ActionViewEditorZoomIn");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorZoom",
+								   "ActionViewEditorZoomOut");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 
 	/* IAnjutaEditorGoto */
-	flag = IANJUTA_IS_EDITOR_GOTO(editor);
-	action = anjuta_ui_get_action(ui,  "ActionGroupEditorNavigate", "ActionEditGotoBlockStart");
-	g_object_set(G_OBJECT (action), "visible", flag, NULL);
-	action = anjuta_ui_get_action(ui,  "ActionGroupEditorNavigate", "ActionEditGotoBlockEnd");
-	g_object_set(G_OBJECT (action), "visible", flag, NULL);
-	action = anjuta_ui_get_action(ui,  "ActionGroupEditorNavigate", "ActionEditGotoMatchingBrace");
-	g_object_set(G_OBJECT (action), "visible", flag, NULL);	
+	flag = IANJUTA_IS_EDITOR_GOTO (editor);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorNavigate",
+								   "ActionEditGotoBlockStart");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorNavigate",
+								   "ActionEditGotoBlockEnd");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorNavigate",
+								   "ActionEditGotoMatchingBrace");
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);	
 }
 
 static void
