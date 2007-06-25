@@ -1,3 +1,10 @@
+2007-06-25  Naba Kumar  <naba.kumar@gnome.org>
+
+	* configure.in: Bumped version to 2.2.0
+	* NEWS: Updated for 2.2.0 stable release.
+	* plugins/file-manager/an_file_view.c: (fv_queue_node_expansion):
+	Reduce the idle priority to make the UI update before anything else.
+
 2007-06-24  Naba Kumar  <naba.kumar@gnome.org>
 
 	* configure.in: Bumped version to 2.1.4 (RC1 for 2.2.0).

@@ -1048,7 +1048,9 @@ fv_queue_node_expansion (FileManagerPlugin *fv, const gchar *node_path)
 	fv->nodes_to_expand = g_list_append (fv->nodes_to_expand,
 										 g_strdup (node_path));
 	if (fv->idle_id <= 0)
-		fv->idle_id = g_idle_add (on_fv_node_expansion_on_idle, fv);
+		fv->idle_id = g_idle_add_full (G_PRIORITY_LOW,
+									   on_fv_node_expansion_on_idle,
+									   fv, NULL);
 }
 
 void

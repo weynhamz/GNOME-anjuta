@@ -1,3 +1,84 @@
+Anjuta 2.2.0 (25 June 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Autocompletion in gtksourceview editor.
+* Allow/remember target specific options in profiler plugin.
+* Allow selecting independent executable target for profiler.
+* Fixed class generation templates.
+* Updated users manual.
+* Updated faqs.
+* Simple support for building and executing inside scratchbox.
+* Use progressbar instead of messages for system tags creation.
+* SDL project template for project wizard.
+* Be able to forget previously selected plugins from query dialog.
+* Fixes in loading project
+* Build fixes for some platforms.
+* Fixed lots of bugs, both stability and usability bugs (see below).
+
+Translation updates:
+====================
+es.po, gl.po, ja.po
+
+Bug fixed
+=========
+#306968 After a time of write (may be the program make a auto-save), if you try to save the program detect a more recent version in the file vs. the buffer.
+#310577 Chosen plugins aren't kept after application is closed
+#314277 Option for Anjuta 1.x style project files
+#315635 There's no SDL wizard...
+#315983 Mac OS 10.3/Darwin support
+#320192 Shared library targets compiled as executables
+#346207 task manager doesn't repaint- anjuta 2.0.2
+#350003 crash when doing file->new
+#355151 drag/drop into editor window should open file
+#355166 in Find dialog, Search Expression combo list is always empty
+#358560 segfault while trying use scinilla editor
+#362372 Problems with Help->About and a warning when creating a new file.
+#371406 Anjuta 2.0.2-8 hangs on startup
+#377461 don't create new message window for each build/find
+#390990 Anjuta errors out when attempting to create generic C project
+#393680 huge icon on the files pane for .anjuta files
+#395362 Tagmanager crashes on update - Probably because of project reload
+#397881 The credits are empty
+#400572 Anjuta crashes on file pane refresh
+#403502 User should also be allowed to select an independent executable target
+#403503 Incorrect use of AnjutaPreferences. Use AnjutaSession instead
+#412186 crash in Anjuta IDE: Crash on initial app. st...
+#417372 Scintilla Editor Crash
+#418448 crash in Anjuta IDE: I just installed Anjunta...
+#424121 anjuta Cygwin fixes
+#424845 crash in Anjuta IDE: I was closing a project ...
+#427101 Compiler reports various warnings about sloppy code
+#427395 Typo in configuration GUI
+#427399 Typo in configuration GUI
+#427406 Subversion plugin won't stay unloaded in new session
+#427410 Enable changiing of editor for a project
+#427702 Creating a static ou dynamic library
+#428032 Crashes when removing "other files" sub-tree
+#437466 Implement IAnjutaEditorAssist interface
+#437688 crash in Anjuta IDE: closing project
+#437689 when i generate a new c++ class it ask me to reload the file cpp
+#437960 crash in Anjuta IDE: trying to start anjuta
+#438878 Using gtksourceview editor for the first time has black background
+#439710 Use G_DEFINE_TYPE parent_class global variable
+#440196 crash in Anjuta IDE: removing a target (other...
+#440370 Symbol browser doesn't jump to definition
+#440585 Crash on opening source file
+#440801 config.h should not be included in libanjuta public header
+#440866 Anjuta aborts with numerous assertion failures when adding a new message view tab
+#442038 Makefile-Project Wizard always fails
+#442314 Autogeneration fails when there is no autogen.sh
+#442315 After calling configure, the build menus are still insensitive
+#445171 Build Failure on Slackware-11.0/Garnome: missing #include <sys/types.h>
+#445707 undefined symbol: glade_project_get_changed
+#447304 Souceview system default font should used fixed font (one used for terminal)
+#447655 C keyword must NOT be localised
+#448034 Anjuta crashes on starting
+#448053 Crash on deactivating
+#448408 crash in Anjuta IDE: Trying to change the edi...
+#448491 Empty Lines Problem
+
 Anjuta 2.1.3 (11 May 2007) -- Naba Kumar
 ----------------------------------------
 
