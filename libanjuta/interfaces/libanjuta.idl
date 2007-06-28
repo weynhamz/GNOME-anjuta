@@ -2686,24 +2686,27 @@ interface IAnjutaWizard
 interface IAnjutaDebugger
 {
 	#include "ianjuta-message-view.h"
+	#include <libanjuta/anjuta-error.h>
 	#include <sys/types.h>
 
 	/* Types */
 	enum Error
 	{
 		OK              =  0,
-		NOT_READY       = -1,
-		NOT_RUNNING     = -2,
-		NOT_STOPPED     = -3,
-		NOT_LOADED      = -4,
-		NOT_STARTED     = -5,
-		NOT_CONNECTED   = -6,
-		NOT_IMPLEMENTED = -7,
+		NOT_READY,
+		NOT_RUNNING,
+		NOT_STOPPED,
+		NOT_LOADED,
+		NOT_STARTED,
+		NOT_CONNECTED,
+		NOT_IMPLEMENTED,
 		CANCEL,
 		UNABLE_TO_CREATE_VARIABLE,
 		UNABLE_TO_ACCESS_MEMORY,
 		UNABLE_TO_OPEN_FILE,
-		UNKNOWN_ERROR
+		UNSUPPORTED_FILE_TYPE,
+		UNKNOWN_ERROR,
+		OTHER_ERROR
 	}
 
 	enum Data
@@ -2827,7 +2830,6 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::debugger_started:
 	* @obj: Self
-	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
@@ -2836,17 +2838,15 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::debugger_stopped:
 	* @obj: Self
-	* @status: Status as returned by waitpid
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
-	void ::debugger_stopped (gint status);
+	void ::debugger_stopped (GError *err);
 
 	/**
 	* IAnjutaDebugger::program_loaded:
 	* @obj: Self
-	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
@@ -2855,7 +2855,6 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::program_running:
 	* @obj: Self
-	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
@@ -2865,10 +2864,6 @@ interface IAnjutaDebugger
 	* IAnjutaDebugger::program_stopped:
 	* @obj: Self
 	* @thread: fixme
-	* @file: fixme
-	* @line: fixme
-	* @address: fixme
-	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
@@ -2877,7 +2872,6 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::program_exited:
 	* @obj: Self
-	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
@@ -2886,7 +2880,6 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::sharedlib_event:
 	* @obj: Self
-	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
@@ -2895,11 +2888,9 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::location_changed:
 	* @obj: Self
-	* @thread: fixme
 	* @file: fixme
 	* @line: fixme
 	* @address: fixme
-	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
@@ -2910,7 +2901,6 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @frame: fixme
 	* @thread: thread
-	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
@@ -2921,7 +2911,6 @@ interface IAnjutaDebugger
 	* @obj: Self
 	* @name: Signal name
 	* @description: Signal description
-	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/
@@ -2931,7 +2920,6 @@ interface IAnjutaDebugger
 	* IAnjutaDebugger::debugger_ready:
 	* @obj: Self
 	* @status: fixme
-	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*/

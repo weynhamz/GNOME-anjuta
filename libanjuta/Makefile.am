@@ -59,7 +59,9 @@ libanjuta_la_SOURCES= \
 	cell-renderer-captioned-image.c	\
 	cell-renderer-captioned-image.h \
 	e-splash.h \
-	e-splash.c
+	e-splash.c \
+	anjuta-error.c \
+	anjuta-error.h
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 
@@ -86,6 +88,7 @@ libanjuta_include = \
 	anjuta-serializer.h \
 	anjuta-glue-plugin.h \
 	anjuta-glue-factory.h \
+	anjuta-error.h \
 	resources.h
 
 libanjutainclude_HEADERS = \

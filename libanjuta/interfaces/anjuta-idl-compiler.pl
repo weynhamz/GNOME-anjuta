@@ -48,12 +48,10 @@ my $type_map = {
 	},
 	"gchar*" => {
 		"gtype" => "G_TYPE_STRING",
-		"assert" => "__arg__ != NULL",
 		"fail_return" => "NULL"
 	},
 	"constgchar*" => {
 		"gtype" => "G_TYPE_STRING",
-		"assert" => "__arg__ != NULL",
 		"fail_return" => "NULL"
 	},
 	"gchar" => {
@@ -124,6 +122,11 @@ my $type_map = {
 		"assert" => "G_IS_VALUE(__arg__)",
 		"fail_return" => "NULL"
 	},
+	"GError*" => {
+		"gtype" => "G_TYPE_BOXED",
+		"type" => "G_TYPE_ERROR",
+		"fail_return" => "NULL"
+	},	
 	## G_TYPE_PARAM
 	"GObject*" => {
 		"gtype" => "G_TYPE_OBJECT",

@@ -409,7 +409,7 @@ gboolean
 dma_queue_check_status (DmaDebuggerQueue *self, DmaDebuggerCommandType type, GError **err);
 
 void
-dma_queue_update_debugger_status (DmaDebuggerQueue *self, IAnjutaDebuggerStatus state, gint status);
+dma_queue_update_debugger_status (DmaDebuggerQueue *self, IAnjutaDebuggerStatus state, guint thread, GError *err);
 
 /* Call backs
  *---------------------------------------------------------------------------*/
@@ -832,9 +832,9 @@ dma_queue_emit_debugger_ready (DmaDebuggerQueue *queue)
 }
 
 void
-dma_queue_update_debugger_status (DmaDebuggerQueue *self, IAnjutaDebuggerStatus state, gint status)
+dma_queue_update_debugger_status (DmaDebuggerQueue *self, IAnjutaDebuggerStatus state, guint thread, GError *err)
 {
-	const char* signal = NULL;
+	IAnjutaDebuggerStatus signal = IANJUTA_DEBUGGER_BUSY;
 
 	self->queue_command = FALSE;
 	switch (state)
@@ -854,7 +854,7 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *self, IAnjutaDebuggerStatus 
 				}
 			}
 			self->debugger_status = IANJUTA_DEBUGGER_STOPPED;
-			signal = "debugger-stopped";
+			signal = IANJUTA_DEBUGGER_STOPPED;
 		}
 	    break;
 	case IANJUTA_DEBUGGER_STARTED:
@@ -868,7 +868,7 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *self, IAnjutaDebuggerStatus 
 				}
 			}
 			self->debugger_status = IANJUTA_DEBUGGER_STARTED;
-			signal = "debugger-started";
+			signal = IANJUTA_DEBUGGER_STARTED;
 		}
 	    break;
 	case IANJUTA_DEBUGGER_PROGRAM_LOADED:
@@ -889,7 +889,7 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *self, IAnjutaDebuggerStatus 
 			}
 			self->debugger_status = IANJUTA_DEBUGGER_PROGRAM_LOADED;
 			self->stop_on_sharedlib = FALSE;
-			signal = "program-loaded";
+			signal = IANJUTA_DEBUGGER_PROGRAM_LOADED;
 		}
 	    break;
 	case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
@@ -905,7 +905,7 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *self, IAnjutaDebuggerStatus 
 			self->debugger_status = IANJUTA_DEBUGGER_PROGRAM_STOPPED;
 			if (!self->stop_on_sharedlib)
 			{
-				signal = "program-stopped";
+				signal = IANJUTA_DEBUGGER_PROGRAM_STOPPED;
 			}
 		}
 	    break;
@@ -921,7 +921,7 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *self, IAnjutaDebuggerStatus 
 			}
 			self->debugger_status = IANJUTA_DEBUGGER_PROGRAM_RUNNING;
 			self->stop_on_sharedlib = FALSE;
-			signal =  "program-running";
+			signal =  IANJUTA_DEBUGGER_PROGRAM_RUNNING;
 		}
 	    break;
 	}
@@ -930,10 +930,28 @@ dma_queue_update_debugger_status (DmaDebuggerQueue *self, IAnjutaDebuggerStatus 
 	dma_debugger_end_command (self);
 	
 	/* Emit signal */
-	if (signal != NULL)
+	switch (signal)
 	{
-		g_signal_emit_by_name (self, signal, status);
+	case IANJUTA_DEBUGGER_BUSY:
+		/* Do nothing */
+		break;
+	case IANJUTA_DEBUGGER_STOPPED:
+		g_signal_emit_by_name (self, "debugger-stopped", err);
+		break;
+	case IANJUTA_DEBUGGER_STARTED:
+		g_signal_emit_by_name (self, "debugger-started");
+		break;
+	case IANJUTA_DEBUGGER_PROGRAM_LOADED:
+		g_signal_emit_by_name (self, "program-loaded");
+		break;
+	case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
+		g_signal_emit_by_name (self, "program-stopped", thread);
+		break;
+	case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
+		g_signal_emit_by_name (self, "program-running");
+		break;
 	}
+
 	self->queue_command = TRUE;
 }
 
@@ -1049,7 +1067,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *self)
 		IAnjutaDebuggerStatus status;
 		/* Recheck status in case of desynchronization */
 		status = ianjuta_debugger_get_status (self->debugger, NULL);
-		dma_queue_update_debugger_status (self, status, 0);
+		dma_queue_update_debugger_status (self, status, 0, NULL);
 	}
 
 	/* Check if there is something to execute */
@@ -1078,7 +1096,11 @@ dma_debugger_queue_execute (DmaDebuggerQueue *self)
 	 	    ianjuta_debugger_initialize (self->debugger, on_debugger_output, self, &err);
 		    break;
 		case LOAD_COMMAND:
-			ianjuta_debugger_load (self->debugger, cmd->data.load.file, cmd->data.load.type, cmd->data.load.dirs, cmd->data.load.terminal, &err);	
+			ianjuta_debugger_load (self->debugger, cmd->data.load.file, cmd->data.load.type, cmd->data.load.dirs, cmd->data.load.terminal, &err);
+			if (err != NULL)
+			{
+				g_signal_emit_by_name (self, "debugger-stopped", err);
+			}
 			break;
   	    case ATTACH_COMMAND:
 			ianjuta_debugger_attach (self->debugger, cmd->data.attach.pid, cmd->data.load.dirs, &err);	
@@ -1298,7 +1320,7 @@ static void
 on_dma_debugger_ready (DmaDebuggerQueue *self, IAnjutaDebuggerStatus status)
 {
 	DEBUG_PRINT ("From debugger: receive debugger ready");
-	dma_queue_update_debugger_status (self, status, 0);
+	dma_queue_update_debugger_status (self, status, 0, NULL);
 	if (self->ready) dma_debugger_queue_execute (self);
 }
 
@@ -1307,15 +1329,16 @@ on_dma_debugger_started (DmaDebuggerQueue *self)
 {
 	/* Nothing do to */
 	DEBUG_PRINT ("From debugger: receive debugger started");
-	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_STARTED, 0);
+	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_STARTED, 0, NULL);
 	if (self->ready) dma_debugger_queue_execute (self);
 }
 
 static void
-on_dma_debugger_stopped (DmaDebuggerQueue *self, gint status)
+on_dma_debugger_stopped (DmaDebuggerQueue *self, GError *err)
 {
-	DEBUG_PRINT ("From debugger: receive debugger stopped");
-	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_STOPPED, status);
+	DEBUG_PRINT ("From debugger: receive debugger stopped with error %p", err);
+	self->debugger_status = IANJUTA_DEBUGGER_STARTED;
+	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_STOPPED, 0, err);
 	if (self->ready) dma_debugger_queue_execute (self);
 }
 
@@ -1323,7 +1346,7 @@ static void
 on_dma_program_loaded (DmaDebuggerQueue *self)
 {
 	DEBUG_PRINT ("From debugger: receive program loaded");
-	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, 0);
+	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, 0, NULL);
 	if (self->ready) dma_debugger_queue_execute (self);
 }
 
@@ -1331,14 +1354,14 @@ static void
 on_dma_program_running (DmaDebuggerQueue *self)
 {
 	DEBUG_PRINT ("From debugger: debugger_program_running");
-	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_PROGRAM_RUNNING, 0);
+	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_PROGRAM_RUNNING, 0, NULL);
 }
 
 static void
 on_dma_program_stopped (DmaDebuggerQueue *self, guint thread)
 {
 	DEBUG_PRINT ("From debugger: receive program stopped");
-	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_PROGRAM_STOPPED, thread);
+	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_PROGRAM_STOPPED, thread, NULL);
 	if (self->ready) dma_debugger_queue_execute (self);
 }
 
@@ -1346,7 +1369,7 @@ static void
 on_dma_program_exited (DmaDebuggerQueue *self)
 {
 	DEBUG_PRINT ("From debugger: receive program exited");
-	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, 0);
+	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, 0, NULL);
 	if (self->ready) dma_debugger_queue_execute (self);
 }
 
@@ -1376,7 +1399,7 @@ on_dma_sharedlib_event (DmaDebuggerQueue *self)
 {
 	DEBUG_PRINT ("From debugger: shared lib event");
 	self->stop_on_sharedlib = TRUE;
-	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_PROGRAM_STOPPED, 0);
+	dma_queue_update_debugger_status (self, IANJUTA_DEBUGGER_PROGRAM_STOPPED, 0, NULL);
 	g_signal_emit_by_name (self, "sharedlib-event");
 	ianjuta_debugger_run (IANJUTA_DEBUGGER (self), NULL);
 }
@@ -1391,8 +1414,6 @@ dma_debugger_activate_plugin (DmaDebuggerQueue* self, const gchar *mime_type)
 	AnjutaPluginDescription *plugin;
 	GList *descs = NULL;
 	gchar *value;
-	gchar **interface_list;
-	gchar **interface;
 
 	/* Get list of debugger plugins */
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(self->plugin)->shell, NULL);

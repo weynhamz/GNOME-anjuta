@@ -1471,6 +1471,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 				   gpointer data)
 {
 	Debugger *debugger = DEBUGGER (data);
+	GError *err = NULL;
 
 	g_signal_handlers_disconnect_by_func (G_OBJECT (launcher),
 										  G_CALLBACK (on_gdb_terminated),
@@ -1494,9 +1495,18 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	debugger->priv->term_pid = -1;
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->skip_next_prompt = FALSE;
+	if (!debugger->priv->terminating)
+	{
+		err = g_error_new  (IANJUTA_DEBUGGER_ERROR,
+				IANJUTA_DEBUGGER_OTHER_ERROR,
+				"gdb terminated with status %d", status);
+	}
 	debugger->priv->terminating = FALSE;
 	if (debugger->priv->instance)
-		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", status);
+	{
+		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", err);
+	}
+	if (err != NULL) g_error_free (err);
 }
 
 static void
@@ -1576,7 +1586,7 @@ debugger_abort (Debugger *debugger)
 	if (debugger->priv->instance != NULL)
 	{
 		/* Signal end of debugger */
-		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", 0);
+		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", NULL);
 
 		g_object_remove_weak_pointer (debugger->priv->instance, (gpointer *)&debugger->priv->instance);
 		debugger->priv->instance = NULL;

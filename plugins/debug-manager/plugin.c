@@ -564,7 +564,7 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 /* Called when the debugger is stopped */
 
 static void
-dma_plugin_debugger_stopped (DebugManagerPlugin *self, gint status)
+dma_plugin_debugger_stopped (DebugManagerPlugin *self, GError *err)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
@@ -598,10 +598,10 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *self, gint status)
 	dma_plugin_debugger_ready (self, IANJUTA_DEBUGGER_STOPPED);
 	
 	/* Display a warning if debugger stop unexpectedly */
-	if (status != 0)
+	if (err != NULL)
 	{
 		GtkWindow *parent = GTK_WINDOW (ANJUTA_PLUGIN(self)->shell);
-		anjuta_util_dialog_error (parent, _("gdb terminated unexpectedly with status %d\n"), status);
+		anjuta_util_dialog_error (parent, _("Debugger terminated with error %d: %s\n"), err->code, err->message);
 	}
 		
 }
