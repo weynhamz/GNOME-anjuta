@@ -1,8 +1,10 @@
-# translation of es.po to
+# translation of anjuta.HEAD.es.po to Español
 # Javier Conde Rueda <f3285740@est.fib.upc.es>, 2003.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.es>, 2003, 2005.
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007.
+# Jorge Gonzalez <jorgegonz@svn.gnome.org>, 2007.
+# translation of es.po to
 # traducción de Anjuta al Español
 # Copyright © 2001-2003, 2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
@@ -10,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-17 03:15+0100\n"
-"PO-Revision-Date: 2007-06-19 11:25+0200\n"
+"POT-Creation-Date: 2007-06-21 03:15+0100\n"
+"PO-Revision-Date: 2007-06-28 16:53+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -289,7 +291,9 @@ msgstr "Complementos disponibles"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2187
 msgid "Currently available plugins found in plugin paths"
-msgstr "Complementos actualmente disponibles encontrados en las rutas de los complementos"
+msgstr ""
+"Complementos actualmente disponibles encontrados en las rutas de los "
+"complementos"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2193
 msgid "Activated plugins"
@@ -436,11 +440,15 @@ msgstr "_Descartar los cambios"
 #: ../libanjuta/anjuta-save-prompt.c:303
 #, c-format
 msgid "There are %d items with unsaved changes. Save changes before closing?"
-msgstr "Hay %d elementos con cambios sin guardar. ¿Desea guardar los cambios antes de cerrar?"
+msgstr ""
+"Hay %d elementos con cambios sin guardar. ¿Desea guardar los cambios antes "
+"de cerrar?"
 
 #: ../libanjuta/anjuta-save-prompt.c:310
 msgid "There is an item with unsaved changes. Save changes before closing?"
-msgstr "Hay un elemento con cambios sin guardar. ¿Desea guardar los cambios antes de cerrar?"
+msgstr ""
+"Hay un elemento con cambios sin guardar. ¿Desea guardar los cambios antes de "
+"cerrar?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 #: ../libanjuta/anjuta-ui.c:879
@@ -965,7 +973,7 @@ msgid "Member Functions/Variables"
 msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
-#: ../plugins/glade/plugin.c:854
+#: ../plugins/glade/plugin.c:884
 msgid "Properties"
 msgstr "Propiedades"
 
@@ -1469,7 +1477,7 @@ msgid "Breakpoint properties"
 msgstr "Propiedades de los puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1583
+#: ../plugins/debug-manager/breakpoints.c:1589
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Puntos de parada"
@@ -1730,113 +1738,113 @@ msgstr "Condición"
 msgid "Disp"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1264
+#: ../plugins/debug-manager/breakpoints.c:1270
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "¿Está seguro de querer borrar todos los puntos de parada?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1391
+#: ../plugins/debug-manager/breakpoints.c:1397
 msgid "_Breakpoints"
 msgstr "_Puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1399
+#: ../plugins/debug-manager/breakpoints.c:1405
 msgid "Toggle Breakpoint"
 msgstr "Conmutar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1401
+#: ../plugins/debug-manager/breakpoints.c:1407
 msgid "Toggle breakpoint at the current location"
 msgstr "Activar un punto de parada en la posición actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1407
+#: ../plugins/debug-manager/breakpoints.c:1413
 msgid "Add Breakpoint..."
 msgstr "Añadir punto de parada..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1409
+#: ../plugins/debug-manager/breakpoints.c:1415
 msgid "Add a breakpoint"
 msgstr "Añadir un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1415
+#: ../plugins/debug-manager/breakpoints.c:1421
 msgid "Remove Breakpoint"
 msgstr "Quitar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1417
+#: ../plugins/debug-manager/breakpoints.c:1423
 msgid "Remove a breakpoint"
 msgstr "Quitar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1423
+#: ../plugins/debug-manager/breakpoints.c:1429
 msgid "Jump to Breakpoint"
 msgstr "Saltar a punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1425
+#: ../plugins/debug-manager/breakpoints.c:1431
 msgid "Jump to breakpoint location"
 msgstr "Saltar a la ubicación de un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1431
+#: ../plugins/debug-manager/breakpoints.c:1437
 msgid "Edit Breakpoint"
 msgstr "Editar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1433
+#: ../plugins/debug-manager/breakpoints.c:1439
 msgid "Edit breakpoint properties"
 msgstr "Editar las propiedades de un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1439
+#: ../plugins/debug-manager/breakpoints.c:1445
 msgid "Enable Breakpoint"
 msgstr "Activar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1441
+#: ../plugins/debug-manager/breakpoints.c:1447
 msgid "Enable a breakpoint"
 msgstr "Activar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1447
+#: ../plugins/debug-manager/breakpoints.c:1453
 msgid "Disable All Breakpoints"
 msgstr "Desactivar todos los puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1449
+#: ../plugins/debug-manager/breakpoints.c:1455
 msgid "Deactivate all breakpoints"
 msgstr "Desactivar todos los puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1455
+#: ../plugins/debug-manager/breakpoints.c:1461
 msgid "C_lear All Breakpoints"
 msgstr "_Limpiar todos los puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1457
+#: ../plugins/debug-manager/breakpoints.c:1463
 msgid "Delete all breakpoints"
 msgstr "Quitar todos los puntos de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1565
+#: ../plugins/debug-manager/breakpoints.c:1571
 msgid "Breakpoint operations"
 msgstr "Operaciones de los puntos de parada"
 
@@ -2997,7 +3005,7 @@ msgstr "Ya hay un estilo con ese nombre."
 msgid "This Style is not modifiable !"
 msgstr "Este estilo no es modificable"
 
-#: ../plugins/document-manager/plugin.c:151 ../plugins/glade/plugin.c:592
+#: ../plugins/document-manager/plugin.c:151 ../plugins/glade/plugin.c:596
 msgid "_Save"
 msgstr "_Guardar"
 
@@ -3005,7 +3013,7 @@ msgstr "_Guardar"
 msgid "Save current file"
 msgstr "Guarda el archivo actual"
 
-#: ../plugins/document-manager/plugin.c:153 ../plugins/glade/plugin.c:600
+#: ../plugins/document-manager/plugin.c:153 ../plugins/glade/plugin.c:604
 msgid "Save _As..."
 msgstr "Guardar _como…"
 
@@ -3272,7 +3280,7 @@ msgid "Undo the last action"
 msgstr "Deshace la última acción"
 
 #: ../plugins/document-manager/plugin.c:275 ../plugins/glade/plugin.c:133
-#: ../plugins/glade/plugin.c:544
+#: ../plugins/glade/plugin.c:548
 msgid "_Redo"
 msgstr "_Rehacer"
 
@@ -3288,7 +3296,7 @@ msgstr "C_ortar"
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Corta el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:281 ../plugins/glade/plugin.c:560
+#: ../plugins/document-manager/plugin.c:281 ../plugins/glade/plugin.c:564
 #: ../plugins/valgrind/vgdefaultview.c:1153
 msgid "_Copy"
 msgstr "_Copiar"
@@ -3297,7 +3305,7 @@ msgstr "_Copiar"
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:284 ../plugins/glade/plugin.c:568
+#: ../plugins/document-manager/plugin.c:284 ../plugins/glade/plugin.c:572
 #: ../plugins/valgrind/vgdefaultview.c:1154
 msgid "_Paste"
 msgstr "_Pegar"
@@ -4137,7 +4145,7 @@ msgstr "Etiquetas"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/editor/text_editor_menu.c:320 ../plugins/gdb/utilities.c:328
-#: ../plugins/profiler/plugin.c:637
+#: ../plugins/profiler/plugin.c:718
 msgid "Debug"
 msgstr "Depurar"
 
@@ -4655,7 +4663,7 @@ msgstr "Error al mandar señales al proceso."
 msgid "_Undo: %s"
 msgstr "_Deshacer: %s"
 
-#: ../plugins/glade/plugin.c:123 ../plugins/glade/plugin.c:536
+#: ../plugins/glade/plugin.c:123 ../plugins/glade/plugin.c:540
 msgid "_Undo"
 msgstr "_Deshacer"
 
@@ -4700,93 +4708,93 @@ msgstr "_Cerrar sin guardar"
 msgid "Save glade project..."
 msgstr "Guardar el proyecto glade…"
 
-#: ../plugins/glade/plugin.c:528
+#: ../plugins/glade/plugin.c:532
 msgid "_Glade"
 msgstr "_Glade"
 
-#: ../plugins/glade/plugin.c:538
+#: ../plugins/glade/plugin.c:542
 msgid "Undo last action"
 msgstr "Deshacer la última acción"
 
-#: ../plugins/glade/plugin.c:546
+#: ../plugins/glade/plugin.c:550
 msgid "Redo last undone action"
 msgstr "Rehacer la última acción deshecha"
 
-#: ../plugins/glade/plugin.c:552 ../plugins/valgrind/vgdefaultview.c:1152
+#: ../plugins/glade/plugin.c:556 ../plugins/valgrind/vgdefaultview.c:1152
 msgid "Cu_t"
 msgstr "Cor_tar"
 
-#: ../plugins/glade/plugin.c:554
+#: ../plugins/glade/plugin.c:558
 msgid "Cut selection"
 msgstr "Cortar selección"
 
-#: ../plugins/glade/plugin.c:562
+#: ../plugins/glade/plugin.c:566
 msgid "Copy selection"
 msgstr "Copiar selección"
 
-#: ../plugins/glade/plugin.c:570
+#: ../plugins/glade/plugin.c:574
 msgid "Paste selection"
 msgstr "Pegar selección"
 
-#: ../plugins/glade/plugin.c:576
+#: ../plugins/glade/plugin.c:580
 msgid "_Delete"
 msgstr "_Borrar"
 
-#: ../plugins/glade/plugin.c:578
+#: ../plugins/glade/plugin.c:582
 msgid "Delete selection"
 msgstr "Borrar selección"
 
-#: ../plugins/glade/plugin.c:584
+#: ../plugins/glade/plugin.c:588
 msgid "_Show Clipboard"
 msgstr "_Mostrar portapapeles"
 
-#: ../plugins/glade/plugin.c:586
+#: ../plugins/glade/plugin.c:590
 msgid "Show clipboard"
 msgstr "Muestra el portapapeles"
 
-#: ../plugins/glade/plugin.c:594
+#: ../plugins/glade/plugin.c:598
 msgid "Save glade project"
 msgstr "Guarda un proyecto glade"
 
-#: ../plugins/glade/plugin.c:602
+#: ../plugins/glade/plugin.c:606
 msgid "Save as glade project"
 msgstr "Guardar como proyecto glade"
 
-#: ../plugins/glade/plugin.c:608
+#: ../plugins/glade/plugin.c:612
 msgid "Clos_e"
 msgstr "_Cerrar"
 
-#: ../plugins/glade/plugin.c:610
+#: ../plugins/glade/plugin.c:614
 msgid "Close current glade project"
 msgstr "Cierra el proyecto glade actual"
 
-#: ../plugins/glade/plugin.c:821
+#: ../plugins/glade/plugin.c:851
 msgid "Glade operations"
 msgstr "Operaciones de glade"
 
-#: ../plugins/glade/plugin.c:844
+#: ../plugins/glade/plugin.c:874
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:849
+#: ../plugins/glade/plugin.c:879
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:860
+#: ../plugins/glade/plugin.c:890
 msgid "Designer"
 msgstr "Diseñador"
 
-#: ../plugins/glade/plugin.c:990
+#: ../plugins/glade/plugin.c:1020
 #, c-format
 msgid "Not local file: %s"
 msgstr "Archivo no local: %s."
 
-#: ../plugins/glade/plugin.c:998
+#: ../plugins/glade/plugin.c:1032
 #, c-format
 msgid "Could not open: %s"
 msgstr "No se pudo abrir: %s"
 
-#: ../plugins/glade/plugin.c:1038
+#: ../plugins/glade/plugin.c:1072
 msgid "Could not create a new glade project."
 msgstr "No se puede crear un proyecto nuevo de glade."
 
@@ -5772,13 +5780,13 @@ msgstr "Cerrar todas las solapas de mensajes"
 msgid "Icon"
 msgstr "Icono"
 
-#: ../plugins/message-view/message-view.c:674
-#: ../plugins/message-view/plugin.c:241 ../plugins/message-view/plugin.c:417
-#: ../plugins/message-view/plugin.c:429
+#: ../plugins/message-view/message-view.c:676
+#: ../plugins/message-view/plugin.c:244 ../plugins/message-view/plugin.c:422
+#: ../plugins/message-view/plugin.c:434
 msgid "Messages"
 msgstr "Mensajes"
 
-#: ../plugins/message-view/message-view.c:1011
+#: ../plugins/message-view/message-view.c:1013
 #, c-format
 msgid "Error writing %s"
 msgstr "Error al escribir %s"
@@ -5807,7 +5815,7 @@ msgstr "_Guardar mensaje"
 msgid "Save message"
 msgstr "Guardar mensaje"
 
-#: ../plugins/message-view/plugin.c:223
+#: ../plugins/message-view/plugin.c:226
 msgid "Next/Prev Message"
 msgstr "Siguiente/anterior mensaje"
 
@@ -5870,14 +5878,14 @@ msgstr "_Parchear..."
 msgid "Patch files/directories"
 msgstr "Parcheararchivos/directorios"
 
-#: ../plugins/profiler/plugin.c:165
+#: ../plugins/profiler/plugin.c:177
 msgid ""
 "Could not get profiling data.\n"
 "\n"
 "Please check the path to this target's profiling data file"
 msgstr ""
 
-#: ../plugins/profiler/plugin.c:255
+#: ../plugins/profiler/plugin.c:284
 msgid ""
 "This target does not have any profiling data.\n"
 "\n"
@@ -5887,46 +5895,46 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:645 ../plugins/profiler/plugin.c:765
+#: ../plugins/profiler/plugin.c:726 ../plugins/profiler/plugin.c:846
 #: ../plugins/profiler/profiler.plugin.in.h:3
 msgid "Profiler"
 msgstr "Perfilador"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:653
+#: ../plugins/profiler/plugin.c:734
 msgid "Select Target..."
 msgstr "Seleccione objetivo..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:661
+#: ../plugins/profiler/plugin.c:742
 msgid "Refresh"
 msgstr "Refrescar"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:669
+#: ../plugins/profiler/plugin.c:750
 msgid "Delete Data"
 msgstr "Borrar datos"
 
-#: ../plugins/profiler/plugin.c:720
+#: ../plugins/profiler/plugin.c:801
 msgid "Application Performance Profiler"
 msgstr ""
 
-#: ../plugins/profiler/plugin.c:742
+#: ../plugins/profiler/plugin.c:823
 msgid "Flat Profile"
 msgstr ""
 
-#: ../plugins/profiler/plugin.c:747 ../plugins/profiler/profiler.glade.h:5
+#: ../plugins/profiler/plugin.c:828 ../plugins/profiler/profiler.glade.h:7
 msgid "Call Graph"
 msgstr ""
 
-#: ../plugins/profiler/plugin.c:752
+#: ../plugins/profiler/plugin.c:833
 msgid "Function Call Tree"
 msgstr ""
 
-#: ../plugins/profiler/plugin.c:759
+#: ../plugins/profiler/plugin.c:840
 msgid "Function Call Chart"
 msgstr ""
 
@@ -5943,34 +5951,42 @@ msgid "<b>Functions</b>"
 msgstr "<b>Funciones</b>"
 
 #: ../plugins/profiler/profiler.glade.h:1
+msgid "<b>Profiling Data</b>"
+msgstr ""
+
+#: ../plugins/profiler/profiler.glade.h:2
 msgid "<b>Select Target to Profile</b>"
 msgstr "<b>Seleccione objetivo para perfilar</b>"
 
-#: ../plugins/profiler/profiler.glade.h:2
+#: ../plugins/profiler/profiler.glade.h:3
 msgid "<b>Symbols</b>"
 msgstr "<b>Símbolos</b>"
 
-#: ../plugins/profiler/profiler.glade.h:3
+#: ../plugins/profiler/profiler.glade.h:4
 msgid "<b>Time Propagation</b>"
 msgstr "<b>Propagación del tiempo</b>"
 
-#: ../plugins/profiler/profiler.glade.h:4
+#: ../plugins/profiler/profiler.glade.h:5
 msgid "Automatically refresh profile data display"
-msgstr ""
+msgstr "Refrescar automáticamente el monitor de los datos del perfil"
 
 #: ../plugins/profiler/profiler.glade.h:6
-msgid "Do not propagate time for these symbols:"
-msgstr ""
+msgid "Browse..."
+msgstr "Examinar..."
 
-#: ../plugins/profiler/profiler.glade.h:7
+#: ../plugins/profiler/profiler.glade.h:8
+msgid "Do not propagate time for these symbols:"
+msgstr "No propagar el tiempo para estos símbolos:"
+
+#: ../plugins/profiler/profiler.glade.h:9
 msgid "Do not show static functions"
 msgstr "No mostrar funciones estáticas"
 
-#: ../plugins/profiler/profiler.glade.h:8
+#: ../plugins/profiler/profiler.glade.h:10
 msgid "Do not show these symbols:"
 msgstr "No mostrar estos símbolos:"
 
-#: ../plugins/profiler/profiler.glade.h:9
+#: ../plugins/profiler/profiler.glade.h:11
 msgid ""
 "Enter one symbol specification per line.\n"
 "\n"
@@ -5978,51 +5994,55 @@ msgid ""
 "4.5 of the gprof info page. "
 msgstr ""
 
-#: ../plugins/profiler/profiler.glade.h:13
+#: ../plugins/profiler/profiler.glade.h:15
 #: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta-app.c:647
 msgid "General"
 msgstr "General"
 
-#: ../plugins/profiler/profiler.glade.h:14
+#: ../plugins/profiler/profiler.glade.h:16
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:6
 msgid "Options..."
 msgstr "Opciones…"
 
-#: ../plugins/profiler/profiler.glade.h:15
+#: ../plugins/profiler/profiler.glade.h:17
 msgid "Profiling Options"
 msgstr "Opciones del perfilado"
 
-#: ../plugins/profiler/profiler.glade.h:16
-msgid "Propagate time for all symbols"
-msgstr ""
-
-#: ../plugins/profiler/profiler.glade.h:17
-msgid "Propagate time for only these symbols:"
-msgstr ""
-
 #: ../plugins/profiler/profiler.glade.h:18
+msgid "Propagate time for all symbols"
+msgstr "Propagar el tiempo para todos estos símbolos"
+
+#: ../plugins/profiler/profiler.glade.h:19
+msgid "Propagate time for only these symbols:"
+msgstr "Propagar el tiempo sólo para estos símbolos:"
+
+#: ../plugins/profiler/profiler.glade.h:20
 msgid "Select Other Target..."
 msgstr "Seleccionar otro objetivo..."
 
-#: ../plugins/profiler/profiler.glade.h:19
+#: ../plugins/profiler/profiler.glade.h:21
 msgid "Select Profiling Target"
 msgstr ""
 
-#: ../plugins/profiler/profiler.glade.h:20
+#: ../plugins/profiler/profiler.glade.h:22
 msgid "Show all symbols"
 msgstr "Mostrar todos los símbolos"
 
-#: ../plugins/profiler/profiler.glade.h:21
-msgid "Show functions that could have been called but never were"
-msgstr ""
-
-#: ../plugins/profiler/profiler.glade.h:22
-msgid "Show only these symbols:"
-msgstr ""
-
 #: ../plugins/profiler/profiler.glade.h:23
+msgid "Show functions that could have been called but never were"
+msgstr "Mostrar funciones que pudieron haber sido llamadas pero nunca lo fueron"
+
+#: ../plugins/profiler/profiler.glade.h:24
+msgid "Show only these symbols:"
+msgstr "Mostrar sólo estos símbolos:"
+
+#: ../plugins/profiler/profiler.glade.h:25
 msgid "Show uncalled functions"
-msgstr ""
+msgstr "Mostrar funciones no llamadas"
+
+#: ../plugins/profiler/profiler.glade.h:26
+msgid "Use this profiling data file:"
+msgstr "Usar este archivo de perfil de datos:"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:1
 msgid "<b>Enter the base path of your project:</b>"
@@ -6426,33 +6446,33 @@ msgstr "Elección del icono"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:1
 msgid "Add C++ support:"
-msgstr ""
+msgstr "Añadir soporte C++:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:2
 msgid "Add gtk-doc system:"
-msgstr ""
+msgstr "Añadir el sistema gtk-doc:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:3
 msgid "Add internationalization:"
-msgstr ""
+msgstr "Añadir internacionalización:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:4
 msgid "Add shared library support:"
-msgstr ""
+msgstr "Añadir soporte para bibliotecas compartidas:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
 msgid "Adds c++ support to the project so that c++ source files can be built"
-msgstr ""
+msgstr "Añade soporte para C++ al proyecto de tal forma que se pueden construir archivos fuente C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
 msgid "Adds supports for building shared libraries in your project"
-msgstr ""
+msgstr "Añade soporte para construir bibliotecas compartidas en su proyecto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid ""
 "Adds supports for internationalization so that your project can have "
 "translations in different languages"
-msgstr ""
+msgstr "Añade soporte para internacionalización de tal forma que su proyecto puede traducirse a diferentes idiomas"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid "Basic information"
@@ -6533,7 +6553,7 @@ msgstr "Icono para el complemento"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Implement plugin interfaces"
-msgstr ""
+msgstr "Implementar interfaces de complementos"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Interface implemented by the plugin"
@@ -7089,7 +7109,7 @@ msgstr "Guardando…"
 #: ../plugins/sourceview/sourceview.c:379
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
-msgstr ""
+msgstr "Otra aplicación modificó el archivo %s. ¿Guardarlo de todas formas?"
 
 #: ../plugins/sourceview/sourceview.glade.h:2
 msgid "<b>Colors:</b>"
@@ -7448,11 +7468,11 @@ msgstr "Archivos de etiquetas de Anjuta"
 #: ../plugins/symbol-browser/an_symbol_prefs.c:674
 #, c-format
 msgid "Scanning package: %s"
-msgstr ""
+msgstr "Escaneando el paquete: %s"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:729
 msgid "Completed system tags generation"
-msgstr ""
+msgstr "Se completó la generación de etiquetas del sistema"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:771
 #: ../plugins/symbol-browser/an_symbol_prefs.c:862
@@ -8176,11 +8196,11 @@ msgstr "Directorio de proyecto predeterminado"
 
 #: ../src/anjuta.glade.h:4
 msgid "Do not load last project and files on startup"
-msgstr ""
+msgstr "No cargar el último proyecto y los archivos al iniciar"
 
 #: ../src/anjuta.glade.h:5
 msgid "Do not load last session on startup"
-msgstr ""
+msgstr "No cargar la última sesión al iniciar"
 
 #: ../src/anjuta.glade.h:6
 msgid "User email address"
@@ -8393,7 +8413,7 @@ msgstr "Iniciar una instancia nueva y no abrir el archivo en la existente"
 
 #: ../src/main.c:88
 msgid "Do not open last session on startup"
-msgstr ""
+msgstr "No abrir la última sesión al iniciar"
 
 #: ../src/main.c:94
 msgid "Do not open last project and files on startup"
@@ -8465,7 +8485,7 @@ msgstr "Sangrado inteligente"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:8
 msgid "Statement indentation size in spaces:"
-msgstr ""
+msgstr "Tamaño de sangría en espacios:"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1527
 msgid "Auto Indent"
@@ -8473,7 +8493,7 @@ msgstr "Sangría automática"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1528
 msgid "Auto indent current line or selection based on indentation settings"
-msgstr ""
+msgstr "Auto sangrar la línea actual o la selección basándose en los ajustes de sangrado"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1546
 msgid "Autoindent"
@@ -8518,7 +8538,7 @@ msgstr "Asistente de archivos"
 
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:1
 msgid "A Subversion client plugin based on libsvn"
-msgstr ""
+msgstr "Un complemento de Subversion basado en libsvn"
 
 #: ../plugins/class-inheritance/anjuta-class-inheritance.plugin.in.h:1
 msgid "A graph painter for the inheritance of the classes."
@@ -8550,7 +8570,7 @@ msgstr ""
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:1
 msgid "Insert predefined macros into Editor"
-msgstr ""
+msgstr "Insertar macros predefinidos en el editor"
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:2
 msgid "Macro Plugin"
@@ -8598,7 +8618,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:1
 msgid "A version control system plugin"
-msgstr ""
+msgstr "Un complemento de cvs"
 
 #: ../plugins/cvs-plugin/anjuta-cvs.plugin.in.h:2
 msgid "CVS Plugin"
@@ -8634,7 +8654,9 @@ msgstr "Complemento de soporte para C++ y Java"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in.h:2
 msgid "C++ and Java support plugin for code completion, auto indentation etc."
-msgstr "Complemento de soporte para C++ y Java para completado de código, auto sangrado, etc."
+msgstr ""
+"Complemento de soporte para C++ y Java para completado de código, auto "
+"sangrado, etc."
 
 #: ../plugins/file-manager/anjuta-file-manager.plugin.in.h:2
 msgid "File Manager Plugin for Anjuta."
