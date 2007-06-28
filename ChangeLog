@@ -1,3 +1,7 @@
+2007-06-28  Naba Kumar  <naba.kumar@gnome.org>
+
+	* AUTHORS: Added James Liggett. Forgot to add him before :(
+
 2007-06-28 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/debugger.c,
