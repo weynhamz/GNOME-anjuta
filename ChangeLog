@@ -1,3 +1,11 @@
+2007-06-29  Naba Kumar  <naba.kumar@gnome.org>
+
+	* src/action-callbacks.c: (help_activate),
+	(on_help_manual_activate), (on_help_tutorial_activate),
+	(on_help_advanced_tutorial_activate), (on_help_faqs_activate):
+
+	Fixed help activation (bug #451557).
+
 2007-06-28  Naba Kumar  <naba.kumar@gnome.org>
 
 	* AUTHORS: Added James Liggett. Forgot to add him before :(
