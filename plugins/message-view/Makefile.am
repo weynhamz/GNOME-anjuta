@@ -44,6 +44,12 @@ libanjuta_message_view_la_SOURCES = \
 	message-view.c\
 	message-view.h
 
+prefs_glade_files = anjuta-message-manager-plugin.glade
+include $(top_srcdir)/scripts/build-schemas.mk
+
+libanjuta_message_view_la_DEPENDENCIES = \
+	build-schema-files
+
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(message_view_pixmaps_DATA) \

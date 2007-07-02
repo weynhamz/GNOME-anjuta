@@ -858,8 +858,7 @@ symbol_browser_prefs_finalize (SymbolBrowserPlugin *plugin)
 	g_list_free (plugin->gconf_notify_ids);
 	plugin->gconf_notify_ids = NULL;
 	
-	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(plugin->prefs), 
-		_("Symbol Browser"));
+	anjuta_preferences_remove_page(plugin->prefs, _("Symbol Browser"));
 }
 
 

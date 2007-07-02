@@ -81,6 +81,7 @@ gboolean anjuta_plugin_manager_unload_plugin (AnjutaPluginManager *plugin_manage
 gboolean anjuta_plugin_manager_unload_plugin_by_id (AnjutaPluginManager *plugin_manager,
 													const gchar *plugin_id);
 GList* anjuta_plugin_manager_get_active_plugins (AnjutaPluginManager *plugin_manager);
+GList* anjuta_plugin_manager_get_active_plugin_objects (AnjutaPluginManager *plugin_manager);
 
 /* Selection dialogs */
 GtkWidget* anjuta_plugin_manager_get_dialog (AnjutaPluginManager *plugin_manager);

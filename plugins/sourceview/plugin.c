@@ -166,7 +166,7 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 	g_signal_handlers_disconnect_by_func(G_OBJECT(plugin->check_font), 
 		G_CALLBACK(on_font_check_toggled), gxml);
 	
-	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), _("GtkSourceView Editor"));
+	anjuta_preferences_remove_page(prefs, _("GtkSourceView Editor"));
 	g_object_unref(gxml);
 	gxml = NULL;
 }

@@ -262,9 +262,10 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	
 	pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);
 	gtodo_plugin->prefs = preferences_widget();
-	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs), "GTodo",
-											_("Todo Manager"),
-											pixbuf, gtodo_plugin->prefs);
+	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (anjuta_preferences_get_dialog (prefs)), 
+										"GTodo",
+										_("Todo Manager"),
+										pixbuf, gtodo_plugin->prefs);
 	g_object_unref (pixbuf);
 }
 
@@ -272,7 +273,7 @@ static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	preferences_remove_signals();
-	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), _("Todo Manager"));
+	anjuta_preferences_remove_page(prefs, _("Todo Manager"));
 }
 
 

@@ -501,7 +501,6 @@ anjuta_app_finalize (GObject *widget)
 static void
 anjuta_app_instance_init (AnjutaApp *app)
 {
-	GladeXML* gxml;
 	gint merge_id;
 	GtkWidget *toolbar_menu, *about_menu;
 	GtkWidget *view_menu, *hbox;
@@ -551,12 +550,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 	g_object_ref (G_OBJECT (app->status));
 	g_object_add_weak_pointer (G_OBJECT (app->status), (gpointer)&app->status);
 	
-	/* Preferences */
-	app->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
-	g_object_add_weak_pointer (G_OBJECT (app->preferences),
-							   (gpointer)&app->preferences);
-	anjuta_status_add_widget (ANJUTA_STATUS (app->status),
-							  GTK_WIDGET (app->preferences));
 	/* UI engine */
 	app->ui = anjuta_ui_new ();
 	
@@ -577,6 +570,11 @@ anjuta_app_instance_init (AnjutaApp *app)
 													 plugins_dirs);
 	app->profile_manager = anjuta_profile_manager_new (app->plugin_manager);
 	g_list_free (plugins_dirs);
+	
+	/* Preferences */
+	app->preferences = anjuta_preferences_new (app->plugin_manager);
+	g_object_add_weak_pointer (G_OBJECT (app->preferences),
+							   (gpointer)&app->preferences);
 	
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),
@@ -637,16 +635,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 								   "/MenuMain/PlaceHolderHelpMenus/MenuHelp/"
 								   "PlaceHolderHelpAbout/AboutPlugins");
 	about_create_plugins_submenu (ANJUTA_SHELL (app), about_menu);
-							  
-	gtk_window_set_transient_for (GTK_WINDOW (app->preferences),
-								  GTK_WINDOW (app));
-	
-	/* Create preferences page */
-	gxml = glade_xml_new (GLADE_FILE, "anjuta_preferences_window", NULL);
-	anjuta_preferences_add_page (app->preferences, gxml,
-								 "General", _("General"), ICON_FILE);
-	g_object_unref (gxml);
-	
+							
 	/* Connect to session */
 	g_signal_connect (G_OBJECT (app), "save_session",
 					  G_CALLBACK (on_session_save), app);
@@ -783,6 +772,18 @@ void
 anjuta_app_layout_reset (AnjutaApp *app)
 {
 	anjuta_app_layout_load (app, NULL, NULL);
+}
+
+void 
+anjuta_app_install_preferences (AnjutaApp *app)
+{
+	GladeXML *gxml;	
+
+	/* Create preferences page */
+	gxml = glade_xml_new (GLADE_FILE, "anjuta_preferences_window", NULL);
+	anjuta_preferences_add_page (app->preferences, gxml,
+								 "General", _("General"), ICON_FILE);
+	g_object_unref (gxml);
 }
 
 /* AnjutaShell Implementation */

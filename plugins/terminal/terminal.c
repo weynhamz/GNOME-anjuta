@@ -737,8 +737,7 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 	TerminalPlugin* term_plugin = ANJUTA_PLUGIN_TERMINAL (ipref);
 	g_signal_handlers_disconnect_by_func(G_OBJECT(term_plugin->pref_default_button),
 		G_CALLBACK (use_default_profile_cb), term_plugin);
-	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs),
-		_("Terminal"));
+	anjuta_preferences_remove_page(prefs, _("Terminal"));
 }
 
 static void

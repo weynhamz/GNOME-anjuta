@@ -146,6 +146,12 @@ AM_PROG_LIBTOOL
 AC_TYPE_SIGNAL
 
 dnl ***************************************************************************
+dnl Check for GConf stuff to handle schema installation
+dnl ***************************************************************************
+AC_PATH_PROG(GCONFTOOL, gconftool-2)
+AM_GCONF_SOURCE_2
+
+dnl ***************************************************************************
 dnl Check for pkgconfig
 dnl ***************************************************************************
 AC_PATH_PROG(PKGCONFIG_CONFIG, pkg-config,no)

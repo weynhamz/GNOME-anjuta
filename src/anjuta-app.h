@@ -72,6 +72,7 @@ GtkWidget* anjuta_app_new (void);
 void       anjuta_app_set_geometry (AnjutaApp *app, const gchar *geometry);
 gchar*     anjuta_app_get_geometry (AnjutaApp *app);
 void       anjuta_app_layout_reset (AnjutaApp *app);
+void	   anjuta_app_install_preferences (AnjutaApp *app);
 
 G_END_DECLS
 

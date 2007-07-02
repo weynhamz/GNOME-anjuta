@@ -45,7 +45,6 @@
 
 #include <cell-renderer-captioned-image.h>
 #include <libanjuta/anjuta-preferences-dialog.h>
-
 struct _AnjutaPreferencesDialogPrivate {
 	GtkWidget *treeview;
 	GtkListStore *store;
@@ -62,74 +61,33 @@ enum {
 };
 
 static void anjuta_preferences_dialog_class_init    (AnjutaPreferencesDialogClass *class);
-static void anjuta_preferences_dialog_instance_init (AnjutaPreferencesDialog      *dlg);
+static void anjuta_preferences_dialog_init (AnjutaPreferencesDialog      *dlg);
 
-GNOME_CLASS_BOILERPLATE (AnjutaPreferencesDialog, 
-			 anjuta_preferences_dialog,
-			 GtkDialog, GTK_TYPE_DIALOG);
-
-static void
-anjuta_preferences_dialog_dispose (GObject *obj)
-{
-	AnjutaPreferencesDialog *dlg = ANJUTA_PREFERENCES_DIALOG (obj);
-
-	if (dlg->priv->store) {
-		g_object_unref (dlg->priv->store);
-		dlg->priv->store = NULL;
-	}
-	
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
-}
+G_DEFINE_TYPE (AnjutaPreferencesDialog, anjuta_preferences_dialog,
+			   GTK_TYPE_DIALOG)
 
 static void
 anjuta_preferences_dialog_finalize (GObject *obj)
 {
 	AnjutaPreferencesDialog *dlg = ANJUTA_PREFERENCES_DIALOG (obj);	
 
-	g_free (dlg->priv);
-
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
-}
-
-#if 0
-static void
-anjuta_preferences_dialog_response (GtkDialog *dialog, int response_id)
-{
-	g_return_if_fail (response_id == 0);
+	if (dlg->priv->store) {
+		g_object_unref (dlg->priv->store);
+		dlg->priv->store = NULL;
+	}
 	
-	gtk_widget_hide (GTK_WIDGET (dialog));
-}
-#endif
-
-static void
-anjuta_preferences_dialog_close (GtkDialog *dialog)
-{
-	gtk_widget_hide (GTK_WIDGET (dialog));
+	g_free (dlg->priv);
+	
+	((GObjectClass *) anjuta_preferences_dialog_parent_class)->finalize (obj);
 }
 
 static void
 anjuta_preferences_dialog_class_init (AnjutaPreferencesDialogClass *class)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (class);
-	GtkDialogClass *dialog_class = GTK_DIALOG_CLASS (class);
 
-	parent_class = g_type_class_peek_parent (class);
-	
-	object_class->dispose = anjuta_preferences_dialog_dispose;
 	object_class->finalize = anjuta_preferences_dialog_finalize;
-
-	/* dialog_class->response = anjuta_preferences_dialog_response; */
-	dialog_class->close = anjuta_preferences_dialog_close;
 }
-
-/*
-static gboolean
-delete_event_cb (AnjutaPreferencesDialog *dlg, gpointer data)
-{
-	gtk_widget_hide (GTK_WIDGET (dlg));
-	return FALSE;
-}
-*/
 
 static void
 add_category_columns (AnjutaPreferencesDialog *dlg)
@@ -138,6 +96,7 @@ add_category_columns (AnjutaPreferencesDialog *dlg)
 	GtkTreeViewColumn *column;
 	
 	renderer = anjuta_cell_renderer_captioned_image_new ();
+	g_object_ref_sink (renderer);
 	column = gtk_tree_view_column_new_with_attributes (_("Category"),
 							   renderer,
 							   "text",
@@ -171,7 +130,7 @@ selection_changed_cb (GtkTreeSelection *selection,
 }
 
 static void
-anjuta_preferences_dialog_instance_init (AnjutaPreferencesDialog *dlg)
+anjuta_preferences_dialog_init (AnjutaPreferencesDialog *dlg)
 {
 	GtkWidget *hbox;
 	GtkWidget *scrolled_window;
@@ -233,6 +192,8 @@ anjuta_preferences_dialog_instance_init (AnjutaPreferencesDialog *dlg)
 	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dlg)->vbox), hbox,
 			    TRUE, TRUE, 0);
 	
+	gtk_dialog_add_button (GTK_DIALOG (dlg), GTK_STOCK_CLOSE, -7);
+	
 	gtk_widget_show (hbox);
 }
 
@@ -246,8 +207,8 @@ anjuta_preferences_dialog_instance_init (AnjutaPreferencesDialog *dlg)
 GtkWidget *
 anjuta_preferences_dialog_new (void)
 {
-	return gtk_widget_new (ANJUTA_TYPE_PREFERENCES_DIALOG, 
-				 "title", _("Anjuta Preferences Dialog"),
+	return g_object_new (ANJUTA_TYPE_PREFERENCES_DIALOG, 
+				 "title", _("Anjuta Preferences"),
 				 NULL);
 }
 
@@ -297,6 +258,7 @@ anjuta_preferences_dialog_remove_page (AnjutaPreferencesDialog *dlg,
 {
 	GtkTreeModel* model = GTK_TREE_MODEL(dlg->priv->store);
 	GtkTreeIter iter;
+	GtkWidget *page;
 	
 	if (gtk_tree_model_get_iter_first(model, &iter))
 	{
@@ -317,16 +279,18 @@ anjuta_preferences_dialog_remove_page (AnjutaPreferencesDialog *dlg,
 				page_num = gtk_notebook_page_num (
 						GTK_NOTEBOOK(dlg->priv->notebook),
 						GTK_WIDGET (page_widget));
+				
+				page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (dlg->priv->notebook),
+												  page_num);
 
 				gtk_notebook_remove_page(
 						GTK_NOTEBOOK(dlg->priv->notebook), page_num);
+				
+				gtk_widget_destroy (page);
 
 				gtk_list_store_remove(dlg->priv->store, &iter);
-				g_object_unref (page_widget);
 				return;
 			}
-
-			g_object_unref (page_widget);
 		}
 		while (gtk_tree_model_iter_next(model, &iter));
 	}

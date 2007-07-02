@@ -2242,8 +2242,7 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 	g_signal_handlers_disconnect_by_func(G_OBJECT(root_check),
 		G_CALLBACK(on_sb_check_toggled), sb_entry);
 		
-	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs),
-		_("Build Autotools"));
+	anjuta_preferences_remove_page(prefs, _("Build Autotools"));
 	
 	g_object_unref (gxml);
 }

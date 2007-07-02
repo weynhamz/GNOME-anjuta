@@ -95,6 +95,12 @@ libanjuta_sourceview_la_LIBADD = \
 
 endif
 
+prefs_glade_files = sourceview.glade
+include $(top_srcdir)/scripts/build-schemas.mk
+
+libanjuta_sourceview_la_DEPENDENCIES = \
+	build-schema-files
+
 EXTRA_DIST = \
 	anjuta-marshal.list \
 	$(plugin_in_files) \

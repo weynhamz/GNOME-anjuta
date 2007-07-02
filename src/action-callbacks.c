@@ -36,6 +36,7 @@ his program is distributed in the hope that it will be useful,
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "anjuta-app.h"
 // #include "help.h"
@@ -82,7 +83,23 @@ on_reset_layout_activate(GtkAction *action, AnjutaApp *app)
 void
 on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 {
-	gtk_widget_show (GTK_WIDGET (app->preferences));
+
+	GtkWidget *preferences_dialog;
+	
+	preferences_dialog = anjuta_preferences_get_dialog (app->preferences);
+	
+	/* Install main application preferences */
+	anjuta_app_install_preferences (app);
+	
+	g_signal_connect_swapped (G_OBJECT (preferences_dialog),
+					  		  "response",
+					  		  G_CALLBACK (gtk_widget_destroy),
+					  		  preferences_dialog); 
+	
+	gtk_window_set_transient_for (GTK_WINDOW (preferences_dialog),
+								  GTK_WINDOW (app));
+								  
+	gtk_widget_show (preferences_dialog);
 }
 
 void

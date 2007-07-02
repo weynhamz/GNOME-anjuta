@@ -538,13 +538,8 @@ anjuta_plugin_activate (AnjutaPlugin *plugin)
 	plugin->priv->activated = klass->activate(plugin);
 	
 	if (plugin->priv->activated)
-	{
-		if (IANJUTA_IS_PREFERENCES(plugin))
-			ianjuta_preferences_merge(IANJUTA_PREFERENCES(plugin),
-				ANJUTA_PREFERENCES(anjuta_shell_get_preferences(plugin->shell,
-																NULL)), NULL);
 		g_signal_emit_by_name (G_OBJECT (plugin), "activated");
-	}
+
 	return plugin->priv->activated;
 }
 
@@ -570,10 +565,6 @@ anjuta_plugin_deactivate (AnjutaPlugin *plugin)
 	
 	klass = ANJUTA_PLUGIN_GET_CLASS(plugin);
 	g_return_val_if_fail (klass->deactivate != NULL, FALSE);
-	
-	if (IANJUTA_IS_PREFERENCES(plugin))
-		ianjuta_preferences_unmerge(IANJUTA_PREFERENCES(plugin),
-			ANJUTA_PREFERENCES(anjuta_shell_get_preferences(plugin->shell, NULL)), NULL);
 	
 	success = klass->deactivate(plugin);
 	plugin->priv->activated = !success;

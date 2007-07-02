@@ -1,5 +1,74 @@
 2007-07-02  Naba Kumar  <naba.kumar@gnome.org>
 
+	* TODO.tasks: Increased bounty for on-demand preferences task to $150
+	as discussed and agreed with James Liggett.
+
+	Patch from James Liggett  <jrliggett@cox.net>:
+
+	* configure.in:
+	* libanjuta/anjuta-plugin-manager.c:
+	(on_activated_plugin_objects_foreach),
+	(anjuta_plugin_manager_get_active_plugin_objects):
+	* libanjuta/anjuta-plugin-manager.h:
+	* libanjuta/anjuta-plugin.c: (anjuta_plugin_activate),
+	(anjuta_plugin_deactivate):
+	* libanjuta/anjuta-preferences-dialog.c:
+	(anjuta_preferences_dialog_finalize),
+	(anjuta_preferences_dialog_class_init), (add_category_columns),
+	(anjuta_preferences_dialog_init), (anjuta_preferences_dialog_new),
+	(anjuta_preferences_dialog_remove_page):
+	* libanjuta/anjuta-preferences.c: (property_destroy),
+	(unregister_preferences_key), (register_callbacks),
+	(preferences_foreach_callback), (connect_prop_to_object),
+	(anjuta_preferences_register_property_raw),
+	(anjuta_preferences_register_property_custom),
+	(anjuta_preferences_foreach), (anjuta_preferences_add_page),
+	(anjuta_preferences_remove_page),
+	(on_preferences_dialog_destroyed), (anjuta_preferences_get_dialog),
+	(anjuta_preferences_get_type), (anjuta_preferences_dispose),
+	(anjuta_preferences_instance_init), (anjuta_preferences_finalize),
+	(anjuta_preferences_class_init), (anjuta_preferences_new):
+	* libanjuta/anjuta-preferences.h:
+	* plugins/build-basic-autotools/Makefile.am:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(ipreferences_unmerge):
+	* plugins/cvs-plugin/Makefile.am:
+	* plugins/cvs-plugin/plugin.c: (ipreferences_unmerge):
+	* plugins/document-manager/Makefile.am:
+	* plugins/document-manager/plugin.c: (ipreferences_unmerge):
+	* plugins/editor/plugin.c: (ipreferences_unmerge):
+	* plugins/file-manager/Makefile.am:
+	* plugins/file-manager/plugin.c: (activate_plugin),
+	(deactivate_plugin), (ipreferences_merge), (ipreferences_unmerge):
+	* plugins/gtodo/plugin.c: (ipreferences_merge),
+	(ipreferences_unmerge):
+	* plugins/language-support-cpp-java/Makefile.am:
+	* plugins/language-support-cpp-java/plugin.c:
+	(ipreferences_unmerge):
+	* plugins/message-view/Makefile.am:
+	* plugins/message-view/plugin.c: (ipreferences_unmerge):
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/plugin.c: (ipreferences_unmerge):
+	* plugins/symbol-browser/Makefile.am:
+	* plugins/symbol-browser/an_symbol_prefs.c:
+	(symbol_browser_prefs_finalize):
+	* plugins/terminal/Makefile.am:
+	* plugins/terminal/terminal.c: (ipreferences_unmerge):
+	* plugins/valgrind/plugin.c: (ipreferences_merge),
+	(ipreferences_unmerge):
+	* scripts/Makefile.am:
+	* scripts/glade2schema.pl, (added) scripts/build-schemas.mk:
+	* src/Makefile.am:
+	* src/action-callbacks.c: (on_set_preferences1_activate):
+	* src/anjuta-app.c: (anjuta_app_instance_init),
+	(anjuta_app_install_preferences):
+	* src/anjuta-app.h:
+	* src/shell.c: (anjuta_test_shell_instance_init): Completed bounty
+	task: Bug #445314: On demand preferences widgets creation. Thanks
+	James for this great work.
+
+2007-07-02  Naba Kumar  <naba.kumar@gnome.org>
+
 	* plugins/debug-manager/data_buffer.c,
 	plugins/message-view/message-view.c: Fixed compiler warnings.
 

@@ -39,6 +39,12 @@ libanjuta_terminal_la_LIBADD = \
 	$(GLADE_LIBS) \
 	$(VTE_LIBS) \
 	$(LIBANJUTA_LIBS)
+	
+prefs_glade_files = anjuta-terminal-plugin.glade
+include $(top_srcdir)/scripts/build-schemas.mk
+
+libanjuta_terminal_la_DEPENDENCIES = \
+	build-schema-files
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

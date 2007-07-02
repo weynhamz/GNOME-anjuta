@@ -154,7 +154,7 @@ anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 	gtk_box_pack_end_defaults (GTK_BOX (shell->box), plugins);
 	
 	/* Preferencesnces */
-	shell->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new ());
+	shell->preferences = ANJUTA_PREFERENCES (anjuta_preferences_new (shell->plugin_manager));
 	
 	/* UI engine */
 	shell->ui = anjuta_ui_new ();

@@ -72,6 +72,7 @@
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 struct _AnjutaProperty
 {
@@ -80,6 +81,7 @@ struct _AnjutaProperty
 	gchar                    *default_value;
 	guint                     flags;
 	gint                     notify_id;
+	GConfClient              *gclient;
 	
 	/* Set true if custom set/get to be used */
 	gboolean                  custom;
@@ -96,9 +98,20 @@ struct _AnjutaProperty
 
 struct _AnjutaPreferencesPriv
 {
-	GConfClient *gclient;
-	GList       *properties;
-	gboolean     is_showing;
+	GConfClient         *gclient;
+	GHashTable          *properties;
+	GtkWidget           *prefs_dialog;
+	AnjutaPluginManager *plugin_manager;
+	gboolean             is_showing;
+};
+
+/* Internal structure for anjuta_preferences_foreach */
+struct _AnjutaPreferencesForeachData
+{
+	AnjutaPreferences *pr;
+	AnjutaPreferencesFilterType filter;
+	AnjutaPreferencesCallback callback;
+	gpointer callback_data;
 };
 
 #define PREFERENCE_PROPERTY_PREFIX "preferences_"
@@ -466,21 +479,13 @@ anjuta_preferences_set_int (AnjutaPreferences *pr, const gchar *key,
 }
 
 static void
-on_preferences_dialog_response (GtkDialog *dialog,
-                                gint response, gpointer user_data)
-{
-	AnjutaPreferences *pr = ANJUTA_PREFERENCES (user_data);
-	if (pr)
-		gtk_widget_hide (GTK_WIDGET (pr));
-}
-
-static void
 property_destroy (AnjutaProperty *property)
 {
 	g_return_if_fail (property);
 	if (property->key) g_free (property->key);
-	if (property->default_value) g_free (property->key);
-	g_object_unref (G_OBJECT (property->object));
+	if (property->default_value) g_free (property->default_value);
+	g_object_unref (property->object);
+	gconf_client_notify_remove (property->gclient, property->notify_id);
 	g_free (property);
 }
 
@@ -862,6 +867,23 @@ update_property_on_change_font (GtkWidget *widget,
 }
 
 static void
+unregister_preferences_key (GtkWidget *widget,
+							gpointer user_data)
+{
+	AnjutaProperty *p;
+	AnjutaPreferences *pr;
+	gchar *key;
+	
+	p = (AnjutaProperty *) user_data;
+	pr = g_object_get_data (G_OBJECT (widget),
+							"AnjutaPreferences");
+	key = g_strdup (p->key);
+	
+	g_hash_table_remove (pr->priv->properties, key);
+	g_free (key);
+}
+
+static void
 get_property (GConfClient *gclient, guint cnxt_id,
 			  GConfEntry *entry, gpointer user_data)
 {
@@ -949,6 +971,49 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 	}
 	p->notify_id = gconf_client_notify_add (gclient, build_key (p->key),
 											get_property, p, NULL, NULL);
+	
+	/* Connect to widget destroy signal so we can automatically unregister
+	 * keys so there aren't any potential conflicts or references to 
+	 * nonexistent widgets on subsequent uses of the prefs dialog. */
+	g_signal_connect (G_OBJECT (p->object), "destroy",
+					  G_CALLBACK (unregister_preferences_key),
+					  p);
+}
+
+static gboolean
+preferences_foreach_callback (gchar *key, struct _AnjutaProperty *p, 
+							  struct _AnjutaPreferencesForeachData *data)
+{	
+	if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_MENU)
+	{
+		if (data->filter == ANJUTA_PREFERENCES_FILTER_NONE)
+			return data->callback (data->pr, key, data->callback_data);
+		else if (p->flags & data->filter)
+			return data->callback (data->pr, key, data->callback_data);
+	}
+	
+	return TRUE;
+}
+
+static void
+connect_prop_to_object (AnjutaPreferences *pr, AnjutaProperty *p)
+{
+	int gconf_value;
+	gchar *value;
+	
+	if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL ||
+		p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
+	{	
+		gconf_value = anjuta_preferences_get_int (pr, p->key);
+		value = g_strdup_printf ("%d", gconf_value);
+		set_property_value_as_string (p, value);
+	} 
+	else 
+	{
+		value = anjuta_preferences_get (pr, p->key);
+		set_property_value_as_string (p, value);
+		g_free (value);
+	}
 }
 
 
@@ -991,6 +1056,7 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	p->object_type = object_type;
 	p->data_type = data_type;
 	p->key = g_strdup (key);
+	p->gclient = pr->priv->gclient;
 	
 	value = gconf_client_get (pr->priv->gclient,
 							  build_key (p->key), NULL);
@@ -1073,7 +1139,9 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 	p->custom = FALSE;
 	p->set_property = NULL;
 	p->get_property = NULL;
-	pr->priv->properties = g_list_prepend (pr->priv->properties, p);
+	
+	g_hash_table_insert (pr->priv->properties, g_strdup (key), p);
+	connect_prop_to_object (pr, p);
 	register_callbacks (pr, p);
 	return TRUE;
 }
@@ -1119,6 +1187,7 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 	p->object_type = (AnjutaPropertyObjectType) 0;
 	p->data_type = data_type;
 	p->key = g_strdup (key);
+	p->gclient = pr->priv->gclient;
 	
 	value = gconf_client_get (pr->priv->gclient,
 							  build_key (p->key), NULL);
@@ -1179,8 +1248,8 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 	p->flags = flags;
 	p->set_property = set_property;
 	p->get_property = get_property;
-	
-	pr->priv->properties = g_list_prepend (pr->priv->properties, p);
+
+	g_hash_table_insert (pr->priv->properties, g_strdup (key), p);
 	return TRUE;
 }
 
@@ -1352,64 +1421,17 @@ anjuta_preferences_foreach (AnjutaPreferences *pr,
 							AnjutaPreferencesCallback callback,
 							gpointer data)
 {
-	AnjutaProperty *p;
-	GList *node;
-	gboolean go_on = TRUE;
+	struct _AnjutaPreferencesForeachData foreach_data;
 	
-	g_return_if_fail (ANJUTA_IS_PREFERENCES (pr));
-	g_return_if_fail (callback != NULL);
+	foreach_data.pr = pr;
+	foreach_data.filter = filter;
+	foreach_data.callback = callback;
+	foreach_data.callback_data = data;
 	
-	node = pr->priv->properties;
-	while (node && go_on)
-	{
-		p = node->data;
-		if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_MENU)
-		{
-			if (filter == ANJUTA_PREFERENCES_FILTER_NONE)
-				go_on = callback (pr, p->key, data);
-			else if (p->flags & filter)
-				go_on = callback (pr, p->key, data);
-		}
-		node = g_list_next (node);
-	}
-}
+	g_hash_table_find (pr->priv->properties, 
+					   (GHRFunc) preferences_foreach_callback,
+					   &foreach_data);
 
-static gboolean
-on_preferences_dialog_delete_event (GtkDialog *dialog,
-									GdkEvent *event,
-									gpointer user_data)
-{
-	gtk_widget_hide (GTK_WIDGET(dialog));
-	return TRUE;
-}
-
-static gboolean
-preferences_prop_to_objects (AnjutaPreferences *pr)
-{
-	AnjutaProperty *p;
-	GList *node;
-	node = pr->priv->properties;
-	while (node)
-	{
-		p = node->data;
-		if (p->data_type == ANJUTA_PROPERTY_DATA_TYPE_BOOL ||
-			p->data_type == ANJUTA_PROPERTY_DATA_TYPE_INT)
-		{
-			int gconf_value;
-			gchar *value;
-			
-			gconf_value = anjuta_preferences_get_int (pr, p->key);
-			value = g_strdup_printf ("%d", gconf_value);
-			set_property_value_as_string (p, value);
-		} else {
-			gchar *value;
-			value = anjuta_preferences_get (pr, p->key);
-			set_property_value_as_string (p, value);
-			g_free (value);
-		}
-		node = g_list_next (node);
-	}
-	return TRUE;
 }
 
 /**
@@ -1483,7 +1505,7 @@ anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
 	}
 	image_path = anjuta_res_get_pixmap_file (icon_filename);
 	pixbuf = gdk_pixbuf_new_from_file (image_path, NULL);
-	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (pr),
+	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (pr->priv->prefs_dialog),
 										glade_widget_name, title, pixbuf, page);
 	anjuta_preferences_register_all_properties_from_glade_xml (pr, gxml, page);
 	g_object_unref (page);
@@ -1491,10 +1513,83 @@ anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
 	g_object_unref (pixbuf);
 }
 
+void
+anjuta_preferences_remove_page (AnjutaPreferences *pr,
+								const gchar *page_name)
+{
+	if (pr->priv->prefs_dialog)
+	{
+		anjuta_preferences_dialog_remove_page (ANJUTA_PREFERENCES_DIALOG (pr->priv->prefs_dialog),
+											   page_name);
+	}
+}
+
+static void 
+on_preferences_dialog_destroyed (GtkWidget *preferencess_dialog,
+							     AnjutaPreferences *pr)
+{
+	GList *plugins;
+	GList *current_plugin;
+	
+	plugins = anjuta_plugin_manager_get_active_plugin_objects (pr->priv->plugin_manager);
+	current_plugin = plugins;
+	
+	while (current_plugin)
+	{
+		if (IANJUTA_IS_PREFERENCES (current_plugin->data))
+		{
+			ianjuta_preferences_unmerge (IANJUTA_PREFERENCES (current_plugin->data),
+								  		 pr, NULL);
+		}
+			
+		current_plugin = g_list_next (current_plugin);
+	
+	}
+	
+	g_object_unref (pr->priv->prefs_dialog);
+	
+	g_list_free (plugins);
+	pr->priv->prefs_dialog = NULL;
+}
+
+GtkWidget *
+anjuta_preferences_get_dialog (AnjutaPreferences *pr)
+{
+	GList *plugins;
+	GList *current_plugin;
+	
+	if (pr->priv->prefs_dialog)
+		return pr->priv->prefs_dialog;
+	else
+	{
+		pr->priv->prefs_dialog = anjuta_preferences_dialog_new ();
+		
+		g_signal_connect (G_OBJECT (pr->priv->prefs_dialog), "destroy",
+						  G_CALLBACK (on_preferences_dialog_destroyed),
+						  pr);
+
+		plugins = anjuta_plugin_manager_get_active_plugin_objects (pr->priv->plugin_manager);
+		current_plugin = plugins;
+		
+		while (current_plugin)
+		{
+			if (IANJUTA_IS_PREFERENCES (current_plugin->data))
+			{
+				ianjuta_preferences_merge (IANJUTA_PREFERENCES (current_plugin->data),
+								  		   pr, NULL);
+			}
+			
+			current_plugin = g_list_next (current_plugin);
+		}
+	
+		g_list_free (plugins);
+		
+		return g_object_ref_sink (pr->priv->prefs_dialog);
+	}
+}
+
 static void anjuta_preferences_class_init    (AnjutaPreferencesClass *class);
 static void anjuta_preferences_instance_init (AnjutaPreferences      *pr);
-
-static AnjutaPreferencesDialogClass *parent_class;
 
 GType
 anjuta_preferences_get_type ()
@@ -1516,7 +1611,7 @@ anjuta_preferences_get_type ()
 			(GInstanceInitFunc) anjuta_preferences_instance_init,
 			NULL            /* value_table */
 		};
-		obj_type = g_type_register_static (ANJUTA_TYPE_PREFERENCES_DIALOG,
+		obj_type = g_type_register_static (G_TYPE_OBJECT,
 		                                   "AnjutaPreferences", &obj_info, 0);
 	}
 	return obj_type;
@@ -1526,88 +1621,49 @@ static void
 anjuta_preferences_dispose (GObject *obj)
 {
 	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);
+	
 	if (pr->priv->properties)
 	{
 		/* This will release the refs on property objects */
-		g_list_foreach (pr->priv->properties, (GFunc)property_destroy, NULL);
+		g_hash_table_destroy (pr->priv->properties);
 		pr->priv->properties = NULL;
 	}
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
 static void
 anjuta_preferences_instance_init (AnjutaPreferences *pr)
 {
-	pr->priv = g_new0(AnjutaPreferencesPriv, 1);
-	pr->priv->properties = NULL;
+	pr->priv = g_new0 (AnjutaPreferencesPriv, 1);
 	
-	/* DEBUG_PRINT ("Initializing AP Instance"); */
+	pr->priv->properties = g_hash_table_new_full (g_str_hash, g_str_equal,
+												  g_free, 
+												  (GDestroyNotify) property_destroy);
 	
-	pr->priv->is_showing = FALSE;
 	pr->priv->gclient = gconf_client_get_default();
 	gconf_client_add_dir (pr->priv->gclient, GCONF_KEY_PREFIX,
 						  GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-	/* Add buttons: Close button */
-	gtk_dialog_add_button (GTK_DIALOG (pr),
-				       GTK_STOCK_CLOSE, GTK_RESPONSE_CANCEL);
-	g_signal_connect (G_OBJECT (pr), "delete_event",
-					  G_CALLBACK (on_preferences_dialog_delete_event), pr);
-	g_signal_connect (G_OBJECT (pr), "response",
-					  G_CALLBACK (on_preferences_dialog_response), pr);
+
 }
 
 static void
 anjuta_preferences_finalize (GObject *obj)
 {
 	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);
-
+	
+	if (pr->priv->prefs_dialog)
+		gtk_widget_destroy (pr->priv->prefs_dialog);
+	
+	g_object_unref (pr->priv->plugin_manager);
 	g_free (pr->priv);
-	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
-}
-
-static void
-anjuta_preferences_hide (GtkWidget *w)
-{
-	AnjutaPreferences *pr = ANJUTA_PREFERENCES (w);	
-	pr->priv->is_showing = FALSE;
-	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, hide, (w));
-}
-
-static void
-anjuta_preferences_show (GtkWidget * w)
-{
-	AnjutaPreferences *pr = ANJUTA_PREFERENCES (w);
-	if (pr->priv->is_showing)
-		return;
-	preferences_prop_to_objects (ANJUTA_PREFERENCES (pr));
-	pr->priv->is_showing = TRUE;
-	GNOME_CALL_PARENT (GTK_WIDGET_CLASS, show, (w));
-}
-
-static void
-anjuta_preferences_close (GtkDialog *obj)
-{
-	AnjutaPreferences *pr = ANJUTA_PREFERENCES (obj);
-	gtk_widget_hide (GTK_WIDGET (pr));
 }
 
 static void
 anjuta_preferences_class_init (AnjutaPreferencesClass *class)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (class);
-	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (class);
-	GtkDialogClass *dialog_class = GTK_DIALOG_CLASS (class);
-	
-	parent_class = g_type_class_peek_parent (class);
 	
 	object_class->dispose = anjuta_preferences_dispose;
 	object_class->finalize = anjuta_preferences_finalize;
-
-	widget_class->hide = anjuta_preferences_hide;
-	widget_class->show = anjuta_preferences_show;
-	
-	// dialog_class->response = anjuta_preferences_response;
-	dialog_class->close = anjuta_preferences_close;
 }
 
 /**
@@ -1617,17 +1673,16 @@ anjuta_preferences_class_init (AnjutaPreferencesClass *class)
  * 
  * Return value: A #AnjutaPreferences object.
  */
-GtkWidget *
-anjuta_preferences_new ()
+AnjutaPreferences *
+anjuta_preferences_new (AnjutaPluginManager *plugin_manager)
 {
-	static GtkWidget *widget = NULL;
-
-	if (!widget) {
-		widget = gtk_widget_new (ANJUTA_TYPE_PREFERENCES,
-					 "title", _("Anjuta Preferences"),
-					 NULL);
-	}
-	return widget;
+	AnjutaPreferences *pr;
+	
+	pr = g_object_new (ANJUTA_TYPE_PREFERENCES, NULL);
+	pr->priv->plugin_manager = g_object_ref (plugin_manager);
+	
+	return pr;
+	
 }
 
 /**

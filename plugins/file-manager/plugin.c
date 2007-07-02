@@ -184,6 +184,11 @@ activate_plugin (AnjutaPlugin *plugin)
 									"project_root_uri",
 									project_root_added,
 									project_root_removed, NULL);
+	
+	/* set up preference key watches */
+	prefs_init (fm_plugin);
+	on_gconf_notify_prefs (NULL, 0, NULL, fm_plugin);
+	
 	initialized = FALSE;
 	return TRUE;
 }
@@ -211,6 +216,9 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	/* Remove action group */
 	anjuta_ui_remove_action_group (fm_plugin->ui, fm_plugin->action_group);
+	
+	/* Remove preference key watches */
+	prefs_finalize (fm_plugin);
 	
 	fm_plugin->root_watch_id = 0;
 	return TRUE;
@@ -277,23 +285,18 @@ ifile_manager_iface_init(IAnjutaFileManagerIface *iface)
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	FileManagerPlugin* fm_plugin = ANJUTA_PLUGIN_FILE_MANAGER (ipref);
 	/* Add preferences */
 	GladeXML *gxml = glade_xml_new (PREFS_GLADE, "dialog.file.filter", NULL);
 		
 	anjuta_preferences_add_page (prefs,
 									gxml, "File Manager", _("File Manager"), ICON_FILE);
 	g_object_unref (G_OBJECT (gxml));
-	prefs_init (fm_plugin);
-	on_gconf_notify_prefs (NULL, 0, NULL, fm_plugin);
 }
 
 static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	FileManagerPlugin* fm_plugin = ANJUTA_PLUGIN_FILE_MANAGER (ipref);
-	prefs_finalize (fm_plugin);
-	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), _("File Manager"));
+	anjuta_preferences_remove_page (prefs, _("File Manager"));
 }
 
 static void

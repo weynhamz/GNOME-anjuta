@@ -51,6 +51,12 @@ libanjuta_build_basic_autotools_la_LIBADD = \
 
 libanjuta_build_basic_autotools_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
+prefs_glade_files = anjuta-build-basic-autotools-plugin.glade
+include $(top_srcdir)/scripts/build-schemas.mk
+
+libanjuta_build_basic_autotools_la_DEPENDENCIES = \
+	build-schema-files 
+
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(build_plugin_DATA) \

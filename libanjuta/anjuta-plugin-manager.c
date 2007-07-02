@@ -1489,6 +1489,14 @@ on_activated_plugins_foreach (gpointer key, gpointer data, gpointer user_data)
 						anjuta_plugin_handle_get_description (plugin));
 }
 
+static void
+on_activated_plugin_objects_foreach (gpointer key, gpointer data, gpointer user_data)
+{
+	GList **active_plugins = (GList **)user_data;
+	*active_plugins = g_list_prepend (*active_plugins,
+						data);
+}
+
 GList*
 anjuta_plugin_manager_get_active_plugins (AnjutaPluginManager *plugin_manager)
 {
@@ -1497,6 +1505,18 @@ anjuta_plugin_manager_get_active_plugins (AnjutaPluginManager *plugin_manager)
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), NULL);
 	g_hash_table_foreach (plugin_manager->priv->activated_plugins,
 						  on_activated_plugins_foreach,
+						  &active_plugins);
+	return g_list_reverse (active_plugins);
+}
+
+GList* 
+anjuta_plugin_manager_get_active_plugin_objects (AnjutaPluginManager *plugin_manager)
+{
+	GList *active_plugins = NULL;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), NULL);
+	g_hash_table_foreach (plugin_manager->priv->activated_plugins,
+						  on_activated_plugin_objects_foreach,
 						  &active_plugins);
 	return g_list_reverse (active_plugins);
 }

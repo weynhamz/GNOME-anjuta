@@ -42,6 +42,12 @@ libanjuta_cvs_plugin_la_SOURCES = \
 	cvs-callbacks.h \
 	cvs-interface.c \
 	cvs-interface.h
+	
+prefs_glade_files = anjuta-cvs-plugin.glade
+include $(top_srcdir)/scripts/build-schemas.mk
+
+libanjuta_cvs_plugin_la_DEPENDENCIES = \
+	build-schema-files
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

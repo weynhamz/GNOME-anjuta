@@ -103,9 +103,9 @@ should be shown side-by-side in status bar.</comment>
       <comment>Add a new page in Settings-&gt;plugins dialog, along side Available plugins page, that lists the plugins that have been remembered from plugin query and selection dialog. And for 'Forget' and 'Forget all' buttons.</comment>
     </item>
     <item>
-      <attribute id="1159555613" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1182419093"/>
+      <attribute id="1159555613" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1183374207"/>
       <summary>On demand preferences widgets creation</summary>
-      <comment>[Skill: High, Work: 30hrs, Bounty: $100, Status: Assigned, Bug: #445314]
+      <comment>[Skill: High, Work: 30hrs, Bounty: $150, Status: Assigned, Bug: #445314]
 
 Currently, preferences are registered at plugins activation time. This has a real drawback that we spend unnecessary time at startup that could easily be avoided by on-demand creation of the preferences. One reason why it isn't straightforward is because preferences dialogs contain the schemas for preference keys, so unless the glade files (of the plugin preferences dialogs) are loaded, the default values of the keys are not available.
 

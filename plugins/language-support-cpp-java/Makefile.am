@@ -49,6 +49,13 @@ libanjuta_language_cpp_java_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libanjuta_language_cpp_java_la_LIBADD = \
 	$(GLADE_LIBS) \
 	$(LIBANJUTA_LIBS)
+	
+prefs_glade_files = anjuta-language-cpp-java.glade
+include $(top_srcdir)/scripts/build-schemas.mk
+
+libanjuta_language_cpp_java_la_DEPENDENCIES = \
+	build-schema-files
+
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

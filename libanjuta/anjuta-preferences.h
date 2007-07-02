@@ -25,6 +25,7 @@
 #include <gconf/gconf-client.h>
 
 #include <libanjuta/anjuta-preferences-dialog.h>
+#include <libanjuta/anjuta-plugin-manager.h>
 
 G_BEGIN_DECLS
 
@@ -72,7 +73,7 @@ typedef struct _AnjutaPreferencesPriv    AnjutaPreferencesPriv;
 
 struct _AnjutaPreferences
 {
-	AnjutaPreferencesDialog parent;
+	GObject parent;
 	
 	/*< private >*/
 	AnjutaPreferencesPriv *priv;
@@ -80,7 +81,7 @@ struct _AnjutaPreferences
 
 struct _AnjutaPreferencesClass
 {
-	AnjutaPreferencesDialogClass parent;
+	GObjectClass parent;
 };
 
 typedef gboolean (*AnjutaPreferencesCallback) (AnjutaPreferences *pr,
@@ -89,12 +90,14 @@ typedef gboolean (*AnjutaPreferencesCallback) (AnjutaPreferences *pr,
 
 GType anjuta_preferences_get_type (void);
 
-GtkWidget *anjuta_preferences_new (void);
+AnjutaPreferences *anjuta_preferences_new (AnjutaPluginManager *plugin_manager);
 
 void anjuta_preferences_add_page (AnjutaPreferences* pr, GladeXML *gxml,
 								  const gchar* glade_widget_name,
 								  const gchar* title,
 								  const gchar *icon_filename);
+void anjuta_preferences_remove_page (AnjutaPreferences *pr, 
+									 const gchar *page_name);
 
 /*
  * Registers all properties defined for widgets below the 'parent' widget
@@ -207,6 +210,10 @@ gchar * anjuta_preferences_default_get (AnjutaPreferences *pr,
 /* Gets the value (int) of a key */
 gint anjuta_preferences_default_get_int (AnjutaPreferences *pr,
 												const gchar *key);
+
+/* Dialog methods */
+GtkWidget *anjuta_preferences_get_dialog (AnjutaPreferences *pr);
+
 /* Key notifications */
 guint anjuta_preferences_notify_add (AnjutaPreferences *pr,
 									 const gchar *key,

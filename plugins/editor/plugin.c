@@ -130,8 +130,7 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 		G_CALLBACK(on_style_button_clicked), 
 		anjuta_shell_get_preferences(ANJUTA_PLUGIN(plugin)->shell, NULL));
 	
-	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs),
-		("Scintilla Editor"));
+	anjuta_preferences_remove_page(prefs, _("Scintilla Editor"));
 }
 
 static void

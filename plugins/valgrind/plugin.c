@@ -667,7 +667,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);
 
 	g_object_ref(valgrind->general_prefs);
-	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (prefs),
+	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (anjuta_preferences_get_dialog (prefs)),
 						"Valgrind", _("Valgrind"), pixbuf, valgrind->general_prefs);
 	g_object_unref (pixbuf);
 }
@@ -677,7 +677,7 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 {
 	AnjutaValgrindPlugin* valgrind = ANJUTA_PLUGIN_VALGRIND (ipref);
 
-	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG(prefs), 
+	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG (anjuta_preferences_get_dialog (prefs)), 
 		_("Valgrind"));
 
 	g_object_unref (valgrind->general_prefs);
