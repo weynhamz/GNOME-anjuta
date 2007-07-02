@@ -459,7 +459,7 @@ on_close_activated (GtkAction *action, GladePlugin *plugin)
 	}
 	
 #if (GLADEUI_VERSION >= 330)
-	if (glade_project_get_has_unsaved_changes (project))
+	if (glade_project_get_modified (project))
 #else
 	if (project->changed)
 #endif

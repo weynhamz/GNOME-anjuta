@@ -1,3 +1,7 @@
+2007-07-02  Vincent Geddes  <vgeddes@gnome.org>
+
+	* plugins/glade/plugin.c (on_close_activated): Update for glade3 svn trunk.
+	
 2007-07-02  Naba Kumar  <naba.kumar@gnome.org>
 
 	* TODO.tasks: Increased bounty for on-demand preferences task to $150
