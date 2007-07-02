@@ -1,3 +1,8 @@
+2007-07-02  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/debug-manager/data_buffer.c,
+	plugins/message-view/message-view.c: Fixed compiler warnings.
+
 2007-06-29  Naba Kumar  <naba.kumar@gnome.org>
 
 	* src/action-callbacks.c: (help_activate),
