@@ -2,7 +2,9 @@
 <ui>
 	<menubar name="MenuMain">
 		<menu name="MenuEdit" action="ActionMenuEdit">
-			<menuitem name="AutoindentAction" action="ActionEditAutoindent" />
+			<placeholder name="PlaceholderOperationMenus">
+				<menuitem name="AutoindentAction" action="ActionEditAutoindent" />
+			</placeholder>
 		</menu>
 	</menubar>
 </ui>

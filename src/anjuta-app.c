@@ -594,11 +594,6 @@ anjuta_app_instance_init (AnjutaApp *app)
 										menu_entries_toggle_view,
 										G_N_ELEMENTS (menu_entries_toggle_view),
 										GETTEXT_PACKAGE, TRUE, app);
-	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupSettings",
-										_("Settings"),
-										menu_entries_settings,
-										G_N_ELEMENTS (menu_entries_settings),
-										GETTEXT_PACKAGE, TRUE, app);
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupHelp", _("Help"),
 										menu_entries_help,
 										G_N_ELEMENTS (menu_entries_help),
@@ -778,11 +773,22 @@ void
 anjuta_app_install_preferences (AnjutaApp *app)
 {
 	GladeXML *gxml;	
-
+	GtkWidget *notebook, *shortcuts, *plugins;
+	
 	/* Create preferences page */
 	gxml = glade_xml_new (GLADE_FILE, "anjuta_preferences_window", NULL);
 	anjuta_preferences_add_page (app->preferences, gxml,
 								 "General", _("General"), ICON_FILE);
+	notebook = 	glade_xml_get_widget (gxml, "General");
+	shortcuts = anjuta_ui_get_accel_editor (ANJUTA_UI (app->ui));
+	plugins = anjuta_plugin_manager_get_dialog (app->plugin_manager);
+
+	gtk_widget_show (shortcuts);
+	gtk_widget_show (plugins);
+	
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), plugins, gtk_label_new (_("Plugins")));
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), shortcuts, gtk_label_new (_("Shortcuts")));
+	
 	g_object_unref (gxml);
 }
 

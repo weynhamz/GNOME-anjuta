@@ -12,6 +12,11 @@
 			<placeholder name="PlaceholderSelectMenus"/>
 			<placeholder name="PlaceholderInsertMenus"/>
 			<placeholder name="PlaceholderSearchMenus"/>
+			<placeholder name="PlaceholderOperationMenus"/>
+			<placeholder name="PlaceholderSettingsMenus">
+				<separator name="separator1" />
+				<menuitem name="Preferences" action="ActionEditPreferences" />
+			</placeholder>
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
 			<menuitem name="Fullscreen" action="ActionViewFullscreen"/>
@@ -29,12 +34,6 @@
 		<placeholder name="PlaceHolderDebugMenus"/>
 		<placeholder name="PlaceHolderVersionControlMenus"/>
 		<placeholder name="PlaceHolderBookmarkMenus"/>
-		<menu name="MenuSettings" action="ActionMenuSettings" >
-			<menuitem name="Preferences" action="ActionSettingsPreferences" />
-			<menuitem name="Defaults" action="ActionSettingsDefaults" />
-			<menuitem name="Shortcuts" action="ActionSettingsShortcuts" />
-			<menuitem name="Plugins Manager" action="ActionSettingsPlugins" />
-		</menu>
 		<placeholder name="PlaceHolderHelpMenus" >
 			<menu name="MenuHelp" action="ActionMenuHelp" >
 				<placeholder name="PlaceHolderHelpDevel" >

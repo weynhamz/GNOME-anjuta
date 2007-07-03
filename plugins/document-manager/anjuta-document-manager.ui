@@ -53,8 +53,10 @@
 			</placeholder>
 			<placeholder name="PlaceholderInsertMenus"/>
 			<placeholder name="PlaceholderSearchMenus"/>
-			<separator name="separator3"/>
-			<menuitem name="Autocomplete" action="ActionEditAutocomplete" />
+			<placeholder name="PlaceholderOperationMenus">
+				<separator name="separator1"/>
+				<menuitem name="Autocomplete" action="ActionEditAutocomplete" />
+			</placeholder>
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
 			<menu name="MenuViewEditor" action="ActionMenuViewEditor">

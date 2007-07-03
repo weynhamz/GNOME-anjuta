@@ -27,10 +27,6 @@ void on_layout_lock_toggle (GtkAction *action, AnjutaApp *app);
 void on_reset_layout_activate (GtkAction *action, AnjutaApp *app);
 
 void on_set_preferences1_activate (GtkAction * action, AnjutaApp *app);
-void on_set_default_preferences1_activate (GtkAction *action,
-										   AnjutaApp *app);
-void on_customize_shortcuts_activate (GtkAction * action, AnjutaApp *app);
-void on_show_plugins_activate(GtkAction *action, AnjutaApp *app);
 
 /* Help actions */
 void on_help_manual_activate (GtkAction *action, gpointer data);

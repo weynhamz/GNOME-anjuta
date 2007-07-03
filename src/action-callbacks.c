@@ -39,7 +39,6 @@ his program is distributed in the hope that it will be useful,
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 
 #include "anjuta-app.h"
-// #include "help.h"
 #include "about.h"
 #include "action-callbacks.h"
 #include "anjuta.h"
@@ -100,43 +99,6 @@ on_set_preferences1_activate (GtkAction * action, AnjutaApp *app)
 								  GTK_WINDOW (app));
 								  
 	gtk_widget_show (preferences_dialog);
-}
-
-void
-on_set_default_preferences1_activate (GtkAction * action,
-				      AnjutaApp *app)
-{
-	anjuta_preferences_reset_defaults (ANJUTA_PREFERENCES (app->preferences));
-}
-
-void
-on_customize_shortcuts_activate(GtkAction *action, AnjutaApp *app)
-{
-	GtkWidget *win, *accel_editor;
-	
-	accel_editor = anjuta_ui_get_accel_editor (ANJUTA_UI (app->ui));
-	win = gtk_dialog_new_with_buttons (_("Anjuta Plugins"), GTK_WINDOW (app),
-									   GTK_DIALOG_DESTROY_WITH_PARENT,
-									   GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL);
-	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG(win)->vbox), accel_editor);
-	gtk_window_set_default_size (GTK_WINDOW (win), 500, 400);
-	gtk_dialog_run (GTK_DIALOG (win));
-	gtk_widget_destroy (win);
-}
-
-void
-on_show_plugins_activate (GtkAction *action, AnjutaApp *app)
-{
-	GtkWidget *win, *plg;
-	
-	plg = anjuta_plugin_manager_get_dialog (app->plugin_manager);
-	win = gtk_dialog_new_with_buttons (_("Anjuta Plugins"), GTK_WINDOW (app),
-									   GTK_DIALOG_DESTROY_WITH_PARENT,
-									   GTK_STOCK_CLOSE, GTK_STOCK_CANCEL, NULL);
-	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG(win)->vbox), plg);
-	gtk_window_set_default_size (GTK_WINDOW(win), 500, 550);
-	gtk_dialog_run (GTK_DIALOG (win));
-	gtk_widget_destroy (win);
 }
 
 static void

@@ -1,3 +1,17 @@
+2007-07-03  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/language-support-cpp-java/anjuta-language-support-cpp-java.ui:
+	* src/action-callbacks.c:
+	* src/action-callbacks.h:
+	* src/anjuta-actions.h:
+	* src/anjuta-app.c: (anjuta_app_instance_init),
+	(anjuta_app_install_preferences):
+	* src/anjuta.glade:
+	* src/anjuta.ui: Moved plugins and shortcuts settings inside
+	General preferences page. Move preferences menu from Settings to
+	Edit submenu. And got rid of Settings submenu.
+
 2007-07-02  Vincent Geddes  <vgeddes@gnome.org>
 
 	* plugins/glade/plugin.c (on_close_activated): Update for glade3 svn trunk.

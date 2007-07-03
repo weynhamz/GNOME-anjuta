@@ -27,7 +27,11 @@ static GtkActionEntry menu_entries_file[] = {
 };
 
 static GtkActionEntry menu_entries_edit[] = {
-  { "ActionMenuEdit", NULL, N_("_Edit")}
+  { "ActionMenuEdit", NULL, N_("_Edit")},
+  { "ActionEditPreferences", GTK_STOCK_PROPERTIES, 
+	N_("_Preferences"), NULL,
+	N_("Do you prefer coffee to tea? Check it out."),
+    G_CALLBACK (on_set_preferences1_activate)},
 };
 
 static GtkActionEntry menu_entries_view[] = {
@@ -48,26 +52,6 @@ static GtkToggleActionEntry menu_entries_toggle_view[] = {
     N_("_Lock Dock Layout"), NULL,
     N_("Lock the current dock layout so that widgets cannot be moved"),
 	G_CALLBACK (on_layout_lock_toggle)}
-};
-
-static GtkActionEntry menu_entries_settings[] = {
-  { "ActionMenuSettings", NULL, N_("_Settings")},
-  { "ActionSettingsPreferences", GTK_STOCK_PROPERTIES, 
-	N_("_Preferences"), NULL,
-	N_("Do you prefer coffee to tea? Check it out."),
-    G_CALLBACK (on_set_preferences1_activate)},
-  { "ActionSettingsDefaults", GTK_STOCK_PROPERTIES,
-	N_("Set _Default Preferences"), NULL,
-	N_("But I prefer tea."),
-    G_CALLBACK (on_set_default_preferences1_activate)},
-  { "ActionSettingsShortcuts", NULL,
-    N_("C_ustomize Shortcuts"), NULL,
-	N_("Customize shortcuts associated with menu items"),
-    G_CALLBACK (on_customize_shortcuts_activate)},
-  { "ActionSettingsPlugins", NULL,
-    N_("Plugins"), NULL,
-	N_("Manipulate plugins"),
-    G_CALLBACK (on_show_plugins_activate)}
 };
 
 static GtkActionEntry menu_entries_help[] = {
