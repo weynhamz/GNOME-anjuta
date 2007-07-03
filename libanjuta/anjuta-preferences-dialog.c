@@ -31,6 +31,7 @@
 
 #include <config.h>
 
+#include <string.h>
 #include <glib/gi18n.h>
 #include <gtk/gtkhbox.h>
 #include <gtk/gtkliststore.h>
@@ -129,12 +130,37 @@ selection_changed_cb (GtkTreeSelection *selection,
 	}
 }
 
+static gint
+compare_pref_page_func (GtkTreeModel *model,
+						GtkTreeIter *a, GtkTreeIter *b, gpointer user_data)
+{
+	gint val;
+	gchar *name1, *name2;
+	
+	gtk_tree_model_get (model, a, COL_TITLE, &name1, -1);
+	gtk_tree_model_get (model, b, COL_TITLE, &name2, -1);
+	
+	/* FIXME: Make the general page first */
+	if (strcmp (name1, _("General")) == 0)
+		return -1;
+		
+	if (strcmp (name2, _("General")) == 0)
+		return 1;
+		
+	val = strcmp (name1, name2);
+	g_free (name1);
+	g_free (name2);
+	
+	return val;
+}
+
 static void
 anjuta_preferences_dialog_init (AnjutaPreferencesDialog *dlg)
 {
 	GtkWidget *hbox;
 	GtkWidget *scrolled_window;
 	GtkTreeSelection *selection;
+	GtkTreeSortable *sortable;
 	
 	dlg->priv = g_new0 (AnjutaPreferencesDialogPrivate, 1);
 
@@ -144,13 +170,18 @@ anjuta_preferences_dialog_init (AnjutaPreferencesDialog *dlg)
 	gtk_widget_show (dlg->priv->treeview);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dlg->priv->treeview),
 					   FALSE);
-
 	dlg->priv->store = gtk_list_store_new (LAST_COL, 
 					       G_TYPE_STRING,
 					       G_TYPE_STRING,
 					       GDK_TYPE_PIXBUF,
 					       GTK_TYPE_WIDGET,
 					       G_TYPE_INT);
+	sortable = GTK_TREE_SORTABLE (dlg->priv->store);
+	gtk_tree_sortable_set_sort_column_id (sortable, COL_TITLE,
+										  GTK_SORT_ASCENDING);
+	gtk_tree_sortable_set_sort_func (sortable, COL_TITLE,
+									 compare_pref_page_func,
+									 NULL, NULL);
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (dlg->priv->treeview),
 				 GTK_TREE_MODEL (dlg->priv->store));
