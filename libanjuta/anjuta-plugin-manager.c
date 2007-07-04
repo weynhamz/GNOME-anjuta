@@ -1110,28 +1110,18 @@ on_forget_plugin_sel_changed (GtkTreeSelection *selection,
 		gtk_widget_set_sensitive (button, FALSE);
 }
 
-static GtkWidget *
-create_plugin_page (AnjutaPluginManager *plugin_manager)
+GtkWidget *
+anjuta_plugin_manager_get_plugins_page (AnjutaPluginManager *plugin_manager)
 {
-	GtkWidget *notebook;
-	GtkWidget *page_label;
 	GtkWidget *vbox;
 	GtkWidget *checkbutton;
 	GtkWidget *tree;
 	GtkWidget *scrolled;
 	GtkListStore *store;
-	GtkWidget *hbox;
-	GtkWidget *display_label;
-	GtkWidget *forget_button;
-	GtkTreeSelection *selection;
-	
-	notebook = gtk_notebook_new ();
 	
 	/* Plugins page */
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
-	page_label = gtk_label_new (_("Plugins"));
-	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), vbox, page_label);
 	
 	checkbutton = gtk_check_button_new_with_label (_("Only show user activatable plugins"));
 	gtk_container_set_border_width (GTK_CONTAINER (checkbutton), 10);
@@ -1160,7 +1150,22 @@ create_plugin_page (AnjutaPluginManager *plugin_manager)
 	g_signal_connect (G_OBJECT (checkbutton), "toggled",
 					  G_CALLBACK (on_show_all_plugins_toggled),
 					  store);
-	
+	gtk_widget_show_all (vbox);
+	return vbox;
+}
+
+GtkWidget *
+anjuta_plugin_manager_get_remembered_plugins_page (AnjutaPluginManager *plugin_manager)
+{
+	GtkWidget *vbox;
+	GtkWidget *tree;
+	GtkWidget *scrolled;
+	GtkListStore *store;
+	GtkWidget *hbox;
+	GtkWidget *display_label;
+	GtkWidget *forget_button;
+	GtkTreeSelection *selection;
+
 	/* Remembered plugin */
 	vbox = gtk_vbox_new (FALSE, 10);
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 10);
@@ -1173,9 +1178,6 @@ create_plugin_page (AnjutaPluginManager *plugin_manager)
 	gtk_label_set_line_wrap (GTK_LABEL (display_label), TRUE);
 	gtk_box_pack_start (GTK_BOX (vbox), display_label, FALSE, FALSE, 0);
 
-	page_label = gtk_label_new (_("Preferred plugins"));
-	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), vbox, page_label);
-	
 	scrolled = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolled),
 									     GTK_SHADOW_IN);
@@ -1205,13 +1207,8 @@ create_plugin_page (AnjutaPluginManager *plugin_manager)
 	g_signal_connect (selection, "changed",
 					  G_CALLBACK (on_forget_plugin_sel_changed),
 					  forget_button);
-	
-	/* For cursor status */
-	
-	gtk_widget_show_all (notebook);
-	if (plugin_manager->priv->status)
-		anjuta_status_add_widget (plugin_manager->priv->status, notebook);
-	return notebook;
+	gtk_widget_show_all (vbox);
+	return vbox;
 }
 
 static GList *
@@ -1590,12 +1587,6 @@ anjuta_plugin_manager_unload_plugin (AnjutaPluginManager *plugin_manager,
 	}
 	g_warning ("No plugin found with object \"%p\".", plugin_object);
 	return FALSE;
-}
-
-GtkWidget *
-anjuta_plugin_manager_get_dialog (AnjutaPluginManager *plugin_manager)
-{
-	return create_plugin_page (plugin_manager);
 }
 
 GList*

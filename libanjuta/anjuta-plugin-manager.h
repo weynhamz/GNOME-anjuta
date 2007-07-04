@@ -84,7 +84,8 @@ GList* anjuta_plugin_manager_get_active_plugins (AnjutaPluginManager *plugin_man
 GList* anjuta_plugin_manager_get_active_plugin_objects (AnjutaPluginManager *plugin_manager);
 
 /* Selection dialogs */
-GtkWidget* anjuta_plugin_manager_get_dialog (AnjutaPluginManager *plugin_manager);
+GtkWidget* anjuta_plugin_manager_get_plugins_page (AnjutaPluginManager *plugin_manager);
+GtkWidget* anjuta_plugin_manager_get_remembered_plugins_page (AnjutaPluginManager *plugin_manager);
 
 /* Plugin queries based on meta-data */
 /* Returns a list of plugin Descriptions */

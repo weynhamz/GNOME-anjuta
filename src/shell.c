@@ -150,7 +150,7 @@ anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 													   plugins_dirs);
 	g_list_free (plugins_dirs);
 	
-	plugins = anjuta_plugin_manager_get_dialog (shell->plugin_manager);
+	plugins = anjuta_plugin_manager_get_plugins_page (shell->plugin_manager);
 	gtk_box_pack_end_defaults (GTK_BOX (shell->box), plugins);
 	
 	/* Preferencesnces */
