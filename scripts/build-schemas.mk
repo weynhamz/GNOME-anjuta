@@ -11,12 +11,14 @@ if GCONF_SCHEMAS_INSTALL
 install-data-local:
 	        for p in $(prefs_glade_schemas) ; do \
 	            GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $$p ; \
-	        done 
+	        done
+		$(GCONFTOOL) --shutdown 
 	        
 uninstall-local:
 	        for p in $(prefs_glade_schemas) ; do \
 	            GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-uninstall-rule $$p ; \
-	        done 
+	        done
+		$(GCONFTOOL) --shutdown 
 
 else
 install-data-local:

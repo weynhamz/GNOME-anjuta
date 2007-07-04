@@ -76,6 +76,12 @@ libanjuta_editor_la_SOURCES= \
 
 endif
 
+prefs_glade_files = editor.glade
+include $(top_srcdir)/scripts/build-schemas.mk
+
+libanjuta_editor_la_DEPENDENCIES = \
+	build-schema-files
+
 EXTRA_DIST = \
 	$(editor_pixmaps_DATA) \
 	$(plugin_in_files) \
