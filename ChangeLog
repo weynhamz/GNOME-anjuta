@@ -1,3 +1,8 @@
+2007-07-02  Vincent Geddes  <vgeddes@gnome.org>
+
+	* plugins/glade/plugin.c: Ensure plugin builds with libgladeui
+	  version 3.0.3.
+
 2007-07-04  Naba Kumar  <naba.kumar@gnome.org>
 
 	* libanjuta/anjuta-plugin-manager.c:
