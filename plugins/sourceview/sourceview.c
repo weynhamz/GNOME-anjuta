@@ -32,6 +32,7 @@
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-print.h>
 #include <libanjuta/interfaces/ianjuta-language-support.h>
+#include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
@@ -223,7 +224,7 @@ on_sourceview_uri_changed_prompt (Sourceview* sv)
 		g_strdup_printf (_
 						 ("The file '%s' on the disk is more recent than\n"
 						  "the current buffer.\nDo you want to reload it?"),
-						 ianjuta_editor_get_filename(IANJUTA_EDITOR(sv), NULL));
+						 ianjuta_document_get_filename(IANJUTA_DOCUMENT(sv), NULL));
 	
 	parent = gtk_widget_get_toplevel (GTK_WIDGET (sv));
 	
@@ -720,12 +721,6 @@ ifile_iface_init (IAnjutaFileIface *iface)
 
 /* IAnjutaEditor interface */
 
-/* Grab focus */
-static void ieditor_grab_focus (IAnjutaEditor *editor, GError **e)
-{
-	gtk_widget_grab_focus (GTK_WIDGET (ANJUTA_SOURCEVIEW (editor)->priv->view));
-}
-
 static gint
 ieditor_get_tab_size (IAnjutaEditor *editor, GError **e)
 {
@@ -922,34 +917,6 @@ static void ieditor_erase_all(IAnjutaEditor *editor, GError **e)
 	gtk_text_buffer_set_text(GTK_TEXT_BUFFER(sv->priv->document), "", 0);
 }
 
-/* Return true if editor can redo */
-static gboolean ieditor_can_redo(IAnjutaEditor *editor, GError **e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	return gtk_source_buffer_can_redo(GTK_SOURCE_BUFFER(sv->priv->document));
-}
-
-/* Return true if editor can undo */
-static gboolean ieditor_can_undo(IAnjutaEditor *editor, GError **e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);	
-	return gtk_source_buffer_can_undo(GTK_SOURCE_BUFFER(sv->priv->document));
-}
-
-/* Return true if editor can undo */
-static void ieditor_begin_undo_action (IAnjutaEditor *editor, GError **e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);	
-	gtk_text_buffer_begin_user_action (GTK_TEXT_BUFFER(sv->priv->document));
-}
-
-/* Return true if editor can undo */
-static void ieditor_end_undo_action (IAnjutaEditor *editor, GError **e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);	
-	gtk_text_buffer_end_user_action (GTK_TEXT_BUFFER(sv->priv->document));
-}
-
 /* Return column of cursor */
 static gint ieditor_get_column(IAnjutaEditor *editor, GError **e)
 {
@@ -976,16 +943,6 @@ static void ieditor_set_popup_menu(IAnjutaEditor *editor,
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
     g_object_set(G_OBJECT(sv->priv->view), "popup", menu, NULL);
-}
-
-/* Return the opened filename */
-static const gchar* ieditor_get_filename(IAnjutaEditor *editor, GError **e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	if (sv->priv->filename != NULL)
-		return sv->priv->filename;
-	else
-		return anjuta_document_get_short_name_for_display(sv->priv->document);
 }
 
 /* Convert from position to line */
@@ -1029,25 +986,6 @@ static gint ieditor_get_line_end_position(IAnjutaEditor *editor,
 	return gtk_text_iter_get_offset(&iter);
 }
 
-static void 
-ieditor_undo(IAnjutaEditor* edit, GError** ee)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	if (ieditor_can_undo(edit, NULL))	
-		gtk_source_buffer_undo(GTK_SOURCE_BUFFER(sv->priv->document));
-	anjuta_view_scroll_to_cursor(sv->priv->view);
-	g_signal_emit_by_name(G_OBJECT(sv), "update_ui", sv); 
-}
-
-static void 
-ieditor_redo(IAnjutaEditor* edit, GError** ee)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	if (ieditor_can_redo(edit, NULL))	
-		gtk_source_buffer_redo(GTK_SOURCE_BUFFER(sv->priv->document));
-	anjuta_view_scroll_to_cursor(sv->priv->view);
-}
-
 static IAnjutaIterable*
 ieditor_get_cell_iter(IAnjutaEditor* edit, gint position, GError** e)
 {
@@ -1065,7 +1003,6 @@ ieditor_get_cell_iter(IAnjutaEditor* edit, gint position, GError** e)
 static void
 ieditor_iface_init (IAnjutaEditorIface *iface)
 {
-	iface->grab_focus = ieditor_grab_focus;
 	iface->get_tabsize = ieditor_get_tab_size;
 	iface->set_tabsize = ieditor_set_tab_size;
 	iface->get_use_spaces = ieditor_get_use_spaces;
@@ -1082,20 +1019,90 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->append = ieditor_append;
 	iface->erase = ieditor_erase;
 	iface->erase_all = ieditor_erase_all;
-	iface->get_filename = ieditor_get_filename;
-	iface->can_undo = ieditor_can_undo;
-	iface->can_redo = ieditor_can_redo;
-	iface->begin_undo_action = ieditor_begin_undo_action;
-	iface->end_undo_action = ieditor_end_undo_action;
 	iface->get_column = ieditor_get_column;
 	iface->get_overwrite = ieditor_get_overwrite;
 	iface->set_popup_menu = ieditor_set_popup_menu;
 	iface->get_line_from_position = ieditor_get_line_from_position;
-	iface->undo = ieditor_undo;
-	iface->redo = ieditor_redo;
 	iface->get_cell_iter = ieditor_get_cell_iter;
 	iface->get_line_begin_position = ieditor_get_line_begin_position;
 	iface->get_line_end_position = ieditor_get_line_end_position;	
+}
+
+/* Return true if editor can redo */
+static gboolean idocument_can_redo(IAnjutaDocument *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	return gtk_source_buffer_can_redo(GTK_SOURCE_BUFFER(sv->priv->document));
+}
+
+/* Return true if editor can undo */
+static gboolean idocument_can_undo(IAnjutaDocument *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);	
+	return gtk_source_buffer_can_undo(GTK_SOURCE_BUFFER(sv->priv->document));
+}
+
+/* Return true if editor can undo */
+static void idocument_begin_undo_action (IAnjutaDocument *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);	
+	gtk_text_buffer_begin_user_action (GTK_TEXT_BUFFER(sv->priv->document));
+}
+
+/* Return true if editor can undo */
+static void idocument_end_undo_action (IAnjutaDocument *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);	
+	gtk_text_buffer_end_user_action (GTK_TEXT_BUFFER(sv->priv->document));
+}
+
+
+static void 
+idocument_undo(IAnjutaDocument* edit, GError** ee)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	if (idocument_can_undo(edit, NULL))	
+		gtk_source_buffer_undo(GTK_SOURCE_BUFFER(sv->priv->document));
+	anjuta_view_scroll_to_cursor(sv->priv->view);
+	g_signal_emit_by_name(G_OBJECT(sv), "update_ui", sv); 
+}
+
+static void 
+idocument_redo(IAnjutaDocument* edit, GError** ee)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	if (idocument_can_redo(edit, NULL))	
+		gtk_source_buffer_redo(GTK_SOURCE_BUFFER(sv->priv->document));
+	anjuta_view_scroll_to_cursor(sv->priv->view);
+}
+
+/* Grab focus */
+static void idocument_grab_focus (IAnjutaDocument *editor, GError **e)
+{
+	gtk_widget_grab_focus (GTK_WIDGET (ANJUTA_SOURCEVIEW (editor)->priv->view));
+}
+
+/* Return the opened filename */
+static const gchar* idocument_get_filename(IAnjutaDocument *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	if (sv->priv->filename != NULL)
+		return sv->priv->filename;
+	else
+		return anjuta_document_get_short_name_for_display(sv->priv->document);
+}
+
+static void
+idocument_iface_init (IAnjutaDocumentIface *iface)
+{
+	iface->grab_focus = idocument_grab_focus;
+	iface->get_filename = idocument_get_filename;
+	iface->can_undo = idocument_can_undo;
+	iface->can_redo = idocument_can_redo;
+	iface->begin_undo_action = idocument_begin_undo_action;
+	iface->end_undo_action = idocument_end_undo_action;
+	iface->undo = idocument_undo;
+	iface->redo = idocument_redo;
 }
 
 static void
@@ -1917,6 +1924,7 @@ iassist_iface_init(IAnjutaEditorAssistIface* iface)
 }
 
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);
+ANJUTA_TYPE_ADD_INTERFACE(idocument, IANJUTA_TYPE_DOCUMENT);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
 ANJUTA_TYPE_ADD_INTERFACE(ieditor, IANJUTA_TYPE_EDITOR);

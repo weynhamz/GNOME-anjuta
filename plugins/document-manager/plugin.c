@@ -42,6 +42,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-language-support.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
+#include <libanjuta/interfaces/ianjuta-document.h>
 
 #include "anjuta-docman.h"
 #include "action-callbacks.h"
@@ -567,7 +568,7 @@ update_editor_ui_disable_all (AnjutaPlugin *plugin)
 }
 
 static void
-update_editor_ui_save_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
+update_editor_ui_save_items (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
@@ -577,12 +578,12 @@ update_editor_ui_save_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditUndo");
 	g_object_set (G_OBJECT (action), "sensitive",
-				  ianjuta_editor_can_undo (editor, NULL), NULL);
+				  ianjuta_document_can_undo (editor, NULL), NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditRedo");
 	g_object_set (G_OBJECT (action), "sensitive",
-				  ianjuta_editor_can_redo (editor, NULL), NULL);
+				  ianjuta_document_can_redo (editor, NULL), NULL);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
 								   "ActionFileSave");
@@ -592,7 +593,7 @@ update_editor_ui_save_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 }
 
 static void
-update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
+update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 {
 	AnjutaUI *ui;
 	GtkAction *action;
@@ -729,7 +730,7 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 }
 
 static void
-update_editor_ui (AnjutaPlugin *plugin, IAnjutaEditor *editor)
+update_editor_ui (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 {
 	if (editor == NULL)
 	{
@@ -742,7 +743,7 @@ update_editor_ui (AnjutaPlugin *plugin, IAnjutaEditor *editor)
 }
 
 static void
-on_editor_update_save_ui (IAnjutaEditor *editor, gboolean entered,
+on_editor_update_save_ui (IAnjutaDocument *editor, gboolean entered,
 						  AnjutaPlugin *plugin)
 {
 	update_editor_ui_save_items (plugin, editor);
@@ -863,7 +864,7 @@ on_editor_update_ui (IAnjutaEditor *editor, DocmanPlugin *plugin)
 {
 	IAnjutaEditor *te;
 	
-	te = anjuta_docman_get_current_editor (ANJUTA_DOCMAN (plugin->docman));
+	te = IANJUTA_EDITOR(anjuta_docman_get_current_document(ANJUTA_DOCMAN (plugin->docman)));
 	if (te == editor)
 		update_status (plugin, te);
 }
@@ -989,7 +990,7 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 	DocmanPlugin *docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	
 	update_status (docman_plugin, te);
-	update_editor_ui (plugin, te);
+	update_editor_ui (plugin, IANJUTA_DOCUMENT(te));
 		
 	/* unload previous support plugins */
 	if (docman_plugin->support_plugins) {
@@ -1231,8 +1232,8 @@ on_save_prompt_save_editor (AnjutaSavePrompt *save_prompt,
 	DocmanPlugin *plugin;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	return anjuta_docman_save_editor (ANJUTA_DOCMAN (plugin->docman),
-									  IANJUTA_EDITOR (item),
+	return anjuta_docman_save_document (ANJUTA_DOCMAN (plugin->docman),
+									  IANJUTA_DOCUMENT (item),
 									  GTK_WIDGET (save_prompt));
 }
 
@@ -1252,7 +1253,7 @@ on_save_prompt (AnjutaShell *shell, AnjutaSavePrompt *save_prompt,
 			const gchar *name;
 			gchar *uri;
 			
-			name = ianjuta_editor_get_filename (IANJUTA_EDITOR (editor), NULL);
+			name = ianjuta_document_get_filename (IANJUTA_DOCUMENT (editor), NULL);
 			uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 			anjuta_save_prompt_add_item (save_prompt, name, uri, editor,
 										 on_save_prompt_save_editor, plugin);
@@ -1661,27 +1662,29 @@ ianjuta_docman_get_full_filename (IAnjutaDocumentManager *plugin,
 	return anjuta_docman_get_full_filename (ANJUTA_DOCMAN (docman), file);
 }
 
-static IAnjutaEditor*
+static IAnjutaDocument*
 ianjuta_docman_find_editor_with_path (IAnjutaDocumentManager *plugin,
 		const gchar *file_path, GError **e)
 {
 	AnjutaDocman *docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	return anjuta_docman_find_editor_with_path (ANJUTA_DOCMAN (docman), file_path);
+	return IANJUTA_DOCUMENT(anjuta_docman_find_editor_with_path 
+						   (ANJUTA_DOCMAN (docman), file_path));
 }
 
-static IAnjutaEditor*
-ianjuta_docman_get_current_editor (IAnjutaDocumentManager *plugin, GError **e)
+static IAnjutaDocument*
+ianjuta_docman_get_current_document (IAnjutaDocumentManager *plugin, GError **e)
 {
 	AnjutaDocman *docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	return anjuta_docman_get_current_editor (ANJUTA_DOCMAN (docman));
+	return 
+		anjuta_docman_get_current_document (ANJUTA_DOCMAN (docman));
 }
 
 static void
-ianjuta_docman_set_current_editor (IAnjutaDocumentManager *plugin,
-								   IAnjutaEditor *editor, GError **e)
+ianjuta_docman_set_current_document (IAnjutaDocumentManager *plugin,
+								   IAnjutaDocument *editor, GError **e)
 {
 	AnjutaDocman *docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	anjuta_docman_set_current_editor (ANJUTA_DOCMAN (docman),
+	anjuta_docman_set_current_document (ANJUTA_DOCMAN (docman),
 									  editor);
 }
 
@@ -1743,11 +1746,11 @@ ianjuta_docman_remove_buffer (IAnjutaDocumentManager *plugin,
 	
 	if (save_before)
 	{
-		ret_val = anjuta_docman_save_editor (docman, editor,
+		ret_val = anjuta_docman_save_document(docman, IANJUTA_DOCUMENT(editor),
 								 GTK_WIDGET (ANJUTA_PLUGIN (plugin)->shell));
 	}
 	if (ret_val)
-		anjuta_docman_remove_editor (docman, editor);
+		anjuta_docman_remove_document (docman, IANJUTA_DOCUMENT(editor));
 	
 	return ret_val;
 }
@@ -1756,10 +1759,10 @@ static void
 ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 {
 	iface->get_full_filename = ianjuta_docman_get_full_filename;
-	iface->find_editor_with_path = ianjuta_docman_find_editor_with_path;
-	iface->get_current_editor = ianjuta_docman_get_current_editor;
-	iface->set_current_editor = ianjuta_docman_set_current_editor;
-	iface->get_editors = ianjuta_docman_get_editors;
+	iface->find_document_with_path = ianjuta_docman_find_editor_with_path;
+	iface->get_current_document = ianjuta_docman_get_current_document;
+	iface->set_current_document = ianjuta_docman_set_current_document;
+	iface->get_documents = ianjuta_docman_get_editors;
 	iface->goto_file_line = ianjuta_docman_goto_file_line;
 	iface->goto_file_line_mark = ianjuta_docman_goto_file_line_mark;
 	iface->add_buffer = ianjuta_docman_add_buffer;
@@ -1780,13 +1783,13 @@ static gchar*
 ifile_get_uri (IAnjutaFile* plugin, GError** e)
 {
 	AnjutaDocman *docman;
-	IAnjutaEditor* editor;
+	IAnjutaDocument* editor;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	editor = anjuta_docman_get_current_editor (docman);
+	editor = anjuta_docman_get_current_document (docman);
 	if (editor != NULL)
 		return ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL);
-	else if (ianjuta_editor_get_filename(editor, NULL))
-		return gnome_vfs_get_uri_from_local_path (ianjuta_editor_get_filename(editor, NULL));
+	else if (ianjuta_document_get_filename(editor, NULL))
+		return gnome_vfs_get_uri_from_local_path (ianjuta_document_get_filename(editor, NULL));
 	else
 		return NULL;
 }

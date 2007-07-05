@@ -395,9 +395,9 @@ search_and_replace (void)
 						{
 							ianjuta_document_manager_goto_file_line_mark (sr->docman, 
 								                  fb->path, mi->line + 1, TRUE, NULL);
-							fb->te = 
-							  ianjuta_document_manager_get_current_editor(sr->docman,
-																		  NULL);
+							fb->te = IANJUTA_EDITOR(
+							  ianjuta_document_manager_get_current_document(sr->docman,
+																		  NULL));
 						}
 						
 						else
@@ -436,8 +436,8 @@ search_and_replace (void)
 							{
 								ianjuta_document_manager_goto_file_line (sr->docman, 
 											fb->path, mi->line + 1, NULL);
-								fb->te = ianjuta_document_manager_get_current_editor(sr->docman,
-																					 NULL);
+								fb->te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman,
+																					 NULL));
 							}
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), mi->pos - offset,
 													 mi->pos - offset + mi->len,
@@ -469,8 +469,8 @@ search_and_replace (void)
 						{
 							ianjuta_document_manager_goto_file_line (sr->docman, 
 											fb->path, mi->line + 1, NULL);
-							fb->te = ianjuta_document_manager_get_current_editor(sr->docman,
-																					 NULL);
+							fb->te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman,
+																					 NULL));
 						}
 						else
 						{
@@ -586,7 +586,7 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se,
 	if (SE_BUFFER == se->type)
 	{
 		/* DEBUG_PRINT ("FBPATH  %s\n", fb->path); */
-		const gchar* filename = ianjuta_editor_get_filename(se->te, NULL);
+		const gchar* filename = ianjuta_document_get_filename(IANJUTA_DOCUMENT(se->te), NULL);
 		tmp = g_strrstr(fb->path, "/");
 		tmp = g_strndup(fb->path, tmp + 1 -(fb->path));
 		snprintf(buf, BUFSIZ, "%s%s:%ld:%s\n", tmp, filename, 
@@ -940,8 +940,9 @@ reset_flags_and_search_button(void)
 static void
 search_start_over (SearchDirection direction)
 {
-	IAnjutaEditor *te = ianjuta_document_manager_get_current_editor(sr->docman,
-																	NULL);
+	IAnjutaEditor *te = 
+		IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman,
+																	NULL));
 	long length;
 	
 	if (te)
@@ -1279,7 +1280,8 @@ search_update_combos(void)
 {
 	GtkWidget *search_entry = NULL;
 	gchar *search_word = NULL;
-	IAnjutaEditor *te = ianjuta_document_manager_get_current_editor(sr->docman, NULL);
+	IAnjutaEditor *te = 
+		IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman, NULL));
 
 	search_entry = sr_get_gladewidget(SEARCH_STRING)->widget;
 	if (search_entry && te)
@@ -1312,7 +1314,8 @@ replace_update_combos(void)
 {
 	GtkWidget *replace_entry = NULL;
 	gchar *replace_word = NULL;
-	IAnjutaEditor* te = ianjuta_document_manager_get_current_editor(sr->docman, NULL);
+	IAnjutaEditor* te = 
+		IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman, NULL));
 	
 	replace_entry = sr_get_gladewidget(REPLACE_STRING)->widget;
 	if (replace_entry && te)
@@ -1869,7 +1872,8 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 
 	create_dialog ();
 
-	te = ianjuta_document_manager_get_current_editor(sr->docman, NULL);
+	te = 
+		IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman, NULL));
 	search_update_dialog();
 
 	search_replace_populate();

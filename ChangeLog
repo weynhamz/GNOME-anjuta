@@ -1,3 +1,97 @@
+2007-07-05  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(on_build_mesg_format):
+	* plugins/debug-manager/breakpoints.c:
+	(breakpoint_item_update_in_ui),
+	(breakpoints_dbase_edit_breakpoint),
+	(on_toggle_breakpoint_activate):
+	* plugins/debug-manager/plugin.c:
+	(on_run_to_cursor_action_activate):
+	* plugins/debug-manager/watch.c: (on_debug_tree_inspect):
+	* plugins/document-manager/action-callbacks.c: (editor_autoformat),
+	(get_current_editor), (on_save_activate), (on_save_as_activate),
+	(on_save_prompt_save_editor), (on_close_file_activate),
+	(on_close_all_file_activate), (on_reload_file_activate),
+	(anjuta_print_cb), (anjuta_print_preview_cb),
+	(on_editor_command_upper_case_activate),
+	(on_editor_command_lower_case_activate),
+	(on_editor_command_undo_activate),
+	(on_editor_command_redo_activate),
+	(on_editor_command_bookmark_toggle_activate), (on_comment_block),
+	(on_comment_box), (on_comment_stream), (on_toolbar_goto_clicked),
+	(on_goto_line_no1_activate), (on_goto_block_start1_activate),
+	(on_goto_block_end1_activate), (on_zoom_in_text_activate),
+	(on_zoom_out_text_activate), (on_force_hilite_activate),
+	(on_indent1_activate), (on_swap_activate),
+	(on_editor_add_view_activate), (on_editor_remove_view_activate):
+	* plugins/document-manager/anjuta-docman.c:
+	(on_text_editor_notebook_close_page), (editor_tab_widget_new),
+	(anjuta_docman_save_document_as), (anjuta_docman_save_document),
+	(anjuta_docman_dispose), (on_notebook_switch_page),
+	(anjuta_docman_page_from_widget), (on_editor_destroy),
+	(anjuta_docman_add_editor), (anjuta_docman_remove_document),
+	(anjuta_docman_get_current_document),
+	(anjuta_docman_set_current_document),
+	(anjuta_docman_get_full_filename), (anjuta_docman_show_editor),
+	(anjuta_docman_update_page_label),
+	(anjuta_docman_get_document_from_path),
+	(anjuta_docman_save_file_if_modified), (anjuta_docman_reload_file),
+	(anjuta_docman_order_tabs):
+	* plugins/document-manager/anjuta-docman.h:
+	* plugins/document-manager/plugin.c: (update_editor_ui_save_items),
+	(update_editor_ui_interface_items), (update_editor_ui),
+	(on_editor_update_save_ui), (on_editor_update_ui),
+	(on_editor_changed), (on_save_prompt_save_editor),
+	(on_save_prompt), (ianjuta_docman_find_editor_with_path),
+	(ianjuta_docman_get_current_document),
+	(ianjuta_docman_set_current_document),
+	(ianjuta_docman_remove_buffer),
+	(ianjuta_document_manager_iface_init), (ifile_get_uri):
+	* plugins/editor/text_editor.c: (itext_editor_iface_init),
+	(idocument_get_filename), (idocument_can_undo),
+	(idocument_can_redo), (idocument_undo),
+	(idocument_begin_undo_action), (idocument_end_undo_action),
+	(idocument_redo), (idocument_grab_focus), (idocument_iface_init):
+	* plugins/language-support-cpp-java/plugin.c:
+	(on_editor_char_inserted_cpp), (on_auto_indent):
+	* plugins/macro/macro-util.c: (get_current_editor), (get_filename):
+	* plugins/project-manager/plugin.c: (project_manager_unload_gbf):
+	* plugins/sample1/plugin.c: (on_sample_action_activate):
+	* plugins/search/plugin.c: (on_enterselection), (on_prev_occur),
+	(on_next_occur), (on_incremental_entry_key_press),
+	(on_toolbar_find_clicked), (on_toolbar_find_start_over),
+	(on_toolbar_find_incremental_start),
+	(on_toolbar_find_incremental_end), (on_toolbar_find_incremental):
+	* plugins/search/search-replace.c: (search_and_replace),
+	(write_message_pane), (search_start_over), (search_update_combos),
+	(replace_update_combos), (anjuta_search_replace_activate):
+	* plugins/search/search-replace_backend.c:
+	(file_buffer_new_from_path), (create_search_entries):
+	* plugins/sourceview/sourceview-print.c: (create_print_job):
+	* plugins/sourceview/sourceview.c:
+	(on_sourceview_uri_changed_prompt), (ieditor_iface_init),
+	(idocument_can_redo), (idocument_can_undo),
+	(idocument_begin_undo_action), (idocument_end_undo_action),
+	(idocument_undo), (idocument_redo), (idocument_grab_focus),
+	(idocument_get_filename), (idocument_iface_init):
+	* plugins/tools/editor.c: (on_editor_response):
+	* plugins/tools/execute.c: (atp_output_context_initialize),
+	(atp_user_tool_execute):
+	* plugins/tools/variable.c: (atp_variable_get_editor_variable):
+	
+	Create IAnjutaDocument interface. This interface is a more general idea
+	of documents being anything that can be modified, has undo/redo and
+	may have operations like copy/paste.
+	The primary goal is to integrate better by making it use the standard file
+	and edit menu instead of it's own glade menu. Of course the downside is that
+	you won't be able to view a source file and the designer at the same time. Anyway
+	so many people have complained that they "can't save a glade file" that I think
+	this is the much better solution.
+	Work on the glade plugin is still to come but the most difficult things should be
+	done now.
+
 2007-07-02  Vincent Geddes  <vgeddes@gnome.org>
 
 	* plugins/glade/plugin.c: Ensure plugin builds with libgladeui

@@ -52,6 +52,7 @@
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
 #include <libanjuta/interfaces/ianjuta-print.h>
+#include <libanjuta/interfaces/ianjuta-document.h>
 
 #include "properties.h"
 #include "text_editor.h"
@@ -2275,50 +2276,6 @@ itext_editor_erase_all (IAnjutaEditor *editor, GError **e)
 							0, 0);
 }
 
-static const gchar *
-itext_editor_get_filename (IAnjutaEditor *editor, GError **e)
-{
-	return (TEXT_EDITOR (editor))->filename;
-}
-
-static gboolean
-itext_editor_can_undo(IAnjutaEditor *editor, GError **e)
-{
-	return text_editor_can_undo(TEXT_EDITOR(editor));
-}
-
-static gboolean
-itext_editor_can_redo(IAnjutaEditor *editor, GError **e)
-{
-	return text_editor_can_redo(TEXT_EDITOR(editor));
-}
-
-static void 
-itext_editor_undo(IAnjutaEditor* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_UNDO, 0, 0);
-}
-
-static void 
-itext_editor_begin_undo_action (IAnjutaEditor* te, GError** ee)
-{
-	scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
-							SCI_BEGINUNDOACTION, 0, 0);
-}
-
-static void 
-itext_editor_end_undo_action (IAnjutaEditor* te, GError** ee)
-{
-	scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
-							SCI_ENDUNDOACTION, 0, 0);
-}
-
-static void 
-itext_editor_redo(IAnjutaEditor* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_REDO, 0, 0);
-}
-
 static int
 itext_editor_get_column(IAnjutaEditor *editor, GError **e)
 {
@@ -2377,12 +2334,6 @@ itext_editor_get_cell_iter (IAnjutaEditor *editor, gint position, GError **e)
 }
 
 static void
-itext_editor_grab_focus (IAnjutaEditor *editor, GError **e)
-{
-	text_editor_grab_focus (TEXT_EDITOR (editor));
-}
-
-static void
 itext_editor_iface_init (IAnjutaEditorIface *iface)
 {
 	iface->get_tabsize = itext_editor_get_tab_size;
@@ -2401,13 +2352,6 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->append = itext_editor_append;
 	iface->erase = itext_editor_erase;
 	iface->erase_all = itext_editor_erase_all;
-	iface->get_filename = itext_editor_get_filename;
-	iface->can_undo = itext_editor_can_undo;
-	iface->can_redo = itext_editor_can_redo;
-	iface->undo = itext_editor_undo;
-	iface->redo = itext_editor_redo;
-	iface->begin_undo_action = itext_editor_begin_undo_action;
-	iface->end_undo_action = itext_editor_end_undo_action;
 	iface->get_column = itext_editor_get_column;
 	iface->get_overwrite = itext_editor_get_overwrite;
 	iface->set_popup_menu = itext_editor_set_popup_menu;
@@ -2415,7 +2359,69 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_line_begin_position = itext_editor_get_line_begin_position;
 	iface->get_line_end_position = itext_editor_get_line_end_position;
 	iface->get_cell_iter = itext_editor_get_cell_iter;
-	iface->grab_focus = itext_editor_grab_focus;
+}
+
+static const gchar *
+idocument_get_filename (IAnjutaDocument *editor, GError **e)
+{
+	return (TEXT_EDITOR (editor))->filename;
+}
+
+static gboolean
+idocument_can_undo(IAnjutaDocument* editor, GError **e)
+{
+	return text_editor_can_undo(TEXT_EDITOR(editor));
+}
+
+static gboolean
+idocument_can_redo(IAnjutaDocument *editor, GError **e)
+{
+	return text_editor_can_redo(TEXT_EDITOR(editor));
+}
+
+static void 
+idocument_undo(IAnjutaDocument* te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_UNDO, 0, 0);
+}
+
+static void 
+idocument_begin_undo_action (IAnjutaDocument* te, GError** ee)
+{
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
+							SCI_BEGINUNDOACTION, 0, 0);
+}
+
+static void 
+idocument_end_undo_action (IAnjutaDocument* te, GError** ee)
+{
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
+							SCI_ENDUNDOACTION, 0, 0);
+}
+
+static void 
+idocument_redo(IAnjutaDocument* te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_REDO, 0, 0);
+}
+
+static void
+idocument_grab_focus (IAnjutaDocument *editor, GError **e)
+{
+	text_editor_grab_focus (TEXT_EDITOR (editor));
+}
+
+static void
+idocument_iface_init(IAnjutaDocumentIface* iface)
+{
+	iface->get_filename = idocument_get_filename;
+	iface->can_undo = idocument_can_undo;
+	iface->can_redo = idocument_can_redo;
+	iface->undo = idocument_undo;
+	iface->redo = idocument_redo;
+	iface->begin_undo_action = idocument_begin_undo_action;
+	iface->end_undo_action = idocument_end_undo_action;
+	iface->grab_focus = idocument_grab_focus;
 }
 
 /* IAnjutaEditorSelection implementation */
@@ -3389,6 +3395,7 @@ ilanguage_iface_init (IAnjutaEditorLanguageIface *iface)
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
+ANJUTA_TYPE_ADD_INTERFACE(idocument, IANJUTA_TYPE_DOCUMENT);
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor, IANJUTA_TYPE_EDITOR);
 ANJUTA_TYPE_ADD_INTERFACE(ilinemode, IANJUTA_TYPE_EDITOR_LINE_MODE);
 ANJUTA_TYPE_ADD_INTERFACE(iselection, IANJUTA_TYPE_EDITOR_SELECTION);

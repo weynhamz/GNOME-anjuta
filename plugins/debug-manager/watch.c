@@ -221,7 +221,9 @@ on_debug_tree_inspect (GtkAction *action, gpointer user_data)
 	docman = IANJUTA_DOCUMENT_MANAGER (obj);
 	if (docman != NULL)
 	{
-		te = ianjuta_document_manager_get_current_editor (docman, NULL);
+		te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
+		if (!te)
+			return;
 		expression = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL);
 		if (expression == NULL)
 		{

@@ -33,14 +33,14 @@ static void
 on_sample_action_activate (GtkAction *action, SamplePlugin *plugin)
 {
 	GObject *obj;
-	IAnjutaEditor *editor;
+	IAnjutaDocument *editor;
 	IAnjutaDocumentManager *docman;
 	
 	/* Query for object implementing IAnjutaDocumentManager interface */
 	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
 									  "IAnjutaDocumentManager", NULL);
 	docman = IANJUTA_DOCUMENT_MANAGER (obj);
-	editor = ianjuta_document_manager_get_current_editor (docman, NULL);
+	editor = ianjuta_document_manager_get_current_document (docman, NULL);
 
 	/* Do whatever with plugin */
 	anjuta_util_dialog_info (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),

@@ -23,6 +23,7 @@
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-iterable.h>
+#include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
@@ -1353,12 +1354,12 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 		gint insert_line;
 		gint line_indent;
 		
-		ianjuta_editor_begin_undo_action (editor, NULL);
+		ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 		initialize_indentation_params (plugin);
 		insert_line = ianjuta_editor_get_lineno (editor, NULL);
 		line_indent = get_line_auto_indentation (plugin, editor, insert_line);
 		set_line_indentation (editor, insert_line, line_indent);
-		ianjuta_editor_end_undo_action (editor, NULL);
+		ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 	}
 	g_object_unref (iter);
 }
@@ -1502,7 +1503,7 @@ on_auto_indent (GtkAction *action, gpointer data)
 	line_end = ianjuta_editor_get_line_from_position (editor,
 													  sel_end,
 													  NULL);
-	ianjuta_editor_begin_undo_action (editor, NULL);
+	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 	initialize_indentation_params (lang_plugin);
 	
 	for (insert_line = line_start; insert_line <= line_end; insert_line++)
@@ -1512,7 +1513,7 @@ on_auto_indent (GtkAction *action, gpointer data)
 		DEBUG_PRINT ("Line indent for line %d = %d", insert_line, line_indent);
 		set_line_indentation (editor, insert_line, line_indent);
 	}
-	ianjuta_editor_end_undo_action (editor, NULL);
+	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 }
 
 static GtkActionEntry actions_indent[] = {

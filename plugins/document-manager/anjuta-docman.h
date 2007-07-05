@@ -25,6 +25,7 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-document.h>
 
 #include "plugin.h"
 
@@ -59,13 +60,13 @@ void anjuta_docman_set_popup_menu (AnjutaDocman *docman, GtkWidget *menu);
 
 IAnjutaEditor* anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 									  const gchar *name);
-void anjuta_docman_remove_editor (AnjutaDocman *docman, IAnjutaEditor* te);
+void anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument* te);
 
-IAnjutaEditor* anjuta_docman_get_current_editor (AnjutaDocman *docman);
-IAnjutaEditor* anjuta_docman_get_editor_from_path (AnjutaDocman *docman,
+IAnjutaDocument* anjuta_docman_get_current_document (AnjutaDocman *docman);
+IAnjutaDocument* anjuta_docman_get_document_from_path (AnjutaDocman *docman,
 												const gchar *full_path);
 
-void anjuta_docman_set_current_editor (AnjutaDocman *docman, IAnjutaEditor *te);
+void anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *te);
 
 IAnjutaEditor* anjuta_docman_goto_file_line (AnjutaDocman *docman,
 										  const gchar * fname,
@@ -95,12 +96,12 @@ GList* anjuta_docman_get_all_editors (AnjutaDocman *docman);
 void anjuta_docman_open_file (AnjutaDocman *docman);
 
 /* Returns TRUE if editor is saved */
-gboolean anjuta_docman_save_editor (AnjutaDocman *docman, IAnjutaEditor *te,
+gboolean anjuta_docman_save_document (AnjutaDocman *docman, IAnjutaDocument *te,
 									GtkWidget *parent_window);
 
 /* Returns TRUE if editor is saved */
-gboolean anjuta_docman_save_editor_as (AnjutaDocman *docman,
-									   IAnjutaEditor *editor,
+gboolean anjuta_docman_save_document_as (AnjutaDocman *docman,
+									   IAnjutaDocument *editor,
 									   GtkWidget *parent_window);
 
 void anjuta_docman_set_busy (AnjutaDocman *docman, gboolean state);

@@ -161,7 +161,7 @@ get_current_editor (AnjutaPlugin *plugin)
 										 IAnjutaDocumentManager,
 										 NULL);
 	if (docman)
-		return ianjuta_document_manager_get_current_editor (docman, NULL);
+		return IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
 	else
 		return NULL;
 }
@@ -174,7 +174,7 @@ get_filename(MacroPlugin * plugin)
 	
 	te = get_current_editor (ANJUTA_PLUGIN(plugin));
 	if (te != NULL)
-		filename = g_strdup(ianjuta_editor_get_filename (IANJUTA_EDITOR (te), NULL));	
+		filename = g_strdup(ianjuta_document_get_filename (IANJUTA_DOCUMENT (te), NULL));	
 	else
 		filename = g_strdup("<filename>");
 

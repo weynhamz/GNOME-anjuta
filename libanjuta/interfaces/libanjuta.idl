@@ -709,6 +709,108 @@ interface IAnjutaLoader
 }
 
 /**
+ * SECTION:ianjuta-document
+ * @title: IAnjutaDocument
+ * @short_description: Interface for all kind of editable resources that
+ * will be managed by IAnjutaDocumentManager
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-document.h
+ * 
+ */
+interface IAnjutaDocument
+{
+	/**
+	 * IAnjutaDocument::update_ui:
+	 * @obj: Self
+	 * 
+	 * This signal is emitted when the document assumes the UI must be updated
+	 * because some internal state of the document has changed. For example, if
+	 * current line position is changed, it needs to be reflected to the UI.
+	 */
+	void   ::update_ui ();
+
+	/**
+	 * ianjuta_document_get_filename:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Allows obtaining of the filename the editor was loaded from.
+	 *
+	 * Return value: The name of the file. Not to be freed by caller.
+	 */
+	const gchar* get_filename ();	
+	
+	/**
+	 * ianjuta_document_can_undo:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Can the editor undo the last operation?
+	 *
+	 * Returns true if editor can undo, else FALSE
+	 */
+	gboolean can_undo();
+	
+	/**
+	 * ianjuta_document_can_redo:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Can the editor redo the last operation?
+	 *
+	 * Returns true if editor can redo, else FALSE
+	 */
+	gboolean can_redo ();
+	
+	/**
+	 * ianjuta_document_undo:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Undo last operation
+	 */
+	void undo ();
+	
+	/**
+	 * ianjuta_document_redo:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Redo last undo operation
+	 */
+	void redo ();
+
+	/**
+	 * ianjuta_document_begin_undo_action:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Begins the mark of undoable action. Calls to this are stacked and
+	 * each must be ended with ianjuta_document_end_action().
+	 */
+	void begin_undo_action ();
+	
+	/**
+	 * ianjuta_document_end_undo_action:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Ends the mark of undoable action.
+	 */
+	void end_undo_action ();
+	
+	/**
+	 * ianjuta_document_grab_focus:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Grabs the focus.
+	 */
+	void grab_focus ();
+}
+
+/**
  * SECTION:ianjuta-editor
  * @title: IAnjutaEditor
  * @short_description: Text editor interface
@@ -761,25 +863,6 @@ interface IAnjutaEditor
 	 * number of line breaks in the added or removed text.
 	 */
 	void   ::changed (gint position, gboolean added, gint length, gint lines, const gchar *text);
-	
-	/**
-	 * IAnjutaEditor::update_ui:
-	 * @obj: Self
-	 * 
-	 * This signal is emitted when the editor assumes the UI must be updated
-	 * because some internal state of the editor has changed. For example, if
-	 * current line position is changed, it needs to be reflected to the UI.
-	 */
-	void   ::update_ui ();
-
-	/**
-	 * ianjuta_editor_grab_focus:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Grabs the focus.
-	 */
-	void   grab_focus ();
 	
 	/**
 	 * ianjuta_editor_get_tabsize:
@@ -1024,76 +1107,7 @@ interface IAnjutaEditor
 	 */
 	gboolean get_overwrite ();
 	
-	/**
-	 * ianjuta_editor_get_filename:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Allows obtaining of the filename the editor was loaded from.
-	 *
-	 * Return value: The name of the file. Not to be freed by caller.
-	 */
-	const gchar* get_filename ();	
 	
-	/**
-	 * ianjuta_editor_can_undo:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Can the editor undo the last operation?
-	 *
-	 * Returns true if editor can undo, else FALSE
-	 */
-	gboolean can_undo();
-	
-	/**
-	 * ianjuta_editor_can_redo:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Can the editor redo the last operation?
-	 *
-	 * Returns true if editor can redo, else FALSE
-	 */
-	gboolean can_redo ();
-	
-	/**
-	 * ianjuta_editor_undo:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Undo last operation
-	 */
-	void undo ();
-	
-	/**
-	 * ianjuta_editor_redo:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Redo last undo operation
-	 */
-	void redo ();
-
-	/**
-	 * ianjuta_editor_begin_undo_action:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Begins the mark of undoable action. Calls to this are stacked and
-	 * each must be ended with ianjuta_editor_end_action().
-	 */
-	void begin_undo_action ();
-	
-	/**
-	 * ianjuta_editor_end_undo_action:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Ends the mark of undoable action.
-	 */
-	void end_undo_action ();
-
 	/**
 	 * ianjuta_editor_set_popup_menu:
 	 * @obj: Self
@@ -2008,6 +2022,7 @@ interface IAnjutaEditorFactory
  */
 interface IAnjutaDocumentManager
 {
+	#include "ianjuta-document.h"
 	#include "ianjuta-editor.h"
 	
 	enum Error
@@ -2030,18 +2045,18 @@ interface IAnjutaDocumentManager
 	const gchar* get_full_filename (const gchar *file);
 	
 	/**
-	* ianjuta_document_manager_find_editor_with_path:
+	* ianjuta_document_manager_find_document_with_path:
 	* @obj: Self
 	* @file_path: the file path.
 	* @err: Error propagation and reporting.
 	* 
-	* Finds the editor that has the file with path @file_path loaded. Only
+	* Finds the document that has the file with path @file_path loaded. Only
 	* the editor that matches the file path will be searched.
 	* 
-	* Return value: the editor that corresponds to given file path. NULL if
+	* Return value: the document that corresponds to given file path. NULL if
 	* there is no editor loaded with this file path.
 	*/
-	IAnjutaEditor* find_editor_with_path (const gchar *file_path);
+	IAnjutaDocument* find_document_with_path (const gchar *file_path);
 	
 	/**
 	* ianjuta_document_manager_goto_file_line:
@@ -2074,15 +2089,15 @@ interface IAnjutaDocumentManager
 	IAnjutaEditor* goto_file_line_mark (const gchar *file, gint lineno, gboolean mark);
 	
 	/**
-	* ianjuta_document_manager_get_current_editor:
+	* ianjuta_document_manager_get_current_document:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* Gets the current editor.
+	* Gets the current document.
 	* 
 	* Return value: the currently active editor. NULL if none is there.
 	*/
-	IAnjutaEditor* get_current_editor ();
+	IAnjutaDocument* get_current_document ();
 	
 	/** 
 	* ianjuta_document_manager_set_current_editor:
@@ -2092,19 +2107,19 @@ interface IAnjutaDocumentManager
 	* 
 	* Sets the given editor as current editor.
 	*/
-	void set_current_editor (IAnjutaEditor *editor);
+	void set_current_document (IAnjutaDocument *document);
 	
 	/**
-	* ianjuta_document_manager_get_editors:
+	* ianjuta_document_manager_get_documents:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* Gets the current list of editors.
+	* Gets the current list of documents.
 	*
-	* Return value: the list of current available editors. The returned
+	* Return value: the list of current available documents. The returned
 	* list must be freed after use (not the editor objects in the list).
 	*/
-	List<IAnjutaEditor*> get_editors ();
+	List<IAnjutaDocument*> get_documents ();
 
 	/**
 	* ianjuta_document_manager_add_buffer:
@@ -2133,6 +2148,18 @@ interface IAnjutaDocumentManager
 	* Return value: TRUE if the editor was removed, else FALSE.
 	*/
 	gboolean remove_buffer (IAnjutaEditor *editor, gboolean save_before);
+
+	/**
+	* ianjuta_document_manager_add_document:
+	* @obj: Self
+	* @document: the document to add
+	* @err: Error propagation and reporting.
+	*
+	* Adds a document to the document manager. This will open a new
+	* Notebook tab and show the document there
+	*
+	*/
+	void add_document (IAnjutaDocument* document);
 }
 
 /**

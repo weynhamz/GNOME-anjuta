@@ -816,7 +816,9 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 				return;
 			}
 
-			editor = ianjuta_document_manager_find_editor_with_path (docman, data, NULL);
+			editor = 
+				IANJUTA_EDITOR(ianjuta_document_manager_find_document_with_path 
+							   (docman, data, NULL));
 			if (editor == NULL)
 			{
 				IAnjutaFileLoader* loader;
@@ -831,7 +833,8 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 			else
 			{
 				/* Set as current */
-				ianjuta_document_manager_set_current_editor (docman, editor, NULL);
+				ianjuta_document_manager_set_current_document 
+					(docman, IANJUTA_DOCUMENT(editor), NULL);
 			}
 			g_free (data);
 		}

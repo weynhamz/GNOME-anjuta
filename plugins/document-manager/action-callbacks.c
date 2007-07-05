@@ -77,7 +77,7 @@ static editor_autoformat (IAnjutaEditor *te, AnjutaPreferences* prefs)
 	if (te == NULL)
 		return;
 
-	file = ianjuta_editor_get_filename(IANJUTA_EDITOR(te), NULL);
+	file = ianjuta_document_get_filename(IANJUTA_DOCUMENT(te), NULL);
 	
 	if (!anjuta_preferences_get_pair (prefs, AUTOFORMAT_STYLE,
                                  GCONF_VALUE_STRING, GCONF_VALUE_STRING,
@@ -102,12 +102,12 @@ static editor_autoformat (IAnjutaEditor *te, AnjutaPreferences* prefs)
 	waitpid (pid, &status, 0);
 }
 
-static IAnjutaEditor*
+static IAnjutaDocument*
 get_current_editor(gpointer user_data)
 {
 	DocmanPlugin* plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	AnjutaDocman* docman = ANJUTA_DOCMAN(plugin->docman);
-	return IANJUTA_EDITOR(anjuta_docman_get_current_editor(docman));
+	return IANJUTA_DOCUMENT(anjuta_docman_get_current_document(docman));
 }
 
 void
@@ -123,17 +123,17 @@ on_open_activate (GtkAction * action, gpointer user_data)
 void
 on_save_activate (GtkAction *action, gpointer user_data)
 {
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	if (te == NULL)
 		return;
 	
-	anjuta_docman_save_editor (docman, te, NULL);
+	anjuta_docman_save_document (docman, te, NULL);
 }
 
 void
@@ -141,16 +141,16 @@ on_save_as_activate (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	if (te == NULL)
 		return;
 	
-	anjuta_docman_save_editor_as (docman, te, NULL);
+	anjuta_docman_save_document_as (docman, te, NULL);
 }
 
 void
@@ -188,7 +188,7 @@ on_save_prompt_save_editor (AnjutaSavePrompt *save_prompt,
 	AnjutaDocman *docman;
 	
 	docman = ANJUTA_DOCMAN (user_data);
-	return anjuta_docman_save_editor (docman, IANJUTA_EDITOR (item),
+	return anjuta_docman_save_document (docman, IANJUTA_DOCUMENT (item),
 									  GTK_WIDGET (save_prompt));
 }
 
@@ -196,13 +196,13 @@ void
 on_close_file_activate (GtkAction * action, gpointer user_data)
 {
 	AnjutaDocman *docman;
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	GtkWidget *parent;
 	DocmanPlugin *plugin;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	if (te == NULL)
 		return;
 	
@@ -217,7 +217,7 @@ on_close_file_activate (GtkAction * action, gpointer user_data)
 		save_prompt = anjuta_save_prompt_new (GTK_WINDOW (parent));
 		uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
 		anjuta_save_prompt_add_item (save_prompt,
-									 ianjuta_editor_get_filename (te, NULL),
+									 ianjuta_document_get_filename (te, NULL),
 									 uri, te, on_save_prompt_save_editor,
 									 docman);
 		
@@ -229,13 +229,13 @@ on_close_file_activate (GtkAction * action, gpointer user_data)
 			case ANJUTA_SAVE_PROMPT_RESPONSE_DISCARD:
 			case ANJUTA_SAVE_PROMPT_RESPONSE_SAVE_CLOSE:
 				/* Close it */
-				anjuta_docman_remove_editor (docman, te);
+				anjuta_docman_remove_document (docman, te);
 				break;
 		}
 		gtk_widget_destroy (GTK_WIDGET (save_prompt));
 	}
 	else
-		anjuta_docman_remove_editor (docman, te);
+		anjuta_docman_remove_document (docman, te);
 }
 
 void
@@ -259,7 +259,7 @@ on_close_all_file_activate (GtkAction * action, gpointer user_data)
 		{
 			if (!ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE (te), NULL))
 			{
-				anjuta_docman_remove_editor (docman, te);
+				anjuta_docman_remove_document (docman, IANJUTA_DOCUMENT(te));
 			}
 		}
 		node = next;
@@ -269,7 +269,7 @@ on_close_all_file_activate (GtkAction * action, gpointer user_data)
 void
 on_reload_file_activate (GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	gchar mesg[256];
 	GtkWidget *dialog;
 	GtkWidget *parent;
@@ -278,13 +278,13 @@ on_reload_file_activate (GtkAction * action, gpointer user_data)
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	if (te == NULL)
 		return;
 
 	sprintf (mesg, _("Are you sure you want to reload '%s'?\n"
 					 "Any unsaved changes will be lost."),
-			 ianjuta_editor_get_filename(te, NULL));
+			 ianjuta_document_get_filename(te, NULL));
 
 	parent = gtk_widget_get_toplevel (GTK_WIDGET (te));
 	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
@@ -310,13 +310,13 @@ on_reload_file_activate (GtkAction * action, gpointer user_data)
 void
 anjuta_print_cb (GtkAction *action, gpointer user_data)
 {
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	if (te == NULL)
 		return;
 	ianjuta_print_print (IANJUTA_PRINT(te), NULL);
@@ -325,13 +325,13 @@ anjuta_print_cb (GtkAction *action, gpointer user_data)
 void
 anjuta_print_preview_cb (GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	if (te == NULL)
 		return;
 	ianjuta_print_print_preview (IANJUTA_PRINT(te), NULL);
@@ -340,7 +340,7 @@ anjuta_print_preview_cb (GtkAction * action, gpointer user_data)
 void
 on_editor_command_upper_case_activate (GtkAction * action, gpointer data)
 {
-	IAnjutaEditor *editor;
+	IAnjutaDocument *editor;
 	gint start, end;
 	
 	editor = get_current_editor (data);
@@ -352,7 +352,7 @@ on_editor_command_upper_case_activate (GtkAction * action, gpointer data)
 void
 on_editor_command_lower_case_activate (GtkAction * action, gpointer data)
 {
-	IAnjutaEditor *editor;
+	IAnjutaDocument *editor;
 	gint start, end;
 	
 	editor = get_current_editor (data);
@@ -423,13 +423,13 @@ on_editor_command_match_brace_activate (GtkAction * action, gpointer data)
 void
 on_editor_command_undo_activate (GtkAction * action, gpointer data)
 {
-	ianjuta_editor_undo (get_current_editor(data), NULL);
+	ianjuta_document_undo (get_current_editor(data), NULL);
 }
 
 void
 on_editor_command_redo_activate (GtkAction * action, gpointer data)
 {
-	ianjuta_editor_redo (get_current_editor(data), NULL);
+	ianjuta_document_redo (get_current_editor(data), NULL);
 }
 
 void
@@ -541,7 +541,7 @@ void on_editor_command_toggle_fold_activate (GtkAction * action, gpointer data)
 void on_editor_command_bookmark_toggle_activate (GtkAction * action, gpointer data)
 {
 	ianjuta_bookmark_toggle (IANJUTA_BOOKMARK (get_current_editor (data)),
-							 ianjuta_editor_get_lineno (get_current_editor (data), NULL),
+							 ianjuta_editor_get_lineno (IANJUTA_EDITOR(get_current_editor (data)), NULL),
 							 FALSE, NULL);
 }
 
@@ -600,34 +600,34 @@ on_next_history (GtkAction *action, gpointer user_data)
 void
 on_comment_block (GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor* te;
+	IAnjutaDocument* te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document(docman);
 	ianjuta_editor_comment_block(IANJUTA_EDITOR_COMMENT(te), NULL);
 }
 
 void on_comment_box (GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor* te;
+	IAnjutaDocument* te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	ianjuta_editor_comment_box(IANJUTA_EDITOR_COMMENT(te), NULL);
 }
 
 void on_comment_stream (GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor* te;
+	IAnjutaDocument* te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	ianjuta_editor_comment_stream(IANJUTA_EDITOR_COMMENT(te), NULL);
 }
 
@@ -647,13 +647,13 @@ on_toolbar_goto_clicked (GtkAction *action, gpointer user_data)
 	AnjutaUI *ui;
 	AnjutaShell* shell;
 	AnjutaDocman *docman;
-	IAnjutaEditor *te;
+	IAnjutaDocument*te;
 	guint line;
 	const gchar *line_ascii;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document(docman);
 	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
 	ui = anjuta_shell_get_ui(shell, NULL);
 	
@@ -675,7 +675,7 @@ on_toolbar_goto_clicked (GtkAction *action, gpointer user_data)
 	if (te)
 	{
 		line = atoi (line_ascii);
-		ianjuta_editor_goto_line(te, line, NULL);
+		ianjuta_editor_goto_line(IANJUTA_EDITOR(te), line, NULL);
 		if (IANJUTA_IS_MARKABLE (te))
 		{
 			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (te),
@@ -693,15 +693,15 @@ on_goto_line_no1_activate (GtkAction * action, gpointer user_data)
 	GtkWidget *gt;
 	DocmanPlugin *plugin;
 	AnjutaDocman *docman;
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	
 	if (te)
 	{
-		gt = gotoline_new (te);
+		gt = gotoline_new (IANJUTA_EDITOR(te));
 		gtk_widget_show (gt);
 	}
 }
@@ -709,13 +709,13 @@ on_goto_line_no1_activate (GtkAction * action, gpointer user_data)
 void
 on_goto_block_start1_activate (GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document(docman);
 	if (te == NULL)
 		return;
 	ianjuta_editor_goto_start_block(IANJUTA_EDITOR_GOTO(te), NULL);
@@ -724,13 +724,13 @@ on_goto_block_start1_activate (GtkAction * action, gpointer user_data)
 void
 on_goto_block_end1_activate (GtkAction * action, gpointer user_data)
 {
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	if (te == NULL)
 		return;
 	ianjuta_editor_goto_end_block(IANJUTA_EDITOR_GOTO(te), NULL);
@@ -826,11 +826,11 @@ on_zoom_in_text_activate (GtkAction * action, gpointer user_data)
 {
 	DocmanPlugin *plugin;
 	AnjutaDocman *docman;
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	
 	if (te == NULL)
 		return;
@@ -842,11 +842,11 @@ on_zoom_out_text_activate (GtkAction * action, gpointer user_data)
 {
 	DocmanPlugin *plugin;
 	AnjutaDocman *docman;
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	
 	if (te == NULL)
 		return;
@@ -856,14 +856,14 @@ on_zoom_out_text_activate (GtkAction * action, gpointer user_data)
 void
 on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data)
 {
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	const gchar *language_code;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document(docman);
 	language_code = g_object_get_data (G_OBJECT (menuitem), "language_code");
 	
 	if (te == NULL)
@@ -878,18 +878,18 @@ on_indent1_activate (GtkAction * action, gpointer user_data)
 {
 	//trying to restore line no where i was before autoformat invoked
 	gint lineno;
-	IAnjutaEditor *te;
+	IAnjutaDocument*te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	if (te == NULL)
 		return;
-	lineno = ianjuta_editor_get_lineno(te, NULL);
-	editor_autoformat (te, plugin->prefs);
-	ianjuta_editor_goto_line (te, lineno, NULL);
+	lineno = ianjuta_editor_get_lineno(IANJUTA_EDITOR(te), NULL);
+	editor_autoformat (IANJUTA_EDITOR(te), plugin->prefs);
+	ianjuta_editor_goto_line (IANJUTA_EDITOR(te), lineno, NULL);
 }
 
 void
@@ -1013,14 +1013,14 @@ on_swap_activate (GtkAction *action, gpointer user_data)
 {
 	gchar *newfname;
 	const gchar *uri;
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	
-	te = anjuta_docman_get_current_editor (docman);
+	te = anjuta_docman_get_current_document (docman);
 	if (!te)
 		return;
 	uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
@@ -1038,7 +1038,7 @@ on_swap_activate (GtkAction *action, gpointer user_data)
 void
 on_editor_add_view_activate (GtkAction *action, gpointer user_data)
 {
-	IAnjutaEditor *te = get_current_editor (user_data);
+	IAnjutaDocument *te = get_current_editor (user_data);
 	if (!te)
 		return;
 	ianjuta_editor_view_create (IANJUTA_EDITOR_VIEW (te), NULL);
@@ -1047,7 +1047,7 @@ on_editor_add_view_activate (GtkAction *action, gpointer user_data)
 void
 on_editor_remove_view_activate (GtkAction *action, gpointer user_data)
 {
-	IAnjutaEditor *te = get_current_editor (user_data);
+	IAnjutaDocument *te = get_current_editor (user_data);
 	if (!te)
 		return;
 	ianjuta_editor_view_remove_current (IANJUTA_EDITOR_VIEW (te), NULL);

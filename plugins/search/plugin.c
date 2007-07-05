@@ -124,7 +124,7 @@ on_enterselection (GtkAction * action, gpointer user_data)
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
 	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
 										IAnjutaDocumentManager, NULL);
-	te = ianjuta_document_manager_get_current_editor(docman, NULL);
+	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
 	if (!te) return;
 	
 	entry_action = anjuta_ui_get_action (ui, "ActionGroupSearch",
@@ -160,7 +160,7 @@ on_prev_occur(GtkAction * action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										IAnjutaDocumentManager, NULL);
-	te = ianjuta_document_manager_get_current_editor (docman, NULL);
+	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
 	if(!te) return;
 	if ((buffer = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL)))
 	{
@@ -194,7 +194,7 @@ on_next_occur(GtkAction * action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										IAnjutaDocumentManager, NULL);
-	te = ianjuta_document_manager_get_current_editor (docman, NULL);
+	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
 	if(!te) return;
 	if ((buffer = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL)))
 	{
@@ -235,9 +235,9 @@ on_incremental_entry_key_press (GtkWidget *entry, GdkEventKey *event,
 	{
 		IAnjutaEditor *te;
 		
-		te = ianjuta_document_manager_get_current_editor(plugin->docman, NULL);
+		te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(plugin->docman, NULL));
 		if (te)
-			ianjuta_editor_grab_focus (te, NULL);
+			ianjuta_document_grab_focus (IANJUTA_DOCUMENT(te), NULL);
 	}
 }
 
@@ -261,7 +261,7 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 	
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = plugin->docman;
-	te = ianjuta_document_manager_get_current_editor(docman, NULL);
+	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
 	
 	if (!te)
@@ -366,7 +366,7 @@ on_toolbar_find_start_over (GtkAction * action, gpointer user_data)
 	
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = plugin->docman;
-	te = ianjuta_document_manager_get_current_editor(docman, NULL);
+	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
 	
 	/* search from doc start */
 	ianjuta_editor_goto_position(te, 0, NULL);
@@ -385,7 +385,7 @@ on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data)
 	
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = plugin->docman;
-	te = ianjuta_document_manager_get_current_editor(docman, NULL);
+	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
 
 	if (!te) return FALSE;
 	
@@ -434,7 +434,7 @@ on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data)
 	
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = plugin->docman;
-	te = ianjuta_document_manager_get_current_editor(docman, NULL);
+	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
 
 	if (!te) 
 		return FALSE;
@@ -462,7 +462,7 @@ on_toolbar_find_incremental (GtkAction *action, gpointer user_data)
 	
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = plugin->docman;
-	te = ianjuta_document_manager_get_current_editor(docman, NULL);
+	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
 	
 	if (!te)
 		return;

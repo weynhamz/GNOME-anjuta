@@ -28,6 +28,7 @@
 #include <gtksourceview/gtksourceprintjob.h>
 
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-document.h>
 
 static GtkSourcePrintJob*
 create_print_job(Sourceview* sv)
@@ -54,7 +55,7 @@ create_print_job(Sourceview* sv)
 						"%F",
 						TRUE);
 
-	filename = ianjuta_editor_get_filename(IANJUTA_EDITOR(sv), NULL);
+	filename = ianjuta_document_get_filename(IANJUTA_DOCUMENT(sv), NULL);
 	
 	gtk_source_print_job_set_footer_format (job,
 						"%T",

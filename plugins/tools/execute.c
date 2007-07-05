@@ -591,7 +591,7 @@ atp_output_context_initialize (ATPOutputContext *this,
 		break;
 	case ATP_TOUT_REPLACE_BUFFER:
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->execution->plugin)->shell, IAnjutaDocumentManager, NULL);
-		this->editor = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
+		this->editor = docman == NULL ? NULL : IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
 		if (this->editor != NULL)
 		{
 			g_object_add_weak_pointer (G_OBJECT (this->editor), (gpointer *)&this->editor);
@@ -613,7 +613,7 @@ atp_output_context_initialize (ATPOutputContext *this,
 	case ATP_TOUT_APPEND_BUFFER:
 	case ATP_TOUT_REPLACE_SELECTION:
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (this->execution->plugin)->shell, IAnjutaDocumentManager, NULL);
-		this->editor = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
+		this->editor = docman == NULL ? NULL : IANJUTA_EDITOR( ianjuta_document_manager_get_current_document (docman, NULL));
 		if (this->editor == NULL)
 		{
 			anjuta_util_dialog_warning (GTK_WINDOW (this->execution->plugin->shell), _("No document currently open, command aborted"));
@@ -962,7 +962,7 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 		case ATP_TIN_BUFFER:
 			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 												 IAnjutaDocumentManager, NULL);
-			ed = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
+			ed = docman == NULL ? NULL : IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
 			if (ed != NULL)
 			{
 				input = ianjuta_editor_get_text (ed, 0, -1, NULL);
@@ -971,7 +971,7 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 		case ATP_TIN_SELECTION:
 			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 												 IAnjutaDocumentManager, NULL);
-			ed = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
+			ed = docman == NULL ? NULL : IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
 			if (ed != NULL)
 			{
 				input = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (ed),

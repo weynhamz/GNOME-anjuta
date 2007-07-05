@@ -293,7 +293,7 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 	GError* err = NULL;
 
 	docman = anjuta_shell_get_interface (this->shell, IAnjutaDocumentManager, NULL);
-	ed = docman == NULL ? NULL : ianjuta_document_manager_get_current_editor (docman, NULL);
+	ed = docman == NULL ? NULL : IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
 
 	if (ed == NULL) return NULL;
 	switch (id)
@@ -309,7 +309,7 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 		val = g_strdup_printf ("%d", ianjuta_editor_get_lineno (ed, &err));
 		break;
 	case ATP_EDITOR_CURRENT_FILENAME:
-		val = g_strdup (ianjuta_editor_get_filename (ed, &err));
+		val = g_strdup (ianjuta_document_get_filename (IANJUTA_DOCUMENT(ed), &err));
 		break;
 	case ATP_EDITOR_CURRENT_DIRECTORY:
 		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), &err);

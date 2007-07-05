@@ -46,6 +46,7 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
@@ -195,8 +196,8 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 	real_path = tm_get_real_path(path);
 	
 	/* There might be an already open TextEditor with this path */
-	te = ianjuta_document_manager_find_editor_with_path (sr->docman, 
-														 real_path, NULL);
+	te = IANJUTA_EDITOR(ianjuta_document_manager_find_document_with_path (sr->docman, 
+														 real_path, NULL));
 	if (te)
 	{
 		g_free(real_path);
@@ -583,7 +584,8 @@ GList
 		case SR_BUFFER:
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
-			se->te = ianjuta_document_manager_get_current_editor (sr->docman, NULL);
+			se->te = 
+				IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (sr->docman, NULL));
 			if (se->te != NULL)
 			{
 				se->direction = s->range.direction;
@@ -609,7 +611,8 @@ GList
 		case SR_FUNCTION: 
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
-			se->te = ianjuta_document_manager_get_current_editor (sr->docman, NULL);
+			se->te = 
+			  IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (sr->docman, NULL));
 			if (se->te != NULL)
 			{
 				gint sel_start = 0, sel_end = 0;
@@ -647,9 +650,11 @@ GList
 			}
 			break;
 		case SR_OPEN_BUFFERS:
-			editors = ianjuta_document_manager_get_editors (sr->docman, NULL);
+			editors = ianjuta_document_manager_get_documents (sr->docman, NULL);
 			for (tmp = editors; tmp; tmp = g_list_next(tmp))
 			{
+				if (!IANJUTA_IS_EDITOR(tmp->data))
+					continue;
 				se = g_new0(SearchEntry, 1);
 				se->type = SE_BUFFER;
 				se->te = IANJUTA_EDITOR(tmp->data);

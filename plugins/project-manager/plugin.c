@@ -1178,11 +1178,16 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 			GList *node;
 			
 			editors =
-				ianjuta_document_manager_get_editors (IANJUTA_DOCUMENT_MANAGER
+				ianjuta_document_manager_get_documents (IANJUTA_DOCUMENT_MANAGER
 													  (docman), NULL);
 			node = editors;
 			while (node)
 			{
+				if (!IANJUTA_IS_EDITOR(node->data))
+				{
+					node = g_list_next(node);
+					continue;
+				}
 				const gchar *editor_uri =
 					ianjuta_file_get_uri (IANJUTA_FILE (node->data), NULL);
 				

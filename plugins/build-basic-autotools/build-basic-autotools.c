@@ -571,7 +571,6 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		(sscanf (one_line, _("make: Leaving directory `%s'"), dir) == 1))
 	{
 		gchar* summary;
-		gchar* real_dir;
 		/* FIXME: Hack to remove the last ' */
 		gchar *idx = strchr (dir, '\'');
 		if (idx != NULL)
