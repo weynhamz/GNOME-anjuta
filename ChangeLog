@@ -1,3 +1,11 @@
+2007-07-06  Vincent Geddes <vgeddes@gnome.org>
+
+	* plugins/glade/plugin.c: Ensure plugin compiles with gladeui
+	  version 3.3.0 release. The plugin will not compile with the gladeui 3.3.1
+	  development release since glade svn version is also 3.3.1. In future, the
+	  solution would be for us to always increment the micro version when
+	  changing the API.
+
 2007-07-05  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
