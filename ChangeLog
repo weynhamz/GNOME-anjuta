@@ -3,6 +3,10 @@
 	* scripts/build-schemas.mk: Tell gconfd-2 to update schemas
 	after install/uninstall.
 
+	Patch from James Liggett:
+	scripts/glade2schemas.pl: Fixed creating schemas for list
+	values.
+
 2007-07-06  Vincent Geddes <vgeddes@gnome.org>
 
 	* plugins/glade/plugin.c: Ensure plugin compiles with gladeui

@@ -34,7 +34,7 @@ sub StartTag {
 	my $key = shift;
 	if ($key =~ /widget/) {
 		my $k = $_{"id"};
-		if ($k =~ /(preferences_color|entry|font|spin|text|toggle):(.*):(.*):(\d):(.*)/) {
+		if ($k =~ /(preferences_color|entry|font|spin|text|toggle|menu):(.*):(.*):(\d):(.*)/) {	
 			
 			my $type = $2;
 			my $default = $3;
