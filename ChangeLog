@@ -1,3 +1,8 @@
+2007-07-07  Vincent Geddes <vgeddes@gnome.org>
+
+	* plugins/glade/plugin.c: Ensure plugin compiles with glade 3.3.1
+	  development release (I updated version of glade3 svn to 3.3.2).
+
 2007-07-07  Naba Kumar  <naba.kumar@gnome.org>
 
 	* plugins/symbol-browser/an_symbol_view.c:
