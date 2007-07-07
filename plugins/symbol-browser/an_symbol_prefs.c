@@ -28,7 +28,6 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-launcher.h>
-#include <libanjuta/interfaces/ianjuta-message-manager.h>
 
 #include "an_symbol_prefs.h"
 #include "tm_tagmanager.h"
@@ -47,8 +46,6 @@ enum
 	COLUMN_PATH,
 	N_COLUMNS
 };
-
-static SymbolBrowserPlugin* symbol_browser_plugin = NULL;
 
 static void 
 update_system_tags (GList *tags_files)
@@ -359,10 +356,13 @@ static void
 refresh_tags_list (SymbolBrowserPlugin *plugin)
 {
 	GtkListStore *new_tags_store;
-	new_tags_store = create_store (plugin->prefs);
-	gtk_tree_view_set_model (GTK_TREE_VIEW (plugin->pref_tree_view),
-							 GTK_TREE_MODEL (new_tags_store));
-	g_object_unref (new_tags_store);
+	if (plugin->pref_tree_view)
+	{
+		new_tags_store = create_store (plugin->prefs);
+		gtk_tree_view_set_model (GTK_TREE_VIEW (plugin->pref_tree_view),
+								 GTK_TREE_MODEL (new_tags_store));
+		g_object_unref (new_tags_store);
+	}
 }
 
 static void
@@ -691,36 +691,36 @@ on_system_tags_update_finished (AnjutaLauncher *launcher, gint child_pid,
 {
 	AnjutaStatus *statusbar;
 	GList *enabled_paths = NULL;
-	GtkTreeIter iter;
-	gchar *tag_path;
-	GtkListStore *store;
-	gboolean enabled;
+	gchar *all_tags_path;
+	gchar **tags_paths, **tags_path;
+	
+	all_tags_path = anjuta_preferences_get (plugin->prefs,
+											SYMBOL_BROWSER_TAGS);
+	if (all_tags_path)
+	{
+		tags_paths = g_strsplit (all_tags_path, ":", -1);
+		tags_path = tags_paths;
+		while (*tags_path)
+		{
+			enabled_paths = g_list_prepend (enabled_paths,
+											g_strdup (*tags_path));
+			tags_path++;
+		}
+		g_free (all_tags_path);
+		g_strfreev (tags_paths);
+		enabled_paths = g_list_reverse (enabled_paths);
+	}
 	
 	/* Refresh the list */
 	refresh_tags_list(plugin);
 	
 	/* Regenerate system-tags.cache */
-	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (plugin->pref_tree_view)));
-	if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter))
-	{
-		do
-		{
-			gtk_tree_model_get (GTK_TREE_MODEL (store), &iter,
-								COLUMN_LOAD, &enabled,
-								COLUMN_PATH, &tag_path,
-								-1);
-			if (enabled)
-				enabled_paths = g_list_prepend (enabled_paths, tag_path);
-			
-		}
-		while (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &iter));
-	}
 	if (enabled_paths)
 	{
 		update_system_tags (enabled_paths);
+		g_list_foreach (enabled_paths, (GFunc)g_free, NULL);
+		g_list_free (enabled_paths);
 	}
-	g_list_foreach (enabled_paths, (GFunc)g_free, NULL);
-	g_list_free (enabled_paths);
 	
 	g_object_unref (plugin->launcher);
 	plugin->launcher = NULL;
@@ -734,7 +734,6 @@ on_update_global_clicked (GtkWidget *button, SymbolBrowserPlugin *plugin)
 {
 	gchar* tmp;
 	gint pid;
-	IAnjutaMessageManager* mesg_manager;
 
 	if (plugin->launcher)
 		return; /* Already running */
@@ -813,8 +812,6 @@ prefs_page_init (SymbolBrowserPlugin *plugin)
 					  G_CALLBACK (on_update_global_clicked), plugin);
 	
 	
-	symbol_browser_plugin = plugin;
-	
 	g_object_unref (store);
 	g_object_unref (gxml);
 	return treeview;
@@ -826,8 +823,12 @@ on_gconf_notify_tags_list_changed (GConfClient *gclient, guint cnxn_id,
 {
 	GtkListStore *store;
 	SymbolBrowserPlugin *plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (user_data);
-	store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (plugin->pref_tree_view)));
-	select_loaded_tags (store, plugin->prefs);
+	
+	if (plugin->pref_tree_view)
+	{
+		store = GTK_LIST_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (plugin->pref_tree_view)));
+		select_loaded_tags (store, plugin->prefs);
+	}
 }
 
 void
@@ -835,6 +836,8 @@ symbol_browser_prefs_init (SymbolBrowserPlugin *plugin)
 {
 	guint notify_id;
 	plugin->pref_tree_view = prefs_page_init (plugin);
+	g_object_add_weak_pointer (G_OBJECT (plugin->pref_tree_view),
+							   (gpointer)&plugin->pref_tree_view);
 	plugin->gconf_notify_ids = NULL;
 	notify_id = anjuta_preferences_notify_add (plugin->prefs,
 											   SYMBOL_BROWSER_TAGS,
@@ -861,10 +864,26 @@ symbol_browser_prefs_finalize (SymbolBrowserPlugin *plugin)
 	anjuta_preferences_remove_page(plugin->prefs, _("Symbol Browser"));
 }
 
-
-gboolean
-symbol_browser_prefs_create_global_tags (gpointer unused)
+static gboolean
+symbol_browser_prefs_create_global_tags (gpointer user_data)
 {
-	on_update_global_clicked (NULL, symbol_browser_plugin);
+	SymbolBrowserPlugin *plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (user_data);
+	on_update_global_clicked (NULL, plugin);
 	return FALSE; /* Stop g_idle */
+}
+
+void
+symbol_browser_load_global_tags (gpointer plugin)
+{
+	gchar *system_tags_path;
+	/* Load gloabal tags on gtk idle */
+	system_tags_path = g_build_filename (g_get_home_dir(), ".anjuta",
+										 "system-tags.cache", NULL);
+	if (!tm_workspace_load_global_tags (system_tags_path))
+	{
+		g_message ("Added idle loop to create global tags");
+		g_idle_add((GSourceFunc) symbol_browser_prefs_create_global_tags, 
+				   plugin);
+	}
+	g_free (system_tags_path);
 }

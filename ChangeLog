@@ -1,5 +1,22 @@
 2007-07-07  Naba Kumar  <naba.kumar@gnome.org>
 
+	* plugins/symbol-browser/an_symbol_prefs.c: (refresh_tags_list),
+	(on_system_tags_update_finished), (on_update_global_clicked),
+	(prefs_page_init), (on_gconf_notify_tags_list_changed),
+	(symbol_browser_prefs_init),
+	(symbol_browser_prefs_create_global_tags),
+	(symbol_browser_load_global_tags):
+	* plugins/symbol-browser/an_symbol_prefs.h:
+	* plugins/symbol-browser/an_symbol_view.c:
+	(anjuta_symbol_view_dispose), (anjuta_symbol_view_instance_init):
+	* plugins/symbol-browser/an_symbol_view.h:
+	* plugins/symbol-browser/plugin.c: (activate_plugin): Do not crash
+	on global tags update because of delayed prefs merging. Happens when
+	anjuta is first launched (i.e. no ~/.anjuta dir exists) and a file
+	is opened.
+
+2007-07-07  Naba Kumar  <naba.kumar@gnome.org>
+
 	* scripts/build-schemas.mk: Tell gconfd-2 to update schemas
 	after install/uninstall.
 

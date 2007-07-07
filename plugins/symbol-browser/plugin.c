@@ -1023,6 +1023,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	sv_plugin->sv_tab_label = gtk_label_new (_("Global" ));
 	sv_plugin->sv_tree = anjuta_symbol_view_new ();
+	symbol_browser_load_global_tags (plugin);
+	
 	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sv_tree),
 							   (gpointer)&sv_plugin->sv_tree);
 
@@ -1111,7 +1113,6 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
-	
 	return TRUE;
 }
 

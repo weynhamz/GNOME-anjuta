@@ -970,6 +970,9 @@ anjuta_symbol_view_dispose (GObject * obj)
 {
 	AnjutaSymbolView *sv = ANJUTA_SYMBOL_VIEW (obj);
 	
+	g_message ("Removed any idle loop for global tags update");
+	g_source_remove_by_user_data (sv);
+
 	/* All file symbol refs would be freed when the hash table is distroyed */
 	sv->priv->file_symbol_model = NULL;
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
@@ -980,7 +983,6 @@ static void
 anjuta_symbol_view_instance_init (GObject * obj)
 {
 	AnjutaSymbolView *sv;
-	gchar *system_tags_path;
 	
 	sv = ANJUTA_SYMBOL_VIEW (obj);
 	sv->priv = g_new0 (AnjutaSymbolViewPriv, 1);
@@ -991,15 +993,6 @@ anjuta_symbol_view_instance_init (GObject * obj)
 												g_free,
 												destroy_tm_hash_value);
 	
-	system_tags_path = g_build_filename (g_get_home_dir(), ".anjuta",
-										 "system-tags.cache", NULL);
-	/* Load gloabal tags on gtk idle */
-	if (!tm_workspace_load_global_tags (system_tags_path))
-	{
-		g_idle_add((GSourceFunc) symbol_browser_prefs_create_global_tags, 
-				   ANJUTA_SYMBOL_VIEW (obj));
-	}
-
 	/* let's create symbol_view tree and other gui stuff */
 	sv_create (sv);
 }

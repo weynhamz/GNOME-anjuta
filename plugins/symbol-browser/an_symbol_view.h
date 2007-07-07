@@ -120,7 +120,6 @@ gboolean anjuta_symbol_view_get_file_symbol (AnjutaSymbolView *sv,
 											 gboolean prefer_definition,
 											 const gchar** const filename,
 											 gint *line);
-
 G_END_DECLS
 
 #endif /* AN_SYMBOL_VIEW_H */
