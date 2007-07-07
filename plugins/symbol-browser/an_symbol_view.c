@@ -970,7 +970,6 @@ anjuta_symbol_view_dispose (GObject * obj)
 {
 	AnjutaSymbolView *sv = ANJUTA_SYMBOL_VIEW (obj);
 	
-	g_message ("Removed any idle loop for global tags update");
 	g_source_remove_by_user_data (sv);
 
 	/* All file symbol refs would be freed when the hash table is distroyed */
@@ -1722,7 +1721,6 @@ sv_get_type_of_token (const gchar* ident, const gchar* klass, const TMTag* local
 				TMTag *cur_tag;
 			
 				cur_tag = (TMTag*)g_ptr_array_index (tags_array , i);
-				g_message ("found following %d array_tmp tag: %s", i, cur_tag ->name );
 				if ( strcmp (cur_tag->name, scope_tag->atts.entry.scope) == 0) {
 					scope_tag = cur_tag;
 					break;

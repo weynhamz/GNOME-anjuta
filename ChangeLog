@@ -1,5 +1,10 @@
 2007-07-07  Naba Kumar  <naba.kumar@gnome.org>
 
+	* plugins/symbol-browser/an_symbol_view.c:
+	(anjuta_symbol_view_dispose), (sv_get_type_of_token): Removed prints.
+
+2007-07-07  Naba Kumar  <naba.kumar@gnome.org>
+
 	* plugins/symbol-browser/an_symbol_prefs.c: (refresh_tags_list),
 	(on_system_tags_update_finished), (on_update_global_clicked),
 	(prefs_page_init), (on_gconf_notify_tags_list_changed),
@@ -21,7 +26,7 @@
 	after install/uninstall.
 
 	Patch from James Liggett:
-	scripts/glade2schemas.pl: Fixed creating schemas for list
+	* scripts/glade2schemas.pl: Fixed creating schemas for list
 	values.
 
 2007-07-06  Vincent Geddes <vgeddes@gnome.org>
