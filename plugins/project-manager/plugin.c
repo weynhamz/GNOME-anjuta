@@ -1209,8 +1209,8 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 			node = to_remove;
 			while (node)
 			{
-				ianjuta_document_manager_remove_buffer (docman,
-												IANJUTA_EDITOR (node->data),
+				ianjuta_document_manager_remove_document (docman,
+												IANJUTA_DOCUMENT (node->data),
 														FALSE,
 														NULL);
 				node = g_list_next (node);

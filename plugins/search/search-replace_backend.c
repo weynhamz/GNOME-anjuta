@@ -575,6 +575,7 @@ GList
 	GList *entries = NULL;
 	GList *tmp;
 	GList *editors;
+	IAnjutaDocument* doc;
 	SearchEntry *se;
 	long selstart;
 	long tmp_pos;
@@ -584,8 +585,10 @@ GList
 		case SR_BUFFER:
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
-			se->te = 
-				IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (sr->docman, NULL));
+			se->te = NULL;
+			doc = ianjuta_document_manager_get_current_document (sr->docman, NULL);
+			if (IANJUTA_IS_EDITOR(doc))	
+				se->te = IANJUTA_EDITOR(doc);
 			if (se->te != NULL)
 			{
 				se->direction = s->range.direction;
@@ -611,8 +614,10 @@ GList
 		case SR_FUNCTION: 
 			se = g_new0(SearchEntry, 1);
 			se->type = SE_BUFFER;
-			se->te = 
-			  IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (sr->docman, NULL));
+			se->te = NULL;
+			doc = ianjuta_document_manager_get_current_document (sr->docman, NULL);
+			if (IANJUTA_IS_EDITOR(doc))	
+				se->te = IANJUTA_EDITOR(doc);
 			if (se->te != NULL)
 			{
 				gint sel_start = 0, sel_end = 0;

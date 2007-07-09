@@ -489,8 +489,9 @@ breakpoint_item_update_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 		if (docman != NULL)
 		{
 			IAnjutaEditor* ed;
-
-			ed = IANJUTA_EDITOR(ianjuta_document_manager_find_document_with_path (docman, bi->uri, NULL));
+			IAnjutaDocument* doc;
+			doc = ianjuta_document_manager_get_current_document(docman, NULL);
+			ed = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 			if ((ed != NULL) && (IANJUTA_IS_MARKABLE (ed)))
 			{
 				bi->editor = ed;
@@ -900,7 +901,9 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 		docman = get_document_manager (bd->plugin);
 		if (docman != NULL)
 		{
-			te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
+			IAnjutaDocument* doc;
+			doc = ianjuta_document_manager_get_current_document(docman, NULL);
+			te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 			if (te != NULL)
 			{
 				uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
@@ -1288,6 +1291,7 @@ on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 {
 	IAnjutaDocumentManager *docman = NULL;
 	IAnjutaEditor *te = NULL;
+	IAnjutaDocument *doc;
 	BreakpointItem *bi;
 	const gchar *uri;
 	guint line;
@@ -1295,7 +1299,8 @@ on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	/* Get current editor and line */
 	docman = get_document_manager (bd->plugin);
 	if (docman == NULL) return;   /* No document manager */
-	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
+	doc = ianjuta_document_manager_get_current_document(docman, NULL);
+	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 	if (te == NULL) return;       /* Missing editor */
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
 	line = ianjuta_editor_get_lineno (te, NULL);

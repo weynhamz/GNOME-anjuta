@@ -1,3 +1,84 @@
+2007-07-09  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	* plugins/debug-manager/breakpoints.c:
+	(breakpoint_item_update_in_ui),
+	(breakpoints_dbase_edit_breakpoint),
+	(on_toggle_breakpoint_activate):
+	* plugins/debug-manager/plugin.c:
+	(on_run_to_cursor_action_activate):
+	* plugins/document-manager/action-callbacks.c:
+	(on_editor_command_cut_activate),
+	(on_editor_command_copy_activate),
+	(on_editor_command_paste_activate),
+	(on_editor_command_clear_activate):
+	* plugins/document-manager/anjuta-docman.c:
+	(on_text_editor_notebook_close_page), (anjuta_docman_add_editor),
+	(anjuta_docman_add_document), (anjuta_docman_set_current_document),
+	(anjuta_docman_goto_file_line_mark),
+	(anjuta_docman_find_editor_with_path),
+	(anjuta_docman_get_all_editors):
+	* plugins/document-manager/anjuta-docman.h:
+	* plugins/document-manager/plugin.c:
+	(update_editor_ui_interface_items), (on_editor_update_ui),
+	(on_editor_changed), (on_session_save), (on_docman_auto_save),
+	(ianjuta_docman_add_document), (ianjuta_docman_remove_document),
+	(ianjuta_document_manager_iface_init), (isaveable_save),
+	(isavable_is_dirty):
+	* plugins/editor/editor.glade:
+	* plugins/editor/text_editor.c: (idocument_cut), (idocument_copy),
+	(idocument_paste), (idocument_clear), (idocument_iface_init),
+	(iselection_iface_init):
+	* plugins/glade/Makefile.am:
+	* plugins/glade/anjuta-glade-notebook.c:
+	(anjuta_glade_notebook_instance_init),
+	(anjuta_glade_notebook_set_property),
+	(anjuta_glade_notebook_get_property),
+	(anjuta_glade_notebook_class_init), (anjuta_glade_notebook_new),
+	(ifile_open), (ifile_get_uri), (ifile_iface_init),
+	(ifile_savable_save), (ifile_savable_save_as),
+	(ifile_savable_set_dirty), (ifile_savable_is_dirty),
+	(ifile_savable_iface_init), (idocument_can_redo),
+	(idocument_can_undo), (idocument_begin_undo_action),
+	(idocument_end_undo_action), (idocument_undo), (idocument_redo),
+	(idocument_grab_focus), (idocument_get_filename), (idocument_cut),
+	(idocument_copy), (idocument_paste), (idocument_clear),
+	(idocument_iface_init):
+	* plugins/language-support-cpp-java/plugin.c:
+	(on_value_added_current_editor), (on_value_removed_current_editor):
+	* plugins/macro/macro-util.c: (get_current_editor):
+	* plugins/project-manager/plugin.c: (project_manager_unload_gbf):
+	* plugins/search/plugin.c: (on_enterselection), (on_prev_occur),
+	(on_next_occur), (on_incremental_entry_key_press),
+	(on_toolbar_find_clicked), (on_toolbar_find_start_over),
+	(on_toolbar_find_incremental_start),
+	(on_toolbar_find_incremental_end), (on_toolbar_find_incremental):
+	* plugins/search/search-replace.c: (search_start_over),
+	(search_update_combos), (replace_update_combos),
+	(anjuta_search_replace_activate):
+	* plugins/search/search-replace_backend.c: (create_search_entries):
+	* plugins/sourceview/sourceview.c: (idocument_cut),
+	(idocument_copy), (idocument_paste), (idocument_clear),
+	(idocument_iface_init), (iselect_iface_init), (iassist_react):
+	* plugins/tools/editor.c: (on_editor_response):
+	* plugins/tools/execute.c: (get_current_editor),
+	(atp_output_context_initialize), (atp_user_tool_execute):
+	* plugins/tools/variable.c: (get_current_editor),
+	(atp_variable_get_editor_variable):
+	
+	Some more IAnjutaEditor => IAnjutaDocument fixing!
+	
+	* plugins/glade/anjuta-glade-notebook.h:
+	* plugins/glade/plugin.c: (glade_can_undo), (glade_can_redo),
+	(glade_update_ui):
+	* plugins/glade/plugin.h:
+	Integrate glade designer in document manager for GLADEUI_VERSION >= 303
+	and get rid of the glade menu. The Edit/File menu and the toolbar can now 
+	be used for glade, too. It might still have some rough edges but already works.
+	(Fixes #415547 – Glade usability problem)
+
 2007-07-07  Vincent Geddes <vgeddes@gnome.org>
 
 	* plugins/glade/plugin.c: Ensure plugin compiles with glade 3.3.1

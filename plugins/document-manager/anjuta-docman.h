@@ -60,6 +60,10 @@ void anjuta_docman_set_popup_menu (AnjutaDocman *docman, GtkWidget *menu);
 
 IAnjutaEditor* anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 									  const gchar *name);
+void
+anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument* te,
+							const gchar* uri);
+
 void anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument* te);
 
 IAnjutaDocument* anjuta_docman_get_current_document (AnjutaDocman *docman);

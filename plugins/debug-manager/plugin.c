@@ -694,6 +694,7 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	IAnjutaDocumentManager *docman;
 	IAnjutaEditor *editor;
+	IAnjutaDocument *document;
 	const gchar *uri;
 	gchar *file;
 	gint line;
@@ -705,10 +706,13 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 	if (docman == NULL)
 		return;
 	
-	editor = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
-	if (editor == NULL)
+	document = ianjuta_document_manager_get_current_document (docman, NULL);
+	if (IANJUTA_IS_DOCUMENT(document))
+	{	
+		editor = IANJUTA_EDITOR(document);
+	}
+	else
 		return;
-	
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 	if (uri == NULL)
 		return;

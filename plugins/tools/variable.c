@@ -283,6 +283,18 @@ atp_variable_get_project_manager_variable (const ATPVariable *this, guint id)
 	}
 }
 
+static IAnjutaEditor*
+get_current_editor(IAnjutaDocumentManager* docman)
+{
+	if (docman == NULL)
+		return NULL;
+	IAnjutaDocument* document = ianjuta_document_manager_get_current_document(docman, NULL);
+	if (IANJUTA_IS_EDITOR(document))
+		return IANJUTA_EDITOR(document);
+	else
+		return NULL;
+}
+
 static gchar*
 atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 {
@@ -293,7 +305,7 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 	GError* err = NULL;
 
 	docman = anjuta_shell_get_interface (this->shell, IAnjutaDocumentManager, NULL);
-	ed = docman == NULL ? NULL : IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
+	ed = get_current_editor(docman);
 
 	if (ed == NULL) return NULL;
 	switch (id)

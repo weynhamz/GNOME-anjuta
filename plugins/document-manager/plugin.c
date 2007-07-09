@@ -608,8 +608,8 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 								   "ActionMenuFormatStyle");
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
-	/* IAnjutaEditorSelection */
-	flag = IANJUTA_IS_EDITOR_SELECTION (editor);
+	/* IAnjutaDocument */
+	flag = IANJUTA_IS_DOCUMENT (editor);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditCut");
@@ -626,6 +626,9 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionEditClear");
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
+	
+	/* IAnjutaEditorSelection */
+	flag = IANJUTA_IS_EDITOR_SELECTION (editor);
 	
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorSelect",
 								   "ActionEditSelectAll");
@@ -862,11 +865,11 @@ update_status (DocmanPlugin *plugin, IAnjutaEditor *te)
 static void
 on_editor_update_ui (IAnjutaEditor *editor, DocmanPlugin *plugin)
 {
-	IAnjutaEditor *te;
+	IAnjutaDocument *te;
 	
-	te = IANJUTA_EDITOR(anjuta_docman_get_current_document(ANJUTA_DOCMAN (plugin->docman)));
-	if (te == editor)
-		update_status (plugin, te);
+	te = anjuta_docman_get_current_document(ANJUTA_DOCMAN (plugin->docman));
+	if (IANJUTA_IS_EDITOR(te) && IANJUTA_EDITOR(te) == editor)
+		update_status (plugin, IANJUTA_EDITOR(te));
 }
 
 /* Remove all instances of c from the string s. */
@@ -984,13 +987,12 @@ on_editor_added (AnjutaDocman *docman, IAnjutaEditor *te,
 }
 
 static void
-on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
+on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 				   AnjutaPlugin *plugin)
 {
 	DocmanPlugin *docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	
-	update_status (docman_plugin, te);
-	update_editor_ui (plugin, IANJUTA_DOCUMENT(te));
+	update_editor_ui (plugin, te);
 		
 	/* unload previous support plugins */
 	if (docman_plugin->support_plugins) {
@@ -1000,7 +1002,7 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 		docman_plugin->support_plugins = NULL;
 	}
 	
-	if (te)
+	if (te && IANJUTA_IS_EDITOR(te))
 	{
 		AnjutaPluginManager *plugin_manager;
 		const gchar *language;
@@ -1014,6 +1016,8 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaEditor *te,
 								&value, NULL);
 		g_value_unset(&value);
 		DEBUG_PRINT ("Editor Added");
+		
+		update_status (docman_plugin, IANJUTA_EDITOR(te));
 		
 		/* Load current language editor support plugins */
 		plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
@@ -1204,6 +1208,12 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		IAnjutaEditor *te;
 		gchar *te_uri;
 		
+		if (!IANJUTA_IS_EDITOR(node->data))
+		{
+			node = g_list_next(node);
+			continue;
+		}
+		
 		te = IANJUTA_EDITOR (node->data);
 		te_uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
 		if (te_uri)
@@ -1310,7 +1320,7 @@ on_docman_auto_save (gpointer data)
 	AnjutaPreferences* prefs;
 	AnjutaDocman *docman;
 	AnjutaStatus* status;
-	IAnjutaEditor* editor;
+	IAnjutaDocument* editor;
 	GList* editors;
 	docman = ANJUTA_DOCMAN (plugin->docman);
 	
@@ -1329,7 +1339,7 @@ on_docman_auto_save (gpointer data)
 	editors = anjuta_docman_get_all_editors(docman);
 	while(editors)
 	{
-		editor = IANJUTA_EDITOR(editors->data);
+		editor = IANJUTA_DOCUMENT(editors->data);
 		if (ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(editor), NULL))
 		{
 			gchar *uri = ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL);
@@ -1735,9 +1745,20 @@ ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 	return NULL;
 }
 
+static void
+ianjuta_docman_add_document (IAnjutaDocumentManager *plugin,
+						  IAnjutaDocument* document,
+						   GError **e)
+{
+	AnjutaDocman *docman;
+	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
+	
+	anjuta_docman_add_document(docman, document, NULL);
+}
+
 static gboolean
-ianjuta_docman_remove_buffer (IAnjutaDocumentManager *plugin,
-							  IAnjutaEditor *editor,
+ianjuta_docman_remove_document(IAnjutaDocumentManager *plugin,
+							  IAnjutaDocument *editor,
 							  gboolean save_before, GError **e)
 {
 	gint ret_val = TRUE;
@@ -1766,7 +1787,8 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 	iface->goto_file_line = ianjuta_docman_goto_file_line;
 	iface->goto_file_line_mark = ianjuta_docman_goto_file_line_mark;
 	iface->add_buffer = ianjuta_docman_add_buffer;
-	iface->remove_buffer = ianjuta_docman_remove_buffer;
+	iface->remove_document = ianjuta_docman_remove_document;
+	iface->add_document = ianjuta_docman_add_document;
 }
 
 /* Implement IAnjutaFile interface */
@@ -1807,14 +1829,14 @@ isaveable_save (IAnjutaFileSavable* plugin, GError** e)
 {
 	/* Save all editors */
 	AnjutaDocman *docman;
-	IAnjutaEditor* editor;
+	IAnjutaDocument* editor;
 	GList* editors;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
 	editors = anjuta_docman_get_all_editors(docman);
 	while(editors)
 	{
 		gchar *uri;
-		editor = IANJUTA_EDITOR(editors->data);
+		editor = IANJUTA_DOCUMENT(editors->data);
 		uri = ianjuta_file_get_uri(IANJUTA_FILE(editor), NULL);
 		if (uri != NULL &&
 			ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(editor), NULL))
@@ -1838,14 +1860,14 @@ isavable_is_dirty(IAnjutaFileSavable* plugin, GError** e)
 {
 	/* Is any editor unsaved */
 	AnjutaDocman *docman;
-	IAnjutaEditor* editor;
+	IAnjutaDocument* editor;
 	GList* editors;
 	gboolean retval = FALSE;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
 	editors = anjuta_docman_get_all_editors(docman);
 	while(editors)
 	{
-		editor = IANJUTA_EDITOR(editors->data);
+		editor = IANJUTA_DOCUMENT(editors->data);
 		if (ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(editor), NULL))
 		{
 			retval = TRUE;

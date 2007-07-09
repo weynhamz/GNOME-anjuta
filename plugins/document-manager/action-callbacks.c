@@ -447,7 +447,7 @@ on_editor_command_cut_activate (GtkAction * action, gpointer data)
 	}
 	else
 	{
-		ianjuta_editor_selection_cut (IANJUTA_EDITOR_SELECTION (get_current_editor(data)), NULL);
+		ianjuta_document_cut (IANJUTA_DOCUMENT (get_current_editor(data)), NULL);
 	}
 }
 
@@ -466,7 +466,7 @@ on_editor_command_copy_activate (GtkAction * action, gpointer data)
 	}
 	else
 	{
-		ianjuta_editor_selection_copy (IANJUTA_EDITOR_SELECTION (get_current_editor(data)), NULL);
+		ianjuta_document_copy (IANJUTA_DOCUMENT (get_current_editor(data)), NULL);
 	}
 }
 
@@ -485,7 +485,7 @@ on_editor_command_paste_activate (GtkAction * action, gpointer data)
 	}
 	else
 	{
-		ianjuta_editor_selection_paste (IANJUTA_EDITOR_SELECTION (get_current_editor(data)), NULL);
+		ianjuta_document_paste (IANJUTA_DOCUMENT (get_current_editor(data)), NULL);
 	}
 }
 
@@ -513,7 +513,7 @@ on_editor_command_clear_activate (GtkAction * action, gpointer data)
 	}
 	else
 	{
-		ianjuta_editor_selection_clear (IANJUTA_EDITOR_SELECTION (get_current_editor(data)), NULL);
+		ianjuta_document_clear (IANJUTA_DOCUMENT (get_current_editor(data)), NULL);
 	}
 }
 

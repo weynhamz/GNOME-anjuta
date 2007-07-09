@@ -31,7 +31,8 @@ if HAVE_PLUGIN_GLADE
 plugin_LTLIBRARIES = libanjuta-glade.la
 
 # Plugin sources
-libanjuta_glade_la_SOURCES = plugin.c plugin.h
+libanjuta_glade_la_SOURCES = plugin.c plugin.h \
+	anjuta-glade-notebook.h anjuta-glade-notebook.c 
 
 libanjuta_glade_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
@@ -47,3 +48,5 @@ EXTRA_DIST = \
 	$(glade_plugin_DATA) \
 	$(glade_ui_DATA) \
 	$(glade_pixmaps_DATA)
+
+

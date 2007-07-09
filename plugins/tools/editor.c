@@ -779,7 +779,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 		if (gtk_toggle_button_get_active (this->script_tb))
 		{
 			IAnjutaDocumentManager *docman;
-			IAnjutaEditor *editor;
+			IAnjutaDocument *editor;
 
 			/* Check that default script directory exist */
 			data = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_SCRIPT_DIRECTORY, NULL);
@@ -817,8 +817,8 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 			}
 
 			editor = 
-				IANJUTA_EDITOR(ianjuta_document_manager_find_document_with_path 
-							   (docman, data, NULL));
+				ianjuta_document_manager_find_document_with_path 
+							   (docman, data, NULL);
 			if (editor == NULL)
 			{
 				IAnjutaFileLoader* loader;

@@ -116,6 +116,7 @@ on_enterselection (GtkAction * action, gpointer user_data)
 	AnjutaUI* ui;
 	IAnjutaEditor *te;
 	IAnjutaDocumentManager* docman;
+	IAnjutaDocument* doc;
 	SearchPlugin* plugin;
 	gchar *selectionText = NULL;
 	GSList *proxies;
@@ -124,7 +125,8 @@ on_enterselection (GtkAction * action, gpointer user_data)
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
 	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
 										IAnjutaDocumentManager, NULL);
-	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
+	doc = ianjuta_document_manager_get_current_document(docman, NULL);
+	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 	if (!te) return;
 	
 	entry_action = anjuta_ui_get_action (ui, "ActionGroupSearch",
@@ -153,6 +155,7 @@ on_prev_occur(GtkAction * action, gpointer user_data)
 {
 	IAnjutaEditor* te;
 	IAnjutaDocumentManager *docman;
+	IAnjutaDocument* doc;
 	SearchPlugin *plugin;
     gint return_;
 	gchar *buffer = NULL;
@@ -160,7 +163,8 @@ on_prev_occur(GtkAction * action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										IAnjutaDocumentManager, NULL);
-	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
+	doc = ianjuta_document_manager_get_current_document(docman, NULL);
+	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 	if(!te) return;
 	if ((buffer = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL)))
 	{
@@ -187,6 +191,7 @@ on_next_occur(GtkAction * action, gpointer user_data)
 {
 	IAnjutaEditor* te;
 	IAnjutaDocumentManager *docman;
+	IAnjutaDocument* doc;
 	SearchPlugin *plugin;
     gint return_;
 	gchar *buffer = NULL;
@@ -194,7 +199,8 @@ on_next_occur(GtkAction * action, gpointer user_data)
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 										IAnjutaDocumentManager, NULL);
-	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
+	doc = ianjuta_document_manager_get_current_document(docman, NULL);
+	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 	if(!te) return;
 	if ((buffer = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL)))
 	{
@@ -234,8 +240,10 @@ on_incremental_entry_key_press (GtkWidget *entry, GdkEventKey *event,
 	if (event->keyval == GDK_Escape)
 	{
 		IAnjutaEditor *te;
+		IAnjutaDocument *doc;
 		
-		te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(plugin->docman, NULL));
+		doc = ianjuta_document_manager_get_current_document(plugin->docman, NULL);
+		te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 		if (te)
 			ianjuta_document_grab_focus (IANJUTA_DOCUMENT(te), NULL);
 	}
@@ -252,6 +260,7 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 	gchar* expression;
 	gint ret;
 	IAnjutaEditor *te;
+	IAnjutaDocument *doc;
 	IAnjutaDocumentManager *docman;
 	SearchPlugin *plugin;
 	IncrementalSearch *search_params;
@@ -261,7 +270,8 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 	
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = plugin->docman;
-	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
+	doc = ianjuta_document_manager_get_current_document(docman, NULL);
+	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
 	
 	if (!te)
@@ -361,22 +371,28 @@ static void
 on_toolbar_find_start_over (GtkAction * action, gpointer user_data)
 {
 	IAnjutaEditor *te;
+	IAnjutaDocument *doc;
 	IAnjutaDocumentManager *docman;
 	SearchPlugin *plugin;
 	
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = plugin->docman;
-	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
+	doc = ianjuta_document_manager_get_current_document(docman, NULL);
+	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 	
 	/* search from doc start */
-	ianjuta_editor_goto_position(te, 0, NULL);
-	on_toolbar_find_clicked (action, user_data);
+	if (te)
+	{
+		ianjuta_editor_goto_position(te, 0, NULL);
+		on_toolbar_find_clicked (action, user_data);
+	}
 }
 
 static gboolean
 on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data)
 {
 	IAnjutaEditor *te;
+	IAnjutaDocument *doc;
 	IAnjutaDocumentManager *docman;
 	SearchPlugin *plugin;
 	IncrementalSearch *search_params;
@@ -385,7 +401,8 @@ on_toolbar_find_incremental_start (GtkAction *action, gpointer user_data)
 	
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = plugin->docman;
-	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
+	doc = ianjuta_document_manager_get_current_document(docman, NULL);
+	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 
 	if (!te) return FALSE;
 	
@@ -427,6 +444,7 @@ static gboolean
 on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data)
 {
 	IAnjutaEditor *te;
+	IAnjutaDocument *doc;
 	IAnjutaDocumentManager *docman;
 	SearchPlugin *plugin;
 	IncrementalSearch *search_params;
@@ -434,7 +452,8 @@ on_toolbar_find_incremental_end (GtkAction *action, gpointer user_data)
 	
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = plugin->docman;
-	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
+	doc = ianjuta_document_manager_get_current_document(docman, NULL);
+	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 
 	if (!te) 
 		return FALSE;
@@ -456,13 +475,15 @@ on_toolbar_find_incremental (GtkAction *action, gpointer user_data)
 {
 	const gchar *entry_text;
 	IAnjutaEditor *te;
+	IAnjutaDocument *doc;
 	IAnjutaDocumentManager *docman;
 	SearchPlugin *plugin;
 	IncrementalSearch *search_params;
 	
 	plugin = ANJUTA_PLUGIN_SEARCH (user_data);
 	docman = plugin->docman;
-	te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(docman, NULL));
+	doc = ianjuta_document_manager_get_current_document(docman, NULL);
+	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 	
 	if (!te)
 		return;

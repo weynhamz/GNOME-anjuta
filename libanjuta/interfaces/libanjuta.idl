@@ -808,6 +808,42 @@ interface IAnjutaDocument
 	 * Grabs the focus.
 	 */
 	void grab_focus ();
+	
+	/**
+		 * ianjuta_document_cut:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Cut selection to clipboard.
+		 */
+		void cut ();
+	
+		/**
+		 * ianjuta_document_copy:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Copy selection to clipboard.
+		 */
+		void copy ();
+		
+		/**
+		 * ianjuta_document_paste:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Paste clipboard at current position.
+		 */
+		void paste ();
+	
+		/**
+		 * ianjuta_document_clear:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Clear selection
+		 */
+		void clear ();
 }
 
 /**
@@ -1259,42 +1295,6 @@ interface IAnjutaEditor
 		 * of characters are used from @text buffer to replace.
 		 */
 		void replace (const gchar *text, gint length);
-		
-		/**
-		 * ianjuta_editor_selection_cut:
-		 * @obj: Self
-		 * @err: Error propagation and reporting
-		 *
-		 * Cut selection to clipboard.
-		 */
-		void cut ();
-	
-		/**
-		 * ianjuta_editor_selection_copy:
-		 * @obj: Self
-		 * @err: Error propagation and reporting
-		 *
-		 * Copy selection to clipboard.
-		 */
-		void copy ();
-		
-		/**
-		 * ianjuta_editor_selection_paste:
-		 * @obj: Self
-		 * @err: Error propagation and reporting
-		 *
-		 * Paste clipboard at current position.
-		 */
-		void paste ();
-	
-		/**
-		 * ianjuta_editor_selection_clear:
-		 * @obj: Self
-		 * @err: Error propagation and reporting
-		 *
-		 * Clear selection
-		 */
-		void clear ();
 	}
 	
 	/**
@@ -2147,7 +2147,7 @@ interface IAnjutaDocumentManager
 	*
 	* Return value: TRUE if the editor was removed, else FALSE.
 	*/
-	gboolean remove_buffer (IAnjutaEditor *editor, gboolean save_before);
+	gboolean remove_document (IAnjutaDocument *editor, gboolean save_before);
 
 	/**
 	* ianjuta_document_manager_add_document:
@@ -2160,6 +2160,7 @@ interface IAnjutaDocumentManager
 	*
 	*/
 	void add_document (IAnjutaDocument* document);
+	
 }
 
 /**

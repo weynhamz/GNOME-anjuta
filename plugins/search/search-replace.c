@@ -940,9 +940,11 @@ reset_flags_and_search_button(void)
 static void
 search_start_over (SearchDirection direction)
 {
-	IAnjutaEditor *te = 
-		IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman,
-																	NULL));
+	IAnjutaDocument* doc = ianjuta_document_manager_get_current_document(sr->docman,
+																		NULL);
+	IAnjutaEditor *te = NULL;
+	if (IANJUTA_IS_EDITOR(doc))
+		te = IANJUTA_EDITOR(doc);
 	long length;
 	
 	if (te)
@@ -1280,8 +1282,11 @@ search_update_combos(void)
 {
 	GtkWidget *search_entry = NULL;
 	gchar *search_word = NULL;
-	IAnjutaEditor *te = 
-		IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman, NULL));
+	IAnjutaDocument* doc = ianjuta_document_manager_get_current_document(sr->docman,
+																		NULL);
+	IAnjutaEditor *te = NULL;
+	if (IANJUTA_IS_EDITOR(doc))
+		te = IANJUTA_EDITOR(doc);
 
 	search_entry = sr_get_gladewidget(SEARCH_STRING)->widget;
 	if (search_entry && te)
@@ -1314,8 +1319,11 @@ replace_update_combos(void)
 {
 	GtkWidget *replace_entry = NULL;
 	gchar *replace_word = NULL;
-	IAnjutaEditor* te = 
-		IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman, NULL));
+	IAnjutaDocument* doc = ianjuta_document_manager_get_current_document(sr->docman,
+																		NULL);
+	IAnjutaEditor *te = NULL;
+	if (IANJUTA_IS_EDITOR(doc))
+		te = IANJUTA_EDITOR(doc);
 	
 	replace_entry = sr_get_gladewidget(REPLACE_STRING)->widget;
 	if (replace_entry && te)
@@ -1867,13 +1875,16 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 {
 	GtkWidget *search_entry = NULL;
 	gchar *current_word = NULL;
-	IAnjutaEditor *te;  
 	GtkWidget *notebook;
+	IAnjutaDocument* doc = ianjuta_document_manager_get_current_document(sr->docman,
+																		NULL);
+	IAnjutaEditor *te = NULL;
 
 	create_dialog ();
 
-	te = 
-		IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman, NULL));
+	if (IANJUTA_IS_EDITOR(doc))
+		te = IANJUTA_EDITOR(doc);
+	
 	search_update_dialog();
 
 	search_replace_populate();

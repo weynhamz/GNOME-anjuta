@@ -1092,6 +1092,45 @@ static const gchar* idocument_get_filename(IAnjutaDocument *editor, GError **e)
 		return anjuta_document_get_short_name_for_display(sv->priv->document);
 }
 
+static void 
+idocument_cut(IAnjutaDocument* edit, GError** ee)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	anjuta_view_cut_clipboard(sv->priv->view);
+}
+
+static void 
+idocument_copy(IAnjutaDocument* edit, GError** ee)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	anjuta_view_copy_clipboard(sv->priv->view);
+}
+
+static void 
+idocument_paste(IAnjutaDocument* edit, GError** ee)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	anjuta_view_paste_clipboard(sv->priv->view);
+}
+
+static void 
+idocument_clear(IAnjutaDocument* edit, GError** ee)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	if (gtk_text_buffer_get_has_selection(GTK_TEXT_BUFFER(sv->priv->document)))
+		anjuta_view_delete_selection(sv->priv->view);
+	else
+	{
+		GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+		GtkTextIter cursor;
+		gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer));
+		
+		/* Fix #388731 */
+		gtk_text_iter_forward_char(&cursor);
+		gtk_text_buffer_backspace(buffer, &cursor, TRUE, TRUE);
+	}
+}
+
 static void
 idocument_iface_init (IAnjutaDocumentIface *iface)
 {
@@ -1103,6 +1142,10 @@ idocument_iface_init (IAnjutaDocumentIface *iface)
 	iface->end_undo_action = idocument_end_undo_action;
 	iface->undo = idocument_undo;
 	iface->redo = idocument_redo;
+	iface->cut = idocument_cut;
+	iface->copy = idocument_copy;
+	iface->paste = idocument_paste;
+	iface->clear = idocument_clear;
 }
 
 static void
@@ -1285,45 +1328,6 @@ static void iselect_replace(IAnjutaEditorSelection* editor,
 	}
 }
 
-static void 
-iselect_cut(IAnjutaEditorSelection* edit, GError** ee)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	anjuta_view_cut_clipboard(sv->priv->view);
-}
-
-static void 
-iselect_copy(IAnjutaEditorSelection* edit, GError** ee)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	anjuta_view_copy_clipboard(sv->priv->view);
-}
-
-static void 
-iselect_paste(IAnjutaEditorSelection* edit, GError** ee)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	anjuta_view_paste_clipboard(sv->priv->view);
-}
-
-static void 
-iselect_clear(IAnjutaEditorSelection* edit, GError** ee)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	if (gtk_text_buffer_get_has_selection(GTK_TEXT_BUFFER(sv->priv->document)))
-		anjuta_view_delete_selection(sv->priv->view);
-	else
-	{
-		GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-		GtkTextIter cursor;
-		gtk_text_buffer_get_iter_at_mark(buffer, &cursor, gtk_text_buffer_get_insert(buffer));
-		
-		/* Fix #388731 */
-		gtk_text_iter_forward_char(&cursor);
-		gtk_text_buffer_backspace(buffer, &cursor, TRUE, TRUE);
-	}
-}
-
 static void
 iselect_iface_init(IAnjutaEditorSelectionIface *iface)
 {
@@ -1337,10 +1341,6 @@ iselect_iface_init(IAnjutaEditorSelectionIface *iface)
 	iface->select_block = iselect_block;
 	iface->get = iselect_get;
 	iface->replace = iselect_replace;
-	iface->cut = iselect_cut;
-	iface->copy = iselect_copy;
-	iface->paste = iselect_paste;
-	iface->clear = iselect_clear;
 }
 
 /* IAnjutaEditorConvert Interface */
@@ -1899,6 +1899,10 @@ iassist_react (IAnjutaEditorAssist *iassist, gint selection,
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	GtkTextIter begin, end;
+
+	if (!completion)
+		return;
+	
 	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
 															   &begin, assist_window_get_position(sv->priv->assist_win));
 	gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(sv->priv->document), &end, 

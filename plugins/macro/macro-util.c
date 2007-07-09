@@ -161,9 +161,12 @@ get_current_editor (AnjutaPlugin *plugin)
 										 IAnjutaDocumentManager,
 										 NULL);
 	if (docman)
-		return IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
-	else
-		return NULL;
+	{
+		IAnjutaDocument* doc = ianjuta_document_manager_get_current_document (docman, NULL);
+		if (doc && IANJUTA_IS_EDITOR(doc))
+			return IANJUTA_EDITOR(doc);
+	}
+	return NULL;
 }
 
 static gchar *

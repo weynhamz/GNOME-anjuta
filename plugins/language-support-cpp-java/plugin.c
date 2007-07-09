@@ -1457,7 +1457,8 @@ on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 	CppJavaPlugin *lang_plugin;
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (plugin);
 	lang_plugin->current_editor = g_value_get_object (value);
-	install_support (lang_plugin);
+	if (IANJUTA_IS_EDITOR(lang_plugin->current_editor))
+		install_support (lang_plugin);
 	if (IANJUTA_IS_EDITOR_ASSIST(lang_plugin->current_editor))
 		install_assist(lang_plugin);
 	g_signal_connect (lang_plugin->current_editor, "language-changed",
@@ -1476,6 +1477,7 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 										  plugin);
 	if (IANJUTA_IS_EDITOR_ASSIST(lang_plugin->current_editor))
 		uninstall_assist(lang_plugin);
+	if (IANJUTA_IS_EDITOR(lang_plugin->current_editor));
 	uninstall_support (lang_plugin);
 	lang_plugin->current_editor = NULL;
 }

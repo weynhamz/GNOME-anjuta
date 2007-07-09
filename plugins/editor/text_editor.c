@@ -2411,6 +2411,30 @@ idocument_grab_focus (IAnjutaDocument *editor, GError **e)
 	text_editor_grab_focus (TEXT_EDITOR (editor));
 }
 
+static void 
+idocument_cut(IAnjutaDocument * te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_CUT, 0, 0);
+}
+
+static void 
+idocument_copy(IAnjutaDocument * te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_COPY, 0, 0);
+}
+
+static void 
+idocument_paste(IAnjutaDocument * te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_PASTE, 0, 0);
+}
+
+static void 
+idocument_clear(IAnjutaDocument * te, GError** ee)
+{
+	text_editor_command(TEXT_EDITOR(te), ANE_CLEAR, 0, 0);
+}
+
 static void
 idocument_iface_init(IAnjutaDocumentIface* iface)
 {
@@ -2422,6 +2446,10 @@ idocument_iface_init(IAnjutaDocumentIface* iface)
 	iface->begin_undo_action = idocument_begin_undo_action;
 	iface->end_undo_action = idocument_end_undo_action;
 	iface->grab_focus = idocument_grab_focus;
+	iface->cut = idocument_cut;
+	iface->copy = idocument_copy;
+	iface->paste = idocument_paste;
+	iface->clear = idocument_clear;
 }
 
 /* IAnjutaEditorSelection implementation */
@@ -2533,30 +2561,6 @@ iselection_select_function(IAnjutaEditorSelection *editor, GError **e)
 	}
 }
 
-static void 
-iselection_cut(IAnjutaEditorSelection* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_CUT, 0, 0);
-}
-
-static void 
-iselection_copy(IAnjutaEditorSelection* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_COPY, 0, 0);
-}
-
-static void 
-iselection_paste(IAnjutaEditorSelection* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_PASTE, 0, 0);
-}
-
-static void 
-iselection_clear(IAnjutaEditorSelection* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_CLEAR, 0, 0);
-}
-
 static void
 iselection_iface_init (IAnjutaEditorSelectionIface *iface)
 {
@@ -2569,10 +2573,6 @@ iselection_iface_init (IAnjutaEditorSelectionIface *iface)
 	iface->select_to_brace = iselection_select_to_brace;
 	iface->select_block = iselection_select_block;
 	iface->select_function = iselection_select_function;
-	iface->cut = iselection_cut;
-	iface->copy = iselection_copy;
-	iface->paste = iselection_paste;
-	iface->clear = iselection_clear;
 }
 
 /* IAnjutaFile implementation */
