@@ -1063,7 +1063,15 @@ glade_plugin_class_init (GObjectClass *klass)
 
 gchar* glade_get_filename(GladePlugin *plugin)
 {
+#if (GLADEUI_VERSION >= 330)
 	return glade_project_get_name(glade_app_get_project());
+#else
+	GladeProject* project = glade_app_get_project();
+	if (project)
+		return project->name;
+	else
+		return NULL;
+#endif
 }
 
 static void
@@ -1114,11 +1122,19 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 static gchar*
 ifile_get_uri (IAnjutaFile* file, GError** e)
 {
+#if (GLADEUI_VERSION >= 330)
 	const gchar* path = glade_project_get_path(glade_app_get_project());
 	if (path != NULL)
 		return gnome_vfs_get_uri_from_local_path(path);
 	else
 		return NULL;
+#else
+	GladeProject* project = glade_app_get_project();
+	if (project && project->path)
+		return project->path;
+	else
+		return NULL;
+#endif
 }
 
 static void
@@ -1154,6 +1170,8 @@ static gboolean
 ifile_savable_is_dirty(IAnjutaFileSavable* file, GError** e)
 {
 	GladeProject* project = glade_app_get_project();
+	if (project == NULL)
+		return FALSE;
 #if (GLADEUI_VERSION >= 330)
 #  if (GLADEUI_VERSION <= 331)
 	if (glade_project_get_modified (project))
