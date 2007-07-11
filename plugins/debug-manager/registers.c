@@ -48,7 +48,7 @@
 typedef struct _DmaThreadRegisterList
 {
 	GtkTreeModel *model;
-	guint thread;
+	gint thread;
 	guint last_update;
 } DmaThreadRegisterList;
 
@@ -207,7 +207,7 @@ cpu_registers_update (CpuRegisters *self)
 }
 
 static DmaThreadRegisterList*
-dma_thread_create_new_register_list (CpuRegisters *self, guint thread)
+dma_thread_create_new_register_list (CpuRegisters *self, gint thread)
 {
 	DmaThreadRegisterList *regs;
 	GtkListStore *store;
@@ -238,6 +238,8 @@ dma_thread_create_new_register_list (CpuRegisters *self, guint thread)
 		
 	if (self->list == NULL)
 	{
+		GError *err = NULL;
+		
 		self->current = regs;
 		
 		/* List is empty, ask debugger to get all register name */
@@ -245,7 +247,21 @@ dma_thread_create_new_register_list (CpuRegisters *self, guint thread)
 				IANJUTA_CPU_DEBUGGER (self->debugger),
 				(IAnjutaDebuggerCallback)on_cpu_registers_updated,
 				self,
-				NULL);
+				&err);
+		
+		if (err != NULL)
+		{
+			if (err->code == IANJUTA_DEBUGGER_NOT_IMPLEMENTED)
+			{
+				g_object_unref (G_OBJECT (regs->model));
+				g_free (regs);
+				self->current = NULL;
+				
+				return NULL;
+			}
+			
+			g_error_free (err);
+		}
 	}
 	else
 	{
@@ -283,16 +299,18 @@ static gboolean
 on_find_register_list (gconstpointer a, gconstpointer b)
 {
 	const DmaThreadRegisterList *regs = (const DmaThreadRegisterList *)a;
-	guint thread = (guint)b;
+	guint thread = (gint)b;
 	
 	return regs->thread != thread;
 }
 
 static void
-dma_thread_set_register_list (CpuRegisters *self, guint thread)
+dma_thread_set_register_list (CpuRegisters *self, gint thread)
 {
 	GList *list;
 	DmaThreadRegisterList *regs;
+	
+	if (self->current == NULL) return;	/* No register list */
 
 	if (self->current->thread != thread)
 	{
@@ -346,10 +364,11 @@ on_cpu_registers_changed (GtkCellRendererText *cell,
 }
 
 static void
-on_program_stopped (CpuRegisters *self, guint thread)
+on_program_moved (CpuRegisters *self, guint pid, gint thread)
 {
 	self->current_update++;
-	dma_thread_set_register_list (self, thread);
+	if (ianjuta_debugger_get_status (self->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_STOPPED)
+		dma_thread_set_register_list (self, thread);
 }
 
 static void
@@ -390,7 +409,12 @@ create_cpu_registers_gui (CpuRegisters *self)
 	GtkTreeViewColumn *column;
 
 	/* Create list store */
-	dma_thread_create_new_register_list (self, 0);
+	if (dma_thread_create_new_register_list (self, 0) == NULL)
+	{
+		/* Unable to create register list */
+		
+		return;
+	}
 	
 	/* Create list view */
 	self->treeview = GTK_TREE_VIEW (gtk_tree_view_new_with_model (self->current->model));
@@ -456,7 +480,7 @@ on_debugger_stopped (CpuRegisters *self)
 }
 
 static void
-on_frame_changed (CpuRegisters *self, guint frame, guint thread)
+on_frame_changed (CpuRegisters *self, guint frame, gint thread)
 {
 	dma_thread_set_register_list (self, thread);
 }
@@ -478,7 +502,7 @@ cpu_registers_new(AnjutaPlugin *plugin, IAnjutaDebugger *debugger)
 	
 	g_signal_connect_swapped (self->debugger, "debugger-started", G_CALLBACK (on_debugger_started), self);
 	g_signal_connect_swapped (self->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
-	g_signal_connect_swapped (self->debugger, "program-stopped", G_CALLBACK (on_program_stopped), self);
+	g_signal_connect_swapped (self->debugger, "program-moved", G_CALLBACK (on_program_moved), self);
 	g_signal_connect_swapped (self->debugger, "frame_changed", G_CALLBACK (on_frame_changed), self);
 	
 	return self;
@@ -494,7 +518,7 @@ cpu_registers_free(CpuRegisters* self)
 	{
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_started), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_stopped), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_program_stopped), self);
+		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_program_moved), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_frame_changed), self);
 		g_object_unref (self->debugger);
 	}

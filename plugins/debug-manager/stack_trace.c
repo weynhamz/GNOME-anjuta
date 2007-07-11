@@ -43,7 +43,7 @@
 typedef struct _DmaThreadStackTrace
 {
 	GtkTreeModel *model;
-	guint thread;
+	gint thread;
 	guint last_update;
 } DmaThreadStackTrace;
 
@@ -314,7 +314,7 @@ on_stack_trace_updated (const GList *stack, gpointer user_data)
 }
 
 static DmaThreadStackTrace*
-dma_thread_create_new_stack_trace (StackTrace *self, guint thread)
+dma_thread_create_new_stack_trace (StackTrace *self, gint thread)
 {
 	DmaThreadStackTrace *trace;
 	GtkListStore *store;
@@ -371,13 +371,13 @@ static gboolean
 on_find_stack_trace (gconstpointer a, gconstpointer b)
 {
 	const DmaThreadStackTrace *trace = (const DmaThreadStackTrace *)a;
-	guint thread = (guint)b;
+	guint thread = (gint)b;
 	
 	return trace->thread != thread;
 }
 
 static void
-dma_thread_set_stack_trace (StackTrace *self, guint thread)
+dma_thread_set_stack_trace (StackTrace *self, gint thread)
 {
 	GList *list;
 	DmaThreadStackTrace *trace;
@@ -412,7 +412,7 @@ dma_thread_set_stack_trace (StackTrace *self, guint thread)
  *---------------------------------------------------------------------------*/
 
 static void
-on_frame_changed (StackTrace *self, guint frame, guint thread)
+on_frame_changed (StackTrace *self, guint frame, gint thread)
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
@@ -702,10 +702,11 @@ destroy_stack_trace_gui (StackTrace *st)
 }
 
 static void
-on_program_stopped (StackTrace *self, guint thread)
+on_program_moved (StackTrace *self, guint pid, gint thread)
 {
 	self->current_update++;
-	dma_thread_set_stack_trace (self, thread);
+	if (ianjuta_debugger_get_status (self->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_STOPPED)
+		dma_thread_set_stack_trace (self, thread);
 }
 
 static void
@@ -752,7 +753,7 @@ stack_trace_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin)
 
 	g_signal_connect_swapped (st->debugger, "debugger-started", G_CALLBACK (on_debugger_started), st);
 	g_signal_connect_swapped (st->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), st);
-	g_signal_connect_swapped (st->debugger, "program-stopped", G_CALLBACK (on_program_stopped), st);
+	g_signal_connect_swapped (st->debugger, "program-moved", G_CALLBACK (on_program_moved), st);
 	g_signal_connect_swapped (st->debugger, "frame-changed", G_CALLBACK (on_frame_changed), st);
 	
 	return st;
@@ -770,7 +771,7 @@ stack_trace_free (StackTrace * st)
 	{	
 		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_debugger_started), st);
 		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_debugger_stopped), st);
-		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_program_stopped), st);
+		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_program_moved), st);
 		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_frame_changed), st);
 		g_object_unref (st->debugger);	
 	}

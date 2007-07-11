@@ -101,7 +101,7 @@ void debugger_command (Debugger *debugger, const gchar *command,
 					   gboolean suppress_error, DebuggerParserFunc parser,
 					   gpointer user_data);
 
-void debugger_change_location (Debugger *debugger, const gchar *file,
+void debugger_program_moved (Debugger *debugger, const gchar *file,
 							   gint line, guint address);
 gchar* debugger_get_source_path (Debugger *debugger, const gchar *file);
 
@@ -163,8 +163,8 @@ void debugger_set_frame (Debugger *debugger, guint frame);
 
 /* Thread */
 void debugger_list_thread (Debugger *debugger, IAnjutaDebuggerCallback func, gpointer user_data);
-void debugger_set_thread (Debugger *debugger, guint thread);
-void debugger_info_thread (Debugger *debugger, guint thread, IAnjutaDebuggerCallback func, gpointer user_data);
+void debugger_set_thread (Debugger *debugger, gint thread);
+void debugger_info_thread (Debugger *debugger, gint thread, IAnjutaDebuggerCallback func, gpointer user_data);
 
 /* Log */
 void debugger_set_log (Debugger *debugger, IAnjutaMessageView *view);

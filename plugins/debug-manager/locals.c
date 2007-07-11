@@ -32,13 +32,13 @@
 typedef struct _DmaThreadLocal
 {
 	GtkTreeModel *model;
-	guint thread;
+	gint thread;
 	guint frame;
 } DmaThreadLocal;
 
 typedef struct _DmaThreadAndFrame
 {
-	guint thread;
+	gint thread;
 	guint frame;
 } DmaThreadAndFrame;
 
@@ -155,7 +155,7 @@ on_find_local (gconstpointer a, gconstpointer b)
 }
 
 static DmaThreadLocal *
-dma_thread_find_local (Locals *self, guint thread, guint frame)
+dma_thread_find_local (Locals *self, gint thread, guint frame)
 {
 	GList *list;
 	DmaThreadAndFrame comp = {thread, frame};
@@ -166,7 +166,7 @@ dma_thread_find_local (Locals *self, guint thread, guint frame)
 }
 
 static void
-dma_thread_add_local (Locals *self, GtkTreeModel *model, guint thread, guint frame)
+dma_thread_add_local (Locals *self, GtkTreeModel *model, gint thread, guint frame)
 {
 	DmaThreadLocal *local;
 	
@@ -183,7 +183,7 @@ dma_thread_add_local (Locals *self, GtkTreeModel *model, guint thread, guint fra
 /* Private functions
  *---------------------------------------------------------------------------*/
 
-static void locals_update (Locals *self, guint thread)
+static void locals_update (Locals *self, gint thread)
 {
 	dma_thread_clear_all_locals (self);
 
@@ -201,7 +201,7 @@ locals_clear (Locals *self)
 }
 
 static void
-locals_change_frame (Locals *self, guint frame, guint thread)
+locals_change_frame (Locals *self, guint frame, gint thread)
 {
 	DmaThreadLocal *local;
 	
@@ -224,9 +224,10 @@ locals_change_frame (Locals *self, guint frame, guint thread)
 }
 
 static void
-on_program_stopped (Locals *l, guint thread)
+on_program_moved (Locals *self, guint pid, gint thread)
 {
-	locals_update (l, thread);
+	if (ianjuta_debugger_get_status (self->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_STOPPED)
+		locals_update (self, thread);
 }
 
 static void
@@ -243,7 +244,7 @@ on_debugger_stopped (Locals *l)
 }
 
 static void
-on_frame_changed (Locals *self, guint frame, guint thread)
+on_frame_changed (Locals *self, guint frame, gint thread)
 {
 	/* Change thread and frame*/
 	locals_change_frame (self, frame, thread);
@@ -267,7 +268,7 @@ locals_new (AnjutaPlugin *plugin, IAnjutaDebugger* debugger)
 
 	g_signal_connect_swapped (self->debugger, "debugger-started", G_CALLBACK (on_debugger_started), self);
 	g_signal_connect_swapped (self->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
-	g_signal_connect_swapped (self->debugger, "program-stopped", G_CALLBACK (on_program_stopped), self);
+	g_signal_connect_swapped (self->debugger, "program-moved", G_CALLBACK (on_program_moved), self);
 	g_signal_connect_swapped (self->debugger, "frame-changed", G_CALLBACK (on_frame_changed), self);
 	
 	return self;
@@ -286,7 +287,7 @@ locals_free (Locals *self)
 	{	
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_started), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_stopped), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_program_stopped), self);
+		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_program_moved), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_frame_changed), self);
 		g_object_unref (self->debugger);	
 	}

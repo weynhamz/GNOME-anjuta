@@ -641,7 +641,7 @@ idebugger_list_frame (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback 
 }
 
 static gboolean
-idebugger_set_thread (IAnjutaDebugger *plugin, guint thread, GError **err)
+idebugger_set_thread (IAnjutaDebugger *plugin, gint thread, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
@@ -661,7 +661,7 @@ idebugger_list_thread (IAnjutaDebugger *plugin, IAnjutaDebuggerCallback callback
 }
 
 static gboolean
-idebugger_info_thread (IAnjutaDebugger *plugin, guint thread, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
+idebugger_info_thread (IAnjutaDebugger *plugin, gint thread, IAnjutaDebuggerCallback callback , gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 

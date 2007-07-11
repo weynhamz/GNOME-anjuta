@@ -127,7 +127,7 @@ static void
 on_threads_set_activate (GtkAction *action, gpointer user_data)
 {
 	DmaThreads *self = (DmaThreads *)user_data;
-	guint selected_thread;
+	gint selected_thread;
 	
 	selected_thread = get_current_index (self);
 	
@@ -494,10 +494,11 @@ dma_destroy_threads_gui (DmaThreads *self)
 }
 
 static void
-on_program_stopped (DmaThreads *self, guint thread)
+on_program_moved (DmaThreads *self, guint pid, gint thread)
 {
 	self->current_thread = thread;
-	dma_threads_update (self);
+	if (ianjuta_debugger_get_status (self->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_STOPPED)
+		dma_threads_update (self);
 }
 
 static void
@@ -518,7 +519,7 @@ on_mark_selected_thread (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *it
 {
 	DmaThreads* self = (DmaThreads *)user_data;
 	GdkPixbuf *pic;
-	guint thread;
+	gint thread;
 
 	gtk_tree_model_get (model, iter, THREAD_ACTIVE_COLUMN, &pic, THREAD_ID_COLUMN, &thread, -1);
 	
@@ -547,7 +548,7 @@ on_mark_selected_thread (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *it
 }
 
 static void
-on_frame_changed (DmaThreads *self, guint frame, guint thread)
+on_frame_changed (DmaThreads *self, guint frame, gint thread)
 {
 	if (thread != self->current_thread)
 	{
@@ -589,7 +590,7 @@ dma_threads_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin)
 
 	g_signal_connect_swapped (self->debugger, "debugger-started", G_CALLBACK (on_debugger_started), self);
 	g_signal_connect_swapped (self->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
-	g_signal_connect_swapped (self->debugger, "program-stopped", G_CALLBACK (on_program_stopped), self);
+	g_signal_connect_swapped (self->debugger, "program-moved", G_CALLBACK (on_program_moved), self);
 	g_signal_connect_swapped (self->debugger, "frame-changed", G_CALLBACK (on_frame_changed), self);
 	
 	return self;
@@ -607,7 +608,7 @@ dma_threads_free (DmaThreads *self)
 	{	
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_started), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_stopped), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_program_stopped), self);
+		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_program_moved), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_frame_changed), self);
 		g_object_unref (self->debugger);	
 	}

@@ -2803,7 +2803,7 @@ interface IAnjutaDebugger
 
 	struct Frame
 	{
-		guint thread;
+		gint thread;
 		guint level;
 		gchar *args;
 		gchar *file;
@@ -2891,11 +2891,10 @@ interface IAnjutaDebugger
 	/**
 	* IAnjutaDebugger::program_stopped:
 	* @obj: Self
-	* @thread: fixme
 	* 
 	* fixme
 	*/
-	void ::program_stopped (guint thread);	
+	void ::program_stopped ();	
 
 	/**
 	* IAnjutaDebugger::program_exited:
@@ -2914,15 +2913,19 @@ interface IAnjutaDebugger
 	void ::sharedlib_event ();
 
 	/**
-	* IAnjutaDebugger::location_changed:
+	* IAnjutaDebugger::program_moved:
 	* @obj: Self
-	* @file: fixme
-	* @line: fixme
-	* @address: fixme
+ 	* @pid: process id, 0 when unknown
+	* @tid: thread id, 0 when unknown
+	* @address: program counter address, 0 when unknown
+	* @file: source file where is the program counter, NULL when unknown
+	* @line: line number if file name above is not NULL
 	* 
-	* fixme
+	* This signal is emitted when the debugger know the current program 
+	* location. Most of the time, after the program has stopped but it
+	* could happen even if it is still running.
 	*/
-	void ::location_changed (const gchar* file, guint line, guint address);	
+	void ::program_moved (gint pid, gint tid, guint address, const gchar* file, guint line);	
 
 	/**
 	* IAnjutaDebugger::frame_changed:
@@ -2932,7 +2935,7 @@ interface IAnjutaDebugger
 	* 
 	* fixme
 	*/
-	void ::frame_changed (guint frame, guint thread);	
+	void ::frame_changed (guint frame, gint thread);	
 
 	/**
 	* IAnjutaDebugger::signal_received:
@@ -3473,7 +3476,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	gboolean set_thread (guint thread);
+	gboolean set_thread (gint thread);
 
 	/**
 	* ianjuta_debugger_info_threads:
@@ -3487,7 +3490,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	gboolean info_thread (guint thread, Callback callback, gpointer user_data);
+	gboolean info_thread (gint thread, Callback callback, gpointer user_data);
 
 	/**
 	* ianjuta_debugger_list_register:

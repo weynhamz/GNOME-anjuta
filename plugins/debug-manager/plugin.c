@@ -510,11 +510,11 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 /* Called when the program postion change */
 
 static void
-dma_plugin_location_changed (DebugManagerPlugin *this, const gchar* file, guint line, guint address)
+dma_plugin_program_moved (DebugManagerPlugin *this, guint pid, guint tid, guint address, const gchar* file, guint line)
 {
 	gchar *msg;
 
-	DEBUG_PRINT ("DMA: dma_plugin_location_changed %s %d %x", file, line, address);
+	DEBUG_PRINT ("DMA: dma_plugin_program_moved %s %d %x", file, line, address);
 	
 	msg = g_strdup_printf (_("Location: %s, line %d\n"), file, line);
 	dma_debugger_message (this->queue, msg);
@@ -1113,7 +1113,7 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 	g_signal_connect_swapped (this->debugger, "program-running", G_CALLBACK (dma_plugin_program_running), this);
 	g_signal_connect_swapped (this->debugger, "program-stopped", G_CALLBACK (dma_plugin_program_stopped), this);
 	g_signal_connect_swapped (this->debugger, "program-exited", G_CALLBACK (dma_plugin_program_loaded), this);
-	g_signal_connect_swapped (this->debugger, "location-changed", G_CALLBACK (dma_plugin_location_changed), this);
+	g_signal_connect_swapped (this->debugger, "program-moved", G_CALLBACK (dma_plugin_program_moved), this);
 	g_signal_connect_swapped (this->debugger, "signal-received", G_CALLBACK (dma_plugin_signal_received), this);
 	g_signal_connect (this->debugger, "debugger-ready", G_CALLBACK (on_debugger_ready_signal), this);
 
@@ -1213,7 +1213,7 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_program_loaded), this);
 	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_program_running), this);
 	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_program_stopped), this);
-	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_location_changed), this);
+	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_program_moved), this);
 	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (on_debugger_ready_signal), this);
 	dma_debugger_queue_free (this->queue);
 	this->queue = NULL;

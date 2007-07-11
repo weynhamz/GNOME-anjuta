@@ -109,9 +109,9 @@ struct _DebuggerPriv
 	gboolean term_is_running;
 	pid_t term_pid;
 	pid_t inferior_pid;
-    	gint gnome_terminal_type;
-	guint current_thread;
+	gint current_thread;
 	guint current_frame;
+    	gint gnome_terminal_type;
 	
 	GObject* instance;
 
@@ -429,7 +429,7 @@ debugger_emit_status (Debugger *debugger)
 			debugger->priv->exiting = FALSE;
 			debugger->priv->stopping = FALSE;
 			debugger->priv->solib_event = FALSE;
-			g_signal_emit_by_name (debugger->priv->instance, "program-stopped", debugger->priv->current_thread);
+			g_signal_emit_by_name (debugger->priv->instance, "program-stopped");
 		}
 		else
 		{
@@ -1010,7 +1010,7 @@ debugger_process_frame (Debugger *debugger, const GDBMIValue *val)
 		{
 			addr_num = strtoul (gdbmi_value_literal_get (addr), NULL, 0);
 		}
-		debugger_change_location (debugger, file_str, line_num, addr_num);
+		debugger_program_moved (debugger, file_str, line_num, addr_num);
 	}
 }
 
@@ -1060,7 +1060,7 @@ debugger_parse_output (Debugger *debugger)
 		gdb_util_parse_error_line (&(line[2]), &filename, &lineno);
 		if (filename)
 		{
-			debugger_change_location (debugger, filename, lineno, 0);
+			debugger_program_moved (debugger, filename, lineno, 0);
 			g_free (filename);
 		}
 	}
@@ -1648,7 +1648,7 @@ debugger_set_output_callback (Debugger *debugger, IAnjutaDebuggerOutputCallback 
 }
 
 void
-debugger_change_location (Debugger *debugger, const gchar *file,
+debugger_program_moved (Debugger *debugger, const gchar *file,
 						  gint line, guint address)
 {
 	gchar *src_path;
@@ -1656,12 +1656,12 @@ debugger_change_location (Debugger *debugger, const gchar *file,
 	if ((file != NULL) && (*file != G_DIR_SEPARATOR))
 	{
 		src_path = debugger_get_source_path (debugger, file);
-		g_signal_emit_by_name (debugger->priv->instance, "location-changed", src_path, line, address);
+		g_signal_emit_by_name (debugger->priv->instance, "program-moved", debugger->priv->inferior_pid, debugger->priv->current_thread, address, src_path, line);
 		g_free (src_path);
 	}
 	else
 	{
-		g_signal_emit_by_name (debugger->priv->instance, "location-changed", file, line, address);
+		g_signal_emit_by_name (debugger->priv->instance, "program-moved", debugger->priv->inferior_pid, debugger->priv->current_thread, address, file, line);
 	}
 }
 
@@ -3190,7 +3190,7 @@ debugger_set_thread_finish (Debugger *debugger, const GDBMIValue *mi_results, co
 }
 
 void
-debugger_set_thread (Debugger *debugger, guint thread)
+debugger_set_thread (Debugger *debugger, gint thread)
 {
 	gchar *buff;
 	
@@ -3208,7 +3208,7 @@ static void
 add_thread_id (const GDBMIValue *thread_hash, GList** list)
 {
 	IAnjutaDebuggerFrame* frame;
-	guint thread;
+	gint thread;
 
 	thread = strtoul (gdbmi_value_literal_get (thread_hash), NULL, 10);
 	if (thread == 0) return;
@@ -3325,7 +3325,7 @@ debugger_info_thread_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 }
 
 void
-debugger_info_thread (Debugger *debugger, guint thread, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_info_thread (Debugger *debugger, gint thread, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	guint orig_thread;
