@@ -1,3 +1,8 @@
+2007-07-13 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/project-import/project-import.c:
+	Project import overwrites file on user request (bug #452579)
+
 2007-07-11 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/debugger.c,

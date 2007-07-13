@@ -313,25 +313,40 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 						GNOME_VFS_XFER_OVERWRITE_MODE_ABORT,
 						NULL,
 						NULL);
+	/* Handle already existing file */
+	if (error == GNOME_VFS_ERROR_FILE_EXISTS)
+	{       
+		if (anjuta_util_dialog_boolean_question (GTK_WINDOW (pi->window),
+				_("A file named \"%s\" already exists.  "
+				  "Do you want to replace it ?"), prjfile))
+		{
+			error = gnome_vfs_xfer_uri (source_uri,
+					dest_uri,
+					GNOME_VFS_XFER_DEFAULT,
+					GNOME_VFS_XFER_ERROR_MODE_ABORT,
+					GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
+					NULL,
+					NULL);
+		}
+	}
+
 	gnome_vfs_uri_unref (source_uri);
 	gnome_vfs_uri_unref (dest_uri);
-	
-	if (error != GNOME_VFS_OK)
+
+	switch (error)
 	{
-		GtkWidget *dlg;
-		
-		dlg = gtk_message_dialog_new(GTK_WINDOW(pi->window), 
-									 GTK_DIALOG_DESTROY_WITH_PARENT,
-									 GTK_MESSAGE_ERROR, 
-									 GTK_BUTTONS_OK,
-									 _("Generation of project file failed. Please "
-									   "check if you have write access to the project "
-									   "directory: %s"),
-									 gnome_vfs_result_to_string (error));
-		
-		gtk_dialog_run(GTK_DIALOG(dlg));
-		gtk_widget_destroy (dlg);
+	case GNOME_VFS_OK:
+		break;
+	case GNOME_VFS_ERROR_FILE_EXISTS:
+		return FALSE;
+	default:
+		anjuta_util_dialog_error (GTK_WINDOW (pi->window),
+				_("A file named \"%s\" cannot be written: %s.  "
+				  "Check if you have write access to the project directory."),
+				  prjfile, gnome_vfs_result_to_string (error));
+
 		return FALSE;
 	}
+
 	return TRUE;
 }
