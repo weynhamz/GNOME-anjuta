@@ -251,6 +251,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	editor = g_value_get_object (value);
 	
+	if (!IANJUTA_IS_EDITOR(editor))
+		return;
+	
 	Subversion *subversion = ANJUTA_PLUGIN_SUBVERSION (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	

@@ -863,12 +863,12 @@ update_status (DocmanPlugin *plugin, IAnjutaEditor *te)
 }
 
 static void
-on_editor_update_ui (IAnjutaEditor *editor, DocmanPlugin *plugin)
+on_editor_update_ui (IAnjutaDocument *editor, DocmanPlugin *plugin)
 {
 	IAnjutaDocument *te;
 	
 	te = anjuta_docman_get_current_document(ANJUTA_DOCMAN (plugin->docman));
-	if (IANJUTA_IS_EDITOR(te) && IANJUTA_EDITOR(te) == editor)
+	if (IANJUTA_IS_EDITOR(te) && te == editor)
 		update_status (plugin, IANJUTA_EDITOR(te));
 }
 
@@ -959,11 +959,28 @@ create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 }
 
 static void
-on_editor_added (AnjutaDocman *docman, IAnjutaEditor *te,
+on_editor_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 				   AnjutaPlugin *plugin)
 {
 	GtkWidget *highlight_submenu, *highlight_menu;
 	DocmanPlugin *editor_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
+	IAnjutaEditor* te;
+	
+	g_signal_connect (G_OBJECT (doc), "update-ui",
+					  G_CALLBACK (on_editor_update_ui),
+					  ANJUTA_PLUGIN (plugin));
+	g_signal_connect (G_OBJECT (doc), "save-point",
+					  G_CALLBACK (on_editor_update_save_ui),
+					  ANJUTA_PLUGIN (plugin));
+	anjuta_shell_present_widget (plugin->shell,
+								 GTK_WIDGET (docman), NULL);
+
+	if (!IANJUTA_IS_EDITOR(doc))
+	{
+		return;
+	}
+
+	te = IANJUTA_EDITOR(doc);
 	
 	/* Create Highlight submenu */
 	highlight_submenu = 
@@ -976,14 +993,6 @@ on_editor_added (AnjutaDocman *docman, IAnjutaEditor *te,
 		gtk_menu_item_set_submenu (GTK_MENU_ITEM (highlight_menu),
 								   highlight_submenu);
 	}
-	g_signal_connect (G_OBJECT (te), "update-ui",
-					  G_CALLBACK (on_editor_update_ui),
-					  ANJUTA_PLUGIN (plugin));
-	g_signal_connect (G_OBJECT (te), "save-point",
-					  G_CALLBACK (on_editor_update_save_ui),
-					  ANJUTA_PLUGIN (plugin));
-	anjuta_shell_present_widget (plugin->shell,
-								 GTK_WIDGET (docman), NULL);
 }
 
 static void
@@ -1002,20 +1011,20 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 		docman_plugin->support_plugins = NULL;
 	}
 	
+	GValue value = {0, };
+	g_value_init (&value, G_TYPE_OBJECT);
+	g_value_set_object (&value, te);
+	anjuta_shell_add_value (plugin->shell,
+							"document_manager_current_editor",
+							&value, NULL);
+	g_value_unset(&value);
+	DEBUG_PRINT ("Editor Added");
+	
 	if (te && IANJUTA_IS_EDITOR(te))
 	{
 		AnjutaPluginManager *plugin_manager;
 		const gchar *language;
 		GList *support_plugin_descs, *node;
-		
-		GValue value = {0, };
-		g_value_init (&value, G_TYPE_OBJECT);
-		g_value_set_object (&value, te);
-		anjuta_shell_add_value (plugin->shell,
-								"document_manager_current_editor",
-								&value, NULL);
-		g_value_unset(&value);
-		DEBUG_PRINT ("Editor Added");
 		
 		update_status (docman_plugin, IANJUTA_EDITOR(te));
 		

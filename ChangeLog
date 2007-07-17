@@ -1,3 +1,45 @@
+2007-07-17  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/Makefile.am.iface:
+	* pixmaps/Makefile.am:
+	* plugins/cvs-plugin/plugin.c: (value_added_current_editor):
+	* plugins/debug-manager/plugin.c: (value_added_current_editor),
+	(value_removed_current_editor):
+	* plugins/document-manager/anjuta-docman.c: (on_editor_save_point),
+	(anjuta_docman_set_current_document):
+	* plugins/document-manager/plugin.c: (on_editor_update_ui),
+	(on_editor_added), (on_editor_changed):
+	* plugins/glade/Makefile.am:
+	* plugins/glade/anjuta-design-document.c:
+	(anjuta_design_document_instance_init),
+	(anjuta_design_document_set_property),
+	(anjuta_design_document_get_property),
+	(anjuta_design_document_class_init), (anjuta_design_document_new),
+	(ifile_open), (ifile_get_uri), (ifile_iface_init):
+	* plugins/glade/anjuta-design-document.h:
+	* plugins/glade/anjuta-glade-notebook.c:
+	* plugins/glade/anjuta-glade-notebook.h:
+	* plugins/glade/plugin.c: (value_added_current_editor),
+	(value_removed_current_editor), (glade_update_ui),
+	(on_close_activated), (on_glade_project_changed),
+	(glade_plugin_add_project), (activate_plugin), (deactivate_plugin),
+	(ifile_open):
+	* plugins/language-support-cpp-java/plugin.c:
+	(on_value_added_current_editor), (on_value_removed_current_editor):
+	* plugins/macro/plugin.c: (value_added_current_editor):
+	* plugins/project-manager/plugin.c: (value_added_current_editor):
+	* plugins/subversion/plugin.c: (value_added_current_editor):
+	* plugins/symbol-browser/plugin.c: (value_added_current_editor):
+
+	Fixed lot of IAnjutaEditor stuff and completed glade integration
+	with document manager
+	
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(value_added_current_editor):
+	* plugins/build-basic-autotools/executer.c: (execute_program):
+	
+	Some initial code to execute projects inside scratchbox
+	
 2007-07-13 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/project-import/project-import.c:

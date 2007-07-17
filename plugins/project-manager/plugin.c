@@ -1028,6 +1028,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	ProjectManagerPlugin *pm_plugin;
 	
 	editor = g_value_get_object (value);
+	if (!IANJUTA_IS_EDITOR(editor))
+		return;
+	
 	pm_plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (plugin);
 	
 	if (pm_plugin->current_editor_uri)

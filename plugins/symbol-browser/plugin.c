@@ -906,6 +906,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	editor = g_value_get_object (value);
 	
+	if (!IANJUTA_IS_EDITOR(editor))
+		return;
+	
 	sv_plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (plugin);
 	
 	if (!sv_plugin->editor_connected)

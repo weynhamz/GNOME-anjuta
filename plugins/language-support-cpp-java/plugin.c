@@ -1455,8 +1455,15 @@ on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 							   const GValue *value, gpointer data)
 {
 	CppJavaPlugin *lang_plugin;
+	IAnjutaDocument* doc = IANJUTA_DOCUMENT(g_value_get_object (value));
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (plugin);
-	lang_plugin->current_editor = g_value_get_object (value);
+	if (IANJUTA_IS_EDITOR(doc))
+		lang_plugin->current_editor = G_OBJECT(doc);
+	else
+	{
+		lang_plugin->current_editor = NULL;
+		return;
+	}
 	if (IANJUTA_IS_EDITOR(lang_plugin->current_editor))
 		install_support (lang_plugin);
 	if (IANJUTA_IS_EDITOR_ASSIST(lang_plugin->current_editor))
@@ -1477,8 +1484,8 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 										  plugin);
 	if (IANJUTA_IS_EDITOR_ASSIST(lang_plugin->current_editor))
 		uninstall_assist(lang_plugin);
-	if (IANJUTA_IS_EDITOR(lang_plugin->current_editor));
-	uninstall_support (lang_plugin);
+	if (IANJUTA_IS_EDITOR(lang_plugin->current_editor))
+		uninstall_support (lang_plugin);
 	lang_plugin->current_editor = NULL;
 }
 

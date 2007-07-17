@@ -37,6 +37,9 @@
 
 #include "executer.h"
 
+#define PREF_USE_SB "build.use_scratchbox"
+#define PREF_SB_PATH "build.scratchbox.path"
+
 static gboolean
 get_program_parameters (BasicAutotoolsPlugin *plugin,
 						const gchar *pre_select_uri,
@@ -189,6 +192,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 void
 execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 {
+	AnjutaPreferences* prefs = anjuta_shell_get_preferences (ANJUTA_PLUGIN(plugin)->shell, NULL);
 	gboolean run_in_terminal, error_condition;
 	gchar *target = NULL, *args = NULL, *dir = NULL, *cmd = NULL;
 
@@ -335,11 +339,23 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		return;
 	}
 	
+	
 	if (args && strlen (args) > 0)
 		cmd = g_strconcat (target, " ", args, NULL);
 	else
 		cmd = g_strdup (target);
-	
+
+	if (anjuta_preferences_get_int (prefs , PREF_USE_SB))
+	{
+		const gchar* sb_path = anjuta_preferences_get(prefs, PREF_SB_PATH);
+		/* we need to skip the /scratchbox/users part, maybe could be done more clever */
+		const gchar* real_dir = strstr(target, "/home");
+		gchar* oldcmd = cmd;
+		cmd = g_strdup_printf("%s/login -d %s \"%s\"", sb_path,
+									  real_dir, oldcmd);
+		g_free(oldcmd);
+	}
+
 	DEBUG_PRINT ("Command is: %s", cmd);
 
 	dir = g_path_get_dirname (target);

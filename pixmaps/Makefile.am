@@ -27,7 +27,8 @@ anjuta_pixmaps_DATA = \
 	directory.png \
 	directory-accept.png \
 	password.png \
-	preferences-general.png
+	preferences-general.png \
+	start-with-import.png 
 
 anjuta_glade_pixmapsdir = $(anjuta_glade_dir)
 anjuta_glade_pixmaps_DATA = \
@@ -39,3 +40,4 @@ EXTRA_DIST = $(anjuta_pixmaps_DATA) \
 						$(anjuta_glade_pixmaps_DATA) \
 						$(icon_DATA) \
 						$(svgicon_DATA)
+

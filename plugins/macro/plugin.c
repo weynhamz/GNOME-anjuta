@@ -67,6 +67,9 @@ value_added_current_editor (AnjutaPlugin * plugin, const char *name,
 	AnjutaUI* ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	editor = g_value_get_object (value);
 
+	if (!IANJUTA_IS_EDITOR(editor))
+		return;
+	
 	MacroPlugin *macro_plugin = ANJUTA_PLUGIN_MACRO (plugin);
  	macro_insert_action = 
 		anjuta_ui_get_action (ui, "ActionGroupMacro", "ActionEditMacroInsert");

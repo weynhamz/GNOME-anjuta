@@ -1892,6 +1892,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	
 	editor = g_value_get_object (value);
 	
+	if (!IANJUTA_IS_EDITOR(editor))
+		return;
+	
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	

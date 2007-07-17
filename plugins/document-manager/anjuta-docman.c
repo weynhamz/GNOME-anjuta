@@ -621,7 +621,7 @@ anjuta_docman_page_from_widget (AnjutaDocman *docman, IAnjutaDocument *te)
 }
 
 static void
-on_editor_save_point (IAnjutaEditor *editor, gboolean entering,
+on_editor_save_point (IAnjutaDocument *editor, gboolean entering,
 					  AnjutaDocman *docman)
 {
 	anjuta_docman_update_page_label (docman, GTK_WIDGET (editor));
@@ -869,8 +869,9 @@ anjuta_docman_set_current_document(AnjutaDocman *docman, IAnjutaDocument * doc)
 */
 	uri = NULL;
 	if (IANJUTA_IS_EDITOR(doc))
-		te = IANJUTA_EDITOR(doc);
 	{
+		te = IANJUTA_EDITOR(doc);
+
 		if (te)
 			uri = ianjuta_file_get_uri (IANJUTA_FILE(te), NULL);
 		if (te && uri)
