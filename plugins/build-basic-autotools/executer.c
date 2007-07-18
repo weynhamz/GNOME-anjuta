@@ -354,11 +354,10 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 		cmd = g_strdup_printf("%s/login -d %s \"%s\"", sb_path,
 									  real_dir, oldcmd);
 		g_free(oldcmd);
+		dir = g_strdup(real_dir);
 	}
-
-	DEBUG_PRINT ("Command is: %s", cmd);
-
-	dir = g_path_get_dirname (target);
+	else
+		dir = g_path_get_dirname (target);
 	if (run_in_terminal)
 	{
 		IAnjutaTerminal *term;

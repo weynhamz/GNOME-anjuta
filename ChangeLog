@@ -1,3 +1,9 @@
+2007-07-18  Johannes Schmid <jhs.gnome.org>
+
+	* plugins/build-basic-autotools/executer.c: (execute_program):
+	Fixed some of the scratchbox stuff but the environment is
+	still broken
+
 2007-07-18  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-plugin-manager.c: (on_plugin_activated),
