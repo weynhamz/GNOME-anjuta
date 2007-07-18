@@ -132,7 +132,7 @@ static gchar* ifile_get_uri(IAnjutaFile* file, GError **e)
 		return NULL;
 #else
 	if (project && project->path)
-		return project->path;
+		return gnome_vfs_get_uri_from_local_path(project->path);
 	else
 		return NULL;
 #endif

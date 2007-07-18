@@ -736,7 +736,12 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument* te,
 	}
 
 	docman->priv->editors = g_list_append (docman->priv->editors, (gpointer)page);
-
+	
+	if (!uri)
+	{
+		uri  = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
+	}
+	
 	ruri =  gnome_vfs_format_uri_for_display (uri ? uri : "");
 	
 	/* set the tooltips */	

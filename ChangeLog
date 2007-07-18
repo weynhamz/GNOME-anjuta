@@ -1,3 +1,11 @@
+2007-07-18  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_add_document):
+	* plugins/glade/anjuta-design-document.c: (ifile_get_uri):
+	
+	Fixed path display in document manager with glade files
+
 2007-07-17  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/Makefile.am.iface:
