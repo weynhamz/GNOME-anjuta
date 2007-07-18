@@ -48,6 +48,7 @@ struct _GladePluginPriv
 	GtkWidget *view_box;
 	GtkWidget *projects_combo;
 	gint editor_watch_id;
+	gboolean destroying;
 };
 
 enum {
@@ -181,12 +182,17 @@ on_close_activated (GtkWidget* document, GladePlugin *plugin)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	
+	DEBUG_PRINT(__FUNCTION__);
+	
+	if (plugin->priv->destroying)
+	{
+		return;
+	}
+	
 	project = glade_design_view_get_project(GLADE_DESIGN_VIEW(document));
 
 	if (!project)
 	{
-		/* if (gtk_tree_model_iter_n_children (model, NULL) <= 0) */
-		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
 		return;
 	}
 		
@@ -208,11 +214,19 @@ on_close_activated (GtkWidget* document, GladePlugin *plugin)
 		while (gtk_tree_model_iter_next (model, &iter));
 	}
 	glade_do_close (plugin, project);
-	
+
 	if (gtk_tree_model_iter_n_children (model, NULL) <= 0)
 		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
+	
+	DEBUG_PRINT(__FUNCTION__);
 }
 
+static void
+on_shell_destroy (AnjutaShell* shell, GladePlugin *glade_plugin)
+{
+	glade_plugin->priv->destroying = TRUE;
+}
+	
 static void
 on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
 {
@@ -312,30 +326,6 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 	anjuta_session_set_string_list (session, "File Loader", "Files", files);
 	g_list_foreach (files, (GFunc)g_free, NULL);
 	g_list_free (files);
-}
-
-/* FIXME: Glade does not allow destroying its (singleton) widgets.
- * Make sure they are removed when the application is destroyed
- * without the plugin unloaded.
- */
-static void
-on_shell_destroy (AnjutaShell *shell, GladePlugin *glade_plugin)
-{
-	GtkWidget *wid;
-	GtkWidget *parent;
-	
-	/* Remove widgets before the container destroyes them */
-	wid = GTK_WIDGET (glade_app_get_palette ());
-	parent = gtk_widget_get_parent (wid);
-	gtk_container_remove (GTK_CONTAINER (parent), wid);
-	
-	wid = GTK_WIDGET (glade_app_get_editor ());
-	parent = gtk_widget_get_parent (wid);
-	gtk_container_remove (GTK_CONTAINER (parent), wid);
-	
-	wid = GTK_WIDGET (glade_plugin->priv->view_box);
-	parent = gtk_widget_get_parent (wid);
-	gtk_container_remove (GTK_CONTAINER (parent), wid);
 }
 
 static void
@@ -445,6 +435,9 @@ activate_plugin (AnjutaPlugin *plugin)
 		gtk_notebook_popup_enable (GTK_NOTEBOOK (glade_app_get_editor ()->notebook));
 	}
 	
+	g_signal_connect(G_OBJECT(plugin->shell), "destroy",
+					 G_CALLBACK(on_shell_destroy), plugin);
+	
 	g_signal_connect (G_OBJECT (priv->projects_combo), "changed",
 					  G_CALLBACK (on_glade_project_changed), plugin);
 	g_signal_connect (G_OBJECT (priv->gpw), "update-ui",
@@ -453,8 +446,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect(G_OBJECT(glade_app_get_editor()), "gtk-doc-search",
 					 G_CALLBACK(on_api_help), plugin);
 	
-	g_signal_connect(G_OBJECT(plugin->shell), "destroy",
-					 G_CALLBACK(on_shell_destroy), plugin);
 	/* FIXME: Glade doesn't want to die these widget, so
 	 * hold a permenent refs on them
 	 */
@@ -505,6 +496,10 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	/* Disconnect signals */
 	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
+										  G_CALLBACK (on_shell_destroy),
+										  plugin);
+	
+	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
 										  G_CALLBACK (on_session_save), plugin);
 	
 	g_signal_handlers_disconnect_by_func (G_OBJECT (priv->projects_combo),
@@ -516,10 +511,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	g_signal_handlers_disconnect_by_func (G_OBJECT(glade_app_get_editor()),
 										  G_CALLBACK(on_api_help), plugin);
-	
-	g_signal_handlers_disconnect_by_func (G_OBJECT (plugin->shell),
-										  G_CALLBACK (on_shell_destroy),
-										  plugin);
+
 	/* Remove widgets */
 	anjuta_shell_remove_widget (plugin->shell,
 								GTK_WIDGET (glade_app_get_palette ()),
@@ -530,27 +522,6 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_shell_remove_widget (plugin->shell,
 								GTK_WIDGET (priv->view_box),
 								NULL);
-	{	
-		IAnjutaDocumentManager* docman = 
-			anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
-								   IAnjutaDocumentManager, NULL);
-		GtkTreeIter iter;
-		GtkTreeModel* model = 
-			gtk_combo_box_get_model (GTK_COMBO_BOX (priv->projects_combo));
-		if (gtk_tree_model_get_iter_first (model, &iter))
-		{
-			do
-			{
-				GladeProject *cur_project;
-				gtk_tree_model_get (model, &iter, PROJECT_COL, &cur_project, -1);
-				AnjutaDesignDocument* view = 
-					ANJUTA_DESIGN_DOCUMENT(g_object_get_data (G_OBJECT (cur_project), "design_view"));
-				ianjuta_document_manager_remove_document(docman, IANJUTA_DOCUMENT(view), FALSE, NULL);
-			}
-			while (gtk_tree_model_iter_next (model, &iter));
-		}
-	}
-	
 	/* FIXME: Don't destroy glade, since it doesn't want to */
 	/* g_object_unref (G_OBJECT (priv->gpw)); */
 	/* priv->gpw = NULL */
@@ -587,6 +558,7 @@ glade_plugin_instance_init (GObject *obj)
 	
 	plugin->priv = (GladePluginPriv *) g_new0 (GladePluginPriv, 1);
 	priv = plugin->priv;
+	priv->destroying = FALSE;
 	
 	DEBUG_PRINT ("Intializing Glade plugin");
 }

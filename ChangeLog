@@ -1,5 +1,15 @@
 2007-07-18  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/anjuta-plugin-manager.c: (on_plugin_activated),
+	(on_plugin_deactivated), (get_plugin_loader_type):
+	* plugins/glade/plugin.c: (on_close_activated), (on_shell_destroy),
+	(activate_plugin), (deactivate_plugin),
+	(glade_plugin_instance_init):
+	
+	Fixed glade plugin deactivation
+
+2007-07-18  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/document-manager/anjuta-docman.c:
 	(anjuta_docman_add_document):
 	* plugins/glade/anjuta-design-document.c: (ifile_get_uri):

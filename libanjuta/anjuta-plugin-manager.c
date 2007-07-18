@@ -488,6 +488,9 @@ on_plugin_activated (AnjutaPlugin *plugin_object, AnjutaPluginHandle *plugin)
 	
 	/* FIXME: Pass plugin_manager directly in signal arguments */
 	plugin_manager = anjuta_shell_get_plugin_manager (plugin_object->shell, NULL);
+	
+	g_return_if_fail(plugin_manager != NULL);
+	
 	priv = plugin_manager->priv;
 	
 	g_hash_table_insert (priv->activated_plugins, plugin,
@@ -508,6 +511,9 @@ on_plugin_deactivated (AnjutaPlugin *plugin_object, AnjutaPluginHandle *plugin)
 	
 	/* FIXME: Pass plugin_manager directly in signal arguments */
 	plugin_manager = anjuta_shell_get_plugin_manager (plugin_object->shell, NULL);
+	
+	g_return_if_fail (plugin_manager != NULL);
+	
 	priv = plugin_manager->priv;
 	
 	g_hash_table_insert (priv->plugins_cache, plugin, G_OBJECT (plugin_object));
@@ -1235,8 +1241,7 @@ get_plugin_loader_type (AnjutaPluginManager *plugin_manager,
 	GList *loader_plugins, *node;
 	GList *valid_plugins;
 	GObject *obj = NULL;
-	static int bug = 0;
-	
+
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), G_TYPE_INVALID);
 
 	
