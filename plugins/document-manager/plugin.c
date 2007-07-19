@@ -1022,12 +1022,14 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 	
 	if (te && IANJUTA_IS_EDITOR(te))
 	{
+		DEBUG_PRINT("Beginning language support");
+		
 		AnjutaPluginManager *plugin_manager;
 		const gchar *language;
 		GList *support_plugin_descs, *node;
 		
 		update_status (docman_plugin, IANJUTA_EDITOR(te));
-		
+				
 		/* Load current language editor support plugins */
 		plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
 		if (IANJUTA_IS_EDITOR_LANGUAGE (te)) {
@@ -1065,13 +1067,9 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 			}
 			g_list_free (support_plugin_descs);
 		}
+		DEBUG_PRINT("Beginning language support");
 	}
-	else
-	{
-		anjuta_shell_remove_value (plugin->shell,
-								   "document_manager_current_editor", NULL);
-		DEBUG_PRINT ("Editor Removed");
-	}
+	DEBUG_PRINT(__FUNCTION__);
 }
 
 static void

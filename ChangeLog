@@ -1,3 +1,15 @@
+2007-07-19  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/debug-manager/plugin.c: (value_added_current_editor):
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_set_busy):
+	* plugins/document-manager/plugin.c: (on_editor_changed):
+	* plugins/glade/plugin.c: (activate_plugin):
+	* plugins/language-support-cpp-java/plugin.c: (on_assist_begin),
+	(on_value_removed_current_editor):
+	
+	Fixed remaining criticals with IAnjutaEditor -> IAnjutaDocument
+
 2007-07-18  Johannes Schmid <jhs.gnome.org>
 
 	* plugins/build-basic-autotools/executer.c: (execute_program):

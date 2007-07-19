@@ -612,7 +612,7 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 
 static void on_assist_begin(IAnjutaEditorAssist* assist, gchar* context, gchar* trigger, CppJavaPlugin* lang_plugin)
 {
-	gint position;
+	gint position = 0;
 	
 	DEBUG_PRINT("assist-begin: %s", context);
 	/* General word completion */
@@ -1479,7 +1479,8 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 {
 	CppJavaPlugin *lang_plugin;
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (plugin);
-	g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
+	if (lang_plugin->current_editor)
+		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 										  G_CALLBACK (on_editor_language_changed),
 										  plugin);
 	if (IANJUTA_IS_EDITOR_ASSIST(lang_plugin->current_editor))

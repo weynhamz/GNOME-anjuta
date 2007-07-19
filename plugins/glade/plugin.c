@@ -471,7 +471,7 @@ activate_plugin (AnjutaPlugin *plugin)
 							 GTK_WIDGET (glade_app_get_editor ()),
 							 "AnjutaGladeEditor", _("Properties"),
 							 "glade-plugin-icon",
-							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
+							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	/* Connect to save session */
 	g_signal_connect (G_OBJECT (plugin->shell), "save_session",
 					  G_CALLBACK (on_session_save), plugin);
