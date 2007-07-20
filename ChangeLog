@@ -1,5 +1,10 @@
 2007-07-20  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/anjuta-status.c:
+	Fixed crasher on shutdown
+
+2007-07-20  Johannes Schmid <jhs@gnome.org>
+
 	* configure.in:
 	Minimum glade requirement is 3.2 now. It was before
 	but we did not check...

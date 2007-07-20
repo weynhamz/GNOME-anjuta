@@ -67,6 +67,7 @@ static void on_widget_destroy (AnjutaStatus *status, GObject *widget);
 static void
 anjuta_status_finalize (GObject *widget)
 {
+	g_free(ANJUTA_STATUS(widget)->priv);
 	GNOME_CALL_PARENT(G_OBJECT_CLASS, finalize, (widget));
 }
 
@@ -104,8 +105,6 @@ anjuta_status_dispose (GObject *widget)
 		g_hash_table_destroy (status->priv->widgets);
 		status->priv->widgets = NULL;
 	}
-	
-	g_free(status->priv);
 	
 	GNOME_CALL_PARENT(G_OBJECT_CLASS, dispose, (widget));
 }
