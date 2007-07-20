@@ -230,8 +230,8 @@ static gint
 iter_compare_func (GtkTreeModel *model, GtkTreeIter *a,
 				   GtkTreeIter *b, gpointer user_data)
 {
-	const gchar *text_a;
-	const gchar *text_b;
+	gchar *text_a;
+	gchar *text_b;
 	gint retval = 0;
 	
 	gtk_tree_model_get (model, a, COLUMN_ACTION, &text_a, -1);
@@ -240,6 +240,10 @@ iter_compare_func (GtkTreeModel *model, GtkTreeIter *a,
 	else if (text_a == NULL) retval = -1;
 	else if (text_b == NULL) retval = 1;
 	else retval =  strcasecmp (text_a, text_b);
+	
+	g_free(text_a);
+	g_free(text_b);
+	
 	return retval;
 }
 
@@ -813,6 +817,7 @@ anjuta_ui_merge (AnjutaUI *ui, const gchar *ui_filename)
 	{
 		gchar *basename = g_path_get_basename (ui_filename);
 		DEBUG_PRINT ("merged [%d] %s", id, basename);
+		g_free(basename);
 	}
 #endif
 	if (err != NULL)

@@ -1,3 +1,23 @@
+2007-07-20  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in:
+	Minimum glade requirement is 3.2 now. It was before
+	but we did not check...
+	
+	* libanjuta/anjuta-glue-factory.c: (load_plugin):
+	* libanjuta/anjuta-profile.c:
+	(anjuta_profile_add_plugins_from_xml):
+	* libanjuta/anjuta-status.c: (anjuta_status_dispose):
+	* libanjuta/anjuta-ui.c: (iter_compare_func), (anjuta_ui_merge):
+	* libegg/egg-recent-action.c: (on_recent_files_tooltip):
+	* plugins/file-loader/plugin.c: (on_create_submenu):
+	* plugins/file-manager/an_file_view.c: (compare_iter):
+	* plugins/glade/plugin.c: (activate_plugin):
+	* src/anjuta-app.c: (on_toolbar_view_toggled):
+	* src/main.c: (main):
+	
+	Fixed lots of memory leaks (thansk valgrind)
+
 2007-07-19  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/debug-manager/plugin.c: (value_added_current_editor):

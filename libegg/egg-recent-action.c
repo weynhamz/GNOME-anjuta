@@ -170,6 +170,7 @@ on_recent_files_tooltip (GtkTooltips *tooltips, GtkWidget *menu_item,
 
 	gtk_tooltips_set_tip (tooltips, menu_item, tip, NULL);
 
+	g_free (tip);
 	g_free (uri);
 }
 

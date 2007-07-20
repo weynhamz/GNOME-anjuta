@@ -406,20 +406,17 @@ activate_plugin (AnjutaPlugin *plugin)
 		g_object_unref (G_OBJECT (store));
 		gtk_box_pack_start (GTK_BOX (priv->view_box), priv->projects_combo,
 							FALSE, FALSE, 0);
-#if (GLADEUI_VERSION > 303)
-#  if (GLADEUI_VERSION >= 330)
+
+#if (GLADEUI_VERSION >= 330)
         priv->inspector = glade_inspector_new ();
         
         g_signal_connect (priv->inspector, "item-activated",
         				  G_CALLBACK (inspector_item_activated_cb),
         				  plugin);
-#  else
-		priv->inspector = glade_project_view_new ();
-#  endif
 #else
-		priv->inspector = glade_project_view_new (GLADE_PROJECT_VIEW_TREE);
+		priv->inspector = glade_project_view_new ();
 #endif
-
+		
 #if (GLADEUI_VERSION < 330)
 		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (priv->inspector),
 										GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);

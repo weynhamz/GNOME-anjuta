@@ -569,7 +569,7 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
 					 _("Failed to read '%s': XML parse error"),
 					 profile_xml_uri);
-		/* FIXME: Free xml doc */
+		xmlFreeDoc(xml_doc);
 		return FALSE;
 	}
 	
@@ -581,6 +581,7 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 					 _("Failed to read '%s': XML parse error."
 					   "Invalid or corrupted anjuta plugins profile."),
 					 profile_xml_uri);
+		xmlFreeDoc(xml_doc);
 		return FALSE;
 	}
 	
@@ -627,6 +628,7 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 			mandatory = TRUE;
 		else
 			mandatory = FALSE;
+		xmlFree(mandatory_text);
 		
 		/* For all plugin attribute conditions */
 		xml_require_node = xml_node->xmlChildrenNode;
@@ -730,6 +732,7 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 					 _("Failed to read '%s': XML parse error."
 					   "Invalid or corrupted anjuta plugins profile."),
 					 profile_xml_uri);
+		xmlFreeDoc(xml_doc);
 		return FALSE;
 	}
 	if (not_found_names)
@@ -768,6 +771,7 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 		g_list_free (not_found_urls);
 		g_list_free (descs_list);
 		
+		xmlFreeDoc(xml_doc);
 		return FALSE;
 	}
 	if (descs_list)
@@ -801,6 +805,7 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 		}
 		g_list_free (selected_plugins);
 	}
+	xmlFreeDoc(xml_doc);
 	return TRUE;
 }
 

@@ -867,21 +867,25 @@ static gint
 compare_iter (GtkTreeModel *model, GtkTreeIter *iter1,
 			  GtkTreeIter *iter2, gpointer data)
 {
-	const gchar *filename1, *filename2;
+	gchar *filename1, *filename2;
 	gboolean is_dir1, is_dir2;
+	int retval;
 	
 	gtk_tree_model_get (model, iter1, IS_DIR_COLUMN, &is_dir1, -1);
 	gtk_tree_model_get (model, iter2, IS_DIR_COLUMN, &is_dir2, -1);
 	if (is_dir1 && !is_dir2)
-		return -1;
+		retval = -1;
 	else if (!is_dir1 && is_dir2)
-		return 1;
+		retval = 1;
 	else
 	{
 		gtk_tree_model_get (model, iter1, FILENAME_COLUMN, &filename1, -1);
 		gtk_tree_model_get (model, iter2, FILENAME_COLUMN, &filename2, -1);
-		return g_ascii_strcasecmp (filename1, filename2);
+		retval = g_ascii_strcasecmp (filename1, filename2);
+		g_free(filename1);
+		g_free(filename2);
 	}
+	return retval;
 }
 
 void

@@ -391,5 +391,8 @@ main (int argc, char *argv[])
 	gtk_window_set_auto_startup_notification(TRUE);
 	gtk_widget_show (GTK_WIDGET (app));
 	gtk_main();
+	
+	gnome_vfs_shutdown();
+	
 	return 0;
 }

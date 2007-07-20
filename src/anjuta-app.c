@@ -175,7 +175,7 @@ on_toolbar_view_toggled (GtkCheckMenuItem *menuitem, GtkWidget *widget)
 									   									   
 			dock_item = gnome_app_get_dock_item_by_name (GNOME_APP (app),
 														 unique_name);
-			g_object_set_data (G_OBJECT(dock_item), "unique_name", unique_name);
+			g_object_set_data_full (G_OBJECT(dock_item), "unique_name", unique_name, g_free);
 			g_object_set_data (G_OBJECT(widget), "dock_item", dock_item);
 			count++;
 		}

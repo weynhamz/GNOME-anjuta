@@ -105,6 +105,8 @@ anjuta_status_dispose (GObject *widget)
 		status->priv->widgets = NULL;
 	}
 	
+	g_free(status->priv);
+	
 	GNOME_CALL_PARENT(G_OBJECT_CLASS, dispose, (widget));
 }
 
