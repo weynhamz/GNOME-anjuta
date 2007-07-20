@@ -92,6 +92,7 @@ plugins/gdb/debugger.c
 plugins/gdb/plugin.c
 plugins/gdb/utilities.c
 plugins/glade/plugin.c
+plugins/glade/anjuta-design-document.c
 plugins/gtodo/add_edit_item.c
 plugins/gtodo/callback.c
 plugins/gtodo/egg-datetime.c
