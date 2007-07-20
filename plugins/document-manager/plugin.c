@@ -866,8 +866,8 @@ static void
 on_editor_update_ui (IAnjutaDocument *editor, DocmanPlugin *plugin)
 {
 	IAnjutaDocument *te;
-	
-	te = anjuta_docman_get_current_document(ANJUTA_DOCMAN (plugin->docman));
+		
+	te = anjuta_docman_get_current_document(ANJUTA_DOCMAN (plugin->docman));	
 	if (IANJUTA_IS_EDITOR(te) && te == editor)
 		update_status (plugin, IANJUTA_EDITOR(te));
 }
@@ -1553,10 +1553,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	/* Add UI */
 	editor_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	anjuta_shell_add_widget (plugin->shell, docman,
+	anjuta_shell_add_widget_full (plugin->shell, docman,
 							 "AnjutaDocumentManager", _("Documents"),
-							 "editor-plugin-icon",
-							 ANJUTA_SHELL_PLACEMENT_CENTER, NULL); 
+							 "editor-plugin-icon", 
+							 ANJUTA_SHELL_PLACEMENT_CENTER, 
+							 TRUE, NULL); 
 	ui_states_init(plugin);
 	ui_give_shorter_names (plugin);
 	update_editor_ui (plugin, NULL);

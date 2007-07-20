@@ -981,12 +981,13 @@ on_widget_removed_from_hash (gpointer widget)
 }
 
 static void 
-anjuta_app_add_widget (AnjutaShell *shell, 
+anjuta_app_add_widget_full (AnjutaShell *shell, 
 					   GtkWidget *widget,
 					   const char *name,
 					   const char *title,
 					   const char *stock_id,
 					   AnjutaShellPlacement placement,
+					   gboolean locked,
 					   GError **error)
 {
 	AnjutaApp *app;
@@ -1021,6 +1022,16 @@ anjuta_app_add_widget (AnjutaShell *shell,
 	else
 		item = gdl_dock_item_new_with_stock (name, title, stock_id,
 											 GDL_DOCK_ITEM_BEH_NORMAL);
+	if (locked)
+	{
+		guint flags = 0;
+		flags |= GDL_DOCK_ITEM_BEH_NEVER_FLOATING;
+		flags |= GDL_DOCK_ITEM_BEH_CANT_CLOSE;
+		flags |= GDL_DOCK_ITEM_BEH_CANT_ICONIFY;
+		flags |= GDL_DOCK_ITEM_BEH_NO_GRIP;
+		g_object_set(G_OBJECT(item), "behavior", flags, NULL);
+	}
+	
 	gtk_container_add (GTK_CONTAINER (item), widget);
     gdl_dock_add_item (GDL_DOCK (app->dock),
                        GDL_DOCK_ITEM (item), placement);
@@ -1159,7 +1170,7 @@ anjuta_app_get_profile_manager (AnjutaShell *shell, GError **error)
 static void
 anjuta_shell_iface_init (AnjutaShellIface *iface)
 {
-	iface->add_widget = anjuta_app_add_widget;
+	iface->add_widget_full = anjuta_app_add_widget_full;
 	iface->remove_widget = anjuta_app_remove_widget;
 	iface->present_widget = anjuta_app_present_widget;
 	iface->add_value = anjuta_app_add_value;

@@ -1,5 +1,28 @@
 2007-07-20  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/anjuta-shell.c: (on_widget_data_add),
+	(anjuta_shell_add_widget), (anjuta_shell_add_widget_full):
+	* libanjuta/anjuta-shell.h:
+	* plugins/document-manager/plugin.c: (activate_plugin):
+	* plugins/glade/anjuta-design-document.c:
+	* plugins/glade/plugin.c: (glade_update_ui):
+	* src/anjuta-app.c: (anjuta_app_add_widget_full),
+	(anjuta_shell_iface_init):
+	* src/shell.c: (anjuta_test_shell_add_widget),
+	(anjuta_shell_iface_init):
+	
+	Make the document manager undockable (#458038)
+
+2007-07-20  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/plugin.c: (on_editor_update_ui):
+	* plugins/glade/anjuta-design-document.c:
+	* plugins/glade/plugin.c: (glade_update_ui):
+	
+	Fixed some save/dirty status bug in glade
+
+2007-07-20  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-status.c:
 	Fixed crasher on shutdown
 

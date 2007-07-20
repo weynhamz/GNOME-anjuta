@@ -172,7 +172,10 @@ static void ifile_savable_save (IAnjutaFileSavable* file, GError **e)
 			anjuta_status_set (status, _("Glade project '%s' saved"),
 							   project->name);
 #endif
-		} else {
+		g_signal_emit_by_name(G_OBJECT(self), "save_point", TRUE);
+		} 
+		else 
+		{
 			anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN(priv->glade_plugin)->shell),
 										_("Invalid glade file name"));
 		}
@@ -202,6 +205,7 @@ static void ifile_savable_save_as(IAnjutaFileSavable* file, const gchar* uri, GE
 		anjuta_status_set (status, _("Glade project '%s' saved"),
 							   project->name);
 #endif
+	g_signal_emit_by_name(G_OBJECT(self), "save_point", TRUE);
 	} 
 	else 
 	{

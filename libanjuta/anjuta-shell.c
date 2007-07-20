@@ -82,6 +82,7 @@ typedef struct {
 	gchar *title;
 	gchar *stock_id;
 	AnjutaShellPlacement placement;
+	gboolean locked;
 } WidgetQueueData;
 
 static void
@@ -97,11 +98,12 @@ on_widget_data_free (WidgetQueueData *data)
 static void
 on_widget_data_add (WidgetQueueData *data, AnjutaShell *shell)
 {
-	ANJUTA_SHELL_GET_IFACE (shell)->add_widget (shell, data->widget,
+	ANJUTA_SHELL_GET_IFACE (shell)->add_widget_full (shell, data->widget,
 												data->name,
 												data->title,
 												data->stock_id,
 												data->placement,
+												data->locked,
 												NULL);
 }
 
@@ -212,6 +214,41 @@ anjuta_shell_add_widget (AnjutaShell *shell,
 			 AnjutaShellPlacement placement,
 			 GError **error)
 {
+	anjuta_shell_add_widget_full(shell, widget, name, title,
+							stock_id, placement, FALSE, error);
+}
+
+/**
+ * anjuta_shell_add_widget_full:
+ * @shell: A #AnjutaShell interface.
+ * @widget: Then widget to add
+ * @name: Name of the widget. None translated string used to identify it in 
+ * the shell.
+ * @stock_id: Icon stock ID. Could be null.
+ * @title: Translated string which is displayed along side the widget when
+ * required (eg. as window title or notebook tab label).
+ * @placement: Placement of the widget in shell.
+ * @locked: Whether to lock that widget (do not use this, it's only
+ * 			useful to some stock plugins
+ * @error: Error propagation object.
+ *
+ * Adds @widget in the shell. The @placement tells where the widget should
+ * appear, but generally it will be overridden by the container
+ * (dock, notebook, GtkContainer etc.) saved layout.
+ *
+ * Normally just use anjuta_shell_add_widget() because you do not
+ * use locking.
+ */
+void
+anjuta_shell_add_widget_full (AnjutaShell *shell,
+			 GtkWidget *widget,
+			 const char *name,
+			 const char *title,
+			 const char *stock_id,
+			 AnjutaShellPlacement placement,
+			 gboolean locked,
+			 GError **error)
+{
 	GQueue *widget_queue;
 	gint freeze_count;
 	
@@ -226,9 +263,9 @@ anjuta_shell_add_widget (AnjutaShell *shell,
 													   "__freeze_count"));
 	if (freeze_count <= 0)
 	{
-		ANJUTA_SHELL_GET_IFACE (shell)->add_widget (shell, widget, name,
+		ANJUTA_SHELL_GET_IFACE (shell)->add_widget_full (shell, widget, name,
 													title, stock_id,
-													placement, error);
+													placement, locked, error);
 	}
 	else
 	{
@@ -247,6 +284,7 @@ anjuta_shell_add_widget (AnjutaShell *shell,
 		qd->widget = widget;
 		qd->name = g_strdup (name);
 		qd->title = g_strdup (title);
+		qd->locked = locked;
 		if (stock_id)
 			qd->stock_id = g_strdup (stock_id);
 		qd->placement = placement;

@@ -123,15 +123,13 @@ glade_update_ui (GladeApp *app, GladePlugin *plugin)
 		}
 		while (gtk_tree_model_iter_next (model, &iter));
 	}
-	/* Emit IAnjutaDocument signal */
-	DEBUG_PRINT("Glade: Update UI");
-	
+	/* Emit IAnjutaDocument signal */	
 	doc = ianjuta_document_manager_get_current_document(docman, NULL);
 	if (doc && ANJUTA_IS_DESIGN_DOCUMENT(doc))
 	{
+		gboolean dirty = ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(doc), NULL);
 		g_signal_emit_by_name (G_OBJECT(doc), "update_ui");
-		g_signal_emit_by_name (G_OBJECT(doc), "save_point",
-						   ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(doc), NULL));
+		g_signal_emit_by_name (G_OBJECT(doc), "save_point", !dirty);
 	}
 	
 }

@@ -229,6 +229,7 @@ anjuta_test_shell_add_widget (AnjutaShell *shell,
 							   const char *title,
 							   const char *stock_id,
 							   AnjutaShellPlacement placement,
+							   gboolean locked,
 							   GError **error)
 {
 	GtkWidget *client_win;
@@ -381,7 +382,7 @@ anjuta_test_shell_class_init (AnjutaTestShellClass *class)
 static void
 anjuta_shell_iface_init (AnjutaShellIface *iface)
 {
-	iface->add_widget = anjuta_test_shell_add_widget;
+	iface->add_widget_full = anjuta_test_shell_add_widget;
 	iface->remove_widget = anjuta_test_shell_remove_widget;
 	iface->present_widget = anjuta_test_shell_present_widget;
 	iface->add_value = anjuta_test_shell_add_value;

@@ -82,13 +82,15 @@ struct _AnjutaShellIface {
 	AnjutaProfileManager* (*get_profile_manager) (AnjutaShell *shell,
 												  GError **err);
 	
-	void (*add_widget)        (AnjutaShell  *shell,
+	void (*add_widget_full)        (AnjutaShell  *shell,
 							   GtkWidget    *widget,
 							   const char   *name,
 							   const char   *title,
 							   const char   *stock_id,
 							   AnjutaShellPlacement placement,
+							   gboolean locked,
 							   GError      **error);
+	
 	void (*remove_widget)     (AnjutaShell  *shell,
 							   GtkWidget    *widget,
 							   GError      **error);
@@ -137,6 +139,16 @@ void   anjuta_shell_add_widget      (AnjutaShell     *shell,
 									 const char      *stock_id,
 									 AnjutaShellPlacement placement,
 									 GError         **error);
+
+void   anjuta_shell_add_widget_full      (AnjutaShell     *shell,
+									 GtkWidget       *widget,
+									 const char      *name,
+									 const char      *title,
+									 const char      *stock_id,
+									 AnjutaShellPlacement placement,
+									 gboolean locked,
+									 GError         **error);
+
 void   anjuta_shell_remove_widget   (AnjutaShell     *shell,
 									 GtkWidget       *widget,
 									 GError         **error);
