@@ -30,6 +30,7 @@
 
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/interfaces/ianjuta-terminal.h>
@@ -70,7 +71,11 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 							 IANJUTA_PROJECT_MANAGER_TARGET_EXECUTABLE,
 											 NULL);
 		if (!exec_targets)
+		{
+			anjuta_util_dialog_error(ANJUTA_PLUGIN(plugin)->shell,
+															 _("No executables in this project!"));
 			return FALSE;
+		}
 	}
 	else
 	{

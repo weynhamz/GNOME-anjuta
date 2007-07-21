@@ -1,3 +1,11 @@
+2007-07-21  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/build-basic-autotools/executer.c:
+	(get_program_parameters):
+	
+	Show an error dialog if no targets are availible instead of
+	just returning
+
 2007-07-20  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-shell.c: (on_widget_data_add),
