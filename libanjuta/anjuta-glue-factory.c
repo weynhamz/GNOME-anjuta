@@ -173,7 +173,7 @@ load_plugin (AnjutaGlueFactory *factory, const gchar *component_name, const gcha
 					g_hash_table_insert (entry->loaded_plugins,
 								 (gpointer)strdup (component_name),
 								 glue);
-			
+					g_dir_close(dir);
 					return type;
 				}
 				break;

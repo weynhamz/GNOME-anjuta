@@ -644,6 +644,7 @@ on_create_submenu (gpointer user_data)
 		if (name)
 		{
 			menuitem = gtk_image_menu_item_new_with_mnemonic (name);
+			g_free(name);
 			gtk_widget_show (menuitem);
 			g_object_set_data (G_OBJECT (menuitem), "__plugin_desc", desc);
 			g_signal_connect (G_OBJECT (menuitem), "activate",
