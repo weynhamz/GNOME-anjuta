@@ -287,15 +287,15 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	IAnjutaEditor *editor;
 	DebugManagerPlugin *self;
 
+	self = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
+	editor = IANJUTA_EDITOR (g_value_get_object (value));
+	
 	if (!IANJUTA_IS_EDITOR(editor))
 	{
 		self->current_editor = NULL;
 		return;
 	}
 	
-	editor = IANJUTA_EDITOR (g_value_get_object (value));
-	
-	self = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
 	self->current_editor = editor;
 	g_object_add_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)&self->current_editor);
 		
