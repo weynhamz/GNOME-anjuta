@@ -773,7 +773,7 @@ dma_queue_check_status (DmaDebuggerQueue *self, DmaDebuggerCommandType type, GEr
 			    {
 					/* Other command need a program stopped, cannot be done automatically */
 					g_warning ("Cancel command %x, program running\n", type);
-					return TRUE;
+					return FALSE;
 				}
 		}
 	}

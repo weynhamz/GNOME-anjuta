@@ -1,3 +1,10 @@
+2007-07-22 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/debugger.c:
+	Avoid an endless loop if clearing all breakpoints while the programm
+	is running (backport from HEAD)
+
 2007-07-20  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-status.c:
