@@ -762,23 +762,37 @@ breakpoints_dbase_remove_all_in_debugger (BreakpointsDBase *bd)
 /* Remove all breakpoints */
 
 static void
+on_breakpoint_remove (gpointer data, gpointer user_data)
+{
+	breakpoints_dbase_remove_breakpoint ((BreakpointsDBase *)user_data, (BreakpointItem *)data);
+}
+
+static void
 breakpoints_dbase_remove_all (BreakpointsDBase *bd)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
+	GSList *list = NULL;
 	
 	g_return_if_fail (bd->treeview != NULL);
-	
+
+	/* First list all breakpoints */	
 	model = gtk_tree_view_get_model (bd->treeview);
-
-	while (gtk_tree_model_get_iter_first (model, &iter))
+	if (gtk_tree_model_get_iter_first (model, &iter))
 	{
-		BreakpointItem *bi;
-		
-		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
-
-		breakpoints_dbase_remove_breakpoint (bd, bi);
+		do
+		{
+			BreakpointItem *bi;
+			gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
+			list = g_slist_prepend (list, bi);
+		} while (gtk_tree_model_iter_next (model, &iter));
 	}
+
+	/* Remove each breakpoint in the list
+	 * If a breakpoint cannot be removed, try the next one */	
+	g_slist_foreach (list, on_breakpoint_remove, bd);
+
+	g_slist_free (list);
 }
 
 /* Enable or disable all breakpoints in tree view, in editor and in debugger */
