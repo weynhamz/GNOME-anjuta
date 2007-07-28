@@ -78,7 +78,7 @@ anjuta_glue_c_plugin_load (GTypeModule *module)
 		return FALSE;
 	}
 
-	if (!g_module_symbol (c_plugin->module, "anjuta_glue_register_components", (gpointer *)&func))
+	if (!g_module_symbol (c_plugin->module, "anjuta_glue_register_components", (gpointer *)(gpointer)&func))
     {
 		g_warning ("unable to find register function in %s", plugin->path);
 		g_module_close (c_plugin->module);

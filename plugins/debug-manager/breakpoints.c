@@ -379,7 +379,7 @@ breakpoint_item_free (BreakpointItem *bi)
 	
 	if (bi->editor != NULL)
 	{
-		g_object_remove_weak_pointer (G_OBJECT (bi->editor), (gpointer *)&bi->editor);
+		g_object_remove_weak_pointer (G_OBJECT (bi->editor), (gpointer *)(gpointer)&bi->editor);
 	}
 	
 	g_free (bi);
@@ -1136,9 +1136,9 @@ breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 			gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 
 			if (bi->editor == te)
-			{       
-				bi->editor = NULL;
-				g_object_remove_weak_pointer (G_OBJECT (te), (gpointer *)&bi->editor);
+			{
+				g_object_remove_weak_pointer (G_OBJECT (te), (gpointer *)(gpointer)&bi->editor);
+				bi->editor = NULL;	
 			}
 		} while (gtk_tree_model_iter_next (model, &iter));
 	}

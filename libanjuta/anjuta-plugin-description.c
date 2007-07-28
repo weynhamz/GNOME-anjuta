@@ -443,7 +443,7 @@ parse_key_value (AnjutaPluginDescriptionParser *parser, GError **error)
   gchar *key_end;
   gchar *key;
   gchar *locale_start = NULL;
-  gchar *locale_end;
+  gchar *locale_end = NULL;
   gchar *value_start;
   gchar *value;
   gchar *p;

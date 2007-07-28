@@ -217,7 +217,7 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gui
 	hide_program_counter_in_disassembler (self);
 	if (self->pc_editor != NULL)
 	{
-		g_object_remove_weak_pointer (G_OBJECT (self->pc_editor), (gpointer *)&self->pc_editor);
+		g_object_remove_weak_pointer (G_OBJECT (self->pc_editor), (gpointer *)(gpointer)&self->pc_editor);
 		self->pc_editor = NULL;
 	}
 	self->pc_address = address;
@@ -238,7 +238,7 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gui
 			if (editor != NULL)
 			{
 				self->pc_editor = editor;
-				g_object_add_weak_pointer (G_OBJECT (editor), (gpointer)&self->pc_editor);
+				g_object_add_weak_pointer (G_OBJECT (editor), (gpointer)(gpointer)&self->pc_editor);
 				self->pc_line = line;
 				show_program_counter_in_editor (self);
 			}
@@ -297,7 +297,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	}
 	
 	self->current_editor = editor;
-	g_object_add_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)&self->current_editor);
+	g_object_add_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)(gpointer)&self->current_editor);
 		
     /* Restore breakpoints */
 	breakpoints_dbase_set_all_in_editor (self->breakpoints, editor);
@@ -319,7 +319,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	
 		hide_program_counter_in_editor (self);
 
-		g_object_remove_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)&self->current_editor);
+		g_object_remove_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)(gpointer)&self->current_editor);
 	}
 	self->current_editor = NULL;
 }
@@ -337,8 +337,8 @@ enable_log_view (DebugManagerPlugin *this, gboolean enable)
 			this->view = ianjuta_message_manager_add_view (man, _("Debugger Log"), ICON_FILE, NULL);
 			if (this->view != NULL)
 			{
-				//g_signal_connect (G_OBJECT (this->view), "buffer_flushed", G_CALLBACK (on_message_buffer_flushed), this);
-				g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)&this->view);
+				/*g_signal_connect (G_OBJECT (this->view), "buffer_flushed", G_CALLBACK (on_message_buffer_flushed), this);*/
+				g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)(gpointer)&this->view);
 				ianjuta_debugger_enable_log (this->debugger, this->view, NULL);
 			}
 		}
@@ -1263,7 +1263,7 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 
 	if (this->view != NULL)
 	{
-		g_object_remove_weak_pointer (G_OBJECT (this->view), (gpointer*)&this->view);
+		g_object_remove_weak_pointer (G_OBJECT (this->view), (gpointer*)(gpointer)&this->view);
         this->view = NULL;
 	}
 	
@@ -1345,11 +1345,11 @@ dma_plugin_finalize (GObject* obj)
 
 	if (self->pc_editor != NULL)
 	{
-		g_object_remove_weak_pointer (G_OBJECT (self->pc_editor), (gpointer *)&self->pc_editor);
+		g_object_remove_weak_pointer (G_OBJECT (self->pc_editor), (gpointer *)(gpointer)&self->pc_editor);
 	}
 	if (self->current_editor != NULL)
 	{
-		g_object_remove_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)&self->current_editor);
+		g_object_remove_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)(gpointer)&self->current_editor);
 	}
 	
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT (obj)));

@@ -268,7 +268,7 @@ debugger_new (GtkWindow *parent_win, GObject* instance)
 	debugger = g_object_new (DEBUGGER_TYPE, NULL);
 	debugger->priv->parent_win = parent_win;
 	debugger->priv->instance = instance;
-	g_object_add_weak_pointer (instance, (gpointer *)&debugger->priv->instance);
+	g_object_add_weak_pointer (instance, (gpointer *)(gpointer)&debugger->priv->instance);
 	
 	return debugger;
 }
@@ -1588,7 +1588,7 @@ debugger_abort (Debugger *debugger)
 		/* Signal end of debugger */
 		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", NULL);
 
-		g_object_remove_weak_pointer (debugger->priv->instance, (gpointer *)&debugger->priv->instance);
+		g_object_remove_weak_pointer (debugger->priv->instance, (gpointer *)(gpointer)&debugger->priv->instance);
 		debugger->priv->instance = NULL;
 	}
 

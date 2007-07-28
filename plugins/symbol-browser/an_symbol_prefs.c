@@ -486,7 +486,7 @@ on_create_tags_clicked (GtkButton *widget, SymbolBrowserPlugin *plugin)
 		if ((pid = fork()) == 0)
 		{
 			execvp (g_build_filename (PACKAGE_DATA_DIR, "scripts",
-									  "anjuta-tags"), argv);
+									  "anjuta-tags", NULL), argv);
 			perror ("Could not execute anjuta-tags");
 		}
 		waitpid (pid, NULL, 0);

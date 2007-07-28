@@ -472,7 +472,7 @@ anjuta_status_set_title_window (AnjutaStatus *status, GtkWidget *window)
 	g_return_if_fail (GTK_IS_WINDOW (window));
 	status->priv->window = GTK_WINDOW (window);
 	g_object_add_weak_pointer (G_OBJECT (window),
-							   (gpointer*)&status->priv->window);
+							   (gpointer*)(gpointer)&status->priv->window);
 }
 
 void

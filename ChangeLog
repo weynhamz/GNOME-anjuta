@@ -1,3 +1,23 @@
+2007-07-28  Tom Lowe <tomlowe1@earthlink.net>
+
+	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/breakpoints.c,
+	plugins/tools/execute.c,
+	plugins/project-wizard/plugin.c,
+	plugins/build-basic-autotools/executer.c,
+	plugins/gdb/debugger.c,
+	plugins/profiler/gprof-options.h,
+	plugins/sourceview/assist-window.h,
+	plugins/class-gen/transform.c,
+	libanjuta/anjuta-plugin-description.c,
+	libanjuta/anjuta-status.c,
+	libanjuta/anjuta-glue-c.c,
+	libanjuta/anjuta-glue-cpp.c,
+	plugins/symbol-browser/an_symbol_prefs.c:
+	Fix warnings mostly "dereferencing type-punned pointer"
+	Fix two bugs in breakpoints.c and an_symbol_prefs.c
+
 2007-07-22 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/breakpoints.c,

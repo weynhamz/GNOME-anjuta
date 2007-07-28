@@ -133,9 +133,9 @@ cg_transform_custom_c_type_to_g_type (const gchar *c_type,
 	size_t name_len;
 	gboolean first;
 	gboolean prefix;
-	GString *str_type_prefix;
-	GString *str_type_name;
-	GString *str_func_prefix;
+	GString *str_type_prefix = NULL;
+	GString *str_type_name = NULL;
+	GString *str_func_prefix = NULL;
 	
 	name_len = strlen (c_type);
 
@@ -594,7 +594,7 @@ cg_transform_arguments_to_gtypes (GHashTable *table,
 
 	gchar *arg_prev;
 	gchar *arg_pos;
-	gchar *arg_type;
+	gchar *arg_type = NULL;
 	
 	gchar *argtype_prefix;
 	gchar *argtype_suffix;

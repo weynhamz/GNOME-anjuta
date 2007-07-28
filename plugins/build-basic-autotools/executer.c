@@ -72,7 +72,7 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 											 NULL);
 		if (!exec_targets)
 		{
-			anjuta_util_dialog_error(ANJUTA_PLUGIN(plugin)->shell,
+			anjuta_util_dialog_error(GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell),
 															 _("No executables in this project!"));
 			return FALSE;
 		}

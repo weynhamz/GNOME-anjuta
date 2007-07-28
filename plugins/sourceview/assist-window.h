@@ -63,6 +63,7 @@ gboolean assist_window_filter_keypress(AssistWindow* assistwin, guint keyval);
 void assist_window_move(AssistWindow* assist_win, gint offset);
 const gchar* assist_window_get_trigger(AssistWindow* assist_win);
 gint assist_window_get_position(AssistWindow* assist_win);
+gboolean assist_window_is_active(AssistWindow* assist_win);
 
 AssistWindow* assist_window_new(GtkTextView* view, gchar* trigger, gint position);
 

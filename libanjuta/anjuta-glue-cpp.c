@@ -71,7 +71,7 @@ anjuta_glue_cpp_load_plugin(AnjutaGlueFactory* factory, const gchar* component_n
 	     		 	goto move_to_next_dir;
 	    		}
 
-	  			if (!g_module_symbol (module, "anjuta_glue_constructor", (gpointer *)&constructor))
+	  			if (!g_module_symbol (module, "anjuta_glue_constructor", (gpointer *)(gpointer)&constructor))
 	    		{
 	      			g_module_close (module);
 	      			goto move_to_next_dir;

@@ -58,7 +58,7 @@ npw_plugin_dispose (GObject *obj)
 	if (this->view != NULL)
 	{
 		g_object_remove_weak_pointer (G_OBJECT (this->view),
-									  (gpointer*)&this->view);
+									  (gpointer*)(gpointer)&this->view);
 		this->view = NULL;
 	}
 
@@ -154,7 +154,7 @@ npw_plugin_create_view (NPWPlugin* this)
 			g_signal_connect (G_OBJECT (this->view), "buffer_flushed",
 							  G_CALLBACK (on_message_buffer_flush), this);
 			g_object_add_weak_pointer (G_OBJECT (this->view),
-									   (gpointer *)&this->view);
+									   (gpointer *)(gpointer)&this->view);
 		}
 	}
 	else
