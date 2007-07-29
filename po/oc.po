@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta 2.0.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-15 18:48+0100\n"
-"PO-Revision-Date: 2007-05-11 15:05+0200\n"
+"PO-Revision-Date: 2007-06-18 16:24+0200\n"
 "Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -115,7 +115,7 @@ msgstr ""
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
-msgstr "Ponches de rompedura"
+msgstr ""
 
 #: ../anjuta.glade.h:19 ../plugins/build/build_file.c:102
 msgid "Build"
@@ -503,7 +503,7 @@ msgstr "Nom :"
 
 #: ../anjuta.glade.h:104
 msgid "New file"
-msgstr "Novèl fichièr"
+msgstr "Fichièr novèl"
 
 #: ../anjuta.glade.h:105
 msgid "No Optimization"
@@ -519,7 +519,7 @@ msgstr ""
 
 #: ../anjuta.glade.h:107
 msgid "Open Project"
-msgstr "Dubrir un projècte"
+msgstr "Dobrir un projècte"
 
 #: ../anjuta.glade.h:108
 msgid "Open existing Project."
@@ -2437,7 +2437,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/attach_process.c:74
 msgid "User"
-msgstr "Usuari"
+msgstr "Utilizaire"
 
 #: ../plugins/debug-manager/attach_process.c:74
 #: ../plugins/gtodo/egg-datetime.c:2292
@@ -2851,7 +2851,7 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:43
 msgid "Arrows"
-msgstr "Flèchas"
+msgstr "Sagetas"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:44
 msgid "Attributes:"
@@ -3319,7 +3319,7 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:158
 msgid "New Name:"
-msgstr "Novèl nom :"
+msgstr "Nom novèl :"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:159
 msgid "No Limit"
@@ -3717,7 +3717,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:146
 msgid "_Close File"
-msgstr "_Barrar lo fichièr"
+msgstr "_Tampar lo fichièr"
 
 #: ../plugins/document-manager/plugin.c:147
 msgid "Close current file"
@@ -3725,11 +3725,11 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:149
 msgid "Close All Files"
-msgstr "Barrar totes los fichièrs"
+msgstr "Tampar totes los fichièrs"
 
 #: ../plugins/document-manager/plugin.c:150
 msgid "Close all files"
-msgstr "Barrar totes los fichièrs"
+msgstr "Tampar totes los fichièrs"
 
 #: ../plugins/document-manager/plugin.c:152
 msgid "Reload F_ile"
@@ -4318,7 +4318,7 @@ msgstr ""
 
 #: ../plugins/editor/text_editor.c:1222
 msgid "Could not open file"
-msgstr "Impossible de dubrir lo fichièr"
+msgstr "Impossible de dobrir lo fichièr"
 
 #: ../plugins/editor/text_editor.c:1230
 msgid "Error while reading from file"
@@ -4541,7 +4541,7 @@ msgstr ""
 #: ../plugins/editor/text_editor_menu.c:348
 #: ../plugins/project-manager/plugin.c:360
 msgid "Close"
-msgstr "Barrar"
+msgstr "Tampar"
 
 #. 19
 #: ../plugins/editor/text_editor_menu.c:356
@@ -4629,7 +4629,7 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:801
 msgid "_New..."
-msgstr "_Nòu..."
+msgstr "_Novèl..."
 
 #: ../plugins/file-loader/plugin.c:803
 msgid "New empty editor."
@@ -4637,11 +4637,11 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:809
 msgid "_Open..."
-msgstr "_Dubrir..."
+msgstr "_Dobrir..."
 
 #: ../plugins/file-loader/plugin.c:817 ../plugins/file-loader/plugin.c:830
 msgid "_Open"
-msgstr "_Dubrir"
+msgstr "_Dobrir"
 
 #: ../plugins/file-loader/plugin.c:824 ../plugins/file-loader/plugin.c:837
 msgid "Open _With"
@@ -4665,11 +4665,11 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:1166
 msgid "New"
-msgstr "Nòu"
+msgstr "Novèl"
 
 #: ../plugins/file-loader/plugin.c:1169
 msgid "Open"
-msgstr "Dubrir"
+msgstr "Dobrir"
 
 #: ../plugins/file-loader/plugin.c:1176
 msgid "Open recent file"
@@ -4806,7 +4806,7 @@ msgstr "Licéncia :"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:12
 msgid "New File"
-msgstr "Fichièr nòu"
+msgstr "Fichièr novèl"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:13
 msgid "Type:"
@@ -5742,7 +5742,7 @@ msgstr ""
 
 #: ../plugins/glade/plugin.c:302
 msgid "_Close without Saving"
-msgstr "_Barra sens enregistrar"
+msgstr "_Tampar sens enregistrar"
 
 #: ../plugins/glade/plugin.c:324
 msgid "Save glade project..."
@@ -5802,7 +5802,7 @@ msgstr ""
 
 #: ../plugins/glade/plugin.c:510
 msgid "Clos_e"
-msgstr "Barr_ar"
+msgstr "Tamp_ar"
 
 #: ../plugins/glade/plugin.c:512
 msgid "Close current glade project"
@@ -5832,7 +5832,7 @@ msgstr ""
 #: ../plugins/glade/plugin.c:779
 #, c-format
 msgid "Could not open: %s"
-msgstr "Impossible de dubrir : %s"
+msgstr "Impossible de dobrir : %s"
 
 #: ../plugins/glade/plugin.c:810
 msgid "Could not create a new glade project."
@@ -6349,7 +6349,7 @@ msgstr ""
 #: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:34
 #: ../src/shell.c:77
 msgid "_View"
-msgstr "_Mostrar"
+msgstr "_Visualizacion"
 
 #: ../plugins/gtodo/interface.c:36
 msgid "/Item/Edit"
@@ -6793,7 +6793,7 @@ msgstr ""
 
 #: ../plugins/macro/macro-edit.c:195
 msgid "Add/Edit macro"
-msgstr ""
+msgstr "Apondre/modificar una macrò"
 
 #: ../plugins/macro/macro-util.c:59
 msgid "%Y-%m-%d"
@@ -6961,7 +6961,7 @@ msgstr "_Apondre una macrò..."
 
 #: ../plugins/macro/plugin.c:50
 msgid "Add a macro"
-msgstr ""
+msgstr "Apondre una macrò"
 
 #: ../plugins/macro/plugin.c:55
 msgid "Macros..."
@@ -7176,11 +7176,11 @@ msgstr "Previsualizacion de l'estampatge"
 
 #: ../plugins/profile-default/plugin.c:242
 msgid "Close Pro_ject"
-msgstr "Barrar lo pro_jècte"
+msgstr "Tampar lo pro_jècte"
 
 #: ../plugins/profile-default/plugin.c:242
 msgid "Close project"
-msgstr "Barrar lo projècte"
+msgstr "Tampar lo projècte"
 
 #: ../plugins/profile-default/plugin.c:261
 msgid "Profile actions"
@@ -7374,7 +7374,7 @@ msgstr ""
 #: ../plugins/project-manager/plugin.c:621
 #: ../plugins/project-manager/plugin.c:650
 msgid "Add a group to project"
-msgstr ""
+msgstr "Apondre un grop al projècte"
 
 #: ../plugins/project-manager/plugin.c:626
 #: ../plugins/project-manager/plugin.c:655
