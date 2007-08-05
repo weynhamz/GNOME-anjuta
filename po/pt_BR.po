@@ -1,24 +1,20 @@
-# translation of anjuta.HEAD.pt_BR.po to Português/Brasil
-# translation of anjuta_ANJUTA_1_2_0_pt_BR.po to
-# anjuta: translation to Brazilian Portuguese (pt_BR)
+# Brazilian Portuguese translation of Anjuta.
 # Copyright (C) 2001-2003, 2004, 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the anjuta package.
 # based on the GNOME 2.2 translation to Portuguese (pt) by
 # Marcelo Elias Del Valle <marceloelias@iname.com>, 2002.
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2001, 2002, 2003.
-# Alexandre Folle de Menezes <afmenez@terra.com.br>, 2003.
-# Alexandre Folle de Menezes <afmenez@terra.com.br>, 2004.
-# Afonso Celso Medina <afmedina@uol.com.br>,2004, 2005.
-#
+# Alexandre Folle de Menezes <afmenez@terra.com.br>, 2003, 2004.
+# Afonso Celso Medina <afmedina@uol.com.br>, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-29 12:02-0200\n"
-"PO-Revision-Date: 2005-10-28 18:05-0200\n"
+"PO-Revision-Date: 2007-08-05 20:03-0300\n"
 "Last-Translator: Afonso Celso Medina <afmedina@uol.com.br>\n"
-"Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
+"Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2665,7 +2661,7 @@ msgstr "Operações de depuração"
 
 #: ../plugins/devhelp/plugin.c:285
 msgid "Contents"
-msgstr "Conteúdo"
+msgstr "Sumário"
 
 #: ../plugins/devhelp/plugin.c:304 ../plugins/devhelp/plugin.c:531
 #: ../plugins/devhelp/plugin.c:544 ../src/anjuta-app.c:477
