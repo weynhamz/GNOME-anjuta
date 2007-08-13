@@ -126,7 +126,7 @@ display_in_decimal (gchar *string, const gchar *data, const gchar *tag)
 	}
 	else
 	{
-		g_sprintf (string, "% 3u ", ((unsigned)*data) & 0xFFU);
+		g_sprintf (string, "%3u ", ((unsigned)*data) & 0xFFU);
 	}
 	
 	return string + 4;

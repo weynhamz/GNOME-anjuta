@@ -1,3 +1,23 @@
+2007-08-14  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/debug-manager/data_buffer.c,
+	plugins/message-view/message-view.c: Fixed compiler warnings.
+	(backport from HEAD)
+
+2007-08-14  Naba Kumar  <naba.kumar@gnome.org>
+
+	* src/action-callbacks.c: (help_activate),
+	(on_help_manual_activate), (on_help_tutorial_activate),
+	(on_help_advanced_tutorial_activate), (on_help_faqs_activate):
+
+	Fixed help activation (bug #451557).
+	(backport from HEAD)
+
+2007-08-14  Naba Kumar  <naba.kumar@gnome.org>
+
+	* AUTHORS: Added James Liggett. Forgot to add him before :(
+	(backport from HEAD)
+
 2007-07-22 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/breakpoints.c,

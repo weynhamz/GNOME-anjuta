@@ -1158,7 +1158,7 @@ imessage_view_append (IAnjutaMessageView *message_view,
 	gboolean highlite;
 	gchar *utf8_msg;
 	gchar *escaped_str;
-	gchar* stock_id;
+	gchar* stock_id = NULL;
 	
 	MessageView *view;
 	Message *message;
