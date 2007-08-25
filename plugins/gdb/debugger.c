@@ -2269,8 +2269,7 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 
 	memset (&bp, 0, sizeof (bp));
 
-	bp.enable = IANJUTA_DEBUGGER_UNDEFINED;
-	bp.keep = IANJUTA_DEBUGGER_UNDEFINED;
+	bp.type = 0;
 
 	if ((error != NULL) || (mi_results == NULL))
 	{
@@ -2302,6 +2301,7 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 		{
 			value = gdbmi_value_literal_get (literal);
 			bp.line = strtoul (value, NULL, 10);
+			bp.type |= IANJUTA_DEBUGGER_BREAK_ON_LINE;
 		}
 		
 		literal = gdbmi_value_hash_lookup (brkpnt, "type");
@@ -2316,11 +2316,13 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 			value = gdbmi_value_literal_get (literal);
 			if (strcmp (value, "keep") == 0)
 			{
-				bp.keep = IANJUTA_DEBUGGER_YES;
+				bp.type |= IANJUTA_DEBUGGER_BREAK_WITH_TEMPORARY;
+				bp.temporary = FALSE;
 			}
 			else if (strcmp (value, "nokeep") == 0)
 			{
-				bp.keep = IANJUTA_DEBUGGER_NO;
+				bp.type |= IANJUTA_DEBUGGER_BREAK_WITH_TEMPORARY;
+				bp.temporary = TRUE;
 			}
 		}
 										
@@ -2330,11 +2332,13 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 			value = gdbmi_value_literal_get (literal);
 			if (strcmp (value, "n") == 0)
 			{
-				bp.enable = IANJUTA_DEBUGGER_NO;
+				bp.type |= IANJUTA_DEBUGGER_BREAK_WITH_ENABLE;
+				bp.enable = FALSE;
 			}
 			else if (strcmp (value, "y") == 0)
 			{
-				bp.enable = IANJUTA_DEBUGGER_YES;
+				bp.type |= IANJUTA_DEBUGGER_BREAK_WITH_ENABLE;
+				bp.enable = TRUE;
 			}
 		}
 	
@@ -2343,6 +2347,7 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 		{
 			value = gdbmi_value_literal_get (literal);
 			bp.address = strtoul (value, NULL, 16);
+			bp.type |= IANJUTA_DEBUGGER_BREAK_ON_ADDRESS;
 		}
 
 		literal = gdbmi_value_hash_lookup (brkpnt, "func");
@@ -2350,6 +2355,7 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 		{
 			value = gdbmi_value_literal_get (literal);
 			bp.function = (gchar *)value;
+			bp.type |= IANJUTA_DEBUGGER_BREAK_ON_FUNCTION;
 		}
 	
 		literal = gdbmi_value_hash_lookup (brkpnt, "times");
@@ -2357,10 +2363,6 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 		{
 			value = gdbmi_value_literal_get (literal);
 			bp.times = strtoul (value, NULL, 10);
-		}
-		else
-		{
-			bp.times = G_MAXUINT32;
 		}
 												literal = gdbmi_value_hash_lookup (brkpnt, "ignore");
 		if (literal)
@@ -2377,6 +2379,7 @@ debugger_add_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_results
 		if (literal)
 		{       
 			value = gdbmi_value_literal_get (literal);
+			bp.type |= IANJUTA_DEBUGGER_BREAK_WITH_CONDITION;
 		}
 		
 		/* Call callback in all case (useful for enable that doesn't return
@@ -2477,9 +2480,12 @@ debugger_remove_breakpoint_finish (Debugger *debugger, const GDBMIValue *mi_resu
 {
 	IAnjutaDebuggerCallback callback = debugger->priv->current_cmd.callback;
 	gpointer user_data = debugger->priv->current_cmd.user_data;
+	IAnjutaDebuggerBreakpoint bp;
 
+	bp.type = IANJUTA_DEBUGGER_BREAK_REMOVED;
+	bp.id = atoi (debugger->priv->current_cmd.cmd + 14);
 	if (callback != NULL)
-		callback (NULL, user_data, NULL);
+		callback (&bp, user_data, NULL);
 }
 
 void

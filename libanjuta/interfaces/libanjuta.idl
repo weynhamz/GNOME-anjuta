@@ -2773,25 +2773,32 @@ interface IAnjutaDebugger
 
 	enum BreakpointType
 	{
-		BREAK_REMOVED,
-		BREAK_ON_LINE,
-		BREAK_ON_ADDRESS,
-		BREAK_ON_FUNCTION
+		BREAK_REMOVED = 1 << 0,
+		BREAK_ON_LINE = 1 << 1,
+		BREAK_ON_ADDRESS = 1 << 2,
+		BREAK_ON_FUNCTION = 1 << 3,
+		BREAK_ON_READ = 1 << 4,
+		BREAK_ON_WRITE = 1 << 5,
+		BREAK_WITH_ENABLE = 1 << 16,
+		BREAK_WITH_IGNORE = 1 << 15,
+		BREAK_WITH_TIME = 1 << 11,
+		BREAK_WITH_CONDITION = 1 << 12,
+		BREAK_WITH_TEMPORARY = 1 << 13
 	}
 
 	struct Breakpoint
 	{
-		BreakpointType type;
+	        gint type;
 		guint id;
 		gchar *file;
 		guint line;
 		gchar *function;
 		guint address;
-		State enable;
+		gboolean enable;
 		guint ignore;
 		guint times;
 		gchar *condition;
-		State keep;
+		gboolean temporary;
 	}
 
 	struct Register
@@ -3133,110 +3140,6 @@ interface IAnjutaDebugger
 	gboolean interrupt ();
 
 	
-	/**
-	* ianjuta_debugger_set_breakpoint_at_line:
-	* @obj: Self
-	* @file: fixme
-	* @line: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean set_breakpoint_at_line (const gchar* file, guint line, Callback callback, gpointer user_data);
-
-	
-	/**
-	* ianjuta_debugger_set_breakpoint_at_address:
-	* @obj: Self
-	* @address: fixme
-	* @callback: fixme
-	* @user_date: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean set_breakpoint_at_address (guint address, Callback callback, gpointer user_data);
-	
-	/**
-	* ianjuta_debugger_set_breakpoint_at_function:
-	* @obj: Self
-	* @file: fixme
-	* @function: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean set_breakpoint_at_function (const gchar* file, const gchar* function, Callback callback, gpointer user_data);
-	
-	/**
-	* ianjuta_debugger_clear_breakpoint:
-	* @obj: Self
-	* @id: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean clear_breakpoint (guint id, Callback callback, gpointer user_data);
-	
-	/**
-	* ianjuta_debugger_enable_breakpoint:
-	* @obj: Self
-	* @id: fixme
-	* @enable: fixme
-	* @callback: fixme
-	* @user_data: fixme	
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean enable_breakpoint (guint id, gboolean enable, Callback callback, gpointer user_data);
-	
-	/**
-	* ianjuta_debugger_ignore_breakpoint:
-	* @obj: Self
-	* @id: fixme
-	* @ignore: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean ignore_breakpoint (guint id, guint ignore, Callback callback, gpointer user_data);
-	
-	/**
-	* ianjuta_debugger_condition_breakpoint:
-	* @obj: Self
-	* @id: fixme
-	* @condition: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean condition_breakpoint (guint id, const gchar* condition, Callback callback, gpointer user_data);
-
 	
 	/**
 	* ianjuta_debugger_inspect:
@@ -3738,14 +3641,125 @@ interface IAnjutaVariableDebugger
 }
 
 /**
- * SECTION:ianjuta-debug-manager
- * @title: IAnjutaDebugManager
- * @short_description: Interface for plugin that manages debuggers
+ * SECTION:ianjuta-breakpoint-debugger
+ * @title: IAnjutaBreakpointDebugger
+ * @short_description: Breakpoint Debugger interface
  * @see_also: 
  * @stability: Unstable
- * @include: libanjuta/interfaces/ianjuta-debug-manager.h
+ * @include: libanjuta/interfaces/ianjuta-breakpoint-debugger.h
  * 
  */
+interface IAnjutaBreakpointDebugger
+{
+	#include "ianjuta-debug-manager.h"
+	#include "ianjuta-debugger.h"
+	#include <sys/types.h>
+
+	/**
+	* ianjuta_breakpoint_debugger_set_breakpoint_at_line:
+	* @obj: Self
+	* @file: fixme
+	* @line: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean set_breakpoint_at_line (const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+	
+	/**
+	* ianjuta_breakpoint_debugger_set_breakpoint_at_address:
+	* @obj: Self
+	* @address: fixme
+	* @callback: fixme
+	* @user_date: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean set_breakpoint_at_address (guint address, IAnjutaDebuggerCallback callback, gpointer user_data);
+	
+	/**
+	* ianjuta_breakpoint_debugger_set_breakpoint_at_function:
+	* @obj: Self
+	* @file: fixme
+	* @function: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean set_breakpoint_at_function (const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
+	
+	/**
+	* ianjuta_breakpoint_debugger_clear_breakpoint:
+	* @obj: Self
+	* @id: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean clear_breakpoint (guint id, IAnjutaDebuggerCallback callback, gpointer user_data);
+	
+	/**
+	* ianjuta_breakpoint_debugger_enable_breakpoint:
+	* @obj: Self
+	* @id: fixme
+	* @enable: fixme
+	* @callback: fixme
+	* @user_data: fixme	
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean enable_breakpoint (guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
+	
+	/**
+	* ianjuta_breakpoint_debugger_ignore_breakpoint:
+	* @obj: Self
+	* @id: fixme
+	* @ignore: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean ignore_breakpoint (guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
+	
+	/**
+	* ianjuta_breakpoint_debugger_condition_breakpoint:
+	* @obj: Self
+	* @id: fixme
+	* @condition: fixme
+	* @callback: fixme
+	* @user_data: fixme
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*
+	* Returns: fixme
+	*/
+	gboolean condition_breakpoint (guint id, const gchar* condition, IAnjutaDebuggerCallback callback, gpointer user_data);
+}
+
 interface IAnjutaDebugManager
 {
 	#include "ianjuta-debugger.h"

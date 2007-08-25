@@ -1,3 +1,13 @@
+2007-08-25 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/debugger.c,
+	plugins/debug-manager/breakpoints.c,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Move all breakpoints functions from IAnjutaDebugger to a new
+	IAnjutaBreakpointDebugger interface
+
 2007-07-28  Tom Lowe <tomlowe1@earthlink.net>
 
 	Reviewed by Sébastien Granjoux <seb.sfo@free.fr>:

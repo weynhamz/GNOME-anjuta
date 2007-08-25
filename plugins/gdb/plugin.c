@@ -31,6 +31,7 @@
 #include "debugger.h"
 
 #include <libanjuta/interfaces/ianjuta-debugger.h>
+#include <libanjuta/interfaces/ianjuta-breakpoint-debugger.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
 #include <libanjuta/interfaces/ianjuta-variable-debugger.h>
 #include <libanjuta/anjuta-debug.h>
@@ -374,97 +375,6 @@ idebugger_interrupt (IAnjutaDebugger *plugin, GError **err)
 }
 
 static gboolean
-idebugger_add_breakpoint_at_line (IAnjutaDebugger *plugin, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
-{
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-	
-	/* NULL breakpoint is used to detect available feature */
-	if (file == NULL) return TRUE;
-		
-	debugger_add_breakpoint_at_line (this->debugger, file, line, callback, user_data);
-
-	return TRUE;
-}
-
-static gboolean
-idebugger_add_breakpoint_at_function (IAnjutaDebugger *plugin, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
-{
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-	
-	/* NULL breakpoint is used to detect available feature */
-	if (function == NULL) return TRUE;
-
-	debugger_add_breakpoint_at_function (this->debugger, *file == '\0' ? NULL : file, function, callback, user_data);
-
-	return TRUE;
-}
-
-static gboolean
-idebugger_add_breakpoint_at_address (IAnjutaDebugger *plugin, guint address, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
-{
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-	
-	/* NULL breakpoint is used to detect available feature */
-	if (address == 0) return TRUE;
-
-	debugger_add_breakpoint_at_address (this->debugger, address, callback, user_data);
-
-	return TRUE;
-}
-
-static gboolean
-idebugger_enable_breakpoint (IAnjutaDebugger *plugin, guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
-{
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-	
-	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return TRUE;
-
-	debugger_enable_breakpoint (this->debugger, id, enable, callback, user_data);
-
-	return TRUE;
-}
-
-static gboolean
-idebugger_ignore_breakpoint (IAnjutaDebugger *plugin, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
-{
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-	
-	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return TRUE;
-
-	debugger_ignore_breakpoint (this->debugger, id, ignore, callback, user_data);
-
-	return TRUE;
-}
-
-static gboolean
-idebugger_condition_breakpoint (IAnjutaDebugger *plugin, guint id, const gchar *condition, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
-{
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-	
-	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return TRUE;
-
-	debugger_condition_breakpoint (this->debugger, id, condition, callback, user_data);
-
-	return TRUE;
-}
-
-static gboolean
-idebugger_remove_breakpoint (IAnjutaDebugger *plugin, guint id, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
-{
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-
-	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return TRUE;
-
-	debugger_remove_breakpoint (this->debugger, id, callback, user_data);
-
-	return TRUE;
-}
-
-static gboolean
 idebugger_inspect (IAnjutaDebugger *plugin, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
@@ -727,13 +637,6 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 	iface->run_to = idebugger_run_to;
 	iface->exit = idebugger_exit;
 	iface->interrupt = idebugger_interrupt;
-	iface->set_breakpoint_at_line = idebugger_add_breakpoint_at_line;
-	iface->clear_breakpoint = idebugger_remove_breakpoint;
-	iface->set_breakpoint_at_address = idebugger_add_breakpoint_at_address;
-	iface->set_breakpoint_at_function = idebugger_add_breakpoint_at_function;
-	iface->enable_breakpoint = idebugger_enable_breakpoint;
-	iface->ignore_breakpoint = idebugger_ignore_breakpoint;
-	iface->condition_breakpoint = idebugger_condition_breakpoint;
 
 	iface->inspect = idebugger_inspect;
 	iface->evaluate = idebugger_evaluate;
@@ -763,6 +666,113 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 
 	iface->enable_log = idebugger_enable_log;
 	iface->disable_log = idebugger_disable_log;
+}
+
+
+/* Implementation of IAnjutaBreakpointDebugger interface
+ *---------------------------------------------------------------------------*/
+
+static gboolean
+ibreakpoint_debugger_add_breakpoint_at_line (IAnjutaBreakpointDebugger *plugin, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	/* NULL breakpoint is used to detect available feature */
+	if (file == NULL) return TRUE;
+		
+	debugger_add_breakpoint_at_line (this->debugger, file, line, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+ibreakpoint_debugger_add_breakpoint_at_function (IAnjutaBreakpointDebugger *plugin, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	/* NULL breakpoint is used to detect available feature */
+	if (function == NULL) return TRUE;
+
+	debugger_add_breakpoint_at_function (this->debugger, *file == '\0' ? NULL : file, function, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+ibreakpoint_debugger_add_breakpoint_at_address (IAnjutaBreakpointDebugger *plugin, guint address, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	/* NULL breakpoint is used to detect available feature */
+	if (address == 0) return TRUE;
+
+	debugger_add_breakpoint_at_address (this->debugger, address, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+ibreakpoint_debugger_enable_breakpoint (IAnjutaBreakpointDebugger *plugin, guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	/* NULL breakpoint is used to detect available feature */
+	if (id == 0) return TRUE;
+
+	debugger_enable_breakpoint (this->debugger, id, enable, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+ibreakpoint_debugger_ignore_breakpoint (IAnjutaBreakpointDebugger *plugin, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	/* NULL breakpoint is used to detect available feature */
+	if (id == 0) return TRUE;
+
+	debugger_ignore_breakpoint (this->debugger, id, ignore, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+ibreakpoint_debugger_condition_breakpoint (IAnjutaBreakpointDebugger *plugin, guint id, const gchar *condition, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	/* NULL breakpoint is used to detect available feature */
+	if (id == 0) return TRUE;
+
+	debugger_condition_breakpoint (this->debugger, id, condition, callback, user_data);
+
+	return TRUE;
+}
+
+static gboolean
+ibreakpoint_debugger_remove_breakpoint (IAnjutaBreakpointDebugger *plugin, guint id, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+
+	/* NULL breakpoint is used to detect available feature */
+	if (id == 0) return TRUE;
+
+	debugger_remove_breakpoint (this->debugger, id, callback, user_data);
+
+	return TRUE;
+}
+
+static void
+ibreakpoint_debugger_iface_init (IAnjutaBreakpointDebuggerIface *iface)
+{
+	iface->set_breakpoint_at_line = ibreakpoint_debugger_add_breakpoint_at_line;
+	iface->clear_breakpoint = ibreakpoint_debugger_remove_breakpoint;
+	iface->set_breakpoint_at_address = ibreakpoint_debugger_add_breakpoint_at_address;
+	iface->set_breakpoint_at_function = ibreakpoint_debugger_add_breakpoint_at_function;
+	iface->enable_breakpoint = ibreakpoint_debugger_enable_breakpoint;
+	iface->ignore_breakpoint = ibreakpoint_debugger_ignore_breakpoint;
+	iface->condition_breakpoint = ibreakpoint_debugger_condition_breakpoint;
 }
 
 /* Implementation of IAnjutaCpuDebugger interface
@@ -904,6 +914,7 @@ ivariable_debugger_iface_init (IAnjutaVariableDebuggerIface *iface)
 
 ANJUTA_PLUGIN_BEGIN (GdbPlugin, gdb_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger, IANJUTA_TYPE_DEBUGGER);
+ANJUTA_PLUGIN_ADD_INTERFACE(ibreakpoint_debugger, IANJUTA_TYPE_BREAKPOINT_DEBUGGER);
 ANJUTA_PLUGIN_ADD_INTERFACE(icpu_debugger, IANJUTA_TYPE_CPU_DEBUGGER);
 ANJUTA_PLUGIN_ADD_INTERFACE(ivariable_debugger, IANJUTA_TYPE_VARIABLE_DEBUGGER);
 ANJUTA_PLUGIN_END;
