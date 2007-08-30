@@ -1,3 +1,13 @@
+2007-08-31  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/gtodo/interface.c: (gtodo_get_hide_done),
+	(gtodo_get_hide_nodate), (gtodo_get_hide_due):
+	* plugins/gtodo/main.h:
+	* plugins/gtodo/plugin.c: (activate_plugin):
+	
+	Fixed #423467 (View->Tasks menu items are not 
+	checked on startup)
+
 2007-08-31  Tobias Müller <gnome-bugs@auftrags-killer.org>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>

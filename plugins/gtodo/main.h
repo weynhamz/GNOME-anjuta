@@ -104,6 +104,9 @@ void gtodo_update_settings (void);
 void gtodo_set_hide_done (gboolean hide_it);
 void gtodo_set_hide_due (gboolean hide_it);
 void gtodo_set_hide_nodate (gboolean hide_it);
+gboolean gtodo_get_hide_done (void);
+gboolean gtodo_get_hide_due (void);
+gboolean gtodo_get_hide_nodate (void);
 void gtodo_set_sorting_order (gboolean ascending_sort);
 void gtodo_set_sorting_type (int sorting_type);
 
