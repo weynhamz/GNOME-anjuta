@@ -1,3 +1,22 @@
+2007-08-30  Johannes Schmid <jhs@gnome.org>
+
+	* anjuta.glade:
+	* anjuta.gladep:
+	Removed because they are no longer in use
+	
+	* plugins/class-gen/anjuta-class-gen-plugin.glade:
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	Marked some strings as not translatable
+
+	* plugins/search/search-replace.c: (list_max_items):
+	Fixed a possible memory corruption
+
+	* src/anjuta-app.c: (anjuta_app_add_widget_full):
+	Do not show menuitems for locked layout items
+
+	* src/main.c: (main):
+	Some minor style correction in gnome_init
+
 2007-08-25 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/debugger.c,

@@ -1253,8 +1253,8 @@ list_max_items(GList *list, guint nb_max)
 	if (g_list_length(list) > nb_max)
 	{
 		last = g_list_last(list);
-		list = g_list_remove(list, last->data);
 		g_free(last->data);
+		list = g_list_delete_link (list, last);
 	}
 	return list;
 }

@@ -338,7 +338,7 @@ main (int argc, char *argv[])
 								  GNOME_PARAM_HUMAN_READABLE_NAME,
 								  _("Integrated Development Environment"),
 								  GNOME_PARAM_APP_DATADIR, data_dir,
-								  NULL);
+								  GNOME_PARAM_NONE);
 	g_free (data_dir);
 	
 	/* Get the command line files */
