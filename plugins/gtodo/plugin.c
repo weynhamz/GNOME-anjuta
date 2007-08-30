@@ -138,6 +138,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	AnjutaPreferences *prefs;
 	GTodoPlugin *gtodo_plugin;
+	GtkAction* hide_due;
+	GtkAction* hide_nodate;
+	GtkAction* hide_done;
 	static gboolean initialized;
 	
 	DEBUG_PRINT ("GTodoPlugin: Activating Task manager plugin ...");
@@ -177,6 +180,19 @@ activate_plugin (AnjutaPlugin *plugin)
 													"project_root_uri",
 													project_root_added,
 													project_root_removed, NULL);
+	hide_done = anjuta_ui_get_action (ui, "ActionGroupTodoViewOps",
+								   "ActionViewTodoHideCompleted");
+	g_object_set(G_OBJECT(hide_done), "active",
+				 gtodo_get_hide_done(), NULL);
+	hide_due = anjuta_ui_get_action (ui, "ActionGroupTodoViewOps",
+								   "ActionViewTodoHideDueDate");
+	g_object_set(G_OBJECT(hide_due), "active",
+				 gtodo_get_hide_due(), NULL);
+	hide_nodate = anjuta_ui_get_action (ui, "ActionGroupTodoViewOps",
+								   "ActionViewTodoHideEndDate");
+	g_object_set(G_OBJECT(hide_nodate), "active",
+				 gtodo_get_hide_nodate(), NULL);
+	
 	initialized = TRUE;													
 	return TRUE;
 }

@@ -308,6 +308,21 @@ void gtodo_set_hide_due(gboolean hide_it)
 	gconf_client_set_bool(client, "/apps/gtodo/prefs/hide-due", settings.hide_due, NULL);
 }
 
+gboolean gtodo_get_hide_done()
+{
+	return settings.hide_done;
+}
+
+gboolean gtodo_get_hide_nodate()
+{
+	return settings.hide_nodate;
+}
+
+gboolean gtodo_get_hide_due()
+{
+	return settings.hide_due;
+}
+
 void gtodo_set_sorting_order (gboolean ascending_sort)
 {
 	settings.sortorder = ascending_sort;
