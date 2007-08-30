@@ -1,3 +1,13 @@
+2007-08-31  Johannes Schmid,,,  <jhs@idefix>
+
+	reviewed by: <delete if not using a buddy>
+
+	* egg-combo-action.h:
+	* egg-entry-action.h:
+	* egg-recent-action.h:
+	* egg-submenu-action.h:
+	* eggcomboselect.h:
+
 2007-03-05  Johannes Schmid,,,  <jhs@idefix>
 
 	reviewed by: <delete if not using a buddy>

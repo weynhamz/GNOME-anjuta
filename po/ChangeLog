@@ -1,3 +1,10 @@
+2007-08-31  Johannes Schmid,,,  <jhs@idefix>
+
+	reviewed by: <delete if not using a buddy>
+
+	* de.po:
+	* status.pl:
+
 2007-08-30  Johannes Schmid <jhs@gnome.org>
 
 	* de.po: Updated and fixed german translation (still incomplete)

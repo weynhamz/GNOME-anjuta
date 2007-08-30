@@ -3400,19 +3400,19 @@ msgstr "An das Ende des aktuellen Blocks springen"
 
 #: ../plugins/document-manager/plugin.c:254
 msgid "Previous _History"
-msgstr "_Vorherige Ansicht"
+msgstr "_Vorheriger Eintrag in der Chronik"
 
 #: ../plugins/document-manager/plugin.c:256
 msgid "Goto previous history"
-msgstr "Zur vorherigen Ansicht springen"
+msgstr "Zum vorherigen Eintrag in der Chronik springen"
 
 #: ../plugins/document-manager/plugin.c:258
 msgid "Next Histor_y"
-msgstr "Nächste Ans_icht"
+msgstr "Nächster Eintrag in der Chronik"
 
 #: ../plugins/document-manager/plugin.c:260
 msgid "Goto next history"
-msgstr "Gehe zu nächster Ansicht"
+msgstr "Gehe zum nächsten Eintrag in der Chronik"
 
 #: ../plugins/document-manager/plugin.c:265 ../plugins/gtodo/interface.c:170
 #: ../plugins/tools/anjuta-tools.glade.h:18

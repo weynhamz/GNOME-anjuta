@@ -73,7 +73,7 @@ msgid "Johannes Schmid"
 msgstr "Johannes Schmid"
 
 #: C/anjuta-manual.xml:56(para)
-msgid "Permission is granted to copy, distribute and/or modify this document under the terms of the <citetitle>GNU Free Documentation License</citetitle>, Version 1.1 or any later version published by the Free Software Foundation with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You may obtain a copy of the <citetitle>GNU Free Documentation License</citetitle> from the Free Software Foundation by visiting <ulink type=\"http\" url=\"http://www.fsf.org\">their Web site</ulink> or by writing to: Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA."
+msgid "Permission is granted to copy, distribute and/or modify this document under the terms of the <citetitle>GNU Free Documentation License</citetitle>, Version 1.1 or any later version published by the Free Software Foundation with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You may obtain a copy of the <citetitle>GNU Free Documentation License</citetitle> from the Free Software Foundation by visiting <ulink type=\"http\" url=\"http://www.fsf.org\">their Web site</ulink> or by writing to: Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA."
 msgstr ""
 
 #: C/anjuta-manual.xml:68(para)
@@ -2094,7 +2094,7 @@ msgstr ""
 "General GNU</citetitle> para más detalles."
 
 #: C/anjuta-manual.xml:16(para)
-msgid "A copy of the <citetitle>GNU General Public License</citetitle> is included as an appendix to the <citetitle>GNOME Users Guide</citetitle>. You may also obtain a copy of the <citetitle>GNU General Public License</citetitle> from the Free Software Foundation by visiting <ulink type=\"http\" url=\"http://www.fsf.org\"> their Web site</ulink> or by writing to <address> Free Software Foundation, Inc. <street>59 Temple Place</street> - Suite 330 <city>Boston</city>, <state>MA</state><postcode>02111-1307</postcode><country>USA</country></address>"
+msgid "A copy of the <citetitle>GNU General Public License</citetitle> is included as an appendix to the <citetitle>GNOME Users Guide</citetitle>. You may also obtain a copy of the <citetitle>GNU General Public License</citetitle> from the Free Software Foundation by visiting <ulink type=\"http\" url=\"http://www.fsf.org\"> their Web site</ulink> or by writing to <address> Free Software Foundation, Inc. <street>59 Temple Place</street> - Suite 330 <city>Boston</city>, <state>MA</state><postcode>02110-1301</postcode><country>USA</country></address>"
 msgstr ""
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
