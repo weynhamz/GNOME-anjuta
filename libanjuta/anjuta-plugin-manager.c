@@ -2333,6 +2333,8 @@ anjuta_plugin_manager_new (GObject *shell, AnjutaStatus *status,
 		node = g_list_next (node);
 	}
 	resolve_dependencies (plugin_manager, &cycles);
+	g_list_foreach(plugin_dirs, (GFunc) g_free, NULL);
+	g_list_free(plugin_dirs);
 	return plugin_manager;
 }
 

@@ -604,6 +604,7 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 		if (icon)
 		{
 			GtkWidget *dummy = gtk_label_new ("Dummy");
+			g_object_ref_sink(G_OBJECT(dummy));
 			pixbuf = gtk_widget_render_icon (dummy, icon,
 											 GTK_ICON_SIZE_MENU, NULL);
 			gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
@@ -615,7 +616,7 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 								COLUMN_GROUP, action_group_name,
 								-1);
 			g_object_unref (G_OBJECT (pixbuf));
-			gtk_widget_destroy (dummy);
+			g_object_unref (dummy);
 			g_free (icon);
 		}
 		else
@@ -630,6 +631,8 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 		}
 		g_free (action_label);
 	}
+	
+	g_list_free(actions);
 	
 	/* If there are no actions in the group, removed the group node */
 	if (n_actions_added == 0)

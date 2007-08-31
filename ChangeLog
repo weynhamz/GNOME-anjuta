@@ -1,5 +1,14 @@
 2007-08-31  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/anjuta-plugin-manager.c: (anjuta_plugin_manager_new):
+	* libanjuta/anjuta-ui.c: (anjuta_ui_add_action_group):
+	
+	Fixed some memory leaks
+	
+	* MAINTAINERS: Fixed
+	
+2007-08-31  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-preferences.c: (get_object_type_from_string),
 	(get_property_value_as_string), (set_property_value_as_string),
 	(register_callbacks), (preferences_foreach_callback),
