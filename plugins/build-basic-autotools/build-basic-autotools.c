@@ -668,7 +668,7 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 		g_free (mid_str);
 		g_free (dummy_fn);
 	}
-	else if (strstr (line, ":") != NULL)
+	else if (strstr (line, ": ") != NULL)
 	{
 		type = IANJUTA_MESSAGE_VIEW_TYPE_INFO;
 	}

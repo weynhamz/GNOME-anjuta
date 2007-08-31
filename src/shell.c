@@ -52,7 +52,19 @@ on_exit_activate (GtkAction *action, AnjutaTestShell *shell)
 static void
 on_preferences_activate (GtkAction *action, AnjutaTestShell *shell)
 {
-	gtk_widget_show (GTK_WIDGET (shell->preferences));
+	GtkWidget *preferences_dialog;
+	
+	preferences_dialog = anjuta_preferences_get_dialog (shell->preferences);
+		
+	g_signal_connect_swapped (G_OBJECT (preferences_dialog),
+					  		  "response",
+					  		  G_CALLBACK (gtk_widget_destroy),
+					  		  preferences_dialog); 
+	
+	gtk_window_set_transient_for (GTK_WINDOW (preferences_dialog),
+								  GTK_WINDOW (shell));
+								  
+	gtk_widget_show (preferences_dialog);
 }
 
 static void
@@ -164,8 +176,8 @@ anjuta_test_shell_instance_init (AnjutaTestShell *shell)
 					  "add_widget", G_CALLBACK (on_add_merge_widget),
 					  shell);
 	
-	gtk_window_add_accel_group (GTK_WINDOW (shell),
-								anjuta_ui_get_accel_group (shell->ui));
+	/*gtk_window_add_accel_group (GTK_WINDOW (shell),
+	 						anjuta_ui_get_accel_group (shell->ui));*/
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (shell->ui, "ActionGroupTestShell",
 										_("Test shell action group"),
@@ -280,6 +292,12 @@ anjuta_test_shell_remove_widget (AnjutaShell *shell,
 	//}
 }
 
+static AnjutaPluginManager*
+anjuta_test_shell_get_plugin_manager (AnjutaShell *shell, GError **error)
+{
+	return ANJUTA_TEST_SHELL(shell)->plugin_manager;
+}
+
 static void 
 anjuta_test_shell_present_widget (AnjutaShell *shell, 
 								  GtkWidget *w, 
@@ -392,6 +410,7 @@ anjuta_shell_iface_init (AnjutaShellIface *iface)
 	iface->get_status = anjuta_test_shell_get_status;
 	iface->get_ui = anjuta_test_shell_get_ui;
 	iface->get_preferences = anjuta_test_shell_get_preferences;
+	iface->get_plugin_manager = anjuta_test_shell_get_plugin_manager;
 }
 
 ANJUTA_TYPE_BEGIN(AnjutaTestShell, anjuta_test_shell, GTK_TYPE_WINDOW);

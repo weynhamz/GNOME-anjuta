@@ -649,7 +649,7 @@ message_view_instance_init (MessageView * self)
 	self->privat->line_buffer = g_strdup("");
 
 	/* Create the tree widget */
-	model = gtk_list_store_new (N_COLUMNS, GDK_TYPE_COLOR,
+	model = gtk_list_store_new (N_COLUMNS, G_TYPE_STRING,
 								G_TYPE_STRING, MESSAGE_TYPE,  G_TYPE_STRING);
 	self->privat->tree_view =
 		gtk_tree_view_new_with_model (GTK_TREE_MODEL (model));
@@ -675,7 +675,7 @@ message_view_instance_init (MessageView * self)
 	gtk_tree_view_column_pack_start (column, renderer, TRUE);
 	gtk_tree_view_column_set_title (column, _("Messages"));
 	gtk_tree_view_column_add_attribute
-		(column, renderer, "foreground-gdk", COLUMN_COLOR);
+		(column, renderer, "foreground", COLUMN_COLOR);
 	gtk_tree_view_column_add_attribute
 		(column, renderer, "markup", COLUMN_SUMMARY);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (self->privat->tree_view),
@@ -1021,12 +1021,12 @@ static void
 pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 				   const gchar *color_pref_key)
 {
-	GdkColor *color;
+	gchar* color;
 	GtkListStore *store;
 	GtkTreeIter iter;
 	gboolean success;
 	
-	color = anjuta_util_convert_color (mview->privat->prefs, color_pref_key);
+	color = anjuta_preferences_get (mview->privat->prefs, color_pref_key);
 	store = GTK_LIST_STORE (gtk_tree_view_get_model
 				(GTK_TREE_VIEW (mview->privat->tree_view)));
 	success = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter);
@@ -1044,14 +1044,6 @@ pref_change_color (MessageView *mview, IAnjutaMessageViewType type,
 	g_free(color);
 }
 
-static void
-on_gconf_notify_color_info (GConfClient *gclient, guint cnxn_id,
-							GConfEntry *entry, gpointer user_data)
-{
-	pref_change_color (MESSAGE_VIEW (user_data),
-					   IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-					   "messages.color.info");
-}
 
 static void
 on_gconf_notify_color_warning (GConfClient *gclient, guint cnxn_id,
@@ -1080,7 +1072,6 @@ static void
 prefs_init (MessageView *mview)
 {
 	guint notify_id;
-	REGISTER_NOTIFY ("messages.color.info", on_gconf_notify_color_info);
 	REGISTER_NOTIFY ("messages.color.warning", on_gconf_notify_color_warning);
 	REGISTER_NOTIFY ("messages.color.error", on_gconf_notify_color_error);
 }
@@ -1152,7 +1143,7 @@ imessage_view_append (IAnjutaMessageView *message_view,
 					  const gchar *details,
 					  GError ** e)
 {
-	GdkColor* color;
+	gchar* color;
 	GtkListStore *store;
 	GtkTreeIter iter;
 	gboolean highlite;
@@ -1176,18 +1167,16 @@ imessage_view_append (IAnjutaMessageView *message_view,
 		switch (message->type)
 		{
 			case IANJUTA_MESSAGE_VIEW_TYPE_INFO:
-				color = anjuta_util_convert_color(view->privat->prefs,
-									  "messages.color.info");
 				stock_id = GTK_STOCK_INFO;
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_WARNING:
-				color = anjuta_util_convert_color(view->privat->prefs,
+				color = anjuta_preferences_get (view->privat->prefs,
 									  "messages.color.warning");
 				/* FIXME: There is no GTK_STOCK_WARNING which would fit better here */
 				stock_id = GTK_STOCK_DIALOG_WARNING;
 				break;
 			case IANJUTA_MESSAGE_VIEW_TYPE_ERROR:
-				color = anjuta_util_convert_color(view->privat->prefs,
+				color = anjuta_preferences_get (view->privat->prefs,
 									  "messages.color.error");
 				stock_id = GTK_STOCK_STOP;
 				break;
@@ -1216,23 +1205,21 @@ imessage_view_append (IAnjutaMessageView *message_view,
 	} else {
 		escaped_str = escape_string (message->summary);
 	}
+	gtk_list_store_set (store, &iter,
+							COLUMN_SUMMARY, escaped_str,
+							COLUMN_MESSAGE, message,
+							-1);
 	if (color)
 	{
 		gtk_list_store_set (store, &iter,
-							COLUMN_COLOR, color,
-							COLUMN_SUMMARY, escaped_str,
-							COLUMN_MESSAGE, message,
-							COLUMN_PIXBUF, stock_id,
-							-1);
-	
-		/* Can we free the color when it's in the tree_view? */
-		// gdk_color_free (color);
-	} else {
-		gtk_list_store_set (store, &iter,
-							COLUMN_SUMMARY, escaped_str,
-							COLUMN_MESSAGE, message,
-							-1);
+							COLUMN_COLOR, color, -1);
 	}
+	if (stock_id)
+	{
+		gtk_list_store_set (store, &iter,
+							COLUMN_PIXBUF, stock_id, -1);
+	}
+	g_free(color);
 	message_free (message);
 	g_free (utf8_msg);
 	g_free (escaped_str);

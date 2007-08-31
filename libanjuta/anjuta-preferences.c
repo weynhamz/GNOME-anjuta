@@ -508,8 +508,8 @@ get_object_type_from_string (const gchar* object_type)
 {
 	if (strcmp (object_type, "entry") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_ENTRY;
-	else if (strcmp (object_type, "menu") == 0)
-		return ANJUTA_PROPERTY_OBJECT_TYPE_MENU;
+	else if (strcmp (object_type, "combo") == 0)
+		return ANJUTA_PROPERTY_OBJECT_TYPE_COMBO;
 	else if (strcmp (object_type, "spin") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_SPIN;
 	else if (strcmp (object_type, "toggle") == 0)
@@ -577,11 +577,11 @@ get_property_value_as_string (AnjutaProperty *prop)
 		text_value =
 			gtk_editable_get_chars (GTK_EDITABLE (prop->object), 0, -1);
 		break;
-	case ANJUTA_PROPERTY_OBJECT_TYPE_MENU:
+	case ANJUTA_PROPERTY_OBJECT_TYPE_COMBO:
 		{
 			gint idx;
 			values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
-			idx = gtk_option_menu_get_history(GTK_OPTION_MENU(prop->object));
+			idx = gtk_combo_box_get_active(GTK_COMBO_BOX(prop->object));
 			if (values[idx] != NULL)
 				text_value = g_strdup(values[idx]);
 			break;
@@ -682,7 +682,7 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		else
 			gtk_entry_set_text (GTK_ENTRY (prop->object), "");
 		break;
-	case ANJUTA_PROPERTY_OBJECT_TYPE_MENU:
+	case ANJUTA_PROPERTY_OBJECT_TYPE_COMBO:
 		values = g_object_get_data(G_OBJECT(prop->object), "untranslated");
 		if (value != NULL)
 		{
@@ -690,7 +690,7 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 			{
 				if (strcmp(value, values[i]) == 0)
 				{
-					gtk_option_menu_set_history(GTK_OPTION_MENU(prop->object), i);
+					gtk_combo_box_set_active(GTK_COMBO_BOX(prop->object), i);
 					break;
 				}
 			}
@@ -948,7 +948,7 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 			g_signal_connect (G_OBJECT(p->object), "focus_out_event",
 							  G_CALLBACK (update_property_on_event_str), p);
 			break;
-		case ANJUTA_PROPERTY_OBJECT_TYPE_MENU:
+		case ANJUTA_PROPERTY_OBJECT_TYPE_COMBO:
 			g_signal_connect (G_OBJECT(p->object), "changed",
 							  G_CALLBACK (update_property_on_change_str), p);
 			break;
@@ -984,7 +984,7 @@ static gboolean
 preferences_foreach_callback (gchar *key, struct _AnjutaProperty *p, 
 							  struct _AnjutaPreferencesForeachData *data)
 {	
-	if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_MENU)
+	if (p->object_type != ANJUTA_PROPERTY_OBJECT_TYPE_COMBO)
 	{
 		if (data->filter == ANJUTA_PREFERENCES_FILTER_NONE)
 			return data->callback (data->pr, key, data->callback_data);
@@ -1080,8 +1080,8 @@ anjuta_preferences_register_property_raw (AnjutaPreferences *pr,
 		p->default_value = g_strdup (default_value);
 		if (strlen (default_value) > 0)
 		{
-			/* For menu, initialize the untranslated strings */
-			if (object_type == ANJUTA_PROPERTY_OBJECT_TYPE_MENU) 
+			/* For combo, initialize the untranslated strings */
+			if (object_type == ANJUTA_PROPERTY_OBJECT_TYPE_COMBO) 
 			{
 				gchar *old_value;
 				gchar **vstr;

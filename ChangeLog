@@ -1,5 +1,30 @@
 2007-08-31  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/anjuta-preferences.c: (get_object_type_from_string),
+	(get_property_value_as_string), (set_property_value_as_string),
+	(register_callbacks), (preferences_foreach_callback),
+	(anjuta_preferences_register_property_raw):
+	* libanjuta/anjuta-preferences.h:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(on_build_mesg_format):
+	* plugins/document-manager/anjuta-document-manager.glade:
+	* plugins/message-view/anjuta-message-manager-plugin.glade:
+	
+	Use GtkComboBox instead of (deprecated) GtkOptionMenu and fixed
+	broken message view preferences
+	
+	* plugins/message-view/message-view.c:
+	(message_view_instance_init), (pref_change_color), (prefs_init),
+	(imessage_view_append):
+	Cleaned up message view (#458041)
+	
+	* src/shell.c: (on_preferences_activate),
+	(anjuta_test_shell_instance_init),
+	(anjuta_test_shell_get_plugin_manager), (anjuta_shell_iface_init):
+	Fixed test shell to allow better debugging
+	
+2007-08-31  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/gtodo/interface.c: (gtodo_get_hide_done),
 	(gtodo_get_hide_nodate), (gtodo_get_hide_due):
 	* plugins/gtodo/main.h:
