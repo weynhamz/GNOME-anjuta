@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=File Manager
+_Description=File Manager Plugin for Anjuta.
+Location=anjuta-file-manager:FileManagerPlugin
+Icon=anjuta-file-manager-plugin.png
+Interfaces=IAnjutaFileManager
