@@ -1,6 +1,11 @@
 2007-09-02  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/file-manager/*:
+	Added new and file-manager
+
+2007-09-02  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/file-manager/*:
 	Removed old file-manager
 
 2007-08-31  Johannes Schmid <jhs@gnome.org>

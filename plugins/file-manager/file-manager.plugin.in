@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+Location=file-manager:AnjutaFileManager
+Icon=file-manager.png
+_Name=File Manager
+_Description=File manager for project and single files
+Interfaces=IAnjutaFileManager
