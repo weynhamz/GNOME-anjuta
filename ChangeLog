@@ -1,4 +1,9 @@
-2007-09-02  Johannes Schm <jhs@gnome.org>>
+2007-09-02  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/file-manager/*:
+	Added new file-manager
+
+2007-09-02  Johannes Schmid <jhs@gnome.org>>
 
 	* libanjuta/anjuta-ui.c: (anjuta_ui_remove_action_group):
 	Yes another memory leak
