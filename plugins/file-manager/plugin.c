@@ -95,7 +95,7 @@ static void
 project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 					  gpointer user_data)
 {
-	AnjutaFileManager* file_manager = (AnjutaFileManager*) user_data;
+	AnjutaFileManager* file_manager = (AnjutaFileManager*) plugin;
 	file_manager_set_default_uri (file_manager);
 	file_view_refresh (file_manager->fv, FALSE);
 }
@@ -234,6 +234,8 @@ file_manager_deactivate (AnjutaPlugin *plugin)
 	
 	file_manager = (AnjutaFileManager*) plugin;
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	
+	anjuta_plugin_remove_watch (plugin, file_manager->root_watch_id, TRUE);
 	anjuta_ui_remove_action_group (ui, ((AnjutaFileManager*)plugin)->action_group);
 	anjuta_ui_unmerge (ui, ((AnjutaFileManager*)plugin)->uiid);
 	

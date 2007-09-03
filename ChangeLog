@@ -1,3 +1,10 @@
+2007-09-03  Naba Kumar  <naba@gnome.org>
+
+	* plugins/file-manager/plugin.c: Fixed crash on closing project and
+	unmonitors project-uri on file-manager deactivation.
+
+	* TODO.tasks: Updated
+
 2007-09-02  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/file-manager/*:
