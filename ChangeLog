@@ -1,3 +1,9 @@
+2007-09-04  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am.tpl:
+	Fixed anjuta-plugin template plugin by moving the "\" out
+	of the [IF] block
+
 2007-08-31  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/gtodo/interface.c: (gtodo_get_hide_done),
