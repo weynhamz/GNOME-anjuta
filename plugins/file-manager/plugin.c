@@ -43,8 +43,7 @@ struct _ScrollPosition
 };
 
 static void
-on_file_manager_refresh(GtkAction* action,
-									AnjutaFileManager* file_manager)
+on_file_manager_refresh(GtkAction* action, AnjutaFileManager* file_manager)
 {	
 	file_view_refresh (file_manager->fv,
 					   TRUE);
@@ -180,9 +179,9 @@ file_manager_activate (AnjutaPlugin *plugin)
 	file_manager->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
 	file_manager->sw = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW (file_manager->sw),
-								   GTK_POLICY_AUTOMATIC,
-								   GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (file_manager->sw),
+								    GTK_POLICY_AUTOMATIC,
+								    GTK_POLICY_AUTOMATIC);
 	
 	file_manager->fv = 
 		ANJUTA_FILE_VIEW(file_view_new());
@@ -198,26 +197,26 @@ file_manager_activate (AnjutaPlugin *plugin)
 					  "current-uri-changed",
 					  G_CALLBACK (on_file_view_current_uri_changed),
 					  file_manager);
-	file_manager_set_default_uri(file_manager);
+	file_manager_set_default_uri (file_manager);
 	file_view_refresh (file_manager->fv, FALSE);
 	
-	gtk_container_add(GTK_CONTAINER (file_manager->sw), 
-					  GTK_WIDGET (file_manager->fv));
+	gtk_container_add (GTK_CONTAINER (file_manager->sw), 
+					   GTK_WIDGET (file_manager->fv));
 	
-	gtk_widget_show_all(file_manager->sw);
+	gtk_widget_show_all (file_manager->sw);
 	
-	anjuta_shell_add_widget(plugin->shell,
-							file_manager->sw,
-							"file-manager",
-							_("Files"),
-							GTK_STOCK_OPEN,
-							ANJUTA_SHELL_PLACEMENT_LEFT,
-							NULL);
+	anjuta_shell_add_widget (plugin->shell,
+							 file_manager->sw,
+							 "file-manager",
+							 _("Files"),
+							 GTK_STOCK_OPEN,
+							 ANJUTA_SHELL_PLACEMENT_LEFT,
+							 NULL);
 	
-	file_manager->root_watch_id = anjuta_plugin_add_watch (plugin,
-									"project_root_uri",
-									project_root_added,
-									project_root_removed, NULL);
+	file_manager->root_watch_id =
+		anjuta_plugin_add_watch (plugin, "project_root_uri",
+								 project_root_added,
+								 project_root_removed, NULL);
 	
 	return TRUE;
 }
@@ -239,10 +238,9 @@ file_manager_deactivate (AnjutaPlugin *plugin)
 	anjuta_ui_remove_action_group (ui, ((AnjutaFileManager*)plugin)->action_group);
 	anjuta_ui_unmerge (ui, ((AnjutaFileManager*)plugin)->uiid);
 	
-	anjuta_shell_remove_widget(plugin->shell, 
-							   file_manager->sw,
-							   NULL);
-	
+	anjuta_shell_remove_widget (plugin->shell, 
+							    file_manager->sw,
+							    NULL);
 	return TRUE;
 }
 

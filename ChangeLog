@@ -1,5 +1,7 @@
 2007-09-03  Naba Kumar  <naba@gnome.org>
 
+	* plugins/file-manager/plugin.[c,h]: Fixed code style.
+
 	* plugins/file-manager/plugin.c: Fixed crash on closing project and
 	unmonitors project-uri on file-manager deactivation.
 

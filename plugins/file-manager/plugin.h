@@ -32,7 +32,7 @@
 typedef struct _AnjutaFileManager AnjutaFileManager;
 typedef struct _AnjutaFileManagerClass AnjutaFileManagerClass;
 
-struct _AnjutaFileManager{
+struct _AnjutaFileManager {
 	AnjutaPlugin parent;
 	AnjutaFileView* fv;
 	GtkWidget* sw;
@@ -42,7 +42,7 @@ struct _AnjutaFileManager{
 	GtkActionGroup *action_group;
 };
 
-struct _AnjutaFileManagerClass{
+struct _AnjutaFileManagerClass {
 	AnjutaPluginClass parent_class;
 };
 
