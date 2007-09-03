@@ -182,9 +182,11 @@ file_manager_activate (AnjutaPlugin *plugin)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (file_manager->sw),
 								    GTK_POLICY_AUTOMATIC,
 								    GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (file_manager->sw),
+										 GTK_SHADOW_IN);
 	
-	file_manager->fv = 
-		ANJUTA_FILE_VIEW(file_view_new());
+	file_manager->fv = ANJUTA_FILE_VIEW (file_view_new());
+	
 	g_signal_connect (G_OBJECT(file_manager->fv),
 					  "file-open",
 					  G_CALLBACK (on_file_view_open_file),
