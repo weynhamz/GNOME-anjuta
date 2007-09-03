@@ -1,5 +1,8 @@
 2007-09-03  Naba Kumar  <naba@gnome.org>
 
+	* plugins/file-manager/file-view.c: Fixed icons column to size
+	properly.
+
 	* plugins/file-manager/plugin.[c,h]: Fixed code style.
 
 	* plugins/file-manager/plugin.c: Fixed crash on closing project and

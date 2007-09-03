@@ -476,9 +476,7 @@ file_view_init (AnjutaFileView *object)
 	GtkCellRenderer* renderer_text;
 	GtkCellRenderer* renderer_pixbuf;
 	GtkCellRenderer* renderer_progress;
-	GtkTreeViewColumn* column_filename;
-	GtkTreeViewColumn* column_pixbuf;
-	GtkTreeViewColumn* column_progress;
+	GtkTreeViewColumn* column;
 	
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE(object);
 	
@@ -495,23 +493,22 @@ file_view_init (AnjutaFileView *object)
 	gtk_tree_view_set_model(GTK_TREE_VIEW(object), priv->model);
 	
 	renderer_pixbuf = gtk_cell_renderer_pixbuf_new();
-	column_pixbuf = 
-		gtk_tree_view_column_new_with_attributes ("filename",
-												  renderer_pixbuf,
-												  "pixbuf", COLUMN_PIXBUF,
-												  NULL);
-	gtk_tree_view_append_column(GTK_TREE_VIEW(object), column_pixbuf);
-	
 	renderer_text = gtk_cell_renderer_text_new();
-	column_filename = 
-		gtk_tree_view_column_new_with_attributes ("filename",
-												  renderer_text,
-												  "text", COLUMN_FILENAME,
-												  NULL);
-	gtk_tree_view_append_column(GTK_TREE_VIEW(object), column_filename);		
-	g_signal_connect(G_OBJECT(column_filename), "clicked", 
-					 G_CALLBACK(file_view_on_file_clicked), object);
 	
+	column = gtk_tree_view_column_new ();
+	gtk_tree_view_column_set_title (column, _("Filename"));
+	gtk_tree_view_column_pack_start (column, renderer_pixbuf, FALSE);
+	gtk_tree_view_column_pack_start (column, renderer_text, FALSE);
+	gtk_tree_view_column_set_attributes (column, renderer_pixbuf,
+										 "pixbuf", COLUMN_PIXBUF,
+										 NULL);
+	gtk_tree_view_column_set_attributes (column, renderer_text,
+										 "text", COLUMN_FILENAME,
+										 NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(object), column);
+	
+	g_signal_connect (G_OBJECT(column), "clicked", 
+					  G_CALLBACK(file_view_on_file_clicked), object);
 	
 	priv->selection =
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (object));
@@ -519,7 +516,7 @@ file_view_init (AnjutaFileView *object)
 					  G_CALLBACK (file_view_selection_changed),
 					  object);
 	
-	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(object), FALSE);	
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(object), FALSE);
 }
 
 static void
