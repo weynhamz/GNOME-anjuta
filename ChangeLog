@@ -1,5 +1,10 @@
 2007-09-04  Naba Kumar  <naba@gnome.org>
 
+	* plugins/class-gen/plugin.c: Do not enable 'Add to project'
+	projects that can not add sources.
+
+2007-09-04  Naba Kumar  <naba@gnome.org>
+
 	* configure.in: Bumped gnome-build requirement to 0.2.0
 	for project capabilities support.
 
