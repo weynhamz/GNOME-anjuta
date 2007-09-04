@@ -2478,6 +2478,14 @@ interface IAnjutaProjectManager
 		TARGET_EXECUTABLE
 	}
 	
+	enum Capabilities
+	{
+		CAN_ADD_NONE     = 0,
+		CAN_ADD_GROUP    = 1 << 0,
+		CAN_ADD_TARGET   = 1 << 1,
+		CAN_ADD_SOURCE   = 1 << 2
+	}
+	
 	// Signals
 	
 	/**
@@ -2593,6 +2601,18 @@ interface IAnjutaProjectManager
 	*/
 	gchar* get_selected ();
 	
+	/**
+	* ianjuta_project_manager_get_capabilities:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	*
+	* Returns the capabilites of project whether it can add group, target
+	* sources etc.
+	*
+	* Returns: Supported capabilites.
+	*/
+	Capabilities get_capabilities ();
+
 	/**
 	* ianjuta_project_manager_add_source:
 	* @obj: Self

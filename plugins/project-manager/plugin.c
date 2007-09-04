@@ -809,7 +809,11 @@ update_ui (ProjectManagerPlugin *plugin)
 	AnjutaUI *ui;
 	gint j;
 	GtkAction *action;
-			
+	GbfProjectCapabilities caps = GBF_PROJECT_CAN_ADD_NONE;
+	
+	if (plugin->project)
+		caps = gbf_project_get_capabilities (plugin->project, NULL);
+	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	for (j = 0; j < G_N_ELEMENTS (pm_actions); j++)
 	{
@@ -823,6 +827,27 @@ update_ui (ProjectManagerPlugin *plugin)
 						  (plugin->project != NULL), NULL);
 		}
 	}
+	
+	/* Main menu */
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
+								   "ActionProjectAddGroup");
+	g_object_set (G_OBJECT (action), "sensitive",
+				  ((plugin->project != NULL) &&
+				   (caps & GBF_PROJECT_CAN_ADD_GROUP)), NULL);
+	
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
+								   "ActionProjectAddTarget");
+	g_object_set (G_OBJECT (action), "sensitive",
+				  ((plugin->project != NULL) &&
+				   (caps & GBF_PROJECT_CAN_ADD_TARGET)), NULL);
+
+	action = anjuta_ui_get_action (ui, "ActionGroupProjectManager",
+								   "ActionProjectAddSource");
+	g_object_set (G_OBJECT (action), "sensitive",
+				  ((plugin->project != NULL) &&
+				   (caps & GBF_PROJECT_CAN_ADD_SOURCE)), NULL);
+
+	/* Popup menus */
 	for (j = 0; j < G_N_ELEMENTS (popup_actions); j++)
 	{
 		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
@@ -843,8 +868,10 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 	GtkAction *action;
 	GbfTreeData *data;
 	gchar *selected_uri;
+	GbfProjectCapabilities caps = GBF_PROJECT_CAN_ADD_NONE;
 	
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	/* Popup menu */
 	action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 								   "ActionPopupProjectAddGroup");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
@@ -858,13 +885,18 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 								   "ActionPopupProjectRemove");
 	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 	
+	if (plugin->project)
+		caps = gbf_project_get_capabilities (plugin->project, NULL);
 	data = gbf_project_view_find_selected (GBF_PROJECT_VIEW (plugin->view),
 										   GBF_TREE_NODE_TARGET_SOURCE);
 	if (data && data->type == GBF_TREE_NODE_TARGET_SOURCE)
 	{
-		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-									   "ActionPopupProjectAddSource");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		if (caps & GBF_PROJECT_CAN_ADD_SOURCE)
+		{
+			action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+										   "ActionPopupProjectAddSource");
+			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		}
 		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 									   "ActionPopupProjectRemove");
 		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
@@ -877,9 +909,12 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 										   GBF_TREE_NODE_TARGET);
 	if (data && data->type == GBF_TREE_NODE_TARGET)
 	{
-		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-									   "ActionPopupProjectAddSource");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		if (caps & GBF_PROJECT_CAN_ADD_SOURCE)
+		{
+			action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+										   "ActionPopupProjectAddSource");
+			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		}
 		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 									   "ActionPopupProjectRemove");
 		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
@@ -892,12 +927,18 @@ on_treeview_selection_changed (GtkTreeSelection *sel,
 										   GBF_TREE_NODE_GROUP);
 	if (data && data->type == GBF_TREE_NODE_GROUP)
 	{
-		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-									   "ActionPopupProjectAddGroup");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
-									   "ActionPopupProjectAddTarget");
-		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		if (caps & GBF_PROJECT_CAN_ADD_GROUP)
+		{
+			action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+										   "ActionPopupProjectAddGroup");
+			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		}
+		if (caps & GBF_PROJECT_CAN_ADD_TARGET)
+		{
+			action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
+										   "ActionPopupProjectAddTarget");
+			g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
+		}
 		action = anjuta_ui_get_action (ui, "ActionGroupProjectManagerPopup",
 									   "ActionPopupProjectRemove");
 		g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
@@ -1988,6 +2029,19 @@ iproject_manager_get_selected (IAnjutaProjectManager *project_manager,
 	return NULL;
 }
 
+static IAnjutaProjectManagerCapabilities
+iproject_manager_get_capabilities (IAnjutaProjectManager *project_manager,
+								   GError **err)
+{
+	ProjectManagerPlugin *plugin;
+	
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN (project_manager),
+						  IANJUTA_PROJECT_MANAGER_CAN_ADD_NONE);
+	
+	plugin = ANJUTA_PLUGIN_PROJECT_MANAGER (G_OBJECT (project_manager));
+	return gbf_project_get_capabilities (plugin->project, NULL);
+}
+
 static gchar*
 iproject_manager_add_source (IAnjutaProjectManager *project_manager,
 							 const gchar *source_uri_to_add,
@@ -2176,6 +2230,7 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 	iface->get_parent = iproject_manager_get_parent;
 	iface->get_children = iproject_manager_get_children;
 	iface->get_selected = iproject_manager_get_selected;
+	iface->get_capabilities = iproject_manager_get_capabilities;
 	iface->add_source = iproject_manager_add_source;
 	iface->add_source_multi = iproject_manager_add_source_multi;
 	iface->add_target = iproject_manager_add_target;

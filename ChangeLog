@@ -1,3 +1,16 @@
+2007-09-04  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Bumped gnome-build requirement to 0.2.0
+	for project capabilities support.
+
+	* plugins/project-manager/plugin.c: Enable/disable project
+	actions based on project capabilities. Fixes bug #433552:
+	crash in Anjuta IDE: add file test.h in project on generic
+	Makefile.
+
+	* libanjuta/interfaces/libanjuta.idl: Added method to query
+	project capabilities.
+
 2007-09-03  Naba Kumar  <naba@gnome.org>
 
 	* plugins/file-manager/plugin.c: Set shadow type IN.
