@@ -452,7 +452,9 @@ iwizard_activate (IAnjutaWizard *wiz, G_GNUC_UNUSED GError **err)
 	AnjutaClassGenPlugin *cg_plugin;
 	gchar *user_name;
 	gchar *user_email;
-
+	IAnjutaProjectManagerCapabilities caps =
+		IANJUTA_PROJECT_MANAGER_CAN_ADD_NONE;
+	
 	cg_plugin = ANJUTA_PLUGIN_CLASS_GEN (wiz);
 
 	if (cg_plugin->window != NULL)
@@ -474,8 +476,17 @@ iwizard_activate (IAnjutaWizard *wiz, G_GNUC_UNUSED GError **err)
 	g_free(user_name);
 	g_free(user_email);
 
-	/* Check whether we have a loaded project or not */
-	if(cg_plugin->top_dir == NULL)
+	/* Check whether we have a loaded project and it can add sources */
+	if (cg_plugin->top_dir)
+	{
+		IAnjutaProjectManager *manager =
+			anjuta_shell_get_interface (ANJUTA_PLUGIN (wiz)->shell,
+										IAnjutaProjectManager, NULL);
+       if (manager)
+			caps = ianjuta_project_manager_get_capabilities (manager, NULL);
+	}
+
+	if((caps & IANJUTA_PROJECT_MANAGER_CAN_ADD_SOURCE) == FALSE)
 	{
 		cg_window_set_add_to_project (cg_plugin->window, FALSE);
 		cg_window_enable_add_to_project (cg_plugin->window, FALSE);

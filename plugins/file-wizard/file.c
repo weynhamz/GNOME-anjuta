@@ -121,6 +121,9 @@ void
 display_new_file(AnjutaFileWizardPlugin *plugin,
 				 IAnjutaDocumentManager *docman)
 {
+	IAnjutaProjectManagerCapabilities caps =
+		IANJUTA_PROJECT_MANAGER_CAN_ADD_NONE;
+	
 	if (!nfg)
 		if (!create_new_file_dialog (docman))
 			return;
@@ -128,7 +131,15 @@ display_new_file(AnjutaFileWizardPlugin *plugin,
 	nfg->plugin = plugin;
 	
 	/* check whether we have a loaded project or not */
-	if (!plugin->top_dir) {
+	if (plugin->top_dir) {
+		IAnjutaProjectManager *manager =
+			anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
+										IAnjutaProjectManager, NULL);
+       if (manager)
+			caps = ianjuta_project_manager_get_capabilities (manager, NULL);
+	}
+	
+	if ((caps & IANJUTA_PROJECT_MANAGER_CAN_ADD_SOURCE) == FALSE) {
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (nfg->add_to_project),
 									  FALSE);
 		gtk_widget_set_sensitive (nfg->add_to_project, FALSE);
