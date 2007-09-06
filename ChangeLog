@@ -3,6 +3,7 @@
 2007-09-06  Naba Kumar  <naba@gnome.org>
 
 	* NEWS: Updated.
+	* configure.in: Bumped version to 2.2.1
 
 2007-09-06  Johannes Schmid <jhs@gnome.org>
 
