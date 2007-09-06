@@ -14,7 +14,9 @@ Changes:
 * Fixes bug #433552: crash in Anjuta IDE: add file test.h in project on
   generic Makefile.
 * Disables 'Add to project' in wizards for projects that can not add sources.
-* Fixes bug #450217: Refreshing tree brings to random crashes
+* Fixed bug #450217: Refreshing tree brings to random crashes
+* Fixed bug 453931 - crash in Anjuta IDE: Trying some c++ exampled
+* Fixed bug 457093 - crash in Anjuta IDE: just typed in some text
 
 Anjuta 2.2.0 (25 June 2007) -- Naba Kumar
 -----------------------------------------

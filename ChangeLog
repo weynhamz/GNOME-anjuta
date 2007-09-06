@@ -1,5 +1,9 @@
 === anjuta 2.2.1 ===
 
+2007-09-06  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated.
+
 2007-09-06  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/assist-window.c: (assist_window_init),
