@@ -1242,7 +1242,7 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	
 	tags_array = tm_workspace_find (name, match_types, NULL,
 									partial_name_match, global_search);
-	if (tags_array)
+	if (tags_array && tags_array->len)
 	{
 		iter = anjuta_symbol_iter_new (tags_array);
 		return IANJUTA_ITERABLE (iter);
@@ -1263,7 +1263,7 @@ isymbol_manager_get_members (IAnjutaSymbolManager *sm,
 												  global_search, TRUE);
 												  
 	
-	if (tags_array)
+	if (tags_array && tags_array->len)
 	{
 		iter = anjuta_symbol_iter_new (tags_array);
 		return IANJUTA_ITERABLE (iter);
@@ -1280,7 +1280,7 @@ isymbol_manager_get_parents (IAnjutaSymbolManager *sm,
 	AnjutaSymbolIter *iter = NULL;
 	
 	tags_array = tm_workspace_get_parents (symbol_name);
-	if (tags_array)
+	if (tags_array && tags_array->len)
 	{
 		iter = anjuta_symbol_iter_new (tags_array);
 		return IANJUTA_ITERABLE (iter);
@@ -1374,7 +1374,7 @@ isymbol_manager_get_completions_at_position (IAnjutaSymbolManager *sm,
 	else
 		completable_tags_array = anjuta_symbol_view_get_completable_members (found_type, TRUE);
 	
-	if (completable_tags_array)
+	if (completable_tags_array && completable_tags_array->len)
 	{
 		iter = anjuta_symbol_iter_new (completable_tags_array);
 		return IANJUTA_ITERABLE (iter);

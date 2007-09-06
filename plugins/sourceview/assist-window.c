@@ -221,8 +221,6 @@ assist_window_init(AssistWindow *obj)
 	
 	obj->priv = g_new0(AssistWindowPrivate, 1);
 	
-	g_object_set(G_OBJECT(obj), "type", GTK_WINDOW_POPUP, NULL);
-	
 	view = gtk_tree_view_new();
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(view), FALSE);
 	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(view), FALSE);
@@ -473,6 +471,13 @@ void assist_window_update(AssistWindow* assistwin, GList* suggestions)
 	gtk_widget_queue_draw(GTK_WIDGET(assistwin));
 }
 
+
+static 
+gboolean assist_window_is_active(AssistWindow* assistwin)
+{
+	return GTK_WIDGET_VISIBLE(GTK_WIDGET(assistwin));
+}
+
 /* 
  * Return true if the key was processed and does not need to be passed to the textview,
  * otherwise FALSE
@@ -527,16 +532,11 @@ assist_window_filter_keypress(AssistWindow* assist_window, guint keyval)
 	return FALSE;
 }
 
-gboolean assist_window_is_active(AssistWindow* assistwin)
-{
-	return GTK_WIDGET_VISIBLE(GTK_WIDGET(assistwin));
-}
-
 AssistWindow*
 assist_window_new(GtkTextView* view, gchar* trigger, gint position)
 {
 	GtkTextIter iter;
-	AssistWindow* assist_win = ASSIST_WINDOW(g_object_new(ASSIST_TYPE_WINDOW, NULL));
+	AssistWindow* assist_win = ASSIST_WINDOW(g_object_new(ASSIST_TYPE_WINDOW, "type", GTK_WINDOW_POPUP, NULL));
 	assist_win->priv->text_view = view;
 	if (position == -1)
 	{
