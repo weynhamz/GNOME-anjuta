@@ -1,3 +1,9 @@
+2007-09-06  Naba Kumar  <naba@gnome.org>
+
+	* plugins/file-manager/an_file_view.c: Disable sorting in treeview.
+	Instead sort the files before adding in the view. Fixes long standing
+	bug #450217: Refreshing tree brings to random crashes
+
 2007-09-04  Naba Kumar  <naba@gnome.org>
 
 	(Backported from HEAD)

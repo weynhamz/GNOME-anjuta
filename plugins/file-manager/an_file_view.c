@@ -519,8 +519,9 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 	struct dirent *dir_entry;
 	GtkTreeIter iter;
 	GdkPixbuf *pixbuf;
-	GSList *file_node;
-	GSList *files = NULL;
+	GList *file_node;
+	GList *files = NULL;
+	GList *directories = NULL;
 	GList *ignore_files = NULL;
 	gchar *entries = NULL;
 	GtkTreeViewColumn* column;
@@ -631,34 +632,46 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 			
 			if (g_file_test (file_name, G_FILE_TEST_IS_DIR))
 			{
-				GtkTreeIter sub_iter;
-				/*if (!file_entry_apply_filter (file_name, ff->dir_match,
-											  ff->dir_unmatch,
-											  ff->ignore_hidden_dirs))
-					continue;
-				*/
-				pixbuf = gdl_icons_get_mime_icon (icon_set,
-											"application/directory-normal");
-				gtk_tree_store_append (store, &iter, root);
-				gtk_tree_store_set (store, &iter,
-							PIXBUF_COLUMN, pixbuf,
-							FILENAME_COLUMN, file,
-							REV_COLUMN, "",
-							IS_DIR_COLUMN, 1,
-							-1);
-				g_object_unref (pixbuf);
-				gtk_tree_store_append (store, &sub_iter, &iter);
-				gtk_tree_store_set (store, &sub_iter,
-							FILENAME_COLUMN, _("Loading..."),
-							REV_COLUMN, "",
-							-1);
+				directories = g_list_prepend (directories, g_strdup (file));
 			} else {
-				/* DEBUG_PRINT ("Rendering file: %s", file); */
-				files = g_slist_prepend (files, g_strdup (file));
+				files = g_list_prepend (files, g_strdup (file));
 			}
 		}
 		closedir(dir);
-		files = g_slist_reverse (files);
+		
+		/* Enter directories */
+		directories = anjuta_util_glist_strings_sort (directories);
+		file_node = directories;
+		while (file_node)
+		{
+			GtkTreeIter sub_iter;
+			gchar *dname = file_node->data;
+			/*if (!file_entry_apply_filter (file_name, ff->dir_match,
+			ff->dir_unmatch,
+			ff->ignore_hidden_dirs))
+			continue;
+			*/
+			pixbuf = gdl_icons_get_mime_icon (icon_set,
+											  "application/directory-normal");
+			gtk_tree_store_append (store, &iter, root);
+			gtk_tree_store_set (store, &iter,
+								PIXBUF_COLUMN, pixbuf,
+								FILENAME_COLUMN, dname,
+								REV_COLUMN, "",
+								IS_DIR_COLUMN, 1,
+								-1);
+			g_object_unref (pixbuf);
+			gtk_tree_store_append (store, &sub_iter, &iter);
+			gtk_tree_store_set (store, &sub_iter,
+								FILENAME_COLUMN, _("Loading..."),
+								REV_COLUMN, "",
+								-1);
+			g_free (dname);
+			file_node = g_list_next (file_node);
+		}
+		
+		/* Enter files */
+		files = anjuta_util_glist_strings_sort (files);
 		file_node = files;
 		while (file_node)
 		{
@@ -697,9 +710,10 @@ fv_add_tree_entry (FileManagerPlugin *fv, const gchar *path, GtkTreeIter *root)
 			gdk_pixbuf_unref (pixbuf);
 			g_free (version);
 			g_free (fname);
-			file_node = g_slist_next (file_node);
+			file_node = g_list_next (file_node);
 		}
-		g_slist_free (files);
+		g_list_free (files);
+		g_list_free (directories);
 	}
 	if (entries)
 		g_free (entries);
@@ -745,7 +759,7 @@ on_file_view_row_expanded (GtkTreeView *view,
 		}
 		while (gtk_tree_model_iter_next (GTK_TREE_MODEL (store), &child));
 	}
-	
+
 	/* Update with new info */
 	gtk_tree_model_get_iter (GTK_TREE_MODEL (store), &child, iter_path);
 	full_path = fv_construct_full_path (fv, &child);
@@ -756,7 +770,7 @@ on_file_view_row_expanded (GtkTreeView *view,
 	pix = gdl_icons_get_mime_icon (icon_set, "application/directory-normal");
 	gtk_tree_store_set (store, &child, PIXBUF_COLUMN, pix, -1);
 	g_object_unref (pix);
-
+	
 	/* Delete the referenced rows */
 	row_ref_node = row_refs;
 	while (row_ref_node)
@@ -863,31 +877,6 @@ on_tree_view_selection_changed (GtkTreeSelection *sel, FileManagerPlugin *fv)
 	}
 }
 
-static gint
-compare_iter (GtkTreeModel *model, GtkTreeIter *iter1,
-			  GtkTreeIter *iter2, gpointer data)
-{
-	gchar *filename1, *filename2;
-	gboolean is_dir1, is_dir2;
-	int retval;
-	
-	gtk_tree_model_get (model, iter1, IS_DIR_COLUMN, &is_dir1, -1);
-	gtk_tree_model_get (model, iter2, IS_DIR_COLUMN, &is_dir2, -1);
-	if (is_dir1 && !is_dir2)
-		retval = -1;
-	else if (!is_dir1 && is_dir2)
-		retval = 1;
-	else
-	{
-		gtk_tree_model_get (model, iter1, FILENAME_COLUMN, &filename1, -1);
-		gtk_tree_model_get (model, iter2, FILENAME_COLUMN, &filename2, -1);
-		retval = g_ascii_strcasecmp (filename1, filename2);
-		g_free(filename1);
-		g_free(filename2);
-	}
-	return retval;
-}
-
 void
 fv_init (FileManagerPlugin *fv)
 {
@@ -910,9 +899,6 @@ fv_init (FileManagerPlugin *fv)
 								G_TYPE_STRING,
 								G_TYPE_STRING,
 								G_TYPE_BOOLEAN);
-	gtk_tree_sortable_set_default_sort_func (GTK_TREE_SORTABLE (store),
-								compare_iter, fv, NULL);
-
 	fv->tree = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (fv->tree), FALSE);
 	
@@ -1041,7 +1027,10 @@ on_fv_node_expansion_on_idle (gpointer user_data)
 	
 	/* End of this cycle */
 	if (fv->nodes_to_expand == NULL)
+	{
+		fv->idle_id = 0;
 		return FALSE; /* End */
+	}
 	else
 		return TRUE; /* Continue */
 }
@@ -1130,8 +1119,10 @@ fv_refresh (FileManagerPlugin *fv, gboolean save_states)
 	ff = fv_prefs_new (fv);
 	
 	fv_disconnect (fv);
+
 	if (save_states)
 		selected_items = fv_get_node_expansion_states (fv);
+
 	fv_clear (fv);
 
 	project_dir = g_path_get_basename (fv->top_dir);
@@ -1155,7 +1146,6 @@ fv_refresh (FileManagerPlugin *fv, gboolean save_states)
 				FILENAME_COLUMN, _("Loading..."),
 				REV_COLUMN, "",
 				-1);
-
 	if (save_states)
 	{
 		fv_set_node_expansion_states (fv, selected_items);
@@ -1170,11 +1160,6 @@ fv_refresh (FileManagerPlugin *fv, gboolean save_states)
 		gtk_tree_path_free (path);
 		g_free (root_node_path);
 	}
-	
-	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (model),
-										  GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,
-										  GTK_SORT_ASCENDING);
-
 	if (selected_items)
 		anjuta_util_glist_strings_free (selected_items);
 	fv_connect (fv);
