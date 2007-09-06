@@ -1,3 +1,21 @@
+Anjuta 2.2.1 (06 Sep 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Fixed lots of memory leaks (thanks valgrind)
+* Fixed crasher on shutdown
+* Avoid an endless loop if clearing all breakpoints while the programm
+  is running
+* Fixed help activation (bug #451557).
+* Fixed compiler warnings.
+* Fixed #423467 (View->Tasks menu items are not checked on startup)
+* Fixed anjuta-plugin template plugin by moving the "\" out of the [IF] block
+* Fixes bug #433552: crash in Anjuta IDE: add file test.h in project on
+  generic Makefile.
+* Disables 'Add to project' in wizards for projects that can not add sources.
+* Fixes bug #450217: Refreshing tree brings to random crashes
+
 Anjuta 2.2.0 (25 June 2007) -- Naba Kumar
 -----------------------------------------
 
