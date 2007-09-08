@@ -81,8 +81,7 @@ plugins/editor/text_editor.c
 plugins/editor/text_editor_cbs.c
 plugins/editor/text_editor_menu.c
 plugins/file-loader/plugin.c
-plugins/file-manager/an_file_view.c
-plugins/file-manager/anjuta-file-manager-plugin.glade
+plugins/file-manager/file-view.c
 plugins/file-manager/plugin.c
 plugins/file-wizard/anjuta-file-wizard.glade
 plugins/file-wizard/file.c
@@ -238,7 +237,6 @@ plugins/sourceview/plugin.c
 [type: gettext/ini]plugins/sourceview/sourceview.plugin.in
 [type: gettext/ini]plugins/editor/anjuta-editor.plugin.in
 [type: gettext/ini]plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin.in
-[type: gettext/ini]plugins/file-manager/anjuta-file-manager.plugin.in
 [type: gettext/ini]plugins/project-wizard/anjuta-project-wizard.plugin.in
 [type: gettext/ini]plugins/profiler/profiler.plugin.in
 [type: gettext/ini]plugins/search/anjuta-search.plugin.in

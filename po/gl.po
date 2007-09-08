@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-06 22:29+0200\n"
-"PO-Revision-Date: 2007-08-06 22:58+0200\n"
+"POT-Creation-Date: 2007-09-08 11:40+0200\n"
+"PO-Revision-Date: 2007-09-08 11:41+0200\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@cvs.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
-msgstr "IDE Anjuta"
+msgstr "EID Anjuta"
 
 #: ../anjuta.desktop.in.in.h:2
 msgid "Develop software in an integrated development environment"
@@ -261,7 +261,11 @@ msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
 "you again to choose different plugin."
-msgstr "Estos son os complementos seleccionados cando Anjuta lle preguntou para escoller un dos moitos complementos convenientes. Quitar o complemento preferido fará que Anjuta lle pregunte de novo para escoller un complemento diferente."
+msgstr ""
+"Estos son os complementos seleccionados cando Anjuta lle preguntou para "
+"escoller un dos moitos complementos convenientes. Quitar o complemento "
+"preferido fará que Anjuta lle pregunte de novo para escoller un complemento "
+"diferente."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1864
 msgid "Remember this selection"
@@ -304,11 +308,11 @@ msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Estado de Anjuta a usar na activación e desactivación de complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2382
+#: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Loaded: "
 msgstr "Cargado: "
 
-#: ../libanjuta/anjuta-plugin-manager.c:2382
+#: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "..."
 msgstr "..."
 
@@ -365,7 +369,9 @@ msgstr "Non se pode ler '%s': Erro ao analizar XML."
 msgid ""
 "Failed to read '%s': XML parse error.Invalid or corrupted anjuta plugins "
 "profile."
-msgstr "Fallou ao ler '%s': Erro de análise XML. Perfil de complementos de anjuta corrupto ou inválido."
+msgstr ""
+"Fallou ao ler '%s': Erro de análise XML. Perfil de complementos de anjuta "
+"corrupto ou inválido."
 
 #: ../libanjuta/anjuta-profile.c:754
 #, c-format
@@ -446,19 +452,19 @@ msgstr ""
 "pechar?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-#: ../libanjuta/anjuta-ui.c:884
+#: ../libanjuta/anjuta-ui.c:887
 msgid "Action"
 msgstr "Acción"
 
-#: ../libanjuta/anjuta-ui.c:902
+#: ../libanjuta/anjuta-ui.c:905
 msgid "Visible"
 msgstr "Visible"
 
-#: ../libanjuta/anjuta-ui.c:913
+#: ../libanjuta/anjuta-ui.c:916
 msgid "Sensitive"
 msgstr "Distinguir maiúsculas"
 
-#: ../libanjuta/anjuta-ui.c:922
+#: ../libanjuta/anjuta-ui.c:925
 msgid "Shortcut"
 msgstr "Atallo"
 
@@ -990,18 +996,14 @@ msgid "Source/Header Headings:"
 msgstr "Titulares de Fonte/Cabeceira:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
-msgid "_TYPE_"
-msgstr "_TYPE_"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:29
 msgid "gtk-add"
 msgstr "gtk-add"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:30
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:29
 msgid "gtk-cancel"
 msgstr "gtk-cancel"
 
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:31
+#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:30
 msgid "gtk-remove"
 msgstr "gtk-remove"
 
@@ -1045,36 +1047,24 @@ msgid "XML description of the user interface"
 msgstr "Descrición XML da interface de usuario"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
-#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
-#: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
-#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
-msgid "*"
-msgstr "*"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
-msgid "/usr/bin/cvs"
-msgstr "/usr/bin/cvs"
-
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
 msgid "<b>CVS Options</b>"
 msgstr "<b>Opcións do CVS</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "<b>Module Details:</b>"
 msgstr "<b>Detalles do módulo:</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Options:</b>"
 msgstr "<b>Opcións:</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:6
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
 #: ../plugins/search/anjuta-search.glade.h:13
 msgid "<b>Options</b>"
 msgstr "<b>Opcións</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:7
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:5
 msgid ""
 "<b>Please note: </b>\n"
 "\n"
@@ -1088,117 +1078,117 @@ msgstr ""
 "ficheiro non será eliminado do CVS antes de que realice un CVS commit. "
 "<b>Está advertido!</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
 msgid "<b>Repository: </b>"
 msgstr "<b>Repositorio:</b>"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:9
 msgid "Be verbose"
 msgstr "Ser difuso"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:10
 msgid "CVS Preferences"
 msgstr "Preferencias do CVS"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:11
 msgid "CVS: Add file/directory"
 msgstr "CVS: Engadir ficheiro/directorio"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:12
 msgid "CVS: Commit file/directory"
 msgstr "CVS: Efectuar ficheiro/directorio"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:13
 msgid "CVS: Diff file/directory"
 msgstr "CVS: Diferenzas do ficheiro/directorio"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:14
 msgid "CVS: Import"
 msgstr "CVS: Importar"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:15
 msgid "CVS: Log file/directory"
 msgstr "CVS: Rexistro de ficheiro/directorio"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:16
 msgid "CVS: Remove file/directory"
 msgstr "CVS: Eliminar ficheiro/directorio"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:17
 msgid "CVS: Status"
 msgstr "CVS: Estado"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:18
 msgid "CVS: Status from file/directory"
 msgstr "CVS: Estado do ficheiro/directorio"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:19
 msgid "CVS: Update file/directory"
 msgstr "CVS: Actualizar ficheiro/directorio"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:20
 msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
 #: ../plugins/subversion/anjuta-subversion.glade.h:3
 msgid "Choose file or directory to add:"
 msgstr "Escolla o ficheiro ou directorio a engadir:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
 #: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to commit:"
 msgstr "Escolla o ficheiro ou directorio a efectuar:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
 #: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "Choose file or directory to diff:"
 msgstr "Escolla o ficheiro ou directorio a sacar diferenzas:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
 msgid "Choose file or directory to get log:"
 msgstr "Escolla o ficheiro ou directorio do que obter o rexistro:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
 msgid "Choose file or directory to get the status from:"
 msgstr "Escolla un ficheiro ou directorio do que obter o estado:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
 #: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to remove:"
 msgstr "Escolla un ficheiro ou directorio a eliminar:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
 #: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "Choose file or directory to update:"
 msgstr "Escolla un ficheiro ou directorio a actualizar:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
 msgid "Compression Level (0=off, 10=max):"
 msgstr "Nivel de compresión (0=ningunha, 10=máx):"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
 msgid "Create new directories"
 msgstr "Crear directorios novos"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
 msgid "Delete empty directories"
 msgstr "Borrar directorios baleiros"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "Do not act recursively"
 msgstr "Non actuar recursivamente"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
 msgid "File is binary"
 msgstr "O ficheiro é binario"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:35
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
 msgid "Ignore .cvsrc file (recommend)"
 msgstr "Ignorar o ficheiro .cvsrc (recomendado)"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:36
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:34
 msgid ""
 "Local\n"
 "Extern (rsh)\n"
@@ -1208,40 +1198,40 @@ msgstr ""
 "Externo (rsh)\n"
 "Servidor de contrasinais (pserver)\n"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:38
 #: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Log message:"
 msgstr "Mensaxe de rexistro:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:39
 msgid "Module name:"
 msgstr "Nome do módulo:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
 msgid "Password: "
 msgstr "Constrasinal:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
 msgid "Path to \"cvs\" command"
 msgstr "Ruta ao comando \"cvs\""
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:44
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:42
 msgid "Project root directory:"
 msgstr "Directorio raíz do proxecto:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:43
 msgid "Release tag:"
 msgstr "Etiqueta de publicación:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:44
 msgid "Reset sticky tags"
 msgstr "Restablecer etiquetas persistentes"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:47
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:45
 msgid "Revision: "
 msgstr "Revisión: "
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:48
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:46
 msgid ""
 "Standard diff\n"
 "Patch-Style diff"
@@ -1249,38 +1239,38 @@ msgstr ""
 "Diff estándar\n"
 "Diff estilo patch"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:48
 msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Use revision/tag: "
 msgstr "Usar revisión/etiqueta: "
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:50
 msgid "Use revision: "
 msgstr "Usar revisión: "
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
 #: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "Username: "
 msgstr "Nome de usuario: "
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
 msgid "Vendor tag:"
 msgstr "Etiqueta do fabricante:"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
 #: ../plugins/subversion/anjuta-subversion.glade.h:28
 msgid "Whole project"
 msgstr "Proxecto completo"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:56
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:54
 msgid "none"
 msgstr "ningún"
 
-#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:57
+#: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:55
 msgid "start"
 msgstr "inicio"
 
@@ -1325,7 +1315,6 @@ msgid "Release"
 msgstr "Publicación"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:447
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:6
 msgid "Directory"
 msgstr "Directorio"
 
@@ -1479,7 +1468,7 @@ msgid "Breakpoint properties"
 msgstr "Propiedades dos puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1608
+#: ../plugins/debug-manager/breakpoints.c:1693
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Puntos de parada"
@@ -1680,25 +1669,24 @@ msgstr "diálogo1"
 msgid "dialog2"
 msgstr "diálogo2"
 
-#: ../plugins/debug-manager/breakpoints.c:133
+#: ../plugins/debug-manager/breakpoints.c:134
 #, fuzzy
 msgid "Enb"
 msgstr "Activado"
 
-#: ../plugins/debug-manager/breakpoints.c:133
+#: ../plugins/debug-manager/breakpoints.c:134
 msgid "ID"
 msgstr "ID"
 
 #. Register actions
-#: ../plugins/debug-manager/breakpoints.c:133
+#: ../plugins/debug-manager/breakpoints.c:134
 #: ../plugins/debug-manager/stack_trace.c:620
-#: ../plugins/debug-manager/threads.c:429
-#: ../plugins/file-manager/an_file_view.c:944 ../src/anjuta-app.c:580
+#: ../plugins/debug-manager/threads.c:429 ../src/anjuta-app.c:580
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Ficheiro"
 
-#: ../plugins/debug-manager/breakpoints.c:133
+#: ../plugins/debug-manager/breakpoints.c:134
 #: ../plugins/debug-manager/stack_trace.c:631
 #: ../plugins/debug-manager/threads.c:438
 #: ../plugins/document-manager/plugin.c:847
@@ -1706,161 +1694,161 @@ msgstr "Ficheiro"
 msgid "Line"
 msgstr "Liña"
 
-#: ../plugins/debug-manager/breakpoints.c:134
+#: ../plugins/debug-manager/breakpoints.c:135
 #: ../plugins/debug-manager/stack_trace.c:642
 #: ../plugins/debug-manager/threads.c:447
 #: ../plugins/valgrind/vgrule-editor.c:133
 msgid "Function"
 msgstr "Función"
 
-#: ../plugins/debug-manager/breakpoints.c:134
+#: ../plugins/debug-manager/breakpoints.c:135
 #: ../plugins/debug-manager/debug_tree.c:124
 msgid "Type"
 msgstr "Tipo"
 
-#: ../plugins/debug-manager/breakpoints.c:134
+#: ../plugins/debug-manager/breakpoints.c:135
 #: ../plugins/debug-manager/stack_trace.c:653
 #: ../plugins/debug-manager/threads.c:456
 msgid "Address"
 msgstr "Enderezo"
 
-#: ../plugins/debug-manager/breakpoints.c:134
+#: ../plugins/debug-manager/breakpoints.c:135
 #: ../plugins/debug-manager/signals.c:344
 msgid "Pass"
 msgstr "Pasar"
 
-#: ../plugins/debug-manager/breakpoints.c:135
+#: ../plugins/debug-manager/breakpoints.c:136
 msgid "Times"
 msgstr "Tempo"
 
-#: ../plugins/debug-manager/breakpoints.c:135
+#: ../plugins/debug-manager/breakpoints.c:136
 msgid "Condition"
 msgstr "Condición"
 
-#: ../plugins/debug-manager/breakpoints.c:135
+#: ../plugins/debug-manager/breakpoints.c:136
 msgid "Disp"
 msgstr "Disp"
 
-#: ../plugins/debug-manager/breakpoints.c:1287
+#: ../plugins/debug-manager/breakpoints.c:1372
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Está seguro de que quere eliminar tódolos puntos de parada?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1416
+#: ../plugins/debug-manager/breakpoints.c:1501
 msgid "_Breakpoints"
 msgstr "_Puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1424
+#: ../plugins/debug-manager/breakpoints.c:1509
 msgid "Toggle Breakpoint"
 msgstr "Alternar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1426
+#: ../plugins/debug-manager/breakpoints.c:1511
 msgid "Toggle breakpoint at the current location"
 msgstr "Conmutar punto de parada na localización actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1432
+#: ../plugins/debug-manager/breakpoints.c:1517
 msgid "Add Breakpoint..."
 msgstr "Engadir punto de parada..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1434
+#: ../plugins/debug-manager/breakpoints.c:1519
 msgid "Add a breakpoint"
 msgstr "Engadir un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1440
+#: ../plugins/debug-manager/breakpoints.c:1525
 msgid "Remove Breakpoint"
 msgstr "Eliminar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1442
+#: ../plugins/debug-manager/breakpoints.c:1527
 msgid "Remove a breakpoint"
 msgstr "Eliminar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1448
+#: ../plugins/debug-manager/breakpoints.c:1533
 msgid "Jump to Breakpoint"
 msgstr "Saltar ao punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1450
+#: ../plugins/debug-manager/breakpoints.c:1535
 msgid "Jump to breakpoint location"
 msgstr "Saltar ao punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1456
+#: ../plugins/debug-manager/breakpoints.c:1541
 msgid "Edit Breakpoint"
 msgstr "Editar puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1458
+#: ../plugins/debug-manager/breakpoints.c:1543
 msgid "Edit breakpoint properties"
 msgstr "Editar as propiedades dos puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1464
+#: ../plugins/debug-manager/breakpoints.c:1549
 msgid "Enable Breakpoint"
 msgstr "Activar puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1466
+#: ../plugins/debug-manager/breakpoints.c:1551
 msgid "Enable a breakpoint"
 msgstr "Activar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1472
+#: ../plugins/debug-manager/breakpoints.c:1557
 msgid "Disable All Breakpoints"
 msgstr "Desactivar tódolos puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1474
+#: ../plugins/debug-manager/breakpoints.c:1559
 msgid "Deactivate all breakpoints"
 msgstr "Desactiva tódolos puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1480
+#: ../plugins/debug-manager/breakpoints.c:1565
 msgid "C_lear All Breakpoints"
 msgstr "_Limpar tódolos puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1482
+#: ../plugins/debug-manager/breakpoints.c:1567
 msgid "Delete all breakpoints"
 msgstr "Borrar tódolos puntos de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1590
+#: ../plugins/debug-manager/breakpoints.c:1675
 msgid "Breakpoint operations"
 msgstr "Operacións de puntos de parada"
 
-#: ../plugins/debug-manager/debugger.c:1456
+#: ../plugins/debug-manager/debugger.c:1460
 #, c-format
 msgid "Unable to find one debugger plugin acception %s mime type"
 msgstr ""
 
-#: ../plugins/debug-manager/debugger.c:1469
+#: ../plugins/debug-manager/debugger.c:1473
 msgid "Select a plugin"
 msgstr "Seleccionar un complemento"
 
-#: ../plugins/debug-manager/debugger.c:1470
+#: ../plugins/debug-manager/debugger.c:1474
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un complemento para activar"
 
@@ -2304,51 +2292,51 @@ msgstr "Operacións de fíos"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:356
+#: ../plugins/debug-manager/watch.c:357
 msgid "Ins_pect/Evaluate..."
 msgstr "Ins_peccionar/Evaluar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/watch.c:358
+#: ../plugins/debug-manager/watch.c:359
 msgid "Inspect or evaluate an expression or variable"
 msgstr "Inspecciona ou evalúa unha expresión ou variable"
 
-#: ../plugins/debug-manager/watch.c:364
+#: ../plugins/debug-manager/watch.c:365
 msgid "Add Watch..."
 msgstr "Engadir vixilancia..."
 
-#: ../plugins/debug-manager/watch.c:372
+#: ../plugins/debug-manager/watch.c:373
 msgid "Remove Watch"
 msgstr "Eliminar vixilancia"
 
-#: ../plugins/debug-manager/watch.c:380
+#: ../plugins/debug-manager/watch.c:381
 msgid "Update Watch"
 msgstr "Actualizar vixilancia"
 
-#: ../plugins/debug-manager/watch.c:388
+#: ../plugins/debug-manager/watch.c:389
 msgid "Change Value"
 msgstr "Cambiar valor"
 
-#: ../plugins/debug-manager/watch.c:396
+#: ../plugins/debug-manager/watch.c:397
 msgid "Update all"
 msgstr "Actualizar todo"
 
-#: ../plugins/debug-manager/watch.c:404
+#: ../plugins/debug-manager/watch.c:405
 msgid "Remove all"
 msgstr "Eliminar todo"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/watch.c:415
+#: ../plugins/debug-manager/watch.c:416
 msgid "Automatic update"
 msgstr "Actualización automática"
 
-#: ../plugins/debug-manager/watch.c:441 ../plugins/debug-manager/watch.c:447
+#: ../plugins/debug-manager/watch.c:442 ../plugins/debug-manager/watch.c:448
 msgid "Watch operations"
 msgstr "Operacións de vixilancia"
 
-#: ../plugins/debug-manager/watch.c:527
+#: ../plugins/debug-manager/watch.c:528
 msgid "Watches"
 msgstr "Vixilancias"
 
@@ -2466,7 +2454,7 @@ msgid "Save file as"
 msgstr "Gardar ficheiro como"
 
 #: ../plugins/document-manager/anjuta-docman.c:404
-#: ../plugins/file-wizard/file.c:229 ../plugins/valgrind/plugin.c:386
+#: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:386
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2476,7 +2464,7 @@ msgstr ""
 "Quere remprazalo co que está tentando gardar?"
 
 #: ../plugins/document-manager/anjuta-docman.c:412
-#: ../plugins/file-wizard/file.c:237 ../plugins/valgrind/plugin.c:394
+#: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:394
 #: ../src/anjuta-callbacks.c:79
 msgid "_Replace"
 msgstr "_Substituír"
@@ -2561,47 +2549,42 @@ msgstr ""
 "Lea a páxina info de 'indent' para máis detalles"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:21
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:4
-msgid "Bottom"
-msgstr "Debaixo"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:22
 msgid "Brace"
 msgstr "Chave"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:23
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:22
 msgid "Braces after IF Line"
 msgstr "Chaves antes de liña IF"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:24
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:23
 msgid "Braces after Struct"
 msgstr "Chaves antes de Struct"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:25
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:24
 msgid "Braces on IF line"
 msgstr "Chaves en liña IF"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:26
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:25
 msgid "Braces on Struct"
 msgstr "Chaves en Struct"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:27
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:26
 msgid "Break before Boolean"
 msgstr "Romper antes de Boolean"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:28
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:27
 msgid "Case"
 msgstr "Capitalización"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:29
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:28
 msgid "Continuation"
 msgstr "Continuación"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:30
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:29
 msgid "Continue at Parenth."
 msgstr "Continuar na parella."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:31
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:30
 msgid ""
 "Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
 "parameters by default)."
@@ -2609,147 +2592,142 @@ msgstr ""
 "Crear un estilo novo definido na entrada \"Estilo novo\" (parámetro \"-gnu\" "
 "por omisión)."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:32
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:31
 msgid "Cuddle Else"
 msgstr "Arrimar Else"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:33
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:32
 msgid "Cuddle up to the immediately preceding '}' in an if-then-else construct."
 msgstr "Arrimarse ao '}' inmediatamente nunha construcción if-then-else."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:34
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:33
 msgid "Declaration  "
 msgstr "Declaración"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:35
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:34
 msgid "Declarations  "
 msgstr "Declaracións  "
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:36
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:35
 msgid "Delete the style selected in the combo style selector."
 msgstr "Borrar o estilo seleccionado no selector de estilos."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:37
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:36
 msgid "Delimiters on BL"
 msgstr "Delimitadores en BL"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:38
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:37
 msgid "Disable auto-format"
 msgstr "Desactivar autoformato"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:39
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:38
 msgid "Display the indent output according the selected parameters."
 msgstr "Mostrar a saída de indent de acordo cos parámetros seleccionados."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:40
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:39
 msgid "Do not show tabs"
 msgstr "Non mostrar tabuladores"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:41
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:40
 #: ../plugins/document-manager/plugin.c:1557
 #: ../plugins/document-manager/plugin.c:1922
 #: ../plugins/document-manager/plugin.c:1946
 msgid "Documents"
 msgstr "Documentos"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:42
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:41
 msgid "Enable files autosave"
 msgstr "Activar autogardado de ficheiros"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:43
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:42
 msgid "Encodings"
 msgstr "Codificacións"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:44
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:43
 msgid "First Column"
 msgstr "Primeira columna"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:45
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:44
 msgid "Foece a space between an 'if' and the following parenthesis (default)."
 msgstr "Forzar un espazo entre un 'if' e os seguintes parénteses (por defecto)."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:46
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:45
 msgid "Force a blank line after every block of declarations."
 msgstr "Forza unha liña en branco despois de cada bloque de declaracións."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:47
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:46
 msgid "Force a blank line after every procedure body."
 msgstr "Forza unha liña en branco despois de cada corpo de procedemento."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:48
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:47
 msgid "Force a newline after each comma in a declaration."
 msgstr "Forza unha liña en branco despois de cada coma nunha declaración."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:49
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:48
 msgid "Force a space between a 'for' and the following parenthesis (default)."
 msgstr "Forza un espazo entre un 'for' e o seguinte paréntese (por defecto)."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:50
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:49
 msgid "Force a space between a 'while' and the following parenthesis (default)."
 msgstr "Forza un espazo entre un 'while' e o seguinte paréntese (predeterminado)."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:51
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:50
 msgid "Format comments which begin after the first column."
 msgstr "Formatar comentarios que comezan despois da primeira columna."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:52
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:51
 msgid "Format comments which begin in column one."
 msgstr "Formatar comentarios que comezan na columna un."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:53
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:52
 msgid "Honour Newlines"
 msgstr "Respetar en liñas novas"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:54
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:53
 msgid "Honour newlines by giving them the highest possible priority."
 msgstr "Respetar as liñas novas dándolles a máxima prioridade posible."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:55
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:54
 msgid "Indent"
 msgstr "Sangría"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:56
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:55
 msgid "Indent Preferences"
 msgstr "Preferencias de sangría"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:57
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:56
 msgid "Indent Setting"
 msgstr "Axuste de sangría"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:58
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:57
 msgid "Indentation"
 msgstr "Sangrado"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:59
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:58
 msgid "Insert a line before a Box comment."
 msgstr "Inserir unha liña antes dun comentario de caixa."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:60
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:9
-msgid "Left"
-msgstr "Esquerda"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:61
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:59
 msgid "Length       "
 msgstr "Lonxitude       "
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:62
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:60
 msgid "Level              "
 msgstr "Nivel              "
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:63
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:61
 msgid "Line Indent   "
 msgstr "Sangría de liña"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:64
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:62
 msgid "Line after Commas"
 msgstr "Liña despois de comas"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:65
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:63
 msgid "Line before Box "
 msgstr "Liña antes de caixa"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:66
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:64
 msgid ""
 "Line up continuation line to start at the character position just after the "
 "left parenthesis if a line has a left parenthesis which is not closed on "
@@ -2759,7 +2737,7 @@ msgstr ""
 "antes do paréntese esquerdo se unha liña ten un paréntese esquerdo que non "
 "está pechado nesa liña."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:67
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:65
 msgid ""
 "New\n"
 "Style"
@@ -2767,7 +2745,7 @@ msgstr ""
 "Novo\n"
 "Estilo"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:69
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:67
 msgid ""
 "Note: If there is a project open, the preferences in this page are project "
 "preferences and will be loaded from and saved with the project. If there is "
@@ -2777,139 +2755,134 @@ msgstr ""
 "preferencias do proxecto e cargaranse e gardaranse co proxecto. Se non hai "
 "un proxecto aberto, serán preferencias globais."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:70
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:68
 msgid "Parameter     "
 msgstr "Parámetro     "
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:71
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:69
 msgid "Place a space after a cast operator."
 msgstr "Colocar un espazo despois dun operador cast."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:72
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:70
 msgid "Place a space between the name of the procedure being called and the '('."
 msgstr "Coloca un espazo entre o nome do procedemento que se chama e o '('."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:73
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:71
 msgid "Place stars at the beginning of multi-line comments."
 msgstr "Coloca estrelas ao comezo de comentarios multiliña."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:74
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:72
 msgid "Place the '{' following a 'struct' declaration on the next line."
 msgstr "Coloca o '{' seguindo unha declaración 'struct' na seguinte liña."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:75
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:73
 msgid "Place the '{' following a 'struct' declaration on the same line."
 msgstr "Coloca o '{' seguindo unha declaración 'struct' na mesma liña."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:76
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:74
 msgid "Place the brace on the line following the if test."
 msgstr "Coloca a chave na liña seguinte á proba if."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:77
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:75
 msgid "Place the brace on the line of the if test."
 msgstr "Coloca a chave na liña da proba if."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:78
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:76
 msgid "Place the comment delimiters on blank lines."
 msgstr "Coloca os delimitadores de comentario en liñas en branco."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:79
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:77
 msgid "Place the type of a procedure beeing defined on the previous line."
 msgstr "Coloca o tipo do procedemento sendo definido na liña anterior."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:80
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:78
 msgid "Position:"
 msgstr "Posición:"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:81
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:79
 msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
 msgstr "Preferir romper liñas longas antes dos operadores booleanos '&&' e '||'."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:82
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:80
 #: ../plugins/valgrind/preferences.c:162
 msgid "Preview"
 msgstr "Previsualización"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:83
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:81
 msgid "Procnames start lines"
 msgstr "Liñas de comezo dos nomes de procedemento"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:84
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:13
-msgid "Right"
-msgstr "Dereita"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:85
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:82
 msgid "Save files interval in minutes"
 msgstr "Intervalo de gardado de ficheiros en minutos"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:86
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:83
 msgid "Save session interval in minutes"
 msgstr "Intervalo de gardado da sesión en minutos"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:87
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:84
 msgid "Save the selected Style with the modified parameters."
 msgstr "Garda o estilo seleccionado cos parámetros modificados."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:88
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:85
 msgid "Sorted by most recent use"
 msgstr "Ordenados por uso máis recente"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:89
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:86
 msgid "Sorted in alphabetical order"
 msgstr "Ordenados en orde alfabético"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:90
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:87
 msgid "Sorted in opening order"
 msgstr "Ordenados en orde de apertura"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:91
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:88
 msgid "Space after Cast"
 msgstr "Espazo despois de cast"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:92
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:89
 msgid "Space after FOR"
 msgstr "Espazo despois de for"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:93
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:90
 msgid "Space after IF"
 msgstr "Espazo despois de if"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:94
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:91
 msgid "Space after Proc Call"
 msgstr "Espazo despois de chamada a procedemento"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:95
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:92
 msgid "Space after WHILE"
 msgstr "Espazo despois de while"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:96
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:93
 msgid "Specify an amount by which comments are moved to the left."
 msgstr "Especificar unha cantidade pola que os comentarios móvense á esquerda."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:97
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:94
 msgid "Specify how many spaces to indent type declarations."
 msgstr "Especificar cántos espazos sangrar as declaracións de tipo."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:98
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:95
 msgid "Specify the column for comments following code."
 msgstr "Especificar a columna para os comentarios seguindo o código."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:99
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:96
 msgid "Specify the column for comments following declarations."
 msgstr "Especificar a columna para os comentarios seguindo declaracións."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:100
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:97
 msgid "Specify the column for comments following preprocessor directives."
 msgstr ""
 "Especificar a columna para os comentarios seguindo directivas de "
 "preprocesador."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:101
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:98
 msgid "Specify the column of identifiers."
 msgstr "Especificar a columna dos identificadores."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:102
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:99
 msgid ""
 "Specify the indentation level when a statement is broken across two lines "
 "(default 0)."
@@ -2917,7 +2890,7 @@ msgstr ""
 "Especificar o nivel de sangría cando se rompe unha sentencia a través de "
 "dúas liñas (predeterminado 0)."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:103
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:100
 msgid ""
 "Specify the maximum length of a line of C code, not including possible "
 "comments that follow it."
@@ -2925,15 +2898,15 @@ msgstr ""
 "Especificar a lonxitude máxima dunha liña de código C, non incluíndo os "
 "comentarios posibles que a sigan."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:104
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:101
 msgid "Specify the number o spaces for a TAB (default 8)."
 msgstr "Especificar o número de espazos para unTAB (8 por defecto)."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:105
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:102
 msgid "Specify the number of spaces by which braces are indented."
 msgstr "Especificar o número de espazos que se sangran as chaves."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:106
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:103
 msgid ""
 "Specify the number of spaces that 'case' labels should be indented to the "
 "right of the containing 'switch' statement."
@@ -2941,30 +2914,38 @@ msgstr ""
 "Especificar o número de espazos que as etiquetas 'case' deberían ser "
 "sangradas á dereita da sentencia 'switch' que as contén."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:107
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:104
 msgid "Specify the value of indentation for each level."
 msgstr "Especificar o valor de sangría para cada nivel."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:108
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:105
 msgid "Star Left Side"
 msgstr "Estrela no lado esquerdo"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:109
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:106
 msgid "Swallow Optional"
 msgstr "Consumir opcionais"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:110
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:107
 msgid "Swallow optional blank lines."
 msgstr "Consumir as liñas en branco opcionais."
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:111
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:108
 msgid "Tab Size      "
 msgstr "Tamaño do tabulador"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:112
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:16
-msgid "Top"
-msgstr "Enriba"
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:109
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:10
+msgid ""
+"Top\n"
+"Bottom\n"
+"Left\n"
+"Right"
+msgstr ""
+"Enriba\n"
+"Embaixo\n"
+"Esquerda\n"
+"Dereita"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:113
 msgid "Try to save in current locale's encoding"
@@ -3248,7 +3229,7 @@ msgstr "Ir á seguinte historia"
 #: ../plugins/document-manager/plugin.c:265 ../plugins/gtodo/interface.c:170
 #: ../plugins/tools/anjuta-tools.glade.h:18
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../src/shell.c:75 ../plugins/language-support-cpp-java/plugin.c:1532
+#: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1532
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -4309,103 +4290,46 @@ msgstr "Abrir ficheiro recente"
 msgid "Open recent files"
 msgstr "Abre ficheiros recentes"
 
-#: ../plugins/file-manager/an_file_view.c:108
-#: ../plugins/message-view/message-view.c:268
-#: ../plugins/message-view/message-view.c:302
-#: ../plugins/symbol-browser/an_symbol_view.c:170
-msgid "No message details"
-msgstr "Sen detalles das mensaxes"
-
-#: ../plugins/file-manager/an_file_view.c:142
-#: ../plugins/symbol-browser/an_symbol_view.c:204
-msgid "No file details"
-msgstr "Sen detalles do ficheiro"
-
-#: ../plugins/file-manager/an_file_view.c:652
-#: ../plugins/file-manager/an_file_view.c:821
-#: ../plugins/file-manager/an_file_view.c:1155
+#: ../plugins/file-manager/file-view.c:96
 #: ../plugins/symbol-browser/an_symbol_view.c:869
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: ../plugins/file-manager/an_file_view.c:958
-msgid "Rev"
-msgstr "Rev"
+#: ../plugins/file-manager/file-view.c:455
+msgid "Filename"
+msgstr "Nome de ficheiro"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:1
-msgid "<b>Directory filter:</b>"
-msgstr "<b>Filtro de directorios:</b>"
+#: ../plugins/file-manager/file-view.c:541
+msgid "Base uri"
+msgstr "Uri base"
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:2
-msgid "<b>File filter:</b>"
-msgstr "<b>Filtro de ficheiros:</b>"
+#: ../plugins/file-manager/file-view.c:542
+msgid "Uri of the top-most path displayed"
+msgstr ""
 
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:3
-msgid "<b>Root directory if no project is open:</b>"
-msgstr "<b>Directorio raíz se non hai un proxecto aberto:</b>"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:4
-msgid "Choose directories"
-msgstr "Escolla directorios"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:5
-msgid "Choose files"
-msgstr "Ecolla ficheiros"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:7
-msgid "Do not show files ignored by version control"
-msgstr "Non mostrar ficheiros ignorados polo control de versión"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:8
-msgid "Do not show hidden directories"
-msgstr "Non mostrar directorios ocultos"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:9
-msgid "Do not show hidden files"
-msgstr "Non mostrar ficheiros ocultos"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:10
-msgid "Ignore directories"
-msgstr "Ignorar directorios"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:11
-msgid "Ignore files"
-msgstr "Ignorar ficheiros"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:12
-msgid "Ignore files (space seperated shell patterns):"
-msgstr "Ficheiros ignorados (patróns de shell separados por espazos):"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:13
-msgid "Space-separated list of file name patterns to ignore"
-msgstr "Lista separada por espazos de patróns de nomes de ficheiro a ignorar"
-
-#: ../plugins/file-manager/anjuta-file-manager-plugin.glade.h:14
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
-msgid "dialog3"
-msgstr "diálogo3"
-
-#: ../plugins/file-manager/plugin.c:48 ../plugins/project-manager/plugin.c:747
+#: ../plugins/file-manager/plugin.c:56 ../plugins/project-manager/plugin.c:747
 #: ../plugins/symbol-browser/plugin.c:327
 msgid "_Refresh"
 msgstr "_Recargar"
 
-#: ../plugins/file-manager/plugin.c:48
+#: ../plugins/file-manager/plugin.c:56
 msgid "Refresh file manager tree"
 msgstr "Recargar a árbore do xestor de ficheiros"
 
-#: ../plugins/file-manager/plugin.c:169
+#: ../plugins/file-manager/plugin.c:174
 msgid "File manager popup actions"
 msgstr "Accións emerxentes do xestor de ficheiros"
 
-#: ../plugins/file-manager/plugin.c:179
+#: ../plugins/file-manager/plugin.c:213
 msgid "Files"
 msgstr "Ficheiros"
 
-#: ../plugins/file-manager/plugin.c:292 ../plugins/file-manager/plugin.c:299
-#: ../plugins/file-manager/anjuta-file-manager.plugin.in.h:1
-msgid "File Manager"
-msgstr "Xestor de ficheiros"
+#: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
+#: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
+#: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
+msgid "*"
+msgstr "*"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:2
 msgid "<span weight=\"bold\">File Information</span>"
@@ -4501,7 +4425,7 @@ msgstr "General Public License (GPL)"
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
-#: ../plugins/file-wizard/file.c:165
+#: ../plugins/file-wizard/file.c:176
 msgid "Unable to build user interface for New File"
 msgstr "Non se puido contruir a interface de usuario para Ficheiro novo"
 
@@ -4648,12 +4572,12 @@ msgstr "Separando o proceso...\n"
 msgid "Interrupting the process\n"
 msgstr "Interrumpindo o proceso\n"
 
-#: ../plugins/gdb/debugger.c:3835
+#: ../plugins/gdb/debugger.c:3841
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviando sinal %s ao proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3861
+#: ../plugins/gdb/debugger.c:3867
 msgid "Error whilst signaling the process."
 msgstr "Erro ao enviar o sinal ao proceso."
 
@@ -5052,7 +4976,7 @@ msgid "Export to"
 msgstr "Exportar a"
 
 #: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
-#: ../src/shell.c:76
+#: ../src/shell.c:88
 msgid "_View"
 msgstr "_Ver"
 
@@ -5200,19 +5124,19 @@ msgstr "Ocultar elementos sen data de _finalización"
 msgid "Hide items without an end date"
 msgstr "Ocultar elementos sen unha data de finalización"
 
-#: ../plugins/gtodo/plugin.c:160
+#: ../plugins/gtodo/plugin.c:163
 msgid "Tasks manager"
 msgstr "Xestor de tarefas"
 
-#: ../plugins/gtodo/plugin.c:166
+#: ../plugins/gtodo/plugin.c:169
 msgid "Tasks manager view"
 msgstr "Visor do xestor de tarefas"
 
-#: ../plugins/gtodo/plugin.c:172
+#: ../plugins/gtodo/plugin.c:175
 msgid "Tasks"
 msgstr "Tarefas"
 
-#: ../plugins/gtodo/plugin.c:267 ../plugins/gtodo/plugin.c:276
+#: ../plugins/gtodo/plugin.c:283 ../plugins/gtodo/plugin.c:292
 msgid "Todo Manager"
 msgstr "Xestor de lista de pendentes"
 
@@ -5615,69 +5539,60 @@ msgstr "<b>Cores da mensaxe</b>"
 msgid "<b>Messages options</b>"
 msgstr "<b>Opcións das mensaxes</b>"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:5
-msgid "Diagonal"
-msgstr "Diagonal"
-
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:6
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:4
 msgid "Error message indicator style:"
 msgstr "Estilo de indicador de mensaxe de erro:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:7
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:5
 msgid "Errors:"
 msgstr "Erros:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:8
-msgid "Information:"
-msgstr "Información:"
-
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:10
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:6
 msgid "Normal message indicator style:"
 msgstr "Estilo de indicador de mensaxe normal:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:11
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:7
 msgid "Number of first characters to show:"
 msgstr "Número de caracteres iniciais a mostrar:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:12
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:8
 msgid "Number of last characters to show:"
 msgstr "Número de caracteres finais a mostrar:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:14
-msgid "Strike-Out"
-msgstr "Riscado"
-
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:15
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:9
 msgid "Tabs position:"
 msgstr "Posición dos separadores:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:17
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:14
 msgid "Truncate long messages"
 msgstr "Truncar mensaxes longas"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:18
-msgid "Underline Plain"
-msgstr "Subraiado chan"
-
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:19
-msgid "Underline Squiggle"
-msgstr "Subraiado irregular"
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:15
+msgid ""
+"Underline-Plain\n"
+"Underline-Squiggle\n"
+"Underline-TT\n"
+"Diagonal\n"
+"Strike-Out"
+msgstr ""
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:20
-msgid "Underline-TT"
-msgstr "Subraiado-TT"
-
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:21
 msgid "Warning message indicator style:"
 msgstr "Estilo de indicador de mensaxe de aviso:"
 
-#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:22
+#: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:21
 msgid "Warnings:"
 msgstr "Avisos:"
 
 #: ../plugins/message-view/anjuta-msgman.c:72
 msgid "Close all message tabs"
 msgstr "Pechar todos os separadores de mensaxes"
+
+#: ../plugins/message-view/message-view.c:268
+#: ../plugins/message-view/message-view.c:302
+#: ../plugins/symbol-browser/an_symbol_view.c:170
+msgid "No message details"
+msgstr "Sen detalles das mensaxes"
 
 #: ../plugins/message-view/message-view.c:663
 msgid "Icon"
@@ -5800,7 +5715,8 @@ msgid ""
 msgstr ""
 "Este obxectivo non ten ningún datos de perfilado.\n"
 "\n"
-"Asegúrese de que o obxectivo está compilado co soporte de perfilado e que se está executando alomenos unha vez."
+"Asegúrese de que o obxectivo está compilado co soporte de perfilado e que se "
+"está executando alomenos unha vez."
 
 #. Action name
 #. Stock icon, if any
@@ -6011,7 +5927,9 @@ msgstr "O ficheiro \"%s\" xa existe. Quere substituílo?"
 msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
 "to the project directory."
-msgstr "O ficheiro \"%s\" non se pode escribir: %s. Comprobe que ten acceso de escritura ao directorio do proxecto."
+msgstr ""
+"O ficheiro \"%s\" non se pode escribir: %s. Comprobe que ten acceso de "
+"escritura ao directorio do proxecto."
 
 #: ../plugins/project-manager/plugin.c:343
 #, c-format
@@ -6170,47 +6088,49 @@ msgstr "E_liminar"
 msgid "Remove from project"
 msgstr "Eliminar do proxecto"
 
-#: ../plugins/project-manager/plugin.c:1118
+#: ../plugins/project-manager/plugin.c:1159
 #, c-format
 msgid "Loading project: %s"
 msgstr "Cargando proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1126
+#: ../plugins/project-manager/plugin.c:1167
 msgid "Created project view..."
 msgstr "Visor de proxecto creado..."
 
-#: ../plugins/project-manager/plugin.c:1139
+#: ../plugins/project-manager/plugin.c:1180
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
-msgstr "Fallou ao analizar o proxecto (o proxecto está aberto, pero non haberá ningunha vista de proxecto) %s: %s\n"
+msgstr ""
+"Fallou ao analizar o proxecto (o proxecto está aberto, pero non haberá "
+"ningunha vista de proxecto) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1159
-#: ../plugins/project-manager/plugin.c:1234
-#: ../plugins/project-manager/plugin.c:1405
+#: ../plugins/project-manager/plugin.c:1200
+#: ../plugins/project-manager/plugin.c:1275
+#: ../plugins/project-manager/plugin.c:1446
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Proxecto"
 
-#: ../plugins/project-manager/plugin.c:1321
+#: ../plugins/project-manager/plugin.c:1362
 #, c-format
 msgid "Error closing project: %s"
 msgstr "Erro pechando o proxecto: %s"
 
-#: ../plugins/project-manager/plugin.c:1384
+#: ../plugins/project-manager/plugin.c:1425
 msgid "Project manager actions"
 msgstr "Accións do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:1392
+#: ../plugins/project-manager/plugin.c:1433
 msgid "Project manager popup actions"
 msgstr "Accións emerxentes do xestor de proxectos"
 
-#: ../plugins/project-manager/plugin.c:2297
+#: ../plugins/project-manager/plugin.c:2352
 msgid "Loaded Project... Initializing"
 msgstr "Proxecto cargado... Inicializando"
 
-#: ../plugins/project-manager/plugin.c:2308
+#: ../plugins/project-manager/plugin.c:2363
 msgid "Loaded Project..."
 msgstr "Proxecto cargado..."
 
@@ -6551,7 +6471,9 @@ msgstr "Directorio do proxecto:"
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
-msgstr "O nome do proxecto non debe conter espazos porque será o nome do proxecto obxectivo (executable, biblioteca, etc.)"
+msgstr ""
+"O nome do proxecto non debe conter espazos porque será o nome do proxecto "
+"obxectivo (executable, biblioteca, etc.)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Project name:"
@@ -6635,7 +6557,9 @@ msgstr "Indica se o complemento ten menús e barras de ferramentas"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
-msgstr "gtk-doc úsase para compilar a documentación da API para clases baseadas en GObject"
+msgstr ""
+"gtk-doc úsase para compilar a documentación da API para clases baseadas en "
+"GObject"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "project name"
@@ -7402,6 +7326,10 @@ msgstr "Examinador de símbolos"
 msgid "API Tags"
 msgstr "Etiquetas do API"
 
+#: ../plugins/symbol-browser/an_symbol_view.c:204
+msgid "No file details"
+msgstr "Sen detalles do ficheiro"
+
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 msgid "<b>Available API tags:</b>"
 msgstr "<b>Etiquetas do API dispoñibles:</b>"
@@ -7425,6 +7353,10 @@ msgstr "Crea_r"
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
 msgid "Update globale tags"
 msgstr "Actualizar as etiquetas globais"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:10
+msgid "dialog3"
+msgstr "diálogo3"
 
 #: ../plugins/symbol-browser/plugin.c:283
 msgid "Tag _Definition"
@@ -8127,11 +8059,11 @@ msgstr "Correo-e do usuario"
 msgid "User name"
 msgstr "Nome do usuario"
 
-#: ../src/anjuta-actions.h:23 ../src/shell.c:74
+#: ../src/anjuta-actions.h:23 ../src/shell.c:86
 msgid "_File"
 msgstr "_Ficheiro"
 
-#: ../src/anjuta-actions.h:24 ../src/shell.c:82
+#: ../src/anjuta-actions.h:24 ../src/shell.c:94
 msgid "_Quit"
 msgstr "_Saír"
 
@@ -8177,7 +8109,7 @@ msgstr ""
 "Bloquear a distribución do empotrable actual de maneira que os widgets non "
 "se poidan mover"
 
-#: ../src/anjuta-actions.h:58 ../src/shell.c:78
+#: ../src/anjuta-actions.h:58 ../src/shell.c:90
 msgid "_Help"
 msgstr "A_xuda"
 
@@ -8275,7 +8207,7 @@ msgstr "Complementos instalados"
 msgid "Shortcuts"
 msgstr "Atallos"
 
-#: ../src/anjuta-app.c:868 ../src/shell.c:220
+#: ../src/anjuta-app.c:868 ../src/shell.c:232
 #, c-format
 msgid "Value doesn't exist"
 msgstr "O valor non existe"
@@ -8329,39 +8261,39 @@ msgstr " - Entorno Integrado de Desenvolvemento"
 msgid "Anjuta"
 msgstr "Anjuta"
 
-#: ../src/shell.c:64
+#: ../src/shell.c:76
 msgid "Anjuta Plugins"
 msgstr "Complementos de Anjuta"
 
-#: ../src/shell.c:77
+#: ../src/shell.c:89
 msgid "_Settings"
 msgstr "_Opcións"
 
-#: ../src/shell.c:84
+#: ../src/shell.c:96
 msgid "Quit Anjuta Test Shell"
 msgstr "Saír da shell de probas de Anjuta"
 
-#: ../src/shell.c:90
+#: ../src/shell.c:102
 msgid "_Preferences..."
 msgstr "_Preferencias..."
 
-#: ../src/shell.c:92
+#: ../src/shell.c:104
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../src/shell.c:98
+#: ../src/shell.c:110
 msgid "C_ustomize shortcuts"
 msgstr "_Personalizar atallos"
 
-#: ../src/shell.c:100
+#: ../src/shell.c:112
 msgid "Customize shortcuts associated with menu items"
 msgstr "Personalizar atallos asociados con elementos do menú"
 
-#: ../src/shell.c:171
+#: ../src/shell.c:183
 msgid "Test shell action group"
 msgstr "Grupo de acción da shell de probas"
 
-#: ../src/shell.c:423
+#: ../src/shell.c:442
 msgid "Anjuta test shell"
 msgstr "Shell de probas de Anjuta"
 
@@ -8405,7 +8337,9 @@ msgstr "Sangrado automático"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1539
 msgid "Auto indent current line or selection based on indentation settings"
-msgstr "Sangrar automaticamente a liña actual ou a selección baseándose nos axustes de sangrado"
+msgstr ""
+"Sangrar automaticamente a liña actual ou a selección baseándose nos axustes "
+"de sangrado"
 
 #: ../plugins/language-support-cpp-java/plugin.c:1557
 msgid "Autoindent"
@@ -8570,10 +8504,6 @@ msgid "C++ and Java support plugin for code completion, auto indentation etc."
 msgstr ""
 "Complemento de soporte de C++ e Java para completado de código, sangrado "
 "automático etc."
-
-#: ../plugins/file-manager/anjuta-file-manager.plugin.in.h:2
-msgid "File Manager Plugin for Anjuta."
-msgstr "Complemento de xestor de ficheiros para Anjuta."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
 msgid "Project Wizard"
