@@ -1126,12 +1126,13 @@ anjuta_docman_show_editor (AnjutaDocman *docman, GtkWidget* te)
 static void
 anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te_widget)
 {
-	GdkColor tmpcolor, *colorp = NULL;
 	AnjutaDocmanPage *page;
 	gchar *basename;
 	gchar *uri;
 	IAnjutaDocument *te;
 	const gchar* te_filename;
+	gchar* dirty_char;
+	gchar* label;
 	
 	te = IANJUTA_DOCUMENT (te_widget);
 	if (te == NULL)
@@ -1143,40 +1144,30 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te_widget)
 	
 	if (!ianjuta_file_savable_is_dirty(IANJUTA_FILE_SAVABLE(te), NULL))
 	{
-		/* setting GdkColor value in gtk_widget_modify_fg to NULL will 
-		 * reset it to the default colors */
-		colorp = NULL;
+		dirty_char = NULL;
 	}
 	else
 	{
-		gdk_color_parse("red", &tmpcolor);
-		colorp = &tmpcolor;
+		dirty_char = "*";
 	}
-	gtk_widget_modify_fg (page->label, GTK_STATE_NORMAL, colorp);
-	gtk_widget_modify_fg (page->label, GTK_STATE_INSENSITIVE, colorp);
-	gtk_widget_modify_fg (page->label, GTK_STATE_ACTIVE, colorp);
-	gtk_widget_modify_fg (page->label, GTK_STATE_PRELIGHT, colorp);
-	gtk_widget_modify_fg (page->label, GTK_STATE_SELECTED, colorp);
-
-    gtk_widget_modify_fg (page->menu_label, GTK_STATE_NORMAL, colorp);
-	gtk_widget_modify_fg (page->menu_label, GTK_STATE_INSENSITIVE, colorp);
-  	gtk_widget_modify_fg (page->menu_label, GTK_STATE_ACTIVE, colorp);
-  	gtk_widget_modify_fg (page->menu_label, GTK_STATE_PRELIGHT, colorp);
-  	gtk_widget_modify_fg (page->menu_label, GTK_STATE_SELECTED, colorp);
 	
 	uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
 	if (uri)
 	{
 		basename = g_path_get_basename (uri);
-		gtk_label_set_text (GTK_LABEL (page->label), basename);
-		gtk_label_set_text (GTK_LABEL (page->menu_label), basename);
+		label = g_strconcat(basename, dirty_char, NULL);
+		gtk_label_set_text (GTK_LABEL (page->label), label);
+		gtk_label_set_text (GTK_LABEL (page->menu_label), label);
+		g_free (label);
 		g_free (basename);
 		g_free (uri);
 	}
 	else if ((te_filename = ianjuta_document_get_filename(te, NULL)) != NULL)
 	{
-		gtk_label_set_text (GTK_LABEL (page->label), te_filename);
-		gtk_label_set_text (GTK_LABEL (page->menu_label), te_filename);	
+		label = g_strconcat(te_filename, dirty_char, NULL);
+		gtk_label_set_text (GTK_LABEL (page->label), label);
+		gtk_label_set_text (GTK_LABEL (page->menu_label), label);
+		g_free (label);
 	}
 }
 

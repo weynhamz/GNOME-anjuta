@@ -467,6 +467,90 @@ swap_toggle_label_and_stock (GtkToggleActionEntry* actions, gint size)
 #define VIEW_LINE_WRAP             "view.line.wrap"
 
 static void
+update_title (DocmanPlugin* doc_plugin)
+{
+	IAnjutaDocument* doc =
+		anjuta_docman_get_current_document (ANJUTA_DOCMAN(doc_plugin->docman));
+	AnjutaStatus* status = anjuta_shell_get_status (ANJUTA_PLUGIN(doc_plugin)->shell, NULL);
+	gchar* filename = NULL;
+	gchar* title;
+	if (doc)
+	{
+		gchar* uri = ianjuta_file_get_uri (IANJUTA_FILE(doc), NULL);
+		if (uri)
+		{
+			filename = gnome_vfs_get_local_path_from_uri (uri);
+		}
+		g_free(uri);
+	}
+	if (filename && doc_plugin->project_name)
+	{
+		title = g_strconcat (doc_plugin->project_name, " - ", filename, NULL);
+	}
+	else if (filename)
+	{
+		title = g_strdup(filename);
+	}
+	else if (doc_plugin->project_name)
+	{
+		title = g_strdup(doc_plugin->project_name);
+	}
+	else
+		title = NULL;
+	
+	if (title)
+		anjuta_status_set_title (status, title);
+	g_free(title);
+}
+
+static void
+value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
+							  const GValue *value, gpointer user_data)
+{
+	DocmanPlugin *doc_plugin;
+	const gchar *root_uri;
+
+	doc_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
+	
+	DEBUG_PRINT ("Project added");
+	
+	
+	g_free (doc_plugin->project_name);
+	doc_plugin->project_name = NULL;
+	
+	root_uri = g_value_get_string (value);
+	if (root_uri)
+	{
+		gchar* path = 
+			gnome_vfs_get_local_path_from_uri (root_uri);
+		
+		doc_plugin->project_name = g_path_get_basename(path);
+		
+		if (doc_plugin->project_name)
+		{
+			update_title (doc_plugin);
+		}
+		g_free(path);
+	}
+}
+
+static void
+value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
+								gpointer user_data)
+{
+	DocmanPlugin *doc_plugin;
+
+	doc_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
+	
+	DEBUG_PRINT ("Project added");
+	
+	g_free (doc_plugin->project_name);
+	doc_plugin->project_name = NULL;
+	
+	update_title(doc_plugin);
+}
+
+static void
 ui_states_init (AnjutaPlugin *plugin)
 {
 	gint i;
@@ -995,6 +1079,7 @@ on_editor_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 	}
 }
 
+
 static void
 on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 				   AnjutaPlugin *plugin)
@@ -1069,7 +1154,7 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 		}
 		DEBUG_PRINT("Beginning language support");
 	}
-	DEBUG_PRINT(__FUNCTION__);
+	update_title (ANJUTA_PLUGIN_DOCMAN(plugin));
 }
 
 static void
@@ -1577,6 +1662,12 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Connect to save prompt */
 	g_signal_connect (G_OBJECT (plugin->shell), "save-prompt",
 					  G_CALLBACK (on_save_prompt), plugin);
+	
+	editor_plugin->project_watch_id = 
+		anjuta_plugin_add_watch (plugin, "project_root_uri",
+								 value_added_project_root_uri,
+								 value_removed_project_root_uri, NULL);
+	editor_plugin->project_name = NULL;
 	
 	initialized = TRUE;
 	return TRUE;

@@ -1,5 +1,21 @@
 2007-09-09  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_update_page_label):
+	
+	Fixed #458034 – Method of indicating unsaved changes breaks convention
+	
+	* plugins/document-manager/plugin.c: (update_title),
+	(value_added_project_root_uri), (value_removed_project_root_uri),
+	(on_editor_changed), (activate_plugin):
+	* plugins/document-manager/plugin.h:
+	* plugins/project-manager/plugin.c: (on_profile_scoped),
+	(on_profile_descoped), (ifile_open):
+	
+	Fixed #427390 – Show path of item in currently focused editor window
+
+2007-09-09  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/search/plugin.c: (on_toolbar_find_clicked),
 	(on_toolbar_find_incremental):
 	Fix incremental search

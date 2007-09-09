@@ -1296,6 +1296,7 @@ on_profile_scoped (AnjutaProfileManager *profile_manager,
 	g_value_init (value, G_TYPE_STRING);
 	g_value_set_string (value, plugin->project_root_uri);
 	
+	update_title (plugin, plugin->project_root_uri);
 	anjuta_shell_add_value (ANJUTA_PLUGIN(plugin)->shell,
 							"project_root_uri",
 							value, NULL);
@@ -1334,8 +1335,6 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 	project_manager_save_session (plugin);
 	
 	/* Close current project */
-	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
-							   "project_root_uri", NULL);
 	project_manager_unload_gbf (plugin);
 		
 	g_free (plugin->project_root_uri);
@@ -1344,6 +1343,8 @@ on_profile_descoped (AnjutaProfileManager *profile_manager,
 	plugin->project_root_uri = NULL;
 	
 	update_title (ANJUTA_PLUGIN_PROJECT_MANAGER (plugin), NULL);
+	anjuta_shell_remove_value (ANJUTA_PLUGIN (plugin)->shell,
+							   "project_root_uri", NULL);
 }
 
 static void
@@ -2361,7 +2362,6 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri, GError **e)
 	anjuta_shell_thaw (ANJUTA_PLUGIN (ifile)->shell, NULL);
 #endif
 	anjuta_status_progress_tick (status, NULL, _("Loaded Project..."));
-	update_title (plugin, plugin->project_root_uri);
 }
 
 static gchar*
