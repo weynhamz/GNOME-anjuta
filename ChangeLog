@@ -1,3 +1,8 @@
+2007-09-10  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-utils.c: (anjuta_util_parse_args_from_string):
+	Bug 343522 – anjuta: Unable to execute commands that use options.
+
 2007-09-09  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c:
