@@ -156,6 +156,7 @@ static void on_document_char_added(AnjutaView* view, gint pos,
 										   assist_window_get_position(sv->priv->assist_win));
 		gchar* context = gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
 		g_signal_emit_by_name(G_OBJECT(sv), "assist_update", context);
+		g_free(context);
 	}
 	else if (sv->priv->tip_active)
 	{
@@ -165,6 +166,7 @@ static void on_document_char_added(AnjutaView* view, gint pos,
 										   assist_tip_get_position(sv->priv->assist_tip));
 		gchar* context = gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
 		g_signal_emit_by_name(G_OBJECT(sv), "assist_update", context);
+		g_free(context);
 	}
 	if (!sv->priv->assist_active && !sv->priv->tip_active)
 	{
@@ -183,6 +185,7 @@ static void on_document_char_added(AnjutaView* view, gint pos,
 				gchar* context = parser(IANJUTA_EDITOR(sv), gtk_text_iter_get_offset(&end));
 				g_signal_emit_by_name(G_OBJECT(sv), "assist_begin", context, text);
 				g_free(text);
+				g_free(context);
 				found = TRUE;
 				break;
 			}
@@ -202,6 +205,7 @@ static void on_document_char_added(AnjutaView* view, gint pos,
 					gtk_text_iter_get_offset (&begin);
 				g_signal_emit_by_name(G_OBJECT(sv), "assist_begin", word, NULL);
 			}
+			g_free(word);
 		}
 	}
 	if (ch != '\0')
@@ -1195,13 +1199,9 @@ idocument_iface_init (IAnjutaDocumentIface *iface)
 static void
 set_select(Sourceview* sv, GtkTextIter* start_iter, GtkTextIter* end_iter)
 {
-	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->document),
-									  "insert", start_iter);
-	gtk_text_buffer_move_mark_by_name(GTK_TEXT_BUFFER(sv->priv->document),
-									  "selection_bound", end_iter);
-	gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(sv->priv->view),
-								 gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)),
-								 0,  FALSE, 0, 0);			
+	gtk_text_buffer_select_range (GTK_TEXT_BUFFER (sv->priv->document), start_iter, end_iter);
+	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(sv->priv->view),
+								 gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)));
 }
 
 /* IAnjutaEditorSelection */

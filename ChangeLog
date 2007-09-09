@@ -1,5 +1,15 @@
 2007-09-09  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/search/plugin.c: (on_toolbar_find_clicked),
+	(on_toolbar_find_incremental):
+	Fix incremental search
+	
+	* plugins/sourceview/sourceview.c: (on_document_char_added),
+	(set_select):
+	Fixed selection management
+
+2007-09-09  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-ui.c: (anjuta_ui_remove_action_group):
 	Fixed memory leak
 

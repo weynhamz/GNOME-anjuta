@@ -362,7 +362,9 @@ on_toolbar_find_clicked (GtkAction *action, gpointer user_data)
 		}
 	}
 	else
+	{
 		anjuta_status_clear_stack (status);
+	}
 	g_free(search_params->last);
 	search_params->last = expression;
 }
@@ -488,17 +490,6 @@ on_toolbar_find_incremental (GtkAction *action, gpointer user_data)
 	if (!te)
 		return;
 	
-	search_params = g_object_get_data (G_OBJECT (te), "incremental_search");
-	if (!search_params)
-	{
-		search_params = g_new0 (IncrementalSearch, 1);
-		g_object_set_data_full (G_OBJECT (te), "incremental_search",
-								search_params, (GDestroyNotify)g_free);
-	}
-	
-	if (search_params->pos < 0)
-		return;
-	
 	if (EGG_IS_ENTRY_ACTION (action))
 	{
 		entry_text = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
@@ -516,6 +507,28 @@ on_toolbar_find_incremental (GtkAction *action, gpointer user_data)
 			egg_entry_action_get_text (EGG_ENTRY_ACTION (entry_action));
 	}
 	if (!entry_text || strlen(entry_text) < 1) return;
+	
+	search_params = g_object_get_data (G_OBJECT (te), "incremental_search");
+	if (!search_params)
+	{
+		search_params = g_new0 (IncrementalSearch, 1);
+		g_object_set_data_full (G_OBJECT (te), "incremental_search",
+								search_params, (GDestroyNotify)g_free);
+		search_params->pos =
+			ianjuta_editor_get_position(te, NULL);
+	}
+	else
+	{
+		/* Do not wrap around if the user just pressed backspace */
+		if (search_params->last && 
+			g_str_has_prefix(search_params->last, entry_text))
+		{
+			DEBUG_PRINT ("Do not wrap");
+			search_params->wrap = FALSE;
+		}
+	}
+	if (search_params->pos < 0)
+		return;
 	
 	ianjuta_editor_goto_position(te, search_params->pos, NULL);
 	on_toolbar_find_clicked (NULL, user_data);
