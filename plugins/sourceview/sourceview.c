@@ -77,20 +77,64 @@ static gboolean sourceview_add_monitor(Sourceview* sv);
 
 /* Callbacks */
 
-static void on_assist_chosen(AssistWindow* assist_win, gint num, Sourceview* sv)
+static void
+on_assist_window_destroyed (AssistWindow* window, Sourceview* sv)
+{
+	g_signal_emit_by_name(G_OBJECT(sv), "assist_end");
+	sv->priv->assist_active = FALSE;
+	sv->priv->assist_win = NULL;
+}
+
+static void 
+on_assist_tip_destroyed (AssistTip* tip, Sourceview* sv)
+{
+	sv->priv->assist_tip = NULL;
+	sv->priv->tip_active = FALSE;
+	g_signal_emit_by_name(G_OBJECT(sv), "assist_end");
+	DEBUG_PRINT("Assist-tip-cancel");
+}
+
+static void 
+on_assist_chosen(AssistWindow* assist_win, gint num, Sourceview* sv)
 {
 	g_signal_emit_by_name(G_OBJECT(sv), "assist_chosen", num);
 	DEBUG_PRINT("Assist-choosen");
-	gtk_widget_hide(GTK_WIDGET(sv->priv->assist_win));
-	gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
 }
 
-static void on_assist_cancel(AssistWindow* assist_win, Sourceview* sv)
+static void 
+on_assist_cancel(AssistWindow* assist_win, Sourceview* sv)
 {
 	g_signal_emit_by_name(G_OBJECT(sv), "assist_canceled");
 	DEBUG_PRINT("Assist-cancel");
-	gtk_widget_hide(GTK_WIDGET(sv->priv->assist_win));
-	gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
+	if (sv->priv->assist_win)
+	{
+		gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
+	}
+	else
+		sv->priv->assist_active = FALSE;
+}
+
+static void
+trigger_size (gpointer pkey, gpointer value, gpointer data)
+{
+	int* size = (int*)data;
+	const gchar* trigger = (const char*) pkey;
+	int new_size = strlen (trigger);
+
+	if (new_size > *size)
+	{
+		*size = new_size; 
+	}
+}
+
+static int 
+max_trigger_size (GHashTable* triggers)
+{
+	int max_size = 0;
+	if (!triggers)
+		return 0;
+	g_hash_table_foreach (triggers, (GHFunc) trigger_size, &max_size);
+	return max_size;
 }
 
 /* Called when a character is added */
@@ -102,39 +146,41 @@ static void on_document_char_added(AnjutaView* view, gint pos,
 	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
 	GtkTextIter begin;
 	GtkTextIter end;
+	gboolean found = FALSE;
 	DEBUG_PRINT("on_document_char_added, assist: %d", sv->priv->assist_win != NULL);
-	if (sv->priv->assist_win)
+	if (sv->priv->assist_active)
 	{
-		gtk_text_buffer_get_iter_at_mark(buffer, &begin,
+		gtk_text_buffer_get_iter_at_mark(buffer, &end,
 										 gtk_text_buffer_get_insert(buffer));
-		gtk_text_buffer_get_iter_at_offset(buffer, &end,
+		gtk_text_buffer_get_iter_at_offset(buffer, &begin,
 										   assist_window_get_position(sv->priv->assist_win));
 		gchar* context = gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
 		g_signal_emit_by_name(G_OBJECT(sv), "assist_update", context);
 	}
-	/* FIXME: triggers with more than 5 characters? */
-	else
+	else if (sv->priv->tip_active)
 	{
-		gboolean found = FALSE;
-		for (i = 1; i < 5; i++)
+		gtk_text_buffer_get_iter_at_mark(buffer, &end,
+										 gtk_text_buffer_get_insert(buffer));
+		gtk_text_buffer_get_iter_at_offset(buffer, &begin,
+										   assist_tip_get_position(sv->priv->assist_tip));
+		gchar* context = gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
+		g_signal_emit_by_name(G_OBJECT(sv), "assist_update", context);
+	}
+	if (!sv->priv->assist_active && !sv->priv->tip_active)
+	{
+		for (i = 1; i <= max_trigger_size (sv->priv->triggers); i++)
 		{
 			gchar* text;
 			IAnjutaEditorAssistContextParser parser = 0;
 			gtk_text_buffer_get_iter_at_mark(buffer, &begin, gtk_text_buffer_get_insert(buffer));
 			gtk_text_buffer_get_iter_at_mark(buffer, &end, gtk_text_buffer_get_insert(buffer));		
-			gtk_text_iter_backward_chars(&begin, i);
+			if (!gtk_text_iter_backward_chars(&begin, i))
+				break;;
 			text = gtk_text_buffer_get_text(buffer, &begin, &end, FALSE);
 			parser = g_hash_table_lookup(sv->priv->triggers, text);
 			if (parser)
 			{
 				gchar* context = parser(IANJUTA_EDITOR(sv), gtk_text_iter_get_offset(&end));
-				sv->priv->assist_win = assist_window_new(GTK_TEXT_VIEW(sv->priv->view), text, -1);
-				g_signal_connect(G_OBJECT(sv->priv->assist_win), "destroy", 
-								 G_CALLBACK(gtk_widget_destroyed), &sv->priv->assist_win);
-				g_signal_connect(G_OBJECT(sv->priv->assist_win), "chosen", 
-								 G_CALLBACK(on_assist_chosen), sv);
-				g_signal_connect(G_OBJECT(sv->priv->assist_win), "cancel", 
-								 G_CALLBACK(on_assist_cancel), sv);
 				g_signal_emit_by_name(G_OBJECT(sv), "assist_begin", context, text);
 				g_free(text);
 				found = TRUE;
@@ -144,23 +190,19 @@ static void on_document_char_added(AnjutaView* view, gint pos,
 		}
 		if (!found)
 		{
-			gchar* word = anjuta_document_get_current_word(
-														   ANJUTA_DOCUMENT(sv->priv->document));
+			if (ch == '\0')
+				return;
+			gchar* word = anjuta_document_get_current_word(ANJUTA_DOCUMENT(sv->priv->document), TRUE);
+			DEBUG_PRINT ("Beginning completion assist: %s", word);
 			if (word != NULL && strlen(word) >= 3)
 			{
 				gtk_text_buffer_get_iter_at_mark(buffer, &begin, gtk_text_buffer_get_insert(buffer));
 				gtk_text_iter_backward_chars(&begin, strlen(word));
-				sv->priv->assist_win = assist_window_new(GTK_TEXT_VIEW(sv->priv->view), NULL,
-														 gtk_text_iter_get_offset(&begin));
-				g_signal_connect(G_OBJECT(sv->priv->assist_win), "destroy", 
-							 G_CALLBACK(gtk_widget_destroyed), &sv->priv->assist_win);
-				g_signal_connect(G_OBJECT(sv->priv->assist_win), "chosen", 
-							 G_CALLBACK(on_assist_chosen), sv);
-				g_signal_connect(G_OBJECT(sv->priv->assist_win), "cancel", 
-							 G_CALLBACK(on_assist_cancel), sv);
+				gint position =
+					gtk_text_iter_get_offset (&begin);
 				g_signal_emit_by_name(G_OBJECT(sv), "assist_begin", word, NULL);
 			}
-		}	
+		}
 	}
 	if (ch != '\0')
 		g_signal_emit_by_name(G_OBJECT(sv), "char_added", pos, ch);
@@ -461,6 +503,8 @@ sourceview_dispose(GObject *object)
 	Sourceview *cobj = ANJUTA_SOURCEVIEW(object);
 	if (cobj->priv->assist_win)
 		on_assist_cancel(cobj->priv->assist_win, cobj);
+	if (cobj->priv->assist_tip)
+		gtk_widget_destroy(GTK_WIDGET(cobj->priv->assist_tip));
 	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
@@ -863,7 +907,7 @@ static gint ieditor_get_length(IAnjutaEditor *editor, GError **e)
 static gchar* ieditor_get_current_word(IAnjutaEditor *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	return anjuta_document_get_current_word(sv->priv->document);
+	return anjuta_document_get_current_word(sv->priv->document, FALSE);
 }
 
 /* Insert text at position */
@@ -1844,9 +1888,9 @@ iassist_add_trigger (IAnjutaEditorAssist* iassist, const gchar* trigger,
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	if (!sv->priv->triggers)
 	{
-		sv->priv->triggers = g_hash_table_new(g_str_hash, g_str_equal);
+		sv->priv->triggers = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
 	}
-	g_hash_table_insert(sv->priv->triggers, (gchar*) trigger, context_parser);
+	g_hash_table_insert(sv->priv->triggers, g_strdup(trigger), context_parser);
 }
 
 static void
@@ -1868,15 +1912,30 @@ iassist_get_suggestions (IAnjutaEditorAssist *iassist, const gchar *context, GEr
 }
 
 static void
+iassist_init_suggestions (IAnjutaEditorAssist* iassist, gint position, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	
+	sv->priv->assist_win = assist_window_new(GTK_TEXT_VIEW(sv->priv->view), NULL,
+											 position);
+	g_signal_connect(G_OBJECT(sv->priv->assist_win), "destroy", 
+						 G_CALLBACK(on_assist_window_destroyed), sv);
+	g_signal_connect(G_OBJECT(sv->priv->assist_win), "chosen", 
+						 G_CALLBACK(on_assist_chosen), sv);
+	g_signal_connect(G_OBJECT(sv->priv->assist_win), "cancel", 
+						 G_CALLBACK(on_assist_cancel), sv);
+	sv->priv->assist_active = TRUE;
+}
+
+static void
 iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices, int char_alignment, GError **err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
-	g_return_if_fail(sv->priv->assist_win != NULL);
+	
 	if (choices == NULL)
 	{
-		g_signal_emit_by_name(G_OBJECT(sv), "assist_end");
-		gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
-		sv->priv->assist_win = NULL;
+		if (sv->priv->assist_win)
+			gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
 	}
 	else
 	{
@@ -1887,10 +1946,36 @@ iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices, int char_alignmen
 	}
 }
 
-static void 
-iassist_tip (IAnjutaEditorAssist *iassist, GList* tips,  gint char_alignment, GError **err)
+static void
+iassist_hide_suggestions (IAnjutaEditorAssist* iassist, GError** err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	gtk_widget_hide(GTK_WIDGET (sv->priv->assist_win));
+}
+
+static void 
+iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips,  gint char_alignment, GError **err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	
+	if (sv->priv->tip_active)
+		return;
+	sv->priv->assist_tip = 
+		ASSIST_TIP (assist_tip_new (GTK_TEXT_VIEW (sv->priv->view), tips));
+	
+	g_signal_connect (G_OBJECT(sv->priv->assist_tip), "destroy", G_CALLBACK(on_assist_tip_destroyed),
+					  sv);
+	
+	sv->priv->tip_active = TRUE;
+	gtk_widget_show (GTK_WIDGET (sv->priv->assist_tip));
+}
+
+static void
+iassist_cancel_tips (IAnjutaEditorAssist* iassist, GError** err)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	if (sv->priv->assist_tip)
+		gtk_widget_destroy (GTK_WIDGET (sv->priv->assist_tip));
 }
 
 static void
@@ -1913,7 +1998,9 @@ iassist_react (IAnjutaEditorAssist *iassist, gint selection,
 	gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER(sv->priv->document),
 									 completion, strlen(completion));
 	g_signal_handlers_unblock_by_func(G_OBJECT(sv->priv->document), 
-									on_document_char_added, sv);	
+									on_document_char_added, sv);
+	
+	gtk_widget_destroy (GTK_WIDGET(sv->priv->assist_win));
 }
 
 static void
@@ -1921,9 +2008,12 @@ iassist_iface_init(IAnjutaEditorAssistIface* iface)
 {
 	iface->add_trigger = iassist_add_trigger;
 	iface->remove_trigger = iassist_remove_trigger;
+	iface->init_suggestions = iassist_init_suggestions;
 	iface->suggest = iassist_suggest;
+	iface->hide_suggestions = iassist_hide_suggestions;
 	iface->get_suggestions = iassist_get_suggestions;
-	iface->tip = iassist_tip;
+	iface->show_tips = iassist_show_tips;
+	iface->cancel_tips = iassist_cancel_tips;
 	iface->react = iassist_react;
 }
 

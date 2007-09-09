@@ -1,3 +1,68 @@
+2007-09-09  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-ui.c: (anjuta_ui_remove_action_group):
+	Fixed memory leak
+
+	* libanjuta/interfaces/libanjuta.idl:
+	Extended IAnjutaEditorAssist interface
+	
+	* plugins/language-support-cpp-java/plugin.c:
+	(jump_to_matching_brace), (add_tags), (on_assist_begin),
+	(assist_cleanup), (on_assist_chosen), (on_assist_update),
+	(context_character), (get_context), (function_parser),
+	(cpp_member_parser), (install_assist), (uninstall_assist),
+	(get_line_indentation_base), (get_line_auto_indentation),
+	(install_support), (uninstall_support),
+	(on_value_added_current_editor), (on_value_removed_current_editor),
+	(cpp_java_plugin_finalize), (cpp_java_plugin_instance_init):
+	* plugins/language-support-cpp-java/plugin.h:
+	
+	Improved fixed editor assistance and added support for function/method
+	tooltips. jumb_to_matching_brance => jump_to_matching_brace
+	
+	* plugins/message-view/anjuta-msgman.c: (on_message_view_destroy):
+	Removed a FIXME
+	
+	* plugins/project-import/project-import.c: (on_import_next):
+	Added a non-NULL check with could probably fix #474843 but not sure
+	
+	* plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am.tpl:
+	Fixed anjuta-plugin project wizard
+	
+	* plugins/sourceview/Makefile.am:
+	* plguins/sourceview/assist-tip.[ch]:
+	* plugins/sourceview/anjuta-view.c: (anjuta_view_focus_out),
+	(anjuta_view_key_press_event):
+	* plugins/sourceview/assist-window.c: (assist_window_class_init),
+	(assist_window_init), (assist_window_update), (assist_window_new):
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview.c: (on_assist_window_destroyed),
+	(on_assist_tip_destroyed), (on_assist_chosen), (on_assist_cancel),
+	(trigger_size), (max_trigger_size), (on_document_char_added),
+	(sourceview_dispose), (ieditor_get_current_word),
+	(iassist_add_trigger), (iassist_init_suggestions),
+	(iassist_suggest), (iassist_hide_suggestions), (iassist_show_tips),
+	(iassist_cancel_tips), (iassist_react), (iassist_iface_init):
+	
+	Big update on sourceview assist capabilites. Autocompletion should
+	now work much better and function tooltips are finally supported!
+
+	* plugins/sourceview/anjuta-document.h:
+	* plugins/sourceview/anjuta-document.c: (wordcharacters_contains),
+	(anjuta_document_get_current_word):
+	Fixed get_current_word (inspired by aneditor.cxx implementation)
+
+	* plugins/sourceview/sourceview-cell.c: (icell_get_char),
+	(icell_get_attribute):
+	Fixed get_attribute() to also detect character constants.
+	Simplified get_char()
+
+	* plugins/symbol-browser/plugin.c: (isymbol_manager_search),
+	(isymbol_manager_get_members), (isymbol_manager_get_parents),
+	(isymbol_manager_get_completions_at_position):
+	
+	Fixed IAnjutaSymbolManager interface (see 2.2.1 for details)
+
 2007-09-04  Naba Kumar  <naba@gnome.org>
 
 	* plugins/class-gen/plugin.c: Do not enable 'Add to project'
@@ -32,6 +97,18 @@
 	unmonitors project-uri on file-manager deactivation.
 
 	* TODO.tasks: Updated
+
+2007-09-02  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-ui.c: (anjuta_ui_remove_action_group):
+	Fixed memory leak
+	
+	* plugins/file-manager/file-view.c: (file_view_get_selected),
+	(file_view_button_press_event), (file_view_finalize):
+	* plugins/file-manager/plugin.c: (project_root_removed),
+	(file_manager_deactivate):
+	
+	Fixed some small bugs I missed before
 
 2007-09-02  Johannes Schmid <jhs@gnome.org>
 

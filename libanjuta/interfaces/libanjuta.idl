@@ -1528,6 +1528,19 @@ interface IAnjutaEditor
 		 */
 		void remove_trigger (const gchar *trigger);
 		
+		
+		/**
+		 * ianjuta_editor_assist_init_suggestions:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 * 
+		 * Must be called in the "assist-begin"-handler when
+		 * assistance is availible but the engine is waiting
+		 * for more context.
+		 *
+		 */
+		void init_suggestions (gint position);
+		
 		/**
 		 * ianjuta_editor_assist_suggest:
 		 * @obj: Self
@@ -1542,6 +1555,15 @@ interface IAnjutaEditor
 		 *
 		 */
 		void suggest (List<const gchar*> choices, int char_alignment);
+		
+		/** ianjuta_editor_assist_hide_suggestions
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Hide current suggestions but do not emit assist_end signal.
+		 * This is useful when temporary waiting for more context
+		 */
+		void hide_suggestions ();
 		
 		/**
 		 * ianjuta_editor_assist_tip:
@@ -1558,7 +1580,16 @@ interface IAnjutaEditor
 		 * position when the choices are displayed.
 		 *
 		 */
-		void tip (List<const gchar*> tips, gint char_alignment);
+		void show_tips (List<const gchar*> tips, gint char_alignment);
+		
+		/**
+		 * ianjuta_editor_assist_cancel_tip:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Cancels the last shown tooltip
+		 */
+		void cancel_tips ();
 		
 		/**
 		 * ianjuta_editor_assist_react:

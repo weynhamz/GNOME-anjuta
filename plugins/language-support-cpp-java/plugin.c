@@ -65,6 +65,9 @@
 #define LABEL_INDENT (INDENT_SIZE)
 
 #define LEFT_BRACE(ch) (ch == ')'? '(' : (ch == '}'? '{' : (ch == ']'? '[' : ch)))  
+
+#define MAX_SUGGESTIONS 10
+
 static gpointer parent_class;
 
 static gboolean
@@ -126,7 +129,7 @@ skip_iter_to_newline_tail (IAnjutaIterable *iter, gchar ch)
 /* Jumps to the reverse matching brace of the given brace character */
 
 static gboolean
-jumb_to_matching_brace (IAnjutaIterable *iter, gchar brace)
+jump_to_matching_brace (IAnjutaIterable *iter, gchar brace)
 {
 	gchar point_ch = brace;
 	GString *braces_stack = g_string_new ("");
@@ -150,7 +153,7 @@ jumb_to_matching_brace (IAnjutaIterable *iter, gchar brace)
 		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
 												 NULL);
 		if (point_ch == ')' || point_ch == ']' || point_ch == '}')
-		{
+		{	
 			/* Push brace */
 			g_string_prepend_c (braces_stack, point_ch);
 			continue;
@@ -610,41 +613,65 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 	g_string_free (comment_text, TRUE);
 }
 
+static void add_tags (IAnjutaEditorAssist* assist, CppJavaPlugin* lang_plugin, IAnjutaIterable* iter)
+{
+	GList* suggestions = NULL;
+	do
+	{
+		const gchar* name = ianjuta_symbol_name(IANJUTA_SYMBOL(iter), NULL);
+		if (name != NULL)
+		{
+			if (!g_list_find_custom (suggestions, name, (GCompareFunc) strcmp))
+			{
+				suggestions = g_list_append(suggestions,
+											g_strdup(name));
+			}
+		}
+		else
+			break;
+	}
+	while (ianjuta_iterable_next(iter, NULL));
+	
+	suggestions = g_list_sort (suggestions, (GCompareFunc) strcmp);
+	g_completion_add_items (lang_plugin->completion, suggestions);
+}
+
 static void on_assist_begin(IAnjutaEditorAssist* assist, gchar* context, gchar* trigger, CppJavaPlugin* lang_plugin)
 {
-	gint position = 0;
+	gint position = ianjuta_editor_get_position(IANJUTA_EDITOR(assist), NULL);
+	IAnjutaIterable* cell = ianjuta_editor_get_cell_iter (IANJUTA_EDITOR(assist),
+															position, NULL);
+	
+	IAnjutaEditorAttribute attribute = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (cell),
+														  NULL);
+	gboolean non_scope = (attribute == IANJUTA_EDITOR_COMMENT ||
+						  attribute == IANJUTA_EDITOR_STRING);
+	
 	
 	DEBUG_PRINT("assist-begin: %s", context);
-	/* General word completion */
-	if (context == NULL || !strlen(context))
+	if (non_scope || context == NULL || strlen(context) < 3)
 	{
-		ianjuta_editor_assist_suggest(assist, NULL, -1, NULL);
 		return;
 	}
+	/* General word completion */
 	if (!trigger)
 	{
 		IAnjutaIterable* iter = 
 			ianjuta_symbol_manager_search (lang_plugin->symbol_browser,
-										   IANJUTA_SYMBOL_TYPE_FUNCTION|
-										   IANJUTA_SYMBOL_TYPE_CLASS|
-										   IANJUTA_SYMBOL_TYPE_ENUM,
+										    IANJUTA_SYMBOL_TYPE_MAX,
 											context, TRUE, TRUE, NULL);
 		if (iter)
 		{
-			do
-			{
-				const gchar* name = ianjuta_symbol_name(IANJUTA_SYMBOL(iter), NULL);
-				if (name != NULL)
-				{
-					lang_plugin->suggestions = g_list_append(lang_plugin->suggestions,
-													 g_strdup(name));
-				}
-				else
-					break;
-			}
-			while (ianjuta_iterable_next(iter, NULL));
 			position = ianjuta_editor_get_position(IANJUTA_EDITOR(assist), NULL)
 				- strlen(context);
+			add_tags (assist, lang_plugin, iter);
+			g_completion_complete (lang_plugin->completion, context, NULL);
+			ianjuta_editor_assist_init_suggestions(assist, position, NULL);
+			if (g_list_length (lang_plugin->completion->cache) < MAX_SUGGESTIONS)
+				ianjuta_editor_assist_suggest (assist, lang_plugin->completion->items, position, NULL);
+
+			g_object_unref (iter);
+			return;
 		}
 	}
 	else if (g_str_equal(trigger, "::"))
@@ -654,36 +681,85 @@ static void on_assist_begin(IAnjutaEditorAssist* assist, gchar* context, gchar* 
 											context, TRUE, NULL);
 		if (iter)
 		{
-			do
-			{
-				const gchar* name = ianjuta_symbol_name(IANJUTA_SYMBOL(iter), NULL);
-				if (name != NULL)
-				{
-					lang_plugin->suggestions = g_list_append(lang_plugin->suggestions,
-													 g_strdup(name));
-				}
-			}
-			while (ianjuta_iterable_next(iter, NULL));
+			position = ianjuta_editor_get_position(IANJUTA_EDITOR(assist), NULL);
+			add_tags (assist, lang_plugin, iter);
+			ianjuta_editor_assist_init_suggestions(assist, position, NULL);
+			if (g_list_length (lang_plugin->completion->items) < MAX_SUGGESTIONS)
+				ianjuta_editor_assist_suggest (assist, lang_plugin->completion->items, position, NULL);
+			g_object_unref (iter);
+			return;
 		}
-		position = ianjuta_editor_get_position(IANJUTA_EDITOR(assist), NULL);
 	}
 	else if (g_str_equal(trigger, ".") || g_str_equal(trigger, "->"))
 	{
 		/* TODO: Find the type of context by parsing the file somehow and
 		search for the member as it is done with the :: context */
 	}
-	/* More than 100 suggestions are likely to break X Windows...
-	We better wait until more context arrives
-	TODO: Make user configurable */
-	if (g_list_length(lang_plugin->suggestions) < 100)
-		ianjuta_editor_assist_suggest(assist, lang_plugin->suggestions, position, NULL);
+	else if (g_str_equal(trigger, "(") && strlen(context) > 2)
+	{
+		IAnjutaIterable* iter = 
+			ianjuta_symbol_manager_search (lang_plugin->symbol_browser,
+										   IANJUTA_SYMBOL_TYPE_PROTOTYPE|
+										   IANJUTA_SYMBOL_TYPE_FUNCTION|
+										   IANJUTA_SYMBOL_TYPE_METHOD|
+										   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
+											context, FALSE, TRUE, NULL);
+		if (iter)
+		{
+			do
+			{
+				IAnjutaSymbol* symbol = IANJUTA_SYMBOL(iter);
+				const gchar* name = ianjuta_symbol_name(symbol, NULL);
+				if (name != NULL)
+				{
+					const gchar* args = ianjuta_symbol_args(symbol, NULL);
+					gchar* print_args;
+					gchar* separator;
+					gchar* white_name = g_strnfill(strlen(name) + 1, ' ');
+					separator = g_strjoin(NULL, ", \n", white_name, NULL);
+					DEBUG_PRINT("Separator: \n%s", separator);
+					
+					gchar** argv;
+					if (!args)
+						args = "()";
+					
+					argv = g_strsplit(args, ",", -1);
+					print_args = g_strjoinv(separator, argv);
+					
+					gchar* tip = g_strdup_printf ("<tt><b>%s</b> %s </tt>", name, print_args);
+					
+					if (!g_list_find_custom(lang_plugin->tips, tip, (GCompareFunc) strcmp))
+						lang_plugin->tips = g_list_append(lang_plugin->tips,
+													 tip);
+					g_strfreev(argv);
+					g_free(print_args);
+					g_free(separator);
+					g_free(white_name);
+				}
+				else
+					break;
+			}
+			while (ianjuta_iterable_next(iter, NULL));
+			
+			if (lang_plugin->tips)
+			{
+				lang_plugin->tip_position = ianjuta_editor_get_position(IANJUTA_EDITOR(assist), NULL) - 1;
+				ianjuta_editor_assist_show_tips (assist, lang_plugin->tips, position, NULL);
+			}
+			return;
+		}
+	}
 }
 
 static void assist_cleanup(CppJavaPlugin* lang_plugin)
 {
-	g_list_foreach(lang_plugin->suggestions, (GFunc) g_free, NULL);
-	g_list_free(lang_plugin->suggestions);
-	lang_plugin->suggestions = NULL;
+	GList* items = lang_plugin->completion->items;
+	if (items)
+	{
+		g_list_foreach(items, (GFunc) g_free, NULL);
+	}
+	g_completion_clear_items (lang_plugin->completion);
+	lang_plugin->tips = NULL;
 }
 
 static void on_assist_end(IAnjutaEditorAssist* assist, CppJavaPlugin* lang_plugin)
@@ -700,8 +776,17 @@ static void on_assist_cancel(IAnjutaEditorAssist* assist, CppJavaPlugin* lang_pl
 
 static void on_assist_chosen(IAnjutaEditorAssist* assist, gint selection, CppJavaPlugin* lang_plugin)
 {
+	gchar* assistance;
 	DEBUG_PRINT("assist-chosen: %d", selection);
-	gchar* assistance = g_list_nth_data(lang_plugin->suggestions, selection);
+	if (lang_plugin->completion->cache)
+	{
+		GList* cache = g_list_copy (lang_plugin->completion->cache);
+		cache = g_list_sort (cache, (GCompareFunc)strcmp);
+		assistance = g_list_nth_data(cache, selection);
+		g_list_free (cache);
+	}
+	else
+		assistance = g_list_nth_data(lang_plugin->completion->items, selection);		
 	ianjuta_editor_assist_react(assist, selection, assistance, NULL);  
 	assist_cleanup(lang_plugin);
 }
@@ -709,42 +794,88 @@ static void on_assist_chosen(IAnjutaEditorAssist* assist, gint selection, CppJav
 static void on_assist_update(IAnjutaEditorAssist* assist, gchar* context, CppJavaPlugin* lang_plugin)
 {
 	DEBUG_PRINT("assist-update: %s", context);
-	GList* suggestions = NULL;
-	GList* sug;
+	
+	if (lang_plugin->tips)
+	{
+		IAnjutaEditor* editor = IANJUTA_EDITOR (assist);
+		IAnjutaIterable* begin = 
+			ianjuta_editor_get_cell_iter (editor, lang_plugin->tip_position, NULL);
+		IAnjutaIterable* end = 
+			ianjuta_editor_get_cell_iter (editor, lang_plugin->tip_position + strlen(context) - 1, NULL);
+		char begin_brace = 
+			ianjuta_editor_cell_get_char(IANJUTA_EDITOR_CELL(begin), 0, NULL);
+		char end_brace =
+			ianjuta_editor_cell_get_char(IANJUTA_EDITOR_CELL(end), 0, NULL);
+		IAnjutaEditorAttribute attrib =
+			ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL(end), NULL);
+		
+		DEBUG_PRINT("begin brace: %c", begin_brace);
+		DEBUG_PRINT("end brace: %c", end_brace);
+		
+		if (!strlen (context) || begin_brace != '(')
+		{
+			ianjuta_editor_assist_cancel_tips(assist, NULL);
+		}
+		/* Detect if function argument list is closed */
+		if (end_brace == ')' &&
+			(attrib != IANJUTA_EDITOR_COMMENT &&
+			 attrib != IANJUTA_EDITOR_STRING))
+		{
+			if (jump_to_matching_brace (end, end_brace))
+			{
+				if (ianjuta_iterable_get_position (IANJUTA_ITERABLE(begin), NULL) ==
+					ianjuta_iterable_get_position (IANJUTA_ITERABLE(end), NULL))
+				{
+					ianjuta_editor_assist_cancel_tips (assist, NULL);
+				}
+			}
+		}
+		return;
+	}
+	
 	if (!strlen(context))
 	{
 		ianjuta_editor_assist_suggest(assist, NULL, -1, NULL);
 		return;
 	}
-	for (sug = lang_plugin->suggestions; sug != NULL; sug = sug->next)
+	else
 	{
-		gchar* suggestion = sug->data;
-		if (g_str_has_prefix(suggestion, context))
-		{
-			suggestions = g_list_append(suggestions, g_strdup(suggestion));
-		}
+		GList* new_suggestions =
+			g_completion_complete (lang_plugin->completion, context, NULL);
+		
+		if (g_list_length (new_suggestions) < MAX_SUGGESTIONS)
+			ianjuta_editor_assist_suggest (assist, new_suggestions, -1, NULL);
+		else
+			ianjuta_editor_assist_hide_suggestions (assist, NULL);
 	}
-	assist_cleanup(lang_plugin);
-	lang_plugin->suggestions = suggestions;
-	ianjuta_editor_assist_suggest(assist, lang_plugin->suggestions, -1, NULL);
 }
+
+static
+gboolean context_character (gchar ch)
+{	
+	if (g_ascii_isspace (ch))
+		return FALSE;
+	if (g_ascii_isalnum (ch))
+		return TRUE;
+	if (ch == '_' || ch == '.' || ch == ':' || ch == '>' || ch == '-')
+		return TRUE;
+	
+	return FALSE;
+}	
 
 static gchar*
 get_context(IAnjutaEditorCell* iter, IAnjutaEditor* editor)
 {
 	gint end;
 	gint begin;
-	gchar* utf8 = NULL;
-	gunichar unichar;
+	gchar ch;
 	end = ianjuta_iterable_get_position(IANJUTA_ITERABLE(iter), NULL);
 	do
 	{
 		ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL);		
-		utf8 = ianjuta_editor_cell_get_character(iter, NULL);
-		unichar = g_utf8_get_char(utf8);
-		g_free(utf8);
+		ch = ianjuta_editor_cell_get_char(iter, 0, NULL);		
 	}
-	while (!g_unichar_isspace(unichar));
+	while (ch && context_character(ch));
 	begin = ianjuta_iterable_get_position(IANJUTA_ITERABLE(iter), NULL) + 1;
 	return ianjuta_editor_get_text(editor, begin, end - begin, NULL);
 }
@@ -782,7 +913,30 @@ pointer_member_parser(IAnjutaEditor* editor, gint position)
 }
 
 static gchar*
-cpp_member_parser(IAnjutaEditor* editor, gint position)
+function_parser(IAnjutaEditor* editor, gint position)
+{
+	IAnjutaEditorCell* iter = IANJUTA_EDITOR_CELL(ianjuta_editor_get_cell_iter(editor, position, NULL));
+	IAnjutaEditorAttribute attrib = ianjuta_editor_cell_get_attribute(iter, NULL);
+	if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
+		return NULL;
+	
+	if (ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL) &&
+		ianjuta_editor_cell_get_char(iter, 0, NULL) == '(')
+	{
+		while (ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL)
+			&& g_ascii_isspace (ianjuta_editor_cell_get_char (iter, 0, NULL)))
+				;
+		ianjuta_iterable_next (IANJUTA_ITERABLE(iter), NULL);
+		return get_context(iter, editor);
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
+static gchar*
+cpp_member_parser (IAnjutaEditor* editor, gint position)
 {
 	IAnjutaEditorCell* iter = IANJUTA_EDITOR_CELL(ianjuta_editor_get_cell_iter(editor, position, NULL));
 	if (ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL) &&
@@ -798,25 +952,37 @@ cpp_member_parser(IAnjutaEditor* editor, gint position)
 	}
 }
 
-
 static void
 install_assist(CppJavaPlugin* lang_plugin)
 {
 	IAnjutaEditorAssist* assist = IANJUTA_EDITOR_ASSIST(lang_plugin->current_editor);
+	
+	DEBUG_PRINT(__FUNCTION__);
+	
+	if (lang_plugin->assist_installed)
+		return;
+	
 	ianjuta_editor_assist_add_trigger(assist, ".", dot_member_parser, NULL);
 	ianjuta_editor_assist_add_trigger(assist, "->", pointer_member_parser, NULL);
 	ianjuta_editor_assist_add_trigger(assist, "::", cpp_member_parser, NULL);	
+	ianjuta_editor_assist_add_trigger(assist, "(", function_parser, NULL);
 	g_signal_connect(G_OBJECT(assist), "assist_begin", G_CALLBACK(on_assist_begin), lang_plugin);
 	g_signal_connect(G_OBJECT(assist), "assist_end", G_CALLBACK(on_assist_end), lang_plugin);
 	g_signal_connect(G_OBJECT(assist), "assist_update", G_CALLBACK(on_assist_update), lang_plugin);
 	g_signal_connect(G_OBJECT(assist), "assist_chosen", G_CALLBACK(on_assist_chosen), lang_plugin);
 	g_signal_connect(G_OBJECT(assist), "assist_canceled", G_CALLBACK(on_assist_cancel), lang_plugin);
+	lang_plugin->assist_installed = TRUE;
 }
 
 static void
 uninstall_assist(CppJavaPlugin* lang_plugin)
 {
 	IAnjutaEditorAssist* assist = IANJUTA_EDITOR_ASSIST(lang_plugin->current_editor);
+	
+	if (!lang_plugin->assist_installed)
+		return;
+
+	
 	ianjuta_editor_assist_remove_trigger(assist, ".", NULL);
 	ianjuta_editor_assist_remove_trigger(assist, "->", NULL);
 	ianjuta_editor_assist_remove_trigger(assist, "::", NULL);
@@ -825,6 +991,7 @@ uninstall_assist(CppJavaPlugin* lang_plugin)
 	g_signal_handlers_disconnect_by_func(assist, G_CALLBACK(on_assist_update), lang_plugin);
 	g_signal_handlers_disconnect_by_func(assist, G_CALLBACK(on_assist_cancel), lang_plugin);
 	g_signal_handlers_disconnect_by_func(assist, G_CALLBACK(on_assist_chosen), lang_plugin);
+	lang_plugin->assist_installed = FALSE;
 }
 
 static gint
@@ -1040,7 +1207,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			}
 			
 			/* Find matching brace and continue */
-			if (!jumb_to_matching_brace (iter, point_ch))
+			if (!jump_to_matching_brace (iter, point_ch))
 			{
 				line_indent = get_line_indentation (editor, line_saved);
 				break;
@@ -1239,7 +1406,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 		else if (ch == '}')
 		{
 			ianjuta_iterable_previous (iter, NULL);
-			if (jumb_to_matching_brace (iter, ch))
+			if (jump_to_matching_brace (iter, ch))
 			{
 				gint position = ianjuta_iterable_get_position (iter, NULL);
 				gint line = ianjuta_editor_get_line_from_position (editor,
@@ -1396,7 +1563,9 @@ install_support (CppJavaPlugin *lang_plugin)
 						  G_CALLBACK (on_editor_char_inserted_cpp),
 						  lang_plugin);
 		if (IANJUTA_IS_EDITOR_ASSIST(lang_plugin->current_editor))
+		{
 			install_assist(lang_plugin);
+		}
 		initialize_indentation_params (lang_plugin);
 	}
 	else if (lang_plugin->current_language &&
@@ -1438,6 +1607,12 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 									G_CALLBACK (on_editor_char_inserted_java),
 									lang_plugin);
 	}
+	
+	if (lang_plugin->assist_installed)
+	{
+		uninstall_assist(lang_plugin);
+	}
+	
 	lang_plugin->support_installed = FALSE;
 }
 
@@ -1466,8 +1641,6 @@ on_value_added_current_editor (AnjutaPlugin *plugin, const gchar *name,
 	}
 	if (IANJUTA_IS_EDITOR(lang_plugin->current_editor))
 		install_support (lang_plugin);
-	if (IANJUTA_IS_EDITOR_ASSIST(lang_plugin->current_editor))
-		install_assist(lang_plugin);
 	g_signal_connect (lang_plugin->current_editor, "language-changed",
 					  G_CALLBACK (on_editor_language_changed),
 					  plugin);
@@ -1483,8 +1656,6 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 										  G_CALLBACK (on_editor_language_changed),
 										  plugin);
-	if (IANJUTA_IS_EDITOR_ASSIST(lang_plugin->current_editor))
-		uninstall_assist(lang_plugin);
 	if (IANJUTA_IS_EDITOR(lang_plugin->current_editor))
 		uninstall_support (lang_plugin);
 	lang_plugin->current_editor = NULL;
@@ -1597,6 +1768,9 @@ cpp_java_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 static void
 cpp_java_plugin_finalize (GObject *obj)
 {
+	CppJavaPlugin* plugin = ANJUTA_PLUGIN_CPP_JAVA (obj);
+	g_completion_free (plugin->completion);
+
 	/* Finalization codes here */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -1618,6 +1792,7 @@ cpp_java_plugin_instance_init (GObject *obj)
 	plugin->symbol_browser = NULL;
 	plugin->editor_watch_id = 0;
 	plugin->uiid = 0;
+	plugin->completion = g_completion_new (NULL);
 }
 
 static void

@@ -21,6 +21,7 @@
 #include "anjuta-document.h"
 
 #include "assist-window.h"
+#include "assist-tip.h"
 
 #include <libanjuta/anjuta-plugin.h>
 #include <glib.h>
@@ -63,7 +64,12 @@ struct SourceviewPrivate {
 	
 	/* Assist */
 	GHashTable* triggers;
+
+	gboolean assist_active;
 	AssistWindow* assist_win;
+	
+	gboolean tip_active;
+	AssistTip* assist_tip;
 	
 	/* Plugin */
 	AnjutaPlugin* plugin;

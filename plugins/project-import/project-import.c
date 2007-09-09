@@ -58,7 +58,7 @@ on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 	const gchar* name = gtk_entry_get_text(GTK_ENTRY(pi->import_name));
 	const gchar* path = gtk_entry_get_text(GTK_ENTRY(pi->import_path));
 	
-	if (!strlen(name) || !strlen(path))
+	if (!name || !path || !strlen(name) || !strlen(path))
 		return TRUE;
 	
 	gbf_backend_init();

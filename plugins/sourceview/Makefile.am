@@ -79,7 +79,9 @@ libanjuta_sourceview_la_SOURCES = \
 	sourceview-print.c \
 	sourceview-print.h \
 	sourceview-cell.c \
-	sourceview-cell.h 
+	sourceview-cell.h \
+	assist-tip.h \
+	assist-tip.c
 
 libanjuta_sourceview_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

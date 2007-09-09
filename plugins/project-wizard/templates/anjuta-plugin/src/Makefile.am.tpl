@@ -57,6 +57,6 @@ lib[+NameCLower+]_la_LIBADD = \
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$([+NameCLower+]_plugin_DATA) \
-	[+IF (=(get "HasUI") "1")+]$([+NameCLower+]_ui_DATA) \[+ENDIF+]
-	[+IF (=(get "HasGladeFile") "1")+]$([+NameCLower+]_glade_DATA) \[+ENDIF+]
+	[+IF (=(get "HasUI") "1")+]$([+NameCLower+]_ui_DATA)[+ENDIF+] \
+	[+IF (=(get "HasGladeFile") "1")+]$([+NameCLower+]_glade_DATA)[+ENDIF+] \
 	$([+NameCLower+]_pixmaps_DATA)

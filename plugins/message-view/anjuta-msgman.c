@@ -335,11 +335,6 @@ on_message_view_destroy (MessageView *view, AnjutaMsgman *msgman)
 	/* This is called to set the next active document */
 	if (GTK_NOTEBOOK (msgman)->children == NULL)
 		anjuta_msgman_set_current_view (msgman, NULL);
-	else
-	{
-//FIXME
-		//gtk_widget_grab_focus (GTK_WIDGET (view)); 
-	}
 
 	g_signal_handlers_unblock_by_func (GTK_OBJECT (msgman),
 									   GTK_SIGNAL_FUNC

@@ -68,56 +68,56 @@ static gboolean
 assist_window_expose(GtkWidget* widget, GdkEventExpose* event)
 {
 	GtkWidget *text_view;
-    gint width;
-    gint total_items, items, height;
-    GdkScreen *screen;
-    gint monitor_num;
-    GdkRectangle monitor;
-    GtkRequisition popup_req;
-    gint vert_separator;
-    AssistWindow* assistwin = ASSIST_WINDOW(widget);
+	gint width;
+	gint total_items, items, height;
+	GdkScreen *screen;
+	gint monitor_num;
+	GdkRectangle monitor;
+	GtkRequisition popup_req;
+	gint vert_separator;
+  AssistWindow* assistwin = ASSIST_WINDOW(widget);
 	GtkTreeModel* model = gtk_tree_view_get_model(assistwin->priv->view);
 	GtkTreeViewColumn* column = gtk_tree_view_get_column(assistwin->priv->view, 0);
 
-    g_return_val_if_fail (assistwin->priv->text_view != NULL, FALSE); 
-    text_view = GTK_WIDGET(assistwin->priv->text_view);
+	g_return_val_if_fail (assistwin->priv->text_view != NULL, FALSE); 
+	text_view = GTK_WIDGET(assistwin->priv->text_view);
 
-    total_items = gtk_tree_model_iter_n_children (model, NULL);
-    items = MIN (total_items, 5);
+	total_items = gtk_tree_model_iter_n_children (model, NULL);
+	items = MIN (total_items, 5);
 
-    gtk_tree_view_column_cell_get_size (column, NULL,
+	gtk_tree_view_column_cell_get_size (column, NULL,
                                         NULL, NULL, NULL, &height);
 
-    screen = gtk_widget_get_screen (text_view);
-    monitor_num = gdk_screen_get_monitor_at_window (screen, text_view->window);
-    gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
+	screen = gtk_widget_get_screen (text_view);
+	monitor_num = gdk_screen_get_monitor_at_window (screen, text_view->window);
+	gdk_screen_get_monitor_geometry (screen, monitor_num, &monitor);
 
-    gtk_widget_style_get (GTK_WIDGET (assistwin->priv->view),
+	gtk_widget_style_get (GTK_WIDGET (assistwin->priv->view),
                           "vertical-separator", &vert_separator,
                           NULL);
 
-    gtk_widget_size_request (GTK_WIDGET (assistwin->priv->view), &popup_req);
-    width = popup_req.width;
+	gtk_widget_size_request (GTK_WIDGET (assistwin->priv->view), &popup_req);
+	width = popup_req.width;
 
-    if (total_items > items)
-    {
-        int scrollbar_spacing;
-        GtkRequisition scrollbar_req;
-        gtk_widget_size_request (GTK_SCROLLED_WINDOW(assistwin->priv->scrolled_window)->vscrollbar,
-                                 &scrollbar_req);
-        gtk_widget_style_get (GTK_WIDGET (assistwin->priv->scrolled_window),
-                              "scrollbar-spacing", &scrollbar_spacing, NULL);
-        width += scrollbar_req.width + scrollbar_spacing;
-    }
+	if (total_items > items)
+	{
+		int scrollbar_spacing;
+		GtkRequisition scrollbar_req;
+		gtk_widget_size_request (GTK_SCROLLED_WINDOW(assistwin->priv->scrolled_window)->vscrollbar,
+														 &scrollbar_req);
+		gtk_widget_style_get (GTK_WIDGET (assistwin->priv->scrolled_window),
+													"scrollbar-spacing", &scrollbar_spacing, NULL);
+		width += scrollbar_req.width + scrollbar_spacing;
+	}
 
-    width = MAX (width, 100);
-    width = MIN (monitor.width, width);
-    height = items * (height + vert_separator);
+	width = MAX (width, 100);
+	width = MIN (monitor.width, width);
+	height = items * (height + vert_separator);
 	
-    gtk_widget_set_size_request (GTK_WIDGET (assistwin->priv->view),
-                                 -1, height);
-    gtk_widget_set_size_request (GTK_WIDGET (assistwin->priv->scrolled_window),
-                                 width, -1);
+	gtk_widget_set_size_request (GTK_WIDGET (assistwin->priv->view),
+															 -1, height);
+	gtk_widget_set_size_request (GTK_WIDGET (assistwin->priv->scrolled_window),
+															 width, -1);
 
 	gtk_window_resize(GTK_WINDOW(assistwin), width, height);
 
@@ -168,8 +168,6 @@ assist_window_class_init(AssistWindowClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
-	GParamSpec *assist_window_spec_view;
-	GParamSpec *assist_window_spec_column;
 	
 	object_class->finalize = assist_window_finalize;
 	object_class->set_property = assist_window_set_property;
@@ -220,8 +218,6 @@ assist_window_init(AssistWindow *obj)
   GtkCellRenderer* renderer;
 	
 	obj->priv = g_new0(AssistWindowPrivate, 1);
-	
-	g_object_set(G_OBJECT(obj), "type", GTK_WINDOW_POPUP, NULL);
 	
 	view = gtk_tree_view_new();
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(view), FALSE);
@@ -462,7 +458,7 @@ void assist_window_update(AssistWindow* assistwin, GList* suggestions)
 	GList* node;
 	gtk_list_store_clear(list);
 	int i = 0;
-	for (node = suggestions; node != NULL; node = node->next)
+	for (node = suggestions; node != NULL; node = g_list_next(node))
 	{
 		gtk_list_store_append(list, &iter);
 		gtk_list_store_set(list, &iter, ASSIST_WINDOW_COLUMN, (gchar*) node->data,
@@ -536,7 +532,8 @@ AssistWindow*
 assist_window_new(GtkTextView* view, gchar* trigger, gint position)
 {
 	GtkTextIter iter;
-	AssistWindow* assist_win = ASSIST_WINDOW(g_object_new(ASSIST_TYPE_WINDOW, NULL));
+	AssistWindow* assist_win = ASSIST_WINDOW(g_object_new(ASSIST_TYPE_WINDOW, 
+																												"type", GTK_WINDOW_POPUP, NULL));
 	assist_win->priv->text_view = view;
 	if (position == -1)
 	{

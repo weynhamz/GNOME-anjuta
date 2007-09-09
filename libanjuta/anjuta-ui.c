@@ -672,7 +672,7 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 	valid = gtk_tree_model_get_iter_first (model, &iter);
 	while (valid)
 	{
-		const gchar *group;
+		gchar *group;
 		const gchar *group_name;
 		
 		gtk_tree_model_get (model, &iter, COLUMN_GROUP, &group, -1);
@@ -689,6 +689,7 @@ anjuta_ui_remove_action_group (AnjutaUI *ui, GtkActionGroup *action_group)
 		}
 		else
 			valid = gtk_tree_model_iter_next (model, &iter);
+		g_free(group);
 	}
 	gtk_ui_manager_remove_action_group (GTK_UI_MANAGER (ui), action_group);
 	

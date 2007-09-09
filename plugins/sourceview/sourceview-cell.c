@@ -123,15 +123,9 @@ icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 {
 	gchar ch = '\0';
 	gchar* utf8 = icell_get_character(icell, NULL);
-	gsize bytes_written, bytes_read;
-	GError* error = NULL;
-	gchar* locale = g_locale_from_utf8(utf8, -1, &bytes_read, &bytes_written, &error);
-	if (error)
-		DEBUG_PRINT("Error: %s", error->message);
-	if (bytes_written >= 1)
-		ch = locale[0];	
+	if (strlen (utf8) > index)
+		ch = utf8[index];	
 	g_free(utf8);
-	g_free(locale);
 	return ch;
 }
 
@@ -162,14 +156,13 @@ icell_get_attribute (IAnjutaEditorCell* icell, GError **e)
 				attrib = IANJUTA_EDITOR_COMMENT;
 				break;
 			}
-			if (g_str_has_prefix(id, "String") || g_str_has_suffix(id, "String"))
+			if (g_str_has_prefix(id, "String") || g_str_has_suffix(id, "String") ||
+					g_str_equal (id, "Character Constant"))
 			{
 				attrib = IANJUTA_EDITOR_STRING;
 				break;
 			}
-			else
-				;
-				//DEBUG_PRINT("unknown GtkSourceTag id = %s", id);
+			//DEBUG_PRINT("GtkSourceTag tag_style = %s", id);
 		}
 	}
 	g_slist_free(tags);

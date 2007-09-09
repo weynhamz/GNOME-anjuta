@@ -54,7 +54,10 @@ struct _CppJavaPlugin {
 	gint param_label_indentation;
 	
 	/* Assist */
-	GList* suggestions;
+	GCompletion* completion;
+	GList* tips;
+	gint tip_position;
+	gboolean assist_installed;
 	IAnjutaSymbolManager* symbol_browser;
 };
 
