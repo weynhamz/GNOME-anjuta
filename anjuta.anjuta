@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <anjuta>
-    <plugin name="Automake Project Manager"
+    <plugin name="GBF Project Manager"
             url="http://anjuta.org/plugins/"
             mandatory="yes">
 		<require group="Anjuta Plugin"
@@ -27,11 +27,6 @@
                  attribute="Supported-Build-Types"
                  value="make"/>
 	</plugin>
-	<plugin name="Subversion" mandatory="no">
-        <require group="Anjuta Plugin"
-                 attribute="Location"
-                 value="anjuta-subversion:Subversion"/>
-  </plugin>
 	<plugin name="Task Manager"
             url="http://anjuta.org/plugins/"
             mandatory="no">
