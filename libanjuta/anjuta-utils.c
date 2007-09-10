@@ -810,7 +810,8 @@ GList*
 anjuta_util_parse_args_from_string (const gchar* string)
 {
 	gboolean escaped;
-	gchar    quote;
+	gchar    quote = 0;
+	gboolean is_quote = FALSE;
 	gchar* buffer = g_new0(gchar, strlen(string) + 1);
 	const gchar *s;
 	gint     idx;
@@ -818,7 +819,6 @@ anjuta_util_parse_args_from_string (const gchar* string)
 	
 	idx = 0;
 	escaped = FALSE;
-	quote = (gchar)-1;
 	s = string;
 	
 	while (*s) {
@@ -837,21 +837,22 @@ anjuta_util_parse_args_from_string (const gchar* string)
 			escaped = TRUE;
 		} else if (*s == quote) {
 			/* Current char ends a quotation */
-			quote = (gchar)-1;
+			is_quote = FALSE;
 			if (!isspace(*(s+1)) && (*(s+1) != '\0')) {
 				/* If there is no space after the quotation or it is not
 				   the end of the string */
 				g_warning ("Parse error while parsing program arguments");
 			}
 		} else if ((*s == '\"' || *s == '\'')) {
-			if (quote == (gchar)-1) {
+			if (!is_quote) {
 				/* Current char starts a quotation */
 				quote = *s;
+				is_quote = TRUE;
 			} else {
 				/* Just a quote char inside quote */
 				buffer[idx++] = *s;
 			}
-		} else if (quote > 0){
+		} else if (is_quote){
 			/* Any other char inside quote */
 			buffer[idx++] = *s;
 		} else if (isspace(*s)) {
@@ -872,7 +873,7 @@ anjuta_util_parse_args_from_string (const gchar* string)
 		args = g_list_append (args, g_strdup (buffer));
 		idx = 0;
 	}
-	if (quote > 0) {
+	if (is_quote) {
 		g_warning ("Unclosed quotation encountered at the end of parsing");
 	}
 	return args;
