@@ -56,7 +56,7 @@ gprof_function_call_tree_view_create_columns (GProfFunctionCallTreeView *self)
 	
 	/* Function name */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Function Name");
+	gtk_tree_view_column_set_title (col, _("Function Name"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (tree_view), col);
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (tree_view), col);
 	

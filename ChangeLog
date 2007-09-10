@@ -1,5 +1,18 @@
 2007-09-10  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/anjuta-plugin-manager.c: (get_plugin_loader_type),
+	(anjuta_plugin_manager_get_plugin):
+	* plugins/profiler/gprof-call-graph-view.c:
+	(gprof_call_graph_view_create_columns):
+	* plugins/profiler/gprof-flat-profile-view.c:
+	(gprof_flat_profile_view_create_columns):
+	* plugins/profiler/gprof-function-call-tree-view.c:
+	(gprof_function_call_tree_view_create_columns):
+	
+	Fixed #466031 – Update of pieces of menus for Localization
+
+2007-09-10  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-utils.c: (anjuta_util_parse_args_from_string):
 	Bug 343522 – anjuta: Unable to execute commands that use options.
 

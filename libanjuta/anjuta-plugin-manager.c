@@ -1335,8 +1335,8 @@ get_plugin_loader_type (AnjutaPluginManager *plugin_manager,
 		}
 		descs = g_list_reverse (descs);
 		obj = anjuta_plugin_manager_select_and_activate (plugin_manager,
-								  "Select a plugin",
-								  "Please select a plugin to activate",
+								  _("Select a plugin"),
+								  _("Please select a plugin to activate"),
 								  descs);
 		g_list_free (descs);
 	}
@@ -1440,8 +1440,8 @@ anjuta_plugin_manager_get_plugin (AnjutaPluginManager *plugin_manager,
 		}
 		descs = g_list_reverse (descs);
 		obj = anjuta_plugin_manager_select_and_activate (plugin_manager,
-									  "Select a plugin",
-									  "Please select a plugin to activate",
+									  _("Select a plugin"),
+									  _("Please select a plugin to activate"),
 									  descs);
 		g_list_free (descs);
 		return obj;

@@ -52,7 +52,7 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	/* Function name */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Function Name");
+	gtk_tree_view_column_set_title (col, _("Function Name"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (list_view), col);
 	
 	
@@ -62,7 +62,7 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	/* Function time percentage */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "% Time");
+	gtk_tree_view_column_set_title (col, _("% Time"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (list_view), col);
 	
 	renderer = gtk_cell_renderer_text_new ();
@@ -71,7 +71,7 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	/* Cumulative seconds */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Cumulative Seconds");
+	gtk_tree_view_column_set_title (col, _("Cumulative Seconds"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (list_view), col);
 	
 	renderer = gtk_cell_renderer_text_new ();
@@ -80,7 +80,7 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	/* Self seconds */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Self Seconds");
+	gtk_tree_view_column_set_title (col, _("Self Seconds"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (list_view), col);
 	
 	renderer = gtk_cell_renderer_text_new ();
@@ -89,7 +89,7 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	/* Calls */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Calls");
+	gtk_tree_view_column_set_title (col, _("Calls"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (list_view), col);
 	
 	renderer = gtk_cell_renderer_text_new ();
@@ -98,7 +98,7 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	/* Self ms/call */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Self ms/call");
+	gtk_tree_view_column_set_title (col, _("Self ms/call"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (list_view), col);
 	
 	renderer = gtk_cell_renderer_text_new ();
@@ -107,7 +107,7 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	/* Total ms/call */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Total ms/call");
+	gtk_tree_view_column_set_title (col, _("Total ms/call"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (list_view), col);
 	
 	renderer = gtk_cell_renderer_text_new ();

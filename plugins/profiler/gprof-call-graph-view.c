@@ -304,7 +304,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 
 	/* Function Name */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Function Name");
+	gtk_tree_view_column_set_title (col, _("Function Name"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (functions_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -312,7 +312,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										FUNCTIONS_COL_NAME);
 	
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Function Name");
+	gtk_tree_view_column_set_title (col, _("Function Name"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -320,7 +320,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										CALLED_COL_NAME);
 	
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Function Name");
+	gtk_tree_view_column_set_title (col, _("Function Name"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_by_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -330,7 +330,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										
 	/* Time */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Time");
+	gtk_tree_view_column_set_title (col, _("Time"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (functions_list_view), col);
 	
 	renderer = gtk_cell_renderer_text_new ();
@@ -340,7 +340,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										
 	/* Self */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Self");
+	gtk_tree_view_column_set_title (col, _("Self"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (functions_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -348,7 +348,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										FUNCTIONS_COL_SELF);
 	
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Self");
+	gtk_tree_view_column_set_title (col, _("Self"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -356,7 +356,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										CALLED_COL_SELF);
 	
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Self");
+	gtk_tree_view_column_set_title (col, _("Self"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_by_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -365,7 +365,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										
 	/* Children */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Children");
+	gtk_tree_view_column_set_title (col, _("Children"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (functions_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -373,7 +373,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										FUNCTIONS_COL_CHILDREN);
 	
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Children");
+	gtk_tree_view_column_set_title (col, _("Children"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -381,7 +381,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										CALLED_COL_CHILDREN);
 	
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Children");
+	gtk_tree_view_column_set_title (col, _("Children"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_by_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -390,7 +390,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										
 	/* Calls */
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Calls");
+	gtk_tree_view_column_set_title (col, _("Calls"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (functions_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -398,7 +398,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										FUNCTIONS_COL_CALLS);
 	
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Calls");
+	gtk_tree_view_column_set_title (col, _("Calls"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
@@ -406,7 +406,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										CALLED_COL_CALLS);
 	
 	col = gtk_tree_view_column_new ();
-	gtk_tree_view_column_set_title (col, "Calls");
+	gtk_tree_view_column_set_title (col, _("Calls"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_by_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
