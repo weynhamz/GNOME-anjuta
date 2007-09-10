@@ -692,6 +692,10 @@ AC_CHECK_FUNCS(stricmp)
 AC_CHECK_FUNCS(strnicmp)
 AC_CHECK_FUNCS(getline)
 
+dnl for libegg/egg-recent-model.c
+AC_CHECK_DECLS([lockf])
+AC_CHECK_FUNCS([lockf])
+
 AC_CHECK_FUNCS(fgetpos, have_fgetpos=yes)
 
 dnl SEEK_SET should be in stdio.h, but may be in unistd.h on SunOS 4.1.x

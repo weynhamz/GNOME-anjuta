@@ -1,5 +1,30 @@
 2007-09-10  Johannes Schmid <jhs@gnome.org>
 
+	* anjuta.anjuta:
+	* configure.in:
+	* libegg/egg-recent-model.c: (egg_recent_model_write_raw),
+	(parse_info_init), (parse_info_free), (valid_element),
+	(start_element_handler), (end_element_handler), (text_handler),
+	(egg_recent_model_filter), (egg_recent_model_changed_timeout),
+	(egg_recent_model_monitor_cb), (egg_recent_model_poll_timeout),
+	(egg_recent_model_monitor), (egg_recent_model_read),
+	(egg_recent_model_open_file), (egg_recent_model_lock_file),
+	(egg_recent_model_unlock_file), (egg_recent_model_finalize),
+	(egg_recent_model_set_property), (egg_recent_model_class_init),
+	(egg_recent_model_init), (egg_recent_model_add_full),
+	(egg_recent_model_delete), (egg_recent_model_get_list),
+	(egg_recent_model_clear), (egg_recent_model_clear_mime_filter),
+	(egg_recent_model_set_filter_mime_types),
+	(egg_recent_model_clear_group_filter),
+	(egg_recent_model_set_filter_groups),
+	(egg_recent_model_clear_scheme_filter),
+	(egg_recent_model_set_filter_uri_schemes),
+	(egg_recent_model_remove_expired):
+	
+	Update EggRecent (#456465) (backport from HEAD)
+	
+2007-09-10  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-plugin-manager.c: (get_plugin_loader_type),
 	(anjuta_plugin_manager_get_plugin):
 	* plugins/profiler/gprof-call-graph-view.c:
