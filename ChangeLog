@@ -1,3 +1,12 @@
+2007-09-11   Massimo Cora' <maxcvs@email.it>
+
+	Reviewed by: Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-launcher.c: (anjuta_launcher_fork):
+	* plugins/symbol-db/*:
+	Added new symbol-database backend based on SQLite 3.
+	(does not enabled for build currently).
+
 2007-09-10  Johannes Schmid <jhs@gnome.org>
 
 	* anjuta.anjuta:
