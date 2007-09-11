@@ -1,5 +1,9 @@
 2007-09-11  Naba Kumar  <naba@gnome.org>
 
+	* plugins/terminal/terminal.c: Fixed critical warning, memory leak
+	and possible crash when pressing ctrl+d in terminal after preferences
+	window has been shown once (no need for backport).
+
 	* libanjuta/interfaces/anjuta-idl-compiler.pl: Create default method
 	implementations to get warnings instead of crashes for unimplemented
 	interface methods.

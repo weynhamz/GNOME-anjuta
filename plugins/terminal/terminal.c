@@ -151,18 +151,25 @@ preferences_changed (AnjutaPreferences *prefs, TerminalPlugin *term)
 											  GCONF_VALUE_STRING, NULL);
 	if (profiles)
 	{
-		GList *list = NULL;
-		GSList *node = profiles;
-		while (node)
+		if (term->pref_profile_combo)
 		{
-			if (node->data)
-				list = g_list_append (list, node->data);
-			node = g_slist_next (node);
+			GList *list = NULL;
+			GSList *node = profiles;
+			while (node)
+			{
+				if (node->data)
+					list = g_list_append (list, node->data);
+				node = g_slist_next (node);
+			}
+			gtk_combo_set_popdown_strings (GTK_COMBO (term->pref_profile_combo),
+										   list);
+			g_list_free (list);
 		}
-		gtk_combo_set_popdown_strings (GTK_COMBO (term->pref_profile_combo), list);
-		g_list_free (list);
+		g_slist_foreach (profiles, (GFunc)g_free, NULL);
+		g_slist_free (profiles);
 	}
-	setting = anjuta_preferences_get_int (pref, PREFS_TERMINAL_PROFILE_USE_DEFAULT);
+	setting = anjuta_preferences_get_int (pref,
+										  PREFS_TERMINAL_PROFILE_USE_DEFAULT);
 	if (setting)
 	{
 		/* Use the currently selected profile in gnome-terminal */
@@ -672,6 +679,7 @@ terminal_plugin_instance_init (GObject *obj)
 	TerminalPlugin *plugin = ANJUTA_PLUGIN_TERMINAL (obj);
 	plugin->gconf_notify_ids = NULL;
 	plugin->child_initizlized = FALSE;
+	plugin->pref_profile_combo = NULL;
 #if OLD_VTE == 1
 	plugin->first_time_realization = TRUE;
 #endif
@@ -738,6 +746,7 @@ ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError
 	g_signal_handlers_disconnect_by_func(G_OBJECT(term_plugin->pref_default_button),
 		G_CALLBACK (use_default_profile_cb), term_plugin);
 	anjuta_preferences_remove_page(prefs, _("Terminal"));
+	term_plugin->pref_profile_combo = NULL;
 }
 
 static void
