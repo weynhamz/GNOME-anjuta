@@ -723,6 +723,26 @@ sub get_arg_type_info
 	}
 }
 
+sub get_return_type_val
+{
+	my ($rettype) = @_;
+	my $fail_ret = get_arg_type_info($rettype, "fail_return");
+	if (!defined($fail_ret) || $fail_ret eq "")
+	{
+		## Return NULL for pointer types
+		if ($rettype =~ /\*$/ ||
+			$rettype =~ /gpointer/)
+		{
+			$fail_ret = "NULL";
+		}
+		else
+		{
+			$fail_ret = "0";
+		}
+	}
+	return $fail_ret;
+}
+
 sub get_arg_assert
 {
 	my ($rettype, $type_arg, $force) = @_;
@@ -782,20 +802,7 @@ sub get_arg_assert
 	}
 	else
 	{
-		my $fail_ret = get_arg_type_info($rettype, "fail_return");
-		if (!defined($fail_ret) || $fail_ret eq "")
-		{
-			## Return NULL for pointer types
-			if ($rettype =~ /\*$/ ||
-				$rettype =~ /gpointer/)
-			{
-				$fail_ret = "NULL";
-			}
-			else
-			{
-				$fail_ret = "0";
-			}
-		}
+		my $fail_ret = get_return_type_val ($rettype);
 		if (defined($fail_ret))
 		{
 			$ainfo =~ s/__arg__/$arg/;
@@ -1252,13 +1259,33 @@ ${prefix}_error_quark (void)
 		}
 		$answer .= "${macro_name}_GET_IFACE (obj)->$func (obj, ${params}err);";
 		$answer .="\n}\n\n";
+
+		## Default implementation
+		$answer .= "/* Default implementation */\n";
+		$answer .= "static ${rettype}\n${prefix}_${func}_default ($class *obj, ${args}GError **err)\n";
+		$answer .= "{\n";
+		if ($rettype ne "void") {
+			$answer .= "\tg_return_val_if_reached (". get_return_type_val($rettype). ");";
+		} else {
+			$answer .= "\tg_return_if_reached ();";
+		}
+		$answer .="\n}\n\n";
 	}
 	$answer .=
 "static void
-${prefix}_base_init (gpointer gclass)
+${prefix}_base_init (${class}Iface* klass)
 {
 	static gboolean initialized = FALSE;
-	
+
+";
+	foreach my $m (sort keys %$class_hr)
+	{
+		next if ($m =~ /^__/);
+		my $func = $class_hr->{$m}->{'function'};
+		next if ($func =~ /^\:\:/);
+		$answer .= "\tklass->$func = ${prefix}_${func}_default;\n";
+	}
+	$answer .= "	
 	if (!initialized) {
 ";
 	foreach my $m (sort keys %$class_hr)
@@ -1301,7 +1328,7 @@ ${prefix}_get_type (void)
 	if (!type) {
 		static const GTypeInfo info = {
 			sizeof (${class}Iface),
-			${prefix}_base_init,
+			(GBaseInitFunc) ${prefix}_base_init,
 			NULL, 
 			NULL,
 			NULL,
