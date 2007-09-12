@@ -466,6 +466,8 @@ void assist_window_update(AssistWindow* assistwin, GList* suggestions)
 	}
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(assistwin->priv->view));
 	gtk_tree_selection_unselect_all(selection);
+	gtk_tree_model_get_iter_first (GTK_TREE_MODEL(list), &iter);
+	gtk_tree_selection_select_iter (selection, &iter);
 	gtk_widget_queue_draw(GTK_WIDGET(assistwin));
 }
 

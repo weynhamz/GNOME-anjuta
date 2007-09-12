@@ -1,3 +1,18 @@
+2007-09-13  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
+	* plugins/language-support-cpp-java/plugin.c: (on_assist_begin),
+	(on_assist_update):
+	
+	Added preferences to language support completion/calltips
+	
+	* plugins/sourceview/assist-window.c: (assist_window_update):
+
+	Always select first entry
+
+	* plugins/sourceview/sourceview.glade:
+	Removed old completion preferences
+
 2007-09-11  Naba Kumar  <naba@gnome.org>
 
 	* plugins/terminal/terminal.c: Fixed critical warning, memory leak

@@ -47,6 +47,10 @@
 #define PREF_INDENT_STATEMENT_SIZE "language.cpp.indent.statement.size"
 #define PREF_INDENT_BRACE_SIZE "language.cpp.indent.brace.size"
 
+#define PREF_AUTOCOMPLETE_ENABLE "language.cpp.code.completion.enable"
+#define PREF_AUTOCOMPLETE_CHOICES "language.cpp.code.completion.choices"
+#define PREF_CALLTIP_ENABLE "language.cpp.code.calltip.enable"
+
 #define TAB_SIZE (ianjuta_editor_get_tabsize (editor, NULL))
 
 #define USE_SPACES_FOR_INDENTATION (ianjuta_editor_get_use_spaces (editor, NULL))
@@ -66,7 +70,7 @@
 
 #define LEFT_BRACE(ch) (ch == ')'? '(' : (ch == '}'? '{' : (ch == ']'? '[' : ch)))  
 
-#define MAX_SUGGESTIONS 10
+#define MAX_COMPLETIONS 10
 
 static gpointer parent_class;
 
@@ -641,6 +645,14 @@ static void on_assist_begin(IAnjutaEditorAssist* assist, gchar* context, gchar* 
 	gint position = ianjuta_editor_get_position(IANJUTA_EDITOR(assist), NULL);
 	IAnjutaIterable* cell = ianjuta_editor_get_cell_iter (IANJUTA_EDITOR(assist),
 															position, NULL);
+	gint max_completions;
+	
+	gboolean enable_complete = anjuta_preferences_get_int_with_default (lang_plugin->prefs,
+												  PREF_AUTOCOMPLETE_ENABLE,
+												  TRUE);
+	gboolean enable_calltips = anjuta_preferences_get_int_with_default (lang_plugin->prefs,
+																		PREF_CALLTIP_ENABLE,
+																		TRUE);
 	
 	IAnjutaEditorAttribute attribute = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (cell),
 														  NULL);
@@ -653,8 +665,12 @@ static void on_assist_begin(IAnjutaEditorAssist* assist, gchar* context, gchar* 
 	{
 		return;
 	}
+	
+	max_completions = anjuta_preferences_get_int_with_default (lang_plugin->prefs,
+												  PREF_AUTOCOMPLETE_CHOICES, MAX_COMPLETIONS);
+	
 	/* General word completion */
-	if (!trigger)
+	if (!trigger && enable_complete)
 	{
 		IAnjutaIterable* iter = 
 			ianjuta_symbol_manager_search (lang_plugin->symbol_browser,
@@ -667,14 +683,16 @@ static void on_assist_begin(IAnjutaEditorAssist* assist, gchar* context, gchar* 
 			add_tags (assist, lang_plugin, iter);
 			g_completion_complete (lang_plugin->completion, context, NULL);
 			ianjuta_editor_assist_init_suggestions(assist, position, NULL);
-			if (g_list_length (lang_plugin->completion->cache) < MAX_SUGGESTIONS)
+			if (g_list_length (lang_plugin->completion->cache) < max_completions)
 				ianjuta_editor_assist_suggest (assist, lang_plugin->completion->items, position, NULL);
 
 			g_object_unref (iter);
 			return;
 		}
 	}
-	else if (g_str_equal(trigger, "::"))
+	if (!trigger)
+		return;
+	else if (enable_complete && g_str_equal(trigger, "::"))
 	{
 		IAnjutaIterable* iter = 
 			ianjuta_symbol_manager_get_members (lang_plugin->symbol_browser,
@@ -684,18 +702,18 @@ static void on_assist_begin(IAnjutaEditorAssist* assist, gchar* context, gchar* 
 			position = ianjuta_editor_get_position(IANJUTA_EDITOR(assist), NULL);
 			add_tags (assist, lang_plugin, iter);
 			ianjuta_editor_assist_init_suggestions(assist, position, NULL);
-			if (g_list_length (lang_plugin->completion->items) < MAX_SUGGESTIONS)
+			if (g_list_length (lang_plugin->completion->items) < max_completions)
 				ianjuta_editor_assist_suggest (assist, lang_plugin->completion->items, position, NULL);
 			g_object_unref (iter);
 			return;
 		}
 	}
-	else if (g_str_equal(trigger, ".") || g_str_equal(trigger, "->"))
+	else if (enable_complete && (g_str_equal(trigger, ".") || g_str_equal(trigger, "->")))
 	{
 		/* TODO: Find the type of context by parsing the file somehow and
 		search for the member as it is done with the :: context */
 	}
-	else if (g_str_equal(trigger, "(") && strlen(context) > 2)
+	else if (g_str_equal(trigger, "(") && enable_calltips && strlen(context) > 2)
 	{
 		IAnjutaIterable* iter = 
 			ianjuta_symbol_manager_search (lang_plugin->symbol_browser,
@@ -843,7 +861,12 @@ static void on_assist_update(IAnjutaEditorAssist* assist, gchar* context, CppJav
 		GList* new_suggestions =
 			g_completion_complete (lang_plugin->completion, context, NULL);
 		
-		if (g_list_length (new_suggestions) < MAX_SUGGESTIONS)
+		gint max_completions =
+			anjuta_preferences_get_int_with_default (lang_plugin->prefs,
+													 PREF_AUTOCOMPLETE_CHOICES,
+													 MAX_COMPLETIONS);
+		
+		if (g_list_length (new_suggestions) < max_completions)
 			ianjuta_editor_assist_suggest (assist, new_suggestions, -1, NULL);
 		else
 			ianjuta_editor_assist_hide_suggestions (assist, NULL);
