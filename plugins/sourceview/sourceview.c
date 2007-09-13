@@ -67,6 +67,9 @@
 
 #define MONITOR_KEY "sourceview.enable.vfs"
 
+/* globale GtkSourceLanguagesManager instance */
+static GtkSourceLanguagesManager* lang_manager = NULL;
+
 static void sourceview_class_init(SourceviewClass *klass);
 static void sourceview_instance_init(Sourceview *sv);
 static void sourceview_finalize(GObject *object);
@@ -199,10 +202,6 @@ static void on_document_char_added(AnjutaView* view, gint pos,
 			DEBUG_PRINT ("Beginning completion assist: %s", word);
 			if (word != NULL && strlen(word) >= 3)
 			{
-				gtk_text_buffer_get_iter_at_mark(buffer, &begin, gtk_text_buffer_get_insert(buffer));
-				gtk_text_iter_backward_chars(&begin, strlen(word));
-				gint position =
-					gtk_text_iter_get_offset (&begin);
 				g_signal_emit_by_name(G_OBJECT(sv), "assist_begin", word, NULL);
 			}
 			g_free(word);
@@ -366,6 +365,9 @@ static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 	
 	sourceview_add_monitor(sv);
 
+	/* Autodetect language */
+	ianjuta_editor_language_set_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL, NULL);
+
 	lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
 	g_signal_emit_by_name (sv, "language-changed", lang);
 	
@@ -485,6 +487,8 @@ static void
 sourceview_instance_init(Sourceview* sv)
 {
 	sv->priv = g_new0(SourceviewPrivate, 1);
+	if (!lang_manager)
+		lang_manager = gtk_source_languages_manager_new();
 }
 
 static void
@@ -1328,20 +1332,27 @@ static gchar* iselect_get(IAnjutaEditorSelection* editor, GError **e)
 /* Get start point of selection */
 static gint iselect_get_start(IAnjutaEditorSelection *editor, GError **e)
 {
-	/* This is the same within gtk_text_buffer */
-	return ianjuta_editor_get_position(IANJUTA_EDITOR(editor), e);
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	GtkTextIter start;
+	if (gtk_text_buffer_get_selection_bounds (GTK_TEXT_BUFFER (sv->priv->document),
+											  &start, NULL))
+	{
+		return gtk_text_iter_get_offset (&start);
+	}
+	return -1;										  
 }
 
 /* Get end position of selection */
 static gint iselect_get_end(IAnjutaEditorSelection *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	GtkTextIter end_iter;
-	
-	gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(sv->priv->document),
-									 &end_iter,
-									 gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)));
-	return gtk_text_iter_get_offset(&end_iter);
+	GtkTextIter end;
+	if (gtk_text_buffer_get_selection_bounds (GTK_TEXT_BUFFER (sv->priv->document),
+											  NULL, &end))
+	{
+		return gtk_text_iter_get_offset (&end);
+	}
+	return -1;
 }
 
 static void iselect_function(IAnjutaEditorSelection *editor, GError **e)
@@ -1806,8 +1817,7 @@ static const GList*
 ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
 								   GError **err)
 {
-	GtkSourceLanguagesManager* manager = gtk_source_languages_manager_new();
-	const GSList* manager_languages = gtk_source_languages_manager_get_available_languages(manager);
+	const GSList* manager_languages = gtk_source_languages_manager_get_available_languages(lang_manager);
 	GList* languages = NULL;
 	
 	while (manager_languages)
@@ -1832,10 +1842,9 @@ ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(ilanguage);
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	GtkSourceLanguagesManager* manager = gtk_source_languages_manager_new();
-	const GSList* langs = gtk_source_languages_manager_get_available_languages(manager);
+	const GSList* langs = gtk_source_languages_manager_get_available_languages(lang_manager);
 	
-	while (langs)
+	while (language && langs)
 	{
 		gchar* name = gtk_source_language_get_name(GTK_SOURCE_LANGUAGE(langs->data));
 		if (g_str_equal(name, language))
@@ -1850,14 +1859,14 @@ ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
 	{
 		gchar* mime_type = anjuta_document_get_mime_type(ANJUTA_DOCUMENT(buffer));
 		GtkSourceLanguage* lang = gtk_source_languages_manager_get_language_from_mime_type(
-			manager, mime_type);
+			lang_manager, mime_type);
 		if (lang != NULL)
 		{
 			gtk_source_buffer_set_language(buffer, lang);
 			g_signal_emit_by_name (ilanguage, "language-changed", 
 				gtk_source_language_get_name(lang));
 		}
-	}	
+	}
 }
 
 static const gchar*

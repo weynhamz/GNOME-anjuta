@@ -1,5 +1,25 @@
 2007-09-13  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-document.c: (anjuta_document_finalize),
+	(set_uri):
+	* plugins/sourceview/anjuta-document.h:
+	Removed lots of dead code
+	
+	* plugins/sourceview/anjuta-languages-manager.c:
+	* plugins/sourceview/anjuta-languages-manager.h:
+	removed completely
+	
+	* plugins/sourceview/sourceview.c: (on_document_char_added),
+	(on_document_loaded), (sourceview_instance_init),
+	(iselect_get_start), (iselect_get_end),
+	(ilanguage_get_supported_languages), (ilanguage_set_language):
+	
+	Fixed selection handling and make some adaptions for the changes 
+	mentioned above
+
+2007-09-13  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
 	* plugins/language-support-cpp-java/plugin.c: (on_assist_begin),
 	(on_assist_update):

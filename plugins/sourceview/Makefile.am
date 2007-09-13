@@ -67,8 +67,6 @@ libanjuta_sourceview_la_SOURCES = \
 	anjuta-document.h \
 	anjuta-encodings.h \
 	anjuta-encodings.c \
-	anjuta-languages-manager.h \
-	anjuta-languages-manager.c \
 	anjuta-convert.h \
 	anjuta-convert.c \
 	anjuta-utils.h \

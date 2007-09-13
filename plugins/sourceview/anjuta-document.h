@@ -148,11 +148,6 @@ void		 anjuta_document_load 		(AnjutaDocument       *doc,
 						 gint                 line_pos,
 						 gboolean             create); 
 
-gboolean	 anjuta_document_insert_file	(AnjutaDocument       *doc,
-						 GtkTextIter         *iter, 
-						 const gchar         *uri, 
-						 const AnjutaEncoding *encoding);
-
 gboolean	 anjuta_document_load_cancel	(AnjutaDocument       *doc);
 
 void		 anjuta_document_save 		(AnjutaDocument       *doc,
@@ -163,43 +158,16 @@ void		 anjuta_document_save_as 	(AnjutaDocument       *doc,
 						 const AnjutaEncoding *encoding,
 						 AnjutaDocumentSaveFlags flags);
 
-gboolean	 anjuta_document_is_untouched 	(AnjutaDocument       *doc);
-
-gboolean	 anjuta_document_get_deleted	(AnjutaDocument       *doc);
-/* Ancora da discutere
-gboolean	 anjuta_document_get_externally_modified
-						(AnjutaDocument       *doc);
-*/
-
 gboolean	 anjuta_document_goto_line 	(AnjutaDocument       *doc, 
 						 gint                 line);
 
-void 		 anjuta_document_set_language 	(AnjutaDocument       *doc,
-						 GtkSourceLanguage   *lang);
-GtkSourceLanguage 
-		*anjuta_document_get_language 	(AnjutaDocument       *doc);
 
 const AnjutaEncoding 
 		*anjuta_document_get_encoding	(AnjutaDocument       *doc);
 
-void		 anjuta_document_set_enable_search_highlighting 
-						(AnjutaDocument       *doc,
-						 gboolean             enable);
-
-gboolean	 anjuta_document_get_enable_search_highlighting
-						(AnjutaDocument       *doc);
-
 gchar* anjuta_document_get_current_word(AnjutaDocument* doc,
 																				gboolean end_position);
 
-/* 
- * Non exported functions
- */
-gboolean	_anjuta_document_is_saving_as	(AnjutaDocument       *doc);
-
-// CHECK: va bene un gint?
-glong		 _anjuta_document_get_seconds_since_last_save_or_load 
-						(AnjutaDocument       *doc);
 						  
 G_END_DECLS
 

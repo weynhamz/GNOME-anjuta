@@ -42,7 +42,6 @@
 #include <libanjuta/anjuta-debug.h>
 
 #include "anjuta-encodings.h"
-#include "anjuta-languages-manager.h"
 #include "anjuta-document.h"
 #include "anjuta-document-loader.h"
 #include "anjuta-document-saver.h"
@@ -50,6 +49,7 @@
 #include "anjuta-utils.h"
 
 #include <gtksourceview/gtksourceiter.h>
+#include <gtksourceview/gtksourcelanguagesmanager.h>
 #include <pcre.h>
 
 #define ANJUTA_MAX_PATH_LEN  2048
@@ -77,6 +77,7 @@ struct _AnjutaDocumentPrivate
 	GnomeVFSURI *vfs_uri;
 
 	const AnjutaEncoding *encoding;
+	GtkSourceLanguagesManager* lang_manager;
 
 	gchar	    *mime_type;
 
@@ -180,23 +181,11 @@ anjuta_document_finalize (GObject *object)
 	{
 		GtkTextIter iter;
 		// gchar *position;
-		gchar *lang_id = NULL;
-		GtkSourceLanguage *lang;
 
 		gtk_text_buffer_get_iter_at_mark (
 				GTK_TEXT_BUFFER (doc),			
 				&iter,
 				gtk_text_buffer_get_insert (GTK_TEXT_BUFFER (doc)));
-
-		if (doc->priv->language_set_by_user)
-		{
-			lang = anjuta_document_get_language (doc);
-
-			if (lang != NULL)
-				lang_id = gtk_source_language_get_id (lang);
-
-			g_free (lang_id);
-		}
 	}
 
 	g_free (doc->priv->uri);
@@ -402,42 +391,6 @@ anjuta_document_class_init (AnjutaDocumentClass *klass)
 	g_type_class_add_private (object_class, sizeof(AnjutaDocumentPrivate));
 }
 
-static void
-set_language (AnjutaDocument     *doc, 
-              GtkSourceLanguage *lang,
-              gboolean           set_by_user)
-{
-	GtkSourceLanguage *old_lang;
-	
-	old_lang = gtk_source_buffer_get_language (GTK_SOURCE_BUFFER (doc));
-	
-	if (old_lang == lang)
-		return;
-
-	gtk_source_buffer_set_language (GTK_SOURCE_BUFFER (doc), lang);
-		
-	if (lang != NULL)
-		gtk_source_buffer_set_highlight (GTK_SOURCE_BUFFER (doc),
-						 TRUE);
-	else
-		gtk_source_buffer_set_highlight (GTK_SOURCE_BUFFER (doc), 
-						 FALSE);
-
-	if (set_by_user && (doc->priv->uri != NULL))
-	{
-		gchar *lang_id = NULL;
-
-		if (lang != NULL)
-		{
-			lang_id = gtk_source_language_get_id (lang);
-			g_return_if_fail (lang_id != NULL);
-		}
-
-		g_free (lang_id);
-	}
-	
-	doc->priv->language_set_by_user = set_by_user;
-}
 
 static void
 set_encoding (AnjutaDocument       *doc, 
@@ -564,23 +517,6 @@ set_uri (AnjutaDocument *doc,
 			doc->priv->mime_type = g_strdup ("text/plain");
 		}
 	}
-
-	if (!doc->priv->language_set_by_user)
-	{
-		// gchar *data;
-		GtkSourceLanguage *language = NULL;
-
-		
-		if (strcmp (doc->priv->mime_type, "text/plain") != 0)
-		{
-			language = gtk_source_languages_manager_get_language_from_mime_type (
-						anjuta_get_languages_manager (),
-						doc->priv->mime_type);
-		}
-
-		set_language (doc, language, FALSE);
-	}
-
 	g_object_notify (G_OBJECT (doc), "uri");
 	g_object_notify (G_OBJECT (doc), "shortname");
 }
@@ -990,42 +926,6 @@ anjuta_document_save_as (AnjutaDocument          *doc,
 	document_save_real (doc, uri, encoding, 0, flags);
 }
 
-gboolean
-anjuta_document_insert_file (AnjutaDocument       *doc,
-			    GtkTextIter         *iter,
-			    const gchar         *uri,
-			    const AnjutaEncoding *encoding)
-{
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), FALSE);
-	g_return_val_if_fail (iter != NULL, FALSE);
-	g_return_val_if_fail (gtk_text_iter_get_buffer (iter) == 
-				GTK_TEXT_BUFFER (doc), FALSE);
-
-	// TODO
-
-	return FALSE;
-}
-
-gboolean	 
-anjuta_document_is_untouched (AnjutaDocument *doc)
-{
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), TRUE);
-
-	return (doc->priv->uri == NULL) && 
-		(!gtk_text_buffer_get_modified (GTK_TEXT_BUFFER (doc)));
-}
-
-gboolean
-anjuta_document_get_deleted (AnjutaDocument *doc)
-{
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), FALSE);
-
-	if (doc->priv->uri == NULL || doc->priv->vfs_uri == NULL)
-		return FALSE;
-		
-	return !gnome_vfs_uri_exists (doc->priv->vfs_uri);
-}
-
 /*
  * If @line is bigger than the lines of the document, the cursor is moved
  * to the last line and FALSE is returned.
@@ -1059,23 +959,6 @@ anjuta_document_goto_line (AnjutaDocument *doc,
 	gtk_text_buffer_place_cursor (GTK_TEXT_BUFFER (doc), &iter);
 
 	return ret;
-}
-
-void
-anjuta_document_set_language (AnjutaDocument     *doc, 
-			     GtkSourceLanguage *lang)
-{
-	g_return_if_fail (ANJUTA_IS_DOCUMENT (doc));
-
-	set_language (doc, lang, TRUE);
-}
-
-GtkSourceLanguage *
-anjuta_document_get_language (AnjutaDocument *doc)
-{
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), NULL);
-
-	return gtk_source_buffer_get_language (GTK_SOURCE_BUFFER (doc));
 }
 
 const AnjutaEncoding *
@@ -1143,26 +1026,6 @@ gchar* anjuta_document_get_current_word(AnjutaDocument* doc, gboolean end_positi
 	g_free(region);
 	
 	return word;
-}
-
-glong
-_anjuta_document_get_seconds_since_last_save_or_load (AnjutaDocument *doc)
-{
-	GTimeVal current_time;
-	
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), -1);
-
-	g_get_current_time (&current_time);
-
-	return (current_time.tv_sec - doc->priv->time_of_last_save_or_load.tv_sec);
-}
-
-gboolean
-_anjuta_document_is_saving_as (AnjutaDocument *doc)
-{	
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), FALSE);
-	
-	return (doc->priv->is_saving_as);
 }
 						 
 static void	
