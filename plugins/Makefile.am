@@ -14,6 +14,7 @@ SUBDIRS = . \
 	project-wizard \
 	project-manager \
 	symbol-browser \
+	symbol-db \
 	sample1 \
 	cvs-plugin \
 	macro \

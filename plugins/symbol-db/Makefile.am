@@ -1,5 +1,4 @@
-# Sample Makefile for a anjuta plugin.
-
+if HAVE_PLUGIN_SYMBOL_DB
 # Plugin UI file
 symbol_db_uidir = $(anjuta_ui_dir)
 symbol_db_ui_DATA =  symbol-db.ui
@@ -41,8 +40,7 @@ INCLUDES = \
 	-DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
 	$(LIBANJUTA_CFLAGS) \
-	$(SYMBOL_DB_CFLAGS) \
-	`pkg-config libgda-3.0 --cflags` \
+	$(PLUGIN_SYMBOL_DB_CFLAGS) \
 	$(GDL_CFLAGS)
 
 # Where to install the plugin
@@ -68,6 +66,8 @@ libanjuta_symbol_db_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(SYMBOL_DB_LIBS) \
 	-lgda-3.0
+
+endif
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

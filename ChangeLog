@@ -1,3 +1,13 @@
+2007-09-13  Johannes Schmid,,,  <jhs@idefix>
+
+	reviewed by: <delete if not using a buddy>
+
+	* anjuta.anjuta:
+	* configure.in:
+	* plugins/Makefile.am:
+	* plugins/project-wizard/templates/minimal/project.anjuta:
+	* plugins/symbol-db/Makefile.am:
+
 2007-09-13  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/Makefile.am:

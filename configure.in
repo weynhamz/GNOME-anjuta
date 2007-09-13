@@ -51,6 +51,7 @@ GTKSOURCEVIEW_GNOME_REQUIRED=2.14
 GTKSOURCEVIEW_GTK_REQUIRED=2.10
 BINUTILS_REQUIRED=2.15.92
 LIBWNCK_REQUIRED=2.12
+GDA_REQUIRED=3.0
 
 dnl LIBGTODO_REQUIRED=0.15
 
@@ -86,6 +87,7 @@ AC_SUBST(GTKSOURCEVIEW_GNOME_REQUIRED)
 AC_SUBST(GTKSOURCEVIEW_GTK_REQUIRED)
 AC_SUBST(BINUTILS_REQUIRED)
 AC_SUBST(LIBWNCK_REQUIRED)
+AC_SUBST(GDA_REQUIRED)
 
 dnl AC_SUBST(LIBGTODO_REQUIRED)
 
@@ -461,6 +463,33 @@ else
 	scintilla="yes"
 fi
 AM_CONDITIONAL(HAVE_PLUGIN_SCINTILLA, [test x$scintilla = xyes])
+
+dnl Build symbol-db only if we have gda
+dnl -------------------------------------------------------------
+
+AC_ARG_ENABLE(plugin-symbol-db,
+	[ --disable-plugin-symbol-db	Disable new symbol-db plugin], 
+	[ if test "$enableval" = "no"; then
+		user_disabled_symboldb=1
+	  fi ],
+	[ user_disabled_symboldb=0 ])
+
+AC_MSG_CHECKING(if symbol-db plugin is disabled)
+if test "$user_disabled_symboldb" = 1; then
+	AC_MSG_RESULT(yes)
+	symboldb="no"
+else
+	AC_MSG_RESULT(no)
+	
+	PKG_CHECK_MODULES(PLUGIN_SYMBOL_DB,
+		[libgda-3.0 >= $GDA_REQUIRED],
+		[symboldb="yes"],
+		[symboldb="no"])
+	AC_SUBST(PLUGIN_SYMBOL_DB_CFLAGS)
+	AC_SUBST(PLUGIN_SYMBOL_DB_LIBS)
+fi
+
+AM_CONDITIONAL(HAVE_PLUGIN_SYMBOL_DB, [test x$symboldb = xyes])
 
 dnl Valgrind plugin
 dnl check for libbfd
@@ -1104,6 +1133,7 @@ plugins/profiler/Makefile
 plugins/project-manager/Makefile
 plugins/symbol-browser/Makefile
 plugins/symbol-browser/images/Makefile
+plugins/symbol-db/Makefile
 plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile
@@ -1223,5 +1253,10 @@ if [ test x$scintilla = xyes ]; then
 else
         echo "Building Scintilla based editor: .......................NO"
 fi
-echo "-------------------------------------------------------------------"
 
+if [ test x$symboldb = xyes ]; then
+        echo "Building new Symbol-db plugin: .......................YES"
+else
+        echo "Building new Symbol-db plugin: .......................NO"
+fi
+echo "-------------------------------------------------------------------"
