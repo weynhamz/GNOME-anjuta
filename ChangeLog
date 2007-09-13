@@ -1,12 +1,15 @@
-2007-09-13  Johannes Schmid,,,  <jhs@idefix>
-
-	reviewed by: <delete if not using a buddy>
+2007-09-13  Johannes Schmid <jhs@gnome.org>
 
 	* anjuta.anjuta:
+	* plugins/project-wizard/templates/minimal/project.anjuta:
+	Use IAnjutaSymbolManager instead of loading the plugin directly.
+	(TODO: Think of a version to do this for older files...)
+
 	* configure.in:
 	* plugins/Makefile.am:
-	* plugins/project-wizard/templates/minimal/project.anjuta:
 	* plugins/symbol-db/Makefile.am:
+	
+	Build symbol-db plugin if libgda-3.0 is found
 
 2007-09-13  Johannes Schmid <jhs@gnome.org>
 
