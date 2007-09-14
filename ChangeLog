@@ -1,3 +1,9 @@
+2007-09-14  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c: (iassist_suggest):
+	Fixed changed char_alignment paramter in language-support
+	plugin
+
 2007-09-14  Naba Kumar  <naba@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c: Send the right

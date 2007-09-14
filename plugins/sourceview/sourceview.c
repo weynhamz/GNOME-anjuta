@@ -1951,7 +1951,17 @@ iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices, int char_alignmen
 		assist_window_update(sv->priv->assist_win, choices);
 		gtk_widget_show(GTK_WIDGET(sv->priv->assist_win));
 		if (char_alignment != -1)
-			assist_window_move(sv->priv->assist_win, char_alignment);
+		{
+			/* Calculate offset */
+			GtkTextIter cursor;
+			GtkTextBuffer* buffer = GTK_TEXT_BUFFER (sv->priv->document);
+			gtk_text_buffer_get_iter_at_mark (buffer,
+											  &cursor,
+											  gtk_text_buffer_get_insert(buffer));
+			
+			gint offset = gtk_text_iter_get_offset (&cursor);
+			assist_window_move(sv->priv->assist_win, offset - char_alignment);
+		}
 	}
 }
 
