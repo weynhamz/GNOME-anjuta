@@ -684,8 +684,9 @@ static void on_assist_begin(IAnjutaEditorAssist* assist, gchar* context, gchar* 
 			g_completion_complete (lang_plugin->completion, context, NULL);
 			ianjuta_editor_assist_init_suggestions(assist, position, NULL);
 			if (g_list_length (lang_plugin->completion->cache) < max_completions)
-				ianjuta_editor_assist_suggest (assist, lang_plugin->completion->items, position, NULL);
-
+				ianjuta_editor_assist_suggest (assist,
+											   lang_plugin->completion->items,
+											   strlen (context), NULL);
 			g_object_unref (iter);
 			return;
 		}

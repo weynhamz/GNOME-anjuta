@@ -1,3 +1,8 @@
+2007-09-14  Naba Kumar  <naba@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c: Send the right
+	'char_alignment' paramenter (needs fixing in sourceview).
+
 2007-09-13  Johannes Schmid <jhs@gnome.org>
 
 	* anjuta.anjuta:
@@ -46,6 +51,7 @@
 	* plugins/sourceview/sourceview.glade:
 	Removed old completion preferences
 
+>>>>>>> .r3124
 2007-09-11  Naba Kumar  <naba@gnome.org>
 
 	* plugins/terminal/terminal.c: Fixed critical warning, memory leak
