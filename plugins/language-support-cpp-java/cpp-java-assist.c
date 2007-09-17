@@ -134,7 +134,7 @@ on_assist_begin (IAnjutaEditorAssist* iassist, gchar* context,
 			ianjuta_editor_assist_init_suggestions(iassist, position, NULL);
 			if (g_list_length (assist_ctx->completion->cache) < max_completions)
 				ianjuta_editor_assist_suggest (iassist,
-											   assist_ctx->completion->items,
+											   assist_ctx->completion->cache,
 											   position,
 											   strlen (context), NULL);
 			g_object_unref (iter);
@@ -302,12 +302,8 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	g_return_if_fail (assist_ctx != NULL);
 	
 	if (assist_ctx->completion->cache)
-	{
-		GList* cache = g_list_copy (assist_ctx->completion->cache);
-		cache = g_list_sort (cache, (GCompareFunc)strcmp);
-		assistance = g_strdup (g_list_nth_data (cache, selection));
-		g_list_free (cache);
-	}
+		assistance = g_strdup (g_list_nth_data (assist_ctx->completion->cache,
+												selection));
 	else
 		assistance = g_strdup (g_list_nth_data (assist_ctx->completion->items,
 												selection));

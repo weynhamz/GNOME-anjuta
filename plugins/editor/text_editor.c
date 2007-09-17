@@ -2969,7 +2969,7 @@ iassist_init_suggestions (IAnjutaEditorAssist* iassist, gint position,
 	TextEditor *te = TEXT_EDITOR (iassist);
 	
 	g_return_if_fail (IS_TEXT_EDITOR (te));
-	te->assist_active = TRUE;
+	/* te->assist_active = TRUE; */
 	g_signal_connect (iassist, "assist-canceled",
 					  G_CALLBACK (on_assist_canceled), NULL);
 	g_signal_connect (iassist, "assist-end",
