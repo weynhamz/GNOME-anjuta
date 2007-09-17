@@ -1937,7 +1937,8 @@ iassist_init_suggestions (IAnjutaEditorAssist* iassist, gint position, GError **
 }
 
 static void
-iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices, int char_alignment, GError **err)
+iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices, int position,
+				 int char_alignment, GError **err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	

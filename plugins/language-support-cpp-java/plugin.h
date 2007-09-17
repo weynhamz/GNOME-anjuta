@@ -21,6 +21,7 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
+#include "cpp-java-assist.h"
 
 extern GType cpp_java_plugin_get_type (AnjutaGluePlugin *plugin);
 #define ANJUTA_TYPE_PLUGIN_CPP_JAVA         (cpp_java_plugin_get_type (NULL))
@@ -54,11 +55,7 @@ struct _CppJavaPlugin {
 	gint param_label_indentation;
 	
 	/* Assist */
-	GCompletion* completion;
-	GList* tips;
-	gint tip_position;
-	gboolean assist_installed;
-	IAnjutaSymbolManager* symbol_browser;
+	CppJavaAssist *assist;
 };
 
 struct _CppJavaPluginClass {

@@ -1554,7 +1554,7 @@ interface IAnjutaEditor
 		 * will occur
 		 *
 		 */
-		void suggest (List<const gchar*> choices, int char_alignment);
+		void suggest (List<const gchar*> choices, int position, int char_alignment);
 		
 		/** ianjuta_editor_assist_hide_suggestions
 		 * @obj: Self

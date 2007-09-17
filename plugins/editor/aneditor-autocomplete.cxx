@@ -73,6 +73,27 @@ bool AnEditor::GetWordAtPosition(char* buffer, int maxlength, int pos) {
 	return FindWordInRegion(buffer, maxlength, region, pos - start);
 }
 
+bool AnEditor::GetWordBeforeCarat(char *buffer, int maxlength) {
+	SString linebuf;
+	GetLine(linebuf);
+	int current = GetCaretInLine();
+
+	buffer[0] = '\0';
+	int startword = current;
+	while ((startword > 0) &&
+	        (wordCharacters.contains(linebuf[startword - 1])))
+		startword--;
+	
+	if (startword >= current)
+		return false;
+	
+	linebuf.change(current, '\0');
+	const char *root = linebuf.c_str() + startword;
+	strncpy (buffer, root, maxlength);
+	
+	return true;
+}
+
 bool AnEditor::StartAutoComplete() {
 	SString linebuf;
 	GetLine(linebuf);

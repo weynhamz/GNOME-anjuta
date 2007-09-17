@@ -130,6 +130,7 @@ extern "C" {
 
 #define   ANE_COMPLETECALLTIP           (ANE_COMMAND_BASE+87)
 #define   ANE_SETEDGECOLUMN				(ANE_COMMAND_BASE+88)
+#define   ANE_GETWORDBEFORECARAT        (ANE_COMMAND_BASE+89)
 
 typedef guint AnEditorID;
 extern const AnEditorID ANE_ID_INVALID;

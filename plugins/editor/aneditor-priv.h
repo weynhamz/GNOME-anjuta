@@ -287,6 +287,7 @@ protected:
 	void BraceMatch(bool editor);
 
 	bool GetCurrentWord(char* buffer, int maxlength);
+	bool GetWordBeforeCarat(char* buffer, int maxlength);
 
 	bool FindWordInRegion(char *buffer, int maxlength, SString &linebuf,
 						  int current);

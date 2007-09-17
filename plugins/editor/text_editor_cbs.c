@@ -26,10 +26,20 @@
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/interfaces/ianjuta-iterable.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
+#include <libanjuta/interfaces/ianjuta-editor-cell.h>
+#include <libanjuta/interfaces/ianjuta-editor-assist.h>
 
 #include "text_editor.h"
 #include "text_editor_cbs.h"
+
+#define GTK
+#undef PLAT_GTK
+#define PLAT_GTK 1
 #include "Scintilla.h"
+#include "SciLexer.h"
+#include "ScintillaWidget.h"
 
 gboolean
 on_text_editor_scintilla_focus_in (GtkWidget* scintilla, GdkEvent *event,
@@ -133,13 +143,114 @@ click_timeout (TextEditor *te)
 	return FALSE;
 }
 
+static void
+trigger_size (gpointer pkey, gpointer value, gpointer data)
+{
+	int* size = (int*)data;
+	const gchar* trigger = (const char*) pkey;
+	int new_size = strlen (trigger);
+
+	if (new_size > *size)
+	{
+		*size = new_size; 
+	}
+}
+
+static int 
+max_trigger_size (GHashTable* triggers)
+{
+	int max_size = 0;
+	if (!triggers)
+		return 0;
+	g_hash_table_foreach (triggers, (GHFunc) trigger_size, &max_size);
+	return max_size;
+}
+
+static void
+text_editor_check_assist (TextEditor *te, gchar ch, gint p)
+{
+	gint selStart = text_editor_get_selection_start (te);
+	gint selEnd = text_editor_get_selection_end (te);
+	gint position = selStart - 1;
+	
+	DEBUG_PRINT ("Text editor char added: %c, p = %d, position = %d",
+				 ch, p, position);
+	if ((selEnd == selStart) && (selStart > 0))
+	{
+		int style = scintilla_send_message (SCINTILLA (te->scintilla),
+											SCI_GETSTYLEAT, position, 0);
+		if (style != 1)
+		{
+			gboolean found = FALSE;
+			gint i;
+			for (i = 1; i <= max_trigger_size (te->assist_triggers); i++)
+			{
+				gchar* trigger;
+				IAnjutaEditorAssistContextParser parser = NULL;
+				trigger = (gchar*) aneditor_command (te->editor_id,
+													 ANE_GETTEXTRANGE,
+													 ((selStart - i) < 0? 0 : (selStart - i)),
+													 selStart);
+				DEBUG_PRINT ("Trigger found: \"%s\"", trigger);
+				parser = g_hash_table_lookup (te->assist_triggers, trigger);
+				if (parser)
+				{
+					gchar* context = parser (IANJUTA_EDITOR (te),
+											 position + 1);
+					DEBUG_PRINT ("Context is: \"%s\"", context);
+					
+					/* If there is an autocomplete in progress, end it
+					 * because autocompletes are not recursive */
+					if (te->assist_active)
+						g_signal_emit_by_name (te, "assist-end");
+					g_signal_emit_by_name (G_OBJECT (te), "assist_begin",
+										   context, trigger);
+					g_free (trigger);
+					g_free (context);
+					found = TRUE;
+					break;
+				}
+			}
+			if (!found)
+			{
+				/* Consider simple autocomplete */
+				if (te->assist_active && ch != '_' && !isalnum (ch))
+					/* (!wordCharacters.contains(ch)) */ /* FIXME */
+				{
+					/* End autocompletion if non word char is typed */
+					g_signal_emit_by_name (te, "assist-end");
+				}
+				else
+				{
+					/* Pick up autocomplete word */
+					gchar *context =
+						text_editor_get_word_before_carat (te);
+					if (context)
+					{
+						te->assist_position_end = position;
+						te->assist_position_begin = position - strlen (context);
+						if (te->assist_active)
+							g_signal_emit_by_name (te, "assist-update", context,
+												   NULL);
+						else
+							g_signal_emit_by_name (te, "assist-begin", context,
+												   NULL);
+						DEBUG_PRINT ("Context is: %s", context);
+						g_free (context);
+					}
+				}
+			}
+		}
+	}
+}
+
 void
-on_text_editor_scintilla_notify (GtkWidget * sci,
-				 gint wParam, gpointer lParam, gpointer data)
+on_text_editor_scintilla_notify (GtkWidget * sci, gint wParam, gpointer lParam,
+								 gpointer data)
 {
 	TextEditor *te;
 	struct SCNotification *nt;
-	gint line, position;
+	gint line, position, autoc_sel;
 	
 	te = data;
 	if (te->freeze_count != 0)
@@ -163,6 +274,31 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 	case SCN_UPDATEUI:
 		te->current_line = text_editor_get_current_lineno (te);
 		g_signal_emit_by_name(G_OBJECT (te), "update_ui");
+		if (te->assist_active)
+		{
+			gint cur_position = text_editor_get_current_position (te);
+			
+			DEBUG_PRINT ("Update UI: cur_pos = %d, assist_begin = %d, assist_end = %d",
+						 cur_position, te->assist_position_begin,
+						 te->assist_position_end);
+			
+			/* If cursor moves out of autocomplete work range, end it */
+			if (cur_position <= te->assist_position_begin ||
+				(cur_position > te->assist_position_end + 1))
+			{
+				g_signal_emit_by_name (te, "assist-end");
+			}
+			else
+			{
+				gchar *context = text_editor_get_word_before_carat (te);
+				if (context)
+				{
+					if (te->assist_active)
+						g_signal_emit_by_name (te, "assist-update", context,
+											   NULL);
+				}
+			}
+		}
 		return;
 		
 	case SCN_CHARADDED:
@@ -170,8 +306,19 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 		position = text_editor_get_current_position (te) - 1;
 		g_signal_emit_by_name(G_OBJECT (te), "char_added", position,
 							  (gchar)nt->ch);
+		
+		/* Assist */
+		text_editor_check_assist (te, (gchar)nt->ch, position);
 		return;
-
+	case SCN_AUTOCSELECTION:
+	case SCN_USERLISTSELECTION:
+		autoc_sel = (gint) scintilla_send_message (SCINTILLA (te->scintilla),
+												   SCI_AUTOCGETCURRENT,
+												   0, 0);
+		scintilla_send_message (SCINTILLA (te->scintilla),
+								SCI_AUTOCCANCEL, 0, 0);
+		g_signal_emit_by_name (te, "assist-chosen", autoc_sel);
+		return;
 	case SCN_MODIFIED:
 		if (nt->modificationType & (SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT))
 		{
@@ -221,8 +368,8 @@ on_text_editor_scintilla_notify (GtkWidget * sci,
 
 void
 on_text_editor_scintilla_size_allocate (GtkWidget * widget,
-					GtkAllocation * allocation,
-					gpointer data)
+										GtkAllocation * allocation,
+										gpointer data)
 {
 	TextEditor *te;
 	te = data;

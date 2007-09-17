@@ -41,7 +41,11 @@ plugin_LTLIBRARIES = libanjuta-language-cpp-java.la
 # Plugin sources
 libanjuta_language_cpp_java_la_SOURCES = \
 	plugin.c \
-	plugin.h
+	plugin.h \
+	cpp-java-assist.h \
+	cpp-java-assist.c \
+	cpp-java-utils.c \
+	cpp-java-utils.h
 
 libanjuta_language_cpp_java_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 

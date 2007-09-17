@@ -1,3 +1,44 @@
+2007-09-17  Naba Kumar  <naba.kumar@gnome.org>
+
+	* libanjuta/anjuta-launcher.c: (anjuta_launcher_fork):
+	Set buffer size (From Massimo, required for symbol-db).
+
+	* libanjuta/interfaces/libanjuta.idl: Also pass position information
+	for suggestions.
+
+	* plugins/sourceview/sourceview.c: (iassist_suggest): Fix for above
+	change in API.
+
+	* plugins/editor/aneditor-autocomplete.cxx,
+	plugins/editor/aneditor.h, plugins/editor/aneditor-priv.h:
+	Added ANE_GETWORDBEFORECARAT command.
+
+	* plugins/editor/aneditor.cxx: Do not autocomplete. It's now done
+	using assist interface.
+
+	* plugins/editor/text_editor.c: (text_editor_instance_init),
+	(text_editor_get_word_before_carat),
+	(text_editor_get_current_word), (iassist_add_trigger),
+	(iassist_remove_trigger), (on_assist_canceled),
+	(iassist_init_suggestions), (iassist_suggest), (iassist_show_tips),
+	(iassist_react), (iassist_hide_suggestions), (iassist_iface_init):
+	* plugins/editor/text_editor.h:
+	* plugins/editor/text_editor_cbs.c: (trigger_size),
+	(max_trigger_size), (text_editor_check_assist),
+	(on_text_editor_scintilla_notify): Implemented IAnjutaEditorAssist
+	interface.
+
+	* plugins/language-support-cpp-java/Makefile.am:
+	* plugins/language-support-cpp-java/plugin.c:
+	(get_line_indentation_base), (get_line_auto_indentation),
+	(install_support), (uninstall_support),
+	(cpp_java_plugin_activate_plugin), (cpp_java_plugin_finalize),
+	(cpp_java_plugin_instance_init):
+	* plugins/language-support-cpp-java/plugin.h:
+	* plugins/language-support-cpp-java/cpp-java-assist.[ch] (added),
+	* plugins/language-support-cpp-java/cpp-java-utils.[ch] (added),
+	Make assist a separate class.
+
 2007-09-14  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c: (iassist_suggest):

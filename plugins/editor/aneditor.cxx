@@ -1369,84 +1369,12 @@ void AnEditor::CharAdded(char ch) {
 		int style = SendEditor(SCI_GETSTYLEAT, selStart - 1, 0);
 		if (style != 1) {
 			if (SendEditor(SCI_CALLTIPACTIVE)) {		// calltip is active
-				if (ch == ')') {								// close our calltip
-					
-					braceCount--;
-										
-					if (braceCount < 1) {					// shutdown at all
-						ShutDownCallTip();
-						SendEditor(SCI_CALLTIPCANCEL);
-						return;
-					}
-					
-					ResumeCallTip();
-				} else if (ch == '(') {						// a new calltip is encountered?...
-					SaveCallTip();
-					braceCount++;
-					StartCallTip_new();					
-				} else {
-					// here it is, we continue the calltip
-					//ContinueCallTip();
-					ContinueCallTip_new();
-				}
 			} else if (SendEditor(SCI_AUTOCACTIVE)) {	// word autocompletion
-				if (ch == '(') {
-					braceCount++;
-					//StartCallTip();
-					StartCallTip_new();
-				} else if (ch == ')') {
-					braceCount--;
-				} else if (!wordCharacters.contains(ch)) {
-					SendEditor(SCI_AUTOCCANCEL);
-					if (autocompletion) {
-						g_completion_free (autocompletion);
-						autocompletion = NULL;
-					}
-				} else if (autoCCausedByOnlyOne) {
-					StartAutoCompleteWord(props->GetInt("autocompleteword.automatic"));
-				} else {
-					StartAutoCompleteWord(0);
-				}
 			} else if (HandleXml(ch)) {
 				// Handled in the routine
-			}
-			else {	// we don't have autocompetion nor calltip active
-				if (autocompletion) {
-					g_completion_free (autocompletion);
-					autocompletion = NULL;
-				}
-				if (ch == '(') {
-					braceCount = 1;
-					//StartCallTip();
-					
-					//
-					// check whether we have some left nodes in call_tip_node_queue: this
-					// can happen if we hit the "down key" when calltip is active
-					//
-					
-					if ( g_queue_is_empty( call_tip_node_queue ) != TRUE )
-						ShutDownCallTip();
-					
-					// ok, let's start a new calltip			
-					StartCallTip_new();
-				} else {
-					autoCCausedByOnlyOne = false;
+			} else {	// we don't have autocompetion nor calltip active
 					if (indentMaintain)
 						MaintainIndentation(ch);
-					/*
-					else if (props->GetInt("indent.automatic"))
-						AutomaticIndentation(ch);
-					*/
-					if (autoCompleteStartCharacters.contains(ch)) {
-						StartAutoComplete();
-					} else if (props->GetInt("autocompleteword.automatic") &&
-							   !StartAutoCompleteRecordsFields(ch) &&
-							   wordCharacters.contains(ch)) {
-						
-					    StartAutoCompleteWord(props->GetInt("autocompleteword.automatic"));
-					    autoCCausedByOnlyOne = SendEditor(SCI_AUTOCACTIVE);
-					}
-				}
 			}
 		}
 	}
@@ -1654,6 +1582,9 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	
 	case ANE_GETCURRENTWORD:
 		return GetCurrentWord((char*)wParam, (int)lParam);
+		
+	case ANE_GETWORDBEFORECARAT:
+		return GetWordBeforeCarat((char*)wParam, (int)lParam);
 
 	case ANE_SHOWCALLTIP:
 		StartCallTip_new();

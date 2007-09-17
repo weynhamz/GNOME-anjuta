@@ -112,6 +112,12 @@ struct _TextEditor
 	 */
 	gint file_modified_timer;
 	GtkWidget *file_modified_widget;
+	
+	/* Assist */
+	GHashTable *assist_triggers;
+	gboolean assist_active;
+	gint assist_position_begin;
+	gint assist_position_end;
 };
 
 struct _TextEditorClass
@@ -214,6 +220,8 @@ gint     text_editor_set_indicator (TextEditor *te, gint start, gint end,
 									gint indicator);
 gboolean text_editor_can_undo (TextEditor *te);
 gboolean text_editor_can_redo (TextEditor *te);
+
+gchar* text_editor_get_word_before_carat (TextEditor *te);
 
 /* Get currect word near by cursor location */
 gchar* text_editor_get_current_word (TextEditor *te);

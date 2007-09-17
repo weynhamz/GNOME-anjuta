@@ -64,6 +64,7 @@
 
 #define ANJUTA_PIXMAP_PASSWORD "password.png"
 #define FILE_BUFFER_SIZE 1024
+#define FILE_INPUT_BUFFER_SIZE		1048576
 #ifndef __MAX_BAUD
 #ifdef __CYGWIN__
 #define __MAX_BAUD B256000
@@ -1089,6 +1090,9 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	launcher->priv->stdout_channel = g_io_channel_unix_new (stdout_pipe[0]);
 	launcher->priv->pty_channel = g_io_channel_unix_new (pty_master_fd);
 
+	g_io_channel_set_buffer_size (launcher->priv->pty_channel, FILE_INPUT_BUFFER_SIZE);
+	
+		
 	g_get_charset (&charset);
 	anjuta_launcher_set_encoding (launcher, charset);
 
