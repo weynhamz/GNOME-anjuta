@@ -1,5 +1,8 @@
 2007-09-17  Naba Kumar  <naba.kumar@gnome.org>
 
+	* plugins/language-support-cpp-java/cpp-java-assist.c: Improved
+	completion items preparation time. Fixed a crash bug.
+
 	* libanjuta/anjuta-launcher.c: (anjuta_launcher_fork):
 	Set buffer size (From Massimo, required for symbol-db).
 

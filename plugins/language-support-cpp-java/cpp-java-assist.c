@@ -49,22 +49,26 @@ static void
 add_tags (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter,
 		  CppJavaAssistContext *assist_ctx)
 {
+	GHashTable *suggestions_hash = g_hash_table_new (g_str_hash, g_str_equal);
 	GList* suggestions = NULL;
 	do
 	{
 		const gchar* name = ianjuta_symbol_name (IANJUTA_SYMBOL(iter), NULL);
 		if (name != NULL)
 		{
-			if (!g_list_find_custom (suggestions, name, (GCompareFunc) strcmp))
+			if (!g_hash_table_lookup (suggestions_hash, name))
 			{
-				suggestions = g_list_append (suggestions,
-											 g_strdup (name));
+				g_hash_table_insert (suggestions_hash, (gchar*)name,
+									 (gchar*)name);
+				suggestions = g_list_prepend (suggestions, g_strdup (name));
 			}
 		}
 		else
 			break;
 	}
 	while (ianjuta_iterable_next (iter, NULL));
+	
+	g_hash_table_destroy (suggestions_hash);
 	
 	suggestions = g_list_sort (suggestions, (GCompareFunc) strcmp);
 	if (assist_ctx->completion == NULL)
@@ -236,15 +240,16 @@ assist_context_free (CppJavaAssistContext *assist_ctx)
 	{
 		GList* items = assist_ctx->completion->items;
 		if (items)
+		{
 			g_list_foreach (items, (GFunc) g_free, NULL);
-		g_completion_clear_items (assist_ctx->completion);
+			g_completion_clear_items (assist_ctx->completion);
+		}
 		g_completion_free (assist_ctx->completion);
 	}
 	if (assist_ctx->tips)
 	{
 		g_list_foreach (assist_ctx->tips, (GFunc) g_free, NULL);
 		g_list_free (assist_ctx->tips);
-		assist_ctx->tips = NULL;
 	}
 	g_free (assist_ctx);
 }
@@ -300,13 +305,15 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	{
 		GList* cache = g_list_copy (assist_ctx->completion->cache);
 		cache = g_list_sort (cache, (GCompareFunc)strcmp);
-		assistance = g_list_nth_data (cache, selection);
+		assistance = g_strdup (g_list_nth_data (cache, selection));
 		g_list_free (cache);
 	}
 	else
-		assistance = g_list_nth_data (assist_ctx->completion->items, selection);		
-	ianjuta_editor_assist_react (iassist, selection, assistance, NULL);  
+		assistance = g_strdup (g_list_nth_data (assist_ctx->completion->items,
+												selection));
 	assist_context_cleanup (assist, assist_ctx);
+	ianjuta_editor_assist_react (iassist, selection, assistance, NULL);
+	g_free (assistance);
 }
 
 static void
