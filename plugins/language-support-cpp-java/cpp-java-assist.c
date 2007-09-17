@@ -224,7 +224,7 @@ on_assist_begin (IAnjutaEditorAssist* iassist, gchar* context,
 			{
 				assist_ctx->position =
 					ianjuta_editor_get_position (IANJUTA_EDITOR(iassist),
-												 NULL) - 1 - strlen (context);
+												 NULL) - 1;
 				ianjuta_editor_assist_show_tips (iassist, assist_ctx->tips,
 												 assist_ctx->position, NULL);
 			}
