@@ -112,12 +112,6 @@ struct _TextEditor
 	 */
 	gint file_modified_timer;
 	GtkWidget *file_modified_widget;
-	
-	/* Assist */
-	GHashTable *assist_triggers;
-	gboolean assist_active;
-	gint assist_position_begin;
-	gint assist_position_end;
 };
 
 struct _TextEditorClass

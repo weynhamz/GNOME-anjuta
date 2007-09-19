@@ -57,7 +57,7 @@ assist_tip_class_init (AssistTipClass *klass)
 	object_class->finalize = assist_tip_finalize;
 }
 
-static void
+void
 assist_tip_set_tips (AssistTip* tip, GList* tips)
 {
 	GList* cur_tip;
@@ -124,7 +124,7 @@ assist_tip_get_coordinates(GtkWidget* view, int offset, int* x, int* y, GtkWidge
 	*y -= entry_req.height;
 }
 
-static void
+void
 assist_tip_move(AssistTip* assist_tip, GtkTextView* text_view, int offset)
 {
 	int x,y;

@@ -42,13 +42,68 @@ struct _CppJavaAssistPriv {
 	AnjutaPreferences *preferences;
 	IAnjutaSymbolManager* isymbol_manager;
 	IAnjutaEditorAssist* iassist;
-	GQueue *assist_queue;
+	
+	/* Last used cache */
+	gchar *search_cache;
+	gchar *scope_context_cache;
+	GCompletion *completion_cache;
 };
 
-static void
-add_tags (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter,
-		  CppJavaAssistContext *assist_ctx)
+static gint
+get_iter_column (CppJavaAssist *assist, IAnjutaIterable *iter)
 {
+	gchar ch;
+	gint offset = 0;
+	gint tabsize =
+		ianjuta_editor_get_tabsize (IANJUTA_EDITOR (assist->priv->iassist),
+									NULL);
+	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+									   0, NULL);
+	
+	while (ch != '\n')
+	{
+		if (!ianjuta_iterable_previous (iter, NULL))
+			break;
+		if (ch == '\t')
+			offset += tabsize - 1;
+		offset++;
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+										   0, NULL);
+	}
+	DEBUG_PRINT ("Iter column: %d", offset);
+	return offset;
+}
+
+static gboolean
+is_scope_context_character (gchar ch)
+{
+	if (g_ascii_isspace (ch))
+		return FALSE;
+	if (g_ascii_isalnum (ch))
+		return TRUE;
+	if (ch == '_' || ch == '.' || ch == ':' || ch == '>' || ch == '-')
+		return TRUE;
+	
+	return FALSE;
+}	
+
+static gboolean
+is_word_character (gchar ch)
+{
+	if (g_ascii_isspace (ch))
+		return FALSE;
+	if (g_ascii_isalnum (ch))
+		return TRUE;
+	if (ch == '_')
+		return TRUE;
+	
+	return FALSE;
+}	
+
+static GCompletion*
+create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter)
+{
+	GCompletion *completion = g_completion_new (NULL);
 	GHashTable *suggestions_hash = g_hash_table_new (g_str_hash, g_str_equal);
 	GList* suggestions = NULL;
 	do
@@ -71,21 +126,425 @@ add_tags (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter,
 	g_hash_table_destroy (suggestions_hash);
 	
 	suggestions = g_list_sort (suggestions, (GCompareFunc) strcmp);
-	if (assist_ctx->completion == NULL)
-		assist_ctx->completion = g_completion_new (NULL);
-	g_completion_add_items (assist_ctx->completion, suggestions);
+	g_completion_add_items (completion, suggestions);
+	return completion;
+}
+
+static gchar*
+cpp_java_assist_get_scope_context (IAnjutaEditor* editor,
+								   const gchar *scope_operator,
+								   IAnjutaIterable *iter)
+{
+	gint end;
+	gint begin;
+	gchar ch;
+	
+	end = ianjuta_iterable_get_position (iter, NULL) + 1;
+	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);		
+	while (ch && is_scope_context_character (ch))
+	{
+		if (!ianjuta_iterable_previous (iter, NULL))
+			break;
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);		
+	}
+	
+	begin = ianjuta_iterable_get_position (iter, NULL) + 1;
+	if (end > begin)	
+		return ianjuta_editor_get_text (editor, begin, end - begin, NULL);
+	else
+		return NULL;
+}
+
+static gchar*
+cpp_java_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter)
+{
+	gint end;
+	gint begin;
+	gchar ch;
+	
+	end = ianjuta_iterable_get_position (iter, NULL) + 1;
+	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
+	
+	DEBUG_PRINT ("Looking for preword from pos: %d", end - 1);
+	
+	while (ch && is_word_character (ch))
+	{
+		if (!ianjuta_iterable_previous (iter, NULL))
+			break;
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);		
+	}
+	
+	begin = ianjuta_iterable_get_position (iter, NULL) + 1;
+	if (end > begin)	
+		return ianjuta_editor_get_text (editor, begin, end - begin, NULL);
+	else
+		return NULL;
+}
+
+static gchar*
+cpp_java_assist_get_scope_operator (IAnjutaEditor* editor,
+									IAnjutaIterable *iter)
+{
+	gchar op[3] = {'\0', '\0', '\0'};
+	
+	op[1] = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
+	if (op[1] == ':' || op[1] == '>' || op[1] == '.')
+	{
+		if (ianjuta_iterable_previous (iter, NULL))
+		{
+			op[0] = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
+												  0, NULL);
+			if ((op[0] == ':' && op[1] == ':') ||
+				(op[0] == '-' && op[1] == '>'))
+			{
+				ianjuta_iterable_previous (iter, NULL);
+				return g_strdup (op);
+			}
+			else
+			{
+				if (op[1] == '.')
+					return g_strdup (&op[1]);
+			}
+		}
+		else
+		{
+			if (op[1] == '.')
+				return g_strdup (&op[1]);
+		}
+	}
+	return NULL;
 }
 
 static void
-on_assist_begin (IAnjutaEditorAssist* iassist, gchar* context,
-				 gchar* trigger, CppJavaAssist *assist)
+cpp_java_assist_destroy_completion_cache (CppJavaAssist *assist)
 {
-	CppJavaAssistContext *assist_ctx;
-	gint max_completions;
-	gint position = ianjuta_editor_get_position (IANJUTA_EDITOR (iassist), NULL);
-	IAnjutaIterable* cell =
-		ianjuta_editor_get_cell_iter (IANJUTA_EDITOR(iassist),
-									  position, NULL);
+	if (assist->priv->search_cache)
+	{
+		g_free (assist->priv->search_cache);
+		assist->priv->search_cache = NULL;
+	}
+	if (assist->priv->scope_context_cache)
+	{
+		g_free (assist->priv->scope_context_cache);
+		assist->priv->scope_context_cache = NULL;
+	}
+	if (assist->priv->completion_cache)
+	{
+		GList* items = assist->priv->completion_cache->items;
+		if (items)
+		{
+			g_list_foreach (items, (GFunc) g_free, NULL);
+			g_completion_clear_items (assist->priv->completion_cache);
+		}
+		g_completion_free (assist->priv->completion_cache);
+		assist->priv->completion_cache = NULL;
+	}
+}
+
+static void
+cpp_java_assist_create_scope_completion_cache (CppJavaAssist *assist,
+											   const gchar *scope_operator,
+											   const gchar *scope_context)
+{
+	cpp_java_assist_destroy_completion_cache (assist);
+	if (g_str_equal (scope_operator, "::"))
+	{
+		IAnjutaIterable* iter = 
+			ianjuta_symbol_manager_get_members (assist->priv->isymbol_manager,
+												scope_context, TRUE, NULL);
+		if (iter)
+		{
+			assist->priv->completion_cache =
+				create_completion (assist->priv->iassist, iter);
+			assist->priv->scope_context_cache = g_strdup (scope_context);
+			g_object_unref (iter);
+		}
+	}
+	else if (g_str_equal (scope_operator, ".") ||
+			 g_str_equal (scope_operator, "->"))
+	{
+		/* TODO: Find the type of context by parsing the file somehow and
+		search for the member as it is done with the :: context */
+	}
+}
+
+static void
+cpp_java_assist_create_word_completion_cache (CppJavaAssist *assist,
+											  const gchar *pre_word)
+{
+	cpp_java_assist_destroy_completion_cache (assist);
+	IAnjutaIterable* iter = 
+		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
+										IANJUTA_SYMBOL_TYPE_MAX,
+										pre_word, TRUE, TRUE, NULL);
+	if (iter)
+	{
+		assist->priv->completion_cache =
+			create_completion (assist->priv->iassist, iter);
+		assist->priv->search_cache = g_strdup (pre_word);
+		g_object_unref (iter);
+	}
+}
+
+static gboolean
+cpp_java_assist_show_autocomplete (CppJavaAssist *assist,
+								   const gchar *pre_word)
+{
+	gint position, max_completions, length;
+	GList *completion_list;
+	
+	g_return_val_if_fail (assist->priv->completion_cache != NULL, FALSE);
+	
+	if (pre_word)
+		g_completion_complete (assist->priv->completion_cache, pre_word, NULL);
+	else
+		g_completion_complete (assist->priv->completion_cache, "", NULL);
+
+	position =
+		ianjuta_editor_get_position (IANJUTA_EDITOR (assist->priv->iassist),
+									 NULL);
+	max_completions =
+		anjuta_preferences_get_int_with_default (assist->priv->preferences,
+												 PREF_AUTOCOMPLETE_CHOICES,
+												 MAX_COMPLETIONS);
+	if (assist->priv->completion_cache->cache)
+		completion_list = assist->priv->completion_cache->cache;
+	else
+		completion_list = assist->priv->completion_cache->items;
+	
+	length = g_list_length (completion_list);
+	if (length <= max_completions)
+	{
+		if (length > 1 || !pre_word || !g_str_equal (pre_word,
+													 completion_list->data))
+		{
+			ianjuta_editor_assist_suggest (assist->priv->iassist,
+										   completion_list,
+										   position,
+										   pre_word? strlen (pre_word) : 0,
+										   NULL);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+static gchar*
+cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
+									 IAnjutaIterable *iter,
+									 gint *context_offset)
+{
+	gchar ch;
+	gchar *context = NULL;
+	
+	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
+	if (ch == ')')
+	{
+		if (!cpp_java_util_jump_to_matching_brace (iter, ')'))
+			return NULL;
+		if (!ianjuta_iterable_previous (iter, NULL))
+			return NULL;
+	}
+	if (ch != '(')
+	{
+		if (!cpp_java_util_jump_to_matching_brace (iter, ')'))
+			return NULL;
+	}
+	/* Skip white spaces */
+	while (ianjuta_iterable_previous (iter, NULL)
+		&& g_ascii_isspace (ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL)));
+
+	context = cpp_java_assist_get_scope_context
+		(IANJUTA_EDITOR (assist->priv->iassist), "(", iter);
+	
+	if (context_offset)
+	{
+		*context_offset = get_iter_column (assist, iter);
+	}
+	return context;
+}
+
+static gboolean
+cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
+							  gint context_offset,
+							  IAnjutaIterable *position_iter)
+{
+	GList *tips = NULL;
+	
+	IAnjutaIterable* iter = 
+		ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
+									   IANJUTA_SYMBOL_TYPE_PROTOTYPE|
+									   IANJUTA_SYMBOL_TYPE_FUNCTION|
+									   IANJUTA_SYMBOL_TYPE_METHOD|
+									   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
+									   call_context, FALSE, TRUE, NULL);
+	if (iter)
+	{
+		do
+		{
+			IAnjutaSymbol* symbol = IANJUTA_SYMBOL(iter);
+			const gchar* name = ianjuta_symbol_name(symbol, NULL);
+			if (name != NULL)
+			{
+				const gchar* args = ianjuta_symbol_args(symbol, NULL);
+				gchar* print_args;
+				gchar* separator;
+				gchar* white_name = g_strnfill (strlen(name) + 1, ' ');
+				
+				separator = g_strjoin (NULL, ", \n", white_name, NULL);
+				DEBUG_PRINT ("Separator: \n%s", separator);
+				
+				gchar** argv;
+				if (!args)
+					args = "()";
+				
+				argv = g_strsplit (args, ",", -1);
+				print_args = g_strjoinv (separator, argv);
+				
+				gchar* tip = g_strdup_printf ("%s %s", name, print_args);
+				
+				if (!g_list_find_custom (tips, tip, (GCompareFunc) strcmp))
+					tips = g_list_append (tips, tip);
+				
+				g_strfreev (argv);
+				g_free (print_args);
+				g_free (separator);
+				g_free (white_name);
+			}
+			else
+				break;
+		}
+		while (ianjuta_iterable_next (iter, NULL));
+		
+		if (tips)
+		{
+			/* Calculate calltip offset from context offset */
+			gint position = ianjuta_iterable_get_position (position_iter, NULL);
+			gint char_alignment =
+				get_iter_column (assist, position_iter)- context_offset;
+			
+			if (char_alignment < 0)
+				char_alignment = context_offset;
+			
+			ianjuta_editor_assist_show_tips (assist->priv->iassist, tips,
+											 position + 1, char_alignment,
+											 NULL);
+			g_list_foreach (tips, (GFunc) g_free, NULL);
+			g_list_free (tips);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+gboolean
+cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
+					   gboolean calltips)
+{
+	gint position;
+	gboolean shown = FALSE;
+	IAnjutaEditor *editor;
+	IAnjutaIterable *iter, *iter_save;
+	IAnjutaEditorAttribute attribute;
+	gchar *pre_word, *scope_operator;
+
+	DEBUG_PRINT ("Autocomplete enable is: %d", autocomplete);
+	DEBUG_PRINT ("Calltips enable is: %d", calltips);
+	
+	if (!autocomplete && !calltips)
+		return FALSE; /* Nothing to do */
+	
+	editor = IANJUTA_EDITOR (assist->priv->iassist);
+	
+	position = ianjuta_editor_get_position (editor, NULL);
+	iter = ianjuta_editor_get_cell_iter (editor, position, NULL);
+	ianjuta_iterable_previous (iter, NULL);
+	iter_save = ianjuta_iterable_clone (iter, NULL);
+	
+	attribute = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter),
+												   NULL);
+	/*
+	if (attribute == IANJUTA_EDITOR_COMMENT ||
+		attribute == IANJUTA_EDITOR_STRING);
+	{
+		g_object_unref (iter);
+		g_object_unref (iter_save);
+		return FALSE;
+	}
+	*/
+	if (autocomplete)
+	{
+		pre_word = cpp_java_assist_get_pre_word (editor, iter);
+		scope_operator = cpp_java_assist_get_scope_operator (editor, iter);
+		
+		DEBUG_PRINT ("Pre word: %s", pre_word);
+		DEBUG_PRINT ("Scope op: %s", scope_operator);
+		
+		if (scope_operator)
+		{
+			gchar *scope_context;
+			scope_context = cpp_java_assist_get_scope_context (editor,
+															   scope_operator,
+															   iter);
+			
+			DEBUG_PRINT ("Scope context: %s", scope_context);
+			
+			if (scope_context)
+			{
+				if (!assist->priv->scope_context_cache ||
+					strcmp (scope_context,
+							assist->priv->scope_context_cache) != 0)
+				{
+					cpp_java_assist_create_scope_completion_cache (assist,
+																   scope_operator,
+																   scope_context);
+				}
+				shown = cpp_java_assist_show_autocomplete (assist, pre_word);
+			}
+		}
+		else if (pre_word && strlen (pre_word) > 3)
+		{
+			if (!assist->priv->search_cache ||
+				strncmp (assist->priv->search_cache,
+						 pre_word, strlen (assist->priv->search_cache)) != 0)
+			{
+				cpp_java_assist_create_word_completion_cache (assist, pre_word);
+			}
+			shown = cpp_java_assist_show_autocomplete (assist, pre_word);
+		}
+		if (!shown)
+		{
+			ianjuta_editor_assist_hide_suggestions (assist->priv->iassist,
+													NULL);
+		}
+	}
+	if (calltips)
+	{
+		if (!shown)
+		{
+			gint offset;
+			gchar *call_context =
+				cpp_java_assist_get_calltip_context (assist, iter, &offset);
+			if (call_context)
+			{
+				shown = cpp_java_assist_show_calltip (assist, call_context,
+													  offset, iter_save);
+			}
+			else
+			{
+				ianjuta_editor_assist_cancel_tips (assist->priv->iassist, NULL);
+			}
+		}
+	}
+	g_object_unref (iter);
+	g_object_unref (iter_save);
+	return shown;
+}
+
+static void
+on_editor_char_added (IAnjutaEditor *editor, gint insert_pos, gchar ch,
+					  CppJavaAssist *assist)
+{
 	gboolean enable_complete =
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_AUTOCOMPLETE_ENABLE,
@@ -94,399 +553,24 @@ on_assist_begin (IAnjutaEditorAssist* iassist, gchar* context,
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_CALLTIP_ENABLE,
 												 TRUE);
-	IAnjutaEditorAttribute attribute =
-		ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (cell), NULL);
-	gboolean non_scope = (attribute == IANJUTA_EDITOR_COMMENT ||
-						  attribute == IANJUTA_EDITOR_STRING);
-	
-	
-	DEBUG_PRINT("assist-begin: %s", context);
-	if (non_scope || context == NULL || strlen(context) < 3)
-	{
-		return;
-	}
-	
-	assist_ctx = g_new0 (CppJavaAssistContext, 1);
-	assist_ctx->completion = NULL;
-	assist_ctx->tips = NULL;
-	assist_ctx->position = 0;
-	
-	g_queue_push_head (assist->priv->assist_queue, assist_ctx);
-	
-	max_completions =
-		anjuta_preferences_get_int_with_default (assist->priv->preferences,
-												 PREF_AUTOCOMPLETE_CHOICES,
-												 MAX_COMPLETIONS);
-	/* General word completion */
-	if (!trigger && enable_complete)
-	{
-		IAnjutaIterable* iter = 
-			ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
-										    IANJUTA_SYMBOL_TYPE_MAX,
-											context, TRUE, TRUE, NULL);
-		if (iter)
-		{
-			position = ianjuta_editor_get_position(IANJUTA_EDITOR(iassist), NULL)
-				- strlen(context);
-			assist_ctx->position = position;
-			add_tags (iassist, iter, assist_ctx);
-			g_completion_complete (assist_ctx->completion, context, NULL);
-			ianjuta_editor_assist_init_suggestions(iassist, position, NULL);
-			if (g_list_length (assist_ctx->completion->cache) < max_completions)
-				ianjuta_editor_assist_suggest (iassist,
-											   assist_ctx->completion->cache,
-											   position,
-											   strlen (context), NULL);
-			g_object_unref (iter);
-			return;
-		}
-	}
-	
-	if (!trigger)
-	{
-		return;
-	}
-	else if (enable_complete && g_str_equal(trigger, "::"))
-	{
-		IAnjutaIterable* iter = 
-			ianjuta_symbol_manager_get_members (assist->priv->isymbol_manager,
-												context, TRUE, NULL);
-		if (iter)
-		{
-			position = ianjuta_editor_get_position (IANJUTA_EDITOR(iassist), NULL);
-			assist_ctx->position = position;
-			add_tags (iassist, iter, assist_ctx);
-			ianjuta_editor_assist_init_suggestions(iassist, position, NULL);
-			if (g_list_length (assist_ctx->completion->items) < max_completions)
-				ianjuta_editor_assist_suggest (iassist,
-											   assist_ctx->completion->items,
-											   position, 0, NULL);
-			g_object_unref (iter);
-			return;
-		}
-	}
-	else if (enable_complete && (g_str_equal(trigger, ".") ||
-								 g_str_equal(trigger, "->")))
-	{
-		assist_ctx->position = position;
-		/* TODO: Find the type of context by parsing the file somehow and
-		search for the member as it is done with the :: context */
-	}
-	else if (g_str_equal(trigger, "(") && enable_calltips && strlen(context) > 2)
-	{
-		IAnjutaIterable* iter = 
-			ianjuta_symbol_manager_search (assist->priv->isymbol_manager,
-										   IANJUTA_SYMBOL_TYPE_PROTOTYPE|
-										   IANJUTA_SYMBOL_TYPE_FUNCTION|
-										   IANJUTA_SYMBOL_TYPE_METHOD|
-										   IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG,
-											context, FALSE, TRUE, NULL);
-		if (iter)
-		{
-			do
-			{
-				IAnjutaSymbol* symbol = IANJUTA_SYMBOL(iter);
-				const gchar* name = ianjuta_symbol_name(symbol, NULL);
-				if (name != NULL)
-				{
-					const gchar* args = ianjuta_symbol_args(symbol, NULL);
-					gchar* print_args;
-					gchar* separator;
-					gchar* white_name = g_strnfill (strlen(name) + 1, ' ');
-					
-					separator = g_strjoin (NULL, ", \n", white_name, NULL);
-					DEBUG_PRINT ("Separator: \n%s", separator);
-					
-					gchar** argv;
-					if (!args)
-						args = "()";
-					
-					argv = g_strsplit(args, ",", -1);
-					print_args = g_strjoinv(separator, argv);
-					
-					gchar* tip = g_strdup_printf ("%s %s", name, print_args);
-					
-					if (!g_list_find_custom (assist_ctx->tips, tip,
-											 (GCompareFunc) strcmp))
-						assist_ctx->tips = g_list_append (assist_ctx->tips,
-														  tip);
-					g_strfreev(argv);
-					g_free(print_args);
-					g_free(separator);
-					g_free(white_name);
-				}
-				else
-					break;
-			}
-			while (ianjuta_iterable_next (iter, NULL));
-			
-			if (assist_ctx->tips)
-			{
-				assist_ctx->position =
-					ianjuta_editor_get_position (IANJUTA_EDITOR(iassist),
-												 NULL) - 1;
-				ianjuta_editor_assist_show_tips (iassist, assist_ctx->tips,
-												 assist_ctx->position, NULL);
-			}
-			return;
-		}
-	}
-}
-
-static void
-assist_context_free (CppJavaAssistContext *assist_ctx)
-{
-	if (assist_ctx->completion)
-	{
-		GList* items = assist_ctx->completion->items;
-		if (items)
-		{
-			g_list_foreach (items, (GFunc) g_free, NULL);
-			g_completion_clear_items (assist_ctx->completion);
-		}
-		g_completion_free (assist_ctx->completion);
-	}
-	if (assist_ctx->tips)
-	{
-		g_list_foreach (assist_ctx->tips, (GFunc) g_free, NULL);
-		g_list_free (assist_ctx->tips);
-	}
-	g_free (assist_ctx);
-}
-
-static void
-assist_context_cleanup (CppJavaAssist* assist,
-						CppJavaAssistContext *assist_ctx)
-{
-	g_queue_remove (assist->priv->assist_queue, assist_ctx);
-	assist_context_free (assist_ctx);
-}
-
-static void
-assist_cleanup (CppJavaAssist* assist)
-{
-	g_queue_foreach (assist->priv->assist_queue,
-					 (GFunc) assist_context_free, NULL);
-	g_queue_free (assist->priv->assist_queue);
-	assist->priv->assist_queue = g_queue_new ();
-}
-
-static void
-on_assist_end (IAnjutaEditorAssist* iassist, CppJavaAssist * assist)
-{
-	CppJavaAssistContext *assist_ctx = 
-		(CppJavaAssistContext*) g_queue_peek_head (assist->priv->assist_queue);
-	
-	DEBUG_PRINT ("assist-end");
-	g_return_if_fail (assist_ctx != NULL);
-	
-	assist_context_cleanup (assist, assist_ctx);
-}
-
-static void
-on_assist_cancel (IAnjutaEditorAssist* iassist, CppJavaAssist* assist)
-{
-	DEBUG_PRINT ("assist-cancel");
-	assist_cleanup (assist);
+	cpp_java_assist_check (assist, enable_complete, enable_calltips);
 }
 
 static void
 on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 				  CppJavaAssist* assist)
 {
-	gchar* assistance;
-	CppJavaAssistContext *assist_ctx = 
-		(CppJavaAssistContext*) g_queue_peek_head (assist->priv->assist_queue);
+	const gchar* assistance;
 	
 	DEBUG_PRINT ("assist-chosen: %d", selection);
-	g_return_if_fail (assist_ctx != NULL);
 	
-	if (assist_ctx->completion->cache)
-		assistance = g_strdup (g_list_nth_data (assist_ctx->completion->cache,
-												selection));
+	if (assist->priv->completion_cache->cache)
+		assistance = g_list_nth_data (assist->priv->completion_cache->cache,
+									  selection);
 	else
-		assistance = g_strdup (g_list_nth_data (assist_ctx->completion->items,
-												selection));
-	assist_context_cleanup (assist, assist_ctx);
+		assistance = g_list_nth_data (assist->priv->completion_cache->items,
+									  selection);
 	ianjuta_editor_assist_react (iassist, selection, assistance, NULL);
-	g_free (assistance);
-}
-
-static void
-on_assist_update (IAnjutaEditorAssist* iassist, gchar* context,
-				  CppJavaAssist* assist)
-{
-	CppJavaAssistContext *assist_ctx = 
-		(CppJavaAssistContext*) g_queue_peek_head (assist->priv->assist_queue);
-	
-	DEBUG_PRINT("assist-update: %s", context);
-	
-	g_return_if_fail (assist_ctx != NULL);
-	
-	if (assist_ctx->tips)
-	{
-		IAnjutaEditor* editor = IANJUTA_EDITOR (iassist);
-		IAnjutaIterable* begin = 
-			ianjuta_editor_get_cell_iter (editor, assist_ctx->position, NULL);
-		IAnjutaIterable* end = 
-			ianjuta_editor_get_cell_iter (editor, assist_ctx->position +
-										  strlen(context) - 1, NULL);
-		char begin_brace = 
-			ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (begin), 0, NULL);
-		char end_brace =
-			ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (end), 0, NULL);
-		IAnjutaEditorAttribute attrib =
-			ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (end), NULL);
-		
-		DEBUG_PRINT("begin brace: %c", begin_brace);
-		DEBUG_PRINT("end brace: %c", end_brace);
-		
-		if (!strlen (context) || begin_brace != '(')
-		{
-			ianjuta_editor_assist_cancel_tips (iassist, NULL);
-		}
-		
-		/* Detect if function argument list is closed */
-		if (end_brace == ')' &&
-			(attrib != IANJUTA_EDITOR_COMMENT &&
-			 attrib != IANJUTA_EDITOR_STRING))
-		{
-			if (cpp_java_util_jump_to_matching_brace (end, end_brace))
-			{
-				if (ianjuta_iterable_get_position (IANJUTA_ITERABLE (begin), NULL) ==
-					ianjuta_iterable_get_position (IANJUTA_ITERABLE (end), NULL))
-				{
-					ianjuta_editor_assist_cancel_tips (iassist, NULL);
-				}
-			}
-		}
-		return;
-	}
-	
-	if (!strlen(context))
-	{
-		ianjuta_editor_assist_suggest (iassist, NULL, -1, 0, NULL);
-		return;
-	}
-	else
-	{
-		GList* new_suggestions =
-			g_completion_complete (assist_ctx->completion, context, NULL);
-		
-		gint max_completions =
-			anjuta_preferences_get_int_with_default (assist->priv->preferences,
-													 PREF_AUTOCOMPLETE_CHOICES,
-													 MAX_COMPLETIONS);
-		
-		if (g_list_length (new_suggestions) < max_completions)
-			ianjuta_editor_assist_suggest (iassist, new_suggestions,
-										   assist_ctx->position,
-										   strlen (context), NULL);
-		else
-			ianjuta_editor_assist_hide_suggestions (iassist, NULL);
-	}
-}
-
-static
-gboolean context_character (gchar ch)
-{	
-	if (g_ascii_isspace (ch))
-		return FALSE;
-	if (g_ascii_isalnum (ch))
-		return TRUE;
-	if (ch == '_' || ch == '.' || ch == ':' || ch == '>' || ch == '-')
-		return TRUE;
-	
-	return FALSE;
-}	
-
-static gchar*
-get_context(IAnjutaEditorCell* iter, IAnjutaEditor* editor)
-{
-	gint end;
-	gint begin;
-	gchar ch;
-	end = ianjuta_iterable_get_position(IANJUTA_ITERABLE(iter), NULL);
-	do
-	{
-		ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL);		
-		ch = ianjuta_editor_cell_get_char(iter, 0, NULL);		
-	}
-	while (ch && context_character(ch));
-	begin = ianjuta_iterable_get_position(IANJUTA_ITERABLE(iter), NULL) + 1;
-	return ianjuta_editor_get_text(editor, begin, end - begin, NULL);
-}
-
-static gchar*
-dot_member_parser(IAnjutaEditor* editor, gint position)
-{
-	IAnjutaEditorCell* iter = IANJUTA_EDITOR_CELL(ianjuta_editor_get_cell_iter(editor, position, NULL));
-	if (ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL) &&
-		ianjuta_editor_cell_get_char(iter, 0, NULL) == '.')
-	{
-		return get_context(iter, editor);
-	}
-	else
-	{
-		return NULL;
-	}
-}
-
-static gchar*
-pointer_member_parser(IAnjutaEditor* editor, gint position)
-{
-	IAnjutaEditorCell* iter = IANJUTA_EDITOR_CELL(ianjuta_editor_get_cell_iter(editor, position, NULL));
-	if (ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL) &&
-		ianjuta_editor_cell_get_char(iter, 0, NULL) == '>' &&
-		ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL) &&
-		ianjuta_editor_cell_get_char(iter, 0, NULL) == '-')
-	{
-		return get_context(iter, editor);
-	}
-	else
-	{
-		return NULL;
-	}
-}
-
-static gchar*
-function_parser(IAnjutaEditor* editor, gint position)
-{
-	IAnjutaEditorCell* iter = IANJUTA_EDITOR_CELL(ianjuta_editor_get_cell_iter(editor, position, NULL));
-	IAnjutaEditorAttribute attrib = ianjuta_editor_cell_get_attribute(iter, NULL);
-	if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
-		return NULL;
-	
-	if (ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL) &&
-		ianjuta_editor_cell_get_char(iter, 0, NULL) == '(')
-	{
-		while (ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL)
-			&& g_ascii_isspace (ianjuta_editor_cell_get_char (iter, 0, NULL)))
-				;
-		ianjuta_iterable_next (IANJUTA_ITERABLE(iter), NULL);
-		return get_context(iter, editor);
-	}
-	else
-	{
-		return NULL;
-	}
-}
-
-static gchar*
-cpp_member_parser (IAnjutaEditor* editor, gint position)
-{
-	IAnjutaEditorCell* iter = IANJUTA_EDITOR_CELL(ianjuta_editor_get_cell_iter(editor, position, NULL));
-	if (ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL) &&
-		ianjuta_editor_cell_get_char(iter, 0, NULL) == ':' &&
-		ianjuta_iterable_previous(IANJUTA_ITERABLE(iter), NULL) &&
-		ianjuta_editor_cell_get_char(iter, 0, NULL) == ':')
-	{
-		return get_context(iter, editor);
-	}
-	else
-	{
-		return NULL;
-	}
 }
 
 static void
@@ -495,45 +579,20 @@ cpp_java_assist_install (CppJavaAssist *assist, IAnjutaEditorAssist *iassist)
 	DEBUG_PRINT(__FUNCTION__);
 	
 	assist->priv->iassist = iassist;
-	
-	ianjuta_editor_assist_add_trigger (iassist, ".", dot_member_parser, NULL);
-	ianjuta_editor_assist_add_trigger (iassist, "->", pointer_member_parser, NULL);
-	ianjuta_editor_assist_add_trigger (iassist, "::", cpp_member_parser, NULL);	
-	ianjuta_editor_assist_add_trigger (iassist, "(", function_parser, NULL);
-	g_signal_connect (G_OBJECT(iassist), "assist_begin",
-					  G_CALLBACK(on_assist_begin), assist);
-	g_signal_connect (G_OBJECT(iassist), "assist_end",
-					  G_CALLBACK(on_assist_end), assist);
-	g_signal_connect (G_OBJECT(iassist), "assist_update",
-					  G_CALLBACK(on_assist_update), assist);
-	g_signal_connect (G_OBJECT(iassist), "assist_chosen",
+	g_signal_connect (iassist, "char-added",
+					  G_CALLBACK (on_editor_char_added), assist);
+	g_signal_connect (G_OBJECT(iassist), "assist-chosen",
 					  G_CALLBACK(on_assist_chosen), assist);
-	g_signal_connect (G_OBJECT(iassist), "assist_canceled",
-					  G_CALLBACK(on_assist_cancel), assist);
 }
 
 static void
 cpp_java_assist_uninstall (CppJavaAssist *assist)
 {
-	/* If there is any assist context alive, make sure to notify everyone
-	 * that assist is canceled.
-	 */
-	if (g_list_length (assist->priv->assist_queue->head) > 0)
-		g_signal_emit_by_name (assist->priv->iassist, "assist-canceled");
-	
-	ianjuta_editor_assist_remove_trigger (assist->priv->iassist, ".", NULL);
-	ianjuta_editor_assist_remove_trigger (assist->priv->iassist, "->", NULL);
-	ianjuta_editor_assist_remove_trigger (assist->priv->iassist, "::", NULL);
-	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
-										  G_CALLBACK(on_assist_begin), assist);
-	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
-										  G_CALLBACK(on_assist_end), assist);
-	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
-										  G_CALLBACK(on_assist_update), assist);
-	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
-										  G_CALLBACK(on_assist_cancel), assist);
 	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
 										  G_CALLBACK(on_assist_chosen), assist);
+	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
+										  G_CALLBACK (on_editor_char_added),
+										  assist);
 	assist->priv->iassist = NULL;
 }
 
@@ -541,7 +600,6 @@ static void
 cpp_java_assist_init (CppJavaAssist *assist)
 {
 	assist->priv = g_new0 (CppJavaAssistPriv, 1);
-	assist->priv->assist_queue = g_queue_new ();
 }
 
 static void
@@ -549,7 +607,7 @@ cpp_java_assist_finalize (GObject *object)
 {
 	CppJavaAssist *assist = CPP_JAVA_ASSIST (object);
 	cpp_java_assist_uninstall (assist);
-	assist_cleanup (assist);
+	cpp_java_assist_destroy_completion_cache (assist);
 	g_free (assist->priv);
 	G_OBJECT_CLASS (cpp_java_assist_parent_class)->finalize (object);
 }

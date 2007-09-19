@@ -65,6 +65,9 @@ GType cpp_java_assist_get_type (void) G_GNUC_CONST;
 CppJavaAssist *cpp_java_assist_new (IAnjutaEditorAssist *assist,
 									IAnjutaSymbolManager *isymbol_manager,
 									AnjutaPreferences *preferences);
+gboolean cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
+								gboolean calltips);
+
 G_END_DECLS
 
 #endif /* _CPP_JAVA_ASSIST_H_ */

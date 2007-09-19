@@ -1,3 +1,41 @@
+2007-09-19  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/editor/text_editor.c: (text_editor_instance_init),
+	(iassist_show_tips), (iassist_cancel_tips),
+	(iassist_hide_suggestions), (iassist_iface_init):
+	* plugins/editor/text_editor.h:
+	* plugins/editor/text_editor_cbs.c:
+	(on_text_editor_scintilla_notify):
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(is_scope_context_character), (is_word_character),
+	(create_completion), (cpp_java_assist_get_scope_context),
+	(cpp_java_assist_get_pre_word),
+	(cpp_java_assist_get_scope_operator),
+	(cpp_java_assist_destroy_completion_cache),
+	(cpp_java_assist_create_scope_completion_cache),
+	(cpp_java_assist_create_word_completion_cache),
+	(cpp_java_assist_show_autocomplete),
+	(cpp_java_assist_get_calltip_context),
+	(cpp_java_assist_show_calltip), (cpp_java_assist_check),
+	(on_editor_char_added), (on_assist_chosen),
+	(cpp_java_assist_install), (cpp_java_assist_uninstall),
+	(cpp_java_assist_init), (cpp_java_assist_finalize):
+	* plugins/language-support-cpp-java/cpp-java-assist.h:
+	* plugins/language-support-cpp-java/plugin.c:
+	(initialize_indentation_params):
+	* plugins/sourceview/assist-tip.c:
+	* plugins/sourceview/assist-tip.h:
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview.c: (on_assist_window_destroyed),
+	(on_assist_tip_destroyed), (on_assist_cancel),
+	(on_document_char_added), (iassist_get_suggestions),
+	(iassist_suggest), (iassist_show_tips), (iassist_iface_init):
+	
+	Implement state-less assistance so that assist can be evaluated
+	any given time at any position. Changed IAnjutaEditorAssist interfance
+	and implementations and removed any state management in editors.
+
 2007-09-18  Naba Kumar  <naba.kumar@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c: Improved

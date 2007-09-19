@@ -63,12 +63,7 @@ struct SourceviewPrivate {
 	gint goto_line;
 	
 	/* Assist */
-	GHashTable* triggers;
-
-	gboolean assist_active;
 	AssistWindow* assist_win;
-	
-	gboolean tip_active;
 	AssistTip* assist_tip;
 	
 	/* Plugin */

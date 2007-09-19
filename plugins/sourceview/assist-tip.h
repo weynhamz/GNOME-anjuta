@@ -56,7 +56,8 @@ struct _AssistTip
 
 GType assist_tip_get_type (void) G_GNUC_CONST;
 GtkWidget* assist_tip_new (GtkTextView* view, GList* tips);
-
+void assist_tip_set_tips (AssistTip* tip, GList* tips);
+void assist_tip_move(AssistTip* assist_tip, GtkTextView* text_view, int offset);
 gint assist_tip_get_position (AssistTip* tip);
 
 G_END_DECLS

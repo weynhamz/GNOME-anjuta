@@ -128,11 +128,6 @@ text_editor_instance_init (TextEditor *te)
 	te->first_time_expose = TRUE;
 	te->encoding = NULL;
 	te->gconf_notify_ids = NULL;
-	
-	te->assist_triggers = NULL;
-	te->assist_active = FALSE;
-	te->assist_position_begin = 0;
-	te->assist_position_end = 0;
 }
 
 static void
@@ -2917,66 +2912,6 @@ iautocomplete_iface_init(IAnjutaEditorAutocompleteIface* iface)
 /* IAnjutaEditorAssist implementation */
 
 static void
-iassist_add_trigger (IAnjutaEditorAssist* iassist, const gchar* trigger,
-					 IAnjutaEditorAssistContextParser context_parser, GError **err)
-{
-	TextEditor *te = TEXT_EDITOR (iassist);
-	g_return_if_fail (IS_TEXT_EDITOR (te));
-	g_return_if_fail (trigger != NULL);
-
-	if (!te->assist_triggers)
-	{
-		te->assist_triggers = g_hash_table_new_full (g_str_hash, g_str_equal,
-													 g_free, NULL);
-	}
-	g_hash_table_insert (te->assist_triggers, g_strdup (trigger),
-						 context_parser);
-}
-
-static void
-iassist_remove_trigger (IAnjutaEditorAssist* iassist, const gchar* trigger, GError **err)
-{
-	TextEditor *te = TEXT_EDITOR (iassist);
-	g_return_if_fail (IS_TEXT_EDITOR (te));
-	g_return_if_fail (trigger != NULL);
-	
-	if (te->assist_triggers)
-	{
-		g_hash_table_remove (te->assist_triggers, trigger);
-	}
-}
-
-static void
-on_assist_canceled (IAnjutaEditorAssist *iassist)
-{
-	TextEditor *te = TEXT_EDITOR (iassist);
-	
-	g_return_if_fail (IS_TEXT_EDITOR (te));
-	te->assist_active = FALSE;
-	te->assist_position_begin = 0;
-	te->assist_position_end = 0;
-	g_signal_handlers_disconnect_by_func (iassist,
-										  G_CALLBACK (on_assist_canceled),
-										  NULL);
-	scintilla_send_message (SCINTILLA (te->scintilla), SCI_AUTOCCANCEL, 0, 0);
-	scintilla_send_message (SCINTILLA (te->scintilla), SCI_CALLTIPCANCEL, 0, 0);
-}
-
-static void
-iassist_init_suggestions (IAnjutaEditorAssist* iassist, gint position,
-						  GError **err)
-{
-	TextEditor *te = TEXT_EDITOR (iassist);
-	
-	g_return_if_fail (IS_TEXT_EDITOR (te));
-	/* te->assist_active = TRUE; */
-	g_signal_connect (iassist, "assist-canceled",
-					  G_CALLBACK (on_assist_canceled), NULL);
-	g_signal_connect (iassist, "assist-end",
-					  G_CALLBACK (on_assist_canceled), NULL);
-}
-
-static void
 iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices,
 				 gint position, int char_alignment, GError **err)
 {
@@ -3038,8 +2973,9 @@ iassist_get_suggestions (IAnjutaEditorAssist *iassist, const gchar *context, GEr
 
 static void 
 iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips,
-				   gint position, GError **err)
+				   gint position, gint char_alignment, GError **err)
 {
+	gint lineno, cur_pos, cur_col, real_pos, real_col;
 	GString *calltip;
 	GList *tip;
 	gint tips_count;
@@ -3062,19 +2998,38 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips,
 		g_string_append (calltip, (gchar*) tip->data);
 		tip = g_list_next (tip);
 	}
-	
+/*	
 	if (tips_count > 1)
 	{
 		g_string_prepend_c (calltip, '\001');
 		g_string_append_c (calltip, '\002');
 	}
-	
+*/
+	/* Calculate real calltip position */
+	cur_pos = scintilla_send_message (SCINTILLA (te->scintilla),
+									 SCI_GETCURRENTPOS, 0, 0);
+	lineno = scintilla_send_message (SCINTILLA (te->scintilla),
+									 SCI_LINEFROMPOSITION, cur_pos, 0);
+	cur_col = scintilla_send_message (SCINTILLA (te->scintilla),
+									 SCI_GETCOLUMN, cur_pos, 0);
+	real_col = cur_col - char_alignment;
+	if (real_col < 0)
+		real_col = 0;
+	real_pos = scintilla_send_message (SCINTILLA (te->scintilla),
+									   SCI_FINDCOLUMN, lineno, real_col);
 	scintilla_send_message (SCINTILLA (te->scintilla),
 							SCI_CALLTIPSHOW,
-							/* text_editor_get_current_position (te) - */
-							position, (uptr_t) calltip->str);
+							real_pos,
+							(uptr_t) calltip->str);
 	g_string_free (calltip, TRUE);
 	/* ContinueCallTip_new(); */
+}
+
+static void
+iassist_cancel_tips (IAnjutaEditorAssist *iassist, GError **err)
+{
+	TextEditor *te = TEXT_EDITOR (iassist);
+	scintilla_send_message (SCINTILLA (te->scintilla), SCI_CALLTIPCANCEL, 0, 0);
 }
 
 static void
@@ -3136,19 +3091,16 @@ iassist_hide_suggestions (IAnjutaEditorAssist *iassist, GError **err)
 	
 	g_return_if_fail (IS_TEXT_EDITOR (te));
 	scintilla_send_message (SCINTILLA (te->scintilla), SCI_AUTOCCANCEL, 0, 0);
-	scintilla_send_message (SCINTILLA (te->scintilla), SCI_CALLTIPCANCEL, 0, 0);
 }
 
 static void
 iassist_iface_init(IAnjutaEditorAssistIface* iface)
 {
-	iface->add_trigger = iassist_add_trigger;
-	iface->remove_trigger = iassist_remove_trigger;
-	iface->init_suggestions = iassist_init_suggestions;
-	iface->suggest = iassist_suggest;
 	iface->get_suggestions = iassist_get_suggestions;
-	iface->show_tips = iassist_show_tips;
+	iface->suggest = iassist_suggest;
 	iface->hide_suggestions = iassist_hide_suggestions;
+	iface->show_tips = iassist_show_tips;
+	iface->cancel_tips = iassist_cancel_tips;
 	iface->react = iassist_react;
 }
 

@@ -561,6 +561,7 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 		}
 	}
 	g_string_free (comment_text, TRUE);
+	g_object_unref (iter);
 }
 
 static gint

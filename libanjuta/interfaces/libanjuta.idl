@@ -1432,47 +1432,6 @@ interface IAnjutaEditor
 	 */
 	interface IAnjutaEditorAssist
 	{
-		/* IAnjutaEdiotrAssist::assist_begin:
-		 * @obj: self
-		 * @context: context where assistance is required.
-		 * @trigger: trigger that caused this signal
-		 * 
-		 * When certain context is encountered and assistance is required
-		 * to complete it, this signal is emitted by the editor. For example
-		 * it could be emitted when the user typed "var->" or "var." in a c
-		 * source code.
-		 * 
-		 * Another example is to emit it when the user has typed the begining of
-		 * a word, for a simple word completion.
-		 *
-		 * Yet another example is to emit it when the user has typed something
-		 * like "function (" for a fuction call tip assistance.
-		 *
-		 * The type of assistance provided would be based on the context
-		 * provided. For example in case of word completion of members
-		 * completeion, choices would be presented or in case of function
-		 * assistance a tip would be presented with the prototype.
-		 * 
-		 * Each emission of assist_begin() must match with corresponding
-		 * assist_end(), otherwise the assist stack could be corrupted --
-		 * just like subroutine 'call' and 'return'. The only situation where
-		 * it should be followed is when assist_cancel is emitted, in which
-		 * case the whole assist stack is collapsed and everything is reset.
-		 * 
-		 */
-		void ::assist_begin (const gchar *context, const gchar* trigger);
-		
-		/* IAnjutaEdiotrAssist::assist_update:
-		 * @obj: self
-		 * @context: new context where assistance is required.
-		 * 
-		 * When there is more information in currect assistance context (e.g.
-		 * user has typed some more), it can be updated by emitting this
-		 * signal. Mainly used to narrow down the choices. There should be at
-		 * least one pending assist context when this signal is emitted.
-		 */
-		void ::assist_update (const gchar *context);
-		
 		/* IAnjutaEdiotrAssist::assist_chosen:
 		 * @obj: self
 		 *
@@ -1480,66 +1439,6 @@ interface IAnjutaEditor
 		 * presented with ianjuta_editor_assist_suggest().
 		 */
 		void ::assist_chosen (gint selection);
-		
-		/* IAnjutaEdiotrAssist::assist_end:
-		 * @obj: self
-		 *
-		 * Ends the current assistance context that was begun last. Note that
-		 * each assist_end must match with corresponding assist_begin
-		 * emission, unless the whole assistance is canceled with assist_cancel.
-		 */
-		void ::assist_end ();
-		
-		/* IAnjutaEdiotrAssist::assist_canceled:
-		 * @obj: self
-		 * 
-		 * This signal is emitted when the user cancels the completion.
-		 * The whole assistance stack is dropped and reset.
-		 */
-		void ::assist_canceled ();
-		
-		typedef gchar* (*ContextParser) (IAnjutaEditor *editor, gint position);
-		
-		/**
-		 * ianjuta_editor_assist_add_trigger:
-		 * @obj: Self
-		 * @trigger: trigger character sequence
-		 * @context_parser: Callback used to parse the context.
-		 * @err: Error propagation and reporting
-		 * 
-		 * Add the given character sequence as a trigger for begining
-		 * assist. context_parser is a callback to use to retrieve the
-		 * context when the trigger happens.
-		 * 
-		 * By default there is always a trigger for aphanumeric
-		 * characters with default context_parser picking up the word
-		 * just before the carat.
-		 */
-		void add_trigger (const gchar *trigger, ContextParser context_parser);
-		
-		/*
-		 * ianjuta_editor_assist_remove_trigger:
-		 * @obj: Self
-		 * @trigger: the trigger character sequence to remove.
-		 * @err: Error propagation and reporting
-		 * 
-		 * Removes the trigger character sequence. If the trigger is not
-		 * added, nothing happens.
-		 */
-		void remove_trigger (const gchar *trigger);
-		
-		
-		/**
-		 * ianjuta_editor_assist_init_suggestions:
-		 * @obj: Self
-		 * @err: Error propagation and reporting
-		 * 
-		 * Must be called in the "assist-begin"-handler when
-		 * assistance is availible but the engine is waiting
-		 * for more context.
-		 *
-		 */
-		void init_suggestions (gint position);
 		
 		/**
 		 * ianjuta_editor_assist_suggest:
@@ -1580,7 +1479,7 @@ interface IAnjutaEditor
 		 * position when the choices are displayed.
 		 *
 		 */
-		void show_tips (List<const gchar*> tips, gint char_alignment);
+		void show_tips (List<const gchar*> tips, gint position, gint char_alignment);
 		
 		/**
 		 * ianjuta_editor_assist_cancel_tip:
