@@ -29,7 +29,6 @@
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
 #include "plugin.h"
 
-
 #define UI_FILE PACKAGE_DATA_DIR"/ui/file-manager.ui"
 
 static gpointer parent_class;
@@ -43,10 +42,9 @@ struct _ScrollPosition
 };
 
 static void
-on_file_manager_refresh(GtkAction* action, AnjutaFileManager* file_manager)
+on_file_manager_refresh (GtkAction* action, AnjutaFileManager* file_manager)
 {	
-	file_view_refresh (file_manager->fv,
-					   TRUE);
+	file_view_refresh (file_manager->fv, TRUE);
 }
 
 static GtkActionEntry popup_actions[] = 
@@ -62,8 +60,7 @@ static void
 file_manager_set_default_uri (AnjutaFileManager* file_manager)
 {
 	const gchar* home_dir = g_get_home_dir();
-	gchar* home_uri =
-		g_strconcat("file://", home_dir, NULL);
+	gchar* home_uri = g_strconcat ("file://", home_dir, NULL);
 	g_object_set (G_OBJECT (file_manager->fv), "base_uri", home_uri, NULL);
 	g_free (home_uri);
 }
@@ -79,8 +76,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	root_uri = g_value_get_string (value);
 	if (root_uri)
 	{
-		g_object_set (G_OBJECT(file_manager->fv), 
-					  "base_uri", root_uri, NULL);
+		g_object_set (G_OBJECT(file_manager->fv), "base_uri", root_uri, NULL);
 		file_view_refresh (file_manager->fv, FALSE);
 	}
 	else
@@ -100,8 +96,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 }
 
 static void
-on_file_view_current_uri_changed (AnjutaFileView* view,
-								  gchar* uri,
+on_file_view_current_uri_changed (AnjutaFileView* view, gchar* uri,
 								  AnjutaFileManager* file_manager)
 {
 	if (uri)
@@ -110,9 +105,8 @@ on_file_view_current_uri_changed (AnjutaFileView* view,
 		value = g_new0 (GValue, 1);
 		g_value_init (value, G_TYPE_STRING);
 		g_value_take_string (value, uri);
-		anjuta_shell_add_value (ANJUTA_PLUGIN(file_manager)->shell,
-								"file_manager_current_uri",
-								value, NULL);
+		anjuta_shell_add_value (ANJUTA_PLUGIN (file_manager)->shell,
+								"file_manager_current_uri", value, NULL);
 	}
 	else
 	{
@@ -137,22 +131,17 @@ on_file_view_open_file (AnjutaFileView* view, const char *uri,
 }
 
 static void
-on_file_view_show_popup_menu (AnjutaFileView* view,
-							  const gchar* uri,
-							  gboolean is_dir,
-							  guint button,
-							  guint32 time,
-							  AnjutaFileManager* file_manager)
+on_file_view_show_popup_menu (AnjutaFileView* view, const gchar* uri,
+							  gboolean is_dir,guint button,
+							  guint32 time, AnjutaFileManager* file_manager)
 {
 	GtkWidget *popup;
 	AnjutaUI* ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(file_manager)->shell, 
 										NULL);
 	popup = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
-											   "/PopupFileManager");
+									   "/PopupFileManager");
 	g_return_if_fail (GTK_IS_WIDGET (popup));
-	gtk_menu_popup (GTK_MENU (popup),
-					NULL, NULL, NULL, NULL,
-					button, time);
+	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL, button, time);
 }
 
 static gboolean
@@ -169,8 +158,7 @@ file_manager_activate (AnjutaPlugin *plugin)
 	
 	/* Add action group */
 	file_manager->action_group = 
-		anjuta_ui_add_action_group_entries (ui,
-											"ActionGroupFileManager",
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupFileManager",
 											_("File manager popup actions"),
 											popup_actions, 1,
 											GETTEXT_PACKAGE, FALSE,
@@ -185,18 +173,13 @@ file_manager_activate (AnjutaPlugin *plugin)
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (file_manager->sw),
 										 GTK_SHADOW_IN);
 	
-	file_manager->fv = ANJUTA_FILE_VIEW (file_view_new());
+	file_manager->fv = ANJUTA_FILE_VIEW (file_view_new ());
 	
-	g_signal_connect (G_OBJECT(file_manager->fv),
-					  "file-open",
-					  G_CALLBACK (on_file_view_open_file),
-					  file_manager);
-	g_signal_connect (G_OBJECT(file_manager->fv),
-					  "show-popup-menu",
-					  G_CALLBACK (on_file_view_show_popup_menu),
-					  file_manager);
-	g_signal_connect (G_OBJECT(file_manager->fv),
-					  "current-uri-changed",
+	g_signal_connect (G_OBJECT (file_manager->fv), "file-open",
+					  G_CALLBACK (on_file_view_open_file), file_manager);
+	g_signal_connect (G_OBJECT(file_manager->fv), "show-popup-menu",
+					  G_CALLBACK (on_file_view_show_popup_menu), file_manager);
+	g_signal_connect (G_OBJECT(file_manager->fv), "current-uri-changed",
 					  G_CALLBACK (on_file_view_current_uri_changed),
 					  file_manager);
 	file_manager_set_default_uri (file_manager);
@@ -207,13 +190,9 @@ file_manager_activate (AnjutaPlugin *plugin)
 	
 	gtk_widget_show_all (file_manager->sw);
 	
-	anjuta_shell_add_widget (plugin->shell,
-							 file_manager->sw,
-							 "file-manager",
-							 _("Files"),
-							 GTK_STOCK_OPEN,
-							 ANJUTA_SHELL_PLACEMENT_LEFT,
-							 NULL);
+	anjuta_shell_add_widget (plugin->shell, file_manager->sw, "file-manager",
+							 _("Files"), GTK_STOCK_OPEN,
+							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	
 	file_manager->root_watch_id =
 		anjuta_plugin_add_watch (plugin, "project_root_uri",
@@ -226,11 +205,9 @@ file_manager_activate (AnjutaPlugin *plugin)
 static gboolean
 file_manager_deactivate (AnjutaPlugin *plugin)
 {
-
 	AnjutaUI *ui;
 	AnjutaFileManager *file_manager;
 
-	
 	DEBUG_PRINT ("AnjutaFileManager: Dectivating AnjutaFileManager plugin ...");
 	
 	file_manager = (AnjutaFileManager*) plugin;
@@ -240,9 +217,7 @@ file_manager_deactivate (AnjutaPlugin *plugin)
 	anjuta_ui_remove_action_group (ui, ((AnjutaFileManager*)plugin)->action_group);
 	anjuta_ui_unmerge (ui, ((AnjutaFileManager*)plugin)->uiid);
 	
-	anjuta_shell_remove_widget (plugin->shell, 
-							    file_manager->sw,
-							    NULL);
+	anjuta_shell_remove_widget (plugin->shell, file_manager->sw, NULL);
 	return TRUE;
 }
 
@@ -266,8 +241,6 @@ file_manager_instance_init (GObject *obj)
 	AnjutaFileManager *plugin = (AnjutaFileManager*)obj;
 
 	plugin->uiid = 0;
-
-
 }
 
 static void
@@ -279,13 +252,14 @@ file_manager_class_init (GObjectClass *klass)
 
 	plugin_class->activate = file_manager_activate;
 	plugin_class->deactivate = file_manager_deactivate;
+	
 	klass->finalize = file_manager_finalize;
 	klass->dispose = file_manager_dispose;
 }
 
 static void
-ifile_manager_set_root (IAnjutaFileManager *ifile_manager,
-						const gchar *root, GError **err)
+ifile_manager_set_root (IAnjutaFileManager *ifile_manager, const gchar *root,
+						GError **err)
 {
 	AnjutaFileManager* file_manager = (AnjutaFileManager*) ifile_manager;
 	g_object_set (G_OBJECT(file_manager->fv), "base_uri", root, NULL);
@@ -295,7 +269,7 @@ static void
 ifile_manager_set_selected (IAnjutaFileManager *file_manager,
 							const gchar *root, GError **err)
 {
-	// TODO
+	/* TODO */
 }
 
 static gchar*
@@ -306,7 +280,7 @@ ifile_manager_get_selected (IAnjutaFileManager *ifile_manager, GError **err)
 }
 
 static void
-ifile_manager_iface_init(IAnjutaFileManagerIface *iface)
+ifile_manager_iface_init (IAnjutaFileManagerIface *iface)
 {
 	iface->set_root = ifile_manager_set_root;
 	iface->get_selected = ifile_manager_get_selected;

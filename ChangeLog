@@ -1,3 +1,17 @@
+2007-09-20  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/file-manager/Makefile.am:
+	* plugins/file-manager/file-view.c: (file_view_add_dummy),
+	(file_view_expand_idle), (file_view_init):
+	* plugins/file-manager/plugin.c: (on_file_manager_refresh),
+	(file_manager_set_default_uri), (project_root_added),
+	(on_file_view_current_uri_changed), (on_file_view_show_popup_menu),
+	(file_manager_activate), (file_manager_deactivate),
+	(file_manager_instance_init), (file_manager_class_init),
+	(ifile_manager_set_root), (ifile_manager_set_selected),
+	(ifile_manager_iface_init): Adjusted white spaces to match
+	anjuta convention.
+
 2007-09-19  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

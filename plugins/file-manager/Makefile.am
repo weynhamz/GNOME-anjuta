@@ -2,7 +2,6 @@
 file_manager_uidir = $(anjuta_ui_dir)
 file_manager_ui_DATA =  file-manager.ui
 
-
 # Plugin Icon file
 file_manager_pixmapsdir = $(anjuta_image_dir)
 file_manager_pixmaps_DATA = file-manager.png
@@ -26,11 +25,13 @@ plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libfile-manager.la
 
 # Plugin sources
-libfile_manager_la_SOURCES = plugin.c plugin.h \
+libfile_manager_la_SOURCES = \
+	plugin.c \
+	plugin.h \
 	file-view-marshal.h \
 	file-view-marshal.c \
-	file-view.h  file-view.c
-	
+	file-view.h \
+	file-view.c
 
 # Plugin dependencies
 libfile_manager_la_LIBADD = \

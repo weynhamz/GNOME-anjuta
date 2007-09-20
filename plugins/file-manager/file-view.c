@@ -92,9 +92,7 @@ file_view_add_dummy (AnjutaFileView* view,
 	GtkTreeIter dummy;
 	
 	gtk_tree_store_append (store, &dummy, iter);
-	gtk_tree_store_set (store, &dummy, 
-					    COLUMN_FILENAME, _("Loading..."),
-					    -1);
+	gtk_tree_store_set (store, &dummy,  COLUMN_FILENAME, _("Loading..."), -1);
 }
 
 static gboolean
@@ -108,6 +106,7 @@ file_view_expand_idle (gpointer data)
 	
 	if (!gtk_tree_model_get_iter (priv->model, &parent, expand->path))
 		return FALSE;
+	
 	if (expand->files)
 	{
 		GList* file = expand->files;
@@ -456,11 +455,9 @@ file_view_init (AnjutaFileView *object)
 	gtk_tree_view_column_pack_start (column, renderer_pixbuf, FALSE);
 	gtk_tree_view_column_pack_start (column, renderer_text, FALSE);
 	gtk_tree_view_column_set_attributes (column, renderer_pixbuf,
-										 "pixbuf", COLUMN_PIXBUF,
-										 NULL);
+										 "pixbuf", COLUMN_PIXBUF, NULL);
 	gtk_tree_view_column_set_attributes (column, renderer_text,
-										 "text", COLUMN_FILENAME,
-										 NULL);
+										 "text", COLUMN_FILENAME, NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW (object), column);
 	
 	g_signal_connect (G_OBJECT (column), "clicked", 
@@ -469,8 +466,7 @@ file_view_init (AnjutaFileView *object)
 	priv->selection =
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (object));
 	g_signal_connect (priv->selection, "changed",
-					  G_CALLBACK (file_view_selection_changed),
-					  object);
+					  G_CALLBACK (file_view_selection_changed), object);
 	
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (object), FALSE);
 }
