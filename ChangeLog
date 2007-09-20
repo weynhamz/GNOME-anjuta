@@ -194,7 +194,6 @@
 	* plugins/sourceview/sourceview.glade:
 	Removed old completion preferences
 
->>>>>>> .r3124
 2007-09-11  Naba Kumar  <naba@gnome.org>
 
 	* plugins/terminal/terminal.c: Fixed critical warning, memory leak
