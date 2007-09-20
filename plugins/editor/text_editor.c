@@ -38,7 +38,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
 #include <libanjuta/interfaces/ianjuta-editor-line-mode.h>
-#include <libanjuta/interfaces/ianjuta-editor-autocomplete.h>
 #include <libanjuta/interfaces/ianjuta-editor-view.h>
 #include <libanjuta/interfaces/ianjuta-editor-folds.h>
 #include <libanjuta/interfaces/ianjuta-editor-comment.h>
@@ -2896,19 +2895,6 @@ ilinemode_iface_init (IAnjutaEditorLineModeIface *iface)
 	iface->fix = ilinemode_fix;
 }
 
-/* IAnjutaEditorAutocomplete implementation */
-static void 
-iautocomplete_activate (IAnjutaEditorAutocomplete* te, GError** ee)
-{
-	text_editor_command(TEXT_EDITOR(te), ANE_COMPLETEWORD, 0, 0);
-}
-
-static void
-iautocomplete_iface_init(IAnjutaEditorAutocompleteIface* iface)
-{
-	iface->activate = iautocomplete_activate;
-}
-
 /* IAnjutaEditorAssist implementation */
 
 static void
@@ -3500,7 +3486,6 @@ ANJUTA_TYPE_ADD_INTERFACE(itext_editor, IANJUTA_TYPE_EDITOR);
 ANJUTA_TYPE_ADD_INTERFACE(ilinemode, IANJUTA_TYPE_EDITOR_LINE_MODE);
 ANJUTA_TYPE_ADD_INTERFACE(iselection, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
-ANJUTA_TYPE_ADD_INTERFACE(iautocomplete, IANJUTA_TYPE_EDITOR_AUTOCOMPLETE);
 ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
 ANJUTA_TYPE_ADD_INTERFACE(iview, IANJUTA_TYPE_EDITOR_VIEW);

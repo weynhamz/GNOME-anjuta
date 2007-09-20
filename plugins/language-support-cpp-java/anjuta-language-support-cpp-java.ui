@@ -3,6 +3,8 @@
 	<menubar name="MenuMain">
 		<menu name="MenuEdit" action="ActionMenuEdit">
 			<placeholder name="PlaceholderOperationMenus">
+				<separator name="separator1"/>
+				<menuitem name="Autocomplete" action="ActionEditAutocomplete" />
 				<menuitem name="AutoindentAction" action="ActionEditAutoindent" />
 			</placeholder>
 		</menu>

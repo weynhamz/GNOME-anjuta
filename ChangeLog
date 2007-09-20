@@ -1,3 +1,19 @@
+2007-09-21  Naba Kumar  <naba.kumar@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/action-callbacks.c:
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/document-manager/plugin.c: (register_stock_icons):
+	* plugins/editor/text_editor.c:
+	* plugins/language-support-cpp-java/anjuta-language-support-cpp-java.ui:
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(cpp_java_assist_get_calltip_context):
+	* plugins/language-support-cpp-java/plugin.c: (on_auto_complete),
+	(register_stock_icons), (cpp_java_plugin_activate_plugin):
+
+	Moved autocomplete menu action from document-manager to assist plugin
+	and got rid of deprecated autocomplete interface.
+
 2007-09-20  Naba Kumar  <naba.kumar@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

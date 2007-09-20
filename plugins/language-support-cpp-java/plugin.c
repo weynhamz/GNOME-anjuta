@@ -35,6 +35,10 @@
 #include "plugin.h"
 #include "cpp-java-utils.h"
 
+#define ANJUTA_PIXMAP_AUTOCOMPLETE        "autocomplete.png"
+#define ANJUTA_PIXMAP_CALLTIP             "calltip.xpm"
+#define ANJUTA_STOCK_AUTOCOMPLETE         "anjuta-autocomplete"
+
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-language-support-cpp-java.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-language-cpp-java.glade"
 #define ICON_FILE "anjuta-language-cpp-java-plugin.png"
@@ -1274,11 +1278,27 @@ on_auto_indent (GtkAction *action, gpointer data)
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);
 }
 
-static GtkActionEntry actions_indent[] = {
+static void
+on_auto_complete (GtkAction *action, gpointer data)
+{
+	CppJavaPlugin *lang_plugin;
+	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
+	if (lang_plugin->assist)
+		cpp_java_assist_check (lang_plugin->assist, TRUE, TRUE);
+}
+
+static GtkActionEntry actions[] = {
 	{
 		"ActionMenuEdit",
 		NULL, N_("_Edit"),
 		NULL, NULL, NULL
+	},
+	{
+		"ActionEditAutocomplete",
+		ANJUTA_STOCK_AUTOCOMPLETE,
+		N_("_AutoComplete"), "<control>Return",
+		N_("AutoComplete the current word"),
+		G_CALLBACK (on_auto_complete)
 	},
 	{
 		"ActionEditAutoindent",
@@ -1289,22 +1309,54 @@ static GtkActionEntry actions_indent[] = {
 	}
 };
 
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	g_object_unref (pixbuf);
+
+static void
+register_stock_icons (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	GtkIconFactory *icon_factory;
+	GtkIconSet *icon_set;
+	GdkPixbuf *pixbuf;
+	static gboolean registered = FALSE;
+
+	if (registered)
+		return;
+	registered = TRUE;
+
+	/* Register stock icons */
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	icon_factory = anjuta_ui_get_icon_factory (ui);
+	REGISTER_ICON (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
+}
+
 static gboolean
 cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	CppJavaPlugin *lang_plugin;
+	static gboolean initialized = FALSE;
+	
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (plugin);
 	
 	DEBUG_PRINT ("AnjutaLanguageCppJavaPlugin: Activating plugin ...");
 
+	if (!initialized)
+	{
+		register_stock_icons (plugin);
+	}
+
 	lang_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	lang_plugin->action_group = 
-		anjuta_ui_add_action_group_entries (ui, "ActionGroupAutoindent",
-											_("Autoindent"),
-											actions_indent,
-											G_N_ELEMENTS (actions_indent),
+		anjuta_ui_add_action_group_entries (ui, "ActionGroupCppJavaAssist",
+											_("Cpp/Java Assistance"),
+											actions,
+											G_N_ELEMENTS (actions),
 											GETTEXT_PACKAGE, TRUE,
 											plugin);
 	lang_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
@@ -1315,7 +1367,7 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 								 on_value_added_current_editor,
 								 on_value_removed_current_editor,
 								 plugin);
-	
+	initialized = FALSE;
 	return TRUE;
 }
 

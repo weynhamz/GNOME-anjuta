@@ -78,9 +78,6 @@
 #define ANJUTA_PIXMAP_INDENT_AUTO         "indent_auto.xpm"
 #define ANJUTA_PIXMAP_AUTOFORMAT_SETTING  "indent_set.xpm"
 
-#define ANJUTA_PIXMAP_CALLTIP             "calltip.xpm"
-#define ANJUTA_PIXMAP_AUTOCOMPLETE        "autocomplete.png"
-
 /* Stock icons */
 #define ANJUTA_STOCK_SWAP                     "anjuta-swap"
 #define ANJUTA_STOCK_FOLD_TOGGLE              "anjuta-fold-toggle"
@@ -91,7 +88,6 @@
 #define ANJUTA_STOCK_INDENT_DCR               "anjuta-indect-dcr"
 #define ANJUTA_STOCK_INDENT_AUTO              "anjuta-indent-auto"
 #define ANJUTA_STOCK_AUTOFORMAT_SETTINGS      "anjuta-autoformat-settings"
-#define ANJUTA_STOCK_AUTOCOMPLETE             "anjuta-autocomplete"
 #define ANJUTA_STOCK_PREV_BRACE               "anjuta-prev-brace"
 #define ANJUTA_STOCK_NEXT_BRACE               "anjuta-next-brace"
 #define ANJUTA_STOCK_BLOCK_START              "anjuta-block-start"
@@ -288,10 +284,6 @@ static GtkActionEntry actions_edit[] = {
   { "ActionEditClear", N_("_Clear"), NULL, "Delete",
 	N_("Delete the selected text from the editor"),
     G_CALLBACK (on_editor_command_clear_activate)},
-  { "ActionEditAutocomplete", N_("_AutoComplete"),
-	ANJUTA_STOCK_AUTOCOMPLETE, "<control>Return",
-	N_("AutoComplete the current word"),
-    G_CALLBACK (on_editor_command_complete_word_activate)}
 };
 
 static GtkToggleActionEntry actions_view[] = {
@@ -867,7 +859,6 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_DCR, ANJUTA_STOCK_INDENT_DCR);
 	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_AUTO, ANJUTA_STOCK_INDENT_AUTO);
 	REGISTER_ICON (ANJUTA_PIXMAP_AUTOFORMAT_SETTING, ANJUTA_STOCK_AUTOFORMAT_SETTINGS);
-	REGISTER_ICON (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
 	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_SELECT, ANJUTA_STOCK_BLOCK_SELECT);
 	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_TOGGLE, ANJUTA_STOCK_BOOKMARK_TOGGLE);
 	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_FIRST, ANJUTA_STOCK_BOOKMARK_FIRST);

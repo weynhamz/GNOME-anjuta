@@ -354,7 +354,8 @@ cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
 	}
 	/* Skip white spaces */
 	while (ianjuta_iterable_previous (iter, NULL)
-		&& g_ascii_isspace (ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL)));
+		&& g_ascii_isspace (ianjuta_editor_cell_get_char
+								(IANJUTA_EDITOR_CELL (iter), 0, NULL)));
 
 	context = cpp_java_assist_get_scope_context
 		(IANJUTA_EDITOR (assist->priv->iassist), "(", iter);

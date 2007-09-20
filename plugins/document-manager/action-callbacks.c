@@ -27,7 +27,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
 #include <libanjuta/interfaces/ianjuta-editor-line-mode.h>
-#include <libanjuta/interfaces/ianjuta-editor-autocomplete.h>
 #include <libanjuta/interfaces/ianjuta-editor-view.h>
 #include <libanjuta/interfaces/ianjuta-editor-folds.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
@@ -515,12 +514,6 @@ on_editor_command_clear_activate (GtkAction * action, gpointer data)
 	{
 		ianjuta_document_clear (IANJUTA_DOCUMENT (get_current_editor(data)), NULL);
 	}
-}
-
-void
-on_editor_command_complete_word_activate (GtkAction * action, gpointer data)
-{
-	ianjuta_editor_autocomplete_activate (IANJUTA_EDITOR_AUTOCOMPLETE (get_current_editor(data)), NULL);
 }
 
 void on_editor_command_close_folds_all_activate (GtkAction * action, gpointer data)
