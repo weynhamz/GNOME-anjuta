@@ -1,5 +1,16 @@
 2007-09-20  Naba Kumar  <naba.kumar@gnome.org>
 
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/editor/text_editor.c: (iassist_iface_init):
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(cpp_java_assist_check), (on_assist_chosen):
+	* plugins/sourceview/sourceview.c: (iassist_iface_init):
+	Removed react() methods in both editors and assist interface. Assist
+	plugin itself handles setting the autocomplete. Also fixed
+	some mem leaks.
+
+2007-09-20  Naba Kumar  <naba.kumar@gnome.org>
+
 	* plugins/file-manager/Makefile.am:
 	* plugins/file-manager/file-view.c: (file_view_add_dummy),
 	(file_view_expand_idle), (file_view_init):

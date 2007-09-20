@@ -3033,58 +3033,6 @@ iassist_cancel_tips (IAnjutaEditorAssist *iassist, GError **err)
 }
 
 static void
-iassist_react (IAnjutaEditorAssist *iassist, gint selection,  
-			   const gchar *completion, GError **err)
-{
-	gint current_pos, del_begin, del_end;
-	gchar *word_prefix;
-	gchar *current_word;
-	TextEditor *te = TEXT_EDITOR (iassist);
-	
-	g_return_if_fail (IS_TEXT_EDITOR (te));
-	
-	DEBUG_PRINT ("Auto selection: %s", completion);
-	current_pos = text_editor_get_current_position (te);
-	word_prefix = text_editor_get_word_before_carat (te);
-	current_word = text_editor_get_current_word (te);
-	
-	if (word_prefix)
-		del_begin = current_pos - strlen (word_prefix);
-	else
-		del_begin = current_pos;
-	
-	if (current_word)
-		del_end = del_begin + strlen (current_word);
-	else
-		del_end = del_begin;
-	scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
-							SCI_BEGINUNDOACTION, 0, 0);
-	if (del_begin != del_end)
-	{
-		scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
-								SCI_SETTARGETSTART, del_begin, 0);
-		scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
-								SCI_SETTARGETEND, del_end, 0);
-		scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
-								SCI_REPLACETARGET, -1, (uptr_t) completion);
-		scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
-								SCI_GOTOPOS,
-								del_begin + strlen (completion), 0);
-	}
-	else
-	{
-		scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
-								SCI_INSERTTEXT, -1,
-								(uptr_t) completion);
-		scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
-								SCI_GOTOPOS,
-								current_pos + strlen (completion), 0);
-	}
-	scintilla_send_message (SCINTILLA (TEXT_EDITOR (te)->scintilla),
-							SCI_ENDUNDOACTION, 0, 0);
-}
-
-static void
 iassist_hide_suggestions (IAnjutaEditorAssist *iassist, GError **err)
 {
 	TextEditor *te = TEXT_EDITOR (iassist);
@@ -3101,7 +3049,6 @@ iassist_iface_init(IAnjutaEditorAssistIface* iface)
 	iface->hide_suggestions = iassist_hide_suggestions;
 	iface->show_tips = iassist_show_tips;
 	iface->cancel_tips = iassist_cancel_tips;
-	iface->react = iassist_react;
 }
 
 /* IAnutaEditorFolds implementation */

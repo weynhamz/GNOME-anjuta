@@ -1891,31 +1891,6 @@ iassist_cancel_tips (IAnjutaEditorAssist* iassist, GError** err)
 }
 
 static void
-iassist_react (IAnjutaEditorAssist *iassist, gint selection,  
-			   const gchar *completion, GError **err)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
-	GtkTextIter begin, end;
-
-	if (!completion)
-		return;
-	
-	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-															   &begin, assist_window_get_position(sv->priv->assist_win));
-	gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(sv->priv->document), &end, 
-										   gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(sv->priv->document)));
-	g_signal_handlers_block_by_func(G_OBJECT(sv->priv->document), 
-									on_document_char_added, sv);
-	gtk_text_buffer_delete(GTK_TEXT_BUFFER(sv->priv->document), &begin, &end);
-	gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER(sv->priv->document),
-									 completion, strlen(completion));
-	g_signal_handlers_unblock_by_func(G_OBJECT(sv->priv->document), 
-									on_document_char_added, sv);
-	
-	gtk_widget_destroy (GTK_WIDGET(sv->priv->assist_win));
-}
-
-static void
 iassist_iface_init(IAnjutaEditorAssistIface* iface)
 {
 	iface->suggest = iassist_suggest;
@@ -1923,7 +1898,6 @@ iassist_iface_init(IAnjutaEditorAssistIface* iface)
 	iface->get_suggestions = iassist_get_suggestions;
 	iface->show_tips = iassist_show_tips;
 	iface->cancel_tips = iassist_cancel_tips;
-	iface->react = iassist_react;
 }
 
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);

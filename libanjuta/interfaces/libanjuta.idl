@@ -1491,19 +1491,6 @@ interface IAnjutaEditor
 		void cancel_tips ();
 		
 		/**
-		 * ianjuta_editor_assist_react:
-		 * @obj: Self
-		 * @selection: The user selection index.
-		 * @completion: corresponding completion.
-		 * @err: Error propagation and reporting
-		 * 
-		 * When a user makes a choice, the editor is requested to react to
-		 * it. Usually the editor inserts it at the current carat position
-		 * and end or update current assist context.
-		 */
-		void react (gint selection, const gchar *completion);
-		
-		/**
 		 * ianjuta_editor_assist_get_suggestions:
 		 * @obj: Self
 		 * @context: The context for the suggestions.

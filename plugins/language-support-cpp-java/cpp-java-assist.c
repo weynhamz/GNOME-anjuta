@@ -27,6 +27,8 @@
 #include <string.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor-cell.h>
+#include <libanjuta/interfaces/ianjuta-editor-selection.h>
+#include <libanjuta/interfaces/ianjuta-document.h>
 #include <libanjuta/interfaces/ianjuta-symbol-manager.h>
 #include "cpp-java-assist.h"
 #include "cpp-java-utils.h"
@@ -446,7 +448,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 	IAnjutaEditor *editor;
 	IAnjutaIterable *iter, *iter_save;
 	IAnjutaEditorAttribute attribute;
-	gchar *pre_word, *scope_operator;
+	gchar *pre_word = NULL, *scope_operator = NULL;
 
 	DEBUG_PRINT ("Autocomplete enable is: %d", autocomplete);
 	DEBUG_PRINT ("Calltips enable is: %d", calltips);
@@ -482,7 +484,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 		
 		if (scope_operator)
 		{
-			gchar *scope_context;
+			gchar *scope_context = NULL;
 			scope_context = cpp_java_assist_get_scope_context (editor,
 															   scope_operator,
 															   iter);
@@ -501,6 +503,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 				}
 				shown = cpp_java_assist_show_autocomplete (assist, pre_word);
 			}
+			g_free (scope_context);
 		}
 		else if (pre_word && strlen (pre_word) > 3)
 		{
@@ -534,10 +537,13 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			{
 				ianjuta_editor_assist_cancel_tips (assist->priv->iassist, NULL);
 			}
+			g_free (call_context);
 		}
 	}
 	g_object_unref (iter);
 	g_object_unref (iter_save);
+	g_free (pre_word);
+	g_free (scope_operator);
 	return shown;
 }
 
@@ -560,7 +566,11 @@ static void
 on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 				  CppJavaAssist* assist)
 {
+	gint cur_pos;
 	const gchar* assistance;
+	IAnjutaEditor *te;
+	IAnjutaIterable *iter;
+	gchar *pre_word = NULL;
 	
 	DEBUG_PRINT ("assist-chosen: %d", selection);
 	
@@ -570,7 +580,33 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	else
 		assistance = g_list_nth_data (assist->priv->completion_cache->items,
 									  selection);
-	ianjuta_editor_assist_react (iassist, selection, assistance, NULL);
+	
+	te = IANJUTA_EDITOR (assist->priv->iassist);
+	cur_pos = ianjuta_editor_get_position (te, NULL);
+	iter = ianjuta_editor_get_cell_iter (te, cur_pos, NULL);
+	
+	if (ianjuta_iterable_previous (iter, NULL))
+	{
+		pre_word = cpp_java_assist_get_pre_word (te, iter);
+	}
+	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (te), NULL);
+	if (pre_word)
+	{
+		gint sel_start;
+		sel_start = ianjuta_iterable_get_position (iter, NULL);
+		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
+									  sel_start + 1, cur_pos, FALSE, NULL);
+		ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
+										  assistance, -1, NULL);
+		g_free (pre_word);
+	}
+	else
+	{
+		ianjuta_editor_insert (te, cur_pos, assistance, -1, NULL);
+	}
+	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (te), NULL);
+	ianjuta_editor_assist_hide_suggestions (assist->priv->iassist, NULL);
+	g_object_unref (iter);
 }
 
 static void
