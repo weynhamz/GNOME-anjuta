@@ -1,3 +1,9 @@
+2007-09-21  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(cpp_java_assist_get_calltip_context), (on_editor_char_added):
+	Increased matching brace search to 500 chars.
+
 2007-09-21  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c:

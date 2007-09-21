@@ -37,6 +37,7 @@
 #define PREF_AUTOCOMPLETE_CHOICES "language.cpp.code.completion.choices"
 #define PREF_CALLTIP_ENABLE "language.cpp.code.calltip.enable"
 #define MAX_COMPLETIONS 10
+#define BRACE_SEARCH_LIMIT 500
 
 G_DEFINE_TYPE (CppJavaAssist, cpp_java_assist, G_TYPE_OBJECT);
 
@@ -339,7 +340,6 @@ cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
 {
 	gchar ch;
 	gchar *context = NULL;
-	const int BRACE_LIMIT = 100;
 	
 #ifdef DEBUG
 	GTimer* timer = g_timer_new ();
@@ -356,7 +356,8 @@ cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
 	}
 	if (ch != '(')
 	{
-		if (!cpp_java_util_jump_to_matching_brace (iter, ')', BRACE_LIMIT))
+		if (!cpp_java_util_jump_to_matching_brace (iter, ')',
+												   BRACE_SEARCH_LIMIT))
 			return NULL;
 		DEBUG_PRINT ("calltip ')' brace: %f", g_timer_elapsed (timer, NULL));
 	}
@@ -591,6 +592,10 @@ static void
 on_editor_char_added (IAnjutaEditor *editor, gint insert_pos, gchar ch,
 					  CppJavaAssist *assist)
 {
+	gboolean enable_complete =
+		anjuta_preferences_get_int_with_default (assist->priv->preferences,
+												 PREF_AUTOCOMPLETE_ENABLE,
+												 TRUE);
 	gboolean enable_complete =
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_AUTOCOMPLETE_ENABLE,
