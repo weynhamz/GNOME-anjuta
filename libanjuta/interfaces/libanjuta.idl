@@ -4067,5 +4067,5 @@ typedef gint Id;
 	 *
 	 * Returns: A list of strings that represent this language that language
 	 */
-	 List<const gchar*> get_strings();
+	 List<const gchar*> get_strings(Id id);
 }

@@ -50,6 +50,7 @@
 
 #include <gtksourceview/gtksourceiter.h>
 #include <gtksourceview/gtksourcelanguagesmanager.h>
+#include <pcre.h>
 
 #define ANJUTA_MAX_PATH_LEN  2048
 

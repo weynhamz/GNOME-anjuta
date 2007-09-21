@@ -85,6 +85,7 @@ libanjuta_sourceview_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 
 # Plugin dependencies
 libanjuta_sourceview_la_LIBADD = \
+	$(PCRE_LIBS) \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_VFS_LIBS) \
 	$(PLUGIN_SOURCEVIEW_LIBS) \

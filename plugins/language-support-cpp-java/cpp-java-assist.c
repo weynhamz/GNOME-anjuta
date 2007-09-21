@@ -596,6 +596,10 @@ on_editor_char_added (IAnjutaEditor *editor, gint insert_pos, gchar ch,
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_AUTOCOMPLETE_ENABLE,
 												 TRUE);
+	gboolean enable_complete =
+		anjuta_preferences_get_int_with_default (assist->priv->preferences,
+												 PREF_AUTOCOMPLETE_ENABLE,
+												 TRUE);
 	gboolean enable_calltips =
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_CALLTIP_ENABLE,
