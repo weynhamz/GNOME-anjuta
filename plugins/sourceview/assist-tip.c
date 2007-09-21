@@ -62,6 +62,7 @@ assist_tip_set_tips (AssistTip* tip, GList* tips)
 {
 	GList* cur_tip;
 	gchar* text = NULL;
+	gchar* tip_text;
 	for (cur_tip = tips; cur_tip != NULL; cur_tip = g_list_next (cur_tip))
 	{
 		if (!text)
@@ -74,9 +75,11 @@ assist_tip_set_tips (AssistTip* tip, GList* tips)
 		g_free(text);
 		text = new_text;
 	}
-	gtk_label_set_markup(GTK_LABEL(tip->label), text);
+	tip_text = g_strdup_printf("<tt>%s</tt>", text);
+	gtk_label_set_markup(GTK_LABEL(tip->label), tip_text);
 	gtk_widget_show (tip->label);
 	g_free(text);
+	g_free(tip_text);
 }
 
 /* Return a tuple containing the (x, y) position of the cursor + 1 line */

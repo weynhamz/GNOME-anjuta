@@ -4014,3 +4014,58 @@ interface IAnjutaPluginLoader
 	 */
 	GType glue_plugin_get_type ();
 }
+
+/**
+ * SECTION:ianjuta-language
+ * @title: IAnjutaLanguage
+ * @short_description: Interface to manager multiple programming languages
+ * @see_also: 
+ * @stability: Unstable
+ * @include: libanjuta/interfaces/ianjuta-language.h
+ * 
+ */
+
+interface IAnjutaLanguage
+{
+
+typedef gint Id;
+
+	/*
+	 * ianjuta_language_from_mime_type:
+	 * @obj: Self
+	 * @mime_type: A mime type to get the language for
+	 *
+	 * Returns: A language Id of -1 in case no language was found
+	 */
+	 Id get_from_mime_type (const gchar* mime_type);
+	 
+	/*
+	 * ianjuta_language_from_string:
+	 * @obj: Self
+	 * @string: A string representation of the language. Note that multiple
+	 * strings may describe the language like C++ and Cpp
+	 *
+	 * Returns: A language Id of -1 in case no language was found
+	 */
+	 Id get_from_string (const gchar* string);
+	 
+ 	/*
+	 * ianjuta_language_get_name:
+	 * @obj: Self
+	 * @id: A valid language id
+	 *
+	 * Returns: The main name of the language. When you call ianjuta_language_from_string()
+	 * before that method the string you get here might be different to the one you passed 
+	 * because the language might have multiple string representations
+	 */
+	 const gchar* get_name(Id id);
+
+	/*
+	 * ianjuta_language_get_strings
+	 * @obj: Self
+	 * @id: A valid language id
+	 *
+	 * Returns: A list of strings that represent this language that language
+	 */
+	 List<const gchar*> get_strings();
+}

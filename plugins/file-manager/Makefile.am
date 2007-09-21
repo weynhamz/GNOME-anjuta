@@ -31,7 +31,9 @@ libfile_manager_la_SOURCES = \
 	file-view-marshal.h \
 	file-view-marshal.c \
 	file-view.h \
-	file-view.c
+	file-view.c \
+	file-model.c \
+	file-model.h
 
 # Plugin dependencies
 libfile_manager_la_LIBADD = \
