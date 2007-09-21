@@ -32,7 +32,6 @@
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
 #include <libanjuta/interfaces/ianjuta-editor-view.h>
 #include <libanjuta/interfaces/ianjuta-editor-line-mode.h>
-#include <libanjuta/interfaces/ianjuta-editor-autocomplete.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-editor-folds.h>
 #include <libanjuta/interfaces/ianjuta-editor-comment.h>
@@ -751,12 +750,6 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
 								   "ActionViewEditorRemoveView");
-	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
-	
-	/* IAnjutaEditorAutocomplete */
-	flag = IANJUTA_IS_EDITOR_AUTOCOMPLETE (editor);
-	action = anjuta_ui_get_action (ui, "ActionGroupEditorEdit",
-								   "ActionEditAutocomplete");
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
 	/* IAnjutaEditorFolds */

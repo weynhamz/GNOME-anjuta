@@ -1125,7 +1125,8 @@ install_support (CppJavaPlugin *lang_plugin)
 					(IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor),
 											  NULL);
 	
-	DEBUG_PRINT("Language: %s", lang_plugin->current_language);
+	DEBUG_PRINT("Language support intalled for: %s",
+				lang_plugin->current_language);
 	
 	if (lang_plugin->current_language &&
 		(strcasecmp (lang_plugin->current_language, "cpp") == 0
@@ -1136,15 +1137,29 @@ install_support (CppJavaPlugin *lang_plugin)
 						  "char-added",
 						  G_CALLBACK (on_editor_char_inserted_cpp),
 						  lang_plugin);
-		if (IANJUTA_IS_EDITOR_ASSIST(lang_plugin->current_editor))
+		if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor))
 		{
-			IAnjutaEditorAssist* iassist = IANJUTA_EDITOR_ASSIST(lang_plugin->current_editor);
+			AnjutaPlugin *plugin;
+			AnjutaUI *ui;
+			GtkAction *action;
+			IAnjutaEditorAssist* iassist;
+			
+			plugin = ANJUTA_PLUGIN (lang_plugin);
+			ui = anjuta_shell_get_ui (plugin->shell, NULL);
+			iassist = IANJUTA_EDITOR_ASSIST (lang_plugin->current_editor);
+			
 			lang_plugin->assist =
 				cpp_java_assist_new (iassist,
-					anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
+					anjuta_shell_get_interface (plugin->shell,
 												IAnjutaSymbolManager,
 												NULL),
 									 lang_plugin->prefs);
+			
+			/* Enable autocompletion action */
+			action = anjuta_ui_get_action (ui, "ActionGroupCppJavaAssist",
+										   "ActionEditAutocomplete");
+			g_object_set (G_OBJECT (action), "visible", TRUE,
+						  "sensitive", TRUE, NULL);
 		}
 		initialize_indentation_params (lang_plugin);
 	}
@@ -1163,7 +1178,8 @@ install_support (CppJavaPlugin *lang_plugin)
 		return;
 	}
 	/* Disable editor intern auto-indent */
-	ianjuta_editor_set_auto_indent(IANJUTA_EDITOR(lang_plugin->current_editor), FALSE, NULL);
+	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(lang_plugin->current_editor),
+								    FALSE, NULL);
 	lang_plugin->support_installed = TRUE;
 }
 
@@ -1190,8 +1206,20 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 	
 	if (lang_plugin->assist)
 	{
+		AnjutaPlugin *plugin;
+		AnjutaUI *ui;
+		GtkAction *action;
+		
 		g_object_unref (lang_plugin->assist);
 		lang_plugin->assist = NULL;
+		
+		/* Disable autocompletion action */
+		plugin = ANJUTA_PLUGIN (lang_plugin);
+		ui = anjuta_shell_get_ui (plugin->shell, NULL);
+		action = anjuta_ui_get_action (ui, "ActionGroupCppJavaAssist",
+									   "ActionEditAutocomplete");
+		g_object_set (G_OBJECT (action), "visible", FALSE,
+					  "sensitive", FALSE, NULL);
 	}
 	
 	lang_plugin->support_installed = FALSE;
