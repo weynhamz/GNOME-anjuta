@@ -24,6 +24,14 @@
 	Better calltips appearance (use theme now) and avoid jumping
 	calltips
 
+2007-09-21  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/document-manager/plugin.c:
+	(update_editor_ui_interface_items):
+	* plugins/language-support-cpp-java/plugin.c: (install_support),
+	(uninstall_support): Moved autocomplete ui update code from
+	document-manager to language-plugin.
+
 2007-09-21  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
