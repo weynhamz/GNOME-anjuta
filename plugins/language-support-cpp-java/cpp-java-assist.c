@@ -177,6 +177,7 @@ cpp_java_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter)
 	}
 	
 	begin = ianjuta_iterable_get_position (iter, NULL) + 1;
+	
 	if (end > begin)	
 		return ianjuta_editor_get_text (editor, begin, end - begin, NULL);
 	else
@@ -338,32 +339,50 @@ cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
 {
 	gchar ch;
 	gchar *context = NULL;
+	const int BRACE_LIMIT = 100;
+	
+#ifdef DEBUG
+	GTimer* timer = g_timer_new ();
+#endif
 	
 	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
 	if (ch == ')')
 	{
-		if (!cpp_java_util_jump_to_matching_brace (iter, ')'))
+		if (!cpp_java_util_jump_to_matching_brace (iter, ')', -1))
 			return NULL;
 		if (!ianjuta_iterable_previous (iter, NULL))
 			return NULL;
+		DEBUG_PRINT ("calltip ')' brace: %f", g_timer_elapsed (timer, NULL));
 	}
 	if (ch != '(')
 	{
-		if (!cpp_java_util_jump_to_matching_brace (iter, ')'))
+		if (!cpp_java_util_jump_to_matching_brace (iter, ')', BRACE_LIMIT))
 			return NULL;
+		DEBUG_PRINT ("calltip ')' brace: %f", g_timer_elapsed (timer, NULL));
 	}
+	
 	/* Skip white spaces */
 	while (ianjuta_iterable_previous (iter, NULL)
 		&& g_ascii_isspace (ianjuta_editor_cell_get_char
 								(IANJUTA_EDITOR_CELL (iter), 0, NULL)));
 
+	DEBUG_PRINT ("calltip skip whitespace: %f", g_timer_elapsed (timer, NULL));
+	
 	context = cpp_java_assist_get_scope_context
 		(IANJUTA_EDITOR (assist->priv->iassist), "(", iter);
+	
+	DEBUG_PRINT ("calltip get scope context: %f", g_timer_elapsed (timer, NULL));
 	
 	if (context_offset)
 	{
 		*context_offset = get_iter_column (assist, iter);
+		DEBUG_PRINT ("calltip get iter column: %f", g_timer_elapsed (timer, NULL));
 	}
+
+#ifdef DEBUG
+	g_timer_destroy (timer);
+#endif
+	
 	return context;
 }
 
@@ -450,7 +469,10 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 	IAnjutaIterable *iter, *iter_save;
 	IAnjutaEditorAttribute attribute;
 	gchar *pre_word = NULL, *scope_operator = NULL;
-
+#ifdef DEBUG
+	GTimer* timer = g_timer_new();
+#endif
+	
 	DEBUG_PRINT ("Autocomplete enable is: %d", autocomplete);
 	DEBUG_PRINT ("Calltips enable is: %d", calltips);
 	
@@ -475,10 +497,16 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 		return FALSE;
 	}
 	*/
+	
+	DEBUG_PRINT ("assist init: %f", g_timer_elapsed (timer, NULL));
+	
 	if (autocomplete)
 	{
 		pre_word = cpp_java_assist_get_pre_word (editor, iter);
+		DEBUG_PRINT ("assist pre word: %f", g_timer_elapsed (timer, NULL));
+		
 		scope_operator = cpp_java_assist_get_scope_operator (editor, iter);
+		DEBUG_PRINT ("assist scope operator: %f", g_timer_elapsed (timer, NULL));
 		
 		DEBUG_PRINT ("Pre word: %s", pre_word);
 		DEBUG_PRINT ("Scope op: %s", scope_operator);
@@ -490,6 +518,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 															   scope_operator,
 															   iter);
 			
+			DEBUG_PRINT ("assist scope context: %f", g_timer_elapsed (timer, NULL));
 			DEBUG_PRINT ("Scope context: %s", scope_context);
 			
 			if (scope_context)
@@ -521,7 +550,11 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			ianjuta_editor_assist_hide_suggestions (assist->priv->iassist,
 													NULL);
 		}
+		DEBUG_PRINT ("assist autocomplete: %f", g_timer_elapsed (timer, NULL));
 	}
+#ifdef DEBUG
+	g_timer_reset (timer);
+#endif
 	if (calltips)
 	{
 		if (!shown)
@@ -529,6 +562,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			gint offset;
 			gchar *call_context =
 				cpp_java_assist_get_calltip_context (assist, iter, &offset);
+			DEBUG_PRINT ("get calltip context: %f", g_timer_elapsed (timer, NULL));
 			if (call_context)
 			{
 				shown = cpp_java_assist_show_calltip (assist, call_context,
@@ -540,11 +574,16 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			}
 			g_free (call_context);
 		}
+		DEBUG_PRINT ("assist calltip: %f", g_timer_elapsed (timer, NULL));
 	}
 	g_object_unref (iter);
 	g_object_unref (iter_save);
 	g_free (pre_word);
 	g_free (scope_operator);
+#ifdef DEBUG
+	g_timer_stop (timer);
+	g_timer_destroy (timer);
+#endif
 	return shown;
 }
 

@@ -24,5 +24,5 @@
 #include <libanjuta/interfaces/ianjuta-iterable.h>
 
 gboolean cpp_java_util_jump_to_matching_brace (IAnjutaIterable *iter,
-											   gchar brace);
+											   gchar brace, gint limit);
 #endif

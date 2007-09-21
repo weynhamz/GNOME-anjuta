@@ -1864,6 +1864,7 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips, gint position,
 				   gint char_alignment, GError **err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
+	int tip_position = position - char_alignment;
 	
 	if (!sv->priv->assist_tip)
 	{
@@ -1872,13 +1873,13 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips, gint position,
 		
 		g_signal_connect (G_OBJECT(sv->priv->assist_tip), "destroy", G_CALLBACK(on_assist_tip_destroyed),
 						  sv);
-		
+		assist_tip_move (sv->priv->assist_tip, GTK_TEXT_VIEW (sv->priv->view), tip_position);
 		gtk_widget_show (GTK_WIDGET (sv->priv->assist_tip));
 	}
 	else
 	{
 		assist_tip_set_tips (sv->priv->assist_tip, tips);
-		assist_tip_move (sv->priv->assist_tip, GTK_TEXT_VIEW (sv->priv->view), position);
+		assist_tip_move (sv->priv->assist_tip, GTK_TEXT_VIEW (sv->priv->view), tip_position);
 	}
 }
 

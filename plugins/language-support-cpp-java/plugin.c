@@ -781,7 +781,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			}
 			
 			/* Find matching brace and continue */
-			if (!cpp_java_util_jump_to_matching_brace (iter, point_ch))
+			if (!cpp_java_util_jump_to_matching_brace (iter, point_ch, -1))
 			{
 				line_indent = get_line_indentation (editor, line_saved);
 				break;
@@ -980,7 +980,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 		else if (ch == '}')
 		{
 			ianjuta_iterable_previous (iter, NULL);
-			if (cpp_java_util_jump_to_matching_brace (iter, ch))
+			if (cpp_java_util_jump_to_matching_brace (iter, ch, -1))
 			{
 				gint position = ianjuta_iterable_get_position (iter, NULL);
 				gint line = ianjuta_editor_get_line_from_position (editor,

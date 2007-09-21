@@ -24,8 +24,11 @@
 
 #include "assist-tip.h"
 #include <gtk/gtklabel.h>
+#include <gtk/gtkalignment.h>
 
 #include <libanjuta/anjuta-debug.h>
+
+#include <string.h>
 
 G_DEFINE_TYPE (AssistTip, assist_tip, GTK_TYPE_WINDOW);
 
@@ -38,9 +41,24 @@ enum
 static void
 assist_tip_init (AssistTip *object)
 {
-	object->label = gtk_label_new ("Tip");
+	GtkWidget* alignment = gtk_alignment_new (0.5, 0.5, 1.0, 1.0);
+	GtkWidget* window = GTK_WIDGET(object);
 	
-	gtk_container_add (GTK_CONTAINER(object), object->label);
+	gtk_widget_set_name (GTK_WIDGET(object), "gtk-tooltip");
+	gtk_widget_set_app_paintable (GTK_WIDGET(object), TRUE);
+	
+	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment),
+							   window->style->ythickness,
+							   window->style->ythickness,
+							   window->style->xthickness,
+							   window->style->xthickness);
+	object->label = gtk_label_new ("");
+	gtk_widget_show (object->label);
+	
+	gtk_container_add (GTK_CONTAINER(alignment), object->label);
+	gtk_container_add (GTK_CONTAINER(object), alignment);
+
+	gtk_widget_show (alignment);
 }
 
 static void
@@ -63,8 +81,11 @@ assist_tip_set_tips (AssistTip* tip, GList* tips)
 	GList* cur_tip;
 	gchar* text = NULL;
 	gchar* tip_text;
+	
 	for (cur_tip = tips; cur_tip != NULL; cur_tip = g_list_next (cur_tip))
 	{
+		if (!strlen (cur_tip->data))
+			continue;
 		if (!text)
 		{
 			text = g_strdup(cur_tip->data);
@@ -124,7 +145,7 @@ assist_tip_get_coordinates(GtkWidget* view, int offset, int* x, int* y, GtkWidge
 		*x += width_left;
 	}
 	
-	*y -= entry_req.height;
+	*y -= (entry_req.height + 5);
 }
 
 void
@@ -148,7 +169,11 @@ assist_tip_new (GtkTextView* view, GList* tips)
 	GtkTextMark* mark;
 	AssistTip* assist_tip;
 	GObject* object = 
-		g_object_new (ASSIST_TYPE_TIP, "type", GTK_WINDOW_POPUP, NULL);
+		g_object_new (ASSIST_TYPE_TIP, 
+					  "type", GTK_WINDOW_POPUP,
+					  "type_hint", GDK_WINDOW_TYPE_HINT_TOOLTIP,
+					  NULL);
+	
 	
 	assist_tip = ASSIST_TIP (object);
 	
@@ -157,9 +182,10 @@ assist_tip_new (GtkTextView* view, GList* tips)
 	buffer = gtk_text_view_get_buffer (view);
 	mark = gtk_text_buffer_get_insert (buffer);
 	gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
-	/* Position is off-by-one because we want the '(' as first position */
-	assist_tip->position = gtk_text_iter_get_offset (&iter) - 1;
-	assist_tip_move (assist_tip, view, assist_tip->position);
+	assist_tip->position = gtk_text_iter_get_offset (&iter);
+	
+	/* Position is off by one for '(' brace */
+	assist_tip->position--;
 	
 	return GTK_WIDGET(object);
 }

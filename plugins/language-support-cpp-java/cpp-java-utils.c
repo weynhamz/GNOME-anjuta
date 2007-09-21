@@ -25,9 +25,11 @@
 #define LEFT_BRACE(ch) (ch == ')'? '(' : (ch == '}'? '{' : (ch == ']'? '[' : ch)))  
 
 gboolean
-cpp_java_util_jump_to_matching_brace (IAnjutaIterable *iter, gchar brace)
+cpp_java_util_jump_to_matching_brace (IAnjutaIterable *iter, gchar brace, gint limit)
 {
 	gchar point_ch = brace;
+	gint cur_iteration = 0;
+	gboolean use_limit = (limit > 0);
 	GString *braces_stack = g_string_new ("");
 	
 	g_return_val_if_fail (point_ch == ')' || point_ch == ']' ||
@@ -39,6 +41,11 @@ cpp_java_util_jump_to_matching_brace (IAnjutaIterable *iter, gchar brace)
 	
 	while (ianjuta_iterable_previous (iter, NULL))
 	{
+		/* Check limit */
+		cur_iteration++;
+		if (use_limit && cur_iteration > limit)
+			break;
+		
 		/* Skip comments and strings */
 		IAnjutaEditorAttribute attrib =
 			ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter), NULL);

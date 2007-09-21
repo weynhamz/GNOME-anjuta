@@ -1,5 +1,31 @@
 2007-09-21  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(cpp_java_assist_get_pre_word),
+	(cpp_java_assist_get_calltip_context), (cpp_java_assist_check):
+	
+	Added some profiling debug code
+	
+	* plugins/language-support-cpp-java/cpp-java-utils.c:
+	(cpp_java_util_jump_to_matching_brace):
+	* plugins/language-support-cpp-java/cpp-java-utils.h:
+	* plugins/language-support-cpp-java/plugin.c:
+	(get_line_indentation_base), (get_line_auto_indentation):
+	
+	Add the possiblity to pass a limit to cpp_java_util_jump_matching_brace to
+	avoid looping over the whole file when using calltips which is too slow and
+	unneeded.
+	
+	* plugins/sourceview/assist-tip.c: (assist_tip_init),
+	(assist_tip_set_tips), (assist_tip_get_coordinates),
+	(assist_tip_new):
+	* plugins/sourceview/sourceview.c: (iassist_show_tips):
+	
+	Better calltips appearance (use theme now) and avoid jumping
+	calltips
+
+2007-09-21  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/interfaces/libanjuta.idl:
 	
 	Added IAnjutaLanguage interface (might still change...) for
