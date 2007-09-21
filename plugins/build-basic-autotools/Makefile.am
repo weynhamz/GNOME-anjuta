@@ -26,7 +26,6 @@ build_data_DATA = automake-c.filters
 INCLUDES = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
-	$(PCRE_CFLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
 # Where to install the plugin

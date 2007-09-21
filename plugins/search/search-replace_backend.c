@@ -41,6 +41,8 @@
 #include <glade/glade.h>
 #include <libgnomevfs/gnome-vfs.h>
 
+#include <glib.h>
+
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-plugin.h>
@@ -75,49 +77,28 @@ static SearchReplace *sr = NULL;
 void clear_search_replace_instance(void);
 
 
-static void
-pcre_info_free (PcreInfo *re)
+static GRegex*
+regex_new (SearchExpression *s)
 {
-	if (re)
-	{
-		if (re->re)
-			(*pcre_free)(re->re);
-		if (re->extra)
-			(*pcre_free)(re->extra);
-		if (re->ovector)
-			g_free(re->ovector);
-		g_free(re);
-	}
-}
-
-static PcreInfo *
-pcre_info_new (SearchExpression *s)
-{
-	PcreInfo *re;
-	int options = 0;
-	const char *err;
-	int err_offset;
-	int status;
+	GRegexCompileFlags options = 0;
+	GRegex* regex;
+	GError* err = NULL;
 
 	g_return_val_if_fail(s && s->search_str, NULL);
-	re = g_new0(PcreInfo, 1);
 	if (s->ignore_case)
-		options |= PCRE_CASELESS;
+		options |= G_REGEX_CASELESS;
 	if (!s->greedy)
-		options |= PCRE_UNGREEDY;
-	re->re = pcre_compile(s->search_str, options, &err, &err_offset, NULL);
-	if (NULL == re->re)
+		options |= G_REGEX_UNGREEDY;
+	regex = g_regex_new (s->search_str, options, 0, &err);
+	if (err)
 	{
 		/* Compile failed - check error message */
-		g_warning("Regex compile failed! %s at position %d", err, err_offset);
-		pcre_info_free(re);
+		g_warning("Regex compile failed: %s", err->message);
+		g_error_free(err);
 		return NULL;
 	}
-	re->extra = pcre_study(re->re, 0, &err);
-	status = pcre_fullinfo(re->re, re->extra, PCRE_INFO_CAPTURECOUNT
-	  , &(re->ovec_count));
-	re->ovector = g_new0(int, 3 *(re->ovec_count + 1));
-	return re;
+	
+	return regex;
 }
 
 
@@ -429,48 +410,51 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 	if (s->regex)
 	{
 		/* Regular expression match */
-		int options = PCRE_NOTEMPTY;
-		int status;
+		GRegexMatchFlags options = G_REGEX_MATCH_NOTEMPTY;
+		GMatchInfo* info = NULL;
+		GError* error = NULL;
 		if (NULL == s->re)
 		{
-			if (NULL == (s->re = pcre_info_new(s)))
+			if (NULL == (s->re = regex_new(s)))
 				return NULL;
 		}
-		status = pcre_exec(s->re->re, s->re->extra, fb->buf, fb->len, fb->pos
-		  , options, s->re->ovector, 3 * (s->re->ovec_count + 1));
-		if (0 == status)
-		{
-			/* ovector too small - this should never happen ! */
-			g_warning("BUG ! ovector found to be too small");
-			return NULL;
-		}
-		else if (0 > status && status != PCRE_ERROR_NOMATCH)
-		{
-			/* match error - again, this should never happen */
-			g_warning("PCRE Match error");
-			return NULL;
-		}
-		else if (PCRE_ERROR_NOMATCH != status)
-		{
+		
+		DEBUG_PRINT ("Regular expression search!");
+		
+		if (g_regex_match_full (s->re, fb->buf, fb->len, fb->pos, options, &info, &error))
+		{	
+			DEBUG_PRINT ("Found: %s", g_match_info_fetch(info, 0));
+			int start;
+			int end;
+			int count;
 			mi = g_new0(MatchInfo, 1);
-			mi->pos = s->re->ovector[0];
-			mi->len = s->re->ovector[1] - s->re->ovector[0];
+			g_match_info_fetch_pos(info, 0, &start, &end);
+			mi->pos = start;
+			mi->len = end - start;
 			mi->line = file_buffer_line_from_pos(fb, mi->pos);
-			if (status > 1) /* Captured subexpressions */
+			fb->pos = end;
+			count = g_match_info_get_match_count(info);
+			if (count > 1)
 			{
 				int i;
 				MatchSubStr *ms;
-				for (i=1; i < status; ++i)
+				for (i=1; i < count; ++i)
 				{
+					g_match_info_fetch_pos(info, i, &start, &end);
 					ms = g_new0(MatchSubStr, 1);
-					ms->start = s->re->ovector[i * 2];
-					ms->len = s->re->ovector[i * 2 + 1] - ms->start;
+					ms->start = start;
+					ms->len = end - start;
 					mi->subs = g_list_prepend(mi->subs, ms);
 				}
 				mi->subs = g_list_reverse(mi->subs);
 			}
-			fb->pos = s->re->ovector[1];
 		}
+		else if (error)
+		{
+			DEBUG_PRINT ("GRegex error: %s", error->message);
+			g_error_free (error);
+		}
+		g_match_info_free (info);
 	}
 	else
 	{
@@ -773,8 +757,7 @@ void
 clear_search_replace_instance(void)
 {
 	g_free (sr->search.expr.search_str);
-	g_free (sr->search.expr.re);
-	FREE_FN(pcre_info_free, sr->search.expr.re);
+	FREE_FN(g_regex_unref, sr->search.expr.re);
 	if (SR_FILES == sr->search.range.type)
 	{
 		FREE_FN(anjuta_util_glist_strings_free, sr->search.range.files.match_files);
@@ -783,12 +766,6 @@ clear_search_replace_instance(void)
 		FREE_FN(anjuta_util_glist_strings_free, sr->search.range.files.ignore_dirs);
 	}
 	g_free (sr->replace.repl_str);
-}
-
-void
-clear_pcre(void)
-{
-	FREE_FN(pcre_info_free, sr->search.expr.re);
 }
 
 SearchReplace *
@@ -801,4 +778,10 @@ create_search_replace_instance(IAnjutaDocumentManager *docman)
 	if (docman)
 		sr->docman = docman;
 	return sr;
+}
+
+void
+clear_regex(void)
+{
+	FREE_FN(g_regex_unref, sr->search.expr.re);
 }

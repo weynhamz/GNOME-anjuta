@@ -1717,7 +1717,7 @@ on_search_button_stop_clicked(GtkButton *button, gpointer user_data)
 void
 on_search_button_next_clicked(GtkButton *button, gpointer user_data)
 {	
-	clear_pcre(); 	
+	clear_regex(); 	
 	search_replace_populate();
 
 	search_and_replace();

@@ -1,3 +1,26 @@
+2007-09-21  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in:
+	Do no longer check for pcre as it's now replaced by GRegex
+	GLIB_REQUIRED=2.10.0 and bumped version to 2.3.0
+	
+	* plugins/build-basic-autotools/Makefile.am:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(build_regex_init), (build_get_summary):
+	* plugins/cvs-plugin/cvs-execute.c: (on_cvs_mesg_format):
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(on_editor_char_added):
+	* plugins/search/Makefile.am:
+	* plugins/search/search-replace.c: (on_search_button_next_clicked):
+	* plugins/search/search-replace.h:
+	* plugins/search/search-replace_backend.c: (regex_new),
+	(get_next_match), (clear_search_replace_instance), (clear_regex):
+	* plugins/search/search-replace_backend.h:
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-document.c:
+	
+	Ported from pcre to GRegex
+
 2007-09-21  Naba Kumar  <naba.kumar@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c:
