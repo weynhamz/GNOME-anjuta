@@ -1,13 +1,15 @@
-2007-09-23  Johannes Schmid,,,  <jhs@idefix>
-
-	reviewed by: <delete if not using a buddy>
+2007-09-23  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in:
+	Bumped version to 2.3.0 (to ensure bugzilla bugs are
+	set correctly, etc.)
+	
 	* libanjuta/anjuta-glue-factory.c: (load_plugin):
 	* libanjuta/anjuta-plugin-manager.c: (activate_plugin),
 	(plugin_set_update):
-	* plugins/Makefile.am:
-	* plugins/document-manager/plugin.c: (on_editor_changed):
+	
+	Show an error dialog instead of crashing when plugin loading fails
+
 	* plugins/language-manager/Makefile.am:
 	* plugins/language-manager/language-manager.plugin.in:
 	* plugins/language-manager/languages.xml:
@@ -20,16 +22,30 @@
 	(ilanguage_get_from_string), (ilanguage_get_name),
 	(ilanguage_get_strings), (ilanguage_iface_init):
 	* plugins/language-manager/plugin.h:
+	
+	Added new language-manager plugin to have a better organisation for
+	language names. The xml probabaly needs to be extended over time.
+	
+	* plugins/Makefile.am:
+	* plugins/document-manager/plugin.c: (on_editor_changed):
+	
+	Adapted to new IAnjutaLanguage interface. Do not unload language-support
+	because it does not really save memory but makes tab switching slow.
+	
 	* plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin
 	.in:
-	* plugins/language-support-cpp-java/cpp-java-assist.c:
-	(cpp_java_assist_show_autocomplete):
 	* plugins/language-support-cpp-java/plugin.c: (install_support),
 	(uninstall_support), (cpp_java_plugin_deactivate_plugin):
-	* plugins/search/search-replace_backend.c: (get_next_match):
+	Adapted to new IAnjutaLanguage interface and fixed a Gtk-Critical while
+	unloading
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(cpp_java_assist_show_autocomplete):
+	
+	Fix autocomplete to only show valid completions
+
 	* plugins/sourceview/assist-tip.c: (assist_tip_set_tips):
-	* plugins/sourceview/sourceview-tags.c:
-	* plugins/sourceview/sourceview-tags.h:
+	Calltips always have correct size and position now
 
 2007-09-22  Johannes Schmid <jhs@gnome.org>
 
