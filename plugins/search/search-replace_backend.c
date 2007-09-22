@@ -426,12 +426,6 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 
 	g_return_val_if_fail(fb && s, NULL);
 	
-	if (!g_utf8_validate (fb->buf, -1, NULL))
-	{
-		DEBUG_PRINT ("Searching does not work for non UTF-8 strings!");
-		return NULL;
-	}
-	
 	if (s->regex)
 	{
 		/* Regular expression match */

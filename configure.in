@@ -3,7 +3,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.59)
 
 m4_define(anjuta_major_version,  2)
-m4_define(anjuta_minor_version, 2)
+m4_define(anjuta_minor_version, 3)
 m4_define(anjuta_micro_version,  0)
 m4_define(anjuta_version, anjuta_major_version.anjuta_minor_version.anjuta_micro_version)
 
@@ -1143,6 +1143,7 @@ plugins/tools/Makefile
 plugins/tools/scripts/Makefile
 plugins/class-inheritance/Makefile
 plugins/valgrind/Makefile
+plugins/language-manager/Makefile
 plugins/project-import/Makefile
 plugins/project-wizard/templates/Makefile
 plugins/project-wizard/templates/mkfile/Makefile

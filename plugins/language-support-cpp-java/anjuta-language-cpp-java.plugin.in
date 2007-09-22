@@ -7,5 +7,5 @@ Interfaces=IAnjutaLanguageSupport
 UserActivatable=no
 
 [Language Support]
-Languages=c,cpp,c++,java,Java
+Languages=C,C++
 MimeTypes=text/x-c,text/x-java-source

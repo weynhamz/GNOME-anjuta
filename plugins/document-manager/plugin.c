@@ -40,6 +40,7 @@
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-language-support.h>
+#include <libanjuta/interfaces/ianjuta-language.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 
@@ -1071,14 +1072,18 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 	DocmanPlugin *docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	
 	update_editor_ui (plugin, te);
-		
+	
+	/* Keep the language-support plugin for now as unloading/loading is
+	 * more expensive */
 	/* unload previous support plugins */
+#if 0
 	if (docman_plugin->support_plugins) {
 		g_list_foreach (docman_plugin->support_plugins,
 						(GFunc) anjuta_plugin_deactivate, NULL);
 		g_list_free (docman_plugin->support_plugins);
 		docman_plugin->support_plugins = NULL;
 	}
+#endif
 	
 	GValue value = {0, };
 	g_value_init (&value, G_TYPE_OBJECT);
@@ -1094,7 +1099,6 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 		DEBUG_PRINT("Beginning language support");
 		
 		AnjutaPluginManager *plugin_manager;
-		const gchar *language;
 		GList *support_plugin_descs, *node;
 		
 		update_status (docman_plugin, IANJUTA_EDITOR(te));
@@ -1102,7 +1106,24 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 		/* Load current language editor support plugins */
 		plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
 		if (IANJUTA_IS_EDITOR_LANGUAGE (te)) {
-			language = ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (te), NULL);
+			const gchar *language = NULL;
+			const gchar *editor_lang =
+				ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (te), NULL);
+			IAnjutaLanguage* lang_manager = anjuta_shell_get_interface (plugin->shell,
+																		IAnjutaLanguage,
+																		NULL);
+			if (lang_manager)
+			{
+				IAnjutaLanguageId id = 
+					ianjuta_language_get_from_string (lang_manager, editor_lang, NULL);
+				if (id)
+				{
+					language = ianjuta_language_get_name (lang_manager, id, NULL);
+					DEBUG_PRINT ("Selected language id %d: %s", id, language);
+				}
+			}
+			if (!language)
+				language = editor_lang;
 			support_plugin_descs = anjuta_plugin_manager_query (plugin_manager,
 																"Anjuta Plugin",
 																"Interfaces",

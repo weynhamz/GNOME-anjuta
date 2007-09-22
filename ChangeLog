@@ -1,3 +1,36 @@
+2007-09-23  Johannes Schmid,,,  <jhs@idefix>
+
+	reviewed by: <delete if not using a buddy>
+
+	* configure.in:
+	* libanjuta/anjuta-glue-factory.c: (load_plugin):
+	* libanjuta/anjuta-plugin-manager.c: (activate_plugin),
+	(plugin_set_update):
+	* plugins/Makefile.am:
+	* plugins/document-manager/plugin.c: (on_editor_changed):
+	* plugins/language-manager/Makefile.am:
+	* plugins/language-manager/language-manager.plugin.in:
+	* plugins/language-manager/languages.xml:
+	* plugins/language-manager/plugin.c: (language_destroy),
+	(load_languages), (language_manager_activate),
+	(language_manager_deactivate), (language_manager_finalize),
+	(language_manager_dispose), (language_manager_instance_init),
+	(language_manager_class_init), (language_manager_find_mime_type),
+	(language_manager_find_string), (ilanguage_get_from_mime_type),
+	(ilanguage_get_from_string), (ilanguage_get_name),
+	(ilanguage_get_strings), (ilanguage_iface_init):
+	* plugins/language-manager/plugin.h:
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin
+	.in:
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(cpp_java_assist_show_autocomplete):
+	* plugins/language-support-cpp-java/plugin.c: (install_support),
+	(uninstall_support), (cpp_java_plugin_deactivate_plugin):
+	* plugins/search/search-replace_backend.c: (get_next_match):
+	* plugins/sourceview/assist-tip.c: (assist_tip_set_tips):
+	* plugins/sourceview/sourceview-tags.c:
+	* plugins/sourceview/sourceview-tags.h:
+
 2007-09-22  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/search/search-replace_backend.c: (get_next_match):

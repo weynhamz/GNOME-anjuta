@@ -31,6 +31,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
+#include <libanjuta/interfaces/ianjuta-language.h>
 
 #include "plugin.h"
 #include "cpp-java-utils.h"
@@ -1117,21 +1118,32 @@ on_editor_char_inserted_java (IAnjutaEditor *editor,
 static void
 install_support (CppJavaPlugin *lang_plugin)
 {
+	const gchar* lang;
+	IAnjutaLanguageId id;
+	
+	IAnjutaLanguage* lang_manager =
+		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
+									IAnjutaLanguage, NULL);
+	
+	if (!lang_manager)
+		return;
+	
 	if (lang_plugin->support_installed)
 		return;
 	
-	lang_plugin->current_language
-		= ianjuta_editor_language_get_language
+	lang = ianjuta_editor_language_get_language
 					(IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor),
 											  NULL);
+	id = ianjuta_language_get_from_string (lang_manager, lang, NULL);
+	lang_plugin->current_language = 
+		ianjuta_language_get_name (lang_manager, id, NULL);
 	
 	DEBUG_PRINT("Language support intalled for: %s",
 				lang_plugin->current_language);
 	
 	if (lang_plugin->current_language &&
-		(strcasecmp (lang_plugin->current_language, "cpp") == 0
-		|| strcasecmp (lang_plugin->current_language, "c") == 0
-		|| strcasecmp (lang_plugin->current_language, "c++") == 0))
+		(g_str_equal (lang_plugin->current_language, "C")
+		|| g_str_equal (lang_plugin->current_language, "C++")))
 	{
 		g_signal_connect (lang_plugin->current_editor,
 						  "char-added",
@@ -1156,16 +1168,15 @@ install_support (CppJavaPlugin *lang_plugin)
 									 lang_plugin->prefs);
 			
 			/* Enable autocompletion action */
-			action = anjuta_ui_get_action (ui, "ActionGroupCppJavaAssist",
+			action = gtk_action_group_get_action (lang_plugin->action_group, 
 										   "ActionEditAutocomplete");
 			g_object_set (G_OBJECT (action), "visible", TRUE,
 						  "sensitive", TRUE, NULL);
 		}
 		initialize_indentation_params (lang_plugin);
 	}
-	else if (lang_plugin->current_language &&
-		(strcasecmp (lang_plugin->current_language, "java") == 0
-		|| strcasecmp (lang_plugin->current_language, "Java") == 0))
+	if (lang_plugin->current_language &&
+		(g_str_equal (lang_plugin->current_language, "Java")))
 	{
 		g_signal_connect (lang_plugin->current_editor,
 						  "char-added",
@@ -1216,7 +1227,7 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 		/* Disable autocompletion action */
 		plugin = ANJUTA_PLUGIN (lang_plugin);
 		ui = anjuta_shell_get_ui (plugin->shell, NULL);
-		action = anjuta_ui_get_action (ui, "ActionGroupCppJavaAssist",
+		action = gtk_action_group_get_action (lang_plugin->action_group,
 									   "ActionEditAutocomplete");
 		g_object_set (G_OBJECT (action), "visible", FALSE,
 					  "sensitive", FALSE, NULL);
@@ -1406,15 +1417,16 @@ cpp_java_plugin_deactivate_plugin (AnjutaPlugin *plugin)
 	CppJavaPlugin *lang_plugin;
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (plugin);
 	
+	anjuta_plugin_remove_watch (plugin,
+								lang_plugin->editor_watch_id,
+								TRUE);
+	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_unmerge (ui, lang_plugin->uiid);
 	anjuta_ui_remove_action_group (ui, lang_plugin->action_group);
 	
 	lang_plugin->action_group = NULL;
 	lang_plugin->uiid = 0;
-	anjuta_plugin_remove_watch (plugin,
-								lang_plugin->editor_watch_id,
-								TRUE);
 	DEBUG_PRINT ("AnjutaLanguageCppJavaPlugin: Deactivated plugin.");
 	return TRUE;
 }

@@ -101,6 +101,8 @@ assist_tip_set_tips (AssistTip* tip, GList* tips)
 	gtk_widget_show (tip->label);
 	g_free(text);
 	g_free(tip_text);
+	/* Make the window as small as possible */
+	gtk_window_resize (GTK_WINDOW (tip), 1, 1);
 }
 
 /* Return a tuple containing the (x, y) position of the cursor + 1 line */

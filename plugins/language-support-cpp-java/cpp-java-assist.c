@@ -314,7 +314,7 @@ cpp_java_assist_show_autocomplete (CppJavaAssist *assist,
 	if (assist->priv->completion_cache->cache)
 		completion_list = assist->priv->completion_cache->cache;
 	else
-		completion_list = assist->priv->completion_cache->items;
+		return FALSE;
 	
 	length = g_list_length (completion_list);
 	if (length <= max_completions)
