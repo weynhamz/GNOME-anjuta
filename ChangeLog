@@ -1,3 +1,8 @@
+2007-09-22  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	Fixed build error
+
 2007-09-21  Naba Kumar  <naba.kumar@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c:
