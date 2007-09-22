@@ -1,5 +1,14 @@
 2007-09-22  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/search/search-replace_backend.c: (get_next_match):
+	Removed code introduced by accident that causes a crash.
+	
+	* plugins/sourceview/sourceview-tags.c:
+	* plugins/sourceview/sourceview-tags.h:
+	Removed ununsed files
+
+2007-09-22  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/language-support-cpp-java/cpp-java-assist.c:
 	Fixed build error
 
