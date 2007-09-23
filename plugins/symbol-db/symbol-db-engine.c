@@ -2865,6 +2865,8 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	GdaParameterList *par_list;
 	GdaParameter *param;
 
+	g_return_val_if_fail (G_VALUE_HOLDS_STRING (token_value), FALSE);
+	
 	tmp_str = g_value_get_string (token_value);
 
 	/* we don't need empty strings */

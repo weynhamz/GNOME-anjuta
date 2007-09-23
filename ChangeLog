@@ -1,5 +1,28 @@
 2007-09-23  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/anjuta-plugin-manager.c: (plugin_set_update):
+	Fixed typp
+	
+	* plugins/language-manager/language-manager.plugin.in:
+	Marked UserActivatable=FALSE
+	
+	* plugins/language-manager/plugin.c: (load_languages),
+	(language_manager_activate), (language_manager_deactivate),
+	(language_manager_dispose), (language_manager_instance_init),
+	(language_manager_find_mime_type), (language_manager_find_string),
+	(ilanguage_get_from_mime_type), (ilanguage_get_from_string),
+	(ilanguage_get_name), (ilanguage_get_strings):
+	
+	Fixed various stupid bugs in language-manager plugin
+	
+	* plugins/symbol-db/symbol-db-engine.c:
+	(sdb_engine_second_pass_update_scope_1):
+	
+	Add a g_return_if_fail to avoid a crash though still unsure
+	what's causing it.
+
+2007-09-23  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/symbol-db/plugin.c: (on_project_element_added),
 	(sources_array_free), (sources_array_add_foreach),
 	(project_root_added):

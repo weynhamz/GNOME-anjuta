@@ -795,7 +795,7 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 				{
 					if (error)
 					{
-						gchar* message = g_strdup_printf (_("Could not %s\n"
+						gchar* message = g_strdup_printf (_("Could not load %s\n"
 							"This usually means that your installation is corrupted. The "
 							"error message leading to this was:\n%s"), 
 														  anjuta_plugin_handle_get_name (selected_plugin),

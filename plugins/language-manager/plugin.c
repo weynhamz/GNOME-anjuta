@@ -117,7 +117,7 @@ load_languages (LanguageManager* language_manager)
 			}
 			g_strfreev(stringsv);
 			
-			g_hash_table_insert (language_manager->languages, &lang->id, lang);
+			g_hash_table_insert (language_manager->languages, GINT_TO_POINTER(lang->id), lang);
 		}
 		else
 		{
@@ -133,26 +133,26 @@ load_languages (LanguageManager* language_manager)
 static gboolean
 language_manager_activate (AnjutaPlugin *plugin)
 {
-
-
 	LanguageManager *language_manager;
 	
 	DEBUG_PRINT ("LanguageManager: Activating LanguageManager plugin ...");
 	language_manager = (LanguageManager*) plugin;
 	
 	load_languages(language_manager);
+	
+	DEBUG_PRINT ("%i", ianjuta_language_get_from_string (IANJUTA_LANGUAGE(plugin), "C", NULL));
+	DEBUG_PRINT ("%i", ianjuta_language_get_from_string (IANJUTA_LANGUAGE(plugin), "C++", NULL));
+	DEBUG_PRINT ("%i", ianjuta_language_get_from_string (IANJUTA_LANGUAGE(plugin), "Java", NULL));
+	DEBUG_PRINT ("%i", ianjuta_language_get_from_string (IANJUTA_LANGUAGE(plugin), "C#", NULL));
+	
 
 	return TRUE;
 }
 
 static gboolean
 language_manager_deactivate (AnjutaPlugin *plugin)
-{
-	LanguageManager* lang = LANGUAGE_MANAGER (plugin);
-	
+{	
 	DEBUG_PRINT ("LanguageManager: Dectivating LanguageManager plugin ...");
-	
-	g_hash_table_unref (lang->languages);
 	
 	return TRUE;
 }
@@ -168,6 +168,9 @@ static void
 language_manager_dispose (GObject *obj)
 {
 	/* Disposition codes */
+	LanguageManager* lang = LANGUAGE_MANAGER (obj);
+	
+	g_hash_table_unref (lang->languages);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
 
@@ -175,7 +178,7 @@ static void
 language_manager_instance_init (GObject *obj)
 {
 	LanguageManager *plugin = (LanguageManager*)obj;
-	plugin->languages = g_hash_table_new_full (g_int_hash, g_int_equal,
+	plugin->languages = g_hash_table_new_full (NULL, NULL,
 											   NULL, language_destroy);
 
 }
@@ -197,30 +200,31 @@ typedef struct
 {
 	LanguageManager* lang;
 	const gchar* target;
-	Language* result;
+	IAnjutaLanguageId result_id;
 	gboolean found;
 } LangData;
 
 static void
-language_manager_find_mime_type (int* key, Language* language, LangData* data)
+language_manager_find_mime_type (gpointer key, Language* language, LangData* data)
 {
 	if (data->found)
 		return;
 	if (g_list_find_custom (language->mime_types, data->target, (GCompareFunc) strcmp))
 	{
-		data->result = language;
+		data->result_id = language->id;
 		data->found = TRUE;
 	}
 }
 
 static void
-language_manager_find_string (int* key, Language* language, LangData* data)
+language_manager_find_string (gpointer key, Language* language, LangData* data)
 {
 	if (data->found)
 		return;
 	if (g_list_find_custom (language->strings, data->target, (GCompareFunc) g_ascii_strcasecmp))
 	{
-		data->result = language;
+		DEBUG_PRINT ("Found language %i: %s", language->id, language->name);
+		data->result_id = language->id;
 		data->found = TRUE;
 	}
 }
@@ -229,15 +233,15 @@ static IAnjutaLanguageId
 ilanguage_get_from_mime_type (IAnjutaLanguage* ilang, const gchar* mime_type, GError** e)
 {
 	if (!mime_type)
-		return;
+		return 0;
 	LanguageManager* lang = LANGUAGE_MANAGER(ilang);
 	LangData* data = g_new0(LangData, 1);
 	IAnjutaLanguageId ret_id;
 	data->target = mime_type;
 	g_hash_table_foreach (lang->languages, (GHFunc)language_manager_find_mime_type, data);
-	if (data->result)
+	if (data->found)
 	{
-		ret_id = data->result->id;
+		ret_id = data->result_id;
 	}
 	else
 		ret_id = 0;
@@ -249,15 +253,15 @@ static IAnjutaLanguageId
 ilanguage_get_from_string (IAnjutaLanguage* ilang, const gchar* string, GError** e)
 {
 	if (!string)
-		return;
+		return 0;
 	LanguageManager* lang = LANGUAGE_MANAGER(ilang);
 	LangData* data = g_new0(LangData, 1);
 	IAnjutaLanguageId ret_id;
 	data->target = string;
 	g_hash_table_foreach (lang->languages, (GHFunc)language_manager_find_string, data);
-	if (data->result)
+	if (data->found)
 	{
-		ret_id = data->result->id;
+		ret_id = data->result_id;
 	}
 	else
 		ret_id = 0;
@@ -270,7 +274,7 @@ ilanguage_get_name (IAnjutaLanguage* ilang, IAnjutaLanguageId id, GError** e)
 {
 	LanguageManager* lang = LANGUAGE_MANAGER(ilang);
 	Language* language = g_hash_table_lookup (lang->languages,
-											   &id);
+											   GINT_TO_POINTER(id));
 	if (language)
 		return language->name;
 	else
@@ -282,7 +286,7 @@ ilanguage_get_strings (IAnjutaLanguage* ilang, IAnjutaLanguageId id, GError** e)
 {
 	LanguageManager* lang = LANGUAGE_MANAGER(ilang);
 	Language* language = g_hash_table_lookup (lang->languages,
-											   &id);
+											   GINT_TO_POINTER(id));
 	if (language)
 		return language->strings;
 	else
