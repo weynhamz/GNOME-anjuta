@@ -73,6 +73,9 @@ file_model_refresh (FileModel* model);
 gchar*
 file_model_get_uri (FileModel* model, GtkTreeIter* iter);
 
+gchar*
+file_model_get_filename (FileModel* model, GtkTreeIter* iter);
+
 G_END_DECLS
 
 #endif /* _FILE_MODEL_H_ */

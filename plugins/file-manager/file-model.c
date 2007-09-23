@@ -368,3 +368,12 @@ file_model_get_uri (FileModel* model, GtkTreeIter* iter)
 	
 	return uri;
 }
+
+gchar*
+file_model_get_filename (FileModel* model, GtkTreeIter* iter)
+{
+	gchar* filename;
+	gtk_tree_model_get (GTK_TREE_MODEL (model), iter, COLUMN_FILENAME, &filename, -1);
+	
+	return filename;
+}

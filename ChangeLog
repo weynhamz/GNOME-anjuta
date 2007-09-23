@@ -1,7 +1,21 @@
 2007-09-23  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/file-manager/file-model.c: (file_model_get_filename):
+	* plugins/file-manager/file-model.h:
+	* plugins/file-manager/file-view.c: (file_view_query_tooltip),
+	(file_view_init), (file_view_class_init):
+	* plugins/message-view/message-view.c:
+	(message_view_query_tooltip), (message_view_dispose),
+	(message_view_instance_init), (message_view_class_init):
+
+	Added GTK+ 2.12 style tooltips to file-manager and message view.
+	Only build if GTK+ 2.12 is availible otherwise for message-view, the
+	old implementation is used.
+
+2007-09-23  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-plugin-manager.c: (plugin_set_update):
-	Fixed typp
+	Fixed typo
 	
 	* plugins/language-manager/language-manager.plugin.in:
 	Marked UserActivatable=FALSE

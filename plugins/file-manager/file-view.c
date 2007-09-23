@@ -31,7 +31,9 @@
 #include <gtk/gtkcellrendererprogress.h>
 #include <gtk/gtktreestore.h>
 #include <gtk/gtktreemodelsort.h>
+#include <gtk/gtkversion.h>
 
+#define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
 #include <glib/gi18n.h>
 
 #include <libanjuta/anjuta-debug.h>
@@ -253,6 +255,35 @@ file_view_selection_changed (GtkTreeSelection* selection, AnjutaFileView* view)
 	}
 }
 
+#if HAVE_TOOLTIP_API
+static gboolean
+file_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
+						 GtkTooltip* tooltip)
+{
+	AnjutaFileView* view = ANJUTA_FILE_VIEW (widget);
+	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
+	GtkTreeModel* model = GTK_TREE_MODEL (priv->model);
+	GtkTreePath* path;
+	GtkTreeIter iter;
+	
+	gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(view),
+								   x, y, &path, NULL, NULL, NULL);
+	if (path)
+	{
+		if (gtk_tree_model_get_iter (model, &iter, path))
+		{
+			gchar* filename = file_model_get_filename (priv->model, &iter);
+			gtk_tooltip_set_markup (tooltip, filename);
+			g_free(filename);
+			gtk_tree_path_free (path);
+			return TRUE;
+		}
+		gtk_tree_path_free (path);
+	}
+	return FALSE;
+}
+#endif
+		
 static void
 file_view_init (AnjutaFileView *object)
 {
@@ -290,6 +321,10 @@ file_view_init (AnjutaFileView *object)
 					  G_CALLBACK (file_view_selection_changed), object);
 	
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (object), FALSE);
+	
+#if HAVE_TOOLTIP_API
+	g_object_set (object, "has-tooltip", TRUE, NULL);
+#endif
 }
 
 static void
@@ -397,6 +432,12 @@ file_view_class_init (AnjutaFileViewClass *klass)
 				  NULL);
 	
 	widget_class->button_press_event = file_view_button_press_event;
+	
+	/* Tooltips */
+#if HAVE_TOOLTIP_API
+	widget_class->query_tooltip = file_view_query_tooltip;
+#endif
+	
 }
 
 GtkWidget*

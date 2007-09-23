@@ -24,6 +24,8 @@
 #include "message-view.h"
 #define MESSAGE_TYPE message_get_type()
 
+#define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
+
 struct _MessageViewPrivate
 {
 	//guint num_messages;
@@ -41,10 +43,12 @@ struct _MessageViewPrivate
 	gchar *pixmap;
 	gboolean highlite;
 	
+#if !HAVE_TOOLTIP_API
 	GdkRectangle tooltip_rect;
 	GtkWidget *tooltip_window;
 	gulong tooltip_timeout;
 	PangoLayout *tooltip_layout;
+#endif
 	
 	/* gconf notification ids */
 	GList *gconf_notify_ids;
@@ -217,6 +221,49 @@ escape_string (const gchar *str)
 	return g_string_free (gstr, FALSE);
 }
 
+#if HAVE_TOOLTIP_API
+static gboolean
+message_view_query_tooltip (GtkWidget* widget, gint x, gint y, gboolean keyboard,
+						 GtkTooltip* tooltip)
+{
+	GtkTreePath *path;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	MessageView* view = MESSAGE_VIEW(widget);
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (view->privat->tree_view));
+	
+	if (gtk_tree_view_get_path_at_pos (GTK_TREE_VIEW(view->privat->tree_view),
+		x, y, &path, NULL, NULL, NULL))
+	{
+		Message *message;
+		gchar *text, *title, *desc;
+		
+		gtk_tree_model_get_iter (model, &iter, path);
+		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE, &message, -1); 
+		gtk_tree_path_free(path);
+		
+		if (!message->details || !message->summary ||
+			strlen (message->details) <= 0 ||
+			strlen (message->summary) <= 0)
+			return FALSE;
+		
+		title = escape_string (message->summary);
+		desc = escape_string (message->details);
+		text = g_strdup_printf ("<b>%s</b>\n%s", title, desc);
+		
+		g_free (title);
+		g_free (desc);
+		
+		gtk_tooltip_set_markup (tooltip, text);
+		g_free (text);
+		return TRUE;
+	}
+	return FALSE;
+}
+#endif
+
+#if !HAVE_TOOLTIP_API
 /* Tooltip operations -- taken from gtodo */
 
 static gchar *
@@ -430,6 +477,8 @@ tooltip_leave_cb (GtkWidget *w, GdkEventCrossing *e, MessageView *view)
 		view->privat->tooltip_window = NULL;
 	}
 }
+#endif
+
 
 /* MessageView signal callbacks */
 /* Send a signal if a message was double-clicked or ENTER or SPACE was pressed */
@@ -603,15 +652,18 @@ message_view_dispose (GObject *obj)
 		prefs_finalize (mview);
 		mview->privat->gconf_notify_ids = NULL;
 	}
+#if !HAVE_TOOLTIP_API
 	if (mview->privat->tooltip_timeout) {
 		g_source_remove (mview->privat->tooltip_timeout);
 		mview->privat->tooltip_timeout = 0;
 	}
+
 	if (mview->privat->tooltip_window) {
 		gtk_widget_destroy (mview->privat->tooltip_window);
 		g_object_unref (mview->privat->tooltip_layout);
 		mview->privat->tooltip_window = NULL;
 	}
+#endif
 	if (mview->privat->tree_view)
 	{
 		mview->privat->tree_view = NULL;
@@ -707,10 +759,14 @@ message_view_instance_init (MessageView * self)
 	/* Connect signals */
 	g_signal_connect (G_OBJECT(self->privat->tree_view), "event", 
 					  G_CALLBACK (on_message_event), self);
+#if !HAVE_TOOLTIP_API
 	g_signal_connect (G_OBJECT (self->privat->tree_view), "motion-notify-event",
 					  G_CALLBACK (tooltip_motion_cb), self);
 	g_signal_connect (G_OBJECT (self->privat->tree_view), "leave-notify-event",
 					  G_CALLBACK (tooltip_leave_cb), self);
+#else
+	g_object_set (G_OBJECT(self), "has-tooltip", TRUE, NULL);
+#endif
 	g_object_unref (model);
 }
 
@@ -721,12 +777,17 @@ message_view_class_init (MessageViewClass * klass)
 	GParamSpec *message_view_spec_pixmap;
 	GParamSpec *message_view_spec_highlite;
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+	GtkWidgetClass* widget_class = GTK_WIDGET_CLASS (klass);
 	
 	parent_class = g_type_class_peek_parent (klass);
 	gobject_class->set_property = message_view_set_property;
 	gobject_class->get_property = message_view_get_property;
 	gobject_class->finalize = message_view_finalize;
 	gobject_class->dispose = message_view_dispose;
+	
+#if HAVE_TOOLTIP_API
+	widget_class->query_tooltip = message_view_query_tooltip;
+#endif
 	
 	message_view_spec_label = g_param_spec_string ("label",
 						       "Label of the view",
