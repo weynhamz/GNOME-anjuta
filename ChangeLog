@@ -1,3 +1,15 @@
+2007-09-23  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/symbol-db/plugin.c: (on_project_element_added),
+	(sources_array_free), (sources_array_add_foreach),
+	(project_root_added):
+	* plugins/symbol-db/symbol-db-engine.c:
+	(symbol_db_engine_add_new_files):
+	* plugins/symbol-db/symbol-db-engine.h:
+	
+	Added support for other languages than "C" to symbol-db. Now
+	supports all languages listed by the language-manager.
+
 2007-09-23  Tom <tpgww@onepost.net>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org> (with small changes)

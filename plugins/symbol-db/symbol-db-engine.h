@@ -149,9 +149,9 @@ symbol_db_engine_close_project (SymbolDBEngine *dbe, gchar* project_name);
  *        it must be something like /path/to/my/foo/file.xyz
  */
 gboolean 
-symbol_db_engine_add_new_files (SymbolDBEngine *dbe, gchar* project,
+symbol_db_engine_add_new_files (SymbolDBEngine *dbe, const gchar* project,
 							    const GPtrArray *files_path,
-								gchar *language, gboolean scan_symbols);
+								const gchar *language, gboolean scan_symbols);
 
 /**
  * Update symbols of the whole project. It scans all file symbols etc. 

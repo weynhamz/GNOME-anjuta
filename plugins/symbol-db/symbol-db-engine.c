@@ -2052,8 +2052,8 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 }
 
 gboolean
-symbol_db_engine_add_new_files (SymbolDBEngine * dbe, gchar * project,
-								const GPtrArray * files_path, gchar * language,
+symbol_db_engine_add_new_files (SymbolDBEngine * dbe, const gchar * project,
+								const GPtrArray * files_path, const gchar * language,
 								gboolean scan_symbols)
 {
 	gint i;
