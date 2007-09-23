@@ -75,8 +75,8 @@ libanjuta_debug_manager_la_SOURCES = \
 	memory.h \
 	info.c \
 	info.h \
-	debugger.c \
-	debugger.h \
+	queue.c \
+	queue.h \
 	data_view.c \
 	data_view.h \
 	chunk_view.c \
@@ -92,7 +92,9 @@ libanjuta_debug_manager_la_SOURCES = \
 	sparse_view.c \
 	sparse_view.h \
 	threads.c \
-	threads.h
+	threads.h \
+	command.c \
+	command.h
 
 EXTRA_DIST = \
 	$(plugin_pixmaps_DATA) \

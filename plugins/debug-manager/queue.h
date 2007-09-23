@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    debugger.h
+    queue.h
     Copyright (C) 2005 Sébastien Granjoux
 
     This program is free software; you can redistribute it and/or modify
@@ -18,20 +18,19 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef DEBUGGER_H
-#define DEBUGGER_H
+#ifndef QUEUE_H
+#define QUEUE_H
 
 /*---------------------------------------------------------------------------*/
 
 #include "plugin.h"
 
-#include <libanjuta/interfaces/ianjuta-debugger.h>
-#include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
+#include "command.h"
+
 #include <libanjuta/anjuta-plugin.h>
 
 #include <glib.h>
 
-typedef struct _DmaDebuggerQueue        DmaDebuggerQueue;
 typedef struct _DmaDebuggerQueueClass   DmaDebuggerQueueClass;
 
 #define DMA_DEBUGGER_QUEUE_TYPE            (dma_debugger_queue_get_type ())
@@ -45,9 +44,13 @@ GType dma_debugger_queue_get_type (void);
 DmaDebuggerQueue *dma_debugger_queue_new (AnjutaPlugin *plugin);
 void dma_debugger_queue_free (DmaDebuggerQueue *this);
 
-void dma_debugger_message (DmaDebuggerQueue *this, const gchar* message);
-void dma_debugger_info (DmaDebuggerQueue *this, const gchar* message);
-void dma_debugger_warning (DmaDebuggerQueue *this, const gchar* message);
-void dma_debugger_error (DmaDebuggerQueue *this, const gchar* message);
+gboolean dma_debugger_queue_append (DmaDebuggerQueue *self, DmaQueueCommand *cmd);
+
+gboolean dma_debugger_queue_start (DmaDebuggerQueue *self, const gchar *mime_type);
+void dma_debugger_queue_stop (DmaDebuggerQueue *self);
+void dma_debugger_queue_enable_log (DmaDebuggerQueue *self, IAnjutaMessageView *log);
+void dma_debugger_queue_disable_log (DmaDebuggerQueue *self);
+
+IAnjutaDebuggerState dma_debugger_queue_get_state (DmaDebuggerQueue *self);
 
 #endif

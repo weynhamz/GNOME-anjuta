@@ -37,6 +37,7 @@
 
 #include "utilities.h"
 #include "info.h"
+#include "queue.h"
 
 #define ANJUTA_PIXMAP_POINTER PACKAGE_PIXMAPS_DIR"/pointer.png"
 
@@ -50,7 +51,7 @@ typedef struct _DmaThreadStackTrace
 struct _StackTrace
 {
 	DebugManagerPlugin *plugin;
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	
 	GtkActionGroup *action_group;
 	
@@ -339,11 +340,10 @@ dma_thread_create_new_stack_trace (StackTrace *self, gint thread)
 	self->current = trace;
 		
 	/* Ask debugger to get all frame data */
-	ianjuta_debugger_list_frame (
+	dma_queue_list_frame (
 			self->debugger,
 			(IAnjutaDebuggerCallback)on_stack_trace_updated,
-			self,
-			NULL);
+			self);
 	
 	self->list = g_list_append (self->list, trace);
 	
@@ -353,16 +353,13 @@ dma_thread_create_new_stack_trace (StackTrace *self, gint thread)
 static DmaThreadStackTrace*
 dma_thread_update_stack_trace (StackTrace *self, DmaThreadStackTrace *trace)
 {
-	GtkListStore *store;
-	
 	trace->last_update = self->current_update;
 	
 	/* Ask debugger to get all frame data */
-	ianjuta_debugger_list_frame (
+	dma_queue_list_frame (
 			self->debugger,
 			(IAnjutaDebuggerCallback)on_stack_trace_updated,
-			self,
-			NULL);
+			self);
 	
 	return trace;
 }
@@ -468,7 +465,7 @@ on_stack_frame_set_activate (GtkAction *action, gpointer user_data)
 		return;
 	
 	/* issue a command to switch active frame to new location */
-	ianjuta_debugger_set_frame (st->debugger, selected_frame, NULL);
+	dma_queue_set_frame (st->debugger, selected_frame);
 }
 
 static void
@@ -705,8 +702,7 @@ static void
 on_program_moved (StackTrace *self, guint pid, gint thread)
 {
 	self->current_update++;
-	if (ianjuta_debugger_get_status (self->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_STOPPED)
-		dma_thread_set_stack_trace (self, thread);
+	dma_thread_set_stack_trace (self, thread);
 }
 
 static void
@@ -730,7 +726,7 @@ on_debugger_stopped (StackTrace *self)
  *---------------------------------------------------------------------------*/
 
 StackTrace *
-stack_trace_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin)
+stack_trace_new (DebugManagerPlugin *plugin)
 {
 	StackTrace *st;
 	AnjutaUI *ui;
@@ -739,8 +735,7 @@ stack_trace_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin)
 	if (st == NULL) return NULL;
 
 	st->plugin = plugin;
-	st->debugger = debugger;
-	if (debugger != NULL) g_object_ref (debugger);
+	st->debugger = dma_debug_manager_get_queue (plugin);
 
 	/* Register actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(st->plugin)->shell, NULL);
@@ -751,10 +746,10 @@ stack_trace_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin)
 											G_N_ELEMENTS (actions_stack_trace),
 											GETTEXT_PACKAGE, TRUE, st);
 
-	g_signal_connect_swapped (st->debugger, "debugger-started", G_CALLBACK (on_debugger_started), st);
-	g_signal_connect_swapped (st->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), st);
-	g_signal_connect_swapped (st->debugger, "program-moved", G_CALLBACK (on_program_moved), st);
-	g_signal_connect_swapped (st->debugger, "frame-changed", G_CALLBACK (on_frame_changed), st);
+	g_signal_connect_swapped (st->plugin, "debugger-started", G_CALLBACK (on_debugger_started), st);
+	g_signal_connect_swapped (st->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), st);
+	g_signal_connect_swapped (st->plugin, "program-moved", G_CALLBACK (on_program_moved), st);
+	g_signal_connect_swapped (st->plugin, "frame-changed", G_CALLBACK (on_frame_changed), st);
 	
 	return st;
 }
@@ -769,11 +764,10 @@ stack_trace_free (StackTrace * st)
 	/* Disconnect from debugger */
 	if (st->debugger != NULL)
 	{	
-		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_debugger_started), st);
-		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_debugger_stopped), st);
-		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_program_moved), st);
-		g_signal_handlers_disconnect_by_func (st->debugger, G_CALLBACK (on_frame_changed), st);
-		g_object_unref (st->debugger);	
+		g_signal_handlers_disconnect_by_func (st->plugin, G_CALLBACK (on_debugger_started), st);
+		g_signal_handlers_disconnect_by_func (st->plugin, G_CALLBACK (on_debugger_stopped), st);
+		g_signal_handlers_disconnect_by_func (st->plugin, G_CALLBACK (on_program_moved), st);
+		g_signal_handlers_disconnect_by_func (st->plugin, G_CALLBACK (on_frame_changed), st);
 	}
 
 	/* Remove menu actions */

@@ -23,13 +23,15 @@
 
 G_BEGIN_DECLS
 
+#include "plugin.h"
+
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
 
 typedef struct _DmaMemory DmaMemory;
 
-DmaMemory* dma_memory_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger);
+DmaMemory* dma_memory_new (DebugManagerPlugin *plugin);
 void dma_memory_free(DmaMemory *this);
 
 G_END_DECLS

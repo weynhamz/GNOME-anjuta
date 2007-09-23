@@ -23,7 +23,6 @@
 #include "watch.h"
 
 #include "debug_tree.h"
-#include "plugin.h"
 
 /*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
@@ -40,7 +39,7 @@ struct _ExprWatch
 	
 	GtkWidget *scrolledwindow;
 	DebugTree *debug_tree;	
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	
 	/* Menu action */
 	GtkActionGroup *action_group;
@@ -464,10 +463,9 @@ expr_watch_cmd_queqe (ExprWatch *ew)
 }
 
 void
-expr_watch_connect (ExprWatch *ew, IAnjutaDebugger *debugger)
+expr_watch_connect (ExprWatch *ew)
 {
-	ew->debugger = debugger;
-	debug_tree_connect (ew->debug_tree, debugger);
+	debug_tree_connect (ew->debug_tree, ew->debugger);
 }
 
 /* Callback for saving session
@@ -506,24 +504,23 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
  *---------------------------------------------------------------------------*/
 
 ExprWatch *
-expr_watch_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger)
+expr_watch_new (AnjutaPlugin *plugin)
 {
 	ExprWatch *ew;
 
 	ew = g_new0 (ExprWatch, 1);
 	ew->plugin = plugin;
 	create_expr_watch_gui (ew);
-	g_object_ref (debugger);
-	ew->debugger = debugger;
+	ew->debugger = dma_debug_manager_get_queue (ANJUTA_PLUGIN_DEBUG_MANAGER (plugin));
 
 	/* Connect to Load and Save event */
-	g_signal_connect (plugin->shell, "save-session",
+	g_signal_connect (ew->plugin->shell, "save-session",
 					  G_CALLBACK (on_session_save), ew);
-    	g_signal_connect (plugin->shell, "load-session",
+    	g_signal_connect (ew->plugin->shell, "load-session",
 					  G_CALLBACK (on_session_load), ew);
 	
 	/* Add watch window */
-	anjuta_shell_add_widget (plugin->shell,
+	anjuta_shell_add_widget (ew->plugin->shell,
 							 ew->scrolledwindow,
                              "AnjutaDebuggerWatch", _("Watches"),
                              "gdb-watch-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,

@@ -23,6 +23,8 @@
 
 #include "threads.h"
 
+#include "queue.h"
+
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>
@@ -43,7 +45,7 @@
 struct _DmaThreads
 {
 	DebugManagerPlugin *plugin;
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 
 	/* GUI */
 	GtkWidget *scrolledwindow;
@@ -140,7 +142,7 @@ on_threads_set_activate (GtkAction *action, gpointer user_data)
 		return;
 	
 	/* issue a command to switch active frame to new location */
-	ianjuta_debugger_set_thread (self->debugger, selected_thread, NULL);
+	dma_queue_set_thread (self->debugger, selected_thread);
 }
 
 static void
@@ -296,11 +298,10 @@ on_list_thread (const GList *threads, gpointer user_data)
 			reference = gtk_tree_row_reference_new (GTK_TREE_MODEL (model), path);
 			gtk_tree_path_free (path);
 			
-			ianjuta_debugger_info_thread (
+			dma_queue_info_thread (
 				self->debugger, frame->thread,
 				(IAnjutaDebuggerCallback)on_info_thread,
-				reference,
-				NULL);
+				reference);
 			
 			gtk_list_store_set(model, &iter, 
 						   	THREAD_ACTIVE_COLUMN, pic,
@@ -343,11 +344,10 @@ on_list_thread (const GList *threads, gpointer user_data)
 static void
 dma_threads_update (DmaThreads *self)
 {
-	ianjuta_debugger_list_thread (
+	dma_queue_list_thread (
 			self->debugger,
 			(IAnjutaDebuggerCallback)on_list_thread,
-			self,
-			NULL);
+			self);
 }
 
 /* Actions table
@@ -497,8 +497,7 @@ static void
 on_program_moved (DmaThreads *self, guint pid, gint thread)
 {
 	self->current_thread = thread;
-	if (ianjuta_debugger_get_status (self->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_STOPPED)
-		dma_threads_update (self);
+	dma_threads_update (self);
 }
 
 static void
@@ -565,7 +564,7 @@ on_frame_changed (DmaThreads *self, guint frame, gint thread)
  *---------------------------------------------------------------------------*/
 
 DmaThreads*
-dma_threads_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin)
+dma_threads_new (DebugManagerPlugin *plugin)
 {
 	DmaThreads* self;
 	AnjutaUI *ui;
@@ -574,8 +573,7 @@ dma_threads_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin)
 	g_return_val_if_fail (self != NULL, NULL);
 
 	self->plugin = plugin;
-	self->debugger = debugger;
-	if (debugger != NULL) g_object_ref (debugger);
+	self->debugger = dma_debug_manager_get_queue (plugin);
 
 	/* Register actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(self->plugin)->shell, NULL);
@@ -588,10 +586,10 @@ dma_threads_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin)
 											GETTEXT_PACKAGE, TRUE, self);
 	DEBUG_PRINT("add actions end");
 
-	g_signal_connect_swapped (self->debugger, "debugger-started", G_CALLBACK (on_debugger_started), self);
-	g_signal_connect_swapped (self->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
-	g_signal_connect_swapped (self->debugger, "program-moved", G_CALLBACK (on_program_moved), self);
-	g_signal_connect_swapped (self->debugger, "frame-changed", G_CALLBACK (on_frame_changed), self);
+	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_debugger_started), self);
+	g_signal_connect_swapped (self->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
+	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
+	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
 	
 	return self;
 }
@@ -606,11 +604,10 @@ dma_threads_free (DmaThreads *self)
 	/* Disconnect from debugger */
 	if (self->debugger != NULL)
 	{	
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_started), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_stopped), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_program_moved), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_frame_changed), self);
-		g_object_unref (self->debugger);	
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_started), self);
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_stopped), self);
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_frame_changed), self);
 	}
 
 	/* Remove menu actions */

@@ -2667,13 +2667,6 @@ interface IAnjutaDebugger
 
 	enum State
 	{
-		UNDEFINED = -1,
-		NO = 0,
-		YES = 1	
-	}	
-
-	enum Status
-	{
 		BUSY,
 		STOPPED,
 		STARTED,
@@ -2872,11 +2865,11 @@ interface IAnjutaDebugger
 	* 
 	* fixme
 	*/
-	void ::debugger_ready (Status status);
+	void ::debugger_ready (State state);
 
 	
 	/**
-	* ianjuta_debugger_get_status:
+	* ianjuta_debugger_get_state:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
@@ -2884,7 +2877,8 @@ interface IAnjutaDebugger
 	*
 	* Returns: fixme
 	*/
-	Status get_status ();	
+	State get_state ();	
+
 
 	
 	/**
@@ -3676,6 +3670,98 @@ interface IAnjutaDebugManager
 	#include "ianjuta-debugger.h"
 
 	/* Signals */
+
+	/**
+	* IAnjutaDebugger::debugger_started:
+	* @obj: Self
+	* 
+	* fixme
+	*/
+	void ::debugger_started ();
+
+	/**
+	* IAnjutaDebugger::debugger_stopped:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* fixme
+	*/
+	void ::debugger_stopped (GError *err);
+
+	/**
+	* IAnjutaDebugger::program_loaded:
+	* @obj: Self
+	* 
+	* fixme
+	*/
+	void ::program_loaded ();
+
+	/**
+	* IAnjutaDebugger::program_running:
+	* @obj: Self
+	* 
+	* fixme
+	*/
+	void ::program_running ();
+
+	/**
+	* IAnjutaDebugger::program_stopped:
+	* @obj: Self
+	* 
+	* fixme
+	*/
+	void ::program_stopped ();	
+
+	/**
+	* IAnjutaDebugger::program_exited:
+	* @obj: Self
+	* 
+	* fixme
+	*/
+	void ::program_exited ();
+
+	/**
+	* IAnjutaDebugger::sharedlib_event:
+	* @obj: Self
+	* 
+	* fixme
+	*/
+	void ::sharedlib_event ();
+
+	/**
+	* IAnjutaDebugger::program_moved:
+	* @obj: Self
+ 	* @pid: process id, 0 when unknown
+	* @tid: thread id, 0 when unknown
+	* @address: program counter address, 0 when unknown
+	* @file: source file where is the program counter, NULL when unknown
+	* @line: line number if file name above is not NULL
+	* 
+	* This signal is emitted when the debugger know the current program 
+	* location. Most of the time, after the program has stopped but it
+	* could happen even if it is still running.
+	*/
+	void ::program_moved (gint pid, gint tid, guint address, const gchar* file, guint line);	
+
+	/**
+	* IAnjutaDebugger::frame_changed:
+	* @obj: Self
+	* @frame: fixme
+	* @thread: thread
+	* 
+	* fixme
+	*/
+	void ::frame_changed (guint frame, gint thread);	
+
+	/**
+	* IAnjutaDebugger::signal_received:
+	* @obj: Self
+	* @name: Signal name
+	* @description: Signal description
+	* 
+	* fixme
+	*/
+	void ::signal_received (const gchar* name, const gchar* description);	
 
 	/**
 	* IAnjutaDebugManager::breakpoint_changed:

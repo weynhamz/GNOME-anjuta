@@ -34,6 +34,7 @@
 
 #include "data_view.h"
 #include "plugin.h"
+#include "queue.h"
 
 /* Constants
  *---------------------------------------------------------------------------*/
@@ -43,7 +44,7 @@
 
 struct _DmaMemory
 {
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	AnjutaPlugin *plugin;
 	GtkWidget *window;
 	DmaDataBuffer *buffer;
@@ -101,13 +102,12 @@ read_memory_block (gulong address, gulong length, gpointer user_data)
 	
 	if (mem->debugger != NULL)
 	{	
-		ianjuta_cpu_debugger_inspect_memory (
-				IANJUTA_CPU_DEBUGGER (mem->debugger),
+		dma_queue_inspect_memory (
+				mem->debugger,
 				(guint)address,
 				(guint)length,
 				(IAnjutaDebuggerCallback)on_memory_block_read,
-				mem,
-				NULL);
+				mem);
 	}
 }
 
@@ -177,20 +177,19 @@ on_debugger_stopped (DmaMemory *mem)
  *---------------------------------------------------------------------------*/
 
 DmaMemory*
-dma_memory_new(AnjutaPlugin *plugin, IAnjutaDebugger *debugger)
+dma_memory_new(DebugManagerPlugin *plugin)
 {
 	DmaMemory* mem;
 	
 	mem = g_new0 (DmaMemory, 1);
 	
-	mem->debugger = debugger;
-	if (debugger != NULL) g_object_ref (debugger);
-	mem->plugin = plugin;
+	mem->debugger = dma_debug_manager_get_queue (plugin);
+	mem->plugin = ANJUTA_PLUGIN (plugin);
 	mem->buffer = NULL;
 
-	g_signal_connect_swapped (mem->debugger, "debugger-started", G_CALLBACK (on_debugger_started), mem);
-	g_signal_connect_swapped (mem->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), mem);
-	g_signal_connect_swapped (mem->debugger, "program-stopped", G_CALLBACK (on_program_stopped), mem);
+	g_signal_connect_swapped (mem->plugin, "debugger-started", G_CALLBACK (on_debugger_started), mem);
+	g_signal_connect_swapped (mem->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), mem);
+	g_signal_connect_swapped (mem->plugin, "program-stopped", G_CALLBACK (on_program_stopped), mem);
 
 	return mem;
 }
@@ -204,7 +203,6 @@ dma_memory_free(DmaMemory* mem)
 	
 	if (mem->buffer != NULL) g_object_unref (mem->buffer);
 
-	if (mem->debugger != NULL)	g_object_unref (mem->debugger);
 	g_free(mem);
 }
 

@@ -37,7 +37,7 @@
 #include "registers.h"
 #include "utilities.h"
 #include "start.h"
-#include "debugger.h"
+#include "queue.h"
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
@@ -69,7 +69,6 @@ struct _DebugManagerPlugin
 
 	/* Debugger queue */
 	DmaDebuggerQueue *queue;
-	IAnjutaDebugger *debugger;
 	
 	/* Menu item */
 	gint uiid;
@@ -339,7 +338,7 @@ enable_log_view (DebugManagerPlugin *this, gboolean enable)
 			{
 				/*g_signal_connect (G_OBJECT (this->view), "buffer_flushed", G_CALLBACK (on_message_buffer_flushed), this);*/
 				g_object_add_weak_pointer (G_OBJECT (this->view), (gpointer *)(gpointer)&this->view);
-				ianjuta_debugger_enable_log (this->debugger, this->view, NULL);
+				dma_queue_enable_log (this->queue, this->view);
 			}
 		}
 		else
@@ -357,7 +356,7 @@ enable_log_view (DebugManagerPlugin *this, gboolean enable)
 			ianjuta_message_manager_remove_view (man, this->view, NULL);
 			this->view = NULL;
 		}
-		ianjuta_debugger_disable_log (this->debugger, NULL);
+		dma_queue_disable_log (this->queue);
 	}
 }
 
@@ -371,36 +370,15 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 		return;
 
 	/* Close debugger when session changed */
-	if (plugin->debugger)
+	if (plugin->queue)
 	{
-		ianjuta_debugger_abort (plugin->debugger, NULL);
+		dma_queue_abort (plugin->queue);
 	}
 }
 
 
 /* State functions
  *---------------------------------------------------------------------------*/
-
-static void
-dma_plugin_debugger_ready (DebugManagerPlugin *self, IAnjutaDebuggerStatus stat)
-{
-	AnjutaStatus* status;
-
-	if ((stat == IANJUTA_DEBUGGER_BUSY) != self->busy)
-	{
-		status = anjuta_shell_get_status(ANJUTA_PLUGIN (self)->shell, NULL);
-		if (!self->busy)
-		{
-			anjuta_status_busy_push (status);
-			self->busy = TRUE;
-		}
-		else
-		{
-			anjuta_status_busy_pop (status);
-			self->busy = FALSE;
-		}
-	}
-}
 
 /* Called when the debugger is started but no program is loaded */
 
@@ -427,8 +405,6 @@ dma_plugin_debugger_started (DebugManagerPlugin *this)
 	
 	status = anjuta_shell_get_status(ANJUTA_PLUGIN (this)->shell, NULL);
 	anjuta_status_set_default (status, _("Debugger"), _("Started"));
-	
-	dma_plugin_debugger_ready (this, IANJUTA_DEBUGGER_STARTED);
 }
 
 /* Called when a program is loaded */
@@ -443,16 +419,15 @@ dma_plugin_program_loaded (DebugManagerPlugin *this)
 	
 	if (this->sharedlibs == NULL)
 	{
-		this->sharedlibs = sharedlibs_new (this->debugger);
+		this->sharedlibs = sharedlibs_new (this);
 	}
 	if (this->signals == NULL)
 	{
-		this->signals = signals_new (this->debugger);
+		this->signals = signals_new (this);
 	}
 
 	/* Connect components */
-	breakpoints_dbase_connect (this->breakpoints, this->debugger);
-	expr_watch_connect (this->watch, this->debugger);
+	expr_watch_connect (this->watch);
 //	locals_connect (this->locals, this->debugger);
 //	stack_trace_connect (this->stack, this->debugger);
 //	cpu_registers_connect (this->registers, this->debugger);
@@ -519,13 +494,7 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 static void
 dma_plugin_program_moved (DebugManagerPlugin *this, guint pid, guint tid, guint address, const gchar* file, guint line)
 {
-	gchar *msg;
-
 	DEBUG_PRINT ("DMA: dma_plugin_program_moved %s %d %x", file, line, address);
-	
-	msg = g_strdup_printf (_("Location: %s, line %d\n"), file, line);
-	dma_debugger_message (this->queue, msg);
-	g_free (msg);
 
 	set_program_counter (this, file, line, address);
 }
@@ -602,8 +571,6 @@ dma_plugin_debugger_stopped (DebugManagerPlugin *self, GError *err)
 	state = anjuta_shell_get_status(ANJUTA_PLUGIN (self)->shell, NULL);
 	anjuta_status_set_default (state, _("Debugger"), NULL);
 	
-	dma_plugin_debugger_ready (self, IANJUTA_DEBUGGER_STOPPED);
-	
 	/* Display a warning if debugger stop unexpectedly */
 	if (err != NULL)
 	{
@@ -658,10 +625,9 @@ on_attach_to_project_action_activate (GtkAction* action, DebugManagerPlugin* thi
 static void
 on_debugger_stop_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
-	if (plugin->debugger)
+	if (plugin->start)
 	{
-		ianjuta_debugger_interrupt (plugin->debugger, NULL);
-		ianjuta_debugger_quit (plugin->debugger, NULL);
+		dma_quit_debugger (plugin->start);
 	}
 }
 
@@ -671,29 +637,29 @@ on_debugger_stop_activate (GtkAction* action, DebugManagerPlugin* plugin)
 static void
 on_run_continue_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
-	if (plugin->debugger)
-		ianjuta_debugger_run (plugin->debugger, NULL /* TODO */);
+	if (plugin->queue)
+		dma_queue_run (plugin->queue);
 }
 
 static void
 on_step_in_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
-	if (plugin->debugger)
-		ianjuta_debugger_step_in (plugin->debugger, NULL /* TODO */);
+	if (plugin->queue)
+		dma_queue_step_in (plugin->queue);
 }
 
 static void
 on_step_over_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
-	if (plugin->debugger)
-		ianjuta_debugger_step_over (plugin->debugger, NULL /* TODO */);
+	if (plugin->queue)
+		dma_queue_step_over (plugin->queue);
 }
 
 static void
 on_step_out_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
-	if (plugin->debugger)
-		ianjuta_debugger_step_out (plugin->debugger, NULL /* TODO */);
+	if (plugin->queue)
+		dma_queue_step_out (plugin->queue);
 }
 
 static void
@@ -706,7 +672,7 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 	gchar *file;
 	gint line;
 
-	if (plugin->debugger == NULL)
+	if (plugin->queue == NULL)
 		return;
 	
 	docman = IANJUTA_DOCUMENT_MANAGER (anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell, "IAnjutaDocumentManager", NULL));
@@ -727,8 +693,7 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 	file = gnome_vfs_get_local_path_from_uri (uri);
 	
 	line = ianjuta_editor_get_lineno (editor, NULL);
-	ianjuta_debugger_run_to (plugin->debugger, file, line,
-									  NULL /* TODO */);
+	dma_queue_run_to (plugin->queue, file, line);
 	g_free (file);
 	
 }
@@ -736,8 +701,8 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 static void
 on_debugger_interrupt_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
-	if (plugin->debugger)
-		ianjuta_debugger_interrupt (plugin->debugger, NULL);
+	if (plugin->queue)
+		dma_queue_interrupt (plugin->queue);
 }
 
 /* Custom command
@@ -750,7 +715,7 @@ on_debugger_command_entry_activate (GtkEntry *entry, DebugManagerPlugin *plugin)
 
         command = gtk_entry_get_text (GTK_ENTRY (entry));
         if (command && strlen (command))
-                ianjuta_debugger_send_command (plugin->debugger, command, NULL);
+                dma_queue_send_command (plugin->queue, command);
         gtk_entry_set_text (entry, "");
 }
 
@@ -791,37 +756,37 @@ on_debugger_dialog_message (const gpointer data, gpointer user_data, GError* err
 static void
 on_info_targets_activate (GtkAction *action, DebugManagerPlugin *plugin)
 {
-	ianjuta_debugger_info_target (plugin->debugger, on_debugger_dialog_message, plugin, NULL);
+	dma_queue_info_target (plugin->queue, on_debugger_dialog_message, plugin);
 }
 
 static void
 on_info_program_activate (GtkAction *action, DebugManagerPlugin *plugin)
 {
-	ianjuta_debugger_info_program (plugin->debugger, on_debugger_dialog_message, plugin, NULL);
+	dma_queue_info_program (plugin->queue, on_debugger_dialog_message, plugin);
 }
 
 static void
 on_info_udot_activate (GtkAction *action, DebugManagerPlugin *plugin)
 {
-	ianjuta_debugger_info_udot (plugin->debugger, on_debugger_dialog_message, plugin, NULL);
+	dma_queue_info_udot (plugin->queue, on_debugger_dialog_message, plugin);
 }
 
 static void
 on_info_variables_activate (GtkAction *action, DebugManagerPlugin *plugin)
 {
-	ianjuta_debugger_info_variables (plugin->debugger, on_debugger_dialog_message, plugin, NULL);
+	dma_queue_info_variables (plugin->queue, on_debugger_dialog_message, plugin);
 }
 
 static void
 on_info_frame_activate (GtkAction *action, DebugManagerPlugin *plugin)
 {
-	ianjuta_debugger_info_frame (plugin->debugger, 0, on_debugger_dialog_message, plugin, NULL);
+	dma_queue_info_frame (plugin->queue, 0, on_debugger_dialog_message, plugin);
 }
 
 static void
 on_info_args_activate (GtkAction *action, DebugManagerPlugin *plugin)
 {
-	ianjuta_debugger_info_args (plugin->debugger, on_debugger_dialog_message, plugin, NULL);
+	dma_queue_info_args (plugin->queue, on_debugger_dialog_message, plugin);
 }
 
 /* Other informations
@@ -848,12 +813,6 @@ static void
 on_debugger_signals_activate (GtkAction * action, DebugManagerPlugin *plugin)
 {
 	signals_show (plugin->signals);
-}
-
-static void
-on_debugger_ready_signal (IAnjutaDebugger* dbg, IAnjutaDebuggerStatus stat, DebugManagerPlugin *plugin)
-{
-	dma_plugin_debugger_ready (plugin, stat);
 }
 
 /* Actions table
@@ -1113,16 +1072,14 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 
 	/* Load debugger */
 	this->queue = dma_debugger_queue_new (plugin);
-	this->debugger = IANJUTA_DEBUGGER (this->queue);
-	g_signal_connect_swapped (this->debugger, "debugger-started", G_CALLBACK (dma_plugin_debugger_started), this);
-	g_signal_connect_swapped (this->debugger, "debugger-stopped", G_CALLBACK (dma_plugin_debugger_stopped), this);
-	g_signal_connect_swapped (this->debugger, "program-loaded", G_CALLBACK (dma_plugin_program_loaded), this);
-	g_signal_connect_swapped (this->debugger, "program-running", G_CALLBACK (dma_plugin_program_running), this);
-	g_signal_connect_swapped (this->debugger, "program-stopped", G_CALLBACK (dma_plugin_program_stopped), this);
-	g_signal_connect_swapped (this->debugger, "program-exited", G_CALLBACK (dma_plugin_program_loaded), this);
-	g_signal_connect_swapped (this->debugger, "program-moved", G_CALLBACK (dma_plugin_program_moved), this);
-	g_signal_connect_swapped (this->debugger, "signal-received", G_CALLBACK (dma_plugin_signal_received), this);
-	g_signal_connect (this->debugger, "debugger-ready", G_CALLBACK (on_debugger_ready_signal), this);
+	g_signal_connect (this, "debugger-started", G_CALLBACK (dma_plugin_debugger_started), NULL);
+	g_signal_connect (this, "debugger-stopped", G_CALLBACK (dma_plugin_debugger_stopped), NULL);
+	g_signal_connect (this, "program-loaded", G_CALLBACK (dma_plugin_program_loaded), NULL);
+	g_signal_connect (this, "program-running", G_CALLBACK (dma_plugin_program_running), NULL);
+	g_signal_connect (this, "program-stopped", G_CALLBACK (dma_plugin_program_stopped), NULL);
+	g_signal_connect (this, "program-exited", G_CALLBACK (dma_plugin_program_loaded), NULL);
+	g_signal_connect (this, "program-moved", G_CALLBACK (dma_plugin_program_moved), NULL);
+	g_signal_connect (this, "signal-received", G_CALLBACK (dma_plugin_signal_received), NULL);
 
 	/* Add all our debug manager actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
@@ -1154,31 +1111,31 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 
 	
 	/* Watch expression */
-	this->watch = expr_watch_new (ANJUTA_PLUGIN (plugin), this->debugger);
+	this->watch = expr_watch_new (ANJUTA_PLUGIN (this));
 	
 	/* Local window */
-	this->locals = locals_new (ANJUTA_PLUGIN (plugin), this->debugger);
+	this->locals = locals_new (this);
 
 	/* Stack trace */
-	this->stack = stack_trace_new (this->debugger, this);
+	this->stack = stack_trace_new (this);
 
 	/* Thread list */
-	this->thread = dma_threads_new (this->debugger, this);
+	this->thread = dma_threads_new (this);
 	
 	/* Create breakpoints list */
 	this->breakpoints = breakpoints_dbase_new (this);
 
 	/* Register list */
-	this->registers = cpu_registers_new (plugin, this->debugger);
+	this->registers = cpu_registers_new (this);
 
 	/* Memory window */
-	this->memory = dma_memory_new (plugin, this->debugger);
+	this->memory = dma_memory_new (this);
 
 	/* Disassembly window */
-	this->disassemble = dma_disassemble_new (plugin, this->debugger);
+	this->disassemble = dma_disassemble_new (this);
 
 	/* Start debugger part */
-	this->start = dma_start_new (plugin, this->debugger);
+	this->start = dma_start_new (this);
 	
 
 	dma_plugin_debugger_stopped (this, 0);
@@ -1215,13 +1172,12 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	/* Stop debugger */
 	dma_plugin_debugger_stopped (this, 0);
 	
-	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_debugger_started), this);
-	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_debugger_stopped), this);
-	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_program_loaded), this);
-	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_program_running), this);
-	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_program_stopped), this);
-	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (dma_plugin_program_moved), this);
-	g_signal_handlers_disconnect_by_func (this->queue, G_CALLBACK (on_debugger_ready_signal), this);
+	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_debugger_started), NULL);
+	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_debugger_stopped), NULL);
+	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_loaded), NULL);
+	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_running), NULL);
+	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_stopped), NULL);
+	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_moved), NULL);
 	dma_debugger_queue_free (this->queue);
 	this->queue = NULL;
 
@@ -1289,6 +1245,11 @@ dma_debug_manager_goto_code (DebugManagerPlugin *self, const gchar *uri, guint l
 	}
 }
 
+DmaDebuggerQueue* 
+dma_debug_manager_get_queue (DebugManagerPlugin *self)
+{
+	return self->queue;
+}
 
 /* GObject functions
  *---------------------------------------------------------------------------*/
@@ -1307,7 +1268,7 @@ dma_plugin_instance_init (GObject* obj)
 	plugin->uiid = 0;
 	
 	plugin->project_root_uri = NULL;
-	plugin->debugger = NULL;
+	plugin->queue = NULL;
 	plugin->current_editor = NULL;
 	plugin->pc_editor = NULL;
 	plugin->editor_watch_id = 0;

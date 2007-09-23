@@ -31,6 +31,7 @@
 
 #include "utilities.h"
 #include "sharedlib.h"
+#include "queue.h"
 
 static gint
 on_sharedlibs_delete_event (GtkWidget* w, GdkEvent *event, gpointer data)
@@ -88,11 +89,10 @@ on_sharedlibs_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
 	Sharedlibs *sl = (Sharedlibs *)user_data;
 	
-	ianjuta_debugger_info_sharedlib (
+	dma_queue_info_sharedlib (
 			sl->debugger,
 			(IAnjutaDebuggerCallback)sharedlibs_update,
-			sl,
-			NULL);
+			sl);
 }
 
 static void
@@ -100,7 +100,7 @@ sharedlibs_update_controls (Sharedlibs* ew)
 {
      gboolean R;
 
-     R = ianjuta_debugger_get_status (ew->debugger, NULL) == IANJUTA_DEBUGGER_OK;
+     R = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_OK;
 
      gtk_widget_set_sensitive(ew->widgets.menu_update, R);
 }
@@ -211,14 +211,13 @@ create_sharedlibs_gui (Sharedlibs *sl)
 }
 
 Sharedlibs*
-sharedlibs_new (IAnjutaDebugger *debugger)
+sharedlibs_new (DebugManagerPlugin *plugin)
 {
 	Sharedlibs* ew;
 	ew = g_malloc(sizeof(Sharedlibs));
 	if(ew)
 	{
-		ew->debugger = debugger;
-		g_object_ref (debugger);
+		ew->debugger = dma_debug_manager_get_queue (plugin);
 		
 		ew->is_showing = FALSE;
 		ew->win_width = 410;
@@ -254,11 +253,10 @@ sharedlibs_show (Sharedlibs* ew)
 										ew->win_width, ew->win_height);
 			gtk_widget_show(ew->widgets.window);
 			ew->is_showing = TRUE;
-			ianjuta_debugger_info_sharedlib (
+			dma_queue_info_sharedlib (
 					ew->debugger,
 					(IAnjutaDebuggerCallback)sharedlibs_update,
-					ew,
-					NULL);
+					ew);
 		}
 	}
 }
@@ -284,7 +282,6 @@ sharedlibs_free(Sharedlibs* sg)
 	if(sg)
 	{
 		sharedlibs_clear(sg);
-		g_object_unref (sg->debugger);
 		gtk_widget_destroy(sg->widgets.window);
 		gtk_widget_destroy(sg->widgets.menu);
 		g_free(sg);

@@ -31,8 +31,11 @@
 
 #include "start.h"
 
+#include "queue.h"
+
 #include <libanjuta/resources.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <libanjuta/anjuta-utils.h>
 
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
@@ -94,14 +97,14 @@ static char *column_names[COLUMNS_NB] = {
 struct _LoadFileCallBack
 {
 	AnjutaPlugin *plugin;
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 };
 
 struct _DmaStart
 {
 	AnjutaPlugin *plugin;
 
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 
 	gchar* target_uri;
 	gchar* program_args;
@@ -813,6 +816,8 @@ dma_start_load_uri (DmaStart *this)
 	const gchar *filename;
 	// GList *node;
 
+	if (!dma_quit_debugger (this)) return;
+	
 	if ((this->target_uri != NULL) && (*(this->target_uri) != '\0'))
 	{
 		vfs_uri = gnome_vfs_uri_new (this->target_uri);
@@ -826,9 +831,7 @@ dma_start_load_uri (DmaStart *this)
 		mime_type = gnome_vfs_get_mime_type (this->target_uri);
 	        filename = gnome_vfs_uri_get_path (vfs_uri);
 
-		ianjuta_debugger_interrupt (this->debugger, NULL);
-		ianjuta_debugger_quit (this->debugger, NULL);
-		ianjuta_debugger_load (this->debugger, filename, mime_type, search_dirs, this->run_in_terminal, NULL);
+		dma_queue_load (this->debugger, filename, mime_type, search_dirs, this->run_in_terminal);
 		
 		g_free (mime_type);
 		gnome_vfs_uri_unref (vfs_uri);
@@ -1031,12 +1034,31 @@ dma_set_parameters (DmaStart *this)
 /* Public functions
  *---------------------------------------------------------------------------*/
 
+gboolean
+dma_quit_debugger (DmaStart* this)
+{
+	if (dma_debugger_queue_get_state (this->debugger) > IANJUTA_DEBUGGER_PROGRAM_LOADED)
+	{
+        gchar *msg = _("The program is running.\n"
+                      	"Do you still want to stop the debugger?");
+		
+		if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (this->plugin->shell), msg)) return FALSE;
+	}
+	
+	dma_queue_interrupt (this->debugger);
+	dma_queue_quit (this->debugger);
+
+	return TRUE;
+}
+
 void
 dma_attach_to_process (DmaStart* this)
 {
 	pid_t selected_pid;
 	GtkWindow *parent;
 	AttachProcess *attach_process = NULL;
+	
+	if (!dma_quit_debugger (this)) return;
 	
 	parent = GTK_WINDOW (ANJUTA_PLUGIN (this->plugin)->shell);
 	attach_process = attach_process_new();
@@ -1048,9 +1070,8 @@ dma_attach_to_process (DmaStart* this)
 		GList *search_dirs;
 		
 		search_dirs = get_source_directories (this->plugin);
-		ianjuta_debugger_interrupt (this->debugger, NULL);
-		ianjuta_debugger_quit (this->debugger, NULL);
-		ianjuta_debugger_attach (this->debugger, lpid, search_dirs, NULL);
+		
+		dma_queue_attach (this->debugger, lpid, search_dirs);
 		free_source_directories (search_dirs);
 	}
 	attach_process_destroy(attach_process);
@@ -1062,7 +1083,7 @@ dma_run_target (DmaStart *this)
 	if (dma_set_parameters (this) == TRUE)
 	{       
 		dma_start_load_uri (this);
-		ianjuta_debugger_start (this->debugger, this->program_args == NULL ? "" : this->program_args, NULL);
+		dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args);
 	}
 	
 	return this->target_uri != NULL;
@@ -1074,7 +1095,7 @@ dma_rerun_target (DmaStart *this)
 	if (this->target_uri == NULL) return FALSE;
 
 	dma_start_load_uri (this);
-	ianjuta_debugger_start (this->debugger, this->program_args == NULL ? "" : this->program_args, NULL);
+	dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args);
 	
 	return TRUE;
 }
@@ -1083,21 +1104,21 @@ dma_rerun_target (DmaStart *this)
  *---------------------------------------------------------------------------*/
 
 DmaStart *
-dma_start_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger)
+dma_start_new (DebugManagerPlugin *plugin)
 {
-	DmaStart *this;
+	DmaStart *self;
 	
-	this = g_new0 (DmaStart, 1);
+	self = g_new0 (DmaStart, 1);
 
-	this->plugin = plugin;
-	this->debugger = debugger;
+	self->plugin = ANJUTA_PLUGIN (plugin);
+	self->debugger = dma_debug_manager_get_queue (plugin);
 	
-	g_signal_connect (plugin->shell, "save-session",
-					  G_CALLBACK (on_session_save), this);
-    g_signal_connect (plugin->shell, "load-session",
-					  G_CALLBACK (on_session_load), this);
+	g_signal_connect (self->plugin->shell, "save-session",
+					  G_CALLBACK (on_session_save), self);
+    g_signal_connect (self->plugin->shell, "load-session",
+					  G_CALLBACK (on_session_load), self);
 	
-	return this;
+	return self;
 }
 
 void

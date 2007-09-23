@@ -21,6 +21,9 @@
 #ifndef _SHAREDLIBS_H_
 #define _SHAREDLIBS_H_
 
+#include "plugin.h"
+#include "queue.h"
+
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
@@ -41,13 +44,13 @@ struct _SharedlibsGui
 struct _Sharedlibs
 {
 	SharedlibsGui  widgets;
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	gboolean is_showing;
 	gint win_pos_x, win_pos_y, win_width, win_height;
 };
 
 Sharedlibs*
-sharedlibs_new (IAnjutaDebugger *debugger);
+sharedlibs_new (DebugManagerPlugin *plugin);
 
 void
 sharedlibs_clear (Sharedlibs *ew);

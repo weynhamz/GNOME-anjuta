@@ -34,6 +34,7 @@
 #include <libanjuta/anjuta-debug.h>
 
 #include "utilities.h"
+#include "queue.h"
 
 /* Constants
  *---------------------------------------------------------------------------*/
@@ -54,7 +55,7 @@ typedef struct _DmaThreadRegisterList
 
 struct _CpuRegisters
 {
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	AnjutaPlugin *plugin;
 	DmaThreadRegisterList* current;
 	GList *list;
@@ -121,12 +122,17 @@ on_cpu_registers_updated (const GList *registers, gpointer user_data, GError *er
 	GtkTreeIter iter;
 	gboolean valid;
 
+	if (error != NULL)
+	{
+		/* Command canceled */
+		
+		return;
+	}
+	
 	/* Get first item in list view */
 	valid = gtk_tree_model_get_iter_first (self->current->model, &iter);
 	list = GTK_LIST_STORE (self->current->model);
 
-	if (registers == NULL) return;
-	
 	self->current->last_update = self->current_update;
 	
 	for(node = registers;node != NULL; node = g_list_next (node))
@@ -198,11 +204,10 @@ cpu_registers_update (CpuRegisters *self)
 {
 	if ((self->debugger != NULL) && GTK_WIDGET_MAPPED (self->scrolledwindow))
 	{
-		ianjuta_cpu_debugger_update_register (
-				IANJUTA_CPU_DEBUGGER (self->debugger),
+		dma_queue_update_register (
+				self->debugger,
 				(IAnjutaDebuggerCallback)on_cpu_registers_updated,
-				self,
-				NULL);
+				self);
 	}
 }
 
@@ -243,11 +248,10 @@ dma_thread_create_new_register_list (CpuRegisters *self, gint thread)
 		self->current = regs;
 		
 		/* List is empty, ask debugger to get all register name */
-		ianjuta_cpu_debugger_list_register (
-				IANJUTA_CPU_DEBUGGER (self->debugger),
+		dma_queue_list_register (
+				self->debugger,
 				(IAnjutaDebuggerCallback)on_cpu_registers_updated,
-				self,
-				&err);
+				self);
 		
 		if (err != NULL)
 		{
@@ -309,7 +313,7 @@ dma_thread_set_register_list (CpuRegisters *self, gint thread)
 {
 	GList *list;
 	DmaThreadRegisterList *regs;
-	
+
 	if (self->current == NULL) return;	/* No register list */
 
 	if (self->current->thread != thread)
@@ -353,12 +357,11 @@ on_cpu_registers_changed (GtkCellRendererText *cell,
 		reg.value = text;
 		reg.name = name;
 		
-		ianjuta_cpu_debugger_write_register (IANJUTA_CPU_DEBUGGER (self->debugger), &reg, NULL);
-		ianjuta_cpu_debugger_update_register (
-				IANJUTA_CPU_DEBUGGER (self->debugger),
+		dma_queue_write_register (self->debugger, &reg);
+		dma_queue_update_register (
+				self->debugger,
 				(IAnjutaDebuggerCallback)on_cpu_registers_updated,
-				self,
-				NULL);
+				self);
 		g_free (name);
 	}
 }
@@ -367,17 +370,13 @@ static void
 on_program_moved (CpuRegisters *self, guint pid, gint thread)
 {
 	self->current_update++;
-	if (ianjuta_debugger_get_status (self->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_STOPPED)
-		dma_thread_set_register_list (self, thread);
+	dma_thread_set_register_list (self, thread);
 }
 
 static void
 on_map (GtkWidget* widget, CpuRegisters *self)
 {
-	if (ianjuta_debugger_get_status (self->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_STOPPED)
-	{
-		cpu_registers_update (self);
-	}
+	cpu_registers_update (self);
 }
 
 static void
@@ -489,21 +488,20 @@ on_frame_changed (CpuRegisters *self, guint frame, gint thread)
  *---------------------------------------------------------------------------*/
 
 CpuRegisters*
-cpu_registers_new(AnjutaPlugin *plugin, IAnjutaDebugger *debugger)
+cpu_registers_new(DebugManagerPlugin *plugin)
 {
 	CpuRegisters* self;
 	
 	self = g_new0 (CpuRegisters, 1);
 	
-	self->debugger = debugger;
-	if (debugger != NULL) g_object_ref (debugger);
-	self->plugin = plugin;
+	self->debugger = dma_debug_manager_get_queue (plugin);
+	self->plugin = ANJUTA_PLUGIN (plugin);
 	self->list = NULL;
 	
-	g_signal_connect_swapped (self->debugger, "debugger-started", G_CALLBACK (on_debugger_started), self);
-	g_signal_connect_swapped (self->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
-	g_signal_connect_swapped (self->debugger, "program-moved", G_CALLBACK (on_program_moved), self);
-	g_signal_connect_swapped (self->debugger, "frame_changed", G_CALLBACK (on_frame_changed), self);
+	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_debugger_started), self);
+	g_signal_connect_swapped (self->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
+	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
+	g_signal_connect_swapped (self->plugin, "frame_changed", G_CALLBACK (on_frame_changed), self);
 	
 	return self;
 }
@@ -516,11 +514,10 @@ cpu_registers_free(CpuRegisters* self)
 	destroy_cpu_registers_gui (self);
 	if (self->debugger != NULL)
 	{
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_started), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_stopped), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_program_moved), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_frame_changed), self);
-		g_object_unref (self->debugger);
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_started), self);
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_stopped), self);
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_frame_changed), self);
 	}
 	g_free(self);
 }

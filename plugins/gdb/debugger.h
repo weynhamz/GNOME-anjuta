@@ -94,7 +94,7 @@ gboolean debugger_is_ready (Debugger *debugger);
 gboolean debugger_program_is_running (Debugger *debugger);
 gboolean debugger_program_is_attached (Debugger *debugger);
 gboolean debugger_program_is_loaded (Debugger *debugger);
-IAnjutaDebuggerStatus debugger_get_status (Debugger *debugger);
+IAnjutaDebuggerState debugger_get_state (Debugger *debugger);
 
 /* Send standard gdb MI2 or CLI commands */
 void debugger_command (Debugger *debugger, const gchar *command,

@@ -61,6 +61,7 @@
 
 #include "breakpoints.h"
 #include "utilities.h"
+#include "queue.h"
 
 /* Markers definition */
 #define BREAKPOINT_ENABLED   IANJUTA_MARKABLE_BREAKPOINT_ENABLED
@@ -90,8 +91,8 @@ struct _BreakpointItem
 struct _BreakpointsDBase
 {
 	DebugManagerPlugin *plugin;
+	DmaDebuggerQueue *debugger;
 
-	IAnjutaBreakpointDebugger *debugger;
 	GladeXML *gxml;
 	gchar *cond_history, *loc_history, *pass_history;
 	
@@ -452,13 +453,12 @@ breakpoint_item_update_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 		{
 			if (bi->bp->enable != bp->enable)
 			{
-				ianjuta_breakpoint_debugger_enable_breakpoint (
+				dma_queue_enable_breakpoint (
 						bi->bd->debugger,
 						bi->bp->id,
 						bi->bp->enable,
 						on_breakpoint_callback,
-						bi,
-						NULL);
+						bi);
 			}
 		}
 		if (bp->type & IANJUTA_DEBUGGER_BREAK_WITH_IGNORE)
@@ -505,6 +505,9 @@ breakpoint_item_update_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 	{
 			set_breakpoint_in_editor (bi, bi->bp->enable ? BREAKPOINT_ENABLED : BREAKPOINT_DISABLED, FALSE);
 	}
+	
+	/* Emit signal */
+	g_signal_emit_by_name (bi->bd->plugin, "breakpoint-changed", bi->bp);
 }
 
 /* Callback function, remove breakpoint in tree view and in editor
@@ -601,48 +604,44 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 		bi->link = TRUE;
 	}
 	
-	if ((bd->debugger != NULL) && (bi->bp->enable != IANJUTA_DEBUGGER_UNDEFINED))
+	if ((bd->debugger != NULL))
 	{
 		if (bi->bp->id != 0)
 		{
 			/* Breakpoint already exist, remove it first */
 			bi->bp->temporary = FALSE;
-			ianjuta_breakpoint_debugger_clear_breakpoint (
+			dma_queue_remove_breakpoint (
 					bd->debugger,
 					bi->bp->id,
 					on_breakpoint_callback,
-					bi,
-					NULL);
+					bi);
 		}
 		/* Add breakpoint in debugger */
 		if (bi->bp->type & IANJUTA_DEBUGGER_BREAK_ON_LINE)
 		{
-			ianjuta_breakpoint_debugger_set_breakpoint_at_line (
+			dma_queue_add_breakpoint_at_line (
 					bd->debugger,
 					bi->bp->file,
 					bi->bp->line,
 					on_breakpoint_callback,
-					bi,
-					NULL);
+					bi);
 		}
 		else if (bi->bp->type & IANJUTA_DEBUGGER_BREAK_ON_FUNCTION)
 		{
-			ianjuta_breakpoint_debugger_set_breakpoint_at_function (
+			dma_queue_add_breakpoint_at_function (
 					bd->debugger,
 					bi->bp->file == NULL ? "" : bi->bp->file,
 					bi->bp->function,
 					on_breakpoint_callback,
-					bi,
-					NULL);
+					bi);
 		}
 		else if (bi->bp->type & IANJUTA_DEBUGGER_BREAK_ON_ADDRESS)
 		{
-			ianjuta_breakpoint_debugger_set_breakpoint_at_address (
+			dma_queue_add_breakpoint_at_address (
 					bd->debugger,
 					bi->bp->address,
 					on_breakpoint_callback,
-					bi,
-					NULL);
+					bi);
 		}
 		else
 		{
@@ -665,12 +664,11 @@ breakpoints_dbase_remove_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 	if (bd->debugger != NULL)
 	{
 		/* Remove breakpoint in debugger first */
-		ianjuta_breakpoint_debugger_clear_breakpoint (
+		dma_queue_remove_breakpoint (
 				bd->debugger,
 				bi->bp->id,
 				on_breakpoint_callback,
-				bi,
-				NULL);
+				bi);
 	}
 	else
 	{
@@ -688,13 +686,12 @@ breakpoints_dbase_enable_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi, g
 	if (bd->debugger != NULL)
 	{
 		/* Update breakpoint in debugger firt */
-		ianjuta_breakpoint_debugger_enable_breakpoint (
+		dma_queue_enable_breakpoint (
 				bd->debugger,
 				bi->bp->id,
 				enable,
 				on_breakpoint_callback,
-				bi,
-				NULL);
+				bi);
 	}
 	else
 	{
@@ -1148,12 +1145,6 @@ on_breakpoint_callback (const gpointer data, gpointer user_data, GError* err)
 	}
 }
 
-static void
-on_breakpoint_error (IAnjutaBreakpointDebugger *obj, GError *err, gpointer user_data)
-{
-	/* FIXME: Do nothing for the moment */
-}
-
 /* Public functions
  *---------------------------------------------------------------------------*/
 
@@ -1229,37 +1220,25 @@ breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 	}
 }
 
-void
-breakpoints_dbase_connect (BreakpointsDBase *bd, IAnjutaDebugger *debugger)
+static void
+on_breakpoints_dbase_connect (DebugManagerPlugin* plugin, BreakpointsDBase *bd)
 {
 	if (bd->debugger != NULL)
 	{
-		if ((IAnjutaDebugger *)bd->debugger == debugger)
-		{
-			/* Already connected */
-			return;
-		}
-		/* Disconnect from first debugger */
-		breakpoints_dbase_disconnect (bd);
+		/* Already connected */
+		return;
 	}
-		
-	g_object_ref (debugger);
-	bd->debugger = IANJUTA_BREAKPOINT_DEBUGGER (debugger);
+
+	bd->debugger = dma_debug_manager_get_queue (ANJUTA_PLUGIN_DEBUG_MANAGER (bd->plugin));
 	breakpoints_dbase_add_all_in_debugger (bd);
-	g_signal_connect_swapped (debugger, "sharedlib-event",
+	g_signal_connect_swapped (bd->plugin, "sharedlib-event",
 				  G_CALLBACK (on_breakpoint_sharedlib_event), bd);
 }
 
-void
-breakpoints_dbase_disconnect (BreakpointsDBase *bd)
+static void
+on_breakpoints_dbase_disconnect (DebugManagerPlugin* plugin, GError* state, BreakpointsDBase *bd)
 {
-	if (bd->debugger != NULL)
-	{
-		breakpoints_dbase_remove_all_in_debugger (bd);
-		g_signal_handlers_disconnect_by_func (bd->debugger, G_CALLBACK (on_breakpoint_sharedlib_event), bd);
-		g_object_unref (bd->debugger);
-		bd->debugger = NULL;
-	}
+	breakpoints_dbase_disconnect (bd);
 }
 
 /* Callbacks
@@ -1310,36 +1289,31 @@ breakpoint_enable_disable (GtkTreeModel *model, GtkTreeIter iter, BreakpointsDBa
 	
 	gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 
-	if (bi->bp->enable == IANJUTA_DEBUGGER_YES)
+	if (bi->bp->enable == TRUE)
 	{
-		bi->bp->enable = IANJUTA_DEBUGGER_NO;
+		bi->bp->enable = FALSE;
 	}
-	else if (bi->bp->enable == IANJUTA_DEBUGGER_NO)
+	else if (bi->bp->enable == FALSE)
 	{
-		bi->bp->enable = IANJUTA_DEBUGGER_YES;
+		bi->bp->enable = TRUE;
 	}
 
 	if (bd->debugger != NULL)
 	{
-		if (bi->bp->enable != IANJUTA_DEBUGGER_UNDEFINED)
-		{
-			ianjuta_breakpoint_debugger_enable_breakpoint (
-					bd->debugger,
-					bi->bp->id,
-					bi->bp->enable == IANJUTA_DEBUGGER_YES ? TRUE : FALSE,
-					on_breakpoint_callback,
-					bi,
-					NULL);
-		}
+		dma_queue_enable_breakpoint (
+				bd->debugger,
+				bi->bp->id,
+				bi->bp->enable,
+				on_breakpoint_callback,
+				bi);
 	}
 	else
 	{
 		/* update ui */
 		gtk_list_store_set (GTK_LIST_STORE (model), &bi->iter,
-						ENABLED_COLUMN, bi->bp->enable == IANJUTA_DEBUGGER_YES ? TRUE : FALSE,
+						ENABLED_COLUMN, bi->bp->enable,
 						-1);
-		set_breakpoint_in_editor (bi, bi->bp->enable ? 
-								  BREAKPOINT_ENABLED : BREAKPOINT_DISABLED, TRUE);	
+		set_breakpoint_in_editor (bi, bi->bp->enable, TRUE);	
 	}
 }
 
@@ -1599,6 +1573,18 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 		breakpoints_dbase_add_breakpoint_list (bd, list);
 }
 
+/* Public function
+ *---------------------------------------------------------------------------*/
+
+void breakpoints_dbase_disconnect (BreakpointsDBase *bd)
+{
+	if (bd->debugger != NULL)
+	{
+		breakpoints_dbase_remove_all_in_debugger (bd);
+		g_signal_handlers_disconnect_by_func (bd->plugin, G_CALLBACK (on_breakpoint_sharedlib_event), bd);
+		bd->debugger = NULL;
+	}
+}
 
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
@@ -1617,7 +1603,7 @@ breakpoints_dbase_new (DebugManagerPlugin *plugin)
 		GtkTreeViewColumn *column;
 		int i;
 
-		bd->plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin); /* FIXME */
+		bd->plugin = plugin; /* FIXME */
 
 
 		/* Connect to Load and Save event */
@@ -1625,6 +1611,10 @@ breakpoints_dbase_new (DebugManagerPlugin *plugin)
 					  G_CALLBACK (on_session_save), bd);
 		g_signal_connect (ANJUTA_PLUGIN(plugin)->shell, "load-session",
 					  G_CALLBACK (on_session_load), bd);
+		
+		/* Connect on stop debugger and load program */
+		g_signal_connect (plugin, "program-loaded", G_CALLBACK (on_breakpoints_dbase_connect), bd);
+		g_signal_connect (plugin, "debugger-stopped", G_CALLBACK (on_breakpoints_dbase_disconnect), bd);
 		
 		/* breakpoints dialog */
 		store = gtk_list_store_new (COLUMNS_NB,
@@ -1715,15 +1705,19 @@ breakpoints_dbase_destroy (BreakpointsDBase * bd)
 	
 	g_return_if_fail (bd != NULL);
 
-	/* This is necessary to clear the editor of breakpoint markers */
-	breakpoints_dbase_remove_all (bd);
-
-	breakpoints_dbase_disconnect (bd);
-
 	/* Disconnect from Load and Save event */
 	g_signal_handlers_disconnect_by_func (ANJUTA_PLUGIN (bd->plugin)->shell, G_CALLBACK (on_session_save), bd);
 	g_signal_handlers_disconnect_by_func (ANJUTA_PLUGIN (bd->plugin)->shell, G_CALLBACK (on_session_load), bd);
 
+	/* Disconnect from Loaded and Stopped event */
+	g_signal_handlers_disconnect_by_func (bd->plugin, on_breakpoints_dbase_connect, bd);
+	g_signal_handlers_disconnect_by_func (bd->plugin, on_breakpoints_dbase_disconnect, bd);
+	
+	/* This is necessary to clear the editor of breakpoint markers */
+	breakpoints_dbase_remove_all (bd);
+
+	breakpoints_dbase_disconnect (bd);
+	
 	/* Remove menu actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bd->plugin)->shell, NULL);
 	anjuta_ui_remove_action_group (ui, bd->action_group);

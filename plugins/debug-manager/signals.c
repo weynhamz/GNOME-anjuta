@@ -33,6 +33,7 @@
 #include "utilities.h"
 #include "signals.h"
 
+
 static GtkWidget* create_signals_set_dialog (Signals *s);
 
 static void
@@ -40,8 +41,8 @@ signals_update_controls (Signals * ew)
 {
 	gboolean R, Pr;
 	
-	R = ianjuta_debugger_get_status (ew->debugger, NULL) == IANJUTA_DEBUGGER_OK;
-	Pr = ianjuta_debugger_get_status (ew->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_RUNNING;
+	R = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_OK;
+	Pr = dma_debugger_queue_get_state (ew->debugger) == IANJUTA_DEBUGGER_PROGRAM_RUNNING;
 	gtk_widget_set_sensitive (ew->widgets.menu_signal, Pr);
 	gtk_widget_set_sensitive (ew->widgets.menu_modify, R);
 	gtk_widget_set_sensitive (ew->widgets.menu_update, R);
@@ -157,11 +158,10 @@ static void
 on_signals_update_activate (GtkMenuItem *menuitem, gpointer user_data)
 {
     Signals *s = (Signals*)user_data;
-	ianjuta_debugger_info_signal (
+	dma_queue_info_signal (
 			s->debugger,
 			(IAnjutaDebuggerCallback)signals_update,
-			s,
-			NULL);
+			s);
 }
 
 static gboolean
@@ -251,7 +251,7 @@ on_signals_set_ok_clicked              (GtkButton       *button,
 	{
 		gtk_clist_set_text(GTK_CLIST(s->widgets.clist), s->idx, 3, "No");
 	}
-	ianjuta_debugger_handle_signal (s->debugger, s->signal, s->stop, s->print, s->pass, NULL);
+	dma_queue_handle_signal (s->debugger, s->signal, s->stop, s->print, s->pass);
 }
 
 static GnomeUIInfo signals_menu_uiinfo[] =
@@ -537,14 +537,13 @@ create_signals_set_dialog (Signals *s)
 }
 
 Signals *
-signals_new (IAnjutaDebugger *debugger)
+signals_new (DebugManagerPlugin *plugin)
 {
 	Signals *ew;
 	ew = g_malloc (sizeof (Signals));
 	if (ew)
 	{
-		ew->debugger = debugger;
-		g_object_ref (debugger);
+		ew->debugger = dma_debug_manager_get_queue (plugin);
 		ew->is_showing = FALSE;
 		ew->win_width = 460;
 		ew->win_height = 320;
@@ -581,11 +580,10 @@ signals_show (Signals * ew)
 										 ew->win_width, ew->win_height);
 			gtk_widget_show (ew->widgets.window);
 			ew->is_showing = TRUE;
-			ianjuta_debugger_info_signal (
+			dma_queue_info_signal (
 					ew->debugger,
 					(IAnjutaDebuggerCallback)signals_update,
-					ew, 
-					NULL);
+					ew);
 		}
 	}
 }
@@ -612,7 +610,6 @@ signals_free (Signals * sg)
 	if (sg)
 	{
 		signals_clear (sg);
-		g_object_unref (sg->debugger);
 		gtk_widget_destroy (sg->widgets.window);
 		gtk_widget_destroy (sg->widgets.menu);
 		g_free (sg);

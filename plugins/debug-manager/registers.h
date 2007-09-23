@@ -21,6 +21,8 @@
 #ifndef _REGISTERS_H_
 #define _REGISTERS_H_
 
+#include "plugin.h"
+
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
@@ -29,7 +31,7 @@
 
 typedef struct _CpuRegisters CpuRegisters;
 
-CpuRegisters* cpu_registers_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger);
+CpuRegisters* cpu_registers_new (DebugManagerPlugin *plugin);
 void cpu_registers_free(CpuRegisters *this);
 
 #endif

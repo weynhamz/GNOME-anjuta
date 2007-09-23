@@ -21,6 +21,9 @@
 #ifndef _DEBUG_TREE_H_
 #define _DEBUG_TREE_H_
 
+#include "queue.h"
+#include "plugin.h"
+
 #include <gtk/gtk.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-variable-debugger.h>
@@ -34,7 +37,7 @@ DebugTree* debug_tree_new (AnjutaPlugin* plugin);
 DebugTree* debug_tree_new_with_view (AnjutaPlugin *plugin, GtkTreeView *view);
 void debug_tree_free (DebugTree *tree);
 
-void debug_tree_connect (DebugTree *tree, IAnjutaDebugger *debugger);
+void debug_tree_connect (DebugTree *tree, DmaDebuggerQueue *debugger);
 void debug_tree_disconnect (DebugTree *tree);
 
 void debug_tree_remove_all (DebugTree *tree);

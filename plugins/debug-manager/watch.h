@@ -38,9 +38,9 @@ enum {
 	WATCH_N_COLUMNS
 };
 
-ExprWatch* expr_watch_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger);
+ExprWatch* expr_watch_new (AnjutaPlugin *plugin);
 
-void expr_watch_connect (ExprWatch *ew, IAnjutaDebugger *debugger);
+void expr_watch_connect (ExprWatch *ew);
 
 /*void expr_watch_clear (ExprWatch *ew);
 

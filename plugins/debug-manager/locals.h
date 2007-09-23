@@ -21,6 +21,8 @@
 #ifndef _LOCALS_H_
 #define _LOCALS_H_
 
+#include "plugin.h"
+
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/anjuta-plugin.h>
 
@@ -28,7 +30,7 @@
 
 typedef struct _Locals Locals;
 
-Locals *locals_new (AnjutaPlugin* plugin, IAnjutaDebugger* debugger);
+Locals *locals_new (DebugManagerPlugin *plugin);
 void locals_free (Locals *l);
 
 #endif

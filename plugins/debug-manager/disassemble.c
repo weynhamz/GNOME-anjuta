@@ -39,6 +39,7 @@
 #include "sparse_view.h"
 
 #include "plugin.h"
+#include "queue.h"
 
 /* Constants
  *---------------------------------------------------------------------------*/
@@ -69,7 +70,7 @@ typedef struct _DmaDisassemblyViewClass DmaDisassemblyViewClass;
 
 struct _DmaDisassemble
 {
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	DebugManagerPlugin *plugin;
 	GtkWidget *window;
 	GtkWidget *menu;
@@ -83,7 +84,7 @@ struct _DmaDisassemble
 struct _DmaDisassemblyBuffer
 {
 	DmaSparseBuffer parent;
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	gboolean pending;
 };
 
@@ -150,7 +151,6 @@ dma_disassembly_iter_refresh (DmaSparseIter *iter)
 	gint line = -1;
 	DmaDisassemblyBufferNode *node = (DmaDisassemblyBufferNode *)iter->node;
 	
-	DEBUG_PRINT("iter_refresh iter->node %p (%x, %d), base %lx offset %ld", iter->node, iter->node != NULL ? iter->node->lower : 0, iter->node != NULL ? ((DmaDisassemblyBufferNode *)iter->node)->size : 0, iter->base, iter->offset);
 	if (iter->node != NULL)
 	{
 		/* Find line corresponding to base */
@@ -219,7 +219,6 @@ dma_disassembly_iter_refresh (DmaSparseIter *iter)
 	}
 
 	/* Try to reduce offset */
-	DEBUG_PRINT("iter_refresh offset iter->node %p, base %lx offset %ld line %d line %d", iter->node, iter->base, iter->offset, iter->line, line);
 	if (line != -1)
 	{
 		if (iter->offset > 0)
@@ -329,7 +328,6 @@ dma_disassembly_iter_refresh (DmaSparseIter *iter)
 	}
 	
 	/* Round offset */
-	DEBUG_PRINT("iter_refresh round iter->node %p, base %lx offset %ld line %d line %d", iter->node, iter->base, iter->offset, iter->line, line);
 	if (iter->offset < 0)
 	{
 		gulong address;
@@ -410,6 +408,7 @@ on_disassemble (const IAnjutaDebuggerDisassembly *block, DmaSparseBufferTranspor
 	}
 	
 	/* Find following block */
+	DEBUG_PRINT("trans %p buffer %p trans->buffer %p trans->start %x", trans, buffer, trans == NULL ? NULL : trans->buffer, trans == NULL ? 0 : trans->start);
 	next = dma_sparse_buffer_lookup (DMA_SPARSE_BUFFER (buffer), trans->start + trans->length - 1);
 	if ((next != NULL) && (next->upper <= trans->start)) next = NULL;
 	
@@ -417,8 +416,6 @@ on_disassemble (const IAnjutaDebuggerDisassembly *block, DmaSparseBufferTranspor
 	{
 		gulong address = trans->start;
 		gint len;
-			
-		DEBUG_PRINT ("Create a dummy disassembly node");
 			
 		/* Create a dummy node */
 		len = (trans->length + DMA_DISASSEMBLY_DEFAULT_LINE_LENGTH - 1) / DMA_DISASSEMBLY_DEFAULT_LINE_LENGTH;
@@ -448,7 +445,6 @@ on_disassemble (const IAnjutaDebuggerDisassembly *block, DmaSparseBufferTranspor
 		guint size = 0;
 		guint line = 0;
 		
-		DEBUG_PRINT ("on disassemble size %d", block->size);
 		/* Compute size of all data */
 		/* use size -1 because last block has no data (NULL) */
 		for (i = trans->tag == DMA_DISASSEMBLY_KEEP_ALL ? 0 : 4; i < block->size - 1; i++)
@@ -533,8 +529,6 @@ dma_disassembly_buffer_insert_line (DmaSparseIter *iter, GtkTextIter *dst)
 				gulong end_adr;
 				gint margin;
 			
-				DEBUG_PRINT("no data at address %lx + %ld", iter->base, iter->offset);
-				
 				/* If following line is define, get a block stopping here */
 				dma_sparse_iter_copy (&end, iter);
 				margin = 0;
@@ -568,8 +562,8 @@ dma_disassembly_buffer_insert_line (DmaSparseIter *iter, GtkTextIter *dst)
 				{
 					trans->length++;
 				}
-				DEBUG_PRINT("get disassemble %lx %lx %ld", start_adr, end_adr, trans->length);
-				ianjuta_cpu_debugger_disassemble ((IAnjutaCpuDebugger *)dis->debugger, start_adr, end_adr + 1 - start_adr, (IAnjutaDebuggerCallback)on_disassemble, trans, NULL);
+				DEBUG_PRINT("get disassemble %lx %lx %ld trans %p buffer %p", start_adr, end_adr, trans->length, trans, trans->buffer);
+				dma_queue_disassemble (dis->debugger, start_adr, end_adr + 1 - start_adr, (IAnjutaDebuggerCallback)on_disassemble, trans);
 			}
 		}
 		else
@@ -634,7 +628,7 @@ dma_disassembly_buffer_get_type (void)
 
 
 static DmaDisassemblyBuffer*
-dma_disassembly_buffer_new (IAnjutaDebugger *debugger, gulong lower, gulong upper)
+dma_disassembly_buffer_new (DmaDebuggerQueue *debugger, gulong lower, gulong upper)
 {
 	DmaDisassemblyBuffer *buffer;
 
@@ -662,7 +656,7 @@ dma_disassembly_buffer_free (DmaDisassemblyBuffer *buffer)
 struct _DmaDisassemblyView
 {
 	DmaSparseView parent;
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	gboolean pending;
 };
 
@@ -724,7 +718,7 @@ dma_disassembly_view_get_type (void)
 
 
 static DmaDisassemblyView*
-dma_disassembly_view_new_with_buffer (IAnjutaDebugger *debugger, DmaSparseBuffer *buffer)
+dma_disassembly_view_new_with_buffer (DmaDebuggerQueue *debugger, DmaSparseBuffer *buffer)
 {
 	DmaDisassemblyView *view;
 
@@ -760,7 +754,7 @@ on_breakpoint_changed (DmaDisassemble *self, IAnjutaDebuggerBreakpoint *bp)
 	
 	dma_disassemble_unmark (self, bp->address, IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
 	dma_disassemble_unmark (self, bp->address, IANJUTA_MARKABLE_BREAKPOINT_ENABLED);
-	if (bp->type != IANJUTA_DEBUGGER_BREAK_REMOVED)
+	if (!(bp->type & IANJUTA_DEBUGGER_BREAK_REMOVED))
 	{
 		dma_disassemble_mark (self, bp->address, bp->enable ? IANJUTA_MARKABLE_BREAKPOINT_ENABLED : IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
 	}
@@ -885,20 +879,19 @@ dma_disassemble_goto_address (DmaDisassemble *self, guint address)
  *---------------------------------------------------------------------------*/
 
 DmaDisassemble*
-dma_disassemble_new(AnjutaPlugin *plugin, IAnjutaDebugger *debugger)
+dma_disassemble_new(DebugManagerPlugin *plugin)
 {
 	DmaDisassemble* self;
 	
 	self = g_new0 (DmaDisassemble, 1);
 	
-	self->debugger = debugger;
-	if (debugger != NULL) g_object_ref (debugger);
-	self->plugin = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
+	self->debugger = dma_debug_manager_get_queue (plugin);;
+	self->plugin = plugin;
 	self->buffer = NULL;
 	self->view = NULL;
 
-	g_signal_connect_swapped (self->debugger, "debugger-started", G_CALLBACK (on_debugger_started), self);
-	g_signal_connect_swapped (self->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
+	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_debugger_started), self);
+	g_signal_connect_swapped (self->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
 	
 	return self;
 }
@@ -909,8 +902,6 @@ dma_disassemble_free(DmaDisassemble* self)
 	g_return_if_fail (self != NULL);
 
 	destroy_disassemble_gui (self);
-
-	if (self->debugger != NULL)	g_object_unref (self->debugger);
 	
 	g_free(self);
 }

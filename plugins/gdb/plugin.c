@@ -170,8 +170,8 @@ gdb_plugin_class_init (GObjectClass* klass)
 /* Implementation of IAnjutaDebugger interface
  *---------------------------------------------------------------------------*/
 
-static IAnjutaDebuggerStatus
-idebugger_get_status (IAnjutaDebugger *plugin, GError **err)
+static IAnjutaDebuggerState
+idebugger_get_state (IAnjutaDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
@@ -181,7 +181,7 @@ idebugger_get_status (IAnjutaDebugger *plugin, GError **err)
 	}
 	else
 	{
-		return debugger_get_status (this->debugger);
+		return debugger_get_state (this->debugger);
 	}
 }	
 
@@ -622,7 +622,7 @@ idebugger_disable_log (IAnjutaDebugger *plugin, GError **err)
 static void
 idebugger_iface_init (IAnjutaDebuggerIface *iface)
 {
-	iface->get_status = idebugger_get_status;
+	iface->get_state = idebugger_get_state;
 	iface->initialize = idebugger_initialize;
 	iface->attach = idebugger_attach;
 	iface->load = idebugger_load;

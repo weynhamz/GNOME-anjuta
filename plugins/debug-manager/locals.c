@@ -25,6 +25,8 @@
 
 #include "debug_tree.h"
 
+#include "queue.h"
+
 /*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
 
@@ -45,7 +47,7 @@ typedef struct _DmaThreadAndFrame
 struct _Locals
 {
 	AnjutaPlugin *plugin;
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	
 	GtkWidget *main_w;
 	DebugTree *debug_tree;
@@ -189,7 +191,7 @@ static void locals_update (Locals *self, gint thread)
 
 	dma_thread_add_local (self, debug_tree_get_model (self->debug_tree), thread, 0);
 	
-	ianjuta_debugger_list_local (self->debugger, locals_updated, self, NULL);
+	dma_queue_list_local (self->debugger, locals_updated, self);
 }
 
 static void
@@ -220,14 +222,13 @@ locals_change_frame (Locals *self, guint frame, gint thread)
 	
 	debug_tree_new_model (self->debug_tree);
 	dma_thread_add_local (self, debug_tree_get_model (self->debug_tree), thread, frame);
-	ianjuta_debugger_list_local (self->debugger, locals_updated, self, NULL);
+	dma_queue_list_local (self->debugger, locals_updated, self);
 }
 
 static void
 on_program_moved (Locals *self, guint pid, gint thread)
 {
-	if (ianjuta_debugger_get_status (self->debugger, NULL) == IANJUTA_DEBUGGER_PROGRAM_STOPPED)
-		locals_update (self, thread);
+	locals_update (self, thread);
 }
 
 static void
@@ -254,22 +255,21 @@ on_frame_changed (Locals *self, guint frame, gint thread)
  *---------------------------------------------------------------------------*/
 
 Locals *
-locals_new (AnjutaPlugin *plugin, IAnjutaDebugger* debugger)
+locals_new (DebugManagerPlugin *plugin)
 {
 	DebugTree *debug_tree;
 
 	Locals *self = g_new0 (Locals, 1);
 
-	debug_tree = debug_tree_new (plugin);
+	debug_tree = debug_tree_new (ANJUTA_PLUGIN (plugin));
 
-	self->debugger = debugger;
-	if (debugger != NULL) g_object_ref (debugger);
-	self->plugin = plugin;
+	self->debugger = dma_debug_manager_get_queue (plugin);
+	self->plugin = ANJUTA_PLUGIN (plugin);
 
-	g_signal_connect_swapped (self->debugger, "debugger-started", G_CALLBACK (on_debugger_started), self);
-	g_signal_connect_swapped (self->debugger, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
-	g_signal_connect_swapped (self->debugger, "program-moved", G_CALLBACK (on_program_moved), self);
-	g_signal_connect_swapped (self->debugger, "frame-changed", G_CALLBACK (on_frame_changed), self);
+	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_debugger_started), self);
+	g_signal_connect_swapped (self->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
+	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
+	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
 	
 	return self;
 }
@@ -285,11 +285,10 @@ locals_free (Locals *self)
 	/* Disconnect from debugger */
 	if (self->debugger != NULL)
 	{	
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_started), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_debugger_stopped), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_program_moved), self);
-		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_frame_changed), self);
-		g_object_unref (self->debugger);	
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_started), self);
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_stopped), self);
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
+		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_frame_changed), self);
 	}
 
 	g_free (self);

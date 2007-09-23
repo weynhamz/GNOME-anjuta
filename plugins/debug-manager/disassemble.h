@@ -23,13 +23,15 @@
 
 G_BEGIN_DECLS
 
+#include "plugin.h"
+
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
 
 typedef struct _DmaDisassemble DmaDisassemble;
 
-DmaDisassemble* dma_disassemble_new (AnjutaPlugin *plugin, IAnjutaDebugger *debugger);
+DmaDisassemble* dma_disassemble_new (DebugManagerPlugin *plugin);
 void dma_disassemble_free(DmaDisassemble *self);
 
 void dma_disassemble_mark (DmaDisassemble *self, guint address, gint marker);

@@ -21,7 +21,6 @@
 #ifndef __PLUGIN_H__
 #define __PLUGIN_H__
 
-
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
@@ -39,11 +38,14 @@ extern GType dma_plugin_get_type (AnjutaGluePlugin *plugin);
 typedef struct _DebugManagerPlugin DebugManagerPlugin;
 typedef struct _DebugManagerPluginClass DebugManagerPluginClass;
 
+typedef struct _DmaDebuggerQueue DmaDebuggerQueue;
+
 enum {
 ACTION_GROUP_DEFAULT = 0,
 ACTION_GROUP_EXECUTE = 1,
 LAST_ACTION_GROUP };
 
 void dma_debug_manager_goto_code (DebugManagerPlugin *self, const gchar *uri, guint line, guint address);
+DmaDebuggerQueue* dma_debug_manager_get_queue (DebugManagerPlugin *self);
 
 #endif

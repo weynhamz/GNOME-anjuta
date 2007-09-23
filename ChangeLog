@@ -1,3 +1,45 @@
+2007-09-23 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* (removed) plugins/debug-manager/debugger.c,
+	(removed) plugins/debug-manager/debugger.h,
+	(added) plugins/debug-manager/command.c,
+	(added) plugins/debug-manager/command.h,
+	(added) plugins/debug-manager/queue.c,
+	(added) plugins/debug-manager/queue.h,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/disassemble.c,
+	plugins/debug-manager/disassemble.h,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/locals.h,
+	plugins/debug-manager/memory.c,
+	plugins/debug-manager/memory.h,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/plugin.h,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/registers.h,
+	plugins/debug-manager/sharedlib.c,
+	plugins/debug-manager/sharedlib.h,
+	plugins/debug-manager/signals.c,
+	plugins/debug-manager/signals.h,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/stack_trace.h,
+	plugins/debug-manager/start.h,
+	plugins/debug-manager/start.c,
+	plugins/debug-manager/threads.c,
+	plugins/debug-manager/threads.h,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/watch.h,
+	plugins/debug-manager/Makefile.am,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	plugins/gdb/plugin.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Split debug-manager/debugger.c into command.c and queue.c
+	Clean up debugger queue
+	DmaDebuggerQueue object does not implement IAnjutaDebugger
+
 2007-09-23  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in:

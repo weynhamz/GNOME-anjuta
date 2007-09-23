@@ -32,7 +32,7 @@
 
 typedef struct _StackTrace StackTrace;
 
-StackTrace *stack_trace_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin);
+StackTrace *stack_trace_new (DebugManagerPlugin *plugin);
 void stack_trace_free (StackTrace *st);
 
 #endif

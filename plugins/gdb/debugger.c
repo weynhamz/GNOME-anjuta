@@ -388,7 +388,7 @@ debugger_log_output (Debugger *debugger, const gchar *line)
 }
 
 static void
-debugger_emit_status (Debugger *debugger)
+debugger_emit_ready (Debugger *debugger)
 {
 	if (!debugger->priv->debugger_is_busy)
 	{
@@ -399,7 +399,7 @@ debugger_emit_status (Debugger *debugger)
 			debugger->priv->exiting = FALSE;
 			debugger->priv->stopping = FALSE;
 			debugger->priv->solib_event = FALSE;
-			g_signal_emit_by_name (debugger->priv->instance, "program-loaded");
+			g_signal_emit_by_name (debugger->priv->instance, "debugger-ready", IANJUTA_DEBUGGER_PROGRAM_LOADED);
 		}
 		else if (debugger->priv->starting)
 		{
@@ -408,14 +408,14 @@ debugger_emit_status (Debugger *debugger)
 			debugger->priv->exiting = FALSE;
 			debugger->priv->stopping = FALSE;
 			debugger->priv->solib_event = FALSE;
-			g_signal_emit_by_name (debugger->priv->instance, "debugger-started");
+			g_signal_emit_by_name (debugger->priv->instance, "debugger-ready", IANJUTA_DEBUGGER_STARTED);
 		}
 		else if (debugger->priv->exiting)
 		{
 			debugger->priv->exiting = FALSE;
 			debugger->priv->stopping = FALSE;
 			debugger->priv->solib_event = FALSE;
-			g_signal_emit_by_name (debugger->priv->instance, "program-exited");
+			g_signal_emit_by_name (debugger->priv->instance, "debugger-ready", IANJUTA_DEBUGGER_PROGRAM_LOADED);
 		}
 		else if (debugger->priv->solib_event)
 		{
@@ -429,7 +429,7 @@ debugger_emit_status (Debugger *debugger)
 			debugger->priv->exiting = FALSE;
 			debugger->priv->stopping = FALSE;
 			debugger->priv->solib_event = FALSE;
-			g_signal_emit_by_name (debugger->priv->instance, "program-stopped");
+			g_signal_emit_by_name (debugger->priv->instance, "debugger-ready", IANJUTA_DEBUGGER_PROGRAM_STOPPED);
 		}
 		else
 		{
@@ -449,8 +449,8 @@ debugger_emit_status (Debugger *debugger)
 	}
 }
 
-IAnjutaDebuggerStatus
-debugger_get_status (Debugger *debugger)
+IAnjutaDebuggerState
+debugger_get_state (Debugger *debugger)
 {
 	if (debugger->priv->debugger_is_busy)
 	{
@@ -1262,7 +1262,7 @@ debugger_parse_prompt (Debugger *debugger)
 	
 	debugger->priv->debugger_is_busy--;
 	debugger_queue_execute_command (debugger);	/* Next command. Go. */
-	debugger_emit_status (debugger);
+	debugger_emit_ready (debugger);
 	
 	#if 0
 	if (debugger->priv->skip_next_prompt)
@@ -1526,6 +1526,7 @@ debugger_stop_real (Debugger *debugger)
 gboolean
 debugger_stop (Debugger *debugger)
 {
+#if 0
 	gboolean ret = TRUE;
 
 	if (debugger->priv->prog_is_running == TRUE)
@@ -1556,6 +1557,10 @@ debugger_stop (Debugger *debugger)
 	else
 		debugger_stop_real (debugger);
 	return ret;
+#endif
+	debugger_stop_real (debugger);
+
+	return TRUE;
 }
 
 gboolean
@@ -1923,7 +1928,7 @@ debugger_attach_process_finish (Debugger *debugger, const GDBMIValue *mi_results
 	}
 	debugger->priv->prog_is_attached = TRUE;
 	debugger->priv->prog_is_running = TRUE;
-	debugger_emit_status (debugger);
+	//debugger_emit_status (debugger);
 }
 
 static void

@@ -32,7 +32,7 @@
 
 typedef struct _DmaThreads DmaThreads;
 
-DmaThreads *dma_threads_new (IAnjutaDebugger *debugger, DebugManagerPlugin *plugin);
+DmaThreads *dma_threads_new (DebugManagerPlugin *plugin);
 void dma_threads_free (DmaThreads *self);
 
 #endif

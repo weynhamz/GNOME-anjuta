@@ -78,7 +78,7 @@ struct _CommonDebugTree {
 
 /* The debug tree object */
 struct _DebugTree {
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	AnjutaPlugin *plugin;
 	GtkWidget* view;        /* the tree widget */
 	gboolean auto_expand;
@@ -332,7 +332,7 @@ delete_parent(GtkTreeModel *model, GtkTreePath* path,
 			{
 				/* Object has been created in debugger and is not a child
 			 	* (destroyed with their parent) */
-				ianjuta_variable_debugger_delete_var (IANJUTA_VARIABLE_DEBUGGER (tree->debugger), data->name, NULL);
+				dma_queue_delete_variable (tree->debugger, data->name);
 			}
 		}				
 
@@ -563,7 +563,7 @@ gdb_var_create (IAnjutaDebuggerVariable *variable, gpointer user_data, GError *e
 		 * created at this time, so remove it now */
 		if ((pack->tree->debugger) && (variable->name))
 		{
-			ianjuta_variable_debugger_delete_var (IANJUTA_VARIABLE_DEBUGGER (pack->tree->debugger), variable->name, NULL);
+			dma_queue_delete_variable (pack->tree->debugger, variable->name);
 		}
 		dma_variable_packet_free (pack);
 		
@@ -590,12 +590,11 @@ gdb_var_create (IAnjutaDebuggerVariable *variable, gpointer user_data, GError *e
 		DmaVariablePacket *pack_child =
                   dma_variable_packet_new(pack->model, &iter, pack->tree, data);
 
-		ianjuta_variable_debugger_list_children (
-				IANJUTA_VARIABLE_DEBUGGER (pack_child->tree->debugger),
+		dma_queue_list_children (
+				pack_child->tree->debugger,
 				variable->name,
 				(IAnjutaDebuggerCallback)gdb_var_list_children,
-				pack_child,
-				NULL);
+				pack_child);
 	}
 	else if (variable->children > 0)
 	{
@@ -611,12 +610,11 @@ gdb_var_create (IAnjutaDebuggerVariable *variable, gpointer user_data, GError *e
 	 * reusing same packet if possible */
 	if (variable->value == NULL)
 	{
-		ianjuta_variable_debugger_evaluate (
-				IANJUTA_VARIABLE_DEBUGGER (pack->tree->debugger),
+		dma_queue_evaluate_variable (
+				pack->tree->debugger,
 				variable->name,
 				(IAnjutaDebuggerCallback)gdb_var_evaluate_expression,
-				pack,
-				NULL);
+				pack);
 	}
 	else
 	{
@@ -643,12 +641,11 @@ on_treeview_row_expanded       (GtkTreeView     *treeview,
 		DmaVariablePacket *pack;
 					
 		pack = dma_variable_packet_new(model, iter, tree, data);
-		ianjuta_variable_debugger_list_children (
-						IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
+		dma_queue_list_children (
+						tree->debugger,
 						data->name,
 						(IAnjutaDebuggerCallback)gdb_var_list_children,
-						pack,
-						NULL);
+						pack);
 	}
 	else
 	{
@@ -704,14 +701,13 @@ on_debug_tree_value_changed (GtkCellRendererText *cell,
 		if (item != NULL)
 		{
 			/* Variable is valid */
-			ianjuta_variable_debugger_assign (IANJUTA_VARIABLE_DEBUGGER (tree->debugger), item->name, text, NULL);
+			dma_queue_assign_variable (tree->debugger, item->name, text);
 			tran = dma_variable_packet_new(model, &iter, tree, item);
-			ianjuta_variable_debugger_evaluate (
-					IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
+			dma_queue_evaluate_variable (
+					tree->debugger,
 					item->name,
 					(IAnjutaDebuggerCallback) gdb_var_evaluate_expression,
-					tran,
-					NULL);
+					tran);
 		}
 	}
 }
@@ -968,12 +964,11 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariable* var, gbool
 				DmaVariablePacket *pack;
 		
 				pack = dma_variable_packet_new(model, &iter, tree, data);
-				ianjuta_variable_debugger_create (
-						IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
+				dma_queue_create_variable (
+						tree->debugger,
 						var->expression,
 						(IAnjutaDebuggerCallback)gdb_var_create,
-						pack,
-						NULL);
+						pack);
 			}
 			else
 			{
@@ -984,12 +979,11 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariable* var, gbool
 					DmaVariablePacket *pack =
 					
 					pack = dma_variable_packet_new(model, &iter, tree, data);
-					ianjuta_variable_debugger_evaluate (
-							IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
+					dma_queue_evaluate_variable (
+							tree->debugger,
 							var->name,
 							(IAnjutaDebuggerCallback)gdb_var_evaluate_expression,
-							pack,
-							NULL);
+							pack);
 				}
 				if (var->children == -1)
 				{
@@ -997,12 +991,11 @@ debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariable* var, gbool
 					DmaVariablePacket *pack =
 					
 					pack = dma_variable_packet_new(model, &iter, tree, data);
-					ianjuta_variable_debugger_list_children (
-							IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
+					dma_queue_list_children (
+							tree->debugger,
 							var->name,
 							(IAnjutaDebuggerCallback)gdb_var_list_children,
-							pack,
-							NULL);
+							pack);
 				}
 			}
 		}
@@ -1138,11 +1131,10 @@ debug_tree_update_all (DebugTree* tree)
 	if (tree->debugger != NULL)
 	{
 		/* Update if debugger is connected */
-		ianjuta_variable_debugger_update (
-				IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
+		dma_queue_update_variable (
+				tree->debugger,
 				(IAnjutaDebuggerCallback)on_debug_tree_update_all,
-				tree,
-				NULL);
+				tree);
 	}
 }
 
@@ -1231,12 +1223,11 @@ debug_tree_update (DebugTree* tree, GtkTreeIter* iter, gboolean force)
 		gtk_tree_model_get (model, iter, VARIABLE_COLUMN, &exp, -1);
 		pack = dma_variable_packet_new(model, iter, tree, data);
 		data->modified = TRUE;
-		ianjuta_variable_debugger_create (
-				IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
+		dma_queue_create_variable (
+				tree->debugger,
 				exp,
 				(IAnjutaDebuggerCallback)gdb_var_create,
-				pack,
-				NULL);
+				pack);
 		g_free (exp);
 		
 		return FALSE;
@@ -1246,12 +1237,11 @@ debug_tree_update (DebugTree* tree, GtkTreeIter* iter, gboolean force)
 		DmaVariablePacket *pack = dma_variable_packet_new(model, iter, tree, data);
 		refresh = data->modified != (data->changed != FALSE);
 		data->modified = (data->changed != FALSE);
-		ianjuta_variable_debugger_evaluate (
-				IANJUTA_VARIABLE_DEBUGGER (tree->debugger),
+		dma_queue_evaluate_variable (
+				tree->debugger,
 				data->name,
 				(IAnjutaDebuggerCallback)gdb_var_evaluate_expression,
-				pack,
-				NULL);
+				pack);
 	}
 	else
 	{
@@ -1316,7 +1306,7 @@ debug_tree_get_auto_update (DebugTree* this, GtkTreeIter* iter)
 }
 
 void
-debug_tree_connect (DebugTree *this, IAnjutaDebugger* debugger)
+debug_tree_connect (DebugTree *this, DmaDebuggerQueue* debugger)
 {
 	this->debugger = debugger;
 }

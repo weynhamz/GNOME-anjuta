@@ -21,6 +21,9 @@
 #ifndef _SIGNALS_H_
 #define _SIGNALS_H_
 
+#include "plugin.h"
+#include "queue.h"
+
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
@@ -44,7 +47,7 @@ struct _SignalsGui
 struct _Signals
 {
 	SignalsGui  widgets;
-	IAnjutaDebugger *debugger;
+	DmaDebuggerQueue *debugger;
 	gboolean is_showing;
 	gint win_pos_x, win_pos_y, win_width, win_height;
 	gint	idx;
@@ -54,7 +57,7 @@ struct _Signals
 	gboolean pass;
 };
 
-Signals* signals_new (IAnjutaDebugger *debugger);
+Signals* signals_new (DebugManagerPlugin *plugin);
 
 void signals_clear (Signals *ew);
 
