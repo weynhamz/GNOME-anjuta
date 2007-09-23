@@ -1,3 +1,42 @@
+2007-09-23  Tom <tpgww@onepost.net>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org> (with small changes)
+
+	* configure.in:
+	Bumped GNOME_VFS_REQUIRED to 2.14 (this is two years ago now...)
+	
+	* libanjuta/anjuta-glue-factory.c: (load_plugin),
+	(anjuta_glue_factory_get_object_type):
+	* libanjuta/anjuta-status.c: (anjuta_status_set_title):
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(value_added_current_editor):
+	* plugins/debug-manager/breakpoints.c:
+	(breakpoints_dbase_edit_breakpoint),
+	(on_toggle_breakpoint_activate):
+	* plugins/debug-manager/plugin.c:
+	(on_run_to_cursor_action_activate):
+	* plugins/debug-manager/stack_trace.c:
+	(dma_thread_update_stack_trace):
+	* plugins/gdb/plugin.c:
+	* plugins/glade/plugin.c: (ifile_open):
+	* plugins/profiler/gprof-call-graph-view.c:
+	* plugins/profiler/gprof-flat-profile-view.c:
+	* plugins/profiler/gprof-function-call-tree-view.c:
+	* plugins/profiler/gprof-options.c: (setup_widgets):
+	* plugins/project-manager/plugin.c: (project_manager_unload_gbf):
+	* plugins/search/search-replace_backend.c:
+	(file_buffer_new_from_te):
+	* plugins/sourceview/assist-tip.c: (assist_tip_move):
+	* plugins/sourceview/assist-window.c: (assist_window_set_property),
+	(assist_window_get_property), (assist_window_move):
+	* plugins/symbol-browser/plugin.c: (update_editor_symbol_model),
+	(value_added_current_editor):
+	* plugins/symbol-db/plugin.c: (value_added_current_editor):
+	* plugins/tools/variable.c: (atp_variable_get_editor_variable):
+	* plugins/valgrind/vggeneralprefs.c: (general_prefs_get_argv):
+	
+	Many small code, warnings and leak fixes
+
 2007-09-23 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* (removed) plugins/debug-manager/debugger.c,

@@ -22,6 +22,7 @@
  */
 
 #include "gprof-function-call-tree-view.h"
+#include <glib/gi18n-lib.h>
 
 struct _GProfFunctionCallTreeViewPriv
 {

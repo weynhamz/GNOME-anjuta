@@ -140,9 +140,9 @@ load_plugin (AnjutaGlueFactory *factory, const gchar *component_name, const gcha
 {
 	GList *p;
 	const gchar *plugin_name;
-	GList *descs = NULL;
-	AnjutaPluginDescription *plugin;
-	gchar *value;	
+//	GList *descs = NULL;
+//	AnjutaPluginDescription *plugin;
+//	gchar *value;
 
     plugin_name = anjuta_glue_plugin_build_component_path (glue, NULL, component_name);
 	for (p = factory->paths; p != NULL; p = p->next)
@@ -203,7 +203,7 @@ anjuta_glue_factory_get_object_type (AnjutaGlueFactory  *factory,
 	if (!glue)
 	{
 		AnjutaGluePlugin *glue;
-		GType type;
+//		GType type;
 		
 		glue = (AnjutaGluePlugin *)g_object_new (language, NULL);
 		anjuta_glue_plugin_set_resident (glue, resident);

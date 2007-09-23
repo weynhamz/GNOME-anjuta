@@ -174,7 +174,10 @@ file_buffer_new_from_te (IAnjutaEditor *te)
 	
 	uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
 	if (uri)
+	{
 		fb->path = tm_get_real_path(uri);
+		g_free (uri);
+	}
 	fb->len = ianjuta_editor_get_length(te, NULL);
 	fb->buf = ianjuta_editor_get_text(fb->te, 0, fb->len, NULL);
 	fb->pos = ianjuta_editor_get_position(fb->te, NULL);

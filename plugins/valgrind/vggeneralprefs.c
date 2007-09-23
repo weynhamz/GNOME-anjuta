@@ -368,7 +368,7 @@ general_prefs_get_argv (VgToolPrefs *prefs, const char *tool, GPtrArray *argv)
 				continue;
 			}
 			
-			if (general_args[i].key == SUPPRESSIONS_KEY &&
+			if (g_str_equal (general_args[i].key, SUPPRESSIONS_KEY) &&
 			    (stat (str, &st) == -1 || !S_ISREG (st.st_mode))) {
 				general_args[i].buf = NULL;
 				g_free (str);

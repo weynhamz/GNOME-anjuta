@@ -43,9 +43,9 @@ struct _AnjutaStatusPriv
 	/* Progress bar */
 	gint total_ticks;
 	gint current_ticks;
-	GtkWidget *splash;
 	
 	/* Splash */
+	GtkWidget *splash;
 	gboolean disable_splash;
 	gchar *splash_file;
 	gint splash_progress_position;
@@ -483,18 +483,15 @@ anjuta_status_set_title (AnjutaStatus *status, const gchar *title)
 	if (!status->priv->window)
 		return;
 	
+	const gchar *str = g_get_application_name();
 	if (title)
 	{
-		gchar *str;
-		str = g_strconcat (title, " - ",
-						   g_get_application_name(), NULL);
+		str = g_strconcat (str, " - ", title, NULL);
 		gtk_window_set_title (status->priv->window, str);
-		g_free (str);
 	}
 	else
 	{
-		gtk_window_set_title (status->priv->window,
-							  g_get_application_name ());
+		gtk_window_set_title (status->priv->window, str);
 	}
 }
 

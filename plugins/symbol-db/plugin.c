@@ -24,6 +24,7 @@
 
 #include <config.h>
 #include <libgnomevfs/gnome-vfs-utils.h>
+#include <libgnomevfs/gnome-vfs-mime-utils.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
@@ -344,8 +345,10 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 	
-	local_path = gnome_vfs_get_local_path_from_uri (uri);
+	if (uri == NULL)
+		return;
 
+	local_path = gnome_vfs_get_local_path_from_uri (uri);
 
 	symbol_db_view_locals_update_list (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
@@ -356,16 +359,17 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_object_weak_ref (G_OBJECT (editor),
 						   (GWeakNotify) (on_editor_destroy),
 						   sdb_plugin);
-		if (uri)
-		{
+//		if (uri)
+//		{
 			g_hash_table_insert (sdb_plugin->editor_connected, editor,
 								 g_strdup (uri));
-		}
+/*		}
 		else
 		{
 			g_hash_table_insert (sdb_plugin->editor_connected, editor,
 								 g_strdup (""));
 		}
+*/
 		g_signal_connect (G_OBJECT (editor), "saved",
 						  G_CALLBACK (on_editor_saved),
 						  sdb_plugin);

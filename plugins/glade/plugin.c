@@ -615,13 +615,19 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	{
 		if (ANJUTA_IS_DESIGN_DOCUMENT(cur_doc->data))
 		{
-			gchar* cur_uri = ianjuta_file_get_uri(IANJUTA_FILE(cur_doc->data), NULL);
-			DEBUG_PRINT("%s = %s", uri, cur_uri);
-			if (g_str_equal(uri, cur_uri))
+			gchar *cur_uri;
+			cur_uri = ianjuta_file_get_uri (IANJUTA_FILE (cur_doc->data), NULL);
+			if (cur_uri)
 			{
-				ianjuta_document_manager_set_current_document(docman, IANJUTA_DOCUMENT(cur_doc->data),
-															  NULL);
+			DEBUG_PRINT("%s = %s", uri, cur_uri);
+				if (g_str_equal (uri, cur_uri))
+			{
+					ianjuta_document_manager_set_current_document (docman,
+						IANJUTA_DOCUMENT (cur_doc->data), NULL);
+					g_free (cur_uri);
 				return;
+			}
+				g_free (cur_uri);
 			}
 		}
 	}

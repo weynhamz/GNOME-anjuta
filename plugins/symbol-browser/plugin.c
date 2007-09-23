@@ -754,6 +754,7 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 		anjuta_symbol_view_workspace_add_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree), uri);
 		action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
 									   "ActionGotoSymbol");
+		g_free (uri);
 		
 		file_symbol_model =
 			anjuta_symbol_view_get_file_symbol_model (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree));
@@ -777,8 +778,6 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 				g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 		}
 	}
-	if (uri)
-		g_free (uri);
 }
 
 static gboolean
@@ -929,8 +928,8 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 						   sv_plugin);
 		if (uri)
 		{
-			g_hash_table_insert (sv_plugin->editor_connected, editor,
-								 g_strdup (uri));
+			g_hash_table_insert (sv_plugin->editor_connected, editor, uri);	//g_strdup (uri));
+			//g_free (uri);
 		}
 		else
 		{
@@ -948,7 +947,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 						  G_CALLBACK (on_editor_update_ui),
 						  sv_plugin);
 	}
-	g_free (uri);
 	
 	/* add a default timeout to the updating of buffer symbols */	
 	timeout_id = g_timeout_add (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,

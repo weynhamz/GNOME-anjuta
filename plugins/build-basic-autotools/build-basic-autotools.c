@@ -1920,9 +1920,9 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		gchar *filename;
 		
 		filename = gnome_vfs_get_local_path_from_uri (uri);
+		g_free (uri);
 		g_return_if_fail (filename != NULL);
 		ba_plugin->current_editor_filename = filename;
-		g_free (uri);
 		update_module_ui (ba_plugin);
 	}
 	g_idle_add (on_update_indicators_idle, plugin);

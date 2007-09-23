@@ -668,7 +668,7 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 	IAnjutaDocumentManager *docman;
 	IAnjutaEditor *editor;
 	IAnjutaDocument *document;
-	const gchar *uri;
+	gchar *uri;
 	gchar *file;
 	gint line;
 
@@ -694,8 +694,8 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 	
 	line = ianjuta_editor_get_lineno (editor, NULL);
 	dma_queue_run_to (plugin->queue, file, line);
+	g_free (uri);
 	g_free (file);
-	
 }
 
 static void

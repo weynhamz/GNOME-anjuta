@@ -326,6 +326,7 @@ atp_variable_get_editor_variable (const ATPVariable *this, guint id)
 	case ATP_EDITOR_CURRENT_DIRECTORY:
 		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), &err);
 		val = remove_filename(get_path_from_uri(uri));
+		g_free (uri);
 		break;
 	default:
 		g_return_val_if_reached (NULL);

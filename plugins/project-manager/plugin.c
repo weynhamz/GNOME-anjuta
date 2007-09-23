@@ -1232,7 +1232,7 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 					node = g_list_next(node);
 					continue;
 				}
-				const gchar *editor_uri =
+				gchar *editor_uri =
 					ianjuta_file_get_uri (IANJUTA_FILE (node->data), NULL);
 				
 				/* Only remove if it does not have unsaved data */
@@ -1248,6 +1248,7 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 						to_remove = g_list_prepend (to_remove, node->data);
 					}
 				}
+				g_free (editor_uri);
 				node = g_list_next (node);
 			}
 			node = to_remove;

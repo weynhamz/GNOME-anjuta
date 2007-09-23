@@ -946,7 +946,7 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 	GtkWidget *pass_entry;
 	gchar *buff;
 	gchar *location = NULL;
-	const gchar *uri = NULL;
+	gchar *uri = NULL;
 
 	gxml = glade_xml_new (GLADE_FILE,
 						  "breakpoint_properties_dialog", NULL);
@@ -982,7 +982,7 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 				line = ianjuta_editor_get_lineno (te, NULL);
 			}
 		}
-	
+		//NULL uri ia ok here
 		bi = breakpoint_item_new_from_uri (bd, uri, line, TRUE);
 	}
 	else
@@ -1071,6 +1071,7 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 			}
 		}
 	}
+	g_free (uri);
 	g_free (location);
 	gtk_widget_destroy (dialog);
 	g_object_unref (gxml);
@@ -1366,7 +1367,7 @@ on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	IAnjutaEditor *te = NULL;
 	IAnjutaDocument *doc;
 	BreakpointItem *bi;
-	const gchar *uri;
+	gchar *uri;
 	guint line;
 
 	/* Get current editor and line */
@@ -1391,6 +1392,7 @@ on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	{
 		breakpoints_dbase_remove_breakpoint (bd, bi);
 	}
+	g_free (uri);
 }
 
 static void

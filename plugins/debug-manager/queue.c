@@ -27,7 +27,9 @@
 
 #include "queue.h"
 
-#define DEBUG
+#ifndef DEBUG
+#	define DEBUG
+#endif
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 

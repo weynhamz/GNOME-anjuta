@@ -208,7 +208,7 @@ static void
 setup_widgets (gchar *key_name, Key *key, GladeXML *gxml)
 {
 	GtkWidget *widget;
-	GtkWidget *file_chooser_dialog;
+//	GtkWidget *file_chooser_dialog;
 	GtkTextBuffer *buffer;
 	gchar *string;
 	

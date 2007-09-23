@@ -24,7 +24,7 @@
 
 #include <config.h>
 
-#define DEBUG
+//#define DEBUG
 
 #include "plugin.h"
 
