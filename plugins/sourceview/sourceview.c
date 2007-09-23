@@ -589,6 +589,49 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 	return sv;
 }
 
+/* Utility stuff */
+static gint
+offset_to_position (Sourceview* sv, gint offset)
+{
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	GtkTextIter start, end;
+	gchar* text;
+	gchar* text_pos;
+	int position;
+	
+	gtk_text_buffer_get_bounds (buffer, &start, &end);
+	
+	text = gtk_text_buffer_get_slice (buffer, &start, &end, FALSE);
+	g_return_val_if_fail (strlen(text) > offset, 0);
+	
+	text_pos = g_utf8_offset_to_pointer (text, offset);
+		
+	return position = text_pos - text + 1;
+}
+
+static void
+position_to_offset (Sourceview* sv, gint* begin, gint* end)
+{
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	GtkTextIter iter_start, iter_end;
+	gchar* text;
+	gchar* text_start;
+	gchar* text_end;
+	
+	gtk_text_buffer_get_bounds (buffer, &iter_start, &iter_end);
+	
+	text = gtk_text_buffer_get_slice (buffer, &iter_start, &iter_end, FALSE);
+	g_return_if_fail (strlen(text) > MAX (*begin, *end));
+	
+	text_start = text + *begin;
+	text_end = text + *end;
+	
+	*begin = g_utf8_pointer_to_offset (text, text_start);
+	*end = g_utf8_pointer_to_offset (text, text_end);
+	
+	g_free (text);
+}
+
 /* IAnjutaFile interface */
 
 /* Open uri in Editor */
@@ -738,8 +781,11 @@ static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 static void ieditor_goto_position(IAnjutaEditor *editor, gint position, GError **e)
 {
 	GtkTextIter iter;
-	
+	int dummy = 0;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	
+	position_to_offset (sv, &position, &dummy);
+	
 	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
 									   &iter, position);
 	gtk_text_buffer_place_cursor (GTK_TEXT_BUFFER (sv->priv->document), &iter);
@@ -754,6 +800,9 @@ static gchar* ieditor_get_text(IAnjutaEditor* editor, gint position,
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	gint end = position + length;
+	
+	position_to_offset (sv, &position, &end);
 	
 	g_return_val_if_fail (position >= 0, NULL);
 	if (length == 0)
@@ -763,7 +812,7 @@ static gchar* ieditor_get_text(IAnjutaEditor* editor, gint position,
 								   &start_iter, position);
 	if (length > 0)
 		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-										   &end_iter, position + length);
+										   &end_iter, end);
 	else
 		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
 										   &end_iter, -1);
@@ -781,7 +830,7 @@ static gint ieditor_get_position(IAnjutaEditor* editor, GError **e)
 	gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
 									 gtk_text_buffer_get_insert(buffer));
 
-	return gtk_text_iter_get_offset(&iter);
+	return offset_to_position(sv, gtk_text_iter_get_offset(&iter));
 }
 
 
@@ -1195,7 +1244,9 @@ static void iselect_set(IAnjutaEditorSelection *editor, gint start,
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	GtkTextIter start_iter;
 	GtkTextIter end_iter;
-
+	
+	position_to_offset (sv, &start, &end);
+	
 	if (backward)
 	{
 		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
@@ -1206,9 +1257,9 @@ static void iselect_set(IAnjutaEditorSelection *editor, gint start,
 	else
 	{
 		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-									   &start_iter, end);
+									   &start_iter, start);
 		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-									   &end_iter, start);
+									   &end_iter, end);
 	}
 	set_select(sv, &start_iter, &end_iter);
 }
@@ -1247,7 +1298,7 @@ static gint iselect_get_start(IAnjutaEditorSelection *editor, GError **e)
 	if (gtk_text_buffer_get_selection_bounds (GTK_TEXT_BUFFER (sv->priv->document),
 											  &start, NULL))
 	{
-		return gtk_text_iter_get_offset (&start);
+		return offset_to_position (sv, gtk_text_iter_get_offset (&start));
 	}
 	return -1;										  
 }
@@ -1260,7 +1311,7 @@ static gint iselect_get_end(IAnjutaEditorSelection *editor, GError **e)
 	if (gtk_text_buffer_get_selection_bounds (GTK_TEXT_BUFFER (sv->priv->document),
 											  NULL, &end))
 	{
-		return gtk_text_iter_get_offset (&end);
+		return offset_to_position (sv, gtk_text_iter_get_offset (&end));
 	}
 	return -1;
 }

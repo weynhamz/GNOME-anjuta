@@ -1,5 +1,14 @@
 2007-09-23  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/sourceview.c: (offset_to_position),
+	(position_to_offset), (ieditor_goto_position), (ieditor_get_text),
+	(ieditor_get_position), (iselect_set), (iselect_get_start),
+	(iselect_get_end):
+	
+	Fixed #Bug 440637 – Search, don't work very well
+
+2007-09-23  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/file-manager/file-model.c: (file_model_get_filename):
 	* plugins/file-manager/file-model.h:
 	* plugins/file-manager/file-view.c: (file_view_query_tooltip),
