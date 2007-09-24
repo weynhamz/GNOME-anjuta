@@ -1,3 +1,8 @@
+2007-09-24  Johannes Schmid <jhs@gnome.org>
+
+	* src/anjuta-app.c: (anjuta_app_add_widget_full):
+	Fixed a missing NULL in g_object_set.
+
 2007-09-24  Naba Kumar  <naba.kumar@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c:
