@@ -1,5 +1,10 @@
 2007-09-24  Johannes Schmid <jhs@gnome.org>
 
+	* sourceview.c: Reverting patch from r3157 because
+	of side-effects
+
+2007-09-24  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/search/search-replace.c: (on_message_clicked):
 
 	Fixed #427104 – No "highlight" of lines matching find-result
