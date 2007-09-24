@@ -1,3 +1,13 @@
+2007-09-24 Tom <tpgww@onepost.net>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-status.c: (anjuta_status_set_title):
+	Fix memory leak
+	
+	* plugins/debug-manager/disassemble.c: (on_disassemble):
+	Correct a format string in DEBUG_PRINT()
+
 2007-09-23  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c: (offset_to_position),

@@ -483,15 +483,16 @@ anjuta_status_set_title (AnjutaStatus *status, const gchar *title)
 	if (!status->priv->window)
 		return;
 	
-	const gchar *str = g_get_application_name();
+	const gchar *app_name = g_get_application_name();
 	if (title)
 	{
-		str = g_strconcat (str, " - ", title, NULL);
+		gchar* str = g_strconcat (app_name, " - ", title, NULL);
 		gtk_window_set_title (status->priv->window, str);
+		g_free (str);
 	}
 	else
 	{
-		gtk_window_set_title (status->priv->window, str);
+		gtk_window_set_title (status->priv->window, app_name);
 	}
 }
 

@@ -408,7 +408,7 @@ on_disassemble (const IAnjutaDebuggerDisassembly *block, DmaSparseBufferTranspor
 	}
 	
 	/* Find following block */
-	DEBUG_PRINT("trans %p buffer %p trans->buffer %p trans->start %x", trans, buffer, trans == NULL ? NULL : trans->buffer, trans == NULL ? 0 : trans->start);
+	DEBUG_PRINT("trans %p buffer %p trans->buffer %p trans->start %ul", trans, buffer, trans == NULL ? NULL : trans->buffer, trans == NULL ? 0 : trans->start);
 	next = dma_sparse_buffer_lookup (DMA_SPARSE_BUFFER (buffer), trans->start + trans->length - 1);
 	if ((next != NULL) && (next->upper <= trans->start)) next = NULL;
 	
