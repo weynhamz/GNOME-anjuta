@@ -1,5 +1,12 @@
 2007-09-24  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/search/search-replace.c: (on_message_clicked):
+
+	Fixed #427104 – No "highlight" of lines matching find-result
+	(from trunk)
+
+2007-09-24  Johannes Schmid <jhs@gnome.org>
+
 	* src/anjuta.glade:
 
 	Fixed #479020 – Use of old open file dialog instead of GtkFileChooser

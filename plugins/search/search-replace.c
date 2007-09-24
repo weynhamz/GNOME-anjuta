@@ -626,7 +626,7 @@ on_message_clicked (GObject* object, gchar* message, gpointer data)
 	nline = g_strndup(ptr, ptr2 - ptr);
 	line = atoi(nline);
 							
-	ianjuta_document_manager_goto_file_line (sr->docman, path, line, NULL);  
+	ianjuta_document_manager_goto_file_line_mark (sr->docman, path, line, TRUE, NULL);  
 	g_free(path);
 	g_free(nline);
 	return FALSE;
