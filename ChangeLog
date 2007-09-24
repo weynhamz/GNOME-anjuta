@@ -1,3 +1,9 @@
+2007-09-24  Johannes Schmid <jhs@gnome.org>
+
+	* src/anjuta.glade:
+
+	Fixed #479020 – Use of old open file dialog instead of GtkFileChooser
+
 2007-09-24  Yang Hong  <hongyang@redflag-linux.com>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
