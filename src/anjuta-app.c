@@ -1044,7 +1044,7 @@ anjuta_app_add_widget_full (AnjutaShell *shell,
 	gtk_menu_append (GTK_MENU (app->view_menu), GTK_WIDGET (menuitem));
 
 	if (locked)
-		g_object_set( G_OBJECT(menuitem), "visible", FALSE);
+		g_object_set( G_OBJECT(menuitem), "visible", FALSE, NULL);
 
 	
 	g_object_set_data (G_OBJECT (widget), "app-object", app);
