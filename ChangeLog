@@ -1,6 +1,12 @@
+2007-09-24  Yang Hong  <hongyang@redflag-linux.com>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/build-basic-autotools/executer.c: (execute_program):
+	Fix #478238 – set env for execute programe in the terminal
+
 2007-09-10  Johannes Schmid <jhs@gnome.org>
 
-	* anjuta.anjuta:
 	* configure.in:
 	* libegg/egg-recent-model.c: (egg_recent_model_write_raw),
 	(parse_info_init), (parse_info_free), (valid_element),
