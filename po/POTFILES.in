@@ -49,13 +49,13 @@ plugins/debug-manager/breakpoints.c
 plugins/debug-manager/chunk_view.c
 plugins/debug-manager/data_buffer.c
 plugins/debug-manager/data_view.c
-plugins/debug-manager/debugger.c
 plugins/debug-manager/debug_tree.c
 plugins/debug-manager/disassemble.c
 plugins/debug-manager/info.c
 plugins/debug-manager/locals.c
 plugins/debug-manager/memory.c
 plugins/debug-manager/plugin.c
+plugins/debug-manager/queue.c
 plugins/debug-manager/registers.c
 plugins/debug-manager/sexy-icon-entry.c
 plugins/debug-manager/sharedlib.c
@@ -81,6 +81,7 @@ plugins/editor/text_editor.c
 plugins/editor/text_editor_cbs.c
 plugins/editor/text_editor_menu.c
 plugins/file-loader/plugin.c
+plugins/file-manager/file-model.c
 plugins/file-manager/file-view.c
 plugins/file-manager/plugin.c
 plugins/file-wizard/anjuta-file-wizard.glade
@@ -173,6 +174,10 @@ plugins/symbol-browser/an_symbol_search.c
 plugins/symbol-browser/an_symbol_view.c
 plugins/symbol-browser/anjuta-symbol-browser-plugin.glade
 plugins/symbol-browser/plugin.c
+plugins/symbol-db/plugin.c
+plugins/symbol-db/symbol-db-view-locals.c
+plugins/symbol-db/symbol-db-view.c
+plugins/symbol-db/symbol-db.glade
 plugins/terminal/anjuta-terminal-plugin.glade
 plugins/terminal/terminal.c
 plugins/tools/anjuta-tools.glade
