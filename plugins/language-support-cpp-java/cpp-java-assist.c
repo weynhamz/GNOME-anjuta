@@ -35,11 +35,19 @@
 
 #define PREF_AUTOCOMPLETE_ENABLE "language.cpp.code.completion.enable"
 #define PREF_AUTOCOMPLETE_CHOICES "language.cpp.code.completion.choices"
+#define PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC "language.cpp.code.completion.space.after.func"
+#define PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC "language.cpp.code.completion.brace.after.func"
 #define PREF_CALLTIP_ENABLE "language.cpp.code.calltip.enable"
 #define MAX_COMPLETIONS 10
 #define BRACE_SEARCH_LIMIT 500
 
 G_DEFINE_TYPE (CppJavaAssist, cpp_java_assist, G_TYPE_OBJECT);
+
+typedef struct
+{
+	gchar *name;
+	gboolean is_func;
+} CppJavaAssistTag;
 
 struct _CppJavaAssistPriv {
 	AnjutaPreferences *preferences;
@@ -51,6 +59,28 @@ struct _CppJavaAssistPriv {
 	gchar *scope_context_cache;
 	GCompletion *completion_cache;
 };
+
+static gchar*
+completion_function (gpointer data)
+{
+	CppJavaAssistTag * tag = (CppJavaAssistTag*) data;
+	return tag->name;
+}
+
+static gint
+completion_compare (gconstpointer a, gconstpointer b)
+{
+	CppJavaAssistTag * tag_a = (CppJavaAssistTag*) a;
+	CppJavaAssistTag * tag_b = (CppJavaAssistTag*) b;
+	return strcmp (tag_a->name, tag_b->name);
+}
+
+static void
+cpp_java_assist_tag_destroy (CppJavaAssistTag *tag)
+{
+	g_free (tag->name);
+	g_free (tag);
+}
 
 static gint
 get_iter_column (CppJavaAssist *assist, IAnjutaIterable *iter)
@@ -106,7 +136,7 @@ is_word_character (gchar ch)
 static GCompletion*
 create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter)
 {
-	GCompletion *completion = g_completion_new (NULL);
+	GCompletion *completion = g_completion_new (completion_function);
 	GHashTable *suggestions_hash = g_hash_table_new (g_str_hash, g_str_equal);
 	GList* suggestions = NULL;
 	do
@@ -116,9 +146,14 @@ create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter)
 		{
 			if (!g_hash_table_lookup (suggestions_hash, name))
 			{
+				CppJavaAssistTag *tag = g_new0 (CppJavaAssistTag, 1);
+				tag->name = g_strdup (name);
+				tag->is_func = (ianjuta_symbol_args (IANJUTA_SYMBOL (iter),
+													 NULL)
+								!= NULL);
 				g_hash_table_insert (suggestions_hash, (gchar*)name,
 									 (gchar*)name);
-				suggestions = g_list_prepend (suggestions, g_strdup (name));
+				suggestions = g_list_prepend (suggestions, tag);
 			}
 		}
 		else
@@ -128,7 +163,7 @@ create_completion (IAnjutaEditorAssist* iassist, IAnjutaIterable* iter)
 	
 	g_hash_table_destroy (suggestions_hash);
 	
-	suggestions = g_list_sort (suggestions, (GCompareFunc) strcmp);
+	suggestions = g_list_sort (suggestions, completion_compare);
 	g_completion_add_items (completion, suggestions);
 	return completion;
 }
@@ -237,7 +272,7 @@ cpp_java_assist_destroy_completion_cache (CppJavaAssist *assist)
 		GList* items = assist->priv->completion_cache->items;
 		if (items)
 		{
-			g_list_foreach (items, (GFunc) g_free, NULL);
+			g_list_foreach (items, (GFunc) cpp_java_assist_tag_destroy, NULL);
 			g_completion_clear_items (assist->priv->completion_cache);
 		}
 		g_completion_free (assist->priv->completion_cache);
@@ -319,14 +354,37 @@ cpp_java_assist_show_autocomplete (CppJavaAssist *assist,
 	length = g_list_length (completion_list);
 	if (length <= max_completions)
 	{
-		if (length > 1 || !pre_word || !g_str_equal (pre_word,
-													 completion_list->data))
+		if (length > 1 || !pre_word ||
+			!g_str_equal (pre_word,
+						  ((CppJavaAssistTag*)completion_list->data)->name))
 		{
+			GList *node, *suggestions = NULL;
+			gint alignment;
+			
+			node = completion_list;
+			while (node)
+			{
+				CppJavaAssistTag *tag = node->data;
+				
+				gchar *entry;
+				
+				if (tag->is_func)
+					entry = g_strdup_printf ("%s()", tag->name);
+				else
+					entry = g_strdup_printf ("%s", tag->name);
+				suggestions = g_list_prepend (suggestions, entry);
+				node = g_list_next (node);
+			}
+			suggestions = g_list_reverse (suggestions);
+			alignment = pre_word? strlen (pre_word) : 0;
+			
 			ianjuta_editor_assist_suggest (assist->priv->iassist,
-										   completion_list,
+										   suggestions,
 										   position,
-										   pre_word? strlen (pre_word) : 0,
+										   alignment,
 										   NULL);
+			g_list_foreach (suggestions, (GFunc) g_free, NULL);
+			g_list_free (suggestions);
 			return TRUE;
 		}
 	}
@@ -608,20 +666,42 @@ static void
 on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 				  CppJavaAssist* assist)
 {
+	CppJavaAssistTag *tag;
 	gint cur_pos;
-	const gchar* assistance;
+	GString *assistance;
 	IAnjutaEditor *te;
 	IAnjutaIterable *iter;
 	gchar *pre_word = NULL;
+	gboolean add_space_after_func = FALSE;
+	gboolean add_brace_after_func = FALSE;
 	
 	DEBUG_PRINT ("assist-chosen: %d", selection);
 	
 	if (assist->priv->completion_cache->cache)
-		assistance = g_list_nth_data (assist->priv->completion_cache->cache,
-									  selection);
+		tag = g_list_nth_data (assist->priv->completion_cache->cache,
+							   selection);
 	else
-		assistance = g_list_nth_data (assist->priv->completion_cache->items,
-									  selection);
+		tag = g_list_nth_data (assist->priv->completion_cache->items,
+							   selection);
+	
+	assistance = g_string_new (tag->name);
+	
+	if (tag->is_func)
+	{
+		add_space_after_func =
+			anjuta_preferences_get_int_with_default (assist->priv->preferences,
+													 PREF_AUTOCOMPLETE_SPACE_AFTER_FUNC,
+													 TRUE);
+		add_brace_after_func =
+			anjuta_preferences_get_int_with_default (assist->priv->preferences,
+													 PREF_AUTOCOMPLETE_BRACE_AFTER_FUNC,
+													 TRUE);
+		if (add_space_after_func)
+			g_string_append (assistance, " ");
+		
+		if (add_brace_after_func)
+			g_string_append (assistance, "(");
+	}
 	
 	te = IANJUTA_EDITOR (assist->priv->iassist);
 	cur_pos = ianjuta_editor_get_position (te, NULL);
@@ -631,6 +711,7 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	{
 		pre_word = cpp_java_assist_get_pre_word (te, iter);
 	}
+	
 	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (te), NULL);
 	if (pre_word)
 	{
@@ -639,16 +720,24 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
 									  sel_start + 1, cur_pos, FALSE, NULL);
 		ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
-										  assistance, -1, NULL);
+										  assistance->str, -1, NULL);
 		g_free (pre_word);
 	}
 	else
 	{
-		ianjuta_editor_insert (te, cur_pos, assistance, -1, NULL);
+		ianjuta_editor_insert (te, cur_pos, assistance->str, -1, NULL);
 	}
+	
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (te), NULL);
+	
 	ianjuta_editor_assist_hide_suggestions (assist->priv->iassist, NULL);
+	
+	/* Show calltip if we completed function */
+	if (add_brace_after_func)
+		cpp_java_assist_check (assist, FALSE, TRUE);
+	
 	g_object_unref (iter);
+	g_string_free (assistance, TRUE);
 }
 
 static void

@@ -1,3 +1,15 @@
+2007-09-24  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(completion_function), (completion_compare),
+	(cpp_java_assist_tag_destroy), (create_completion),
+	(cpp_java_assist_destroy_completion_cache),
+	(cpp_java_assist_show_autocomplete), (on_assist_chosen):
+	Show '()' for function items in autocomplete list. Allow adding
+	' ' and/or '(' after function call autocompletion and have preferences
+	settings for them.
+
 2007-09-24  Johannes Schmid <jhs@gnome.org>
 
 	* sourceview.c: Reverting patch from r3157 because
