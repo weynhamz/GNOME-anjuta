@@ -1,5 +1,11 @@
 2007-09-24  Naba Kumar  <naba.kumar@gnome.org>
 
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(cpp_java_assist_show_autocomplete): Fixed autocompletion to show for
+	scope memebers just after scope operator is entered.
+
+2007-09-24  Naba Kumar  <naba.kumar@gnome.org>
+
 	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
 	* plugins/language-support-cpp-java/cpp-java-assist.c:
 	(completion_function), (completion_compare),

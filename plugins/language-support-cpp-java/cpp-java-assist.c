@@ -346,8 +346,19 @@ cpp_java_assist_show_autocomplete (CppJavaAssist *assist,
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
 												 PREF_AUTOCOMPLETE_CHOICES,
 												 MAX_COMPLETIONS);
+	/* If there is cache use that */
 	if (assist->priv->completion_cache->cache)
 		completion_list = assist->priv->completion_cache->cache;
+	
+	/* If there is no cache, it means that no string completion happened
+	 * because the list is being shown for member completion just after
+	 * scope operator where there is no preword yet entered. So use the
+	 * full list because that's the full list of members of that scope.
+	 */
+	else if (!pre_word)
+		completion_list = assist->priv->completion_cache->items;
+	
+	/* If there is no cache and no pre_word, it means something else (?) */
 	else
 		return FALSE;
 	
