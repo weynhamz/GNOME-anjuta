@@ -1,3 +1,8 @@
+2007-09-25 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/file-manager/file-view.c:
+	Fix typo, allow to compile new file manager with gtk < 2.12
+
 2007-09-25  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c: (on_auto_indent):

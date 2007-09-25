@@ -37,7 +37,7 @@
 #define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
 #include <glib/gi18n.h>
 
-#ifdef HAVE_TOOLTIP_API
+#if HAVE_TOOLTIP_API
 #	include <gtk/gtktooltip.h>
 #endif
 
