@@ -470,7 +470,7 @@ static tagFile *initialize (const char *const filePath, tagFileInfo *const info)
 	return result;
 }
 
-static tagFile *initialize_1 (const FILE* fd, tagFileInfo *const info)
+static tagFile *initialize_1 (FILE* fd, tagFileInfo *const info)
 {
 	tagFile *result = (tagFile*) malloc (sizeof (tagFile));
 	if (result != NULL)

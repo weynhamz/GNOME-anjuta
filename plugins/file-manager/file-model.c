@@ -25,6 +25,7 @@
 #include "file-model.h"
 #include <gdl/gdl-icons.h>
 #include <glib/gi18n.h>
+#include <string.h>
 
 #include <libgnomevfs/gnome-vfs.h>
 
@@ -72,6 +73,7 @@ file_model_cancel_expand_idle(FileModel* model)
 	{
 		GSource* source = g_main_context_find_source_by_id (g_main_context_default(),
 															priv->expand_idle_id);
+		g_source_destroy (source);
 		priv->expand_idle_id = 0;
 	}
 }
@@ -177,6 +179,8 @@ file_model_sort (gconstpointer a, gconstpointer b)
 	{
 		return 1;
 	}
+	else
+		return 0;
 }
 
 static void
@@ -185,10 +189,8 @@ file_model_row_expanded (GtkTreeView* tree_view, GtkTreeIter* iter,
 {
 	FileModel* model = FILE_MODEL(gtk_tree_view_get_model(tree_view));
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
-	GtkTreeStore* store = GTK_TREE_STORE (model);
 	gchar* uri;
 	GList* files = NULL;
-	GtkTreeIter dummy;
 	
 	gtk_tree_model_get (GTK_TREE_MODEL(model), iter, COLUMN_URI, &uri, -1);
 	

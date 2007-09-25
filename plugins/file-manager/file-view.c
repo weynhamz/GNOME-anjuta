@@ -30,11 +30,16 @@
 #include <gtk/gtkcellrendererpixbuf.h>
 #include <gtk/gtkcellrendererprogress.h>
 #include <gtk/gtktreestore.h>
+#include <gtk/gtktreeselection.h>
 #include <gtk/gtktreemodelsort.h>
 #include <gtk/gtkversion.h>
 
 #define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
 #include <glib/gi18n.h>
+
+#ifdef HAVE_TOOLTIP_API
+#	include <gtk/gtktooltip.h>
+#endif
 
 #include <libanjuta/anjuta-debug.h>
 
@@ -67,6 +72,7 @@ file_view_cancel_refresh(AnjutaFileView* view)
 	{
 		GSource* source = g_main_context_find_source_by_id (g_main_context_default(),
 															priv->refresh_idle_id);
+		g_source_destroy (source);
 		priv->refresh_idle_id = 0;
 	}
 }
@@ -130,6 +136,8 @@ file_view_refresh (AnjutaFileView* view, gboolean remember_open)
 	AnjutaFileViewPrivate* priv = ANJUTA_FILE_VIEW_GET_PRIVATE (view);
 	GtkTreePath* tree_path;
 	
+	file_view_cancel_refresh(view);
+	
 	if (remember_open)
 	{
 		file_view_get_expanded_rows (view);
@@ -152,7 +160,7 @@ file_view_get_selected (AnjutaFileView* view)
 	GtkTreeSelection* selection =
 		gtk_tree_view_get_selection (GTK_TREE_VIEW (view));
 	GtkTreeIter selected;
-	if (gtk_tree_selection_get_selected (selection, GTK_TREE_MODEL(priv->model), &selected))
+	if (gtk_tree_selection_get_selected (selection, NULL, &selected))
 	{
 		gchar* uri = file_model_get_uri (priv->model, &selected);
 		return uri;
@@ -289,7 +297,6 @@ file_view_init (AnjutaFileView *object)
 {
 	GtkCellRenderer* renderer_text;
 	GtkCellRenderer* renderer_pixbuf;
-	GtkCellRenderer* renderer_progress;
 	GtkTreeViewColumn* column;
 	GtkTreeSelection* selection;
 	
@@ -441,7 +448,7 @@ file_view_class_init (AnjutaFileViewClass *klass)
 }
 
 GtkWidget*
-file_view_new (const gchar* base_uri)
+file_view_new (void)
 {
-	return g_object_new (ANJUTA_TYPE_FILE_VIEW, "base_uri", NULL, NULL);
+	return g_object_new (ANJUTA_TYPE_FILE_VIEW, NULL);
 }

@@ -1,3 +1,23 @@
+2007-09-25  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in:
+	Add GNOME_WARNING_FLAGS(maximum) and
+	GNOME_CXX_WARNIGS(yes) to avoid bugs
+	the compiler can warn you.
+	
+	* libegg/test-tree-utils.c: (key_test):
+	* plugins/file-manager/file-model.c:
+	(file_model_cancel_expand_idle), (file_model_sort),
+	(file_model_row_expanded):
+	* plugins/file-manager/file-view.c: (file_view_cancel_refresh),
+	(file_view_refresh), (file_view_get_selected), (file_view_init),
+	(file_view_new):
+	* plugins/file-manager/file-view.h:
+	* plugins/symbol-db/readtags.c: (initialize_1):
+	* src/main.c:
+	
+	Fixed the more critical warnings
+
 2007-09-25  Naba Kumar  <naba.kumar@gnome.org>
 
 	Icons from tpgww@onepost.net:

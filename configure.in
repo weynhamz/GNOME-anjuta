@@ -97,7 +97,19 @@ AC_DISABLE_STATIC
 AM_MAINTAINER_MODE
 GNOME_DOC_INIT
 
+#Check for C Compiler
+AC_PROG_CC
+AC_PROG_CPP
+AC_LANG_C
+
+#Check for C++ Compiler
+AC_PROG_CXX
+AC_LANG_CPLUSPLUS
+
 GNOME_COMPILE_WARNINGS(maximum)
+GNOME_CXX_WARNINGS(yes)
+AM_CFLAGS="$AM_CFLAGS $WARN_CFLAGS"
+AM_CXXFLAGS="$AM_CXXFLAGS $WARN_CXXFLAGS"
 
 dnl Enable debugging mode
 AC_ARG_ENABLE(debug,
@@ -130,15 +142,6 @@ AC_SUBST(PREF_SUFFIX)
 AC_DEFINE_UNQUOTED(PREF_SUFFIX,
       "${PREF_SUFFIX}",
 	  [Suffix to add to preferences directory])
-
-#Check for C Compiler
-AC_PROG_CC
-AC_PROG_CPP
-AC_LANG_C
-
-#Check for C++ Compiler
-AC_PROG_CXX
-AC_LANG_CPLUSPLUS
 
 AC_ISC_POSIX
 AC_HEADER_STDC
@@ -1262,3 +1265,5 @@ else
         echo "Building new Symbol-db plugin: .......................NO"
 fi
 echo "-------------------------------------------------------------------"
+echo "AM_CFLAGS = $AM_CFLAGS"
+echo "AM_CXXFLAGS = $AM_CXXFLAGS"

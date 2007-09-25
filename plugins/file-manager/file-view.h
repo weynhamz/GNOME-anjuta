@@ -61,7 +61,7 @@ struct _AnjutaFileView
 };
 
 GType file_view_get_type (void) G_GNUC_CONST;
-GtkWidget* file_view_new ();
+GtkWidget* file_view_new (void);
 
 void
 file_view_refresh(AnjutaFileView* view,

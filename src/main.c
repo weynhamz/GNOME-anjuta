@@ -30,7 +30,7 @@
 
 #include <gnome.h>
 #include <gtk/gtkwindow.h>
-#include <libgnomevfs/gnome-vfs-utils.h>
+#include <libgnomevfs/gnome-vfs.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
