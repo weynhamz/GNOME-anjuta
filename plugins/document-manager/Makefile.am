@@ -1,3 +1,5 @@
+SUBDIRS = images
+
 # Plugin glade file
 document_manager_gladedir = $(anjuta_glade_dir)
 document_manager_glade_DATA = anjuta-document-manager.glade
@@ -10,35 +12,7 @@ document_manager_ui_DATA = anjuta-document-manager.ui
 document_manager_datadir = $(anjuta_data_dir)
 document_manager_data_DATA = indent_test.c
 
-# Plugin pixmaps
-document_manager_pixmapsdir = $(anjuta_image_dir)
-document_manager_pixmaps_DATA = \
-	anjuta-document-manager.png \
-	preferences-editor.png \
-	swap.png \
-	fold_toggle.xpm \
-	fold_open.xpm \
-	fold_close.xpm \
-	indent.xpm \
-	indent_set.xpm \
-	indent_inc.xpm \
-	indent_dcr.xpm \
-	indent_auto.xpm \
-	autocomplete-16.png \
-	autocomplete.png \
-	block-end-16.png \
-	block-end.png \
-	block-start-16.png \
-	block-start.png \
-	block_select.xpm \
-	bookmark-first.png \
-	bookmark-prev.png \
-	bookmark-next.png \
-	bookmark-last.png \
-	bookmark-toggle.png \
-	bookmark-clear.png
-
-# Plugin Icon file
+# Plugin file
 plugin_in_files = anjuta-document-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 

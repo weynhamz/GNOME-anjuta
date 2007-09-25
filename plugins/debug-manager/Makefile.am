@@ -2,15 +2,6 @@
 anjuta_gladedir = $(anjuta_glade_dir)
 anjuta_glade_DATA = anjuta-debug-manager.glade
 
-plugin_pixmapsdir = $(anjuta_image_dir)
-plugin_pixmaps_DATA = \
-	anjuta-debug-manager.plugin.png \
-	linemarker.png \
-	program-counter.png \
-	breakpoint-disabled.png \
-	breakpoint-enabled.png \
-	bookmark.png
-
 anjuta_uidir = $(anjuta_ui_dir)
 anjuta_ui_DATA =  anjuta-debug-manager.ui
 
@@ -97,7 +88,6 @@ libanjuta_debug_manager_la_SOURCES = \
 	command.h
 
 EXTRA_DIST = \
-	$(plugin_pixmaps_DATA) \
 	$(plugin_in_files) \
 	$(anjuta_plugin_DATA) \
 	$(anjuta_ui_DATA) \

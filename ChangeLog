@@ -1,3 +1,38 @@
+2007-09-25  Naba Kumar  <naba.kumar@gnome.org>
+
+	Icons from tpgww@onepost.net:
+	* configure.in:
+	* plugins/debug-manager/Makefile.am:
+	* plugins/debug-manager/images/Makefile.am:
+	* plugins/debug-manager/images/anjuta-attach.svg:
+	* plugins/debug-manager/images/anjuta-run-to-cursor.svg:
+	* plugins/debug-manager/images/anjuta-step-into.svg:
+	* plugins/debug-manager/images/anjuta-step-out.svg:
+	* plugins/debug-manager/images/anjuta-step-over.svg:
+	* plugins/debug-manager/plugin.c: (register_stock_icons):
+	* plugins/document-manager/Makefile.am:
+	* plugins/document-manager/block_select.xpm:
+	* plugins/document-manager/fold_close.xpm:
+	* plugins/document-manager/fold_open.xpm:
+	* plugins/document-manager/fold_toggle.xpm:
+	* plugins/document-manager/images/Makefile.am:
+	* plugins/document-manager/images/anjuta-block-end.svg:
+	* plugins/document-manager/images/anjuta-block-start.svg:
+	* plugins/document-manager/images/anjuta-bookmark-clear.svg:
+	* plugins/document-manager/images/anjuta-bookmark-first.svg:
+	* plugins/document-manager/images/anjuta-bookmark-last.svg:
+	* plugins/document-manager/images/anjuta-bookmark-next.svg:
+	* plugins/document-manager/images/anjuta-bookmark-prev.svg:
+	* plugins/document-manager/images/anjuta-bookmark-toggle.svg:
+	* plugins/document-manager/indent.xpm:
+	* plugins/document-manager/indent_auto.xpm:
+	* plugins/document-manager/indent_dcr.xpm:
+	* plugins/document-manager/indent_inc.xpm:
+	* plugins/document-manager/indent_set.xpm:
+	* plugins/document-manager/plugin.c: Added nicer icons for
+	document manager and debugger. Organized icons in 'images'
+	directories.
+
 2007-09-24  Johannes Schmid <jhs@gnome.org>
 
 	* src/anjuta-app.c: (anjuta_app_add_widget_full):

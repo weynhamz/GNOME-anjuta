@@ -142,11 +142,11 @@ register_stock_icons (AnjutaPlugin *plugin)
         REGISTER_ICON ("locals.png", "gdb-locals-icon");
         REGISTER_ICON ("watch.png", "gdb-watch-icon");
         REGISTER_ICON ("breakpoint.png", "gdb-breakpoint-toggle");
-		REGISTER_ICON ("detach.png", "debugger-detach");
-		REGISTER_ICON ("step-into.png", "debugger-step-into");
-		REGISTER_ICON ("step-out.png", "debugger-step-out");
-		REGISTER_ICON ("step-over.png", "debugger-step-over");
-		REGISTER_ICON ("run-to-cursor.png", "debugger-run-to-cursor");
+		REGISTER_ICON ("anjuta-attach-24.png", "debugger-attach");
+		REGISTER_ICON ("anjuta-step-into-24.png", "debugger-step-into");
+		REGISTER_ICON ("anjuta-step-out-24.png", "debugger-step-out");
+		REGISTER_ICON ("anjuta-step-over-24.png", "debugger-step-over");
+		REGISTER_ICON ("anjuta-run-to-cursor-24.png", "debugger-run-to-cursor");
 }
 
 /* Program counter functions
@@ -854,7 +854,7 @@ static GtkActionEntry actions_start[] =
 	},
 	{
 		"ActionDebuggerAttachProcess",
-		"debugger-detach",
+		"debugger-attach",
 		N_("_Attach to Process..."),
 		NULL,
 		N_("Attach to a running program"),

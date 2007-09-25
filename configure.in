@@ -1116,6 +1116,7 @@ plugins/editor/Makefile
 plugins/editor/scintilla/Makefile
 plugins/editor/scintilla/include/Makefile
 plugins/document-manager/Makefile
+plugins/document-manager/images/Makefile
 plugins/search/Makefile
 plugins/message-view/Makefile
 plugins/gdb/Makefile

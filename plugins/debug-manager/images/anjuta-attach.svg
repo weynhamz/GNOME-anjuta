@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   id="svg79606"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   version="1.0"
+   sodipodi:docbase="/home/maker/icons"
+   sodipodi:docname="anjuta-attach.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/maker/icons/anjuta-attach-16.png"
+   inkscape:export-xdpi="30"
+   inkscape:export-ydpi="30">
+  <defs
+     id="defs79608">
+    <linearGradient
+       id="linearGradient5783">
+      <stop
+         style="stop-color:#d3d7cf;stop-opacity:1;"
+         offset="0"
+         id="stop5785" />
+      <stop
+         id="stop5791"
+         offset="0.5"
+         style="stop-color:#f5f5f5;stop-opacity:1;" />
+      <stop
+         style="stop-color:#bebebe;stop-opacity:1;"
+         offset="1"
+         id="stop5787" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5783"
+       id="linearGradient3173"
+       x1="32.181091"
+       y1="5.9567714"
+       x2="27.9466"
+       y2="36.488693"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.8631641,-0.5312929,0.5049234,0.9082426,-15.027848,17.617959)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="0.92941176"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="24"
+     inkscape:cy="18.697649"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="940"
+     inkscape:window-height="933"
+     inkscape:window-x="247"
+     inkscape:window-y="63"
+     stroke="#d3d7cf"
+     inkscape:showpageshadow="false"
+     gridempspacing="4" />
+  <metadata
+     id="metadata79611">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Mail Attachment</dc:title>
+        <dc:date>2005-11-04</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Andreas Nilsson</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:source>http://tango-project.org</dc:source>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>attachment</rdf:li>
+            <rdf:li>file</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/2.0/" />
+        <dc:contributor>
+          <cc:Agent>
+            <dc:title>Garrett LeSage</dc:title>
+          </cc:Agent>
+        </dc:contributor>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/2.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Attribution" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <path
+       style="fill:none;stroke:#555753;stroke-width:3.00000048;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path7057"
+       d="M 15.63165,13.774547 L 15.641736,36.4599 C 15.644198,40.470681 18.782278,43.717002 22.616939,43.674127 L 25.028993,43.64848 C 28.864657,43.604984 31.999898,40.287474 31.998443,36.276075 L 31.985655,11.754901 C 31.983631,7.7424785 29.353076,4.4909264 26.140865,4.5264001 C 22.928453,4.5619978 20.300739,7.8742772 20.303768,11.886082 L 20.313711,28.900004 C 20.315368,32.911278 20.188607,35.821206 23.821432,36.172442 C 27.722914,35.909092 27.456199,32.861548 27.322065,28.856328 L 27.317454,20.590485"
+       inkscape:r_cx="true"
+       inkscape:r_cy="true"
+       sodipodi:nodetypes="ccccccsccccc" />
+    <path
+       sodipodi:nodetypes="ccccccsccccc"
+       inkscape:r_cy="true"
+       inkscape:r_cx="true"
+       d="M 15.63165,13.774547 L 15.641736,36.4599 C 15.644198,40.470681 18.782278,43.717002 22.616939,43.674127 L 25.028993,43.64848 C 28.864657,43.604984 31.999898,40.287474 31.998443,36.276075 L 31.985655,11.754901 C 31.983631,7.7424785 29.353076,4.4909264 26.140865,4.5264001 C 22.928453,4.5619978 20.300739,7.8742772 20.303768,11.886082 L 20.313711,28.900004 C 20.315368,32.911278 20.188607,35.821206 23.821432,36.172442 C 27.722914,35.909092 27.456199,32.861548 27.322065,28.856328 L 27.317454,20.590485"
+       id="path2193"
+       style="fill:none;stroke:url(#linearGradient3173);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+  </g>
+</svg>
