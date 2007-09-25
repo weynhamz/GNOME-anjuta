@@ -1149,44 +1149,46 @@ install_support (CppJavaPlugin *lang_plugin)
 						  "char-added",
 						  G_CALLBACK (on_editor_char_inserted_cpp),
 						  lang_plugin);
-		if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor))
-		{
-			AnjutaPlugin *plugin;
-			AnjutaUI *ui;
-			GtkAction *action;
-			IAnjutaEditorAssist* iassist;
-			
-			plugin = ANJUTA_PLUGIN (lang_plugin);
-			ui = anjuta_shell_get_ui (plugin->shell, NULL);
-			iassist = IANJUTA_EDITOR_ASSIST (lang_plugin->current_editor);
-			
-			lang_plugin->assist =
-				cpp_java_assist_new (iassist,
-					anjuta_shell_get_interface (plugin->shell,
-												IAnjutaSymbolManager,
-												NULL),
-									 lang_plugin->prefs);
-			
-			/* Enable autocompletion action */
-			action = gtk_action_group_get_action (lang_plugin->action_group, 
-										   "ActionEditAutocomplete");
-			g_object_set (G_OBJECT (action), "visible", TRUE,
-						  "sensitive", TRUE, NULL);
-		}
-		initialize_indentation_params (lang_plugin);
 	}
-	if (lang_plugin->current_language &&
+	else if (lang_plugin->current_language &&
 		(g_str_equal (lang_plugin->current_language, "Java")))
 	{
 		g_signal_connect (lang_plugin->current_editor,
 						  "char-added",
 						  G_CALLBACK (on_editor_char_inserted_java),
 						  lang_plugin);
-		initialize_indentation_params (lang_plugin);
 	}
 	else
 	{
 		return;
+	}
+	
+	initialize_indentation_params (lang_plugin);
+	if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor))
+	{
+		AnjutaPlugin *plugin;
+		AnjutaUI *ui;
+		GtkAction *action;
+		IAnjutaEditorAssist* iassist;
+		
+		plugin = ANJUTA_PLUGIN (lang_plugin);
+		ui = anjuta_shell_get_ui (plugin->shell, NULL);
+		iassist = IANJUTA_EDITOR_ASSIST (lang_plugin->current_editor);
+		
+		g_assert (lang_plugin->assist == NULL);
+		
+		lang_plugin->assist =
+			cpp_java_assist_new (iassist,
+				anjuta_shell_get_interface (plugin->shell,
+											IAnjutaSymbolManager,
+											NULL),
+								 lang_plugin->prefs);
+		
+		/* Enable autocompletion action */
+		action = gtk_action_group_get_action (lang_plugin->action_group, 
+									   "ActionEditAutocomplete");
+		g_object_set (G_OBJECT (action), "visible", TRUE,
+					  "sensitive", TRUE, NULL);
 	}
 	/* Disable editor intern auto-indent */
 	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(lang_plugin->current_editor),
@@ -1201,14 +1203,15 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 		return;
 	
 	if (lang_plugin->current_language &&
-		strcmp (lang_plugin->current_language, "cpp") == 0)
+		(g_str_equal (lang_plugin->current_language, "C")
+		|| g_str_equal (lang_plugin->current_language, "C++")))
 	{
 		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 									G_CALLBACK (on_editor_char_inserted_cpp),
 									lang_plugin);
 	}
 	else if (lang_plugin->current_language &&
-		strcmp (lang_plugin->current_language, "java") == 0)
+		(g_str_equal (lang_plugin->current_language, "Java")))
 	{
 		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 									G_CALLBACK (on_editor_char_inserted_java),

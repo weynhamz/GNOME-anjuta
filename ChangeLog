@@ -1,3 +1,13 @@
+2007-09-25  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(on_assist_chosen), (cpp_java_assist_install),
+	(cpp_java_assist_uninstall):
+	* plugins/language-support-cpp-java/plugin.c: (install_support),
+	(uninstall_support): Install and uninstall support in correct order.
+	Fixes a bug where it was installed multiple times resulting in
+	inserting autocomplete text multiple times.
+
 2007-09-25  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in:

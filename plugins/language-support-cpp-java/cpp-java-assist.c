@@ -755,17 +755,19 @@ static void
 cpp_java_assist_install (CppJavaAssist *assist, IAnjutaEditorAssist *iassist)
 {
 	DEBUG_PRINT(__FUNCTION__);
+	g_return_if_fail (assist->priv->iassist == NULL);
 	
 	assist->priv->iassist = iassist;
 	g_signal_connect (iassist, "char-added",
 					  G_CALLBACK (on_editor_char_added), assist);
-	g_signal_connect (G_OBJECT(iassist), "assist-chosen",
+	g_signal_connect (iassist, "assist-chosen",
 					  G_CALLBACK(on_assist_chosen), assist);
 }
 
 static void
 cpp_java_assist_uninstall (CppJavaAssist *assist)
 {
+	g_return_if_fail (assist->priv->iassist != NULL);
 	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
 										  G_CALLBACK(on_assist_chosen), assist);
 	g_signal_handlers_disconnect_by_func (assist->priv->iassist,
