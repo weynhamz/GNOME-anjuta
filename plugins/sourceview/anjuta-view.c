@@ -782,7 +782,7 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 			return TRUE;
 	  }
 	}
-  
+	
 	switch (event->keyval)
 	 {
 		case GDK_Shift_L:
@@ -815,6 +815,15 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 				if (assist_tip)
 					gtk_widget_destroy (GTK_WIDGET(assist_tip));
 			}
+			else if (event->keyval == GDK_Left || event->keyval == GDK_Right ||
+							 event->keyval == GDK_Up || event->keyval == GDK_Down ||
+							 event->keyval == GDK_Page_Up || event->keyval == GDK_Page_Down ||
+							 event->keyval == GDK_Begin || event->keyval == GDK_End)
+			{
+				/* Ignore those for char_added */
+				return retval;
+			}
+							 
 			else
 			{
 				gchar* unistring = g_new0(gchar, 6);

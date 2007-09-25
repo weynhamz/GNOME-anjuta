@@ -39,7 +39,7 @@ static GtkActionEntry actions_macro[] = {
 	 "ActionEditMacroInsert",
 	 NULL,
 	 N_("_Insert Macro..."),
-	 "<control>i",
+	 "<control><alt>i",
 	 N_("Insert a macro using a shortcut"),
 	 G_CALLBACK (on_menu_insert_macro)},
 	 {
