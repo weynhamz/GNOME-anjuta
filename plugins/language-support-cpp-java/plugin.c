@@ -1291,16 +1291,16 @@ on_auto_indent (GtkAction *action, gpointer data)
 	gint line_start, line_end;
 	gint insert_line;
 	gint line_indent;
-	gchar* selection;
+	gboolean has_selection;
 	
 	CppJavaPlugin *lang_plugin;
 	IAnjutaEditor *editor;
 	lang_plugin = ANJUTA_PLUGIN_CPP_JAVA (data);
 	editor = IANJUTA_EDITOR (lang_plugin->current_editor);
 	
-	selection = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (editor),
-											  NULL);
-	if (selection && strlen(selection))
+	has_selection = ianjuta_editor_selection_has_selection
+						(IANJUTA_EDITOR_SELECTION (editor), NULL);
+	if (has_selection)
 	{
 		sel_start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor),
 														NULL);
@@ -1312,7 +1312,6 @@ on_auto_indent (GtkAction *action, gpointer data)
 		line_end = ianjuta_editor_get_line_from_position (editor,
 														  sel_end,
 														  NULL);
-		g_free (selection);
 	}
 	else
 	{

@@ -1220,6 +1220,14 @@ iselect_all(IAnjutaEditorSelection* edit, GError** e)
 	anjuta_view_select_all(sv->priv->view);
 }
 
+static gboolean
+iselect_has_selection (IAnjutaEditorSelection *editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	
+	return gtk_text_buffer_get_has_selection (GTK_TEXT_BUFFER(sv->priv->document));
+}
+
 /* Return a newly allocated pointer containing selected text or
 NULL if no text is selected */
 static gchar* iselect_get(IAnjutaEditorSelection* editor, GError **e)
@@ -1297,6 +1305,7 @@ static void
 iselect_iface_init(IAnjutaEditorSelectionIface *iface)
 {
 	iface->set = iselect_set;
+	iface->has_selection = iselect_has_selection;
 	iface->get_start = iselect_get_start;
 	iface->get_end = iselect_get_end;
 	iface->select_block = iselect_block;

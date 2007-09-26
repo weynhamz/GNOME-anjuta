@@ -1,3 +1,18 @@
+2007-09-26  Naba Kumar  <naba.kumar@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/action-callbacks.c:
+	(on_editor_command_upper_case_activate),
+	(on_editor_command_lower_case_activate):
+	* plugins/editor/text_editor.c: (iselection_has_selection),
+	(iselection_get_start), (iselection_get_end),
+	(iselection_iface_init):
+	* plugins/language-support-cpp-java/plugin.c: (on_auto_indent):
+	* plugins/sourceview/sourceview.c: (iselect_has_selection),
+	(iselect_iface_init): Added IAnjutaEditorSelection::has_selection()
+	method and implemented it for both scintilla and sourceview editors.
+	Updated document-manager and assist plugins to use the new method.
+
 2007-09-25 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/file-manager/file-view.c:

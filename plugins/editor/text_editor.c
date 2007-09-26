@@ -2486,18 +2486,30 @@ iselection_set (IAnjutaEditorSelection *editor, gint start, gint end,
 						   SCI_SETSEL, end, start);
 }
 
-static int
-iselection_get_start(IAnjutaEditorSelection *editor, GError **e)
+static gboolean
+iselection_has_selection (IAnjutaEditorSelection *editor, GError **e)
 {
-	return scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-								  SCI_GETSELECTIONSTART,0,0);
+	return text_editor_has_selection (TEXT_EDITOR (editor));
 }
 
-static int
-iselection_get_end(IAnjutaEditorSelection *editor, GError **e)
+static gint
+iselection_get_start (IAnjutaEditorSelection *editor, GError **e)
 {
-	return scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-								  SCI_GETSELECTIONEND, 0, 0);
+	gint start =  scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
+										  SCI_GETSELECTIONSTART, 0, 0);
+	gint end = scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
+									   SCI_GETSELECTIONEND, 0, 0);
+	return (start != end)? start: -1;
+}
+
+static gint
+iselection_get_end (IAnjutaEditorSelection *editor, GError **e)
+{
+	gint start =  scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
+										  SCI_GETSELECTIONSTART, 0, 0);
+	gint end = scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
+									   SCI_GETSELECTIONEND, 0, 0);
+	return (start != end)? end: -1;
 }
 
 static void
@@ -2578,6 +2590,7 @@ iselection_select_function(IAnjutaEditorSelection *editor, GError **e)
 static void
 iselection_iface_init (IAnjutaEditorSelectionIface *iface)
 {
+	iface->has_selection = iselection_has_selection;
 	iface->get = iselection_get;
 	iface->set = iselection_set;
 	iface->get_start = iselection_get_start;

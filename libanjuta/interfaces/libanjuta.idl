@@ -1196,6 +1196,19 @@ interface IAnjutaEditor
 	interface IAnjutaEditorSelection
 	{
 		/**
+		 * ianjuta_editor_selection_has_selection:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Returns TRUE if editor has any text selected. The selection
+		 * positions can be retrieved with ianjuta_editor_selection_get_start()
+		 * and ianjuta_editor_selection_get_end().
+		 * 
+		 * Returns: TRUE if there is text selected else FALSE.
+		 */
+		gboolean has_selection ();
+		
+		/**
 		 * ianjuta_editor_selection_get:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
@@ -1226,9 +1239,9 @@ interface IAnjutaEditor
 		 * @err: Error propagation and reporting
 		 *
 		 * Gets start position of selection text. If there is no selection,
-		 * returns the current carat position.
+		 * returns -1.
 		 *
-		 * Return: Start of selection
+		 * Return: Start of selection or -1 if there is no selection.
 		 */
 		gint get_start ();
 		
@@ -1237,7 +1250,10 @@ interface IAnjutaEditor
 		 * @obj: Self
 		 * @err: Error propagation and reporting
 		 *
-		 * Get end position of selection.
+		 * Get end position of selection. If there is no selection, returns
+		 * -1.
+		 * 
+		 * Return: End of selection or -1 if there is no selection.
 		 */
 		gint get_end ();
 		
