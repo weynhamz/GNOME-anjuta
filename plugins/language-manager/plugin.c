@@ -139,12 +139,6 @@ language_manager_activate (AnjutaPlugin *plugin)
 	language_manager = (LanguageManager*) plugin;
 	
 	load_languages(language_manager);
-	
-	DEBUG_PRINT ("%i", ianjuta_language_get_from_string (IANJUTA_LANGUAGE(plugin), "C", NULL));
-	DEBUG_PRINT ("%i", ianjuta_language_get_from_string (IANJUTA_LANGUAGE(plugin), "C++", NULL));
-	DEBUG_PRINT ("%i", ianjuta_language_get_from_string (IANJUTA_LANGUAGE(plugin), "Java", NULL));
-	DEBUG_PRINT ("%i", ianjuta_language_get_from_string (IANJUTA_LANGUAGE(plugin), "C#", NULL));
-	
 
 	return TRUE;
 }

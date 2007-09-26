@@ -1,3 +1,17 @@
+2007-09-26  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/plugin.c: (on_editor_changed),
+	(docman_plugin_instance_init):
+	Only unload/load language-support plugins if necessary.
+	
+	* plugins/language-manager/plugin.c: (language_manager_activate):
+	Removed some debugging code
+
+	* plugins/sourceview/sourceview.c: (on_document_saved),
+	(ilanguage_set_language), (ilanguage_get_language):
+	Fixed ianjuta_language interface and ensure that highlighting is
+	activated when a new file is saved.
+	
 2007-09-26  Naba Kumar  <naba.kumar@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

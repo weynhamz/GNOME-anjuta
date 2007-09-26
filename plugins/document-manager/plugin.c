@@ -1064,7 +1064,6 @@ on_editor_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 	}
 }
 
-
 static void
 on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 				   AnjutaPlugin *plugin)
@@ -1072,18 +1071,6 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 	DocmanPlugin *docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	
 	update_editor_ui (plugin, te);
-	
-	/* Keep the language-support plugin for now as unloading/loading is
-	 * more expensive */
-	/* unload previous support plugins */
-#if 0
-	if (docman_plugin->support_plugins) {
-		g_list_foreach (docman_plugin->support_plugins,
-						(GFunc) anjuta_plugin_deactivate, NULL);
-		g_list_free (docman_plugin->support_plugins);
-		docman_plugin->support_plugins = NULL;
-	}
-#endif
 	
 	GValue value = {0, };
 	g_value_init (&value, G_TYPE_OBJECT);
@@ -1105,7 +1092,9 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 				
 		/* Load current language editor support plugins */
 		plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
-		if (IANJUTA_IS_EDITOR_LANGUAGE (te)) {
+		if (IANJUTA_IS_EDITOR_LANGUAGE (te)) 
+		{
+			GList* new_support_plugins = NULL;
 			const gchar *language = NULL;
 			const gchar *editor_lang =
 				ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (te), NULL);
@@ -1119,7 +1108,6 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 				if (id)
 				{
 					language = ianjuta_language_get_name (lang_manager, id, NULL);
-					DEBUG_PRINT ("Selected language id %d: %s", id, language);
 				}
 			}
 			if (!language)
@@ -1131,34 +1119,66 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 																"Language Support",
 																"Languages",
 																language, NULL);
-			node = support_plugin_descs;
-			while (node) {
+			for (node = support_plugin_descs; node != NULL; node = g_list_next (node))
+			{
 				gchar *plugin_id;
-				GObject *plugin_object;
+				gchar *languages;
 				
 				AnjutaPluginDescription *desc = node->data;
+				
+				anjuta_plugin_description_get_string (desc, "Language Support",
+													  "Languages", &languages);
+				
 				anjuta_plugin_description_get_string (desc, "Anjuta Plugin", "Location",
 													  &plugin_id);
-				plugin_object = anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
-																		plugin_id);
-				/* anjuta_plugin_activate (ANJUTA_PLUGIN (plugin_object)); */
-				if (plugin_object)
+				
+				new_support_plugins = g_list_append (new_support_plugins, plugin_id);
+			}
+			g_list_free (support_plugin_descs);
+			
+			for (node = docman_plugin->support_plugins; node != NULL; node = g_list_next (node))
+			{
+				gchar* plugin_id = node->data;
+				GList* item = g_list_find_custom (new_support_plugins, plugin_id, (GCompareFunc) strcmp);
+				if (item)
 				{
-					DEBUG_PRINT("Loaded language support plugin: %s", plugin_id);
-					docman_plugin->support_plugins = g_list_prepend (docman_plugin->support_plugins,
-																	 plugin_object);
+					DEBUG_PRINT ("Ignoring already loaded support plugin %s", plugin_id);
+					g_free (item->data);
+					item->data = NULL;
+					new_support_plugins = g_list_delete_link (new_support_plugins, item);
 				}
 				else
 				{
-					DEBUG_PRINT ("Failed to load support plugin %s", plugin_id);
+					DEBUG_PRINT ("Deactivating support plugin %s", plugin_id);
+					GObject* plugin = anjuta_plugin_manager_get_plugin_by_id (plugin_manager, node->data);
+					anjuta_plugin_deactivate (ANJUTA_PLUGIN(plugin));
+					g_free (plugin_id);
+					node->data = NULL;
+					docman_plugin->support_plugins = 
+						g_list_delete_link (docman_plugin->support_plugins, node);
+					node = docman_plugin->support_plugins;
 				}
-				node = node->next;
-				g_free (plugin_id);
 			}
-			g_list_free (support_plugin_descs);
+			for (node = new_support_plugins; node != NULL; node = g_list_next (node))
+			{
+				gchar* plugin_id = node->data;
+				GObject* plugin_object = anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
+																				 plugin_id);
+				if (plugin_object)
+				{
+					docman_plugin->support_plugins = g_list_prepend (docman_plugin->support_plugins,
+																	 plugin_id);
+				}
+				else
+				{
+					DEBUG_PRINT ("Could not load: %s", plugin_id);
+					g_free (plugin_id);
+				}
+			}
+			g_list_free (new_support_plugins);
 		}
-		DEBUG_PRINT("Beginning language support");
 	}
+
 	update_title (ANJUTA_PLUGIN_DOCMAN(plugin));
 }
 
@@ -1753,6 +1773,7 @@ docman_plugin_instance_init (GObject *obj)
 	plugin->g_tabbing = FALSE;
 	plugin->gconf_notify_ids = NULL;
 	plugin->idt = indent_init(plugin->prefs);
+	plugin->support_plugins = NULL;
 }
 
 static void

@@ -381,6 +381,7 @@ static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 	}
 	else
 	{
+		const gchar* lang;
 		gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(doc), FALSE);
 		g_signal_emit_by_name(G_OBJECT(sv), "save_point", TRUE);
 		/* Set up 2 sec timer */
@@ -389,6 +390,10 @@ static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 		sv->priv->monitor_delay = g_timeout_add (2000,
 							(GSourceFunc)sourceview_add_monitor, sv);
 		sv->priv->saving = FALSE;
+		/* Autodetect language */
+		ianjuta_editor_language_set_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL, NULL);
+		lang = ianjuta_editor_language_get_language(IANJUTA_EDITOR_LANGUAGE(sv), NULL);
+		g_signal_emit_by_name (sv, "language-changed", lang);
 	}
 	g_timeout_add(3000, (GSourceFunc)timeout_unref, sv);
 }
@@ -1776,7 +1781,8 @@ ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
 	}
 	/* Language not found -> use autodetection */
 	{
-		gchar* mime_type = anjuta_document_get_mime_type(ANJUTA_DOCUMENT(buffer));
+		const gchar* filename = idocument_get_filename (IANJUTA_DOCUMENT(sv), NULL);
+		const gchar* mime_type = gnome_vfs_get_mime_type_for_name (filename);
 		GtkSourceLanguage* lang = gtk_source_languages_manager_get_language_from_mime_type(
 			lang_manager, mime_type);
 		if (lang != NULL)
@@ -1795,7 +1801,9 @@ ilanguage_get_language (IAnjutaEditorLanguage *ilanguage, GError **err)
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
 	GtkSourceLanguage* lang = gtk_source_buffer_get_language(buffer);
 	if (lang)
+	{
 		return gtk_source_language_get_name(lang);
+	}
 	else
 		return NULL;
 }
