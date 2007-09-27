@@ -23,7 +23,10 @@ test_symbol_db_SOURCES = \
 	../symbol-db-engine.c       \
 	../symbol-db-engine.h       \
 	../symbol-db-engine-iterator.c       \
-	../symbol-db-engine-iterator.h 
+	../symbol-db-engine-iterator.h \
+	../symbol-db-engine-iterator-node.c \
+	../symbol-db-engine-iterator-node.h
+ 
 
 test_symbol_db_LDFLAGS = \
 	$(LIBANJUTA_LIBS) \

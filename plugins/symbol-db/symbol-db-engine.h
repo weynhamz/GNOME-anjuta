@@ -32,7 +32,7 @@
 
 G_BEGIN_DECLS
 
-#define SYMBOL_TYPE_DB_ENGINE             (symbol_db_engine_get_type ())
+#define SYMBOL_TYPE_DB_ENGINE             (sdb_engine_get_type ())
 #define SYMBOL_DB_ENGINE(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_TYPE_DB_ENGINE, SymbolDBEngine))
 #define SYMBOL_DB_ENGINE_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_TYPE_DB_ENGINE, SymbolDBEngineClass))
 #define SYMBOL_IS_DB_ENGINE(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_TYPE_DB_ENGINE))
@@ -77,7 +77,7 @@ typedef enum {
 	
 } SymExtraInfo;
 
-GType symbol_db_engine_get_type (void) G_GNUC_CONST;
+GType sdb_engine_get_type (void) G_GNUC_CONST;
 
 
 SymbolDBEngine* symbol_db_engine_new (void);

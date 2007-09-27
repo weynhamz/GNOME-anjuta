@@ -84,8 +84,7 @@ CREATE TABLE heritage (symbol_id_base integer REFERENCES symbol (symbol_id),
                        
 CREATE TABLE scope (scope_id integer PRIMARY KEY AUTOINCREMENT,
                     scope varchar(256) not null,
-                    type_id integer REFERENCES sym_type (type_id),
-					unique (scope, type_id)
+                    type_id integer REFERENCES sym_type (type_id)
                     );
                     
 CREATE TABLE __tmp_heritage_scope (tmp_heritage_scope_id integer PRIMARY KEY AUTOINCREMENT,
@@ -107,7 +106,15 @@ CREATE INDEX symbol_idx_1 ON symbol (name);
 
 CREATE UNIQUE INDEX symbol_idx_2 ON symbol (name, file_defined_id, file_position);
 
-CREATE UNIQUE INDEX uniq_scope_idx ON scope (scope);
+CREATE UNIQUE INDEX scope_uniq_idx_1 ON scope (scope);
+
+CREATE UNIQUE INDEX scope_uniq_idx_2 ON scope (scope, type_id);
+
+CREATE INDEX file_idx_1 ON file (file_path);
+
+CREATE INDEX sym_type_idx_1 ON sym_type (type);
+
+CREATE INDEX sym_type_idx_2 ON sym_type (type, type_name);
 
 CREATE TRIGGER delete_file BEFORE DELETE ON file
 FOR EACH ROW

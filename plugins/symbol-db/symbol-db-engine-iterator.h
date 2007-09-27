@@ -27,10 +27,11 @@
 
 #include <glib-object.h>
 #include <libgda/libgda.h>
+#include "symbol-db-engine-iterator-node.h"
 
 G_BEGIN_DECLS
 
-#define SYMBOL_TYPE_DB_ENGINE_ITERATOR             (symbol_db_engine_iterator_get_type ())
+#define SYMBOL_TYPE_DB_ENGINE_ITERATOR             (sdb_engine_iterator_get_type ())
 #define SYMBOL_DB_ENGINE_ITERATOR(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_TYPE_DB_ENGINE_ITERATOR, SymbolDBEngineIterator))
 #define SYMBOL_DB_ENGINE_ITERATOR_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_TYPE_DB_ENGINE_ITERATOR, SymbolDBEngineIteratorClass))
 #define SYMBOL_IS_DB_ENGINE_ITERATOR(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_TYPE_DB_ENGINE_ITERATOR))
@@ -43,48 +44,45 @@ typedef struct _SymbolDBEngineIteratorPriv SymbolDBEngineIteratorPriv;
 
 struct _SymbolDBEngineIteratorClass
 {
-	GObjectClass parent_class;
+	SymbolDBEngineIteratorNodeClass parent_class;
 };
 
 struct _SymbolDBEngineIterator
 {
-	GObject parent_instance;
+	SymbolDBEngineIteratorNode parent_instance;
 	SymbolDBEngineIteratorPriv *priv;
 };
 
-GType symbol_db_engine_iterator_get_type (void) G_GNUC_CONST;
+GType sdb_engine_iterator_get_type (void) /*G_GNUC_CONST*/;
 
 
 SymbolDBEngineIterator *
 symbol_db_engine_iterator_new (GdaDataModel *model);
 
-const gchar* 
-symbol_db_engine_iterator_get_symbol_name (SymbolDBEngineIterator *dbi);
-
-gint
-symbol_db_engine_iterator_get_symbol_file_pos (SymbolDBEngineIterator *dbi);
+gboolean
+symbol_db_engine_iterator_first (SymbolDBEngineIterator *dbi);
 
 gboolean
-symbol_db_engine_iterator_get_symbol_is_file_scope (SymbolDBEngineIterator *dbi);
+symbol_db_engine_iterator_move_next (SymbolDBEngineIterator *dbi);
 
-const gchar* 
-symbol_db_engine_iterator_get_symbol_signature (SymbolDBEngineIterator *dbi);
+gboolean
+symbol_db_engine_iterator_move_prev (SymbolDBEngineIterator *dbi);
 
 gint 
 symbol_db_engine_iterator_get_n_items (SymbolDBEngineIterator *dbi);
 
 gboolean
-symbol_db_engine_iterator_move_prev (SymbolDBEngineIterator *dbi);
+symbol_db_engine_iterator_last (SymbolDBEngineIterator *dbi);
 
 gboolean
-symbol_db_engine_iterator_move_next (SymbolDBEngineIterator *dbi);
+symbol_db_engine_iterator_set_position (SymbolDBEngineIterator *dbi, gint pos);
 
-/* just one SYMINFO_* per time. It is NOT possible to pass something like
- * SYMINFO_1 | SYMINFO_2 | ...
- */
-const gchar*
-symbol_db_engine_iterator_get_symbol_extra_string (SymbolDBEngineIterator *dbi,
-												   gint sym_info);
+gint
+symbol_db_engine_iterator_get_position (SymbolDBEngineIterator *dbi);
+
+void
+symbol_db_engine_iterator_foreach (SymbolDBEngineIterator *dbi, GFunc callback, 
+								   gpointer user_data);
 
 G_END_DECLS
 

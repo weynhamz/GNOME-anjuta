@@ -27,8 +27,12 @@
 #include <glib.h>
 #include <unistd.h>
 
+#if 0
+
+
 #include "../symbol-db-engine.h"
 #include "../symbol-db-engine-iterator.h"
+#include "../symbol-db-engine-iterator-node.h"
 #include "../readtags.h"
 
 static GdaConnection *db_connection = NULL;
@@ -67,20 +71,7 @@ add_new_files (SymbolDBEngine *dbe)
 	GPtrArray *files_array;
 	
 	files_array = g_ptr_array_new();	
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/LexMMIXAL.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/LexCsound.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/XPM.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/StyleContext.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/LexMSSQL.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/LexSQL.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/LexAsn1.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/LexInno.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/LexSpice.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/ScintillaBase.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/editor/scintilla/LexPOV.cxx"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/symbol-db/readtags.c"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/symbol-browser/test-class.h"));
-	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/anjuta/plugins/symbol-browser/test-class.cpp"));	
+	g_ptr_array_add (files_array, g_strdup("/home/pescio/svnroot/libgda/providers/sqlite/sqlite-src/sqlite3.c"));	
 	symbol_db_engine_add_new_files (dbe, "foo_project", files_array, "C", TRUE);
 }
 
@@ -337,7 +328,7 @@ int main(int argc, char** argv)
 	gda_init ("Test db", "0.1", argc, argv);
 	dbe = symbol_db_engine_new ();
 	
-	gchar *prj_dir = "/home/pescio/svnroot/anjuta/";
+	gchar *prj_dir = "/home/pescio/svnroot/anjuta/plugins/symbol-db/test";
 
 	g_message ("opening database");
 	if (symbol_db_engine_open_db (dbe, prj_dir) == FALSE)
@@ -357,9 +348,37 @@ int main(int argc, char** argv)
 	
 
 	
-//	g_message ("adding files...");
-//	add_new_files  (dbe);
+	g_message ("adding files...");
+	add_new_files  (dbe);
 
+	/* 
+	** Message: elapsed: 319.713238 for (4008) [0.079769 per symbol]
+	
+	adding index on file (file_path)
+	** Message: elapsed: 206.735366 for (4008) [0.051581 per symbol] (db already present)
+	** Message: elapsed: 276.093110 for (4008) [0.068886 per symbol]
+	
+	adding index on sym_type (type)
+	** Message: elapsed: 228.382055 for (4008) [0.056982 per symbol]
+	
+	adding index on sym_type (type, type_name)
+	** Message: elapsed: 286.737892 for (4008) [0.071541 per symbol]
+	
+	adding index scope_uniq_idx_2
+	** Message: elapsed: 273.554569 for (4008) [0.068252 per symbol]
+
+	check these:
+	v PREP_QUERY_GET_FILE_ID_BY_UNIQUE_NAME
+	v PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY
+	v PREP_QUERY_UPDATE_SYMBOL_ALL
+	
+	v PREP_QUERY_GET_SYM_TYPE_ID
+	v PREP_QUERY_SYM_TYPE_NEW
+	v PREP_QUERY_GET_SYM_KIND_BY_UNIQUE_NAME
+	v PREP_QUERY_SYM_KIND_NEW
+	
+	
+	*/
 //	g_message ("updating project");
 //	update_project	(dbe);
 	
@@ -380,8 +399,8 @@ int main(int argc, char** argv)
 //	g_message ("getting symbol info by id");
 //	get_info_by_id (dbe);
 	
-	g_message ("updating buffers");
-	update_buffers (dbe);
+//	g_message ("updating buffers");
+//	update_buffers (dbe);
 	
 	GMainLoop *main_loop;	
 	main_loop = g_main_loop_new( NULL, FALSE );
@@ -389,4 +408,11 @@ int main(int argc, char** argv)
 	g_main_loop_run( main_loop );
 
 	return 0;
+}
+
+#endif
+
+int main(int argc, char** argv)
+{
+return 0;
 }

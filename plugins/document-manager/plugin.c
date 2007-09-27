@@ -1111,7 +1111,21 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 				}
 			}
 			if (!language)
-				language = editor_lang;
+			{
+				/* Unload all language support plugins */
+				GList* node;
+				for (node = docman_plugin->support_plugins; node != NULL; node = g_list_next (node))
+				{
+					GObject* plugin = anjuta_plugin_manager_get_plugin_by_id (plugin_manager, node->data);
+					anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
+					g_free (node->data);
+				}
+				g_list_free (docman_plugin->support_plugins);
+				docman_plugin->support_plugins = NULL;
+				DEBUG_PRINT ("Language unknown: %s", editor_lang);
+				goto out;
+			}
+			  
 			support_plugin_descs = anjuta_plugin_manager_query (plugin_manager,
 																"Anjuta Plugin",
 																"Interfaces",
@@ -1178,7 +1192,7 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 			g_list_free (new_support_plugins);
 		}
 	}
-
+out:
 	update_title (ANJUTA_PLUGIN_DOCMAN(plugin));
 }
 

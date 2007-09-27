@@ -46,7 +46,8 @@
 #include "symbol-db-view-search.h"
 #include "symbol-db-engine.h"
 #include "symbol-db-engine-iterator.h"
-
+#include "symbol-db-engine-iterator-node.h"
+#include "symbol-db-view.h"
 
 /* private class */
 struct _SymbolDBViewSearchPriv
@@ -91,7 +92,6 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 	SymbolDBViewSearchPriv *priv;
 	gint i;
 	GtkTreeStore *store;
-	const GPtrArray *tags;
 	SymbolDBEngineIterator *iterator;								   
 	gint hits = 0;
 
@@ -119,6 +119,7 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 		{
 			GList *completion_list;
 			gint max_hits;
+			SymbolDBEngineIteratorNode *iter_node;
 			
 			/* max number of hits to take care of */
 			hits = symbol_db_engine_iterator_get_n_items (iterator);
@@ -129,33 +130,38 @@ sdb_view_search_model_filter (SymbolDBViewSearch * search,
 			for (i = 0; i < max_hits; ++i)
 			{
 				GtkTreeIter iter;
-				const gchar *sym_name = symbol_db_engine_iterator_get_symbol_name (iterator);
 				
+				iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
+				
+				const gchar *sym_name = 
+					symbol_db_engine_iterator_node_get_symbol_name (iter_node);
+								
 				if (sym_name)
 				{
 					/* get the full file path instead of a database-oriented one. */
 					gchar *file_path = 
 						symbol_db_engine_get_full_local_path (priv->sdbe, 
-							symbol_db_engine_iterator_get_symbol_extra_string (iterator,
-													SYMINFO_FILE_PATH));
-															  
+							symbol_db_engine_iterator_node_get_symbol_extra_string (
+									iter_node, SYMINFO_FILE_PATH));
+					
 					/* add a new iter */
 					gtk_tree_store_append (GTK_TREE_STORE (store), &iter, NULL);
 					
 					gtk_tree_store_set (GTK_TREE_STORE (store), &iter,
-								COLUMN_PIXBUF, symbol_db_view_get_pixbuf (
-									symbol_db_engine_iterator_get_symbol_extra_string (
-										iterator, SYMINFO_KIND),
-										symbol_db_engine_iterator_get_symbol_extra_string (
-										iterator, SYMINFO_ACCESS)
-									),
-								COLUMN_NAME, sym_name,
-								COLUMN_LINE, 
-									symbol_db_engine_iterator_get_symbol_file_pos (iterator),
-								COLUMN_FILE, file_path,
-								COLUMN_SYMBOL_ID,
-									symbol_db_engine_iterator_get_symbol_id (iterator),
-								-1);
+							COLUMN_PIXBUF, symbol_db_view_get_pixbuf (
+								symbol_db_engine_iterator_node_get_symbol_extra_string (
+									iter_node, SYMINFO_KIND),
+									symbol_db_engine_iterator_node_get_symbol_extra_string (
+									iter_node, SYMINFO_ACCESS)
+								),
+							COLUMN_NAME, sym_name,
+							COLUMN_LINE, 
+								symbol_db_engine_iterator_node_get_symbol_file_pos (
+													iter_node),
+							COLUMN_FILE, file_path,
+							COLUMN_SYMBOL_ID,
+								symbol_db_engine_iterator_node_get_symbol_id (iter_node),
+							-1);
 					
 					completion_list = g_list_prepend (completion_list,
 							g_strdup (sym_name));
@@ -581,7 +587,7 @@ symbol_db_view_search_clear (SymbolDBViewSearch *search)
 }
 
 GType
-symbol_db_view_search_get_type (void)
+sdb_view_search_get_type (void)
 {
 	static GType type = 0;
 
@@ -604,11 +610,6 @@ symbol_db_view_search_get_type (void)
 	}
 	return type;
 }
-
-
-
-
-
 
 GtkWidget *
 symbol_db_view_search_new (SymbolDBEngine *dbe)

@@ -20,6 +20,7 @@
 
 #include <libgnome/gnome-macros.h>
 #include <libanjuta/anjuta-utils.h>
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
 #include "an_symbol_info.h"
 #include "an_symbol.h"
@@ -105,6 +106,24 @@ isymbol_type (IAnjutaSymbol *isymbol, GError **err)
 }
 
 static const gchar*
+isymbol_type_name (IAnjutaSymbol *isymbol, GError **err)
+{
+	AnjutaSymbol *s;
+
+	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), NULL);
+	s = ANJUTA_SYMBOL (isymbol);
+	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
+	return s->priv->tm_tag->atts.entry.type_ref[1];
+}
+
+static const gchar*
+isymbol_type_str (IAnjutaSymbol *isymbol, GError **err)
+{
+	DEBUG_PRINT ("TODO: isymbol_type_str ()");
+	return NULL;
+}
+
+static const gchar*
 isymbol_name (IAnjutaSymbol *isymbol, GError **err)
 {
 	AnjutaSymbol *s;
@@ -145,21 +164,12 @@ isymbol_inheritance (IAnjutaSymbol *isymbol, GError **err)
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), NULL);
 	s = ANJUTA_SYMBOL (isymbol);
 	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
-	return s->priv->tm_tag->atts.entry.inheritance;
+//	return s->priv->tm_tag->atts.entry.inheritance;
+	DEBUG_PRINT ("isymbol_inheritance () FIXME");
+	return NULL;
 }
 
 static const gchar*
-isymbol_var_type (IAnjutaSymbol *isymbol, GError **err)
-{
-	AnjutaSymbol *s;
-
-	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), NULL);
-	s = ANJUTA_SYMBOL (isymbol);
-	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
-	return s->priv->tm_tag->atts.entry.type_ref[1];
-}
-
-static gchar
 isymbol_access (IAnjutaSymbol *isymbol, GError **err)
 {
 	AnjutaSymbol *s;
@@ -167,10 +177,12 @@ isymbol_access (IAnjutaSymbol *isymbol, GError **err)
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), '\0');
 	s = ANJUTA_SYMBOL (isymbol);
 	g_return_val_if_fail (s->priv->tm_tag != NULL, '\0');
-	return s->priv->tm_tag->atts.entry.access;
+	DEBUG_PRINT ("isymbol_access () FIXME");
+	return "fixme";
+//	return s->priv->tm_tag->atts.entry.access;
 }
 
-static gchar
+static const gchar*
 isymbol_impl (IAnjutaSymbol *isymbol, GError **err)
 {
 	AnjutaSymbol *s;
@@ -178,7 +190,10 @@ isymbol_impl (IAnjutaSymbol *isymbol, GError **err)
 	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), '\0');
 	s = ANJUTA_SYMBOL (isymbol);
 	g_return_val_if_fail (s->priv->tm_tag != NULL, '\0');
-	return s->priv->tm_tag->atts.entry.impl;
+	DEBUG_PRINT ("isymbol_impl () FIXME");
+	return "fixme";
+	
+//	return s->priv->tm_tag->atts.entry.impl;	
 }
 
 static const gchar*
@@ -216,17 +231,7 @@ isymbol_is_local (IAnjutaSymbol *isymbol, GError **err)
 	return s->priv->tm_tag->atts.entry.local;
 }
 
-static guint
-isymbol_pointer_order (IAnjutaSymbol *isymbol, GError **err)
-{
-	AnjutaSymbol *s;
-	g_return_val_if_fail (ANJUTA_IS_SYMBOL (isymbol), FALSE);
-	s = ANJUTA_SYMBOL (isymbol);
-	g_return_val_if_fail (s->priv->tm_tag != NULL, 0);
-	return s->priv->tm_tag->atts.entry.pointerOrder;
-}
-
-static GdkPixbuf*
+static const GdkPixbuf*
 isymbol_icon (IAnjutaSymbol *isymbol, GError **err)
 {
 	AnjutaSymbol *s;
@@ -243,17 +248,17 @@ static void
 isymbol_iface_init (IAnjutaSymbolIface *iface)
 {
 	iface->type = isymbol_type;
+	iface->type_str = isymbol_type_str;	
+	iface->type_name = isymbol_type_name;
 	iface->name = isymbol_name;
 	iface->args = isymbol_args;
 	iface->scope = isymbol_scope;
-	iface->inheritance = isymbol_inheritance;
-	iface->var_type = isymbol_var_type;
+	iface->inheritance = isymbol_inheritance;	
 	iface->access = isymbol_access;
 	iface->impl = isymbol_impl;
 	iface->file = isymbol_file;
 	iface->line = isymbol_line;
 	iface->is_local = isymbol_is_local;
-	iface->pointer_order = isymbol_pointer_order;
 	iface->icon = isymbol_icon;
 }
 

@@ -138,8 +138,6 @@ gchar		*anjuta_document_get_uri_for_display
 gchar		*anjuta_document_get_short_name_for_display
 					 	(AnjutaDocument       *doc);
 
-gchar		*anjuta_document_get_mime_type 	(AnjutaDocument       *doc);
-
 gboolean	 anjuta_document_get_readonly 	(AnjutaDocument       *doc);
 
 void		 anjuta_document_load 		(AnjutaDocument       *doc,

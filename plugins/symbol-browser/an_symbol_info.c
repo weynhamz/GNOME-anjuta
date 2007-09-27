@@ -300,7 +300,7 @@ sv_load_symbol_pixbufs (void)
 /*-----------------------------------------------------------------------------
  * return the pixbufs. It will initialize pixbufs first if they weren't before
  */
-GdkPixbuf*
+const GdkPixbuf*
 anjuta_symbol_info_get_pixbuf  (SVNodeType node_type)
 {
 	if (!sv_symbol_pixbufs)

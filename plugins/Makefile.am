@@ -30,6 +30,8 @@ SUBDIRS = . \
 	sourceview \
 	language-support-cpp-java \
 	glade \
+	profiler \
+	symbol-db \
 	devhelp \
 	profiler \
 	language-manager

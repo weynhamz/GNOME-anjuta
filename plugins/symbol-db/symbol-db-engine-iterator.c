@@ -22,7 +22,10 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
+#include <libanjuta/interfaces/ianjuta-iterable.h>
+#include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
+#include "symbol-db-engine-iterator-node.h"
 #include "symbol-db-engine-iterator.h"
 #include "symbol-db-engine.h"
 
@@ -31,14 +34,13 @@ struct _SymbolDBEngineIteratorPriv
 	GdaDataModel *data_model;
 	GdaDataModelIter *data_iter;
 	
-	gint curr_row;
 	gint total_rows;
 };
 
-static GObjectClass* parent_class = NULL;
+static SymbolDBEngineIteratorNodeClass* parent_class = NULL;
 
 static void
-sdb_engine_iterator_init (SymbolDBEngineIterator *object)
+sdb_engine_iterator_instance_init (SymbolDBEngineIterator *object)
 {
 	SymbolDBEngineIterator *sdbi;
 	
@@ -48,25 +50,22 @@ sdb_engine_iterator_init (SymbolDBEngineIterator *object)
 	/* initialize some priv data */
 	sdbi->priv->data_model = NULL;
 	sdbi->priv->data_iter = NULL;
-	sdbi->priv->curr_row = 0;
-	sdbi->priv->total_rows = 0;	
+	sdbi->priv->total_rows = -1;	
 }
 
 static void
 sdb_engine_iterator_finalize (GObject *object)
 {
-	/* TODO: Add deinitalization code here */
 	SymbolDBEngineIterator *dbi;
 	SymbolDBEngineIteratorPriv *priv;
 	
 	dbi = SYMBOL_DB_ENGINE_ITERATOR (object);	
 	priv = dbi->priv;
 
-	DEBUG_PRINT ("finalizing sdb_iterator");
-	
 	if (priv->data_model)
 		g_object_unref (priv->data_model);
 		
+	g_free (priv);
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -74,37 +73,9 @@ static void
 sdb_engine_iterator_class_init (SymbolDBEngineIteratorClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	parent_class = G_OBJECT_CLASS (g_type_class_peek_parent (klass));
-
+	parent_class = g_type_class_ref (SYMBOL_TYPE_DB_ENGINE_ITERATOR_NODE);
+	
 	object_class->finalize = sdb_engine_iterator_finalize;
-}
-
-GType
-symbol_db_engine_iterator_get_type (void)
-{
-	static GType our_type = 0;
-
-	if(our_type == 0)
-	{
-		static const GTypeInfo our_info =
-		{
-			sizeof (SymbolDBEngineIteratorClass), /* class_size */
-			(GBaseInitFunc) NULL, /* base_init */
-			(GBaseFinalizeFunc) NULL, /* base_finalize */
-			(GClassInitFunc) sdb_engine_iterator_class_init, /* class_init */
-			(GClassFinalizeFunc) NULL, /* class_finalize */
-			NULL /* class_data */,
-			sizeof (SymbolDBEngineIterator), /* instance_size */
-			0, /* n_preallocs */
-			(GInstanceInitFunc) sdb_engine_iterator_init, /* instance_init */
-			NULL /* value_table */
-		};
-
-		our_type = g_type_register_static (G_TYPE_OBJECT, "SymbolDBEngineIterator",
-		                                   &our_info, 0);
-	}
-
-	return our_type;
 }
 
 SymbolDBEngineIterator *
@@ -121,10 +92,38 @@ symbol_db_engine_iterator_new (GdaDataModel *model)
 	
 	priv->data_model = model;
 	priv->data_iter = gda_data_model_iter_new (model);
-	priv->total_rows = gda_data_model_get_n_rows (model);
 	
+	/* because gda_data_model_get_n_rows () could be cpu-intensive, we'll 
+	 * proxy this value, e.g. it's calculated if it is really needed */
+	priv->total_rows = -1; 
+
+	/* to avoid calling everytime this function when we want to use the IteratorNode,
+	 * just do it now.
+	 */
+	symbol_db_engine_iterator_first (dbi);
+	
+	/* set the data_iter no the base class */
+	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (dbi),
+											 priv->data_iter);
+	
+	ianjuta_iterable_first (IANJUTA_ITERABLE (dbi), NULL);
 	return dbi;
 }
+
+/**
+ * Set the iterator at the first node.
+ */
+gboolean
+symbol_db_engine_iterator_first (SymbolDBEngineIterator *dbi)
+{
+	SymbolDBEngineIteratorPriv *priv;
+	
+	g_return_val_if_fail (dbi != NULL, FALSE);
+	priv = dbi->priv;
+	
+	return gda_data_model_iter_set_at_row (priv->data_iter, 0);
+}
+
 
 gboolean
 symbol_db_engine_iterator_move_next (SymbolDBEngineIterator *dbi)
@@ -133,11 +132,6 @@ symbol_db_engine_iterator_move_next (SymbolDBEngineIterator *dbi)
 	
 	g_return_val_if_fail (dbi != NULL, FALSE);
 	priv = dbi->priv;
-
-	if (priv->curr_row + 1 < priv->total_rows)
-		priv->curr_row++;
-	else 
-		return FALSE;
 
 	return gda_data_model_iter_move_next (priv->data_iter);
 }
@@ -149,16 +143,13 @@ symbol_db_engine_iterator_move_prev (SymbolDBEngineIterator *dbi)
 	
 	g_return_val_if_fail (dbi != NULL, FALSE);
 	priv = dbi->priv;
-
-	if (priv->curr_row > 0)
-		priv->curr_row--;
-	else
-		return FALSE;
 	
 	return gda_data_model_iter_move_prev (priv->data_iter);
 }
 
-/* -1 on error */
+/**
+ * @return -1 on error
+ */
 gint 
 symbol_db_engine_iterator_get_n_items (SymbolDBEngineIterator *dbi)
 {
@@ -167,196 +158,252 @@ symbol_db_engine_iterator_get_n_items (SymbolDBEngineIterator *dbi)
 	g_return_val_if_fail (dbi != NULL, -1);
 	priv = dbi->priv;
 	
+	if (priv->total_rows < 0) 
+	{
+		/* try to get the number of rows */
+		priv->total_rows = gda_data_model_get_n_rows (priv->data_model);
+	}		
+	
 	return priv->total_rows;
 }
 
-/* 
- * Symbol name must be always on column 0
+/**
+ * Set the iterator at the last node.
  */
-gint
-symbol_db_engine_iterator_get_symbol_id (SymbolDBEngineIterator *dbi)
+gboolean
+symbol_db_engine_iterator_last (SymbolDBEngineIterator *dbi)
 {
 	SymbolDBEngineIteratorPriv *priv;
-	const GValue* value;
 	
-	g_return_val_if_fail (dbi != NULL, -1);
+	g_return_val_if_fail (dbi != NULL, FALSE);
 	priv = dbi->priv;
 	
-	value = gda_data_model_get_value_at (priv->data_model, 0, priv->curr_row);
-	
-	return value != NULL && G_VALUE_HOLDS_INT (value)
-		? g_value_get_int (value) : -1;
-}
-
-/* 
- * Symbol name must be always on column 1
- */
-const gchar* 
-symbol_db_engine_iterator_get_symbol_name (SymbolDBEngineIterator *dbi)
-{
-	SymbolDBEngineIteratorPriv *priv;
-	const GValue* value;
-	
-	g_return_val_if_fail (dbi != NULL, NULL);
-	priv = dbi->priv;
-	
-	value = gda_data_model_get_value_at (priv->data_model, 1, priv->curr_row);
-	
-	return value != NULL && G_VALUE_HOLDS_STRING (value)
-		? g_value_get_string (value) : NULL;
-}
-
-gint
-symbol_db_engine_iterator_get_symbol_file_pos (SymbolDBEngineIterator *dbi)
-{
-	SymbolDBEngineIteratorPriv *priv;
-	const GValue* value;
-	
-	g_return_val_if_fail (dbi != NULL, -1);
-	priv = dbi->priv;
-	
-	value = gda_data_model_get_value_at (priv->data_model, 2, priv->curr_row);
-	
-	return value != NULL && G_VALUE_HOLDS_INT (value)
-		? g_value_get_int (value) : -1;
+	return gda_data_model_iter_set_at_row (priv->data_iter, 
+					symbol_db_engine_iterator_get_n_items (dbi));
 }
 
 gboolean
-symbol_db_engine_iterator_get_symbol_is_file_scope (SymbolDBEngineIterator *dbi)
+symbol_db_engine_iterator_set_position (SymbolDBEngineIterator *dbi, gint pos)
 {
 	SymbolDBEngineIteratorPriv *priv;
-	const GValue* value;
 	
-	g_return_val_if_fail (dbi != NULL, -1);
+	g_return_val_if_fail (dbi != NULL, FALSE);
 	priv = dbi->priv;
 	
-	value = gda_data_model_get_value_at (priv->data_model, 3, priv->curr_row);
-	
-	if (value != NULL)
-		return g_value_get_int (value) == 1 ? TRUE : FALSE;
-	
-	return FALSE;
+	return gda_data_model_iter_set_at_row (priv->data_iter, pos);
 }
 
-const gchar* 
-symbol_db_engine_iterator_get_symbol_signature (SymbolDBEngineIterator *dbi)
+gint
+symbol_db_engine_iterator_get_position (SymbolDBEngineIterator *dbi)
 {
 	SymbolDBEngineIteratorPriv *priv;
-	const GValue* value;
 	
-	g_return_val_if_fail (dbi != NULL, NULL);
+	g_return_val_if_fail (dbi != NULL, FALSE);
 	priv = dbi->priv;
 	
-	value = gda_data_model_get_value_at (priv->data_model, 4, priv->curr_row);
-	
-	return value != NULL && G_VALUE_HOLDS_STRING (value)
-		? g_value_get_string (value) : NULL;
+	return gda_data_model_iter_get_row (priv->data_iter);
 }
 
-const gchar*
-symbol_db_engine_iterator_get_symbol_extra_string (SymbolDBEngineIterator *dbi,
-												   gint sym_info)
+
+void
+symbol_db_engine_iterator_foreach (SymbolDBEngineIterator *dbi, GFunc callback, 
+								   gpointer user_data)
 {
 	SymbolDBEngineIteratorPriv *priv;
-	const GValue* value;
 	
-	g_return_val_if_fail (dbi != NULL, NULL);
+	g_return_if_fail (dbi != NULL);
 	priv = dbi->priv;
 
-	if (sym_info & SYMINFO_FILE_PATH)
-	{
-		value = gda_data_model_get_value_at_col_name (priv->data_model,
-													 "file_path",
-													 priv->curr_row);
-		return value != NULL && G_VALUE_HOLDS_STRING (value)
-			? g_value_get_string (value) : NULL;
-	}
-			
-	if (sym_info & SYMINFO_LANGUAGE)
-	{
-		value = gda_data_model_get_value_at_col_name (priv->data_model,
-													 "language_name",
-													 priv->curr_row);
-		return value != NULL && G_VALUE_HOLDS_STRING (value)
-			? g_value_get_string (value) : NULL;		
-	}
+	gint saved_pos = symbol_db_engine_iterator_get_position (dbi);
 	
-	if (sym_info & SYMINFO_IMPLEMENTATION)
-	{
-		value = gda_data_model_get_value_at_col_name (priv->data_model,
-													 "implementation_name",
-													 priv->curr_row);
-		return value != NULL && G_VALUE_HOLDS_STRING (value)
-			? g_value_get_string (value) : NULL;
-	}
+	symbol_db_engine_iterator_last (dbi);
 	
-	if (sym_info & SYMINFO_ACCESS)
-	{
-		value = gda_data_model_get_value_at_col_name (priv->data_model,
-													 "access_name",
-													 priv->curr_row);
-		return value != NULL && G_VALUE_HOLDS_STRING (value)
-			? g_value_get_string (value) : NULL;
-	}
-	
-	if (sym_info & SYMINFO_KIND)
-	{
-		value = gda_data_model_get_value_at_col_name (priv->data_model,
-													 "kind_name",
-													 priv->curr_row);
-		return value != NULL && G_VALUE_HOLDS_STRING (value)
-			? g_value_get_string (value) : NULL;
-	}
-	
-	if (sym_info & SYMINFO_TYPE)
-	{
-		value =	gda_data_model_get_value_at_col_name (priv->data_model,
-													 "type",
-													 priv->curr_row);
-		return value != NULL && G_VALUE_HOLDS_STRING (value)
-			? g_value_get_string (value) : NULL;
-	}
-	
-	if (sym_info & SYMINFO_TYPE_NAME)
-	{
-		value = gda_data_model_get_value_at_col_name (priv->data_model,
-													 "type_name",
-													 priv->curr_row);
-		return value != NULL && G_VALUE_HOLDS_STRING (value)
-			? g_value_get_string (value) : NULL;
-	}
+	while (!symbol_db_engine_iterator_move_next (dbi))
+		callback (dbi, user_data);
+	symbol_db_engine_iterator_set_position (dbi, saved_pos);
+}
 
-	if (sym_info & SYMINFO_PROJECT_NAME)
-	{
-		value = gda_data_model_get_value_at_col_name (priv->data_model,
-													 "project_name",
-													 priv->curr_row);
-		return value != NULL && G_VALUE_HOLDS_STRING (value)
-			? g_value_get_string (value) : NULL;
-	}	
+/* IAnjutaIterable implementation */
 
-	if (sym_info & SYMINFO_FILE_IGNORE)
+static gboolean
+isymbol_iter_first (IAnjutaIterable *iterable, GError **err)
+{
+	SymbolDBEngineIterator *dbi = SYMBOL_DB_ENGINE_ITERATOR (iterable);
+	SymbolDBEngineIteratorPriv *priv;
+	
+	g_return_val_if_fail (dbi != NULL, FALSE);
+	priv = dbi->priv;
+
+
+	if (symbol_db_engine_iterator_first (dbi) == FALSE) 
 	{
-		value =	gda_data_model_get_value_at_col_name (priv->data_model,
-													 "file_ignore_type",
-													 priv->curr_row);
-		return value != NULL && G_VALUE_HOLDS_STRING (value)
-			? g_value_get_string (value) : NULL;
+		symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
+										 NULL);
+		
+		return FALSE;
 	}
+	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
+										 priv->data_iter);
+	return TRUE;
+}
 
-	if (sym_info & SYMINFO_FILE_INCLUDE)
+static gboolean
+isymbol_iter_next (IAnjutaIterable *iterable, GError **err)
+{
+	SymbolDBEngineIterator *dbi = SYMBOL_DB_ENGINE_ITERATOR (iterable);
+	SymbolDBEngineIteratorPriv *priv;
+	
+	g_return_val_if_fail (dbi != NULL, FALSE);
+	priv = dbi->priv;
+
+	if (symbol_db_engine_iterator_move_next (dbi) == FALSE)
 	{
-		value = gda_data_model_get_value_at_col_name (priv->data_model,
-													 "file_include_type",
-													 priv->curr_row);
-		return value != NULL && G_VALUE_HOLDS_STRING (value)
-			? g_value_get_string (value) : NULL;
+		symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
+										 NULL);
+		
+		return FALSE;
 	}
+	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
+										 priv->data_iter);
+	
+	return TRUE;
+}
 
-	/* not found */
+static gboolean
+isymbol_iter_previous (IAnjutaIterable *iterable, GError **err)
+{
+	SymbolDBEngineIterator *dbi = SYMBOL_DB_ENGINE_ITERATOR (iterable);
+	SymbolDBEngineIteratorPriv *priv;
+	
+	g_return_val_if_fail (dbi != NULL, FALSE);
+	priv = dbi->priv;
+
+	if (symbol_db_engine_iterator_move_prev (dbi) == FALSE)
+	{
+		symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
+										 NULL);
+		
+		return FALSE;
+	}
+	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
+										 priv->data_iter);
+	
+	return TRUE;
+}
+
+static gboolean
+isymbol_iter_last (IAnjutaIterable *iterable, GError **err)
+{
+	SymbolDBEngineIterator *dbi = SYMBOL_DB_ENGINE_ITERATOR (iterable);
+	SymbolDBEngineIteratorPriv *priv;
+	
+	g_return_val_if_fail (dbi != NULL, FALSE);
+	priv = dbi->priv;
+
+	if (symbol_db_engine_iterator_last (dbi) == FALSE)
+	{
+		symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
+										 NULL);
+		
+		return FALSE;
+	}
+	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
+										 priv->data_iter);
+	
+	return TRUE;
+}
+
+static void
+isymbol_iter_foreach (IAnjutaIterable *iterable, GFunc callback,
+					  gpointer user_data, GError **err)
+{
+	SymbolDBEngineIterator *dbi = SYMBOL_DB_ENGINE_ITERATOR (iterable);
+	SymbolDBEngineIteratorPriv *priv;
+	
+	g_return_if_fail (dbi != NULL);
+	priv = dbi->priv;
+
+	symbol_db_engine_iterator_foreach (dbi, callback, user_data);
+}
+
+static gboolean
+isymbol_iter_set_position (IAnjutaIterable *iterable,
+						   gint position, GError **err)
+{
+	SymbolDBEngineIterator *dbi = SYMBOL_DB_ENGINE_ITERATOR (iterable);
+	SymbolDBEngineIteratorPriv *priv;
+	
+	g_return_val_if_fail (dbi != NULL, FALSE);
+	priv = dbi->priv;
+
+	if (symbol_db_engine_iterator_set_position (dbi, position) == FALSE)
+	{
+		symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
+										 NULL);
+		
+		return FALSE;
+	}
+	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (iterable),
+										 priv->data_iter);
+	
+	return TRUE;	
+}
+
+static gint
+isymbol_iter_get_position (IAnjutaIterable *iterable, GError **err)
+{
+	SymbolDBEngineIterator *dbi = SYMBOL_DB_ENGINE_ITERATOR (iterable);
+	SymbolDBEngineIteratorPriv *priv;
+	
+	g_return_val_if_fail (dbi != NULL, FALSE);
+	priv = dbi->priv;
+
+	return symbol_db_engine_iterator_get_position (dbi);
+}
+
+static gint
+isymbol_iter_get_length (IAnjutaIterable *iterable, GError **err)
+{
+	SymbolDBEngineIterator *dbi = SYMBOL_DB_ENGINE_ITERATOR (iterable);
+	SymbolDBEngineIteratorPriv *priv;
+	
+	g_return_val_if_fail (dbi != NULL, FALSE);
+	priv = dbi->priv;
+
+	return symbol_db_engine_iterator_get_n_items (dbi);
+}
+
+static IAnjutaIterable *
+isymbol_iter_clone (IAnjutaIterable *iter, GError **e)
+{
+	DEBUG_PRINT ("isymbol_iter_clone  () UNIMPLEMENTED");
 	return NULL;
 }
 
+static void
+isymbol_iter_assign (IAnjutaIterable *iter, IAnjutaIterable *src_iter, GError **e)
+{
+	DEBUG_PRINT ("isymbol_iter_assign () UNIMPLEMENTED");
+}
+
+
+static void
+isymbol_iter_iface_init (IAnjutaIterableIface *iface, GError **err)
+{
+	iface->first = isymbol_iter_first;
+	iface->next = isymbol_iter_next;
+	iface->previous = isymbol_iter_previous;
+	iface->last = isymbol_iter_last;
+	iface->foreach = isymbol_iter_foreach;
+	iface->set_position = isymbol_iter_set_position;
+	iface->get_position = isymbol_iter_get_position;
+	iface->get_length = isymbol_iter_get_length;
+	iface->clone = isymbol_iter_clone;
+	iface->assign = isymbol_iter_assign;	
+}
 
 
 
+ANJUTA_TYPE_BEGIN (SymbolDBEngineIterator, sdb_engine_iterator, SYMBOL_TYPE_DB_ENGINE_ITERATOR_NODE);
+ANJUTA_TYPE_ADD_INTERFACE (isymbol_iter, IANJUTA_TYPE_ITERABLE);
+ANJUTA_TYPE_END;

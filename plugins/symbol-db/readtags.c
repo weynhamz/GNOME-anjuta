@@ -470,7 +470,7 @@ static tagFile *initialize (const char *const filePath, tagFileInfo *const info)
 	return result;
 }
 
-static tagFile *initialize_1 (FILE* fd, tagFileInfo *const info)
+static tagFile *initialize_1 (const FILE* fd, tagFileInfo *const info)
 {
 	tagFile *result = (tagFile*) malloc (sizeof (tagFile));
 	if (result != NULL)
@@ -481,7 +481,7 @@ static tagFile *initialize_1 (FILE* fd, tagFileInfo *const info)
 		result->fields.max = 20;
 		result->fields.list = (tagExtensionField*) malloc (
 			result->fields.max * sizeof (tagExtensionField));
-		result->fp = fd;
+		result->fp = (FILE*)fd;
 		if (result->fp == NULL)
 		{
 			free (result);

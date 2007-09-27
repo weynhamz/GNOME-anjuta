@@ -1760,6 +1760,24 @@ ilanguage_get_language_name (IAnjutaEditorLanguage *ilanguage,
 	return language;
 }
 
+static const gchar*
+autodetect_language (Sourceview* sv)
+{
+	const gchar* filename = idocument_get_filename (IANJUTA_DOCUMENT(sv), NULL);
+	const gchar* mime_type = gnome_vfs_get_mime_type_for_name (filename);
+	GtkSourceLanguage* lang =
+		gtk_source_languages_manager_get_language_from_mime_type(lang_manager, mime_type);
+	if (lang != NULL)
+	{
+		const gchar* language = gtk_source_language_get_name(lang);
+		gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(sv->priv->document), lang);
+		g_signal_emit_by_name (G_OBJECT(sv), "language-changed", 
+							   language);
+		return language;
+	}
+	return NULL;
+}
+
 static void
 ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
 						const gchar *language, GError **err)
@@ -1779,19 +1797,8 @@ ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
 		}
 		langs = g_slist_next(langs);
 	}
-	/* Language not found -> use autodetection */
-	{
-		const gchar* filename = idocument_get_filename (IANJUTA_DOCUMENT(sv), NULL);
-		const gchar* mime_type = gnome_vfs_get_mime_type_for_name (filename);
-		GtkSourceLanguage* lang = gtk_source_languages_manager_get_language_from_mime_type(
-			lang_manager, mime_type);
-		if (lang != NULL)
-		{
-			gtk_source_buffer_set_language(buffer, lang);
-			g_signal_emit_by_name (ilanguage, "language-changed", 
-				gtk_source_language_get_name(lang));
-		}
-	}
+	/* Otherwise, autodetect language */
+	autodetect_language (sv);
 }
 
 static const gchar*
@@ -1805,7 +1812,10 @@ ilanguage_get_language (IAnjutaEditorLanguage *ilanguage, GError **err)
 		return gtk_source_language_get_name(lang);
 	}
 	else
-		return NULL;
+	{
+		const gchar* language = autodetect_language (sv);
+		return language;
+	}
 }
 
 static void

@@ -101,7 +101,7 @@ SVNodeType anjuta_symbol_info_get_node_type (const TMSymbol *sym,
 SVRootType anjuta_symbol_info_get_root_type (SVNodeType type);
 
 /* Returns the icon pixbuf. Caller does not get a reference. */
-GdkPixbuf* anjuta_symbol_info_get_pixbuf  (SVNodeType type);
+const GdkPixbuf* anjuta_symbol_info_get_pixbuf  (SVNodeType type);
 
 G_END_DECLS
 #endif /* __AN_SYMBOL_INFO_H__ */

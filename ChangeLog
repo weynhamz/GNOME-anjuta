@@ -1,3 +1,95 @@
+2007-09-27  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/Makefile.am:
+	* plugins/symbol-browser/an_symbol.c: (isymbol_type_name),
+	(isymbol_type_str), (isymbol_name), (isymbol_args),
+	(isymbol_scope), (isymbol_inheritance), (isymbol_access),
+	(isymbol_impl), (isymbol_iface_init):
+	* plugins/symbol-browser/an_symbol_info.c:
+	* plugins/symbol-browser/an_symbol_info.h:
+	* plugins/symbol-db/Makefile.am:
+	* plugins/symbol-db/plugin.c:
+	(on_editor_buffer_symbols_update_timeout), (on_editor_saved),
+	(value_added_current_editor), (on_editor_foreach_clear),
+	(value_removed_current_editor), (project_root_added),
+	(symbol_db_activate), (symbol_db_deactivate),
+	(isymbol_manager_search):
+	* plugins/symbol-db/readtags.c: (initialize_1):
+	* plugins/symbol-db/symbol-db-engine-iterator.c:
+	(sdb_engine_iterator_instance_init),
+	(sdb_engine_iterator_finalize), (sdb_engine_iterator_class_init),
+	(symbol_db_engine_iterator_new), (symbol_db_engine_iterator_first),
+	(symbol_db_engine_iterator_move_next),
+	(symbol_db_engine_iterator_move_prev),
+	(symbol_db_engine_iterator_get_n_items),
+	(symbol_db_engine_iterator_last),
+	(symbol_db_engine_iterator_set_position),
+	(symbol_db_engine_iterator_get_position),
+	(symbol_db_engine_iterator_foreach), (isymbol_iter_first),
+	(isymbol_iter_next), (isymbol_iter_previous), (isymbol_iter_last),
+	(isymbol_iter_foreach), (isymbol_iter_set_position),
+	(isymbol_iter_get_position), (isymbol_iter_get_length),
+	(isymbol_iter_clone), (isymbol_iter_assign),
+	(isymbol_iter_iface_init):
+	* plugins/symbol-db/symbol-db-engine-iterator.h:
+	* plugins/symbol-db/symbol-db-engine.c:
+	(sdb_engine_disconnect_from_db), (sdb_engine_populate_db_by_tags),
+	(sdb_engine_ctags_output_callback_1), (sdb_engine_scan_files_1),
+	(sdb_engine_finalize), (sdb_engine_get_type),
+	(sdb_engine_create_db_tables), (symbol_db_engine_open_db),
+	(sdb_engine_get_table_id_by_unique_name2),
+	(sdb_engine_get_table_id_by_unique_name3),
+	(symbol_db_engine_add_new_workspace),
+	(symbol_db_engine_get_opened_project_name),
+	(symbol_db_engine_open_project), (symbol_db_engine_close_project),
+	(sdb_engine_add_new_language), (sdb_engine_add_new_file),
+	(sdb_prepare_executing_commands), (symbol_db_engine_add_new_files),
+	(sdb_engine_add_new_sym_kind), (sdb_engine_add_new_sym_access),
+	(sdb_engine_add_new_scope_definition),
+	(sdb_engine_add_new_tmp_heritage_scope),
+	(sdb_engine_second_pass_update_scope_1),
+	(sdb_engine_second_pass_update_heritage),
+	(sdb_engine_add_new_symbol), (sdb_engine_detects_removed_ids),
+	(sdb_engine_update_file), (symbol_db_engine_update_files_symbols),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_remove_file), (on_scan_update_buffer_end),
+	(symbol_db_engine_update_buffer_symbols),
+	(sdb_engine_walk_down_scope_path),
+	(sdb_engine_prepare_symbol_info_sql),
+	(symbol_db_engine_get_global_members),
+	(symbol_db_engine_get_scope_members_by_symbol_id),
+	(symbol_db_engine_get_scope_members),
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_get_file_symbols):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-view-locals.c: (on_symbol_removed),
+	(on_symbol_updated), (on_symbol_inserted),
+	(symbol_db_view_locals_get_line),
+	(symbol_db_view_locals_update_list):
+	* plugins/symbol-db/symbol-db-view-search.c:
+	(sdb_view_search_model_filter), (sdb_view_search_get_type):
+	* plugins/symbol-db/symbol-db-view-search.h:
+	* plugins/symbol-db/symbol-db-view.c: (on_symbol_updated),
+	(do_add_hidden_children), (do_recurse_and_add_new_sym),
+	(on_symbol_inserted), (on_symbol_removed), (symbol_db_view_open):
+	* plugins/symbol-db/tables.sql:
+	* plugins/symbol-db/test/Makefile.am:
+	* plugins/symbol-db/test/main.c: (add_new_files), (main):
+	Updated patch from Massimo to improve symbol-db plugin
+
+	* plugins/document-manager/plugin.c: (on_editor_changed):
+	Make the code a bit more robust
+	
+	* plugins/sourceview/anjuta-document.c: (anjuta_document_finalize),
+	(anjuta_document_get_property), (anjuta_document_class_init),
+	(anjuta_document_init), (set_uri), (document_loader_loaded),
+	(anjuta_document_load), (document_saver_saving):
+	* plugins/sourceview/anjuta-document.h:
+	* plugins/sourceview/sourceview.c: (autodetect_language),
+	(ilanguage_set_language), (ilanguage_get_language):
+	Fix language detection on startup
+
 2007-09-27  Naba Kumar  <naba.kumar@gnome.org>
 
 	* plugins/document-manager/action-callbacks.c:

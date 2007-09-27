@@ -79,7 +79,6 @@ struct _AnjutaDocumentPrivate
 	const AnjutaEncoding *encoding;
 	GtkSourceLanguagesManager* lang_manager;
 
-	gchar	    *mime_type;
 
 	time_t       mtime;
 
@@ -101,7 +100,6 @@ enum {
 
 	PROP_URI,
 	PROP_SHORTNAME,
-	PROP_MIME_TYPE,
 	PROP_READ_ONLY,
 	PROP_ENCODING
 };
@@ -192,8 +190,6 @@ anjuta_document_finalize (GObject *object)
 	if (doc->priv->vfs_uri != NULL)
 		gnome_vfs_uri_unref (doc->priv->vfs_uri);
 
-	g_free (doc->priv->mime_type);
-
 	if (doc->priv->loader)
 		g_object_unref (doc->priv->loader);
 }
@@ -213,9 +209,6 @@ anjuta_document_get_property (GObject    *object,
 			break;
 		case PROP_SHORTNAME:
 			g_value_take_string (value, anjuta_document_get_short_name_for_display (doc));
-			break;
-		case PROP_MIME_TYPE:
-			g_value_set_string (value, doc->priv->mime_type);
 			break;
 		case PROP_READ_ONLY:
 			g_value_set_boolean (value, doc->priv->readonly);
@@ -306,12 +299,6 @@ anjuta_document_class_init (AnjutaDocumentClass *klass)
 					 		      "Short Name",
 					 		      "The document's short name",
 					 		      NULL,
-					 		      G_PARAM_READABLE));
-	g_object_class_install_property (object_class, PROP_MIME_TYPE,
-					 g_param_spec_string ("mime-type",
-					 		      "MIME Type",
-					 		      "The document's MIME Type",
-					 		      "text/plain",
 					 		      G_PARAM_READABLE));
 	g_object_class_install_property (object_class, PROP_READ_ONLY,
 					 g_param_spec_boolean ("read-only",
@@ -424,8 +411,6 @@ anjuta_document_init (AnjutaDocument *doc)
 	doc->priv->vfs_uri = NULL;
 	doc->priv->untitled_number = get_untitled_number ();
 
-	doc->priv->mime_type = g_strdup ("text/plain");
-
 	doc->priv->readonly = FALSE;
 
 	doc->priv->stop_cursor_moved_emission = FALSE;
@@ -455,12 +440,9 @@ anjuta_document_new (void)
 	return ANJUTA_DOCUMENT (g_object_new (ANJUTA_TYPE_DOCUMENT, NULL));
 }
 
-/* If mime type is null, we guess from the filename */
-/* If uri is null, we only set the mime-type */
 static void
 set_uri (AnjutaDocument *doc,
-	 const gchar   *uri,
-	 const gchar   *mime_type)
+	 const gchar   *uri)
 {
 
 	g_return_if_fail ((uri == NULL) || anjuta_utils_is_valid_uri (uri));
@@ -484,37 +466,6 @@ set_uri (AnjutaDocument *doc,
 		{
 			release_untitled_number (doc->priv->untitled_number);
 			doc->priv->untitled_number = 0;
-		}
-	}
-
-	g_free (doc->priv->mime_type);
-	if (mime_type != NULL)
-	{
-		doc->priv->mime_type = g_strdup (mime_type);
-	}
-	else
-	{
-		gchar *base_name = NULL;
-
-		/* Guess the mime type from file extension or fallback to "text/plain" */
-		if (doc->priv->vfs_uri != NULL)
-			base_name = gnome_vfs_uri_extract_short_path_name (doc->priv->vfs_uri);
-		if (base_name != NULL)
-		{
-			const gchar *detected_mime;
-
-			detected_mime = gnome_vfs_get_mime_type_for_name (base_name);
-			if (detected_mime == NULL ||
-			    strcmp (GNOME_VFS_MIME_TYPE_UNKNOWN, detected_mime) == 0)
-				detected_mime = "text/plain";
-
-			doc->priv->mime_type = g_strdup (detected_mime);
-
-			g_free (base_name);
-		}
-		else
-		{
-			doc->priv->mime_type = g_strdup ("text/plain");
 		}
 	}
 	g_object_notify (G_OBJECT (doc), "uri");
@@ -625,16 +576,6 @@ anjuta_document_get_short_name_for_display (AnjutaDocument *doc)
 		return get_uri_shortname_for_display (doc->priv->vfs_uri);
 }
 
-/* Never returns NULL */
-gchar *
-anjuta_document_get_mime_type (AnjutaDocument *doc)
-{
-	g_return_val_if_fail (ANJUTA_IS_DOCUMENT (doc), "text/plain");
-	g_return_val_if_fail (doc->priv->mime_type != NULL, "text/plain");
-
- 	return g_strdup (doc->priv->mime_type);
-}
-
 /* Note: do not emit the notify::read-only signal */
 static void
 set_readonly (AnjutaDocument *doc,
@@ -687,9 +628,6 @@ document_loader_loaded (AnjutaDocumentLoader *loader,
 	if (error == NULL)
 	{
 		GtkTextIter iter;
-		const gchar *mime_type;
-
-		mime_type = anjuta_document_loader_get_mime_type (loader);
 
 		doc->priv->mtime = anjuta_document_loader_get_mtime (loader);
 
@@ -703,7 +641,7 @@ document_loader_loaded (AnjutaDocumentLoader *loader,
 			      (doc->priv->requested_encoding != NULL));
 		      
 		/* We already set the uri */
-		set_uri (doc, NULL, mime_type);
+		set_uri (doc, NULL);
 
 		/* move the cursor at the requested line if any */
 		if (doc->priv->requested_line_pos > 0)
@@ -793,7 +731,7 @@ anjuta_document_load (AnjutaDocument       *doc,
 	doc->priv->requested_encoding = encoding;
 	doc->priv->requested_line_pos = line_pos;
 
-	set_uri (doc, uri, NULL);
+	set_uri (doc, uri);
 
 	anjuta_document_loader_load (doc->priv->loader,
 				    uri,
@@ -824,10 +762,8 @@ document_saver_saving (AnjutaDocumentSaver *saver,
 		if (error == NULL)
 		{
 			const gchar *uri;
-			const gchar *mime_type;
 
 			uri = anjuta_document_saver_get_uri (saver);
-			mime_type = anjuta_document_saver_get_mime_type (saver);
 
 			doc->priv->mtime = anjuta_document_saver_get_mtime (saver);
 
@@ -838,7 +774,7 @@ document_saver_saving (AnjutaDocumentSaver *saver,
 			gtk_text_buffer_set_modified (GTK_TEXT_BUFFER (doc),
 						      FALSE);
 
-			set_uri (doc, uri, mime_type);
+			set_uri (doc, uri);
 
 			set_encoding (doc, 
 				      doc->priv->requested_encoding, 

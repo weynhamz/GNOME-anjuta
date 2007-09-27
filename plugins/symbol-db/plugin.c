@@ -36,6 +36,8 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
 #include <libanjuta/interfaces/ianjuta-language.h>
+#include <libanjuta/interfaces/ianjuta-iterable.h>
+
 #include <libegg/menu/egg-combo-action.h>
 
 #include "plugin.h"
@@ -50,7 +52,7 @@
 #define GLADE_FILE ANJUTA_DATA_DIR"/glade/symbol-db.glade"
 #define ICON_FILE "symbol-db.png"
 
-#define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		1000
+#define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		60000
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5
 
 static gpointer parent_class;
@@ -131,7 +133,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 	
 	seconds_elapsed = g_timer_elapsed (timer, NULL);
 	
-	DEBUG_PRINT ("seconds_elapsed  %f", seconds_elapsed );
+	/* DEBUG_PRINT ("seconds_elapsed  %f", seconds_elapsed ); */
 	if (seconds_elapsed < TIMEOUT_SECONDS_AFTER_LAST_TIP)
 		return TRUE;
 		
@@ -187,8 +189,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		g_free (uri);
 	}
 	
-	if (current_buffer)
-		g_free (current_buffer);  
+	g_free (current_buffer);  
 
 	need_symbols_update = FALSE;
 
@@ -280,9 +281,6 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 {
 	const gchar *old_uri;
 	gboolean tags_update;
-	GtkTreeModel *file_symbol_model;
-	GtkAction *action;
-	AnjutaUI *ui;
 	
 	/* FIXME: Do this only if automatic tags update is enabled */
 	/* tags_update =
@@ -330,8 +328,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	gchar *local_path;
 	GObject *editor;
 	SymbolDBPlugin *sdb_plugin;
-	GtkAction *action;
-	AnjutaUI *ui;
 	
 	editor = g_value_get_object (value);	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
@@ -454,18 +450,6 @@ goto_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
 	}
 }
 
-static void
-on_egg_symbol_selected (GtkAction *action, SymbolDBPlugin *symbol_db)
-{
-	GtkTreeIter iter;
-	
-	if (egg_combo_action_get_active_iter (EGG_COMBO_ACTION (action), &iter))
-	{
-		goto_tree_iter (symbol_db, &iter);
-	}
-}
-
-
 /**
  * will manage the click of mouse and other events on search->hitlist treeview
  */
@@ -502,7 +486,6 @@ static void
 on_editor_foreach_clear (gpointer key, gpointer value, gpointer user_data)
 {
 	const gchar *uri;
-	SymbolDBPlugin *sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (user_data);
 	
 	uri = (const gchar *)value;
 	if (uri && strlen (uri) > 0)
@@ -520,9 +503,7 @@ static void
 value_removed_current_editor (AnjutaPlugin *plugin,
 							  const char *name, gpointer data)
 {
-	AnjutaUI *ui;
 	SymbolDBPlugin *sdb_plugin;
-	GtkAction *action;
 
 	/* let's remove the timeout for symbols refresh */
 	g_source_remove (timeout_id);
@@ -646,8 +627,6 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	IAnjutaProjectManager *pm;
 	SymbolDBPlugin *sdb_plugin;
 	const gchar *root_uri;
-	GtkAction *action;
-	AnjutaUI *ui;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
@@ -732,7 +711,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 						g_free (local_filename);
 						continue;
 					}
-					
+				
 					lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
 					DEBUG_PRINT ("Language of %s is %s", local_filename, file_mime);
 					/* test its existence */
@@ -810,7 +789,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	/* don't forget to close the project */
 	symbol_db_engine_close_project (sdb_plugin->sdbe, 
 									sdb_plugin->project_root_dir);
-		
+
 	g_free (sdb_plugin->project_root_uri);
 	g_free (sdb_plugin->project_root_dir);
 	sdb_plugin->project_root_uri = NULL;
@@ -820,11 +799,6 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 static gboolean
 symbol_db_activate (AnjutaPlugin *plugin)
 {
-	GtkWidget *wid;
-	GladeXML *gxml;
-	GtkActionGroup *group;
-	GtkAction *action;
-
 	SymbolDBPlugin *symbol_db;
 	
 	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
@@ -942,7 +916,6 @@ static gboolean
 symbol_db_deactivate (AnjutaPlugin *plugin)
 {
 	SymbolDBPlugin *sdb_plugin;
-	AnjutaUI *ui;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 
@@ -1061,25 +1034,39 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 						gboolean global_search,
 						GError **err)
 {
-#if 0
-	const GPtrArray *tags_array;
-	AnjutaSymbolIter *iter = NULL;
-	const gchar *name;
+	SymbolDBEngineIterator *iterator = NULL;
+	SymbolDBPlugin *sdb_plugin;
+	SymbolDBEngine *dbe;
+	const gchar* name;
+
+	DEBUG_PRINT ("called isymbol_manager_search()! %s", match_name);
+	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
+	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe);
+
 	
 	if (match_name && strlen (match_name) > 0)
 		name = match_name;
 	else
 		name = NULL;
+
 	
-	tags_array = tm_workspace_find (name, match_types, NULL,
-									partial_name_match, global_search);
-	if (tags_array)
-	{
-		iter = anjuta_symbol_iter_new (tags_array);
-		return IANJUTA_ITERABLE (iter);
-	}
-#endif	
-	return NULL;
+	iterator = 
+		symbol_db_engine_find_symbol_by_name_pattern (dbe, 
+									name, SYMINFO_SIMPLE |
+								  	SYMINFO_FILE_PATH |
+									SYMINFO_IMPLEMENTATION |
+									SYMINFO_ACCESS |
+									SYMINFO_KIND |
+									SYMINFO_TYPE |
+									SYMINFO_TYPE_NAME |
+									SYMINFO_LANGUAGE |
+									SYMINFO_FILE_IGNORE |
+									SYMINFO_FILE_INCLUDE |
+									SYMINFO_PROJECT_NAME |
+									SYMINFO_WORKSPACE_NAME );
+
+	return IANJUTA_ITERABLE (iterator);
 }
 
 static IAnjutaIterable*
@@ -1234,5 +1221,4 @@ ANJUTA_PLUGIN_BEGIN (SymbolDBPlugin, symbol_db);
 ANJUTA_PLUGIN_ADD_INTERFACE (isymbol_manager, IANJUTA_TYPE_SYMBOL_MANAGER);
 ANJUTA_PLUGIN_END;
 
-/*ANJUTA_PLUGIN_BOILERPLATE (SymbolDBPlugin, symbol_db);*/
 ANJUTA_SIMPLE_PLUGIN (SymbolDBPlugin, symbol_db);

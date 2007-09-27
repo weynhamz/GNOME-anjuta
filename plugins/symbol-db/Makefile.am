@@ -1,4 +1,7 @@
 if HAVE_PLUGIN_SYMBOL_DB
+
+#SUBDIRS = test
+
 # Plugin UI file
 symbol_db_uidir = $(anjuta_ui_dir)
 symbol_db_ui_DATA =  symbol-db.ui
@@ -58,8 +61,11 @@ libanjuta_symbol_db_la_SOURCES = plugin.c plugin.h \
 	symbol-db-engine.h symbol-db-view.h  \
 	symbol-db-view.c \
 	symbol-db-view-locals.c \
-	symbol-db-view-locals.h symbol-db-view-search.h \
-	symbol-db-view-search.c 
+	symbol-db-view-locals.h \
+	symbol-db-view-search.h \
+	symbol-db-view-search.c \
+        symbol-db-engine-iterator-node.h \
+	symbol-db-engine-iterator-node.c
 
 # Plugin dependencies
 libanjuta_symbol_db_la_LIBADD = \

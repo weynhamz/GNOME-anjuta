@@ -28,10 +28,11 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #include "symbol-db-engine-iterator.h"
+#include "symbol-db-engine.h"
 
 G_BEGIN_DECLS
 
-#define SYMBOL_TYPE_DB_VIEW_SEARCH             (symbol_db_view_search_get_type ())
+#define SYMBOL_TYPE_DB_VIEW_SEARCH             (sdb_view_search_get_type ())
 #define SYMBOL_DB_VIEW_SEARCH(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), SYMBOL_TYPE_DB_VIEW_SEARCH, SymbolDBViewSearch))
 #define SYMBOL_DB_VIEW_SEARCH_CLASS(klass)     (G_TYPE_CHECK_CLASS_CAST ((klass), SYMBOL_TYPE_DB_VIEW_SEARCH, SymbolDBViewSearchClass))
 #define SYMBOL_IS_DB_VIEW_SEARCH(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), SYMBOL_TYPE_DB_VIEW_SEARCH))
@@ -59,10 +60,13 @@ struct _SymbolDBViewSearchClass
 };
 
 
-GType symbol_db_view_search_get_type (void) G_GNUC_CONST;
+GType sdb_view_search_get_type (void) G_GNUC_CONST;
 
 void 
 symbol_db_view_search_clear (SymbolDBViewSearch *search);
+
+GtkWidget *
+symbol_db_view_search_new (SymbolDBEngine *dbe);
 
 
 G_END_DECLS

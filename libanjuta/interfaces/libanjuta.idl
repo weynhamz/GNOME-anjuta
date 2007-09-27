@@ -3932,20 +3932,22 @@ interface IAnjutaSymbol
 	}
 	
 	// Methods
-	Type type ();                // Symbol type
+	Type type ();                // Symbol type [int value]
+	const gchar *type_str ();	 // Symbol type [const char* value]
+	const gchar *type_name ();	 // Symbol type name. e.g. a member which name is 
+								 // 'my_foo_member'.
 	const gchar *name ();        // Symbol name
 	const gchar *args ();        // Args list (functions/prototypes/macros)
 	const gchar *scope ();       // Scope of symbol
 	const gchar *inheritance (); // Parent classes
 	const gchar *var_type ();    // Variable type (maps to struct for typedefs)
-	gchar access ();             // Access type (public/protected/private/etc.)
-	gchar impl ();               // Implementation (e.g. virtual)
-	const gchar *file ();        // File in which the symbol occurs
+	const gchar *access ();      // Access type (public/protected/private/etc.)
+	const gchar *impl ();        // Implementation (e.g. virtual)
+	const gchar *file ();   	 // File in which the symbol occurs
 	gulong line ();              // Line number of the symbol
 	gboolean is_local ();        // Is the symbol of local scope
-	guint pointer_order ();      // The number of pointer signs
 	
-	GdkPixbuf *icon ();          // Pixbuf icon representing the symbol
+	const GdkPixbuf *icon ();          // Pixbuf icon representing the symbol
 }
 
 /**

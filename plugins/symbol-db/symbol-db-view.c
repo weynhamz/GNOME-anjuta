@@ -30,6 +30,7 @@
 #include "symbol-db-view.h"
 #include "symbol-db-engine.h"
 #include "symbol-db-engine-iterator.h"
+#include "symbol-db-engine-iterator-node.h"
 
 
 enum {
@@ -58,10 +59,7 @@ static void
 on_symbol_updated (SymbolDBEngine *dbe, 
 					gint symbol_id, gpointer data)
 {
-	SymbolDBEngineIterator *iterator;
 	GtkTreeStore *store;
-	gint i;	
-	gint parent_symbol_id;
 	SymbolDBView *dbv;
 	SymbolDBViewPriv *priv;
 	
@@ -91,42 +89,47 @@ do_add_hidden_children (SymbolDBEngine *dbe, GtkTreeStore *store,
 			gtk_tree_store_append (store, &child_iter, parent_iter);
 			gchar *file_path;
 			const gchar *sym_name;
+			SymbolDBEngineIteratorNode *iter_node;
 	
+			iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (child_iterator);
+			
 			sym_name = 
-				symbol_db_engine_iterator_get_symbol_name (child_iterator);
+				symbol_db_engine_iterator_node_get_symbol_name (iter_node);
 			
 			/* DEBUG_PRINT ("child iterator for %s",  sym_name); */
 			
 			/* get the full file path instead of a database-oriented one. */
 			file_path = 
 				symbol_db_engine_get_full_local_path (dbe, 
-					symbol_db_engine_iterator_get_symbol_extra_string (child_iterator,
+					symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
 											SYMINFO_FILE_PATH));
 			
 			gtk_tree_store_set (store, &child_iter,
 					COLUMN_PIXBUF, symbol_db_view_get_pixbuf (
-						symbol_db_engine_iterator_get_symbol_extra_string (
-								child_iterator, SYMINFO_KIND),
-						symbol_db_engine_iterator_get_symbol_extra_string (
-								child_iterator, SYMINFO_ACCESS)
+						symbol_db_engine_iterator_node_get_symbol_extra_string (
+								iter_node, SYMINFO_KIND),
+						symbol_db_engine_iterator_node_get_symbol_extra_string (
+								iter_node, SYMINFO_ACCESS)
 					),
 					COLUMN_NAME, sym_name,
 					COLUMN_LINE, 
-						symbol_db_engine_iterator_get_symbol_file_pos (child_iterator),
+						symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node),
 					COLUMN_FILE, file_path,
 					COLUMN_SYMBOL_ID, 
-							symbol_db_engine_iterator_get_symbol_id (child_iterator),
+							symbol_db_engine_iterator_node_get_symbol_id (iter_node),
 					-1);
 			
 			g_free (file_path);
 		} while (symbol_db_engine_iterator_move_next (child_iterator) == TRUE);
 		g_object_unref (child_iterator);
 	}
+	
+	return TRUE;
 }
 
 
 static gboolean
-do_recurse_and_add_new_sym (gint parent_symbol_id, SymbolDBEngineIterator *iterator, 
+do_recurse_and_add_new_sym (gint parent_symbol_id, SymbolDBEngineIteratorNode *iter_node, 
 					GtkTreeStore *store, GtkTreeIter *iter)
 {
 	gint sym_id;
@@ -141,19 +144,19 @@ do_recurse_and_add_new_sym (gint parent_symbol_id, SymbolDBEngineIterator *itera
 		gtk_tree_store_append (store, &child_iter, iter);
 		gtk_tree_store_set (store, &child_iter,
 			COLUMN_PIXBUF, symbol_db_view_get_pixbuf (
-					symbol_db_engine_iterator_get_symbol_extra_string (
-						iterator, SYMINFO_KIND),
-					symbol_db_engine_iterator_get_symbol_extra_string (
-						iterator, SYMINFO_ACCESS)),
-			COLUMN_NAME, symbol_db_engine_iterator_get_symbol_name (iterator),
-			COLUMN_LINE, symbol_db_engine_iterator_get_symbol_file_pos (iterator),
-			COLUMN_SYMBOL_ID, symbol_db_engine_iterator_get_symbol_id (iterator),								
+					symbol_db_engine_iterator_node_get_symbol_extra_string (
+						iter_node, SYMINFO_KIND),
+					symbol_db_engine_iterator_node_get_symbol_extra_string (
+						iter_node, SYMINFO_ACCESS)),
+			COLUMN_NAME, symbol_db_engine_iterator_node_get_symbol_name (iter_node),
+			COLUMN_LINE, symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node),
+			COLUMN_SYMBOL_ID, symbol_db_engine_iterator_node_get_symbol_id (iter_node),
 			-1);
 			
 		DEBUG_PRINT ("[do_recurse_and_add_new_sym] inserted into -global- tab: %s [%s]",
-					 symbol_db_engine_iterator_get_symbol_name (iterator),
-					 symbol_db_engine_iterator_get_symbol_extra_string (
-						iterator, SYMINFO_KIND));	
+					 symbol_db_engine_iterator_node_get_symbol_name (iter_node),
+					 symbol_db_engine_iterator_node_get_symbol_extra_string (
+						iter_node, SYMINFO_KIND));	
 		return TRUE;
 	} 
 	
@@ -163,7 +166,7 @@ do_recurse_and_add_new_sym (gint parent_symbol_id, SymbolDBEngineIterator *itera
 		gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child, iter);
 		
 		DEBUG_PRINT ("[do_recurse_and_add_new_sym] recurse for child");
-		if (do_recurse_and_add_new_sym (parent_symbol_id, iterator, store, &child) 
+		if (do_recurse_and_add_new_sym (parent_symbol_id, iter_node, store, &child) 
 			== TRUE)
 			return TRUE;
 	}
@@ -171,7 +174,7 @@ do_recurse_and_add_new_sym (gint parent_symbol_id, SymbolDBEngineIterator *itera
 	while ((valid = 
 			gtk_tree_model_iter_next (GTK_TREE_MODEL (store), iter)) == TRUE)
 	{
-		if (do_recurse_and_add_new_sym (parent_symbol_id, iterator, store, iter)
+		if (do_recurse_and_add_new_sym (parent_symbol_id, iter_node, store, iter)
 			== TRUE)
 			return TRUE;
 	}
@@ -186,7 +189,7 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 {
 	SymbolDBEngineIterator *iterator;
 	GtkTreeStore *store;
-	gint i;	
+
 	/* it's not obligatory referred to a class inheritance */
 	gint parent_symbol_id;
 	SymbolDBView *dbv;
@@ -228,7 +231,10 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 	
 	if (iterator != NULL) 
 	{
-		GtkTreeIter iter, child;
+		GtkTreeIter iter;
+		SymbolDBEngineIteratorNode *iter_node;
+		
+		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 		
 		/* add to root if parent_symbol_id is <= 0 */
 		if (parent_symbol_id <= 0)
@@ -237,31 +243,29 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 			
 			gtk_tree_store_set (store, &iter,
 				COLUMN_PIXBUF, symbol_db_view_get_pixbuf (
-						symbol_db_engine_iterator_get_symbol_extra_string (
-							iterator, SYMINFO_KIND),
-						symbol_db_engine_iterator_get_symbol_extra_string (
-							iterator, SYMINFO_ACCESS)),
-				COLUMN_NAME, symbol_db_engine_iterator_get_symbol_name (iterator),
-				COLUMN_LINE, symbol_db_engine_iterator_get_symbol_file_pos (iterator),
-				COLUMN_SYMBOL_ID, symbol_db_engine_iterator_get_symbol_id (iterator),								
+						symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_KIND),
+						symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_ACCESS)),
+				COLUMN_NAME, symbol_db_engine_iterator_node_get_symbol_name (iter_node),
+				COLUMN_LINE, symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node),
+				COLUMN_SYMBOL_ID, symbol_db_engine_iterator_node_get_symbol_id (iter_node),								
 				-1);	
 			
 			DEBUG_PRINT ("[on_symbol_inserted] inserted into -global- tab: %s [%s]",
-						 symbol_db_engine_iterator_get_symbol_name (iterator),
-						 symbol_db_engine_iterator_get_symbol_extra_string (
-							iterator, SYMINFO_KIND));	
+						 symbol_db_engine_iterator_node_get_symbol_name (iter_node),
+						 symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_KIND));	
 			
 			do_add_hidden_children (dbe, store, &iter, 
-							symbol_db_engine_iterator_get_symbol_id (iterator));
+							symbol_db_engine_iterator_node_get_symbol_id (iter_node));
 		}
 		else 
 		{
 			gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter);			
-			do_recurse_and_add_new_sym (parent_symbol_id, iterator, store, &iter);
+			do_recurse_and_add_new_sym (parent_symbol_id, iter_node, store, &iter);
 		}
-		
-		
-		symbol_db_engine_iterator_move_next (iterator);
+				
 		g_object_unref (iterator);
 	}	
 }
@@ -306,9 +310,7 @@ do_recurse_and_remove (gint symbol_id, GtkTreeStore *store, GtkTreeIter *iter)
 static void 
 on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 {
-	SymbolDBEngineIterator *iterator;
 	GtkTreeStore *store;
-	gint i;	
 	SymbolDBView *dbv;
 	SymbolDBViewPriv *priv;
     GtkTreeIter  iter;	
@@ -589,6 +591,7 @@ symbol_db_view_new (void)
 void 
 symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe)
 {
+#if 0		
 	SymbolDBEngineIterator *iterator;
 	GtkTreeStore *store;
 	SymbolDBViewPriv *priv;
@@ -626,7 +629,7 @@ symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe)
 			gtk_tree_store_append (store, &iter, NULL);			
 			
 			sym_name = symbol_db_engine_iterator_get_symbol_name (iterator);			
-			curr_symbol_id = symbol_db_engine_iterator_get_symbol_id (iterator);
+			curr_symbol_id = symbol_db_engine_iterator_node_get_symbol_id (iterator);
 /*			DEBUG_PRINT ("father for %s [%d]", sym_name, count++);*/
 			/* get the full file path instead of a database-oriented one. */
 			file_path = 
@@ -682,4 +685,5 @@ symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	/* Re-attach model to view */
 	gtk_tree_view_set_model (GTK_TREE_VIEW (dbv), GTK_TREE_MODEL (store)); 
 	g_object_unref(store);	
+#endif	
 }
