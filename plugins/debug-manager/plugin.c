@@ -1172,12 +1172,14 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	/* Stop debugger */
 	dma_plugin_debugger_stopped (this, 0);
 	
+	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (on_session_save), plugin);							 
 	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_debugger_started), NULL);
 	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_debugger_stopped), NULL);
 	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_loaded), NULL);
 	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_running), NULL);
 	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_stopped), NULL);
 	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_moved), NULL);
+	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_signal_received), NULL);
 	dma_debugger_queue_free (this->queue);
 	this->queue = NULL;
 

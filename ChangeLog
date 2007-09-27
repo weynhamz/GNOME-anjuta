@@ -1,3 +1,8 @@
+2007-09-27 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/plugin.c:
+	Fix bug#480851, disconnect save_session signal when plugin is unloaded
+
 2007-09-27  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
