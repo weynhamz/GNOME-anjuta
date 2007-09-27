@@ -190,7 +190,8 @@ file_manager_activate (AnjutaPlugin *plugin)
 	
 	gtk_widget_show_all (file_manager->sw);
 	
-	anjuta_shell_add_widget (plugin->shell, file_manager->sw, "file-manager",
+	anjuta_shell_add_widget (plugin->shell, file_manager->sw,
+							 "AnjutaFileManager",
 							 _("Files"), GTK_STOCK_OPEN,
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	

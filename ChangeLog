@@ -1,3 +1,16 @@
+2007-09-27  Naba Kumar  <naba.kumar@gnome.org>
+
+	reviewed by: <delete if not using a buddy>
+
+	* plugins/document-manager/action-callbacks.c:
+	(on_editor_command_upper_case_activate),
+	(on_editor_command_lower_case_activate):
+	* plugins/editor/aneditor-autocomplete.cxx:
+	* plugins/editor/aneditor-priv.h:
+	* plugins/editor/aneditor.cxx:
+	* plugins/editor/aneditor.h:
+	* plugins/file-manager/plugin.c: (file_manager_activate):
+
 2007-09-26  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c: (on_editor_changed),

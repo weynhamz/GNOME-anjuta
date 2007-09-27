@@ -345,7 +345,9 @@ on_editor_command_upper_case_activate (GtkAction * action, gpointer data)
 	editor = get_current_editor (data);
 	start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor), NULL);
 	end = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor), NULL);
-	ianjuta_editor_convert_to_upper (IANJUTA_EDITOR_CONVERT (editor), start, end, NULL);
+	if (start >= 0 && end >= 0)
+		ianjuta_editor_convert_to_upper (IANJUTA_EDITOR_CONVERT (editor),
+										 start, end, NULL);
 }
 
 void
@@ -357,7 +359,9 @@ on_editor_command_lower_case_activate (GtkAction * action, gpointer data)
 	editor = get_current_editor (data);
 	start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor), NULL);
 	end = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor), NULL);
-	ianjuta_editor_convert_to_lower (IANJUTA_EDITOR_CONVERT (editor), start, end, NULL);
+	if (start >= 0 && end >= 0)
+		ianjuta_editor_convert_to_lower (IANJUTA_EDITOR_CONVERT (editor),
+										 start, end, NULL);
 }
 
 void
