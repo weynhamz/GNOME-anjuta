@@ -74,8 +74,6 @@
 				<menuitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
 				<menuitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />
 				<menuitem name="FoldToggle" action="ActionFormatFoldToggle" />
-				<separator name="separator4" />
-				<menuitem name="Autoformat" action="ActionFormatAutoformat" />
 			</menu>
 		</menu>
 		<placeholder name="PlaceholderGotoMenus">
@@ -145,7 +143,6 @@
 		<menuitem name="Copy" action="ActionEditCopy" />
 		<menuitem name="Paste" action="ActionEditPaste" />
 		<separator name="separator2"/>
-		<menuitem name="Autoformat" action="ActionFormatAutoformat" />
 		<menuitem name="Swap" action="ActionFileSwap" />
 		<menuitem name="Toggle" action="ActionBookmarkToggle" />
 		<menu name="Goto" action="ActionMenuGoto">

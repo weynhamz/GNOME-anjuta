@@ -49,58 +49,6 @@
 #include "file_history.h"
 #include "goto_line.h"
 
-#define AUTOFORMAT_DISABLE         "autoformat.disable"
-#define AUTOFORMAT_STYLE           "autoformat.style"
-#define AUTOFORMAT_LIST_STYLE      "autoformat.list.style"
-#define AUTOFORMAT_OPTS            "autoformat.opts"
-
-void
-static editor_autoformat (IAnjutaEditor *te, AnjutaPreferences* prefs)
-{
-	gchar *cmd,*dir;
-	gchar *indent_style = NULL;
-	gchar *fopts = NULL;
-	pid_t pid;
-	int status;
-	const gchar* file;
-
-	if (anjuta_util_prog_is_installed ("indent", TRUE) == FALSE)
-		return;
-	if (anjuta_preferences_get_int (prefs, AUTOFORMAT_DISABLE))
-	{
-		GtkWindow *parent;
-		parent = GTK_WINDOW (gtk_widget_get_toplevel (GTK_WIDGET (te)));
-		anjuta_util_dialog_warning (parent, _("Auto format is currently disabled. Change the setting in Preferences."));
-		return;
-	}
-	if (te == NULL)
-		return;
-
-	file = ianjuta_document_get_filename(IANJUTA_DOCUMENT(te), NULL);
-	
-	if (!anjuta_preferences_get_pair (prefs, AUTOFORMAT_STYLE,
-                                 GCONF_VALUE_STRING, GCONF_VALUE_STRING,
-                                 &indent_style, &fopts))
-		return;
-	
-	if (!fopts)
-	{
-		gchar *msg;
-		msg = g_strdup_printf (_("Anjuta does not know %s!"), indent_style);
-		anjuta_util_dialog_warning (NULL, msg);
-		g_free(msg);
-		return;
-	}
-	cmd = g_strconcat ("indent ", fopts, " ", file, NULL);
-	g_free (fopts);
-	dir = g_path_get_dirname (file);
-	pid = anjuta_util_execute_shell (dir, cmd);
-	g_free (dir);
-	g_free (cmd);
-
-	waitpid (pid, &status, 0);
-}
-
 static IAnjutaDocument*
 get_current_editor(gpointer user_data)
 {
@@ -868,41 +816,6 @@ on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data)
 	if (language_code && IANJUTA_IS_EDITOR_LANGUAGE (te))
 		ianjuta_editor_language_set_language (IANJUTA_EDITOR_LANGUAGE (te),
 											  language_code, NULL);
-}
-
-void
-on_indent1_activate (GtkAction * action, gpointer user_data)
-{
-	//trying to restore line no where i was before autoformat invoked
-	gint lineno;
-	IAnjutaDocument*te;
-	AnjutaDocman *docman;
-	DocmanPlugin *plugin;
-	
-	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_document (docman);
-	if (te == NULL)
-		return;
-	lineno = ianjuta_editor_get_lineno(IANJUTA_EDITOR(te), NULL);
-	editor_autoformat (IANJUTA_EDITOR(te), plugin->prefs);
-	ianjuta_editor_goto_line (IANJUTA_EDITOR(te), lineno, NULL);
-}
-
-void
-on_format_indent_style_clicked (GtkAction * action, gpointer user_data)
-{
-	DocmanPlugin *plugin;
-	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	gtk_signal_emit_by_name (GTK_OBJECT (plugin->prefs),
-										 "activate");
-}
-
-void
-on_calltip1_activate (GtkAction * action, gpointer user_data)
-{
-	// FIXME
-	// on_editor_command_activate (action, ANE_COMPLETECALLTIP, user_data);
 }
 
 /* Gets the swapped (c/h) file names */

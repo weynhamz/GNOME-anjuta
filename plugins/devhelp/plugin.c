@@ -256,8 +256,10 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	GtkAction *action;
 	GObject *editor;
 	AnjutaDevhelp* devhelp = ANJUTA_PLUGIN_DEVHELP (data);
-
+	
 	editor = g_value_get_object (value);
+	if (!IANJUTA_IS_EDITOR (editor))
+		return;
 	devhelp->editor = IANJUTA_EDITOR(editor);
 	action = gtk_action_group_get_action (devhelp->action_group,
 										  "ActionHelpContext");

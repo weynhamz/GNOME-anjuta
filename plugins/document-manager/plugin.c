@@ -75,8 +75,6 @@
 
 #define ANJUTA_PIXMAP_INDENT_INC          "indent_inc.xpm"
 #define ANJUTA_PIXMAP_INDENT_DCR          "indent_dcr.xpm"
-#define ANJUTA_PIXMAP_INDENT_AUTO         "indent_auto.xpm"
-#define ANJUTA_PIXMAP_AUTOFORMAT_SETTING  "indent_set.xpm"
 
 /* Stock icons */
 #define ANJUTA_STOCK_SWAP                     "anjuta-swap"
@@ -86,8 +84,6 @@
 #define ANJUTA_STOCK_BLOCK_SELECT             "anjuta-block-select"
 #define ANJUTA_STOCK_INDENT_INC               "anjuta-indent-inc"
 #define ANJUTA_STOCK_INDENT_DCR               "anjuta-indect-dcr"
-#define ANJUTA_STOCK_INDENT_AUTO              "anjuta-indent-auto"
-#define ANJUTA_STOCK_AUTOFORMAT_SETTINGS      "anjuta-autoformat-settings"
 #define ANJUTA_STOCK_PREV_BRACE               "anjuta-prev-brace"
 #define ANJUTA_STOCK_NEXT_BRACE               "anjuta-next-brace"
 #define ANJUTA_STOCK_BLOCK_START              "anjuta-block-start"
@@ -324,25 +320,6 @@ static GtkActionEntry actions_style[] = {
 };
 
 static GtkActionEntry actions_format[] = {
-  { "ActionMenuFormat", N_("For_mat"), NULL, NULL, NULL, NULL},
-  { "ActionFormatAutoformat", N_("Auto _Format"),
-	ANJUTA_STOCK_INDENT_AUTO, NULL,
-	N_("Autoformat the current source file"),
-    G_CALLBACK (on_indent1_activate)},
-/*
-  { "ActionFormatSettings", N_("Autoformat _settings"),
-	ANJUTA_STOCK_AUTOFORMAT_SETTINGS, NULL,
-	N_("Autoformat settings"),
-    G_CALLBACK (on_format_indent_style_clicked)},
-  { "ActionFormatIndentationIncrease", N_("_Increase Indent"),
-	ANJUTA_STOCK_INDENT_INC, NULL,
-	N_("Increase indentation of line/selection"),
-    G_CALLBACK (on_editor_command_indent_increase_activate)},
-  { "ActionFormatIndentationDecrease", N_("_Decrease Indent"),
-	ANJUTA_STOCK_INDENT_DCR, NULL,
-	N_("Decrease indentation of line/selection"),
-    G_CALLBACK (on_editor_command_indent_decrease_activate)},
-*/
   { "ActionFormatFoldCloseAll", N_("_Close All Folds"),
 	ANJUTA_STOCK_FOLD_CLOSE, NULL,
 	N_("Close all code folds in the editor"),
@@ -849,10 +826,8 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_TOGGLE, ANJUTA_STOCK_FOLD_TOGGLE);
 	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_OPEN, ANJUTA_STOCK_FOLD_OPEN);
 	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_CLOSE, ANJUTA_STOCK_FOLD_CLOSE);
-	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_INC, ANJUTA_STOCK_INDENT_INC);
 	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_DCR, ANJUTA_STOCK_INDENT_DCR);
-	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_AUTO, ANJUTA_STOCK_INDENT_AUTO);
-	REGISTER_ICON (ANJUTA_PIXMAP_AUTOFORMAT_SETTING, ANJUTA_STOCK_AUTOFORMAT_SETTINGS);
+	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_INC, ANJUTA_STOCK_INDENT_INC);
 	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_SELECT, ANJUTA_STOCK_BLOCK_SELECT);
 	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_TOGGLE, ANJUTA_STOCK_BOOKMARK_TOGGLE);
 	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_FIRST, ANJUTA_STOCK_BOOKMARK_FIRST);
@@ -1194,24 +1169,6 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 	}
 out:
 	update_title (ANJUTA_PLUGIN_DOCMAN(plugin));
-}
-
-static void
-on_edit_editor_indent (GtkWidget *button, DocmanPlugin *plugin)
-{
-	IndentData *idt = plugin->idt;
-
-	if (idt->dialog == NULL)
-		idt->dialog = create_dialog(idt);
-	gtk_widget_show(idt->dialog);
-}
-
-static void
-on_style_combo_changed (GtkComboBox *combo, DocmanPlugin *plugin)
-{
-	IndentData *idt = plugin->idt;
-
-	pref_style_combo_changed(combo, idt);
 }
 
 static gint
@@ -1786,7 +1743,6 @@ docman_plugin_instance_init (GObject *obj)
 	plugin->uiid = 0;
 	plugin->g_tabbing = FALSE;
 	plugin->gconf_notify_ids = NULL;
-	plugin->idt = indent_init(plugin->prefs);
 	plugin->support_plugins = NULL;
 }
 
@@ -2039,18 +1995,18 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	GtkWidget *indent_button;
 	GtkWidget *indent_combo;
 	GtkWidget *indent_entry;
-	GladeXML* gxml;
-		
+	GladeXML* gxml;		
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN(ipref);
-		
+	IndentPluging* iplugin = ANJUTA_INDENT_PLUGIN (plugin);
+	
 	/* Add preferences */
-	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
+	gxml = glade_xml_new (PREFS_GLADE, "indent_prefs", NULL);
 	indent_button = glade_xml_get_widget (gxml, "set_indent_button");
 	g_signal_connect (G_OBJECT (indent_button), "clicked",
 						  G_CALLBACK (on_edit_editor_indent), plugin);
 		
 	anjuta_preferences_add_page (prefs,
-									gxml, "Documents", _("Documents"),  ICON_FILE);
+									gxml, "Indent", _("\"indent\""),  ICON_FILE);
 	anjuta_encodings_init (prefs, gxml);
 		
 	indent_combo = glade_xml_get_widget (gxml, "pref_indent_style_combobox");
@@ -2060,13 +2016,12 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		
 		
 	indent_entry = glade_xml_get_widget (gxml, "preferences_style_entry");
-	ANJUTA_PLUGIN_DOCMAN (plugin)->idt->pref_indent_options = indent_entry;
-	ANJUTA_PLUGIN_DOCMAN (plugin)->idt->prefs = ANJUTA_PLUGIN_DOCMAN (plugin)->prefs;
-	indent_init_load_style(ANJUTA_PLUGIN_DOCMAN (plugin)->idt);
+	iplugin->idt->pref_indent_options = indent_entry;
+	iplugin->idt->prefs = prefs;
+	indent_init_load_style(iplugin->idt);
 		
 	g_object_unref (G_OBJECT (gxml));
-	prefs_init(ANJUTA_PLUGIN_DOCMAN (plugin));
-	pref_set_style_combo(ANJUTA_PLUGIN_DOCMAN (plugin)->idt); 
+	pref_set_style_combo(iplugin->idt); 
 }
 
 static void

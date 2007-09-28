@@ -5,9 +5,6 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-ui.h>
 
-#include "indent-util.h"
-#include "indent-dialog.h"
-
 extern GType docman_plugin_get_type (AnjutaGluePlugin *plugin);
 #define ANJUTA_TYPE_PLUGIN_DOCMAN         (docman_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_DOCMAN(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_DOCMAN, DocmanPlugin))
@@ -33,8 +30,6 @@ struct _DocmanPlugin{
 	
 	/*! state flag for Ctrl-TAB */
 	gboolean g_tabbing;
-	
-	IndentData *idt;
 	
 	/* Autosave timer ID */
 	gint autosave_id;

@@ -7,10 +7,8 @@ document_manager_pixmaps_DATA = \
         fold_open.xpm \
         fold_close.xpm \
         indent.xpm \
-        indent_set.xpm \
         indent_inc.xpm \
         indent_dcr.xpm \
-        indent_auto.xpm \
         autocomplete-16.png \
         autocomplete.png \
         block_select.xpm \

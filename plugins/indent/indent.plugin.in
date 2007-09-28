@@ -1,0 +1,5 @@
+[Anjuta Plugin]
+Location=anjuta-indent:IndentPlugin
+Icon=anjuta-indent-plugin.png
+_Name=Indent Plugin
+_Description=Autoformat C code using the "indent" utility

@@ -365,6 +365,28 @@ anjuta_launcher_send_stdin (AnjutaLauncher *launcher, const gchar * input_str)
 }
 
 /**
+ * anjuta_launcher_send_stdin:
+ * @launcher: a #AnjutaLancher object.
+ * 
+ * Sends a EOF to Standard input of the process currently being executed.
+ */
+
+void 
+anjuta_launcher_send_stdin_eof (AnjutaLauncher *launcher)
+{
+	GError* err = NULL;
+	g_io_channel_shutdown (launcher->priv->pty_channel, TRUE,
+						   &err);
+	g_io_channel_unref (launcher->priv->pty_channel);
+	launcher->priv->pty_channel = NULL;
+	
+	if (err)
+	{
+		g_warning ("g_io_channel_shutdown () failed: %s", err->message);
+	}
+}
+
+/**
  * anjuta_launcher_send_ptyin:
  * @launcher: a #AnjutaLancher object.
  * @input_str: The string to send to PTY of the process.

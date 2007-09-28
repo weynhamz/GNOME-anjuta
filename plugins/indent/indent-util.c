@@ -217,7 +217,7 @@ indent_init_indent_style(IndentData *idt)
 		indent_style->name = standard_indent_style[i].name;
 		indent_style->options = standard_indent_style[i].options;
 		indent_style->modifiable = standard_indent_style[i].modifiable;
-		idt->style_list =g_list_append(idt->style_list, indent_style);
+		idt->style_list = g_list_append(idt->style_list, indent_style);
 	}
 }
 

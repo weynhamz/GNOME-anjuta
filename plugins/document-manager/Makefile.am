@@ -8,10 +8,6 @@ document_manager_glade_DATA = anjuta-document-manager.glade
 document_manager_uidir = $(anjuta_ui_dir)
 document_manager_ui_DATA = anjuta-document-manager.ui
 
-# Test file for anjuta indent
-document_manager_datadir = $(anjuta_data_dir)
-document_manager_data_DATA = indent_test.c
-
 # Plugin file
 plugin_in_files = anjuta-document-manager.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
@@ -52,10 +48,6 @@ libanjuta_document_manager_la_SOURCES= \
 	file_history.h \
 	editor-tooltips.c \
 	editor-tooltips.h \
-	indent-dialog.c \
-	indent-dialog.h \
-	indent-util.c \
-	indent-util.h \
 	goto_line.c \
 	goto_line.h
 	
@@ -69,6 +61,5 @@ EXTRA_DIST = \
 	$(document_manager_pixmaps_DATA) \
 	$(plugin_in_files) \
 	$(document_manager_plugin_DATA) \
-	$(document_manager_data_DATA) \
 	$(document_manager_ui_DATA) \
 	$(document_manager_glade_DATA)

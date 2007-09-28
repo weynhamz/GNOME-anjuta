@@ -344,7 +344,7 @@ indent_display_buffer(gchar *buffer, IndentData *idt)
 }
 
 
-#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
+#define PREFS_GLADE PACKAGE_DATA_DIR"/glade/indent.glade"
 
 GtkWidget *create_dialog(IndentData *idt)
 {

@@ -1,3 +1,56 @@
+2007-09-28  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-launcher.c: (anjuta_launcher_send_stdin_eof):
+	* libanjuta/anjuta-launcher.h:
+	Add a method to send EOF to some process. Needed for the indent plugin
+	and should be useful in general. It does not actually send EOF as this
+	is not possible with utf-8, but closes the stream instead.
+
+	* plugins/devhelp/plugin.c: (value_added_current_editor):
+	Fixed a Gtk-Critical due to the IAnjutaEditor - 
+	IAnjutaDocument switch.
+
+	* configure.in:
+	* plugins/Makefile.am:
+	* plugins/document-manager/Makefile.am:
+	* plugins/document-manager/action-callbacks.c:
+	* plugins/document-manager/anjuta-document-manager.glade:
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/document-manager/images/Makefile.am:
+	* plugins/document-manager/images/indent_auto.xpm:
+	* plugins/document-manager/images/indent_set.xpm:
+	* plugins/document-manager/indent-dialog.c:
+	* plugins/document-manager/indent-dialog.h:
+	* plugins/document-manager/indent-util.c:
+	* plugins/document-manager/indent-util.h:
+	* plugins/document-manager/indent_test.c:
+	* plugins/document-manager/plugin.c: (register_stock_icons),
+	(docman_plugin_instance_init), (ipreferences_merge):
+	* plugins/document-manager/plugin.h:
+	
+	Removed indent code from document manager
+	
+	* plugins/indent/Makefile.am:
+	* plugins/indent/indent-dialog.c:
+	* plugins/indent/indent-util.c: (indent_init_indent_style):
+	* plugins/indent/indent.glade:
+	* plugins/indent/indent.plugin.in:
+	* plugins/indent/plugin.c: (on_indent_finished),
+	(on_indent_output), (on_indent_action_activate),
+	(on_edit_editor_indent), (on_style_combo_changed),
+	(value_added_current_editor), (value_removed_current_editor),
+	(indent_plugin_activate_plugin), (indent_plugin_deactivate_plugin),
+	(indent_plugin_finalize), (indent_plugin_dispose),
+	(anjuta_indent_plugin_instance_init),
+	(anjuta_indent_plugin_class_init), (ipreferences_merge),
+	(ipreferences_unmerge), (ipreferences_iface_init):
+	* plugins/indent/plugin.h:
+
+	Moved indent code to it's own plugin. Also reimplemented indent invocation
+	using anjuta_launcher and streams. This is not yet completely working, maybe
+	I got something wrong with the launcher.
+	Also fixed #478987 – Unusable 'Indent setting window' on preferences
+
 2007-09-27 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/plugin.c:

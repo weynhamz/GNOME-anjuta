@@ -1193,6 +1193,7 @@ plugins/project-wizard/templates/sdl/Makefile
 plugins/project-wizard/templates/sdl/src/Makefile
 plugins/project-wizard/templates/sdl/po/Makefile
 plugins/language-support-cpp-java/Makefile
+plugins/indent/Makefile
 anjuta.desktop.in
 manuals/Makefile
 manuals/reference/Makefile
