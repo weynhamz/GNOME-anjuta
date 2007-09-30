@@ -1992,36 +1992,18 @@ isavable_iface_init (IAnjutaFileSavableIface *iface)
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	GtkWidget *indent_button;
-	GtkWidget *indent_combo;
-	GtkWidget *indent_entry;
 	GladeXML* gxml;		
 	AnjutaPlugin* plugin = ANJUTA_PLUGIN(ipref);
-	IndentPluging* iplugin = ANJUTA_INDENT_PLUGIN (plugin);
 	
 	/* Add preferences */
-	gxml = glade_xml_new (PREFS_GLADE, "indent_prefs", NULL);
-	indent_button = glade_xml_get_widget (gxml, "set_indent_button");
-	g_signal_connect (G_OBJECT (indent_button), "clicked",
-						  G_CALLBACK (on_edit_editor_indent), plugin);
+	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
 		
 	anjuta_preferences_add_page (prefs,
-									gxml, "Indent", _("\"indent\""),  ICON_FILE);
+									gxml, "Documents", _("Documents"),  ICON_FILE);
 	anjuta_encodings_init (prefs, gxml);
-		
-	indent_combo = glade_xml_get_widget (gxml, "pref_indent_style_combobox");
-	ANJUTA_PLUGIN_DOCMAN (plugin)->idt->pref_indent_combo = indent_combo;
-	g_signal_connect (G_OBJECT (indent_combo), "changed",
-						  G_CALLBACK (on_style_combo_changed), plugin);
-		
-		
-	indent_entry = glade_xml_get_widget (gxml, "preferences_style_entry");
-	iplugin->idt->pref_indent_options = indent_entry;
-	iplugin->idt->prefs = prefs;
-	indent_init_load_style(iplugin->idt);
-		
+				
+	prefs_init(ANJUTA_PLUGIN_DOCMAN (plugin));		
 	g_object_unref (G_OBJECT (gxml));
-	pref_set_style_combo(iplugin->idt); 
 }
 
 static void

@@ -1,3 +1,14 @@
+2007-09-30  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/Makefile.am:
+	Do not build indent plugin (yet)
+	
+	* plugins/document-manager/plugin.c: (ipreferences_merge):
+	Fixed unintentional and wrong change
+
+	* plugins/indent/anjuta-indent.ui:
+	Added missing file
+
 2007-09-28  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-launcher.c: (anjuta_launcher_send_stdin_eof):
