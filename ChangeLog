@@ -1,3 +1,8 @@
+2007-10-01 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/project-wizard/autogen.c:
+	Fix bug#482067, escape project wizard user defined strings
+
 2007-10-01  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin

@@ -37,6 +37,7 @@
 
 #include <glib/gstdio.h>
 #include <glib/gfileutils.h>
+#include <glib/gstrfuncs.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -124,9 +125,15 @@ cb_autogen_write_definition (const gchar* name, const gchar* value, NPWValueTag 
 	if ((tag & NPW_VALID_VALUE) && (value != NULL))
 	{
 		if(value[0] == '{') /* Seems to be a list, so do not quote */
+		{
 			fprintf(def, "%s = %s;\n", name, value);
+		}
 		else
-			fprintf (def, "%s = \"%s\";\n", name, value);
+		{
+			gchar *esc_value = g_strescape (value, NULL);
+			fprintf (def, "%s = \"%s\";\n", name, esc_value);
+			g_free (esc_value);
+		}
 	}
 }
 
