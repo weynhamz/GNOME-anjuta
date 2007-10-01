@@ -1,3 +1,15 @@
+2007-10-01  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(basic_autotools_plugin_instance_init):
+	* plugins/build-basic-autotools/build-basic-autotools.h:
+	* plugins/build-basic-autotools/executer.c:
+	(get_program_parameters):
+
+	Fixed #477976 – Keybinding in run dialog
+
 2007-09-24  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/search/search-replace.c: (on_message_clicked):

@@ -66,6 +66,7 @@ struct _BasicAutotoolsPlugin{
 	/* Execution parameters */
 	gchar *program_args;
 	gboolean run_in_terminal;
+	gchar *last_exec_uri;
 	
 	/* Editors that have been created so far */
 	GHashTable *editors_created;

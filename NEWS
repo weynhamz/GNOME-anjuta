@@ -1,3 +1,18 @@
+Anjuta 2.2.2 (   Oct 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Fixed #477976 – Keybinding in run dialog
+* Fixed #427104 – No "highlight" of lines matching find-result
+* Fixed #479020 – Use of old open file dialog instead of GtkFileChooser
+* Fixed #478238 – set env for execute programe in the terminal
+* Update EggRecent (#456465)
+* Fixed #466031 – Update of pieces of menus for Localization
+* Fixed #343522 – anjuta: Unable to execute commands that use options.
+* Improved incremental search (still sucks) and selection management in
+GtkSourceView editor
+
 Anjuta 2.2.1 (06 Sep 2007) -- Naba Kumar
 -----------------------------------------
 
