@@ -72,7 +72,6 @@ plugins/document-manager/action-callbacks.c
 plugins/document-manager/anjuta-docman.c
 plugins/document-manager/anjuta-document-manager.glade
 plugins/document-manager/goto_line.c
-plugins/document-manager/indent-dialog.c
 plugins/document-manager/plugin.c
 plugins/editor/editor.glade
 plugins/editor/print.c
@@ -108,6 +107,12 @@ plugins/gtodo/preferences.c
 plugins/gtodo/tasklists.c
 plugins/gtodo/todo_db.c
 plugins/gtodo/tray-icon.c
+plugins/indent/indent-dialog.c
+plugins/indent/indent.glade
+plugins/indent/plugin.c
+plugins/indent/indent-dialog.c
+plugins/indent/indent.glade
+plugins/indent/plugin.c
 plugins/macro/anjuta-macro.glade
 plugins/macro/macro-actions.c
 plugins/macro/macro-db.c
