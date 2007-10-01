@@ -96,14 +96,18 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 	if (plugin->program_args)
 		gtk_entry_set_text (GTK_ENTRY (arguments_entry),
 							plugin->program_args);
-		
+	
 	if (g_list_length (exec_targets) > 0)
 	{
 		/* Populate treeview */
-		gtk_tree_selection_set_mode (gtk_tree_view_get_selection (GTK_TREE_VIEW
-																  (treeview)),
+    store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+ 		gtk_tree_view_set_model (GTK_TREE_VIEW (treeview),
+								 GTK_TREE_MODEL (store));
+		g_object_unref (store);
+		GtkTreeSelection* selection =
+          gtk_tree_view_get_selection (GTK_TREE_VIEW(treeview));
+    gtk_tree_selection_set_mode (selection,
 									 GTK_SELECTION_BROWSE);
-		store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
 		node = exec_targets;
 		while (node)
 		{
@@ -125,15 +129,19 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 			gtk_list_store_append (store, &iter);
 			gtk_list_store_set (store, &iter, 0, rel_path, 1,
 								node->data, -1);
+      
+      if (plugin->last_exec_uri && g_str_equal (plugin->last_exec_uri, node->data))
+      { 
+        gtk_tree_selection_select_iter (selection, &iter);
+        g_free (plugin->last_exec_uri);
+        plugin->last_exec_uri = NULL;
+      }
+      
 			g_free (local_path);
 			g_free (node->data);
 			node = g_list_next (node);
 		}
 		g_list_free (exec_targets);
-		
-		gtk_tree_view_set_model (GTK_TREE_VIEW (treeview),
-								 GTK_TREE_MODEL (store));
-		g_object_unref (store);
 		
 		column = gtk_tree_view_column_new ();
 		gtk_tree_view_column_set_sizing (column,
@@ -146,6 +154,12 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 											0);
 		gtk_tree_view_append_column (GTK_TREE_VIEW (treeview), column);
 		gtk_tree_view_set_expander_column (GTK_TREE_VIEW (treeview), column);
+                   
+    if (!gtk_tree_selection_get_selected (selection, NULL, &iter))
+    {
+      gtk_tree_model_get_iter_first (GTK_TREE_MODEL (store), &iter);
+      gtk_tree_selection_select_iter (selection, &iter);
+    }
 	}
 	else
 	{
@@ -154,7 +168,8 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 	}
 	
 	/* Run dialog */
-	response = gtk_dialog_run (GTK_DIALOG (dlg));
+	gtk_dialog_set_default_response (GTK_DIALOG(dlg), GTK_RESPONSE_OK);
+  response = gtk_dialog_run (GTK_DIALOG (dlg));
 	if (response == GTK_RESPONSE_OK)
 	{
 		GtkTreeSelection *sel;
@@ -168,13 +183,15 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
 			{
 				gtk_tree_model_get (model, &iter, 1, &target, -1);
 				if (program_uri)
-					*program_uri = g_strdup (target);
+					*program_uri = target;
 				if (run_in_terminal)
 					*run_in_terminal = gtk_toggle_button_get_active (
 									GTK_TOGGLE_BUTTON (use_terminal_check));
 				if (program_args)
 					*program_args = g_strdup (gtk_entry_get_text (
 											GTK_ENTRY (arguments_entry)));
+
+        plugin->last_exec_uri = g_strdup(target);
 				success = TRUE;
 			}
 		}

@@ -2079,6 +2079,7 @@ basic_autotools_plugin_instance_init (GObject *obj)
 	ba_plugin->configure_args = NULL;
 	ba_plugin->program_args = NULL;
 	ba_plugin->run_in_terminal = TRUE;
+	ba_plugin->last_exec_uri = NULL;
 	ba_plugin->editors_created = g_hash_table_new (g_direct_hash,
 												   g_direct_equal);
 }
