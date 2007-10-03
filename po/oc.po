@@ -8156,7 +8156,7 @@ msgstr ""
 #: ../plugins/tools/execute.c:311
 #, c-format
 msgid "Opening %s"
-msgstr "Dubertura de %s"
+msgstr "Dobertura de %s"
 
 #: ../plugins/tools/execute.c:332
 msgid "error:"
