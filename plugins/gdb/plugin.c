@@ -677,9 +677,6 @@ ibreakpoint_debugger_add_breakpoint_at_line (IAnjutaBreakpointDebugger *plugin, 
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
-	/* NULL breakpoint is used to detect available feature */
-	if (file == NULL) return TRUE;
-		
 	debugger_add_breakpoint_at_line (this->debugger, file, line, callback, user_data);
 
 	return TRUE;
@@ -690,9 +687,6 @@ ibreakpoint_debugger_add_breakpoint_at_function (IAnjutaBreakpointDebugger *plug
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
-	/* NULL breakpoint is used to detect available feature */
-	if (function == NULL) return TRUE;
-
 	debugger_add_breakpoint_at_function (this->debugger, *file == '\0' ? NULL : file, function, callback, user_data);
 
 	return TRUE;
@@ -703,9 +697,6 @@ ibreakpoint_debugger_add_breakpoint_at_address (IAnjutaBreakpointDebugger *plugi
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
-	/* NULL breakpoint is used to detect available feature */
-	if (address == 0) return TRUE;
-
 	debugger_add_breakpoint_at_address (this->debugger, address, callback, user_data);
 
 	return TRUE;
@@ -716,9 +707,6 @@ ibreakpoint_debugger_enable_breakpoint (IAnjutaBreakpointDebugger *plugin, guint
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
-	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return TRUE;
-
 	debugger_enable_breakpoint (this->debugger, id, enable, callback, user_data);
 
 	return TRUE;
@@ -729,9 +717,6 @@ ibreakpoint_debugger_ignore_breakpoint (IAnjutaBreakpointDebugger *plugin, guint
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
-	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return TRUE;
-
 	debugger_ignore_breakpoint (this->debugger, id, ignore, callback, user_data);
 
 	return TRUE;
@@ -742,9 +727,6 @@ ibreakpoint_debugger_condition_breakpoint (IAnjutaBreakpointDebugger *plugin, gu
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
-	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return TRUE;
-
 	debugger_condition_breakpoint (this->debugger, id, condition, callback, user_data);
 
 	return TRUE;
@@ -754,9 +736,6 @@ static gboolean
 ibreakpoint_debugger_remove_breakpoint (IAnjutaBreakpointDebugger *plugin, guint id, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-
-	/* NULL breakpoint is used to detect available feature */
-	if (id == 0) return TRUE;
 
 	debugger_remove_breakpoint (this->debugger, id, callback, user_data);
 

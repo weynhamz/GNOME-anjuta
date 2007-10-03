@@ -85,7 +85,7 @@ struct _BreakpointItem
 	GtkTreeIter iter;
 	gboolean link;
 	
-	gboolean keep;             /* Do not free memory */
+	guint in_use;             /* Do not free memory */
 };
 
 struct _BreakpointsDBase
@@ -379,13 +379,15 @@ breakpoint_item_free (BreakpointItem *bi)
 	g_return_if_fail (bi != NULL);
 
 	anjuta_breakpoint_free (bi->bp);
+	bi->bp = NULL;
 	
 	if (bi->editor != NULL)
 	{
 		g_object_remove_weak_pointer (G_OBJECT (bi->editor), (gpointer *)(gpointer)&bi->editor);
+		bi->editor = NULL;
 	}
 	
-	g_free (bi);
+	if (bi->in_use == 0) g_free (bi);
 }
 
 /* Private callback functions
@@ -453,6 +455,7 @@ breakpoint_item_update_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 		{
 			if (bi->bp->enable != bp->enable)
 			{
+				bi->in_use++;
 				dma_queue_enable_breakpoint (
 						bi->bd->debugger,
 						bi->bp->id,
@@ -516,13 +519,6 @@ breakpoint_item_update_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoin
 static void
 breakpoint_item_remove_in_ui (BreakpointItem *bi, const IAnjutaDebuggerBreakpoint* bp)
 {
-	if (bi->keep == TRUE)
-	{
-		/* Keep breakpoint */
-		bi->keep = FALSE;
-		return;
-	}
-
 	/* Delete breakpoint marker from screen */
 	set_breakpoint_in_editor (bi, BREAKPOINT_NONE, FALSE);
 	
@@ -610,6 +606,7 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 		{
 			/* Breakpoint already exist, remove it first */
 			bi->bp->temporary = FALSE;
+			bi->in_use++;
 			dma_queue_remove_breakpoint (
 					bd->debugger,
 					bi->bp->id,
@@ -619,6 +616,7 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 		/* Add breakpoint in debugger */
 		if (bi->bp->type & IANJUTA_DEBUGGER_BREAK_ON_LINE)
 		{
+			bi->in_use++;
 			dma_queue_add_breakpoint_at_line (
 					bd->debugger,
 					bi->bp->file,
@@ -628,6 +626,7 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 		}
 		else if (bi->bp->type & IANJUTA_DEBUGGER_BREAK_ON_FUNCTION)
 		{
+			bi->in_use++;
 			dma_queue_add_breakpoint_at_function (
 					bd->debugger,
 					bi->bp->file == NULL ? "" : bi->bp->file,
@@ -637,6 +636,7 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 		}
 		else if (bi->bp->type & IANJUTA_DEBUGGER_BREAK_ON_ADDRESS)
 		{
+			bi->in_use++;
 			dma_queue_add_breakpoint_at_address (
 					bd->debugger,
 					bi->bp->address,
@@ -664,6 +664,7 @@ breakpoints_dbase_remove_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 	if (bd->debugger != NULL)
 	{
 		/* Remove breakpoint in debugger first */
+		bi->in_use++;
 		dma_queue_remove_breakpoint (
 				bd->debugger,
 				bi->bp->id,
@@ -686,6 +687,7 @@ breakpoints_dbase_enable_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi, g
 	if (bd->debugger != NULL)
 	{
 		/* Update breakpoint in debugger firt */
+		bi->in_use++;
 		dma_queue_enable_breakpoint (
 				bd->debugger,
 				bi->bp->id,
@@ -1132,16 +1134,25 @@ static void
 on_breakpoint_callback (const gpointer data, gpointer user_data, GError* err)
 {
 	const IAnjutaDebuggerBreakpoint* breakpoint = (const IAnjutaDebuggerBreakpoint*)data;
-
+	BreakpointItem *bi = (BreakpointItem *)user_data;
+	
+	bi->in_use--;
+	if (bi->bp == NULL)
+	{	
+		/* Finish freeing BreakpointItem */
+		if (bi->in_use == 0) g_free (bi);
+		return;
+	}
+	
 	if (err == NULL)
 	{	
 		if ((breakpoint != NULL) && (breakpoint->type & IANJUTA_DEBUGGER_BREAK_REMOVED))
 		{
-			breakpoint_item_remove_in_ui ((BreakpointItem *)user_data, breakpoint);
+			breakpoint_item_remove_in_ui (bi, breakpoint);
 		}
 		else
 		{
-			breakpoint_item_update_in_ui ((BreakpointItem *)user_data, breakpoint);
+			breakpoint_item_update_in_ui (bi, breakpoint);
 		}
 	}
 }
@@ -1301,6 +1312,7 @@ breakpoint_enable_disable (GtkTreeModel *model, GtkTreeIter iter, BreakpointsDBa
 
 	if (bd->debugger != NULL)
 	{
+		bi->in_use++;
 		dma_queue_enable_breakpoint (
 				bd->debugger,
 				bi->bp->id,

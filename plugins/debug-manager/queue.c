@@ -27,9 +27,7 @@
 
 #include "queue.h"
 
-#ifndef DEBUG
-#	define DEBUG
-#endif
+/*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 
@@ -149,48 +147,6 @@ dma_debugger_queue_clear (DmaDebuggerQueue *self)
 	self->queue_state = self->debugger_state;
 	
 	self->prepend_command = 0;
-}
-
-static gboolean
-dma_queue_check_state (DmaDebuggerQueue *self, DmaQueueCommand* cmd)
-{
-	IAnjutaDebuggerState state;
-		
-	if (self->prepend_command)
-	{
-		/* Prepend command use debugger state or current command state */
-		if (self->last != NULL)
-		{
-			state = dma_command_is_going_to_state (self->last);
-			if (state == IANJUTA_DEBUGGER_BUSY)
-			{
-				state = self->debugger_state;
-			}
-		}
-		else
-		{
-			state = self->debugger_state;
-		}
-	}
-	else
-	{
-		/* Append command use queue state */
-		state = self->queue_state;
-	}
-	
-	/* Only the debugger can be busy */
-	g_return_val_if_fail (state != IANJUTA_DEBUGGER_BUSY, FALSE);
-		
-	if (!dma_command_is_valid_in_state (cmd, state))
-    {
-		g_warning ("Cancel command %x, debugger in state %d\n", dma_command_get_type (cmd), state);
-		return FALSE;
-	}
-	else
-	{
-		/* State is right */
-		return TRUE;
-	}
 }
 		
 static void
@@ -326,19 +282,22 @@ dma_debugger_queue_complete (DmaDebuggerQueue *self, IAnjutaDebuggerState state)
 	/* Emit new state if necessary */
 	dma_queue_emit_debugger_state (self, state, NULL);
 	
-	if ((self->last != NULL) && (state != IANJUTA_DEBUGGER_BUSY))
+	if (state != IANJUTA_DEBUGGER_BUSY)
 	{
-		if (dma_command_is_going_to_state (self->last) != state)
+		if (self->last != NULL)
 		{
-			/* Command end in an unexpected state,
-			 * Remove invalid following command */
-			dma_queue_cancel_unexpected (self, state);
-		}
+			if (dma_command_is_going_to_state (self->last) != state)
+			{
+				/* Command end in an unexpected state,
+			 	* Remove invalid following command */
+				dma_queue_cancel_unexpected (self, state);
+			}
 
-		/* Remove current command */
-		DEBUG_PRINT("end command %x", dma_command_get_type (self->last));
-		dma_command_free (self->last);
-		self->last = NULL;
+			/* Remove current command */
+			DEBUG_PRINT("end command %x", dma_command_get_type (self->last));
+			dma_command_free (self->last);
+			self->last = NULL;
+		}
 		
 		/* Send next command */
 		dma_debugger_queue_execute (self);
@@ -398,6 +357,58 @@ dma_debugger_queue_execute (DmaDebuggerQueue *self)
 	}
 	
 	dma_queue_emit_debugger_ready (self);
+}
+
+static gboolean
+dma_queue_check_state (DmaDebuggerQueue *self, DmaQueueCommand* cmd)
+{
+	gboolean recheck;
+
+	for (recheck = FALSE; recheck != TRUE; recheck = TRUE)
+	{
+		IAnjutaDebuggerState state;
+		
+		if (self->prepend_command)
+		{
+			/* Prepend command use debugger state or current command state */
+			if (self->last != NULL)
+			{
+				state = dma_command_is_going_to_state (self->last);
+				if (state == IANJUTA_DEBUGGER_BUSY)
+				{
+					state = self->debugger_state;
+				}
+			}
+			else
+			{
+				state = self->debugger_state;
+			}
+		}
+		else
+		{
+			/* Append command use queue state */
+			state = self->queue_state;
+		}
+	
+		/* Only the debugger can be busy */
+		g_return_val_if_fail (state != IANJUTA_DEBUGGER_BUSY, FALSE);
+		
+		if (dma_command_is_valid_in_state (cmd, state))
+    	{
+			/* State is right */
+			return TRUE;
+		}
+		
+		g_warning ("Cancel command %x, debugger in state %d\n", dma_command_get_type (cmd), state);
+		
+		/* Check if synchronization is still ok */
+		state = ianjuta_debugger_get_state (self->debugger, NULL);
+		dma_debugger_queue_complete (self, state);
+		
+		/* Check again */
+	}
+	
+	return FALSE;
 }
 
 static gboolean
@@ -567,14 +578,26 @@ dma_debugger_queue_append (DmaDebuggerQueue *self, DmaQueueCommand *cmd)
 	DEBUG_PRINT("current %x", self->last == NULL ? 0 : dma_command_get_type (self->last));
 	DEBUG_PRINT("queue %x", self->queue->head == NULL ? 0 : dma_command_get_type (self->queue->head->data));
 	
-	if (dma_queue_check_state(self, cmd))
+	if ((self->debugger != NULL) && dma_queue_check_state(self, cmd))
 	{
 		/* If command is asynchronous stop current command */
 		if (dma_command_has_flag (cmd, ASYNCHRONOUS))
 		{
+			IAnjutaDebuggerState state;
+			
+			state = dma_command_is_going_to_state (cmd);
+			if (state != IANJUTA_DEBUGGER_BUSY)
+			{
+				/* Command is changing debugger state */
+				dma_queue_cancel_unexpected (self, state);
+			}
+			
+			/* Append command at the beginning */
+			g_queue_push_head (self->queue, cmd);
+			
 			dma_debugger_queue_complete (self, self->debugger_state);
 		}
-		if (self->prepend_command == 0)
+		else if (self->prepend_command == 0)
 		{
 			/* Append command at the end (in the queue) */
 			IAnjutaDebuggerState state;

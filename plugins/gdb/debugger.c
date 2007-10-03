@@ -82,6 +82,7 @@ struct _DebuggerPriv
 	gboolean prog_is_running;
 	gboolean prog_is_attached;
 	gboolean prog_is_loaded;
+	gboolean debugger_is_started;
 	guint debugger_is_busy;
 	gint post_execution_flag;
 
@@ -222,7 +223,8 @@ debugger_initialize (Debugger *debugger)
 	debugger->priv->parent_win = NULL;
 	debugger->priv->search_dirs = NULL;
 	debugger->priv->launcher = anjuta_launcher_new ();
-	
+
+	debugger->priv->debugger_is_started = FALSE;	
 	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->starting = FALSE;
@@ -466,9 +468,13 @@ debugger_get_state (Debugger *debugger)
 		{
 			return IANJUTA_DEBUGGER_PROGRAM_LOADED;
 		}
-		else
+		else if (debugger->priv->debugger_is_started)
 		{
 			return IANJUTA_DEBUGGER_STARTED;
+		}
+		else
+		{
+			return IANJUTA_DEBUGGER_STOPPED;
 		}
 	}
 }
@@ -835,8 +841,11 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	ret = anjuta_launcher_execute (launcher, command_str,
 								   on_gdb_output_arrived, debugger);
 
-	if (ret)	
+	if (ret)
+	{
+		debugger->priv->debugger_is_started = TRUE;
 		debugger->priv->prog_is_loaded = prog != NULL;
+	}
 	anjuta_launcher_set_encoding (launcher, "ISO-8859-1");
 	
 	if (debugger->priv->output_callback != NULL)
@@ -1492,6 +1501,8 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	debugger_stop_terminal (debugger);
 	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->term_is_running = FALSE;
+	debugger->priv->prog_is_attached = FALSE;
+	debugger->priv->prog_is_loaded = FALSE;
 	debugger->priv->term_pid = -1;
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->skip_next_prompt = FALSE;
@@ -1507,6 +1518,7 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", err);
 	}
 	if (err != NULL) g_error_free (err);
+	debugger->priv->debugger_is_started = FALSE;
 }
 
 static void

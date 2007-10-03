@@ -1,3 +1,19 @@
+2007-10-03 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/command.c,
+	plugins/debug-manager/queue.c:
+	Asynchronous command can abort other commands in queue
+	Resynchronize debugger state when a command is cancelled
+
+	* plugins/debug-manager/breakpoints.c:
+	Free BreakpointItem only when it is not used anymore
+
+	* plugins/gdb/plugin.c:
+	Do not return TRUE if the callback and/or ready signal is not used
+
+	* plugins/gdb/debugger.c:
+	Fix a crash, return correct state when debugger is stopped
+
 2007-10-01 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/project-wizard/autogen.c:
