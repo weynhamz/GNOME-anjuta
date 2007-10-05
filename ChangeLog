@@ -1,3 +1,8 @@
+2007-10-05 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-launcher.c:
+	Avoid adding new timeout in anjuta_launcher_execution_done_cleanup
+
 2007-10-03 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/command.c,

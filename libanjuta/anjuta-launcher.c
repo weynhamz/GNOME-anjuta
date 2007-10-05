@@ -117,7 +117,7 @@ struct _AnjutaLauncherPriv
 	gboolean child_has_terminated;
 	
 	/* Synchronization in progress */
-	gboolean in_synchronization;
+	gboolean in_cleanup;
 	guint completion_check_timeout;
 
 	/* Terminate child on child exit */
@@ -189,7 +189,7 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	obj->priv->child_has_terminated = TRUE;
 	
 	/* Synchronization in progress */
-	obj->priv->in_synchronization = FALSE;
+	obj->priv->in_cleanup = FALSE;
 	obj->priv->completion_check_timeout = -1;
 	
 	/* Terminate child on child exit */
@@ -469,12 +469,12 @@ anjuta_launcher_get_child_pid (AnjutaLauncher *launcher)
 static void
 anjuta_launcher_synchronize (AnjutaLauncher *launcher)
 {
+	if (launcher->priv->in_cleanup) return;
+
 	if (launcher->priv->child_has_terminated &&
 		launcher->priv->stdout_is_done &&
 		launcher->priv->stderr_is_done)
 	{
-		launcher->priv->in_synchronization = TRUE;
-		
 		if (launcher->priv->completion_check_timeout >= 0)
 			g_source_remove (launcher->priv->completion_check_timeout);
 		launcher->priv->completion_check_timeout = 
@@ -885,18 +885,19 @@ static void
 anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 										gboolean emit_signal)
 {
-	static gboolean block = FALSE;
 	gint child_status, child_pid;
 	time_t start_time;
-	
+
+	if (launcher->priv->in_cleanup)
+		return;
+
+	launcher->priv->in_cleanup = TRUE;
+
+	/* Remove pending timeout */
 	if (launcher->priv->completion_check_timeout >= 0)
 		g_source_remove (launcher->priv->completion_check_timeout);
 	
-	if (block)
-		return;
-	
 	/* Make sure all pending I/O are flushed out */
-	block = TRUE;
 	while (g_main_context_pending (NULL))
 		g_main_context_iteration (NULL, FALSE);
 	
@@ -951,7 +952,7 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 							   child_status,
 							   time (NULL) - start_time);
 		
-	block = FALSE;
+	launcher->priv->in_cleanup = FALSE;
 }
 
 /* Using this function is necessary because
@@ -1187,7 +1188,7 @@ anjuta_launcher_execute_v (AnjutaLauncher *launcher, gchar *const argv[],
 	launcher->priv->stdout_is_done = FALSE;
 	launcher->priv->stderr_is_done = FALSE;
 	launcher->priv->child_has_terminated = FALSE;
-	launcher->priv->in_synchronization = FALSE;
+	launcher->priv->in_cleanup = FALSE;
 	launcher->priv->output_callback = callback;
 	launcher->priv->callback_data = callback_data;
 	
