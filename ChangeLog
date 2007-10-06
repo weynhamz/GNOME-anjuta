@@ -1,5 +1,14 @@
 2007-10-05 Sebastien Granjoux <seb.sfo@free.fr>
 
+	* plugins/debug-manager/command.c,
+	plugins/debug-manager/queue.c,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c:
+	Fix several crashing bugs (including bug#482985) with the debugger
+	when closing project, stopping the debugger, restarting the program
+
+2007-10-05 Sebastien Granjoux <seb.sfo@free.fr>
+
 	* libanjuta/anjuta-launcher.c:
 	Avoid adding new timeout in anjuta_launcher_execution_done_cleanup
 

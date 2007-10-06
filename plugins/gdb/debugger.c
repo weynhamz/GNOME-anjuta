@@ -119,7 +119,7 @@ struct _DebuggerPriv
 	IAnjutaMessageView *log;
 };
 
-gpointer parent_class;
+static gpointer parent_class;
 
 static gchar *debugger_start_terminal (Debugger *debugger);
 static void debugger_stop_terminal (Debugger *debugger);
@@ -270,7 +270,6 @@ debugger_new (GtkWindow *parent_win, GObject* instance)
 	debugger = g_object_new (DEBUGGER_TYPE, NULL);
 	debugger->priv->parent_win = parent_win;
 	debugger->priv->instance = instance;
-	g_object_add_weak_pointer (instance, (gpointer *)(gpointer)&debugger->priv->instance);
 	
 	return debugger;
 }
@@ -936,6 +935,9 @@ on_gdb_output_arrived (AnjutaLauncher *launcher,
 	Debugger *debugger = DEBUGGER (data);
 	DEBUG_PRINT ("on gdb output arrived");
 
+	/* Do not emit signal when the debugger is destroyed */
+	if (debugger->priv->instance == NULL) return;
+
 	switch (output_type)
 	{
 	case ANJUTA_LAUNCHER_OUTPUT_STDERR:
@@ -1499,11 +1501,11 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 		_("gdb terminated unexpectedly with status %d\n"), status);
 	}*/
 	debugger_stop_terminal (debugger);
-	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->term_is_running = FALSE;
+	debugger->priv->term_pid = -1;
+	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->prog_is_attached = FALSE;
 	debugger->priv->prog_is_loaded = FALSE;
-	debugger->priv->term_pid = -1;
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->skip_next_prompt = FALSE;
 	if (!debugger->priv->terminating)
@@ -1513,12 +1515,12 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 				"gdb terminated with status %d", status);
 	}
 	debugger->priv->terminating = FALSE;
+	debugger->priv->debugger_is_started = FALSE;
 	if (debugger->priv->instance)
 	{
 		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", err);
 	}
 	if (err != NULL) g_error_free (err);
-	debugger->priv->debugger_is_started = FALSE;
 }
 
 static void
@@ -1580,18 +1582,20 @@ debugger_abort (Debugger *debugger)
 {
 	DEBUG_PRINT ("In function: debugger_abort()");
 
+	/* Stop inferior */	
+	if ((debugger->priv->prog_is_attached == FALSE) && (debugger->priv->inferior_pid != 0))
+	{
+		kill (debugger->priv->inferior_pid, SIGTERM);
+		debugger->priv->inferior_pid = 0;
+	}
+
 	/* Stop terminal */
 	debugger_stop_terminal (debugger);
 	debugger->priv->terminating = TRUE;
 
 	/* Stop gdb */
+	g_signal_handlers_disconnect_by_func (G_OBJECT (debugger->priv->launcher), G_CALLBACK (on_gdb_terminated), debugger);
 	anjuta_launcher_reset (debugger->priv->launcher);
-
-	/* Stop inferior */	
-	if ((debugger->priv->prog_is_attached == FALSE) && (debugger->priv->inferior_pid != 0))
-	{
-		kill (debugger->priv->inferior_pid, SIGTERM);
-	}
 
 	/* Free memory */	
 	debugger_queue_clear (debugger);
@@ -1599,13 +1603,15 @@ debugger_abort (Debugger *debugger)
 	g_list_free (debugger->priv->search_dirs);
 	debugger->priv->search_dirs = NULL;
 
-	/* Disconnect */
+	/* Emit signal, state of the debugger must be DEBUGGER_STOPPED */
+	debugger->priv->prog_is_running = FALSE;
+	debugger->priv->prog_is_attached = FALSE;
+	debugger->priv->prog_is_loaded = FALSE;
+	debugger->priv->debugger_is_busy = 0;
+	debugger->priv->debugger_is_started = FALSE;
 	if (debugger->priv->instance != NULL)
 	{
-		/* Signal end of debugger */
 		g_signal_emit_by_name (debugger->priv->instance, "debugger-stopped", NULL);
-
-		g_object_remove_weak_pointer (debugger->priv->instance, (gpointer *)(gpointer)&debugger->priv->instance);
 		debugger->priv->instance = NULL;
 	}
 
@@ -3786,6 +3792,8 @@ debugger_dispose (GObject *obj)
 	
 	DEBUG_PRINT ("In function: debugger_shutdown()");
 
+	/* Do not emit signal when the debugger is destroyed */
+	debugger->priv->instance = NULL;
 	debugger_abort (debugger);
 
 	/* Good Bye message */

@@ -399,7 +399,7 @@ dma_queue_check_state (DmaDebuggerQueue *self, DmaQueueCommand* cmd)
 			return TRUE;
 		}
 		
-		g_warning ("Cancel command %x, debugger in state %d\n", dma_command_get_type (cmd), state);
+		g_warning ("Cancel command %x, debugger in state %d", dma_command_get_type (cmd), state);
 		
 		/* Check if synchronization is still ok */
 		state = ianjuta_debugger_get_state (self->debugger, NULL);
@@ -490,15 +490,14 @@ on_dma_debugger_started (DmaDebuggerQueue *self)
 static void
 on_dma_debugger_stopped (DmaDebuggerQueue *self, GError *err)
 {
+	IAnjutaDebuggerState state;
+
 	DEBUG_PRINT ("From debugger: receive debugger stopped with error %p", err);
 	dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_STOPPED, err);
-	dma_debugger_queue_complete (self, IANJUTA_DEBUGGER_STOPPED);
 
-/*	self->debugger_state = IANJUTA_DEBUGGER_STARTED;
-	
-	dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_STOPPED, err);
-	dma_queue_debugger_ready (self, IANJUTA_DEBUGGER_STOPPED);
-	if (self->last == NULL) dma_debugger_queue_execute (self);*/
+	/* Reread debugger state, could have changed while emitting signal */
+	state = ianjuta_debugger_get_state (self->debugger, NULL);
+	dma_debugger_queue_complete (self, state);
 }
 
 static void

@@ -24,7 +24,8 @@
 
 #include <config.h>
 
-//#define DEBUG
+/*#define DEBUG*/
+#include <libanjuta/anjuta-debug.h>
 
 #include "plugin.h"
 
@@ -34,7 +35,6 @@
 #include <libanjuta/interfaces/ianjuta-breakpoint-debugger.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
 #include <libanjuta/interfaces/ianjuta-variable-debugger.h>
-#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-plugin.h>
 
 /* Plugin type
@@ -64,17 +64,33 @@ struct _GdbPluginClass
  *---------------------------------------------------------------------------*/
 
 static void
+on_debugger_stopped (GdbPlugin *self, GError *err)
+{
+	if (self->debugger != NULL)
+	{
+		g_signal_handlers_disconnect_by_func (self, G_CALLBACK (on_debugger_stopped), self);	
+		debugger_free (self->debugger);
+		self->debugger = NULL;
+	}
+}
+
+static void
 gdb_plugin_initialize (GdbPlugin *this)
 {
-	if (this->debugger == NULL)
+	GtkWindow *parent;
+
+	/* debugger can be not NULL, if initialize is called several times
+	 * or if debugger_stopped signal has not been emitted */
+	if (this->debugger != NULL)
 	{
-		GtkWindow *parent;
-		
-		parent = GTK_WINDOW (ANJUTA_PLUGIN (this)->shell);
-		this->debugger = debugger_new (parent, G_OBJECT (this));
-		debugger_set_output_callback (this->debugger, this->output_callback, this->output_user_data);
-		if (this->view) debugger_set_log (this->debugger, this->view);
+		on_debugger_stopped (this, NULL);
 	}
+
+	parent = GTK_WINDOW (ANJUTA_PLUGIN (this)->shell);
+	this->debugger = debugger_new (parent, G_OBJECT (this));
+	g_signal_connect_swapped (this, "debugger-stopped", G_CALLBACK (on_debugger_stopped), this);
+	debugger_set_output_callback (this->debugger, this->output_callback, this->output_user_data);
+	if (this->view) debugger_set_log (this->debugger, this->view);
 }
 
 /* AnjutaPlugin functions
