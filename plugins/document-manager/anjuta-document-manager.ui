@@ -43,6 +43,14 @@
 					<menuitem name="Box" action="ActionEditCommentBox" />
 					<menuitem name="Stream" action="ActionEditCommentStream" />
 				</menu>
+				<placeholder name="PlaceholderEditSearchMenus">			
+				<menu name="Search" action="ActionMenuEditSearch">
+					<placeholder name="PlaceholderQuickSearchMenu">
+							<menuitem name="QuickSearch" action="ActionEditSearchQuickSearch"/>
+							<separator name="separator1" />
+					</placeholder>
+				</menu>
+				</placeholder>
 			</placeholder>
 			<placeholder name="PlaceholderSelectMenus">
 				<menu name="Select" action="ActionMenuEditSelect">
@@ -52,7 +60,6 @@
 				</menu>
 			</placeholder>
 			<placeholder name="PlaceholderInsertMenus"/>
-			<placeholder name="PlaceholderSearchMenus"/>
 			<placeholder name="PlaceholderOperationMenus"/>
 		</menu>
 		<menu name="MenuView" action="ActionMenuView">
@@ -112,11 +119,10 @@
 			<toolitem name="Undo" action="ActionEditUndo" />
 			<toolitem name="Redo" action="ActionEditRedo" />
 			<separator name="separator2" />
+			<toolitem name="Swap" action="ActionFileSwap" />
+			<separator name="separator3" />
 			<toolitem name="Print" action="ActionPrintFile" />
 		</placeholder>
-	</toolbar>
-	<toolbar name="ToolbarBrowser">
-		<toolitem name="Swap" action="ActionFileSwap" />
 	</toolbar>
 	<toolbar name="ToolbarBookmark">
 		<placeholder name="PlaceholderBrowserToolbar" >
@@ -130,12 +136,6 @@
 			<toolitem name="BlockStart" action="ActionEditGotoBlockStart"/>
 			<toolitem name="BlockEnd" action="ActionEditGotoBlockEnd"/>
 			<separator name="separator2" />
-		</placeholder>
-	</toolbar>
-	<toolbar name="ToolbarFind">
-		<placeholder name="PlaceholderFindToolbar">
-			<toolitem name="GotoLine" action="ActionEditGotoLineActivate" />
-			<toolitem name="GotoLineEntry" action="ActionEditGotoLineEntry" />
 		</placeholder>
 	</toolbar>
 	<popup name="PopupDocumentManager">

@@ -38,6 +38,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
+#include <libanjuta/interfaces/ianjuta-editor-search.h>
 
 #include <libgnomevfs/gnome-vfs-init.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
@@ -789,6 +790,21 @@ static gint ieditor_get_position(IAnjutaEditor* editor, GError **e)
 	return gtk_text_iter_get_offset(&iter);
 }
 
+static IAnjutaIterable*
+ieditor_get_position_iter (IAnjutaEditor* editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	GtkTextIter iter;
+	SourceviewCell* cell;
+	
+	gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
+									 gtk_text_buffer_get_insert(buffer));
+
+	cell = sourceview_cell_new (&iter, GTK_TEXT_VIEW (sv->priv->view));
+	
+	return IANJUTA_ITERABLE (cell);
+}
 
 /* Return line of cursor */
 static gint ieditor_get_lineno(IAnjutaEditor *editor, GError **e)
@@ -979,6 +995,7 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->goto_position = ieditor_goto_position;
 	iface->get_text = ieditor_get_text;
 	iface->get_position = ieditor_get_position;
+	iface->get_position_iter = ieditor_get_position_iter;
 	iface->get_lineno = ieditor_get_lineno;
 	iface->get_length = ieditor_get_length;
 	iface->get_current_word = ieditor_get_current_word;
@@ -1219,6 +1236,22 @@ static void iselect_set(IAnjutaEditorSelection *editor, gint start,
 }
 
 static void
+iselect_set_iter (IAnjutaEditorSelection* edit, 
+				  IAnjutaEditorCell* istart,
+				  IAnjutaEditorCell* iend,
+				  GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	gtk_text_buffer_select_range (GTK_TEXT_BUFFER (sv->priv->document),
+								  sourceview_cell_get_iter (SOURCEVIEW_CELL (istart)),
+								  sourceview_cell_get_iter (SOURCEVIEW_CELL (iend)));
+	gtk_text_view_scroll_to_iter (GTK_TEXT_VIEW (sv->priv->view),
+												 sourceview_cell_get_iter (SOURCEVIEW_CELL (istart)),
+												 0, FALSE, 0, 0);
+}
+															
+
+static void
 iselect_all(IAnjutaEditorSelection* edit, GError** e)
 {	
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
@@ -1265,6 +1298,19 @@ static gint iselect_get_start(IAnjutaEditorSelection *editor, GError **e)
 	return -1;										  
 }
 
+static IAnjutaIterable*
+iselect_get_start_iter (IAnjutaEditorSelection *edit, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	GtkTextIter start;
+	if (gtk_text_buffer_get_selection_bounds (GTK_TEXT_BUFFER (sv->priv->document),
+											  &start, NULL))
+	{
+		return IANJUTA_ITERABLE (sourceview_cell_new (&start, GTK_TEXT_VIEW (sv->priv->view)));
+	}
+	return NULL;
+}
+
 /* Get end position of selection */
 static gint iselect_get_end(IAnjutaEditorSelection *editor, GError **e)
 {
@@ -1277,6 +1323,20 @@ static gint iselect_get_end(IAnjutaEditorSelection *editor, GError **e)
 	}
 	return -1;
 }
+
+static IAnjutaIterable*
+iselect_get_end_iter (IAnjutaEditorSelection *edit, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
+	GtkTextIter end;
+	if (gtk_text_buffer_get_selection_bounds (GTK_TEXT_BUFFER (sv->priv->document),
+											  NULL, &end))
+	{
+		return IANJUTA_ITERABLE (sourceview_cell_new (&end, GTK_TEXT_VIEW (sv->priv->view)));
+	}
+	return NULL;
+}
+
 
 static void iselect_function(IAnjutaEditorSelection *editor, GError **e)
 {
@@ -1310,9 +1370,12 @@ static void
 iselect_iface_init(IAnjutaEditorSelectionIface *iface)
 {
 	iface->set = iselect_set;
+	iface->set_iter = iselect_set_iter;
 	iface->has_selection = iselect_has_selection;
 	iface->get_start = iselect_get_start;
+	iface->get_start_iter = iselect_get_start_iter;
 	iface->get_end = iselect_get_end;
+	iface->get_end_iter = iselect_get_end_iter;
 	iface->select_block = iselect_block;
 	iface->select_function = iselect_function;
 	iface->select_all = iselect_all;
@@ -1928,6 +1991,109 @@ iassist_iface_init(IAnjutaEditorAssistIface* iface)
 	iface->cancel_tips = iassist_cancel_tips;
 }
 
+static gboolean
+isearch_forward (IAnjutaEditorSearch* isearch,
+				 const gchar* search,
+				 gboolean case_sensitive,
+				 IAnjutaEditorCell* istart, 
+				 IAnjutaEditorCell* iend,
+				 IAnjutaEditorCell** iresult_start,
+				 IAnjutaEditorCell** iresult_end,
+				 GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW (isearch);
+	
+	SourceviewCell* start = SOURCEVIEW_CELL (istart);
+	SourceviewCell* end = SOURCEVIEW_CELL (iend);
+	
+	GtkTextIter* start_iter = sourceview_cell_get_iter (start);
+	GtkTextIter* end_iter = sourceview_cell_get_iter (end);
+	
+	GtkTextIter result_start, result_end;
+	
+	GtkSourceSearchFlags flags = 0;
+	
+	if (!case_sensitive)
+	{
+		flags = GTK_SOURCE_SEARCH_CASE_INSENSITIVE;
+	}
+	
+	gboolean result = 
+		gtk_source_iter_forward_search (start_iter, search, flags, &result_start, &result_end,
+									end_iter);
+
+	if (result)
+	{
+		if (iresult_start)
+		{
+			*iresult_start = IANJUTA_EDITOR_CELL (sourceview_cell_new (&result_start,
+																	   GTK_TEXT_VIEW (sv->priv->view)));
+		}
+		if (iresult_end)
+		{
+			*iresult_end = IANJUTA_EDITOR_CELL (sourceview_cell_new (&result_end,
+																	 GTK_TEXT_VIEW (sv->priv->view)));			
+		}
+	}
+	
+	return result;
+}
+
+static gboolean
+isearch_backward (IAnjutaEditorSearch* isearch,
+				  const gchar* search,
+				  gboolean case_sensitive,
+				  IAnjutaEditorCell* istart, 
+				  IAnjutaEditorCell* iend,
+				  IAnjutaEditorCell** iresult_start,
+				  IAnjutaEditorCell** iresult_end,
+				  GError** e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW (isearch);
+	
+	SourceviewCell* start = SOURCEVIEW_CELL (istart);
+	SourceviewCell* end = SOURCEVIEW_CELL (iend);
+	
+	GtkTextIter* start_iter = sourceview_cell_get_iter (start);
+	GtkTextIter* end_iter = sourceview_cell_get_iter (end);
+	
+	GtkTextIter result_start, result_end;
+	
+	GtkSourceSearchFlags flags = 0;
+	
+	if (!case_sensitive)
+	{
+		flags = GTK_SOURCE_SEARCH_CASE_INSENSITIVE;
+	}
+	
+	gboolean result = 
+		gtk_source_iter_backward_search (start_iter, search, flags, &result_start, &result_end,
+									end_iter);
+
+	if (result)
+	{
+		if (iresult_start)
+		{
+			*iresult_start = IANJUTA_EDITOR_CELL (sourceview_cell_new (&result_start,
+																	   GTK_TEXT_VIEW (sv->priv->view)));
+		}
+		if (iresult_end)
+		{
+			*iresult_end = IANJUTA_EDITOR_CELL (sourceview_cell_new (&result_end,
+																	 GTK_TEXT_VIEW (sv->priv->view)));			
+		}
+	}
+	
+	return result;
+}
+
+static void
+isearch_iface_init(IAnjutaEditorSearchIface* iface)
+{
+	iface->forward = isearch_forward;
+	iface->backward = isearch_backward;
+}
+
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);
 ANJUTA_TYPE_ADD_INTERFACE(idocument, IANJUTA_TYPE_DOCUMENT);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
@@ -1941,4 +2107,5 @@ ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
 ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
+ANJUTA_TYPE_ADD_INTERFACE(isearch, IANJUTA_TYPE_EDITOR_SEARCH);
 ANJUTA_TYPE_END;

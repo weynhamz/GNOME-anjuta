@@ -91,6 +91,12 @@ sourceview_cell_new(GtkTextIter* iter, GtkTextView* view)
 	return obj;
 }
 
+GtkTextIter* 
+sourceview_cell_get_iter (SourceviewCell* cell)
+{
+	return cell->priv->iter;
+}
+
 static gchar*
 icell_get_character(IAnjutaEditorCell* icell, GError** e)
 {

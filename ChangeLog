@@ -1,3 +1,70 @@
+2007-10-06  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/interfaces/anjuta-idl-compiler.pl:
+
+	Fixed to properly support pointer-to-pointer (**) types
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/sourceview/sourceview-cell.c: (sourceview_cell_get_iter):
+	* plugins/sourceview/sourceview-cell.h:
+	* plugins/sourceview/sourceview.c: (ieditor_get_position_iter),
+	(ieditor_iface_init), (iselect_set_iter), (iselect_get_start_iter),
+	(iselect_get_end_iter), (iselect_iface_init), (isearch_forward),
+	(isearch_backward), (isearch_iface_init):
+	* plugins/editor/text_editor.c: (itext_editor_get_position_iter),
+	(itext_editor_iface_init), (iselection_set_iter),
+	(iselection_get_start_iter), (iselection_get_end_iter),
+	(iselection_iface_init), (isearch_forward), (isearch_backward),
+	(isearch_iface_init):
+	
+	Added IAnjutaEditorSearch interface and some utility methods to
+	migrate from positions to iterators for the editor interface.
+	
+	* plugins/document-manager/Makefile.am:
+	* plugins/document-manager/action-callbacks.c:
+	(on_goto_line_no1_activate), (on_show_search):
+	* plugins/document-manager/action-callbacks.h:
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_add_document), (anjuta_docman_show_editor),
+	(anjuta_docman_grab_text_focus):
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/document-manager/goto_line.c: (removed)
+	* plugins/document-manager/goto_line.h: (removed)
+	* plugins/document-manager/search-box.c:
+	* plugins/document-manager/search-box.h:
+	* plugins/document-manager/plugin.c: (ui_give_shorter_names),
+	(update_editor_ui_enable_all), (update_editor_ui_disable_all),
+	(update_editor_ui_interface_items), (on_editor_added),
+	(activate_plugin), (deactivate_plugin):
+	* plugins/document-manager/plugin.h:
+	
+	Created new incremental "Quick Search" bar in the document manager to
+	replace the crappy EggToolbar entries. Uses the new search interface and
+	it thus much faster and more reliable.
+	Fixes: 
+	Bug 357544 – incremental search should work consistently (or not at all) 
+	when main toolbar is hidden
+	Bug 440637 – Search, don't work very well (partly for incremental search)
+	
+	* plugins/search/anjuta-search.ui:
+	* plugins/search/plugin.c: (activate_plugin):
+	
+	Removed incremental search stuff
+	
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(on_session_save), (on_session_load):
+	* plugins/build-basic-autotools/executer.c:
+	(get_program_parameters):
+	
+	Scroll to selected executable and remember it across sessions
+	(followup of #477976)
+	
+	* plugins/debug-manager/plugin.c: (value_added_current_editor):
+	Check if it is an editor and cast afterwards, avoids a Gtk-Critical
+	
+	* plugins/devhelp/anjuta-devhelp.ui:
+	Rearraged toolbar items a bit
+
 2007-10-05 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/command.c,

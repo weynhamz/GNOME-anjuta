@@ -3,15 +3,15 @@
 	<menubar name="MenuMain">
 		<menu name="MenuEdit" action="ActionMenuEdit">
 			<placeholder name="PlaceholderEditMenus">
-			<placeholder name="PlaceholderSearchMenus">
-				<menu name="Search" action="ActionMenuEditSearch">
-					<menuitem name="Find" action="ActionEditSearchFind"/>
-					<menuitem name="FindNext" action="ActionEditSearchFindNext"/>
-					<menuitem name="FindPrevious" action="ActionEditSearchFindPrevious"/>
-					<menuitem name="Replace" action="ActionEditSearchReplace"/>
-					<menuitem name="FindInFiles" action="ActionEditSearchInFiles"/>
-					<menuitem name="ISearch" action="ActionEditSearchSelectionISearch"/>
-				</menu>
+			<placeholder name="PlaceholderEditSearchMenus">			
+			<menu name="Search" action="ActionMenuEditSearch">
+				<placeholder name="PlaceholderQuickSearchMenu" />
+				<menuitem name="Find" action="ActionEditSearchFind"/>
+				<menuitem name="FindNext" action="ActionEditSearchFindNext"/>
+				<menuitem name="FindPrevious" action="ActionEditSearchFindPrevious"/>
+				<menuitem name="Replace" action="ActionEditSearchReplace"/>
+				<menuitem name="FindInFiles" action="ActionEditSearchInFiles"/>
+			</menu>
 			</placeholder>
 			</placeholder>
 		</menu>
@@ -24,10 +24,4 @@
 		</menu>
 		</placeholder>
 	</menubar>
-	<toolbar name="ToolbarFind">
-		<placeholder name="PlaceholderFindToolbar">
-			<toolitem name="SearchNext" action="ActionEditSearchFindNext" />
-			<toolitem name="SearchEntry" action="ActionEditSearchEntry" />
-		</placeholder>
-	</toolbar>
 </ui>

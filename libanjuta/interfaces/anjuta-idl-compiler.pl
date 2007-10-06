@@ -771,6 +771,11 @@ sub get_arg_assert
 				return "";
 			}
 		}
+		# Correctly handle pointers to points (e.g AnjutaType** xy)
+		if ($saved_type =~ /\*\*$/)
+		{
+			return "";
+		}
 		## Autodetect type assert
 		if ($force ||
 			(($saved_type =~ /\*$/) &&

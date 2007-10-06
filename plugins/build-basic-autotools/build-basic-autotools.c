@@ -1602,6 +1602,12 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 								   "Program arguments", plugin->program_args);
 	anjuta_session_set_int (session, "Execution", "Run in terminal",
 							plugin->run_in_terminal + 1);
+	if (plugin->last_exec_uri)
+	{
+		anjuta_session_set_string (session, "Execution",
+								   "Last selected uri", plugin->last_exec_uri);
+	}		
+	
 	if (plugin->configure_args)
 		anjuta_session_set_string (session, "Build",
 								   "Configure parameters",
@@ -1612,7 +1618,7 @@ static void
 on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, BasicAutotoolsPlugin *plugin)
 {
-	gchar *program_args, *configure_args;
+	gchar *program_args, *configure_args, *last_uri;
 	gint run_in_terminal;
 				
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
@@ -1632,6 +1638,14 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	{
 		g_free (plugin->configure_args);
 		plugin->configure_args = configure_args;
+	}
+	
+	last_uri = anjuta_session_get_string (session, "Execution",
+								   "Last selected uri");
+	
+	if (last_uri)
+	{
+		plugin->last_exec_uri = last_uri;
 	}
 	
 	/* The flag is store as 1 == FALSE, 2 == TRUE */

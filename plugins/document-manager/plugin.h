@@ -42,6 +42,12 @@ struct _DocmanPlugin{
 	
 	/* Support plugins */
 	GList *support_plugins;
+  
+  /* SearchBox */
+  GtkWidget* search_box;
+	
+	/* Base box of the widget */
+	GtkWidget* vbox;
 };
 
 struct _DocmanPluginClass{

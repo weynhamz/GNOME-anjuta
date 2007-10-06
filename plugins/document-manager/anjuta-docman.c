@@ -782,7 +782,8 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument* te,
 				   
 	g_signal_emit_by_name (docman, "editor-added", te);
 	anjuta_docman_set_current_document(docman, IANJUTA_DOCUMENT(te));
-	anjuta_shell_present_widget( ANJUTA_SHELL (docman->shell), GTK_WIDGET (docman), NULL);
+	anjuta_shell_present_widget( ANJUTA_SHELL (docman->shell), 
+								GTK_WIDGET (docman->priv->plugin->vbox), NULL);
 	g_object_ref(G_OBJECT(te));	
 }
 
@@ -1115,7 +1116,6 @@ anjuta_docman_show_editor (AnjutaDocman *docman, GtkWidget* te)
 		{
 			gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), i);
 			anjuta_docman_set_current_document (docman, IANJUTA_DOCUMENT (te));
-			anjuta_shell_present_widget (ANJUTA_SHELL (docman->shell), GTK_WIDGET (docman), NULL);
 			return;
 		}
 		i++;
@@ -1174,7 +1174,8 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *te_widget)
 static void
 anjuta_docman_grab_text_focus (AnjutaDocman *docman)
 {
-	anjuta_shell_present_widget(docman->shell, GTK_WIDGET(docman), NULL);
+	anjuta_shell_present_widget(docman->shell, 
+								GTK_WIDGET(docman->priv->plugin->vbox), NULL);
 }
 
 void

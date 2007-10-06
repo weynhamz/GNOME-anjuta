@@ -1051,6 +1051,17 @@ interface IAnjutaEditor
 	 */
 	gint   get_position ();
 	
+	/*
+	 * ianjuta_editor_get_position_iter:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Get current caret position
+	 *
+	 * Returns: Iterator that points to the current position
+	 */
+	IAnjutaIterable*   get_position_iter ();
+	
 	/**
 	 * ianjuta_editor_line_from_position:
 	 * @obj: Self
@@ -1195,6 +1206,7 @@ interface IAnjutaEditor
 	 */
 	interface IAnjutaEditorSelection
 	{
+		#include <libanjuta/interfaces/ianjuta-editor-cell.h>
 		/**
 		 * ianjuta_editor_selection_has_selection:
 		 * @obj: Self
@@ -1226,12 +1238,23 @@ interface IAnjutaEditor
 		 * @obj: Self
 		 * @start: Begin of selection
 		 * @end: End of selection
-		 * @backward: Direction of search
+		 * @backward: Direction of selection
 		 * @err: Error propagation and reporting
 		 *
 		 * Select characters between start and end
 		 */
 		void set (gint start, gint end, gboolean backward);
+		
+		/**
+		 * ianjuta_editor_selection_set_iter:
+		 * @obj: Self
+		 * @start: Begin of selection
+		 * @end: End of selection
+		 * @err: Error propagation and reporting
+		 *
+		 * Select characters between start and end
+		 */
+		void set_iter (IAnjutaEditorCell* start, IAnjutaEditorCell* end);
 		
 		/**
 		 * ianjuta_editor_selection_get_start:
@@ -1246,6 +1269,18 @@ interface IAnjutaEditor
 		gint get_start ();
 		
 		/**
+		 * ianjuta_editor_selection_get_start_iter:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Gets start position of selection text. If there is no selection,
+		 * returns -1.
+		 *
+		 * Return: Start of selection or NULL if there is no selection.
+		 */
+		IAnjutaIterable* get_start_iter ();
+		
+		/**
 		 * ianjuta_editor_selection_get_end:
 		 * @obj: Self
 		 * @err: Error propagation and reporting
@@ -1257,6 +1292,18 @@ interface IAnjutaEditor
 		 */
 		gint get_end ();
 		
+		/**
+		 * ianjuta_editor_selection_get_end_iter:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Get end position of selection. If there is no selection, returns
+		 * NULL.
+		 * 
+		 * Return: End of selection or -1 if there is no selection.
+		 */
+		IAnjutaIterable* get_end_iter ();
+
 		/**
 		 * ianjuta_editor_selection_select_block:
 		 * @obj: Self
@@ -1312,6 +1359,52 @@ interface IAnjutaEditor
 		 */
 		void replace (const gchar *text, gint length);
 	}
+	
+	/**
+	 * SECTION:ianjuta-editor-search
+	 * @title: IAnjutaEditorSearch
+	 * @short_description: Text editor search interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-editor-search.h
+	 * 
+	 */
+	interface IAnjutaEditorSearch
+	{
+	  #include <libanjuta/interfaces/ianjuta-editor-cell.h>
+		
+		/**
+		 * ianjuta_editor_search_forward:
+		 * @obj: Self
+		 * @search: String to search for
+		 * @start: Where to search from
+	 	 * @end: Where to stop searching
+	 	 * @result_start: Will be set to the start of the search_result (or NULL)
+	 	 * @result_end: Will be set to the end of the search_result (or NULL)
+	 	 * @err: Error propagation and reporting
+	 	 *
+	 	 * Search forward from start to end
+	 	 *
+	 	 */
+		gboolean forward (const gchar* search, gboolean case_sensitive, IAnjutaEditorCell* start, IAnjutaEditorCell* end, IAnjutaEditorCell** result_start, IAnjutaEditorCell** result_end);
+				
+		/**
+		 * ianjuta_editor_search_backward:
+		 * @obj: Self
+		 * @search: String to search for		 
+		 * @start: Where to search from
+		 * @end: Where to stop searching
+		 * @result_start: Will be set to the start of the search_result (or NULL)
+		 * @result_end: Will be set to the end of the search_result (or NULL)
+		 * @err: Error propagation and reporting
+		 *
+		 * Search backward from end to start
+		 *
+		 */
+		 
+		 gboolean backward (const gchar* search, gboolean case_sensitive, IAnjutaEditorCell* start, IAnjutaEditorCell* end, IAnjutaEditorCell** result_start, IAnjutaEditorCell** result_end);	
+	}
+	
 	
 	/**
 	 * SECTION:ianjuta-editor-convert

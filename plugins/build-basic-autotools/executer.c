@@ -132,7 +132,12 @@ get_program_parameters (BasicAutotoolsPlugin *plugin,
       
       if (plugin->last_exec_uri && g_str_equal (plugin->last_exec_uri, node->data))
       { 
+				GtkTreePath* path = gtk_tree_model_get_path (GTK_TREE_MODEL (store), &iter);
         gtk_tree_selection_select_iter (selection, &iter);
+
+				gtk_tree_view_scroll_to_cell (GTK_TREE_VIEW (treeview), path, NULL, FALSE, 0, 0);
+				
+				gtk_tree_path_free (path);
         g_free (plugin->last_exec_uri);
         plugin->last_exec_uri = NULL;
       }

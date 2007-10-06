@@ -37,6 +37,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-comment.h>
 #include <libanjuta/interfaces/ianjuta-editor-zoom.h>
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
+#include <libanjuta/interfaces/ianjuta-editor-search.h>
 #include <libanjuta/interfaces/ianjuta-file-savable.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-language-support.h>
@@ -47,6 +48,7 @@
 #include "anjuta-docman.h"
 #include "action-callbacks.h"
 #include "plugin.h"
+#include "search-box.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-document-manager.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
@@ -223,10 +225,6 @@ static GtkActionEntry actions_comment[] = {
 
 static GtkActionEntry actions_navigation[] = {
   { "ActionMenuGoto", N_("_Goto"), NULL, NULL, NULL, NULL},
-  { "ActionEditGotoLineActivate", N_("_Goto Line number"),
-	GTK_STOCK_JUMP_TO, NULL,
-	N_("Go to a particular line in the editor"),
-    G_CALLBACK (on_goto_activate)},
   { "ActionEditGotoLine", N_("_Line Number..."),
 	GTK_STOCK_JUMP_TO, "<control><alt>g",
 	N_("Go to a particular line in the editor"),
@@ -251,6 +249,14 @@ static GtkActionEntry actions_navigation[] = {
 	GTK_STOCK_JUMP_TO, NULL,
 	N_("Goto next history"),
     G_CALLBACK (on_next_history)}
+};
+
+static GtkActionEntry actions_search[] = {
+	{ "ActionMenuEditSearch", N_("_Search"), NULL, NULL, NULL, NULL},
+	{ "ActionEditSearchQuickSearch", N_("_Quick Search"), GTK_STOCK_FIND,
+	"<control>f",
+	N_("Quick editor embedded search"),
+    G_CALLBACK (on_show_search)}
 };
 
 static GtkActionEntry actions_edit[] = {
@@ -388,7 +394,8 @@ static struct ActionGroupInfo action_groups[] = {
 	{ actions_zoom, G_N_ELEMENTS (actions_zoom), "ActionGroupEditorZoom", N_("Editor zoom operations") },
 	{ actions_style, G_N_ELEMENTS (actions_style), "ActionGroupEditorStyle", N_("Editor syntax highlighting styles") },
 	{ actions_format, G_N_ELEMENTS (actions_format), "ActionGroupEditorFormat", N_("Editor text formating") },
-	{ actions_bookmark, G_N_ELEMENTS (actions_bookmark), "ActionGroupEditorBookmark", N_("Editor bookmarks") }
+	{ actions_bookmark, G_N_ELEMENTS (actions_bookmark), "ActionGroupEditorBookmark", N_("Editor bookmarks") },
+	{ actions_search, G_N_ELEMENTS (actions_search), "ActionGroupEditorSearch", N_("Simple searching") }
 };
 
 static struct ActionToggleGroupInfo action_toggle_groups[] = {
@@ -565,7 +572,7 @@ ui_give_shorter_names (AnjutaPlugin *plugin)
 								   "ActionEditUndo");
 	g_object_set (G_OBJECT (action), "is-important", TRUE, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorNavigate",
-								   "ActionEditGotoLineActivate");
+								   "ActionEditGotoLine");
 	g_object_set (G_OBJECT (action), "short-label", _("Goto"), NULL);
 }
 
@@ -589,9 +596,6 @@ update_editor_ui_enable_all (AnjutaPlugin *plugin)
 			}
 		}
 	}
-	action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
-								   "ActionEditGotoLineEntry");
-	g_object_set (G_OBJECT (action), "sensitive", TRUE, NULL);
 }
 
 static void
@@ -614,10 +618,6 @@ update_editor_ui_disable_all (AnjutaPlugin *plugin)
 			}
 		}
 	}
-	action = anjuta_ui_get_action (ui, "ActionGroupNavigation",
-								   "ActionEditGotoLineEntry");
-	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-
 }
 
 static void
@@ -651,9 +651,11 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 	AnjutaUI *ui;
 	GtkAction *action;
 	gboolean flag;
+	IAnjutaLanguage* language = 
+		anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, NULL);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-
+	
 	/* IAnjutaEditorLanguage */
 	flag = IANJUTA_IS_EDITOR_LANGUAGE (editor);
 	
@@ -661,6 +663,35 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 								   "ActionMenuFormatStyle");
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	
+	/* Check if it is a C or C++ file */
+	if (language && flag)
+	{
+		const gchar* lang = 
+			ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (editor), NULL);
+		
+		IAnjutaLanguageId id = 
+			ianjuta_language_get_from_string (language, lang, NULL);
+		
+		const gchar* lang_name =
+			ianjuta_language_get_name (language, id, NULL);
+		
+		if (lang_name && (g_str_equal (lang_name, "C") || g_str_equal (lang_name, "C++")))
+		{
+			flag = TRUE;
+		}
+		else
+		{
+			flag = FALSE;
+		}
+	}
+	else
+	{
+		flag = FALSE;
+	}
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
+								   "ActionFileSwap");
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+
 	/* IAnjutaDocument */
 	flag = IANJUTA_IS_DOCUMENT (editor);
 	
@@ -776,7 +807,17 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui,  "ActionGroupEditorNavigate",
 								   "ActionEditGotoMatchingBrace");
-	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);	
+	g_object_set (G_OBJECT (action), "visible", flag, "sensitive", flag, NULL);
+	
+	/* IAnjutaEditorSearch */
+	flag = IANJUTA_IS_EDITOR_SEARCH (editor);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearch",
+								   "ActionEditSearchQuickSearch");	
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorNavigate",
+								   "ActionEditGotoLine");	
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+
 }
 
 static void
@@ -1017,7 +1058,7 @@ on_editor_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 					  G_CALLBACK (on_editor_update_save_ui),
 					  ANJUTA_PLUGIN (plugin));
 	anjuta_shell_present_widget (plugin->shell,
-								 GTK_WIDGET (docman), NULL);
+								 GTK_WIDGET (editor_plugin->vbox), NULL);
 
 	if (!IANJUTA_IS_EDITOR(doc))
 	{
@@ -1537,7 +1578,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	AnjutaUI *ui;
 	DocmanPlugin *editor_plugin;
 	GtkActionGroup *group;
-	GtkAction *action;
 	gint i;
 	AnjutaStatus *status;
 	static gboolean initialized = FALSE;
@@ -1552,6 +1592,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	ui = editor_plugin->ui;
 	docman = anjuta_docman_new (editor_plugin, editor_plugin->prefs);
 	editor_plugin->docman = docman;
+	
+	editor_plugin->search_box = search_box_new (editor_plugin);
+	
 	ANJUTA_DOCMAN(docman)->shell = plugin->shell;
 	g_signal_connect (G_OBJECT (docman), "editor-added",
 					  G_CALLBACK (on_editor_added), plugin);
@@ -1576,6 +1619,7 @@ activate_plugin (AnjutaPlugin *plugin)
 		if (!initialized)
 			swap_label_and_stock (action_groups[i].group,
 								  action_groups[i].size);
+		DEBUG_PRINT ("Adding action group: %s", action_groups[i].name);
 		group = anjuta_ui_add_action_group_entries (ui, 
 													action_groups[i].name,
 													_(action_groups[i].label),
@@ -1613,32 +1657,18 @@ activate_plugin (AnjutaPlugin *plugin)
 			act = g_list_next (act);
 		}
 	}
-	group = gtk_action_group_new ("ActionGroupNavigation");
-	editor_plugin->action_groups =
-		g_list_prepend (editor_plugin->action_groups, group);
-	
-	action = g_object_new (EGG_TYPE_ENTRY_ACTION,
-						   "name", "ActionEditGotoLineEntry",
-						   "label", _("Goto line"),
-						   "tooltip", _("Enter the line number to jump and press enter"),
-						   "stock_id", GTK_STOCK_JUMP_TO,
-						   "width", 50,
-							NULL);
-	g_signal_connect (action, "activate",
-					  G_CALLBACK (on_toolbar_goto_clicked), plugin);
-	gtk_action_group_add_action (group, action);
-	
-	anjuta_ui_add_action_group (ui, "ActionGroupNavigation",
-								N_("Editor quick navigations"),
-								group, FALSE);
 	
 	/* Add UI */
 	editor_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	anjuta_shell_add_widget_full (plugin->shell, docman,
+	editor_plugin->vbox = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (editor_plugin->vbox);
+	gtk_box_pack_start_defaults (GTK_BOX(editor_plugin->vbox), docman);
+	anjuta_shell_add_widget_full (plugin->shell, editor_plugin->vbox,
 							 "AnjutaDocumentManager", _("Documents"),
 							 "editor-plugin-icon", 
 							 ANJUTA_SHELL_PLACEMENT_CENTER, 
 							 TRUE, NULL); 
+		
 	ui_states_init(plugin);
 	ui_give_shorter_names (plugin);
 	update_editor_ui (plugin, NULL);
@@ -1666,6 +1696,8 @@ activate_plugin (AnjutaPlugin *plugin)
 	editor_plugin->project_name = NULL;
 	
 	initialized = TRUE;
+
+	
 	return TRUE;
 }
 
@@ -1708,6 +1740,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	/* Widget is removed from the container when destroyed */
 	gtk_widget_destroy (eplugin->docman);
+	gtk_widget_destroy (eplugin->search_box);
 	anjuta_ui_unmerge (ui, eplugin->uiid);
 	node = eplugin->action_groups;
 	while (node)

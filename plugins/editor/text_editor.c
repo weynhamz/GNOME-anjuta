@@ -45,6 +45,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-goto.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
+#include <libanjuta/interfaces/ianjuta-editor-search.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -2205,6 +2206,14 @@ itext_editor_get_position (IAnjutaEditor *editor, GError **e)
 	return text_editor_get_current_position (TEXT_EDITOR(editor));
 }
 
+static IAnjutaIterable*
+itext_editor_get_position_iter (IAnjutaEditor* editor, GError **e)
+{
+	TextEditor* te = TEXT_EDITOR (editor);
+	return IANJUTA_ITERABLE (text_editor_cell_new (te,
+												   text_editor_get_current_position (te)));
+}
+
 static gint
 itext_editor_get_lineno (IAnjutaEditor *editor, GError **e)
 {
@@ -2359,6 +2368,7 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->goto_position = itext_editor_goto_position;
 	iface->get_text = itext_editor_get_text;
 	iface->get_position = itext_editor_get_position;
+	iface->get_position_iter = itext_editor_get_position_iter;
 	iface->get_lineno = itext_editor_get_lineno;
 	iface->get_length = itext_editor_get_length;
 	iface->get_current_word = itext_editor_get_current_word;
@@ -2486,6 +2496,19 @@ iselection_set (IAnjutaEditorSelection *editor, gint start, gint end,
 						   SCI_SETSEL, end, start);
 }
 
+static void
+iselection_set_iter (IAnjutaEditorSelection* edit, 
+				  IAnjutaEditorCell* istart,
+				  IAnjutaEditorCell* iend,
+				  GError** e)
+{
+	TextEditorCell* start = TEXT_EDITOR_CELL (istart);
+	TextEditorCell* end = TEXT_EDITOR_CELL (iend);
+	
+	iselection_set (edit, text_editor_cell_get_position (start),
+					text_editor_cell_get_position (end), FALSE, e);
+}
+
 static gboolean
 iselection_has_selection (IAnjutaEditorSelection *editor, GError **e)
 {
@@ -2502,6 +2525,18 @@ iselection_get_start (IAnjutaEditorSelection *editor, GError **e)
 	return (start != end)? start: -1;
 }
 
+static IAnjutaIterable*
+iselection_get_start_iter (IAnjutaEditorSelection *edit, GError **e)
+{
+	gint start = iselection_get_start (edit, e);
+	if (start != -1)
+	{
+		return IANJUTA_ITERABLE (text_editor_cell_new (TEXT_EDITOR (edit), start));
+	}
+	else
+		return NULL;
+}
+
 static gint
 iselection_get_end (IAnjutaEditorSelection *editor, GError **e)
 {
@@ -2510,6 +2545,18 @@ iselection_get_end (IAnjutaEditorSelection *editor, GError **e)
 	gint end = scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
 									   SCI_GETSELECTIONEND, 0, 0);
 	return (start != end)? end: -1;
+}
+
+static IAnjutaIterable*
+iselection_get_end_iter (IAnjutaEditorSelection *edit, GError **e)
+{
+	gint end = iselection_get_end (edit, e);
+	if (end != -1)
+	{
+		return IANJUTA_ITERABLE (text_editor_cell_new (TEXT_EDITOR (edit), end));
+	}
+	else
+		return NULL;
 }
 
 static void
@@ -2593,8 +2640,11 @@ iselection_iface_init (IAnjutaEditorSelectionIface *iface)
 	iface->has_selection = iselection_has_selection;
 	iface->get = iselection_get;
 	iface->set = iselection_set;
+	iface->set_iter = iselection_set_iter;
 	iface->get_start = iselection_get_start;
+	iface->get_start_iter = iselection_get_start_iter;
 	iface->get_end = iselection_get_end;
+	iface->get_end_iter = iselection_get_end_iter;
 	iface->replace = iselection_replace;
 	iface->select_all = iselection_select_all;
 	iface->select_to_brace = iselection_select_to_brace;
@@ -3491,6 +3541,95 @@ ilanguage_iface_init (IAnjutaEditorLanguageIface *iface)
 	iface->set_language = ilanguage_set_language;
 }
 
+static gboolean
+isearch_forward (IAnjutaEditorSearch* isearch,
+				 const gchar* search,
+				 gboolean case_sensitive,
+				 IAnjutaEditorCell* istart, 
+				 IAnjutaEditorCell* iend,
+				 IAnjutaEditorCell** iresult_start,
+				 IAnjutaEditorCell** iresult_end,
+				 GError** e)
+{
+	TextEditor *te = TEXT_EDITOR (isearch);
+	gint start = text_editor_cell_get_position (TEXT_EDITOR_CELL (istart));
+	gint end = text_editor_cell_get_position (TEXT_EDITOR_CELL (iend));
+
+	gint flags = 0;
+	gint retval;
+	
+	if (case_sensitive)
+	{
+		flags = SCFIND_MATCHCASE;
+	}
+	
+	struct TextToFind to_find;
+	
+	to_find.chrg.cpMin = start;
+	to_find.chrg.cpMax = end;
+	
+	to_find.lpstrText = (gchar*) search;
+	
+	retval = scintilla_send_message (SCINTILLA (te->scintilla),
+									 SCI_FINDTEXT, flags, (long) &to_find);
+	if (retval == -1)
+		return FALSE;
+	else
+	{
+		*iresult_start = IANJUTA_EDITOR_CELL (text_editor_cell_new (te, to_find.chrgText.cpMin));
+		*iresult_end = IANJUTA_EDITOR_CELL (text_editor_cell_new (te, to_find.chrgText.cpMax));
+		return TRUE;
+	}
+}
+
+static gboolean
+isearch_backward (IAnjutaEditorSearch* isearch,
+				  const gchar* search,
+				  gboolean case_sensitive,
+				  IAnjutaEditorCell* istart, 
+				  IAnjutaEditorCell* iend,
+				  IAnjutaEditorCell** iresult_start,
+				  IAnjutaEditorCell** iresult_end,
+				  GError** e)
+{
+	TextEditor *te = TEXT_EDITOR (isearch);
+	gint end = text_editor_cell_get_position (TEXT_EDITOR_CELL (istart));
+	gint start = text_editor_cell_get_position (TEXT_EDITOR_CELL (iend));
+
+	gint flags = 0;
+	gint retval;
+	
+	if (case_sensitive)
+	{
+		flags = SCFIND_MATCHCASE;
+	}
+	
+	struct TextToFind to_find;
+	
+	to_find.chrg.cpMin = start;
+	to_find.chrg.cpMax = end;
+	
+	to_find.lpstrText = (gchar*) search;
+	
+	retval = scintilla_send_message (SCINTILLA (te->scintilla), SCI_FINDTEXT, flags, (long) &to_find);
+	if (retval == -1)
+		return FALSE;
+	else
+	{
+		*iresult_start = IANJUTA_EDITOR_CELL (text_editor_cell_new (te, to_find.chrgText.cpMin));
+		*iresult_end = IANJUTA_EDITOR_CELL (text_editor_cell_new (te, to_find.chrgText.cpMax));
+		return TRUE;
+	}
+}
+
+static void
+isearch_iface_init(IAnjutaEditorSearchIface* iface)
+{
+	iface->forward = isearch_forward;
+	iface->backward = isearch_backward;
+}
+
+
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
 ANJUTA_TYPE_ADD_INTERFACE(isavable, IANJUTA_TYPE_FILE_SAVABLE);
@@ -3510,6 +3649,7 @@ ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 ANJUTA_TYPE_ADD_INTERFACE(icomment, IANJUTA_TYPE_EDITOR_COMMENT);
 ANJUTA_TYPE_ADD_INTERFACE(izoom, IANJUTA_TYPE_EDITOR_ZOOM);
 ANJUTA_TYPE_ADD_INTERFACE(igoto, IANJUTA_TYPE_EDITOR_GOTO);
+ANJUTA_TYPE_ADD_INTERFACE(isearch, IANJUTA_TYPE_EDITOR_SEARCH);
 
 /* FIXME: Is factory definition really required for editor class? */
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor_factory, IANJUTA_TYPE_EDITOR_FACTORY);

@@ -47,7 +47,7 @@
 #include "action-callbacks.h"
 #include "plugin.h"
 #include "file_history.h"
-#include "goto_line.h"
+#include "search-box.h"
 
 static IAnjutaDocument*
 get_current_editor(gpointer user_data)
@@ -577,78 +577,20 @@ void on_comment_stream (GtkAction * action, gpointer user_data)
 }
 
 void
-on_goto_activate (GtkAction *action, gpointer user_data)
-{
-	DocmanPlugin *plugin;
-	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	anjuta_ui_activate_action_by_path (plugin->ui,
-		"ActionGroupNavigation/ActionEditGotoLineEntry");
-}
-
-void
-on_toolbar_goto_clicked (GtkAction *action, gpointer user_data)
-{
-	DocmanPlugin *plugin;
-	AnjutaUI *ui;
-	AnjutaShell* shell;
-	AnjutaDocman *docman;
-	IAnjutaDocument*te;
-	guint line;
-	const gchar *line_ascii;
-	
-	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_document(docman);
-	g_object_get(G_OBJECT(plugin), "shell", &shell, NULL);
-	ui = anjuta_shell_get_ui(shell, NULL);
-	
-	if (EGG_IS_ENTRY_ACTION (action))
-	{
-		line_ascii = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	else
-	{
-		GtkAction *entry_action;
-		entry_action = anjuta_ui_get_action (ui, "ActionNavigation",
-									   "ActionEditSearchEntry");
-		g_return_if_fail (EGG_IS_ENTRY_ACTION (action));
-		line_ascii = egg_entry_action_get_text (EGG_ENTRY_ACTION (action));
-	}
-	if (strlen (line_ascii) == 0)
-		return;
-	
-	if (te)
-	{
-		line = atoi (line_ascii);
-		ianjuta_editor_goto_line(IANJUTA_EDITOR(te), line, NULL);
-		if (IANJUTA_IS_MARKABLE (te))
-		{
-			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (te),
-												 IANJUTA_MARKABLE_LINEMARKER,
-												 NULL);
-			ianjuta_markable_mark (IANJUTA_MARKABLE (te),
-								   line, IANJUTA_MARKABLE_LINEMARKER, NULL);
-		}
-	}
-}
-
-void
 on_goto_line_no1_activate (GtkAction * action, gpointer user_data)
 {
-	GtkWidget *gt;
 	DocmanPlugin *plugin;
 	AnjutaDocman *docman;
-	IAnjutaDocument *te;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	docman = ANJUTA_DOCMAN (plugin->docman);
-	te = anjuta_docman_get_current_document (docman);
 	
-	if (te)
+	if (!gtk_widget_get_parent (plugin->search_box))
 	{
-		gt = gotoline_new (IANJUTA_EDITOR(te));
-		gtk_widget_show (gt);
+			gtk_box_pack_end (GTK_BOX(plugin->vbox), plugin->search_box, FALSE, FALSE, 0);
 	}
+	gtk_widget_show (plugin->search_box);
+	search_box_grab_line_focus (SEARCH_BOX (plugin->search_box));
 }
 
 void
@@ -944,6 +886,23 @@ on_swap_activate (GtkAction *action, gpointer user_data)
 	}
 	return;
 }
+
+void
+on_show_search (GtkAction *action, gpointer user_data)
+{
+	DocmanPlugin *plugin;
+	
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	
+	if (!gtk_widget_get_parent (plugin->search_box))
+	{
+			gtk_box_pack_end (GTK_BOX(plugin->vbox), plugin->search_box, FALSE, FALSE, 0);
+	}
+
+	gtk_widget_show (plugin->search_box);
+	search_box_grab_search_focus (SEARCH_BOX (plugin->search_box));
+}
+
 
 void
 on_editor_add_view_activate (GtkAction *action, gpointer user_data)

@@ -56,6 +56,8 @@ struct _SourceviewCellClass {
 GType sourceview_cell_get_type(void);
 SourceviewCell *sourceview_cell_new(GtkTextIter* iter, GtkTextView* view);
 
+GtkTextIter* sourceview_cell_get_iter (SourceviewCell* cell);
+
 G_END_DECLS
 
 #endif /* SOURCEVIEW_CELL_H */

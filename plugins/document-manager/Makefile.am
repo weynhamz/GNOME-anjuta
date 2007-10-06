@@ -48,8 +48,8 @@ libanjuta_document_manager_la_SOURCES= \
 	file_history.h \
 	editor-tooltips.c \
 	editor-tooltips.h \
-	goto_line.c \
-	goto_line.h
+	search-box.h \
+	search-box.c
 	
 prefs_glade_files = anjuta-document-manager.glade
 include $(top_srcdir)/scripts/build-schemas.mk

@@ -19,10 +19,10 @@
 		</placeholder>
 	</menubar>
 	<toolbar name="ToolbarMain">
-		<separator name="separator1" />
-		<toolitem name="Context" action="ActionHelpContext" />
 	</toolbar>
-	<toolbar name="ToolbarBrowser">
+	<toolbar name="ToolbarBrowser">		
+		<toolitem name="Context" action="ActionHelpContext" />
+		<separator name="separator1" />
 		<toolitem name="BackHelp" action="ActionDevhelpBack" />
 		<toolitem name="ForwardHelp" action="ActionDevhelpForward" />
 	</toolbar>

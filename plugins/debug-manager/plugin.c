@@ -283,23 +283,23 @@ static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
-	IAnjutaEditor *editor;
+	GObject *editor;
 	DebugManagerPlugin *self;
 
 	self = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
-	editor = IANJUTA_EDITOR (g_value_get_object (value));
-	
+
+	editor = g_value_get_object (value);
 	if (!IANJUTA_IS_EDITOR(editor))
 	{
 		self->current_editor = NULL;
 		return;
 	}
-	
-	self->current_editor = editor;
+							 
+	self->current_editor = IANJUTA_EDITOR (editor);
 	g_object_add_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)(gpointer)&self->current_editor);
 		
     /* Restore breakpoints */
-	breakpoints_dbase_set_all_in_editor (self->breakpoints, editor);
+	breakpoints_dbase_set_all_in_editor (self->breakpoints, self->current_editor);
 	
 	/* Restore program counter marker */
 	show_program_counter_in_editor (self);

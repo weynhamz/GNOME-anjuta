@@ -97,4 +97,6 @@ void on_swap_activate (GtkAction *action, gpointer user_data);
 void on_editor_add_view_activate (GtkAction *action, gpointer user_data);
 void on_editor_remove_view_activate (GtkAction *action, gpointer user_data);
 
+void on_show_search (GtkAction *action, gpointer user_data);
+
 #endif
