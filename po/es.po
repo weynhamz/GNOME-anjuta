@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-24 22:52+0100\n"
-"PO-Revision-Date: 2007-09-26 11:21+0200\n"
+"POT-Creation-Date: 2007-10-01 20:42+0100\n"
+"PO-Revision-Date: 2007-10-07 13:01+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -213,18 +213,18 @@ msgstr "Codificaciones soportadas"
 msgid "Supported Encodings"
 msgstr "Codificaciones soportadas"
 
-#: ../libanjuta/anjuta-launcher.c:836
+#: ../libanjuta/anjuta-launcher.c:858
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: error al leer pty hija\n"
 
-#: ../libanjuta/anjuta-launcher.c:1057 ../libanjuta/resources.c:264
-#: ../libanjuta/resources.c:273 ../plugins/devhelp/plugin.c:500
-#: ../plugins/devhelp/plugin.c:509 ../plugins/gdb/utilities.c:280
+#: ../libanjuta/anjuta-launcher.c:1079 ../libanjuta/resources.c:264
+#: ../libanjuta/resources.c:273 ../plugins/devhelp/plugin.c:502
+#: ../plugins/devhelp/plugin.c:511 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
 msgstr "No se puede ejecutar el comando: \"%s\""
 
-#: ../libanjuta/anjuta-launcher.c:1058
+#: ../libanjuta/anjuta-launcher.c:1080
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
@@ -251,8 +251,8 @@ msgid ""
 "%s"
 msgstr ""
 "No se pudo cargar %s\n"
-"Esto generalmente significa que su instalación está dañada. El mensaje de error "
-"que ha llevado a esto es:\n"
+"Esto generalmente significa que su instalación está dañada. El mensaje de "
+"error que ha llevado a esto es:\n"
 "%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:897
@@ -457,7 +457,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Si no guarda, se perderán todos sus cambios."
 
 #: ../libanjuta/anjuta-save-prompt.c:195
-#: ../plugins/document-manager/plugin.c:582
+#: ../plugins/document-manager/plugin.c:559
 msgid "Save"
 msgstr "Guardar"
 
@@ -854,8 +854,8 @@ msgstr "Comandos de construcción"
 msgid "Build popup commands"
 msgstr "Comandos de construcción emergentes"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2227
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2247
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2228
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2248
 msgid "Build Autotools"
 msgstr "Autotools de construcción"
 
@@ -863,34 +863,34 @@ msgstr "Autotools de construcción"
 msgid "No executables in this project!"
 msgstr "No hay ejecutable para este proyecto."
 
-#: ../plugins/build-basic-autotools/executer.c:141
+#: ../plugins/build-basic-autotools/executer.c:149
 msgid "Program"
 msgstr "Programa"
 
-#: ../plugins/build-basic-autotools/executer.c:233
+#: ../plugins/build-basic-autotools/executer.c:250
 msgid "No file or Project opened."
 msgstr "No hay archivos o proyectos abiertos."
 
-#: ../plugins/build-basic-autotools/executer.c:273
+#: ../plugins/build-basic-autotools/executer.c:290
 #, c-format
 msgid "Program '%s' is not a local file"
 msgstr "El programa «%s» no es un archivo local"
 
-#: ../plugins/build-basic-autotools/executer.c:288
+#: ../plugins/build-basic-autotools/executer.c:305
 #, c-format
 msgid "Program '%s' does not exists"
 msgstr "El programa «%s» no existe"
 
-#: ../plugins/build-basic-autotools/executer.c:296
+#: ../plugins/build-basic-autotools/executer.c:313
 #, c-format
 msgid "Program '%s' does not have execution permission"
 msgstr "El programa «%s» no tiene permiso de ejecución"
 
-#: ../plugins/build-basic-autotools/executer.c:328
+#: ../plugins/build-basic-autotools/executer.c:345
 msgid "No executable for this file."
 msgstr "No hay ejecutable para este archivo."
 
-#: ../plugins/build-basic-autotools/executer.c:334
+#: ../plugins/build-basic-autotools/executer.c:351
 #, c-format
 msgid "Executable '%s' is not up-to-date."
 msgstr "El ejecutable «%s» no está actualizado."
@@ -1717,8 +1717,8 @@ msgstr "Archivo"
 #: ../plugins/debug-manager/breakpoints.c:135
 #: ../plugins/debug-manager/stack_trace.c:628
 #: ../plugins/debug-manager/threads.c:438
-#: ../plugins/document-manager/plugin.c:916
-#: ../plugins/document-manager/plugin.c:927
+#: ../plugins/document-manager/plugin.c:891
+#: ../plugins/document-manager/plugin.c:902
 msgid "Line"
 msgstr "Línea"
 
@@ -2124,7 +2124,7 @@ msgstr "Operaciones de depuración"
 #: ../plugins/debug-manager/queue.c:422
 #, c-format
 msgid "Unable to find one debugger plugin acception %s mime type"
-msgstr ""
+msgstr "Imposible encontrar un tipo MIME %s de acepción de complemento de depuración"
 
 #: ../plugins/debug-manager/registers.c:424
 msgid "Register"
@@ -2367,7 +2367,7 @@ msgstr "Vigilancias"
 msgid "Search Help:"
 msgstr "Buscar en la ayuda:"
 
-#: ../plugins/devhelp/plugin.c:202 ../plugins/document-manager/plugin.c:229
+#: ../plugins/devhelp/plugin.c:202 ../plugins/document-manager/plugin.c:225
 #: ../plugins/message-view/plugin.c:71 ../plugins/symbol-browser/plugin.c:279
 msgid "_Goto"
 msgstr "_Ir a"
@@ -2412,42 +2412,33 @@ msgstr "_Buscar ayuda"
 msgid "Search for a term in help"
 msgstr "Buscar un término en la ayuda"
 
-#: ../plugins/devhelp/plugin.c:300
+#: ../plugins/devhelp/plugin.c:302
 msgid "Help operations"
 msgstr "Operaciones con ayuda"
 
-#: ../plugins/devhelp/plugin.c:335
+#: ../plugins/devhelp/plugin.c:337
 msgid "Books"
 msgstr "Libros"
 
-#: ../plugins/devhelp/plugin.c:337 ../plugins/search/plugin.c:596
+#: ../plugins/devhelp/plugin.c:339 ../plugins/search/plugin.c:596
 #: ../plugins/search/search-replace.c:931
 #: ../plugins/search/search-replace.c:1598
 #: ../plugins/search/search-replace.c:1605
 #: ../plugins/search/search-replace.c:1617
 #: ../plugins/search/search-replace.c:1928
-#: ../plugins/symbol-browser/plugin.c:1046 ../plugins/symbol-db/plugin.c:890
+#: ../plugins/symbol-browser/plugin.c:1046 ../plugins/symbol-db/plugin.c:864
 msgid "Search"
 msgstr "Buscar"
 
-#: ../plugins/devhelp/plugin.c:342 ../src/anjuta-app.c:597
+#: ../plugins/devhelp/plugin.c:344 ../src/anjuta-app.c:597
 msgid "Help"
 msgstr "Ayuda"
 
-#: ../plugins/devhelp/plugin.c:345
+#: ../plugins/devhelp/plugin.c:347
 msgid "Help display"
 msgstr "Visor de ayuda"
 
-#: ../plugins/document-manager/action-callbacks.c:73
-msgid "Auto format is currently disabled. Change the setting in Preferences."
-msgstr "Autoformato desactivado. Si lo desea, actívelo en Preferencias."
-
-#: ../plugins/document-manager/action-callbacks.c:89
-#, c-format
-msgid "Anjuta does not know %s!"
-msgstr "Anjuta no sabe %s"
-
-#: ../plugins/document-manager/action-callbacks.c:284
+#: ../plugins/document-manager/action-callbacks.c:232
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -2456,7 +2447,7 @@ msgstr ""
 "¿Seguro que desea recargar «%s». ?\n"
 "Perderá todas las modificaciones sin guardar."
 
-#: ../plugins/document-manager/action-callbacks.c:295
+#: ../plugins/document-manager/action-callbacks.c:243
 #: ../plugins/editor/text_editor.c:338 ../plugins/sourceview/sourceview.c:194
 msgid "_Reload"
 msgstr "_Recargar"
@@ -2493,471 +2484,69 @@ msgid "_Replace"
 msgstr "_Reemplazar"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:1
-msgid "#Else #Endif "
-msgstr "#Else #Endif "
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:2
-msgid "<b>'indent' arguments</b>"
-msgstr "<b>'sangrar' argumentos</b>"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:3
-msgid "<b>Autoformat style</b>"
-msgstr "<b>Estilo de autoformato</b>"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:4
 msgid "<b>Autosave</b>"
 msgstr "<b>Autoguardar</b>"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:5
-msgid "<b>Blank Lines</b>"
-msgstr "<b>Líneas en blanco</b>"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:6
-msgid "<b>Breaking Long Lines</b>"
-msgstr "<b>Romper líneas largas</b>"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-msgid "<b>Comments</b>"
-msgstr "<b>Comentarios</b>"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:8
-msgid "<b>Declarations</b>"
-msgstr "<b>Declaraciones</b>"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:9
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:2
 msgid "<b>Editor tabs</b>"
 msgstr "<b>Solapas del editor</b>"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:10
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:3
 msgid "<b>Encoding to use when saving files</b>"
 msgstr "<b>Codificación a usar al guardar archivos</b>"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:11
-msgid "<b>Indentation</b>"
-msgstr "<b>Sangría</b>"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:12
-msgid "<b>Statements</b>"
-msgstr "<b>Sentencias</b>"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:13
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:4
 msgid "<b>Supported Encodings</b>"
 msgstr "<b>Codificaciones soportadas</b>"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:14
-msgid "After Declarations"
-msgstr "Después de las declaraciones"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:15
-msgid "After Procedures"
-msgstr "Después de los procedimientos"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:16
-msgid "All Comments"
-msgstr "Todos los comentarios"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:17
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:5
 msgid "Always save in UTF-8 encoding (faster)"
 msgstr "Siempre guardar usando codificación UTF-8 (más rápido)"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:18
-msgid ""
-"Arguments associated with the selected autoformat style. \n"
-"Select the 'Indent Setting' button to manage the autoformat styles.\n"
-"Read the info page for 'indent' for more details"
-msgstr ""
-"El argumento asociado con el estilo seleccionado de autoformato. \n"
-"Seleccione el botón «Configurar sangría» para gestionar los estilos de "
-"autoformato.\n"
-"Lea la página info de «indent» para más detalles"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:21
-msgid "Brace"
-msgstr "Llave"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:22
-msgid "Braces after IF Line"
-msgstr "Llaves después de línea IF"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:23
-msgid "Braces after Struct"
-msgstr "Llaves después de struct"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:24
-msgid "Braces on IF line"
-msgstr "Llaves en línea IF"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:25
-msgid "Braces on Struct"
-msgstr "Llaves en Struct"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:26
-msgid "Break before Boolean"
-msgstr "Romper antes de boolean"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:27
-msgid "Case"
-msgstr "Capitalización"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:28
-msgid "Continuation"
-msgstr "Continuación"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:29
-msgid "Continue at Parenth."
-msgstr "Continuar en la pareja"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:30
-msgid ""
-"Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
-"parameters by default)."
-msgstr ""
-"Crear un estilo nuevo definido en la entrada «Estilo nuevo» («-gnu» por "
-"omisión)."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:31
-msgid "Cuddle Else"
-msgstr "Arrimar Else"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:32
-msgid "Cuddle up to the immediately preceding '}' in an if-then-else construct."
-msgstr "Arrimarse al '}' inmediatamente precedente en una construcción if-then-else."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:33
-msgid "Declaration  "
-msgstr "Declaración"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:34
-msgid "Declarations  "
-msgstr "Declaraciones"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:35
-msgid "Delete the style selected in the combo style selector."
-msgstr "Borra el estilo seleccionado en el selector de estilos"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:36
-msgid "Delimiters on BL"
-msgstr "Delimitadores en BL"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:37
-msgid "Disable auto-format"
-msgstr "Desactivar autoformato"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:38
-msgid "Display the indent output according the selected parameters."
-msgstr "Muestra la salida de indent de acuerdo con los parámetros seleccionados."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:39
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:6
 msgid "Do not show tabs"
 msgstr "No mostrar tabuladores"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:40
-#: ../plugins/document-manager/plugin.c:1647
-#: ../plugins/document-manager/plugin.c:2018
-#: ../plugins/document-manager/plugin.c:2042
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:7
+#: ../plugins/document-manager/plugin.c:1638
+#: ../plugins/document-manager/plugin.c:2002
+#: ../plugins/document-manager/plugin.c:2014
 msgid "Documents"
 msgstr "Documentos"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:41
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:8
 msgid "Enable files autosave"
 msgstr "Activar autoguardado de archivos"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:42
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:9
 msgid "Encodings"
 msgstr "Codificaciones"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:43
-msgid "First Column"
-msgstr "Primera columna"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:44
-msgid "Foece a space between an 'if' and the following parenthesis (default)."
-msgstr "Forzar un espacio entre un 'if' y los siguientes paréntesos (predet.)"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:45
-msgid "Force a blank line after every block of declarations."
-msgstr "Fuerza una línea en blanco después de cada bloque de declaraciones."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:46
-msgid "Force a blank line after every procedure body."
-msgstr "Fuerza una línea en blanco después de cada cuerpo de procedimiento."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:47
-msgid "Force a newline after each comma in a declaration."
-msgstr "Fuerza una línea en blanco después de cada coma en una declaración"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:48
-msgid "Force a space between a 'for' and the following parenthesis (default)."
-msgstr "Fuerza un espacio entre un «for» y el siguiente paréntesis (predeterminado)."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:49
-msgid "Force a space between a 'while' and the following parenthesis (default)."
-msgstr "Forzar un espacio entre un 'while' y el siguiente paréntesis (predeterminado)"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:50
-msgid "Format comments which begin after the first column."
-msgstr "Formatear comentarios que comienzan después de la primera columna."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:51
-msgid "Format comments which begin in column one."
-msgstr "Formatear comentarios que empiezan en la columna uno."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:52
-msgid "Honour Newlines"
-msgstr "Respetar en líneas nuevas"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:53
-msgid "Honour newlines by giving them the highest possible priority."
-msgstr "Respetar las líneas nuevas dándoles la máxima prioridad posible."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:54
-msgid "Indent"
-msgstr "Sangría"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:55
-msgid "Indent Preferences"
-msgstr "Preferencias de sangría"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:56
-msgid "Indent Setting"
-msgstr "Ajusted de sangría"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:57
-msgid "Indentation"
-msgstr "Sangrado"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:58
-msgid "Insert a line before a Box comment."
-msgstr "Insertar una línea antes de un comentario de caja."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:59
-msgid "Length       "
-msgstr "Longitud        "
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:60
-msgid "Level              "
-msgstr "Nivel              "
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:61
-msgid "Line Indent   "
-msgstr "Sangría de línea"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:62
-msgid "Line after Commas"
-msgstr "Línea después de comas"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:63
-msgid "Line before Box "
-msgstr "Línea antes de caja"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:64
-msgid ""
-"Line up continuation line to start at the character position just after the "
-"left parenthesis if a line has a left parenthesis which is not closed on "
-"that line."
-msgstr ""
-"Alinear la línea de continuación para empezar en la posición del caracter "
-"justo después del paréntesis izquierdo si una línea tiene un paréntesis "
-"izquierdo que no está cerrado en esa línea."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:65
-msgid ""
-"New\n"
-"Style"
-msgstr ""
-"Estilo\n"
-"Nuevo"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:67
-msgid ""
-"Note: If there is a project open, the preferences in this page are project "
-"preferences and will be loaded from and saved with the project. If there is "
-"no project open, they will be global preferences."
-msgstr ""
-"Nota: Si hay un proyecto abierto, las preferencias en esta página son "
-"preferencias del proyecto y serán cargadas con y guardadas con el proyecto. "
-"Si no hay un proyecto abierto, serán preferencias globales."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:68
-msgid "Parameter     "
-msgstr "Parámetro"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:69
-msgid "Place a space after a cast operator."
-msgstr "Colocar un espacio después de un operador cast."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:70
-msgid "Place a space between the name of the procedure being called and the '('."
-msgstr "Coloca un espacio entre el nombre del procedimiento que se llama y el '('."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:71
-msgid "Place stars at the beginning of multi-line comments."
-msgstr "Colocar estrellas al comienzo de comentarios multilínea."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:72
-msgid "Place the '{' following a 'struct' declaration on the next line."
-msgstr "Colocar el '{' siguiendo una declaración 'struct' en la siguiente línea."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:73
-msgid "Place the '{' following a 'struct' declaration on the same line."
-msgstr "Colocar el '{' siguiendo una declaración 'struct' en la misma línea."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:74
-msgid "Place the brace on the line following the if test."
-msgstr "Colocar la llave en la línea siguiente al test if."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:75
-msgid "Place the brace on the line of the if test."
-msgstr "Colocar la llave en la línea del test if."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:76
-msgid "Place the comment delimiters on blank lines."
-msgstr "Colocar los delimitadores de comentario en líneas en blanco."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:77
-msgid "Place the type of a procedure beeing defined on the previous line."
-msgstr "Colocar el tipo del procedimiento siendo definido en la línea anterior."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:78
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:10
 msgid "Position:"
 msgstr "Posición:"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:79
-msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
-msgstr "Preferir romper líneas largas antes de los operadores booleanos '&&' y '||'."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:80
-#: ../plugins/valgrind/preferences.c:162
-msgid "Preview"
-msgstr "Vista previa"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:81
-msgid "Procnames start lines"
-msgstr "Líneas de comienzo de los nombres de procedimiento"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:82
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:11
 msgid "Save files interval in minutes"
 msgstr "Intervalo de guardado de archivos en minutos"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:83
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:12
 msgid "Save session interval in minutes"
 msgstr "Intervalo de guardado de la sesión en minutos"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:84
-msgid "Save the selected Style with the modified parameters."
-msgstr "Guarda el estilo actual con los parámetros modificados."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:85
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:13
 msgid "Sorted by most recent use"
 msgstr "Ordenadas por uso más reciente"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:86
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:14
 msgid "Sorted in alphabetical order"
 msgstr "Ordenadas en orden alfabético"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:87
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:15
 msgid "Sorted in opening order"
 msgstr "Ordenadas en orden de apertura"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:88
-msgid "Space after Cast"
-msgstr "Espacio después de cast"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:89
-msgid "Space after FOR"
-msgstr "Espacio después de for"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:90
-msgid "Space after IF"
-msgstr "Espacio después de if"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:91
-msgid "Space after Proc Call"
-msgstr "Espacio después de llamada a procedimiento"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:92
-msgid "Space after WHILE"
-msgstr "Espacio después de while"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:93
-msgid "Specify an amount by which comments are moved to the left."
-msgstr "Especificar una cantidad por la que los comentario se mueven a la izquierda."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:94
-msgid "Specify how many spaces to indent type declarations."
-msgstr "Especificar cuántos espacios sangrar las declaraciones de tipo."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:95
-msgid "Specify the column for comments following code."
-msgstr "Especifique la columna para los comentarios siguiendo el código."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:96
-msgid "Specify the column for comments following declarations."
-msgstr "Especificar la columna para los comentarios siguiendo declaraciones."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:97
-msgid "Specify the column for comments following preprocessor directives."
-msgstr ""
-"Especificar la columna para los comentarios siguiendo directivas de "
-"preprocesador."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:98
-msgid "Specify the column of identifiers."
-msgstr "Especificar la columna de los identificadores."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:99
-msgid ""
-"Specify the indentation level when a statement is broken across two lines "
-"(default 0)."
-msgstr ""
-"Especificar el nivel de sangría cuando una sentencia se rompe a través de "
-"dos líneas (predet 0)."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:100
-msgid ""
-"Specify the maximum length of a line of C code, not including possible "
-"comments that follow it."
-msgstr ""
-"Especifique la longitud máxima de una línea de código C, no incluyendo los "
-"comentarios posibles que la sigan."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:101
-msgid "Specify the number o spaces for a TAB (default 8)."
-msgstr "Especificar el número de espacios para un TAB (8 por omisión)."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:102
-msgid "Specify the number of spaces by which braces are indented."
-msgstr "Especificar el número de espacios que las llaves se sangran."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:103
-msgid ""
-"Specify the number of spaces that 'case' labels should be indented to the "
-"right of the containing 'switch' statement."
-msgstr ""
-"Especifique el número de espacios que las etiquetas 'case' deberían ser "
-"sangradas a la derecha de la sentencia 'switch' que las contiene."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:104
-msgid "Specify the value of indentation for each level."
-msgstr "Especifique el valor de sangría para cada nivel."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:105
-msgid "Star Left Side"
-msgstr "Estrella en el lado izquierdo"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:106
-msgid "Swallow Optional"
-msgstr "Consumir opcionales"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:107
-msgid "Swallow optional blank lines."
-msgstr "Consumir las líneas en blanco opcionales."
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:108
-msgid "Tab Size      "
-msgstr "Tamaño de tabulador"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:109
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:16
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:10
 msgid ""
 "Top\n"
@@ -2970,634 +2559,580 @@ msgstr ""
 "Izquierda\n"
 "Derecha"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:113
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:20
 msgid "Try to save in current locale's encoding"
 msgstr "Intentar guardar en la codificación de la región actual"
 
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:114
+#: ../plugins/document-manager/anjuta-document-manager.glade.h:21
 msgid "Try to save in original encoding"
 msgstr "Intentar guardar en la codificación original"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:115
-msgid "Update Style"
-msgstr "Actualizar estilo"
-
-#: ../plugins/document-manager/anjuta-document-manager.glade.h:116
-msgid ""
-"You can modify the parameters either by \n"
-"using the above buttons or by editing them \n"
-"directly (See indent manual)."
-msgstr ""
-"Puede modificar los parámetros o usando\n"
-"los botones de encima o editandolos\n"
-"directamente (vea el manual de indent)"
 
 #: ../plugins/document-manager/goto_line.c:126
 msgid "Go to Line number:"
 msgstr "Ir a línea número:"
 
-#: ../plugins/document-manager/indent-dialog.c:418
-#: ../plugins/document-manager/indent-dialog.c:445
-msgid "indent parameter not known !"
-msgstr "parámetro de indent no conocido"
-
-#: ../plugins/document-manager/indent-dialog.c:483
-msgid "A Style has already this name !"
-msgstr "Ya hay un estilo con ese nombre."
-
-#: ../plugins/document-manager/indent-dialog.c:512
-#: ../plugins/document-manager/indent-dialog.c:543
-msgid "This Style is not modifiable !"
-msgstr "Este estilo no es modificable"
-
-#: ../plugins/document-manager/plugin.c:148
+#: ../plugins/document-manager/plugin.c:144
 msgid "_Save"
 msgstr "_Guardar"
 
-#: ../plugins/document-manager/plugin.c:149
+#: ../plugins/document-manager/plugin.c:145
 msgid "Save current file"
 msgstr "Guarda el archivo actual"
 
-#: ../plugins/document-manager/plugin.c:150
+#: ../plugins/document-manager/plugin.c:146
 msgid "Save _As..."
 msgstr "Guardar _como…"
 
-#: ../plugins/document-manager/plugin.c:151
+#: ../plugins/document-manager/plugin.c:147
 msgid "Save the current file with a different name"
 msgstr "Guarda el archivo actual con un nombre distinto"
 
-#: ../plugins/document-manager/plugin.c:153
+#: ../plugins/document-manager/plugin.c:149
 msgid "Save A_ll"
 msgstr "Guardar _todos"
 
-#: ../plugins/document-manager/plugin.c:154
+#: ../plugins/document-manager/plugin.c:150
 msgid "Save all currently open files, except new files"
 msgstr "Guarda todos los archivos abiertos, excepto los nuevos"
 
-#: ../plugins/document-manager/plugin.c:156
+#: ../plugins/document-manager/plugin.c:152
 msgid "_Close File"
 msgstr "_Cerrar archivo"
 
-#: ../plugins/document-manager/plugin.c:157
+#: ../plugins/document-manager/plugin.c:153
 msgid "Close current file"
 msgstr "Cierra el archivo actual"
 
-#: ../plugins/document-manager/plugin.c:159
+#: ../plugins/document-manager/plugin.c:155
 msgid "Close All Files"
 msgstr "Cerrar todos los archivos"
 
-#: ../plugins/document-manager/plugin.c:160
+#: ../plugins/document-manager/plugin.c:156
 msgid "Close all files"
 msgstr "Cierra todos los archivos"
 
-#: ../plugins/document-manager/plugin.c:162
+#: ../plugins/document-manager/plugin.c:158
 msgid "Reload F_ile"
 msgstr "Recargar _archivo"
 
-#: ../plugins/document-manager/plugin.c:163
+#: ../plugins/document-manager/plugin.c:159
 msgid "Reload current file"
 msgstr "Recarga el archivo actual"
 
 #. 8
-#: ../plugins/document-manager/plugin.c:165
+#: ../plugins/document-manager/plugin.c:161
 #: ../plugins/editor/text_editor_menu.c:292
 msgid "Swap .h/.c"
 msgstr "Intercambiar .h/.c"
 
-#: ../plugins/document-manager/plugin.c:166
+#: ../plugins/document-manager/plugin.c:162
 msgid "Swap c header and source file"
 msgstr "Intercambia la cabecera c y el archivo fuente"
 
-#: ../plugins/document-manager/plugin.c:168
+#: ../plugins/document-manager/plugin.c:164
 msgid "Recent _Files"
 msgstr "_Archivos recientes"
 
-#: ../plugins/document-manager/plugin.c:172
+#: ../plugins/document-manager/plugin.c:168
 msgid "_Print..."
 msgstr "Im_primir..."
 
-#: ../plugins/document-manager/plugin.c:173
+#: ../plugins/document-manager/plugin.c:169
 msgid "Print the current file"
 msgstr "Imprime el archivo actual"
 
-#: ../plugins/document-manager/plugin.c:174
+#: ../plugins/document-manager/plugin.c:170
 msgid "_Print Preview"
 msgstr "Vista previa de im_presión"
 
-#: ../plugins/document-manager/plugin.c:175
+#: ../plugins/document-manager/plugin.c:171
 msgid "Print preview of the current file"
 msgstr "Vista previa de impresión del archivo actual"
 
-#: ../plugins/document-manager/plugin.c:180
+#: ../plugins/document-manager/plugin.c:176
 msgid "_Transform"
 msgstr "_Transformar"
 
-#: ../plugins/document-manager/plugin.c:181
+#: ../plugins/document-manager/plugin.c:177
 msgid "_Make Selection Uppercase"
 msgstr "Convertir selección en _mayúsculas"
 
-#: ../plugins/document-manager/plugin.c:182
+#: ../plugins/document-manager/plugin.c:178
 msgid "Make the selected text uppercase"
 msgstr "Convierte el texto seleccionado en mayúsculas"
 
-#: ../plugins/document-manager/plugin.c:184
+#: ../plugins/document-manager/plugin.c:180
 msgid "Make Selection Lowercase"
 msgstr "Convertir selección en minúsculas"
 
-#: ../plugins/document-manager/plugin.c:185
+#: ../plugins/document-manager/plugin.c:181
 msgid "Make the selected text lowercase"
 msgstr "Convierte el texto seleccionado en minúsculas"
 
-#: ../plugins/document-manager/plugin.c:187
+#: ../plugins/document-manager/plugin.c:183
 msgid "Convert EOL to CRLF"
 msgstr "Convertir EOL a CRLF"
 
-#: ../plugins/document-manager/plugin.c:188
+#: ../plugins/document-manager/plugin.c:184
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Convierte los caracteres de fin de línea a EOL tipo DOS (CRLF)"
 
-#: ../plugins/document-manager/plugin.c:190
+#: ../plugins/document-manager/plugin.c:186
 msgid "Convert EOL to LF"
 msgstr "Convertir EOL a LF"
 
-#: ../plugins/document-manager/plugin.c:191
+#: ../plugins/document-manager/plugin.c:187
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Convierte los caracteres de fin de línea a EOL tipo Unix (LF)"
 
-#: ../plugins/document-manager/plugin.c:193
+#: ../plugins/document-manager/plugin.c:189
 msgid "Convert EOL to CR"
 msgstr "Convertir EOL a CR"
 
-#: ../plugins/document-manager/plugin.c:194
+#: ../plugins/document-manager/plugin.c:190
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Convierte los caracteres de fin de línea a EOL tipo Mac OS (CR)"
 
-#: ../plugins/document-manager/plugin.c:196
+#: ../plugins/document-manager/plugin.c:192
 msgid "Convert EOL to Majority EOL"
 msgstr "Convertir EOL a mayoría de EOL"
 
-#: ../plugins/document-manager/plugin.c:197
+#: ../plugins/document-manager/plugin.c:193
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
 
-#: ../plugins/document-manager/plugin.c:202
+#: ../plugins/document-manager/plugin.c:198
 msgid "_Select"
 msgstr "_Seleccionar"
 
-#: ../plugins/document-manager/plugin.c:203
+#: ../plugins/document-manager/plugin.c:199
 msgid "Select _All"
 msgstr "Seleccionar _todo"
 
-#: ../plugins/document-manager/plugin.c:204
+#: ../plugins/document-manager/plugin.c:200
 msgid "Select all text in the editor"
 msgstr "Selecciona todo el texto en el editor"
 
-#: ../plugins/document-manager/plugin.c:206
+#: ../plugins/document-manager/plugin.c:202
 msgid "Select to _Brace"
 msgstr "Seleccionar hasta la _llave"
 
-#: ../plugins/document-manager/plugin.c:207
+#: ../plugins/document-manager/plugin.c:203
 msgid "Select the text in the matching braces"
 msgstr "Selecciona el texto entre los paréntesis o llaves"
 
-#: ../plugins/document-manager/plugin.c:209
+#: ../plugins/document-manager/plugin.c:205
 msgid "Select _Code Block"
 msgstr "Seleccionar _bloque de código"
 
-#: ../plugins/document-manager/plugin.c:211
+#: ../plugins/document-manager/plugin.c:207
 msgid "Select the current code block"
 msgstr "Selecciona el bloque de código actual"
 
-#: ../plugins/document-manager/plugin.c:216
+#: ../plugins/document-manager/plugin.c:212
 msgid "Co_mment"
 msgstr "Co_mentario"
 
-#: ../plugins/document-manager/plugin.c:217
+#: ../plugins/document-manager/plugin.c:213
 msgid "_Block Comment/Uncomment"
 msgstr "Comentar/Descomentar en _bloque"
 
-#: ../plugins/document-manager/plugin.c:218
+#: ../plugins/document-manager/plugin.c:214
 msgid "Block comment the selected text"
 msgstr "Convertir la selección en un bloque de comentarios"
 
-#: ../plugins/document-manager/plugin.c:220
+#: ../plugins/document-manager/plugin.c:216
 msgid "Bo_x Comment/Uncomment"
 msgstr "Comentar/Descomentar en _caja"
 
-#: ../plugins/document-manager/plugin.c:221
+#: ../plugins/document-manager/plugin.c:217
 msgid "Box comment the selected text"
 msgstr "Convertir la selección en una caja de comentarios"
 
-#: ../plugins/document-manager/plugin.c:223
+#: ../plugins/document-manager/plugin.c:219
 msgid "_Stream Comment/Uncomment"
 msgstr "Comentar/Descomentar en _flujo"
 
-#: ../plugins/document-manager/plugin.c:224
+#: ../plugins/document-manager/plugin.c:220
 msgid "Stream comment the selected text"
 msgstr "Comentar el texto seleccionado en flujo"
 
-#: ../plugins/document-manager/plugin.c:230
+#: ../plugins/document-manager/plugin.c:226
 msgid "_Goto Line number"
 msgstr "_Ir a línea nº"
 
+#: ../plugins/document-manager/plugin.c:228
 #: ../plugins/document-manager/plugin.c:232
-#: ../plugins/document-manager/plugin.c:236
 msgid "Go to a particular line in the editor"
 msgstr "Ir a un número de línea en el editor"
 
-#: ../plugins/document-manager/plugin.c:234
+#: ../plugins/document-manager/plugin.c:230
 msgid "_Line Number..."
 msgstr "_Número de línea…"
 
-#: ../plugins/document-manager/plugin.c:238
+#: ../plugins/document-manager/plugin.c:234
 msgid "Matching _Brace"
 msgstr "Llave _compañera"
 
-#: ../plugins/document-manager/plugin.c:240
+#: ../plugins/document-manager/plugin.c:236
 msgid "Go to the matching brace in the editor"
 msgstr "Ir a la llave compañera en el editor"
 
-#: ../plugins/document-manager/plugin.c:242
+#: ../plugins/document-manager/plugin.c:238
 msgid "_Start of Block"
 msgstr "_Inicio de bloque"
 
-#: ../plugins/document-manager/plugin.c:244
+#: ../plugins/document-manager/plugin.c:240
 msgid "Go to the start of the current block"
 msgstr "Ir al principio del bloque de código actual"
 
-#: ../plugins/document-manager/plugin.c:246
+#: ../plugins/document-manager/plugin.c:242
 msgid "_End of Block"
 msgstr "_Fin de bloque"
 
-#: ../plugins/document-manager/plugin.c:248
+#: ../plugins/document-manager/plugin.c:244
 msgid "Go to the end of the current block"
 msgstr "Ir al final del bloque de código actual"
 
-#: ../plugins/document-manager/plugin.c:250
+#: ../plugins/document-manager/plugin.c:246
 msgid "Previous _History"
 msgstr "_Histórico anterior"
 
-#: ../plugins/document-manager/plugin.c:252
+#: ../plugins/document-manager/plugin.c:248
 msgid "Goto previous history"
 msgstr "Ir al histórico anterior"
 
-#: ../plugins/document-manager/plugin.c:254
+#: ../plugins/document-manager/plugin.c:250
 msgid "Next Histor_y"
 msgstr "H_istórico siguiente"
 
-#: ../plugins/document-manager/plugin.c:256
+#: ../plugins/document-manager/plugin.c:252
 msgid "Goto next history"
 msgstr "Ir al histórico siguiente"
 
-#: ../plugins/document-manager/plugin.c:261 ../plugins/gtodo/interface.c:170
+#: ../plugins/document-manager/plugin.c:257 ../plugins/gtodo/interface.c:170
 #: ../plugins/tools/anjuta-tools.glade.h:18
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1332
+#: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1346
 msgid "_Edit"
 msgstr "_Editar"
 
-#: ../plugins/document-manager/plugin.c:262
+#: ../plugins/document-manager/plugin.c:258
 msgid "_Editor"
 msgstr "_Editor"
 
-#: ../plugins/document-manager/plugin.c:263
+#: ../plugins/document-manager/plugin.c:259
 msgid "_Add Editor View"
 msgstr "_Añadir vista del editor"
 
-#: ../plugins/document-manager/plugin.c:264
+#: ../plugins/document-manager/plugin.c:260
 msgid "Add one more view of current document"
 msgstr "Añade una vista más del documento actual"
 
-#: ../plugins/document-manager/plugin.c:266
+#: ../plugins/document-manager/plugin.c:262
 msgid "_Remove Editor View"
 msgstr "_Quitar vista del editor"
 
-#: ../plugins/document-manager/plugin.c:267
+#: ../plugins/document-manager/plugin.c:263
 msgid "Remove current view of the document"
 msgstr "Quita la vista actual del documento"
 
-#: ../plugins/document-manager/plugin.c:269
+#: ../plugins/document-manager/plugin.c:265
 msgid "U_ndo"
 msgstr "Des_hacer"
 
-#: ../plugins/document-manager/plugin.c:270
+#: ../plugins/document-manager/plugin.c:266
 msgid "Undo the last action"
 msgstr "Deshace la última acción"
 
-#: ../plugins/document-manager/plugin.c:272
+#: ../plugins/document-manager/plugin.c:268
 msgid "_Redo"
 msgstr "_Rehacer"
 
-#: ../plugins/document-manager/plugin.c:273
+#: ../plugins/document-manager/plugin.c:269
 msgid "Redo the last undone action"
 msgstr "Rehace la última acción deshecha"
 
-#: ../plugins/document-manager/plugin.c:275
+#: ../plugins/document-manager/plugin.c:271
 msgid "C_ut"
 msgstr "C_ortar"
 
-#: ../plugins/document-manager/plugin.c:276
+#: ../plugins/document-manager/plugin.c:272
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Corta el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:278
+#: ../plugins/document-manager/plugin.c:274
 #: ../plugins/valgrind/vgdefaultview.c:1153
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: ../plugins/document-manager/plugin.c:279
+#: ../plugins/document-manager/plugin.c:275
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:281
+#: ../plugins/document-manager/plugin.c:277
 #: ../plugins/valgrind/vgdefaultview.c:1154
 msgid "_Paste"
 msgstr "_Pegar"
 
-#: ../plugins/document-manager/plugin.c:282
+#: ../plugins/document-manager/plugin.c:278
 msgid "Paste the content of clipboard at the current position"
 msgstr "Pega el contenido del portapapeles a la posición actual"
 
-#: ../plugins/document-manager/plugin.c:284
+#: ../plugins/document-manager/plugin.c:280
 msgid "_Clear"
 msgstr "_Borrar"
 
-#: ../plugins/document-manager/plugin.c:285
+#: ../plugins/document-manager/plugin.c:281
 msgid "Delete the selected text from the editor"
 msgstr "Borra el texto seleccionado del editor"
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:286
 msgid "_Line Number Margin"
 msgstr "Margen de _números línea"
 
-#: ../plugins/document-manager/plugin.c:291
+#: ../plugins/document-manager/plugin.c:287
 msgid "Show/Hide line numbers"
 msgstr "Mostrar/Ocultar número de línea en el margen"
 
-#: ../plugins/document-manager/plugin.c:293
+#: ../plugins/document-manager/plugin.c:289
 msgid "_Marker Margin"
 msgstr "_Margen de marcadores"
 
-#: ../plugins/document-manager/plugin.c:294
+#: ../plugins/document-manager/plugin.c:290
 msgid "Show/Hide marker margin"
 msgstr "Mostrar/Ocultar marcadores de márgenes"
 
-#: ../plugins/document-manager/plugin.c:296
+#: ../plugins/document-manager/plugin.c:292
 msgid "_Code Fold Margin"
 msgstr "Margen de plegado del _código"
 
-#: ../plugins/document-manager/plugin.c:297
+#: ../plugins/document-manager/plugin.c:293
 msgid "Show/Hide code fold margin"
 msgstr "Mostrar/Ocultar margen de persiana de código"
 
-#: ../plugins/document-manager/plugin.c:299
+#: ../plugins/document-manager/plugin.c:295
 msgid "_Indentation Guides"
 msgstr "Guías de _sangría"
 
-#: ../plugins/document-manager/plugin.c:300
+#: ../plugins/document-manager/plugin.c:296
 msgid "Show/Hide indentation guides"
 msgstr "Mostrar/Ocultar las guías de sangría"
 
-#: ../plugins/document-manager/plugin.c:302
+#: ../plugins/document-manager/plugin.c:298
 msgid "_White Space"
 msgstr "_Espacios en blanco"
 
-#: ../plugins/document-manager/plugin.c:303
+#: ../plugins/document-manager/plugin.c:299
 msgid "Show/Hide white spaces"
 msgstr "Mostrar/Ocultar espacios en blanco"
 
-#: ../plugins/document-manager/plugin.c:305
+#: ../plugins/document-manager/plugin.c:301
 msgid "_Line End Characters"
 msgstr "Mostrar fin de _línea"
 
-#: ../plugins/document-manager/plugin.c:306
+#: ../plugins/document-manager/plugin.c:302
 msgid "Show/Hide line end characters"
 msgstr "Mostrar/ocultar los caracteres de fin de línea"
 
-#: ../plugins/document-manager/plugin.c:308
+#: ../plugins/document-manager/plugin.c:304
 msgid "Line _Wrapping"
 msgstr "_Ajuste de línea"
 
-#: ../plugins/document-manager/plugin.c:309
+#: ../plugins/document-manager/plugin.c:305
 msgid "Enable/disable line wrapping"
 msgstr "Activar/desactivar ajuste de línea"
 
-#: ../plugins/document-manager/plugin.c:314
+#: ../plugins/document-manager/plugin.c:310
 msgid "Zoom In"
 msgstr "Ampliar"
 
-#: ../plugins/document-manager/plugin.c:315
+#: ../plugins/document-manager/plugin.c:311
 msgid "Zoom in: Increase font size"
 msgstr "Ampliar: Incrementar el tamaño de la letra"
 
-#: ../plugins/document-manager/plugin.c:317
+#: ../plugins/document-manager/plugin.c:313
 msgid "Zoom Out"
 msgstr "_Reducir"
 
-#: ../plugins/document-manager/plugin.c:318
+#: ../plugins/document-manager/plugin.c:314
 msgid "Zoom out: Decrease font size"
 msgstr "Reducir: Reducir el tamaño de la letra"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:319
 msgid "_Highlight Mode"
 msgstr "Modo de _resaltado"
 
-#: ../plugins/document-manager/plugin.c:327
-msgid "For_mat"
-msgstr "_Formato"
-
-#: ../plugins/document-manager/plugin.c:328
-msgid "Auto _Format"
-msgstr "Auto_formato"
-
-#: ../plugins/document-manager/plugin.c:330
-msgid "Autoformat the current source file"
-msgstr "Autoformatear el archivo fuente actual"
-
-#.
-#. { "ActionFormatSettings", N_("Autoformat _settings"),
-#. ANJUTA_STOCK_AUTOFORMAT_SETTINGS, NULL,
-#. N_("Autoformat settings"),
-#. G_CALLBACK (on_format_indent_style_clicked)},
-#. { "ActionFormatIndentationIncrease", N_("_Increase Indent"),
-#. ANJUTA_STOCK_INDENT_INC, NULL,
-#. N_("Increase indentation of line/selection"),
-#. G_CALLBACK (on_editor_command_indent_increase_activate)},
-#. { "ActionFormatIndentationDecrease", N_("_Decrease Indent"),
-#. ANJUTA_STOCK_INDENT_DCR, NULL,
-#. N_("Decrease indentation of line/selection"),
-#. G_CALLBACK (on_editor_command_indent_decrease_activate)},
-#.
-#: ../plugins/document-manager/plugin.c:346
+#: ../plugins/document-manager/plugin.c:323
 msgid "_Close All Folds"
 msgstr "_Cerrar todos los pliegues"
 
-#: ../plugins/document-manager/plugin.c:348
+#: ../plugins/document-manager/plugin.c:325
 msgid "Close all code folds in the editor"
 msgstr "Cierra todos los pliegues de código en el editor"
 
-#: ../plugins/document-manager/plugin.c:350
+#: ../plugins/document-manager/plugin.c:327
 msgid "_Open All Folds"
 msgstr "_Abrir todos los pliegues"
 
-#: ../plugins/document-manager/plugin.c:352
+#: ../plugins/document-manager/plugin.c:329
 msgid "Open all code folds in the editor"
 msgstr "Abrir todos los pliegues de código en el editor"
 
-#: ../plugins/document-manager/plugin.c:354
+#: ../plugins/document-manager/plugin.c:331
 msgid "_Toggle Current Fold"
 msgstr "_Cambiar pliegue actual"
 
-#: ../plugins/document-manager/plugin.c:356
+#: ../plugins/document-manager/plugin.c:333
 msgid "Toggle current code fold in the editor"
 msgstr "Cambiar pliegue actual del código en el editor"
 
-#: ../plugins/document-manager/plugin.c:361
+#: ../plugins/document-manager/plugin.c:338
 msgid "Bookmar_k"
 msgstr "_Marcar"
 
-#: ../plugins/document-manager/plugin.c:362
+#: ../plugins/document-manager/plugin.c:339
 msgid "_Toggle Bookmark"
 msgstr "Cambiar marcador"
 
-#: ../plugins/document-manager/plugin.c:364
+#: ../plugins/document-manager/plugin.c:341
 msgid "Toggle a bookmark at the current line position"
 msgstr "Activar un marcador en la posición de línea actual"
 
-#: ../plugins/document-manager/plugin.c:366
+#: ../plugins/document-manager/plugin.c:343
 msgid "_First Bookmark"
 msgstr "_Primer marcador"
 
-#: ../plugins/document-manager/plugin.c:368
+#: ../plugins/document-manager/plugin.c:345
 msgid "Jump to the first bookmark in the file"
 msgstr "Ir al primer marcador en este documento"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:347
 msgid "_Previous Bookmark"
 msgstr "Marcador _anterior"
 
-#: ../plugins/document-manager/plugin.c:372
+#: ../plugins/document-manager/plugin.c:349
 msgid "Jump to the previous bookmark in the file"
 msgstr "Ir al marcador anterior en este documento"
 
-#: ../plugins/document-manager/plugin.c:374
+#: ../plugins/document-manager/plugin.c:351
 msgid "_Next Bookmark"
 msgstr "Marcador _siguiente"
 
-#: ../plugins/document-manager/plugin.c:376
+#: ../plugins/document-manager/plugin.c:353
 msgid "Jump to the next bookmark in the file"
 msgstr "Ir al siguiente marcador en este documento"
 
-#: ../plugins/document-manager/plugin.c:378
+#: ../plugins/document-manager/plugin.c:355
 msgid "_Last Bookmark"
 msgstr "Ú_ltimo marcador"
 
-#: ../plugins/document-manager/plugin.c:380
+#: ../plugins/document-manager/plugin.c:357
 msgid "Jump to the last bookmark in the file"
 msgstr "Ir al último marcador en el documento"
 
-#: ../plugins/document-manager/plugin.c:382
+#: ../plugins/document-manager/plugin.c:359
 msgid "_Clear All Bookmarks"
 msgstr "_Vacía todos los marcadores"
 
-#: ../plugins/document-manager/plugin.c:384
+#: ../plugins/document-manager/plugin.c:361
 msgid "Clear bookmarks"
 msgstr "Vaciar marcadores"
 
-#: ../plugins/document-manager/plugin.c:403
+#: ../plugins/document-manager/plugin.c:380
 msgid "Editor file operations"
 msgstr "Operaciones de edición de archivos"
 
-#: ../plugins/document-manager/plugin.c:404
+#: ../plugins/document-manager/plugin.c:381
 msgid "Editor print operations"
 msgstr "Operaciones de edición de impresión"
 
-#: ../plugins/document-manager/plugin.c:405
+#: ../plugins/document-manager/plugin.c:382
 msgid "Editor text transformation"
 msgstr "Transformación del editor de texto"
 
-#: ../plugins/document-manager/plugin.c:406
+#: ../plugins/document-manager/plugin.c:383
 msgid "Editor text selection"
 msgstr "Selección de texto del editor"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:408
+#: ../plugins/document-manager/plugin.c:385
 msgid "Editor code commenting"
 msgstr "Comentado de código del editor"
 
-#: ../plugins/document-manager/plugin.c:409
+#: ../plugins/document-manager/plugin.c:386
 msgid "Editor navigations"
 msgstr "Navegación con el editor"
 
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:387
 msgid "Editor edit operations"
 msgstr "Operaciones de edición del editor"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:388
 msgid "Editor zoom operations"
 msgstr "Operaciones de ampliación del editor"
 
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:389
 msgid "Editor syntax highlighting styles"
 msgstr "Estilos de resaltado de sintaxis del editor"
 
-#: ../plugins/document-manager/plugin.c:413
+#: ../plugins/document-manager/plugin.c:390
 msgid "Editor text formating"
 msgstr "Formateado del texto del editor"
 
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:391
 msgid "Editor bookmarks"
 msgstr "Marcadores del editor"
 
-#: ../plugins/document-manager/plugin.c:418
+#: ../plugins/document-manager/plugin.c:395
 msgid "Editor view settings"
 msgstr "Configuración de la vista del editor"
 
-#: ../plugins/document-manager/plugin.c:586
+#: ../plugins/document-manager/plugin.c:563
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../plugins/document-manager/plugin.c:592
+#: ../plugins/document-manager/plugin.c:569
 msgid "Goto"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:909
+#: ../plugins/document-manager/plugin.c:884
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:913
+#: ../plugins/document-manager/plugin.c:888
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:915
-#: ../plugins/document-manager/plugin.c:926
+#: ../plugins/document-manager/plugin.c:890
+#: ../plugins/document-manager/plugin.c:901
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:917
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:892
+#: ../plugins/document-manager/plugin.c:903
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:918
-#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:893
+#: ../plugins/document-manager/plugin.c:904
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:995
+#: ../plugins/document-manager/plugin.c:970
 msgid "Automatic"
 msgstr "Automático"
 
-#: ../plugins/document-manager/plugin.c:1631
+#: ../plugins/document-manager/plugin.c:1622
 msgid "Goto line"
 msgstr "Ir a línea"
 
-#: ../plugins/document-manager/plugin.c:1632
+#: ../plugins/document-manager/plugin.c:1623
 msgid "Enter the line number to jump and press enter"
 msgstr "Introduzca el número de línea al que desea saltar y pulse intro"
 
-#: ../plugins/document-manager/plugin.c:1641
+#: ../plugins/document-manager/plugin.c:1632
 msgid "Editor quick navigations"
 msgstr "Navegación rápida con el editor"
 
@@ -4306,20 +3841,20 @@ msgstr "Abrir archivo reciente"
 msgid "Open recent files"
 msgstr "Abre archivos recientes"
 
-#: ../plugins/file-manager/file-model.c:90
+#: ../plugins/file-manager/file-model.c:92
 #: ../plugins/symbol-browser/an_symbol_view.c:869
 msgid "Loading..."
 msgstr "Cargando…"
 
-#: ../plugins/file-manager/file-view.c:306
+#: ../plugins/file-manager/file-view.c:313
 msgid "Filename"
 msgstr "Nombre de archivo"
 
-#: ../plugins/file-manager/file-view.c:392
+#: ../plugins/file-manager/file-view.c:399
 msgid "Base uri"
 msgstr "URI base"
 
-#: ../plugins/file-manager/file-view.c:393
+#: ../plugins/file-manager/file-view.c:400
 msgid "Uri of the top-most path displayed"
 msgstr "URI de la ruta superior mostrada"
 
@@ -4336,7 +3871,7 @@ msgstr "Refrescar el árbol del administrador de archivos"
 msgid "File manager popup actions"
 msgstr "Acciones emergentes el administrador de archivos"
 
-#: ../plugins/file-manager/plugin.c:194
+#: ../plugins/file-manager/plugin.c:195
 msgid "Files"
 msgstr "Archivos"
 
@@ -5297,6 +4832,456 @@ msgstr "Lista de pendientes"
 msgid "Todo List Manager"
 msgstr "Administrador de lista de pendientes"
 
+#: ../plugins/indent/indent-dialog.c:418 ../plugins/indent/indent-dialog.c:445
+msgid "indent parameter not known !"
+msgstr "parámetro de indent no conocido"
+
+#: ../plugins/indent/indent-dialog.c:483
+msgid "A Style has already this name !"
+msgstr "Ya hay un estilo con ese nombre."
+
+#: ../plugins/indent/indent-dialog.c:512 ../plugins/indent/indent-dialog.c:543
+msgid "This Style is not modifiable !"
+msgstr "Este estilo no es modificable"
+
+#: ../plugins/indent/indent.glade.h:1
+msgid "#Else #Endif "
+msgstr "#Else #Endif "
+
+#: ../plugins/indent/indent.glade.h:2
+msgid "<b>'indent' arguments</b>"
+msgstr "<b>«sangrar» argumentos</b>"
+
+#: ../plugins/indent/indent.glade.h:3
+msgid "<b>Autoformat style</b>"
+msgstr "<b>Estilo de autoformato</b>"
+
+#: ../plugins/indent/indent.glade.h:4
+msgid "<b>Blank lines</b>"
+msgstr "<b>Líneas en blanco</b>"
+
+#: ../plugins/indent/indent.glade.h:5
+msgid "<b>Breaking long lines</b>"
+msgstr "<b>Romper líneas largas</b>"
+
+#: ../plugins/indent/indent.glade.h:6
+msgid "<b>Comments</b>"
+msgstr "<b>Comentarios</b>"
+
+#: ../plugins/indent/indent.glade.h:7
+msgid "<b>Declarations</b>"
+msgstr "<b>Declaraciones</b>"
+
+#: ../plugins/indent/indent.glade.h:8
+msgid "<b>Indentation</b>"
+msgstr "<b>Sangría</b>"
+
+#: ../plugins/indent/indent.glade.h:9
+msgid "<b>Statements</b>"
+msgstr "<b>Sentencias</b>"
+
+#: ../plugins/indent/indent.glade.h:10
+msgid "After Declarations"
+msgstr "Después de las declaraciones"
+
+#: ../plugins/indent/indent.glade.h:11
+msgid "After Procedures"
+msgstr "Después de los procedimientos"
+
+#: ../plugins/indent/indent.glade.h:12
+msgid "All Comments"
+msgstr "Todos los comentarios"
+
+#: ../plugins/indent/indent.glade.h:13
+msgid ""
+"Arguments associated with the selected autoformat style. \n"
+"Select the 'Indent Setting' button to manage the autoformat styles.\n"
+"Read the info page for 'indent' for more details"
+msgstr ""
+"El argumento asociado con el estilo seleccionado de autoformato. \n"
+"Seleccione el botón «Configurar sangría» para gestionar los estilos de "
+"autoformato.\n"
+"Lea la página info de «indent» para más detalles"
+
+#: ../plugins/indent/indent.glade.h:16
+msgid "Brace"
+msgstr "Llave"
+
+#: ../plugins/indent/indent.glade.h:17
+msgid "Braces after IF Line"
+msgstr "Llaves después de línea IF"
+
+#: ../plugins/indent/indent.glade.h:18
+msgid "Braces after Struct"
+msgstr "Llaves después de struct"
+
+#: ../plugins/indent/indent.glade.h:19
+msgid "Braces on IF line"
+msgstr "Llaves en línea IF"
+
+#: ../plugins/indent/indent.glade.h:20
+msgid "Braces on Struct"
+msgstr "Llaves en Struct"
+
+#: ../plugins/indent/indent.glade.h:21
+msgid "Break before Boolean"
+msgstr "Romper antes de boolean"
+
+#: ../plugins/indent/indent.glade.h:22
+msgid "Case"
+msgstr "Capitalización"
+
+#: ../plugins/indent/indent.glade.h:23
+msgid "Continuation"
+msgstr "Continuación"
+
+#: ../plugins/indent/indent.glade.h:24
+msgid "Continue at Parenth."
+msgstr "Continuar en la pareja"
+
+#: ../plugins/indent/indent.glade.h:25
+msgid ""
+"Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
+"parameters by default)."
+msgstr ""
+"Crear un estilo nuevo definido en la entrada «Estilo nuevo» («-gnu» por "
+"omisión)."
+
+#: ../plugins/indent/indent.glade.h:26
+msgid "Cuddle Else"
+msgstr "Arrimar Else"
+
+#: ../plugins/indent/indent.glade.h:27
+msgid "Cuddle up to the immediately preceding '}' in an if-then-else construct."
+msgstr "Arrimarse al '}' inmediatamente precedente en una construcción if-then-else."
+
+#: ../plugins/indent/indent.glade.h:28
+msgid "Declaration  "
+msgstr "Declaración"
+
+#: ../plugins/indent/indent.glade.h:29
+msgid "Declarations  "
+msgstr "Declaraciones"
+
+#: ../plugins/indent/indent.glade.h:30
+msgid "Delete the style selected in the combo style selector."
+msgstr "Borra el estilo seleccionado en el selector de estilos"
+
+#: ../plugins/indent/indent.glade.h:31
+msgid "Delimiters on BL"
+msgstr "Delimitadores en BL"
+
+#: ../plugins/indent/indent.glade.h:32
+msgid "Display the indent output according the selected parameters."
+msgstr "Muestra la salida de indent de acuerdo con los parámetros seleccionados."
+
+#: ../plugins/indent/indent.glade.h:33
+msgid "First Column"
+msgstr "Primera columna"
+
+#: ../plugins/indent/indent.glade.h:34
+msgid "Foece a space between an 'if' and the following parenthesis (default)."
+msgstr "Forzar un espacio entre un 'if' y los siguientes paréntesos (predet.)"
+
+#: ../plugins/indent/indent.glade.h:35
+msgid "Force a blank line after every block of declarations."
+msgstr "Fuerza una línea en blanco después de cada bloque de declaraciones."
+
+#: ../plugins/indent/indent.glade.h:36
+msgid "Force a blank line after every procedure body."
+msgstr "Fuerza una línea en blanco después de cada cuerpo de procedimiento."
+
+#: ../plugins/indent/indent.glade.h:37
+msgid "Force a newline after each comma in a declaration."
+msgstr "Fuerza una línea en blanco después de cada coma en una declaración"
+
+#: ../plugins/indent/indent.glade.h:38
+msgid "Force a space between a 'for' and the following parenthesis (default)."
+msgstr "Fuerza un espacio entre un «for» y el siguiente paréntesis (predeterminado)."
+
+#: ../plugins/indent/indent.glade.h:39
+msgid "Force a space between a 'while' and the following parenthesis (default)."
+msgstr "Forzar un espacio entre un 'while' y el siguiente paréntesis (predeterminado)"
+
+#: ../plugins/indent/indent.glade.h:40
+msgid "Format comments which begin after the first column."
+msgstr "Formatear comentarios que comienzan después de la primera columna."
+
+#: ../plugins/indent/indent.glade.h:41
+msgid "Format comments which begin in column one."
+msgstr "Formatear comentarios que empiezan en la columna uno."
+
+#: ../plugins/indent/indent.glade.h:42
+msgid "Honour Newlines"
+msgstr "Respetar en líneas nuevas"
+
+#: ../plugins/indent/indent.glade.h:43
+msgid "Honour newlines by giving them the highest possible priority."
+msgstr "Respetar las líneas nuevas dándoles la máxima prioridad posible."
+
+#: ../plugins/indent/indent.glade.h:44
+msgid "Indent"
+msgstr "Sangría"
+
+#: ../plugins/indent/indent.glade.h:45
+msgid "Indent Preferences"
+msgstr "Preferencias de sangría"
+
+#: ../plugins/indent/indent.glade.h:46
+msgid "Indent Setting"
+msgstr "Ajuste de sangría"
+
+#: ../plugins/indent/indent.glade.h:47
+msgid "Insert a line before a Box comment."
+msgstr "Insertar una línea antes de un comentario de caja."
+
+#: ../plugins/indent/indent.glade.h:48
+msgid "Length       "
+msgstr "Longitud        "
+
+#: ../plugins/indent/indent.glade.h:49
+msgid "Level              "
+msgstr "Nivel              "
+
+#: ../plugins/indent/indent.glade.h:50
+msgid "Line Indent   "
+msgstr "Sangría de línea"
+
+#: ../plugins/indent/indent.glade.h:51
+msgid "Line after Commas"
+msgstr "Línea después de comas"
+
+#: ../plugins/indent/indent.glade.h:52
+msgid "Line before Box "
+msgstr "Línea antes de caja"
+
+#: ../plugins/indent/indent.glade.h:53
+msgid ""
+"Line up continuation line to start at the character position just after the "
+"left parenthesis if a line has a left parenthesis which is not closed on "
+"that line."
+msgstr ""
+"Alinear la línea de continuación para empezar en la posición del caracter "
+"justo después del paréntesis izquierdo si una línea tiene un paréntesis "
+"izquierdo que no está cerrado en esa línea."
+
+#: ../plugins/indent/indent.glade.h:54
+msgid ""
+"New\n"
+"Style"
+msgstr ""
+"Estilo\n"
+"Nuevo"
+
+#: ../plugins/indent/indent.glade.h:56
+msgid "Parameter     "
+msgstr "Parámetro"
+
+#: ../plugins/indent/indent.glade.h:57
+msgid "Place a space after a cast operator."
+msgstr "Colocar un espacio después de un operador cast."
+
+#: ../plugins/indent/indent.glade.h:58
+msgid "Place a space between the name of the procedure being called and the '('."
+msgstr "Coloca un espacio entre el nombre del procedimiento que se llama y el '('."
+
+#: ../plugins/indent/indent.glade.h:59
+msgid "Place stars at the beginning of multi-line comments."
+msgstr "Colocar estrellas al comienzo de comentarios multilínea."
+
+#: ../plugins/indent/indent.glade.h:60
+msgid "Place the '{' following a 'struct' declaration on the next line."
+msgstr "Colocar el '{' siguiendo una declaración 'struct' en la siguiente línea."
+
+#: ../plugins/indent/indent.glade.h:61
+msgid "Place the '{' following a 'struct' declaration on the same line."
+msgstr "Colocar el '{' siguiendo una declaración 'struct' en la misma línea."
+
+#: ../plugins/indent/indent.glade.h:62
+msgid "Place the brace on the line following the if test."
+msgstr "Colocar la llave en la línea siguiente al test if."
+
+#: ../plugins/indent/indent.glade.h:63
+msgid "Place the brace on the line of the if test."
+msgstr "Colocar la llave en la línea del test if."
+
+#: ../plugins/indent/indent.glade.h:64
+msgid "Place the comment delimiters on blank lines."
+msgstr "Colocar los delimitadores de comentario en líneas en blanco."
+
+#: ../plugins/indent/indent.glade.h:65
+msgid "Place the type of a procedure beeing defined on the previous line."
+msgstr "Colocar el tipo del procedimiento siendo definido en la línea anterior."
+
+#: ../plugins/indent/indent.glade.h:66
+msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
+msgstr "Preferir romper líneas largas antes de los operadores booleanos '&&' y '||'."
+
+#: ../plugins/indent/indent.glade.h:67 ../plugins/valgrind/preferences.c:162
+msgid "Preview"
+msgstr "Vista previa"
+
+#: ../plugins/indent/indent.glade.h:68
+msgid "Procnames start lines"
+msgstr "Líneas de comienzo de los nombres de procedimiento"
+
+#: ../plugins/indent/indent.glade.h:69
+msgid "Save the selected Style with the modified parameters."
+msgstr "Guarda el estilo actual con los parámetros modificados."
+
+#: ../plugins/indent/indent.glade.h:70
+msgid "Space after Cast"
+msgstr "Espacio después de cast"
+
+#: ../plugins/indent/indent.glade.h:71
+msgid "Space after FOR"
+msgstr "Espacio después de for"
+
+#: ../plugins/indent/indent.glade.h:72
+msgid "Space after IF"
+msgstr "Espacio después de if"
+
+#: ../plugins/indent/indent.glade.h:73
+msgid "Space after Proc Call"
+msgstr "Espacio después de llamada a procedimiento"
+
+#: ../plugins/indent/indent.glade.h:74
+msgid "Space after WHILE"
+msgstr "Espacio después de while"
+
+#: ../plugins/indent/indent.glade.h:75
+msgid "Specify an amount by which comments are moved to the left."
+msgstr "Especificar una cantidad por la que los comentario se mueven a la izquierda."
+
+#: ../plugins/indent/indent.glade.h:76
+msgid "Specify how many spaces to indent type declarations."
+msgstr "Especificar cuántos espacios sangrar las declaraciones de tipo."
+
+#: ../plugins/indent/indent.glade.h:77
+msgid "Specify the column for comments following code."
+msgstr "Especifique la columna para los comentarios siguiendo el código."
+
+#: ../plugins/indent/indent.glade.h:78
+msgid "Specify the column for comments following declarations."
+msgstr "Especificar la columna para los comentarios siguiendo declaraciones."
+
+#: ../plugins/indent/indent.glade.h:79
+msgid "Specify the column for comments following preprocessor directives."
+msgstr ""
+"Especificar la columna para los comentarios siguiendo directivas de "
+"preprocesador."
+
+#: ../plugins/indent/indent.glade.h:80
+msgid "Specify the column of identifiers."
+msgstr "Especificar la columna de los identificadores."
+
+#: ../plugins/indent/indent.glade.h:81
+msgid ""
+"Specify the indentation level when a statement is broken across two lines "
+"(default 0)."
+msgstr ""
+"Especificar el nivel de sangría cuando una sentencia se rompe a través de "
+"dos líneas (predet 0)."
+
+#: ../plugins/indent/indent.glade.h:82
+msgid ""
+"Specify the maximum length of a line of C code, not including possible "
+"comments that follow it."
+msgstr ""
+"Especifique la longitud máxima de una línea de código C, no incluyendo los "
+"comentarios posibles que la sigan."
+
+#: ../plugins/indent/indent.glade.h:83
+msgid "Specify the number o spaces for a TAB (default 8)."
+msgstr "Especificar el número de espacios para un TAB (8 por omisión)."
+
+#: ../plugins/indent/indent.glade.h:84
+msgid "Specify the number of spaces by which braces are indented."
+msgstr "Especificar el número de espacios que las llaves se sangran."
+
+#: ../plugins/indent/indent.glade.h:85
+msgid ""
+"Specify the number of spaces that 'case' labels should be indented to the "
+"right of the containing 'switch' statement."
+msgstr ""
+"Especifique el número de espacios que las etiquetas 'case' deberían ser "
+"sangradas a la derecha de la sentencia 'switch' que las contiene."
+
+#: ../plugins/indent/indent.glade.h:86
+msgid "Specify the value of indentation for each level."
+msgstr "Especifique el valor de sangría para cada nivel."
+
+#: ../plugins/indent/indent.glade.h:87
+msgid "Star Left Side"
+msgstr "Estrella en el lado izquierdo"
+
+#: ../plugins/indent/indent.glade.h:88
+msgid "Swallow Optional"
+msgstr "Consumir opcionales"
+
+#: ../plugins/indent/indent.glade.h:89
+msgid "Swallow optional blank lines."
+msgstr "Consumir las líneas en blanco opcionales."
+
+#: ../plugins/indent/indent.glade.h:90
+msgid "Tab Size      "
+msgstr "Tamaño de tabulador"
+
+#: ../plugins/indent/indent.glade.h:91
+msgid "Update Style"
+msgstr "Actualizar estilo"
+
+#: ../plugins/indent/indent.glade.h:92
+msgid ""
+"You can modify the parameters either by \n"
+"using the above buttons or by editing them \n"
+"directly (See indent manual)."
+msgstr ""
+"Puede modificar los parámetros o usando\n"
+"los botones de encima o editandolos\n"
+"directamente (vea el manual de indent)"
+
+#: ../plugins/indent/plugin.c:65
+#, c-format
+msgid "Indent command failed with error code: %d"
+msgstr "El comando de sangrado falló con el código de error: %d"
+
+#: ../plugins/indent/plugin.c:126
+#, c-format
+msgid "Anjuta does not know %s!"
+msgstr "Anjuta no sabe %s"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/indent/plugin.c:168 ../plugins/patch/plugin.c:61
+#: ../plugins/tools/plugin.c:135
+msgid "_Tools"
+msgstr "_Herramientas"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/indent/plugin.c:176
+msgid "_Format Code with \"indent\""
+msgstr "_Formatear código con «sangrar»"
+
+#. Display label
+#. short-cut
+#: ../plugins/indent/plugin.c:178
+msgid "Format code with the \"indent\" command line utility"
+msgstr "Formatear el código con el comando «sangrar»"
+
+#: ../plugins/indent/plugin.c:254
+msgid "Autoformat operations"
+msgstr "Operaciones de autoformato"
+
+#: ../plugins/indent/plugin.c:333
+msgid "Indent Utility"
+msgstr "Utilidad de sangrado"
+
+#: ../plugins/indent/plugin.c:352
+msgid "Indent utility"
+msgstr "Utilidad de sangrado"
+
 #: ../plugins/macro/anjuta-macro.glade.h:2
 msgid "<b>Macro details:</b>"
 msgstr "<b>Detalles de macro:</b>"
@@ -5682,12 +5667,6 @@ msgstr ""
 #: ../plugins/patch/patch-plugin.glade.h:1
 msgid "Dry run"
 msgstr "Ejecución en seco"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/patch/plugin.c:61 ../plugins/tools/plugin.c:135
-msgid "_Tools"
-msgstr "_Herramientas"
 
 #. Action name
 #. Stock icon, if any
@@ -6372,8 +6351,9 @@ msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
 msgstr ""
-"Separados por comas, otros complementos de los que depende este complemento. Podría ser "
-"tanto el nombre de la interfaz primaria o la ubicación del complemento (biblioteca:clase)"
+"Separados por comas, otros complementos de los que depende este complemento. "
+"Podría ser tanto el nombre de la interfaz primaria o la ubicación del "
+"complemento (biblioteca:clase)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "Configure external packages"
@@ -6429,8 +6409,9 @@ msgid ""
 "the required version of the package. For example, 'libgnomeui-2.0' or "
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
-"Proporcione un nombre de paquete que requiere su proyecto. También puede mencionar cuál "
-"es la versión requerida del paquete. Por ejemplo, «libgnomeui-2.0» o «libgnomeui-2.0 >= 2.2.0»"
+"Proporcione un nombre de paquete que requiere su proyecto. También puede "
+"mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
+"2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Icon File:"
@@ -6981,8 +6962,8 @@ msgstr "No se pudo construir el interfaz de usuario para «Buscar y reemplazar»
 msgid "Could not obtain backup filename"
 msgstr "No se pudo obtener el nombre del archivo de respaldo"
 
-#: ../plugins/sourceview/anjuta-document.c:539
-#: ../plugins/sourceview/anjuta-document.c:620
+#: ../plugins/sourceview/anjuta-document.c:490
+#: ../plugins/sourceview/anjuta-document.c:571
 #, c-format
 msgid "Unsaved Document %d"
 msgstr "Documento no guardado %d"
@@ -7334,8 +7315,8 @@ msgstr "Se ha iniciado el hilo de Subversion..."
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
 #: ../plugins/symbol-browser/an_symbol_view.c:565
-#: ../plugins/symbol-db/symbol-db-view-locals.c:89
-#: ../plugins/symbol-db/symbol-db-view.c:435
+#: ../plugins/symbol-db/symbol-db-view-locals.c:92
+#: ../plugins/symbol-db/symbol-db-view.c:437
 msgid "Symbol"
 msgstr "Símbolo"
 
@@ -7445,15 +7426,15 @@ msgstr "Buscar uso del símbolo en el proyecto"
 msgid "Refresh symbol browser tree"
 msgstr "Refrescar el árbol del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:398 ../plugins/symbol-db/plugin.c:769
+#: ../plugins/symbol-browser/plugin.c:398 ../plugins/symbol-db/plugin.c:748
 msgid "Created symbols..."
 msgstr "Símbolos creados…"
 
-#: ../plugins/symbol-browser/plugin.c:1005 ../plugins/symbol-db/plugin.c:852
+#: ../plugins/symbol-browser/plugin.c:1005 ../plugins/symbol-db/plugin.c:826
 msgid "Local"
 msgstr "Local"
 
-#: ../plugins/symbol-browser/plugin.c:1025 ../plugins/symbol-db/plugin.c:873
+#: ../plugins/symbol-browser/plugin.c:1025 ../plugins/symbol-db/plugin.c:847
 msgid "Global"
 msgstr "Global"
 
@@ -7477,7 +7458,7 @@ msgstr "Seleccione el símbolo al que quiere ir"
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1104 ../plugins/symbol-db/plugin.c:928
+#: ../plugins/symbol-browser/plugin.c:1104 ../plugins/symbol-db/plugin.c:902
 msgid "Symbols"
 msgstr "Símbolos"
 
@@ -8405,30 +8386,30 @@ msgstr "Sangrado inteligente"
 msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangría en espacios:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1338
+#: ../plugins/language-support-cpp-java/plugin.c:1352
 msgid "_AutoComplete"
 msgstr "_Autocompletar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1339
+#: ../plugins/language-support-cpp-java/plugin.c:1353
 msgid "AutoComplete the current word"
 msgstr "Autocompletar la palabra actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1345
+#: ../plugins/language-support-cpp-java/plugin.c:1359
 msgid "Auto Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1346
+#: ../plugins/language-support-cpp-java/plugin.c:1360
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1396
+#: ../plugins/language-support-cpp-java/plugin.c:1410
 msgid "Cpp/Java Assistance"
 msgstr "Asistencia para Cpp/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1484
-#: ../plugins/language-support-cpp-java/plugin.c:1493
+#: ../plugins/language-support-cpp-java/plugin.c:1498
+#: ../plugins/language-support-cpp-java/plugin.c:1507
 msgid "C/C++/Java"
 msgstr "C/C++/Java"
 
