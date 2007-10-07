@@ -120,7 +120,7 @@ build_general_prefs ()
 	hbox = gtk_hbox_new (FALSE, 6);
 
 	main_label = gtk_label_new ("");
-	gtk_label_set_markup (GTK_LABEL (main_label), "<b>Valgrind general preferences</b>");	
+	gtk_label_set_markup (GTK_LABEL (main_label), _("<b>Valgrind general preferences</b>"));	
 
 	gtk_box_pack_start (GTK_BOX (hbox), main_label, FALSE, FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);

@@ -990,7 +990,7 @@ build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 		*/
 		GtkWindow *window;
 		window = GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell);
-		anjuta_util_dialog_error (window, "Can not compile \"%s\": No compile rule defined for this file type.", file);
+		anjuta_util_dialog_error (window, _("Can not compile \"%s\": No compile rule defined for this file type."), file);
 	}
 	return ret;
 }

@@ -41,6 +41,7 @@
 #include "search_preferences.h"
 
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
+#include <glib/gi18n.h>
 
 #define GLADE_FILE_SEARCH_REPLACE PACKAGE_DATA_DIR"/glade/anjuta-search.glade"
 
@@ -85,31 +86,31 @@ void on_setting_basic_search_toggled (GtkToggleButton *togglebutton,
 
 /* GUI dropdown option strings */
 AnjutaUtilStringMap search_direction_strings[] = {
-	{SD_FORWARD, "Forward"},
-	{SD_BACKWARD, "Backward"},
-	{SD_BEGINNING, "Full Buffer"},
+	{SD_FORWARD, N_("Forward")},
+	{SD_BACKWARD, N_("Backward")},
+	{SD_BEGINNING, N_("Full Buffer")},
 	{-1, NULL}
 };
 
 AnjutaUtilStringMap search_target_strings[] = {
-	{SR_BUFFER, "Current Buffer"},
-	{SR_SELECTION,"Current Selection"},
-	{SR_BLOCK, "Current Block"},
-	{SR_FUNCTION, "Current Function"},
-	{SR_OPEN_BUFFERS, "All Open Buffers"},
-	{SR_PROJECT, "All Project Files"},
+	{SR_BUFFER, N_("Current Buffer")},
+	{SR_SELECTION, N_("Current Selection")},
+	{SR_BLOCK, N_("Current Block")},
+	{SR_FUNCTION, N_("Current Function")},
+	{SR_OPEN_BUFFERS, N_("All Open Buffers")},
+	{SR_PROJECT, N_("All Project Files")},
 /*	{SR_VARIABLE, "Specify File List"},*/
-	{SR_FILES, "Specify File Patterns"},
+	{SR_FILES, N_("Specify File Patterns")},
 	{-1, NULL}
 };
 
 AnjutaUtilStringMap search_action_strings[] = {
-	{SA_SELECT, "Select the first match"},
-	{SA_BOOKMARK, "Bookmark all matched lines"},
-	{SA_HIGHLIGHT, "Mark all matched strings"},
-	{SA_FIND_PANE, "Show result in find pane"},
-	{SA_REPLACE, "Replace first match"},
-	{SA_REPLACEALL, "Replace all matches"},
+	{SA_SELECT, N_("Select the first match")},
+	{SA_BOOKMARK, N_("Bookmark all matched lines")},
+	{SA_HIGHLIGHT, N_("Mark all matched strings")},
+	{SA_FIND_PANE, N_("Show result in find pane")},
+	{SA_REPLACE, N_("Replace first match")},
+	{SA_REPLACEALL, N_("Replace all matches")},
 	{-1, NULL}
 };
 

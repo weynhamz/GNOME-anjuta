@@ -1,3 +1,16 @@
+2007-10-07   Marc Lorber <Lorber.Marc@wanadoo.fr>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/Makefile.am:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(build_compile_file_real):
+	* plugins/search/search-replace.c:
+	* plugins/valgrind/preferences.c: (build_general_prefs):
+	
+	Fix #484379 – Contents of Makefile.am plugins and
+	#484419 – Improvement into translation
+
 2007-10-06  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/interfaces/anjuta-idl-compiler.pl:
