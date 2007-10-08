@@ -71,8 +71,8 @@ plugins/devhelp/plugin.c
 plugins/document-manager/action-callbacks.c
 plugins/document-manager/anjuta-docman.c
 plugins/document-manager/anjuta-document-manager.glade
-plugins/document-manager/goto_line.c
 plugins/document-manager/plugin.c
+plugins/document-manager/search-box.c
 plugins/editor/editor.glade
 plugins/editor/print.c
 plugins/editor/plugin.c

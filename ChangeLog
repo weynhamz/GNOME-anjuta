@@ -1,3 +1,8 @@
+2007-10-08  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/search-box.c: (on_search_activated):
+	Mark messages for translation
+
 2007-10-07   Marc Lorber <Lorber.Marc@wanadoo.fr>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
