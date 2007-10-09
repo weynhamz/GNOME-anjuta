@@ -143,228 +143,238 @@ static ShortcutMapping global_keymap[] = {
 };
 
 static GtkActionEntry actions_file[] = {
-  { "ActionFileSave", N_("_Save"), GTK_STOCK_SAVE, "<control>s",
+  { "ActionFileNew", GTK_STOCK_NEW, N_("_New"), "<control>n",
+	N_("New empty file"),
+    G_CALLBACK (on_new_file_activate)},
+  { "ActionFileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s",
 	N_("Save current file"), G_CALLBACK (on_save_activate)},
-  { "ActionFileSaveAs", N_("Save _As..."), GTK_STOCK_SAVE_AS, NULL,
+  { "ActionFileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."), NULL,
 	N_("Save the current file with a different name"),
     G_CALLBACK (on_save_as_activate)},
-  { "ActionFileSaveAll", N_("Save A_ll"),  NULL, NULL,
+  { "ActionFileSaveAll", NULL, N_("Save A_ll"), NULL,
 	N_("Save all currently open files, except new files"),
     G_CALLBACK (on_save_all_activate)},
-  { "ActionFileClose", N_("_Close File"), GTK_STOCK_CLOSE, "<control>w",
+  { "ActionFileClose", GTK_STOCK_CLOSE, N_("_Close File"), "<control>w",
 	N_("Close current file"),
     G_CALLBACK (on_close_file_activate)},
-  { "ActionFileCloseAll", N_("Close All Files"), GTK_STOCK_CLOSE, "<shift><control>w",
+  { "ActionFileCloseAll", GTK_STOCK_CLOSE, N_("Close All"), "<shift><control>w",
 	N_("Close all files"),
     G_CALLBACK (on_close_all_file_activate)},
-  { "ActionFileReload", N_("Reload F_ile"), GTK_STOCK_REVERT_TO_SAVED, NULL,
+  { "ActionFileReload", GTK_STOCK_REVERT_TO_SAVED, N_("Reload F_ile"), NULL,
 	N_("Reload current file"),
     G_CALLBACK (on_reload_file_activate)},
-  { "ActionFileSwap", N_("Swap .h/.c"), ANJUTA_STOCK_SWAP, NULL,
-	N_("Swap c header and source file"),
+  { "ActionFileSwap", ANJUTA_STOCK_SWAP, N_("Swap .h/.c"), NULL,
+	N_("Swap c header and source files"),
     G_CALLBACK (on_swap_activate)},
-  { "ActionMenuFileRecentFiles", N_("Recent _Files"),  NULL, NULL, NULL, NULL},
+  { "ActionMenuFileRecentFiles", NULL, N_("Recent _Files"),  NULL, NULL, NULL},	/* menu title */
 };
 
 static GtkActionEntry actions_print[] = {
-  { "ActionPrintFile", N_("_Print..."), GTK_STOCK_PRINT, "<control>p",
+  { "ActionPrintFile", GTK_STOCK_PRINT, N_("_Print..."), "<control>p",
 	N_("Print the current file"), G_CALLBACK (anjuta_print_cb)},
-  { "ActionPrintPreview", N_("_Print Preview"), NULL, NULL,
-	N_("Print preview of the current file"),
+  { "ActionPrintPreview",
+#ifdef GTK_STOCK_PRINT_PREVIEW
+	GTK_STOCK_PRINT_PREVIEW
+#else
+	NULL
+#endif
+	, N_("_Print Preview"), NULL,
+	N_("Preview the current file in print-format"),
     G_CALLBACK (anjuta_print_preview_cb)},
 };
 
 static GtkActionEntry actions_transform[] = {
-  { "ActionMenuEditTransform", N_("_Transform"), NULL, NULL, NULL, NULL},
-  { "ActionEditMakeSelectionUppercase", N_("_Make Selection Uppercase"), NULL, NULL,
+  { "ActionMenuEditTransform", NULL, N_("_Transform"), NULL, NULL, NULL}, /* menu title */
+  { "ActionEditMakeSelectionUppercase", NULL, N_("_Make Selection Uppercase"), NULL,
 	N_("Make the selected text uppercase"),
     G_CALLBACK (on_editor_command_upper_case_activate)},
-  { "ActionEditMakeSelectionLowercase", N_("Make Selection Lowercase"), NULL, NULL,
+  { "ActionEditMakeSelectionLowercase", NULL, N_("Make Selection Lowercase"), NULL,
 	N_("Make the selected text lowercase"),
     G_CALLBACK (on_editor_command_lower_case_activate)},
-  { "ActionEditConvertCRLF", N_("Convert EOL to CRLF"), NULL, NULL,
+  { "ActionEditConvertCRLF", NULL, N_("Convert EOL to CRLF"), NULL,
 	N_("Convert End Of Line characters to DOS EOL (CRLF)"),
     G_CALLBACK (on_editor_command_eol_crlf_activate)},
-  { "ActionEditConvertLF", N_("Convert EOL to LF"), NULL, NULL,
+  { "ActionEditConvertLF", NULL, N_("Convert EOL to LF"), NULL,
 	N_("Convert End Of Line characters to Unix EOL (LF)"),
     G_CALLBACK (on_editor_command_eol_lf_activate)},
-  { "ActionEditConvertCR", N_("Convert EOL to CR"), NULL, NULL,
+  { "ActionEditConvertCR", NULL, N_("Convert EOL to CR"), NULL,
 	N_("Convert End Of Line characters to Mac OS EOL (CR)"),
     G_CALLBACK (on_editor_command_eol_cr_activate)},
-  { "ActionEditConvertEOL", N_("Convert EOL to Majority EOL"), NULL, NULL,
+  { "ActionEditConvertEOL", NULL, N_("Convert EOL to Majority EOL"), NULL,
 	N_("Convert End Of Line characters to majority of the EOL found in the file"),
     G_CALLBACK (on_transform_eolchars1_activate)},
 };
 
 static GtkActionEntry actions_select[] = {
-  { "ActionMenuEditSelect", N_("_Select"), NULL, NULL, NULL, NULL},
-  { "ActionEditSelectAll", N_("Select _All"), NULL, "<control>a",
+  { "ActionMenuEditSelect",  NULL, N_("_Select"), NULL, NULL, NULL}, /* menu title */
+  { "ActionEditSelectAll",
+#ifdef GTK_STOCK_SELECT_ALL
+	GTK_STOCK_SELECT_ALL
+#else
+	NULL
+#endif
+	, N_("Select _All"), "<control>a",
 	N_("Select all text in the editor"),
     G_CALLBACK (on_editor_command_select_all_activate)},
-  { "ActionEditSelectToBrace", N_("Select to _Brace"), NULL, NULL,
+  { "ActionEditSelectToBrace", NULL, N_("Select to _Brace"), NULL,
 	N_("Select the text in the matching braces"),
     G_CALLBACK (on_editor_command_select_to_brace_activate)},
-  { "ActionEditSelectBlock", N_("Select _Code Block"),
-	ANJUTA_STOCK_BLOCK_SELECT, "<shift><control>b",
-	N_("Select the current code block"),
+  { "ActionEditSelectBlock", ANJUTA_STOCK_BLOCK_SELECT, N_("Select _Code Block"),
+	 "<shift><control>b", N_("Select the current code block"),
     G_CALLBACK (on_editor_command_select_block_activate)},
 };
 
 static GtkActionEntry actions_comment[] = {
-  { "ActionMenuEditComment", N_("Co_mment"), NULL, NULL, NULL, NULL},
-  { "ActionEditCommentBlock", N_("_Block Comment/Uncomment"), NULL, NULL,
+  { "ActionMenuEditComment", NULL, N_("Co_mment"), NULL, NULL, NULL}, /* menu title */
+  { "ActionEditCommentBlock", NULL, N_("_Block Comment/Uncomment"), NULL,
 	N_("Block comment the selected text"),
     G_CALLBACK (on_comment_block)},
-  { "ActionEditCommentBox", N_("Bo_x Comment/Uncomment"), NULL, NULL,
+  { "ActionEditCommentBox", NULL, N_("Bo_x Comment/Uncomment"), NULL,
 	N_("Box comment the selected text"),
     G_CALLBACK (on_comment_box)},
-  { "ActionEditCommentStream", N_("_Stream Comment/Uncomment"), NULL, NULL,
+  { "ActionEditCommentStream", NULL, N_("_Stream Comment/Uncomment"), NULL,
 	N_("Stream comment the selected text"),
     G_CALLBACK (on_comment_block)},
 };
 
 static GtkActionEntry actions_navigation[] = {
-  { "ActionMenuGoto", N_("_Goto"), NULL, NULL, NULL, NULL},
-  { "ActionEditGotoLine", N_("_Line Number..."),
-	GTK_STOCK_JUMP_TO, "<control><alt>g",
-	N_("Go to a particular line in the editor"),
+  { "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},/* menu title */
+  { "ActionEditGotoLine", GTK_STOCK_JUMP_TO, N_("_Line Number..."),
+	"<control><alt>g", N_("Go to a particular line in the editor"),
     G_CALLBACK (on_goto_line_no1_activate)},
-  { "ActionEditGotoMatchingBrace", N_("Matching _Brace"),
-	GTK_STOCK_JUMP_TO, "<control><alt>m", 
-	N_("Go to the matching brace in the editor"),
+  { "ActionEditGotoMatchingBrace", GTK_STOCK_JUMP_TO, N_("Matching _Brace"),
+	"<control><alt>m", N_("Go to the matching brace in the editor"),
     G_CALLBACK (on_editor_command_match_brace_activate)},
-  { "ActionEditGotoBlockStart", N_("_Start of Block"),
-	ANJUTA_STOCK_BLOCK_START, "<control><alt>s",
-	N_("Go to the start of the current block"),
+  { "ActionEditGotoBlockStart", ANJUTA_STOCK_BLOCK_START, N_("_Start of Block"),
+	"<control><alt>s", N_("Go to the start of the current block"),
     G_CALLBACK (on_goto_block_start1_activate)},
-  { "ActionEditGotoBlockEnd", N_("_End of Block"),
-	ANJUTA_STOCK_BLOCK_END, "<control><alt>e",
-	N_("Go to the end of the current block"),
+  { "ActionEditGotoBlockEnd", ANJUTA_STOCK_BLOCK_END, N_("_End of Block"),
+	"<control><alt>e", N_("Go to the end of the current block"),
     G_CALLBACK (on_goto_block_end1_activate)},
-  { "ActionEditGotoHistoryPrev", N_("Previous _History"),
-	GTK_STOCK_JUMP_TO, NULL,
-	N_("Goto previous history"),
+  { "ActionEditGotoHistoryPrev", GTK_STOCK_JUMP_TO, N_("Previous _History"),
+	NULL, N_("Goto previous history"),
     G_CALLBACK (on_prev_history)},
-  { "ActionEditGotoHistoryNext", N_("Next Histor_y"),
-	GTK_STOCK_JUMP_TO, NULL,
-	N_("Goto next history"),
+  { "ActionEditGotoHistoryNext", GTK_STOCK_JUMP_TO, N_("Next Histor_y"),
+	 NULL, N_("Goto next history"),
     G_CALLBACK (on_next_history)}
 };
 
 static GtkActionEntry actions_search[] = {
-	{ "ActionMenuEditSearch", N_("_Search"), NULL, NULL, NULL, NULL},
-	{ "ActionEditSearchQuickSearch", N_("_Quick Search"), GTK_STOCK_FIND,
-	"<control>f",
-	N_("Quick editor embedded search"),
+  { "ActionMenuEditSearch", NULL, N_("_Search"), NULL, NULL, NULL},
+  { "ActionEditSearchQuickSearch", GTK_STOCK_FIND, N_("_Quick Search"),
+	"<control>f", N_("Quick editor embedded search"),
     G_CALLBACK (on_show_search)}
 };
 
 static GtkActionEntry actions_edit[] = {
-  { "ActionMenuEdit", N_("_Edit"), NULL, NULL, NULL, NULL},
-  { "ActionMenuViewEditor", N_("_Editor"), NULL, NULL, NULL, NULL},
-  { "ActionViewEditorAddView", N_("_Add Editor View"), NULL, NULL,
+  { "ActionMenuEdit", NULL, N_("_Edit"), NULL, NULL, NULL},/* menu title */
+  { "ActionMenuViewEditor", NULL, N_("_Editor"), NULL, NULL, NULL},
+  { "ActionViewEditorAddView",
+#ifdef GTK_STOCK_EDIT
+	GTK_STOCK_EDIT
+#else
+	NULL
+#endif
+	, N_("_Add Editor View"), NULL,
 	N_("Add one more view of current document"),
     G_CALLBACK (on_editor_add_view_activate)},
-  { "ActionViewEditorRemoveView", N_("_Remove Editor View"), NULL, NULL,
+  { "ActionViewEditorRemoveView", NULL, N_("_Remove Editor View"), NULL,
 	N_("Remove current view of the document"),
     G_CALLBACK (on_editor_remove_view_activate)},
-  { "ActionEditUndo", N_("U_ndo"), GTK_STOCK_UNDO, "<control>z",
+  { "ActionEditUndo", GTK_STOCK_UNDO, N_("U_ndo"), "<control>z",
 	N_("Undo the last action"),
     G_CALLBACK (on_editor_command_undo_activate)},
-  { "ActionEditRedo", N_("_Redo"), GTK_STOCK_REDO, "<control>r",
+  { "ActionEditRedo", GTK_STOCK_REDO, N_("_Redo"), "<control>r",
 	N_("Redo the last undone action"),
     G_CALLBACK (on_editor_command_redo_activate)},
-  { "ActionEditCut", N_("C_ut"), GTK_STOCK_CUT, "<control>x",
+  { "ActionEditCut", GTK_STOCK_CUT, N_("C_ut"), "<control>x",
 	N_("Cut the selected text from the editor to the clipboard"),
     G_CALLBACK (on_editor_command_cut_activate)},
-  { "ActionEditCopy", N_("_Copy"), GTK_STOCK_COPY, "<control>c",
+  { "ActionEditCopy", GTK_STOCK_COPY, N_("_Copy"), "<control>c",
 	N_("Copy the selected text to the clipboard"),
     G_CALLBACK (on_editor_command_copy_activate)},
-  { "ActionEditPaste", N_("_Paste"), GTK_STOCK_PASTE, "<control>v",
+  { "ActionEditPaste", GTK_STOCK_PASTE, N_("_Paste"), "<control>v",
 	N_("Paste the content of clipboard at the current position"),
     G_CALLBACK (on_editor_command_paste_activate)},
-  { "ActionEditClear", N_("_Clear"), NULL, "Delete",
+  { "ActionEditClear",
+#ifdef GTK_STOCK_DISCARD
+	GTK_STOCK_DISCARD
+#else
+	NULL
+#endif
+	, N_("_Clear"), "Delete",
 	N_("Delete the selected text from the editor"),
     G_CALLBACK (on_editor_command_clear_activate)},
 };
 
 static GtkToggleActionEntry actions_view[] = {
-  { "ActionViewEditorLinenumbers", N_("_Line Number Margin"), NULL, NULL,
+  { "ActionViewEditorLinenumbers", NULL, N_("_Line Number Margin"), NULL,
 	N_("Show/Hide line numbers"),
     G_CALLBACK (on_editor_linenos1_activate), FALSE},
-  { "ActionViewEditorMarkers", N_("_Marker Margin"), NULL, NULL,
+  { "ActionViewEditorMarkers", NULL, N_("_Marker Margin"), NULL,
 	N_("Show/Hide marker margin"),
     G_CALLBACK (on_editor_markers1_activate), FALSE},
-  { "ActionViewEditorFolds", N_("_Code Fold Margin"), NULL, NULL,
+  { "ActionViewEditorFolds", NULL, N_("_Code Fold Margin"), NULL,
 	N_("Show/Hide code fold margin"),
     G_CALLBACK (on_editor_codefold1_activate), FALSE},
-  { "ActionViewEditorGuides", N_("_Indentation Guides"), NULL, NULL,
+  { "ActionViewEditorGuides", NULL, N_("_Indentation Guides"), NULL,
 	N_("Show/Hide indentation guides"),
     G_CALLBACK (on_editor_indentguides1_activate), FALSE},
-  { "ActionViewEditorSpaces", N_("_White Space"), NULL, NULL,
+  { "ActionViewEditorSpaces", NULL, N_("_White Space"), NULL,
 	N_("Show/Hide white spaces"),
     G_CALLBACK (on_editor_whitespaces1_activate), FALSE},
-  { "ActionViewEditorEOL", N_("_Line End Characters"), NULL, NULL,
+  { "ActionViewEditorEOL", NULL, N_("_Line End Characters"), NULL,
 	N_("Show/Hide line end characters"),
     G_CALLBACK (on_editor_eolchars1_activate), FALSE},
-  { "ActionViewEditorWrapping", N_("Line _Wrapping"), NULL, NULL,
+  { "ActionViewEditorWrapping", NULL, N_("Line _Wrapping"), NULL,
 	N_("Enable/disable line wrapping"),
     G_CALLBACK (on_editor_linewrap1_activate), FALSE}
 };
 
 static GtkActionEntry actions_zoom[] = {
-  { "ActionViewEditorZoomIn", N_("Zoom In"), GTK_STOCK_ZOOM_IN, "<control>plus",
+  { "ActionViewEditorZoomIn", GTK_STOCK_ZOOM_IN, N_("Zoom In"), "<control>plus",
 	N_("Zoom in: Increase font size"),
     G_CALLBACK (on_zoom_in_text_activate)},
-  { "ActionViewEditorZoomOut", N_("Zoom Out"), GTK_STOCK_ZOOM_OUT, "<control>minus",
+  { "ActionViewEditorZoomOut", GTK_STOCK_ZOOM_OUT, N_("Zoom Out"), "<control>minus",
 	N_("Zoom out: Decrease font size"),
     G_CALLBACK (on_zoom_out_text_activate)}
 };
 
 static GtkActionEntry actions_style[] = {
-  { "ActionMenuFormatStyle", N_("_Highlight Mode"), NULL, NULL, NULL, NULL}
+  { "ActionMenuFormatStyle", NULL, N_("_Highlight Mode"), NULL, NULL, NULL}/* menu title */
 };
 
 static GtkActionEntry actions_format[] = {
-  { "ActionFormatFoldCloseAll", N_("_Close All Folds"),
-	ANJUTA_STOCK_FOLD_CLOSE, NULL,
-	N_("Close all code folds in the editor"),
+  { "ActionFormatFoldCloseAll", ANJUTA_STOCK_FOLD_CLOSE, N_("_Close All Folds"),
+	NULL, N_("Close all code folds in the editor"),
     G_CALLBACK (on_editor_command_close_folds_all_activate)},
-  { "ActionFormatFoldOpenAll", N_("_Open All Folds"),
-	ANJUTA_STOCK_FOLD_OPEN, NULL,
-	N_("Open all code folds in the editor"),
+  { "ActionFormatFoldOpenAll", ANJUTA_STOCK_FOLD_OPEN, N_("_Open All Folds"),
+	NULL, N_("Open all code folds in the editor"),
     G_CALLBACK (on_editor_command_open_folds_all_activate)},
-  { "ActionFormatFoldToggle", N_("_Toggle Current Fold"),
-	ANJUTA_STOCK_FOLD_TOGGLE, NULL,
-	N_("Toggle current code fold in the editor"),
+  { "ActionFormatFoldToggle", ANJUTA_STOCK_FOLD_TOGGLE, N_("_Toggle Current Fold"),
+	NULL, N_("Toggle current code fold in the editor"),
     G_CALLBACK (on_editor_command_toggle_fold_activate)},
 };
 
 static GtkActionEntry actions_bookmark[] = {
-  { "ActionMenuBookmark", N_("Bookmar_k"), NULL, NULL, NULL, NULL},
-  { "ActionBookmarkToggle", N_("_Toggle Bookmark"),
-	ANJUTA_STOCK_BOOKMARK_TOGGLE, "<control>k",
-	N_("Toggle a bookmark at the current line position"),
+  { "ActionMenuBookmark", NULL, N_("Bookmar_k"), NULL, NULL, NULL},
+  { "ActionBookmarkToggle", ANJUTA_STOCK_BOOKMARK_TOGGLE, N_("_Toggle Bookmark"),
+	"<control>k", N_("Toggle a bookmark at the current line position"),
     G_CALLBACK (on_editor_command_bookmark_toggle_activate)},
-  { "ActionBookmarkFirst", N_("_First Bookmark"),
-	ANJUTA_STOCK_BOOKMARK_FIRST, NULL,
-	N_("Jump to the first bookmark in the file"),
+  { "ActionBookmarkFirst", ANJUTA_STOCK_BOOKMARK_FIRST, N_("_First Bookmark"),
+	NULL, N_("Jump to the first bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_first_activate)},
-  { "ActionBookmarkPrevious", N_("_Previous Bookmark"),
-	ANJUTA_STOCK_BOOKMARK_PREV, "<control>comma",
-	N_("Jump to the previous bookmark in the file"),
+  { "ActionBookmarkPrevious", ANJUTA_STOCK_BOOKMARK_PREV, N_("_Previous Bookmark"),
+	"<control>comma", N_("Jump to the previous bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_prev_activate)},
-  { "ActionBookmarkNext", N_("_Next Bookmark"),
-	ANJUTA_STOCK_BOOKMARK_NEXT, "<control>period",
-	N_("Jump to the next bookmark in the file"),
+  { "ActionBookmarkNext", ANJUTA_STOCK_BOOKMARK_NEXT, N_("_Next Bookmark"),
+	"<control>period", N_("Jump to the next bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_next_activate)},
-  { "ActionBookmarkLast", N_("_Last Bookmark"),
-	ANJUTA_STOCK_BOOKMARK_LAST, NULL,
-	N_("Jump to the last bookmark in the file"),
+  { "ActionBookmarkLast", ANJUTA_STOCK_BOOKMARK_LAST, N_("_Last Bookmark"),
+	NULL, N_("Jump to the last bookmark in the file"),
     G_CALLBACK (on_editor_command_bookmark_last_activate)},
-  { "ActionBookmarkClear", N_("_Clear All Bookmarks"),
-	ANJUTA_STOCK_BOOKMARK_CLEAR, NULL,
-	N_("Clear bookmarks"),
+  { "ActionBookmarkClear", ANJUTA_STOCK_BOOKMARK_CLEAR, N_("_Clear All Bookmarks"),
+	NULL, N_("Clear bookmarks"),
     G_CALLBACK (on_editor_command_bookmark_clear_activate)},
 };
 
@@ -404,35 +414,6 @@ static struct ActionToggleGroupInfo action_toggle_groups[] = {
 
 // void pref_set_style_combo(DocmanPlugin *plugin);
 
-/* FIXME: There was a change in data representation in GtkActionEntry from
-EggActionGroupEntry. The actual entries should be fixed and this hack removed */
-static void
-swap_label_and_stock (GtkActionEntry* actions, gint size)
-{
-	int i;
-	for (i = 0; i < size; i++)
-	{
-		const gchar *stock_id = actions[i].label;
-		actions[i].label = actions[i].stock_id;
-		actions[i].stock_id = stock_id;
-		if (actions[i].name == NULL)
-			DEBUG_PRINT ("Name is null: %s", actions[i].label);
-	}
-}
-
-static void
-swap_toggle_label_and_stock (GtkToggleActionEntry* actions, gint size)
-{
-	int i;
-	for (i = 0; i < size; i++)
-	{
-		const gchar *stock_id = actions[i].label;
-		actions[i].label = actions[i].stock_id;
-		actions[i].stock_id = stock_id;
-		if (actions[i].name == NULL)
-			DEBUG_PRINT ("Name is null: %s", actions[i].label);
-	}
-}
 
 #define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible"
 #define VIEW_MARKER_MARGIN         "margin.marker.visible"
@@ -561,6 +542,10 @@ ui_give_shorter_names (AnjutaPlugin *plugin)
 	GtkAction *action;
 			
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
+	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
+									"ActionFileNew");
+	g_object_set (G_OBJECT (action), "short-label", _("New"),
+				  "is-important", TRUE, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupEditorFile",
 								   "ActionFileSave");
 	g_object_set (G_OBJECT (action), "short-label", _("Save"),
@@ -967,7 +952,7 @@ static void remove_char(gchar *s, gchar c)
 	*t = '\0';
 }
 
-/* Compare two strings, ignoring _ characters which indicate mneumonics.
+/* Compare two strings, ignoring _ characters which indicate mnemonics.
  * Returns -1, 0, or 1, just like strcmp(). */
 static gint
 menu_name_compare(const gchar *s, const char *t)
@@ -1275,7 +1260,7 @@ on_window_key_press_event (GtkWidget   *widget,
 	}
 
 	/* Note: No reason for a shortcut to do more than one thing a time */
-	gtk_signal_emit_stop_by_name (GTK_OBJECT (ANJUTA_PLUGIN(plugin)->shell),
+	g_signal_stop_emission_by_name (G_OBJECT (ANJUTA_PLUGIN(plugin)->shell),
 								  "key-press-event");
 
 	return TRUE;
@@ -1523,7 +1508,11 @@ on_gconf_notify_timer (GConfClient *gclient, guint cnxn_id,
 		else
 		{
 			ep->autosave_id =
-				gtk_timeout_add (auto_save_timer * 60000,
+#if GLIB_CHECK_VERSION (2,14,0)
+				g_timeout_add_seconds (auto_save_timer * 60,
+#else
+				g_timeout_add (auto_save_timer * 60000,
+#endif
 						 on_docman_auto_save,
 						 ep);
 		}
@@ -1616,9 +1605,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	for (i = 0; i < G_N_ELEMENTS (action_groups); i++)
 	{
 		GList *actions, *act;
-		if (!initialized)
-			swap_label_and_stock (action_groups[i].group,
-								  action_groups[i].size);
 		DEBUG_PRINT ("Adding action group: %s", action_groups[i].name);
 		group = anjuta_ui_add_action_group_entries (ui, 
 													action_groups[i].name,
@@ -1639,9 +1625,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	for (i = 0; i < G_N_ELEMENTS (action_toggle_groups); i++)
 	{
 		GList *actions, *act;
-		if (!initialized)
-			swap_toggle_label_and_stock (action_toggle_groups[i].group,
-										 action_toggle_groups[i].size);
 		group = anjuta_ui_add_toggle_action_group_entries (ui, 
 												action_toggle_groups[i].name,
 												_(action_toggle_groups[i].label),
@@ -1696,7 +1679,6 @@ activate_plugin (AnjutaPlugin *plugin)
 	editor_plugin->project_name = NULL;
 	
 	initialized = TRUE;
-
 	
 	return TRUE;
 }

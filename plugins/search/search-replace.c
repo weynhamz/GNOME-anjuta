@@ -32,6 +32,7 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 #include <libanjuta/interfaces/ianjuta-markable.h>
+#include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-indicable.h>
 
 #include <libegg/menu/egg-entry-action.h>
@@ -86,9 +87,11 @@ void on_setting_basic_search_toggled (GtkToggleButton *togglebutton,
 
 /* GUI dropdown option strings */
 AnjutaUtilStringMap search_direction_strings[] = {
+/* the order of these matters - it must match the order of the corresponding
+   radio buttons on another page */
+	{SD_BEGINNING, N_("Full Buffer")},
 	{SD_FORWARD, N_("Forward")},
 	{SD_BACKWARD, N_("Backward")},
-	{SD_BEGINNING, N_("Full Buffer")},
 	{-1, NULL}
 };
 
@@ -99,17 +102,17 @@ AnjutaUtilStringMap search_target_strings[] = {
 	{SR_FUNCTION, N_("Current Function")},
 	{SR_OPEN_BUFFERS, N_("All Open Buffers")},
 	{SR_PROJECT, N_("All Project Files")},
-/*	{SR_VARIABLE, "Specify File List"},*/
+/*	{SR_VARIABLE, N_("Specify File List")},*/
 	{SR_FILES, N_("Specify File Patterns")},
 	{-1, NULL}
 };
 
 AnjutaUtilStringMap search_action_strings[] = {
-	{SA_SELECT, N_("Select the first match")},
+	{SA_SELECT, N_("Select next match")},
 	{SA_BOOKMARK, N_("Bookmark all matched lines")},
-	{SA_HIGHLIGHT, N_("Mark all matched strings")},
-	{SA_FIND_PANE, N_("Show result in find pane")},
-	{SA_REPLACE, N_("Replace first match")},
+	{SA_HIGHLIGHT, N_("Mark all matches")},
+	{SA_FIND_PANE, N_("List matches in find pane")},
+	{SA_REPLACE, N_("Replace next match")},
 	{SA_REPLACEALL, N_("Replace all matches")},
 	{-1, NULL}
 };
@@ -263,7 +266,7 @@ static SearchReplace *sr = NULL;
 static gboolean flag_select = FALSE;
 static gboolean interactive = FALSE;
 static gboolean end_activity = FALSE;
-
+static gboolean labels_translated = FALSE;
 
 /***********************************************************/
 
@@ -283,11 +286,13 @@ search_and_replace (void)
 	static MatchInfo *mi;
 	Search *s;
 	gint offset;
-	static gint os=0;
+	gint found_line = 0;
+	static gint os = 0;
 	gint nb_results;
 	static long start_sel = 0;
 	static long end_sel = 0;
-	static gchar *ch= NULL;
+	static gchar *ch = NULL;
+	gchar *regx_pattern;
 	gboolean save_file = FALSE;
 	IAnjutaMessageManager* msgman;
 	IAnjutaMessageView* view = NULL;
@@ -299,11 +304,13 @@ search_and_replace (void)
 	if (s->expr.search_str == NULL)
 		return;
 	
-	end_activity = FALSE;
-	
-	backward = s->range.direction == SD_BACKWARD?TRUE:FALSE;
-	
 	entries = create_search_entries(s);
+	if (!entries)
+		return;
+	
+	end_activity = FALSE;
+	backward = (s->range.direction == SD_BACKWARD);
+	
 	search_update_combos (); 
 	if (s->action == SA_REPLACE || s->action == SA_REPLACEALL)
 		replace_update_combos ();
@@ -343,6 +350,11 @@ search_and_replace (void)
 		while(gtk_events_pending())
 			gtk_main_iteration();
 		
+		/*to eliminate un-needed moves, when not bookmarking, this could be
+		  current line i.e. ianjuta_editor_get_lineno (IANJUTA_EDITOR (se->te), NULL);
+		  or sometimes last-line ? */
+		found_line = (s->action == SA_BOOKMARK) ? -1 : 1;
+
 		se = (SearchEntry *) tmp->data;
 		if (flag_select)
 		{
@@ -358,13 +370,15 @@ search_and_replace (void)
 
 		if (fb)
 		{		
-			gint found_line = 0;
 			fb->pos = se->start_pos;
 			offset = 0;
-			
+/* NO - there's no reason for user to expect existing marks to be removed.
+	And that can easily be done manually by user if so desired.
 			if (s->action == SA_BOOKMARK && IANJUTA_IS_MARKABLE (fb->te))
 				ianjuta_markable_delete_all_markers(IANJUTA_MARKABLE(fb->te), 
 				                                    IANJUTA_MARKABLE_LINEMARKER, NULL);
+*/
+		//FIXME enable clearing of marks by some means other than a 0-match search
 			if (s->action == SA_HIGHLIGHT)	
 				ianjuta_indicable_clear (IANJUTA_INDICABLE(fb->te), NULL); 				
 	
@@ -380,47 +394,59 @@ search_and_replace (void)
 				if (nb_results > sr->search.expr.actions_max)
 					break;
 				
+				/* NOTE - mi->line is "editor-style" 1-based, but some things
+					here use/expect 0-base, so adjustments are made as needed */
 				
 				switch (s->action)
 				{
-					case SA_HIGHLIGHT: /* FIXME */
-						if (NULL == fb->te)
-							ianjuta_document_manager_goto_file_line_mark (sr->docman, 
-								                  fb->path, mi->line + 1, TRUE, NULL);
+					case SA_HIGHLIGHT:
+						found_line = mi->line;
+
+						if (fb->te == NULL)
+							fb->te =
+								IANJUTA_EDITOR (ianjuta_document_manager_get_current_document
+									(sr->docman, NULL));
+
+						if (IANJUTA_INDICABLE (fb->te))
+					/* end-location is correct for sourceview, 1-too-big for scintilla */
 						ianjuta_indicable_set (IANJUTA_INDICABLE(fb->te),  
 						                       mi->pos, mi->pos + mi->len,  
-						                       IANJUTA_INDICABLE_IMPORTANT, NULL);             //
-						 break; //   
+					            					IANJUTA_INDICABLE_IMPORTANT, NULL);
+						break;
+
 					case SA_BOOKMARK:
-						if (NULL == fb->te)
+						if (found_line != mi->line)
 						{
-							ianjuta_document_manager_goto_file_line_mark (sr->docman, 
-								                  fb->path, mi->line + 1, TRUE, NULL);
-							fb->te = IANJUTA_EDITOR(
-							  ianjuta_document_manager_get_current_document(sr->docman,
-																		  NULL));
-						}
+							found_line = mi->line;
 						
-						else
-							ianjuta_editor_goto_line (fb->te, mi->line + 1, NULL);
-						
-						if (found_line != mi->line + 1)
-						{
-							if (IANJUTA_IS_MARKABLE (fb->te))
+							if (fb->te == NULL)
+								fb->te =
+									IANJUTA_EDITOR (ianjuta_document_manager_get_current_document
+										(sr->docman, NULL));
+
+							if (IANJUTA_IS_MARKABLE (fb->te) &&
+								!ianjuta_markable_is_marker_set (
+														IANJUTA_MARKABLE(fb->te),
+														mi->line,
+														IANJUTA_MARKABLE_BOOKMARK,
+														NULL))
 							{
-								ianjuta_markable_mark (IANJUTA_MARKABLE(fb->te), 
-													   mi->line + 1,
-													   IANJUTA_MARKABLE_LINEMARKER,
-													   NULL);
+								ianjuta_bookmark_toggle (IANJUTA_BOOKMARK(fb->te),
+														mi->line, FALSE, NULL);
 							}
-							found_line = mi->line + 1;
 						}
 						break;
 						
 					case SA_SELECT:
-						if (NULL == fb->te)
-							ianjuta_document_manager_goto_file_line (sr->docman, 
-																	 fb->path, mi->line + 1, NULL);
+						if (found_line != mi->line || fb->te == NULL)
+						{
+							if (fb->te)
+								ianjuta_editor_goto_line (fb->te, mi->line, NULL);
+							else
+								fb->te = ianjuta_document_manager_goto_file_line_mark
+									(sr->docman, fb->path, mi->line, FALSE, NULL);
+							found_line = mi->line;
+						}
 						ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), mi->pos,
 													 (mi->pos + mi->len), backward,
 													 NULL);
@@ -431,15 +457,18 @@ search_and_replace (void)
 						break;
 					
 					case SA_REPLACE:
+						if (found_line != mi->line || fb->te == NULL)
+							{
+							if (fb->te)
+								ianjuta_editor_goto_line (fb->te, mi->line, NULL);
+							else
+								fb->te = ianjuta_document_manager_goto_file_line_mark
+									(sr->docman, fb->path, mi->line, FALSE, NULL);
+							found_line = mi->line;
+							}
+
 						if (!interactive)
 						{
-							if (NULL == fb->te)
-							{
-								ianjuta_document_manager_goto_file_line (sr->docman, 
-											fb->path, mi->line + 1, NULL);
-								fb->te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman,
-																					 NULL));
-							}
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), mi->pos - offset,
 													 mi->pos - offset + mi->len,
 							                         backward,
@@ -451,30 +480,20 @@ search_and_replace (void)
 							show_jump_button(TRUE);
 							if (sr->replace.regex && sr->search.expr.regex)
 							{
-								if (ch)
-								{
 									g_free (ch);
+								ch = regex_backref (mi, fb);
 								}
-								ch = g_strdup(regex_backref(mi, fb));
 							}
-							break;
-						}
-
-						if (ch && sr->replace.regex && sr->search.expr.regex)
-						{
-							sr->replace.repl_str = g_strdup(ch);
-							g_free (ch);
-						}
-						
-						if (fb->te == NULL)
-						{
-							ianjuta_document_manager_goto_file_line (sr->docman, 
-											fb->path, mi->line + 1, NULL);
-							fb->te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document(sr->docman,
-																					 NULL));
-						}
 						else
 						{
+						if (ch && sr->replace.regex && sr->search.expr.regex)
+						{
+								g_free (sr->replace.repl_str);
+								sr->replace.repl_str = g_strdup (ch);
+							g_free (ch);
+								ch = NULL;
+						}
+						
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  mi->pos - os,
 														 mi->pos + mi->len - os,
 							                             backward,
@@ -483,15 +502,21 @@ search_and_replace (void)
 															 sr->replace.repl_str,
 															 strlen(sr->replace.repl_str),
 															 NULL);
-						}
 						if (se->direction != SD_BACKWARD)
 							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
 						
 						interactive = FALSE;
+						}
 						break;
+
 					case SA_REPLACEALL:
-						if ((sr->replace.regex) && (sr->search.expr.regex))
-							sr->replace.repl_str = g_strdup(regex_backref(mi, fb));
+						if (sr->replace.regex && sr->search.expr.regex)
+						{
+							regx_pattern = sr->replace.repl_str;	/* preserve for later matches */
+							sr->replace.repl_str = regex_backref (mi, fb);
+						}
+						else
+							regx_pattern = NULL;
 						if (fb->te == NULL) /* NON OPENED FILES */
 						{
 							if (replace_in_not_opened_files(fb, mi, sr->replace.repl_str))
@@ -510,7 +535,13 @@ search_and_replace (void)
 						}
 						if (se->direction != SD_BACKWARD)
  							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
+						if (regx_pattern)
+						{
+							g_free (sr->replace.repl_str);
+							sr->replace.repl_str = regx_pattern;
+						}
 						break;
+
 					default:
 						g_warning ("Not implemented - File %s - Line %d\n", __FILE__, __LINE__);
 						break;
@@ -521,37 +552,53 @@ search_and_replace (void)
 				else
 					start_sel = mi->pos - offset; 
 				
-				if (SA_REPLACE != s->action || (SA_REPLACE == s->action && !interactive))
+				if (SA_REPLACE != s->action || !interactive)
 					match_info_free(mi);
 				
-				if (SA_SELECT == s->action || ((SA_REPLACE == s->action || 
-					SA_REPLACEALL == s->action)&& interactive))
+				if (SA_SELECT == s->action ||
+					((SA_REPLACE == s->action || SA_REPLACEALL == s->action) && interactive))
 					break;
 			} // while
-			
-		}  // if (fb)
-		
+/* NO - leave the current position unchanged when marking-all
+			if (nb_results > 0)
+			{
+				switch (s->action)
+				{
+					case SA_HIGHLIGHT:
+					case SA_BOOKMARK:
+						ianjuta_editor_goto_line (fb->te, found_line, NULL);
+					default:
+						break;
+				}
+			}
+*/
 		if (save_file)
 		{
-			save_not_opened_files(fb);
+				save_not_opened_files (fb);
 			save_file = FALSE;
 		}
 		
-		file_buffer_free(fb);
-		if (se)
-			g_free(se);
+			file_buffer_free (fb);
+		}  // if (fb)
+
+		g_free (se->path);
+		g_free (se);
+
 		if (SA_SELECT == s->action && nb_results > 0)
 			break;
-	}  // for
+	}
+
 	gtk_widget_set_sensitive (sr_get_gladewidget(STOP_BUTTON)->widget, FALSE);
 	
 	if (s->range.type == SR_BLOCK || s->range.type == SR_FUNCTION || 
 		s->range.type == SR_SELECTION)
 			flag_select = TRUE;
 	
-	g_list_free(entries);
+	if (entries)
+		g_list_free (entries);
 	
-	if (s->action == SA_FIND_PANE) {
+	if (s->action == SA_FIND_PANE)
+	{
 		ianjuta_message_view_append (view, IANJUTA_MESSAGE_VIEW_TYPE_INFO,
 									 _("Search complete"), "", NULL);
 	}
@@ -570,8 +617,6 @@ search_and_replace (void)
 	{
 		search_set_direction(SD_FORWARD);
 	}
-	
-	return;
 }
 
 static void
@@ -590,13 +635,13 @@ write_message_pane(IAnjutaMessageView* view, FileBuffer *fb, SearchEntry *se,
 		const gchar* filename = ianjuta_document_get_filename(IANJUTA_DOCUMENT(se->te), NULL);
 		tmp = g_strrstr(fb->path, "/");
 		tmp = g_strndup(fb->path, tmp + 1 -(fb->path));
-		snprintf(buf, BUFSIZ, "%s%s:%ld:%s\n", tmp, filename, 
-		         mi->line + 1, match_line);
+		snprintf(buf, BUFSIZ, "%s%s:%d:%s\n", tmp, filename,
+		         mi->line, match_line);
 		g_free(tmp);
 	}
 	else /* if (SE_FILE == se->type) */
 	{
-		snprintf(buf, BUFSIZ, "%s:%ld:%s\n", se->path, mi->line + 1, match_line);
+		snprintf(buf, BUFSIZ, "%s:%d:%s\n", se->path, mi->line + 1, match_line);
 	}
 	g_free(match_line);
 	ianjuta_message_view_buffer_append (view, buf, NULL);
@@ -1107,7 +1152,7 @@ search_replace_populate(void)
 	populate_value(SEARCH_DIRECTION_COMBO, &(sr->search.range.direction));
 	populate_value(ACTIONS_NO_LIMIT, &(sr->search.expr.no_limit));
 
-populate_value(SEARCH_BASIC, &(sr->search.basic_search));
+	populate_value(SEARCH_BASIC, &(sr->search.basic_search));
 	
 	if (sr->search.expr.no_limit)
 		sr->search.expr.actions_max = G_MAXINT;	
@@ -1115,8 +1160,8 @@ populate_value(SEARCH_BASIC, &(sr->search.basic_search));
 	{
 		populate_value(ACTIONS_MAX, &(max));
 		sr->search.expr.actions_max = atoi(max);
-		if (sr->search.expr.actions_max == 0)
-			sr->search.expr.actions_max = 100;
+		if (sr->search.expr.actions_max <= 0)
+			sr->search.expr.actions_max = 200;
 		g_free(max);
 	}
 
@@ -1162,6 +1207,16 @@ show_jump_button (gboolean show)
 		gtk_widget_hide(jump_button);
 }
 
+static
+void translate_dialog_strings (AnjutaUtilStringMap labels[])
+{
+	guint i = 0;
+	while (labels[i].name != NULL)
+	{
+		labels[i].name = gettext (labels[i].name);
+		i++;
+	}
+}
 
 static gboolean
 create_dialog(void)
@@ -1186,6 +1241,14 @@ create_dialog(void)
 	/* gtk_window_set_transient_for (GTK_WINDOW(sg->dialog)
 	  , GTK_WINDOW(app->widgets.window)); */
 		
+	if (!labels_translated)
+	{
+		labels_translated = TRUE;
+		translate_dialog_strings (search_direction_strings);
+		translate_dialog_strings (search_target_strings);
+		translate_dialog_strings (search_action_strings);
+	}
+
 	for (i=0; NULL != glade_widgets[i].name; ++i)
 	{
 		w = &(glade_widgets[i]);
@@ -1277,7 +1340,6 @@ search_toolbar_set_text(gchar *search_text)
 	egg_entry_action_set_text (EGG_ENTRY_ACTION(action), search_text);	
 }
 
-/* FIXME  free GList sr->search.expr_history ????? */
 static void
 search_update_combos(void)
 {
@@ -1874,29 +1936,32 @@ basic_search_toggled(void)
 void 
 anjuta_search_replace_activate (gboolean replace, gboolean project)
 {
-	GtkWidget *search_entry = NULL;
-	gchar *current_word = NULL;
 	GtkWidget *notebook;
-	IAnjutaDocument* doc = ianjuta_document_manager_get_current_document(sr->docman,
-																		NULL);
-	IAnjutaEditor *te = NULL;
+	GtkWidget *search_entry;
+	IAnjutaDocument *doc;
+	IAnjutaEditor *te;
 
 	create_dialog ();
 
-	if (IANJUTA_IS_EDITOR(doc))
-		te = IANJUTA_EDITOR(doc);
-	
 	search_update_dialog();
 
 	search_replace_populate();
 
 	reset_flags_and_search_button();
 	
-	/* Set properties */
 	search_entry = sr_get_gladewidget(SEARCH_STRING)->widget;
+	doc = ianjuta_document_manager_get_current_document(sr->docman, NULL);
+	te = (IANJUTA_IS_EDITOR (doc)) ? IANJUTA_EDITOR (doc) : NULL;
 	if (te && search_entry && sr->search.range.type != SR_SELECTION)
 	{
-		current_word = ianjuta_editor_get_current_word(te, NULL);
+		/* Set properties */
+		gchar *current_word;
+
+		current_word = ianjuta_editor_selection_get
+						(IANJUTA_EDITOR_SELECTION (te), NULL);
+		if (current_word == NULL)
+			current_word = ianjuta_editor_get_current_word (te, NULL);
+
 		if (current_word && strlen(current_word) > 0 )
 		{
 			if (strlen(current_word) > MAX_LENGTH_SEARCH)
@@ -1943,6 +2008,7 @@ anjuta_search_replace_activate (gboolean replace, gboolean project)
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 0);
 	
 	/* Show the dialog */
+	if (search_entry)
 	gtk_widget_grab_focus (search_entry);
 	show_dialog();
 }

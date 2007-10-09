@@ -1,3 +1,44 @@
+2007-10-09  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/debug-manager/breakpoints.c: (breakpoints_dbase_new):
+	* plugins/valgrind/vgmemcheckprefs.c: (option_menu_new):
+
+	Some things I missed in the patch for #484419
+	
+	* plugins/document-manager/action-callbacks.c:
+	(on_new_file_activate):
+	* plugins/document-manager/action-callbacks.h:
+	* plugins/document-manager/plugin.c: (ui_give_shorter_names),
+	(on_window_key_press_event), (on_gconf_notify_timer):
+	
+	484645 – patch to deal with docman FIXME etc
+	
+	* plugins/editor/text_editor.c: (text_editor_set_indicator):
+	* plugins/search/search-replace.c: (search_and_replace),
+	(write_message_pane), (search_replace_populate),
+	(translate_dialog_strings), (create_dialog),
+	(anjuta_search_replace_activate):
+	* plugins/search/search-replace_backend.c:
+	(file_buffer_new_from_path), (get_next_match),
+	(create_search_entries), (regex_backref),
+	(clear_search_replace_instance):
+	* plugins/search/search-replace_backend.h:
+	
+	#484573 – patch to correct various search-related issues
+	
+	Thanks for the above patches to <tpgww@onepost.net>
+	
+	* plugins/sourceview/sourceview.c:
+	(sourceview_create_highligth_indic):
+	
+	Use the same marker for important as gedit (yellow background)
+
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/file-loader/anjuta-file-loader.ui:
+	* plugins/file-loader/plugin.c:
+	
+	Moved FileNew action to document-manager
+
 2007-10-08  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/search-box.c: (on_search_activated):

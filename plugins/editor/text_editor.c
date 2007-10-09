@@ -926,7 +926,8 @@ text_editor_set_indicator (TextEditor *te, gint start,
 	g_return_val_if_fail (IS_SCINTILLA (te->scintilla) == TRUE, -1);
 
 	if (start >= 0) {
-		if (end <= start)
+		end --;	/* supplied end-location is one-past the last char to process */
+		if (end < start)
 			return -1;
 
 		do

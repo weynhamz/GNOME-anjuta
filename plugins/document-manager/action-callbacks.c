@@ -214,6 +214,17 @@ on_close_all_file_activate (GtkAction * action, gpointer user_data)
 }
 
 void
+on_new_file_activate (GtkAction *action, gpointer user_data)
+{
+	AnjutaDocman *docman;
+	DocmanPlugin *plugin;
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	docman = ANJUTA_DOCMAN (plugin->docman);
+
+	anjuta_docman_add_editor (docman, NULL, NULL);
+}
+
+void
 on_reload_file_activate (GtkAction * action, gpointer user_data)
 {
 	IAnjutaDocument *te;
@@ -902,7 +913,6 @@ on_show_search (GtkAction *action, gpointer user_data)
 	gtk_widget_show (plugin->search_box);
 	search_box_grab_search_focus (SEARCH_BOX (plugin->search_box));
 }
-
 
 void
 on_editor_add_view_activate (GtkAction *action, gpointer user_data)

@@ -18,11 +18,16 @@
 #ifndef _ACTION_CALLBACKS_H_
 #define _ACTION_CALLBACKS_H_
 
+void on_new_file_activate (GtkAction *action, gpointer user_data);
 void on_open_activate (GtkAction * action, gpointer user_data);
 void on_save_activate (GtkAction * action, gpointer user_data);
 void on_save_as_activate (GtkAction * action, gpointer user_data);
 void on_save_all_activate (GtkAction * action, gpointer user_data);
 void on_close_file_activate (GtkAction * action, gpointer user_data);
+#ifdef ANJ_MULTIWINDOW_DOCMAN
+void on_detach_file_activate (GtkAction *action, gpointer user_data);
+void on_attach_file_activate (GtkAction *action, gpointer user_data);
+#endif
 void on_reload_file_activate (GtkAction * action, gpointer user_data);
 void on_close_all_file_activate (GtkAction * action, gpointer user_data);
 

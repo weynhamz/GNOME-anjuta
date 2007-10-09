@@ -31,8 +31,8 @@ extern "C"
 /* PCRE search compiled pattern and other info */
 typedef struct _PcreInfo
 {
-	int ovec_count;;
-	int *ovector;
+	gint ovec_count;;
+	gint *ovector;
 	pcre *re;
 	pcre_extra *extra;
 } PcreInfo;
@@ -40,7 +40,7 @@ typedef struct _PcreInfo
 /* Search expression options */
 typedef struct _SearchExpression
 {
-	char *search_str;
+	gchar *search_str;
 	gboolean regex;
 	gboolean greedy;
 	gboolean ignore_case;
@@ -106,11 +106,11 @@ typedef struct _SearchRange
 /* What to do with the result of the search */
 typedef enum _SearchAction
 {
-	SA_SELECT, /* Jump to the first match and select it (current buffer only)*/
-	SA_BOOKMARK, /* Bookmark the line (open buffers only) */
-	SA_HIGHLIGHT, /* Highlight matched string (open buffers only) */
+	SA_SELECT, /* Jump to the next match and select it (current buffer only)*/
+	SA_BOOKMARK, /* Bookmark all lines containing a match (open buffers only) */
+	SA_HIGHLIGHT, /* Highlight all matched strings (open buffers only) */
 	SA_FIND_PANE, /* Show result in find pane */
-	SA_REPLACE, /* Replace first match with specified string */
+	SA_REPLACE, /* Replace next match with specified string */
 	SA_REPLACEALL /* Replace all matches with specified string */
 } SearchAction;
 
@@ -155,13 +155,13 @@ typedef struct _FileBuffer
 {
 	FileBufferType type;
 	/* The following are valid only for files loaded from disk */
-	char *name; /* Name of the file */
-	char *path; /* Full path to the file */
-	char *buf; /* COntents of the file */
-	long len; /* Length of the buffer */
-	long pos; /* Current position */
-	long endpos; /* Restrict action upto this position */
-	long line; /* Current line */
+	gchar *name; /* Name of the file */
+	gchar *path; /* Full path to the file */
+	gchar *buf; /* Contents of the file */
+	gint len; /* Length of the buffer */
+	gint pos; /* Current position */
+	gint endpos; /* Restrict action upto this position */
+	gint line; /* Current line */
 	GList *lines; /* List of integers specifying line start positions */
 	/* The following are valid only for files corresponding to a TextEditor */
 	IAnjutaEditor *te;
@@ -179,18 +179,18 @@ typedef enum _SearchEntryType
 typedef struct _SearchEntry
 {
 	SearchEntryType type;
-	char *path;
+	gchar *path;
 	IAnjutaEditor *te;
 	SearchDirection direction;
-	long start_pos;
-	long end_pos;
+	gint start_pos;
+	gint end_pos;
 } SearchEntry;
 	
 typedef struct _MatchInfo
 {
-	long pos;
-	long len;
-	long line;
+	gint pos;
+	gint len;
+	gint line;
 	GList *subs; /* <MatchSubStr *> */
 } MatchInfo;
 

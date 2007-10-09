@@ -66,8 +66,8 @@
 /* Information about a matched substring */
 typedef struct _MatchSubStr
 {
-	long start;
-	long len;
+	gint start;
+	gint len;
 } MatchSubStr;
 
 static SearchReplace *sr = NULL;
@@ -191,6 +191,7 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 {
 	FileBuffer *fb;
 	IAnjutaEditor *te;
+	IAnjutaDocument* doc;
 	char *real_path;
 	int i;
 	int lineno;
@@ -199,10 +200,11 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 	real_path = tm_get_real_path(path);
 	
 	/* There might be an already open TextEditor with this path */
-	te = IANJUTA_EDITOR(ianjuta_document_manager_find_document_with_path (sr->docman, 
-														 real_path, NULL));
-	if (te)
+	doc = ianjuta_document_manager_find_document_with_path (sr->docman,
+														 real_path, NULL);
+	if (doc && IANJUTA_IS_EDITOR (doc))
 	{
+		te = IANJUTA_EDITOR (doc);
 		g_free(real_path);
 		return file_buffer_new_from_te(te);
 	}
@@ -420,8 +422,8 @@ extra_match (FileBuffer *fb, SearchExpression *s, gint match_len)
 }
 
 /* Returns the next match in the passed buffer. The search expression should
-** be pre-compiled. The returned pointer should be freed with match_info_free()
-** when no longer required. */
+   be pre-compiled. The returned pointer should be freed with match_info_free()
+   when no longer required. */
 MatchInfo *
 get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 {
@@ -439,8 +441,8 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 			if (NULL == (s->re = pcre_info_new(s)))
 				return NULL;
 		}
-		status = pcre_exec(s->re->re, s->re->extra, fb->buf, fb->len, fb->pos
-		  , options, s->re->ovector, 3 * (s->re->ovec_count + 1));
+		status = pcre_exec (s->re->re, s->re->extra, fb->buf, fb->len, fb->pos,
+							options, s->re->ovector, 3 * (s->re->ovec_count + 1));
 		if (0 == status)
 		{
 			/* ovector too small - this should never happen ! */
@@ -478,48 +480,46 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 	else
 	{
 		/* Simple string search - this needs to be performance-tuned */
-		int match_len = strlen(s->search_str);
+		gboolean found;
+		gchar lc;
+		gint match_len;
 
-		if (match_len == 0) return mi;
+		match_len = strlen (s->search_str);
+		if (match_len == 0)
+			return NULL;
 
+		found = FALSE;
 		if (SD_BACKWARD == direction)
 		{
 			/* Backward matching. */
-			fb->pos -= match_len;
-			if (fb->pos < 0)
-				fb->pos = 0;
 			if (s->ignore_case)
 			{
-				for (; fb->pos; -- fb->pos)
+				/* FIXME support encodings with > 1 byte per char */
+				lc = tolower (s->search_str[0]);
+				for (; fb->pos != -1; --fb->pos)
 				{
-					if (tolower(s->search_str[0]) == tolower(fb->buf[fb->pos]))
+					if (lc == tolower(fb->buf[fb->pos]))
 					{
-						if (0 == g_strncasecmp(s->search_str, fb->buf + fb->pos
-						  , match_len) &&  extra_match(fb, s, match_len))
+						if (0 == g_strncasecmp(s->search_str, fb->buf + fb->pos,
+						    match_len) && extra_match (fb, s, match_len))
 						{
-							mi = g_new0(MatchInfo, 1);
-							mi->pos = fb->pos;
-							mi->len = match_len;
-							mi->line = file_buffer_line_from_pos(fb, mi->pos);
-							return mi;
+							found = TRUE;
+							break;
 						}
 					}
 				}
 			}
 			else
 			{
-				for (; fb->pos; -- fb->pos)
+				for (; fb->pos != -1; --fb->pos)
 				{
 					if (s->search_str[0] == fb->buf[fb->pos])
 					{
-						if (0 == strncmp(s->search_str, fb->buf + fb->pos
-						  , match_len) &&  extra_match(fb, s, match_len))
+						if (0 == strncmp(s->search_str, fb->buf + fb->pos,
+						  	match_len) && extra_match (fb, s, match_len))
 						{
-							mi = g_new0(MatchInfo, 1);
-							mi->pos = fb->pos;
-							mi->len = match_len;
-							mi->line = file_buffer_line_from_pos(fb, mi->pos);
-							return mi;
+							found = TRUE;
+							break;
 						}
 					}
 				}
@@ -530,70 +530,79 @@ get_next_match(FileBuffer *fb, SearchDirection direction, SearchExpression *s)
 			/* Forward match */
 			if (s->ignore_case)
 			{
-				for (; fb->pos < fb->len; ++ fb->pos)
+				/* FIXME support encodings with > 1 byte per char */
+				lc = tolower (s->search_str[0]);
+				for (; fb->pos < fb->len; ++fb->pos)
 				{
-					if (tolower(s->search_str[0]) == tolower(fb->buf[fb->pos]))
+					if (lc == tolower(fb->buf[fb->pos]))
 					{
-						if (0 == g_strncasecmp(s->search_str, fb->buf + fb->pos
-						  , match_len) &&  extra_match(fb, s, match_len))
+						if (0 == g_strncasecmp(s->search_str, fb->buf + fb->pos,
+						    match_len) && extra_match (fb, s, match_len))
 						{
-							mi = g_new0(MatchInfo, 1);
-							mi->pos = fb->pos;
-							mi->len = match_len;
-							mi->line = file_buffer_line_from_pos(fb, mi->pos);
-							fb->pos += match_len;
-							return mi;
+							found = TRUE;
+							break;
 						}
 					}
 				}
 			}
 			else
 			{
-				for (; fb->pos < fb->len; ++ fb->pos)
+				for (; fb->pos < fb->len; ++fb->pos)
 				{
 					if (s->search_str[0] == fb->buf[fb->pos])
 					{
-						if (0 == strncmp(s->search_str, fb->buf + fb->pos
-						  , match_len) &&  extra_match(fb, s, match_len))
+						if (0 == strncmp(s->search_str, fb->buf + fb->pos,
+						    match_len) && extra_match (fb, s, match_len))
 						{
-							mi = g_new0(MatchInfo, 1);
-							mi->pos = fb->pos;
-							mi->len = match_len;
-							mi->line = file_buffer_line_from_pos(fb, mi->pos);
-							fb->pos += match_len;
-							return mi;
+							found = TRUE;
+							break;
 						}
 					}
 				}
 			}
+		}
+		if (found)
+		{
+			mi = g_new0 (MatchInfo, 1);	//better to abort than silently fail to report match ?
+//			mi = g_try_new0 (MatchInfo, 1);
+//			if (mi)
+//			{
+				mi->pos = fb->pos;
+				mi->len = match_len;
+				mi->line = file_buffer_line_from_pos (fb, fb->pos);
+//			}
+//			else
+//				WARN USER ABOUT MEMORY ERROR
+			if (direction == SD_BACKWARD)
+				fb->pos -= match_len;
+			else
+				fb->pos += match_len;
 		}
 	}
 	return mi;
 }
 
 /* Create list of search entries */
-GList
-*create_search_entries(Search *s)
+GList *
+create_search_entries (Search *s)
 {
 	GList *entries = NULL;
 	GList *tmp;
 	GList *editors;
-	IAnjutaDocument* doc;
+	IAnjutaDocument *doc;
 	SearchEntry *se;
-	long selstart;
-	long tmp_pos;
+	gint selstart;
+	gint tmp_pos;
 
-	switch(s->range.type)
+	switch (s->range.type)
 	{
 		case SR_BUFFER:
-			se = g_new0(SearchEntry, 1);
-			se->type = SE_BUFFER;
-			se->te = NULL;
 			doc = ianjuta_document_manager_get_current_document (sr->docman, NULL);
-			if (IANJUTA_IS_EDITOR(doc))	
-				se->te = IANJUTA_EDITOR(doc);
-			if (se->te != NULL)
+			if (doc && IANJUTA_IS_EDITOR (doc))
 			{
+				se = g_new0 (SearchEntry, 1);
+				se->type = SE_BUFFER;
+				se->te = IANJUTA_EDITOR (doc);
 				se->direction = s->range.direction;
 				if (SD_BEGINNING == se->direction)
 				{
@@ -603,11 +612,28 @@ GList
 				}
 				else
 				{	
-					selstart = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (se->te), NULL);
-					se->start_pos = ianjuta_editor_get_position(se->te, NULL);
-					if ((se->direction == SD_BACKWARD) && (selstart != se->start_pos))
-						se->start_pos = selstart;						
-					se->end_pos = -1;
+					/* forward-search from after beginning of selection, if any
+					   backwards-search from before beginning of selection, if any
+					   treat -ve positions except -1 as high +ve */
+					selstart = ianjuta_editor_selection_get_start
+							(IANJUTA_EDITOR_SELECTION (se->te), NULL);
+					if (selstart != -1)
+					{
+						if (se->direction == SD_BACKWARD)
+						{
+							se->start_pos = (selstart != 0) ?
+								 selstart - 1 : selstart;
+						}
+						else
+							se->start_pos =
+								(selstart != -2 &&
+								 selstart < ianjuta_editor_get_length (IANJUTA_EDITOR (se->te), NULL)) ?
+								 selstart + 1 : selstart;
+					}
+					else
+						se->start_pos = ianjuta_editor_get_position (se->te, NULL);
+
+					se->end_pos = -1;	/* not actually used when backward searching */
 				}
 				entries = g_list_prepend(entries, se);
 			}
@@ -615,28 +641,32 @@ GList
 		case SR_SELECTION:
 		case SR_BLOCK:
 		case SR_FUNCTION: 
-			se = g_new0(SearchEntry, 1);
-			se->type = SE_BUFFER;
-			se->te = NULL;
 			doc = ianjuta_document_manager_get_current_document (sr->docman, NULL);
-			if (IANJUTA_IS_EDITOR(doc))	
-				se->te = IANJUTA_EDITOR(doc);
-			if (se->te != NULL)
+			if (doc && IANJUTA_IS_EDITOR (doc))
 			{
-				gint sel_start = 0, sel_end = 0;
+				gint selend;
 				
-				if (s->range.type != SR_SELECTION)
-				{
-					sel_start = 
-					sel_end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (se->te), NULL);
-				}				
+				se = g_new0 (SearchEntry, 1);
+				se->type = SE_BUFFER;
+				se->te = IANJUTA_EDITOR (doc);
 				se->direction = s->range.direction;
+				if (se->direction == SD_BEGINNING)
+					se->direction = SD_FORWARD;
+
+				if (s->range.type == SR_SELECTION)
+				{
+					selstart = selend = 0;	/* warning prevention only */
+				}				
+				else
+				{
+					selstart = selend =
+					ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (se->te), NULL);
+				}
+
 				if (s->range.type == SR_BLOCK)
 					ianjuta_editor_selection_select_block(IANJUTA_EDITOR_SELECTION (se->te), NULL);
 				if (s->range.type == SR_FUNCTION)
 					ianjuta_editor_selection_select_function(IANJUTA_EDITOR_SELECTION (se->te), NULL);
-				if (SD_BEGINNING == se->direction)
-					se->direction = SD_FORWARD;
 				se->start_pos = ianjuta_editor_selection_get_start(IANJUTA_EDITOR_SELECTION (se->te), NULL);
 				se->end_pos = ianjuta_editor_selection_get_end(IANJUTA_EDITOR_SELECTION (se->te), NULL);
 			
@@ -646,13 +676,13 @@ GList
 					se->start_pos = se->end_pos;
 					se->end_pos = tmp_pos;
 				}	
-				entries = g_list_prepend(entries, se);
+				entries = g_list_prepend (entries, se);
 				if (s->range.type != SR_SELECTION)
 				{
 					gboolean backward;
-					backward = se->direction == SD_BACKWARD?TRUE:FALSE;
+					backward = (se->direction == SD_BACKWARD);
 					ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (se->te), 
-				                                 sel_start, sel_end, backward,
+				                                 selstart, selend, backward,
 				                                 NULL);	
 				}					
 			}
@@ -661,17 +691,19 @@ GList
 			editors = ianjuta_document_manager_get_documents (sr->docman, NULL);
 			for (tmp = editors; tmp; tmp = g_list_next(tmp))
 			{
-				if (!IANJUTA_IS_EDITOR(tmp->data))
-					continue;
-				se = g_new0(SearchEntry, 1);
+				if (IANJUTA_IS_EDITOR (tmp->data))
+				{
+					se = g_new0 (SearchEntry, 1);
 				se->type = SE_BUFFER;
-				se->te = IANJUTA_EDITOR(tmp->data);
+					se->te = IANJUTA_EDITOR (tmp->data);
 				se->direction = SD_FORWARD;
 				se->start_pos = 0;
 				se->end_pos = -1;
 				entries = g_list_prepend(entries, se);
 			}
+			}
 			entries = g_list_reverse(entries);
+			g_list_free (editors);
 			break;
 		case SR_FILES:
 		case SR_PROJECT:
@@ -723,15 +755,17 @@ GList
 	return entries;		
 }
 
-gchar*
-regex_backref(MatchInfo *mi, FileBuffer *fb)
+gchar *
+regex_backref (MatchInfo *mi, FileBuffer *fb)
 {
+#define REGX_BUFSIZE 1024
 	gint i, j, k;
-	long start, len;
 	gint nb_backref;
 	gint i_backref;
-	long backref[10] [2];
-	static gchar buf[512];
+	gint plen;
+	gint start, len;
+	gint backref[10] [2];	/* backref [0][2] unused */
+	gchar buf [REGX_BUFSIZE + 4];	/* usable space + word-sized space for trailing 0 */
 	GList *tmp;
 	
 	i = 1;
@@ -745,19 +779,20 @@ regex_backref(MatchInfo *mi, FileBuffer *fb)
 		i++;
 	}
 	nb_backref = i;
-	for(i=0, j=0; i < strlen(sr->replace.repl_str) && j < 512; i++)
+	plen = strlen (sr->replace.repl_str);
+	for(i=0, j=0; i < plen && j < REGX_BUFSIZE; i++)
 	{
 		if (sr->replace.repl_str[i] == '\\')
 		{
 			i++;
-			if (sr->replace.repl_str[i] >= '0' && sr->replace.repl_str[i] <= '9')
+			if (sr->replace.repl_str[i] > '0' && sr->replace.repl_str[i] <= '9')
 			{
 				i_backref = sr->replace.repl_str[i] - '0';
-				if (i_backref != 0 && i_backref < nb_backref)
+				if (i_backref < nb_backref)
 				{
 					start = backref[i_backref] [0];
 					len = backref[i_backref] [1];
-					for (k=0; k < len; k++)
+					for (k=0; k < len && j < REGX_BUFSIZE; k++)
 						buf[j++] = fb->buf[start + k];	
 				}
 			}	
@@ -767,7 +802,7 @@ regex_backref(MatchInfo *mi, FileBuffer *fb)
 	}
 	buf[j] = '\0';
 
-	return buf;
+	return g_strdup (buf);
 }
 
 #define FREE_FN(fn, v) if (v) { fn(v); v = NULL; }
@@ -785,7 +820,9 @@ clear_search_replace_instance(void)
 		FREE_FN(anjuta_util_glist_strings_free, sr->search.range.files.match_dirs);
 		FREE_FN(anjuta_util_glist_strings_free, sr->search.range.files.ignore_dirs);
 	}
+	FREE_FN(anjuta_util_glist_strings_free, sr->search.expr_history);
 	g_free (sr->replace.repl_str);
+	FREE_FN(anjuta_util_glist_strings_free, sr->replace.expr_history);
 }
 
 void

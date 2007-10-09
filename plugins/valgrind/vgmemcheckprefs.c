@@ -154,8 +154,8 @@ option_menu_new (GConfClient *gconf, char *key, char **values, int n, int def)
 		if (str && !strcmp (values[i], str))
 			history = i;
 		
-		item = gtk_menu_item_new_with_label (values[i]);
-		g_object_set_data (G_OBJECT (item), "value", values[i]);
+		item = gtk_menu_item_new_with_label (_(values[i]));
+		g_object_set_data (G_OBJECT (item), "value", _(values[i]));
 		g_signal_connect (item, "activate", G_CALLBACK (menu_item_activated), key);
 		gtk_widget_show (item);
 		

@@ -1651,7 +1651,7 @@ breakpoints_dbase_new (DebugManagerPlugin *plugin)
 		g_object_unref (G_OBJECT (store));
 
 		renderer = gtk_cell_renderer_toggle_new ();
-		column = gtk_tree_view_column_new_with_attributes (column_names[0],
+		column = gtk_tree_view_column_new_with_attributes (_(column_names[0]),
 														   renderer,
 								   						   "active",
 														   ENABLED_COLUMN,
@@ -1665,7 +1665,7 @@ breakpoints_dbase_new (DebugManagerPlugin *plugin)
 		for (i = NUMBER_COLUMN; i < (COLUMNS_NB - 1); i++)
 		{
 			column =
-				gtk_tree_view_column_new_with_attributes (column_names[i],
+				gtk_tree_view_column_new_with_attributes (_(column_names[i]),
 													renderer, "text", i, NULL);
 			gtk_tree_view_column_set_sizing (column,
 											 GTK_TREE_VIEW_COLUMN_AUTOSIZE);

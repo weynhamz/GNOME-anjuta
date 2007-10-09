@@ -533,18 +533,6 @@ on_open_activate (GtkAction *action, AnjutaFileLoaderPlugin *plugin)
 }
 
 static void
-on_new_activate (GtkAction *action, gpointer data)
-{
-	IAnjutaDocumentManager *docman;
-	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data)->shell,
-										 IAnjutaDocumentManager, NULL);
-	if (docman)
-	{
-		ianjuta_document_manager_add_buffer (docman, "", "", NULL);
-	}
-}
-
-static void
 on_activate_wizard (GtkMenuItem *menuitem,
 					AnjutaFileLoaderPlugin *loader)
 {
@@ -772,14 +760,6 @@ pm_open_with (GtkMenuItem *menuitem, AnjutaFileLoaderPlugin *plugin)
 }
 
 static GtkActionEntry actions_file[] = {
-	{
-		"ActionFileNew",
-		GTK_STOCK_NEW,
-		N_("_New..."),
-		"<control>n",
-		N_("New empty editor."),
-		G_CALLBACK (on_new_activate)
-	},
 	{
 		"ActionFileOpen",
 		GTK_STOCK_OPEN,
@@ -1151,9 +1131,6 @@ activate_plugin (AnjutaPlugin *plugin)
 								 GTK_ACTION (saction));
 	
 	/* Set short labels */
-	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionFileNew");
-	g_object_set (G_OBJECT (action), "short-label", _("New"),
-				  "is-important", TRUE, NULL);
 	action = anjuta_ui_get_action (ui, "ActionGroupLoader", "ActionFileOpen");
 	g_object_set (G_OBJECT (action), "short-label", _("Open"),
 				  "is-important", TRUE, NULL);
