@@ -1,5 +1,16 @@
 2007-10-10  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/Makefile.am:
+	* plugins/language-support-cpp-java/anjuta-complete-auto.svg:
+	* plugins/language-support-cpp-java/anjuta-complete.svg:
+	* plugins/language-support-cpp-java/anjuta-indent-auto.svg:
+	* plugins/language-support-cpp-java/plugin.c:
+	(register_stock_icons):
+	
+	And yet some more icons...
+
+2007-10-10  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/debug-manager/breakpoints.c:
 	* plugins/debug-manager/images/Makefile.am:
 	* plugins/debug-manager/images/anjuta-bookmark.svg:
