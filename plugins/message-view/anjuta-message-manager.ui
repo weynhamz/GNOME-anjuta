@@ -3,21 +3,21 @@
 	<menubar name="MenuMain">
 		<placeholder name="PlaceholderGotoMenus">
 			<menu name="Goto" action="ActionMenuGoto">
-					<menuitem name="NextMessage" action="ActionMessageNext" />
 					<menuitem name="PrevMessage" action="ActionMessagePrev" />
+					<menuitem name="NextMessage" action="ActionMessageNext" />
 			</menu>
 		</placeholder>
 	</menubar>
 	<toolbar name="ToolbarBrowser">
 		<placeholder name="PlaceholderBrowserToolbar" >
-			<toolitem name="NextMessage" action="ActionMessageNext"/>
 			<toolitem name="PreviousMessage" action="ActionMessagePrev"/>
+			<toolitem name="NextMessage" action="ActionMessageNext"/>
 		</placeholder>
 	</toolbar>
 	<popup name="PopupDocumentManager">
 		<menu name="Goto" action="ActionMenuGoto">
-			<menuitem name="NextMessage" action="ActionMessageNext" />
 			<menuitem name="PrevMessage" action="ActionMessagePrev" />
+			<menuitem name="NextMessage" action="ActionMessageNext" />
 		</menu>
 	</popup>
 	<popup name="PopupMessageView">

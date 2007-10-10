@@ -7,11 +7,11 @@ sourceview_glade_DATA = sourceview.glade
 # Plugin Icon file
 sourceview_pixmapsdir = $(anjuta_image_dir)
 sourceview_pixmaps_DATA = sourceview.png \
-	linemarker.png \
-	program-counter.png \
-	breakpoint-disabled.png \
-	breakpoint-enabled.png \
-	bookmark.png
+	anjuta-linemark-16.png \
+	anjuta-pcmark-16.png \
+	anjuta-breakpoint-disabled-16.png \
+	anjuta-breakpoint-enabled-16.png \
+	anjuta-bookmark-16.png
 
 # Plugin description file
 plugin_in_files = sourceview.plugin.in

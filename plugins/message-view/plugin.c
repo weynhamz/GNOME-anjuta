@@ -33,10 +33,10 @@
 
 /* Pixmaps */
 #define ANJUTA_PIXMAP_MESSAGES                "messages.xpm"
-#define ANJUTA_PIXMAP_PREV_MESSAGE            "error-prev.png"
-#define ANJUTA_PIXMAP_NEXT_MESSAGE            "error-next.png"
-#define ANJUTA_PIXMAP_PREV_MESSAGE_16         "error-prev-16.png"
-#define ANJUTA_PIXMAP_NEXT_MESSAGE_16         "error-next-16.png"
+#define ANJUTA_PIXMAP_PREV_MESSAGE            "anjuta-go-message-prev-24.png"
+#define ANJUTA_PIXMAP_NEXT_MESSAGE            "anjuta-go-message-next-24.png"
+#define ANJUTA_PIXMAP_PREV_MESSAGE_16         "anjuta-go-message-prev-16.png"
+#define ANJUTA_PIXMAP_NEXT_MESSAGE_16         "anjuta-go-message-next-16.png"
 
 /* Stock icons */
 #define ANJUTA_STOCK_MESSAGES                 "anjuta-messages"

@@ -6,10 +6,10 @@ message_view_pixmapsdir = $(anjuta_image_dir)
 message_view_pixmaps_DATA = \
 	anjuta-message-view.png \
 	preferences-messages.png \
-	error-next.png \
-	error-prev.png \
-	error-next-16.png \
-	error-prev-16.png \
+	anjuta-go-message-prev-16.png \
+	anjuta-go-message-prev-24.png \
+	anjuta-go-message-next-16.png \
+	anjuta-go-message-next-24.png \
 	messages.xpm
 
 message_view_uidir = $(anjuta_ui_dir)

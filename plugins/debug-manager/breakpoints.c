@@ -1501,7 +1501,7 @@ static GtkActionEntry actions_breakpoints[] = {
 	},
 	{
 		"ActionDmaSetBreakpoint",                 /* Action name */
-		"gdb-breakpoint-toggle",                  /* Stock icon, if any */
+		"gdb-breakpoint-enabled",                 /* Stock icon, if any */
 		N_("Add Breakpoint..."),                  /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Add a breakpoint"),                   /* Tooltip */
@@ -1509,7 +1509,7 @@ static GtkActionEntry actions_breakpoints[] = {
 	},
 	{
 		"ActionDmaClearBreakpoint",               /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		"gdb-breakpoint-clear",                   /* Stock icon, if any */
 		N_("Remove Breakpoint"),                  /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Remove a breakpoint"),                /* Tooltip */
@@ -1533,7 +1533,7 @@ static GtkActionEntry actions_breakpoints[] = {
 	},
 	{
 		"ActionDmaEnableDisableBreakpoint",       /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		NULL,                					  /* Stock icon, if any */
 		N_("Enable Breakpoint"),                  /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Enable a breakpoint"),                /* Tooltip */
@@ -1541,7 +1541,7 @@ static GtkActionEntry actions_breakpoints[] = {
 	},
 	{
 		"ActionDmaDisableAllBreakpoints",         /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		"gdb-breakpoint-disabled",                /* Stock icon, if any */
 		N_("Disable All Breakpoints"),            /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Deactivate all breakpoints"),         /* Tooltip */
@@ -1549,7 +1549,7 @@ static GtkActionEntry actions_breakpoints[] = {
 	},
 	{
 		"ActionDmaClearAllBreakpoints",           /* Action name */
-		NULL,                                     /* Stock icon, if any */
+		"gdb-breakpoint-clear",                                     /* Stock icon, if any */
 		N_("C_lear All Breakpoints"),             /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Delete all breakpoints"),             /* Tooltip */

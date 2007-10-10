@@ -1,3 +1,65 @@
+2007-10-10  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/debug-manager/breakpoints.c:
+	* plugins/debug-manager/images/Makefile.am:
+	* plugins/debug-manager/images/anjuta-bookmark.svg:
+	* plugins/debug-manager/images/anjuta-breakpoint-clear.svg:
+	* plugins/debug-manager/images/anjuta-breakpoint-disabled.svg:
+	* plugins/debug-manager/images/anjuta-breakpoint-enabled.svg:
+	* plugins/debug-manager/images/anjuta-breakpoint-toggle.svg:
+	* plugins/debug-manager/images/anjuta-linemark.svg:
+	* plugins/debug-manager/images/anjuta-pcmark.svg:
+	* plugins/debug-manager/plugin.c: (register_stock_icons):
+	* plugins/debug-manager/sparse_view.c:
+	* plugins/document-manager/images/Makefile.am:
+	* plugins/document-manager/images/anjuta-block-select.svg:
+	* plugins/document-manager/images/anjuta-fold-close.svg:
+	* plugins/document-manager/images/anjuta-fold-open.svg:
+	* plugins/document-manager/images/anjuta-fold-toggle.svg:
+	* plugins/document-manager/images/anjuta-indent-less.svg:
+	* plugins/document-manager/images/anjuta-indent-more.svg:
+	* plugins/document-manager/images/anjuta-swap.svg:
+	* plugins/document-manager/images/block_select.xpm:
+	* plugins/document-manager/images/fold_close.xpm:
+	* plugins/document-manager/images/fold_open.xpm:
+	* plugins/document-manager/images/fold_toggle.xpm:
+	* plugins/document-manager/images/indent.xpm:
+	* plugins/document-manager/images/indent_dcr.xpm:
+	* plugins/document-manager/images/indent_inc.xpm:
+	* plugins/document-manager/plugin.c: (register_stock_icons):	
+	* plugins/editor/Makefile.am:
+	* plugins/editor/anjuta-bookmark-16.xpm:
+	* plugins/editor/anjuta-breakpoint-disabled-16.xpm:
+	* plugins/editor/anjuta-breakpoint-enabled-16.xpm:
+	* plugins/editor/anjuta-linemark-16.xpm:
+	* plugins/editor/anjuta-pcmark-16.xpm:
+	* plugins/editor/bookmark.xpm:
+	* plugins/editor/breakpoint-disabled.xpm:
+	* plugins/editor/breakpoint-enabled.xpm:
+	* plugins/editor/linemarker.xpm:
+	* plugins/editor/program-counter.xpm:
+	* plugins/editor/text_editor.c:
+	* plugins/message-view/Makefile.am:
+	* plugins/message-view/anjuta-go-message-next.svg:
+	* plugins/message-view/anjuta-go-message-prev.svg:
+	* plugins/message-view/anjuta-message-manager.ui:
+	* plugins/message-view/plugin.c:
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/sourceview.c:
+
+	Integrated lots of icons from #480093
+	Thanks to <tpgww@onepost.net>
+
+	* plugins/document-manager/plugin.c:
+	Do not mark the line in ifile_open(), that looks ugly.
+	
+	* plugins/document-manager/search-box.c: (on_search_focus_out),
+	(search_box_init):
+	Clear the status bar on focus_out.
+	
+	* plugins/file-loader/anjuta-loader-plugin.ui:
+	Fixed a missing "="
+
 2007-10-09  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/debug-manager/breakpoints.c: (breakpoints_dbase_new):

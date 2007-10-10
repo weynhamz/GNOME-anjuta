@@ -141,7 +141,10 @@ register_stock_icons (AnjutaPlugin *plugin)
         REGISTER_ICON ("stack.png", "gdb-stack-icon");
         REGISTER_ICON ("locals.png", "gdb-locals-icon");
         REGISTER_ICON ("watch.png", "gdb-watch-icon");
-        REGISTER_ICON ("breakpoint.png", "gdb-breakpoint-toggle");
+        REGISTER_ICON ("anjuta-breakpoint-toggle-24.png", "gdb-breakpoint-toggle");
+        REGISTER_ICON ("anjuta-breakpoint-clear-24.png", "gdb-breakpoint-clear");		
+        REGISTER_ICON ("anjuta-breakpoint-disabled-16.png", "gdb-breakpoint-disabled");
+        REGISTER_ICON ("anjuta-breakpoint-enabled-16.png", "gdb-breakpoint-enabled");				
 		REGISTER_ICON ("anjuta-attach-24.png", "debugger-attach");
 		REGISTER_ICON ("anjuta-step-into-24.png", "debugger-step-into");
 		REGISTER_ICON ("anjuta-step-out-24.png", "debugger-step-out");

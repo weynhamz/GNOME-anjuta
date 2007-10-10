@@ -451,12 +451,12 @@ sourceview_finalize(GObject *object)
 
 /* Sync with IANJUTA_MARKABLE_MARKER  */
 
-#define MARKER_PIXMAP_LINEMARKER "linemarker.png"
-#define MARKER_PIXMAP_PROGRAM_COUNTER "program-counter.png"
-#define MARKER_PIXMAP_BREAKPOINT_DISABLED "breakpoint-disabled.png"
-#define MARKER_PIXMAP_BREAKPOINT_ENABLED "breakpoint-enabled.png"
+#define MARKER_PIXMAP_LINEMARKER "anjuta-linemark-16.png"
+#define MARKER_PIXMAP_PROGRAM_COUNTER "anjuta-pcmark-16.png"
+#define MARKER_PIXMAP_BREAKPOINT_DISABLED "anjuta-breakpoint-disabled-16.png"
+#define MARKER_PIXMAP_BREAKPOINT_ENABLED "anjuta-breakpoint-enabled-16.png"
 
-#define MARKER_PIXMAP_BOOKMARK "bookmark.png"
+#define MARKER_PIXMAP_BOOKMARK "anjuta-bookmark-16.png"
 
 #define MARKER_NONE "sv-none"
 #define MARKER_LINEMARKER "sv-linemarker"

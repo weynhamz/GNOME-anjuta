@@ -2,16 +2,20 @@ document_manager_pixmapsdir = $(anjuta_image_dir)
 document_manager_pixmaps_DATA = \
         anjuta-document-manager.png \
         preferences-editor.png \
-        swap.png \
-        fold_toggle.xpm \
-        fold_open.xpm \
-        fold_close.xpm \
-        indent.xpm \
-        indent_inc.xpm \
-        indent_dcr.xpm \
-        autocomplete-16.png \
-        autocomplete.png \
-        block_select.xpm \
+        anjuta-swap-16.png \
+        anjuta-swap-24.png \
+        anjuta-fold-toggle-16.png \
+        anjuta-fold-toggle-24.png \
+        anjuta-fold-open-16.png \
+        anjuta-fold-open-24.png \
+        anjuta-fold-close-16.png \
+        anjuta-fold-close-24.png \        
+        anjuta-indent-less-16.png \
+        anjuta-indent-less-24.png \
+        anjuta-indent-more-16.png \
+        anjuta-indent-more-24.png \
+        anjuta-block-select-16.png \
+        anjuta-block-select-24.png \       
         anjuta-block-end-16.png \
         anjuta-block-end-24.png \
         anjuta-block-start-16.png \
@@ -27,7 +31,9 @@ document_manager_pixmaps_DATA = \
         anjuta-bookmark-next-24.png \
         anjuta-bookmark-last-24.png \
         anjuta-bookmark-toggle-24.png \
-        anjuta-bookmark-clear-24.png
+        anjuta-bookmark-clear-24.png \
+        anjuta-go-line-16.png \
+        anjuta-go-line-24.png
 
 EXTRA_DIST = $(document_manager_pixmaps_DATA)
 

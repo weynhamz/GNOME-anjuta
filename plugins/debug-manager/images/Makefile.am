@@ -13,10 +13,14 @@ images_DATA = \
 	anjuta-run-to-cursor-16.png \
 	anjuta-run-to-cursor-24.png \
 	anjuta-debug-manager.plugin.png \
-	bookmark.png \
-	breakpoint-disabled.png \
-	breakpoint-enabled.png \
-	linemarker.png \
-	program-counter.png
+	anjuta-breakpoint-disabled-16.png \
+	anjuta-breakpoint-enabled-16.png \
+	anjuta-breakpoint-toggle-16.png \
+	anjuta-breakpoint-toggle-24.png \
+	anjuta-breakpoint-clear-16.png \
+	anjuta-breakpoint-clear-24.png \
+	anjuta-linemark-16.png \
+	anjuta-pcmark-16.png \
+	anjuta-bookmark-16.png
 
 EXTRA_DIST = $(images_DATA)

@@ -81,19 +81,19 @@
 #define TEXT_EDITOR_LINEMARKER              4
 
 /* Include marker pixmaps */
-#include "bookmark.xpm"
-#include "breakpoint-disabled.xpm"
-#include "breakpoint-enabled.xpm"
-#include "program-counter.xpm"
-#include "linemarker.xpm"
+#include "anjuta-bookmark-16.xpm"
+#include "anjuta-breakpoint-disabled-16.xpm"
+#include "anjuta-breakpoint-enabled-16.xpm"
+#include "anjuta-pcmark-16.xpm"
+#include "anjuta-linemark-16.xpm"
 
 static gchar** marker_pixmap[] = 
 {
-	bookmark_xpm,
-	breakpoint_disabled_xpm,
-	breakpoint_enabled_xpm,
-	program_counter_xpm,
-	linemarker_xpm,
+	anjuta_bookmark_16_xpm,
+	anjuta_breakpoint_disabled_16_xpm,
+	anjuta_breakpoint_enabled_16_xpm,
+	anjuta_pcmark_16_xpm,
+	anjuta_linemark_16_xpm,
 	NULL
 };
 

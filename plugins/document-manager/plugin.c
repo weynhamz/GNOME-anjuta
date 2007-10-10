@@ -55,28 +55,26 @@
 #define ICON_FILE "anjuta-document-manager.png"
 
 /* Pixmaps */
-#define ANJUTA_PIXMAP_SWAP                "swap.png"
-#define ANJUTA_PIXMAP_INDENT              "indent.xpm"
-#define ANJUTA_PIXMAP_SYNTAX              "syntax.xpm"
+#define ANJUTA_PIXMAP_SWAP                "anjuta-swap-24.png"
 #define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "anjuta-bookmark-toggle-24.png"
 #define ANJUTA_PIXMAP_BOOKMARK_FIRST      "anjuta-bookmark-first-24.png"
 #define ANJUTA_PIXMAP_BOOKMARK_PREV       "anjuta-bookmark-prev-24.png"
 #define ANJUTA_PIXMAP_BOOKMARK_NEXT       "anjuta-bookmark-next-24.png"
 #define ANJUTA_PIXMAP_BOOKMARK_LAST       "anjuta-bookmark-last-24.png"
 #define ANJUTA_PIXMAP_BOOKMARK_CLEAR      "anjuta-bookmark-clear-24.png"
-#define ANJUTA_PIXMAP_ERROR_PREV          "error-prev.png"
-#define ANJUTA_PIXMAP_ERROR_NEXT          "error-next.png"
 
-#define ANJUTA_PIXMAP_FOLD_TOGGLE         "fold_toggle.xpm"
-#define ANJUTA_PIXMAP_FOLD_CLOSE          "fold_close.xpm"
-#define ANJUTA_PIXMAP_FOLD_OPEN           "fold_open.xpm"
+#define ANJUTA_PIXMAP_FOLD_TOGGLE         "anjuta-fold-toggle-24.png"
+#define ANJUTA_PIXMAP_FOLD_CLOSE          "anjuta-fold-close-24.png"
+#define ANJUTA_PIXMAP_FOLD_OPEN           "anjuta-fold-open-24.png"
 
-#define ANJUTA_PIXMAP_BLOCK_SELECT        "block_select.xpm"
+#define ANJUTA_PIXMAP_BLOCK_SELECT        "anjuta-block-select-24.png"
 #define ANJUTA_PIXMAP_BLOCK_START         "anjuta-block-start-24.png"
 #define ANJUTA_PIXMAP_BLOCK_END           "anjuta-block-end-24.png"
 
-#define ANJUTA_PIXMAP_INDENT_INC          "indent_inc.xpm"
-#define ANJUTA_PIXMAP_INDENT_DCR          "indent_dcr.xpm"
+#define ANJUTA_PIXMAP_INDENT_INC          "anjuta-indent-more-24.png"
+#define ANJUTA_PIXMAP_INDENT_DCR          "anjuta-indent-less-24.png"
+
+#define ANJUTA_PIXMAP_GOTO_LINE			  "anjuta-go-line-24.png"
 
 /* Stock icons */
 #define ANJUTA_STOCK_SWAP                     "anjuta-swap"
@@ -96,6 +94,7 @@
 #define ANJUTA_STOCK_BOOKMARK_NEXT            "anjuta-bookmark-next"
 #define ANJUTA_STOCK_BOOKMARK_LAST            "anjuta-bookmark-last"
 #define ANJUTA_STOCK_BOOKMARK_CLEAR           "anjuta-bookmark-clear"
+#define ANJUTA_STOCK_GOTO_LINE				  "anjuta-goto-line"
 
 static gpointer parent_class;
 
@@ -239,7 +238,7 @@ static GtkActionEntry actions_comment[] = {
 
 static GtkActionEntry actions_navigation[] = {
   { "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},/* menu title */
-  { "ActionEditGotoLine", GTK_STOCK_JUMP_TO, N_("_Line Number..."),
+  { "ActionEditGotoLine", ANJUTA_STOCK_GOTO_LINE, N_("_Line Number..."),
 	"<control><alt>g", N_("Go to a particular line in the editor"),
     G_CALLBACK (on_goto_line_no1_activate)},
   { "ActionEditGotoMatchingBrace", GTK_STOCK_JUMP_TO, N_("Matching _Brace"),
@@ -863,6 +862,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_CLEAR, ANJUTA_STOCK_BOOKMARK_CLEAR);
 	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_START, ANJUTA_STOCK_BLOCK_START);
 	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_END, ANJUTA_STOCK_BLOCK_END);
+	REGISTER_ICON (ANJUTA_PIXMAP_GOTO_LINE, ANJUTA_STOCK_GOTO_LINE);
 }
 
 #define TEXT_ZOOM_FACTOR           "text.zoom.factor"
@@ -1908,7 +1908,7 @@ ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 	AnjutaDocman *docman;
 	
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	anjuta_docman_goto_file_line_mark (docman, uri, -1, TRUE);
+	anjuta_docman_goto_file_line_mark (docman, uri, -1, FALSE);
 }
 
 static gchar*

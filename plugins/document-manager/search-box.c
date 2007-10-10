@@ -37,6 +37,8 @@
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 
+#define ANJUTA_STOCK_GOTO_LINE				  "anjuta-goto-line"
+
 typedef struct _SearchBoxPrivate SearchBoxPrivate;
 
 struct _SearchBoxPrivate
@@ -214,6 +216,7 @@ on_search_focus_out (GtkWidget* widget, GdkEvent* event, SearchBox* search_box)
 		g_object_unref (private->last_start);
 		private->last_start = NULL;
 	}
+	anjuta_status_pop (private->status);
 }
 
 static void
@@ -406,11 +409,11 @@ search_box_init (SearchBox *object)
 	
 	/* Button images */
 	GtkWidget* close = 
-		gtk_image_new_from_icon_name (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+		gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	GtkWidget* search =
-		gtk_image_new_from_icon_name (GTK_STOCK_FIND, GTK_ICON_SIZE_SMALL_TOOLBAR);
+		gtk_image_new_from_stock (GTK_STOCK_FIND, GTK_ICON_SIZE_SMALL_TOOLBAR);
 	GtkWidget* goto_image = 
-		gtk_image_new_from_icon_name (GTK_STOCK_OK, GTK_ICON_SIZE_SMALL_TOOLBAR);		
+		gtk_image_new_from_stock (ANJUTA_STOCK_GOTO_LINE, GTK_ICON_SIZE_SMALL_TOOLBAR);		
 	
 	/* Searching */
 	private->search_entry = gtk_entry_new();

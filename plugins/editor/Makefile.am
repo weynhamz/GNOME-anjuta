@@ -68,11 +68,11 @@ libanjuta_editor_la_SOURCES= \
 	style-editor.h \
 	print.c \
 	print.h \
-	bookmark.xpm \
-	breakpoint-disabled.xpm \
-	breakpoint-enabled.xpm \
-	program-counter.xpm \
-	linemarker.xpm
+	anjuta-bookmark-16.xpm \
+	anjuta-breakpoint-disabled-16.xpm \
+	anjuta-breakpoint-enabled-16.xpm \
+	anjuta-pcmark-16.xpm \
+	anjuta-linemark-16.xpm
 
 endif
 
