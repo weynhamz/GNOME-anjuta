@@ -1,5 +1,12 @@
 2007-10-13  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/debug-manager/plugin.c: (enable_log_view):
+	
+	Fixed crash when closing a project and unloading another while
+	the debugger is enabled
+
+2007-10-13  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/debug-manager/breakpoints.c: (breakpoints_dbase_new):
 	
 	Use correct breakpoint icon

@@ -359,7 +359,10 @@ enable_log_view (DebugManagerPlugin *this, gboolean enable)
 			ianjuta_message_manager_remove_view (man, this->view, NULL);
 			this->view = NULL;
 		}
-		dma_queue_disable_log (this->queue);
+		if (this->queue != NULL)
+		{
+			dma_queue_disable_log (this->queue);
+		}
 	}
 }
 
