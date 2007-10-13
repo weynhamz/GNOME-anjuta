@@ -1,3 +1,7 @@
+# Plugin glade file
+file_manager_gladedir = $(anjuta_glade_dir)
+file_manager_glade_DATA = file-manager.glade
+
 # Plugin UI file
 file_manager_uidir = $(anjuta_ui_dir)
 file_manager_ui_DATA =  file-manager.ui
@@ -57,4 +61,5 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(file_manager_plugin_DATA) \
 	$(file_manager_ui_DATA) \
-	$(file_manager_pixmaps_DATA)
+	$(file_manager_pixmaps_DATA) \
+	$(file_manager_glade_DATA)

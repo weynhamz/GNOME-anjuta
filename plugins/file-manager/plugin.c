@@ -23,13 +23,30 @@
  */
 
 #include <config.h>
+#include <glade/glade-xml.h>
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
+#include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 #include <libanjuta/interfaces/ianjuta-file-manager.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/file-manager.ui"
+#define ICON_FILE "file-manager.png"
+#define FILE_MANAGER_GLADE PACKAGE_DATA_DIR"/glade/file-manager.glade"
+#define FILE_MANAGER_GLADE_ROOT "filemanager_prefs"
+
+#define PREF_ROOT "filemanager.root"
+#define PREF_FILTER_BINARY "filemanager.filter.binary"
+#define PREF_FILTER_HIDDEN "filemanager.filter.hidden"
+#define PREF_FILTER_BACKUP "filemanager.filter.backup"
+
+#define REGISTER_NOTIFY(key, func) \
+	notify_id = anjuta_preferences_notify_add (file_manager->prefs, \
+											   key, func, file_manager, NULL); \
+	file_manager->gconf_notify_ids = g_list_prepend (file_manager->gconf_notify_ids, \
+										   GUINT_TO_POINTER(notify_id));
 
 static gpointer parent_class;
 
@@ -59,10 +76,11 @@ static GtkActionEntry popup_actions[] =
 static void
 file_manager_set_default_uri (AnjutaFileManager* file_manager)
 {
-	const gchar* home_dir = g_get_home_dir();
-	gchar* home_uri = g_strconcat ("file://", home_dir, NULL);
-	g_object_set (G_OBJECT (file_manager->fv), "base_uri", home_uri, NULL);
-	g_free (home_uri);
+	gchar* uri = 
+		g_strconcat ("file://", anjuta_preferences_get (file_manager->prefs, PREF_ROOT), NULL);
+	g_object_set (G_OBJECT (file_manager->fv), "base_uri", uri, NULL);
+	file_manager->have_project = FALSE;
+	g_free (uri);
 }
 
 static void
@@ -78,6 +96,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 	{
 		g_object_set (G_OBJECT(file_manager->fv), "base_uri", root_uri, NULL);
 		file_view_refresh (file_manager->fv, FALSE);
+		file_manager->have_project = TRUE;
 	}
 	else
 	{
@@ -119,8 +138,6 @@ static void
 on_file_view_open_file (AnjutaFileView* view, const char *uri,
 						AnjutaFileManager* file_manager)
 {
-	GObject *obj;
-	
 	IAnjutaFileLoader *loader;
 	g_return_if_fail (uri != NULL);
 	loader = anjuta_shell_get_interface (ANJUTA_PLUGIN (file_manager)->shell,
@@ -144,15 +161,42 @@ on_file_view_show_popup_menu (AnjutaFileView* view, const gchar* uri,
 	gtk_menu_popup (GTK_MENU (popup), NULL, NULL, NULL, NULL, button, time);
 }
 
+static void 
+on_gconf_notify(GConfClient *gclient, guint cnxn_id,
+				GConfEntry *entry, gpointer user_data)
+{
+	AnjutaFileManager* file_manager = (AnjutaFileManager*) user_data;
+	GtkTreeModel* model = gtk_tree_view_get_model (GTK_TREE_VIEW (file_manager->fv));
+	
+	g_object_set (G_OBJECT (model),
+				  "filter_binary", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BINARY),
+				  "filter_hidden", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_HIDDEN),
+				  "filter_backup", anjuta_preferences_get_int (file_manager->prefs, PREF_FILTER_BACKUP), NULL);				  
+	
+	if (!file_manager->have_project)
+	{
+		file_manager_set_default_uri (file_manager);
+		file_view_refresh (file_manager->fv, FALSE);
+	}
+	else
+	{
+		file_view_refresh (file_manager->fv, TRUE);
+	}
+	
+}
+
 static gboolean
 file_manager_activate (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	AnjutaFileManager *file_manager;
+	gint notify_id;
 	
 	DEBUG_PRINT ("AnjutaFileManager: Activating AnjutaFileManager plugin ...");
 	file_manager = (AnjutaFileManager*) plugin;
 
+	file_manager->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+	
 	/* Add all UI actions and merge UI */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	
@@ -200,6 +244,13 @@ file_manager_activate (AnjutaPlugin *plugin)
 								 project_root_added,
 								 project_root_removed, NULL);
 	
+	
+	REGISTER_NOTIFY (PREF_ROOT, on_gconf_notify);
+	REGISTER_NOTIFY (PREF_FILTER_BINARY, on_gconf_notify);
+	REGISTER_NOTIFY (PREF_FILTER_BACKUP, on_gconf_notify);
+	REGISTER_NOTIFY (PREF_FILTER_HIDDEN, on_gconf_notify);
+	on_gconf_notify (NULL, 0, NULL, file_manager);
+	
 	return TRUE;
 }
 
@@ -225,6 +276,14 @@ file_manager_deactivate (AnjutaPlugin *plugin)
 static void
 file_manager_finalize (GObject *obj)
 {
+	AnjutaFileManager *plugin = (AnjutaFileManager*)obj;
+	GList* id;
+	for (id = plugin->gconf_notify_ids; id != NULL; id = id->next)
+	{
+		anjuta_preferences_notify_remove(plugin->prefs,GPOINTER_TO_UINT(id->data));
+	}
+	g_list_free(plugin->gconf_notify_ids);
+	
 	/* Finalization codes here */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -240,7 +299,10 @@ static void
 file_manager_instance_init (GObject *obj)
 {
 	AnjutaFileManager *plugin = (AnjutaFileManager*)obj;
-
+	
+	plugin->gconf_notify_ids = NULL;
+	plugin->have_project = FALSE;
+	
 	plugin->uiid = 0;
 }
 
@@ -288,8 +350,37 @@ ifile_manager_iface_init (IAnjutaFileManagerIface *iface)
 	iface->set_selected = ifile_manager_set_selected;
 }
 
+static void
+ipreferences_merge (IAnjutaPreferences* ipref,
+					AnjutaPreferences* prefs,
+					GError** e)
+{
+	GladeXML* gxml;
+	
+	gxml = glade_xml_new (FILE_MANAGER_GLADE, FILE_MANAGER_GLADE_ROOT, NULL);
+	
+	anjuta_preferences_add_page (prefs, gxml, FILE_MANAGER_GLADE_ROOT, _("File Manager"),
+								 ICON_FILE);
+}
+
+static void
+ipreferences_unmerge (IAnjutaPreferences* ipref,
+					  AnjutaPreferences* prefs,
+					  GError** e)
+{
+	anjuta_preferences_remove_page (prefs, _("File Manager"));
+}
+
+static void
+ipreferences_iface_init (IAnjutaPreferencesIface* iface)
+{
+	iface->merge = ipreferences_merge;
+	iface->unmerge = ipreferences_unmerge;
+}
+
 ANJUTA_PLUGIN_BEGIN (AnjutaFileManager, file_manager);
 ANJUTA_PLUGIN_ADD_INTERFACE (ifile_manager, IANJUTA_TYPE_FILE_MANAGER);
+ANJUTA_PLUGIN_ADD_INTERFACE (ipreferences, IANJUTA_TYPE_PREFERENCES);
 ANJUTA_PLUGIN_END
 
 ANJUTA_SIMPLE_PLUGIN (AnjutaFileManager, file_manager);

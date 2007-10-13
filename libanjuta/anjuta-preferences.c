@@ -520,6 +520,8 @@ get_object_type_from_string (const gchar* object_type)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_COLOR;
 	else if (strcmp (object_type, "font") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_FONT;
+	else if (strcmp (object_type, "file") == 0)
+		return ANJUTA_PROPERTY_OBJECT_TYPE_FILE;
 	else
 		return (AnjutaPropertyObjectType)(-1);
 }
@@ -612,6 +614,13 @@ get_property_value_as_string (AnjutaProperty *prop)
 			font = gtk_font_button_get_font_name (GTK_FONT_BUTTON
 													(prop->object));
 			text_value = g_strdup (font);
+		}
+		break;
+	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
+		{
+			const gchar *filename;
+			filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (prop->object));
+			text_value = g_strdup (filename);
 		}
 		break;
 	}
@@ -756,6 +765,20 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 			gnome_font_picker_set_font_name (GNOME_FONT_PICKER (prop->object),
 											 "A standard font");
 		}*/
+		break;
+		
+	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
+		{	
+			if (value)
+			{
+				gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (prop->object),
+																 value);
+			}
+			else
+			{
+				gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (prop->object), "");
+			}
+		}
 		break;
 	}
 }
@@ -959,6 +982,10 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 		case ANJUTA_PROPERTY_OBJECT_TYPE_COLOR:
 			g_signal_connect (G_OBJECT(p->object), "color-set",
 							  G_CALLBACK (update_property_on_change_color), p);
+			break;
+		case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
+			g_signal_connect (G_OBJECT(p->object), "file-set",
+							  G_CALLBACK (update_property_on_change_str), p);
 			break;
 		default:
 			break;
@@ -1453,7 +1480,7 @@ anjuta_preferences_foreach (AnjutaPreferences *pr,
  * <programlisting>
  *     preferences_OBJECTTYPE:DATATYPE:DEFAULT:FLAGS:PROPERTYKEY
  *     where,
- *       OBJECTTYPE is 'toggle', 'spin', 'entry', 'text', 'color' or 'font'.
+ *       OBJECTTYPE is 'toggle', 'spin', 'entry', 'text', 'color', 'font' or 'file' .
  *       DATATYPE   is 'bool', 'int', 'float', 'text', 'color' or 'font'.
  *       DEFAULT    is the default value (in the appropriate format). The format
  *                     for color is '#XXXXXX' representing RGB value and for

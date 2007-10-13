@@ -36,7 +36,24 @@
 enum
 {
 	PROP_0,
-	PROP_BASE_URI
+	PROP_BASE_URI,
+	PROP_FILTER_BINARY,
+	PROP_FILTER_HIDDEN,
+	PROP_FILTER_BACKUP
+};
+
+const gchar* binary_mime[] = {
+	"application/x-core",
+	"application/x-shared-library-la.xml",
+	"application/x-sharedlib.xml",
+	NULL
+};
+
+const gchar* binary_suffix[] = {
+	".lo",
+	".o",
+	".a",
+	NULL
 };
 
 typedef struct _FileModelPrivate FileModelPrivate;
@@ -44,6 +61,9 @@ typedef struct _FileModelPrivate FileModelPrivate;
 struct _FileModelPrivate
 {
 	gchar* base_uri;
+	gboolean filter_binary;
+	gboolean filter_hidden;
+	gboolean filter_backup;
 	
 	GdlIcons* icons;
 	
@@ -64,6 +84,46 @@ struct _FileModelIdleExpand
 
 G_DEFINE_TYPE (FileModel, file_model, GTK_TYPE_TREE_STORE);
 
+static gboolean
+file_model_filter_file (FileModel* model, GnomeVFSFileInfo* info)
+{
+	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);	
+	/* Ignore hidden files */
+	if (priv->filter_hidden && g_str_has_prefix (info->name, "."))
+	{
+		return TRUE;
+	}
+	/* Ignore backup files */
+	if (priv->filter_backup && (g_str_has_suffix (info->name, "~") ||
+		g_str_has_suffix (info->name, ".bak")))
+	{
+		return TRUE;
+	}
+	if (priv->filter_binary)
+	{
+		int i;
+		if (info->mime_type)
+		{
+			for (i = 0; binary_mime[i] != NULL; i++)
+			{
+				if (g_str_equal (info->mime_type, binary_mime[i]))
+					return TRUE;
+			}
+		}
+		for (i = 0; binary_suffix[i] != NULL; i++)
+		{
+			if (g_str_has_suffix (info->name, binary_suffix[i]))
+				return TRUE;
+		}
+	}
+	/* Be sure to ignore "." and ".." */
+	if (g_str_equal (info->name, ".") || g_str_equal (info->name, ".."))
+	{
+		return TRUE;
+	}
+	return FALSE;
+}
+
 static void
 file_model_cancel_expand_idle(FileModel* model)
 {
@@ -82,8 +142,6 @@ static void
 file_model_add_dummy (FileModel* model,
 					 GtkTreeIter* iter)
 {
-	FileModelPrivate* priv =
-		FILE_MODEL_GET_PRIVATE (model);
 	GtkTreeStore* store = GTK_TREE_STORE (model);
 	GtkTreeIter dummy;
 	
@@ -115,8 +173,8 @@ file_model_expand_idle (gpointer data)
 		/* Set pointer to the next element */
 		expand->files = g_list_next (file);
 		
-		/* Ignore hidden files */
-		if (g_str_has_prefix (info->name, "."))
+		/* Ignore user-defined files */
+		if (file_model_filter_file (model, info))
 		{
 			return TRUE;
 		}
@@ -268,7 +326,21 @@ file_model_set_property (GObject *object, guint prop_id, const GValue *value, GP
 	case PROP_BASE_URI:
 		g_free (priv->base_uri);
 		priv->base_uri = g_strdup (g_value_get_string (value));
+		if (!priv->base_uri || !strlen (priv->base_uri))
+		{
+			priv->base_uri = g_strdup("file:///");
+		}
 		break;
+	case PROP_FILTER_BINARY:
+		priv->filter_binary = g_value_get_boolean (value);
+		break;
+	case PROP_FILTER_HIDDEN:
+		priv->filter_hidden = g_value_get_boolean (value);
+		break;
+	case PROP_FILTER_BACKUP:
+		priv->filter_backup = g_value_get_boolean (value);
+		break;
+
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -287,6 +359,13 @@ file_model_get_property (GObject *object, guint prop_id, GValue *value, GParamSp
 	case PROP_BASE_URI:
 		g_value_set_string (value, priv->base_uri);
 		break;
+	case PROP_FILTER_BINARY:
+		g_value_set_boolean (value, priv->filter_binary);
+	case PROP_FILTER_HIDDEN:
+		g_value_set_boolean (value, priv->filter_hidden);
+	case PROP_FILTER_BACKUP:
+		g_value_set_boolean (value, priv->filter_backup);	
+		
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
 		break;
@@ -297,7 +376,6 @@ static void
 file_model_class_init (FileModelClass *klass)
 {
 	GObjectClass* object_class = G_OBJECT_CLASS (klass);
-	GtkTreeStoreClass* parent_class = GTK_TREE_STORE_CLASS (klass);
 
 	object_class->finalize = file_model_finalize;
 	object_class->set_property = file_model_set_property;
@@ -312,6 +390,30 @@ file_model_class_init (FileModelClass *klass)
 	                                                      "Base uri",
 	                                                      "NULL",
 	                                                      G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT));
+	g_object_class_install_property (object_class,
+									 PROP_FILTER_BINARY,
+									 g_param_spec_boolean ("filter_binary",
+														   "Filter binary files",
+														   "file_binary",
+														   TRUE,
+														   G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT));
+	
+	g_object_class_install_property (object_class,
+									 PROP_FILTER_HIDDEN,
+									 g_param_spec_boolean ("filter_hidden",
+														   "Filter hidden files",
+														   "file_hidden",
+														   TRUE,
+														   G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT));
+	
+	g_object_class_install_property (object_class,
+									 PROP_FILTER_BACKUP,
+									 g_param_spec_boolean ("filter_backup",
+														   "Filter backup files",
+														   "file_backup",
+														   TRUE,
+														   G_PARAM_READABLE | G_PARAM_WRITABLE | G_PARAM_CONSTRUCT));
+	
 }
 
 

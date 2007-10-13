@@ -1,3 +1,35 @@
+2007-10-13  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-preferences.c: (get_object_type_from_string),
+	(get_property_value_as_string), (set_property_value_as_string),
+	(register_callbacks):
+	* libanjuta/anjuta-preferences.h:
+	
+	Support GtkFileChooserButton as preferences widget
+	
+	* libanjuta/anjuta-ui.c: (anjuta_ui_add_action_group):
+	
+	Fixed a Gtk-Critical
+	
+	* plugins/file-manager/Makefile.am:
+	* plugins/file-manager/file-model.c: (file_model_filter_file),
+	(file_model_add_dummy), (file_model_expand_idle),
+	(file_model_set_property), (file_model_get_property),
+	(file_model_class_init):
+	* plugins/file-manager/plugin.c: (file_manager_set_default_uri),
+	(project_root_added), (on_file_view_open_file), (on_gconf_notify),
+	(file_manager_activate), (file_manager_finalize),
+	(file_manager_instance_init), (ipreferences_merge),
+	(ipreferences_unmerge), (ipreferences_iface_init):
+	* plugins/file-manager/plugin.h:
+	
+	Added preferences to file-manager
+
+	* plugins/glade/plugin.c: (activate_plugin):
+	
+	Move Properties widget into center because it is way to big
+	for the sidebar
+
 2007-10-10  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/Makefile.am:

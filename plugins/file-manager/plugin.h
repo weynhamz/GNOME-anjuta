@@ -26,6 +26,7 @@
 #define _FILE_MANAGER_H_
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/anjuta-preferences.h>
 
 #include "file-view.h"
 
@@ -37,9 +38,12 @@ struct _AnjutaFileManager {
 	AnjutaFileView* fv;
 	GtkWidget* sw;
 	guint root_watch_id;
+	gboolean have_project;
 	
 	gint uiid;
 	GtkActionGroup *action_group;
+	GList* gconf_notify_ids;
+	AnjutaPreferences* prefs;
 };
 
 struct _AnjutaFileManagerClass {

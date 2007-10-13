@@ -607,15 +607,18 @@ anjuta_ui_add_action_group (AnjutaUI *ui,
 			g_object_ref_sink(G_OBJECT(dummy));
 			pixbuf = gtk_widget_render_icon (dummy, icon,
 											 GTK_ICON_SIZE_MENU, NULL);
-			gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
-								COLUMN_PIXBUF, pixbuf,
-								COLUMN_ACTION, action_label,
-								COLUMN_VISIBLE, gtk_action_get_visible (action),
-								COLUMN_SENSITIVE, gtk_action_get_sensitive(action),
-								COLUMN_DATA, action,
-								COLUMN_GROUP, action_group_name,
-								-1);
-			g_object_unref (G_OBJECT (pixbuf));
+			if (pixbuf)
+			{
+				gtk_tree_store_set (GTK_TREE_STORE (ui->priv->model), &iter,
+									COLUMN_PIXBUF, pixbuf,
+									COLUMN_ACTION, action_label,
+									COLUMN_VISIBLE, gtk_action_get_visible (action),
+									COLUMN_SENSITIVE, gtk_action_get_sensitive(action),
+									COLUMN_DATA, action,
+									COLUMN_GROUP, action_group_name,
+									-1);
+				g_object_unref (G_OBJECT (pixbuf));
+			}
 			g_object_unref (dummy);
 			g_free (icon);
 		}
