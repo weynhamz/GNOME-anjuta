@@ -51,6 +51,41 @@ static gpointer parent_class;
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 
+#define ANJUTA_PIXMAP_HELP_NEXT "anjuta-go-help-next-24.png"
+#define ANJUTA_PIXMAP_HELP_PREV "anjuta-go-help-prev-24.png"
+#define ANJUTA_PIXMAP_DEVHELP "anjuta-devhelp-plugin.png"
+
+#define ANJUTA_STOCK_HELP_NEXT "anjuta-help-next"
+#define ANJUTA_STOCK_HELP_PREV "anjuta-help-prev"
+#define ANJUTA_STOCK_DEVHELP "anjuta-devhelp"
+
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	g_object_unref (pixbuf);
+
+static void
+register_stock_icons (AnjutaPlugin *plugin)
+{
+	AnjutaUI *ui;
+	GtkIconFactory *icon_factory;
+	GtkIconSet *icon_set;
+	GdkPixbuf *pixbuf;
+	static gboolean registered = FALSE;
+
+	if (registered)
+		return;
+	registered = TRUE;
+
+	/* Register stock icons */
+	ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	icon_factory = anjuta_ui_get_icon_factory (ui);
+	REGISTER_ICON (ANJUTA_PIXMAP_HELP_NEXT, ANJUTA_STOCK_HELP_NEXT);
+	REGISTER_ICON (ANJUTA_PIXMAP_HELP_PREV, ANJUTA_STOCK_HELP_PREV);
+	REGISTER_ICON (ANJUTA_PIXMAP_DEVHELP, ANJUTA_STOCK_DEVHELP);
+}
+
 static void
 devhelp_tree_link_selected_cb (GObject       *ignored,
 			      DhLink        *link,
@@ -206,7 +241,7 @@ static GtkActionEntry actions[] = {
 	},
 	{
 		"ActionDevhelpBack",
-		GTK_STOCK_GO_BACK,
+		ANJUTA_STOCK_HELP_PREV,
 		N_("Previous Help"),
 		NULL,
 		N_("Go to previous help page"),
@@ -214,7 +249,7 @@ static GtkActionEntry actions[] = {
 	},
 	{
 		"ActionDevhelpForward",
-		GTK_STOCK_GO_FORWARD,
+		ANJUTA_STOCK_HELP_NEXT,
 		N_("Next Help"),
 		NULL,
 		N_("Go to next help page"),
@@ -231,7 +266,7 @@ static GtkActionEntry actions[] = {
 	},
 	{
 		"ActionHelpContext",
-		GTK_STOCK_HELP,
+		ANJUTA_STOCK_DEVHELP,
 		N_("_Context Help"),
 		"<shift>F1",
 		N_("Search help for the current word in the editor"),
@@ -285,13 +320,20 @@ devhelp_activate (AnjutaPlugin *plugin)
 
 	AnjutaUI *ui;
 	AnjutaDevhelp *devhelp;
+	static gboolean init = FALSE;
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
 	GNode *books;
 	GList *keywords;
 	GtkWidget* books_sw;
-#endif
 	
+	if (!init)
+	{
+		register_stock_icons (plugin);
+		init = TRUE;
+	}	
+#endif
+
 	DEBUG_PRINT ("AnjutaDevhelp: Activating AnjutaDevhelp plugin ...");
 	devhelp = ANJUTA_PLUGIN_DEVHELP (plugin);
 
@@ -341,11 +383,11 @@ devhelp_activate (AnjutaPlugin *plugin)
 	devhelp->htmlview = html_view_new(devhelp);	
 
 	anjuta_shell_add_widget (plugin->shell, devhelp->control_notebook,
-								 "AnjutaDevhelpIndex", _("Help"), GTK_STOCK_HELP,
+								 "AnjutaDevhelpIndex", _("Help"), ANJUTA_STOCK_DEVHELP,
 								 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
 	anjuta_shell_add_widget (plugin->shell, devhelp->htmlview,
 								 "AnjutaDevhelpDisplay", _("Help display"),
-								 GTK_STOCK_HELP,
+								 ANJUTA_STOCK_DEVHELP,
 								 ANJUTA_SHELL_PLACEMENT_CENTER, NULL);
 								 
 #endif /* DISABLE_EMBEDDED_DEVHELP */

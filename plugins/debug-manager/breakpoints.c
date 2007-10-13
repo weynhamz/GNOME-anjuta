@@ -1693,10 +1693,10 @@ breakpoints_dbase_new (DebugManagerPlugin *plugin)
 		gtk_widget_show_all (bd->scrolledwindow);
 		
 		anjuta_shell_add_widget (ANJUTA_PLUGIN(plugin)->shell,
-							 bd->scrolledwindow,
-                             "AnjutaDebuggerBreakpoints", _("Breakpoints"),
-                             "gdb-breakpoint-toggle", ANJUTA_SHELL_PLACEMENT_BOTTOM,
-                              NULL);
+								 bd->scrolledwindow,
+								 "AnjutaDebuggerBreakpoints", _("Breakpoints"),
+								 "gdb-breakpoint-enabled", ANJUTA_SHELL_PLACEMENT_BOTTOM,
+								 NULL);
 											
 		bd->is_showing = TRUE;
 		bd->cond_history = NULL;

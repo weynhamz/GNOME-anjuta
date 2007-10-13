@@ -33,6 +33,7 @@
 
 #include <gdl/gdl-dock.h>
 #include <gdl/gdl-dock-bar.h>
+#include <gdl/gdl-switcher.h>
 
 #include <bonobo/bonobo-dock-item.h>
 
@@ -65,6 +66,36 @@ static void anjuta_app_layout_save (AnjutaApp *app,
 
 static gpointer parent_class = NULL;
 static GList* toolbars = NULL;
+
+static void
+on_gdl_style_changed (GConfClient* client, guint id, GConfEntry* entry,
+					  gpointer user_data)
+{
+	AnjutaApp* app = ANJUTA_APP (user_data);
+	GdlSwitcherStyle style = GDL_SWITCHER_STYLE_BOTH;
+	
+	gchar* pr_style = anjuta_preferences_get (app->preferences, "anjuta.gdl.style");
+
+	if (pr_style)
+	{
+		if (strcasecmp (pr_style, "Text") == 0)
+			style = GDL_SWITCHER_STYLE_TEXT;
+		else if (strcasecmp (pr_style, "Icon") == 0)
+			style = GDL_SWITCHER_STYLE_ICON;
+		else if (strcasecmp (pr_style, "Both") == 0)
+			style = GDL_SWITCHER_STYLE_BOTH;
+		else if (strcasecmp (pr_style, "Toolbar") == 0)
+			style = GDL_SWITCHER_STYLE_TOOLBAR;
+		else if (strcasecmp (pr_style, "Tabs") == 0)
+			style = GDL_SWITCHER_STYLE_TABS;
+		
+		DEBUG_PRINT ("Switcher style: %s", pr_style);
+		
+		g_free (pr_style);
+	}
+	g_object_set (G_OBJECT(app->layout_manager->master), "switcher-style",
+					  style, NULL);
+}
 
 static void
 on_toggle_widget_view (GtkCheckMenuItem *menuitem, GtkWidget *dockitem)
@@ -575,6 +606,11 @@ anjuta_app_instance_init (AnjutaApp *app)
 	app->preferences = anjuta_preferences_new (app->plugin_manager);
 	g_object_add_weak_pointer (G_OBJECT (app->preferences),
 							   (gpointer)&app->preferences);
+	
+	anjuta_preferences_notify_add (app->preferences, "anjuta.gdl.style",
+								   on_gdl_style_changed, app, NULL);
+	
+	on_gdl_style_changed (NULL, 0, NULL, app);
 	
 	/* Register actions */
 	anjuta_ui_add_action_group_entries (app->ui, "ActionGroupFile", _("File"),

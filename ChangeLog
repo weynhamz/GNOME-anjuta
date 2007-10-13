@@ -1,5 +1,39 @@
 2007-10-13  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/debug-manager/breakpoints.c: (breakpoints_dbase_new):
+	
+	Use correct breakpoint icon
+	
+	* plugins/devhelp/Makefile.am:
+	* plugins/devhelp/anjuta-go-help-next.svg:
+	* plugins/devhelp/anjuta-go-help-prev.svg:
+	* plugins/devhelp/plugin.c: (register_stock_icons),
+	(devhelp_activate):
+	
+	Added new icons from #480093
+	
+	* plugins/document-manager/images/anjuta-bookmark-clear.svg:
+	* plugins/document-manager/images/anjuta-bookmark-first.svg:
+	* plugins/document-manager/images/anjuta-bookmark-last.svg:
+	* plugins/document-manager/images/anjuta-bookmark-next.svg:
+	* plugins/document-manager/images/anjuta-bookmark-prev.svg:
+	* plugins/document-manager/images/anjuta-bookmark-toggle.svg:
+	* plugins/message-view/anjuta-go-message-next.svg:
+	* plugins/message-view/anjuta-go-message-prev.svg:
+	
+	Updated icons from #480093
+		
+	* src/anjuta-actions.h:
+	Use GTK_STOCK_FULLSCREEN
+	
+	* src/anjuta-app.c: (on_gdl_style_changed),
+	(anjuta_app_instance_init):
+	* src/anjuta.glade:
+	
+	Added preference option to set the gdl switcher style
+
+2007-10-13  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-preferences.c: (get_object_type_from_string),
 	(get_property_value_as_string), (set_property_value_as_string),
 	(register_callbacks):
