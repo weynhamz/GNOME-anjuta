@@ -75,4 +75,4 @@ DOC_FIGURES = figures/a2ps.png      \
               figures/warnings.png\
               figures/watch.png\
               figures/watch_add.png
-DOC_LINGUAS = es
+DOC_LINGUAS = es oc
