@@ -1,3 +1,8 @@
+2007-10-14 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/gdb/plugin.c:
+	Fix bug#486597, crash when gdb is not installed 
+
 2007-10-01 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/project-wizard/autogen.c:

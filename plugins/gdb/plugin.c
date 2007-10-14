@@ -230,7 +230,15 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_ty
 	// Start debugger
 	gdb_plugin_initialize (this);
 	
-	return debugger_start (this->debugger, search_dirs, file, is_libtool, terminal);
+	if (!debugger_start (this->debugger, search_dirs, file, is_libtool, terminal))
+	{
+		/* Set error */
+		g_set_error (err, IANJUTA_DEBUGGER_ERROR, IANJUTA_DEBUGGER_UNKNOWN_ERROR, "Unknown error");
+
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
 static gboolean
