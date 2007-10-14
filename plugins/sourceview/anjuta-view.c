@@ -810,7 +810,9 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 				g_signal_emit_by_name(G_OBJECT(view), "char_added", 
 									  pos, '\0');
 			}
-			else if (event->keyval == GDK_Escape)
+			else if (event->keyval == GDK_Escape || 
+							 event->keyval == GDK_Up ||
+							 event->keyval == GDK_Down)
 			{
 				if (assist_tip)
 					gtk_widget_destroy (GTK_WIDGET(assist_tip));

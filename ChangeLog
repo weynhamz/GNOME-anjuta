@@ -1,3 +1,8 @@
+2007-10-14 Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c:
+	Hide calltip when "Up" or "Down" key is pressed
+
 2007-10-14 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/document-manager/search-box.c:
