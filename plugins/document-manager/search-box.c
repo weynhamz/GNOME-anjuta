@@ -22,8 +22,8 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#include "search-box.h"
 #include <glib/gi18n.h>
+#include "search-box.h"
 
 #include <gtk/gtkbutton.h>
 #include <gtk/gtkcheckbutton.h>
