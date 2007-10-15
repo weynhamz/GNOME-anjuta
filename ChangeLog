@@ -1,3 +1,9 @@
+2007-10-15 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/document-manager/search-box.c:
+	Fix a crash (with an useful comment) focus-out-event handler must
+	return a gboolean
+
 2007-10-14 Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c:

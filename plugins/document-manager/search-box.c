@@ -207,7 +207,7 @@ on_entry_key_pressed (GtkWidget* entry, GdkEventKey* event, SearchBox* search_bo
 	return FALSE;
 }
 
-static void
+static gboolean
 on_search_focus_out (GtkWidget* widget, GdkEvent* event, SearchBox* search_box)
 {
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
@@ -217,6 +217,8 @@ on_search_focus_out (GtkWidget* widget, GdkEvent* event, SearchBox* search_box)
 		private->last_start = NULL;
 	}
 	anjuta_status_pop (private->status);
+
+	return FALSE;
 }
 
 static void
