@@ -1389,6 +1389,7 @@ on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	te = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
 	if (te == NULL) return;       /* Missing editor */
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
+	if (uri == NULL) return;     /* File not saved yet, it's not possible to put a breakpoint in it */
 	line = ianjuta_editor_get_lineno (te, NULL);
 	
 	/* Find corresponding breakpoint */
