@@ -1,3 +1,8 @@
+2007-10-16 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/breakpoints.c:
+	Fix bug#487112, crash while removing a breakpoint in a new file
+
 2007-10-14 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/gdb/plugin.c:
