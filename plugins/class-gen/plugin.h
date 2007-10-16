@@ -28,7 +28,7 @@
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-class-gen-plugin.glade"
 #define CLASS_TEMPLATE PACKAGE_DATA_DIR"/class-templates/"
 
-extern GType class_gen_plugin_get_type (AnjutaGluePlugin *plugin);
+extern GType class_gen_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_CLASS_GEN         (class_gen_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_CLASS_GEN(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_CLASS_GEN, AnjutaClassGenPlugin))
 #define ANJUTA_PLUGIN_CLASS_GEN_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_CLASS_GEN, AnjutaClassGenPluginClass))

@@ -5,7 +5,7 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-ui.h>
 
-extern GType docman_plugin_get_type (AnjutaGluePlugin *plugin);
+extern GType docman_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_DOCMAN         (docman_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_DOCMAN(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_DOCMAN, DocmanPlugin))
 #define ANJUTA_PLUGIN_DOCMAN_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_DOCMAN, DocmanPluginClass))

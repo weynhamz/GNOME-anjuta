@@ -1,3 +1,73 @@
+2007-10-16  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-plugin-handle.c,
+	libanjuta/anjuta-plugin-handle.h:
+	Add a new path property containing the directory of the .plugin
+	file, library file (.so or whatever) must be in the same directory
+
+	* libanjuta/anjuta-plugin-manager.c,
+	libanjuta/interfaces/libanjuta.idl,
+	(removed) libanjuta/anjuta-glue-plugin.c,
+	(removed) libanjuta/anjuta-glue-plugin.h,
+	(removed) libanjuta/anjuta-glue-c.c,
+	(removed) libanjuta/anjuta-glue-c.h,
+	(removed) libanjuta/anjuta-glue-cpp.c,
+	(removed) libanjuta/anjuta-glue-cpp.h,
+	(removed) libanjuta/anjuta-glue-factory.c,
+	(removed) libanjuta/anjuta-glue-factory.h,
+	(added) libanjuta/anjuta-c-module.c,
+	(added) libanjuta/anjuta-c-module.h,
+	(added) libanjuta/anjuta-c-plugin-factory.c,
+	(added) libanjuta/anjuta-c-plugin-factory.h,
+	libanjuta/Makefile.am:
+	AnjutaPluginManager uses the new IAnjutaPluginFactory interface
+	anjuta-glue-factory.[ch] is replaced by anjuta-c-plugin-factory.[ch]
+	implementing IAnjutaPluginFactory
+	anjuta-glue-(c|plugin).[ch] is replaced by anjuta-c-module.[ch]
+
+	* libanjuta/libanjuta.h:
+	anjuta-plugin-handle.h must be public (used in IAnjutaPluginFactory
+	interface)
+
+	* libanjuta/anjuta-plugin.h:
+	Replace AnjutaGluePlugin by GTypeModule
+	Remove unused anjuta_glue_get_component_type replaced by
+	g_type_from_name
+
+	* plugins/build-basic-autotools/build-basic-autotools.h,
+	plugins/class-gen/plugin.h,
+	plugins/class-inheritance/plugin.h,
+	plugins/cvs-plugin/plugin.h,
+	plugins/debug-manager/plugin.h,
+	plugins/devhelp/plugin.h,
+	plugins/document-manager/plugin.h,
+	plugins/editor/plugin.h,
+	plugins/file-loader/plugin.h,
+	plugins/file-wizard/plugin.h,
+	plugins/gdb/plugin.h,
+	plugins/glade/plugin.h,
+	plugins/gtodo/plugin.h,
+	plugins/indent/plugin.h,
+	plugins/language-manager/plugin.h,
+	plugins/language-support-cpp-java/plugin.h,
+	plugins/macro/plugin.h,
+	plugins/message-view/plugin.h,
+	plugins/patch/plugin.h,
+	plugins/profiler/plugin.h,
+	plugins/project-import/plugin.h,
+	plugins/project-manager/plugin.h,
+	plugins/project-wizard/plugin.h,
+	plugins/sample1/plugin.h,
+	plugins/search/plugin.h,
+	plugins/sourceview/plugin.h,
+	plugins/subversion/plugin.h,
+	plugins/symbol-browser/plugin.h,
+	plugins/symbol-db/plugin.h,
+	plugins/terminal/terminal.c,
+	plugins/tools/plugin.h,
+	plugins/valgrind/plugin.h:
+	Replace AnjutaGluePlugin by GTypeModule
+
 2007-10-16 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/breakpoints.c:

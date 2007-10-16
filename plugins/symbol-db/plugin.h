@@ -31,7 +31,7 @@
 
 G_BEGIN_DECLS
 
-extern GType symbol_db_get_type (AnjutaGluePlugin *plugin);
+extern GType symbol_db_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_SYMBOL_DB         (symbol_db_get_type (NULL))
 #define ANJUTA_PLUGIN_SYMBOL_DB(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_SYMBOL_DB, SymbolDBPlugin))
 #define ANJUTA_PLUGIN_SYMBOL_DB_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_SYMBOL_DB, SymbolDBPluginClass))

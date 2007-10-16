@@ -20,7 +20,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 
-extern GType message_view_plugin_get_type (AnjutaGluePlugin *plugin);
+extern GType message_view_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_MESSAGE_VIEW         (message_view_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_MESSAGE_VIEW(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_MESSAGE_VIEW, MessageViewPlugin))
 #define ANJUTA_PLUGIN_MESSAGE_VIEW_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_MESSAGE_VIEW, MessageViewPluginClass))

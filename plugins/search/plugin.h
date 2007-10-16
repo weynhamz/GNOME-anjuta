@@ -21,7 +21,7 @@
 
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
 
-extern GType search_plugin_get_type(AnjutaGluePlugin *klass);
+extern GType search_plugin_get_type(GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_SEARCH         (search_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_SEARCH(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_SEARCH, SearchPlugin))
 #define ANJUTA_PLUGIN_SEARCH_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_SEARCH, SearchPluginClass))

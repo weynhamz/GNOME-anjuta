@@ -25,7 +25,7 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-ui.h>
 
-extern GType file_wizard_plugin_get_type (AnjutaGluePlugin *plugin);
+extern GType file_wizard_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_FILE_WIZARD         (file_wizard_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_FILE_WIZARD(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_FILE_WIZARD, AnjutaFileWizardPlugin))
 #define ANJUTA_PLUGIN_FILE_WIZARD_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_FILE_WIZARD, AnjutaFileWizardPluginClass))

@@ -41,6 +41,6 @@ struct _LanguageManagerClass{
 };
 
 extern GType
-language_manager_get_type (AnjutaGluePlugin* plugin);
+language_manager_get_type (GTypeModule *module);
 
 #endif

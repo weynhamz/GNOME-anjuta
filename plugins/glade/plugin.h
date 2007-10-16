@@ -37,7 +37,7 @@
 # endif
 #endif
 
-extern GType glade_plugin_get_type (AnjutaGluePlugin *plugin);
+extern GType glade_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_GLADE         (glade_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_GLADE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_GLADE, GladePlugin))
 #define ANJUTA_PLUGIN_GLADE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_GLADE, GladePluginClass))

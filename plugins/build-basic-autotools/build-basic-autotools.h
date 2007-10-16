@@ -25,7 +25,7 @@
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.glade"
 
-extern GType basic_autotools_plugin_get_type (AnjutaGluePlugin *plugin);
+extern GType basic_autotools_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_BASIC_AUTOTOOLS         (basic_autotools_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_BASIC_AUTOTOOLS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_BASIC_AUTOTOOLS, BasicAutotoolsPlugin))
 #define ANJUTA_PLUGIN_BASIC_AUTOTOOLS_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_BASIC_AUTOTOOLS, BasicAutotoolsPluginClass))

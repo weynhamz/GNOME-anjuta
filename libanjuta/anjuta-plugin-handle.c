@@ -53,7 +53,8 @@ enum
 	PROP_INTERFACES,
 	PROP_CAN_LOAD,
 	PROP_CHECKED,
-	PROP_RESOLVE_PASS
+	PROP_RESOLVE_PASS,
+	PROP_PATH
 };
 
 struct _AnjutaPluginHandlePriv
@@ -62,6 +63,7 @@ struct _AnjutaPluginHandlePriv
 	char *name;
 	char *about;
 	char *icon_path;
+	char *path;
 	gboolean user_activatable;
 	gboolean resident;
 	char *language;
@@ -118,6 +120,8 @@ anjuta_plugin_handle_finalize (GObject *object)
 	priv->name = NULL;
 	g_free (priv->icon_path);
 	priv->icon_path = NULL;
+	g_free (priv->path);
+	priv->path = NULL;
 	g_free (priv->language);
 	priv->language = NULL;
 	
@@ -159,6 +163,9 @@ anjuta_plugin_handle_set_property (GObject *object, guint prop_id,
 		break;
 	case PROP_ICON_PATH:
 		/* TODO: Add setter for "icon-path" property here */
+		break;
+	case PROP_PATH:
+		/* TODO: Add setter for "path" property here */
 		break;
 	case PROP_USER_ACTIVATABLE:
 		/* TODO: Add setter for "user-activatable" property here */
@@ -221,6 +228,9 @@ anjuta_plugin_handle_get_property (GObject *object, guint prop_id,
 		break;
 	case PROP_ICON_PATH:
 		g_value_set_string (value, priv->icon_path);
+		break;
+	case PROP_PATH:
+		g_value_set_string (value, priv->path);
 		break;
 	case PROP_USER_ACTIVATABLE:
 		g_value_set_boolean (value, priv->user_activatable);
@@ -300,6 +310,14 @@ anjuta_plugin_handle_class_init (AnjutaPluginHandleClass *klass)
 	                                 g_param_spec_string ("icon-path",
 	                                                      "Icon Path",
 	                                                      "Icon path of the plugin",
+	                                                      NULL,
+	                                                      G_PARAM_READABLE));
+
+	g_object_class_install_property (object_class,
+	                                 PROP_PATH,
+	                                 g_param_spec_string ("path",
+	                                                      "Path",
+	                                                      "Path of the plugin",
 	                                                      NULL,
 	                                                      G_PARAM_READABLE));
 
@@ -477,6 +495,7 @@ anjuta_plugin_handle_new (const gchar *plugin_desc_path)
 	plugin_handle->priv->description = desc;
 	plugin_handle->priv->user_activatable = TRUE;
 	plugin_handle->priv->resident = TRUE;
+	plugin_handle->priv->path = g_path_get_dirname (plugin_desc_path);
 	
 	if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 											  "Location", &str)) {
@@ -584,6 +603,13 @@ anjuta_plugin_handle_get_icon_path (AnjutaPluginHandle *plugin_handle)
 {
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN_HANDLE (plugin_handle), NULL);
 	return plugin_handle->priv->icon_path;
+}
+
+const char*
+anjuta_plugin_handle_get_path (AnjutaPluginHandle *plugin_handle)
+{
+	g_return_val_if_fail (ANJUTA_IS_PLUGIN_HANDLE (plugin_handle), NULL);
+	return plugin_handle->priv->path;
 }
 
 gboolean

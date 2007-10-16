@@ -38,7 +38,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-extern GType atp_plugin_get_type (AnjutaGluePlugin *plugin);
+extern GType atp_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_ATP         (atp_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_ATP(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_ATP, ATPPlugin))
 #define ANJUTA_PLUGIN_ATP_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_ATP, ATPPluginClass))

@@ -30,7 +30,7 @@
 
 G_BEGIN_DECLS
 
-extern GType class_inheritance_get_type (AnjutaGluePlugin *plugin);
+extern GType class_inheritance_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_CLASS_INHERITANCE         (class_inheritance_get_type (NULL))
 #define ANJUTA_PLUGIN_CLASS_INHERITANCE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_CLASS_INHERITANCE, AnjutaClassInheritance))
 #define ANJUTA_PLUGIN_CLASS_INHERITANCE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_CLASS_INHERITANCE, AnjutaClassInheritanceClass))

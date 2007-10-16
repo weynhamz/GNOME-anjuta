@@ -26,7 +26,7 @@
 
 G_BEGIN_DECLS
 
-extern GType symbol_browser_plugin_get_type (AnjutaGluePlugin *plugin);
+extern GType symbol_browser_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER         (symbol_browser_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_SYMBOL_BROWSER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER, SymbolBrowserPlugin))
 #define ANJUTA_PLUGIN_SYMBOL_BROWSER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_SYMBOL_BROWSER, SymbolBrowserPluginClass))

@@ -54,6 +54,7 @@ const char* anjuta_plugin_handle_get_id (AnjutaPluginHandle *plugin_handle);
 const char* anjuta_plugin_handle_get_name (AnjutaPluginHandle *plugin_handle);
 const char* anjuta_plugin_handle_get_about (AnjutaPluginHandle *plugin_handle);
 const char* anjuta_plugin_handle_get_icon_path (AnjutaPluginHandle *plugin_handle);
+const char* anjuta_plugin_handle_get_path (AnjutaPluginHandle *plugin_handle);
 gboolean anjuta_plugin_handle_get_user_activatable (AnjutaPluginHandle *plugin_handle);
 gboolean anjuta_plugin_handle_get_resident (AnjutaPluginHandle *plugin_handle);
 const char* anjuta_plugin_handle_get_language (AnjutaPluginHandle *plugin_handle);

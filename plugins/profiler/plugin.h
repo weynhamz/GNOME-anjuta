@@ -44,7 +44,7 @@
 #include "gprof-function-call-chart-view.h"
 #endif
 
-extern GType profiler_get_type (AnjutaGluePlugin *plugin);
+extern GType profiler_get_type (GTypeModule *module);
 #define TYPE_PROFILER         (profiler_get_type (NULL))
 #define PROFILER(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), TYPE_PROFILER, Profiler))
 #define PROFILER_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), TYPE_PROFILER, ProfilerClass))

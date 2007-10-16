@@ -5,7 +5,7 @@
 #include <indent-dialog.h>
 #include <glib/gstring.h>
 
-extern GType anjuta_indent_plugin_get_type (AnjutaGluePlugin *plugin);
+extern GType anjuta_indent_plugin_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_INDENT         (anjuta_indent_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_INDENT(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_INDENT, IndentPlugin))
 #define ANJUTA_PLUGIN_INDENT_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_INDENT, IndentPluginClass))

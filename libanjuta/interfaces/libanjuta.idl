@@ -4199,17 +4199,21 @@ interface IAnjutaPreferences
  * @include: libanjuta/interfaces/ianjuta-plugin-loader.h
  * 
  */
-interface IAnjutaPluginLoader
+interface IAnjutaPluginFactory
 {
+	#include <libanjuta/anjuta-plugin.h>
+	#include <libanjuta/anjuta-shell.h>
+	#include <libanjuta/anjuta-plugin-handle.h>
 	/**
-	 * ianjuta_plugin_loader_glue_plugin_new:
+	 * ianjuta_plugin_factory_new_plugin:
 	 * @obj: Self
+	 * @handle: plugin information
+	 * @shell: Anjuta shell
 	 * @err: Error propagation and reporting.
 	 * 
-	 * When called, should return the type of an object derivated from
-	 * AnjutaGluePlugin
+	 * Create a new AnjutaPlugin
 	 */
-	GType glue_plugin_get_type ();
+	AnjutaPlugin* new_plugin (AnjutaPluginHandle* handle, AnjutaShell *shell);
 }
 
 /**

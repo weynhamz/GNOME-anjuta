@@ -66,7 +66,7 @@
 
 extern char **environ;
 
-extern GType terminal_plugin_get_type (AnjutaGluePlugin *plugin);
+extern GType terminal_plugin_get_type (GTypeModule *module);
 #define ANJUTA_PLUGIN_TERMINAL_TYPE         (terminal_plugin_get_type (NULL))
 #define ANJUTA_PLUGIN_TERMINAL(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_PLUGIN_TERMINAL_TYPE, TerminalPlugin))
 #define ANJUTA_PLUGIN_TERMINAL_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_PLUGIN_TERMINAL_CLASS, TerminalPluginClass))

@@ -30,9 +30,11 @@
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-preferences.h>
 #include <libanjuta/anjuta-utils.h>
-#include <libanjuta/anjuta-glue-plugin.h>
 
 G_BEGIN_DECLS
+
+/* Add this alias in case some plugin outside Anjuta tree still uses it */
+typedef GTypeModule AnjutaGluePlugin;
 
 typedef struct _AnjutaPlugin        AnjutaPlugin;
 typedef struct _AnjutaPluginClass   AnjutaPluginClass;
@@ -130,7 +132,7 @@ void anjuta_plugin_remove_watch (AnjutaPlugin *plugin, guint id,
  */
 #define ANJUTA_PLUGIN_BEGIN(class_name, prefix)                          \
 extern GType                                                             \
-prefix##_get_type (AnjutaGluePlugin *plugin)                                   \
+prefix##_get_type (GTypeModule *module)                                  \
 {                                                                        \
 	static GType type = 0;                                               \
 	if (G_UNLIKELY (!type)) {                                            \
@@ -145,8 +147,8 @@ prefix##_get_type (AnjutaGluePlugin *plugin)                                   \
 			0,                                                           \
 			(GInstanceInitFunc)prefix##_instance_init                    \
 		};                                                               \
-		g_return_val_if_fail (plugin != NULL, 0);                        \
-		type = g_type_module_register_type (G_TYPE_MODULE (plugin),      \
+		g_return_val_if_fail (module != NULL, 0);                        \
+		type = g_type_module_register_type (module,                                      \
 						    ANJUTA_TYPE_PLUGIN,                          \
 						    #class_name,                                 \
 						    &type_info, 0);
@@ -177,7 +179,7 @@ prefix##_get_type (AnjutaGluePlugin *plugin)                                   \
             NULL,                                                      \
             NULL                                                       \
         };                                                             \
-        g_type_module_add_interface (G_TYPE_MODULE (plugin),           \
+        g_type_module_add_interface (module,                           \
                                      type, interface_type,             \
                              	     &iface_info);                     \
     }
@@ -205,22 +207,12 @@ ANJUTA_PLUGIN_END
  * and member functions definitions. 
  */
 #define ANJUTA_SIMPLE_PLUGIN(class_name, prefix)                      \
-G_MODULE_EXPORT void anjuta_glue_register_components (AnjutaGluePlugin *plugin);   \
-G_MODULE_EXPORT GType anjuta_glue_get_component_type (AnjutaGluePlugin *plugin, const char *name); \
+G_MODULE_EXPORT void anjuta_glue_register_components (GTypeModule *module);                   \
 G_MODULE_EXPORT void                                                  \
-anjuta_glue_register_components (AnjutaGluePlugin *plugin)                         \
+anjuta_glue_register_components (GTypeModule *module)                 \
 {                                                                     \
-	prefix##_get_type (plugin);                                       \
+	prefix##_get_type (module);                                   \
 }                                                                     \
-G_MODULE_EXPORT GType                                                 \
-anjuta_glue_get_component_type (AnjutaGluePlugin *plugin, const char *name)        \
-{                                                                     \
-	if (!strcmp (name, #class_name)) {                                \
-		return prefix##_get_type (plugin);                            \
-	} else {                                                          \
-		return G_TYPE_INVALID;                                        \
-	}                                                                 \
-}
 
 G_END_DECLS
 

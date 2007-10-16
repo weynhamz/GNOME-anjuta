@@ -32,7 +32,7 @@
 #include <devhelp/dh-base.h>
 #endif /* DISABLE_EMBEDDED_DEVHELP */
 
-extern GType devhelp_get_type (AnjutaGluePlugin *plugin);
+extern GType devhelp_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_DEVHELP         (devhelp_get_type (NULL))
 #define ANJUTA_PLUGIN_DEVHELP(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), ANJUTA_TYPE_PLUGIN_DEVHELP, AnjutaDevhelp))
 #define ANJUTA_PLUGIN_DEVHELP_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST ((k), ANJUTA_TYPE_PLUGIN_DEVHELP, AnjutaDevhelpClass))

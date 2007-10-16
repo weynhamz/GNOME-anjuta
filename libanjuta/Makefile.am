@@ -50,12 +50,10 @@ libanjuta_la_SOURCES= \
 	anjuta-serializer.c \
 	resources.c \
 	resources.h \
-	anjuta-glue-plugin.c \
-	anjuta-glue-factory.c \
-	anjuta-glue-c.h \
-	anjuta-glue-c.c \
-	anjuta-glue-cpp.h \
-	anjuta-glue-cpp.c \
+	anjuta-c-plugin-factory.c \
+	anjuta-c-plugin-factory.h \
+	anjuta-c-module.c \
+	anjuta-c-module.h \
 	cell-renderer-captioned-image.c	\
 	cell-renderer-captioned-image.h \
 	e-splash.h \
@@ -74,6 +72,7 @@ libanjuta_include = \
 	anjuta-plugin.h \
 	anjuta-plugin-description.h \
 	anjuta-plugin-manager.h \
+	anjuta-plugin-handle.h \
 	anjuta-profile.h \
 	anjuta-profile-manager.h \
 	anjuta-marshal.h \
@@ -86,8 +85,6 @@ libanjuta_include = \
 	anjuta-session.h \
 	anjuta-save-prompt.h \
 	anjuta-serializer.h \
-	anjuta-glue-plugin.h \
-	anjuta-glue-factory.h \
 	anjuta-error.h \
 	resources.h
 
