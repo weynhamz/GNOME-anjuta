@@ -9,8 +9,7 @@ message_view_pixmaps_DATA = \
 	anjuta-go-message-prev-16.png \
 	anjuta-go-message-prev-24.png \
 	anjuta-go-message-next-16.png \
-	anjuta-go-message-next-24.png \
-	messages.xpm
+	anjuta-go-message-next-24.png
 
 message_view_uidir = $(anjuta_ui_dir)
 message_view_ui_DATA = anjuta-message-manager.ui

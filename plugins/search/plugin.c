@@ -34,6 +34,11 @@
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-search.ui"
 #define ICON_FILE "anjuta-search.png"
 
+#define ANJUTA_PIXMAP_MATCH_NEXT				  "anjuta-go-match-next"
+#define ANJUTA_PIXMAP_MATCH_PREV				  "anjuta-go-match-prev"
+#define ANJUTA_STOCK_MATCH_NEXT				  "anjuta-match-next"
+#define ANJUTA_STOCK_MATCH_PREV				  "anjuta-match-prev"
+
 /* Find next occurence of expression in Editor
    Caching of FileBuffer might be useful here to improve performance
    Returns: TRUE = found, FALSE = not found
@@ -203,11 +208,11 @@ static GtkActionEntry actions_search[] = {
   { "ActionEditSearchInFiles", NULL, N_("Fin_d in Files..."), NULL,
 	N_("Search for a string in multiple files or directories"),
     G_CALLBACK (on_find_in_files1_activate)},
-	{ "ActionEditGotoOccuranceNext", GTK_STOCK_JUMP_TO,
+	{ "ActionEditGotoOccuranceNext", ANJUTA_STOCK_MATCH_NEXT,
 	N_("Ne_xt Occurrence"), NULL,
 	N_("Find the next occurrence of current word"),
     G_CALLBACK (on_next_occur)},
-  { "ActionEditGotoOccurancePrev",GTK_STOCK_JUMP_TO,
+  { "ActionEditGotoOccurancePrev",ANJUTA_STOCK_MATCH_PREV,
 	N_("Pre_vious Occurrence"),  NULL,
 	N_("Find the previous occurrence of current word"),
     G_CALLBACK (on_prev_occur)},
@@ -218,11 +223,21 @@ gpointer parent_class;
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
+	static gboolean init = FALSE;
 	AnjutaUI *ui;
 	SearchPlugin* splugin = ANJUTA_PLUGIN_SEARCH (plugin);
 	IAnjutaDocumentManager* docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(plugin)->shell,
 																IAnjutaDocumentManager, NULL);
 	
+	
+	if (!init)
+	{
+		BEGIN_REGISTER_ICON (plugin);
+		REGISTER_ICON_FULL (ANJUTA_PIXMAP_MATCH_NEXT, ANJUTA_STOCK_MATCH_NEXT);
+		REGISTER_ICON_FULL (ANJUTA_PIXMAP_MATCH_PREV, ANJUTA_STOCK_MATCH_PREV);
+		END_REGISTER_ICON;
+		init = TRUE;
+	}
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupSearch",

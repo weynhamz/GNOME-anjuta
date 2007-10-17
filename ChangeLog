@@ -1,3 +1,46 @@
+2007-10-17  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-ui.h:
+	
+	Added macros to register stock icons to stop all this copy&paste
+	which had spread over a lot of files. New macros support to add 
+	icons with toolbar and menu size (16 and 24)
+	
+	* plugins/class-inheritance/plugin.c: (register_stock_icons):
+	* plugins/debug-manager/images/anjuta-attach.svg:
+	* plugins/debug-manager/images/anjuta-step-out.svg:
+	* plugins/debug-manager/images/anjuta-step-over.svg:
+	* plugins/debug-manager/plugin.c: (register_stock_icons):
+	* plugins/document-manager/images/Makefile.am:
+	* plugins/document-manager/images/anjuta-block-end.svg:
+	* plugins/document-manager/images/anjuta-block-start.svg:
+	* plugins/document-manager/images/anjuta-bookmark-16.xpm:
+	* plugins/document-manager/images/anjuta-bookmark.svg:
+	* plugins/document-manager/images/anjuta-go-history-next.svg:
+	* plugins/document-manager/images/anjuta-go-history-prev.svg:
+	* plugins/document-manager/plugin.c: (register_stock_icons):
+	* plugins/glade/plugin.c: (register_stock_icons):
+	* plugins/language-support-cpp-java/plugin.c:
+	(register_stock_icons):
+	* plugins/message-view/Makefile.am:
+	* plugins/message-view/anjuta-go-message-next.svg:
+	* plugins/message-view/anjuta-go-message-prev.svg:
+	* plugins/message-view/anjuta-message-view.svg:
+	* plugins/message-view/messages.xpm:
+	* plugins/message-view/plugin.c: (register_stock_icons):
+	* plugins/patch/plugin.c: (patch_plugin_activate):
+	* plugins/project-manager/plugin.c: (register_stock_icons):
+	* plugins/search/Makefile.am:
+	* plugins/search/anjuta-go-match-next.svg:
+	* plugins/search/anjuta-go-match-prev.svg:
+	* plugins/search/plugin.c: (activate_plugin):
+	* plugins/symbol-browser/plugin.c: (register_stock_icons):
+	* plugins/terminal/terminal.c: (register_stock_icons):
+	* plugins/valgrind/plugin.c: (register_stock_icons):
+	
+	Updated to use the new icons and added several new and updated 
+	icons from #480093
+
 2007-10-16  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* libanjuta/anjuta-plugin-handle.c,

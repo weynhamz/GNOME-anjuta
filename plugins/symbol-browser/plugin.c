@@ -68,19 +68,9 @@ static void on_editor_update_ui (IAnjutaEditor *editor,
 static void on_char_added (IAnjutaEditor *editor, gint position, gchar ch,
 						   SymbolBrowserPlugin *sv_plugin);
 
-#define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	g_object_unref (pixbuf);
-
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui;
-	GtkIconFactory *icon_factory;
-	GtkIconSet *icon_set;
-	GdkPixbuf *pixbuf;
 	static gboolean registered = FALSE;
 
 	if (registered)
@@ -88,9 +78,9 @@ register_stock_icons (AnjutaPlugin *plugin)
 	registered = TRUE;
 
 	/* Register stock icons */
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	icon_factory = anjuta_ui_get_icon_factory (ui);
-	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/"ICON_FILE, "symbol-browser-plugin-icon");
+	BEGIN_REGISTER_ICON (plugin);
+	REGISTER_ICON (ICON_FILE, "symbol-browser-plugin-icon");
+	END_REGISTER_ICON;
 }
 
 static void

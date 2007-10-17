@@ -32,11 +32,9 @@
 #define ICON_FILE "preferences-messages.png"
 
 /* Pixmaps */
-#define ANJUTA_PIXMAP_MESSAGES                "messages.xpm"
-#define ANJUTA_PIXMAP_PREV_MESSAGE            "anjuta-go-message-prev-24.png"
-#define ANJUTA_PIXMAP_NEXT_MESSAGE            "anjuta-go-message-next-24.png"
-#define ANJUTA_PIXMAP_PREV_MESSAGE_16         "anjuta-go-message-prev-16.png"
-#define ANJUTA_PIXMAP_NEXT_MESSAGE_16         "anjuta-go-message-next-16.png"
+#define ANJUTA_PIXMAP_MESSAGES                "anjuta-message-view.png"
+#define ANJUTA_PIXMAP_PREV_MESSAGE            "anjuta-go-message-prev"
+#define ANJUTA_PIXMAP_NEXT_MESSAGE            "anjuta-go-message-next"
 
 /* Stock icons */
 #define ANJUTA_STOCK_MESSAGES                 "anjuta-messages"
@@ -100,27 +98,9 @@ static void on_view_changed(AnjutaMsgman* msgman, MessageViewPlugin* plugin)
 
 static gpointer parent_class;
 
-#define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	g_object_unref (pixbuf);
-
-#define ADD_ICON(icon) \
-	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
-	gtk_icon_source_set_pixbuf (source, pixbuf); \
-	gtk_icon_set_add_source (icon_set, source); \
-	g_object_unref (pixbuf);
-
 static void
 register_stock_icons (AnjutaPlugin *plugin)
-{
-	AnjutaUI *ui;
-	GtkIconFactory *icon_factory;
-	GtkIconSet *icon_set;
-	GdkPixbuf *pixbuf;
-	GtkIconSource *source;
-	
+{	
 	static gboolean registered = FALSE;
 
 	if (registered)
@@ -128,20 +108,12 @@ register_stock_icons (AnjutaPlugin *plugin)
 	registered = TRUE;
 
 	/* Register stock icons */
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	icon_factory = anjuta_ui_get_icon_factory (ui);
-	
-	source = gtk_icon_source_new ();
-	gtk_icon_source_set_size (source, GTK_ICON_SIZE_MENU);
-	
+	BEGIN_REGISTER_ICON (plugin);
 	REGISTER_ICON (ICON_FILE, "message-manager-plugin-icon");
 	REGISTER_ICON (ANJUTA_PIXMAP_MESSAGES, ANJUTA_STOCK_MESSAGES);
-	REGISTER_ICON (ANJUTA_PIXMAP_NEXT_MESSAGE, ANJUTA_STOCK_NEXT_MESSAGE);
-	//ADD_ICON (ANJUTA_PIXMAP_NEXT_MESSAGE_16);
-	REGISTER_ICON (ANJUTA_PIXMAP_PREV_MESSAGE, ANJUTA_STOCK_PREV_MESSAGE);
-	//ADD_ICON (ANJUTA_PIXMAP_PREV_MESSAGE_16);
-	
-	gtk_icon_source_free (source);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_NEXT_MESSAGE, ANJUTA_STOCK_NEXT_MESSAGE);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_PREV_MESSAGE, ANJUTA_STOCK_PREV_MESSAGE);
+	END_REGISTER_ICON;
 }
 
 #if 0 /* Disable session saving/loading until a way is found to avoid

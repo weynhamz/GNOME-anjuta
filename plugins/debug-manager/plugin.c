@@ -115,19 +115,9 @@ struct _DebugManagerPluginClass
 /* Private functions
  *---------------------------------------------------------------------------*/
 
-#define REGISTER_ICON(icon, stock_id) \
-        pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
-        icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-        gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-        g_object_unref (pixbuf);
-
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
-        AnjutaUI *ui;
-        GtkIconFactory *icon_factory;
-        GtkIconSet *icon_set;
-        GdkPixbuf *pixbuf;
         static gboolean registered = FALSE;
 
         if (registered)
@@ -135,21 +125,22 @@ register_stock_icons (AnjutaPlugin *plugin)
         registered = TRUE;
 
         /* Register stock icons */
-        ui = anjuta_shell_get_ui (plugin->shell, NULL);
-        icon_factory = anjuta_ui_get_icon_factory (ui);
+		BEGIN_REGISTER_ICON (plugin)
 		REGISTER_ICON (ICON_FILE, "debugger-icon");
         REGISTER_ICON ("stack.png", "gdb-stack-icon");
         REGISTER_ICON ("locals.png", "gdb-locals-icon");
         REGISTER_ICON ("watch.png", "gdb-watch-icon");
-        REGISTER_ICON ("anjuta-breakpoint-toggle-24.png", "gdb-breakpoint-toggle");
-        REGISTER_ICON ("anjuta-breakpoint-clear-24.png", "gdb-breakpoint-clear");		
-        REGISTER_ICON ("anjuta-breakpoint-disabled-16.png", "gdb-breakpoint-disabled");
+        REGISTER_ICON_FULL ("anjuta-breakpoint-toggle", "gdb-breakpoint-toggle");
+        REGISTER_ICON_FULL ("anjuta-breakpoint-clear", "gdb-breakpoint-clear");		
+    	/* We have no -24 version for the next two */
+		REGISTER_ICON ("anjuta-breakpoint-disabled-16.png", "gdb-breakpoint-disabled");
         REGISTER_ICON ("anjuta-breakpoint-enabled-16.png", "gdb-breakpoint-enabled");				
-		REGISTER_ICON ("anjuta-attach-24.png", "debugger-attach");
-		REGISTER_ICON ("anjuta-step-into-24.png", "debugger-step-into");
-		REGISTER_ICON ("anjuta-step-out-24.png", "debugger-step-out");
-		REGISTER_ICON ("anjuta-step-over-24.png", "debugger-step-over");
-		REGISTER_ICON ("anjuta-run-to-cursor-24.png", "debugger-run-to-cursor");
+		REGISTER_ICON_FULL ("anjuta-attach", "debugger-attach");
+		REGISTER_ICON_FULL ("anjuta-step-into", "debugger-step-into");
+		REGISTER_ICON_FULL ("anjuta-step-out", "debugger-step-out");
+		REGISTER_ICON_FULL ("anjuta-step-over", "debugger-step-over");
+		REGISTER_ICON_FULL ("anjuta-run-to-cursor", "debugger-run-to-cursor");
+		END_REGISTER_ICON
 }
 
 /* Program counter functions

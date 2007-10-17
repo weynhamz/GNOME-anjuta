@@ -82,30 +82,19 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	ci_plugin->top_dir = NULL;
 }
 
-#define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	g_object_unref (pixbuf);
-
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui;
-	GtkIconFactory *icon_factory;
-	GtkIconSet *icon_set;
-	GdkPixbuf *pixbuf;
 	static gboolean registered = FALSE;
 
 	if (registered)
 		return;
 	registered = TRUE;
 
-	/* Register stock icons */
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	icon_factory = anjuta_ui_get_icon_factory (ui);
+	BEGIN_REGISTER_ICON (plugin);
 	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/"ICON_FILE,
 				   "class-inheritance-plugin-icon");
+	END_REGISTER_ICON;
 }
 
 static gboolean

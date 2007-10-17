@@ -55,26 +55,30 @@
 #define ICON_FILE "anjuta-document-manager.png"
 
 /* Pixmaps */
-#define ANJUTA_PIXMAP_SWAP                "anjuta-swap-24.png"
-#define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "anjuta-bookmark-toggle-24.png"
-#define ANJUTA_PIXMAP_BOOKMARK_FIRST      "anjuta-bookmark-first-24.png"
-#define ANJUTA_PIXMAP_BOOKMARK_PREV       "anjuta-bookmark-prev-24.png"
-#define ANJUTA_PIXMAP_BOOKMARK_NEXT       "anjuta-bookmark-next-24.png"
-#define ANJUTA_PIXMAP_BOOKMARK_LAST       "anjuta-bookmark-last-24.png"
-#define ANJUTA_PIXMAP_BOOKMARK_CLEAR      "anjuta-bookmark-clear-24.png"
+#define ANJUTA_PIXMAP_SWAP                "anjuta-swap"
+#define ANJUTA_PIXMAP_BOOKMARK_TOGGLE     "anjuta-bookmark-toggle"
+#define ANJUTA_PIXMAP_BOOKMARK_FIRST      "anjuta-bookmark-first"
+#define ANJUTA_PIXMAP_BOOKMARK_PREV       "anjuta-bookmark-prev"
+#define ANJUTA_PIXMAP_BOOKMARK_NEXT       "anjuta-bookmark-next"
+#define ANJUTA_PIXMAP_BOOKMARK_LAST       "anjuta-bookmark-last"
+#define ANJUTA_PIXMAP_BOOKMARK_CLEAR      "anjuta-bookmark-clear"
 
-#define ANJUTA_PIXMAP_FOLD_TOGGLE         "anjuta-fold-toggle-24.png"
-#define ANJUTA_PIXMAP_FOLD_CLOSE          "anjuta-fold-close-24.png"
-#define ANJUTA_PIXMAP_FOLD_OPEN           "anjuta-fold-open-24.png"
+#define ANJUTA_PIXMAP_FOLD_TOGGLE         "anjuta-fold-toggle"
+#define ANJUTA_PIXMAP_FOLD_CLOSE          "anjuta-fold-close"
+#define ANJUTA_PIXMAP_FOLD_OPEN           "anjuta-fold-open"
 
-#define ANJUTA_PIXMAP_BLOCK_SELECT        "anjuta-block-select-24.png"
-#define ANJUTA_PIXMAP_BLOCK_START         "anjuta-block-start-24.png"
-#define ANJUTA_PIXMAP_BLOCK_END           "anjuta-block-end-24.png"
+#define ANJUTA_PIXMAP_BLOCK_SELECT        "anjuta-block-select"
+#define ANJUTA_PIXMAP_BLOCK_START         "anjuta-block-start"
+#define ANJUTA_PIXMAP_BLOCK_END           "anjuta-block-end"
 
-#define ANJUTA_PIXMAP_INDENT_INC          "anjuta-indent-more-24.png"
-#define ANJUTA_PIXMAP_INDENT_DCR          "anjuta-indent-less-24.png"
+#define ANJUTA_PIXMAP_INDENT_INC          "anjuta-indent-more"
+#define ANJUTA_PIXMAP_INDENT_DCR          "anjuta-indent-less"
 
-#define ANJUTA_PIXMAP_GOTO_LINE			  "anjuta-go-line-24.png"
+#define ANJUTA_PIXMAP_GOTO_LINE			  "anjuta-go-line"
+
+#define ANJUTA_PIXMAP_HISTORY_NEXT				  "anjuta-go-history-next"
+#define ANJUTA_PIXMAP_HISTORY_PREV				  "anjuta-go-history-prev"
+
 
 /* Stock icons */
 #define ANJUTA_STOCK_SWAP                     "anjuta-swap"
@@ -95,6 +99,11 @@
 #define ANJUTA_STOCK_BOOKMARK_LAST            "anjuta-bookmark-last"
 #define ANJUTA_STOCK_BOOKMARK_CLEAR           "anjuta-bookmark-clear"
 #define ANJUTA_STOCK_GOTO_LINE				  "anjuta-goto-line"
+#define ANJUTA_STOCK_HISTORY_NEXT			  "anjuta-history-next"
+#define ANJUTA_STOCK_HISTORY_PREV			  "anjuta-history-prev"
+#define ANJUTA_STOCK_MATCH_NEXT				  "anjuta-match-next"
+#define ANJUTA_STOCK_MATCH_PREV				  "anjuta-match-prev"
+
 
 static gpointer parent_class;
 
@@ -250,10 +259,10 @@ static GtkActionEntry actions_navigation[] = {
   { "ActionEditGotoBlockEnd", ANJUTA_STOCK_BLOCK_END, N_("_End of Block"),
 	"<control><alt>e", N_("Go to the end of the current block"),
     G_CALLBACK (on_goto_block_end1_activate)},
-  { "ActionEditGotoHistoryPrev", GTK_STOCK_JUMP_TO, N_("Previous _History"),
+  { "ActionEditGotoHistoryPrev", ANJUTA_STOCK_HISTORY_PREV, N_("Previous _History"),
 	NULL, N_("Goto previous history"),
     G_CALLBACK (on_prev_history)},
-  { "ActionEditGotoHistoryNext", GTK_STOCK_JUMP_TO, N_("Next Histor_y"),
+  { "ActionEditGotoHistoryNext", ANJUTA_STOCK_HISTORY_NEXT, N_("Next Histor_y"),
 	 NULL, N_("Goto next history"),
     G_CALLBACK (on_next_history)}
 };
@@ -824,45 +833,36 @@ on_editor_update_save_ui (IAnjutaDocument *editor, gboolean entered,
 	update_editor_ui_save_items (plugin, editor);
 }
 
-#define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	g_object_unref (pixbuf);
-
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui;
-	GtkIconFactory *icon_factory;
-	GtkIconSet *icon_set;
-	GdkPixbuf *pixbuf;
 	static gboolean registered = FALSE;
-
 	if (registered)
 		return;
 	registered = TRUE;
 
 	/* Register stock icons */
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	icon_factory = anjuta_ui_get_icon_factory (ui);
+	BEGIN_REGISTER_ICON (plugin);
 	REGISTER_ICON (ICON_FILE, "editor-plugin-icon");
-	REGISTER_ICON (ANJUTA_PIXMAP_SWAP, ANJUTA_STOCK_SWAP);
-	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_TOGGLE, ANJUTA_STOCK_FOLD_TOGGLE);
-	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_OPEN, ANJUTA_STOCK_FOLD_OPEN);
-	REGISTER_ICON (ANJUTA_PIXMAP_FOLD_CLOSE, ANJUTA_STOCK_FOLD_CLOSE);
-	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_DCR, ANJUTA_STOCK_INDENT_DCR);
-	REGISTER_ICON (ANJUTA_PIXMAP_INDENT_INC, ANJUTA_STOCK_INDENT_INC);
-	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_SELECT, ANJUTA_STOCK_BLOCK_SELECT);
-	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_TOGGLE, ANJUTA_STOCK_BOOKMARK_TOGGLE);
-	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_FIRST, ANJUTA_STOCK_BOOKMARK_FIRST);
-	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_PREV, ANJUTA_STOCK_BOOKMARK_PREV);
-	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_NEXT, ANJUTA_STOCK_BOOKMARK_NEXT);
-	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_LAST, ANJUTA_STOCK_BOOKMARK_LAST);
-	REGISTER_ICON (ANJUTA_PIXMAP_BOOKMARK_CLEAR, ANJUTA_STOCK_BOOKMARK_CLEAR);
-	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_START, ANJUTA_STOCK_BLOCK_START);
-	REGISTER_ICON (ANJUTA_PIXMAP_BLOCK_END, ANJUTA_STOCK_BLOCK_END);
-	REGISTER_ICON (ANJUTA_PIXMAP_GOTO_LINE, ANJUTA_STOCK_GOTO_LINE);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_SWAP, ANJUTA_STOCK_SWAP);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_FOLD_TOGGLE, ANJUTA_STOCK_FOLD_TOGGLE);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_FOLD_OPEN, ANJUTA_STOCK_FOLD_OPEN);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_FOLD_CLOSE, ANJUTA_STOCK_FOLD_CLOSE);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_INDENT_DCR, ANJUTA_STOCK_INDENT_DCR);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_INDENT_INC, ANJUTA_STOCK_INDENT_INC);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BLOCK_SELECT, ANJUTA_STOCK_BLOCK_SELECT);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_TOGGLE, ANJUTA_STOCK_BOOKMARK_TOGGLE);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_FIRST, ANJUTA_STOCK_BOOKMARK_FIRST);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_PREV, ANJUTA_STOCK_BOOKMARK_PREV);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_NEXT, ANJUTA_STOCK_BOOKMARK_NEXT);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_LAST, ANJUTA_STOCK_BOOKMARK_LAST);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BOOKMARK_CLEAR, ANJUTA_STOCK_BOOKMARK_CLEAR);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BLOCK_START, ANJUTA_STOCK_BLOCK_START);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_BLOCK_END, ANJUTA_STOCK_BLOCK_END);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_GOTO_LINE, ANJUTA_STOCK_GOTO_LINE);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_HISTORY_NEXT, ANJUTA_STOCK_HISTORY_NEXT);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_HISTORY_PREV, ANJUTA_STOCK_HISTORY_PREV);
+	END_REGISTER_ICON;
 }
 
 #define TEXT_ZOOM_FACTOR           "text.zoom.factor"

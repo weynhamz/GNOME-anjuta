@@ -42,12 +42,6 @@
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-valgrind.glade"
 #define ICON_FILE PACKAGE_PIXMAPS_DIR"/anjuta-valgrind.png"
 
-#define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	g_object_unref (pixbuf);
-
 
 enum {
 	MEMCHECK_OPTION,
@@ -61,10 +55,6 @@ static gpointer parent_class;
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui;
-	GtkIconFactory *icon_factory;
-	GtkIconSet *icon_set;
-	GdkPixbuf *pixbuf;
 	static gboolean registered = FALSE;
 
 	if (registered)
@@ -72,9 +62,9 @@ register_stock_icons (AnjutaPlugin *plugin)
 	registered = TRUE;
 
 	/* Register stock icons */
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	icon_factory = anjuta_ui_get_icon_factory (ui);
+	BEGIN_REGISTER_ICON (plugin);
 	REGISTER_ICON ("anjuta-valgrind-knight.png", "valgrind-knight");
+	END_REGISTER_ICON;
 }
 
 

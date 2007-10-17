@@ -130,6 +130,46 @@ GtkWidget* anjuta_ui_get_accel_editor (AnjutaUI *ui);
 /* Dump the whole tree in STDOUT. Useful for debugging */
 void anjuta_ui_dump_tree (AnjutaUI *ui);
 
+/* Convenience macros to register stock icons */
+#define BEGIN_REGISTER_ICON(plugin) \
+{ \
+	AnjutaUI *ui = anjuta_shell_get_ui ((plugin)->shell, NULL); \
+	GtkIconFactory *icon_factory = anjuta_ui_get_icon_factory (ui); \
+	GtkIconSet *icon_set; \
+	GtkIconSource *	icon_source = gtk_icon_source_new (); \
+	GdkPixbuf* pixbuf;
+
+/* Register icon with size 16 and size 24, icon should be the 
+ * filename (without path) striped of the size (16,24) and the *.png
+ * (e.g anjuta-icon-24.png => anjuta-icon)
+ */
+
+#define REGISTER_ICON_FULL(icon, stock_id) \
+	icon_set = gtk_icon_set_new(); \
+	gtk_icon_source_set_filename (icon_source, PACKAGE_PIXMAPS_DIR"/"icon"-16.png"); \
+	gtk_icon_source_set_size (icon_source, 16); \
+	gtk_icon_set_add_source (icon_set, icon_source); \
+	gtk_icon_source_set_filename (icon_source, PACKAGE_PIXMAPS_DIR"/"icon"-24.png"); \
+	gtk_icon_source_set_size (icon_source, 24); \
+	gtk_icon_set_add_source (icon_set, icon_source); \
+	icon_set = gtk_icon_set_new(); \
+	gtk_icon_set_add_source (icon_set, icon_source); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set);
+
+/* Register icon for all sizes (will be scaled) 
+ * icon should be the full filename without path (e.g anjuta-icon.png)
+ */
+
+#define REGISTER_ICON(icon, stock_id) \
+	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
+	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+	g_object_unref (pixbuf);
+
+#define END_REGISTER_ICON \
+	gtk_icon_source_free (icon_source); \
+}
+
 G_END_DECLS
 
 #endif

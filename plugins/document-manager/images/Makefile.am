@@ -33,7 +33,11 @@ document_manager_pixmaps_DATA = \
         anjuta-bookmark-toggle-24.png \
         anjuta-bookmark-clear-24.png \
         anjuta-go-line-16.png \
-        anjuta-go-line-24.png
+        anjuta-go-line-24.png \
+        anjuta-go-history-next-16.png \
+        anjuta-go-history-next-24.png \
+        anjuta-go-history-prev-16.png \
+        anjuta-go-history-prev-24.png
 
 EXTRA_DIST = $(document_manager_pixmaps_DATA)
 

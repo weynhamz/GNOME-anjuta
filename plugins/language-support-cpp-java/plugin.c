@@ -36,9 +36,9 @@
 #include "plugin.h"
 #include "cpp-java-utils.h"
 
-#define ANJUTA_PIXMAP_COMPLETE			  "anjuta-complete-16.png"
-#define ANJUTA_PIXMAP_AUTOCOMPLETE        "anjuta-complete-auto-16.png"
-#define ANJUTA_PIXMAP_AUTOINDENT          "anjuta-indent-auto-16.png"
+#define ANJUTA_PIXMAP_COMPLETE			  "anjuta-complete"
+#define ANJUTA_PIXMAP_AUTOCOMPLETE        "anjuta-complete-auto"
+#define ANJUTA_PIXMAP_AUTOINDENT          "anjuta-indent-auto"
 #define ANJUTA_STOCK_COMPLETE         	  "anjuta-complete"
 #define ANJUTA_STOCK_AUTOCOMPLETE         "anjuta-autocomplete"
 #define ANJUTA_STOCK_AUTOINDENT           "anjuta-indent"
@@ -1365,19 +1365,9 @@ static GtkActionEntry actions[] = {
 	}
 };
 
-#define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	g_object_unref (pixbuf);
-
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui;
-	GtkIconFactory *icon_factory;
-	GtkIconSet *icon_set;
-	GdkPixbuf *pixbuf;
 	static gboolean registered = FALSE;
 
 	if (registered)
@@ -1385,11 +1375,11 @@ register_stock_icons (AnjutaPlugin *plugin)
 	registered = TRUE;
 
 	/* Register stock icons */
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	icon_factory = anjuta_ui_get_icon_factory (ui);
-	REGISTER_ICON (ANJUTA_PIXMAP_COMPLETE, ANJUTA_STOCK_COMPLETE);	
-	REGISTER_ICON (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
-	REGISTER_ICON (ANJUTA_PIXMAP_AUTOINDENT, ANJUTA_STOCK_AUTOINDENT);
+	BEGIN_REGISTER_ICON (plugin);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_COMPLETE, ANJUTA_STOCK_COMPLETE);	
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_AUTOCOMPLETE, ANJUTA_STOCK_AUTOCOMPLETE);
+	REGISTER_ICON_FULL (ANJUTA_PIXMAP_AUTOINDENT, ANJUTA_STOCK_AUTOINDENT);
+	END_REGISTER_ICON (plugin);
 }
 
 static gboolean

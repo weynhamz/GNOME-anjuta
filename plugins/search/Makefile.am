@@ -4,7 +4,11 @@ search_glade_DATA = anjuta-search.glade
 
 # Plugin Icon file
 search_pixmapsdir = $(anjuta_image_dir)
-search_pixmaps_DATA = anjuta-search.png
+search_pixmaps_DATA = anjuta-search.png \
+        anjuta-go-match-next-16.png \
+        anjuta-go-match-next-24.png \
+        anjuta-go-match-prev-16.png \
+        anjuta-go-match-prev-24.png
 
 plugin_in_files = anjuta-search.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
