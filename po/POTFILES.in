@@ -21,9 +21,6 @@ libanjuta/anjuta-ui.c
 libanjuta/anjuta-utils.c
 libanjuta/cell-renderer-captioned-image.c
 libanjuta/e-splash.c
-libanjuta/anjuta-glue-cpp.c
-libanjuta/anjuta-glue-factory.c
-libanjuta/anjuta-glue-plugin.c
 libanjuta/resources.c
 plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade
 plugins/build-basic-autotools/build-basic-autotools.c
@@ -80,6 +77,7 @@ plugins/editor/text_editor.c
 plugins/editor/text_editor_cbs.c
 plugins/editor/text_editor_menu.c
 plugins/file-loader/plugin.c
+plugins/file-manager/file-manager.glade
 plugins/file-manager/file-model.c
 plugins/file-manager/file-view.c
 plugins/file-manager/plugin.c
