@@ -1086,64 +1086,62 @@ anjuta_document_get_encoding (AnjutaDocument *doc)
 	return doc->priv->encoding;
 }
 
-#define WORD_REGEX "[^ \\t&*!(]+$"
-gchar* anjuta_document_get_current_word(AnjutaDocument* doc)
+static gboolean
+wordcharacters_contains (gchar c)
 {
-	pcre *re;
-  gint err_offset;
-	const gchar* err;
-	gint rc, start, end;
-	int ovector[2];
-	gchar* line, *word;
-	GtkTextIter *line_iter, cursor_iter;
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(doc);
-	gtk_text_buffer_get_iter_at_mark(buffer, &cursor_iter, 
-								 gtk_text_buffer_get_insert(buffer));
+	const gchar* wordcharacters =
+		"_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	gint pos;
 	
-	line_iter = gtk_text_iter_copy(&cursor_iter);
-	gtk_text_iter_set_line_offset(line_iter, 0);
-	line = gtk_text_buffer_get_text(buffer, line_iter, &cursor_iter, FALSE);
-	gtk_text_iter_free(line_iter);
-
-	/* Create regular expression */
-	re = pcre_compile(WORD_REGEX, 0, &err, &err_offset, NULL);
-	
-	if (NULL == re)
+	for (pos = 0; pos < strlen(wordcharacters); pos++)
 	{
-		/* Compile failed - check error message */
-		DEBUG_PRINT("Regex compile failed! %s at position %d", err, err_offset);
-		return FALSE;
+		if (wordcharacters[pos] == c)
+		{
+			return TRUE;
+		}
 	}
-	
-	/* Run the next matching operation */
-	rc = pcre_exec(re, NULL, line, strlen(line), 0,
-					   0, ovector, 2);
+	return FALSE;
+}
 
-	 if (rc == PCRE_ERROR_NOMATCH)
-    {
-    	DEBUG_PRINT("No match");
-    	g_free(line);
-    	return NULL;
-    }
- 	 else if (rc < 0)
-    {
-    	DEBUG_PRINT("Matching error %d\n", rc);
-    	return NULL;
-    }
-	else if (rc == 0)
-    {
-    	DEBUG_PRINT("ovector too small");
-    	return NULL;
-    }
-    start = ovector[0];
-    end = ovector[1];
-    	    	
-    word = g_new0(gchar, end - start + 1);
-    strncpy(word, line + start, end - start);
-  	
-  	g_free(line);
-  	
-  	return word;
+gchar* anjuta_document_get_current_word(AnjutaDocument* doc, gboolean end_position)
+{
+	GtkTextIter begin;
+	GtkTextIter end;
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(doc);
+	gchar* region;
+	gchar* word;
+	gint startword;
+	gint endword;
+	int cplen;
+	const int maxlength = 100;
+	
+	gtk_text_buffer_get_iter_at_mark (buffer, &begin, 
+																		gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(buffer)));
+	gtk_text_buffer_get_iter_at_mark (buffer, &end, 
+																		gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(buffer)));
+	startword = gtk_text_iter_get_line_offset (&begin);	
+	endword = gtk_text_iter_get_line_offset (&end);
+	
+	gtk_text_iter_set_line_offset (&begin, 0);
+	gtk_text_iter_forward_to_line_end (&end);
+	
+	region = gtk_text_buffer_get_text (buffer, &begin, &end, FALSE);
+	
+	while (startword> 0 && wordcharacters_contains(region[startword - 1]))
+		startword--;
+	while (!end_position && region[endword] && wordcharacters_contains(region[endword]))
+		endword++;
+	if(startword == endword)
+		return NULL;
+	
+	region[endword] = '\0';
+	cplen = (maxlength < (endword-startword+1))?maxlength:(endword-startword+1);
+	word = g_strndup (region + startword, cplen);
+	
+	DEBUG_PRINT ("region: %s\n start: %d end: %d word: %s", region, startword, endword, word);
+	g_free(region);
+	
+	return word;
 }
 
 glong

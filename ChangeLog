@@ -1,3 +1,22 @@
+2007-10-17  Johannes Schmid <jhs@gnome.org>
+
+	* NEWS: Updated
+	* configure.in: Bumped version to 2.2.2
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(on_session_save), (on_session_load):
+	* plugins/build-basic-autotools/executer.c:
+	(get_program_parameters):
+	
+	Follow-up fix of #477976 (from trunk)
+	
+	* plugins/sourceview/anjuta-document.c:
+	(anjuta_document_get_current_word):
+	* plugins/sourceview/anjuta-document.h:
+	* plugins/sourceview/sourceview.c: (on_document_char_added),
+	(ieditor_get_current_word):
+	
+	Fixed get_current_word (useful for API help)
+
 2007-10-16 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/breakpoints.c:

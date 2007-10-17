@@ -146,7 +146,7 @@ static void on_document_char_added(AnjutaView* view, gint pos,
 		if (!found)
 		{
 			gchar* word = anjuta_document_get_current_word(
-														   ANJUTA_DOCUMENT(sv->priv->document));
+														   ANJUTA_DOCUMENT(sv->priv->document), TRUE);
 			if (word != NULL && strlen(word) >= 3)
 			{
 				gtk_text_buffer_get_iter_at_mark(buffer, &begin, gtk_text_buffer_get_insert(buffer));
@@ -870,7 +870,7 @@ static gint ieditor_get_length(IAnjutaEditor *editor, GError **e)
 static gchar* ieditor_get_current_word(IAnjutaEditor *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	return anjuta_document_get_current_word(sv->priv->document);
+	return anjuta_document_get_current_word(sv->priv->document, FALSE);
 }
 
 /* Insert text at position */

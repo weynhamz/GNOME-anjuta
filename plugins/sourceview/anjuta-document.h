@@ -189,7 +189,7 @@ void		 anjuta_document_set_enable_search_highlighting
 gboolean	 anjuta_document_get_enable_search_highlighting
 						(AnjutaDocument       *doc);
 
-gchar* anjuta_document_get_current_word(AnjutaDocument* doc);
+gchar* anjuta_document_get_current_word(AnjutaDocument* doc, gboolean end_position);
 
 /* 
  * Non exported functions
