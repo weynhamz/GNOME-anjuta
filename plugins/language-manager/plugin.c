@@ -269,8 +269,12 @@ ilanguage_get_name (IAnjutaLanguage* ilang, IAnjutaLanguageId id, GError** e)
 	LanguageManager* lang = LANGUAGE_MANAGER(ilang);
 	Language* language = g_hash_table_lookup (lang->languages,
 											   GINT_TO_POINTER(id));
+		
 	if (language)
+	{
 		return language->name;
+		DEBUG_PRINT ("Found language: %s", language->name);
+	}
 	else
 		return NULL;
 }
@@ -287,6 +291,25 @@ ilanguage_get_strings (IAnjutaLanguage* ilang, IAnjutaLanguageId id, GError** e)
 		return NULL;	
 }
 
+static IAnjutaLanguageId
+ilanguage_get_from_editor (IAnjutaLanguage* ilang, IAnjutaEditorLanguage* editor, GError** e)
+{	
+	const gchar* language = 
+			ianjuta_editor_language_get_language (editor, e);
+		
+	IAnjutaLanguageId id = 
+			ilanguage_get_from_string (ilang, language, e);
+	
+	return id;
+}
+
+static const gchar*
+ilanguage_get_name_from_editor (IAnjutaLanguage* ilang, IAnjutaEditorLanguage* editor, GError** e)
+{
+	return ilanguage_get_name (ilang,
+							   ilanguage_get_from_editor (ilang, editor, e), e);
+}
+
 static void
 ilanguage_iface_init (IAnjutaLanguageIface* iface)
 {
@@ -294,6 +317,8 @@ ilanguage_iface_init (IAnjutaLanguageIface* iface)
 	iface->get_from_string = ilanguage_get_from_string;
 	iface->get_name = ilanguage_get_name;
 	iface->get_strings = ilanguage_get_strings;
+	iface->get_from_editor = ilanguage_get_from_editor;
+	iface->get_name_from_editor = ilanguage_get_name_from_editor;
 };	
 
 ANJUTA_PLUGIN_BEGIN (LanguageManager, language_manager);

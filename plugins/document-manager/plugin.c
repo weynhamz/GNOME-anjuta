@@ -659,14 +659,10 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 	/* Check if it is a C or C++ file */
 	if (language && flag)
 	{
-		const gchar* lang = 
-			ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (editor), NULL);
-		
-		IAnjutaLanguageId id = 
-			ianjuta_language_get_from_string (language, lang, NULL);
+
 		
 		const gchar* lang_name =
-			ianjuta_language_get_name (language, id, NULL);
+			ianjuta_language_get_name_from_editor (language, IANJUTA_EDITOR_LANGUAGE (editor), NULL);
 		
 		if (lang_name && (g_str_equal (lang_name, "C") || g_str_equal (lang_name, "C++")))
 		{
@@ -1097,20 +1093,17 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 		{
 			GList* new_support_plugins = NULL;
 			const gchar *language = NULL;
-			const gchar *editor_lang =
-				ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (te), NULL);
 			IAnjutaLanguage* lang_manager = anjuta_shell_get_interface (plugin->shell,
 																		IAnjutaLanguage,
 																		NULL);
-			if (lang_manager)
+			if (!lang_manager)
 			{
-				IAnjutaLanguageId id = 
-					ianjuta_language_get_from_string (lang_manager, editor_lang, NULL);
-				if (id)
-				{
-					language = ianjuta_language_get_name (lang_manager, id, NULL);
-				}
+				g_warning ("Could not load language manager!");
+				goto out;
 			}
+			language = ianjuta_language_get_name_from_editor (lang_manager,
+															   IANJUTA_EDITOR_LANGUAGE (te),
+															   NULL);
 			if (!language)
 			{
 				/* Unload all language support plugins */
@@ -1123,7 +1116,6 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 				}
 				g_list_free (docman_plugin->support_plugins);
 				docman_plugin->support_plugins = NULL;
-				DEBUG_PRINT ("Language unknown: %s", editor_lang);
 				goto out;
 			}
 			  

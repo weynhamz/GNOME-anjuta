@@ -1,3 +1,24 @@
+2007-10-18  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-ui.h:
+	Small fix on icon macros
+	
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/language-manager/plugin.c: (ilanguage_get_name),
+	(ilanguage_get_from_editor), (ilanguage_get_name_from_editor),
+	(ilanguage_iface_init):
+	
+	Added get_from_editor() and get_name_from_editor() methods
+	to IAnjutaLanguage
+	
+	* plugins/document-manager/plugin.c:
+	(update_editor_ui_interface_items), (on_editor_changed):
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin
+	.in:
+	* plugins/language-support-cpp-java/plugin.c: (install_support):
+	
+	Ported plugins to use the new interface
+
 2007-10-17  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-ui.h:

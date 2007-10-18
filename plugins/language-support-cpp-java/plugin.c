@@ -1120,10 +1120,7 @@ on_editor_char_inserted_java (IAnjutaEditor *editor,
 
 static void
 install_support (CppJavaPlugin *lang_plugin)
-{
-	const gchar* lang;
-	IAnjutaLanguageId id;
-	
+{	
 	IAnjutaLanguage* lang_manager =
 		anjuta_shell_get_interface (ANJUTA_PLUGIN (lang_plugin)->shell,
 									IAnjutaLanguage, NULL);
@@ -1134,12 +1131,9 @@ install_support (CppJavaPlugin *lang_plugin)
 	if (lang_plugin->support_installed)
 		return;
 	
-	lang = ianjuta_editor_language_get_language
-					(IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor),
-											  NULL);
-	id = ianjuta_language_get_from_string (lang_manager, lang, NULL);
 	lang_plugin->current_language = 
-		ianjuta_language_get_name (lang_manager, id, NULL);
+		ianjuta_language_get_name_from_editor (lang_manager, 
+											   IANJUTA_EDITOR_LANGUAGE (lang_plugin->current_editor), NULL);
 	
 	DEBUG_PRINT("Language support intalled for: %s",
 				lang_plugin->current_language);

@@ -1623,9 +1623,51 @@ interface IAnjutaEditor
 	{
 		void ::language_changed (const gchar *language);
 		
+		/**
+		 * ianjuta_editor_language_get_supported_languages:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Return a list of languages supported by the editor
+		 * Note: These list contains the names in the form
+		 * the editor implementation knows them
+		 *
+		 */
+		
 		const List<const gchar*> get_supported_languages ();
+		
+		/**
+		 * ianjuta_editor_language_name:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * FIXME
+		 *
+		 */
+
 		const gchar *get_language_name (const gchar* language);
+		
+		/**
+		 * ianjuta_editor_language_get_language:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 *
+		 * Return the name of the currently used language
+		 *
+		 */
+
 		const gchar *get_language ();
+		
+		/**
+		 * ianjuta_editor_language_set_language:
+		 * @obj: Self
+		 * @err: Error propagation and reporting
+		 * @lang: Language
+		 *
+		 * Force the editor to use a given language
+		 *
+		 */
+		
 		void set_language (const gchar* language);
 	}
 	
@@ -4228,7 +4270,7 @@ interface IAnjutaPluginFactory
 
 interface IAnjutaLanguage
 {
-
+  #include <libanjuta/interfaces/ianjuta-editor-language.h>
 typedef gint Id;
 
 	/*
@@ -4236,7 +4278,7 @@ typedef gint Id;
 	 * @obj: Self
 	 * @mime_type: A mime type to get the language for
 	 *
-	 * Returns: A language Id of -1 in case no language was found
+	 * Returns: A language Id or 0 in case no language was found
 	 */
 	 Id get_from_mime_type (const gchar* mime_type);
 	 
@@ -4246,7 +4288,7 @@ typedef gint Id;
 	 * @string: A string representation of the language. Note that multiple
 	 * strings may describe the language like C++ and Cpp
 	 *
-	 * Returns: A language Id of -1 in case no language was found
+	 * Returns: A language Id or 0 in case no language was found
 	 */
 	 Id get_from_string (const gchar* string);
 	 
@@ -4269,4 +4311,30 @@ typedef gint Id;
 	 * Returns: A list of strings that represent this language that language
 	 */
 	 List<const gchar*> get_strings(Id id);
+	 
+	 /*
+	  * ianjuta_language_get_from_editor:
+	  * @obj: Self
+	  * @editor: An object implementing IAnjutaEditorLanguage
+	  * @err: Error propagation
+	  *
+	  * Conviniece method to get the id directly from the editor
+	  *
+	  * Returns: A valid language id or 0
+	  */
+	  
+	  IAnjutaLanguageId get_from_editor (IAnjutaEditorLanguage* editor);
+	  
+	  	 /*
+	  * ianjuta_language_get_name_from_editor:
+	  * @obj: Self
+	  * @editor: An object implementing IAnjutaEditorLanguage
+	  * @err: Error propagation
+	  *
+	  * Conviniece method to get the name directly from the editor
+	  *
+	  * Returns: A language name or NULL
+	  */
+	  
+	  const gchar* get_name_from_editor (IAnjutaEditorLanguage* editor);
 }
