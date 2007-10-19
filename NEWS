@@ -1,4 +1,4 @@
-Anjuta 2.2.2 (   Oct 2007) -- Naba Kumar
+Anjuta 2.2.2 (19 Oct 2007) -- Naba Kumar
 -----------------------------------------
 
 Changes:
@@ -16,8 +16,9 @@ GtkSourceView editor
 * Fix bug#486597, crash when gdb is not installed
 * Fix bug#482067, escape project wizard user defined strings
 * Fixed #477976 – Keybinding in run dialog
-*	Fixed #427104 – No "highlight" of lines matching find-result
+* Fixed #427104 – No "highlight" of lines matching find-result
 * Fixed get_current_word (useful for API help)
+* Fixed #487854 – Anjuta crashes when i try to add a SVN url
 
 Anjuta 2.2.1 (06 Sep 2007) -- Naba Kumar
 -----------------------------------------

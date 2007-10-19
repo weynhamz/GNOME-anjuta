@@ -58,6 +58,18 @@ static gboolean check_filename(GtkDialog* dialog, const gchar* filename)
 		gtk_widget_destroy(dlg);
 		return FALSE;
 	}
+	/* Check if the filename is not an uri because that will break
+	 * inside libsvn
+	 */
+	if (strstr (filename, "://"))
+	{
+		GtkWidget* dlg = gtk_message_dialog_new(GTK_WINDOW(dialog), 
+			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
+			GTK_BUTTONS_CLOSE, _("Please enter a local filename, not an URI!"));
+		gtk_dialog_run(GTK_DIALOG(dlg));
+		gtk_widget_destroy(dlg);
+		return FALSE;
+	}
 	return TRUE;
 }
 
