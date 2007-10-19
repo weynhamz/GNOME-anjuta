@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-17 13:53+0100\n"
-"PO-Revision-Date: 2007-10-19 10:50+0200\n"
+"POT-Creation-Date: 2007-10-19 11:25+0100\n"
+"PO-Revision-Date: 2007-10-19 19:49+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1330,7 +1330,7 @@ msgstr "No se puede borrar el archivo"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:458
-#: ../plugins/subversion/subversion-callbacks.c:243
+#: ../plugins/subversion/subversion-callbacks.c:255
 msgid "Are you sure that you do not want a log message?"
 msgstr "¿Seguro que no quiere un mensaje de registro?"
 
@@ -1724,8 +1724,8 @@ msgstr "Archivo"
 #: ../plugins/debug-manager/breakpoints.c:135
 #: ../plugins/debug-manager/stack_trace.c:628
 #: ../plugins/debug-manager/threads.c:438
-#: ../plugins/document-manager/plugin.c:917
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:913
+#: ../plugins/document-manager/plugin.c:924
 msgid "Line"
 msgstr "Línea"
 
@@ -2514,9 +2514,9 @@ msgid "Do not show tabs"
 msgstr "No mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1650
-#: ../plugins/document-manager/plugin.c:2017
-#: ../plugins/document-manager/plugin.c:2029
+#: ../plugins/document-manager/plugin.c:1642
+#: ../plugins/document-manager/plugin.c:2009
+#: ../plugins/document-manager/plugin.c:2021
 msgid "Documents"
 msgstr "Documentos"
 
@@ -2833,7 +2833,7 @@ msgstr "Búsqueda empotrada rápida del editor"
 #: ../plugins/document-manager/plugin.c:278 ../plugins/gtodo/interface.c:170
 #: ../plugins/tools/anjuta-tools.glade.h:18
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1349
+#: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1343
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -3126,31 +3126,31 @@ msgstr "Recargar"
 msgid "Goto"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:910
+#: ../plugins/document-manager/plugin.c:906
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:914
+#: ../plugins/document-manager/plugin.c:910
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:916
-#: ../plugins/document-manager/plugin.c:927
+#: ../plugins/document-manager/plugin.c:912
+#: ../plugins/document-manager/plugin.c:923
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:918
-#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:914
+#: ../plugins/document-manager/plugin.c:925
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:919
-#: ../plugins/document-manager/plugin.c:930
+#: ../plugins/document-manager/plugin.c:915
+#: ../plugins/document-manager/plugin.c:926
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:996
+#: ../plugins/document-manager/plugin.c:992
 msgid "Automatic"
 msgstr "Automático"
 
@@ -5775,12 +5775,13 @@ msgid "Self Seconds"
 msgstr "Segundos propios"
 
 #: ../plugins/profiler/gprof-flat-profile-view.c:102
+#, fuzzy
 msgid "Self ms/call"
-msgstr ""
+msgstr "ms/llamada propio"
 
 #: ../plugins/profiler/gprof-flat-profile-view.c:111
 msgid "Total ms/call"
-msgstr ""
+msgstr "ms/llamada totales"
 
 #: ../plugins/profiler/plugin.c:177
 msgid ""
@@ -5847,7 +5848,7 @@ msgstr "Árbol de llamadas de funciones"
 
 #: ../plugins/profiler/plugin.c:840
 msgid "Function Call Chart"
-msgstr ""
+msgstr "Gráfica de las llamadas a funciones"
 
 #: ../plugins/profiler/profiler-call-graph.glade.h:1
 msgid "<b>Called By</b>"
@@ -7260,11 +7261,15 @@ msgstr "Operaciones de Subversion"
 msgid "Subversion popup operations"
 msgstr "Operaciones emergentes de Subversion"
 
-#: ../plugins/subversion/subversion-callbacks.c:72
+#: ../plugins/subversion/subversion-callbacks.c:68
+msgid "Please enter a local filename, not an URI!"
+msgstr "Introduzca un nombre de archivo local, no una URI."
+
+#: ../plugins/subversion/subversion-callbacks.c:84
 msgid "Subversion command is running! Please wait until it is finished!"
 msgstr "Hay un comando Subversion en ejecución - por favor, espere hasta que termine."
 
-#: ../plugins/subversion/subversion-callbacks.c:297
+#: ../plugins/subversion/subversion-callbacks.c:309
 msgid "svn.diff"
 msgstr "svn.diff"
 
@@ -8168,7 +8173,7 @@ msgstr "No cargar la última sesión al iniciar"
 
 #: ../src/anjuta.glade.h:7
 msgid "Dock switcher style: "
-msgstr ""
+msgstr "Estilo de los anclajes: "
 
 #: ../src/anjuta.glade.h:9
 msgid ""
@@ -8485,30 +8490,30 @@ msgstr "Sangrado inteligente"
 msgid "Statement indentation size in spaces:"
 msgstr "Tamaño de sangría en espacios:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1355
+#: ../plugins/language-support-cpp-java/plugin.c:1349
 msgid "_AutoComplete"
 msgstr "_Autocompletar"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1356
+#: ../plugins/language-support-cpp-java/plugin.c:1350
 msgid "AutoComplete the current word"
 msgstr "Autocompletar la palabra actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1362
+#: ../plugins/language-support-cpp-java/plugin.c:1356
 msgid "Auto Indent"
 msgstr "Sangría automática"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1363
+#: ../plugins/language-support-cpp-java/plugin.c:1357
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Auto sangrar la línea actual o la selección basándose en los ajustes de "
 "sangrado"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1405
+#: ../plugins/language-support-cpp-java/plugin.c:1399
 msgid "Cpp/Java Assistance"
 msgstr "Asistencia para Cpp/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1493
-#: ../plugins/language-support-cpp-java/plugin.c:1502
+#: ../plugins/language-support-cpp-java/plugin.c:1487
+#: ../plugins/language-support-cpp-java/plugin.c:1496
 msgid "C/C++/Java"
 msgstr "C/C++/Java"
 
