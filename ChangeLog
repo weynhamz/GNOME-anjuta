@@ -1,3 +1,9 @@
+2007-10-19  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/subversion/subversion-callbacks.c: (check_filename):
+	
+	Fixed #487854 – Anjuta crashes when i try to add a SVN url
+
 2007-10-19  Naba Kumar  <naba@gnome.org>
 
 	* plugins/file-manager/file-model.c: Fixed a critical runtime
