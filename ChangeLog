@@ -1,3 +1,8 @@
+2007-10-19  Naba Kumar  <naba@gnome.org>
+
+	* plugins/file-manager/file-model.c: Fixed a critical runtime
+	warning.
+
 2007-10-18  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-ui.h:

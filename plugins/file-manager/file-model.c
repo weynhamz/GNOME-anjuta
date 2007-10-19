@@ -26,7 +26,7 @@
 #include <gdl/gdl-icons.h>
 #include <glib/gi18n.h>
 #include <string.h>
-
+#include <libanjuta/anjuta-debug.h>
 #include <libgnomevfs/gnome-vfs.h>
 
 #define DIRECTORY_MIME_TYPE "x-directory/normal"
@@ -442,14 +442,19 @@ file_model_refresh (FileModel* model)
 	GtkTreeStore* store = GTK_TREE_STORE (model);
 	GtkTreeIter iter;
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE(model);
-	
-	gchar* path = gnome_vfs_get_local_path_from_uri (priv->base_uri);
-	gchar* basename = g_path_get_basename (path);
-	GdkPixbuf* pixbuf = gdl_icons_get_folder_icon (priv->icons);
+	gchar *path, *basename;
+	GdkPixbuf *pixbuf;
+
+	gtk_tree_store_clear (store);
+	path = gnome_vfs_get_local_path_from_uri (priv->base_uri);
+	if (!path)
+		return;
+
+	basename = g_path_get_basename (path);
+	pixbuf = gdl_icons_get_folder_icon (priv->icons);
 	
 	file_model_cancel_expand_idle(model);
 	
-	gtk_tree_store_clear (store);
 	gtk_tree_store_append (store, &iter, NULL);
 	
 	gtk_tree_store_set (store, &iter, 
