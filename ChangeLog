@@ -1,3 +1,13 @@
+2007-10-19  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* manuals/reference/libanjuta/plugin-description-file.sgml,
+	manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	libanjuta/interfaces/libanjuta.idl,
+	libanjuta/anjuta-c-module.c,
+	libanjuta/anjuta-c-plugin-factory.c:
+	Document last changes in plugin code
+
 2007-10-19  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/subversion/subversion-callbacks.c: (check_filename):

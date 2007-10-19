@@ -20,11 +20,48 @@
 
 /**
  * SECTION:anjuta-c-module
+ * @title: AnjutaCModule
  * @short_description: Anjuta C module
- * @see_also: 
- * @stability: Unstable
+ * @see_also: #AnjutaCPluginFactory
  * @include: libanjuta/anjuta-c-module.h
  * 
+ * A module is the part of the plugin containing the code. For machine code
+ * compiled from C sources by example, it is a shared library and contained in
+ * a .so file on Linux. GLib provides a portable way to load dynamically such
+ * code with #GModule objects.
+ *
+ * In GLib you can register a dynamic type which means that you links a GLib
+ * type with a module. When the type is used for the first time the module is
+ * loaded. When the type is not used anymore, the module is unloaded. Most of
+ * the code necessary to do this is already written in GLib #GTypeModule object
+ * except the load and unload function.
+ *
+ * #AnjutaCModule is used only by a #AnjutaCPluginFactory. It derives from
+ * #GTypeModule and implements the load and unload function using a #GModule
+ * object for a module written in C.
+ *
+ * Anjuta plugin types are not registered before loading the module.
+ * The loading of the module is done explicitly and types are registered just 
+ * after in a function included in the plugin. This function is named
+ * anjuta_glue_register_components and has a #GTypeModule as argument.
+ * The plugin must registers at the least the plugin type dynamically. It can
+ * register other types, but this is currently not used.
+ *
+ * After loading a module one or more plugin objects will be created using the
+ * name of the plugin type which has just been registered. The module
+ * will stay loaded while at least one plugin object is present. If all
+ * plugins objects are destroyed the unload function will be called and the
+ * module can be unloaded and removed from memory.
+ *
+ * It could be useful that some modules stay in memory even if there is no
+ * object using it. A typical example is if some plugin code or some code of
+ * a library used by a plugin registers a GLib type statically. GLib types can
+ * be registered statically at run time but cannot be unregistered later.
+ * The code (or rather the data used in the registration) must stay in the 
+ * memory even if the type is not used. In order to avoid this, you must
+ * register every type dynamically. You could have other situations where a
+ * module cannot be unloaded. By default, Anjuta plugin modules are not
+ * unloaded unless it is explicitly allowed.
  */
 
 #include "config.h"
@@ -137,6 +174,15 @@ anjuta_c_module_init (AnjutaCModule *module)
 /* Creation and Destruction
  *---------------------------------------------------------------------------*/
 
+/**
+ * anjuta_c_module_new:
+ * @path: The full path of the module
+ * @name: The name of the module
+ *
+ * Create a new #AnjutaCModule object.
+ *
+ * Return value: a new #AnjutaCModule object.
+ */
 AnjutaCModule*
 anjuta_c_module_new (const gchar *path, const char *name)
 {

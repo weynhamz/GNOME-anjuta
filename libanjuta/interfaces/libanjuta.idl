@@ -4233,14 +4233,20 @@ interface IAnjutaPreferences
 }
 
 /**
- * SECTION:ianjuta-plugin-loader
- * @title: IAnjutaPluginLoader
- * @short_description: Interface for loading other plugins
- * @see_also: 
+ * SECTION:ianjuta-plugin-factory
+ * @title: IAnjutaPluginFactory
+ * @short_description: Create Anjuta plugin objects
+ * @see_also:
  * @stability: Unstable
- * @include: libanjuta/interfaces/ianjuta-plugin-loader.h
+ * @include: libanjuta/interfaces/ianjuta-plugin-factory.h
  * 
+ * This interface is used to create all Anjuta plugin objects. It is
+ * already implemented inside Anjuta by an object able to load plugins written
+ * in C. In order to load plugins in other languages (or in a different way),
+ * a loader plugin implementing this interface must be written first, probably
+ * in C.
  */
+
 interface IAnjutaPluginFactory
 {
 	#include <libanjuta/anjuta-plugin.h>
@@ -4249,11 +4255,14 @@ interface IAnjutaPluginFactory
 	/**
 	 * ianjuta_plugin_factory_new_plugin:
 	 * @obj: Self
-	 * @handle: plugin information
+	 * @handle: Plugin information
 	 * @shell: Anjuta shell
 	 * @err: Error propagation and reporting.
 	 * 
-	 * Create a new AnjutaPlugin
+	 * Create a new AnjutaPlugin object from the plugin information handle,
+	 * give it the AnjutaShell object as argument.
+	 *
+	 * Return value: a new plugin object
 	 */
 	AnjutaPlugin* new_plugin (AnjutaPluginHandle* handle, AnjutaShell *shell);
 }

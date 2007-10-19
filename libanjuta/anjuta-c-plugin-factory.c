@@ -20,11 +20,25 @@
 
 /**
  * SECTION:anjuta-c-plugin-factory
- * @short_description: Underlying plugin factory
- * @see_also: 
+ * @title: AnjutaCPluginFactory
+ * @short_description: Anjuta C plugin factory
+ * @see_also: #AnjutaCModule, #AnjutaPluginManager
  * @stability: Unstable
  * @include: libanjuta/anjuta-c-plugin-factory.h
- * 
+ *
+ * #AnjutaCPluginFactory implements the #IAnjutaPluginFactory interface. This
+ * interface is used to create new plugin objects in Anjuta.
+ *
+ * This plugin factory creates new plugin objects which have a source code
+ * written in C. This factory is always available in Anjuta. Other plugin
+ * factories can be implemented as Anjuta plugins.
+ *
+ * This plugin factory uses the GLib dynamic type support implemented in 
+ * #AnjutaCModule object to allow loading and unloading of plugins code. But
+ * if the plugins itself can be unloaded, the #AnjutaCModule object must stay.
+ * If the plugin is needed later, it must be registed with the same
+ * module object. The factory take care of this and of creating the plugin
+ * object itself.
  */
 
 #include "config.h"
@@ -38,6 +52,9 @@
 #include <glib.h>
 
 #include <string.h>
+
+/* Types
+ *---------------------------------------------------------------------------*/
 
 struct _AnjutaCPluginFactoryClass
 {
@@ -176,7 +193,13 @@ anjuta_c_plugin_factory_init (AnjutaCPluginFactory *factory)
 
 /* Creation and Destruction
  *---------------------------------------------------------------------------*/
-
+/**
+ * anjuta_c_plugin_factory_new:
+ *
+ * Create a new #AnjutaCPluginFactory object.
+ *
+ * Return value: a new #AnjutaCPluginFactory object.
+ */
 AnjutaCPluginFactory*
 anjuta_c_plugin_factory_new (void)
 {
@@ -187,6 +210,12 @@ anjuta_c_plugin_factory_new (void)
 	return factory;
 }
 
+/**
+ * anjuta_c_plugin_factory_free:
+ * @factory: a #AnjutaCPluginFactory
+ *
+ * Delete a #AnjutaCPluginFactory object.
+ */
 void
 anjuta_c_plugin_factory_free (AnjutaCPluginFactory *factory)
 {

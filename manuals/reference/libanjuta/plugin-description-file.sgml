@@ -76,6 +76,20 @@
 					</para>
 				</listitem>
 			</varlistentry>
+			<varlistentry><term>Language</term>
+				<listitem>
+					<para>
+						Name of loader necessary to load
+						the plugin, by default the C	
+						plugin loader included in libanjuta
+						is used. This name must be equal
+						to the value of the key SupportedLanguage
+						in the group [Plugin Loader] of the
+						loader plugin.
+					</para>
+				</listitem>
+			</varlistentry>
+
 		</variablelist>
 		Here is a typical plugin meta-data file
 		(anjuta-document-manager.plugin.in):

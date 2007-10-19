@@ -261,23 +261,18 @@ ANJUTA_SHELL_GET_IFACE
 </SECTION>
 
 <SECTION>
-<FILE>glue-plugin</FILE>
-GluePluginComponent
-GluePluginComponentGetTypeFunc
-<TITLE>GluePlugin</TITLE>
-GluePlugin
-glue_plugin_new
-GLUE_PLUGIN_MODULE
-GLUE_REGISTER_COMPONENTS
-GLUE_GET_COMPONENT_TYPE
+<FILE>anjuta-c-module</FILE>
+AnjutaCModule
+AnjutaCModuleClass
+anjuta_c_module_new
 <SUBSECTION Standard>
-GLUE_PLUGIN
-GLUE_IS_PLUGIN
-GLUE_TYPE_PLUGIN
-glue_plugin_get_type
-GLUE_PLUGIN_CLASS
-GLUE_IS_PLUGIN_CLASS
-GLUE_PLUGIN_GET_CLASS
+ANJUTA_C_MODULE
+ANJUTA_IS_C_MODULE
+ANJUTA_TYPE_C_MODULE
+anjuta_c_module_get_type
+ANJUTA_C_MODULE_CLASS
+ANJUTA_IS_C_MODULE_CLASS
+ANJUTA_C_MODULE_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -300,22 +295,19 @@ ANJUTA_SAVE_PROMPT_GET_CLASS
 </SECTION>
 
 <SECTION>
-<FILE>glue-factory</FILE>
-GlueFactory
-GlueFactoryClass
-glue_factory_new
-glue_factory_add_path
-glue_factory_get_object_type
-glue_factory_create_object
-glue_factory_get_path
+<FILE>anjuta-c-plugin-factory</FILE>
+AnjutaCPluginFactory
+AnjutaCPluginFactoryClass
+anjuta_c_plugin_factory_new
+anjuta_c_plugin_factory_free
 <SUBSECTION Standard>
-GLUE_FACTORY
-GLUE_IS_FACTORY
-GLUE_TYPE_FACTORY
-glue_factory_get_type
-GLUE_FACTORY_CLASS
-GLUE_IS_FACTORY_CLASS
-GLUE_FACTORY_GET_CLASS
+ANJUTA_C_PLUGIN_FACTORY
+ANJUTA_IS_C_PLUGIN_FACTORY
+ANJUTA_TYPE_C_PLUGIN_FACTORY
+anjuta_c_plugin_factory_get_type
+ANJUTA_C_PLUGIN_FACTORY_CLASS
+ANJUTA_IS_C_PLUGIN_FACTORY_CLASS
+ANJUTA_C_PLUGIN_FACTORY_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -1234,6 +1226,21 @@ IANJUTA_MESSAGE_VIEW_GET_IFACE
 </SECTION>
 
 <SECTION>
+<FILE>ianjuta-plugin-factory</FILE>
+IANJUTA_PLUGIN_FACTORY_ERROR
+IAnjutaPluginFactory
+IAnjutaPluginFactoryIface
+ianjuta_plugin_factory_error_quark
+ianjuta_plugin_factory_new_plugin
+<SUBSECTION Standard>
+IANJUTA_PLUGIN_FACTORY
+IANJUTA_IS_PLUGIN_FACTORY
+IANJUTA_TYPE_PLUGIN_FACTORY
+ianjuta_plugin_factory_get_type
+IANJUTA_PLUGIN_FACTORY_GET_IFACE
+</SECTION>
+
+<SECTION>
 <FILE>ianjuta-preferences</FILE>
 IANJUTA_PREFERENCES_ERROR
 IAnjutaPreferences
@@ -1578,11 +1585,6 @@ anjuta_res_get_help_file_locale
 anjuta_res_get_doc_file
 anjuta_res_help_search
 anjuta_res_url_show
-</SECTION>
-
-<SECTION>
-<FILE>glue-cpp</FILE>
-glue_cpp_load_plugin
 </SECTION>
 
 <SECTION>
