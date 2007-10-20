@@ -1,4 +1,9 @@
-2007-10-16 Sebastien Granjoux <seb.sfo@free.fr>
+2007-10-20 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/debug-manager/debugger.c:
+	Fix #488061: Mutiple crash dialogs
+
+2007-10-20 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/gdb/debugger.c,
 	plugins/gdb/debugger.h:
