@@ -1,3 +1,12 @@
+2007-10-20  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/queue.c:
+	Fix #488061: Mutiple crash dialogs
+
+	* plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h:
+	Remove maximum gdb command length, should fix bug#474811
+
 2007-10-19  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* manuals/reference/libanjuta/plugin-description-file.sgml,

@@ -32,8 +32,6 @@
 
 G_BEGIN_DECLS
 
-#define DEBUGGER_COMMAND_MAX_LENGTH  1024
-
 typedef struct _Debugger        Debugger;
 typedef struct _DebuggerClass   DebuggerClass;
 typedef struct _DebuggerPriv    DebuggerPriv;
@@ -57,7 +55,7 @@ typedef void (*DebuggerParserFunc) (Debugger *debugger,
 
 struct _DebuggerCommand
 {
-	gchar cmd[DEBUGGER_COMMAND_MAX_LENGTH];
+	gchar *cmd;
 	gboolean suppress_error;
 	gboolean keep_result;
 	DebuggerParserFunc parser;

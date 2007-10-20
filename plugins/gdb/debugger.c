@@ -232,7 +232,7 @@ debugger_initialize (Debugger *debugger)
 	debugger->priv->skip_next_prompt = FALSE;
 	debugger->priv->command_output_sent = FALSE;
 
-	strcpy (debugger->priv->current_cmd.cmd, "");
+	debugger->priv->current_cmd.cmd = NULL;
 	debugger->priv->current_cmd.parser = NULL;
 	
 	debugger->priv->cmd_queqe = NULL;
@@ -524,7 +524,7 @@ debugger_queue_set_next_command (Debugger *debugger)
 	dc = debugger_queue_get_next_command (debugger);
 	if (!dc)
 	{
-		strcpy (debugger->priv->current_cmd.cmd, "");
+		debugger->priv->current_cmd.cmd = NULL;
 		debugger->priv->current_cmd.parser = NULL;
 		debugger->priv->current_cmd.callback = NULL;
 		debugger->priv->current_cmd.user_data = NULL;
@@ -533,10 +533,8 @@ debugger_queue_set_next_command (Debugger *debugger)
 
 		return FALSE;
 	}
-	else
-	{
-	}
-	strcpy (debugger->priv->current_cmd.cmd, dc->cmd);
+	g_free (debugger->priv->current_cmd.cmd);
+	debugger->priv->current_cmd.cmd = dc->cmd;
 	debugger->priv->current_cmd.parser = dc->parser;
 	debugger->priv->current_cmd.callback = dc->callback;
 	debugger->priv->current_cmd.user_data = dc->user_data;
@@ -561,7 +559,7 @@ debugger_queue_command (Debugger *debugger, const gchar *cmd,
 	dc = g_malloc (sizeof (DebuggerCommand));
 	if (dc)
 	{
-		strcpy (dc->cmd, cmd);
+		dc->cmd = g_strdup(cmd);
 		dc->parser = parser;
 		dc->callback = callback;
 		dc->user_data = user_data;
@@ -582,12 +580,14 @@ debugger_queue_clear (Debugger *debugger)
 	node = debugger->priv->cmd_queqe;
 	while (node)
 	{
+		g_free (((DebuggerCommand *)node->data)->cmd);
 		g_free (node->data);
 		node = g_list_next (node);
 	}
 	g_list_free (debugger->priv->cmd_queqe);
 	debugger->priv->cmd_queqe = NULL;
-	strcpy (debugger->priv->current_cmd.cmd, "");
+	g_free (debugger->priv->current_cmd.cmd);
+	debugger->priv->current_cmd.cmd = NULL;
 	debugger->priv->current_cmd.parser = NULL;
 	debugger->priv->current_cmd.callback = NULL;
 	debugger->priv->current_cmd.user_data = NULL;
@@ -1245,8 +1245,8 @@ debugger_parse_stopped (Debugger *debugger)
 		}
 		
 		debugger->priv->cli_lines = g_list_reverse (debugger->priv->cli_lines);
-		if (debugger->priv->current_cmd.cmd[0] != '\0' &&
-			debugger->priv->current_cmd.parser != NULL)
+		if ((debugger->priv->current_cmd.cmd != NULL) &&
+			(debugger->priv->current_cmd.parser != NULL))
 		{
 			debugger->priv->current_cmd.parser (debugger, val,
 												debugger->priv->cli_lines, FALSE);
@@ -1424,8 +1424,8 @@ debugger_stdo_flush (Debugger *debugger)
 			GDBMIValue *val = gdbmi_value_parse (line);
 		
 			debugger->priv->cli_lines = g_list_reverse (debugger->priv->cli_lines);
-			if (debugger->priv->current_cmd.cmd[0] != '\0' &&
-				debugger->priv->current_cmd.parser != NULL)
+			if ((debugger->priv->current_cmd.cmd != NULL) &&
+				(debugger->priv->current_cmd.parser != NULL))
 			{
 				debugger->priv->current_cmd.parser (debugger, val,
 										  debugger->priv->cli_lines, FALSE);

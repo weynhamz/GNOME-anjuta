@@ -641,6 +641,8 @@ dma_debugger_queue_stop (DmaDebuggerQueue *self)
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_dma_program_stopped), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_dma_program_exited), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_dma_program_moved), self);
+		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_dma_signal_received), self);
+		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_dma_frame_changed), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_dma_sharedlib_event), self);
 		self->debugger = NULL;
 	}
