@@ -1,3 +1,9 @@
+2007-10-16 Sebastien Granjoux <seb.sfo@free.fr>
+
+	* plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h:
+	Remove maximum gdb command length, should fix bug#474811
+
 2007-10-19  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/subversion/subversion-callbacks.c: (check_filename):
