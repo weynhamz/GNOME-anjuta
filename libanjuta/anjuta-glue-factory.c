@@ -165,11 +165,12 @@ load_plugin (AnjutaGlueFactory *factory, const gchar *component_name, const gcha
 				anjuta_glue_plugin_build_component_path (glue, entry->path, component_name);
 				
 				/* Load module to check if type really exist */
-				g_type_module_use (G_TYPE_MODULE (glue));
+				if (!g_type_module_use (G_TYPE_MODULE (glue)))
+					return G_TYPE_INVALID;
 				type = anjuta_glue_plugin_get_component_type (glue, ANJUTA_TYPE_PLUGIN, type_name);
-				g_type_module_unuse (G_TYPE_MODULE (glue));
 				if (type != G_TYPE_INVALID)
 				{
+					g_type_module_unuse (G_TYPE_MODULE (glue));
 					g_hash_table_insert (entry->loaded_plugins,
 								 (gpointer)strdup (component_name),
 								 glue);

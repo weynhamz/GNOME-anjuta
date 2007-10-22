@@ -526,7 +526,6 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 	GType type;
 	GType glue_type;
 	GObject *ret;
-	gchar* lang = NULL;
 	const gchar *plugin_id;
 	const gchar *language;
 	gboolean resident;
@@ -563,11 +562,11 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 		type = anjuta_glue_factory_get_object_type (anjuta_glue_factory,
 										     pieces[0], pieces[1],
 										     resident, glue_type);
-		g_hash_table_insert (plugin_types, g_strdup (plugin_id),
-							 GUINT_TO_POINTER (type));
+		if (type != G_TYPE_INVALID)
+			g_hash_table_insert (plugin_types, g_strdup (plugin_id),
+								 GUINT_TO_POINTER (type));
 		g_strfreev (pieces);
 	}
-	g_free (lang);
 	
 	if (type == G_TYPE_INVALID)
 	{
@@ -774,10 +773,10 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 			if (should_load (priv->activated_plugins, selected_plugin, plugin))
 			{
 				GObject *plugin_obj;
+				GError *error = NULL;
 				plugin_obj = g_hash_table_lookup (priv->plugins_cache, plugin);
 				if (!plugin_obj)
 				{
-					GError *error = NULL;
 					plugin_obj = activate_plugin (plugin_manager, plugin,
 												  &error);
 				}
@@ -785,6 +784,27 @@ plugin_set_update (AnjutaPluginManager *plugin_manager,
 				if (plugin_obj)
 				{
 					anjuta_plugin_activate (ANJUTA_PLUGIN (plugin_obj));
+				}
+				else
+				{
+					if (error)
+					{
+						gchar* message = g_strdup_printf (_("Could not load %s\n"
+							"This usually means that your installation is corrupted.\n"
+							"The error message leading to this was:\n%s"), 
+														  anjuta_plugin_handle_get_name (selected_plugin),
+														  error->message);
+						GtkWidget* dialog = gtk_message_dialog_new (NULL, 
+												GTK_DIALOG_MODAL,
+												GTK_MESSAGE_ERROR,
+												GTK_BUTTONS_OK,
+												message);
+						gtk_dialog_run (GTK_DIALOG (dialog));
+						gtk_widget_destroy (dialog);
+						
+						g_error_free (error);
+						g_free(message);
+					}
 				}
 			}
 		}
@@ -1238,7 +1258,6 @@ get_plugin_loader_type (AnjutaPluginManager *plugin_manager,
 	GList *loader_plugins, *node;
 	GList *valid_plugins;
 	GObject *obj = NULL;
-	static int bug = 0;
 	
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN_MANAGER (plugin_manager), G_TYPE_INVALID);
 

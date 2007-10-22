@@ -1,3 +1,15 @@
+2007-10-22  Johannes Schmid <jhs@gnome.org>
+
+  * libanjuta/anjuta-glue-factory.c: (load_plugin):
+	* libanjuta/anjuta-plugin-manager.c: (activate_plugin),
+	(plugin_set_update):
+	
+	Show an error dialog instead of crashing when plugin loading fails
+	(Backport from trunk, revision 3150)
+
+  * Makefile.am:
+  Changed build order because doc/reference need libanjuta to be build
+
 2007-10-22  Naba Kumar  <naba@gnome.org>
 
 	* NEWS: Updated.

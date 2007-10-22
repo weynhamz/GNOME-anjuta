@@ -4,7 +4,7 @@
 
 SUBDIRS = tagmanager global-tags \
 	libegg pixmaps scripts data \
-	doc libanjuta plugins src manuals mime launcher po
+	libanjuta plugins src manuals mime launcher po doc
 
 anjutadocdir = $(datadir)/doc/anjuta
 anjutadoc_DATA = \
