@@ -1,3 +1,11 @@
+2007-10-22  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated.
+	* libanjuta/interfaces/anjuta-idl-compiler.pl: Added default
+	handlers for virtual methods so as not to crash Anjuta when
+	and unimplemented method is invoked. Instead a warning is
+	shown (backported from trunk).
+
 2007-10-20 Sebastien Granjoux <seb.sfo@free.fr>
 
 	* plugins/debug-manager/debugger.c:
