@@ -3873,7 +3873,7 @@ msgstr "<b>Global</b>"
 
 #: ../plugins/file-manager/file-manager.glade.h:3
 msgid "Choose Directory to show if no project is open"
-msgstr "Escolliu el directori a obrir si no hi ha cap projecte obert"
+msgstr "Escolliu el directori a mostrar si no hi ha cap projecte obert"
 
 #: ../plugins/file-manager/file-manager.glade.h:4
 msgid "Do not show backup files"
