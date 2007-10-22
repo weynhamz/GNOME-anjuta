@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-15 00:55+0200\n"
+"POT-Creation-Date: 2007-10-22 16:48+0200\n"
 "PO-Revision-Date: 2007-10-11 16:22+0100\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -224,7 +224,7 @@ msgstr "No es pot executar l'ordre: «%s»"
 msgid "execvp failed"
 msgstr "Ha fallat la crida execvp"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2229
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Anjuta Shell"
 msgstr "Intèrpret d'ordres de l'Anjuta"
 
@@ -232,13 +232,13 @@ msgstr "Intèrpret d'ordres de l'Anjuta"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Intèrpret d'ordres de l'Anjuta que contindrà el connector"
 
-#: ../libanjuta/anjuta-plugin-manager.c:556
-#: ../libanjuta/anjuta-plugin-manager.c:581
+#: ../libanjuta/anjuta-plugin-manager.c:549
+#: ../libanjuta/anjuta-plugin-manager.c:560
 #, c-format
 msgid "Invalid plugin: %s"
 msgstr "Connector invàlid: %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:798
+#: ../libanjuta/anjuta-plugin-manager.c:776
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -246,26 +246,30 @@ msgid ""
 "leading to this was:\n"
 "%s"
 msgstr ""
+"No s'ha pogut carregar %s\n"
+"Generalment això significa que la instal·lació és corrupte. El missatge "
+"d'error que us ha portat a això és:\n"
+"%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:897
+#: ../libanjuta/anjuta-plugin-manager.c:875
 #: ../plugins/symbol-browser/an_symbol_prefs.c:781
 msgid "Load"
 msgstr "Carrega"
 
-#: ../libanjuta/anjuta-plugin-manager.c:919
-#: ../libanjuta/anjuta-plugin-manager.c:1859
+#: ../libanjuta/anjuta-plugin-manager.c:897
+#: ../libanjuta/anjuta-plugin-manager.c:1832
 msgid "Available Plugins"
 msgstr "Connectors disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1032 ../src/anjuta-app.c:830
+#: ../libanjuta/anjuta-plugin-manager.c:1010 ../src/anjuta-app.c:830
 msgid "Preferred plugins"
 msgstr "Connectors preferits"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1146
+#: ../libanjuta/anjuta-plugin-manager.c:1124
 msgid "Only show user activatable plugins"
 msgstr "Mostra només els connectors activables per l'usuari"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1193
+#: ../libanjuta/anjuta-plugin-manager.c:1171
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -275,64 +279,64 @@ msgstr ""
 "connectors adequats. Treure el connector preferit farà que l'Anjuta us torni "
 "a fer seleccionar un altre connector."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1352
-#: ../libanjuta/anjuta-plugin-manager.c:1457
+#: ../libanjuta/anjuta-plugin-manager.c:1330
+#: ../libanjuta/anjuta-plugin-manager.c:1430
 #: ../plugins/debug-manager/queue.c:446
 msgid "Select a plugin"
 msgstr "Seleccioneu un connector"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1353
-#: ../libanjuta/anjuta-plugin-manager.c:1458
+#: ../libanjuta/anjuta-plugin-manager.c:1331
+#: ../libanjuta/anjuta-plugin-manager.c:1431
 #: ../plugins/debug-manager/queue.c:447
 msgid "Please select a plugin to activate"
 msgstr "Seleccioneu un connector per a activar"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1878
+#: ../libanjuta/anjuta-plugin-manager.c:1851
 msgid "Remember this selection"
 msgstr "Recorda aquesta selecció"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2210
+#: ../libanjuta/anjuta-plugin-manager.c:2178
 msgid "Profiles"
 msgstr "Perfils"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2211
+#: ../libanjuta/anjuta-plugin-manager.c:2179
 msgid "Current stack of profiles"
 msgstr "Pila de perfils actuals"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2216
+#: ../libanjuta/anjuta-plugin-manager.c:2184
 msgid "Available plugins"
 msgstr "Connectors disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2217
+#: ../libanjuta/anjuta-plugin-manager.c:2185
 msgid "Currently available plugins found in plugin paths"
 msgstr "Connectors trobats actualment en els camins de connectors"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2223
+#: ../libanjuta/anjuta-plugin-manager.c:2191
 msgid "Activated plugins"
 msgstr "Connectors activats"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2224
+#: ../libanjuta/anjuta-plugin-manager.c:2192
 msgid "Currently activated plugins"
 msgstr "Connectors activats actualment"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2230
+#: ../libanjuta/anjuta-plugin-manager.c:2198
 msgid "Anjuta shell for which the plugins are"
 msgstr "Intèrpret d'ordres de l'Anjuta que contindrà el connector"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2238
+#: ../libanjuta/anjuta-plugin-manager.c:2206
 msgid "Anjuta Status"
 msgstr "Estat de l'Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2239
+#: ../libanjuta/anjuta-plugin-manager.c:2207
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Estat de l'Anjuta a utilitzar en carregar i descarregar connectors"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2398
+#: ../libanjuta/anjuta-plugin-manager.c:2364
 msgid "Loaded: "
 msgstr "Carregat: "
 
-#: ../libanjuta/anjuta-plugin-manager.c:2398
+#: ../libanjuta/anjuta-plugin-manager.c:2364
 msgid "..."
 msgstr "..."
 
@@ -446,7 +450,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Si no els deseu, es perdran tots els canvis."
 
 #: ../libanjuta/anjuta-save-prompt.c:195
-#: ../plugins/document-manager/plugin.c:550
+#: ../plugins/document-manager/plugin.c:559
 msgid "Save"
 msgstr "Desa"
 
@@ -676,6 +680,8 @@ msgstr "Munta %d: %s"
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
+"No es pot compilar «%s»: No s'ha definit cap regla de compilació per a "
+"aquest tipus de fitxer."
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1032
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1060
@@ -905,7 +911,7 @@ msgstr "Actualitza"
 msgid "Update the graph"
 msgstr "Actualitza el graf"
 
-#: ../plugins/class-inheritance/plugin.c:126
+#: ../plugins/class-inheritance/plugin.c:115
 msgid "Inheritance Graph"
 msgstr "Graf d'herències"
 
@@ -1003,7 +1009,7 @@ msgid "Member Functions/Variables"
 msgstr "Membre de funcions/variables"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
-#: ../plugins/glade/plugin.c:467
+#: ../plugins/glade/plugin.c:457
 msgid "Properties"
 msgstr "Propietats"
 
@@ -1017,7 +1023,7 @@ msgstr "Fitxer de codi:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
 msgid "Source/Header Headings:"
-msgstr "Encapçalaments per a capçaleres i fonts:"
+msgstr "Encapçalaments per als fitxers de capçalera i de codi:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
 msgid "gtk-add"
@@ -1034,7 +1040,7 @@ msgstr "gtk-remove"
 #: ../plugins/class-gen/generator.c:132
 #, c-format
 msgid "Header or source file has not been created"
-msgstr "No s'ha creat el fitxer de codi o bé la capçalera"
+msgstr "No s'ha creat el fitxer de codi o de capçalera"
 
 #: ../plugins/class-gen/generator.c:294
 msgid "Autogen template used for the header file"
@@ -1318,7 +1324,7 @@ msgstr "No es pot suprimir el fitxer"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:458
-#: ../plugins/subversion/subversion-callbacks.c:243
+#: ../plugins/subversion/subversion-callbacks.c:255
 msgid "Are you sure that you do not want a log message?"
 msgstr "Segur que no voleu un missatge de registre?"
 
@@ -1492,7 +1498,7 @@ msgid "Breakpoint properties"
 msgstr "Propietats dels punts de ruptura"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1697
+#: ../plugins/debug-manager/breakpoints.c:1698
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Punts de ruptura"
@@ -1560,8 +1566,8 @@ msgid "Inspect/Evaluate"
 msgstr "Inspecciona/avalua"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
-#: ../plugins/debug-manager/plugin.c:940
-#: ../plugins/debug-manager/plugin.c:1040 ../plugins/gdb/anjuta-gdb.glade.h:16
+#: ../plugins/debug-manager/plugin.c:931
+#: ../plugins/debug-manager/plugin.c:1031 ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "Senyals del nucli"
 
@@ -1712,8 +1718,8 @@ msgstr "Fitxer"
 #: ../plugins/debug-manager/breakpoints.c:135
 #: ../plugins/debug-manager/stack_trace.c:628
 #: ../plugins/debug-manager/threads.c:438
-#: ../plugins/document-manager/plugin.c:917
-#: ../plugins/document-manager/plugin.c:928
+#: ../plugins/document-manager/plugin.c:913
+#: ../plugins/document-manager/plugin.c:924
 msgid "Line"
 msgstr "Línia"
 
@@ -1758,107 +1764,107 @@ msgstr "Segur que voleu suprimir tots els punts de ruptura?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1489
+#: ../plugins/debug-manager/breakpoints.c:1490
 msgid "_Breakpoints"
 msgstr "_Punts de ruptura"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1497
+#: ../plugins/debug-manager/breakpoints.c:1498
 msgid "Toggle Breakpoint"
 msgstr "Commuta el punt de ruptura"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1499
+#: ../plugins/debug-manager/breakpoints.c:1500
 msgid "Toggle breakpoint at the current location"
 msgstr "Commuta el punt de ruptura a la ubicació actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1505
+#: ../plugins/debug-manager/breakpoints.c:1506
 msgid "Add Breakpoint..."
 msgstr "Afegeix un punt de ruptura..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1507
+#: ../plugins/debug-manager/breakpoints.c:1508
 msgid "Add a breakpoint"
 msgstr "Afegeix un punt de ruptura"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1513
+#: ../plugins/debug-manager/breakpoints.c:1514
 msgid "Remove Breakpoint"
 msgstr "Suprimeix el punt de ruptura"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1515
+#: ../plugins/debug-manager/breakpoints.c:1516
 msgid "Remove a breakpoint"
 msgstr "Suprimeix un punt de ruptura"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1521
+#: ../plugins/debug-manager/breakpoints.c:1522
 msgid "Jump to Breakpoint"
 msgstr "Salta al punt de ruptura"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1523
+#: ../plugins/debug-manager/breakpoints.c:1524
 msgid "Jump to breakpoint location"
 msgstr "Salta a la ubicació del punt de ruptura"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1529
+#: ../plugins/debug-manager/breakpoints.c:1530
 msgid "Edit Breakpoint"
 msgstr "Edita el punt de ruptura"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1531
+#: ../plugins/debug-manager/breakpoints.c:1532
 msgid "Edit breakpoint properties"
 msgstr "Edita les propietats del punt de ruptura"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1537
+#: ../plugins/debug-manager/breakpoints.c:1538
 msgid "Enable Breakpoint"
 msgstr "Activa el punt de ruptura"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1539
+#: ../plugins/debug-manager/breakpoints.c:1540
 msgid "Enable a breakpoint"
 msgstr "Activa un punt de ruptura"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1545
+#: ../plugins/debug-manager/breakpoints.c:1546
 msgid "Disable All Breakpoints"
 msgstr "Desactiva tots els punts de ruptura"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1547
+#: ../plugins/debug-manager/breakpoints.c:1548
 msgid "Deactivate all breakpoints"
 msgstr "Desactiva tots els punts de ruptura"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1553
+#: ../plugins/debug-manager/breakpoints.c:1554
 msgid "C_lear All Breakpoints"
 msgstr "_Neteja tots els punts de ruptura"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1555
+#: ../plugins/debug-manager/breakpoints.c:1556
 msgid "Delete all breakpoints"
 msgstr "Suprimeix tots els punts de ruptura"
 
-#: ../plugins/debug-manager/breakpoints.c:1679
+#: ../plugins/debug-manager/breakpoints.c:1680
 msgid "Breakpoint operations"
 msgstr "Operacions dels punts de ruptura"
 
@@ -1889,232 +1895,231 @@ msgstr "Línies"
 msgid "Locals"
 msgstr "Locals"
 
-#: ../plugins/debug-manager/plugin.c:339
+#: ../plugins/debug-manager/plugin.c:330
 msgid "Debugger Log"
 msgstr "Registre del depurador"
 
-#: ../plugins/debug-manager/plugin.c:413 ../plugins/debug-manager/plugin.c:448
-#: ../plugins/debug-manager/plugin.c:468 ../plugins/debug-manager/plugin.c:495
-#: ../plugins/debug-manager/plugin.c:543 ../plugins/debug-manager/plugin.c:578
+#: ../plugins/debug-manager/plugin.c:404 ../plugins/debug-manager/plugin.c:439
+#: ../plugins/debug-manager/plugin.c:459 ../plugins/debug-manager/plugin.c:486
+#: ../plugins/debug-manager/plugin.c:534 ../plugins/debug-manager/plugin.c:569
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "Depurador"
 
-#: ../plugins/debug-manager/plugin.c:413
+#: ../plugins/debug-manager/plugin.c:404
 msgid "Started"
 msgstr "Iniciat"
 
-#: ../plugins/debug-manager/plugin.c:448
+#: ../plugins/debug-manager/plugin.c:439
 msgid "Loaded"
 msgstr "Carregat"
 
-#: ../plugins/debug-manager/plugin.c:468
+#: ../plugins/debug-manager/plugin.c:459
 msgid "Running..."
 msgstr "S'esta executant..."
 
-#: ../plugins/debug-manager/plugin.c:495
+#: ../plugins/debug-manager/plugin.c:486
 msgid "Stopped"
 msgstr "Aturat"
 
-#: ../plugins/debug-manager/plugin.c:543
+#: ../plugins/debug-manager/plugin.c:534
 msgid "Unloaded"
 msgstr "Descarregat"
 
-#: ../plugins/debug-manager/plugin.c:584
+#: ../plugins/debug-manager/plugin.c:575
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
 msgstr "El depurador ha finalitzat amb l'error %d: %s\n"
 
-#: ../plugins/debug-manager/plugin.c:597
+#: ../plugins/debug-manager/plugin.c:588
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "El programa ha rebut el senyal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:832 ../plugins/valgrind/plugin.c:448
+#: ../plugins/debug-manager/plugin.c:823 ../plugins/valgrind/plugin.c:438
 msgid "_Debug"
 msgstr "_Depura"
 
-#: ../plugins/debug-manager/plugin.c:840
+#: ../plugins/debug-manager/plugin.c:831
 msgid "_Start Debugger"
 msgstr "_Inicia el depurador"
 
-#: ../plugins/debug-manager/plugin.c:848
+#: ../plugins/debug-manager/plugin.c:839
 msgid "Run Target..."
 msgstr "Executa l'objectiu..."
 
-#: ../plugins/debug-manager/plugin.c:850
+#: ../plugins/debug-manager/plugin.c:841
 msgid "load and start the target for debugging"
 msgstr "carrega i inicia l'objectiu per a depurar-lo"
 
-#: ../plugins/debug-manager/plugin.c:856
+#: ../plugins/debug-manager/plugin.c:847
 msgid "Restart Target"
 msgstr "Reinicia l'objectiu"
 
-#: ../plugins/debug-manager/plugin.c:858
+#: ../plugins/debug-manager/plugin.c:849
 msgid "restart the same target for debugging"
 msgstr "reinicia el mateix objectiu per a depurar-lo"
 
-#: ../plugins/debug-manager/plugin.c:864
+#: ../plugins/debug-manager/plugin.c:855
 msgid "_Attach to Process..."
 msgstr "_Adjunta a un procés..."
 
-#: ../plugins/debug-manager/plugin.c:866
+#: ../plugins/debug-manager/plugin.c:857
 msgid "Attach to a running program"
 msgstr "Adjunta a un programa en execució"
 
-#: ../plugins/debug-manager/plugin.c:872
+#: ../plugins/debug-manager/plugin.c:863
 msgid "Stop Debugger"
 msgstr "Atura el depurador"
 
-#: ../plugins/debug-manager/plugin.c:874
+#: ../plugins/debug-manager/plugin.c:865
 msgid "Say goodbye to the debugger"
 msgstr "Atureu el depurador"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:884 ../plugins/debug-manager/plugin.c:992
+#: ../plugins/debug-manager/plugin.c:875 ../plugins/debug-manager/plugin.c:983
 msgid "Debugger Command..."
 msgstr "Ordre del depurador..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:886 ../plugins/debug-manager/plugin.c:994
+#: ../plugins/debug-manager/plugin.c:877 ../plugins/debug-manager/plugin.c:985
 msgid "Custom debugger command"
 msgstr "Ordre personalitzada del depurador"
 
-#: ../plugins/debug-manager/plugin.c:892
-#: ../plugins/debug-manager/plugin.c:1000
+#: ../plugins/debug-manager/plugin.c:883 ../plugins/debug-manager/plugin.c:991
 msgid "_Info"
 msgstr "_Informació"
 
-#: ../plugins/debug-manager/plugin.c:900
+#: ../plugins/debug-manager/plugin.c:891
 msgid "Info _Target Files"
 msgstr "Fi_txers objecte d'informació"
 
-#: ../plugins/debug-manager/plugin.c:902
+#: ../plugins/debug-manager/plugin.c:893
 msgid "Display information on the files the debugger is active with"
 msgstr ""
 "Visualitza la informació dels fitxers amb els que treballa el depurador"
 
-#: ../plugins/debug-manager/plugin.c:908
+#: ../plugins/debug-manager/plugin.c:899
 msgid "Info _Program"
 msgstr "_Programa d'informació"
 
-#: ../plugins/debug-manager/plugin.c:910
+#: ../plugins/debug-manager/plugin.c:901
 msgid "Display information on the execution status of the program"
 msgstr "Visualitza la informació de l'estat d'execució del programa"
 
-#: ../plugins/debug-manager/plugin.c:916
+#: ../plugins/debug-manager/plugin.c:907
 msgid "Info _Kernel User Struct"
 msgstr "Informació d'estructura d'usuari del _nucli"
 
-#: ../plugins/debug-manager/plugin.c:918
+#: ../plugins/debug-manager/plugin.c:909
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr ""
 "Visualitza els continguts de l'estructura d'usuari del nucli per al fill "
 "actual"
 
-#: ../plugins/debug-manager/plugin.c:932
-#: ../plugins/debug-manager/plugin.c:1032
+#: ../plugins/debug-manager/plugin.c:923
+#: ../plugins/debug-manager/plugin.c:1023
 msgid "Shared Libraries"
 msgstr "Biblioteques compartides"
 
-#: ../plugins/debug-manager/plugin.c:934
-#: ../plugins/debug-manager/plugin.c:1034
+#: ../plugins/debug-manager/plugin.c:925
+#: ../plugins/debug-manager/plugin.c:1025
 msgid "Show shared libraries mappings"
 msgstr "Mostra les correspondències de les biblioteques compartides"
 
-#: ../plugins/debug-manager/plugin.c:942
-#: ../plugins/debug-manager/plugin.c:1042
+#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:1033
 msgid "Show kernel signals"
 msgstr "Mostra els senyals del nucli"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:952
+#: ../plugins/debug-manager/plugin.c:943
 msgid "Run/_Continue"
 msgstr "Executa/_continua"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:954
+#: ../plugins/debug-manager/plugin.c:945
 msgid "Continue the execution of the program"
 msgstr "Continua amb l'execució del programa"
 
-#: ../plugins/debug-manager/plugin.c:960
+#: ../plugins/debug-manager/plugin.c:951
 msgid "Step _In"
 msgstr "_Avança un pas"
 
-#: ../plugins/debug-manager/plugin.c:962
+#: ../plugins/debug-manager/plugin.c:953
 msgid "Single step into function"
 msgstr "Avança un pas en la funció"
 
-#: ../plugins/debug-manager/plugin.c:968
+#: ../plugins/debug-manager/plugin.c:959
 msgid "Step O_ver"
 msgstr "A_vança al final"
 
-#: ../plugins/debug-manager/plugin.c:970
+#: ../plugins/debug-manager/plugin.c:961
 msgid "Single step over function"
 msgstr "Avança fins el final de la funció"
 
-#: ../plugins/debug-manager/plugin.c:976
+#: ../plugins/debug-manager/plugin.c:967
 msgid "Step _Out"
 msgstr "_Avança"
 
-#: ../plugins/debug-manager/plugin.c:978
+#: ../plugins/debug-manager/plugin.c:969
 msgid "Single step out of the function"
 msgstr "Avança al final de la funció"
 
-#: ../plugins/debug-manager/plugin.c:984
+#: ../plugins/debug-manager/plugin.c:975
 msgid "_Run to Cursor"
 msgstr "Executa fins al cu_rsor"
 
-#: ../plugins/debug-manager/plugin.c:986
+#: ../plugins/debug-manager/plugin.c:977
 msgid "Run to the cursor"
 msgstr "Executa fins al cursor"
 
-#: ../plugins/debug-manager/plugin.c:1008
+#: ../plugins/debug-manager/plugin.c:999
 msgid "Info _Global Variables"
 msgstr "Informació de les variables _globals"
 
-#: ../plugins/debug-manager/plugin.c:1010
+#: ../plugins/debug-manager/plugin.c:1001
 msgid "Display all global and static variables of the program"
 msgstr "Visualitza totes les variables globals i estàtiques del programa"
 
-#: ../plugins/debug-manager/plugin.c:1016
+#: ../plugins/debug-manager/plugin.c:1007
 msgid "Info _Current Frame"
 msgstr "Informació del marc a_ctual"
 
-#: ../plugins/debug-manager/plugin.c:1018
+#: ../plugins/debug-manager/plugin.c:1009
 msgid "Display information about the current frame of execution"
 msgstr "Visualitza informació sobre el marc d'execució actual"
 
-#: ../plugins/debug-manager/plugin.c:1024
+#: ../plugins/debug-manager/plugin.c:1015
 msgid "Info Function _Arguments"
 msgstr "Informació dels _arguments de la funció"
 
-#: ../plugins/debug-manager/plugin.c:1026
+#: ../plugins/debug-manager/plugin.c:1017
 msgid "Display function arguments of the current frame"
 msgstr "Visualitza els arguments de la funció del marc actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1052
+#: ../plugins/debug-manager/plugin.c:1043
 msgid "Pa_use Program"
 msgstr "Fes una pa_usa al programa"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1054
+#: ../plugins/debug-manager/plugin.c:1045
 msgid "Pauses the execution of the program"
 msgstr "Fes una pausa a l'execució del programa"
 
-#: ../plugins/debug-manager/plugin.c:1094
-#: ../plugins/debug-manager/plugin.c:1100
-#: ../plugins/debug-manager/plugin.c:1106
-#: ../plugins/debug-manager/plugin.c:1112
+#: ../plugins/debug-manager/plugin.c:1085
+#: ../plugins/debug-manager/plugin.c:1091
+#: ../plugins/debug-manager/plugin.c:1097
+#: ../plugins/debug-manager/plugin.c:1103
 msgid "Debugger operations"
 msgstr "Operacions del depurador"
 
@@ -2222,7 +2227,7 @@ msgstr "Estableix el marc actual"
 #: ../plugins/debug-manager/stack_trace.c:548
 #: ../plugins/debug-manager/threads.c:368
 msgid "View Source"
-msgstr "Visualitza el codi font"
+msgstr "Visualitza el codi"
 
 #: ../plugins/debug-manager/stack_trace.c:586
 #: ../plugins/debug-manager/threads.c:404
@@ -2365,8 +2370,8 @@ msgstr "Vigilància"
 msgid "Search Help:"
 msgstr "Cerca ajuda:"
 
-#: ../plugins/devhelp/plugin.c:237 ../plugins/document-manager/plugin.c:240
-#: ../plugins/message-view/plugin.c:71 ../plugins/symbol-browser/plugin.c:279
+#: ../plugins/devhelp/plugin.c:237 ../plugins/document-manager/plugin.c:249
+#: ../plugins/message-view/plugin.c:69 ../plugins/symbol-browser/plugin.c:269
 msgid "_Goto"
 msgstr "_Vés a"
 
@@ -2423,7 +2428,7 @@ msgstr "Llibres"
 #: ../plugins/search/search-replace.c:1668
 #: ../plugins/search/search-replace.c:1680
 #: ../plugins/search/search-replace.c:1994
-#: ../plugins/symbol-browser/plugin.c:1046 ../plugins/symbol-db/plugin.c:864
+#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:864
 msgid "Search"
 msgstr "Cerca"
 
@@ -2465,7 +2470,7 @@ msgid "Save file as"
 msgstr "Anomena i desa"
 
 #: ../plugins/document-manager/anjuta-docman.c:404
-#: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:386
+#: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:376
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2475,7 +2480,7 @@ msgstr ""
 "Voleu reemplaçar-lo amb el que esteu desant?"
 
 #: ../plugins/document-manager/anjuta-docman.c:412
-#: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:394
+#: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:384
 #: ../src/anjuta-callbacks.c:79
 msgid "_Replace"
 msgstr "_Reemplaça"
@@ -2505,9 +2510,9 @@ msgid "Do not show tabs"
 msgstr "No mostris les pestanyes"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1650
-#: ../plugins/document-manager/plugin.c:2017
-#: ../plugins/document-manager/plugin.c:2029
+#: ../plugins/document-manager/plugin.c:1642
+#: ../plugins/document-manager/plugin.c:2009
+#: ../plugins/document-manager/plugin.c:2021
 msgid "Documents"
 msgstr "Documents"
 
@@ -2564,611 +2569,605 @@ msgstr "Intenta desar en la codificació de la localització actual"
 msgid "Try to save in original encoding"
 msgstr "Intenta desar en la codificació original"
 
-#: ../plugins/document-manager/plugin.c:145
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:154
 msgid "_New"
-msgstr "/_Nova"
+msgstr "_Nou"
 
-#: ../plugins/document-manager/plugin.c:146
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:155
 msgid "New empty file"
-msgstr "Editor buit nou."
+msgstr "Fitxer buit nou"
 
-#: ../plugins/document-manager/plugin.c:148
+#: ../plugins/document-manager/plugin.c:157
 msgid "_Save"
 msgstr "_Desa"
 
-#: ../plugins/document-manager/plugin.c:149
+#: ../plugins/document-manager/plugin.c:158
 msgid "Save current file"
 msgstr "Desa el fitxer actual"
 
-#: ../plugins/document-manager/plugin.c:150
+#: ../plugins/document-manager/plugin.c:159
 msgid "Save _As..."
 msgstr "_Anomena i desa..."
 
-#: ../plugins/document-manager/plugin.c:151
+#: ../plugins/document-manager/plugin.c:160
 msgid "Save the current file with a different name"
 msgstr "Desa el fitxer actual amb un nom diferent"
 
-#: ../plugins/document-manager/plugin.c:153
+#: ../plugins/document-manager/plugin.c:162
 msgid "Save A_ll"
 msgstr "Desa-ho to_t"
 
-#: ../plugins/document-manager/plugin.c:154
+#: ../plugins/document-manager/plugin.c:163
 msgid "Save all currently open files, except new files"
 msgstr "Desa tots els fitxers oberts actualment, excepte els fitxers nous"
 
-#: ../plugins/document-manager/plugin.c:156
+#: ../plugins/document-manager/plugin.c:165
 msgid "_Close File"
 msgstr "Tan_ca el fitxer"
 
-#: ../plugins/document-manager/plugin.c:157
+#: ../plugins/document-manager/plugin.c:166
 msgid "Close current file"
 msgstr "Tanca el fitxer actual"
 
-#: ../plugins/document-manager/plugin.c:159
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:168
 msgid "Close All"
-msgstr "Tanca tots els fitxers"
+msgstr "Tanca'ls tots"
 
-#: ../plugins/document-manager/plugin.c:160
+#: ../plugins/document-manager/plugin.c:169
 msgid "Close all files"
 msgstr "Tanca tots els fitxers"
 
-#: ../plugins/document-manager/plugin.c:162
+#: ../plugins/document-manager/plugin.c:171
 msgid "Reload F_ile"
 msgstr "Torna a carregar el f_itxer"
 
-#: ../plugins/document-manager/plugin.c:163
+#: ../plugins/document-manager/plugin.c:172
 msgid "Reload current file"
 msgstr "Torna a carregar el fitxer actual"
 
 #. 8
-#: ../plugins/document-manager/plugin.c:165
+#: ../plugins/document-manager/plugin.c:174
 #: ../plugins/editor/text_editor_menu.c:292
 msgid "Swap .h/.c"
 msgstr "Alterna capçalera/codi"
 
-#: ../plugins/document-manager/plugin.c:166
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:175
 msgid "Swap c header and source files"
-msgstr "Alterna entre la capçalera i el codi font"
+msgstr "Alterna entre el fitxer de capçalera de C i els fitxers de codi"
 
-#: ../plugins/document-manager/plugin.c:168
+#: ../plugins/document-manager/plugin.c:177
 msgid "Recent _Files"
 msgstr "_Fitxers recents"
 
-#: ../plugins/document-manager/plugin.c:172
+#: ../plugins/document-manager/plugin.c:181
 msgid "_Print..."
 msgstr "_Imprimeix..."
 
-#: ../plugins/document-manager/plugin.c:173
+#: ../plugins/document-manager/plugin.c:182
 msgid "Print the current file"
 msgstr "Imprimeix el fitxer actual"
 
-#: ../plugins/document-manager/plugin.c:180
+#: ../plugins/document-manager/plugin.c:189
 msgid "_Print Preview"
 msgstr "_Previsualitza la impressió"
 
-#: ../plugins/document-manager/plugin.c:181
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:190
 msgid "Preview the current file in print-format"
-msgstr "Previsualitza la impressió del fitxer actual"
+msgstr "Previsualitza el fitxer actual en format d'impressió"
 
-#: ../plugins/document-manager/plugin.c:186
+#: ../plugins/document-manager/plugin.c:195
 msgid "_Transform"
 msgstr "_Transforma"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:187
+#: ../plugins/document-manager/plugin.c:196
 msgid "_Make Selection Uppercase"
 msgstr "Converteix la selecció en _majúscules"
 
-#: ../plugins/document-manager/plugin.c:188
+#: ../plugins/document-manager/plugin.c:197
 msgid "Make the selected text uppercase"
 msgstr "Converteix el text seleccionat en majúscules"
 
-#: ../plugins/document-manager/plugin.c:190
+#: ../plugins/document-manager/plugin.c:199
 msgid "Make Selection Lowercase"
 msgstr "Converteix la selecció en minúscules"
 
-#: ../plugins/document-manager/plugin.c:191
+#: ../plugins/document-manager/plugin.c:200
 msgid "Make the selected text lowercase"
 msgstr "Converteix el text seleccionat en minúscules"
 
-#: ../plugins/document-manager/plugin.c:193
+#: ../plugins/document-manager/plugin.c:202
 msgid "Convert EOL to CRLF"
 msgstr "Converteix EOL a CRLF"
 
-#: ../plugins/document-manager/plugin.c:194
+#: ../plugins/document-manager/plugin.c:203
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
 msgstr "Converteix els caràcters de fi de línia a tipus DOS (CRLF)"
 
-#: ../plugins/document-manager/plugin.c:196
+#: ../plugins/document-manager/plugin.c:205
 msgid "Convert EOL to LF"
 msgstr "Converteix EOL a LF"
 
-#: ../plugins/document-manager/plugin.c:197
+#: ../plugins/document-manager/plugin.c:206
 msgid "Convert End Of Line characters to Unix EOL (LF)"
 msgstr "Converteix els caràcters fi de línia a tipus Unix (LF)"
 
-#: ../plugins/document-manager/plugin.c:199
+#: ../plugins/document-manager/plugin.c:208
 msgid "Convert EOL to CR"
 msgstr "Converteix EOL a CR"
 
-#: ../plugins/document-manager/plugin.c:200
+#: ../plugins/document-manager/plugin.c:209
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
 msgstr "Converteix caràcters de fi de línia a tipus MacOS (CR)"
 
-#: ../plugins/document-manager/plugin.c:202
+#: ../plugins/document-manager/plugin.c:211
 msgid "Convert EOL to Majority EOL"
 msgstr "Converteix EOL a la majoria d'EOL"
 
-#: ../plugins/document-manager/plugin.c:203
+#: ../plugins/document-manager/plugin.c:212
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
 msgstr ""
 "Converteix caràcters de fi de línia a la majoria d'EOL trobats al fitxer"
 
-#: ../plugins/document-manager/plugin.c:208
+#: ../plugins/document-manager/plugin.c:217
 msgid "_Select"
 msgstr "_Selecciona"
 
-#: ../plugins/document-manager/plugin.c:215
+#: ../plugins/document-manager/plugin.c:224
 msgid "Select _All"
 msgstr "Seleccion_a-ho tot"
 
-#: ../plugins/document-manager/plugin.c:216
+#: ../plugins/document-manager/plugin.c:225
 msgid "Select all text in the editor"
 msgstr "Selecciona tot el text en l'editor"
 
-#: ../plugins/document-manager/plugin.c:218
+#: ../plugins/document-manager/plugin.c:227
 msgid "Select to _Brace"
 msgstr "Selecciona fins la _clau"
 
-#: ../plugins/document-manager/plugin.c:219
+#: ../plugins/document-manager/plugin.c:228
 msgid "Select the text in the matching braces"
 msgstr "Selecciona el text entre les claus de codi corresponents"
 
-#: ../plugins/document-manager/plugin.c:221
+#: ../plugins/document-manager/plugin.c:230
 msgid "Select _Code Block"
 msgstr "Sele_cciona el bloc de codi"
 
-#: ../plugins/document-manager/plugin.c:222
+#: ../plugins/document-manager/plugin.c:231
 msgid "Select the current code block"
 msgstr "Selecciona el bloc de codi actual"
 
-#: ../plugins/document-manager/plugin.c:227
+#: ../plugins/document-manager/plugin.c:236
 msgid "Co_mment"
 msgstr "Co_mentari"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:228
+#: ../plugins/document-manager/plugin.c:237
 msgid "_Block Comment/Uncomment"
 msgstr "Comenta/descomenta com a _bloc"
 
-#: ../plugins/document-manager/plugin.c:229
+#: ../plugins/document-manager/plugin.c:238
 msgid "Block comment the selected text"
 msgstr "Comenta el text seleccionat com a bloc"
 
-#: ../plugins/document-manager/plugin.c:231
+#: ../plugins/document-manager/plugin.c:240
 msgid "Bo_x Comment/Uncomment"
 msgstr "Comenta/descomenta com a cai_xa"
 
-#: ../plugins/document-manager/plugin.c:232
+#: ../plugins/document-manager/plugin.c:241
 msgid "Box comment the selected text"
 msgstr "Comenta el text seleccionat com a caixa"
 
-#: ../plugins/document-manager/plugin.c:234
+#: ../plugins/document-manager/plugin.c:243
 msgid "_Stream Comment/Uncomment"
 msgstr "Comenta/de_scomenta inici i final"
 
-#: ../plugins/document-manager/plugin.c:235
+#: ../plugins/document-manager/plugin.c:244
 msgid "Stream comment the selected text"
 msgstr "Comenta el text seleccionat a l'inici i al final"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:241
+#: ../plugins/document-manager/plugin.c:250
 msgid "_Line Number..."
 msgstr "Número de _línia..."
 
-#: ../plugins/document-manager/plugin.c:242
+#: ../plugins/document-manager/plugin.c:251
 msgid "Go to a particular line in the editor"
 msgstr "Vés a una línia en concret en l'editor"
 
-#: ../plugins/document-manager/plugin.c:244
+#: ../plugins/document-manager/plugin.c:253
 msgid "Matching _Brace"
 msgstr "Clau o _parèntesi concordant"
 
-#: ../plugins/document-manager/plugin.c:245
+#: ../plugins/document-manager/plugin.c:254
 msgid "Go to the matching brace in the editor"
 msgstr "Vés a la clau o parèntesi concordant en l'editor"
 
-#: ../plugins/document-manager/plugin.c:247
+#: ../plugins/document-manager/plugin.c:256
 msgid "_Start of Block"
 msgstr "_Inici del bloc"
 
-#: ../plugins/document-manager/plugin.c:248
+#: ../plugins/document-manager/plugin.c:257
 msgid "Go to the start of the current block"
 msgstr "Vés a l'inici del bloc actual"
 
-#: ../plugins/document-manager/plugin.c:250
+#: ../plugins/document-manager/plugin.c:259
 msgid "_End of Block"
 msgstr "_Fi del bloc"
 
-#: ../plugins/document-manager/plugin.c:251
+#: ../plugins/document-manager/plugin.c:260
 msgid "Go to the end of the current block"
 msgstr "Vés a la fi del bloc actual"
 
-#: ../plugins/document-manager/plugin.c:253
+#: ../plugins/document-manager/plugin.c:262
 msgid "Previous _History"
 msgstr "_Historial anterior"
 
-#: ../plugins/document-manager/plugin.c:254
+#: ../plugins/document-manager/plugin.c:263
 msgid "Goto previous history"
 msgstr "Vés a l'historial anterior"
 
-#: ../plugins/document-manager/plugin.c:256
+#: ../plugins/document-manager/plugin.c:265
 msgid "Next Histor_y"
 msgstr "Historial _següent"
 
-#: ../plugins/document-manager/plugin.c:257
+#: ../plugins/document-manager/plugin.c:266
 msgid "Goto next history"
 msgstr "Vés a l'historial següent"
 
-#: ../plugins/document-manager/plugin.c:262 ../plugins/search/plugin.c:185
+#: ../plugins/document-manager/plugin.c:271 ../plugins/search/plugin.c:190
 msgid "_Search"
 msgstr "_Cerca"
 
-#: ../plugins/document-manager/plugin.c:263
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:272
 msgid "_Quick Search"
-msgstr "Cerca bàsica"
+msgstr "Cerca _ràpida"
 
-#: ../plugins/document-manager/plugin.c:264
+#: ../plugins/document-manager/plugin.c:273
 msgid "Quick editor embedded search"
-msgstr ""
+msgstr "Cerca ràpida integrada a l'editor"
 
-#: ../plugins/document-manager/plugin.c:269 ../plugins/gtodo/interface.c:170
+#: ../plugins/document-manager/plugin.c:278 ../plugins/gtodo/interface.c:170
 #: ../plugins/tools/anjuta-tools.glade.h:18
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1349
+#: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1343
 msgid "_Edit"
 msgstr "_Edita"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:270
+#: ../plugins/document-manager/plugin.c:279
 msgid "_Editor"
 msgstr "_Editor"
 
-#: ../plugins/document-manager/plugin.c:277
+#: ../plugins/document-manager/plugin.c:286
 msgid "_Add Editor View"
 msgstr "_Afegeix una visualització d'editor"
 
-#: ../plugins/document-manager/plugin.c:278
+#: ../plugins/document-manager/plugin.c:287
 msgid "Add one more view of current document"
 msgstr "Afegeix una visualització més del document"
 
-#: ../plugins/document-manager/plugin.c:280
+#: ../plugins/document-manager/plugin.c:289
 msgid "_Remove Editor View"
 msgstr "_Suprimeix la visualització de l'editor"
 
-#: ../plugins/document-manager/plugin.c:281
+#: ../plugins/document-manager/plugin.c:290
 msgid "Remove current view of the document"
 msgstr "Suprimeix la visualització actual de l'editor"
 
-#: ../plugins/document-manager/plugin.c:283
+#: ../plugins/document-manager/plugin.c:292
 msgid "U_ndo"
 msgstr "Des_fés"
 
-#: ../plugins/document-manager/plugin.c:284
+#: ../plugins/document-manager/plugin.c:293
 msgid "Undo the last action"
 msgstr "Desfés l'última acció"
 
-#: ../plugins/document-manager/plugin.c:286
+#: ../plugins/document-manager/plugin.c:295
 msgid "_Redo"
 msgstr "_Refés"
 
-#: ../plugins/document-manager/plugin.c:287
+#: ../plugins/document-manager/plugin.c:296
 msgid "Redo the last undone action"
 msgstr "Torna a fer la darrera acció desfeta"
 
-#: ../plugins/document-manager/plugin.c:289
+#: ../plugins/document-manager/plugin.c:298
 msgid "C_ut"
 msgstr "Reta_lla"
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:299
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Retalla el text seleccionat de l'editor al porta-retalls"
 
-#: ../plugins/document-manager/plugin.c:292
+#: ../plugins/document-manager/plugin.c:301
 #: ../plugins/valgrind/vgdefaultview.c:1153
 msgid "_Copy"
 msgstr "_Copia"
 
-#: ../plugins/document-manager/plugin.c:293
+#: ../plugins/document-manager/plugin.c:302
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el text seleccionat al porta-retalls"
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:304
 #: ../plugins/valgrind/vgdefaultview.c:1154
 msgid "_Paste"
 msgstr "_Enganxa"
 
-#: ../plugins/document-manager/plugin.c:296
+#: ../plugins/document-manager/plugin.c:305
 msgid "Paste the content of clipboard at the current position"
 msgstr "Enganxa el contingut del porta-retalls a la posició actual"
 
-#: ../plugins/document-manager/plugin.c:304
+#: ../plugins/document-manager/plugin.c:313
 msgid "_Clear"
 msgstr "_Buida"
 
-#: ../plugins/document-manager/plugin.c:305
+#: ../plugins/document-manager/plugin.c:314
 msgid "Delete the selected text from the editor"
 msgstr "Suprimeix el text seleccionat de l'editor"
 
-#: ../plugins/document-manager/plugin.c:310
+#: ../plugins/document-manager/plugin.c:319
 msgid "_Line Number Margin"
 msgstr "Marge del número de _línia"
 
-#: ../plugins/document-manager/plugin.c:311
+#: ../plugins/document-manager/plugin.c:320
 msgid "Show/Hide line numbers"
 msgstr "Mostra/oculta el número de línia"
 
-#: ../plugins/document-manager/plugin.c:313
+#: ../plugins/document-manager/plugin.c:322
 msgid "_Marker Margin"
 msgstr "Marge dels _marcadors"
 
-#: ../plugins/document-manager/plugin.c:314
+#: ../plugins/document-manager/plugin.c:323
 msgid "Show/Hide marker margin"
 msgstr "Mostra/oculta el marge dels marcadors"
 
-#: ../plugins/document-manager/plugin.c:316
+#: ../plugins/document-manager/plugin.c:325
 msgid "_Code Fold Margin"
 msgstr "Marge de desplegament de _codi"
 
-#: ../plugins/document-manager/plugin.c:317
+#: ../plugins/document-manager/plugin.c:326
 msgid "Show/Hide code fold margin"
 msgstr "Mostra/oculta el marge de desplegament de codi"
 
-#: ../plugins/document-manager/plugin.c:319
+#: ../plugins/document-manager/plugin.c:328
 msgid "_Indentation Guides"
 msgstr "Gu_ies de sagnat"
 
-#: ../plugins/document-manager/plugin.c:320
+#: ../plugins/document-manager/plugin.c:329
 msgid "Show/Hide indentation guides"
 msgstr "Mostra/oculta les guies de sagnat"
 
-#: ../plugins/document-manager/plugin.c:322
+#: ../plugins/document-manager/plugin.c:331
 msgid "_White Space"
 msgstr "Espais en _blanc"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:332
 msgid "Show/Hide white spaces"
 msgstr "Mostra/oculta els espais en blanc"
 
-#: ../plugins/document-manager/plugin.c:325
+#: ../plugins/document-manager/plugin.c:334
 msgid "_Line End Characters"
 msgstr "Caràcters final de _línia"
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:335
 msgid "Show/Hide line end characters"
 msgstr "Mostra/oculta els caràcters de final de línia"
 
-#: ../plugins/document-manager/plugin.c:328
+#: ../plugins/document-manager/plugin.c:337
 msgid "Line _Wrapping"
 msgstr "Ajustar de _línia"
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:338
 msgid "Enable/disable line wrapping"
 msgstr "Habilita/inhabilita l'ajust de línia al final"
 
-#: ../plugins/document-manager/plugin.c:334
+#: ../plugins/document-manager/plugin.c:343
 msgid "Zoom In"
 msgstr "Apropa"
 
-#: ../plugins/document-manager/plugin.c:335
+#: ../plugins/document-manager/plugin.c:344
 msgid "Zoom in: Increase font size"
 msgstr "Augmenta la mida de la lletra"
 
-#: ../plugins/document-manager/plugin.c:337
+#: ../plugins/document-manager/plugin.c:346
 msgid "Zoom Out"
 msgstr "Allunya"
 
-#: ../plugins/document-manager/plugin.c:338
+#: ../plugins/document-manager/plugin.c:347
 msgid "Zoom out: Decrease font size"
 msgstr "Redueix la mida de la lletra"
 
-#: ../plugins/document-manager/plugin.c:343
+#: ../plugins/document-manager/plugin.c:352
 msgid "_Highlight Mode"
 msgstr "Mode de _ressaltat"
 
-#: ../plugins/document-manager/plugin.c:347
+#: ../plugins/document-manager/plugin.c:356
 msgid "_Close All Folds"
 msgstr "Plega totes les vistes de _codi"
 
-#: ../plugins/document-manager/plugin.c:348
+#: ../plugins/document-manager/plugin.c:357
 msgid "Close all code folds in the editor"
 msgstr "Plega totes les vistes de codi en l'editor"
 
-#: ../plugins/document-manager/plugin.c:350
+#: ../plugins/document-manager/plugin.c:359
 msgid "_Open All Folds"
 msgstr "Desplega t_otes les vistes de codi"
 
-#: ../plugins/document-manager/plugin.c:351
+#: ../plugins/document-manager/plugin.c:360
 msgid "Open all code folds in the editor"
 msgstr "Desplega totes les vistes de codi en l'editor"
 
-#: ../plugins/document-manager/plugin.c:353
+#: ../plugins/document-manager/plugin.c:362
 msgid "_Toggle Current Fold"
 msgstr "Commu_ta la visualització de codi actual"
 
-#: ../plugins/document-manager/plugin.c:354
+#: ../plugins/document-manager/plugin.c:363
 msgid "Toggle current code fold in the editor"
 msgstr "Commuta la visualització de codi actual en l'editor"
 
-#: ../plugins/document-manager/plugin.c:359
+#: ../plugins/document-manager/plugin.c:368
 msgid "Bookmar_k"
 msgstr "Adreça d'inte_rès"
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:369
 msgid "_Toggle Bookmark"
 msgstr "_Commuta l'adreça d'interès"
 
-#: ../plugins/document-manager/plugin.c:361
+#: ../plugins/document-manager/plugin.c:370
 msgid "Toggle a bookmark at the current line position"
 msgstr "Commuta una adreça d'interès a la línia actual"
 
-#: ../plugins/document-manager/plugin.c:363
+#: ../plugins/document-manager/plugin.c:372
 msgid "_First Bookmark"
 msgstr "_Primera adreça d'interès"
 
-#: ../plugins/document-manager/plugin.c:364
+#: ../plugins/document-manager/plugin.c:373
 msgid "Jump to the first bookmark in the file"
 msgstr "Vés a la primera adreça d'interès del fitxer"
 
-#: ../plugins/document-manager/plugin.c:366
+#: ../plugins/document-manager/plugin.c:375
 msgid "_Previous Bookmark"
 msgstr "Adreça d'interès _anterior"
 
-#: ../plugins/document-manager/plugin.c:367
+#: ../plugins/document-manager/plugin.c:376
 msgid "Jump to the previous bookmark in the file"
 msgstr "Vés a l'adreça d'interès anterior del fitxer"
 
-#: ../plugins/document-manager/plugin.c:369
+#: ../plugins/document-manager/plugin.c:378
 msgid "_Next Bookmark"
 msgstr "Adreça d'interès _següent"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:379
 msgid "Jump to the next bookmark in the file"
 msgstr "Vés a l'adreça d'interès següent del fitxer"
 
-#: ../plugins/document-manager/plugin.c:372
+#: ../plugins/document-manager/plugin.c:381
 msgid "_Last Bookmark"
 msgstr "Ú_ltima adreça d'interès"
 
-#: ../plugins/document-manager/plugin.c:373
+#: ../plugins/document-manager/plugin.c:382
 msgid "Jump to the last bookmark in the file"
 msgstr "Vés a l'última adreça d'interès del fitxer"
 
-#: ../plugins/document-manager/plugin.c:375
+#: ../plugins/document-manager/plugin.c:384
 msgid "_Clear All Bookmarks"
 msgstr "Neteja totes les adre_ces d'interès"
 
-#: ../plugins/document-manager/plugin.c:376
+#: ../plugins/document-manager/plugin.c:385
 msgid "Clear bookmarks"
 msgstr "Neteja les adreces d'interès"
 
-#: ../plugins/document-manager/plugin.c:395
+#: ../plugins/document-manager/plugin.c:404
 msgid "Editor file operations"
 msgstr "Operacions de fitxer de l'editor"
 
-#: ../plugins/document-manager/plugin.c:396
+#: ../plugins/document-manager/plugin.c:405
 msgid "Editor print operations"
 msgstr "Operacions d'impressió de l'editor"
 
-#: ../plugins/document-manager/plugin.c:397
+#: ../plugins/document-manager/plugin.c:406
 msgid "Editor text transformation"
 msgstr "Transformació del text de l'editor"
 
-#: ../plugins/document-manager/plugin.c:398
+#: ../plugins/document-manager/plugin.c:407
 msgid "Editor text selection"
 msgstr "Selecció de text de l'editor"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:400
+#: ../plugins/document-manager/plugin.c:409
 msgid "Editor code commenting"
 msgstr "Comentaris del codi de l'editor"
 
-#: ../plugins/document-manager/plugin.c:401
+#: ../plugins/document-manager/plugin.c:410
 msgid "Editor navigations"
 msgstr "Navegacions de l'editor"
 
-#: ../plugins/document-manager/plugin.c:402
+#: ../plugins/document-manager/plugin.c:411
 msgid "Editor edit operations"
 msgstr "Operacions d'edició de l'editor"
 
-#: ../plugins/document-manager/plugin.c:403
+#: ../plugins/document-manager/plugin.c:412
 msgid "Editor zoom operations"
 msgstr "Operacions d'ampliació de l'editor"
 
-#: ../plugins/document-manager/plugin.c:404
+#: ../plugins/document-manager/plugin.c:413
 msgid "Editor syntax highlighting styles"
 msgstr "Estils de ressaltat de sintaxi de l'editor"
 
-#: ../plugins/document-manager/plugin.c:405
+#: ../plugins/document-manager/plugin.c:414
 msgid "Editor text formating"
 msgstr "Format del text de l'editor"
 
-#: ../plugins/document-manager/plugin.c:406
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor bookmarks"
 msgstr "Adreces d'interès de l'editor"
 
-#: ../plugins/document-manager/plugin.c:407
-#, fuzzy
+#: ../plugins/document-manager/plugin.c:416
 msgid "Simple searching"
-msgstr "S'està cercant"
+msgstr "Cercant senzilla"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:420
 msgid "Editor view settings"
 msgstr "Configuració de la visualització de l'editor"
 
-#: ../plugins/document-manager/plugin.c:546
+#: ../plugins/document-manager/plugin.c:555
 #: ../plugins/file-loader/plugin.c:1125
 msgid "New"
 msgstr "Nou"
 
-#: ../plugins/document-manager/plugin.c:554
+#: ../plugins/document-manager/plugin.c:563
 msgid "Reload"
 msgstr "Torna a carregar"
 
-#: ../plugins/document-manager/plugin.c:560
+#: ../plugins/document-manager/plugin.c:569
 msgid "Goto"
 msgstr "Vés a"
 
-#: ../plugins/document-manager/plugin.c:910
+#: ../plugins/document-manager/plugin.c:906
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:914
+#: ../plugins/document-manager/plugin.c:910
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:916
-#: ../plugins/document-manager/plugin.c:927
+#: ../plugins/document-manager/plugin.c:912
+#: ../plugins/document-manager/plugin.c:923
 msgid "Zoom"
 msgstr "Ampliació"
 
-#: ../plugins/document-manager/plugin.c:918
-#: ../plugins/document-manager/plugin.c:929
+#: ../plugins/document-manager/plugin.c:914
+#: ../plugins/document-manager/plugin.c:925
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:919
-#: ../plugins/document-manager/plugin.c:930
+#: ../plugins/document-manager/plugin.c:915
+#: ../plugins/document-manager/plugin.c:926
 msgid "Mode"
 msgstr "Mode"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:996
+#: ../plugins/document-manager/plugin.c:992
 msgid "Automatic"
 msgstr "Automàtic"
 
-#: ../plugins/document-manager/search-box.c:370
+#: ../plugins/document-manager/search-box.c:372
 #, c-format
 msgid "Search for \"%s\" reached end and was continued on top!"
-msgstr ""
+msgstr "La cerca de «%s» ha arribat al final i ha continuat pel començament."
 
-#: ../plugins/document-manager/search-box.c:376
+#: ../plugins/document-manager/search-box.c:378
 #, c-format
 msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
 "found!"
 msgstr ""
+"La cerca de «%s» ha arribat al final i ha continuat pel començament però no "
+"s'ha trobat cap concordança."
 
-#: ../plugins/document-manager/search-box.c:433
-#, fuzzy
+#: ../plugins/document-manager/search-box.c:435
 msgid "Case sensitive"
-msgstr "Considera les majúscules i minúscules iguals"
+msgstr "Coincidència de majúscules i minúscules"
 
 #: ../plugins/editor/editor.glade.h:1
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
@@ -3715,7 +3714,7 @@ msgid "Debug"
 msgstr "Depura"
 
 #. 15
-#: ../plugins/editor/text_editor_menu.c:330 ../plugins/valgrind/plugin.c:148
+#: ../plugins/editor/text_editor_menu.c:330 ../plugins/valgrind/plugin.c:138
 msgid "Options"
 msgstr "Opcions"
 
@@ -3864,6 +3863,34 @@ msgstr "Obre un fitxer recent"
 msgid "Open recent files"
 msgstr "Obre fitxers recents"
 
+#: ../plugins/file-manager/file-manager.glade.h:1
+msgid "<b>Filter</b>"
+msgstr "<b>Filtre</b>"
+
+#: ../plugins/file-manager/file-manager.glade.h:2
+msgid "<b>Global</b>"
+msgstr "<b>Global</b>"
+
+#: ../plugins/file-manager/file-manager.glade.h:3
+msgid "Choose Directory to show if no project is open"
+msgstr "Escolliu el directori a obrir si no hi ha cap projecte obert"
+
+#: ../plugins/file-manager/file-manager.glade.h:4
+msgid "Do not show backup files"
+msgstr "No mostris els fitxers de còpia de seguretat"
+
+#: ../plugins/file-manager/file-manager.glade.h:5
+msgid "Do not show binary files (.o, .la, etc.)"
+msgstr "No mostris els fitxers binaris (.o, .la, etc.)"
+
+#: ../plugins/file-manager/file-manager.glade.h:6
+msgid "Do not show hidden files"
+msgstr "No mostris els fitxers ocults"
+
+#: ../plugins/file-manager/file-manager.glade.h:7
+msgid "Root directory if no project is open: "
+msgstr "Directori arrel si no hi ha cap projecte obert: "
+
 #: ../plugins/file-manager/file-model.c:150
 #: ../plugins/symbol-browser/an_symbol_view.c:869
 msgid "Loading..."
@@ -3882,7 +3909,7 @@ msgid "Uri of the top-most path displayed"
 msgstr "URI del camí que s'ha mostrat més"
 
 #: ../plugins/file-manager/plugin.c:71 ../plugins/project-manager/plugin.c:747
-#: ../plugins/symbol-browser/plugin.c:327
+#: ../plugins/symbol-browser/plugin.c:317
 msgid "_Refresh"
 msgstr "_Actualitza"
 
@@ -3900,9 +3927,8 @@ msgid "Files"
 msgstr "Fitxers"
 
 #: ../plugins/file-manager/plugin.c:362 ../plugins/file-manager/plugin.c:371
-#, fuzzy
 msgid "File Manager"
-msgstr "Nom del fitxer"
+msgstr "Gestor de fitxers"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
 #: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
@@ -3968,27 +3994,27 @@ msgstr "Fitxer de codi C"
 
 #: ../plugins/file-wizard/file.c:83
 msgid "C -C++ Header File"
-msgstr "Capçalera C/C++"
+msgstr "Fitxer de capçalera C/C++"
 
 #: ../plugins/file-wizard/file.c:84
 msgid "C++ Source File"
-msgstr "Codi font C++"
+msgstr "Fitxer de codi C++"
 
 #: ../plugins/file-wizard/file.c:85
 msgid "C# Source File"
-msgstr "Codi font codi C#"
+msgstr "Fitxer de codi C#"
 
 #: ../plugins/file-wizard/file.c:86
 msgid "Java Source File"
-msgstr "Codi font Java"
+msgstr "Fitxer de codi Java"
 
 #: ../plugins/file-wizard/file.c:87
 msgid "Perl Source File"
-msgstr "Codi font Perl"
+msgstr "Fitxer de codi Perl"
 
 #: ../plugins/file-wizard/file.c:88
 msgid "Python Source File"
-msgstr "Codi font Python"
+msgstr "Fitxer de codi Python"
 
 #: ../plugins/file-wizard/file.c:89
 msgid "Shell Script File"
@@ -4155,25 +4181,25 @@ msgstr "S'està enviant el senyal %s al procés: %d"
 msgid "Error whilst signaling the process."
 msgstr "Hi ha hagut un error en enviar el senyal al procés."
 
-#: ../plugins/glade/plugin.c:457
+#: ../plugins/glade/plugin.c:447
 msgid "Widgets"
 msgstr "Ginys"
 
-#: ../plugins/glade/plugin.c:462
+#: ../plugins/glade/plugin.c:452
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:607
+#: ../plugins/glade/plugin.c:597
 #, c-format
 msgid "Not local file: %s"
 msgstr "No és un fitxer local: %s"
 
-#: ../plugins/glade/plugin.c:644
+#: ../plugins/glade/plugin.c:634
 #, c-format
 msgid "Could not open: %s"
 msgstr "No es pot obrir: %s"
 
-#: ../plugins/glade/plugin.c:703
+#: ../plugins/glade/plugin.c:693
 msgid "Could not create a new glade project."
 msgstr "No es pot crear un projecte nou del Glade."
 
@@ -4901,13 +4927,11 @@ msgstr "<b>Estil de format automàtic</b>"
 
 #
 #: ../plugins/indent/indent.glade.h:4
-#, fuzzy
 msgid "<b>Blank lines</b>"
 msgstr "<b>Línies en blanc</b>"
 
 #
 #: ../plugins/indent/indent.glade.h:5
-#, fuzzy
 msgid "<b>Breaking long lines</b>"
 msgstr "<b>Separació de línies llargues</b>"
 
@@ -5298,9 +5322,9 @@ msgstr ""
 "(vegeu el manual d'«indent»)."
 
 #: ../plugins/indent/plugin.c:65
-#, fuzzy, c-format
+#, c-format
 msgid "Indent command failed with error code: %d"
-msgstr "El programa ha sortit amb el codi d'error %s\n"
+msgstr "Ha fallat l'ordre de sagnat amb el codi d'error %d"
 
 #: ../plugins/indent/plugin.c:126
 #, c-format
@@ -5309,7 +5333,7 @@ msgstr "L'Anjuta no coneix %s"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/indent/plugin.c:168 ../plugins/patch/plugin.c:61
+#: ../plugins/indent/plugin.c:168 ../plugins/patch/plugin.c:55
 #: ../plugins/tools/plugin.c:135
 msgid "_Tools"
 msgstr "_Eines"
@@ -5318,28 +5342,25 @@ msgstr "_Eines"
 #. Stock icon, if any
 #: ../plugins/indent/plugin.c:176
 msgid "_Format Code with \"indent\""
-msgstr ""
+msgstr "_Formata el codi amb «indent»"
 
 #. Display label
 #. short-cut
 #: ../plugins/indent/plugin.c:178
 msgid "Format code with the \"indent\" command line utility"
-msgstr ""
+msgstr "Formata el codi amb la utilitat de la línia d'ordres «indent»"
 
 #: ../plugins/indent/plugin.c:254
-#, fuzzy
 msgid "Autoformat operations"
-msgstr "Operacions d'eina"
+msgstr "Operacions de format automàtic"
 
 #: ../plugins/indent/plugin.c:333
-#, fuzzy
 msgid "Indent Utility"
-msgstr "Configuració del sagnat"
+msgstr "Utilitat «indent»"
 
 #: ../plugins/indent/plugin.c:352
-#, fuzzy
 msgid "Indent utility"
-msgstr "Configuració del sagnat"
+msgstr "Utilitat «indent»"
 
 #: ../plugins/macro/anjuta-macro.glade.h:2
 msgid "<b>Macro details:</b>"
@@ -5646,8 +5667,8 @@ msgid "Icon"
 msgstr "Icona"
 
 #: ../plugins/message-view/message-view.c:728
-#: ../plugins/message-view/plugin.c:244 ../plugins/message-view/plugin.c:422
-#: ../plugins/message-view/plugin.c:433
+#: ../plugins/message-view/plugin.c:216 ../plugins/message-view/plugin.c:394
+#: ../plugins/message-view/plugin.c:405
 msgid "Messages"
 msgstr "Missatges"
 
@@ -5656,31 +5677,31 @@ msgstr "Missatges"
 msgid "Error writing %s"
 msgstr "S'ha produït un error en escriure %s"
 
-#: ../plugins/message-view/plugin.c:73
+#: ../plugins/message-view/plugin.c:71
 msgid "_Next Message"
 msgstr "Missatge següe_nt"
 
-#: ../plugins/message-view/plugin.c:74
+#: ../plugins/message-view/plugin.c:72
 msgid "Next message"
 msgstr "Missatge següent"
 
-#: ../plugins/message-view/plugin.c:77
+#: ../plugins/message-view/plugin.c:75
 msgid "_Previous Message"
 msgstr "Missatge _anterior"
 
-#: ../plugins/message-view/plugin.c:78
+#: ../plugins/message-view/plugin.c:76
 msgid "Previous message"
 msgstr "Missatge anterior"
 
-#: ../plugins/message-view/plugin.c:81
+#: ../plugins/message-view/plugin.c:79
 msgid "_Save Message"
 msgstr "De_sa el missatge"
 
-#: ../plugins/message-view/plugin.c:82
+#: ../plugins/message-view/plugin.c:80
 msgid "Save message"
 msgstr "Desa el missatge"
 
-#: ../plugins/message-view/plugin.c:226
+#: ../plugins/message-view/plugin.c:198
 msgid "Next/Prev Message"
 msgstr "Missatge anterior/següent"
 
@@ -5729,11 +5750,11 @@ msgstr "Execució bruta"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/patch/plugin.c:69
+#: ../plugins/patch/plugin.c:63
 msgid "_Patch..."
 msgstr "_Pedaç..."
 
-#: ../plugins/patch/plugin.c:102
+#: ../plugins/patch/plugin.c:94
 msgid "Patch files/directories"
 msgstr "Aplica un pedaç a fitxers/directoris"
 
@@ -6071,7 +6092,7 @@ msgid ""
 msgstr ""
 "%sFont: %s\n"
 "\n"
-"El fitxer font no se suprimirà del sistema de fitxers."
+"El fitxer de codi no se suprimirà del sistema de fitxers."
 
 #: ../plugins/project-manager/plugin.c:599
 msgid ""
@@ -6130,13 +6151,13 @@ msgstr "Afegeix un objectiu al projecte"
 
 #: ../plugins/project-manager/plugin.c:762
 msgid "Add _Source File..."
-msgstr "Afegeix un fitxer de codi _font.."
+msgstr "Afegeix un fitxer de _codi..."
 
 #: ../plugins/project-manager/plugin.c:762
 #: ../plugins/project-manager/plugin.c:781
 #: ../plugins/project-manager/plugin.c:796
 msgid "Add a source file to project"
-msgstr "Afegeix un fitxer de codi font al projecte"
+msgstr "Afegeix un fitxer de codi al projecte"
 
 #: ../plugins/project-manager/plugin.c:767
 msgid "Close Pro_ject"
@@ -6164,7 +6185,7 @@ msgstr "Afegeix un _objectiu"
 
 #: ../plugins/project-manager/plugin.c:796
 msgid "Add _Source File"
-msgstr "Afegeix un fitxer de codi _font"
+msgstr "Afegeix un fitxer de _codi"
 
 #: ../plugins/project-manager/plugin.c:801
 msgid "Re_move"
@@ -6174,16 +6195,16 @@ msgstr "Supri_meix"
 msgid "Remove from project"
 msgstr "Suprimeix-lo del projecte"
 
-#: ../plugins/project-manager/plugin.c:1159
+#: ../plugins/project-manager/plugin.c:1149
 #, c-format
 msgid "Loading project: %s"
 msgstr "S'està carregant el projecte: %s"
 
-#: ../plugins/project-manager/plugin.c:1167
+#: ../plugins/project-manager/plugin.c:1157
 msgid "Created project view..."
 msgstr "S'ha creat la visualització del projecte..."
 
-#: ../plugins/project-manager/plugin.c:1180
+#: ../plugins/project-manager/plugin.c:1170
 #, c-format
 msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
@@ -6192,31 +6213,31 @@ msgstr ""
 "No s'ha pogut analitzar el projecte (el projecte està obert però no hi haurà "
 "cap visualització de projecte) %s: %s\n"
 
-#: ../plugins/project-manager/plugin.c:1200
-#: ../plugins/project-manager/plugin.c:1276
-#: ../plugins/project-manager/plugin.c:1448
+#: ../plugins/project-manager/plugin.c:1190
+#: ../plugins/project-manager/plugin.c:1266
+#: ../plugins/project-manager/plugin.c:1438
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
 msgstr "Projecte"
 
-#: ../plugins/project-manager/plugin.c:1364
+#: ../plugins/project-manager/plugin.c:1354
 #, c-format
 msgid "Error closing project: %s"
 msgstr "S'ha produït un error en tancar el projecte: %s"
 
-#: ../plugins/project-manager/plugin.c:1427
+#: ../plugins/project-manager/plugin.c:1417
 msgid "Project manager actions"
 msgstr "Accions del gestor de projectes"
 
-#: ../plugins/project-manager/plugin.c:1435
+#: ../plugins/project-manager/plugin.c:1425
 msgid "Project manager popup actions"
 msgstr "Accions emergents del gestor de projectes"
 
-#: ../plugins/project-manager/plugin.c:2354
+#: ../plugins/project-manager/plugin.c:2344
 msgid "Loaded Project... Initializing"
 msgstr "S'ha carregat el projecte... S'està inicialitzant"
 
-#: ../plugins/project-manager/plugin.c:2365
+#: ../plugins/project-manager/plugin.c:2355
 msgid "Loaded Project..."
 msgstr "S'ha carregat el projecte..."
 
@@ -6380,7 +6401,7 @@ msgstr "Afegeix compatibilitat per a les biblioteques compartides:"
 msgid "Adds c++ support to the project so that c++ source files can be built"
 msgstr ""
 "Afegeix compatibilitat C++ al projecte de manera que es puguin construir els "
-"fitxers font C++"
+"fitxers de codi C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
 msgid "Adds supports for building shared libraries in your project"
@@ -6519,7 +6540,6 @@ msgid "No license"
 msgstr "Sense llicència"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:38
-#, fuzzy
 msgid "Options for project build system"
 msgstr "Opcions per al sistema de muntatge del projecte"
 
@@ -6861,69 +6881,69 @@ msgstr "Objectiu de la cerca"
 msgid "Setting"
 msgstr "Paràmetres"
 
-#: ../plugins/search/plugin.c:186
+#: ../plugins/search/plugin.c:191
 msgid "_Find..."
 msgstr "Ce_rca..."
 
-#: ../plugins/search/plugin.c:187
+#: ../plugins/search/plugin.c:192
 msgid "Search for a string or regular expression in the editor"
 msgstr "Cerca una cadena o una expressió regular en l'editor"
 
-#: ../plugins/search/plugin.c:189
+#: ../plugins/search/plugin.c:194
 msgid "Find _Next"
 msgstr "Cerca el següe_nt"
 
-#: ../plugins/search/plugin.c:190 ../plugins/search/plugin.c:194
+#: ../plugins/search/plugin.c:195 ../plugins/search/plugin.c:199
 msgid "Repeat the last Find command"
 msgstr "Torna a fer la darrera acció de cerca"
 
-#: ../plugins/search/plugin.c:192
+#: ../plugins/search/plugin.c:197
 msgid "Find _Previous"
 msgstr "_Troba l'anterior"
 
-#: ../plugins/search/plugin.c:196
+#: ../plugins/search/plugin.c:201
 msgid "Find and R_eplace..."
 msgstr "C_erca i reemplaça..."
 
-#: ../plugins/search/plugin.c:198
+#: ../plugins/search/plugin.c:203
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr ""
 "Cerca i reemplaça una cadena o una expressió regular amb una altra cadena"
 
-#: ../plugins/search/plugin.c:200
+#: ../plugins/search/plugin.c:205
 msgid "Advanced Search And Replace"
 msgstr "Cerca i reemplaçament avançat"
 
-#: ../plugins/search/plugin.c:201
+#: ../plugins/search/plugin.c:206
 msgid "New advance search And replace stuff"
 msgstr "Funcionalitats noves de cerca i reemplaçament avançat"
 
-#: ../plugins/search/plugin.c:203
+#: ../plugins/search/plugin.c:208
 msgid "Fin_d in Files..."
 msgstr "Cerca a fit_xers..."
 
-#: ../plugins/search/plugin.c:204
+#: ../plugins/search/plugin.c:209
 msgid "Search for a string in multiple files or directories"
 msgstr "Cerca una cadena a múltiples fitxers o directoris"
 
-#: ../plugins/search/plugin.c:207
+#: ../plugins/search/plugin.c:212
 msgid "Ne_xt Occurrence"
 msgstr "Ocurrència se_güent"
 
-#: ../plugins/search/plugin.c:208
+#: ../plugins/search/plugin.c:213
 msgid "Find the next occurrence of current word"
 msgstr "Troba la ocurrència següent de la paraula actual"
 
-#: ../plugins/search/plugin.c:211
+#: ../plugins/search/plugin.c:216
 msgid "Pre_vious Occurrence"
 msgstr "Ocurrència ante_rior"
 
-#: ../plugins/search/plugin.c:212
+#: ../plugins/search/plugin.c:217
 msgid "Find the previous occurrence of current word"
 msgstr "Troba la ocurrència anterior de la paraula actual"
 
-#: ../plugins/search/plugin.c:229
+#: ../plugins/search/plugin.c:244
 msgid "Searching..."
 msgstr "S'està cercant..."
 
@@ -6941,65 +6961,57 @@ msgid "Name"
 msgstr "Nom"
 
 #: ../plugins/search/search-replace.c:99
-#, fuzzy
 msgid "Current Buffer"
-msgstr "Memòria intermèdia completa"
+msgstr "Memòria intermèdia actual"
 
 #: ../plugins/search/search-replace.c:100
-#, fuzzy
 msgid "Current Selection"
-msgstr "Retalla la selecció"
+msgstr "Selecció actual"
 
 #: ../plugins/search/search-replace.c:101
 msgid "Current Block"
-msgstr ""
+msgstr "Bloc actual"
 
 #: ../plugins/search/search-replace.c:102
-#, fuzzy
 msgid "Current Function"
-msgstr "Funció"
+msgstr "Funció actual"
 
 #: ../plugins/search/search-replace.c:103
-#, fuzzy
 msgid "All Open Buffers"
-msgstr "Memòria intermèdia completa"
+msgstr "Totes les memòries intermèdies obertes"
 
 #: ../plugins/search/search-replace.c:104
-#, fuzzy
 msgid "All Project Files"
-msgstr "Propietats del projecte"
+msgstr "Tots els fitxers del projecte"
 
 #. {SR_VARIABLE, N_("Specify File List")},
 #: ../plugins/search/search-replace.c:106
 msgid "Specify File Patterns"
-msgstr ""
+msgstr "Especifica els patrons de fitxer"
 
 #: ../plugins/search/search-replace.c:111
-#, fuzzy
 msgid "Select next match"
-msgstr "Text seleccionat: "
+msgstr "Selecciona la concordança següent"
 
 #: ../plugins/search/search-replace.c:112
 msgid "Bookmark all matched lines"
-msgstr ""
+msgstr "Marca totes les línies amb concordances"
 
 #: ../plugins/search/search-replace.c:113
 msgid "Mark all matches"
-msgstr ""
+msgstr "Marca totes les concordances"
 
 #: ../plugins/search/search-replace.c:114
 msgid "List matches in find pane"
-msgstr ""
+msgstr "Llista les concordances en la subfinestra de cerca"
 
 #: ../plugins/search/search-replace.c:115
-#, fuzzy
 msgid "Replace next match"
-msgstr "Reemplaça amb:"
+msgstr "Reemplaça la concordança següent"
 
 #: ../plugins/search/search-replace.c:116
-#, fuzzy
 msgid "Replace all matches"
-msgstr "Reemplaça'ls tots"
+msgstr "Reemplaça totes les concordances"
 
 #: ../plugins/search/search-replace.c:320
 msgid "Find: "
@@ -7273,11 +7285,15 @@ msgstr "Operacions del Subversion"
 msgid "Subversion popup operations"
 msgstr "Operacions emergents del Subversion"
 
-#: ../plugins/subversion/subversion-callbacks.c:72
+#: ../plugins/subversion/subversion-callbacks.c:68
+msgid "Please enter a local filename, not an URI!"
+msgstr "Introduïu un nom de fitxer i no un URI"
+
+#: ../plugins/subversion/subversion-callbacks.c:84
 msgid "Subversion command is running! Please wait until it is finished!"
 msgstr "S'està executant l'ordre del Subversion. Espereu fins que acabi."
 
-#: ../plugins/subversion/subversion-callbacks.c:297
+#: ../plugins/subversion/subversion-callbacks.c:309
 msgid "svn.diff"
 msgstr "svn.diff"
 
@@ -7474,84 +7490,83 @@ msgstr "Actualitza les etiquetes globals"
 msgid "dialog3"
 msgstr "diàleg3"
 
-#: ../plugins/symbol-browser/plugin.c:283
+#: ../plugins/symbol-browser/plugin.c:273
 msgid "Tag _Definition"
 msgstr "_Definició d'etiqueta"
 
-#: ../plugins/symbol-browser/plugin.c:285
-#: ../plugins/symbol-browser/plugin.c:305
+#: ../plugins/symbol-browser/plugin.c:275
+#: ../plugins/symbol-browser/plugin.c:295
 msgid "Goto symbol definition"
 msgstr "Vés a la definició del símbol"
 
-#: ../plugins/symbol-browser/plugin.c:291
+#: ../plugins/symbol-browser/plugin.c:281
 msgid "Tag De_claration"
 msgstr "De_claració d'etiqueta"
 
-#: ../plugins/symbol-browser/plugin.c:293
-#: ../plugins/symbol-browser/plugin.c:313
+#: ../plugins/symbol-browser/plugin.c:283
+#: ../plugins/symbol-browser/plugin.c:303
 msgid "Goto symbol declaration"
 msgstr "Vés a la declaració del símbol"
 
-#: ../plugins/symbol-browser/plugin.c:303
+#: ../plugins/symbol-browser/plugin.c:293
 msgid "Goto _Definition"
 msgstr "Vés a la _definició"
 
-#: ../plugins/symbol-browser/plugin.c:311
+#: ../plugins/symbol-browser/plugin.c:301
 msgid "Goto De_claration"
 msgstr "Vés a la de_claració"
 
-#: ../plugins/symbol-browser/plugin.c:319
+#: ../plugins/symbol-browser/plugin.c:309
 msgid "_Find Usage"
 msgstr "_Troba l'ús"
 
-#: ../plugins/symbol-browser/plugin.c:321
+#: ../plugins/symbol-browser/plugin.c:311
 msgid "Find usage of symbol in project"
 msgstr "Troba l'ús del símbol al projecte"
 
-#: ../plugins/symbol-browser/plugin.c:329
+#: ../plugins/symbol-browser/plugin.c:319
 msgid "Refresh symbol browser tree"
 msgstr "Actualitza l'arbre del navegador de símbols"
 
-#: ../plugins/symbol-browser/plugin.c:398 ../plugins/symbol-db/plugin.c:748
+#: ../plugins/symbol-browser/plugin.c:388 ../plugins/symbol-db/plugin.c:748
 msgid "Created symbols..."
 msgstr "Símbols creats..."
 
-#: ../plugins/symbol-browser/plugin.c:1005 ../plugins/symbol-db/plugin.c:826
+#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:826
 msgid "Local"
 msgstr "Local"
 
-#: ../plugins/symbol-browser/plugin.c:1025 ../plugins/symbol-db/plugin.c:847
+#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:847
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/symbol-browser/plugin.c:1069
+#: ../plugins/symbol-browser/plugin.c:1059
 msgid "Symbol browser actions"
 msgstr "Accions del navegador de símbols"
 
-#: ../plugins/symbol-browser/plugin.c:1076
+#: ../plugins/symbol-browser/plugin.c:1066
 msgid "Symbol browser popup actions"
 msgstr "Accions emergents del navegador de símbols"
 
-#: ../plugins/symbol-browser/plugin.c:1085
+#: ../plugins/symbol-browser/plugin.c:1075
 msgid "Goto symbol"
 msgstr "Vés al símbol"
 
-#: ../plugins/symbol-browser/plugin.c:1086
+#: ../plugins/symbol-browser/plugin.c:1076
 msgid "Select the symbol to go"
 msgstr "Seleccioneu el símbol a on anar"
 
-#: ../plugins/symbol-browser/plugin.c:1095
+#: ../plugins/symbol-browser/plugin.c:1085
 msgid "Symbol navigations"
 msgstr "Navegacions de símbol"
 
-#: ../plugins/symbol-browser/plugin.c:1104 ../plugins/symbol-db/plugin.c:902
+#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:902
 msgid "Symbols"
 msgstr "Símbols"
 
 #: ../plugins/symbol-db/symbol-db.glade.h:1
-#, fuzzy
 msgid "Anjuta Plugin User Interface"
-msgstr "Connectors de l'Anjuta"
+msgstr "Connector d'interfície d'usuari de l'Anjuta"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
 msgid "<b>Terminal options</b>"
@@ -7565,8 +7580,8 @@ msgstr "Utilitza el perfil de terminal del GNOME:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Fes servir el perfil actual del terminal del GNOME"
 
-#: ../plugins/terminal/terminal.c:621 ../plugins/terminal/terminal.c:732
-#: ../plugins/terminal/terminal.c:748
+#: ../plugins/terminal/terminal.c:610 ../plugins/terminal/terminal.c:721
+#: ../plugins/terminal/terminal.c:737
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -7808,23 +7823,23 @@ msgstr "Seleccioneu una eina:"
 msgid "Select Valgrind Target"
 msgstr "Seleccioneu l'objectiu del Valgrind"
 
-#: ../plugins/valgrind/plugin.c:261
+#: ../plugins/valgrind/plugin.c:251
 msgid "Select debugging target"
 msgstr "Seleccioneu l'objecte a depurar"
 
-#: ../plugins/valgrind/plugin.c:315 ../plugins/valgrind/plugin.c:436
-#: ../plugins/valgrind/plugin.c:671 ../plugins/valgrind/plugin.c:681
+#: ../plugins/valgrind/plugin.c:305 ../plugins/valgrind/plugin.c:426
+#: ../plugins/valgrind/plugin.c:661 ../plugins/valgrind/plugin.c:671
 msgid "Valgrind"
 msgstr "Valgrind"
 
-#: ../plugins/valgrind/plugin.c:343
+#: ../plugins/valgrind/plugin.c:333
 msgid ""
 "No executable target selected for debugging with Valgrind.Please select one."
 msgstr ""
 "No s'ha seleccionat cap objectiu a depurar amb el Valgrind. Seleccioneu-ne "
 "un."
 
-#: ../plugins/valgrind/plugin.c:352
+#: ../plugins/valgrind/plugin.c:342
 msgid ""
 "There aren't any available executable targets for this project.\n"
 "Please create one first."
@@ -7832,58 +7847,57 @@ msgstr ""
 "Aquest projecte no té cap objectiu executable disponible.\n"
 "Creeu-ne un primer."
 
-#: ../plugins/valgrind/plugin.c:364
+#: ../plugins/valgrind/plugin.c:354
 msgid "Choose file where to save Valgrind log"
 msgstr "Escolliu el fitxer on desar el registre del Valgrind"
 
-#: ../plugins/valgrind/plugin.c:414
+#: ../plugins/valgrind/plugin.c:404
 msgid "Open Valgrind log file"
 msgstr "Obre un fitxer de registre del Valgrind"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:456
+#: ../plugins/valgrind/plugin.c:446
 msgid "_Valgrind"
 msgstr "_Valgrind"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:464
+#: ../plugins/valgrind/plugin.c:454
 msgid "_Select Tool and Run..."
 msgstr "_Seleccioneu i executeu una eina..."
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:472
+#: ../plugins/valgrind/plugin.c:462
 msgid "_Kill Execution"
 msgstr "Mata l'e_xecució"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:480
+#: ../plugins/valgrind/plugin.c:470
 msgid "_Load Log"
 msgstr "_Carrega el registre"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:488
+#: ../plugins/valgrind/plugin.c:478
 msgid "S_ave Log"
 msgstr "Des_a el registre"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:496
+#: ../plugins/valgrind/plugin.c:486
 msgid "Edit Rules"
 msgstr "Edita les regles"
 
-#: ../plugins/valgrind/plugin.c:561
+#: ../plugins/valgrind/plugin.c:551
 msgid "Use Valgrind debug tool"
 msgstr "Utilitza l'eina de depuració del Valgrind"
 
 #: ../plugins/valgrind/preferences.c:123
-#, fuzzy
 msgid "<b>Valgrind general preferences</b>"
-msgstr "<b>Valgrind</b>"
+msgstr "<b>Preferències generals del Valgrind</b>"
 
 #: ../plugins/valgrind/preferences.c:129
 msgid "Valgrind binary file path:"
@@ -7969,7 +7983,7 @@ msgstr "L'objecte conté"
 
 #: ../plugins/valgrind/vgdefaultview.c:193
 msgid "Source filename contains"
-msgstr "El nom del fitxer font conté"
+msgstr "El nom del fitxer de codi conté"
 
 #: ../plugins/valgrind/vgdefaultview.c:230
 #, c-format
@@ -8163,9 +8177,8 @@ msgid "Loaded Session..."
 msgstr "S'ha carregat la sessió..."
 
 #: ../src/anjuta.glade.h:1
-#, fuzzy
 msgid "<b>Appearance</b>"
-msgstr "<b>Declaracions</b>"
+msgstr "<b>Aparença</b>"
 
 #: ../src/anjuta.glade.h:2
 msgid "<b>General Information:</b>"
@@ -8189,7 +8202,7 @@ msgstr "En iniciar, no carreguis l'última sessió"
 
 #: ../src/anjuta.glade.h:7
 msgid "Dock switcher style: "
-msgstr ""
+msgstr "Estil del canviador acoblable: "
 
 #: ../src/anjuta.glade.h:9
 msgid ""
@@ -8199,6 +8212,11 @@ msgid ""
 "Gnome toolbar setting\n"
 "Tabs"
 msgstr ""
+"Text\n"
+"Icones\n"
+"Text i icones\n"
+"Preferències de la barra d'eines del GNOME\n"
+"Pestanyes"
 
 #: ../src/anjuta.glade.h:14
 msgid "User email address"
@@ -8456,9 +8474,8 @@ msgid "<b>C, C++ and Java smart Indentation</b>"
 msgstr "<b>Sagnat intel·ligent de C, C++ i Java</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:3
-#, fuzzy
 msgid "<b>Calltips</b>"
-msgstr "<b>S'ha cridat</b>"
+msgstr "<b>Etiquetes de les funcions</b>"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:4
 msgid "<b>Indentation parameters</b>"
@@ -8467,15 +8484,16 @@ msgstr "<b>Paràmetres de sagnat</b>"
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:5
 msgid "Add '(' after function call autocompletion"
 msgstr ""
+"Afegeix «(» després de la crida de completa automàticament de la funció"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:6
 msgid "Add a space after function call autocompletion"
 msgstr ""
+"Afegeix un espai després de la crida de completa automàticament de la funció"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:7
-#, fuzzy
 msgid "Autocomplete"
-msgstr "Completa _automàticament"
+msgstr "Completa automàticament"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:9
 msgid "Brace indentation size in spaces:"
@@ -8498,9 +8516,8 @@ msgid "Pressing tab indents"
 msgstr "Premeu el tabulador per a incrementar el sagnat"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:14
-#, fuzzy
 msgid "Show calltips"
-msgstr "Mostra les funcions que no s'han cridat"
+msgstr "Mostra les etiquetes de les funcions"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:15
 msgid "Smart Indentation"
@@ -8510,30 +8527,30 @@ msgstr "Sagnat intel·ligent"
 msgid "Statement indentation size in spaces:"
 msgstr "Mida del sagnat de la sentència en espais:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1355
+#: ../plugins/language-support-cpp-java/plugin.c:1349
 msgid "_AutoComplete"
 msgstr "Completa _automàticament"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1356
+#: ../plugins/language-support-cpp-java/plugin.c:1350
 msgid "AutoComplete the current word"
 msgstr "Completa automàticament la paraula actual"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1362
+#: ../plugins/language-support-cpp-java/plugin.c:1356
 msgid "Auto Indent"
 msgstr "Sagnat automàtic"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1363
+#: ../plugins/language-support-cpp-java/plugin.c:1357
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Sagnat automàtic de la línia actual o selecció basada en la configuració del "
 "sagnat"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1415
+#: ../plugins/language-support-cpp-java/plugin.c:1399
 msgid "Cpp/Java Assistance"
-msgstr ""
+msgstr "Assistència per a Cpp/Java"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1503
-#: ../plugins/language-support-cpp-java/plugin.c:1512
+#: ../plugins/language-support-cpp-java/plugin.c:1487
+#: ../plugins/language-support-cpp-java/plugin.c:1496
 msgid "C/C++/Java"
 msgstr "C/C++/Java"
 
@@ -8796,7 +8813,7 @@ msgstr "Connector del gestor de depuració."
 #~ msgstr "_Format automàtic"
 
 #~ msgid "Autoformat the current source file"
-#~ msgstr "Formata automàticament el codi"
+#~ msgstr "Formata automàticament el fitxer de codi"
 
 #~ msgid "Goto line"
 #~ msgstr "Vés a la línia"
@@ -9015,9 +9032,6 @@ msgstr "Connector del gestor de depuració."
 #~ msgid "<b>File filter:</b>"
 #~ msgstr "<b>Filtre de fitxers:</b>"
 
-#~ msgid "<b>Root directory if no project is open:</b>"
-#~ msgstr "<b>Directori arrel si no hi ha cap projecte obert:</b>"
-
 #~ msgid "Choose directories"
 #~ msgstr "Escolliu directoris"
 
@@ -9029,9 +9043,6 @@ msgstr "Connector del gestor de depuració."
 
 #~ msgid "Do not show hidden directories"
 #~ msgstr "No mostris els directoris ocults"
-
-#~ msgid "Do not show hidden files"
-#~ msgstr "No mostris els fitxers ocults"
 
 #~ msgid "Ignore directories"
 #~ msgstr "Ignora els directoris"
@@ -9374,7 +9385,7 @@ msgstr "Connector del gestor de depuració."
 # source\euro\euro.src string MESSAGES+2
 # Projecte_Open_Office_1.1 [wizards.po]
 #~ msgid "Select header file"
-#~ msgstr "Seleccioneu el fitxer capçalera"
+#~ msgstr "Seleccioneu el fitxer de capçalera"
 
 #~ msgid "Select source file"
 #~ msgstr "Seleccioneu el fitxer de codi"
