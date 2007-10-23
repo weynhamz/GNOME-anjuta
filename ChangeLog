@@ -1,14 +1,19 @@
+2007-10-23  Naba Kumar  <naba@gnome.org>
+
+	* plugins/glade/plugin.c: Fixed glade plugin build with
+	glade 3.3.2. Backported part of rev. 3049
+
 2007-10-22  Johannes Schmid <jhs@gnome.org>
 
-  * libanjuta/anjuta-glue-factory.c: (load_plugin):
+	* libanjuta/anjuta-glue-factory.c: (load_plugin):
 	* libanjuta/anjuta-plugin-manager.c: (activate_plugin),
 	(plugin_set_update):
 	
 	Show an error dialog instead of crashing when plugin loading fails
 	(Backport from trunk, revision 3150)
 
-  * Makefile.am:
-  Changed build order because doc/reference need libanjuta to be build
+	* Makefile.am:
+	Changed build order because doc/reference need libanjuta to be build
 
 2007-10-22  Naba Kumar  <naba@gnome.org>
 

@@ -457,9 +457,13 @@ on_close_activated (GtkAction *action, GladePlugin *plugin)
 		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
 		return;
 	}
-	
+
 #if (GLADEUI_VERSION >= 330)
+#  if (GLADEUI_VERSION > 331)
+	if (glade_project_get_modified (project))
+#  else
 	if (glade_project_get_has_unsaved_changes (project))
+#  endif
 #else
 	if (project->changed)
 #endif
