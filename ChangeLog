@@ -1,3 +1,10 @@
+2007-10-23  Naba Kumar  <naba@gnome.org>
+
+	* plugins/glade/Makefile.am: Corrected conditional not to install
+	.plugin file if plugin is disabled.
+	* plugins/sourceview/Makefile.am: Corrected conditional not to
+	install schemas if plugin is not built.
+
 2007-10-20  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/queue.c:

@@ -93,13 +93,13 @@ libanjuta_sourceview_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 
-endif
-
 prefs_glade_files = sourceview.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
 libanjuta_sourceview_la_DEPENDENCIES = \
 	build-schema-files
+
+endif
 
 EXTRA_DIST = \
 	anjuta-marshal.list \
