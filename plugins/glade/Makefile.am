@@ -1,4 +1,5 @@
-# Sample Makefile for a anjuta plugin.
+
+if HAVE_PLUGIN_GLADE
 
 # Plugin UI file
 glade_uidir = $(anjuta_ui_dir)
@@ -25,8 +26,6 @@ INCLUDES = \
 # Where to install the plugin
 plugindir = $(anjuta_plugin_dir)
 
-if HAVE_PLUGIN_GLADE
-
 # The plugin
 plugin_LTLIBRARIES = libanjuta-glade.la
 
@@ -47,3 +46,4 @@ EXTRA_DIST = \
 	$(glade_plugin_DATA) \
 	$(glade_ui_DATA) \
 	$(glade_pixmaps_DATA)
+
