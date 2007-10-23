@@ -1,7 +1,9 @@
 2007-10-23  Naba Kumar  <naba@gnome.org>
 
+	* NEWS: Updated.
 	* plugins/glade/Makefile.am: Corrected conditional not to install
 	.plugin file if plugin is disabled. (backported from trunk)
+	Fixes bug #488928.
 
 	* plugins/glade/plugin.c: Fixed glade plugin build with
 	glade 3.3.2. Backported part of rev. 3049
