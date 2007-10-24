@@ -101,8 +101,11 @@ anjuta_c_plugin_factory_create_plugin (AnjutaCPluginFactory *factory,
 	}
 	
 	pieces = g_strsplit (anjuta_plugin_handle_get_id (handle), ":", -1);
-	if (pieces == NULL)
+	if ((pieces == NULL) || (pieces[0] == NULL))
 	{
+		g_set_error (error, IANJUTA_PLUGIN_FACTORY_ERROR,
+				 	IANJUTA_PLUGIN_FACTORY_MISSING_LOCATION,
+				 	_("Missing location of plugin %s"), anjuta_plugin_handle_get_name (handle));
 		return NULL;
 	}
 	module = g_hash_table_lookup (plugin_in_path, pieces[0]);
@@ -110,9 +113,18 @@ anjuta_c_plugin_factory_create_plugin (AnjutaCPluginFactory *factory,
 	{
 		/* Plugin is not loaded */
 		module = anjuta_c_module_new (path, pieces[0]);
-		if (module == NULL) return NULL;
+		g_return_val_if_fail (module != NULL, NULL);
+
+		/* Load module */
 		g_type_module_use (G_TYPE_MODULE (module));
-		
+
+		if (anjuta_c_module_get_last_error (module, error))
+		{
+			/* Avoid memory leak in case of error*/
+			g_strfreev (pieces);
+			
+			return NULL;
+		}
 		g_hash_table_insert (plugin_in_path, g_strdup (pieces[0]), module);
 	}
 	else
@@ -123,9 +135,22 @@ anjuta_c_plugin_factory_create_plugin (AnjutaCPluginFactory *factory,
 	/* Find plugin type */
 	if (pieces[1] == NULL)
 	{
+		g_strfreev (pieces);
+		g_set_error (error, IANJUTA_PLUGIN_FACTORY_ERROR,
+				 	IANJUTA_PLUGIN_FACTORY_MISSING_TYPE,
+				 	_("Missing type defined by plugin %s"), anjuta_plugin_handle_get_name (handle));
 		return NULL;
 	}
 	type = g_type_from_name (pieces[1]);
+	if (type == G_TYPE_INVALID)
+	{
+		g_set_error (error, IANJUTA_PLUGIN_FACTORY_ERROR,
+				 	IANJUTA_PLUGIN_FACTORY_INVALID_TYPE,
+				 	_("plugin %s fails to register type %s"), anjuta_plugin_handle_get_name (handle), pieces[1]);
+		g_strfreev (pieces);
+		
+		return NULL;
+	}
 	g_strfreev (pieces);
 	
 	/* Create plugin */
@@ -134,7 +159,7 @@ anjuta_c_plugin_factory_create_plugin (AnjutaCPluginFactory *factory,
 	if ((module != NULL) && (anjuta_plugin_handle_get_resident(handle) == FALSE))
 	{
 		/* This module can be unloaded when not needed */
-		g_type_module_use (G_TYPE_MODULE (module));
+		g_type_module_unuse (G_TYPE_MODULE (module));
 	}
 	
 	return plugin;

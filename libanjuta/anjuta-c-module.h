@@ -38,6 +38,7 @@ typedef struct _AnjutaCModuleClass AnjutaCModuleClass;
 GType anjuta_c_module_get_type (void) G_GNUC_CONST;
 
 AnjutaCModule *anjuta_c_module_new (const gchar *path, const char *name);
+gboolean anjuta_c_module_get_last_error (AnjutaCModule *module, GError** err);
 
 G_END_DECLS
 

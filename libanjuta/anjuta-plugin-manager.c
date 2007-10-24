@@ -116,7 +116,7 @@ static GHashTable* plugin_set_update (AnjutaPluginManager *plugin_manager,
 									  gboolean load);
 
 static IAnjutaPluginFactory* get_plugin_factory (AnjutaPluginManager *plugin_manager,
-								  const gchar *language);
+								  const gchar *language, GError **error);
 
 GQuark 
 anjuta_plugin_manager_error_quark (void)
@@ -541,31 +541,19 @@ activate_plugin (AnjutaPluginManager *plugin_manager,
 	resident = anjuta_plugin_handle_get_resident (handle);
 	language = anjuta_plugin_handle_get_language (handle);
 	
-	factory = get_plugin_factory (plugin_manager, language);
-	if (factory == NULL)
-	{
-		g_set_error (error, ANJUTA_PLUGIN_MANAGER_ERROR,
-					 ANJUTA_PLUGIN_MANAGER_ERROR_INVALID_TYPE,
-					 _("Invalid plugin: %s"), plugin_id);
-		
-		return NULL;
-	}
+	factory = get_plugin_factory (plugin_manager, language, error);
+	if (factory == NULL) return NULL;
 	
 	plugin = ianjuta_plugin_factory_new_plugin (factory, handle, ANJUTA_SHELL (priv->shell), error);
 	
 	if (plugin == NULL)
 	{
-		g_set_error (error, ANJUTA_PLUGIN_MANAGER_ERROR,
-					 ANJUTA_PLUGIN_MANAGER_ERROR_INVALID_TYPE,
-					 _("Invalid plugin: %s"), plugin_id);
+		return NULL;
 	}
-	else
-	{
-		g_signal_connect (plugin, "activated",
-						  G_CALLBACK (on_plugin_activated), handle);
-		g_signal_connect (plugin, "deactivated",
-						  G_CALLBACK (on_plugin_deactivated), handle);
-	}
+	g_signal_connect (plugin, "activated",
+					  G_CALLBACK (on_plugin_activated), handle);
+	g_signal_connect (plugin, "deactivated",
+					  G_CALLBACK (on_plugin_deactivated), handle);
 	
 	return plugin;
 }
@@ -1226,7 +1214,8 @@ property_to_list (const char *value)
 
 static IAnjutaPluginFactory*
 get_plugin_factory (AnjutaPluginManager *plugin_manager,
-								  const gchar *language)
+								 	const gchar *language,
+									GError **error)
 {
 	AnjutaPluginManagerPriv *priv;
 	AnjutaPluginHandle *plugin;
@@ -1340,7 +1329,9 @@ get_plugin_factory (AnjutaPluginManager *plugin_manager,
 	}
 	
 	/* No plugin implementing this interface found */
-	g_warning ("No plugin found to load a %s plugin.", language);
+	g_set_error (error, ANJUTA_PLUGIN_MANAGER_ERROR,
+					 ANJUTA_PLUGIN_MANAGER_MISSING_FACTORY,
+					 _("No plugin able to load other plugins in %s"), language);
 	
 	return NULL;
 }

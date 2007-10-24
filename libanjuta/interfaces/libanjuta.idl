@@ -4252,6 +4252,39 @@ interface IAnjutaPluginFactory
 	#include <libanjuta/anjuta-plugin.h>
 	#include <libanjuta/anjuta-shell.h>
 	#include <libanjuta/anjuta-plugin-handle.h>
+
+	/**
+	 * IAnjutaPluginFactoryError:
+	 * @IANJUTA_PLUGIN_FACTORY_MISSING_LOCATION: Module file location is
+	 *	missing in .plugin file
+	 * @IANJUTA_PLUGIN_FACTORY_MISSING_TYPE: Plugin type (just after
+	 *	double colon following location) is missing in .plugin file
+	 * @IANJUTA_PLUGIN_FACTORY_MISSING_MODULE: Module file name not found,
+	 *	plugin module is probably not installed
+	 * @IANJUTA_PLUGIN_FACTORY_UNLOADABLE_MODULE: Module file cannot be
+	 *	loaded, not a shared library perhaps
+	 * @IANJUTA_PLUGIN_FACTORY_MISSING_FUNCTION: Module does not contain
+	 *	registration function, library is not an anjuta plugin or
+	 *	is not for the right version
+	 * @IANJUTA_PLUGIN_FACTORY_INVALID_TYPE: Module has not registered
+	 * 	plugin type, library is not an anjuta plugin or not for
+	 *	the right version
+	 * @IANJUTA_PLUGIN_FACTORY_UNKNOWN_ERROR: Another error
+ 	 *
+ 	 * These enumeration is used to specify errors.
+	 */
+	enum Error
+	{
+		OK = 0,
+		MISSING_LOCATION,
+		MISSING_TYPE,
+		MISSING_MODULE,
+		INVALID_MODULE,
+		MISSING_FUNCTION,
+		INVALID_TYPE,
+		UNKNOWN_ERROR,
+	}
+
 	/**
 	 * ianjuta_plugin_factory_new_plugin:
 	 * @obj: Self

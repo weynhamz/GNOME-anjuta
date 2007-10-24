@@ -68,7 +68,11 @@
 
 #include "anjuta-c-module.h"
 
+#include <libanjuta/interfaces/ianjuta-plugin-factory.h>
+
 #include <gmodule.h>
+
+#define ANJUTA_PLUGIN_REGISTRATION	"anjuta_glue_register_components"	
 
 /* Types
  *---------------------------------------------------------------------------*/
@@ -84,6 +88,7 @@ struct _AnjutaCModule
 
 	GModule *library;
 	gchar *full_name;
+	IAnjutaPluginFactoryError error;
 };
 
 typedef void (*AnjutaRegisterFunc) (GTypeModule *);
@@ -109,13 +114,20 @@ anjuta_c_module_load (GTypeModule *gmodule)
 
 	if (module->library == NULL)
 	{
-		g_warning ("could not load plugin: %s", g_module_error ());
+		if (!g_file_test (module->full_name, G_FILE_TEST_IS_REGULAR))
+		{
+			module->error = IANJUTA_PLUGIN_FACTORY_MISSING_MODULE;
+		}
+		else
+		{
+			module->error = IANJUTA_PLUGIN_FACTORY_INVALID_MODULE;
+		}
 		return FALSE;
 	}
 
-	if (!g_module_symbol (module->library, "anjuta_glue_register_components", (gpointer *)(gpointer)&func))
+	if (!g_module_symbol (module->library, ANJUTA_PLUGIN_REGISTRATION, (gpointer *)(gpointer)&func))
     {
-		g_warning ("unable to find register function in %s", module->full_name);
+		module->error = IANJUTA_PLUGIN_FACTORY_MISSING_FUNCTION;
 		g_module_close (module->library);
 
 		return FALSE;
@@ -123,6 +135,7 @@ anjuta_c_module_load (GTypeModule *gmodule)
   
 	/* Register all types */
 	(* func) (gmodule);
+	module->error = IANJUTA_PLUGIN_FACTORY_OK;
 
 	return TRUE;
 }
@@ -169,6 +182,43 @@ static void
 anjuta_c_module_init (AnjutaCModule *module)
 {
 	module->full_name = NULL;
+	module->error = IANJUTA_PLUGIN_FACTORY_OK;
+}
+
+/* Public functions
+ *---------------------------------------------------------------------------*/
+
+gboolean
+anjuta_c_module_get_last_error (AnjutaCModule *module, GError** err)
+{
+	g_return_val_if_fail (module->full_name != NULL, FALSE);
+
+	switch (module->error)
+	{
+	case IANJUTA_PLUGIN_FACTORY_OK:
+			return FALSE;
+	case IANJUTA_PLUGIN_FACTORY_MISSING_MODULE:
+			g_set_error (err, IANJUTA_PLUGIN_FACTORY_ERROR,
+					 	module->error,
+					 	_("Unable to find plugin module %s"), module->full_name);
+			return TRUE;
+	case IANJUTA_PLUGIN_FACTORY_INVALID_MODULE:
+			g_set_error (err, IANJUTA_PLUGIN_FACTORY_ERROR,
+					 	module->error,
+						g_module_error());
+			return TRUE;
+	case IANJUTA_PLUGIN_FACTORY_MISSING_FUNCTION:
+			g_set_error (err, IANJUTA_PLUGIN_FACTORY_ERROR,
+						module->error,
+						_("Unable to find plugin registration function %s in module %s"),
+					 	ANJUTA_PLUGIN_REGISTRATION, module->full_name);
+			return TRUE;
+	default:
+			g_set_error (err, IANJUTA_PLUGIN_FACTORY_ERROR,
+						module->error,
+						_("Unknown error in module %s"), module->full_name);
+			return TRUE;
+	}		
 }
 
 /* Creation and Destruction

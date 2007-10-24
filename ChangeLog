@@ -1,3 +1,13 @@
+2007-10-24  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	libanjuta/anjuta-plugin-manager.c,
+	libanjuta/anjuta-plugin-manager.h,
+	libanjuta/anjuta-c-plugin-factory.c,
+	libanjuta/anjuta-c-module.h,
+	libanjuta/anjuta-c-module.c:
+	Report detailled error message in case of plugin loading failure
+
 2007-10-24  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in:
