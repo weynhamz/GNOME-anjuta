@@ -524,23 +524,42 @@ sdb_view_load_symbol_pixbufs ()
 
 	pixbufs_hash = g_hash_table_new (g_str_hash, g_str_equal);
 
-	CREATE_SYM_ICON ("none",              "Icons.16x16.Literal");
+	CREATE_SYM_ICON ("class",             "Icons.16x16.Class");	
+	CREATE_SYM_ICON ("enumerator",     	  "Icons.16x16.Enum");	
+	CREATE_SYM_ICON ("function",          "Icons.16x16.Method");	
+	CREATE_SYM_ICON ("interface",         "Icons.16x16.Interface");	
+	CREATE_SYM_ICON ("macro",             "Icons.16x16.Field");	
 	CREATE_SYM_ICON ("namespace",         "Icons.16x16.NameSpace");
-	CREATE_SYM_ICON ("class",             "Icons.16x16.Class");
+	CREATE_SYM_ICON ("none",              "Icons.16x16.Literal");
 	CREATE_SYM_ICON ("struct",            "Icons.16x16.ProtectedStruct");
-	CREATE_SYM_ICON ("union",             "Icons.16x16.PrivateStruct");
 	CREATE_SYM_ICON ("typedef",           "Icons.16x16.Reference");
-	CREATE_SYM_ICON ("function",          "Icons.16x16.Method");
+	CREATE_SYM_ICON ("union",             "Icons.16x16.PrivateStruct");
 	CREATE_SYM_ICON ("variable",          "Icons.16x16.Literal");
-	CREATE_SYM_ICON ("enumerator",     	  "Icons.16x16.Enum");
-	CREATE_SYM_ICON ("macro",             "Icons.16x16.Field");
+	
+	CREATE_SYM_ICON ("privateclass",      "Icons.16x16.PrivateClass");
+	CREATE_SYM_ICON ("privateenum",   	  "Icons.16x16.PrivateEnum");
+	CREATE_SYM_ICON ("privatefield",   	  "Icons.16x16.PrivateField");
+	CREATE_SYM_ICON ("privatefunction",   "Icons.16x16.PrivateMethod");
+	CREATE_SYM_ICON ("privateinterface",  "Icons.16x16.PrivateInterface");	
+	CREATE_SYM_ICON ("privatemember",     "Icons.16x16.PrivateProperty");	
 	CREATE_SYM_ICON ("privatemethod",     "Icons.16x16.PrivateMethod");
 	CREATE_SYM_ICON ("privateproperty",   "Icons.16x16.PrivateProperty");
+	CREATE_SYM_ICON ("privatestruct",     "Icons.16x16.PrivateStruct");
+
+	CREATE_SYM_ICON ("protectedclass",    "Icons.16x16.ProtectedClass");	
+	CREATE_SYM_ICON ("protectedenum",     "Icons.16x16.ProtectedEnum");
+	CREATE_SYM_ICON ("protectedfield",    "Icons.16x16.ProtectedField");	
+	CREATE_SYM_ICON ("protectedmember",   "Icons.16x16.ProtectedProperty");
 	CREATE_SYM_ICON ("protectedmethod",   "Icons.16x16.ProtectedMethod");
 	CREATE_SYM_ICON ("protectedproperty", "Icons.16x16.ProtectedProperty");
+	
+	CREATE_SYM_ICON ("publicclass",    	  "Icons.16x16.Class");	
+	CREATE_SYM_ICON ("publicenum",    	  "Icons.16x16.Enum");	
+	CREATE_SYM_ICON ("publicfunction",    "Icons.16x16.Method");
 	CREATE_SYM_ICON ("publicmember",      "Icons.16x16.InternalMethod");
 	CREATE_SYM_ICON ("publicproperty",    "Icons.16x16.InternalProperty");
-
+	CREATE_SYM_ICON ("publicstruct",      "Icons.16x16.ProtectedStruct");
+	
 /*	
 	sv_symbol_pixbufs[sv_cfolder_t] = gdl_icons_get_mime_icon (icon_set,
 							    "application/directory-normal");
@@ -576,6 +595,11 @@ symbol_db_view_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 	
 	if (node_access)
 		g_free (search_node);
+	
+	if (pix == NULL)
+		DEBUG_PRINT ("symbol_db_view_get_pixbuf (): no pixbuf for %s %s",
+					 node_type, node_access);
+	
 	return pix;
 }
 

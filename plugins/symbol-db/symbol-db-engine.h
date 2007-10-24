@@ -49,9 +49,10 @@ struct _SymbolDBEngineClass
 	
 	/* signals */
 	void (* scan_end) ();
-	void (* symbol_inserted) (gint symbol_id);
-	void (* symbol_updated)  (gint symbol_id);
-	void (* symbol_removed)  (gint symbol_id);
+	void (* symbol_inserted) 		(gint symbol_id);
+	void (* symbol_updated)  		(gint symbol_id);
+	void (* symbol_scope_updated)  	(gint symbol_id);
+	void (* symbol_removed)  		(gint symbol_id);
 };
 
 struct _SymbolDBEngine
@@ -97,24 +98,24 @@ symbol_db_engine_is_locked (SymbolDBEngine *dbe);
  * E.g: a project on '/tmp/foo/' dir.
  */
 gboolean 
-symbol_db_engine_open_db (SymbolDBEngine *dbe, gchar* base_prj_path);
+symbol_db_engine_open_db (SymbolDBEngine *dbe, const gchar* base_prj_path);
 
 /**
  * Check if the database already exists into the prj_directory
  */
 gboolean
-symbol_db_engine_db_exists (SymbolDBEngine * dbe, gchar * prj_directory);
+symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory);
 
 
 /** Add a new workspace to database. */
 gboolean 
-symbol_db_engine_add_new_workspace (SymbolDBEngine *dbe, gchar* workspace);
+symbol_db_engine_add_new_workspace (SymbolDBEngine *dbe, const gchar* workspace);
 
 
 /** Add a new project to workspace.*/
 gboolean 
-symbol_db_engine_add_new_project (SymbolDBEngine *dbe, gchar* workspace, 
-								  gchar* project);
+symbol_db_engine_add_new_project (SymbolDBEngine *dbe, const gchar* workspace, 
+								  const gchar* project);
 
 /**
  * Return the name of the opened project.
@@ -124,7 +125,8 @@ gchar*
 symbol_db_engine_get_opened_project_name (SymbolDBEngine * dbe);
 
 
-/** Open a project. Return false if project isn't created/opened. 
+/** 
+ * Open a project. Return false if project isn't created/opened. 
  * This function *must* be called before any other operation on db.
  * Another option would be create a fresh new project: that way will also open it.
  */ 
@@ -135,7 +137,7 @@ symbol_db_engine_open_project (SymbolDBEngine *dbe, /*gchar* workspace, */
 
 /** Disconnect db, gda client and db_connection and close the project */
 gboolean 
-symbol_db_engine_close_project (SymbolDBEngine *dbe, gchar* project_name);
+symbol_db_engine_close_project (SymbolDBEngine *dbe, const gchar* project_name);
 
 
 /** 
@@ -158,8 +160,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine *dbe, const gchar* project,
  * If force is true then update forcely all the files.
  */
 gboolean 
-symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, gchar *project/*,
-										 gboolean force*/);
+symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *project);
 
 
 /** Remove a file, together with its symbols, from a project. */
@@ -172,7 +173,7 @@ symbol_db_engine_remove_file (SymbolDBEngine *dbe, const gchar* project,
  * WARNING: files_path and it's contents will be freed on callback.
  */
 gboolean 
-symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, gchar *project, 
+symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, const gchar *project, 
 									   GPtrArray *files_path,
 									   gboolean update_prj_analize_time);
 
@@ -182,7 +183,7 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, gchar *project,
  * FIXME
  */
 gboolean
-symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, gchar * project,
+symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * project,
 										GPtrArray * real_files_list,
 										const GPtrArray * text_buffers,
 										const GPtrArray * buffer_sizes);
@@ -210,7 +211,7 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe,
  * given symbol name.
  */
 SymbolDBEngineIterator *
-symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, gchar *klass_name, 
+symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name, 
 									 const GPtrArray *scope_path);
 
 
@@ -257,7 +258,7 @@ symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe,
 									gint scope_parent_symbol_id, gint sym_info);
 
 
-/* No iterator for now. We need the quickest query possible. */
+/** No iterator for now. We need the quickest query possible. */
 gint
 symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe, 
 									gint scoped_symbol_id);

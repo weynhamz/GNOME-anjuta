@@ -431,7 +431,8 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	{
 	 PREP_QUERY_UPDATE_SYMBOL_ALL,
 	 "UPDATE symbol SET is_file_scope = ## /* name:'isfilescope' type:gint "
-	 "*/, signature = ## /* name:'signature' type:gchararray */, "
+	 "*/, file_position = ## /* name:'fileposition' type:gint */, "
+	 "signature = ## /* name:'signature' type:gchararray */, "
 	 "scope_definition_id = ## /* name:'scopedefinitionid' type:gint */, "
 	 "scope_id = ## /* name:'scopeid' type:gint */, kind_id = "
 	 "## /* name:'kindid' type:gint */, access_kind_id = ## /* name:"
@@ -466,6 +467,7 @@ enum
 	SCAN_END,
 	SYMBOL_INSERTED,
 	SYMBOL_UPDATED,
+	SYMBOL_SCOPE_UPDATED,
 	SYMBOL_REMOVED,
 	LAST_SIGNAL
 };
@@ -501,7 +503,7 @@ static GObjectClass *parent_class = NULL;
 static void sdb_engine_second_pass_do (SymbolDBEngine * dbe);
 static gint
 sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
-						   gchar * base_prj_path, gchar * fake_file,
+						   const gchar * base_prj_path, const gchar * fake_file,
 						   gboolean sym_update);
 
 
@@ -815,12 +817,13 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 					/* proceed with second passes */
 					DEBUG_PRINT ("FOUND end-of-group-files marker.\n"
 								 "go on with sdb_engine_second_pass_do ()");
-					sdb_engine_second_pass_do (dbe);				
 					
 					chars_ptr += len_marker;
 					remaining_chars -= len_marker;
-
-
+					
+					/* will emit symbol_scope_updated */
+					sdb_engine_second_pass_do (dbe);
+					
 					/* Here we are. It's the right time to notify the listeners
 					 * about out fresh new inserted/updated symbols...
 					 * Go on by emitting them.
@@ -836,6 +839,7 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 					{
 						g_signal_emit (dbe, signals[SYMBOL_UPDATED], 0, tmp_updated);
 					}
+
 					
 					/* emit signal. The end of files-group can be cannot be
 					 * determined by the caller. This is the only way.
@@ -1139,6 +1143,16 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 						1,
 						G_TYPE_INT);
 
+	signals[SYMBOL_SCOPE_UPDATED]
+		= g_signal_new ("symbol-scope-updated",
+						G_OBJECT_CLASS_TYPE (object_class),
+						G_SIGNAL_RUN_FIRST,
+						G_STRUCT_OFFSET (SymbolDBEngineClass, symbol_scope_updated),
+						NULL, NULL,
+						g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 
+						1,
+						G_TYPE_INT);
+	
 	signals[SYMBOL_REMOVED]
 		= g_signal_new ("symbol-removed",
 						G_OBJECT_CLASS_TYPE (object_class),
@@ -1276,7 +1290,7 @@ sdb_engine_create_db_tables (SymbolDBEngine * dbe, gchar * tables_sql_file)
  * Check if the database already exists into the prj_directory
  */
 gboolean
-symbol_db_engine_db_exists (SymbolDBEngine * dbe, gchar * prj_directory)
+symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory)
 {
 	SymbolDBEnginePriv *priv;
 
@@ -1304,7 +1318,7 @@ symbol_db_engine_db_exists (SymbolDBEngine * dbe, gchar * prj_directory)
  * Open or create a new database at given directory.
  */
 gboolean
-symbol_db_engine_open_db (SymbolDBEngine * dbe, gchar * prj_directory)
+symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * prj_directory)
 {
 	SymbolDBEnginePriv *priv;
 	/* Connection data */
@@ -1597,7 +1611,7 @@ sdb_engine_get_table_id_by_unique_name3 (SymbolDBEngine * dbe, query_type qtype,
 
 gboolean
 symbol_db_engine_add_new_workspace (SymbolDBEngine * dbe,
-									gchar * workspace_name)
+									const gchar * workspace_name)
 {
 /*
 CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
@@ -1713,7 +1727,7 @@ symbol_db_engine_open_project (SymbolDBEngine * dbe,	/*gchar* workspace, */
 
 
 gboolean 
-symbol_db_engine_close_project (SymbolDBEngine *dbe, gchar* project_name)
+symbol_db_engine_close_project (SymbolDBEngine *dbe, const gchar* project_name)
 {
 	SymbolDBEnginePriv *priv;
 
@@ -1733,8 +1747,8 @@ symbol_db_engine_close_project (SymbolDBEngine *dbe, gchar* project_name)
  */
 // FIXME: file_include file_ignore
 gboolean
-symbol_db_engine_add_new_project (SymbolDBEngine * dbe, gchar * workspace,
-								  gchar * project)
+symbol_db_engine_add_new_project (SymbolDBEngine * dbe, const gchar * workspace,
+								  const gchar * project)
 {
 /*
 CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
@@ -1747,7 +1761,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	GdaParameterList *par_list;
 	GdaParameter *param;
 	GValue *value;
-	gchar *workspace_name;
+	const gchar *workspace_name;
 	gint wks_id;
 	SymbolDBEnginePriv *priv;
 
@@ -2873,7 +2887,8 @@ sdb_engine_add_new_tmp_heritage_scope (SymbolDBEngine * dbe,
 	return table_id;
 }
 
-static gboolean
+/** Return the symbol_id of the changed symbol */
+static gint
 sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 									   GdaDataModel * data, gint data_row,
 									   gchar * token_name,
@@ -2898,7 +2913,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 
 	/* we don't need empty strings */
 	if (strcmp (tmp_str, "") == 0)
-		return FALSE;
+		return -1;
 
 	/* we could have something like "First::Second::Third::Fourth" as tmp_str, so 
 	 * take only the lastscope, in this case 'Fourth'.
@@ -2922,7 +2937,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	else
 	{
 		g_strfreev (tmp_str_splitted);
-		return FALSE;
+		return -1;
 	}
 
 	g_strfreev (tmp_str_splitted);
@@ -2949,7 +2964,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 
 		gda_value_free (value1);
 		gda_value_free (value2);
-		return FALSE;
+		return -1;
 	}
 	gda_value_free (value1);
 	gda_value_free (value2);
@@ -2969,27 +2984,27 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 		== NULL)
 	{
 		g_warning ("query is null");
-		return FALSE;
+		return -1;
 	}
 
 	if (GDA_QUERY_TYPE_NON_PARSED_SQL
 		== gda_query_get_query_type ((GdaQuery *) query))
 	{
 		g_warning ("non parsed sql error");
-		return FALSE;
+		return -1;
 	}
 
 	if ((par_list = gda_query_get_parameter_list ((GdaQuery *) query)) == NULL)
 	{
 		g_warning ("par_list is NULL!\n");
-		return FALSE;
+		return -1;
 	}
 
 	/* scopeid parameter */
 	if ((param = gda_parameter_list_find_param (par_list, "scopeid")) == NULL)
 	{
 		g_warning ("param scopeid is NULL from pquery!");
-		return FALSE;
+		return -1;
 	}
 
 	value = gda_value_new (G_TYPE_INT);
@@ -3000,7 +3015,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	if ((param = gda_parameter_list_find_param (par_list, "symbolid")) == NULL)
 	{
 		g_warning ("param symbolid is NULL from pquery!");
-		return FALSE;
+		return -1;
 	}
 
 	gda_value_reset_with_type (value, G_TYPE_INT);
@@ -3011,7 +3026,7 @@ sdb_engine_second_pass_update_scope_1 (SymbolDBEngine * dbe,
 	/* execute the query with parametes just set */
 	gda_query_execute ((GdaQuery *) query, par_list, FALSE, NULL);
 
-	return TRUE;
+	return symbol_id;
 }
 
 
@@ -3037,7 +3052,9 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 	 * Go on with the parsing then.
 	 */
 	gint i;
-
+/*	GSList *slist = g_slist_alloc ();*/
+	gint symbol_id;
+	
 	for (i = 0; i < gda_data_model_get_n_rows (data); i++)
 	{
 		GValue *value;
@@ -3047,8 +3064,11 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 															  "field_class",
 															  i)) != NULL)
 		{
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "class",
+			symbol_id = 
+				sdb_engine_second_pass_update_scope_1 (dbe, data, i, "class",
 												   value);
+/*			if (symbol_id > 0)
+				slist = g_slist_prepend (slist, (gpointer)symbol_id);*/
 		}
 
 		if ((value =
@@ -3056,8 +3076,11 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 															  "field_struct",
 															  i)) != NULL)
 		{
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "struct",
+			symbol_id = 
+				sdb_engine_second_pass_update_scope_1 (dbe, data, i, "struct",
 												   value);
+/*			if (symbol_id > 0)			
+				slist = g_slist_prepend (slist, (gpointer)symbol_id);*/
 		}
 
 		if ((value =
@@ -3066,8 +3089,11 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 															  i)) != NULL)
 		{
 			/* this is a "typedef", not a "typeref". */
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "typedef",
+			symbol_id = 
+				sdb_engine_second_pass_update_scope_1 (dbe, data, i, "typedef",
 												   value);
+/*			if (symbol_id > 0)
+				slist = g_slist_prepend (slist, (gpointer)symbol_id);*/
 		}
 
 		if ((value =
@@ -3075,7 +3101,10 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 															  "field_enum",
 															  i)) != NULL)
 		{
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "enum", value);
+			symbol_id = 
+				sdb_engine_second_pass_update_scope_1 (dbe, data, i, "enum", value);
+/*			if (symbol_id > 0)
+				slist = g_slist_prepend (slist, (gpointer)symbol_id);*/
 		}
 
 		if ((value =
@@ -3083,8 +3112,11 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 															  "field_union",
 															  i)) != NULL)
 		{
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "union",
+			symbol_id = 
+				sdb_engine_second_pass_update_scope_1 (dbe, data, i, "union",
 												   value);
+/*			if (symbol_id > 0)
+				slist = g_slist_prepend (slist, (gpointer)symbol_id);*/
 		}
 
 		if ((value =
@@ -3092,10 +3124,28 @@ sdb_engine_second_pass_update_scope (SymbolDBEngine * dbe, GdaDataModel * data)
 															  "field_namespace",
 															  i)) != NULL)
 		{
-			sdb_engine_second_pass_update_scope_1 (dbe, data, i, "namespace",
+			symbol_id = 
+				sdb_engine_second_pass_update_scope_1 (dbe, data, i, "namespace",
 												   value);
+/*			if (symbol_id > 0)
+				slist = g_slist_prepend (slist, (gpointer)symbol_id);*/
 		}
 	}
+
+	/* ok, it's time to emit the symbol_scope_updated. By emitting this signal
+	 * we can achieve some performance over the symbol_updated signal, because
+	 * this is more selective.
+	 */
+/*	
+	gint sym_id;
+	while ((sym_id = (gint)g_slist_nth_data (slist, 0)) >= 0) 
+	{
+		g_signal_emit (dbe, signals[SYMBOL_SCOPE_UPDATED], 0, sym_id);
+		slist = g_slist_remove (slist, (gpointer)sym_id);
+	}
+		
+	g_slist_free (slist);
+	*/
 }
 
 
@@ -3352,7 +3402,6 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
 	if (!GDA_IS_DATA_MODEL (obj) ||
 		gda_data_model_get_n_rows (GDA_DATA_MODEL (obj)) <= 0)
 	{
-
 		if (obj != NULL)
 			g_object_unref (obj);
 		obj = NULL;
@@ -3430,7 +3479,7 @@ sdb_engine_second_pass_do (SymbolDBEngine * dbe)
  */
 static gint
 sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
-						   gchar * base_prj_path, gchar * fake_file,
+						   const gchar *base_prj_path, const gchar *fake_file,
 						   gboolean sym_update)
 {
 /*
@@ -3592,11 +3641,10 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	if ((symbol_id = sdb_engine_get_table_id_by_unique_name3 (dbe,
 								  PREP_QUERY_GET_SYMBOL_ID_BY_UNIQUE_INDEX_KEY,
 								  "symname", value1,
-								  "filedefid",value2, 
+								  "filedefid",value2,
 								  "typeid", value3)) <= 0)
 	{
 		/* case 2 and 3 */
-/*		DEBUG_PRINT ("inserting new symbol: %s", name);*/
 		sym_was_updated = FALSE;
 		
 		gda_value_free (value1);
@@ -3652,20 +3700,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 		g_value_set_string (value, name);
 		gda_parameter_set_value (param, value);
 
-		/* fileposition parameter */
-		if ((param =
-			 gda_parameter_list_find_param (par_list, "fileposition")) == NULL)
-		{
-			g_warning ("param fileposition is NULL from pquery!");
-			gda_value_free (value);
-			return -1;
-		}
-
-		gda_value_reset_with_type (value, G_TYPE_INT);
-		g_value_set_int (value, file_position);
-		gda_parameter_set_value (param, value);
-
-
 		/* typeid parameter */
 		if ((param =
 			 gda_parameter_list_find_param (par_list, "typeid")) == NULL)
@@ -3682,7 +3716,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	else
 	{
 		/* case 1 */
-/*		DEBUG_PRINT ("updating symbol: %s", name);*/
 		sym_was_updated = TRUE;
 		
 		gda_value_free (value1);
@@ -3714,7 +3747,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 			return -1;
 		}
 
-		/* isfilescope parameter */
+		/* symbolid parameter */
 		if ((param = gda_parameter_list_find_param (par_list, "symbolid"))
 			== NULL)
 		{
@@ -3730,6 +3763,20 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 
 	/* common params */
 
+	/* fileposition parameter */
+	if ((param =
+		 gda_parameter_list_find_param (par_list, "fileposition")) == NULL)
+	{
+		g_warning ("param fileposition is NULL from pquery!");
+		gda_value_free (value);
+		return -1;
+	}
+
+	gda_value_reset_with_type (value, G_TYPE_INT);
+	g_value_set_int (value, file_position);
+	gda_parameter_set_value (param, value);
+
+	
 	/* isfilescope parameter */
 	if ((param =
 		 gda_parameter_list_find_param (par_list, "isfilescope")) == NULL)
@@ -4102,10 +4149,8 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe, GPtrArray* data)
 										  files_to_scan);
 		
 	/* free the GPtrArray. */
-	DEBUG_PRINT ("free the files_to_scan");
 	g_ptr_array_free (files_to_scan, TRUE);
 	data = files_to_scan = NULL;
-	DEBUG_PRINT ("done");
 }
 
 
@@ -4114,7 +4159,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe, GPtrArray* data)
  * on_scan_update_files_symbols_end () callback.
  */
 gboolean
-symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, gchar * project, 
+symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * project, 
 									   GPtrArray * files_path	/*, 
 									   * gchar *language */ ,
 									   gboolean update_prj_analize_time)
@@ -4202,8 +4247,7 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, gchar * project,
  * remember to update this function.
  */
 gboolean
-symbol_db_engine_update_project_symbols (SymbolDBEngine * dbe, gchar * project	/*, 
-											 * gboolean force */ )
+symbol_db_engine_update_project_symbols (SymbolDBEngine *dbe, const gchar *project)
 {
 	const GdaQuery *query;
 	GdaParameterList *par_list;
@@ -4485,7 +4529,8 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gpointer data)
 		DEBUG_PRINT ("processing updating for file [on disk] %s, "
 					 "passed to on_scan_update_buffer_end (): %s", 
 					 node, node + strlen (priv->data_source));
-		
+
+		/* will be emitted removed signals */
 		if (sdb_engine_update_file (dbe, node+ 
 									strlen (priv->data_source)) == FALSE)
 		{
@@ -4511,7 +4556,7 @@ on_scan_update_buffer_end (SymbolDBEngine * dbe, gpointer data)
  * /home/foouser/fooproject/src/main.c
  */
 gboolean
-symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, gchar * project,
+symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar *project,
 										GPtrArray * real_files_list,
 										const GPtrArray * text_buffers,
 										const GPtrArray * buffer_sizes)
@@ -4711,7 +4756,7 @@ sdb_engine_walk_down_scope_path (SymbolDBEngine *dbe, const GPtrArray* scope_pat
  * namespace_name can be NULL.
  */
 SymbolDBEngineIterator *
-symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, gchar *klass_name, 
+symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name, 
 									 const GPtrArray *scope_path)
 {
 	SymbolDBEnginePriv *priv;
@@ -5190,7 +5235,7 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 		"%s WHERE file.file_path = \"%s\"", info_data->str, join_data->str,
 								 file_path + strlen(priv->data_source));
 	
-	DEBUG_PRINT ("DYNAMIC query [file symbols] is %s", query_str); 
+/*	DEBUG_PRINT ("DYNAMIC query [file symbols] is %s", query_str); */
 	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
 				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
 
@@ -5361,8 +5406,8 @@ select * from symbol where scope_definition_id = (
 			"SELECT symbol.scope_id FROM symbol WHERE symbol.symbol_id = '%d')", 
 								 scoped_symbol_id);
 	
-	DEBUG_PRINT ("symbol_db_engine_get_parent_scope_id_by_symbol_id() query is %s", 
-				 query_str);
+/*	DEBUG_PRINT ("symbol_db_engine_get_parent_scope_id_by_symbol_id() query is %s", 
+				 query_str);*/
 	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
 				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
 
@@ -5372,7 +5417,6 @@ select * from symbol where scope_definition_id = (
 	{
 		gda_command_free (command);
 		g_free (query_str);
-		DEBUG_PRINT ("BAILING OUT");
 		return -1;
 	}
 

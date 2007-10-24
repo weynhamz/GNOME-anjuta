@@ -42,7 +42,7 @@ static GObjectClass* parent_class = NULL;
 SymbolDBEngineIteratorNode *
 symbol_db_engine_iterator_node_new (const GdaDataModelIter *data)
 {	
-	DEBUG_PRINT ("sdb_engine_iterator_node_new ()");
+/*	DEBUG_PRINT ("sdb_engine_iterator_node_new ()");*/
 	SymbolDBEngineIteratorNode *s;
 	s = g_object_new (SYMBOL_TYPE_DB_ENGINE_ITERATOR_NODE, NULL);
 	s->priv->data_iter = (GdaDataModelIter *)data;
@@ -126,7 +126,7 @@ static void
 sdb_engine_iterator_node_instance_init (SymbolDBEngineIteratorNode *object)
 {
 	SymbolDBEngineIteratorNode *sdbin;
-	DEBUG_PRINT ("sdb_engine_iterator_node_instance_init ()");
+/*	DEBUG_PRINT ("sdb_engine_iterator_node_instance_init ()");*/
 	
 	sdbin = SYMBOL_DB_ENGINE_ITERATOR_NODE (object);
 	
@@ -144,7 +144,7 @@ sdb_engine_iterator_node_finalize (GObject *object)
 	SymbolDBEngineIteratorNode *dbin;
 	SymbolDBEngineIteratorNodePriv *priv;
 	
-	DEBUG_PRINT ("sdb_engine_iterator_node_finalize ()");
+/*	DEBUG_PRINT ("sdb_engine_iterator_node_finalize ()");*/
 	
 	dbin = SYMBOL_DB_ENGINE_ITERATOR_NODE (object);	
 	priv = dbin->priv;

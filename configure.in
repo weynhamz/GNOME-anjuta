@@ -1138,6 +1138,7 @@ plugins/project-manager/Makefile
 plugins/symbol-browser/Makefile
 plugins/symbol-browser/images/Makefile
 plugins/symbol-db/Makefile
+plugins/symbol-db/test/Makefile
 plugins/cvs-plugin/Makefile
 plugins/project-wizard/Makefile
 plugins/macro/Makefile

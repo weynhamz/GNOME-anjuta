@@ -52,7 +52,7 @@
 #define GLADE_FILE ANJUTA_DATA_DIR"/glade/symbol-db.glade"
 #define ICON_FILE "symbol-db.png"
 
-#define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		60000
+#define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		15000
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5
 
 static gpointer parent_class;
@@ -61,29 +61,19 @@ static gchar prev_char_added = ' ';
 static gint timeout_id = 0;
 static GTimer *timer = NULL;
 
-#define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (icon, NULL); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	g_object_unref (pixbuf);
-
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
-	AnjutaUI *ui;
-	GtkIconFactory *icon_factory;
-	GtkIconSet *icon_set;
-	GdkPixbuf *pixbuf;
 	static gboolean registered = FALSE;
-
+	
 	if (registered)
 		return;
 	registered = TRUE;
 
 	/* Register stock icons */
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	icon_factory = anjuta_ui_get_icon_factory (ui);
-	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/"ICON_FILE, "symbol-db-plugin-icon");
+	BEGIN_REGISTER_ICON (plugin);
+	REGISTER_ICON (ICON_FILE, "symbol-db-plugin-icon");
+	END_REGISTER_ICON;
 }
 /*
 static GtkActionEntry actions[] = 
@@ -320,6 +310,7 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 }
 
 
+//files = anjuta_session_get_string_list (session, "File Loader", "Files");
 static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
@@ -356,17 +347,17 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_object_weak_ref (G_OBJECT (editor),
 						   (GWeakNotify) (on_editor_destroy),
 						   sdb_plugin);
-//		if (uri)
-//		{
+		if (uri)
+		{
 			g_hash_table_insert (sdb_plugin->editor_connected, editor,
 								 g_strdup (uri));
-/*		}
+		}
 		else
 		{
 			g_hash_table_insert (sdb_plugin->editor_connected, editor,
 								 g_strdup (""));
 		}
-*/
+
 		g_signal_connect (G_OBJECT (editor), "saved",
 						  G_CALLBACK (on_editor_saved),
 						  sdb_plugin);
@@ -429,7 +420,9 @@ goto_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
 	gint line;
 
 	line = symbol_db_view_locals_get_line (SYMBOL_DB_VIEW_LOCALS (
-									sdb_plugin->dbv_view_tree_locals), iter);
+									sdb_plugin->dbv_view_tree_locals), 
+										   sdb_plugin->sdbe,
+										   iter);
 
 	DEBUG_PRINT ("got line %d", line);
 	

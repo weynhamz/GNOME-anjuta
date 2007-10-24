@@ -32,7 +32,8 @@ SUBDIRS = . \
 	profiler \
 	devhelp \
 	profiler \
-	language-manager
+	language-manager \
+	symbol-db
 # indent
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.

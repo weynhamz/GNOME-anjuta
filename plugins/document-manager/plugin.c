@@ -1062,6 +1062,26 @@ on_editor_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 }
 
 static void
+on_support_plugin_deactivated (AnjutaPlugin* plugin, DocmanPlugin* docman_plugin)
+{
+	GList* node;
+	AnjutaPluginManager* plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
+	for (node = docman_plugin->support_plugins; node != NULL; node = g_list_next (node))
+	{
+		GObject* cur_plugin = anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
+																	  node->data);
+		if (cur_plugin && cur_plugin == G_OBJECT (plugin))
+		{
+			g_free (node->data);
+			node->data = NULL;
+			docman_plugin->support_plugins = 
+				g_list_delete_link (docman_plugin->support_plugins, node);
+			node = docman_plugin->support_plugins;
+		}
+	}
+}
+
+static void
 on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 				   AnjutaPlugin *plugin)
 {
@@ -1111,7 +1131,9 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 				for (node = docman_plugin->support_plugins; node != NULL; node = g_list_next (node))
 				{
 					GObject* plugin = anjuta_plugin_manager_get_plugin_by_id (plugin_manager, node->data);
+					g_signal_handlers_block_by_func (plugin, G_CALLBACK (on_support_plugin_deactivated), docman_plugin);
 					anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
+					g_signal_handlers_unblock_by_func (plugin, G_CALLBACK (on_support_plugin_deactivated), docman_plugin);
 					g_free (node->data);
 				}
 				g_list_free (docman_plugin->support_plugins);
@@ -1175,6 +1197,8 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 				{
 					docman_plugin->support_plugins = g_list_prepend (docman_plugin->support_plugins,
 																	 plugin_id);
+					g_signal_connect (G_OBJECT (plugin_object), "deactivated", 
+									  G_CALLBACK (on_support_plugin_deactivated), docman_plugin);
 				}
 				else
 				{

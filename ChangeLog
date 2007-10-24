@@ -1,3 +1,33 @@
+2007-10-24  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in:
+	* plugins/Makefile.am:
+	
+	Activate build of symbol-db plugin (when libgda is available)
+	
+	* plugins/document-manager/plugin.c:
+	(on_support_plugin_deactivated), (on_editor_changed):
+	
+	Properly handle language support plugins even when they are
+	unloaded by the session.
+	
+	* plugins/symbol-db/plugin.c: (register_stock_icons),
+  Port to new REGISTER_ICONS stuff
+  
+2007-10-22  Massimo Cora'  <maxcvs@email.it>
+
+  * plugins/symbol-db/plugin.c,
+  * plugins/symbol-db/symbol-db-view.c
+  * plugins/symbol-db/symbol-db-engine.h,
+  * plugins/symbol-db/symbol-db-engine-iterator-node.c,
+  * plugins/symbol-db/symbol-db-view-locals.c,
+  * plugins/symbol-db/symbol-db-view-locals.h,
+  * plugins/symbol-db/symbol-db-engine.c:
+  Fixed functions declarations with 'const gchar*' instead of 'gchar*'.
+  Added a new algorithm for dynamic population of the local symbols' tab.
+  Now the default view is tree-like.
+  Some fixes on engine correct some population issues.	
+
 2007-10-23  Naba Kumar  <naba@gnome.org>
 
 	* plugins/glade/Makefile.am: Corrected conditional not to install

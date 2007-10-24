@@ -65,6 +65,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 							  const gchar* filepath);
 gint
 symbol_db_view_locals_get_line (SymbolDBViewLocals *dbvl,
+								SymbolDBEngine *dbe,
 								GtkTreeIter * iter);
 
 
