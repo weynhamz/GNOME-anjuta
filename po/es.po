@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-19 18:51+0100\n"
-"PO-Revision-Date: 2007-10-22 19:16+0200\n"
+"POT-Creation-Date: 2007-10-24 18:42+0100\n"
+"PO-Revision-Date: 2007-10-25 20:21+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -228,7 +228,7 @@ msgstr "No se puede ejecutar el comando: \"%s\""
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2197
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2188
 msgid "Anjuta Shell"
 msgstr "Shell de Anjuta"
 
@@ -236,13 +236,7 @@ msgstr "Shell de Anjuta"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "El shell de Anjuta que contendrá el complemento"
 
-#: ../libanjuta/anjuta-plugin-manager.c:549
-#: ../libanjuta/anjuta-plugin-manager.c:560
-#, c-format
-msgid "Invalid plugin: %s"
-msgstr "Complemento no válido: %s"
-
-#: ../libanjuta/anjuta-plugin-manager.c:776
+#: ../libanjuta/anjuta-plugin-manager.c:764
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -255,25 +249,25 @@ msgstr ""
 "error que ha llevado a esto es:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:875
+#: ../libanjuta/anjuta-plugin-manager.c:863
 #: ../plugins/symbol-browser/an_symbol_prefs.c:781
 msgid "Load"
 msgstr "Carga"
 
-#: ../libanjuta/anjuta-plugin-manager.c:897
-#: ../libanjuta/anjuta-plugin-manager.c:1832
+#: ../libanjuta/anjuta-plugin-manager.c:885
+#: ../libanjuta/anjuta-plugin-manager.c:1823
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1010 ../src/anjuta-app.c:830
+#: ../libanjuta/anjuta-plugin-manager.c:998 ../src/anjuta-app.c:830
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1124
+#: ../libanjuta/anjuta-plugin-manager.c:1112
 msgid "Only show user activatable plugins"
 msgstr "Mostrar sólo los complementos activables por el usuario"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1171
+#: ../libanjuta/anjuta-plugin-manager.c:1159
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -284,66 +278,71 @@ msgstr ""
 "preferido hará que Anjuta le pregunte de nuevo para elegir un complemento "
 "diferente."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1330
-#: ../libanjuta/anjuta-plugin-manager.c:1430
+#: ../libanjuta/anjuta-plugin-manager.c:1319
+#: ../libanjuta/anjuta-plugin-manager.c:1421
 #: ../plugins/debug-manager/queue.c:446
 msgid "Select a plugin"
 msgstr "Seleccione un complemento"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1331
-#: ../libanjuta/anjuta-plugin-manager.c:1431
+#: ../libanjuta/anjuta-plugin-manager.c:1320
+#: ../libanjuta/anjuta-plugin-manager.c:1422
 #: ../plugins/debug-manager/queue.c:447
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un complemento para activar"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1851
+#: ../libanjuta/anjuta-plugin-manager.c:1334
+#, c-format
+msgid "No plugin able to load other plugins in %s"
+msgstr "No existe un complemento capaz de cargar otros complementos en %s"
+
+#: ../libanjuta/anjuta-plugin-manager.c:1842
 msgid "Remember this selection"
 msgstr "Recordar esta decisión"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2178
+#: ../libanjuta/anjuta-plugin-manager.c:2169
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2179
+#: ../libanjuta/anjuta-plugin-manager.c:2170
 msgid "Current stack of profiles"
 msgstr "Pila de perfiles actual"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2184
+#: ../libanjuta/anjuta-plugin-manager.c:2175
 msgid "Available plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2185
+#: ../libanjuta/anjuta-plugin-manager.c:2176
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
 "Complementos actualmente disponibles encontrados en las rutas de los "
 "complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2191
+#: ../libanjuta/anjuta-plugin-manager.c:2182
 msgid "Activated plugins"
 msgstr "Complementos activados"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2192
+#: ../libanjuta/anjuta-plugin-manager.c:2183
 msgid "Currently activated plugins"
 msgstr "Complementos activados actualmente"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2198
+#: ../libanjuta/anjuta-plugin-manager.c:2189
 msgid "Anjuta shell for which the plugins are"
 msgstr "El shell de Anjuta para el que son los complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2206
+#: ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Anjuta Status"
 msgstr "Estado de Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2207
+#: ../libanjuta/anjuta-plugin-manager.c:2198
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2364
+#: ../libanjuta/anjuta-plugin-manager.c:2355
 msgid "Loaded: "
 msgstr "Cargado:"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2364
+#: ../libanjuta/anjuta-plugin-manager.c:2355
 msgid "..."
 msgstr "…"
 
@@ -2432,7 +2431,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1668
 #: ../plugins/search/search-replace.c:1680
 #: ../plugins/search/search-replace.c:1994
-#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:864
+#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:857
 msgid "Search"
 msgstr "Buscar"
 
@@ -2514,9 +2513,9 @@ msgid "Do not show tabs"
 msgstr "No mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1642
-#: ../plugins/document-manager/plugin.c:2009
-#: ../plugins/document-manager/plugin.c:2021
+#: ../plugins/document-manager/plugin.c:1666
+#: ../plugins/document-manager/plugin.c:2033
+#: ../plugins/document-manager/plugin.c:2045
 msgid "Documents"
 msgstr "Documentos"
 
@@ -7392,7 +7391,7 @@ msgstr "Se ha iniciado el hilo de Subversion..."
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
 #: ../plugins/symbol-browser/an_symbol_view.c:565
-#: ../plugins/symbol-db/symbol-db-view-locals.c:92
+#: ../plugins/symbol-db/symbol-db-view-locals.c:133
 #: ../plugins/symbol-db/symbol-db-view.c:437
 msgid "Symbol"
 msgstr "Símbolo"
@@ -7503,15 +7502,15 @@ msgstr "Buscar uso del símbolo en el proyecto"
 msgid "Refresh symbol browser tree"
 msgstr "Refrescar el árbol del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:388 ../plugins/symbol-db/plugin.c:748
+#: ../plugins/symbol-browser/plugin.c:388 ../plugins/symbol-db/plugin.c:741
 msgid "Created symbols..."
 msgstr "Símbolos creados…"
 
-#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:826
+#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:819
 msgid "Local"
 msgstr "Local"
 
-#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:847
+#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:840
 msgid "Global"
 msgstr "Global"
 
@@ -7535,7 +7534,7 @@ msgstr "Seleccione el símbolo al que quiere ir"
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:902
+#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:895
 msgid "Symbols"
 msgstr "Símbolos"
 
