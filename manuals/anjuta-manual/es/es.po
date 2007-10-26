@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD.es\n"
 "POT-Creation-Date: 2007-08-30 23:41+0100\n"
-"PO-Revision-Date: 2007-10-23 16:05+0200\n"
+"PO-Revision-Date: 2007-10-26 19:49+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -130,6 +130,13 @@ msgid ""
 "editor, source browsing, and more. is a versatile Integrated Development "
 "Environment"
 msgstr ""
+"<application>Anjuta</application> es un Editor Integrado de Desarrollo (EID) versátil "
+"para el escritorio GNOME. Tiene ciertas características para facilitar la programación "
+"que incluyen gestión de proyectos, asistentes de aplicación, "
+"un depurador integrado intergrado, un diseñador de IU Glade integrado, "
+"una ayuda API de devhelp integrada, un perfilador de memoria valgrind integrado, "
+"un perfilador de rendimiento grpof integrado, un generador de clases, un potente editor "
+"de código fuente, búsqueda de fuentes y mucho más."
 
 #: C/anjuta-manual.xml:15(para)
 msgid ""
@@ -185,6 +192,11 @@ msgid ""
 "type. For example, the file operations have been grouped into the "
 "<guisubmenu>File</guisubmenu> menu."
 msgstr ""
+"En la parte superior de la ventana principal de <application>Anjuta</application> está la "
+"barra de menú. Casi todas las funciones están disponibles al activar el elemento "
+"del menú apropiado. Las funciones se han agrupado de acuerdo con su "
+"tipo. Por ejemplo, las operaciones con archivos se han agrupado dentro del "
+"menú <guisubmenu>Archivo</guisubmenu>."
 
 #: C/anjuta-manual.xml:15(title)
 msgid "Menubar"
@@ -216,6 +228,9 @@ msgid ""
 "menu is also available in the next section. Some useful shortcuts are listed "
 "here."
 msgstr ""
+"Las teclas rápidas, o aceleradores de teclado, están disponibles para muchas de las opciones de los menús. Todas las "
+"teclas rápidas se muestran junto con los elementos del menú correspondientes. También hay una referencia útil "
+"acerca de las teclas rápidas que no están directamente adjuntas a los menús en la siguiente sección. A continuación se listan algunas teclas rápidas útiles."
 
 #: C/anjuta-manual.xml:46(para)
 msgid ""
@@ -247,6 +262,10 @@ msgid ""
 "the remaining part will appear. Scroll and select the right word from the "
 "list if you find one."
 msgstr ""
+"<emphasis>Autocompletar:</emphasis> Ctrl+Intro; pulse la combinación de teclas con "
+"el cursor ubicado al final de una palabra incompleta y se mostrará una lista de palabras "
+"que coincidan con la parte restante. Desplace la lista y seleccione la palabra correcta de "
+"la lista, si encuentra una."
 
 #: C/anjuta-manual.xml:72(para)
 msgid ""
@@ -254,6 +273,9 @@ msgid ""
 "right side of the menu item labels. They could also be changed as explained "
 "in the tip below."
 msgstr ""
+"<emphasis>Más teclas rápidas:</emphasis> Consulte las teclas rápidas mostradas en "
+"la parte derecha de las etiquetas de los elementos del menú. También se pueden cambiar como se explica "
+"en el siguiente consejo."
 
 #: C/anjuta-manual.xml:79(title)
 msgid "Customize shortcuts"
@@ -358,6 +380,8 @@ msgid ""
 "The <interface>Terminal window</interface> is a terminal emulation where you "
 "can type commands just like in the gnome-terminal."
 msgstr ""
+"La <interface>Ventana del terminal</interface> es una emulación de un terminal donde puede "
+"ejecutar comandos igual que en gnome-terminal."
 
 #: C/anjuta-manual.xml:171(title)
 msgid "Session management"
@@ -378,7 +402,7 @@ msgstr "Operaciones con archivos"
 
 #: C/anjuta-manual.xml:6(title)
 msgid "Creating a New File and inserting texts"
-msgstr ""
+msgstr "Crear un archivo nuevo e insertar texto"
 
 #: C/anjuta-manual.xml:8(title)
 msgid "Creating New File"
@@ -393,6 +417,9 @@ msgid ""
 "windowed). This new document will be named <filename>newfile#1</filename>, "
 "<filename>newfile#2</filename>, <filename>newfile#3</filename> and so on."
 msgstr ""
+"Para crear un archivo nuevo, elija <menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Nuevo</guimenuitem></menuchoice> de la barra de menú o pulse el botón <guibutton>Archivo nuevo</guibutton> en la barra de herramientas. Se abrirá "
+"una nueva página en el editor (o una nueva ventana si el documento padre está en una "
+"ventana). Este nuevo documento se llamará <filename>newfile#1</filename>, <filename>newfile#2</filename>, <filename>newfile#3</filename> y demás."
 
 #: C/anjuta-manual.xml:19(title)
 msgid "Save file"
@@ -403,6 +430,8 @@ msgid ""
 "You should save new documents as soon as possible to avoid any data loss in "
 "case of a crash."
 msgstr ""
+"Debería guardar sus documentos nuevos tan pronto como le sea posible para evitar cualquier pérdida de datos en "
+"caso de cuelgue."
 
 #: C/anjuta-manual.xml:27(title)
 msgid "File Wizard"
@@ -435,6 +464,10 @@ msgid ""
 "file status etc, create new files and add the output there. These could be "
 "saved in real file just like normal new files."
 msgstr ""
+"<application>Anjuta</application> ocasionalmente crea nuevos archivos durante "
+"algunas operaciones. Por ejemplo, algunas operaciones sobre CVS, tales como diff, log de un archivo, "
+"status de un archivo, etc, crean archivos nuevos y añaden la salida allí. Estos se pueden "
+"guardar en un archivo real igual que los nuevos archivos normales."
 
 #: C/anjuta-manual.xml:53(title)
 msgid "Inserting Macros"
@@ -442,11 +475,11 @@ msgstr "Insertar macros"
 
 #: C/anjuta-manual.xml:54(para)
 msgid "Macros can be used to quickly edit repetitive sequences of text."
-msgstr ""
+msgstr "Se pueden usar macros para editar rápidamente secuencias repetitivas de texto."
 
 #: C/anjuta-manual.xml:58(para)
 msgid "Macro plugin must be activated."
-msgstr ""
+msgstr "El complemento de macros debe estar activado."
 
 #: C/anjuta-manual.xml:63(title)
 msgid "Inserting"
@@ -458,6 +491,9 @@ msgid ""
 "macros). Anjuta macros are not modifiable by the user. On the other hand, "
 "User macros can be defined and modified by the user."
 msgstr ""
+"Existen dos tipos de macros disponibles: Los macros de Anjuta y los macros del usuario (Mis "
+"macros). Los macros de Anjuta no son modificables por el usuario. Por otra parte, "
+"los macros del usuario se pueden definir y modificar por el usuario."
 
 #: C/anjuta-manual.xml:69(para)
 msgid ""
@@ -506,6 +542,8 @@ msgid ""
 "The user can also erase a macro by selecting it in the list (only My Macros) "
 "then by choosing <guibutton>Remove</guibutton>."
 msgstr ""
+"El usuario también puede borrar un macro seleccionándolo en la lista (sólo Mis macros) "
+"y después eligiendo <guibutton>Eliminar</guibutton>."
 
 #: C/anjuta-manual.xml:108(title)
 msgid "Add/Edit Macro"
@@ -520,10 +558,12 @@ msgid ""
 "Same manner, macro can be edited and modified by selecting it in the list "
 "then by choosing <guibutton>Edit</guibutton>. <placeholder-1/>"
 msgstr ""
+"De la misma manera se puede editar un macro y modificarlo seleccionándolo en la lista "
+"y después eligiendo <guibutton>Editar</guibutton>. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:117(title)
 msgid "Macro Keywords"
-msgstr ""
+msgstr "Palabras clave de los macros"
 
 #: C/anjuta-manual.xml:118(para)
 msgid ""
@@ -531,14 +571,17 @@ msgid ""
 "definitions. The names of these macro Keywords start and finish by the "
 "character ' @ '."
 msgstr ""
+"Están disponibles las palabras clave para los macros. Pueden integrarse en la definición "
+"del macro. Los nombres de estas palabras clave de los macros comienzan y finalizan con el "
+"carácter «@»."
 
 #: C/anjuta-manual.xml:126(title)
 msgid "Keyword Macro"
-msgstr ""
+msgstr "Palabra clave del macro"
 
 #: C/anjuta-manual.xml:128(screeninfo)
 msgid "The Keyword macro"
-msgstr ""
+msgstr "La palabra clave del macro"
 
 #: C/anjuta-manual.xml:122(para)
 msgid ""
@@ -546,6 +589,9 @@ msgid ""
 "@USER_NAME@, @FILE_NAME@, @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, "
 "@TABSIZE@, @INDENTSIZE@, @USETABS@. <placeholder-1/>"
 msgstr ""
+"Las palabras clave de macro disponibles son: @DATE_TIME@, @DATE_YMD@, @DATE_Y@, "
+"@USER_NAME@, @FILE_NAME@, @FILE_NAME_UP@, @FILE_NAME_UP_PREFIX@, @EMAIL@, "
+"@TABSIZE@, @INDENTSIZE@, @USETABS@. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:139(title)
 msgid "Opening and Saving Files"
