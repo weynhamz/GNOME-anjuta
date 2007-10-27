@@ -668,6 +668,7 @@ egg_tree_model_filter_fetch_child (EggTreeModelFilter *filter,
                                    gint               *index)
 {
   gint i = 0;
+  gint i_t;
   gint start, middle, end;
   gint len;
   GtkTreePath *c_path = NULL;
@@ -756,7 +757,8 @@ egg_tree_model_filter_fetch_child (EggTreeModelFilter *filter,
   g_array_insert_val (level->array, i, elt);
   *index = i;
 
-  for (i = MAX (--i, 0); i < level->array->len; i++)
+  i_t = i - 1;  
+  for (i = MAX (i_t, 0); i < level->array->len; i++)
     {
       FilterElt *e = &(g_array_index (level->array, FilterElt, i));
       if (e->children)
@@ -830,9 +832,11 @@ egg_tree_model_filter_remove_node (EggTreeModelFilter *filter,
 
       if (tmp)
         {
+          gint i_t;
           g_array_remove_index (level->array, i);
 
-          for (i = MAX (--i, 0); i < level->array->len; i++)
+          i_t = i - 1;
+          for (i = MAX (i_t, 0); i < level->array->len; i++)
             {
               /* NOTE: here we do *not* decrease offsets, because the node was
                * not removed from the child model
@@ -1509,6 +1513,7 @@ egg_tree_model_filter_row_deleted (GtkTreeModel *c_model,
   else
     {
       FilterElt *tmp;
+      gint i_t;
 
       /* remove the row */
       tmp = bsearch_elt_with_offset (level->array, elt->offset, &i);
@@ -1516,7 +1521,8 @@ egg_tree_model_filter_row_deleted (GtkTreeModel *c_model,
       offset = tmp->offset;
       g_array_remove_index (level->array, i);
 
-      for (i = MAX (--i, 0); i < level->array->len; i++)
+      i_t = i = 1;
+      for (i = MAX (i_t, 0); i < level->array->len; i++)
         {
           elt = &g_array_index (level->array, FilterElt, i);
           if (elt->offset > offset)

@@ -1062,7 +1062,11 @@ dnl ------------------------------------------
 
 if test -n "$SVN_INCLUDE" ; then
 	SVN_INCLUDE="-I$SVN_INCLUDE $APR_INCLUDE"
-	SVN_LIB="-L$SVN_LIB $APR_LIBS -lsvn_client-1 -lsvn_subr-1"
+	if test x != "x$SVN_LIB" ; then
+	    SVN_LIB="-L$SVN_LIB $APR_LIBS -lsvn_client-1 -lsvn_subr-1"
+	else
+	    SVN_LIB="$APR_LIBS -lsvn_client-1 -lsvn_subr-1"
+	fi
 	SVN_CFLAGS="$APR_CFLAGS"
 fi
 

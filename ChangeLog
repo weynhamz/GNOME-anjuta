@@ -1,9 +1,21 @@
 2007-10-27  Johannes Schmid <jhs@gnome.org>
 
+	Patch from Stanislav Brabec <sbrabec@suse.cz>
+	* configure.in:
+	Bug 489798 – Do not rely on svn-config
+
+	Patch from Michael Wolf <maw@ximian.com>:
+	* libegg/eggtreemodelfilter.c: (egg_tree_model_filter_fetch_child),
+	(egg_tree_model_filter_remove_node),
+	(egg_tree_model_filter_row_deleted):
+	Bug 487683 – undefined operations in libegg/eggtreemodelfilter.c
+
+2007-10-27  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/devhelp/anjuta-devhelp.ui:
 	* plugins/message-view/anjuta-message-manager.ui:
-  
-  Added some separators to the toolbar
+
+	Added some separators to the toolbar
 	
 	* plugins/document-manager/plugin.c:
 	(on_support_plugin_deactivated), (load_new_support_plugins),
