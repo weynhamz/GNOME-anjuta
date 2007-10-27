@@ -22,7 +22,6 @@
 	</toolbar>
 	<toolbar name="ToolbarBrowser">		
 		<toolitem name="Context" action="ActionHelpContext" />
-		<separator name="separator1" />
 		<toolitem name="BackHelp" action="ActionDevhelpBack" />
 		<toolitem name="ForwardHelp" action="ActionDevhelpForward" />
 	</toolbar>

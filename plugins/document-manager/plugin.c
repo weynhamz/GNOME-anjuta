@@ -1064,21 +1064,48 @@ on_editor_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 static void
 on_support_plugin_deactivated (AnjutaPlugin* plugin, DocmanPlugin* docman_plugin)
 {
+	docman_plugin->support_plugins = g_list_remove (docman_plugin->support_plugins, plugin);
+}
+
+static GList*
+load_new_support_plugins (DocmanPlugin* docman_plugin, GList* new_plugin_ids,
+						  AnjutaPluginManager* plugin_manager)
+{
 	GList* node;
-	AnjutaPluginManager* plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
-	for (node = docman_plugin->support_plugins; node != NULL; node = g_list_next (node))
+	GList* needed_plugins = NULL;
+	for (node = new_plugin_ids; node != NULL; node = g_list_next (node))
 	{
-		GObject* cur_plugin = anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
-																	  node->data);
-		if (cur_plugin && cur_plugin == G_OBJECT (plugin))
+		gchar* plugin_id = node->data;
+		GObject* new_plugin = anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
+																	  plugin_id);
+		GList* item = g_list_find (docman_plugin->support_plugins, new_plugin);
+		if (!item)
 		{
-			g_free (node->data);
-			node->data = NULL;
-			docman_plugin->support_plugins = 
-				g_list_delete_link (docman_plugin->support_plugins, node);
-			node = docman_plugin->support_plugins;
+			DEBUG_PRINT ("Loading plugin: %s", plugin_id);
+			g_signal_connect (new_plugin, "deactivated", 
+							  G_CALLBACK (on_support_plugin_deactivated), docman_plugin);
+		}
+		needed_plugins = g_list_append (needed_plugins, new_plugin);
+	}
+	return needed_plugins;
+}
+
+static void
+unload_unused_support_plugins (DocmanPlugin* docman_plugin, 
+							   GList* needed_plugins)
+{
+	GList* plugins = g_list_copy (docman_plugin->support_plugins);
+	GList* node;
+	for (node = plugins; node != NULL; node = g_list_next (node))
+	{
+		AnjutaPlugin* plugin = ANJUTA_PLUGIN (node->data);
+		if (!g_list_find (needed_plugins, plugin))
+		{
+			DEBUG_PRINT ("Unloading plugin");
+			anjuta_plugin_deactivate (plugin);
 		}
 	}
+	g_list_free (plugins);
 }
 
 static void
@@ -1112,6 +1139,7 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 		if (IANJUTA_IS_EDITOR_LANGUAGE (te)) 
 		{
 			GList* new_support_plugins = NULL;
+			GList* needed_plugins = NULL;
 			const gchar *language = NULL;
 			IAnjutaLanguage* lang_manager = anjuta_shell_get_interface (plugin->shell,
 																		IAnjutaLanguage,
@@ -1127,17 +1155,11 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 			if (!language)
 			{
 				/* Unload all language support plugins */
-				GList* node;
-				for (node = docman_plugin->support_plugins; node != NULL; node = g_list_next (node))
-				{
-					GObject* plugin = anjuta_plugin_manager_get_plugin_by_id (plugin_manager, node->data);
-					g_signal_handlers_block_by_func (plugin, G_CALLBACK (on_support_plugin_deactivated), docman_plugin);
-					anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
-					g_signal_handlers_unblock_by_func (plugin, G_CALLBACK (on_support_plugin_deactivated), docman_plugin);
-					g_free (node->data);
-				}
-				g_list_free (docman_plugin->support_plugins);
-				docman_plugin->support_plugins = NULL;
+				GList* plugins = g_list_copy (docman_plugin->support_plugins);
+				DEBUG_PRINT ("Unloading all plugins");
+				g_list_foreach (plugins, (GFunc) anjuta_plugin_deactivate,
+								NULL);
+				g_list_free (plugins);
 				goto out;
 			}
 			  
@@ -1165,47 +1187,25 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 			}
 			g_list_free (support_plugin_descs);
 			
-			for (node = docman_plugin->support_plugins; node != NULL; node = g_list_next (node))
+			/* Load new plugins */
+			needed_plugins = 
+				load_new_support_plugins (docman_plugin, new_support_plugins,
+										  plugin_manager);			
+			
+			/* Unload unused plugins */
+			unload_unused_support_plugins (docman_plugin, needed_plugins);
+			
+			/* Update list */
+			for (node = needed_plugins; node != NULL; node = g_list_next (node))
 			{
-				gchar* plugin_id = node->data;
-				GList* item = g_list_find_custom (new_support_plugins, plugin_id, (GCompareFunc) strcmp);
-				if (item)
+				if (!g_list_find (docman_plugin->support_plugins, node->data))
 				{
-					DEBUG_PRINT ("Ignoring already loaded support plugin %s", plugin_id);
-					g_free (item->data);
-					item->data = NULL;
-					new_support_plugins = g_list_delete_link (new_support_plugins, item);
+					docman_plugin->support_plugins = g_list_append (docman_plugin->support_plugins,
+																	node->data);
 				}
-				else
-				{
-					DEBUG_PRINT ("Deactivating support plugin %s", plugin_id);
-					GObject* plugin = anjuta_plugin_manager_get_plugin_by_id (plugin_manager, node->data);
-					anjuta_plugin_deactivate (ANJUTA_PLUGIN(plugin));
-					g_free (plugin_id);
-					node->data = NULL;
-					docman_plugin->support_plugins = 
-						g_list_delete_link (docman_plugin->support_plugins, node);
-					node = docman_plugin->support_plugins;
-				}
-			}
-			for (node = new_support_plugins; node != NULL; node = g_list_next (node))
-			{
-				gchar* plugin_id = node->data;
-				GObject* plugin_object = anjuta_plugin_manager_get_plugin_by_id (plugin_manager,
-																				 plugin_id);
-				if (plugin_object)
-				{
-					docman_plugin->support_plugins = g_list_prepend (docman_plugin->support_plugins,
-																	 plugin_id);
-					g_signal_connect (G_OBJECT (plugin_object), "deactivated", 
-									  G_CALLBACK (on_support_plugin_deactivated), docman_plugin);
-				}
-				else
-				{
-					DEBUG_PRINT ("Could not load: %s", plugin_id);
-					g_free (plugin_id);
-				}
-			}
+			}												
+
+			g_list_free (needed_plugins);
 			g_list_free (new_support_plugins);
 		}
 	}

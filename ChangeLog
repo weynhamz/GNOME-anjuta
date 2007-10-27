@@ -1,3 +1,17 @@
+2007-10-27  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/devhelp/anjuta-devhelp.ui:
+	* plugins/message-view/anjuta-message-manager.ui:
+  
+  Added some separators to the toolbar
+	
+	* plugins/document-manager/plugin.c:
+	(on_support_plugin_deactivated), (load_new_support_plugins),
+	(unload_unused_support_plugins), (on_editor_changed):
+	
+	Fixed the language supprt loading unloading stuff. Thanks to Sébastien
+	for pointing out that is was crap.
+
 2007-10-24  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* libanjuta/interfaces/libanjuta.idl,
