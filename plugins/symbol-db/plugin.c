@@ -337,11 +337,10 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		return;
 
 	local_path = gnome_vfs_get_local_path_from_uri (uri);
-
 	symbol_db_view_locals_update_list (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
 				 sdb_plugin->sdbe, local_path);
-
+				 
 	if (g_hash_table_lookup (sdb_plugin->editor_connected, editor) == NULL)
 	{
 		g_object_weak_ref (G_OBJECT (editor),
@@ -789,18 +788,50 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	sdb_plugin->project_root_dir = NULL;
 }
 
+static void
+on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
+				 AnjutaSession *session, SymbolDBPlugin *plugin)
+{
+	GList *files;
+	gint i;			
+	DEBUG_PRINT ("on_session_load ()");
+	
+	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
+		return;
+	
+	files = anjuta_session_get_string_list (session, "File Loader", "Files");
+
+	for (i=0; i < g_list_length (files); i++)
+	{
+		gchar * node = g_list_nth_data (files, i);
+		DEBUG_PRINT ("file %s", node);
+	}
+	
+
+	
+	g_list_foreach (files, (GFunc)g_free, NULL);
+	g_list_free (files);
+	
+}
+
 static gboolean
 symbol_db_activate (AnjutaPlugin *plugin)
 {
 	SymbolDBPlugin *symbol_db;
 	
 	DEBUG_PRINT ("SymbolDBPlugin: Activating SymbolDBPlugin plugin ...");
-	
 
 	register_stock_icons (plugin);
-	
+
 	symbol_db = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 	symbol_db->ui = anjuta_shell_get_ui (plugin->shell, NULL);
+
+	/* connect for session load event 
+	g_signal_connect (plugin->shell, "load-session",
+					  G_CALLBACK (on_session_load),
+					  plugin);
+	*/
+	
 	
 	/* create SymbolDBEngine */
 	symbol_db->sdbe = symbol_db_engine_new ();
@@ -901,6 +932,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 									"project_root_uri",
 									project_root_added,
 									project_root_removed, NULL);
+
 	
 	return TRUE;
 }

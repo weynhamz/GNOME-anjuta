@@ -44,9 +44,9 @@ enum {
 
 static GtkTreeViewClass *parent_class = NULL;
 
-struct _SymbolDBViewLocalsPriv
-{
-	gchar *current_file;
+struct _SymbolDBViewLocalsPriv {
+	gchar *current_db_file;
+	gchar *current_local_file_path;
 	gint insert_handler;
 	gint update_handler;
 	gint remove_handler;	
@@ -55,7 +55,6 @@ struct _SymbolDBViewLocalsPriv
 	GTree *nodes_displayed;
 	GTree *waiting_for;	
 	
-	SymbolDBEngine *dbe;
 };
 
 typedef struct _WaitingForSymbol {
@@ -104,9 +103,9 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 	
 	dbvl->priv = g_new0 (SymbolDBViewLocalsPriv, 1);		
 	priv = dbvl->priv;
-	
-	priv->dbe = NULL;
-	priv->current_file = NULL;
+		
+	priv->current_db_file = NULL;
+	priv->current_local_file_path = NULL;
 	priv->insert_handler = -1;
 	priv->update_handler = -1;
 	priv->remove_handler = -1;
@@ -164,8 +163,11 @@ sdb_view_locals_finalize (GObject *object)
 
 	DEBUG_PRINT ("finalizing symbol_db_view_locals ()");
 	
-	g_free (priv->current_file);
-	priv->current_file = NULL;
+	g_free (priv->current_db_file);
+	priv->current_db_file = NULL;
+	
+	g_free (priv->current_local_file_path);
+	priv->current_local_file_path = NULL;	
 	
 	if (priv->nodes_displayed)
 		g_tree_destroy (priv->nodes_displayed);
@@ -175,18 +177,6 @@ sdb_view_locals_finalize (GObject *object)
 	{
 		g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, NULL);
 		g_tree_destroy (priv->waiting_for);
-	}
-	
-	if (priv->dbe) 
-	{
-		if (priv->insert_handler > 0)
-			g_signal_handler_disconnect (priv->dbe, priv->insert_handler);
-
-		if (priv->remove_handler > 0)
-			g_signal_handler_disconnect (priv->dbe, priv->remove_handler);
-
-		if (priv->scan_end_handler > 0)
-			g_signal_handler_disconnect (priv->dbe, priv->scan_end_handler);
 	}
 	
 	g_free (priv);
@@ -319,10 +309,7 @@ do_add_child_symbol_to_view (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 					gtk_tree_model_get_path (
 						gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)),
                                           &child_iter));
-/*	DEBUG_PRINT ("do_add_symbol_to_view (): added name: %s, id: %d, path: %s",
-				 symbol_name,
-				 symbol_id,
-				 tmp_str);*/
+
 	g_free (tmp_str);
 	
 	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)),
@@ -369,7 +356,8 @@ traverse_on_scan_end (gpointer key, gpointer value, gpointer data)
 		SymbolDBEngineIteratorNode *iter_node;
 		const GdkPixbuf *pixbuf;
 		const gchar* symbol_name;
-		GtkTreeRowReference *row_ref;
+		GtkTreeRowReference *row_ref = NULL;
+		gint grandparent_id;
 		
 		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 		
@@ -380,11 +368,44 @@ traverse_on_scan_end (gpointer key, gpointer value, gpointer data)
 							iter_node, SYMINFO_ACCESS));
 		symbol_name = symbol_db_engine_iterator_node_get_symbol_name (iter_node);
 		
-		row_ref = do_add_root_symbol_to_view (dbvl, pixbuf, 
+		/* ok, we can have the last case in which this parent_id is a class, that,
+		 * suppose, is inside an already displayed namespace node.
+		 */
+		grandparent_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe,
+																parent_id,
+																priv->current_db_file);
+		DEBUG_PRINT ("traverse_on_scan_end (): grandparent_id %d", grandparent_id);
+		
+		if (grandparent_id > 0) 
+		{
+			row_ref = 
+				 g_tree_lookup (priv->nodes_displayed, (gpointer)grandparent_id);
+			if (row_ref != NULL)
+			{
+				/* hey we have a namespace or something which is the parent of
+				 * our parent.
+				 */
+				DEBUG_PRINT ("traverse_on_scan_end (): adding parent_id %d "
+							 "to grandparent %d", parent_id,
+							 grandparent_id);
+				row_ref = do_add_child_symbol_to_view (dbvl, grandparent_id, pixbuf, 
 							symbol_name, parent_id);
-
-		g_tree_insert (priv->nodes_displayed, (gpointer)parent_id, 
+				
+				g_tree_insert (priv->nodes_displayed, (gpointer)parent_id, 
 				   row_ref);
+			}
+		/*	DEBUG_PRINT ("traverse_on_scan_end (): row_ref %d", row_ref);*/
+		}
+		
+		/* we're in the case that no grandparent has been found */
+		if (row_ref == NULL)
+		{
+			
+			row_ref = do_add_root_symbol_to_view (dbvl, pixbuf, 
+							symbol_name, parent_id);
+			g_tree_insert (priv->nodes_displayed, (gpointer)parent_id, 
+				   row_ref);			
+		}
 
 		/* now the waiters should be added as children */
 		trigger_on_symbol_inserted  (dbvl, parent_id);
@@ -551,7 +572,7 @@ trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id)
 	
 	priv = dbvl->priv;	
 
-	/*DEBUG_PRINT ("trigger_on_symbol_inserted (): triggering %d", symbol_id);*/
+	DEBUG_PRINT ("trigger_on_symbol_inserted (): triggering %d", symbol_id);
 	
 	/* try to find a waiting for symbol */
 	slist = g_tree_lookup (priv->waiting_for, (gpointer)symbol_id);
@@ -796,7 +817,8 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	 *
 	 */
 	parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
-																	symbol_id);
+																	symbol_id,
+																	NULL);
 	
 	/* get the original symbol infos */
 	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, symbol_id, 
@@ -948,9 +970,15 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	/*DEBUG_PRINT ("symbol_db_view_locals_update_list  () for %s", filepath);*/
 	
 	priv = dbvl->priv;
-	g_free (priv->current_file);		
+	
+	/* adjust some vars */
+	g_free (priv->current_db_file);
+	g_free (priv->current_local_file_path);
 
-	priv->current_file = g_strdup (filepath);	
+	priv->current_db_file = 
+		symbol_db_engine_get_file_db_path (dbe, filepath);
+	priv->current_local_file_path = g_strdup (filepath);		
+	
 	priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
 										 NULL,
 										 NULL,
@@ -1005,9 +1033,6 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	 * gtk_tree_view_set_show_expanders (GTK_TREE_VIEW (dbvl)); */
 	
 	gtk_tree_view_expand_all (GTK_TREE_VIEW (dbvl));
-	
-	/* set here the reference just to permit signal disconnecting */
-	priv->dbe = dbe;
 	
 	/* connect some signals */
 	if (priv->insert_handler <= 0) 

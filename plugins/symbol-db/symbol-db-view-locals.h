@@ -58,11 +58,12 @@ GType symbol_db_view_locals_get_type (void) G_GNUC_CONST;
 GtkWidget *
 symbol_db_view_locals_new (void);
 
-/* filepath: full local file path, e.g. /home/user/foo/file.c
+/*
+ * filepath: db-relative file path, e.g. /src/file.c
  */
 void
 symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe,
-							  const gchar* filepath);
+							  const gchar* db_filepath);
 gint
 symbol_db_view_locals_get_line (SymbolDBViewLocals *dbvl,
 								SymbolDBEngine *dbe,

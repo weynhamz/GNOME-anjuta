@@ -218,7 +218,8 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 	 *
 	 */
 	parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
-																	symbol_id);
+																	symbol_id,
+																	NULL);
 	
 	DEBUG_PRINT ("parent_symbol_id %d", parent_symbol_id);
 	

@@ -1,3 +1,27 @@
+2007-10-28  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/plugin.c: (on_editor_changed):
+	Fixed a memory leak and simplified code (thanks again Sébastien)
+	
+	* configure.in:
+	Bumped LIBGDA requirement to 3.1.2 (the version that supports LIMIT
+	and OFFSET sql statements)
+
+2007-10-28  Massimo Cora' <maxcvs@email.it>
+
+	* plugins/symbol-db/plugin.c,
+	plugins/symbol-db/symbol-db-engine.h,
+	plugins/symbol-db/symbol-db-view.c,
+	plugins/symbol-db/symbol-db-view.c,
+	plugins/symbol-db/symbol-db-view-locals.c,
+	plugins/symbol-db/symbol-db-view-locals.h,
+	plugins/symbol-db/symbol-db-engine.c:
+	Better end-of-file-scan detection, permitting
+  an improved scope/inheritance parsing.
+  Locals tab gtktree now displays correct
+  namespace->class->children tree, even if
+  in a C++ file there isn't class declaration.
+
 2007-10-27  Johannes Schmid <jhs@gnome.org>
 
 	Patch from Stanislav Brabec <sbrabec@suse.cz>

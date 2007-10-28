@@ -1196,16 +1196,10 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 			unload_unused_support_plugins (docman_plugin, needed_plugins);
 			
 			/* Update list */
-			for (node = needed_plugins; node != NULL; node = g_list_next (node))
-			{
-				if (!g_list_find (docman_plugin->support_plugins, node->data))
-				{
-					docman_plugin->support_plugins = g_list_append (docman_plugin->support_plugins,
-																	node->data);
-				}
-			}												
-
-			g_list_free (needed_plugins);
+			g_list_free (docman_plugin->support_plugins);
+			docman_plugin->support_plugins = needed_plugins;
+			
+			g_list_foreach (new_support_plugins, (GFunc) g_free, NULL);
 			g_list_free (new_support_plugins);
 		}
 	}

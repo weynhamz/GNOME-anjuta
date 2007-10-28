@@ -180,7 +180,6 @@ symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, const gchar *project
 /**
  * Update symbols of a file by a memory-buffer to perform a real-time updating 
  * of symbols. 
- * FIXME
  */
 gboolean
 symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * project,
@@ -188,8 +187,21 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * proj
 										const GPtrArray * text_buffers,
 										const GPtrArray * buffer_sizes);
 
+/**
+ * Return full_local_path given a relative-to-db file path.
+ */
 gchar*
-symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* file);
+symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* db_file);
+
+
+/**
+ * Return a db-relativ file path. Es. given the full_local_file_path 
+ * /home/user/foo_project/src/foo.c returned file should be /src/foo.c.
+ * Return NULL on error.
+ */
+gchar*
+symbol_db_engine_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path);
+
 
 /**
  * Will test the opened project within the dbe plugin and the passed one.
@@ -261,7 +273,8 @@ symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe,
 /** No iterator for now. We need the quickest query possible. */
 gint
 symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe, 
-									gint scoped_symbol_id);
+									gint scoped_symbol_id,
+									const gchar* db_file);
 
 G_END_DECLS
 

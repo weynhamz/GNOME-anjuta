@@ -130,7 +130,9 @@ select symbol_id_base, symbol.name from heritage
 
 enum {
 	DO_UPDATE_SYMS = 1,
+	DO_UPDATE_SYMS_AND_EXIT,
 	DONT_UPDATE_SYMS,
+	DONT_UPDATE_SYMS_AND_EXIT,
 	DONT_FAKE_UPDATE_SYMS,
 	END_UPDATE_GROUP_SYMS
 };
@@ -252,7 +254,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	 "SELECT * FROM file WHERE prj_id = ## /* name:'prjid' type:gint */",
 /*		
 		"SELECT * FROM file JOIN project on project_id = prj_id WHERE "\
-		"project.name = ## /* name:'prjname' type:gchararray * /",
+		"project.name = ## / * name:'prjname' type:gchararray * /",
 */
 	 NULL
 	},
@@ -796,20 +798,32 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 				real_file = g_async_queue_try_pop (priv->scan_queue);
 				
 				/* and now call the populating function */
-				sdb_engine_populate_db_by_tags (dbe, priv->shared_mem_file, 
-							priv->data_source, 
-							(int)real_file == DONT_FAKE_UPDATE_SYMS ? NULL : real_file, 
-							scan_flag == DO_UPDATE_SYMS ? TRUE : FALSE);
+				if (scan_flag == DO_UPDATE_SYMS ||
+					scan_flag == DO_UPDATE_SYMS_AND_EXIT)
+				{
+					sdb_engine_populate_db_by_tags (dbe, priv->shared_mem_file, 
+								priv->data_source, 
+								(int)real_file == DONT_FAKE_UPDATE_SYMS ? NULL : real_file, 
+								TRUE);
+				}
+				else 
+				{
+					sdb_engine_populate_db_by_tags (dbe, priv->shared_mem_file, 
+								priv->data_source, 
+								(int)real_file == DONT_FAKE_UPDATE_SYMS ? NULL : real_file, 
+								FALSE);					
+				}
 				
-				/* don't forget to free the real_life, if it's a char */
+				/* don't forget to free the real_file, if it's a char */
 				if ((int)real_file != DONT_FAKE_UPDATE_SYMS)
 					g_free (real_file);
 				
 				/* check also if, together with an end file marker, we have an 
 				 * end group-of-files end marker.
 				 */
-				if ((strcmp (marker_ptr + len_marker, CTAGS_MARKER) == 0) ||
-					ftell (priv->shared_mem_file) <= 0)
+				if (/*(strcmp (marker_ptr + len_marker, CTAGS_MARKER) == 0) &&*/
+					(scan_flag == DO_UPDATE_SYMS_AND_EXIT || 
+					 scan_flag == DONT_UPDATE_SYMS_AND_EXIT ))
 				{
 					gint tmp_inserted;
 					gint tmp_updated;
@@ -972,7 +986,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	
 	priv->scanning_status = TRUE;	
 
-	DEBUG_PRINT ("files_list->len %d", files_list->len);
+	DEBUG_PRINT ("sdb_engine_scan_files_1 (): PUSHING files_list->len %d to scan", files_list->len);
 	
 	for (i = 0; i < files_list->len; i++)
 	{
@@ -987,10 +1001,31 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		anjuta_launcher_send_stdin (priv->ctags_launcher, node);
 		anjuta_launcher_send_stdin (priv->ctags_launcher, "\n");
 
-		if (symbols_update == TRUE)
-			g_async_queue_push (priv->scan_queue, (gpointer) DO_UPDATE_SYMS);
-		else
-			g_async_queue_push (priv->scan_queue, (gpointer) DONT_UPDATE_SYMS);
+		if (symbols_update == TRUE) 
+		{
+			/* will this be the last file in the list? */
+			if (i + 1 >= files_list->len) 
+			{
+				/* yes */
+				g_async_queue_push (priv->scan_queue, (gpointer) DO_UPDATE_SYMS_AND_EXIT);
+			}
+			else {
+				/* no */
+				g_async_queue_push (priv->scan_queue, (gpointer) DO_UPDATE_SYMS);
+			}
+		}
+		else 
+		{
+			if (i + 1 >= files_list->len) 
+			{
+				/* yes */
+				g_async_queue_push (priv->scan_queue, (gpointer) DONT_UPDATE_SYMS_AND_EXIT);
+			}
+			else {
+				/* no */
+				g_async_queue_push (priv->scan_queue, (gpointer) DONT_UPDATE_SYMS);
+			}
+		}
 
 		/* don't forget to add the real_files if the caller provided a list for
 		 * them! */
@@ -1002,17 +1037,13 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		}
 		else 
 		{
-			/* else add a DONT_FAKE_UPDATE_SYMS marker, just to noty that this is
-			 * not a fake file scan 
+			/* else add a DONT_FAKE_UPDATE_SYMS marker, just to notify that this 
+			 * is not a fake file scan 
 			 */
 			g_async_queue_push (priv->scan_queue, (gpointer) DONT_FAKE_UPDATE_SYMS);
 		}
 	}
 
-	/* hack to let ctags output a marker. We will then process it into the
-	 * output callback function */
-	anjuta_launcher_send_stdin (priv->ctags_launcher, "/dev/null\n");
-	
 	priv->scanning_status = FALSE;
 
 	return TRUE;
@@ -2108,7 +2139,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe, const gchar * project,
 	g_return_val_if_fail (project != NULL, FALSE);
 
 	/* FIXME try this... */
-	//sdb_prepare_executing_commands (dbe);
+	sdb_prepare_executing_commands (dbe);
 	
 	
 	if (symbol_db_engine_is_project_opened (dbe, project) == FALSE) 
@@ -4123,8 +4154,6 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe, GPtrArray* data)
 	priv = dbe->priv;
 	files_to_scan = (GPtrArray *) data;
 
-	DEBUG_PRINT ("files_to_scan->len %d", files_to_scan->len);
-
 	for (i = 0; i < files_to_scan->len; i++)
 	{
 		gchar *node = (gchar *) g_ptr_array_index (files_to_scan, i);
@@ -4160,8 +4189,7 @@ on_scan_update_files_symbols_end (SymbolDBEngine * dbe, GPtrArray* data)
  */
 gboolean
 symbol_db_engine_update_files_symbols (SymbolDBEngine * dbe, const gchar * project, 
-									   GPtrArray * files_path	/*, 
-									   * gchar *language */ ,
+									   GPtrArray * files_path,
 									   gboolean update_prj_analize_time)
 {
 	SymbolDBEnginePriv *priv;
@@ -5325,6 +5353,28 @@ symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* file)
 	return full_path;	
 }
 
+gchar*
+symbol_db_engine_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_file_path)
+{
+	SymbolDBEnginePriv *priv;
+	gchar *relative_path;
+	const gchar *tmp;
+	g_return_val_if_fail (dbe != NULL, NULL);
+		
+	priv = dbe->priv;
+	g_return_val_if_fail (priv->data_source != NULL, NULL);
+
+	if (strlen (priv->data_source) >= strlen (full_local_file_path)) 
+	{
+		return NULL;
+	}
+
+	tmp = full_local_file_path + strlen (priv->data_source);
+	relative_path = strdup (tmp);
+
+	return relative_path;
+}
+
 
 SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe, 
@@ -5378,10 +5428,14 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);	
 }
 
-/* No iterator for now. We need the quickest query possible. */
+/** 
+ * No iterator for now. We need the quickest query possible. 
+ * @param db_file Can be NULL. In that case there won't be any check on file.
+ */
 gint
-symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe, 
-									gint scoped_symbol_id)
+symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe,
+									gint scoped_symbol_id,
+									const gchar * db_file)
 {
 /*
 select * from symbol where scope_definition_id = (
@@ -5401,10 +5455,26 @@ select * from symbol where scope_definition_id = (
 	g_return_val_if_fail (dbe != NULL, -1);
 	priv = dbe->priv;
 
-	query_str = g_strdup_printf ("SELECT symbol.symbol_id FROM symbol "
-			"WHERE symbol.scope_definition_id = ( "
-			"SELECT symbol.scope_id FROM symbol WHERE symbol.symbol_id = '%d')", 
-								 scoped_symbol_id);
+	if (db_file == NULL)
+	{
+		query_str = g_strdup_printf ("SELECT symbol.symbol_id FROM symbol "
+				"WHERE symbol.scope_definition_id = ( "
+				"SELECT symbol.scope_id FROM symbol WHERE symbol.symbol_id = '%d') "
+					"AND symbol.scope_definition_id > 0 LIMIT 1", 
+									 scoped_symbol_id);
+	}
+	else 
+	{
+		query_str = g_strdup_printf ("SELECT symbol.symbol_id FROM symbol JOIN file "
+				"ON symbol.file_defined_id = file.file_id "
+					"WHERE symbol.scope_definition_id = ( "
+					"SELECT symbol.scope_id FROM symbol WHERE symbol.symbol_id = '%d') "
+						"AND symbol.scope_definition_id > 0 "
+						"AND file.file_path = '%s' "
+						"LIMIT 1", 
+						scoped_symbol_id,
+						db_file);
+	}
 	
 /*	DEBUG_PRINT ("symbol_db_engine_get_parent_scope_id_by_symbol_id() query is %s", 
 				 query_str);*/
