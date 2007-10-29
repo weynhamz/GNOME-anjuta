@@ -1,3 +1,8 @@
+2007-10-29  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.in: Add two missing files.
+	* nb.po: Updated Norwegian bokmål translation.
+
 2007-10-25  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
         * es.po: Updated Spanish translation.

@@ -2,6 +2,8 @@
 # List of source files containing translatable strings.
 # Please keep this list in alphabetical order.
 anjuta.desktop.in.in
+libanjuta/anjuta-c-module.c
+libanjuta/anjuta-c-plugin-factory.c
 libanjuta/anjuta-children.c
 libanjuta/anjuta-encodings.c
 libanjuta/anjuta-launcher.c
