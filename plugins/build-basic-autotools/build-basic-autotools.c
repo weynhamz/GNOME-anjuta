@@ -41,7 +41,6 @@
 
 #define ICON_FILE "anjuta-build-basic-autotools-plugin.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
-#define MAKE_COMMAND "make"
 #define MAX_BUILD_PANES 3
 #define PREF_INDICATORS_AUTOMATIC "indicators.automatic"
 #define PREF_INSTALL_ROOT "build.install.root"
@@ -53,6 +52,20 @@
 #define ENTRY "preferences_entry:text:sudo:0:build.install.root.command"
 #define SB_CHECK "preferences_toggle:bool:0:0:build.use_scratchbox"
 #define SB_ENTRY "preferences_entry:text:/scratchbox:0:build.scratchbox.path"
+
+#define DEFAULT_COMMAND_COMPILE "make"
+#define DEFAULT_COMMAND_BUILD "make"
+#define DEFAULT_COMMAND_BUILD_TARBALL "make tarball"
+#define DEFAULT_COMMAND_INSTALL "make install"
+#define DEFAULT_COMMAND_CONFIGURE "./configure"
+#define DEFAULT_COMMAND_GENERATE "./autogen.sh"
+#define DEFAULT_COMMAND_CLEAN "make clean"
+
+#define CHOOSE_COMMAND(plugin,command) \
+	((plugin->commands[(IANJUTA_BUILDABLE_COMMAND_##command)]) ? \
+			(plugin->commands[(IANJUTA_BUILDABLE_COMMAND_##command)]) \
+			: \
+			(DEFAULT_COMMAND_##command))
 
 static gpointer parent_class;
 
@@ -964,7 +977,7 @@ build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 			gchar *command;
 			
 			*ext_ptr = '\0';
-			command = g_strconcat (MAKE_COMMAND, " ",
+			command = g_strconcat (CHOOSE_COMMAND (plugin, COMPILE), " ",
 								   file_basename, new_ext, NULL);
 			build_execute_command (plugin, file_dirname, command, TRUE);
 			g_free (command);
@@ -973,7 +986,7 @@ build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 	} else {
 		/* If file has no extension, take it as target itself */
 		gchar *command;
-		command = g_strconcat (MAKE_COMMAND, " ",
+		command = g_strconcat (CHOOSE_COMMAND(plugin, COMPILE), " ",
 							   file_basename, NULL);
 		build_execute_command (plugin, file_dirname, command, TRUE);
 		g_free (command);
@@ -999,15 +1012,16 @@ build_compile_file_real (BasicAutotoolsPlugin *plugin, const gchar *file)
 static void
 build_build_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-	build_execute_command (plugin, plugin->project_root_dir, MAKE_COMMAND, TRUE);
+	build_execute_command (plugin, plugin->project_root_dir,
+						   CHOOSE_COMMAND (plugin, BUILD), TRUE);
 }
 
 static void
 build_install_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar* root = get_root_install_command(plugin);
-	gchar* command = g_strdup_printf("%s %s %s", root, MAKE_COMMAND,
-		"install");
+	gchar* command = g_strdup_printf("%s %s", root,
+									 CHOOSE_COMMAND (plugin, INSTALL));
 	g_free(root);
 	build_execute_command (plugin, plugin->project_root_dir,
 						   command, TRUE);
@@ -1018,7 +1032,7 @@ static void
 build_clean_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	build_execute_command (plugin, plugin->project_root_dir,
-						   MAKE_COMMAND" clean", FALSE);
+						   CHOOSE_COMMAND (plugin, CLEAN), FALSE);
 }
 
 static void
@@ -1036,13 +1050,14 @@ build_configure_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		gchar *cmd;
 		if (input)
 		{
-			cmd = g_strconcat ("./configure ", input, NULL);
+			cmd = g_strdup_printf ("%s %s", CHOOSE_COMMAND (plugin, CONFIGURE),
+								   input);
 			g_free (plugin->configure_args);
 			plugin->configure_args = input;
 		}
 		else
 		{
-			cmd = g_strdup ("./configure");
+			cmd = g_strdup (CHOOSE_COMMAND (plugin, CONFIGURE));
 		}
 		build_execute_command (plugin, plugin->project_root_dir, cmd, TRUE);
 		g_free (cmd);
@@ -1067,8 +1082,10 @@ build_autogen_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		if (input)
 		{
 			if (has_autogen)
-				cmd = g_strconcat ("./autogen.sh ", input, NULL);
-			else
+				cmd = g_strdup_printf ("%s %s",
+									   CHOOSE_COMMAND (plugin, GENERATE),
+									   input);
+			else /* FIXME: Get override command for this too */
 				cmd = g_strconcat ("autoreconf -i --force ", input, NULL);
 			g_free (plugin->configure_args);
 			plugin->configure_args = input;
@@ -1076,8 +1093,8 @@ build_autogen_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		else
 		{
 			if (has_autogen)
-				cmd = g_strdup ("./autogen.sh");
-			else
+				cmd = g_strdup (CHOOSE_COMMAND (plugin, GENERATE));
+			else /* FIXME: Get override command for this too */
 				cmd = g_strdup ("autoreconf -i --force");
 		}
 		build_execute_command (plugin, plugin->project_root_dir, cmd, TRUE);
@@ -1089,7 +1106,8 @@ static void
 build_distribution_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	build_execute_command (plugin, plugin->project_root_dir,
-						   MAKE_COMMAND" dist", FALSE);
+						   CHOOSE_COMMAND (plugin, BUILD_TARBALL),
+						   FALSE);
 }
 
 static void
@@ -1102,7 +1120,8 @@ static void
 build_build_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dirname = g_dirname (plugin->current_editor_filename);
-	build_execute_command (plugin, dirname, MAKE_COMMAND, TRUE);
+	build_execute_command (plugin, dirname, CHOOSE_COMMAND (plugin, BUILD),
+						   TRUE);
 	g_free (dirname);
 }
 
@@ -1111,8 +1130,8 @@ build_install_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dirname = g_dirname (plugin->current_editor_filename);
 	gchar* root = get_root_install_command(plugin);
-	gchar* command = g_strdup_printf("%s %s %s", root, MAKE_COMMAND,
-		"install");
+	gchar* command = g_strdup_printf ("%s %s", root,
+									  CHOOSE_COMMAND (plugin, INSTALL));
 	g_free(root);
 	build_execute_command (plugin, dirname,
 						   command, TRUE);
@@ -1124,7 +1143,8 @@ static void
 build_clean_module (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
 	gchar *dirname = g_dirname (plugin->current_editor_filename);
-	build_execute_command (plugin, dirname, MAKE_COMMAND" clean", FALSE);
+	build_execute_command (plugin, dirname, CHOOSE_COMMAND (plugin, CLEAN),
+						   FALSE);
 	g_free (dirname);
 }
 
@@ -1158,7 +1178,7 @@ fm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		dir = g_strdup (plugin->fm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->fm_current_filename);
-	build_execute_command (plugin, dir, MAKE_COMMAND, TRUE);
+	build_execute_command (plugin, dir, CHOOSE_COMMAND (plugin, BUILD), TRUE);
 }
 
 static void
@@ -1176,8 +1196,8 @@ fm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	else
 		dir = g_path_get_dirname (plugin->fm_current_filename);
 	root = get_root_install_command(plugin);
-	command = g_strdup_printf("%s %s %s", root, MAKE_COMMAND,
-		"install");
+	command = g_strdup_printf ("%s %s", root,
+							   CHOOSE_COMMAND (plugin, INSTALL));
 	g_free(root);
 	build_execute_command (plugin, dir, command, TRUE);
 }
@@ -1193,7 +1213,7 @@ fm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		dir = g_strdup (plugin->fm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->fm_current_filename);
-	build_execute_command (plugin, dir, MAKE_COMMAND" clean", FALSE);
+	build_execute_command (plugin, dir, CHOOSE_COMMAND (plugin, CLEAN), FALSE);
 }
 
 /* Project manager context menu */
@@ -1217,21 +1237,21 @@ pm_build (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		dir = g_strdup (plugin->pm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->pm_current_filename);
-	build_execute_command (plugin, dir, MAKE_COMMAND, TRUE);
+	build_execute_command (plugin, dir, CHOOSE_COMMAND (plugin, BUILD), TRUE);
 }
 
 static void
 pm_install (GtkAction *action, BasicAutotoolsPlugin *plugin)
 {
-  gchar *dir;
+	gchar *dir;
 	gchar* root; 
 	gchar* command; 
 	
 	g_return_if_fail (plugin->pm_current_filename != NULL);
 	
 	root = get_root_install_command(plugin);
-	command = g_strdup_printf("%s %s %s", root, MAKE_COMMAND,
-		"install");
+	command = g_strdup_printf ("%s %s", root,
+							   CHOOSE_COMMAND (plugin, INSTALL));
 	g_free(root);
 	
 	if (g_file_test (plugin->pm_current_filename, G_FILE_TEST_IS_DIR))
@@ -1253,7 +1273,7 @@ pm_clean (GtkAction *action, BasicAutotoolsPlugin *plugin)
 		dir = g_strdup (plugin->pm_current_filename);
 	else
 		dir = g_path_get_dirname (plugin->pm_current_filename);
-	build_execute_command (plugin, dir, MAKE_COMMAND" clean", FALSE);
+	build_execute_command (plugin, dir, CHOOSE_COMMAND (plugin, CLEAN), FALSE);
 }
 
 static GtkActionEntry build_actions[] = 
@@ -2061,7 +2081,14 @@ dispose (GObject *obj)
 static void
 finalize (GObject *obj)
 {
+	gint i;
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (obj);
+	
+	for (i = 0; i < IANJUTA_BUILDABLE_N_COMMANDS; i++)
+	{
+		g_free (ba_plugin->commands[i]);
+		ba_plugin->commands[i] = NULL;
+	}
 	
 	g_free (ba_plugin->fm_current_filename);
 	g_free (ba_plugin->pm_current_filename);
@@ -2083,7 +2110,12 @@ finalize (GObject *obj)
 static void
 basic_autotools_plugin_instance_init (GObject *obj)
 {
+	gint i;
 	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (obj);
+	
+	for (i = 0; i < IANJUTA_BUILDABLE_N_COMMANDS; i++)
+		ba_plugin->commands[i] = NULL;
+	
 	ba_plugin->fm_current_filename = NULL;
 	ba_plugin->pm_current_filename = NULL;
 	ba_plugin->project_root_dir = NULL;
@@ -2122,11 +2154,45 @@ ibuildable_compile (IAnjutaBuildable *manager, const gchar * filename,
 #endif
 
 static void
+ibuildable_set_command (IAnjutaBuildable *manager,
+						IAnjutaBuildableCommand command_id,
+						const gchar *command_override, GError **err)
+{
+	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
+	if (plugin->commands[command_id])
+		g_free (plugin->commands[command_id]);
+	plugin->commands[command_id] = g_strdup (command_override);
+}
+
+static void
+ibuildable_reset_commands (IAnjutaBuildable *manager, GError **err)
+{
+	gint i;
+	BasicAutotoolsPlugin *ba_plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
+	
+	for (i = 0; i < IANJUTA_BUILDABLE_N_COMMANDS; i++)
+	{
+		g_free (ba_plugin->commands[i]);
+		ba_plugin->commands[i] = NULL;
+	}
+}	
+
+static const gchar *
+ibuildable_get_command (IAnjutaBuildable *manager,
+						IAnjutaBuildableCommand command_id,
+						GError **err)
+{
+	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
+	return plugin->commands[command_id];
+}
+
+static void
 ibuildable_build (IAnjutaBuildable *manager, const gchar *directory,
 				  GError **err)
 {
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
-	build_execute_command (plugin, directory, MAKE_COMMAND, TRUE);
+	build_execute_command (plugin, directory, CHOOSE_COMMAND (plugin, BUILD),
+						   TRUE);
 }
 
 static void
@@ -2134,7 +2200,8 @@ ibuildable_clean (IAnjutaBuildable *manager, const gchar *directory,
 				  GError **err)
 {
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
-	build_execute_command (plugin, directory, MAKE_COMMAND" clean", FALSE);
+	build_execute_command (plugin, directory, CHOOSE_COMMAND (plugin, CLEAN),
+						   FALSE);
 }
 
 static void
@@ -2143,8 +2210,8 @@ ibuildable_install (IAnjutaBuildable *manager, const gchar *directory,
 {
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
 	gchar* root = get_root_install_command(plugin);
-	gchar* command = g_strdup_printf("%s %s %s", root, MAKE_COMMAND,
-		"install");
+	gchar* command = g_strdup_printf ("%s %s", root,
+									  CHOOSE_COMMAND (plugin, INSTALL));
 	g_free(root);
 	build_execute_command (plugin, directory, command, TRUE);
 	g_free(command);
@@ -2155,7 +2222,9 @@ ibuildable_configure (IAnjutaBuildable *manager, const gchar *directory,
 					  GError **err)
 {
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
-	build_execute_command (plugin, directory, "./configure", TRUE);
+	build_execute_command (plugin, directory,
+						   CHOOSE_COMMAND (plugin, CONFIGURE),
+						   TRUE);
 }
 
 static void
@@ -2165,10 +2234,12 @@ ibuildable_generate (IAnjutaBuildable *manager, const gchar *directory,
 	BasicAutotoolsPlugin *plugin = ANJUTA_PLUGIN_BASIC_AUTOTOOLS (manager);
 	if (directory_has_file (plugin->project_root_dir, "autogen.sh"))
 	{
-		build_execute_command (plugin, directory, "./autogen.sh", FALSE);
+		build_execute_command (plugin, directory,
+							   CHOOSE_COMMAND (plugin, GENERATE), FALSE);
 	}
 	else
 	{
+		/* FIXME: get override command for this too */
 		build_execute_command (plugin, directory,
 							   "autoreconf -i --force", FALSE);
 	}
@@ -2189,6 +2260,9 @@ static void
 ibuildable_iface_init (IAnjutaBuildableIface *iface)
 {
 	/* iface->compile = ibuildable_compile; */
+	iface->set_command = ibuildable_set_command;
+	iface->get_command = ibuildable_get_command;
+	iface->reset_commands = ibuildable_reset_commands;
 	iface->build = ibuildable_build;
 	iface->clean = ibuildable_clean;
 	iface->install = ibuildable_install;

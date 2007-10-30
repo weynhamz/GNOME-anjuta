@@ -22,6 +22,7 @@
 #define __BUILD_BASIC_AUTOTOOLS_H__
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-buildable.h>
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-build-basic-autotools-plugin.glade"
 
@@ -59,6 +60,9 @@ struct _BasicAutotoolsPlugin{
 	gint build_merge_id;
 	GtkActionGroup *build_action_group;
 	GtkActionGroup *build_popup_action_group;
+	
+	/* commands overrides */
+	gchar *commands[IANJUTA_BUILDABLE_N_COMMANDS];
 	
 	/* Build parameters */
 	gchar *configure_args;

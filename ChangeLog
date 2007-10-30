@@ -1,3 +1,31 @@
+2007-10-30  Naba Kumar  <naba.kumar@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(build_compile_file_real), (build_build_project),
+	(build_install_project), (build_clean_project),
+	(build_configure_project), (build_autogen_project),
+	(build_distribution_project), (build_build_module),
+	(build_install_module), (build_clean_module), (fm_build),
+	(fm_install), (fm_clean), (pm_build), (pm_install), (pm_clean),
+	(finalize), (basic_autotools_plugin_instance_init),
+	(ibuildable_set_command), (ibuildable_reset_commands),
+	(ibuildable_get_command), (ibuildable_build), (ibuildable_clean),
+	(ibuildable_install), (ibuildable_configure),
+	(ibuildable_generate), (ibuildable_iface_init):
+	* plugins/build-basic-autotools/build-basic-autotools.h:
+
+	Added API for commands override in build interface and implemented
+	them in build plugin. Useful for other plugins override build
+	commands depending on project environment.
+
+2007-10-28  Naba Kumar  <naba@gnome.org>
+
+	* src/anjuta.glade,
+	plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade:
+	Fixed widget alignment for dock switcher tab style combo and
+	scratchbox path entrybox.
+
 2007-10-28  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c: (on_editor_changed):

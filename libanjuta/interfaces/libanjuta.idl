@@ -514,7 +514,51 @@ interface IAnjutaIterable
  */
 interface IAnjutaBuildable
 {
-
+	enum Command
+	{
+		COMMAND_COMPILE,
+		COMMAND_BUILD,
+		COMMAND_BUILD_TARBALL,
+		COMMAND_INSTALL,
+		COMMAND_CONFIGURE,
+		COMMAND_GENERATE,
+		COMMAND_CLEAN,
+		COMMAND_EXECUTE,
+		N_COMMANDS
+	}
+	
+	/** 
+	* ianjuta_buildable_set_command:
+	* @obj: Self
+	* @command_id: Command to override.
+	* @command: Build command to override.
+	* @err: Error propagation and reporting.
+	*
+	* Overrides the default command for the given command.
+	*/
+	void set_command (Command command_id, const gchar *command);
+	
+	/** 
+	* ianjuta_buildable_get_command:
+	* @obj: Self
+	* @command_id: Command to get override.
+	* @err: Error propagation and reporting.
+	*
+	* Retrieves the currently set command override.
+	* 
+	* Returns: The overridden command. NULL if no override set.
+	*/
+	const gchar* get_command (Command command_id);
+	
+	/** 
+	* ianjuta_buildable_reset_commands:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	*
+	* Resets the command overrides to defaults.
+	*/
+	void reset_commands ();
+	
 	/** 
 	* ianjuta_buildable_build:
 	* @obj: Self
