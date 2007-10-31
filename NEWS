@@ -1,3 +1,131 @@
+Anjuta 2.3.0 (31 Oct 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Support for GError in interfaces.
+* Big improvements in debugger.
+* On demand preferences dialog (faster startup) and moved to Edit submenu.
+* Moved plugins and shortcuts settings inside General preferences page.
+* Move preferences menu from Settings to Edit submenu.
+* Got rid of Settings submenu.
+* Updates for glade-3 recent releases.
+* Sort preferences pages on title.
+* Introduced document-interface and reorganized documents handling such
+  that documents tab can now hold any 'document' and not just editors.
+* Glade files are now opened as documents, so they behave just like editors.
+* Do not display registers list if not available
+* Big fixes in glade plugin.
+* Fixed lots of memory leaks (thansk valgrind)
+* Change the address of FSF in various files
+* Cleaned up message view (#458041)
+* Cleaned up message view
+* Removed some deprecated widgets.
+* New and better (uses gnome-vfs) file-manager plugin
+* Big improvements in autocompletion, both in scintilla and sourceview editors.
+* Whole lot of new icons for toolbars and plugins.
+* Added preference option to set the gdl switcher style
+* Function tooltips are finally supported in sourceview.
+* Added nicer icons for document manager and debugger.
+* New incremental "Quick Search" bar in the document manager
+* Improvements in plugin framework.
+* Added API for commands override in build interface
+
+Bugfixes:
+=========
+
+* Fixed anjuta-plugin project wizard
+* Fixed selection management in sourceview
+* Fixed incremental search
+* Fixed #427390 – Show path of item in currently focused editor window
+* Fixed #458034 – Method of indicating unsaved changes breaks convention
+* Fixed #343522 – Unable to execute commands that use options.
+* Fixed #466031 – Update of pieces of menus for Localization
+* Show an error dialog instead of crashing when plugin loading fails
+* Clean up debugger queue
+* Many small code, warnings and leak fixes
+* Fixed #440637 – Search, don't work very well
+* Fixed #478238 – set env for execute programe in the terminal
+* Fixed #479020 – Use of old open file dialog instead of GtkFileChooser
+* Fixed #427104 – No "highlight" of lines matching find-result
+* Improved (programming) language management.
+* Fixed #480851, disconnect save_session signal when plugin is unloaded
+* Moved indent code to it's own plugin.
+* Fixed #478987 – Unusable 'Indent setting window' on preferences
+* Fixed #477976 – Keybinding in run dialog
+* Fixed #482067, escape project wizard user defined strings
+* Fix several crashing bugs (including bug#482985) with the debugger
+  when closing project, stopping the debugger, restarting the program
+* Scroll to selected executable and remember it across sessions
+  (followup of #477976)
+* Fixed #357544 – incremental search should work consistently (or not at all) 
+  when main toolbar is hidden
+* Bug 440637 – Search, don't work very well (partly for incremental search)
+* Use the same marker for 'important' in sourceview editor as
+  gedit (yellow background)
+* Correction to various search-related issues
+* Move glade properties widget into center because it is way to big for
+  the sidebar
+* Added preferences to file-manager.
+* Fixed crash when closing a project and unloading another while
+  the debugger is enabled
+* Fixed #487854 – Anjuta crashes when i try to add a SVN url
+* Remove maximum gdb command length, should fix bug#474811
+* Fix #488061: Mutiple crash dialogs
+* Fixed the language supprt loading unloading stuff.
+* Added some separators to the toolbar
+* Fixed #487683 – undefined operations in libegg/eggtreemodelfilter.c
+* Bug 489798 – Do not rely on svn-config
+
+.. and others
+
+Anjuta 2.2.2 (23 Oct 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Fixed #477976 - Keybinding in run dialog
+* Fixed #427104 - No "highlight" of lines matching find-result
+* Fixed #479020 - Use of old open file dialog instead of GtkFileChooser
+* Fixed #478238 - set env for execute programe in the terminal
+* Update EggRecent (#456465)
+* Fixed #466031 - Update of pieces of menus for Localization
+* Fixed #343522 - anjuta: Unable to execute commands that use options.
+* Improved incremental search (still sucks) and selection management in
+GtkSourceView editor
+* Fix bug#487112, crash while removing a breakpoint in a new file
+* Fix bug#486597, crash when gdb is not installed
+* Fix bug#482067, escape project wizard user defined strings
+* Fixed #477976 - Keybinding in run dialog
+* Fixed #427104 - No "highlight" of lines matching find-result
+* Fixed get_current_word (useful for API help)
+* Fixed #487854 - Anjuta crashes when i try to add a SVN url
+* Fixed #474811 - Anjuta crash while debugging into variable
+* Fixed #488061 - Mutiple crash dialogs
+* Show error dialog instead of crashing when plugin loading fails.
+* Fixed glade-3 3.3.2 build compatibility.
+* Fixed #488928 - Do not register glade plugin if it wasn't built.
+ 
+Anjuta 2.2.1 (06 Sep 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Fixed lots of memory leaks (thanks valgrind)
+* Fixed crasher on shutdown
+* Avoid an endless loop if clearing all breakpoints while the programm
+  is running
+* Fixed help activation (bug #451557).
+* Fixed compiler warnings.
+* Fixed #423467 (View->Tasks menu items are not checked on startup)
+* Fixed anjuta-plugin template plugin by moving the "\" out of the [IF] block
+* Fixes bug #433552: crash in Anjuta IDE: add file test.h in project on
+  generic Makefile.
+* Disables 'Add to project' in wizards for projects that can not add sources.
+* Fixed bug #450217: Refreshing tree brings to random crashes
+* Fixed bug 453931 - crash in Anjuta IDE: Trying some c++ exampled
+* Fixed bug 457093 - crash in Anjuta IDE: just typed in some text
+
 Anjuta 2.2.0 (25 June 2007) -- Naba Kumar
 -----------------------------------------
 
