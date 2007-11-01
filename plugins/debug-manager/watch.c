@@ -203,6 +203,34 @@ debug_tree_change_watch_dialog (ExprWatch *ew, GtkTreeIter* iter)
 #endif
 }
 
+static void
+on_program_stopped (ExprWatch *ew)
+{
+	debug_tree_update_all (ew->debug_tree);
+}
+
+static void
+on_program_unloaded (ExprWatch *ew)
+{
+	debug_tree_disconnect (ew->debug_tree);
+
+	/* Disconnect to other debugger signal */
+	g_signal_handlers_disconnect_by_func (ew->plugin, G_CALLBACK (on_program_unloaded), ew);
+	g_signal_handlers_disconnect_by_func (ew->plugin, G_CALLBACK (on_program_stopped), ew);
+}
+
+static void
+on_program_loaded (ExprWatch *ew)
+{
+	if (!(dma_debugger_queue_get_feature (ew->debugger) & HAS_VARIABLE)) return;
+
+	debug_tree_connect (ew->debug_tree, ew->debugger);
+	
+	/* Connect to other debugger signal */
+	g_signal_connect_swapped (ew->plugin, "program-unloaded", G_CALLBACK (on_program_unloaded), ew);
+	g_signal_connect_swapped (ew->plugin, "program-stopped", G_CALLBACK (on_program_stopped), ew);
+}
+
 /* Menu call backs
  *---------------------------------------------------------------------------*/
 
@@ -456,18 +484,6 @@ create_expr_watch_gui (ExprWatch * ew)
 /* Public function
  *---------------------------------------------------------------------------*/
 
-void
-expr_watch_cmd_queqe (ExprWatch *ew)
-{
-	debug_tree_update_all (ew->debug_tree);
-}
-
-void
-expr_watch_connect (ExprWatch *ew)
-{
-	debug_tree_connect (ew->debug_tree, ew->debugger);
-}
-
 /* Callback for saving session
  *---------------------------------------------------------------------------*/
 
@@ -525,7 +541,9 @@ expr_watch_new (AnjutaPlugin *plugin)
                              "AnjutaDebuggerWatch", _("Watches"),
                              "gdb-watch-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
                               NULL);
-
+	
+	/* Connect to debugger */
+	g_signal_connect_swapped (ew->plugin, "program-loaded", G_CALLBACK (on_program_loaded), ew);
 	
 	return ew;
 }
@@ -538,8 +556,8 @@ expr_watch_destroy (ExprWatch * ew)
 	g_return_if_fail (ew != NULL);
 	
 	/* Disconnect from Load and Save event */
-	g_signal_handlers_disconnect_by_func (ew->plugin->shell, G_CALLBACK (on_session_save), ew);
-	g_signal_handlers_disconnect_by_func (ew->plugin->shell, G_CALLBACK (on_session_load), ew);
+	g_signal_handlers_disconnect_matched (ew->plugin->shell, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, ew);
+	g_signal_handlers_disconnect_matched (ew->plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, ew);
 
 	ui = anjuta_shell_get_ui (ew->plugin->shell, NULL);
 	anjuta_ui_remove_action_group (ui, ew->action_group);

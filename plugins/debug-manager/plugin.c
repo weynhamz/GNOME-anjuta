@@ -169,13 +169,6 @@ show_program_counter_in_editor(DebugManagerPlugin *self)
 }
 
 static void
-show_program_counter_in_disassembler(DebugManagerPlugin *self)
-{
-	dma_disassemble_mark (self->disassemble, self->pc_address, IANJUTA_MARKABLE_PROGRAM_COUNTER);
-	dma_disassemble_goto_address (self->disassemble, self->pc_address);
-}
-
-static void
 hide_program_counter_in_editor(DebugManagerPlugin *self)
 {
 	IAnjutaEditor *editor = self->current_editor;
@@ -194,12 +187,6 @@ hide_program_counter_in_editor(DebugManagerPlugin *self)
 }
 
 static void
-hide_program_counter_in_disassembler(DebugManagerPlugin *self)
-{
-	dma_disassemble_clear_all_mark (self->disassemble, IANJUTA_MARKABLE_PROGRAM_COUNTER);
-}
-
-static void
 set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, guint address)
 {
 	IAnjutaDocumentManager *docman = NULL;
@@ -207,16 +194,12 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gui
 
 	/* Remove previous marker */
 	hide_program_counter_in_editor (self);
-	hide_program_counter_in_disassembler (self);
 	if (self->pc_editor != NULL)
 	{
 		g_object_remove_weak_pointer (G_OBJECT (self->pc_editor), (gpointer *)(gpointer)&self->pc_editor);
 		self->pc_editor = NULL;
 	}
 	self->pc_address = address;
-
-	if (address != 0)
-		show_program_counter_in_disassembler (self);
 
 	if (file != NULL)
 	{
@@ -423,12 +406,6 @@ dma_plugin_program_loaded (DebugManagerPlugin *this)
 		this->signals = signals_new (this);
 	}
 
-	/* Connect components */
-	expr_watch_connect (this->watch);
-//	locals_connect (this->locals, this->debugger);
-//	stack_trace_connect (this->stack, this->debugger);
-//	cpu_registers_connect (this->registers, this->debugger);
-						
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
@@ -471,11 +448,6 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 	
 	DEBUG_PRINT ("DMA: dma_plugin_program_broken");
 	
-	expr_watch_cmd_queqe (this->watch);
-//	locals_update (this->locals);
-//	stack_trace_update (this->stack);
-//	cpu_registers_update (this->registers);
-
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_sensitive (this->loaded_group, TRUE);
@@ -586,6 +558,24 @@ dma_plugin_signal_received (DebugManagerPlugin *self, const gchar *name, const g
 	if (strcmp(name, "SIGINT") != 0)
 	{
 		anjuta_util_dialog_warning (parent, _("Program has received signal: %s\n"), description);
+	}
+}
+
+/* Called when the user want to go to another location */
+
+static void
+dma_plugin_location_changed (DebugManagerPlugin *self, guint address, const gchar* uri, guint line)
+{
+	/* Go to location in editor */
+	if (uri != NULL)
+	{
+		IAnjutaDocumentManager *docman;
+
+        docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(self)->shell, IAnjutaDocumentManager, NULL);
+        if (docman)
+        {
+			ianjuta_document_manager_goto_file_line (docman, uri, line, NULL);
+        }
 	}
 }
 
@@ -1069,15 +1059,16 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 
 	/* Load debugger */
 	this->queue = dma_debugger_queue_new (plugin);
-	g_signal_connect (this, "debugger-started", G_CALLBACK (dma_plugin_debugger_started), NULL);
-	g_signal_connect (this, "debugger-stopped", G_CALLBACK (dma_plugin_debugger_stopped), NULL);
-	g_signal_connect (this, "program-loaded", G_CALLBACK (dma_plugin_program_loaded), NULL);
-	g_signal_connect (this, "program-running", G_CALLBACK (dma_plugin_program_running), NULL);
-	g_signal_connect (this, "program-stopped", G_CALLBACK (dma_plugin_program_stopped), NULL);
-	g_signal_connect (this, "program-exited", G_CALLBACK (dma_plugin_program_loaded), NULL);
-	g_signal_connect (this, "program-moved", G_CALLBACK (dma_plugin_program_moved), NULL);
-	g_signal_connect (this, "signal-received", G_CALLBACK (dma_plugin_signal_received), NULL);
-
+	g_signal_connect (this, "debugger-started", G_CALLBACK (dma_plugin_debugger_started), this);
+	g_signal_connect (this, "debugger-stopped", G_CALLBACK (dma_plugin_debugger_stopped), this);
+	g_signal_connect (this, "program-loaded", G_CALLBACK (dma_plugin_program_loaded), this);
+	g_signal_connect (this, "program-running", G_CALLBACK (dma_plugin_program_running), this);
+	g_signal_connect (this, "program-stopped", G_CALLBACK (dma_plugin_program_stopped), this);
+	g_signal_connect (this, "program-exited", G_CALLBACK (dma_plugin_program_loaded), this);
+	g_signal_connect (this, "program-moved", G_CALLBACK (dma_plugin_program_moved), this);
+	g_signal_connect (this, "signal-received", G_CALLBACK (dma_plugin_signal_received), this);
+	g_signal_connect (this, "location_changed", G_CALLBACK (dma_plugin_location_changed), this);
+	
 	/* Add all our debug manager actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (plugin)->shell, NULL);
 	this->start_group =
@@ -1168,15 +1159,10 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 
 	/* Stop debugger */
 	dma_plugin_debugger_stopped (this, 0);
-	
-	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (on_session_save), plugin);							 
-	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_debugger_started), NULL);
-	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_debugger_stopped), NULL);
-	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_loaded), NULL);
-	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_running), NULL);
-	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_stopped), NULL);
-	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_program_moved), NULL);
-	g_signal_handlers_disconnect_by_func (this, G_CALLBACK (dma_plugin_signal_received), NULL);
+
+	g_signal_handlers_disconnect_matched (plugin->shell, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, plugin);	
+	g_signal_handlers_disconnect_matched (plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, plugin);	
+
 	dma_debugger_queue_free (this->queue);
 	this->queue = NULL;
 
@@ -1227,22 +1213,6 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 
 /* Public functions
  *---------------------------------------------------------------------------*/
-
-void
-dma_debug_manager_goto_code (DebugManagerPlugin *self, const gchar *uri, guint line, guint address)
-{
-	/* Go to address in disassembly view */
-	if (address != 0)
-	{
-		dma_disassemble_goto_address (self->disassemble, address);	
-	}
-
-	/* Go to location in editor */
-	if (uri != NULL)
-	{
-		goto_location_in_editor (ANJUTA_PLUGIN (self), uri, line);
-	}
-}
 
 DmaDebuggerQueue* 
 dma_debug_manager_get_queue (DebugManagerPlugin *self)

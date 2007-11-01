@@ -80,34 +80,31 @@ locals_updated (const gpointer data, gpointer user_data, GError *error)
 static void
 create_locals_gui (Locals *self)
 {
-	if (self->debug_tree == NULL)
-	{
-		self->debug_tree = debug_tree_new (self->plugin);
-		debug_tree_connect (self->debug_tree, self->debugger);
-	}
+	g_return_if_fail (self->debug_tree == NULL);
+	g_return_if_fail (self->main_w == NULL);
+	
+	self->debug_tree = debug_tree_new (self->plugin);
+	debug_tree_connect (self->debug_tree, self->debugger);
 
-	if (self->main_w == NULL)
-	{
-		/* Create local window */
-		GtkWidget *main_w;
+	/* Create local window */
+	GtkWidget *main_w;
 		
-		main_w = gtk_scrolled_window_new (NULL, NULL);
-		gtk_widget_show (main_w);		
-		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (main_w),
+	main_w = gtk_scrolled_window_new (NULL, NULL);
+	gtk_widget_show (main_w);		
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (main_w),
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
-		gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (main_w),
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (main_w),
 										 GTK_SHADOW_IN);
-		gtk_container_add (GTK_CONTAINER (main_w), debug_tree_get_tree_widget (self->debug_tree));
-		gtk_widget_show_all (main_w);
-		self->main_w = main_w;
+	gtk_container_add (GTK_CONTAINER (main_w), debug_tree_get_tree_widget (self->debug_tree));
+	gtk_widget_show_all (main_w);
+	self->main_w = main_w;
 
-		anjuta_shell_add_widget (self->plugin->shell,
+	anjuta_shell_add_widget (self->plugin->shell,
 							 self->main_w,
 							 "AnjutaDebuggerLocals", _("Locals"),
 							 "gdb-locals-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
 							 NULL);
-	}
 }
 
 static void
@@ -118,6 +115,7 @@ destroy_locals_gui (Locals *self)
 		debug_tree_free (self->debug_tree);
 		self->debug_tree = NULL;
 	}
+
 	if (self->main_w != NULL)
 	{
 		gtk_widget_destroy (GTK_WIDGET (self->main_w));
@@ -195,14 +193,6 @@ static void locals_update (Locals *self, gint thread)
 }
 
 static void
-locals_clear (Locals *self)
-{
-	g_return_if_fail (self != NULL);
-	dma_thread_clear_all_locals (self);
-	debug_tree_remove_all (self->debug_tree);
-}
-
-static void
 locals_change_frame (Locals *self, guint frame, gint thread)
 {
 	DmaThreadLocal *local;
@@ -232,23 +222,35 @@ on_program_moved (Locals *self, guint pid, gint thread)
 }
 
 static void
-on_debugger_started (Locals *l)
-{
-	create_locals_gui (l);
-}
-
-static void
-on_debugger_stopped (Locals *l)
-{
-	locals_clear (l);
-	destroy_locals_gui (l);
-}
-
-static void
 on_frame_changed (Locals *self, guint frame, gint thread)
 {
 	/* Change thread and frame*/
 	locals_change_frame (self, frame, thread);
+}
+
+static void
+on_debugger_stopped (Locals *self)
+{
+	/* Disconnect signals */
+	g_signal_handlers_disconnect_by_func (self->plugin, on_debugger_stopped, self);
+	g_signal_handlers_disconnect_by_func (self->plugin, on_program_moved, self);
+	g_signal_handlers_disconnect_by_func (self->plugin, on_frame_changed, self);
+	
+	dma_thread_clear_all_locals (self);
+
+	destroy_locals_gui (self);
+}
+
+static void
+on_debugger_started (Locals *self)
+{
+	if (!(dma_debugger_queue_get_feature (self->debugger) & HAS_VARIABLE)) return;
+
+	create_locals_gui (self);
+	
+	g_signal_connect_swapped (self->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
+	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
+	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
 }
 
 /* Constructor & Destructor
@@ -257,19 +259,12 @@ on_frame_changed (Locals *self, guint frame, gint thread)
 Locals *
 locals_new (DebugManagerPlugin *plugin)
 {
-	DebugTree *debug_tree;
-
 	Locals *self = g_new0 (Locals, 1);
 
-	debug_tree = debug_tree_new (ANJUTA_PLUGIN (plugin));
-
-	self->debugger = dma_debug_manager_get_queue (plugin);
 	self->plugin = ANJUTA_PLUGIN (plugin);
+	self->debugger = dma_debug_manager_get_queue (plugin);
 
 	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_debugger_started), self);
-	g_signal_connect_swapped (self->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
-	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
-	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
 	
 	return self;
 }
@@ -279,17 +274,12 @@ locals_free (Locals *self)
 {
 	g_return_if_fail (self != NULL);
 
+	g_signal_handlers_disconnect_matched (self->plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, self);	
+
+	dma_thread_clear_all_locals (self);
+	
 	/* Destroy gui */
 	destroy_locals_gui (self);
-	
-	/* Disconnect from debugger */
-	if (self->debugger != NULL)
-	{	
-		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_started), self);
-		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_stopped), self);
-		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
-		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_frame_changed), self);
-	}
 
 	g_free (self);
 }

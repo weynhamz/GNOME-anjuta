@@ -93,16 +93,3 @@ gdb_util_remove_blank_lines (const GList * lines)
 	}
 	return list;
 }
-
-void
-goto_location_in_editor (AnjutaPlugin *plugin, const gchar* uri, guint line)
-{
-	IAnjutaDocumentManager *docman;
-	
-	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager, NULL);
-	if (docman)
-	{
-		
-		ianjuta_document_manager_goto_file_line (docman, uri, line, NULL);
-	}
-}

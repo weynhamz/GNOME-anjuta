@@ -203,18 +203,6 @@ idebugger_get_state (IAnjutaDebugger *plugin, GError **err)
 
 
 static gboolean
-idebugger_initialize (IAnjutaDebugger *plugin, IAnjutaDebuggerOutputCallback callback, gpointer user_data, GError **err)
-{
-	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
-
-	this->output_callback = callback;
-	this->output_user_data = user_data;
-	g_signal_emit_by_name (G_OBJECT (plugin), "debugger-ready", IANJUTA_DEBUGGER_STOPPED);
-
-	return TRUE;
-}
-
-static gboolean
 idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_type,
 				const GList *search_dirs, gboolean terminal, GError **err)
 {
@@ -639,7 +627,6 @@ static void
 idebugger_iface_init (IAnjutaDebuggerIface *iface)
 {
 	iface->get_state = idebugger_get_state;
-	iface->initialize = idebugger_initialize;
 	iface->attach = idebugger_attach;
 	iface->load = idebugger_load;
 	iface->start = idebugger_start;

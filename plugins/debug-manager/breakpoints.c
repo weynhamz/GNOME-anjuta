@@ -1272,7 +1272,7 @@ on_jump_to_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 		
 		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 
-		dma_debug_manager_goto_code (bd->plugin, bi->uri, bi->bp->line, bi->bp->address);
+		g_signal_emit_by_name (bd->plugin, "location-changed", bi->bp->address, bi->uri, bi->bp->line);
 	}
 }
 

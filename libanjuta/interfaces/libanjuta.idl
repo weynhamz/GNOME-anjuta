@@ -3031,7 +3031,7 @@ interface IAnjutaDebugger
 	* location. Most of the time, after the program has stopped but it
 	* could happen even if it is still running.
 	*/
-	void ::program_moved (gint pid, gint tid, guint address, const gchar* file, guint line);	
+	void ::program_moved (gint pid, gint tid, guint address, const gchar* file, guint line);
 
 	/**
 	* IAnjutaDebugger::frame_changed:
@@ -3076,17 +3076,7 @@ interface IAnjutaDebugger
 
 
 	
-	/**
-	* ianjuta_debugger_initialize:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: TRUE if sucessful, other FALSE.
-	*/
-	gboolean initialize (OutputCallback func, gpointer user_data);
-	
+
 	/**
 	* ianjuta_debugger_load:
 	* @obj: Self
@@ -3936,17 +3926,34 @@ interface IAnjutaDebugManager
 	* location. Most of the time, after the program has stopped but it
 	* could happen even if it is still running.
 	*/
-	void ::program_moved (gint pid, gint tid, guint address, const gchar* file, guint line);	
+	void ::program_moved (gint pid, gint tid, guint address, const gchar* file, guint line);
 
 	/**
 	* IAnjutaDebugger::frame_changed:
 	* @obj: Self
-	* @frame: fixme
+	* @frame: frame
 	* @thread: thread
 	* 
-	* fixme
+	* This signal is emitted when the current frame is changed. It is
+	* equal to the top frame in the interrupted thread when the
+	* program stops but can be changed afterward by the user.
+	* Several commands use this current frame, by example the register
+	* window display the register values for the current thread only.
 	*/
 	void ::frame_changed (guint frame, gint thread);	
+
+	/**
+	* IAnjutaDebugger::location_changed:
+	* @obj: Self
+	* @address: program counter address, 0 when unknown
+	* @uri: source file where is the program counter, NULL when unknown
+	* @line: line number if file name above is not NULL
+	* 
+	* This signal is emitted when the current location is changed. It is
+	* equal to the program location when the program stops but can be
+	* changed afterward by the user.
+	*/
+	void ::location_changed (guint address, const gchar* uri, guint line);	
 
 	/**
 	* IAnjutaDebugger::signal_received:

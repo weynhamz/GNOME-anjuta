@@ -1,3 +1,31 @@
+2007-11-01  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/utilities.c,
+	plugins/debug-manager/utilities.h,
+	plugins/debug-manager/threads.c,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/plugin.h,
+	plugins/debug-manager/disassemble.h,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/watch.h,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/stack_trace.c:
+	Replace few remaining function calls by signal 
+
+	* plugins/debug-manager/disassemble.c,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/memory.c,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/queue.c,
+	plugins/debug-manager/queue.h:
+	Connect signals when debugger is started
+	Disconnect them when debugger is stopped
+	Do not display window if debugger doesn't support feature
+
+	* plugins/gdb/plugin.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Remove unused initialization function
+
 2007-11-01  Naba Kumar  <naba.kumar@gnome.org>
 
 	* configure.in:

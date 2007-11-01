@@ -643,13 +643,6 @@ dma_disassembly_buffer_new (DmaDebuggerQueue *debugger, gulong lower, gulong upp
 	return buffer;
 }
 	
-static void
-dma_disassembly_buffer_free (DmaDisassemblyBuffer *buffer)
-{
-	g_object_unref (buffer);
-}
-
-
 /* Disassembly view object
  *---------------------------------------------------------------------------*/
 
@@ -732,12 +725,6 @@ dma_disassembly_view_new_with_buffer (DmaDebuggerQueue *debugger, DmaSparseBuffe
 	return view;
 }
 	
-static void
-dma_disassembly_view_free (DmaDisassemblyView *view)
-{
-	g_object_unref (view);
-}
-
 /* Private functions
  *---------------------------------------------------------------------------*/
 
@@ -752,62 +739,17 @@ on_breakpoint_changed (DmaDisassemble *self, IAnjutaDebuggerBreakpoint *bp)
 {
 	g_return_if_fail (bp != NULL);
 	
-	dma_disassemble_unmark (self, bp->address, IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
-	dma_disassemble_unmark (self, bp->address, IANJUTA_MARKABLE_BREAKPOINT_ENABLED);
+	dma_sparse_view_unmark (self->view, bp->address, IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
+	dma_sparse_view_unmark (self->view, bp->address, IANJUTA_MARKABLE_BREAKPOINT_ENABLED);
 	if (!(bp->type & IANJUTA_DEBUGGER_BREAK_REMOVED))
 	{
-		dma_disassemble_mark (self, bp->address, bp->enable ? IANJUTA_MARKABLE_BREAKPOINT_ENABLED : IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
+		dma_sparse_view_mark (self->view, bp->address, bp->enable ? IANJUTA_MARKABLE_BREAKPOINT_ENABLED : IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
 	}
-}
-
-static GtkWidget*
-create_disassemble_gui (DmaDisassemble *self)
-{
-	GtkWidget *dataview;
-
-	dataview = GTK_WIDGET (dma_disassembly_view_new_with_buffer (self->debugger, self->buffer));
-
-	/* Add register window */
-	self->window = gtk_scrolled_window_new (NULL, NULL);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (self->window),
-									GTK_POLICY_AUTOMATIC,
-									GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (self->window),
-									 GTK_SHADOW_IN);
-	gtk_container_add (GTK_CONTAINER (self->window), GTK_WIDGET (dataview));
-	
-	anjuta_shell_add_widget (ANJUTA_PLUGIN (self->plugin)->shell,
-							 self->window,
-                             "AnjutaDebuggerDisassemble", _("Disassembly"),
-                             NULL, ANJUTA_SHELL_PLACEMENT_LEFT,
-							 NULL);
-
-
-	DMA_DISASSEMBLY_VIEW (dataview)->pending = FALSE;
-	
-	return dataview;
-}
-
-static void
-on_debugger_started (DmaDisassemble *self)
-{
-	self->buffer = DMA_SPARSE_BUFFER (dma_disassembly_buffer_new (self->debugger, 0x00000000U,0xFFFFFFFFU));
-
-	self->view = DMA_SPARSE_VIEW (create_disassemble_gui (self));
-
-	g_signal_connect_swapped (self->plugin, "breakpoint-changed", G_CALLBACK (on_breakpoint_changed), self);
-	
-	g_signal_connect (G_OBJECT (self->buffer), 
-			"changed", 
-			G_CALLBACK (on_disassembly_buffer_changed), 
-			self->view);
 }
 
 static void
 destroy_disassemble_gui (DmaDisassemble *self)
 {
-	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_breakpoint_changed), self);
-
 	/* Destroy menu */
 	if (self->menu != NULL)
 	{
@@ -821,59 +763,105 @@ destroy_disassemble_gui (DmaDisassemble *self)
 		self->window = NULL;
 		self->view = NULL;
 	}
+	
+	/* Destroy buffer */
+	if (self->buffer)
+	{
+		dma_sparse_buffer_free (DMA_SPARSE_BUFFER (self->buffer));
+		self->buffer = NULL;
+	}
+}
+
+static void
+on_program_running (DmaDisassemble *self)
+{
+	dma_sparse_view_delete_all_markers (self->view, IANJUTA_MARKABLE_PROGRAM_COUNTER);	
+}
+
+static void
+on_program_moved (DmaDisassemble *self, guint pid, guint tid, guint address, const gchar* file, guint line)
+{
+	dma_sparse_view_delete_all_markers (self->view, IANJUTA_MARKABLE_PROGRAM_COUNTER);	
+	
+	if (address != 0)
+	{
+		dma_sparse_view_mark (self->view, address, IANJUTA_MARKABLE_PROGRAM_COUNTER);
+		dma_sparse_view_goto (self->view, address);
+	}
+}
+
+static void
+on_location_changed (DmaDisassemble *self, guint address, const gchar* uri, guint line)
+{
+	dma_sparse_view_goto (self->view, address);
 }
 
 static void
 on_debugger_stopped (DmaDisassemble *self)
 {
-	g_signal_handlers_disconnect_by_func (self->buffer,
-			on_disassembly_buffer_changed,
-			self->view);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_stopped), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_breakpoint_changed), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_location_changed), self);
 
-	dma_sparse_buffer_free (DMA_SPARSE_BUFFER (self->buffer));
-	self->buffer = NULL;
+	dma_sparse_view_delete_all_markers (self->view, IANJUTA_MARKABLE_PROGRAM_COUNTER);	
 	
 	destroy_disassemble_gui (self);
 }
 
+
+static gboolean
+create_disassemble_gui (DmaDisassemble *self)
+{
+	GtkWidget *dataview;
+
+	g_return_val_if_fail (self->buffer == NULL, FALSE);
+	g_return_val_if_fail (self->window == NULL, FALSE);
+	
+	/* Create buffer */
+	self->buffer = DMA_SPARSE_BUFFER (dma_disassembly_buffer_new (self->debugger, 0x00000000U,0xFFFFFFFFU));
+	if (self->buffer == NULL) return FALSE;		
+	
+	dataview = GTK_WIDGET (dma_disassembly_view_new_with_buffer (self->debugger, self->buffer));
+	self->view = DMA_SPARSE_VIEW (dataview);
+	DMA_DISASSEMBLY_VIEW (dataview)->pending = FALSE;
+	g_signal_connect (G_OBJECT (self->buffer), "changed", G_CALLBACK (on_disassembly_buffer_changed), self->view);
+
+	/* Add disassembly window */
+	self->window = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (self->window),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (self->window),
+									 GTK_SHADOW_IN);
+	gtk_container_add (GTK_CONTAINER (self->window), GTK_WIDGET (dataview));
+	
+	anjuta_shell_add_widget (ANJUTA_PLUGIN (self->plugin)->shell,
+							 self->window,
+                             "AnjutaDebuggerDisassemble", _("Disassembly"),
+                             NULL, ANJUTA_SHELL_PLACEMENT_LEFT,
+							 NULL);
+	
+	return TRUE;
+}
+
+static void
+on_debugger_started (DmaDisassemble *self)
+{
+	if (!(dma_debugger_queue_get_feature (self->debugger) & HAS_CPU)) return;
+
+	if (!create_disassemble_gui (self)) return;
+
+	/* Connect signals */
+	g_signal_connect_swapped (self->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
+	g_signal_connect_swapped (self->plugin, "breakpoint-changed", G_CALLBACK (on_breakpoint_changed), self);
+	g_signal_connect_swapped (self->plugin, "program-running", G_CALLBACK (on_program_running), self);
+	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
+	g_signal_connect_swapped (self->plugin, "location-changed", G_CALLBACK (on_location_changed), self);
+}
+
 /* Public functions
  *---------------------------------------------------------------------------*/
-
-void
-dma_disassemble_mark (DmaDisassemble *self, guint address, gint marker)
-{
-	g_return_if_fail (self != NULL);
-	g_return_if_fail (self->view != NULL);
-	
-	dma_sparse_view_mark (self->view, address, marker);
-}
-
-void
-dma_disassemble_unmark (DmaDisassemble *self, guint address, gint marker)
-{
-	g_return_if_fail (self != NULL);
-	g_return_if_fail (self->view != NULL);
-	
-	dma_sparse_view_unmark (self->view, address, marker);
-}
-
-void
-dma_disassemble_clear_all_mark (DmaDisassemble *self, gint marker)
-{
-	g_return_if_fail (self != NULL);
-	/* Accept to clear mark without a view, used at initialization */
-	if (self->view != NULL)
-		dma_sparse_view_delete_all_markers (self->view, marker);
-}
-
-void
-dma_disassemble_goto_address (DmaDisassemble *self, guint address)
-{
-	g_return_if_fail (self != NULL);
-	g_return_if_fail (self->view != NULL);
-	
-	dma_sparse_view_goto (self->view, address);
-}
 
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
@@ -885,13 +873,10 @@ dma_disassemble_new(DebugManagerPlugin *plugin)
 	
 	self = g_new0 (DmaDisassemble, 1);
 	
-	self->debugger = dma_debug_manager_get_queue (plugin);;
 	self->plugin = plugin;
-	self->buffer = NULL;
-	self->view = NULL;
+	self->debugger = dma_debug_manager_get_queue (plugin);;
 
 	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_debugger_started), self);
-	g_signal_connect_swapped (self->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
 	
 	return self;
 }
@@ -901,8 +886,10 @@ dma_disassemble_free(DmaDisassemble* self)
 {
 	g_return_if_fail (self != NULL);
 
-	destroy_disassemble_gui (self);
+	g_signal_handlers_disconnect_matched (self->plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, self);	
 	
+	destroy_disassemble_gui (self);
+
 	g_free(self);
 }
 

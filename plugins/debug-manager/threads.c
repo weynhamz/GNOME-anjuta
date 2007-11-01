@@ -171,7 +171,7 @@ on_threads_source_activate (GtkAction *action, gpointer user_data)
 						-1);
 
 	address = adr != NULL ? strtoul (adr, NULL, 0) : 0;
-	dma_debug_manager_goto_code (self->plugin, uri, line, address);
+	g_signal_emit_by_name (self->plugin, "location-changed", address, uri, line);
 	g_free (uri);
 	g_free (adr);
 }

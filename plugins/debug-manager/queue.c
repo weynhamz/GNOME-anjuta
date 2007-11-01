@@ -30,6 +30,10 @@
 /*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
+#include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
+#include <libanjuta/interfaces/ianjuta-breakpoint-debugger.h>
+#include <libanjuta/interfaces/ianjuta-variable-debugger.h>
+
 
 #include <stdarg.h>
 
@@ -46,6 +50,7 @@ struct _DmaDebuggerQueue {
 
 	AnjutaPlugin* plugin;
 	IAnjutaDebugger* debugger;
+	gint feature;
 
 	/* Command queue */
 	GQueue *queue;
@@ -457,6 +462,15 @@ dma_debugger_activate_plugin (DmaDebuggerQueue* self, const gchar *mime_type)
 
 		/* Get debugger interface */
 		self->debugger = (IAnjutaDebugger *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, value);
+
+		self->feature = 0;
+		/* Check if cpu interface is available */
+		self->feature |= IANJUTA_IS_CPU_DEBUGGER(self->debugger) ? HAS_CPU : 0;
+		/* Check if breakpoint interface is available */
+		self->feature |= IANJUTA_IS_BREAKPOINT_DEBUGGER(self->debugger) ? HAS_BREAKPOINT : 0;
+		/* Check if variable interface is available */
+		self->feature |= IANJUTA_IS_VARIABLE_DEBUGGER(self->debugger) ? HAS_VARIABLE : 0;
+		
 		g_free (value);
 
 		return TRUE;
@@ -645,6 +659,7 @@ dma_debugger_queue_stop (DmaDebuggerQueue *self)
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_dma_frame_changed), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_dma_sharedlib_event), self);
 		self->debugger = NULL;
+		self->feature = 0;
 	}
 }
 
@@ -674,8 +689,6 @@ dma_debugger_queue_start (DmaDebuggerQueue *self, const gchar *mime_type)
 		g_signal_connect_swapped (self->debugger, "frame-changed", G_CALLBACK (on_dma_frame_changed), self);
 		g_signal_connect_swapped (self->debugger, "sharedlib-event", G_CALLBACK (on_dma_sharedlib_event), self);
 
-		ianjuta_debugger_initialize (self->debugger, NULL, NULL, NULL);
-			
 		if (self->log == NULL)
 		{
 			dma_queue_disable_log (self);
@@ -713,6 +726,12 @@ IAnjutaDebuggerState
 dma_debugger_queue_get_state (DmaDebuggerQueue *self)
 {
 	return self->queue_state;
+}
+
+gint
+dma_debugger_queue_get_feature (DmaDebuggerQueue *self)
+{
+	return self->feature;
 }
 
 /* GObject functions
@@ -756,6 +775,7 @@ dma_debugger_queue_instance_init (DmaDebuggerQueue *self)
 {
 	self->plugin = NULL;
 	self->debugger = NULL;
+	self->feature = 0;
 	self->queue = g_queue_new ();
 	self->last = NULL;
 	self->busy = FALSE;

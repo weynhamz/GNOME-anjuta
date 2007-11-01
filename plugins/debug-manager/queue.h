@@ -31,6 +31,13 @@
 
 #include <glib.h>
 
+typedef enum
+{
+	HAS_CPU = 1 << 0,
+	HAS_BREAKPOINT = 1 << 1,
+	HAS_VARIABLE = 1 << 2
+} DmaDebuggerFeature;
+
 typedef struct _DmaDebuggerQueueClass   DmaDebuggerQueueClass;
 
 #define DMA_DEBUGGER_QUEUE_TYPE            (dma_debugger_queue_get_type ())
@@ -50,6 +57,7 @@ gboolean dma_debugger_queue_start (DmaDebuggerQueue *self, const gchar *mime_typ
 void dma_debugger_queue_stop (DmaDebuggerQueue *self);
 void dma_debugger_queue_enable_log (DmaDebuggerQueue *self, IAnjutaMessageView *log);
 void dma_debugger_queue_disable_log (DmaDebuggerQueue *self);
+gint dma_debugger_queue_get_feature (DmaDebuggerQueue *self);
 
 IAnjutaDebuggerState dma_debugger_queue_get_state (DmaDebuggerQueue *self);
 

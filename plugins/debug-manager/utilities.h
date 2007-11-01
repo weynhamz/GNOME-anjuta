@@ -34,8 +34,4 @@ gchar* gdb_util_remove_white_spaces(const gchar* text);
  *---------------------------------------------------------------------------*/
 GList* gdb_util_remove_blank_lines(const GList* lines);
 
-/* Goto to corresponding location in editor, opening file if necessary
- *---------------------------------------------------------------------------*/
-void goto_location_in_editor (AnjutaPlugin *plugin, const gchar* uri, guint line);
-
 #endif

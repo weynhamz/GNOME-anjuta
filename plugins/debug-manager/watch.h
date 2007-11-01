@@ -39,25 +39,6 @@ enum {
 };
 
 ExprWatch* expr_watch_new (AnjutaPlugin *plugin);
-
-void expr_watch_connect (ExprWatch *ew);
-
-/*void expr_watch_clear (ExprWatch *ew);
-
-void expr_watch_cmd_queqe (ExprWatch *ew);
-
-void expr_watch_update (Debugger *debugger, const GDBMIValue *mi_result,
-						const GList *cli_result, gpointer  ew);
-
-void expr_watch_evaluate_expression (ExprWatch *ew, const gchar *expr,
-									 DebuggerResultFunc parser, gpointer data);
-
-void expr_watch_update_controls (ExprWatch *ew);*/
-
 void expr_watch_destroy (ExprWatch*ew);
-
-//void expr_watch_update (struct _DebugPrintCallback* cb_data, const gchar* value);
-void expr_watch_cmd_queqe (ExprWatch * ew);
-
 
 #endif

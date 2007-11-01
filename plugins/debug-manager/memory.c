@@ -28,6 +28,7 @@
 
 #include <gnome.h>
 
+/*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
 
 #include "memory.h"
@@ -125,32 +126,6 @@ on_program_stopped (DmaMemory *mem)
 }
 
 static void
-create_memory_gui (DmaMemory *mem)
-{
-	GtkWidget *dataview;
-	
-	dataview = dma_data_view_new_with_buffer (mem->buffer);
-	mem->window = dataview;
-	
-	anjuta_shell_add_widget (mem->plugin->shell,
-							 mem->window,
-                             "AnjutaDebuggerMemory", _("Memory"),
-                             NULL, ANJUTA_SHELL_PLACEMENT_CENTER,
-							 NULL);
-
-}
-
-static void
-on_debugger_started (DmaMemory *mem)
-{
-	if (mem->buffer == NULL)
-	{
-		mem->buffer = dma_data_buffer_new (0x0000, 0xFFFFFFFFU, read_memory_block, NULL, mem);
-	}
-	create_memory_gui (mem);
-}
-
-static void
 destroy_memory_gui (DmaMemory *mem)
 {
 	/* Destroy menu */
@@ -165,12 +140,58 @@ destroy_memory_gui (DmaMemory *mem)
 		mem->window = NULL;
 		dma_data_buffer_remove_all_page (mem->buffer);
 	}
+	
+	/* Remove buffer */		
+	if (mem->buffer != NULL)
+	{	
+		g_object_unref (mem->buffer);
+		mem->buffer = NULL;
+	}
 }
 
 static void
 on_debugger_stopped (DmaMemory *mem)
 {
+	
+	g_signal_handlers_disconnect_by_func (mem->plugin, G_CALLBACK (on_debugger_stopped), mem);
+	g_signal_handlers_disconnect_by_func (mem->plugin, G_CALLBACK (on_program_stopped), mem);
+	
 	destroy_memory_gui (mem);
+}
+
+static gboolean
+create_memory_gui (DmaMemory *mem)
+{
+	GtkWidget *dataview;
+
+	g_return_val_if_fail (mem->buffer == NULL, FALSE);
+	g_return_val_if_fail (mem->window == NULL, FALSE);
+	
+	mem->buffer = dma_data_buffer_new (0x0000, 0xFFFFFFFFU, read_memory_block, NULL, mem);
+	if (mem->buffer == NULL) return FALSE;
+	
+	dataview = dma_data_view_new_with_buffer (mem->buffer);
+	mem->window = dataview;
+	
+	anjuta_shell_add_widget (mem->plugin->shell,
+							 mem->window,
+                             "AnjutaDebuggerMemory", _("Memory"),
+                             NULL, ANJUTA_SHELL_PLACEMENT_CENTER,
+							 NULL);
+	
+	return TRUE;
+}
+
+static void
+on_debugger_started (DmaMemory *mem)
+{
+	if (!(dma_debugger_queue_get_feature (mem->debugger) & HAS_CPU)) return;
+
+	if (!create_memory_gui (mem)) return;
+
+	/* Connect signals */
+	g_signal_connect_swapped (mem->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), mem);
+	g_signal_connect_swapped (mem->plugin, "program-stopped", G_CALLBACK (on_program_stopped), mem);
 }
 
 /* Constructor & Destructor
@@ -185,11 +206,8 @@ dma_memory_new(DebugManagerPlugin *plugin)
 	
 	mem->debugger = dma_debug_manager_get_queue (plugin);
 	mem->plugin = ANJUTA_PLUGIN (plugin);
-	mem->buffer = NULL;
 
 	g_signal_connect_swapped (mem->plugin, "debugger-started", G_CALLBACK (on_debugger_started), mem);
-	g_signal_connect_swapped (mem->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), mem);
-	g_signal_connect_swapped (mem->plugin, "program-stopped", G_CALLBACK (on_program_stopped), mem);
 
 	return mem;
 }
@@ -199,9 +217,9 @@ dma_memory_free(DmaMemory* mem)
 {
 	g_return_if_fail (mem != NULL);
 
-	destroy_memory_gui (mem);
+	g_signal_handlers_disconnect_matched (mem->plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, mem);	
 	
-	if (mem->buffer != NULL) g_object_unref (mem->buffer);
+	destroy_memory_gui (mem);
 
 	g_free(mem);
 }
