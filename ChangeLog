@@ -1,3 +1,9 @@
+2007-11-01  Naba Kumar  <naba.kumar@gnome.org>
+
+	* manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt: Updated docs
+	to latest API additions.
+
 2007-10-31  Naba Kumar  <naba.kumar@gnome.org>
 
 	* ChangeLog: Fixed indentation.

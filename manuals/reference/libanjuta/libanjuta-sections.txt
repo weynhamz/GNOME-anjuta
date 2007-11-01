@@ -40,6 +40,10 @@ anjuta_ui_get_icon_factory
 anjuta_ui_get_accel_group
 anjuta_ui_get_accel_editor
 anjuta_ui_dump_tree
+BEGIN_REGISTER_ICON
+REGISTER_ICON_FULL
+REGISTER_ICON
+END_REGISTER_ICON
 <SUBSECTION Standard>
 ANJUTA_UI
 ANJUTA_IS_UI
@@ -66,8 +70,8 @@ anjuta_status_add_widget
 anjuta_status
 anjuta_status_set_title_window
 anjuta_status_set_title
-anjuta_status_progress_set_splash
-anjuta_status_progress_disable_splash
+anjuta_status_set_splash
+anjuta_status_disable_splash
 anjuta_status_progress_add_ticks
 anjuta_status_progress_tick
 anjuta_status_progress_reset
@@ -90,7 +94,10 @@ anjuta_plugin_handle_get_id
 anjuta_plugin_handle_get_name
 anjuta_plugin_handle_get_about
 anjuta_plugin_handle_get_icon_path
+anjuta_plugin_handle_get_path
 anjuta_plugin_handle_get_user_activatable
+anjuta_plugin_handle_get_resident
+anjuta_plugin_handle_get_language
 anjuta_plugin_handle_get_description
 anjuta_plugin_handle_get_dependency_names
 anjuta_plugin_handle_get_dependencies
@@ -130,6 +137,7 @@ ANJUTA_CELL_RENDERER_CAPTIONED_IMAGE_GET_CLASS
 
 <SECTION>
 <FILE>anjuta-plugin</FILE>
+AnjutaGluePlugin
 AnjutaPluginPrivate
 AnjutaPluginValueAdded
 AnjutaPluginValueRemoved
@@ -203,7 +211,9 @@ anjuta_plugin_manager_get_plugin_by_id
 anjuta_plugin_manager_unload_plugin
 anjuta_plugin_manager_unload_plugin_by_id
 anjuta_plugin_manager_get_active_plugins
-anjuta_plugin_manager_get_dialog
+anjuta_plugin_manager_get_active_plugin_objects
+anjuta_plugin_manager_get_plugins_page
+anjuta_plugin_manager_get_remembered_plugins_page
 anjuta_plugin_manager_query
 anjuta_plugin_manager_select
 anjuta_plugin_manager_select_and_activate
@@ -238,6 +248,7 @@ anjuta_shell_get_profile_manager
 anjuta_shell_freeze
 anjuta_shell_thaw
 anjuta_shell_add_widget
+anjuta_shell_add_widget_full
 anjuta_shell_remove_widget
 anjuta_shell_present_widget
 anjuta_shell_add_value
@@ -251,6 +262,7 @@ anjuta_shell_get_object
 anjuta_shell_session_save
 anjuta_shell_session_load
 anjuta_shell_save_prompt
+anjuta_shell_notify_exit
 anjuta_shell_get_interface
 <SUBSECTION Standard>
 ANJUTA_SHELL
@@ -258,21 +270,6 @@ ANJUTA_IS_SHELL
 ANJUTA_TYPE_SHELL
 anjuta_shell_get_type
 ANJUTA_SHELL_GET_IFACE
-</SECTION>
-
-<SECTION>
-<FILE>anjuta-c-module</FILE>
-AnjutaCModule
-AnjutaCModuleClass
-anjuta_c_module_new
-<SUBSECTION Standard>
-ANJUTA_C_MODULE
-ANJUTA_IS_C_MODULE
-ANJUTA_TYPE_C_MODULE
-anjuta_c_module_get_type
-ANJUTA_C_MODULE_CLASS
-ANJUTA_IS_C_MODULE_CLASS
-ANJUTA_C_MODULE_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -292,22 +289,6 @@ anjuta_save_prompt_get_type
 ANJUTA_SAVE_PROMPT_CLASS
 ANJUTA_IS_SAVE_PROMPT_CLASS
 ANJUTA_SAVE_PROMPT_GET_CLASS
-</SECTION>
-
-<SECTION>
-<FILE>anjuta-c-plugin-factory</FILE>
-AnjutaCPluginFactory
-AnjutaCPluginFactoryClass
-anjuta_c_plugin_factory_new
-anjuta_c_plugin_factory_free
-<SUBSECTION Standard>
-ANJUTA_C_PLUGIN_FACTORY
-ANJUTA_IS_C_PLUGIN_FACTORY
-ANJUTA_TYPE_C_PLUGIN_FACTORY
-anjuta_c_plugin_factory_get_type
-ANJUTA_C_PLUGIN_FACTORY_CLASS
-ANJUTA_IS_C_PLUGIN_FACTORY_CLASS
-ANJUTA_C_PLUGIN_FACTORY_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -338,6 +319,23 @@ anjuta_session_get_type
 ANJUTA_SESSION_CLASS
 ANJUTA_IS_SESSION_CLASS
 ANJUTA_SESSION_GET_CLASS
+</SECTION>
+
+<SECTION>
+<FILE>anjuta-c-module</FILE>
+<TITLE>AnjutaCModule</TITLE>
+AnjutaCModule
+AnjutaCModuleClass
+anjuta_c_module_new
+anjuta_c_module_get_last_error
+<SUBSECTION Standard>
+ANJUTA_C_MODULE
+ANJUTA_IS_C_MODULE
+ANJUTA_TYPE_C_MODULE
+anjuta_c_module_get_type
+ANJUTA_C_MODULE_CLASS
+ANJUTA_IS_C_MODULE_CLASS
+ANJUTA_C_MODULE_GET_CLASS
 </SECTION>
 
 <SECTION>
@@ -381,6 +379,7 @@ AnjutaPreferences
 AnjutaPreferencesCallback
 anjuta_preferences_new
 anjuta_preferences_add_page
+anjuta_preferences_remove_page
 anjuta_preferences_register_all_properties_from_glade_xml
 anjuta_preferences_register_property_from_string
 anjuta_preferences_register_property_raw
@@ -403,6 +402,7 @@ anjuta_preferences_get_int
 anjuta_preferences_get_int_with_default
 anjuta_preferences_default_get
 anjuta_preferences_default_get_int
+anjuta_preferences_get_dialog
 anjuta_preferences_notify_add
 anjuta_preferences_notify_remove
 anjuta_preferences_get_prefix
@@ -431,6 +431,7 @@ anjuta_launcher_execute
 anjuta_launcher_execute_v
 anjuta_launcher_set_encoding
 anjuta_launcher_send_stdin
+anjuta_launcher_send_stdin_eof
 anjuta_launcher_send_ptyin
 anjuta_launcher_get_child_pid
 anjuta_launcher_reset
@@ -458,6 +459,7 @@ anjuta_profile_manager_push
 anjuta_profile_manager_pop
 anjuta_profile_manager_freeze
 anjuta_profile_manager_thaw
+anjuta_profile_manager_get_current
 <SUBSECTION Standard>
 ANJUTA_PROFILE_MANAGER
 ANJUTA_IS_PROFILE_MANAGER
@@ -469,28 +471,41 @@ ANJUTA_PROFILE_MANAGER_GET_CLASS
 </SECTION>
 
 <SECTION>
+<FILE>anjuta-c-plugin-factory</FILE>
+<TITLE>AnjutaCPluginFactory</TITLE>
+AnjutaCPluginFactory
+AnjutaCPluginFactoryClass
+anjuta_c_plugin_factory_new
+anjuta_c_plugin_factory_free
+<SUBSECTION Standard>
+ANJUTA_C_PLUGIN_FACTORY
+ANJUTA_IS_C_PLUGIN_FACTORY
+ANJUTA_TYPE_C_PLUGIN_FACTORY
+anjuta_c_plugin_factory_get_type
+ANJUTA_C_PLUGIN_FACTORY_CLASS
+ANJUTA_IS_C_PLUGIN_FACTORY_CLASS
+ANJUTA_C_PLUGIN_FACTORY_GET_CLASS
+</SECTION>
+
+<SECTION>
 <FILE>ianjuta-editor</FILE>
 IANJUTA_TYPE_EDITOR_ATTRIBUTE
 IANJUTA_TYPE_EDITOR_ERROR
 IAnjutaEditorAttribute
 IAnjutaEditorError
 IANJUTA_EDITOR_ERROR
+<TITLE>IAnjutaEditor</TITLE>
 IAnjutaEditor
 IAnjutaEditorIface
 ianjuta_editor_error_get_type
 ianjuta_editor_error_quark
 ianjuta_editor_get_type
 ianjuta_editor_append
-ianjuta_editor_begin_undo_action
-ianjuta_editor_can_redo
-ianjuta_editor_can_undo
-ianjuta_editor_end_undo_action
 ianjuta_editor_erase
 ianjuta_editor_erase_all
 ianjuta_editor_get_cell_iter
 ianjuta_editor_get_column
 ianjuta_editor_get_current_word
-ianjuta_editor_get_filename
 ianjuta_editor_get_length
 ianjuta_editor_get_line_begin_position
 ianjuta_editor_get_line_end_position
@@ -498,19 +513,17 @@ ianjuta_editor_get_line_from_position
 ianjuta_editor_get_lineno
 ianjuta_editor_get_overwrite
 ianjuta_editor_get_position
+ianjuta_editor_get_position_iter
 ianjuta_editor_get_tabsize
 ianjuta_editor_get_text
 ianjuta_editor_get_use_spaces
 ianjuta_editor_goto_line
 ianjuta_editor_goto_position
-ianjuta_editor_grab_focus
 ianjuta_editor_insert
-ianjuta_editor_redo
 ianjuta_editor_set_auto_indent
 ianjuta_editor_set_popup_menu
 ianjuta_editor_set_tabsize
 ianjuta_editor_set_use_spaces
-ianjuta_editor_undo
 <SUBSECTION Standard>
 IANJUTA_EDITOR
 IANJUTA_IS_EDITOR
@@ -522,6 +535,7 @@ IANJUTA_EDITOR_GET_IFACE
 <SECTION>
 <FILE>ianjuta-bookmark</FILE>
 IANJUTA_BOOKMARK_ERROR
+<TITLE>IAnjutaBookmark</TITLE>
 IAnjutaBookmark
 IAnjutaBookmarkIface
 ianjuta_bookmark_error_quark
@@ -541,27 +555,35 @@ IANJUTA_BOOKMARK_GET_IFACE
 
 <SECTION>
 <FILE>ianjuta-buildable</FILE>
+IANJUTA_TYPE_BUILDABLE_COMMAND
+IAnjutaBuildableCommand
 IANJUTA_BUILDABLE_ERROR
+<TITLE>IAnjutaBuildable</TITLE>
 IAnjutaBuildable
 IAnjutaBuildableIface
 ianjuta_buildable_error_quark
+ianjuta_buildable_get_type
 ianjuta_buildable_build
 ianjuta_buildable_clean
 ianjuta_buildable_configure
 ianjuta_buildable_execute
 ianjuta_buildable_generate
+ianjuta_buildable_get_command
 ianjuta_buildable_install
+ianjuta_buildable_reset_commands
+ianjuta_buildable_set_command
 <SUBSECTION Standard>
 IANJUTA_BUILDABLE
 IANJUTA_IS_BUILDABLE
 IANJUTA_TYPE_BUILDABLE
-ianjuta_buildable_get_type
+ianjuta_buildable_command_get_type
 IANJUTA_BUILDABLE_GET_IFACE
 </SECTION>
 
 <SECTION>
 <FILE>ianjuta-cpu-debugger</FILE>
 IANJUTA_CPU_DEBUGGER_ERROR
+<TITLE>IAnjutaCpuDebugger</TITLE>
 IAnjutaCpuDebugger
 IAnjutaCpuDebuggerIface
 ianjuta_cpu_debugger_error_quark
@@ -581,6 +603,7 @@ IANJUTA_CPU_DEBUGGER_GET_IFACE
 <SECTION>
 <FILE>ianjuta-debug-manager</FILE>
 IANJUTA_DEBUG_MANAGER_ERROR
+<TITLE>IAnjutaDebugManager</TITLE>
 IAnjutaDebugManager
 IAnjutaDebugManagerIface
 ianjuta_debug_manager_error_quark
@@ -599,13 +622,11 @@ IANJUTA_TYPE_DEBUGGER_DATA
 IANJUTA_TYPE_DEBUGGER_ERROR
 IANJUTA_TYPE_DEBUGGER_OUTPUT_TYPE
 IANJUTA_TYPE_DEBUGGER_STATE
-IANJUTA_TYPE_DEBUGGER_STATUS
 IAnjutaDebuggerBreakpointType
 IAnjutaDebuggerData
 IAnjutaDebuggerError
 IAnjutaDebuggerOutputType
 IAnjutaDebuggerState
-IAnjutaDebuggerStatus
 IAnjutaDebuggerALine
 IAnjutaDebuggerBreakpoint
 IAnjutaDebuggerDisassembly
@@ -621,35 +642,31 @@ IAnjutaDebuggerBreakpointCallback
 IAnjutaDebuggerOutputCallback
 IAnjutaDebuggerMemoryCallback
 IAnjutaDebuggerVariableCallback
+<TITLE>IAnjutaDebugger</TITLE>
 IAnjutaDebugger
 IAnjutaDebuggerIface
 ianjuta_debugger_data_get_type
 ianjuta_debugger_error_get_type
 ianjuta_debugger_output_type_get_type
 ianjuta_debugger_state_get_type
-ianjuta_debugger_status_get_type
 ianjuta_debugger_error_quark
 ianjuta_debugger_get_type
 ianjuta_debugger_abort
 ianjuta_debugger_attach
 ianjuta_debugger_callback
-ianjuta_debugger_clear_breakpoint
-ianjuta_debugger_condition_breakpoint
 ianjuta_debugger_disable_log
-ianjuta_debugger_enable_breakpoint
 ianjuta_debugger_enable_log
 ianjuta_debugger_evaluate
 ianjuta_debugger_exit
-ianjuta_debugger_get_status
+ianjuta_debugger_get_state
 ianjuta_debugger_handle_signal
-ianjuta_debugger_ignore_breakpoint
 ianjuta_debugger_info_args
 ianjuta_debugger_info_frame
 ianjuta_debugger_info_program
 ianjuta_debugger_info_sharedlib
 ianjuta_debugger_info_signal
 ianjuta_debugger_info_target
-ianjuta_debugger_info_threads
+ianjuta_debugger_info_thread
 ianjuta_debugger_info_udot
 ianjuta_debugger_info_variables
 ianjuta_debugger_initialize
@@ -659,16 +676,15 @@ ianjuta_debugger_list_argument
 ianjuta_debugger_list_frame
 ianjuta_debugger_list_local
 ianjuta_debugger_list_register
+ianjuta_debugger_list_thread
 ianjuta_debugger_load
 ianjuta_debugger_print
 ianjuta_debugger_quit
 ianjuta_debugger_run
 ianjuta_debugger_run_to
 ianjuta_debugger_send_command
-ianjuta_debugger_set_breakpoint_at_address
-ianjuta_debugger_set_breakpoint_at_function
-ianjuta_debugger_set_breakpoint_at_line
 ianjuta_debugger_set_frame
+ianjuta_debugger_set_thread
 ianjuta_debugger_start
 ianjuta_debugger_step_in
 ianjuta_debugger_step_out
@@ -687,19 +703,21 @@ IANJUTA_DEBUGGER_GET_IFACE
 IANJUTA_TYPE_DOCUMENT_MANAGER_ERROR
 IAnjutaDocumentManagerError
 IANJUTA_DOCUMENT_MANAGER_ERROR
+<TITLE>IAnjutaDocumentManager</TITLE>
 IAnjutaDocumentManager
 IAnjutaDocumentManagerIface
 ianjuta_document_manager_error_quark
 ianjuta_document_manager_get_type
 ianjuta_document_manager_add_buffer
-ianjuta_document_manager_find_editor_with_path
-ianjuta_document_manager_get_current_editor
-ianjuta_document_manager_get_editors
+ianjuta_document_manager_add_document
+ianjuta_document_manager_find_document_with_path
+ianjuta_document_manager_get_current_document
+ianjuta_document_manager_get_documents
 ianjuta_document_manager_get_full_filename
 ianjuta_document_manager_goto_file_line
 ianjuta_document_manager_goto_file_line_mark
-ianjuta_document_manager_remove_buffer
-ianjuta_document_manager_set_current_editor
+ianjuta_document_manager_remove_document
+ianjuta_document_manager_set_current_document
 <SUBSECTION Standard>
 IANJUTA_DOCUMENT_MANAGER
 IANJUTA_IS_DOCUMENT_MANAGER
@@ -711,17 +729,15 @@ IANJUTA_DOCUMENT_MANAGER_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-assist</FILE>
 IANJUTA_EDITOR_ASSIST_ERROR
-IAnjutaEditorAssistContextParser
+<TITLE>IAnjutaEditorAssist</TITLE>
 IAnjutaEditorAssist
 IAnjutaEditorAssistIface
 ianjuta_editor_assist_error_quark
-ianjuta_editor_assist_add_trigger
-ianjuta_editor_assist_autocomplete
+ianjuta_editor_assist_cancel_tips
 ianjuta_editor_assist_get_suggestions
-ianjuta_editor_assist_react
-ianjuta_editor_assist_remove_trigger
+ianjuta_editor_assist_hide_suggestions
+ianjuta_editor_assist_show_tips
 ianjuta_editor_assist_suggest
-ianjuta_editor_assist_tip
 <SUBSECTION Standard>
 IANJUTA_EDITOR_ASSIST
 IANJUTA_IS_EDITOR_ASSIST
@@ -733,6 +749,7 @@ IANJUTA_EDITOR_ASSIST_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-cell</FILE>
 IANJUTA_EDITOR_CELL_ERROR
+<TITLE>IAnjutaEditorCell</TITLE>
 IAnjutaEditorCell
 IAnjutaEditorCellIface
 ianjuta_editor_cell_error_quark
@@ -751,6 +768,7 @@ IANJUTA_EDITOR_CELL_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-cell-style</FILE>
 IANJUTA_EDITOR_CELL_STYLE_ERROR
+<TITLE>IAnjutaEditorCellStyle</TITLE>
 IAnjutaEditorCellStyle
 IAnjutaEditorCellStyleIface
 ianjuta_editor_cell_style_error_quark
@@ -768,6 +786,7 @@ IANJUTA_EDITOR_CELL_STYLE_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-comment</FILE>
 IANJUTA_EDITOR_COMMENT_ERROR
+<TITLE>IAnjutaEditorComment</TITLE>
 IAnjutaEditorComment
 IAnjutaEditorCommentIface
 ianjuta_editor_comment_error_quark
@@ -785,6 +804,7 @@ IANJUTA_EDITOR_COMMENT_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-convert</FILE>
 IANJUTA_EDITOR_CONVERT_ERROR
+<TITLE>IAnjutaEditorConvert</TITLE>
 IAnjutaEditorConvert
 IAnjutaEditorConvertIface
 ianjuta_editor_convert_error_quark
@@ -801,6 +821,7 @@ IANJUTA_EDITOR_CONVERT_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-factory</FILE>
 IANJUTA_EDITOR_FACTORY_ERROR
+<TITLE>IAnjutaEditorFactory</TITLE>
 IAnjutaEditorFactory
 IAnjutaEditorFactoryIface
 ianjuta_editor_factory_error_quark
@@ -816,6 +837,7 @@ IANJUTA_EDITOR_FACTORY_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-folds</FILE>
 IANJUTA_EDITOR_FOLDS_ERROR
+<TITLE>IAnjutaEditorFolds</TITLE>
 IAnjutaEditorFolds
 IAnjutaEditorFoldsIface
 ianjuta_editor_folds_error_quark
@@ -833,6 +855,7 @@ IANJUTA_EDITOR_FOLDS_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-goto</FILE>
 IANJUTA_EDITOR_GOTO_ERROR
+<TITLE>IAnjutaEditorGoto</TITLE>
 IAnjutaEditorGoto
 IAnjutaEditorGotoIface
 ianjuta_editor_goto_error_quark
@@ -850,6 +873,7 @@ IANJUTA_EDITOR_GOTO_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-hover</FILE>
 IANJUTA_EDITOR_HOVER_ERROR
+<TITLE>IAnjutaEditorHover</TITLE>
 IAnjutaEditorHover
 IAnjutaEditorHoverIface
 ianjuta_editor_hover_error_quark
@@ -866,6 +890,7 @@ IANJUTA_EDITOR_HOVER_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-language</FILE>
 IANJUTA_EDITOR_LANGUAGE_ERROR
+<TITLE>IAnjutaEditorLanguage</TITLE>
 IAnjutaEditorLanguage
 IAnjutaEditorLanguageIface
 ianjuta_editor_language_error_quark
@@ -886,6 +911,7 @@ IANJUTA_EDITOR_LANGUAGE_GET_IFACE
 IANJUTA_TYPE_EDITOR_LINE_MODE_TYPE
 IAnjutaEditorLineModeType
 IANJUTA_EDITOR_LINE_MODE_ERROR
+<TITLE>IAnjutaEditorLineMode</TITLE>
 IAnjutaEditorLineMode
 IAnjutaEditorLineModeIface
 ianjuta_editor_line_mode_error_quark
@@ -905,22 +931,23 @@ IANJUTA_EDITOR_LINE_MODE_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-selection</FILE>
 IANJUTA_EDITOR_SELECTION_ERROR
+<TITLE>IAnjutaEditorSelection</TITLE>
 IAnjutaEditorSelection
 IAnjutaEditorSelectionIface
 ianjuta_editor_selection_error_quark
-ianjuta_editor_selection_clear
-ianjuta_editor_selection_copy
-ianjuta_editor_selection_cut
 ianjuta_editor_selection_get
 ianjuta_editor_selection_get_end
+ianjuta_editor_selection_get_end_iter
 ianjuta_editor_selection_get_start
-ianjuta_editor_selection_paste
+ianjuta_editor_selection_get_start_iter
+ianjuta_editor_selection_has_selection
 ianjuta_editor_selection_replace
 ianjuta_editor_selection_select_all
 ianjuta_editor_selection_select_block
 ianjuta_editor_selection_select_function
 ianjuta_editor_selection_select_to_brace
 ianjuta_editor_selection_set
+ianjuta_editor_selection_set_iter
 <SUBSECTION Standard>
 IANJUTA_EDITOR_SELECTION
 IANJUTA_IS_EDITOR_SELECTION
@@ -932,6 +959,7 @@ IANJUTA_EDITOR_SELECTION_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-view</FILE>
 IANJUTA_EDITOR_VIEW_ERROR
+<TITLE>IAnjutaEditorView</TITLE>
 IAnjutaEditorView
 IAnjutaEditorViewIface
 ianjuta_editor_view_error_quark
@@ -949,6 +977,7 @@ IANJUTA_EDITOR_VIEW_GET_IFACE
 <SECTION>
 <FILE>ianjuta-editor-zoom</FILE>
 IANJUTA_EDITOR_ZOOM_ERROR
+<TITLE>IAnjutaEditorZoom</TITLE>
 IAnjutaEditorZoom
 IAnjutaEditorZoomIface
 ianjuta_editor_zoom_error_quark
@@ -965,6 +994,7 @@ IANJUTA_EDITOR_ZOOM_GET_IFACE
 <SECTION>
 <FILE>ianjuta-file</FILE>
 IANJUTA_FILE_ERROR
+<TITLE>IAnjutaFile</TITLE>
 IAnjutaFile
 IAnjutaFileIface
 ianjuta_file_error_quark
@@ -981,6 +1011,7 @@ IANJUTA_FILE_GET_IFACE
 <SECTION>
 <FILE>ianjuta-file-loader</FILE>
 IANJUTA_FILE_LOADER_ERROR
+<TITLE>IAnjutaFileLoader</TITLE>
 IAnjutaFileLoader
 IAnjutaFileLoaderIface
 ianjuta_file_loader_error_quark
@@ -997,6 +1028,7 @@ IANJUTA_FILE_LOADER_GET_IFACE
 <SECTION>
 <FILE>ianjuta-file-manager</FILE>
 IANJUTA_FILE_MANAGER_ERROR
+<TITLE>IAnjutaFileManager</TITLE>
 IAnjutaFileManager
 IAnjutaFileManagerIface
 ianjuta_file_manager_error_quark
@@ -1014,6 +1046,7 @@ IANJUTA_FILE_MANAGER_GET_IFACE
 <SECTION>
 <FILE>ianjuta-file-savable</FILE>
 IANJUTA_FILE_SAVABLE_ERROR
+<TITLE>IAnjutaFileSavable</TITLE>
 IAnjutaFileSavable
 IAnjutaFileSavableIface
 ianjuta_file_savable_error_quark
@@ -1032,6 +1065,7 @@ IANJUTA_FILE_SAVABLE_GET_IFACE
 <SECTION>
 <FILE>ianjuta-help</FILE>
 IANJUTA_HELP_ERROR
+<TITLE>IAnjutaHelp</TITLE>
 IAnjutaHelp
 IAnjutaHelpIface
 ianjuta_help_error_quark
@@ -1049,6 +1083,7 @@ IANJUTA_HELP_GET_IFACE
 IANJUTA_TYPE_INDICABLE_INDICATOR
 IAnjutaIndicableIndicator
 IANJUTA_INDICABLE_ERROR
+<TITLE>IAnjutaIndicable</TITLE>
 IAnjutaIndicable
 IAnjutaIndicableIface
 ianjuta_indicable_error_quark
@@ -1066,6 +1101,7 @@ IANJUTA_INDICABLE_GET_IFACE
 <SECTION>
 <FILE>ianjuta-iterable</FILE>
 IANJUTA_ITERABLE_ERROR
+<TITLE>IAnjutaIterable</TITLE>
 IAnjutaIterable
 IAnjutaIterableIface
 ianjuta_iterable_error_quark
@@ -1090,6 +1126,7 @@ IANJUTA_ITERABLE_GET_IFACE
 <SECTION>
 <FILE>ianjuta-iterable-tree</FILE>
 IANJUTA_ITERABLE_TREE_ERROR
+<TITLE>IAnjutaIterableTree</TITLE>
 IAnjutaIterableTree
 IAnjutaIterableTreeIface
 ianjuta_iterable_tree_error_quark
@@ -1109,6 +1146,7 @@ IANJUTA_ITERABLE_TREE_GET_IFACE
 <SECTION>
 <FILE>ianjuta-language-support</FILE>
 IANJUTA_LANGUAGE_SUPPORT_ERROR
+<TITLE>IAnjutaLanguageSupport</TITLE>
 IAnjutaLanguageSupport
 IAnjutaLanguageSupportIface
 ianjuta_language_support_error_quark
@@ -1125,6 +1163,7 @@ IANJUTA_LANGUAGE_SUPPORT_GET_IFACE
 <SECTION>
 <FILE>ianjuta-loader</FILE>
 IANJUTA_LOADER_ERROR
+<TITLE>IAnjutaLoader</TITLE>
 IAnjutaLoader
 IAnjutaLoaderIface
 ianjuta_loader_error_quark
@@ -1140,6 +1179,7 @@ IANJUTA_LOADER_GET_IFACE
 <SECTION>
 <FILE>ianjuta-macro</FILE>
 IANJUTA_MACRO_ERROR
+<TITLE>IAnjutaMacro</TITLE>
 IAnjutaMacro
 IAnjutaMacroIface
 ianjuta_macro_error_quark
@@ -1159,6 +1199,7 @@ IANJUTA_TYPE_MARKABLE_MARKER
 IAnjutaMarkableError
 IAnjutaMarkableMarker
 IANJUTA_MARKABLE_ERROR
+<TITLE>IAnjutaMarkable</TITLE>
 IAnjutaMarkable
 IAnjutaMarkableIface
 ianjuta_markable_marker_get_type
@@ -1182,6 +1223,7 @@ IANJUTA_MARKABLE_GET_IFACE
 IANJUTA_TYPE_MESSAGE_MANAGER_ERROR
 IAnjutaMessageManagerError
 IANJUTA_MESSAGE_MANAGER_ERROR
+<TITLE>IAnjutaMessageManager</TITLE>
 IAnjutaMessageManager
 IAnjutaMessageManagerIface
 ianjuta_message_manager_error_quark
@@ -1206,6 +1248,7 @@ IANJUTA_MESSAGE_MANAGER_GET_IFACE
 IANJUTA_TYPE_MESSAGE_VIEW_TYPE
 IAnjutaMessageViewType
 IANJUTA_MESSAGE_VIEW_ERROR
+<TITLE>IAnjutaMessageView</TITLE>
 IAnjutaMessageView
 IAnjutaMessageViewIface
 ianjuta_message_view_error_quark
@@ -1226,23 +1269,9 @@ IANJUTA_MESSAGE_VIEW_GET_IFACE
 </SECTION>
 
 <SECTION>
-<FILE>ianjuta-plugin-factory</FILE>
-IANJUTA_PLUGIN_FACTORY_ERROR
-IAnjutaPluginFactory
-IAnjutaPluginFactoryIface
-ianjuta_plugin_factory_error_quark
-ianjuta_plugin_factory_new_plugin
-<SUBSECTION Standard>
-IANJUTA_PLUGIN_FACTORY
-IANJUTA_IS_PLUGIN_FACTORY
-IANJUTA_TYPE_PLUGIN_FACTORY
-ianjuta_plugin_factory_get_type
-IANJUTA_PLUGIN_FACTORY_GET_IFACE
-</SECTION>
-
-<SECTION>
 <FILE>ianjuta-preferences</FILE>
 IANJUTA_PREFERENCES_ERROR
+<TITLE>IAnjutaPreferences</TITLE>
 IAnjutaPreferences
 IAnjutaPreferencesIface
 ianjuta_preferences_error_quark
@@ -1259,6 +1288,7 @@ IANJUTA_PREFERENCES_GET_IFACE
 <SECTION>
 <FILE>ianjuta-print</FILE>
 IANJUTA_PRINT_ERROR
+<TITLE>IAnjutaPrint</TITLE>
 IAnjutaPrint
 IAnjutaPrintIface
 ianjuta_print_error_quark
@@ -1274,13 +1304,17 @@ IANJUTA_PRINT_GET_IFACE
 
 <SECTION>
 <FILE>ianjuta-project-manager</FILE>
+IANJUTA_TYPE_PROJECT_MANAGER_CAPABILITIES
 IANJUTA_TYPE_PROJECT_MANAGER_ELEMENT_TYPE
 IANJUTA_TYPE_PROJECT_MANAGER_TARGET_TYPE
+IAnjutaProjectManagerCapabilities
 IAnjutaProjectManagerElementType
 IAnjutaProjectManagerTargetType
 IANJUTA_PROJECT_MANAGER_ERROR
+<TITLE>IAnjutaProjectManager</TITLE>
 IAnjutaProjectManager
 IAnjutaProjectManagerIface
+ianjuta_project_manager_element_type_get_type
 ianjuta_project_manager_target_type_get_type
 ianjuta_project_manager_error_quark
 ianjuta_project_manager_get_type
@@ -1288,6 +1322,7 @@ ianjuta_project_manager_add_group
 ianjuta_project_manager_add_source
 ianjuta_project_manager_add_source_multi
 ianjuta_project_manager_add_target
+ianjuta_project_manager_get_capabilities
 ianjuta_project_manager_get_children
 ianjuta_project_manager_get_element_type
 ianjuta_project_manager_get_elements
@@ -1300,13 +1335,14 @@ ianjuta_project_manager_is_open
 IANJUTA_PROJECT_MANAGER
 IANJUTA_IS_PROJECT_MANAGER
 IANJUTA_TYPE_PROJECT_MANAGER
-ianjuta_project_manager_element_type_get_type
+ianjuta_project_manager_capabilities_get_type
 IANJUTA_PROJECT_MANAGER_GET_IFACE
 </SECTION>
 
 <SECTION>
 <FILE>ianjuta-stream</FILE>
 IANJUTA_STREAM_ERROR
+<TITLE>IAnjutaStream</TITLE>
 IAnjutaStream
 IAnjutaStreamIface
 ianjuta_stream_error_quark
@@ -1322,6 +1358,7 @@ IANJUTA_STREAM_GET_IFACE
 <SECTION>
 <FILE>ianjuta-stream-loader</FILE>
 IANJUTA_STREAM_LOADER_ERROR
+<TITLE>IAnjutaStreamLoader</TITLE>
 IAnjutaStreamLoader
 IAnjutaStreamLoaderIface
 ianjuta_stream_loader_error_quark
@@ -1338,6 +1375,7 @@ IANJUTA_STREAM_LOADER_GET_IFACE
 <SECTION>
 <FILE>ianjuta-stream-savable</FILE>
 IANJUTA_STREAM_SAVABLE_ERROR
+<TITLE>IAnjutaStreamSavable</TITLE>
 IAnjutaStreamSavable
 IAnjutaStreamSavableIface
 ianjuta_stream_savable_error_quark
@@ -1357,6 +1395,7 @@ IANJUTA_TYPE_SYMBOL_TYPE
 IAnjutaSymbolField
 IAnjutaSymbolType
 IANJUTA_SYMBOL_ERROR
+<TITLE>IAnjutaSymbol</TITLE>
 IAnjutaSymbol
 IAnjutaSymbolIface
 ianjuta_symbol_type_get_type
@@ -1371,9 +1410,10 @@ ianjuta_symbol_inheritance
 ianjuta_symbol_is_local
 ianjuta_symbol_line
 ianjuta_symbol_name
-ianjuta_symbol_pointer_order
 ianjuta_symbol_scope
 ianjuta_symbol_type
+ianjuta_symbol_type_name
+ianjuta_symbol_type_str
 ianjuta_symbol_var_type
 <SUBSECTION Standard>
 IANJUTA_SYMBOL
@@ -1386,6 +1426,7 @@ IANJUTA_SYMBOL_GET_IFACE
 <SECTION>
 <FILE>ianjuta-symbol-manager</FILE>
 IANJUTA_SYMBOL_MANAGER_ERROR
+<TITLE>IAnjutaSymbolManager</TITLE>
 IAnjutaSymbolManager
 IAnjutaSymbolManagerIface
 ianjuta_symbol_manager_error_quark
@@ -1404,6 +1445,7 @@ IANJUTA_SYMBOL_MANAGER_GET_IFACE
 <SECTION>
 <FILE>ianjuta-terminal</FILE>
 IANJUTA_TERMINAL_ERROR
+<TITLE>IAnjutaTerminal</TITLE>
 IAnjutaTerminal
 IAnjutaTerminalIface
 ianjuta_terminal_error_quark
@@ -1419,6 +1461,7 @@ IANJUTA_TERMINAL_GET_IFACE
 <SECTION>
 <FILE>ianjuta-todo</FILE>
 IANJUTA_TODO_ERROR
+<TITLE>IAnjutaTodo</TITLE>
 IAnjutaTodo
 IAnjutaTodoIface
 ianjuta_todo_error_quark
@@ -1434,6 +1477,7 @@ IANJUTA_TODO_GET_IFACE
 <SECTION>
 <FILE>ianjuta-variable-debugger</FILE>
 IANJUTA_VARIABLE_DEBUGGER_ERROR
+<TITLE>IAnjutaVariableDebugger</TITLE>
 IAnjutaVariableDebugger
 IAnjutaVariableDebuggerIface
 ianjuta_variable_debugger_error_quark
@@ -1454,6 +1498,7 @@ IANJUTA_VARIABLE_DEBUGGER_GET_IFACE
 <SECTION>
 <FILE>ianjuta-vcs</FILE>
 IANJUTA_VCS_ERROR
+<TITLE>IAnjutaVcs</TITLE>
 IAnjutaVcs
 IAnjutaVcsIface
 ianjuta_vcs_error_quark
@@ -1472,6 +1517,7 @@ IANJUTA_VCS_GET_IFACE
 <SECTION>
 <FILE>ianjuta-wizard</FILE>
 IANJUTA_WIZARD_ERROR
+<TITLE>IAnjutaWizard</TITLE>
 IAnjutaWizard
 IAnjutaWizardIface
 ianjuta_wizard_error_quark
@@ -1482,6 +1528,129 @@ IANJUTA_IS_WIZARD
 IANJUTA_TYPE_WIZARD
 ianjuta_wizard_get_type
 IANJUTA_WIZARD_GET_IFACE
+</SECTION>
+
+<SECTION>
+<FILE>ianjuta-plugin-factory</FILE>
+IANJUTA_TYPE_PLUGIN_FACTORY_ERROR
+IAnjutaPluginFactoryError
+IANJUTA_PLUGIN_FACTORY_ERROR
+<TITLE>IAnjutaPluginFactory</TITLE>
+IAnjutaPluginFactory
+IAnjutaPluginFactoryIface
+ianjuta_plugin_factory_error_quark
+ianjuta_plugin_factory_get_type
+ianjuta_plugin_factory_new_plugin
+<SUBSECTION Standard>
+IANJUTA_PLUGIN_FACTORY
+IANJUTA_IS_PLUGIN_FACTORY
+IANJUTA_TYPE_PLUGIN_FACTORY
+ianjuta_plugin_factory_error_get_type
+IANJUTA_PLUGIN_FACTORY_GET_IFACE
+</SECTION>
+
+<SECTION>
+<FILE>ianjuta-editor-search</FILE>
+IANJUTA_EDITOR_SEARCH_ERROR
+<TITLE>IAnjutaEditorSearch</TITLE>
+IAnjutaEditorSearch
+IAnjutaEditorSearchIface
+ianjuta_editor_search_error_quark
+ianjuta_editor_search_backward
+ianjuta_editor_search_forward
+<SUBSECTION Standard>
+IANJUTA_EDITOR_SEARCH
+IANJUTA_IS_EDITOR_SEARCH
+IANJUTA_TYPE_EDITOR_SEARCH
+ianjuta_editor_search_get_type
+IANJUTA_EDITOR_SEARCH_GET_IFACE
+</SECTION>
+
+<SECTION>
+<FILE>ianjuta-document</FILE>
+IANJUTA_DOCUMENT_ERROR
+<TITLE>IAnjutaDocument</TITLE>
+IAnjutaDocument
+IAnjutaDocumentIface
+ianjuta_document_error_quark
+ianjuta_document_begin_undo_action
+ianjuta_document_can_redo
+ianjuta_document_can_undo
+ianjuta_document_clear
+ianjuta_document_copy
+ianjuta_document_cut
+ianjuta_document_end_undo_action
+ianjuta_document_get_filename
+ianjuta_document_grab_focus
+ianjuta_document_paste
+ianjuta_document_redo
+ianjuta_document_undo
+<SUBSECTION Standard>
+IANJUTA_DOCUMENT
+IANJUTA_IS_DOCUMENT
+IANJUTA_TYPE_DOCUMENT
+ianjuta_document_get_type
+IANJUTA_DOCUMENT_GET_IFACE
+</SECTION>
+
+<SECTION>
+<FILE>ianjuta-breakpoint-debugger</FILE>
+IANJUTA_BREAKPOINT_DEBUGGER_ERROR
+<TITLE>IAnjutaBreakpointDebugger</TITLE>
+IAnjutaBreakpointDebugger
+IAnjutaBreakpointDebuggerIface
+ianjuta_breakpoint_debugger_error_quark
+ianjuta_breakpoint_debugger_clear_breakpoint
+ianjuta_breakpoint_debugger_condition_breakpoint
+ianjuta_breakpoint_debugger_enable_breakpoint
+ianjuta_breakpoint_debugger_ignore_breakpoint
+ianjuta_breakpoint_debugger_set_breakpoint_at_address
+ianjuta_breakpoint_debugger_set_breakpoint_at_function
+ianjuta_breakpoint_debugger_set_breakpoint_at_line
+<SUBSECTION Standard>
+IANJUTA_BREAKPOINT_DEBUGGER
+IANJUTA_IS_BREAKPOINT_DEBUGGER
+IANJUTA_TYPE_BREAKPOINT_DEBUGGER
+ianjuta_breakpoint_debugger_get_type
+IANJUTA_BREAKPOINT_DEBUGGER_GET_IFACE
+</SECTION>
+
+<SECTION>
+<FILE>ianjuta-plugin-loader</FILE>
+IANJUTA_PLUGIN_LOADER_ERROR
+<TITLE>IAnjutaPluginLoader</TITLE>
+IAnjutaPluginLoader
+IAnjutaPluginLoaderIface
+ianjuta_plugin_loader_error_quark
+ianjuta_plugin_loader_glue_plugin_get_type
+<SUBSECTION Standard>
+IANJUTA_PLUGIN_LOADER
+IANJUTA_IS_PLUGIN_LOADER
+IANJUTA_TYPE_PLUGIN_LOADER
+ianjuta_plugin_loader_get_type
+IANJUTA_PLUGIN_LOADER_GET_IFACE
+</SECTION>
+
+<SECTION>
+<FILE>ianjuta-language</FILE>
+IANJUTA_LANGUAGE_ERROR
+IAnjutaLanguageId
+<TITLE>IAnjutaLanguage</TITLE>
+IAnjutaLanguage
+IAnjutaLanguageIface
+ianjuta_language_error_quark
+ianjuta_language_get_from_editor
+ianjuta_language_get_from_mime_type
+ianjuta_language_get_from_string
+ianjuta_language_get_name
+ianjuta_language_get_name_from_editor
+ianjuta_language_get_strings
+<SUBSECTION Standard>
+IANJUTA_LANGUAGE
+IANJUTA_IS_LANGUAGE
+IANJUTA_TYPE_LANGUAGE
+ianjuta_language_get_type
+IANJUTA_LANGUAGE_GET_IFACE
 </SECTION>
 
 <SECTION>
@@ -1541,6 +1710,7 @@ ANJUTA_PROFILE_GET_CLASS
 
 <SECTION>
 <FILE>anjuta-plugin-description</FILE>
+<TITLE>AnjutaPluginDescription</TITLE>
 AnjutaPluginDescription
 AnjutaPluginDescriptionSectionFunc
 AnjutaPluginDescriptionLineFunc
@@ -1561,15 +1731,13 @@ anjuta_plugin_description_get_locale_string
 
 <SECTION>
 <FILE>anjuta-debug</FILE>
+<TITLE>Debugging utilities</TITLE>
 DEBUG_PRINT
 </SECTION>
 
 <SECTION>
-<FILE>libanjuta</FILE>
-</SECTION>
-
-<SECTION>
 <FILE>resources</FILE>
+<TITLE>Program resources</TITLE>
 anjuta_res_lookup_widget
 anjuta_res_get_image
 anjuta_res_get_image_sized
@@ -1589,6 +1757,7 @@ anjuta_res_url_show
 
 <SECTION>
 <FILE>anjuta-marshal</FILE>
+<TITLE>Marshallers</TITLE>
 anjuta_cclosure_marshal_VOID__VOID
 anjuta_cclosure_marshal_VOID__BOOLEAN
 anjuta_cclosure_marshal_VOID__INT_STRING
@@ -1607,6 +1776,7 @@ anjuta_cclosure_marshal_VOID__POINTER_OBJECT
 
 <SECTION>
 <FILE>anjuta-encodings</FILE>
+<TITLE>Encodings</TITLE>
 AnjutaEncoding
 anjuta_encoding_get_from_charset
 anjuta_encoding_get_from_index
@@ -1621,6 +1791,7 @@ SUPPORTED_ENCODINGS
 
 <SECTION>
 <FILE>anjuta-children</FILE>
+<TITLE>Children management</TITLE>
 AnjutaChildTerminatedCallback
 anjuta_children_register
 anjuta_children_unregister
@@ -1631,6 +1802,7 @@ anjuta_children_finalize
 
 <SECTION>
 <FILE>anjuta-utils</FILE>
+<TITLE>Utilities</TITLE>
 anjuta_util_copy_file
 anjuta_util_diff
 anjuta_util_color_from_string
@@ -1662,8 +1834,8 @@ anjuta_util_update_string_list
 anjuta_util_create_dir
 anjuta_util_execute_shell
 anjuta_util_escape_quotes
-forkpty
-alphasort
+anjuta_util_path_has_extension
+anjuta_util_get_uri_mime_type
 ANJUTA_TYPE_BEGIN
 ANJUTA_TYPE_END
 ANJUTA_TYPE_ADD_INTERFACE
@@ -1671,11 +1843,8 @@ ANJUTA_TYPE_BOILERPLATE
 </SECTION>
 
 <SECTION>
-<FILE>stamp-anjuta-enum-types</FILE>
-</SECTION>
-
-<SECTION>
 <FILE>anjuta-enum-types</FILE>
+<TITLE>Enumaretions</TITLE>
 anjuta_shell_error_get_type
 ANJUTA_TYPE_SHELL_ERROR
 anjuta_shell_placement_get_type
@@ -1701,22 +1870,33 @@ ANJUTA_TYPE_SERIALIZER_MODE
 </SECTION>
 
 <SECTION>
-<FILE>libanjuta-interfaces</FILE>
+<FILE>anjuta-utils-priv</FILE>
+<TITLE>Private utilities</TITLE>
+forkpty
+</SECTION>
+
+<SECTION>
+<FILE>anjuta-error</FILE>
+<TITLE>AnjutaError</TITLE>
+G_TYPE_ERROR
+NEED_G_ERROR_GET_TYPE
+g_error_get_type
 </SECTION>
 
 <SECTION>
 <FILE>libanjuta-iface-marshallers</FILE>
+<TITLE>Interface marshallers</TITLE>
 libanjuta_iface_cclosure_marshal_VOID__BOOLEAN
 libanjuta_iface_cclosure_marshal_VOID__BOOLEAN_INT
+libanjuta_iface_cclosure_marshal_VOID__BOXED
 libanjuta_iface_cclosure_marshal_VOID__ENUM
 libanjuta_iface_cclosure_marshal_VOID__INT
 libanjuta_iface_cclosure_marshal_VOID__INT_BOOLEAN_INT_INT_STRING
 libanjuta_iface_cclosure_marshal_VOID__INT_CHAR
+libanjuta_iface_cclosure_marshal_VOID__INT_INT_UINT_STRING_UINT
 libanjuta_iface_cclosure_marshal_VOID__POINTER
 libanjuta_iface_cclosure_marshal_VOID__STRING
 libanjuta_iface_cclosure_marshal_VOID__STRING_STRING
-libanjuta_iface_cclosure_marshal_VOID__STRING_UINT_UINT
-libanjuta_iface_cclosure_marshal_VOID__UINT
+libanjuta_iface_cclosure_marshal_VOID__UINT_INT
 libanjuta_iface_cclosure_marshal_VOID__VOID
 </SECTION>
-
