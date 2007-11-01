@@ -316,13 +316,13 @@ protected:
 	void SetCallTipDefaults( );
 	void CompleteCallTip();
 
-	TMTag ** FindTypeInLocalWords(GPtrArray *CurrentFileTags, const char *root,
-								  const bool type, int *retptr, int *count);
-	bool SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
-									   const char *ScanType);
-	bool StartAutoCompleteRecordsFields(char ch);
- 	bool StartAutoComplete();
-	bool StartAutoCompleteWord(int autoShowCount);
+	// TMTag ** FindTypeInLocalWords(GPtrArray *CurrentFileTags, const char *root,
+	//							  const bool type, int *retptr, int *count);
+	//bool SendAutoCompleteRecordsFields(const GPtrArray *CurrentFileTags,
+	//								   const char *ScanType);
+	// bool StartAutoCompleteRecordsFields(char ch);
+ 	// bool StartAutoComplete();
+	// bool StartAutoCompleteWord(int autoShowCount);
 	bool StartBlockComment();
 	bool CanBeCommented(bool box_stream);
 	bool StartBoxComment();

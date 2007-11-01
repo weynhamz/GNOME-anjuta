@@ -107,12 +107,12 @@ plugins/gtodo/preferences.c
 plugins/gtodo/tasklists.c
 plugins/gtodo/todo_db.c
 plugins/gtodo/tray-icon.c
-plugins/indent/indent-dialog.c
-plugins/indent/indent.glade
-plugins/indent/plugin.c
-plugins/indent/indent-dialog.c
-plugins/indent/indent.glade
-plugins/indent/plugin.c
+# plugins/indent/indent-dialog.c
+# plugins/indent/indent.glade
+# plugins/indent/plugin.c
+# plugins/indent/indent-dialog.c
+# plugins/indent/indent.glade
+# plugins/indent/plugin.c
 plugins/macro/anjuta-macro.glade
 plugins/macro/macro-actions.c
 plugins/macro/macro-db.c
@@ -179,10 +179,10 @@ plugins/symbol-browser/an_symbol_search.c
 plugins/symbol-browser/an_symbol_view.c
 plugins/symbol-browser/anjuta-symbol-browser-plugin.glade
 plugins/symbol-browser/plugin.c
-plugins/symbol-db/plugin.c
-plugins/symbol-db/symbol-db-view-locals.c
-plugins/symbol-db/symbol-db-view.c
-plugins/symbol-db/symbol-db.glade
+# plugins/symbol-db/plugin.c
+# plugins/symbol-db/symbol-db-view-locals.c
+# plugins/symbol-db/symbol-db-view.c
+# plugins/symbol-db/symbol-db.glade
 plugins/terminal/anjuta-terminal-plugin.glade
 plugins/terminal/terminal.c
 plugins/tools/anjuta-tools.glade

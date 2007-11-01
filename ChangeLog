@@ -1,5 +1,12 @@
 2007-11-01  Naba Kumar  <naba.kumar@gnome.org>
 
+	* plugins/indent/Makefile.am: Fixed indentation.
+
+	* plugins/editor/aneditor-autocomplete.cxx:
+	* plugins/editor/aneditor-priv.h:
+	* plugins/editor/aneditor.cxx:
+	* plugins/editor/aneditor.h: Commented out dead codes.
+
 	* configure.in, plugins/symbol-db/symbol-db.plugin.in:
 	Do not build symbol-db by
 	default. Added 'unstable' in plugin description to signify it's

@@ -47,7 +47,7 @@ plugin_LTLIBRARIES = libanjuta-indent.la
 libanjuta_indent_la_SOURCES = \
 	plugin.c \
 	plugin.h \
-  indent-dialog.c \
+	indent-dialog.c \
 	indent-dialog.h \
 	indent-util.c \
 	indent-util.h

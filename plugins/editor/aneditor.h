@@ -49,8 +49,10 @@ extern "C" {
 #define   ANE_MATCHBRACE                (ANE_COMMAND_BASE+13)
 #define   ANE_SELECTTOBRACE             (ANE_COMMAND_BASE+14)
 #define   ANE_SHOWCALLTIP               (ANE_COMMAND_BASE+15)
+/*
 #define   ANE_COMPLETE                  (ANE_COMMAND_BASE+16)
 #define   ANE_COMPLETEWORD              (ANE_COMMAND_BASE+17)
+*/
 #define   ANE_SELECTBLOCK               (ANE_COMMAND_BASE+18)
 #define   ANE_UPRCASE                   (ANE_COMMAND_BASE+19)
 #define   ANE_LWRCASE                   (ANE_COMMAND_BASE+20)

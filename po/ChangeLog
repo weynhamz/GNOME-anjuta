@@ -1,3 +1,8 @@
+2007-11-01  Naba Kumar  <naba.kumar@gnome.org>
+
+	* POTFILES.in: Commented out currently disabled plugins to allow
+	distcheck to work.
+
 2007-11-1  Djihed Afifi <djihed@gmail.com> 
 
 	* ar.po: Updated Arabic Translation by Djihed Afifi.

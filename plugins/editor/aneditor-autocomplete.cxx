@@ -17,16 +17,17 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 #include "aneditor-priv.h"
 #include <glib.h>
 
+#if 0
 #define TYPESEP '?'
 
 static void free_word(gpointer key, gpointer value, gpointer user_data)
 {
 	g_free(key);
 }
+#endif
 
 bool AnEditor::FindWordInRegion(char *word, int maxlength,
 								SString &region, int offset) {
@@ -93,6 +94,7 @@ bool AnEditor::GetWordBeforeCarat(char *buffer, int maxlength) {
 	
 	return true;
 }
+#if 0
 
 bool AnEditor::StartAutoComplete() {
 	SString linebuf;
@@ -1031,3 +1033,4 @@ bool AnEditor::StartAutoCompleteWord(int autoShowCount) {
 	g_hash_table_destroy(wordhash);
 	return true;
 }
+#endif

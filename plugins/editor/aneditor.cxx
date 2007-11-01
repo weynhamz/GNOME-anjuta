@@ -1593,7 +1593,7 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_COMPLETECALLTIP:
 		CompleteCallTip();	
 		break;
-	
+	/*
 	case ANE_COMPLETE:
 		StartAutoComplete();
 		break;
@@ -1601,7 +1601,7 @@ long AnEditor::Command(int cmdID, long wParam, long lParam) {
 	case ANE_COMPLETEWORD:
 		StartAutoCompleteWord(false);
 		break;
-	
+	*/
 	case ANE_TOGGLE_FOLD:
 		FoldToggle();
 		break;
