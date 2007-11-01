@@ -1,3 +1,13 @@
+2007-11-01  Naba Kumar  <naba.kumar@gnome.org>
+
+	* configure.in, plugins/symbol-db/symbol-db.plugin.in:
+	Do not build symbol-db by
+	default. Added 'unstable' in plugin description to signify it's
+	developmental state.
+
+	* plugins/file-manager/Makefile.am,
+	plugins/language-manager/Makefile.am: Fixed 'make distcheck'.
+
 2007-11-01  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/utilities.c,

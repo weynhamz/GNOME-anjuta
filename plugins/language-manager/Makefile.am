@@ -41,4 +41,6 @@ EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(language_manager_plugin_DATA) \
 	$(langauge_manager_xml_DATA) \
-	$(language_manager_pixmaps_DATA)
+	$(language_manager_pixmaps_DATA) \
+	languages.xml
+

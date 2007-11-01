@@ -64,6 +64,6 @@ EXTRA_DIST = \
 	$(file_manager_plugin_DATA) \
 	$(file_manager_ui_DATA) \
 	$(file_manager_pixmaps_DATA) \
-	$(file_manager_glade_DATA)
+	$(file_manager_glade_DATA) \
 	file-view-marshal.list
 
