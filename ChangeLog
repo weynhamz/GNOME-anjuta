@@ -1,4 +1,8 @@
+=== anjuta 2.3.0 ===
+
 2007-11-01  Naba Kumar  <naba.kumar@gnome.org>
+
+	* ChangeLog: Tagged 2.3.0 release.
 
 	* plugins/indent/Makefile.am: Fixed indentation.
 
