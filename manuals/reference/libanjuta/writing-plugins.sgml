@@ -120,7 +120,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Add widget in Shell. Any number of widgets can be added */
 	anjuta_shell_add_widget (plugin->shell, hello_plugin->widget,
 	                         "AnjutaHelloWorldPlugin",
-	                         _("Hello world plugin"), NULL);
+	                         _("Hello world plugin"),
+	                         GTK_STOCK_ABOUT,
+	                         ANJUTA_SHELL_PLACEMENT_CENTER,
+	                         NULL);
 	
 	return TRUE; /* FALSE if activation failed */
 }
@@ -332,7 +335,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Add widget in Shell. Any number of widgets can be added */
 	anjuta_shell_add_widget (plugin->shell, wid,
 	                         "AnjutaHelloWorldPlugin",
-	                         _("HelloWorldPlugin"), NULL);
+	                         _("HelloWorldPlugin"),
+	                         GTK_STOCK_ABOUT,
+	                         ANJUTA_SHELL_PLACEMENT_CENTER,
+	                         NULL);
 	
 	return TRUE; /* FALSE if activation failed */
 }

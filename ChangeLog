@@ -4,6 +4,9 @@
 	manuals/reference/libanjuta/libanjuta-sections.txt: Updated docs
 	to latest API additions.
 
+	* manuals/reference/libanjuta/writing-plugins.sgml: Fixed to adhere
+	to API changes.
+
 2007-10-31  Naba Kumar  <naba.kumar@gnome.org>
 
 	* ChangeLog: Fixed indentation.
