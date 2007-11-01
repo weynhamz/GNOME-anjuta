@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-24 18:42+0100\n"
-"PO-Revision-Date: 2007-10-25 20:21+0200\n"
+"POT-Creation-Date: 2007-10-29 14:31+0000\n"
+"PO-Revision-Date: 2007-11-01 15:40+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,36 @@ msgstr "Software de desarrollo en un entorno integrado de desarrollo"
 #: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:339
 msgid "Integrated Development Environment"
 msgstr "Entorno Integrado de Desarrollo"
+
+#: ../libanjuta/anjuta-c-module.c:203
+#, c-format
+msgid "Unable to find plugin module %s"
+msgstr "Imposible encontrar se encuentra el módulo %s del complemento"
+
+#: ../libanjuta/anjuta-c-module.c:213
+#, c-format
+msgid "Unable to find plugin registration function %s in module %s"
+msgstr "Imposible encontrar la función de registro %s del complemento en el módulo %s"
+
+#: ../libanjuta/anjuta-c-module.c:219
+#, c-format
+msgid "Unknown error in module %s"
+msgstr "Error desconocido en el módulo %s"
+
+#: ../libanjuta/anjuta-c-plugin-factory.c:108
+#, c-format
+msgid "Missing location of plugin %s"
+msgstr "Falta la ubicación del complemento %s"
+
+#: ../libanjuta/anjuta-c-plugin-factory.c:141
+#, c-format
+msgid "Missing type defined by plugin %s"
+msgstr "Falta el tipo definido por el complemento %s"
+
+#: ../libanjuta/anjuta-c-plugin-factory.c:149
+#, c-format
+msgid "plugin %s fails to register type %s"
+msgstr "el complemento %s ha fallado al registrar el tipo %s"
 
 #: ../libanjuta/anjuta-encodings.c:140 ../libanjuta/anjuta-encodings.c:166
 #: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:248
@@ -2431,7 +2461,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1668
 #: ../plugins/search/search-replace.c:1680
 #: ../plugins/search/search-replace.c:1994
-#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:857
+#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:888
 msgid "Search"
 msgstr "Buscar"
 
@@ -2513,9 +2543,9 @@ msgid "Do not show tabs"
 msgstr "No mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1666
-#: ../plugins/document-manager/plugin.c:2033
-#: ../plugins/document-manager/plugin.c:2045
+#: ../plugins/document-manager/plugin.c:1660
+#: ../plugins/document-manager/plugin.c:2027
+#: ../plugins/document-manager/plugin.c:2039
 msgid "Documents"
 msgstr "Documentos"
 
@@ -7391,8 +7421,8 @@ msgstr "Se ha iniciado el hilo de Subversion..."
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
 #: ../plugins/symbol-browser/an_symbol_view.c:565
-#: ../plugins/symbol-db/symbol-db-view-locals.c:133
-#: ../plugins/symbol-db/symbol-db-view.c:437
+#: ../plugins/symbol-db/symbol-db-view-locals.c:132
+#: ../plugins/symbol-db/symbol-db-view.c:438
 msgid "Symbol"
 msgstr "Símbolo"
 
@@ -7502,15 +7532,15 @@ msgstr "Buscar uso del símbolo en el proyecto"
 msgid "Refresh symbol browser tree"
 msgstr "Refrescar el árbol del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:388 ../plugins/symbol-db/plugin.c:741
+#: ../plugins/symbol-browser/plugin.c:388 ../plugins/symbol-db/plugin.c:740
 msgid "Created symbols..."
 msgstr "Símbolos creados…"
 
-#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:819
+#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:850
 msgid "Local"
 msgstr "Local"
 
-#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:840
+#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:871
 msgid "Global"
 msgstr "Global"
 
@@ -7534,7 +7564,7 @@ msgstr "Seleccione el símbolo al que quiere ir"
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:895
+#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:926
 msgid "Symbols"
 msgstr "Símbolos"
 
