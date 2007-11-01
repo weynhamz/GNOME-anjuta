@@ -28,6 +28,8 @@ plugindir = $(anjuta_plugin_dir)
 # The plugin
 plugin_LTLIBRARIES = libfile-manager.la
 
+BUILT_SOURCES = file-view-marshal.h file-view-marshal.c
+
 # Plugin sources
 libfile_manager_la_SOURCES = \
 	plugin.c \
@@ -63,3 +65,5 @@ EXTRA_DIST = \
 	$(file_manager_ui_DATA) \
 	$(file_manager_pixmaps_DATA) \
 	$(file_manager_glade_DATA)
+	file-view-marshal.list
+

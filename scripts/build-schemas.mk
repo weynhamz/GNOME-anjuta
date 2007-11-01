@@ -4,7 +4,7 @@ prefs_glade_schemas = $(prefs_glade_files:.glade=.schemas)
 
 build-schema-files:
 	for p in $(prefs_glade_files); do \
-		$(top_srcdir)/scripts/glade2schema.pl $$p > `basename $$p .glade`.schemas; \
+		$(top_srcdir)/scripts/glade2schema.pl $(srcdir)/$$p > `basename $$p .glade`.schemas; \
 	done
 	
 if GCONF_SCHEMAS_INSTALL

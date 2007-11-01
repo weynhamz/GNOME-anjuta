@@ -1,5 +1,11 @@
 2007-11-01  Naba Kumar  <naba.kumar@gnome.org>
 
+	* configure.in:
+	* plugins/file-manager/Makefile.am:
+	* scripts/build-schemas.mk: Fixed 'make distcheck'
+
+2007-11-01  Naba Kumar  <naba.kumar@gnome.org>
+
 	* manuals/reference/libanjuta/libanjuta-docs.sgml,
 	manuals/reference/libanjuta/libanjuta-sections.txt: Updated docs
 	to latest API additions.
