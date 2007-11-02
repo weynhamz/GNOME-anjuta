@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD.es\n"
 "POT-Creation-Date: 2007-08-30 23:41+0100\n"
-"PO-Revision-Date: 2007-10-26 19:49+0200\n"
+"PO-Revision-Date: 2007-11-02 09:04+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3262,7 +3262,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:811(title)
 msgid "Information about global variables"
-msgstr ""
+msgstr "Información acerca de las variables globales"
 
 #: C/anjuta-manual.xml:812(para)
 msgid ""
@@ -3274,7 +3274,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:821(title)
 msgid "Information about the current frame"
-msgstr ""
+msgstr "Información acerca del marco actual"
 
 #: C/anjuta-manual.xml:822(para)
 msgid ""
@@ -3287,7 +3287,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:831(title)
 msgid "Information about the current function arguments"
-msgstr ""
+msgstr "Información acerca de los argumentos actuales de la función"
 
 #: C/anjuta-manual.xml:832(para)
 msgid ""
@@ -3299,7 +3299,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:841(title)
 msgid "User command"
-msgstr ""
+msgstr "Comando de usuario"
 
 #: C/anjuta-manual.xml:842(para)
 msgid ""
@@ -3362,6 +3362,8 @@ msgid ""
 "<emphasis>Root directory if no project is open</emphasis> is the path where "
 "the root of the file manager points to if no project is currently open."
 msgstr ""
+"<emphasis>Directorio raíz si no hay un proyecto abierto</emphasis> es la ruta donde "
+"apunta la raíz del gestor de archivos si actualmente no hay ningún proyecto abierto."
 
 #: C/anjuta-manual.xml:34(para)
 msgid ""
@@ -3373,7 +3375,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:3(title)
 msgid "User-defined Tools"
-msgstr ""
+msgstr "Herramientas definidas por el usuario"
 
 #: C/anjuta-manual.xml:7(para)
 msgid ""
@@ -3396,21 +3398,23 @@ msgstr ""
 
 #: C/anjuta-manual.xml:24(para)
 msgid "The tools plugin has to be enabled to use this feature!"
-msgstr ""
+msgstr "El complemento de herramientas debe estar activado para usar esta característica."
 
 #: C/anjuta-manual.xml:31(title)
 msgid "Tools Examples"
-msgstr ""
+msgstr "Ejemplos de herramientas"
 
 #: C/anjuta-manual.xml:32(para)
 msgid ""
 "This is a simple example how to use the tools plugin to integrate the GNOME "
 "ChangeLog generation script"
 msgstr ""
+"Este es un simple ejemplo de cómo usar el complemento de herramientas para integrar el "
+"script generador de registro de cambios de GNOME."
 
 #: C/anjuta-manual.xml:38(title) C/anjuta-manual.xml:40(screeninfo)
 msgid "The tool editor"
-msgstr ""
+msgstr "La herramienta de edición"
 
 #: C/anjuta-manual.xml:2(title)
 msgid "Authors"
