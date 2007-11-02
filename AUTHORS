@@ -74,12 +74,14 @@ Contributors:
 	Kelly Bergougnoux  <three3@users.sourceforge.net>
 	Lord Sibn  <sibn@utspl.cjb.net> (US)
 	Luca Bellonda  <lbell@tsc4.com> (Itally)
+	Marc Lorber  <Lorber.Marc@wanadoo.fr>
 	Marc Maurer  <uwog@uwog.net>
 	Markus Habermehl  <bmh1980de@yahoo.de>
 	Martyn Bone  <mbone@brightstar.u-net.com>
 	Massimo Cora'  <maxcvs@email.it>
 	Max Blagai  <maximblagai@yahoo.com (Germany)
 	Michael Tindal  <etherscape@paradoxpoint.com>
+	Michael Wolf  <maw@ximian.com>
 	Murray Cumming  <murrayc@usa.net>
 	Nick Dowell  <nixx@nixx.org.uk>
 	Olivier Pinçon  <opincon@wanadoo.fr>
@@ -95,13 +97,18 @@ Contributors:
 	s|s  <supreet.sethi@gmail.com>
 	Séastien Côé  <cots01@gel.usherb.ca>
 	Sylvain Defresne  <sdefrense@gmail.com>
+	Stanislav Brabec  <sbrabec@suse.cz>
 	Steven Knight  <steven.knight@unh.edu>
 	Taller D.I.C.E. ORG  <opensource@tallerdice.org>
 	Timothee Besset  <timo@qeradiant.com> (United Kingdom)
 	Tina Hirsch  <cevina@users.sourceforge.net>
+	Tobias Müller  <gnome-bugs@auftrags-killer.org>
 	Todd Goyen  <goyen@mbi-berlin.de>
+	Tom Lowe  <tomlowe1@earthlink.net>
+	Tom  <tpgww@onepost.net>
 	Vadim Berezniker  <vadim@berezniker.com>
 	Venugopal Gummuluru  <vgummuluru@yahoo.com>
+	Vincent Geddes <vgeddes@gnome.org>
 	Willy-Francois Poulet - Byssus Software Solutions  <wfp@byssus.com> (England)
 	Yang Hong  <yanghong@ccoss.com.cn>
 	Yannick Koehler  <yannick.koehler@colubris.com>
@@ -118,10 +125,13 @@ Main Translators:
 	en_CA 	Adam Weinberger <adamw@gnome.org>
 	ga 		Alastair McKinstry <mckinstry@computer.org>
 	pt_BR 	Alexandre Folle de Menezes <afmenez@terra.com.br>
+			Airton Arantes
+			Leonardo Ferreira Fontenelle  <leonardof@svn.gnome.org>
 	pa      Amanpreet Singh Alam <aalam@redhat.com>	
 	de 		Christian Meyer <chrisime@gnome.org>
-	dz 	Pema Geyleg <pema.geyleg@gmail.com>
+	dz 		Pema Geyleg <pema.geyleg@gmail.com>
 	sv 		Christian Rose <menthos@menthos.com>
+			Daniel Nylander  <po@danielnylander.se>
 	fr 		Christophe Merlet (RedFox) <redfox@redfoxcenter.org>
 	fr_FR 	Christophe Merlet (RedFox) <redfox@redfoxcenter.org>
 	hr 		Danijel Studen <dstuden@vuka.hr>
@@ -130,10 +140,12 @@ Main Translators:
 	ar		Djihed Afifi <djihed@gmail.com>: ar
 	pt 		Duarte Loreto <happyguy_pt@hotmail.com>
 	es 		Francisco Javier F. Serrador <serrador@cvs.gnome.org>
+			Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 	ml 		FSF-India <locale@gnu.org.in>
 	hu 		Gabor Kelemen <kelemen@gnome.hu>
 	en_GB 	Gareh Owen <gowen72@yahoo.com>
 	de		Hendrik Richter  <hendrikr@gnome.org>
+			Johannes Schmid <jhs@gnome.org>
 	gl		Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 	fi		Ilkka Tuohela  <hile@iki.fi>
 	da 		Keld Simonsen <keld@dkuug.dk>
@@ -157,6 +169,7 @@ Main Translators:
 	nl 		Tino Meinen <a.t.meinen@chello.nl>
 	be 		Vital Khilko <dojlid@mova.org>
 	ca 		Xavier A. Conde Rueda <xaviconde@eresmas.com>
+			Joan Duran
 	uk 		Yuriy Syrota <rasta@renome.rovno.ua>
 	
 Note: 
