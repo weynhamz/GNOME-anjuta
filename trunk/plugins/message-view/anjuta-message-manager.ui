@@ -1,0 +1,30 @@
+<!--*- xml -*-->
+<ui>
+	<menubar name="MenuMain">
+		<placeholder name="PlaceholderGotoMenus">
+			<menu name="Goto" action="ActionMenuGoto">
+					<menuitem name="PrevMessage" action="ActionMessagePrev" />
+					<menuitem name="NextMessage" action="ActionMessageNext" />
+			</menu>
+		</placeholder>
+	</menubar>
+	<toolbar name="ToolbarBrowser">
+		<placeholder name="PlaceholderBrowserToolbar" >
+  		<separator name="separator1" />
+			<toolitem name="PreviousMessage" action="ActionMessagePrev"/>
+			<toolitem name="NextMessage" action="ActionMessageNext"/>
+			<separator name="separator2" />
+		</placeholder>
+	</toolbar>
+	<popup name="PopupDocumentManager">
+		<menu name="Goto" action="ActionMenuGoto">
+			<menuitem name="PrevMessage" action="ActionMessagePrev" />
+			<menuitem name="NextMessage" action="ActionMessageNext" />
+		</menu>
+	</popup>
+	<popup name="PopupMessageView">
+		<menuitem name="NextMessage" action="ActionMessageNext" />
+		<menuitem name="PrevMessage" action="ActionMessagePrev" />
+		<menuitem name="SaveMessage" action="ActionMessageSave" />
+	</popup>
+</ui>

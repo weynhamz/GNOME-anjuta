@@ -1,0 +1,5 @@
+[Anjuta Plugin]
+Location=anjuta-sample:SamplePlugin
+Icon=anjuta-sample-plugin.png
+_Name=Sample Plugin
+_Description=Sample Plugin for Anjuta.

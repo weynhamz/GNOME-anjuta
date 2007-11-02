@@ -1,0 +1,10 @@
+[Anjuta Plugin]
+_Name=Class Generator
+_Description=Anjuta Class Generator Plugin
+Location=anjuta-class-gen:AnjutaClassGenPlugin
+Icon=class_logo.xpm
+Interfaces=IAnjutaWizard
+UserActivatable=no
+
+[Wizard]
+_Title=C++/GObject Class

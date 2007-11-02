@@ -1,0 +1,52 @@
+ <!-- ============= Introduction ============================== -->
+ <chapter id="introduction">
+  <title>Introduction</title>
+  <para>
+  <application>Anjuta</application> is a versatile Integrated Development
+  Environment (IDE) for the GNOME desktop. It features a number of advanced
+  programming facilities that include project management, application
+  wizards, an on-board interactive debugger, an integrated glade UI designer,
+  integrated devhelp API help, an integrated valgrind memory profiler,
+  an integrated gprof performance profiler, a class generator, a powerful
+  source editor, source browsing, and more. is a versatile Integrated
+  Development Environment 
+  </para>
+
+  <para>
+  Anjuta DevStudio has been designed to be simple to operate yet powerful enough
+  to fullfil all your programming needs. Many features have evolved since the
+  early days and several very attractive ones added. Our focus is on delivering
+  power and usability at the same time without overloading your senses and
+  making your software development a pleasurable process. We will always be
+  busy getting you one of the best IDE experiences by straighting up all
+  the neat features and stablizing it. We hope you will have a good time
+  using Anjuta. If not, please help us make it better by reporting bugs and
+  suggestions. Here are some of the things you will find in Anjuta.
+  </para>
+
+  <para>
+  <figure id="anjuta-scrshot">
+   <title>Anjuta in action</title>
+   <screenshot>
+   <screeninfo>Anjuta in action</screeninfo>
+   <graphic format="PNG" fileref="figures/anjuta-in-action.png" srccredit="jhs"></graphic>
+   </screenshot>
+   </figure>
+  </para>
+
+  <para>
+  Anjuta has a very flexible and advanced docking system that allows you to
+  layout all views in whatever way you like. You can drag and drop the views
+  using drag bars and re-arrange the layout. The layouts are persistent for
+  each project so you can maintain different layouts required by projects.
+  All dock views are minimizable to avoid clutter in main window. Minimized
+  views appear as icons on left side of main window. All menu actions are
+  configurable either by type-in-the-menu (the usual GNOME way) or by
+  a dedicated shortcuts configuration UI.
+  </para>
+
+  <para>
+  Please report any problems with <application>Anjuta</application> - this will help to 
+  improve the software, as well as helping the Open Source community.
+  </para>
+ </chapter>

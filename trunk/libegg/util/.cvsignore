@@ -1,0 +1,10 @@
+Makefile
+Makefile.in
+.deps
+.libs
+*.la
+*.lo
+eggmarshalers.c
+eggmarshalers.h
+*.bak
+*~

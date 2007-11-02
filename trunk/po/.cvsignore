@@ -1,0 +1,16 @@
+*.gmo
+*.mo
+*.pot
+.*swp
+*~
+cat-id-tbl.c
+stamp-cat-id
+messages
+missing
+POTFILES
+Makefile
+Makefile.in
+Makefile.in.in
+.nautilus-metafile.xml
+*.autosave
+translations.xml

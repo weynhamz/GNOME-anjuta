@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE manual PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY introduction SYSTEM "introduction.xml">
+  <!ENTITY interface SYSTEM "interface.xml">
+  <!ENTITY fileoperations SYSTEM "fileoperations.xml">
+  <!ENTITY build SYSTEM "build.xml">
+  <!ENTITY execute SYSTEM "execute.xml">
+  <!ENTITY compileopts SYSTEM "compileopts.xml">
+  <!ENTITY projects SYSTEM "projects.xml">
+  <!ENTITY debugger SYSTEM "debugger.xml">
+  <!ENTITY preferences SYSTEM "preferences.xml">
+  <!ENTITY authors SYSTEM "authors.xml">
+  <!ENTITY license SYSTEM "license.xml">
+  <!ENTITY license SYSTEM "legal.xml">
+  <!ENTITY appversion "2.2.2">
+  <!ENTITY manrevision "2.6">
+  <!ENTITY date "September 2003">
+  <!ENTITY app "anjuta">
+]>
+
+<book id="index">
+ <bookinfo>
+  <title>Anjuta IDE マニュアル</title>
+  <edition>v0.0.4</edition>
+
+  <legalnotice>
+   <para>
+フリーソフトウェア財団が発行する <citetitle>GNU フリー文書利用許諾契約書</citetitle> の第1.1版またはそれ以降の版の下で複写、改編/修正による再配布が認められています。但し不変なセクション、表紙のテキスト、裏表紙のテキストは除きます。貴方はフリーソフトウェア財団から <citetitle>GNU フリー文書利用許諾契約書</citetitle> のコピーを <ulink type="http" url="http://www.fsf.org">ウェブサイト</ulink> から、または次にメールを送ることで入手することが可能です: Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+   </para>
+   <para>
+     企業にてその製品とサービスを区別するために使用される名称の多くは、トレードマークとして企業の所有物 (財産) であると主張されています。GNOME ドキュメントの中でこれらの名称が使用されていたり、GNOME ドキュメンテーション・プロジェクトのメンバーがこれに配慮しているトレードマークの名称などは全て大文字、または一番最初を大文字にして表記しています。
+   </para>
+  </legalnotice>
+
+  <!-- this is the version of manual, not application --> 
+  <releaseinfo>
+   これは Anjuta IDE マニュアルの第 0.0.4 版です。
+  </releaseinfo>
+ </bookinfo>
+ <!-- Document Body -->
+ <!-- Introduction -->
+ &introduction;
+ <!-- Getting Familiar with Anjuta -->
+ &interface;
+ <!-- File operations -->
+ &fileoperations;
+ <!-- Compiling and building -->
+ &build;
+ <!-- Executing -->
+ &execute;
+ <!-- Setting compiler options -->
+ &compileopts;
+ <!-- Project Management -->
+ &projects;
+ <!-- Debugging -->
+ &debugger;
+ <!-- Preferences -->
+ &preferences;
+ <!-- Authors -->
+ &authors;
+ <!-- License -->
+ &license;
+</book>

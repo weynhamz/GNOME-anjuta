@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<omf>
+  <resource>
+    <creator>
+      andy.piper@freeuk.com (Andy Piper)
+    </creator>
+    <maintainer>
+      Anjuta Team
+    </maintainer>
+<!--
+    <title>
+      Anjuta Faqs V0.1
+    </title>
+-->
+    <title>
+      Anjuta Faqs
+    </title>
+    <date>
+      2003-09-05
+    </date>
+    <version identifier="0.1" date="2003-09-05" description="Updated for program version 1.1.1"/>
+    <subject category="GNOME|Development"/>
+  <description>
+     このドキュメントは Anjuta C/C++ 統合開発環境についてのよくある質問とその回答をまとめたＱ＆Ａ集です。
+    </description>
+    <type>
+      article
+    </type>
+    <format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/>
+    <identifier url="anjuta-faqs.xml"/>
+    <language code="ja_JP.UTF-8"/>
+    <relation seriesid="8d87b494-1035-11d8-818d-e71cf7d7b3bd"/>
+    <rights type="GNU FDL" license.version="1.1" holder="Andy Piper"/>
+  </resource>
+</omf>

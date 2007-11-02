@@ -1,0 +1,430 @@
+
+ <chapter id="setting-compiler-options">
+  <title>コンパイラ・オプションの設定</title>
+  <para>
+   コンパイラがファイルやプロジェクトをコンパイルする方法をカスタマイズすることが可能です。重要なこととして、各プロジェクトはそれぞれコンパイラの設定を保持しているということです。プロジェクトがオープンしていない状態で、そのオプションの設定を変更すると、その設定はこれとは別に保存されるので、ファイル単体のコンパイルとビルド時にのみで使用されることになります。全てのユーザに共通な設定にする: <application>Anjuta</application> はこれらを自動的に管理します。
+  </para>
+  
+  <sect1 id="program-support">
+   <title>プログラムをサポートする</title>
+   
+   <para>
+基本的なコンパイルのオプション (ヘッダやライブラリのパス、リンカの設定など) の指定の仕方は既に前のセクションでご紹介したとおりです。このステップは、もっと標準的あるいはもっとポピュラーなライブラリを使用する時にはやっかいなもになります - 例えば、GTK+ と GNOME など。これらのライブラリの実装を簡単にして、かつ矛盾した設定を避けるためには、そのようなライブラリの開発者が常にそれらの環境設定プログラム (普通 *-config と呼ばれるもの) を提供することです。
+   </para>
+    
+   <para>
+    しかしながら、それは理論上の話です。それでは現実的な方法をご紹介することにします。<application>Anjuta</application> ではそのような面倒なことを解決してくれます。そのため、これらのライブラリに対する環境設定プログラムについて心配する必要はありません - プロジェクトファイルに該当する <emphasis>サポート</emphasis> 機能を追加するだけで良いのです。
+   </para>
+
+   <para>
+    プログラムにライブラリに対するサポート機能を追加する:
+    <orderedlist>
+     <listitem>
+	 <para>
+      メニュー・アイテム <menuchoice><guisubmenu>設定(_S)</guisubmenu><guimenuitem>コンパイラとリンカの設定(_C) &hellip;</guimenuitem></menuchoice> を選択して、<interface>コンパイラのオプション</interface> ダイアログの中にある <guilabel>サポート</guilabel> タブをクリックして下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      プログラムに追加するサポート機能をダブル・クリックで選択して下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      選択済みのサポート機能を再度ダブル・クリックすると未選択の状態になります。
+     </para>
+	 </listitem>
+    </orderedlist>
+   </para>
+   
+   <figure id="supports">
+    <title>サポート・ダイアログ</title>
+    <screenshot>
+	<screeninfo>サポート・ダイアログ</screeninfo>
+     <graphic fileref="figures/supports.png" format="PNG" srccredit="andyp"></graphic>
+    </screenshot>
+   </figure>
+   
+   <para>
+    選択したオプションに必要とされるヘッダファイルのパス名やライブラリなどは自動的にセットされます。そのため、手動にてヘッダファイルのパスやライブラリをセットする必要はありません。
+   </para>
+   
+   <important>
+   <title>重要</title>
+   <para>
+    <application>Anjuta</application> の現在のバージョンでは少しだけライブラリをサポートするオプションがあります - Glib, GTK, GNOME と Bonobo です。これらのライブラリのいくつかは未だ完全にサポートしていません。
+   </para>
+   </important>
+   
+   <note>
+    <title>備忘録</title>
+    <para>
+     基本的なライブラリのサポートを指定すると、これらのライブラリに必要なコンパイラ・オプションを手動でセットする必要はありません。<emphasis>その他のライブラリではコンパイラの設定を変更する必要がるかもしれません。</emphasis>
+    </para>
+   </note>
+  </sect1>
+  
+  <sect1 id="includes">
+   <title>ヘッダのパス名</title>
+   <para>
+    プログラムにインクルードするヘッダのパス名をセットする:
+    <orderedlist>
+     <listitem>
+	 <para>
+      メニュー・アイテム <menuchoice><guisubmenu>設定(_S)</guisubmenu><guimenuitem>コンパイラとリンカの設定(_C) &hellip;</guimenuitem></menuchoice> を選択して、<interface>コンパイラのオプション</interface> ダイアログの中にある <guilabel>ヘッダのパス</guilabel> タブをクリックして下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      パス名を一つ入力する度に <guibutton>追加</guibutton> ボタンをクリックして追加して下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      エントリを削除する場合は、一覧の中にあるエントリを一つ選択して <guibutton>削除</guibutton> ボタンをクリックします。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      エントリを編集する場合は、一覧の中にあるエントリを一つ選択してテキストボックスの中で直に編集し、<guibutton>更新</guibutton> ボタンをクリックします。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      全てのエントリをクリアする場合は、<guibutton>クリア</guibutton> ボタンをクリックします。
+     </para>
+	 </listitem>
+    </orderedlist>
+     
+    <figure id="include-paths">
+     <title>ヘッダのパス設定ダイアログ</title>
+     <screenshot>
+	 <screeninfo>ヘッダのパス設定ダイアログ</screeninfo>
+      <graphic fileref="figures/includes.png" format="PNG" srccredit="andyp"></graphic>
+     </screenshot>
+    </figure>
+   </para>
+   
+   <note>
+    <title>ここに注目</title>
+    <para>
+     プロジェクト向けの設定の場合、ヘッダファイルの全てのパス名はプロジェクトのソースディレクトリに対して、相対パスで指定する必要があります。絶対パスは使用しないで下さい - つまり、開発したソースコードを配布した時に、それを受け取ったユーザがそのプログラムをビルドしようとしたときに問題が発生します。
+     </para>
+     <para>
+     設定がプロジェクト外で作成された場合は、そのパス名が絶対パスか相対パスかは問題になりません - つまりこの設定はお使いのローカルシステムにのみ適用されるものです。
+    </para>
+   </note>
+  </sect1>
+  
+  <sect1 id="libpaths">
+   <title>ライブラリのパス</title>
+   <para>
+     プログラムを (次のセクションにある <guilabel>ライブラリ</guilabel> 設定をとおして指定した) 外部のライブラリ とリンクする時、リンカはライブラリの検索パスの中からこれらのライブラリを検索します。<application>Anjuta</application> は自動的にシステムライブラリのパス名を使用しますが、いくつかの追加ライブラリの検索パス名を追加して下さい。
+   </para>
+   <para>
+    ライブラリのパス名をセットする:
+    <orderedlist>
+     
+     <listitem>
+	 <para>
+      メニュー・アイテム <menuchoice><guisubmenu>設定(_S)</guisubmenu><guimenuitem>コンパイラとリンクの設定(_C) &hellip;</guimenuitem></menuchoice> を選択して、<interface>コンパイラのオプション</interface> ダイアログの中にある <guilabel>ライブラリのパス</guilabel> タブをクリックして下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+     パス名を一つ入力する度に <guibutton>追加</guibutton> ボタンをクリックして追加して下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      エントリを削除する場合は、一覧の中にあるエントリを一つ選択して <guibutton>削除</guibutton> ボタンをクリックします。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      エントリを編集する場合は、一覧の中にあるエントリを一つ選択してテキストボックスの中で直に編集し、<guibutton>更新</guibutton> ボタンをクリックします。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      全てのエントリをクリアする場合は、<guibutton>クリア</guibutton> ボタンをクリックします。
+     </para>
+	 </listitem>
+    </orderedlist>
+	
+    <figure id="lib-paths">
+     <title>ライブラリのパス設定ダイアログ</title>
+     <screenshot>
+	 <screeninfo>ライブラリのパス設定ダイアログ</screeninfo>
+      <graphic fileref="figures/lib_paths.png" format="PNG" srccredit="andyp"></graphic>
+     </screenshot>
+    </figure>
+   </para>
+   
+   <note>
+    <title>ここに注目</title>
+    <para>
+     プロジェクト向けの設定の場合、ライブラリの全てのパス名はプロジェクトのソースディレクトリに対して、相対パスで指定する必要があります。絶対パスは使用しないで下さい - つまり、開発したソースコードを配布した時に、それを受け取ったユーザがそのプログラムをビルドしようとしたときに問題が発生します。
+     </para>
+     <para>
+     設定がプロジェクト外で作成された場合は、そのパス名が絶対パスか相対パスかは問題になりません - つまりこの設定はお使いのローカルシステムにのみ適用されるものです。
+    </para>
+   </note>
+  </sect1>
+  
+  <sect1 id="libraries">
+   <title>リンクするライブラリ</title>
+   <para>
+    ライブラリは外部のモジュールです。これは他のライブラリや実行型式ファイルに提供するために、ビルドの最終ステップにおいてプログラムとリンクする必要があります。リンカには、最終ターゲット (実行型式ファイル) を構築するためにリンクするライブラリの並びが引き渡されます。
+   </para>
+   <para>
+     ライブラリに加え、オブジェクト・モジュール (<filename>*.o</filename> files) の名前を引き渡すこともできます。オブジェクト・モジュールの名前の先頭には特別なフラグ (アスタリスク *) が付与されています (これにより <application>Anjuta</application> はオブジェクトとライブラリを区別しています)。オブジェクト・モジュールはフルパス名 (絶対パスまたは相対パス、コンテキストに依存します) のリストにして下さい。その理由は、オブジェクト・モジュールはライブラリの検索パスから検索されないからです。
+   </para>
+   <para>
+    <emphasis>例:</emphasis> 下記のスクリーンショットの中で、最初のエントリ "scintilla" はライブラリですが、その下にある "*" が先頭に付いたエントリは全てオブジェクト・モジュールです。
+   </para>
+   <figure id="libs-link">
+     <title>ライブラリ・ダイアログ</title>
+     <screenshot>
+	 <screeninfo>ライブラリ・ダイアログ</screeninfo>
+      <graphic fileref="figures/libraries.png" format="PNG" srccredit="andyp"></graphic>
+     </screenshot>
+   </figure>
+   <para>
+    ライブラリ名の書式: <filename>libXXX.a</filename> です。一覧の中にライブラリがある状態では、先頭の "lib" と末尾の ".a" は省略され、ライブラリ名である "XXX" のみがエントリになります。
+   </para>
+   
+   <para>
+    ライブラリを追加する:
+    <orderedlist>
+     
+     <listitem>
+	 <para>
+      メニュー・アイテム <menuchoice><guisubmenu>設定(_S)</guisubmenu><guimenuitem>コンパイラとリンカの設定(_C) &hellip;</guimenuitem></menuchoice> を選択して、<interface>コンパイラのオプション</interface> ダイアログの中にある <guilabel>ライブラリ群</guilabel> タブをクリックして下さい。
+     </para>
+     </listitem>
+     
+     <listitem>
+	 <para>
+      ライブラリ名 (必要ならば、オブジェクト名も) を一つ入力する度に <guibutton>追加</guibutton> ボタンをクリックして追加して下さい。
+     </para>
+      <para>
+       ライブラリはダイアログの右側に表示されている一覧の中から選択することも可能です。全てのライブラリがこの一覧の中で利用可能ではありません。
+      </para>
+      <para>
+       <important>
+        <title>重要</title>
+        <para>
+         オブジェクト・モジュールは必ずパス名をつけて指定し、先頭にアスタリスク (*) を付けて下さい。
+        </para>
+       </important>
+      </para>
+     </listitem>
+     
+     <listitem>
+	 <para>
+     エントリを削除する場合は、一覧の中にあるエントリを一つ選択して <guibutton>削除</guibutton> ボタンをクリックします。
+     </para>
+     </listitem>
+     
+     <listitem>
+	 <para>
+      あるエントリを無効にする場合は、一覧の中にあるそのエントリをダブル・クリックして下さい。再び有効にする場合は、そのエントリを再びダブル・クリックします。
+     </para>
+     <para>
+      無効にしたエントリはリンク処理に挿入されません。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      エントリを編集する場合は、一覧の中にあるエントリを一つ選択してテキストボックスの中で直に編集し、<guibutton>更新</guibutton> ボタンをクリックします。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	  <para>
+      全てのエントリをクリアする場合は、<guibutton>クリア</guibutton> ボタンをクリックします。
+     </para>
+     </listitem>
+    </orderedlist>
+   </para>
+  </sect1>
+  
+  <sect1 id="defines">
+   <title>マクロの定義</title>
+   <para>
+    マクロを定義する:
+
+    <orderedlist>
+     <listitem>
+	 <para>
+      メニュー・アイテム <menuchoice><guisubmenu>設定(_S)</guisubmenu><guimenuitem>コンパイラとリンクの設定(_C) &hellip;</guimenuitem></menuchoice> を選択して、<interface>コンパイラのオプション</interface> ダイアログの中にある
+<guilabel>定義</guilabel> タブをクリックして下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      マクロを一つ入力する度に <guibutton>追加</guibutton> ボタンをクリックして追加して下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+     エントリを削除する場合は、一覧の中にあるエントリを一つ選択して <guibutton>削除</guibutton> ボタンをクリックします。
+     </para>
+	 </listitem>
+     
+     <listitem>	 
+	 <para>
+      エントリを編集する場合は、一覧の中にあるエントリを一つ選択してテキストボックスの中で直に編集し、<guibutton>更新</guibutton> ボタンをクリックします。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	  <para>
+      全てのエントリをクリアする場合は、<guibutton>クリア</guibutton> ボタンをクリックします。
+     </para>
+     </listitem>
+    </orderedlist>
+    <figure id="defines-dialog">
+     <title>マクロ定義ダイアログ</title>
+     <screenshot>
+	 <screeninfo>マクロ定義ダイアログ</screeninfo>
+      <graphic fileref="figures/defines.png" format="PNG" srccredit="andyp"></graphic>
+     </screenshot>
+    </figure>
+   </para>
+  </sect1>
+  
+  <sect1 id="warnings">
+   <title>コンパイラの警告 (ワーニング)</title>
+   <para>
+    コンパイラに対して、いろいろな種類の警告 (ワーニング) を有効にすることが可能です。
+	<orderedlist>     
+     <listitem>
+	 <para>
+      メニュー・アイテム <menuchoice><guisubmenu>設定(_S)</guisubmenu><guimenuitem>コンパイラとリンカの設定(_C) &hellip;</guimenuitem></menuchoice> を選択して、<interface>コンパイラのオプション</interface> ダイアログの中にある
+<guilabel>警告メッセージ</guilabel> タブをクリックして下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      ファイルまたはプロジェクトをコンパイルしたりビルドする時に <interface>メッセージ・ウィンドウ</interface> の中に表示させたい警告メッセージを選択して下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+     <guilabel>警告無し</guilabel> を選択すると、全ての警告が無効になります。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+     同様に、<guilabel>全ての警告 (-Wall)</guilabel> を選択すると、全ての警告が有効になります。
+     </para>
+	 </listitem>
+    </orderedlist>
+    
+    <figure id="warn-dialog">
+     <title>警告設定ダイアログ</title>
+     <screenshot>
+	 <screeninfo>警告設定ダイアログ</screeninfo>
+      <graphic fileref="figures/warnings.png" format="PNG" srccredit="andyp"></graphic>
+     </screenshot>
+    </figure>
+   </para>
+  </sect1>
+
+  <sect1 id="optimization">
+   <title>コードの最適化</title>
+   <para>
+    コードのコンパイルにおける最適化のレベルを設定する:
+    <orderedlist>
+     <listitem>
+	 <para>
+      メニュー・アイテム <menuchoice><guisubmenu>設定(_S)</guisubmenu><guimenuitem>コンパイラとリンカの設定(_C) &hellip;</guimenuitem></menuchoice> を選択して、<interface>コンパイラのオプション</interface> ダイアログの中にある <guilabel>最適化</guilabel> タブをクリックして下さい。
+     </para>
+	 </listitem>
+     
+     <listitem>
+	 <para>
+      必要な最適化レベルを選択して下さい。
+     </para>
+	 </listitem>
+    </orderedlist>
+    
+    <figure id="optimize">
+     <title>最適化の設定ダイアログ</title>
+     <screenshot>
+	 <screeninfo>最適化の設定ダイアログ</screeninfo>
+      <graphic fileref="figures/optimizations.png" format="PNG" srccredit="andyp"></graphic>
+     </screenshot>
+    </figure>
+   </para>
+   
+   <para>
+    デバッグを有効にした場合にコードの最適化を行うことはあまり良い考えではありません。最適化を行っても害はありませんが、プログラムのデバッグ時にたくさんの難しい問題を発生します。コードの最適化を有効にすると、コンパイラはパフォーマンスを改善するためにプログラムのコードを (訳注: アセンブラレベルで) 変更します。これによりデバッグ中に、デバッガが参照している行番号が対応するソースコードの実際の行番号と一致しなくなるという混乱を、ときどき発生させてしまいます。
+   </para>
+   
+   <para>
+    コードの最適化はコンパイルのステップでのみ有効で、ソースコードには直接影響をあたえることはありません。
+   </para>
+  </sect1>
+
+  <sect1 id="others">
+   <title>その他のコンパイラ設定</title>
+   <para>
+    その他のコンパイラの設定を行う:
+
+    <orderedlist>
+     <listitem>
+	 <para>
+      メニュー・アイテム <menuchoice><guisubmenu>設定(_S)</guisubmenu><guimenuitem>コンパイラとリンカの設定(_C) &hellip;</guimenuitem></menuchoice> を選択して、<interface>コンパイラのオプション</interface> ダイアログの中にある <guilabel>その他</guilabel> タブをクリックして下さい。
+     </para>
+	 </listitem>
+     
+     <listitem><para>
+      コンパイルにおけるさまざまなオプションがあります。
+     </para></listitem>
+    </orderedlist>
+    
+    <figure id="other-settings">
+     <title>その他のコンパイラ設定ダイアログ</title>
+     <screenshot>
+	 <screeninfo>その他のコンパイラ設定ダイアログ</screeninfo>
+           <graphic fileref="figures/other_opts.png" format="PNG" srccredit="andyp"></graphic>
+     </screenshot>
+    </figure>
+   </para>
+   <para>
+    最初のオプションは <guilabel>デバッグを可能にする</guilabel> です。このオプションはデバッグ情報 (シンボル・テーブルのようなもの) をプログラムに追加するようコンパイラに指示します。この情報はコードをステップ毎にデバッグするために必要です。このオプションを有効にすると、プログラムのサイズが少し大きくなります。
+   </para>
+   <para>
+    このオプションはプログラムを開発している時にとても役に立ちます。コードが完成してリリースできる準備ができたら、このオプションを無効にしてプログラムを再度ビルド (リビルド) します。リビルドする前にプロジェクトを一度きれいにして下さい - つまり、自動的に依存関係をチェックするために、このオプションを無効にして全てのファイルビルドして下さい。 
+   </para>
+   <para>
+    デバッグを有効にした場合にコードの最適化を行うことはあまり良い考えではありません。最適化を行っても害はありませんが、プログラムのデバッグ時にたくさんの難しい問題を発生します。コードの最適化を有効にすると、コンパイラはパフォーマンスを改善するためにプログラムのコードを (訳注: アセンブラレベルで) 変更します。これによりデバッグ中に、デバッガが参照している行番号が対応するソースコードの実際の行番号と一致しなくなるという混乱を、ときどき発生させてしまいます。
+   </para>
+   <para>
+    二番目のオプション <guilabel>プロファイリングを可能にする</guilabel> は、プログラムの中にプロファイリング情報を追加することを除いて <guilabel>デバッグを可能にする</guilabel> オプションとほぼ同じです。<application>Anjuta</application> ではプロファイリング機能はまだ実装されていません。いつの日か端末ベースの <application>gprof</application> を使うことが可能になります; または GUI (GTK+) アプリケーションである <application>MemProf</application> を使うことが可能になります。開発しているプログラムに対してプロファイリングを行う方法については <ulink type="man" url="man:gprof">gprof マニュアルページ</ulink> を参照下さい。プロファイリングを可能にすると、プログラムの動作がとても遅くなるので、デバッグ時にのみ使用して下さい。
+   </para>
+   <para>
+    コンパイラとリンカに追加で指示するオプションを、このダイアログのテキスト・ボックスに入力することができます。
+   </para>
+  </sect1>
+ </chapter>
+

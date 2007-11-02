@@ -1,0 +1,157 @@
+#!/bin/bash
+#
+# Shell script to automatically create an Anjuta 1.x project file
+# Copyright: Biswapesh Chattopadhyay (biswapesh_chatterjee@tcscal.co.in) 2001-2002
+# This file can be freely copied for any purpose. There are NO guarantees.
+#
+
+# Template file is in data dir, so:
+# TEMPLATE="$(dirname $0)/anjuta_project.template"
+TEMPLATE="@PACKAGE_DATA_DIR@/anjuta_project.template"
+AN_SKIP_DIRS=${AN_SKIP_DIRS:-"intl"}
+AN_SOURCE_EXTN=${AN_SOURCE_EXTN:-"c pc sc C cpp cxx cc java"}
+AN_HEADER_EXTN=${AN_HEADER_EXTN:-"h H hxx hpp hh"}
+AN_PIXMAP_EXTN=${AN_IMAGE_EXTN:-"jpeg jpg png gif xpm bmp ico tiff"}
+AN_DOC_EXTN=${AN_DOC_EXTN:-"html sgml sgml README INSTALL ChangeLog NEWS COPYING CREDITS AUTHORS THANKS TODO HACKING FUTURE"}
+AN_PO_EXTN=${AN_PO_EXTN:-"po"}
+AN_PO_DIR="po"
+
+PROGRAM=anjuta
+DIR=${1:-"."}
+TMPFILE=/tmp/$PROGRAM.$$.tmp
+
+if [ ! -s "${TEMPLATE}" ]; then
+  echo "Template file ${TEMPLATE} does not exist!" >&2
+  exit 1
+fi
+
+if [ "$DIR" != '.' ]; then
+  if [ ! -d "$DIR" ]; then
+    echo "Directory $1 does not exist !" >&2
+    \rm -f ${TMPFILE}
+    exit 1
+  fi
+  if ! \cd $1; then
+    echo "Unable to chdir to $1" >&2
+    \rm -f ${TMPFILE}
+    exit 1
+  fi
+fi
+
+if [ -f "configure.in" ]; then
+  package_line=$(grep AM_INIT_AUTOMAKE configure.in)
+  if [ ! -z "${package_line}" ]; then
+    AN_PROJECT_NAME=$(echo ${package_line} | awk -F'[(),]' '{print $2}')
+    AN_PROJECT_VERSION=$(echo ${package_line} | awk -F'[(),]' '{print $3}')
+  fi
+fi
+
+if [ -z "${AN_PROJECT_NAME}" ]; then
+  AN_PROJECT_NAME=$(pwd | awk -F'/' '{print $NF}' | sed 's/-[0-9][^-]*$//')
+  AN_PROJECT_VERSION=$(pwd | awk -F'/' '{print $NF}' | awk -F'-' '{if ((NF > 1) && ($NF ~ /^[0-9]/)) print $NF}')
+fi
+
+AN_PROJECT_NAME=$(echo ${AN_PROJECT_NAME} | sed 's/[ 	]//g' | sed 's/[^0-9a-zA-Z_]/_/g')
+AN_PROJECT_VERSION=$(echo ${AN_PROJECT_VERSION} | sed 's/[ 	]//g')
+
+if [ -z "${AN_PROJECT_NAME}" ]; then
+  echo "WARNING!! Unable to derive project name. Using default value.." >&2
+  AN_PROJECT_NAME="template"
+fi
+if [ -z "${AN_PROJECT_VERSION}" ]; then
+  echo "WARNING!! Unable to derive project version. Using default value.." >&2
+  AN_PROJECT_VERSION="0.99"
+fi
+
+PRJ_FILE="${AN_PROJECT_NAME}.prj"
+
+if [ -f "${PRJ_FILE}" ]; then
+  if ! mv ${PRJ_FILE} ${PRJ_FILE}.$$; then
+    echo "Unable to backup existing project file! Exiting." >&2
+    \rm -f ${TMPFILE}
+    exit 1
+  fi
+  echo "WARNING!! Existing project file ${PRJ_FILE} backed up as ${PRJ_FILE}.$$" >&2
+fi
+
+AN_SOURCE_FILES=""
+AN_HEADER_FILES=""
+AN_PIXMAP_FILES=""
+AN_DOC_FILES=""
+AN_PO_FILES=""
+for file in `find . -type f -print`; do
+  name=`echo $file | cut -c3-`
+  top_dir=`echo $name | awk -F'/' '{if (NF > 1) print $1; else print "."}'`
+  skip=0
+  for dir in $AN_SKIP_DIRS; do
+    if [ "$dir" = "${top_dir}" ]; then
+      skip=1
+      break
+    fi
+  done
+  if [ $skip -eq 0 ]; then
+    found=0
+    file_extn="`echo $name | awk -F'[/.]' '{print $NF}'`"
+    for extn in $AN_SOURCE_EXTN; do
+      if [ "$extn" = "$file_extn" ]; then
+        AN_SOURCE_FILES="$AN_SOURCE_FILES $name"
+        echo "Adding source file $name.."
+        found=1
+        break
+      fi
+    done
+    if [ $found -eq 0 ]; then
+      for extn in $AN_HEADER_EXTN; do
+        if [ "$extn" = "$file_extn" ]; then
+          AN_HEADER_FILES="$AN_HEADER_FILES $name"
+          echo "Adding header file $name.."
+          found=1
+          break
+        fi
+      done
+    fi
+    if [ $found -eq 0 ]; then
+      for extn in $AN_PIXMAP_EXTN; do
+        if [ "$extn" = "$file_extn" ]; then
+          AN_PIXMAP_FILES="$AN_PIXMAP_FILES $name"
+          echo "Adding pixmap file $name.."
+          found=1
+          break
+        fi
+      done
+    fi
+    if [ $found -eq 0 ]; then
+      for extn in $AN_DOC_EXTN; do
+        if [ "$extn" = "$file_extn" ]; then
+          AN_DOC_FILES="$AN_DOC_FILES $name"
+          echo "Adding doc file $name.."
+          found=1
+          break
+        fi
+      done
+    fi
+    if [ $found -eq 0 ]; then
+      if [ "$AN_PO_EXTN" = "$file_extn" -a "$AN_PO_DIR" = "$top_dir" ]; then
+        name="`echo $name | cut -c4-`"
+        AN_PO_FILES="$AN_PO_FILES $name"
+        echo "Adding PO file $name.."
+        found=1
+      fi
+    fi
+    if [ $found -eq 0 ]; then
+      echo "Skipping $name.."
+    fi
+  else
+    echo "Ignoring $name.."
+  fi
+done
+
+cat ${TEMPLATE} | while read line; do
+  eval "echo ${line}" >>${PRJ_FILE}
+done
+
+echo "Created project file ${PRJ_FILE} successfully."
+
+\rm -f ${TMPFILE}
+exit 0
+

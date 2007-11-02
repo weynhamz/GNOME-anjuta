@@ -1,0 +1,7 @@
+[Anjuta Plugin]
+_Name=Searching
+_Description=Component for searching
+Location=anjuta-search:SearchPlugin
+Version=0.1
+Icon=anjuta-search.png
+UserActivatable=yes

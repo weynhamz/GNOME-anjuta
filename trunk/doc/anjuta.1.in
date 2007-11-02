@@ -1,0 +1,28 @@
+.TH "Anjuta" "1" "@VERSION@" "Jens Georg" ""
+.SH "NAME"
+.LP 
+anjuta \- GNOME Integrated Development Environment
+.SH "SYNTAX"
+.LP 
+anjuta [\fIoption\fP] [\fIfiles ... \fP]
+.SH "DESCRIPTION"
+.LP 
+Anjuta is a GNOME IDE and can be used to create either GNOME/GTK+ applications with glade or glade\-gnome, or can be used for creating generic applications. It is primarily designed for use with C/C++ and features an easy to use debugger and compilation environment.
+.SH "OPTIONS"
+.LP 
+\fB\-\-help, \-?\fR
+Output help information and exit.
+.TP 
+\fB\-\-version\fR
+Output version information and exit.
+.TP
+\fB\-\-no\-splash\fR
+Do not show the splashscreen at startup.
+.TP 
+Anjuta supports all the generic GNOME and GTK options, a full list is available on the Anjuta help screen.
+.SH "AUTHORS"
+.LP 
+This man page was originally written by Rob Bradford <robster@debian.org>, extended by Jens Georg <mail@jensgeorg.de>. Anjuta was developed by Kh. Naba Kumar Singh <kh_naba@users.sourceforge.net>
+.SH "SEE ALSO"
+.LP 
+anjuta_launcher(1)

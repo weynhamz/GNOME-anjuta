@@ -1,0 +1,141 @@
+Introduction:
+-------------
+This document is the roadmap for future development of anjuta.
+
+The goal of Anjuta DevStudio is to provide a truely customizable and
+extensible IDE framework and at the same time provide the basic implementations
+of common development tools. libanjuta is the framework that realizes the
+Anjuta IDE plugin framework and Anjuta DevStudio realizes many of the common
+development plugins.
+
+Anjuta 2.x (trunk):
+-------------------
+Anjuta 2.x development series has new extensible plugin architecture and all
+the plugins have been ported to this new plateform. The libanjuta interface
+defines all the IDE APIs and is used to write anjuta plugins. In addition, it
+also provides many utility classes.
+
+Following are the major milestones that we will attempt to reach by the
+estimated dates given. There will be smaller releases in-between, mainly
+stablization and bugfix releases.
+
+Milestone 2.2.0 - (Estimated release time Apr 2007):
+- Complete libanjuta API definition and documentation
+- Partial user documentation
+- Fix GDL to restore widgets dock locations correctly.
+- Complete glade plugin integration
+- Bug fixing and stable release.
+
+Optional other stuff
+- ants project management backend for gnome-build
+- ants build system plugin.
+- online anjuta plugin installer
+- Better support for other languages (Java, Python, Ruby, C#)
+- More plugins.
+
+Projects:
+---------
+Given below are some major tasks that no one has yet considered doing. If you
+are interested in having these done, you will get our blessings :-). You will
+also get our full support while taking up these projects. Please subscribe
+to our development mailing list if you want to discuss these further.
+
+Some helpful links that will give initial guide are:
+- HACKING: http://anjuta.org/hacking
+- API docs: http://anjuta.org/documents/libanjuta/
+
+gtranslator plugin for Anjuta:
+------------------------------
+gtranslator is a software used by translators to edit and update .po files,
+which are localization files in a project. This plugin will be responsible
+for integrating gTranslator in Anjuta DevStudio. The implementation will
+closely follow the way we have integrated DevHelp in Anjuta.
+
+The first task involves collaborating with gtranslator developers to have
+gTranslator in form of a library that will provide all the neccessary widgets
+to be embeded in Anjuta. The approach would be to segregate all UI (menus and
+toolbars) controls from the main engine. The main engine (library) should
+contain only the main widgets and API for their interaction with the UI and
+themsleves. gTranslator executable will itself use this library and implement
+the UIs within.
+
+Once that has been done and neccessary library interface has been created
+in gTranslator, we can move ahead with creating the actual Anjuta plugin. If
+gTranslator library creation is done properly, the Anjuta plugin should
+not involve much work, because the only thing that matters at this point is
+to wrap the library with our own UI and embed the widgets in Anjuta Shell.
+Much of this can be easily understood from existing plugins (e.g. devhelp
+plugin).
+
+Links:
+- gtranslator: http://gtranslator.sourceforge.net/
+
+conglomerate integration
+------------------------
+conglomerate is a nice application for editing xml files, such as docbook
+articles and book. In anjuta, it will be particularly helpful to write
+software documentations. Integrating it will pretty much follow the same
+approach as with devhelp and gtranslator.
+
+Links:
+-http://www.conglomerate.org/
+
+Users manual, tutorials and FAQ update:
+---------------------------------------
+This is a non-technical work, but is an extremely important part of Anjuta
+project. We used to have a very handy users documentation in
+Anjuta 1.x series, but they are no longer useful for Anjuta 2.x series.
+The task envolve getting familiar with Anjuta 2.x operation and updating the
+existing documents. The documents are written in docbook sgml format. So,
+in addition to being able to write good english and having some basic
+programming/development skills, one must also be familiar with writing sgml
+documents. Screenshots should be taken with default GNOME theme with shadow
+drops. Uneccessary screenshots that could be effectively explained in text
+should be avoided as much as possible.
+
+For compiling FAQ (frequently asked questions), one needs to research Anjuta
+mailing lists, bugzilla discussions and forums to identify repeated questions
+and answers that would qualify for FAQ.
+
+Glade3 Integration:
+-------------------
+We already have glade3 integration in anjuta working.
+The improvements involve interfacing it with anjuta glade plugin for
+signals navigation, stubs creations and project files negotiations.
+
+Signals navigation" means when user selects a signal in glade properties editor,
+Anjuta automatically brings up the implementation of that signal in its editor.
+This can be accomplished with SymbolBrowser plugin in anjuta, that keeps tab
+on all symbol updates in the project. Using the signal handler signature,
+Anjuta glade plugin can take help of symbol-browser plugin to find the location
+of function definitions in the project.
+
+"Stubs creation" means when the user adds new signals, Anjuta glade plugin
+automatically creates the stub for the signal handler using gtk signal
+introspection. The signal prototype can be identified with the introspection.
+Where and how the stubs are added in project is a matter of dissussion.
+
+"Project files negotiation" means when user adds file via glade (e.g. images
+in dialogs), glade will notify anjuta to add the file in project and give
+a change to relocate it within the project. Anjuta needs to handle this
+request and add the files in project (possibly prompting user for relocation).
+Anjuta also needs to make sure glade is able to find them later.
+
+Links:
+- Glade3: http://glade.gnome.org/todo.html
+
+Implement preferences as interface:
+-----------------------------------
+Currently all plugins register their preferences at activate time. This has
+the obvious performance issue of unneccessarily overloading plugin activation
+It can stack up significantly when lots of plugins are activated simultaneously.
+We want to get rid of this and only construct the preferences pages at
+request time.
+
+Define a IAnjutaPreferences interface with construct() method (in addition
+to other related methods) in it. Then implement this interface in all plugins
+having preferences. Initialize the plugin preferences in construct method,
+instead of what currently is been done in activate_plugin(). Then when user
+activates Settings->Preferences, find all "loaded" plugins that implement
+IAnjutaPreferences and call construct() on them. Display the newly constructed
+preferences dialog. Destroy the preferences dialog when it is closed.

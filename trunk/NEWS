@@ -1,0 +1,1149 @@
+Anjuta 2.3.0 (31 Oct 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Support for GError in interfaces.
+* Big improvements in debugger.
+* On demand preferences dialog (faster startup) and moved to Edit submenu.
+* Moved plugins and shortcuts settings inside General preferences page.
+* Move preferences menu from Settings to Edit submenu.
+* Got rid of Settings submenu.
+* Updates for glade-3 recent releases.
+* Sort preferences pages on title.
+* Introduced document-interface and reorganized documents handling such
+  that documents tab can now hold any 'document' and not just editors.
+* Glade files are now opened as documents, so they behave just like editors.
+* Do not display registers list if not available
+* Big fixes in glade plugin.
+* Fixed lots of memory leaks (thansk valgrind)
+* Change the address of FSF in various files
+* Cleaned up message view (#458041)
+* Cleaned up message view
+* Removed some deprecated widgets.
+* New and better (uses gnome-vfs) file-manager plugin
+* Big improvements in autocompletion, both in scintilla and sourceview editors.
+* Whole lot of new icons for toolbars and plugins.
+* Added preference option to set the gdl switcher style
+* Function tooltips are finally supported in sourceview.
+* Added nicer icons for document manager and debugger.
+* New incremental "Quick Search" bar in the document manager
+* Improvements in plugin framework.
+* Added API for commands override in build interface
+
+Bugfixes:
+=========
+
+* Fixed anjuta-plugin project wizard
+* Fixed selection management in sourceview
+* Fixed incremental search
+* Fixed #427390 – Show path of item in currently focused editor window
+* Fixed #458034 – Method of indicating unsaved changes breaks convention
+* Fixed #343522 – Unable to execute commands that use options.
+* Fixed #466031 – Update of pieces of menus for Localization
+* Show an error dialog instead of crashing when plugin loading fails
+* Clean up debugger queue
+* Many small code, warnings and leak fixes
+* Fixed #440637 – Search, don't work very well
+* Fixed #478238 – set env for execute programe in the terminal
+* Fixed #479020 – Use of old open file dialog instead of GtkFileChooser
+* Fixed #427104 – No "highlight" of lines matching find-result
+* Improved (programming) language management.
+* Fixed #480851, disconnect save_session signal when plugin is unloaded
+* Moved indent code to it's own plugin.
+* Fixed #478987 – Unusable 'Indent setting window' on preferences
+* Fixed #477976 – Keybinding in run dialog
+* Fixed #482067, escape project wizard user defined strings
+* Fix several crashing bugs (including bug#482985) with the debugger
+  when closing project, stopping the debugger, restarting the program
+* Scroll to selected executable and remember it across sessions
+  (followup of #477976)
+* Fixed #357544 – incremental search should work consistently (or not at all) 
+  when main toolbar is hidden
+* Bug 440637 – Search, don't work very well (partly for incremental search)
+* Use the same marker for 'important' in sourceview editor as
+  gedit (yellow background)
+* Correction to various search-related issues
+* Move glade properties widget into center because it is way to big for
+  the sidebar
+* Added preferences to file-manager.
+* Fixed crash when closing a project and unloading another while
+  the debugger is enabled
+* Fixed #487854 – Anjuta crashes when i try to add a SVN url
+* Remove maximum gdb command length, should fix bug#474811
+* Fix #488061: Mutiple crash dialogs
+* Fixed the language supprt loading unloading stuff.
+* Added some separators to the toolbar
+* Fixed #487683 – undefined operations in libegg/eggtreemodelfilter.c
+* Bug 489798 – Do not rely on svn-config
+
+.. and others
+
+Anjuta 2.2.2 (23 Oct 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Fixed #477976 - Keybinding in run dialog
+* Fixed #427104 - No "highlight" of lines matching find-result
+* Fixed #479020 - Use of old open file dialog instead of GtkFileChooser
+* Fixed #478238 - set env for execute programe in the terminal
+* Update EggRecent (#456465)
+* Fixed #466031 - Update of pieces of menus for Localization
+* Fixed #343522 - anjuta: Unable to execute commands that use options.
+* Improved incremental search (still sucks) and selection management in
+GtkSourceView editor
+* Fix bug#487112, crash while removing a breakpoint in a new file
+* Fix bug#486597, crash when gdb is not installed
+* Fix bug#482067, escape project wizard user defined strings
+* Fixed #477976 - Keybinding in run dialog
+* Fixed #427104 - No "highlight" of lines matching find-result
+* Fixed get_current_word (useful for API help)
+* Fixed #487854 - Anjuta crashes when i try to add a SVN url
+* Fixed #474811 - Anjuta crash while debugging into variable
+* Fixed #488061 - Mutiple crash dialogs
+* Show error dialog instead of crashing when plugin loading fails.
+* Fixed glade-3 3.3.2 build compatibility.
+* Fixed #488928 - Do not register glade plugin if it wasn't built.
+ 
+Anjuta 2.2.1 (06 Sep 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Fixed lots of memory leaks (thanks valgrind)
+* Fixed crasher on shutdown
+* Avoid an endless loop if clearing all breakpoints while the programm
+  is running
+* Fixed help activation (bug #451557).
+* Fixed compiler warnings.
+* Fixed #423467 (View->Tasks menu items are not checked on startup)
+* Fixed anjuta-plugin template plugin by moving the "\" out of the [IF] block
+* Fixes bug #433552: crash in Anjuta IDE: add file test.h in project on
+  generic Makefile.
+* Disables 'Add to project' in wizards for projects that can not add sources.
+* Fixed bug #450217: Refreshing tree brings to random crashes
+* Fixed bug 453931 - crash in Anjuta IDE: Trying some c++ exampled
+* Fixed bug 457093 - crash in Anjuta IDE: just typed in some text
+
+Anjuta 2.2.0 (25 June 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Autocompletion in gtksourceview editor.
+* Allow/remember target specific options in profiler plugin.
+* Allow selecting independent executable target for profiler.
+* Fixed class generation templates.
+* Updated users manual.
+* Updated faqs.
+* Simple support for building and executing inside scratchbox.
+* Use progressbar instead of messages for system tags creation.
+* SDL project template for project wizard.
+* Be able to forget previously selected plugins from query dialog.
+* Fixes in loading project
+* Build fixes for some platforms.
+* Fixed lots of bugs, both stability and usability bugs (see below).
+
+Translation updates:
+====================
+es.po, gl.po, ja.po
+
+Bug fixed
+=========
+#306968 After a time of write (may be the program make a auto-save), if you try to save the program detect a more recent version in the file vs. the buffer.
+#310577 Chosen plugins aren't kept after application is closed
+#314277 Option for Anjuta 1.x style project files
+#315635 There's no SDL wizard...
+#315983 Mac OS 10.3/Darwin support
+#320192 Shared library targets compiled as executables
+#346207 task manager doesn't repaint- anjuta 2.0.2
+#350003 crash when doing file->new
+#355151 drag/drop into editor window should open file
+#355166 in Find dialog, Search Expression combo list is always empty
+#358560 segfault while trying use scinilla editor
+#362372 Problems with Help->About and a warning when creating a new file.
+#371406 Anjuta 2.0.2-8 hangs on startup
+#377461 don't create new message window for each build/find
+#390990 Anjuta errors out when attempting to create generic C project
+#393680 huge icon on the files pane for .anjuta files
+#395362 Tagmanager crashes on update - Probably because of project reload
+#397881 The credits are empty
+#400572 Anjuta crashes on file pane refresh
+#403502 User should also be allowed to select an independent executable target
+#403503 Incorrect use of AnjutaPreferences. Use AnjutaSession instead
+#412186 crash in Anjuta IDE: Crash on initial app. st...
+#417372 Scintilla Editor Crash
+#418448 crash in Anjuta IDE: I just installed Anjunta...
+#424121 anjuta Cygwin fixes
+#424845 crash in Anjuta IDE: I was closing a project ...
+#427101 Compiler reports various warnings about sloppy code
+#427395 Typo in configuration GUI
+#427399 Typo in configuration GUI
+#427406 Subversion plugin won't stay unloaded in new session
+#427410 Enable changiing of editor for a project
+#427702 Creating a static ou dynamic library
+#428032 Crashes when removing "other files" sub-tree
+#437466 Implement IAnjutaEditorAssist interface
+#437688 crash in Anjuta IDE: closing project
+#437689 when i generate a new c++ class it ask me to reload the file cpp
+#437960 crash in Anjuta IDE: trying to start anjuta
+#438878 Using gtksourceview editor for the first time has black background
+#439710 Use G_DEFINE_TYPE parent_class global variable
+#440196 crash in Anjuta IDE: removing a target (other...
+#440370 Symbol browser doesn't jump to definition
+#440585 Crash on opening source file
+#440801 config.h should not be included in libanjuta public header
+#440866 Anjuta aborts with numerous assertion failures when adding a new message view tab
+#442038 Makefile-Project Wizard always fails
+#442314 Autogeneration fails when there is no autogen.sh
+#442315 After calling configure, the build menus are still insensitive
+#445171 Build Failure on Slackware-11.0/Garnome: missing #include <sys/types.h>
+#445707 undefined symbol: glade_project_get_changed
+#447304 Souceview system default font should used fixed font (one used for terminal)
+#447655 C keyword must NOT be localised
+#448034 Anjuta crashes on starting
+#448053 Crash on deactivating
+#448408 crash in Anjuta IDE: Trying to change the edi...
+#448491 Empty Lines Problem
+
+Anjuta 2.1.3 (11 May 2007) -- Naba Kumar
+----------------------------------------
+
+Changes:
+========
+* Fixed glade plugin build against glade3 svn trunk
+* Fixes for sun cc compiler
+* Fixes for cygwin
+* Debugger fixes
+* Icons for build messages.
+* Enabled makefile based projects (not fully working)
+* Resolved namespace conflicts
+* Better templates for GObject class generator.
+* Fixes to editor life-cycle
+* Support for shared library in new project templates.
+* Fixes subversion build.
+* New django project template
+* New minimal and flat project template
+
+Translation updates
+===================
+dz, hu, ja, de, gl, ar, en_GB
+
+Bugs fixed
+==========
+#346355 search in project files don't work the first time
+#355145 makefile-based projects are broken
+#359399 Anjuta crash, I don't know (remember) why
+#378193 Find in Files for empty string hangs Anjuta
+#397505 code errors reported by compiler
+#397509 Close project menu-item is disabled when no project file is open
+#406963 File > New > Glade File does nothing
+#409412 crash in Anjuta IDE: Changing font preference...
+#417875 Use G_DEFINE_TYPE in plugins:class-gen
+#417918 Use G_*_DECLS macro in Header_c maco
+#419008 Does not use prefence set e-mail
+#419036 Only one hyphen is replaced by underscore in macros
+#422143 Crash when loading multiple files or several files quickly
+#423680 sun cc can not compile anonymous union
+#423682 sun cc can not compile with zero subscript
+#423727 sun cc can not compile with inline function can not use static function
+#423730 build fail on different return value of function anjuta_launcher_get_child_pid
+#423733 build fail on solaris: missing header files in anjuta-utils.c
+#423737 build fail on solaris: can not find lib util
+#423768 compile fail on plugins/class-gen/window.c: void function cannot return value
+#423772 compile fail on plugins/class-inheritance/class-inherit.c: invalid cast expression
+#424121 anjuta Cygwin fixes
+#424845 crash in Anjuta IDE: I was closing a project ...
+#425850 anjuta crashes on import project from existing sources
+#426701 can not find subversion --with-svn-include
+#427395 Typo in configuration GUI
+#427399 Typo in configuration GUI
+#430401 Anjuta crash when closing file when debugger active
+#433070 [Patch] Run gtk-update-icon-cache in uninstall-hook
+
+Anjuta 2.1.2 (28 March 2007) -- Naba Kumar
+------------------------------------------
+
+New: Plugin profiles. Each project and user session would remember their plugins.
+New: Improvements and clean up of icons.
+New: API docs improvements.
+New: Translatable strings cleanups.
+New: Display program counter and breakpoints in disassembly view
+New: Add markers in the disassembly view
+New: Display function name in disassembly view
+New: Segmentated toolbars for added configurability. Store and restore toolbar states.
+New: Several stability improvements in debugger and others.
+New: Improved local tags navigation
+New: Fixed/improved global/project tags navigation (highlighting, autocompletion, calltips work now)
+New: Improved gtksourceview editor component.
+New: Improved autoindentation
+New: Add a window displaying all threads in debugger
+New: Several improvements in debugger navigation.
+New: Improved prepare changelog tool script
+New: Improved docking strategy. No more docking anomalies when enabling new plugins
+
+Translation updates
+===================
+gl, en_GB, dz. hu, ca
+
+Bugs fixed
+==========
+#306971 The auto-ident in swich/case doesn't work in an intelligent way (the best is for version 1.2.x series)
+#355155 Goto / Matching Brace does nothing
+#357541 can't launch Anjuta project file from Nautilus
+#360462 Avoid markup in translatable messages
+#374709 Anjuta Crash activating devhelp plugin
+#377483 don't display "D" beside each directory in Files view
+#378927 allow switching threads in debugger
+#387208 [Patch] Add custom file-manager ignore pattern support
+#392904 Disassembly view navigation is uncomfortable
+#394709 symbol browser preference window is does re-size correctly
+#397981 Automatic indentation does not work in some cases
+#398035 Project manager templates are not localized
+#398985 File symbol list as a combo box is useless. It should just be a button with popdown
+#402774 No button at Empty Log message
+#403514 Double clicking on the function names does not do anything
+#407115 debugger crash on right-click on a frame in stack trace pane
+#407314 build breakage in class-gen plugin
+#407473 refresh dialog appears after saving a file
+#408218 cass-gen is setting gtk.entries with null 'name' and 'email' values
+#409176 Create Tags produces "The anjuta-tags utility is not installed. Please install it."
+#409216 crash periodically
+#409410 crash in Anjuta IDE: Right click in the sourc...
+#409592 crash in Anjuta IDE: I closed the application...
+#411377 Build breakage in profiler plugin
+#411623 GLIB_REQUIRED should be 2.12
+#412186 crash in Anjuta IDE: Crash on initial app. st...
+#417612 GNOME Goal #3: Remove "Application" category from .desktop files
+#418174 toolbar size
+#418448 crash in Anjuta IDE: I just installed Anjunta...
+#421525 Locals view does not update when stack frame is changed
+#421529 Disassembly view is not updated when strack frame is changed
+#423111 Wall can not build with sun cc
+#423270 crash in Anjuta IDE: Crash on adding a new tool item
+
+Anjuta 2.1.1 (11 Feb 2007) -- Naba Kumar
+----------------------------------------
+
+New: gprof based program profiler plugin.
+New: Several improvements in debugger plugin.
+New: Several improvements in editor plugins.
+New: Enabled integrated devhelp now that it works.
+New: Use pixmaps for editor markers.
+New: Several minor improvements.
+
+Translation updates
+===================
+* en_GB, sv, ja, Swedish translation of manual.
+
+Bugs fixed
+==========
+#335235 python programs are not executeable/ do not start when pr...
+#335981 Migration from popt to GOption
+#340618 Application wizards should use gtkmm-2.4 API
+#355160 show debug toolbar without debugger plugin => crash
+#357997 add a new project variable => crash
+#374709 Anjuta Crash activating devhelp plugin
+#394216 No indication of subversion commands running
+#395875 upon startup i get this big fat warning -- crash when add...
+#398067 plugin.in files are not localized
+#398930 Set alignment in the tab page header widget
+#398991 Anjuta manuals does not use the gnome-doc-utils format
+#400833 Changes in libgladeui ABI
+#404561 xml and xsl editing is not possible
+#397406 Class files are not created in the right directory
+#394184 [Bounty] Test and fix all project wizards templates
+#359478 Bounty: Gprof performance profiler plugin
+#403501 Proper handling of parsing error
+#403515 When a target is selected, the profiler widget should be ...
+#391728 Program crashes when accepting save directory.
+#378600 indicate debugger state
+#392537 Starting debugger is very confusing: UI suggestions
+#395808 breakpoints don't seem to work
+#404755 Multiple instances of debugger views
+#406113 debugger crash on 'Run/continue'
+#376404 show current line arrow only when debugger running
+
+Anjuta 2.1.0 (14 Jan 2007) -- Naba Kumar
+
+New: Debug manager and gdb plugins.
+New: Disassembly window in debugger.
+New: C++ and gobject class wizard.
+New: Mime icons in editor tabs.
+New: Improvements in project templates.
+New: C++ and java indentation plugin.
+New: Save prompt implemented for unsaved data.
+New: Documentation updates, both API and users manual.
+New: Improvements in glade-3 integration.
+New: Many other improvements.
+
+Translation updates:
+====================
+ar, en_GB, hu, en_CA, nb, es, gl, ca, fi, ru, ne, de, ja
+
+Bugs fixed:
+===========
+#396571 Anjuta crashes as soon as editing starts in normal text files.
+#395362 Tagmanager crashes on update - Probably because of project reload
+#377477 when debugging, scintilla editor grays out all lines before current line.
+#342717 Build errors redisplayed AFTER a successful build.
+#167534 Multiple errors in strings
+#168274 anjuta creates an empty system.tags file
+#168301 the new project druid should be center on the anjuta window
+#169068 Unclear new strings, with misspellings
+#169137 Missing spaces from changed strings
+#169138 Spelling error in modified string
+#169139 Missing spaces from changed string
+#170406 problem when creating a new projects
+#170467 crash when changing fonts and color in the preferences dialog
+#172666 cvs diff does not always obtain full diff
+#173048 library selection plugin
+#300228 Ctrl + S intermittent behaviour
+#300229 Replace button fault
+#300231 Find pane non-functional
+#301054 Help window not docked - Anjuta closes when Help window is closed.
+#304495 Project saved as fullscreen
+#304515 can not edit project properties
+#304523 Crashes while importing a project
+#304641 Can't type the "-character
+#304650 make -j CPUS doesn't always work for anjuta2
+#304651 Restoring the project doesn't restore the cursor location of the files
+#304652 Possibility to set breakpoints in libraries that will be dlopen()'ed
+#304829 questions on use anjuta 2.0
+#305076 anjuta 2.0.0: edge column editor preference not functionnal
+#305299 Error in anjuta.desktop file
+#305301 In menu tree "Settings"->"Customize shortcuts" there are two lines "Task In menu tree "Settings"->"Customize shortcuts" there are two similar lines "Task manager"
+#305303 Error while installing anjuta-devel rpm package
+#306085 Keybindings are not saved.
+#306187 bad definition of PACKAGE_LOCALE_DIR
+#306474 The ordering of the buttons in the file open dialog is reversed.
+#306582 Anjuta crashes when typing "std::"
+#306790 doble click in a message, doesn't find the file.
+#306966 Search tool on the tool bar don't work correctly
+#306970 The order of the command buttons "Close" - "Search" - "Stop" in the Search Dialog, is useless; the sugestion is: "Search" - "Stop" - "Close"
+#307800 Crashes when project directory removed from command line.
+#307810 Can't configure a project after creating with new project wizard
+#307872 Remember Configure and autogen options for the next time
+#307886 Activated plugins not remembered
+#308007 Bad interpreter in global-tags/create_global_tags.sh
+#308870 Glade Plugin Won't open Glade file.
+#309153 code cleanup use glib/gi18n.h
+#309154 gnome_color_picker is deprecated
+#309348 Anjuta 2.0.1, Anjuta application crash upon build (F9)
+#309688 When committing a file that is loaded, I get a file-modification warning
+#311420 Crash on terminal deactivation
+#311948 some strings untranslatedable Preference dialog
+#312227 Crash when selecting debug command
+#312566 Patch that will fix another make -j 10 problem
+#312666 Return "F3" to execute project
+#314069 Window gets hidden when using glade3 plugin
+#315188 Project Wizard Problems
+#315218 anjuta 2.0 freeze on opening my project
+#315521 Failed to compile HEAD-hourly-2005-09-05-18
+#316731 Can not add new encodings
+#317454 Anjuta crash when array lenght is incorrect
+#320191 It's a chore adding/removing files and setting up targets
+#320338 Colors of tab menu labels
+#320341 Critical error in debugger "locals" window.
+#321090 Wrong array/struct/union var type display in locals windows
+#321455 Ask for root password when installing
+#322634 anjuta_ui_add_action_group_entries : Anjuta Developers Reference Manual incorrect
+#322744 New anjuta plugin project configured incorrectly
+#323591 Data lost, two tab of the same file
+#324572 anjuta crashes on open
+#328209 Crash when opening a file while an unsaved new file is open
+#332084 Anjuta crashes, when Ctrl+c is pressed.
+#332161 Test editor not opening
+#332954 No read permission for: file:///usr/share/anjuta/profiles/default.anjuta
+#333601 GPL headers are first to c-header template.
+#333606 Macro contain hyphen
+#334546 No more lookup widget
+#334663 Allow to set a parent class to new GObject class
+#335142 crash when opeing a second file
+#335981 Migration from popt to GOption
+#336389 Should check for libwnck
+#339296 Wizard can't cope with insufficient permissions in project target directory
+#341359 Search function doesnt doing their job.
+#341997 The 'Tree' tab in the symbol-browser is not type-to-search able
+#342352 Can't close file which in not the current editor
+#342375 configure doesn't check for g++
+#342401 Compile fix when NLS is enabled
+#342447 Crash when using the live-search-entry
+#342937 crash after accepting Reload Warning Dialog
+#343023 make gives strange error
+#344015 on_build_mesg_format prepends an absolute path with the current dir
+#344099 valgrind plugin is not built
+#346295 Crash when removing breakpoint
+#346450 Crash when removing all breakpoints
+#346575 data loss when disk is full
+#346775 No highlight styles to edit are shown in the preferences dialog in anjuta
+#347412 crash when opening file with sourceview plugin
+#347414 Stack trace window
+#349374 Compilation on FreeBSD 6.1
+#351387 don't use Alt+key combinations for shortcut keys
+#355148 title bar should show name of active project
+#355149 Anjuta should warn if I try to exit with unsaved edits
+#355156 plugins window should sort plugins alphabetically
+#355168 color selection is broken in messages preferences
+#355407 The create_global_tags script doesn't find the anjuta-tags bin
+#357151 a + character in a directory name confuses anjuta
+#357534 syntax coloring fails and breaks selection display
+#357537 allow double click in plugin selection dialog
+#357542 Anjuta Plugins window is too narrow
+#357546 add keyboard shortcut for toggling breakpoint
+#358009 activating stack frame in debugger should also jump to source
+#358068 indicate when Find in Files is complete
+#358134 Goto Address command should prompt more clearly
+#358163 debug Inspect/Evaluate dialog leads to crash
+#358583 close any project => crash
+#359118 Anjuta crashes when trying to open "src folder" after finishing creating/loading a project
+#359259 highlight modes listed in reverse alphabetical order
+#359317 can't load debug manager
+#359663 make line highlighting optional in GtkSourceView editor
+#359730 Anjuta can't launch help files
+#359750 fix find/replace shortcut keys
+#359862 Bounty: Improve class wizard
+#361830 AboutDialog does not close
+#363884 CVS head of 21/10 doesn't compile
+#363953 create_global_tags.sh contains bash-ism
+#364133 There are some GTK+ warning caused by document-manager plugins
+#364135 Incorrect widget removed from notebook if call to anjuta_preferences_dialog_remove_page are not in LIFO
+#364137 The valgrind plugin can cause anjuta to crash
+#364142 Valgrind plugin crash when unloaded
+#364144 There is a warning when closing and reloading a plugin using the symbol-browser plugin
+#364179 Usage of srcdir and argv fields of vg_action object is incorrect
+#364754 Subversion plugin doesn't compile with apr 1.2.X
+#364755 Glade plugin crashes on anjuta exit
+#364801 Unable to edit glade windows in fullscreen mode
+#364900 Warning during compilation of valgrind plugin
+#364903 Memory leak in valgrind plugin
+#369030 create_global_tags.sh has some errors
+#374665 Bounty: Use class macros for type casting in all plugin classes
+#376031 [PATCH] CVS command file entry dialog show only directories
+#376335 menu items should be capitalized
+#377027 crash after unloading Terminal plugin
+#377043 Intltool-update -m complains about missing files from POTFILES.in
+#377061 close project while debugging => Anjuta hangs
+#377767 resize crashes window manager in gnome
+#377903 improve message color defaults
+#378850 double clicking breakpoint should jump to its source
+#378871 Debug / Info command problems
+#378879 several command names need ellipses
+#383319 GLADE_PROJECT_VIEW_TREE error with glade 3.1.2
+#385597 Closed one project and attempted to open another
+#388727 Block-tab does not work
+#388731 Odd editor behaviour after performing block-text operations
+#389764 Tags search do not retrieve all matching symbols
+#392290 Missed install as root option in project manager
+#392699 Some patches are necessary to build anjuta on NetBSD 3.0
+#393680 huge icon on the files pane for .anjuta files
+#394218 Signals list view in gobject class creation tab does not scroll horiz.
+#395767 when selecting a GTK+ project the sample files generated do not compile
+
+Anjuta 2.0.2 (15 May 2006) -- Naba Kumar
+
+New: GtkSourceView based editor
+New: Project configuration
+New: Valgrind plugin
+New: Tab drag&drop in Editor
+Updated: Manual and FAQ
+
+Improved: global tags can now be updated after installation
+Improved: Remember toolbars on restart
+Improved: Tag manager now knows about classes/namespaces which
+should make C++ programming much more easy (IComplete)
+Improved: Devhelp plugin improved but we still have linking problems
+Improved: Scintilla is now up-to-date 1.68
+
+Known issues:
+- Glade plugin crashes because of namespace conflict with libglade (#341073)
+- Devhelp plugin cannot be loaded without setting the correct LD_PATH (#341170)
+
+Bug fixes:
+#171314		Anjuta crash when trying to do "stream comment"
+#311420 	Crash on terminal deactivation
+#317454 	Anjuta crash when array lenght is incorrect
+#332084 	Anjuta crashes, when Ctrl+c is pressed.
+#170467 	crash when changing fonts and color in the preferences di...
+#172442 	inserting empty box comment
+#172666 	cvs diff does not always obtain full diff
+#300231 	Find pane non-functional
+#304495 	Project saved as fullscreen
+#304641 	Can't type the "-character
+#305082 	anjuta 2.0.0: crash in debugger / watch / inspect memory
+#305301 	In menu tree "Settings"->"Customize shortcuts" there are ...
+#305587 	gtkmm project compile crash
+#306790 	doble click in a message, doesn't find the file.
+#306966 	Search tool on the tool bar don't work correctly
+#306970 	The order of the command buttons "Close" - "Search" - "St...
+#307800 	Crashes when project directory removed from command line.
+#307810 	Can't configure a project after creating with new project...
+#307872 	Remember Configure and autogen options for the next time
+#307879 	Crashed when exiting
+#308870 	Glade Plugin Won't open Glade file.
+#309153 	code cleanup use glib/gi18n.h
+#309348 	Anjuta 2.0.1, Anjuta application crash upon build (F9)
+#309526 	Help->ReportBugs points to removed bug tracking system
+#309688 	When committing a file that is loaded, I get a file-modif...
+#311710 	freeze in __lll_mutex_lock_wait () after crash?
+#312566 	Patch that will fix another make -j 10 problem
+#312666 	Return "F3" to execute project
+#314069 	Window gets hidden when using glade3 plugin
+#315188 	Project Wizard Problems
+#315218 	anjuta 2.0 freeze on opening my project
+#315521 	Failed to compile HEAD-hourly-2005-09-05-18
+#316731 	Can not add new encodings
+#320338 	Colors of tab menu labels
+#320341 	Critical error in debugger "locals" window.
+#321090 	Wrong array/struct/union var type display in locals windows
+#321455 	Ask for root password when installing
+#322634 	anjuta_ui_add_action_group_entries : Anjuta Developers Re...
+#322744 	New anjuta plugin project configured incorrectly
+#324572 	anjuta crashes on open
+#328209 	Crash when opening a file while an unsaved new file is open
+#332161 	Test editor not opening
+#333601 	GPL headers are first to c-header template.
+#333606 	Macro contain hyphen
+#334663 	Allow to set a parent class to new GObject class
+#335142 	crash when opeing a second file
+#336389 	Should check for libwnck
+#107510 	Excessive messages marked for translation in anjuta
+#304650 	make -j CPUS doesn't always work for anjuta2
+#334546		No more lookup widget
+#312319 	Opening files when Anjuta is already open
+#339296		Wizard can't cope with insufficient permissions in project target directory
+
+Anjuta 2.0.1 (26 Jun 2005) -- Naba Kumar
+
+New: Group and target properties (for automake based projects)
+New: Improvements in class heirarchy. Added members view.
+New: Tools plugin improvements and scripts as tools.
+New: Prepare-ChangeLog tool.
+New: Find-Fixmes tool.
+New: Project translation status tool.
+New: Save and restore editor current line positions.
+New: Added configure flags to enable/disable optional plugins.
+New: Message saving from menu.
+New: Message manager context menu.
+New: Remember plugins profile for project sessions.
+Mew: Progress bar implementation.
+New: Better progress bar in splash.
+New: General preferences page.
+New: "Add to project" in file wizard and class wizard implemented.
+New: glade plugin improvements.
+Updated: RPM spec file
+Bug fix: Fixed lots of project import bugs.
+Bug fix: Group and target removal.
+Bug fix: Fixed Message tab position preferece.
+Bug fix: Scroll messages on next/previous.
+Bug fix: Fixed crash on project Import
+Bug fix: Fixed crash on terminal dockings.
+Bug fix: Fixed crash on exit (after using save-as dialog once).
+Bug fix: Fixed crash on exit.
+Bug fix: Fixed mime installation screw-up
+Bug fix: Fixed installation paths.
+Bug fix: Fixed 64bit arch build problems
+Bug fix: Fixed Autoformat/indent problems.
+Bug fix: Fixed Keyboard shortcuts for message navigation.
+Bug fix: Fixed graphviz build problems.
+Bug fix: Start gdb even if the program does	not exists. Fixes bug #305074
+Bug fix: Fixed default font names and sizes.
+Bug fix: Fixed errors in opening zero sized files.
+Bug fix: Fixed buttons order in open dialog.
+
+Anjuta 2.0.0 (15 May 2005) -- Naba Kumar
+
+Architecture and code base:
+New: New plugin architecture and all IDE components ported to this framework.
+New: Complex docking shell that allows arbitrary docking of IDE widgets.
+New: Dynamic plugin activation and deactivation.
+New: Extensible architecture.
+New: Plugins can interact with other plugins through interface.
+New: Plugins can install dynamic UIs (menus/toolbars), including installing
+	 context menus in other plugins.
+New: Shell and Plugin API documentation.
+
+Integration:
+New: Integrated help system with Devhelp.
+New: Integrated glade UI designer (incomplete).
+
+Editor plugin:
+New: Scope memeber autocompletion (e.g ., -> and :: autocompletion).
+New: Editor split views.
+New: Automatic indentation with tabbing.
+New: More syntax highlighting lexers
+New: Split multiple views of document
+New: Remote editing (full gnome-vfs support)
+New: Real-time file modification monitor.
+
+Project management and build plugin:
+New: Multiple parallel builds and independent debugging and execution.
+New: Synchronous project management (simultaneous manual and automatic management)
+New: Mime based filemanager and desktop integration.
+
+Other plugins:
+New: Task Manager.
+New: Macro plugin allows inserting predefined and user defined texts (macros).
+New: Easily extensible template based project wizards (based on autogen).
+New: Symbol search plugin.
+New: C++ and GObject based class wizard.
+New: Class inheritance diagram plugin.
+New: Subversion plugin (incomplete)
+New: Session management framework.
+Updated: Debuger uses GDB machine-interface.
+Updated: CVS plugin
+Updated: Pretty much everyting.
+
+Anjuta 1.2.2 (13 Apr 2004) -- Naba Kumar
+
+New: Anjuta advanced tutorial
+New: Goes to first error automatically (Default is off. need to enable in anjuta.properties).
+Bug fix: Use build.silent option from preferences (bug #895726)
+Bug fix: Use font style defined for message indicators (bug #885032)
+Bug fix: Set bold color as foreground color in terminal (bug #864924)
+Bug fix: Removed 'cmp' dependency and used internal function to compare files.
+Bug fix: Fixed return value when dest file could not be created.
+Bug fix: Fixed a typo in Hello World indentation style.
+Bug fix: Fixed misuse of translated strings when looking for style (bug #876037)
+Bug fix: Save-all action now asks for filenames for new files (bug #898111)
+Bug fix: Fixed a compiler warnings.
+Bug fix: Disabled printing of long debug lines.
+Bug fix: Close buttons on all dialogs (HIG) and ESC closes them (bug #671596).
+Bug fix: Fixed a program execution crash bug.
+Bug fix: Fixed Crash on Find & Replace (#887833)
+Bug fix: Use defined file name when saving new files (fixes bug #898105).
+Bug fix: Don't change filename when clicking on a directory.
+Bug fix: Implemented keypress ctrl-c and ctrl-d for terminal (bug #878357).
+Bug fix: Do not reload new files (bug #900897).
+Bug fix: Disconnects menuitem signal properly (bug #901723).
+Bug fix: Fixed bugs #890609 and #890609, #900903.
+Bug fix: Fixed a typo in tutorial (bug #866143).
+Bug fix: Reduced size of Search and Replace dialog (bug #902636).
+Bug fix: Fixed a runtime warning (bug #900087).
+Bug fix: Changed build shortcut to F11 (bug #877683).
+Bug fix: Do not defualt to -k make option (bug #875486).
+Bug fix: CFLAGS passed correctly (bug #816130, #801056, #782798, #773459)
+Bug fix: Improved Search and Replace. Fixed crash bug.
+Bug fix: Fixed bug #910097 (Insert comment).
+Bug fix: Find-Usage rework (bug #890609).
+Bug fix: Generated projects read m4 directory. Project generation works. (bug #917781).
+Bug fix: Fixed Find-Usage crash when no project open
+Bug fix: Fixed bug #893400 ("Remove file" in project tree).
+Bug fix: Aligned buttons in the New file dialog and HIG compliance.
+Bug fix: Fixed to get correct child exit status	using mask (bug #905738).
+Bug fix: Goto the first error if it exists (bug #874380).
+Bug fix: Save-all for 1 file opened (bug #912618).
+Bug fix: Fixed conditional breakpoints.
+Bug fix: Fixed debugger calltips displayed for wrong file.
+Bug fix: Fixed delete breakpoints.
+Bug fix: Fixed Breakpoint setting bugs (bug #895536).
+Bug fix: Fixed a crash bug with debugger attach process dialog
+Bug fix: Fixed freeze-ups during build terminations (bug #905738).
+Bug fix: Fixed a memory corruption (bug #921893).
+Bug fix: Open file starts in right directory (bug #908941).
+Bug fix: Fixed another crash bug in Find-Usage.
+Bug fix: Correctly prompts and reponds passwords (bug #894533).
+Bug fix: Fixed 'remove' and 'clear' of Defines list in compiler options (bug #883837).
+Bug fix: Installs .glade file of libgllade projects (bug #861038).
+Bug fix: Glade based projects can now find installed pixmaps (bug #919903).
+Bug fix: Fixed ADA syntax highlighting (bug #923474).
+Bug fix: Fixed HANGUP bug for long lines (bugs #700968 and #911376)
+Bug fix: Fixed core file loading in debugger.
+Bug fix: Partially fixed to show long calltips properly (bug #917982).
+Bug fix: Fixed a crash bug in search replace. (bug #921893).
+Bug fix: Fixed a crash when launcher child could not be executed (bug #926606).
+Bug fix: Fixed a crash bug when opening and closing a large project repeatedly.
+Bug fix: Sets filename when saving new files.
+Bug fix: Most font and print related bugs fixed (bug #885023, #925956, #890473).
+
+Anjuta 1.2.1 (29 Jan 2004) -- Naba Kumar, Johannes Schmid
+
+New: "New File" with some options for newly created files
+Bug fix: #849914, #840159, #864922, #849928, #846386, #845782
+Bug fix: #860906, #859329, #858993, #857605, #878404
+Bug fix: 169058@bugs.debian.org
+Bug fix: compile file works with shell expression like `command` now
+Bug fix: Buildiing on SMP systems
+Bug fix: debugger improvements & cleanups
+Bug fix: Sample file confirms to C++-Standard now
+Bug fix: Use gtk stock icon for editor tabs
+Bug fix: Should builf sucessfully on Slackware 9.1 now (libiconv)
+
+Thanks to Pavol Bosik, Andreas Volz, grzegol@pld-linux.org, Dan Elphick,
+Franco Catrin L and Stefano Vallarino for their patches.
+
+From this release on anjuta has two new development responsibilities
+alongside with Naba Kumar <naba@gnome.org>:
+Jean-Noel Guiheneuf <Jnoel@cvs.gnome.org>
+Johannes Schmid <jhs@cvs.gnome.org>
+
+If you want to support anjuta development please contact the
+list <anjuta-devel@list.sourceforge.net>, more manpower is much-needed.
+You can also make a donation through the SF.net donation system now.
+
+Anjuta 1.2.0 (8 Dec 2003) -- Naba Kumar
+
+Updated: Prompts users for unsaved files during project closing.
+Updated: Added checkbox in wizard to enable/disable glade source generation.
+Updated: Scintilla to version 1.57
+Bug fix: Crash on preferences with other locales.
+Bug fix: Freeze ups during build/debugging with other locales.
+Bug fix: Crash with readonly project files (during saves).
+Bug fix: Breakpoints bug.
+Bug fix: Syntax hiliting bug.
+Bug fix: Avoids error conditions for glade/glademm not found
+Bug fix: Crash on anjuta exit
+Bug fix: Crash on project close with unsaved files.
+Bug fix: Compilation errors with old gcc.
+Bug fix: Fixed debugger malfunctioning with non-english locales.
+Bug fix: Crash bug during import.
+Bug fix: Dnd file drop.
+Bug fix: Setting breakpoints for c++ files works.
+Bug fix: Crash bug to multiple open of same file fixed.
+Bug fix: Enables debug and optimization flags for new projects.
+Bug fix: Fixed pascal highlighting
+Bug fix: Fixed build failure with no 'intl' directory.
+Bug fix: Added filters to find in files.
+Bug fix: Fixed tutorial
+Bug fix: Added horizontal scrollbar to description text in wizard.
+Bug fix: Installs properly even when system.tags file could not be generated.
+Bug fix: Compiler error with old gcc.
+
+Anjuta 1.1.98 rc2 for 1.2.0   (07 Nov 2003) -- Naba Kumar
+
+New: Double click on margin toggles bookmark.
+New: Double click on margin (debugger mode) adds/removes breakpoints.
+New: Single click on margin (debugger mode) enables/disables breakpoints
+New: Find previous added.
+New: Emacs style file modeline in files.
+Updated: Removed 'page setup' item from the file menu.
+Updated: Scintilla (cvs 2003-09-29 -- ver 1.55+)
+Updated: No libzvt dependency (means faster operation).
+Updated: Performance improvements in Editor.
+Updated: Documentations revived in docbook xml format.
+Bug fix: Symbol browser now loads properly for new projects.
+Bug fix: Fixed many compiler warnings.
+Bug fix: Fixed crash bug in Application wizard.
+Bug fix: Fixed crash bug in Project Import.
+Bug fix: Printing in proper UTF8
+Bug fix: Fixed crash bug during project creation.
+Bug fix: Fixed clean-before-build bug.
+Bug fix: Fixed find in files bugs.
+Bug fix: Fixed gettext bug with projects.
+Bug fix: Fixed Autoformat
+Bug fix: Fixed crash bug with 'Add watch expression'
+Bug fix: Fixed debugger freeze ups due to uninitialized strings in target programs.
+
+Anjuta 1.1.97 rc1 for 1.2.0   (26 June 2003) -- Naba Kumar
+
+New: Support for all text file encodings (can be customized in preferences).
+New: Line and word selection menu entries (setting shortcuts possible).
+New: Added *.css files highlighting.
+Updated: Project window and message window no longer always float above the main window.
+Updated: Reorganized messages tabs in more sensible order.
+Updated: Better 'Customize menu' message.
+Updated: Prompts for 'clean' for modified compiler options.
+Updated: Deprecated GNOME 1.x project wizards. It can still open older projects.
+Updated: Speedier startup (but needs more optimization todo).
+Updated: New splash.
+Updated: Some re-organization and cleanups.
+Updated: Better debugger operations.
+Updated: Better HIG complient dialogs.
+Updated: Many many translation updates.
+Bug fix: Separated -dP and -A flags of CVS update into different options.
+Bug fix: No more file corruption for non-utf-8 encodings.
+Bug fix: Removed references to older automake/autoconf in generated projects.
+Bug fix: Fixed automake errors with old automake in generated projects.
+Bug fix: Tcl/tk properties fix (all keywords will be recognized).
+Bug fix: Red color editor tab for modified files now consistent in inactive state also.
+Bug fix: Backward search works correctly.
+Bug fix: Fixed shell script to properly detect installed *-config files.
+Bug fix: Corrected many project generation codes.
+Bug fix: Fixed compiler errors associated with older gcc.
+Bug fix: Stack trace output can be activated with double-click.
+Bug fix: Properly closes automatic debugger-tip (was very annoying before).
+Bug fix: Properly jumps to correct file/line from build messages.
+Bug fix: CVS dialogs bug fixes.
+Bug fix: Fixed gnome-print, zvt and pcre dependencies in configure and rpm spec file.
+Bug fix: Fixed glade/glade-2 confusion in generated projects.
+Bug fix: Multiple file selection works now.
+Bug fix: Fixed failure in poping up search combo puldown (in main menu).
+Bug fix: And many more critical/non-critical bug fixes.
+Bug fix: Fixed non-working shortcuts (changed to working ones).
+
+Anjuta 1.1.1-beta   (05 May 2003)     -- Naba Kumar
+
+New: Ported to GNOME2:
+New: New Preferences management.
+New: Tools management.
+New: Watch and Backtrace moved to messages pane.
+New: GNOMEVFS based file browser.
+New: Pango fonts in editor (Anti-Aliased fonts).
+New: Project configuration for GUI editor and version.
+New: Advance search and replace (ported from 1.0.x branch).
+Updated: Scintilla 1.51+ (cvs)
+Updated: Session management. It now saves tree states.
+Bug fix: Many
+
+Anjuta 1.0.1:		(xth June 2002)			-- Naba Kumar
+
+New: Auto-complete takes graphics now.
+NEW: Auto-complete automatic.
+New: Per project editor properties
+New: Sub windows now float above main window.
+New: Project version and excluded modules configuration.
+NEW: Errors and warnings indications in editor.
+New: Tools support and tools editor.
+New: Incremental search (like emacs I-Search)
+Bug fix: Printing now takes editor default fonts
+Bug fix: Rpm package fix
+Bug fix: ChangeLog insert uses spaces (instead of tabs)
+Bug fix: Fixed compiler warnings.
+Bug fix: Fixed debug terminal bug
+Bug fix: Disabled gladen to remove the libssl dep.
+Bug fix: brace indentation works properly.
+Bug fix: Wrap-around search
+Updated: Upgraded scintilla to 1.49+
+Updated: Upgraded editor properties and added new properties.
+Updated: Organized plugins
+
+Anjuta 1.0-beta1:	(1st August 2002)			-- Andy Piper
+
+   => Release of Anjuta-1.0-beta1 (beta)
+
+This precedes the final release of Anjuta for the 
+GNOME 1.x platform...
+
+New: CVS support for Projects and individual files,
+     file revisions are displayed in Files pane
+New: Gnome Print support (including syntax colouring)
+New: Patch plugin to apply diffs
+New: Application Wizard support for wxWindows, Xlib, 
+     GNOME2, Gtk2 and libglade2 Projects, plus option for 
+	 dynamic or static libraries as targets in generic Projects
+New: user identity preferences enabling new editor functions
+New: better GNOME integration, now uses configured GNOME URL 
+     handlers
+New: MIME handling
+New: Anjuta kickstart tutorial
+New: automatic expression tips during debugging (hover-and-show)
+New: compilation warning/error navigation from terminal
+New: better find functionality
+New: enhanced file selection widget
+New: enhanced Evolution-style about dialog
+New: Automatic Variable display when mouse hovered on the
+     variable name (in dubugger mode).
+New: Raw memory veiw for debugger (somewhat resembling ghex).
+
+Updated: synced to Scintilla 1.46
+Updated: many usability improvements to the GUI and menus
+
+--------------------------------------------------------------------
+
+Anjuta 0.1.9:   (14th February 2002)		-- Andy Piper
+
+   => Release of Anjuta-0.1.9 (stable)
+   
+New: messages manager rewritten to use notebook tabs
+New: symbol and tag browser fully based on TagManager
+New: embedded terminal window (using zvt)
+New: Project Import Wizard makes it easier to migrate
+     existing projects to Anjuta (experimental)
+New: libglade project type added to the Application
+     Wizard
+New: simple class creator plugin now included
+New: files autosaved before a build
+New: more translations - 21 languages now fully or 
+     partially supported
+
+Updated: new look for the Application Wizard
+Updated: UI enhancements
+Updated: Solaris support improved
+Updated: many, many bug fixes.....
+
+--------------------------------------------------------------------
+
+Anjuta 0.1.8:   (30th November 2001)		-- Andy Piper
+
+   => Release of Anjuta-0.1.8 (stable)
+   
+New: integration of new TagManager library - much improved
+     autocompletion and calltips functionality
+New: multiple file drag-and-drop
+New: ability to save build message output
+New: DOS file (CR/LF) handling
+New: basic plugin hooks added
+New: many new translations - 17 languages now fully or 
+     partially supported
+
+Updated: notebook tabs notify when file has been changed, can be
+         scrolled for browsing
+Updated: improvements to interactive debugger and communication
+         with gdb
+Updated: improved find functionality, better dialogs
+Updated: synced up to version 1.41 of Scintilla, new lexers added
+Updated: new icons
+
+... plus the usual bug fixes and minor feature additions.
+
+--------------------------------------------------------------------
+
+Anjuta 0.1.7:   (21st August 2001)              -- Stephane Demurget
+
+   => Release of Anjuta-0.1.7 (stable) - bug fixes release
+
+Fixed: Two nasty bugs preventing to use the wizards (macros dir copy and
+       src/source.c).
+Fixed: Interface clean up.
+Updated: HACKING, doc, and others
+Updated: french, spanish, turk and japan translations fully up-to-date.
+
+--------------------------------------------------------------------
+
+Anjuta 0.1.6:	(31st July 2001)		-- Nabakumar. 
+
+   => Release of Anjuta-0.1.6 (stable).
+
+New: Class browser and file browser added in the project manager.
+New: GDP standardized docbook documentations.
+New: Anjuta faqs documentation.
+New: New gnomish icon set and splashscreen.
+New: Context sensitive help and gnome api browser
+     (need Devhelp and the dev books to be installed).
+
+Added: Preferences for setting caret and selection colors.
+Fix for gdb version 5.
+Closes all files when project is closed.
+And many big fixes and minor feature additions.
+Translations updated.
+
+Note : the major part of the new project manager has been written but
+it needs time to be integrated and tested. That's why it's not present in
+this release. 
+
+--------------------------------------------------------------------
+
+Anjuta 0.1.4:	(25nd Mar 2001)		-- Nabakumar. 
+
+   => Release of Anjuta-0.1.4 (stable).
+
+Calltips provided for Gnome function prototypes (and standard libraries functions).   
+Fixed project dir creation bug.
+Fixed double accelerators bug.
+Fixed source generation bug.
+Fixed pixmap creation with NULL window.
+i18n bug fix.
+Debugger now takes program args.
+Japanese translation.
+Other minor  bug fixes.
+
+--------------------------------------------------------------------
+
+Anjuta 0.1.3:	(4th Mar 2001)		-- Nabakumar. 
+
+   => Release of Third  version (Alpha)  with lots of bugs.
+   
+New Features in Anjuta 0.1.3:
+-----------------------------
+
+   	=> Anjuta now integrates Scintilla editing component:
+	----------------------------------------------------
+		* Automatic syntax hilighting (using lexers).
+		* Code folding/hiding .
+		* Linenumbers/markers display.
+		* Text zooming.
+		* Text autocompletion
+		* Automatic indentation and indentation guides
+		* ... and much more.
+
+	=> Dynamic Project Management:
+	-----------------------------
+		* Anjuta no longer uses the template based project management.
+		* Provides project configuration.
+		* Added two more modules in project management:
+			(Help module and Translation module).
+		* Added BONOBO support and BONOBO application wizard.
+		
+	=> Java style Properties management:
+	-----------------------------------
+		Now uses Java style properties management. Which makes
+		it highly configurable, both from distributor's and user's side.
+	
+	=> Supports for Other languages added:
+	-------------------------------------
+		* Java, Perl, Python, LaTeX, 
+		... and others can be user configurable.
+		
+	=> On-Board command editor:
+	--------------------------
+		Facilitates customization of commands used
+		for compiling, building and execution.
+	
+	=> Provides Hilite style editor:
+	-------------------------------
+		Used for customizing Syntax hiliting style.
+	
+	=> More intelligent messaging system:
+	-----------------------------------
+		* Now error messages (or messages in general)
+		can be browsed using go to Prev/Next message,
+		goto start/end of block and goto matching braces.
+	
+	=> Bookmarks management:
+	-----------------------
+		Anjuta has now supported Bookmarks
+		management.
+	
+	=> Debugger:
+	-----------
+		* Now breakpoints can be toggled Onboard.
+		* Added Run to cursor.
+		* Fixed some earlier bugs.
+	
+	=> Added Two more toolbars:
+	--------------------------
+		* Browser toolbar for browsing messages,
+		bookmarks and code blocks.
+		* Format toolbar for easy formatting
+		of code statements.
+		
+	=> Application GUI:
+	------------------
+		* Smarter and more informative status bar.
+		* Improved memory to remember Application
+		GUI configuration between sessions.
+
+Thing that I forgot to change:
+------------------------------
+	=> Anjuta Online manual. It's still the old one.
+	so, new users may find it a bit annoying to learn
+	the controls, especially those who are young
+	in programming.
+
+--------------------------------------------------------------------
+Anjuta 0.1.2-beta_2:	(24th Feb 2001)		-- Nabakumar. 
+
+   => Release of 0.1.2 beta2  version  with lesser bugs.
+
+--------------------------------------------------------------------
+Anjuta 0.1.2:	(03rd Nov 2000)		-- Nabakumar. 
+
+   => Release of second version (Beta) with lesser bugs.
+
+   => Minor fixes in Doc files.
+   => Fixed to ignore non-existent dir for blank prj.
+   => More checking in project creation, especially to confirm
+	that the prj file already does not exist.
+   => Now Menu item "Format/Detach current document" is inactive
+        when there is no document opened.
+   => Improved Library settings GUI.
+   => Can now enable/disable added libraries.
+   => Stock libs provided for ease of entry.
+
+--------------------------------------------------------------------
+Anjuta 0.1.1: (01rd Nov 2000)	-- Nabakumar. 
+
+  => Release of first version (Beta) with lots of bugs.
+	
+--------------------------------------------------------------------
