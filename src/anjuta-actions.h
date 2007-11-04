@@ -84,11 +84,11 @@ static GtkActionEntry menu_entries_help[] = {
     N_("Ask a _Question"), NULL,
 	N_("Submit a question for FAQs"),
     G_CALLBACK (on_url_faqs_activate)},
-  { "ActionAboutAnjuta", GNOME_STOCK_ABOUT,
+  { "ActionAboutAnjuta", GTK_STOCK_ABOUT,
     N_("_About"), NULL,
 	N_("About Anjuta"),
     G_CALLBACK (on_about_activate)},
-  { "ActionAboutPlugins", GNOME_STOCK_ABOUT,
+  { "ActionAboutPlugins", GTK_STOCK_ABOUT,
     N_("About External _Plugins"), NULL,
 	N_("About third party Anjuta plugins"),
     NULL}
