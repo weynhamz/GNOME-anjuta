@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD.es\n"
 "POT-Creation-Date: 2007-08-30 23:41+0100\n"
-"PO-Revision-Date: 2007-11-02 09:04+0100\n"
+"PO-Revision-Date: 2007-11-04 20:01+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -337,6 +337,9 @@ msgid ""
 "symbols in the project generated from ctags parser. Double clicking opens an "
 "editor window with the corresponding file and line."
 msgstr ""
+"La <interface>ventana de símbolos</interface> muestra un árbol con los símbolos "
+"disponibles en el proyecto generados desde el analizador ctags. Al pulsar dos veces se abre una "
+"ventana del editor con el archivo y líneas correspondientes."
 
 #: C/anjuta-manual.xml:133(para)
 msgid ""
@@ -374,6 +377,10 @@ msgid ""
 "clicking on such messages will open the file and highlight the line "
 "containing the error."
 msgstr ""
+"Por ejemplo, cuando compila un archivo que contiene errores aparecerán algunos mensajes "
+"en rojo mostrando los problemas y dónde ocurren. Al pulsar dos veces "
+"sobre dichos mensajes se abrirá el archivo y se resaltará la línea que "
+"contiene el error."
 
 #: C/anjuta-manual.xml:163(para)
 msgid ""
@@ -521,6 +528,9 @@ msgid ""
 "guisubmenu><guimenuitem>Insert Macro...</guimenuitem></menuchoice>, then to "
 "press the wanted macro shortcut. <placeholder-1/>"
 msgstr ""
+"Otra posibilidad para insertar un macro es seleecionar "
+"<menuchoice><guisubmenu>Editar</guisubmenu><guisubmenu>Macros</guisubmenu><guimenuitem>Insertar macro…</guimenuitem></menuchoice>, después "
+"pulsar el atajo de teclado sobre el macro seleccionado. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:91(title)
 msgid "Defining Macros"
@@ -595,11 +605,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:139(title)
 msgid "Opening and Saving Files"
-msgstr ""
+msgstr "Abrir y guardar archivos"
 
 #: C/anjuta-manual.xml:151(title)
 msgid "Open File dialog"
-msgstr ""
+msgstr "Diálogo Abrir archivo"
 
 #: C/anjuta-manual.xml:143(para)
 msgid ""
@@ -618,11 +628,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:172(title)
 msgid "Open Multiple File dialog"
-msgstr ""
+msgstr "Diálogo Abrir múltiples archivos"
 
 #: C/anjuta-manual.xml:174(screeninfo)
 msgid "The Open File dialog in multiple-select mode"
-msgstr ""
+msgstr "El diálogo Abrir archivo en el modo de múltiple selección"
 
 #: C/anjuta-manual.xml:164(para)
 msgid ""
@@ -646,7 +656,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:199(screeninfo)
 msgid "The Save As File"
-msgstr ""
+msgstr "Guardar como archivo"
 
 #: C/anjuta-manual.xml:189(para)
 msgid ""
@@ -662,7 +672,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:204(title)
 msgid "File auto save"
-msgstr ""
+msgstr "Autoguardar archivos"
 
 #: C/anjuta-manual.xml:205(para)
 msgid ""
@@ -685,7 +695,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:224(title)
 msgid "File save as overwrite"
-msgstr ""
+msgstr "Sobreescribir archivo al guardar"
 
 #: C/anjuta-manual.xml:225(para)
 msgid ""
