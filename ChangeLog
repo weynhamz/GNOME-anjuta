@@ -1,3 +1,21 @@
+2007-11-04  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/threads.c,
+	plugins/debug-manager/stack_trace.c:
+	Do not display address when not needed
+
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/breakpoints.c:
+	Breakpoints directly connect to debugger signals
+
+	* plugins/debug-manager/watch.c:
+	program-unload signal does not exist used debugger-stopped
+
+	* plugins/debug-manager/queue.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Display error message returned by debugger command
+	Add new error codes
+
 2007-11-04  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/project-wizard/templates/gcj/configure.ac.tpl:

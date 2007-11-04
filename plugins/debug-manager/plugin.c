@@ -488,9 +488,6 @@ dma_plugin_program_unload (DebugManagerPlugin *this)
 		this->signals = NULL;
 	}
 
-	/* Disconnect components */
-	breakpoints_dbase_disconnect (this->breakpoints);
-	
 	/* Update ui */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (this)->shell, NULL);
 	gtk_action_group_set_visible (this->start_group, TRUE);

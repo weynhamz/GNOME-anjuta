@@ -288,7 +288,8 @@ on_list_thread (const GList *threads, gpointer user_data)
 		else
 			pic = NULL;
 
-		if (frame->address == 0)
+		if (((dma_debugger_queue_get_feature (self->debugger) & HAS_CPU) && (frame->address == 0))
+			|| (frame->function == NULL))
 		{
 			/* Missing frame address, request more information */
 			GtkTreeRowReference* reference;
@@ -447,14 +448,18 @@ dma_threads_create_gui(DmaThreads *self)
 	gtk_tree_view_column_set_title (column, _("Function"));
 	gtk_tree_view_append_column (self->list, column);
 	
-	column = gtk_tree_view_column_new ();
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (column, renderer, "text",
-										THREAD_ADDR_COLUMN);
-	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Address"));
-	gtk_tree_view_append_column (self->list, column);
+	if (dma_debugger_queue_get_feature (self->debugger) & HAS_CPU)
+	{
+		/* Display address only if debugger has such concept */
+		column = gtk_tree_view_column_new ();
+		renderer = gtk_cell_renderer_text_new ();
+		gtk_tree_view_column_pack_start (column, renderer, TRUE);
+		gtk_tree_view_column_add_attribute (column, renderer, "text",
+											THREAD_ADDR_COLUMN);
+		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+		gtk_tree_view_column_set_title (column, _("Address"));
+		gtk_tree_view_append_column (self->list, column);
+	}
 	
 	/* Create popup menu */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(self->plugin)->shell, NULL);

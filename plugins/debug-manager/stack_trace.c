@@ -639,16 +639,20 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_set_title (column, _("Function"));
 	gtk_tree_view_append_column (st->treeview, column);
 	
-	column = gtk_tree_view_column_new ();
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_tree_view_column_pack_start (column, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (column, renderer, "text",
-										STACK_TRACE_ADDR_COLUMN);
-	gtk_tree_view_column_add_attribute (column, renderer, "foreground",
-										STACK_TRACE_COLOR_COLUMN);
-	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_column_set_title (column, _("Address"));
-	gtk_tree_view_append_column (st->treeview, column);
+	if (dma_debugger_queue_get_feature (st->debugger) & HAS_CPU)
+	{
+		/* Display address only if debugger has such concept */
+		column = gtk_tree_view_column_new ();
+		renderer = gtk_cell_renderer_text_new ();
+		gtk_tree_view_column_pack_start (column, renderer, TRUE);
+		gtk_tree_view_column_add_attribute (column, renderer, "text",
+											STACK_TRACE_ADDR_COLUMN);
+		gtk_tree_view_column_add_attribute (column, renderer, "foreground",
+											STACK_TRACE_COLOR_COLUMN);
+		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+		gtk_tree_view_column_set_title (column, _("Address"));
+		gtk_tree_view_append_column (st->treeview, column);
+	}
 	
 	column = gtk_tree_view_column_new ();
 	renderer = gtk_cell_renderer_text_new ();

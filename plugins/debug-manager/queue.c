@@ -270,7 +270,6 @@ dma_queue_emit_debugger_ready (DmaDebuggerQueue *self)
 		{
 			anjuta_status_busy_pop (status);
 			self->busy = FALSE;
-			/*g_signal_emit_by_name (self->plugin, "debugger-ready", self->queue_state);*/
 		}
 	}	
 }
@@ -357,6 +356,12 @@ dma_debugger_queue_execute (DmaDebuggerQueue *self)
 			dma_command_free (self->last);
 			self->last = NULL;
 
+			/* Display error message to user */
+			if (err->message != NULL)
+			{
+				anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (self->plugin)->shell), err->message);
+			}
+			
 			g_error_free (err);
 		}
 	}

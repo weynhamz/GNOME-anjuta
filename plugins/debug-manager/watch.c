@@ -210,12 +210,12 @@ on_program_stopped (ExprWatch *ew)
 }
 
 static void
-on_program_unloaded (ExprWatch *ew)
+on_debugger_stopped (ExprWatch *ew)
 {
 	debug_tree_disconnect (ew->debug_tree);
 
 	/* Disconnect to other debugger signal */
-	g_signal_handlers_disconnect_by_func (ew->plugin, G_CALLBACK (on_program_unloaded), ew);
+	g_signal_handlers_disconnect_by_func (ew->plugin, G_CALLBACK (on_debugger_stopped), ew);
 	g_signal_handlers_disconnect_by_func (ew->plugin, G_CALLBACK (on_program_stopped), ew);
 }
 
@@ -227,7 +227,7 @@ on_program_loaded (ExprWatch *ew)
 	debug_tree_connect (ew->debug_tree, ew->debugger);
 	
 	/* Connect to other debugger signal */
-	g_signal_connect_swapped (ew->plugin, "program-unloaded", G_CALLBACK (on_program_unloaded), ew);
+	g_signal_connect_swapped (ew->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), ew);
 	g_signal_connect_swapped (ew->plugin, "program-stopped", G_CALLBACK (on_program_stopped), ew);
 }
 

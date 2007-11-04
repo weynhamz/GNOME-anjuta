@@ -1232,27 +1232,6 @@ breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 	}
 }
 
-static void
-on_breakpoints_dbase_connect (DebugManagerPlugin* plugin, BreakpointsDBase *bd)
-{
-	if (bd->debugger != NULL)
-	{
-		/* Already connected */
-		return;
-	}
-
-	bd->debugger = dma_debug_manager_get_queue (ANJUTA_PLUGIN_DEBUG_MANAGER (bd->plugin));
-	breakpoints_dbase_add_all_in_debugger (bd);
-	g_signal_connect_swapped (bd->plugin, "sharedlib-event",
-				  G_CALLBACK (on_breakpoint_sharedlib_event), bd);
-}
-
-static void
-on_breakpoints_dbase_disconnect (DebugManagerPlugin* plugin, GError* state, BreakpointsDBase *bd)
-{
-	breakpoints_dbase_disconnect (bd);
-}
-
 /* Callbacks
  *---------------------------------------------------------------------------*/
 
@@ -1328,6 +1307,39 @@ breakpoint_enable_disable (GtkTreeModel *model, GtkTreeIter iter, BreakpointsDBa
 						-1);
 		set_breakpoint_in_editor (bi, bi->bp->enable, TRUE);	
 	}
+}
+
+static void
+on_debugger_stopped (BreakpointsDBase *bd)
+{
+	g_return_if_fail (bd->debugger != NULL);
+	
+	breakpoints_dbase_remove_all_in_debugger (bd);
+	bd->debugger = NULL;
+
+	/* Disconnect to other debugger signal */
+	g_signal_handlers_disconnect_by_func (bd->plugin, G_CALLBACK (on_breakpoint_sharedlib_event), bd);
+	g_signal_handlers_disconnect_by_func (bd->plugin, G_CALLBACK (on_debugger_stopped), bd);
+}
+
+static void
+on_program_loaded (BreakpointsDBase *bd)
+{
+	DmaDebuggerQueue* debugger;
+	
+	DEBUG_PRINT("on program loaded in breakpoints %p bd %p", bd->debugger, bd);
+	/* Debugger shouldn't be connected */
+	g_return_if_fail (bd->debugger == NULL);
+	
+	debugger = dma_debug_manager_get_queue (ANJUTA_PLUGIN_DEBUG_MANAGER (bd->plugin));
+	if (!(dma_debugger_queue_get_feature (debugger) & HAS_BREAKPOINT)) return;
+	
+	bd->debugger = debugger;
+	breakpoints_dbase_add_all_in_debugger (bd);
+	
+	/* Connect to other debugger signal */
+	g_signal_connect_swapped (bd->plugin, "sharedlib-event", G_CALLBACK (on_breakpoint_sharedlib_event), bd);
+	g_signal_connect_swapped (bd->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), bd);
 }
 
 static void
@@ -1591,16 +1603,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 /* Public function
  *---------------------------------------------------------------------------*/
 
-void breakpoints_dbase_disconnect (BreakpointsDBase *bd)
-{
-	if (bd->debugger != NULL)
-	{
-		breakpoints_dbase_remove_all_in_debugger (bd);
-		g_signal_handlers_disconnect_by_func (bd->plugin, G_CALLBACK (on_breakpoint_sharedlib_event), bd);
-		bd->debugger = NULL;
-	}
-}
-
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
 
@@ -1609,107 +1611,101 @@ breakpoints_dbase_new (DebugManagerPlugin *plugin)
 {
 	BreakpointsDBase *bd;
 	AnjutaUI *ui;
+	GtkListStore *store;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	int i;
 	
 	bd = g_new0 (BreakpointsDBase, 1);
 	
-	if (bd) {
-		GtkListStore *store;
-		GtkCellRenderer *renderer;
-		GtkTreeViewColumn *column;
-		int i;
+	bd->plugin = plugin;
 
-		bd->plugin = plugin; /* FIXME */
-
-
-		/* Connect to Load and Save event */
-		g_signal_connect (ANJUTA_PLUGIN(plugin)->shell, "save-session",
-					  G_CALLBACK (on_session_save), bd);
-		g_signal_connect (ANJUTA_PLUGIN(plugin)->shell, "load-session",
-					  G_CALLBACK (on_session_load), bd);
+	/* breakpoints dialog */
+	store = gtk_list_store_new (COLUMNS_NB,
+								G_TYPE_BOOLEAN,
+								G_TYPE_UINT,
+								G_TYPE_STRING,
+								G_TYPE_UINT,
+								G_TYPE_STRING,
+								G_TYPE_STRING,
+								G_TYPE_STRING,
+								G_TYPE_UINT,
+								G_TYPE_UINT,
+								G_TYPE_STRING,
+								G_TYPE_STRING,
+								G_TYPE_POINTER);
 		
-		/* Connect on stop debugger and load program */
-		g_signal_connect (plugin, "program-loaded", G_CALLBACK (on_breakpoints_dbase_connect), bd);
-		g_signal_connect (plugin, "debugger-stopped", G_CALLBACK (on_breakpoints_dbase_disconnect), bd);
-		
-		/* breakpoints dialog */
-		store = gtk_list_store_new (COLUMNS_NB,
-									G_TYPE_BOOLEAN,
-									G_TYPE_UINT,
-									G_TYPE_STRING,
-									G_TYPE_UINT,
-									G_TYPE_STRING,
-									G_TYPE_STRING,
-									G_TYPE_STRING,
-									G_TYPE_UINT,
-									G_TYPE_UINT,
-									G_TYPE_STRING,
-									G_TYPE_STRING,
-									G_TYPE_POINTER);
-		
-		bd->treeview = GTK_TREE_VIEW (gtk_tree_view_new_with_model (GTK_TREE_MODEL (store)));
-		gtk_tree_selection_set_mode (gtk_tree_view_get_selection (bd->treeview),
+	bd->treeview = GTK_TREE_VIEW (gtk_tree_view_new_with_model (GTK_TREE_MODEL (store)));
+	gtk_tree_selection_set_mode (gtk_tree_view_get_selection (bd->treeview),
 					     GTK_SELECTION_SINGLE);
-		g_object_unref (G_OBJECT (store));
+	g_object_unref (G_OBJECT (store));
 
-		renderer = gtk_cell_renderer_toggle_new ();
-		column = gtk_tree_view_column_new_with_attributes (_(column_names[0]),
-														   renderer,
-								   						   "active",
-														   ENABLED_COLUMN,
-														   NULL);
-		g_signal_connect (renderer, "toggled",
-						  G_CALLBACK (on_treeview_enabled_toggled), bd);
-		gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	renderer = gtk_cell_renderer_toggle_new ();
+	column = gtk_tree_view_column_new_with_attributes (_(column_names[0]),
+													   renderer,
+							   						   "active",
+													   ENABLED_COLUMN,
+													   NULL);
+	g_signal_connect (renderer, "toggled",
+					  G_CALLBACK (on_treeview_enabled_toggled), bd);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_append_column (bd->treeview, column);
+	renderer = gtk_cell_renderer_text_new ();
+
+	for (i = NUMBER_COLUMN; i < (COLUMNS_NB - 1); i++)
+	{
+		column =
+			gtk_tree_view_column_new_with_attributes (_(column_names[i]),
+												renderer, "text", i, NULL);
+		gtk_tree_view_column_set_sizing (column,
+										 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 		gtk_tree_view_append_column (bd->treeview, column);
-		renderer = gtk_cell_renderer_text_new ();
-
-		for (i = NUMBER_COLUMN; i < (COLUMNS_NB - 1); i++)
-		{
-			column =
-				gtk_tree_view_column_new_with_attributes (_(column_names[i]),
-													renderer, "text", i, NULL);
-			gtk_tree_view_column_set_sizing (column,
-											 GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-			gtk_tree_view_append_column (bd->treeview, column);
-		}
-
-		/* Register menu actions */
-		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
-		bd->action_group =
-		anjuta_ui_add_action_group_entries (ui, "ActionGroupBreakpoint",
-											_("Breakpoint operations"),
-											actions_breakpoints,
-											G_N_ELEMENTS (actions_breakpoints),
-											GETTEXT_PACKAGE, TRUE, bd);
-
-		/* Add breakpoint window */
-		bd->scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
-		gtk_widget_show (bd->scrolledwindow);
-		gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (bd->scrolledwindow),
-									GTK_POLICY_AUTOMATIC,
-									GTK_POLICY_AUTOMATIC);
-		gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (bd->scrolledwindow),
-									 GTK_SHADOW_IN);
-		gtk_container_add (GTK_CONTAINER (bd->scrolledwindow), GTK_WIDGET (bd->treeview));
-		gtk_widget_show_all (bd->scrolledwindow);
-		
-		anjuta_shell_add_widget (ANJUTA_PLUGIN(plugin)->shell,
-								 bd->scrolledwindow,
-								 "AnjutaDebuggerBreakpoints", _("Breakpoints"),
-								 "gdb-breakpoint-enabled", ANJUTA_SHELL_PLACEMENT_BOTTOM,
-								 NULL);
-											
-		bd->is_showing = TRUE;
-		bd->cond_history = NULL;
-		bd->pass_history = NULL;
-		bd->loc_history = NULL;
-
-		/* Add popup menu */
-		bd->popup =  GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupBreakpoint"));
-		g_signal_connect (bd->treeview, "button-press-event", G_CALLBACK (on_breakpoints_button_press), bd);  
-			
 	}
 
+	/* Register menu actions */
+	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(plugin)->shell, NULL);
+	bd->action_group =
+	anjuta_ui_add_action_group_entries (ui, "ActionGroupBreakpoint",
+										_("Breakpoint operations"),
+										actions_breakpoints,
+										G_N_ELEMENTS (actions_breakpoints),
+										GETTEXT_PACKAGE, TRUE, bd);
+
+	/* Add breakpoint window */
+	bd->scrolledwindow = gtk_scrolled_window_new (NULL, NULL);
+	gtk_widget_show (bd->scrolledwindow);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (bd->scrolledwindow),
+									GTK_POLICY_AUTOMATIC,
+									GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (bd->scrolledwindow),
+									 GTK_SHADOW_IN);
+	gtk_container_add (GTK_CONTAINER (bd->scrolledwindow), GTK_WIDGET (bd->treeview));
+	gtk_widget_show_all (bd->scrolledwindow);
+		
+	anjuta_shell_add_widget (ANJUTA_PLUGIN(plugin)->shell,
+							 bd->scrolledwindow,
+							 "AnjutaDebuggerBreakpoints", _("Breakpoints"),
+							 "gdb-breakpoint-enabled", ANJUTA_SHELL_PLACEMENT_BOTTOM,
+							 NULL);
+											
+	bd->is_showing = TRUE;
+	bd->cond_history = NULL;
+	bd->pass_history = NULL;
+	bd->loc_history = NULL;
+
+	/* Add popup menu */
+	bd->popup =  GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupBreakpoint"));
+	g_signal_connect (bd->treeview, "button-press-event", G_CALLBACK (on_breakpoints_button_press), bd);  
+			
+	/* Connect to Load and Save event */
+	g_signal_connect (ANJUTA_PLUGIN(plugin)->shell, "save-session",
+				  G_CALLBACK (on_session_save), bd);
+	g_signal_connect (ANJUTA_PLUGIN(plugin)->shell, "load-session",
+				  G_CALLBACK (on_session_load), bd);
+		
+	/* Connect on stop debugger and load program */
+	g_signal_connect_swapped (plugin, "program-loaded", G_CALLBACK (on_program_loaded), bd);
+	
 	return bd;
 }
 
@@ -1720,18 +1716,13 @@ breakpoints_dbase_destroy (BreakpointsDBase * bd)
 	
 	g_return_if_fail (bd != NULL);
 
-	/* Disconnect from Load and Save event */
-	g_signal_handlers_disconnect_by_func (ANJUTA_PLUGIN (bd->plugin)->shell, G_CALLBACK (on_session_save), bd);
-	g_signal_handlers_disconnect_by_func (ANJUTA_PLUGIN (bd->plugin)->shell, G_CALLBACK (on_session_load), bd);
-
-	/* Disconnect from Loaded and Stopped event */
-	g_signal_handlers_disconnect_by_func (bd->plugin, on_breakpoints_dbase_connect, bd);
-	g_signal_handlers_disconnect_by_func (bd->plugin, on_breakpoints_dbase_disconnect, bd);
+	/* Disconnect all signal */
+	g_signal_handlers_disconnect_matched (ANJUTA_PLUGIN(bd->plugin)->shell, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, bd);
+	g_signal_handlers_disconnect_matched (bd->plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, bd);
 	
 	/* This is necessary to clear the editor of breakpoint markers */
+	if (bd->debugger != NULL) breakpoints_dbase_remove_all_in_debugger (bd);
 	breakpoints_dbase_remove_all (bd);
-
-	breakpoints_dbase_disconnect (bd);
 	
 	/* Remove menu actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bd->plugin)->shell, NULL);
