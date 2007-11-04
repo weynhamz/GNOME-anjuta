@@ -22,6 +22,7 @@
  */
 
 #include "gprof-flat-profile-view.h"
+#include <glib/gi18n-lib.h>
 
 struct _GProfFlatProfileViewPriv
 {

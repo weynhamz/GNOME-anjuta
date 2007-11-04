@@ -22,6 +22,7 @@
  */
 
 #include "gprof-call-graph-view.h"
+#include <glib/gi18n-lib.h>
 
 struct _GProfCallGraphViewPriv
 {
