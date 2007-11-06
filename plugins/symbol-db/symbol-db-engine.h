@@ -51,7 +51,7 @@ struct _SymbolDBEngineClass
 	void (* scan_end) ();
 	void (* symbol_inserted) 		(gint symbol_id);
 	void (* symbol_updated)  		(gint symbol_id);
-	void (* symbol_scope_updated)  	(gint symbol_id);
+	void (* symbol_scope_updated)  	(gint symbol_id);	/* never emitted. */
 	void (* symbol_removed)  		(gint symbol_id);
 };
 
@@ -269,8 +269,11 @@ SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe, 
 									gint scope_parent_symbol_id, gint sym_info);
 
-
-/** No iterator for now. We need the quickest query possible. */
+/** 
+ * No iterator for now. We need the quickest query possible.
+ * @param scoped_symbol_id Symbol you want to know the parent of.
+ * @param db_file db-relative filename path. eg. /src/foo.c
+ */
 gint
 symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe, 
 									gint scoped_symbol_id,

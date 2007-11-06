@@ -572,7 +572,7 @@ trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id)
 	
 	priv = dbvl->priv;	
 
-	DEBUG_PRINT ("trigger_on_symbol_inserted (): triggering %d", symbol_id);
+/*	DEBUG_PRINT ("trigger_on_symbol_inserted (): triggering %d", symbol_id);*/
 	
 	/* try to find a waiting for symbol */
 	slist = g_tree_lookup (priv->waiting_for, (gpointer)symbol_id);
@@ -580,7 +580,7 @@ trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id)
 	if (slist == NULL) 
 	{
 		/* nothing waiting for us */
-		/*DEBUG_PRINT ("trigger_on_symbol_inserted (): no children waiting for us...");*/
+/*		DEBUG_PRINT ("trigger_on_symbol_inserted (): no children waiting for us...");*/
 		return;
 	}
 	else {
@@ -588,8 +588,8 @@ trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id)
 		gint length = g_slist_length (slist);
 
 /*		DEBUG_PRINT ("trigger_on_symbol_inserted (): consuming slist for parent %d",
-					 symbol_id);
-		DEBUG_PRINT ("trigger_on_symbol_inserted (): length is %d", length);*/
+					 symbol_id);*/
+
 		for (i=0; i < length-1; i++)
 		{
 			wfs = g_slist_nth_data (slist, 0);
@@ -630,7 +630,7 @@ add_new_waiting_for (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 	wfs->child_symbol_name = g_strdup (symbol_name);
 	wfs->pixbuf = pixbuf;
 				
-	/*DEBUG_PRINT ("add_new_waiting_for (): looking up waiting_for %d", 
+/*	DEBUG_PRINT ("add_new_waiting_for (): looking up waiting_for %d", 
 				 parent_symbol_id);*/
 	node = g_tree_lookup (priv->waiting_for, (gpointer)parent_symbol_id);
 	if (node == NULL) 
@@ -734,7 +734,7 @@ prepare_for_adding (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 	if (parent_symbol_id <= 0)
 	{			
 		GtkTreeRowReference *curr_tree_row_ref;
-		/*DEBUG_PRINT ("prepare_for_adding(): parent_symbol_id <= 0 root with id [%d]",
+/*		DEBUG_PRINT ("prepare_for_adding(): parent_symbol_id <= 0 root with id [%d]",
 					 symbol_id);*/
 		
 		/* get the current iter row reference in the just added root gtktreeview 
@@ -764,7 +764,7 @@ prepare_for_adding (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 		{
 			/* hey we found it */
 			GtkTreeRowReference *child_row_ref;
-			/*DEBUG_PRINT ("prepare_for_adding(): found node already displayed %d",
+/*			DEBUG_PRINT ("prepare_for_adding(): found node already displayed %d",
 						 parent_symbol_id);*/
 			
 			child_row_ref = do_add_child_symbol_to_view (dbvl, parent_symbol_id,
@@ -777,6 +777,10 @@ prepare_for_adding (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 		}
 		else 
 		{
+/*			DEBUG_PRINT ("prepare_for_adding(): gonna pass parent: %d name: %s "
+						 "id: %d to add_new_waiting_for", parent_symbol_id,
+						 symbol_name, symbol_id);*/
+			
 			/* add it to the waiting_for trigger list */
 			add_new_waiting_for (dbvl, parent_symbol_id, symbol_name, symbol_id, 
 								 pixbuf);
@@ -800,7 +804,7 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	g_return_if_fail (dbvl != NULL);	
 	priv = dbvl->priv;	
 	
-	/*DEBUG_PRINT ("on_symbol_inserted (): -local- %d", symbol_id);*/
+	DEBUG_PRINT ("on_symbol_inserted (): -local- %d", symbol_id);
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));
 	
 	/* again we use a little trick to insert symbols here. First of all forget chars
@@ -817,9 +821,15 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	 *
 	 */
 	parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
-																	symbol_id,
-																	NULL);
+															symbol_id,
+															priv->current_db_file);
 	
+	if (parent_symbol_id <= 0)
+		parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
+															symbol_id,
+															NULL);
+		
+/*	DEBUG_PRINT ("on_symbol_inserted (): detected parent %d", parent_symbol_id);*/
 	/* get the original symbol infos */
 	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, symbol_id, 
 													   SYMINFO_SIMPLE |
@@ -853,7 +863,7 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 		if (iterator_for_children == NULL) 
 		{
 			/* we don't have children */
-			/*DEBUG_PRINT ("on_symbol_inserted (): %d has no children.", symbol_id);*/
+/*			DEBUG_PRINT ("on_symbol_inserted (): %d has no children.", symbol_id);*/
 		}
 		else 
 		{
@@ -873,7 +883,7 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 				curr_child_id = 
 					symbol_db_engine_iterator_node_get_symbol_id (iter_node);
 
-				/*DEBUG_PRINT ("on_symbol_inserted (): %d has child %d",
+/*				DEBUG_PRINT ("on_symbol_inserted (): %d has child %d",
 							 symbol_id, curr_child_id);*/
 				row_ref = g_tree_lookup (priv->nodes_displayed,
 										 (gpointer)curr_child_id);
@@ -1018,10 +1028,10 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 		g_object_unref (iterator);
 	}
 
-	DEBUG_PRINT ("symbol_db_view_locals_update_list (): waiting for displaying: %d", 
+/*	DEBUG_PRINT ("symbol_db_view_locals_update_list (): waiting for displaying: %d", 
 				 g_tree_nnodes (priv->waiting_for));
 	DEBUG_PRINT ("symbol_db_view_locals_update_list (): already displayed: %d", 
-				 g_tree_nnodes (priv->nodes_displayed));
+				 g_tree_nnodes (priv->nodes_displayed));*/
 
 	/* ok, there may be some symbols left on the waiting_for_list...
  	 * launch the callback function by hand, flushing the list it in case 

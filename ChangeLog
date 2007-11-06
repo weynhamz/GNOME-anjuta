@@ -1,3 +1,34 @@
+2007-11-06  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/project-import/anjuta-project-import.glade:
+	* plugins/project-import/project-import.c: (on_import_next),
+	(on_import_finish), (project_import_set_directory):
+	* plugins/project-wizard/property.c: (npw_property_create_widget),
+	(npw_property_set_value_from_widget):
+	
+	Replaced gnome_file_entry with gtk_file_chooser_button
+	Fixes #422329 – Creating a new directory in program options doesn't work
+	
+2007-11-04  Massimo Cora' <maxcvs@email.it>
+
+	* plugins/symbol-db/plugin.c:
+	add all files at once on project_import.
+	No need to split them into more languages: ctags
+	and the engine will take care of that.
+
+	* plugins/symbol-db/symbol-db-engine.h,
+	* plugins/symbol-db/symbol-db-engine.c,
+	* plugins/symbol-db/tables.sql,
+	* plugins/symbol-db/test/Makefile.am,
+	* plugins/symbol-db/test/main.c,
+	* plugins/symbol-db/symbol-db-view-locals.c:
+	some memory leaks fixed. Ported the thing to
+	libgda 3.1.2 [or better svn HEAD].
+	Thanks to a fresh new algorithm to detect
+	parent scope we're able to display correcly
+	a local gtktree, including classes not directly
+	defined inside that file.
+
 2007-11-04  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/threads.c,

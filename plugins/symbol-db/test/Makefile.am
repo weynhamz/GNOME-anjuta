@@ -12,8 +12,8 @@ INCLUDES = \
 	-DPACKAGE_DATA_DIR=\"$(datadir)\" \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
 	$(LIBANJUTA_CFLAGS) \
-	$(SYMBOL_DB_CFLAGS) \
-	`pkg-config libgda-3.0 --cflags`
+	$(PLUGIN_SYMBOL_DB_CFLAGS) \
+	$(GDL_CFLAGS)
 
 
 test_symbol_db_SOURCES = \
@@ -25,13 +25,14 @@ test_symbol_db_SOURCES = \
 	../symbol-db-engine-iterator.c       \
 	../symbol-db-engine-iterator.h \
 	../symbol-db-engine-iterator-node.c \
-	../symbol-db-engine-iterator-node.h
+	../symbol-db-engine-iterator-node.h \
+	../symbol-db-view.h \
+	../symbol-db-view.c 
  
 
 test_symbol_db_LDFLAGS = \
 	$(LIBANJUTA_LIBS) \
-	$(SYMBOL_DB_LIBS) \
-	`pkg-config libgda-3.0 --libs`
+	$(PLUGIN_SYMBOL_DB_LIBS)
 
 ## File created by the gnome-build tools
 

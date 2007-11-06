@@ -56,10 +56,13 @@ on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 	GbfProject* proj;
 	
 	const gchar* name = gtk_entry_get_text(GTK_ENTRY(pi->import_name));
-	const gchar* path = gtk_entry_get_text(GTK_ENTRY(pi->import_path));
+	gchar* path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER(pi->import_path));
 	
 	if (!name || !path || !strlen(name) || !strlen(path))
+	{
+		g_free (path);
 		return TRUE;
+	}
 	
 	gbf_backend_init();
 	
@@ -108,6 +111,7 @@ on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 	
 		gtk_dialog_run(message);
 		gtk_widget_destroy(GTK_WIDGET(message));
+		g_free (path);
 		return TRUE;
 	}
 	
@@ -125,6 +129,7 @@ on_import_next(GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 	if (pi->backend_id)
 		g_free(pi->backend_id);
 	pi->backend_id = g_strdup(backend->id);
+	g_free (path);
 	
 	return FALSE;							   
 }
@@ -133,7 +138,7 @@ static gboolean
 on_import_finish (GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 {
 	const gchar* name = gtk_entry_get_text (GTK_ENTRY(pi->import_name));
-	const gchar* path = gtk_entry_get_text (GTK_ENTRY(pi->import_path));
+	gchar* path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER(pi->import_path));
 	
 	gchar* project_file = g_strconcat (path, "/", name, ".", "anjuta", NULL);
 	
@@ -142,6 +147,7 @@ on_import_finish (GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 	if (!project_import_generate_file (pi, project_file))
 	{
 		g_free (project_file);
+		g_free (path);
 		return TRUE;
 	}
 	
@@ -157,6 +163,7 @@ on_import_finish (GnomeDruidPage* page, GtkWidget* druid, ProjectImport* pi)
 	ianjuta_file_loader_load (loader, project_file, FALSE, NULL);
 	g_object_unref (G_OBJECT (pi));
 	g_free (project_file);
+	g_free (path);
 	return FALSE;
 }
 
@@ -268,7 +275,9 @@ project_import_set_directory (ProjectImport *pi, const gchar *directory)
 	g_return_if_fail (IS_PROJECT_IMPORT (pi));
 	g_return_if_fail (directory != NULL);
 	
-	gtk_entry_set_text (GTK_ENTRY (pi->import_path), directory);
+	gchar* uri = gnome_vfs_make_uri_from_input (directory);
+	gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (pi->import_path), uri);
+	g_free (uri);
 }
 
 gboolean

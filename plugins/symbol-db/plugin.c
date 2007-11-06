@@ -514,14 +514,20 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 
 static void
 on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
-						  SymbolDBPlugin *sv_plugin)
+						  SymbolDBPlugin *sdb_plugin)
 {
 	gchar *filename;
-
-	g_return_if_fail (sv_plugin->project_root_uri != NULL);
-	g_return_if_fail (sv_plugin->project_root_dir != NULL);
+	IAnjutaLanguage* lang_manager;
 	
-	DEBUG_PRINT ("on_project_element_added");	
+	g_return_if_fail (sdb_plugin->project_root_uri != NULL);
+	g_return_if_fail (sdb_plugin->project_root_dir != NULL);
+
+	lang_manager = anjuta_shell_get_interface (ANJUTA_PLUGIN(sdb_plugin)->shell, 
+													IAnjutaLanguage, NULL);
+	
+	g_return_if_fail (lang_manager != NULL);
+	
+	DEBUG_PRINT ("on_project_element_added");
 	
 	filename = gnome_vfs_get_local_path_from_uri (uri);
 	if (filename)
@@ -530,11 +536,10 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 		const gchar* file_mime;
 		IAnjutaLanguageId lang_id;
 		const gchar* lang;
-		IAnjutaLanguage* lang_manager =
-						anjuta_shell_get_interface (ANJUTA_PLUGIN(sv_plugin)->shell, IAnjutaLanguage, NULL);
 		file_mime = gnome_vfs_get_mime_type_for_name (filename);
 		
-		lang_id = ianjuta_language_get_from_mime_type (lang_manager, file_mime, NULL);
+		lang_id = ianjuta_language_get_from_mime_type (lang_manager, file_mime, 
+													   NULL);
 		
 		/* No supported language... */
 		if (!lang_id)
@@ -547,11 +552,11 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 		files_array = g_ptr_array_new();
 		g_ptr_array_add (files_array, filename);
 		DEBUG_PRINT ("gonna opening %s", 
-					 filename + strlen(sv_plugin->project_root_dir) );
-		DEBUG_PRINT ("poject_root_dir %s", sv_plugin->project_root_dir );
+					 filename + strlen(sdb_plugin->project_root_dir) );
+		DEBUG_PRINT ("project_root_dir %s", sdb_plugin->project_root_dir );
 		
-		symbol_db_engine_add_new_files (sv_plugin->sdbe, 
-			sv_plugin->project_root_dir, files_array, lang, TRUE);
+		symbol_db_engine_add_new_files (sdb_plugin->sdbe, 
+			sdb_plugin->project_root_dir, files_array, lang, TRUE);
 		
 		g_free (filename);
 		g_ptr_array_free (files_array, TRUE);
@@ -595,6 +600,7 @@ typedef struct
 	const gchar* root_dir;
 } SourcesForeachData;
 
+#if 0
 static void
 sources_array_add_foreach (gpointer key, gpointer value, gpointer user_data)
 {
@@ -609,6 +615,7 @@ sources_array_add_foreach (gpointer key, gpointer value, gpointer user_data)
 					 lang, data->root_dir);
 	}
 }
+#endif
 
 /* add a new project */
 static void
@@ -654,7 +661,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			
 			if (symbol_db_engine_open_db (sdb_plugin->sdbe, root_dir) == FALSE)
 				g_error ("error in opening db");
-			
+
 			symbol_db_engine_add_new_project (sdb_plugin->sdbe,
 											  NULL,	/* still no workspace */
 											  root_dir);
@@ -666,37 +673,65 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			if (needs_sources_scan == TRUE)
 			{
 				GList* prj_elements_list;
+				GPtrArray* sources_array = NULL;
+				GHashTable *check_unique_file;
+				IAnjutaLanguage* lang_manager =
+						anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
+													NULL);
 				
-				DEBUG_PRINT ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-				DEBUG_PRINT ("Retrieving gbf sources of the project...");
-				
+				if (!lang_manager)
+				{
+					g_critical ("LanguageManager not found");
+					return;
+				}
+								  
 				prj_elements_list = ianjuta_project_manager_get_elements (pm,
 								   IANJUTA_PROJECT_MANAGER_SOURCE,
 								   NULL);
-			
-				GPtrArray* sources_array;
+				/* to speed the things up we must avoid the dups */
+				check_unique_file = g_hash_table_new_full (g_str_hash, 
+									g_str_equal, g_free, g_free);
 				
-				for (i=0; i < g_list_length (prj_elements_list); i++) 
+				DEBUG_PRINT ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				DEBUG_PRINT ("Retrieving %d gbf sources of the project...",
+							 g_list_length (prj_elements_list));
+				
+				for (i=0; i < g_list_length (prj_elements_list); i++)
 				{	
 					gchar *local_filename;
 					const gchar *file_mime;
 					const gchar *lang;
 					IAnjutaLanguageId lang_id;
-					IAnjutaLanguage* lang_manager =
-						anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, NULL);
-					
-					if (!lang_manager)
-					{
-						g_critical ("LanguageManager not found");
-						return;
-					}
 					
 					local_filename = 
 						gnome_vfs_get_local_path_from_uri (g_list_nth_data (
 															prj_elements_list, i));
+					
+					if (local_filename == NULL)
+						continue;
+					
+					/* check if it's already present in the list. This to avoid
+					 * duplicates.
+					 */
+					if (g_hash_table_lookup (check_unique_file, 
+											 local_filename) == NULL)
+					{
+						g_hash_table_insert (check_unique_file, 
+											 g_strdup (local_filename), 
+											 g_strdup (local_filename));
+					}
+					else 
+					{
+						DEBUG_PRINT ("%s go away!", local_filename);
+						/* you're a dup! we don't want you */
+						g_free (local_filename);
+						continue;
+					}
+					
 					file_mime = gnome_vfs_get_mime_type_for_name (local_filename);
 					
-					lang_id = ianjuta_language_get_from_mime_type (lang_manager, file_mime, NULL);
+					lang_id = ianjuta_language_get_from_mime_type (lang_manager, 
+																 file_mime, NULL);
 					
 					if (!lang_id)
 					{
@@ -713,11 +748,15 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 						continue;
 					}
 					
-					sources_array = g_hash_table_lookup (lang_hash, lang);
+/*					sources_array = g_hash_table_lookup (lang_hash, lang);*/
+					
 					if (!sources_array)
 					{
 						sources_array = g_ptr_array_new ();
-						g_hash_table_insert (lang_hash, (gpointer) lang, sources_array);
+/*						
+						g_hash_table_insert (lang_hash, (gpointer) lang, 
+											 sources_array);
+*/						
 					}	
 					
 					g_ptr_array_add (sources_array, local_filename);
@@ -726,15 +765,15 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				DEBUG_PRINT ("calling symbol_db_engine_add_new_files  with root_dir %s",
 							 root_dir);
 				
-				SourcesForeachData* data = g_new0 (SourcesForeachData, 1);
-				data->sdbe = sdb_plugin->sdbe;
-				data->root_dir = root_dir;
-				
-				g_hash_table_foreach (lang_hash, (GHFunc) sources_array_add_foreach,
-									  data);
-				
-				g_free (data);
+				symbol_db_engine_add_new_files (sdb_plugin->sdbe, root_dir,
+									sources_array, "C", TRUE);
 				g_hash_table_unref (lang_hash);
+				g_hash_table_unref (check_unique_file);
+				
+				g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
+				g_ptr_array_free (sources_array, TRUE);
+				
+				
 			}
 			
 			anjuta_status_progress_tick (status, NULL, _("Created symbols..."));

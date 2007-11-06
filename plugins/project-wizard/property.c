@@ -31,9 +31,12 @@
 
 #include <gnome.h>
 #include <libgnome/gnome-i18n.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 
 #include <string.h>
 #include <stdlib.h>
+
+#include <libanjuta/anjuta-debug.h>
 
 /*---------------------------------------------------------------------------*/
 
@@ -216,7 +219,6 @@ npw_property_create_widget (NPWProperty* this)
 {
 	GtkWidget* entry;
 	const gchar* value;
-	GValue val = {0};
 
 	value = npw_property_get_value (this);
 	switch (this->type)
@@ -243,22 +245,24 @@ npw_property_create_widget (NPWProperty* this)
 		if (value) gtk_entry_set_text (GTK_ENTRY (entry), value);
 		break;
 	case NPW_DIRECTORY_PROPERTY:
-		entry = gnome_file_entry_new (NULL, NULL);
-		g_value_init (&val, G_TYPE_BOOLEAN);
-		g_value_set_boolean (&val, TRUE);
-		g_object_set_property (G_OBJECT (entry), "use-filechooser", &val);
-	       	g_value_unset (&val);	
-		gnome_file_entry_set_directory_entry (GNOME_FILE_ENTRY (entry), TRUE);
-		if (value) gnome_file_entry_set_filename (GNOME_FILE_ENTRY (entry), value);
+		entry = gtk_file_chooser_button_new (_("Choose directory"),
+											 GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER);
+		if (value)
+		{
+			gchar* uri = gnome_vfs_make_uri_from_input (value);
+			gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (entry), uri);
+			g_free (uri);
+		}
 		break;
 	case NPW_FILE_PROPERTY:
-		entry = gnome_file_entry_new (NULL, NULL);
-		g_value_init (&val, G_TYPE_BOOLEAN);
-		g_value_set_boolean (&val, TRUE);
-		g_object_set_property (G_OBJECT (entry), "use-filechooser", &val);
-	       	g_value_unset (&val);	
-		gnome_file_entry_set_directory_entry (GNOME_FILE_ENTRY (entry), FALSE);
-		if (value) gnome_file_entry_set_filename (GNOME_FILE_ENTRY (entry), value);
+		entry = gtk_file_chooser_button_new (_("Choose file"),
+											 GTK_FILE_CHOOSER_ACTION_OPEN);
+		if (value) 
+		{
+			gchar* uri = gnome_vfs_make_uri_from_input (value);
+			gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (entry), uri);
+			g_free (uri);
+		}
 		break;
 	case NPW_ICON_PROPERTY:
 		entry = gnome_icon_entry_new("icon_choice", _("Icon choice"));
@@ -362,7 +366,7 @@ npw_property_set_value_from_widget (NPWProperty* this, NPWValueTag tag)
 		break;
 	case NPW_DIRECTORY_PROPERTY:
 	case NPW_FILE_PROPERTY:
-		alloc_value = gnome_file_entry_get_full_path (GNOME_FILE_ENTRY (this->widget), FALSE);
+		alloc_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (this->widget));
 		value = alloc_value;
 		break;
 	case NPW_ICON_PROPERTY:

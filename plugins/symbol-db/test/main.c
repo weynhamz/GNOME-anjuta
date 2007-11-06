@@ -27,10 +27,8 @@
 #include <glib.h>
 #include <unistd.h>
 
-#if 0
-
-
 #include "../symbol-db-engine.h"
+#include "../symbol-db-view.h"
 #include "../symbol-db-engine-iterator.h"
 #include "../symbol-db-engine-iterator-node.h"
 #include "../readtags.h"
@@ -408,11 +406,4 @@ int main(int argc, char** argv)
 	g_main_loop_run( main_loop );
 
 	return 0;
-}
-
-#endif
-
-int main(int argc, char** argv)
-{
-return 0;
 }

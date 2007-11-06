@@ -1,10 +1,4 @@
 
-PRAGMA page_size = 4096;
-PRAGMA default_cache_size = 10000;
-PRAGMA default_synchronous = OFF; 
-PRAGMA default_temp_store = MEMORY;
-
-
 CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
                         workspace_name varchar (50) not null unique,
                         analize_time DATE
@@ -83,8 +77,9 @@ CREATE TABLE heritage (symbol_id_base integer REFERENCES symbol (symbol_id),
                        );
                        
 CREATE TABLE scope (scope_id integer PRIMARY KEY AUTOINCREMENT,
-                    scope varchar(256) not null,
-                    type_id integer REFERENCES sym_type (type_id)
+                    scope_name varchar(256) not null,
+                    type_id integer,
+					unique (scope_name, type_id)
                     );
                     
 CREATE TABLE __tmp_heritage_scope (tmp_heritage_scope_id integer PRIMARY KEY AUTOINCREMENT,
@@ -131,3 +126,7 @@ BEGIN
 	INSERT INTO __tmp_removed (symbol_removed_id) VALUES (old.symbol_id);
 END;
 
+PRAGMA page_size = 4096;
+PRAGMA default_cache_size = 10000;
+PRAGMA default_synchronous = OFF; 
+PRAGMA default_temp_store = MEMORY;

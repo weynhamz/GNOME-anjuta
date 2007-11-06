@@ -52,26 +52,27 @@ plugindir = $(anjuta_plugin_dir)
 # The plugin
 plugin_LTLIBRARIES = libanjuta-symbol-db.la
 
+libanjuta_symbol_db_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
+
 # Plugin sources
 libanjuta_symbol_db_la_SOURCES = plugin.c plugin.h \
-	readtags.c readtags.h\
-	symbol-db-engine-iterator.c  \
-	symbol-db-engine-iterator.h  \
-	symbol-db-engine.c  \
-	symbol-db-engine.h symbol-db-view.h  \
+	readtags.c readtags.h \
+	symbol-db-engine-iterator.c \
+	symbol-db-engine-iterator.h \
+	symbol-db-engine.c \
+	symbol-db-engine.h symbol-db-view.h \
 	symbol-db-view.c \
 	symbol-db-view-locals.c \
 	symbol-db-view-locals.h \
 	symbol-db-view-search.h \
 	symbol-db-view-search.c \
-        symbol-db-engine-iterator-node.h \
+    symbol-db-engine-iterator-node.h \
 	symbol-db-engine-iterator-node.c
 
 # Plugin dependencies
 libanjuta_symbol_db_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
-	$(SYMBOL_DB_LIBS) \
-	-lgda-3.0
+	$(PLUGIN_SYMBOL_DB_LIBS)
 
 endif
 
