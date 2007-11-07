@@ -353,6 +353,7 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 {
 	DmaQueueCommand* cmd;
 	DmaDebuggerCommandType type = cmd_type & COMMAND_MASK;
+	IAnjutaDebuggerRegister* reg;
 	va_list args;
 	GList *list;
 	
@@ -532,9 +533,10 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->user_data = va_arg (args, gpointer);
 		break;
 	case WRITE_REGISTER_COMMAND:
-		cmd->data.watch.id = va_arg (args, guint);
-	    cmd->data.watch.name = g_strdup (va_arg (args, gchar *));
-	    cmd->data.watch.value = g_strdup (va_arg (args, gchar *));
+		reg = va_arg (args, IAnjutaDebuggerRegister *);
+		cmd->data.watch.id = reg->num;
+	    cmd->data.watch.name = g_strdup (reg->name);
+	    cmd->data.watch.value = g_strdup (reg->value);
 		break;
 	case INSPECT_MEMORY_COMMAND:
 		cmd->data.mem.address = va_arg (args, guint);

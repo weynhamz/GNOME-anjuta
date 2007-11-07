@@ -1,5 +1,10 @@
 2007-11-07  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/command.c:
+	Fix a stupid crash when changing a register value
+
+2007-11-07  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* libanjuta/interfaces/libanjuta.idl,
 	plugins/debug-manager/command.c,
 	plugins/debug-manager/command.h,
