@@ -260,12 +260,6 @@ gboolean is_file_in_dir(const gchar *file, const gchar *dir);
 
 GList *glist_path_dedup(GList *list);
 
-/* Check which gnome-terminal is installed
- Returns: 0 -- No gnome-terminal
- Returns: 1 -- Gnome1 gnome-terminal
- Returns: 2 -- Gnome2 gnome-terminal */
-gint gdb_util_check_gnome_terminal (void);
-
 /* String integer mapping utility functions */
 typedef struct _StringMap
 {

@@ -35,7 +35,9 @@
 #include <libanjuta/interfaces/ianjuta-breakpoint-debugger.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
 #include <libanjuta/interfaces/ianjuta-variable-debugger.h>
+#include <libanjuta/interfaces/ianjuta-terminal.h>
 #include <libanjuta/anjuta-plugin.h>
+#include <signal.h>
 
 /* Plugin type
  *---------------------------------------------------------------------------*/
@@ -53,12 +55,106 @@ struct _GdbPlugin
 
 	/* Log message window */
 	IAnjutaMessageView *view;
+
+	/* Terminal */
+	pid_t term_pid;
 };
 
 struct _GdbPluginClass
 {
 	AnjutaPluginClass parent_class;
 };
+
+/* Terminal functions
+ *---------------------------------------------------------------------------*/
+
+static void
+gdb_plugin_stop_terminal (GdbPlugin* plugin)
+{
+	DEBUG_PRINT ("In function: gdb_plugin_stop_terminal()");
+
+	if (plugin->term_pid > 0) {
+		kill (plugin->term_pid, SIGTERM);
+		plugin->term_pid = -1;
+	}
+}
+
+static gchar*
+gdb_plugin_start_terminal (GdbPlugin* plugin)
+{
+	gchar *file, *cmd;
+       	gchar *tty = NULL;
+	FILE  *fp;
+	IAnjutaTerminal *term;
+	const gchar* err = NULL;
+
+	DEBUG_PRINT ("In function: gdb_plugin_start_terminal() previous pid %d", plugin->term_pid);
+
+	/* Close previous terminal if needed */
+	gdb_plugin_stop_terminal (plugin);
+
+	/* Get terminal plugin */	
+	term = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell, IAnjutaTerminal, NULL);
+	if (term == NULL)
+	{
+
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+					  _("Anjuta terminal plugin is not installed. The program will be run without a terminal."));
+
+		return NULL;
+	}
+
+	/* Check if anjuta launcher is here */
+	if (anjuta_util_prog_is_installed ("anjuta_launcher", TRUE) == FALSE)
+	{
+		return NULL;
+	}
+
+	file = anjuta_util_get_a_tmp_file();
+	if (mkfifo (file, 0664) < 0)
+	{
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+					  _("Fail to create fifo file named %s. The program will be run without a terminal"), file);
+		g_free (file);
+
+		return NULL;
+	}
+
+	/* Launch terminal */
+	cmd = g_strconcat ("anjuta_launcher --__debug_terminal ", file, NULL);
+	plugin->term_pid = ianjuta_terminal_execute_command (term, NULL, cmd, NULL);
+	g_free (cmd);
+
+	if (plugin->term_pid > 0)
+	{
+		/*
+		 * Warning: call to fopen() may be blocked if the terminal is
+		 * not properly started. I don't know how to handle this. May
+		 * be opening as non-blocking will solve this .
+		 */
+		g_file_get_contents (file, &tty, NULL, NULL);  /* Ok, take the risk. */
+		if (tty)
+		{       
+			g_strchomp (tty);	/* anjuta_launcher add a end of line after the terminal name */
+			if (strcmp(tty, "__ERROR__") == 0)
+			{
+				g_free (tty);
+				tty = NULL;
+			}
+		}
+	}
+	remove (file);
+	g_free (file);
+
+	if (tty == NULL)
+	{
+		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
+					  _("Cannot start terminal for debugging."));
+		gdb_plugin_stop_terminal (plugin);
+	}
+
+	return tty;
+}
 
 /* Private functions
  *---------------------------------------------------------------------------*/
@@ -71,6 +167,7 @@ on_debugger_stopped (GdbPlugin *self, GError *err)
 		g_signal_handlers_disconnect_by_func (self, G_CALLBACK (on_debugger_stopped), self);	
 		debugger_free (self->debugger);
 		self->debugger = NULL;
+		gdb_plugin_stop_terminal (self);
 	}
 }
 
@@ -138,6 +235,7 @@ gdb_plugin_instance_init (GObject* obj)
 
 	this->debugger = NULL;
 	this->output_callback = NULL;
+	this->term_pid = 0;
 }
 
 /* dispose is the first destruction step. It is used to unref object created
@@ -204,7 +302,7 @@ idebugger_get_state (IAnjutaDebugger *plugin, GError **err)
 
 static gboolean
 idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_type,
-				const GList *search_dirs, gboolean terminal, GError **err)
+				const GList *search_dirs, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	gboolean is_libtool = FALSE;
@@ -235,7 +333,7 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_ty
 	// Start debugger
 	gdb_plugin_initialize (this);
 	
-	return debugger_start (this->debugger, search_dirs, file, is_libtool, terminal);
+	return debugger_start (this->debugger, search_dirs, file, is_libtool);
 }
 
 static gboolean
@@ -255,18 +353,21 @@ idebugger_attach (IAnjutaDebugger *plugin, pid_t pid, const GList *search_dirs, 
 
 	// Start debugger
 	gdb_plugin_initialize (this);
-	debugger_start (this->debugger, search_dirs, NULL, FALSE, FALSE);
+	debugger_start (this->debugger, search_dirs, NULL, FALSE);
 	debugger_attach_process (this->debugger, pid);
 	
 	return TRUE;
 }
 
 static gboolean
-idebugger_start (IAnjutaDebugger *plugin, const gchar *argument, GError **err)
+idebugger_start (IAnjutaDebugger *plugin, const gchar *argument, gboolean terminal, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	gchar *tty;
 
-	debugger_start_program (this->debugger, argument);
+	tty = terminal ? gdb_plugin_start_terminal (this) : NULL;
+	debugger_start_program (this->debugger, argument, tty);
+	g_free (tty);
 
 	return TRUE;
 }

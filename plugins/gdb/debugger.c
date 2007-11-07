@@ -45,7 +45,6 @@
 #include "utilities.h"
 
 #define GDB_PROMPT  "(gdb)"
-#define PREF_TERMINAL_COMMAND "anjuta.command.terminal"
 #define FILE_BUFFER_SIZE 1024
 #define GDB_PATH "gdb"
 #define SUMMARY_MAX_LENGTH   90	 /* Should be smaller than 4K to be displayed
@@ -107,12 +106,9 @@ struct _DebuggerPriv
 	gboolean skip_next_prompt;
 	gboolean command_output_sent;
 	
-	gboolean term_is_running;
-	pid_t term_pid;
 	pid_t inferior_pid;
 	gint current_thread;
 	guint current_frame;
-    	gint gnome_terminal_type;
 	
 	GObject* instance;
 
@@ -120,9 +116,6 @@ struct _DebuggerPriv
 };
 
 static gpointer parent_class;
-
-static gchar *debugger_start_terminal (Debugger *debugger);
-static void debugger_stop_terminal (Debugger *debugger);
 
 static void debugger_queue_clear (Debugger *debugger);
 static void debugger_queue_execute_command (Debugger *debugger);
@@ -246,14 +239,7 @@ debugger_initialize (Debugger *debugger)
 	debugger->priv->stde_line = g_string_sized_new (FILE_BUFFER_SIZE);
 	g_string_assign (debugger->priv->stde_line, "");
 	
-	debugger->priv->term_is_running = FALSE;
-	debugger->priv->term_pid = -1;
-	
 	debugger->priv->post_execution_flag = DEBUGGER_NONE;
-	debugger->priv->gnome_terminal_type = gdb_util_check_gnome_terminal();
-
-    DEBUG_PRINT ("gnome-terminal type %d found.",
-				 debugger->priv->gnome_terminal_type);
 }
 
 static void
@@ -693,8 +679,7 @@ debugger_load_core (Debugger *debugger, const gchar *core)
 
 gboolean
 debugger_start (Debugger *debugger, const GList *search_dirs,
-				const gchar *prog, gboolean is_libtool_prog,
-				gboolean terminal)
+				const gchar *prog, gboolean is_libtool_prog)
 {
 	gchar *command_str, *dir, *tmp, *text, *msg;
 	gchar *exec_dir;
@@ -706,19 +691,6 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	
 	DEBUG_PRINT ("In function: debugger_start(%s) libtool %d", prog == NULL ? "(null)" : prog, is_libtool_prog);
 
-	/* Without a terminal, the output of the debugged program
-	 * are lost */
-	if (terminal)
-	{
-		term = debugger_start_terminal (debugger);
-		if (term)
-		{
-			tmp = g_strconcat (" -tty=", term, NULL);
-			g_free(term);
-			term = tmp;
-		}
-	}
-	
 	if (anjuta_util_prog_is_installed ("gdb", TRUE) == FALSE)
 		return FALSE;
 
@@ -1232,9 +1204,6 @@ debugger_parse_stopped (Debugger *debugger)
 		{
 			debugger->priv->prog_is_running = FALSE;
 			debugger->priv->prog_is_attached = FALSE;
-			DEBUG_PRINT ("stop terminal in parse stopped");
-			debugger_stop_terminal (debugger);
-//			g_signal_emit_by_name (debugger->priv->instance, "program-exited");
 			debugger_handle_post_execution (debugger);
 			debugger->priv->exiting = TRUE;
 		}
@@ -1274,63 +1243,6 @@ debugger_parse_prompt (Debugger *debugger)
 	debugger->priv->debugger_is_busy--;
 	debugger_queue_execute_command (debugger);	/* Next command. Go. */
 	debugger_emit_ready (debugger);
-	
-	#if 0
-	if (debugger->priv->skip_next_prompt)
-	{
-		// Gdb is running in synchronous mode
-		//  new command are accepted only after executing
-		//  the current one.
-		debugger->priv->skip_next_prompt = FALSE;
-	}
-	else
-	{
-		if (debugger->priv->starting)
-		{
-			debugger->priv->starting = FALSE;
-			/* Debugger has just started */
-			if (debugger->priv->output_callback)
-			{
-				debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,
-										   _("Debugger is ready.\n"),
-										   debugger->priv->output_user_data);
-			}
-			g_signal_emit_by_name (debugger->priv->instance, "debugger-started");
-		}
-		else
-		{
-			debugger->priv->debugger_is_busy--;
-
-			if (strcmp (debugger->priv->current_cmd.cmd, "-exec-run") == 0 &&
-				debugger->priv->prog_is_running == FALSE)
-			{
-				/* Program has failed to run */
-				debugger_stop_terminal (debugger);
-			}
-	
-			/* If the parser has not yet been called, call it now. */
-			if (debugger->priv->command_output_sent == FALSE &&
-				debugger->priv->current_cmd.parser)
-			{
-				debugger->priv->current_cmd.parser (debugger, NULL,
-										  debugger->priv->cli_lines,
-										  debugger->priv->current_cmd.callback,
-										  debugger->priv->current_cmd.user_data);
-				debugger->priv->command_output_sent = TRUE;
-			}
-		}
-
-		if (!debugger->priv->debugger_is_busy &&
-			g_list_length (debugger->priv->cmd_queqe) >= 1)
-		{
-			static int ctag = 0;
-			int tag = ctag++;
-			debugger_queue_execute_command (debugger);	/* Next command. Go. */
-		}
-		debugger_emit_status (debugger);
-	//	return;
-	}
-	#endif
 }
 
 static void
@@ -1492,7 +1404,6 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 	
 	/* Clear the command queue & Buffer */
 	debugger_clear_buffers (debugger);
-	//debugger_stop_terminal (debugger);
 
 	/* Good Bye message */
 	/*if (!debugger->priv->terminating)
@@ -1500,9 +1411,6 @@ on_gdb_terminated (AnjutaLauncher *launcher,
 		anjuta_util_dialog_error (debugger->priv->parent_win,
 		_("gdb terminated unexpectedly with status %d\n"), status);
 	}*/
-	debugger_stop_terminal (debugger);
-	debugger->priv->term_is_running = FALSE;
-	debugger->priv->term_pid = -1;
 	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->prog_is_attached = FALSE;
 	debugger->priv->prog_is_loaded = FALSE;
@@ -1532,7 +1440,6 @@ debugger_stop_real (Debugger *debugger)
 	if (debugger->priv->prog_is_attached == TRUE)
 		debugger_queue_command (debugger, "detach", FALSE, FALSE, NULL, NULL, NULL);
 
-	debugger_stop_terminal (debugger);
 	debugger->priv->terminating = TRUE;
 	debugger_queue_command (debugger, "-gdb-exit", FALSE, FALSE, NULL, NULL, NULL);
 }
@@ -1589,11 +1496,8 @@ debugger_abort (Debugger *debugger)
 		debugger->priv->inferior_pid = 0;
 	}
 
-	/* Stop terminal */
-	debugger_stop_terminal (debugger);
-	debugger->priv->terminating = TRUE;
-
 	/* Stop gdb */
+	debugger->priv->terminating = TRUE;
 	g_signal_handlers_disconnect_by_func (G_OBJECT (debugger->priv->launcher), G_CALLBACK (on_gdb_terminated), debugger);
 	anjuta_launcher_reset (debugger->priv->launcher);
 
@@ -1616,20 +1520,6 @@ debugger_abort (Debugger *debugger)
 	}
 
 	return TRUE;
-}
-
-static void
-on_debugger_terminal_terminated (int status, gpointer user_data)
-{
-	Debugger *debugger = DEBUGGER (user_data);
-	
-	DEBUG_PRINT ("In function: on_debugger_terminal_terminated()");
-	
-	debugger->priv->term_is_running = FALSE;
-	debugger->priv->term_pid = -1;
-	
-	if (debugger->priv->prog_is_running)
-		debugger_stop_program (debugger);
 }
 
 gchar*
@@ -1688,204 +1578,6 @@ debugger_program_moved (Debugger *debugger, const gchar *file,
 	}
 }
 
-static gchar *
-debugger_start_terminal (Debugger *debugger)
-{
-	gchar *file, *cmd, *encoded_cmd;
-	gchar  dev_name[100];
-	gint   count, idx;
-	FILE  *fp;
-	pid_t  pid;
-	gchar *argv[20];
-	GList *args, *node;
-
-	DEBUG_PRINT ("In function: debugger_start_terminal()");
-	
-	if (debugger->priv->prog_is_running == TRUE)
-		return NULL;
-	if (debugger->priv->term_is_running == TRUE)
-		return NULL;
-	if (anjuta_util_prog_is_installed ("anjuta_launcher", TRUE) == FALSE)
-		return NULL;
-	
-	count = 0;
-	file = anjuta_util_get_a_tmp_file ();
-	
-	while (g_file_test  (file, G_FILE_TEST_IS_REGULAR))
-	{
-		g_free (file);
-		file = anjuta_util_get_a_tmp_file ();
-		if (count++ > 100)
-			goto error;
-	}
-	if (mkfifo (file, 0664) < 0)
-		goto error;
-
-	debugger->priv->term_is_running = TRUE;
-	cmd = g_strconcat ("anjuta_launcher --__debug_terminal ", file, NULL);
-	encoded_cmd = anjuta_util_escape_quotes (cmd);
-	g_free (cmd);
-	
-	cmd = g_strdup ("gnome-terminal -e \"%s\"");
-	if (cmd)
-	{
-		gchar *final_cmd;
-		if (strstr (cmd, "%s") != NULL)
-		{
-			final_cmd = g_strdup_printf (cmd, encoded_cmd);
-		}
-		else
-		{
-			final_cmd = g_strconcat (cmd, " ", encoded_cmd, NULL);
-		}
-		g_free (cmd);
-		cmd = final_cmd;
-	}
-	g_free (encoded_cmd);
-	
-	args = anjuta_util_parse_args_from_string (cmd);
-    
-    /* Fix gnome-terminal1 and gnome-terminal2 confusion */
-    if (g_list_length(args) > 0 &&
-		strcmp ((gchar*)args->data, "gnome-terminal") == 0)
-    {
-        GList* node;
-        node = g_list_next(args);
-        /* Terminal command is gnome-terminal */
-        if (debugger->priv->gnome_terminal_type == 1) {
-            /* Remove any --disable-factory option, if present */
-            while (node) {
-                if (strcmp ((gchar*)args->data, "--disable-factory") == 0) {
-                    g_free (node->data);
-                    args = g_list_remove (args, node);
-                    break;
-                }
-                node = g_list_next (node);
-            }
-        } else if (debugger->priv->gnome_terminal_type == 2) {
-            /* Add --disable-factory option, if not present */
-            gboolean found = 0;
-            while (node) {
-                if (strcmp ((gchar*)args->data, "--disable-factory") == 0) {
-                    found = 1;
-                    break;
-                }
-                node = g_list_next (node);
-            }
-            if (!found) {
-                gchar* arg = g_strdup ("--disable-factory");
-                args = g_list_insert (args, arg, 1);
-            }
-        }
-    }
-        
-	DEBUG_PRINT ("Terminal command: [%s]\n", cmd);
-
-	g_free (cmd);
-	
-	/* Rearrange the args to be passed to fork */
-	node = args;
-	idx = 0;
-	while (node) {
-		argv[idx++] = (gchar*)node->data;
-		node = g_list_next (node);
-	}
-	
-#ifdef DEBUG
-	{
-		int i;
-		GList *node = args;
-		i=0;
-		while (node) {
-			g_print ("%d) [%s]\n", i++, (char*)node->data);
-			node = g_list_next (node);
-		}
-	}
-#endif
-	
-	argv[idx] = NULL;
-	if (idx < 1)
-		goto error;
-	
-	/* With this command SIGCHILD is not emitted */
-	/* pid = gnome_execute_async (app->dirs->home, 6, av); */
-	/* so using fork instead */
-	if ((pid = fork ()) == 0)
-	{
-		execvp (argv[0], argv);
-		g_error (_("Cannot execute gnome-terminal"));
-	}
-	g_list_foreach (args, (GFunc)g_free, NULL);
-	g_list_free (args);
-
-	debugger->priv->term_pid = pid;
-	if (pid < 1)
-		goto error;
-	DEBUG_PRINT  ("terminal pid = %d\n", pid);
-	anjuta_children_register (pid, on_debugger_terminal_terminated, debugger);
-
-	/*
-	 * May be the terminal is not started properly.
-	 * Callback will reset this flag
-	 */
-	if (debugger->priv->term_is_running == FALSE)
-		goto error;
-
-	/*
-	 * Warning: call to fopen() may be blocked if the terminal is not properly started.
-	 * I don't know how to handle this. May be opening as non-blocking will solve this .
-	 */
-	fp = fopen (file, "r");		/* Ok, take the risk. */
-
-	if (!fp)
-		goto error;
-	if (fscanf (fp, "%s", dev_name) < 1)
-		goto error;
-	fclose (fp);
-	remove (file);
-	if (strcmp (dev_name, "__ERROR__") == 0)
-		goto error;
-	g_free (file);
-	return g_strdup (dev_name);
-error:
-	anjuta_util_dialog_error (debugger->priv->parent_win,
-							  _("Cannot start terminal for debugging."));
-	debugger_stop_terminal (debugger);
-	remove (file);
-	g_free (file);
-	return NULL;
-}
-
-static void
-debugger_stop_terminal (Debugger *debugger)
-{
-	DEBUG_PRINT ("In function: debugger_stop_terminal()");
-	
-	if (debugger->priv->term_is_running == FALSE)
-		return;
-	if (debugger->priv->term_pid > 0) {
-		anjuta_children_unregister (debugger->priv->term_pid);
-		if (kill (debugger->priv->term_pid, SIGTERM) == -1) {
-			switch (errno) {
-				case EINVAL:
-					g_warning ("Invalid signal applied to kill");
-					break;
-				case ESRCH:
-					g_warning ("No such pid [%d] or process has already died",
-							   debugger->priv->term_pid);
-					break;
-				case EPERM:
-					g_warning ("No permission to send signal to the process");
-					break;
-				default:
-					g_warning ("Unknow error while kill");
-			}
-		}
-	}
-	debugger->priv->term_pid = -1;
-	debugger->priv->term_is_running = FALSE;
-}
-
 static void
 debugger_info_program_finish (Debugger *debugger, const GDBMIValue *mi_results,
 								const GList *cli_results, GError *error)
@@ -1908,7 +1600,7 @@ debugger_info_program_finish (Debugger *debugger, const GDBMIValue *mi_results,
 }
 
 void
-debugger_start_program (Debugger *debugger, const gchar* args)
+debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty)
 {
 	gchar *cmd;
 
@@ -1916,6 +1608,15 @@ debugger_start_program (Debugger *debugger, const gchar* args)
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == FALSE);
+
+	/* Without a terminal, the output of the debugged program
+	 * are lost */
+	if (tty)
+	{
+		cmd = g_strdup_printf ("-inferior-tty-set %s", tty);
+		debugger_queue_command (debugger, cmd, FALSE, FALSE, NULL, NULL, NULL);
+		g_free (cmd);
+	}
 
 	debugger->priv->inferior_pid = 0;
 	debugger_queue_command (debugger, "-break-insert -t main", FALSE, FALSE, NULL, NULL, NULL);
@@ -2045,8 +1746,6 @@ debugger_stop_program (Debugger *debugger)
 		debugger_queue_command (debugger, "kill", FALSE, FALSE, NULL, NULL, NULL);
 		debugger->priv->prog_is_running = FALSE;
 		debugger->priv->prog_is_attached = FALSE;
-		DEBUG_PRINT ("stop terminal in stop program");
-		debugger_stop_terminal (debugger);
 		g_signal_emit_by_name (debugger->priv->instance, "program-exited");
 		if (debugger->priv->output_callback)
 		{

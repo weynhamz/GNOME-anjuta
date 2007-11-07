@@ -289,10 +289,10 @@ struct _DmaQueueCommand
 			gchar *file;
 			gchar *type;
 			GList *dirs;
-			gboolean terminal;
 		} load;
 		struct {
 			gchar *args;
+			gboolean terminal;
 		} start;
 		struct {
 			pid_t pid;
@@ -377,7 +377,6 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 			cmd->data.load.dirs = g_list_prepend (cmd->data.load.dirs, g_strdup (list->data));
 		}
 		cmd->data.load.dirs = g_list_reverse (cmd->data.load.dirs);
-		cmd->data.load.terminal = va_arg (args, gboolean);
 		break;
 	case ATTACH_COMMAND:
 		cmd->data.attach.pid = va_arg (args,pid_t);
@@ -396,6 +395,7 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		break;
 	case START_COMMAND:
 		cmd->data.start.args = g_strdup (va_arg (args, gchar *));
+		cmd->data.start.terminal = va_arg (args, gboolean);
 	    break;
 	case RUN_COMMAND:
 		break;
@@ -597,11 +597,11 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
  *---------------------------------------------------------------------------*/
 
 gboolean
-dma_queue_load (DmaDebuggerQueue *self, const gchar *file, const gchar* mime_type, const GList *search_dirs, gboolean terminal)
+dma_queue_load (DmaDebuggerQueue *self, const gchar *file, const gchar* mime_type, const GList *search_dirs)
 {
 	if (!dma_debugger_queue_start (self, mime_type)) return FALSE;
 	
-	return dma_debugger_queue_append (self, dma_command_new (DMA_LOAD_COMMAND, file, mime_type, search_dirs, terminal));
+	return dma_debugger_queue_append (self, dma_command_new (DMA_LOAD_COMMAND, file, mime_type, search_dirs));
 }
 
 gboolean
@@ -613,9 +613,9 @@ dma_queue_attach (DmaDebuggerQueue *self, pid_t pid, const GList *search_dirs)
 }
 
 gboolean
-dma_queue_start (DmaDebuggerQueue *self, const gchar *args)
+dma_queue_start (DmaDebuggerQueue *self, const gchar *args, gboolean terminal)
 {
-	return dma_debugger_queue_append (self, dma_command_new (DMA_START_COMMAND, args));
+	return dma_debugger_queue_append (self, dma_command_new (DMA_START_COMMAND, args, terminal));
 }
 
 gboolean
@@ -1040,7 +1040,7 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_callback (debugger, cmd->callback, cmd->user_data, err);	
 		break;
 	case LOAD_COMMAND:
-		ret = ianjuta_debugger_load (debugger, cmd->data.load.file, cmd->data.load.type, cmd->data.load.dirs, cmd->data.load.terminal, err);
+		ret = ianjuta_debugger_load (debugger, cmd->data.load.file, cmd->data.load.type, cmd->data.load.dirs, err);
 		break;
 	case ATTACH_COMMAND:
 		ret = ianjuta_debugger_attach (debugger, cmd->data.attach.pid, cmd->data.load.dirs, err);	
@@ -1055,7 +1055,7 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_abort (debugger, err);
 		break;
 	case START_COMMAND:
-		ret = ianjuta_debugger_start (debugger, cmd->data.start.args, err);
+		ret = ianjuta_debugger_start (debugger, cmd->data.start.args, cmd->data.start.terminal, err);
 	    break;
 	case RUN_COMMAND:
 		ret = ianjuta_debugger_run (debugger, err);	

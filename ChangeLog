@@ -1,3 +1,21 @@
+2007-11-07  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/debug-manager/command.c,
+	plugins/debug-manager/command.h,
+	plugins/debug-manager/start.c,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h:
+	Use anjuta terminal plugin instead of gnome terminal
+	Select if a terminal is used in the the start_program function
+	Move terminal code from debugger.c to plugin.c
+	Partial fix of bug #481366
+
+	* plugins/gdb/utilities.c,
+	plugins/gdb/utilities.h:
+	Remove gnome terminal check function
+
 2007-11-06  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/project-import/anjuta-project-import.glade:

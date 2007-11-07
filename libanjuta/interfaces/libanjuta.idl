@@ -3092,7 +3092,7 @@ interface IAnjutaDebugger
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
-	gboolean load (const gchar *file, const gchar *mime_type, const List<const gchar*> source_search_directories, gboolean terminal);
+	gboolean load (const gchar *file, const gchar *mime_type, const List<const gchar*> source_search_directories);
 	
 	/**
 	* ianjuta_debugger_attach:
@@ -3111,13 +3111,14 @@ interface IAnjutaDebugger
 	* ianjuta_debugger_start:
 	* @obj: Self
 	* @args: fixme
+	* @terminal: fixme
 	* @err: Error propagation and reporting.
 	* 
 	* fixme
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
-	gboolean start (const gchar *args);
+	gboolean start (const gchar *args, gboolean terminal);
 	
 	/**
 	* ianjuta_debugger_unload:

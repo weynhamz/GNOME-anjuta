@@ -289,39 +289,6 @@ gdb_util_kill_process (pid_t process_id, const gchar* signal)
 	}
 }
 
-/* Check which gnome-terminal is installed
- Returns: 0 -- No gnome-terminal
- Returns: 1 -- Gnome1 gnome-terminal
- Returns: 2 -- Gnome2 gnome-terminal */
-gint 
-gdb_util_check_gnome_terminal (void)
-{
-#ifdef DEBUG
-    gchar* term_command = "gnome-terminal --version";
-    gchar* term_command2 = "gnome-terminal --disable-factory --version";
-#else
-    gchar* term_command = "gnome-terminal --version > /dev/null 2> /dev/null";
-    gchar* term_command2 = "gnome-terminal --disable-factory --version > /dev/null 2> /dev/null";
-#endif
-    gint retval;
-    
-    retval = system (term_command);
-    
-    /* Command failed or gnome-terminal not found */
-    if (WEXITSTATUS(retval) != 0)
-        return 0;
-    
-    /* gnome-terminal found: Determine version 1 or 2 */
-    retval = system (term_command2);
-    
-    /* Command failed or gnome-terminal-2 not found */
-    if (WEXITSTATUS(retval) != 0)
-        return 1;
-    
-    /* gnome-terminal-2 found */
-    return 2;
-}
-
 /* Debugger message manager management */
 
 #if 0

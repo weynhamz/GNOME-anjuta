@@ -831,7 +831,7 @@ dma_start_load_uri (DmaStart *this)
 		mime_type = gnome_vfs_get_mime_type (this->target_uri);
 	        filename = gnome_vfs_uri_get_path (vfs_uri);
 
-		dma_queue_load (this->debugger, filename, mime_type, search_dirs, this->run_in_terminal);
+		dma_queue_load (this->debugger, filename, mime_type, search_dirs);
 		
 		g_free (mime_type);
 		gnome_vfs_uri_unref (vfs_uri);
@@ -1083,7 +1083,7 @@ dma_run_target (DmaStart *this)
 	if (dma_set_parameters (this) == TRUE)
 	{       
 		dma_start_load_uri (this);
-		dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args);
+		dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal);
 	}
 	
 	return this->target_uri != NULL;
@@ -1095,7 +1095,7 @@ dma_rerun_target (DmaStart *this)
 	if (this->target_uri == NULL) return FALSE;
 
 	dma_start_load_uri (this);
-	dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args);
+	dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal);
 	
 	return TRUE;
 }
