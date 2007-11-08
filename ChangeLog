@@ -1,3 +1,219 @@
+2007-11-08  James Liggett  <jrliggett@cox.net>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-async-command.c: (anjuta_async_command_init),
+	(anjuta_async_command_finalize),
+	(anjuta_async_command_notification_poll),
+	(anjuta_async_command_thread), (start_command),
+	(notify_data_arrived), (notify_complete),
+	(anjuta_async_command_class_init),
+	(anjuta_async_command_set_error_message),
+	(anjuta_async_command_get_error_message),
+	(anjuta_async_command_lock), (anjuta_async_command_unlock):
+	* libanjuta/anjuta-async-command.h:
+	* libanjuta/anjuta-command.c: (anjuta_command_init),
+	(anjuta_command_finalize), (anjuta_command_class_init),
+	(anjuta_command_start), (anjuta_command_notify_data_arrived),
+	(anjuta_command_notify_complete),
+	(anjuta_command_set_error_message),
+	(anjuta_command_get_error_message):
+	* libanjuta/anjuta-command.h:
+	* libanjuta/anjuta-glade-catalog.c:
+	* libanjuta/anjuta-glade.xml:
+	* libanjuta/anjuta-vcs-status-tree-view.c:
+	(on_selected_column_toggled),
+	(anjuta_vcs_status_tree_view_create_columns),
+	(anjuta_vcs_status_tree_view_init),
+	(anjuta_vcs_status_tree_view_finalize),
+	(anjuta_vcs_status_tree_view_set_property),
+	(anjuta_vcs_status_tree_view_get_property),
+	(anjuta_vcs_status_tree_view_class_init),
+	(anjuta_vcs_status_tree_view_new),
+	(anjuta_vcs_status_tree_view_destroy),
+	(anjuta_vcs_status_tree_view_add), (select_all_paths),
+	(anjuta_vcs_status_tree_view_select_all), (unselect_all_paths),
+	(anjuta_vcs_status_tree_view_unselect_all),
+	(create_selected_paths_list),
+	(anjuta_vcs_status_tree_view_get_selected):
+	* libanjuta/anjuta-vcs-status-tree-view.h:
+	* libanjuta/anjuta-widgets.c: (glade_module_register_widgets):
+	* libanjuta/anjuta-widgets.h:
+	* plugins/subversion/subversion-add-dialog.c:
+	(on_add_command_finished), (on_subversion_add_response),
+	(subversion_add_dialog), (on_menu_subversion_add),
+	(on_fm_subversion_add):
+	* plugins/subversion/subversion-add-dialog.h:
+	* plugins/subversion/subversion-commit-dialog.c:
+	(on_commit_command_finished), (on_subversion_commit_response),
+	(subversion_commit_dialog), (on_menu_subversion_commit),
+	(on_fm_subversion_commit):
+	* plugins/subversion/subversion-commit-dialog.h:
+	* plugins/subversion/subversion-copy-dialog.c:
+	(on_copy_other_revision_radio_toggled),
+	(on_copy_browse_button_clicked), (on_copy_dest_entry_focus_in),
+	(on_copy_command_finished), (on_subversion_copy_response),
+	(subversion_copy_dialog), (on_menu_subversion_copy),
+	(on_fm_subversion_copy):
+	* plugins/subversion/subversion-copy-dialog.h:
+	* plugins/subversion/subversion-diff-dialog.c: (on_editor_destroy),
+	(on_subversion_diff_response), (subversion_diff_dialog),
+	(on_menu_subversion_diff), (on_fm_subversion_diff):
+	* plugins/subversion/subversion-diff-dialog.h:
+	* plugins/subversion/subversion-log-dialog.c:
+	(on_diff_selected_column_toggled), (create_columns),
+	(on_log_command_finished), (on_log_view_button_clicked),
+	(on_cat_command_data_arrived), (on_cat_command_finished),
+	(on_log_view_selected_button_clicked), (get_selected_revisions),
+	(on_log_diff_selected_button_clicked),
+	(on_log_diff_previous_button_clicked),
+	(on_subversion_log_vbox_destroy),
+	(on_log_changes_view_row_selected), (subversion_log_window_create),
+	(on_menu_subversion_log), (on_fm_subversion_log),
+	(subversion_log_set_whole_project_sensitive):
+	* plugins/subversion/subversion-log-dialog.h:
+	* plugins/subversion/subversion-merge-dialog.c:
+	(on_merge_command_finished), (on_subversion_merge_response),
+	(on_merge_first_path_browse_button_clicked),
+	(on_merge_second_path_browse_button_clicked),
+	(on_merge_use_first_path_check_toggled),
+	(on_merge_start_revision_radio_toggled),
+	(on_merge_end_revision_radio_toggled), (subversion_merge_dialog),
+	(on_menu_subversion_merge):
+	* plugins/subversion/subversion-merge-dialog.h:
+	* plugins/subversion/subversion-remove-dialog.c:
+	(on_remove_command_finished),
+	(on_remove_path_browse_button_clicked),
+	(on_subversion_remove_response), (subversion_remove_dialog),
+	(on_menu_subversion_remove), (on_fm_subversion_remove):
+	* plugins/subversion/subversion-remove-dialog.h:
+	* plugins/subversion/subversion-resolve-dialog.c:
+	(on_resolve_command_finished), (on_subversion_resolve_response),
+	(subversion_resolve_dialog), (on_menu_subversion_resolve):
+	* plugins/subversion/subversion-resolve-dialog.h:
+	* plugins/subversion/subversion-revert-dialog.c:
+	(on_revert_command_finished), (on_subversion_revert_response),
+	(subversion_revert_dialog), (on_menu_subversion_revert):
+	* plugins/subversion/subversion-revert-dialog.h:
+	* plugins/subversion/subversion-switch-dialog.c:
+	(on_switch_other_revision_radio_toggled),
+	(on_switch_command_finished), (on_subversion_switch_response),
+	(subversion_switch_dialog), (on_menu_subversion_switch):
+	* plugins/subversion/subversion-switch-dialog.h:
+	* plugins/subversion/subversion-ui-utils.c: (subversion_data_new),
+	(subversion_data_free), (on_mesg_view_destroy),
+	(create_message_view), (check_filename), (get_log_from_textview),
+	(pulse_timer), (on_pulse_timer_destroyed),
+	(status_bar_progress_pulse), (clear_status_bar_progress_pulse),
+	(report_errors), (on_status_command_finished),
+	(on_status_command_data_arrived), (on_command_info_arrived),
+	(select_all_status_items), (clear_all_status_selections),
+	(init_whole_project), (on_whole_project_toggled),
+	(send_diff_command_output_to_editor), (on_diff_command_finished),
+	(stop_status_bar_progress_pulse):
+	* plugins/subversion/subversion-ui-utils.h:
+	* plugins/subversion/subversion-update-dialog.c:
+	(on_update_command_finished), (on_subversion_update_response),
+	(subversion_update_dialog), (on_menu_subversion_update),
+	(on_fm_subversion_update):
+	* plugins/subversion/subversion-update-dialog.h:
+	* plugins/subversion/svn-add-command.c: (svn_add_command_init),
+	(svn_add_command_finalize), (svn_add_command_run),
+	(svn_add_command_class_init), (svn_add_command_new),
+	(svn_add_command_destroy):
+	* plugins/subversion/svn-add-command.h:
+	* plugins/subversion/svn-cat-command.c: (svn_cat_command_init),
+	(svn_cat_command_finalize), (svn_cat_command_run),
+	(svn_cat_command_class_init), (svn_cat_command_new),
+	(svn_cat_command_destroy), (svn_cat_command_get_output):
+	* plugins/subversion/svn-cat-command.h:
+	* plugins/subversion/svn-command.c: (svn_command_acquire_ui_lock),
+	(svn_command_release_ui_lock), (simple_prompt),
+	(ssl_server_trust_prompt), (svn_auth_simple_prompt_func_cb),
+	(svn_auth_ssl_server_trust_prompt_func_cb),
+	(svn_auth_ssl_client_cert_prompt_func_cb),
+	(svn_auth_ssl_client_cert_pw_prompt_func_cb), (on_svn_notify),
+	(svn_command_init), (svn_command_finalize),
+	(svn_command_class_init), (svn_command_push_info),
+	(svn_command_get_info_queue), (svn_command_set_error),
+	(svn_command_get_client_context), (svn_command_get_pool),
+	(svn_command_lock_ui), (svn_command_unlock_ui),
+	(svn_command_get_revision), (svn_command_copy_path_list),
+	(svn_command_free_path_list):
+	* plugins/subversion/svn-command.h:
+	* plugins/subversion/svn-commit-command.c: (on_log_callback),
+	(svn_commit_command_init), (svn_commit_command_finalize),
+	(svn_commit_command_run), (svn_commit_command_class_init),
+	(svn_commit_command_new), (svn_commit_command_destroy):
+	* plugins/subversion/svn-commit-command.h:
+	* plugins/subversion/svn-copy-command.c: (on_log_callback),
+	(svn_copy_command_init), (svn_copy_command_finalize),
+	(svn_copy_command_run), (svn_copy_command_class_init),
+	(svn_copy_command_new), (svn_copy_command_destroy):
+	* plugins/subversion/svn-copy-command.h:
+	* plugins/subversion/svn-diff-command.c: (svn_diff_command_init),
+	(svn_diff_command_finalize), (svn_diff_command_run),
+	(svn_diff_command_class_init), (svn_diff_command_new),
+	(svn_diff_command_destroy), (svn_diff_command_get_output):
+	* plugins/subversion/svn-diff-command.h:
+	* plugins/subversion/svn-log-command.c: (svn_log_command_init),
+	(svn_log_command_finalize), (log_callback), (svn_log_command_run),
+	(svn_log_command_class_init), (svn_log_command_new),
+	(svn_log_command_destroy), (svn_log_command_get_entry_queue):
+	* plugins/subversion/svn-log-command.h:
+	* plugins/subversion/svn-log-entry.c: (svn_log_entry_init),
+	(svn_log_entry_finalize), (svn_log_entry_class_init),
+	(strip_whitespace), (svn_log_entry_new), (svn_log_entry_destroy),
+	(svn_log_entry_get_author), (svn_log_entry_get_date),
+	(svn_log_entry_get_revision), (svn_log_entry_get_short_log),
+	(svn_log_entry_get_full_log):
+	* plugins/subversion/svn-log-entry.h:
+	* plugins/subversion/svn-merge-command.c: (svn_merge_command_init),
+	(svn_merge_command_finalize), (svn_merge_command_run),
+	(svn_merge_command_class_init), (svn_merge_command_new),
+	(svn_merge_command_destroy):
+	* plugins/subversion/svn-merge-command.h:
+	* plugins/subversion/svn-remove-command.c: (on_log_callback),
+	(svn_remove_command_init), (svn_remove_command_finalize),
+	(svn_remove_command_run), (svn_remove_command_class_init),
+	(svn_remove_command_new), (svn_remove_command_destroy),
+	(svn_remove_command_get_path):
+	* plugins/subversion/svn-remove-command.h:
+	* plugins/subversion/svn-resolve-command.c:
+	(svn_resolve_command_init), (svn_resolve_command_finalize),
+	(svn_resolve_command_run), (svn_resolve_command_class_init),
+	(svn_resolve_command_new), (svn_resolve_command_destroy):
+	* plugins/subversion/svn-resolve-command.h:
+	* plugins/subversion/svn-revert-command.c:
+	(svn_revert_command_init), (svn_revert_command_finalize),
+	(svn_revert_command_run), (svn_revert_command_class_init),
+	(svn_revert_command_new), (svn_revert_command_destroy):
+	* plugins/subversion/svn-revert-command.h:
+	* plugins/subversion/svn-status-command.c:
+	(svn_status_command_init), (svn_status_command_finalize),
+	(on_svn_status_notify), (svn_status_command_run),
+	(svn_status_command_class_init), (svn_status_command_new),
+	(svn_status_command_destroy),
+	(svn_status_command_get_status_queue):
+	* plugins/subversion/svn-status-command.h:
+	* plugins/subversion/svn-status.c: (svn_status_init),
+	(svn_status_finalize), (svn_status_class_init), (svn_status_new),
+	(svn_status_destroy), (svn_status_get_path),
+	(svn_status_get_vcs_status):
+	* plugins/subversion/svn-status.h:
+	* plugins/subversion/svn-switch-command.c:
+	(svn_switch_command_init), (svn_switch_command_finalize),
+	(svn_switch_command_run), (svn_switch_command_class_init),
+	(svn_switch_command_new), (svn_switch_command_destroy):
+	* plugins/subversion/svn-switch-command.h:
+	* plugins/subversion/svn-update-command.c:
+	(svn_update_command_init), (svn_update_command_finalize),
+	(svn_update_command_run), (svn_update_command_class_init),
+	(svn_update_command_new), (svn_update_command_destroy):
+	* plugins/subversion/svn-update-command.h:
+
+	Now really committed all files from James patch (#457477)
+
 2007-11-08  Johannes Schmid <jhs@gnome.org>
 
 	* TODO.tasks: Updated
