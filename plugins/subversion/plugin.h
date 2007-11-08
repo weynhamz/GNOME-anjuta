@@ -26,6 +26,7 @@
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
+#include <svn_client.h>
 
 extern GType subversion_get_type (GTypeModule *module);
 #define ANJUTA_TYPE_PLUGIN_SUBVERSION         (subversion_get_type (NULL))
@@ -38,8 +39,6 @@ extern GType subversion_get_type (GTypeModule *module);
 typedef struct _Subversion Subversion;
 typedef struct _SubversionClass SubversionClass;
 
-#include "svn-backend.h"
-
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-subversion.glade"
 #define ICON_FILE "anjuta-subversion.png"
 
@@ -50,8 +49,6 @@ struct _Subversion{
 	IAnjutaMessageView* mesg_view;
 	IAnjutaEditor* diff_editor;
 	AnjutaLauncher* launcher;
-	
-	SVNBackend* backend;
 	
 	/* Merge ID */
 	gint uiid;
@@ -69,6 +66,10 @@ struct _Subversion{
 	gchar *fm_current_filename;
 	gchar *project_root_dir;
 	gchar *current_editor_filename;
+	
+	/* Log viewer */
+	GladeXML *log_gxml;
+	GtkWidget *log_viewer;
 };
 
 struct _SubversionClass{

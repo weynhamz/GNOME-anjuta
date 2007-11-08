@@ -29,8 +29,17 @@
 #include <libanjuta/interfaces/ianjuta-vcs.h>
 
 #include "plugin.h"
-#include "subversion-actions.h"
-#include "svn-backend.h"
+#include "subversion-add-dialog.h"
+#include "subversion-remove-dialog.h"
+#include "subversion-commit-dialog.h"
+#include "subversion-update-dialog.h"
+#include "subversion-revert-dialog.h"
+#include "subversion-log-dialog.h"
+#include "subversion-diff-dialog.h"
+#include "subversion-copy-dialog.h"
+#include "subversion-switch-dialog.h"
+#include "subversion-merge-dialog.h"
+#include "subversion-resolve-dialog.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-subversion.ui"
 
@@ -70,6 +79,22 @@ static GtkActionEntry actions_subversion[] = {
 		G_CALLBACK (on_menu_subversion_commit)    /* action callback */
 	},
 	{
+		"ActionSubversionRevert",                       /* Action name */
+		GTK_STOCK_UNDO,                            /* Stock icon, if any */
+		N_("_Revert..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Revert changes to your working copy."),                      /* Tooltip */
+		G_CALLBACK (on_menu_subversion_revert)    /* action callback */
+	},
+	{
+		"ActionSubversionResolve",                       /* Action name */
+		GTK_STOCK_PREFERENCES,                            /* Stock icon, if any */
+		N_("_Resolve Conflicts..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Resolve conflicts in your working copy."),                      /* Tooltip */
+		G_CALLBACK (on_menu_subversion_resolve)    /* action callback */
+	},
+	{
 		"ActionSubversionUpdate",                       /* Action name */
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
 		N_("_Update..."),                     /* Display label */
@@ -78,11 +103,43 @@ static GtkActionEntry actions_subversion[] = {
 		G_CALLBACK (on_menu_subversion_update)    /* action callback */
 	},
 	{
+		"ActionSubversionCopy",                       /* Action name */
+		GTK_STOCK_COPY,                            /* Stock icon, if any */
+		N_("Copy Files/Folders..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Copy files/folders in the repository"),                      /* Tooltip */
+		G_CALLBACK (on_menu_subversion_copy)    /* action callback */
+	},
+	{
+		"ActionSubversionSwitch",                       /* Action name */
+		GTK_STOCK_JUMP_TO,                            /* Stock icon, if any */
+		N_("Switch to a Branch/Tag..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Switch your local copy to a branch or tag in the repository"),                      /* Tooltip */
+		G_CALLBACK (on_menu_subversion_switch)    /* action callback */
+	},
+	{
+		"ActionSubversionMerge",                       /* Action name */
+		GTK_STOCK_CONVERT,                            /* Stock icon, if any */
+		N_("Merge..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Merge changes into your working copy"),                      /* Tooltip */
+		G_CALLBACK (on_menu_subversion_merge)    /* action callback */
+	},
+	{
+		"ActionSubversionLog",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_View Log..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("View file history"),                      /* Tooltip */
+		G_CALLBACK (on_menu_subversion_log)    /* action callback */
+	},
+	{
 		"ActionSubversionDiff",                       /* Action name */
 		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
 		N_("_Diff..."),                     /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Diff local tree with repositry"),                      /* Tooltip */
+		N_("Diff local tree with repository"),                      /* Tooltip */
 		G_CALLBACK (on_menu_subversion_diff)    /* action callback */
 	}
 };
@@ -97,20 +154,52 @@ static GtkActionEntry popup_actions_subversion[] = {
 		NULL
 	},
 	{
-		"ActionPopupSubversionCommit",                       /* Action name */
-		GTK_STOCK_YES,                            /* Stock icon, if any */
-		N_("_Commit..."),                     /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Commit your changes to the Subversion tree"),                      /* Tooltip */
-		G_CALLBACK (on_fm_subversion_commit)    /* action callback */
-	},
-	{
 		"ActionPopupSubversionUpdate",                       /* Action name */
 		GTK_STOCK_REFRESH,                            /* Stock icon, if any */
 		N_("_Update..."),                     /* Display label */
 		NULL,                                     /* short-cut */
 		N_("Sync your local copy with the Subversion tree"),                      /* Tooltip */
 		G_CALLBACK (on_fm_subversion_update)    /* action callback */
+	},
+	{
+		"ActionPopupSubversionAdd",                       /* Action name */
+		GTK_STOCK_ADD,                            /* Stock icon, if any */
+		N_("_Add..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Add a new file/directory to the Subversion tree"),                      /* Tooltip */
+		G_CALLBACK (on_fm_subversion_add)    /* action callback */
+	},
+	{
+		"ActionPopupSubversionRemove",                       /* Action name */
+		GTK_STOCK_REMOVE,                            /* Stock icon, if any */
+		N_("_Remove..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Remove a file/directory from Subversion tree"),                      /* Tooltip */
+		G_CALLBACK (on_fm_subversion_remove)    /* action callback */
+	},
+	{
+		"ActionPopupSubversionLog",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("_View Log..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("View file history"),                      /* Tooltip */
+		G_CALLBACK (on_fm_subversion_log)    /* action callback */
+	},
+	{
+		"ActionPopupSubversionCopy",                       /* Action name */
+		GTK_STOCK_COPY,                            /* Stock icon, if any */
+		N_("Copy..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Copy files/folders in the repository"),                      /* Tooltip */
+		G_CALLBACK (on_fm_subversion_copy)    /* action callback */
+	},
+	{
+		"ActionPopupSubversionDiff",                       /* Action name */
+		GTK_STOCK_ZOOM_100,                            /* Stock icon, if any */
+		N_("Diff..."),                     /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Diff local tree with repository"),                      /* Tooltip */
+		G_CALLBACK (on_fm_subversion_diff)    /* action callback */
 	}
 };
 
@@ -207,8 +296,23 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 {
 	Subversion *bb_plugin;
 	const gchar *root_uri;
+	GtkAction *commit_action;
+	GtkAction *revert_action;
+	GtkAction *resolve_action;
 
 	bb_plugin = ANJUTA_PLUGIN_SUBVERSION (plugin);
+	commit_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell,
+															   NULL),
+										  "ActionGroupSubversion",
+										  "ActionSubversionCommit");
+	revert_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell,
+															   NULL),
+										  "ActionGroupSubversion",
+										  "ActionSubversionRevert");
+	resolve_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell,
+															   NULL),
+										  "ActionGroupSubversion",
+										  "ActionSubversionResolve");
 	
 	DEBUG_PRINT ("Project added");
 	
@@ -224,6 +328,13 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 		if (bb_plugin->project_root_dir)
 		{
 			// update_project_ui (bb_plugin);
+			subversion_log_set_whole_project_sensitive (bb_plugin->log_gxml,
+														TRUE);
+			gtk_action_set_sensitive (commit_action, TRUE);
+			gtk_action_set_sensitive (revert_action, TRUE);
+			gtk_action_set_sensitive (resolve_action, TRUE);
+			
+			
 		}
 	}
 }
@@ -233,12 +344,34 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 								gpointer user_data)
 {
 	Subversion *bb_plugin;
+	GtkAction *commit_action;
+	GtkAction *revert_action;
+	GtkAction *resolve_action;
 
 	bb_plugin = ANJUTA_PLUGIN_SUBVERSION (plugin);
+	commit_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell,
+															   NULL),
+										  "ActionGroupSubversion",
+										  "ActionSubversionCommit");
+	revert_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell,
+															   NULL),
+										  "ActionGroupSubversion",
+										  "ActionSubversionRevert");
+	resolve_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell,
+															   NULL),
+										  "ActionGroupSubversion",
+										  "ActionSubversionResolve");
+	
 	if (bb_plugin->project_root_dir)
 		g_free (bb_plugin->project_root_dir);
 	bb_plugin->project_root_dir = NULL;
 	// update_project_ui (bb_plugin);
+	
+	subversion_log_set_whole_project_sensitive (bb_plugin->log_gxml,
+												FALSE);
+	gtk_action_set_sensitive (commit_action, FALSE);
+	gtk_action_set_sensitive (revert_action, FALSE);
+	gtk_action_set_sensitive (resolve_action, FALSE);
 }
 
 static void
@@ -290,25 +423,15 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 static gboolean
 activate_plugin (AnjutaPlugin *plugin)
 {
-	/*
-	GladeXML* gxml;
-	AnjutaPreferences *prefs;
-	*/
 	AnjutaUI *ui;
 	Subversion *subversion;
+	GtkAction *commit_action;
+	GtkAction *revert_action;
 	
 	DEBUG_PRINT ("Subversion: Activating Subversion plugin ...");
 	subversion = ANJUTA_PLUGIN_SUBVERSION (plugin);
 	
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	
-	/* Create the messages preferences page */
-	/*
-	prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	gxml = glade_xml_new (GLADE_FILE, "subversion", NULL);
-	anjuta_preferences_add_page (prefs, gxml, "subversion", ICON_FILE);
-	g_object_unref (gxml);
-	*/
 	
 	/* Add all our actions */
 	subversion->action_group = 
@@ -327,6 +450,9 @@ activate_plugin (AnjutaPlugin *plugin)
 	/* Merge UI */
 	subversion->uiid = anjuta_ui_merge (ui, UI_FILE);
 	
+	subversion->log_gxml = glade_xml_new (GLADE_FILE, "subversion_log", 
+										  NULL);
+	
 	/* Add watches */
 	subversion->fm_watch_id = 
 		anjuta_plugin_add_watch (plugin, "file_manager_current_uri",
@@ -340,6 +466,32 @@ activate_plugin (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
+	
+	subversion->log_viewer = subversion_log_window_create (subversion);
+	anjuta_shell_add_widget (plugin->shell, subversion->log_viewer,
+							 "Subversion Log Viewer", 
+							 _("Subversion Log"),
+							 GTK_STOCK_ZOOM_100,
+							 ANJUTA_SHELL_PLACEMENT_CENTER,
+							 NULL);
+	
+	g_object_unref (subversion->log_viewer);
+	
+	commit_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell,
+															   NULL),
+										  "ActionGroupSubversion",
+										  "ActionSubversionCommit");
+	revert_action = anjuta_ui_get_action (anjuta_shell_get_ui (plugin->shell,
+															   NULL),
+										  "ActionGroupSubversion",
+										  "ActionSubversionRevert");
+
+	if (!subversion->project_root_dir)
+	{
+		gtk_action_set_sensitive (commit_action, FALSE);
+		gtk_action_set_sensitive (revert_action, FALSE);
+	}
+							 
 	return TRUE;
 }
 
@@ -355,13 +507,20 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	anjuta_ui_unmerge (ui, ANJUTA_PLUGIN_SUBVERSION (plugin)->uiid);
 	anjuta_ui_remove_action_group (ui, ANJUTA_PLUGIN_SUBVERSION (plugin)->action_group);
 	anjuta_ui_remove_action_group (ui, ANJUTA_PLUGIN_SUBVERSION (plugin)->popup_action_group);
+	
+	anjuta_shell_remove_widget (plugin->shell, 
+								ANJUTA_PLUGIN_SUBVERSION (plugin)->log_viewer,
+								NULL);
+	
+	g_object_unref (ANJUTA_PLUGIN_SUBVERSION (plugin)->log_gxml);
+	
 	return TRUE;
 }
 
 static void
 finalize (GObject *obj)
 {
-	// Subversion *plugin = ANJUTA_PLUGIN_SUBVERSION (obj);
+	apr_terminate ();
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (G_OBJECT(obj)));
 }
 
@@ -383,7 +542,10 @@ subversion_instance_init (GObject *obj)
 	plugin->fm_current_filename = NULL;
 	plugin->project_root_dir = NULL;
 	plugin->current_editor_filename = NULL;
-	plugin->backend = svn_backend_new(plugin);
+	plugin->log_gxml = NULL;
+	plugin->log_viewer = NULL;
+	
+	apr_initialize ();
 }
 
 static void
@@ -399,50 +561,7 @@ subversion_class_init (GObjectClass *klass)
 	klass->finalize = finalize;
 }
 
-/* Interface */
-
-static void
-ianjuta_subversion_add (IAnjutaVcs *obj, const gchar* filename, 
-	GError **err)
-{
-	Subversion* plugin = ANJUTA_PLUGIN_SUBVERSION (obj);
-	svn_backend_add(plugin->backend, filename, FALSE, FALSE);
-}
-	
-static void
-ianjuta_subversion_commit (IAnjutaVcs *obj, const gchar* filename, const gchar* log, 
-						 gboolean recurse, GError **err)
-{
-	Subversion* plugin = ANJUTA_PLUGIN_SUBVERSION (obj);
-	svn_backend_commit(plugin->backend, filename, log, recurse);
-}
-
-static void
-ianjuta_subversion_remove (IAnjutaVcs *obj, const gchar* filename, GError **err)
-{
-	Subversion* plugin = ANJUTA_PLUGIN_SUBVERSION (obj);
-	svn_backend_remove(plugin->backend, filename, FALSE);
-}
-
-
-static void
-ianjuta_subversion_update (IAnjutaVcs *obj, const gchar* filename, gboolean recurse, GError **err)
-{
-	Subversion* plugin = ANJUTA_PLUGIN_SUBVERSION (obj);
-	svn_backend_update(plugin->backend, filename, NULL, recurse);
-}
-
-static void
-ianjuta_vcs_iface_init (IAnjutaVcsIface *iface)
-{
-	iface->add = ianjuta_subversion_add;
-	iface->remove = ianjuta_subversion_remove;
-	iface->update = ianjuta_subversion_update;
-	iface->commit = ianjuta_subversion_commit;	
-}
-
 ANJUTA_PLUGIN_BEGIN (Subversion, subversion);
-ANJUTA_PLUGIN_ADD_INTERFACE(ianjuta_vcs, IANJUTA_TYPE_VCS);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (Subversion, subversion);

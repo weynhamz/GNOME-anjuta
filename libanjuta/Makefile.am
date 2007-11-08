@@ -1,5 +1,5 @@
 
-SUBDIRS = interfaces
+SUBDIRS = interfaces 
 
 INCLUDES = \
 	$(WARN_CFLAGS) \
@@ -16,8 +16,8 @@ INCLUDES = \
 	-DPACKAGE_DATA_DIR="\"$(datadir)/$(PACKAGE)\"" \
 	-DG_LOG_DOMAIN=\"libanjuta\"
 
-lib_LTLIBRARIES=libanjuta.la
-libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS)
+lib_LTLIBRARIES=libanjuta.la 
+libanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) 
 libanjuta_la_LIBADD = \
 	$(top_builddir)/libegg/libanjuta-egg.la \
 	$(top_builddir)/libanjuta/interfaces/libanjuta-interfaces.la \
@@ -59,7 +59,28 @@ libanjuta_la_SOURCES= \
 	e-splash.h \
 	e-splash.c \
 	anjuta-error.c \
-	anjuta-error.h
+	anjuta-error.h \
+	anjuta-vcs-status-tree-view.c \
+	anjuta-vcs-status-tree-view.h \
+	anjuta-widgets.c \
+	anjuta-widgets.h \
+	anjuta-command.c \
+	anjuta-command.h \
+	anjuta-async-command.c \
+	anjuta-async-command.h
+
+gladeanjutadir = @GLADE_PLUGINS_PATH@
+
+gladeanjuta_LTLIBRARIES = libgladeanjuta.la
+libgladeanjuta_la_DEPENDENCIES = libanjuta.la
+libgladeanjuta_la_SOURCES = anjuta-glade-catalog.c
+libgladeanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) -module -avoid-version
+libgladeanjuta_la_LIBADD = $(top_builddir)/libanjuta/libanjuta.la \
+						   $(GLADE_LIBS)
+
+catalogdir = @GLADE_CATALOG_PATH@
+
+catalog_DATA = anjuta-glade.xml
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 
@@ -86,7 +107,10 @@ libanjuta_include = \
 	anjuta-save-prompt.h \
 	anjuta-serializer.h \
 	anjuta-error.h \
-	resources.h
+	resources.h \
+	anjuta-vcs-status-tree-view.h \
+	anjuta-command.h \
+	anjuta-async-command.h
 
 libanjutainclude_HEADERS = \
 	$(libanjuta_include) \
@@ -139,4 +163,5 @@ pkgconfig_DATA = libanjuta-1.0.pc
 EXTRA_DIST = \
 	$(libanjutainclude_HEADERS) \
 	libanjuta-1.0.pc.in \
-	anjuta-marshal.list
+	anjuta-marshal.list \
+	$(catalog_DATA)

@@ -37,22 +37,64 @@ libanjuta_subversion_la_LIBADD = \
 	$(LIBANJUTA_LIBS) $(PCRE_LIBS) $(SVN_LIB)
 
 libanjuta_subversion_la_SOURCES = \
-	svn-backend.c \
-	svn-backend.h \
-	svn-notify.c \
-	svn-notify.h \
 	plugin.c \
 	plugin.h \
-	subversion-actions.c \
-	subversion-actions.h \
-	subversion-callbacks.c \
-	subversion-callbacks.h \
-	svn-thread.c \
-	svn-thread.h \
-	svn-backend-priv.h \
-	svn-backend.h \
-	svn-auth.c \
-	svn-auth.h
+	svn-diff-command.h \
+	svn-diff-command.c \
+	svn-command.h \
+	svn-command.c \
+	svn-update-command.h \
+	svn-update-command.c \
+	svn-remove-command.h \
+	svn-remove-command.c \
+	svn-add-command.h \
+	svn-add-command.c \
+	svn-commit-command.h \
+	svn-commit-command.c \
+	svn-status.h \
+	svn-status.c \
+	svn-status-command.h \
+	svn-status-command.c \
+	subversion-ui-utils.h \
+	subversion-ui-utils.c \
+	subversion-revert-dialog.c \
+	svn-revert-command.h \
+	svn-revert-command.c \
+	subversion-revert-dialog.h \
+	subversion-commit-dialog.h \
+	subversion-commit-dialog.c \
+	subversion-update-dialog.h \
+	subversion-update-dialog.c \
+	subversion-diff-dialog.h \
+	subversion-diff-dialog.c \
+	subversion-add-dialog.h \
+	subversion-add-dialog.c \
+	subversion-remove-dialog.h \
+	subversion-remove-dialog.c \
+	svn-log-entry.h \
+	svn-log-entry.c \
+	svn-log-command.h \
+	svn-log-command.c \
+	subversion-log-dialog.h \
+	subversion-log-dialog.c \
+	svn-cat-command.h \
+	svn-cat-command.c \
+	svn-copy-command.h \
+	svn-copy-command.c \
+	subversion-copy-dialog.c \
+	subversion-copy-dialog.h \
+	svn-switch-command.h \
+	svn-switch-command.c \
+	subversion-switch-dialog.c \
+	subversion-switch-dialog.h \
+	svn-merge-command.h \
+	svn-merge-command.c \
+	subversion-merge-dialog.c \
+	subversion-merge-dialog.h \
+	subversion-resolve-dialog.c \
+	subversion-resolve-dialog.h \
+	svn-resolve-command.h \
+	svn-resolve-command.c
 
 endif
 
@@ -61,4 +103,4 @@ EXTRA_DIST = \
 	$(subversion_plugin_DATA) \
 	$(subversion_ui_DATA) \
 	$(subversion_glade_DATA) \
-	$(subversion_pixmaps_DATA)
+	$(subversion_pixmaps_DATA) 

@@ -1,3 +1,39 @@
+2007-11-08  Johannes Schmid <jhs@gnome.org>
+
+	* TODO.tasks: Updated
+
+2007-11-08  James Liggett  <jrliggett@cox.net>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* configure.in:
+	* libanjuta/Makefile.am:
+	* libanjuta/anjuta-status.c: (anjuta_status_progress_pulse):
+	* libanjuta/anjuta-status.h:
+	* libanjuta/libanjuta.h:
+	* plugins/subversion/Makefile.am:
+	* plugins/subversion/anjuta-subversion.glade:
+	* plugins/subversion/anjuta-subversion.ui:
+	* plugins/subversion/plugin.c: (value_added_project_root_uri),
+	(value_removed_project_root_uri), (activate_plugin),
+	(deactivate_plugin), (finalize), (subversion_instance_init):
+	* plugins/subversion/plugin.h:
+	* plugins/subversion/subversion-actions.c:
+	* plugins/subversion/subversion-actions.h:
+	* plugins/subversion/subversion-callbacks.c:
+	* plugins/subversion/subversion-callbacks.h:
+	* plugins/subversion/svn-auth.c:
+	* plugins/subversion/svn-auth.h:
+	* plugins/subversion/svn-backend-priv.h:
+	* plugins/subversion/svn-backend.c:
+	* plugins/subversion/svn-backend.h:
+	* plugins/subversion/svn-notify.c:
+	* plugins/subversion/svn-notify.h:
+	* plugins/subversion/svn-thread.c:
+	* plugins/subversion/svn-thread.h:
+	
+	Commited alpha2 of the new subversion plugin (#457477)
+
 2007-11-07  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/command.c:

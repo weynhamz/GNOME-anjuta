@@ -43,5 +43,8 @@
 #include <libanjuta/anjuta-ui.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/resources.h>
+#include <libanjuta/anjuta-vcs-status-tree-view.h>
+#include <libanjuta/anjuta-command.h>
+#include <libanjuta/anjuta-async-command.h>
 
 #endif

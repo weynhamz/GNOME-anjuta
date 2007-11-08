@@ -111,7 +111,7 @@ anjuta_status_dispose (GObject *widget)
 
 static void
 anjuta_status_instance_init (AnjutaStatus *status)
-{
+{	
 	status->priv = g_new0 (AnjutaStatusPriv, 1);
 	status->priv->splash_file = NULL;
 	status->priv->splash_progress_position = 0;
@@ -390,6 +390,30 @@ anjuta_status_progress_add_ticks (AnjutaStatus *status, gint ticks)
 			GDK_IS_WINDOW(GTK_WIDGET(statusbar)->window))
 			gdk_window_process_updates (GTK_WIDGET(statusbar)->window, TRUE);
 	}
+}
+
+void
+anjuta_status_progress_pulse (AnjutaStatus *status, const gchar *text)
+{
+	GtkProgressBar *progressbar;
+	GtkWidget *statusbar;
+	
+	progressbar = gnome_appbar_get_progress (GNOME_APPBAR (status));
+	statusbar = gnome_appbar_get_status (GNOME_APPBAR (status));
+	
+	if (text)
+		anjuta_status_set (status, "%s", text);
+	
+	gtk_progress_bar_pulse (progressbar);
+	
+	gtk_widget_queue_draw (GTK_WIDGET (statusbar));
+	gtk_widget_queue_draw (GTK_WIDGET (progressbar));
+	if (GTK_WIDGET(progressbar)->window != NULL &&
+		GDK_IS_WINDOW(GTK_WIDGET(progressbar)->window))
+		gdk_window_process_updates (GTK_WIDGET(progressbar)->window, TRUE);
+	if (GTK_WIDGET(statusbar)->window != NULL &&
+		GDK_IS_WINDOW(GTK_WIDGET(statusbar)->window))
+		gdk_window_process_updates (GTK_WIDGET(statusbar)->window, TRUE);
 }
 
 void
