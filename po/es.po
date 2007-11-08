@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-06 18:45+0000\n"
-"PO-Revision-Date: 2007-11-07 09:46+0100\n"
+"POT-Creation-Date: 2007-11-08 03:19+0000\n"
+"PO-Revision-Date: 2007-11-08 15:20+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2323,7 +2323,7 @@ msgstr "Cargar objetivo a depurar"
 msgid "All files"
 msgstr "Todos los archivos"
 
-#: ../plugins/debug-manager/start.c:1042 ../plugins/gdb/debugger.c:1555
+#: ../plugins/debug-manager/start.c:1042 ../plugins/gdb/debugger.c:1462
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -3740,7 +3740,7 @@ msgstr "Etiquetas"
 #. 13
 #. Action name
 #. Stock icon, if any
-#: ../plugins/editor/text_editor_menu.c:320 ../plugins/gdb/utilities.c:328
+#: ../plugins/editor/text_editor_menu.c:320 ../plugins/gdb/utilities.c:295
 #: ../plugins/profiler/plugin.c:718
 msgid "Debug"
 msgstr "Depurar"
@@ -4078,15 +4078,15 @@ msgstr "Ejecutar el programa"
 msgid "Run in Terminal"
 msgstr "Ejecutar en un terminal"
 
-#: ../plugins/gdb/debugger.c:650 ../plugins/gdb/debugger.c:862
+#: ../plugins/gdb/debugger.c:636 ../plugins/gdb/debugger.c:834
 msgid "Loading Executable: "
 msgstr "Cargando ejecutable:"
 
-#: ../plugins/gdb/debugger.c:680
+#: ../plugins/gdb/debugger.c:666
 msgid "Loading Core: "
 msgstr "Cargando core:"
 
-#: ../plugins/gdb/debugger.c:731
+#: ../plugins/gdb/debugger.c:703
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4097,57 +4097,53 @@ msgstr ""
 "No es posible inicializar el depurador.\n"
 "Asegúrese de que Anjuta está instalado correctamente."
 
-#: ../plugins/gdb/debugger.c:856
+#: ../plugins/gdb/debugger.c:828
 msgid "Getting ready to start debugging session...\n"
 msgstr "Preparándose para iniciar la sesión de depuración…\n"
 
-#: ../plugins/gdb/debugger.c:871
+#: ../plugins/gdb/debugger.c:843
 msgid "No executable specified.\n"
 msgstr "No hay ningún ejecutable especificado.\n"
 
-#: ../plugins/gdb/debugger.c:874
+#: ../plugins/gdb/debugger.c:846
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
 
-#: ../plugins/gdb/debugger.c:883
+#: ../plugins/gdb/debugger.c:855
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Hubo un error al lanzar el depurador.\n"
 
-#: ../plugins/gdb/debugger.c:887
+#: ../plugins/gdb/debugger.c:859
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de que 'gdb' está instalado en el sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1178
+#: ../plugins/gdb/debugger.c:1150
 msgid "Program exited normally\n"
 msgstr "El programa salió normalmente\n"
 
-#: ../plugins/gdb/debugger.c:1189
+#: ../plugins/gdb/debugger.c:1161
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "El programa salió con el código de error %s\n"
 
-#: ../plugins/gdb/debugger.c:1204
+#: ../plugins/gdb/debugger.c:1176
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Se llegó al punto de parada %s\n"
 
-#: ../plugins/gdb/debugger.c:1213
+#: ../plugins/gdb/debugger.c:1185
 msgid "Function finished\n"
 msgstr "Función terminada\n"
 
-#: ../plugins/gdb/debugger.c:1219
+#: ../plugins/gdb/debugger.c:1191
 msgid "Stepping finished\n"
 msgstr "Paso terminado\n"
 
-#: ../plugins/gdb/debugger.c:1225
+#: ../plugins/gdb/debugger.c:1197
 msgid "Location reached\n"
 msgstr "Ubicación alcanzada\n"
 
-#: ../plugins/gdb/debugger.c:1295
-msgid "Debugger is ready.\n"
-msgstr "El depurador está preparado.\n"
-
-#: ../plugins/gdb/debugger.c:1552
+#: ../plugins/gdb/debugger.c:1459
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4155,24 +4151,16 @@ msgstr ""
 "El programa está adjuntado.\n"
 "¿Aún quiere parar el depurador?"
 
-#: ../plugins/gdb/debugger.c:1816
-msgid "Cannot execute gnome-terminal"
-msgstr "No se puede ejecutar gnome-terminal"
-
-#: ../plugins/gdb/debugger.c:1852
-msgid "Cannot start terminal for debugging."
-msgstr "No se pudo iniciar el terminal para depurar."
-
-#: ../plugins/gdb/debugger.c:1944
+#: ../plugins/gdb/debugger.c:1645
 msgid "Program attached\n"
 msgstr "Programa acoplado\n"
 
-#: ../plugins/gdb/debugger.c:1961
+#: ../plugins/gdb/debugger.c:1662
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Acoplándose al proceso: %d…\n"
 
-#: ../plugins/gdb/debugger.c:1987
+#: ../plugins/gdb/debugger.c:1688
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4180,34 +4168,51 @@ msgstr ""
 "Ya se está ejecutando un proceso.\n"
 "¿Quiere terminarlo y acoplarse al proceso nuevo?"
 
-#: ../plugins/gdb/debugger.c:2004
+#: ../plugins/gdb/debugger.c:1705
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede acoplarse a sí mismo."
 
-#: ../plugins/gdb/debugger.c:2054
+#: ../plugins/gdb/debugger.c:1753
 msgid "Program terminated\n"
 msgstr "Programa terminado\n"
 
-#: ../plugins/gdb/debugger.c:2069
+#: ../plugins/gdb/debugger.c:1768
 msgid "Program detached\n"
 msgstr "Programa desacoplado\n"
 
-#: ../plugins/gdb/debugger.c:2088
+#: ../plugins/gdb/debugger.c:1787
 msgid "Detaching the process...\n"
 msgstr "Desacoplando el proceso…\n"
 
-#: ../plugins/gdb/debugger.c:2110
+#: ../plugins/gdb/debugger.c:1809
 msgid "Interrupting the process\n"
 msgstr "Interrumpiendo el proceso\n"
 
-#: ../plugins/gdb/debugger.c:3866
+#: ../plugins/gdb/debugger.c:3565
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviar la señal %s al proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3892
+#: ../plugins/gdb/debugger.c:3591
 msgid "Error whilst signaling the process."
 msgstr "Error al mandar señales al proceso."
+
+#: ../plugins/gdb/plugin.c:102
+msgid ""
+"Anjuta terminal plugin is not installed. The program will be run without a "
+"terminal."
+msgstr ""
+"El complemento del terminal de Anjuta no está instalado. El programa se ejecutará sin "
+"una terminal."
+
+#: ../plugins/gdb/plugin.c:117
+#, c-format
+msgid "Fail to create fifo file named %s. The program will be run without a terminal"
+msgstr "Falló al crear el archivo FIFO de nombre %s. El programa se ejecutará sin una terminal."
+
+#: ../plugins/gdb/plugin.c:152
+msgid "Cannot start terminal for debugging."
+msgstr "No se pudo iniciar el terminal para depurar."
 
 #: ../plugins/glade/plugin.c:447
 msgid "Widgets"
