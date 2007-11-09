@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-02 10:54+0100\n"
-"PO-Revision-Date: 2007-11-02 11:17+0100\n"
+"POT-Creation-Date: 2007-11-09 11:10+0100\n"
+"PO-Revision-Date: 2007-11-09 11:21+0100\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
 "MIME-Version: 1.0\n"
@@ -307,13 +307,13 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1319
 #: ../libanjuta/anjuta-plugin-manager.c:1421
-#: ../plugins/debug-manager/queue.c:451
+#: ../plugins/debug-manager/queue.c:456
 msgid "Select a plugin"
 msgstr "Seleccionar un complemento"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1320
 #: ../libanjuta/anjuta-plugin-manager.c:1422
-#: ../plugins/debug-manager/queue.c:452
+#: ../plugins/debug-manager/queue.c:457
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un complemento para activar"
 
@@ -710,7 +710,9 @@ msgstr "Construír %d: %s"
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1006
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
-msgstr "Non se pode compilar \"%s\": Non se definiu unha regra de compilación para este tipo de ficheiro."
+msgstr ""
+"Non se pode compilar \"%s\": Non se definiu unha regra de compilación para "
+"este tipo de ficheiro."
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1046
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1075
@@ -932,7 +934,6 @@ msgstr "Vista de datos fixos"
 #: ../plugins/class-inheritance/class-inherit.c:914
 #: ../plugins/debug-manager/sharedlib.c:130
 #: ../plugins/debug-manager/signals.c:274
-#: ../plugins/subversion/svn-notify.c:119
 msgid "Update"
 msgstr "Actualizar"
 
@@ -1059,6 +1060,7 @@ msgid "gtk-add"
 msgstr "gtk-add"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:29
+#: ../plugins/subversion/anjuta-subversion.glade.h:62
 msgid "gtk-cancel"
 msgstr "gtk-cancel"
 
@@ -1114,13 +1116,14 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Detalles do módulo:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "<b>Options:</b>"
 msgstr "<b>Opcións:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
 #: ../plugins/search/anjuta-search.glade.h:13
 #: ../plugins/sourceview/sourceview.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "<b>Options</b>"
 msgstr "<b>Opcións</b>"
 
@@ -1191,17 +1194,16 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Choose file or directory to add:"
 msgstr "Escolla o ficheiro ou directorio a engadir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to commit:"
 msgstr "Escolla o ficheiro ou directorio a efectuar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Choose file or directory to diff:"
 msgstr "Escolla o ficheiro ou directorio a sacar diferenzas:"
 
@@ -1214,12 +1216,11 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Escolla un ficheiro ou directorio do que obter o estado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to remove:"
 msgstr "Escolla un ficheiro ou directorio a eliminar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "Choose file or directory to update:"
 msgstr "Escolla un ficheiro ou directorio a actualizar:"
 
@@ -1236,7 +1237,7 @@ msgid "Delete empty directories"
 msgstr "Borrar directorios baleiros"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Do not act recursively"
 msgstr "Non actuar recursivamente"
 
@@ -1259,7 +1260,6 @@ msgstr ""
 "Servidor de contrasinais (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:38
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Log message:"
 msgstr "Mensaxe de rexistro:"
 
@@ -1304,7 +1304,7 @@ msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-#: ../plugins/subversion/anjuta-subversion.glade.h:26
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Use revision/tag: "
 msgstr "Usar revisión/etiqueta: "
 
@@ -1313,7 +1313,7 @@ msgid "Use revision: "
 msgstr "Usar revisión: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:27
+#: ../plugins/subversion/anjuta-subversion.glade.h:56
 msgid "Username: "
 msgstr "Nome de usuario: "
 
@@ -1322,7 +1322,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta do fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:28
+#: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole project"
 msgstr "Proxecto completo"
 
@@ -1335,7 +1335,7 @@ msgid "start"
 msgstr "inicio"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
-#: ../plugins/subversion/subversion-callbacks.c:56
+#: ../plugins/subversion/subversion-ui-utils.c:86
 msgid "Please enter a filename!"
 msgstr "Introduza o nome do ficheiro!"
 
@@ -1354,7 +1354,7 @@ msgstr "Non se puido borrar o ficheiro"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:458
-#: ../plugins/subversion/subversion-callbacks.c:255
+#: ../plugins/subversion/subversion-commit-dialog.c:70
 msgid "Are you sure that you do not want a log message?"
 msgstr "Está seguro de que quere unha mensaxe de rexistro?"
 
@@ -1528,7 +1528,7 @@ msgid "Breakpoint properties"
 msgstr "Propiedades dos puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1698
+#: ../plugins/debug-manager/breakpoints.c:1687
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Puntos de parada"
@@ -1596,8 +1596,8 @@ msgid "Inspect/Evaluate"
 msgstr "Inspeccionar/Evaluar"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
-#: ../plugins/debug-manager/plugin.c:921
-#: ../plugins/debug-manager/plugin.c:1021 ../plugins/gdb/anjuta-gdb.glade.h:16
+#: ../plugins/debug-manager/plugin.c:918
+#: ../plugins/debug-manager/plugin.c:1018 ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "Sinais do núcleo"
 
@@ -1663,7 +1663,7 @@ msgstr "Deter:"
 #: ../plugins/debug-manager/signals.c:193
 #: ../plugins/debug-manager/signals.c:206
 #: ../plugins/debug-manager/signals.c:219 ../plugins/gdb/anjuta-gdb.glade.h:28
-#: ../plugins/project-wizard/property.c:209
+#: ../plugins/project-wizard/property.c:212
 msgid "Yes"
 msgstr "Si"
 
@@ -1740,14 +1740,14 @@ msgstr "ID"
 #. Register actions
 #: ../plugins/debug-manager/breakpoints.c:135
 #: ../plugins/debug-manager/stack_trace.c:617
-#: ../plugins/debug-manager/threads.c:429 ../src/anjuta-app.c:616
+#: ../plugins/debug-manager/threads.c:430 ../src/anjuta-app.c:616
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Ficheiro"
 
 #: ../plugins/debug-manager/breakpoints.c:135
 #: ../plugins/debug-manager/stack_trace.c:628
-#: ../plugins/debug-manager/threads.c:438
+#: ../plugins/debug-manager/threads.c:439
 #: ../plugins/document-manager/plugin.c:913
 #: ../plugins/document-manager/plugin.c:924
 msgid "Line"
@@ -1755,7 +1755,7 @@ msgstr "Liña"
 
 #: ../plugins/debug-manager/breakpoints.c:136
 #: ../plugins/debug-manager/stack_trace.c:639
-#: ../plugins/debug-manager/threads.c:447
+#: ../plugins/debug-manager/threads.c:448
 #: ../plugins/valgrind/vgrule-editor.c:133
 msgid "Function"
 msgstr "Función"
@@ -1766,8 +1766,8 @@ msgid "Type"
 msgstr "Tipo"
 
 #: ../plugins/debug-manager/breakpoints.c:136
-#: ../plugins/debug-manager/stack_trace.c:650
-#: ../plugins/debug-manager/threads.c:456
+#: ../plugins/debug-manager/stack_trace.c:653
+#: ../plugins/debug-manager/threads.c:460
 msgid "Address"
 msgstr "Enderezo"
 
@@ -1788,113 +1788,113 @@ msgstr "Condición"
 msgid "Disp"
 msgstr "Disp"
 
-#: ../plugins/debug-manager/breakpoints.c:1359
+#: ../plugins/debug-manager/breakpoints.c:1371
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Está seguro de que quere eliminar tódolos puntos de parada?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1490
+#: ../plugins/debug-manager/breakpoints.c:1502
 msgid "_Breakpoints"
 msgstr "_Puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1498
+#: ../plugins/debug-manager/breakpoints.c:1510
 msgid "Toggle Breakpoint"
 msgstr "Alternar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1500
+#: ../plugins/debug-manager/breakpoints.c:1512
 msgid "Toggle breakpoint at the current location"
 msgstr "Conmutar punto de parada na localización actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1506
+#: ../plugins/debug-manager/breakpoints.c:1518
 msgid "Add Breakpoint..."
 msgstr "Engadir punto de parada..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1508
+#: ../plugins/debug-manager/breakpoints.c:1520
 msgid "Add a breakpoint"
 msgstr "Engadir un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1514
+#: ../plugins/debug-manager/breakpoints.c:1526
 msgid "Remove Breakpoint"
 msgstr "Eliminar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1516
+#: ../plugins/debug-manager/breakpoints.c:1528
 msgid "Remove a breakpoint"
 msgstr "Eliminar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1522
+#: ../plugins/debug-manager/breakpoints.c:1534
 msgid "Jump to Breakpoint"
 msgstr "Saltar ao punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1524
+#: ../plugins/debug-manager/breakpoints.c:1536
 msgid "Jump to breakpoint location"
 msgstr "Saltar ao punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1530
+#: ../plugins/debug-manager/breakpoints.c:1542
 msgid "Edit Breakpoint"
 msgstr "Editar puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1532
+#: ../plugins/debug-manager/breakpoints.c:1544
 msgid "Edit breakpoint properties"
 msgstr "Editar as propiedades dos puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1538
+#: ../plugins/debug-manager/breakpoints.c:1550
 msgid "Enable Breakpoint"
 msgstr "Activar puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1540
+#: ../plugins/debug-manager/breakpoints.c:1552
 msgid "Enable a breakpoint"
 msgstr "Activar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1546
+#: ../plugins/debug-manager/breakpoints.c:1558
 msgid "Disable All Breakpoints"
 msgstr "Desactivar tódolos puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1548
+#: ../plugins/debug-manager/breakpoints.c:1560
 msgid "Deactivate all breakpoints"
 msgstr "Desactiva tódolos puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1554
+#: ../plugins/debug-manager/breakpoints.c:1566
 msgid "C_lear All Breakpoints"
 msgstr "_Limpar tódolos puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1556
+#: ../plugins/debug-manager/breakpoints.c:1568
 msgid "Delete all breakpoints"
 msgstr "Borrar tódolos puntos de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1680
+#: ../plugins/debug-manager/breakpoints.c:1669
 msgid "Breakpoint operations"
 msgstr "Operacións de puntos de parada"
 
@@ -1931,7 +1931,7 @@ msgstr "Rexistro do depurador"
 
 #: ../plugins/debug-manager/plugin.c:387 ../plugins/debug-manager/plugin.c:416
 #: ../plugins/debug-manager/plugin.c:436 ../plugins/debug-manager/plugin.c:458
-#: ../plugins/debug-manager/plugin.c:506 ../plugins/debug-manager/plugin.c:541
+#: ../plugins/debug-manager/plugin.c:503 ../plugins/debug-manager/plugin.c:538
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:2
 msgid "Debugger"
 msgstr "Depurador"
@@ -1952,205 +1952,205 @@ msgstr "Executando..."
 msgid "Stopped"
 msgstr "Detido"
 
-#: ../plugins/debug-manager/plugin.c:506
+#: ../plugins/debug-manager/plugin.c:503
 msgid "Unloaded"
 msgstr "Sen cargar"
 
-#: ../plugins/debug-manager/plugin.c:547
+#: ../plugins/debug-manager/plugin.c:544
 #, c-format
 msgid "Debugger terminated with error %d: %s\n"
 msgstr "O depurador rematou co erro %d: %s\n"
 
-#: ../plugins/debug-manager/plugin.c:560
+#: ../plugins/debug-manager/plugin.c:557
 #, c-format
 msgid "Program has received signal: %s\n"
 msgstr "O programa recibiu o sinal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:813 ../plugins/valgrind/plugin.c:438
+#: ../plugins/debug-manager/plugin.c:810 ../plugins/valgrind/plugin.c:438
 msgid "_Debug"
 msgstr "_Depurar"
 
-#: ../plugins/debug-manager/plugin.c:821
+#: ../plugins/debug-manager/plugin.c:818
 msgid "_Start Debugger"
 msgstr "_Iniciar depurador"
 
-#: ../plugins/debug-manager/plugin.c:829
+#: ../plugins/debug-manager/plugin.c:826
 msgid "Run Target..."
 msgstr "Executar destino..."
 
-#: ../plugins/debug-manager/plugin.c:831
+#: ../plugins/debug-manager/plugin.c:828
 msgid "load and start the target for debugging"
 msgstr "carga e inicia o obxectivo para depuración"
 
-#: ../plugins/debug-manager/plugin.c:837
+#: ../plugins/debug-manager/plugin.c:834
 msgid "Restart Target"
 msgstr "Reiniciar obxectivo"
 
-#: ../plugins/debug-manager/plugin.c:839
+#: ../plugins/debug-manager/plugin.c:836
 msgid "restart the same target for debugging"
 msgstr "reinicia o mesmo obxectivo para depuración"
 
-#: ../plugins/debug-manager/plugin.c:845
+#: ../plugins/debug-manager/plugin.c:842
 msgid "_Attach to Process..."
 msgstr "_Adxuntar ao proceso..."
 
-#: ../plugins/debug-manager/plugin.c:847
+#: ../plugins/debug-manager/plugin.c:844
 msgid "Attach to a running program"
 msgstr "Adxuntar nun proceso executándose"
 
-#: ../plugins/debug-manager/plugin.c:853
+#: ../plugins/debug-manager/plugin.c:850
 msgid "Stop Debugger"
 msgstr "Deter depurador"
 
-#: ../plugins/debug-manager/plugin.c:855
+#: ../plugins/debug-manager/plugin.c:852
 msgid "Say goodbye to the debugger"
 msgstr "Despídase do depurador"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:865 ../plugins/debug-manager/plugin.c:973
+#: ../plugins/debug-manager/plugin.c:862 ../plugins/debug-manager/plugin.c:970
 msgid "Debugger Command..."
 msgstr "Comando de depuración..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:867 ../plugins/debug-manager/plugin.c:975
+#: ../plugins/debug-manager/plugin.c:864 ../plugins/debug-manager/plugin.c:972
 msgid "Custom debugger command"
 msgstr "Comando personalizado de depuración"
 
-#: ../plugins/debug-manager/plugin.c:873 ../plugins/debug-manager/plugin.c:981
+#: ../plugins/debug-manager/plugin.c:870 ../plugins/debug-manager/plugin.c:978
 msgid "_Info"
 msgstr "_Info"
 
-#: ../plugins/debug-manager/plugin.c:881
+#: ../plugins/debug-manager/plugin.c:878
 msgid "Info _Target Files"
 msgstr "Información de ficheiros _obxectivo"
 
-#: ../plugins/debug-manager/plugin.c:883
+#: ../plugins/debug-manager/plugin.c:880
 msgid "Display information on the files the debugger is active with"
 msgstr "Mostrar información dos ficheiros cos que o depurador está traballando"
 
-#: ../plugins/debug-manager/plugin.c:889
+#: ../plugins/debug-manager/plugin.c:886
 msgid "Info _Program"
 msgstr "Información do _programa"
 
-#: ../plugins/debug-manager/plugin.c:891
+#: ../plugins/debug-manager/plugin.c:888
 msgid "Display information on the execution status of the program"
 msgstr "Mostrar información sobre o estado da execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:897
+#: ../plugins/debug-manager/plugin.c:894
 msgid "Info _Kernel User Struct"
 msgstr "Información do User Struct do _núcleo"
 
-#: ../plugins/debug-manager/plugin.c:899
+#: ../plugins/debug-manager/plugin.c:896
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr "Mostrar o contido da 'struct user' do núcleo para o fillo actual"
 
-#: ../plugins/debug-manager/plugin.c:913
-#: ../plugins/debug-manager/plugin.c:1013
+#: ../plugins/debug-manager/plugin.c:910
+#: ../plugins/debug-manager/plugin.c:1010
 msgid "Shared Libraries"
 msgstr "Bibliotecas compartidas..."
 
-#: ../plugins/debug-manager/plugin.c:915
-#: ../plugins/debug-manager/plugin.c:1015
+#: ../plugins/debug-manager/plugin.c:912
+#: ../plugins/debug-manager/plugin.c:1012
 msgid "Show shared libraries mappings"
 msgstr "Mostrar mapas de bibliotecas compartidas"
 
-#: ../plugins/debug-manager/plugin.c:923
-#: ../plugins/debug-manager/plugin.c:1023
+#: ../plugins/debug-manager/plugin.c:920
+#: ../plugins/debug-manager/plugin.c:1020
 msgid "Show kernel signals"
 msgstr "Mostrar sinais do núcleo"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:933
+#: ../plugins/debug-manager/plugin.c:930
 msgid "Run/_Continue"
 msgstr "E_xecutar/Continuar"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:935
+#: ../plugins/debug-manager/plugin.c:932
 msgid "Continue the execution of the program"
 msgstr "Continuar a execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:941
+#: ../plugins/debug-manager/plugin.c:938
 msgid "Step _In"
 msgstr "Avan_zar"
 
-#: ../plugins/debug-manager/plugin.c:943
+#: ../plugins/debug-manager/plugin.c:940
 msgid "Single step into function"
 msgstr "Avanzar un paso na función"
 
-#: ../plugins/debug-manager/plugin.c:949
+#: ../plugins/debug-manager/plugin.c:946
 msgid "Step O_ver"
 msgstr "Avanzar _sobre"
 
-#: ../plugins/debug-manager/plugin.c:951
+#: ../plugins/debug-manager/plugin.c:948
 msgid "Single step over function"
 msgstr "Avanzar ata chamada a función"
 
-#: ../plugins/debug-manager/plugin.c:957
+#: ../plugins/debug-manager/plugin.c:954
 msgid "Step _Out"
 msgstr "Avanzar ao fi_nal"
 
-#: ../plugins/debug-manager/plugin.c:959
+#: ../plugins/debug-manager/plugin.c:956
 msgid "Single step out of the function"
 msgstr "Avanzar ata o final da función actual"
 
-#: ../plugins/debug-manager/plugin.c:965
+#: ../plugins/debug-manager/plugin.c:962
 msgid "_Run to Cursor"
 msgstr "_Executar ata cursor"
 
-#: ../plugins/debug-manager/plugin.c:967
+#: ../plugins/debug-manager/plugin.c:964
 msgid "Run to the cursor"
 msgstr "Executar ata o cursor"
 
-#: ../plugins/debug-manager/plugin.c:989
+#: ../plugins/debug-manager/plugin.c:986
 msgid "Info _Global Variables"
 msgstr "Info das variables _globais"
 
-#: ../plugins/debug-manager/plugin.c:991
+#: ../plugins/debug-manager/plugin.c:988
 msgid "Display all global and static variables of the program"
 msgstr "Mostrar todas as variables globais e estáticas do programa"
 
-#: ../plugins/debug-manager/plugin.c:997
+#: ../plugins/debug-manager/plugin.c:994
 msgid "Info _Current Frame"
 msgstr "Info do marco _actual"
 
-#: ../plugins/debug-manager/plugin.c:999
+#: ../plugins/debug-manager/plugin.c:996
 msgid "Display information about the current frame of execution"
 msgstr "Mostrar información sobre o marco actual de execución"
 
-#: ../plugins/debug-manager/plugin.c:1005
+#: ../plugins/debug-manager/plugin.c:1002
 msgid "Info Function _Arguments"
 msgstr "Info dos _argumentos de función"
 
-#: ../plugins/debug-manager/plugin.c:1007
+#: ../plugins/debug-manager/plugin.c:1004
 msgid "Display function arguments of the current frame"
 msgstr "Mostrar os argumentos de función do marco actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1033
+#: ../plugins/debug-manager/plugin.c:1030
 msgid "Pa_use Program"
 msgstr "Pa_usar programa"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1035
+#: ../plugins/debug-manager/plugin.c:1032
 msgid "Pauses the execution of the program"
 msgstr "Pausa a execución do programa"
 
-#: ../plugins/debug-manager/plugin.c:1076
-#: ../plugins/debug-manager/plugin.c:1082
-#: ../plugins/debug-manager/plugin.c:1088
-#: ../plugins/debug-manager/plugin.c:1094
+#: ../plugins/debug-manager/plugin.c:1073
+#: ../plugins/debug-manager/plugin.c:1079
+#: ../plugins/debug-manager/plugin.c:1085
+#: ../plugins/debug-manager/plugin.c:1091
 msgid "Debugger operations"
 msgstr "Operacións de depuración"
 
-#: ../plugins/debug-manager/queue.c:438
+#: ../plugins/debug-manager/queue.c:443
 #, c-format
 msgid "Unable to find one debugger plugin acception %s mime type"
 msgstr "Imposible encontrar un tipo MIME %s de aceptación de complemento de depurador"
@@ -2186,8 +2186,8 @@ msgstr ""
 #: ../plugins/debug-manager/signals.c:195
 #: ../plugins/debug-manager/signals.c:208
 #: ../plugins/debug-manager/signals.c:221
-#: ../plugins/project-wizard/property.c:211
-#: ../plugins/project-wizard/property.c:225
+#: ../plugins/project-wizard/property.c:214
+#: ../plugins/project-wizard/property.c:227
 msgid "No"
 msgstr "Non"
 
@@ -2251,12 +2251,12 @@ msgid "Set current frame"
 msgstr "Establecer o marco actual"
 
 #: ../plugins/debug-manager/stack_trace.c:548
-#: ../plugins/debug-manager/threads.c:368
+#: ../plugins/debug-manager/threads.c:369
 msgid "View Source"
 msgstr "Ver fonte"
 
 #: ../plugins/debug-manager/stack_trace.c:586
-#: ../plugins/debug-manager/threads.c:404
+#: ../plugins/debug-manager/threads.c:405
 msgid "Active"
 msgstr "Activo"
 
@@ -2264,15 +2264,15 @@ msgstr "Activo"
 msgid "Frame"
 msgstr "Marco"
 
-#: ../plugins/debug-manager/stack_trace.c:661
+#: ../plugins/debug-manager/stack_trace.c:665
 msgid "Arguments"
 msgstr "Argumentos"
 
-#: ../plugins/debug-manager/stack_trace.c:685
+#: ../plugins/debug-manager/stack_trace.c:689
 msgid "Stack"
 msgstr "Pila"
 
-#: ../plugins/debug-manager/stack_trace.c:744
+#: ../plugins/debug-manager/stack_trace.c:748
 msgid "Stack frame operations"
 msgstr "Operacións de marcos de pila"
 
@@ -2316,7 +2316,7 @@ msgstr "Cargar obxectivo para depurar"
 msgid "All files"
 msgstr "Todos os ficheiros"
 
-#: ../plugins/debug-manager/start.c:1042 ../plugins/gdb/debugger.c:1555
+#: ../plugins/debug-manager/start.c:1042 ../plugins/gdb/debugger.c:1462
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2326,19 +2326,19 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/threads.c:360
+#: ../plugins/debug-manager/threads.c:361
 msgid "Set current thread"
 msgstr "Establecer o fío actual"
 
-#: ../plugins/debug-manager/threads.c:414
+#: ../plugins/debug-manager/threads.c:415
 msgid "Id"
 msgstr "Id"
 
-#: ../plugins/debug-manager/threads.c:480
+#: ../plugins/debug-manager/threads.c:485
 msgid "Thread"
 msgstr "Fío"
 
-#: ../plugins/debug-manager/threads.c:583
+#: ../plugins/debug-manager/threads.c:588
 msgid "Thread operations"
 msgstr "Operacións de fíos"
 
@@ -2454,7 +2454,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1668
 #: ../plugins/search/search-replace.c:1680
 #: ../plugins/search/search-replace.c:1994
-#: ../plugins/symbol-browser/plugin.c:1036
+#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:927
 msgid "Search"
 msgstr "Buscar"
 
@@ -3186,7 +3186,9 @@ msgstr "A busca de \"%s\" chegou ao final e continuou polo principio!"
 msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
 "found!"
-msgstr "A busca de \"%s\" chegou ao final e continuou polo principio pero non se encontrou ningunha coincidencia máis!"
+msgstr ""
+"A busca de \"%s\" chegou ao final e continuou polo principio pero non se "
+"encontrou ningunha coincidencia máis!"
 
 #: ../plugins/document-manager/search-box.c:435
 msgid "Case sensitive"
@@ -3692,7 +3694,6 @@ msgstr "Cortar"
 
 #. 1
 #: ../plugins/editor/text_editor_menu.c:248
-#: ../plugins/subversion/svn-notify.c:74
 msgid "Copy"
 msgstr "Copiar"
 
@@ -3730,7 +3731,7 @@ msgstr "Etiquetas"
 #. 13
 #. Action name
 #. Stock icon, if any
-#: ../plugins/editor/text_editor_menu.c:320 ../plugins/gdb/utilities.c:328
+#: ../plugins/editor/text_editor_menu.c:320 ../plugins/gdb/utilities.c:295
 #: ../plugins/profiler/plugin.c:718
 msgid "Debug"
 msgstr "Depurar"
@@ -4067,15 +4068,15 @@ msgstr "Executar programa"
 msgid "Run in Terminal"
 msgstr "Executar nunha terminal"
 
-#: ../plugins/gdb/debugger.c:650 ../plugins/gdb/debugger.c:862
+#: ../plugins/gdb/debugger.c:636 ../plugins/gdb/debugger.c:834
 msgid "Loading Executable: "
 msgstr "Cargando executable: "
 
-#: ../plugins/gdb/debugger.c:680
+#: ../plugins/gdb/debugger.c:666
 msgid "Loading Core: "
 msgstr "Cargando core: "
 
-#: ../plugins/gdb/debugger.c:731
+#: ../plugins/gdb/debugger.c:703
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4086,57 +4087,53 @@ msgstr ""
 "Non se puido inicializar o depurador.\n"
 "Asegúrese de que Anjuta está instalado correctamente."
 
-#: ../plugins/gdb/debugger.c:856
+#: ../plugins/gdb/debugger.c:828
 msgid "Getting ready to start debugging session...\n"
 msgstr "Preparándose para iniciar a sesión de depuración...\n"
 
-#: ../plugins/gdb/debugger.c:871
+#: ../plugins/gdb/debugger.c:843
 msgid "No executable specified.\n"
 msgstr "Non se especificou o executable.\n"
 
-#: ../plugins/gdb/debugger.c:874
+#: ../plugins/gdb/debugger.c:846
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Abrir un executable ou adxuntar a un proceso para iniciar depuración.\n"
 
-#: ../plugins/gdb/debugger.c:883
+#: ../plugins/gdb/debugger.c:855
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Houbo un erro ao lanzar o depurador.\n"
 
-#: ../plugins/gdb/debugger.c:887
+#: ../plugins/gdb/debugger.c:859
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de ter 'gdb' instalado no sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1178
+#: ../plugins/gdb/debugger.c:1150
 msgid "Program exited normally\n"
 msgstr "O programa saíu normalmente\n"
 
-#: ../plugins/gdb/debugger.c:1189
+#: ../plugins/gdb/debugger.c:1161
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "O programa saíu co código de erro %s\n"
 
-#: ../plugins/gdb/debugger.c:1204
+#: ../plugins/gdb/debugger.c:1176
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Alcanzouse o punto de rotura %s\n"
 
-#: ../plugins/gdb/debugger.c:1213
+#: ../plugins/gdb/debugger.c:1185
 msgid "Function finished\n"
 msgstr "Función finalizada\n"
 
-#: ../plugins/gdb/debugger.c:1219
+#: ../plugins/gdb/debugger.c:1191
 msgid "Stepping finished\n"
 msgstr "Paso finalizado\n"
 
-#: ../plugins/gdb/debugger.c:1225
+#: ../plugins/gdb/debugger.c:1197
 msgid "Location reached\n"
 msgstr "Ubicación alcanzada\n"
 
-#: ../plugins/gdb/debugger.c:1295
-msgid "Debugger is ready.\n"
-msgstr "O depurador está listo.\n"
-
-#: ../plugins/gdb/debugger.c:1552
+#: ../plugins/gdb/debugger.c:1459
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4144,24 +4141,16 @@ msgstr ""
 "O programa está adxuntado.\n"
 "Todavía quere deter o depurador?"
 
-#: ../plugins/gdb/debugger.c:1816
-msgid "Cannot execute gnome-terminal"
-msgstr "Non se puido executar gnome-terminal"
-
-#: ../plugins/gdb/debugger.c:1852
-msgid "Cannot start terminal for debugging."
-msgstr "Non se puido iniciar o terminal para depuración."
-
-#: ../plugins/gdb/debugger.c:1944
+#: ../plugins/gdb/debugger.c:1645
 msgid "Program attached\n"
 msgstr "Programa adxuntado\n"
 
-#: ../plugins/gdb/debugger.c:1961
+#: ../plugins/gdb/debugger.c:1662
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Adxuntando o proceso: %d...\n"
 
-#: ../plugins/gdb/debugger.c:1987
+#: ../plugins/gdb/debugger.c:1688
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4169,35 +4158,50 @@ msgstr ""
 "Xa existe un proceso en execución.\n"
 "Desexa rematalo e adxuntarse ao novo proceso?"
 
-#: ../plugins/gdb/debugger.c:2004
+#: ../plugins/gdb/debugger.c:1705
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta non pode adxuntarse a sí mesmo."
 
-#: ../plugins/gdb/debugger.c:2054
+#: ../plugins/gdb/debugger.c:1753
 msgid "Program terminated\n"
 msgstr "Programa rematado\n"
 
-#: ../plugins/gdb/debugger.c:2069
+#: ../plugins/gdb/debugger.c:1768
 msgid "Program detached\n"
 msgstr "Programa separado\n"
 
-#: ../plugins/gdb/debugger.c:2088
+#: ../plugins/gdb/debugger.c:1787
 #, c-format
 msgid "Detaching the process...\n"
 msgstr "Separando o proceso...\n"
 
-#: ../plugins/gdb/debugger.c:2110
+#: ../plugins/gdb/debugger.c:1809
 msgid "Interrupting the process\n"
 msgstr "Interrumpindo o proceso\n"
 
-#: ../plugins/gdb/debugger.c:3866
+#: ../plugins/gdb/debugger.c:3565
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviando sinal %s ao proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3892
+#: ../plugins/gdb/debugger.c:3591
 msgid "Error whilst signaling the process."
 msgstr "Erro ao enviar o sinal ao proceso."
+
+#: ../plugins/gdb/plugin.c:102
+msgid ""
+"Anjuta terminal plugin is not installed. The program will be run without a "
+"terminal."
+msgstr ""
+
+#: ../plugins/gdb/plugin.c:117
+#, c-format
+msgid "Fail to create fifo file named %s. The program will be run without a terminal"
+msgstr ""
+
+#: ../plugins/gdb/plugin.c:152
+msgid "Cannot start terminal for debugging."
+msgstr "Non se puido iniciar o terminal para depuración."
 
 #: ../plugins/glade/plugin.c:447
 msgid "Widgets"
@@ -4692,7 +4696,7 @@ msgstr "Nome de ficheiro non proporcionado."
 msgid "When you delete the category \"%s\", all containing items are lost"
 msgstr "Cando borre a categoría \"%s\", perderanse todos os elementos contidos"
 
-#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:79
+#: ../plugins/gtodo/mcategory.c:146
 msgid "Delete"
 msgstr "Borrar"
 
@@ -4916,6 +4920,448 @@ msgstr "Lista de pendentes"
 #: ../plugins/gtodo/tray-icon.c:281
 msgid "Todo List Manager"
 msgstr "Xestor de lista de pendentes"
+
+#: ../plugins/indent/indent-dialog.c:418 ../plugins/indent/indent-dialog.c:445
+msgid "indent parameter not known !"
+msgstr ""
+
+#: ../plugins/indent/indent-dialog.c:483
+msgid "A Style has already this name !"
+msgstr ""
+
+#: ../plugins/indent/indent-dialog.c:512 ../plugins/indent/indent-dialog.c:543
+msgid "This Style is not modifiable !"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:1
+msgid "#Else #Endif "
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:2
+#, fuzzy
+msgid "<b>'indent' arguments</b>"
+msgstr "<b>Parámetros do sangrado</b>"
+
+#: ../plugins/indent/indent.glade.h:3
+msgid "<b>Autoformat style</b>"
+msgstr "<b>Estilo do formato automático</b>"
+
+#: ../plugins/indent/indent.glade.h:4
+#, fuzzy
+msgid "<b>Blank lines</b>"
+msgstr "<b>Elementos da clase</b>"
+
+#: ../plugins/indent/indent.glade.h:5
+#, fuzzy
+msgid "<b>Breaking long lines</b>"
+msgstr "<b>Opcións de impresión</b>"
+
+#: ../plugins/indent/indent.glade.h:6
+msgid "<b>Comments</b>"
+msgstr "<b>Comentarios</b>"
+
+#: ../plugins/indent/indent.glade.h:7
+msgid "<b>Declarations</b>"
+msgstr "<b>Declaracións</b>"
+
+#: ../plugins/indent/indent.glade.h:8
+msgid "<b>Indentation</b>"
+msgstr "<b>Sangrado</b>"
+
+#: ../plugins/indent/indent.glade.h:9
+#, fuzzy
+msgid "<b>Statements</b>"
+msgstr "<b>Elementos da clase</b>"
+
+#: ../plugins/indent/indent.glade.h:10
+#, fuzzy
+msgid "After Declarations"
+msgstr "De_claración goto"
+
+#: ../plugins/indent/indent.glade.h:11
+msgid "After Procedures"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:12
+msgid "All Comments"
+msgstr "Todos os comentarios"
+
+#: ../plugins/indent/indent.glade.h:13
+msgid ""
+"Arguments associated with the selected autoformat style. \n"
+"Select the 'Indent Setting' button to manage the autoformat styles.\n"
+"Read the info page for 'indent' for more details"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:16
+#, fuzzy
+msgid "Brace"
+msgstr "Atrás"
+
+#: ../plugins/indent/indent.glade.h:17
+msgid "Braces after IF Line"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:18
+msgid "Braces after Struct"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:19
+msgid "Braces on IF line"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:20
+msgid "Braces on Struct"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:21
+msgid "Break before Boolean"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:22
+#, fuzzy
+msgid "Case"
+msgstr "Pegar"
+
+#: ../plugins/indent/indent.glade.h:23
+#, fuzzy
+msgid "Continuation"
+msgstr "Condición"
+
+#: ../plugins/indent/indent.glade.h:24
+msgid "Continue at Parenth."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:25
+msgid ""
+"Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
+"parameters by default)."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:26
+msgid "Cuddle Else"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:27
+msgid "Cuddle up to the immediately preceding '}' in an if-then-else construct."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:28
+msgid "Declaration  "
+msgstr "Declaración  "
+
+#: ../plugins/indent/indent.glade.h:29
+msgid "Declarations  "
+msgstr "Declaracións  "
+
+#: ../plugins/indent/indent.glade.h:30
+msgid "Delete the style selected in the combo style selector."
+msgstr "Borrar o estilo seleccionado no selector de estilo combo."
+
+#: ../plugins/indent/indent.glade.h:31
+msgid "Delimiters on BL"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:32
+msgid "Display the indent output according the selected parameters."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:33
+msgid "First Column"
+msgstr "Primeira columna"
+
+#: ../plugins/indent/indent.glade.h:34
+msgid "Foece a space between an 'if' and the following parenthesis (default)."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:35
+msgid "Force a blank line after every block of declarations."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:36
+msgid "Force a blank line after every procedure body."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:37
+msgid "Force a newline after each comma in a declaration."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:38
+msgid "Force a space between a 'for' and the following parenthesis (default)."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:39
+msgid "Force a space between a 'while' and the following parenthesis (default)."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:40
+msgid "Format comments which begin after the first column."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:41
+msgid "Format comments which begin in column one."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:42
+msgid "Honour Newlines"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:43
+msgid "Honour newlines by giving them the highest possible priority."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:44
+msgid "Indent"
+msgstr "Sangrar"
+
+#: ../plugins/indent/indent.glade.h:45
+msgid "Indent Preferences"
+msgstr "Preferencias de sangrado"
+
+#: ../plugins/indent/indent.glade.h:46
+#, fuzzy
+msgid "Indent Setting"
+msgstr "Configuración"
+
+#: ../plugins/indent/indent.glade.h:47
+msgid "Insert a line before a Box comment."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:48
+msgid "Length       "
+msgstr "Lonxitude       "
+
+#: ../plugins/indent/indent.glade.h:49
+msgid "Level              "
+msgstr "Nivel              "
+
+#: ../plugins/indent/indent.glade.h:50
+msgid "Line Indent   "
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:51
+msgid "Line after Commas"
+msgstr "Liña despois de comas"
+
+#: ../plugins/indent/indent.glade.h:52
+msgid "Line before Box "
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:53
+msgid ""
+"Line up continuation line to start at the character position just after the "
+"left parenthesis if a line has a left parenthesis which is not closed on "
+"that line."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:54
+msgid ""
+"New\n"
+"Style"
+msgstr ""
+"Novo\n"
+"Estilo"
+
+#: ../plugins/indent/indent.glade.h:56
+msgid "Parameter     "
+msgstr "Parámetro     "
+
+#: ../plugins/indent/indent.glade.h:57
+#, fuzzy
+msgid "Place a space after a cast operator."
+msgstr "Introduza un nome e polo menos un directorio."
+
+#: ../plugins/indent/indent.glade.h:58
+msgid "Place a space between the name of the procedure being called and the '('."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:59
+msgid "Place stars at the beginning of multi-line comments."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:60
+msgid "Place the '{' following a 'struct' declaration on the next line."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:61
+msgid "Place the '{' following a 'struct' declaration on the same line."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:62
+msgid "Place the brace on the line following the if test."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:63
+msgid "Place the brace on the line of the if test."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:64
+msgid "Place the comment delimiters on blank lines."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:65
+msgid "Place the type of a procedure beeing defined on the previous line."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:66
+msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:67 ../plugins/valgrind/preferences.c:162
+msgid "Preview"
+msgstr "Previsualización"
+
+#: ../plugins/indent/indent.glade.h:68
+msgid "Procnames start lines"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:69
+#, fuzzy
+msgid "Save the selected Style with the modified parameters."
+msgstr "Gardar o ficheiro actual cun nome diferente"
+
+#: ../plugins/indent/indent.glade.h:70
+#, fuzzy
+msgid "Space after Cast"
+msgstr "Gardar ficheiro como"
+
+#: ../plugins/indent/indent.glade.h:71
+msgid "Space after FOR"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:72
+msgid "Space after IF"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:73
+msgid "Space after Proc Call"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:74
+msgid "Space after WHILE"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:75
+msgid "Specify an amount by which comments are moved to the left."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:76
+msgid "Specify how many spaces to indent type declarations."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:77
+msgid "Specify the column for comments following code."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:78
+msgid "Specify the column for comments following declarations."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:79
+msgid "Specify the column for comments following preprocessor directives."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:80
+msgid "Specify the column of identifiers."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:81
+msgid ""
+"Specify the indentation level when a statement is broken across two lines "
+"(default 0)."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:82
+msgid ""
+"Specify the maximum length of a line of C code, not including possible "
+"comments that follow it."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:83
+msgid "Specify the number o spaces for a TAB (default 8)."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:84
+msgid "Specify the number of spaces by which braces are indented."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:85
+msgid ""
+"Specify the number of spaces that 'case' labels should be indented to the "
+"right of the containing 'switch' statement."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:86
+msgid "Specify the value of indentation for each level."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:87
+msgid "Star Left Side"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:88
+msgid "Swallow Optional"
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:89
+msgid "Swallow optional blank lines."
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:90
+msgid "Tab Size      "
+msgstr ""
+
+#: ../plugins/indent/indent.glade.h:91
+msgid "Update Style"
+msgstr "Actualizar estilo"
+
+#: ../plugins/indent/indent.glade.h:92
+msgid ""
+"You can modify the parameters either by \n"
+"using the above buttons or by editing them \n"
+"directly (See indent manual)."
+msgstr ""
+
+#: ../plugins/indent/plugin.c:65
+#, fuzzy, c-format
+msgid "Indent command failed with error code: %d"
+msgstr "O programa saíu co código de erro %s\n"
+
+#: ../plugins/indent/plugin.c:126
+#, c-format
+msgid "Anjuta does not know %s!"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/indent/plugin.c:168 ../plugins/patch/plugin.c:55
+#: ../plugins/tools/plugin.c:135
+msgid "_Tools"
+msgstr "_Ferramentas"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/indent/plugin.c:176
+msgid "_Format Code with \"indent\""
+msgstr ""
+
+#. Display label
+#. short-cut
+#: ../plugins/indent/plugin.c:178
+msgid "Format code with the \"indent\" command line utility"
+msgstr ""
+
+#: ../plugins/indent/plugin.c:254
+msgid "Autoformat operations"
+msgstr "Operacións de formato automático"
+
+#: ../plugins/indent/plugin.c:333
+msgid "Indent Utility"
+msgstr "Utilidade de sangrado"
+
+#: ../plugins/indent/plugin.c:352
+msgid "Indent utility"
+msgstr "Utilidade de sangrado"
 
 #: ../plugins/macro/anjuta-macro.glade.h:2
 msgid "<b>Macro details:</b>"
@@ -5300,14 +5746,9 @@ msgstr ""
 "Examine e elimine calquer ficheiro rechazado.\n"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "Dry run"
 msgstr "Execución en seco"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:135
-msgid "_Tools"
-msgstr "_Ferramentas"
 
 #. Action name
 #. Stock icon, if any
@@ -5466,6 +5907,7 @@ msgid "Automatically refresh profile data display"
 msgstr "Refrescar automaticamente o monitor de datos do perfil"
 
 #: ../plugins/profiler/profiler.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Browse..."
 msgstr "Examinar..."
 
@@ -5554,7 +5996,7 @@ msgstr "Importar proxecto"
 msgid "This wizard will import an existing project into Anjuta."
 msgstr "Este asistente importará un proxecto existente dentro de Anjuta."
 
-#: ../plugins/project-import/project-import.c:95
+#: ../plugins/project-import/project-import.c:98
 #, c-format
 msgid ""
 "Could not find a valid project backend for the directory given (%s). Please "
@@ -5565,7 +6007,7 @@ msgstr ""
 "favor seleccione un directorio diferente, ou tente actualizar a unha versión "
 "máis moderna do marco de compilación de Gnome."
 
-#: ../plugins/project-import/project-import.c:116
+#: ../plugins/project-import/project-import.c:120
 #, c-format
 msgid ""
 "Project name: %s\n"
@@ -5576,7 +6018,7 @@ msgstr ""
 "Tipo de proxecto: %s\n"
 "Ruta do proxecto: %s\n"
 
-#: ../plugins/project-import/project-import.c:297
+#: ../plugins/project-import/project-import.c:306
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
@@ -5585,12 +6027,12 @@ msgstr ""
 "proxecto apropiado para usar. Asegúrese de que a súa versión de Anjuta está "
 "actualizada."
 
-#: ../plugins/project-import/project-import.c:320
+#: ../plugins/project-import/project-import.c:329
 #, c-format
 msgid "A file named \"%s\" already exists.  Do you want to replace it ?"
 msgstr "O ficheiro \"%s\" xa existe. Quere substituílo?"
 
-#: ../plugins/project-import/project-import.c:344
+#: ../plugins/project-import/project-import.c:353
 #, c-format
 msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
@@ -5825,6 +6267,7 @@ msgstr "Información básica"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 #: ../plugins/project-wizard/templates/translatable-strings.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
 msgid "Destination:"
 msgstr "Destino:"
 
@@ -5939,7 +6382,15 @@ msgstr "Executando: "
 msgid "New Project Wizard"
 msgstr "Asistente de creación de proxectos"
 
-#: ../plugins/project-wizard/property.c:264
+#: ../plugins/project-wizard/property.c:248
+msgid "Choose directory"
+msgstr "Escoller directorio"
+
+#: ../plugins/project-wizard/property.c:258
+msgid "Choose file"
+msgstr "Escoller ficheiro"
+
+#: ../plugins/project-wizard/property.c:268
 msgid "Icon choice"
 msgstr "Elección da icona"
 
@@ -5989,7 +6440,10 @@ msgstr "Licenza de Distribución de Software Berkeley(BSD)"
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
-msgstr "Separado por comas, outros complementos dos que depende este complemento. Podería ser tanto o nome da interface primaria ou a ubicación do complemento (biblioteca:clase)"
+msgstr ""
+"Separado por comas, outros complementos dos que depende este complemento. "
+"Podería ser tanto o nome da interface primaria ou a ubicación do complemento "
+"(biblioteca:clase)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "Configure external packages"
@@ -6044,7 +6498,10 @@ msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
 "'libgnomeui-2.0 >= 2.2.0'"
-msgstr "Proporcione un nome de paquete que require o seu proxecto. Tamén pode mencionar cal é a versión requerida do paquete. Por exemplo, 'libgnomeui-2.0' ou 'libgnomeui-2.0 >= 2.2.0'"
+msgstr ""
+"Proporcione un nome de paquete que require o seu proxecto. Tamén pode "
+"mencionar cal é a versión requerida do paquete. Por exemplo, 'libgnomeui-"
+"2.0' ou 'libgnomeui-2.0 >= 2.2.0'"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Icon File:"
@@ -6693,284 +7150,565 @@ msgstr "Usar fonte do tema"
 msgid "Print preview"
 msgstr "Previsualización da impresión"
 
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
+msgid "<b>Branch/Tag URL:</b>"
+msgstr ""
+
 #: ../plugins/subversion/anjuta-subversion.glade.h:2
-msgid "<b>Subversion Options</b>"
-msgstr "<b>Opción de subversion</b>"
+msgid "<b>Changes:</b>"
+msgstr "<b>Cambios:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
+msgid "<b>End Revision:</b>"
+msgstr "<b>Fin de revisión:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
+msgid "<b>File/URL to Remove:</b>"
+msgstr "<b>Ficheiro/URL a eliminar:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#, fuzzy
+msgid "<b>First Path:</b>"
+msgstr "<b>Fonte:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
+msgid "<b>Log Message:</b>"
+msgstr "<b>Mensaxe de rexistro:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:9
+msgid "<b>Revision:</b>"
+msgstr "<b>Revisión:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#, fuzzy
+msgid "<b>Second Path:</b>"
+msgstr "<b>Fonte:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
+msgid "<b>Select Changes to Revert:</b>"
+msgstr "<b>Seleccione os cambios a restaurar:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "<b>Select Files to Commit:</b>"
+msgstr "<b>Seleccione os ficheiros para enviar:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
+#, fuzzy
+msgid "<b>Select Files to Mark as Resolved:</b>"
+msgstr "<b>Seleccione o obxectivo para perfilar</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
+#, fuzzy
+msgid "<b>Source/Destination Paths:</b>"
+msgstr "<b>Opción de subversion</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:15
+#, fuzzy
+msgid "<b>Start Revision:</b>"
+msgstr "<b>Sesión:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
+msgid "<b>Subversion Options</b>"
+msgstr "<b>Opcións de subversion</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
+msgid "<b>View the Log for File/Folder:</b>"
+msgstr ""
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#, fuzzy
+msgid "<b>Working Copy Path:</b>"
+msgstr "<b>Opcións de impresión</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
+msgid "Diff Selected Revisions"
+msgstr ""
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#, fuzzy
+msgid "Diff to Previous"
+msgstr "Buscar _anterior"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:28
 msgid "Force"
 msgstr "Forzar"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:29
+#, fuzzy
+msgid "Ignore ancestry"
+msgstr "Ignorar ficheiros:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:30
+msgid "Other Revision:"
+msgstr "Outra revisión:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:31
 msgid "Password:"
 msgstr "Constrasinal:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:32
 msgid "Realm:"
 msgstr "Reino:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
+#: ../plugins/subversion/anjuta-subversion.glade.h:33
 msgid "Realm: "
 msgstr "Reino: "
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
+#: ../plugins/subversion/anjuta-subversion.glade.h:34
 msgid "Recurse"
 msgstr "Recursivo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:15
+#: ../plugins/subversion/anjuta-subversion.glade.h:35
 msgid "Remember Password"
 msgstr "Recordar contrasinal"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:36
 msgid "Remember this decision"
 msgstr "Recordar esta decisión"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:37
+#, fuzzy
+msgid "Repository Head"
+msgstr "<b>Repositorio:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:38
 msgid "Repository authorization"
 msgstr "Autorización do repositorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:39
+msgid "Revision:"
+msgstr "Revisión:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:40
+msgid "Source:"
+msgstr "Fonte:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:41
 msgid "Subversion Preferences"
 msgstr "Preferencias de Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:19
+#: ../plugins/subversion/anjuta-subversion.glade.h:42
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Engadir ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:20
-msgid "Subversion: Commit file/directory"
-msgstr "Subversion: Efectuar ficheiro/directorio"
+#: ../plugins/subversion/anjuta-subversion.glade.h:43
+msgid "Subversion: Commit Changes"
+msgstr "Subversion: Enviar cambios"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:21
+#: ../plugins/subversion/anjuta-subversion.glade.h:44
+msgid "Subversion: Copy files/folders"
+msgstr "Subversion: Copiar ficheiros/cartafoles"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:45
 msgid "Subversion: Diff file/directory"
 msgstr "Subversion: Diff de ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:22
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
+msgid "Subversion: Merge changes into working copy"
+msgstr ""
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:47
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Eliminar ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:23
+#: ../plugins/subversion/anjuta-subversion.glade.h:48
+msgid "Subversion: Revert Changes"
+msgstr "Subversion: Restaurar cambios"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:49
+msgid "Subversion: Set Conflicts as Resolved"
+msgstr ""
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:50
+msgid "Subversion: Switch to branch/tag"
+msgstr ""
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:51
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: Actualizar ficheiro/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:24
+#: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "TODO!"
 msgstr "PENDENTE!"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#: ../plugins/subversion/anjuta-subversion.glade.h:53
 msgid "Trust server"
 msgstr "Servidor verdadeiro"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:29
+#: ../plugins/subversion/anjuta-subversion.glade.h:54
+msgid "Use first path"
+msgstr ""
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:57
+msgid "View Log"
+msgstr "Ver rexistro de cambios"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:58
+msgid "View Selected Revision"
+msgstr "Ver a revisión seleccionada"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:59
+msgid "Whole Project"
+msgstr "O proxecto enteiro"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:61
+#, fuzzy
+msgid "Working Copy"
+msgstr "Directorio de traballo:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:63
+msgid "gtk-clear"
+msgstr "gtk-clear"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:64
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:65
+msgid "gtk-select-all"
+msgstr "gtk-select-all"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:66
 msgid "realm"
 msgstr "reino"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:43 ../plugins/subversion/plugin.c:94
+#: ../plugins/subversion/plugin.c:52 ../plugins/subversion/plugin.c:151
 msgid "_Subversion"
 msgstr "_Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:51
+#: ../plugins/subversion/plugin.c:60 ../plugins/subversion/plugin.c:167
 msgid "_Add..."
 msgstr "_Engadir..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:53
+#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
 msgid "Add a new file/directory to the Subversion tree"
 msgstr "Engadir un novo ficheiro/directorio á árbore Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:59
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:175
 msgid "_Remove..."
 msgstr "_Eliminar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:61
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
 msgid "Remove a file/directory from Subversion tree"
 msgstr "Eliminar un ficheiro/directorio da árbore Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:67 ../plugins/subversion/plugin.c:102
+#: ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
 msgstr "E_fectuar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:69 ../plugins/subversion/plugin.c:104
+#: ../plugins/subversion/plugin.c:78
 msgid "Commit your changes to the Subversion tree"
 msgstr "Efectuar seus cambios á árbore Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:75 ../plugins/subversion/plugin.c:110
+#: ../plugins/subversion/plugin.c:84
+msgid "_Revert..."
+msgstr "_Restaurar..."
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:86
+msgid "Revert changes to your working copy."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:92
+msgid "_Resolve Conflicts..."
+msgstr ""
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:94
+msgid "Resolve conflicts in your working copy."
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
 msgid "_Update..."
 msgstr "_Actualizar..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:77 ../plugins/subversion/plugin.c:112
+#: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
 msgid "Sync your local copy with the Subversion tree"
 msgstr "Sincronizar súa copia local coa árbore Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:83
+#: ../plugins/subversion/plugin.c:108
+msgid "Copy Files/Folders..."
+msgstr ""
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:193
+#, fuzzy
+msgid "Copy files/folders in the repository"
+msgstr "Pechar todos os pregues no editor"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:116
+msgid "Switch to a Branch/Tag..."
+msgstr ""
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:118
+msgid "Switch your local copy to a branch or tag in the repository"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:124
+msgid "Merge..."
+msgstr "Combinar..."
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:126
+msgid "Merge changes into your working copy"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:183
+msgid "_View Log..."
+msgstr ""
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:185
+msgid "View file history"
+msgstr ""
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:140
 msgid "_Diff..."
 msgstr "_Diff..."
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:85
-msgid "Diff local tree with repositry"
+#: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:201
+#, fuzzy
+msgid "Diff local tree with repository"
 msgstr "Diff da árbore local co repositorio"
 
-#: ../plugins/subversion/plugin.c:316
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:191
+msgid "Copy..."
+msgstr "Copiar..."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:199
+msgid "Diff..."
+msgstr "Diff..."
+
+#: ../plugins/subversion/plugin.c:439
 msgid "Subversion operations"
 msgstr "Operacións de Subversion"
 
-#: ../plugins/subversion/plugin.c:322
+#: ../plugins/subversion/plugin.c:445
 msgid "Subversion popup operations"
 msgstr "Operacións emerxentes de Subversion"
 
-#: ../plugins/subversion/subversion-callbacks.c:68
-msgid "Please enter a local filename, not an URI!"
-msgstr "Introduza un nome de ficheiro local, non unha URI!"
+#: ../plugins/subversion/plugin.c:473
+#, fuzzy
+msgid "Subversion Log"
+msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-callbacks.c:84
-msgid "Subversion command is running! Please wait until it is finished!"
-msgstr "Hay un comando Subversion en execución! Por favor, agarde ata que remate!"
+#: ../plugins/subversion/subversion-add-dialog.c:39
+msgid "Subversion: File will be added on next commit."
+msgstr ""
 
-#: ../plugins/subversion/subversion-callbacks.c:309
+#: ../plugins/subversion/subversion-commit-dialog.c:39
+#, fuzzy
+msgid "Subversion: Commit complete."
+msgstr "Subversion: Efectuar ficheiro/directorio"
+
+#: ../plugins/subversion/subversion-commit-dialog.c:93
+#, fuzzy
+msgid "Subversion: Committing changes  to the repository..."
+msgstr "Subversion: Efectuar ficheiro/directorio"
+
+#: ../plugins/subversion/subversion-copy-dialog.c:138
+#, fuzzy
+msgid "Subversion: Copy complete."
+msgstr "Operacións emerxentes de Subversion"
+
+#: ../plugins/subversion/subversion-diff-dialog.c:64
+#: ../plugins/subversion/subversion-log-dialog.c:394
+#: ../plugins/subversion/subversion-log-dialog.c:446
 msgid "svn.diff"
 msgstr "svn.diff"
 
-#: ../plugins/subversion/svn-auth.c:88 ../plugins/subversion/svn-auth.c:138
-#: ../plugins/subversion/svn-auth.c:195
-msgid "Authentication canceled"
-msgstr "Autenticación cancelada"
+#: ../plugins/subversion/subversion-diff-dialog.c:74
+#: ../plugins/subversion/subversion-log-dialog.c:398
+#: ../plugins/subversion/subversion-log-dialog.c:450
+#, fuzzy
+msgid "Subversion: Retrieving diff..."
+msgstr "Fío de subversion iniciado..."
 
-#: ../plugins/subversion/svn-auth.c:169
-msgid "Hostname: "
-msgstr "Nome de anfitrión: "
+#: ../plugins/subversion/subversion-log-dialog.c:255
+#, fuzzy
+msgid "Subversion: Retrieving log..."
+msgstr "Fío de subversion iniciado..."
 
-#: ../plugins/subversion/svn-auth.c:170
-msgid "Fingerprint: "
-msgstr "Pegada: "
+#: ../plugins/subversion/subversion-log-dialog.c:301
+#, fuzzy
+msgid "Subversion: File retrieved."
+msgstr "Subversion: Engadir ficheiro/directorio"
 
-#: ../plugins/subversion/svn-auth.c:171
-msgid "Valid from: "
-msgstr "Válido desde: "
+#: ../plugins/subversion/subversion-log-dialog.c:342
+#, fuzzy
+msgid "Subversion: Retrieving file..."
+msgstr "Fío de subversion iniciado..."
 
-#: ../plugins/subversion/svn-auth.c:172
-msgid "Valid until: "
-msgstr "Válido ata: "
+#: ../plugins/subversion/subversion-merge-dialog.c:36
+#, fuzzy
+msgid "Subversion: Merge complete."
+msgstr "Preferencias de Subversion"
 
-#: ../plugins/subversion/svn-auth.c:173
-msgid "Issuer DN: "
-msgstr "DN expedido: "
+#: ../plugins/subversion/subversion-remove-dialog.c:39
+msgid "Subversion: File will be removed on next commit."
+msgstr ""
 
-#: ../plugins/subversion/svn-auth.c:174
-msgid "DER certificate: "
-msgstr "Certificado DER: "
+#: ../plugins/subversion/subversion-resolve-dialog.c:36
+#, fuzzy
+msgid "Subversion: Resolve complete."
+msgstr "Subversion: Eliminar ficheiro/directorio"
 
-#: ../plugins/subversion/svn-notify.c:69
-msgid "Add"
-msgstr "Engadir"
+#: ../plugins/subversion/subversion-revert-dialog.c:36
+#, fuzzy
+msgid "Subversion: Revert complete."
+msgstr "Subversion: Eliminar ficheiro/directorio"
 
-#: ../plugins/subversion/svn-notify.c:84
-msgid "Restore"
-msgstr "Restaurar"
+#: ../plugins/subversion/subversion-switch-dialog.c:58
+#, fuzzy
+msgid "Subversion: Switch complete."
+msgstr "Completar busca"
 
-#: ../plugins/subversion/svn-notify.c:89
-msgid "Revert"
-msgstr "Revertir"
-
-#: ../plugins/subversion/svn-notify.c:94
-msgid "Revert failed"
-msgstr "Reversión fallida"
-
-#: ../plugins/subversion/svn-notify.c:99
-msgid "Resolved"
-msgstr "Resolto"
-
-#: ../plugins/subversion/svn-notify.c:104
-msgid "Skip"
-msgstr "Saltar"
-
-#: ../plugins/subversion/svn-notify.c:109
-msgid "Update delete"
-msgstr "Actualizar borrado"
-
-#: ../plugins/subversion/svn-notify.c:114
-msgid "Update add"
-msgstr "Actualizar engadido"
-
-#: ../plugins/subversion/svn-notify.c:124
-msgid "Update completed"
-msgstr "Actualización completada"
-
-#: ../plugins/subversion/svn-notify.c:129
-msgid "Update external"
-msgstr "Actualizar externos"
-
-#: ../plugins/subversion/svn-notify.c:134
-msgid "Status completed"
-msgstr "Estado completado"
-
-#: ../plugins/subversion/svn-notify.c:139
-msgid "Status external"
-msgstr "Estado externo"
-
-#: ../plugins/subversion/svn-notify.c:144
-msgid "Commit modified"
-msgstr "Efectuar modificado"
-
-#: ../plugins/subversion/svn-notify.c:149
-msgid "Commit added"
-msgstr "Efectuar engadidos"
-
-#: ../plugins/subversion/svn-notify.c:154
-msgid "Commit deleted"
-msgstr "Efectuar borrados"
-
-#: ../plugins/subversion/svn-notify.c:159
-msgid "Commit replaced"
-msgstr "Efectuar remprazos"
-
-#: ../plugins/subversion/svn-notify.c:164
-msgid "Commit postfix"
-msgstr "Efectuar postfix"
-
-#: ../plugins/subversion/svn-notify.c:169
-msgid "Blame revision"
-msgstr "Censurar revisión"
-
-#: ../plugins/subversion/svn-notify.c:174
-msgid "Unknown notification"
-msgstr "Notificación descoñecida"
-
-#: ../plugins/subversion/svn-thread.c:73 ../plugins/subversion/svn-thread.c:77
+#: ../plugins/subversion/subversion-ui-utils.c:64
+#: ../plugins/subversion/subversion-ui-utils.c:69
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:2
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/svn-thread.c:155
-msgid "Subversion command finished!"
-msgstr "O comando Subversion rematou!"
+#: ../plugins/subversion/subversion-ui-utils.c:274
+#, fuzzy
+msgid "Subversion: Diff complete."
+msgstr "Subversion: Diff de ficheiro/directorio"
 
-#: ../plugins/subversion/svn-thread.c:176
-msgid "Subversion thread started..."
-msgstr "Fío de subversion iniciado..."
+#: ../plugins/subversion/subversion-update-dialog.c:39
+#, fuzzy
+msgid "Subversion: Update complete."
+msgstr "Subversion: Actualizar ficheiro/directorio"
+
+#: ../plugins/subversion/svn-command.c:144
+#: ../plugins/subversion/svn-command.c:200
+msgid "Authentication canceled"
+msgstr "Autenticación cancelada"
+
+#: ../plugins/subversion/svn-command.c:173
+msgid "Hostname: "
+msgstr "Nome de anfitrión: "
+
+#: ../plugins/subversion/svn-command.c:174
+msgid "Fingerprint: "
+msgstr "Pegada: "
+
+#: ../plugins/subversion/svn-command.c:175
+msgid "Valid from: "
+msgstr "Válido desde: "
+
+#: ../plugins/subversion/svn-command.c:176
+msgid "Valid until: "
+msgstr "Válido ata: "
+
+#: ../plugins/subversion/svn-command.c:177
+msgid "Issuer DN: "
+msgstr "DN expedido: "
+
+#: ../plugins/subversion/svn-command.c:178
+msgid "DER certificate: "
+msgstr "Certificado DER: "
+
+#: ../plugins/subversion/svn-command.c:325
+#: ../plugins/subversion/svn-command.c:340
+#, c-format
+msgid "Deleted: %s"
+msgstr "Borrado: %s"
+
+#: ../plugins/subversion/svn-command.c:328
+#: ../plugins/subversion/svn-command.c:346
+#, c-format
+msgid "Added: %s"
+msgstr "Engadido: %s"
+
+#: ../plugins/subversion/svn-command.c:338
+#, fuzzy, c-format
+msgid "Resolved: %s"
+msgstr "Resolto"
+
+#: ../plugins/subversion/svn-command.c:343
+#, c-format
+msgid "Updated: %s"
+msgstr "Actualizado: %s"
+
+#: ../plugins/subversion/svn-command.c:349
+#, c-format
+msgid "Externally Updated: %s"
+msgstr "Actualizado externamente: %s"
+
+#: ../plugins/subversion/svn-command.c:383
+#, c-format
+msgid "Modified: %s"
+msgstr "Modificado: %s"
+
+#: ../plugins/subversion/svn-command.c:386
+#, c-format
+msgid "Merged: %s"
+msgstr "Combinado: %s"
+
+#: ../plugins/subversion/svn-command.c:389
+#, c-format
+msgid "Conflicted: %s"
+msgstr ""
+
+#: ../plugins/subversion/svn-command.c:393
+#, fuzzy, c-format
+msgid "Missing: %s"
+msgstr "Falta o ficheiro %s"
+
+#: ../plugins/subversion/svn-command.c:396
+#, fuzzy, c-format
+msgid "Obstructed: %s"
+msgstr "iniciado:"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
 #: ../plugins/symbol-browser/an_symbol_view.c:565
+#: ../plugins/symbol-db/symbol-db-view-locals.c:132
+#: ../plugins/symbol-db/symbol-db-view.c:438
 msgid "Symbol"
 msgstr "Símbolo"
 
@@ -7080,15 +7818,15 @@ msgstr "Buscar uso do símbolo no proxecto"
 msgid "Refresh symbol browser tree"
 msgstr "Refrescar a árbore do explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:388
+#: ../plugins/symbol-browser/plugin.c:388 ../plugins/symbol-db/plugin.c:779
 msgid "Created symbols..."
 msgstr "Símbolos creados..."
 
-#: ../plugins/symbol-browser/plugin.c:995
+#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:889
 msgid "Local"
 msgstr "Local"
 
-#: ../plugins/symbol-browser/plugin.c:1015
+#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:910
 msgid "Global"
 msgstr "Global"
 
@@ -7112,9 +7850,13 @@ msgstr "Seleccione o símbolo ao que quere ir"
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1094
+#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:965
 msgid "Symbols"
 msgstr "Símbolos"
+
+#: ../plugins/symbol-db/symbol-db.glade.h:1
+msgid "Anjuta Plugin User Interface"
+msgstr "Interface de usuario de complementos de Anjuta"
 
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
 msgid "<b>Terminal options</b>"
@@ -7453,10 +8195,6 @@ msgstr "Ruta do binario de Valgrind:"
 #: ../plugins/valgrind/preferences.c:143
 msgid "Choose Valgrind Binary File Path..."
 msgstr "Escolla a ruta do binario de Valgrind..."
-
-#: ../plugins/valgrind/preferences.c:162
-msgid "Preview"
-msgstr "Previsualización"
 
 #: ../plugins/valgrind/preferences.c:175
 msgid "lines above and below the target line."
