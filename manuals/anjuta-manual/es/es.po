@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD.es\n"
 "POT-Creation-Date: 2007-08-30 23:41+0100\n"
-"PO-Revision-Date: 2007-11-06 16:16+0100\n"
+"PO-Revision-Date: 2007-11-12 15:44+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3219,12 +3219,16 @@ msgid ""
 "<emphasis>Print</emphasis> — this tells the debugger whether to display the "
 "received signal."
 msgstr ""
+"<emphasis>Imprimir</emphasis>; esto de dice al depurador si debe mostrar la "
+"señal recibida."
 
 #: C/anjuta-manual.xml:766(para)
 msgid ""
 "<emphasis>Pass</emphasis> — this tells the debugger whether to pass the "
 "signal to the program."
 msgstr ""
+"<emphasis>Pasar</emphasis>; esto le dice al depurador si debe pasar la "
+"señal al programa."
 
 #: C/anjuta-manual.xml:772(para)
 msgid ""
@@ -3232,10 +3236,13 @@ msgid ""
 "has all its item disabled because the corresponding functions are not "
 "implemented yet."
 msgstr ""
+"El menú emergente que se muestra al pulsar con el botón derecho del ratón "
+"tiene todos sus elementos desactivados porque las funciones correspondientes no "
+"están aún implementadas."
 
 #: C/anjuta-manual.xml:781(title)
 msgid "Information about used files"
-msgstr ""
+msgstr "Información acerca de archivos usados"
 
 #: C/anjuta-manual.xml:782(para)
 msgid ""
@@ -3244,10 +3251,12 @@ msgid ""
 "guisubmenu><guisubmenu>Information</guisubmenu><guimenuitem>Target files</"
 "guimenuitem></menuchoice>. A window will open displaying all informations."
 msgstr ""
+"Es posible obtener alguna información acerca de los archivos usados por el programa "
+"depurado, eligiendo el elemento del menú <menuchoice><guisubmenu>Depurar</guisubmenu><guisubmenu>Información</guisubmenu><guimenuitem>Información de archivos objetivo</guimenuitem></menuchoice>. Se abrirá una ventana mostrando toda la información."
 
 #: C/anjuta-manual.xml:791(title)
 msgid "Information about debugged program"
-msgstr ""
+msgstr "Información acerca del programa depurado"
 
 #: C/anjuta-manual.xml:792(para)
 msgid ""
@@ -3302,6 +3311,8 @@ msgid ""
 "Frame</guimenuitem></menuchoice>. A window will open describing the current "
 "frame."
 msgstr ""
+"Es posible obtener información acerca del marco actualmente seleccionado "
+"eligiendo el elemento del menú <menuchoice><guisubmenu>Depurar</guisubmenu><guisubmenu>Información</guisubmenu><guimenuitem>Marco actual</guimenuitem></menuchoice>. Se abrirá una ventana describiendo el marco actual."
 
 #: C/anjuta-manual.xml:831(title)
 msgid "Information about the current function arguments"
@@ -3314,6 +3325,8 @@ msgid ""
 "guisubmenu><guisubmenu>Information</guisubmenu><guimenuitem>Arguments</"
 "guimenuitem></menuchoice>. A window will open describing the arguments."
 msgstr ""
+"Es posible obtener información acerca de los argumentos de la función "
+"actual eligiendo el elemento del menú <menuchoice><guisubmenu>Depurar</guisubmenu><guisubmenu>Información</guisubmenu><guimenuitem>Argumentos</guimenuitem></menuchoice>. Se abrirá una ventana describiendo los argumentos."
 
 #: C/anjuta-manual.xml:841(title)
 msgid "User command"
@@ -3327,6 +3340,10 @@ msgid ""
 "enter commands that will be send to the debugger when you press "
 "<keycap>Return</keycap>."
 msgstr ""
+"Para enviar directamente un comando al «backend» elija el elemento del menú "
+"<menuchoice><guimenu>Depurar</guimenu><guimenuitem>Comando del depurador</guimenuitem></menuchoice>. Se mostrará un pequeño diálogo donde podrá "
+"introducir los comandos que se enviarán al depurador cuando pulse "
+"<keycap>Intro</keycap>."
 
 #: C/anjuta-manual.xml:850(para)
 msgid ""
@@ -3335,6 +3352,10 @@ msgid ""
 "the <interface>breakpoint list window</interface>. It is better to avoid "
 "using this command unless you know exactly what you are doing."
 msgstr ""
+"El «frontend» envía este comando directamente al «backend» sin ninguna "
+"comprobación. Por ejemplo, si establece un punto de parada como este, no aparecerá "
+"en la <interface>ventana de lista de puntos de parada</interface>. Es mejor evitar "
+"el uso de este comando a no ser que sepa exactamente qué está haciendo."
 
 #: C/anjuta-manual.xml:3(title)
 msgid "Preferences"
