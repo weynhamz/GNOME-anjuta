@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-09 10:25+0000\n"
-"PO-Revision-Date: 2007-11-12 19:12+0100\n"
+"POT-Creation-Date: 2007-11-12 18:12+0000\n"
+"PO-Revision-Date: 2007-11-12 20:43+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1059,19 +1059,6 @@ msgstr "Archivo de código fuente:"
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
 msgid "Source/Header Headings:"
 msgstr "Titulares de Fuente/Cabecera:"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:28
-msgid "gtk-add"
-msgstr "gtk-add"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:29
-#: ../plugins/subversion/anjuta-subversion.glade.h:62
-msgid "gtk-cancel"
-msgstr "gtk-cancel"
-
-#: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:30
-msgid "gtk-remove"
-msgstr "gtk-remove"
 
 #: ../plugins/class-gen/generator.c:132
 msgid "Header or source file has not been created"
@@ -2541,9 +2528,9 @@ msgid "Do not show tabs"
 msgstr "No mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1660
-#: ../plugins/document-manager/plugin.c:2027
-#: ../plugins/document-manager/plugin.c:2039
+#: ../plugins/document-manager/plugin.c:1664
+#: ../plugins/document-manager/plugin.c:2031
+#: ../plugins/document-manager/plugin.c:2043
 msgid "Documents"
 msgstr "Documentos"
 
@@ -2737,7 +2724,7 @@ msgstr "Convertir EOL a mayoría de EOL"
 
 #: ../plugins/document-manager/plugin.c:212
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL'S en el archivo"
+msgstr "Convierte caracteres de fin de línea a la mayoría de los EOL en el archivo"
 
 #: ../plugins/document-manager/plugin.c:217
 msgid "_Select"
@@ -4112,7 +4099,7 @@ msgstr "Hubo un error al lanzar el depurador.\n"
 
 #: ../plugins/gdb/debugger.c:859
 msgid "Make sure 'gdb' is installed on the system.\n"
-msgstr "Asegúrese de que 'gdb' está instalado en el sistema.\n"
+msgstr "Asegúrese de que «gdb» está instalado en el sistema.\n"
 
 #: ../plugins/gdb/debugger.c:1150
 msgid "Program exited normally\n"
@@ -5043,7 +5030,7 @@ msgstr "Arrimar Else"
 
 #: ../plugins/indent/indent.glade.h:27
 msgid "Cuddle up to the immediately preceding '}' in an if-then-else construct."
-msgstr "Arrimarse al '}' inmediatamente precedente en una construcción if-then-else."
+msgstr "Arrimarse al «}» inmediatamente precedente en una construcción if-then-else."
 
 #: ../plugins/indent/indent.glade.h:28
 msgid "Declaration  "
@@ -5070,28 +5057,28 @@ msgid "First Column"
 msgstr "Primera columna"
 
 #: ../plugins/indent/indent.glade.h:34
-msgid "Foece a space between an 'if' and the following parenthesis (default)."
-msgstr "Forzar un espacio entre un 'if' y los siguientes paréntesos (predet.)"
-
-#: ../plugins/indent/indent.glade.h:35
 msgid "Force a blank line after every block of declarations."
 msgstr "Fuerza una línea en blanco después de cada bloque de declaraciones."
 
-#: ../plugins/indent/indent.glade.h:36
+#: ../plugins/indent/indent.glade.h:35
 msgid "Force a blank line after every procedure body."
 msgstr "Fuerza una línea en blanco después de cada cuerpo de procedimiento."
 
-#: ../plugins/indent/indent.glade.h:37
+#: ../plugins/indent/indent.glade.h:36
 msgid "Force a newline after each comma in a declaration."
 msgstr "Fuerza una línea en blanco después de cada coma en una declaración"
 
-#: ../plugins/indent/indent.glade.h:38
+#: ../plugins/indent/indent.glade.h:37
 msgid "Force a space between a 'for' and the following parenthesis (default)."
 msgstr "Fuerza un espacio entre un «for» y el siguiente paréntesis (predeterminado)."
 
-#: ../plugins/indent/indent.glade.h:39
+#: ../plugins/indent/indent.glade.h:38
 msgid "Force a space between a 'while' and the following parenthesis (default)."
-msgstr "Forzar un espacio entre un 'while' y el siguiente paréntesis (predeterminado)"
+msgstr "Forzar un espacio entre un «while» y el siguiente paréntesis (predeterminado)"
+
+#: ../plugins/indent/indent.glade.h:39
+msgid "Force a space between an 'if' and the following parenthesis (default)."
+msgstr "Forzar un espacio entre un «if» y los siguientes paréntesis (predet.)"
 
 #: ../plugins/indent/indent.glade.h:40
 msgid "Format comments which begin after the first column."
@@ -5173,7 +5160,7 @@ msgstr "Colocar un espacio después de un operador cast."
 
 #: ../plugins/indent/indent.glade.h:58
 msgid "Place a space between the name of the procedure being called and the '('."
-msgstr "Coloca un espacio entre el nombre del procedimiento que se llama y el '('."
+msgstr "Coloca un espacio entre el nombre del procedimiento que se llama y el «(»."
 
 #: ../plugins/indent/indent.glade.h:59
 msgid "Place stars at the beginning of multi-line comments."
@@ -5181,11 +5168,11 @@ msgstr "Colocar estrellas al comienzo de comentarios multilínea."
 
 #: ../plugins/indent/indent.glade.h:60
 msgid "Place the '{' following a 'struct' declaration on the next line."
-msgstr "Colocar el '{' siguiendo una declaración 'struct' en la siguiente línea."
+msgstr "Colocar el «{» siguiendo una declaración «struct» en la siguiente línea."
 
 #: ../plugins/indent/indent.glade.h:61
 msgid "Place the '{' following a 'struct' declaration on the same line."
-msgstr "Colocar el '{' siguiendo una declaración 'struct' en la misma línea."
+msgstr "Colocar el «{» siguiendo una declaración «struct» en la misma línea."
 
 #: ../plugins/indent/indent.glade.h:62
 msgid "Place the brace on the line following the if test."
@@ -5205,7 +5192,7 @@ msgstr "Colocar el tipo del procedimiento siendo definido en la línea anterior.
 
 #: ../plugins/indent/indent.glade.h:66
 msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
-msgstr "Preferir romper líneas largas antes de los operadores booleanos '&&' y '||'."
+msgstr "Preferir romper líneas largas antes de los operadores booleanos «&&» y «||»."
 
 #: ../plugins/indent/indent.glade.h:67 ../plugins/valgrind/preferences.c:162
 msgid "Preview"
@@ -5294,8 +5281,8 @@ msgid ""
 "Specify the number of spaces that 'case' labels should be indented to the "
 "right of the containing 'switch' statement."
 msgstr ""
-"Especifique el número de espacios que las etiquetas 'case' deberían ser "
-"sangradas a la derecha de la sentencia 'switch' que las contiene."
+"Especifique el número de espacios que las etiquetas «case» deberían ser "
+"sangradas a la derecha de la sentencia «switch» que las contiene."
 
 #: ../plugins/indent/indent.glade.h:86
 msgid "Specify the value of indentation for each level."
@@ -7354,19 +7341,7 @@ msgstr "Proyecto completo"
 msgid "Working Copy"
 msgstr "Copia de trabajo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:63
-msgid "gtk-clear"
-msgstr "gtk-clear"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:64
-msgid "gtk-ok"
-msgstr "gtk-ok"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:65
-msgid "gtk-select-all"
-msgstr "gtk-select-all"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:66
+#: ../plugins/subversion/anjuta-subversion.glade.h:62
 msgid "realm"
 msgstr "reino"
 
