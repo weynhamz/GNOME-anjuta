@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-08 03:19+0000\n"
-"PO-Revision-Date: 2007-11-08 15:20+0100\n"
+"POT-Creation-Date: 2007-11-09 10:25+0000\n"
+"PO-Revision-Date: 2007-11-12 19:12+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -783,7 +783,7 @@ msgstr "Construye un paquete del proyecto para distribuirlo"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1323
 msgid "_Execute Program..."
-msgstr "_Ejecutar el programa..."
+msgstr "_Ejecutar el programa…"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1324
 msgid "Execute program"
@@ -939,7 +939,6 @@ msgstr "Vista de datos fijos"
 #: ../plugins/class-inheritance/class-inherit.c:914
 #: ../plugins/debug-manager/sharedlib.c:130
 #: ../plugins/debug-manager/signals.c:274
-#: ../plugins/subversion/svn-notify.c:119
 msgid "Update"
 msgstr "Actualizar"
 
@@ -1066,6 +1065,7 @@ msgid "gtk-add"
 msgstr "gtk-add"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:29
+#: ../plugins/subversion/anjuta-subversion.glade.h:62
 msgid "gtk-cancel"
 msgstr "gtk-cancel"
 
@@ -1119,13 +1119,14 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Detalles del módulo:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
-#: ../plugins/subversion/anjuta-subversion.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "<b>Options:</b>"
 msgstr "<b>Opciones:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
 #: ../plugins/search/anjuta-search.glade.h:13
 #: ../plugins/sourceview/sourceview.glade.h:4
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "<b>Options</b>"
 msgstr "<b>Opciones</b>"
 
@@ -1196,17 +1197,16 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
-#: ../plugins/subversion/anjuta-subversion.glade.h:3
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Choose file or directory to add:"
 msgstr "Elegir archivo o directorio para añadir:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
-#: ../plugins/subversion/anjuta-subversion.glade.h:4
 msgid "Choose file or directory to commit:"
 msgstr "Elija un archivo o directorio que efectuar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Choose file or directory to diff:"
 msgstr "Elija el archivo o directorio del que sacar diferencias:"
 
@@ -1219,12 +1219,11 @@ msgid "Choose file or directory to get the status from:"
 msgstr "Elija el archivo o directorio del que obtener el estado:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "Choose file or directory to remove:"
 msgstr "Elija el archivo o directorio a eliminar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "Choose file or directory to update:"
 msgstr "Elija el archivo o directorio para actualizar:"
 
@@ -1241,7 +1240,7 @@ msgid "Delete empty directories"
 msgstr "Borrar directorios vacíos"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Do not act recursively"
 msgstr "No actuar recursivamente"
 
@@ -1264,7 +1263,6 @@ msgstr ""
 "Servidor de contraseñas (pserver)\n"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:38
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "Log message:"
 msgstr "Mensaje de registro:"
 
@@ -1309,7 +1307,7 @@ msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-#: ../plugins/subversion/anjuta-subversion.glade.h:26
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Use revision/tag: "
 msgstr "Usar revisión/etiqueta"
 
@@ -1318,7 +1316,7 @@ msgid "Use revision: "
 msgstr "Usar revisión: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:27
+#: ../plugins/subversion/anjuta-subversion.glade.h:56
 msgid "Username: "
 msgstr "Usuario: "
 
@@ -1327,7 +1325,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta del fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:28
+#: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole project"
 msgstr "Proyecto completo"
 
@@ -1340,7 +1338,7 @@ msgid "start"
 msgstr "inicio"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
-#: ../plugins/subversion/subversion-callbacks.c:56
+#: ../plugins/subversion/subversion-ui-utils.c:86
 msgid "Please enter a filename!"
 msgstr "Por favor, introduzca el nombre de archivo."
 
@@ -1359,7 +1357,7 @@ msgstr "No se puede borrar el archivo"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/cvs-plugin/cvs-callbacks.c:458
-#: ../plugins/subversion/subversion-callbacks.c:255
+#: ../plugins/subversion/subversion-commit-dialog.c:70
 msgid "Are you sure that you do not want a log message?"
 msgstr "¿Seguro que no quiere un mensaje de registro?"
 
@@ -1819,7 +1817,7 @@ msgstr "Activar un punto de parada en la posición actual"
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1518
 msgid "Add Breakpoint..."
-msgstr "Añadir punto de parada..."
+msgstr "Añadir punto de parada…"
 
 #. Display label
 #. short-cut
@@ -1951,7 +1949,7 @@ msgstr "Cargado"
 
 #: ../plugins/debug-manager/plugin.c:436
 msgid "Running..."
-msgstr "Ejecutándose..."
+msgstr "Ejecutándose…"
 
 #: ../plugins/debug-manager/plugin.c:458
 msgid "Stopped"
@@ -2353,7 +2351,7 @@ msgstr "Operaciones con los hilos"
 #. Stock icon, if any
 #: ../plugins/debug-manager/watch.c:384
 msgid "Ins_pect/Evaluate..."
-msgstr "Ins_peccionar/Evaluar..."
+msgstr "Ins_peccionar/Evaluar…"
 
 #. Display label
 #. short-cut
@@ -2363,7 +2361,7 @@ msgstr "Inspeccionar o evaluar una expresión o variable"
 
 #: ../plugins/debug-manager/watch.c:392
 msgid "Add Watch..."
-msgstr "Añadir vigilancia..."
+msgstr "Añadir vigilancia…"
 
 #: ../plugins/debug-manager/watch.c:400
 msgid "Remove Watch"
@@ -2674,7 +2672,7 @@ msgstr "_Archivos recientes"
 
 #: ../plugins/document-manager/plugin.c:181
 msgid "_Print..."
-msgstr "Im_primir..."
+msgstr "Im_primir…"
 
 #: ../plugins/document-manager/plugin.c:182
 msgid "Print the current file"
@@ -3702,7 +3700,6 @@ msgstr "Cortar"
 
 #. 1
 #: ../plugins/editor/text_editor_menu.c:248
-#: ../plugins/subversion/svn-notify.c:74
 msgid "Copy"
 msgstr "Copiar"
 
@@ -4202,13 +4199,15 @@ msgid ""
 "Anjuta terminal plugin is not installed. The program will be run without a "
 "terminal."
 msgstr ""
-"El complemento del terminal de Anjuta no está instalado. El programa se ejecutará sin "
-"una terminal."
+"El complemento del terminal de Anjuta no está instalado. El programa se "
+"ejecutará sin una terminal."
 
 #: ../plugins/gdb/plugin.c:117
 #, c-format
 msgid "Fail to create fifo file named %s. The program will be run without a terminal"
-msgstr "Falló al crear el archivo FIFO de nombre %s. El programa se ejecutará sin una terminal."
+msgstr ""
+"Falló al crear el archivo FIFO de nombre %s. El programa se ejecutará sin "
+"una terminal."
 
 #: ../plugins/gdb/plugin.c:152
 msgid "Cannot start terminal for debugging."
@@ -4698,7 +4697,7 @@ msgstr "No se ha proporcionado ningún nombre de archivo."
 msgid "When you delete the category \"%s\", all containing items are lost"
 msgstr "Cuando borre la categoría «%s», todos los elementos contenidos se pierden"
 
-#: ../plugins/gtodo/mcategory.c:146 ../plugins/subversion/svn-notify.c:79
+#: ../plugins/gtodo/mcategory.c:146
 msgid "Delete"
 msgstr "Borrar"
 
@@ -5756,6 +5755,7 @@ msgstr ""
 "Examine y quite cualquier archivo rechazado.\n"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
+#: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "Dry run"
 msgstr "Ejecución en seco"
 
@@ -5763,7 +5763,7 @@ msgstr "Ejecución en seco"
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:63
 msgid "_Patch..."
-msgstr "_Parchear..."
+msgstr "_Parchear…"
 
 #: ../plugins/patch/plugin.c:94
 msgid "Patch files/directories"
@@ -5849,7 +5849,7 @@ msgstr "Perfilador"
 #. Stock icon, if any
 #: ../plugins/profiler/plugin.c:734
 msgid "Select Target..."
-msgstr "Seleccione objetivo..."
+msgstr "Seleccione objetivo…"
 
 #. Action name
 #. Stock icon, if any
@@ -5916,8 +5916,9 @@ msgid "Automatically refresh profile data display"
 msgstr "Refrescar automáticamente el monitor de los datos del perfil"
 
 #: ../plugins/profiler/profiler.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "Browse..."
-msgstr "Examinar..."
+msgstr "Examinar…"
 
 #: ../plugins/profiler/profiler.glade.h:8
 msgid "Do not propagate time for these symbols:"
@@ -5962,7 +5963,7 @@ msgstr "Propagar el tiempo sólo para estos símbolos:"
 
 #: ../plugins/profiler/profiler.glade.h:20
 msgid "Select Other Target..."
-msgstr "Seleccionar otro objetivo..."
+msgstr "Seleccionar otro objetivo…"
 
 #: ../plugins/profiler/profiler.glade.h:21
 msgid "Select Profiling Target"
@@ -6146,7 +6147,7 @@ msgstr "Refrescar el árbol del adm. de proyectos"
 
 #: ../plugins/project-manager/plugin.c:752
 msgid "Add _Group..."
-msgstr "Añadir _grupo..."
+msgstr "Añadir _grupo…"
 
 #: ../plugins/project-manager/plugin.c:752
 #: ../plugins/project-manager/plugin.c:786
@@ -6155,7 +6156,7 @@ msgstr "Añade un grupo a un proyecto"
 
 #: ../plugins/project-manager/plugin.c:757
 msgid "Add _Target..."
-msgstr "Añadir _objetivo..."
+msgstr "Añadir _objetivo…"
 
 #: ../plugins/project-manager/plugin.c:757
 #: ../plugins/project-manager/plugin.c:791
@@ -6164,7 +6165,7 @@ msgstr "Añadir un objetivo al proyecto"
 
 #: ../plugins/project-manager/plugin.c:762
 msgid "Add _Source File..."
-msgstr "Añadir archivo _fuente..."
+msgstr "Añadir archivo _fuente…"
 
 #: ../plugins/project-manager/plugin.c:762
 #: ../plugins/project-manager/plugin.c:781
@@ -6252,7 +6253,7 @@ msgstr "Proyecto cargado… Inicializando"
 
 #: ../plugins/project-manager/plugin.c:2355
 msgid "Loaded Project..."
-msgstr "Proyecto cargado..."
+msgstr "Proyecto cargado…"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:2
 msgid "<b>Project description:</b>"
@@ -6277,6 +6278,7 @@ msgstr "Información básica"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 #: ../plugins/project-wizard/templates/translatable-strings.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:23
 msgid "Destination:"
 msgstr "Destino:"
 
@@ -7156,281 +7158,534 @@ msgstr "Usar tipografía del tema"
 msgid "Print preview"
 msgstr "Vista previa de la impresión"
 
+#: ../plugins/subversion/anjuta-subversion.glade.h:1
+msgid "<b>Branch/Tag URL:</b>"
+msgstr "<b>URL de la rama/etiqueta:</b>"
+
 #: ../plugins/subversion/anjuta-subversion.glade.h:2
+msgid "<b>Changes:</b>"
+msgstr "<b>Cambios:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:3
+msgid "<b>End Revision:</b>"
+msgstr "<b>Revisión de fin:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:4
+msgid "<b>File/URL to Remove:</b>"
+msgstr "<b>Archivo/URL que eliminar:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
+msgid "<b>First Path:</b>"
+msgstr "<b>Primera ruta:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
+msgid "<b>Log Message:</b>"
+msgstr "<b>Mensaje de registro:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
+msgid "<b>Revision:</b>"
+msgstr "<b>Revisión:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
+msgid "<b>Second Path:</b>"
+msgstr "<b>Segunda ruta:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
+msgid "<b>Select Changes to Revert:</b>"
+msgstr "<b>Seleccione los cambios que revertir:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
+msgid "<b>Select Files to Commit:</b>"
+msgstr "<b>Seleccione archivos para subir:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
+msgid "<b>Select Files to Mark as Resolved:</b>"
+msgstr "<b>Seleccione archivos para marcar como resueltos:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
+msgid "<b>Source/Destination Paths:</b>"
+msgstr "<b>Rutas de orígen/destino:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:15
+msgid "<b>Start Revision:</b>"
+msgstr "<b>Revisión de inicio:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Opciones de subversion</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
+msgid "<b>View the Log for File/Folder:</b>"
+msgstr "<b>Ver el registro para el/la archivo/carpeta:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
+msgid "<b>Working Copy Path:</b>"
+msgstr "<b>Ruta a la copia de trabajo:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:24
+msgid "Diff Selected Revisions"
+msgstr "Diff de las revisiones seleccionadas"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
+msgid "Diff to Previous"
+msgstr "Diff con la anterior"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:28
 msgid "Force"
 msgstr "Forzar"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:29
+msgid "Ignore ancestry"
+msgstr "Ignorar ancestros"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:30
+msgid "Other Revision:"
+msgstr "Otra revisión:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:31
 msgid "Password:"
 msgstr "Contraseña:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:32
 msgid "Realm:"
 msgstr "Reino:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
+#: ../plugins/subversion/anjuta-subversion.glade.h:33
 msgid "Realm: "
 msgstr "Reino:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
+#: ../plugins/subversion/anjuta-subversion.glade.h:34
 msgid "Recurse"
 msgstr "Recursivo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:15
+#: ../plugins/subversion/anjuta-subversion.glade.h:35
 msgid "Remember Password"
 msgstr "Recordar contraseña"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:36
 msgid "Remember this decision"
 msgstr "Recordar esta decisión"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:37
+msgid "Repository Head"
+msgstr "Repositorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:38
 msgid "Repository authorization"
 msgstr "Autorización del repositorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:39
+msgid "Revision:"
+msgstr "Revisión:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:40
+msgid "Source:"
+msgstr "Orígen:"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:41
 msgid "Subversion Preferences"
 msgstr "Preferencias de Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:19
+#: ../plugins/subversion/anjuta-subversion.glade.h:42
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Añadir archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:20
-msgid "Subversion: Commit file/directory"
-msgstr "Subversion: Efectuar archivo/directorio"
+#: ../plugins/subversion/anjuta-subversion.glade.h:43
+msgid "Subversion: Commit Changes"
+msgstr "Subversion: Efectuar cambios"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:21
+#: ../plugins/subversion/anjuta-subversion.glade.h:44
+msgid "Subversion: Copy files/folders"
+msgstr "Subversion: Copiar archivos/carpetas"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:45
 msgid "Subversion: Diff file/directory"
-msgstr "Subversion: Diferencia de archivo/directorio"
+msgstr "Subversion: Diff de archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:22
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
+msgid "Subversion: Merge changes into working copy"
+msgstr "Subversion: Mezclar cambios en la copia de trabajo"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:47
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Eliminar archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:23
+#: ../plugins/subversion/anjuta-subversion.glade.h:48
+msgid "Subversion: Revert Changes"
+msgstr "Subversion: Revertir cambios"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:49
+msgid "Subversion: Set Conflicts as Resolved"
+msgstr "Subversion: Establecer conflictos como resueltos"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:50
+msgid "Subversion: Switch to branch/tag"
+msgstr "Subversion: Cambiar a la rama/etiqueta"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:51
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: Actualizar archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:24
+#: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "TODO!"
-msgstr "Por hacer!"
+msgstr "¡Por hacer!"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#: ../plugins/subversion/anjuta-subversion.glade.h:53
 msgid "Trust server"
 msgstr "Confiar en el servidor"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:29
+#: ../plugins/subversion/anjuta-subversion.glade.h:54
+msgid "Use first path"
+msgstr "Usar la primera ruta"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:57
+msgid "View Log"
+msgstr "Ver el registro"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:58
+msgid "View Selected Revision"
+msgstr "Ver la revisión seleccionada"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:59
+msgid "Whole Project"
+msgstr "Proyecto completo"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:61
+msgid "Working Copy"
+msgstr "Copia de trabajo"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:63
+msgid "gtk-clear"
+msgstr "gtk-clear"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:64
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:65
+msgid "gtk-select-all"
+msgstr "gtk-select-all"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:66
 msgid "realm"
 msgstr "reino"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:43 ../plugins/subversion/plugin.c:94
+#: ../plugins/subversion/plugin.c:52 ../plugins/subversion/plugin.c:151
 msgid "_Subversion"
 msgstr "_Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:51
+#: ../plugins/subversion/plugin.c:60 ../plugins/subversion/plugin.c:167
 msgid "_Add..."
-msgstr "_Añadir..."
+msgstr "_Añadir…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:53
+#: ../plugins/subversion/plugin.c:62 ../plugins/subversion/plugin.c:169
 msgid "Add a new file/directory to the Subversion tree"
 msgstr "Añadir un archivo/directorio nuevo al árbol Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:59
+#: ../plugins/subversion/plugin.c:68 ../plugins/subversion/plugin.c:175
 msgid "_Remove..."
-msgstr "_Eliminar..."
+msgstr "_Eliminar…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:61
+#: ../plugins/subversion/plugin.c:70 ../plugins/subversion/plugin.c:177
 msgid "Remove a file/directory from Subversion tree"
 msgstr "Eliminar un archivo/directorio del árbol Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:67 ../plugins/subversion/plugin.c:102
+#: ../plugins/subversion/plugin.c:76
 msgid "_Commit..."
-msgstr "_Efectuar..."
+msgstr "_Efectuar…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:69 ../plugins/subversion/plugin.c:104
+#: ../plugins/subversion/plugin.c:78
 msgid "Commit your changes to the Subversion tree"
 msgstr "Efectuar sus cambios al árbol Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:75 ../plugins/subversion/plugin.c:110
-msgid "_Update..."
-msgstr "_Actualizar..."
+#: ../plugins/subversion/plugin.c:84
+msgid "_Revert..."
+msgstr "_Revertir…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:77 ../plugins/subversion/plugin.c:112
+#: ../plugins/subversion/plugin.c:86
+msgid "Revert changes to your working copy."
+msgstr "Revertir los cambios a su copia de trabajo."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:92
+msgid "_Resolve Conflicts..."
+msgstr "_Resolver conflictos…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:94
+msgid "Resolve conflicts in your working copy."
+msgstr "Resolver conflictos en su copia de trabajo."
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:100 ../plugins/subversion/plugin.c:159
+msgid "_Update..."
+msgstr "_Actualizar…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:102 ../plugins/subversion/plugin.c:161
 msgid "Sync your local copy with the Subversion tree"
 msgstr "Sincronizar su copia local con el árbol Subversion"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/subversion/plugin.c:83
-msgid "_Diff..."
-msgstr "_Diff..."
+#: ../plugins/subversion/plugin.c:108
+msgid "Copy Files/Folders..."
+msgstr "Copiar archivos/carpetas…"
 
 #. Display label
 #. short-cut
-#: ../plugins/subversion/plugin.c:85
-msgid "Diff local tree with repositry"
-msgstr "Diff del árbol local con el repo"
+#: ../plugins/subversion/plugin.c:110 ../plugins/subversion/plugin.c:193
+msgid "Copy files/folders in the repository"
+msgstr "Copiar archivos/carpetas en el repositorio"
 
-#: ../plugins/subversion/plugin.c:316
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:116
+msgid "Switch to a Branch/Tag..."
+msgstr "Cambiar a una rama/etiqueta…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:118
+msgid "Switch your local copy to a branch or tag in the repository"
+msgstr "Cambiar su copia local por una rama o etiqueta del repositorio"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:124
+msgid "Merge..."
+msgstr "Mezclar…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:126
+msgid "Merge changes into your working copy"
+msgstr "Mezclar los cambios en su copia de trabajo"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:183
+msgid "_View Log..."
+msgstr "_Ver el registro…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:134 ../plugins/subversion/plugin.c:185
+msgid "View file history"
+msgstr "Ver el histórico del archivo"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:140
+msgid "_Diff..."
+msgstr "_Diff…"
+
+#. Display label
+#. short-cut
+#: ../plugins/subversion/plugin.c:142 ../plugins/subversion/plugin.c:201
+msgid "Diff local tree with repository"
+msgstr "Diff del árbol local con el repositorio"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:191
+msgid "Copy..."
+msgstr "Copiar…"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/subversion/plugin.c:199
+msgid "Diff..."
+msgstr "Diff…"
+
+#: ../plugins/subversion/plugin.c:439
 msgid "Subversion operations"
 msgstr "Operaciones de Subversion"
 
-#: ../plugins/subversion/plugin.c:322
+#: ../plugins/subversion/plugin.c:445
 msgid "Subversion popup operations"
 msgstr "Operaciones emergentes de Subversion"
 
-#: ../plugins/subversion/subversion-callbacks.c:68
-msgid "Please enter a local filename, not an URI!"
-msgstr "Introduzca un nombre de archivo local, no una URI."
+#: ../plugins/subversion/plugin.c:473
+msgid "Subversion Log"
+msgstr "Registro de Subversion"
 
-#: ../plugins/subversion/subversion-callbacks.c:84
-msgid "Subversion command is running! Please wait until it is finished!"
-msgstr "Hay un comando Subversion en ejecución - por favor, espere hasta que termine."
+#: ../plugins/subversion/subversion-add-dialog.c:39
+msgid "Subversion: File will be added on next commit."
+msgstr "Subversion: El archivo se añadirá en la siguiente operación."
 
-#: ../plugins/subversion/subversion-callbacks.c:309
+#: ../plugins/subversion/subversion-commit-dialog.c:39
+msgid "Subversion: Commit complete."
+msgstr "Subversion: Carga completada."
+
+#: ../plugins/subversion/subversion-commit-dialog.c:93
+msgid "Subversion: Committing changes  to the repository..."
+msgstr "Subversion: Efectuando los cambios sobre el repositorio…"
+
+#: ../plugins/subversion/subversion-copy-dialog.c:138
+msgid "Subversion: Copy complete."
+msgstr "Subversion: Copia completada."
+
+#: ../plugins/subversion/subversion-diff-dialog.c:64
+#: ../plugins/subversion/subversion-log-dialog.c:394
+#: ../plugins/subversion/subversion-log-dialog.c:446
 msgid "svn.diff"
 msgstr "svn.diff"
 
-#: ../plugins/subversion/svn-auth.c:88 ../plugins/subversion/svn-auth.c:138
-#: ../plugins/subversion/svn-auth.c:195
-msgid "Authentication canceled"
-msgstr "Autenticación cancelada"
+#: ../plugins/subversion/subversion-diff-dialog.c:74
+#: ../plugins/subversion/subversion-log-dialog.c:398
+#: ../plugins/subversion/subversion-log-dialog.c:450
+msgid "Subversion: Retrieving diff..."
+msgstr "Subversion: Obteniendo Diff…"
 
-#: ../plugins/subversion/svn-auth.c:169
-msgid "Hostname: "
-msgstr "Servidor: "
+#: ../plugins/subversion/subversion-log-dialog.c:255
+msgid "Subversion: Retrieving log..."
+msgstr "Subversion: Obteniendo el registro…"
 
-#: ../plugins/subversion/svn-auth.c:170
-msgid "Fingerprint: "
-msgstr "Huella:"
+#: ../plugins/subversion/subversion-log-dialog.c:301
+msgid "Subversion: File retrieved."
+msgstr "Subversion: Archivo obtenido."
 
-#: ../plugins/subversion/svn-auth.c:171
-msgid "Valid from: "
-msgstr "Válido desde:"
+#: ../plugins/subversion/subversion-log-dialog.c:342
+msgid "Subversion: Retrieving file..."
+msgstr "Subversion: Obteniendo archivo…"
 
-#: ../plugins/subversion/svn-auth.c:172
-msgid "Valid until: "
-msgstr "Válido hasta:"
+#: ../plugins/subversion/subversion-merge-dialog.c:36
+msgid "Subversion: Merge complete."
+msgstr "Subversion: Mezcla completada."
 
-#: ../plugins/subversion/svn-auth.c:173
-msgid "Issuer DN: "
-msgstr "ND del emisor:"
+#: ../plugins/subversion/subversion-remove-dialog.c:39
+msgid "Subversion: File will be removed on next commit."
+msgstr "Subversion: El archivo se eliminará en la siguiente operación."
 
-#: ../plugins/subversion/svn-auth.c:174
-msgid "DER certificate: "
-msgstr "Certificado DER:"
+#: ../plugins/subversion/subversion-resolve-dialog.c:36
+msgid "Subversion: Resolve complete."
+msgstr "Subversion: Resolución completada."
 
-#: ../plugins/subversion/svn-notify.c:69
-msgid "Add"
-msgstr "Añadir"
+#: ../plugins/subversion/subversion-revert-dialog.c:36
+msgid "Subversion: Revert complete."
+msgstr "Subversion: Reversión completada."
 
-#: ../plugins/subversion/svn-notify.c:84
-msgid "Restore"
-msgstr "Restaurar"
+#: ../plugins/subversion/subversion-switch-dialog.c:58
+msgid "Subversion: Switch complete."
+msgstr "Subversion: Cambio completado."
 
-#: ../plugins/subversion/svn-notify.c:89
-msgid "Revert"
-msgstr "Revertir"
-
-#: ../plugins/subversion/svn-notify.c:94
-msgid "Revert failed"
-msgstr "Reversión fallida"
-
-#: ../plugins/subversion/svn-notify.c:99
-msgid "Resolved"
-msgstr "Resuelto"
-
-#: ../plugins/subversion/svn-notify.c:104
-msgid "Skip"
-msgstr "Saltar"
-
-#: ../plugins/subversion/svn-notify.c:109
-msgid "Update delete"
-msgstr "Actualizar borrado"
-
-#: ../plugins/subversion/svn-notify.c:114
-msgid "Update add"
-msgstr "Actualizar añadido"
-
-#: ../plugins/subversion/svn-notify.c:124
-msgid "Update completed"
-msgstr "Actualizacion completada"
-
-#: ../plugins/subversion/svn-notify.c:129
-msgid "Update external"
-msgstr "Actualizar externos"
-
-#: ../plugins/subversion/svn-notify.c:134
-msgid "Status completed"
-msgstr "Estado completado"
-
-#: ../plugins/subversion/svn-notify.c:139
-msgid "Status external"
-msgstr "Estado externo"
-
-#: ../plugins/subversion/svn-notify.c:144
-msgid "Commit modified"
-msgstr "Efectuar modificado"
-
-#: ../plugins/subversion/svn-notify.c:149
-msgid "Commit added"
-msgstr "Efectuar añadidos"
-
-#: ../plugins/subversion/svn-notify.c:154
-msgid "Commit deleted"
-msgstr "Efectuar borrados"
-
-#: ../plugins/subversion/svn-notify.c:159
-msgid "Commit replaced"
-msgstr "Efectuar reemplazados"
-
-#: ../plugins/subversion/svn-notify.c:164
-msgid "Commit postfix"
-msgstr "Efectuar postfix"
-
-#: ../plugins/subversion/svn-notify.c:169
-msgid "Blame revision"
-msgstr "Censurar revisión"
-
-#: ../plugins/subversion/svn-notify.c:174
-msgid "Unknown notification"
-msgstr "Notificación desconocida"
-
-#: ../plugins/subversion/svn-thread.c:73 ../plugins/subversion/svn-thread.c:77
+#: ../plugins/subversion/subversion-ui-utils.c:64
+#: ../plugins/subversion/subversion-ui-utils.c:69
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:2
 msgid "Subversion"
 msgstr "Subversión"
 
-#: ../plugins/subversion/svn-thread.c:155
-msgid "Subversion command finished!"
-msgstr "El comando Subversion ha terminado."
+#: ../plugins/subversion/subversion-ui-utils.c:274
+msgid "Subversion: Diff complete."
+msgstr "Subversion: Diff completado."
 
-#: ../plugins/subversion/svn-thread.c:176
-msgid "Subversion thread started..."
-msgstr "Se ha iniciado el hilo de Subversion..."
+#: ../plugins/subversion/subversion-update-dialog.c:39
+msgid "Subversion: Update complete."
+msgstr "Subversion: Actualización completada."
+
+#: ../plugins/subversion/svn-command.c:144
+#: ../plugins/subversion/svn-command.c:200
+msgid "Authentication canceled"
+msgstr "Autenticación cancelada"
+
+#: ../plugins/subversion/svn-command.c:173
+msgid "Hostname: "
+msgstr "Servidor: "
+
+#: ../plugins/subversion/svn-command.c:174
+msgid "Fingerprint: "
+msgstr "Huella:"
+
+#: ../plugins/subversion/svn-command.c:175
+msgid "Valid from: "
+msgstr "Válido desde:"
+
+#: ../plugins/subversion/svn-command.c:176
+msgid "Valid until: "
+msgstr "Válido hasta:"
+
+#: ../plugins/subversion/svn-command.c:177
+msgid "Issuer DN: "
+msgstr "ND del emisor:"
+
+#: ../plugins/subversion/svn-command.c:178
+msgid "DER certificate: "
+msgstr "Certificado DER:"
+
+#: ../plugins/subversion/svn-command.c:325
+#: ../plugins/subversion/svn-command.c:340
+#, c-format
+msgid "Deleted: %s"
+msgstr "Borrados: %s"
+
+#: ../plugins/subversion/svn-command.c:328
+#: ../plugins/subversion/svn-command.c:346
+#, c-format
+msgid "Added: %s"
+msgstr "Añadidos: %s"
+
+#: ../plugins/subversion/svn-command.c:338
+#, c-format
+msgid "Resolved: %s"
+msgstr "Resueltos: %s"
+
+#: ../plugins/subversion/svn-command.c:343
+#, c-format
+msgid "Updated: %s"
+msgstr "Actualizados: %s"
+
+#: ../plugins/subversion/svn-command.c:349
+#, c-format
+msgid "Externally Updated: %s"
+msgstr "Actualizados externamente: %s"
+
+#: ../plugins/subversion/svn-command.c:383
+#, c-format
+msgid "Modified: %s"
+msgstr "Modificados: %s"
+
+#: ../plugins/subversion/svn-command.c:386
+#, c-format
+msgid "Merged: %s"
+msgstr "Mezclados: %s"
+
+#: ../plugins/subversion/svn-command.c:389
+#, c-format
+msgid "Conflicted: %s"
+msgstr "Con conflictos: %s"
+
+#: ../plugins/subversion/svn-command.c:393
+#, c-format
+msgid "Missing: %s"
+msgstr "Faltan: %s"
+
+#: ../plugins/subversion/svn-command.c:396
+#, c-format
+msgid "Obstructed: %s"
+msgstr "Obstruídos: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
 #: ../plugins/symbol-browser/an_symbol_view.c:565
