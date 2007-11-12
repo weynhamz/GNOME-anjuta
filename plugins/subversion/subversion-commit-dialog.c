@@ -123,6 +123,13 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 }
 
 static void
+select_all_files (AnjutaCommand *command, guint return_code, 
+				  AnjutaVcsStatusTreeView *status_view)
+{
+	anjuta_vcs_status_tree_view_select_all (status_view);
+}
+
+static void
 subversion_commit_dialog (GtkAction* action, Subversion* plugin, 
 						  gchar *filename)
 {
@@ -152,6 +159,10 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 	
 	g_signal_connect (G_OBJECT (commit_clear_button), "clicked",
 					  G_CALLBACK (clear_all_status_selections),
+					  commit_status_view);
+	
+	g_signal_connect (G_OBJECT (status_command), "command-finished",
+					  G_CALLBACK (select_all_files),
 					  commit_status_view);
 	
 	g_signal_connect (G_OBJECT (status_command), "command-finished",

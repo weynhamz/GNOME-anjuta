@@ -1008,14 +1008,18 @@ create_highlight_submenu (DocmanPlugin *plugin, IAnjutaEditor *editor)
 		const gchar *lang = node->data;
 		const gchar *name = ianjuta_editor_language_get_language_name (IANJUTA_EDITOR_LANGUAGE (editor), lang, NULL);
 		
-		menuitem = gtk_menu_item_new_with_mnemonic (name);
-		g_object_set_data_full (G_OBJECT (menuitem), "language_code",
-								g_strdup (lang),
-								(GDestroyNotify)g_free);
-		g_signal_connect (G_OBJECT (menuitem), "activate",
-						  G_CALLBACK (on_force_hilite_activate),
-						  plugin);
-		gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
+		/* Should fix #493583 */
+		if (name != NULL)
+		{
+			menuitem = gtk_menu_item_new_with_mnemonic (name);
+			g_object_set_data_full (G_OBJECT (menuitem), "language_code",
+									g_strdup (lang),
+									(GDestroyNotify)g_free);
+			g_signal_connect (G_OBJECT (menuitem), "activate",
+							  G_CALLBACK (on_force_hilite_activate),
+							  plugin);
+			gtk_menu_shell_append (GTK_MENU_SHELL (submenu), menuitem);
+		}
 		node = g_list_next (node);
 	}
 	g_list_free(sorted_languages);

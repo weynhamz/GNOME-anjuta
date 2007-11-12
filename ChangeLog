@@ -1,5 +1,14 @@
 2007-11-12  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/plugin.c: (create_highlight_submenu):
+	Bug 493583 – crash in Anjuta IDE: trying to open a file
+	
+	* plugins/subversion/subversion-commit-dialog.c:
+	(select_all_files), (subversion_commit_dialog):
+	Patch from jrligget - see #457477
+
+2007-11-12  Johannes Schmid <jhs@gnome.org>
+
 	Patch from Marc Lorber <Lorber.Marc@wanodoo.fr>:
 	* libanjuta/anjuta-plugin-handle.c:
 	(anjuta_plugin_handle_get_about):
