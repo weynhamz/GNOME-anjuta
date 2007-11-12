@@ -239,7 +239,7 @@ private</property>
                                     <child>
                                       <widget class="GtkButton" id="cc_elements_remove">
                                         <property name="visible">True</property>
-                                        <property name="label" translatable="yes">gtk-remove</property>
+                                        <property name="label">gtk-remove</property>
                                         <property name="use_stock">True</property>
                                         <property name="response_id">0</property>
                                       </widget>
@@ -247,7 +247,7 @@ private</property>
                                     <child>
                                       <widget class="GtkButton" id="cc_elements_add">
                                         <property name="visible">True</property>
-                                        <property name="label" translatable="yes">gtk-add</property>
+                                        <property name="label">gtk-add</property>
                                         <property name="use_stock">True</property>
                                         <property name="response_id">0</property>
                                       </widget>
@@ -537,7 +537,7 @@ private</property>
                                         <child>
                                           <widget class="GtkButton" id="go_members_remove">
                                             <property name="visible">True</property>
-                                            <property name="label" translatable="yes">gtk-remove</property>
+                                            <property name="label">gtk-remove</property>
                                             <property name="use_stock">True</property>
                                             <property name="response_id">0</property>
                                           </widget>
@@ -545,7 +545,7 @@ private</property>
                                         <child>
                                           <widget class="GtkButton" id="go_members_add">
                                             <property name="visible">True</property>
-                                            <property name="label" translatable="yes">gtk-add</property>
+                                            <property name="label">gtk-add</property>
                                             <property name="use_stock">True</property>
                                             <property name="response_id">0</property>
                                           </widget>
@@ -603,7 +603,7 @@ private</property>
                                         <child>
                                           <widget class="GtkButton" id="go_properties_remove">
                                             <property name="visible">True</property>
-                                            <property name="label" translatable="yes">gtk-remove</property>
+                                            <property name="label">gtk-remove</property>
                                             <property name="use_stock">True</property>
                                             <property name="response_id">0</property>
                                           </widget>
@@ -611,7 +611,7 @@ private</property>
                                         <child>
                                           <widget class="GtkButton" id="go_properties_add">
                                             <property name="visible">True</property>
-                                            <property name="label" translatable="yes">gtk-add</property>
+                                            <property name="label">gtk-add</property>
                                             <property name="use_stock">True</property>
                                             <property name="response_id">0</property>
                                           </widget>
@@ -671,7 +671,7 @@ private</property>
                                         <child>
                                           <widget class="GtkButton" id="go_signals_remove">
                                             <property name="visible">True</property>
-                                            <property name="label" translatable="yes">gtk-remove</property>
+                                            <property name="label">gtk-remove</property>
                                             <property name="use_stock">True</property>
                                             <property name="response_id">0</property>
                                           </widget>
@@ -679,7 +679,7 @@ private</property>
                                         <child>
                                           <widget class="GtkButton" id="go_signals_add">
                                             <property name="visible">True</property>
-                                            <property name="label" translatable="yes">gtk-add</property>
+                                            <property name="label">gtk-add</property>
                                             <property name="use_stock">True</property>
                                             <property name="response_id">0</property>
                                           </widget>
@@ -949,7 +949,7 @@ No License</property>
               <widget class="GtkButton" id="cancel_button">
                 <property name="visible">True</property>
                 <property name="can_default">True</property>
-                <property name="label" translatable="yes">gtk-cancel</property>
+                <property name="label">gtk-cancel</property>
                 <property name="use_stock">True</property>
                 <property name="response_id">-6</property>
               </widget>

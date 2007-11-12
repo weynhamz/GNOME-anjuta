@@ -815,7 +815,7 @@
                                   <widget class="GtkCheckButton" id="sai_checkbutton">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="tooltip" translatable="yes">Foece a space between an 'if' and the following parenthesis (default).</property>
+                                    <property name="tooltip" translatable="yes">Force a space between an 'if' and the following parenthesis (default).</property>
                                     <property name="label" translatable="yes">Space after IF</property>
                                     <property name="use_underline">True</property>
                                     <property name="response_id">0</property>

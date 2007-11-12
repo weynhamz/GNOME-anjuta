@@ -1,3 +1,16 @@
+2007-11-12  Johannes Schmid <jhs@gnome.org>
+
+	Patch from Marc Lorber <Lorber.Marc@wanodoo.fr>:
+	* libanjuta/anjuta-plugin-handle.c:
+	(anjuta_plugin_handle_get_about):
+	Bug 495536 – Plugins localization improvement
+	
+	Patch from Gabor Kelemeng <kelemeng@gnome.hu>:
+	* plugins/class-gen/anjuta-class-gen-plugin.glade:
+	* plugins/indent/indent.glade:
+	* plugins/subversion/anjuta-subversion.glade:
+	Bug 495245 – Strings bug
+
 2007-11-08  James Liggett  <jrliggett@cox.net>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>

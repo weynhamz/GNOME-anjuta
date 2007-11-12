@@ -31,6 +31,7 @@
  */
 
 #include <string.h>
+#include <glib/gi18n.h>
 #include "anjuta-plugin-handle.h"
 #include "resources.h"
 #include "anjuta-debug.h"
@@ -595,7 +596,7 @@ const char*
 anjuta_plugin_handle_get_about (AnjutaPluginHandle *plugin_handle)
 {
 	g_return_val_if_fail (ANJUTA_IS_PLUGIN_HANDLE (plugin_handle), NULL);
-	return plugin_handle->priv->about;
+	return _(plugin_handle->priv->about);
 }
 
 const char*
