@@ -82,6 +82,7 @@ subversion_resolve_dialog (GtkAction *action, Subversion *plugin)
 	GtkWidget *resolve_select_all_button;
 	GtkWidget *resolve_clear_button;
 	GtkWidget *resolve_status_view;
+	GtkWidget *resolve_status_progress_bar;
 	SvnStatusCommand *status_command;
 	SubversionData *data;
 	
@@ -95,6 +96,8 @@ subversion_resolve_dialog (GtkAction *action, Subversion *plugin)
 												 "resolve_clear_button");
 	resolve_status_view = glade_xml_get_widget (gxml,
 												"resolve_status_view");
+	resolve_status_progress_bar = glade_xml_get_widget (gxml,
+														"resolve_status_progress_bar");
 	
 	status_command = svn_status_command_new (plugin->project_root_dir, TRUE,
 											 FALSE);
@@ -116,6 +119,12 @@ subversion_resolve_dialog (GtkAction *action, Subversion *plugin)
 	g_signal_connect (G_OBJECT (status_command), "data-arrived",
 					  G_CALLBACK (on_status_command_data_arrived),
 					  resolve_status_view);
+	
+	pulse_progress_bar (GTK_PROGRESS_BAR (resolve_status_progress_bar));
+	
+	g_signal_connect (G_OBJECT (status_command), "command_finished",
+					  G_CALLBACK (hide_pulse_progress_bar),
+					  resolve_status_progress_bar);
 	
 	g_signal_connect (G_OBJECT (status_command), "command-finished",
 					  G_CALLBACK (on_status_command_finished),

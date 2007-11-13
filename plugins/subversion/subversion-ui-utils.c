@@ -110,9 +110,16 @@ get_log_from_textview (GtkWidget* textview)
 }
 
 static gboolean
-pulse_timer (PulseProgressData *data)
+status_pulse_timer (PulseProgressData *data)
 {
 	anjuta_status_progress_pulse (data->status, data->text);
+	return TRUE;
+}
+
+static gboolean
+pulse_timer (GtkProgressBar *progress_bar)
+{
+	gtk_progress_bar_pulse (progress_bar);
 	return TRUE;
 }
 
@@ -136,7 +143,7 @@ status_bar_progress_pulse (Subversion *plugin, gchar *text)
 	data->text = g_strdup (text);
 	
 	return g_timeout_add_full (G_PRIORITY_DEFAULT, 100,  
-							   (GSourceFunc) pulse_timer, data,
+							   (GSourceFunc) status_pulse_timer, data,
 							   (GDestroyNotify) on_pulse_timer_destroyed);
 }
 
@@ -158,6 +165,17 @@ report_errors (AnjutaCommand *command, guint return_code)
 		anjuta_util_dialog_error (NULL, message);
 		g_free (message);
 	}
+}
+
+void
+pulse_progress_bar (GtkProgressBar *progress_bar)
+{
+	guint timer_id;
+	
+	timer_id = g_timeout_add (100, (GSourceFunc) pulse_timer, 
+							  progress_bar);
+	g_object_set_data (G_OBJECT (progress_bar), "pulse-timer-id",
+					   GUINT_TO_POINTER (timer_id));
 }
 
 void
@@ -283,4 +301,17 @@ stop_status_bar_progress_pulse (AnjutaCommand *command, guint return_code,
 								gpointer timer_id)
 {
 	clear_status_bar_progress_pulse (GPOINTER_TO_UINT (timer_id));
+}
+
+void
+hide_pulse_progress_bar (AnjutaCommand *command, guint return_code,
+						 GtkProgressBar *progress_bar)
+{
+	guint timer_id;
+	
+	timer_id = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (progress_bar),
+													"pulse-timer-id")); 
+	
+	g_source_remove (GPOINTER_TO_UINT (timer_id));
+	gtk_widget_hide (GTK_WIDGET (progress_bar));
 }

@@ -138,6 +138,7 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 	GtkWidget *commit_select_all_button;
 	GtkWidget *commit_clear_button;
 	GtkWidget *commit_status_view;
+	GtkWidget *commit_status_progress_bar;
 	SvnStatusCommand *status_command;
 	SubversionData* data;
 	
@@ -149,6 +150,8 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 	commit_clear_button = glade_xml_get_widget (gxml,
 												"commit_clear_button");
 	commit_status_view = glade_xml_get_widget (gxml, "commit_status_view");
+	commit_status_progress_bar = glade_xml_get_widget (gxml,
+													   "commit_status_progress_bar");
 	
 	status_command = svn_status_command_new (plugin->project_root_dir, 
 											 TRUE, TRUE);
@@ -164,6 +167,12 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 	g_signal_connect (G_OBJECT (status_command), "command-finished",
 					  G_CALLBACK (select_all_files),
 					  commit_status_view);
+	
+	pulse_progress_bar (GTK_PROGRESS_BAR (commit_status_progress_bar));
+	
+	g_signal_connect (G_OBJECT (status_command), "command-finished",
+					  G_CALLBACK (hide_pulse_progress_bar),
+					  commit_status_progress_bar);
 	
 	g_signal_connect (G_OBJECT (status_command), "command-finished",
 					  G_CALLBACK (on_status_command_finished),

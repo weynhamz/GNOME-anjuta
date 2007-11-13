@@ -48,6 +48,7 @@ gboolean check_filename (GtkDialog* dialog, const gchar* filename);
 gchar *get_log_from_textview (GtkWidget* textview);
 guint status_bar_progress_pulse (Subversion *plugin, gchar *text);
 void clear_status_bar_progress_pulse (guint timer_id);
+void pulse_progress_bar (GtkProgressBar *progress_bar);
 void report_errors (AnjutaCommand *command, guint return_code);
 
 /* Stock signal handlers */
@@ -69,5 +70,6 @@ void send_diff_command_output_to_editor (AnjutaCommand *command,
 										 IAnjutaEditor *editor);
 void stop_status_bar_progress_pulse (AnjutaCommand *command, guint return_code,
 									 gpointer timer_id);
-
+void hide_pulse_progress_bar (AnjutaCommand *command, guint return_code,
+							  GtkProgressBar *progress_bar);
 #endif

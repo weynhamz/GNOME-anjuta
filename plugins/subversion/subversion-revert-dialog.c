@@ -82,6 +82,7 @@ subversion_revert_dialog (GtkAction *action, Subversion *plugin)
 	GtkWidget *revert_select_all_button;
 	GtkWidget *revert_clear_button;
 	GtkWidget *revert_status_view;
+	GtkWidget *revert_status_progress_bar;
 	SvnStatusCommand *status_command;
 	SubversionData *data;
 	
@@ -95,6 +96,8 @@ subversion_revert_dialog (GtkAction *action, Subversion *plugin)
 												"revert_clear_button");
 	revert_status_view = glade_xml_get_widget (gxml,
 											   "revert_status_view");
+	revert_status_progress_bar = glade_xml_get_widget (gxml,
+													   "revert_status_progress_bar");
 	
 	status_command = svn_status_command_new (plugin->project_root_dir, TRUE,
 											 FALSE);
@@ -116,6 +119,12 @@ subversion_revert_dialog (GtkAction *action, Subversion *plugin)
 	g_signal_connect (G_OBJECT (status_command), "data-arrived",
 					  G_CALLBACK (on_status_command_data_arrived),
 					  revert_status_view);
+	
+	pulse_progress_bar (GTK_PROGRESS_BAR (revert_status_progress_bar));
+	
+	g_signal_connect (G_OBJECT (status_command), "command-finished",
+					  G_CALLBACK (hide_pulse_progress_bar),
+					  revert_status_progress_bar);
 	
 	g_signal_connect (G_OBJECT (status_command), "command-finished",
 					  G_CALLBACK (on_status_command_finished),

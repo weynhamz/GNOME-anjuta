@@ -1,3 +1,20 @@
+2007-11-13  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/subversion/anjuta-subversion.glade:
+	* plugins/subversion/subversion-commit-dialog.c:
+	(subversion_commit_dialog):
+	* plugins/subversion/subversion-resolve-dialog.c:
+	(subversion_resolve_dialog):
+	* plugins/subversion/subversion-revert-dialog.c:
+	(subversion_revert_dialog):
+	* plugins/subversion/subversion-ui-utils.c: (status_pulse_timer),
+	(pulse_timer), (status_bar_progress_pulse), (pulse_progress_bar),
+	(hide_pulse_progress_bar):
+	* plugins/subversion/subversion-ui-utils.h:
+
+	Yet another patch from #457477:
+	Add a pulsing progress bar to all dialogs receiving status
+
 2007-11-12  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c: (create_highlight_submenu):
