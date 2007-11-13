@@ -1,3 +1,8 @@
+2007-11-13  Matej Urbančič <mateju@svn.gnome.org>
+
+	* sl.po: Added Slovenian Translation.
+	* LINGUAS: Added sl.
+
 2007-11-12  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
         * es.po: Updated Spanish translation
