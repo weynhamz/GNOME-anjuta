@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-12 18:12+0000\n"
-"PO-Revision-Date: 2007-11-12 20:43+0100\n"
+"POT-Creation-Date: 2007-11-13 11:31+0000\n"
+"PO-Revision-Date: 2007-11-14 14:56+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1294,7 +1294,7 @@ msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-#: ../plugins/subversion/anjuta-subversion.glade.h:55
+#: ../plugins/subversion/anjuta-subversion.glade.h:56
 msgid "Use revision/tag: "
 msgstr "Usar revisión/etiqueta"
 
@@ -1303,7 +1303,7 @@ msgid "Use revision: "
 msgstr "Usar revisión: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:56
+#: ../plugins/subversion/anjuta-subversion.glade.h:57
 msgid "Username: "
 msgstr "Usuario: "
 
@@ -1312,7 +1312,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta del fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:60
+#: ../plugins/subversion/anjuta-subversion.glade.h:61
 msgid "Whole project"
 msgstr "Proyecto completo"
 
@@ -7262,86 +7262,90 @@ msgid "Repository authorization"
 msgstr "Autorización del repositorio"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:39
+msgid "Retrieving status..."
+msgstr "Obteniendo el estado…"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:40
 msgid "Revision:"
 msgstr "Revisión:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:40
+#: ../plugins/subversion/anjuta-subversion.glade.h:41
 msgid "Source:"
 msgstr "Orígen:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:41
+#: ../plugins/subversion/anjuta-subversion.glade.h:42
 msgid "Subversion Preferences"
 msgstr "Preferencias de Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:42
+#: ../plugins/subversion/anjuta-subversion.glade.h:43
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Añadir archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:43
+#: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Subversion: Commit Changes"
 msgstr "Subversion: Efectuar cambios"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:44
+#: ../plugins/subversion/anjuta-subversion.glade.h:45
 msgid "Subversion: Copy files/folders"
 msgstr "Subversion: Copiar archivos/carpetas"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:45
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
 msgid "Subversion: Diff file/directory"
 msgstr "Subversion: Diff de archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
+#: ../plugins/subversion/anjuta-subversion.glade.h:47
 msgid "Subversion: Merge changes into working copy"
 msgstr "Subversion: Mezclar cambios en la copia de trabajo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:47
+#: ../plugins/subversion/anjuta-subversion.glade.h:48
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Eliminar archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:48
+#: ../plugins/subversion/anjuta-subversion.glade.h:49
 msgid "Subversion: Revert Changes"
 msgstr "Subversion: Revertir cambios"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:49
+#: ../plugins/subversion/anjuta-subversion.glade.h:50
 msgid "Subversion: Set Conflicts as Resolved"
 msgstr "Subversion: Establecer conflictos como resueltos"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:50
+#: ../plugins/subversion/anjuta-subversion.glade.h:51
 msgid "Subversion: Switch to branch/tag"
 msgstr "Subversion: Cambiar a la rama/etiqueta"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:51
+#: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: Actualizar archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:52
+#: ../plugins/subversion/anjuta-subversion.glade.h:53
 msgid "TODO!"
 msgstr "¡Por hacer!"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:53
+#: ../plugins/subversion/anjuta-subversion.glade.h:54
 msgid "Trust server"
 msgstr "Confiar en el servidor"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:54
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Use first path"
 msgstr "Usar la primera ruta"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:57
+#: ../plugins/subversion/anjuta-subversion.glade.h:58
 msgid "View Log"
 msgstr "Ver el registro"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:58
+#: ../plugins/subversion/anjuta-subversion.glade.h:59
 msgid "View Selected Revision"
 msgstr "Ver la revisión seleccionada"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:59
+#: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole Project"
 msgstr "Proyecto completo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:61
+#: ../plugins/subversion/anjuta-subversion.glade.h:62
 msgid "Working Copy"
 msgstr "Copia de trabajo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:62
+#: ../plugins/subversion/anjuta-subversion.glade.h:63
 msgid "realm"
 msgstr "reino"
 
@@ -7573,7 +7577,7 @@ msgstr "Subversion: Cambio completado."
 msgid "Subversion"
 msgstr "Subversión"
 
-#: ../plugins/subversion/subversion-ui-utils.c:274
+#: ../plugins/subversion/subversion-ui-utils.c:292
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Diff completado."
 
