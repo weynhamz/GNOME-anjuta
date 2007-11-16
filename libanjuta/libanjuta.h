@@ -21,7 +21,6 @@
 #define LIBANJUTA_H
 
 /* FIXME: Update required */
-#include <libanjuta/anjuta-children.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-encodings.h>
 #include <libanjuta/anjuta-enum-types.h>

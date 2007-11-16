@@ -38,7 +38,6 @@
 
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/anjuta-children.h>
 #include <libanjuta/anjuta-marshal.h>
 
 #include "debugger.h"

@@ -1790,17 +1790,6 @@ SUPPORTED_ENCODINGS
 </SECTION>
 
 <SECTION>
-<FILE>anjuta-children</FILE>
-<TITLE>Children management</TITLE>
-AnjutaChildTerminatedCallback
-anjuta_children_register
-anjuta_children_unregister
-anjuta_children_foreach
-anjuta_children_recover
-anjuta_children_finalize
-</SECTION>
-
-<SECTION>
 <FILE>anjuta-utils</FILE>
 <TITLE>Utilities</TITLE>
 anjuta_util_copy_file

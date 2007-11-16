@@ -1,3 +1,16 @@
+2007-11-07  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* (removed) libanjuta/anjuta-children.c,
+	(removed) libanjuta/anjuta-children.h,
+	libanjuta/anjuta-launcher.c,
+	libanjuta/libanjuta.h,
+	libanjuta/Makefile.am,
+	plugins/gdb/debugger.c,
+	plugins/terminal/terminal.c,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	manuals/reference/libanjuta/libanjuta-docs.sgml:
+	Replace anjuta_children_register by g_child_watch_add
+
 2007-11-13  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/subversion/anjuta-subversion.glade:

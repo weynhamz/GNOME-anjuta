@@ -44,7 +44,6 @@ libanjuta_la_SOURCES= \
 	anjuta-launcher.c \
 	anjuta-utils.c \
 	anjuta-utils-priv.h \
-	anjuta-children.c \
 	anjuta-session.c \
 	anjuta-save-prompt.c \
 	anjuta-serializer.c \
@@ -102,7 +101,6 @@ libanjuta_include = \
 	anjuta-preferences.h \
 	anjuta-ui.h \
 	anjuta-launcher.h \
-	anjuta-children.h \
 	anjuta-session.h \
 	anjuta-save-prompt.h \
 	anjuta-serializer.h \

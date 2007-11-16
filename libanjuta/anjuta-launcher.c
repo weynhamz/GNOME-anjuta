@@ -55,7 +55,6 @@
 
 #include <libgnome/gnome-macros.h>
 
-#include "anjuta-children.h"
 #include "anjuta-utils.h"
 #include "anjuta-marshal.h"
 #include "resources.h"
@@ -113,6 +112,7 @@ struct _AnjutaLauncherPriv
 	
 	/* The child */
 	pid_t child_pid;
+	guint source;
 	gint child_status;
 	gboolean child_has_terminated;
 	
@@ -239,7 +239,8 @@ anjuta_launcher_dispose (GObject *obj)
 	if (anjuta_launcher_is_busy (launcher))
 	{
 		pid_t child_pid_save = launcher->priv->child_pid;
-		anjuta_children_unregister (child_pid_save);
+		guint child_source = launcher->priv->source;
+		g_source_remove (child_source);
 		anjuta_launcher_execution_done_cleanup (launcher, FALSE);
 		
 		/* We can not call anjuta_launcher_reset (launcher) to kill the
@@ -984,7 +985,6 @@ anjuta_launcher_check_for_execution_done (gpointer data)
 	if (launcher->priv->child_has_terminated == FALSE)
 	{
 		/* DEBUG_PRINT ("launcher: We missed the exit of the child"); */
-		anjuta_children_recover();
 	}
 	launcher->priv->completion_check_timeout = -1;
 	anjuta_launcher_execution_done_cleanup (launcher, TRUE);
@@ -992,7 +992,7 @@ anjuta_launcher_check_for_execution_done (gpointer data)
 }
 
 static void
-anjuta_launcher_child_terminated (int status, gpointer data)
+anjuta_launcher_child_terminated (GPid pid, gint status, gpointer data)
 {
 	AnjutaLauncher *launcher = data;
 	
@@ -1155,9 +1155,8 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 						(GIOFunc)anjuta_launcher_scan_pty, launcher);
 	
 	/* DEBUG_PRINT ("Terminal child forked: %d", launcher->priv->child_pid); */
-	anjuta_children_register (launcher->priv->child_pid,
-							  anjuta_launcher_child_terminated,
-							  launcher);
+	launcher->priv->source = g_child_watch_add (launcher->priv->child_pid,
+			anjuta_launcher_child_terminated, launcher);
 	return child_pid;
 }
 

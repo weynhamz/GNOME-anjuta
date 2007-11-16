@@ -23,7 +23,6 @@
 #include <signal.h>
 
 #include <libanjuta/anjuta-shell.h>
-#include <libanjuta/anjuta-children.h>
 #include <libanjuta/anjuta-debug.h>
 
 #include <libanjuta/interfaces/ianjuta-terminal.h>
@@ -395,9 +394,6 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	g_list_foreach (args_list, (GFunc)g_free, NULL);
 	g_list_free (args_list);
 	
-	/* The fork command above overwirtes our SIGCHLD signal handler.
-	 * Restore it */
-	anjuta_children_recover ();
 	preferences_changed (term_plugin->prefs, term_plugin);
 	
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (term_plugin)->shell,
