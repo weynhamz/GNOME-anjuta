@@ -39,7 +39,7 @@
 #include "build-basic-autotools.h"
 #include "executer.h"
 
-#define ICON_FILE "anjuta-build-basic-autotools-plugin.png"
+#define ICON_FILE "anjuta-build-basic-autotools-plugin-48.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-build-basic-autotools-plugin.ui"
 #define MAX_BUILD_PANES 3
 #define PREF_INDICATORS_AUTOMATIC "indicators.automatic"

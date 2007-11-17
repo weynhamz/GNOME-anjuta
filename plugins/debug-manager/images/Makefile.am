@@ -12,7 +12,8 @@ images_DATA = \
 	anjuta-step-over-24.png \
 	anjuta-run-to-cursor-16.png \
 	anjuta-run-to-cursor-24.png \
-	anjuta-debug-manager.plugin.png \
+	anjuta-debug-manager-plugin.svg \
+	anjuta-debug-manager-plugin-48.png \
 	anjuta-breakpoint-disabled-16.png \
 	anjuta-breakpoint-enabled-16.png \
 	anjuta-breakpoint-toggle-16.png \

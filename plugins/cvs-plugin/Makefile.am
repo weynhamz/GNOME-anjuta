@@ -4,7 +4,8 @@ cvs_plugin_glade_DATA = anjuta-cvs-plugin.glade
 
 cvs_plugin_pixmapsdir = $(anjuta_image_dir)
 cvs_plugin_pixmaps_DATA = \
-	anjuta-cvs-plugin.png
+	anjuta-cvs-plugin.svg \
+	anjuta-cvs-plugin-48.png
 
 cvs_plugin_uidir = $(anjuta_ui_dir)
 cvs_plugin_ui_DATA = anjuta-cvs.ui

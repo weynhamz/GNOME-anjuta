@@ -2,5 +2,5 @@
 _Name=Debugger
 _Description=Debug Manager plugin.
 Location=anjuta-debug-manager:DebugManagerPlugin
-Icon=anjuta-debug-manager.plugin.png
+Icon=anjuta-debug-manager-plugin-48.png
 Interfaces=IAnjutaDebugManager

@@ -1,3 +1,28 @@
+2007-11-17  Naba Kumar  <naba.kumar@gnome.org>
+
+	* TODO.tasks: Updated.
+
+	Icons from tpgww@onepost.net:
+	* plugins/build-basic-autotools/Makefile.am:
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.svg:
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	* plugins/class-inheritance/Makefile.am:
+	* plugins/class-inheritance/anjuta-class-inheritance-plugin.svg:
+	* plugins/class-inheritance/anjuta-class-inheritance.plugin.in:
+	* plugins/class-inheritance/plugin.c:
+	* plugins/cvs-plugin/Makefile.am:
+	* plugins/cvs-plugin/anjuta-cvs-plugin.svg:
+	* plugins/cvs-plugin/anjuta-cvs.plugin.in:
+	* plugins/cvs-plugin/plugin.c:
+	* plugins/debug-manager/anjuta-debug-manager.plugin.in:
+	* plugins/debug-manager/images/Makefile.am:
+	* plugins/debug-manager/images/anjuta-debug-manager-plugin.svg:
+	* plugins/debug-manager/plugin.c: 
+
+	Icons from patch in bug #480093 comment #23. Also renamed icons.
+	To be continued..
+
 2007-11-07  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* (removed) libanjuta/anjuta-children.c,

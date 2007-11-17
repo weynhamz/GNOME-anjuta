@@ -49,12 +49,6 @@ Implement automated tests for Anjuta using either LDTP (http://ldtp.freedesktop.
 gprof is a command line tool for profiling program performance. The executable is required to be compiled with -p flag and when the program is executed, a profiling info is collected in a file. After the execution is done, gprof can be used to interpret the profile data. This plugin parses the output from gprof and presents the information in different views -- text, lists and graphs.</comment>
     </item>
     <item>
-      <attribute id="1172700477" priority="1" done="0" start_date="732736" enddate="99999999" notify="0" endtime="-60" last_edited="1172700524"/>
-      <summary>Better toolbar and plugins icons</summary>
-      <comment>[Skill: medium, Work: 30h, Bounty: $100]
-Create better icons for toolbars and plugin icons following the tango style guidelines to make them consistent with rest of the GNOME icons.</comment>
-    </item>
-    <item>
       <attribute id="1159556116" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1194519562"/>
       <summary>Relocate 'Autoformat' code from document-manager plugin</summary>
       <comment>[Skill: Basic, Work: 3hr, Bounty: $50]
@@ -64,6 +58,12 @@ Relocate 'Autoformat' code from document-manager plugin to language-support-cpp-
 Currently Autoformat code that is specific to c and c++ (uses indent program) is located in document-manager plugin (legacy). It should now be moved to language-support-cpp-java plugin that specializes in c/c++ processing. Preferences, UI, and processing should all be moved to the new place. At the same time, the indent configuration dialog should be fixed to fit in smaller size, presumably using notebook widget (currently it is huge and not screen appropriate for lower resolution).
 
 This is partly done but somebody has to fix the new "indent" plugin!</comment>
+    </item>
+    <item>
+      <attribute id="1172700477" priority="1" done="0" start_date="732736" enddate="99999999" notify="0" endtime="-60" last_edited="1194867769"/>
+      <summary>Better toolbar and plugins icons</summary>
+      <comment>[Skill: medium, Work: 30h, Bounty: $100, Status: Assigned, Bug: #480093]
+Create better icons for toolbars and plugin icons following the tango style guidelines to make them consistent with rest of the GNOME icons.</comment>
     </item>
   </category>
   <category title="libanjuta" place="2">

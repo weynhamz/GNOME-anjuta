@@ -9,7 +9,9 @@ build_ui_DATA = anjuta-build-basic-autotools-plugin.ui
 
 # Plugin Icon file
 build_pixmapsdir = $(anjuta_image_dir)
-build_pixmaps_DATA = anjuta-build-basic-autotools-plugin.png
+build_pixmaps_DATA = \
+	anjuta-build-basic-autotools-plugin-48.png \
+	anjuta-build-basic-autotools-plugin.svg
 
 # Plugin description file
 plugin_in_files = anjuta-build-basic-autotools.plugin.in

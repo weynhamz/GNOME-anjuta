@@ -56,7 +56,7 @@
 /* Contants defintion
  *---------------------------------------------------------------------------*/
 
-#define ICON_FILE "anjuta-debug-manager.plugin.png"
+#define ICON_FILE "anjuta-debug-manager-plugin-48.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-debug-manager.ui"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-debug-manager.glade"
 

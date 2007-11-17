@@ -32,7 +32,7 @@
 #include "plugin.h"
 #include "class-inherit.h"
 
-#define ICON_FILE "class-inheritance.png"
+#define ICON_FILE "anjuta-class-inheritance-plugin-48.png"
 
 static gpointer parent_class;
 

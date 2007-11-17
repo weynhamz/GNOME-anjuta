@@ -34,7 +34,7 @@
 #include "cvs-interface.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-cvs.ui"
-#define ICON_FILE "anjuta-cvs-plugin.png"
+#define ICON_FILE "anjuta-cvs-plugin-48.png"
 
 static gpointer parent_class;
 

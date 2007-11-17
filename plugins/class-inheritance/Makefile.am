@@ -3,7 +3,9 @@ if HAVE_GRAPHVIZ
 
 # Plugin Icon file
 cls_inheritance_pixmapsdir = $(anjuta_image_dir)
-cls_inheritance_pixmaps_DATA = class-inheritance.png
+cls_inheritance_pixmaps_DATA = \
+	anjuta-class-inheritance-plugin.svg \
+	anjuta-class-inheritance-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-class-inheritance.plugin.in
