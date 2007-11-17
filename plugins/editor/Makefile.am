@@ -9,7 +9,9 @@ editor_glade_DATA = editor.glade
 
 # Plugin Icon file
 editor_pixmapsdir = $(anjuta_image_dir)
-editor_pixmaps_DATA = anjuta-editor.png
+editor_pixmaps_DATA = \
+	anjuta-editor-scintilla-plugin.svg \
+	anjuta-editor-scintilla-plugin-48.png
 
 plugin_in_files = anjuta-editor.plugin.in
 %.plugin: %.plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache

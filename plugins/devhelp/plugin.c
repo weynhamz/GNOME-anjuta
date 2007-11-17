@@ -53,7 +53,7 @@ static gpointer parent_class;
 
 #define ANJUTA_PIXMAP_HELP_NEXT "anjuta-go-help-next-24.png"
 #define ANJUTA_PIXMAP_HELP_PREV "anjuta-go-help-prev-24.png"
-#define ANJUTA_PIXMAP_DEVHELP "anjuta-devhelp-plugin.png"
+#define ANJUTA_PIXMAP_DEVHELP "anjuta-devhelp-plugin-48.png"
 
 #define ANJUTA_STOCK_HELP_NEXT "anjuta-help-next"
 #define ANJUTA_STOCK_HELP_PREV "anjuta-help-prev"

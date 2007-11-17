@@ -36,7 +36,7 @@
 #include "sourceview.h"
 
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/sourceview.glade"
-#define ICON_FILE "sourceview.png"
+#define ICON_FILE "anjuta-editor-sourceview-plugin-48.png"
 
 #define COLOR_USE_THEME_BUTTON "preferences_toggle:bool:1:0:sourceview.color.use_theme"
 #define COLOR_TEXT "preferences_color:color:#FFFFFF:0:sourceview.color.text"

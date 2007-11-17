@@ -6,7 +6,9 @@ devhelp_ui_DATA = anjuta-devhelp.ui anjuta-devhelp-simple.ui
 
 # Plugin Icon file
 devhelp_pixmapsdir = $(anjuta_image_dir)
-devhelp_pixmaps_DATA = anjuta-devhelp-plugin.png \
+devhelp_pixmaps_DATA = \
+	anjuta-devhelp-plugin.svg \
+	anjuta-devhelp-plugin-48.png \
 	anjuta-go-help-next-24.png \
 	anjuta-go-help-next-16.png \
 	anjuta-go-help-prev-24.png \

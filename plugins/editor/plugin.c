@@ -38,7 +38,7 @@
 #include "text_editor.h"
 
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/editor.glade"
-#define ICON_FILE "anjuta-editor.png"
+#define ICON_FILE "anjuta-editor-scintilla-plugin-48.png"
 
 gpointer parent_class;
 

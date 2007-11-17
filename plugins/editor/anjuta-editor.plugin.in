@@ -3,6 +3,6 @@ _Name=Scintilla Editor
 _Description=Scintilla based component for editing files
 Location=anjuta-editor:EditorPlugin
 Version=0.1
-Icon=anjuta-document-manager.png
+Icon=anjuta-editor-scintilla-plugin-48.png
 Interfaces=IAnjutaEditorFactory
 UserActivatable=no

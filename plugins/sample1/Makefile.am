@@ -6,7 +6,9 @@ sample_ui_DATA =  anjuta-sample.ui
 
 # Plugin Icon file
 sample_pixmapsdir = $(anjuta_image_dir)
-sample_pixmaps_DATA = anjuta-sample-plugin.png
+sample_pixmaps_DATA = \
+	anjuta-sample-plugin.svg \
+	anjuta-sample-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-sample.plugin.in

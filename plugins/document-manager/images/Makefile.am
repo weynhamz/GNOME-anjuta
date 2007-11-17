@@ -1,6 +1,7 @@
 document_manager_pixmapsdir = $(anjuta_image_dir)
 document_manager_pixmaps_DATA = \
-        anjuta-document-manager.png \
+        anjuta-document-manager-plugin.svg \
+        anjuta-document-manager-plugin-48.png \
         preferences-editor.png \
         anjuta-swap-16.png \
         anjuta-swap-24.png \

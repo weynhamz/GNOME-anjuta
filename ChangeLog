@@ -1,5 +1,30 @@
 2007-11-17  Naba Kumar  <naba.kumar@gnome.org>
 
+	Icons from tpgww@onepost.net:
+	* plugins/devhelp/Makefile.am:
+	* plugins/devhelp/anjuta-devhelp-plugin.svg:
+	* plugins/devhelp/anjuta-devhelp.plugin.in:
+	* plugins/devhelp/plugin.c:
+	* plugins/document-manager/anjuta-document-manager.plugin.in:
+	* plugins/document-manager/images/Makefile.am:
+	* plugins/document-manager/images/anjuta-document-manager-plugin.svg:
+	* plugins/document-manager/plugin.c:
+	* plugins/editor/Makefile.am:
+	* plugins/editor/anjuta-editor-scintilla-plugin.svg:
+	* plugins/editor/anjuta-editor.plugin.in:
+	* plugins/editor/plugin.c:
+	* plugins/sample1/Makefile.am:
+	* plugins/sample1/anjuta-sample-plugin.svg:
+	* plugins/sample1/anjuta-sample.plugin.in:
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/plugin.c:
+	* plugins/sourceview/sourceview.plugin.in:
+
+	Icons from patch in bug #480093 comment #23. Also renamed icons.
+	To be continued..
+
+2007-11-17  Naba Kumar  <naba.kumar@gnome.org>
+
 	* TODO.tasks: Updated.
 
 	Icons from tpgww@onepost.net:

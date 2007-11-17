@@ -52,7 +52,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-document-manager.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-document-manager.glade"
-#define ICON_FILE "anjuta-document-manager.png"
+#define ICON_FILE "anjuta-document-manager-plugin-48.png"
 
 /* Pixmaps */
 #define ANJUTA_PIXMAP_SWAP                "anjuta-swap"

@@ -1,6 +1,6 @@
 [Anjuta Plugin]
 Location=anjuta-sourceview:SourceviewPlugin
-Icon=sourceview.png
+Icon=anjuta-editor-sourceview-plugin-48.png
 _Name=GtkSourceview editor
 _Description=An alternate editor based on GtkSourceview
 Interfaces=IAnjutaEditorFactory
