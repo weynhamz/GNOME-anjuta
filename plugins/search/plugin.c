@@ -32,7 +32,7 @@
 #include "config.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-search.ui"
-#define ICON_FILE "anjuta-search.png"
+#define ICON_FILE "anjuta-search-plugin-48.png"
 
 #define ANJUTA_PIXMAP_MATCH_NEXT				  "anjuta-go-match-next"
 #define ANJUTA_PIXMAP_MATCH_PREV				  "anjuta-go-match-prev"

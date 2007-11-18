@@ -22,7 +22,7 @@
 #define __DRUID_H__
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-project-wizard.glade"
-#define ICON_FILE "anjuta-project-wizard-plugin.png"
+#define ICON_FILE "anjuta-project-wizard-plugin-48.png"
 
 #include <glib/gtypes.h> 
 

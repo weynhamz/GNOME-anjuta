@@ -4,7 +4,9 @@ project_ui_DATA = anjuta-project-manager.ui
 
 # Plugin Icon file
 project_pixmapsdir = $(anjuta_image_dir)
-project_pixmaps_DATA = anjuta-project-manager-plugin.png
+project_pixmaps_DATA = \
+	anjuta-project-manager-plugin.svg \
+	anjuta-project-manager-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-project-manager.plugin.in

@@ -2,7 +2,7 @@
 _Name=Project Manager
 _Description=Project Manager Plugin for Anjuta.
 Location=anjuta-project-manager:ProjectManagerPlugin
-Icon=anjuta-project-manager-plugin.png
+Icon=anjuta-project-manager-plugin-48.png
 Interfaces=IAnjutaFile,IAnjutaProjectManager
 UserActivatable=no
 

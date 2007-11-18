@@ -1,5 +1,24 @@
 2007-11-18  Naba Kumar  <naba.kumar@gnome.org>
 
+	Icons from tpgww@onepost.net:
+	* plugins/project-manager/Makefile.am:
+	* plugins/project-manager/anjuta-project-manager-plugin.svg:
+	* plugins/project-manager/anjuta-project-manager.plugin.in:
+	* plugins/project-manager/plugin.c:
+	* plugins/project-wizard/Makefile.am:
+	* plugins/project-wizard/anjuta-project-wizard-plugin.svg:
+	* plugins/project-wizard/anjuta-project-wizard.plugin.in:
+	* plugins/project-wizard/druid.h:
+	* plugins/search/Makefile.am:
+	* plugins/search/anjuta-search-plugin.svg:
+	* plugins/search/anjuta-search.plugin.in:
+	* plugins/search/plugin.c:
+
+	Icons from patch in bug #480093 comment #23. Also renamed icons.
+	To be continued..
+
+2007-11-18  Naba Kumar  <naba.kumar@gnome.org>
+
 	* TODO.tasks: updated.
 
 	Icons from tpgww@onepost.net:

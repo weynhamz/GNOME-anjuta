@@ -3,5 +3,5 @@ _Name=Searching
 _Description=Component for searching
 Location=anjuta-search:SearchPlugin
 Version=0.1
-Icon=anjuta-search.png
+Icon=anjuta-search-plugin-48.png
 UserActivatable=yes
