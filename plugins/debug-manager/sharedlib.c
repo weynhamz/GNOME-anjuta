@@ -192,7 +192,8 @@ create_sharedlibs_gui (Sharedlibs *sl)
 	gtk_widget_show (label8);
 	gtk_clist_set_column_widget (GTK_CLIST (clist4), 2, label8);
 	
-	label9 = gtk_label_new (_("Sysm Read"));
+	/* Whether the debugging symbols in the shared libraries have been read */
+	label9 = gtk_label_new (_("Symbols read"));
 	gtk_widget_show (label9);
 	gtk_clist_set_column_widget (GTK_CLIST (clist4), 3, label9);
 	

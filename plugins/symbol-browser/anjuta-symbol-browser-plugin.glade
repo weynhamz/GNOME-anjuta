@@ -164,7 +164,7 @@
     </child>
   </widget>
   <widget class="GtkDialog" id="create.symbol.tags.dialog">
-    <property name="title" translatable="yes">dialog1</property>
+    <property name="title" translatable="yes">Create API tags</property>
     <property name="window_position">GTK_WIN_POS_CENTER</property>
     <property name="default_width">500</property>
     <property name="default_height">300</property>

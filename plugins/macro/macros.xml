@@ -53,7 +53,7 @@ G_END_DECLS
 	|;
 }
 while ();]]></macro>
-<macro _name="if...else" _category="C" _shortcut="azerty"><![CDATA[if (|)
+<macro _name="if...else" _category="C" _shortcut=""><![CDATA[if (|)
 {
 	;
 }

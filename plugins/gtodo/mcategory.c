@@ -163,7 +163,9 @@ void category_manager_add_item(GtkWidget *button, GtkWidget *treeview)
 
 	gtk_list_store_append(GTK_LIST_STORE(model), &iter);
 
-	gtk_list_store_set(GTK_LIST_STORE(model), &iter, 0, _("enter name"), 1, 1, -1);
+  /* This is shown in an editable treeview column to show the user
+     he should enter the category name here */
+	gtk_list_store_set(GTK_LIST_STORE(model), &iter, 0, _("<Enter name>"), 1, 1, -1);
 
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
 	gtk_tree_selection_select_iter(selection, &iter);

@@ -132,7 +132,7 @@ enum {
 };
 
 static char *column_names[COLUMNS_NB] = {
-	N_("Enb"), N_("ID"), N_("File"), N_("Line"),
+	N_("Enabled"), N_("ID"), N_("File"), N_("Line"),
 	N_("Function"), N_("Type"), N_("Address"), N_("Pass"),
 	N_("Times"), N_("Condition"), N_("Disp")
 };

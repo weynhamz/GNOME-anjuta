@@ -1,3 +1,24 @@
+2007-11-18  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(build_regex_init):
+	* plugins/debug-manager/anjuta-debug-manager.glade:
+	* plugins/debug-manager/breakpoints.c:
+	* plugins/debug-manager/sharedlib.c: (create_sharedlibs_gui):
+	* plugins/file-wizard/file.c:
+	* plugins/gdb/anjuta-gdb.glade:
+	* plugins/glade/plugin.c: (ifile_open):
+	* plugins/gtodo/egg-datetime.c: (egg_datetime_class_init):
+	* plugins/gtodo/mcategory.c: (category_manager_add_item):
+	* plugins/gtodo/tray-icon.c:
+	* plugins/macro/macro-util.c: (get_date_Ymd), (get_date_Y):
+	* plugins/macro/macros.xml:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
+	Fixed translation bugs (#496833, #488211 and #497758)
+	
+	* plugins/document-manager/plugin.c: (on_editor_changed):
+	Removed unused code
+
 2007-11-17  Naba Kumar  <naba.kumar@gnome.org>
 
 	Icons from tpgww@onepost.net:

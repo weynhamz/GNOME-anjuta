@@ -1177,12 +1177,8 @@ on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *te,
 			for (node = support_plugin_descs; node != NULL; node = g_list_next (node))
 			{
 				gchar *plugin_id;
-				gchar *languages;
 				
 				AnjutaPluginDescription *desc = node->data;
-				
-				anjuta_plugin_description_get_string (desc, "Language Support",
-													  "Languages", &languages);
 				
 				anjuta_plugin_description_get_string (desc, "Anjuta Plugin", "Location",
 													  &plugin_id);

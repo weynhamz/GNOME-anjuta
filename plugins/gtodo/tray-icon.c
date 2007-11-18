@@ -22,7 +22,7 @@ static GtkItemFactoryEntry tray_icon_menu[] =
 	{N_("/_New"),	"",	gui_add_todo_item,	0, "<StockItem>", GTK_STOCK_NEW},
 	{N_("/_Hide"),	"",	tray_hide_show_window,	0, "<StockItem>", GTK_STOCK_CONVERT},
 	{N_("/_Show"),	"",	tray_hide_show_window,	0, "<StockItem>", GTK_STOCK_CONVERT},
-	{N_("/sep1"),	NULL,	0,	      		0, "<Separator>" 	},
+	{"sep1",    	NULL,	0,	      		0, "<Separator>" 	},
 	{N_("/_Quit"),	"",	gtk_main_quit, 		0, "<StockItem>", GTK_STOCK_QUIT}
 };
 

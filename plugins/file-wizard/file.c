@@ -80,7 +80,7 @@ typedef struct _NewfileType
 
 NewfileType new_file_type[] = {
 	{N_("C Source File"), ".c", TRUE, TRUE, FALSE, CMT_C, LGE_C},
-	{N_("C -C++ Header File"), ".h", TRUE, TRUE, TRUE, CMT_C, LGE_HC},
+	{N_("C/C++ Header File"), ".h", TRUE, TRUE, TRUE, CMT_C, LGE_HC},
 	{N_("C++ Source File"), ".cxx", TRUE, TRUE, FALSE, CMT_CPP, LGE_CPLUS},
 	{N_("C# Source File"), ".c#", TRUE, FALSE, FALSE, CMT_CPP, LGE_CSHARP},
 	{N_("Java Source File"), ".java", TRUE, TRUE, FALSE, CMT_CPP, LGE_JAVA},

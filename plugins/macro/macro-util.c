@@ -56,6 +56,7 @@ get_date_Ymd(void)
 	time_t cur_time = time(NULL);
 	datetime = g_new(gchar, 20);
 	lt = localtime(&cur_time);
+	/* Macros can expand the current date in the format specified below */
 	strftime (datetime, 20, N_("%Y-%m-%d"), lt);
 	return datetime;
 }
@@ -69,6 +70,7 @@ get_date_Y(void)
 	time_t cur_time = time(NULL);
 	datetime = g_new(gchar, 20);
 	lt = localtime(&cur_time);
+	/* Macros can expand the year in the format specified below */
 	strftime (datetime, 20, N_("%Y"), lt);
 	return datetime;
 }

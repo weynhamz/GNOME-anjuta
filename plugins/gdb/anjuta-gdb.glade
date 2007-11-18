@@ -1551,7 +1551,7 @@
 </widget>
 
 <widget class="GtkDialog" id="window.debugger.sharedlibs">
-  <property name="title" translatable="yes">dialog2</property>
+  <property name="title" translatable="yes">Shared libraries</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>

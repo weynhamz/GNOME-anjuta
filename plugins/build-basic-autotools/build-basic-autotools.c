@@ -370,7 +370,7 @@ build_regex_init ()
 			   &erroffset,       /* for error offset */
 			   NULL);            /* use default character tables */
 		if (pattern->regex == NULL) {
-			DEBUG_PRINT ("PCRE compilarion failed: %s: regex \"%s\" at char %d",
+			DEBUG_PRINT ("PCRE compilation failed: %s: regex \"%s\" at char %d",
 						pattern->pattern, error, erroffset);
 		}
 		node = g_list_next (node);
@@ -1359,7 +1359,7 @@ static GtkActionEntry build_popup_actions[] =
 	{
 		"ActionPopupBuildCompile", GTK_STOCK_CONVERT,
 		N_("_Compile"), NULL,
-		N_("Complie file"),
+		N_("Compile file"),
 		G_CALLBACK (fm_compile)
 	},
 	{
@@ -1387,7 +1387,7 @@ static GtkActionEntry build_popup_actions[] =
 	{
 		"ActionPopupPMBuildCompile", GTK_STOCK_CONVERT,
 		N_("_Compile"), NULL,
-		N_("Complie file"),
+		N_("Compile file"),
 		G_CALLBACK (pm_compile)
 	},
 	{

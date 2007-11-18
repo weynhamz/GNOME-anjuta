@@ -334,7 +334,8 @@ egg_datetime_class_init (EggDateTimeClass *klass)
 			0, 59, 0,
 			G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 	g_object_class_install_property (o_class, ARG_MINUTE, pspec);
-	pspec = g_param_spec_uint ("second",
+	/* second (time) not 2nd */
+  pspec = g_param_spec_uint ("second",
 			_("Second"),
 			_("Displayed second"),
 			0, 59, 0,

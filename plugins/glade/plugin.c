@@ -631,7 +631,7 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	if (!project)
 	{
 		anjuta_util_dialog_warning (GTK_WINDOW (ANJUTA_PLUGIN (ifile)->shell),
-								    _("Could not open: %s"), uri);
+								    _("Could not open %s"), uri);
 		return;
 	}
 	store = GTK_LIST_STORE (gtk_combo_box_get_model (GTK_COMBO_BOX (priv->projects_combo)));
