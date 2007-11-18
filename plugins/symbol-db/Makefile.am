@@ -16,7 +16,7 @@ symbol_db_glade_DATA =  symbol-db.glade
 
 # Plugin Icon file
 symbol_db_pixmapsdir = $(anjuta_image_dir)
-symbol_db_pixmaps_DATA = symbol-db.png
+symbol_db_pixmaps_DATA = anjuta-symbol-db-plugin-48.png
 
 # Plugin description file
 plugin_in_files = symbol-db.plugin.in

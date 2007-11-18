@@ -12,7 +12,8 @@ symbol_browser_glade_DATA = anjuta-symbol-browser-plugin.glade
 # Plugin pixmap files
 symbol_browser_pixmapsdir = $(anjuta_image_dir)
 symbol_browser_pixmaps_DATA = \
-	anjuta-symbol-browser-plugin.png
+	anjuta-symbol-browser-plugin.svg \
+	anjuta-symbol-browser-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-symbol-browser.plugin.in

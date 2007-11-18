@@ -45,7 +45,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-symbol-browser-plugin.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-symbol-browser-plugin.glade"
-#define ICON_FILE "anjuta-symbol-browser-plugin.png"
+#define ICON_FILE "anjuta-symbol-browser-plugin-48.png"
 
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10000
 

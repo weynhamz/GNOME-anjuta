@@ -7,7 +7,8 @@ subversion_glade_DATA = anjuta-subversion.glade
 
 subversion_pixmapsdir = $(anjuta_image_dir)
 subversion_pixmaps_DATA = \
-	anjuta-subversion.png
+	anjuta-subversion-plugin.svg \
+	anjuta-subversion-plugin-48.png
 
 subversion_uidir = $(anjuta_ui_dir)
 subversion_ui_DATA = anjuta-subversion.ui

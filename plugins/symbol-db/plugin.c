@@ -50,7 +50,7 @@
 #define UI_FILE ANJUTA_DATA_DIR"/ui/symbol-db.ui"
 
 #define GLADE_FILE ANJUTA_DATA_DIR"/glade/symbol-db.glade"
-#define ICON_FILE "symbol-db.png"
+#define ICON_FILE "anjuta-symbol-db-plugin-48.png"
 
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		15000
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5

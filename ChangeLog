@@ -1,3 +1,21 @@
+2007-11-19  Naba Kumar  <naba.kumar@gnome.org>
+
+	Icons from tpgww@onepost.net:
+	* plugins/subversion/Makefile.am:
+	* plugins/subversion/anjuta-subversion-plugin.svg:
+	* plugins/subversion/anjuta-subversion.plugin.in:
+	* plugins/subversion/plugin.h:
+	* plugins/symbol-browser/Makefile.am:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.svg:
+	* plugins/symbol-browser/anjuta-symbol-browser.plugin.in:
+	* plugins/symbol-browser/plugin.c:
+	* plugins/symbol-db/Makefile.am:
+	* plugins/symbol-db/plugin.c:
+	* plugins/symbol-db/symbol-db.plugin.in:
+
+	Icons from patch in bug #480093 comment #23. Also renamed icons.
+	To be continued..
+
 2007-11-18  Naba Kumar  <naba.kumar@gnome.org>
 
 	Icons from tpgww@onepost.net:

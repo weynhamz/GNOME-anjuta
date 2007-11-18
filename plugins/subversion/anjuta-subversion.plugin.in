@@ -2,5 +2,5 @@
 _Name=Subversion
 _Description=A Subversion client plugin based on libsvn
 Location=anjuta-subversion:Subversion
-Icon=anjuta-subversion.png
+Icon=anjuta-subversion-plugin-48.png
 Interfaces=IAnjutaVcs
