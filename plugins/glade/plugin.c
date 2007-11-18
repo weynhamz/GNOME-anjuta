@@ -264,7 +264,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 
 	/* Register stock icons */
 	BEGIN_REGISTER_ICON (plugin);
-	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/anjuta-glade-plugin.png",
+	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/anjuta-glade-plugin-48.png",
 				   "glade-plugin-icon");
 	END_REGISTER_ICON;
 }

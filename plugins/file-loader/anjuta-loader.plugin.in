@@ -2,6 +2,6 @@
 _Name=File Loader
 _Description=File loader to load different files
 Location=anjuta-loader:AnjutaFileLoaderPlugin
-Icon=anjuta-loader-plugin.png
+Icon=anjuta-loader-plugin-48.png
 Interfaces=IAnjutaFileLoader
 UserActivatable=no

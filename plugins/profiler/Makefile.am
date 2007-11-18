@@ -12,7 +12,9 @@ profiler_glade_DATA = profiler.glade \
 
 # Plugin Icon file
 profiler_pixmapsdir = $(anjuta_image_dir)
-profiler_pixmaps_DATA = profiler.png
+profiler_pixmaps_DATA = \
+	anjuta-profiler-plugin.svg \
+	anjuta-profiler-plugin-48.png
 
 # Plugin description file
 plugin_in_files = profiler.plugin.in

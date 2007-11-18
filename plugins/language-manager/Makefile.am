@@ -1,6 +1,8 @@
 # Plugin Icon file
 language_manager_pixmapsdir = $(anjuta_image_dir)
-language_manager_pixmaps_DATA = language-manager.png
+language_manager_pixmaps_DATA = \
+	anjuta-language-manager-plugin.svg \
+	anjuta-language-manager-plugin-48.png
 
 language_manager_xmldir = $(anjuta_data_dir)
 language_manager_xml_DATA = languages.xml

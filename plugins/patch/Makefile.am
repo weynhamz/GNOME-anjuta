@@ -9,7 +9,8 @@ patch_glade_DATA = patch-plugin.glade
 # Plugin Icon file
 patch_pixmapsdir = $(anjuta_image_dir)
 patch_pixmaps_DATA = \
-	anjuta-patch-plugin.png
+	anjuta-patch-plugin.svg \
+	anjuta-patch-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-patch.plugin.in

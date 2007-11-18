@@ -7,7 +7,9 @@ glade_ui_DATA = anjuta-glade.ui
 
 # Plugin Icon file
 glade_pixmapsdir = $(anjuta_image_dir)
-glade_pixmaps_DATA = anjuta-glade-plugin.png
+glade_pixmaps_DATA = \
+	anjuta-glade-plugin.svg \
+	anjuta-glade-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-glade.plugin.in

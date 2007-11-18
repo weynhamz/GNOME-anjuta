@@ -60,9 +60,9 @@ Currently Autoformat code that is specific to c and c++ (uses indent program) is
 This is partly done but somebody has to fix the new "indent" plugin!</comment>
     </item>
     <item>
-      <attribute id="1172700477" priority="1" done="0" start_date="732736" enddate="99999999" notify="0" endtime="-60" last_edited="1194867769"/>
+      <attribute id="1172700477" priority="1" done="1" start_date="732736" completed_date="732998" notify="0" last_edited="1195386488"/>
       <summary>Better toolbar and plugins icons</summary>
-      <comment>[Skill: medium, Work: 30h, Bounty: $100, Status: Assigned, Bug: #480093]
+      <comment>[Skill: medium, Work: 30h, Bounty: $100, Status: Completed, Bug: #480093]
 Create better icons for toolbars and plugin icons following the tango style guidelines to make them consistent with rest of the GNOME icons.</comment>
     </item>
   </category>
@@ -435,9 +435,9 @@ The work is mostly search and replace work and could possibly be done quickly us
 Example: (DocmanPlugin*)plugin -&gt; DOCMAN_PLUGIN (plugin)</comment>
     </item>
     <item>
-      <attribute id="1159539123" priority="1" done="0" start_date="732583" enddate="99999999" notify="0" endtime="-60" last_edited="1194519689"/>
+      <attribute id="1159539123" priority="1" done="1" start_date="732583" completed_date="732998" notify="0" last_edited="1195386472"/>
       <summary>Improve subvestion and cvs plugins</summary>
-      <comment>[Skill: Medium, Work: 40hrs, Bounty: $300, Status: Assigned, Bug: #457477]
+      <comment>[Skill: Medium, Work: 40hrs, Bounty: $300, Status: Completed, Bug: #457477]
 
 Implement missing features of CVS and subversion in their respective plugins. Basic features are already implemented, but we are missing many advanced yet powerful features of these version control systems.</comment>
     </item>

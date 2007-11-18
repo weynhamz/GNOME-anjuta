@@ -33,7 +33,7 @@
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/file-manager.ui"
-#define ICON_FILE "file-manager.png"
+#define ICON_FILE "anjuta-file-manager-plugin-48.png"
 #define FILE_MANAGER_GLADE PACKAGE_DATA_DIR"/glade/file-manager.glade"
 #define FILE_MANAGER_GLADE_ROOT "filemanager_prefs"
 

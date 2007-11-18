@@ -2,7 +2,7 @@
 _Name=Glade interface designer
 _Description=Glade Plugin for Anjuta.
 Location=anjuta-glade:GladePlugin
-Icon=anjuta-glade-plugin.png
+Icon=anjuta-glade-plugin-48.png
 Interfaces=IAnjutaFile,IAnjutaWizard
 UserActivatable=no
 

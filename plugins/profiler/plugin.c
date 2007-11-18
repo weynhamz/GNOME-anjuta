@@ -27,7 +27,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/profiler.ui"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/profiler.glade"
-#define ICON_FILE PACKAGE_PIXMAPS_DIR"/profiler.png"
+#define ICON_FILE PACKAGE_PIXMAPS_DIR"/anjuta-profiler-plugin-48.png"
 
 static gpointer parent_class;
 
@@ -776,9 +776,8 @@ register_stock_icons (AnjutaPlugin *plugin)
 	/* Register stock icons */
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	icon_factory = anjuta_ui_get_icon_factory (ui);
-	REGISTER_ICON ("profiler.png", "profiler-icon");
-}	
-
+	REGISTER_ICON ("anjuta-profiler-plugin-48.png", "profiler-icon");
+}
 
 static gboolean
 profiler_activate (AnjutaPlugin *plugin)

@@ -32,7 +32,7 @@
 #define ICON_FILE "preferences-messages.png"
 
 /* Pixmaps */
-#define ANJUTA_PIXMAP_MESSAGES                "anjuta-message-view.png"
+#define ANJUTA_PIXMAP_MESSAGES                "anjuta-messages-plugin-48.png"
 #define ANJUTA_PIXMAP_PREV_MESSAGE            "anjuta-go-message-prev"
 #define ANJUTA_PIXMAP_NEXT_MESSAGE            "anjuta-go-message-next"
 

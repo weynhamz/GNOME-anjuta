@@ -4,7 +4,8 @@ message_view_glade_DATA = anjuta-message-manager-plugin.glade
 
 message_view_pixmapsdir = $(anjuta_image_dir)
 message_view_pixmaps_DATA = \
-	anjuta-message-view.png \
+	anjuta-messages-plugin.svg \
+	anjuta-messages-plugin-48.png \
 	preferences-messages.png \
 	anjuta-go-message-prev-16.png \
 	anjuta-go-message-prev-24.png \

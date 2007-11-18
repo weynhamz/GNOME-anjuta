@@ -4,7 +4,9 @@ loader_ui_DATA =  anjuta-loader-plugin.ui
 
 # Plugin Icon file
 loader_pixmapsdir = $(anjuta_image_dir)
-loader_pixmaps_DATA = anjuta-loader-plugin.png
+loader_pixmaps_DATA = \
+	anjuta-loader-plugin.svg \
+	anjuta-loader-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-loader.plugin.in

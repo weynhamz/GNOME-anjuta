@@ -1,6 +1,6 @@
 [Anjuta Plugin]
 Location=anjuta-profiler:Profiler
-Icon=profiler.png
+Icon=anjuta-profiler-plugin-48.png
 _Name=Profiler
 _Description=Application performance profiler
 Interfaces=IAnjutaFile

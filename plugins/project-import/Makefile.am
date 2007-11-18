@@ -5,7 +5,8 @@ wizard_glade_DATA =  anjuta-project-import.glade
 # Plugin pixmaps
 wizard_pixmapsdir = $(anjuta_image_dir)
 wizard_pixmaps_DATA = \
-	anjuta-project-import-plugin.png
+	anjuta-project-import-plugin.svg \
+	anjuta-project-import-plugin-48.png
 
 # Plugin Icon file
 plugin_in_files = anjuta-project-import.plugin.in

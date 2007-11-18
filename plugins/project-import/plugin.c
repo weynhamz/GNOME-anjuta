@@ -28,7 +28,7 @@
 #include "plugin.h"
 #include "project-import.h"
 
-#define ICON_FILE "anjuta-project-import-plugin.png"
+#define ICON_FILE "anjuta-project-import-plugin-48.png"
 
 static gpointer parent_class;
 

@@ -25,7 +25,7 @@
 #include "patch-plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-patch.ui"
-#define ICON_FILE "anjuta-patch-plugin.png"
+#define ICON_FILE "anjuta-patch-plugin-48.png"
 
 static gpointer parent_class;
 

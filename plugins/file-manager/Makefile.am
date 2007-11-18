@@ -8,7 +8,9 @@ file_manager_ui_DATA =  file-manager.ui
 
 # Plugin Icon file
 file_manager_pixmapsdir = $(anjuta_image_dir)
-file_manager_pixmaps_DATA = file-manager.png
+file_manager_pixmaps_DATA = \
+	anjuta-file-manager-plugin.svg \
+	anjuta-file-manager-plugin-48.png
 
 # Plugin description file
 plugin_in_files = file-manager.plugin.in

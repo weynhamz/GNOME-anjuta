@@ -1,3 +1,42 @@
+2007-11-18  Naba Kumar  <naba.kumar@gnome.org>
+
+	* TODO.tasks: updated.
+
+	Icons from tpgww@onepost.net:
+	* plugins/file-loader/Makefile.am:
+	* plugins/file-loader/anjuta-loader-plugin.svg:
+	* plugins/file-loader/anjuta-loader.plugin.in:
+	* plugins/file-manager/Makefile.am:
+	* plugins/file-manager/anjuta-file-manager-plugin.svg:
+	* plugins/file-manager/file-manager.plugin.in:
+	* plugins/file-manager/plugin.c:
+	* plugins/glade/Makefile.am:
+	* plugins/glade/anjuta-glade-plugin.svg:
+	* plugins/glade/anjuta-glade.plugin.in:
+	* plugins/glade/plugin.c: (register_stock_icons):
+	* plugins/language-manager/Makefile.am:
+	* plugins/language-manager/anjuta-language-manager-plugin.svg:
+	* plugins/language-manager/language-manager.plugin.in:
+	* plugins/message-view/Makefile.am:
+	* plugins/message-view/anjuta-message-manager.plugin.in:
+	* plugins/message-view/anjuta-messages-plugin.svg:
+	* plugins/message-view/plugin.c:
+	* plugins/patch/Makefile.am:
+	* plugins/patch/anjuta-patch-plugin.svg:
+	* plugins/patch/anjuta-patch.plugin.in:
+	* plugins/patch/plugin.c:
+	* plugins/profiler/Makefile.am:
+	* plugins/profiler/anjuta-profiler-plugin.svg:
+	* plugins/profiler/plugin.c: (register_stock_icons):
+	* plugins/profiler/profiler.plugin.in:
+	* plugins/project-import/Makefile.am:
+	* plugins/project-import/anjuta-project-import-plugin.svg:
+	* plugins/project-import/anjuta-project-import.plugin.in:
+	* plugins/project-import/plugin.c:
+
+	Icons from patch in bug #480093 comment #23. Also renamed icons.
+	To be continued..
+
 2007-11-18  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/build-basic-autotools/build-basic-autotools.c:
