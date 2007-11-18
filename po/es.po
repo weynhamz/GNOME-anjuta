@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-13 11:31+0000\n"
-"PO-Revision-Date: 2007-11-14 14:56+0100\n"
+"POT-Creation-Date: 2007-11-18 12:47+0000\n"
+"PO-Revision-Date: 2007-11-18 23:07+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -243,7 +243,7 @@ msgstr "Codificaciones soportadas"
 msgid "Supported Encodings"
 msgstr "Codificaciones soportadas"
 
-#: ../libanjuta/anjuta-launcher.c:858
+#: ../libanjuta/anjuta-launcher.c:859
 msgid "launcher.c: Error while reading child pty\n"
 msgstr "launcher.c: error al leer pty hija\n"
 
@@ -828,8 +828,8 @@ msgstr "_Compilar"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1362
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1390
-msgid "Complie file"
-msgstr "Compila el archivo"
+msgid "Compile file"
+msgstr "Compilar el archivo"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1368
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1396
@@ -1432,8 +1432,8 @@ msgstr "Efectuar cambios al árbol CVS"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:77 ../plugins/cvs-plugin/plugin.c:136
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:43
-#: ../plugins/gdb/anjuta-gdb.glade.h:37
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:45
+#: ../plugins/gdb/anjuta-gdb.glade.h:38
 msgid "_Update"
 msgstr "_Actualizar"
 
@@ -1635,93 +1635,94 @@ msgid "Set Signal Property"
 msgstr "Propiedades de la señal"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:29
+#: ../plugins/debug-manager/sharedlib.c:161
 #: ../plugins/gdb/anjuta-gdb.glade.h:25
-msgid "Signal:"
-msgstr "Señal:"
+msgid "Shared libraries"
+msgstr "Bibliotecas compartidas"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:30
 #: ../plugins/gdb/anjuta-gdb.glade.h:26
-msgid "Source Directories"
-msgstr "Directorios de fuentes"
+msgid "Signal:"
+msgstr "Señal:"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:31
 #: ../plugins/gdb/anjuta-gdb.glade.h:27
+msgid "Source Directories"
+msgstr "Directorios de fuentes"
+
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
+msgid "Start Debugger"
+msgstr "Iniciar el depurador"
+
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:33
+#: ../plugins/gdb/anjuta-gdb.glade.h:28
 msgid "Stop:"
 msgstr "Detener:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:32
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
 #: ../plugins/debug-manager/signals.c:193
 #: ../plugins/debug-manager/signals.c:206
-#: ../plugins/debug-manager/signals.c:219 ../plugins/gdb/anjuta-gdb.glade.h:28
+#: ../plugins/debug-manager/signals.c:219 ../plugins/gdb/anjuta-gdb.glade.h:29
 #: ../plugins/project-wizard/property.c:212
 msgid "Yes"
 msgstr "Sí"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:33
-#: ../plugins/gdb/anjuta-gdb.glade.h:29
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
+#: ../plugins/gdb/anjuta-gdb.glade.h:30
 msgid "_Attach"
 msgstr "_Acoplar"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
 msgid "_Automatic update"
 msgstr "_Autoactualizar"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
-#: ../plugins/gdb/anjuta-gdb.glade.h:30
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
+#: ../plugins/gdb/anjuta-gdb.glade.h:31
 msgid "_Condition:"
 msgstr "_Condición:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
-#: ../plugins/gdb/anjuta-gdb.glade.h:31
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
+#: ../plugins/gdb/anjuta-gdb.glade.h:32
 msgid "_Disable all"
 msgstr "_Desactivar todos"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
-#: ../plugins/gdb/anjuta-gdb.glade.h:32
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:39
+#: ../plugins/gdb/anjuta-gdb.glade.h:33
 msgid "_Hide paths"
 msgstr "_Ocultar rutas"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
-#: ../plugins/gdb/anjuta-gdb.glade.h:33
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:40
+#: ../plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Location:"
 msgstr "_Ubicación:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:39
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:41
 msgid "_Name:"
 msgstr "_Nombre:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:40
-#: ../plugins/gdb/anjuta-gdb.glade.h:34
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:42
+#: ../plugins/gdb/anjuta-gdb.glade.h:35
 msgid "_Pass:"
 msgstr "_Pasada:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:41
-#: ../plugins/gdb/anjuta-gdb.glade.h:35
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:43
+#: ../plugins/gdb/anjuta-gdb.glade.h:36
 msgid "_Process to attach to:"
 msgstr "_Proceso al que acoplarse:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:42
-#: ../plugins/gdb/anjuta-gdb.glade.h:36
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:44
+#: ../plugins/gdb/anjuta-gdb.glade.h:37
 msgid "_Remove all"
 msgstr "Elimina_r todo"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:44
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:46
 msgid "_Value:"
 msgstr "_Valor:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:45
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
-msgid "dialog1"
-msgstr "diálogo1"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:46
-#: ../plugins/gdb/anjuta-gdb.glade.h:38
-msgid "dialog2"
-msgstr "diálogo2"
-
 #: ../plugins/debug-manager/breakpoints.c:135
-msgid "Enb"
-msgstr "Habilitar"
+#: ../plugins/tools/anjuta-tools.glade.h:4
+msgid "Enabled"
+msgstr "Activado"
 
 #: ../plugins/debug-manager/breakpoints.c:135
 msgid "ID"
@@ -2155,10 +2156,6 @@ msgstr "Registro"
 msgid "Registers"
 msgstr "Registros"
 
-#: ../plugins/debug-manager/sharedlib.c:161
-msgid "Shared libraries"
-msgstr "Bibliotecas compartidas"
-
 #: ../plugins/debug-manager/sharedlib.c:183
 msgid "  Shared Object  "
 msgstr "   Objeto compartido   "
@@ -2171,9 +2168,10 @@ msgstr "De"
 msgid "To"
 msgstr "Para"
 
-#: ../plugins/debug-manager/sharedlib.c:195
-msgid "Sysm Read"
-msgstr ""
+#. Whether the debugging symbols in the shared libraries have been read
+#: ../plugins/debug-manager/sharedlib.c:196
+msgid "Symbols read"
+msgstr "Símbolos leídos"
 
 #: ../plugins/debug-manager/signals.c:195
 #: ../plugins/debug-manager/signals.c:208
@@ -2276,7 +2274,7 @@ msgstr "Pid"
 msgid "User"
 msgstr "Usuario"
 
-#: ../plugins/debug-manager/start.c:94 ../plugins/gtodo/egg-datetime.c:2292
+#: ../plugins/debug-manager/start.c:94 ../plugins/gtodo/egg-datetime.c:2293
 #: ../plugins/profiler/gprof-call-graph-view.c:334
 msgid "Time"
 msgstr "Tiempo"
@@ -2308,7 +2306,7 @@ msgstr "Cargar objetivo a depurar"
 msgid "All files"
 msgstr "Todos los archivos"
 
-#: ../plugins/debug-manager/start.c:1042 ../plugins/gdb/debugger.c:1462
+#: ../plugins/debug-manager/start.c:1042 ../plugins/gdb/debugger.c:1461
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2528,9 +2526,9 @@ msgid "Do not show tabs"
 msgstr "No mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1664
-#: ../plugins/document-manager/plugin.c:2031
-#: ../plugins/document-manager/plugin.c:2043
+#: ../plugins/document-manager/plugin.c:1660
+#: ../plugins/document-manager/plugin.c:2027
+#: ../plugins/document-manager/plugin.c:2039
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3985,7 +3983,7 @@ msgstr ""
 "La extensión será añadida de acuerdo con el tipo."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
 msgstr "Nombre:"
@@ -4007,8 +4005,8 @@ msgid "C Source File"
 msgstr "Archivo de código fuente C"
 
 #: ../plugins/file-wizard/file.c:83
-msgid "C -C++ Header File"
-msgstr "Archivo de cabeceras C-C++"
+msgid "C/C++ Header File"
+msgstr "Archivo de cabeceras C/C++"
 
 #: ../plugins/file-wizard/file.c:84
 msgid "C++ Source File"
@@ -4062,15 +4060,15 @@ msgstr "Ejecutar el programa"
 msgid "Run in Terminal"
 msgstr "Ejecutar en un terminal"
 
-#: ../plugins/gdb/debugger.c:636 ../plugins/gdb/debugger.c:834
+#: ../plugins/gdb/debugger.c:635 ../plugins/gdb/debugger.c:833
 msgid "Loading Executable: "
 msgstr "Cargando ejecutable:"
 
-#: ../plugins/gdb/debugger.c:666
+#: ../plugins/gdb/debugger.c:665
 msgid "Loading Core: "
 msgstr "Cargando core:"
 
-#: ../plugins/gdb/debugger.c:703
+#: ../plugins/gdb/debugger.c:702
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4081,53 +4079,53 @@ msgstr ""
 "No es posible inicializar el depurador.\n"
 "Asegúrese de que Anjuta está instalado correctamente."
 
-#: ../plugins/gdb/debugger.c:828
+#: ../plugins/gdb/debugger.c:827
 msgid "Getting ready to start debugging session...\n"
 msgstr "Preparándose para iniciar la sesión de depuración…\n"
 
-#: ../plugins/gdb/debugger.c:843
+#: ../plugins/gdb/debugger.c:842
 msgid "No executable specified.\n"
 msgstr "No hay ningún ejecutable especificado.\n"
 
-#: ../plugins/gdb/debugger.c:846
+#: ../plugins/gdb/debugger.c:845
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
 
-#: ../plugins/gdb/debugger.c:855
+#: ../plugins/gdb/debugger.c:854
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Hubo un error al lanzar el depurador.\n"
 
-#: ../plugins/gdb/debugger.c:859
+#: ../plugins/gdb/debugger.c:858
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de que «gdb» está instalado en el sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1150
+#: ../plugins/gdb/debugger.c:1149
 msgid "Program exited normally\n"
 msgstr "El programa salió normalmente\n"
 
-#: ../plugins/gdb/debugger.c:1161
+#: ../plugins/gdb/debugger.c:1160
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "El programa salió con el código de error %s\n"
 
-#: ../plugins/gdb/debugger.c:1176
+#: ../plugins/gdb/debugger.c:1175
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Se llegó al punto de parada %s\n"
 
-#: ../plugins/gdb/debugger.c:1185
+#: ../plugins/gdb/debugger.c:1184
 msgid "Function finished\n"
 msgstr "Función terminada\n"
 
-#: ../plugins/gdb/debugger.c:1191
+#: ../plugins/gdb/debugger.c:1190
 msgid "Stepping finished\n"
 msgstr "Paso terminado\n"
 
-#: ../plugins/gdb/debugger.c:1197
+#: ../plugins/gdb/debugger.c:1196
 msgid "Location reached\n"
 msgstr "Ubicación alcanzada\n"
 
-#: ../plugins/gdb/debugger.c:1459
+#: ../plugins/gdb/debugger.c:1458
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4135,16 +4133,16 @@ msgstr ""
 "El programa está adjuntado.\n"
 "¿Aún quiere parar el depurador?"
 
-#: ../plugins/gdb/debugger.c:1645
+#: ../plugins/gdb/debugger.c:1644
 msgid "Program attached\n"
 msgstr "Programa acoplado\n"
 
-#: ../plugins/gdb/debugger.c:1662
+#: ../plugins/gdb/debugger.c:1661
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Acoplándose al proceso: %d…\n"
 
-#: ../plugins/gdb/debugger.c:1688
+#: ../plugins/gdb/debugger.c:1687
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4152,32 +4150,32 @@ msgstr ""
 "Ya se está ejecutando un proceso.\n"
 "¿Quiere terminarlo y acoplarse al proceso nuevo?"
 
-#: ../plugins/gdb/debugger.c:1705
+#: ../plugins/gdb/debugger.c:1704
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede acoplarse a sí mismo."
 
-#: ../plugins/gdb/debugger.c:1753
+#: ../plugins/gdb/debugger.c:1752
 msgid "Program terminated\n"
 msgstr "Programa terminado\n"
 
-#: ../plugins/gdb/debugger.c:1768
+#: ../plugins/gdb/debugger.c:1767
 msgid "Program detached\n"
 msgstr "Programa desacoplado\n"
 
-#: ../plugins/gdb/debugger.c:1787
+#: ../plugins/gdb/debugger.c:1786
 msgid "Detaching the process...\n"
 msgstr "Desacoplando el proceso…\n"
 
-#: ../plugins/gdb/debugger.c:1809
+#: ../plugins/gdb/debugger.c:1808
 msgid "Interrupting the process\n"
 msgstr "Interrumpiendo el proceso\n"
 
-#: ../plugins/gdb/debugger.c:3565
+#: ../plugins/gdb/debugger.c:3564
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviar la señal %s al proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3591
+#: ../plugins/gdb/debugger.c:3590
 msgid "Error whilst signaling the process."
 msgstr "Error al mandar señales al proceso."
 
@@ -4215,7 +4213,7 @@ msgstr "Archivo no local: %s."
 
 #: ../plugins/glade/plugin.c:634
 #, c-format
-msgid "Could not open: %s"
+msgid "Could not open %s"
 msgstr "No se pudo abrir: %s"
 
 #: ../plugins/glade/plugin.c:693
@@ -4400,182 +4398,182 @@ msgstr "Minuto"
 msgid "Displayed minute"
 msgstr "Minuto mostrado"
 
-#: ../plugins/gtodo/egg-datetime.c:338
+#: ../plugins/gtodo/egg-datetime.c:339
 msgid "Second"
 msgstr "Segundo"
 
-#: ../plugins/gtodo/egg-datetime.c:339
+#: ../plugins/gtodo/egg-datetime.c:340
 msgid "Displayed second"
 msgstr "Segundo mostrado"
 
-#: ../plugins/gtodo/egg-datetime.c:344
+#: ../plugins/gtodo/egg-datetime.c:345
 msgid "Lower limit year"
 msgstr "Límite inferior del año"
 
-#: ../plugins/gtodo/egg-datetime.c:345
+#: ../plugins/gtodo/egg-datetime.c:346
 msgid "Year part of the lower date limit"
 msgstr "Parte del año del límite inferior de la fecha"
 
-#: ../plugins/gtodo/egg-datetime.c:350
+#: ../plugins/gtodo/egg-datetime.c:351
 msgid "Upper limit year"
 msgstr "Límite superior del año"
 
-#: ../plugins/gtodo/egg-datetime.c:351
+#: ../plugins/gtodo/egg-datetime.c:352
 msgid "Year part of the upper date limit"
 msgstr "Parte del año del límite superior de la fecha"
 
-#: ../plugins/gtodo/egg-datetime.c:356
+#: ../plugins/gtodo/egg-datetime.c:357
 msgid "Lower limit month"
 msgstr "Límite inferior del mes"
 
-#: ../plugins/gtodo/egg-datetime.c:357
+#: ../plugins/gtodo/egg-datetime.c:358
 msgid "Month part of the lower date limit"
 msgstr "Parte del mes del límite inferior de la fecha"
 
-#: ../plugins/gtodo/egg-datetime.c:362
+#: ../plugins/gtodo/egg-datetime.c:363
 msgid "Upper limit month"
 msgstr "Límite superior para el mes"
 
-#: ../plugins/gtodo/egg-datetime.c:363
+#: ../plugins/gtodo/egg-datetime.c:364
 msgid "Month part of the upper date limit"
 msgstr "Parte del mes del límite de fecha superior"
 
-#: ../plugins/gtodo/egg-datetime.c:368
+#: ../plugins/gtodo/egg-datetime.c:369
 msgid "Lower limit day"
 msgstr "Límite inferior del día"
 
-#: ../plugins/gtodo/egg-datetime.c:369
+#: ../plugins/gtodo/egg-datetime.c:370
 msgid "Day of month part of the lower date limit"
 msgstr "Parte del día del mes del límite inferior de la fecha"
 
-#: ../plugins/gtodo/egg-datetime.c:374
+#: ../plugins/gtodo/egg-datetime.c:375
 msgid "Upper limit day"
 msgstr "Límite superior del día"
 
-#: ../plugins/gtodo/egg-datetime.c:375
+#: ../plugins/gtodo/egg-datetime.c:376
 msgid "Day of month part of the upper date limit"
 msgstr "Parte del día del mes del límite superior de la fecha"
 
-#: ../plugins/gtodo/egg-datetime.c:380
+#: ../plugins/gtodo/egg-datetime.c:381
 msgid "Lower limit hour"
 msgstr "Límite inferior de la hora"
 
-#: ../plugins/gtodo/egg-datetime.c:381
+#: ../plugins/gtodo/egg-datetime.c:382
 msgid "Hour part of the lower time limit"
 msgstr "Parte de la hora del límite inferior de tiempo"
 
-#: ../plugins/gtodo/egg-datetime.c:386
+#: ../plugins/gtodo/egg-datetime.c:387
 msgid "Upper limit hour"
 msgstr "Límite superior de la hora"
 
-#: ../plugins/gtodo/egg-datetime.c:387
+#: ../plugins/gtodo/egg-datetime.c:388
 msgid "Hour part of the upper time limit"
 msgstr "Parte de la hora del límite superior de la hora"
 
-#: ../plugins/gtodo/egg-datetime.c:392
+#: ../plugins/gtodo/egg-datetime.c:393
 msgid "Lower limit minute"
 msgstr "Límite inferior del minuto"
 
-#: ../plugins/gtodo/egg-datetime.c:393
+#: ../plugins/gtodo/egg-datetime.c:394
 msgid "Minute part of the lower time limit"
 msgstr "Parte del minuto del límite inferior de la hora"
 
-#: ../plugins/gtodo/egg-datetime.c:398
+#: ../plugins/gtodo/egg-datetime.c:399
 msgid "Upper limit minute"
 msgstr "Límite superior del minuto"
 
-#: ../plugins/gtodo/egg-datetime.c:399
+#: ../plugins/gtodo/egg-datetime.c:400
 msgid "Minute part of the upper time limit"
 msgstr "Parte del minuto del límite superior de la hora"
 
-#: ../plugins/gtodo/egg-datetime.c:404
+#: ../plugins/gtodo/egg-datetime.c:405
 msgid "Lower limit second"
 msgstr "Límite inferior del segundo"
 
-#: ../plugins/gtodo/egg-datetime.c:405
+#: ../plugins/gtodo/egg-datetime.c:406
 msgid "Second part of the lower time limit"
 msgstr "Parte del segundo de límite inferior de la hora"
 
-#: ../plugins/gtodo/egg-datetime.c:410
+#: ../plugins/gtodo/egg-datetime.c:411
 msgid "Upper limit second"
 msgstr "Límite superior del segundo"
 
-#: ../plugins/gtodo/egg-datetime.c:411
+#: ../plugins/gtodo/egg-datetime.c:412
 msgid "Second part of the upper time limit"
 msgstr "Segunda parte del límite superior de la hora"
 
 #. Translators: Change this if you want to start weeks at mondays.
-#: ../plugins/gtodo/egg-datetime.c:447
+#: ../plugins/gtodo/egg-datetime.c:448
 msgid "week-starts-monday: yes"
 msgstr "week-starts-monday: no"
 
-#: ../plugins/gtodo/egg-datetime.c:545
+#: ../plugins/gtodo/egg-datetime.c:546
 msgid "_Today"
 msgstr "_Hoy"
 
-#: ../plugins/gtodo/egg-datetime.c:546
+#: ../plugins/gtodo/egg-datetime.c:547
 msgid "_No Date"
 msgstr "_Sin fecha"
 
 #. Translators: set this to anything else if you want to use a
 #. * 24 hour clock.
 #.
-#: ../plugins/gtodo/egg-datetime.c:792
+#: ../plugins/gtodo/egg-datetime.c:793
 msgid "24hr: no"
 msgstr "24hr: yes"
 
-#: ../plugins/gtodo/egg-datetime.c:796 ../plugins/gtodo/egg-datetime.c:1340
-#: ../plugins/gtodo/egg-datetime.c:1344
+#: ../plugins/gtodo/egg-datetime.c:797 ../plugins/gtodo/egg-datetime.c:1341
+#: ../plugins/gtodo/egg-datetime.c:1345
 msgid "AM"
 msgstr "AM"
 
-#: ../plugins/gtodo/egg-datetime.c:798 ../plugins/gtodo/egg-datetime.c:1341
-#: ../plugins/gtodo/egg-datetime.c:1348
+#: ../plugins/gtodo/egg-datetime.c:799 ../plugins/gtodo/egg-datetime.c:1342
+#: ../plugins/gtodo/egg-datetime.c:1349
 msgid "PM"
 msgstr "PM"
 
 #. Translators: This is hh:mm:ss AM/PM.
-#: ../plugins/gtodo/egg-datetime.c:806
+#: ../plugins/gtodo/egg-datetime.c:807
 #, c-format
 msgid "%02d:%02d:%02d %s"
 msgstr "%02d:%02d:%02d %s"
 
 #. Translators: This is hh:mm AM/PM.
-#: ../plugins/gtodo/egg-datetime.c:809
+#: ../plugins/gtodo/egg-datetime.c:810
 #, c-format
 msgid "%02d:%02d %s"
 msgstr "%02d:%02d %s"
 
 #. Translators: This is hh:mm:ss.
-#: ../plugins/gtodo/egg-datetime.c:813
+#: ../plugins/gtodo/egg-datetime.c:814
 #, c-format
 msgid "%02d:%02d:%02d"
 msgstr "%02d:%02d:%02d"
 
 #. Translators: This is hh:mm.
-#: ../plugins/gtodo/egg-datetime.c:816
+#: ../plugins/gtodo/egg-datetime.c:817
 #, c-format
 msgid "%02d:%02d"
 msgstr "%02d:%02d"
 
-#: ../plugins/gtodo/egg-datetime.c:1243 ../plugins/gtodo/egg-datetime.c:1295
+#: ../plugins/gtodo/egg-datetime.c:1244 ../plugins/gtodo/egg-datetime.c:1296
 #: ../plugins/gtodo/todo_db.c:157
 msgid "No Date"
 msgstr "Sin fecha"
 
 #. TODO: should handle other display modes as well...
 #. Translators: This is yyyy-mm-dd.
-#: ../plugins/gtodo/egg-datetime.c:1255
+#: ../plugins/gtodo/egg-datetime.c:1256
 #, c-format
 msgid "%04d-%02d-%02d"
 msgstr "%04d-%02d-%02d"
 
-#: ../plugins/gtodo/egg-datetime.c:1279 ../plugins/gtodo/egg-datetime.c:2323
+#: ../plugins/gtodo/egg-datetime.c:1280 ../plugins/gtodo/egg-datetime.c:2324
 msgid "no end time"
 msgstr "sin fecha de finalización"
 
 #. Translators: This is hh:mm:ss AM/PM.
-#: ../plugins/gtodo/egg-datetime.c:1321
+#: ../plugins/gtodo/egg-datetime.c:1322
 #, c-format
 msgid "%u:%u:%u"
 msgstr "%u:%u:%u"
@@ -4688,7 +4686,13 @@ msgstr "Cuando borre la categoría «%s», todos los elementos contenidos se pie
 msgid "Delete"
 msgstr "Borrar"
 
-#: ../plugins/gtodo/mcategory.c:166 ../plugins/gtodo/mcategory.c:174
+#. This is shown in an editable treeview column to show the user
+#. he should enter the category name here
+#: ../plugins/gtodo/mcategory.c:168
+msgid "<Enter name>"
+msgstr "<Introduzca el nombre>"
+
+#: ../plugins/gtodo/mcategory.c:176
 msgid "enter name"
 msgstr "introduzca el nombre"
 
@@ -4891,10 +4895,6 @@ msgstr "/_Ocultar"
 #: ../plugins/gtodo/tray-icon.c:24
 msgid "/_Show"
 msgstr "/_Mostrar"
-
-#: ../plugins/gtodo/tray-icon.c:25
-msgid "/sep1"
-msgstr "/sep1"
 
 #: ../plugins/gtodo/tray-icon.c:26
 msgid "/_Quit"
@@ -5407,11 +5407,13 @@ msgstr "Insertar macro"
 msgid "Add/Edit macro"
 msgstr "Añadir/Editar macro"
 
-#: ../plugins/macro/macro-util.c:59
+#. Macros can expand the current date in the format specified below
+#: ../plugins/macro/macro-util.c:60
 msgid "%Y-%m-%d"
 msgstr "%Y-%m-%d"
 
-#: ../plugins/macro/macro-util.c:72
+#. Macros can expand the year in the format specified below
+#: ../plugins/macro/macro-util.c:74
 msgid "%Y"
 msgstr "%Y"
 
@@ -5500,58 +5502,54 @@ msgid "UserName"
 msgstr "Usuario:"
 
 #: ../plugins/macro/macros.xml.h:23
-msgid "azerty"
-msgstr "azerty"
-
-#: ../plugins/macro/macros.xml.h:24
 msgid "cvs_author"
 msgstr "cvs_author"
 
-#: ../plugins/macro/macros.xml.h:25
+#: ../plugins/macro/macros.xml.h:24
 msgid "cvs_date"
 msgstr "cvs_date"
 
-#: ../plugins/macro/macros.xml.h:26
+#: ../plugins/macro/macros.xml.h:25
 msgid "cvs_header"
 msgstr "cvs_header"
 
-#: ../plugins/macro/macros.xml.h:27
+#: ../plugins/macro/macros.xml.h:26
 msgid "cvs_id"
 msgstr "cvs_id"
 
-#: ../plugins/macro/macros.xml.h:28
+#: ../plugins/macro/macros.xml.h:27
 msgid "cvs_log"
 msgstr "cvs_log"
 
-#: ../plugins/macro/macros.xml.h:29
+#: ../plugins/macro/macros.xml.h:28
 msgid "cvs_name"
 msgstr "cvs_name"
 
-#: ../plugins/macro/macros.xml.h:30
+#: ../plugins/macro/macros.xml.h:29
 msgid "cvs_revision"
 msgstr "cvs_revision"
 
-#: ../plugins/macro/macros.xml.h:31
+#: ../plugins/macro/macros.xml.h:30
 msgid "cvs_source"
 msgstr "cvs_source"
 
-#: ../plugins/macro/macros.xml.h:32
+#: ../plugins/macro/macros.xml.h:31
 msgid "do_while"
 msgstr "do_while"
 
-#: ../plugins/macro/macros.xml.h:33
+#: ../plugins/macro/macros.xml.h:32
 msgid "for"
 msgstr "for"
 
-#: ../plugins/macro/macros.xml.h:34
+#: ../plugins/macro/macros.xml.h:33
 msgid "if...else"
 msgstr "if…else"
 
-#: ../plugins/macro/macros.xml.h:35
+#: ../plugins/macro/macros.xml.h:34
 msgid "switch"
 msgstr "switch"
 
-#: ../plugins/macro/macros.xml.h:36
+#: ../plugins/macro/macros.xml.h:35
 msgid "while"
 msgstr "while"
 
@@ -7733,7 +7731,11 @@ msgstr "Añadir directorio"
 msgid "Crea_te"
 msgstr "_Crear"
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
+msgid "Create API tags"
+msgstr "Crear etiquetas del API"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
 msgid "Update globale tags"
 msgstr "Actualizar etiquetas globales"
 
@@ -7831,8 +7833,8 @@ msgstr "Usar el perfil del terminal de Gnome:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Usar el perfil actualmente seleccionado en el terminal de Gnome"
 
-#: ../plugins/terminal/terminal.c:610 ../plugins/terminal/terminal.c:721
-#: ../plugins/terminal/terminal.c:737
+#: ../plugins/terminal/terminal.c:606 ../plugins/terminal/terminal.c:717
+#: ../plugins/terminal/terminal.c:733
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -7848,10 +7850,6 @@ msgstr "Editar como script"
 #: ../plugins/tools/anjuta-tools.glade.h:3
 msgid "Edit command in Anjuta on close"
 msgstr "Comando de edición en Anjuta al cerrar"
-
-#: ../plugins/tools/anjuta-tools.glade.h:4
-msgid "Enabled"
-msgstr "Activado"
 
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Menu Items:"
