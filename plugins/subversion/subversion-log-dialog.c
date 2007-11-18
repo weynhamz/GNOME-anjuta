@@ -314,7 +314,7 @@ on_log_view_selected_button_clicked (GtkButton *button, LogData *data)
 	GtkTreeIter selected_iter;
 	glong revision;
 	SvnCatCommand *cat_command;;
-	gchar *last_slash;
+	gchar *filename;
 	gchar *editor_name;
 	IAnjutaDocumentManager *docman;
 	IAnjutaEditor *editor;
@@ -330,12 +330,13 @@ on_log_view_selected_button_clicked (GtkButton *button, LogData *data)
 	
 	cat_command = svn_cat_command_new (data->path, revision);
 	
-	last_slash = strrchr (data->path, '/');
+	filename = get_filename_from_full_path (data->path);
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
 	                                     	 IAnjutaDocumentManager, NULL);
-	editor_name = g_strdup_printf ("%s Revision %ld", last_slash +1, revision);
+	editor_name = g_strdup_printf ("[Revision %ld] %s", revision, filename);
 	editor = ianjuta_document_manager_add_buffer(docman, editor_name, "", 
 												 NULL);
+	g_free (filename);
 	g_free (editor_name);
 	
 	pulse_timer_id = status_bar_progress_pulse (data->plugin,
@@ -370,7 +371,11 @@ on_log_diff_selected_button_clicked (GtkButton *button, LogData *data)
 {
 	SelectedDiffData *selected_diff_data;
 	SvnDiffCommand *diff_command;
+	glong revision1;
+	glong revision2;
 	IAnjutaDocumentManager *docman;
+	gchar *filename;
+	gchar *editor_name;
 	IAnjutaEditor *editor;
 	guint pulse_timer_id;
 	
@@ -382,17 +387,27 @@ on_log_diff_selected_button_clicked (GtkButton *button, LogData *data)
 							  (GHFunc) get_selected_revisions, 
 							  selected_diff_data);
 		
+		revision1 = MIN (selected_diff_data->revisions[0],
+						 selected_diff_data->revisions[1]);
+		revision2 = MAX (selected_diff_data->revisions[0],
+						 selected_diff_data->revisions[1]);
+		
 		diff_command = svn_diff_command_new (data->path, 
-											 MIN (selected_diff_data->revisions[0],
-												  selected_diff_data->revisions[1]),
-											 MAX (selected_diff_data->revisions[0],
-												  selected_diff_data->revisions[1]),
+											 revision1,
+											 revision2,
 											 TRUE);
 		
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
 	                                     	 IAnjutaDocumentManager, NULL);
-		editor = ianjuta_document_manager_add_buffer(docman, _("svn.diff"), "", 
+		filename = get_filename_from_full_path (data->path);
+		editor_name = g_strdup_printf ("[Revisions %ld/%ld] %s.diff", 
+									   revision1, revision2, filename);
+		
+		editor = ianjuta_document_manager_add_buffer(docman, editor_name, "", 
 												 	 NULL);
+		
+		g_free (filename);
+		g_free (editor_name);
 		
 		pulse_timer_id = status_bar_progress_pulse (data->plugin,
 													_("Subversion: Retrieving " 
@@ -427,6 +442,8 @@ on_log_diff_previous_button_clicked (GtkButton *button, LogData *data)
 	glong revision;
 	SvnDiffCommand *diff_command;
 	IAnjutaDocumentManager *docman;
+	gchar *filename;
+	gchar *editor_name;
 	IAnjutaEditor *editor;
 	guint pulse_timer_id;
 	
@@ -443,8 +460,14 @@ on_log_diff_previous_button_clicked (GtkButton *button, LogData *data)
 	
 	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
 	                                     IAnjutaDocumentManager, NULL);
-	editor = ianjuta_document_manager_add_buffer(docman, _("svn.diff"), "", 
+	filename = get_filename_from_full_path (data->path);
+	editor_name = g_strdup_printf ("[Revisions %ld/%ld] %s.diff", 
+								   revision - 1, revision, filename);
+	editor = ianjuta_document_manager_add_buffer(docman, editor_name, "", 
 												 NULL);
+	
+	g_free (filename);
+	g_free (editor_name);
 	
 	pulse_timer_id = status_bar_progress_pulse (data->plugin,
 												_("Subversion: Retrieving " 
@@ -569,7 +592,7 @@ subversion_log_window_create (Subversion *plugin)
 					   log_file_entry);
 	g_signal_connect (G_OBJECT (log_whole_project_check), "toggled",
 					  G_CALLBACK (on_whole_project_toggled), plugin);
-	init_whole_project (plugin, log_whole_project_check);
+	init_whole_project (plugin, log_whole_project_check, FALSE);
 	
 	log_list_store = gtk_list_store_new (NUM_COLS,
 										 G_TYPE_BOOLEAN,

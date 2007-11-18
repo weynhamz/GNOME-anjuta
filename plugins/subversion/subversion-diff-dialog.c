@@ -27,12 +27,6 @@
 
 #include "subversion-diff-dialog.h"
 
-static void 
-on_editor_destroy(Subversion* plugin, GObject* editor)
-{
-	plugin->diff_editor = NULL;
-}
-
 static void
 on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* data)
 {	
@@ -41,13 +35,16 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 		case GTK_RESPONSE_OK:
 		{
 			IAnjutaDocumentManager *docman;
+			gchar *filename;
+			gchar *editor_name;
+			IAnjutaEditor *editor;
 			const gchar* revision_text;
 			glong revision;
 		
 			GtkWidget* norecurse;
 			GtkWidget* revisionentry;
 			GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "subversion_filename");
-			const gchar* filename = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
+			const gchar* path = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
 			SvnDiffCommand *diff_command;
 			guint pulse_timer_id;
 			
@@ -56,16 +53,21 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 			revision_text = gtk_entry_get_text(GTK_ENTRY(revisionentry));
 			revision = atol (revision_text);
 			
-			if (!check_filename(dialog, filename))
+			if (!check_filename(dialog, path))
 				break;	
 				
 			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
 	                                     IAnjutaDocumentManager, NULL);
-			data->plugin->diff_editor = ianjuta_document_manager_add_buffer(docman, _("svn.diff"), "", NULL);
-			g_object_weak_ref(G_OBJECT(data->plugin->diff_editor),
-							  (GWeakNotify)(on_editor_destroy), data->plugin);
+			filename = get_filename_from_full_path ((gchar *) path);
+			editor_name = g_strdup_printf ("[Head/Working Copy] %s.diff", 
+										   filename);
+			editor = ianjuta_document_manager_add_buffer(docman, editor_name, 
+														 "", NULL);
 			
-			diff_command = svn_diff_command_new ((gchar *) filename, 
+			g_free (filename);
+			g_free (editor_name);
+			
+			diff_command = svn_diff_command_new ((gchar *) path, 
 												 SVN_DIFF_REVISION_NONE,
 												 SVN_DIFF_REVISION_NONE,
 												 !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)));
@@ -86,7 +88,7 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 			
 			g_signal_connect (G_OBJECT (diff_command), "data-arrived",
 							  G_CALLBACK (send_diff_command_output_to_editor),
-							  data->plugin->diff_editor);
+							  editor);
 			
 			anjuta_command_start (ANJUTA_COMMAND (diff_command));
 			
@@ -123,7 +125,7 @@ subversion_diff_dialog (GtkAction* action, Subversion* plugin, gchar *filename)
 	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
-	init_whole_project(plugin, project);
+	init_whole_project(plugin, project, !filename);
 	
 	data = subversion_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
@@ -135,7 +137,7 @@ subversion_diff_dialog (GtkAction* action, Subversion* plugin, gchar *filename)
 void 
 on_menu_subversion_diff (GtkAction* action, Subversion* plugin)
 {
-	subversion_diff_dialog (action, plugin, plugin->current_editor_filename);
+	subversion_diff_dialog (action, plugin, NULL);
 }
 
 void 

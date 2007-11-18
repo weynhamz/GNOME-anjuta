@@ -50,6 +50,7 @@ guint status_bar_progress_pulse (Subversion *plugin, gchar *text);
 void clear_status_bar_progress_pulse (guint timer_id);
 void pulse_progress_bar (GtkProgressBar *progress_bar);
 void report_errors (AnjutaCommand *command, guint return_code);
+gchar *get_filename_from_full_path (gchar *path);
 
 /* Stock signal handlers */
 void on_status_command_finished (AnjutaCommand *command, guint return_code, 
@@ -62,8 +63,9 @@ void select_all_status_items (GtkButton *select_all_button,
 void clear_all_status_selections (GtkButton *clear_button,
 								  AnjutaVcsStatusTreeView *tree_view);
 
-void init_whole_project(Subversion *plugin, GtkWidget* project);
-void on_whole_project_toggled(GtkToggleButton* project, Subversion *plugin);
+void init_whole_project (Subversion *plugin, GtkWidget* project,
+						 gboolean active);
+void on_whole_project_toggled (GtkToggleButton* project, Subversion *plugin);
 void on_diff_command_finished (AnjutaCommand *command, guint return_code, 
 							   Subversion *plugin);
 void send_diff_command_output_to_editor (AnjutaCommand *command, 

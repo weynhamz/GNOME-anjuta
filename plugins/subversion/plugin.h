@@ -42,12 +42,10 @@ typedef struct _SubversionClass SubversionClass;
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-subversion.glade"
 #define ICON_FILE "anjuta-subversion-plugin-48.png"
 
-
 struct _Subversion{
 	AnjutaPlugin parent;
 	
 	IAnjutaMessageView* mesg_view;
-	IAnjutaEditor* diff_editor;
 	AnjutaLauncher* launcher;
 	
 	/* Merge ID */

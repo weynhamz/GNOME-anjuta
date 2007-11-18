@@ -178,6 +178,20 @@ pulse_progress_bar (GtkProgressBar *progress_bar)
 					   GUINT_TO_POINTER (timer_id));
 }
 
+gchar *
+get_filename_from_full_path (gchar *path)
+{
+	gchar *last_slash;
+	
+	last_slash = strrchr (path, '/');
+	
+	/* There might be a trailing slash in the string */
+	if ((last_slash - path) < strlen (path))
+		return g_strdup (last_slash + 1);
+	else
+		return g_strdup ("");
+}
+
 void
 on_status_command_finished (AnjutaCommand *command, guint return_code, 
 							gpointer user_data)
@@ -244,16 +258,25 @@ clear_all_status_selections (GtkButton *clear_button,
 }
 
 void 
-init_whole_project(Subversion *plugin, GtkWidget* project)
+init_whole_project (Subversion *plugin, GtkWidget* project, gboolean active)
 {
-	gboolean project_loaded = (plugin->project_root_dir != NULL);
+	gboolean project_loaded;
+	
+	project_loaded = (plugin->project_root_dir != NULL);
+	
 	gtk_widget_set_sensitive(project, project_loaded);
+	
+	if (project_loaded)
+		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (project), active);
 }	
 
 void 
-on_whole_project_toggled(GtkToggleButton* project, Subversion *plugin)
+on_whole_project_toggled (GtkToggleButton* project, Subversion *plugin)
 {
-	GtkEntry* fileentry = g_object_get_data (G_OBJECT (project), "fileentry");
+	GtkEntry* fileentry;
+	
+	fileentry = g_object_get_data (G_OBJECT (project), "fileentry");
+	
 	if (gtk_toggle_button_get_active(project) && plugin->project_root_dir)
 	{
 		gtk_entry_set_text (fileentry, plugin->project_root_dir);

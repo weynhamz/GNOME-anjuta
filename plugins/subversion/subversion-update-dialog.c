@@ -113,7 +113,7 @@ subversion_update_dialog (GtkAction* action, Subversion* plugin, gchar *filename
 	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
 	g_signal_connect(G_OBJECT(project), "toggled", 
 		G_CALLBACK(on_whole_project_toggled), plugin);
-	init_whole_project(plugin, project);
+	init_whole_project(plugin, project, !filename);
 	
 	data = subversion_data_new(plugin, gxml);
 	g_signal_connect(G_OBJECT(dialog), "response", 
@@ -125,7 +125,7 @@ subversion_update_dialog (GtkAction* action, Subversion* plugin, gchar *filename
 void 
 on_menu_subversion_update (GtkAction* action, Subversion* plugin)
 {
-	subversion_update_dialog(action, plugin, plugin->current_editor_filename);
+	subversion_update_dialog(action, plugin, NULL);
 }
 
 void 

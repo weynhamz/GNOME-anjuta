@@ -538,7 +538,6 @@ subversion_instance_init (GObject *obj)
 	plugin->uiid = 0;
 	plugin->mesg_view = NULL;
 	plugin->launcher = NULL;
-	plugin->diff_editor = NULL;
 	plugin->fm_current_filename = NULL;
 	plugin->project_root_dir = NULL;
 	plugin->current_editor_filename = NULL;

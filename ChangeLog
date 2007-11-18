@@ -1,5 +1,34 @@
 2007-11-19  Naba Kumar  <naba.kumar@gnome.org>
 
+	Patch from James Liggett:
+	* plugins/subversion/plugin.c: (subversion_instance_init):
+	* plugins/subversion/plugin.h:
+	* plugins/subversion/subversion-diff-dialog.c:
+	(on_subversion_diff_response), (subversion_diff_dialog),
+	(on_menu_subversion_diff):
+	* plugins/subversion/subversion-log-dialog.c:
+	(on_log_view_selected_button_clicked),
+	(on_log_diff_selected_button_clicked),
+	(on_log_diff_previous_button_clicked),
+	(subversion_log_window_create):
+	* plugins/subversion/subversion-ui-utils.c:
+	(get_filename_from_full_path), (init_whole_project),
+	(on_whole_project_toggled):
+	* plugins/subversion/subversion-ui-utils.h:
+	* plugins/subversion/subversion-update-dialog.c:
+	(subversion_update_dialog), (on_menu_subversion_update):
+
+	Whole Project checkbox enabled by default in diff and update dialogs.
+	changes the editor names for diff editors to something much more
+	descriptive. For example, working copy/head diffs would have an editor
+	with a name like "[Working Copy/Head] some-file.diff," where some-file
+	is the name of the file/directory that was diffed. For diffs against
+	arbitrary diffs the name would look like "[Revisions 2832/3200]
+	some-file.diff" for a diff of some-file between revisions 2832 and
+	3200.
+
+2007-11-19  Naba Kumar  <naba.kumar@gnome.org>
+
 	Icons from tpgww@onepost.net:
 	* plugins/subversion/Makefile.am:
 	* plugins/subversion/anjuta-subversion-plugin.svg:
