@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD.es\n"
 "POT-Creation-Date: 2007-08-30 23:41+0100\n"
-"PO-Revision-Date: 2007-11-12 15:44+0100\n"
+"PO-Revision-Date: 2007-11-19 14:42+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3184,7 +3184,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:722(title) C/anjuta-manual.xml:724(screeninfo)
 msgid "Shared Libraries window"
-msgstr ""
+msgstr "Ventana de bibliotecas compartidas."
 
 #: C/anjuta-manual.xml:732(title)
 msgid "Kernel Signals"
@@ -3199,20 +3199,27 @@ msgid ""
 "will open which lists all of the signals available in the system along with "
 "a brief description of each signal."
 msgstr ""
+"Las señales del núcleo son una forma de señalizar procesos en Linux. La lista de "
+"señales disponibles para un programa se puede mostrar eligiendo el elemento "
+"del menú <menuchoice><guisubmenu>Depurar</guisubmenu><guisubmenu>Información<menuchoice><guisubmenu>Señales del núcleo</guisubmenu><guisubmenu>. Se abrirá una ventana "
+"listando todas las señales disponibles en el sistema junto con "
+"una breve descripción de cada señal."
 
 #: C/anjuta-manual.xml:742(title) C/anjuta-manual.xml:744(screeninfo)
 msgid "Kernel Signals window"
-msgstr ""
+msgstr "Ventana de señales del núcleo"
 
 #: C/anjuta-manual.xml:749(para)
 msgid "There are three columns which specify what to do when the signal is received:"
-msgstr ""
+msgstr "Existen tres columnas que especifican qué hacer cuando se recibe una señal:"
 
 #: C/anjuta-manual.xml:755(para)
 msgid ""
 "<emphasis>Stop</emphasis> — this tells the debugger whether to stop the "
 "program execution (and return control) when the program receives this signal."
 msgstr ""
+"<emphasis>Parar</emphasis>; esto le dice al depurador si debe parar la "
+"ejecución del programa (y devolver el control) cuando el programa recibe esta señal."
 
 #: C/anjuta-manual.xml:761(para)
 msgid ""
@@ -3371,6 +3378,10 @@ msgid ""
 "guimenu><guimenuitem> Set Default Preferences</guimenuitem></menuchoice>. "
 "Some are explained below."
 msgstr ""
+"Las preferencias siempre son personalizables para que <application>Anjuta</application> se ajuste "
+"a sus gustos. Active <menuchoice><guimenu>Opciones</guimenu><guimenuitem>Preferencias</guimenuitem></menuchoice> para "
+"mostrar el diálogo de preferencias. Si quiere restablecer las preferencias a los valores predeterminados, "
+"puede hacerlo desde <menuchoice><guimenu>Opciones</guimenu><guimenuitem>Preferencias predeterminadas</guimenuitem></menuchoice>. Algunas se explican debajo."
 
 #: C/anjuta-manual.xml:11(title)
 msgid "General"
@@ -3384,6 +3395,11 @@ msgid ""
 "just fine for most people. Also, when Open project is activated, this is the "
 "base directory where the file selectior will start."
 msgstr ""
+"<emphasis>Directorio del proyecto:</emphasis> Es la ruta donde planea poner todos "
+"sus proyectos. El asistente de aplicación crea los nuevos proyectos sólo en este directorio. "
+"El directorio de proyecto predeterminado es ~/Projects y generalmente es suficiente "
+"para la mayoría de las personas. Además, cuando Abrir proyecto está activado, es el "
+"directorio base donde el selector de archivos comenzará."
 
 #: C/anjuta-manual.xml:20(para)
 msgid ""
@@ -3391,6 +3407,9 @@ msgid ""
 "here. They are not used to do software registration (pun), rather they are "
 "used to create ChangeLog entries and other insert text bits."
 msgstr ""
+"<emphasis>Información del usuario:</emphasis> Proporciona su nombre y dirección de "
+"correo electrónico. No se utilizan para registrar el software, sino para crear entradas en el "
+"archivo ChangeLog e insertar otros bits de texto."
 
 #: C/anjuta-manual.xml:27(title)
 msgid "File Manager"
@@ -3411,6 +3430,10 @@ msgid ""
 "the version control system which usually means they are generated at build "
 "time and should not be changed."
 msgstr ""
+"<emphasis>Filtro de archivos:</emphasis> Es posible filtrar algunos archivos "
+"del árbol de archivos, por ejemplo los archivos ocultos o los archivos ignorados "
+"por el sistema de control de versiones que generalmente significa que se general "
+"durante la compilación y no se deberían cambiar."
 
 #: C/anjuta-manual.xml:3(title)
 msgid "User-defined Tools"
@@ -3425,6 +3448,12 @@ msgid ""
 "especially if your tool is a specialized one. In these circumstances, it is "
 "advisable to use the Anjuta tools framework instead."
 msgstr ""
+"A menudo encontrará que las funcionalidades propias proporcionadas por Anjuta son "
+"insuficientes. En estos casos, puede que esté tentado a añadir la característica "
+"al código fuente de Anjuta usted mismo o enviar una petición de implementación de "
+"característica. No obstante, ambos casos suelen ser lentos y problemáticos, "
+"especialmente si su herramienta es especializada. Bajo estas circunstancias, es mejor "
+"usar el entorno de trabajo de las herramientas de Anjuta."
 
 #: C/anjuta-manual.xml:16(para)
 msgid ""
