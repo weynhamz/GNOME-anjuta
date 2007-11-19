@@ -42,6 +42,31 @@ static gchar *dsn_name;
 
 
 static void
+dump_iterator (SymbolDBEngineIterator *iterator)
+{
+	if (iterator != NULL) 
+	{
+		do {
+			SymbolDBEngineIteratorNode *iter_node;
+
+			iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
+			const gchar *sname = symbol_db_engine_iterator_node_get_symbol_name (iter_node);
+			gint file_pos = symbol_db_engine_iterator_node_get_symbol_file_pos (iter_node);
+			
+			g_message ("kind...");
+			const gchar* kind = symbol_db_engine_iterator_node_get_symbol_extra_string (iter_node,
+																						SYMINFO_KIND);
+			g_message ("ok");
+			
+			if (kind == NULL)
+				g_message ("kind null");
+			g_message ("GOT! : %s %d %s", sname, file_pos, kind);
+		} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);		
+		g_object_unref (iterator);
+	}
+}
+
+static void
 remove_file (SymbolDBEngine *dbe) 
 {			 
 	symbol_db_engine_remove_file(dbe, "foo_project", 
@@ -90,31 +115,14 @@ get_parents (SymbolDBEngine *dbe)
 			symbol_db_engine_get_class_parents (dbe, "Fourth_2_class", scope_path);
 	
 	g_message ("Fourth_2_class parents:");
-	if (iterator != NULL) 
-	{
-		for (i=0; i < symbol_db_engine_iterator_get_n_items (iterator); i++) 
-		{
-			g_message ("GOT! : %s", 
-					   symbol_db_engine_iterator_get_symbol_name (iterator));
-			symbol_db_engine_iterator_move_next (iterator);
-		}
-		g_object_unref (iterator);
-	}
 	
+	dump_iterator (iterator);
+		
 	g_message ("YourClass parents:");
 	iterator =
 			symbol_db_engine_get_class_parents (dbe, "YourClass", NULL);
 	
-	if (iterator != NULL) 
-	{
-		for (i=0; i < symbol_db_engine_iterator_get_n_items (iterator); i++) 
-		{
-			g_message ("GOT! : %s", 
-					   symbol_db_engine_iterator_get_symbol_name (iterator));
-			symbol_db_engine_iterator_move_next (iterator);
-		}
-		g_object_unref (iterator);
-	}
+	dump_iterator (iterator);
 }
 
 static void
@@ -139,26 +147,7 @@ get_scope_members (SymbolDBEngine *dbe)
 											SYMINFO_LANGUAGE | 
 											SYMINFO_TYPE);
 	
-	if (iterator != NULL) 
-	{
-		for (i=0; i < symbol_db_engine_iterator_get_n_items (iterator); i++) 
-		{
-			g_message ("GOT! : %s %d %d %s %s %s", 
-					   symbol_db_engine_iterator_get_symbol_name (iterator),
-					   symbol_db_engine_iterator_get_symbol_file_pos (iterator),
-					   symbol_db_engine_iterator_get_symbol_is_file_scope (iterator),
-					   symbol_db_engine_iterator_get_symbol_signature (iterator),
-					   symbol_db_engine_iterator_get_symbol_extra_string (iterator,
-															SYMINFO_FILE_PATH),
-					   symbol_db_engine_iterator_get_symbol_extra_string (iterator,
-															SYMINFO_LANGUAGE),
-					   symbol_db_engine_iterator_get_symbol_extra_string (iterator,
-															SYMINFO_TYPE)
-					   );
-			symbol_db_engine_iterator_move_next (iterator);
-		}
-		g_object_unref (iterator);
-	}
+	dump_iterator (iterator);
 }
 
 static void
@@ -172,24 +161,12 @@ get_current_scope (SymbolDBEngine *dbe)
 	if (iterator == NULL)
 		g_message ("iterator is NULL");
 	
-	if (iterator != NULL) 
-	{
-		for (i=0; i < symbol_db_engine_iterator_get_n_items (iterator); i++) 
-		{
-			g_message ("GOT! : %s %d ", 
-					   symbol_db_engine_iterator_get_symbol_name (iterator),
-					   symbol_db_engine_iterator_get_symbol_file_pos (iterator));
-			symbol_db_engine_iterator_move_next (iterator);
-		}
-		g_object_unref (iterator);
-	}
-
+	dump_iterator (iterator);
 }
 
 static void
 get_global_members (SymbolDBEngine *dbe)
 {
-	gint i;
 /*/	
 	SymbolDBEngineIterator *iterator = 
 		symbol_db_engine_get_global_members (dbe, 
@@ -198,23 +175,16 @@ get_global_members (SymbolDBEngine *dbe)
 /*/
 	SymbolDBEngineIterator *iterator = 
 		symbol_db_engine_get_global_members (dbe, 
-										NULL, 
-										SYMINFO_SIMPLE);
+										"namespace", 
+										TRUE,
+										SYMINFO_SIMPLE | 
+										SYMINFO_KIND |
+										SYMINFO_ACCESS );
 //*/	
 	if (iterator == NULL)
 		g_message ("iterator is NULL");
-	
-	if (iterator != NULL) 
-	{
-		for (i=0; i < symbol_db_engine_iterator_get_n_items (iterator); i++) 
-		{
-			g_message ("GOT! : %s %d ", 
-					   symbol_db_engine_iterator_get_symbol_name (iterator),
-					   symbol_db_engine_iterator_get_symbol_file_pos (iterator));
-			symbol_db_engine_iterator_move_next (iterator);
-		}
-		g_object_unref (iterator);
-	}
+	else
+		dump_iterator (iterator);
 }
 
 
@@ -232,21 +202,7 @@ get_file_symbols (SymbolDBEngine *dbe)
 	if (iterator == NULL)
 		g_message ("iterator is NULL");
 	
-	if (iterator != NULL) 
-	{
-		for (i=0; i < symbol_db_engine_iterator_get_n_items (iterator); i++) 
-		{
-			g_message ("GOT! : %s %d %s", 
-					   symbol_db_engine_iterator_get_symbol_name (iterator),
-					   symbol_db_engine_iterator_get_symbol_file_pos (iterator),
-					   symbol_db_engine_iterator_get_symbol_extra_string (iterator,
-																		  SYMINFO_KIND)
-					   );
-			symbol_db_engine_iterator_move_next (iterator);
-		}
-//		g_object_unref (iterator);
-	}
-	
+	dump_iterator (iterator);
 }
 
 static void
@@ -261,20 +217,7 @@ get_info_by_id (SymbolDBEngine *dbe)
 	if (iterator == NULL)
 		g_message ("iterator is NULL");
 	
-	if (iterator != NULL) 
-	{
-		for (i=0; i < symbol_db_engine_iterator_get_n_items (iterator); i++) 
-		{
-			g_message ("GOT! : %s %d %s", 
-					   symbol_db_engine_iterator_get_symbol_name (iterator),
-					   symbol_db_engine_iterator_get_symbol_file_pos (iterator),
-					   symbol_db_engine_iterator_get_symbol_extra_string (iterator,
-																		  SYMINFO_KIND)
-					   );
-			symbol_db_engine_iterator_move_next (iterator);
-		}
-		g_object_unref (iterator);
-	}
+	dump_iterator (iterator);
 }
 
 
@@ -313,6 +256,55 @@ update_buffers (SymbolDBEngine * dbe)
 
 }
 
+
+#if 0
+#include <libgda/libgda.h>
+#include <stdio.h>
+
+int 
+main(int argc, char ** argv)
+{
+	gda_init ("bug488860", "0.1", argc, argv);
+	
+	GdaQuery *query;
+	GdaParameterList *plist;
+	GError *error = NULL;
+
+	query = gda_query_new_from_sql (NULL, "SELECT symbol_id FROM symbol WHERE symbol.file_defined_id = (SELECT "
+					"file_defined_id FROM symbol WHERE symbol = ##thesym)", &error);
+	
+	if (error)
+		g_print ("Parser ERROR: %s\n", error->message);
+
+	plist = gda_query_get_parameter_list (query);
+	if (plist) {
+		g_print ("-Parameter(s):\n");
+		GSList *params;
+		for (params = plist->parameters; params; params = params->next) {
+			GdaParameter *parameter = GDA_PARAMETER (params->data);
+			g_print ("   - name:%s type:%s\n",
+				 gda_object_get_name (GDA_OBJECT (parameter)),
+				 g_type_name (gda_parameter_get_g_type (parameter)));
+		}
+
+		if (g_slist_length (plist->parameters) == 1) {
+			gchar *sql;
+			gda_parameter_set_value_str (GDA_PARAMETER (plist->parameters->data), "my_symbol");
+			sql = gda_renderer_render_as_sql (GDA_RENDERER (query), plist, NULL, 0, NULL);
+			g_print ("SQL: %s\n", sql);
+			g_free (sql);
+		}
+		g_object_unref (plist);
+	}
+	else
+		g_print ("-No params!-\n");
+	g_object_unref (query);
+	
+	return EXIT_SUCCESS;
+}
+
+#endif
+
 int main(int argc, char** argv)
 {
 	SymbolDBEngine *dbe;
@@ -326,28 +318,28 @@ int main(int argc, char** argv)
 	gda_init ("Test db", "0.1", argc, argv);
 	dbe = symbol_db_engine_new ();
 	
-	gchar *prj_dir = "/home/pescio/svnroot/anjuta/plugins/symbol-db/test";
+	gchar *prj_dir = "/home/pescio/Projects/entwickler-0.1";
 
 	g_message ("opening database");
 	if (symbol_db_engine_open_db (dbe, prj_dir) == FALSE)
 		g_message ("error in opening db");
 	
-	g_message ("adding new workspace");
-	if (symbol_db_engine_add_new_workspace (dbe, "foo_workspace") == FALSE)
-		g_message ("error adding workspace");
+//	g_message ("adding new workspace");
+//	if (symbol_db_engine_add_new_workspace (dbe, "foo_workspace") == FALSE)
+//		g_message ("error adding workspace");
 	
-	g_message ("adding new project");
-	if (symbol_db_engine_add_new_project (dbe, NULL, "foo_project") == FALSE)
-		g_message ("error in adding project");
+//	g_message ("adding new project");
+//	if (symbol_db_engine_add_new_project (dbe, NULL, "foo_project") == FALSE)
+//		g_message ("error in adding project");
 	
 	g_message ("opening project");
-	if (symbol_db_engine_open_project (dbe, "foo_project") == FALSE)
+	if (symbol_db_engine_open_project (dbe, "/home/pescio/Projects/entwickler-0.1") == FALSE)
 		g_message ("error in opening project");	
 	
 
 	
-	g_message ("adding files...");
-	add_new_files  (dbe);
+//	g_message ("adding files...");
+//	add_new_files  (dbe);
 
 	/* 
 	** Message: elapsed: 319.713238 for (4008) [0.079769 per symbol]
@@ -385,8 +377,8 @@ int main(int argc, char** argv)
 //	g_message ("getting scope members");
 //	get_scope_members (dbe);
 	
-//	g_message ("getting get_global_members");
-//	get_global_members (dbe);
+	g_message ("getting get_global_members");
+	get_global_members (dbe);
 
 //	g_message ("getting parents");
 //	get_parents (dbe);
@@ -400,6 +392,7 @@ int main(int argc, char** argv)
 //	g_message ("updating buffers");
 //	update_buffers (dbe);
 	
+	g_message ("go on with mail loop");
 	GMainLoop *main_loop;	
 	main_loop = g_main_loop_new( NULL, FALSE );
 	
@@ -407,3 +400,4 @@ int main(int argc, char** argv)
 
 	return 0;
 }
+

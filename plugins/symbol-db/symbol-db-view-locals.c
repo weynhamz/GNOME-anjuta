@@ -504,19 +504,19 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));		
 
-	/*DEBUG_PRINT ("on_symbol_removed (): -local- %d", symbol_id);		*/
+	DEBUG_PRINT ("on_symbol_removed (): -local- %d", symbol_id);
 
 	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)symbol_id);
 	if (row_ref == NULL) 
 	{
-		/*DEBUG_PRINT ("on_symbol_removed (): ERROR: cannot remove %d", symbol_id);*/
+		DEBUG_PRINT ("on_symbol_removed (): ERROR: cannot remove %d", symbol_id);
 		return;
 	}
  
 	path = gtk_tree_row_reference_get_path (row_ref);
 	if (path == NULL) 
 	{
-		/*DEBUG_PRINT ("on_symbol_removed (): ERROR2: cannot remove %d", symbol_id);*/
+		DEBUG_PRINT ("on_symbol_removed (): ERROR2: cannot remove %d", symbol_id);
 		return;
 	}
 	
@@ -829,11 +829,9 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 															symbol_id,
 															NULL);
 		
-/*	DEBUG_PRINT ("on_symbol_inserted (): detected parent %d", parent_symbol_id);*/
 	/* get the original symbol infos */
 	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, symbol_id, 
 													   SYMINFO_SIMPLE |
-													   SYMINFO_FILE_PATH |
 													   SYMINFO_ACCESS |
 													   SYMINFO_KIND);	
 	
@@ -858,12 +856,13 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 		 */
 		SymbolDBEngineIterator *iterator_for_children;
 		iterator_for_children = 
-			symbol_db_engine_get_scope_members_by_symbol_id (dbe, symbol_id, 
+			symbol_db_engine_get_scope_members_by_symbol_id (dbe, symbol_id, -1,
+															 -1,
 															 SYMINFO_SIMPLE);
 		if (iterator_for_children == NULL) 
 		{
 			/* we don't have children */
-/*			DEBUG_PRINT ("on_symbol_inserted (): %d has no children.", symbol_id);*/
+			/*DEBUG_PRINT ("on_symbol_inserted (): %d has no children.", symbol_id);*/
 		}
 		else 
 		{
@@ -988,6 +987,16 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	priv->current_db_file = 
 		symbol_db_engine_get_file_db_path (dbe, filepath);
 	priv->current_local_file_path = g_strdup (filepath);		
+
+	if (priv->nodes_displayed)
+		g_tree_destroy (priv->nodes_displayed);
+	
+	/* free the waiting_for structs before destroying the tree itself */
+	if (priv->waiting_for)
+	{
+		g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, NULL);
+		g_tree_destroy (priv->waiting_for);
+	}
 	
 	priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
 										 NULL,
@@ -1019,7 +1028,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 			
 			curr_symbol_id = symbol_db_engine_iterator_node_get_symbol_id (iter_node);
 
-			/* we can just call the symbol inserted function. It'll think about
+			/* we can just call the symbol inserted function. It'll take care of
 			 * building the tree and populating it
 			 */
 			on_symbol_inserted (dbe, curr_symbol_id, (gpointer)dbvl);
@@ -1047,19 +1056,19 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	/* connect some signals */
 	if (priv->insert_handler <= 0) 
 	{
-		priv->insert_handler = 	g_signal_connect (G_OBJECT (dbe), "symbol_inserted",
+		priv->insert_handler = 	g_signal_connect (G_OBJECT (dbe), "symbol-inserted",
 					  G_CALLBACK (on_symbol_inserted), dbvl);
 	}
 
 	if (priv->remove_handler <= 0)
 	{
-		priv->remove_handler = g_signal_connect (G_OBJECT (dbe), "symbol_removed",
+		priv->remove_handler = g_signal_connect (G_OBJECT (dbe), "symbol-removed",
 					  G_CALLBACK (on_symbol_removed), dbvl);
 	}	
 
 	if (priv->scan_end_handler <= 0)
 	{
-		priv->remove_handler = g_signal_connect (G_OBJECT (dbe), "scan_end",
+		priv->remove_handler = g_signal_connect (G_OBJECT (dbe), "scan-end",
 					  G_CALLBACK (on_scan_end), dbvl);
 	}	
 }

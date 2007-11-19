@@ -113,17 +113,17 @@ CREATE INDEX sym_type_idx_2 ON sym_type (type, type_name);
 
 CREATE TRIGGER delete_file BEFORE DELETE ON file
 FOR EACH ROW
-BEGIN
-DELETE FROM symbol WHERE file_defined_id = (SELECT file_id FROM file WHERE file_path = old.file_path);
+    BEGIN
+    DELETE FROM symbol WHERE file_defined_id = (SELECT file_id FROM file WHERE file_path = old.file_path);
 END;
 
 CREATE TRIGGER delete_symbol BEFORE DELETE ON symbol
 FOR EACH ROW
 BEGIN
-	DELETE FROM scope WHERE scope.scope_id=old.scope_definition_id;
-	DELETE FROM sym_type WHERE sym_type.type_id=old.type_id;
-	UPDATE symbol SET scope_id='-1' WHERE symbol.scope_id=old.scope_definition_id AND symbol.scope_id > 0;
-	INSERT INTO __tmp_removed (symbol_removed_id) VALUES (old.symbol_id);
+    DELETE FROM scope WHERE scope.scope_id=old.scope_definition_id;
+    DELETE FROM sym_type WHERE sym_type.type_id=old.type_id;
+    UPDATE symbol SET scope_id='-1' WHERE symbol.scope_id=old.scope_definition_id AND symbol.scope_id > 0;
+    INSERT INTO __tmp_removed (symbol_removed_id) VALUES (old.symbol_id);
 END;
 
 PRAGMA page_size = 4096;

@@ -9,7 +9,6 @@ INCLUDES = \
 	-DANJUTA_IMAGE_DIR=\"$(anjuta_image_dir)\" \
 	-DANJUTA_GLADE_DIR=\"$(anjuta_glade_dir)\" \
 	-DANJUTA_UI_DIR=\"$(anjuta_ui_dir)\" \
-	-DPACKAGE_DATA_DIR=\"$(datadir)\" \
 	-DPACKAGE_SRC_DIR=\"$(srcdir)\" \
 	$(LIBANJUTA_CFLAGS) \
 	$(PLUGIN_SYMBOL_DB_CFLAGS) \

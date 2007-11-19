@@ -414,7 +414,7 @@ goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 
 
 static void
-goto_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
+goto_local_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
 {
 	gint line;
 
@@ -442,6 +442,40 @@ goto_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
 	}
 }
 
+static void
+goto_global_tree_iter (SymbolDBPlugin *sdb_plugin, GtkTreeIter *iter)
+{
+	gint line;
+	gchar *file;
+
+	if (symbol_db_view_get_file_and_line (
+			SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe,
+							iter, &line, &file) == FALSE)
+	{
+		g_warning ("goto_global_tree_iter (): error while trying to get file/line");
+		return;
+	};
+	
+	
+	DEBUG_PRINT ("got line %d and file %s", line, file);
+	
+	if (line > 0 && sdb_plugin->current_editor)
+	{
+		goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
+		if (IANJUTA_IS_MARKABLE (sdb_plugin->current_editor))
+		{
+			ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (sdb_plugin->current_editor),
+												 IANJUTA_MARKABLE_LINEMARKER,
+												 NULL);
+
+			ianjuta_markable_mark (IANJUTA_MARKABLE (sdb_plugin->current_editor),
+								   line, IANJUTA_MARKABLE_LINEMARKER, NULL);
+		}
+	}
+	
+	g_free (file);
+}
+
 /**
  * will manage the click of mouse and other events on search->hitlist treeview
  */
@@ -449,7 +483,8 @@ static void
 on_treesearch_symbol_selected_event (SymbolDBViewSearch *search,
 									 gint line,
 									 gchar* file,
-									 SymbolDBPlugin *sdb_plugin) {
+									 SymbolDBPlugin *sdb_plugin) 
+{
 										 
 	DEBUG_PRINT ("on_treesearch_symbol_selected_event  (), %s %d", file, line);
 	goto_file_line (ANJUTA_PLUGIN (sdb_plugin), file, line);
@@ -467,12 +502,43 @@ on_local_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
 
 	DEBUG_PRINT ("on_local_treeview_row_activated ()");
 	selection = gtk_tree_view_get_selection (view);
-	if (!gtk_tree_selection_get_selected (selection, &model, &iter)) {
+	if (!gtk_tree_selection_get_selected (selection, &model, &iter)) 
+	{
 		return;
 	}
-	goto_tree_iter (sdb_plugin, &iter);
+	goto_local_tree_iter (sdb_plugin, &iter);
 }
 
+static void
+on_global_treeview_row_activated (GtkTreeView *view, GtkTreePath *arg1,
+								 GtkTreeViewColumn *arg2,
+								 SymbolDBPlugin *sdb_plugin)
+{
+	GtkTreeModel *model;
+	GtkTreeSelection *selection;
+	GtkTreeIter iter;
+	
+	DEBUG_PRINT ("on_global_treeview_row_activated ()");
+	selection = gtk_tree_view_get_selection (view);
+	if (!gtk_tree_selection_get_selected (selection, &model, &iter)) 
+	{
+		return;
+	}
+	
+	goto_global_tree_iter (sdb_plugin, &iter);
+}
+
+static void
+on_global_treeview_row_expanded (GtkTreeView *tree_view,
+									GtkTreeIter *iter,
+                                    GtkTreePath *path,
+                                    SymbolDBPlugin *user_data)
+{
+	DEBUG_PRINT ("on_global_treeview_row_expanded ()");
+
+	symbol_db_view_row_expanded (SYMBOL_DB_VIEW (user_data->dbv_view_tree),
+								user_data->sdbe, iter);
+}
 
 static void
 on_editor_foreach_clear (gpointer key, gpointer value, gpointer user_data)
@@ -533,6 +599,7 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 	if (filename)
 	{
 		GPtrArray *files_array;
+		GPtrArray *languages_array;
 		const gchar* file_mime;
 		IAnjutaLanguageId lang_id;
 		const gchar* lang;
@@ -550,16 +617,24 @@ on_project_element_added (IAnjutaProjectManager *pm, const gchar *uri,
 		
 		lang = ianjuta_language_get_name (lang_manager, lang_id, NULL);
 		files_array = g_ptr_array_new();
+		languages_array = g_ptr_array_new();
+		
 		g_ptr_array_add (files_array, filename);
+		g_ptr_array_add (languages_array, g_strdup (lang));
+		
 		DEBUG_PRINT ("gonna opening %s", 
 					 filename + strlen(sdb_plugin->project_root_dir) );
 		DEBUG_PRINT ("project_root_dir %s", sdb_plugin->project_root_dir );
 		
 		symbol_db_engine_add_new_files (sdb_plugin->sdbe, 
-			sdb_plugin->project_root_dir, files_array, lang, TRUE);
+			sdb_plugin->project_root_dir, files_array, languages_array, TRUE);
 		
 		g_free (filename);
 		g_ptr_array_free (files_array, TRUE);
+		
+		g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
+		g_ptr_array_free (languages_array, TRUE);
+
 	}
 }
 
@@ -578,7 +653,7 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 		DEBUG_PRINT ("on_project_element_removed");
 		DEBUG_PRINT ("gonna removing %s", 
 					 filename + strlen(sv_plugin->project_root_dir));
-		DEBUG_PRINT ("poject_root_dir %s", sv_plugin->project_root_dir );
+		DEBUG_PRINT ("project_root_dir %s", sv_plugin->project_root_dir );
 		symbol_db_engine_remove_file (sv_plugin->sdbe, 
 			sv_plugin->project_root_dir, filename);
 		
@@ -593,29 +668,6 @@ sources_array_free (gpointer data)
 	g_ptr_array_foreach (sources, (GFunc)g_free, NULL);
 	g_ptr_array_free (sources, TRUE);
 }
-
-typedef struct
-{
-	SymbolDBEngine* sdbe;
-	const gchar* root_dir;
-} SourcesForeachData;
-
-#if 0
-static void
-sources_array_add_foreach (gpointer key, gpointer value, gpointer user_data)
-{
-	const gchar* lang = (const gchar*) key;
-	GPtrArray* sources_array = (GPtrArray*) value;
-	SourcesForeachData* data = (SourcesForeachData*) user_data;
-	
-	if (symbol_db_engine_add_new_files (data->sdbe, data->root_dir,
-									sources_array, lang, TRUE) == FALSE) 
-	{
-		DEBUG_PRINT ("__FUNCTION__ failed for lang %s, root_dir %s",
-					 lang, data->root_dir);
-	}
-}
-#endif
 
 /* add a new project */
 static void
@@ -642,43 +694,56 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 		if (root_dir)
 		{
 			gboolean needs_sources_scan = FALSE;
+			gboolean project_exist = FALSE;
 			gint i;
 			GHashTable* lang_hash = 
 				g_hash_table_new_full (g_str_hash, g_str_equal, NULL, sources_array_free);
 			
 			status = anjuta_shell_get_status (plugin->shell, NULL);
 			anjuta_status_progress_add_ticks (status, 1);
-	
-			DEBUG_PRINT ("Symbol-DB: creating new project.");
 
 			/* is it a fresh-new project? is it an imported project with 
 			 * no 'new' symbol-db database but the 'old' one symbol-browser? 
 			 */
 			if (symbol_db_engine_db_exists (sdb_plugin->sdbe, root_dir) == FALSE)
 			{
+				DEBUG_PRINT ("Symbol-DB: project did not exist");
 				needs_sources_scan = TRUE;
+				project_exist = FALSE;
 			}
-			
-			if (symbol_db_engine_open_db (sdb_plugin->sdbe, root_dir) == FALSE)
-				g_error ("error in opening db");
+			else 
+			{
+				project_exist = TRUE;
+			}
 
-			symbol_db_engine_add_new_project (sdb_plugin->sdbe,
-											  NULL,	/* still no workspace */
-											  root_dir);
-			
+			if (symbol_db_engine_open_db (sdb_plugin->sdbe, root_dir) == FALSE)
+				g_error ("Symbol-DB: error in opening db");
+
+			/* if project did not exist add a new project */
+			if (project_exist == FALSE)
+			{
+				DEBUG_PRINT ("Symbol-DB: creating new project.");
+				symbol_db_engine_add_new_project (sdb_plugin->sdbe,
+												  NULL,	/* still no workspace */
+												  root_dir);
+			}			
+
 			/* open the project. we can do this only if the db was loaded */
 			if (symbol_db_engine_open_project (sdb_plugin->sdbe, root_dir) == FALSE)
-				g_warning ("error in opening project");
-			
+			{
+				g_error ("Symbol-DB: error in opening project");
+			}
+
 			if (needs_sources_scan == TRUE)
 			{
 				GList* prj_elements_list;
 				GPtrArray* sources_array = NULL;
+				GPtrArray* languages_array = NULL;
 				GHashTable *check_unique_file;
 				IAnjutaLanguage* lang_manager =
 						anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
 													NULL);
-				
+			
 				if (!lang_manager)
 				{
 					g_critical ("LanguageManager not found");
@@ -691,7 +756,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				/* to speed the things up we must avoid the dups */
 				check_unique_file = g_hash_table_new_full (g_str_hash, 
 									g_str_equal, g_free, g_free);
-				
+
 				DEBUG_PRINT ("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 				DEBUG_PRINT ("Retrieving %d gbf sources of the project...",
 							 g_list_length (prj_elements_list));
@@ -705,7 +770,7 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					
 					local_filename = 
 						gnome_vfs_get_local_path_from_uri (g_list_nth_data (
-															prj_elements_list, i));
+														prj_elements_list, i));
 					
 					if (local_filename == NULL)
 						continue;
@@ -748,39 +813,41 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 						continue;
 					}
 					
-/*					sources_array = g_hash_table_lookup (lang_hash, lang);*/
-					
 					if (!sources_array)
 					{
 						sources_array = g_ptr_array_new ();
-/*						
-						g_hash_table_insert (lang_hash, (gpointer) lang, 
-											 sources_array);
-*/						
 					}	
+
+					if (!languages_array)
+					{
+						languages_array = g_ptr_array_new ();
+					}
 					
 					g_ptr_array_add (sources_array, local_filename);
+					g_ptr_array_add (languages_array, g_strdup (lang));					
 				}
 			
 				DEBUG_PRINT ("calling symbol_db_engine_add_new_files  with root_dir %s",
 							 root_dir);
 				
 				symbol_db_engine_add_new_files (sdb_plugin->sdbe, root_dir,
-									sources_array, "C", TRUE);
+									sources_array, languages_array, TRUE);
+				
 				g_hash_table_unref (lang_hash);
 				g_hash_table_unref (check_unique_file);
 				
 				g_ptr_array_foreach (sources_array, (GFunc)g_free, NULL);
 				g_ptr_array_free (sources_array, TRUE);
-				
-				
+
+				g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
+				g_ptr_array_free (languages_array, TRUE);
 			}
 			
 			anjuta_status_progress_tick (status, NULL, _("Created symbols..."));
-			
+
 			symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
 								 sdb_plugin->sdbe);
-			
+
 			/* root dir */
 			sdb_plugin->project_root_dir = root_dir;
 		}
@@ -891,7 +958,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 
 	g_object_add_weak_pointer (G_OBJECT (symbol_db->dbv_view_tree_locals),
 							   (gpointer)&symbol_db->dbv_view_tree_locals);
-	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree_locals), "row_activated",
+	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree_locals), "row-activated",
 					  G_CALLBACK (on_local_treeview_row_activated), plugin);
 
 	gtk_container_add (GTK_CONTAINER(symbol_db->scrolled_locals), 
@@ -911,13 +978,13 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	symbol_db->dbv_view_tree = symbol_db_view_new ();
 	g_object_add_weak_pointer (G_OBJECT (symbol_db->dbv_view_tree),
 							   (gpointer)&symbol_db->dbv_view_tree);
-#if 0
-	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree), "event-after",
-					  G_CALLBACK (on_treeview_event), plugin);
 
-	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree), "row_activated",
-					  G_CALLBACK (on_treeview_row_activated), plugin);
-#endif	
+	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree), "row-activated",
+					  G_CALLBACK (on_global_treeview_row_activated), plugin);
+
+	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree), "row-expanded",
+					  G_CALLBACK (on_global_treeview_row_expanded), plugin);
+	
 	gtk_container_add (GTK_CONTAINER(symbol_db->scrolled_global), 
 					   symbol_db->dbv_view_tree);
 	
@@ -926,7 +993,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 		(GtkWidget*) symbol_db_view_search_new (symbol_db->sdbe);
 	symbol_db->dbv_view_search_tab_label = gtk_label_new (_("Search" ));
 
-	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree_search), "symbol_selected",
+	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree_search), "symbol-selected",
 					  G_CALLBACK (on_treesearch_symbol_selected_event),
 					  plugin);
 	
@@ -1103,8 +1170,6 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 	SymbolDBEngine *dbe;
 	const gchar* name;
 
-	DEBUG_PRINT ("called isymbol_manager_search()! %s", match_name);
-	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe);
 
@@ -1139,20 +1204,8 @@ isymbol_manager_get_members (IAnjutaSymbolManager *sm,
 							 gboolean global_search,
 							 GError **err)
 {
-#if 0	
-	const GPtrArray *tags_array;
-	AnjutaSymbolIter *iter = NULL;
-	
-	tags_array = tm_workspace_find_scope_members (NULL, symbol_name,
-												  global_search, TRUE);
-												  
-	
-	if (tags_array)
-	{
-		iter = anjuta_symbol_iter_new (tags_array);
-		return IANJUTA_ITERABLE (iter);
-	}
-#endif	
+	/* TODO */
+	DEBUG_PRINT ("TODO: isymbol_manager_get_members ()");
 	return NULL;
 }
 
@@ -1183,91 +1236,8 @@ isymbol_manager_get_completions_at_position (IAnjutaSymbolManager *sm,
 											gint text_pos,
 							 				GError **err)
 {
-#if 0
-	SymbolBrowserPlugin *sv_plugin;
-	const TMTag *func_scope_tag;
-	TMSourceFile *tm_file;
-	IAnjutaEditor *ed;
-	AnjutaSymbolView *symbol_view;
-	gulong line;
-	gulong scope_position;
-	gchar *needed_text = NULL;
-	gint access_method;
-	GPtrArray * completable_tags_array;
-	AnjutaSymbolIter *iter = NULL;
-	
-	sv_plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (sm);
-	ed = IANJUTA_EDITOR (sv_plugin->current_editor);	
-	symbol_view = ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree);
-	
-	line = ianjuta_editor_get_line_from_position (ed, text_pos, NULL);
-	
-	/* get the function scope */
-	tm_file = anjuta_symbol_view_get_tm_file (symbol_view, file_uri);
-	
-	/* check whether the current file_uri is listed in the tm_workspace or not... */	
-	if (tm_file == NULL)
-		return 	NULL;
-		
-
-	// FIXME: remove DEBUG_PRINT	
-/*/
-	DEBUG_PRINT ("tags in file &s\n");
-	if (tm_file->work_object.tags_array != NULL) {
-		int i;
-		for (i=0; i < tm_file->work_object.tags_array->len; i++) {
-			TMTag *cur_tag;
-		
-			cur_tag = (TMTag*)g_ptr_array_index (tm_file->work_object.tags_array, i);
-			tm_tag_print (cur_tag, stdout);
-		}
-	}
-/*/
-
-	func_scope_tag = tm_get_current_function (tm_file->work_object.tags_array, line);
-		
-	if (func_scope_tag == NULL) {
-		DEBUG_PRINT ("func_scope_tag is NULL, seems like it's a completion on a global scope");
-		return NULL;
-	}
-	
-	DEBUG_PRINT ("current expression scope: %s", func_scope_tag->name);
-	
-	
-	scope_position = ianjuta_editor_get_line_begin_position (ed, func_scope_tag->atts.entry.line, NULL);
-	needed_text = ianjuta_editor_get_text (ed, scope_position,
-										   text_pos - scope_position, NULL);
-
-	if (needed_text == NULL)
-		DEBUG_PRINT ("needed_text is null");
-	DEBUG_PRINT ("text needed is %s", needed_text );
-	
-
-	/* we'll pass only the text of the current scope: i.e. only the current function
-	 * in which we request the completion. */
-	TMTag * found_type = anjuta_symbol_view_get_type_of_expression (symbol_view, 
-				needed_text, text_pos - scope_position, func_scope_tag, &access_method);
-
-				
-	if (found_type == NULL) {
-		DEBUG_PRINT ("type not found.");
-		return NULL;	
-	}
-	
-	/* get the completable memebers. If the access is COMPLETION_ACCESS_STATIC we don't
-	 * want to know the parents members of the class.
-	 */
-	if (access_method == COMPLETION_ACCESS_STATIC)
-		completable_tags_array = anjuta_symbol_view_get_completable_members (found_type, FALSE);
-	else
-		completable_tags_array = anjuta_symbol_view_get_completable_members (found_type, TRUE);
-	
-	if (completable_tags_array)
-	{
-		iter = anjuta_symbol_iter_new (completable_tags_array);
-		return IANJUTA_ITERABLE (iter);
-	}
-#endif
+	/* TODO */
+	DEBUG_PRINT ("TODO: isymbol_manager_get_completions_at_position ()");
 	return NULL;
 }
 

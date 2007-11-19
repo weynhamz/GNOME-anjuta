@@ -279,7 +279,22 @@ symbol_db_engine_iterator_node_get_symbol_extra_string (SymbolDBEngineIteratorNo
 	
 	g_return_val_if_fail (dbin != NULL, NULL);
 	priv = dbin->priv;
+#if 0	
+	DEBUG_PRINT ("symbol_db_engine_iterator_node_get_symbol_extra_string () for %d", 
+				 sym_info);
 
+	if (GDA_PARAMETER_LIST(priv->data_iter)) {
+		g_print ("-Parameter(s):\n");
+		GSList *params;
+		for (params = GDA_PARAMETER_LIST(priv->data_iter)->parameters; params; 
+			 params = params->next) {
+			GdaParameter *parameter = GDA_PARAMETER (params->data);
+			g_print ("   - name:%s type:%s\n",
+				 gda_object_get_name (GDA_OBJECT (parameter)),
+				 g_type_name (gda_parameter_get_g_type (parameter)));
+		}
+	}
+#endif	
 	if (sym_info & SYMINFO_FILE_PATH)
 	{
 		par = gda_parameter_list_find_param (GDA_PARAMETER_LIST(priv->data_iter),
@@ -331,10 +346,14 @@ symbol_db_engine_iterator_node_get_symbol_extra_string (SymbolDBEngineIteratorNo
 											 "file_include_type");
 	}
 
-	column = gda_data_model_iter_get_column_for_param (priv->data_iter, par);
-	res = gda_data_model_iter_get_param_for_column (priv->data_iter, column);
-					
-	return gda_parameter_get_value_str (res);
+	if (par != NULL) 
+	{
+		column = gda_data_model_iter_get_column_for_param (priv->data_iter, par);
+		res = gda_data_model_iter_get_param_for_column (priv->data_iter, column);
+		return gda_parameter_get_value_str (res);
+	}
+	else
+		return NULL;	
 }
 
 void
@@ -352,7 +371,6 @@ symbol_db_engine_iterator_node_set_data (SymbolDBEngineIteratorNode *dbin,
 
 
 /* IAnjutaSymbol implementation */
-
 static IAnjutaSymbolType
 isymbol_type (IAnjutaSymbol *isymbol, GError **err)
 {

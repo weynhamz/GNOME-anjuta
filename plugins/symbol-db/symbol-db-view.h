@@ -28,6 +28,7 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 #include "symbol-db-engine.h"
+#include "plugin.h"
 
 G_BEGIN_DECLS
 
@@ -66,6 +67,14 @@ symbol_db_view_get_pixbuf  (const gchar *node_type, const gchar *node_access);
 
 void 
 symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe);
+
+void
+symbol_db_view_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe, 
+							 GtkTreeIter *iter);
+
+gboolean
+symbol_db_view_get_file_and_line (SymbolDBView *dbv, SymbolDBEngine *dbe,
+							GtkTreeIter * iter, gint *OUT_line, gchar **OUT_file);
 
 G_END_DECLS
 

@@ -477,7 +477,6 @@ struct _SymbolDBEnginePriv
 {
 	GdaConnection *db_connection;
 	GdaClient *gda_client;
-	GdaDict *dict;
 	gchar *dsn_name;
 	gchar *project_name;
 	gchar *data_source;
@@ -519,7 +518,7 @@ sdb_engine_execute_non_select_sql (SymbolDBEngine * dbe, const gchar * buffer)
 
 	priv = dbe->priv;
 
-	query = gda_query_new_from_sql (priv->dict, buffer, NULL);
+	query = gda_query_new_from_sql (NULL, buffer, NULL);
 	obj = gda_query_execute (query, NULL, FALSE, NULL);
 
 	if (obj != NULL)
@@ -542,12 +541,18 @@ sdb_engine_execute_select_sql (SymbolDBEngine * dbe, const gchar * buffer)
 	SymbolDBEnginePriv *priv;
 	GdaQuery *query;
 	GdaObject *obj;
+	GError *error = NULL;
 
 	priv = dbe->priv;
 
-	query = gda_query_new_from_sql (priv->dict, buffer, NULL);
+	query = gda_query_new_from_sql (NULL, buffer, &error);
+/*	
+	if (error)
+		g_print ("Parser ERROR: %s\n", error->message);
+*/
 	obj = gda_query_execute (query, NULL, FALSE, NULL);
 
+	
 	if (query != NULL)
 	{
 		g_object_unref (query);
@@ -555,7 +560,9 @@ sdb_engine_execute_select_sql (SymbolDBEngine * dbe, const gchar * buffer)
 	
 	if (GDA_DATA_MODEL (obj) == FALSE)
 	{
-		g_object_unref (obj);
+		DEBUG_PRINT ("sdb_engine_execute_select_sql (): returning NULL");
+		if (obj)
+			g_object_unref (obj);
 		return NULL;
 	}
 	
@@ -596,22 +603,16 @@ sdb_engine_get_query_by_id (SymbolDBEngine * dbe, query_type query_id)
 	/* no way: if connection is NULL we will break here. There must be
 	 * a connection established to db before using this function */
 	g_return_val_if_fail (priv->db_connection != NULL, NULL);
-
+	
 	node = &query_list[query_id];
 
-	/* check for a null dict into priv struct */
-	if (priv->dict == NULL)
-	{
-		priv->dict = gda_dict_new ();
-		gda_dict_set_connection (priv->dict, priv->db_connection);
-	}
-
+	gda_dict_set_connection (default_dict, priv->db_connection);
 	if (node->query == NULL)
 	{
 		DEBUG_PRINT ("generating new query.... %d", query_id);
 		/* create a new GdaQuery */
 		node->query =
-			gda_query_new_from_sql (priv->dict, node->query_str, NULL);
+			gda_query_new_from_sql (NULL, node->query_str, NULL);
 	}
 
 	return node->query;
@@ -634,7 +635,6 @@ sdb_engine_get_last_insert_id (SymbolDBEngine * dbe)
 /**
  * Clear the static cached queries data. You should call this function when closing/
  * destroying SymbolDBEngine object.
- * priv->dict is also destroyed.
  */
 static void
 sdb_engine_free_cached_queries (SymbolDBEngine * dbe)
@@ -655,9 +655,6 @@ sdb_engine_free_cached_queries (SymbolDBEngine * dbe)
 			node->query = NULL;
 		}
 	}
-
-	/* destroys also dict */
-	g_object_unref (priv->dict);
 }
 
 static gboolean
@@ -682,12 +679,6 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 	g_free (priv->dsn_name);
 	priv->dsn_name = NULL;
 
-	if (priv->dict)
-	{
-		g_object_unref (priv->dict);
-		priv->dict = NULL;
-	}
-	
 	return TRUE;
 }
 
@@ -730,10 +721,9 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 		g_warning ("error in opening ctags file");
 	}
 
-	/* FIXME: disabling transactions due to a crash on libgda. Waiting for fix. */
-/*	gda_connection_begin_transaction (priv->db_connection, NULL, 
+	gda_connection_begin_transaction (priv->db_connection, NULL, 
 									  GDA_TRANSACTION_ISOLATION_READ_UNCOMMITTED, 
-									  NULL);*/
+									  NULL);
 
 	if (sym_timer_DEBUG == NULL)
 		sym_timer_DEBUG = g_timer_new ();
@@ -754,7 +744,7 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	DEBUG_PRINT ("elapsed: %f for (%d) [%f per symbol]", elapsed_DEBUG,
 				 tags_total_DEBUG, elapsed_DEBUG / tags_total_DEBUG);
 	
-/*	gda_connection_commit_transaction (priv->db_connection, NULL, NULL);*/
+	gda_connection_commit_transaction (priv->db_connection, NULL, NULL);
 }
 
 static void
@@ -960,7 +950,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 		g_signal_connect (G_OBJECT (priv->ctags_launcher), "child-exited",
 						  G_CALLBACK (on_scan_files_end_1), NULL);
 
-		exe_string = g_strdup_printf ("%s --fields=afmiKlnsStz "
+		exe_string = g_strdup_printf ("%s --fields=afmiKlnsStz --c++-kinds=+p "
 								  "--filter=yes --filter-terminator='"CTAGS_MARKER"'",
 								  CTAGS_PATH);
 		
@@ -1304,7 +1294,7 @@ sdb_engine_create_db_tables (SymbolDBEngine * dbe, gchar * tables_sql_file)
 	GdaCommand *command;
 	SymbolDBEnginePriv *priv;
 	gchar *contents;
-	gsize size;
+	gsize sizez;
 
 	g_return_val_if_fail (tables_sql_file != NULL, FALSE);
 
@@ -1313,7 +1303,7 @@ sdb_engine_create_db_tables (SymbolDBEngine * dbe, gchar * tables_sql_file)
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 
 	/* read the contents of the file */
-	if (g_file_get_contents (tables_sql_file, &contents, &size, &err) == FALSE)
+	if (g_file_get_contents (tables_sql_file, &contents, &sizez, &err) == FALSE)
 	{
 		g_warning ("Something went wrong while trying to read %s",
 				   tables_sql_file);
@@ -1404,12 +1394,12 @@ symbol_db_engine_open_db (SymbolDBEngine * dbe, const gchar * prj_directory)
 	 * used later again. */
 	priv->dsn_name = dsn_name;
 
-	DEBUG_PRINT ("opening/connecting to database...");
+	DEBUG_PRINT ("symbol_db_engine_open_db (): opening/connecting to database...");
 	sdb_engine_connect_to_db (dbe, priv->data_source);
 
 	if (needs_tables_creation == TRUE)
 	{
-		DEBUG_PRINT ("creating tables: it needs tables...");
+		DEBUG_PRINT ("symbol_db_engine_open_db (): creating tables: it needs tables...");
 		sdb_engine_create_db_tables (dbe, TABLES_SQL);
 	}
 
@@ -1705,17 +1695,22 @@ CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
 	gda_parameter_set_value (param, value);
 
 	/* execute the query with parametes just set */
+	GError *err = NULL;
 	query_result = 
-		gda_query_execute ((GdaQuery *) query, par_list, FALSE, NULL);
+		gda_query_execute ((GdaQuery *) query, par_list, FALSE, &err);
 	gda_value_free (value);
 
+		
 	if (query_result != NULL) 
 	{
 		g_object_unref (query_result);
 		return TRUE;
 	}
-	else
+	else 
+	{
+		DEBUG_PRINT ("Error: %s", err->message);
 		return FALSE;
+	}
 }
 
 /**
@@ -1828,15 +1823,26 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 	
 	if (workspace == NULL)
 	{
-		workspace_name = "anjuta_workspace_default";
-
-		DEBUG_PRINT ("adding default workspace...");
-		if (symbol_db_engine_add_new_workspace (dbe, workspace_name) == FALSE)
+		workspace_name = "anjuta_workspace_default";	
+		
+		DEBUG_PRINT ("adding default workspace... %s", workspace_name);
+		value = gda_value_new (G_TYPE_STRING);
+		g_value_set_string (value, workspace_name);
+		
+		if ((wks_id = sdb_engine_get_table_id_by_unique_name (dbe,
+				 PREP_QUERY_GET_WORKSPACE_ID_BY_UNIQUE_NAME,
+				 "wsname",
+				 value)) <= 0)
 		{
-			DEBUG_PRINT ("Project cannot be added because a default workspace "
-						 "cannot be created");
-			return FALSE;
+			if (symbol_db_engine_add_new_workspace (dbe, workspace_name) == FALSE)
+			{
+				gda_value_free (value);
+				DEBUG_PRINT ("Project cannot be added because a default workspace "
+							 "cannot be created");
+				return FALSE;
+			}
 		}
+		gda_value_free (value);
 	}
 	else
 	{
@@ -1852,7 +1858,7 @@ CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
 				 "wsname",
 				 value)) <= 0)
 	{
-		DEBUG_PRINT ("no workspace id");
+		DEBUG_PRINT ("symbol_db_engine_add_new_project (): no workspace id");
 		gda_value_free (value);
 		return FALSE;
 	}
@@ -2165,7 +2171,8 @@ sdb_prepare_executing_commands (SymbolDBEngine *dbe)
 
 gboolean
 symbol_db_engine_add_new_files (SymbolDBEngine * dbe, const gchar * project,
-								const GPtrArray * files_path, const gchar * language,
+								const GPtrArray * files_path, 
+								const GPtrArray * languages,
 								gboolean scan_symbols)
 {
 	gint i;
@@ -2191,6 +2198,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe, const gchar * project,
 	for (i = 0; i < files_path->len; i++)
 	{
 		gchar *node = (gchar *) g_ptr_array_index (files_path, i);
+		gchar *node_lang = (gchar *) g_ptr_array_index (languages, i);
 		
 		/* test the existance of node file */
 		if (g_file_test (node, G_FILE_TEST_EXISTS) == FALSE)
@@ -2199,7 +2207,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe, const gchar * project,
 			continue;
 		}
 			
-		if (sdb_engine_add_new_file (dbe, project, node, language) == FALSE)
+		if (sdb_engine_add_new_file (dbe, project, node, node_lang) == FALSE)
 		{
 			g_warning ("Error processing file %s", node);
 			return FALSE;
@@ -3638,19 +3646,6 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 
 	g_return_val_if_fail (tag_entry != NULL, -1);
 
-	/* DEBUG
-	if (tag_entry->fields.count > 0)
-	{
-		gint i;
-		for (i = 0; i < tag_entry->fields.count; i++)
-		{
-			DEBUG_PRINT ("tag field [%d] %s %s", i, tag_entry->fields.list[i].key,
-						 tag_entry->fields.list[i].value);
-		}
-	}
-	*/
-	
-	
 	value = gda_value_new (G_TYPE_STRING);
 	if (base_prj_path != NULL)
 	{
@@ -4092,6 +4087,7 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 	{
 		if ((num_rows = gda_data_model_get_n_rows (GDA_DATA_MODEL (query_result))) <= 0)
 		{
+			DEBUG_PRINT ("sdb_engine_detects_removed_ids (): nothing to remove");
 			g_object_unref (query_result);
 			return;
 		}
@@ -4824,7 +4820,6 @@ sdb_engine_walk_down_scope_path (SymbolDBEngine *dbe, const GPtrArray* scope_pat
 	gint scope_path_len;
 	gint i;
 	gchar *query_str;
-	GdaCommand *command;
 	GdaDataModel *data;
 		
 	g_return_val_if_fail (dbe != NULL, FALSE);
@@ -4855,19 +4850,14 @@ sdb_engine_walk_down_scope_path (SymbolDBEngine *dbe, const GPtrArray* scope_pat
 			 (gchar*)g_ptr_array_index (scope_path, i + 1));
 		
 		DEBUG_PRINT ("walk down query is %s", query_str);
-		command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
-					   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
 
-		if ( (data = gda_connection_execute_select_command (priv->db_connection, 
-												command, NULL, NULL)) == NULL ||
-		  	gda_data_model_get_n_rows (data) <= 0 ) 
+		if ( (data = sdb_engine_execute_select_sql (dbe, query_str)) == NULL ||
+		  	gda_data_model_get_n_rows (data) <= 0 )
 		{
-			gda_command_free (command);
 			g_free (query_str);
 			return -1;
 		}
 
-		gda_command_free (command);
 		g_free (query_str);
 		
 		value = gda_data_model_get_value_at (data, 0, 0);
@@ -4900,7 +4890,6 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 {
 	SymbolDBEnginePriv *priv;
 	gchar *query_str;
-	GdaCommand *command;
 	GdaDataModel *data;
 	gint final_definition_id;
 	
@@ -4938,19 +4927,14 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 	}
 	
 	DEBUG_PRINT ("get parents query: %s", query_str);
-	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
-				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
 
-	if ( (data = gda_connection_execute_select_command (priv->db_connection, 
-											command, NULL, NULL)) == NULL ||
+	if ( (data = sdb_engine_execute_select_sql (dbe, query_str)) == NULL ||
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
-		gda_command_free (command);
 		g_free (query_str);
 		return NULL;			  
 	}
 
-	gda_command_free (command);
 	g_free (query_str);
 
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);
@@ -5044,20 +5028,22 @@ sdb_engine_prepare_symbol_info_sql (SymbolDBEngine *dbe, GString *info_data,
 */
 }
 
-/**
- * kind can be NULL. In that case we'll return all the kinds of symbols found
- * at root level [global level].
- */
 SymbolDBEngineIterator *
 symbol_db_engine_get_global_members (SymbolDBEngine *dbe, 
-									const gchar *kind, gint sym_info)
+									const gchar *kind, gboolean group_them,
+									 gint results_limit, gint results_offset,
+								 	gint sym_info)
 {
 	SymbolDBEnginePriv *priv;
-	GdaCommand *command;
 	GdaDataModel *data;
 	GString *info_data;
 	GString *join_data;
 	gchar *query_str;
+	const gchar *group_by_option;
+	gchar *limit = "";
+	gboolean limit_free = FALSE;
+	gchar *offset = "";
+	gboolean offset_free = FALSE;
 
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
@@ -5078,47 +5064,88 @@ symbol_db_engine_get_global_members (SymbolDBEngine *dbe,
 	/* fill info_data and join data with optional sql */
 	sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
 
+	if (group_them == TRUE)
+	{
+		group_by_option = "GROUP BY symbol.name";
+	}
+	else 
+	{
+		group_by_option = "";
+	}
+
+	if (results_limit > 0)
+	{
+		limit = g_strdup_printf ("LIMIT %d", results_limit);
+		limit_free = TRUE;
+	}
+	
+	if (results_offset > 0)
+	{
+		offset = g_strdup_printf ("OFFSET %d", results_offset);
+		offset_free = TRUE;
+	}
+	
 	if (kind == NULL) 
 	{
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id, "
 			"symbol.name, symbol.file_position, symbol.is_file_scope, "
 			"symbol.signature, sym_kind.kind_name %s FROM symbol "
 				"JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id %s "
-				"WHERE scope_id <= 0", info_data->str, join_data->str);
+				"WHERE symbol.scope_id <= 0 %s %s %s", info_data->str, join_data->str,
+									 group_by_option, limit, offset);
+		
 	}
 	else
 	{
 		query_str = g_strdup_printf ("SELECT symbol.symbol_id, symbol.name, "
 			"symbol.file_position, "
-			"symbol.is_file_scope, symbol.signature %s FROM symbol "
+			"symbol.is_file_scope, symbol.signature, sym_kind.kind_name %s FROM symbol "
 				"JOIN sym_kind ON symbol.kind_id = sym_kind.sym_kind_id %s "
-				"WHERE scope_id <= 0 "
-				"AND sym_kind.kind_name = '%s'", info_data->str, join_data->str, 
-									 kind);
+				"WHERE symbol.scope_id <= 0 "
+				"AND sym_kind.kind_name = '%s' %s %s %s", info_data->str, join_data->str, 
+									 kind, group_by_option, limit, offset);
 	}	
 	
+	DEBUG_PRINT ("query is %s", query_str);
+#if 0
+	GdaCommand *command;
 	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
 				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
-	
-/*	DEBUG_PRINT ("query is %s", query_str);*/
+
 	if ( (data = gda_connection_execute_select_command (priv->db_connection, 
 											command, NULL, NULL)) == NULL ||
-	  	gda_data_model_get_n_rows (data) <= 0 ) 
+		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
 		gda_command_free (command);
+		g_free (query_str);
+		return NULL;			  
+	}
+
+//	gda_data_model_dump (data, stdout);
+	gda_command_free (command);	
+#else
+	
+	if (limit_free)
+		g_free (limit);
+	
+	if (offset_free)
+		g_free (offset);
+	
+	if ( (data = sdb_engine_execute_select_sql (dbe, query_str)) == NULL ||
+	  	gda_data_model_get_n_rows (data) <= 0 ) 
+	{
 		g_free (query_str);
 		g_string_free (info_data, FALSE);
 		g_string_free (join_data, FALSE);
 		return NULL;
 	}
-	
-	gda_command_free (command);
+//	gda_data_model_dump (data, stdout);
+#endif
 	g_free (query_str);
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
 	
-	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);	
-	
+	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);
 }
 
 
@@ -5128,7 +5155,10 @@ symbol_db_engine_get_global_members (SymbolDBEngine *dbe,
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe, 
-									gint scope_parent_symbol_id, gint sym_info)
+									gint scope_parent_symbol_id, 
+									gint results_limit,
+									gint results_offset,
+									gint sym_info)
 {
 /*
 select b.* from symbol a, symbol b where a.symbol_id = 348 and 
@@ -5136,10 +5166,13 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 */
 	SymbolDBEnginePriv *priv;
 	gchar *query_str;	
-	GdaCommand *command;
 	GdaDataModel *data;
 	GString *info_data;
 	GString *join_data;
+	gchar *limit = "";
+	gboolean limit_free = FALSE;
+	gchar *offset = "";
+	gboolean offset_free = FALSE;
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
@@ -5158,6 +5191,18 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	/* fill info_data and join data with optional sql */
 	sdb_engine_prepare_symbol_info_sql (dbe, info_data, join_data, sym_info);
 
+	if (results_limit > 0)
+	{
+		limit = g_strdup_printf ("LIMIT %d", results_limit);
+		limit_free = TRUE;
+	}
+	
+	if (results_offset > 0)
+	{
+		offset = g_strdup_printf ("OFFSET %d", results_offset);
+		offset_free = TRUE;
+	}
+	
 	/* ok, beware that we use an 'alias hack' to accomplish compatibility with 
 	 * sdb_engine_prepare_symbol_info_sql () function. In particular we called
 	 * the first joining table 'a', the second one 'symbol', where is the info we
@@ -5167,23 +5212,28 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 		"symbol.file_position, "
 		"symbol.is_file_scope, symbol.signature %s FROM symbol a, symbol symbol "
 		"%s WHERE a.symbol_id = '%d' AND symbol.scope_id = a.scope_definition_id "
-		"AND symbol.scope_id > 0", info_data->str, join_data->str,
-								 scope_parent_symbol_id);
+		"AND symbol.scope_id > 0 %s %s", info_data->str, join_data->str,
+								 scope_parent_symbol_id,
+								 limit, offset);
 	
-/*	DEBUG_PRINT ("DYNAMIC query is %s", query_str);*/
-	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
-				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
+	
 
-	if ( (data = gda_connection_execute_select_command (priv->db_connection, 
-											command, NULL, NULL)) == NULL ||
+/*	DEBUG_PRINT ("symbol_db_engine_get_scope_members_by_symbol_id () query is %s", 
+				 query_str);*/
+
+	if (limit_free)
+		g_free (limit);
+	
+	if (offset_free)
+		g_free (offset);
+
+	if ( (data = sdb_engine_execute_select_sql (dbe, query_str)) == NULL ||
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
-		gda_command_free (command);
 		g_free (query_str);
 		return NULL;			  
 	}
 
-	gda_command_free (command);
 	g_free (query_str);
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
@@ -5221,7 +5271,6 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 */
 	SymbolDBEnginePriv *priv;
 	gchar *query_str;	
-	GdaCommand *command;
 	GdaDataModel *data;
 	gint final_definition_id;
 	GString *info_data;
@@ -5255,19 +5304,14 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 								 final_definition_id);
 	
 /*	DEBUG_PRINT ("DYNAMIC query is %s", query_str);*/
-	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
-				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
 
-	if ( (data = gda_connection_execute_select_command (priv->db_connection, 
-											command, NULL, NULL)) == NULL ||
+	if ( (data = sdb_engine_execute_select_sql (dbe, query_str)) == NULL ||
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
-		gda_command_free (command);
 		g_free (query_str);
 		return NULL;			  
 	}
 
-	gda_command_free (command);
 	g_free (query_str);
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
@@ -5285,7 +5329,6 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 	SymbolDBEnginePriv *priv;
 	gchar *file_escaped;
 	gchar *query_str;
-	GdaCommand *command;
 	GdaDataModel *data;
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
@@ -5308,20 +5351,14 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 
 	DEBUG_PRINT ("current_scope query is %s", query_str);
 	
-	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
-				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
-
-	if ( (data = gda_connection_execute_select_command (priv->db_connection, 
-											command, NULL, NULL)) == NULL ||
+	if ( (data = sdb_engine_execute_select_sql (dbe, query_str)) == NULL ||
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
-		gda_command_free (command);
 		g_free (query_str);
 		g_free (file_escaped);		
 		return NULL;			  
 	}
 
-	gda_command_free (command);
 	g_free (query_str);
 	g_free (file_escaped);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);
@@ -5337,7 +5374,6 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 {
 	SymbolDBEnginePriv *priv;
 	gchar *query_str;	
-	GdaCommand *command;
 	GdaDataModel *data;
 	GString *info_data;
 	GString *join_data;
@@ -5375,19 +5411,14 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 								 file_path + strlen(priv->data_source));
 	
 	DEBUG_PRINT ("symbol_db_engine_get_file_symbols  (): query is %s", query_str);
-	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
-				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
 
-	if ( (data = gda_connection_execute_select_command (priv->db_connection, 
-											command, NULL, NULL)) == NULL ||
+	if ( (data = sdb_engine_execute_select_sql (dbe, query_str)) == NULL ||
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
-		gda_command_free (command);
 		g_free (query_str);
 		return NULL;			  
 	}
 
-	gda_command_free (command);
 	g_free (query_str);
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
@@ -5402,7 +5433,6 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 {
 	SymbolDBEnginePriv *priv;
 	gchar *query_str;	
-	GdaCommand *command;
 	GdaDataModel *data;
 	GString *info_data;
 	GString *join_data;
@@ -5428,25 +5458,19 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 								 sym_id);
 	
 /*	DEBUG_PRINT ("DYNAMIC query is %s", query_str);*/
-	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
-				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
 
-	if ( (data = gda_connection_execute_select_command (priv->db_connection, 
-											command, NULL, NULL)) == NULL ||
+	if ( (data = sdb_engine_execute_select_sql (dbe, query_str)) == NULL ||
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
-		gda_command_free (command);
 		g_free (query_str);
 		return NULL;			  
 	}
 
-	gda_command_free (command);
 	g_free (query_str);
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
 
-	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);	
-	
+	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);		
 }
 
 /* user must free the returned value */
@@ -5493,7 +5517,6 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 {
 	SymbolDBEnginePriv *priv;
 	gchar *query_str;	
-	GdaCommand *command;
 	GdaDataModel *data;
 	GString *info_data;
 	GString *join_data;
@@ -5519,19 +5542,14 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 								 name);
 	
 /*	DEBUG_PRINT ("DYNAMIC query is %s", query_str);*/
-	command = gda_command_new (query_str, GDA_COMMAND_TYPE_SQL,
-				   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
 
-	if ( (data = gda_connection_execute_select_command (priv->db_connection, 
-											command, NULL, NULL)) == NULL ||
+	if ( (data = sdb_engine_execute_select_sql (dbe, query_str)) == NULL ||
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
-		gda_command_free (command);
 		g_free (query_str);
 		return NULL;			  
 	}
 
-	gda_command_free (command);			
 	g_free (query_str);
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);

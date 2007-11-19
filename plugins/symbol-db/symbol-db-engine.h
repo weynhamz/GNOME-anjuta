@@ -148,12 +148,21 @@ symbol_db_engine_close_project (SymbolDBEngine *dbe, const gchar* project_name);
  * @note if some file fails to enter the db the function will return without
  * processing the remaining files.
  * @param files_path requires full path to files on disk. Ctags itself requires that.
- *        it must be something like /path/to/my/foo/file.xyz
+ *        it must be something like "/home/path/to/my/foo/file.xyz". Also it requires
+ *		  a language string to represent the file.
+ *        An example of files_path array composition can be: 
+ *        "/home/user/foo_project/foo1.c", "/home/user/foo_project/foo2.cpp", 
+ * 		  "/home/user/foo_project/foo3.java".
+ * @param languages is an array of 'languages'. It must have the same number of 
+ *		  elments that files_path has. It should be populated like this: "C", "C++",
+ *		  "Java"
+ * 		  This is done to be uniform to the language-manager plugin.
  */
 gboolean 
 symbol_db_engine_add_new_files (SymbolDBEngine *dbe, const gchar* project,
 							    const GPtrArray *files_path,
-								const gchar *language, gboolean scan_symbols);
+								const GPtrArray *languages,
+								gboolean scan_symbols);
 
 /**
  * Update symbols of the whole project. It scans all file symbols etc. 
@@ -189,6 +198,8 @@ symbol_db_engine_update_buffer_symbols (SymbolDBEngine * dbe, const gchar * proj
 
 /**
  * Return full_local_path given a relative-to-db file path.
+ * User must care to free the returned string.
+ * @param db_file Relative path inside project.
  */
 gchar*
 symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* db_file);
@@ -228,7 +239,7 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 
 
 /**
- * scope_path cannot be NULL.
+ * @param scope_path cannot be NULL.
  * scope_path will be something like "scope1_kind", "scope1_name", "scope2_kind", 
  * "scope2_name", NULL 
  */
@@ -238,12 +249,18 @@ symbol_db_engine_get_scope_members (SymbolDBEngine *dbe,
 									gint sym_info);
 
 /**
- * kind can be NULL. In that case we'll return all the kinds of symbols found
+ * @param kind Can be NULL. In that case we'll return all the kinds of symbols found
  * at root level [global level].
+ * @param group_them If TRUE then will be issued a 'group by symbol.name' option.
+ * If FALSE you can have as result more symbols with the same name but different
+ * symbols id. See for example more namespaces declared on different files.
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_global_members (SymbolDBEngine *dbe, 
-									const gchar *kind, gint sym_info);
+									const gchar *kind, gboolean group_them,
+									 gint results_limit, gint results_offset,
+								 	gint sym_info);
+
 
 SymbolDBEngineIterator *
 symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe, 
@@ -267,7 +284,10 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
  */
 SymbolDBEngineIterator *
 symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe, 
-									gint scope_parent_symbol_id, gint sym_info);
+									gint scope_parent_symbol_id, 
+									gint results_limit,
+									gint results_offset,
+									gint sym_info);
 
 /** 
  * No iterator for now. We need the quickest query possible.
