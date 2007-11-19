@@ -40,7 +40,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-valgrind.ui"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-valgrind.glade"
-#define ICON_FILE PACKAGE_PIXMAPS_DIR"/anjuta-valgrind.png"
+#define ICON_FILE "anjuta-valgrind-plugin-48.png"
 
 
 enum {
@@ -63,10 +63,9 @@ register_stock_icons (AnjutaPlugin *plugin)
 
 	/* Register stock icons */
 	BEGIN_REGISTER_ICON (plugin);
-	REGISTER_ICON ("anjuta-valgrind-knight.png", "valgrind-knight");
+	REGISTER_ICON (ICON_FILE, "valgrind-knight");
 	END_REGISTER_ICON;
 }
-
 
 static void
 project_root_added (AnjutaPlugin *plugin, const gchar *name,
@@ -654,7 +653,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	valgrind->general_prefs = valgrind_plugin_prefs_get_anj_prefs ();
 	valgrind->val_prefs = valgrind_plugin_prefs_new ();
 
-	pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);
+	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ICON_FILE, NULL);
 
 	g_object_ref(valgrind->general_prefs);
 	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (anjuta_preferences_get_dialog (prefs)),

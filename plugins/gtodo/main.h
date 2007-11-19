@@ -7,6 +7,8 @@
 // #include <libgtodo/libgtodo.h>
 #include <libgtodo.h>
 
+#define ICON_FILE "anjuta-gtodo-plugin-48.png"
+
 int  get_all_due_dates();
 xmlNodePtr  get_id_node(gchar *category, gint id);
 extern GtkWidget *window;

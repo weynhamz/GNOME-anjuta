@@ -2,5 +2,5 @@
 _Name=Terminal
 _Description=Terminal Plugin for Anjuta.
 Location=anjuta-terminal:TerminalPlugin
-Icon=anjuta-terminal-plugin.png
+Icon=anjuta-terminal-plugin-48.png
 Interfaces=IAnjutaTerminal

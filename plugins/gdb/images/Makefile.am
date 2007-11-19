@@ -4,7 +4,6 @@ imagesdir = $(anjuta_image_dir)
 images_DATA = \
 	breakpoint.png \
 	locals.png \
-	stack.png \
-	watch.png
+	stack.png
 
 EXTRA_DIST = $(images_DATA)

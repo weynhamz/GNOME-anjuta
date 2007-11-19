@@ -22,6 +22,9 @@ images_DATA = \
 	anjuta-breakpoint-clear-24.png \
 	anjuta-linemark-16.png \
 	anjuta-pcmark-16.png \
-	anjuta-bookmark-16.png
+	anjuta-bookmark-16.png \
+	anjuta-watch-16.png \
+	anjuta-watch-24.png \
+	anjuta-watch.svg
 
 EXTRA_DIST = $(images_DATA)

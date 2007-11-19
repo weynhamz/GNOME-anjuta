@@ -5,8 +5,8 @@ terminal_glade_DATA = anjuta-terminal-plugin.glade
 # Plugin Icon file
 terminal_pixmapsdir = $(anjuta_image_dir)
 terminal_pixmaps_DATA = \
-	anjuta-terminal-plugin.png \
-	preferences-terminal.png
+	anjuta-terminal-plugin.svg \
+	anjuta-terminal-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-terminal.plugin.in

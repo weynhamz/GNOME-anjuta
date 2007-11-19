@@ -10,7 +10,8 @@ tools_ui_DATA = anjuta-tools.ui
 # Plugin pixmaps
 tools_pixmapsdir = $(anjuta_image_dir)
 tools_pixmaps_DATA = \
-	anjuta-tools-plugin.png
+	anjuta-tools-plugin.svg \
+	anjuta-tools-plugin-48.png
 
 # Plugin Icon file
 plugin_in_files = anjuta-tools.plugin.in

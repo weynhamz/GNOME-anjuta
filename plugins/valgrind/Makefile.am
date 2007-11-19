@@ -11,8 +11,9 @@ valgrind_glade_DATA = anjuta-valgrind.glade
 
 # Plugin Icon file
 valgrind_pixmapsdir = $(anjuta_image_dir)
-valgrind_pixmaps_DATA = anjuta-valgrind.png \
-						anjuta-valgrind-knight.png
+valgrind_pixmaps_DATA = \
+	anjuta-valgrind-plugin.svg \
+	anjuta-valgrind-plugin-48.png
 
 # Plugin description file
 plugin_in_files = anjuta-valgrind.plugin.in

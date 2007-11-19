@@ -32,7 +32,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-terminal.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-terminal-plugin.glade"
-#define ICON_FILE "preferences-terminal.png"
+#define ICON_FILE "anjuta-terminal-plugin-48.png"
 
 /* Some desktop/gnome-terminal gconf keys. */
 #define GCONF_MONOSPACE_FONT      "/desktop/gnome/interface/monospace_font_name"

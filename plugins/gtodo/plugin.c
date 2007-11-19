@@ -30,7 +30,6 @@
 #include "plugin.h"
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-gtodo.ui"
-#define ICON_FILE PACKAGE_PIXMAPS_DIR"/anjuta-gtodo-plugin.png"
 
 static gpointer parent_class;
 
@@ -276,7 +275,7 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	GTodoPlugin* gtodo_plugin = ANJUTA_PLUGIN_GTODO (ipref); 
 	GdkPixbuf *pixbuf;
 	
-	pixbuf = gdk_pixbuf_new_from_file (ICON_FILE, NULL);
+	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ICON_FILE, NULL);
 	gtodo_plugin->prefs = preferences_widget();
 	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (anjuta_preferences_get_dialog (prefs)), 
 										"GTodo",

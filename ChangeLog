@@ -1,10 +1,40 @@
+2007-11-19  Naba Kumar  <naba.kumar@gnome.org>
+
+	Icons from tpgww@onepost.net:
+	* plugins/debug-manager/images/Makefile.am:
+	* plugins/debug-manager/images/anjuta-watch.svg:
+	* plugins/debug-manager/plugin.c: (register_stock_icons):
+	* plugins/gdb/images/Makefile.am:
+	* plugins/gtodo/Makefile.am:
+	* plugins/gtodo/anjuta-gtodo-plugin.svg:
+	* plugins/gtodo/anjuta-gtodo.plugin.in:
+	* plugins/gtodo/interface.c: (stock_icons):
+	* plugins/gtodo/main.h:
+	* plugins/gtodo/plugin.c: (ipreferences_merge):
+	* plugins/terminal/Makefile.am:
+	* plugins/terminal/anjuta-terminal-plugin.svg:
+	* plugins/terminal/anjuta-terminal.plugin.in:
+	* plugins/terminal/terminal.c:
+	* plugins/tools/Makefile.am:
+	* plugins/tools/anjuta-tools-plugin.svg:
+	* plugins/tools/anjuta-tools.plugin.in:
+	* plugins/tools/plugin.c:
+	* plugins/valgrind/Makefile.am:
+	* plugins/valgrind/anjuta-valgrind-plugin.svg:
+	* plugins/valgrind/anjuta-valgrind.plugin.in:
+	* plugins/valgrind/plugin.c: (register_stock_icons),
+	(ipreferences_merge):
+
+	Icons from patch in bug #480093 comment #23. Also renamed icons.
+	To be continued..
+
 2007-11-18  Massimo Cora'   <maxcvs@email.it>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>
 
 	* configure.in:
-  required gda version to 3.1.3. [svn trunk]. Without this Anjuta can crash
-  due to bug #493360. Still present anyway bug #495843
+	required gda version to 3.1.3. [svn trunk]. Without this Anjuta can crash
+	due to bug #493360. Still present anyway bug #495843
 
 	* plugins/symbol-db/plugin.c: (goto_local_tree_iter),
 	(goto_global_tree_iter), (on_treesearch_symbol_selected_event),
@@ -59,10 +89,10 @@
 	(get_scope_members), (get_current_scope), (get_global_members),
 	(get_file_symbols), (get_info_by_id), (main):
 
-  Rewrote symbol-db-view global tab. Now every expandable node is a query.
-  Started using LIMIT keyword to speed up things.
-  Deprecated GdaCommand in favour of GdaQuery into engine. This should
-  make providers use prepared statements.
+	Rewrote symbol-db-view global tab. Now every expandable node is a query.
+	Started using LIMIT keyword to speed up things.
+	Deprecated GdaCommand in favour of GdaQuery into engine. This should
+	make providers use prepared statements.
 
 2007-11-19  Naba Kumar  <naba.kumar@gnome.org>
 

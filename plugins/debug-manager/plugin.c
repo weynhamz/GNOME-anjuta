@@ -129,7 +129,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 		REGISTER_ICON (ICON_FILE, "debugger-icon");
         REGISTER_ICON ("stack.png", "gdb-stack-icon");
         REGISTER_ICON ("locals.png", "gdb-locals-icon");
-        REGISTER_ICON ("watch.png", "gdb-watch-icon");
+        REGISTER_ICON_FULL ("anjuta-watch", "gdb-watch-icon");
         REGISTER_ICON_FULL ("anjuta-breakpoint-toggle", "gdb-breakpoint-toggle");
         REGISTER_ICON_FULL ("anjuta-breakpoint-clear", "gdb-breakpoint-clear");		
     	/* We have no -24 version for the next two */

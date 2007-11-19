@@ -99,7 +99,7 @@ R7: Tool Storage
 
 /*---------------------------------------------------------------------------*/
 
-#define ICON_FILE "anjuta-tools-plugin.png"
+#define ICON_FILE "anjuta-tools-plugin-48.png"
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-tools.ui"
 
 /*---------------------------------------------------------------------------*/

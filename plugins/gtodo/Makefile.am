@@ -8,10 +8,10 @@ gtodo_data_DATA = gtodo.css gtodo.xsl
 # Plugin pixmaps
 gtodo_pixmapsdir = $(anjuta_image_dir)
 gtodo_pixmaps_DATA = \
-	anjuta-gtodo-plugin.png\
-	gtodo.png\
-	gtodo_tray.png\
-	gtodo-about.png\
+	anjuta-gtodo-plugin.svg \
+	anjuta-gtodo-plugin-48.png \
+	gtodo_tray.png \
+	gtodo-about.png \
 	gtodo-edit.png
 
 # Plugin Icon file
