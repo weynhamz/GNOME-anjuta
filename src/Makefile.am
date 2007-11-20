@@ -9,6 +9,12 @@ anjuta_ui_DATA = anjuta.ui anjuta-shell.ui
 anjuta_layoutdir = $(anjuta_data_dir)
 anjuta_layout_DATA = layout.xml
 
+anjuta_pixmapsdir = $(anjuta_image_dir)
+
+anjuta_pixmaps_DATA = \
+	anjuta-preferences-general.svg \
+	anjuta-preferences-general-48.png
+
 INCLUDES = \
 	$(GNOME_UI_CFLAGS)\
 	$(GDL_CFLAGS)\

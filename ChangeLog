@@ -1,3 +1,16 @@
+2007-11-20  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/Makefile.am: Remove duplicate 'profiler' in SUBDIRS.
+
+	Icons from tpgww@onepost.net:
+	* pixmaps/Makefile.am:
+	* src/Makefile.am:
+	* src/anjuta-app.c:
+	* src/anjuta-preferences-general.svg:
+
+	Icons from patch in bug #480093 comment #23. Also renamed icons.
+	To be continued..
+
 2007-11-19  Naba Kumar  <naba.kumar@gnome.org>
 
 	Icons from tpgww@onepost.net:

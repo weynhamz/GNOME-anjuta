@@ -27,7 +27,6 @@ anjuta_pixmaps_DATA = \
 	directory.png \
 	directory-accept.png \
 	password.png \
-	preferences-general.png \
 	start-with-import.png 
 
 anjuta_glade_pixmapsdir = $(anjuta_glade_dir)

@@ -29,7 +29,6 @@ SUBDIRS = . \
 	sourceview \
 	language-support-cpp-java \
 	glade \
-	profiler \
 	devhelp \
 	profiler \
 	language-manager \

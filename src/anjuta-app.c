@@ -50,7 +50,7 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta.ui"
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta.glade"
-#define ICON_FILE "preferences-general.png"
+#define ICON_FILE "anjuta-preferences-general-48.png"
 
 #define DOCK_PH_LEFT    "ph_left"
 #define DOCK_PH_RIGHT   "ph_right"
