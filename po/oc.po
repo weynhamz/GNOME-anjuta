@@ -1,21 +1,24 @@
+# translation of oc.po to Occitan
 # Occitan translation of anjuta.
-# Copyright (C) 2001-2006 Free Software Foundation, Inc.
+# Copyright (C) 2001-2006, 2007 Free Software Foundation, Inc.
 # This file is under the same licence as the anjuta package.
 #
 # Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org> - 2006-2007
 #
+# Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta 2.0.2\n"
+"Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-13 17:45+0200\n"
-"PO-Revision-Date: 2007-10-14 11:38+0200\n"
-"Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
-"Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
+"PO-Revision-Date: 2007-11-20 14:29+0100\n"
+"Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
+"Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);"
+"Plural-Forms: nplurals=2; plural=(n > 1);X-Generator: KBabel 1.11.4\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -129,7 +132,7 @@ msgstr "Romanian"
 #: ../plugins/sourceview/anjuta-encodings.c:186
 #: ../plugins/sourceview/anjuta-encodings.c:188
 msgid "Unicode"
-msgstr ""
+msgstr "Unicode"
 
 #: ../libanjuta/anjuta-encodings.c:180
 #: ../plugins/sourceview/anjuta-encodings.c:191
@@ -569,7 +572,7 @@ msgstr "Camin:"
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
 #: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
-msgstr ""
+msgstr "Exécuter dans un terminal"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
 msgid "Select execution program and args"
@@ -671,7 +674,7 @@ msgstr ""
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1375
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1541
 msgid "_Build"
-msgstr ""
+msgstr "_Construction"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1267
 msgid "_Build Project"
@@ -1004,7 +1007,7 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:29
 msgid "gtk-cancel"
-msgstr ""
+msgstr "gtk-cancel"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:30
 msgid "gtk-remove"
@@ -1304,7 +1307,7 @@ msgstr "Vendeire"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:443
 msgid "Release"
-msgstr ""
+msgstr "Version"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:447
 msgid "Directory"
@@ -1902,7 +1905,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:829 ../plugins/valgrind/plugin.c:448
 msgid "_Debug"
-msgstr ""
+msgstr "_Déboguer"
 
 #: ../plugins/debug-manager/plugin.c:837
 msgid "_Start Debugger"
@@ -2141,7 +2144,7 @@ msgstr "Senhal"
 
 #: ../plugins/debug-manager/signals.c:336
 msgid "Stop"
-msgstr "Arrèst"
+msgstr "Arrestar"
 
 #: ../plugins/debug-manager/signals.c:340 ../plugins/editor/print.c:1031
 #: ../plugins/sourceview/sourceview-print.c:90
@@ -2416,12 +2419,12 @@ msgstr "Tampar lo fichièr"
 #: ../plugins/file-loader/plugin.c:505 ../plugins/file-loader/plugin.c:768
 #: ../plugins/file-loader/plugin.c:778 ../plugins/file-loader/plugin.c:791
 msgid "Open file"
-msgstr ""
+msgstr "Dobrir un fichièr"
 
 #: ../plugins/document-manager/anjuta-docman.c:332
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
-msgstr ""
+msgstr "Enregistrar lo fichièr coma"
 
 #: ../plugins/document-manager/anjuta-docman.c:404
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:386
@@ -2559,7 +2562,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:159
 msgid "Close All"
-msgstr ""
+msgstr "Tout fermer"
 
 #: ../plugins/document-manager/plugin.c:160
 msgid "Close all files"
@@ -2585,7 +2588,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:168
 msgid "Recent _Files"
-msgstr ""
+msgstr "_Fichièrs recents"
 
 #: ../plugins/document-manager/plugin.c:172
 msgid "_Print..."
@@ -2662,7 +2665,7 @@ msgstr "_Seleccionar"
 
 #: ../plugins/document-manager/plugin.c:215
 msgid "Select _All"
-msgstr "_Tot seleccionar"
+msgstr "Seleccionar un fichièr"
 
 #: ../plugins/document-manager/plugin.c:216
 msgid "Select all text in the editor"
@@ -2820,7 +2823,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:289
 msgid "C_ut"
-msgstr ""
+msgstr "C_opar"
 
 #: ../plugins/document-manager/plugin.c:290
 msgid "Cut the selected text from the editor to the clipboard"
@@ -2910,7 +2913,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:334
 msgid "Zoom In"
-msgstr ""
+msgstr "Agrandir lo zoom"
 
 #: ../plugins/document-manager/plugin.c:335
 msgid "Zoom in: Increase font size"
@@ -2918,7 +2921,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:337
 msgid "Zoom Out"
-msgstr ""
+msgstr "Reduire el zoom"
 
 #: ../plugins/document-manager/plugin.c:338
 msgid "Zoom out: Decrease font size"
@@ -3081,7 +3084,7 @@ msgstr "INS"
 #: ../plugins/document-manager/plugin.c:916
 #: ../plugins/document-manager/plugin.c:927
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: ../plugins/document-manager/plugin.c:918
 #: ../plugins/document-manager/plugin.c:929
@@ -3112,7 +3115,7 @@ msgstr ""
 
 #: ../plugins/document-manager/search-box.c:433
 msgid "Case sensitive"
-msgstr ""
+msgstr "Respectar la cassa"
 
 #: ../plugins/editor/editor.glade.h:1
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
@@ -3346,7 +3349,7 @@ msgstr ""
 #: ../plugins/editor/editor.glade.h:56
 #: ../plugins/sourceview/sourceview.glade.h:22
 msgid "Printing"
-msgstr "Estampatge"
+msgstr "Estampatge..."
 
 #: ../plugins/editor/editor.glade.h:57
 msgid "Select highlight style to edit:"
@@ -3642,7 +3645,7 @@ msgstr ""
 #: ../plugins/editor/text_editor_menu.c:320 ../plugins/gdb/utilities.c:328
 #: ../plugins/profiler/plugin.c:718
 msgid "Debug"
-msgstr ""
+msgstr "Débogage"
 
 #. 15
 #: ../plugins/editor/text_editor_menu.c:330 ../plugins/valgrind/plugin.c:148
@@ -3680,7 +3683,7 @@ msgstr ""
 
 #: ../plugins/file-loader/plugin.c:162
 msgid "Open with:"
-msgstr ""
+msgstr "Dobrir amb :"
 
 #. Document manager plugin
 #: ../plugins/file-loader/plugin.c:170
@@ -4062,7 +4065,7 @@ msgstr ""
 
 #: ../plugins/glade/plugin.c:457
 msgid "Widgets"
-msgstr ""
+msgstr "Largor"
 
 #: ../plugins/glade/plugin.c:462
 msgid "Palette"
@@ -4760,7 +4763,7 @@ msgstr ""
 
 #: ../plugins/gtodo/tray-icon.c:26
 msgid "/_Quit"
-msgstr ""
+msgstr "/_Sortir"
 
 #: ../plugins/gtodo/tray-icon.c:74 ../plugins/gtodo/tray-icon.c:132
 msgid "Todo List"
@@ -4885,8 +4888,7 @@ msgid "Cuddle Else"
 msgstr ""
 
 #: ../plugins/indent/indent.glade.h:27
-msgid ""
-"Cuddle up to the immediately preceding '}' in an if-then-else construct."
+msgid "Cuddle up to the immediately preceding '}' in an if-then-else construct."
 msgstr ""
 
 #: ../plugins/indent/indent.glade.h:28
@@ -4934,8 +4936,7 @@ msgid "Force a space between a 'for' and the following parenthesis (default)."
 msgstr ""
 
 #: ../plugins/indent/indent.glade.h:39
-msgid ""
-"Force a space between a 'while' and the following parenthesis (default)."
+msgid "Force a space between a 'while' and the following parenthesis (default)."
 msgstr ""
 
 #: ../plugins/indent/indent.glade.h:40
@@ -5012,8 +5013,7 @@ msgid "Place a space after a cast operator."
 msgstr ""
 
 #: ../plugins/indent/indent.glade.h:58
-msgid ""
-"Place a space between the name of the procedure being called and the '('."
+msgid "Place a space between the name of the procedure being called and the '('."
 msgstr ""
 
 #: ../plugins/indent/indent.glade.h:59
@@ -5220,7 +5220,7 @@ msgstr "Editar..."
 
 #: ../plugins/macro/anjuta-macro.glade.h:7
 msgid "Name: "
-msgstr "Nom : "
+msgstr "Nom :"
 
 #: ../plugins/macro/anjuta-macro.glade.h:8
 msgid "Shortcut:"
@@ -5300,7 +5300,7 @@ msgstr ""
 
 #: ../plugins/macro/macros.xml.h:12
 msgid "Copyright"
-msgstr "Copyright"
+msgstr "Copyright :"
 
 #: ../plugins/macro/macros.xml.h:13
 msgid "Date_Time"
@@ -5514,7 +5514,7 @@ msgstr ""
 
 #: ../plugins/message-view/plugin.c:73
 msgid "_Next Message"
-msgstr ""
+msgstr "Messatge _seguent"
 
 #: ../plugins/message-view/plugin.c:74
 msgid "Next message"
@@ -5608,7 +5608,7 @@ msgstr ""
 #: ../plugins/profiler/gprof-call-graph-view.c:377
 #: ../plugins/profiler/gprof-call-graph-view.c:385
 msgid "Children"
-msgstr ""
+msgstr "Enfant"
 
 #: ../plugins/profiler/gprof-call-graph-view.c:394
 #: ../plugins/profiler/gprof-call-graph-view.c:402
@@ -5669,7 +5669,7 @@ msgstr ""
 #. Stock icon, if any
 #: ../plugins/profiler/plugin.c:742
 msgid "Refresh"
-msgstr "Actualisar"
+msgstr "Actualizar"
 
 #. Action name
 #. Stock icon, if any
@@ -5731,7 +5731,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.glade.h:6
 msgid "Browse..."
-msgstr ""
+msgstr "Examinar..."
 
 #: ../plugins/profiler/profiler.glade.h:8
 msgid "Do not propagate time for these symbols:"
@@ -5977,7 +5977,7 @@ msgstr "_Apondre al projècte"
 
 #: ../plugins/project-manager/plugin.c:786
 msgid "Add _Group"
-msgstr ""
+msgstr "Apondre un _grop"
 
 #: ../plugins/project-manager/plugin.c:791
 msgid "Add _Target"
@@ -6054,7 +6054,7 @@ msgstr ""
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
 msgid "Author:"
-msgstr "Autor :"
+msgstr "Ancora"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:6
 msgid "Basic Information"
@@ -6245,7 +6245,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:20
 msgid "Email address:"
-msgstr ""
+msgstr "Adreça electronica :"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
 msgid "GCJ needs to know which class contains the main() function"
@@ -6670,8 +6670,7 @@ msgid "Find and R_eplace..."
 msgstr ""
 
 #: ../plugins/search/plugin.c:198
-msgid ""
-"Search for and replace a string or regular expression with another string"
+msgid "Search for and replace a string or regular expression with another string"
 msgstr ""
 
 #: ../plugins/search/plugin.c:200
@@ -6778,7 +6777,7 @@ msgstr ""
 
 #: ../plugins/search/search-replace.c:320
 msgid "Find: "
-msgstr ""
+msgstr "Recercar : "
 
 #: ../plugins/search/search-replace.c:478
 msgid "Replace"
@@ -6829,7 +6828,7 @@ msgstr ""
 
 #: ../plugins/sourceview/anjuta-encodings.c:441
 msgid "Unknown"
-msgstr ""
+msgstr "Desconegut"
 
 #: ../plugins/sourceview/sourceview.c:309
 msgid "Loading"
@@ -6858,7 +6857,7 @@ msgstr ""
 
 #: ../plugins/sourceview/sourceview.glade.h:8
 msgid "Background:"
-msgstr ""
+msgstr "Fons :"
 
 #: ../plugins/sourceview/sourceview.glade.h:12
 msgid "Enable VFS file monitoring"
@@ -7585,8 +7584,7 @@ msgid "Valgrind"
 msgstr ""
 
 #: ../plugins/valgrind/plugin.c:343
-msgid ""
-"No executable target selected for debugging with Valgrind.Please select one."
+msgid "No executable target selected for debugging with Valgrind.Please select one."
 msgstr ""
 
 #: ../plugins/valgrind/plugin.c:352
@@ -7713,11 +7711,11 @@ msgstr ""
 
 #: ../plugins/valgrind/vgdefaultview.c:190
 msgid "Error contains"
-msgstr ""
+msgstr "L'error conten"
 
 #: ../plugins/valgrind/vgdefaultview.c:191
 msgid "Function contains"
-msgstr ""
+msgstr "La foncion conten"
 
 #: ../plugins/valgrind/vgdefaultview.c:192
 msgid "Object contains"
@@ -7753,7 +7751,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vgdefaultview.c:1158
 msgid "Edit in Custom Editor"
-msgstr ""
+msgstr "Modificar dins un editor personalisat"
 
 #: ../plugins/valgrind/vggeneralprefs.c:178
 msgid "Demangle c++ symbol names"
@@ -7761,7 +7759,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vggeneralprefs.c:186
 msgid "Show"
-msgstr "Visualizar"
+msgstr "Mostrar"
 
 #: ../plugins/valgrind/vggeneralprefs.c:198
 msgid "callers in stack trace"
@@ -7853,7 +7851,7 @@ msgstr ""
 
 #: ../plugins/valgrind/vgrule-editor.c:201
 msgid "Shrink"
-msgstr ""
+msgstr "Reduire"
 
 #: ../plugins/valgrind/vgrule-editor.c:227
 msgid "Rule name:"
@@ -8087,7 +8085,7 @@ msgstr "Acorchis"
 #: ../src/anjuta-app.c:868 ../src/shell.c:232
 #, c-format
 msgid "Value doesn't exist"
-msgstr ""
+msgstr "La valeur n'existe pas"
 
 #: ../src/anjuta-callbacks.c:48
 msgid "Could not open file for writing"
@@ -8359,7 +8357,7 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools.plugin.in.h:3
 msgid "Execute"
-msgstr ""
+msgstr "Executar"
 
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:2
 msgid "Terminal Plugin for Anjuta."
@@ -8415,7 +8413,7 @@ msgstr ""
 
 #: ../plugins/profiler/profiler.plugin.in.h:2
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: ../plugins/search/anjuta-search.plugin.in.h:1
 msgid "Component for searching"
@@ -8423,7 +8421,7 @@ msgstr ""
 
 #: ../plugins/search/anjuta-search.plugin.in.h:2
 msgid "Searching"
-msgstr ""
+msgstr "Recèrca"
 
 #: ../plugins/class-gen/anjuta-class-gen.plugin.in.h:1
 msgid "Anjuta Class Generator Plugin"
@@ -8473,192 +8471,3 @@ msgstr ""
 msgid "Debug Manager plugin."
 msgstr ""
 
-#~ msgid "    "
-#~ msgstr "    "
-
-#~ msgid "Build"
-#~ msgstr "Version"
-
-#~ msgid "Commands"
-#~ msgstr "Comandas"
-
-#~ msgid "Configuration"
-#~ msgstr "Configuracion"
-
-#~ msgid "Directories"
-#~ msgstr "Repertòris"
-
-#~ msgid "Format"
-#~ msgstr "Format"
-
-#~ msgid "Modules"
-#~ msgstr "Moduls"
-
-#~ msgid "Open Project"
-#~ msgstr "Dobrir un projècte"
-
-#~ msgid "Others"
-#~ msgstr "Autres"
-
-#~ msgid "Programs"
-#~ msgstr "Programas"
-
-#~ msgid "Settings"
-#~ msgstr "Paramètres"
-
-#~ msgid "_Language:"
-#~ msgstr "_Lenga :"
-
-#~ msgid "_Terminal:"
-#~ msgstr "_Terminal :"
-
-#~ msgid "Model"
-#~ msgstr "Modèl"
-
-#~ msgid "Width"
-#~ msgstr "Largor"
-
-#~ msgid "Could not parse \"%s\" as an integer"
-#~ msgstr "Impossible d'analisar '%s' coma entièr"
-
-#~ msgid "Integer %ld must be positive"
-#~ msgstr "L'entièr %ld deu èsser positiu"
-
-#~ msgid "Compile"
-#~ msgstr "Compilar"
-
-#~ msgid "Warning"
-#~ msgstr "Alèrta"
-
-#~ msgid "Configure"
-#~ msgstr "Configurar"
-
-#~ msgid "Add to current Project?"
-#~ msgstr "Apondre al projècte actiu ?"
-
-#~ msgid "Contents"
-#~ msgstr "Somari"
-
-#~ msgid "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-#~ msgstr "*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp"
-
-#~ msgid "*\\.*"
-#~ msgstr "*\\.*"
-
-#~ msgid "<b>Theme</b>"
-#~ msgstr "<b>Tèma</b>"
-
-#~ msgid "Arrows"
-#~ msgstr "Sagetas"
-
-#~ msgid "Bottom"
-#~ msgstr "Inferior"
-
-#~ msgid "Left"
-#~ msgstr "Esquèrra"
-
-#~ msgid "Right"
-#~ msgstr "Drecha"
-
-#~ msgid "Top"
-#~ msgstr "Superior"
-
-#~ msgid "_Save Theme As"
-#~ msgstr "_Enregistrar lo tèma coma"
-
-#~ msgid "For_mat"
-#~ msgstr "For_mat"
-
-#~ msgid "_New..."
-#~ msgstr "_Novèl..."
-
-#~ msgid "Choose files"
-#~ msgstr "Causir de fichièrs"
-
-#~ msgid "Directory "
-#~ msgstr "Repertòri "
-
-#~ msgid "_Insert text"
-#~ msgstr "_Inserir de tèxt"
-
-#~ msgid "_General"
-#~ msgstr "_General"
-
-#~ msgid "_Header"
-#~ msgstr "_Encap"
-
-#~ msgid "Current _Date & Time"
-#~ msgstr "_Data e ora actualas"
-
-#~ msgid "_Author"
-#~ msgstr "_Autor"
-
-#~ msgid "_Date"
-#~ msgstr "_Data"
-
-#~ msgid "_Name"
-#~ msgstr "_Nom"
-
-#~ msgid "Binary"
-#~ msgstr "Binari"
-
-#~ msgid "Clear"
-#~ msgstr "Netejar"
-
-#~ msgid "_Undo: %s"
-#~ msgstr "_Anullar : %s"
-
-#~ msgid "_Undo"
-#~ msgstr "_Anullar"
-
-#~ msgid "_Close without Saving"
-#~ msgstr "_Tampar sens enregistrar"
-
-#~ msgid "_Glade"
-#~ msgstr "_Glade"
-
-#~ msgid "Paste selection"
-#~ msgstr "Pegar la seleccion"
-
-#~ msgid "_Delete"
-#~ msgstr "_Suprimir"
-
-#~ msgid "Clos_e"
-#~ msgstr "Tamp_ar"
-
-#~ msgid "/Item/_Add"
-#~ msgstr "/Element/_Apondre"
-
-#~ msgid "/Item/_Edit"
-#~ msgstr "/Element/_Modificar"
-
-#~ msgid "/Item/_Remove"
-#~ msgstr "/Element/_Suprimir"
-
-#~ msgid "/_View"
-#~ msgstr "/_Visualizacion"
-
-#~ msgid "/_Help"
-#~ msgstr "/_Ajuda"
-
-#~ msgid "/Help/_About"
-#~ msgstr "/Ajuda/_A prepaus"
-
-#~ msgid "About gToDo"
-#~ msgstr "A prepaus de gToDo"
-
-#~ msgid "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
-#~ msgstr "Copyright © 2003-2004 Qball Cow (Qball@qball.homelinux.org)"
-
-#~ msgid ""
-#~ "\n"
-#~ "<b>Comment:</b>\t%s"
-#~ msgstr ""
-#~ "\n"
-#~ "<b>Comentari :</b>\t%s"
-
-#~ msgid "Pick a color"
-#~ msgstr "Causissètz una color"
-
-#~ msgid "%d"
-#~ msgstr "%d"
