@@ -30,27 +30,34 @@
 static void
 on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* data)
 {	
+	GtkWidget *diff_path_entry;
+	GtkWidget *diff_no_recursive_check;
+	GtkWidget *diff_revision_entry;
+	GtkWidget *diff_save_open_files_check;
+	const gchar *path;
+	const gchar *revision_text;
+	glong revision;
+	IAnjutaDocumentManager *docman;
+	gchar *filename;
+	gchar *editor_name;
+	IAnjutaEditor *editor;
+	SvnDiffCommand *diff_command;
+	guint pulse_timer_id;
+	
 	switch (response)
 	{
 		case GTK_RESPONSE_OK:
 		{
-			IAnjutaDocumentManager *docman;
-			gchar *filename;
-			gchar *editor_name;
-			IAnjutaEditor *editor;
-			const gchar* revision_text;
-			glong revision;
-		
-			GtkWidget* norecurse;
-			GtkWidget* revisionentry;
-			GtkWidget* fileentry = glade_xml_get_widget(data->gxml, "subversion_filename");
-			const gchar* path = g_strdup(gtk_entry_get_text(GTK_ENTRY(fileentry)));
-			SvnDiffCommand *diff_command;
-			guint pulse_timer_id;
-			
-			norecurse = glade_xml_get_widget(data->gxml, "subversion_norecurse");
-			revisionentry = glade_xml_get_widget(data->gxml, "subversion_revision");
-			revision_text = gtk_entry_get_text(GTK_ENTRY(revisionentry));
+			diff_path_entry = glade_xml_get_widget (data->gxml, 
+													"diff_path_entry");
+			diff_no_recursive_check = glade_xml_get_widget (data->gxml, 
+															"diff_no_recursive_check");
+			diff_revision_entry = glade_xml_get_widget (data->gxml, 
+														"diff_revision_entry");
+			diff_save_open_files_check = glade_xml_get_widget (data->gxml,
+															   "diff_save_open_files_check");
+			path = g_strdup (gtk_entry_get_text (GTK_ENTRY (diff_path_entry)));
+			revision_text = gtk_entry_get_text (GTK_ENTRY (diff_revision_entry));
 			revision = atol (revision_text);
 			
 			if (!check_filename(dialog, path))
@@ -70,7 +77,7 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 			diff_command = svn_diff_command_new ((gchar *) path, 
 												 SVN_DIFF_REVISION_NONE,
 												 SVN_DIFF_REVISION_NONE,
-												 !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(norecurse)));
+												 !gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (diff_no_recursive_check)));
 			
 			pulse_timer_id = status_bar_progress_pulse (data->plugin,
 														_("Subversion: " 
@@ -90,6 +97,9 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 							  G_CALLBACK (send_diff_command_output_to_editor),
 							  editor);
 			
+			if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (diff_save_open_files_check)))
+				ianjuta_file_savable_save (IANJUTA_FILE_SAVABLE (docman), NULL);
+			
 			anjuta_command_start (ANJUTA_COMMAND (diff_command));
 			
 			subversion_data_free(data);
@@ -106,32 +116,39 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 }
 
 static void
-subversion_diff_dialog (GtkAction* action, Subversion* plugin, gchar *filename)
+subversion_diff_dialog (GtkAction *action, Subversion *plugin, gchar *filename)
 {
-	GladeXML* gxml;
-	GtkWidget* dialog; 
-	GtkWidget* fileentry;
-	GtkWidget* project;
-	SubversionData* data;
+	GladeXML *gxml;
+	GtkWidget *subversion_diff; 
+	GtkWidget *diff_path_entry;
+	GtkWidget *diff_whole_project_check;
+	SubversionData *data;
 	
-	gxml = glade_xml_new(GLADE_FILE, "subversion_diff", NULL);
+	gxml = glade_xml_new (GLADE_FILE, "subversion_diff", NULL);
+	subversion_diff = glade_xml_get_widget(gxml, "subversion_diff");
+	diff_path_entry = glade_xml_get_widget(gxml, "diff_path_entry");
+	diff_whole_project_check = glade_xml_get_widget(gxml, 
+													"diff_whole_project_check");
+	data = subversion_data_new (plugin, gxml);
 	
-	dialog = glade_xml_get_widget(gxml, "subversion_diff");
-	fileentry = glade_xml_get_widget(gxml, "subversion_filename");
+	g_object_set_data (G_OBJECT (diff_whole_project_check), "fileentry", 
+					   diff_path_entry);
+	
 	if (filename)
-		gtk_entry_set_text(GTK_ENTRY(fileentry), filename);
+		gtk_entry_set_text (GTK_ENTRY (diff_path_entry), filename);
 	
-	project = glade_xml_get_widget(gxml, "subversion_project");
-	g_object_set_data (G_OBJECT (project), "fileentry", fileentry);
-	g_signal_connect(G_OBJECT(project), "toggled", 
-		G_CALLBACK(on_whole_project_toggled), plugin);
-	init_whole_project(plugin, project, !filename);
 	
-	data = subversion_data_new(plugin, gxml);
-	g_signal_connect(G_OBJECT(dialog), "response", 
-		G_CALLBACK(on_subversion_diff_response), data);
+	g_signal_connect(G_OBJECT (diff_whole_project_check), "toggled", 
+					 G_CALLBACK (on_whole_project_toggled), 
+					 plugin);
+	init_whole_project (plugin, diff_whole_project_check, !filename);
 	
-	gtk_widget_show(dialog);
+	
+	g_signal_connect (G_OBJECT (subversion_diff), "response", 
+					  G_CALLBACK (on_subversion_diff_response), 
+					  data);
+	
+	gtk_widget_show (subversion_diff);
 }
 
 void 
