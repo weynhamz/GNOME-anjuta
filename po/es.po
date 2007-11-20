@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-18 12:47+0000\n"
-"PO-Revision-Date: 2007-11-18 23:07+0100\n"
+"POT-Creation-Date: 2007-11-20 13:26+0000\n"
+"PO-Revision-Date: 2007-11-20 22:13+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1106,14 +1106,14 @@ msgid "<b>Module Details:</b>"
 msgstr "<b>Detalles del módulo:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
-#: ../plugins/subversion/anjuta-subversion.glade.h:7
+#: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "<b>Options:</b>"
 msgstr "<b>Opciones:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
 #: ../plugins/search/anjuta-search.glade.h:13
 #: ../plugins/sourceview/sourceview.glade.h:4
-#: ../plugins/subversion/anjuta-subversion.glade.h:8
+#: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "<b>Options</b>"
 msgstr "<b>Opciones</b>"
 
@@ -1184,7 +1184,7 @@ msgid "CVSROOT:"
 msgstr "CVSROOT:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
-#: ../plugins/subversion/anjuta-subversion.glade.h:20
+#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Choose file or directory to add:"
 msgstr "Elegir archivo o directorio para añadir:"
 
@@ -1193,7 +1193,6 @@ msgid "Choose file or directory to commit:"
 msgstr "Elija un archivo o directorio que efectuar:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
-#: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Choose file or directory to diff:"
 msgstr "Elija el archivo o directorio del que sacar diferencias:"
 
@@ -1294,7 +1293,7 @@ msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-#: ../plugins/subversion/anjuta-subversion.glade.h:56
+#: ../plugins/subversion/anjuta-subversion.glade.h:57
 msgid "Use revision/tag: "
 msgstr "Usar revisión/etiqueta"
 
@@ -1303,7 +1302,7 @@ msgid "Use revision: "
 msgstr "Usar revisión: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:57
+#: ../plugins/subversion/anjuta-subversion.glade.h:58
 msgid "Username: "
 msgstr "Usuario: "
 
@@ -1312,7 +1311,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta del fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:61
+#: ../plugins/subversion/anjuta-subversion.glade.h:62
 msgid "Whole project"
 msgstr "Proyecto completo"
 
@@ -1959,7 +1958,7 @@ msgstr "El programa ha recibido la señal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:810 ../plugins/valgrind/plugin.c:438
+#: ../plugins/debug-manager/plugin.c:810 ../plugins/valgrind/plugin.c:437
 msgid "_Debug"
 msgstr "_Depurar"
 
@@ -2444,7 +2443,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1668
 #: ../plugins/search/search-replace.c:1680
 #: ../plugins/search/search-replace.c:1994
-#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:927
+#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:994
 msgid "Search"
 msgstr "Buscar"
 
@@ -2486,7 +2485,7 @@ msgid "Save file as"
 msgstr "Guardar archivo como"
 
 #: ../plugins/document-manager/anjuta-docman.c:404
-#: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:376
+#: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
 "The file '%s' already exists.\n"
@@ -2496,7 +2495,7 @@ msgstr ""
 "¿Desea sobreescribirlo con el que está intentando guardar?"
 
 #: ../plugins/document-manager/anjuta-docman.c:412
-#: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:384
+#: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 #: ../src/anjuta-callbacks.c:79
 msgid "_Replace"
 msgstr "_Reemplazar"
@@ -3728,7 +3727,7 @@ msgid "Debug"
 msgstr "Depurar"
 
 #. 15
-#: ../plugins/editor/text_editor_menu.c:330 ../plugins/valgrind/plugin.c:138
+#: ../plugins/editor/text_editor_menu.c:330 ../plugins/valgrind/plugin.c:137
 msgid "Options"
 msgstr "Opciones"
 
@@ -3907,6 +3906,7 @@ msgstr "Directorio raíz si no hay ningún proyecto abierto: "
 
 #: ../plugins/file-manager/file-model.c:150
 #: ../plugins/symbol-browser/an_symbol_view.c:869
+#: ../plugins/symbol-db/symbol-db-view.c:801
 msgid "Loading..."
 msgstr "Cargando…"
 
@@ -4710,47 +4710,47 @@ msgstr "El siguiente elemento está caducado:"
 msgid "_Do not show again"
 msgstr "_No mostrar de nuevo"
 
-#: ../plugins/gtodo/plugin.c:65
+#: ../plugins/gtodo/plugin.c:64
 msgid "_Tasks"
 msgstr "_Tareas"
 
-#: ../plugins/gtodo/plugin.c:74
+#: ../plugins/gtodo/plugin.c:73
 msgid "Hide _Completed Items"
 msgstr "Ocultar elementos _completados"
 
-#: ../plugins/gtodo/plugin.c:76
+#: ../plugins/gtodo/plugin.c:75
 msgid "Hide completed todo items"
 msgstr "Ocultar elementos completados"
 
-#: ../plugins/gtodo/plugin.c:83
+#: ../plugins/gtodo/plugin.c:82
 msgid "Hide Items Past _Due Date"
 msgstr "Ocultar elementos posteriores a su fecha de _vencimiento"
 
-#: ../plugins/gtodo/plugin.c:85
+#: ../plugins/gtodo/plugin.c:84
 msgid "Hide items that are past due date"
 msgstr "Ocultar elementos que tengan una fecha de vencimiento pasada"
 
-#: ../plugins/gtodo/plugin.c:92
+#: ../plugins/gtodo/plugin.c:91
 msgid "Hide Items Without _End Date"
 msgstr "Ocultar elementos sin una fecha de finalización"
 
-#: ../plugins/gtodo/plugin.c:94
+#: ../plugins/gtodo/plugin.c:93
 msgid "Hide items without an end date"
 msgstr "Ocultar elementos sin una fecha de terminación"
 
-#: ../plugins/gtodo/plugin.c:163
+#: ../plugins/gtodo/plugin.c:162
 msgid "Tasks manager"
 msgstr "Administrador de tareas"
 
-#: ../plugins/gtodo/plugin.c:169
+#: ../plugins/gtodo/plugin.c:168
 msgid "Tasks manager view"
 msgstr "Vista del administrador de tareas"
 
-#: ../plugins/gtodo/plugin.c:175
+#: ../plugins/gtodo/plugin.c:174
 msgid "Tasks"
 msgstr "Tareas"
 
-#: ../plugins/gtodo/plugin.c:283 ../plugins/gtodo/plugin.c:292
+#: ../plugins/gtodo/plugin.c:282 ../plugins/gtodo/plugin.c:291
 msgid "Todo Manager"
 msgstr "Gestión de pendientes"
 
@@ -5553,7 +5553,7 @@ msgstr "switch"
 msgid "while"
 msgstr "while"
 
-#: ../plugins/macro/plugin.c:34
+#: ../plugins/macro/plugin.c:34 ../plugins/symbol-db/symbol-db-view.c:1409
 msgid "Macros"
 msgstr "Macros"
 
@@ -5825,7 +5825,7 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/profiler/plugin.c:726 ../plugins/profiler/plugin.c:846
+#: ../plugins/profiler/plugin.c:726 ../plugins/profiler/plugin.c:845
 #: ../plugins/profiler/profiler.plugin.in.h:3
 msgid "Profiler"
 msgstr "Perfilador"
@@ -5848,23 +5848,23 @@ msgstr "Refrescar"
 msgid "Delete Data"
 msgstr "Borrar datos"
 
-#: ../plugins/profiler/plugin.c:801
+#: ../plugins/profiler/plugin.c:800
 msgid "Application Performance Profiler"
 msgstr "Perfilador del rendimiento de la aplicación"
 
-#: ../plugins/profiler/plugin.c:823
+#: ../plugins/profiler/plugin.c:822
 msgid "Flat Profile"
 msgstr "Perfil plano"
 
-#: ../plugins/profiler/plugin.c:828 ../plugins/profiler/profiler.glade.h:7
+#: ../plugins/profiler/plugin.c:827 ../plugins/profiler/profiler.glade.h:7
 msgid "Call Graph"
 msgstr "Gráfica de llamadas"
 
-#: ../plugins/profiler/plugin.c:833
+#: ../plugins/profiler/plugin.c:832
 msgid "Function Call Tree"
 msgstr "Árbol de llamadas de funciones"
 
-#: ../plugins/profiler/plugin.c:840
+#: ../plugins/profiler/plugin.c:839
 msgid "Function Call Chart"
 msgstr "Gráfica de las llamadas a funciones"
 
@@ -5901,7 +5901,7 @@ msgid "Automatically refresh profile data display"
 msgstr "Refrescar automáticamente el monitor de los datos del perfil"
 
 #: ../plugins/profiler/profiler.glade.h:6
-#: ../plugins/subversion/anjuta-subversion.glade.h:19
+#: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Browse..."
 msgstr "Examinar…"
 
@@ -7156,54 +7156,58 @@ msgid "<b>End Revision:</b>"
 msgstr "<b>Revisión de fin:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:4
+msgid "<b>File or directory to diff:</b>"
+msgstr "<b>Archivo o directorio para hacer un diff:</b>"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:5
 msgid "<b>File/URL to Remove:</b>"
 msgstr "<b>Archivo/URL que eliminar:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:5
+#: ../plugins/subversion/anjuta-subversion.glade.h:6
 msgid "<b>First Path:</b>"
 msgstr "<b>Primera ruta:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:6
+#: ../plugins/subversion/anjuta-subversion.glade.h:7
 msgid "<b>Log Message:</b>"
 msgstr "<b>Mensaje de registro:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:9
+#: ../plugins/subversion/anjuta-subversion.glade.h:10
 msgid "<b>Revision:</b>"
 msgstr "<b>Revisión:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:10
+#: ../plugins/subversion/anjuta-subversion.glade.h:11
 msgid "<b>Second Path:</b>"
 msgstr "<b>Segunda ruta:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:11
+#: ../plugins/subversion/anjuta-subversion.glade.h:12
 msgid "<b>Select Changes to Revert:</b>"
 msgstr "<b>Seleccione los cambios que revertir:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:12
+#: ../plugins/subversion/anjuta-subversion.glade.h:13
 msgid "<b>Select Files to Commit:</b>"
 msgstr "<b>Seleccione archivos para subir:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:13
+#: ../plugins/subversion/anjuta-subversion.glade.h:14
 msgid "<b>Select Files to Mark as Resolved:</b>"
 msgstr "<b>Seleccione archivos para marcar como resueltos:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:14
+#: ../plugins/subversion/anjuta-subversion.glade.h:15
 msgid "<b>Source/Destination Paths:</b>"
 msgstr "<b>Rutas de orígen/destino:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:15
+#: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "<b>Start Revision:</b>"
 msgstr "<b>Revisión de inicio:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:16
+#: ../plugins/subversion/anjuta-subversion.glade.h:17
 msgid "<b>Subversion Options</b>"
 msgstr "<b>Opciones de subversion</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:17
+#: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "<b>View the Log for File/Folder:</b>"
 msgstr "<b>Ver el registro para el/la archivo/carpeta:</b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:18
+#: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "<b>Working Copy Path:</b>"
 msgstr "<b>Ruta a la copia de trabajo:</b>"
 
@@ -7268,82 +7272,86 @@ msgid "Revision:"
 msgstr "Revisión:"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:41
+msgid "Save open files before diffing"
+msgstr "Guardar los archivos abiertos antes de hacer el diff"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:42
 msgid "Source:"
 msgstr "Orígen:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:42
+#: ../plugins/subversion/anjuta-subversion.glade.h:43
 msgid "Subversion Preferences"
 msgstr "Preferencias de Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:43
+#: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Subversion: Add file/directory"
 msgstr "Subversion: Añadir archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:44
+#: ../plugins/subversion/anjuta-subversion.glade.h:45
 msgid "Subversion: Commit Changes"
 msgstr "Subversion: Efectuar cambios"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:45
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
 msgid "Subversion: Copy files/folders"
 msgstr "Subversion: Copiar archivos/carpetas"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
+#: ../plugins/subversion/anjuta-subversion.glade.h:47
 msgid "Subversion: Diff file/directory"
 msgstr "Subversion: Diff de archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:47
+#: ../plugins/subversion/anjuta-subversion.glade.h:48
 msgid "Subversion: Merge changes into working copy"
 msgstr "Subversion: Mezclar cambios en la copia de trabajo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:48
+#: ../plugins/subversion/anjuta-subversion.glade.h:49
 msgid "Subversion: Remove file/directory"
 msgstr "Subversion: Eliminar archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:49
+#: ../plugins/subversion/anjuta-subversion.glade.h:50
 msgid "Subversion: Revert Changes"
 msgstr "Subversion: Revertir cambios"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:50
+#: ../plugins/subversion/anjuta-subversion.glade.h:51
 msgid "Subversion: Set Conflicts as Resolved"
 msgstr "Subversion: Establecer conflictos como resueltos"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:51
+#: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "Subversion: Switch to branch/tag"
 msgstr "Subversion: Cambiar a la rama/etiqueta"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:52
+#: ../plugins/subversion/anjuta-subversion.glade.h:53
 msgid "Subversion: Update file/directory"
 msgstr "Subversion: Actualizar archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:53
+#: ../plugins/subversion/anjuta-subversion.glade.h:54
 msgid "TODO!"
 msgstr "¡Por hacer!"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:54
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Trust server"
 msgstr "Confiar en el servidor"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:55
+#: ../plugins/subversion/anjuta-subversion.glade.h:56
 msgid "Use first path"
 msgstr "Usar la primera ruta"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:58
+#: ../plugins/subversion/anjuta-subversion.glade.h:59
 msgid "View Log"
 msgstr "Ver el registro"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:59
+#: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "View Selected Revision"
 msgstr "Ver la revisión seleccionada"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:60
+#: ../plugins/subversion/anjuta-subversion.glade.h:61
 msgid "Whole Project"
 msgstr "Proyecto completo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:62
+#: ../plugins/subversion/anjuta-subversion.glade.h:63
 msgid "Working Copy"
 msgstr "Copia de trabajo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:63
+#: ../plugins/subversion/anjuta-subversion.glade.h:64
 msgid "realm"
 msgstr "reino"
 
@@ -7525,15 +7533,9 @@ msgstr "Subversion: Efectuando los cambios sobre el repositorio…"
 msgid "Subversion: Copy complete."
 msgstr "Subversion: Copia completada."
 
-#: ../plugins/subversion/subversion-diff-dialog.c:64
-#: ../plugins/subversion/subversion-log-dialog.c:394
-#: ../plugins/subversion/subversion-log-dialog.c:446
-msgid "svn.diff"
-msgstr "svn.diff"
-
-#: ../plugins/subversion/subversion-diff-dialog.c:74
-#: ../plugins/subversion/subversion-log-dialog.c:398
-#: ../plugins/subversion/subversion-log-dialog.c:450
+#: ../plugins/subversion/subversion-diff-dialog.c:83
+#: ../plugins/subversion/subversion-log-dialog.c:413
+#: ../plugins/subversion/subversion-log-dialog.c:473
 msgid "Subversion: Retrieving diff..."
 msgstr "Subversion: Obteniendo Diff…"
 
@@ -7545,7 +7547,7 @@ msgstr "Subversion: Obteniendo el registro…"
 msgid "Subversion: File retrieved."
 msgstr "Subversion: Archivo obtenido."
 
-#: ../plugins/subversion/subversion-log-dialog.c:342
+#: ../plugins/subversion/subversion-log-dialog.c:343
 msgid "Subversion: Retrieving file..."
 msgstr "Subversion: Obteniendo archivo…"
 
@@ -7575,7 +7577,7 @@ msgstr "Subversion: Cambio completado."
 msgid "Subversion"
 msgstr "Subversión"
 
-#: ../plugins/subversion/subversion-ui-utils.c:292
+#: ../plugins/subversion/subversion-ui-utils.c:315
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Diff completado."
 
@@ -7667,7 +7669,7 @@ msgstr "Obstruídos: %s"
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
 #: ../plugins/symbol-browser/an_symbol_view.c:565
 #: ../plugins/symbol-db/symbol-db-view-locals.c:132
-#: ../plugins/symbol-db/symbol-db-view.c:438
+#: ../plugins/symbol-db/symbol-db-view.c:986
 msgid "Symbol"
 msgstr "Símbolo"
 
@@ -7781,15 +7783,15 @@ msgstr "Buscar uso del símbolo en el proyecto"
 msgid "Refresh symbol browser tree"
 msgstr "Refrescar el árbol del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:388 ../plugins/symbol-db/plugin.c:779
+#: ../plugins/symbol-browser/plugin.c:388 ../plugins/symbol-db/plugin.c:846
 msgid "Created symbols..."
 msgstr "Símbolos creados…"
 
-#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:889
+#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:956
 msgid "Local"
 msgstr "Local"
 
-#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:910
+#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:977
 msgid "Global"
 msgstr "Global"
 
@@ -7813,9 +7815,41 @@ msgstr "Seleccione el símbolo al que quiere ir"
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:965
+#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:1032
 msgid "Symbols"
 msgstr "Símbolos"
+
+#: ../plugins/symbol-db/symbol-db-view.c:1318
+msgid "Namespaces"
+msgstr "Espacios de nombres"
+
+#: ../plugins/symbol-db/symbol-db-view.c:1334
+msgid "Classes"
+msgstr "Clases"
+
+#: ../plugins/symbol-db/symbol-db-view.c:1349
+msgid "Structs"
+msgstr "Estructuras"
+
+#: ../plugins/symbol-db/symbol-db-view.c:1364
+msgid "Unions"
+msgstr "Uniones"
+
+#: ../plugins/symbol-db/symbol-db-view.c:1379
+msgid "Functions"
+msgstr "Funciones"
+
+#: ../plugins/symbol-db/symbol-db-view.c:1394
+msgid "Variables"
+msgstr "Variables"
+
+#: ../plugins/symbol-db/symbol-db-view.c:1424
+msgid "Typedefs"
+msgstr "Definiciones de tipo"
+
+#: ../plugins/symbol-db/symbol-db-view.c:1439
+msgid "Enumerators"
+msgstr "Enumeradores"
 
 #: ../plugins/symbol-db/symbol-db.glade.h:1
 msgid "Anjuta Plugin User Interface"
@@ -8072,22 +8106,22 @@ msgstr "Herramienta de selección:"
 msgid "Select Valgrind Target"
 msgstr "Seleccione el objetivo Valgrind"
 
-#: ../plugins/valgrind/plugin.c:251
+#: ../plugins/valgrind/plugin.c:250
 msgid "Select debugging target"
 msgstr "Seleccione el objetivo de depuración"
 
-#: ../plugins/valgrind/plugin.c:305 ../plugins/valgrind/plugin.c:426
-#: ../plugins/valgrind/plugin.c:661 ../plugins/valgrind/plugin.c:671
+#: ../plugins/valgrind/plugin.c:304 ../plugins/valgrind/plugin.c:425
+#: ../plugins/valgrind/plugin.c:660 ../plugins/valgrind/plugin.c:670
 msgid "Valgrind"
 msgstr "Valgrind"
 
-#: ../plugins/valgrind/plugin.c:333
+#: ../plugins/valgrind/plugin.c:332
 msgid "No executable target selected for debugging with Valgrind.Please select one."
 msgstr ""
 "no se ha seleccionado un objetivo ejecutable para depurar con Valgrind. "
 "Seleccione uno."
 
-#: ../plugins/valgrind/plugin.c:342
+#: ../plugins/valgrind/plugin.c:341
 msgid ""
 "There aren't any available executable targets for this project.\n"
 "Please create one first."
@@ -8095,51 +8129,51 @@ msgstr ""
 "No hay ningún objetivo ejecutable disponible para este proyecto.\n"
 "Cree uno primero."
 
-#: ../plugins/valgrind/plugin.c:354
+#: ../plugins/valgrind/plugin.c:353
 msgid "Choose file where to save Valgrind log"
 msgstr "Elija el archivo donde guardar el registro de Valgrind"
 
-#: ../plugins/valgrind/plugin.c:404
+#: ../plugins/valgrind/plugin.c:403
 msgid "Open Valgrind log file"
 msgstr "Abrir archivo de registros Valgrind"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:446
+#: ../plugins/valgrind/plugin.c:445
 msgid "_Valgrind"
 msgstr "_Valgrind"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:454
+#: ../plugins/valgrind/plugin.c:453
 msgid "_Select Tool and Run..."
 msgstr "_Seleccionar herramienta y ejecutar…"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:462
+#: ../plugins/valgrind/plugin.c:461
 msgid "_Kill Execution"
 msgstr "_Matar ejecución"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:470
+#: ../plugins/valgrind/plugin.c:469
 msgid "_Load Log"
 msgstr "_Cargar registro"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:478
+#: ../plugins/valgrind/plugin.c:477
 msgid "S_ave Log"
 msgstr "Guardar _registro"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/valgrind/plugin.c:486
+#: ../plugins/valgrind/plugin.c:485
 msgid "Edit Rules"
 msgstr "Editar reglas"
 
-#: ../plugins/valgrind/plugin.c:551
+#: ../plugins/valgrind/plugin.c:550
 msgid "Use Valgrind debug tool"
 msgstr "Usar herramienta de depuración Valgrind"
 
