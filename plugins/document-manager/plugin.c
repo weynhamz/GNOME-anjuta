@@ -605,8 +605,10 @@ update_editor_ui_disable_all (AnjutaPlugin *plugin)
 		{
 			action = anjuta_ui_get_action (ui, action_groups[i].name,
 										   action_groups[i].group[j].name);
-			if (action_groups[i].group[j].callback)
+			if (action_groups[i].group[j].callback &&
+				strcmp (action_groups[i].group[j].name, "ActionFileNew") != 0)
 			{
+				/* Disable all but ActoinFileNew actions */
 				g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
 			}
 		}
@@ -659,12 +661,13 @@ update_editor_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *editor)
 	/* Check if it is a C or C++ file */
 	if (language && flag)
 	{
-
-		
 		const gchar* lang_name =
-			ianjuta_language_get_name_from_editor (language, IANJUTA_EDITOR_LANGUAGE (editor), NULL);
+			ianjuta_language_get_name_from_editor (language,
+												   IANJUTA_EDITOR_LANGUAGE (editor),
+												   NULL);
 		
-		if (lang_name && (g_str_equal (lang_name, "C") || g_str_equal (lang_name, "C++")))
+		if (lang_name && (g_str_equal (lang_name, "C") ||
+						  g_str_equal (lang_name, "C++")))
 		{
 			flag = TRUE;
 		}

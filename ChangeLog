@@ -1,5 +1,12 @@
 2007-11-21  Naba Kumar  <naba.kumar@gnome.org>
 
+	* plugins/document-manager/plugin.c:
+	(update_editor_ui_disable_all), (update_editor_ui_interface_items):
+	Do not insensitize New action when there is no document.
+	Indentation fixes.
+
+2007-11-21  Naba Kumar  <naba.kumar@gnome.org>
+
 	Icons from tpgww@onepost.net:
 	* plugins/symbol-browser/an_symbol_prefs.c:
 	* pixmaps/Makefile.am:
