@@ -1,5 +1,9 @@
 2007-11-21  Naba Kumar  <naba.kumar@gnome.org>
 
+	* plugins/message-view/Makefile.am:
+	* plugins/message-view/plugin.c: (register_stock_icons),
+	(ipreferences_merge): Removed redundant icon.
+
 	* plugins/document-manager/plugin.c:
 	(update_editor_ui_disable_all), (update_editor_ui_interface_items):
 	Do not insensitize New action when there is no document.

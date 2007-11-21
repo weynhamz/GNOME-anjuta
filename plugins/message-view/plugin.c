@@ -29,7 +29,6 @@
 
 #define UI_FILE PACKAGE_DATA_DIR"/ui/anjuta-message-manager.ui"
 #define PREFS_GLADE PACKAGE_DATA_DIR"/glade/anjuta-message-manager-plugin.glade"
-#define ICON_FILE "preferences-messages.png"
 
 /* Pixmaps */
 #define ANJUTA_PIXMAP_MESSAGES                "anjuta-messages-plugin-48.png"
@@ -109,7 +108,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 
 	/* Register stock icons */
 	BEGIN_REGISTER_ICON (plugin);
-	REGISTER_ICON (ICON_FILE, "message-manager-plugin-icon");
+	REGISTER_ICON (ANJUTA_PIXMAP_MESSAGES, "message-manager-plugin-icon");
 	REGISTER_ICON (ANJUTA_PIXMAP_MESSAGES, ANJUTA_STOCK_MESSAGES);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_NEXT_MESSAGE, ANJUTA_STOCK_NEXT_MESSAGE);
 	REGISTER_ICON_FULL (ANJUTA_PIXMAP_PREV_MESSAGE, ANJUTA_STOCK_PREV_MESSAGE);
@@ -391,7 +390,8 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 		/* Create the messages preferences page */
 		gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog_messages", NULL);
 		anjuta_preferences_add_page (prefs, gxml,
-									"Messages", _("Messages"), ICON_FILE);
+									"Messages", _("Messages"),
+									 ANJUTA_PIXMAP_MESSAGES);
 		notify_id = anjuta_preferences_notify_add (prefs, MESSAGES_TABS_POS, 
 			on_gconf_notify_message_pref, plugin->msgman, NULL);
 		

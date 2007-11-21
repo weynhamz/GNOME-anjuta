@@ -6,7 +6,6 @@ message_view_pixmapsdir = $(anjuta_image_dir)
 message_view_pixmaps_DATA = \
 	anjuta-messages-plugin.svg \
 	anjuta-messages-plugin-48.png \
-	preferences-messages.png \
 	anjuta-go-message-prev-16.png \
 	anjuta-go-message-prev-24.png \
 	anjuta-go-message-next-16.png \
