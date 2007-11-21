@@ -1,5 +1,9 @@
 2007-11-21  Naba Kumar  <naba.kumar@gnome.org>
 
+	Icons from tpgww@onepost.net:
+	* plugins/project-wizard/applogo.png:
+	Icons from patch in bug #480093 comment #23. Also renamed icons.
+
 	* plugins/message-view/Makefile.am:
 	* plugins/message-view/plugin.c: (register_stock_icons),
 	(ipreferences_merge): Removed redundant icon.
