@@ -11,14 +11,13 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-13 17:45+0200\n"
-"PO-Revision-Date: 2007-11-20 14:29+0100\n"
+"PO-Revision-Date: 2007-11-21 18:09+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);X-Generator: KBabel 1.11.4\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);X-Generator: KBabel 1.11.4"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -554,7 +553,7 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
 msgid "Arguments: "
-msgstr ""
+msgstr "Arguments : "
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 msgid "Highlight build message locations in editor"
@@ -904,7 +903,7 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
 msgid "Add to Project"
-msgstr ""
+msgstr "Apondre al projècte"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
 msgid "Add to Repository"
@@ -2201,7 +2200,7 @@ msgstr "Encastre"
 
 #: ../plugins/debug-manager/stack_trace.c:661
 msgid "Arguments"
-msgstr ""
+msgstr "Arguments"
 
 #: ../plugins/debug-manager/stack_trace.c:685
 msgid "Stack"
@@ -4104,7 +4103,7 @@ msgstr ""
 
 #: ../plugins/gtodo/add_edit_item.c:110
 msgid "Add Item"
-msgstr ""
+msgstr "Apondre un element"
 
 #: ../plugins/gtodo/add_edit_item.c:113
 msgid "Edit Item"
