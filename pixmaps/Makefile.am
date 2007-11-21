@@ -21,6 +21,8 @@ update-icon-cache:
 anjuta_pixmapsdir = $(anjuta_image_dir)
 
 anjuta_pixmaps_DATA = \
+	madeinanjuta.xcf \
+	anjuta.svg \
 	anjuta.png \
 	anjuta_logo.png \
 	anjuta_splash.png \

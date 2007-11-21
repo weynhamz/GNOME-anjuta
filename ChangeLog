@@ -1,5 +1,14 @@
 2007-11-21  Naba Kumar  <naba.kumar@gnome.org>
 
+	Icons from tpgww@onepost.net:
+	* pixmaps/Makefile.am:
+	* pixmaps/anjuta.png, pixmaps/anjuta_logo.png, pixmaps/anjuta.svg:
+
+	Icons from patch in bug #480093 comment #23. Also renamed icons.
+	To be continued..
+
+2007-11-21  Naba Kumar  <naba.kumar@gnome.org>
+
 	Patch from James Liggett:
 	* plugins/subversion/anjuta-subversion.glade: Make commit, resolve,
 	revert and dialogs resizable.
