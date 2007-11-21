@@ -1,6 +1,7 @@
 2007-11-21  Naba Kumar  <naba.kumar@gnome.org>
 
 	Icons from tpgww@onepost.net:
+	* plugins/symbol-browser/an_symbol_prefs.c:
 	* pixmaps/Makefile.am:
 	* pixmaps/anjuta.png, pixmaps/anjuta_logo.png, pixmaps/anjuta.svg:
 

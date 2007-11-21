@@ -33,7 +33,7 @@
 #include "tm_tagmanager.h"
 
 #define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-symbol-browser-plugin.glade"
-#define ICON_FILE "anjuta-symbol-browser-plugin.png"
+#define ICON_FILE "anjuta-symbol-browser-plugin-48.png"
 #define LOCAL_TAGS_DIR ".anjuta/tags"
 #define SYSTEM_TAGS_CACHE ".anjuta/system-tags.cache"
 #define SYMBOL_BROWSER_TAGS "symbol.browser.tags"
