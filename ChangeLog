@@ -1,3 +1,9 @@
+2007-11-21  Naba Kumar  <naba.kumar@gnome.org>
+
+	Patch from James Liggett:
+	* plugins/subversion/anjuta-subversion.glade: Make commit, resolve,
+	revert and dialogs resizable.
+
 2007-11-20  Naba Kumar  <naba.kumar@gnome.org>
 
 	Patch from James Liggett:
