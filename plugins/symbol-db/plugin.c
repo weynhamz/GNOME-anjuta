@@ -1029,7 +1029,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 #endif	
 	/* Added widgets */
 	anjuta_shell_add_widget (plugin->shell, symbol_db->dbv_notebook,
-							 "SymbolDBView", _("Symbols"),
+							 "AnjutaSymbolBrowser", _("Symbols"),
 							 "symbol-db-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);	
 

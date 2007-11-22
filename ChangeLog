@@ -1,3 +1,9 @@
+2007-11-22  Naba Kumar  <naba.kumar@gnome.org>
+
+	* plugins/subversion/plugin.c: (activate_plugin):
+	* plugins/symbol-db/plugin.c: (symbol_db_activate):
+	* src/layout.xml: Fixed dockitem positions.
+
 2007-11-21  Naba Kumar  <naba.kumar@gnome.org>
 
 	Icons from tpgww@onepost.net:

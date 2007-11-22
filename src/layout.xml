@@ -27,6 +27,7 @@
 								<item name="AnjutaSamplePlugin" orientation="horizontal" locked="no"/>
 								<item name="AnjutaGladeEditor" orientation="horizontal" locked="no"/>
 								<item name="AnjutaDebuggerMemory" orientation="horizontal" locked="no"/>
+								<item name="AnjutaSubversionLogViewer" orientation="horizontal" locked="no"/>
 								<placeholder name="ph_center" next-placement="center"/>
 							</notebook>
 						</paned>

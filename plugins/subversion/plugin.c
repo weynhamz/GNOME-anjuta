@@ -469,7 +469,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	
 	subversion->log_viewer = subversion_log_window_create (subversion);
 	anjuta_shell_add_widget (plugin->shell, subversion->log_viewer,
-							 "Subversion Log Viewer", 
+							 "AnjutaSubversionLogViewer", 
 							 _("Subversion Log"),
 							 GTK_STOCK_ZOOM_100,
 							 ANJUTA_SHELL_PLACEMENT_CENTER,
