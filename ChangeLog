@@ -1,3 +1,8 @@
+2007-11-23  Jaap Haitsma  <jaap@haitsma.org>
+
+	* plugins/document-manager/plugin.c:
+	Use Ctrl+Shift+s as shortcut for Save As
+
 2007-11-22  Naba Kumar  <naba.kumar@gnome.org>
 
 	* plugins/subversion/plugin.c: (activate_plugin):

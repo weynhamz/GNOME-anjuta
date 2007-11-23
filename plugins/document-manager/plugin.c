@@ -156,7 +156,7 @@ static GtkActionEntry actions_file[] = {
     G_CALLBACK (on_new_file_activate)},
   { "ActionFileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>s",
 	N_("Save current file"), G_CALLBACK (on_save_activate)},
-  { "ActionFileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."), NULL,
+  { "ActionFileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _As..."),  "<shift><control>s",
 	N_("Save the current file with a different name"),
     G_CALLBACK (on_save_as_activate)},
   { "ActionFileSaveAll", NULL, N_("Save A_ll"), NULL,
