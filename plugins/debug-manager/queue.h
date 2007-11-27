@@ -28,6 +28,8 @@
 #include "command.h"
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
 
 #include <glib.h>
 
@@ -35,8 +37,14 @@ typedef enum
 {
 	HAS_CPU = 1 << 0,
 	HAS_BREAKPOINT = 1 << 1,
-	HAS_VARIABLE = 1 << 2
-} DmaDebuggerFeature;
+	HAS_ADDRESS_BREAKPOINT = IANJUTA_DEBUGGER_BREAKPOINT_SET_AT_ADDRESS * HAS_BREAKPOINT * 2,
+	HAS_FUNCTION_BREAKPOINT = IANJUTA_DEBUGGER_BREAKPOINT_SET_AT_FUNCTION  * HAS_BREAKPOINT * 2,
+	HAS_ENABLE_BREAKPOINT = IANJUTA_DEBUGGER_BREAKPOINT_ENABLE * HAS_BREAKPOINT * 2,
+	HAS_IGNORE_BREAKPOINT = IANJUTA_DEBUGGER_BREAKPOINT_IGNORE * HAS_BREAKPOINT * 2,
+	HAS_CONDITION_BREAKPOINT = IANJUTA_DEBUGGER_BREAKPOINT_CONDITION * HAS_BREAKPOINT * 2,
+	HAS_VARIABLE = 1 << 8,
+
+} DmaDebuggerCapability;
 
 typedef struct _DmaDebuggerQueueClass   DmaDebuggerQueueClass;
 
@@ -57,7 +65,7 @@ gboolean dma_debugger_queue_start (DmaDebuggerQueue *self, const gchar *mime_typ
 void dma_debugger_queue_stop (DmaDebuggerQueue *self);
 void dma_debugger_queue_enable_log (DmaDebuggerQueue *self, IAnjutaMessageView *log);
 void dma_debugger_queue_disable_log (DmaDebuggerQueue *self);
-gint dma_debugger_queue_get_feature (DmaDebuggerQueue *self);
+gboolean dma_debugger_queue_is_supported (DmaDebuggerQueue *self, DmaDebuggerCapability capability);
 
 IAnjutaDebuggerState dma_debugger_queue_get_state (DmaDebuggerQueue *self);
 

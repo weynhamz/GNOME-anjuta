@@ -185,7 +185,11 @@ create_memory_gui (DmaMemory *mem)
 static void
 on_debugger_started (DmaMemory *mem)
 {
-	if (!(dma_debugger_queue_get_feature (mem->debugger) & HAS_CPU)) return;
+	/* Keep graphical interface if already existing, could happens after
+	 * unloading a program in the debugger */
+	if (mem->window) return;
+	
+	if (!dma_debugger_queue_is_supported (mem->debugger, HAS_CPU)) return;
 
 	if (!create_memory_gui (mem)) return;
 

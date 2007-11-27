@@ -30,7 +30,7 @@
 
 /*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
-#include <libanjuta/interfaces/ianjuta-breakpoint-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
 #include <libanjuta/interfaces/ianjuta-variable-debugger.h>
 
@@ -83,6 +83,7 @@ typedef enum
 	IGNORE_BREAK_COMMAND,	/* 0x10 */
 	CONDITION_BREAK_COMMAND,
 	REMOVE_BREAK_COMMAND,
+	LIST_BREAK_COMMAND,
 	INFO_SHAREDLIB_COMMAND,
 	INFO_TARGET_COMMAND,
 	INFO_PROGRAM_COMMAND,
@@ -95,8 +96,8 @@ typedef enum
 	EXIT_COMMAND,
 	HANDLE_SIGNAL_COMMAND,
 	LIST_LOCAL_COMMAND,
-	LIST_ARG_COMMAND,
-	LIST_THREAD_COMMAND,		/* 0x20 */
+	LIST_ARG_COMMAND,			/* 0x20 */
+	LIST_THREAD_COMMAND,
 	SET_THREAD_COMMAND,
 	INFO_THREAD_COMMAND,
 	INFO_SIGNAL_COMMAND,
@@ -111,8 +112,8 @@ typedef enum
 	INSPECT_COMMAND,
 	PRINT_COMMAND,
 	CREATE_VARIABLE,
-	EVALUATE_VARIABLE,
-	LIST_VARIABLE_CHILDREN,	/* 0x30 */
+	EVALUATE_VARIABLE,			/* 0x30 */
+	LIST_VARIABLE_CHILDREN,
 	DELETE_VARIABLE,
 	ASSIGN_VARIABLE,		
 	UPDATE_VARIABLE,
@@ -174,6 +175,9 @@ typedef enum
 		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED | NEED_PROGRAM_RUNNING,
 	DMA_REMOVE_BREAK_COMMAND =
 		REMOVE_BREAK_COMMAND |
+		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED | NEED_PROGRAM_RUNNING,
+	DMA_LIST_BREAK_COMMAND =
+		LIST_BREAK_COMMAND |
 		NEED_PROGRAM_LOADED | NEED_PROGRAM_STOPPED | NEED_PROGRAM_RUNNING,
 	DMA_INFO_SHAREDLIB_COMMAND =
 		INFO_SHAREDLIB_COMMAND |
@@ -451,6 +455,10 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 	case CONDITION_BREAK_COMMAND:
 		cmd->data.brk.id = va_arg (args, gint);
 		cmd->data.brk.condition = g_strdup (va_arg (args, gchar *));
+		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
+		cmd->user_data = va_arg (args, gpointer);
+		break;
+	case LIST_BREAK_COMMAND:
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
 		break;
@@ -849,6 +857,12 @@ dma_queue_remove_breakpoint (DmaDebuggerQueue *self, guint id, IAnjutaDebuggerCa
 }
 
 gboolean
+dma_queue_list_breakpoint (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback, gpointer user_data)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_LIST_BREAK_COMMAND, callback, user_data));
+}
+
+gboolean
 dma_queue_list_register (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_LIST_REGISTER_COMMAND, callback, user_data));
@@ -935,6 +949,7 @@ dma_command_free (DmaQueueCommand *cmd)
 	case ENABLE_BREAK_COMMAND:
 	case IGNORE_BREAK_COMMAND:
 	case REMOVE_BREAK_COMMAND:
+	case LIST_BREAK_COMMAND:
 	    break;
 	case LIST_LOCAL_COMMAND:
 	case LIST_ARG_COMMAND:
@@ -1081,25 +1096,28 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_interrupt (debugger, err);	
 		break;
 	case ENABLE_BREAK_COMMAND:
-		ret = ianjuta_breakpoint_debugger_enable_breakpoint (IANJUTA_BREAKPOINT_DEBUGGER (debugger), cmd->data.brk.id, cmd->data.brk.enable, cmd->callback, cmd->user_data, err);	
+		ret = ianjuta_debugger_breakpoint_enable (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->data.brk.enable, cmd->callback, cmd->user_data, err);	
 		break;
 	case IGNORE_BREAK_COMMAND:
-		ret = ianjuta_breakpoint_debugger_ignore_breakpoint (IANJUTA_BREAKPOINT_DEBUGGER (debugger), cmd->data.brk.id, cmd->data.brk.ignore, cmd->callback, cmd->user_data, err);	
+		ret = ianjuta_debugger_breakpoint_ignore (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->data.brk.ignore, cmd->callback, cmd->user_data, err);	
 		break;
 	case REMOVE_BREAK_COMMAND:
-		ret = ianjuta_breakpoint_debugger_clear_breakpoint (IANJUTA_BREAKPOINT_DEBUGGER (debugger), cmd->data.brk.id, cmd->callback, cmd->user_data, err);	
+		ret = ianjuta_debugger_breakpoint_clear (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->callback, cmd->user_data, err);	
 		break;
 	case BREAK_LINE_COMMAND:
-		ret = ianjuta_breakpoint_debugger_set_breakpoint_at_line (IANJUTA_BREAKPOINT_DEBUGGER (debugger), cmd->data.pos.file, cmd->data.pos.line, cmd->callback, cmd->user_data, err);	
+		ret = ianjuta_debugger_breakpoint_set_at_line (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.file, cmd->data.pos.line, cmd->callback, cmd->user_data, err);	
 		break;
 	case BREAK_FUNCTION_COMMAND:
-		ret = ianjuta_breakpoint_debugger_set_breakpoint_at_function (IANJUTA_BREAKPOINT_DEBUGGER (debugger), cmd->data.pos.file, cmd->data.pos.function, cmd->callback, cmd->user_data, err);	
+		ret = ianjuta_debugger_breakpoint_set_at_function (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.file, cmd->data.pos.function, cmd->callback, cmd->user_data, err);	
 		break;
 	case BREAK_ADDRESS_COMMAND:
-		ret = ianjuta_breakpoint_debugger_set_breakpoint_at_address (IANJUTA_BREAKPOINT_DEBUGGER (debugger), cmd->data.pos.address, cmd->callback, cmd->user_data, err);	
+		ret = ianjuta_debugger_breakpoint_set_at_address (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.address, cmd->callback, cmd->user_data, err);	
 		break;
 	case CONDITION_BREAK_COMMAND:
-		ret = ianjuta_breakpoint_debugger_condition_breakpoint (IANJUTA_BREAKPOINT_DEBUGGER (debugger), cmd->data.brk.id, cmd->data.brk.condition, cmd->callback, cmd->user_data, err);	
+		ret = ianjuta_debugger_breakpoint_condition (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->data.brk.condition, cmd->callback, cmd->user_data, err);	
+		break;
+	case LIST_BREAK_COMMAND:
+		ret = ianjuta_debugger_breakpoint_list (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->callback, cmd->user_data, err);	
 		break;
 	case INSPECT_COMMAND:
 		ret = ianjuta_debugger_inspect (debugger, cmd->data.watch.name, cmd->callback, cmd->user_data, err);

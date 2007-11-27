@@ -130,11 +130,11 @@ register_stock_icons (AnjutaPlugin *plugin)
         REGISTER_ICON ("stack.png", "gdb-stack-icon");
         REGISTER_ICON ("locals.png", "gdb-locals-icon");
         REGISTER_ICON_FULL ("anjuta-watch", "gdb-watch-icon");
-        REGISTER_ICON_FULL ("anjuta-breakpoint-toggle", "gdb-breakpoint-toggle");
-        REGISTER_ICON_FULL ("anjuta-breakpoint-clear", "gdb-breakpoint-clear");		
+        REGISTER_ICON_FULL ("anjuta-breakpoint-toggle", ANJUTA_STOCK_BREAKPOINT_TOGGLE);
+        REGISTER_ICON_FULL ("anjuta-breakpoint-clear", ANJUTA_STOCK_BREAKPOINT_CLEAR);		
     	/* We have no -24 version for the next two */
-		REGISTER_ICON ("anjuta-breakpoint-disabled-16.png", "gdb-breakpoint-disabled");
-        REGISTER_ICON ("anjuta-breakpoint-enabled-16.png", "gdb-breakpoint-enabled");				
+		REGISTER_ICON ("anjuta-breakpoint-disabled-16.png", ANJUTA_STOCK_BREAKPOINT_DISABLED);
+        REGISTER_ICON ("anjuta-breakpoint-enabled-16.png", ANJUTA_STOCK_BREAKPOINT_ENABLED);				
 		REGISTER_ICON_FULL ("anjuta-attach", "debugger-attach");
 		REGISTER_ICON_FULL ("anjuta-step-into", "debugger-step-into");
 		REGISTER_ICON_FULL ("anjuta-step-out", "debugger-step-out");
@@ -1160,6 +1160,9 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	g_signal_handlers_disconnect_matched (plugin->shell, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, plugin);	
 	g_signal_handlers_disconnect_matched (plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, plugin);	
 
+	anjuta_plugin_remove_watch (plugin, this->project_watch_id, FALSE);
+	anjuta_plugin_remove_watch (plugin, this->editor_watch_id, FALSE);
+	
 	dma_debugger_queue_free (this->queue);
 	this->queue = NULL;
 

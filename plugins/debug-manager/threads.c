@@ -288,7 +288,7 @@ on_list_thread (const GList *threads, gpointer user_data)
 		else
 			pic = NULL;
 
-		if (((dma_debugger_queue_get_feature (self->debugger) & HAS_CPU) && (frame->address == 0))
+		if ((dma_debugger_queue_is_supported (self->debugger, HAS_CPU) && (frame->address == 0))
 			|| (frame->function == NULL))
 		{
 			/* Missing frame address, request more information */
@@ -448,7 +448,7 @@ dma_threads_create_gui(DmaThreads *self)
 	gtk_tree_view_column_set_title (column, _("Function"));
 	gtk_tree_view_append_column (self->list, column);
 	
-	if (dma_debugger_queue_get_feature (self->debugger) & HAS_CPU)
+	if (dma_debugger_queue_is_supported (self->debugger, HAS_CPU))
 	{
 		/* Display address only if debugger has such concept */
 		column = gtk_tree_view_column_new ();
@@ -505,19 +505,6 @@ on_program_moved (DmaThreads *self, guint pid, gint thread)
 	dma_threads_update (self);
 }
 
-static void
-on_debugger_started (DmaThreads *self)
-{
-	dma_threads_create_gui (self);
-}
-
-static void
-on_debugger_stopped (DmaThreads *self)
-{
-	dma_threads_clear (self);
-	dma_destroy_threads_gui (self);
-}
-
 static gboolean
 on_mark_selected_thread (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer user_data)
 {
@@ -565,6 +552,27 @@ on_frame_changed (DmaThreads *self, guint frame, gint thread)
 	}
 }
 
+static void
+on_program_unloaded (DmaThreads *self)
+{
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_unloaded), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_frame_changed), self);
+	
+	dma_threads_clear (self);
+	dma_destroy_threads_gui (self);
+}
+
+static void
+on_program_loaded (DmaThreads *self)
+{
+	dma_threads_create_gui (self);
+	
+	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_program_unloaded), self);
+	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
+	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
+}
+
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
 
@@ -582,19 +590,14 @@ dma_threads_new (DebugManagerPlugin *plugin)
 
 	/* Register actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(self->plugin)->shell, NULL);
-	DEBUG_PRINT("add actions");
 	self->action_group =
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupThread",
 											_("Thread operations"),
 											actions_threads,
 											G_N_ELEMENTS (actions_threads),
 											GETTEXT_PACKAGE, TRUE, self);
-	DEBUG_PRINT("add actions end");
 
-	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_debugger_started), self);
-	g_signal_connect_swapped (self->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
-	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
-	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
+	g_signal_connect_swapped (self->plugin, "program-loaded", G_CALLBACK (on_program_loaded), self);
 	
 	return self;
 }
@@ -605,15 +608,9 @@ dma_threads_free (DmaThreads *self)
 	AnjutaUI *ui;
 	
 	g_return_if_fail (self != NULL);
-
+	
 	/* Disconnect from debugger */
-	if (self->debugger != NULL)
-	{	
-		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_started), self);
-		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_stopped), self);
-		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
-		g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_frame_changed), self);
-	}
+	g_signal_handlers_disconnect_matched (self->plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, self);	
 
 	/* Remove menu actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (self->plugin)->shell, NULL);

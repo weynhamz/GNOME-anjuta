@@ -1,3 +1,41 @@
+2007-11-27  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/threads.c,
+	plugins/debug-manager/disassemble.c,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/memory.c,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/queue.c,
+	plugins/debug-manager/queue.h:
+	Connect debugger signal only when program is loaded
+	Rename get_feature in is_supported
+
+	* plugins/debug-manager/plugin.c:
+	Remove editor watch when plugin is deactivated
+
+	* plugins/debug-manager/anjuta-debug-manager.glade,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/breakpoints.h:
+	Rewrite almost completely the breakpoint code
+	Improve breakpoint dialog
+	Reorganize function
+	Implement condition, hit count, ignore and temporary attribute
+
+	* plugins/debug-manager/command.c,
+	plugins/debug-manager/command.h:
+	Add a breakpoint list command
+
+	* plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h:
+	Add new breakpoint list command
+	Fix parsing of breakpoint data
+
+	* libanjuta/interfaces/libanjuta.idl,
+	plugins/gdb/plugin.c:
+	Rename IAnjutaBreakpointDebugger into IAnjutaDebuggerBreakpoint
+
 2007-11-23  Jaap Haitsma  <jaap@haitsma.org>
 
 	* plugins/document-manager/plugin.c:

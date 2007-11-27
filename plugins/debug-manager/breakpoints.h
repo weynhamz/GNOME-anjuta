@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     breakpoints.h
-    Copyright (C) 2000  Naba Kumar <naba@gnome.org>
+    Copyright (C) 2007 Sébastien Granjoux
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,15 +29,18 @@
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 
+/* Stock icons */
+#define ANJUTA_STOCK_BREAKPOINT_TOGGLE			"gdb-breakpoint-toggle"
+#define ANJUTA_STOCK_BREAKPOINT_CLEAR			"anjuta-breakpoint-clear"
+#define ANJUTA_STOCK_BREAKPOINT_DISABLED		"gdb-breakpoint-disabled"
+#define ANJUTA_STOCK_BREAKPOINT_ENABLED			"gdb-breakpoint-enabled"
+
 G_BEGIN_DECLS
 
 typedef struct _BreakpointsDBase BreakpointsDBase;
 
 BreakpointsDBase *breakpoints_dbase_new (DebugManagerPlugin *plugin);
 void breakpoints_dbase_destroy (BreakpointsDBase * bd);
-
-void breakpoints_dbase_connect (BreakpointsDBase *bd, IAnjutaDebugger *debugger);
-void breakpoints_dbase_disconnect (BreakpointsDBase *bd);
 
 void breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te);
 void breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te);

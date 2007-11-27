@@ -31,7 +31,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
-#include <libanjuta/interfaces/ianjuta-breakpoint-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
 #include <libanjuta/interfaces/ianjuta-variable-debugger.h>
 
 
@@ -50,7 +50,7 @@ struct _DmaDebuggerQueue {
 
 	AnjutaPlugin* plugin;
 	IAnjutaDebugger* debugger;
-	gint feature;
+	guint support;
 
 	/* Command queue */
 	GQueue *queue;
@@ -181,8 +181,15 @@ dma_queue_emit_debugger_state (DmaDebuggerQueue *self, IAnjutaDebuggerState stat
 			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, NULL);
 		}
 		break;
-	case IANJUTA_DEBUGGER_BUSY:
 	case IANJUTA_DEBUGGER_STOPPED:
+		if ((self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_RUNNING) ||
+			(self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_STOPPED) ||
+			(self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_LOADED))
+		{
+			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_STARTED, NULL);
+		}
+		break;
+	case IANJUTA_DEBUGGER_BUSY:
 	case IANJUTA_DEBUGGER_STARTED:
 		/* Nothing to do */
 		break;
@@ -468,13 +475,17 @@ dma_debugger_activate_plugin (DmaDebuggerQueue* self, const gchar *mime_type)
 		/* Get debugger interface */
 		self->debugger = (IAnjutaDebugger *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, value);
 
-		self->feature = 0;
+		self->support = 0;
 		/* Check if cpu interface is available */
-		self->feature |= IANJUTA_IS_CPU_DEBUGGER(self->debugger) ? HAS_CPU : 0;
+		self->support |= IANJUTA_IS_CPU_DEBUGGER(self->debugger) ? HAS_CPU : 0;
 		/* Check if breakpoint interface is available */
-		self->feature |= IANJUTA_IS_BREAKPOINT_DEBUGGER(self->debugger) ? HAS_BREAKPOINT : 0;
+		self->support |= IANJUTA_IS_DEBUGGER_BREAKPOINT(self->debugger) ? HAS_BREAKPOINT : 0;
+		if (IANJUTA_IS_DEBUGGER_BREAKPOINT (self->debugger))
+		{
+			self->support |= ianjuta_debugger_breakpoint_implement (IANJUTA_DEBUGGER_BREAKPOINT (self->debugger), NULL) * HAS_BREAKPOINT * 2;
+		}			
 		/* Check if variable interface is available */
-		self->feature |= IANJUTA_IS_VARIABLE_DEBUGGER(self->debugger) ? HAS_VARIABLE : 0;
+		self->support |= IANJUTA_IS_VARIABLE_DEBUGGER(self->debugger) ? HAS_VARIABLE : 0;
 		
 		g_free (value);
 
@@ -664,7 +675,7 @@ dma_debugger_queue_stop (DmaDebuggerQueue *self)
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_dma_frame_changed), self);
 		g_signal_handlers_disconnect_by_func (self->debugger, G_CALLBACK (on_dma_sharedlib_event), self);
 		self->debugger = NULL;
-		self->feature = 0;
+		self->support = 0;
 	}
 }
 
@@ -733,10 +744,10 @@ dma_debugger_queue_get_state (DmaDebuggerQueue *self)
 	return self->queue_state;
 }
 
-gint
-dma_debugger_queue_get_feature (DmaDebuggerQueue *self)
+gboolean
+dma_debugger_queue_is_supported (DmaDebuggerQueue *self, DmaDebuggerCapability capability)
 {
-	return self->feature;
+	return self->support & capability ? TRUE : FALSE;
 }
 
 /* GObject functions
@@ -780,7 +791,7 @@ dma_debugger_queue_instance_init (DmaDebuggerQueue *self)
 {
 	self->plugin = NULL;
 	self->debugger = NULL;
-	self->feature = 0;
+	self->support = 0;
 	self->queue = g_queue_new ();
 	self->last = NULL;
 	self->busy = FALSE;

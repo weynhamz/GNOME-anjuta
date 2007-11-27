@@ -222,7 +222,7 @@ on_debugger_stopped (ExprWatch *ew)
 static void
 on_program_loaded (ExprWatch *ew)
 {
-	if (!(dma_debugger_queue_get_feature (ew->debugger) & HAS_VARIABLE)) return;
+	if (!dma_debugger_queue_is_supported (ew->debugger, HAS_VARIABLE)) return;
 
 	debug_tree_connect (ew->debug_tree, ew->debugger);
 	

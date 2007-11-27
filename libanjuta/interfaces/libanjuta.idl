@@ -2872,36 +2872,6 @@ interface IAnjutaDebugger
 		PROGRAM_STOPPED
 	}
 
-	enum BreakpointType
-	{
-		BREAK_REMOVED = 1 << 0,
-		BREAK_ON_LINE = 1 << 1,
-		BREAK_ON_ADDRESS = 1 << 2,
-		BREAK_ON_FUNCTION = 1 << 3,
-		BREAK_ON_READ = 1 << 4,
-		BREAK_ON_WRITE = 1 << 5,
-		BREAK_WITH_ENABLE = 1 << 16,
-		BREAK_WITH_IGNORE = 1 << 15,
-		BREAK_WITH_TIME = 1 << 11,
-		BREAK_WITH_CONDITION = 1 << 12,
-		BREAK_WITH_TEMPORARY = 1 << 13
-	}
-
-	struct Breakpoint
-	{
-	        gint type;
-		guint id;
-		gchar *file;
-		guint line;
-		gchar *function;
-		guint address;
-		gboolean enable;
-		guint ignore;
-		guint times;
-		gchar *condition;
-		gboolean temporary;
-	}
-
 	struct Register
 	{
 		guint num;
@@ -2956,7 +2926,6 @@ interface IAnjutaDebugger
 	typedef void (*Callback) (const gpointer data, gpointer user_data, GError* err);
 	typedef void (*GListCallback) (const GList* list, gpointer user_data, GError* err);
 	typedef void (*GCharCallback) (const gchar *value, gpointer user_data, GError* err);
-	typedef void (*BreakpointCallback) (const Breakpoint *breakpoint, gpointer user_data, GError* err);
 	typedef void (*OutputCallback) (OutputType type, const gchar *output, gpointer user_data);
 	typedef void (*MemoryCallback) (const gchar* address, guint length, const gchar *data, gpointer user_data, GError *err);
 	typedef void (*VariableCallback) (Variable *variable, gpointer user_data, GError *err);
@@ -3548,6 +3517,203 @@ interface IAnjutaDebugger
 	* Returns: fixme
 	*/
 	void disable_log ();
+
+	/**
+	 * SECTION:ianjuta-debugger-breakpoint
+	 * @title: IAnjutaDebuggerBreakpoint
+	 * @short_description: Breakpoint Debugger interface
+	 * @see_also: 
+	 * @stability: Unstable
+	 * @include: libanjuta/interfaces/ianjuta-debugger-breakpoint.h
+	 * 
+	 */
+	interface IAnjutaDebuggerBreakpoint
+	{	
+		
+		enum Type
+		{
+			REMOVED = 1 << 0,
+			UPDATED = 1 << 17,
+			ON_LINE = 1 << 1,
+			ON_ADDRESS = 1 << 2,
+			ON_FUNCTION = 1 << 3,
+			ON_READ = 1 << 4,
+			ON_WRITE = 1 << 5,
+			WITH_ENABLE = 1 << 16,
+			WITH_IGNORE = 1 << 15,
+			WITH_TIME = 1 << 11,
+			WITH_CONDITION = 1 << 12,
+			WITH_TEMPORARY = 1 << 13
+		}
+
+		struct Item
+		{
+			gint type;
+			guint id;
+			gchar *file;
+			guint line;
+			gchar *function;
+			guint address;
+			gboolean enable;
+			guint ignore;
+			guint times;
+			gchar *condition;
+			gboolean temporary;
+		}
+
+		enum Method
+		{
+			SET_AT_ADDRESS = 1 << 0,
+			SET_AT_FUNCTION = 1 << 1,
+			ENABLE = 1 << 2,
+			IGNORE = 1 << 3,
+			CONDITION = 1 << 4
+		}
+
+		/**
+		* ianjuta_debugger_breakpoint_implement:
+		* @obj: Self
+		* @err: Error propagation and reporting.
+		* 
+		* Return all implemented methods.
+		*
+		* Returns: A OR of IAnjutaDebuggerBreakpointMethod
+		* corresponding to all implemented optional methods.
+		*/
+		gint implement ();
+		
+		/**
+		* ianjuta_debugger_breakpoint_set_at_line:
+		* @obj: Self
+		* @file: File containing the breakpoint
+		* @line: Line number where is the breakpoint
+		* @callback: Callback to call when the breakpoint has been set
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* Set a breakpoint at the specified line in the file.
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean set_at_line (const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+	
+		/**
+		* ianjuta_debugger_breakpoint_set_at_address:
+		* @obj: Self
+		* @address: Address of the breakpoint
+		* @callback: Callback to call when the breakpoint has been set
+		* @user_date: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* Set a breakpoint at the specified address.
+		* This function is optional.
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean set_at_address (guint address, IAnjutaDebuggerCallback callback, gpointer user_data);
+	
+		/**
+		* ianjuta_debugger_breakpoint_set_at_function:
+		* @obj: Self
+		* @file: File containing the breakpoint
+		* @function: Function name where the breakpoint is put
+		* @callback: Callback to call when the breakpoint has been set
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* Set a breakpoint at the beginning of the specified function. 
+		* This function is optional.
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean set_at_function (const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
+	
+		/**
+		* ianjuta_debugger_breakpoint_clear:
+		* @obj: Self
+		* @id: Breakpoint identification number
+		* @callback: Callback to call when the breakpoint has been cleared
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* Clear a breakpoint put by any set functions. The Id of the breakpoint
+		* is given in the callback of the set functions.
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean clear (guint id, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+		/**
+		* ianjuta_debugger_breakpoint_list:
+		* @obj: Self
+		* @callback: Callback to call with the list of breakpoints
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* List all breakpoints set in the debugger. It is useful to
+		* know how many time a breakpoint has been hit.
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean list (IAnjutaDebuggerCallback callback, gpointer user_data);
+
+		/**
+		* ianjuta_debugger_breakpoint_enable:
+		* @obj: Self
+		* @id: Breakpoint identification number
+		* @enable: TRUE to enable the breakpoint, FALSE to disable it
+		* @callback: Callback to call when the breakpoint has been changed
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* Enable of disable a breakpoint. This function is optional.
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean enable (guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
+	
+		/**
+		* ianjuta_debugger_breakpoint_ignore:
+		* @obj: Self
+		* @id: Breakpoint identification number
+		* @ignore: Number of time a breakpoint must be ignored
+		* @callback: Callback to call when the breakpoint has been changed
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* This allow to ignore the breakpoint a number of time before stopping.
+		* This function is optional.
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean ignore (guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
+	
+		/**
+		* ianjuta_debugger_breakpoint_condition:
+		* @obj: Self
+		* @id: Breakpoint identification number
+		* @condition: fixme
+		* @callback: Callback to call when the breakpoint has been changed
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* Add a condition, evaluate in the program context, on the breakpoint,
+		* the program will stop when it reachs the breakpoint only if the
+		* condition is true. This function is optional.
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean condition (guint id, const gchar* condition, IAnjutaDebuggerCallback callback, gpointer user_data);
+	}
 }
 
 /**
@@ -3733,134 +3899,16 @@ interface IAnjutaVariableDebugger
 	gboolean delete_var (const gchar *name);
 }
 
-/**
- * SECTION:ianjuta-breakpoint-debugger
- * @title: IAnjutaBreakpointDebugger
- * @short_description: Breakpoint Debugger interface
- * @see_also: 
- * @stability: Unstable
- * @include: libanjuta/interfaces/ianjuta-breakpoint-debugger.h
- * 
- */
-interface IAnjutaBreakpointDebugger
-{
-	#include "ianjuta-debug-manager.h"
-	#include "ianjuta-debugger.h"
-	#include <sys/types.h>
-
-	/**
-	* ianjuta_breakpoint_debugger_set_breakpoint_at_line:
-	* @obj: Self
-	* @file: fixme
-	* @line: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean set_breakpoint_at_line (const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
-
-	
-	/**
-	* ianjuta_breakpoint_debugger_set_breakpoint_at_address:
-	* @obj: Self
-	* @address: fixme
-	* @callback: fixme
-	* @user_date: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean set_breakpoint_at_address (guint address, IAnjutaDebuggerCallback callback, gpointer user_data);
-	
-	/**
-	* ianjuta_breakpoint_debugger_set_breakpoint_at_function:
-	* @obj: Self
-	* @file: fixme
-	* @function: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean set_breakpoint_at_function (const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
-	
-	/**
-	* ianjuta_breakpoint_debugger_clear_breakpoint:
-	* @obj: Self
-	* @id: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean clear_breakpoint (guint id, IAnjutaDebuggerCallback callback, gpointer user_data);
-	
-	/**
-	* ianjuta_breakpoint_debugger_enable_breakpoint:
-	* @obj: Self
-	* @id: fixme
-	* @enable: fixme
-	* @callback: fixme
-	* @user_data: fixme	
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean enable_breakpoint (guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
-	
-	/**
-	* ianjuta_breakpoint_debugger_ignore_breakpoint:
-	* @obj: Self
-	* @id: fixme
-	* @ignore: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean ignore_breakpoint (guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
-	
-	/**
-	* ianjuta_breakpoint_debugger_condition_breakpoint:
-	* @obj: Self
-	* @id: fixme
-	* @condition: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean condition_breakpoint (guint id, const gchar* condition, IAnjutaDebuggerCallback callback, gpointer user_data);
-}
 
 interface IAnjutaDebugManager
 {
 	#include "ianjuta-debugger.h"
+	#include "ianjuta-debugger-breakpoint.h"
 
 	/* Signals */
 
 	/**
-	* IAnjutaDebugger::debugger_started:
+	* IAnjutaDebugManager::debugger_started:
 	* @obj: Self
 	* 
 	* fixme
@@ -3868,7 +3916,7 @@ interface IAnjutaDebugManager
 	void ::debugger_started ();
 
 	/**
-	* IAnjutaDebugger::debugger_stopped:
+	* IAnjutaDebugManager::debugger_stopped:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
@@ -3877,7 +3925,7 @@ interface IAnjutaDebugManager
 	void ::debugger_stopped (GError *err);
 
 	/**
-	* IAnjutaDebugger::program_loaded:
+	* IAnjutaDebugManager::program_loaded:
 	* @obj: Self
 	* 
 	* fixme
@@ -3885,7 +3933,7 @@ interface IAnjutaDebugManager
 	void ::program_loaded ();
 
 	/**
-	* IAnjutaDebugger::program_running:
+	* IAnjutaDebugManager::program_running:
 	* @obj: Self
 	* 
 	* fixme
@@ -3893,7 +3941,7 @@ interface IAnjutaDebugManager
 	void ::program_running ();
 
 	/**
-	* IAnjutaDebugger::program_stopped:
+	* IAnjutaDebugManager::program_stopped:
 	* @obj: Self
 	* 
 	* fixme
@@ -3901,7 +3949,7 @@ interface IAnjutaDebugManager
 	void ::program_stopped ();	
 
 	/**
-	* IAnjutaDebugger::program_exited:
+	* IAnjutaDebugManager::program_exited:
 	* @obj: Self
 	* 
 	* fixme
@@ -3909,7 +3957,7 @@ interface IAnjutaDebugManager
 	void ::program_exited ();
 
 	/**
-	* IAnjutaDebugger::sharedlib_event:
+	* IAnjutaDebugManager::sharedlib_event:
 	* @obj: Self
 	* 
 	* fixme
@@ -3917,7 +3965,7 @@ interface IAnjutaDebugManager
 	void ::sharedlib_event ();
 
 	/**
-	* IAnjutaDebugger::program_moved:
+	* IAnjutaDebugManager::program_moved:
 	* @obj: Self
  	* @pid: process id, 0 when unknown
 	* @tid: thread id, 0 when unknown
@@ -3932,7 +3980,7 @@ interface IAnjutaDebugManager
 	void ::program_moved (gint pid, gint tid, guint address, const gchar* file, guint line);
 
 	/**
-	* IAnjutaDebugger::frame_changed:
+	* IAnjutaDebugManager::frame_changed:
 	* @obj: Self
 	* @frame: frame
 	* @thread: thread
@@ -3946,7 +3994,7 @@ interface IAnjutaDebugManager
 	void ::frame_changed (guint frame, gint thread);	
 
 	/**
-	* IAnjutaDebugger::location_changed:
+	* IAnjutaDebugManager::location_changed:
 	* @obj: Self
 	* @address: program counter address, 0 when unknown
 	* @uri: source file where is the program counter, NULL when unknown
@@ -3959,7 +4007,7 @@ interface IAnjutaDebugManager
 	void ::location_changed (guint address, const gchar* uri, guint line);	
 
 	/**
-	* IAnjutaDebugger::signal_received:
+	* IAnjutaDebugManager::signal_received:
 	* @obj: Self
 	* @name: Signal name
 	* @description: Signal description
@@ -3976,7 +4024,7 @@ interface IAnjutaDebugManager
 	* 
 	* fixme
 	*/
-	void ::breakpoint_changed (IAnjutaDebuggerBreakpoint *breakpoint);
+	void ::breakpoint_changed (IAnjutaDebuggerBreakpointItem *breakpoint);
 }
 
 /**

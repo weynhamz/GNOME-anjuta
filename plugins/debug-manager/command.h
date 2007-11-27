@@ -84,6 +84,7 @@ gboolean dma_queue_enable_breakpoint (DmaDebuggerQueue *self, guint id, gboolean
 gboolean dma_queue_ignore_breakpoint (DmaDebuggerQueue *self, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_condition_breakpoint (DmaDebuggerQueue *self, guint id, const gchar *condition, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_remove_breakpoint (DmaDebuggerQueue *self, guint id, IAnjutaDebuggerCallback callback, gpointer user_data);
+gboolean dma_queue_list_breakpoint (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_list_register (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_update_register (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_write_register (DmaDebuggerQueue *self, IAnjutaDebuggerRegister *value);

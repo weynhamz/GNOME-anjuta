@@ -32,7 +32,7 @@
 #include "debugger.h"
 
 #include <libanjuta/interfaces/ianjuta-debugger.h>
-#include <libanjuta/interfaces/ianjuta-breakpoint-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
 #include <libanjuta/interfaces/ianjuta-variable-debugger.h>
 #include <libanjuta/interfaces/ianjuta-terminal.h>
@@ -84,9 +84,7 @@ gdb_plugin_start_terminal (GdbPlugin* plugin)
 {
 	gchar *file, *cmd;
        	gchar *tty = NULL;
-	FILE  *fp;
 	IAnjutaTerminal *term;
-	const gchar* err = NULL;
 
 	DEBUG_PRINT ("In function: gdb_plugin_start_terminal() previous pid %d", plugin->term_pid);
 
@@ -773,11 +771,22 @@ idebugger_iface_init (IAnjutaDebuggerIface *iface)
 }
 
 
-/* Implementation of IAnjutaBreakpointDebugger interface
+/* Implementation of IAnjutaDebuggerBreakpoint interface
  *---------------------------------------------------------------------------*/
 
+static gint
+idebugger_breakpoint_implement (IAnjutaDebuggerBreakpoint *plugin, GError **err)
+{
+	/* gdb implement all interface methods */
+	return IANJUTA_DEBUGGER_BREAKPOINT_SET_AT_ADDRESS
+		| IANJUTA_DEBUGGER_BREAKPOINT_SET_AT_FUNCTION
+		| IANJUTA_DEBUGGER_BREAKPOINT_ENABLE
+		| IANJUTA_DEBUGGER_BREAKPOINT_IGNORE
+		| IANJUTA_DEBUGGER_BREAKPOINT_CONDITION;
+}
+
 static gboolean
-ibreakpoint_debugger_add_breakpoint_at_line (IAnjutaBreakpointDebugger *plugin, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+idebugger_breakpoint_add_at_line (IAnjutaDebuggerBreakpoint *plugin, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
@@ -787,7 +796,7 @@ ibreakpoint_debugger_add_breakpoint_at_line (IAnjutaBreakpointDebugger *plugin, 
 }
 
 static gboolean
-ibreakpoint_debugger_add_breakpoint_at_function (IAnjutaBreakpointDebugger *plugin, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+idebugger_breakpoint_add_at_function (IAnjutaDebuggerBreakpoint *plugin, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
@@ -797,7 +806,7 @@ ibreakpoint_debugger_add_breakpoint_at_function (IAnjutaBreakpointDebugger *plug
 }
 
 static gboolean
-ibreakpoint_debugger_add_breakpoint_at_address (IAnjutaBreakpointDebugger *plugin, guint address, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+idebugger_breakpoint_add_at_address (IAnjutaDebuggerBreakpoint *plugin, guint address, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
@@ -807,7 +816,7 @@ ibreakpoint_debugger_add_breakpoint_at_address (IAnjutaBreakpointDebugger *plugi
 }
 
 static gboolean
-ibreakpoint_debugger_enable_breakpoint (IAnjutaBreakpointDebugger *plugin, guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+idebugger_breakpoint_enable (IAnjutaDebuggerBreakpoint *plugin, guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
@@ -817,7 +826,7 @@ ibreakpoint_debugger_enable_breakpoint (IAnjutaBreakpointDebugger *plugin, guint
 }
 
 static gboolean
-ibreakpoint_debugger_ignore_breakpoint (IAnjutaBreakpointDebugger *plugin, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+idebugger_breakpoint_ignore (IAnjutaDebuggerBreakpoint *plugin, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
@@ -827,7 +836,7 @@ ibreakpoint_debugger_ignore_breakpoint (IAnjutaBreakpointDebugger *plugin, guint
 }
 
 static gboolean
-ibreakpoint_debugger_condition_breakpoint (IAnjutaBreakpointDebugger *plugin, guint id, const gchar *condition, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+idebugger_breakpoint_condition (IAnjutaDebuggerBreakpoint *plugin, guint id, const gchar *condition, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
@@ -837,7 +846,7 @@ ibreakpoint_debugger_condition_breakpoint (IAnjutaBreakpointDebugger *plugin, gu
 }
 
 static gboolean
-ibreakpoint_debugger_remove_breakpoint (IAnjutaBreakpointDebugger *plugin, guint id, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
+idebugger_breakpoint_remove (IAnjutaDebuggerBreakpoint *plugin, guint id, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 
@@ -846,16 +855,28 @@ ibreakpoint_debugger_remove_breakpoint (IAnjutaBreakpointDebugger *plugin, guint
 	return TRUE;
 }
 
-static void
-ibreakpoint_debugger_iface_init (IAnjutaBreakpointDebuggerIface *iface)
+static gboolean
+idebugger_breakpoint_list (IAnjutaDebuggerBreakpoint *plugin, IAnjutaDebuggerCallback callback, gpointer user_data, GError **err)
 {
-	iface->set_breakpoint_at_line = ibreakpoint_debugger_add_breakpoint_at_line;
-	iface->clear_breakpoint = ibreakpoint_debugger_remove_breakpoint;
-	iface->set_breakpoint_at_address = ibreakpoint_debugger_add_breakpoint_at_address;
-	iface->set_breakpoint_at_function = ibreakpoint_debugger_add_breakpoint_at_function;
-	iface->enable_breakpoint = ibreakpoint_debugger_enable_breakpoint;
-	iface->ignore_breakpoint = ibreakpoint_debugger_ignore_breakpoint;
-	iface->condition_breakpoint = ibreakpoint_debugger_condition_breakpoint;
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+
+	debugger_list_breakpoint (this->debugger, callback, user_data);
+
+	return TRUE;
+}
+
+static void
+idebugger_breakpoint_iface_init (IAnjutaDebuggerBreakpointIface *iface)
+{
+	iface->implement = idebugger_breakpoint_implement;
+	iface->set_at_line = idebugger_breakpoint_add_at_line;
+	iface->clear = idebugger_breakpoint_remove;
+	iface->list = idebugger_breakpoint_list;
+	iface->set_at_address = idebugger_breakpoint_add_at_address;
+	iface->set_at_function = idebugger_breakpoint_add_at_function;
+	iface->enable = idebugger_breakpoint_enable;
+	iface->ignore = idebugger_breakpoint_ignore;
+	iface->condition = idebugger_breakpoint_condition;
 }
 
 /* Implementation of IAnjutaCpuDebugger interface
@@ -997,7 +1018,7 @@ ivariable_debugger_iface_init (IAnjutaVariableDebuggerIface *iface)
 
 ANJUTA_PLUGIN_BEGIN (GdbPlugin, gdb_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger, IANJUTA_TYPE_DEBUGGER);
-ANJUTA_PLUGIN_ADD_INTERFACE(ibreakpoint_debugger, IANJUTA_TYPE_BREAKPOINT_DEBUGGER);
+ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_breakpoint, IANJUTA_TYPE_DEBUGGER_BREAKPOINT);
 ANJUTA_PLUGIN_ADD_INTERFACE(icpu_debugger, IANJUTA_TYPE_CPU_DEBUGGER);
 ANJUTA_PLUGIN_ADD_INTERFACE(ivariable_debugger, IANJUTA_TYPE_VARIABLE_DEBUGGER);
 ANJUTA_PLUGIN_END;

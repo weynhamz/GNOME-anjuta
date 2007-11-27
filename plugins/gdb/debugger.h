@@ -126,6 +126,7 @@ void debugger_add_breakpoint_at_line (Debugger *debugger, const gchar* file, gui
 void debugger_add_breakpoint_at_function (Debugger *debugger, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
 void debugger_add_breakpoint_at_address (Debugger *debugger, guint address, IAnjutaDebuggerCallback callback, gpointer user_data);
 void debugger_remove_breakpoint (Debugger *debugger, guint id, IAnjutaDebuggerCallback callback, gpointer user_data);
+void debugger_list_breakpoint (Debugger *debugger, IAnjutaDebuggerCallback callback, gpointer user_data);
 void debugger_enable_breakpoint (Debugger *debugger, guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
 void debugger_ignore_breakpoint (Debugger *debugger, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
 void debugger_condition_breakpoint (Debugger *debugger, guint id, const gchar* condition, IAnjutaDebuggerCallback callback, gpointer user_data);

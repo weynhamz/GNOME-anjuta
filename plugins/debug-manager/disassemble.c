@@ -735,13 +735,13 @@ on_disassembly_buffer_changed (DmaDisassemblyBuffer *buffer, DmaSparseView *view
 }
 
 static void
-on_breakpoint_changed (DmaDisassemble *self, IAnjutaDebuggerBreakpoint *bp)
+on_breakpoint_changed (DmaDisassemble *self, IAnjutaDebuggerBreakpointItem *bp)
 {
 	g_return_if_fail (bp != NULL);
 	
 	dma_sparse_view_unmark (self->view, bp->address, IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
 	dma_sparse_view_unmark (self->view, bp->address, IANJUTA_MARKABLE_BREAKPOINT_ENABLED);
-	if (!(bp->type & IANJUTA_DEBUGGER_BREAK_REMOVED))
+	if (!(bp->type & IANJUTA_DEBUGGER_BREAKPOINT_REMOVED))
 	{
 		dma_sparse_view_mark (self->view, bp->address, bp->enable ? IANJUTA_MARKABLE_BREAKPOINT_ENABLED : IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
 	}
@@ -797,10 +797,11 @@ on_location_changed (DmaDisassemble *self, guint address, const gchar* uri, guin
 }
 
 static void
-on_debugger_stopped (DmaDisassemble *self)
+on_program_unloaded (DmaDisassemble *self)
 {
-	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_debugger_stopped), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_unloaded), self);
 	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_breakpoint_changed), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_running), self);
 	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
 	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_location_changed), self);
 
@@ -808,7 +809,6 @@ on_debugger_stopped (DmaDisassemble *self)
 	
 	destroy_disassemble_gui (self);
 }
-
 
 static gboolean
 create_disassemble_gui (DmaDisassemble *self)
@@ -846,14 +846,14 @@ create_disassemble_gui (DmaDisassemble *self)
 }
 
 static void
-on_debugger_started (DmaDisassemble *self)
+on_program_loaded (DmaDisassemble *self)
 {
-	if (!(dma_debugger_queue_get_feature (self->debugger) & HAS_CPU)) return;
+	if (!dma_debugger_queue_is_supported (self->debugger, HAS_CPU)) return;
 
 	if (!create_disassemble_gui (self)) return;
 
 	/* Connect signals */
-	g_signal_connect_swapped (self->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), self);
+	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_program_unloaded), self);
 	g_signal_connect_swapped (self->plugin, "breakpoint-changed", G_CALLBACK (on_breakpoint_changed), self);
 	g_signal_connect_swapped (self->plugin, "program-running", G_CALLBACK (on_program_running), self);
 	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
@@ -876,7 +876,7 @@ dma_disassemble_new(DebugManagerPlugin *plugin)
 	self->plugin = plugin;
 	self->debugger = dma_debug_manager_get_queue (plugin);;
 
-	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_debugger_started), self);
+	g_signal_connect_swapped (self->plugin, "program-loaded", G_CALLBACK (on_program_loaded), self);
 	
 	return self;
 }

@@ -639,7 +639,7 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_set_title (column, _("Function"));
 	gtk_tree_view_append_column (st->treeview, column);
 	
-	if (dma_debugger_queue_get_feature (st->debugger) & HAS_CPU)
+	if (dma_debugger_queue_is_supported (st->debugger, HAS_CPU))
 	{
 		/* Display address only if debugger has such concept */
 		column = gtk_tree_view_column_new ();
@@ -710,17 +710,25 @@ on_program_moved (StackTrace *self, guint pid, gint thread)
 }
 
 static void
-on_debugger_started (StackTrace *self)
+on_program_unloaded (StackTrace *self)
 {
-	self->current_update = 0;
-	create_stack_trace_gui (self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_unloaded), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_frame_changed), self);
+	
+	dma_thread_clear_all_stack_trace (self);
+	destroy_stack_trace_gui (self);
 }
 
 static void
-on_debugger_stopped (StackTrace *self)
+on_program_loaded (StackTrace *self)
 {
-	dma_thread_clear_all_stack_trace (self);
-	destroy_stack_trace_gui (self);
+	self->current_update = 0;
+	create_stack_trace_gui (self);
+	
+	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_program_unloaded), self);
+	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
+	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
 }
 
 /* Public functions
@@ -750,10 +758,7 @@ stack_trace_new (DebugManagerPlugin *plugin)
 											G_N_ELEMENTS (actions_stack_trace),
 											GETTEXT_PACKAGE, TRUE, st);
 
-	g_signal_connect_swapped (st->plugin, "debugger-started", G_CALLBACK (on_debugger_started), st);
-	g_signal_connect_swapped (st->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), st);
-	g_signal_connect_swapped (st->plugin, "program-moved", G_CALLBACK (on_program_moved), st);
-	g_signal_connect_swapped (st->plugin, "frame-changed", G_CALLBACK (on_frame_changed), st);
+	g_signal_connect_swapped (st->plugin, "program-loaded", G_CALLBACK (on_program_loaded), st);
 	
 	return st;
 }
@@ -766,13 +771,7 @@ stack_trace_free (StackTrace * st)
 	g_return_if_fail (st != NULL);
 
 	/* Disconnect from debugger */
-	if (st->debugger != NULL)
-	{	
-		g_signal_handlers_disconnect_by_func (st->plugin, G_CALLBACK (on_debugger_started), st);
-		g_signal_handlers_disconnect_by_func (st->plugin, G_CALLBACK (on_debugger_stopped), st);
-		g_signal_handlers_disconnect_by_func (st->plugin, G_CALLBACK (on_program_moved), st);
-		g_signal_handlers_disconnect_by_func (st->plugin, G_CALLBACK (on_frame_changed), st);
-	}
+	g_signal_handlers_disconnect_matched (st->plugin, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, st);	
 
 	/* Remove menu actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (st->plugin)->shell, NULL);
