@@ -4,13 +4,14 @@
 # Based on: Japanese translation file ja.ko
 # Seongchong Park, <lostinu@kaist.ac.kr>, 2004
 #           by Takeshi Aihana <aihana@gnome.gr.jp>, 2001-2003.
+# Namhyung Kim, <namhyung@gmail.com>, 2007
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-24 18:42+0100\n"
-"PO-Revision-Date: 2007-11-16 20:30+0900\n"
+"PO-Revision-Date: 2007-11-27 09:44+0900\n"
 "Last-Translator: Namhyung Kim <namhyung@gmail.com>\n"
 "Language-Team: Gnome-kr-hackers <Gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -1924,7 +1925,7 @@ msgstr "디버거 종료 (에러 코드 %d): %s\n"
 #: ../plugins/debug-manager/plugin.c:588
 #, c-format
 msgid "Program has received signal: %s\n"
-msgstr "프로그램이 시그널을 받았습니다: %s\n"
+msgstr "%s 시그널 받음\n"
 
 #. Action name
 #. Stock icon, if any
@@ -3262,7 +3263,7 @@ msgstr "폴딩된 행 아래 선긋기"
 
 #: ../plugins/editor/editor.glade.h:26
 msgid "Edge column"
-msgstr ""
+msgstr "가장자리 열"
 
 #: ../plugins/editor/editor.glade.h:27
 #: ../plugins/sourceview/sourceview.glade.h:11
@@ -4078,7 +4079,7 @@ msgstr "프로그램이 끝남 (에러 코드 %s)\n"
 #: ../plugins/gdb/debugger.c:1204
 #, c-format
 msgid "Breakpoint number %s hit\n"
-msgstr "%s 중단점 도달\n"
+msgstr "%s번 중단점 도달\n"
 
 #: ../plugins/gdb/debugger.c:1213
 msgid "Function finished\n"
@@ -4956,11 +4957,11 @@ msgstr "struct 줄에 중괄호"
 
 #: ../plugins/indent/indent.glade.h:21
 msgid "Break before Boolean"
-msgstr "Boolean 전에 Break"
+msgstr "조건 연산자 앞에서 줄바꿈"
 
 #: ../plugins/indent/indent.glade.h:22
 msgid "Case"
-msgstr "Case"
+msgstr "CASE"
 
 #: ../plugins/indent/indent.glade.h:23
 msgid "Continuation"
@@ -4980,7 +4981,7 @@ msgstr ""
 
 #: ../plugins/indent/indent.glade.h:26
 msgid "Cuddle Else"
-msgstr "else를 붙여씀"
+msgstr "ELSE를 붙여씀"
 
 #: ../plugins/indent/indent.glade.h:27
 msgid ""
@@ -5002,7 +5003,7 @@ msgstr "선택된 스타일을 지웁니다."
 
 #: ../plugins/indent/indent.glade.h:31
 msgid "Delimiters on BL"
-msgstr "BL의 구분자"
+msgstr "구분자를 빈 줄로"
 
 #: ../plugins/indent/indent.glade.h:32
 msgid "Display the indent output according the selected parameters."
@@ -5072,7 +5073,7 @@ msgstr "박스 주석 전에 줄 추가."
 
 #: ../plugins/indent/indent.glade.h:48
 msgid "Length       "
-msgstr "길이      "
+msgstr "줄 길이      "
 
 #: ../plugins/indent/indent.glade.h:49
 msgid "Level              "
@@ -5259,7 +5260,7 @@ msgstr "탭 크기      "
 
 #: ../plugins/indent/indent.glade.h:91
 msgid "Update Style"
-msgstr "업데이트 스타일"
+msgstr "스타일 갱신"
 
 #: ../plugins/indent/indent.glade.h:92
 msgid ""
@@ -7400,7 +7401,7 @@ msgstr "API 태그"
 
 #: ../plugins/symbol-browser/an_symbol_view.c:204
 msgid "No file details"
-msgstr ""
+msgstr "파일 정보 없음"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:1
 msgid "<b>Available API tags:</b>"
@@ -8024,7 +8025,7 @@ msgstr "누수 점검 내의 도달할 수 있는 블럭 보기"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:218
 msgid "Leak resolution:"
-msgstr ""
+msgstr "누수 해상도:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:236
 msgid "Keep up to"
