@@ -21,9 +21,9 @@
 	<property type="hidden" name="PackageModule1" default="gtk+-2.0 libglade-2.0"/>
 	<property type="directory" name="Destination" _label="Destination:" _description="" default="[+AnjutaProjectDirectory+]/[+(string-downcase (get "Name"))+]" mandatory="yes" exist="no" summary="yes"/>
 	<property type="list" name="License" _label="License" _description="Select code license" default="GPL" editable="no">
-		<item name="GPL" _label="General Public License(GPL)"/>
-		<item name="LGPL" _label="Lesser General Public License(LGPL)"/>
-		<item name="BSD" _label="Berkeley Software Distribution License(BSD)"/>
+		<item name="GPL" _label="General Public License (GPL)"/>
+		<item name="LGPL" _label="Lesser General Public License (LGPL)"/>
+		<item name="BSD" _label="Berkeley Software Distribution License (BSD)"/>
 		<item name="None" _label="No license"/>
 	</property>
 	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>

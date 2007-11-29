@@ -327,7 +327,7 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 	{       
 		if (anjuta_util_dialog_boolean_question (GTK_WINDOW (pi->window),
 				_("A file named \"%s\" already exists.  "
-				  "Do you want to replace it ?"), prjfile))
+				  "Do you want to replace it?"), prjfile))
 		{
 			error = gnome_vfs_xfer_uri (source_uri,
 					dest_uri,

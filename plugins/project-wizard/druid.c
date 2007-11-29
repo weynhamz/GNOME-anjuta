@@ -174,7 +174,7 @@ npw_druid_fill_summary (NPWDruid* this)
 	guint i;
 	GString* text;
 
-	text = g_string_new (_("Confim the following information:\n\n"));
+	text = g_string_new (_("Confirm the following information:\n\n"));
 	
 	g_string_append (text,_("Project Type: "));
 	g_string_append (text, _(npw_header_get_name (this->header)));
@@ -511,7 +511,7 @@ cb_save_valid_property (NPWProperty* property, gpointer user_data)
 				yes = anjuta_util_dialog_boolean_question (data->parent, is_directory ? 
 					_("Directory \"%s\" is not empty. Project creation could fail if some files "
 					  "cannot be written. Do you want to continue?") :
-					_("File \"%s\" already exists. Do you want to overwrite it ?"),
+					_("File \"%s\" already exists. Do you want to overwrite it?"),
 			       		value);
 
 				if (!yes)
