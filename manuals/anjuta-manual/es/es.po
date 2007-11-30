@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD.es\n"
 "POT-Creation-Date: 2007-08-30 23:41+0100\n"
-"PO-Revision-Date: 2007-11-19 14:42+0100\n"
+"PO-Revision-Date: 2007-11-30 19:22+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -402,6 +402,11 @@ msgid ""
 "application> with any unsaved documents. <application>Anjuta</application> "
 "will display a warning if you try to exit with unsaved documents still open."
 msgstr ""
+"Todos los ajustes, incluyendo los tamaños y posiciones de las ventanas, se guardan "
+"al salir de <application>Anjuta</application>. La gestión de las sesiones "
+"aún está bajo desarrollo, así que no debería salir de <application>Anjuta</application> "
+"sin haber guardado antes sus documentos. <application>Anjuta</application> "
+"mostrará una advertencia si intenta salir con documentos sin guardar abiertos."
 
 #: C/anjuta-manual.xml:2(title)
 msgid "File Operations"
@@ -463,6 +468,14 @@ msgid ""
 "+ header file, you can also add an header template. Click <guibutton>OK</"
 "guibutton> to validate the creation. <placeholder-1/>"
 msgstr ""
+"También se puede usar un asistente para crear un archivo nuevo. Para crear un archivo nuevo, elija "
+"<menuchoice><guisubmenu>Archivo</guisubmenu><guisubmenu>Nuevo</"
+"guisubmenu><guimenuitem>Archivo</guimenuitem></menuchoice> de la barra de menú. "
+"Esto abrirá el diálogo Archivo nuevo. Seleccione el tipo de archivo. Introduzca el "
+"nombre del archivo. El sufijo se añadirá automáticamente. Puede añadir información "
+"sobre la licencia (de acuerdo con la licencia a su elección) y una cabecera. En caso de que "
+"sea una cabecera C o C++, también puede añadir una plantilla de cabecera. Pulse <guibutton>Aceptar</guibutton> "
+"para validar la creación. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:45(para)
 msgid ""
@@ -512,6 +525,13 @@ msgid ""
 "window. Choose <guibutton>Insert</guibutton>. The expanded macro text is "
 "inserted at the cursor position."
 msgstr ""
+"Para insertar una macro, mueva el cursor al lugar deseado. Seleccione "
+"<menuchoice><guisubmenu>Editar</guisubmenu><guisubmenu>Macros</"
+"guisubmenu><guimenuitem>Macros...</guimenuitem></menuchoice>. Aparecerá "
+"la ventana de diálogo. Seleccione la macro deseada de la lista. El resultado de la expansión "
+"de la macro se mostrará en la ventana así como un resumen en la ventana de diálogo. "
+"Elija <guibutton>Insertar</guibutton>. Se insertará el texto de la macro expandida en "
+"la posición del cursor."
 
 #: C/anjuta-manual.xml:82(title)
 msgid "Macro"
@@ -546,6 +566,13 @@ msgid ""
 "will indicate the cursor position after the macro insertion. Choose "
 "<guibutton>OK</guibutton>. The macro is added to the list."
 msgstr ""
+"Desde la ventana de Insertar macro, elija <guibutton>Añadir</guibutton> o seleccione "
+"<menuchoice><guisubmenu>Editar</guisubmenu><guisubmenu>Macros</"
+"guisubmenu><guimenuitem>Añadir macro...</guimenuitem></menuchoice>. Aparecerá "
+"la ventana de Añadir/editar. Introduzca el nombre de la macro, elija o defina una categoría e "
+"introduzca un atajo. Después edite el texto relativo a la macro. El carácter «|» "
+"indicará la posición del cursor después de la inserción de la macro. Elija "
+"<guibutton>Aceptar</guibutton>. La macro se añadirá a la lista."
 
 #: C/anjuta-manual.xml:100(para)
 msgid ""
@@ -731,7 +758,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:261(title) C/anjuta-manual.xml:270(title)
 msgid "Editor Margins"
-msgstr ""
+msgstr "Márgenes del editor"
 
 #: C/anjuta-manual.xml:272(screeninfo) C/anjuta-manual.xml:320(screeninfo)
 #: C/anjuta-manual.xml:423(screeninfo)
@@ -794,11 +821,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:307(title)
 msgid "Invisible margin marker"
-msgstr ""
+msgstr "Marcador de márgenes invisibles"
 
 #: C/anjuta-manual.xml:318(title)
 msgid "Editor markes when markers margin is invisible"
-msgstr ""
+msgstr "El editor marca cuando el margen del marcador es invisible"
 
 #: C/anjuta-manual.xml:308(para)
 msgid ""
@@ -816,7 +843,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:328(title)
 msgid "Editor Guides"
-msgstr ""
+msgstr "Guías del editor"
 
 #: C/anjuta-manual.xml:329(para)
 msgid ""
@@ -833,11 +860,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:339(title) C/anjuta-manual.xml:341(screeninfo)
 msgid "Editor with guides"
-msgstr ""
+msgstr "Editor con guías"
 
 #: C/anjuta-manual.xml:347(title)
 msgid "Syntax highlighting"
-msgstr ""
+msgstr "Resaltado de sintaxis"
 
 #: C/anjuta-manual.xml:348(para)
 msgid ""
@@ -2674,15 +2701,15 @@ msgstr ""
 
 #: C/anjuta-manual.xml:297(para)
 msgid "Break condition"
-msgstr ""
+msgstr "Condición de parada"
 
 #: C/anjuta-manual.xml:298(para)
 msgid "Pass count"
-msgstr ""
+msgstr "Conteo de pasadas"
 
 #: C/anjuta-manual.xml:294(para)
 msgid "Two parameters can be associated with each breakpoint: <placeholder-1/>"
-msgstr ""
+msgstr "Se pueden asociar dos parámetros con cada punto de parada: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:301(para)
 msgid ""
@@ -2706,6 +2733,8 @@ msgid ""
 "The default value of <emphasis>Break condition</emphasis> is always TRUE. "
 "The debugger will break the execution at the breakpoint location."
 msgstr ""
+"El valor predeterminado de la <emphasis>Condición de parada</emphasis> es siempre TRUE. "
+"El depurador parará la ejecución en la posición del punto de parada."
 
 #: C/anjuta-manual.xml:318(para)
 msgid ""
@@ -2724,6 +2753,8 @@ msgid ""
 "The default value of the <emphasis>Pass count</emphasis> is zero. The "
 "breakpoint will be considered when it is first encountered."
 msgstr ""
+"El valor predeterminado del <emphasis>Conteo de pasadas<emphasis> es cero. El "
+"punto de parada se considerará cuando se encuentre por primera vez."
 
 #: C/anjuta-manual.xml:333(para)
 msgid ""
@@ -2734,7 +2765,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:342(title)
 msgid "Adding or Setting Breakpoints"
-msgstr ""
+msgstr "Añadir o establecer puntos de parada"
 
 #: C/anjuta-manual.xml:343(para)
 msgid ""
@@ -2746,7 +2777,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:351(title) C/anjuta-manual.xml:353(screeninfo)
 msgid "Breakpoint add dialog"
-msgstr ""
+msgstr "Diálogo de adición de punto de parada"
 
 #: C/anjuta-manual.xml:358(para)
 msgid ""
@@ -2775,7 +2806,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:383(title)
 msgid "Editing Breakpoints"
-msgstr ""
+msgstr "Editar puntos de parada"
 
 #: C/anjuta-manual.xml:384(para)
 msgid ""
@@ -2790,10 +2821,12 @@ msgid ""
 "Edit the entries as required and click on <guibutton>OK</guibutton> to "
 "commit the changes."
 msgstr ""
+"Edite las entradas como se requiere y pulse <guibutton>Aceptar</guibutton> para "
+"efectuar los cambios."
 
 #: C/anjuta-manual.xml:396(title)
 msgid "Deleting Breakpoints"
-msgstr ""
+msgstr "Borrar puntos de parada"
 
 #: C/anjuta-manual.xml:397(para)
 msgid ""
