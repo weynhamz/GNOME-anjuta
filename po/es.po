@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-27 21:21+0000\n"
-"PO-Revision-Date: 2007-11-28 13:59+0100\n"
+"POT-Creation-Date: 2007-11-29 21:22+0000\n"
+"PO-Revision-Date: 2007-11-30 13:16+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4029,10 +4029,12 @@ msgid "Other"
 msgstr "Otros"
 
 #: ../plugins/file-wizard/file.c:107
+#: ../plugins/project-wizard/templates/translatable-strings.h:23
 msgid "General Public License (GPL)"
 msgstr "General Public License (GPL)"
 
 #: ../plugins/file-wizard/file.c:108
+#: ../plugins/project-wizard/templates/translatable-strings.h:30
 msgid "Lesser General Public License (LGPL)"
 msgstr "Lesser General Public License (LGPL)"
 
@@ -6021,7 +6023,7 @@ msgstr ""
 
 #: ../plugins/project-import/project-import.c:329
 #, c-format
-msgid "A file named \"%s\" already exists.  Do you want to replace it ?"
+msgid "A file named \"%s\" already exists.  Do you want to replace it?"
 msgstr "Ya existe un archivo con nombre «%s». ¿Quiere reemplazarlo?"
 
 #: ../plugins/project-import/project-import.c:353
@@ -6268,7 +6270,7 @@ msgid "Enter the basic Project information"
 msgstr "Introduzca la información básica del proyecto"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:10
-#: ../plugins/project-wizard/templates/translatable-strings.h:46
+#: ../plugins/project-wizard/templates/translatable-strings.h:45
 msgid "Project Name:"
 msgstr "Nombre del proyecto:"
 
@@ -6290,7 +6292,7 @@ msgstr ""
 "cambiar algunos valores más tarde."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Version:"
 msgstr "Versión:"
 
@@ -6300,7 +6302,7 @@ msgstr "etiqueta"
 
 #: ../plugins/project-wizard/druid.c:177
 msgid ""
-"Confim the following information:\n"
+"Confirm the following information:\n"
 "\n"
 msgstr ""
 "Confirme la siguiente información:\n"
@@ -6331,7 +6333,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/druid.c:514
 #, c-format
-msgid "File \"%s\" already exists. Do you want to overwrite it ?"
+msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "El archivo «%s» ya existe. ¿Quiere sobreescribirlo?"
 
 #: ../plugins/project-wizard/druid.c:836
@@ -6425,7 +6427,7 @@ msgid "Basic information"
 msgstr "Información básica"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
-msgid "Berkeley Software Distribution License(BSD)"
+msgid "Berkeley Software Distribution License (BSD)"
 msgstr "Licencia de Distribución de Software Berkeley (BSD)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
@@ -6477,15 +6479,7 @@ msgstr "GCJ necesita saber qué clase contiene la función main()"
 msgid "General Project Information"
 msgstr "Información general del proyecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:23
-msgid "General Project Infromation"
-msgstr "Información general del proyecto"
-
 #: ../plugins/project-wizard/templates/translatable-strings.h:24
-msgid "General Public License(GPL)"
-msgstr "Licencia Pública General (GPL)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid ""
 "Give a package name that your project require. You may also mention what is "
 "the required version of the package. For example, 'libgnomeui-2.0' or "
@@ -6495,95 +6489,91 @@ msgstr ""
 "mencionar cuál es la versión requerida del paquete. Por ejemplo, «libgnomeui-"
 "2.0» o «libgnomeui-2.0 >= 2.2.0»"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:26
+#: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Icon File:"
 msgstr "Archivo del icono:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:27
+#: ../plugins/project-wizard/templates/translatable-strings.h:26
 msgid "Icon file for the plugin"
 msgstr "Icono para el complemento"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:28
+#: ../plugins/project-wizard/templates/translatable-strings.h:27
 msgid "Implement plugin interfaces"
 msgstr "Implementar interfaces de complementos"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:29
+#: ../plugins/project-wizard/templates/translatable-strings.h:28
 msgid "Interface implemented by the plugin"
 msgstr "Interfaz implementado por el complemento"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:30
+#: ../plugins/project-wizard/templates/translatable-strings.h:29
 msgid "Interface:"
 msgstr "Interfaz:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:31
-msgid "Lesser General Public License(LGPL)"
-msgstr "Lesser General Public License (LGPL)"
-
-#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "License"
 msgstr "Licencia"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:33
+#: ../plugins/project-wizard/templates/translatable-strings.h:32
 msgid "Main Class:"
 msgstr "Clase principal:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:34
+#: ../plugins/project-wizard/templates/translatable-strings.h:33
 msgid "Main class"
 msgstr "Clase principal"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:35
+#: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Mininum SDL version required"
 msgstr "Versión inferior de SDL requerida"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:36
+#: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Name of the value to watch"
 msgstr "Nombre del valor a vigilar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:37
+#: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "No license"
 msgstr "Sin licencia"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:38
+#: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "Options for project build system"
 msgstr "Opciones para el sistema de construcción del proyecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:39
+#: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "Plugin Class Name:"
 msgstr "Nombre de la clase del complemento:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:40
+#: ../plugins/project-wizard/templates/translatable-strings.h:39
 msgid "Plugin Dependencies:"
 msgstr "Dependencias del complemento:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:41
+#: ../plugins/project-wizard/templates/translatable-strings.h:40
 msgid "Plugin Description:"
 msgstr "Descripción del complemento:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:42
+#: ../plugins/project-wizard/templates/translatable-strings.h:41
 msgid "Plugin Title:"
 msgstr "Título del complemento:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:43
+#: ../plugins/project-wizard/templates/translatable-strings.h:42
 msgid "Plugin class name"
 msgstr "Nombre de la clase del complemento"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:44
+#: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "Plugin has menus or/and toolbars"
 msgstr "El complemento tiene menús y/o barras de herramientas"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:45
+#: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "Plugin interfaces to implement"
 msgstr "Interfaces del complemento para implementar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:47
+#: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "Project directory, output file etc."
 msgstr "Directorio del proyecto, archivo de salida, etc."
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:48
+#: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "Project directory:"
 msgstr "Directorio del proyecto:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:49
+#: ../plugins/project-wizard/templates/translatable-strings.h:48
 msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
@@ -6591,93 +6581,93 @@ msgstr ""
 "El nombre del proyecto no debe contener espacios porque será el nombre del "
 "proyecto objetivo (ejecutable, biblioteca, etc.)"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:50
+#: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid "Project name:"
 msgstr "Nombre del proyecto:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:51
+#: ../plugins/project-wizard/templates/translatable-strings.h:50
 msgid "Project options"
 msgstr "Opciones del proyecto"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:52
+#: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Require Package:"
 msgstr "Requiere el paquete:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:53
+#: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Require SDL version:"
 msgstr "Requiere la versión de SDL:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:54
+#: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Require SDL_gfx library"
 msgstr "Requiere la versión de la biblioteca SDL_gfx:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:55
+#: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Require SDL_gfx:"
 msgstr "Requiere la versión de SDL_gfx:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:56
+#: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Require SDL_image library"
 msgstr "Requiere la versión de la biblioteca SDL_image:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:57
+#: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "Require SDL_image:"
 msgstr "Requiere la versión de SDL_image:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:58
+#: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Require SDL_mixer library"
 msgstr "Requiere la versión de la biblioteca SDL_mixer:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:59
+#: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Require SDL_mixer:"
 msgstr "Requiere la versión de SDL_mixer:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:60
+#: ../plugins/project-wizard/templates/translatable-strings.h:59
 msgid "Require SDL_net library"
 msgstr "Requiere la versión de la biblioteca SDL_net:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:61
+#: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Require SDL_net:"
 msgstr "Requiere la versión de SDL_net:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:62
+#: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Require SDL_ttf library"
 msgstr "Requiere la versión de la biblioteca SDL_ttf:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:63
+#: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Require SDL_ttf:"
 msgstr "Requiere la versión de SDL_ttf:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:64
+#: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "Select code license"
 msgstr "Seleccionar la licencia del código"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:65
+#: ../plugins/project-wizard/templates/translatable-strings.h:64
 msgid "Shell values to watch"
 msgstr "Valores del Shell a vigilar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Use pkg-config to add library supports from other packages"
 msgstr "Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Value Name:"
 msgstr "Nombre del valor:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid "Values to watch"
 msgstr "Valores a vigilar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Indica si el complemento tiene menús o barras de herramientas"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 "gtk-doc se usa para compilar la documentación de la API para las clases "
 "basadas en GObject"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:72
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "project name"
 msgstr "nombre del proyecto"
 
