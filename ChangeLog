@@ -1,3 +1,10 @@
+2007-11-30  <genbell@tiscali.it>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gdb/Makefile.am:
+	Fix bug #500376
+
 2007-11-29  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/tools/variable.c:
