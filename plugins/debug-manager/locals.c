@@ -229,10 +229,10 @@ on_frame_changed (Locals *self, guint frame, gint thread)
 }
 
 static void
-on_program_unloaded (Locals *self)
+on_program_exited (Locals *self)
 {
 	/* Disconnect signals */
-	g_signal_handlers_disconnect_by_func (self->plugin, on_program_unloaded, self);
+	g_signal_handlers_disconnect_by_func (self->plugin, on_program_exited, self);
 	g_signal_handlers_disconnect_by_func (self->plugin, on_program_moved, self);
 	g_signal_handlers_disconnect_by_func (self->plugin, on_frame_changed, self);
 	
@@ -242,13 +242,13 @@ on_program_unloaded (Locals *self)
 }
 
 static void
-on_program_loaded (Locals *self)
+on_program_started (Locals *self)
 {
 	if (!dma_debugger_queue_is_supported (self->debugger, HAS_VARIABLE)) return;
 
 	create_locals_gui (self);
 	
-	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_program_unloaded), self);
+	g_signal_connect_swapped (self->plugin, "program-exited", G_CALLBACK (on_program_exited), self);
 	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
 	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
 }
@@ -264,7 +264,7 @@ locals_new (DebugManagerPlugin *plugin)
 	self->plugin = ANJUTA_PLUGIN (plugin);
 	self->debugger = dma_debug_manager_get_queue (plugin);
 
-	g_signal_connect_swapped (self->plugin, "program-loaded", G_CALLBACK (on_program_loaded), self);
+	g_signal_connect_swapped (self->plugin, "program-started", G_CALLBACK (on_program_started), self);
 	
 	return self;
 }

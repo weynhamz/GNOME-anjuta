@@ -210,24 +210,24 @@ on_program_stopped (ExprWatch *ew)
 }
 
 static void
-on_debugger_stopped (ExprWatch *ew)
+on_program_exited (ExprWatch *ew)
 {
 	debug_tree_disconnect (ew->debug_tree);
 
 	/* Disconnect to other debugger signal */
-	g_signal_handlers_disconnect_by_func (ew->plugin, G_CALLBACK (on_debugger_stopped), ew);
+	g_signal_handlers_disconnect_by_func (ew->plugin, G_CALLBACK (on_program_exited), ew);
 	g_signal_handlers_disconnect_by_func (ew->plugin, G_CALLBACK (on_program_stopped), ew);
 }
 
 static void
-on_program_loaded (ExprWatch *ew)
+on_program_started (ExprWatch *ew)
 {
 	if (!dma_debugger_queue_is_supported (ew->debugger, HAS_VARIABLE)) return;
 
 	debug_tree_connect (ew->debug_tree, ew->debugger);
 	
 	/* Connect to other debugger signal */
-	g_signal_connect_swapped (ew->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), ew);
+	g_signal_connect_swapped (ew->plugin, "program-exited", G_CALLBACK (on_program_exited), ew);
 	g_signal_connect_swapped (ew->plugin, "program-stopped", G_CALLBACK (on_program_stopped), ew);
 }
 
@@ -543,7 +543,7 @@ expr_watch_new (AnjutaPlugin *plugin)
                               NULL);
 	
 	/* Connect to debugger */
-	g_signal_connect_swapped (ew->plugin, "program-loaded", G_CALLBACK (on_program_loaded), ew);
+	g_signal_connect_swapped (ew->plugin, "program-started", G_CALLBACK (on_program_started), ew);
 	
 	return ew;
 }

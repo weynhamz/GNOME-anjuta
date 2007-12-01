@@ -157,92 +157,164 @@ dma_debugger_queue_clear (DmaDebuggerQueue *self)
 static void
 dma_queue_emit_debugger_state (DmaDebuggerQueue *self, IAnjutaDebuggerState state, GError* err)
 {
-	IAnjutaDebuggerState signal = IANJUTA_DEBUGGER_BUSY;
-
-	DEBUG_PRINT("update debugger state new %d old %d", state, self->debugger_state);
+	enum
+	{
+		NO_SIGNAL,
+		DEBUGGER_STOPPED_SIGNAL,
+		DEBUGGER_STARTED_SIGNAL,
+		PROGRAM_LOADED_SIGNAL,
+		PROGRAM_UNLOADED_SIGNAL,
+		PROGRAM_STARTED_SIGNAL,
+		PROGRAM_EXITED_SIGNAL,
+		PROGRAM_RUNNING_SIGNAL,
+		PROGRAM_STOPPED_SIGNAL
+	} signal = NO_SIGNAL;
+	gboolean emit_program_started = FALSE;
 	
+	DEBUG_PRINT("update debugger state new %d old %d", state, self->debugger_state);
+
 	/* Add missing state if useful */
 	switch (state)
 	{
-	case IANJUTA_DEBUGGER_PROGRAM_LOADED:
-		if (self->debugger_state == IANJUTA_DEBUGGER_STOPPED)
+	case IANJUTA_DEBUGGER_STOPPED:
+		if ((self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_RUNNING) ||
+			(self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_STOPPED))
+		{
+			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, NULL);
+		}
+		else if	(self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_LOADED)
 		{
 			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_STARTED, NULL);
 		}
 		break;
-	case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
-	case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
-		if (self->debugger_state == IANJUTA_DEBUGGER_STOPPED)
-		{
-			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_STARTED, NULL);
-		}
-		if (self->debugger_state == IANJUTA_DEBUGGER_STARTED)
+	case IANJUTA_DEBUGGER_STARTED:
+		if ((self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_RUNNING) ||
+			(self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_STOPPED))
 		{
 			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, NULL);
 		}
 		break;
-	case IANJUTA_DEBUGGER_STOPPED:
-		if ((self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_RUNNING) ||
-			(self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_STOPPED) ||
-			(self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_LOADED))
+	case IANJUTA_DEBUGGER_PROGRAM_LOADED:
+		if (self->debugger_state == IANJUTA_DEBUGGER_STOPPED)
 		{
 			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_STARTED, NULL);
 		}
 		break;
+	case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
+		if (self->debugger_state == IANJUTA_DEBUGGER_STOPPED)
+		{
+			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_STARTED, NULL);
+		}
+		else if (self->debugger_state == IANJUTA_DEBUGGER_STARTED)
+		{
+			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, NULL);
+		}
+		break;
+	case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
+		if (self->debugger_state == IANJUTA_DEBUGGER_STOPPED)
+		{
+			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_STARTED, NULL);
+		}
+		else if (self->debugger_state == IANJUTA_DEBUGGER_STARTED)
+		{
+			dma_queue_emit_debugger_state (self, IANJUTA_DEBUGGER_PROGRAM_LOADED, NULL);
+		}
+		break;
 	case IANJUTA_DEBUGGER_BUSY:
-	case IANJUTA_DEBUGGER_STARTED:
-		/* Nothing to do */
 		break;
 	}	
 
-	switch (state)
+	if (self->debugger_state != state)
 	{
-	case IANJUTA_DEBUGGER_BUSY:
-		/* Debugger is busy, nothing to do */
-		return;
-	case IANJUTA_DEBUGGER_STOPPED:
-	case IANJUTA_DEBUGGER_STARTED:
-	case IANJUTA_DEBUGGER_PROGRAM_LOADED:
-	case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
-		if (self->debugger_state != state) 
+		switch (state)
 		{
-			self->debugger_state = state;
+		case IANJUTA_DEBUGGER_BUSY:
+			/* Debugger is busy, nothing to do */
+			return;
+		case IANJUTA_DEBUGGER_STOPPED:
 			self->stop_on_sharedlib = FALSE;
-			signal = state;
-		}
-	    break;
-	case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
-		if (self->debugger_state != state) 
-		{
+			signal = DEBUGGER_STOPPED_SIGNAL;
 			self->debugger_state = state;
+			break;
+		case IANJUTA_DEBUGGER_STARTED:
+			self->stop_on_sharedlib = FALSE;
+			signal = self->debugger_state < IANJUTA_DEBUGGER_STARTED ? DEBUGGER_STARTED_SIGNAL : PROGRAM_UNLOADED_SIGNAL;			
+			self->debugger_state = state;
+			break;
+		case IANJUTA_DEBUGGER_PROGRAM_LOADED:
+			self->stop_on_sharedlib = FALSE;
+			signal = self->debugger_state < IANJUTA_DEBUGGER_PROGRAM_LOADED ? PROGRAM_LOADED_SIGNAL : PROGRAM_EXITED_SIGNAL;			
+			self->debugger_state = state;
+			break;
+		case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
 			if (!self->stop_on_sharedlib)
 			{
-				signal = state;
+				emit_program_started = self->debugger_state < IANJUTA_DEBUGGER_PROGRAM_STOPPED;
+				signal = PROGRAM_STOPPED_SIGNAL;			
 			}
+			else if (self->debugger_state < IANJUTA_DEBUGGER_PROGRAM_STOPPED)
+			{
+				signal = PROGRAM_STARTED_SIGNAL;
+			}
+			self->debugger_state = state;
+			break;
+		case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
+			emit_program_started = self->debugger_state < IANJUTA_DEBUGGER_PROGRAM_STOPPED;
+			self->stop_on_sharedlib = FALSE;
+			signal = PROGRAM_RUNNING_SIGNAL;			
+			self->debugger_state = state;
+			break;
 		}
-	    break;
 	}
 
 	self->prepend_command++;
 	/* Emit signal */
 	switch (signal)
 	{
-	case IANJUTA_DEBUGGER_BUSY:
+	case NO_SIGNAL:
 		/* Do nothing */
 		break;
-	case IANJUTA_DEBUGGER_STOPPED:
+	case DEBUGGER_STOPPED_SIGNAL:
+		DEBUG_PRINT("** emit debugger-stopped **");
 		g_signal_emit_by_name (self->plugin, "debugger-stopped", err);
 		break;
-	case IANJUTA_DEBUGGER_STARTED:
+	case DEBUGGER_STARTED_SIGNAL:
+		DEBUG_PRINT("** emit debugger-started **");
 		g_signal_emit_by_name (self->plugin, "debugger-started");
 		break;
-	case IANJUTA_DEBUGGER_PROGRAM_LOADED:
+	case PROGRAM_LOADED_SIGNAL:
+		DEBUG_PRINT("** emit program-loaded **");
 		g_signal_emit_by_name (self->plugin, "program-loaded");
 		break;
-	case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
+	case PROGRAM_UNLOADED_SIGNAL:
+		DEBUG_PRINT("** emit program-unloaded **");
+		g_signal_emit_by_name (self->plugin, "program-unloaded");
+		break;
+	case PROGRAM_STARTED_SIGNAL:
+		DEBUG_PRINT("** emit program-started **");
+		g_signal_emit_by_name (self->plugin, "program-started");
+		break;
+	case PROGRAM_EXITED_SIGNAL:
+		DEBUG_PRINT("** emit program-exited **");
+		g_signal_emit_by_name (self->plugin, "program-exited");
+		break;
+	case PROGRAM_STOPPED_SIGNAL:
+		DEBUG_PRINT("** emit program-exited **");
+		if (emit_program_started)
+		{	
+			DEBUG_PRINT("** emit program-started **");
+			g_signal_emit_by_name (self->plugin, "program-started");
+		}
+		DEBUG_PRINT("** emit program-stopped **");
 		g_signal_emit_by_name (self->plugin, "program-stopped");
 		break;
-	case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
+	case PROGRAM_RUNNING_SIGNAL:
+		if (emit_program_started)
+		{	
+			DEBUG_PRINT("** emit program-started **");
+			g_signal_emit_by_name (self->plugin, "program-started");
+		}
+		DEBUG_PRINT("** emit program-running **");
 		g_signal_emit_by_name (self->plugin, "program-running");
 		break;
 	}

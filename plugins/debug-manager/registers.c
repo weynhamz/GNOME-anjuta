@@ -394,10 +394,10 @@ destroy_cpu_registers_gui (CpuRegisters *self)
 }
 
 static void
-on_program_unloaded (CpuRegisters *self)
+on_program_exited (CpuRegisters *self)
 {
 	/* Disconnect signals */
-	g_signal_handlers_disconnect_by_func (self->plugin, on_program_unloaded, self);
+	g_signal_handlers_disconnect_by_func (self->plugin, on_program_exited, self);
 	g_signal_handlers_disconnect_by_func (self->plugin, on_program_moved, self);
 	g_signal_handlers_disconnect_by_func (self->plugin, on_frame_changed, self);
 
@@ -489,7 +489,7 @@ create_cpu_registers_gui (CpuRegisters *self)
 }
 
 static void
-on_program_loaded (CpuRegisters *self)
+on_program_started (CpuRegisters *self)
 {
 	if (!dma_debugger_queue_is_supported (self->debugger, HAS_CPU)) return;
 
@@ -499,7 +499,7 @@ on_program_loaded (CpuRegisters *self)
 	self->current_update = 0;
 		
 	/* Connect remaining signal */
-	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_program_unloaded), self);
+	g_signal_connect_swapped (self->plugin, "program-exited", G_CALLBACK (on_program_exited), self);
 	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
 	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
 }
@@ -519,7 +519,7 @@ cpu_registers_new(DebugManagerPlugin *plugin)
 	self->plugin = ANJUTA_PLUGIN (plugin);
 	self->debugger = dma_debug_manager_get_queue (plugin);
 	
-	g_signal_connect_swapped (self->plugin, "program-loaded", G_CALLBACK (on_program_loaded), self);
+	g_signal_connect_swapped (self->plugin, "program-started", G_CALLBACK (on_program_started), self);
 	
 	return self;
 }

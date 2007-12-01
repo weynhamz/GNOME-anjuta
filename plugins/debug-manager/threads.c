@@ -553,9 +553,9 @@ on_frame_changed (DmaThreads *self, guint frame, gint thread)
 }
 
 static void
-on_program_unloaded (DmaThreads *self)
+on_program_exited (DmaThreads *self)
 {
-	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_unloaded), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_exited), self);
 	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
 	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_frame_changed), self);
 	
@@ -564,11 +564,11 @@ on_program_unloaded (DmaThreads *self)
 }
 
 static void
-on_program_loaded (DmaThreads *self)
+on_program_started (DmaThreads *self)
 {
 	dma_threads_create_gui (self);
 	
-	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_program_unloaded), self);
+	g_signal_connect_swapped (self->plugin, "program-exited", G_CALLBACK (on_program_exited), self);
 	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
 	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
 }
@@ -597,7 +597,7 @@ dma_threads_new (DebugManagerPlugin *plugin)
 											G_N_ELEMENTS (actions_threads),
 											GETTEXT_PACKAGE, TRUE, self);
 
-	g_signal_connect_swapped (self->plugin, "program-loaded", G_CALLBACK (on_program_loaded), self);
+	g_signal_connect_swapped (self->plugin, "program-started", G_CALLBACK (on_program_started), self);
 	
 	return self;
 }

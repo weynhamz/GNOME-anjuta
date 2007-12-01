@@ -39,28 +39,8 @@
 /* Contants defintion
  *---------------------------------------------------------------------------*/
 
-#define STATE_TO_CHANGE	8  /* To convert IAnjutaDebuggerStatus to command go to */
-#define STATE_TO_NEED 16   /* To convert IAnjutaDebuggerStatus to command need */
-
 /* Private type
  *---------------------------------------------------------------------------*/
-
-enum
-{
-	NO_CHANGE = 0,
-	COMMAND_MASK = 0xff,
-	CHANGE_MASK = 0x3F << STATE_TO_CHANGE,
-	STOP_DEBUGGER = 1 << (IANJUTA_DEBUGGER_STOPPED + STATE_TO_CHANGE - 1),
-	START_DEBUGGER = 1 << (IANJUTA_DEBUGGER_STARTED + STATE_TO_CHANGE - 1),
-	LOAD_PROGRAM = 1 << (IANJUTA_DEBUGGER_PROGRAM_LOADED + STATE_TO_CHANGE - 1),
-	STOP_PROGRAM = 1 << (IANJUTA_DEBUGGER_PROGRAM_STOPPED + STATE_TO_CHANGE - 1),
-	RUN_PROGRAM = 1 << (IANJUTA_DEBUGGER_PROGRAM_RUNNING + STATE_TO_CHANGE - 1),
-	NEED_DEBUGGER_STOPPED = STOP_DEBUGGER << (STATE_TO_NEED - STATE_TO_CHANGE),
-	NEED_DEBUGGER_STARTED = START_DEBUGGER << (STATE_TO_NEED - STATE_TO_CHANGE),
-	NEED_PROGRAM_LOADED = LOAD_PROGRAM << (STATE_TO_NEED - STATE_TO_CHANGE),
-	NEED_PROGRAM_STOPPED = STOP_PROGRAM << (STATE_TO_NEED - STATE_TO_CHANGE),
-	NEED_PROGRAM_RUNNING = RUN_PROGRAM << (STATE_TO_NEED - STATE_TO_CHANGE)
-};
 
 typedef enum
 {

@@ -1136,7 +1136,7 @@ on_program_loaded (BreakpointsDBase *bd)
 	
 	/* Connect to other debugger signal */
 	g_signal_connect_swapped (bd->plugin, "sharedlib-event", G_CALLBACK (on_breakpoint_sharedlib_event), bd);
-	g_signal_connect_swapped (bd->plugin, "debugger-started", G_CALLBACK (on_program_unloaded), bd);
+	g_signal_connect_swapped (bd->plugin, "program-unloaded", G_CALLBACK (on_program_unloaded), bd);
 	g_signal_connect_swapped (bd->plugin, "program-stopped", G_CALLBACK (on_program_stopped), bd);
 }
 

@@ -1,3 +1,21 @@
+2007-12-01  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/threads.c,
+	plugins/debug-manager/disassemble.c,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/command.c,
+	plugins/debug-manager/command.h,
+	plugins/debug-manager/queue.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Use different signals in IAnjutaDebugManager and IAnjutaDebugger
+	Document IAnjutaDebugManager signals
+	Generate new signals in queue.c
+	Use new signals in other files
+
 2007-11-30  <genbell@tiscali.it>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

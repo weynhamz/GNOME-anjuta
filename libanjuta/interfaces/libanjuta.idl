@@ -2868,8 +2868,8 @@ interface IAnjutaDebugger
 		STOPPED,
 		STARTED,
 		PROGRAM_LOADED,
-		PROGRAM_RUNNING,
-		PROGRAM_STOPPED
+		PROGRAM_STOPPED,
+		PROGRAM_RUNNING
 	}
 
 	struct Register
@@ -3911,7 +3911,7 @@ interface IAnjutaDebugManager
 	* IAnjutaDebugManager::debugger_started:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when the debugger is started.
 	*/
 	void ::debugger_started ();
 
@@ -3920,7 +3920,7 @@ interface IAnjutaDebugManager
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* This signal is emitted when the debugger is stopped.
 	*/
 	void ::debugger_stopped (GError *err);
 
@@ -3928,39 +3928,66 @@ interface IAnjutaDebugManager
 	* IAnjutaDebugManager::program_loaded:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when a program is loaded most of the
+	* time just before the first program_stopped signal.
 	*/
 	void ::program_loaded ();
 
 	/**
-	* IAnjutaDebugManager::program_running:
+	* IAnjutaDebugManager::program_unloaded:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when a program is unloaded. If the
+	* debugger is stopped while a program is loaded, this signal
+	* is emitted before the debugger_stopped signal.
 	*/
-	void ::program_running ();
+	void ::program_unloaded ();
 
 	/**
-	* IAnjutaDebugManager::program_stopped:
+	* IAnjutaDebugManager::program_started:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when the program is started. If the
+	* program starts and is stopped by the debugger, a program-stopped
+	* signal will be emitted too. If the program starts is not stopped
+	* by the debugger a program-running signal will be emitted.
 	*/
-	void ::program_stopped ();	
+	void ::program_started ();
 
 	/**
 	* IAnjutaDebugManager::program_exited:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when the program is unloaded. If the
+	* debugger is stopped while a program is running or stopped, this
+	* signal is emitted before the program_unloaded signal.
 	*/
 	void ::program_exited ();
+
+	/**
+	* IAnjutaDebugManager::program_stopped:
+	* @obj: Self
+	* 
+	* This signal is emitted when the program is stopped.
+	*/
+	void ::program_stopped ();	
+
+	/**
+	* IAnjutaDebugManager::program_running:
+	* @obj: Self
+	* 
+	* This signal is emitted when the program is running.
+	*/
+	void ::program_running ();
+
 
 	/**
 	* IAnjutaDebugManager::sharedlib_event:
 	* @obj: Self
 	* 
-	* fixme
+	* This signal is emitted when a new shared library is loaded. It
+	* is useful to try to set pending breakpoints those could be in
+	* the newly loaded library.
 	*/
 	void ::sharedlib_event ();
 
@@ -4012,7 +4039,8 @@ interface IAnjutaDebugManager
 	* @name: Signal name
 	* @description: Signal description
 	* 
-	* fixme
+	* This signal is emitted when the debugged program receives a
+	* unix signal.
 	*/
 	void ::signal_received (const gchar* name, const gchar* description);	
 
@@ -4022,7 +4050,8 @@ interface IAnjutaDebugManager
 	* @breakpoint: Breakpoint
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* This signal is emitted when a breakpoint is changed. It includes
+	* new breakpoint and deleted breakpoint.
 	*/
 	void ::breakpoint_changed (IAnjutaDebuggerBreakpointItem *breakpoint);
 }

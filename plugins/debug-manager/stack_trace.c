@@ -710,9 +710,9 @@ on_program_moved (StackTrace *self, guint pid, gint thread)
 }
 
 static void
-on_program_unloaded (StackTrace *self)
+on_program_exited (StackTrace *self)
 {
-	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_unloaded), self);
+	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_exited), self);
 	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_program_moved), self);
 	g_signal_handlers_disconnect_by_func (self->plugin, G_CALLBACK (on_frame_changed), self);
 	
@@ -721,12 +721,12 @@ on_program_unloaded (StackTrace *self)
 }
 
 static void
-on_program_loaded (StackTrace *self)
+on_program_started (StackTrace *self)
 {
 	self->current_update = 0;
 	create_stack_trace_gui (self);
 	
-	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_program_unloaded), self);
+	g_signal_connect_swapped (self->plugin, "program-exited", G_CALLBACK (on_program_exited), self);
 	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
 	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
 }
@@ -758,7 +758,7 @@ stack_trace_new (DebugManagerPlugin *plugin)
 											G_N_ELEMENTS (actions_stack_trace),
 											GETTEXT_PACKAGE, TRUE, st);
 
-	g_signal_connect_swapped (st->plugin, "program-loaded", G_CALLBACK (on_program_loaded), st);
+	g_signal_connect_swapped (st->plugin, "program-started", G_CALLBACK (on_program_started), st);
 	
 	return st;
 }

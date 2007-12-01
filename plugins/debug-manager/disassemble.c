@@ -853,7 +853,7 @@ on_program_loaded (DmaDisassemble *self)
 	if (!create_disassemble_gui (self)) return;
 
 	/* Connect signals */
-	g_signal_connect_swapped (self->plugin, "debugger-started", G_CALLBACK (on_program_unloaded), self);
+	g_signal_connect_swapped (self->plugin, "program-unloaded", G_CALLBACK (on_program_unloaded), self);
 	g_signal_connect_swapped (self->plugin, "breakpoint-changed", G_CALLBACK (on_breakpoint_changed), self);
 	g_signal_connect_swapped (self->plugin, "program-running", G_CALLBACK (on_program_running), self);
 	g_signal_connect_swapped (self->plugin, "program-moved", G_CALLBACK (on_program_moved), self);
