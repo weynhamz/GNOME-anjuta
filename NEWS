@@ -1,3 +1,52 @@
+Anjuta 2.3.1 (02 Dec 2007) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+New improved subversion plugin (bug #457477)
+New improved icons (bug #480093)
+Major improvements to debugger
+Internationalization improvements
+
+Bugfixes:
+=========
+* Bug #493062 – gcj template needs AC_PROG_CC
+* Bug #493212 – Use GTK_STOCK_ABOUT i.s.o. deprecated GNOME_STOCK_ABOUT
+* Bug #422329 – Creating a new directory in program options doesn't work
+* Bug #493583 – crash in Anjuta IDE: trying to open a file
+* Replace anjuta_children_register by g_child_watch_add
+* Fixed translations (Bug #496833, Bug #488211 and Bug #497758)
+* Removed unused code in document manager.
+* Bug #495536 – Plugins localization improvement
+* Bug #495245 – Strings bug
+* Add a pulsing progress bar to all dialogs receiving status
+* Whole Project checkbox enabled by default in diff and update dialogs.
+* Changes the editor names for diff editors to something much more descriptive. 
+* The diff dialog should have a checkbox, enabled by default, that
+  allows the user to make sure that all open files are saved before diffing.
+* Do not insensitize New action when there is no document. Indentation fixes.
+* Removed redundant icon.
+* Fixed dockitem positions for subversion and symbol-db widgets.
+* Use Ctrl+Shift+s as shortcut for Save As
+* Partial Fix translation Bug #496833 comment 4,7,8,9,10,11 
+* Debugger: Display error message returned by debugger command Add new error codes
+* Debugger: program-unload signal does not exist used debugger-stopped
+* Debugger: Do not display address when not needed
+* Debugger: Breakpoints directly connect to debugger signals
+* Debugger: Remove gnome terminal check function
+* Debugger: Use anjuta terminal plugin instead of gnome terminal
+* Debugger: Partial fix of bug #481366
+* Debugger: Fix a stupid crash when changing a register value
+* Debugger: Rename IAnjutaBreakpointDebugger into IAnjutaDebuggerBreakpoint
+* Debugger: Fix parsing of breakpoint data
+* Debugger: Add a breakpoint list command
+* Debugger: Implement condition, hit count, ignore and temporary attribute
+* Debugger: Remove editor watch when plugin is deactivated
+* Debugger: Connect debugger signal only when program is loaded
+* Debugger: Rename get_feature in is_supported
+* Debugger: Fix bug #500376
+* Debugger: Use different signals in IAnjutaDebugManager and IAnjutaDebugger
+
 Anjuta 2.3.0 (31 Oct 2007) -- Naba Kumar
 -----------------------------------------
 

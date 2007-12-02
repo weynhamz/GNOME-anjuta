@@ -1,3 +1,10 @@
+=== anjuta 2.3.0 ===
+
+2007-12-02  Naba Kumar  <naba.kumar@gnome.org>
+
+	* NEWS: Updated for 2.3.1 development release
+	* configure.in: Bumped version to 2.3.1
+
 2007-12-01  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/threads.c,
