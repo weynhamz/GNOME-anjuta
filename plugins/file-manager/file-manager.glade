@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.0 on Sat Oct 13 15:09:18 2007 -->
+<!--Generated with glade3 3.4.0 on Sun Nov 25 18:04:55 2007 -->
 <glade-interface>
   <widget class="GtkWindow" id="filemanager_pref_window">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -37,15 +37,12 @@
                     </child>
                     <child>
                       <widget class="GtkFileChooserButton" id="preferences_file:text:/:0:filemanager.root">
-                        <property name="width_request">300</property>
-                        <property name="height_request">10</property>
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
                         <property name="preview_widget_active">False</property>
                         <property name="use_preview_label">False</property>
                         <property name="title" translatable="yes">Choose Directory to show if no project is open</property>
-                        <property name="width_chars">60</property>
                       </widget>
                       <packing>
                         <property name="padding">5</property>
@@ -70,6 +67,7 @@
             </child>
           </widget>
           <packing>
+            <property name="expand">False</property>
             <property name="padding">5</property>
           </packing>
         </child>

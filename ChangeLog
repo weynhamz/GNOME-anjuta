@@ -2,6 +2,14 @@
 
 2007-12-02  Naba Kumar  <naba.kumar@gnome.org>
 
+	* src/Makefile.am: Fixed make distcheck
+
+	Patch from Yang Hong:
+	* plugins/file-manager/file-manager.glade: Fixed file chooser
+	size in file-manager preferences.
+
+2007-12-02  Naba Kumar  <naba.kumar@gnome.org>
+
 	* NEWS: Updated for 2.3.1 development release
 	* configure.in: Bumped version to 2.3.1
 

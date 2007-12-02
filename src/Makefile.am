@@ -67,4 +67,5 @@ anjuta_shell_LDADD =  \
 EXTRA_DIST = \
 	$(anjuta_ui_DATA) \
 	$(anjuta_layout_DATA) \
-	$(anjuta_glade_DATA)
+	$(anjuta_glade_DATA) \
+	$(anjuta_pixmaps_DATA)
