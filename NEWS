@@ -47,6 +47,11 @@ Bugfixes:
 * Debugger: Fix bug #500376
 * Debugger: Use different signals in IAnjutaDebugManager and IAnjutaDebugger
 
+Translation updates:
+====================
+nb.po, it.po, es.po, gl.po, sv.po, sl.po, ru.po, ko.po, de.po,
+ja.po, oc.po, ko.po
+
 Anjuta 2.3.0 (31 Oct 2007) -- Naba Kumar
 -----------------------------------------
 

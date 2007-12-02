@@ -130,6 +130,7 @@ Main Translators:
 			Leonardo Ferreira Fontenelle  <leonardof@svn.gnome.org>
 	pa      Amanpreet Singh Alam <aalam@redhat.com>	
 	de 		Christian Meyer <chrisime@gnome.org>
+			Andre Klapper  <a9016009@gmx.de>
 	dz 		Pema Geyleg <pema.geyleg@gmail.com>
 	sv 		Christian Rose <menthos@menthos.com>
 			Daniel Nylander  <po@danielnylander.se>
@@ -138,6 +139,7 @@ Main Translators:
 	hr 		Danijel Studen <dstuden@vuka.hr>
 	en_GB	David Lodge <dave@cirt.net>
 	ru 		Denis Dementiev <denm@asplinux.ru>
+			Dmitriy Tantsur <lord.divius@gmail.com>
 	ar		Djihed Afifi <djihed@gmail.com>: ar
 	pt 		Duarte Loreto <happyguy_pt@hotmail.com>
 	es 		Francisco Javier F. Serrador <serrador@cvs.gnome.org>
@@ -151,6 +153,7 @@ Main Translators:
 	fi		Ilkka Tuohela  <hile@iki.fi>
 	da 		Keld Simonsen <keld@dkuug.dk>
 	nb 		Kjartan Maraas <kmaraas@gnome.org>
+			Espen Stefansen <espens@svn.gnome.org>
 	no 		Kjartan Maraas <kmaraas@gnome.org>
 	sq 		Laurent Dhima <laurent@alblinux.net>
 	sk 		Martin Lacko <lacko@host.sk>
@@ -161,6 +164,7 @@ Main Translators:
 	ne		Pawan Chitrakar  <pchitrakar@gmail.com>
 	ms 		Projek Gabai <gabai-penyumbang@lists.sf.net>	
 	ko 		Seongchong Park <lostinu@kaist.ac.kr>
+			Namhyung Kim
 	ru		Sergey Safonov
 	tr 		Serkan Kenar <serkan@ieee.metu.edu.tr>
 	sr@Latn Slobodan Sredojevic <ssl@uns.ns.ac.yu>
@@ -172,7 +176,10 @@ Main Translators:
 	ca 		Xavier A. Conde Rueda <xaviconde@eresmas.com>
 			Joan Duran
 	uk 		Yuriy Syrota <rasta@renome.rovno.ua>
-	
+	it		Andrea Zagli <azagli@inwind.it>
+	sl		Matej Urbančič <mateju@svn.gnome.org>
+	oc		Yannig Marchegay <yannig@marchegay.org>
+
 Note: 
 -------------------------------------------------------------------------------
 If you have contributed something significant to Anjuta 
