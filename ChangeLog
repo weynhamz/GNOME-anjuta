@@ -2,6 +2,7 @@
 
 2007-12-02  Naba Kumar  <naba.kumar@gnome.org>
 
+	* NEWS, AUTHORS: Updated.
 	* src/Makefile.am: Fixed make distcheck
 
 	Patch from Yang Hong:
