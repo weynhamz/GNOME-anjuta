@@ -1,3 +1,10 @@
+=== anjuta 2.2.3 ===
+
+2007-12-02  Naba Kumar  <naba.kumar@gnome.org>
+
+	* configure.in: Updated version to 2.2.3
+	* NEWS: Updated for release.
+
 2007-11-04  Naba Kumar  <naba.kumar@gnome.org>
 
 	Patch from Tom:
