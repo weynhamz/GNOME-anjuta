@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   width="48"
+   height="48"
+   version="1.0"
+   sodipodi:docbase="/home/maker/icons"
+   sodipodi:docname="anjuta-run-to-cursor.svg"
+   inkscape:label="bracket"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="/home/maker/icons/anjuta-run-to-cursor-16.png"
+   inkscape:export-xdpi="30"
+   inkscape:export-ydpi="30">
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs5" />
+  <sodipodi:namedview
+     inkscape:cy="14.546996"
+     inkscape:cx="22.887544"
+     inkscape:zoom="1"
+     inkscape:window-height="880"
+     inkscape:window-width="974"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     width="48px"
+     height="48px"
+     showgrid="true"
+     inkscape:window-x="231"
+     inkscape:window-y="116"
+     inkscape:current-layer="svg2" />
+  <path
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:0.25pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 6.0102691,-12.782468 L 6.0102691,-12.782468 z "
+     id="path2230" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="arrow" />
+  <path
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:0.25pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 42.122911,-12.82577 L 42.122911,-12.82577 z "
+     id="path2189" />
+  <path
+     inkscape:transform-center-y="8.397902"
+     inkscape:transform-center-x="-5.8021868"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#204a87;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 39.95499,38.399495 L 7.5306898,38.355301 L 7.574884,29.472272"
+     id="path2193"
+     sodipodi:nodetypes="ccc" />
+  <path
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#8f5902;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 23.5,6.3625557 L 23.5,24.073261"
+     id="path2233"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="fill:#edd400;fill-opacity:1;fill-rule:evenodd;stroke:#8f5902;stroke-width:1.0000001pt;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 17.929379,21.625 L 23.512665,32.531948 L 29.375,21.625 L 17.929379,21.625 z "
+     id="path2190"
+     sodipodi:nodetypes="cccc" />
+  <path
+     sodipodi:nodetypes="cc"
+     id="path7128"
+     d="M 23.5,6.3625557 L 23.5,24.073261"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#edd400;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <path
+     sodipodi:nodetypes="ccc"
+     id="path9068"
+     d="M 39.95499,38.399495 L 7.5306898,38.355301 L 7.574884,29.472272"
+     style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#3465a4;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     inkscape:transform-center-x="-5.8021868"
+     inkscape:transform-center-y="8.397902" />
+</svg>

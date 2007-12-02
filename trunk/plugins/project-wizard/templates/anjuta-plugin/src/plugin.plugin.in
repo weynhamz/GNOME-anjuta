@@ -1,0 +1,6 @@
+[+ autogen5 template +]
+[Anjuta Plugin]
+Location=[+NameLower+]:[+PluginClass+]
+Icon=[+NameLower+].png
+_Name=[+PluginTitle+]
+_Description=[+PluginDescription+]

@@ -1,0 +1,6 @@
+<!--*- xml -*-->
+<ui>
+	<toolbar name="ToolbarSymbolsDB">
+		<toolitem name="SymbolDB" action="ActionGotoSymbolDB"/>
+	</toolbar>
+</ui>

@@ -1,0 +1,6 @@
+[Anjuta Plugin]
+_Name=Symbol Browser
+_Description=Symbol Browser Plugin for Anjuta.
+Location=anjuta-symbol-browser:SymbolBrowserPlugin
+Icon=anjuta-symbol-browser-plugin-48.png
+Interfaces=IAnjutaSymbolManager

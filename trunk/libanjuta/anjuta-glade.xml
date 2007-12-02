@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<glade-catalog name="anjuta" library="gladeanjuta" depends="gtk+">
+
+	<glade-widget-classes>
+		<glade-widget-class name="AnjutaVcsStatusTreeView" title="Status Tree View" 
+		 generic-name="vcsstatus">
+
+			<properties>
+				<property id="show-status" common="True" default="True" />
+				<property id="status-codes" common="True" ignore="True">
+					<displayable-values>
+						<value id="ANJUTA_VCS_STATUS_MODIFIED" name="Modified" />
+						<value id="ANJUTA_VCS_STATUS_ADDED" name="Added" />
+						<value id="ANJUTA_VCS_STATUS_DELETED" name="Deleted" />
+						<value id="ANJUTA_VCS_STATUS_CONFLICTED" name="Conflicted" />
+						<value id="ANJUTA_VCS_STATUS_MISSING" name="Missing" />
+					</displayable-values>
+				</property>
+			</properties>
+		</glade-widget-class>
+	</glade-widget-classes>
+
+	<glade-widget-group name="Anjuta" title="Anjuta">
+		<glade-widget-class-ref name="AnjutaVcsStatusTreeView" />
+	</glade-widget-group>
+</glade-catalog>

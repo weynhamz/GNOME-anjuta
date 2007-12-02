@@ -1,0 +1,18 @@
+[Desktop Entry]
+_Name=Anjuta IDE
+_GenericName=Integrated Development Environment
+_Comment=Develop software in an integrated development environment
+Exec=anjuta %F
+Icon=anjuta
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=GNOME;GTK;Development;
+Encoding=UTF-8
+StartupNotify=true
+MimeType=application/x-anjuta;
+X-GNOME-DocPath=anjuta/anjuta-manual.xml
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=anjuta
+X-GNOME-Bugzilla-Version=@VERSION@
+X-GNOME-Bugzilla-Component=unknown

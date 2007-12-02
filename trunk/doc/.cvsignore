@@ -1,0 +1,7 @@
+Makefile.in
+Makefile
+.*swp
+*~
+.nautilus-metafile.xml
+anjuta.1
+anjuta_launcher.1

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<omf>
+  <resource>
+    <subject category="GNOME|Development"/>
+    <type>manual</type>
+    <relation seriesid="b0d591aa-1035-11d8-964e-8a4b36c0ed3a"/>
+    <rights type="GNU FDL" license.version="1.1" holder="Naba Kumar"/>
+  </resource>
+</omf>

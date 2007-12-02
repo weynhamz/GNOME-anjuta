@@ -1,0 +1,5 @@
+Makefile
+Makefile.in
+*.plugin
+*.gladep
+bugged-prg-test

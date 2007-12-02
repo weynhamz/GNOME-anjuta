@@ -1,0 +1,148 @@
+Dear all,
+
+I would like to give my heartiest thanks to the following for their
+invaluable support and contributions in making the Anjuta project a
+grand success. Without them the project wouldn't have stood where it
+is now.
+
+	- Timothee Besset <timo@qeradiant.com>, for his patches,
+
+	- Sébastien Côté, for his print patch,
+	
+	- Roel Vanhout <roel@stack.be>, for his find and bookmarks patches,
+
+	- Pierre Sarrazin <sarrazip@sympatico.ca>, for his bug reports and 
+	  patches for the file widget,
+	
+	- Roy Wood <roy.wood@filogix.com>, for fixing the clipboard problem
+	  and code cleanups,
+	  
+	- Dave Huseby <huseby@shockfusion.com>, for his class generator
+	  plugin,
+	  
+	- Steven Knight <steven.knight@unh.edu>, for the Qt integration 
+	  work,
+
+	- Tina Hirsch <cevina@users.sourceforge.net>, for her wxWindows 
+	  project type patch,
+
+	- Jeroen van der Vegt <A.J.vanderVegt@ITS.TUDelft.nl>, for his
+	  debug / watch patch,
+	
+	- Ishan Chattopadhyaya <ichattopadhyaya@yahoo.com>, for his nice
+	  kickstart tutorial,
+	  
+	- Nick Dowell <nixx@nixx.org.uk>, for his Coded with Anjuta icon,
+	
+	- Kelly Bergougnoux <three3@users.sourceforge.net>, for the libglade2
+	  project type patch,
+	  	
+	- Dave Huseby <huseby@shockfusion.com>, for the class generator plugin,
+
+	- Todd Goyen <goyen@mbi-berlin.de>, for his Xlib project tupe patch, 
+	  other patches and new icon,
+	
+	- Jean-Noel Guiheneuf <jnoel@saudionline.com.sa>, for his insert patch
+	  and code cleanups,
+	
+	- Benke László <decike@freemail.hu>, for his tabs reordering option
+	  patch,
+
+	- Dick Knol <dknol@gmx.net>, for his libglade project type patch, 
+	
+	- Jason Williams <jason_williams@suth.com>, for his save files on build 
+	  patch,
+
+	- Biswapesh Chattopadhyay <biswapesh_chatterjee@tcscal.co.in>, for his
+	  TagManager library and many updates and patches,
+
+	- Dan Elphick <dre00r@ecs.soton.ac.uk>, for his patches,
+
+	- Jens Georg <mail@jensgeorg.de>, for his close tabs patch,
+	
+	- Giovanni Corriga <valkadesh@libero.it>, for his patch,
+	
+	- Yannick Koehler <yannick.koehler@colubris.com>, for his
+	  patch for disabling auto-upper-casing,
+	
+	- Gregory Schmitt <gregory.schmitt@free.fr>, for his PHP highlight
+	  bug fix and other idea,
+	  
+	- Venugopal Gummuluru <vgummuluru@yahoo.com>, for his patches,
+	  
+	- Martyn Bone <mbone@brightstar.u-net.com>, for his goto line
+	  activation bug fix,
+	  
+	- Rob Bradford <robster@debian.org>, for the man page and Debian packages,
+	
+	- Archit Baweja <bighead@crosswinds.net>, for his DND idea,
+	
+	- Fatih Demir <kabalak@gtranslator.org>, for his fixes,
+
+	- Philip Van Hoof <freax@pandora.be>, for his improvements to the file 
+	  selection dialog,
+	  
+	- Vadim Berezniker <vadim@berezniker.com>, for improving file import,
+
+	- Denis Boehme <boehme at synci dot de>, for adding DOS support,
+
+	- Rick Patel <rikul@bellsouth.net>, for the very many patches he has submitted
+	  to improve the project,
+	
+	- Max Blagai <maximblagai@yahoo.com>, for his project proper closing patch,
+
+	- Andy Piper <andy.piper@freeuk.com>, for SourceForge project administration 
+	  (that's worth saying), all his patches, his nice communication and for overall 
+	  support,
+
+	- Johannes Schmid <johannes.schmid@gmx.de>, for the GTK--/GNOME-- integration, 
+	  patches and great debugging work,
+	
+	- Hector Rivera Falu <misha@phreaker.net>, for the whole Anjuta website
+	  design & content management, and his overall artwork on the Anjuta project,
+	
+	- Stéphane Démurget <demurgets@free.fr>, for working on his new project manager
+	  for Anjuta, which will substitute the current one,
+	
+	- Luca Bellonda <lbell@tsc4.com>, for his work on the Glade integration and his
+	  overall work on improving the project,
+
+	- Naba Kumar <naba@gnome.org>, for presenting me this project as a gift of
+	  love. I shall value it for the whole of my life. :-)
+
+
+I also extend my heartiest thanks to all the translators for their generous help
+in translating the project.
+
+	- Stéphane Démurget <demurgets@free.fr>, for his French translation,
+	- Javier Conde Rueda <f3285740@est.fib.upc.es>, for his Spanish translation,
+	- Takeshi Aihana <aihana@gnome.gr.jp>, for his Japanese translation,
+	- M.Ali Vardar <ali@linuxprogramlama.com>, for his Turkish translation,
+	- Michele Campeotto <micampe@f2s.com>, for his Italian translation,
+	- Christian Rose <menthos@menthos.com>, for the Swedish and Danish translations,
+	- Yuriy Syrota <rasta@renome.rovno.ua>, for his Ukrainian translation,
+	- Valek Filippov <frob@df.ru>, for his Russian translation,
+	- Marc Botermans <marc.botermans@home.nl>, for his Dutch translation,
+	- Joe Man <trmetal@yahoo.com.hk>, for his traditional Chinese translation,
+	- Conner Mo <connermo@hotmail.com>, for his simplified Chinese translation,
+	- Jens Georg <mail@jensgeorg> and Christian Meyer <chrisime@gnome.org>, for 
+	  their German transtation,
+	- Kjartan Maraas <kmaraas@gnome.org> for his Norwegian/Bokmaal translation,
+	- GNOME PL Team <translators@gnome.pl> for their Polish translation,
+	- Azerbaijani Turkic Team <linuxaz@azerimail.net> for their Azerbaijani 
+	  translation,
+	- Dinesh Nadarajah <n_dinesh@yahoo.com> for his Tamil translation,
+	- Simos Xenitellis <simos@hellug.gr>, for his Greek translation,
+	- Duarte Loreto <happyguy_pt@hotmail.com>, for his Portuguese translation,
+	- Marcelo Elias Del Valle <marceloelias@iname.com>, for his Brazilian 
+	  Portuguese translation,
+	- Gitte Wange <gitte@babytux.dk>, Göran Weinholt <weinholt@linux.nu>, and 
+	  Keld Simonsen <keld@dkuug.dk>, for their Danish translation,
+	- Martin Lacko <lacko@host.sk>, for his Slovak translation.
+	- Michael Tindal <etherscape@paradoxpoint.com>.
+	- Jakub Steiner <jimmac * ximian * com>
+	
+With warm regards,
+
+Anjuta Kangabam <k_anjuta@yahoo.com>
+(Naba's girlfriend)

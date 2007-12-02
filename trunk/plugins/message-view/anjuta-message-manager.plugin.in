@@ -1,0 +1,7 @@
+[Anjuta Plugin]
+_Name=Message Manager
+_Description=Manages messages from external apps
+Location=anjuta-message-view:MessageViewPlugin
+Icon=anjuta-messages-plugin-48.png
+Interfaces=IAnjutaMessageManager
+UserActivatable=no

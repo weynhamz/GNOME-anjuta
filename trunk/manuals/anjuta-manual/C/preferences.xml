@@ -1,0 +1,42 @@
+<!-- Preferences -->
+ <chapter id="preferences">
+  <title>Preferences</title>
+  <para>
+   Preferences are ways to customize <application>anjuta</application> to suit
+   your tastes. Activate <menuchoice><guimenu>Settings</guimenu><guimenuitem>Preferences</guimenuitem>
+   </menuchoice> to bring up the preferences dialog. If you want to reset the preferences to their
+   default values, it can be done from <menuchoice><guimenu>Settings</guimenu><guimenuitem>
+   Set Default Preferences</guimenuitem></menuchoice>. Some are explained below.
+  </para>
+  <sect1 id="prefs-general"><title>General</title>
+    <orderedlist>
+     <listitem><para>
+      <emphasis>Project Directory</emphasis> is the path where you plan to put all your projects.
+      Application wizard creates new projects in this directory only. The default project directory
+      is ~/Projects and generally, this is just fine for most people. Also, when Open project is
+      activated, this is the base directory where the file selectior will start.
+      </para>
+     </listitem>
+      <listitem><para>
+       <emphasis>User Info:</emphasis> Provide your correct Name and Email address here. They are not
+       used to do software registration (pun), rather they are used to create ChangeLog entries and other
+       insert text bits.</para>
+      </listitem>
+     </orderedlist>
+    </sect1>
+    <sect1 id="prefs-files"><title>File Manager</title>
+    <orderedlist>
+     <listitem><para>
+      <emphasis>Root directory if no project is open</emphasis> is the path where
+      the root of the file manager points to if no project is currently open.
+      </para>
+     </listitem>
+      <listitem><para>
+       <emphasis>File Filter:</emphasis> It is possible to filter out some file from the file tree, for example
+       hidden files or files that are ignored by the version control system which usually means they are
+       generated at build time and should not be changed.
+       </para>
+      </listitem>
+     </orderedlist>
+    </sect1>
+ </chapter>
