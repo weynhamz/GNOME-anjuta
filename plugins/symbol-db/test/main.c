@@ -177,6 +177,8 @@ get_global_members (SymbolDBEngine *dbe)
 		symbol_db_engine_get_global_members (dbe, 
 										"namespace", 
 										TRUE,
+										-1,
+										-1,
 										SYMINFO_SIMPLE | 
 										SYMINFO_KIND |
 										SYMINFO_ACCESS );
@@ -270,9 +272,16 @@ main(int argc, char ** argv)
 	GdaParameterList *plist;
 	GError *error = NULL;
 
-	query = gda_query_new_from_sql (NULL, "SELECT symbol_id FROM symbol WHERE symbol.file_defined_id = (SELECT "
-					"file_defined_id FROM symbol WHERE symbol = ##thesym)", &error);
+	 
 	
+	 query = gda_query_new_from_sql (NULL, "SELECT scope_id FROM scope WHERE scope_name = ## /* name:'scope' "
+	 "type:gchararray */ AND type_id = (SELECT type_id FROM sym_type WHERE type = ## /* name:'type' "
+	 "type:gchararray */ AND type_name = ## /* name:'typename' "
+	 "type:gchararray */)", &error);
+	
+/*	query = gda_query_new_from_sql (NULL, "SELECT symbol_id FROM symbol WHERE symbol.file_defined_id = (SELECT "
+					"file_defined_id FROM symbol WHERE symbol = ##thesym)", &error);
+*/
 	if (error)
 		g_print ("Parser ERROR: %s\n", error->message);
 
@@ -305,6 +314,7 @@ main(int argc, char ** argv)
 
 #endif
 
+#if 0
 int main(int argc, char** argv)
 {
 	SymbolDBEngine *dbe;
@@ -392,7 +402,7 @@ int main(int argc, char** argv)
 //	g_message ("updating buffers");
 //	update_buffers (dbe);
 	
-	g_message ("go on with mail loop");
+	g_message ("go on with main loop");
 	GMainLoop *main_loop;	
 	main_loop = g_main_loop_new( NULL, FALSE );
 	
@@ -400,4 +410,120 @@ int main(int argc, char** argv)
 
 	return 0;
 }
+#endif
+
+#if 0
+#include <glib.h>
+#include <gtk/gtk.h>
+
+GQueue* messages;
+GMutex* mutex;
+
+static void thread(gpointer data)
+{
+  GQueue* queue = data;
+  while (1)
+  {
+    g_mutex_lock (mutex);
+    g_queue_push_head (queue, "Not so interesting message\n");
+    g_mutex_unlock (mutex);
+  } 
+}
+
+static gboolean print_message (gpointer data)
+{
+  if (g_mutex_trylock (mutex))
+  {
+    const gchar* message = g_queue_pop_head (messages);
+    if (message)
+      g_printf (message);
+    g_mutex_unlock (mutex);
+  }
+  return TRUE;
+}
+
+int main(int argc, char** argv)
+{
+  g_thread_init(NULL);
+  gtk_init (&argc, &argv);
+  
+  messages = g_queue_new ();
+  mutex = g_mutex_new ();
+  GThread* my_thread = g_thread_create (thread, messages, FALSE, NULL);
+  
+  g_idle_add (print_message, NULL);
+  
+  gtk_main();
+}
+#endif
+
+#if 1
+
+#include <libgda/libgda.h>
+#include <stdio.h>
+#include <glib.h>
+
+static GAsyncQueue* signals_queue = NULL;
+static gint counter = 0;
+static GMutex * mutex;
+
+static void
+bastard_thread (gpointer bdata)
+{
+	g_mutex_lock (mutex);
+	gint i;
+	for (i=0; i < 10; i++)
+	{
+		counter ++;
+	
+		g_message ("thread pushed %d", counter);
+		g_async_queue_push (signals_queue, counter);
+		g_message ("thread queue length %d", g_async_queue_length (signals_queue));
+	}
+	g_mutex_unlock (mutex);
+}
+
+static gboolean
+idle_signals (gpointer data)
+{
+	gpointer tmp;
+	
+	tmp = g_async_queue_try_pop (signals_queue);
+	if (tmp != 0) {
+		g_message ("idle got %d", (gint)tmp);
+		g_message ("idle queue length %d", g_async_queue_length (signals_queue));
+	}
+	return TRUE;
+}
+
+int 
+main(int argc, char ** argv)
+{
+	GMainLoop *main_loop;	
+	gint i;
+	
+	g_thread_init (NULL);
+	gtk_init (&argc, &argv);
+	signals_queue = g_async_queue_new ();
+
+	mutex = g_mutex_new ();
+	
+		
+	g_idle_add (idle_signals, NULL);
+
+	for (i= 0; i < 10; i++)
+	{
+		g_thread_create (bastard_thread, NULL, FALSE, NULL);
+	}
+	
+	main_loop = g_main_loop_new( NULL, FALSE );	
+	g_main_loop_run( main_loop );
+
+	return 0;
+}
+
+
+
+
+#endif
 

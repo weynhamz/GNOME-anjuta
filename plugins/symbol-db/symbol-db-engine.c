@@ -127,6 +127,11 @@ select symbol_id_base, symbol.name from heritage
 // FIXME: detect it by prefs
 #define CTAGS_PATH		"/usr/bin/ctags"
 
+#define THREADS_MONITOR_LAUNCH_DELAY	200
+#define THREADS_MAX_CONCURRENT			15
+#define TRIGGER_SIGNALS_DELAY			500
+#define	TRIGGER_MAX_CLOSURE_RETRIES		10
+#define	THREAD_MAX_CLOSURE_RETRIES		20
 
 enum {
 	DO_UPDATE_SYMS = 1,
@@ -346,7 +351,7 @@ static query_node query_list[PREP_QUERY_COUNT] = {
 	{
 	 PREP_QUERY_GET_SCOPE_ID,
 	 "SELECT scope_id FROM scope WHERE scope_name = ## /* name:'scope' "
-	 "type:gchararray */ AND type_id = ## /* name:'typeid' type:gint */ LIMIT 1",
+	 "type:gchararray */ AND type_id = ## /* name:'typeid' type:gint */",
 	 NULL
 	},
 	/* -- tmp heritage -- */
@@ -462,6 +467,7 @@ typedef void (SymbolDBEngineCallback) (SymbolDBEngine * dbe,
 
 enum
 {
+	SINGLE_FILE_SCAN_END,
 	SCAN_END,
 	SYMBOL_INSERTED,
 	SYMBOL_UPDATED,
@@ -472,7 +478,6 @@ enum
 
 static unsigned int signals[LAST_SIGNAL] = { 0 };
 
-
 struct _SymbolDBEnginePriv
 {
 	GdaConnection *db_connection;
@@ -481,8 +486,7 @@ struct _SymbolDBEnginePriv
 	gchar *project_name;
 	gchar *data_source;
 
-	GAsyncQueue *scan_queue;
-	
+	GAsyncQueue *scan_queue;	
 	GAsyncQueue *updated_symbols_id;
 	GAsyncQueue *inserted_symbols_id;
 	
@@ -492,10 +496,29 @@ struct _SymbolDBEnginePriv
 	AnjutaLauncher *ctags_launcher;
 	gboolean scanning_status;
 	gboolean force_sym_update;
+	
+	GMutex* mutex;
+	GAsyncQueue* signals_queue;
+	GQueue* thread_list;
+	
+	gboolean thread_status;
+	gint concurrent_threads;
+	
+	gint thread_monitor_handler;	
+	gint timeout_trigger_handler;
+	
+	gint trigger_closure_retries;
+	gint thread_closure_retries;
 };
 
 static GObjectClass *parent_class = NULL;
 
+
+typedef struct _ThreadDataOutput {
+	gchar * chars;
+	gpointer user_data;
+	
+} ThreadDataOutput;
 
 static void sdb_engine_second_pass_do (SymbolDBEngine * dbe);
 static gint
@@ -587,6 +610,7 @@ symbol_db_engine_is_project_opened (SymbolDBEngine *dbe, const gchar* project_na
 	return strcmp (project_name, priv->project_name) == 0 ? TRUE : FALSE;
 }
 
+
 /**
  * Use a proxy to return an already present or a fresh new prepared query 
  * from static 'query_list'. We should perform actions in the fastest way, because
@@ -606,7 +630,6 @@ sdb_engine_get_query_by_id (SymbolDBEngine * dbe, query_type query_id)
 	
 	node = &query_list[query_id];
 
-	gda_dict_set_connection (default_dict, priv->db_connection);
 	if (node->query == NULL)
 	{
 		DEBUG_PRINT ("generating new query.... %d", query_id);
@@ -683,6 +706,7 @@ sdb_engine_disconnect_from_db (SymbolDBEngine * dbe)
 }
 
 static GTimer *sym_timer_DEBUG  = NULL;
+static gint files_scanned_DEBUG = 0;
 
 /**
  * If base_prj_path != NULL then fake_file will not be parsed. Else
@@ -699,7 +723,8 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	tagFile *tag_file;
 	tagFileInfo tag_file_info;
 	tagEntry tag_entry;
-
+	GdaCommand *command;
+	
 	SymbolDBEnginePriv *priv;
 
 	g_return_if_fail (dbe != NULL);
@@ -743,35 +768,55 @@ sdb_engine_populate_db_by_tags (SymbolDBEngine * dbe, FILE* fd,
 	gdouble elapsed_DEBUG = g_timer_elapsed (sym_timer_DEBUG, NULL);
 	DEBUG_PRINT ("elapsed: %f for (%d) [%f per symbol]", elapsed_DEBUG,
 				 tags_total_DEBUG, elapsed_DEBUG / tags_total_DEBUG);
+
+
+	if (files_scanned_DEBUG++ > 50)
+	{
+		DEBUG_PRINT ("analyzing...");
+		command = gda_command_new ("ANALYZE", GDA_COMMAND_TYPE_SQL,
+							   	GDA_COMMAND_OPTION_STOP_ON_ERRORS);
+		gda_connection_execute_non_select_command (priv->db_connection,
+											   	command, NULL, NULL);
+		gda_command_free (command);
+
+		files_scanned_DEBUG = 0;
+	}
+	
+	DEBUG_PRINT ("EMITTING single-file-scan-end");
+	/* notify listeners that another file has been scanned */
+	g_async_queue_push (priv->signals_queue, (gpointer)(SINGLE_FILE_SCAN_END +1));
 	
 	gda_connection_commit_transaction (priv->db_connection, NULL, NULL);
 }
 
-static void
-sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
-								  AnjutaLauncherOutputType output_type,
-								  const gchar * chars, gpointer user_data)
+static gpointer
+sdb_engine_ctags_output_thread (gpointer data)
 {
+	ThreadDataOutput *output;
 	gint len_chars;
+	gchar *chars, *chars_ptr;
 	gint remaining_chars;
 	gint len_marker;
-	gchar *chars_ptr;
 	SymbolDBEnginePriv *priv;
 	SymbolDBEngine *dbe;
-		
-	g_return_if_fail (user_data != NULL);	
-	g_return_if_fail (chars != NULL);	
 	
-	dbe = (SymbolDBEngine*)user_data;
+	output = (ThreadDataOutput *)data;
+	dbe = output->user_data;
+	chars = chars_ptr = output->chars;	
+	
+	g_return_val_if_fail (dbe != NULL, (gpointer)-1);	
+	g_return_val_if_fail (chars_ptr != NULL, (gpointer)-1);
+
 	priv = dbe->priv;
+
+	/* lock */
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);
+	priv->thread_status = TRUE;
 	
-	chars_ptr = (gchar*)chars;
-	
-	remaining_chars = len_chars = strlen (chars);
+	remaining_chars = len_chars = strlen (chars_ptr);
 	len_marker = strlen (CTAGS_MARKER);	
 
-/*	DEBUG_PRINT ("gotta %s", chars_ptr);*/
-	
 	if ( len_chars >= len_marker ) 
 	{
 		gchar *marker_ptr = NULL;
@@ -827,9 +872,8 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 				/* check also if, together with an end file marker, we have an 
 				 * end group-of-files end marker.
 				 */
-				if (/*(strcmp (marker_ptr + len_marker, CTAGS_MARKER) == 0) &&*/
-					(scan_flag == DO_UPDATE_SYMS_AND_EXIT || 
-					 scan_flag == DONT_UPDATE_SYMS_AND_EXIT ))
+				if (scan_flag == DO_UPDATE_SYMS_AND_EXIT || 
+					 scan_flag == DONT_UPDATE_SYMS_AND_EXIT )
 				{
 					gint tmp_inserted;
 					gint tmp_updated;
@@ -851,13 +895,28 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 					while ((tmp_inserted = (int)
 							g_async_queue_try_pop (priv->inserted_symbols_id)) > 0)
 					{
-						g_signal_emit (dbe, signals[SYMBOL_INSERTED], 0, tmp_inserted);
+						DEBUG_PRINT ("EMITTING symbol-inserted %d", tmp_inserted);
+						/* we must be sure to insert both signals at once */
+						g_async_queue_lock (priv->signals_queue);
+						
+						/* the +1 is because asyn_queue doesn't want NULL values */
+						g_async_queue_push_unlocked (priv->signals_queue, 
+													 (gpointer)(SYMBOL_INSERTED + 1));
+						g_async_queue_push_unlocked (priv->signals_queue, 
+													 (gpointer) tmp_inserted);
+						g_async_queue_unlock (priv->signals_queue);
 					}
 					
 					while ((tmp_updated = (int)
 							g_async_queue_try_pop (priv->updated_symbols_id)) > 0)
 					{
-						g_signal_emit (dbe, signals[SYMBOL_UPDATED], 0, tmp_updated);
+						DEBUG_PRINT ("EMITTING symbol-updated");
+						g_async_queue_lock (priv->signals_queue);
+						g_async_queue_push_unlocked (priv->signals_queue, (gpointer)
+													 (SYMBOL_UPDATED + 1));
+						g_async_queue_push_unlocked (priv->signals_queue, 
+													 (gpointer) tmp_updated);
+						g_async_queue_unlock (priv->signals_queue);
 					}
 
 					
@@ -865,14 +924,16 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 					 * determined by the caller. This is the only way.
 					 */
 					DEBUG_PRINT ("EMITTING scan-end");
-					g_signal_emit (dbe, signals[SCAN_END], 0);
+					g_async_queue_push (priv->signals_queue, (gpointer)(SCAN_END + 1));
+					DEBUG_PRINT ("queue length = %d",  
+								 g_async_queue_length (priv->signals_queue));
 				}
 				
 				/* truncate the file to 0 length */
 				ftruncate (priv->shared_mem_fd, 0);				
 			}
 			else
-			{
+			{ 
 				/* marker_ptr is NULL here. We should then exit the loop. */
 				/* write to shm_file all the chars received */
 				fwrite (chars_ptr, sizeof(gchar), remaining_chars, 
@@ -881,7 +942,7 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 				fflush (priv->shared_mem_file);
 				break;
 			}
-			
+			 
 			/* found out a new marker */ 
 			marker_ptr = strstr (marker_ptr + len_marker, CTAGS_MARKER);
 		} while (remaining_chars + len_marker < len_chars);
@@ -889,6 +950,175 @@ sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
 	else 
 	{
 		DEBUG_PRINT ("no len_chars > len_marker");
+	}
+
+	priv->thread_status = FALSE;
+	priv->concurrent_threads--;
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
+	
+	g_free (chars);
+	g_free (output);
+	
+	return 0;
+}
+
+
+static gboolean
+sdb_engine_timeout_trigger_signals (gpointer user_data)
+{
+	SymbolDBEngine *dbe = (SymbolDBEngine *) user_data;
+	SymbolDBEnginePriv *priv;
+
+	g_return_val_if_fail (user_data != NULL, FALSE);
+	
+	priv = dbe->priv;
+		
+	DEBUG_PRINT ("signals trigger");
+	if (g_async_queue_length (priv->signals_queue) > 0)
+	{
+		gpointer tmp;
+		gpointer sign = NULL;
+		gint real_signal;
+	
+		while ((sign = g_async_queue_try_pop (priv->signals_queue)) != NULL)  {
+
+			if (sign== NULL) {
+				return g_async_queue_length (priv->signals_queue) > 0 ? TRUE : FALSE;
+			}
+	
+			real_signal = (gint)sign- 1;
+	
+			switch (real_signal) {
+				case SINGLE_FILE_SCAN_END:
+					g_signal_emit (dbe, signals[SINGLE_FILE_SCAN_END], 0);
+					break;
+		
+				case SCAN_END:
+					g_signal_emit (dbe, signals[SCAN_END], 0);
+					break;
+	
+				case SYMBOL_INSERTED:
+					tmp = g_async_queue_try_pop (priv->signals_queue);
+					g_signal_emit (dbe, signals[SYMBOL_INSERTED], 0, tmp);
+					break;
+	
+				case SYMBOL_UPDATED:
+					tmp = g_async_queue_try_pop (priv->signals_queue);
+					g_signal_emit (dbe, signals[SYMBOL_UPDATED], 0, tmp);
+					break;
+	
+				case SYMBOL_SCOPE_UPDATED:
+					tmp = g_async_queue_try_pop (priv->signals_queue);
+					g_signal_emit (dbe, signals[SYMBOL_SCOPE_UPDATED], 0, tmp);
+					break;
+	
+				case SYMBOL_REMOVED:
+					tmp = g_async_queue_try_pop (priv->signals_queue);
+					g_signal_emit (dbe, signals[SYMBOL_REMOVED], 0, tmp);
+					break;
+			}
+		}		
+		/* reset to 0 the retries */
+		priv->trigger_closure_retries = 0;
+	}
+	else {
+		priv->trigger_closure_retries++;
+	}
+	
+	if (priv->trigger_closure_retries > TRIGGER_MAX_CLOSURE_RETRIES &&
+		g_queue_get_length (priv->thread_list) <= 0)
+	{
+		DEBUG_PRINT ("removing trigger");
+		/* remove the trigger coz we don't need it anymore... */
+		g_source_remove (priv->timeout_trigger_handler);
+		priv->timeout_trigger_handler = 0;
+	}
+	
+	return TRUE;
+}
+
+static gboolean
+sdb_engine_thread_monitor (gpointer data)
+{
+	gpointer output;
+	SymbolDBEngine *dbe = (SymbolDBEngine *) data;
+	SymbolDBEnginePriv *priv;
+
+	g_return_val_if_fail (data != NULL, FALSE);
+	
+	priv = dbe->priv;
+	DEBUG_PRINT ("thread monitor");
+		
+	if (priv->concurrent_threads > THREADS_MAX_CONCURRENT) {
+		/* monitor acted here. There plenty threads already working. */
+		return TRUE;
+	}
+	
+	output = g_queue_pop_head (priv->thread_list);
+
+	if (output != NULL)
+	{
+		priv->concurrent_threads ++;
+		g_thread_create ((GThreadFunc)sdb_engine_ctags_output_thread, output, 
+					 FALSE, NULL);		
+		priv->thread_closure_retries = 0;
+	}
+	else 
+	{
+		priv->thread_closure_retries++;
+	}
+
+	if (priv->thread_closure_retries > THREAD_MAX_CLOSURE_RETRIES)
+	{
+		DEBUG_PRINT ("removing thread monitor");
+		/* remove the thread monitor */
+		g_source_remove (priv->thread_monitor_handler);
+		priv->thread_monitor_handler = 0;
+	}
+	
+	/* recall this monitor */
+	return TRUE;	
+}
+
+static void
+sdb_engine_ctags_output_callback_1 (AnjutaLauncher * launcher,
+								  AnjutaLauncherOutputType output_type,
+								  const gchar * chars, gpointer user_data)
+{ 
+	ThreadDataOutput *output;
+	SymbolDBEngine *dbe = (SymbolDBEngine *) user_data;
+	SymbolDBEnginePriv *priv;
+
+	g_return_if_fail (user_data != NULL);
+	
+	priv = dbe->priv;	
+	
+	output  = g_new0 (ThreadDataOutput, 1);
+	output->chars = g_strdup (chars);
+	output->user_data = user_data;
+
+	if (priv->thread_list == NULL)
+		priv->thread_list = g_queue_new ();
+	
+	g_queue_push_tail (priv->thread_list, output);
+
+	/* thread monitor */
+	if (priv->thread_monitor_handler <= 0)
+	{
+		priv->thread_monitor_handler = 
+			g_timeout_add (THREADS_MONITOR_LAUNCH_DELAY, 
+						   sdb_engine_thread_monitor, user_data);
+		priv->thread_closure_retries = 0;
+	}
+	
+	/* signals monitor */
+	if (priv->timeout_trigger_handler <= 0)
+	{
+		priv->timeout_trigger_handler = 
+			g_timeout_add (TRIGGER_SIGNALS_DELAY, 
+						   sdb_engine_timeout_trigger_signals, user_data);
+		priv->trigger_closure_retries = 0;
 	}
 }
 
@@ -899,7 +1129,6 @@ on_scan_files_end_1 (AnjutaLauncher * launcher, int child_pid,
 {
 	DEBUG_PRINT ("ctags ended");
 }
-
 
 /* Scans with ctags and produce an output 'tags' file [shared memory file]
  * containing language symbols. This function will call ctags 
@@ -944,7 +1173,7 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	{
 		gchar *exe_string;
 		
-		DEBUG_PRINT ("creating anjuta_launcher");		
+		DEBUG_PRINT ("creating anjuta_launcher");
 		priv->ctags_launcher = anjuta_launcher_new ();
 
 		g_signal_connect (G_OBJECT (priv->ctags_launcher), "child-exited",
@@ -992,8 +1221,8 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	
 	priv->scanning_status = TRUE;	
 
-	DEBUG_PRINT ("sdb_engine_scan_files_1 (): PUSHING files_list->len %d to scan", files_list->len);
-	
+	DEBUG_PRINT ("sdb_engine_scan_files_1 (): PUSHING files_list->len %d to scan", 
+				 files_list->len);
 	for (i = 0; i < files_list->len; i++)
 	{
 		gchar *node = (gchar *) g_ptr_array_index (files_list, i);
@@ -1003,7 +1232,8 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 			g_warning ("File %s not scanned because it does not exist", node);
 			continue;
 		}
-		DEBUG_PRINT ("anjuta_launcher_send_stdin %s", node);
+	
+		DEBUG_PRINT ("sent to stdin %d", i);
 		anjuta_launcher_send_stdin (priv->ctags_launcher, node);
 		anjuta_launcher_send_stdin (priv->ctags_launcher, "\n");
 
@@ -1055,8 +1285,6 @@ sdb_engine_scan_files_1 (SymbolDBEngine * dbe, const GPtrArray * files_list,
 	return TRUE;
 }
 
-
-
 static void
 sdb_engine_init (SymbolDBEngine * object)
 {
@@ -1080,7 +1308,17 @@ sdb_engine_init (SymbolDBEngine * object)
 	sdbe->priv->shared_mem_str = NULL;
 	sdbe->priv->scanning_status = FALSE;
 	sdbe->priv->force_sym_update = FALSE;
-
+	
+	sdbe->priv->mutex = NULL;
+	sdbe->priv->signals_queue = NULL;
+	sdbe->priv->thread_list = NULL;
+	sdbe->priv->thread_status = FALSE;
+	sdbe->priv->concurrent_threads = 0;
+	sdbe->priv->thread_monitor_handler = 0;
+	sdbe->priv->timeout_trigger_handler = 0;	
+	sdbe->priv->trigger_closure_retries = 0;
+	sdbe->priv->thread_closure_retries = 0;
+	
 	/* Initialize gda library. */
 	gda_init ("AnjutaGda", NULL, 0, NULL);
 
@@ -1141,6 +1379,24 @@ sdb_engine_finalize (GObject * object)
 		g_object_unref (priv->ctags_launcher);
 	}	
 	
+	if (priv->mutex)
+	{
+		g_mutex_lock (priv->mutex);
+		g_mutex_free (priv->mutex);
+		priv->mutex = NULL;
+	}
+	
+	if (priv->timeout_trigger_handler >= 0)
+		g_source_remove (priv->timeout_trigger_handler);
+	
+	if (priv->thread_monitor_handler >= 0)
+		g_source_remove (priv->thread_monitor_handler);
+	
+	g_async_queue_unref (priv->signals_queue);
+	
+	g_queue_free  (priv->thread_list);
+
+	
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
@@ -1152,6 +1408,14 @@ sdb_engine_class_init (SymbolDBEngineClass * klass)
 
 	object_class->finalize = sdb_engine_finalize;
 
+	signals[SINGLE_FILE_SCAN_END]
+		= g_signal_new ("single-file-scan-end",
+						G_OBJECT_CLASS_TYPE (object_class),
+						G_SIGNAL_RUN_FIRST,
+						G_STRUCT_OFFSET (SymbolDBEngineClass, single_file_scan_end),
+						NULL, NULL,
+						g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	
 	signals[SCAN_END]
 		= g_signal_new ("scan-end",
 						G_OBJECT_CLASS_TYPE (object_class),
@@ -1251,6 +1515,9 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar * data_source)
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	priv = dbe->priv;
 
+	priv->mutex = g_mutex_new ();
+	priv->signals_queue = g_async_queue_new ();
+	
 	if (priv->db_connection != NULL)
 	{
 		/* if it's the case that the connection isn't NULL, we 
@@ -1270,15 +1537,17 @@ sdb_engine_connect_to_db (SymbolDBEngine * dbe, const gchar * data_source)
 	priv->db_connection
 		= gda_client_open_connection (priv->gda_client, data_source,
 									  NULL, NULL,
-									  GDA_CONNECTION_OPTIONS_READ_ONLY, NULL);
-
+									  GDA_CONNECTION_OPTIONS_DONT_SHARE, NULL);	
+	
 	if (!GDA_IS_CONNECTION (priv->db_connection))
 	{
 		g_warning ("could not open connection to %s\n", data_source);
 		return FALSE;
 	}
 
-	g_message ("connected to database %s", data_source);
+	gda_dict_set_connection (default_dict, priv->db_connection);
+	
+	DEBUG_PRINT ("connected to database %s", data_source);
 	return TRUE;
 }
 
@@ -1345,9 +1614,10 @@ symbol_db_engine_db_exists (SymbolDBEngine * dbe, const gchar * prj_directory)
 		g_free (tmp_file);
 		return FALSE;
 	}
+	
+	DEBUG_PRINT ("db %s does exist", tmp_file);	
 	g_free (tmp_file);
 
-	DEBUG_PRINT ("db %s does exist", tmp_file);
 	return TRUE;
 }
 
@@ -1538,7 +1808,7 @@ sdb_engine_get_table_id_by_unique_name2 (SymbolDBEngine * dbe, query_type qtype,
 												  FALSE, NULL);
 
 	if (!GDA_IS_DATA_MODEL (query_result) ||
-		gda_data_model_get_n_rows (GDA_DATA_MODEL (query_result)) <= 0)
+		((gda_data_model_get_n_rows (GDA_DATA_MODEL (query_result))) <= 0))
 	{
 		if (query_result != NULL)
 			g_object_unref (query_result);
@@ -1745,7 +2015,8 @@ symbol_db_engine_open_project (SymbolDBEngine * dbe,	/*gchar* workspace, */
 
 	g_return_val_if_fail (priv->db_connection != NULL, FALSE);
 	if (symbol_db_engine_is_project_opened (dbe, project_name) == TRUE) {
-		g_warning ("project already opened, %s (priv %s)", project_name, 
+		g_warning ("symbol_db_engine_open_project (): "
+				   "project already opened, %s (priv %s)", project_name, 
 				   priv->project_name);
 		return FALSE;
 	}
@@ -1759,6 +2030,7 @@ symbol_db_engine_open_project (SymbolDBEngine * dbe,	/*gchar* workspace, */
 				"prjname",
 				 value)) <= 0)
 	{
+		DEBUG_PRINT ("symbol_db_engine_open_project (): no project name found");
 		gda_value_free (value);
 		return FALSE;
 	}
@@ -2138,19 +2410,19 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
 
 
 static void
-sdb_prepare_executing_commands (SymbolDBEngine *dbe)
+sdb_engine_prepare_executing_commands (SymbolDBEngine *dbe)
 {
 	GdaCommand *command;
 	SymbolDBEnginePriv *priv;
 	priv = dbe->priv;
 
-	command = gda_command_new ("PRAGMA page_size = 4096", GDA_COMMAND_TYPE_SQL,
+	command = gda_command_new ("PRAGMA page_size = 32768", GDA_COMMAND_TYPE_SQL,
 							   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
 	gda_connection_execute_non_select_command (priv->db_connection,
 											   command, NULL, NULL);
 	gda_command_free (command);
 	
-	command = gda_command_new ("PRAGMA cache_size = 10000", GDA_COMMAND_TYPE_SQL,
+	command = gda_command_new ("PRAGMA cache_size = 12288", GDA_COMMAND_TYPE_SQL,
 							   GDA_COMMAND_OPTION_STOP_ON_ERRORS);
 	gda_connection_execute_non_select_command (priv->db_connection,
 											   command, NULL, NULL);
@@ -2185,7 +2457,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe, const gchar * project,
 	g_return_val_if_fail (project != NULL, FALSE);
 
 	/* FIXME try this... to see if things speed up*/
-	sdb_prepare_executing_commands (dbe);
+	sdb_engine_prepare_executing_commands (dbe);
 	
 	
 	if (symbol_db_engine_is_project_opened (dbe, project) == FALSE) 
@@ -2218,6 +2490,7 @@ symbol_db_engine_add_new_files (SymbolDBEngine * dbe, const gchar * project,
 	 * AnjutaLauncher and ctags in server mode. After the ctags cmd has been 
 	 * executed, the populating process'll take place.
 	 */
+
 	if (scan_symbols)
 		return sdb_engine_scan_files_1 (dbe, files_path, NULL, FALSE);
 	
@@ -2238,95 +2511,96 @@ sdb_engine_add_new_sym_type (SymbolDBEngine * dbe, tagEntry * tag_entry)
 	const gchar *type;
 	const gchar *type_name;
 	gint table_id;
-	GValue *value1, *value2;
+	
+	const GdaQuery *query;
+	GdaObject * query_result;
+	GdaParameterList *par_list;
+	GdaParameter *param;
+	GValue *value;
 
 	g_return_val_if_fail (tag_entry != NULL, -1);
 
 	type = tag_entry->kind;
 	type_name = tag_entry->name;
+	
+	/* it does not exist. Create a new tuple. */
+	if ((query = sdb_engine_get_query_by_id (dbe, PREP_QUERY_SYM_TYPE_NEW))
+		== NULL)
+	{
+		g_warning ("query is null");
+		return -1;
+	}
 
-	value1 = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value1, type);
+	if (GDA_QUERY_TYPE_NON_PARSED_SQL ==
+		gda_query_get_query_type ((GdaQuery *) query))
+	{
+		g_warning ("non parsed sql error");
+		return -1;
+	}
 
-	value2 = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value2, type_name);
+	if ((par_list =
+		 gda_query_get_parameter_list ((GdaQuery *) query)) == NULL)
+	{
+		g_warning ("par_list is NULL!\n");
+		return -1;
+	}
 
-	if ((table_id = sdb_engine_get_table_id_by_unique_name2 (dbe,
+	/* type parameter */
+	if ((param = gda_parameter_list_find_param (par_list, "type")) == NULL)
+	{
+		g_warning ("param type is NULL from pquery!");
+		return -1;
+	}
+
+	value = gda_value_new (G_TYPE_STRING);
+	g_value_set_string (value, type);
+	gda_parameter_set_value (param, value);
+
+	/* type_name parameter */
+	if ((param =
+		 gda_parameter_list_find_param (par_list, "typename")) == NULL)
+	{
+		g_warning ("param typename is NULL from pquery!");
+		return -1;
+	}
+
+	gda_value_reset_with_type (value, G_TYPE_STRING);
+	g_value_set_string (value, type_name);
+	gda_parameter_set_value (param, value);
+	gda_value_free (value);
+
+	/* execute the query with parametes just set */
+	query_result = 
+		gda_query_execute ((GdaQuery *) query, par_list, FALSE, NULL);
+
+	if (query_result != NULL)
+	{				
+		g_object_unref (query_result);
+		table_id = sdb_engine_get_last_insert_id (dbe);
+	}
+	else
+	{
+		GValue *value1, *value2;
+
+		value1 = gda_value_new (G_TYPE_STRING);
+		g_value_set_string (value1, type);
+
+		value2 = gda_value_new (G_TYPE_STRING);
+		g_value_set_string (value2, type_name);
+
+		if ((table_id = sdb_engine_get_table_id_by_unique_name2 (dbe,
 													 PREP_QUERY_GET_SYM_TYPE_ID,
 													 "type", value1,
 													 "typename",
 													 value2)) < 0)
-	{
-		const GdaQuery *query;
-		GdaObject * query_result;
-		GdaParameterList *par_list;
-		GdaParameter *param;
-		GValue *value;
-
-		/* it does not exist. Create a new tuple. */
-		if ((query = sdb_engine_get_query_by_id (dbe, PREP_QUERY_SYM_TYPE_NEW))
-			== NULL)
-		{
-			g_warning ("query is null");
-			return -1;
-		}
-
-		if (GDA_QUERY_TYPE_NON_PARSED_SQL ==
-			gda_query_get_query_type ((GdaQuery *) query))
-		{
-			g_warning ("non parsed sql error");
-			return -1;
-		}
-
-		if ((par_list =
-			 gda_query_get_parameter_list ((GdaQuery *) query)) == NULL)
-		{
-			g_warning ("par_list is NULL!\n");
-			return -1;
-		}
-
-		/* type parameter */
-		if ((param = gda_parameter_list_find_param (par_list, "type")) == NULL)
-		{
-			g_warning ("param type is NULL from pquery!");
-			return -1;
-		}
-
-		value = gda_value_new (G_TYPE_STRING);
-		g_value_set_string (value, type);
-		gda_parameter_set_value (param, value);
-
-		/* type_name parameter */
-		if ((param =
-			 gda_parameter_list_find_param (par_list, "typename")) == NULL)
-		{
-			g_warning ("param typename is NULL from pquery!");
-			return -1;
-		}
-
-		gda_value_reset_with_type (value, G_TYPE_STRING);
-		g_value_set_string (value, type_name);
-		gda_parameter_set_value (param, value);
-		gda_value_free (value);
-
-		/* execute the query with parametes just set */
-		query_result = 
-			gda_query_execute ((GdaQuery *) query, par_list, FALSE, NULL);
-
-		if (query_result != NULL)
-		{				
-			g_object_unref (query_result);
-			table_id = sdb_engine_get_last_insert_id (dbe);
-		}
-		else
 		{
 			table_id = -1;
 		}
+
+		gda_value_free (value1);
+		gda_value_free (value2);
+		
 	}
-
-	gda_value_free (value1);
-	gda_value_free (value2);
-
 	return table_id;
 }
 
@@ -2456,7 +2730,7 @@ sdb_engine_add_new_sym_access (SymbolDBEngine * dbe, tagEntry * tag_entry)
 			 sdb_engine_get_query_by_id (dbe,
 										 PREP_QUERY_SYM_ACCESS_NEW)) == NULL)
 		{
-			g_warning ("query is null");
+ 			g_warning ("query is null");
 			return -1;
 		}
 
@@ -2669,7 +2943,8 @@ sdb_engine_add_new_heritage (SymbolDBEngine * dbe, gint base_symbol_id,
 
 
 static gint
-sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, tagEntry * tag_entry)
+sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, tagEntry * tag_entry,
+									 gint type_table_id)
 {
 /*
 	CREATE TABLE scope (scope_id integer PRIMARY KEY AUTOINCREMENT,
@@ -2679,8 +2954,12 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, tagEntry * tag_entry)
                     );
 */
 	const gchar *scope;
-	GValue *value1, *value2;
-	gint type_table_id, table_id;
+	gint table_id;
+	const GdaQuery *query;
+	GdaObject *query_result;
+	GdaParameterList *par_list;
+	GdaParameter *param;
+	GValue *value;
 
 	g_return_val_if_fail (tag_entry != NULL, -1);
 	g_return_val_if_fail (tag_entry->kind != NULL, -1);
@@ -2698,111 +2977,85 @@ sdb_engine_add_new_scope_definition (SymbolDBEngine * dbe, tagEntry * tag_entry)
 		return -1;
 	}
 
-	value1 = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value1, tag_entry->kind);
-
-	value2 = gda_value_new (G_TYPE_STRING);
-	g_value_set_string (value2, scope);
-
-	/* search for type_id on sym_type table */
-	if ((type_table_id = sdb_engine_get_table_id_by_unique_name2 (dbe,
-												  PREP_QUERY_GET_SYM_TYPE_ID,
-												  "type",
-												  value1,
-												  "typename",
-												  value2)) < 0)
+	if ((query = sdb_engine_get_query_by_id (dbe, PREP_QUERY_SCOPE_NEW))
+		== NULL)
 	{
-		/* no type has been found. */
-		gda_value_free (value1);
-		gda_value_free (value2);
-
+		g_warning ("query is null");
 		return -1;
 	}
 
-	/* let's check for an already present scope table with scope and type_id infos. */
-	gda_value_reset_with_type (value1, G_TYPE_STRING);
-	g_value_set_string (value1, scope);
+	if (GDA_QUERY_TYPE_NON_PARSED_SQL ==
+		gda_query_get_query_type ((GdaQuery *) query))
+	{
+		g_warning ("non parsed sql error");
+		return -1;
+	}
 
-	gda_value_reset_with_type (value2, G_TYPE_INT);
-	g_value_set_int (value2, type_table_id);
+	if ((par_list =
+		 gda_query_get_parameter_list ((GdaQuery *) query)) == NULL)
+	{
+		g_warning ("par_list is NULL!\n");
+		return -1;
+	}
 
-	if ((table_id = sdb_engine_get_table_id_by_unique_name2 (dbe,
+	/* scope parameter */
+	if ((param = gda_parameter_list_find_param (par_list, "scope")) == NULL)
+	{
+		g_warning ("param scope is NULL from pquery!");
+		return -1;
+	}
+
+	value = gda_value_new (G_TYPE_STRING);
+	g_value_set_string (value, scope);
+	gda_parameter_set_value (param, value);
+
+	/* typeid parameter */
+	if ((param =
+		 gda_parameter_list_find_param (par_list, "typeid")) == NULL)
+	{
+		g_warning ("param typeid is NULL from pquery!");
+		return -1;
+	}
+
+	gda_value_reset_with_type (value, G_TYPE_INT);
+	g_value_set_int (value, type_table_id);
+	gda_parameter_set_value (param, value);
+	gda_value_free (value);
+
+	/* execute the query with parameters just set */
+	query_result = gda_query_execute ((GdaQuery *) query, par_list, FALSE, NULL);
+	if (query_result == NULL)  
+	{
+		GValue *value1, *value2;
+/*		DEBUG_PRINT ("sdb_engine_add_new_scope_definition (): BAD INSERTION "
+					 "[%s %s]", tag_entry->kind, scope);
+*/		
+		/* let's check for an already present scope table with scope and type_id infos. */
+		value1 = gda_value_new (G_TYPE_STRING);
+		g_value_set_string (value1, scope);
+
+		value2 = gda_value_new (G_TYPE_INT);
+		g_value_set_int (value2, type_table_id);
+	
+		if ((table_id = sdb_engine_get_table_id_by_unique_name2 (dbe,
 												 PREP_QUERY_GET_SCOPE_ID,
 												 "scope", 
 												 value1,
 												 "typeid",
 												 value2)) < 0)
-	{
-		/* no luck. A table with the pair scope and type_id is not present. 
-		 * ok, let's insert out new scope table.
-		 */
-		const GdaQuery *query;
-		GdaObject *query_result;
-		GdaParameterList *par_list;
-		GdaParameter *param;
-		GValue *value;
-
-		if ((query = sdb_engine_get_query_by_id (dbe, PREP_QUERY_SCOPE_NEW))
-			== NULL)
 		{
-			g_warning ("query is null");
-			return -1;
-		}
-
-		if (GDA_QUERY_TYPE_NON_PARSED_SQL ==
-			gda_query_get_query_type ((GdaQuery *) query))
-		{
-			g_warning ("non parsed sql error");
-			return -1;
-		}
-
-		if ((par_list =
-			 gda_query_get_parameter_list ((GdaQuery *) query)) == NULL)
-		{
-			g_warning ("par_list is NULL!\n");
-			return -1;
-		}
-
-		/* scope parameter */
-		if ((param = gda_parameter_list_find_param (par_list, "scope")) == NULL)
-		{
-			g_warning ("param scope is NULL from pquery!");
-			return -1;
-		}
-
-		value = gda_value_new (G_TYPE_STRING);
-		g_value_set_string (value, scope);
-		gda_parameter_set_value (param, value);
-
-		/* typeid parameter */
-		if ((param =
-			 gda_parameter_list_find_param (par_list, "typeid")) == NULL)
-		{
-			g_warning ("param typeid is NULL from pquery!");
-			return -1;
-		}
-
-		gda_value_reset_with_type (value, G_TYPE_INT);
-		g_value_set_int (value, type_table_id);
-		gda_parameter_set_value (param, value);
-		gda_value_free (value);
-
-		/* execute the query with parameters just set */
-		query_result = gda_query_execute ((GdaQuery *) query, par_list, FALSE, NULL);
-		if (query_result == NULL)  
-		{
-			DEBUG_PRINT ("sdb_engine_add_new_scope_definition (): BAD INSERTION");
 			table_id = -1;
 		}
-		else  {
-			table_id = sdb_engine_get_last_insert_id (dbe);
-			g_object_unref (query_result);
-		}
-	}
 
-	gda_value_free (value1);
-	gda_value_free (value2);
-	
+
+		gda_value_free (value1);
+		gda_value_free (value2);
+	}
+	else  {
+		table_id = sdb_engine_get_last_insert_id (dbe);
+		g_object_unref (query_result);
+	}	
+
 	return table_id;
 }
 
@@ -3685,8 +3938,7 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	/* parse the entry name */
 	if (strlen (tag_entry->name) > sizeof (name))
 	{
-		printf
-			("fatal error when inserting symbol, name of symbol is too big.\n");
+		DEBUG_PRINT ("fatal error when inserting symbol, name of symbol is too big.");
 		gda_value_free (value);
 		return -1;
 	}
@@ -3718,7 +3970,8 @@ sdb_engine_add_new_symbol (SymbolDBEngine * dbe, tagEntry * tag_entry,
 	/* scope_definition_id tells what scope this symbol defines
 	 * this call *MUST BE DONE AFTER* sym_type table population.
 	 */
-	scope_definition_id = sdb_engine_add_new_scope_definition (dbe, tag_entry);
+	scope_definition_id = sdb_engine_add_new_scope_definition (dbe, tag_entry,
+															   type_id);
 
 	/* the container scopes can be: union, struct, typeref, class, namespace etc.
 	 * this field will be parse in the second pass.
@@ -4106,8 +4359,10 @@ sdb_engine_detects_removed_ids (SymbolDBEngine *dbe)
 		gint tmp;
 		val = gda_data_model_get_value_at (GDA_DATA_MODEL (query_result), 0, i);
 		tmp = g_value_get_int (val);
-		
-		g_signal_emit (dbe, signals[SYMBOL_REMOVED], 0, tmp);
+	
+		DEBUG_PRINT ("EMITTING symbol-removed");
+		g_async_queue_push (priv->signals_queue, (gpointer)(SYMBOL_REMOVED + 1));
+		g_async_queue_push (priv->signals_queue, (gpointer)tmp);
 	}
 
 	g_object_unref (query_result);
@@ -4896,6 +5151,9 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 	g_return_val_if_fail (dbe != NULL, FALSE);
 	priv = dbe->priv;
 
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);
+	
 	final_definition_id = -1;
 	if (scope_path != NULL)	
 		final_definition_id = sdb_engine_walk_down_scope_path (dbe, scope_path);
@@ -4932,11 +5190,15 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
 		g_free (query_str);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;			  
 	}
 
 	g_free (query_str);
 
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);
 }
 
@@ -5047,6 +5309,9 @@ symbol_db_engine_get_global_members (SymbolDBEngine *dbe,
 
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
+
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);
 	
 	/* check for an already flagged sym_info with KIND. SYMINFO_KIND on sym_info
 	 * is already contained into the default query infos.
@@ -5118,6 +5383,8 @@ symbol_db_engine_get_global_members (SymbolDBEngine *dbe,
 	{
 		gda_command_free (command);
 		g_free (query_str);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;			  
 	}
 
@@ -5137,6 +5404,8 @@ symbol_db_engine_get_global_members (SymbolDBEngine *dbe,
 		g_free (query_str);
 		g_string_free (info_data, FALSE);
 		g_string_free (join_data, FALSE);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;
 	}
 //	gda_data_model_dump (data, stdout);
@@ -5145,6 +5414,8 @@ symbol_db_engine_get_global_members (SymbolDBEngine *dbe,
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
 	
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);
 }
 
@@ -5177,8 +5448,15 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);
+	
 	if (scope_parent_symbol_id <= 0)
+	{
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;
+	}
 
 	/* info_data contains the stuff after SELECT and befor FROM */
 	info_data = g_string_new ("");
@@ -5214,13 +5492,8 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 		"%s WHERE a.symbol_id = '%d' AND symbol.scope_id = a.scope_definition_id "
 		"AND symbol.scope_id > 0 %s %s", info_data->str, join_data->str,
 								 scope_parent_symbol_id,
-								 limit, offset);
+								 limit, offset);	
 	
-	
-
-/*	DEBUG_PRINT ("symbol_db_engine_get_scope_members_by_symbol_id () query is %s", 
-				 query_str);*/
-
 	if (limit_free)
 		g_free (limit);
 	
@@ -5231,6 +5504,8 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
 		g_free (query_str);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;			  
 	}
 
@@ -5238,6 +5513,8 @@ select b.* from symbol a, symbol b where a.symbol_id = 348 and
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
 	
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);	
 }
 
@@ -5279,10 +5556,15 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);	
+	
 	final_definition_id = sdb_engine_walk_down_scope_path (dbe, scope_path);
 	
 	if (final_definition_id <= 0) 
 	{
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;
 	}
 
@@ -5309,6 +5591,8 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
 		g_free (query_str);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;			  
 	}
 
@@ -5316,6 +5600,8 @@ es. scope_path = First, namespace, Second, namespace, NULL,
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
 	
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);	
 }
 
@@ -5334,7 +5620,8 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 	
-	
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);	
 	file_escaped = g_strescape (filename, NULL);
 
 	/* WARNING: probably there can be some problems with escaping file names here.
@@ -5356,11 +5643,16 @@ symbol_db_engine_get_current_scope (SymbolDBEngine *dbe, const gchar* filename,
 	{
 		g_free (query_str);
 		g_free (file_escaped);		
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;			  
 	}
 
 	g_free (query_str);
 	g_free (file_escaped);
+	
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);
 }
 
@@ -5380,10 +5672,11 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	g_return_val_if_fail (file_path != NULL, NULL);
-	priv = dbe->priv;
-
+	priv = dbe->priv;	
 	g_return_val_if_fail (priv->data_source != NULL, NULL);
 
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);
 	/* check for an already flagged sym_info with FILE_PATH. SYMINFO_FILE_PATH on 
 	 * sym_info is already contained into the default query infos.
 	 */
@@ -5416,6 +5709,8 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
 		g_free (query_str);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;			  
 	}
 
@@ -5423,6 +5718,8 @@ symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe,
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
 
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);	
 }
 
@@ -5439,6 +5736,9 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 	
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
+
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);
 
 	/* info_data contains the stuff after SELECT and befor FROM */
 	info_data = g_string_new ("");
@@ -5463,6 +5763,8 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
 		g_free (query_str);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;			  
 	}
 
@@ -5470,6 +5772,8 @@ symbol_db_engine_get_symbol_info_by_id (SymbolDBEngine *dbe,
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
 
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);		
 }
 
@@ -5483,7 +5787,6 @@ symbol_db_engine_get_full_local_path (SymbolDBEngine *dbe, const gchar* file)
 	g_return_val_if_fail (dbe != NULL, NULL);
 	
 	priv = dbe->priv;
-/*	DEBUG_PRINT ("joining %s with %s", priv->data_source, file);*/
 	full_path = g_strdup_printf ("%s%s", priv->data_source, file);
 	return full_path;	
 }
@@ -5524,6 +5827,9 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 	g_return_val_if_fail (dbe != NULL, NULL);
 	priv = dbe->priv;
 
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);
+
 	/* info_data contains the stuff after SELECT and befor FROM */
 	info_data = g_string_new ("");
 	
@@ -5547,6 +5853,8 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 		  gda_data_model_get_n_rows (data) <= 0 ) 
 	{
 		g_free (query_str);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return NULL;			  
 	}
 
@@ -5554,6 +5862,8 @@ symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe,
 	g_string_free (info_data, FALSE);
 	g_string_free (join_data, FALSE);
 
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
 	return (SymbolDBEngineIterator *)symbol_db_engine_iterator_new (data);	
 }
 
@@ -5580,6 +5890,9 @@ select * from symbol where scope_definition_id = (
 	
 	g_return_val_if_fail (dbe != NULL, -1);
 	priv = dbe->priv;
+
+	if (priv->mutex)
+		g_mutex_lock (priv->mutex);
 
 	if (db_file == NULL)
 	{
@@ -5612,6 +5925,8 @@ select * from symbol where scope_definition_id = (
 		  gda_data_model_get_n_rows (data) <= 0 )
 	{
 		g_free (query_str);
+		if (priv->mutex)
+			g_mutex_unlock (priv->mutex);
 		return -1;
 	}
 
@@ -5748,5 +6063,7 @@ select * from symbol where scope_definition_id = (
 	}
 	g_object_unref (data);
 	
+	if (priv->mutex)
+		g_mutex_unlock (priv->mutex);
 	return res;
 }

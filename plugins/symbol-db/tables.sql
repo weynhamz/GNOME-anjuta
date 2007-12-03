@@ -50,7 +50,8 @@ CREATE TABLE symbol (symbol_id integer PRIMARY KEY AUTOINCREMENT,
                      kind_id integer REFERENCES sym_kind (sym_kind_id),
                      access_kind_id integer REFERENCES sym_access (sym_access_id),
                      implementation_kind_id integer REFERENCES sym_implementation (sym_impl_id),
-					 update_flag integer default 0
+					 update_flag integer default 0,
+                     unique (name, file_defined_id, file_position)
                      );
                      
 CREATE TABLE sym_type (type_id integer PRIMARY KEY AUTOINCREMENT,
@@ -79,7 +80,7 @@ CREATE TABLE heritage (symbol_id_base integer REFERENCES symbol (symbol_id),
 CREATE TABLE scope (scope_id integer PRIMARY KEY AUTOINCREMENT,
                     scope_name varchar(256) not null,
                     type_id integer,
-					unique (scope_name, type_id)
+                    unique (scope_name, type_id)
                     );
                     
 CREATE TABLE __tmp_heritage_scope (tmp_heritage_scope_id integer PRIMARY KEY AUTOINCREMENT,
@@ -99,11 +100,11 @@ CREATE TABLE __tmp_removed (tmp_removed_id integer PRIMARY KEY AUTOINCREMENT,
 
 CREATE INDEX symbol_idx_1 ON symbol (name);
 
-CREATE UNIQUE INDEX symbol_idx_2 ON symbol (name, file_defined_id, file_position);
+CREATE INDEX symbol_idx_2 ON symbol (name, file_defined_id, file_position);
 
-CREATE UNIQUE INDEX scope_uniq_idx_1 ON scope (scope);
+CREATE INDEX scope_idx_1 ON scope (scope_name);
 
-CREATE UNIQUE INDEX scope_uniq_idx_2 ON scope (scope, type_id);
+CREATE INDEX scope_idx_2 ON scope (scope_name, type_id);
 
 CREATE INDEX file_idx_1 ON file (file_path);
 
@@ -126,7 +127,7 @@ BEGIN
     INSERT INTO __tmp_removed (symbol_removed_id) VALUES (old.symbol_id);
 END;
 
-PRAGMA page_size = 4096;
-PRAGMA default_cache_size = 10000;
+PRAGMA page_size = 32768;
+PRAGMA default_cache_size = 12288;
 PRAGMA default_synchronous = OFF; 
 PRAGMA default_temp_store = MEMORY;

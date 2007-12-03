@@ -52,7 +52,7 @@
 #define GLADE_FILE ANJUTA_DATA_DIR"/glade/symbol-db.glade"
 #define ICON_FILE "anjuta-symbol-db-plugin-48.png"
 
-#define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		15000
+#define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10000
 #define TIMEOUT_SECONDS_AFTER_LAST_TIP		5
 
 static gpointer parent_class;
@@ -190,15 +190,16 @@ static void
 on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 {
 	const gchar *uri;
-	
+	DEBUG_PRINT ("on_editor_destroy ()");
 	if (!sdb_plugin->editor_connected || !sdb_plugin->dbv_view_tree)
 		return;
 	
 	uri = g_hash_table_lookup (sdb_plugin->editor_connected, G_OBJECT (editor));
 	if (uri && strlen (uri) > 0)
 	{
+/*				
 		DEBUG_PRINT ("Removing file tags of %s", uri);
-/*		
+
 		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
 											   uri);
 */		
@@ -209,6 +210,16 @@ on_editor_destroy (SymbolDBPlugin *sdb_plugin, IAnjutaEditor *editor)
 static void
 on_editor_update_ui (IAnjutaEditor *editor, SymbolDBPlugin *sdb_plugin) 
 {
+	if (timer == NULL)
+	{
+		/* creates and start a new timer. */
+		timer = g_timer_new ();
+	}
+	else 
+	{
+		g_timer_reset (timer);
+	}
+	
 #if 0	
 	gint lineno = ianjuta_editor_get_lineno (editor, NULL);
 	
@@ -661,13 +672,72 @@ on_project_element_removed (IAnjutaProjectManager *pm, const gchar *uri,
 	}
 }
 
-static void 
+static void
 sources_array_free (gpointer data)
 {
 	GPtrArray* sources = (GPtrArray*) data;
 	g_ptr_array_foreach (sources, (GFunc)g_free, NULL);
 	g_ptr_array_free (sources, TRUE);
 }
+
+static void
+on_single_file_scan_end (SymbolDBEngine *dbe, gpointer data)
+{	
+	AnjutaPlugin *plugin;
+	AnjutaStatus *status;	
+	SymbolDBPlugin *sdb_plugin;
+	gchar *message;
+	
+	plugin = ANJUTA_PLUGIN (data);
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
+		
+	status = anjuta_shell_get_status (plugin->shell, NULL);
+	
+	if (status == NULL)
+		return;
+	
+	sdb_plugin->files_count_done++;	
+	message = g_strdup_printf ("%d files scanned out of %d", 
+							   sdb_plugin->files_count_done, sdb_plugin->files_count);
+	
+	DEBUG_PRINT ("on_single_file_scan_end (): %d out of %d", sdb_plugin->files_count_done, 
+				 sdb_plugin->files_count);	
+
+	anjuta_status_progress_tick (status, NULL, message);
+	g_free (message);
+}
+
+static void
+on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
+{
+	SymbolDBPlugin *sdb_plugin;
+	
+	g_return_if_fail (data != NULL);
+	
+	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (data);
+	
+	DEBUG_PRINT ("on_importing_project_end ()");
+	
+	/* re-enable signals receiving on local-view */
+	symbol_db_view_locals_recv_signals_from_engine (
+						SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+								 sdb_plugin->sdbe, TRUE);
+
+	/* and on global view */
+	symbol_db_view_recv_signals_from_engine (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
+								 sdb_plugin->sdbe, TRUE);
+	
+	/* disconnect this coz it's not important after the process of importing */
+	g_signal_handlers_disconnect_by_func (dbe, on_single_file_scan_end, data);																 
+	
+	/* disconnect it as we don't need it anymore. */
+	g_signal_handlers_disconnect_by_func (dbe, on_importing_project_end, data);	
+	
+	sdb_plugin->files_count_done = 0;
+	sdb_plugin->files_count = 0;
+}
+
+
 
 /* add a new project */
 static void
@@ -734,14 +804,31 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				g_error ("Symbol-DB: error in opening project");
 			}
 
+			/* needs an import */
 			if (needs_sources_scan == TRUE)
 			{
 				GList* prj_elements_list;
 				GPtrArray* sources_array = NULL;
 				GPtrArray* languages_array = NULL;
 				GHashTable *check_unique_file;
-				IAnjutaLanguage* lang_manager =
-						anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
+				IAnjutaLanguage* lang_manager;
+				
+				/* if we're importing first shut off the signal receiving.
+				 * We'll re-enable that on scan-end 
+				 */
+				symbol_db_view_locals_recv_signals_from_engine (																
+							SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals), 
+											 sdb_plugin->sdbe, FALSE);
+
+				symbol_db_view_recv_signals_from_engine (																
+							SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
+											 sdb_plugin->sdbe, FALSE);
+				
+				g_signal_connect (G_OBJECT (sdb_plugin->sdbe), "scan-end",
+					  G_CALLBACK (on_importing_project_end), plugin);
+				
+				
+				lang_manager =	anjuta_shell_get_interface (plugin->shell, IAnjutaLanguage, 
 													NULL);
 			
 				if (!lang_manager)
@@ -817,18 +904,25 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 					{
 						sources_array = g_ptr_array_new ();
 					}	
-
+					
 					if (!languages_array)
 					{
 						languages_array = g_ptr_array_new ();
 					}
-					
+
+					sdb_plugin->files_count++;
 					g_ptr_array_add (sources_array, local_filename);
 					g_ptr_array_add (languages_array, g_strdup (lang));					
 				}
 			
 				DEBUG_PRINT ("calling symbol_db_engine_add_new_files  with root_dir %s",
 							 root_dir);
+
+				/* connect to receive signals on single file scan complete. We'll
+				 * update a status bar notifying the user about the status
+				 */
+				g_signal_connect (G_OBJECT (sdb_plugin->sdbe), "single-file-scan-end",
+					  G_CALLBACK (on_single_file_scan_end), plugin);
 				
 				symbol_db_engine_add_new_files (sdb_plugin->sdbe, root_dir,
 									sources_array, languages_array, TRUE);
@@ -843,8 +937,9 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				g_ptr_array_free (languages_array, TRUE);
 			}
 			
-			anjuta_status_progress_tick (status, NULL, _("Created symbols..."));
-
+			anjuta_status_progress_tick (status, NULL, _("Populating symbols' db..."));
+			anjuta_status_progress_add_ticks (status, sdb_plugin->files_count);
+			
 			symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree),
 								 sdb_plugin->sdbe);
 
@@ -913,8 +1008,6 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 		DEBUG_PRINT ("file %s", node);
 	}
 	
-
-	
 	g_list_foreach (files, (GFunc)g_free, NULL);
 	g_list_free (files);
 	
@@ -936,8 +1029,7 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	g_signal_connect (plugin->shell, "load-session",
 					  G_CALLBACK (on_session_load),
 					  plugin);
-	*/
-	
+	*/	
 	
 	/* create SymbolDBEngine */
 	symbol_db->sdbe = symbol_db_engine_new ();
@@ -955,6 +1047,10 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	
 	symbol_db->dbv_view_locals_tab_label = gtk_label_new (_("Local" ));
 	symbol_db->dbv_view_tree_locals = symbol_db_view_locals_new ();
+	/* activate signals receiving by default */
+	symbol_db_view_locals_recv_signals_from_engine (
+					SYMBOL_DB_VIEW_LOCALS (symbol_db->dbv_view_tree_locals), 
+											 symbol_db->sdbe, TRUE);										 
 
 	g_object_add_weak_pointer (G_OBJECT (symbol_db->dbv_view_tree_locals),
 							   (gpointer)&symbol_db->dbv_view_tree_locals);
@@ -978,6 +1074,10 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	symbol_db->dbv_view_tree = symbol_db_view_new ();
 	g_object_add_weak_pointer (G_OBJECT (symbol_db->dbv_view_tree),
 							   (gpointer)&symbol_db->dbv_view_tree);
+	/* activate signals receiving by default */
+	symbol_db_view_recv_signals_from_engine (
+					SYMBOL_DB_VIEW (symbol_db->dbv_view_tree), 
+											 symbol_db->sdbe, TRUE);										 
 
 	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree), "row-activated",
 					  G_CALLBACK (on_global_treeview_row_activated), plugin);
@@ -1142,6 +1242,8 @@ symbol_db_instance_init (GObject *obj)
 
 	plugin->uiid = 0;
 	plugin->widget = NULL;
+	plugin->files_count_done = 0;
+	plugin->files_count = 0;
 }
 
 static void

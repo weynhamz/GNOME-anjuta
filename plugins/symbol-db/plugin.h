@@ -82,6 +82,10 @@ struct _SymbolDBPlugin{
 	/* current editor */
 	GObject *current_editor;
 	GHashTable *editor_connected;	
+	
+	gint files_count;
+	gint files_count_done;
+	
 };
 
 struct _SymbolDBPluginClass{

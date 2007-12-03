@@ -131,7 +131,10 @@ sdb_view_get_iter_from_row_ref (SymbolDBView *dbv, GtkTreeRowReference *row_ref,
 static gboolean
 traverse_free_waiting_for (gpointer key, gpointer value, gpointer data)
 {
-	waiting_for_symbol_destroy ((WaitingForSymbol *)value);
+	if (value == NULL)
+		return FALSE;
+
+	g_slist_foreach ((GSList*)value, (GFunc)waiting_for_symbol_destroy, NULL);
 	return FALSE;
 }
 
@@ -151,7 +154,6 @@ on_scan_end (SymbolDBEngine *dbe, gpointer data)
 	if (priv->waiting_for)
 	{
 		g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, NULL);
-		g_tree_destroy (priv->waiting_for);
 	}
 }
 
@@ -297,7 +299,7 @@ trigger_on_symbol_inserted (SymbolDBView *dbv, gint symbol_id)
 	if (slist == NULL) 
 	{
 		/* nothing waiting for us */
-/*		DEBUG_PRINT ("trigger_on_symbol_inserted (): no children waiting for us...");*/
+		/*DEBUG_PRINT ("trigger_on_symbol_inserted (): no children waiting for us...");*/
 		return;
 	}
 	else {
@@ -359,7 +361,7 @@ add_new_waiting_for (SymbolDBView *dbv, gint parent_symbol_id,
 				
 		slist = g_slist_prepend (slist, wfs);
 					
-		/*DEBUG_PRINT ("add_new_waiting_for (): NEW adding to "
+/*		DEBUG_PRINT ("add_new_waiting_for (): NEW adding to "
 					 "waiting_for [%d]", parent_symbol_id);*/
 				
 		/* add it to the binary tree. */
@@ -506,14 +508,19 @@ prepare_for_adding (SymbolDBView *dbv, gint parent_symbol_id,
 			/* unknown row_ref... */
 			g_warning ("prepare_for_adding (): unknown ref found. Adding to root.");
 			curr_tree_row_ref = do_add_root_symbol_to_view (dbv, pixbuf, symbol_name,
-													 symbol_id);			
+													 symbol_id);
 		}
-		
+
+		if (curr_tree_row_ref == NULL)
+		{
+			g_warning ("prepare_for_adding (): row_ref == NULL");
+			return;
+		}		
 		
 		/* we'll fake the gpointer to store an int */
 		g_tree_insert (priv->nodes_displayed, (gpointer)symbol_id, 
 					   curr_tree_row_ref);
-		
+				
 		/* let's trigger the insertion of the symbol_id, there may be some children
 		 * waiting for it.
 		 */
@@ -574,14 +581,14 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 	
 	priv = dbv->priv;
 	
-	DEBUG_PRINT ("on_symbol_inserted -global- !!!!! %d", symbol_id);
+	DEBUG_PRINT ("on_symbol_inserted -global- %d", symbol_id);
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
 
 	parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
 																	symbol_id,
 																	NULL);
 	
-	DEBUG_PRINT ("parent_symbol_id %d", parent_symbol_id);
+/*	DEBUG_PRINT ("parent_symbol_id %d", parent_symbol_id);*/
 	
 	/* get the original symbol infos */
 	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, symbol_id, 
@@ -596,16 +603,15 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 		const gchar* symbol_name;
 		const gchar* symbol_kind;
 		SymbolDBEngineIterator *iterator_for_children;
-		
+	
 		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_KIND);
-		
+
 		pixbuf = symbol_db_view_get_pixbuf (symbol_kind,
 						symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_ACCESS));
 		symbol_name = symbol_db_engine_iterator_node_get_symbol_name (iter_node);
-		
 		
 		/* check if one of the children [if they exist] of symbol_id are already 
 		 * displayed. In that case we'll invalidate all of them.
@@ -615,6 +621,7 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 			symbol_db_engine_get_scope_members_by_symbol_id (dbe, symbol_id, -1,
 															 -1,
 															 SYMINFO_SIMPLE);
+
 		if (iterator_for_children == NULL) 
 		{
 			/* we don't have children */
@@ -675,7 +682,6 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 		
 		prepare_for_adding (dbv, parent_symbol_id, symbol_name, symbol_id, pixbuf,
 							symbol_kind);
-		
 		g_object_unref (iterator);
 	}
 }
@@ -960,7 +966,9 @@ sdb_view_init (SymbolDBView *object)
 	priv->row_ref_macro = NULL;
 	priv->row_ref_typedef = NULL;
 	priv->row_ref_enumerator = NULL;
-	
+	priv->scan_end_handler = 0;
+	priv->remove_handler = 0;
+	priv->scan_end_handler = 0;	
 
 	/* Tree and his model */
 	store = gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
@@ -1449,6 +1457,58 @@ sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 }
 
 void
+symbol_db_view_recv_signals_from_engine (SymbolDBView *dbv, SymbolDBEngine *dbe,
+										 gboolean enable_status)
+{
+	SymbolDBViewPriv *priv;
+
+	g_return_if_fail (dbv != NULL);
+	priv = dbv->priv;		
+	
+	if (enable_status == TRUE) 
+	{
+		/* connect some signals */
+		if (priv->insert_handler <= 0) 
+		{
+			priv->insert_handler = 	g_signal_connect (G_OBJECT (dbe), "symbol-inserted",
+						  G_CALLBACK (on_symbol_inserted), dbv);
+		}
+
+		if (priv->remove_handler <= 0)
+		{
+			priv->remove_handler = g_signal_connect (G_OBJECT (dbe), "symbol-removed",
+						  G_CALLBACK (on_symbol_removed), dbv);
+		}	
+
+		if (priv->scan_end_handler <= 0)
+		{
+			priv->scan_end_handler = g_signal_connect (G_OBJECT (dbe), "scan-end",
+						  G_CALLBACK (on_scan_end), dbv);
+		}
+	}
+	else		/* disconnect them, if they were ever connected before */
+	{
+		if (priv->insert_handler >= 0) 
+		{
+			g_signal_handler_disconnect (G_OBJECT (dbe), priv->insert_handler);
+			priv->insert_handler = 0;
+		}
+
+		if (priv->remove_handler >= 0)
+		{
+			g_signal_handler_disconnect (G_OBJECT (dbe), priv->remove_handler);
+			priv->remove_handler = 0;
+		}	
+
+		if (priv->scan_end_handler >= 0)
+		{
+			g_signal_handler_disconnect (G_OBJECT (dbe), priv->scan_end_handler);
+			priv->scan_end_handler = 0;
+		}
+	}
+}
+
+void
 symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe)
 {
 	GtkTreeStore *store;
@@ -1481,22 +1541,4 @@ symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe)
 									 NULL);
 	
 	sdb_view_build_and_display_base_tree (dbv, dbe);
-	
-	if (priv->insert_handler <= 0) 
-	{
-		priv->insert_handler = 	g_signal_connect (G_OBJECT (dbe), "symbol-inserted",
-					  G_CALLBACK (on_symbol_inserted), dbv);
-	}
-
-	if (priv->remove_handler <= 0)
-	{
-		priv->remove_handler = g_signal_connect (G_OBJECT (dbe), "symbol-removed",
-					  G_CALLBACK (on_symbol_removed), dbv);
-	}
-
-	if (priv->scan_end_handler <= 0)
-	{
-		priv->remove_handler = g_signal_connect (G_OBJECT (dbe), "scan-end",
-					  G_CALLBACK (on_scan_end), dbv);
-	}	
 }

@@ -76,6 +76,10 @@ gboolean
 symbol_db_view_get_file_and_line (SymbolDBView *dbv, SymbolDBEngine *dbe,
 							GtkTreeIter * iter, gint *OUT_line, gchar **OUT_file);
 
+void
+symbol_db_view_recv_signals_from_engine (SymbolDBView *dbv, SymbolDBEngine *dbe,
+										 gboolean enable_status);
+
 G_END_DECLS
 
 #endif /* _SYMBOL_DB_VIEW_H_ */

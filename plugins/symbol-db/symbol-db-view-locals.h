@@ -69,6 +69,10 @@ symbol_db_view_locals_get_line (SymbolDBViewLocals *dbvl,
 								SymbolDBEngine *dbe,
 								GtkTreeIter * iter);
 
+void
+symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe,
+										 gboolean enable_status);
+
 
 G_END_DECLS
 

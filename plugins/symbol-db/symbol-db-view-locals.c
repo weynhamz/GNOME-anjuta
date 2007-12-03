@@ -48,7 +48,6 @@ struct _SymbolDBViewLocalsPriv {
 	gchar *current_db_file;
 	gchar *current_local_file_path;
 	gint insert_handler;
-	gint update_handler;
 	gint remove_handler;	
 	gint scan_end_handler;
 	
@@ -106,11 +105,12 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 		
 	priv->current_db_file = NULL;
 	priv->current_local_file_path = NULL;
-	priv->insert_handler = -1;
-	priv->update_handler = -1;
-	priv->remove_handler = -1;
 	priv->nodes_displayed = NULL;
 	priv->waiting_for = NULL;
+	priv->insert_handler = 0;
+	priv->scan_end_handler = 0;
+	priv->remove_handler = 0;
+
 	
 	store = gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
 				    G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT);
@@ -151,6 +151,11 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 static gboolean
 traverse_free_waiting_for (gpointer key, gpointer value, gpointer data)
 {
+	if (value == NULL)
+		return FALSE;
+
+	g_slist_foreach ((GSList*)value, (GFunc)waiting_for_symbol_destroy, NULL);
+
 	waiting_for_symbol_destroy ((WaitingForSymbol *)value);
 	return FALSE;
 }
@@ -428,6 +433,7 @@ on_scan_end (SymbolDBEngine *dbe, gpointer data)
 	g_return_if_fail (dbvl != NULL);	
 	priv = dbvl->priv;
 
+	DEBUG_PRINT ("locals on_scan_end ()");
 	/* ok, symbol parsing has ended, are we sure that all the waiting_for
 	 * objects have been checked?
 	 * If it's not the case then try to add it to the on the root of the gtktreeview
@@ -931,7 +937,7 @@ symbol_db_view_locals_get_line (SymbolDBViewLocals *dbvl,
 								GtkTreeIter * iter) 
 {
 	GtkTreeStore *store;
-		
+
 	g_return_val_if_fail (dbvl != NULL, -1);
 	g_return_val_if_fail (dbe != NULL, -1);	
 	g_return_val_if_fail (iter != NULL, -1);
@@ -964,6 +970,58 @@ symbol_db_view_locals_get_line (SymbolDBViewLocals *dbvl,
 }								
 
 void
+symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe,
+										 gboolean enable_status)
+{
+	SymbolDBViewLocalsPriv *priv;
+
+	g_return_if_fail (dbvl != NULL);
+	priv = dbvl->priv;		
+	
+	if (enable_status == TRUE) 
+	{
+		/* connect some signals */
+		if (priv->insert_handler <= 0) 
+		{
+			priv->insert_handler = 	g_signal_connect (G_OBJECT (dbe), "symbol-inserted",
+						  G_CALLBACK (on_symbol_inserted), dbvl);
+		}
+
+		if (priv->remove_handler <= 0)
+		{
+			priv->remove_handler = g_signal_connect (G_OBJECT (dbe), "symbol-removed",
+						  G_CALLBACK (on_symbol_removed), dbvl);
+		}	
+
+		if (priv->scan_end_handler <= 0)
+		{
+			priv->scan_end_handler = g_signal_connect (G_OBJECT (dbe), "scan-end",
+						  G_CALLBACK (on_scan_end), dbvl);
+		}
+	}
+	else		/* disconnect them, if they were ever connected before */
+	{
+		if (priv->insert_handler >= 0) 
+		{
+			g_signal_handler_disconnect (G_OBJECT (dbe), priv->insert_handler);
+			priv->insert_handler = 0;
+		}
+
+		if (priv->remove_handler >= 0)
+		{
+			g_signal_handler_disconnect (G_OBJECT (dbe), priv->remove_handler);
+			priv->remove_handler = 0;
+		}	
+
+		if (priv->scan_end_handler >= 0)
+		{
+			g_signal_handler_disconnect (G_OBJECT (dbe), priv->scan_end_handler);
+			priv->scan_end_handler = 0;
+		}
+	}
+}
+
+void
 symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe,
 							  const gchar* filepath)
 {
@@ -986,6 +1044,9 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 
 	priv->current_db_file = 
 		symbol_db_engine_get_file_db_path (dbe, filepath);
+	if (priv->current_db_file == NULL)
+		return;
+	
 	priv->current_local_file_path = g_strdup (filepath);		
 
 	if (priv->nodes_displayed)
@@ -1051,26 +1112,7 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	/* only gtk 2.12 ...
 	 * gtk_tree_view_set_show_expanders (GTK_TREE_VIEW (dbvl)); */
 	
-	gtk_tree_view_expand_all (GTK_TREE_VIEW (dbvl));
-	
-	/* connect some signals */
-	if (priv->insert_handler <= 0) 
-	{
-		priv->insert_handler = 	g_signal_connect (G_OBJECT (dbe), "symbol-inserted",
-					  G_CALLBACK (on_symbol_inserted), dbvl);
-	}
-
-	if (priv->remove_handler <= 0)
-	{
-		priv->remove_handler = g_signal_connect (G_OBJECT (dbe), "symbol-removed",
-					  G_CALLBACK (on_symbol_removed), dbvl);
-	}	
-
-	if (priv->scan_end_handler <= 0)
-	{
-		priv->remove_handler = g_signal_connect (G_OBJECT (dbe), "scan-end",
-					  G_CALLBACK (on_scan_end), dbvl);
-	}	
+	gtk_tree_view_expand_all (GTK_TREE_VIEW (dbvl));	
 }
 
  

@@ -48,6 +48,7 @@ struct _SymbolDBEngineClass
 	GObjectClass parent_class;
 	
 	/* signals */
+	void (* single_file_scan_end) ();
 	void (* scan_end) ();
 	void (* symbol_inserted) 		(gint symbol_id);
 	void (* symbol_updated)  		(gint symbol_id);
