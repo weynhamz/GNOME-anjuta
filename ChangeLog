@@ -1,3 +1,9 @@
+2007-12-04  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/queue.c,
+	plugins/gdb/plugin.c:
+	Fix bug #501469: Crash if mime_type is unknown
+
 2007-12-01  Massimo Cora'  <maxcvs@email.it>
 
 		* plugins/symbol-db/plugin.c: (on_editor_destroy),

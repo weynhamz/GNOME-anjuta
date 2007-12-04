@@ -510,10 +510,20 @@ dma_debugger_activate_plugin (DmaDebuggerQueue* self, const gchar *mime_type)
 
 	/* Get list of debugger plugins */
 	plugin_manager = anjuta_shell_get_plugin_manager (ANJUTA_PLUGIN(self->plugin)->shell, NULL);
-	descs = anjuta_plugin_manager_query (plugin_manager,
-					"Anjuta Plugin","Interfaces", "IAnjutaDebugger",
-					"File Loader", "SupportedMimeTypes", mime_type,
-					NULL);
+	if (mime_type == NULL)
+	{
+		/* User has to select the right debugger */
+		descs = anjuta_plugin_manager_query (plugin_manager,
+						"Anjuta Plugin","Interfaces", "IAnjutaDebugger", NULL);
+	}
+	else
+	{
+		/* Propose only debugger supporting correct mime type */
+		descs = anjuta_plugin_manager_query (plugin_manager,
+						"Anjuta Plugin","Interfaces", "IAnjutaDebugger",
+						"File Loader", "SupportedMimeTypes", mime_type,
+						NULL);
+	}
 
 	if (descs == NULL)
 	{

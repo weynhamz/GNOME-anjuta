@@ -306,8 +306,13 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_ty
 	gboolean is_libtool = FALSE;
 
 	/* Check allowed mime type */
-	if (strcmp (mime_type, "application/x-executable") == 0)
+	if (mime_type == NULL)
 	{
+		/* Hope that the target is supported */
+	}
+	else if (strcmp (mime_type, "application/x-executable") == 0)
+	{
+		/* Supported target */
 	}
 	else if (strcmp (mime_type, "application/x-shellscript") == 0)
 	{
@@ -318,16 +323,14 @@ idebugger_load (IAnjutaDebugger *plugin, const gchar *file, const gchar* mime_ty
 	}
 	else if (strcmp (mime_type, "application/x-core") == 0)
 	{
+		/* Supported target */
 	}
 	else
 	{
-		//return IANJUTA_DEBUGGER_NOT_IMPLEMENTED;
+		/* Not supported target */
 		return TRUE;
 	}
 	
-	// a NULL filename could be used to check supported mime type
-	if (file == NULL) return TRUE;
-		
 	// Start debugger
 	gdb_plugin_initialize (this);
 	
