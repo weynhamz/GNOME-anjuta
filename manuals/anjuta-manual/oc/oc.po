@@ -11,14 +11,13 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-20 03:15+0100\n"
-"PO-Revision-Date: 2007-11-20 14:29+0100\n"
+"PO-Revision-Date: 2007-12-05 15:41+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);X-Generator: KBabel 1.11.4\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);X-Generator: KBabel 1.11.4"
 
 #: C/anjuta-manual.xml:25(title)
 msgid "Anjuta IDE Manual"
@@ -102,7 +101,7 @@ msgstr "Johannes Schmid<email>jhs@gnome.org</email>"
 
 #: C/anjuta-manual.xml:84(para)
 msgid "Anjuta Team"
-msgstr ""
+msgstr "Còla d'Anjuta"
 
 #: C/anjuta-manual.xml:3(title) C/anjuta-manual.xml:6(title)
 msgid "Introduction"
@@ -134,7 +133,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:5(title)
 msgid "Menus and shortcuts"
-msgstr ""
+msgstr "Menuts e acorchis"
 
 #: C/anjuta-manual.xml:6(para)
 msgid "At the top of the <application>Anjuta</application> main window is the menubar. Almost all of the functions are available by activating the appropriate menu item. The functions have been grouped according to their type. For example, the file operations have been grouped into the <guisubmenu>File</guisubmenu> menu."
@@ -146,7 +145,7 @@ msgstr "Barra de menuts"
 
 #: C/anjuta-manual.xml:17(screeninfo)
 msgid "Anjuta menubar"
-msgstr ""
+msgstr "La barra de menuts d'Anjuta"
 
 #: C/anjuta-manual.xml:22(para)
 msgid "Most of the menus and submenus can be detached. Click on the detach bar (the dashed line just above the first menu item). Once the menu is detached, it will become an independent window."
@@ -282,7 +281,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:53(title)
 msgid "Inserting Macros"
-msgstr ""
+msgstr "Inserir de macròs"
 
 #: C/anjuta-manual.xml:54(para)
 msgid "Macros can be used to quickly edit repetitive sequences of text."
@@ -294,7 +293,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:63(title)
 msgid "Inserting"
-msgstr ""
+msgstr "Inserir"
 
 #: C/anjuta-manual.xml:64(para)
 msgid "Two types of macros are available: Anjuta macros and User macros (My macros). Anjuta macros are not modifiable by the user. On the other hand, User macros can be defined and modified by the user."
@@ -306,7 +305,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:82(title)
 msgid "Macro"
-msgstr ""
+msgstr "Macrò"
 
 #: C/anjuta-manual.xml:84(screeninfo)
 msgid "The Macro dialog"
@@ -330,7 +329,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:108(title)
 msgid "Add/Edit Macro"
-msgstr ""
+msgstr "Apondre/modificar una macrò"
 
 #: C/anjuta-manual.xml:110(screeninfo)
 msgid "Add Edit dialog"
@@ -422,7 +421,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:254(title)
 msgid "Editing Files"
-msgstr ""
+msgstr "Modificar de fichièrs"
 
 #: C/anjuta-manual.xml:255(para)
 msgid "<application>Anjuta</application> has a number of helpful features which aid in editing and working with source files. The following sections describe how to use some of the interesting features available."
@@ -702,7 +701,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:649(title)
 msgid "Printing a file"
-msgstr ""
+msgstr "Estampar un fichièr"
 
 #: C/anjuta-manual.xml:659(title)
 msgid "Print preview of a C file"
@@ -718,11 +717,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:668(title)
 msgid "Print Preferences"
-msgstr ""
+msgstr "Preferéncias d'estampatge"
 
 #: C/anjuta-manual.xml:670(screeninfo)
 msgid "Print preferences"
-msgstr ""
+msgstr "Preferéncias d'estampatge"
 
 #: C/anjuta-manual.xml:675(para)
 msgid "When you are ready to print and satisfied with the preview, select <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Print</guimenuitem></menuchoice> or <guibutton>Print</guibutton> from the print preview window. This will bring up the actual print dialog as shown below. Select the appropriate print parameters and print the file with <guibutton>Print</guibutton> on it."
@@ -874,7 +873,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:235(title)
 msgid "Adding Groups"
-msgstr ""
+msgstr "Apondre de grops"
 
 #: C/anjuta-manual.xml:240(para)
 msgid "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Group</guimenuitem></menuchoice> and a dialog to add a new group would popup."
@@ -898,7 +897,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:266(title)
 msgid "Removing Groups"
-msgstr ""
+msgstr "Suprimir de grops"
 
 #: C/anjuta-manual.xml:271(para)
 msgid "Select the target in <interface>Project Manager view</interface>."
@@ -1038,7 +1037,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:469(title)
 msgid "The file is not deleted!"
-msgstr ""
+msgstr "Lo fichièr es pas suprimit !"
 
 #: C/anjuta-manual.xml:470(para)
 msgid "The file is not deleted from the filesystem. It still exists, and you can add it back again later if you so wish. The file is only removed from the project listing, and will not take part in any of the project operations such as compiling, building, distribution etc.."
@@ -1362,7 +1361,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:968(title)
 msgid "Executing program"
-msgstr ""
+msgstr "Executar un programa"
 
 #: C/anjuta-manual.xml:969(para)
 msgid "Once an executable is ready after the build, you can execute it by choosing the menu item <menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Execute</guimenuitem></menuchoice>, or pressing <keycap>F3</keycap>. You can specify which executable you want to use in case your project provides more than one and specify command line arguments."
@@ -1370,7 +1369,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:976(title)
 msgid "Dependencies"
-msgstr ""
+msgstr "Dependéncias"
 
 #: C/anjuta-manual.xml:977(para)
 msgid "Unlike the build stage, execution doesn't check for dependencies (at least for the time being). In other words, it does not check if the executable is up-to-date before it executes the program. So, <emphasis>you must take care of that yourself.</emphasis>"
@@ -1474,7 +1473,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:128(title)
 msgid "Execution"
-msgstr ""
+msgstr "Execucion"
 
 #: C/anjuta-manual.xml:129(para)
 msgid "Execution of a program in the debugger can be finely controlled. The program can be executed in single steps, or allowed to continue until it encounters a breakpoint. Executing like this is essential for tracking program behaviour. Like a video editing session, the program can be executed in <emphasis>slow motion</emphasis> with the ability to go forward, pause, stop, and so on."
@@ -1698,7 +1697,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:431(title)
 msgid "Expressions"
-msgstr ""
+msgstr "Expressions"
 
 #: C/anjuta-manual.xml:434(title)
 msgid "Listing local variable"
