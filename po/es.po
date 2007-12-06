@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-29 21:22+0000\n"
-"PO-Revision-Date: 2007-11-30 13:16+0100\n"
+"POT-Creation-Date: 2007-12-03 15:03+0000\n"
+"PO-Revision-Date: 2007-12-06 13:24+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -310,13 +310,13 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1319
 #: ../libanjuta/anjuta-plugin-manager.c:1421
-#: ../plugins/debug-manager/queue.c:463
+#: ../plugins/debug-manager/queue.c:535
 msgid "Select a plugin"
 msgstr "Seleccione un complemento"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1320
 #: ../libanjuta/anjuta-plugin-manager.c:1422
-#: ../plugins/debug-manager/queue.c:464
+#: ../plugins/debug-manager/queue.c:536
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un complemento para activar"
 
@@ -2110,7 +2110,7 @@ msgstr "Pausa la ejecución del programa"
 msgid "Debugger operations"
 msgstr "Operaciones de depuración"
 
-#: ../plugins/debug-manager/queue.c:450
+#: ../plugins/debug-manager/queue.c:522
 #, c-format
 msgid "Unable to find one debugger plugin acception %s mime type"
 msgstr "Imposible encontrar un tipo MIME %s de acepción de complemento de depuración"
@@ -2435,7 +2435,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1668
 #: ../plugins/search/search-replace.c:1680
 #: ../plugins/search/search-replace.c:1994
-#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:994
+#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:1094
 msgid "Search"
 msgstr "Buscar"
 
@@ -3898,7 +3898,7 @@ msgstr "Directorio raíz si no hay ningún proyecto abierto: "
 
 #: ../plugins/file-manager/file-model.c:150
 #: ../plugins/symbol-browser/an_symbol_view.c:869
-#: ../plugins/symbol-db/symbol-db-view.c:801
+#: ../plugins/symbol-db/symbol-db-view.c:807
 msgid "Loading..."
 msgstr "Cargando…"
 
@@ -5551,7 +5551,7 @@ msgstr "switch"
 msgid "while"
 msgstr "while"
 
-#: ../plugins/macro/plugin.c:34 ../plugins/symbol-db/symbol-db-view.c:1409
+#: ../plugins/macro/plugin.c:34 ../plugins/symbol-db/symbol-db-view.c:1417
 msgid "Macros"
 msgstr "Macros"
 
@@ -7655,7 +7655,7 @@ msgstr "Obstruídos: %s"
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
 #: ../plugins/symbol-browser/an_symbol_view.c:565
 #: ../plugins/symbol-db/symbol-db-view-locals.c:132
-#: ../plugins/symbol-db/symbol-db-view.c:986
+#: ../plugins/symbol-db/symbol-db-view.c:994
 msgid "Symbol"
 msgstr "Símbolo"
 
@@ -7769,15 +7769,15 @@ msgstr "Buscar uso del símbolo en el proyecto"
 msgid "Refresh symbol browser tree"
 msgstr "Refrescar el árbol del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:388 ../plugins/symbol-db/plugin.c:846
+#: ../plugins/symbol-browser/plugin.c:388
 msgid "Created symbols..."
 msgstr "Símbolos creados…"
 
-#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:956
+#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:1048
 msgid "Local"
 msgstr "Local"
 
-#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:977
+#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:1073
 msgid "Global"
 msgstr "Global"
 
@@ -7801,39 +7801,43 @@ msgstr "Seleccione el símbolo al que quiere ir"
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:1032
+#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:1132
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../plugins/symbol-db/symbol-db-view.c:1318
+#: ../plugins/symbol-db/plugin.c:940
+msgid "Populating symbols' db..."
+msgstr "Creando la base de datos de símbolos…"
+
+#: ../plugins/symbol-db/symbol-db-view.c:1326
 msgid "Namespaces"
 msgstr "Espacios de nombres"
 
-#: ../plugins/symbol-db/symbol-db-view.c:1334
+#: ../plugins/symbol-db/symbol-db-view.c:1342
 msgid "Classes"
 msgstr "Clases"
 
-#: ../plugins/symbol-db/symbol-db-view.c:1349
+#: ../plugins/symbol-db/symbol-db-view.c:1357
 msgid "Structs"
 msgstr "Estructuras"
 
-#: ../plugins/symbol-db/symbol-db-view.c:1364
+#: ../plugins/symbol-db/symbol-db-view.c:1372
 msgid "Unions"
 msgstr "Uniones"
 
-#: ../plugins/symbol-db/symbol-db-view.c:1379
+#: ../plugins/symbol-db/symbol-db-view.c:1387
 msgid "Functions"
 msgstr "Funciones"
 
-#: ../plugins/symbol-db/symbol-db-view.c:1394
+#: ../plugins/symbol-db/symbol-db-view.c:1402
 msgid "Variables"
 msgstr "Variables"
 
-#: ../plugins/symbol-db/symbol-db-view.c:1424
+#: ../plugins/symbol-db/symbol-db-view.c:1432
 msgid "Typedefs"
 msgstr "Definiciones de tipo"
 
-#: ../plugins/symbol-db/symbol-db-view.c:1439
+#: ../plugins/symbol-db/symbol-db-view.c:1447
 msgid "Enumerators"
 msgstr "Enumeradores"
 
@@ -8062,7 +8066,7 @@ msgstr "Configurar herramientas externas"
 msgid "Tool operations"
 msgstr "Operaciones con herramientas"
 
-#: ../plugins/tools/variable.c:488
+#: ../plugins/tools/variable.c:487
 msgid "Command line parameters"
 msgstr "Parámetros del comando"
 
