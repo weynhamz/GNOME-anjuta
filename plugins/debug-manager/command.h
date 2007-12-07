@@ -58,7 +58,7 @@ typedef enum
 gboolean dma_queue_initialize (DmaDebuggerQueue *self);
 gboolean dma_queue_load (DmaDebuggerQueue *self, const gchar *file, const gchar* mime_type, const GList *search_dirs);
 gboolean dma_queue_attach (DmaDebuggerQueue *self, pid_t pid, const GList *search_dirs);
-gboolean dma_queue_start (DmaDebuggerQueue *self, const gchar *args, gboolean terminal);
+gboolean dma_queue_start (DmaDebuggerQueue *self, const gchar *args, gboolean terminal, gboolean stop);
 gboolean dma_queue_unload (DmaDebuggerQueue *self);
 gboolean dma_queue_quit (DmaDebuggerQueue *self);
 gboolean dma_queue_abort (DmaDebuggerQueue *self);
@@ -116,7 +116,8 @@ gboolean dma_queue_update_variable (DmaDebuggerQueue *self, IAnjutaDebuggerCallb
 void dma_command_free (DmaQueueCommand *cmd);
 
 void dma_command_cancel (DmaQueueCommand *cmd);
-gboolean dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger, GError **error);
+gboolean dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger, DmaDebuggerQueue* queue, GError **error);
+void dma_command_callback (DmaQueueCommand *cmd, const gpointer data, GError* err);
 
 gboolean dma_command_is_valid_in_state (DmaQueueCommand *cmd, IAnjutaDebuggerState state);
 IAnjutaDebuggerState dma_command_is_going_to_state (DmaQueueCommand *cmd);

@@ -111,7 +111,8 @@ struct _BreakpointsDBase
 	GtkWidget *disableall_button;
 
 	/* Menu action */
-	GtkActionGroup *action_group;
+	GtkActionGroup *debugger_group;
+	GtkActionGroup *permanent_group;
 };
 
 
@@ -850,15 +851,20 @@ breakpoints_dbase_remove_all_in_debugger (BreakpointsDBase *bd)
 	
 	if (gtk_tree_model_get_iter_first (model, &iter))
 	{
+		gboolean next;
+		
 		do
 		{
 			BreakpointItem *bi;
 		
 			gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
-
+			next = gtk_tree_model_iter_next (model, &iter);
+				
 			bi->bp.id = 0;
 			breakpoints_dbase_breakpoint_updated (bd, bi);
-		} while (gtk_tree_model_iter_next (model, &iter));
+			/* breakpoints_dbase_breakpoint_updated can delete pending breakpoints
+			 * the iterator of the breakpoint can be invalidated */
+		} while (next);
 	}
 }
 
@@ -960,16 +966,12 @@ breakpoints_dbase_remove_all (BreakpointsDBase *bd)
 	GtkTreeIter iter;
 	GtkTreeModel *model = GTK_TREE_MODEL (bd->model);
 	
-	if (gtk_tree_model_get_iter_first (model, &iter))
+	while (gtk_tree_model_get_iter_first (model, &iter))
 	{
-		do
-		{
-			BreakpointItem *bi;
+		BreakpointItem *bi;
 		
-			gtk_tree_model_get (GTK_TREE_MODEL (bd->model), &iter, DATA_COLUMN, &bi, -1);
-
-			breakpoints_dbase_remove_breakpoint (bd, bi);
-		} while (gtk_tree_model_iter_next (model, &iter));
+		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
+		breakpoints_dbase_remove_breakpoint (bd, bi);
 	}
 }
 
@@ -1096,10 +1098,19 @@ on_breakpoint_sharedlib_event (BreakpointsDBase *bd)
 }
 
 static void
+on_program_running (BreakpointsDBase *bd)
+{
+	/* Deactivate breakpoint functions */
+	gtk_action_group_set_sensitive (bd->debugger_group, FALSE);
+}
+
+static void
 on_program_stopped (BreakpointsDBase *bd)
 {
 	g_return_if_fail (bd->debugger != NULL);
 
+	gtk_action_group_set_sensitive (bd->debugger_group, TRUE);
+	
 	/* Refresh breakpoint
 	 * Hit count could have changed by example */
 	breakpoints_dbase_list_all_in_debugger (bd);
@@ -1112,10 +1123,12 @@ on_program_unloaded (BreakpointsDBase *bd)
 	
 	breakpoints_dbase_remove_all_in_debugger (bd);
 	bd->debugger = NULL;
+	gtk_action_group_set_sensitive (bd->debugger_group, TRUE);
 
 	/* Disconnect from other debugger signal */
 	g_signal_handlers_disconnect_by_func (bd->plugin, G_CALLBACK (on_breakpoint_sharedlib_event), bd);
 	g_signal_handlers_disconnect_by_func (bd->plugin, G_CALLBACK (on_program_stopped), bd);
+	g_signal_handlers_disconnect_by_func (bd->plugin, G_CALLBACK (on_program_running), bd);
 	g_signal_handlers_disconnect_by_func (bd->plugin, G_CALLBACK (on_program_unloaded), bd);
 }
 
@@ -1138,6 +1151,7 @@ on_program_loaded (BreakpointsDBase *bd)
 	g_signal_connect_swapped (bd->plugin, "sharedlib-event", G_CALLBACK (on_breakpoint_sharedlib_event), bd);
 	g_signal_connect_swapped (bd->plugin, "program-unloaded", G_CALLBACK (on_program_unloaded), bd);
 	g_signal_connect_swapped (bd->plugin, "program-stopped", G_CALLBACK (on_program_stopped), bd);
+	g_signal_connect_swapped (bd->plugin, "program-running", G_CALLBACK (on_program_running), bd);
 }
 
 /* Saving preferences callbacks
@@ -1488,7 +1502,7 @@ on_enable_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	}
 }
 
-static GtkActionEntry actions_breakpoints[] = {
+static GtkActionEntry actions_debugger_breakpoints[] = {
 	{
 		"ActionMenuDmaBreakpoints",               /* Action name */
 		NULL,                                     /* Stock icon, if any */
@@ -1522,14 +1536,6 @@ static GtkActionEntry actions_breakpoints[] = {
 		G_CALLBACK (on_remove_breakpoint_activate)   /* action callback */
 	},
 	{
-		"ActionDmaJumpToBreakpoint",              /* Action name */
-		NULL,                                     /* Stock icon, if any */
-		N_("Jump to Breakpoint"),                 /* Display label */
-		NULL,                                     /* short-cut */
-		N_("Jump to breakpoint location"),        /* Tooltip */
-		G_CALLBACK (on_jump_to_breakpoint_activate)   /* action callback */
-	},
-	{
 		"ActionDmaEditBreakpoint",                /* Action name */
 		NULL,                                     /* Stock icon, if any */
 		N_("Edit Breakpoint"),                    /* Display label */
@@ -1560,6 +1566,17 @@ static GtkActionEntry actions_breakpoints[] = {
 		NULL,                                     /* short-cut */
 		N_("Delete all breakpoints"),             /* Tooltip */
 		G_CALLBACK (on_clear_all_breakpoints_activate)/* action callback */
+	},
+};		
+
+static GtkActionEntry actions_permanent_breakpoints[] = {
+	{
+		"ActionDmaJumpToBreakpoint",              /* Action name */
+		NULL,                                     /* Stock icon, if any */
+		N_("Jump to Breakpoint"),                 /* Display label */
+		NULL,                                     /* short-cut */
+		N_("Jump to breakpoint location"),        /* Tooltip */
+		G_CALLBACK (on_jump_to_breakpoint_activate)   /* action callback */
 	},
 };		
 
@@ -1606,7 +1623,8 @@ create_breakpoint_gui(BreakpointsDBase *bd)
 
 	g_return_if_fail (bd->treeview == NULL);
 	g_return_if_fail (bd->window == NULL);
-	g_return_if_fail (bd->action_group == NULL);
+	g_return_if_fail (bd->debugger_group == NULL);
+	g_return_if_fail (bd->permanent_group == NULL);
 
 	/* breakpoints window */
 	bd->model = gtk_list_store_newv (COLUMNS_NB, column_type);
@@ -1640,11 +1658,17 @@ create_breakpoint_gui(BreakpointsDBase *bd)
 
 	/* Register menu actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(bd->plugin)->shell, NULL);
-	bd->action_group =
+	bd->debugger_group =
 	anjuta_ui_add_action_group_entries (ui, "ActionGroupBreakpoint",
 										_("Breakpoint operations"),
-										actions_breakpoints,
-										G_N_ELEMENTS (actions_breakpoints),
+										actions_debugger_breakpoints,
+										G_N_ELEMENTS (actions_debugger_breakpoints),
+										GETTEXT_PACKAGE, TRUE, bd);
+	bd->permanent_group =
+	anjuta_ui_add_action_group_entries (ui, "ActionGroupBreakpoint",
+										_("Breakpoint operations"),
+										actions_permanent_breakpoints,
+										G_N_ELEMENTS (actions_permanent_breakpoints),
 										GETTEXT_PACKAGE, TRUE, bd);
 
 	/* Add breakpoint window */
@@ -1674,10 +1698,15 @@ destroy_breakpoint_gui (BreakpointsDBase *bd)
 
 	/* Remove menu actions */
 	ui = anjuta_shell_get_ui (ANJUTA_PLUGIN (bd->plugin)->shell, NULL);
-	if (bd->action_group)
+	if (bd->debugger_group)
 	{
-		anjuta_ui_remove_action_group (ui, bd->action_group);
-		bd->action_group = NULL;
+		anjuta_ui_remove_action_group (ui, bd->debugger_group);
+		bd->debugger_group = NULL;
+	}
+	if (bd->permanent_group)
+	{
+		anjuta_ui_remove_action_group (ui, bd->permanent_group);
+		bd->permanent_group = NULL;
 	}
 
 	/* Destroy breakpoint window */

@@ -109,6 +109,7 @@ struct _DmaStart
 	gchar* target_uri;
 	gchar* program_args;
 	gboolean run_in_terminal;
+	gboolean stop_at_beginning;
 };
 
 /* Widgets found in glade file
@@ -116,6 +117,7 @@ struct _DmaStart
 
 #define PARAMETER_DIALOG "parameter_dialog"
 #define TERMINAL_CHECK_BUTTON "parameter_run_in_term_check"
+#define STOP_AT_BEGINNING_CHECK_BUTTON "stop_at_beginning_check"
 #define PARAMETER_COMBO "parameter_combo"
 #define TARGET_COMBO "target_combo"
 #define TARGET_SELECT_SIGNAL "on_select_target_clicked"
@@ -224,6 +226,7 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 		uri = anjuta_session_get_string (session, "Execution", "Program uri");
 	}
 	anjuta_session_set_int (session, "Execution", "Run in terminal", this->run_in_terminal + 1);
+	anjuta_session_set_int (session, "Execution", "Stop at beginning", this->stop_at_beginning + 1);
 }
 
 static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, DmaStart *this)
@@ -231,6 +234,7 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
 	gchar *program_args;
 	gchar *target_uri;
     gint run_in_terminal;
+	gint stop_at_beginning;
 
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
@@ -259,11 +263,16 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
 	
 	/* The flag is store as 1 == FALSE, 2 == TRUE */
     run_in_terminal = anjuta_session_get_int (session, "Execution", "Run in terminal");
-
     if (run_in_terminal == 0)
 		this->run_in_terminal = TRUE;	/* Default value */
 	else
 		this->run_in_terminal = run_in_terminal - 1;
+	
+    stop_at_beginning = anjuta_session_get_int (session, "Execution", "Stop at beginning");
+    if (stop_at_beginning == 0)
+		this->stop_at_beginning = TRUE;	/* Default value */
+	else
+		this->stop_at_beginning = stop_at_beginning - 1;
 }
 
 /* Attach to process private functions
@@ -847,6 +856,7 @@ dma_set_parameters (DmaStart *this)
 	GtkWidget *dlg;
 	GtkWindow *parent;
 	GtkToggleButton *term;
+	GtkToggleButton *stop_at_beginning;
 	GtkComboBox *params;
 	GtkComboBox *target;
 	gint response;
@@ -865,6 +875,7 @@ dma_set_parameters (DmaStart *this)
 		
 	dlg = glade_xml_get_widget (gxml, PARAMETER_DIALOG);
 	term = GTK_TOGGLE_BUTTON (glade_xml_get_widget (gxml, TERMINAL_CHECK_BUTTON));
+	stop_at_beginning = GTK_TOGGLE_BUTTON (glade_xml_get_widget (gxml, STOP_AT_BEGINNING_CHECK_BUTTON));
 	params = GTK_COMBO_BOX (glade_xml_get_widget (gxml, PARAMETER_COMBO));
 	target = GTK_COMBO_BOX (glade_xml_get_widget (gxml, TARGET_COMBO));
 	glade_xml_signal_connect_data (gxml, TARGET_SELECT_SIGNAL, GTK_SIGNAL_FUNC (on_select_target), dlg);
@@ -938,6 +949,7 @@ dma_set_parameters (DmaStart *this)
 	
 	/* Set terminal option */	
 	if (this->run_in_terminal) gtk_toggle_button_set_active (term, TRUE);
+	if (this->stop_at_beginning) gtk_toggle_button_set_active (stop_at_beginning, TRUE);
 	
 	gtk_window_set_transient_for (GTK_WINDOW (dlg), parent);
 	
@@ -972,6 +984,7 @@ dma_set_parameters (DmaStart *this)
 			}
 			
 			this->run_in_terminal = gtk_toggle_button_get_active (term);
+			this->stop_at_beginning = gtk_toggle_button_get_active (stop_at_beginning);
 			break;
 		}
 		case ANJUTA_RESPONSE_SELECT_TARGET:
@@ -1083,7 +1096,7 @@ dma_run_target (DmaStart *this)
 	if (dma_set_parameters (this) == TRUE)
 	{       
 		dma_start_load_uri (this);
-		dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal);
+		dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, this->stop_at_beginning);
 	}
 	
 	return this->target_uri != NULL;
@@ -1095,7 +1108,7 @@ dma_rerun_target (DmaStart *this)
 	if (this->target_uri == NULL) return FALSE;
 
 	dma_start_load_uri (this);
-	dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal);
+	dma_queue_start (this->debugger, this->program_args == NULL ? "" : this->program_args, this->run_in_terminal, this->stop_at_beginning);
 	
 	return TRUE;
 }

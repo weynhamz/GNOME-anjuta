@@ -3079,15 +3079,16 @@ interface IAnjutaDebugger
 	/**
 	* ianjuta_debugger_start:
 	* @obj: Self
-	* @args: fixme
-	* @terminal: fixme
+	* @args: command line argument of the program
+	* @terminal: TRUE if the program need a terminal
+	* @stop: TRUE if program is stopped at the beginning
 	* @err: Error propagation and reporting.
 	* 
-	* fixme
+	* Start a loaded program under debugger control.
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
-	gboolean start (const gchar *args, gboolean terminal);
+	gboolean start (const gchar *args, gboolean terminal, gboolean stop);
 	
 	/**
 	* ianjuta_debugger_unload:

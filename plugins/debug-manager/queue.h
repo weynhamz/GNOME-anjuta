@@ -69,4 +69,6 @@ gboolean dma_debugger_queue_is_supported (DmaDebuggerQueue *self, DmaDebuggerCap
 
 IAnjutaDebuggerState dma_debugger_queue_get_state (DmaDebuggerQueue *self);
 
+void dma_debugger_queue_command_callback (const gpointer data, gpointer user_data, GError* err);
+
 #endif

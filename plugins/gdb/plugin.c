@@ -361,13 +361,13 @@ idebugger_attach (IAnjutaDebugger *plugin, pid_t pid, const GList *search_dirs, 
 }
 
 static gboolean
-idebugger_start (IAnjutaDebugger *plugin, const gchar *argument, gboolean terminal, GError **err)
+idebugger_start (IAnjutaDebugger *plugin, const gchar *argument, gboolean terminal, gboolean stop, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	gchar *tty;
 
 	tty = terminal ? gdb_plugin_start_terminal (this) : NULL;
-	debugger_start_program (this->debugger, argument, tty);
+	debugger_start_program (this->debugger, argument, tty, stop);
 	g_free (tty);
 
 	return TRUE;

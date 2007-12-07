@@ -144,6 +144,7 @@ dma_debugger_queue_clear (DmaDebuggerQueue *self)
 	while (g_queue_pop_head(self->queue) != NULL);
 	if (self->last != NULL)
 	{
+		DEBUG_PRINT("clear command %x", dma_command_get_type (self->last));
 		dma_command_free (self->last);
 		self->last = NULL;
 	}
@@ -362,9 +363,6 @@ dma_debugger_queue_complete (DmaDebuggerQueue *self, IAnjutaDebuggerState state)
 {
 	DEBUG_PRINT("debugger_queue_complete %d", state);
 
-	/* Emit new state if necessary */
-	dma_queue_emit_debugger_state (self, state, NULL);
-	
 	if (state != IANJUTA_DEBUGGER_BUSY)
 	{
 		if (self->last != NULL)
@@ -381,6 +379,10 @@ dma_debugger_queue_complete (DmaDebuggerQueue *self, IAnjutaDebuggerState state)
 			dma_command_free (self->last);
 			self->last = NULL;
 		}
+
+	
+		/* Emit new state if necessary */
+		dma_queue_emit_debugger_state (self, state, NULL);
 		
 		/* Send next command */
 		dma_debugger_queue_execute (self);
@@ -418,7 +420,7 @@ dma_debugger_queue_execute (DmaDebuggerQueue *self)
 		/* Start command */
 		self->last = cmd;
 		DEBUG_PRINT("run command %x", dma_command_get_type (cmd));
-		dma_command_run (cmd, self->debugger, &err);
+		dma_command_run (cmd, self->debugger, self, &err);
 
 		if (err != NULL)
 		{
@@ -681,6 +683,19 @@ on_dma_sharedlib_event (DmaDebuggerQueue *self)
 
 /* Public function
  *---------------------------------------------------------------------------*/
+
+/* Command callback will add their commands at the beginning of the queue */
+void
+dma_debugger_queue_command_callback (const gpointer data, gpointer user_data, GError* err)
+{
+	DmaDebuggerQueue *self = (DmaDebuggerQueue *)user_data;
+
+	g_return_if_fail (self->last != NULL);
+	
+	self->prepend_command++;
+	dma_command_callback (self->last, data, err);
+	self->prepend_command--;	
+}
 
 gboolean
 dma_debugger_queue_append (DmaDebuggerQueue *self, DmaQueueCommand *cmd)

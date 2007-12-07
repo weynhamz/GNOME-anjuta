@@ -1712,7 +1712,7 @@ debugger_info_program_finish (Debugger *debugger, const GDBMIValue *mi_results,
 }
 
 void
-debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty)
+debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty, gboolean stop)
 {
 	gchar *cmd;
 
@@ -1731,7 +1731,10 @@ debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty)
 	}
 
 	debugger->priv->inferior_pid = 0;
-	debugger_queue_command (debugger, "-break-insert -t main", FALSE, FALSE, NULL, NULL, NULL);
+	if (stop)
+	{
+		debugger_queue_command (debugger, "-break-insert -t main", FALSE, FALSE, NULL, NULL, NULL);
+	}
 	if (args && (*args))
 	{
 		cmd = g_strconcat ("-exec-arguments ", args, NULL);

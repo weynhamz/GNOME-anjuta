@@ -110,7 +110,7 @@ void debugger_attach_process (Debugger *debugger, pid_t pid);
 void debugger_detach_process (Debugger *debugger);
 
 /* Execution */
-void debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty);
+void debugger_start_program (Debugger *debugger, const gchar* args, const gchar* tty, gboolean stop);
 void debugger_stop_program (Debugger *debugger);
 void debugger_restart_program (Debugger *debugger);
 void debugger_interrupt (Debugger *debugger);
