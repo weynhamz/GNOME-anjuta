@@ -42,9 +42,6 @@ typedef struct _BreakpointsDBase BreakpointsDBase;
 BreakpointsDBase *breakpoints_dbase_new (DebugManagerPlugin *plugin);
 void breakpoints_dbase_destroy (BreakpointsDBase * bd);
 
-void breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te);
-void breakpoints_dbase_clear_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te);
-
 G_END_DECLS
 											
 #endif

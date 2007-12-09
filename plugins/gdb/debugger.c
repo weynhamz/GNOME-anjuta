@@ -2202,7 +2202,7 @@ debugger_condition_breakpoint (Debugger *debugger, guint id, const gchar *condit
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("-break-condition %d %s", id, condition);
+	buff = g_strdup_printf ("-break-condition %d %s", id, condition == NULL ? "" : condition);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, debugger_add_breakpoint_finish, callback, user_data);
 	g_free (buff);
 }

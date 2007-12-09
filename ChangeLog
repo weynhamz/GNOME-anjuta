@@ -1,3 +1,14 @@
+2007-12-09  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/breakpoints.h:
+	Fix bug #488732: Breakpoint on delete lines
+	Breakpoints are now linked to their position in editor
+
+	* plugins/gdb/debugger.c:
+	Fix removing condition on breakpoint 
+
 2007-12-07  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/anjuta-debug-manager.glade,

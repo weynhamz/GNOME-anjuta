@@ -266,6 +266,8 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	self = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
 
 	editor = g_value_get_object (value);
+	DEBUG_PRINT("add value current editor %p",  editor);
+	
 	if (!IANJUTA_IS_EDITOR(editor))
 	{
 		self->current_editor = NULL;
@@ -275,9 +277,6 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	self->current_editor = IANJUTA_EDITOR (editor);
 	g_object_add_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)(gpointer)&self->current_editor);
 		
-    /* Restore breakpoints */
-	breakpoints_dbase_set_all_in_editor (self->breakpoints, self->current_editor);
-	
 	/* Restore program counter marker */
 	show_program_counter_in_editor (self);
 }
@@ -288,11 +287,9 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 {
 	DebugManagerPlugin *self = ANJUTA_PLUGIN_DEBUG_MANAGER (plugin);
 
+	DEBUG_PRINT("remove value current editor %p", self->current_editor);
 	if (self->current_editor)
 	{
-		breakpoints_dbase_clear_all_in_editor (self->breakpoints,
-            self->current_editor);
-	
 		hide_program_counter_in_editor (self);
 
 		g_object_remove_weak_pointer (G_OBJECT (self->current_editor), (gpointer *)(gpointer)&self->current_editor);
