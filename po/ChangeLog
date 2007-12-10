@@ -1,3 +1,9 @@
+2007-12-10  Mohammad DAMT  <mdamt@gnome.org>
+
+	* id.po: Added Indonesian translation by Andika Triwidada
+	<andika@gmail.com>
+	* LINGUAS: Added id.
+
 2007-12-06  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
         * es.po: Updated Spanish translation.
