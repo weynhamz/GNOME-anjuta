@@ -1195,7 +1195,8 @@ breakpoints_dbase_get_breakpoint_list (BreakpointsDBase *bd)
 		
 			gtk_tree_model_get (GTK_TREE_MODEL (bd->model), &iter, DATA_COLUMN, &bi, -1);
 			
-			if (bi->bp.temporary == FALSE)
+			if ((bi->bp.type & (IANJUTA_DEBUGGER_BREAKPOINT_ON_LINE | IANJUTA_DEBUGGER_BREAKPOINT_ON_FUNCTION))
+					&& (bi->bp.temporary == FALSE))
 			{
 				/* Only permanent breakpoint are saved */				
 				list = g_list_prepend (list, g_strdup_printf("%d:%s:%u:%u:%s", bi->bp.enable ? 1 : 0, bi->uri, bi->bp.line, bi->bp.ignore, bi->bp.condition == NULL ? "" : bi->bp.condition));

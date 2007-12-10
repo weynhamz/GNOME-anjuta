@@ -408,7 +408,7 @@ on_disassemble (const IAnjutaDebuggerDisassembly *block, DmaSparseBufferTranspor
 	}
 	
 	/* Find following block */
-	DEBUG_PRINT("trans %p buffer %p trans->buffer %p trans->start %ul", trans, buffer, trans == NULL ? NULL : trans->buffer, trans == NULL ? 0 : trans->start);
+	DEBUG_PRINT("trans %p buffer %p trans->buffer %p trans->start %lu", trans, buffer, trans == NULL ? NULL : trans->buffer, trans == NULL ? 0 : trans->start);
 	next = dma_sparse_buffer_lookup (DMA_SPARSE_BUFFER (buffer), trans->start + trans->length - 1);
 	if ((next != NULL) && (next->upper <= trans->start)) next = NULL;
 	
@@ -669,6 +669,17 @@ static DmaSparseViewClass *parent_class = NULL;
 
 static GType dma_disassembly_view_get_type (void);
 
+/* instance_init is the constructor. All functions should work after this
+ * call. */
+
+static void
+dma_disassembly_view_instance_init (DmaSparseView *view)
+{
+	gtk_text_view_set_editable (GTK_TEXT_VIEW (view), FALSE);
+}
+
+/* class_init intialize the class itself not the instance */
+
 static void
 dma_disassembly_view_class_init (DmaDisassemblyViewClass *klass)
 {
@@ -698,7 +709,7 @@ dma_disassembly_view_get_type (void)
 			NULL,           /* class_data */
 			sizeof (DmaDisassemblyView),
 			0,              /* n_preallocs */
-			(GInstanceInitFunc) NULL,
+			(GInstanceInitFunc) dma_disassembly_view_instance_init,
 			NULL            /* value_table */
 		};
 
@@ -841,7 +852,7 @@ create_disassemble_gui (DmaDisassemble *self)
                              "AnjutaDebuggerDisassemble", _("Disassembly"),
                              NULL, ANJUTA_SHELL_PLACEMENT_LEFT,
 							 NULL);
-	
+
 	return TRUE;
 }
 
@@ -862,6 +873,18 @@ on_program_loaded (DmaDisassemble *self)
 
 /* Public functions
  *---------------------------------------------------------------------------*/
+
+gboolean
+dma_disassemble_is_focus (DmaDisassemble *self)
+{
+	return gtk_widget_is_focus (GTK_WIDGET(self->view));
+}
+
+guint
+dma_disassemble_get_current_address (DmaDisassemble *self)
+{
+	return dma_sparse_view_get_location (self->view);
+}
 
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/

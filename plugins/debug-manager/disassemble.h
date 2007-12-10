@@ -34,6 +34,8 @@ typedef struct _DmaDisassemble DmaDisassemble;
 DmaDisassemble* dma_disassemble_new (DebugManagerPlugin *plugin);
 void dma_disassemble_free(DmaDisassemble *self);
 
+gboolean dma_disassemble_is_focus (DmaDisassemble *self);
+guint dma_disassemble_get_current_address (DmaDisassemble *self);
 
 G_END_DECLS
 

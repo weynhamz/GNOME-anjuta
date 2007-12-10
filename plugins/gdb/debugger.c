@@ -1984,6 +1984,28 @@ debugger_step_out (Debugger *debugger)
 }
 
 void
+debugger_stepi_in (Debugger *debugger)
+{
+	DEBUG_PRINT ("In function: debugger_step_in()");
+	
+	g_return_if_fail (IS_DEBUGGER (debugger));
+	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
+
+	debugger_queue_command (debugger, "-exec-step-instruction", FALSE, FALSE, NULL, NULL, NULL);
+}
+
+void
+debugger_stepi_over (Debugger *debugger)
+{
+	DEBUG_PRINT ("In function: debugger_step_over()");
+	
+	g_return_if_fail (IS_DEBUGGER (debugger));
+	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
+	
+	debugger_queue_command (debugger, "-exec-next-instruction", FALSE, FALSE, NULL, NULL, NULL);
+}
+
+void
 debugger_run_to_location (Debugger *debugger, const gchar *loc)
 {
 	gchar *buff;
@@ -2008,9 +2030,26 @@ debugger_run_to_position (Debugger *debugger, const gchar *file, guint line)
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
 	
-	buff = g_strdup_printf ("-exec-until %s:%d", file, line);
+	buff = g_strdup_printf ("-break-insert -t %s:%d", file, line);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, NULL, NULL, NULL);
 	g_free (buff);
+	debugger_queue_command (debugger, "-exec-continue", FALSE, FALSE, NULL, NULL, NULL);
+}
+
+void
+debugger_run_to_address (Debugger *debugger, guint address)
+{
+	gchar *buff;
+
+	DEBUG_PRINT ("In function: debugger_run_to_address()");
+	
+	g_return_if_fail (IS_DEBUGGER (debugger));
+	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
+	
+	buff = g_strdup_printf ("-break-insert -t *0x%x", address);
+	debugger_queue_command (debugger, buff, FALSE, FALSE, NULL, NULL, NULL);
+	g_free (buff);
+	debugger_queue_command (debugger, "-exec-continue", FALSE, FALSE, NULL, NULL, NULL);
 }
 
 void

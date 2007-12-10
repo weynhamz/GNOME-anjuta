@@ -3801,6 +3801,44 @@ interface IAnjutaCpuDebugger
 	*          detail.
 	*/
 	gboolean disassemble (guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+	/**
+	* ianjuta_debugger_stepi_in:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* Execute one assembler instruction in the program.
+	*
+	* Returns: TRUE if the request succeed and the callback is called. If 
+	* FALSE, the callback will not be called.
+	*/
+	gboolean stepi_in ();
+	
+	/**
+	* ianjuta_debugger_stepi_over:
+	* @obj: Self
+	* @err: Error propagation and reporting.
+	* 
+	* Execute one assembler instruction in the program, if the instruction
+	* is a function call, continues until the function returns.
+	*
+	* Returns: TRUE if the request succeed and the callback is called. If 
+	* FALSE, the callback will not be called.
+	*/
+	gboolean stepi_over ();
+	
+	/**
+	* ianjuta_debugger_run_to_address:
+	* @obj: Self
+	* @address: Run to this addresss
+	* @err: Error propagation and reporting.
+	* 
+	* Start the program until it reachs the address address
+	*
+	* Returns: TRUE if the request succeed and the callback is called. If 
+	* FALSE, the callback will not be called.
+	*/
+	gboolean run_to_address (guint address);
 }
 
 /**

@@ -118,8 +118,11 @@ void debugger_run (Debugger *debugger);
 void debugger_step_in (Debugger *debugger);
 void debugger_step_over (Debugger *debugger);
 void debugger_step_out (Debugger *debugger);
+void debugger_stepi_in (Debugger *debugger);
+void debugger_stepi_over (Debugger *debugger);
 void debugger_run_to_location (Debugger *debugger, const gchar *loc);
 void debugger_run_to_position (Debugger *debugger, const gchar *file, guint line);
+void debugger_run_to_address (Debugger *debugger, guint address);
 
 /* Breakpoint */
 void debugger_add_breakpoint_at_line (Debugger *debugger, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);

@@ -626,14 +626,32 @@ static void
 on_step_in_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	if (plugin->queue)
-		dma_queue_step_in (plugin->queue);
+	{
+		if ((plugin->disassemble != NULL) && (dma_disassemble_is_focus (plugin->disassemble)))
+		{
+			dma_queue_stepi_in (plugin->queue);
+		}
+		else
+		{
+			dma_queue_step_in (plugin->queue);
+		}
+	}
 }
 
 static void
 on_step_over_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
 	if (plugin->queue)
-		dma_queue_step_over (plugin->queue);
+	{
+		if ((plugin->disassemble != NULL) && (dma_disassemble_is_focus (plugin->disassemble)))
+		{
+			dma_queue_stepi_over (plugin->queue);
+		}
+		else
+		{
+			dma_queue_step_over (plugin->queue);
+		}
+	}
 }
 
 static void
@@ -646,37 +664,47 @@ on_step_out_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 static void
 on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 {
-	IAnjutaDocumentManager *docman;
-	IAnjutaEditor *editor;
-	IAnjutaDocument *document;
-	gchar *uri;
-	gchar *file;
-	gint line;
+	if (plugin->queue)
+	{
+		if ((plugin->disassemble != NULL) && (dma_disassemble_is_focus (plugin->disassemble)))
+		{
+			guint address;
+			
+			address = dma_disassemble_get_current_address (plugin->disassemble);
+			dma_queue_run_to_address (plugin->queue, address);
+		}
+		else
+		{
+			IAnjutaDocumentManager *docman;
+			IAnjutaEditor *editor;
+			IAnjutaDocument *document;
+			gchar *uri;
+			gchar *file;
+			gint line;
 
-	if (plugin->queue == NULL)
-		return;
+			docman = IANJUTA_DOCUMENT_MANAGER (anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell, "IAnjutaDocumentManager", NULL));
+			if (docman == NULL)
+				return;
 	
-	docman = IANJUTA_DOCUMENT_MANAGER (anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell, "IAnjutaDocumentManager", NULL));
-	if (docman == NULL)
-		return;
+			document = ianjuta_document_manager_get_current_document (docman, NULL);
+			if (IANJUTA_IS_DOCUMENT(document))
+			{	
+				editor = IANJUTA_EDITOR(document);
+			}
+			else
+				return;
+			uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
+			if (uri == NULL)
+				return;
 	
-	document = ianjuta_document_manager_get_current_document (docman, NULL);
-	if (IANJUTA_IS_DOCUMENT(document))
-	{	
-		editor = IANJUTA_EDITOR(document);
+			file = gnome_vfs_get_local_path_from_uri (uri);
+	
+			line = ianjuta_editor_get_lineno (editor, NULL);
+			dma_queue_run_to (plugin->queue, file, line);
+			g_free (uri);
+			g_free (file);
+		}
 	}
-	else
-		return;
-	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
-	if (uri == NULL)
-		return;
-	
-	file = gnome_vfs_get_local_path_from_uri (uri);
-	
-	line = ianjuta_editor_get_lineno (editor, NULL);
-	dma_queue_run_to (plugin->queue, file, line);
-	g_free (uri);
-	g_free (file);
 }
 
 static void

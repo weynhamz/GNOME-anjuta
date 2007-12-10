@@ -944,6 +944,26 @@ dma_sparse_view_goto (DmaSparseView *view, guint location)
 	gtk_adjustment_value_changed (view->priv->vadjustment);
 }
 
+guint
+dma_sparse_view_get_location (DmaSparseView *view)
+{
+	GtkTextMark *mark;
+	GtkTextBuffer *buffer;
+	GtkTextIter iter;
+	DmaSparseIter buf_iter;
+	gint line;
+	
+	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(view));
+	mark = gtk_text_buffer_get_insert (buffer);
+	gtk_text_buffer_get_iter_at_mark (buffer, &iter, mark);
+	line = gtk_text_iter_get_line (&iter);
+		
+	dma_sparse_iter_copy (&buf_iter, &view->priv->start);
+	dma_sparse_iter_forward_lines (&buf_iter, line);
+	
+	return dma_sparse_iter_get_address (&buf_iter);
+}
+
 /* GtkWidget functions
  *---------------------------------------------------------------------------*/
 

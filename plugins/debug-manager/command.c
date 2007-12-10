@@ -73,10 +73,13 @@ typedef enum
 	STEP_OUT_COMMAND,
 	RUN_COMMAND,		
 	RUN_TO_COMMAND,
-	EXIT_COMMAND,
+	STEPI_IN_COMMAND,
+	STEPI_OVER_COMMAND,
+	RUN_TO_ADDRESS_COMMAND,
+	EXIT_COMMAND,				/* 0x20 */
 	HANDLE_SIGNAL_COMMAND,
 	LIST_LOCAL_COMMAND,
-	LIST_ARG_COMMAND,			/* 0x20 */
+	LIST_ARG_COMMAND,
 	LIST_THREAD_COMMAND,
 	SET_THREAD_COMMAND,
 	INFO_THREAD_COMMAND,
@@ -89,10 +92,10 @@ typedef enum
 	UPDATE_REGISTER_COMMAND,
 	WRITE_REGISTER_COMMAND,
 	EVALUATE_COMMAND,
-	INSPECT_COMMAND,
+	INSPECT_COMMAND,			/* 0x30 */
 	PRINT_COMMAND,
 	CREATE_VARIABLE,
-	EVALUATE_VARIABLE,			/* 0x30 */
+	EVALUATE_VARIABLE,
 	LIST_VARIABLE_CHILDREN,
 	DELETE_VARIABLE,
 	ASSIGN_VARIABLE,		
@@ -185,6 +188,15 @@ typedef enum
 		NEED_PROGRAM_STOPPED,
 	DMA_RUN_TO_COMMAND =
 		RUN_TO_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_STEPI_IN_COMMAND =
+		STEPI_IN_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_STEPI_OVER_COMMAND =
+		STEPI_OVER_COMMAND | RUN_PROGRAM |
+		NEED_PROGRAM_STOPPED,
+	DMA_RUN_TO_ADDRESS_COMMAND =
+		RUN_TO_ADDRESS_COMMAND | RUN_PROGRAM |
 		NEED_PROGRAM_STOPPED,
 	DMA_EXIT_COMMAND =
 		EXIT_COMMAND | LOAD_PROGRAM |
@@ -395,6 +407,13 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 	case STEP_OVER_COMMAND:
 		break;
 	case STEP_OUT_COMMAND:
+		break;
+	case RUN_TO_ADDRESS_COMMAND:
+		cmd->data.pos.address = va_arg (args, guint);
+		break;
+	case STEPI_IN_COMMAND:
+		break;
+	case STEPI_OVER_COMMAND:
 		break;
 	case EXIT_COMMAND:
 		break;
@@ -656,6 +675,24 @@ gboolean
 dma_queue_step_out (DmaDebuggerQueue *self)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_STEP_OUT_COMMAND));
+}
+
+gboolean
+dma_queue_stepi_in (DmaDebuggerQueue *self)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_STEPI_IN_COMMAND));
+}
+
+gboolean
+dma_queue_stepi_over (DmaDebuggerQueue *self)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_STEPI_OVER_COMMAND));
+}
+
+gboolean
+dma_queue_run_to_address (DmaDebuggerQueue *self, guint address)
+{
+	return dma_debugger_queue_append (self, dma_command_new (DMA_RUN_TO_ADDRESS_COMMAND, address));
 }
 
 gboolean
@@ -926,6 +963,9 @@ dma_command_free (DmaQueueCommand *cmd)
 	case STEP_IN_COMMAND:
 	case STEP_OVER_COMMAND:
 	case STEP_OUT_COMMAND:
+	case STEPI_IN_COMMAND:
+	case STEPI_OVER_COMMAND:
+	case RUN_TO_ADDRESS_COMMAND:
 	case EXIT_COMMAND:
 	case INTERRUPT_COMMAND:
 	case ENABLE_BREAK_COMMAND:
@@ -1071,6 +1111,15 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		break;
 	case STEP_OUT_COMMAND:
 		ret = ianjuta_debugger_step_out (debugger, err);	
+		break;
+	case RUN_TO_ADDRESS_COMMAND:
+		ret = ianjuta_cpu_debugger_run_to_address (IANJUTA_CPU_DEBUGGER (debugger), cmd->data.pos.address, err);	
+		break;
+	case STEPI_IN_COMMAND:
+		ret = ianjuta_cpu_debugger_stepi_in (IANJUTA_CPU_DEBUGGER (debugger), err);	
+		break;
+	case STEPI_OVER_COMMAND:
+		ret = ianjuta_cpu_debugger_stepi_over (IANJUTA_CPU_DEBUGGER (debugger), err);	
 		break;
 	case EXIT_COMMAND:
 		ret = ianjuta_debugger_exit (debugger, err);	
@@ -1222,6 +1271,9 @@ dma_command_callback (DmaQueueCommand *cmd, const gpointer data, GError *err)
 	case STEP_IN_COMMAND:
 	case STEP_OVER_COMMAND:
 	case STEP_OUT_COMMAND:
+	case RUN_TO_ADDRESS_COMMAND:
+	case STEPI_IN_COMMAND:
+	case STEPI_OVER_COMMAND:
 	case EXIT_COMMAND:
 	case INTERRUPT_COMMAND:
 	case SET_THREAD_COMMAND:

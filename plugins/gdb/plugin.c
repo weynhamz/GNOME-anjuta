@@ -935,6 +935,36 @@ icpu_debugger_disassemble (IAnjutaCpuDebugger *plugin, guint address, guint leng
 	return TRUE;
 }
 
+static gboolean
+icpu_debugger_stepi_in (IAnjutaDebugger *plugin, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	debugger_stepi_in (this->debugger);
+
+	return TRUE;
+}
+
+static gboolean
+icpu_debugger_stepi_over (IAnjutaDebugger *plugin, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	debugger_stepi_over (this->debugger);
+
+	return TRUE;
+}
+
+static gboolean
+icpu_debugger_run_to_address (IAnjutaDebugger *plugin, guint address, GError **err)
+{
+	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
+	
+	debugger_run_to_address (this->debugger, address);
+
+	return TRUE;
+}
+
 static void
 icpu_debugger_iface_init (IAnjutaCpuDebuggerIface *iface)
 {
@@ -943,6 +973,9 @@ icpu_debugger_iface_init (IAnjutaCpuDebuggerIface *iface)
 	iface->write_register = icpu_debugger_write_register;
 	iface->inspect_memory = icpu_debugger_inspect_memory;
 	iface->disassemble = icpu_debugger_disassemble;
+	iface->stepi_in = icpu_debugger_stepi_in;
+	iface->stepi_over = icpu_debugger_stepi_over;
+	iface->run_to_address = icpu_debugger_run_to_address;
 }
 
 /* Implementation of IAnjutaVariableDebugger interface

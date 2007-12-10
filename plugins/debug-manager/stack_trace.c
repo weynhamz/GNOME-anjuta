@@ -193,7 +193,7 @@ dma_thread_clear_all_stack_trace (StackTrace *self)
 }
 
 static void
-on_stack_trace_updated (const GList *stack, gpointer user_data)
+on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 {
 	StackTrace *self = (StackTrace *)user_data;
 	const GList *node;
@@ -202,6 +202,8 @@ on_stack_trace_updated (const GList *stack, gpointer user_data)
 	gboolean exist;
 	GdkPixbuf *pic;
 
+	if (error != NULL) return;
+	
 	model = GTK_LIST_STORE (self->current->model);
 
 	pic = gdk_pixbuf_new_from_file (ANJUTA_PIXMAP_POINTER, NULL);

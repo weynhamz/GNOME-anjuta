@@ -1,3 +1,24 @@
+2007-12-10  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/disassemble.c,
+	plugins/debug-manager/disassemble.h,
+	plugins/debug-manager/command.c,
+	plugins/debug-manager/command.h,
+	plugins/debug-manager/plugin.c
+	plugins/debug-manager/sparse_view.c,
+	plugins/debug-manager/sparse_view.h,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	libanjuta/interfaces/libanjuta.idl:
+	Fix bug #502533: Implement assembler step
+
+	* plugins/debug-manager/breakpoints.c:
+	Do not save temporary breakpoints
+
+	* plugins/debug-manager/stack_trace.c:
+	Fix a crash when a stack command is cancelled
+
 2007-12-09  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/plugin.c,
