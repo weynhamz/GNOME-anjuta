@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-03 15:03+0000\n"
-"PO-Revision-Date: 2007-12-06 13:24+0100\n"
+"POT-Creation-Date: 2007-12-07 22:03+0000\n"
+"PO-Revision-Date: 2007-12-11 06:21+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -310,13 +310,13 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1319
 #: ../libanjuta/anjuta-plugin-manager.c:1421
-#: ../plugins/debug-manager/queue.c:535
+#: ../plugins/debug-manager/queue.c:547
 msgid "Select a plugin"
 msgstr "Seleccione un complemento"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1320
 #: ../libanjuta/anjuta-plugin-manager.c:1422
-#: ../plugins/debug-manager/queue.c:536
+#: ../plugins/debug-manager/queue.c:548
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un complemento para activar"
 
@@ -1431,7 +1431,7 @@ msgstr "Efectuar cambios al árbol CVS"
 #. Action name
 #. Stock icon, if any
 #: ../plugins/cvs-plugin/plugin.c:77 ../plugins/cvs-plugin/plugin.c:136
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:45
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:46
 #: ../plugins/gdb/anjuta-gdb.glade.h:38
 msgid "_Update"
 msgstr "_Actualizar"
@@ -1517,7 +1517,7 @@ msgid "Breakpoint properties"
 msgstr "Propiedades de los puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1662
+#: ../plugins/debug-manager/breakpoints.c:1686
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Puntos de parada"
@@ -1591,7 +1591,7 @@ msgid "Kernel Signals"
 msgstr "Señales del núcleo"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
-#: ../plugins/debug-manager/breakpoints.c:1596
+#: ../plugins/debug-manager/breakpoints.c:1613
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Ubicación"
@@ -1655,11 +1655,15 @@ msgid "Start Debugger"
 msgstr "Iniciar el depurador"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:33
+msgid "Stop at beginning"
+msgstr "Parar al comienzo"
+
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
 #: ../plugins/gdb/anjuta-gdb.glade.h:28
 msgid "Stop:"
 msgstr "Detener:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:34
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
 #: ../plugins/debug-manager/signals.c:193
 #: ../plugins/debug-manager/signals.c:206
 #: ../plugins/debug-manager/signals.c:219 ../plugins/gdb/anjuta-gdb.glade.h:29
@@ -1667,192 +1671,193 @@ msgstr "Detener:"
 msgid "Yes"
 msgstr "Sí"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:35
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
 #: ../plugins/gdb/anjuta-gdb.glade.h:30
 msgid "_Attach"
 msgstr "_Acoplar"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:36
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
 msgid "_Automatic update"
 msgstr "_Autoactualizar"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:37
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
 #: ../plugins/gdb/anjuta-gdb.glade.h:31
 msgid "_Condition:"
 msgstr "_Condición:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:38
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:39
 #: ../plugins/gdb/anjuta-gdb.glade.h:32
 msgid "_Disable all"
 msgstr "_Desactivar todos"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:39
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:40
 #: ../plugins/gdb/anjuta-gdb.glade.h:33
 msgid "_Hide paths"
 msgstr "_Ocultar rutas"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:40
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:41
 #: ../plugins/gdb/anjuta-gdb.glade.h:34
 msgid "_Location:"
 msgstr "_Ubicación:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:41
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:42
 msgid "_Name:"
 msgstr "_Nombre:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:42
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:43
 msgid "_Pass count:"
 msgstr "Conteo de _pasadas:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:43
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:44
 #: ../plugins/gdb/anjuta-gdb.glade.h:36
 msgid "_Process to attach to:"
 msgstr "_Proceso al que acoplarse:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:44
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:45
 #: ../plugins/gdb/anjuta-gdb.glade.h:37
 msgid "_Remove all"
 msgstr "Elimina_r todo"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:46
+#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:47
 msgid "_Value:"
 msgstr "_Valor:"
 
-#: ../plugins/debug-manager/breakpoints.c:1398
+#: ../plugins/debug-manager/breakpoints.c:1412
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "¿Está seguro de querer borrar todos los puntos de parada?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1495
+#: ../plugins/debug-manager/breakpoints.c:1509
 msgid "_Breakpoints"
 msgstr "_Puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1503
+#: ../plugins/debug-manager/breakpoints.c:1517
 msgid "Toggle Breakpoint"
 msgstr "Conmutar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1505
+#: ../plugins/debug-manager/breakpoints.c:1519
 msgid "Toggle breakpoint at the current location"
 msgstr "Activar un punto de parada en la posición actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1511
+#: ../plugins/debug-manager/breakpoints.c:1525
 msgid "Add Breakpoint..."
 msgstr "Añadir punto de parada…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1513
+#: ../plugins/debug-manager/breakpoints.c:1527
 msgid "Add a breakpoint"
 msgstr "Añadir un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1519
+#: ../plugins/debug-manager/breakpoints.c:1533
 msgid "Remove Breakpoint"
 msgstr "Quitar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1521
+#: ../plugins/debug-manager/breakpoints.c:1535
 msgid "Remove a breakpoint"
 msgstr "Quitar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1527
-msgid "Jump to Breakpoint"
-msgstr "Saltar a punto de parada"
-
-#. Display label
-#. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1529
-msgid "Jump to breakpoint location"
-msgstr "Saltar a la ubicación de un punto de parada"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1535
+#: ../plugins/debug-manager/breakpoints.c:1541
 msgid "Edit Breakpoint"
 msgstr "Editar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1537
+#: ../plugins/debug-manager/breakpoints.c:1543
 msgid "Edit breakpoint properties"
 msgstr "Editar las propiedades de un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1543
+#: ../plugins/debug-manager/breakpoints.c:1549
 msgid "Enable Breakpoint"
 msgstr "Activar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1545
+#: ../plugins/debug-manager/breakpoints.c:1551
 msgid "Enable a breakpoint"
 msgstr "Activar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1551
+#: ../plugins/debug-manager/breakpoints.c:1557
 msgid "Disable All Breakpoints"
 msgstr "Desactivar todos los puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1553
+#: ../plugins/debug-manager/breakpoints.c:1559
 msgid "Deactivate all breakpoints"
 msgstr "Desactivar todos los puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1559
+#: ../plugins/debug-manager/breakpoints.c:1565
 msgid "C_lear All Breakpoints"
 msgstr "_Limpiar todos los puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1561
+#: ../plugins/debug-manager/breakpoints.c:1567
 msgid "Delete all breakpoints"
 msgstr "Quitar todos los puntos de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1596
+#. Action name
+#. Stock icon, if any
+#: ../plugins/debug-manager/breakpoints.c:1576
+msgid "Jump to Breakpoint"
+msgstr "Saltar a punto de parada"
+
+#. Display label
+#. short-cut
+#: ../plugins/debug-manager/breakpoints.c:1578
+msgid "Jump to breakpoint location"
+msgstr "Saltar a la ubicación de un punto de parada"
+
+#: ../plugins/debug-manager/breakpoints.c:1613
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "Activado"
 
-#: ../plugins/debug-manager/breakpoints.c:1596
+#: ../plugins/debug-manager/breakpoints.c:1613
 #: ../plugins/debug-manager/stack_trace.c:653
 #: ../plugins/debug-manager/threads.c:460
 msgid "Address"
 msgstr "Dirección"
 
-#: ../plugins/debug-manager/breakpoints.c:1596
+#: ../plugins/debug-manager/breakpoints.c:1613
 #: ../plugins/debug-manager/debug_tree.c:124
 msgid "Type"
 msgstr "Tipo"
 
-#: ../plugins/debug-manager/breakpoints.c:1597
+#: ../plugins/debug-manager/breakpoints.c:1614
 msgid "Condition"
 msgstr "Condición"
 
-#: ../plugins/debug-manager/breakpoints.c:1597
+#: ../plugins/debug-manager/breakpoints.c:1614
 msgid "Pass count"
 msgstr "Conteo de pasadas"
 
-#: ../plugins/debug-manager/breakpoints.c:1597
+#: ../plugins/debug-manager/breakpoints.c:1614
 msgid "State"
 msgstr "Estado"
 
-#: ../plugins/debug-manager/breakpoints.c:1645
+#: ../plugins/debug-manager/breakpoints.c:1663
+#: ../plugins/debug-manager/breakpoints.c:1669
 msgid "Breakpoint operations"
 msgstr "Operaciones de los puntos de parada"
 
@@ -2110,7 +2115,7 @@ msgstr "Pausa la ejecución del programa"
 msgid "Debugger operations"
 msgstr "Operaciones de depuración"
 
-#: ../plugins/debug-manager/queue.c:522
+#: ../plugins/debug-manager/queue.c:534
 #, c-format
 msgid "Unable to find one debugger plugin acception %s mime type"
 msgstr "Imposible encontrar un tipo MIME %s de acepción de complemento de depuración"
@@ -2274,30 +2279,30 @@ msgstr "Tiempo"
 msgid "Command"
 msgstr "Comando"
 
-#: ../plugins/debug-manager/start.c:598
+#: ../plugins/debug-manager/start.c:607
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "No se puede ejecutar: %s."
 
-#: ../plugins/debug-manager/start.c:612
+#: ../plugins/debug-manager/start.c:621
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "No se puede abrir el archivo: %s\n"
 
-#: ../plugins/debug-manager/start.c:862
+#: ../plugins/debug-manager/start.c:872
 #, c-format
 msgid "Missing file %s"
 msgstr "Falta el archivo %s"
 
-#: ../plugins/debug-manager/start.c:980
+#: ../plugins/debug-manager/start.c:993
 msgid "Load Target to debug"
 msgstr "Cargar objetivo a depurar"
 
-#: ../plugins/debug-manager/start.c:988 ../plugins/file-loader/plugin.c:411
+#: ../plugins/debug-manager/start.c:1001 ../plugins/file-loader/plugin.c:411
 msgid "All files"
 msgstr "Todos los archivos"
 
-#: ../plugins/debug-manager/start.c:1042 ../plugins/gdb/debugger.c:1574
+#: ../plugins/debug-manager/start.c:1055 ../plugins/gdb/debugger.c:1574
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -4131,16 +4136,16 @@ msgstr ""
 "El programa está adjuntado.\n"
 "¿Aún quiere parar el depurador?"
 
-#: ../plugins/gdb/debugger.c:1757
+#: ../plugins/gdb/debugger.c:1760
 msgid "Program attached\n"
 msgstr "Programa acoplado\n"
 
-#: ../plugins/gdb/debugger.c:1774
+#: ../plugins/gdb/debugger.c:1777
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Acoplándose al proceso: %d…\n"
 
-#: ../plugins/gdb/debugger.c:1800
+#: ../plugins/gdb/debugger.c:1803
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4148,32 +4153,32 @@ msgstr ""
 "Ya se está ejecutando un proceso.\n"
 "¿Quiere terminarlo y acoplarse al proceso nuevo?"
 
-#: ../plugins/gdb/debugger.c:1817
+#: ../plugins/gdb/debugger.c:1820
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede acoplarse a sí mismo."
 
-#: ../plugins/gdb/debugger.c:1865
+#: ../plugins/gdb/debugger.c:1868
 msgid "Program terminated\n"
 msgstr "Programa terminado\n"
 
-#: ../plugins/gdb/debugger.c:1880
+#: ../plugins/gdb/debugger.c:1883
 msgid "Program detached\n"
 msgstr "Programa desacoplado\n"
 
-#: ../plugins/gdb/debugger.c:1899
+#: ../plugins/gdb/debugger.c:1902
 msgid "Detaching the process...\n"
 msgstr "Desacoplando el proceso…\n"
 
-#: ../plugins/gdb/debugger.c:1921
+#: ../plugins/gdb/debugger.c:1924
 msgid "Interrupting the process\n"
 msgstr "Interrumpiendo el proceso\n"
 
-#: ../plugins/gdb/debugger.c:3633
+#: ../plugins/gdb/debugger.c:3636
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviar la señal %s al proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3659
+#: ../plugins/gdb/debugger.c:3662
 msgid "Error whilst signaling the process."
 msgstr "Error al mandar señales al proceso."
 
