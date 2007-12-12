@@ -70,7 +70,7 @@ on_search_box_hide (GtkWidget* button, SearchBox* search_box)
 }
 
 static void
-on_editor_changed (AnjutaDocman *docman, IAnjutaDocument *doc, SearchBox* search_box)
+on_document_changed (AnjutaDocman* docman, IAnjutaDocument* doc, SearchBox* search_box)
 {
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	if (!doc || !IANJUTA_IS_EDITOR (doc))
@@ -502,7 +502,7 @@ search_box_new (DocmanPlugin* plugin)
 													 "homogeneous", FALSE, NULL));
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	
-	g_signal_connect (G_OBJECT (plugin->docman), "editor_changed", G_CALLBACK (on_editor_changed),
+	g_signal_connect (G_OBJECT (plugin->docman), "document-changed", G_CALLBACK (on_document_changed),
 					  search_box);
 	
 	private->status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
@@ -523,4 +523,3 @@ search_box_grab_line_focus (SearchBox* search_box)
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	gtk_widget_grab_focus (private->goto_entry);
 }
-

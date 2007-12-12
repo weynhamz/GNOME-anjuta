@@ -49,8 +49,8 @@ struct _AnjutaDocmanClass {
 	GtkNotebookClass parent_class;
 	
 	/* Signals */
-	void (*editor_added) (IAnjutaEditor *editor);
-	void (*editor_changed) (IAnjutaEditor *current_editor);
+	void (*document_added) (IAnjutaDocument *document);
+	void (*document_changed) (IAnjutaDocument *new_document);
 };
 
 GType anjuta_docman_get_type (void);
@@ -60,26 +60,27 @@ void anjuta_docman_set_popup_menu (AnjutaDocman *docman, GtkWidget *menu);
 
 IAnjutaEditor* anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 									  const gchar *name);
-void
-anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument* te,
+void anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 							const gchar* uri);
 
-void anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument* te);
+void anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc);
 
 IAnjutaDocument* anjuta_docman_get_current_document (AnjutaDocman *docman);
-IAnjutaDocument* anjuta_docman_get_document_from_path (AnjutaDocman *docman,
+IAnjutaDocument *anjuta_docman_get_document_for_path (AnjutaDocman *docman,
 												const gchar *full_path);
 
-void anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *te);
+GtkWidget *anjuta_docman_get_current_focus_widget (AnjutaDocman *docman);
+
+void anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc);
 
 IAnjutaEditor* anjuta_docman_goto_file_line (AnjutaDocman *docman,
 										  const gchar * fname,
-										  glong lineno);
+											gint lineno);
 IAnjutaEditor* anjuta_docman_goto_file_line_mark (AnjutaDocman *docman,
 											   const gchar *fname,
-											   glong lineno,
+												gint lineno,
 											   gboolean mark);
-void anjuta_docman_show_editor (AnjutaDocman *docman, GtkWidget* te);
+void anjuta_docman_present_notebook_page (AnjutaDocman *docman, IAnjutaDocument *doc);
 
 void anjuta_docman_delete_all_markers (AnjutaDocman *docman, gint marker);
 void anjuta_docman_delete_all_indicators (AnjutaDocman *docman);
@@ -92,23 +93,16 @@ gboolean anjuta_docman_set_editor_properties (AnjutaDocman *docman);
 
 gchar* anjuta_docman_get_full_filename (AnjutaDocman *docman, const gchar *fn);
 
-IAnjutaEditor* anjuta_docman_find_editor_with_path (AnjutaDocman *docman,
-												 const gchar *file_path);
-
-GList* anjuta_docman_get_all_editors (AnjutaDocman *docman);
+GList *anjuta_docman_get_all_doc_widgets (AnjutaDocman *docman);
 
 void anjuta_docman_open_file (AnjutaDocman *docman);
 
 /* Returns TRUE if editor is saved */
-gboolean anjuta_docman_save_document (AnjutaDocman *docman, IAnjutaDocument *te,
+gboolean anjuta_docman_save_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 									GtkWidget *parent_window);
 
 /* Returns TRUE if editor is saved */
 gboolean anjuta_docman_save_document_as (AnjutaDocman *docman,
-									   IAnjutaDocument *editor,
-									   GtkWidget *parent_window);
-
-void anjuta_docman_set_busy (AnjutaDocman *docman, gboolean state);
-
-
+										IAnjutaDocument *doc,
+										GtkWidget *parent_window);
 #endif

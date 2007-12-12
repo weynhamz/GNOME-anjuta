@@ -779,7 +779,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 		if (gtk_toggle_button_get_active (this->script_tb))
 		{
 			IAnjutaDocumentManager *docman;
-			IAnjutaDocument *editor;
+			IAnjutaDocument *doc;
 
 			/* Check that default script directory exist */
 			data = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_SCRIPT_DIRECTORY, NULL);
@@ -816,10 +816,10 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 				return;
 			}
 
-			editor = 
+			doc =
 				ianjuta_document_manager_find_document_with_path 
 							   (docman, data, NULL);
-			if (editor == NULL)
+			if (doc == NULL)
 			{
 				IAnjutaFileLoader* loader;
 				gchar *uri;
@@ -833,8 +833,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 			else
 			{
 				/* Set as current */
-				ianjuta_document_manager_set_current_document 
-					(docman, IANJUTA_DOCUMENT(editor), NULL);
+				ianjuta_document_manager_set_current_document (docman, doc, NULL);
 			}
 			g_free (data);
 		}

@@ -620,15 +620,18 @@ ifile_get_uri (IAnjutaFile* file, GError** e)
 
 /* IAnjutaFileSavable interface */
 
-/* Save file */
+/* Save file if its path is known */
 static void 
 ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
-	sourceview_remove_monitor(sv);
+	if (sv->priv->document != NULL)
+	{
+		sourceview_remove_monitor(sv);
 	
-	g_object_ref(G_OBJECT(sv));
-	anjuta_document_save(sv->priv->document, 0);
+		g_object_ref(G_OBJECT(sv));
+		anjuta_document_save(sv->priv->document, 0);
+	}
 }
 
 /* Save file as */

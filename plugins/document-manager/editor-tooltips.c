@@ -24,6 +24,10 @@
  * GTK+ at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
+/* gtk 2.12 tooltips API can replace all this */
+#include <gtk/gtk.h>
+#if !GTK_CHECK_VERSION (2,12,0)
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -743,3 +747,5 @@ _editor_tooltips_toggle_keyboard_mode (GtkWidget * widget)
 	else
 		start_keyboard_mode (widget);
 }
+
+#endif  /* !GTK_CHECK_VERSION (2,12,0) */

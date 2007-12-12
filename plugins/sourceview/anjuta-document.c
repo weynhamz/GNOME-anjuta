@@ -449,7 +449,7 @@ set_uri (AnjutaDocument *doc,
 
 	if (uri != NULL)
 	{
-		if (doc->priv->uri == uri)
+		if (doc->priv->uri != NULL && g_str_equal (doc->priv->uri, uri)) 
 			return;
 
 		g_free (doc->priv->uri);
@@ -838,9 +838,9 @@ anjuta_document_save (AnjutaDocument          *doc,
 		     AnjutaDocumentSaveFlags  flags)
 {
 	g_return_if_fail (ANJUTA_IS_DOCUMENT (doc));
-	g_return_if_fail (doc->priv->uri != NULL);
 
-	document_save_real (doc,
+	if (doc->priv->uri != NULL)	/* path is known */
+		document_save_real (doc,
 			    doc->priv->uri,
 			    doc->priv->encoding,
 			    doc->priv->mtime,

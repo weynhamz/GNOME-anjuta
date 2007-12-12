@@ -688,7 +688,7 @@ create_search_entries (Search *s)
 			}
 			break;
 		case SR_OPEN_BUFFERS:
-			editors = ianjuta_document_manager_get_documents (sr->docman, NULL);
+			editors = ianjuta_document_manager_get_doc_widgets (sr->docman, NULL);
 			for (tmp = editors; tmp; tmp = g_list_next(tmp))
 			{
 				if (IANJUTA_IS_EDITOR (tmp->data))

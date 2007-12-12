@@ -1212,8 +1212,7 @@ project_manager_unload_gbf (ProjectManagerPlugin *pm_plugin)
 			GList *node;
 			
 			editors =
-				ianjuta_document_manager_get_documents (IANJUTA_DOCUMENT_MANAGER
-													  (docman), NULL);
+				ianjuta_document_manager_get_doc_widgets (docman, NULL);
 			node = editors;
 			while (node)
 			{

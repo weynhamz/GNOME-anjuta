@@ -2128,7 +2128,7 @@ interface IAnjutaDocumentManager
 	* 
 	* Return value: the full path of the file, if an editor is found for it.
 	*/
-	const gchar* get_full_filename (const gchar *file);
+	gchar* get_full_filename (const gchar *file);
 	
 	/**
 	* ianjuta_document_manager_find_document_with_path:
@@ -2181,31 +2181,33 @@ interface IAnjutaDocumentManager
 	* 
 	* Gets the current document.
 	* 
-	* Return value: the currently active editor. NULL if none is there.
+	* Return value: the currently active document. NULL if none is there.
 	*/
 	IAnjutaDocument* get_current_document ();
 	
 	/** 
-	* ianjuta_document_manager_set_current_editor:
+	* ianjuta_document_manager_set_current_document:
 	* @obj: Self
-	* @editor: the editor to set as current.
+	* @document: the document to set as current.
 	* @err: Error propagation and reporting.
 	* 
-	* Sets the given editor as current editor.
+	* Sets the given document as current document.
 	*/
 	void set_current_document (IAnjutaDocument *document);
 	
 	/**
-	* ianjuta_document_manager_get_documents:
+	* ianjuta_document_manager_get_doc_widgets:
 	* @obj: Self
 	* @err: Error propagation and reporting.
 	* 
-	* Gets the current list of documents.
+	* Gets a list of widgets for open documents. Each widget is
+	* a GTK_WIDGET(InjutaDocument*)
 	*
-	* Return value: the list of current available documents. The returned
-	* list must be freed after use (not the editor objects in the list).
+	* Return value: a list of widgets for all open documents
+	* The returned list (but not the data in the list) must be
+	* freed after use.
 	*/
-	List<IAnjutaDocument*> get_documents ();
+	List<GtkWidget*> get_doc_widgets ();
 
 	/**
 	* ianjuta_document_manager_add_buffer:
@@ -2222,18 +2224,18 @@ interface IAnjutaDocumentManager
 	IAnjutaEditor* add_buffer (const gchar *name, const gchar* content);
 	
 	/**
-	* ianjuta_document_manager_remove_buffer:
+	* ianjuta_document_manager_remove_document:
 	* @obj: Self
-	* @editor: Editor buffer to close.
-	* @save_before: If true, saves the editor before closing.
+	* @document: Document to close.
+	* @save_before: If true, saves the document before closing.
 	* @err: Error propagation and reporting.
 	*
-	* Closes and removes the given editor buffer. If @save_before is TRUE, also
-	* saves the editor before closing.
+	* Closes and removes the given document. If @save_before is TRUE, also
+	* saves the document before closing.
 	*
-	* Return value: TRUE if the editor was removed, else FALSE.
+	* Return value: TRUE if the document was removed, else FALSE.
 	*/
-	gboolean remove_document (IAnjutaDocument *editor, gboolean save_before);
+	gboolean remove_document (IAnjutaDocument *document, gboolean save_before);
 
 	/**
 	* ianjuta_document_manager_add_document:

@@ -583,8 +583,8 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	GtkTreeIter iter;
 	gchar *filename;
 	IAnjutaDocumentManager* docman;
-	GList* docs;
-	GList* cur_doc;
+	GList* docwids;
+	GList* node;
 	
 	g_return_if_fail (uri != NULL);
 	
@@ -600,26 +600,31 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	
 	docman = anjuta_shell_get_interface(ANJUTA_PLUGIN(ifile)->shell, IAnjutaDocumentManager,
 										NULL);
-	docs = ianjuta_document_manager_get_documents(docman, NULL);
-	for (cur_doc = docs; cur_doc != NULL; cur_doc = g_list_next(cur_doc))
+	docwids = ianjuta_document_manager_get_doc_widgets (docman, NULL);
+	if (docwids)
 	{
-		if (ANJUTA_IS_DESIGN_DOCUMENT(cur_doc->data))
+		for (node = docwids; node != NULL; node = g_list_next (node))
 		{
-			gchar *cur_uri;
-			cur_uri = ianjuta_file_get_uri (IANJUTA_FILE (cur_doc->data), NULL);
-			if (cur_uri)
+			if (ANJUTA_IS_DESIGN_DOCUMENT (node->data))
 			{
-			DEBUG_PRINT("%s = %s", uri, cur_uri);
-				if (g_str_equal (uri, cur_uri))
-			{
-					ianjuta_document_manager_set_current_document (docman,
-						IANJUTA_DOCUMENT (cur_doc->data), NULL);
+				gchar *cur_uri;
+				cur_uri = ianjuta_file_get_uri (IANJUTA_FILE (node->data), NULL);
+				if (cur_uri)
+				{
+					DEBUG_PRINT("%s = %s", uri, cur_uri);
+					if (g_str_equal (uri, cur_uri))
+					{
+						ianjuta_document_manager_set_current_document (docman,
+							IANJUTA_DOCUMENT (node->data), NULL);
+						g_free (cur_uri);
+						g_list_free (docwids);
+						return;
+					}
 					g_free (cur_uri);
-				return;
-			}
-				g_free (cur_uri);
+				}
 			}
 		}
+		g_list_free (docwids);
 	}
 	
 #if (GLADEUI_VERSION >= 330)

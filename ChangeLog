@@ -1,3 +1,100 @@
+2007-12-12  Johannes Schmid <jhs@gnome.org>
+  
+	Patch from  Tom <tpgww@onepost.net>:
+  (#485233 – another bunch of docman cleanups)
+  
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/document-manager/action-callbacks.c:
+	(get_current_document), (get_current_focus_widget),
+	(on_save_activate), (on_save_as_activate), (on_save_all_activate),
+	(on_close_file_activate), (on_close_all_file_activate),
+	(on_reload_file_activate), (on_print_activate),
+	(on_print_preview_activate),
+	(on_editor_command_upper_case_activate),
+	(on_editor_command_lower_case_activate),
+	(on_editor_command_eol_crlf_activate),
+	(on_editor_command_eol_lf_activate),
+	(on_editor_command_eol_cr_activate),
+	(on_editor_command_select_all_activate),
+	(on_editor_command_select_to_brace_activate),
+	(on_editor_command_select_block_activate),
+	(on_editor_command_match_brace_activate),
+	(on_editor_command_undo_activate),
+	(on_editor_command_redo_activate),
+	(on_editor_command_cut_activate),
+	(on_editor_command_paste_activate),
+	(on_editor_command_copy_activate),
+	(on_editor_command_clear_activate),
+	(on_editor_command_close_folds_all_activate),
+	(on_editor_command_open_folds_all_activate),
+	(on_editor_command_toggle_fold_activate),
+	(on_editor_command_bookmark_toggle_activate),
+	(on_editor_command_bookmark_first_activate),
+	(on_editor_command_bookmark_next_activate),
+	(on_editor_command_bookmark_prev_activate),
+	(on_editor_command_bookmark_last_activate),
+	(on_editor_command_bookmark_clear_activate),
+	(on_transform_eolchars1_activate), (on_comment_block),
+	(on_comment_box), (on_comment_stream),
+	(on_goto_block_start1_activate), (on_goto_block_end1_activate),
+	(on_zoom_in_text_activate), (on_zoom_out_text_activate),
+	(on_force_hilite_activate), (on_swap_activate),
+	(on_editor_add_view_activate), (on_editor_remove_view_activate):
+	* plugins/document-manager/action-callbacks.h:
+	* plugins/document-manager/anjuta-docman.c:
+	(on_notebook_page_close_button_click),
+	(on_notebook_page_close_button_enter),
+	(on_notebook_page_close_button_leave), (on_notebook_tab_btnpress),
+	(on_notebook_tab_btnrelease), (anjuta_docman_page_setup),
+	(anjuta_docman_page_new), (anjuta_docman_page_destroy),
+	(on_open_filesel_response), (anjuta_docman_open_file),
+	(anjuta_docman_save_document_as), (anjuta_docman_save_document),
+	(anjuta_docman_dispose), (anjuta_docman_instance_init),
+	(anjuta_docman_class_init), (anjuta_docman_new),
+	(on_notebook_switch_page), (on_document_save_point),
+	(on_document_destroy), (anjuta_docman_add_editor),
+	(anjuta_docman_add_document), (anjuta_docman_remove_document),
+	(anjuta_docman_set_popup_menu),
+	(anjuta_docman_get_current_focus_widget),
+	(anjuta_docman_get_page_for_document),
+	(anjuta_docman_get_current_document),
+	(anjuta_docman_set_current_document),
+	(anjuta_docman_goto_file_line),
+	(anjuta_docman_goto_file_line_mark),
+	(anjuta_docman_get_full_filename),
+	(anjuta_docman_present_notebook_page),
+	(anjuta_docman_update_page_label),
+	(anjuta_docman_delete_all_markers),
+	(anjuta_docman_delete_all_indicators),
+	(anjuta_docman_save_file_if_modified), (anjuta_docman_reload_file),
+	(do_ordertab1), (anjuta_docman_order_tabs),
+	(anjuta_docman_set_editor_properties),
+	(anjuta_docman_get_document_for_path),
+	(anjuta_docman_get_all_doc_widgets):
+	* plugins/document-manager/anjuta-docman.h:
+	* plugins/document-manager/editor-tooltips.c:
+	* plugins/document-manager/plugin.c: (update_title),
+	(update_document_ui_enable_all), (update_document_ui_disable_all),
+	(update_document_ui_save_items),
+	(update_document_ui_interface_items), (update_document_ui),
+	(on_document_update_save_ui), (update_status),
+	(on_document_update_ui), (on_document_added),
+	(on_document_changed), (on_session_save), (on_save_prompt),
+	(on_docman_auto_save), (on_gconf_notify_timer):
+	* plugins/document-manager/search-box.c: (on_document_changed),
+	(search_box_new), (search_box_grab_line_focus):
+	* plugins/glade/plugin.c: (ifile_open):
+	* plugins/project-manager/plugin.c: (project_manager_unload_gbf):
+	* plugins/search/search-replace_backend.c: (create_search_entries):
+	* plugins/sourceview/anjuta-document.c: (set_uri),
+	(anjuta_document_save):
+	* plugins/sourceview/sourceview.c: (ifile_savable_save):
+	* plugins/tools/editor.c: (on_editor_response):
+
+	The patch renames most stuff from "editor" or "te" to "doc where appropriate.
+	It fixes some issues with session handling and several memory lacks.
+	Gtk 2.12 Tooltip API is used if available.
+
 2007-12-10  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/disassemble.c,
