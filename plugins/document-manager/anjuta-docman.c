@@ -811,7 +811,7 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 
 	anjuta_docman_set_current_document (docman, doc);
 
-	anjuta_shell_present_widget (docman->shell, GTK_WIDGET (docman), NULL);
+	anjuta_shell_present_widget (docman->shell, GTK_WIDGET (docman->priv->plugin->vbox), NULL);
 }
 
 void

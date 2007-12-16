@@ -1,3 +1,11 @@
+2007-12-16  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_add_document):
+	
+	Present correct widget with anjuta_shell_present_widget(). This got wrong when
+	the new search bar eas introduced.
+
 2007-12-12  Johannes Schmid <jhs@gnome.org>
   
 	Patch from  Tom <tpgww@onepost.net>:
