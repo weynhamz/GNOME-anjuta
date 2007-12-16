@@ -1,11 +1,11 @@
 # Jorge González <jorgegonz@svn.gnome.org>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.help.HEAD.es\n"
+"Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2007-08-30 23:41+0100\n"
-"PO-Revision-Date: 2007-11-30 19:22+0100\n"
+"PO-Revision-Date: 2007-12-16 13:55+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Spanish <traductores@es.gnome.org>\n"
+"Language-Team: Spanish <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3014,7 +3014,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:556(title)
 msgid "Stack Window"
-msgstr ""
+msgstr "Ventana de pila"
 
 #: C/anjuta-manual.xml:557(para)
 msgid ""
@@ -3116,7 +3116,7 @@ msgstr "CPU"
 
 #: C/anjuta-manual.xml:642(title)
 msgid "Register window"
-msgstr ""
+msgstr "Ventana de registros"
 
 #: C/anjuta-manual.xml:643(para)
 msgid ""
@@ -3126,6 +3126,11 @@ msgid ""
 "listing all of the available registers in the microprocessor and their "
 "corresponding contents will appear."
 msgstr ""
+"Es posible examinar el contenido de los registros internos de la CPU "
+"(microprocesador). Elija el elemento del menú <menuchoice><guisubmenu>Ver</"
+"guisubmenu><guimenuitem>Registros</guimenuitem></menuchoice>. Aparecerá "
+"una ventana listando todos los registros disponibles en el microprocesador y "
+"su correspondiente contenido."
 
 #: C/anjuta-manual.xml:650(para)
 msgid ""
@@ -3133,10 +3138,13 @@ msgid ""
 "be highlight in red. It is possible to change one register value by "
 "selecting it and clicking in the value column."
 msgstr ""
+"Si cualquier valor de un registro se cambió en el último paso de depuración, su valor "
+"se resaltará en rojo. Es posible cambiar el valor de un registro "
+"seleccionándolo y pulsando en la columna de valor."
 
 #: C/anjuta-manual.xml:658(title)
 msgid "Memory window"
-msgstr ""
+msgstr "Ventana de memoria"
 
 #: C/anjuta-manual.xml:659(para)
 msgid ""
@@ -3145,6 +3153,10 @@ msgid ""
 "<interface>memory window</interface> for the program being debugged. This "
 "window shows the contents of all memory."
 msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Ver</"
+"guisubmenu><guimenuitem>Memoria</guimenuitem></menuchoice> para abrir la "
+"<interface>ventana de memoria</interface> para el programa que se está depurando. Esta "
+"ventana muestra el contenido de toda la memoria."
 
 #: C/anjuta-manual.xml:664(para)
 msgid ""
@@ -3152,6 +3164,9 @@ msgid ""
 "content in hexadecimal too and the last column is the memory content in "
 "ascii."
 msgstr ""
+"Lo primero son las direcciones de memoria en hexadecimal, lo segundo es el contenido "
+"de la memoria en hexadecimal y la última columna es el contenido de la memoria en "
+"ASCII."
 
 #: C/anjuta-manual.xml:668(para)
 msgid ""
@@ -3200,10 +3215,12 @@ msgid ""
 "There are a number of other debugger features used less frequently and not "
 "very well integrated in the new front end but which are still working."
 msgstr ""
+"Existe cierto número de características del depurador que se no se usan tan frecuentemente y "
+"no están muy bien integradas en el nuevo front-end pero se está trabajando en ello."
 
 #: C/anjuta-manual.xml:711(title)
 msgid "Dynamically loaded Libraries"
-msgstr ""
+msgstr "Bibliotecas cargadas dinámicamente"
 
 #: C/anjuta-manual.xml:712(para)
 msgid ""
@@ -3214,6 +3231,12 @@ msgid ""
 "program has loaded and their locations in the memory. It also shows whether "
 "the symbol table is loaded or not (Yes/No)."
 msgstr ""
+"Para obtener una lista de las bibliotecas usadas dinámicamente por el programa, elija "
+"el elemento del menú <menuchoice><guisubmenu>Depurar</guisubmenu><guisubmenu>Información</"
+"guisubmenu><guimenuitem>Bibliotecas compartidas</guimenuitem></menuchoice>. Esto "
+"abrirá una nueva ventana que listará todas las bibliotecas compartidas que "
+"el programa ha cargado y sus ubicaciones en la memoria. También muestra si "
+"la tabla de símbolos se ha cargado o no (Sí/No)."
 
 #: C/anjuta-manual.xml:722(title) C/anjuta-manual.xml:724(screeninfo)
 msgid "Shared Libraries window"
