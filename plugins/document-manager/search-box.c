@@ -32,12 +32,13 @@
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-status.h>
+#include <libanjuta/anjuta-debug.h>
 
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
 #include <libanjuta/interfaces/ianjuta-editor-selection.h>
 
-#define ANJUTA_STOCK_GOTO_LINE				  "anjuta-goto-line"
+#define ANJUTA_STOCK_GOTO_LINE "anjuta-goto-line"
 
 typedef struct _SearchBoxPrivate SearchBoxPrivate;
 
@@ -58,6 +59,9 @@ struct _SearchBoxPrivate
 	IAnjutaIterable* last_start;
 };
 
+#ifdef GET_PRIVATE
+# undef GET_PRIVATE
+#endif
 #define GET_PRIVATE(o) \
 	(G_TYPE_INSTANCE_GET_PRIVATE((o), SEARCH_TYPE_BOX, SearchBoxPrivate))
 
@@ -70,7 +74,8 @@ on_search_box_hide (GtkWidget* button, SearchBox* search_box)
 }
 
 static void
-on_document_changed (AnjutaDocman* docman, IAnjutaDocument* doc, SearchBox* search_box)
+on_document_changed (AnjutaDocman* docman, IAnjutaDocument* doc,
+					 SearchBox* search_box)
 {
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	if (!doc || !IANJUTA_IS_EDITOR (doc))
@@ -90,7 +95,7 @@ on_goto_activated (GtkWidget* widget, SearchBox* search_box)
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
 	const gchar* str_line = gtk_entry_get_text (GTK_ENTRY (private->goto_entry));
 	
-	int line = atoi (str_line);
+	gint line = atoi (str_line);
 	if (line > 0)
 	{
 		ianjuta_editor_goto_line (private->current_editor, line, NULL);
@@ -403,7 +408,6 @@ on_search_activated (GtkWidget* widget, SearchBox* search_box)
 	}
 }
 	
-
 static void
 search_box_init (SearchBox *object)
 {
@@ -473,7 +477,7 @@ search_box_init (SearchBox *object)
 	gtk_box_pack_start (GTK_BOX (object), private->case_check, FALSE, FALSE, 0);
 	gtk_box_pack_end (GTK_BOX (object), private->close_button, FALSE, FALSE, 0);
 	
-	gtk_widget_show_all (GTK_WIDGET(object));
+	gtk_widget_show_all (GTK_WIDGET (object));
 	
 	private->last_start = NULL;
 }
@@ -496,17 +500,19 @@ search_box_class_init (SearchBoxClass *klass)
 }
 
 GtkWidget*
-search_box_new (DocmanPlugin* plugin)
+search_box_new (AnjutaDocman *docman)
 {
-	GtkWidget* search_box = GTK_WIDGET(g_object_new (SEARCH_TYPE_BOX, 
-													 "homogeneous", FALSE, NULL));
-	SearchBoxPrivate* private = GET_PRIVATE(search_box);
-	
-	g_signal_connect (G_OBJECT (plugin->docman), "document-changed", G_CALLBACK (on_document_changed),
-					  search_box);
-	
-	private->status = anjuta_shell_get_status (ANJUTA_PLUGIN (plugin)->shell, NULL);
-		
+	GtkWidget* search_box;
+	SearchBoxPrivate* private;
+
+	search_box = GTK_WIDGET (g_object_new (SEARCH_TYPE_BOX, "homogeneous",
+											FALSE, NULL));
+	g_signal_connect (G_OBJECT (docman), "document-changed",
+					  G_CALLBACK (on_document_changed), search_box);
+
+	private = GET_PRIVATE (search_box);
+	private->status = anjuta_shell_get_status (docman->shell, NULL);
+
 	return search_box;
 }
 

@@ -1,10 +1,64 @@
+2007-12-17  Johannes Schmid <jhs@gnome.org>
+
+  Patch from Tom <tpgww@onepost.net> (with some changes):
+
+	* plugins/document-manager/action-callbacks.c: (on_open_activate),
+	(on_save_as_activate), (on_save_all_activate),
+	(on_close_file_activate), (on_close_all_file_activate),
+	(on_reload_file_activate), (on_editor_command_clear_activate),
+	(on_transform_eolchars1_activate), (on_comment_block),
+	(on_comment_box), (on_comment_stream), (on_goto_line_no1_activate),
+	(on_goto_block_start1_activate), (on_goto_block_end1_activate),
+	(on_editor_linenos1_activate), (on_editor_markers1_activate),
+	(on_editor_codefold1_activate), (on_editor_indentguides1_activate),
+	(on_editor_whitespaces1_activate), (on_editor_eolchars1_activate),
+	(on_editor_linewrap1_activate), (on_zoom_in_text_activate),
+	(on_zoom_out_text_activate):
+	* plugins/document-manager/action-callbacks.h:
+	* plugins/document-manager/anjuta-docman.c:
+	(on_notebook_page_close_button_click),
+	(on_notebook_page_close_button_enter),
+	(on_notebook_page_close_button_leave),
+	(on_notebook_tab_btnrelease), (on_notebook_page_reordered),
+	(anjuta_docman_page_init), (anjuta_docman_page_new),
+	(on_open_filesel_response), (create_file_open_dialog_gui),
+	(anjuta_docman_save_document_as), (anjuta_docman_dispose),
+	(anjuta_docman_instance_init), (on_notebook_switch_page),
+	(on_document_destroy), (anjuta_docman_add_editor),
+	(anjuta_docman_add_document), (anjuta_docman_remove_document),
+	(anjuta_docman_set_current_document),
+	(anjuta_docman_goto_file_line_mark), (get_real_path),
+	(anjuta_docman_get_full_filename),
+	(anjuta_docman_delete_all_markers),
+	(anjuta_docman_delete_all_indicators),
+	(anjuta_docman_save_file_if_modified), (anjuta_docman_reload_file),
+	(anjuta_docman_order_tabs):
+	* plugins/document-manager/anjuta-docman.h:
+	* plugins/document-manager/file_history.c: (an_hist_file_new),
+	(an_file_history_push), (an_file_history_dump):
+	* plugins/document-manager/file_history.h:
+	* plugins/document-manager/plugin.c: (update_title),
+	(value_removed_project_root_uri),
+	(update_document_ui_interface_items), (menu_name_compare),
+	(on_document_added), (on_document_changed),
+	(on_window_key_press_event), (on_window_key_release_event),
+	(on_session_save):
+	* plugins/document-manager/search-box.c: (on_document_changed),
+	(on_goto_activated), (search_box_init), (search_box_new):
+	* plugins/document-manager/search-box.h:
+
+  Yet more code cleanups
+  Save glade files correctly in session
+  Use new tooltip API if available
+  Sort notebook pages when session is restored (needs work)
+
 2007-12-16  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c:
 	(anjuta_docman_add_document):
 	
 	Present correct widget with anjuta_shell_present_widget(). This got wrong when
-	the new search bar eas introduced.
+	the new search bar was introduced.
 
 2007-12-12  Johannes Schmid <jhs@gnome.org>
   

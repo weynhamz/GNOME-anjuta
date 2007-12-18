@@ -40,7 +40,7 @@ static void an_file_history_init()
 	s_history->current = NULL;
 }
 
-AnHistFile *an_hist_file_new(const char *name, glong line)
+AnHistFile *an_hist_file_new (const gchar *name, gint line)
 {
 	AnHistFile *h_file;
 
@@ -77,7 +77,7 @@ void an_file_history_reset(void)
 	s_history->current = NULL;
 }
 
-void an_file_history_push(const char *filename, glong line)
+void an_file_history_push (const gchar *filename, gint line)
 {
 	AnHistFile *h_file;
 
@@ -152,7 +152,7 @@ void an_file_history_dump(void)
 	for (tmp = s_history->items; tmp; tmp = g_list_next(tmp))
 	{
 		h_file = (AnHistFile *) tmp->data;
-		fprintf(stderr, "%s:%ld", h_file->file, h_file->line);
+		fprintf(stderr, "%s:%d", h_file->file, h_file->line);
 		if (tmp == s_history->current)
 			fprintf(stderr, " (*)");
 		fprintf(stderr, "\n");

@@ -27,14 +27,14 @@ typedef struct _AnHistFile AnHistFile;
 struct _AnHistFile
 {
 	gchar *file;
-	glong line;
+	gint line;
 };
 
-AnHistFile *an_hist_file_new(const char *name, glong line);
+AnHistFile *an_hist_file_new (const gchar *name, gint line);
 void an_hist_file_free(AnHistFile *h_file);
 
 void an_file_history_reset(void);
-void an_file_history_push(const char *filename, glong line);
+void an_file_history_push (const gchar *filename, gint line);
 void an_file_history_back(AnjutaDocman *docman);
 void an_file_history_forward(AnjutaDocman *docman);
 void an_file_history_dump(void);

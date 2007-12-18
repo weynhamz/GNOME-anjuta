@@ -123,9 +123,9 @@ enum {
 };
 
 typedef struct {
-	int modifiers;
-	unsigned int gdk_key;
-	int id;
+	gint modifiers;
+	guint gdk_key;
+	gint id;
 } ShortcutMapping;
 
 static ShortcutMapping global_keymap[] = {
@@ -437,7 +437,7 @@ update_title (DocmanPlugin* doc_plugin)
 	IAnjutaDocument *doc;
 	AnjutaStatus *status;
 	gchar *filename;
-	gchar* title;
+	gchar *title;
 
 	doc = anjuta_docman_get_current_document (ANJUTA_DOCMAN (doc_plugin->docman));
 
@@ -448,7 +448,7 @@ update_title (DocmanPlugin* doc_plugin)
 		if (uri)
 		{
 			filename = gnome_vfs_get_local_path_from_uri (uri);
-			g_free(uri);
+			g_free (uri);
 		}
 		else
 			filename = NULL;
@@ -462,20 +462,20 @@ update_title (DocmanPlugin* doc_plugin)
 	}
 	else if (filename)
 	{
-		title = g_strdup(filename);
+		title = g_strdup (filename);
 	}
 	else if (doc_plugin->project_name)
 	{
-		title = g_strdup(doc_plugin->project_name);
+		title = g_strdup (doc_plugin->project_name);
 	}
 	else
 		title = NULL;
 	
-	status = anjuta_shell_get_status (ANJUTA_PLUGIN(doc_plugin)->shell, NULL);
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (doc_plugin)->shell, NULL);
 	/* NULL title is ok */
 	anjuta_status_set_title (status, title);
 	g_free (filename);
-	g_free(title);
+	g_free (title);
 }
 
 static void
@@ -517,7 +517,7 @@ value_removed_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 
 	doc_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	
-	DEBUG_PRINT ("Project added");
+	DEBUG_PRINT ("Project removed");
 	
 	g_free (doc_plugin->project_name);
 	doc_plugin->project_name = NULL;
@@ -673,7 +673,7 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 		if (language)
 		{
 			/* Check if it is a C or C++ file */
-			const gchar* lang_name =
+			const gchar *lang_name =
 				ianjuta_language_get_name_from_editor (language, IANJUTA_EDITOR_LANGUAGE (doc), NULL);
 			flag = (lang_name && (g_str_equal (lang_name, "C") || g_str_equal (lang_name, "C++")));
 		}
@@ -826,7 +826,7 @@ update_document_ui (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 
 static void
 on_document_update_save_ui (IAnjutaDocument *doc, gboolean entered,
-						  AnjutaPlugin *plugin)
+							AnjutaPlugin *plugin)
 {
 	update_document_ui_save_items (plugin, doc);
 }
@@ -962,7 +962,7 @@ menu_name_compare(const gchar *s, const char *t)
 	gchar *t1 = g_utf8_strdown(t, -1);
 	remove_char(s1, '_');
 	remove_char(t1, '_');
-	int result = g_utf8_collate(s1, t1);
+	gint result = g_utf8_collate (s1, t1);
 	g_free(s1);
 	g_free(t1);
 	return result;
@@ -1038,8 +1038,7 @@ on_document_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 				   AnjutaPlugin *plugin)
 {
 	GtkWidget *highlight_submenu, *highlight_menu;
-	DocmanPlugin *docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
-	IAnjutaEditor* te;
+	DocmanPlugin *docman_plugin;
 	
 	g_signal_connect (G_OBJECT (doc), "update_ui",
 					  G_CALLBACK (on_document_update_ui),
@@ -1047,27 +1046,28 @@ on_document_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 	g_signal_connect (G_OBJECT (doc), "save_point",
 					  G_CALLBACK (on_document_update_save_ui),
 					  plugin);
+	/* Present the vbox as this is the widget that was added to the shell */
+	docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	anjuta_shell_present_widget (plugin->shell,
 								 GTK_WIDGET (docman_plugin->vbox), NULL);
 
-	if (!IANJUTA_IS_EDITOR(doc))
+	if (IANJUTA_IS_EDITOR (doc))
 	{
-		DEBUG_PRINT ("editor object not found");
-		return;
-	}
+		IAnjutaEditor *te;
 
-	te = IANJUTA_EDITOR(doc);
+		te = IANJUTA_EDITOR (doc);
 	
-	/* Create Highlight submenu */
-	highlight_submenu = 
-		create_highlight_submenu (docman_plugin, te);
-	if (highlight_submenu)
-	{
-		highlight_menu =
-			gtk_ui_manager_get_widget (GTK_UI_MANAGER (docman_plugin->ui),
+		/* Create Highlight submenu */
+		highlight_submenu = 
+			create_highlight_submenu (docman_plugin, te);
+		if (highlight_submenu)
+		{
+			highlight_menu =
+				gtk_ui_manager_get_widget (GTK_UI_MANAGER (docman_plugin->ui),
 						"/MenuMain/MenuView/MenuViewEditor/MenuFormatStyle");
-		gtk_menu_item_set_submenu (GTK_MENU_ITEM (highlight_menu),
-								   highlight_submenu);
+			gtk_menu_item_set_submenu (GTK_MENU_ITEM (highlight_menu),
+									   highlight_submenu);
+		}
 	}
 }
 
@@ -1120,12 +1120,10 @@ unload_unused_support_plugins (DocmanPlugin* docman_plugin,
 
 static void
 on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
-				   AnjutaPlugin *plugin)
+					 AnjutaPlugin *plugin)
 {
-	DocmanPlugin *docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
-	
 	update_document_ui (plugin, doc);
-	
+
 	GValue value = {0, };
 	g_value_init (&value, G_TYPE_OBJECT);
 	g_value_set_object (&value, doc);
@@ -1133,44 +1131,47 @@ on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 							"document_manager_current_editor",
 							&value, NULL);
 	g_value_unset(&value);
-	DEBUG_PRINT ("Document added");
-	
+
 	if (doc && IANJUTA_IS_EDITOR (doc))
 	{
-		DEBUG_PRINT("Beginning language support");
-		
-		AnjutaPluginManager *plugin_manager;
-		
+		DocmanPlugin *docman_plugin;
+
+		docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 		update_status (docman_plugin, IANJUTA_EDITOR (doc));
-				
-		/* Load current language editor support plugins */
-		plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
+
 		if (IANJUTA_IS_EDITOR_LANGUAGE (doc))
 		{
-			GList* new_support_plugins, *support_plugin_descs, *needed_plugins, *node;
-			const gchar *language = NULL;
-			IAnjutaLanguage* lang_manager = anjuta_shell_get_interface (plugin->shell,
-																		IAnjutaLanguage,
-																		NULL);
+			DEBUG_PRINT("Beginning language support");
+			AnjutaPluginManager *plugin_manager;
+			IAnjutaLanguage *lang_manager;
+			GList *new_support_plugins, *support_plugin_descs, *needed_plugins, *node;
+			const gchar *language;
+	
+			lang_manager = anjuta_shell_get_interface (plugin->shell,
+														IAnjutaLanguage,
+														NULL);
 			if (!lang_manager)
 			{
 				g_warning ("Could not load language manager!");
 				goto out;
 			}
 			language = ianjuta_language_get_name_from_editor (lang_manager,
-															   IANJUTA_EDITOR_LANGUAGE (doc),
-															   NULL);
+															  IANJUTA_EDITOR_LANGUAGE (doc),
+															  NULL);
 			if (!language)
 			{
+				DEBUG_PRINT ("Unloading all language support plugins");
 				/* Unload all language support plugins */
+				/* Copy the list because the "deactivate"-signal handler modifies
+				 * the original list */
 				GList* plugins = g_list_copy (docman_plugin->support_plugins);
-				DEBUG_PRINT ("Unloading all plugins");
-				g_list_foreach (plugins, (GFunc) anjuta_plugin_deactivate,
-								NULL);
+				g_list_foreach (plugins, (GFunc) anjuta_plugin_deactivate, NULL);
 				g_list_free (plugins);
 				goto out;
 			}
-			  
+
+			/* Load current language editor support plugins */
+			plugin_manager = anjuta_shell_get_plugin_manager (plugin->shell, NULL);
 			support_plugin_descs = anjuta_plugin_manager_query (plugin_manager,
 																"Anjuta Plugin",
 																"Interfaces",
@@ -1212,16 +1213,16 @@ on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 		}
 	}
 out:
-	update_title (ANJUTA_PLUGIN_DOCMAN(plugin));
+	update_title (ANJUTA_PLUGIN_DOCMAN (plugin));
 }
 
-static gint
+static gboolean
 on_window_key_press_event (GtkWidget   *widget,
-				  GdkEventKey *event,
-				  DocmanPlugin *plugin)
+						   GdkEventKey *event,
+						  DocmanPlugin *plugin)
 {
-	int modifiers;
-	int i;
+	gint modifiers;
+	gint i;
 
 	g_return_val_if_fail (event != NULL, FALSE);
 
@@ -1237,10 +1238,11 @@ on_window_key_press_event (GtkWidget   *widget,
 
 	switch (global_keymap[i].id) {
 	case ID_NEXTBUFFER:
-	case ID_PREVBUFFER: {
+	case ID_PREVBUFFER:
+	{
 		GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
-		int pages_nb;
-		int cur_page;
+		gint pages_nb;
+		gint cur_page;
 
 		if (!notebook->children)
 			return FALSE;
@@ -1267,7 +1269,7 @@ on_window_key_press_event (GtkWidget   *widget,
 		  global_keymap[i].id <= (ID_FIRSTBUFFER + 9))
 		{
 			GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
-			int page_req = global_keymap[i].id - ID_FIRSTBUFFER;
+			gint page_req = global_keymap[i].id - ID_FIRSTBUFFER;
 
 			if (!notebook->children)
 				return FALSE;
@@ -1279,7 +1281,7 @@ on_window_key_press_event (GtkWidget   *widget,
 
 	/* Note: No reason for a shortcut to do more than one thing a time */
 	g_signal_stop_emission_by_name (G_OBJECT (ANJUTA_PLUGIN(plugin)->shell),
-								  "key-press-event");
+									"key-press-event");
 
 	return TRUE;
 }
@@ -1291,10 +1293,10 @@ on_window_key_press_event (GtkWidget   *widget,
 #define AUTOSAVE_TIMER             "autosave.timer"
 #define SAVE_AUTOMATIC             "save.automatic"
 
-static gint
+static gboolean
 on_window_key_release_event (GtkWidget   *widget,
-				  GdkEventKey *event,
-				  DocmanPlugin *plugin)
+							 GdkEventKey *event,
+							DocmanPlugin *plugin)
 {
 	g_return_val_if_fail (event != NULL, FALSE);
 
@@ -1303,7 +1305,7 @@ on_window_key_release_event (GtkWidget   *widget,
 	{
 		GtkNotebook *notebook = GTK_NOTEBOOK (plugin->docman);
 		GtkWidget *widget;
-		int cur_page;
+		gint cur_page;
 		plugin->g_tabbing = FALSE;
 		
 		if (anjuta_preferences_get_int (plugin->prefs,
@@ -1325,39 +1327,40 @@ static void
 on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, DocmanPlugin *plugin)
 {
-	GList *buffers, *node, *files;
-	
+	GList *docwids, *node, *files;
+
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
-	
-	files = anjuta_session_get_string_list (session, "File Loader", "Files");
+
+	files = anjuta_session_get_string_list (session, "File Loader", "Files"); /* probably NULL */
 	if (files)
-	files = g_list_reverse (files);
-	
-	buffers = anjuta_docman_get_all_doc_widgets (ANJUTA_DOCMAN (plugin->docman));
-	if (buffers)
+		files = g_list_reverse (files);
+	/* buffers list is ordered last-opened to first-opened */
+	docwids = anjuta_docman_get_all_doc_widgets (ANJUTA_DOCMAN (plugin->docman));
+	if (docwids)
 	{
-		for (node = buffers; node; node = g_list_next (node))
+		for (node = docwids; node != NULL; node = g_list_next (node))
 		{
+			/* only editor-documents are logged here. glade files etc handled elsewhere */
 			if (IANJUTA_IS_EDITOR (node->data))
 			{
 				IAnjutaEditor *te;
 				gchar *te_uri;
-		
+
 				te = IANJUTA_EDITOR (node->data);
-				te_uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
+				te_uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
 				if (te_uri)
 				{
 					gchar *uri;
 					/* Save line locations also */
 					uri = g_strdup_printf ("%s#%d", te_uri,
-								  		ianjuta_editor_get_lineno(IANJUTA_EDITOR(te), NULL));
+										  ianjuta_editor_get_lineno (te, NULL));
 					files = g_list_prepend (files, uri);
 					g_free (te_uri);
 				}
 			}
 		}
-		g_list_free (buffers);
+		g_list_free (docwids);
 	}
 	if (files)
 	{
@@ -1376,8 +1379,8 @@ on_save_prompt_save_editor (AnjutaSavePrompt *save_prompt,
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
 	return anjuta_docman_save_document (ANJUTA_DOCMAN (plugin->docman),
-									  IANJUTA_DOCUMENT (item),
-									  GTK_WIDGET (save_prompt));
+										IANJUTA_DOCUMENT (item),
+										GTK_WIDGET (save_prompt));
 }
 
 static void
@@ -1606,25 +1609,21 @@ activate_plugin (AnjutaPlugin *plugin)
 {
 	GtkWidget *docman, *popup_menu;
 	AnjutaUI *ui;
-	DocmanPlugin *editor_plugin;
+	DocmanPlugin *dplugin;
 	GtkActionGroup *group;
 	gint i;
-	AnjutaStatus *status;
 	static gboolean initialized = FALSE;
 	GList *actions, *act;
 	
 	DEBUG_PRINT ("DocmanPlugin: Activating document manager plugin...");
 	
-	editor_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
-	editor_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	editor_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	status = anjuta_shell_get_status (plugin->shell, NULL);
-	
-	ui = editor_plugin->ui;
-	docman = anjuta_docman_new (editor_plugin, editor_plugin->prefs);
-	editor_plugin->docman = docman;
-	
-	editor_plugin->search_box = search_box_new (editor_plugin);
+	dplugin = ANJUTA_PLUGIN_DOCMAN (plugin);
+	dplugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
+	dplugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
+
+	ui = dplugin->ui;
+	docman = anjuta_docman_new (dplugin, dplugin->prefs);
+	dplugin->docman = docman;
 	
 	ANJUTA_DOCMAN(docman)->shell = plugin->shell;
 	g_signal_connect (G_OBJECT (docman), "document-added",
@@ -1640,11 +1639,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	{
 		register_stock_icons (plugin);
 	}
-	editor_plugin->action_groups = NULL;
+	dplugin->action_groups = NULL;
 	/* Add all our editor actions */
 	for (i = 0; i < G_N_ELEMENTS (action_groups); i++)
 	{
-		DEBUG_PRINT ("Adding action group: %s", action_groups[i].name);
 		group = anjuta_ui_add_action_group_entries (ui, 
 													action_groups[i].name,
 													_(action_groups[i].label),
@@ -1652,12 +1650,12 @@ activate_plugin (AnjutaPlugin *plugin)
 													action_groups[i].size,
 													GETTEXT_PACKAGE, TRUE,
 													plugin);
-		editor_plugin->action_groups =
-			g_list_prepend (editor_plugin->action_groups, group);
+		dplugin->action_groups =
+			g_list_prepend (dplugin->action_groups, group);
 		actions = gtk_action_group_list_actions (group);
 		act = actions;
 		while (act) {
-			g_object_set_data (G_OBJECT (act->data), "Plugin", editor_plugin);
+			g_object_set_data (G_OBJECT (act->data), "Plugin", dplugin);
 			act = g_list_next (act);
 		}
 	}
@@ -1669,22 +1667,22 @@ activate_plugin (AnjutaPlugin *plugin)
 												action_toggle_groups[i].group,
 												action_toggle_groups[i].size,
 												GETTEXT_PACKAGE, TRUE, plugin);
-		editor_plugin->action_groups =
-			g_list_prepend (editor_plugin->action_groups, group);
+		dplugin->action_groups =
+			g_list_prepend (dplugin->action_groups, group);
 		actions = gtk_action_group_list_actions (group);
 		act = actions;
 		while (act) {
-			g_object_set_data (G_OBJECT (act->data), "Plugin", editor_plugin);
+			g_object_set_data (G_OBJECT (act->data), "Plugin", dplugin);
 			act = g_list_next (act);
 		}
 	}
 	
 	/* Add UI */
-	editor_plugin->uiid = anjuta_ui_merge (ui, UI_FILE);
-	editor_plugin->vbox = gtk_vbox_new (FALSE, 0);
-	gtk_widget_show (editor_plugin->vbox);
-	gtk_box_pack_start_defaults (GTK_BOX(editor_plugin->vbox), docman);
-	anjuta_shell_add_widget_full (plugin->shell, editor_plugin->vbox,
+	dplugin->uiid = anjuta_ui_merge (ui, UI_FILE);
+	dplugin->vbox = gtk_vbox_new (FALSE, 0);
+	gtk_widget_show (dplugin->vbox);
+	gtk_box_pack_start_defaults (GTK_BOX(dplugin->vbox), docman);
+	anjuta_shell_add_widget_full (plugin->shell, dplugin->vbox,
 							 "AnjutaDocumentManager", _("Documents"),
 							 "editor-plugin-icon", 
 							 ANJUTA_SHELL_PLACEMENT_CENTER, 
@@ -1694,6 +1692,10 @@ activate_plugin (AnjutaPlugin *plugin)
 	ui_give_shorter_names (plugin);
 	update_document_ui (plugin, NULL);
 	
+	/* Create the default searchbox instance, but don't yet put it into
+	   dplugin->vbox, to prevent the box being displayed at session start */
+	dplugin->search_box = search_box_new (ANJUTA_DOCMAN (docman));
+
 	/* Setup popup menu */
 	popup_menu = gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui),
 											"/PopupDocumentManager");
@@ -1710,11 +1712,11 @@ activate_plugin (AnjutaPlugin *plugin)
 	g_signal_connect (G_OBJECT (plugin->shell), "save-prompt",
 					  G_CALLBACK (on_save_prompt), plugin);
 	
-	editor_plugin->project_watch_id = 
+	dplugin->project_watch_id =
 		anjuta_plugin_add_watch (plugin, "project_root_uri",
 								 value_added_project_root_uri,
 								 value_removed_project_root_uri, NULL);
-	editor_plugin->project_name = NULL;
+	dplugin->project_name = NULL;
 	
 	initialized = TRUE;
 	
@@ -1757,7 +1759,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	
 	/* Widget is removed from the container when destroyed */
 	gtk_widget_destroy (eplugin->docman);
-	gtk_widget_destroy (eplugin->search_box);
+	gtk_widget_destroy (eplugin->search_box);	/* the default searchbox instance may still be unparented */
 	anjuta_ui_unmerge (ui, eplugin->uiid);
 	node = eplugin->action_groups;
 	while (node)
@@ -1809,7 +1811,7 @@ docman_plugin_class_init (GObjectClass *klass)
 }
 
 /* Implement IAnjutaDocumentManager interfaces */
-static gchar *
+static gchar*
 ianjuta_docman_get_full_filename (IAnjutaDocumentManager *plugin,
 		const gchar *file, GError **e)
 {
@@ -1891,8 +1893,8 @@ ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 
 static void
 ianjuta_docman_add_document (IAnjutaDocumentManager *plugin,
-						  IAnjutaDocument* document,
-						   GError **e)
+							IAnjutaDocument* document,
+							GError **e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
@@ -1907,6 +1909,7 @@ ianjuta_docman_remove_document(IAnjutaDocumentManager *plugin,
 {
 	gboolean ret_val;
 	AnjutaDocman *docman;
+
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
 	
 	if (save_before)
@@ -2007,7 +2010,7 @@ isavable_save_as (IAnjutaFileSavable* plugin, const gchar* uri, GError** e)
 }
 
 static gboolean
-isavable_is_dirty(IAnjutaFileSavable* plugin, GError** e)
+isavable_is_dirty (IAnjutaFileSavable* plugin, GError **e)
 {
 	/* Is any editor unsaved */
 	AnjutaDocman *docman;
@@ -2053,7 +2056,7 @@ static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	GladeXML* gxml;		
-	AnjutaPlugin* plugin = ANJUTA_PLUGIN(ipref);
+	AnjutaPlugin *plugin = ANJUTA_PLUGIN (ipref);
 	
 	/* Add preferences */
 	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);

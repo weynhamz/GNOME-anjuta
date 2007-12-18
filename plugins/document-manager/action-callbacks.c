@@ -49,7 +49,7 @@
 #include "file_history.h"
 #include "search-box.h"
 
-static IAnjutaDocument*
+static IAnjutaDocument *
 get_current_document (gpointer user_data)
 {
 	AnjutaDocman *docman;
@@ -72,7 +72,7 @@ get_current_focus_widget (gpointer user_data)
 }
 
 void
-on_open_activate (GtkAction * action, gpointer user_data)
+on_open_activate (GtkAction *action, gpointer user_data)
 {
 	AnjutaDocman *docman;
 	DocmanPlugin *plugin;
@@ -96,7 +96,7 @@ on_save_activate (GtkAction *action, gpointer user_data)
 }
 
 void
-on_save_as_activate (GtkAction * action, gpointer user_data)
+on_save_as_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 	AnjutaDocman *docman;
@@ -111,7 +111,7 @@ on_save_as_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_save_all_activate (GtkAction * action, gpointer user_data)
+on_save_all_activate (GtkAction *action, gpointer user_data)
 {
 	GList *buffers, *node;
 	AnjutaDocman *docman;
@@ -148,11 +148,11 @@ on_save_prompt_save_editor (AnjutaSavePrompt *save_prompt,
 	
 	docman = ANJUTA_DOCMAN (user_data);
 	return anjuta_docman_save_document (docman, IANJUTA_DOCUMENT (item),
-									  GTK_WIDGET (save_prompt));
+										GTK_WIDGET (save_prompt));
 }
 
 void
-on_close_file_activate (GtkAction * action, gpointer user_data)
+on_close_file_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 	AnjutaDocman *docman;
@@ -199,7 +199,7 @@ on_close_file_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_close_all_file_activate (GtkAction * action, gpointer user_data)
+on_close_all_file_activate (GtkAction *action, gpointer user_data)
 {
 	GList *buffers;
 	AnjutaDocman *docman;
@@ -244,7 +244,7 @@ on_new_file_activate (GtkAction *action, gpointer user_data)
 }
 
 void
-on_reload_file_activate (GtkAction * action, gpointer user_data)
+on_reload_file_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 	gchar *msg;
@@ -265,7 +265,7 @@ on_reload_file_activate (GtkAction * action, gpointer user_data)
 									 GTK_MESSAGE_QUESTION,
 									 GTK_BUTTONS_NONE, msg);
 	gtk_dialog_add_button (GTK_DIALOG (dialog),
-						   GTK_STOCK_CANCEL,	GTK_RESPONSE_NO);
+						   GTK_STOCK_CANCEL, GTK_RESPONSE_NO);
 	anjuta_util_dialog_add_button (GTK_DIALOG (dialog), _("_Reload"),
 							  GTK_STOCK_REVERT_TO_SAVED,
 							  GTK_RESPONSE_YES);
@@ -352,7 +352,7 @@ on_editor_command_eol_crlf_activate (GtkAction *action, gpointer user_data)
 	doc = get_current_document (user_data);
 	if (doc)
 		ianjuta_editor_line_mode_convert (IANJUTA_EDITOR_LINE_MODE (doc),
-									  IANJUTA_EDITOR_LINE_MODE_CRLF, NULL);
+										  IANJUTA_EDITOR_LINE_MODE_CRLF, NULL);
 }
 
 void
@@ -363,7 +363,7 @@ on_editor_command_eol_lf_activate (GtkAction *action, gpointer user_data)
 	doc = get_current_document (user_data);
 	if (doc)
 		ianjuta_editor_line_mode_convert (IANJUTA_EDITOR_LINE_MODE (doc),
-									  IANJUTA_EDITOR_LINE_MODE_LF, NULL);
+										  IANJUTA_EDITOR_LINE_MODE_LF, NULL);
 }
 
 void
@@ -374,7 +374,7 @@ on_editor_command_eol_cr_activate (GtkAction *action, gpointer user_data)
 	doc = get_current_document (user_data);
 	if (doc)
 		ianjuta_editor_line_mode_convert (IANJUTA_EDITOR_LINE_MODE (doc),
-									  IANJUTA_EDITOR_LINE_MODE_CR, NULL);
+										  IANJUTA_EDITOR_LINE_MODE_CR, NULL);
 }
 
 void
@@ -538,8 +538,8 @@ on_editor_command_clear_activate (GtkAction *action, gpointer user_data)
 			gint start, end;
 			if (!gtk_editable_get_selection_bounds (GTK_EDITABLE (widget), &start, &end))
 			{
-				start=gtk_editable_get_position (GTK_EDITABLE (widget));
-				end=start+1;
+				start = gtk_editable_get_position (GTK_EDITABLE (widget));
+				end = start + 1;
 			}
 			gtk_editable_delete_text (GTK_EDITABLE (widget), start, end);
 		}
@@ -594,7 +594,7 @@ on_editor_command_bookmark_toggle_activate (GtkAction *action, gpointer user_dat
 	if (doc)
 		ianjuta_bookmark_toggle (IANJUTA_BOOKMARK (doc),
 								ianjuta_editor_get_lineno (IANJUTA_EDITOR (doc), NULL),
-							 FALSE, NULL);
+								FALSE, NULL);
 }
 
 void
@@ -648,7 +648,7 @@ on_editor_command_bookmark_clear_activate (GtkAction *action, gpointer user_data
 }
 
 void
-on_transform_eolchars1_activate (GtkAction * action, gpointer user_data)
+on_transform_eolchars1_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 
@@ -678,7 +678,7 @@ on_next_history (GtkAction *action, gpointer user_data)
 }
 
 void
-on_comment_block (GtkAction * action, gpointer user_data)
+on_comment_block (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 
@@ -687,7 +687,7 @@ on_comment_block (GtkAction * action, gpointer user_data)
 		ianjuta_editor_comment_block (IANJUTA_EDITOR_COMMENT (doc), NULL);
 }
 
-void on_comment_box (GtkAction * action, gpointer user_data)
+void on_comment_box (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 
@@ -696,7 +696,7 @@ void on_comment_box (GtkAction * action, gpointer user_data)
 		ianjuta_editor_comment_box (IANJUTA_EDITOR_COMMENT (doc), NULL);
 }
 
-void on_comment_stream (GtkAction * action, gpointer user_data)
+void on_comment_stream (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 
@@ -706,24 +706,23 @@ void on_comment_stream (GtkAction * action, gpointer user_data)
 }
 
 void
-on_goto_line_no1_activate (GtkAction * action, gpointer user_data)
+on_goto_line_no1_activate (GtkAction *action, gpointer user_data)
 {
 	DocmanPlugin *plugin;
-	AnjutaDocman *docman;
 	
 	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	docman = ANJUTA_DOCMAN (plugin->docman);
 	
 	if (!gtk_widget_get_parent (plugin->search_box))
 	{
-			gtk_box_pack_end (GTK_BOX(plugin->vbox), plugin->search_box, FALSE, FALSE, 0);
+		gtk_box_pack_end (GTK_BOX (plugin->vbox), plugin->search_box, FALSE, FALSE, 0);
 	}
+
 	gtk_widget_show (plugin->search_box);
 	search_box_grab_line_focus (SEARCH_BOX (plugin->search_box));
 }
 
 void
-on_goto_block_start1_activate (GtkAction * action, gpointer user_data)
+on_goto_block_start1_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 	
@@ -733,7 +732,7 @@ on_goto_block_start1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_goto_block_end1_activate (GtkAction * action, gpointer user_data)
+on_goto_block_end1_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 	
@@ -751,7 +750,7 @@ on_goto_block_end1_activate (GtkAction * action, gpointer user_data)
 #define VIEW_LINE_WRAP             "view.line.wrap"
 
 void
-on_editor_linenos1_activate (GtkAction * action, gpointer user_data)
+on_editor_linenos1_activate (GtkAction *action, gpointer user_data)
 {
 	gboolean state;
 	DocmanPlugin *plugin;
@@ -762,7 +761,7 @@ on_editor_linenos1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_editor_markers1_activate (GtkAction * action, gpointer user_data)
+on_editor_markers1_activate (GtkAction *action, gpointer user_data)
 {
 	gboolean state;
 	DocmanPlugin *plugin;
@@ -773,7 +772,7 @@ on_editor_markers1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_editor_codefold1_activate (GtkAction * action, gpointer user_data)
+on_editor_codefold1_activate (GtkAction *action, gpointer user_data)
 {
 	gboolean state;
 	DocmanPlugin *plugin;
@@ -784,7 +783,7 @@ on_editor_codefold1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_editor_indentguides1_activate (GtkAction * action, gpointer user_data)
+on_editor_indentguides1_activate (GtkAction *action, gpointer user_data)
 {
 	gboolean state;
 	DocmanPlugin *plugin;
@@ -795,7 +794,7 @@ on_editor_indentguides1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_editor_whitespaces1_activate (GtkAction * action, gpointer user_data)
+on_editor_whitespaces1_activate (GtkAction *action, gpointer user_data)
 {
 	gboolean state;
 	DocmanPlugin *plugin;
@@ -806,7 +805,7 @@ on_editor_whitespaces1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_editor_eolchars1_activate (GtkAction * action, gpointer user_data)
+on_editor_eolchars1_activate (GtkAction *action, gpointer user_data)
 {
 	gboolean state;
 	DocmanPlugin *plugin;
@@ -817,7 +816,7 @@ on_editor_eolchars1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_editor_linewrap1_activate (GtkAction * action, gpointer user_data)
+on_editor_linewrap1_activate (GtkAction *action, gpointer user_data)
 {
 	gboolean state;
 	DocmanPlugin *plugin;
@@ -828,7 +827,7 @@ on_editor_linewrap1_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_zoom_in_text_activate (GtkAction * action, gpointer user_data)
+on_zoom_in_text_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 	
@@ -838,7 +837,7 @@ on_zoom_in_text_activate (GtkAction * action, gpointer user_data)
 }
 
 void
-on_zoom_out_text_activate (GtkAction * action, gpointer user_data)
+on_zoom_out_text_activate (GtkAction *action, gpointer user_data)
 {
 	IAnjutaDocument *doc;
 	
@@ -859,7 +858,7 @@ on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data)
 		language_code = g_object_get_data (G_OBJECT (menuitem), "language_code");
 		if (language_code && IANJUTA_IS_EDITOR_LANGUAGE (doc))
 			ianjuta_editor_language_set_language (IANJUTA_EDITOR_LANGUAGE (doc),
-											  language_code, NULL);
+												  language_code, NULL);
 	}
 }
 
@@ -1000,7 +999,7 @@ on_show_search (GtkAction *action, gpointer user_data)
 	
 	if (!gtk_widget_get_parent (plugin->search_box))
 	{
-			gtk_box_pack_end (GTK_BOX(plugin->vbox), plugin->search_box, FALSE, FALSE, 0);
+		gtk_box_pack_end (GTK_BOX(plugin->vbox), plugin->search_box, FALSE, FALSE, 0);
 	}
 
 	gtk_widget_show (plugin->search_box);

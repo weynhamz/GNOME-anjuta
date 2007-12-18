@@ -19,17 +19,13 @@
 #define _ACTION_CALLBACKS_H_
 
 void on_new_file_activate (GtkAction *action, gpointer user_data);
-void on_open_activate (GtkAction * action, gpointer user_data);
-void on_save_activate (GtkAction * action, gpointer user_data);
-void on_save_as_activate (GtkAction * action, gpointer user_data);
-void on_save_all_activate (GtkAction * action, gpointer user_data);
-void on_close_file_activate (GtkAction * action, gpointer user_data);
-#ifdef ANJ_MULTIWINDOW_DOCMAN
-void on_detach_file_activate (GtkAction *action, gpointer user_data);
-void on_attach_file_activate (GtkAction *action, gpointer user_data);
-#endif
-void on_reload_file_activate (GtkAction * action, gpointer user_data);
-void on_close_all_file_activate (GtkAction * action, gpointer user_data);
+void on_open_activate (GtkAction *action, gpointer user_data);
+void on_save_activate (GtkAction *action, gpointer user_data);
+void on_save_as_activate (GtkAction *action, gpointer user_data);
+void on_save_all_activate (GtkAction *action, gpointer user_data);
+void on_close_file_activate (GtkAction *action, gpointer user_data);
+void on_reload_file_activate (GtkAction *action, gpointer user_data);
+void on_close_all_file_activate (GtkAction *action, gpointer user_data);
 
 void on_print_activate (GtkAction *action, gpointer user_data);
 void on_print_preview_activate (GtkAction *action, gpointer user_data);
@@ -60,25 +56,25 @@ void on_editor_command_bookmark_prev_activate (GtkAction *action, gpointer user_
 void on_editor_command_bookmark_last_activate (GtkAction *action, gpointer user_data);
 void on_editor_command_bookmark_clear_activate (GtkAction *action, gpointer user_data);
 
-void on_transform_eolchars1_activate (GtkAction * action, gpointer user_data);
+void on_transform_eolchars1_activate (GtkAction *action, gpointer user_data);
 
 void on_goto_activate (GtkAction *action, gpointer user_data);
 void on_toolbar_goto_clicked (GtkAction *action, gpointer user_data);
-void on_goto_line_no1_activate (GtkAction * action, gpointer user_data);
+void on_goto_line_no1_activate (GtkAction *action, gpointer user_data);
 
-void on_next_history (GtkAction * action, gpointer user_data);
-void on_prev_history (GtkAction * action, gpointer user_data);
+void on_next_history (GtkAction *action, gpointer user_data);
+void on_prev_history (GtkAction *action, gpointer user_data);
 
-// void on_autocomplete1_activate (GtkAction * action, gpointer user_data);
-void on_calltip1_activate (GtkAction * action, gpointer user_data);
+//void on_autocomplete1_activate (GtkAction *action, gpointer user_data);
+void on_calltip1_activate (GtkAction *action, gpointer user_data);
 
-void on_comment_block (GtkAction * action, gpointer user_data);
-void on_comment_box (GtkAction * action, gpointer user_data);
-void on_comment_stream (GtkAction * action, gpointer user_data);
+void on_comment_block (GtkAction *action, gpointer user_data);
+void on_comment_box (GtkAction *action, gpointer user_data);
+void on_comment_stream (GtkAction *action, gpointer user_data);
 void on_insert_custom_indent (GtkAction *action, gpointer user_data);
 
-void on_goto_block_start1_activate (GtkAction * action, gpointer user_data);
-void on_goto_block_end1_activate (GtkAction * action, gpointer user_data);
+void on_goto_block_start1_activate (GtkAction *action, gpointer user_data);
+void on_goto_block_end1_activate (GtkAction *action, gpointer user_data);
 
 void on_editor_linenos1_activate (GtkAction *action, gpointer user_data);
 void on_editor_markers1_activate (GtkAction *action, gpointer user_data);
@@ -89,14 +85,14 @@ void on_editor_whitespaces1_activate (GtkAction *action,
 									  gpointer user_data);
 void on_editor_eolchars1_activate (GtkAction *action, gpointer user_data);
 void on_editor_linewrap1_activate (GtkAction *action, gpointer user_data);
-void on_zoom_in_text_activate (GtkAction * action, gpointer user_data);
-void on_zoom_out_text_activate (GtkAction * action, gpointer user_data);
+void on_zoom_in_text_activate (GtkAction *action, gpointer user_data);
+void on_zoom_out_text_activate (GtkAction *action, gpointer user_data);
 
 void on_force_hilite_activate (GtkWidget *menuitem, gpointer user_data);
 
-void on_indent1_activate (GtkAction * action, gpointer user_data);
+void on_indent1_activate (GtkAction *action, gpointer user_data);
 
-void on_format_indent_style_clicked (GtkAction * action, gpointer user_data);
+void on_format_indent_style_clicked (GtkAction *action, gpointer user_data);
 void on_swap_activate (GtkAction *action, gpointer user_data);
 
 void on_editor_add_view_activate (GtkAction *action, gpointer user_data);

@@ -58,28 +58,28 @@ GtkWidget* anjuta_docman_new (DocmanPlugin *plugin, AnjutaPreferences *pref);
 
 void anjuta_docman_set_popup_menu (AnjutaDocman *docman, GtkWidget *menu);
 
-IAnjutaEditor* anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
-									  const gchar *name);
+IAnjutaEditor *anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
+									  	const gchar *name);
 void anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
-							const gchar* uri);
+								const gchar* uri);
 
 void anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc);
 
-IAnjutaDocument* anjuta_docman_get_current_document (AnjutaDocman *docman);
+IAnjutaDocument *anjuta_docman_get_current_document (AnjutaDocman *docman);
 IAnjutaDocument *anjuta_docman_get_document_for_path (AnjutaDocman *docman,
-												const gchar *full_path);
+													  const gchar *full_path);
 
 GtkWidget *anjuta_docman_get_current_focus_widget (AnjutaDocman *docman);
 
 void anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc);
 
-IAnjutaEditor* anjuta_docman_goto_file_line (AnjutaDocman *docman,
-										  const gchar * fname,
+IAnjutaEditor *anjuta_docman_goto_file_line (AnjutaDocman *docman,
+											const gchar *fname,
 											gint lineno);
-IAnjutaEditor* anjuta_docman_goto_file_line_mark (AnjutaDocman *docman,
-											   const gchar *fname,
+IAnjutaEditor *anjuta_docman_goto_file_line_mark (AnjutaDocman *docman,
+												const gchar *fname,
 												gint lineno,
-											   gboolean mark);
+												gboolean mark);
 void anjuta_docman_present_notebook_page (AnjutaDocman *docman, IAnjutaDocument *doc);
 
 void anjuta_docman_delete_all_markers (AnjutaDocman *docman, gint marker);
@@ -91,7 +91,7 @@ void anjuta_docman_reload_file (AnjutaDocman *docman, const gchar *szFullPath);
 
 gboolean anjuta_docman_set_editor_properties (AnjutaDocman *docman);
 
-gchar* anjuta_docman_get_full_filename (AnjutaDocman *docman, const gchar *fn);
+gchar *anjuta_docman_get_full_filename (AnjutaDocman *docman, const gchar *fn);
 
 GList *anjuta_docman_get_all_doc_widgets (AnjutaDocman *docman);
 

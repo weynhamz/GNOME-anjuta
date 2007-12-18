@@ -54,7 +54,7 @@ struct _SearchBox
 
 
 GType search_box_get_type (void);
-GtkWidget* search_box_new (DocmanPlugin* plugin);
+GtkWidget* search_box_new (AnjutaDocman* docman);
 
 void search_box_grab_search_focus (SearchBox* search_box);
 void search_box_grab_line_focus (SearchBox* search_box);
