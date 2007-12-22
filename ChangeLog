@@ -1,5 +1,11 @@
 2007-12-22  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/command.c,
+	plugins/debug-manager/queue.c:
+	Take care of command return value (FALSE is an error)
+
+2007-12-22  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/anjuta-debug-manager.glade,
 	plugins/debug-manager/breakpoints.c:
 	Remove address, condition and pass breakpoint column if not supported

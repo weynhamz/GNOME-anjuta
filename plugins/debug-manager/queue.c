@@ -394,8 +394,6 @@ dma_debugger_queue_complete (DmaDebuggerQueue *self, IAnjutaDebuggerState state)
 static void
 dma_debugger_queue_execute (DmaDebuggerQueue *self)
 {
-	GError *err = NULL;
-
 	DEBUG_PRINT("debugger_queue_execute");
 
 	/* Check if debugger is connected to a debugger backend */
@@ -414,15 +412,17 @@ dma_debugger_queue_execute (DmaDebuggerQueue *self)
 	while (!g_queue_is_empty(self->queue) && (self->last == NULL))
 	{
 		DmaQueueCommand *cmd;
+		GError *err = NULL;
+		gboolean ok;
 		
 		cmd = (DmaQueueCommand *)g_queue_pop_head(self->queue);
 
 		/* Start command */
 		self->last = cmd;
 		DEBUG_PRINT("run command %x", dma_command_get_type (cmd));
-		dma_command_run (cmd, self->debugger, self, &err);
+		ok = dma_command_run (cmd, self->debugger, self, &err);
 
-		if (err != NULL)
+		if (!ok || (err != NULL))
 		{
 			/* Something fail */
 			if (dma_command_is_going_to_state (self->last) != IANJUTA_DEBUGGER_BUSY)
@@ -438,12 +438,15 @@ dma_debugger_queue_execute (DmaDebuggerQueue *self)
 			self->last = NULL;
 
 			/* Display error message to user */
-			if (err->message != NULL)
+			if (err != NULL)
 			{
-				anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (self->plugin)->shell), err->message);
-			}
+				if (err->message != NULL)
+				{
+					anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (self->plugin)->shell), err->message);
+				}
 			
-			g_error_free (err);
+				g_error_free (err);
+			}
 		}
 	}
 	

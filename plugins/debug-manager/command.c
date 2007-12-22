@@ -1075,6 +1075,7 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 	switch (type)
 	{
 	case EMPTY_COMMAND:
+		ret = TRUE;
 		break;
 	case CALLBACK_COMMAND:
 		ret = ianjuta_debugger_callback (debugger, callback, queue, err);	
