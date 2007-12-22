@@ -1,3 +1,11 @@
+2007-12-22  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/anjuta-debug-manager.glade,
+	plugins/debug-manager/breakpoints.c:
+	Remove address, condition and pass breakpoint column if not supported
+	Fix clear all remove_all to avoid an endless loop if a breakpoint
+	cannot be removed
+
 2007-12-17  Johannes Schmid <jhs@gnome.org>
 
   Patch from Tom <tpgww@onepost.net> (with some changes):

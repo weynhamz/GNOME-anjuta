@@ -757,6 +757,10 @@ breakpoints_dbase_add_in_debugger (BreakpointsDBase *bd, BreakpointItem *bi)
 	{
 		bi->changed = IANJUTA_DEBUGGER_BREAKPOINT_WITH_IGNORE;
 	}
+	if (bi->bp.enable != TRUE)
+	{
+		bi->changed = IANJUTA_DEBUGGER_BREAKPOINT_WITH_ENABLE;
+	}
 	
 	/* Add breakpoint in debugger */
 	if (bi->bp.type & IANJUTA_DEBUGGER_BREAKPOINT_ON_LINE)
@@ -779,7 +783,8 @@ breakpoints_dbase_add_in_debugger (BreakpointsDBase *bd, BreakpointItem *bi)
 					on_breakpoint_callback,
 					bi);
 	}
-	else if (bi->bp.type & IANJUTA_DEBUGGER_BREAKPOINT_ON_ADDRESS)
+	else if ((bi->bp.type & IANJUTA_DEBUGGER_BREAKPOINT_ON_ADDRESS)
+			 && dma_debugger_queue_is_supported(bd->debugger, HAS_ADDRESS_BREAKPOINT))
 	{
 		breakpoint_item_ref (bi);
 		ok = dma_queue_add_breakpoint_at_address (
@@ -811,7 +816,8 @@ breakpoints_dbase_update_in_debugger (BreakpointsDBase *bd, BreakpointItem *bi)
 		if (!ok) breakpoint_item_unref (bi);
 	}
 	
-	if (bi->changed & IANJUTA_DEBUGGER_BREAKPOINT_WITH_CONDITION)
+	if ((bi->changed & IANJUTA_DEBUGGER_BREAKPOINT_WITH_CONDITION)
+		&& dma_debugger_queue_is_supported(bd->debugger, HAS_CONDITION_BREAKPOINT))
 	{
 		bi->changed &= ~IANJUTA_DEBUGGER_BREAKPOINT_WITH_CONDITION;
 		breakpoint_item_ref (bi);
@@ -823,7 +829,8 @@ breakpoints_dbase_update_in_debugger (BreakpointsDBase *bd, BreakpointItem *bi)
 					bi);
 		if (!ok) breakpoint_item_unref (bi);
 	}
-	if (bi->changed & IANJUTA_DEBUGGER_BREAKPOINT_WITH_IGNORE)
+	if ((bi->changed & IANJUTA_DEBUGGER_BREAKPOINT_WITH_IGNORE)
+		&& dma_debugger_queue_is_supported(bd->debugger, HAS_IGNORE_BREAKPOINT))
 	{
 		bi->changed &= ~IANJUTA_DEBUGGER_BREAKPOINT_WITH_IGNORE;
 		breakpoint_item_ref (bi);
@@ -1103,13 +1110,23 @@ breakpoints_dbase_remove_all (BreakpointsDBase *bd)
 {
 	GtkTreeIter iter;
 	GtkTreeModel *model = GTK_TREE_MODEL (bd->model);
+
 	
-	while (gtk_tree_model_get_iter_first (model, &iter))
+	if (gtk_tree_model_get_iter_first (model, &iter))
 	{
-		BreakpointItem *bi;
+		gboolean next;
 		
-		gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
-		breakpoints_dbase_remove_breakpoint (bd, bi);
+		do
+		{
+			BreakpointItem *bi;
+		
+			gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
+			next = gtk_tree_model_iter_next (model, &iter);
+				
+			breakpoints_dbase_remove_breakpoint (bd, bi);
+			/* Avoid an infinite loop if the breakpoint is not removed due to
+			 * an error */
+		} while (next);
 	}
 }
 
@@ -1324,6 +1341,47 @@ on_program_loaded (BreakpointsDBase *bd)
 	g_signal_connect_swapped (bd->plugin, "program-running", G_CALLBACK (on_program_running), bd);
 }
 
+static void
+on_debugger_started (BreakpointsDBase *bd)
+{
+	GtkTreeViewColumn *column;	
+	DmaDebuggerQueue* debugger;
+	
+	debugger = dma_debug_manager_get_queue (ANJUTA_PLUGIN_DEBUG_MANAGER (bd->plugin));
+	
+	/* Remove breakpoint attributes not supported by current debugger */
+	if (!dma_debugger_queue_is_supported(debugger, HAS_ADDRESS_BREAKPOINT))
+	{
+		column = gtk_tree_view_get_column (bd->treeview, ADDRESS_COLUMN);
+		gtk_tree_view_column_set_visible (column, FALSE);
+	}
+	if (!dma_debugger_queue_is_supported(debugger, HAS_IGNORE_BREAKPOINT))
+	{
+		column = gtk_tree_view_get_column (bd->treeview, PASS_COLUMN);	
+		gtk_tree_view_column_set_visible (column, FALSE);
+	}
+	if (!dma_debugger_queue_is_supported(debugger, HAS_CONDITION_BREAKPOINT))
+	{
+		column = gtk_tree_view_get_column (bd->treeview, CONDITION_COLUMN);	
+		gtk_tree_view_column_set_visible (column, FALSE);
+	}
+}
+
+static void
+on_debugger_stopped (BreakpointsDBase *bd)
+{
+	/* Restore breakpoint attributes not supported by current debugger */
+	GtkTreeViewColumn *column;	
+	
+	column = gtk_tree_view_get_column (bd->treeview, ADDRESS_COLUMN);
+	gtk_tree_view_column_set_visible (column, TRUE);
+	column = gtk_tree_view_get_column (bd->treeview, PASS_COLUMN);	
+	gtk_tree_view_column_set_visible (column, TRUE);
+	column = gtk_tree_view_get_column (bd->treeview, CONDITION_COLUMN);	
+	gtk_tree_view_column_set_visible (column, TRUE);
+}
+
+
 /* Saving preferences callbacks
  *---------------------------------------------------------------------------*/
 
@@ -1363,8 +1421,8 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 	GladeXML *gxml;
 	GtkWidget *dialog;
 	GtkWidget *location_label, *location_entry;
-	GtkWidget *condition_entry;
-	GtkWidget *pass_entry;
+	GtkWidget *condition_entry, *condition_label;
+	GtkWidget *pass_entry, *pass_label;
 	gchar *buff;
 	gchar *location = NULL;
 	gchar *uri = NULL;
@@ -1378,8 +1436,20 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 	location_label = glade_xml_get_widget (gxml, "breakpoint_location_label");
 	location_entry = glade_xml_get_widget (gxml, "breakpoint_location_entry");
 	condition_entry = glade_xml_get_widget (gxml, "breakpoint_condition_entry");
+	condition_label = glade_xml_get_widget (gxml, "breakpoint_condition_label");
 	pass_entry = glade_xml_get_widget (gxml, "breakpoint_pass_entry");
+	pass_label = glade_xml_get_widget (gxml, "breakpoint_pass_label");
 
+	if (!dma_debugger_queue_is_supported(bd->debugger, HAS_IGNORE_BREAKPOINT))
+	{
+		gtk_widget_hide (pass_entry);
+		gtk_widget_hide (pass_label);
+	}
+	if (!dma_debugger_queue_is_supported(bd->debugger, HAS_CONDITION_BREAKPOINT))
+	{
+		gtk_widget_hide (condition_entry);
+		gtk_widget_hide (condition_label);
+	}
 	
 	if (bi == NULL)
 	{
@@ -1913,8 +1983,10 @@ breakpoints_dbase_new (DebugManagerPlugin *plugin)
 	g_signal_connect (ANJUTA_PLUGIN(bd->plugin)->shell, "load-session",
 				  G_CALLBACK (on_session_load), bd);
 		
-	/* Connect on stop debugger and load program */
+	/* Connect on load program */
 	g_signal_connect_swapped (bd->plugin, "program-loaded", G_CALLBACK (on_program_loaded), bd);
+	g_signal_connect_swapped (bd->plugin, "debugger-started", G_CALLBACK (on_debugger_started), bd);
+	g_signal_connect_swapped (bd->plugin, "debugger-stopped", G_CALLBACK (on_debugger_stopped), bd);
 
 	bd->editor_watch = 
 		anjuta_plugin_add_watch (ANJUTA_PLUGIN(bd->plugin), "document_manager_current_editor",
