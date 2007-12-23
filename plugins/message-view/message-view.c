@@ -931,8 +931,8 @@ void message_view_next(MessageView* view)
 		Message *message;
 		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE,
 							&message, -1);
-		if (message->type != IANJUTA_MESSAGE_VIEW_TYPE_NORMAL
-			&& message->type != IANJUTA_MESSAGE_VIEW_TYPE_INFO)
+		if (message->type == IANJUTA_MESSAGE_VIEW_TYPE_WARNING
+			|| message->type == IANJUTA_MESSAGE_VIEW_TYPE_ERROR)
 		{
 			const gchar* message;
 			gtk_tree_selection_select_iter (select, &iter);
@@ -948,8 +948,8 @@ void message_view_next(MessageView* view)
 				gtk_tree_path_free (path);
 				g_signal_emit_by_name (G_OBJECT (view), "message_clicked", 
 									   message);
+				break;
 			}
-			break;
 		}
 	}
 }
@@ -981,8 +981,8 @@ void message_view_previous(MessageView* view)
 		gtk_tree_model_get_iter(model, &iter, path);
 		gtk_tree_model_get (model, &iter, COLUMN_MESSAGE,
 							&message, -1);
-		if (message->type != IANJUTA_MESSAGE_VIEW_TYPE_NORMAL
-			&& message->type != IANJUTA_MESSAGE_VIEW_TYPE_INFO)
+		if (message->type == IANJUTA_MESSAGE_VIEW_TYPE_WARNING
+			|| message->type == IANJUTA_MESSAGE_VIEW_TYPE_ERROR)
 		{
 			const gchar* message;
 			
@@ -999,8 +999,8 @@ void message_view_previous(MessageView* view)
 				gtk_tree_path_free (path);
 				g_signal_emit_by_name (G_OBJECT (view), "message_clicked", 
 									   message);
+				break;
 			}
-			break;
 		}
 	}
 	gtk_tree_path_free (path);

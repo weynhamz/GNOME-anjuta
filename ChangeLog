@@ -1,5 +1,19 @@
 2007-12-23  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/plugin.c:
+	(set_indentation_param_emacs), (set_indentation_param_vim),
+	(parse_mode_line_emacs), (parse_mode_line_vim),
+	(extract_mode_line), (initialize_indentation_params):
+
+  Added (basic) support for vim modelines (#504331)
+
+	* plugins/message-view/message-view.c: (message_view_next),
+	(message_view_previous):
+	
+	Fixed next/previous message
+
+2007-12-23  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-ui.h:
 	Check for != NULL before unref'ing pixbuf (related to #497878)
 	

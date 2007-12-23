@@ -409,7 +409,7 @@ skip_preprocessor_lines (IAnjutaEditor *editor, IAnjutaIterable *iter)
 }
 
 static void
-set_indentation_param (CppJavaPlugin* plugin, const gchar *param,
+set_indentation_param_emacs (CppJavaPlugin* plugin, const gchar *param,
 					   const gchar *value)
 {
 	DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
@@ -441,7 +441,38 @@ set_indentation_param (CppJavaPlugin* plugin, const gchar *param,
 }
 
 static void
-parse_mode_line (CppJavaPlugin *plugin, const gchar *modeline)
+set_indentation_param_vim (CppJavaPlugin* plugin, const gchar *param,
+					   const gchar *value)
+{
+	DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
+	if (strcasecmp (param, "expandtab") == 0)
+	{
+			plugin->param_use_spaces = 1;
+			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
+										   TRUE, NULL);
+  }
+	else if (strcasecmp (param, "noexpandtab") == 0)
+	{
+	  	plugin->param_use_spaces = 0;
+			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
+										   FALSE, NULL);
+	}
+	if (!value)
+		return;
+	else if (strcasecmp (param, "shiftwidth") == 0)
+	{
+		plugin->param_statement_indentation = atoi (value);
+	}
+	else if (strcasecmp (param, "softtabstop") == 0)
+	{
+		plugin->param_tab_size = atoi (value);
+		ianjuta_editor_set_tabsize (IANJUTA_EDITOR (plugin->current_editor),
+									plugin->param_tab_size, NULL);
+	}
+}
+
+static void
+parse_mode_line_emacs (CppJavaPlugin *plugin, const gchar *modeline)
 {
 	gchar **strv, **ptr;
 	
@@ -455,7 +486,7 @@ parse_mode_line (CppJavaPlugin *plugin, const gchar *modeline)
 		{
 			g_strstrip (keyval[0]);
 			g_strstrip (keyval[1]);
-			set_indentation_param (plugin, g_strchug (keyval[0]),
+			set_indentation_param_emacs (plugin, g_strchug (keyval[0]),
                                    g_strchug (keyval[1]));
 		}
 		g_strfreev (keyval);
@@ -464,18 +495,74 @@ parse_mode_line (CppJavaPlugin *plugin, const gchar *modeline)
 	g_strfreev (strv);
 }
 
-static gchar *
-extract_mode_line (const gchar *comment_text)
+static void
+parse_mode_line_vim (CppJavaPlugin *plugin, const gchar *modeline)
 {
+	gchar **strv, **ptr;
+	
+	strv = g_strsplit (modeline, " ", -1);
+	ptr = strv;
+	while (*ptr)
+	{
+		gchar **keyval;
+		keyval = g_strsplit (*ptr, "=", 2);
+		if (keyval[0])
+		{
+			g_strstrip (keyval[0]);
+      if (keyval[1])
+      {
+			  g_strstrip (keyval[1]);
+			  set_indentation_param_vim (plugin, g_strchug (keyval[0]),
+                                     g_strchug (keyval[1]));
+      }
+      else
+			  set_indentation_param_vim (plugin, g_strchug (keyval[0]),
+                                     NULL);        
+		}
+		g_strfreev (keyval);
+		ptr++;
+	}
+	g_strfreev (strv);
+}
+
+static gchar *
+extract_mode_line (const gchar *comment_text, gboolean* vim)
+{
+	/* Search for emacs-like modelines */
 	gchar *begin_modeline, *end_modeline;
 	begin_modeline = strstr (comment_text, "-*-");
-	if (!begin_modeline)
-		return NULL;
-	begin_modeline += 3;
-	end_modeline = strstr (begin_modeline, "-*-");
-	if (!end_modeline)
-		return NULL;
-	return g_strndup (begin_modeline, end_modeline - begin_modeline);
+	if (begin_modeline)
+	{
+		begin_modeline += 3;
+		end_modeline = strstr (begin_modeline, "-*-");
+		if (end_modeline)
+    {
+      *vim = FALSE;
+			return g_strndup (begin_modeline, end_modeline - begin_modeline);
+    }
+	}
+	/* Search for vim-like modelines */
+	begin_modeline = strstr (comment_text, "vim:set");
+	if (begin_modeline)
+	{
+		begin_modeline += 7;
+		end_modeline = strstr (begin_modeline, ":");
+		/* Check for escape characters */
+		while (end_modeline)
+		{
+			 if ((end_modeline - 1) != "\\")
+				break;
+			end_modeline++;
+			end_modeline = strstr (end_modeline, ":");
+		}
+		if (end_modeline)
+		{
+			gchar* vim_modeline = g_strndup (begin_modeline, end_modeline - begin_modeline);
+      *vim = TRUE;
+			return vim_modeline;
+		}
+	}
+	return NULL;
 }
 
 #define MINI_BUFFER_SIZE 3
@@ -561,10 +648,14 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 	{
 		
 		/* First comment found */
-		gchar *modeline = extract_mode_line (comment_text->str);
+    gboolean vim;
+		gchar *modeline = extract_mode_line (comment_text->str, &vim);
 		if (modeline)
 		{
-			parse_mode_line (plugin, modeline);
+      if (!vim)
+			  parse_mode_line_emacs (plugin, modeline);
+      else
+        parse_mode_line_vim (plugin, modeline);
 			g_free (modeline);
 		}
 	}
