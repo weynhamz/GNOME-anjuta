@@ -87,6 +87,13 @@ static GHashTable *pixbufs_hash = NULL;
 static void 
 trigger_on_symbol_inserted (SymbolDBView *dbv, gint symbol_id);
 
+
+static gint
+gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
+{
+	return (gint)a - (gint)b;
+}
+
 static void
 waiting_for_symbol_destroy (WaitingForSymbol *wfs)
 {
@@ -94,7 +101,6 @@ waiting_for_symbol_destroy (WaitingForSymbol *wfs)
 	g_free (wfs->child_symbol_name);
 	g_free (wfs);
 }
-
 
 static gboolean
 sdb_view_get_iter_from_row_ref (SymbolDBView *dbv, GtkTreeRowReference *row_ref, 
@@ -135,9 +141,41 @@ traverse_free_waiting_for (gpointer key, gpointer value, gpointer data)
 		return FALSE;
 
 	g_slist_foreach ((GSList*)value, (GFunc)waiting_for_symbol_destroy, NULL);
+	g_slist_free ((GSList*)value);	
 	return FALSE;
 }
 
+void
+symbol_db_view_clear_cache (SymbolDBView *dbv)
+{
+	SymbolDBViewPriv *priv;
+	GtkTreeStore *store;
+	
+	g_return_if_fail (dbv != NULL);
+	
+	priv = dbv->priv;
+	
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
+	if (store != NULL)
+		g_object_unref (store);	
+	
+	/* this will free alto the priv->row_ref* instances */	
+	if (priv->nodes_displayed)
+	{
+		g_tree_destroy (priv->nodes_displayed);
+		priv->nodes_displayed = NULL;
+	}
+	
+	/* free the waiting_for structs before destroying the tree itself */
+	if (priv->waiting_for)
+	{
+		g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, NULL);
+		g_tree_destroy (priv->waiting_for);
+		priv->waiting_for = NULL;		
+	}
+	
+	gtk_tree_view_set_model (GTK_TREE_VIEW (dbv), NULL);
+}
 
 static void
 on_scan_end (SymbolDBEngine *dbe, gpointer data)
@@ -153,7 +191,18 @@ on_scan_end (SymbolDBEngine *dbe, gpointer data)
 	/* free the waiting_for structs before destroying the tree itself */
 	if (priv->waiting_for)
 	{
-		g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, NULL);
+		g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, data);
+		g_tree_destroy (priv->waiting_for);
+		
+		/* recreate it because there's a free_all_items function. And the
+		 * one proposed by the doc is too complex.. create a list of the items
+		 * and reparse them with g_tree_remove...
+		 */
+		priv->waiting_for = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+									 NULL,
+									 NULL,
+									 NULL);
+
 	}
 }
 
@@ -581,7 +630,7 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 	
 	priv = dbv->priv;
 	
-	DEBUG_PRINT ("on_symbol_inserted -global- %d", symbol_id);
+/*	DEBUG_PRINT ("on_symbol_inserted -global- %d", symbol_id);*/
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
 
 	parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
@@ -937,6 +986,15 @@ symbol_db_view_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	
 }
 
+static GtkTreeStore *
+sdb_view_locals_create_new_store ()
+{
+	GtkTreeStore *store;
+	store = gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
+				    G_TYPE_STRING, G_TYPE_INT);	
+	return store;
+}
+
 static void
 sdb_view_init (SymbolDBView *object)
 {
@@ -971,10 +1029,9 @@ sdb_view_init (SymbolDBView *object)
 	priv->scan_end_handler = 0;	
 
 	/* Tree and his model */
-	store = gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
-				    G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_INT);
+	store = NULL;
 
-	gtk_tree_view_set_model (GTK_TREE_VIEW (dbv), GTK_TREE_MODEL (store));
+	gtk_tree_view_set_model (GTK_TREE_VIEW (dbv), GTK_TREE_MODEL (store));	
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dbv), FALSE);
 	
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (dbv));
@@ -984,9 +1041,6 @@ sdb_view_init (SymbolDBView *object)
 	gtk_tree_view_set_search_column (GTK_TREE_VIEW (dbv), COLUMN_NAME);	
 	gtk_tree_view_set_enable_search (GTK_TREE_VIEW (dbv), TRUE);	
 
-	g_object_unref (G_OBJECT (store));
-
-	
 	/* Columns */
 	column = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_sizing (column,
@@ -1007,11 +1061,6 @@ sdb_view_init (SymbolDBView *object)
 	gtk_tree_view_set_expander_column (GTK_TREE_VIEW (dbv), column);
 }
 
-static gint
-gtree_compare_func (gconstpointer a, gconstpointer b, gpointer user_data)
-{
-	return (gint)a - (gint)b;
-}
 
 static void
 sdb_view_finalize (GObject *object)
@@ -1021,18 +1070,9 @@ sdb_view_finalize (GObject *object)
 
 	DEBUG_PRINT ("finalizing symbol_db_view ()");
 	
+	symbol_db_view_clear_cache (view);
+	
 	g_free (priv);
-	
-	/* this will free alto the priv->row_ref* instances */	
-	if (priv->nodes_displayed)
-		g_tree_destroy (priv->nodes_displayed);
-	
-	/* free the waiting_for structs before destroying the tree itself */
-	if (priv->waiting_for)
-	{
-		g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, NULL);
-		g_tree_destroy (priv->waiting_for);
-	}
 	
 	/* dbe must be freed outside. */	
 	G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -1172,7 +1212,7 @@ symbol_db_view_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 GtkWidget* 
 symbol_db_view_new (void)
 {
-	return gtk_widget_new (SYMBOL_TYPE_DB_VIEW, NULL);	
+	return GTK_WIDGET (g_object_new (SYMBOL_TYPE_DB_VIEW, NULL));
 }
 
 gboolean
@@ -1511,24 +1551,17 @@ symbol_db_view_recv_signals_from_engine (SymbolDBView *dbv, SymbolDBEngine *dbe,
 void
 symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe)
 {
-	GtkTreeStore *store;
 	SymbolDBViewPriv *priv;
+	GtkTreeStore *store;
 	
 	g_return_if_fail (dbv != NULL);
 	
 	priv = dbv->priv;
-	
-	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
 
-	if (priv->nodes_displayed)
-		g_tree_destroy (priv->nodes_displayed);
+	symbol_db_view_clear_cache (dbv);
 	
-	/* free the waiting_for structs before destroying the tree itself */
-	if (priv->waiting_for)
-	{
-		g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, NULL);
-		g_tree_destroy (priv->waiting_for);
-	}
+	store = sdb_view_locals_create_new_store ();
+	gtk_tree_view_set_model (GTK_TREE_VIEW (dbv), GTK_TREE_MODEL (store));
 	
 	priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
 										 NULL,

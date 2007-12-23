@@ -75,28 +75,6 @@ register_stock_icons (AnjutaPlugin *plugin)
 	REGISTER_ICON (ICON_FILE, "symbol-db-plugin-icon");
 	END_REGISTER_ICON;
 }
-/*
-static GtkActionEntry actions[] = 
-{
-	{ "ActionMenuGoto", NULL, N_("_Goto"), NULL, NULL, NULL},
-	{
-		"ActionSymbolBrowserGotoDef",
-		NULL,
-		N_("Tag _Definition"),
-		"<control>d",
-		N_("Goto symbol definition"),
-		G_CALLBACK (on_goto_file_tag_def_activate)
-	},
-	{
-		"ActionSymbolBrowserGotoDecl",
-		NULL,
-		N_("Tag De_claration"),
-		"<shift><control>d",
-		N_("Goto symbol declaration"),
-		G_CALLBACK (on_goto_file_tag_decl_activate)
-	}
-};
-*/
 
 static gboolean
 on_editor_buffer_symbols_update_timeout (gpointer user_data)
@@ -320,8 +298,6 @@ on_editor_saved (IAnjutaEditor *editor, const gchar *saved_uri,
 	}
 }
 
-
-//files = anjuta_session_get_string_list (session, "File Loader", "Files");
 static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
@@ -334,6 +310,8 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 	editor = g_value_get_object (value);	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 	
+	DEBUG_PRINT ("value_removed_current_editor ()");
+		
 	if (!sdb_plugin->editor_connected)
 	{
 		sdb_plugin->editor_connected = g_hash_table_new_full (g_direct_hash,
@@ -574,6 +552,7 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 {
 	SymbolDBPlugin *sdb_plugin;
 
+	DEBUG_PRINT ("value_removed_current_editor ()");
 	/* let's remove the timeout for symbols refresh */
 	g_source_remove (timeout_id);
 	need_symbols_update = FALSE;
@@ -727,11 +706,16 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 	symbol_db_view_recv_signals_from_engine (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), 
 								 sdb_plugin->sdbe, TRUE);
 	
+	/* re-active global symbols */
+	symbol_db_view_open (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree), sdb_plugin->sdbe);
+	
 	/* disconnect this coz it's not important after the process of importing */
 	g_signal_handlers_disconnect_by_func (dbe, on_single_file_scan_end, data);																 
 	
 	/* disconnect it as we don't need it anymore. */
 	g_signal_handlers_disconnect_by_func (dbe, on_importing_project_end, data);	
+
+	
 	
 	sdb_plugin->files_count_done = 0;
 	sdb_plugin->files_count = 0;
@@ -964,7 +948,7 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	SymbolDBPlugin *sdb_plugin;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
-	
+	DEBUG_PRINT ("project_root_removed ()");
 	/* Disconnect events from project manager */
 	
 	/* FIXME: There should be a way to ensure that this project manager
@@ -979,6 +963,13 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 										  on_project_element_removed,
 										  sdb_plugin);
 
+	/* clear locals symbols and the associated cache*/
+	symbol_db_view_locals_clear_cache (SYMBOL_DB_VIEW_LOCALS (
+											sdb_plugin->dbv_view_tree_locals));
+	
+	/* clear global symbols */
+	symbol_db_view_clear_cache (SYMBOL_DB_VIEW (sdb_plugin->dbv_view_tree));
+	
 	/* don't forget to close the project */
 	symbol_db_engine_close_project (sdb_plugin->sdbe, 
 									sdb_plugin->project_root_dir);

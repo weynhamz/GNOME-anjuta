@@ -85,7 +85,7 @@ struct _SymbolDBPlugin{
 	
 	gint files_count;
 	gint files_count_done;
-	
+
 };
 
 struct _SymbolDBPluginClass{

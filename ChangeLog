@@ -1,3 +1,33 @@
+2007-12-05  Massimo Cora'  <maxcvs@email.it>
+
+  * plugins/symbol-db/plugin.c: (register_stock_icons),
+  (value_added_current_editor), (value_removed_current_editor),
+  (on_importing_project_end), (project_root_removed):
+  added controls to clean/populate GtkTreeView(s) on projects unload/load.
+
+  * plugins/symbol-db/symbol-db-engine.c: (sdb_engine_finalize),
+  (symbol_db_engine_get_file_db_path):
+  fixed a useless warning.
+
+  * plugins/symbol-db/symbol-db-view-locals.c:
+  (traverse_free_waiting_for), (file_view_status_destroy),
+  (sdb_view_locals_create_new_store), (traverse_files_view_status),
+  (symbol_db_view_locals_clear_cache), (sdb_view_locals_init),
+  (sdb_view_locals_finalize), (on_symbol_inserted),
+  (symbol_db_view_locals_recv_signals_from_engine),
+  (symbol_db_view_locals_update_list):
+  more speed on editors switching. GtkTreeStore caching method implemented.
+  Fixed compiler warnings and a little memory leak.
+
+  * plugins/symbol-db/symbol-db-view-locals.h:
+  * plugins/symbol-db/symbol-db-view.c: (gtree_compare_func),
+  (traverse_free_waiting_for), (symbol_db_view_clear_cache),
+  (on_scan_end), (on_symbol_inserted),
+  (sdb_view_locals_create_new_store), (sdb_view_init),
+  (sdb_view_finalize), (symbol_db_view_new), (symbol_db_view_open):
+  * plugins/symbol-db/symbol-db-view.h:
+  fixed some crashers. Now project loading/populating should be quite quick.
+
 2007-12-22  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/command.c,

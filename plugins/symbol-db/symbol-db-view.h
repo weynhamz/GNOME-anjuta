@@ -80,6 +80,12 @@ void
 symbol_db_view_recv_signals_from_engine (SymbolDBView *dbv, SymbolDBEngine *dbe,
 										 gboolean enable_status);
 
+/**
+ * Clear cache.
+ */
+void 
+symbol_db_view_clear_cache (SymbolDBView *dbv);
+
 G_END_DECLS
 
 #endif /* _SYMBOL_DB_VIEW_H_ */

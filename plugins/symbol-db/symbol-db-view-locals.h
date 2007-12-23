@@ -69,10 +69,20 @@ symbol_db_view_locals_get_line (SymbolDBViewLocals *dbvl,
 								SymbolDBEngine *dbe,
 								GtkTreeIter * iter);
 
+/**
+ * Enable or disable receiving signals from engine. Disabling this at project-load
+ * time can avoid to receive hundreds (thousands?) of useless symbol-inserted.
+ */
 void
-symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe,
-										 gboolean enable_status);
+symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl, 
+							SymbolDBEngine *dbe, gboolean enable_status);
 
+
+/**
+ * Clear cache like GTree(s) and GtkTreeStore(s).
+ */
+void 
+symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl);
 
 G_END_DECLS
 

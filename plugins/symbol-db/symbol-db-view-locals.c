@@ -44,17 +44,6 @@ enum {
 
 static GtkTreeViewClass *parent_class = NULL;
 
-struct _SymbolDBViewLocalsPriv {
-	gchar *current_db_file;
-	gchar *current_local_file_path;
-	gint insert_handler;
-	gint remove_handler;	
-	gint scan_end_handler;
-	
-	GTree *nodes_displayed;
-	GTree *waiting_for;	
-	
-};
 
 typedef struct _WaitingForSymbol {
 	gint child_symbol_id;
@@ -68,6 +57,28 @@ typedef struct _TraverseData {
 	SymbolDBEngine *dbe;
 
 } TraverseData;
+
+typedef struct _FileSymbolsStatus {
+	GtkTreeStore *store;
+	GTree *nodes_displayed;
+	GTree *waiting_for;	
+	
+} FileSymbolsStatus;
+
+struct _SymbolDBViewLocalsPriv {
+	gchar *current_db_file;
+	gchar *current_local_file_path;
+	gint insert_handler;
+	gint remove_handler;	
+	gint scan_end_handler;
+	
+	GTree *nodes_displayed;
+	GTree *waiting_for;	
+
+	gboolean recv_signals;
+	GHashTable *files_view_status;
+};
+
 
 static void
 trigger_on_symbol_inserted (SymbolDBViewLocals *dbvl, gint symbol_id);
@@ -85,6 +96,102 @@ waiting_for_symbol_destroy (WaitingForSymbol *wfs)
 	g_return_if_fail (wfs != NULL);
 	g_free (wfs->child_symbol_name);
 	g_free (wfs);
+}
+
+static gboolean
+traverse_free_waiting_for (gpointer key, gpointer value, gpointer data)
+{
+	if (value == NULL || key == NULL)
+		return FALSE;
+		
+	g_slist_foreach ((GSList*)value, (GFunc)waiting_for_symbol_destroy, NULL);
+	g_slist_free ((GSList*)value);	
+	return FALSE;
+}
+
+static void
+file_view_status_destroy (FileSymbolsStatus *fss)
+{
+	g_object_unref (fss->store);
+	
+	if (fss->nodes_displayed)
+		g_tree_destroy (fss->nodes_displayed);
+	
+	/* free the waiting_for structs before destroying the tree itself */
+	if (fss->waiting_for)
+	{
+		g_tree_foreach (fss->waiting_for, traverse_free_waiting_for, NULL);
+		g_tree_destroy (fss->waiting_for);
+	}	
+	
+	g_free (fss);
+}
+
+static GtkTreeStore *
+sdb_view_locals_create_new_store ()
+{
+	GtkTreeStore *store;
+	store = gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
+				    G_TYPE_STRING, G_TYPE_INT);	
+	return store;
+}
+
+static gboolean
+traverse_files_view_status (gpointer key, gpointer value, gpointer user_data)
+{
+	return TRUE;
+}
+
+void 
+symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl)
+{
+	SymbolDBViewLocalsPriv *priv;	
+	GtkTreeStore *store;
+	gpointer hash_node = NULL;
+	
+	g_return_if_fail (dbvl != NULL);
+	
+	priv = dbvl->priv;
+		
+	DEBUG_PRINT ("symbol_db_view_clear_cache ()");
+	if (priv->current_db_file != NULL)
+		hash_node = g_hash_table_lookup (priv->files_view_status, 
+										 priv->current_db_file);
+	
+	if (hash_node == NULL)
+	{
+		if (priv->nodes_displayed)
+		{
+			g_tree_destroy (priv->nodes_displayed);
+			priv->nodes_displayed = NULL;
+		}
+	
+		/* free the waiting_for structs before destroying the tree itself */
+		if (priv->waiting_for)
+		{
+			g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, NULL);
+			g_tree_destroy (priv->waiting_for);
+			priv->waiting_for = NULL;
+		}
+		
+		store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));
+		if (store != NULL)
+			g_object_unref (store);
+	}
+	
+	gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), NULL);
+	
+	g_free (priv->current_db_file);
+	priv->current_db_file = NULL;
+	
+	g_free (priv->current_local_file_path);
+	priv->current_local_file_path = NULL;
+	
+	if (priv->files_view_status)
+	{
+		g_hash_table_foreach_remove (priv->files_view_status, 
+									 traverse_files_view_status, NULL);
+	}
 }
 
 
@@ -110,10 +217,13 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 	priv->insert_handler = 0;
 	priv->scan_end_handler = 0;
 	priv->remove_handler = 0;
+	priv->files_view_status = g_hash_table_new_full (g_str_hash, 
+								g_str_equal, g_free, (GDestroyNotify)file_view_status_destroy);
 
-	
-	store = gtk_tree_store_new (COLUMN_MAX, GDK_TYPE_PIXBUF,
-				    G_TYPE_STRING, G_TYPE_INT, G_TYPE_INT);
+	priv->recv_signals = FALSE;
+
+	/* initially set it to NULL */
+	store = NULL;
 
 	gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), GTK_TREE_MODEL (store));	
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dbvl), FALSE);
@@ -148,42 +258,21 @@ sdb_view_locals_init (SymbolDBViewLocals *dbvl)
 	 * gtk_tree_view_set_show_expanders (GTK_TREE_VIEW (dbvl), FALSE); */
 }
 
-static gboolean
-traverse_free_waiting_for (gpointer key, gpointer value, gpointer data)
-{
-	if (value == NULL)
-		return FALSE;
-
-	g_slist_foreach ((GSList*)value, (GFunc)waiting_for_symbol_destroy, NULL);
-
-	waiting_for_symbol_destroy ((WaitingForSymbol *)value);
-	return FALSE;
-}
-
 static void
 sdb_view_locals_finalize (GObject *object)
 {
-	SymbolDBViewLocals *locals = SYMBOL_DB_VIEW_LOCALS (object);
-	SymbolDBViewLocalsPriv *priv = locals->priv;
+	SymbolDBViewLocals *locals;
+	SymbolDBViewLocalsPriv *priv;
+	
+	g_return_if_fail (object != NULL);
+	
+	locals = SYMBOL_DB_VIEW_LOCALS (object);
+	priv = locals->priv;
 
 	DEBUG_PRINT ("finalizing symbol_db_view_locals ()");
-	
-	g_free (priv->current_db_file);
-	priv->current_db_file = NULL;
-	
-	g_free (priv->current_local_file_path);
-	priv->current_local_file_path = NULL;	
-	
-	if (priv->nodes_displayed)
-		g_tree_destroy (priv->nodes_displayed);
-	
-	/* free the waiting_for structs before destroying the tree itself */
-	if (priv->waiting_for)
-	{
-		g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, NULL);
-		g_tree_destroy (priv->waiting_for);
-	}
-	
+
+	symbol_db_view_locals_clear_cache (locals);
+	g_hash_table_destroy (priv->files_view_status);
 	g_free (priv);
 	
 	G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -810,7 +899,7 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	g_return_if_fail (dbvl != NULL);	
 	priv = dbvl->priv;	
 	
-	DEBUG_PRINT ("on_symbol_inserted (): -local- %d", symbol_id);
+/*	DEBUG_PRINT ("on_symbol_inserted (): -local- %d", symbol_id);*/
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));
 	
 	/* again we use a little trick to insert symbols here. First of all forget chars
@@ -980,6 +1069,7 @@ symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl, Symbol
 	
 	if (enable_status == TRUE) 
 	{
+		priv->recv_signals = TRUE;
 		/* connect some signals */
 		if (priv->insert_handler <= 0) 
 		{
@@ -1001,6 +1091,7 @@ symbol_db_view_locals_recv_signals_from_engine (SymbolDBViewLocals *dbvl, Symbol
 	}
 	else		/* disconnect them, if they were ever connected before */
 	{
+		priv->recv_signals = FALSE;
 		if (priv->insert_handler >= 0) 
 		{
 			g_signal_handler_disconnect (G_OBJECT (dbe), priv->insert_handler);
@@ -1028,85 +1119,167 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 	SymbolDBViewLocalsPriv *priv;
 
 	SymbolDBEngineIterator *iterator;
-	GtkTreeStore *store;
-
+	GtkTreeStore *store;	
+	FileSymbolsStatus *fsstatus;
+	
 	g_return_if_fail (dbvl != NULL);
 	g_return_if_fail (filepath != NULL);
 	g_return_if_fail (dbe != NULL);
-		
-	/*DEBUG_PRINT ("symbol_db_view_locals_update_list  () for %s", filepath);*/
-	
+
 	priv = dbvl->priv;
+
+	/* we're not interested in giving user an updated gtktreestore if recv signals
+	 * is false. In that case we can have a project importing...
+	 */
+	if (priv->recv_signals == FALSE)
+	{		
+		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), NULL);
+		return;
+	}
 	
+	/* ok, we can have a case where we're revisiting an old file with an already 
+	 * populated GtkTreeStore. We're gonna set that gtktreestore along with the
+	 * GTree(s) for nodes_displayed and waiting_for.
+	 */
+	fsstatus = NULL;
+	
+	if (priv->current_db_file != NULL)
+	{
+		FileSymbolsStatus *hash_node;
+		/* save current symbols status - e.g. gtktreestore, symbols_displayed etc */
+		hash_node = g_hash_table_lookup (priv->files_view_status, 
+										 priv->current_db_file);
+		
+		/* did we find something? yes? well, then we should save anything... */
+		if (hash_node == NULL)
+		{
+			/* found nothing? ok, save the status */
+			GtkTreeStore * store;
+			
+			store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));	
+			
+			if (store != NULL && priv->nodes_displayed != NULL 
+				&& priv->waiting_for != NULL)
+			{
+				FileSymbolsStatus *fss;
+				fss = g_new0 (FileSymbolsStatus, 1);
+				fss->store = store;
+				fss->nodes_displayed = priv->nodes_displayed;
+				fss->waiting_for = priv->waiting_for;
+				
+				DEBUG_PRINT ("symbol_db_view_locals_update_list (): g_hash_table_insert ");
+				/* insert it */
+				g_hash_table_insert (priv->files_view_status, 
+									 g_strdup (priv->current_db_file), fss);
+			}
+		}
+	}
+	
+
 	/* adjust some vars */
 	g_free (priv->current_db_file);
+	priv->current_db_file = NULL;
+	
 	g_free (priv->current_local_file_path);
+	priv->current_local_file_path = NULL;
 
 	priv->current_db_file = 
 		symbol_db_engine_get_file_db_path (dbe, filepath);
 	if (priv->current_db_file == NULL)
 		return;
+	priv->current_local_file_path = g_strdup (filepath);
 	
-	priv->current_local_file_path = g_strdup (filepath);		
+	/* try to see if we had something saved before in the hash table */
+	fsstatus = g_hash_table_lookup (priv->files_view_status,
+									priv->current_db_file);
+	
 
-	if (priv->nodes_displayed)
-		g_tree_destroy (priv->nodes_displayed);
-	
-	/* free the waiting_for structs before destroying the tree itself */
-	if (priv->waiting_for)
+	/* set the nodes_displayed */
+	if (fsstatus != NULL)
 	{
-		g_tree_foreach (priv->waiting_for, traverse_free_waiting_for, NULL);
-		g_tree_destroy (priv->waiting_for);
+		priv->nodes_displayed = fsstatus->nodes_displayed;
 	}
-	
-	priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+	else 
+	{	
+		priv->nodes_displayed = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
 										 NULL,
 										 NULL,
 										 (GDestroyNotify)&gtk_tree_row_reference_free);
-
-	priv->waiting_for = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
-									 NULL,
-									 NULL,
-									 NULL);
-
-
-	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));	
+		
+	}
 	
-	/* Removes all rows from tree_store */
-	gtk_tree_store_clear (store);
+	/* ... and the waiting_for */
+	if (fsstatus != NULL)
+	{
+		DEBUG_PRINT ("symbol_db_view_locals_update_list (): "
+					 "setting waiting_for to the saved one");
+		priv->waiting_for = fsstatus->waiting_for;
+	}
+	else 
+	{
+		priv->waiting_for = g_tree_new_full ((GCompareDataFunc)&gtree_compare_func, 
+										 NULL,
+										 NULL,
+										 NULL);
+	}
+	
 
-	iterator = symbol_db_engine_get_file_symbols (dbe, filepath, SYMINFO_SIMPLE |
+
+	/* last but not the least the store */
+	if (fsstatus != NULL)
+	{
+		store = fsstatus->store;		
+
+		/* with tis set there's no need to re-retrieve the symbols from db,
+		 * speeding up the things.
+		 */
+		DEBUG_PRINT ("symbol_db_view_locals_update_list (): "
+					 "setting gtk_tree_view_set_model to the saved one");
+		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), GTK_TREE_MODEL (store));
+	}
+	else 
+	{
+		DEBUG_PRINT ("symbol_db_view_locals_update_list (): creating new store"); 
+		store = sdb_view_locals_create_new_store ();
+		gtk_tree_view_set_model (GTK_TREE_VIEW (dbvl), GTK_TREE_MODEL (store));
+		
+		/* Removes all rows from tree_store */
+		gtk_tree_store_clear (store);
+		iterator = symbol_db_engine_get_file_symbols (dbe, filepath, SYMINFO_SIMPLE |
 												  	SYMINFO_ACCESS |
 													SYMINFO_KIND);		
 	
-	if (iterator != NULL)
-	{
-		do {
-			gint curr_symbol_id;
-			SymbolDBEngineIteratorNode *iter_node;
+		if (iterator != NULL)
+		{
+			do {
+				gint curr_symbol_id;
+				SymbolDBEngineIteratorNode *iter_node;
 
-			iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
+				iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 			
-			curr_symbol_id = symbol_db_engine_iterator_node_get_symbol_id (iter_node);
+				curr_symbol_id = symbol_db_engine_iterator_node_get_symbol_id (iter_node);
 
-			/* we can just call the symbol inserted function. It'll take care of
-			 * building the tree and populating it
-			 */
-			on_symbol_inserted (dbe, curr_symbol_id, (gpointer)dbvl);
-		} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);
+				/* we can just call the symbol inserted function. It'll take care of
+			 	* building the tree and populating it
+			 	*/
+				on_symbol_inserted (dbe, curr_symbol_id, (gpointer)dbvl);
+			} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);
 		
-		g_object_unref (iterator);
+			g_object_unref (iterator);
+		}
+
+	/*	DEBUG_PRINT ("symbol_db_view_locals_update_list (): waiting for displaying: %d", 
+				 	g_tree_nnodes (priv->waiting_for));
+		DEBUG_PRINT ("symbol_db_view_locals_update_list (): already displayed: %d", 
+				 	g_tree_nnodes (priv->nodes_displayed));*/
+
+		/* ok, there may be some symbols left on the waiting_for_list...
+ 	 	* launch the callback function by hand, flushing the list it in case 
+	 	*/
+		on_scan_end (dbe, dbvl);
+		
 	}
 
-/*	DEBUG_PRINT ("symbol_db_view_locals_update_list (): waiting for displaying: %d", 
-				 g_tree_nnodes (priv->waiting_for));
-	DEBUG_PRINT ("symbol_db_view_locals_update_list (): already displayed: %d", 
-				 g_tree_nnodes (priv->nodes_displayed));*/
-
-	/* ok, there may be some symbols left on the waiting_for_list...
- 	 * launch the callback function by hand, flushing the list it in case 
-	 */
-	on_scan_end (dbe, dbvl);
 
 	
 	/* only gtk 2.12 ...

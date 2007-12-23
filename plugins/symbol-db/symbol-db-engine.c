@@ -130,7 +130,7 @@ select symbol_id_base, symbol.name from heritage
 #define THREADS_MONITOR_LAUNCH_DELAY	200
 #define THREADS_MAX_CONCURRENT			15
 #define TRIGGER_SIGNALS_DELAY			500
-#define	TRIGGER_MAX_CLOSURE_RETRIES		10
+#define	TRIGGER_MAX_CLOSURE_RETRIES		30
 #define	THREAD_MAX_CLOSURE_RETRIES		20
 
 enum {
@@ -1381,20 +1381,21 @@ sdb_engine_finalize (GObject * object)
 	
 	if (priv->mutex)
 	{
-		g_mutex_lock (priv->mutex);
 		g_mutex_free (priv->mutex);
 		priv->mutex = NULL;
 	}
 	
-	if (priv->timeout_trigger_handler >= 0)
+	if (priv->timeout_trigger_handler > 0)
 		g_source_remove (priv->timeout_trigger_handler);
 	
-	if (priv->thread_monitor_handler >= 0)
+	if (priv->thread_monitor_handler > 0)
 		g_source_remove (priv->thread_monitor_handler);
 	
-	g_async_queue_unref (priv->signals_queue);
+	if (priv->signals_queue != NULL)
+		g_async_queue_unref (priv->signals_queue);
 	
-	g_queue_free  (priv->thread_list);
+	if (priv->thread_list != NULL)
+		g_queue_free  (priv->thread_list);
 
 	
 	G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -5800,7 +5801,9 @@ symbol_db_engine_get_file_db_path (SymbolDBEngine *dbe, const gchar* full_local_
 	g_return_val_if_fail (dbe != NULL, NULL);
 		
 	priv = dbe->priv;
-	g_return_val_if_fail (priv->data_source != NULL, NULL);
+	
+	if (priv->data_source == NULL)
+		return NULL;
 
 	if (strlen (priv->data_source) >= strlen (full_local_file_path)) 
 	{
