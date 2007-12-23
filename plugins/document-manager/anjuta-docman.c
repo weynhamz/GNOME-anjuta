@@ -66,9 +66,7 @@ struct _AnjutaDocmanPriv {
 	GtkWidget *fileselection;
 	
 	GtkWidget *popup_menu;	/* shared context-menu for main-notebook pages */
-	gboolean tab_pressed;		/* flags for deferring notebook page re-arrangement */
-	gboolean reorder_queued;
-	gint old_indx;
+	gboolean tab_pressed;	/* flag for deferred notebook page re-arrangement */
 	gboolean shutingdown;
 };
 
@@ -89,7 +87,7 @@ static void anjuta_docman_order_tabs (AnjutaDocman *docman);
 static void anjuta_docman_update_page_label (AnjutaDocman *docman,
 											 GtkWidget *doc_widget);
 static void anjuta_docman_grab_text_focus (AnjutaDocman *docman);
-static gboolean anjuta_docman_sort_pagelist (AnjutaDocman *docman) { /* FIXME */ return FALSE;}
+static gboolean anjuta_docman_sort_pagelist (AnjutaDocman *docman);
 static void on_notebook_switch_page (GtkNotebook *notebook,
 									 GtkNotebookPage *page,
 									 gint page_num, AnjutaDocman *docman);
@@ -150,11 +148,9 @@ on_notebook_page_close_button_leave (GtkButton* button,
 static gboolean
 on_notebook_tab_btnpress (GtkWidget *wid, GdkEventButton *event, AnjutaDocman* docman)
 {
-	if (event->type == GDK_BUTTON_PRESS)
-	{
+	if (event->type == GDK_BUTTON_PRESS && event->button != 3)	/* right-click is for menu */
 		docman->priv->tab_pressed = TRUE;
-		docman->priv->reorder_queued = FALSE;
-	}
+
 	return FALSE;
 }
 
@@ -163,28 +159,21 @@ on_notebook_tab_btnrelease (GtkWidget *widget, GdkEventButton *event, AnjutaDocm
 {
 	docman->priv->tab_pressed = FALSE;
 
-	if (docman->priv->reorder_queued) /* re-ordering in effect and no drag to another book */
+	if (anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
 	{
 		GList *node;
-		AnjutaDocmanPage *page;
 
-		page = NULL;	/* assignment for warning prevention */
 		for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
 		{
+			AnjutaDocmanPage *page;
+
 			page = (AnjutaDocmanPage *)node->data;
 			if (page->box == widget)
-				break;
-		}
-		if (node != NULL)
-		{
-			if (gtk_notebook_page_num (GTK_NOTEBOOK (docman), page->widget) == docman->priv->old_indx)
 			{
-				/* no drag happened in same book */
-				if (anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
-					gtk_notebook_reorder_child (GTK_NOTEBOOK (docman), page->widget, 0);
+				gtk_notebook_reorder_child (GTK_NOTEBOOK (docman), page->widget, 0);
+				break;
 			}
 		}
-		docman->priv->reorder_queued = FALSE;
 	}
 
 	return FALSE;
@@ -196,6 +185,31 @@ on_notebook_page_reordered (GtkNotebook *notebook, GtkWidget *child,
 {
 	/* conform pagelist order */
 	g_idle_add ((GSourceFunc) anjuta_docman_sort_pagelist, docman);
+}
+
+static gint
+anjuta_docman_compare_pages (AnjutaDocmanPage *a, AnjutaDocmanPage *b, AnjutaDocman *docman)
+{
+	gint pa, pb;
+	GtkNotebook *book;
+
+	book = GTK_NOTEBOOK (docman);
+	pa = gtk_notebook_page_num (book, a->widget);
+	pb = gtk_notebook_page_num (book, b->widget);
+	return ((pa < pb) ? 1:-1);
+}
+
+/* this is for idle or timer callback, as well as direct usage */
+static gboolean
+anjuta_docman_sort_pagelist (AnjutaDocman *docman)
+{
+	DEBUG_PRINT ("In function: anjuta_docman_sort_pagelist");
+	if (docman->priv->pages != NULL && g_list_next (docman->priv->pages) != NULL)
+		docman->priv->pages = g_list_sort_with_data (
+								docman->priv->pages,
+								(GCompareDataFunc) anjuta_docman_compare_pages,
+								docman);
+	return FALSE;
 }
 
 static void
@@ -637,7 +651,7 @@ anjuta_docman_instance_init (AnjutaDocman *docman)
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (docman), TRUE);
 	g_signal_connect (G_OBJECT (docman), "switch-page",
 					  G_CALLBACK (on_notebook_switch_page), docman);
-	/* update pages-list after re-ordering */
+	/* update pages-list after re-ordering (or deleting) */
 	g_signal_connect (G_OBJECT (docman), "page-reordered",
 						G_CALLBACK (on_notebook_page_reordered), docman);
 }
@@ -707,15 +721,16 @@ on_notebook_switch_page (GtkNotebook *notebook,
 	if (!docman->priv->shutingdown)
 	{
 		GtkWidget *page_widget;
-		/* TTimo: reorder so that the most recently used files are always
-		 * at the beginning of the tab list
-		 */
+		
 		page_widget = gtk_notebook_get_nth_page (notebook, page_num);
 		anjuta_docman_set_current_document (docman, IANJUTA_DOCUMENT (page_widget));
-		
-		if (!g_tabbing &&
-			!anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_ORDERING) && 
-			anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
+		/* TTimo: reorder so that the most recently used files are
+		 * at the beginning of the tab list
+		 */
+		if (!docman->priv->tab_pressed	/* after a tab-click, sorting is done upon release */
+			&& !g_tabbing
+			&& !anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_ORDERING)
+			&& anjuta_preferences_get_int (docman->priv->preferences, EDITOR_TABS_RECENT_FIRST))
 		{
 			gtk_notebook_reorder_child (notebook, page_widget, 0);
 		}
@@ -1301,8 +1316,8 @@ anjuta_docman_update_page_label (AnjutaDocman *docman, GtkWidget *page_widget)
 static void
 anjuta_docman_grab_text_focus (AnjutaDocman *docman)
 {
-	anjuta_shell_present_widget(docman->shell, 
-								GTK_WIDGET(docman->priv->plugin->vbox), NULL);
+	anjuta_shell_present_widget (docman->shell, 
+								 GTK_WIDGET (docman->priv->plugin->vbox), NULL);
 }
 
 void

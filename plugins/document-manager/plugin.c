@@ -1040,14 +1040,14 @@ on_document_added (AnjutaDocman *docman, IAnjutaDocument *doc,
 	GtkWidget *highlight_submenu, *highlight_menu;
 	DocmanPlugin *docman_plugin;
 	
+	docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	g_signal_connect (G_OBJECT (doc), "update_ui",
 					  G_CALLBACK (on_document_update_ui),
-					  plugin);
+					  docman_plugin);
 	g_signal_connect (G_OBJECT (doc), "save_point",
 					  G_CALLBACK (on_document_update_save_ui),
 					  plugin);
 	/* Present the vbox as this is the widget that was added to the shell */
-	docman_plugin = ANJUTA_PLUGIN_DOCMAN (plugin);
 	anjuta_shell_present_widget (plugin->shell,
 								 GTK_WIDGET (docman_plugin->vbox), NULL);
 
@@ -1217,7 +1217,7 @@ out:
 }
 
 static gboolean
-on_window_key_press_event (GtkWidget   *widget,
+on_window_key_press_event (AnjutaShell *shell,
 						   GdkEventKey *event,
 						  DocmanPlugin *plugin)
 {
@@ -1294,7 +1294,7 @@ on_window_key_press_event (GtkWidget   *widget,
 #define SAVE_AUTOMATIC             "save.automatic"
 
 static gboolean
-on_window_key_release_event (GtkWidget   *widget,
+on_window_key_release_event (AnjutaShell *shell,
 							 GdkEventKey *event,
 							DocmanPlugin *plugin)
 {

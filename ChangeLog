@@ -1,4 +1,18 @@
-2007-12-05  Massimo Cora'  <maxcvs@email.it>
+2007-12-23  Johannes Schmid <jhs@gnome.org>
+
+  Patch from Tom <tpgww@onepost.net>:
+  
+  * plugins/document-manager/anjuta-docman.c:
+	(on_notebook_tab_btnpress), (on_notebook_tab_btnrelease),
+	(anjuta_docman_compare_pages), (anjuta_docman_sort_pagelist),
+	(anjuta_docman_instance_init), (on_notebook_switch_page),
+	(anjuta_docman_grab_text_focus):
+	* plugins/document-manager/plugin.c: (on_document_added),
+	(on_window_key_press_event), (on_window_key_release_event):
+	
+	Some more document-manager code cleanups and fixes.
+
+2007-12-23  Massimo Cora'  <maxcvs@email.it>
 
   * plugins/symbol-db/plugin.c: (register_stock_icons),
   (value_added_current_editor), (value_removed_current_editor),
