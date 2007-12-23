@@ -21,7 +21,7 @@ plugin_in_files = sourceview.plugin.in
 sourceview_plugindir = $(anjuta_plugin_dir)
 sourceview_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(PCRE_CFLAGS) \

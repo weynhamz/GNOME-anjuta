@@ -22,9 +22,7 @@ editor_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-editor.la
 
-INCLUDES = \
-	$(WARN_CFLAGS) \
-	$(DEPRECATED_FLAGS) \
+AM_CPPFLAGS = \
 	$(PCRE_CFLAGS) \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GNOME_VFS_CFLAGS) \

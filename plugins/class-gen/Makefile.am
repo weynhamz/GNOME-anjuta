@@ -22,7 +22,7 @@ clsgen_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-class-gen.la
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-I${top_srcdir} \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \

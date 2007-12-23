@@ -1,7 +1,7 @@
 
 SUBDIRS = interfaces 
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(GNOME_UI_CFLAGS) \

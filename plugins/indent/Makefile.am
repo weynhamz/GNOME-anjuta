@@ -32,7 +32,7 @@ indent_data_DATA = indent_test.c
 #    plugin 'libpython.so' needs to link with the real 'libpython.so'
 
 # Include paths
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS)

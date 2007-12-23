@@ -25,7 +25,7 @@ build_datadir = $(anjuta_data_dir)/build
 build_data_DATA = automake-c.filters
 
 # Include paths
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(PCRE_CFLAGS) \

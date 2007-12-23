@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 SUBDIRS = include
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	-I$(srcdir)/include

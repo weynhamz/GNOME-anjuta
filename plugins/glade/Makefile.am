@@ -19,7 +19,7 @@ glade_plugindir = $(anjuta_plugin_dir)
 glade_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(PLUGIN_GLADE_CFLAGS) \

@@ -826,8 +826,6 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 									page->box, page->menu_label);
 	gtk_notebook_set_tab_reorderable (GTK_NOTEBOOK (docman), page->widget, TRUE);
 
-	g_object_ref (G_OBJECT (doc));	/* compensate for unref in cleanup processes */
-
 	g_signal_connect (G_OBJECT (doc), "save_point",
 					  G_CALLBACK (on_document_save_point), docman);
 	g_signal_connect (G_OBJECT (doc), "destroy",

@@ -4,12 +4,11 @@ SUBDIRS = include
 
 noinst_LTLIBRARIES = libanjuta-scintilla.la
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(GTK_CFLAGS) \
-	-I$(srcdir)/include
-
+	-I$(srcdir)/include \
+  -DGTK -DSCI_LEXER -DUSE_XIM
 AM_CXXFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM
-AM_CPPFLAGS = -DGTK -DSCI_LEXER -DUSE_XIM
 
 include $(srcdir)/lexers.make
 

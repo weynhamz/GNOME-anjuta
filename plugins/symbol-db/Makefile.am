@@ -34,7 +34,7 @@ symbol_db_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 #    plugin 'libpython.so' needs to link with the real 'libpython.so'
 
 # Include paths
-INCLUDES = \
+AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" \
 	-DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" \

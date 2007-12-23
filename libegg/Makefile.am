@@ -4,7 +4,7 @@ SUBDIRS = util treeviewutils menu recent-files
 gladefiledir = $(anjuta_glade_dir)
 gladefile_DATA = layout.glade
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(GNOME_VFS_MODULE_CFLAGS) \
 	$(GNOME_UI_CFLAGS) \
 	$(GCONF_CFLAGS) \

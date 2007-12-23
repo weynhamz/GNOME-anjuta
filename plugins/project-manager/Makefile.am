@@ -16,7 +16,7 @@ project_plugindir = $(anjuta_plugin_dir)
 project_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(PLUGIN_GNOMEBUILD_CFLAGS) \

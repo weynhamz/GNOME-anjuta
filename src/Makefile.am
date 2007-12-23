@@ -15,7 +15,7 @@ anjuta_pixmaps_DATA = \
 	anjuta-preferences-general.svg \
 	anjuta-preferences-general-48.png
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(GNOME_UI_CFLAGS)\
 	$(GDL_CFLAGS)\
 	-I$(top_srcdir)\

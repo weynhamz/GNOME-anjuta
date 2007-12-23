@@ -20,7 +20,7 @@ plugin_in_files = anjuta-gdb.plugin.in
 anjuta_plugindir = $(anjuta_plugin_dir)
 anjuta_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
-INCLUDES= \
+AM_CPPFLAGS= \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS)

@@ -2,7 +2,7 @@
 bin_PROGRAMS = \
 	test-symbol-db 
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DANJUTA_DATA_DIR=\"$(anjuta_data_dir)\" \
 	-DANJUTA_PLUGIN_DIR=\"$(anjuta_plugin_dir)\" \

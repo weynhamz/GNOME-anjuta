@@ -3,7 +3,7 @@
 
 ## Created by Anjuta
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	-DPACKAGE_DATA_DIR=\""$(datadir)"\" [+IF (=(get "HavePackage") "1")+]$([+NameCUpper+]_CFLAGS)[+ENDIF+]
 
 AM_CFLAGS =\

@@ -59,19 +59,12 @@ static gpointer parent_class;
 #define ANJUTA_STOCK_HELP_PREV "anjuta-help-prev"
 #define ANJUTA_STOCK_DEVHELP "anjuta-devhelp"
 
-#define REGISTER_ICON(icon, stock_id) \
-	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	g_object_unref (pixbuf);
-
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
 	AnjutaUI *ui;
 	GtkIconFactory *icon_factory;
 	GtkIconSet *icon_set;
-	GdkPixbuf *pixbuf;
 	static gboolean registered = FALSE;
 
 	if (registered)

@@ -1,7 +1,7 @@
 
 ## Process this file with automake to produce Makefile.in
 
-scintilla_INCLUDES = \
+scintilla_AM_CPPFLAGS = \
 	Accessor.h \
 	KeyWords.h \
 	Platform.h \
@@ -12,7 +12,7 @@ scintilla_INCLUDES = \
 	WindowAccessor.h \
 	SString.h
 
-EXTRA_DIST = $(scintilla_INCLUDES) \
+EXTRA_DIST = $(scintilla_AM_CPPFLAGS) \
 	Face.py \
 	HFacer.py \
 	Scintilla.iface

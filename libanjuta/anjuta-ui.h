@@ -162,9 +162,12 @@ void anjuta_ui_dump_tree (AnjutaUI *ui);
 #define REGISTER_ICON(icon, stock_id) \
 	{ \
 	GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"icon, NULL); \
-	icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
-	gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
-	g_object_unref (pixbuf); \
+	if (pixbuf) \
+	{ \
+		icon_set = gtk_icon_set_new_from_pixbuf (pixbuf); \
+		gtk_icon_factory_add (icon_factory, stock_id, icon_set); \
+		g_object_unref (pixbuf); \
+	} \
 	}
 
 #define END_REGISTER_ICON \

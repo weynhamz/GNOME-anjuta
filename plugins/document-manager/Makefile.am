@@ -18,7 +18,7 @@ document_manager_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 plugindir = $(anjuta_plugin_dir)
 plugin_LTLIBRARIES = libanjuta-document-manager.la
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(PCRE_CFLAGS) \

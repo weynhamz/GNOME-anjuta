@@ -179,7 +179,9 @@ on_close_activated (GtkWidget* document, GladePlugin *plugin)
 	GladeProject *project;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	
+	IAnjutaDocumentManager *docman;
+	GList *docwids, *node;
+
 	DEBUG_PRINT(__FUNCTION__);
 	
 	if (plugin->priv->destroying)
@@ -215,8 +217,22 @@ on_close_activated (GtkWidget* document, GladePlugin *plugin)
 
 	if (gtk_tree_model_iter_n_children (model, NULL) <= 0)
 		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
-	
-	DEBUG_PRINT(__FUNCTION__);
+
+	/* Close any docman pages */
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
+										 IAnjutaDocumentManager, NULL);
+	docwids = ianjuta_document_manager_get_doc_widgets (docman, NULL);
+	if (docwids)
+	{
+		for (node = docwids; node != NULL; node = g_list_next (node))
+		{
+			if (ANJUTA_IS_DESIGN_DOCUMENT (node->data))
+				ianjuta_document_manager_remove_document (docman,
+														  IANJUTA_DOCUMENT (node->data),
+														  TRUE, NULL);
+		}
+		g_list_free (docwids);
+	}
 }
 
 static void
@@ -264,7 +280,7 @@ register_stock_icons (AnjutaPlugin *plugin)
 
 	/* Register stock icons */
 	BEGIN_REGISTER_ICON (plugin);
-	REGISTER_ICON (PACKAGE_PIXMAPS_DIR"/anjuta-glade-plugin-48.png",
+	REGISTER_ICON ("anjuta-glade-plugin-48.png",
 				   "glade-plugin-icon");
 	END_REGISTER_ICON;
 }
@@ -273,47 +289,93 @@ static void
 on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase,
 				 AnjutaSession *session, GladePlugin *plugin)
 {
-	GList *files;
-	GtkTreeModel *model;
+	GList *files, *docwids, *node;
+/*	GtkTreeModel *model;
 	GtkTreeIter iter;
+*/
+	IAnjutaDocumentManager *docman;
 	
 	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
 		return;
 	
+	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
+										 IAnjutaDocumentManager, NULL);
+	docwids = ianjuta_document_manager_get_doc_widgets (docman, NULL);
+	if (docwids)
+	{
+		files = anjuta_session_get_string_list (session, "File Loader", "Files");
+		if (files)
+			files = g_list_reverse (files);
+		for (node = docwids; node != NULL; node = g_list_next (node))
+		{
+			if (ANJUTA_IS_DESIGN_DOCUMENT (node->data))
+			{
+				gchar *uri;
+				uri = ianjuta_file_get_uri (IANJUTA_FILE (node->data), NULL);
+				if (uri != NULL)
+				{
+					files = g_list_prepend (files, uri);
+					/* uri is not freed here */
+				}
+			}
+		}
+		g_list_free (docwids);
+		if (files)
+		{
+			files = g_list_reverse (files);
+			anjuta_session_set_string_list (session, "File Loader", "Files", files);
+			g_list_foreach (files, (GFunc)g_free, NULL);
+			g_list_free (files);
+		}
+	}
+/*
 	files = anjuta_session_get_string_list (session, "File Loader", "Files");
-	files = g_list_reverse (files);
+	if (files)
+		files = g_list_reverse (files);
 	
 	model = gtk_combo_box_get_model (GTK_COMBO_BOX (plugin->priv->projects_combo));
 	if (gtk_tree_model_get_iter_first (model, &iter))
 	{
 		do
 		{
+#if (GLADEUI_VERSION >= 330)
+			const gchar *ppath;
+#endif
 			gchar *uri;
 			GladeProject *project;
 			gtk_tree_model_get (model, &iter, PROJECT_COL, &project, -1);
 #if (GLADEUI_VERSION >= 330)
-			if (glade_project_get_path(project))
+			ppath = glade_project_get_path (project);
+			if (ppath)
 #else
 			if (project->path)
 #endif
 			{
+				uri = gnome_vfs_get_uri_from_local_path (
 #if (GLADEUI_VERSION >= 330)
-				uri = gnome_vfs_get_uri_from_local_path
-							(glade_project_get_path(project));
+					ppath);
 #else
-				uri = gnome_vfs_get_uri_from_local_path (project->path);
+					project->path);
 #endif
 				if (uri)
+				{
+					/ * FIXME only log file if it's still open in docman * /
 					files = g_list_prepend (files, uri);
-				/* URI is not freed here */
+					/ * uri is not freed here * /
+				}
 			}
 		}
 		while (gtk_tree_model_iter_next (model, &iter));
 	}
-	files = g_list_reverse (files);
-	anjuta_session_set_string_list (session, "File Loader", "Files", files);
-	g_list_foreach (files, (GFunc)g_free, NULL);
-	g_list_free (files);
+
+	if (files)
+	{
+		files = g_list_reverse (files);
+		anjuta_session_set_string_list (session, "File Loader", "Files", files);
+		g_list_foreach (files, (GFunc)g_free, NULL);
+		g_list_free (files);
+	}
+*/
 }
 
 static void
@@ -332,9 +394,9 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
 	g_signal_connect(G_OBJECT(view), "destroy", G_CALLBACK(on_close_activated), glade_plugin);
 	gtk_widget_show (view);
 	g_object_set_data (G_OBJECT (project), "design_view", view);
-	glade_app_add_project (project);
-	
+	/* add document before adding project, cuz that changes the document */
 	ianjuta_document_manager_add_document(docman, IANJUTA_DOCUMENT(view), NULL);
+	glade_app_add_project (project);
 }
 
 #if (GLADEUI_VERSION >= 330)

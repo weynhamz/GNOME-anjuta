@@ -25,7 +25,7 @@ plugin_LTLIBRARIES = libanjuta-search.la
 search_uidir = $(anjuta_ui_dir)
 search_ui_DATA = anjuta-search.ui
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(PCRE_CFLAGS) \

@@ -32,7 +32,7 @@ profiler_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 #    plugin 'libpython.so' needs to link with the real 'libpython.so'
 
 # Include paths
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(LIBANJUTA_CFLAGS) \
 	$(GNOME_VFS_MODULE_CFLAGS) \
 	$(WARN_CFLAGS) \
@@ -41,7 +41,7 @@ INCLUDES = \
 	$(DEPRECATED_FLAGS)
 
 if HAVE_GRAPHVIZ
-INCLUDES += $(GRAPHVIZ_CFLAGS)
+AM_CPPFLAGS += $(GRAPHVIZ_CFLAGS)
 endif
 
 # Where to install the plugin

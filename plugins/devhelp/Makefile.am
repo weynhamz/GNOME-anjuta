@@ -22,15 +22,15 @@ devhelp_plugindir = $(anjuta_plugin_dir)
 devhelp_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 
 # Include paths
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS)
 
 if HAVE_PLUGIN_DEVHELP
-INCLUDES += $(PLUGIN_DEVHELP_CFLAGS)
+AM_CPPFLAGS += $(PLUGIN_DEVHELP_CFLAGS)
 else
-INCLUDES += -DDISABLE_EMBEDDED_DEVHELP
+AM_CPPFLAGS += -DDISABLE_EMBEDDED_DEVHELP
 endif
 
 # Where to install the plugin

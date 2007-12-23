@@ -1,5 +1,87 @@
 2007-12-23  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/anjuta-ui.h:
+	Check for != NULL before unref'ing pixbuf (related to #497878)
+	
+	* plugins/devhelp/plugin.c: (register_stock_icons):
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_add_document):
+	* plugins/glade/plugin.c: (on_close_activated),
+	(register_stock_icons), (on_session_save),
+	(glade_plugin_add_project):
+	
+	Fixed bugs #497878 crash when double clicking on project->/->src->glade/gtk-foobar.glade
+	and #503719 Opening and closing .glade files plays badly with docman (Patch from Tom)
+	
+	* plugins/language-support-cpp-java/plugin.c:
+	(register_stock_icons):
+	Fixed stock icon registration macros
+
+2007-12-23  Johannes Schmid <jhs@gnome.org>
+
+	* global-tags/Makefile.am:
+	* launcher/Makefile.am:
+	* libanjuta/Makefile.am:
+	* libegg/Makefile.am:
+	* manuals/anjuta-faqs/Makefile.am:
+	* manuals/anjuta-manual/Makefile.am:
+	* manuals/reference/libanjuta/Makefile.am:
+	* plugins/build-basic-autotools/Makefile.am:
+	* plugins/class-gen/Makefile.am:
+	* plugins/class-inheritance/Makefile.am:
+	* plugins/cvs-plugin/Makefile.am:
+	* plugins/debug-manager/Makefile.am:
+	* plugins/devhelp/Makefile.am:
+	* plugins/document-manager/Makefile.am:
+	* plugins/editor/Makefile.am:
+	* plugins/editor/scintilla/Makefile.am:
+	* plugins/editor/scintilla/include/Makefile.am:
+	* plugins/file-loader/Makefile.am:
+	* plugins/file-manager/Makefile.am:
+	* plugins/file-wizard/Makefile.am:
+	* plugins/gdb/Makefile.am:
+	* plugins/glade/Makefile.am:
+	* plugins/gtodo/Makefile.am:
+	* plugins/gvim/Makefile.am:
+	* plugins/indent/Makefile.am:
+	* plugins/language-manager/Makefile.am:
+	* plugins/language-support-cpp-java/Makefile.am:
+	* plugins/macro/Makefile.am:
+	* plugins/message-view/Makefile.am:
+	* plugins/patch/Makefile.am:
+	* plugins/profiler/Makefile.am:
+	* plugins/project-import/Makefile.am:
+	* plugins/project-manager/Makefile.am:
+	* plugins/project-wizard/Makefile.am:
+	* plugins/project-wizard/templates/anjuta-plugin/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/cpp/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/gnome/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/gtk/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/gtkmm/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/minimal/Makefile.am.tpl:
+	* plugins/project-wizard/templates/sdl/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/wxwin/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/xlib-dock/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/xlib/src/Makefile.am.tpl:
+	* plugins/sample1/Makefile.am:
+	* plugins/search/Makefile.am:
+	* plugins/sourceview/Makefile.am:
+	* plugins/subversion/Makefile.am:
+	* plugins/symbol-browser/Makefile.am:
+	* plugins/symbol-db/Makefile.am:
+	* plugins/symbol-db/test/Makefile.am:
+	* plugins/terminal/Makefile.am:
+	* plugins/tools/Makefile.am:
+	* plugins/valgrind/Makefile.am:
+	* src/Makefile.am:
+	* tagmanager/Makefile.am:
+	
+	Replaces the deprecated "INCLUDES" in all Makefile.am's with
+	the correct "AM_CPPFLAGS" preprocessor flags keyword. Also fixes some
+	warnings from illigel C++ compiler flags.
+
+2007-12-23  Johannes Schmid <jhs@gnome.org>
+
   Patch from Tom <tpgww@onepost.net>:
   
   * plugins/document-manager/anjuta-docman.c:

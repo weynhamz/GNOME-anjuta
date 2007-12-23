@@ -26,7 +26,7 @@ sample_plugin_DATA = $(plugin_in_files:.plugin.in=.plugin)
 #    plugin 'libpython.so' needs to link with the real 'libpython.so'
 
 # Include paths
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(WARN_CFLAGS) \
 	$(DEPRECATED_FLAGS) \
 	$(LIBANJUTA_CFLAGS)
