@@ -1,10 +1,15 @@
 2007-12-25  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/plugin.c:
+	(set_indentation_param_vim):
+	
+	Support some more vim modeline commands and shortcuts (#504331)
+
+2007-12-25  Johannes Schmid <jhs@gnome.org>
+
   Patches from James Liggett:
 	* libanjuta/anjuta-vcs-status-tree-view.c: (path_sort),
 	(anjuta_vcs_status_tree_view_init):
-	* plugins/language-support-cpp-java/plugin.c:
-	(set_indentation_param_vim):
 	* plugins/subversion/subversion-commit-dialog.c:
 	(subversion_commit_dialog):
 	* plugins/subversion/subversion-diff-dialog.c:
