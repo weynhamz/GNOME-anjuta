@@ -445,13 +445,15 @@ set_indentation_param_vim (CppJavaPlugin* plugin, const gchar *param,
 					   const gchar *value)
 {
 	DEBUG_PRINT ("Setting indent param: %s = %s", param, value);
-	if (strcasecmp (param, "expandtab") == 0)
+	if (g_str_equal (param, "expandtab") ||
+		g_str_equal (param, "et"))
 	{
 			plugin->param_use_spaces = 1;
 			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
 										   TRUE, NULL);
-  }
-	else if (strcasecmp (param, "noexpandtab") == 0)
+	}
+	else if (g_str_equal (param, "noexpandtabs") ||
+			 g_str_equal (param, "noet"))
 	{
 	  	plugin->param_use_spaces = 0;
 			ianjuta_editor_set_use_spaces (IANJUTA_EDITOR (plugin->current_editor),
@@ -459,11 +461,15 @@ set_indentation_param_vim (CppJavaPlugin* plugin, const gchar *param,
 	}
 	if (!value)
 		return;
-	else if (strcasecmp (param, "shiftwidth") == 0)
+	else if (g_str_equal (param, "shiftwidth") ||
+			 g_str_equal (param, "sw"))
 	{
 		plugin->param_statement_indentation = atoi (value);
 	}
-	else if (strcasecmp (param, "softtabstop") == 0)
+	else if (g_str_equal (param, "softtabstop") ||
+			 g_str_equal (param, "sts") ||
+			 g_str_equal (param, "tabstop") ||
+			 g_str_equal (param, "ts"))
 	{
 		plugin->param_tab_size = atoi (value);
 		ianjuta_editor_set_tabsize (IANJUTA_EDITOR (plugin->current_editor),

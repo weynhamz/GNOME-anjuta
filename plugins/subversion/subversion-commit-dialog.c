@@ -171,6 +171,10 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 	pulse_progress_bar (GTK_PROGRESS_BAR (commit_status_progress_bar));
 	
 	g_signal_connect (G_OBJECT (status_command), "command-finished",
+					  G_CALLBACK (cancel_data_arrived_signal_disconnect),
+					  commit_status_view);
+	
+	g_signal_connect (G_OBJECT (status_command), "command-finished",
 					  G_CALLBACK (hide_pulse_progress_bar),
 					  commit_status_progress_bar);
 	
@@ -181,6 +185,10 @@ subversion_commit_dialog (GtkAction* action, Subversion* plugin,
 	g_signal_connect (G_OBJECT (status_command), "data-arrived",
 					  G_CALLBACK (on_status_command_data_arrived),
 					  commit_status_view);
+	
+	g_object_weak_ref (G_OBJECT (commit_status_view),
+					   (GWeakNotify) disconnect_data_arrived_signals,
+					   status_command);
 	
 	anjuta_command_start (ANJUTA_COMMAND (status_command));
 	

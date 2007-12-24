@@ -355,6 +355,10 @@ on_log_view_selected_button_clicked (GtkButton *button, LogData *data)
 					  G_CALLBACK (on_cat_command_finished),
 					  data->plugin);
 	
+	g_object_weak_ref (G_OBJECT (editor), 
+					   (GWeakNotify) disconnect_data_arrived_signals,
+					   cat_command);
+	
 	anjuta_command_start (ANJUTA_COMMAND (cat_command));
 }
 
@@ -424,6 +428,10 @@ on_log_diff_selected_button_clicked (GtkButton *button, LogData *data)
 		g_signal_connect (G_OBJECT (diff_command), "command-finished",
 					  	  G_CALLBACK (on_diff_command_finished),
 					  	  data->plugin);
+		
+		g_object_weak_ref (G_OBJECT (editor), 
+						   (GWeakNotify) disconnect_data_arrived_signals,
+						   diff_command);
 	
 		anjuta_command_start (ANJUTA_COMMAND (diff_command));
 		
@@ -484,6 +492,10 @@ on_log_diff_previous_button_clicked (GtkButton *button, LogData *data)
 	g_signal_connect (G_OBJECT (diff_command), "command-finished",
 					  G_CALLBACK (on_diff_command_finished),
 					  data->plugin);
+	
+	g_object_weak_ref (G_OBJECT (editor), 
+					   (GWeakNotify) disconnect_data_arrived_signals,
+					   diff_command);
 	
 	anjuta_command_start (ANJUTA_COMMAND (diff_command));
 }

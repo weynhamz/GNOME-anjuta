@@ -167,6 +167,12 @@ report_errors (AnjutaCommand *command, guint return_code)
 	}
 }
 
+static void
+stop_pulse_timer (gpointer timer_id, GtkProgressBar *progress_bar)
+{
+	g_source_remove (GPOINTER_TO_UINT (timer_id));
+}
+
 void
 pulse_progress_bar (GtkProgressBar *progress_bar)
 {
@@ -175,6 +181,10 @@ pulse_progress_bar (GtkProgressBar *progress_bar)
 	timer_id = g_timeout_add (100, (GSourceFunc) pulse_timer, 
 							  progress_bar);
 	g_object_set_data (G_OBJECT (progress_bar), "pulse-timer-id",
+					   GUINT_TO_POINTER (timer_id));
+	
+	g_object_weak_ref (G_OBJECT (progress_bar),
+					   (GWeakNotify) stop_pulse_timer,
 					   GUINT_TO_POINTER (timer_id));
 }
 
@@ -332,9 +342,51 @@ hide_pulse_progress_bar (AnjutaCommand *command, guint return_code,
 {
 	guint timer_id;
 	
-	timer_id = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (progress_bar),
-													"pulse-timer-id")); 
+	/* If the progress bar has already been destroyed, the timer should be 
+	 * stopped by stop_pulse_timer */
+	if (GTK_IS_PROGRESS_BAR (progress_bar))
+	{
+		timer_id = GPOINTER_TO_UINT (g_object_get_data (G_OBJECT (progress_bar),
+														"pulse-timer-id")); 
+		
+		g_source_remove (GPOINTER_TO_UINT (timer_id));
+		gtk_widget_hide (GTK_WIDGET (progress_bar));
+	}
+}
+
+/* This function is normally intended to disconnect stock data-arrived signal
+ * handlers in this file. It is assumed that object is the user data for the 
+ * callback. If you use any of the stock callbacks defined here, make sure 
+ * to weak ref its target with this callback. Make sure to cancel this ref
+ * by connecting cancel_data_arrived_signal_disconnect to the command-finished 
+ * signal so we don't try to disconnect signals on a destroyed command. */
+void
+disconnect_data_arrived_signals (AnjutaCommand *command, GObject *object)
+{
+	guint data_arrived_signal;
 	
-	g_source_remove (GPOINTER_TO_UINT (timer_id));
-	gtk_widget_hide (GTK_WIDGET (progress_bar));
+	if (ANJUTA_IS_COMMAND (command))
+	{
+		data_arrived_signal = g_signal_lookup ("data-arrived",
+											   ANJUTA_TYPE_COMMAND);
+		
+		g_signal_handlers_disconnect_matched (command,
+											  G_SIGNAL_MATCH_DATA,
+											  data_arrived_signal,
+											  0,
+											  NULL,
+											  NULL,
+											  object);
+	}
+										  
+}
+
+void 
+cancel_data_arrived_signal_disconnect (AnjutaCommand *command, 
+									   guint return_code,
+									   GObject *signal_target)
+{
+	g_object_weak_unref (signal_target, 
+						 (GWeakNotify) disconnect_data_arrived_signals,
+						 command);
 }

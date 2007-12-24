@@ -74,4 +74,8 @@ void stop_status_bar_progress_pulse (AnjutaCommand *command, guint return_code,
 									 gpointer timer_id);
 void hide_pulse_progress_bar (AnjutaCommand *command, guint return_code,
 							  GtkProgressBar *progress_bar);
+void disconnect_data_arrived_signals (AnjutaCommand *command, GObject *object);
+void cancel_data_arrived_signal_disconnect (AnjutaCommand *command, 
+											guint return_code,
+											GObject *signal_target);
 #endif

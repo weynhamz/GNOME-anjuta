@@ -1,3 +1,31 @@
+2007-12-25  Johannes Schmid <jhs@gnome.org>
+
+  Patches from James Liggett:
+	* libanjuta/anjuta-vcs-status-tree-view.c: (path_sort),
+	(anjuta_vcs_status_tree_view_init):
+	* plugins/language-support-cpp-java/plugin.c:
+	(set_indentation_param_vim):
+	* plugins/subversion/subversion-commit-dialog.c:
+	(subversion_commit_dialog):
+	* plugins/subversion/subversion-diff-dialog.c:
+	(on_subversion_diff_response):
+	* plugins/subversion/subversion-log-dialog.c:
+	(on_log_view_selected_button_clicked),
+	(on_log_diff_selected_button_clicked),
+	(on_log_diff_previous_button_clicked):
+	* plugins/subversion/subversion-resolve-dialog.c:
+	(subversion_resolve_dialog):
+	* plugins/subversion/subversion-revert-dialog.c:
+	(subversion_revert_dialog):
+	* plugins/subversion/subversion-ui-utils.c: (stop_pulse_timer),
+	(pulse_progress_bar), (hide_pulse_progress_bar),
+	(disconnect_data_arrived_signals),
+	(cancel_data_arrived_signal_disconnect):
+	* plugins/subversion/subversion-ui-utils.h:
+	
+	#504818 – Some signals/timeouts should be disconnected when dialogs are closed
+	#505237 – Sort list of modified files
+
 2007-12-24  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/gdb/debugger.c:

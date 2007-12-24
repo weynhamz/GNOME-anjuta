@@ -97,6 +97,10 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 							  G_CALLBACK (send_diff_command_output_to_editor),
 							  editor);
 			
+			g_object_weak_ref (G_OBJECT (editor), 
+							   (GWeakNotify) disconnect_data_arrived_signals,
+							   diff_command);
+			
 			if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (diff_save_open_files_check)))
 				ianjuta_file_savable_save (IANJUTA_FILE_SAVABLE (docman), NULL);
 			

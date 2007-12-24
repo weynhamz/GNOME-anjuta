@@ -122,13 +122,21 @@ subversion_resolve_dialog (GtkAction *action, Subversion *plugin)
 	
 	pulse_progress_bar (GTK_PROGRESS_BAR (resolve_status_progress_bar));
 	
+	g_signal_connect (G_OBJECT (status_command), "command-finished",
+					  G_CALLBACK (cancel_data_arrived_signal_disconnect),
+					  resolve_status_view);
+	
 	g_signal_connect (G_OBJECT (status_command), "command_finished",
 					  G_CALLBACK (hide_pulse_progress_bar),
 					  resolve_status_progress_bar);
 	
 	g_signal_connect (G_OBJECT (status_command), "command-finished",
 					  G_CALLBACK (on_status_command_finished),
-					  NULL);
+					  resolve_status_view);
+	
+	g_object_weak_ref (G_OBJECT (resolve_status_view),
+					   (GWeakNotify) disconnect_data_arrived_signals,
+					   status_command);
 	
 	anjuta_command_start (ANJUTA_COMMAND (status_command));
 	

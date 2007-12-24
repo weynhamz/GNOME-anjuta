@@ -112,9 +112,30 @@ anjuta_vcs_status_tree_view_create_columns (AnjutaVcsStatusTreeView *self)
 	
 }
 
+static gint
+path_sort (GtkTreeModel *model, GtkTreeIter *a, GtkTreeIter *b, 
+		   gpointer user_data)
+{
+	gint compare_value;
+	gchar *path1;
+	gchar *path2;
+	
+	gtk_tree_model_get (model, a, COL_PATH, &path1, -1);
+	gtk_tree_model_get (model, b, COL_PATH, &path2, -1);
+	
+	compare_value = strcmp (path1, path2);
+	
+	g_free (path1);
+	g_free (path2);
+	
+	return compare_value;
+}
+
 static void
 anjuta_vcs_status_tree_view_init (AnjutaVcsStatusTreeView *self)
 {
+	GtkTreeSortable *sortable;
+	
 	self->priv = g_new0 (AnjutaVcsStatusTreeViewPriv, 1);
 	self->priv->store = gtk_list_store_new (NUM_COLS,
 											G_TYPE_BOOLEAN,
@@ -127,6 +148,12 @@ anjuta_vcs_status_tree_view_init (AnjutaVcsStatusTreeView *self)
 	
 	anjuta_vcs_status_tree_view_create_columns (self);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (self), FALSE);
+	
+	sortable = GTK_TREE_SORTABLE (self->priv->store);
+	gtk_tree_sortable_set_sort_column_id (sortable, COL_PATH,
+										  GTK_SORT_ASCENDING);
+	gtk_tree_sortable_set_sort_func (sortable, COL_PATH, path_sort, NULL,
+									 NULL);
 }
 
 static void
