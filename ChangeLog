@@ -1,3 +1,8 @@
+2007-12-24  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gdb/debugger.c:
+	Fix bug #491301: Inspecting a variable opens a bad focus dialog
+
 2007-12-23  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c:

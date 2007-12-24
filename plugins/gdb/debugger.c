@@ -1401,10 +1401,11 @@ debugger_stdo_flush (Debugger *debugger)
 		{
 			debugger->priv->current_cmd.parser (debugger, val, debugger->priv->cli_lines, error);
 			debugger->priv->command_output_sent = TRUE;				}
-		else
+		DEBUG_PRINT("GDB: error %s", error->message);
+		/*else
 		{
 			anjuta_util_dialog_error (debugger->priv->parent_win, "%s", error->message);
-		}
+		}*/
 		g_error_free (error);
 		gdbmi_value_free (val);
 	}
