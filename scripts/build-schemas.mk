@@ -1,6 +1,7 @@
 # Targets for handing glade-to-GConf schema conversion for prefs keys
 
-prefs_glade_schemas = $(prefs_glade_files:.glade=.schemas)
+prefs_glade_schemasdir = @GCONF_SCHEMA_FILE_DIR@
+prefs_glade_schemas_DATA = $(prefs_glade_files:.glade=.schemas)
 
 build-schema-files:
 	for p in $(prefs_glade_files); do \

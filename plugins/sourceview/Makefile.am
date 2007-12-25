@@ -2,7 +2,7 @@ if HAVE_PLUGIN_SOURCEVIEW
 
 # Plugin glade file
 sourceview_gladedir = $(anjuta_glade_dir)
-sourceview_glade_DATA = sourceview.glade
+sourceview_glade_DATA = anjuta-editor-sourceview.glade
 
 # Plugin Icon file
 sourceview_pixmapsdir = $(anjuta_image_dir)
@@ -94,7 +94,7 @@ libanjuta_sourceview_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
 
-prefs_glade_files = sourceview.glade
+prefs_glade_files = anjuta-editor-sourceview.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
 libanjuta_sourceview_la_DEPENDENCIES = \

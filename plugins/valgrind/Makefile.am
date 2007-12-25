@@ -49,7 +49,6 @@ libanjuta_valgrind_la_LDFLAGS = $(ANJUTA_PLUGIN_LDFLAGS)
 libanjuta_valgrind_la_LIBADD = \
 	$(LIBANJUTA_LIBS) \
 	$(PLUGIN_VALGRIND_LIBS)
-	
 
 # Plugin sources
 libanjuta_valgrind_la_SOURCES = \
@@ -122,7 +121,6 @@ MARSHAL_GENERATED = \
 schemadir   = @GCONF_SCHEMA_FILE_DIR@
 schema_DATA = anjuta-valgrind.schemas
 
-
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(valgrind_plugin_DATA) \
@@ -133,8 +131,17 @@ EXTRA_DIST = \
 	$(schema_DATA) \
 	vgmarshal.list
 
+if GCONF_SCHEMAS_INSTALL
 install-data-local:
         GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(srcdir)/$(schema_DATA)
+
+uninstall-local:
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-uninstall-rule $(srcdir)/$(schema_DATA)
+else
+install-data-local:
+
+uninstall-local:
+endif
 	
 noinst_PROGRAMS = \
 	bugged-prg-test 

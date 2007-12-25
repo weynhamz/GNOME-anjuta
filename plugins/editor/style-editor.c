@@ -31,7 +31,7 @@
 #include "style-editor.h"
 
 #define string_assign(dest, src) g_free ((*dest)); (*dest) = g_strdup ((src));
-#define GLADE_FILE PACKAGE_DATA_DIR"/glade/editor.glade"
+#define GLADE_FILE PACKAGE_DATA_DIR"/glade/anjuta-editor-scintilla.glade"
 
 gchar *hilite_style[] = {
 	"Normal <Default>", "style.*.32",

@@ -1,3 +1,20 @@
+2007-12-25  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/Makefile.am:
+	* plugins/editor/editor.glade:
+	* plugins/editor/plugin.c:
+	* plugins/editor/style-editor.c:
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/plugin.c:
+	* plugins/sourceview/sourceview.glade:
+	* plugins/valgrind/Makefile.am:
+
+	Renamed glade files to anjuta-editor-* to give name space for the
+	schema files (because they are installed in system directory).
+
+	* scripts/build-schemas.mk: Install the schemas files also (need for
+	binary package installation/uninstallation).
+
 2007-12-25  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c:

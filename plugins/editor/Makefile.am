@@ -5,7 +5,7 @@ if HAVE_PLUGIN_SCINTILLA
 
 # Plugin glade file
 editor_gladedir = $(anjuta_glade_dir)
-editor_glade_DATA = editor.glade
+editor_glade_DATA = anjuta-editor-scintilla.glade
 
 # Plugin Icon file
 editor_pixmapsdir = $(anjuta_image_dir)
@@ -76,7 +76,7 @@ libanjuta_editor_la_SOURCES= \
 
 endif
 
-prefs_glade_files = editor.glade
+prefs_glade_files = anjuta-editor-scintilla.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
 libanjuta_editor_la_DEPENDENCIES = \
