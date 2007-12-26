@@ -110,7 +110,7 @@ AnEditor::AnEditor(PropSetFile* p) {
 
 	accelGroup = NULL;
 	calltipShown = false;
-	debugTipOn = false;
+	// debugTipOn = false;
 	
 	fileName[0] = '\0';
 	props = p;
@@ -607,9 +607,9 @@ void AnEditor::BraceMatch(bool editor) {
 			int indentPosNext = Platform::SendScintilla(win.GetID(), SCI_GETLINEINDENTPOSITION, lineStart + 1, 0);
 			columnAtCaret = Platform::SendScintilla(win.GetID(), SCI_GETCOLUMN, indentPos, 0);
 			int columnAtCaretNext = Platform::SendScintilla(win.GetID(), SCI_GETCOLUMN, indentPosNext, 0);
-			int indentSize = Platform::SendScintilla(win.GetID(), SCI_GETINDENT);
-			if (columnAtCaretNext - indentSize > 1)
-				columnAtCaret = columnAtCaretNext - indentSize;
+			int indentationSize = Platform::SendScintilla(win.GetID(), SCI_GETINDENT);
+			if (columnAtCaretNext - indentationSize > 1)
+				columnAtCaret = columnAtCaretNext - indentationSize;
 			//Platform::DebugPrintf(": %d %d %d\n", lineStart, indentPos, columnAtCaret);
 			if (columnOpposite == 0)	// If the final line of the structure is empty
 				columnOpposite = columnAtCaret;
@@ -752,12 +752,12 @@ void AnEditor::BookmarkPrev() {
 	if (nextLine < 0 || nextLine == lineno) {
 		if(props->GetInt("editor.wrapbookmarks")) {
 			int nrOfLines = SendEditor(SCI_GETLINECOUNT, 0, 1 << ANE_MARKER_BOOKMARK);
-			int nextLine = SendEditor(SCI_MARKERPREVIOUS, nrOfLines, 1 << ANE_MARKER_BOOKMARK);
-			if (nextLine < 0 || nextLine == lineno) {
+			int nextLine1 = SendEditor(SCI_MARKERPREVIOUS, nrOfLines, 1 << ANE_MARKER_BOOKMARK);
+			if (nextLine1 < 0 || nextLine1 == lineno) {
 				gdk_beep(); // how do I beep? -- like this ;-)
 			} else {
-				SendEditor(SCI_ENSUREVISIBLE, nextLine);
-				SendEditor(SCI_GOTOLINE, nextLine);
+				SendEditor(SCI_ENSUREVISIBLE, nextLine1);
+				SendEditor(SCI_GOTOLINE, nextLine1);
 			}
 		}
 	} else {
@@ -771,12 +771,12 @@ void AnEditor::BookmarkNext() {
 	int nextLine = SendEditor(SCI_MARKERNEXT, lineno + 1, 1 << ANE_MARKER_BOOKMARK);
 	if (nextLine < 0 || nextLine == lineno) {
 		if(props->GetInt("editor.wrapbookmarks")) {
-			int nextLine = SendEditor(SCI_MARKERNEXT, 0, 1 << ANE_MARKER_BOOKMARK);
-			if (nextLine < 0 || nextLine == lineno) {
+			int nextLine1 = SendEditor(SCI_MARKERNEXT, 0, 1 << ANE_MARKER_BOOKMARK);
+			if (nextLine1 < 0 || nextLine1 == lineno) {
 				gdk_beep(); // how do I beep? -- like this ;-)
 			} else {				
-				SendEditor(SCI_ENSUREVISIBLE, nextLine);
-				SendEditor(SCI_GOTOLINE, nextLine);
+				SendEditor(SCI_ENSUREVISIBLE, nextLine1);
+				SendEditor(SCI_GOTOLINE, nextLine1);
 			}
 		}
 	} else {
@@ -2133,7 +2133,6 @@ eval_output_arrived_for_aneditor(GList* lines, gpointer data)
 
 	info->editor->EvalOutputArrived(lines, info->textPos, info->expression);
 }
-#endif
 
 void AnEditor::EvalOutputArrived(GList* lines, int textPos,
 								 const string &expression) {
@@ -2170,8 +2169,6 @@ void AnEditor::HandleDwellStart(int mousePos) {
 		return;
 
 	char expr[256];
-//FIXME:
-#if 0
 	if (!debugger_is_active() || !debugger_is_ready())
 	{
 		// Do not show expression tip if it can't be shown.
@@ -2179,7 +2176,6 @@ void AnEditor::HandleDwellStart(int mousePos) {
 		// SendEditorString(SCI_CALLTIPSHOW, mousePos, s.c_str());
 		return;
 	}
-#endif	
 	// If debug tip is already running, return.
 	if (debugTipOn)
 		return;
@@ -2224,15 +2220,13 @@ void AnEditor::HandleDwellStart(int mousePos) {
 	// We don't want static members of classes to clutter up
 	// the displayed tip, however.
 
-//FIXME:
-#if 0
 	ExpressionEvaluationTipInfo *info =
 			new ExpressionEvaluationTipInfo(this, mousePos, expr);
 	debugger_query_evaluate_expr_tip (expr, eval_output_arrived_for_aneditor, info);
 	debugger_query_execute ();
-#endif
 	debugTipOn = true;
 }
+#endif
 
 #if 0
 int AnEditor::KeyPress(unsigned int state, unsigned int keyval){
@@ -2335,7 +2329,7 @@ void AnEditor::Notify(SCNotification *notification) {
 			EnsureRangeVisible(notification->position, notification->position + notification->length);
 		}
 		break;
-
+/*
 	case SCN_DWELLSTART:
 		HandleDwellStart(notification->position);
 		break;
@@ -2344,7 +2338,7 @@ void AnEditor::Notify(SCNotification *notification) {
 		EndDebugEval();
 		// SendEditor(SCI_CALLTIPCANCEL);
 		break;
-
+*/
 	}
 }
 
@@ -3138,7 +3132,7 @@ on_aneditor_focus_in (GtkWidget* widget, gpointer* unused, AnEditor* ed)
 gint
 on_aneditor_focus_out (GtkWidget* widget, gpointer * unused, AnEditor* ed)
 {
-	ed->EndDebugEval();
+	/* ed->EndDebugEval(); */
 	ed->FocusOutEvent(widget);
 	return FALSE;
 }

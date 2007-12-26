@@ -221,7 +221,15 @@ on_text_editor_scintilla_notify (GtkWidget * sci, gint wParam, gpointer lParam,
 			}
 	}
 	return;
-	
+	case SCN_DWELLSTART:
+		g_signal_emit_by_name (te, "hover-over", nt->position);
+		return;
+		
+	case SCN_DWELLEND:
+		text_editor_hide_hover_tip (te);
+		g_signal_emit_by_name (te, "hover-leave", nt->position);
+		return;
+
 /*	case SCEN_SETFOCUS:
 	case SCEN_KILLFOCUS:
 	case SCN_STYLENEEDED:

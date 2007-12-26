@@ -46,6 +46,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-editor-assist.h>
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
+#include <libanjuta/interfaces/ianjuta-editor-hover.h>
 #include <libanjuta/interfaces/ianjuta-bookmark.h>
 #include <libanjuta/interfaces/ianjuta-editor-factory.h>
 #include <libanjuta/interfaces/ianjuta-file.h>
@@ -128,6 +129,7 @@ text_editor_instance_init (TextEditor *te)
 	te->first_time_expose = TRUE;
 	te->encoding = NULL;
 	te->gconf_notify_ids = NULL;
+	te->hover_tip_on = FALSE;
 }
 
 static void
@@ -2102,6 +2104,31 @@ text_editor_can_redo (TextEditor *te)
 }
 
 void
+text_editor_show_hover_tip (TextEditor *te, gint position, const gchar *info)
+{
+	text_editor_hide_hover_tip (te);
+	if (!te->hover_tip_on)
+	{
+		scintilla_send_message (SCINTILLA (te->scintilla), SCI_CALLTIPSHOW,
+								position, (long)info);
+		scintilla_send_message (SCINTILLA (te->scintilla), SCI_CALLTIPSETHLT,
+								strlen (info), 0);
+		te->hover_tip_on = TRUE;
+	}
+}
+
+void
+text_editor_hide_hover_tip (TextEditor *te)
+{
+	if (te->hover_tip_on)
+	{
+		scintilla_send_message (SCINTILLA (te->scintilla),
+								SCI_CALLTIPCANCEL, 0, 0);
+		te->hover_tip_on = FALSE;
+	}
+}
+
+void
 text_editor_command (TextEditor *te, gint command, glong wparam, glong lparam)
 {
 	GList *node;
@@ -3630,6 +3657,31 @@ isearch_iface_init(IAnjutaEditorSearchIface* iface)
 	iface->backward = isearch_backward;
 }
 
+static void
+ihover_display (IAnjutaEditorHover *ihover, gint position,
+				const gchar *info, GError **e)
+{
+	TextEditor *te = TEXT_EDITOR (ihover);
+	g_return_if_fail (position >= 0);
+	g_return_if_fail (info != NULL);
+	text_editor_show_hover_tip (te, position, info);
+}
+
+static void
+ihover_set_timeout (IAnjutaEditorHover *ihover, gint timeout, GError **e)
+{
+	TextEditor *te = TEXT_EDITOR (ihover);
+	g_return_if_fail (timeout > 0);
+	scintilla_send_message (SCINTILLA (te->scintilla), SCI_SETMOUSEDWELLTIME,
+							timeout, 0);
+}
+
+static void
+ihover_iface_init(IAnjutaEditorHoverIface* iface)
+{
+	iface->display = ihover_display;
+	iface->set_timeout = ihover_set_timeout;
+}
 
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
@@ -3651,6 +3703,7 @@ ANJUTA_TYPE_ADD_INTERFACE(icomment, IANJUTA_TYPE_EDITOR_COMMENT);
 ANJUTA_TYPE_ADD_INTERFACE(izoom, IANJUTA_TYPE_EDITOR_ZOOM);
 ANJUTA_TYPE_ADD_INTERFACE(igoto, IANJUTA_TYPE_EDITOR_GOTO);
 ANJUTA_TYPE_ADD_INTERFACE(isearch, IANJUTA_TYPE_EDITOR_SEARCH);
+ANJUTA_TYPE_ADD_INTERFACE(ihover, IANJUTA_TYPE_EDITOR_HOVER);
 
 /* FIXME: Is factory definition really required for editor class? */
 ANJUTA_TYPE_ADD_INTERFACE(itext_editor_factory, IANJUTA_TYPE_EDITOR_FACTORY);

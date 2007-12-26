@@ -263,10 +263,10 @@ protected:
 	bool isDirty;
 	
 	bool calltipShown;
-	bool debugTipOn;
+	//bool debugTipOn;
 	static AnEditorID focusedID;
 	friend void aneditor_set_focused_ed_ID(AnEditorID id);
-	friend void eval_output_arrived_for_aneditor(GList* lines, gpointer data);
+	//friend void eval_output_arrived_for_aneditor(GList* lines, gpointer data);
 
 	PropSetFile *props;
 
@@ -346,7 +346,7 @@ protected:
 	void Expand(int &line, bool doExpand, bool force=false, 
 				int visLevels=0, int level=-1);
 	bool MarginClick(int position,int modifiers);
-	void HandleDwellStart(int mousePos);
+	//void HandleDwellStart(int mousePos);
 	void Notify(SCNotification *notification);
 	static void NotifySignal(GtkWidget *w, gint wParam, gpointer lParam,
 							 AnEditor *scitew);
@@ -412,9 +412,11 @@ public:
 
 	void FocusInEvent(GtkWidget* widget);
 	void FocusOutEvent(GtkWidget* widget);
+	/*
 	void EvalOutputArrived(GList* lines, int textPos,
 						   const string &expression);
 	void EndDebugEval();
+	*/
 	void SetParent(AnEditor *parent);
 };
 

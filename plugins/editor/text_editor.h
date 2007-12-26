@@ -112,6 +112,8 @@ struct _TextEditor
 	 */
 	gint file_modified_timer;
 	GtkWidget *file_modified_widget;
+	
+	gboolean hover_tip_on;
 };
 
 struct _TextEditorClass
@@ -238,6 +240,10 @@ void text_editor_set_busy (TextEditor *te, gboolean state);
 /* Multiple views addition and removal */
 void text_editor_add_view (TextEditor *te);
 void text_editor_remove_view (TextEditor *te);
+
+/* Show/hide hover tips */
+void text_editor_show_hover_tip (TextEditor *te, gint position, const gchar *info);
+void text_editor_hide_hover_tip (TextEditor *te);
 
 /* Direct editor commands to AnEditor and Scintilla */
 void text_editor_command(TextEditor *te, gint command,

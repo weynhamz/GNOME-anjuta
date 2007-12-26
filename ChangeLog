@@ -1,4 +1,19 @@
-2007-12-26  Naba Kumar  <naba.kumar@gnome.org>
+2007-12-27  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/editor/aneditor-priv.h:
+	* plugins/editor/aneditor.cxx:
+	* plugins/editor/text_editor.c: (text_editor_instance_init),
+	(text_editor_show_hover_tip), (text_editor_hide_hover_tip),
+	(ihover_display), (ihover_set_timeout), (ihover_iface_init):
+	* plugins/editor/text_editor.h:
+	* plugins/editor/text_editor_cbs.c:
+	(on_text_editor_scintilla_notify):
+
+	Implemented IAnjutaEditorHover interface in scintilla editor. Disabled
+	related code in AnEditor. Fixed some compilation warnings.
+
+2007-12-26  Naba Kumar  <naba@gnome.org>
 
 	* Changelog: Fixed indentation.
 

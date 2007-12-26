@@ -1651,7 +1651,7 @@ interface IAnjutaEditor
 		void ::hover_leave (gint position);
 		
 		void set_timeout (gint timeout);
-		void display (const gchar *info);
+		void display (gint position, const gchar *info);
 	}
 	
 	/**
