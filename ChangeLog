@@ -1,3 +1,7 @@
+2007-12-26  Naba Kumar  <naba.kumar@gnome.org>
+
+	* Changelog: Fixed indentation.
+
 2007-12-25  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/Makefile.am:
@@ -24,7 +28,7 @@
 
 2007-12-25  Johannes Schmid <jhs@gnome.org>
 
-  Patches from James Liggett:
+	Patches from James Liggett:
 	* libanjuta/anjuta-vcs-status-tree-view.c: (path_sort),
 	(anjuta_vcs_status_tree_view_init):
 	* plugins/subversion/subversion-commit-dialog.c:
@@ -60,7 +64,7 @@
 	(parse_mode_line_emacs), (parse_mode_line_vim),
 	(extract_mode_line), (initialize_indentation_params):
 
-  Added (basic) support for vim modelines (#504331)
+	Added (basic) support for vim modelines (#504331)
 
 	* plugins/message-view/message-view.c: (message_view_next),
 	(message_view_previous):
@@ -151,9 +155,9 @@
 
 2007-12-23  Johannes Schmid <jhs@gnome.org>
 
-  Patch from Tom <tpgww@onepost.net>:
+	Patch from Tom <tpgww@onepost.net>:
   
-  * plugins/document-manager/anjuta-docman.c:
+	* plugins/document-manager/anjuta-docman.c:
 	(on_notebook_tab_btnpress), (on_notebook_tab_btnrelease),
 	(anjuta_docman_compare_pages), (anjuta_docman_sort_pagelist),
 	(anjuta_docman_instance_init), (on_notebook_switch_page),
@@ -165,33 +169,33 @@
 
 2007-12-23  Massimo Cora'  <maxcvs@email.it>
 
-  * plugins/symbol-db/plugin.c: (register_stock_icons),
-  (value_added_current_editor), (value_removed_current_editor),
-  (on_importing_project_end), (project_root_removed):
-  added controls to clean/populate GtkTreeView(s) on projects unload/load.
+	* plugins/symbol-db/plugin.c: (register_stock_icons),
+	(value_added_current_editor), (value_removed_current_editor),
+	(on_importing_project_end), (project_root_removed):
+	added controls to clean/populate GtkTreeView(s) on projects unload/load.
 
-  * plugins/symbol-db/symbol-db-engine.c: (sdb_engine_finalize),
-  (symbol_db_engine_get_file_db_path):
-  fixed a useless warning.
+	* plugins/symbol-db/symbol-db-engine.c: (sdb_engine_finalize),
+	(symbol_db_engine_get_file_db_path):
+	fixed a useless warning.
 
-  * plugins/symbol-db/symbol-db-view-locals.c:
-  (traverse_free_waiting_for), (file_view_status_destroy),
-  (sdb_view_locals_create_new_store), (traverse_files_view_status),
-  (symbol_db_view_locals_clear_cache), (sdb_view_locals_init),
-  (sdb_view_locals_finalize), (on_symbol_inserted),
-  (symbol_db_view_locals_recv_signals_from_engine),
-  (symbol_db_view_locals_update_list):
-  more speed on editors switching. GtkTreeStore caching method implemented.
-  Fixed compiler warnings and a little memory leak.
+	* plugins/symbol-db/symbol-db-view-locals.c:
+	(traverse_free_waiting_for), (file_view_status_destroy),
+	(sdb_view_locals_create_new_store), (traverse_files_view_status),
+	(symbol_db_view_locals_clear_cache), (sdb_view_locals_init),
+	(sdb_view_locals_finalize), (on_symbol_inserted),
+	(symbol_db_view_locals_recv_signals_from_engine),
+	(symbol_db_view_locals_update_list):
+	more speed on editors switching. GtkTreeStore caching method implemented.
+	Fixed compiler warnings and a little memory leak.
 
-  * plugins/symbol-db/symbol-db-view-locals.h:
-  * plugins/symbol-db/symbol-db-view.c: (gtree_compare_func),
-  (traverse_free_waiting_for), (symbol_db_view_clear_cache),
-  (on_scan_end), (on_symbol_inserted),
-  (sdb_view_locals_create_new_store), (sdb_view_init),
-  (sdb_view_finalize), (symbol_db_view_new), (symbol_db_view_open):
-  * plugins/symbol-db/symbol-db-view.h:
-  fixed some crashers. Now project loading/populating should be quite quick.
+	* plugins/symbol-db/symbol-db-view-locals.h:
+	* plugins/symbol-db/symbol-db-view.c: (gtree_compare_func),
+	(traverse_free_waiting_for), (symbol_db_view_clear_cache),
+	(on_scan_end), (on_symbol_inserted),
+	(sdb_view_locals_create_new_store), (sdb_view_init),
+	(sdb_view_finalize), (symbol_db_view_new), (symbol_db_view_open):
+	* plugins/symbol-db/symbol-db-view.h:
+	fixed some crashers. Now project loading/populating should be quite quick.
 
 2007-12-22  Sébastien Granjoux  <seb.sfo@free.fr>
 
@@ -209,7 +213,7 @@
 
 2007-12-17  Johannes Schmid <jhs@gnome.org>
 
-  Patch from Tom <tpgww@onepost.net> (with some changes):
+	Patch from Tom <tpgww@onepost.net> (with some changes):
 
 	* plugins/document-manager/action-callbacks.c: (on_open_activate),
 	(on_save_as_activate), (on_save_all_activate),
@@ -256,10 +260,10 @@
 	(on_goto_activated), (search_box_init), (search_box_new):
 	* plugins/document-manager/search-box.h:
 
-  Yet more code cleanups
-  Save glade files correctly in session
-  Use new tooltip API if available
-  Sort notebook pages when session is restored (needs work)
+	Yet more code cleanups
+	Save glade files correctly in session
+	Use new tooltip API if available
+	Sort notebook pages when session is restored (needs work)
 
 2007-12-16  Johannes Schmid <jhs@gnome.org>
 
@@ -272,7 +276,7 @@
 2007-12-12  Johannes Schmid <jhs@gnome.org>
   
 	Patch from  Tom <tpgww@onepost.net>:
-  (#485233 – another bunch of docman cleanups)
+	(#485233 – another bunch of docman cleanups)
   
 	* libanjuta/interfaces/libanjuta.idl:
 	* plugins/document-manager/action-callbacks.c:
@@ -424,58 +428,58 @@
 
 2007-12-01  Massimo Cora'  <maxcvs@email.it>
 
-		* plugins/symbol-db/plugin.c: (on_editor_destroy),
-        (on_editor_update_ui), (on_single_file_scan_end),
-        (on_importing_project_end), (project_root_added),
-        (on_session_load), (symbol_db_activate), (symbol_db_instance_init):
-        * plugins/symbol-db/plugin.h:
-        show on status bar files being scanned.
+	* plugins/symbol-db/plugin.c: (on_editor_destroy),
+	(on_editor_update_ui), (on_single_file_scan_end),
+	(on_importing_project_end), (project_root_added),
+	(on_session_load), (symbol_db_activate), (symbol_db_instance_init):
+	* plugins/symbol-db/plugin.h:
+	show on status bar files being scanned.
 
-        * plugins/symbol-db/symbol-db-engine.c:
-        (sdb_engine_get_query_by_id), (sdb_engine_populate_db_by_tags),
-        (sdb_engine_ctags_output_thread),
-        (sdb_engine_timeout_trigger_signals), (sdb_engine_thread_monitor),
-        (sdb_engine_ctags_output_callback_1), (sdb_engine_scan_files_1),
-        (sdb_engine_init), (sdb_engine_finalize), (sdb_engine_class_init),
-        (sdb_engine_connect_to_db), (symbol_db_engine_db_exists),
-        (sdb_engine_get_table_id_by_unique_name2),
-        (symbol_db_engine_open_project),
-        (sdb_engine_prepare_executing_commands),
-        (symbol_db_engine_add_new_files), (sdb_engine_add_new_sym_type),
-        (sdb_engine_add_new_scope_definition), (sdb_engine_add_new_symbol),
-        (sdb_engine_detects_removed_ids),
-        (symbol_db_engine_get_class_parents),
-        (symbol_db_engine_get_global_members),
-        (symbol_db_engine_get_scope_members_by_symbol_id),
-        (symbol_db_engine_get_scope_members),
-        (symbol_db_engine_get_current_scope),
-        (symbol_db_engine_get_file_symbols),
-        (symbol_db_engine_get_symbol_info_by_id),
-        (symbol_db_engine_get_full_local_path),
-        (symbol_db_engine_find_symbol_by_name_pattern),
-        (symbol_db_engine_get_parent_scope_id_by_symbol_id):
-        * plugins/symbol-db/symbol-db-engine.h:
-        * plugins/symbol-db/symbol-db-view-locals.c:
-        (sdb_view_locals_init), (traverse_free_waiting_for), (on_scan_end),
-        (symbol_db_view_locals_recv_signals_from_engine),
-        (symbol_db_view_locals_update_list):
-        * plugins/symbol-db/symbol-db-view-locals.h:
-        * plugins/symbol-db/symbol-db-view.c: (traverse_free_waiting_for),
-        (on_scan_end), (trigger_on_symbol_inserted), (add_new_waiting_for),
-        (prepare_for_adding), (on_symbol_inserted), (sdb_view_init),
-        (symbol_db_view_recv_signals_from_engine), (symbol_db_view_open):
-        * plugins/symbol-db/symbol-db-view.h:
-        Added g_thread architecture to scan in background. With this you
-        can use Anjuta's GUI without freezing.
-        Improved insertion speed by using a paradigm like 'insert' and 'check'
-        replacing a 'check' and 'insert' one. This has been done for tables 
-        like symbol, scope, sym_type.
-        Fixed two crashers. 
+	* plugins/symbol-db/symbol-db-engine.c:
+	(sdb_engine_get_query_by_id), (sdb_engine_populate_db_by_tags),
+	(sdb_engine_ctags_output_thread),
+	(sdb_engine_timeout_trigger_signals), (sdb_engine_thread_monitor),
+	(sdb_engine_ctags_output_callback_1), (sdb_engine_scan_files_1),
+	(sdb_engine_init), (sdb_engine_finalize), (sdb_engine_class_init),
+	(sdb_engine_connect_to_db), (symbol_db_engine_db_exists),
+	(sdb_engine_get_table_id_by_unique_name2),
+	(symbol_db_engine_open_project),
+	(sdb_engine_prepare_executing_commands),
+	(symbol_db_engine_add_new_files), (sdb_engine_add_new_sym_type),
+	(sdb_engine_add_new_scope_definition), (sdb_engine_add_new_symbol),
+	(sdb_engine_detects_removed_ids),
+	(symbol_db_engine_get_class_parents),
+	(symbol_db_engine_get_global_members),
+	(symbol_db_engine_get_scope_members_by_symbol_id),
+	(symbol_db_engine_get_scope_members),
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_get_symbol_info_by_id),
+	(symbol_db_engine_get_full_local_path),
+	(symbol_db_engine_find_symbol_by_name_pattern),
+	(symbol_db_engine_get_parent_scope_id_by_symbol_id):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-view-locals.c:
+	(sdb_view_locals_init), (traverse_free_waiting_for), (on_scan_end),
+	(symbol_db_view_locals_recv_signals_from_engine),
+	(symbol_db_view_locals_update_list):
+	* plugins/symbol-db/symbol-db-view-locals.h:
+	* plugins/symbol-db/symbol-db-view.c: (traverse_free_waiting_for),
+	(on_scan_end), (trigger_on_symbol_inserted), (add_new_waiting_for),
+	(prepare_for_adding), (on_symbol_inserted), (sdb_view_init),
+	(symbol_db_view_recv_signals_from_engine), (symbol_db_view_open):
+	* plugins/symbol-db/symbol-db-view.h:
+	Added g_thread architecture to scan in background. With this you
+	can use Anjuta's GUI without freezing.
+	Improved insertion speed by using a paradigm like 'insert' and 'check'
+	replacing a 'check' and 'insert' one. This has been done for tables 
+	like symbol, scope, sym_type.
+	Fixed two crashers. 
 
-        * plugins/symbol-db/tables.sql:
-        * plugins/symbol-db/test/main.c: (get_global_members), (main),
-        (thread), (print_message), (bastard_thread), (idle_signals):
-        fixed a typo on tables that broke sql triggers.
+	* plugins/symbol-db/tables.sql:
+	* plugins/symbol-db/test/main.c: (get_global_members), (main),
+	(thread), (print_message), (bastard_thread), (idle_signals):
+	fixed a typo on tables that broke sql triggers.
 
 === anjuta 2.3.1 ===
 
