@@ -326,6 +326,15 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		return;
 
 	local_path = gnome_vfs_get_local_path_from_uri (uri);
+	DEBUG_PRINT ("value_added_current_editor () gonna refresh local syms: local_path %s "
+				 "uri %s", local_path, uri);
+	
+	if (strstr (local_path, "//") != NULL)
+	{
+		g_critical ("WARNING FIXME: bad file uri passed to symbol-db from editor. There's "
+				   "a trailing slash left. Please fix this at editor side");
+	}
+	 
 	symbol_db_view_locals_update_list (
 				SYMBOL_DB_VIEW_LOCALS (sdb_plugin->dbv_view_tree_locals),
 				 sdb_plugin->sdbe, local_path);
@@ -348,8 +357,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 
 		g_signal_connect (G_OBJECT (editor), "saved",
 						  G_CALLBACK (on_editor_saved),
-						  sdb_plugin);
-						  
+						  sdb_plugin);						  
 		g_signal_connect (G_OBJECT (editor), "char-added",
 						  G_CALLBACK (on_char_added),
 						  sdb_plugin);
@@ -396,7 +404,7 @@ goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 	loader = anjuta_shell_get_interface (plugin->shell, IAnjutaFileLoader,
 										 NULL);
 		
-	uri = g_strdup_printf ("file:///%s#%d", filename, lineno);
+	uri = g_strdup_printf ("file://%s#%d", filename, lineno);
 	ianjuta_file_loader_load (loader, uri, FALSE, NULL);
 	g_free (uri);
 }
@@ -690,12 +698,16 @@ static void
 on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 {
 	SymbolDBPlugin *sdb_plugin;
+	AnjutaStatus *status;
 	
 	g_return_if_fail (data != NULL);
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (data);
 	
 	DEBUG_PRINT ("on_importing_project_end ()");
+
+	status = anjuta_shell_get_status (ANJUTA_PLUGIN (sdb_plugin)->shell, NULL);
+	anjuta_status_progress_reset (status);
 	
 	/* re-enable signals receiving on local-view */
 	symbol_db_view_locals_recv_signals_from_engine (
@@ -750,8 +762,10 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 			gboolean needs_sources_scan = FALSE;
 			gboolean project_exist = FALSE;
 			gint i;
-			GHashTable* lang_hash = 
-				g_hash_table_new_full (g_str_hash, g_str_equal, NULL, sources_array_free);
+			GHashTable* lang_hash; 
+				
+			lang_hash = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, 
+											  sources_array_free);
 			
 			status = anjuta_shell_get_status (plugin->shell, NULL);
 			anjuta_status_progress_add_ticks (status, 1);
@@ -920,7 +934,10 @@ project_root_added (AnjutaPlugin *plugin, const gchar *name,
 				g_ptr_array_foreach (languages_array, (GFunc)g_free, NULL);
 				g_ptr_array_free (languages_array, TRUE);
 			}
-			
+			else	/* no import needed. Update the symbols */
+			{
+				symbol_db_engine_update_project_symbols (sdb_plugin->sdbe, root_dir);
+			}
 			anjuta_status_progress_tick (status, NULL, _("Populating symbols' db..."));
 			anjuta_status_progress_add_ticks (status, sdb_plugin->files_count);
 			
@@ -1000,8 +1017,7 @@ on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
 	}
 	
 	g_list_foreach (files, (GFunc)g_free, NULL);
-	g_list_free (files);
-	
+	g_list_free (files);	
 }
 
 static gboolean
@@ -1185,19 +1201,6 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	/* Remove widgets: Widgets will be destroyed when dbv_notebook is removed */
 	anjuta_shell_remove_widget (plugin->shell, sdb_plugin->dbv_notebook, NULL);
 
-#if 0			
-	/* Remove UI */
-	anjuta_ui_unmerge (sdb_plugin->ui, sdb_plugin->merge_id);
-
-	/* Remove action group */
-	anjuta_ui_remove_action_group (sv_plugin->ui, sv_plugin->action_group);
-	anjuta_ui_remove_action_group (sv_plugin->ui, sv_plugin->popup_action_group);
-	anjuta_ui_remove_action_group (sdb_plugin->ui, sdb_plugin->action_group_nav);	
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-/*	anjuta_ui_remove_action_group (ui, ((SymbolDBPlugin*)plugin)->action_group); */
-	anjuta_ui_unmerge (ui, ((SymbolDBPlugin*)plugin)->uiid);
-#endif			
-	
 	sdb_plugin->root_watch_id = 0;
 	sdb_plugin->editor_watch_id = 0;
 	sdb_plugin->dbv_notebook = NULL;
@@ -1215,6 +1218,7 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 static void
 symbol_db_finalize (GObject *obj)
 {
+	DEBUG_PRINT ("Symbol-DB finalize");
 	/* Finalization codes here */
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -1265,13 +1269,11 @@ isymbol_manager_search (IAnjutaSymbolManager *sm,
 
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (sm);
 	dbe = SYMBOL_DB_ENGINE (sdb_plugin->sdbe);
-
 	
 	if (match_name && strlen (match_name) > 0)
 		name = match_name;
 	else
 		name = NULL;
-
 	
 	iterator = 
 		symbol_db_engine_find_symbol_by_name_pattern (dbe, 

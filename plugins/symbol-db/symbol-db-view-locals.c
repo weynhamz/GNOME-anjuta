@@ -142,6 +142,41 @@ traverse_files_view_status (gpointer key, gpointer value, gpointer user_data)
 	return TRUE;
 }
 
+/* the function will check for a NULL row_ref of its associated path. In that
+ * case will return FALSE
+ */
+static inline gboolean
+sdb_view_locals_get_iter_from_row_ref (SymbolDBViewLocals *dbvl, 
+									   GtkTreeRowReference *row_ref, 
+									   GtkTreeIter *OUT_iter)
+{
+	GtkTreePath *path;
+	if (row_ref == NULL) 
+	{
+		/* no node displayed found */
+		DEBUG_PRINT ("sdb_view_locals_get_iter_from_row_ref (): row_ref == NULL");
+		return FALSE;
+	}
+			
+	path = gtk_tree_row_reference_get_path (row_ref);
+	if (path == NULL) 
+	{
+		DEBUG_PRINT ("sdb_view_locals_get_iter_from_row_ref (): path is null, something "
+					 "went wrong ?!");
+		return FALSE;
+	}
+		
+	if (gtk_tree_model_get_iter (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)),
+                             OUT_iter, path) == FALSE) 
+	{
+		gtk_tree_path_free (path);
+		return FALSE;
+	}
+	gtk_tree_path_free (path);	
+	
+	return TRUE;
+}
+
 void 
 symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl)
 {
@@ -153,10 +188,16 @@ symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl)
 	
 	priv = dbvl->priv;
 		
-	DEBUG_PRINT ("symbol_db_view_clear_cache ()");
+	DEBUG_PRINT ("symbol_db_view_locals_clear_cache ()");
+	/* check whether we already have the view status saved on hash table or not.
+	 * If we saved that then don't remove it, or there may be a memory leak
+	 */	
 	if (priv->current_db_file != NULL)
+	{
+		DEBUG_PRINT ("priv->current_db_file %s ", priv->current_db_file);
 		hash_node = g_hash_table_lookup (priv->files_view_status, 
 										 priv->current_db_file);
+	}
 	
 	if (hash_node == NULL)
 	{
@@ -173,7 +214,7 @@ symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl)
 			g_tree_destroy (priv->waiting_for);
 			priv->waiting_for = NULL;
 		}
-		
+
 		store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));
 		if (store != NULL)
 			g_object_unref (store);
@@ -192,6 +233,9 @@ symbol_db_view_locals_clear_cache (SymbolDBViewLocals *dbvl)
 		g_hash_table_foreach_remove (priv->files_view_status, 
 									 traverse_files_view_status, NULL);
 	}
+	
+	priv->waiting_for = NULL;
+	priv->nodes_displayed = NULL;
 }
 
 
@@ -370,27 +414,17 @@ do_add_child_symbol_to_view (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 	priv = dbvl->priv;	
 	
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)));
-	
-	/* look into nodes_displayed g_tree for the gtktreepath of the parent iter,
-	 * get the gtktreeiter, and add a child 
-	 */
+
+	/* look up the row ref in the hashtable, then get its associated gtktreeiter */
 	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)parent_symbol_id);
-	path = gtk_tree_row_reference_get_path (row_ref);
 	
-	if (path == NULL) {
-		DEBUG_PRINT ("do_add_symbol_to_view (): something went wrong.");
-		return NULL;		
-	}
-	
-	if (gtk_tree_model_get_iter (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)),
-                                 &iter, path) == FALSE) {									 
-		DEBUG_PRINT ("do_add_symbol_to_view (): iter was not set ?![%s %d] parent %d",
-					 symbol_name, symbol_id, parent_symbol_id);
+	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
+	{
+		g_warning ("do_add_symbol_to_view (): something went wrong.");
 		return NULL;
 	}
-
-	gtk_tree_path_free (path);
 	
+	/* append a new child &child_iter, with a parent of &iter */
 	gtk_tree_store_append (store, &child_iter, &iter);
 			
 	gtk_tree_store_set (store, &child_iter,
@@ -399,19 +433,12 @@ do_add_child_symbol_to_view (SymbolDBViewLocals *dbvl, gint parent_symbol_id,
 		COLUMN_SYMBOL_ID, symbol_id,
 		-1);	
 	
-	gchar *tmp_str = gtk_tree_path_to_string (
-					gtk_tree_model_get_path (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)),
-                                          &child_iter));
-
-	g_free (tmp_str);
-	
+	/* grab the row ref and return it */
 	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)),
                                           &child_iter);
 	row_ref = gtk_tree_row_reference_new (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)), 
 										  path);
 	gtk_tree_path_free (path);
-	
 	return row_ref;
 }
 
@@ -503,6 +530,8 @@ traverse_on_scan_end (gpointer key, gpointer value, gpointer data)
 
 		/* now the waiters should be added as children */
 		trigger_on_symbol_inserted  (dbvl, parent_id);
+		
+		g_object_unref (iterator);
 	}
 	
 	/* continue the traversing */
@@ -528,7 +557,8 @@ on_scan_end (SymbolDBEngine *dbe, gpointer data)
 	 * If it's not the case then try to add it to the on the root of the gtktreeview
 	 * and to trigger the insertion.
 	 */
-	if ((waiting_for_size = g_tree_nnodes (priv->waiting_for)) <= 0)
+	if (priv->waiting_for == NULL || 
+		(waiting_for_size = g_tree_nnodes (priv->waiting_for)) <= 0)
 		return;
 
 	/* we have something left. Search the parent_symbol_id [identified by the
@@ -590,7 +620,6 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	SymbolDBViewLocalsPriv *priv;
     GtkTreeIter  iter;	
 	GtkTreeRowReference *row_ref;
-	GtkTreePath *path;
 	
 	dbvl = SYMBOL_DB_VIEW_LOCALS (data);
 
@@ -602,28 +631,11 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	DEBUG_PRINT ("on_symbol_removed (): -local- %d", symbol_id);
 
 	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)symbol_id);
-	if (row_ref == NULL) 
+	if (sdb_view_locals_get_iter_from_row_ref (dbvl, row_ref, &iter) == FALSE)
 	{
-		DEBUG_PRINT ("on_symbol_removed (): ERROR: cannot remove %d", symbol_id);
+		g_warning ("on_symbol_removed locals: something went wrong");
 		return;
 	}
- 
-	path = gtk_tree_row_reference_get_path (row_ref);
-	if (path == NULL) 
-	{
-		DEBUG_PRINT ("on_symbol_removed (): ERROR2: cannot remove %d", symbol_id);
-		return;
-	}
-	
-	if (gtk_tree_model_get_iter (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)),
-                                 &iter, path) == FALSE) 
-	{
-		DEBUG_PRINT ("on_symbol_removed (): iter was not set ?![%d]",
-					 symbol_id);
-		gtk_tree_path_free (path);
-		return;
-	}
-	gtk_tree_path_free (path);
 
 	do_recurse_subtree_and_remove (dbvl, &iter);
 }
@@ -918,7 +930,7 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
 															symbol_id,
 															priv->current_db_file);
-	
+	/* try in a global fashion */
 	if (parent_symbol_id <= 0)
 		parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
 															symbol_id,
@@ -969,7 +981,6 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 				gint curr_child_id;
 				GtkTreeIter child_iter;
 				GtkTreeRowReference *row_ref;
-				GtkTreePath *path;
 				SymbolDBEngineIteratorNode *iter_node;
 
 				iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator_for_children);
@@ -977,32 +988,18 @@ on_symbol_inserted (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 				curr_child_id = 
 					symbol_db_engine_iterator_node_get_symbol_id (iter_node);
 
-/*				DEBUG_PRINT ("on_symbol_inserted (): %d has child %d",
-							 symbol_id, curr_child_id);*/
 				row_ref = g_tree_lookup (priv->nodes_displayed,
 										 (gpointer)curr_child_id);
-
-				if (row_ref == NULL) 
-				{
-					/* no node displayed found */
-					continue;
-				}
 				
-				path = gtk_tree_row_reference_get_path (row_ref);
-				if (path == NULL) 
-				{
-					DEBUG_PRINT ("on_symbol_inserted (): path is null, something "
-								 "went wrong ?!");
+				if (row_ref == NULL)
 					continue;
-				}
-		
-				if (gtk_tree_model_get_iter (gtk_tree_view_get_model (GTK_TREE_VIEW (dbvl)),
-                                 &child_iter, path) == FALSE) 
+				
+				if (sdb_view_locals_get_iter_from_row_ref (dbvl, 
+								row_ref, &child_iter) == FALSE)
 				{
-					gtk_tree_path_free (path);
-					continue;		
-				}
-				gtk_tree_path_free (path);
+					g_warning ("on_symbol_inserted (): something went wrong");
+					continue;
+				}		
 				
 				/* put on waiting_for the subtree */
 				do_recurse_subtree_and_invalidate (dbvl, &child_iter, symbol_id);
@@ -1185,8 +1182,12 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 
 	priv->current_db_file = 
 		symbol_db_engine_get_file_db_path (dbe, filepath);
-	if (priv->current_db_file == NULL)
+	if (priv->current_db_file == NULL) 
+	{
+		DEBUG_PRINT ("symbol_db_view_locals_update_list (): "
+					 "Warning: priv->current_db_file is NULL");
 		return;
+	}
 	priv->current_local_file_path = g_strdup (filepath);
 	
 	/* try to see if we had something saved before in the hash table */
@@ -1222,8 +1223,6 @@ symbol_db_view_locals_update_list (SymbolDBViewLocals *dbvl, SymbolDBEngine *dbe
 										 NULL,
 										 NULL);
 	}
-	
-
 
 	/* last but not the least the store */
 	if (fsstatus != NULL)

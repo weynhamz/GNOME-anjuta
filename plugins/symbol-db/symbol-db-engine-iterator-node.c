@@ -51,78 +51,6 @@ symbol_db_engine_iterator_node_new (const GdaDataModelIter *data)
 }
 
 static void
-sdb_engine_iterator_node_populate_conversion_hash (SymbolDBEngineIteratorNode *dbie)
-{
-	/* we'll store in the hash table all the strings we'll need to convert the type
-	 * into an int recognizable by IAnjutaSymbol interface.
-	 */
-	SymbolDBEngineIteratorNodePriv *priv;
-	
-	g_return_if_fail (dbie != NULL);
-	priv = dbie->priv;
-	
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("class"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_CLASS);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("enum"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_ENUM);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("enumerator"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_ENUMERATOR);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("field"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_FIELD);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("function"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_FUNCTION);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("interface"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_INTERFACE);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("member"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_MEMBER);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("method"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_METHOD);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("namespace"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_NAMESPACE);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("package"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_PACKAGE);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("prototype"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_PROTOTYPE);
-				
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("struct"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_STRUCT);
-				
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("typedef"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_TYPEDEF);
-				
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("union"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_UNION);
-				
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("variable"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_VARIABLE);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("externvar"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_EXTERNVAR);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("macro"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_MACRO);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("macro_with_arg"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_MACRO_WITH_ARG);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("file"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_FILE);
-
-	g_hash_table_insert (priv->sym_type_conversion_hash, g_strdup("other"), 
-				(gpointer)IANJUTA_SYMBOL_TYPE_OTHER);
-}
-
-static void
 sdb_engine_iterator_node_instance_init (SymbolDBEngineIteratorNode *object)
 {
 	SymbolDBEngineIteratorNode *sdbin;
@@ -131,10 +59,7 @@ sdb_engine_iterator_node_instance_init (SymbolDBEngineIteratorNode *object)
 	sdbin = SYMBOL_DB_ENGINE_ITERATOR_NODE (object);
 	
 	sdbin->priv = g_new0 (SymbolDBEngineIteratorNodePriv, 1);
-	sdbin->priv->sym_type_conversion_hash = 
-				g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
-
-	sdb_engine_iterator_node_populate_conversion_hash (sdbin);
+	sdbin->priv->sym_type_conversion_hash = NULL;
 }
 
 static void
@@ -149,8 +74,6 @@ sdb_engine_iterator_node_finalize (GObject *object)
 	dbin = SYMBOL_DB_ENGINE_ITERATOR_NODE (object);	
 	priv = dbin->priv;
 
-	if (priv->sym_type_conversion_hash)
-		g_hash_table_destroy (priv->sym_type_conversion_hash);
 	g_free (priv);
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
@@ -354,6 +277,19 @@ symbol_db_engine_iterator_node_get_symbol_extra_string (SymbolDBEngineIteratorNo
 	}
 	else
 		return NULL;	
+}
+
+void
+symbol_db_engine_iterator_node_set_conversion_hash (SymbolDBEngineIteratorNode *dbin,
+										 const GHashTable *sym_type_conversion_hash)
+{
+	g_return_if_fail (dbin != NULL);
+	g_return_if_fail (SYMBOL_IS_DB_ENGINE_ITERATOR_NODE (dbin));
+	
+	SymbolDBEngineIteratorNodePriv *priv;
+	
+	priv = dbin->priv;
+	priv->sym_type_conversion_hash = sym_type_conversion_hash;	
 }
 
 void

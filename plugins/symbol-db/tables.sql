@@ -1,13 +1,13 @@
 
 CREATE TABLE workspace (workspace_id integer PRIMARY KEY AUTOINCREMENT,
                         workspace_name varchar (50) not null unique,
-                        analize_time DATE
+                        analyse_time DATE
                         );
 
 CREATE TABLE project (project_id integer PRIMARY KEY AUTOINCREMENT,
                       project_name varchar (50) not null unique,
                       wrkspace_id integer REFERENCES workspace (workspace_id),
-                      analize_time DATE
+                      analyse_time DATE
                       );
                     
 CREATE TABLE file_include (file_include_id integer PRIMARY KEY AUTOINCREMENT,
@@ -32,7 +32,7 @@ CREATE TABLE file (file_id integer PRIMARY KEY AUTOINCREMENT,
                    file_path TEXT not null unique,
                    prj_id integer REFERENCES project (projec_id),
                    lang_id integer REFERENCES language (language_id),
-                   analize_time DATE
+                   analyse_time DATE
                    );
                    
 CREATE TABLE language (language_id integer PRIMARY KEY AUTOINCREMENT,

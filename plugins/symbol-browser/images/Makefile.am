@@ -2,8 +2,11 @@
 symbol_browser_iconsdir = $(anjuta_image_dir)
 symbol_browser_icons_DATA = \
 	Icons.16x16.Class\
+	Icons.16x16.Event\
 	Icons.16x16.Enum\
 	Icons.16x16.Field\
+	Icons.16x16.Struct\
+	Icons.16x16.Property\
 	Icons.16x16.FormsDesigner.BringToFront\
 	Icons.16x16.FormsDesigner.SendToBack\
 	Icons.16x16.Interface\

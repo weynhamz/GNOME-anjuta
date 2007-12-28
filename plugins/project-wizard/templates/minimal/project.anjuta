@@ -13,7 +13,7 @@
 	<plugin name="Symbol Browser"
             url="http://anjuta.org/plugins/"
             mandatory="yes">
-		<require group="Anjuta Plugin"
+                <require group="Anjuta Plugin"
                  attribute="Interfaces"
                  value="IAnjutaSymbolManager"/>
 	</plugin>

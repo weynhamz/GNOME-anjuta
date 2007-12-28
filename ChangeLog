@@ -1,3 +1,82 @@
+2007-12-28  Massimo Cora'  <maxcvs@email.it>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/project-wizard/templates/java/project.anjuta:
+	* plugins/project-wizard/templates/mkfile/project.anjuta:
+	* plugins/project-wizard/templates/python/project.anjuta:
+	Added attribute="Interfaces" and value="IAnjutaSymbolManager" to 
+	let new projects use new SymbolDB plugin.
+	
+	* plugins/symbol-browser/images/Makefile.am:
+	added some images taken from MonoDevelop project.
+	
+	* plugins/symbol-db/plugin.c: (value_added_current_editor),
+	(goto_file_line), (on_importing_project_end), (project_root_added),
+	(on_session_load), (symbol_db_deactivate), (symbol_db_finalize),
+	(isymbol_manager_search):
+	Added project-updating feature when opening a project with some files
+  modified externally [e.g. a svn up].
+        
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c:
+	(sdb_engine_iterator_node_instance_init),
+	(sdb_engine_iterator_node_finalize),
+	(symbol_db_engine_iterator_node_set_conversion_hash):
+	* plugins/symbol-db/symbol-db-engine-iterator-node.h:
+	* plugins/symbol-db/symbol-db-engine-iterator.c:
+	(symbol_db_engine_iterator_new):
+	* plugins/symbol-db/symbol-db-engine-iterator.h:
+	 Moved Hash table initialization into the engine. This proxies and
+  speeds up the process of creation and iteration of a GdaDataModel.
+	
+	* plugins/symbol-db/symbol-db-engine.c:
+	(sdb_engine_ctags_output_thread),
+	(sdb_engine_timeout_trigger_signals), (sdb_engine_thread_monitor),
+	(sdb_engine_scan_files_1), (sdb_engine_init),
+	(sdb_engine_unlink_shared_files), (sdb_engine_finalize),
+	(symbol_db_engine_add_new_workspace),
+	(symbol_db_engine_add_new_project), (sdb_engine_add_new_file),
+	(sdb_engine_update_file), (on_scan_update_files_symbols_end),
+	(symbol_db_engine_get_sym_type_conversion_hash),
+	(symbol_db_engine_update_files_symbols),
+	(symbol_db_engine_update_project_symbols),
+	(symbol_db_engine_update_buffer_symbols),
+	(symbol_db_engine_get_class_parents),
+	(symbol_db_engine_get_global_members_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id_filtered),
+	(symbol_db_engine_get_scope_members_by_symbol_id),
+	(symbol_db_engine_get_scope_members),
+	(symbol_db_engine_get_current_scope),
+	(symbol_db_engine_get_file_symbols),
+	(symbol_db_engine_get_symbol_info_by_id),
+	(symbol_db_engine_find_symbol_by_name_pattern),
+	(symbol_db_engine_get_parent_scope_id_by_symbol_id):
+	* plugins/symbol-db/symbol-db-engine.h:
+	* plugins/symbol-db/symbol-db-view-locals.c:
+	(sdb_view_locals_get_iter_from_row_ref),
+	(symbol_db_view_locals_clear_cache), (do_add_child_symbol_to_view),
+	(traverse_on_scan_end), (on_scan_end), (on_symbol_removed),
+	(on_symbol_inserted), (symbol_db_view_locals_update_list):
+	Changes on some queries fuctions and some fixes. Added *_filtered
+  functions.
+	
+	* plugins/symbol-db/symbol-db-view.c:
+	(do_add_child_symbol_to_view), (add_new_waiting_for),
+	(prepare_for_adding), (on_symbol_inserted),
+	(do_recurse_subtree_and_remove), (on_symbol_removed),
+	(sdb_view_do_add_hidden_dummy_child),
+	(sdb_view_namespace_row_expanded), (sdb_view_global_row_expanded),
+	(sdb_view_vars_row_expanded), (symbol_db_view_row_expanded),
+	(sdb_view_locals_create_new_store), (sdb_view_init),
+	(sdb_view_finalize), (sdb_view_class_init),
+	(symbol_db_view_get_type), (sdb_view_load_symbol_pixbufs),
+	(symbol_db_view_get_pixbuf),
+	(sdb_view_build_and_display_base_tree), (symbol_db_view_open):
+	New display for global tags. This is the definitive version, bugs apart.
+	
+	* plugins/symbol-db/tables.sql:
+	fixed typo.
+
 2007-12-27  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

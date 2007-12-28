@@ -32,6 +32,7 @@
 #include "symbol-db-engine-iterator.h"
 #include "symbol-db-engine-iterator-node.h"
 
+#define DUMMY_SYMBOL_ID		G_MININT32+1
 
 enum {
 	COLUMN_PIXBUF,
@@ -42,35 +43,16 @@ enum {
 
 /* positive ids are used in real database */
 enum {
-	ROOT_NAMESPACE = -2,
-	ROOT_CLASS = -3,
-	ROOT_STRUCT = -4,
-	ROOT_UNION = -5,
-	ROOT_FUNCTION = -6,
-	ROOT_VARIABLE = -7,
-	ROOT_MACRO = -8,
-	ROOT_TYPEDEF = -9,
-	ROOT_ENUMERATOR = -10
+	ROOT_GLOBAL = G_MAXINT32
 };
-
-#define DUMMY_SYMBOL_ID		-333
 
 struct _SymbolDBViewPriv
 {
 	gint insert_handler;
 	gint remove_handler;	
 	gint scan_end_handler;	
-	
-	GtkTreeRowReference *row_ref_namespace;
-	GtkTreeRowReference *row_ref_class;
-	GtkTreeRowReference *row_ref_struct;
-	GtkTreeRowReference *row_ref_union;
-	GtkTreeRowReference *row_ref_function;
-	GtkTreeRowReference *row_ref_variable;
-	GtkTreeRowReference *row_ref_macro;
-	GtkTreeRowReference *row_ref_typedef;
-	GtkTreeRowReference *row_ref_enumerator;
 
+	GtkTreeRowReference *row_ref_global;
 	GTree *nodes_displayed;
 	GTree *waiting_for;
 };
@@ -102,7 +84,7 @@ waiting_for_symbol_destroy (WaitingForSymbol *wfs)
 	g_free (wfs);
 }
 
-static gboolean
+static inline gboolean
 sdb_view_get_iter_from_row_ref (SymbolDBView *dbv, GtkTreeRowReference *row_ref, 
 								GtkTreeIter *OUT_iter)
 {
@@ -252,30 +234,20 @@ do_add_child_symbol_to_view (SymbolDBView *dbv, gint parent_symbol_id,
 	
 	g_return_val_if_fail (dbv != NULL, NULL);
 	
-	priv = dbv->priv;	
+	priv = dbv->priv;
 	
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
-	
-	/* look into nodes_displayed g_tree for the gtktreepath of the parent iter,
-	 * get the gtktreeiter, and add a child 
-	 */
+
+	/* look up the row ref in the hashtable, then get its associated gtktreeiter */
 	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)parent_symbol_id);
-	path = gtk_tree_row_reference_get_path (row_ref);
 	
-	if (path == NULL) {
-		DEBUG_PRINT ("do_add_symbol_to_view (): something went wrong.");
-		return NULL;		
-	}
-	
-	if (gtk_tree_model_get_iter (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                 &iter, path) == FALSE) {									 
-		DEBUG_PRINT ("do_add_symbol_to_view (): iter was not set ?![%s %d] parent %d",
-					 symbol_name, symbol_id, parent_symbol_id);
+	if (sdb_view_get_iter_from_row_ref (dbv, row_ref, &iter) == FALSE)
+	{
+		g_warning ("do_add_symbol_to_view (): something went wrong.");
 		return NULL;
 	}
-
-	gtk_tree_path_free (path);
 	
+	/* append a new child &child_iter, with a parent of &iter */
 	gtk_tree_store_append (store, &child_iter, &iter);
 			
 	gtk_tree_store_set (store, &child_iter,
@@ -284,19 +256,12 @@ do_add_child_symbol_to_view (SymbolDBView *dbv, gint parent_symbol_id,
 		COLUMN_SYMBOL_ID, symbol_id,
 		-1);	
 	
-	gchar *tmp_str = gtk_tree_path_to_string (
-					gtk_tree_model_get_path (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          &child_iter));
-
-	g_free (tmp_str);
-	
+	/* grab the row ref and return it */
 	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
                                           &child_iter);
 	row_ref = gtk_tree_row_reference_new (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), 
 										  path);
 	gtk_tree_path_free (path);
-	
 	return row_ref;
 }
 
@@ -399,8 +364,6 @@ add_new_waiting_for (SymbolDBView *dbv, gint parent_symbol_id,
 	wfs->child_symbol_name = g_strdup (symbol_name);
 	wfs->pixbuf = pixbuf;
 				
-/*	DEBUG_PRINT ("add_new_waiting_for (): looking up waiting_for %d", 
-				 parent_symbol_id);*/
 	node = g_tree_lookup (priv->waiting_for, (gpointer)parent_symbol_id);
 	if (node == NULL) 
 	{
@@ -410,9 +373,6 @@ add_new_waiting_for (SymbolDBView *dbv, gint parent_symbol_id,
 				
 		slist = g_slist_prepend (slist, wfs);
 					
-/*		DEBUG_PRINT ("add_new_waiting_for (): NEW adding to "
-					 "waiting_for [%d]", parent_symbol_id);*/
-				
 		/* add it to the binary tree. */
 		g_tree_insert (priv->waiting_for, (gpointer)parent_symbol_id, 
 							   slist);
@@ -423,9 +383,6 @@ add_new_waiting_for (SymbolDBView *dbv, gint parent_symbol_id,
 		GSList *slist;
 		slist = (GSList*)node;
 		
-		/*DEBUG_PRINT ("prepare_for_adding (): NEW adding to "
-					 "parent_waiting_for_list [%d] %s",
-				 	parent_symbol_id, symbol_name);*/
 		slist = g_slist_prepend (slist, wfs);
 				
 		g_tree_replace (priv->waiting_for, (gpointer)parent_symbol_id, 
@@ -466,7 +423,7 @@ do_recurse_subtree_and_invalidate (SymbolDBView *dbv,
 				 
 	while (gtk_tree_model_iter_has_child  (GTK_TREE_MODEL (store), 
 										   parent_subtree_iter)) 
-	{
+	{ 
 		GtkTreeIter child;
 		gtk_tree_model_iter_children (GTK_TREE_MODEL (store), &child, 
 									  parent_subtree_iter);
@@ -498,71 +455,50 @@ prepare_for_adding (SymbolDBView *dbv, gint parent_symbol_id,
 	
 	g_return_if_fail (dbv != NULL);	
 	priv = dbv->priv;
-	
+
 	/* add to root if parent_symbol_id is <= 0 */
 	if (parent_symbol_id <= 0)
-	{			
+	{
 		GtkTreeRowReference *curr_tree_row_ref;
-
+		
 		/* ok, let's check the kind of the symbol. Based on that we'll retrieve
-		 * the row_ref
+		 * the row_ref. It's quicker to check onlyl the first char than the whole 
+		 * string.
 		 */
-		if (strcmp (kind, "namespace") == 0)
+		switch (kind[0]) 
 		{
-			curr_tree_row_ref = do_add_child_symbol_to_view (dbv, ROOT_NAMESPACE,
-				   pixbuf, symbol_name, symbol_id);			
-		}
-		else if (strcmp (kind, "class") == 0)
-		{
-			curr_tree_row_ref = do_add_child_symbol_to_view (dbv, ROOT_CLASS,
-				   pixbuf, symbol_name, symbol_id);
-		}
-		else if (strcmp (kind, "struct") == 0)
-		{
-			curr_tree_row_ref = do_add_child_symbol_to_view (dbv, ROOT_STRUCT,
-				   pixbuf, symbol_name, symbol_id);
-		}
-		else if (strcmp (kind, "union") == 0)
-		{
-			curr_tree_row_ref = do_add_child_symbol_to_view (dbv, ROOT_UNION,
-				   pixbuf, symbol_name, symbol_id);
-		}
-		else if (strcmp (kind, "function") == 0)
-		{
-			curr_tree_row_ref = do_add_child_symbol_to_view (dbv, ROOT_FUNCTION,
-				   pixbuf, symbol_name, symbol_id);
-		}
-		else if (strcmp (kind, "variable") == 0)
-		{
-			curr_tree_row_ref = do_add_child_symbol_to_view (dbv, ROOT_VARIABLE,
-				   pixbuf, symbol_name, symbol_id);
-		}
-		else if (strcmp (kind, "macro") == 0)
-		{
-			curr_tree_row_ref = do_add_child_symbol_to_view (dbv, ROOT_MACRO,
-				   pixbuf, symbol_name, symbol_id);
-		}
-		else if (strcmp (kind, "typedef") == 0)
-		{
-			curr_tree_row_ref = do_add_child_symbol_to_view (dbv, ROOT_TYPEDEF,
-				   pixbuf, symbol_name, symbol_id);
-		}
-		else if (strcmp (kind, "enumerator") == 0)
-		{
-			curr_tree_row_ref = do_add_child_symbol_to_view (dbv, ROOT_ENUMERATOR,
-				   pixbuf, symbol_name, symbol_id);
-		}
-		else 
-		{
-			/* unknown row_ref... */
-			g_warning ("prepare_for_adding (): unknown ref found. Adding to root.");
-			curr_tree_row_ref = do_add_root_symbol_to_view (dbv, pixbuf, symbol_name,
-													 symbol_id);
+			case 'n':		/* namespace */
+				curr_tree_row_ref = do_add_root_symbol_to_view (dbv, 
+																pixbuf, 
+																symbol_name, 
+																symbol_id);			
+				break;
+
+			case 'c':		/* class */
+			case 's': 		/* struct */
+				curr_tree_row_ref = do_add_child_symbol_to_view (dbv, 
+											ROOT_GLOBAL, pixbuf, symbol_name, 
+																 symbol_id);
+				break;
+			
+			case 'u':		/* union */
+			case 'f':		/* function */
+			case 'v':		/* variable */
+			case 't':		/* typedef */
+			case 'e':		/* enumerator */
+			default:
+				/* note the negative: we'll store these under the vars/Other node */
+				curr_tree_row_ref = do_add_child_symbol_to_view (dbv, 
+											-ROOT_GLOBAL, pixbuf, symbol_name, 
+																 symbol_id);				
+				break;
 		}
 
 		if (curr_tree_row_ref == NULL)
 		{
-			g_warning ("prepare_for_adding (): row_ref == NULL");
+			g_warning ("prepare_for_adding (): row_ref == NULL. symbol_name %s "
+					   "symbol_id %d kind %s [-ROOT_GLOBAL %d] parent_symbol_id %d", 
+					   symbol_name, symbol_id, kind, -ROOT_GLOBAL, parent_symbol_id);
 			return;
 		}		
 		
@@ -578,6 +514,24 @@ prepare_for_adding (SymbolDBView *dbv, gint parent_symbol_id,
 	else 
 	{
 		gpointer node;
+		
+		switch (kind[0]) 
+		{
+			case 'u':		/* union */
+			case 'f':		/* function */
+			case 'v':		/* variable */
+			case 't':		/* typedef */
+			case 'e':		/* enumerator */
+				/* switch to negative! i.e. schedule to put it under the
+				 * Vars/Others node 
+				 */
+				parent_symbol_id = -parent_symbol_id;
+				break;
+			default:		/* let it as it is */
+				break;
+		}
+
+		
 		/* do we already have that parent_symbol displayed in gtktreeview? 
 		 * If that's the case add it as children.
 		 */
@@ -587,9 +541,6 @@ prepare_for_adding (SymbolDBView *dbv, gint parent_symbol_id,
 		{
 			/* hey we found it */
 			GtkTreeRowReference *child_row_ref;
-/*			DEBUG_PRINT ("prepare_for_adding(): found node already displayed %d",
-						 parent_symbol_id);*/
-			
 			child_row_ref = do_add_child_symbol_to_view (dbv, parent_symbol_id,
 				   pixbuf, symbol_name, symbol_id);
 			
@@ -600,17 +551,12 @@ prepare_for_adding (SymbolDBView *dbv, gint parent_symbol_id,
 		}
 		else 
 		{
-/*			DEBUG_PRINT ("prepare_for_adding(): gonna pass parent: %d name: %s "
-						 "id: %d to add_new_waiting_for", parent_symbol_id,
-						 symbol_name, symbol_id);*/
-			
 			/* add it to the waiting_for trigger list */
 			add_new_waiting_for (dbv, parent_symbol_id, symbol_name, symbol_id, 
 								 pixbuf);
 		}
 	}
 }
-
 
 static void 
 on_symbol_inserted (SymbolDBEngine *dbe, 
@@ -630,14 +576,14 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 	
 	priv = dbv->priv;
 	
-/*	DEBUG_PRINT ("on_symbol_inserted -global- %d", symbol_id);*/
+	DEBUG_PRINT ("on_symbol_inserted -global- %d", symbol_id);
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
 
 	parent_symbol_id = symbol_db_engine_get_parent_scope_id_by_symbol_id (dbe, 
 																	symbol_id,
 																	NULL);
 	
-/*	DEBUG_PRINT ("parent_symbol_id %d", parent_symbol_id);*/
+	DEBUG_PRINT ("on_symbol_inserted parent_symbol_id detected %d", parent_symbol_id);
 	
 	/* get the original symbol infos */
 	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, symbol_id, 
@@ -651,15 +597,17 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 		const GdkPixbuf *pixbuf;
 		const gchar* symbol_name;
 		const gchar* symbol_kind;
+		const gchar* symbol_access;
 		SymbolDBEngineIterator *iterator_for_children;
 	
 		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_KIND);
 
-		pixbuf = symbol_db_view_get_pixbuf (symbol_kind,
-						symbol_db_engine_iterator_node_get_symbol_extra_string (
-							iter_node, SYMINFO_ACCESS));
+		symbol_access = symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_ACCESS);
+		
+		pixbuf = symbol_db_view_get_pixbuf (symbol_kind, symbol_access);
 		symbol_name = symbol_db_engine_iterator_node_get_symbol_name (iter_node);
 		
 		/* check if one of the children [if they exist] of symbol_id are already 
@@ -674,19 +622,17 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 		if (iterator_for_children == NULL) 
 		{
 			/* we don't have children */
-/*			DEBUG_PRINT ("on_symbol_inserted (): %d has no children.", symbol_id);*/
 		}
 		else 
 		{
 			/* hey there are some children here.. kill 'em all and put them on
 			 * a waiting_for list 
-			 */			
+			 */
 			do
 			{
 				gint curr_child_id;
 				GtkTreeIter child_iter;
 				GtkTreeRowReference *row_ref;
-				GtkTreePath *path;
 				SymbolDBEngineIteratorNode *iter_node;
 
 				iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator_for_children);
@@ -694,32 +640,17 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 				curr_child_id = 
 					symbol_db_engine_iterator_node_get_symbol_id (iter_node);
 
-/*				DEBUG_PRINT ("on_symbol_inserted (): %d has child %d",
-							 symbol_id, curr_child_id);*/
 				row_ref = g_tree_lookup (priv->nodes_displayed,
 										 (gpointer)curr_child_id);
+				if (row_ref == NULL)
+					continue;
 
-				if (row_ref == NULL) 
+				if (sdb_view_get_iter_from_row_ref (dbv, row_ref, &child_iter) == FALSE)
 				{
 					/* no node displayed found */
+					g_warning ("on_symbol_inserted (): row_ref something went wrong ?!");
 					continue;
 				}
-				
-				path = gtk_tree_row_reference_get_path (row_ref);
-				if (path == NULL) 
-				{
-					DEBUG_PRINT ("on_symbol_inserted (): path is null, something "
-								 "went wrong ?!");
-					continue;
-				}
-		
-				if (gtk_tree_model_get_iter (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                 &child_iter, path) == FALSE) 
-				{
-					gtk_tree_path_free (path);
-					continue;		
-				}
-				gtk_tree_path_free (path);
 				
 				/* put on waiting_for the subtree */
 				do_recurse_subtree_and_invalidate (dbv, &child_iter, symbol_id);
@@ -756,10 +687,7 @@ do_recurse_subtree_and_remove (SymbolDBView *dbv,
 			    COLUMN_PIXBUF, &curr_pixbuf, 
 				COLUMN_NAME, &curr_symbol_name,	/* no strdup required */
 				-1);
-	
-	/*DEBUG_PRINT ("do_recurse_subtree_and_remove (): curr_symbol_id %d", 
-				 curr_symbol_id);*/
-				 
+					 
 	while (gtk_tree_model_iter_has_child  (GTK_TREE_MODEL (store), parent_subtree_iter)) 
 	{
 		GtkTreeIter child;
@@ -785,7 +713,6 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	SymbolDBViewPriv *priv;
     GtkTreeIter  iter;	
 	GtkTreeRowReference *row_ref;
-	GtkTreePath *path;
 	
 	dbv = SYMBOL_DB_VIEW (data);
 
@@ -797,39 +724,24 @@ on_symbol_removed (SymbolDBEngine *dbe, gint symbol_id, gpointer data)
 	DEBUG_PRINT ("on_symbol_removed (): -global- %d", symbol_id);
 
 	row_ref = g_tree_lookup (priv->nodes_displayed, (gpointer)symbol_id);
-	if (row_ref == NULL) 
+	if (sdb_view_get_iter_from_row_ref (dbv, row_ref, &iter) == FALSE)
 	{
-		DEBUG_PRINT ("on_symbol_removed (): ERROR: cannot remove %d", symbol_id);
-		return;
-	}
- 
-	path = gtk_tree_row_reference_get_path (row_ref);
-	if (path == NULL) 
-	{
-		DEBUG_PRINT ("on_symbol_removed (): ERROR2: cannot remove %d", symbol_id);
+		g_warning ("on_symbol_removed (): iter was not set ?![%d]", symbol_id);
 		return;
 	}
 	
-	if (gtk_tree_model_get_iter (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                 &iter, path) == FALSE) 
-	{
-		DEBUG_PRINT ("on_symbol_removed (): iter was not set ?![%d]",
-					 symbol_id);
-		gtk_tree_path_free (path);
-		return;
-	}
-	gtk_tree_path_free (path);
-
 	do_recurse_subtree_and_remove (dbv, &iter);
 }
 
 /**
  * Add at most ONE dummy child to the parent_iter. This is done to let the parent_iter
  * node be expandable.
+ * @param force If true a dummy symbol will be added even if it has no children on db.
  */
 static void
 sdb_view_do_add_hidden_dummy_child (SymbolDBView *dbv, SymbolDBEngine *dbe,
-						GtkTreeIter *parent_iter,  gint parent_symbol_id)
+						GtkTreeIter *parent_iter,  gint parent_symbol_id,
+						gboolean force)
 {
 	SymbolDBEngineIterator *child_iterator;
 	GtkTreeStore *store;
@@ -845,7 +757,7 @@ sdb_view_do_add_hidden_dummy_child (SymbolDBView *dbv, SymbolDBEngine *dbe,
 						-1, 
 						SYMINFO_SIMPLE | SYMINFO_ACCESS | SYMINFO_KIND);
 	
-	if (child_iterator != NULL)
+	if (child_iterator != NULL || force == TRUE)
 	{
 		/* hey we have something here... */
 		GtkTreeIter child_iter;
@@ -857,9 +769,390 @@ sdb_view_do_add_hidden_dummy_child (SymbolDBView *dbv, SymbolDBEngine *dbe,
 					COLUMN_SYMBOL_ID, DUMMY_SYMBOL_ID,
 					-1);
 
-		g_object_unref (child_iterator);
+		if (child_iterator)
+			g_object_unref (child_iterator);
 	}	
 }
+
+static void
+sdb_view_namespace_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe, 
+							 GtkTreeIter *expanded_iter, gint expanded_symbol_id) 
+{
+	SymbolDBViewPriv *priv;
+	SymbolDBEngineIterator *iterator;	
+	GtkTreePath *path;
+	GtkTreeStore *store;
+	GtkTreeIter others_dummy_node;
+	GtkTreeRowReference *others_row_ref;
+		
+	g_return_if_fail (dbv != NULL);
+	priv = dbv->priv;
+
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
+	
+	DEBUG_PRINT ("sdb_view_namespace_row_expanded ");
+	GPtrArray *array;
+	
+	array = g_ptr_array_new ();
+	g_ptr_array_add (array, "class");
+	g_ptr_array_add (array, "struct");	
+		
+	iterator = symbol_db_engine_get_scope_members_by_symbol_id_filtered (dbe, 
+									expanded_symbol_id, 
+									-1,
+									-1,
+									SYMINFO_SIMPLE|
+									SYMINFO_KIND|
+									SYMINFO_ACCESS,
+									array,
+									TRUE
+									);
+
+	g_ptr_array_free (array, TRUE);
+
+	if (iterator != NULL)
+	{
+		do {
+			gint curr_symbol_id;
+			SymbolDBEngineIteratorNode *iter_node;
+			const GdkPixbuf *pixbuf;
+			const gchar* symbol_name;			
+			GtkTreeIter child_iter;
+			GtkTreePath *path;
+			GtkTreeRowReference *child_row_ref;
+			gpointer node;
+
+			iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
+
+			curr_symbol_id = symbol_db_engine_iterator_node_get_symbol_id (iter_node);
+
+			/* Step 2:
+			 * check if the curr_symbol_id is already displayed. In that case
+			 * skip to the next symbol 
+			 */
+			node = g_tree_lookup (priv->nodes_displayed, (gpointer)curr_symbol_id);
+		
+			if (node != NULL) 
+			{
+				continue;
+			}
+
+			/* Step 3 */
+			/* ok we must display this symbol */			
+			pixbuf = symbol_db_view_get_pixbuf (
+						symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_KIND),
+						symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_ACCESS));
+
+			symbol_name = symbol_db_engine_iterator_node_get_symbol_name (iter_node);
+
+			gtk_tree_store_append (store, &child_iter, expanded_iter);
+			
+			gtk_tree_store_set (store, &child_iter,
+				COLUMN_PIXBUF, pixbuf,
+				COLUMN_NAME, symbol_name,
+				COLUMN_SYMBOL_ID, curr_symbol_id, 
+				-1);	
+
+			path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
+                                          	&child_iter);	
+			child_row_ref = gtk_tree_row_reference_new (
+						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
+			gtk_tree_path_free (path);
+			
+			/* insert the just append row_ref into the GTree for a quick retrieval
+			 * later 
+			 */
+			g_tree_insert (priv->nodes_displayed, (gpointer)curr_symbol_id, 
+						   child_row_ref);			
+			
+			/* good. Let's check now for a child (B) of the just appended child (A). 
+			 * Adding B (a dummy one for now) to A will make A expandable
+			 */
+			sdb_view_do_add_hidden_dummy_child (dbv, dbe, &child_iter, curr_symbol_id,
+												FALSE);			
+		} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);
+		
+		g_object_unref (iterator);
+	}
+
+
+	/* add the 'Vars/Others node */
+	if (g_tree_lookup (priv->nodes_displayed, (gpointer)-expanded_symbol_id) == NULL)
+	{
+		gtk_tree_store_append (store, &others_dummy_node, expanded_iter);
+		gtk_tree_store_set (store, &others_dummy_node,
+				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("vars", "others"),
+				COLUMN_NAME, "Vars/Others",
+				COLUMN_SYMBOL_ID, -expanded_symbol_id, 		/* please note the negative */
+				-1);
+		path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
+                                         		&others_dummy_node);
+		others_row_ref = gtk_tree_row_reference_new (
+					gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
+		gtk_tree_path_free (path);
+		
+		/* insert a negative node ... */
+		g_tree_insert (priv->nodes_displayed, (gpointer)-expanded_symbol_id, 
+				   	others_row_ref);
+		
+		/* ... and a dummy child */
+		sdb_view_do_add_hidden_dummy_child (dbv, dbe, &others_dummy_node, 0, TRUE);
+	}
+
+	/* force expand it */
+	path =  gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
+  	                                      	expanded_iter);
+	gtk_tree_view_expand_row (GTK_TREE_VIEW (dbv), path, FALSE);
+	gtk_tree_path_free (path);
+}
+
+static void
+sdb_view_global_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe, 
+							 GtkTreeIter *expanded_iter, gint expanded_symbol_id) 
+{
+	GtkTreeStore *store;
+	SymbolDBViewPriv *priv;
+	SymbolDBEngineIterator *iterator;
+	GPtrArray *filter_array;
+	GtkTreePath *path;
+	GtkTreeIter others_dummy_node;
+	GtkTreeRowReference *others_row_ref;
+	
+	g_return_if_fail (dbv != NULL);
+	
+	priv = dbv->priv;
+	
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
+
+	filter_array = g_ptr_array_new ();
+	g_ptr_array_add (filter_array, "class");
+	g_ptr_array_add (filter_array, "struct");
+	
+	/* check for the presence of namespaces. 
+	 * If that's the case then populate the root with a 'Global' node.
+	 */
+	iterator = symbol_db_engine_get_global_members_filtered (dbe, filter_array, TRUE, 
+													TRUE, 
+													-1,
+													-1,
+													SYMINFO_SIMPLE |
+												  	SYMINFO_ACCESS |
+													SYMINFO_KIND);
+	g_ptr_array_free (filter_array, TRUE);
+	
+	if (iterator != NULL)
+	{	
+		do {
+			gint curr_symbol_id;
+			SymbolDBEngineIteratorNode *iter_node;
+			gpointer node;
+			const GdkPixbuf *pixbuf;
+			const gchar* symbol_name;
+			const gchar* symbol_kind;
+			const gchar* symbol_access;
+			GtkTreeRowReference *curr_tree_row_ref;
+
+			iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
+			
+			curr_symbol_id = symbol_db_engine_iterator_node_get_symbol_id (iter_node);
+
+			node = g_tree_lookup (priv->nodes_displayed, (gpointer)curr_symbol_id);
+		
+			if (node != NULL) 
+			{
+				/* already displayed */
+				continue;
+			}
+			
+			symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_KIND);
+			
+			symbol_access = symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_ACCESS);
+			
+			
+			pixbuf = symbol_db_view_get_pixbuf (symbol_kind, symbol_access);
+
+			symbol_name = symbol_db_engine_iterator_node_get_symbol_name (iter_node);
+
+			curr_tree_row_ref = do_add_child_symbol_to_view (dbv, ROOT_GLOBAL, pixbuf, 
+												symbol_name, curr_symbol_id);
+			if (curr_tree_row_ref == NULL)
+			{
+				g_warning ("sdb_view_global_row_expanded (): row_ref == NULL");
+				continue;
+			}		
+		
+			/* we'll fake the gpointer to store an int */
+			g_tree_insert (priv->nodes_displayed, (gpointer)curr_symbol_id, 
+						   curr_tree_row_ref);
+		} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);
+		
+		g_object_unref (iterator);		
+	}	
+
+	
+	
+	/* add the 'Vars/Others node */
+	if (g_tree_lookup (priv->nodes_displayed, (gpointer)-expanded_symbol_id) == NULL)
+	{
+		gtk_tree_store_append (store, &others_dummy_node, expanded_iter);
+		gtk_tree_store_set (store, &others_dummy_node,
+				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("vars", "others"),
+				COLUMN_NAME, "Vars/Others",
+				COLUMN_SYMBOL_ID, -expanded_symbol_id, 		/* please note the negative */
+				-1);
+		path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
+                                         		&others_dummy_node);
+		others_row_ref = gtk_tree_row_reference_new (
+					gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
+		gtk_tree_path_free (path);
+		
+		/* insert a negative node ... */
+		g_tree_insert (priv->nodes_displayed, (gpointer)-expanded_symbol_id, 
+				   	others_row_ref);			
+		
+		/* ... and a dummy child */
+		sdb_view_do_add_hidden_dummy_child (dbv, dbe, &others_dummy_node, 0,
+												TRUE);
+	}
+	
+	/* force expand it */
+	path =  gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
+  	                                      	expanded_iter);
+	gtk_tree_view_expand_row (GTK_TREE_VIEW (dbv), path, FALSE);
+	gtk_tree_path_free (path);	
+}
+
+static void
+sdb_view_vars_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe, 
+							 GtkTreeIter *expanded_iter, gint expanded_symbol_id) 
+{	
+	SymbolDBViewPriv *priv;
+	SymbolDBEngineIterator *iterator;
+	GtkTreePath *path;
+	GtkTreeStore *store;
+	GPtrArray *filter_array;
+	
+	gint positive_symbol_expanded;
+	
+	
+	g_return_if_fail (dbv != NULL);
+	priv = dbv->priv;
+
+	positive_symbol_expanded = -expanded_symbol_id;
+	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
+	
+	DEBUG_PRINT ("sdb_view_vars_row_expanded ()");
+	
+	filter_array = g_ptr_array_new ();
+	g_ptr_array_add (filter_array, "class");
+	g_ptr_array_add (filter_array, "struct");	
+		
+	if (positive_symbol_expanded == ROOT_GLOBAL)
+	{
+		iterator = symbol_db_engine_get_global_members_filtered (dbe, filter_array, 
+													FALSE, 
+													TRUE, 
+													-1,
+													-1,
+													SYMINFO_SIMPLE |
+												  	SYMINFO_ACCESS |
+													SYMINFO_KIND);
+	}
+	else 
+	{
+		iterator = symbol_db_engine_get_scope_members_by_symbol_id_filtered (dbe, 
+									positive_symbol_expanded, 
+									-1,
+									-1,
+									SYMINFO_SIMPLE|
+									SYMINFO_KIND|
+									SYMINFO_ACCESS,
+									filter_array,
+									FALSE
+									);
+	}
+	
+	g_ptr_array_free (filter_array, TRUE);
+
+	if (iterator != NULL)
+	{
+		do {
+			gint curr_symbol_id;
+			SymbolDBEngineIteratorNode *iter_node;
+			const GdkPixbuf *pixbuf;
+			const gchar* symbol_name;			
+			GtkTreeIter child_iter;
+			GtkTreePath *path;
+			GtkTreeRowReference *child_row_ref;
+			gpointer node;
+
+			iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
+
+			curr_symbol_id = symbol_db_engine_iterator_node_get_symbol_id (iter_node);
+
+			/* Step 2:
+			 * check if the curr_symbol_id is already displayed. In that case
+			 * skip to the next symbol 
+			 */
+			node = g_tree_lookup (priv->nodes_displayed, (gpointer)curr_symbol_id);
+		
+			if (node != NULL) 
+			{
+				continue;
+			}
+
+			/* Step 3 */
+			/* ok we must display this symbol */			
+			pixbuf = symbol_db_view_get_pixbuf (
+						symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_KIND),
+						symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_ACCESS));
+
+			symbol_name = symbol_db_engine_iterator_node_get_symbol_name (iter_node);
+
+			gtk_tree_store_append (store, &child_iter, expanded_iter);
+			
+			gtk_tree_store_set (store, &child_iter,
+				COLUMN_PIXBUF, pixbuf,
+				COLUMN_NAME, symbol_name,
+				COLUMN_SYMBOL_ID, curr_symbol_id, 
+				-1);	
+
+			path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
+                                          	&child_iter);	
+			child_row_ref = gtk_tree_row_reference_new (
+						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
+			gtk_tree_path_free (path);
+			
+			/* insert the just append row_ref into the GTree for a quick retrieval
+			 * later 
+			 */
+			g_tree_insert (priv->nodes_displayed, (gpointer)curr_symbol_id, 
+						   child_row_ref);			
+			
+			/* good. Let's check now for a child (B) of the just appended child (A). 
+			 * Adding B (a dummy one for now) to A will make A expandable
+			 */
+			sdb_view_do_add_hidden_dummy_child (dbv, dbe, &child_iter, curr_symbol_id,
+												FALSE);
+			
+		} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);
+		
+		g_object_unref (iterator);
+	}
+	
+	/* force expand it */
+	path =  gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
+  	                                      	expanded_iter);
+	gtk_tree_view_expand_row (GTK_TREE_VIEW (dbv), path, FALSE);
+	gtk_tree_path_free (path);	
+}
+
 
 /**
  * Usually on a row expanded event we should perform the following steps:
@@ -876,7 +1169,7 @@ symbol_db_view_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	GtkTreeStore *store;
 	gint expanded_symbol_id;
 	SymbolDBViewPriv *priv;
-	SymbolDBEngineIterator *iterator;	
+	SymbolDBEngineIterator *iterator;
 	GtkTreePath *path;
 		
 	g_return_if_fail (dbv != NULL);
@@ -900,7 +1193,53 @@ symbol_db_view_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 		if (dummy_symbol == DUMMY_SYMBOL_ID)
 			gtk_tree_store_remove (store, &child);		
 	}
+
 	
+	/* Ok. Is the expanded node a 'namespace' one? A 'global' one? Or a 
+	 * 'vars/etc' one? parse here the cases and if we're not there
+	 * go on with a classic expanding node algo.
+	 */
+
+	/* Case Global */
+	if (expanded_symbol_id == ROOT_GLOBAL)
+	{
+		sdb_view_global_row_expanded (dbv, dbe, expanded_iter, expanded_symbol_id);
+		return; 
+	}
+	
+	/* Case vars/etc */
+	/* To identify a vars/etc node we'll check if the expanded_symbol_id is negative.
+	 * If yes, we can have the parent namespace by making the id positive.
+	 */
+	if (expanded_symbol_id < 0)
+	{
+		sdb_view_vars_row_expanded  (dbv, dbe, expanded_iter, expanded_symbol_id);
+		return;
+	}
+	
+	
+	/* Case namespace */
+	iterator = symbol_db_engine_get_symbol_info_by_id (dbe, expanded_symbol_id, 
+													   SYMINFO_KIND);
+	if (iterator != NULL) 
+	{
+		SymbolDBEngineIteratorNode *iter_node;
+		const gchar* symbol_kind;
+	
+		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
+		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
+							iter_node, SYMINFO_KIND);
+		if (strcmp (symbol_kind, "namespace") == 0)
+		{
+			sdb_view_namespace_row_expanded (dbv, dbe, expanded_iter, 
+											 expanded_symbol_id);
+			g_object_unref (iterator);
+			return;
+		}
+		g_object_unref (iterator);
+	}
+	
+	/* Case Normal: go on with usual expanding */	
 	DEBUG_PRINT ("symbol_db_view_row_expanded (): expanded %d", expanded_symbol_id);
 	
 	/* Step 1 */
@@ -967,23 +1306,24 @@ symbol_db_view_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe,
 			 * later 
 			 */
 			g_tree_insert (priv->nodes_displayed, (gpointer)curr_symbol_id, 
-						   child_row_ref);			
+						   child_row_ref);
 			
 			/* good. Let's check now for a child (B) of the just appended child (A). 
 			 * Adding B (a dummy one for now) to A will make A expandable
 			 */
-			sdb_view_do_add_hidden_dummy_child (dbv, dbe, &child_iter, curr_symbol_id);
+			sdb_view_do_add_hidden_dummy_child (dbv, dbe, &child_iter, curr_symbol_id,
+												FALSE);
 			
 		} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);
+		
+		g_object_unref (iterator);
 	}
 	
-
+	/* force expand it */
 	path =  gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-  	                                      	expanded_iter);	
-
+  	                                      	expanded_iter);
 	gtk_tree_view_expand_row (GTK_TREE_VIEW (dbv), path, FALSE);
 	gtk_tree_path_free (path);	
-	
 }
 
 static GtkTreeStore *
@@ -1015,15 +1355,8 @@ sdb_view_init (SymbolDBView *object)
 	priv->remove_handler = 0;
 	priv->nodes_displayed = NULL;
 	priv->waiting_for = NULL;
-	priv->row_ref_namespace = NULL;
-	priv->row_ref_class = NULL;
-	priv->row_ref_struct = NULL;
-	priv->row_ref_union = NULL;
-	priv->row_ref_function = NULL;
-	priv->row_ref_variable = NULL;
-	priv->row_ref_macro = NULL;
-	priv->row_ref_typedef = NULL;
-	priv->row_ref_enumerator = NULL;
+	
+	priv->row_ref_global = NULL;
 	priv->scan_end_handler = 0;
 	priv->remove_handler = 0;
 	priv->scan_end_handler = 0;	
@@ -1148,6 +1481,7 @@ sdb_view_load_symbol_pixbufs ()
 	CREATE_SYM_ICON ("typedef",           "Icons.16x16.Reference");
 	CREATE_SYM_ICON ("union",             "Icons.16x16.PrivateStruct");
 	CREATE_SYM_ICON ("variable",          "Icons.16x16.Literal");
+	CREATE_SYM_ICON ("prototype",         "Icons.16x16.Interface");	
 	
 	CREATE_SYM_ICON ("privateclass",      "Icons.16x16.PrivateClass");
 	CREATE_SYM_ICON ("privateenum",   	  "Icons.16x16.PrivateEnum");
@@ -1158,6 +1492,7 @@ sdb_view_load_symbol_pixbufs ()
 	CREATE_SYM_ICON ("privatemethod",     "Icons.16x16.PrivateMethod");
 	CREATE_SYM_ICON ("privateproperty",   "Icons.16x16.PrivateProperty");
 	CREATE_SYM_ICON ("privatestruct",     "Icons.16x16.PrivateStruct");
+	CREATE_SYM_ICON ("privateprototype",  "Icons.16x16.PrivateInterface");
 
 	CREATE_SYM_ICON ("protectedclass",    "Icons.16x16.ProtectedClass");	
 	CREATE_SYM_ICON ("protectedenum",     "Icons.16x16.ProtectedEnum");
@@ -1165,13 +1500,18 @@ sdb_view_load_symbol_pixbufs ()
 	CREATE_SYM_ICON ("protectedmember",   "Icons.16x16.ProtectedProperty");
 	CREATE_SYM_ICON ("protectedmethod",   "Icons.16x16.ProtectedMethod");
 	CREATE_SYM_ICON ("protectedproperty", "Icons.16x16.ProtectedProperty");
+	CREATE_SYM_ICON ("publicprototype",   "Icons.16x16.ProtectedInterface");
 	
 	CREATE_SYM_ICON ("publicclass",    	  "Icons.16x16.Class");	
 	CREATE_SYM_ICON ("publicenum",    	  "Icons.16x16.Enum");	
 	CREATE_SYM_ICON ("publicfunction",    "Icons.16x16.Method");
-	CREATE_SYM_ICON ("publicmember",      "Icons.16x16.InternalMethod");
-	CREATE_SYM_ICON ("publicproperty",    "Icons.16x16.InternalProperty");
-	CREATE_SYM_ICON ("publicstruct",      "Icons.16x16.ProtectedStruct");
+	CREATE_SYM_ICON ("publicmember",      "Icons.16x16.Method");
+	CREATE_SYM_ICON ("publicproperty",    "Icons.16x16.Property");
+	CREATE_SYM_ICON ("publicstruct",      "Icons.16x16.Struct");
+	CREATE_SYM_ICON ("publicprototype",   "Icons.16x16.Interface");
+	
+	/* special icon */
+	CREATE_SYM_ICON ("othersvars",   "Icons.16x16.Event");
 }
 
 /**
@@ -1184,13 +1524,17 @@ symbol_db_view_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 	gchar *search_node;
 	GdkPixbuf *pix;
 	if (!pixbufs_hash)
+	{
 		sdb_view_load_symbol_pixbufs ();
+	}
 	
 	g_return_val_if_fail (node_type != NULL, NULL);
 
 	/* is there a better/quicker method to retrieve pixbufs? */
 	if (node_access != NULL)
+	{
 		search_node = g_strdup_printf ("%s%s", node_access, node_type);
+	}
 	else 
 	{ 
 		/* we will not free search_node gchar, so casting here is ok. */
@@ -1199,11 +1543,15 @@ symbol_db_view_get_pixbuf  (const gchar *node_type, const gchar *node_access)
 	pix = GDK_PIXBUF (g_hash_table_lookup (pixbufs_hash, search_node));
 	
 	if (node_access)
+	{
 		g_free (search_node);
+	}
 	
 	if (pix == NULL)
-		DEBUG_PRINT ("symbol_db_view_get_pixbuf (): no pixbuf for %s %s",
+	{
+		DEBUG_PRINT ("symbol_db_view_get_pixbuf (): no pixbuf for %s %s",					 
 					 node_type, node_access);
+	}
 	
 	return pix;
 }
@@ -1257,53 +1605,53 @@ symbol_db_view_get_file_and_line (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	}
 	
 	return FALSE;
-}								
+}
 
-
-/**
- * @param row_ref One of the base root symbols, like namespaces, classes etc.
- * 		  You can find them inside SymbolDBViewPriv struct.
- * @param root_kind Simple name to indicate the kind saved on database. It should
- * 		  be something like "namespace", "class", "struct" and so on.
- */
 static void
-sdb_view_populate_base_root (SymbolDBView *dbv, SymbolDBEngine *dbe,
-							 GtkTreeRowReference *row_ref,
-							 const gchar* root_kind)
+sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
 {
-	SymbolDBViewPriv *priv;
-	GtkTreeIter root_iter;	
-	SymbolDBEngineIterator *iterator;
 	GtkTreeStore *store;
+	SymbolDBViewPriv *priv;
+	SymbolDBEngineIterator *iterator;
+	gboolean we_have_namespaces;
+	GPtrArray *filter_array;
+	GtkTreeRowReference *global_tree_row_ref;
+	GtkTreeIter global_child_iter;
 	
 	g_return_if_fail (dbv != NULL);
 	
 	priv = dbv->priv;
 	
-	DEBUG_PRINT ("sdb_view_populate_base_root ()");
-	if (sdb_view_get_iter_from_row_ref (dbv, row_ref, &root_iter) == FALSE)
-	{
-		DEBUG_PRINT ("sdb_view_populate_base_root (): root_iter == NULL");
-		return;
-	}		
-
 	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
-	iterator = symbol_db_engine_get_global_members (dbe, root_kind, TRUE, 
-													20,
+
+	we_have_namespaces = FALSE;
+
+	filter_array = g_ptr_array_new ();
+	g_ptr_array_add (filter_array, "namespace");
+	
+	/* check for the presence of namespaces. 
+	 * If that's the case then populate the root with a 'Global' node.
+	 */
+	iterator = symbol_db_engine_get_global_members_filtered (dbe, filter_array, TRUE, 
+													TRUE, 
+													-1,
 													-1,
 													SYMINFO_SIMPLE |
 												  	SYMINFO_ACCESS |
 													SYMINFO_KIND);
+	g_ptr_array_free (filter_array, TRUE);
+	
 	if (iterator != NULL)
 	{
+		we_have_namespaces = TRUE;
+		
 		do {
 			gint curr_symbol_id;
 			SymbolDBEngineIteratorNode *iter_node;
 			const GdkPixbuf *pixbuf;
 			const gchar* symbol_name;			
+			GtkTreeRowReference *curr_tree_row_ref;
 			GtkTreeIter child_iter;
-			GtkTreePath *path;
-			GtkTreeRowReference *child_row_ref;
 
 			iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
 
@@ -1317,183 +1665,74 @@ sdb_view_populate_base_root (SymbolDBView *dbv, SymbolDBEngine *dbe,
 
 			symbol_name = symbol_db_engine_iterator_node_get_symbol_name (iter_node);
 
-			gtk_tree_store_append (store, &child_iter, &root_iter);			
-			gtk_tree_store_set (store, &child_iter,
-				COLUMN_PIXBUF, pixbuf,
-				COLUMN_NAME, symbol_name,
-				COLUMN_SYMBOL_ID, curr_symbol_id, 
-				-1);	
-
-			path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          	&child_iter);	
-			child_row_ref = gtk_tree_row_reference_new (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
-			gtk_tree_path_free (path);
-			
-			/* insert the just append row_ref into the GTree for a quick retrieval
-			 * later 
-			 */
+			curr_tree_row_ref = do_add_root_symbol_to_view (dbv, pixbuf, 
+												symbol_name, curr_symbol_id);
+			if (curr_tree_row_ref == NULL)
+			{
+				g_warning ("sdb_view_build_and_display_base_tree (): row_ref == NULL");
+				continue;
+			}		
+		
+			/* we'll fake the gpointer to store an int */
 			g_tree_insert (priv->nodes_displayed, (gpointer)curr_symbol_id, 
-						   child_row_ref);
+						   curr_tree_row_ref);
 
+			if (sdb_view_get_iter_from_row_ref (dbv, curr_tree_row_ref, 
+											&child_iter) == FALSE)
+			{
+				g_warning ("sdb_view_build_and_display_base_tree (): something "
+						   "went wrong");
+				continue;
+			}
 			/* add a dummy child */
 			sdb_view_do_add_hidden_dummy_child (dbv, dbe,
-						&child_iter, curr_symbol_id);
+						&child_iter, curr_symbol_id, FALSE);
 			
 		} while (symbol_db_engine_iterator_move_next (iterator) == TRUE);
 		
-		g_object_unref (iterator);
-	}	
-}
+		g_object_unref (iterator);		
+	}
 
-static void
-sdb_view_build_and_display_base_tree (SymbolDBView *dbv, SymbolDBEngine *dbe)
-{
-	GtkTreeStore *store;
-	GtkTreePath *path;
-	SymbolDBViewPriv *priv;
-	GtkTreeIter iter;
-	
-	g_return_if_fail (dbv != NULL);
-	
-	priv = dbv->priv;
-	
-	store = GTK_TREE_STORE (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)));
-	
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("namespace", NULL),
-				COLUMN_NAME, _("Namespaces"),
-				COLUMN_SYMBOL_ID, ROOT_NAMESPACE,
-				-1);
-	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          &iter);	
-	priv->row_ref_namespace = gtk_tree_row_reference_new (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
-	gtk_tree_path_free (path);
-	sdb_view_populate_base_root (dbv, dbe, priv->row_ref_namespace, "namespace");
-	/* don't forget to insert also the 'fake' symbol id into the binary tree */
-	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_NAMESPACE, priv->row_ref_namespace);	
-	
+	/*
+	 * Good. Add a 'Global' node to the store. 
+	 */
+	global_tree_row_ref = do_add_root_symbol_to_view (dbv, NULL, 
+											"Global", ROOT_GLOBAL);
+		
+	if (global_tree_row_ref == NULL)
+	{
+		g_warning ("sdb_view_build_and_display_base_tree (): row_ref == NULL");
+		return;
+	}		
+	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_GLOBAL, 
+					   global_tree_row_ref);
 
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("class", NULL),
-				COLUMN_NAME, _("Classes"),
-				COLUMN_SYMBOL_ID, ROOT_CLASS,
-				-1);
-	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          &iter);	
-	priv->row_ref_class = gtk_tree_row_reference_new (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
-	gtk_tree_path_free (path);
-	sdb_view_populate_base_root (dbv, dbe, priv->row_ref_class, "class");
-	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_CLASS, priv->row_ref_class);	
+	if (sdb_view_get_iter_from_row_ref (dbv, global_tree_row_ref, 
+										&global_child_iter) == FALSE)
+	{
+		g_warning ("sdb_view_build_and_display_base_tree (): cannot retrieve iter for "
+				   "row_ref");
+		return;
+	}
+	/*
+	global_path = gtk_tree_row_reference_get_path (global_tree_row_ref);
+	if (global_path == NULL) 
+	{
+		g_warning ("sdb_view_build_and_display_base_tree (): something went wrong.");
+		return;		
+	}
 	
-	
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("struct", NULL),
-				COLUMN_NAME, _("Structs"),
-				COLUMN_SYMBOL_ID, ROOT_STRUCT,
-				-1);
-	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          &iter);	
-	priv->row_ref_struct = gtk_tree_row_reference_new (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
-	gtk_tree_path_free (path);
-	sdb_view_populate_base_root (dbv, dbe, priv->row_ref_struct, "struct");
-	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_STRUCT, priv->row_ref_struct);	
-	
-	
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("union", NULL),
-				COLUMN_NAME, _("Unions"),
-				COLUMN_SYMBOL_ID, ROOT_UNION,
-				-1);
-	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          &iter);	
-	priv->row_ref_union = gtk_tree_row_reference_new (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
-	gtk_tree_path_free (path);	
-	sdb_view_populate_base_root (dbv, dbe, priv->row_ref_union, "union");
-	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_UNION, priv->row_ref_union);	
-	
-	
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("function", NULL),
-				COLUMN_NAME, _("Functions"),
-				COLUMN_SYMBOL_ID, ROOT_FUNCTION,
-				-1);
-	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          &iter);	
-	priv->row_ref_function = gtk_tree_row_reference_new (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
-	gtk_tree_path_free (path);
-	sdb_view_populate_base_root (dbv, dbe, priv->row_ref_function, "function");
-	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_FUNCTION, priv->row_ref_function);	
-	
-	
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("variable", NULL),
-				COLUMN_NAME, _("Variables"),
-				COLUMN_SYMBOL_ID, ROOT_VARIABLE,
-				-1);
-	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          &iter);	
-	priv->row_ref_variable = gtk_tree_row_reference_new (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
-	gtk_tree_path_free (path);
-	sdb_view_populate_base_root (dbv, dbe, priv->row_ref_variable, "variable");
-	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_VARIABLE, priv->row_ref_variable);
-	
-	
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("macro", NULL),
-				COLUMN_NAME, _("Macros"),
-				COLUMN_SYMBOL_ID, ROOT_MACRO,
-				-1);
-	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          &iter);	
-	priv->row_ref_macro = gtk_tree_row_reference_new (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
-	gtk_tree_path_free (path);
-	sdb_view_populate_base_root (dbv, dbe, priv->row_ref_macro, "macro");
-	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_MACRO, priv->row_ref_macro);
-	
-	
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("typedef", NULL),
-				COLUMN_NAME, _("Typedefs"),
-				COLUMN_SYMBOL_ID, ROOT_TYPEDEF,
-				-1);
-	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          &iter);	
-	priv->row_ref_typedef = gtk_tree_row_reference_new (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
-	gtk_tree_path_free (path);
-	sdb_view_populate_base_root (dbv, dbe, priv->row_ref_typedef, "typedef");
-	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_TYPEDEF, priv->row_ref_typedef);
-	
-	
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-				COLUMN_PIXBUF, symbol_db_view_get_pixbuf ("enumerator", NULL),
-				COLUMN_NAME, _("Enumerators"),
-				COLUMN_SYMBOL_ID, ROOT_ENUMERATOR,
-				-1);
-	path = gtk_tree_model_get_path (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
-                                          &iter);	
-	priv->row_ref_enumerator = gtk_tree_row_reference_new (
-						gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)), path);
-	gtk_tree_path_free (path);
-	sdb_view_populate_base_root (dbv, dbe, priv->row_ref_enumerator, "enumerator");
-	g_tree_insert (priv->nodes_displayed, (gpointer)ROOT_ENUMERATOR, priv->row_ref_enumerator);
+	if (gtk_tree_model_get_iter (gtk_tree_view_get_model (GTK_TREE_VIEW (dbv)),
+                                 &global_child_iter, global_path) == FALSE) 
+	{
+		g_warning ("sdb_view_build_and_display_base_tree (): cannot insert Global node");
+		return;
+	}
+	gtk_tree_path_free (global_path);
+	*/
+	/* add a dummy child */
+	sdb_view_do_add_hidden_dummy_child (dbv, dbe,
+				&global_child_iter, ROOT_GLOBAL, TRUE);
 }
 
 void
@@ -1503,7 +1742,7 @@ symbol_db_view_recv_signals_from_engine (SymbolDBView *dbv, SymbolDBEngine *dbe,
 	SymbolDBViewPriv *priv;
 
 	g_return_if_fail (dbv != NULL);
-	priv = dbv->priv;		
+	priv = dbv->priv;
 	
 	if (enable_status == TRUE) 
 	{
@@ -1558,6 +1797,7 @@ symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe)
 	
 	priv = dbv->priv;
 
+	DEBUG_PRINT ("symbol_db_view_open ()");
 	symbol_db_view_clear_cache (dbv);
 	
 	store = sdb_view_locals_create_new_store ();

@@ -185,7 +185,7 @@ symbol_db_engine_remove_file (SymbolDBEngine *dbe, const gchar* project,
 gboolean 
 symbol_db_engine_update_files_symbols (SymbolDBEngine *dbe, const gchar *project, 
 									   GPtrArray *files_path,
-									   gboolean update_prj_analize_time);
+									   gboolean update_prj_analyse_time);
 
 /**
  * Update symbols of a file by a memory-buffer to perform a real-time updating 
@@ -240,28 +240,19 @@ symbol_db_engine_get_class_parents (SymbolDBEngine *dbe, const gchar *klass_name
 
 
 /**
- * @param scope_path cannot be NULL.
- * scope_path will be something like "scope1_kind", "scope1_name", "scope2_kind", 
- * "scope2_name", NULL 
- */
-SymbolDBEngineIterator *
-symbol_db_engine_get_scope_members (SymbolDBEngine *dbe, 									
-									const GPtrArray* scope_path,
-									gint sym_info);
-
-/**
- * @param kind Can be NULL. In that case we'll return all the kinds of symbols found
+ * @param filter_kinds Can be NULL. In that case we'll return all the kinds of symbols found
  * at root level [global level].
+ * @param include_kinds Should we include in the result the filter_kinds or not?
  * @param group_them If TRUE then will be issued a 'group by symbol.name' option.
  * If FALSE you can have as result more symbols with the same name but different
  * symbols id. See for example more namespaces declared on different files.
  */
 SymbolDBEngineIterator *
-symbol_db_engine_get_global_members (SymbolDBEngine *dbe, 
-									const gchar *kind, gboolean group_them,
-									 gint results_limit, gint results_offset,
+symbol_db_engine_get_global_members_filtered (SymbolDBEngine *dbe, 
+									const GPtrArray *filter_kinds,
+									gboolean include_kinds, gboolean group_them,
+									gint results_limit, gint results_offset,
 								 	gint sym_info);
-
 
 SymbolDBEngineIterator *
 symbol_db_engine_get_file_symbols (SymbolDBEngine *dbe, 
@@ -279,6 +270,14 @@ SymbolDBEngineIterator *
 symbol_db_engine_find_symbol_by_name_pattern (SymbolDBEngine *dbe, 
 									const gchar *name, gint sym_info);
 
+/** scope_path cannot be NULL.
+ * scope_path will be something like "scope1_kind", "scope1_name", "scope2_kind", 
+ * "scope2_name", NULL 
+ */
+SymbolDBEngineIterator *
+symbol_db_engine_get_scope_members (SymbolDBEngine *dbe, 
+									const GPtrArray* scope_path, gint sym_info);
+
 /**
  * Sometimes it's useful going to query just with ids [and so integers] to have
  * a little speed improvement.
@@ -290,6 +289,15 @@ symbol_db_engine_get_scope_members_by_symbol_id (SymbolDBEngine *dbe,
 									gint results_offset,
 									gint sym_info);
 
+SymbolDBEngineIterator *
+symbol_db_engine_get_scope_members_by_symbol_id_filtered (SymbolDBEngine *dbe, 
+									gint scope_parent_symbol_id, 
+									gint results_limit,
+									gint results_offset,
+									gint sym_info,
+									const GPtrArray *filter_kinds,
+									gboolean include_kinds);
+
 /** 
  * No iterator for now. We need the quickest query possible.
  * @param scoped_symbol_id Symbol you want to know the parent of.
@@ -299,6 +307,9 @@ gint
 symbol_db_engine_get_parent_scope_id_by_symbol_id (SymbolDBEngine *dbe, 
 									gint scoped_symbol_id,
 									const gchar* db_file);
+
+const GHashTable*
+symbol_db_engine_get_sym_type_conversion_hash (SymbolDBEngine *dbe);
 
 G_END_DECLS
 

@@ -82,6 +82,10 @@ void
 symbol_db_engine_iterator_node_set_data (SymbolDBEngineIteratorNode *dbin,
 										 const GdaDataModelIter *data);
 
+void
+symbol_db_engine_iterator_node_set_conversion_hash (SymbolDBEngineIteratorNode *dbin,
+										 const GHashTable *sym_type_conversion_hash);
+
 SymbolDBEngineIteratorNode *
 symbol_db_engine_iterator_node_new (const GdaDataModelIter *data);
 

@@ -79,7 +79,8 @@ sdb_engine_iterator_class_init (SymbolDBEngineIteratorClass *klass)
 }
 
 SymbolDBEngineIterator *
-symbol_db_engine_iterator_new (GdaDataModel *model)
+symbol_db_engine_iterator_new (GdaDataModel *model, 
+							   const GHashTable *sym_type_conversion_hash)
 {
 	SymbolDBEngineIterator *dbi;
 	SymbolDBEngineIteratorPriv *priv;
@@ -102,9 +103,13 @@ symbol_db_engine_iterator_new (GdaDataModel *model)
 	 */
 	symbol_db_engine_iterator_first (dbi);
 	
-	/* set the data_iter no the base class */
+	/* set the data_iter on the base class */
 	symbol_db_engine_iterator_node_set_data (SYMBOL_DB_ENGINE_ITERATOR_NODE (dbi),
 											 priv->data_iter);
+	
+	symbol_db_engine_iterator_node_set_conversion_hash (SYMBOL_DB_ENGINE_ITERATOR_NODE (dbi),
+														sym_type_conversion_hash);
+	
 	
 	ianjuta_iterable_first (IANJUTA_ITERABLE (dbi), NULL);
 	return dbi;
