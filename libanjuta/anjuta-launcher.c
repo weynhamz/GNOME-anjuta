@@ -943,6 +943,7 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 	
 	anjuta_launcher_initialize (launcher);
 	
+	
 	/* Call this here, after set_busy (FALSE) so we are able to 
 	   launch a new child from the terminate function.
 	   (by clubfan 2002-04-07)
@@ -952,8 +953,6 @@ anjuta_launcher_execution_done_cleanup (AnjutaLauncher *launcher,
 		g_signal_emit_by_name (launcher, "child-exited", child_pid,
 							   child_status,
 							   time (NULL) - start_time);
-		
-	launcher->priv->in_cleanup = FALSE;
 }
 
 /* Using this function is necessary because

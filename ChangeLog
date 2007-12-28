@@ -1,5 +1,12 @@
 2007-12-28  Johannes Schmid <jhs@gnome.org>
 
+  * libanjuta/anjuta-launcher.c:
+  Fixed a silly (and completely useless) memory corruption that probably 
+  only occured at a few race conditions though I wonder why it did not 
+  happen more often
+
+2007-12-28  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/cvs-plugin/cvs-execute.c: (on_cvs_mesg_parse):
 	* plugins/debug-manager/plugin.c: (set_program_counter):
 	* plugins/debug-manager/stack_trace.c: (on_stack_trace_updated):
