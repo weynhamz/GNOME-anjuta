@@ -459,7 +459,7 @@ prepare_for_adding (SymbolDBView *dbv, gint parent_symbol_id,
 	/* add to root if parent_symbol_id is <= 0 */
 	if (parent_symbol_id <= 0)
 	{
-		GtkTreeRowReference *curr_tree_row_ref;
+		GtkTreeRowReference *curr_tree_row_ref = NULL;
 		
 		/* ok, let's check the kind of the symbol. Based on that we'll retrieve
 		 * the row_ref. It's quicker to check onlyl the first char than the whole 
@@ -487,11 +487,27 @@ prepare_for_adding (SymbolDBView *dbv, gint parent_symbol_id,
 			case 't':		/* typedef */
 			case 'e':		/* enumerator */
 			default:
-				/* note the negative: we'll store these under the vars/Other node */
-				curr_tree_row_ref = do_add_child_symbol_to_view (dbv, 
+			{
+				gpointer node;
+				/* Vars/Other may not be displayed already. Check it. */
+				node = g_tree_lookup (priv->nodes_displayed, (gpointer)-ROOT_GLOBAL);
+		
+				if (node != NULL) 
+				{
+					/* hey we found it */
+					/* note the negative: we'll store these under the vars/Other node */
+					curr_tree_row_ref = do_add_child_symbol_to_view (dbv, 
 											-ROOT_GLOBAL, pixbuf, symbol_name, 
-																 symbol_id);				
+																 symbol_id);
+				}
+				else 
+				{
+					/* add it to the waiting_for trigger list */
+					add_new_waiting_for (dbv, parent_symbol_id, symbol_name, symbol_id, 
+										 pixbuf);
+				}				
 				break;
+			}
 		}
 
 		if (curr_tree_row_ref == NULL)
@@ -601,6 +617,18 @@ on_symbol_inserted (SymbolDBEngine *dbe,
 		SymbolDBEngineIterator *iterator_for_children;
 	
 		iter_node = SYMBOL_DB_ENGINE_ITERATOR_NODE (iterator);
+		
+		/* check if what we want to add is on a global_scope and not only a local 
+		 * file scope e.g. static functions
+		 */
+		if (symbol_db_engine_iterator_node_get_symbol_is_file_scope (iter_node) == TRUE)
+		{
+			DEBUG_PRINT ("on_symbol_inserted()  -global- symbol %d is not global scope", 
+						 symbol_id);
+			g_object_unref (iterator);
+			return;
+		}
+		
 		symbol_kind = symbol_db_engine_iterator_node_get_symbol_extra_string (
 							iter_node, SYMINFO_KIND);
 

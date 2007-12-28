@@ -45,15 +45,12 @@ typedef struct _SymbolDBPluginClass SymbolDBPluginClass;
 
 struct _SymbolDBPlugin{
 	AnjutaPlugin parent;
-	AnjutaUI *ui;	
-	GtkWidget *widget;
-	gint uiid;
-	gint merge_id;	
-	GtkActionGroup *action_group_nav;
+	AnjutaUI *ui;
+	AnjutaPreferences *prefs;
 	
 	/* project monitor */
 	guint root_watch_id;
-	
+	 
 	/* editor monitor */
 	guint editor_watch_id;
 	gchar *project_root_uri;
@@ -66,8 +63,7 @@ struct _SymbolDBPlugin{
 	GtkWidget *scrolled_global; 		/* symbol view scrolledwindow for global
 										   symbols */	
 	GtkWidget *scrolled_locals;
-	GtkWidget *scrolled_search;
-	
+	GtkWidget *scrolled_search;	
 	
 	GtkWidget *dbv_view_tree;        	/* symbol_db_view */
 	GtkWidget *dbv_view_tab_label;
@@ -76,8 +72,9 @@ struct _SymbolDBPlugin{
 	GtkWidget *dbv_view_locals_tab_label;
 	
 	GtkWidget *dbv_view_tree_search;	/* search symbols */
-	GtkWidget *dbv_view_search_tab_label;
+	GtkWidget *dbv_view_search_tab_label;	
 	
+	GtkWidget *pref_tree_view; 			/* Preferences treeview */
 	
 	/* current editor */
 	GObject *current_editor;
@@ -85,7 +82,6 @@ struct _SymbolDBPlugin{
 	
 	gint files_count;
 	gint files_count_done;
-
 };
 
 struct _SymbolDBPluginClass{

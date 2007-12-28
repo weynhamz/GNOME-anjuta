@@ -33,7 +33,7 @@
 struct _SymbolDBEngineIteratorNodePriv
 {
 	GdaDataModelIter *data_iter;	
-	GHashTable *sym_type_conversion_hash;
+	const GHashTable *sym_type_conversion_hash;
 };
 
 static GObjectClass* parent_class = NULL;

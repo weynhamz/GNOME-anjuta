@@ -725,9 +725,7 @@ on_importing_project_end (SymbolDBEngine *dbe, gpointer data)
 	g_signal_handlers_disconnect_by_func (dbe, on_single_file_scan_end, data);																 
 	
 	/* disconnect it as we don't need it anymore. */
-	g_signal_handlers_disconnect_by_func (dbe, on_importing_project_end, data);	
-
-	
+	g_signal_handlers_disconnect_by_func (dbe, on_importing_project_end, data);
 	
 	sdb_plugin->files_count_done = 0;
 	sdb_plugin->files_count = 0;
@@ -997,29 +995,6 @@ project_root_removed (AnjutaPlugin *plugin, const gchar *name,
 	sdb_plugin->project_root_dir = NULL;
 }
 
-static void
-on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase,
-				 AnjutaSession *session, SymbolDBPlugin *plugin)
-{
-	GList *files;
-	gint i;			
-	DEBUG_PRINT ("on_session_load ()");
-	
-	if (phase != ANJUTA_SESSION_PHASE_NORMAL)
-		return;
-	
-	files = anjuta_session_get_string_list (session, "File Loader", "Files");
-
-	for (i=0; i < g_list_length (files); i++)
-	{
-		gchar * node = g_list_nth_data (files, i);
-		DEBUG_PRINT ("file %s", node);
-	}
-	
-	g_list_foreach (files, (GFunc)g_free, NULL);
-	g_list_free (files);	
-}
-
 static gboolean
 symbol_db_activate (AnjutaPlugin *plugin)
 {
@@ -1032,12 +1007,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 	symbol_db = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
 	symbol_db->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 
-	/* connect for session load event 
-	g_signal_connect (plugin->shell, "load-session",
-					  G_CALLBACK (on_session_load),
-					  plugin);
-	*/	
-	
 	/* create SymbolDBEngine */
 	symbol_db->sdbe = symbol_db_engine_new ();
 	
@@ -1129,11 +1098,6 @@ symbol_db_activate (AnjutaPlugin *plugin)
 		anjuta_plugin_add_watch (plugin, "document_manager_current_editor",
 								 value_added_current_editor,
 								 value_removed_current_editor, NULL);
-#if 0
-	/* Add UI */
-	symbol_db->merge_id = 
-		anjuta_ui_merge (symbol_db->ui, UI_FILE);
-#endif	
 	/* Added widgets */
 	anjuta_shell_add_widget (plugin->shell, symbol_db->dbv_notebook,
 							 "AnjutaSymbolBrowser", _("Symbols"),
@@ -1171,17 +1135,6 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	g_signal_handlers_disconnect_by_func (G_OBJECT (sdb_plugin->dbv_view_tree_search),
 									  on_treesearch_symbol_selected_event,
 									  plugin);
-	
-/*	
-	DEBUG_PRINT ("SymbolDBPlugin: destroying locals view ...");
-	g_object_unref (sdb_plugin->dbv_view_tree_locals);
-		
-	DEBUG_PRINT ("SymbolDBPlugin: destroying globals view ...");
-	g_object_unref (sdb_plugin->dbv_view_tree);
-	
-	DEBUG_PRINT ("SymbolDBPlugin: destroying search ...");
-	g_object_unref (sdb_plugin->dbv_view_tree_search);
-*/	
 	
 	/* Ensure all editor cached info are released */
 	if (sdb_plugin->editor_connected)
@@ -1235,8 +1188,6 @@ symbol_db_instance_init (GObject *obj)
 {
 	SymbolDBPlugin *plugin = (SymbolDBPlugin*)obj;
 
-	plugin->uiid = 0;
-	plugin->widget = NULL;
 	plugin->files_count_done = 0;
 	plugin->files_count = 0;
 }
@@ -1309,17 +1260,8 @@ isymbol_manager_get_parents (IAnjutaSymbolManager *sm,
 							 const gchar *symbol_name,
 							 GError **err)
 {
-#if 0
-	const GPtrArray *tags_array;
-	AnjutaSymbolIter *iter = NULL;
-	
-	tags_array = tm_workspace_get_parents (symbol_name);
-	if (tags_array)
-	{
-		iter = anjuta_symbol_iter_new (tags_array);
-		return IANJUTA_ITERABLE (iter);
-	}
-#endif	
+	/* TODO */
+	DEBUG_PRINT ("TODO: isymbol_manager_get_parents ()");
 	return NULL;
 }
 

@@ -1,3 +1,18 @@
+2007-12-28  Massimo Cora'  <maxcvs@email.it>
+
+  * plugins/symbol-db/plugin.c: (on_importing_project_end),
+  (symbol_db_activate), (symbol_db_deactivate),
+  (symbol_db_instance_init), (isymbol_manager_get_parents):
+  * plugins/symbol-db/plugin.h:
+  * plugins/symbol-db/symbol-db-engine-iterator-node.c:
+  * plugins/symbol-db/symbol-db-engine.c:
+  (symbol_db_engine_get_global_members_filtered):
+  * plugins/symbol-db/symbol-db-view.c: (prepare_for_adding),
+  (on_symbol_inserted):
+  Filtered out static functions on global-tab. E.g. when flag
+  is_file_scope = 1 we won't add entries there.
+  Fixed a little bug on 'Global'->'Vars/Others' node too.
+
 2007-12-28  Johannes Schmid <jhs@gnome.org>
 
   * libanjuta/anjuta-launcher.c:
@@ -6,7 +21,6 @@
   happen more often
 
 2007-12-28  Johannes Schmid <jhs@gnome.org>
-
 	* plugins/cvs-plugin/cvs-execute.c: (on_cvs_mesg_parse):
 	* plugins/debug-manager/plugin.c: (set_program_counter):
 	* plugins/debug-manager/stack_trace.c: (on_stack_trace_updated):
