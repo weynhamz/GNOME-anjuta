@@ -27,6 +27,7 @@ struct _DocmanPlugin{
 	/* project_root_uri watch*/
 	gint project_watch_id;
 	gchar* project_name;
+  gchar* project_path;
 	
 	/*! state flag for Ctrl-TAB */
 	gboolean g_tabbing;

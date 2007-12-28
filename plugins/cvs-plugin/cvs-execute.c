@@ -106,7 +106,7 @@ on_cvs_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 											 NULL);
 		
 		/* FIXME: Determine full file path */
-		uri = g_strdup_printf ("file:///%s", filename);
+		uri = gnome_vfs_get_uri_from_local_path(filename);
 		ianjuta_file_loader_load (loader, uri, FALSE, NULL);
 		g_free (uri);
 		g_free (filename);

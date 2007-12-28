@@ -204,7 +204,7 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gui
 	if (file != NULL)
 	{
 		docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (self)->shell, IAnjutaDocumentManager, NULL);
-		file_uri = g_strconcat ("file://", file, NULL);
+		file_uri = gnome_vfs_get_uri_from_local_path(file);
 		if (docman)
 		{
 			IAnjutaEditor* editor;

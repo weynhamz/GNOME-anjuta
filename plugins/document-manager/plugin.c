@@ -457,8 +457,18 @@ update_title (DocmanPlugin* doc_plugin)
 		filename = NULL;
 	if (filename && doc_plugin->project_name)
 	{
-		/* CHECKME overkill, makes window title too long */
-		title = g_strconcat (doc_plugin->project_name, " - ", filename, NULL);
+		gchar *display_filename = NULL;
+		if (doc_plugin->project_path)
+		{
+			if (g_str_has_prefix (filename, doc_plugin->project_path))
+			{
+				/* the +1 is the '/' */
+				display_filename = filename + strlen (doc_plugin->project_path) + 1;
+			}
+		}
+		if (!display_filename)
+			display_filename = filename;
+		title = g_strconcat (doc_plugin->project_name, " - ", display_filename, NULL);
 	}
 	else if (filename)
 	{
@@ -491,6 +501,7 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 	
 	
 	g_free (doc_plugin->project_name);
+	g_free (doc_plugin->project_path);	
 	doc_plugin->project_name = NULL;
 	
 	root_uri = g_value_get_string (value);
@@ -500,12 +511,12 @@ value_added_project_root_uri (AnjutaPlugin *plugin, const gchar *name,
 			gnome_vfs_get_local_path_from_uri (root_uri);
 		
 		doc_plugin->project_name = g_path_get_basename(path);
+		doc_plugin->project_path = path; 
 		
 		if (doc_plugin->project_name)
 		{
 			update_title (doc_plugin);
 		}
-		g_free(path);
 	}
 }
 

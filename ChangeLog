@@ -1,3 +1,22 @@
+2007-12-28  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/cvs-plugin/cvs-execute.c: (on_cvs_mesg_parse):
+	* plugins/debug-manager/plugin.c: (set_program_counter):
+	* plugins/debug-manager/stack_trace.c: (on_stack_trace_updated):
+	* plugins/debug-manager/start.c: (get_source_directories):
+	* plugins/debug-manager/threads.c: (on_info_thread),
+	(on_list_thread):
+	* plugins/file-manager/file-model.c: (file_model_set_property):
+	* plugins/file-manager/plugin.c: (file_manager_set_default_uri):
+	* plugins/tools/editor.c: (on_editor_response):
+	
+	Use gnome_vfs_get_uri_from_local_path instead of g_strconcat where appropriate.
+	
+	* plugins/document-manager/plugin.c: (update_title),
+	(value_added_project_root_uri):
+	* plugins/document-manager/plugin.h:
+	Shorten down the title bar if the current path is inside the opened project
+
 2007-12-28  Massimo Cora'  <maxcvs@email.it>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>

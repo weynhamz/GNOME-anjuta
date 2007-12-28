@@ -220,7 +220,7 @@ on_info_thread (const IAnjutaDebuggerFrame* frame, gpointer user_data)
 	
 	if (frame->file)
 	{
-		uri = g_strconcat ("file://", frame->file, NULL);
+		uri = gnome_vfs_get_uri_from_local_path(frame->file);
 		file = strrchr(uri, '/') + 1;
 	}
 	else	
@@ -314,7 +314,7 @@ on_list_thread (const GList *threads, gpointer user_data)
 			adr = g_strdup_printf ("0x%x", frame->address);
 			if (frame->file)
 			{
-				uri = g_strconcat ("file://", frame->file, NULL);
+				uri = gnome_vfs_get_uri_from_local_path(frame->file);
 				file = strrchr(uri, '/') + 1;
 			}
 			else	

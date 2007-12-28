@@ -38,6 +38,7 @@
 #include <libanjuta/interfaces/ianjuta-file-loader.h>
 
 #include <libgnomeui/libgnomeui.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 
 #include <gtk/gtk.h>
 
@@ -826,7 +827,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 
 				/* Not found, load file */
 				loader = IANJUTA_FILE_LOADER (anjuta_shell_get_interface (ANJUTA_PLUGIN (this->parent->plugin)->shell, IAnjutaFileLoader, NULL));
-				uri = g_strdup_printf("file:///%s", data);
+				uri = gnome_vfs_get_uri_from_local_path(data);
 				ianjuta_file_loader_load (loader, uri, FALSE, NULL);
 				g_free (uri);
 			}

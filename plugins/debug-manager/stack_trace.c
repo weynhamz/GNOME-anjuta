@@ -34,6 +34,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-editor.h>
 #include <libanjuta/interfaces/ianjuta-document-manager.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 
 #include "utilities.h"
 #include "info.h"
@@ -289,7 +290,7 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 		adr = g_strdup_printf ("0x%x", frame->address);
 		if (frame->file)
 		{
-			uri = g_strconcat ("file://", frame->file, NULL);
+			uri = gnome_vfs_get_uri_from_local_path(frame->file);
 			file = strrchr(uri, '/') + 1;
 		}
 		else

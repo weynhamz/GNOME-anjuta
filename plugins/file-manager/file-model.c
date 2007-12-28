@@ -328,7 +328,7 @@ file_model_set_property (GObject *object, guint prop_id, const GValue *value, GP
 		priv->base_uri = g_strdup (g_value_get_string (value));
 		if (!priv->base_uri || !strlen (priv->base_uri))
 		{
-			priv->base_uri = g_strdup("file:///");
+			priv->base_uri = gnome_vfs_get_uri_from_local_path("/");
 		}
 		break;
 	case PROP_FILTER_BINARY:

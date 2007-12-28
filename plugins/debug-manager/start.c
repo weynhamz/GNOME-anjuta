@@ -144,7 +144,7 @@ get_source_directories (AnjutaPlugin *plugin)
 	
 	return NULL;
 	cwd = g_get_current_dir();
-	search_dirs = g_list_prepend (search_dirs, g_strconcat ("file://", cwd, NULL));
+	search_dirs = g_list_prepend (search_dirs, gnome_vfs_get_uri_from_local_path(cwd));
 	g_free (cwd);
 
 	/* Check if a project is already open */
