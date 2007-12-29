@@ -1,5 +1,10 @@
 2007-12-29  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/editor/Makefile.am:
+	Fixed #506266 – Attempting to build the scintilla plugin, even when explicitly disabled
+
+2007-12-29  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/devhelp/plugin.c: (devhelp_activate):
 	Fixed #498986 - Anjuta-2.3.0 fails to build
 

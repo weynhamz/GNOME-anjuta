@@ -1,7 +1,6 @@
+if HAVE_PLUGIN_SCINTILLA
 
 SUBDIRS = scintilla
-
-if HAVE_PLUGIN_SCINTILLA
 
 # Plugin glade file
 editor_gladedir = $(anjuta_glade_dir)
@@ -74,13 +73,13 @@ libanjuta_editor_la_SOURCES= \
 	anjuta-pcmark-16.xpm \
 	anjuta-linemark-16.xpm
 
-endif
-
 prefs_glade_files = anjuta-editor-scintilla.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
 libanjuta_editor_la_DEPENDENCIES = \
 	build-schema-files
+
+endif
 
 EXTRA_DIST = \
 	$(editor_pixmaps_DATA) \
