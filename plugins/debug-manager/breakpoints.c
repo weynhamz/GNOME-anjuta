@@ -623,12 +623,13 @@ on_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer user_data)
 {
 	BreakpointsDBase *bd = (BreakpointsDBase *)user_data;
-	IAnjutaEditor *editor;
-
-	editor = IANJUTA_EDITOR (g_value_get_object (value));
-							 
+	GObject *editor;
+		
+	editor = g_value_get_object (value);
+	
     /* Restore breakpoints */
-	breakpoints_dbase_set_all_in_editor (bd, editor);
+	if (IANJUTA_IS_EDITOR (editor))
+		breakpoints_dbase_set_all_in_editor (bd, IANJUTA_EDITOR (editor));
 }
 
 static void

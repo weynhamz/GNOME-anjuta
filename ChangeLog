@@ -1,3 +1,20 @@
+2007-12-29  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/debug-manager/breakpoints.c: (on_added_current_editor):
+	* plugins/debug-manager/plugin.c:
+	(on_run_to_cursor_action_activate):
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_goto_file_line_mark):
+	* plugins/symbol-db/plugin.c: (value_added_current_editor),
+	(value_removed_current_editor):
+	
+	Fixed IAnjutaEditor vs. IAnjutaDocument GTK+-Criticals. We should really rename
+	all those to value_added_current_document...
+
+	* plugins/editor/anjuta-editor-scintilla.glade:
+	Fixed #505315 – anjuta hangs when going from editing a glade file to editing a c source file
+	Remember to ALWAYS use for loops when iterating of a GList* as this is much more convinient!
+
 2007-12-28  Massimo Cora'  <maxcvs@email.it>
 
   * plugins/symbol-db/plugin.c: (on_importing_project_end),
@@ -18,7 +35,7 @@
   * libanjuta/anjuta-launcher.c:
   Fixed a silly (and completely useless) memory corruption that probably 
   only occured at a few race conditions though I wonder why it did not 
-  happen more often
+	happen more often
 
 2007-12-28  Johannes Schmid <jhs@gnome.org>
 	* plugins/cvs-plugin/cvs-execute.c: (on_cvs_mesg_parse):

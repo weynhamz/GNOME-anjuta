@@ -687,7 +687,7 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 				return;
 	
 			document = ianjuta_document_manager_get_current_document (docman, NULL);
-			if (IANJUTA_IS_DOCUMENT(document))
+			if (IANJUTA_IS_EDITOR (document))
 			{	
 				editor = IANJUTA_EDITOR(document);
 			}

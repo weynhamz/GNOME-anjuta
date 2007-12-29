@@ -532,9 +532,6 @@
               </packing>
             </child>
           </widget>
-          <packing>
-            <property name="tab_expand">False</property>
-          </packing>
         </child>
         <child>
           <widget class="GtkLabel" id="label12350">
@@ -543,7 +540,6 @@
           </widget>
           <packing>
             <property name="type">tab</property>
-            <property name="tab_expand">False</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
@@ -783,7 +779,6 @@
           </widget>
           <packing>
             <property name="position">1</property>
-            <property name="tab_expand">False</property>
           </packing>
         </child>
         <child>
@@ -794,7 +789,6 @@
           <packing>
             <property name="type">tab</property>
             <property name="position">1</property>
-            <property name="tab_expand">False</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>
@@ -1084,7 +1078,6 @@
           </widget>
           <packing>
             <property name="position">2</property>
-            <property name="tab_expand">False</property>
           </packing>
         </child>
         <child>
@@ -1095,7 +1088,6 @@
           <packing>
             <property name="type">tab</property>
             <property name="position">2</property>
-            <property name="tab_expand">False</property>
             <property name="tab_fill">False</property>
           </packing>
         </child>

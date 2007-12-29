@@ -1079,10 +1079,9 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 
 	g_return_val_if_fail (uri != NULL, NULL);
 	
-	node = docman->priv->pages;
 	
 	/* first, try to use a document that's already open */
-	while (node)
+	for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
 	{
 		AnjutaDocmanPage *page;
 		
@@ -1112,7 +1111,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 				DEBUG_PRINT ("Unexpected NULL path");
 				g_free (te_uri);
 				g_free (te_normalized_path);
-				node = g_list_next (node);
 				continue;
 			}
 
@@ -1141,7 +1139,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 			g_free (te_uri);
 			g_free (te_normalized_path);
 		}
-		node = g_list_next (node);
 	}
 	/* no deal, open a new document */
 	te = anjuta_docman_add_editor (docman, uri, NULL);

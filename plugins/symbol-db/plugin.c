@@ -319,7 +319,10 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 															 NULL, g_free);
 	}
 	sdb_plugin->current_editor = editor;
-
+	
+	if (!IANJUTA_IS_EDITOR (editor))
+		return;
+	
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 	
 	if (uri == NULL)
@@ -377,7 +380,7 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 
 static void
 on_editor_foreach_disconnect (gpointer key, gpointer value, gpointer user_data)
-{
+{	
 	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
 										  G_CALLBACK (on_editor_saved),
 										  user_data);
@@ -560,6 +563,9 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 {
 	SymbolDBPlugin *sdb_plugin;
 
+	if (!IANJUTA_IS_EDITOR (data))
+		return;
+	
 	DEBUG_PRINT ("value_removed_current_editor ()");
 	/* let's remove the timeout for symbols refresh */
 	g_source_remove (timeout_id);
