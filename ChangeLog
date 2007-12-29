@@ -1,5 +1,10 @@
 2007-12-29  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/devhelp/plugin.c: (devhelp_activate):
+	Fixed #498986 - Anjuta-2.3.0 fails to build
+
+2007-12-29  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/debug-manager/breakpoints.c: (on_added_current_editor):
 	* plugins/debug-manager/plugin.c:
 	(on_run_to_cursor_action_activate):

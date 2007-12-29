@@ -259,7 +259,11 @@ static GtkActionEntry actions[] = {
 	},
 	{
 		"ActionHelpContext",
+#ifndef DISABLE_EMBEDDED_DEVHELP
 		ANJUTA_STOCK_DEVHELP,
+#else
+		NULL,
+#endif /* DISABLE_EMBEDDED_DEVHELP */
 		N_("_Context Help"),
 		"<shift>F1",
 		N_("Search help for the current word in the editor"),
@@ -313,9 +317,9 @@ devhelp_activate (AnjutaPlugin *plugin)
 
 	AnjutaUI *ui;
 	AnjutaDevhelp *devhelp;
-	static gboolean init = FALSE;
 
 #ifndef DISABLE_EMBEDDED_DEVHELP
+	static gboolean init = FALSE;
 	GNode *books;
 	GList *keywords;
 	GtkWidget* books_sw;
