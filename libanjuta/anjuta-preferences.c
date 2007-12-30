@@ -619,7 +619,7 @@ get_property_value_as_string (AnjutaProperty *prop)
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
 		{
 			const gchar *filename;
-			filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (prop->object));
+			filename = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (prop->object));
 			text_value = g_strdup (filename);
 		}
 		break;
@@ -771,12 +771,8 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		{	
 			if (value)
 			{
-				gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (prop->object),
+				gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (prop->object),
 																 value);
-			}
-			else
-			{
-				gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (prop->object), "");
 			}
 		}
 		break;
@@ -984,7 +980,7 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 							  G_CALLBACK (update_property_on_change_color), p);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
-			g_signal_connect (G_OBJECT(p->object), "file-set",
+			g_signal_connect (G_OBJECT(p->object), "current-folder-changed",
 							  G_CALLBACK (update_property_on_change_str), p);
 			break;
 		default:
