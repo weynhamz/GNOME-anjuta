@@ -1,3 +1,9 @@
+2007-12-31  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/Makefile.am:
+	Only install glade catalog files if glade-3 is available
+	(Fixes #506269 and #500296)
+
 2007-12-30  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-preferences.c: (get_property_value_as_string),

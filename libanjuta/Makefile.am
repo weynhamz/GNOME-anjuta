@@ -68,6 +68,8 @@ libanjuta_la_SOURCES= \
 	anjuta-async-command.c \
 	anjuta-async-command.h
 
+if HAVE_PLUGIN_GLADE
+
 gladeanjutadir = @GLADE_PLUGINS_PATH@
 
 gladeanjuta_LTLIBRARIES = libgladeanjuta.la
@@ -80,6 +82,8 @@ libgladeanjuta_la_LIBADD = $(top_builddir)/libanjuta/libanjuta.la \
 catalogdir = @GLADE_CATALOG_PATH@
 
 catalog_DATA = anjuta-glade.xml
+
+endif
 
 libanjutaincludedir=$(includedir)/libanjuta-1.0/libanjuta
 
