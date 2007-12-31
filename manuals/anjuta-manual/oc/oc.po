@@ -1,9 +1,6 @@
-# translation of oc.po to Occitan
 # Occitan translation of anjuta.
 # Copyright (C) 2001-2006, 2007 Free Software Foundation, Inc.
 # This file is under the same licence as the anjuta package.
-#
-# Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org> - 2006-2007
 #
 # Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2007.
 msgid ""
@@ -11,7 +8,7 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-20 03:15+0100\n"
-"PO-Revision-Date: 2007-12-05 15:41+0100\n"
+"PO-Revision-Date: 2007-12-28 10:28+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -397,7 +394,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:204(title)
 msgid "File auto save"
-msgstr ""
+msgstr "Enregistrament automatic de fichièr"
 
 #: C/anjuta-manual.xml:205(para)
 msgid "If you have enabled auto-save, it will not auto-save any new files. You must first save them manually. The same applies to the <guimenuitem>Save All</guimenuitem> option: it will not save new files, if you haven't saved them first manually. <emphasis>You must save a file manually before auto-save or <guimenuitem>Save All</guimenuitem> will work with it.</emphasis>"
@@ -741,7 +738,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:3(title)
 msgid "Project Management"
-msgstr ""
+msgstr "Gestion de projècte"
 
 #: C/anjuta-manual.xml:5(para)
 msgid "Anjuta has a powerful Project Manager plugin which can open most <ulink type=\"info\" url=\"info:automake\">automake/autoconf</ulink> based projects. It might fail on some oddly configured projects, but as long as the project is done by using automake/autoconf in a typical way, it should work."
@@ -753,7 +750,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:26(title)
 msgid "Creating a New Project"
-msgstr ""
+msgstr "Crear un projècte novèl"
 
 #: C/anjuta-manual.xml:28(title)
 msgid "New project from template"
@@ -789,7 +786,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:92(title)
 msgid "Importing Projects"
-msgstr ""
+msgstr "Importar de projèctes"
 
 #: C/anjuta-manual.xml:93(para)
 msgid "The import project feature is used to import an already existing project and convert it into <application>anjuta</application> projcect. Activate the import project wizard from <menuchoice><guimenu>File</guimenu><guimenu>New</guimenu><guimenuitem>Project from existing sources</guimenuitem></menuchoice> and follow instructions dictated by the wizard. Once the project is imported, it could be opened in <application>anjuta</application> subsequently just like any other <application> anjuta</application> project."
@@ -825,7 +822,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:144(title)
 msgid "Saving Projects"
-msgstr ""
+msgstr "Enregistrar de projèctes"
 
 #: C/anjuta-manual.xml:145(para)
 msgid "The project is automatically saved when you close because all changes are made directly in the project structure."
@@ -833,7 +830,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:153(title)
 msgid "Project structure"
-msgstr ""
+msgstr "Estructura de projècte"
 
 #: C/anjuta-manual.xml:154(para)
 msgid "<interface>Project View</interface> lists the project in standard <ulink type=\"info\" url=\"info:automake\"><application>automake</application></ulink> heirarchy organized into groups of targets. <emphasis>Groups</emphasis> correspond to directories in your project and <emphasis>targets</emphasis> correspond to normal <application>automake</application> targets (not to be confused with make targets). <interface>Project View</interface> actually has two parts; one part (lower one) shows complete project heirarchy and the other part (upper one) lists important targets directly. Important targets constitute executable and library targets -- making them very accessible in from the view. This is particularly useful in big projects where the heirarchy could be deep and hard to navigate from the tree alone. Targets are, in turn, composed of source files."
@@ -1045,7 +1042,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:481(title)
 msgid "Project Configuration"
-msgstr ""
+msgstr "Configuracion del projècte"
 
 #: C/anjuta-manual.xml:482(para)
 msgid "Project configuration involves setting the correct build flags for targets, groups and project itself. You can set these flags in their respective properties dialog."
@@ -1077,7 +1074,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:539(title)
 msgid "Project properties"
-msgstr ""
+msgstr "Propietats del projècte"
 
 #: C/anjuta-manual.xml:546(para)
 msgid "Set project name, version and URL in <guibutton>General</guibutton> page. Configure variables can also be use in these fields. The URL is the bug report URL for the project."
@@ -1285,7 +1282,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:865(title)
 msgid "When to configure"
-msgstr ""
+msgstr "Quora configurar"
 
 #: C/anjuta-manual.xml:866(para)
 msgid "Until you run <filename>configure</filename>, you cannot start building the project."
@@ -1321,7 +1318,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:918(title)
 msgid "When to autogen.sh"
-msgstr ""
+msgstr "Quora aviar autogen.sh"
 
 #: C/anjuta-manual.xml:919(para)
 msgid "Unlike configuration, auto generation does not need to be run even once — in fact, it does not need to be run at all! The option is available because it can be handy in some circumstances."
@@ -1945,7 +1942,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:781(title)
 msgid "Information about used files"
-msgstr ""
+msgstr "Entresenhas a prepaus de fichièrs utilizats"
 
 #: C/anjuta-manual.xml:782(para)
 msgid "It is possible to get some information about the files used by the debugged program. by choosing the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Information</guisubmenu><guimenuitem>Target files</guimenuitem></menuchoice>. A window will open displaying all informations."
@@ -1993,7 +1990,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:841(title)
 msgid "User command"
-msgstr ""
+msgstr "Comanda personalizada"
 
 #: C/anjuta-manual.xml:842(para)
 msgid "To send directly a command to the back end choose the menu item <menuchoice><guimenu>Debug</guimenu><guimenuitem>Debugger command</guimenuitem></menuchoice>. This will bring a small dialog where you can enter commands that will be send to the debugger when you press <keycap>Return</keycap>."
@@ -2098,5 +2095,5 @@ msgstr ""
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
 #: C/anjuta-manual.xml:0(None)
 msgid "translator-credits"
-msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org)"
+msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>"
 
