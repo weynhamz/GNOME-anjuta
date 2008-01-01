@@ -33,4 +33,6 @@ typedef struct _Locals Locals;
 Locals *locals_new (DebugManagerPlugin *plugin);
 void locals_free (Locals *l);
 
+gchar* locals_find_variable_value (Locals *l, const gchar *name);
+
 #endif

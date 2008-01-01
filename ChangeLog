@@ -1,3 +1,22 @@
+2008-01-01  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/utilities.c,
+	plugins/debug-manager/utilities.h,
+	plugins/debug-manager/breakpoints.c:
+	Move get_current_editor function in utilities.c
+
+	* plugins/debug-manager/plugin.c,
+	plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/watch.h,
+	plugins/debug-manager/locals.c,
+	plugins/debug-manager/locals.h,
+	(added) plugins/debug-manager/variable.c,
+	(added) plugins/debug-manager/variable.h,
+	plugins/debug-manager/Makefile.am:
+	Use hover interface to display variable value
+
 2007-12-31  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/Makefile.am:

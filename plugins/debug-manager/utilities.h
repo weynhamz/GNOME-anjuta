@@ -21,6 +21,7 @@
 #define _UTILITIES_H_
 
 #include <libanjuta/anjuta-plugin.h>
+#include <libanjuta/interfaces/ianjuta-editor.h>
 
 #include <glib.h>
 
@@ -33,5 +34,9 @@ gchar* gdb_util_remove_white_spaces(const gchar* text);
  * Because output data are the input data. Only GList is allocated
  *---------------------------------------------------------------------------*/
 GList* gdb_util_remove_blank_lines(const GList* lines);
+
+/* Get current editor or NULL
+ *---------------------------------------------------------------------------*/
+IAnjutaEditor* dma_get_current_editor(AnjutaPlugin *plugin);
 
 #endif

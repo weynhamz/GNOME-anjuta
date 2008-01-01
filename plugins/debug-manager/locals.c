@@ -253,6 +253,15 @@ on_program_started (Locals *self)
 	g_signal_connect_swapped (self->plugin, "frame-changed", G_CALLBACK (on_frame_changed), self);
 }
 
+/* Public function
+ *---------------------------------------------------------------------------*/
+
+gchar*
+locals_find_variable_value (Locals *l, const gchar *name)
+{
+	return debug_tree_find_variable_value (l->debug_tree, name);
+}
+
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
 

@@ -23,6 +23,7 @@
 #include "watch.h"
 
 #include "debug_tree.h"
+#include "utilities.h"
 
 /*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
@@ -238,25 +239,17 @@ static void
 on_debug_tree_inspect (GtkAction *action, gpointer user_data)
 {
 	ExprWatch * ew = (ExprWatch *)user_data;
-	GObject *obj;
-	IAnjutaDocumentManager *docman = NULL;
 	IAnjutaEditor *te = NULL;
 	gchar *expression = NULL;
 	
 	/* Get current editor and line */
-	obj = anjuta_shell_get_object (ANJUTA_PLUGIN (ew->plugin)->shell,
-			"IAnjutaDocumentManager", NULL /* TODO */);
-	docman = IANJUTA_DOCUMENT_MANAGER (obj);
-	if (docman != NULL)
+	te = dma_get_current_editor (ANJUTA_PLUGIN (ew->plugin));
+	if (te == NULL)	return;
+	
+	expression = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL);
+	if (expression == NULL)
 	{
-		te = IANJUTA_EDITOR(ianjuta_document_manager_get_current_document (docman, NULL));
-		if (!te)
-			return;
-		expression = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL);
-		if (expression == NULL)
-		{
-			expression = ianjuta_editor_get_current_word (IANJUTA_EDITOR (te), NULL);
-		}
+		expression = ianjuta_editor_get_current_word (IANJUTA_EDITOR (te), NULL);
 	}
 	
 	debug_tree_inspect_evaluate_dialog (ew, expression);
@@ -483,6 +476,12 @@ create_expr_watch_gui (ExprWatch * ew)
 
 /* Public function
  *---------------------------------------------------------------------------*/
+
+gchar*
+expr_watch_find_variable_value (ExprWatch *ew, const gchar *name)
+{
+	return debug_tree_find_variable_value (ew->debug_tree, name);
+}
 
 /* Callback for saving session
  *---------------------------------------------------------------------------*/

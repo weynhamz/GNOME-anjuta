@@ -25,8 +25,6 @@
 #include "plugin.h"
 
 #include "breakpoints.h"
-#include "watch.h"
-#include "locals.h"
 #include "stack_trace.h"
 #include "threads.h"
 #include "info.h"
@@ -38,6 +36,7 @@
 #include "utilities.h"
 #include "start.h"
 #include "queue.h"
+#include "variable.h"
 
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-debug.h>
@@ -90,8 +89,6 @@ struct _DebugManagerPlugin
 	gboolean busy;
 	
 	/* Debugger components */
-	Locals *locals;
-	ExprWatch *watch;
 	BreakpointsDBase *breakpoints;
 	DmaStart *start;
 	StackTrace *stack;
@@ -101,6 +98,7 @@ struct _DebugManagerPlugin
 	DmaMemory *memory;
 	DmaDisassemble *disassemble;
 	DmaThreads *thread;
+	DmaVariableDBase *variable;
 	
 	
 	/* Logging view */
@@ -675,23 +673,13 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 		}
 		else
 		{
-			IAnjutaDocumentManager *docman;
 			IAnjutaEditor *editor;
-			IAnjutaDocument *document;
 			gchar *uri;
 			gchar *file;
 			gint line;
 
-			docman = IANJUTA_DOCUMENT_MANAGER (anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell, "IAnjutaDocumentManager", NULL));
-			if (docman == NULL)
-				return;
-	
-			document = ianjuta_document_manager_get_current_document (docman, NULL);
-			if (IANJUTA_IS_EDITOR (document))
-			{	
-				editor = IANJUTA_EDITOR(document);
-			}
-			else
+			editor = dma_get_current_editor (ANJUTA_PLUGIN (plugin));
+			if (editor == NULL)
 				return;
 			uri = ianjuta_file_get_uri (IANJUTA_FILE (editor), NULL);
 			if (uri == NULL)
@@ -1119,13 +1107,9 @@ dma_plugin_activate (AnjutaPlugin* plugin)
 											GETTEXT_PACKAGE, TRUE, this);	
 	this->uiid = anjuta_ui_merge (ui, UI_FILE);
 
+	/* Variable */
+	this->variable = dma_variable_dbase_new (this);
 	
-	/* Watch expression */
-	this->watch = expr_watch_new (ANJUTA_PLUGIN (this));
-	
-	/* Local window */
-	this->locals = locals_new (this);
-
 	/* Stack trace */
 	this->stack = stack_trace_new (this);
 
@@ -1194,14 +1178,11 @@ dma_plugin_deactivate (AnjutaPlugin* plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	anjuta_ui_unmerge (ui, this->uiid);
 
-    expr_watch_destroy (this->watch);
-	this->watch = NULL;
+	dma_variable_dbase_free (this->variable);
+	this->variable = NULL;
 	
 	breakpoints_dbase_destroy (this->breakpoints);
 	this->breakpoints = NULL;
-	
-	locals_free (this->locals);
-	this->locals = NULL;
 	
 	stack_trace_free (this->stack);
 	this->stack = NULL;
@@ -1268,8 +1249,6 @@ dma_plugin_instance_init (GObject* obj)
 	plugin->editor_watch_id = 0;
 	plugin->project_watch_id = 0;
 	plugin->breakpoints = NULL;
-	plugin->watch = NULL;
-	plugin->locals = NULL;
 	plugin->registers = NULL;
 	plugin->signals = NULL;
 	plugin->sharedlibs = NULL;

@@ -93,3 +93,26 @@ gdb_util_remove_blank_lines (const GList * lines)
 	}
 	return list;
 }
+
+IAnjutaEditor*
+dma_get_current_editor (AnjutaPlugin *plugin)
+{
+	IAnjutaDocumentManager *docman;
+	IAnjutaEditor* editor = NULL;
+
+	docman = IANJUTA_DOCUMENT_MANAGER (anjuta_shell_get_object (plugin->shell,
+					"IAnjutaDocumentManager", NULL));
+									   
+	if (docman != NULL)
+	{
+		IAnjutaDocument* doc;
+		
+		doc = ianjuta_document_manager_get_current_document(docman, NULL);
+		if (doc != NULL)
+		{
+			editor = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
+		}
+	}
+	
+	return editor;
+}

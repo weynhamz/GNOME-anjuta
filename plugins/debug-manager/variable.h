@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
-    watch.h
-    Copyright (C) 2000  Kh. Naba Kumar Singh
+    variable.h
+    Copyright (C) 2008  Sébastien Granjoux
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,29 +18,14 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _WATCH_H_
-#define _WATCH_H_
+#ifndef _VARIABLE_H_
+#define _VARIABLE_H_
 
-#include <libanjuta/anjuta-plugin.h>
-#include <libanjuta/interfaces/ianjuta-debugger.h>
+#include "plugin.h"
 
-#include <gtk/gtkwidget.h>
-#include <gtk/gtktreemodel.h>
+typedef struct _DmaVariableDBase DmaVariableDBase;
 
-/* TODO #include "properties.h" */
-
-typedef struct _ExprWatchGui ExprWatchGui;
-typedef struct _ExprWatch ExprWatch;
-
-enum {
-	WATCH_VARIABLE_COLUMN,
-	WATCH_VALUE_COLUMN,
-	WATCH_N_COLUMNS
-};
-
-ExprWatch* expr_watch_new (AnjutaPlugin *plugin);
-void expr_watch_destroy (ExprWatch *ew);
-
-gchar* expr_watch_find_variable_value (ExprWatch *ew, const gchar *name);
+DmaVariableDBase *dma_variable_dbase_new (DebugManagerPlugin *plugin);
+void dma_variable_dbase_free (DmaVariableDBase *self);
 
 #endif

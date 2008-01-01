@@ -1389,6 +1389,33 @@ debug_tree_get_first (DebugTree *tree)
 	return exp;
 }
 
+gchar*
+debug_tree_find_variable_value (DebugTree *tree, const gchar *name)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
+	model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
+	
+	if (gtk_tree_model_get_iter_first (model, &iter))
+	{
+		gchar *exp;
+		gchar *value;
+		do
+		{
+			gtk_tree_model_get(model, &iter, VARIABLE_COLUMN, &exp, 
+							                 VALUE_COLUMN, &value, -1);
+			
+			if (strcmp (exp, name) == 0)
+			{
+				return value;
+			}
+		} while (gtk_tree_model_iter_next (model, &iter));
+	}
+	
+	return NULL;
+}
+
 /* Constructor & Destructor
  *---------------------------------------------------------------------------*/
 

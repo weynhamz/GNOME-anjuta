@@ -85,7 +85,9 @@ libanjuta_debug_manager_la_SOURCES = \
 	threads.c \
 	threads.h \
 	command.c \
-	command.h
+	command.h \
+	variable.c \
+	variable.h
 
 EXTRA_DIST = \
 	$(plugin_in_files) \

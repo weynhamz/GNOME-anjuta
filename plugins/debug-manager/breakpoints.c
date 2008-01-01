@@ -134,29 +134,6 @@ enum {
 /* Helper functions
  *---------------------------------------------------------------------------*/
 
-static IAnjutaEditor *
-get_current_editor (DebugManagerPlugin *plugin)
-{
-	IAnjutaDocumentManager *docman;
-	IAnjutaEditor* ed = NULL;
-
-	docman = IANJUTA_DOCUMENT_MANAGER (anjuta_shell_get_object (ANJUTA_PLUGIN (plugin)->shell,
-					"IAnjutaDocumentManager", NULL));
-									   
-	if (docman != NULL)
-	{
-		IAnjutaDocument* doc;
-		
-		doc = ianjuta_document_manager_get_current_document(docman, NULL);
-		if (doc != NULL)
-		{
-			ed = IANJUTA_IS_EDITOR(doc) ? IANJUTA_EDITOR(doc) : NULL;
-		}
-	}
-	
-	return ed;
-}
-
 /* BreakItem functions
  *---------------------------------------------------------------------------*/
 
@@ -1021,7 +998,7 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 	IAnjutaEditor* ed;
 	
 	/* Add in current editor if possible */
-	ed = get_current_editor (bd->plugin);
+	ed = dma_get_current_editor (ANJUTA_PLUGIN(bd->plugin));
 	if ((ed != NULL) && IANJUTA_IS_MARKABLE (ed))
 	{
 		gchar *uri;
@@ -1462,7 +1439,7 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 		gtk_widget_hide (location_label);
 
 		/* Get current editor and line */
-		te = get_current_editor (bd->plugin);
+		te = dma_get_current_editor (ANJUTA_PLUGIN(bd->plugin));
 		if (te != NULL)
 		{
 			uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
@@ -1613,7 +1590,7 @@ on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	guint line;
 
 	/* Get current editor and line */
-	te = get_current_editor (bd->plugin);
+	te = dma_get_current_editor (ANJUTA_PLUGIN (bd->plugin));
 	if (te == NULL) return;       /* Missing editor */
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
 	if (uri == NULL) return;     /* File not saved yet, it's not possible to put a breakpoint in it */

@@ -66,6 +66,8 @@ void debug_tree_remove_model (DebugTree *tree, GtkTreeModel *model);
 gchar *debug_tree_get_selected (DebugTree *tree);
 gchar *debug_tree_get_first (DebugTree *tree);
 
+gchar* debug_tree_find_variable_value (DebugTree *tree, const gchar *name);
+
 G_END_DECLS
 
 #endif
