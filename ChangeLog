@@ -1,3 +1,9 @@
+2008-01-01  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/editor/text_editor.c: (itext_editor_get_text):
+	Fixed #506740 – ianjuta_editor_get_text crash if request 
+	text past the buffer length
+
 2008-01-01  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/utilities.c,

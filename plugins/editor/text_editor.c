@@ -2222,6 +2222,10 @@ itext_editor_get_text (IAnjutaEditor *editor, gint position, gint length,
 									  SCI_GETLENGTH, 0, 0);
 	else
 		end = position + length;
+	
+	/* Silently correct length like stated in the docs #506740 */
+	if (end > ianjuta_editor_get_length (editor, NULL))
+		end = -1;
 
 	data =	(gchar *) aneditor_command (te->editor_id,
 										ANE_GETTEXTRANGE, position, end);
