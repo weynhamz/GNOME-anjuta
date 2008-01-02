@@ -1,4 +1,4 @@
-2008-01-02  Johannes Schmid,,,  <jhs@idefix>
+2008-01-02  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c:
 	(anjuta_docman_add_document), (anjuta_docman_remove_document):
