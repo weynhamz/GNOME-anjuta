@@ -1,3 +1,9 @@
+2008-01-02  Johannes Schmid,,,  <jhs@idefix>
+
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_add_document), (anjuta_docman_remove_document):
+	ref and unref correctly to silence a Gtk+ critical
+
 2008-01-01  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/editor/text_editor.c: (itext_editor_get_text):

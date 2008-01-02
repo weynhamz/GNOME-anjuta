@@ -830,7 +830,9 @@ anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 					  G_CALLBACK (on_document_save_point), docman);
 	g_signal_connect (G_OBJECT (doc), "destroy",
 					  G_CALLBACK (on_document_destroy), docman);
-				   
+	
+	g_object_ref (doc);
+	
 	g_signal_emit (G_OBJECT (docman), docman_signals[DOC_ADDED], 0, doc);
 	anjuta_docman_set_current_document (docman, doc);
 	anjuta_shell_present_widget (docman->shell, GTK_WIDGET (docman->priv->plugin->vbox), NULL);
@@ -861,11 +863,7 @@ anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 		docman->priv->pages = g_list_remove (docman->priv->pages, (gpointer)page);
 		g_free (page);
 	}
-
-	/*CHECKME need something like this if other code can ref the document ?
-	if ((G_OBJECT (doc))->ref_count > 0)
-	 	g_signal_emit (G_OBJECT (docman), docman_signals[DOC_REMOVED], 0, doc);
-	*/
+	g_object_unref (doc);
 }
 
 void
