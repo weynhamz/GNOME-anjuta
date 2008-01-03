@@ -1,3 +1,9 @@
+2008-01-03  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/file-manager/file-model.c: (file_model_row_expanded),
+	(file_model_row_collapsed):
+  Fixed the too method to take a correct data argument
+
 2008-01-02  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c:

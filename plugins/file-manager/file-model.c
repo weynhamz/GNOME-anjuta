@@ -243,9 +243,9 @@ file_model_sort (gconstpointer a, gconstpointer b)
 
 static void
 file_model_row_expanded (GtkTreeView* tree_view, GtkTreeIter* iter,
-					    GtkTreePath* path)
+					    GtkTreePath* path, gpointer data)
 {
-	FileModel* model = FILE_MODEL(gtk_tree_view_get_model(tree_view));
+	FileModel* model = FILE_MODEL(data);
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
 	gchar* uri;
 	GList* files = NULL;
@@ -278,9 +278,9 @@ file_model_row_expanded (GtkTreeView* tree_view, GtkTreeIter* iter,
 
 static void
 file_model_row_collapsed (GtkTreeView* tree_view, GtkTreeIter* iter,
-						 GtkTreePath* path)
+						 GtkTreePath* path, gpointer data)
 {
-	FileModel* model = FILE_MODEL(gtk_tree_view_get_model(tree_view));
+	FileModel* model = FILE_MODEL(data);
 	FileModelPrivate* priv = FILE_MODEL_GET_PRIVATE (model);
 	GtkTreeIter child;
 	
