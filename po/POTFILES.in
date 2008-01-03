@@ -71,7 +71,7 @@ plugins/document-manager/anjuta-docman.c
 plugins/document-manager/anjuta-document-manager.glade
 plugins/document-manager/plugin.c
 plugins/document-manager/search-box.c
-plugins/editor/editor.glade
+plugins/editor/anjuta-editor-scintilla.glade
 plugins/editor/print.c
 plugins/editor/plugin.c
 plugins/editor/text_editor.c
@@ -163,7 +163,7 @@ plugins/sourceview/anjuta-document-saver.c
 plugins/sourceview/anjuta-document.c
 plugins/sourceview/anjuta-encodings.c
 plugins/sourceview/sourceview.c
-plugins/sourceview/sourceview.glade
+plugins/sourceview/anjuta-editor-sourceview.glade
 plugins/sourceview/sourceview-print.c
 plugins/subversion/anjuta-subversion.glade
 plugins/subversion/plugin.c

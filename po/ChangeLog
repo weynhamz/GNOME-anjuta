@@ -1,3 +1,8 @@
+2008-01-03  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.in: Fix this.
+	* nb.po: Updated Norwegian bokmål translation.
+
 2007-12-31  Yannig Marchegay <yannig@marchegay.org>
 
 	* oc.po: Updated Occitan translation.
