@@ -29,6 +29,7 @@
 
 #include "text_editor.h"
 #include "text_editor_cbs.h"
+#include "text-editor-iterable.h"
 
 #define GTK
 #undef PLAT_GTK
@@ -222,13 +223,22 @@ on_text_editor_scintilla_notify (GtkWidget * sci, gint wParam, gpointer lParam,
 	}
 	return;
 	case SCN_DWELLSTART:
-		g_signal_emit_by_name (te, "hover-over", nt->position);
-		return;
+    {
+      TextEditorCell* cell = text_editor_cell_new (te, nt->position); 
+      g_signal_emit_by_name (te, "hover-over", cell);
+      g_object_unref (cell);
+      return;
+    }
 		
 	case SCN_DWELLEND:
-		text_editor_hide_hover_tip (te);
-		g_signal_emit_by_name (te, "hover-leave", nt->position);
-		return;
+    {
+      TextEditorCell* cell = text_editor_cell_new (te, nt->position); 
+      
+      text_editor_hide_hover_tip (te);
+      g_signal_emit_by_name (te, "hover-leave", cell);
+      g_object_unref (cell);
+      return;
+    }
 
 /*	case SCEN_SETFOCUS:
 	case SCEN_KILLFOCUS:

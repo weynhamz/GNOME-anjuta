@@ -2232,6 +2232,18 @@ itext_editor_get_text (IAnjutaEditor *editor, gint position, gint length,
 	return data;
 }
 
+static gchar*
+itext_editor_get_text_iter (IAnjutaEditor *editor, 
+							IAnjutaIterable* begin,
+							IAnjutaIterable* end,
+							GError **e)
+{
+  gint start_pos = text_editor_cell_get_position (TEXT_EDITOR_CELL (begin));
+  gint end_pos = text_editor_cell_get_position (TEXT_EDITOR_CELL (end));
+	
+  return itext_editor_get_text (editor, start_pos, end_pos - start_pos, e);
+}
+
 static gint
 itext_editor_get_position (IAnjutaEditor *editor, GError **e)
 {
@@ -2319,8 +2331,8 @@ itext_editor_erase (IAnjutaEditor *editor, gint position, gint length,
 	else
 		end = position + length;
 
-	ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (editor) , position,
-								  end, FALSE, NULL);
+	scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
+						   SCI_SETSEL, position, end);
 	text_editor_replace_selection (TEXT_EDITOR (editor), "");
 }
 
@@ -2399,6 +2411,7 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->goto_line = itext_editor_goto_line;
 	iface->goto_position = itext_editor_goto_position;
 	iface->get_text = itext_editor_get_text;
+	iface->get_text_iter = itext_editor_get_text_iter;	
 	iface->get_position = itext_editor_get_position;
 	iface->get_position_iter = itext_editor_get_position_iter;
 	iface->get_lineno = itext_editor_get_lineno;
@@ -2517,28 +2530,18 @@ iselection_get (IAnjutaEditorSelection *editor, GError **error)
 }
 
 static void
-iselection_set (IAnjutaEditorSelection *editor, gint start, gint end,
-		gboolean backwards, GError **e)
-{
-    if (!backwards)
-	scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-						   SCI_SETSEL, start, end);
-    else
-	scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-						   SCI_SETSEL, end, start);
-}
-
-static void
-iselection_set_iter (IAnjutaEditorSelection* edit, 
-				  IAnjutaEditorCell* istart,
-				  IAnjutaEditorCell* iend,
-				  GError** e)
+iselection_set (IAnjutaEditorSelection* edit, 
+				IAnjutaIterable* istart,
+				IAnjutaIterable* iend,
+				GError** e)
 {
 	TextEditorCell* start = TEXT_EDITOR_CELL (istart);
 	TextEditorCell* end = TEXT_EDITOR_CELL (iend);
+	int start_pos =text_editor_cell_get_position (start);
+	int end_pos =text_editor_cell_get_position (end);	
 	
-	iselection_set (edit, text_editor_cell_get_position (start),
-					text_editor_cell_get_position (end), FALSE, e);
+	scintilla_send_message(SCINTILLA(TEXT_EDITOR(edit)->scintilla),
+						   SCI_SETSEL, start_pos, end_pos);
 }
 
 static gboolean
@@ -2547,21 +2550,14 @@ iselection_has_selection (IAnjutaEditorSelection *editor, GError **e)
 	return text_editor_has_selection (TEXT_EDITOR (editor));
 }
 
-static gint
-iselection_get_start (IAnjutaEditorSelection *editor, GError **e)
-{
-	gint start =  scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-										  SCI_GETSELECTIONSTART, 0, 0);
-	gint end = scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-									   SCI_GETSELECTIONEND, 0, 0);
-	return (start != end)? start: -1;
-}
-
 static IAnjutaIterable*
-iselection_get_start_iter (IAnjutaEditorSelection *edit, GError **e)
+iselection_get_start (IAnjutaEditorSelection *edit, GError **e)
 {
-	gint start = iselection_get_start (edit, e);
-	if (start != -1)
+	gint start =  scintilla_send_message (SCINTILLA(TEXT_EDITOR(edit)->scintilla),
+										  SCI_GETSELECTIONSTART, 0, 0);
+	gint end = scintilla_send_message (SCINTILLA(TEXT_EDITOR(edit)->scintilla),
+									   SCI_GETSELECTIONEND, 0, 0);
+	if (start != end)
 	{
 		return IANJUTA_ITERABLE (text_editor_cell_new (TEXT_EDITOR (edit), start));
 	}
@@ -2569,21 +2565,14 @@ iselection_get_start_iter (IAnjutaEditorSelection *edit, GError **e)
 		return NULL;
 }
 
-static gint
-iselection_get_end (IAnjutaEditorSelection *editor, GError **e)
-{
-	gint start =  scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-										  SCI_GETSELECTIONSTART, 0, 0);
-	gint end = scintilla_send_message (SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-									   SCI_GETSELECTIONEND, 0, 0);
-	return (start != end)? end: -1;
-}
-
 static IAnjutaIterable*
-iselection_get_end_iter (IAnjutaEditorSelection *edit, GError **e)
+iselection_get_end (IAnjutaEditorSelection *edit, GError **e)
 {
-	gint end = iselection_get_end (edit, e);
-	if (end != -1)
+	gint start =  scintilla_send_message (SCINTILLA(TEXT_EDITOR(edit)->scintilla),
+										  SCI_GETSELECTIONSTART, 0, 0);
+	gint end = scintilla_send_message (SCINTILLA(TEXT_EDITOR(edit)->scintilla),
+									   SCI_GETSELECTIONEND, 0, 0);
+	if (start != end)
 	{
 		return IANJUTA_ITERABLE (text_editor_cell_new (TEXT_EDITOR (edit), end));
 	}
@@ -2672,11 +2661,8 @@ iselection_iface_init (IAnjutaEditorSelectionIface *iface)
 	iface->has_selection = iselection_has_selection;
 	iface->get = iselection_get;
 	iface->set = iselection_set;
-	iface->set_iter = iselection_set_iter;
 	iface->get_start = iselection_get_start;
-	iface->get_start_iter = iselection_get_start_iter;
 	iface->get_end = iselection_get_end;
-	iface->get_end_iter = iselection_get_end_iter;
 	iface->replace = iselection_replace;
 	iface->select_all = iselection_select_all;
 	iface->select_to_brace = iselection_select_to_brace;
@@ -3662,29 +3648,20 @@ isearch_iface_init(IAnjutaEditorSearchIface* iface)
 }
 
 static void
-ihover_display (IAnjutaEditorHover *ihover, gint position,
+ihover_display (IAnjutaEditorHover *ihover, IAnjutaIterable *pos,
 				const gchar *info, GError **e)
 {
 	TextEditor *te = TEXT_EDITOR (ihover);
+	gint position = text_editor_cell_get_position (TEXT_EDITOR_CELL (pos));
 	g_return_if_fail (position >= 0);
 	g_return_if_fail (info != NULL);
 	text_editor_show_hover_tip (te, position, info);
 }
 
 static void
-ihover_set_timeout (IAnjutaEditorHover *ihover, gint timeout, GError **e)
-{
-	TextEditor *te = TEXT_EDITOR (ihover);
-	g_return_if_fail (timeout > 0);
-	scintilla_send_message (SCINTILLA (te->scintilla), SCI_SETMOUSEDWELLTIME,
-							timeout, 0);
-}
-
-static void
 ihover_iface_init(IAnjutaEditorHoverIface* iface)
 {
 	iface->display = ihover_display;
-	iface->set_timeout = ihover_set_timeout;
 }
 
 ANJUTA_TYPE_BEGIN(TextEditor, text_editor, GTK_TYPE_VBOX);

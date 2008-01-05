@@ -1,19 +1,19 @@
 /*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Library General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- */
- 
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+* 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Library General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+*/
+
 #include "sourceview-prefs.h"
 #include "sourceview-private.h"
 #include <gtksourceview/gtksourceview.h>
@@ -24,20 +24,21 @@ static AnjutaPreferences* prefs = NULL;
 
 #define REGISTER_NOTIFY(key, func) \
 	notify_id = anjuta_preferences_notify_add (sv->priv->prefs, \
-											   key, func, sv, NULL); \
+																						key, func, sv, NULL); \
 	sv->priv->gconf_notify_ids = g_list_prepend (sv->priv->gconf_notify_ids, \
-										   GUINT_TO_POINTER(notify_id));
+																							GUINT_TO_POINTER(notify_id));
 /* Editor preferences */
-#define DISABLE_SYNTAX_HILIGHTING  "disable.syntax.hilighting"
-#define HIGHLIGHT_CURRENT_LINE	   "sourceview.highlightcurrentline"
+#define HIGHLIGHT_SYNTAX           "sourceview.syntax.highlight"
+#define HIGHLIGHT_CURRENT_LINE	   "sourceview.currentline.highlight"
 #define USE_TABS                   "use.tabs"
-#define BRACES_CHECK               "braces.check"
+#define HIGHLIGHT_BRACKETS         "sourceview.brackets.highlight"
 #define TAB_SIZE                   "tabsize"
-#define TAB_INDENTS                "tab.indents"
-#define BACKSPACE_UNINDENTS        "backspace.unindents"
+#define INDENT_SIZE                "indent.size"
 
-#define VIEW_LINENUMBERS_MARGIN    "margin.linenumber.visible"
-#define VIEW_MARKER_MARGIN         "margin.marker.visible"
+#define VIEW_LINENUMBERS           "sourceview.linenumbers.visible"
+#define VIEW_MARKS                 "sourceview.marks.visible"
+#define VIEW_RIGHTMARGIN           "sourceview.rightmargin.visible"
+#define RIGHTMARGIN_POSITION       "sourceview.rightmargin.position"
 
 #define COLOR_THEME "sourceview.color.use_theme"
 #define COLOR_TEXT	"sourceview.color.text"
@@ -59,11 +60,10 @@ get_int(GConfEntry* entry)
 static gboolean
 get_bool(GConfEntry* entry)
 {
-    GConfValue* value = gconf_entry_get_value(entry);
+	GConfValue* value = gconf_entry_get_value(entry);
 	/* Usually we would use get_bool but anjuta_preferences saves bool as int 
-		#409408
-	*/
-	if (value->type == GCONF_VALUE_BOOL)
+		#409408 */
+		if (value->type == GCONF_VALUE_BOOL)
 		return gconf_value_get_bool (value);
 	else
 		return gconf_value_get_int(value);
@@ -71,31 +71,32 @@ get_bool(GConfEntry* entry)
 
 static void
 on_gconf_notify_disable_hilite (GConfClient *gclient, guint cnxn_id,
-								GConfEntry *entry, gpointer user_data)
+																GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
-	gboolean disable_highlight = get_bool(entry);
+	gboolean highlight = get_bool(entry);
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
-	gtk_source_buffer_set_highlight(GTK_SOURCE_BUFFER(sv->priv->document), !disable_highlight);
+	gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document),
+																				 highlight);
 	
 }
 
 static void
 on_gconf_notify_highlight_current_line (GConfClient *gclient, guint cnxn_id,
-					GConfEntry *entry, gpointer user_data)
+																				GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	gboolean highlight_current_line = get_bool(entry);
 	sv = ANJUTA_SOURCEVIEW(user_data);
-    
-    	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
-						   highlight_current_line);
+	
+	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
+																						 highlight_current_line);
 }
 
 static void
 on_gconf_notify_tab_size (GConfClient *gclient, guint cnxn_id,
-						  GConfEntry *entry, gpointer user_data)
+													GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	gint tab_size = get_int(entry);
@@ -103,69 +104,109 @@ on_gconf_notify_tab_size (GConfClient *gclient, guint cnxn_id,
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
 	g_return_if_fail(GTK_IS_SOURCE_VIEW(sv->priv->view));
-    
-	gtk_source_view_set_tabs_width(GTK_SOURCE_VIEW(sv->priv->view), tab_size);
+	
+	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view), tab_size);
+}
+
+static void
+on_gconf_notify_indent_size (GConfClient *gclient, guint cnxn_id,
+														 GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	gint indent_width = get_int(entry);
+	
+	sv = ANJUTA_SOURCEVIEW(user_data);
+	
+	g_return_if_fail(GTK_IS_SOURCE_VIEW(sv->priv->view));
+	
+	gtk_source_view_set_indent_width(GTK_SOURCE_VIEW(sv->priv->view), indent_width);
 }
 
 static void
 on_gconf_notify_use_tab_for_indentation (GConfClient *gclient, guint cnxn_id,
-										 GConfEntry *entry, gpointer user_data)
+																				 GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	gboolean use_tabs = get_bool(entry);
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
-													  !use_tabs);
+																										!use_tabs);
 }
 
 static void
 on_gconf_notify_braces_check (GConfClient *gclient, guint cnxn_id,
-							  GConfEntry *entry, gpointer user_data)
+															GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	gboolean braces_check = get_bool(entry);
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
-	gtk_source_buffer_set_check_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
-										 braces_check);
+	gtk_source_buffer_set_highlight_matching_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
+																										braces_check);
 }
 
 static void
-on_gconf_notify_view_markers (GConfClient *gclient, guint cnxn_id,
-							  GConfEntry *entry, gpointer user_data)
+on_gconf_notify_view_marks (GConfClient *gclient, guint cnxn_id,
+														GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	gboolean show_markers = get_bool(entry);
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
-	gtk_source_view_set_show_line_markers(GTK_SOURCE_VIEW(sv->priv->view), 
-										 show_markers);
-
+	gtk_source_view_set_show_line_marks(GTK_SOURCE_VIEW(sv->priv->view), 
+																			show_markers);
+	
 }
 
 static void
 on_gconf_notify_view_linenums (GConfClient *gclient, guint cnxn_id,
-							   GConfEntry *entry, gpointer user_data)
+															 GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	gboolean show_lineno = get_bool(entry);
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
 	gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(sv->priv->view), 
-										 show_lineno);
+																				show_lineno);
+	
+}
 
+static void
+on_gconf_notify_view_right_margin (GConfClient *gclient, guint cnxn_id,
+																	 GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	gboolean show_margin = get_bool(entry);
+	sv = ANJUTA_SOURCEVIEW(user_data);
+	
+	gtk_source_view_set_show_right_margin(GTK_SOURCE_VIEW(sv->priv->view), 
+																				show_margin);
+	
+}
+
+static void
+on_gconf_notify_right_margin_position (GConfClient *gclient, guint cnxn_id,
+																			 GConfEntry *entry, gpointer user_data)
+{
+	Sourceview *sv;
+	gboolean pos = get_bool(entry);
+	sv = ANJUTA_SOURCEVIEW(user_data);
+	
+	gtk_source_view_set_right_margin_position(GTK_SOURCE_VIEW(sv->priv->view), 
+																						pos);
+	
 }
 
 static void
 on_gconf_notify_color (GConfClient *gclient, guint cnxn_id,
-							   GConfEntry *entry, gpointer user_data)
+											 GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	GdkColor *text, *background, *selected_text, *selection;
 	AnjutaPreferences* prefs = sourceview_get_prefs();
 	sv = ANJUTA_SOURCEVIEW(user_data);
-
+	
 	text = anjuta_util_convert_color(prefs, COLOR_TEXT);
 	background = anjuta_util_convert_color(prefs, COLOR_BACKGROUND);
 	selected_text = anjuta_util_convert_color(prefs, COLOR_SELECTED_TEXT);
@@ -176,7 +217,7 @@ on_gconf_notify_color (GConfClient *gclient, guint cnxn_id,
 
 static void
 on_gconf_notify_color_theme (GConfClient *gclient, guint cnxn_id,
-							   GConfEntry *entry, gpointer user_data)
+														 GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	gboolean use_theme = get_bool(entry);
@@ -192,22 +233,22 @@ on_gconf_notify_color_theme (GConfClient *gclient, guint cnxn_id,
 
 static void
 on_gconf_notify_font (GConfClient *gclient, guint cnxn_id,
-							   GConfEntry *entry, gpointer user_data)
+											GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	gchar* font;
 	AnjutaPreferences* prefs = sourceview_get_prefs();
 	sv = ANJUTA_SOURCEVIEW(user_data);
-
+	
 	font = anjuta_preferences_get(prefs, FONT);
-
+	
 	anjuta_view_set_font(sv->priv->view, FALSE, font);
 	g_free (font);
 }
 
 static void
 on_gconf_notify_font_theme (GConfClient *gclient, guint cnxn_id,
-							   GConfEntry *entry, gpointer user_data)
+														GConfEntry *entry, gpointer user_data)
 {
 	Sourceview *sv;
 	gboolean use_theme = get_bool(entry);
@@ -244,16 +285,16 @@ init_colors_and_fonts(Sourceview* sv)
 	else
 	{
 		GConfClient *gclient;
-                gchar *desktop_fixed_font;
-
+		gchar *desktop_fixed_font;
+		
 		gclient = gconf_client_get_default ();
-                desktop_fixed_font =
-                        gconf_client_get_string (gclient, DESKTOP_FIXED_FONT, NULL);
-                if (desktop_fixed_font)
-                        anjuta_view_set_font(sv->priv->view, FALSE, desktop_fixed_font);
-                else
-                        anjuta_view_set_font(sv->priv->view, TRUE, NULL);
-                g_free (desktop_fixed_font);
+		desktop_fixed_font =
+			gconf_client_get_string (gclient, DESKTOP_FIXED_FONT, NULL);
+		if (desktop_fixed_font)
+			anjuta_view_set_font(sv->priv->view, FALSE, desktop_fixed_font);
+		else
+			anjuta_view_set_font(sv->priv->view, TRUE, NULL);
+		g_free (desktop_fixed_font);
 		g_object_unref (gclient);
 	}
 	
@@ -277,36 +318,45 @@ sourceview_prefs_init(Sourceview* sv)
 	prefs = sv->priv->prefs;
 	
 	/* Init */
-	gtk_source_buffer_set_highlight(GTK_SOURCE_BUFFER(sv->priv->document), !get_key(sv, DISABLE_SYNTAX_HILIGHTING));
-    	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
-						   get_key(sv, HIGHLIGHT_CURRENT_LINE));
-	gtk_source_view_set_tabs_width(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, TAB_SIZE));
+		gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document), get_key(sv, HIGHLIGHT_SYNTAX));
+	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
+																						 get_key(sv, HIGHLIGHT_CURRENT_LINE));
+	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, TAB_SIZE));
+	gtk_source_view_set_indent_width(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, INDENT_SIZE));
 	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view),
-													  !get_key(sv, USE_TABS));
-	gtk_source_buffer_set_check_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
-										 get_key(sv, BRACES_CHECK));
-	gtk_source_view_set_show_line_markers(GTK_SOURCE_VIEW(sv->priv->view), 
-										 get_key(sv, VIEW_MARKER_MARGIN));
+																										!get_key(sv, USE_TABS));
+	gtk_source_buffer_set_highlight_matching_brackets(GTK_SOURCE_BUFFER(sv->priv->document), 
+																										get_key(sv, HIGHLIGHT_BRACKETS));
+	gtk_source_view_set_show_line_marks(GTK_SOURCE_VIEW(sv->priv->view), 
+																			get_key(sv, VIEW_MARKS));
 	gtk_source_view_set_show_line_numbers(GTK_SOURCE_VIEW(sv->priv->view), 
-										 get_key(sv, VIEW_LINENUMBERS_MARGIN));
+																				get_key(sv, VIEW_LINENUMBERS));
+	gtk_source_view_set_show_right_margin(GTK_SOURCE_VIEW(sv->priv->view), 
+																				get_key(sv, VIEW_RIGHTMARGIN));
+	gtk_source_view_set_right_margin_position(GTK_SOURCE_VIEW(sv->priv->view), 
+																						get_key(sv, RIGHTMARGIN_POSITION));
+	
 	
 	init_colors_and_fonts(sv);
 	
 	/* Register gconf notifications */
-	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
+		REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
+	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_indent_size);	
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);
-	REGISTER_NOTIFY (DISABLE_SYNTAX_HILIGHTING, on_gconf_notify_disable_hilite);
+	REGISTER_NOTIFY (HIGHLIGHT_SYNTAX, on_gconf_notify_disable_hilite);
 	REGISTER_NOTIFY (HIGHLIGHT_CURRENT_LINE, on_gconf_notify_highlight_current_line);
-	REGISTER_NOTIFY (BRACES_CHECK, on_gconf_notify_braces_check);
-	REGISTER_NOTIFY (VIEW_MARKER_MARGIN, on_gconf_notify_view_markers);
-	REGISTER_NOTIFY (VIEW_LINENUMBERS_MARGIN, on_gconf_notify_view_linenums);
+	REGISTER_NOTIFY (HIGHLIGHT_BRACKETS, on_gconf_notify_braces_check);
+	REGISTER_NOTIFY (VIEW_MARKS, on_gconf_notify_view_marks);
+	REGISTER_NOTIFY (VIEW_LINENUMBERS, on_gconf_notify_view_linenums);
+	REGISTER_NOTIFY (VIEW_RIGHTMARGIN, on_gconf_notify_view_right_margin);
+	REGISTER_NOTIFY (RIGHTMARGIN_POSITION, on_gconf_notify_right_margin_position);
 	REGISTER_NOTIFY (COLOR_THEME, on_gconf_notify_color_theme);
 	REGISTER_NOTIFY (COLOR_TEXT, on_gconf_notify_color);
 	REGISTER_NOTIFY (COLOR_BACKGROUND, on_gconf_notify_color);
 	REGISTER_NOTIFY (COLOR_SELECTED_TEXT, on_gconf_notify_color);
 	REGISTER_NOTIFY (COLOR_SELECTION, on_gconf_notify_color);
 	REGISTER_NOTIFY (FONT_THEME, on_gconf_notify_font_theme);
-	REGISTER_NOTIFY (FONT, on_gconf_notify_font);
+	REGISTER_NOTIFY (FONT, on_gconf_notify_font);	
 	
 }
 
@@ -321,7 +371,7 @@ void sourceview_prefs_destroy(Sourceview* sv)
 	}
 	g_list_free(sv->priv->gconf_notify_ids);
 }
-	
+
 
 AnjutaPreferences*
 sourceview_get_prefs()

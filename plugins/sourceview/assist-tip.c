@@ -81,6 +81,9 @@ assist_tip_set_tips (AssistTip* tip, GList* tips)
 	gchar* text = NULL;
 	gchar* tip_text;
 	
+	if (tips == NULL)
+		return;
+	
 	for (cur_tip = tips; cur_tip != NULL; cur_tip = g_list_next (cur_tip))
 	{
 		if (!strlen (cur_tip->data))

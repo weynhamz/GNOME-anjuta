@@ -1381,7 +1381,7 @@ on_value_removed_current_editor (AnjutaPlugin *plugin, const gchar *name,
 static void
 on_auto_indent (GtkAction *action, gpointer data)
 {
-	gint sel_start, sel_end;
+	IAnjutaIterable *sel_start, *sel_end;
 	gint line_start, line_end;
 	gint insert_line;
 	gint line_indent;
@@ -1400,12 +1400,8 @@ on_auto_indent (GtkAction *action, gpointer data)
 														NULL);
 		sel_end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor),
 													NULL);
-		line_start = ianjuta_editor_get_line_from_position (editor,
-															sel_start,
-															NULL);
-		line_end = ianjuta_editor_get_line_from_position (editor,
-														  sel_end,
-														  NULL);
+		line_start = ianjuta_editor_cell_get_line (IANJUTA_EDITOR_CELL (sel_start), NULL);
+		line_end = ianjuta_editor_cell_get_line (IANJUTA_EDITOR_CELL (sel_end), NULL);
 	}
 	else
 	{

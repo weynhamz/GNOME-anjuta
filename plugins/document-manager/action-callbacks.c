@@ -314,13 +314,19 @@ on_editor_command_upper_case_activate (GtkAction *action, gpointer user_data)
 	doc = get_current_document (user_data);
 	if (doc)
 	{
-		gint start, end;
-		start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (doc), NULL);
-		if (start >= 0)
+		if (ianjuta_editor_selection_has_selection (IANJUTA_EDITOR_SELECTION (doc), 
+													NULL))
 		{
-			end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (doc), NULL);
-			if (end >= 0)
-				ianjuta_editor_convert_to_upper (IANJUTA_EDITOR_CONVERT (doc), start, end, NULL);
+			IAnjutaIterable *start, *end;
+			start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (doc),
+														NULL);
+			end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (doc), NULL);			
+			ianjuta_editor_convert_to_upper (IANJUTA_EDITOR_CONVERT (doc), 
+											 ianjuta_iterable_get_position (start, NULL),
+											 ianjuta_iterable_get_position (end, NULL),
+											 NULL);
+			g_object_unref (start);
+			g_object_unref (end);			
 		}
 	}
 }
@@ -333,13 +339,17 @@ on_editor_command_lower_case_activate (GtkAction *action, gpointer user_data)
 	doc = get_current_document (user_data);
 	if (doc)
 	{
-		gint start, end;
-		start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (doc), NULL);
-		if (start >= 0)
+		if (ianjuta_editor_selection_has_selection (IANJUTA_EDITOR_SELECTION (doc), NULL))
 		{
-			end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (doc), NULL);
-			if (end >= 0)
-				ianjuta_editor_convert_to_lower (IANJUTA_EDITOR_CONVERT (doc), start, end, NULL);
+			IAnjutaIterable *start, *end;
+			start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (doc), NULL);
+			end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (doc), NULL);			
+			ianjuta_editor_convert_to_lower (IANJUTA_EDITOR_CONVERT (doc), 
+											 ianjuta_iterable_get_position (start, NULL),
+											 ianjuta_iterable_get_position (end, NULL),
+											 NULL);
+			g_object_unref (start);
+			g_object_unref (end);			
 		}
 	}
 }

@@ -75,8 +75,6 @@ libanjuta_sourceview_la_SOURCES = \
 	sourceview-prefs.h \
 	sourceview-prefs.c \
 	sourceview-private.h \
-	sourceview-print.c \
-	sourceview-print.h \
 	sourceview-cell.c \
 	sourceview-cell.h \
 	assist-tip.h \

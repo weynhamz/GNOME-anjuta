@@ -1084,6 +1084,22 @@ interface IAnjutaEditor
 	 */
 	gchar* get_text (gint position, gint length);
 
+	/**
+	 * ianjuta_editor_get_text_iter:
+	 * @obj: Self
+	 * @begin: Begining iterator
+	 * @end: End iterator
+	 * @err: Error propagation and reporting
+	 *
+	 * Gets text characters beginning from @begin
+	 * (including char pointed by @begin) and ending with @end
+	 * The characters returned are utf-8 encoded.
+	 *
+	 * Returns: A buffer of utf-8 characters.
+	 * The returned buffer must be freed when no longer required.
+	 */
+	gchar* get_text_iter (IAnjutaIterable* begin, IAnjutaIterable* end);
+
 	/*
 	 * ianjuta_editor_get_position:
 	 * @obj: Self
@@ -1278,27 +1294,16 @@ interface IAnjutaEditor
 		gchar* get ();
 		
 		/**
-		 * ianjuta_editor_selection_set:
-		 * @obj: Self
-		 * @start: Begin of selection
-		 * @end: End of selection
-		 * @backward: Direction of selection
-		 * @err: Error propagation and reporting
-		 *
-		 * Select characters between start and end
-		 */
-		void set (gint start, gint end, gboolean backward);
-		
-		/**
 		 * ianjuta_editor_selection_set_iter:
 		 * @obj: Self
 		 * @start: Begin of selection
 		 * @end: End of selection
 		 * @err: Error propagation and reporting
 		 *
-		 * Select characters between start and end
+		 * Select characters between start and end. Start and end don't have to
+		 * be ordered.
 		 */
-		void set_iter (IAnjutaEditorCell* start, IAnjutaEditorCell* end);
+		void set (IAnjutaIterable* start, IAnjutaIterable* end);
 		
 		/**
 		 * ianjuta_editor_selection_get_start:
@@ -1308,21 +1313,9 @@ interface IAnjutaEditor
 		 * Gets start position of selection text. If there is no selection,
 		 * returns -1.
 		 *
-		 * Return: Start of selection or -1 if there is no selection.
-		 */
-		gint get_start ();
-		
-		/**
-		 * ianjuta_editor_selection_get_start_iter:
-		 * @obj: Self
-		 * @err: Error propagation and reporting
-		 *
-		 * Gets start position of selection text. If there is no selection,
-		 * returns -1.
-		 *
 		 * Return: Start of selection or NULL if there is no selection.
 		 */
-		IAnjutaIterable* get_start_iter ();
+		IAnjutaIterable* get_start ();
 		
 		/**
 		 * ianjuta_editor_selection_get_end:
@@ -1330,23 +1323,11 @@ interface IAnjutaEditor
 		 * @err: Error propagation and reporting
 		 *
 		 * Get end position of selection. If there is no selection, returns
-		 * -1.
-		 * 
-		 * Return: End of selection or -1 if there is no selection.
-		 */
-		gint get_end ();
-		
-		/**
-		 * ianjuta_editor_selection_get_end_iter:
-		 * @obj: Self
-		 * @err: Error propagation and reporting
-		 *
-		 * Get end position of selection. If there is no selection, returns
 		 * NULL.
 		 * 
-		 * Return: End of selection or -1 if there is no selection.
+		 * Return: End of selection or NULL if there is no selection.
 		 */
-		IAnjutaIterable* get_end_iter ();
+		IAnjutaIterable* get_end ();
 
 		/**
 		 * ianjuta_editor_selection_select_block:
@@ -1647,11 +1628,12 @@ interface IAnjutaEditor
 	 */
 	interface IAnjutaEditorHover
 	{
-		void ::hover_over (gint position);
-		void ::hover_leave (gint position);
+	  #include <libanjuta/interfaces/ianjuta-iterable.h>
+	
+		void ::hover_over (GObject* position);
+		void ::hover_leave (GObject* position);
 		
-		void set_timeout (gint timeout);
-		void display (gint position, const gchar *info);
+		void display (IAnjutaIterable* position, const gchar *info);
 	}
 	
 	/**
@@ -1948,7 +1930,7 @@ interface IAnjutaEditorCell
 	gchar *get_character ();
 	
 	/**
-	 * ianjuta_editor_cell_get_lenth:
+	 * ianjuta_editor_cell_get_length:
 	 * @obj: self
 	 * @err: Error propagation and reporting.
 	 *
@@ -1958,6 +1940,17 @@ interface IAnjutaEditorCell
 	 * Returns: Length of the unicode character.
 	 */
 	gint get_length ();
+
+	/**
+	 * ianjuta_editor_cell_get_line:
+	 * @obj: self
+	 * @err: Error propagation and reporting.
+	 *
+	 * Get the line of the cell
+	 * 
+	 * Returns: Line of the cell
+	 */
+	gint get_line();
 	
 	/**
 	 * ianjuta_editor_cell_get_char:

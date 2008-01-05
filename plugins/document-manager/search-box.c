@@ -269,8 +269,9 @@ on_incremental_search (GtkWidget* widget, SearchBox* search_box)
 	if (found)
 	{
 		selection = IANJUTA_EDITOR_SELECTION (private->current_editor);
-		ianjuta_editor_selection_set_iter (selection,
-										   result_start, result_end, NULL);
+		ianjuta_editor_selection_set (selection,
+									 IANJUTA_ITERABLE (result_start),
+									 IANJUTA_ITERABLE (result_end), NULL);
 		g_object_unref (result_start);
 		g_object_unref (result_end);
 		
@@ -322,7 +323,7 @@ on_search_activated (GtkWidget* widget, SearchBox* search_box)
 												NULL))
 	{
 		IAnjutaIterable* selection_start = 
-			ianjuta_editor_selection_get_start_iter (selection, NULL);
+			ianjuta_editor_selection_get_start (selection, NULL);
 		if (ianjuta_iterable_get_position (IANJUTA_ITERABLE (search_start), NULL) ==
 			ianjuta_iterable_get_position (selection_start, NULL))
 		{
@@ -386,8 +387,9 @@ on_search_activated (GtkWidget* widget, SearchBox* search_box)
 	}
 	if (found)
 	{
-		ianjuta_editor_selection_set_iter (selection,
-										   result_start, result_end, NULL);
+		ianjuta_editor_selection_set (selection,
+									  IANJUTA_ITERABLE (result_start),
+									  IANJUTA_ITERABLE (result_end), NULL);
 		g_object_unref (result_start);
 		g_object_unref (result_end);
 	}

@@ -22,6 +22,7 @@
 
 #include "assist-window.h"
 #include "assist-tip.h"
+#include "sourceview-cell.h"
 
 #include <libanjuta/anjuta-plugin.h>
 #include <glib.h>
@@ -62,9 +63,16 @@ struct SourceviewPrivate {
 	gboolean saving;
 	gint goto_line;
 	
+	/* Idle marking */
+	GSList* idle_sources;
+	
 	/* Assist */
 	AssistWindow* assist_win;
 	AssistTip* assist_tip;
+	
+	/* Hover */
+	gchar* tooltip;
+	SourceviewCell* tooltip_cell;
 	
 	/* Plugin */
 	AnjutaPlugin* plugin;

@@ -66,29 +66,38 @@ is_name (gchar c)
 }
 
 static gchar*
-get_hovered_word (IAnjutaEditor* editor, gint position)
+get_hovered_word (IAnjutaEditor* editor, IAnjutaIterable* pos)
 {
 	gchar *buf;
 	gchar *ptr;
+	IAnjutaIterable *start_iter, *end_iter;
 	gint start;
 	gint end;
+	gint position;
 	
-	if (position == -1) return NULL;
+	g_return_val_if_fail (pos != NULL, NULL);
 	
 	/* Get selected characters if possible */
 	if (IANJUTA_IS_EDITOR_SELECTION (editor))
 	{
-		start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor), NULL);
-		if ((start != -1) && (start <= position))
+		start_iter = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor), NULL);
+		if (start_iter && (ianjuta_iterable_get_position (start_iter, NULL) 
+						   < ianjuta_iterable_get_position (pos, NULL)))
 		{
-			end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor), NULL);
-			if ((end != -1) && (end >= position))
+			g_object_unref (start_iter);
+			end_iter = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor), NULL);
+			if (end_iter && (ianjuta_iterable_get_position (end_iter, NULL) 
+							 >= ianjuta_iterable_get_position (pos, NULL)))
 			{
 				/* Hover on selection, get selected characters */
-				return ianjuta_editor_get_text(editor, start, end - start, NULL);
+			    g_object_unref (end_iter);
+				return ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (editor),
+													 NULL);
 			}
 		}
 	}
+	
+	position = ianjuta_iterable_get_position (pos, NULL);
 	
 	/* Find word below cursor */
 	if (position < DEFAULT_VARIABLE_NAME / 2)
@@ -196,13 +205,14 @@ get_hovered_word (IAnjutaEditor* editor, gint position)
  *---------------------------------------------------------------------------*/
 
 static void
-on_hover_over (DmaVariableDBase *self, gint position, IAnjutaEditorHover* editor)
+on_hover_over (DmaVariableDBase *self, IAnjutaIterable* pos, IAnjutaEditorHover* editor)
 {
 	gchar *name;
 	
-	DEBUG_PRINT("Hover on editor %p at %d", editor, position);
+	DEBUG_PRINT("Hover on editor %p at %d", editor, 
+				ianjuta_iterable_get_position (pos, NULL));
 	
-	name = get_hovered_word (IANJUTA_EDITOR (editor), position);
+	name = get_hovered_word (IANJUTA_EDITOR (editor), pos);
 	if (name != NULL)
 	{
 		gchar *value;
@@ -224,7 +234,7 @@ on_hover_over (DmaVariableDBase *self, gint position, IAnjutaEditorHover* editor
 		gchar *display;
 		
 		display = g_strconcat(name, " = ", value, NULL);
-		ianjuta_editor_hover_display (editor, position, display, NULL);
+		ianjuta_editor_hover_display (editor, pos, display, NULL);
 		g_free (display);
 		g_free (value);
 		g_free (name);

@@ -32,8 +32,6 @@
 
 #include <gtk/gtktextview.h>
 #include <string.h>
-
-#include <gtksourceview/gtksourcetag.h>
  
 static void sourceview_cell_class_init(SourceviewCellClass *klass);
 static void sourceview_cell_instance_init(SourceviewCell *sp);
@@ -60,7 +58,7 @@ sourceview_cell_class_init(SourceviewCellClass *klass)
 static void
 sourceview_cell_instance_init(SourceviewCell *obj)
 {
-	obj->priv = g_new0(SourceviewCellPrivate, 1);
+	obj->priv = g_slice_new(SourceviewCellPrivate);
 	
 	/* Initialize private members, etc. */	
 }
@@ -73,7 +71,7 @@ sourceview_cell_finalize(GObject *object)
 	
   gtk_text_iter_free(cobj->priv->iter);
 	
-	g_free(cobj->priv);
+	g_slice_free(SourceviewCellPrivate, cobj->priv);
 	G_OBJECT_CLASS(sourceview_cell_parent_class)->finalize(object);
 }
 
@@ -115,6 +113,13 @@ icell_get_length(IAnjutaEditorCell* icell, GError** e)
 	return g_unichar_to_utf8(gtk_text_iter_get_char(cell->priv->iter), NULL);
 }
 
+static gint
+icell_get_line (IAnjutaEditorCell* icell, GError** e)
+{
+  SourceviewCell* cell = SOURCEVIEW_CELL(icell);
+  return gtk_text_iter_get_line (cell->priv->iter);
+}
+
 static gchar
 icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 {
@@ -134,7 +139,7 @@ icell_get_attribute (IAnjutaEditorCell* icell, GError **e)
 	GSList* tags;
 	/* This is a kind of ugly hack. GtkSourceview does not really expose an
 		API to get the type of tag but the id holds the important stuff */
-	for (tags = gtk_text_iter_get_tags(cell->priv->iter); tags != NULL; tags = tags->next)
+	/*for (tags = gtk_text_iter_get_tags(cell->priv->iter); tags != NULL; tags = tags->next)
 	{
 		if (GTK_IS_SOURCE_TAG(tags->data))
 		{
@@ -159,7 +164,7 @@ icell_get_attribute (IAnjutaEditorCell* icell, GError **e)
 			//DEBUG_PRINT("GtkSourceTag tag_style = %s", id);
 		}
 	}
-	g_slist_free(tags);
+	g_slist_free(tags);*/
 	return attrib;
 }
 
@@ -170,14 +175,15 @@ icell_iface_init(IAnjutaEditorCellIface* iface)
 	iface->get_char = icell_get_char;
 	iface->get_length = icell_get_length;
 	iface->get_attribute = icell_get_attribute;
+  iface->get_line = icell_get_line;
 }
 
 static
 GtkTextAttributes* get_attributes(GtkTextIter* iter, GtkTextView* view)
 {
-	GtkTextAttributes* atts = gtk_text_view_get_default_attributes(view);
-	gtk_text_iter_get_attributes(iter, atts);
-	return atts;
+  GtkTextAttributes* atts = gtk_text_view_get_default_attributes(view);
+  gtk_text_iter_get_attributes(iter, atts);
+  return atts;
 }
 
 static gchar*

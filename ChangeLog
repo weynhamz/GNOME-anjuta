@@ -1,3 +1,90 @@
+2008-01-05  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in:
+	Conditionally depend on gtksourceview2 >= 2.1.0
+	
+	* libanjuta/interfaces/libanjuta.idl:
+	Update IAnjutaEditorSeletion and IAnjutaEditorHover to use
+	iterators instead of positions
+	
+	* plugins/debug-manager/threads.c:
+	Fixed a warnings by including gnome-vfs properly
+	
+	* plugins/debug-manager/variable.c: (get_hovered_word),
+	(on_hover_over):
+	Updated to changes in IAnjutaEditorHover/Selection
+	
+	* plugins/document-manager/action-callbacks.c:
+	(on_editor_command_upper_case_activate),
+	(on_editor_command_lower_case_activate):
+	* plugins/document-manager/search-box.c: (on_incremental_search),
+	(on_search_activated):
+	* plugins/editor/text_editor.c: (itext_editor_get_text_iter),
+	(itext_editor_erase), (itext_editor_iface_init), (iselection_set),
+	(iselection_get_start), (iselection_get_end),
+	(iselection_iface_init), (ihover_display), (ihover_iface_init):
+	* plugins/editor/text_editor_cbs.c:
+	(on_text_editor_scintilla_notify):
+	
+	Updated to changes in IAnjutaEditorHover/Selection and updated editor
+	interface of scintilla editor.
+	
+	* plugins/language-manager/languages.xml:
+	* plugins/language-manager/plugin.c:
+	(ilanguage_get_from_mime_type), (ilanguage_get_from_string):
+	Added chdr to C language files and some DEBUG_PRINTs
+	
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(on_assist_chosen):
+	* plugins/language-support-cpp-java/plugin.c: (on_auto_indent):
+	* plugins/search/plugin.c: (find_incremental):
+	* plugins/search/search-replace.c: (search_and_replace):
+	* plugins/search/search-replace_backend.c: (create_search_entries):
+		Adapted to changed interfaces
+
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-document.c: (anjuta_document_init),
+	(set_uri), (anjuta_document_save):
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	* plugins/sourceview/anjuta-view.c: (anjuta_view_init),
+	(anjuta_view_key_press_event):
+	* plugins/sourceview/assist-tip.c: (assist_tip_set_tips):
+	* plugins/sourceview/sourceview-cell.c:
+	(sourceview_cell_instance_init), (sourceview_cell_finalize),
+	(icell_get_line), (icell_get_attribute), (icell_iface_init):
+	* plugins/sourceview/sourceview-prefs.c: (get_bool),
+	(on_gconf_notify_disable_hilite), (on_gconf_notify_tab_size),
+	(on_gconf_notify_indent_size), (on_gconf_notify_braces_check),
+	(on_gconf_notify_view_marks), (on_gconf_notify_view_right_margin),
+	(on_gconf_notify_right_margin_position), (sourceview_prefs_init):
+	* plugins/sourceview/sourceview-private.h:
+	* plugins/sourceview/sourceview.c: (on_assist_window_destroyed),
+	(on_assist_tip_destroyed), (on_assist_chosen), (on_assist_cancel),
+	(on_document_loaded), (sourceview_instance_init),
+	(sourceview_dispose), (sourceview_finalize),
+	(sourceview_create_markers), (sourceview_new),
+	(ifile_savable_save), (ieditor_get_tab_size),
+	(ieditor_set_tab_size), (ieditor_set_use_spaces),
+	(ieditor_set_auto_indent), (ieditor_goto_line),
+	(ieditor_get_text_iter), (ieditor_iface_init), (iselect_to_brace),
+	(iselect_block), (iselect_set), (iselect_get_start),
+	(iselect_get_end), (iselect_iface_init), (mark_real), (imark_mark),
+	(imark_unmark), (imark_is_marker_set),
+	(imark_location_from_handle), (imark_delete_all_markers),
+	(ibookmark_toggle), (goto_bookmark), (ibookmark_first),
+	(ibookmark_last), (ibookmark_next), (ibookmark_previous),
+	(ibookmark_clear_all), (iprint_print), (iprint_print_preview),
+	(ilanguage_get_supported_languages), (autodetect_language),
+	(ilanguage_set_language), (iassist_show_tips),
+	(on_sourceview_hover_leave), (on_sourceview_hover_over),
+	(ihover_display), (ihover_iface_init):
+	
+	Use GtkSourceView 2.1.x:
+	* New mark interface
+	* Fixed #486724 and #488615
+	* Implemented hover interface
+	* Adapted to changed interfaces
+
 2008-01-04  Rob Bradford  <rob@o-hand.com>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:

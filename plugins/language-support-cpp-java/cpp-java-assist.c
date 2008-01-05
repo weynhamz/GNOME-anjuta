@@ -726,10 +726,10 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (te), NULL);
 	if (pre_word)
 	{
-		gint sel_start;
-		sel_start = ianjuta_iterable_get_position (iter, NULL);
+		IAnjutaIterable *cursor_iter =
+			ianjuta_editor_get_cell_iter (te, cur_pos, NULL);
 		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
-									  sel_start + 1, cur_pos, FALSE, NULL);
+									  iter, cursor_iter, NULL);
 		ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
 										  assistance->str, -1, NULL);
 		g_free (pre_word);

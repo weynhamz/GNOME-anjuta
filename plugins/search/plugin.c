@@ -67,10 +67,13 @@ static gboolean find_incremental(IAnjutaEditor* te, gchar* expression,
 	
 	if (info != NULL)
 	{
-		gboolean backward;
-		backward = dir == SD_BACKWARD?TRUE:FALSE;
+		IAnjutaIterable *start, *end;
+		start = ianjuta_editor_get_cell_iter (te, info->pos, NULL);
+		end = ianjuta_editor_get_cell_iter (te, info->pos + info->len, NULL);
 		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
-									  info->pos, info->pos + info->len, backward, NULL);
+									  start, end, NULL);
+		g_object_unref (start);
+		g_object_unref (end);
 		ret = TRUE;
 	}
 	else

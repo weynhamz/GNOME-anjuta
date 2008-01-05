@@ -49,7 +49,6 @@
 #include "anjuta-utils.h"
 
 #include <gtksourceview/gtksourceiter.h>
-#include <gtksourceview/gtksourcelanguagesmanager.h>
 #include <pcre.h>
 
 #define ANJUTA_MAX_PATH_LEN  2048
@@ -77,8 +76,6 @@ struct _AnjutaDocumentPrivate
 	GnomeVFSURI *vfs_uri;
 
 	const AnjutaEncoding *encoding;
-	GtkSourceLanguagesManager* lang_manager;
-
 
 	time_t       mtime;
 
@@ -424,7 +421,7 @@ anjuta_document_init (AnjutaDocument *doc)
 
 	doc->priv->encoding = anjuta_encoding_get_utf8 ();
 
-	gtk_source_buffer_set_check_brackets (GTK_SOURCE_BUFFER (doc), 
+	gtk_source_buffer_set_highlight_matching_brackets (GTK_SOURCE_BUFFER (doc), 
 					     TRUE);
 
 	g_signal_connect_after (doc, 
@@ -449,7 +446,7 @@ set_uri (AnjutaDocument *doc,
 
 	if (uri != NULL)
 	{
-		if (doc->priv->uri != NULL && g_str_equal (doc->priv->uri, uri)) 
+		if (doc->priv->uri == uri)
 			return;
 
 		g_free (doc->priv->uri);
@@ -838,9 +835,9 @@ anjuta_document_save (AnjutaDocument          *doc,
 		     AnjutaDocumentSaveFlags  flags)
 {
 	g_return_if_fail (ANJUTA_IS_DOCUMENT (doc));
+	g_return_if_fail (doc->priv->uri != NULL);
 
-	if (doc->priv->uri != NULL)	/* path is known */
-		document_save_real (doc,
+	document_save_real (doc,
 			    doc->priv->uri,
 			    doc->priv->encoding,
 			    doc->priv->mtime,

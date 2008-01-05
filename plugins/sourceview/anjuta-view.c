@@ -336,14 +336,14 @@ anjuta_view_init (AnjutaView *view)
 	 */
 		
 	g_object_set (G_OBJECT (view), 
-		      "wrap_mode", FALSE,
-		      "show_line_numbers", TRUE,
-		      "auto_indent", TRUE,
-		      "tabs_width", 4,
-		      "insert_spaces_instead_of_tabs", FALSE,
-		      "highlight_current_line", TRUE, 
-          "indent_on_tab", TRUE, /* Fix #388727 */
-		      "smart_home_end", FALSE, /* Never changes this */
+		      "wrap-mode", FALSE,
+		      "show-line-numbers", TRUE,
+		      "auto-indent", TRUE,
+		      "tab-width", 4,
+		      "insert-spaces-instead-of-tabs", FALSE,
+		      "highlight-current-line", TRUE, 
+          "indent-on-tab", TRUE, /* Fix #388727 */
+		      "smart-home-end", FALSE, /* Never changes this */
 		      NULL);
 }
 
@@ -815,7 +815,10 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 							 event->keyval == GDK_Down)
 			{
 				if (assist_tip)
+        {
 					gtk_widget_destroy (GTK_WIDGET(assist_tip));
+          return retval;
+        }
 			}
 			else if (event->keyval == GDK_Left || event->keyval == GDK_Right ||
 							 event->keyval == GDK_Up || event->keyval == GDK_Down ||

@@ -39,6 +39,7 @@
 #include <libanjuta/interfaces/ianjuta-editor-convert.h>
 #include <libanjuta/interfaces/ianjuta-editor-language.h>
 #include <libanjuta/interfaces/ianjuta-editor-search.h>
+#include <libanjuta/interfaces/ianjuta-editor-hover.h>
 
 #include <libgnomevfs/gnome-vfs-init.h>
 #include <libgnomevfs/gnome-vfs-mime-utils.h>
@@ -47,7 +48,7 @@
 
 #include <gtksourceview/gtksourceview.h>
 #include <gtksourceview/gtksourcelanguage.h>
-#include <gtksourceview/gtksourcelanguagesmanager.h>
+#include <gtksourceview/gtksourcelanguagemanager.h>
 #include <gtksourceview/gtksourcebuffer.h>
 #include <gtksourceview/gtksourceiter.h>
 
@@ -63,13 +64,17 @@
 #include "sourceview-cell.h"
 #include "plugin.h"
 
+#define HAVE_TOOLTIP_API (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
+		 
 #define FORWARD 	0
 #define BACKWARD 	1
 
 #define MONITOR_KEY "sourceview.enable.vfs"
 
-/* globale GtkSourceLanguagesManager instance */
-static GtkSourceLanguagesManager* lang_manager = NULL;
+#define LOCATION_TO_LINE(o) ((o) - 1)
+#define LINE_TO_LOCATION(o) ((o) + 1)
+
+#define CREATE_MARK_NAME(o) (g_strdup_printf ("anjuta-mark-%d", (o)))
 
 static void sourceview_class_init(SourceviewClass *klass);
 static void sourceview_instance_init(Sourceview *sv);
@@ -77,6 +82,11 @@ static void sourceview_finalize(GObject *object);
 static void sourceview_dispose(GObject *object);
 static GObjectClass *parent_class = NULL;
 
+#if HAVE_TOOLTIP_API
+static gboolean on_sourceview_hover_over (GtkWidget *widget, gint x, gint y,
+										  gboolean keyboard_tip, GtkTooltip *tooltip,
+										  gpointer data); 
+#endif
 static gboolean sourceview_add_monitor(Sourceview* sv);
 
 /* Callbacks */
@@ -85,28 +95,23 @@ static void
 on_assist_window_destroyed (AssistWindow* window, Sourceview* sv)
 {
 	sv->priv->assist_win = NULL;
-	DEBUG_PRINT("Assist-win-destroy");
 }
 
 static void 
 on_assist_tip_destroyed (AssistTip* tip, Sourceview* sv)
 {
 	sv->priv->assist_tip = NULL;
-	DEBUG_PRINT("Assist-tip-destroy");
 }
 
 static void 
 on_assist_chosen(AssistWindow* assist_win, gint num, Sourceview* sv)
 {
-	g_signal_emit_by_name(G_OBJECT(sv), "assist_chosen", num);
-	DEBUG_PRINT("Assist-choosen");
+	g_signal_emit_by_name(G_OBJECT(sv), "assist-chosen", num);
 }
 
 static void 
 on_assist_cancel(AssistWindow* assist_win, Sourceview* sv)
 {
-	g_signal_emit_by_name(G_OBJECT(sv), "assist_canceled");
-	DEBUG_PRINT("Assist-cancel");
 	if (sv->priv->assist_win)
 	{
 		gtk_widget_destroy(GTK_WIDGET(sv->priv->assist_win));
@@ -268,7 +273,7 @@ static void on_document_loaded(AnjutaDocument* doc, GError* err, Sourceview* sv)
 	
 	if (sv->priv->goto_line > 0)
 	{
-		anjuta_document_goto_line(doc, sv->priv->goto_line - 1);
+		anjuta_document_goto_line(doc, LOCATION_TO_LINE (sv->priv->goto_line));
 		sv->priv->goto_line = -1;
 	}
 	anjuta_view_scroll_to_cursor(sv->priv->view);
@@ -402,9 +407,7 @@ static void on_document_saved(AnjutaDocument* doc, GError* err, Sourceview* sv)
 static void 
 sourceview_instance_init(Sourceview* sv)
 {
-	sv->priv = g_new0(SourceviewPrivate, 1);
-	if (!lang_manager)
-		lang_manager = gtk_source_languages_manager_new();
+	sv->priv = g_slice_new0 (SourceviewPrivate);
 }
 
 static void
@@ -425,10 +428,18 @@ static void
 sourceview_dispose(GObject *object)
 {
 	Sourceview *cobj = ANJUTA_SOURCEVIEW(object);
+	GSList* node;
 	if (cobj->priv->assist_win)
 		on_assist_cancel(cobj->priv->assist_win, cobj);
 	if (cobj->priv->assist_tip)
 		gtk_widget_destroy(GTK_WIDGET(cobj->priv->assist_tip));
+	
+	for (node = cobj->priv->idle_sources; node != NULL; node = g_slist_next (node))
+	{
+		g_source_remove (GPOINTER_TO_UINT (node->data));
+	}
+	g_slist_free (cobj->priv->idle_sources);
+	
 	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
@@ -445,7 +456,7 @@ sourceview_finalize(GObject *object)
 	
 	g_object_unref(cobj->priv->view);
 	
-	g_free(cobj->priv);
+	g_slice_free(SourceviewPrivate, cobj->priv);
 	G_OBJECT_CLASS(parent_class)->finalize(object);
 }
 
@@ -455,16 +466,20 @@ sourceview_finalize(GObject *object)
 #define MARKER_PIXMAP_PROGRAM_COUNTER "anjuta-pcmark-16.png"
 #define MARKER_PIXMAP_BREAKPOINT_DISABLED "anjuta-breakpoint-disabled-16.png"
 #define MARKER_PIXMAP_BREAKPOINT_ENABLED "anjuta-breakpoint-enabled-16.png"
-
 #define MARKER_PIXMAP_BOOKMARK "anjuta-bookmark-16.png"
 
-#define MARKER_NONE "sv-none"
-#define MARKER_LINEMARKER "sv-linemarker"
-#define MARKER_PROGRAM_COUNTER "sv-program-counter"
-#define MARKER_BREAKPOINT_DISABLED "sv-breakpoint-disabled"
-#define MARKER_BREAKPOINT_ENABLED "sv-breakpoint-enabled"
 
-#define MARKER_BOOKMARK "sv-bookmark"
+/* Keep in sync with IAnjutaMarkableMarker */
+
+static const gchar* marker_types [] =
+{
+	"sv-linemarker",
+	"sv-bookmark",
+	"sv-breakpoint-enabled",
+	"sv-breakpoint-disabled",
+	"sv-program-counter",
+	NULL
+};
 
 /* HIGHLIGHTED TAGS */
 
@@ -481,32 +496,43 @@ static void sourceview_create_markers(Sourceview* sv)
 	
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BOOKMARK, NULL)))
 	{
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_BOOKMARK, pixbuf);
+		gtk_source_view_set_mark_category_pixbuf (view, 
+			marker_types[IANJUTA_MARKABLE_BOOKMARK], pixbuf);
+		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BOOKMARK],
+											 IANJUTA_MARKABLE_BOOKMARK);
 		g_object_unref (pixbuf);
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_DISABLED, NULL)))
 	{
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_BREAKPOINT_DISABLED, pixbuf);
+		gtk_source_view_set_mark_category_pixbuf (view, 
+			marker_types[IANJUTA_MARKABLE_BREAKPOINT_DISABLED], pixbuf);
+		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BREAKPOINT_DISABLED],
+											 IANJUTA_MARKABLE_BREAKPOINT_DISABLED);
+
 		g_object_unref (pixbuf);
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_BREAKPOINT_ENABLED, NULL)))
 	{
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_BREAKPOINT_ENABLED, pixbuf);
+		gtk_source_view_set_mark_category_pixbuf (view, 
+			marker_types[IANJUTA_MARKABLE_BREAKPOINT_ENABLED], pixbuf);
+		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_BREAKPOINT_ENABLED],
+											 IANJUTA_MARKABLE_BREAKPOINT_ENABLED);
 		g_object_unref (pixbuf);
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_PROGRAM_COUNTER, NULL)))
 	{
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_PROGRAM_COUNTER, pixbuf);
+		gtk_source_view_set_mark_category_pixbuf (view, 
+			marker_types[IANJUTA_MARKABLE_PROGRAM_COUNTER], pixbuf);
+		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_PROGRAM_COUNTER],
+											 IANJUTA_MARKABLE_PROGRAM_COUNTER);
 		g_object_unref (pixbuf);
 	}
 	if ((pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"MARKER_PIXMAP_LINEMARKER, NULL)))
 	{
-		gtk_source_view_set_marker_pixbuf (view, 
-			MARKER_LINEMARKER, pixbuf);
+		gtk_source_view_set_mark_category_pixbuf (view, 
+			marker_types[IANJUTA_MARKABLE_LINEMARKER], pixbuf);
+		gtk_source_view_set_mark_category_priority (view, marker_types [IANJUTA_MARKABLE_LINEMARKER],
+											 IANJUTA_MARKABLE_LINEMARKER);
 		g_object_unref (pixbuf);
 	}
 }
@@ -558,6 +584,11 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv));
 	g_signal_connect_after(G_OBJECT(sv->priv->view), "char_added",
 					G_CALLBACK(on_document_char_added), sv);
+#if HAVE_TOOLTIP_API
+	g_signal_connect (G_OBJECT(sv->priv->view), "query-tooltip",
+					  G_CALLBACK (on_sourceview_hover_over), sv);
+	g_object_set (G_OBJECT (sv->priv->view), "has-tooltip", TRUE, NULL);
+#endif
 	gtk_source_view_set_smart_home_end(GTK_SOURCE_VIEW(sv->priv->view), FALSE);
 	g_object_ref(sv->priv->view);
 	
@@ -620,18 +651,15 @@ ifile_get_uri (IAnjutaFile* file, GError** e)
 
 /* IAnjutaFileSavable interface */
 
-/* Save file if its path is known */
+/* Save file */
 static void 
 ifile_savable_save (IAnjutaFileSavable* file, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(file);
-	if (sv->priv->document != NULL)
-	{
-		sourceview_remove_monitor(sv);
+	sourceview_remove_monitor(sv);
 	
-		g_object_ref(G_OBJECT(sv));
-		anjuta_document_save(sv->priv->document, 0);
-	}
+	g_object_ref(G_OBJECT(sv));
+	anjuta_document_save(sv->priv->document, 0);
 }
 
 /* Save file as */
@@ -696,14 +724,14 @@ static gint
 ieditor_get_tab_size (IAnjutaEditor *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	return gtk_source_view_get_tabs_width (GTK_SOURCE_VIEW (sv->priv->view));
+	return gtk_source_view_get_tab_width (GTK_SOURCE_VIEW (sv->priv->view));
 }
 
 static void
 ieditor_set_tab_size (IAnjutaEditor *editor, gint tabsize, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	gtk_source_view_set_tabs_width(GTK_SOURCE_VIEW(sv->priv->view), tabsize);
+	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view), tabsize);
 }
 
 static gboolean
@@ -717,15 +745,16 @@ static void
 ieditor_set_use_spaces (IAnjutaEditor *editor, gboolean use_spaces, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view), use_spaces);
+	gtk_source_view_set_insert_spaces_instead_of_tabs(GTK_SOURCE_VIEW(sv->priv->view), 
+													  use_spaces);
 }
 
 static void
 ieditor_set_auto_indent (IAnjutaEditor *editor, gboolean auto_indent, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	DEBUG_PRINT("Setting auto-indent to %d", auto_indent);
-	gtk_source_view_set_auto_indent(GTK_SOURCE_VIEW(sv->priv->view), auto_indent);
+	gtk_source_view_set_auto_indent(GTK_SOURCE_VIEW(sv->priv->view), 
+									auto_indent);
 }
 
 
@@ -736,7 +765,7 @@ static void ieditor_goto_line(IAnjutaEditor *editor, gint line, GError **e)
 
 	if (!sv->priv->loading)
 	{
-		anjuta_document_goto_line(sv->priv->document, line - 1);
+		anjuta_document_goto_line(sv->priv->document, LOCATION_TO_LINE (line));
 		anjuta_view_scroll_to_cursor(sv->priv->view);
 	}
 	else
@@ -778,6 +807,22 @@ static gchar* ieditor_get_text(IAnjutaEditor* editor, gint position,
 										   &end_iter, -1);
 	return gtk_text_buffer_get_slice(GTK_TEXT_BUFFER(sv->priv->document),
 									&start_iter, &end_iter, TRUE);
+}
+
+/* Return a newly allocated pointer containing the whole text */
+static gchar* ieditor_get_text_iter (IAnjutaEditor* editor, 
+									 IAnjutaIterable* start,
+									 IAnjutaIterable* end, GError **e)
+{
+	GtkTextIter* start_iter;
+	GtkTextIter* end_iter;
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	
+	start_iter = sourceview_cell_get_iter (SOURCEVIEW_CELL (start));
+	end_iter = sourceview_cell_get_iter (SOURCEVIEW_CELL (end));	
+	
+	return gtk_text_buffer_get_slice(GTK_TEXT_BUFFER(sv->priv->document),
+									start_iter, end_iter, TRUE);
 }
 
 /* Get cursor position */
@@ -997,6 +1042,7 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->goto_line = ieditor_goto_line;
 	iface->goto_position = ieditor_goto_position;
 	iface->get_text = ieditor_get_text;
+	iface->get_text_iter = ieditor_get_text_iter;
 	iface->get_position = ieditor_get_position;
 	iface->get_position_iter = ieditor_get_position_iter;
 	iface->get_lineno = ieditor_get_lineno;
@@ -1145,21 +1191,11 @@ set_select(Sourceview* sv, GtkTextIter* start_iter, GtkTextIter* end_iter)
 
 /* IAnjutaEditorSelection */
 
+// TODO: Move these to ilanguage-support?
 static void
 iselect_to_brace(IAnjutaEditorSelection* edit, GError** e)
 {
-	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
-	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
-	GtkTextIter start_iter;
-	GtkTextIter end_iter;
-	gboolean found;
 	
-	gtk_text_buffer_get_iter_at_mark(buffer, &start_iter, 
-									 gtk_text_buffer_get_insert(buffer));
-	end_iter = start_iter;
-	found = gtk_source_iter_find_matching_bracket (&end_iter);
-	if (found)
-		set_select(sv, &start_iter, &end_iter);
 }
 
 static void 
@@ -1203,7 +1239,8 @@ iselect_block(IAnjutaEditorSelection* edit, GError** e)
 			gtk_text_buffer_place_cursor(GTK_TEXT_BUFFER(sv->priv->document),
 									     &start_iter);
 			end_iter = start_iter;
-			found = gtk_source_iter_find_matching_bracket (&end_iter);
+			found = FALSE;
+			//found = gtk_source_iter_find_matching_bracket (&end_iter);
 			if (found)
 				set_select(sv, &start_iter, &end_iter);
 		}
@@ -1212,37 +1249,11 @@ iselect_block(IAnjutaEditorSelection* edit, GError** e)
 
 }
 
-
-/* Select range between start and end */
-static void iselect_set(IAnjutaEditorSelection *editor, gint start, 
-								  gint end, gboolean backward, GError **e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	GtkTextIter start_iter;
-	GtkTextIter end_iter;
-
-	if (backward)
-	{
-		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-									   &start_iter, start);
-		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-									   &end_iter, end);
-	}	
-	else
-	{
-		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-									   &start_iter, end);
-		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(sv->priv->document),
-									   &end_iter, start);
-	}
-	set_select(sv, &start_iter, &end_iter);
-}
-
 static void
-iselect_set_iter (IAnjutaEditorSelection* edit, 
-				  IAnjutaEditorCell* istart,
-				  IAnjutaEditorCell* iend,
-				  GError** e)
+iselect_set (IAnjutaEditorSelection* edit, 
+			 IAnjutaIterable* istart,
+			 IAnjutaIterable* iend,
+			 GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
 	gtk_text_buffer_select_range (GTK_TEXT_BUFFER (sv->priv->document),
@@ -1288,21 +1299,8 @@ static gchar* iselect_get(IAnjutaEditorSelection* editor, GError **e)
 	
 }
 
-/* Get start point of selection */
-static gint iselect_get_start(IAnjutaEditorSelection *editor, GError **e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	GtkTextIter start;
-	if (gtk_text_buffer_get_selection_bounds (GTK_TEXT_BUFFER (sv->priv->document),
-											  &start, NULL))
-	{
-		return gtk_text_iter_get_offset (&start);
-	}
-	return -1;										  
-}
-
 static IAnjutaIterable*
-iselect_get_start_iter (IAnjutaEditorSelection *edit, GError **e)
+iselect_get_start (IAnjutaEditorSelection *edit, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
 	GtkTextIter start;
@@ -1314,21 +1312,8 @@ iselect_get_start_iter (IAnjutaEditorSelection *edit, GError **e)
 	return NULL;
 }
 
-/* Get end position of selection */
-static gint iselect_get_end(IAnjutaEditorSelection *editor, GError **e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	GtkTextIter end;
-	if (gtk_text_buffer_get_selection_bounds (GTK_TEXT_BUFFER (sv->priv->document),
-											  NULL, &end))
-	{
-		return gtk_text_iter_get_offset (&end);
-	}
-	return -1;
-}
-
 static IAnjutaIterable*
-iselect_get_end_iter (IAnjutaEditorSelection *edit, GError **e)
+iselect_get_end (IAnjutaEditorSelection *edit, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(edit);
 	GtkTextIter end;
@@ -1373,12 +1358,9 @@ static void
 iselect_iface_init(IAnjutaEditorSelectionIface *iface)
 {
 	iface->set = iselect_set;
-	iface->set_iter = iselect_set_iter;
 	iface->has_selection = iselect_has_selection;
 	iface->get_start = iselect_get_start;
-	iface->get_start_iter = iselect_get_start_iter;
 	iface->get_end = iselect_get_end;
-	iface->get_end_iter = iselect_get_end_iter;
 	iface->select_block = iselect_block;
 	iface->select_function = iselect_function;
 	iface->select_all = iselect_all;
@@ -1426,46 +1408,69 @@ iconvert_iface_init(IAnjutaEditorConvertIface* iface)
 	iface->to_lower = iconvert_to_lower;
 }
 
+typedef struct
+{
+	IAnjutaMarkableMarker marker;
+	gint location;
+	gint handle;
+	guint source;
+	Sourceview* sv;
+} SVMark;
+
+static gboolean mark_real (gpointer data)
+{
+	SVMark* svmark = data;
+	Sourceview* sv = svmark->sv;
+	GtkTextIter iter;
+	GtkSourceMark* source_mark;
+	const gchar* category;
+	gint location = svmark->location;
+	gint marker_count = svmark->handle;
+	IAnjutaMarkableMarker marker = svmark->marker;
+	gchar* name;
+	
+	if (sv->priv->loading || sv->priv->saving)
+	{
+		/* Wait until loading/saving is finished */
+		return TRUE;
+	}
+	
+	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document),
+									 &iter, LOCATION_TO_LINE (location));
+	
+	category = marker_types[marker];
+	name = CREATE_MARK_NAME (marker_count);
+	
+	
+	source_mark = gtk_source_buffer_create_mark(GTK_SOURCE_BUFFER(sv->priv->document), 
+												name, category, &iter);
+	
+	g_source_remove (svmark->source);
+	
+	g_free (name);
+	g_slice_free (SVMark, svmark);
+	return FALSE;
+}
+
 static gint
 imark_mark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 		   GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
-	GtkTextIter iter;
-	GtkSourceMarker* source_marker;
-	gchar* name;
+	SVMark* svmark = g_slice_new0 (SVMark);
+	
 	static gint marker_count = 0;
 	
-	gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document),
-									 &iter, location  - 1);
-	switch (marker)
-	{
-		case IANJUTA_MARKABLE_LINEMARKER:
-			name = MARKER_LINEMARKER;
-			break;
-		case IANJUTA_MARKABLE_PROGRAM_COUNTER:
-			name = MARKER_PROGRAM_COUNTER;
-			break;
-		case IANJUTA_MARKABLE_BOOKMARK:
-			name = MARKER_BOOKMARK;
-			break;
-		case IANJUTA_MARKABLE_BREAKPOINT_DISABLED:
-			name = MARKER_BREAKPOINT_DISABLED;
-			break;
-		case IANJUTA_MARKABLE_BREAKPOINT_ENABLED:
-			name = MARKER_BREAKPOINT_ENABLED;
-			break;
-		default:
-			DEBUG_PRINT("Unknown marker type: %d!", marker);
-			name = MARKER_NONE;
-	}
-		
-	source_marker = gtk_source_buffer_create_marker(GTK_SOURCE_BUFFER(sv->priv->document), 
-													NULL, name, &iter);
-
-	g_object_set_data(G_OBJECT(source_marker), "handle", GINT_TO_POINTER(marker_count++));
-	g_object_set_data(G_OBJECT(source_marker), "type", GINT_TO_POINTER(marker));
-	g_object_set_data(G_OBJECT(source_marker), "location", GINT_TO_POINTER(location));
+	marker_count++;
+	
+	svmark->sv = sv;
+	svmark->location = location;
+	svmark->handle = marker_count;
+	svmark->marker = marker;
+	svmark->source = g_idle_add (mark_real, svmark);
+	
+	sv->priv->idle_sources = g_slist_prepend (sv->priv->idle_sources,
+											  GUINT_TO_POINTER (svmark->source));
 	
 	return marker_count;
 }
@@ -1476,15 +1481,14 @@ imark_unmark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	GtkSourceMarker* smarker;
-	for (smarker = gtk_source_buffer_get_first_marker(buffer);
-		 smarker != NULL; smarker = gtk_source_marker_next(smarker))
-	{
-		int marker_location = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(smarker), "location"));
-		if (marker_location == location)
-			gtk_source_buffer_delete_marker(buffer, smarker);
-		/* We do not break here because there might be multiple markers at this location */
-	}
+	GtkTextIter begin;
+	GtkTextIter end;
+	
+	gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &begin, LOCATION_TO_LINE (location));
+	gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &end, LOCATION_TO_LINE (location));
+	
+	gtk_source_buffer_remove_marks (buffer, &begin, &end, marker_types[marker]);
+	
 }
 
 static gboolean
@@ -1493,48 +1497,56 @@ imark_is_marker_set(IAnjutaMarkable* mark, gint location,
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	GtkSourceMarker* smarker;
-	for (smarker = gtk_source_buffer_get_first_marker(buffer);
-		 smarker != NULL; smarker = gtk_source_marker_next(smarker))
-	{
-		int marker_location = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(smarker), "location"));
-		if (marker_location == location)
-			return TRUE;
-	}
-	return FALSE;
+	GSList* markers;
+	gboolean retval;
+	
+	markers = gtk_source_buffer_get_marks_at_line (buffer, 
+												   LOCATION_TO_LINE (location), 
+												   marker_types[marker]);	
+	
+	retval = (markers != NULL);
+	
+	g_slist_free (markers);
+	return retval;
 }
 
 static gint
-imark_location_from_handle(IAnjutaMarkable* mark, gint handle, GError **e)
+imark_location_from_handle(IAnjutaMarkable* imark, gint handle, GError **e)
 {
-	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
+	Sourceview* sv = ANJUTA_SOURCEVIEW(imark);
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	GtkSourceMarker* marker;
-	for (marker = gtk_source_buffer_get_first_marker(buffer);
-		 marker != NULL; marker = gtk_source_marker_next(marker))
+	GtkTextMark* mark;
+	GtkTextIter iter;
+	gint location;
+	gchar* name = CREATE_MARK_NAME (handle);
+	
+	mark = gtk_text_buffer_get_mark (GTK_TEXT_BUFFER (buffer), name);
+	if (mark)
 	{
-		int marker_handle = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(marker), "handle"));
-		if (marker_handle == handle)
-			return GPOINTER_TO_INT(g_object_get_data(G_OBJECT(marker), "location"));
+		gtk_text_buffer_get_iter_at_mark (GTK_TEXT_BUFFER (buffer), &iter, mark);
+		location = LINE_TO_LOCATION (gtk_text_iter_get_line (&iter));
 	}
-	return 0;
+	else
+		location = -1;
+	
+	g_free (name);
+	
+	return location;
 }
 
 static void
-imark_delete_all_markers(IAnjutaMarkable* mark, IAnjutaMarkableMarker marker,
+imark_delete_all_markers(IAnjutaMarkable* imark, IAnjutaMarkableMarker marker,
 						 GError **e)
 {
-	Sourceview* sv = ANJUTA_SOURCEVIEW(mark);
+	Sourceview* sv = ANJUTA_SOURCEVIEW(imark);
 	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	GtkSourceMarker* smarker;
-	for (smarker = gtk_source_buffer_get_first_marker(buffer);
-		 smarker != NULL; smarker = gtk_source_marker_next(smarker))
-	{
-		IAnjutaMarkableMarker type = 
-			GPOINTER_TO_INT(g_object_get_data(G_OBJECT(smarker), "type"));
-		if (type == marker)
-			gtk_source_buffer_delete_marker(buffer, smarker);
-	}
+	GtkTextIter begin;
+	GtkTextIter end;
+	
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &begin, 0);
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &end, -1);
+	
+	gtk_source_buffer_remove_marks (buffer, &begin, &end, marker_types[marker]);
 }
 
 static void
@@ -1609,63 +1621,57 @@ iindic_iface_init(IAnjutaIndicableIface* iface)
 	iface->set = iindic_set;
 }
 
-typedef struct
-{
-	GtkSourceMarker* marker;
-	gint line;
-} SVBookmark;
-
-static int bookmark_compare(SVBookmark* bmark1, SVBookmark* bmark2)
-{
-	if (bmark1->line < bmark2->line)
-		return -1;
-	if (bmark1->line > bmark2->line)
-		return 1;
-	else
-		return 0;
-}
-
-static SVBookmark*
-ibookmark_is_bookmark_set(IAnjutaBookmark* bmark, gint location, GError **e)
-{
-	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GList* node = sv->priv->bookmarks;
-	while (node)
-	{
-		SVBookmark* bookmark = node->data;
-		if (bookmark->line == location)
-			return bookmark;
-		if (bookmark->line > location)
-			return NULL;
-		node = g_list_next(node);
-	}
-	return NULL;
-}
-
 static void
 ibookmark_toggle(IAnjutaBookmark* bmark, gint location, gboolean ensure_visible, GError** e)
 {
-	SVBookmark* bookmark;
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-
-	if ((bookmark = ibookmark_is_bookmark_set(bmark, location, e)) != NULL)
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
+	
+	GSList* markers;
+	
+	markers = gtk_source_buffer_get_marks_at_line (buffer, LOCATION_TO_LINE (location),
+												   marker_types[IANJUTA_MARKABLE_BOOKMARK]);
+	if (markers != NULL)
 	{
-		gtk_source_buffer_delete_marker(GTK_SOURCE_BUFFER(sv->priv->document),
-		                                bookmark->marker);
-		sv->priv->bookmarks = g_list_remove(sv->priv->bookmarks, bookmark);
-		g_free(bookmark);
+		GtkTextIter begin;
+		GtkTextIter end;
+		
+		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &begin, LOCATION_TO_LINE (location));
+		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &end, LOCATION_TO_LINE (location));
+		
+		gtk_source_buffer_remove_marks (buffer, &begin, &end, 
+										marker_types[IANJUTA_MARKABLE_BOOKMARK]);
 	}
 	else
 	{
-		bookmark = g_new0(SVBookmark, 1);
-		GtkTextIter iter;
-		bookmark->line = location;
-		gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(sv->priv->document), &iter, bookmark->line - 1);
-		bookmark->marker = gtk_source_buffer_create_marker(GTK_SOURCE_BUFFER(sv->priv->document), 
-		                                                   NULL, MARKER_BOOKMARK, &iter);
-		sv->priv->bookmarks = g_list_append(sv->priv->bookmarks, bookmark);
-		sv->priv->cur_bmark = sv->priv->bookmarks;
-		sv->priv->bookmarks = g_list_sort(sv->priv->bookmarks, (GCompareFunc) bookmark_compare);
+		GtkTextIter line;
+		GtkSourceMark* bookmark;
+		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer),
+															 &line, LOCATION_TO_LINE (location));
+		
+		bookmark = 
+			gtk_source_buffer_create_mark (buffer, NULL,
+											 marker_types [IANJUTA_MARKABLE_BOOKMARK],
+											 &line);
+	}
+}
+
+static void
+goto_bookmark (Sourceview* sv, GtkTextIter* iter, gboolean backward)
+{
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
+	gboolean found = FALSE;
+	
+	if (backward)
+		found = gtk_source_buffer_backward_iter_to_mark (buffer, iter, 
+														 marker_types[IANJUTA_MARKABLE_BOOKMARK]);
+	else
+		found = gtk_source_buffer_forward_iter_to_mark (buffer, iter, 
+														marker_types[IANJUTA_MARKABLE_BOOKMARK]);
+	if (found)
+	{
+		ianjuta_editor_goto_line(IANJUTA_EDITOR(sv), 
+								 LINE_TO_LOCATION (gtk_text_iter_get_line (iter)), NULL);
 	}
 }
 
@@ -1673,102 +1679,68 @@ static void
 ibookmark_first(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
+	GtkTextIter begin;
 	
-	GList* bookmark;
-	SVBookmark* mark;
-	bookmark = g_list_first(sv->priv->bookmarks);
-	if (bookmark)
-	{
-		mark = bookmark->data;
-		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
-			mark->line, NULL);
-		sv->priv->cur_bmark = bookmark;
-	}
+	gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &begin, 0);
+	
+	goto_bookmark (sv, &begin, FALSE);
 }
+
 
 static void
 ibookmark_last(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GList* bookmark;
-	SVBookmark* mark;
-	bookmark = g_list_last(sv->priv->bookmarks);
-	if (bookmark)
-	{
-		mark = bookmark->data;
-		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
-			mark->line, NULL);
-		sv->priv->cur_bmark = bookmark;
-	}
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);;
+	GtkTextIter begin;
+	
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &begin, -1);
+	
+	goto_bookmark (sv, &begin, TRUE);
 }
 
 static void
 ibookmark_next(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GList* node = sv->priv->bookmarks;
-	SVBookmark* bookmark;
-	gint location;
-
-	location = ieditor_get_lineno(IANJUTA_EDITOR(bmark), NULL);	
-	while (node)
-	{
-		bookmark = node->data;
-		if (bookmark->line > location)
-			break;
-		node = g_list_next(node);
-	}
-	if (node)
-	{
-		ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
-		                         bookmark->line, NULL);
-		sv->priv->cur_bmark = node;
-	}
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	GtkTextIter begin;
+	
+	gtk_text_buffer_get_iter_at_mark (buffer, &begin,
+									  gtk_text_buffer_get_insert (buffer));
+	gtk_text_iter_forward_line (&begin);
+	
+	goto_bookmark (sv, &begin, FALSE);
 }
 
 static void
 ibookmark_previous(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GList* node = sv->priv->bookmarks;
-	SVBookmark* bookmark;
-	gint location;
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	GtkTextIter begin;
+	
+	gtk_text_buffer_get_iter_at_mark (buffer, &begin,
+									  gtk_text_buffer_get_insert (buffer));
+	gtk_text_iter_backward_line (&begin);
+	
+	goto_bookmark (sv, &begin, TRUE);
 
-	location = ieditor_get_lineno(IANJUTA_EDITOR(bmark), NULL);	
-	if (node)
-	{
-		node = g_list_last(node);
-		while (node)
-		{
-			bookmark = node->data;
-			if (bookmark->line < location)
-				break;
-			node = g_list_previous(node);
-		}
-		if (node)
-		{
-			ianjuta_editor_goto_line(IANJUTA_EDITOR(bmark), 
-		                             bookmark->line, NULL);
-			sv->priv->cur_bmark = node;
-		}
-	}
 }
 
 static void
 ibookmark_clear_all(IAnjutaBookmark* bmark, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(bmark);
-	GList* node = sv->priv->bookmarks;
-	while (node)
-	{
-		SVBookmark* mark = node->data;
-		gtk_source_buffer_delete_marker(GTK_SOURCE_BUFFER(sv->priv->document),
-											mark->marker);
-		g_free(mark);
-		node = g_list_next(node);
-	}
-	g_list_free(sv->priv->bookmarks);
-	sv->priv->bookmarks = NULL;
+	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
+	GtkTextIter begin;
+	GtkTextIter end;
+	
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &begin, 0);
+	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &end, -1);
+	
+	gtk_source_buffer_remove_marks (buffer, &begin, &end, marker_types[IANJUTA_MARKABLE_BOOKMARK]);
 }
 
 static void
@@ -1782,41 +1754,44 @@ ibookmark_iface_init(IAnjutaBookmarkIface* iface)
 	iface->clear_all = ibookmark_clear_all;
 }
 
+#if 0 /* FIXME: add printing support */
 static void
 iprint_print(IAnjutaPrint* print, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(print);
-	sourceview_print(sv);
+	//sourceview_print(sv);
 }
 
 static void
 iprint_print_preview(IAnjutaPrint* print, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(print);
-	sourceview_print_preview(sv);
+	//sourceview_print_preview(sv);
 }
-	
+
 static void
 iprint_iface_init(IAnjutaPrintIface* iface)
 {
 	iface->print = iprint_print;
 	iface->print_preview = iprint_print_preview;
 }
+#endif
 
 static const GList*
 ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
 								   GError **err)
 {
-	const GSList* manager_languages = gtk_source_languages_manager_get_available_languages(lang_manager);
-	GList* languages = NULL;
+	GStrv langs;
+	GStrv lang;
+	GList* list = NULL;
+	g_object_get (gtk_source_language_manager_get_default(), "language-ids", &langs, NULL);
 	
-	while (manager_languages)
+	for (lang = langs; *lang != NULL; lang++)
 	{
-		languages = g_list_append(languages, gtk_source_language_get_name(
-			GTK_SOURCE_LANGUAGE(manager_languages->data)));
-		manager_languages = g_slist_next(manager_languages);
+		list = g_list_append (list, *lang);
 	}
-	return languages;
+	
+	return list;
 }
 
 static const gchar*
@@ -1830,41 +1805,71 @@ static const gchar*
 autodetect_language (Sourceview* sv)
 {
 	const gchar* filename = idocument_get_filename (IANJUTA_DOCUMENT(sv), NULL);
-	const gchar* mime_type = gnome_vfs_get_mime_type_for_name (filename);
-	GtkSourceLanguage* lang =
-		gtk_source_languages_manager_get_language_from_mime_type(lang_manager, mime_type);
-	if (lang != NULL)
+	const gchar* vfs_mime_type = gnome_vfs_get_mime_type_for_name (filename);
+	GStrv languages;
+	GStrv cur_lang;
+	const gchar* detected_language = NULL;
+	g_object_get (G_OBJECT (gtk_source_language_manager_get_default ()), "language-ids",
+							&languages, NULL);
+	for (cur_lang = languages; *cur_lang != NULL; cur_lang++)
 	{
-		const gchar* language = gtk_source_language_get_name(lang);
-		gtk_source_buffer_set_language(GTK_SOURCE_BUFFER(sv->priv->document), lang);
-		g_signal_emit_by_name (G_OBJECT(sv), "language-changed", 
-							   language);
-		return language;
+		GtkSourceLanguage* language = 
+			gtk_source_language_manager_get_language (gtk_source_language_manager_get_default(),
+													  *cur_lang);
+		GStrv mime_types = gtk_source_language_get_mime_types (language);
+		if (!mime_types)
+			continue;
+		GStrv mime_type;
+		for (mime_type = mime_types; *mime_type != NULL; mime_type++)
+		{
+			if (g_str_equal (*mime_type, vfs_mime_type))
+			{
+				detected_language = gtk_source_language_get_id (language);				
+				g_signal_emit_by_name (G_OBJECT(sv), "language-changed", 
+									   detected_language);
+				gtk_source_buffer_set_language (GTK_SOURCE_BUFFER (sv->priv->document), language);
+				goto out;
+			}
+		}
 	}
-	return NULL;
+	out:
+		g_strfreev(languages);
+	
+	return detected_language;
 }
 
 static void
 ilanguage_set_language (IAnjutaEditorLanguage *ilanguage,
 						const gchar *language, GError **err)
 {
-	Sourceview* sv = ANJUTA_SOURCEVIEW(ilanguage);
-	GtkSourceBuffer* buffer = GTK_SOURCE_BUFFER(sv->priv->document);
-	const GSList* langs = gtk_source_languages_manager_get_available_languages(lang_manager);
-	
-	while (language && langs)
+	Sourceview* sv = ANJUTA_SOURCEVIEW (ilanguage);
+	gboolean found = FALSE;
+	GStrv languages;
+	GStrv cur_lang;
+	g_object_get (G_OBJECT (gtk_source_language_manager_get_default ()), "language-ids",
+							&languages, NULL);
+	for (cur_lang = languages; *cur_lang != NULL && language != NULL; cur_lang++)
 	{
-		gchar* name = gtk_source_language_get_name(GTK_SOURCE_LANGUAGE(langs->data));
-		if (g_str_equal(name, language))
+		GtkSourceLanguage* source_language = 
+			gtk_source_language_manager_get_language (gtk_source_language_manager_get_default(),
+													  *cur_lang);
+		const gchar* id = gtk_source_language_get_id (source_language);
+		
+		if (g_str_equal (language, id))
 		{
-			gtk_source_buffer_set_language(buffer, GTK_SOURCE_LANGUAGE(langs->data));
-			g_signal_emit_by_name (ilanguage, "language-changed", language);
-			return;
+			g_signal_emit_by_name (G_OBJECT(sv), "language-changed", 
+									   id);
+			gtk_source_buffer_set_language (GTK_SOURCE_BUFFER (sv->priv->document),
+											source_language);
+			found = TRUE;
+			break;
 		}
-		langs = g_slist_next(langs);
 	}
-	/* Otherwise, autodetect language */
-	autodetect_language (sv);
+	g_strfreev(languages);
+	if (!found)
+	{
+		autodetect_language (sv);
+	}
 }
 
 static const gchar*
@@ -1958,6 +1963,9 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips, gint position,
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
 	int tip_position = position - char_alignment;
+	
+	if (tips == NULL)
+		return;
 	
 	if (!sv->priv->assist_tip)
 	{
@@ -2097,6 +2105,68 @@ isearch_iface_init(IAnjutaEditorSearchIface* iface)
 	iface->backward = isearch_backward;
 }
 
+/* IAnjutaHover */
+#if HAVE_TOOLTIP_API
+static void
+on_sourceview_hover_leave(gpointer data, GObject* where_the_data_was)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW (data);
+	
+	g_signal_emit_by_name (G_OBJECT (sv), "hover-leave", sv->priv->tooltip_cell);
+	g_object_unref (sv->priv->tooltip_cell);
+}
+
+static gboolean 
+on_sourceview_hover_over (GtkWidget *widget, gint x, gint y,
+						  gboolean keyboard_tip, GtkTooltip *tooltip,
+						  gpointer data)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW (data);
+	SourceviewCell* cell;
+	GtkTextIter iter;
+	GtkTextView *text_view = GTK_TEXT_VIEW (widget);
+	gint bx, by, trailing;
+		
+	gtk_text_view_window_to_buffer_coords (text_view, GTK_TEXT_WINDOW_TEXT,
+											   x, y, &bx, &by);
+	gtk_text_view_get_iter_at_position (text_view, &iter, &trailing, bx, by);
+	
+	cell = sourceview_cell_new (&iter, text_view);
+		
+	/* This should call ianjuta_hover_display() */
+	g_signal_emit_by_name (G_OBJECT (sv), "hover-over", cell);
+	
+	if (sv->priv->tooltip)
+	{
+		gtk_tooltip_set_text (tooltip, sv->priv->tooltip);
+		g_object_weak_ref (G_OBJECT (tooltip), on_sourceview_hover_leave, sv);
+		g_free (sv->priv->tooltip);
+		sv->priv->tooltip = NULL;
+		sv->priv->tooltip_cell = cell;
+		return TRUE;
+	}
+	
+	return FALSE;  
+}
+
+static void
+ihover_display (IAnjutaEditorHover *ihover,
+				IAnjutaIterable* position,
+				const gchar* info,
+				GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW (ihover);
+	g_assert (sv->priv->tooltip == NULL);
+	sv->priv->tooltip = g_strdup (info);
+}
+
+static void
+ihover_iface_init(IAnjutaEditorHoverIface* iface)
+{
+	iface->display = ihover_display;
+}
+#endif
+
 ANJUTA_TYPE_BEGIN(Sourceview, sourceview, GTK_TYPE_SCROLLED_WINDOW);
 ANJUTA_TYPE_ADD_INTERFACE(idocument, IANJUTA_TYPE_DOCUMENT);
 ANJUTA_TYPE_ADD_INTERFACE(ifile, IANJUTA_TYPE_FILE);
@@ -2108,7 +2178,10 @@ ANJUTA_TYPE_ADD_INTERFACE(iselect, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
-ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
+//ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
 ANJUTA_TYPE_ADD_INTERFACE(isearch, IANJUTA_TYPE_EDITOR_SEARCH);
+#if HAVE_TOOLTIP_API
+ANJUTA_TYPE_ADD_INTERFACE(ihover, IANJUTA_TYPE_EDITOR_HOVER);
+#endif
 ANJUTA_TYPE_END;

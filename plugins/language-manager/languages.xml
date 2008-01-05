@@ -2,7 +2,7 @@
 		 ids start from 1 and that names have to be unique 
 		 Strings are recognized caseless -->
 <languages>
-	<language id="1" name="C" strings="c" mime-types="text/x-csrc,text/x-chdr" />
+	<language id="1" name="C" strings="c,chdr" mime-types="text/x-csrc,text/x-chdr" />
 	<language id="2" name="C++" strings="c,cpp,c++" mime-types="text/x-c++src,text/x-c++hdr" />
 	<language id="3" name="Java" strings="java" mime-types="text/x-java" />
 	<language id="4" name="Python" strings="python" mime-types="text/x-python" />

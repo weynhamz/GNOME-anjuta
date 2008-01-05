@@ -30,6 +30,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <gnome.h>
+#include <libgnomevfs/gnome-vfs.h>
 
 /*#define DEBUG*/
 #include <libanjuta/resources.h>

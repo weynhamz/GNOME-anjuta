@@ -238,7 +238,10 @@ ilanguage_get_from_mime_type (IAnjutaLanguage* ilang, const gchar* mime_type, GE
 		ret_id = data->result_id;
 	}
 	else
+	{
+		DEBUG_PRINT ("Unknown mime-type = %s", mime_type);
 		ret_id = 0;
+	}
 	g_free(data);
 	return ret_id;
 }
@@ -258,7 +261,10 @@ ilanguage_get_from_string (IAnjutaLanguage* ilang, const gchar* string, GError**
 		ret_id = data->result_id;
 	}
 	else
+	{
+		g_message ("Unknown language string = %s", string);
 		ret_id = 0;
+	}
 	g_free(data);
 	return ret_id;
 }

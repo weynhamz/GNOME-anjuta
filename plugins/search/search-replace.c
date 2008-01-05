@@ -447,10 +447,17 @@ search_and_replace (void)
 									(sr->docman, fb->path, mi->line, FALSE, NULL);
 							found_line = mi->line;
 						}
-						ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), mi->pos,
-													 (mi->pos + mi->len), backward,
-													 NULL);
-						break;
+						{
+							IAnjutaIterable* start = ianjuta_editor_get_cell_iter (fb->te, mi->pos, NULL);
+							IAnjutaIterable* end = ianjuta_editor_get_cell_iter (fb->te, mi->pos + mi->len, NULL);
+							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), 
+														 start,
+														 end,
+														 NULL);
+							g_object_unref (start);
+							g_object_unref (end);
+							break;
+						}
 						
 					case SA_FIND_PANE: 
 						write_message_pane(view, fb, se, mi);
@@ -469,10 +476,14 @@ search_and_replace (void)
 
 						if (!interactive)
 						{
-							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), mi->pos - offset,
-													 mi->pos - offset + mi->len,
-							                         backward,
-													 NULL);
+							IAnjutaIterable* start = ianjuta_editor_get_cell_iter (fb->te, mi->pos - offset, NULL);
+							IAnjutaIterable* end = ianjuta_editor_get_cell_iter (fb->te, mi->pos - offset + mi->len, NULL);
+							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), 
+														 start,
+														 end,
+														 NULL);
+							g_object_unref (start);
+							g_object_unref (end);
 							interactive = TRUE;
 							os = offset;
 							modify_label_image_button(SEARCH_BUTTON, _("Replace"), 
@@ -493,15 +504,20 @@ search_and_replace (void)
 							g_free (ch);
 								ch = NULL;
 						}
-						
-							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  mi->pos - os,
-														 mi->pos + mi->len - os,
-							                             backward,
-														 NULL);
-							ianjuta_editor_selection_replace(IANJUTA_EDITOR_SELECTION (fb->te), 
-															 sr->replace.repl_str,
-															 strlen(sr->replace.repl_str),
+							{
+								IAnjutaIterable* start = ianjuta_editor_get_cell_iter (fb->te, mi->pos - os, NULL);
+								IAnjutaIterable* end = ianjuta_editor_get_cell_iter (fb->te, mi->pos + mi->len - os, NULL);
+								ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  
+															 start,														 
+															 end,
 															 NULL);
+								ianjuta_editor_selection_replace(IANJUTA_EDITOR_SELECTION (fb->te), 
+																 sr->replace.repl_str,
+																 strlen(sr->replace.repl_str),
+																 NULL);
+								g_object_unref (start);
+								g_object_unref (end);
+							}
 						if (se->direction != SD_BACKWARD)
 							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);
 						
@@ -524,14 +540,18 @@ search_and_replace (void)
 						}
 						else
 						{
-							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  mi->pos - offset,
-														 mi->pos + mi->len - offset,
-							                             backward,
+							IAnjutaIterable* start = ianjuta_editor_get_cell_iter (fb->te, mi->pos - offset, NULL);
+							IAnjutaIterable* end = ianjuta_editor_get_cell_iter (fb->te, mi->pos + mi->len - offset, NULL);
+							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  
+														 start,
+														 end,
 														 NULL);
 							ianjuta_editor_selection_replace(IANJUTA_EDITOR_SELECTION (fb->te), 
 															 sr->replace.repl_str,
 															 strlen(sr->replace.repl_str),
 															 NULL);
+							g_object_unref (start);
+							g_object_unref (end);
 						}
 						if (se->direction != SD_BACKWARD)
  							offset += mi->len - (sr->replace.repl_str?strlen(sr->replace.repl_str):0);

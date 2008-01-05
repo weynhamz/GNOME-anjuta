@@ -591,8 +591,9 @@ create_search_entries (Search *s)
 	GList *editors;
 	IAnjutaDocument *doc;
 	SearchEntry *se;
-	gint selstart;
 	gint tmp_pos;
+	IAnjutaIterable *start;
+	gint selstart;
 
 	switch (s->range.type)
 	{
@@ -615,10 +616,12 @@ create_search_entries (Search *s)
 					/* forward-search from after beginning of selection, if any
 					   backwards-search from before beginning of selection, if any
 					   treat -ve positions except -1 as high +ve */
-					selstart = ianjuta_editor_selection_get_start
+					start = ianjuta_editor_selection_get_start
 							(IANJUTA_EDITOR_SELECTION (se->te), NULL);
-					if (selstart != -1)
+					if (start)
 					{
+						selstart =
+							ianjuta_iterable_get_position (start, NULL);
 						if (se->direction == SD_BACKWARD)
 						{
 							se->start_pos = (selstart != 0) ?
@@ -659,16 +662,25 @@ create_search_entries (Search *s)
 				}				
 				else
 				{
-					selstart = selend =
-					ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (se->te), NULL);
+					IAnjutaIterable* end =
+						ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (se->te), NULL);
+					if (end)
+					  selstart = selend = ianjuta_iterable_get_position (end, NULL);
+					else
+					{
+						selstart = selend = 0;	/* warning prevention only */
+						g_assert ("No selection end position");
+					}
 				}
 
 				if (s->range.type == SR_BLOCK)
 					ianjuta_editor_selection_select_block(IANJUTA_EDITOR_SELECTION (se->te), NULL);
 				if (s->range.type == SR_FUNCTION)
 					ianjuta_editor_selection_select_function(IANJUTA_EDITOR_SELECTION (se->te), NULL);
-				se->start_pos = ianjuta_editor_selection_get_start(IANJUTA_EDITOR_SELECTION (se->te), NULL);
-				se->end_pos = ianjuta_editor_selection_get_end(IANJUTA_EDITOR_SELECTION (se->te), NULL);
+				se->start_pos = 
+					ianjuta_iterable_get_position (ianjuta_editor_selection_get_start(IANJUTA_EDITOR_SELECTION (se->te), NULL), NULL);
+				se->end_pos = 
+					ianjuta_iterable_get_position (ianjuta_editor_selection_get_end(IANJUTA_EDITOR_SELECTION (se->te), NULL), NULL);
 			
 				if (se->direction == SD_BACKWARD)
 				{
@@ -679,11 +691,11 @@ create_search_entries (Search *s)
 				entries = g_list_prepend (entries, se);
 				if (s->range.type != SR_SELECTION)
 				{
-					gboolean backward;
-					backward = (se->direction == SD_BACKWARD);
+					IAnjutaIterable *start, *end;
+					start = ianjuta_editor_get_cell_iter (se->te, selstart, NULL);
+					end = ianjuta_editor_get_cell_iter (se->te, selend, NULL);
 					ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (se->te), 
-				                                 selstart, selend, backward,
-				                                 NULL);	
+				                                 start, end, NULL);	
 				}					
 			}
 			break;
