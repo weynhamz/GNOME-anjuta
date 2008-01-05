@@ -2238,10 +2238,20 @@ itext_editor_get_text_iter (IAnjutaEditor *editor,
 							IAnjutaIterable* end,
 							GError **e)
 {
-  gint start_pos = text_editor_cell_get_position (TEXT_EDITOR_CELL (begin));
-  gint end_pos = text_editor_cell_get_position (TEXT_EDITOR_CELL (end));
-	
-  return itext_editor_get_text (editor, start_pos, end_pos - start_pos, e);
+	gchar *data;
+	gint start_pos = text_editor_cell_get_position (TEXT_EDITOR_CELL (begin));
+	gint end_pos = text_editor_cell_get_position (TEXT_EDITOR_CELL (end));
+	gint after_end_pos; 
+	TextEditor *te = TEXT_EDITOR (editor);
+
+	/* get_text_iter includes the character at end in the range while 
+	 * ANE_GETTEXTRANGE excludes it. look for the character following end */
+	after_end_pos = scintilla_send_message (SCINTILLA ( te->scintilla), SCI_POSITIONAFTER, end_pos, 0);
+	if (after_end_pos == end_pos)
+	       	after_end_pos = -1; /* Reach end of buffer, Get all remain */
+
+	data =	(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE, start_pos, after_end_pos);
+	return data;
 }
 
 static gint

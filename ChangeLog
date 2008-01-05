@@ -1,5 +1,15 @@
 2008-01-05  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/variable.c:
+	Update variable display to use IAnjutaIterable instead of position
+
+	* plugins/editor/text_editor_cbs.c,
+	plugins/editor/text_editor.c:
+	Fix Gtk critical warnings when a hover signal is emitted
+	Fix get_text_iter in Scintilla (range should include last character)
+	
+2008-01-05  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/debug_tree.c,
 	plugins/debug-manager/debug_tree.h,
 	plugins/debug-manager/watch.c,

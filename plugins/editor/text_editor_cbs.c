@@ -224,19 +224,19 @@ on_text_editor_scintilla_notify (GtkWidget * sci, gint wParam, gpointer lParam,
 	return;
 	case SCN_DWELLSTART:
     {
-      TextEditorCell* cell = text_editor_cell_new (te, nt->position); 
+      TextEditorCell* cell = nt->position < 0 ? NULL : text_editor_cell_new (te, nt->position); 
       g_signal_emit_by_name (te, "hover-over", cell);
-      g_object_unref (cell);
+      if (cell) g_object_unref (cell);
       return;
     }
 		
 	case SCN_DWELLEND:
     {
-      TextEditorCell* cell = text_editor_cell_new (te, nt->position); 
+      TextEditorCell* cell = nt->position < 0 ? NULL : text_editor_cell_new (te, nt->position); 
       
       text_editor_hide_hover_tip (te);
       g_signal_emit_by_name (te, "hover-leave", cell);
-      g_object_unref (cell);
+      if (cell) g_object_unref (cell);
       return;
     }
 

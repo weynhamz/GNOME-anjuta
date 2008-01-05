@@ -66,134 +66,70 @@ is_name (gchar c)
 }
 
 static gchar*
-get_hovered_word (IAnjutaEditor* editor, IAnjutaIterable* pos)
+get_hovered_word (IAnjutaEditor* editor, IAnjutaIterable* iter)
 {
 	gchar *buf;
-	gchar *ptr;
-	IAnjutaIterable *start_iter, *end_iter;
-	gint start;
-	gint end;
-	gint position;
+	IAnjutaIterable *start;
+	IAnjutaIterable	*end;
 	
-	g_return_val_if_fail (pos != NULL, NULL);
+	if (iter == NULL) return NULL;
 	
 	/* Get selected characters if possible */
 	if (IANJUTA_IS_EDITOR_SELECTION (editor))
 	{
-		start_iter = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor), NULL);
-		if (start_iter && (ianjuta_iterable_get_position (start_iter, NULL) 
-						   < ianjuta_iterable_get_position (pos, NULL)))
+		gint pos = ianjuta_iterable_get_position (iter, NULL);
+
+		/* Check if hover on selection */
+		start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor), NULL);
+		if (start && (ianjuta_iterable_get_position (start, NULL) 
+						   < pos))
 		{
-			g_object_unref (start_iter);
-			end_iter = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor), NULL);
-			if (end_iter && (ianjuta_iterable_get_position (end_iter, NULL) 
-							 >= ianjuta_iterable_get_position (pos, NULL)))
+			end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor), NULL);
+			if (end && (ianjuta_iterable_get_position (end, NULL) 
+							 >= pos))
 			{
 				/* Hover on selection, get selected characters */
-			    g_object_unref (end_iter);
+			    g_object_unref (end);
 				return ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (editor),
 													 NULL);
 			}
+			if (end) g_object_unref (end);
 		}
+		if (start) g_object_unref (start);
 	}
-	
-	position = ianjuta_iterable_get_position (pos, NULL);
 	
 	/* Find word below cursor */
-	if (position < DEFAULT_VARIABLE_NAME / 2)
+	DEBUG_PRINT("current char %c", ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL));
+	if (!is_name (ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL)))
 	{
-		start = 0;
-		end = DEFAULT_VARIABLE_NAME;
-	}
-	else
-	{
-		start = position - DEFAULT_VARIABLE_NAME / 2;
-		end = position + DEFAULT_VARIABLE_NAME / 2;
-		position = DEFAULT_VARIABLE_NAME / 2;
-	}
-	/* FIXME: Temporary hack to avoid a bug in ianjuta_editor_get_text
-	 * (bug #506740) */
-	if (ianjuta_editor_get_length (editor, NULL) < end)
-	{
-		end = ianjuta_editor_get_length (editor, NULL) - start;
-	}
-	buf = ianjuta_editor_get_text (editor, start, end - start, NULL);
-
-	/* Check if name is valid */
-	ptr = buf + position;
-	if (!is_name (*ptr))
-	{
-		g_free (buf);
+		/* Not hover on a name */
 		return NULL;
 	}
-				 
+	
 	/* Look for the beginning of the name */
-	do
+	for (start = ianjuta_iterable_clone (iter, NULL); ianjuta_iterable_previous (start, NULL);)
 	{
-		if (ptr == buf)
+		if (!is_name (ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (start), 0, NULL)))
 		{
-			/* Need more data at beginning */
-			gchar *head;
-			gchar *tail = buf;
-			gint len;
-			
-			if (start == 0)
-			{
-				/* No more data in buffer, find beginning */
-				ptr--;
-				break;
-			}
-			
-			len = start < DEFAULT_VARIABLE_NAME ? start : DEFAULT_VARIABLE_NAME;
-			start -= len;
-			head = ianjuta_editor_get_text (editor, start, len, NULL);
-			position += len;
-			buf = g_strconcat (head, tail, NULL);
-			g_free (head);
-			g_free (tail);
-			ptr = buf + len;
+			ianjuta_iterable_next (start, NULL);
+			break;
 		}
-		ptr--;
-	} while (is_name (*ptr));
-	start = ptr + 1 - buf;
+	}
 
 	/* Look for the end of the name */
-	ptr = buf + position;
-	do
+	for (end = ianjuta_iterable_clone (iter, NULL); ianjuta_iterable_next (end, NULL);)
 	{
-		ptr++;
-		if (*ptr == '\0')
+		if (!is_name (ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (end), 0, NULL)))
 		{
-			/* Need more data at end */
-			gchar *head = buf;
-			gchar *tail;
-			
-			if (ianjuta_editor_get_length (editor, NULL) < (end + DEFAULT_VARIABLE_NAME))
-			{
-				/* FIXME: Temporary hack to avoid a bug in ianjuta_editor_get_text
-		  		 * (bug #506740) */
-				tail = ianjuta_editor_get_text (editor, end, -1, NULL);
-			}
-			else
-			{
-				tail = ianjuta_editor_get_text (editor, end, DEFAULT_VARIABLE_NAME, NULL);
-			}
-			if (tail == NULL)
-			{
-				/* No more data, find end */
-				break;
-			}
-			end += DEFAULT_VARIABLE_NAME;
-			
-			buf = g_strconcat (head, tail, NULL);
-			g_free (head);
-			g_free (tail);
-			ptr = (ptr - head) + buf;
+			ianjuta_iterable_previous (end, NULL);
+			break;
 		}
-	} while (is_name (*ptr));
-	*ptr = '\0';
-	
-	memmove (buf, buf + start, ptr - buf + 1 - start);
+	}
+
+	buf = ianjuta_editor_get_text_iter (editor, start, end, NULL);
+	DEBUG_PRINT("get name %s", buf == NULL ? "(null)" : buf);
+	g_object_unref (start);
+	g_object_unref (end);
 	
 	return buf;
 }
@@ -210,7 +146,7 @@ on_hover_over (DmaVariableDBase *self, IAnjutaIterable* pos, IAnjutaEditorHover*
 	gchar *name;
 	
 	DEBUG_PRINT("Hover on editor %p at %d", editor, 
-				ianjuta_iterable_get_position (pos, NULL));
+				pos == NULL ? -1 : ianjuta_iterable_get_position (pos, NULL));
 	
 	name = get_hovered_word (IANJUTA_EDITOR (editor), pos);
 	if (name != NULL)
