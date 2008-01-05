@@ -1,3 +1,8 @@
+2008-01-05  Naba Kumar  <naba@gnome.org>
+
+	* manuals/reference/libanjuta/libanjuta.types: Renamed
+	IAnjutaVariableDebugger to IAnjutaDebuggerVariable to fix build error.
+
 2008-01-05  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/variable.c:

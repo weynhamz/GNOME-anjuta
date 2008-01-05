@@ -60,6 +60,6 @@ ianjuta_symbol_get_type
 ianjuta_symbol_manager_get_type
 ianjuta_terminal_get_type
 ianjuta_todo_get_type
-ianjuta_variable_debugger_get_type
+ianjuta_debugger_variable_get_type
 ianjuta_vcs_get_type
 ianjuta_wizard_get_type
