@@ -2886,16 +2886,6 @@ interface IAnjutaDebugger
 		guint address;
 	}
 
-	struct Variable
-	{
-		gchar *name;
-		gchar *expression;
-		gchar *type;
-		gchar *value;
-		gboolean changed;
-		gint children;
-	}
-
 	struct Memory
 	{
 		guint address;
@@ -2923,7 +2913,6 @@ interface IAnjutaDebugger
 	typedef void (*GCharCallback) (const gchar *value, gpointer user_data, GError* err);
 	typedef void (*OutputCallback) (OutputType type, const gchar *output, gpointer user_data);
 	typedef void (*MemoryCallback) (const gchar* address, guint length, const gchar *data, gpointer user_data, GError *err);
-	typedef void (*VariableCallback) (Variable *variable, gpointer user_data, GError *err);
 
 	/* Signals */
 
@@ -3710,6 +3699,126 @@ interface IAnjutaDebugger
 		*/
 		gboolean condition (guint id, const gchar* condition, IAnjutaDebuggerCallback callback, gpointer user_data);
 	}
+
+	/**
+	* SECTION:ianjuta-debugger-variable
+	* @title: IAnjutaDebuggerVariable
+	* @short_description: Variables interface for debuggers
+	* @see_also: 
+	* @stability: Unstable
+	* @include: libanjuta/interfaces/ianjuta-debugger-variable.h
+	* 
+ 	* This interface is used to examine and change values of expression.
+	* It is based on the MI2 variable object interface of gdb. A
+	* variable needs to be created before being able to get or set its
+	* value and list its children. 
+	*/
+	interface IAnjutaDebuggerVariable
+	{
+		#include "ianjuta-debug-manager.h"
+		#include "ianjuta-debugger.h"
+		#include <sys/types.h>
+
+		struct Object
+		{
+			gchar *name;
+			gchar *expression;
+			gchar *type;
+			gchar *value;
+			gboolean changed;
+			gint children;
+		}
+
+		/**
+		* ianjuta_debugger_variable_create:
+		* @obj: Self
+		* @expression: Variable expression
+		* @callback: Callback to call when the variable has been created
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* Create a new variable object in the current thread and frame.
+		*
+		* Returns: TRUE if the request succeed and the callback is
+		* called. If FALSE, the callback will not be called.
+		*/
+		gboolean create (const gchar *expression, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+		/**
+		* ianjuta_debugger_variable_list_children:
+		* @obj: Self
+		* @name: Variable name
+		* @callback: Callback to call when the children have been
+		* created
+		* @user_data: User data that is passed back to the callback
+	 	* @err: Error propagation and reporting.
+		* 
+		* List and create objects for all children of a
+		* variable object.
+		*
+		* Returns: TRUE if the request succeed and the callback is
+		* called. If FALSE, the callback will not be called.
+		*/
+		gboolean list_children (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+		/**
+		* ianjuta_debugger_variable_evaluate:
+		* @obj: Self
+		* @name: Variable name
+		* @callback: Callback to call with the variable value
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		*
+		* Get the value of one variable or child object.
+		*
+		* Returns: TRUE if the request succeed and the callback is
+		* called. If FALSE, the callback will not be called.
+		*/
+		gboolean evaluate (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+		/**
+		* ianjuta_debugger_variable_assign:
+		* @obj: Self
+		* @name: Variable name
+		* @value: Variable value
+		* @err: Error propagation and reporting.
+		* 
+		* Set the value of one variable or child object.
+		*
+		* Returns: TRUE if the request succeed and the callback is
+		* called. If FALSE, the callback will not be called.
+		*/
+		gboolean assign (const gchar *name, const gchar *value);
+
+		/**
+		* ianjuta_debugger_variable_update:
+		* @obj: Self
+		* @callback: Callback to call with the list of all changed
+		* variables
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* List all changed variable objects since the last call.
+		*
+		* Returns: TRUE if the request succeed and the callback is
+		* called. If FALSE, the callback will not be called.
+		*/
+		gboolean update (IAnjutaDebuggerCallback callback, gpointer user_data);
+
+		/**
+		* ianjuta_debugger_variable_destroy:
+		* @obj: Self
+		* @name: Variable name
+		* @err: Error propagation and reporting.
+		* 
+		* Delete a previously created variable or child object 
+		* including its own children.
+		*
+		* Returns: TRUE if the request succeed and the callback is
+		* called. If FALSE, the callback will not be called.
+		*/
+		gboolean destroy (const gchar *name);
+	}
 }
 
 /**
@@ -3835,104 +3944,6 @@ interface IAnjutaCpuDebugger
 	*/
 	gboolean run_to_address (guint address);
 }
-
-/**
- * SECTION:ianjuta-variable-debugger
- * @title: IAnjutaVariableDebugger
- * @short_description: Variables interface for debuggers
- * @see_also: 
- * @stability: Unstable
- * @include: libanjuta/interfaces/ianjuta-variable-debugger.h
- * 
- */
-interface IAnjutaVariableDebugger
-{
-	#include "ianjuta-debug-manager.h"
-	#include "ianjuta-debugger.h"
-	#include <sys/types.h>
-
-	/**
-	* ianjuta_variable_debugger_create:
-	* @obj: Self
-	* @name: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean create (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
-
-	/**
-	* ianjuta_variable_debugger_list_children:
-	* @obj: Self
-	* @name: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean list_children (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
-
-	/**
-	* ianjuta_variable_debugger_evaluate:
-	* @obj: Self
-	* @name: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean evaluate (const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
-
-	/**
-	* ianjuta_variable_debugger_assign:
-	* @obj: Self
-	* @name: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean assign (const gchar *name, const gchar *value);
-
-	/**
-	* ianjuta_variable_debugger_update:
-	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean update (IAnjutaDebuggerCallback callback, gpointer user_data);
-
-	/**
-	* ianjuta_variable_debugger_delete:
-	* @obj: Self
-	* @name: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean delete_var (const gchar *name);
-}
-
 
 interface IAnjutaDebugManager
 {

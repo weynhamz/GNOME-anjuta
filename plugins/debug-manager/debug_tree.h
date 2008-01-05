@@ -26,7 +26,7 @@
 
 #include <gtk/gtk.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
-#include <libanjuta/interfaces/ianjuta-variable-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 #include <libanjuta/anjuta-plugin.h>
 
 G_BEGIN_DECLS
@@ -42,7 +42,7 @@ void debug_tree_disconnect (DebugTree *tree);
 
 void debug_tree_remove_all (DebugTree *tree);
 void debug_tree_replace_list (DebugTree *tree, const GList *expressions);
-void debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariable* var, gboolean auto_update);
+void debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariableObject* var, gboolean auto_update);
 void debug_tree_add_dummy (DebugTree *tree, GtkTreeIter *parent);
 void debug_tree_add_full_watch_list (DebugTree *tree, GList *expressions);
 void debug_tree_add_watch_list (DebugTree *tree, GList *expressions, gboolean auto_update);

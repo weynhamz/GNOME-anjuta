@@ -1,3 +1,16 @@
+2008-01-05  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/debug_tree.h,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/command.c,
+	plugins/debug-manager/queue.c,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	libanjuta/interfaces/libanjuta.idl:
+	Rename IAnjutaVariableDebugger to IAnjutaDebuggerVariable
+
 2008-01-05  Naba Kumar  <naba@gnome.org>
 
 	* plugins/valgrind/plugin.c: Removed stock icon open/save from
@@ -90,7 +103,6 @@
 	* Implemented hover interface
 	* Adapted to changed interfaces
 
->>>>>>> .r3415
 2008-01-04  Rob Bradford  <rob@o-hand.com>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:

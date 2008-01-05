@@ -32,7 +32,7 @@
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
-#include <libanjuta/interfaces/ianjuta-variable-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 
 #include <stdarg.h>
 
@@ -1231,22 +1231,22 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_handle_signal (debugger, cmd->data.signal.name, cmd->data.signal.stop, cmd->data.signal.print, cmd->data.signal.ignore, err);	
 		break;
 	case DELETE_VARIABLE:
-		ret = ianjuta_variable_debugger_delete_var (IANJUTA_VARIABLE_DEBUGGER (debugger), cmd->data.var.name, NULL);
+		ret = ianjuta_debugger_variable_destroy (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, NULL);
 		break;
 	case ASSIGN_VARIABLE:
-		ret = ianjuta_variable_debugger_assign (IANJUTA_VARIABLE_DEBUGGER (debugger), cmd->data.var.name, cmd->data.var.value, err);
+		ret = ianjuta_debugger_variable_assign (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, cmd->data.var.value, err);
 		break;
 	case EVALUATE_VARIABLE:
-		ret = ianjuta_variable_debugger_evaluate (IANJUTA_VARIABLE_DEBUGGER (debugger), cmd->data.var.name, callback, queue, err);
+		ret = ianjuta_debugger_variable_evaluate (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, callback, queue, err);
 		break;
 	case LIST_VARIABLE_CHILDREN:
-		ret = ianjuta_variable_debugger_list_children (IANJUTA_VARIABLE_DEBUGGER (debugger), cmd->data.var.name, callback, queue, err);
+		ret = ianjuta_debugger_variable_list_children (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, callback, queue, err);
 		break;
 	case CREATE_VARIABLE:
-		ret = ianjuta_variable_debugger_create (IANJUTA_VARIABLE_DEBUGGER (debugger), cmd->data.var.name, callback, queue, err);
+		ret = ianjuta_debugger_variable_create (IANJUTA_DEBUGGER_VARIABLE (debugger), cmd->data.var.name, callback, queue, err);
 		break;
 	case UPDATE_VARIABLE:
-		ret = ianjuta_variable_debugger_update (IANJUTA_VARIABLE_DEBUGGER (debugger), callback, queue, err);
+		ret = ianjuta_debugger_variable_update (IANJUTA_DEBUGGER_VARIABLE (debugger), callback, queue, err);
 		break;
 	}
 	

@@ -411,7 +411,7 @@ debug_tree_add_children (DebugTree *tree, GtkTreeIter* parent, const GList *chil
 		
 		for (; child != NULL; child = g_list_next (child))
 		{
-			IAnjutaDebuggerVariable *var = (IAnjutaDebuggerVariable *)child->data;
+			IAnjutaDebuggerVariableObject *var = (IAnjutaDebuggerVariableObject *)child->data;
 			DmaVariableData *data;
 			
 			if (!valid_iter)
@@ -542,7 +542,7 @@ gdb_var_list_children (const GList *children, gpointer user_data, GError *err)
 }
 
 static void
-gdb_var_create (IAnjutaDebuggerVariable *variable, gpointer user_data, GError *err)
+gdb_var_create (IAnjutaDebuggerVariableObject *variable, gpointer user_data, GError *err)
 {
 	DmaVariablePacket *pack = (DmaVariablePacket *) user_data;
 	GtkTreeIter iter;
@@ -672,7 +672,7 @@ on_debug_tree_variable_changed (GtkCellRendererText *cell,
 		
 		if ((text != NULL) && (*text != '\0'))
 		{
-		    IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
+		    IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, -1};
 			
 			var.expression = text;
 			debug_tree_add_watch (tree, &var, TRUE);
@@ -886,7 +886,7 @@ on_replace_watch (gpointer data, gpointer user_data)
 	DebugTree* tree = (DebugTree *)user_data;
 	const gchar *expression = (const gchar *)data;
 	GtkTreeModel*const model = gtk_tree_view_get_model (GTK_TREE_VIEW(tree->view));
-	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
+	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, -1};
 	GtkTreeIter iter;
 
 	if (debug_tree_find_expression (model, &iter, expression, NULL))
@@ -936,7 +936,7 @@ debug_tree_add_dummy (DebugTree *tree, GtkTreeIter *parent)
  * variable object, currently only the expression field is set */
 
 void
-debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariable* var, gboolean auto_update)
+debug_tree_add_watch (DebugTree *tree, const IAnjutaDebuggerVariableObject* var, gboolean auto_update)
 {
 	GtkTreeModel *model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree->view));
 	GtkTreeIter iter;
@@ -1007,7 +1007,7 @@ on_add_watch (gpointer data, gpointer user_data)
 {
 	DebugTree* this = (DebugTree *)user_data;
 	gboolean auto_update = ((const gchar *)data)[0] & AUTO_UPDATE_WATCH ? TRUE : FALSE;
-	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
+	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, -1};
 
 	var.expression = &((gchar *)data)[1];
 	debug_tree_add_watch (this, &var, auto_update);
@@ -1023,7 +1023,7 @@ static void
 on_add_manual_watch (gpointer data, gpointer user_data)
 {
 	DebugTree* this = (DebugTree *)user_data;
-	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
+	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, -1};
 
 	var.expression = &((gchar *)data)[0];
 	debug_tree_add_watch (this, &var, FALSE);
@@ -1033,7 +1033,7 @@ static void
 on_add_auto_watch (gpointer data, gpointer user_data)
 {
 	DebugTree* this = (DebugTree *)user_data;
-	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
+	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, -1};
 	
 	var.expression = &((gchar *)data)[0];
 	debug_tree_add_watch (this, &var, TRUE);
@@ -1048,7 +1048,7 @@ debug_tree_add_watch_list (DebugTree *this, GList *expressions, gboolean auto_up
 static void
 on_debug_tree_changed (gpointer data, gpointer user_data)
 {
-	IAnjutaDebuggerVariable *var = (IAnjutaDebuggerVariable *)data;
+	IAnjutaDebuggerVariableObject *var = (IAnjutaDebuggerVariableObject *)data;
 
 	if (var->name != NULL)
 	{

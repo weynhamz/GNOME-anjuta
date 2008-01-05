@@ -32,7 +32,7 @@
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
 #include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
-#include <libanjuta/interfaces/ianjuta-variable-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 
 
 #include <stdarg.h>
@@ -572,7 +572,7 @@ dma_debugger_activate_plugin (DmaDebuggerQueue* self, const gchar *mime_type)
 			self->support |= ianjuta_debugger_breakpoint_implement (IANJUTA_DEBUGGER_BREAKPOINT (self->debugger), NULL) * HAS_BREAKPOINT * 2;
 		}			
 		/* Check if variable interface is available */
-		self->support |= IANJUTA_IS_VARIABLE_DEBUGGER(self->debugger) ? HAS_VARIABLE : 0;
+		self->support |= IANJUTA_IS_DEBUGGER_VARIABLE(self->debugger) ? HAS_VARIABLE : 0;
 		
 		g_free (value);
 

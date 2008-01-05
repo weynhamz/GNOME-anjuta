@@ -28,7 +28,6 @@
 #include <libanjuta/interfaces/ianjuta-message-view.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
-#include <libanjuta/interfaces/ianjuta-variable-debugger.h>
 
 G_BEGIN_DECLS
 

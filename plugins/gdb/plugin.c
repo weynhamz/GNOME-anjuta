@@ -34,7 +34,7 @@
 #include <libanjuta/interfaces/ianjuta-debugger.h>
 #include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
 #include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
-#include <libanjuta/interfaces/ianjuta-variable-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 #include <libanjuta/interfaces/ianjuta-terminal.h>
 #include <libanjuta/anjuta-plugin.h>
 #include <signal.h>
@@ -936,7 +936,7 @@ icpu_debugger_disassemble (IAnjutaCpuDebugger *plugin, guint address, guint leng
 }
 
 static gboolean
-icpu_debugger_stepi_in (IAnjutaDebugger *plugin, GError **err)
+icpu_debugger_stepi_in (IAnjutaCpuDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
@@ -946,7 +946,7 @@ icpu_debugger_stepi_in (IAnjutaDebugger *plugin, GError **err)
 }
 
 static gboolean
-icpu_debugger_stepi_over (IAnjutaDebugger *plugin, GError **err)
+icpu_debugger_stepi_over (IAnjutaCpuDebugger *plugin, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
@@ -956,7 +956,7 @@ icpu_debugger_stepi_over (IAnjutaDebugger *plugin, GError **err)
 }
 
 static gboolean
-icpu_debugger_run_to_address (IAnjutaDebugger *plugin, guint address, GError **err)
+icpu_debugger_run_to_address (IAnjutaCpuDebugger *plugin, guint address, GError **err)
 {
 	GdbPlugin *this = ANJUTA_PLUGIN_GDB (plugin);
 	
@@ -978,11 +978,11 @@ icpu_debugger_iface_init (IAnjutaCpuDebuggerIface *iface)
 	iface->run_to_address = icpu_debugger_run_to_address;
 }
 
-/* Implementation of IAnjutaVariableDebugger interface
+/* Implementation of IAnjutaDebuggerVariable interface
  *---------------------------------------------------------------------------*/
 
 static gboolean
-ivariable_debugger_delete (IAnjutaVariableDebugger *plugin, const gchar *name, GError **error)
+idebugger_variable_destroy (IAnjutaDebuggerVariable *plugin, const gchar *name, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
@@ -992,7 +992,7 @@ ivariable_debugger_delete (IAnjutaVariableDebugger *plugin, const gchar *name, G
 }
 
 static gboolean
-ivariable_debugger_evaluate (IAnjutaVariableDebugger *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
+idebugger_variable_evaluate (IAnjutaDebuggerVariable *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
@@ -1002,7 +1002,7 @@ ivariable_debugger_evaluate (IAnjutaVariableDebugger *plugin, const gchar *name,
 }
 
 static gboolean
-ivariable_debugger_assign (IAnjutaVariableDebugger *plugin, const gchar *name, const gchar *value, GError **error)
+idebugger_variable_assign (IAnjutaDebuggerVariable *plugin, const gchar *name, const gchar *value, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
@@ -1012,7 +1012,7 @@ ivariable_debugger_assign (IAnjutaVariableDebugger *plugin, const gchar *name, c
 }
 
 static gboolean
-ivariable_debugger_list_children (IAnjutaVariableDebugger *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
+idebugger_variable_list_children (IAnjutaDebuggerVariable *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
@@ -1022,7 +1022,7 @@ ivariable_debugger_list_children (IAnjutaVariableDebugger *plugin, const gchar *
 }
 
 static gboolean
-ivariable_debugger_create (IAnjutaVariableDebugger *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
+idebugger_variable_create (IAnjutaDebuggerVariable *plugin, const gchar *name, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
@@ -1032,7 +1032,7 @@ ivariable_debugger_create (IAnjutaVariableDebugger *plugin, const gchar *name, I
 }
 
 static gboolean
-ivariable_debugger_update (IAnjutaVariableDebugger *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
+idebugger_variable_update (IAnjutaDebuggerVariable *plugin, IAnjutaDebuggerCallback callback , gpointer user_data, GError **error)
 {
 	GdbPlugin *gdb = ANJUTA_PLUGIN_GDB (plugin);
 
@@ -1042,21 +1042,21 @@ ivariable_debugger_update (IAnjutaVariableDebugger *plugin, IAnjutaDebuggerCallb
 }
 
 static void
-ivariable_debugger_iface_init (IAnjutaVariableDebuggerIface *iface)
+idebugger_variable_iface_init (IAnjutaDebuggerVariableIface *iface)
 {
-	iface->delete_var = ivariable_debugger_delete;
-	iface->evaluate = ivariable_debugger_evaluate;
-	iface->assign = ivariable_debugger_assign;
-	iface->list_children = ivariable_debugger_list_children;
-	iface->create = ivariable_debugger_create;
-	iface->update = ivariable_debugger_update;
+	iface->destroy = idebugger_variable_destroy;
+	iface->evaluate = idebugger_variable_evaluate;
+	iface->assign = idebugger_variable_assign;
+	iface->list_children = idebugger_variable_list_children;
+	iface->create = idebugger_variable_create;
+	iface->update = idebugger_variable_update;
 }
 
 ANJUTA_PLUGIN_BEGIN (GdbPlugin, gdb_plugin);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger, IANJUTA_TYPE_DEBUGGER);
 ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_breakpoint, IANJUTA_TYPE_DEBUGGER_BREAKPOINT);
 ANJUTA_PLUGIN_ADD_INTERFACE(icpu_debugger, IANJUTA_TYPE_CPU_DEBUGGER);
-ANJUTA_PLUGIN_ADD_INTERFACE(ivariable_debugger, IANJUTA_TYPE_VARIABLE_DEBUGGER);
+ANJUTA_PLUGIN_ADD_INTERFACE(idebugger_variable, IANJUTA_TYPE_DEBUGGER_VARIABLE);
 ANJUTA_PLUGIN_END;
 
 ANJUTA_SIMPLE_PLUGIN (GdbPlugin, gdb_plugin);

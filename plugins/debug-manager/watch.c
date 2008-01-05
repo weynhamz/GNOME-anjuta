@@ -89,7 +89,7 @@ debug_tree_inspect_evaluate_dialog (ExprWatch * ew, const gchar* expression)
 	gchar *new_expr;
 	// const gchar *value;
 	InspectDialog dlg;
-	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
+	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, -1};
 
 	gxml = glade_xml_new (GLADE_FILE, INSPECT_EVALUATE_DIALOG, NULL);
 	dlg.dialog = glade_xml_get_widget (gxml, INSPECT_EVALUATE_DIALOG);
@@ -145,7 +145,7 @@ debug_tree_add_watch_dialog (ExprWatch *ew, const gchar* expression)
 	GtkWidget *name_entry;
 	GtkWidget *auto_update_check;
 	gint reply;
-	IAnjutaDebuggerVariable var = {NULL, NULL, NULL, NULL, FALSE, -1};
+	IAnjutaDebuggerVariableObject var = {NULL, NULL, NULL, NULL, FALSE, -1};
 
 	gxml = glade_xml_new (GLADE_FILE, ADD_WATCH_DIALOG, NULL);
 	dialog = glade_xml_get_widget (gxml, ADD_WATCH_DIALOG);

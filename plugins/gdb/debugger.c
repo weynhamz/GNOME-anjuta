@@ -39,6 +39,7 @@
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-marshal.h>
+#include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 
 #include "debugger.h"
 #include "utilities.h"
@@ -3437,9 +3438,9 @@ gdb_var_list_children (Debugger *debugger,
 		{
 			const GDBMIValue *const gdbmi_chl = 
                                 gdbmi_value_list_get_nth (children, i);
-			IAnjutaDebuggerVariable *var;
+			IAnjutaDebuggerVariableObject *var;
 		
-			var = g_new0 (IAnjutaDebuggerVariable, 1);
+			var = g_new0 (IAnjutaDebuggerVariableObject, 1);
 
 		       	literal  = gdbmi_value_hash_lookup (gdbmi_chl, "name");
 			if (literal)
@@ -3490,7 +3491,7 @@ gdb_var_create (Debugger *debugger,
 		GError *error)
 {
 	const GDBMIValue * result;
-	IAnjutaDebuggerVariable var = {0,};
+	IAnjutaDebuggerVariableObject var = {0,};
 	IAnjutaDebuggerCallback callback = debugger->priv->current_cmd.callback;
 	gpointer user_data = debugger->priv->current_cmd.user_data;
 
@@ -3542,12 +3543,12 @@ gdb_var_update (Debugger *debugger,
                          gdbmi_value_list_get_nth (gdbmi_changelist, idx);
 		const GDBMIValue *gdbmi_val = 
                          gdbmi_value_hash_lookup (gdbmi_change, "in_scope");
-		IAnjutaDebuggerVariable *var;
+		IAnjutaDebuggerVariableObject *var;
               
 		if(0 != strcmp(gdbmi_value_literal_get(gdbmi_val), "false"))
 	    	{
 			gdbmi_val = gdbmi_value_hash_lookup (gdbmi_change, "name");
-			var = g_new0 (IAnjutaDebuggerVariable, 1);
+			var = g_new0 (IAnjutaDebuggerVariableObject, 1);
 			var->changed = TRUE;
 			var->name = (gchar *)gdbmi_value_literal_get(gdbmi_val);
 			
