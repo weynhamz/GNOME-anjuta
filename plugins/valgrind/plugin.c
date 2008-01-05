@@ -465,7 +465,7 @@ static GtkActionEntry actions_file[] = {
 	},
 	{
 		"ActionValgrindLoad",                   /* Action name */
-		GTK_STOCK_OPEN,                      	/* Stock icon, if any */
+		NULL,                      	            /* Stock icon, if any */
 		N_("_Load Log"),						/* Display label */
 		NULL,                                   /* short-cut */
 		NULL,                      				/* Tooltip */			
@@ -473,7 +473,7 @@ static GtkActionEntry actions_file[] = {
 	},
 	{
 		"ActionValgrindSave",                   /* Action name */
-		GTK_STOCK_SAVE,                      	/* Stock icon, if any */
+		NULL,                               	/* Stock icon, if any */
 		N_("S_ave Log"),						/* Display label */
 		NULL,                                   /* short-cut */
 		NULL,                      				/* Tooltip */

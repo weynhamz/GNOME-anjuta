@@ -1,3 +1,8 @@
+2008-01-05  Naba Kumar  <naba@gnome.org>
+
+	* plugins/valgrind/plugin.c: Removed stock icon open/save from
+	menus to avoid conflict with file open/save. Fixes bug #507455
+
 2008-01-05  Johannes Schmid <jhs@gnome.org>
 
 	* configure.in:
@@ -85,6 +90,7 @@
 	* Implemented hover interface
 	* Adapted to changed interfaces
 
+>>>>>>> .r3415
 2008-01-04  Rob Bradford  <rob@o-hand.com>
 
 	Reviewed by Naba Kumar  <naba@gnome.org>:
