@@ -1273,6 +1273,13 @@ anjuta_preferences_register_property_custom (AnjutaPreferences *pr,
 	p->get_property = get_property;
 
 	g_hash_table_insert (pr->priv->properties, g_strdup (key), p);
+
+	/* Connect to widget destroy signal so we can automatically unregister
+	 * keys so there aren't any potential conflicts or references to 
+	 * nonexistent widgets on subsequent uses of the prefs dialog. */
+	g_signal_connect (G_OBJECT (p->object), "destroy",
+					  G_CALLBACK (unregister_preferences_key),
+					  p);
 	return TRUE;
 }
 

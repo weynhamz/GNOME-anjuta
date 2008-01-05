@@ -1,3 +1,11 @@
+2008-01-04  Rob Bradford  <rob@o-hand.com>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+	* libanjuta/anjuta-preferences.c:
+	(anjuta_preferences_register_property_custom):
+	Unregister preferences for custom preferences when the widget is
+	destroyed.
+
 2008-01-03  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/file-manager/file-model.c: (file_model_row_expanded),
