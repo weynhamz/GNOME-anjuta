@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+ /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * text_editor.c
  * Copyright (C) 2000 - 2004  Naba Kumar
@@ -2341,8 +2341,8 @@ itext_editor_erase (IAnjutaEditor *editor, gint position, gint length,
 	else
 		end = position + length;
 
-	scintilla_send_message(SCINTILLA(TEXT_EDITOR(editor)->scintilla),
-						   SCI_SETSEL, position, end);
+	scintilla_send_message (SCINTILLA(TEXT_EDITOR (editor)->scintilla),
+						    SCI_SETSEL, position, end);
 	text_editor_replace_selection (TEXT_EDITOR (editor), "");
 }
 
@@ -2547,11 +2547,11 @@ iselection_set (IAnjutaEditorSelection* edit,
 {
 	TextEditorCell* start = TEXT_EDITOR_CELL (istart);
 	TextEditorCell* end = TEXT_EDITOR_CELL (iend);
-	int start_pos =text_editor_cell_get_position (start);
-	int end_pos =text_editor_cell_get_position (end);	
+	int start_pos = text_editor_cell_get_position (start);
+	int end_pos = text_editor_cell_get_position (end);
 	
-	scintilla_send_message(SCINTILLA(TEXT_EDITOR(edit)->scintilla),
-						   SCI_SETSEL, start_pos, end_pos);
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR (edit)->scintilla),
+						    SCI_SETSEL, start_pos, end_pos);
 }
 
 static gboolean
@@ -2606,25 +2606,25 @@ iselection_replace (IAnjutaEditorSelection *editor, const gchar *txt,
 }
 
 static void
-iselection_select_all(IAnjutaEditorSelection* te, GError** ee)
+iselection_select_all (IAnjutaEditorSelection* te, GError** ee)
 {
-	text_editor_command(TEXT_EDITOR(te), ANE_SELECTALL, 0, 0);
+	text_editor_command (TEXT_EDITOR (te), ANE_SELECTALL, 0, 0);
 }
 
 static void
-iselection_select_to_brace(IAnjutaEditorSelection* te, GError** ee)
+iselection_select_to_brace (IAnjutaEditorSelection* te, GError** ee)
 {
-	text_editor_command(TEXT_EDITOR(te), ANE_SELECTTOBRACE, 0, 0);
+	text_editor_command (TEXT_EDITOR (te), ANE_SELECTTOBRACE, 0, 0);
 }
 
 static void
-iselection_select_block(IAnjutaEditorSelection *te, GError **e)
+iselection_select_block (IAnjutaEditorSelection *te, GError **e)
 {
-	text_editor_command(TEXT_EDITOR(te), ANE_SELECTBLOCK, 0, 0);
+	text_editor_command (TEXT_EDITOR(te), ANE_SELECTBLOCK, 0, 0);
 }
 
 static void
-iselection_select_function(IAnjutaEditorSelection *editor, GError **e)
+iselection_select_function (IAnjutaEditorSelection *editor, GError **e)
 {
 	TextEditor* te = TEXT_EDITOR(editor);
 	gint pos;
@@ -2634,34 +2634,34 @@ iselection_select_function(IAnjutaEditorSelection *editor, GError **e)
 	gint line_count;
 	gint tmp;
 
-	line_count = scintilla_send_message(SCINTILLA(te->scintilla), 
-	                                    SCI_GETLINECOUNT, 0, 0);
-	pos = scintilla_send_message(SCINTILLA(te->scintilla), 
-	                             SCI_GETCURRENTPOS, 0, 0);
-	line = scintilla_send_message(SCINTILLA(te->scintilla),
-	                              SCI_LINEFROMPOSITION, pos, 0);
+	line_count = scintilla_send_message (SCINTILLA (te->scintilla), 
+										 SCI_GETLINECOUNT, 0, 0);
+	pos = scintilla_send_message (SCINTILLA (te->scintilla), 
+								  SCI_GETCURRENTPOS, 0, 0);
+	line = scintilla_send_message (SCINTILLA (te->scintilla),
+								   SCI_LINEFROMPOSITION, pos, 0);
 
 	tmp = line + 1;	
-	fold_level = scintilla_send_message(SCINTILLA(te->scintilla), 
-	                                    SCI_GETFOLDLEVEL, line, 0) ;	
+	fold_level = scintilla_send_message (SCINTILLA (te->scintilla), 
+										 SCI_GETFOLDLEVEL, line, 0) ;	
 	if ((fold_level & 0xFF) != 0)
 	{
-		while((fold_level & 0x10FF) != 0x1000 && line >= 0)
-			fold_level = scintilla_send_message(SCINTILLA(te->scintilla), 
-	                                    SCI_GETFOLDLEVEL, --line, 0) ;
-		start = scintilla_send_message(SCINTILLA(te->scintilla), 
-	                                    SCI_POSITIONFROMLINE, line + 1, 0);
+		while ((fold_level & 0x10FF) != 0x1000 && line >= 0)
+			fold_level = scintilla_send_message (SCINTILLA (te->scintilla), 
+												 SCI_GETFOLDLEVEL, --line, 0) ;
+		start = scintilla_send_message (SCINTILLA (te->scintilla), 
+										SCI_POSITIONFROMLINE, line + 1, 0);
 		line = tmp;
-		fold_level = scintilla_send_message(SCINTILLA(te->scintilla), 
-	                                        SCI_GETFOLDLEVEL, line, 0) ;
-		while((fold_level & 0x10FF) != 0x1000 && line < line_count)
-			fold_level = scintilla_send_message(SCINTILLA(te->scintilla), 
-	                                            SCI_GETFOLDLEVEL, ++line, 0) ;
+		fold_level = scintilla_send_message (SCINTILLA (te->scintilla), 
+											 SCI_GETFOLDLEVEL, line, 0) ;
+		while ((fold_level & 0x10FF) != 0x1000 && line < line_count)
+			fold_level = scintilla_send_message (SCINTILLA (te->scintilla), 
+												 SCI_GETFOLDLEVEL, ++line, 0) ;
 
-		end = scintilla_send_message(SCINTILLA(te->scintilla), 
-	                                 SCI_POSITIONFROMLINE, line , 0);
-		scintilla_send_message(SCINTILLA(te->scintilla), 
-	                           SCI_SETSEL, start, end) ;
+		end = scintilla_send_message (SCINTILLA (te->scintilla), 
+									  SCI_POSITIONFROMLINE, line , 0);
+		scintilla_send_message (SCINTILLA (te->scintilla), 
+								SCI_SETSEL, start, end) ;
 	}
 }
 
