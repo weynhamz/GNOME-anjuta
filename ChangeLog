@@ -1,4 +1,4 @@
-2008-01-06  Naba Kumar  <naba.kumar@gnome.org>
+2008-01-06  Naba Kumar  <naba@gnome.org>
 
 	Patches from James Liggett:
 	* plugins/profiler/gprof-call-graph-view.c:
