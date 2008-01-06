@@ -592,7 +592,6 @@ create_search_entries (Search *s)
 	IAnjutaDocument *doc;
 	SearchEntry *se;
 	gint tmp_pos;
-	IAnjutaIterable *start;
 	gint selstart;
 
 	switch (s->range.type)
@@ -613,6 +612,7 @@ create_search_entries (Search *s)
 				}
 				else
 				{	
+					IAnjutaIterable *start;
 					/* forward-search from after beginning of selection, if any
 					   backwards-search from before beginning of selection, if any
 					   treat -ve positions except -1 as high +ve */
@@ -628,14 +628,18 @@ create_search_entries (Search *s)
 								 selstart - 1 : selstart;
 						}
 						else
+						{
 							se->start_pos =
 								(selstart != -2 &&
 								 selstart < ianjuta_editor_get_length (IANJUTA_EDITOR (se->te), NULL)) ?
 								 selstart + 1 : selstart;
+						}
+						g_object_unref (start);
 					}
 					else
+					{
 						se->start_pos = ianjuta_editor_get_position (se->te, NULL);
-
+					}
 					se->end_pos = -1;	/* not actually used when backward searching */
 				}
 				entries = g_list_prepend(entries, se);
@@ -665,7 +669,10 @@ create_search_entries (Search *s)
 					IAnjutaIterable* end =
 						ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (se->te), NULL);
 					if (end)
-					  selstart = selend = ianjuta_iterable_get_position (end, NULL);
+					{
+						selstart = selend = ianjuta_iterable_get_position (end, NULL);
+						g_object_unref (end);
+					}
 					else
 					{
 						selstart = selend = 0;	/* warning prevention only */
@@ -677,11 +684,15 @@ create_search_entries (Search *s)
 					ianjuta_editor_selection_select_block(IANJUTA_EDITOR_SELECTION (se->te), NULL);
 				if (s->range.type == SR_FUNCTION)
 					ianjuta_editor_selection_select_function(IANJUTA_EDITOR_SELECTION (se->te), NULL);
-				se->start_pos = 
-					ianjuta_iterable_get_position (ianjuta_editor_selection_get_start(IANJUTA_EDITOR_SELECTION (se->te), NULL), NULL);
-				se->end_pos = 
-					ianjuta_iterable_get_position (ianjuta_editor_selection_get_end(IANJUTA_EDITOR_SELECTION (se->te), NULL), NULL);
-			
+				{
+					IAnjutaIterable *start, *end;
+					start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (se->te), NULL);
+					end = ianjuta_editor_selection_get_end(IANJUTA_EDITOR_SELECTION (se->te), NULL);
+					se->start_pos =  ianjuta_iterable_get_position (start, NULL);
+					se->end_pos = ianjuta_iterable_get_position (end, NULL);
+					g_object_unref (start);
+					g_object_unref (end);
+				}
 				if (se->direction == SD_BACKWARD)
 				{
 					tmp_pos = se->start_pos;
@@ -696,7 +707,9 @@ create_search_entries (Search *s)
 					end = ianjuta_editor_get_cell_iter (se->te, selend, NULL);
 					ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (se->te), 
 				                                 start, end, NULL);	
-				}					
+					g_object_unref (start);
+					g_object_unref (end);
+				}
 			}
 			break;
 		case SR_OPEN_BUFFERS:

@@ -1,3 +1,11 @@
+2008-01-06  Naba Kumar  <naba@gnome.org>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(on_assist_chosen):
+	* plugins/language-support-cpp-java/plugin.c: (on_auto_indent):
+	* plugins/search/search-replace_backend.c: (create_search_entries):
+	Added missing unrefs.
+
 2008-01-06  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/debug-manager/variable.c: (get_hovered_word):

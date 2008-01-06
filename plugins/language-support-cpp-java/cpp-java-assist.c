@@ -732,6 +732,7 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 									  iter, cursor_iter, NULL);
 		ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
 										  assistance->str, -1, NULL);
+		g_object_unref (cursor_iter);
 		g_free (pre_word);
 	}
 	else
