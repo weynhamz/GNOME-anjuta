@@ -90,6 +90,7 @@ get_hovered_word (IAnjutaEditor* editor, IAnjutaIterable* iter)
 			{
 				/* Hover on selection, get selected characters */
 			    g_object_unref (end);
+				g_object_unref (start);
 				return ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (editor),
 													 NULL);
 			}

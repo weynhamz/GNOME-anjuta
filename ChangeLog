@@ -1,3 +1,12 @@
+2008-01-06  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/debug-manager/variable.c: (get_hovered_word):
+  Add a g_object_unref()  
+  	
+	* plugins/sourceview/sourceview.c: (ieditor_get_text_iter),
+	(on_sourceview_hover_leave):
+	Fixed hover and editor interface to make hover in debugger work
+
 2008-01-06  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/text-editor.c: Whitespaces fixes.

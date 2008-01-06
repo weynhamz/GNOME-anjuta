@@ -819,7 +819,12 @@ static gchar* ieditor_get_text_iter (IAnjutaEditor* editor,
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	
 	start_iter = sourceview_cell_get_iter (SOURCEVIEW_CELL (start));
-	end_iter = sourceview_cell_get_iter (SOURCEVIEW_CELL (end));	
+	end_iter = sourceview_cell_get_iter (SOURCEVIEW_CELL (end));
+	/* Include end character like stated in the docs */
+	if (!gtk_text_iter_is_end(end_iter))
+	{
+		gtk_text_iter_forward_char (end_iter);
+	}
 	
 	return gtk_text_buffer_get_slice(GTK_TEXT_BUFFER(sv->priv->document),
 									start_iter, end_iter, TRUE);
@@ -2112,8 +2117,14 @@ on_sourceview_hover_leave(gpointer data, GObject* where_the_data_was)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW (data);
 	
-	g_signal_emit_by_name (G_OBJECT (sv), "hover-leave", sv->priv->tooltip_cell);
-	g_object_unref (sv->priv->tooltip_cell);
+	if (sv->priv->tooltip_cell)
+	{
+		g_signal_emit_by_name (G_OBJECT (sv), "hover-leave", sv->priv->tooltip_cell);
+		g_object_unref (sv->priv->tooltip_cell);
+		sv->priv->tooltip_cell = NULL;
+		g_free (sv->priv->tooltip_cell);
+		sv->priv->tooltip_cell = NULL;
+	}
 }
 
 static gboolean 
@@ -2132,7 +2143,7 @@ on_sourceview_hover_over (GtkWidget *widget, gint x, gint y,
 	gtk_text_view_get_iter_at_position (text_view, &iter, &trailing, bx, by);
 	
 	cell = sourceview_cell_new (&iter, text_view);
-		
+	
 	/* This should call ianjuta_hover_display() */
 	g_signal_emit_by_name (G_OBJECT (sv), "hover-over", cell);
 	
