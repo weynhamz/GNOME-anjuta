@@ -1,3 +1,14 @@
+2008-01-06  Naba Kumar  <naba.kumar@gnome.org>
+
+	Patches from James Liggett:
+	* plugins/profiler/gprof-call-graph-view.c:
+	(gprof_call_graph_view_create_columns):
+	* plugins/profiler/gprof-flat-profile-view.c:
+	(gprof_flat_profile_view_create_columns):
+	* plugins/profiler/gprof-function-call-tree-view.c:
+	(gprof_function_call_tree_view_create_columns): Made all
+	of the columns resizable and reorderable.
+
 2008-01-06  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-launcher.c: (anjuta_launcher_initialize),
@@ -19,7 +30,7 @@
 	
 	Fixed #348854 – invisible cursor in certain themes
 
-2008-01-06  Naba Kumar  <naba.kumar@gnome.org>
+2008-01-06  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-preferences.c:
 	(anjuta_preferences_register_property_custom): Fixed a crash bug on

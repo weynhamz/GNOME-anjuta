@@ -60,6 +60,8 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_NAME);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	/* Function time percentage */
 	col = gtk_tree_view_column_new ();
@@ -68,7 +70,9 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_TIME_PERC);	
+	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_TIME_PERC);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);	
 	
 	/* Cumulative seconds */
 	col = gtk_tree_view_column_new ();
@@ -77,7 +81,9 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_CUM_SEC);	
+	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_CUM_SEC);
+	gtk_tree_view_column_set_resizable (col, TRUE);	
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	/* Self seconds */
 	col = gtk_tree_view_column_new ();
@@ -87,6 +93,8 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_SELF_SEC);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	/* Calls */
 	col = gtk_tree_view_column_new ();
@@ -96,6 +104,8 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_CALLS);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	/* Self ms/call */
 	col = gtk_tree_view_column_new ();
@@ -105,6 +115,8 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_AVG_MS);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	/* Total ms/call */
 	col = gtk_tree_view_column_new ();
@@ -114,6 +126,8 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_TOTAL_MS);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	/* Model setup */
 	gtk_tree_view_set_model (GTK_TREE_VIEW (list_view), 

@@ -64,6 +64,8 @@ gprof_function_call_tree_view_create_columns (GProfFunctionCallTreeView *self)
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_NAME);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	/* Model setup */
 	gtk_tree_view_set_model (GTK_TREE_VIEW (tree_view), 

@@ -288,6 +288,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "stock-id", 
 										FUNCTIONS_COL_RECURSIVE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_list_view), col);
@@ -295,6 +296,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "stock-id", 
 										CALLED_COL_RECURSIVE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
+	
 	
 	col = gtk_tree_view_column_new ();
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_by_list_view), col);
@@ -302,6 +305,7 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "stock-id", 
 										CALLED_COL_RECURSIVE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 
 	/* Function Name */
 	col = gtk_tree_view_column_new ();
@@ -311,6 +315,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										FUNCTIONS_COL_NAME);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (col, _("Function Name"));
@@ -319,6 +325,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										CALLED_COL_NAME);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (col, _("Function Name"));
@@ -327,6 +335,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										CALLED_COL_NAME);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 
 										
 	/* Time */
@@ -338,6 +348,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										FUNCTIONS_COL_TIME);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 										
 	/* Self */
 	col = gtk_tree_view_column_new ();
@@ -347,6 +359,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										FUNCTIONS_COL_SELF);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (col, _("Self"));
@@ -355,6 +369,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										CALLED_COL_SELF);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (col, _("Self"));
@@ -363,6 +379,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										CALLED_COL_SELF);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 										
 	/* Children */
 	col = gtk_tree_view_column_new ();
@@ -372,6 +390,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										FUNCTIONS_COL_CHILDREN);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (col, _("Children"));
@@ -380,6 +400,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										CALLED_COL_CHILDREN);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (col, _("Children"));
@@ -388,6 +410,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										CALLED_COL_CHILDREN);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 										
 	/* Calls */
 	col = gtk_tree_view_column_new ();
@@ -397,6 +421,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										FUNCTIONS_COL_CALLS);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (col, _("Calls"));
@@ -405,6 +431,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										CALLED_COL_CALLS);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
 	gtk_tree_view_column_set_title (col, _("Calls"));
@@ -413,6 +441,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
 	gtk_tree_view_column_add_attribute (col, renderer, "text", 
 										CALLED_COL_CALLS);
+	gtk_tree_view_column_set_resizable (col, TRUE);
+	gtk_tree_view_column_set_reorderable (col, TRUE);
 										
 	/* Model setup */
 	gtk_tree_view_set_model (GTK_TREE_VIEW (functions_list_view),
