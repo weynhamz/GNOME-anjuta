@@ -262,7 +262,7 @@ ilanguage_get_from_string (IAnjutaLanguage* ilang, const gchar* string, GError**
 	}
 	else
 	{
-		g_message ("Unknown language string = %s", string);
+		DEBUG_PRINT ("Unknown language string = %s", string);
 		ret_id = 0;
 	}
 	g_free(data);
