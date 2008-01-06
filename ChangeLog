@@ -1,3 +1,9 @@
+2008-01-06  Naba Kumar  <naba.kumar@gnome.org>
+
+	* libanjuta/anjuta-preferences.c:
+	(anjuta_preferences_register_property_custom): Fixed a crash bug on
+	closing preferences dialog due to patch in bug #507300
+
 2008-01-06  Naba Kumar  <naba@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c:
