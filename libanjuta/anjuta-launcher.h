@@ -108,6 +108,9 @@ gboolean anjuta_launcher_set_terminal_echo (AnjutaLauncher *launcher,
 gboolean anjuta_launcher_set_terminate_on_exit (AnjutaLauncher *launcher,
 		gboolean terminate_on_exit);
 
+void anjuta_launcher_disable_password_check (AnjutaLauncher* launcher,
+                                                 gboolean disable);
+
 G_END_DECLS
 
 #endif				/* __ANJUTA_LAUNCHER_H__ */

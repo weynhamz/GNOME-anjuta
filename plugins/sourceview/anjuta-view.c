@@ -686,9 +686,6 @@ anjuta_view_set_colors (AnjutaView *view,
 		rc_style->color_flags [GTK_STATE_ACTIVE] = 0;
 
 		gtk_widget_modify_style (GTK_WIDGET (view), rc_style);
-
-		/* It must be called after the text color has been modified */
-		modify_cursor_color (GTK_WIDGET (view), NULL);
 	}
 }
 

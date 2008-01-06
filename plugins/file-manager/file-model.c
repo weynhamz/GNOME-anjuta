@@ -131,9 +131,7 @@ file_model_cancel_expand_idle(FileModel* model)
 	
 	if (priv->expand_idle_id)
 	{
-		GSource* source = g_main_context_find_source_by_id (g_main_context_default(),
-															priv->expand_idle_id);
-		g_source_destroy (source);
+		g_source_remove (priv->expand_idle_id);
 		priv->expand_idle_id = 0;
 	}
 }

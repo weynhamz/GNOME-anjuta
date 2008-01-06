@@ -110,6 +110,9 @@ struct _AnjutaLauncherPriv
 	/* Terminal echo */
 	gboolean terminal_echo_on;
 	
+	/* Check for passwords in input */
+	gboolean disable_password_check;
+	
 	/* The child */
 	pid_t child_pid;
 	guint source;
@@ -182,6 +185,7 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	obj->priv->pty_output_buffer = NULL;
 	
 	obj->priv->terminal_echo_on = TRUE;
+	obj->priv->disable_password_check = FALSE;
 	
 	/* The child */
 	obj->priv->child_pid = 0;
@@ -570,8 +574,12 @@ create_password_dialog (const gchar* prompt)
 static void
 anjuta_launcher_check_password_real (AnjutaLauncher *launcher,
 									 const gchar* last_line)
-{
-	if (anjuta_launcher_is_busy (launcher) == FALSE) return;
+{	
+	if (anjuta_launcher_is_busy (launcher) == FALSE) 
+		return;
+	
+	if (launcher->priv->disable_password_check)
+		return;
 	
 	if (last_line) {
 
@@ -748,11 +756,18 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 												 utf8_chars);
 				g_free (utf8_chars);
 			}
+			/* Ignore illegal characters */
+			else if (err && err->domain == G_CONVERT_ERROR)
+			{
+				DEBUG_PRINT ("stdout: %s", err->message);
+				g_error_free (err);
+				err = NULL;
+			}
 			/* The pipe is closed on the other side */
 			/* if not related to non blocking read or interrupted syscall */
 			else if (err && errno != EAGAIN && errno != EINTR)
 			{
-				/* DEBUG_PRINT ("launcher.c: Error while reading child stdout\n"); */
+				DEBUG_PRINT ("stdout: %s", err->message);
 				launcher->priv->stdout_is_done = TRUE;
 				anjuta_launcher_synchronize (launcher);
 				ret = FALSE;
@@ -765,7 +780,7 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 	}
 	if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
 	{
-		/* DEBUG_PRINT ("launcher.c: STDOUT pipe closed"); */
+		DEBUG_PRINT ("launcher.c: STDOUT pipe closed");
 		launcher->priv->stdout_is_done = TRUE;
 		anjuta_launcher_synchronize (launcher);
 		ret = FALSE;
@@ -797,11 +812,19 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 												 utf8_chars);
 				g_free (utf8_chars);
 			}
+			/* Ignore illegal characters */
+			else if (err && err->domain == G_CONVERT_ERROR)
+			{
+				DEBUG_PRINT ("stderr: %s", err->message);
+				g_error_free (err);
+				err = NULL;
+			}
 			/* The pipe is closed on the other side */
 			/* if not related to non blocking read or interrupted syscall */
 			else if (err && errno != EAGAIN && errno != EINTR)
 			{
-				/* DEBUG_PRINT ("launcher.c: Error while reading child stderr");*/
+				DEBUG_PRINT ("stderr: %s", err->message);
+				
 				launcher->priv->stderr_is_done = TRUE;
 				anjuta_launcher_synchronize (launcher);
 				ret = FALSE;
@@ -814,7 +837,7 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 	}
 	if ((condition & G_IO_ERR) || (condition & G_IO_HUP))
 	{
-		/* DEBUG_PRINT ("launcher.c: STDERR pipe closed"); */
+		DEBUG_PRINT ("launcher.c: STDERR pipe closed");
 		launcher->priv->stderr_is_done = TRUE;
 		anjuta_launcher_synchronize (launcher);
 		ret = FALSE;
@@ -852,11 +875,18 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 					launcher->priv->pty_output_buffer = g_strdup (utf8_chars);
 				g_free (utf8_chars);
 			}
+			/* Ignore illegal characters */
+			else if (err && err->domain == G_CONVERT_ERROR)
+			{
+				DEBUG_PRINT ("pty: %s", err->message);
+				g_error_free (err);
+				err = NULL;
+			}
 			/* The pipe is closed on the other side */
 			/* if not related to non blocking read or interrupted syscall */
 			else if (err && errno != EAGAIN && errno != EINTR)
 			{
-				g_warning (_("launcher.c: Error while reading child pty\n"));
+				DEBUG_PRINT ("pty: %s", err->message);
 				ret = FALSE;
 			}
 		/* Read next chars if buffer was too small
@@ -876,7 +906,7 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 	/* Do not hook up for G_IO_HUP */
 	if (condition & G_IO_ERR)
 	{
-		/* DEBUG_PRINT ("launcher.c: PTY pipe error!"); */
+		DEBUG_PRINT ("launcher.c: PTY pipe error!");
 		ret = FALSE;
 	}
 	return ret;
@@ -1317,6 +1347,22 @@ anjuta_launcher_set_terminate_on_exit (AnjutaLauncher *launcher,
 	gboolean past_value = launcher->priv->terminate_on_exit;
 	launcher->priv->terminate_on_exit = terminate_on_exit;
 	return past_value;
+}
+
+/**
+ * anjuta_launcher_disable_password_check:
+ * @launcher: IAnjutaLauncher object
+ * @disable: TRUE disables password check
+ * 
+ * Do not check for password prompts in input
+ *
+ * Return value: a new instance of #AnjutaLancher class.
+ */
+
+void anjuta_launcher_disable_password_check (AnjutaLauncher* launcher,
+                                                 gboolean disable)
+{
+	launcher->priv->disable_password_check = disable;  
 }
 
 /**

@@ -1,3 +1,24 @@
+2008-01-06  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-launcher.c: (anjuta_launcher_initialize),
+	(anjuta_launcher_check_password_real),
+	(anjuta_launcher_scan_output), (anjuta_launcher_scan_error),
+	(anjuta_launcher_scan_pty),
+	(anjuta_launcher_disable_password_check):
+	* libanjuta/anjuta-launcher.h:
+	Added disable_password_check for stream where it does not make sense 
+	(e.g symbol-db) and lots of DEBUG_PRINTS to better scope launcher errors
+	that sometimes occur in symbol-db plugin
+	
+	* plugins/file-manager/file-model.c:
+	(file_model_cancel_expand_idle):
+	Fixed removing of idle source
+	
+	* plugins/sourceview/anjuta-view.c: (anjuta_view_set_colors):
+	* plugins/sourceview/sourceview-prefs.c: (on_gconf_notify_color):
+	
+	Fixed #348854 – invisible cursor in certain themes
+
 2008-01-06  Naba Kumar  <naba.kumar@gnome.org>
 
 	* libanjuta/anjuta-preferences.c:

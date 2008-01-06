@@ -207,12 +207,14 @@ on_gconf_notify_color (GConfClient *gclient, guint cnxn_id,
 	AnjutaPreferences* prefs = sourceview_get_prefs();
 	sv = ANJUTA_SOURCEVIEW(user_data);
 	
-	text = anjuta_util_convert_color(prefs, COLOR_TEXT);
-	background = anjuta_util_convert_color(prefs, COLOR_BACKGROUND);
-	selected_text = anjuta_util_convert_color(prefs, COLOR_SELECTED_TEXT);
-	selection = anjuta_util_convert_color(prefs, COLOR_SELECTION);
-	
-	anjuta_view_set_colors(sv->priv->view, FALSE, background, text, selection, selected_text);
+  if (!anjuta_preferences_get_int (prefs, COLOR_THEME))
+  {
+    text = anjuta_util_convert_color(prefs, COLOR_TEXT);
+    background = anjuta_util_convert_color(prefs, COLOR_BACKGROUND);
+    selected_text = anjuta_util_convert_color(prefs, COLOR_SELECTED_TEXT);
+    selection = anjuta_util_convert_color(prefs, COLOR_SELECTION);
+    anjuta_view_set_colors(sv->priv->view, FALSE, background, text, selection, selected_text);
+  }
 }
 
 static void
