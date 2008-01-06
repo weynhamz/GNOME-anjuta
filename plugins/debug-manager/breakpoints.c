@@ -1124,7 +1124,7 @@ breakpoints_dbase_enable_all (BreakpointsDBase *bd, gboolean enable)
 		
 			gtk_tree_model_get (GTK_TREE_MODEL (bd->model), &iter, DATA_COLUMN, &bi, -1);
 
-			breakpoints_dbase_enable_breakpoint (bd, bi, TRUE);
+			breakpoints_dbase_enable_breakpoint (bd, bi, enable);
 		} while (gtk_tree_model_iter_next (model, &iter));
 	}
 }
@@ -1813,10 +1813,43 @@ on_breakpoints_button_press (GtkWidget * widget, GdkEventButton * bevent, Breakp
 	{
 		AnjutaUI *ui;
 		GtkMenu *popup;
-		
+		GtkTreeModel *model;
+		GtkTreeSelection *selection;
+		GtkTreeIter iter;
+		gboolean valid;
+
 		ui = anjuta_shell_get_ui (ANJUTA_PLUGIN(bd->plugin)->shell, NULL);
 		popup =  GTK_MENU (gtk_ui_manager_get_widget (GTK_UI_MANAGER (ui), "/PopupBreakpoint"));
 
+		selection = gtk_tree_view_get_selection (bd->treeview);
+		valid = gtk_tree_selection_get_selected (selection, &model, &iter);
+		if (valid)
+		{
+			BreakpointItem *bi;
+			GtkAction *action;
+			const gchar* label;
+			const gchar* tooltip;
+	
+			gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
+			action = gtk_action_group_get_action (bd->debugger_group, "ActionDmaEnableDisableBreakpoint");
+			g_return_if_fail (action != NULL);
+			if (bi->bp.enable)
+			{
+				label =	N_("Disable Breakpoint");
+				tooltip = N_("Disable a breakpoint");
+			}
+			else
+			{
+				label =	N_("Enable Breakpoint");
+				tooltip = N_("Enable a breakpoint");
+			}
+				
+			g_object_set (G_OBJECT (action),
+					"label", label, 
+              				"tooltip", tooltip, 
+		              		NULL);				
+		}
+		
 		gtk_menu_popup (popup, NULL, NULL, NULL, NULL,
 						bevent->button, bevent->time);
 	}
