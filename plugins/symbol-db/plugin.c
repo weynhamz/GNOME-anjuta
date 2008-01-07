@@ -541,20 +541,16 @@ on_global_treeview_row_expanded (GtkTreeView *tree_view,
 }
 
 static void
-on_editor_foreach_clear (gpointer key, gpointer value, gpointer user_data)
+on_global_treeview_row_collapsed (GtkTreeView *tree_view,
+									GtkTreeIter *iter,
+                                    GtkTreePath *path,
+                                    SymbolDBPlugin *user_data)
 {
-	const gchar *uri;
+	DEBUG_PRINT ("on_global_treeview_row_collapsed ()");
 	
-	uri = (const gchar *)value;
-	if (uri && strlen (uri) > 0)
-	{
-#if 0
-		/* FIXME ?! */
-		DEBUG_PRINT ("Removing file tags of %s", uri);
-		anjuta_symbol_view_workspace_remove_file (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree),
-											   uri);
-#endif
-	}
+	symbol_db_view_row_collapsed (SYMBOL_DB_VIEW (user_data->dbv_view_tree),
+								user_data->sdbe, iter);
+	
 }
 
 static void
@@ -572,12 +568,6 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	need_symbols_update = FALSE;
 	
 	sdb_plugin = ANJUTA_PLUGIN_SYMBOL_DB (plugin);
-/* FIXME 	
-	ui = anjuta_shell_get_ui (plugin->shell, NULL);
-	action = anjuta_ui_get_action (ui, "ActionGroupSymbolNavigation",
-								   "ActionGotoSymbol");
-	g_object_set (G_OBJECT (action), "sensitive", FALSE, NULL);
-*/	
 	sdb_plugin->current_editor = NULL;
 }
 
@@ -1066,6 +1056,9 @@ symbol_db_activate (AnjutaPlugin *plugin)
 
 	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree), "row-expanded",
 					  G_CALLBACK (on_global_treeview_row_expanded), plugin);
+
+	g_signal_connect (G_OBJECT (symbol_db->dbv_view_tree), "row-collapsed",
+					  G_CALLBACK (on_global_treeview_row_collapsed), plugin);	
 	
 	gtk_container_add (GTK_CONTAINER(symbol_db->scrolled_global), 
 					   symbol_db->dbv_view_tree);
@@ -1147,8 +1140,6 @@ symbol_db_deactivate (AnjutaPlugin *plugin)
 	{
 		g_hash_table_foreach (sdb_plugin->editor_connected,
 							  on_editor_foreach_disconnect, plugin);
-		g_hash_table_foreach (sdb_plugin->editor_connected,
-							  on_editor_foreach_clear, plugin);
 		g_hash_table_destroy (sdb_plugin->editor_connected);
 		sdb_plugin->editor_connected = NULL;
 	}

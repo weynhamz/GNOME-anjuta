@@ -70,7 +70,11 @@ symbol_db_view_open (SymbolDBView *dbv, SymbolDBEngine *dbe);
 
 void
 symbol_db_view_row_expanded (SymbolDBView *dbv, SymbolDBEngine *dbe, 
-							 GtkTreeIter *iter);
+							 GtkTreeIter *expanded_iter);
+
+void
+symbol_db_view_row_collapsed (SymbolDBView *dbv, SymbolDBEngine *dbe, 
+							 GtkTreeIter *expanded_iter);
 
 gboolean
 symbol_db_view_get_file_and_line (SymbolDBView *dbv, SymbolDBEngine *dbe,

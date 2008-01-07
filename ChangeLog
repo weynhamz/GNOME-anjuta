@@ -1,3 +1,24 @@
+2008-01-06  Massimo Cora'  <maxcvs@email.it>
+
+  Reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/symbol-db/plugin.c: (on_global_treeview_row_collapsed),
+	(value_removed_current_editor), (symbol_db_activate),
+	(symbol_db_deactivate):
+	* plugins/symbol-db/symbol-db-engine.c:
+	(symbol_db_engine_get_global_members_filtered):
+	* plugins/symbol-db/symbol-db-view.c:
+	(do_add_child_symbol_to_view), (prepare_for_adding),
+	(on_symbol_inserted), (sdb_view_row_expanded_idle_destroy),
+	(sdb_view_row_expanded_idle), (sdb_view_namespace_row_expanded),
+	(sdb_view_global_row_expanded), (sdb_view_vars_row_expanded),
+	(symbol_db_view_row_expanded), (symbol_db_view_row_collapsed),
+	(sdb_view_init), (sdb_view_finalize),
+	(sdb_view_build_and_display_base_tree):
+	* plugins/symbol-db/symbol-db-view.h:
+	added controls to expand Global tab nodes in a non-freezing way.
+	Fixed also some little bugs always on global-tab.
+
 2008-01-06  Naba Kumar  <naba@gnome.org>
 
 	Patches from James Liggett:
