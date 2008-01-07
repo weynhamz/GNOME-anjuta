@@ -212,10 +212,10 @@ on_about_plugin_activate (GtkMenuItem *item, AnjutaPluginDescription *desc)
 	GdkPixbuf *pix = NULL;
 	GtkWidget *dialog;
 	
-	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-										  "Name", &name);
-	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-										  "Description", &d);
+	anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
+												 "Name", &name);
+	anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
+												 "Description", &d);
 	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 										  "Icon", &icon);
 	anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
@@ -274,8 +274,8 @@ about_create_plugins_submenu (AnjutaShell *shell, GtkWidget *menuitem)
 		gchar *label;
 		GtkWidget *item;
 		AnjutaPluginDescription *desc = node->data;
-		if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-												  "Name", &label))
+		if (anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
+														 "Name", &label))
 		{
 			gchar *authors;
 			if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",

@@ -506,16 +506,16 @@ anjuta_plugin_handle_new (const gchar *plugin_desc_path)
 		success = FALSE;
 	}
 	
-	if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-											  "Name", &str)) {
+	if (anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
+													 "Name", &str)) {
 		plugin_handle->priv->name = str;
 	} else {
 		g_warning ("couldn't find 'Name' attribute.");
 		success = FALSE;
 	}
 
-	if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-											  "Description", &str)) {
+	if (anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
+													 "Description", &str)) {
 		plugin_handle->priv->about = str;
 	} else {
 		g_warning ("Couldn't find 'Description' attribute.");

@@ -1,3 +1,17 @@
+2008-01-08  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-plugin-handle.c: (anjuta_plugin_handle_new):
+	* libanjuta/anjuta-plugin-manager.c:
+	(anjuta_plugin_manager_select),
+	(anjuta_plugin_manager_activate_plugins):
+	* libanjuta/anjuta-profile.c: (anjuta_profile_to_xml):
+	* plugins/file-loader/plugin.c: (sort_wizards), (open_with_dialog),
+	(on_create_submenu), (create_open_with_submenu):
+	* src/about.c: (on_about_plugin_activate),
+	(about_create_plugins_submenu): Use translated version of get_string()
+	API in AnjutaDescription for translatable properties. Fixes bug #496833
+	comment #18.
+
 2008-01-07  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/build-basic-autotools/executer.c: (execute_program):

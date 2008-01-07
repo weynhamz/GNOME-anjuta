@@ -843,7 +843,7 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 				continue;
 			}
 			g_free (user_activatable);
-			
+			/* Do not use the _locale_ version because it's not in UI */
 			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 												  "Name", &name);
 			DEBUG_PRINT("Saving plugin: %s", name);
@@ -870,10 +870,11 @@ anjuta_profile_to_xml (AnjutaProfile *profile)
 		else
 		{
 			gchar* name;
+			/* Do not use the _locale_ version because it's debugging */
 			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
 												  "Name", &name);
-			DEBUG_PRINT("excluding plugin: %s", name);
-			g_free(name);
+			DEBUG_PRINT ("excluding plugin: %s", name);
+			g_free (name);
 		}
 		node = g_list_next (node);
 	}

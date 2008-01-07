@@ -50,14 +50,14 @@ sort_wizards(gconstpointer wizard1, gconstpointer wizard2)
 	AnjutaPluginDescription* desc1 = (AnjutaPluginDescription*) wizard1;
 	AnjutaPluginDescription* desc2 = (AnjutaPluginDescription*) wizard2;
 	
-	if ((anjuta_plugin_description_get_string (desc1, "Wizard",
-												  "Title", &name1) ||
-			anjuta_plugin_description_get_string (desc1, "Anjuta Plugin",
-												  "Name", &name1)) &&
-		(anjuta_plugin_description_get_string (desc2, "Wizard",
-												  "Title", &name2) ||
-			anjuta_plugin_description_get_string (desc2, "Anjuta Plugin",
-												  "Name", &name2)))
+	if ((anjuta_plugin_description_get_locale_string (desc1, "Wizard",
+													  "Title", &name1) ||
+			anjuta_plugin_description_get_locale_string (desc1, "Anjuta Plugin",
+														 "Name", &name1)) &&
+		(anjuta_plugin_description_get_locale_string (desc2, "Wizard",
+													  "Title", &name2) ||
+			anjuta_plugin_description_get_locale_string (desc2, "Anjuta Plugin",
+														 "Name", &name2)))
 	{
 		return strcmp(name1, name2);
 	}
@@ -184,13 +184,13 @@ open_with_dialog (AnjutaFileLoaderPlugin *plugin, const gchar *uri,
 		
 		name = NULL;
 		
-		anjuta_plugin_description_get_string (desc, "File Loader",
-											  "Title", &name);
+		anjuta_plugin_description_get_locale_string (desc, "File Loader",
+													 "Title", &name);
 		
 		if (!name)
 		{
-			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-												  "Name", &name);
+			anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
+														 "Name", &name);
 		}
 		if (!name)
 		{
@@ -593,10 +593,10 @@ on_create_submenu (gpointer user_data)
 		
 		icon = NULL;
 		name = NULL;
-		if (anjuta_plugin_description_get_string (desc, "Wizard",
-												  "Title", &str) ||
-			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-												  "Name", &str))
+		if (anjuta_plugin_description_get_locale_string (desc, "Wizard",
+														 "Title", &str) ||
+			anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
+														 "Name", &str))
 		{
 			count++;
 			if (count < 10)
@@ -836,12 +836,12 @@ create_open_with_submenu (AnjutaFileLoaderPlugin *plugin, GtkWidget *parentmenu,
 		
 		desc = (AnjutaPluginDescription *)(snode->data);
 		name = NULL;
-		anjuta_plugin_description_get_string (desc, "File Loader",
-											  "Title", &name);
+		anjuta_plugin_description_get_locale_string (desc, "File Loader",
+													 "Title", &name);
 		if (!name)
 		{
-			anjuta_plugin_description_get_string (desc, "Anjuta Plugin",
-												  "Name", &name);
+			anjuta_plugin_description_get_locale_string (desc, "Anjuta Plugin",
+														 "Name", &name);
 		}
 		if (!name)
 		{

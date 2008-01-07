@@ -1877,17 +1877,17 @@ anjuta_plugin_manager_select (AnjutaPluginManager *plugin_manager,
 		{
 			g_warning ("Plugin does not define Icon attribute");
 		}
-		if (!anjuta_plugin_description_get_string (desc,
-												  "Anjuta Plugin",
-												  "Name",
-												  &plugin_name))
+		if (!anjuta_plugin_description_get_locale_string (desc,
+														  "Anjuta Plugin",
+														  "Name",
+														  &plugin_name))
 		{
 			g_warning ("Plugin does not define Name attribute");
 		}
-		if (!anjuta_plugin_description_get_string (desc,
-												  "Anjuta Plugin",
-												  "Description",
-												  &plugin_desc))
+		if (!anjuta_plugin_description_get_locale_string (desc,
+														  "Anjuta Plugin",
+														  "Description",
+														  &plugin_desc))
 		{
 			g_warning ("Plugin does not define Description attribute");
 		}
@@ -2343,12 +2343,12 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 											  &icon_filename))
 		{
 			gchar *title, *description;
-			anjuta_plugin_description_get_string (d, "Anjuta Plugin",
-												  "Name",
-												  &title);
-			anjuta_plugin_description_get_string (d, "Anjuta Plugin",
-												  "Description",
-												  &description);
+			anjuta_plugin_description_get_locale_string (d, "Anjuta Plugin",
+														 "Name",
+														 &title);
+			anjuta_plugin_description_get_locale_string (d, "Anjuta Plugin",
+														 "Description",
+														 &description);
 			icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
 									 icon_filename, NULL);
 			/* DEBUG_PRINT ("Icon: %s", icon_path); */
