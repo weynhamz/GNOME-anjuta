@@ -2,6 +2,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <gtk/gtk.h>
+#include <glib/gi18n.h>
 #include <gconf/gconf-client.h>
 
 // #include <libgtodo/libgtodo.h>
@@ -14,19 +15,6 @@ xmlNodePtr  get_id_node(gchar *category, gint id);
 extern GtkWidget *window;
 extern GtkListStore *list;
 extern GtkTreeModelSort *sortmodel;
-
-#ifdef ENABLE_NLS
-#include <libintl.h>
-#include <locale.h>
-#define _(String) gettext (String)
-#  ifdef gettext_noop
-#    define N_(String) gettext_noop (String)
-#  else
-#    define N_(String) (String)
-#  endif
-#else 
-#define _(String) String
-#endif
 
 enum
 {

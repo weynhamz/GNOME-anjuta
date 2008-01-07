@@ -400,12 +400,18 @@ atp_output_context_print (ATPOutputContext *this, const gchar* text)
 			}
 			else if (this == &this->execution->output)
 			{
-				/* Only for output data */
+				/* This is append to the tool name to give something
+				 * like "My tools (output)". It's used to name the message
+				 * pane where the output of the tool is send to
+				 */
 				str = _("(output)");
 			}
 			else
 			{
-				/* Only for error data */
+				/* This is append to the tool name to give something
+				 * like "My tools (error)". It's used to name the message
+				 * pane where the errors of the tool is send to
+				 */
 				str = _("(error)");
 			}
 			title = g_strdup_printf ("%s %s", this->execution->name, str);

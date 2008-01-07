@@ -23,6 +23,8 @@
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 #include <libgnomevfs/gnome-vfs-ops.h>
 
+#include <glib/gi18n.h>
+
 #include <libanjuta/anjuta-shell.h>
 #include <libanjuta/anjuta-status.h>
 #include <libanjuta/anjuta-debug.h>
@@ -598,9 +600,9 @@ on_create_submenu (gpointer user_data)
 		{
 			count++;
 			if (count < 10)
-				name = g_strdup_printf ("_%d. %s", count, str);
+				name = g_strdup_printf ("_%d. %s", count, N_(str));
 			else
-				name = g_strdup_printf ("%d. %s", count, str);
+				name = g_strdup_printf ("%d. %s", count, N_(str));
 			g_free (str);
 		}
 		if (anjuta_plugin_description_get_string (desc, "Anjuta Plugin",

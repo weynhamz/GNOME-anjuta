@@ -102,6 +102,7 @@ create_locals_gui (Locals *self)
 
 	anjuta_shell_add_widget (self->plugin->shell,
 							 self->main_w,
+							 /* This is the list of local variables. */
 							 "AnjutaDebuggerLocals", _("Locals"),
 							 "gdb-locals-icon", ANJUTA_SHELL_PLACEMENT_BOTTOM,
 							 NULL);

@@ -1,5 +1,21 @@
 2008-01-07  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/build-basic-autotools/executer.c: (execute_program):
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	* plugins/debug-manager/anjuta-debug-manager.glade:
+	* plugins/debug-manager/locals.c: (create_locals_gui):
+	* plugins/file-loader/plugin.c: (on_create_submenu):
+	* plugins/gtodo/main.h:
+	* plugins/gtodo/preferences.c: (preferences_widget):
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
+	* plugins/tools/anjuta-tools.glade:
+	* plugins/tools/execute.c: (atp_output_context_print):
+	* src/main.c:
+	
+		Another bunch of i18n fixes (#496833)
+
+2008-01-07  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/build-basic-autotools/build-basic-autotools.c:
 	(on_build_terminated):
 	* plugins/gtodo/interface.c: (set_read_only):

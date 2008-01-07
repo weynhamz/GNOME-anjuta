@@ -68,6 +68,8 @@ static const GOptionEntry anjuta_options[] = {
 		"geometry", 'g', 0, G_OPTION_ARG_STRING,
 		&anjuta_geometry,
 		N_("Specify the size and location of the main window"),
+		/* This is the format you can specify the size andposition
+		 * of the window on command line */
 		N_("WIDTHxHEIGHT+XOFF+YOFF")
 	},
 	{

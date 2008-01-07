@@ -142,19 +142,19 @@ GtkWidget *preferences_widget()
 	gtk_box_pack_start(GTK_BOX(vbox2), frame, TRUE, TRUE, 0);
 
 	/* tb for highlighting due today */
-	cb_hl_today = 	gtk_check_button_new_with_label(_("items that are due today"));
+	cb_hl_today = 	gtk_check_button_new_with_label(_("Items that are due today"));
 	gtk_box_pack_start(GTK_BOX(vbox),cb_hl_today, FALSE, TRUE, 6); 	
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb_hl_today), settings.hl_today);
 	g_signal_connect(G_OBJECT(cb_hl_today),"toggled", G_CALLBACK( preferences_cb_toggle_hl_today), NULL);
 
 	/* tb for highlighting due */
-	cb_hl_due = gtk_check_button_new_with_label(_("items that are past due"));
+	cb_hl_due = gtk_check_button_new_with_label(_("Items that are past due"));
 	gtk_box_pack_start(GTK_BOX(vbox),cb_hl_due, FALSE, TRUE, 6); 	
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cb_hl_due), settings.hl_due);
 	g_signal_connect(G_OBJECT(cb_hl_due), "toggled",G_CALLBACK( preferences_cb_toggle_hl_due), NULL);	
 
 	/* tb for highlighting in x days */
-	tmp = g_strdup_printf(_("items that are due in the next %i days"), settings.due_days);
+	tmp = g_strdup_printf(_("Items that are due in the next %i days"), settings.due_days);
 	cb_hl_indays = gtk_check_button_new_with_label(tmp);
 	g_free(tmp);
 	gtk_box_pack_start(GTK_BOX(vbox),cb_hl_indays, FALSE, TRUE, 6); 	

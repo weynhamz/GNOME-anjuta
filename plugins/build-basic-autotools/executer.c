@@ -252,7 +252,7 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 				error_condition = TRUE;
 				target = NULL;
 				anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-										  _("No file or Project opened."));
+										  _("No file or project currently opened."));
 			}
 			else
 			{
