@@ -1,5 +1,17 @@
 2008-01-07  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(on_build_terminated):
+	* plugins/gtodo/interface.c: (set_read_only):
+	* plugins/project-manager/plugin.c: (confirm_removal),
+	(on_popup_add_to_project):
+	* plugins/subversion/anjuta-subversion.glade:
+	* plugins/tools/execute.c: (atp_output_context_print_result):
+	
+	Fixed some strings from #496833
+
+2008-01-07  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
 	* plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin
 	.in:

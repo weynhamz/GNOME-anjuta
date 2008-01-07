@@ -9187,7 +9187,7 @@ msgstr ""
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project From Existing Sources"
-msgstr ""
+msgstr "Projekt aus vorhadenen Quellen"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
 #, fuzzy

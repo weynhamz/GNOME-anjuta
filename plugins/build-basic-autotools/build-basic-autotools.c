@@ -745,12 +745,12 @@ on_build_terminated (AnjutaLauncher *launcher,
 		if (status)
 		{
 			ianjuta_message_view_buffer_append (context->message_view,
-									_("Completed... unsuccessful\n"), NULL);
+									_("Completed unsuccessful\n"), NULL);
 		}
 		else
 		{
 			ianjuta_message_view_buffer_append (context->message_view,
-									   _("Completed... successful\n"), NULL);
+									   _("Completed successful\n"), NULL);
 		}
 		ianjuta_message_view_buffer_append (context->message_view, buff1, NULL);
 		g_free (buff1);

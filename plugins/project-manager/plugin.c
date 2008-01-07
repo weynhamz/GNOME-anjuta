@@ -577,26 +577,29 @@ confirm_removal (ProjectManagerPlugin *plugin, GbfTreeData *data)
 {
 	gboolean answer;
 	gchar *mesg;
+	gchar* question;
 
 	switch (data->type)
 	{
 		case GBF_TREE_NODE_GROUP:
+			question = _("Are you sure you want to remove the following group from project?\n\n");
 			mesg = _("%sGroup: %s\n\nThe group will not be deleted from file system.");
 			break;
 		case GBF_TREE_NODE_TARGET:
+			question = _("Are you sure you want to remove the following target from project?\n\n");
 			mesg = _("%sTarget: %s");
 			break;
 		case GBF_TREE_NODE_TARGET_SOURCE:
+			question = _("Are you sure you want to remove the following source file from project?\n\n");
 			mesg = _("%sSource: %s\n\nThe source file will not be deleted from file system.");
 			break;
 		default:
-			g_warning ("Unknow node");
+			g_warning ("Unknown node");
 			return FALSE;
 	}
 	answer =
 		anjuta_util_dialog_boolean_question (get_plugin_parent_window (plugin),
-											 mesg,
-		_("Are you sure you want to remove the following from project?\n\n"),
+											 mesg, question,
 											 data->name);
 	return answer;
 }
@@ -698,9 +701,9 @@ on_popup_add_to_project (GtkAction *action, ProjectManagerPlugin *plugin)
 		if (res != GNOME_VFS_OK)
 			mesg = gnome_vfs_result_to_string (res);
 		else
-			mesg = _("URI is link");
+			mesg = _("The file you selected is a link and can't be added to the project");
 		anjuta_util_dialog_error (win,
-								  _("Failed to retried URI info of %s: %s"),
+								  _("Failed to retrieve URI info of %s: %s"),
 								  plugin->fm_current_uri, mesg);
 	}
 }

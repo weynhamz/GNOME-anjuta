@@ -33,12 +33,6 @@ static void set_read_only()
 	gtk_widget_set_sensitive (mw.tbdelbut, FALSE);                                                                                 
 	gtk_label_set_text_with_mnemonic(GTK_LABEL(mw.tbeditlb),_("_View"));
 	gtk_widget_set_sensitive(mw.tbaddbut, FALSE);
-	gtk_widget_set_sensitive (gtk_item_factory_get_widget(GTK_ITEM_FACTORY (mw.item_factory), N_("/Item/Edit")), FALSE);
-	gtk_widget_set_sensitive (gtk_item_factory_get_widget(GTK_ITEM_FACTORY (mw.item_factory), N_("/Item/Remove")), FALSE);        
-	gtk_widget_set_sensitive (gtk_item_factory_get_widget(GTK_ITEM_FACTORY (mw.item_factory), N_("/Item/Add")), FALSE);         
-	gtk_widget_set_sensitive (gtk_item_factory_get_widget(GTK_ITEM_FACTORY (mw.item_factory), N_("/Item/Remove Completed Items")), FALSE);         
-	gtk_widget_set_sensitive (gtk_item_factory_get_widget(GTK_ITEM_FACTORY (mw.item_factory), N_("/ToDo/Edit Categories")), FALSE);         
-	// gtk_widget_show_all(mw.window);
 }
 
 void gtodo_load_settings ()

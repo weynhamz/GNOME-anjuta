@@ -482,7 +482,7 @@ static gboolean
 atp_output_context_print_result (ATPOutputContext *this, gint error)
 {
 	gboolean ok;
-	char buffer[33];
+	gchar* buffer;
 	IAnjutaMessageManager *man;
 
 	ok = TRUE;
@@ -497,13 +497,14 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 		{
 			if (error)
 			{
-				ok = atp_output_context_print (this, _("Completed... unsuccessful with "));
-				sprintf (buffer, "%d", error);
-				ok &= atp_output_context_print (this, buffer);
+				buffer = g_strdup_printf (_("Completed unsuccessful with %d\n"),
+										  error);
+				ok = atp_output_context_print (this, buffer);
+				g_free (buffer);
 			}
 			else
 			{
-				ok = atp_output_context_print (this, _("Completed... successful"));
+				ok = atp_output_context_print (this, _("Completed successful\n"));
 			}
 			ok &= atp_output_context_print (this, "\n");
 			if (this->view)
