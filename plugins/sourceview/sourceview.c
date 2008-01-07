@@ -1809,8 +1809,8 @@ ilanguage_get_language_name (IAnjutaEditorLanguage *ilanguage,
 static const gchar*
 autodetect_language (Sourceview* sv)
 {
-	const gchar* filename = idocument_get_filename (IANJUTA_DOCUMENT(sv), NULL);
-	const gchar* vfs_mime_type = gnome_vfs_get_mime_type_for_name (filename);
+	const gchar* uri = anjuta_document_get_uri (sv->priv->document);
+	const gchar* vfs_mime_type = gnome_vfs_get_mime_type (uri);
 	GStrv languages;
 	GStrv cur_lang;
 	const gchar* detected_language = NULL;

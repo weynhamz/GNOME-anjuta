@@ -1237,7 +1237,8 @@ install_support (CppJavaPlugin *lang_plugin)
 	
 	if (lang_plugin->current_language &&
 		(g_str_equal (lang_plugin->current_language, "C")
-		|| g_str_equal (lang_plugin->current_language, "C++")))
+		|| g_str_equal (lang_plugin->current_language, "C++")
+		|| g_str_equal (lang_plugin->current_language, "Vala")))
 	{
 		g_signal_connect (lang_plugin->current_editor,
 						  "char-added",
@@ -1258,7 +1259,12 @@ install_support (CppJavaPlugin *lang_plugin)
 	}
 	
 	initialize_indentation_params (lang_plugin);
-	if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor))
+	/* Disable editor intern auto-indent */
+	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(lang_plugin->current_editor),
+								    FALSE, NULL);
+	
+	if (IANJUTA_IS_EDITOR_ASSIST (lang_plugin->current_editor) &&
+		!g_str_equal (lang_plugin->current_language, "Vala"))
 	{
 		AnjutaPlugin *plugin;
 		AnjutaUI *ui;
@@ -1283,10 +1289,8 @@ install_support (CppJavaPlugin *lang_plugin)
 									   "ActionEditAutocomplete");
 		g_object_set (G_OBJECT (action), "visible", TRUE,
 					  "sensitive", TRUE, NULL);
-	}
-	/* Disable editor intern auto-indent */
-	ianjuta_editor_set_auto_indent (IANJUTA_EDITOR(lang_plugin->current_editor),
-								    FALSE, NULL);
+	}	
+		
 	lang_plugin->support_installed = TRUE;
 }
 
@@ -1298,7 +1302,8 @@ uninstall_support (CppJavaPlugin *lang_plugin)
 	
 	if (lang_plugin->current_language &&
 		(g_str_equal (lang_plugin->current_language, "C")
-		|| g_str_equal (lang_plugin->current_language, "C++")))
+		|| g_str_equal (lang_plugin->current_language, "C++")
+		|| g_str_equal (lang_plugin->current_language, "Vala")))
 	{
 		g_signal_handlers_disconnect_by_func (lang_plugin->current_editor,
 									G_CALLBACK (on_editor_char_inserted_cpp),
@@ -1579,7 +1584,7 @@ ipreferences_merge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 	/* Add preferences */
 	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
 	anjuta_preferences_add_page (prefs,
-								 gxml, "preferences", _("C/C++/Java"),
+								 gxml, "preferences", _("C/C++/Java/Vala"),
 								 ICON_FILE);
 	g_object_unref (gxml);
 }
@@ -1588,7 +1593,7 @@ static void
 ipreferences_unmerge (IAnjutaPreferences* ipref, AnjutaPreferences* prefs,
 					  GError** e)
 {
-	anjuta_preferences_remove_page(prefs, _("C/C++/Java"));
+	anjuta_preferences_remove_page(prefs, _("C/C++/Java/Vala"));
 }
 
 static void

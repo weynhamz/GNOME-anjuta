@@ -1,3 +1,15 @@
+2008-01-07  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.glade:
+	* plugins/language-support-cpp-java/anjuta-language-cpp-java.plugin
+	.in:
+	* plugins/language-support-cpp-java/plugin.c: (install_support),
+	(uninstall_support), (ipreferences_merge), (ipreferences_unmerge):
+	Added basic Vala support
+	
+	* plugins/sourceview/sourceview.c: (autodetect_language):
+	Fixed mime-type detection
+
 2008-01-06  Massimo Cora'  <maxcvs@email.it>
 
   Reviewed by: Johannes Schmid <jhs@gnome.org>
