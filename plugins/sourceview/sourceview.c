@@ -1816,6 +1816,15 @@ autodetect_language (Sourceview* sv)
 	const gchar* detected_language = NULL;
 	g_object_get (G_OBJECT (gtk_source_language_manager_get_default ()), "language-ids",
 							&languages, NULL);
+	if (!vfs_mime_type)
+	{
+		vfs_mime_type = 
+			gnome_vfs_get_mime_type_for_name (ianjuta_document_get_filename (IANJUTA_DOCUMENT (sv),
+																			 NULL));
+	}
+	if (!vfs_mime_type)
+		return NULL;
+	
 	for (cur_lang = languages; *cur_lang != NULL; cur_lang++)
 	{
 		GtkSourceLanguage* language = 
