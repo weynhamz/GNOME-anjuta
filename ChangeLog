@@ -1,3 +1,10 @@
+2008-01-08  Johannes Schmid <jhs@gnome.org>
+
+	Patch by <bolekk@gmail.com> (GHOP Student)
+
+	* plugins/gtodo/mcategory.c: (category_manager_add_item):
+	Fix bug #505205
+
 2008-01-08  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-plugin-handle.c: (anjuta_plugin_handle_new):

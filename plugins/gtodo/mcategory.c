@@ -173,7 +173,7 @@ void category_manager_add_item(GtkWidget *button, GtkWidget *treeview)
 	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(treeview),path  , NULL, FALSE, 0, 0);
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(treeview), path, gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 0), TRUE);
 	gtk_tree_path_free(path);    
-	gtodo_client_category_new(cl, _("enter name"));
+	gtodo_client_category_new(cl, _("<Enter name>"));
 }
 
 void tree_edited_string(GtkCellRendererText *cell, const char *path_string, const char *new_text, GtkWidget *treeview)
