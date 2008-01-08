@@ -466,6 +466,7 @@ void
 on_editor_command_cut_activate (GtkAction *action, gpointer user_data)
 {	
 	GtkWidget *widget;
+	IAnjutaDocument *doc;
 	
 	widget = get_current_focus_widget (user_data);
 
@@ -474,22 +475,19 @@ on_editor_command_cut_activate (GtkAction *action, gpointer user_data)
 		if (GTK_IS_EDITABLE (widget))
 		{
 			gtk_editable_cut_clipboard (GTK_EDITABLE (widget));
-		}
-		else
-		{
-			IAnjutaDocument *doc;
-
-			doc = get_current_document (user_data);
-			if (doc)
-				ianjuta_document_cut (doc, NULL);
+			return;
 		}
 	}
+	doc = get_current_document (user_data);
+	if (doc)
+		ianjuta_document_cut (doc, NULL);
 }
 
 void
 on_editor_command_paste_activate (GtkAction *action, gpointer user_data)
 {
 	GtkWidget *widget;
+	IAnjutaDocument *doc;
 	
 	widget = get_current_focus_widget (user_data);
 
@@ -498,22 +496,19 @@ on_editor_command_paste_activate (GtkAction *action, gpointer user_data)
 		if (GTK_IS_EDITABLE (widget))
 		{
 			gtk_editable_paste_clipboard (GTK_EDITABLE (widget));
-		}
-		else
-		{
-			IAnjutaDocument *doc;
-
-			doc = get_current_document (user_data);
-			if (doc)
-				ianjuta_document_paste (doc, NULL);
+			return;
 		}
 	}
+	doc = get_current_document (user_data);
+	if (doc)
+		ianjuta_document_paste (doc, NULL);
 }
 
 void
 on_editor_command_copy_activate (GtkAction *action, gpointer user_data)
 {
 	GtkWidget *widget;
+	IAnjutaDocument *doc;
 
 	widget = get_current_focus_widget (user_data);
 
@@ -522,16 +517,13 @@ on_editor_command_copy_activate (GtkAction *action, gpointer user_data)
 		if (GTK_IS_EDITABLE (widget))
 		{
 			gtk_editable_copy_clipboard (GTK_EDITABLE (widget));
-		}
-		else
-		{
-			IAnjutaDocument *doc;
-
-			doc = get_current_document (user_data);
-			if (doc)
-				ianjuta_document_copy (doc, NULL);
+			return;
 		}
 	}
+	
+	doc = get_current_document (user_data);
+	if (doc)
+		ianjuta_document_copy (doc, NULL);
 }
 
 void
@@ -540,7 +532,8 @@ on_editor_command_clear_activate (GtkAction *action, gpointer user_data)
 	GtkWidget *widget;
 
 	widget = get_current_focus_widget (user_data);
-
+	IAnjutaDocument *doc;
+	
 	if (widget)
 	{
 		if (GTK_IS_EDITABLE (widget))
@@ -552,16 +545,12 @@ on_editor_command_clear_activate (GtkAction *action, gpointer user_data)
 				end = start + 1;
 			}
 			gtk_editable_delete_text (GTK_EDITABLE (widget), start, end);
-		}
-		else
-		{
-			IAnjutaDocument *doc;
-
-			doc = get_current_document (user_data);
-			if (doc)
-				ianjuta_document_clear (doc, NULL);
+			return;
 		}
 	}
+	doc = get_current_document (user_data);
+	if (doc)
+		ianjuta_document_clear (doc, NULL);
 }
 
 /* fold funcs are for scintilla only */

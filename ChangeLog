@@ -1,5 +1,15 @@
 2008-01-08  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/action-callbacks.c:
+	(on_editor_command_cut_activate),
+	(on_editor_command_paste_activate),
+	(on_editor_command_copy_activate),
+	(on_editor_command_clear_activate):
+	
+	Fixed editor popup menu (Cut, Copy, Paste)
+
+2008-01-08  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/sourceview/sourceview.c: (autodetect_language):
 	Fixed a crash when creating a new file
 
