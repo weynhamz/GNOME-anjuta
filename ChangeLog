@@ -1,3 +1,10 @@
+2008-01-09  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/anjuta-plugin-manager.c:
+	(anjuta_plugin_manager_activate_plugins):
+	* libanjuta/anjuta-status.c: (anjuta_status_dispose): Fixes a memory
+	corruption reported in bug #507491. Potentially fixes too.
+
 2008-01-09  Johannes Schmid <jhs@gnome.org>
 
 	Patch from Bolesław Kulbabiński <<bolekk@gmail.com> (GHOP):

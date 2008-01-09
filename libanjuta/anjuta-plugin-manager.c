@@ -2342,13 +2342,15 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 												  "Icon",
 											  &icon_filename))
 		{
-			gchar *title, *description;
+			gchar *title /*, *description */;
 			anjuta_plugin_description_get_locale_string (d, "Anjuta Plugin",
 														 "Name",
 														 &title);
+			/*
 			anjuta_plugin_description_get_locale_string (d, "Anjuta Plugin",
 														 "Description",
 														 &description);
+			*/
 			icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
 									 icon_filename, NULL);
 			/* DEBUG_PRINT ("Icon: %s", icon_path); */
@@ -2359,6 +2361,7 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 						   icon_path);
 			g_free (icon_path);
 			g_free (icon_filename);
+			g_free (title);
 		}
 		
 		if (anjuta_plugin_description_get_string (d, "Anjuta Plugin",

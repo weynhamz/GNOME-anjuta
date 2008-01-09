@@ -105,7 +105,12 @@ anjuta_status_dispose (GObject *widget)
 		g_hash_table_destroy (status->priv->widgets);
 		status->priv->widgets = NULL;
 	}
-	
+	if (status->priv->window)
+	{
+		g_object_remove_weak_pointer (G_OBJECT (status->priv->window),
+						   (gpointer*)(gpointer)&status->priv->window);
+		status->priv->window = NULL;
+	}
 	GNOME_CALL_PARENT(G_OBJECT_CLASS, dispose, (widget));
 }
 
