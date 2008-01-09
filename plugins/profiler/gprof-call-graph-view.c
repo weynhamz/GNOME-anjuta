@@ -353,6 +353,9 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 										
 	/* Self */
 	col = gtk_tree_view_column_new ();
+	
+	/* Total amount of time spent in this function, excluding those it calla.
+	 * This is the same as the "Seconds" field in the flat profile. */
 	gtk_tree_view_column_set_title (col, _("Self"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (functions_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
@@ -363,6 +366,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
+	
+	/* Time spent in a subroutine of a function. */
 	gtk_tree_view_column_set_title (col, _("Self"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
@@ -373,6 +378,8 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
 	col = gtk_tree_view_column_new ();
+	
+	/* Time spent in this function when it was called by its caller */
 	gtk_tree_view_column_set_title (col, _("Self"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_by_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();

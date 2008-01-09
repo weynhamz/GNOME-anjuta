@@ -1,3 +1,14 @@
+2008-01-10  Johannes Schmid <jhs@gnome.org>
+
+	Patch from: James Ligett:
+
+	* plugins/profiler/gprof-call-graph-view.c:
+	(gprof_call_graph_view_create_columns):
+	* plugins/profiler/gprof-flat-profile-view.c:
+	(gprof_flat_profile_view_create_columns):
+	
+	Fixed translation issues (#496833)
+
 2008-01-10 Johannes Schmid <jhs@gnome.org>
 
 	Patch from Bolesław Kulbabiński <bolekk@gmail.com> (GHOP):

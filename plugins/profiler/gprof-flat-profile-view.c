@@ -87,6 +87,9 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	/* Self seconds */
 	col = gtk_tree_view_column_new ();
+	
+	/* The number of seconds that this function, excluding other functions it 
+	 * calls, takes to execute. */
 	gtk_tree_view_column_set_title (col, _("Self Seconds"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (list_view), col);
 	
@@ -109,6 +112,9 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	/* Self ms/call */
 	col = gtk_tree_view_column_new ();
+	
+	/* The average number of milliseconds spent in a function, excluding
+	 * the functions that it calls. */
 	gtk_tree_view_column_set_title (col, _("Self ms/call"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (list_view), col);
 	
@@ -120,6 +126,8 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	/* Total ms/call */
 	col = gtk_tree_view_column_new ();
+	
+	/* Same as self ms/call, but includes called functions. */
 	gtk_tree_view_column_set_title (col, _("Total ms/call"));
 	gtk_tree_view_append_column (GTK_TREE_VIEW (list_view), col);
 	
