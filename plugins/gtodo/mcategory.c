@@ -160,20 +160,31 @@ void category_manager_add_item(GtkWidget *button, GtkWidget *treeview)
 	GtkTreeIter iter;
 	GtkTreeSelection *selection;    
 	GtkTreePath *path;
+	gchar* new_name = NULL;
 
 	gtk_list_store_append(GTK_LIST_STORE(model), &iter);
 
+	/* find the smallest available number to avoid name repetition */
+	int number = 0;
+	do
+	{
+		number ++;
+		g_free(new_name);
+		new_name = g_strdup_printf(_("<New category (%d)>"), number);
+	}
+	while(gtodo_client_category_exists(cl, new_name));
+
   /* This is shown in an editable treeview column to show the user
      he should enter the category name here */
-	gtk_list_store_set(GTK_LIST_STORE(model), &iter, 0, _("<Enter name>"), 1, 1, -1);
-
-	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
-	gtk_tree_selection_select_iter(selection, &iter);
+	gtk_list_store_set(GTK_LIST_STORE(model), &iter, 0, new_name, 1, 1, -1);
 	path = gtk_tree_model_get_path(model, &iter);
-	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(treeview),path  , NULL, FALSE, 0, 0);
+	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(treeview), path, NULL, FALSE, 0, 0);
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+	gtk_tree_selection_select_iter(selection, &iter);	
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(treeview), path, gtk_tree_view_get_column(GTK_TREE_VIEW(treeview), 0), TRUE);
-	gtk_tree_path_free(path);    
-	gtodo_client_category_new(cl, _("<Enter name>"));
+	gtk_tree_path_free(path);
+	gtodo_client_category_new(cl, new_name);
+	g_free(new_name);
 }
 
 void tree_edited_string(GtkCellRendererText *cell, const char *path_string, const char *new_text, GtkWidget *treeview)
