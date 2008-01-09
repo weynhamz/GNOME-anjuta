@@ -8,7 +8,10 @@ int categorys = 0;
 
 void read_categorys (void)
 {
+	int last_category;
 	GTodoList *list;
+
+	last_category = gtk_option_menu_get_history (GTK_OPTION_MENU (mw.option));
 	if (mw.mitems != NULL)
 	{
 		int i;
@@ -75,7 +78,12 @@ void read_categorys (void)
 
 	gtk_widget_show_all (mw.menu);
 	if (categorys > 0)
-		gtk_option_menu_set_history (GTK_OPTION_MENU (mw.option), 0);
+	{
+		if (last_category != -1 && last_category <= categorys + 1)
+			gtk_option_menu_set_history (GTK_OPTION_MENU (mw.option), last_category);
+		else
+			gtk_option_menu_set_history (GTK_OPTION_MENU (mw.option), 0);
+	}
 }
 
 

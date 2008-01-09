@@ -1,3 +1,10 @@
+2008-01-10 Johannes Schmid <jhs@gnome.org>
+
+	Patch from Bolesław Kulbabiński <bolekk@gmail.com> (GHOP):
+
+	* plugins/gtodo/gtodo.c: (category_manager_add_item):
+	Fix #460390 – Changing categories while edinting something
+
 2008-01-09  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-plugin-manager.c:
