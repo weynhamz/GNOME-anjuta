@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
     plugin.c
-    Copyright (C) 2000 Naba Kumar
+    Copyright (C) 2000-2008 Naba Kumar
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -271,7 +271,10 @@ static GtkActionEntry actions_search[] = {
   { "ActionMenuEditSearch", NULL, N_("_Search"), NULL, NULL, NULL},
   { "ActionEditSearchQuickSearch", GTK_STOCK_FIND, N_("_Quick Search"),
 	"<control>f", N_("Quick editor embedded search"),
-    G_CALLBACK (on_show_search)}
+    G_CALLBACK (on_show_search)},
+  { "ActionEditSearchQuickSearchAgain", GTK_STOCK_FIND, N_("Quick _ReSearch"),
+	"<control><shift>f", N_("Repeat quick search"),
+    G_CALLBACK (on_repeat_quicksearch)}
 };
 
 static GtkActionEntry actions_edit[] = {
@@ -815,6 +818,9 @@ update_document_ui_interface_items (AnjutaPlugin *plugin, IAnjutaDocument *doc)
 	flag = IANJUTA_IS_EDITOR_SEARCH (doc);
 	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearch",
 								   "ActionEditSearchQuickSearch");	
+	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
+	action = anjuta_ui_get_action (ui,  "ActionGroupEditorSearch",
+								   "ActionEditSearchQuickSearchAgain");
 	g_object_set (G_OBJECT (action), "sensitive", flag, NULL);
 	action = anjuta_ui_get_action (ui,  "ActionGroupEditorNavigate",
 								   "ActionEditGotoLine");	
@@ -1883,6 +1889,15 @@ ianjuta_docman_goto_file_line_mark (IAnjutaDocumentManager *plugin,
 	return anjuta_docman_goto_file_line_mark (docman, uri, linenum, mark);
 }
 
+/**
+ * anjuta_docman_add_buffer:
+ * @plugin:
+ * @filename:
+ * @content file text, a 0-terminated utf-8 string
+ * @r: store for pointer to error data struct
+ *
+ * Return value: the new editor
+ */
 static IAnjutaEditor*
 ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 						   const gchar *filename, const gchar *content,
@@ -1894,9 +1909,9 @@ ianjuta_docman_add_buffer (IAnjutaDocumentManager *plugin,
 	te = anjuta_docman_add_editor (docman, NULL, filename);
 	if (te)
 	{
-		/*if (content && strlen (content) > 0)
-			aneditor_command (te->editor_id, ANE_INSERTTEXT, -1,
-							  (long)content);*/
+		if (content != NULL && *content != '\0')
+			ianjuta_editor_append (te, content, -1, NULL);
+
 		return IANJUTA_EDITOR (te);
 	}
 	return NULL;

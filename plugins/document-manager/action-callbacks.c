@@ -71,6 +71,25 @@ get_current_focus_widget (gpointer user_data)
 	return anjuta_docman_get_current_focus_widget (docman);
 }
 
+static gboolean
+get_current_popup_active (gpointer user_data)
+{
+	GtkWidget *widget;
+	AnjutaDocman *docman;
+	DocmanPlugin *plugin;
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+	docman = ANJUTA_DOCMAN (plugin->docman);
+
+	widget = anjuta_docman_get_current_popup (docman);
+	if (widget)
+	{
+		widget = gtk_widget_get_toplevel (widget);
+		if (GTK_WIDGET_TOPLEVEL (widget))
+			return gtk_window_has_toplevel_focus (GTK_WINDOW (widget));
+	}
+	return FALSE;
+}
+
 void
 on_open_activate (GtkAction *action, gpointer user_data)
 {
@@ -394,21 +413,20 @@ on_editor_command_select_all_activate (GtkAction *action, gpointer user_data)
 	
 	widget = get_current_focus_widget (user_data);
 
-	if (widget)
+/*	if (widget && GTK_IS_EDITABLE (widget))
 	{
-		if (GTK_IS_EDITABLE (widget))
-		{
-			gtk_editable_select_region (GTK_EDITABLE (widget), 0, -1);
-		}
-		else
-		{
-			IAnjutaDocument *doc;
+		gtk_editable_select_region (GTK_EDITABLE (widget), 0, -1);
+	}
+	else */
+	if (widget /* editor text is focused */
+		|| get_current_popup_active (user_data))
+	{
+		IAnjutaDocument *doc;
 
-			doc = get_current_document (user_data);
-			if (doc)
-				ianjuta_editor_selection_select_all
-					(IANJUTA_EDITOR_SELECTION (doc), NULL);
-		}
+		doc = get_current_document (user_data);
+		if (doc)
+			ianjuta_editor_selection_select_all
+				(IANJUTA_EDITOR_SELECTION (doc), NULL);
 	}
 }
 
@@ -466,64 +484,69 @@ void
 on_editor_command_cut_activate (GtkAction *action, gpointer user_data)
 {	
 	GtkWidget *widget;
-	IAnjutaDocument *doc;
-	
+
 	widget = get_current_focus_widget (user_data);
 
-	if (widget)
+/*	if (widget && GTK_IS_EDITABLE (widget))
 	{
-		if (GTK_IS_EDITABLE (widget))
-		{
-			gtk_editable_cut_clipboard (GTK_EDITABLE (widget));
-			return;
-		}
+		gtk_editable_cut_clipboard (GTK_EDITABLE (widget));
 	}
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_document_cut (doc, NULL);
+	else */
+	if (widget /* editor text is focused */
+		|| get_current_popup_active (user_data))
+	{
+		IAnjutaDocument *doc;
+
+		doc = get_current_document (user_data);
+		if (doc)
+			ianjuta_document_cut (doc, NULL);
+	}
 }
 
 void
 on_editor_command_paste_activate (GtkAction *action, gpointer user_data)
 {
 	GtkWidget *widget;
-	IAnjutaDocument *doc;
-	
+
 	widget = get_current_focus_widget (user_data);
 
-	if (widget)
+/*	if (widget && GTK_IS_EDITABLE (widget))
 	{
-		if (GTK_IS_EDITABLE (widget))
-		{
-			gtk_editable_paste_clipboard (GTK_EDITABLE (widget));
-			return;
-		}
+		gtk_editable_paste_clipboard (GTK_EDITABLE (widget));
 	}
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_document_paste (doc, NULL);
+	else */
+	if (widget	/* editor text is focused */
+		|| get_current_popup_active (user_data))
+	{
+		IAnjutaDocument *doc;
+
+		doc = get_current_document (user_data);
+		if (doc)
+			ianjuta_document_paste (doc, NULL);
+	}
 }
 
 void
 on_editor_command_copy_activate (GtkAction *action, gpointer user_data)
 {
 	GtkWidget *widget;
-	IAnjutaDocument *doc;
 
 	widget = get_current_focus_widget (user_data);
 
-	if (widget)
+/*	if (widget && GTK_IS_EDITABLE (widget))
 	{
-		if (GTK_IS_EDITABLE (widget))
-		{
-			gtk_editable_copy_clipboard (GTK_EDITABLE (widget));
-			return;
-		}
+		gtk_editable_copy_clipboard (GTK_EDITABLE (widget));
 	}
-	
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_document_copy (doc, NULL);
+	else */
+	if (widget /* editor text is focused */
+		|| get_current_popup_active (user_data))
+	{
+		IAnjutaDocument *doc;
+
+		doc = get_current_document (user_data);
+		if (doc)
+			ianjuta_document_copy (doc, NULL);
+	}
 }
 
 void
@@ -532,25 +555,27 @@ on_editor_command_clear_activate (GtkAction *action, gpointer user_data)
 	GtkWidget *widget;
 
 	widget = get_current_focus_widget (user_data);
-	IAnjutaDocument *doc;
-	
-	if (widget)
+
+/*	if (widget && GTK_IS_EDITABLE (widget))
 	{
-		if (GTK_IS_EDITABLE (widget))
+		gint start, end;
+		if (!gtk_editable_get_selection_bounds (GTK_EDITABLE (widget), &start, &end))
 		{
-			gint start, end;
-			if (!gtk_editable_get_selection_bounds (GTK_EDITABLE (widget), &start, &end))
-			{
-				start = gtk_editable_get_position (GTK_EDITABLE (widget));
-				end = start + 1;
-			}
-			gtk_editable_delete_text (GTK_EDITABLE (widget), start, end);
-			return;
+			start = gtk_editable_get_position (GTK_EDITABLE (widget));
+			end = start + 1;
 		}
+		gtk_editable_delete_text (GTK_EDITABLE (widget), start, end);
 	}
-	doc = get_current_document (user_data);
-	if (doc)
-		ianjuta_document_clear (doc, NULL);
+	else */
+	if (widget	/* editor text is focused */
+		|| get_current_popup_active (user_data))
+	{
+		IAnjutaDocument *doc;
+
+		doc = get_current_document (user_data);
+		if (doc)
+			ianjuta_document_clear (doc, NULL);
+	}
 }
 
 /* fold funcs are for scintilla only */
@@ -993,16 +1018,33 @@ void
 on_show_search (GtkAction *action, gpointer user_data)
 {
 	DocmanPlugin *plugin;
-	
-	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
-	
-	if (!gtk_widget_get_parent (plugin->search_box))
-	{
-		gtk_box_pack_end (GTK_BOX(plugin->vbox), plugin->search_box, FALSE, FALSE, 0);
-	}
+	GtkWidget *search_box;
 
-	gtk_widget_show (plugin->search_box);
-	search_box_grab_search_focus (SEARCH_BOX (plugin->search_box));
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+
+	search_box = plugin->search_box;
+	if (!gtk_widget_get_parent (search_box))
+		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
+
+	search_box_fill_search_focus (SEARCH_BOX (search_box));
+	gtk_widget_show (search_box);
+}
+
+void
+on_repeat_quicksearch (GtkAction *action, gpointer user_data)
+{
+	DocmanPlugin *plugin;
+	GtkWidget *search_box;
+
+	plugin = ANJUTA_PLUGIN_DOCMAN (user_data);
+
+	search_box = plugin->search_box;
+	if (!gtk_widget_get_parent (search_box))
+		gtk_box_pack_end (GTK_BOX (plugin->vbox), search_box, FALSE, FALSE, 0);
+
+	if (!GTK_WIDGET_VISIBLE (search_box))
+		gtk_widget_show (search_box);
+	on_search_activated (NULL, SEARCH_BOX (search_box));
 }
 
 void

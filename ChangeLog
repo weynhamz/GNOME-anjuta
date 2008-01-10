@@ -1,5 +1,43 @@
 2008-01-10  Johannes Schmid <jhs@gnome.org>
 
+	Patch from Tom <tpgww@onepost.net>:
+
+	* libanjuta/anjuta-utils.c: (anjuta_util_get_real_path),
+	(anjuta_util_glist_path_dedup):
+	* libanjuta/anjuta-utils.h:
+	
+	Give the method a proper prefixed name
+	
+	* plugins/document-manager/action-callbacks.c:
+	(get_current_popup_active),
+	(on_editor_command_select_all_activate),
+	(on_editor_command_cut_activate),
+	(on_editor_command_paste_activate),
+	(on_editor_command_copy_activate),
+	(on_editor_command_clear_activate), (on_show_search),
+	(on_repeat_quicksearch):	
+	* plugins/document-manager/action-callbacks.h:
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_add_editor), (anjuta_docman_get_current_popup),
+	(anjuta_docman_goto_file_line_mark),
+	(anjuta_docman_get_full_filename):
+	* plugins/document-manager/anjuta-docman.h:
+	* plugins/document-manager/anjuta-document-manager.ui:
+	* plugins/document-manager/plugin.c:
+	(update_document_ui_interface_items):
+	
+	Better way to fix the popup-menu items (Cut/Copy/Paste)
+	and various clean-ups.
+	
+	* plugins/document-manager/search-box.c: (on_document_changed),
+	(search_box_fill_search_focus):
+	* plugins/document-manager/search-box.h:
+	* plugins/search/plugin.c:
+	
+	Add a menu item to repeat the quick search
+
+2008-01-10  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/language-support-cpp-java/cpp-java-assist.c:
 	(on_assist_chosen):
 	

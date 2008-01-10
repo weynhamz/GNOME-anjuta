@@ -778,35 +778,87 @@ on_document_destroy (IAnjutaDocument *doc, AnjutaDocman *docman)
 	anjuta_docman_page_destroy (page);
 }
 
+/**
+ * anjuta_docman_add_editor:
+ * @docman: pointer to docman data struct
+ * @uri: string with uri of file to edit, may be "" or NULL
+ * @name: string with name of file to edit, may be absolute path or just a basename or "" or NULL
+ *
+ * Add a new editor, working on specified uri or filename if any
+ *
+ * Return value: the editor
+ */
 IAnjutaEditor *
 anjuta_docman_add_editor (AnjutaDocman *docman, const gchar *uri,
 						  const gchar *name)
 {
+	gchar *freeme;
+	const gchar *_uri, *_name;
 	IAnjutaEditor *te;
 	IAnjutaEditorFactory* factory;
 	
+	freeme = NULL;
 	factory = anjuta_shell_get_interface (docman->shell, IAnjutaEditorFactory, NULL);
-	
-	if (name && uri)
-		te = ianjuta_editor_factory_new_editor(factory, 
-										   uri, name, NULL);
-	else if (uri)
-		te = ianjuta_editor_factory_new_editor(factory, 
-										   uri, "", NULL);
-	else if (name)
-		te = ianjuta_editor_factory_new_editor(factory, 
-										   "", name, NULL);
-	else
-		te = ianjuta_editor_factory_new_editor(factory, 
-										   "", "", NULL);
-	
-	/* File cannot be loaded, texteditor brings up an error dialog */
+
+	if (uri == NULL)
+	{
+		if (name == NULL)
+		{
+			_uri = "";
+			_name = _uri;
+		}
+		else
+		{
+checkpath:
+			/* the editor-backends work better with uri's */
+			if (g_path_is_absolute (name))
+			{
+				gchar *canonical_path;
+
+				canonical_path = anjuta_util_get_real_path (name);
+				if (canonical_path != NULL)
+				{
+					freeme = gnome_vfs_get_uri_from_local_path (canonical_path);
+					g_free (canonical_path);
+					_uri = freeme;
+				}
+				else
+					_uri = "";
+
+				_name = "";
+			}
+			else
+			{
+				_uri = "";
+				_name = name;
+			}
+		}
+	}
+	else /* uri != NULL */
+	{
+		if (name == NULL)
+		{
+			_uri = uri;
+			_name = "";
+		}
+		else
+		{
+			if (*uri == '\0')
+				goto checkpath;
+			_uri = uri;
+			_name = name;
+		}
+	}
+
+	te = ianjuta_editor_factory_new_editor (factory, _uri, _name, NULL);
+	/* if file cannot be loaded, text-editor brings up an error dialog ? */
 	if (te != NULL)
 	{
 		if (IANJUTA_IS_EDITOR (te))
 			ianjuta_editor_set_popup_menu (te, docman->priv->popup_menu, NULL);
-		anjuta_docman_add_document (docman, IANJUTA_DOCUMENT (te), uri);
-	}	
+		anjuta_docman_add_document (docman, IANJUTA_DOCUMENT (te), _uri);
+	}
+	g_free (freeme);
 	return te;
 }
 
@@ -888,6 +940,12 @@ anjuta_docman_get_current_focus_widget (AnjutaDocman *docman)
 		return gtk_window_get_focus (GTK_WINDOW (widget));
 	}
 	return NULL;
+}
+
+GtkWidget *
+anjuta_docman_get_current_popup (AnjutaDocman *docman)
+{
+	return docman->priv->popup_menu;
 }
 
 static AnjutaDocmanPage *
@@ -1103,36 +1161,35 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 			else
 				te_normalized_path = g_strdup (te_uri);
 			gnome_vfs_uri_unref (vfs_uri);
-		
-			if (!normalized_path || !te_normalized_path)
+
+			if (normalized_path && te_normalized_path)
+			{
+				if (strcmp (normalized_path, te_normalized_path) == 0)
+				{
+					if (lineno >= 0)
+					{
+						ianjuta_editor_goto_line (IANJUTA_EDITOR (doc), lineno, NULL);
+						if (mark)
+						{
+							ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (doc),
+																IANJUTA_MARKABLE_LINEMARKER,
+																NULL);
+							ianjuta_markable_mark (IANJUTA_MARKABLE (doc), lineno,
+												  IANJUTA_MARKABLE_LINEMARKER, NULL);
+						}
+					}
+					anjuta_docman_present_notebook_page (docman, doc);
+					an_file_history_push (te_uri, lineno);
+					g_free (te_uri);
+					g_free (te_normalized_path);
+					g_free (uri);
+					g_free (normalized_path);
+					return IANJUTA_EDITOR (doc);
+				}
+			}
+			else
 			{
 				DEBUG_PRINT ("Unexpected NULL path");
-				g_free (te_uri);
-				g_free (te_normalized_path);
-				continue;
-			}
-
-			if (strcmp (normalized_path, te_normalized_path) == 0)
-			{
-				if (lineno >= 0)
-				{
-					ianjuta_editor_goto_line (IANJUTA_EDITOR (doc), lineno, NULL);
-					if (mark)
-					{
-						ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (doc),
-															IANJUTA_MARKABLE_LINEMARKER,
-															NULL);
-						ianjuta_markable_mark (IANJUTA_MARKABLE (doc), lineno,
-											  IANJUTA_MARKABLE_LINEMARKER, NULL);
-					}
-				}
-				anjuta_docman_present_notebook_page (docman, doc);
-				an_file_history_push (te_uri, lineno);
-				g_free (te_uri);
-				g_free (te_normalized_path);
-				g_free (uri);
-				g_free (normalized_path);
-				return IANJUTA_EDITOR (doc);
 			}
 			g_free (te_uri);
 			g_free (te_normalized_path);
@@ -1160,20 +1217,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	return te ;
 }
 
-static gchar*
-get_real_path (const gchar *file_name)
-{
-	if (file_name)
-	{
-		gchar path[PATH_MAX+1];
-		memset (path, '\0', PATH_MAX+1);
-		realpath (file_name, path);
-		return g_strdup (path);
-	}
-	else
-		return NULL;
-}
-
 gchar *
 anjuta_docman_get_full_filename (AnjutaDocman *docman, const gchar *fn)
 {
@@ -1183,7 +1226,7 @@ anjuta_docman_get_full_filename (AnjutaDocman *docman, const gchar *fn)
 	gchar *fname;
 	
 	g_return_val_if_fail (fn, NULL);
-	real_path = get_real_path (fn);
+	real_path = anjuta_util_get_real_path (fn);
 	
 	/* If it is full and absolute path, there is no need to 
 	go further, even if the file is not found*/

@@ -591,18 +591,28 @@ anjuta_util_glist_strings_dup (GList * list)
 	return new_list;
 }
 
-static gchar*
-get_real_path(const gchar *file_name)
+gchar*
+anjuta_util_get_real_path (const gchar *path)
 {
-	if (file_name)
+	if (path != NULL)
 	{
-		gchar path[PATH_MAX+1];
-		memset(path, '\0', PATH_MAX+1);
-		realpath(file_name, path);
-		return g_strdup(path);
+#ifdef PATH_MAX
+		gchar *result;
+		gchar buf[PATH_MAX+1];
+
+		result = realpath (path, buf);
+		if (result != NULL)
+		{
+			*(buf + PATH_MAX) = '\0'; /* ensure a terminator */
+			return g_strdup (buf);
+		}
+#else
+		/* strictly, the string returned from this should be cleaned with
+		   free(), not g_free() */
+		return (realpath (path, NULL));
+#endif
 	}
-	else
-		return NULL;
+	return NULL;
 }
 
 /* Dedup a list of paths - duplicates are removed from the tail.
@@ -615,24 +625,27 @@ anjuta_util_glist_path_dedup(GList *list)
 	struct stat s;
 	for (tmp = list; tmp; tmp = g_list_next(tmp))
 	{
-		path = get_real_path((const gchar *) tmp->data);
-		if (0 != stat(path, &s))
+		path = anjuta_util_get_real_path ((const gchar *) tmp->data);
+		if (path)
 		{
-			g_free(path);
-		}
-		else
-		{
-			for (tmp1 = nlist; tmp1; tmp1 = g_list_next(tmp1))
+			if (stat (path, &s) != 0)
 			{
-				if (0 == strcmp((const char *) tmp1->data, path))
-				{
-					g_free(path);
-					path = NULL;
-					break;
-				}
+				g_free(path);
 			}
-			if (path)
-			nlist = g_list_prepend(nlist, path);
+			else
+			{
+				for (tmp1 = nlist; tmp1; tmp1 = g_list_next(tmp1))
+				{
+					if (0 == strcmp((const char *) tmp1->data, path))
+					{
+						g_free(path);
+						path = NULL;
+						break;
+					}
+				}
+				if (path)
+				nlist = g_list_prepend(nlist, path);
+			}
 		}
 	}
 	anjuta_util_glist_strings_free(list);

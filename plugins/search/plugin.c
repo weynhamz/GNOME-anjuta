@@ -191,7 +191,7 @@ on_next_occur(GtkAction * action, gpointer user_data)
 
 static GtkActionEntry actions_search[] = {
   { "ActionMenuEditSearch", NULL, N_("_Search"), NULL, NULL, NULL},
-  { "ActionEditSearchFind", GTK_STOCK_FIND, N_("_Find..."), "<shift><control>f",
+  { "ActionEditSearchFind", GTK_STOCK_FIND, N_("_Find..."), "<control><alt>f",
 	N_("Search for a string or regular expression in the editor"),
     G_CALLBACK (on_find1_activate)},
   { "ActionEditSearchFindNext", GTK_STOCK_FIND, N_("Find _Next"), "<control>g",

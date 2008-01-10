@@ -75,9 +75,10 @@ on_search_box_hide (GtkWidget* button, SearchBox* search_box)
 
 static void
 on_document_changed (AnjutaDocman* docman, IAnjutaDocument* doc,
-					 SearchBox* search_box)
+					SearchBox* search_box)
 {
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
+
 	if (!doc || !IANJUTA_IS_EDITOR (doc))
 	{
 		gtk_widget_hide (GTK_WIDGET (search_box));
@@ -287,7 +288,7 @@ on_incremental_search (GtkWidget* widget, SearchBox* search_box)
 	g_object_unref (search_end);	
 }
 
-static void
+void
 on_search_activated (GtkWidget* widget, SearchBox* search_box)
 {
 	IAnjutaEditorCell* search_start;
@@ -519,9 +520,28 @@ search_box_new (AnjutaDocman *docman)
 }
 
 void
-search_box_grab_search_focus (SearchBox* search_box)
+search_box_fill_search_focus (SearchBox* search_box)
 {
 	SearchBoxPrivate* private = GET_PRIVATE(search_box);
+	IAnjutaEditor* te = private->current_editor;
+
+	if (IANJUTA_IS_EDITOR (te))
+	{
+		gchar *buffer;
+
+		buffer = ianjuta_editor_selection_get (IANJUTA_EDITOR_SELECTION (te), NULL);
+		if (buffer != NULL)
+		{
+			g_strstrip (buffer);
+			if (*buffer != 0)
+			{
+				gtk_entry_set_text (GTK_ENTRY (private->search_entry), buffer);
+				gtk_editable_select_region (GTK_EDITABLE (private->search_entry), 0, -1);
+			}
+			g_free (buffer);
+		}
+	}
+
 	gtk_widget_grab_focus (private->search_entry);
 }
 

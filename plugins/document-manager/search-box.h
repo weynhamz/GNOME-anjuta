@@ -56,8 +56,9 @@ struct _SearchBox
 GType search_box_get_type (void);
 GtkWidget* search_box_new (AnjutaDocman* docman);
 
-void search_box_grab_search_focus (SearchBox* search_box);
+void search_box_fill_search_focus (SearchBox* search_box);
 void search_box_grab_line_focus (SearchBox* search_box);
+void on_search_activated (GtkWidget* widget, SearchBox* search_box);
 
 G_END_DECLS
 

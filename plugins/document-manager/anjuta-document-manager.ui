@@ -12,12 +12,12 @@
 				<menuitem name="Close" action="ActionFileClose" />
 				<menuitem name="CloseAll" action="ActionFileCloseAll" />
 				<menuitem name="Reload" action="ActionFileReload" />
-				<separator name="separator1"/>
+				<separator name="separator4"/>
 			</placeholder>
 			<placeholder name="PlaceholderPrintMenus">
 				<menuitem name="Print" action="ActionPrintFile" />
 				<menuitem name="PrintPreview" action="ActionPrintPreview" />
-				<separator name="separator3"/>
+				<separator name="separator5"/>
 			</placeholder>
 			<placeholder name="PlaceholderRecentMenus">
 				<menu name="RecentFiles" action="ActionMenuFileRecentFiles" />
@@ -27,12 +27,12 @@
 			<placeholder name="PlaceholderEditMenus">
 				<menuitem name="Undo" action="ActionEditUndo" />
 				<menuitem name="Redo" action="ActionEditRedo" />
-				<separator name="separator1"/>
+				<separator name="separator6"/>
 				<menuitem name="Cut" action="ActionEditCut" />
 				<menuitem name="Copy" action="ActionEditCopy" />
 				<menuitem name="Paste" action="ActionEditPaste" />
 				<menuitem name="Clear" action="ActionEditClear" />
-				<separator name="separator2"/>
+				<separator name="separator7"/>
 				<menu name="Transform" action="ActionMenuEditTransform">
 					<menuitem name="UpperCase" action="ActionEditMakeSelectionUppercase" />
 					<menuitem name="LowerCase" action="ActionEditMakeSelectionLowercase" />
@@ -47,12 +47,13 @@
 					<menuitem name="Stream" action="ActionEditCommentStream" />
 				</menu>
 				<placeholder name="PlaceholderEditSearchMenus">			
-				<menu name="Search" action="ActionMenuEditSearch">
-					<placeholder name="PlaceholderQuickSearchMenu">
+					<menu name="Search" action="ActionMenuEditSearch">
+						<placeholder name="PlaceholderQuickSearchMenu">
 							<menuitem name="QuickSearch" action="ActionEditSearchQuickSearch"/>
-							<separator name="separator1" />
-					</placeholder>
-				</menu>
+							<menuitem name="QuickReSearch" action="ActionEditSearchQuickSearchAgain"/>
+							<separator name="separator8"/>
+						</placeholder>
+					</menu>
 				</placeholder>
 			</placeholder>
 			<placeholder name="PlaceholderSelectMenus">
@@ -74,13 +75,13 @@
 				<menuitem name="WhiteSpaces" action="ActionViewEditorSpaces" />
 				<menuitem name="LineEndCharacters" action="ActionViewEditorEOL" />
 				<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
-				<separator name="separator2"/>
+				<separator name="separator9"/>
 				<menuitem name="MenuFormatStyle" action="ActionMenuFormatStyle"/>
 				<menuitem name="AddView" action="ActionViewEditorAddView" />
 				<menuitem name="RemoveView" action="ActionViewEditorRemoveView" />
 				<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
 				<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
-				<separator name="separator3"/>
+				<separator name="separator10"/>
 				<menuitem name="FoldCloseAll" action="ActionFormatFoldCloseAll" />
 				<menuitem name="FoldOpenAll" action="ActionFormatFoldOpenAll" />
 				<menuitem name="FoldToggle" action="ActionFormatFoldToggle" />
@@ -91,24 +92,24 @@
 				<placeholder name="PlaceHolderBookmarkMenus">
 					<menu name="MenuBookmark" action="ActionMenuBookmark">
 						<menuitem name="Toggle" action="ActionBookmarkToggle" />
-						<separator name="separator1" />
+						<separator name="separator11" />
 						<menuitem name="First" action="ActionBookmarkFirst" />
 						<menuitem name="Previous" action="ActionBookmarkPrevious" />
 						<menuitem name="Next" action="ActionBookmarkNext" />
 						<menuitem name="Last" action="ActionBookmarkLast" />
-						<separator name="separator1" />
+						<separator name="separator12" />
 						<menuitem name="Clear" action="ActionBookmarkClear" />
 					</menu>
 				</placeholder>
 				<menuitem name="Line" action="ActionEditGotoLine" />
 				<menuitem name="MatchingBrace" action="ActionEditGotoMatchingBrace" />
-				<separator name="separator1"/>
+				<separator name="separator13"/>
 				<menuitem name="BlockStart" action="ActionEditGotoBlockStart" />
 				<menuitem name="BlockEnd" action="ActionEditGotoBlockEnd" />
-				<separator name="separator2"/>
+				<separator name="separator14"/>
 				<menuitem name="PreviousHistory" action="ActionEditGotoHistoryPrev" />
 				<menuitem name="NextHistory" action="ActionEditGotoHistoryNext" />
-				<separator name="separator3"/>
+				<separator name="separator15"/>
 				<placeholder name="PlaceholderGotoOccurence" />
 			</menu>
 		</placeholder>
@@ -121,12 +122,12 @@
 			</placeholder>
 			<toolitem name="Save" action="ActionFileSave" />
 			<toolitem name="Reload" action="ActionFileReload" />
-			<separator name="separator1"/>
+			<separator name="separator16"/>
 			<toolitem name="Undo" action="ActionEditUndo" />
 			<toolitem name="Redo" action="ActionEditRedo" />
-			<separator name="separator2" />
+			<separator name="separator17" />
 			<toolitem name="Swap" action="ActionFileSwap" />
-			<separator name="separator3" />
+			<separator name="separator18" />
 			<toolitem name="Print" action="ActionPrintFile" />
 		</placeholder>
 	</toolbar>
@@ -138,21 +139,21 @@
 			<toolitem name="Next" action="ActionBookmarkNext"/>
 			<toolitem name="Last" action="ActionBookmarkLast"/>
 			<toolitem name="Clear" action="ActionBookmarkClear"/>
-			<separator name="separator1" />
+			<separator name="separator19"/>
 			<toolitem name="BlockStart" action="ActionEditGotoBlockStart"/>
 			<toolitem name="BlockEnd" action="ActionEditGotoBlockEnd"/>
-			<separator name="separator2" />
+			<separator name="separator20"/>
 		</placeholder>
 	</toolbar>
 	<popup name="PopupDocumentManager">
 		<menuitem name="Cut" action="ActionEditCut" />
 		<menuitem name="Copy" action="ActionEditCopy" />
 		<menuitem name="Paste" action="ActionEditPaste" />
-		<separator name="separator2"/>
+		<separator name="separator26"/>
 		<menuitem name="Swap" action="ActionFileSwap" />
 		<menuitem name="Toggle" action="ActionBookmarkToggle" />
 		<menu name="Goto" action="ActionMenuGoto">
-				<separator name="separator1" />
+				<separator name="separator27"/>
 				<menuitem name="Previous" action="ActionBookmarkPrevious" />
 				<menuitem name="Next" action="ActionBookmarkNext" />
 				<menuitem name="HistoryPrevious" action="ActionEditGotoHistoryPrev" />
@@ -164,7 +165,7 @@
 			<menuitem name="CodeFoldMargin" action="ActionViewEditorFolds" />
 			<menuitem name="IndentationGuides" action="ActionViewEditorGuides" />
 			<menuitem name="LineWrapping" action="ActionViewEditorWrapping" />
-			<separator name="separator2"/>
+			<separator name="separator28"/>
 			<menuitem name="ZoomIn" action="ActionViewEditorZoomIn" />
 			<menuitem name="ZoomOut" action="ActionViewEditorZoomOut" />
 		</menu>

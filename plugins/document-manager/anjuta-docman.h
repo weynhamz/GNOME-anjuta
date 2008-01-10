@@ -71,6 +71,8 @@ IAnjutaDocument *anjuta_docman_get_document_for_path (AnjutaDocman *docman,
 
 GtkWidget *anjuta_docman_get_current_focus_widget (AnjutaDocman *docman);
 
+GtkWidget *anjuta_docman_get_current_popup (AnjutaDocman *docman);
+
 void anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc);
 
 IAnjutaEditor *anjuta_docman_goto_file_line (AnjutaDocman *docman,

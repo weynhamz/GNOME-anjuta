@@ -108,6 +108,7 @@ pid_t anjuta_util_execute_shell (const gchar *dir, const gchar *command);
 gchar* anjuta_util_escape_quotes(const gchar* str);
 
 gboolean anjuta_util_path_has_extension (const gchar *path, const gchar *ext);
+gchar* anjuta_util_get_real_path (const gchar *path);
 
 gchar* anjuta_util_get_uri_mime_type (const gchar *uri);
 
