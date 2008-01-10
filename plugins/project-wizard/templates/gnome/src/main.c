@@ -22,13 +22,16 @@
 
 #include <bonobo.h>
 #include <gnome.h>
-#include <glade/glade.h>
 
 #include "callbacks.h"
+
+[+IF (=(get "HaveGlade") "1")+]
+#include <glade/glade.h>
 
 /* For testing propose use the local (not installed) glade file */
 /* #define GLADE_FILE PACKAGE_DATA_DIR"/[+NameLower+]/glade/[+NameLower+].glade" */
 #define GLADE_FILE "[+NameLower+].glade"
+[+ENDIF+]
 
 GtkWidget*
 create_window (void)

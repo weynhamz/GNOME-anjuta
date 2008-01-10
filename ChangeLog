@@ -1,5 +1,15 @@
 2008-01-10  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/project-wizard/templates/gnome.wiz:
+	* plugins/project-wizard/templates/gnome/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/gnome/src/main.c:
+	* plugins/project-wizard/templates/translatable-strings.h:
+	
+	Fixed #508497 and added a new chooser to select whether to use
+	libglade or not.
+
+2008-01-10  Johannes Schmid <jhs@gnome.org>
+
 	Patch from Tom <tpgww@onepost.net>:
 
 	* libanjuta/anjuta-utils.c: (anjuta_util_get_real_path),

@@ -3,8 +3,10 @@
 
 ## Created by Anjuta
 
+[+IF (=(get "HaveGlade") "1")+]
 gladedir = $(datadir)/[+NameLower+]/glade
 glade_DATA = [+NameLower+].glade
+[+ENDIF+]
 
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
