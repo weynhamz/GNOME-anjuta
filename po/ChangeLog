@@ -1,3 +1,9 @@
+2008-01-11  Naba Kumar  <naba@gnome.org>
+
+	* POTFILES.in: Removed files that are not currently distributed.
+	* POTFILES.skip: Added files that are not currently distrubuted but
+	still available in svn. Fixes make distcheck.
+
 2008-01-10  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
 	* es.po: Updated Spanish translation.
