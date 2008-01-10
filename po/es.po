@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-09 13:25+0000\n"
-"PO-Revision-Date: 2008-01-09 18:47+0100\n"
+"POT-Creation-Date: 2008-01-10 13:44+0000\n"
+"PO-Revision-Date: 2008-01-10 17:58+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -364,11 +364,11 @@ msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2355
+#: ../libanjuta/anjuta-plugin-manager.c:2357
 msgid "Loaded: "
 msgstr "Cargado:"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2355
+#: ../libanjuta/anjuta-plugin-manager.c:2357
 msgid "..."
 msgstr "…"
 
@@ -482,7 +482,7 @@ msgid "If you do not save, all your changes will be lost."
 msgstr "Si no guarda, se perderán todos sus cambios."
 
 #: ../libanjuta/anjuta-save-prompt.c:195
-#: ../plugins/document-manager/plugin.c:580
+#: ../plugins/document-manager/plugin.c:583
 msgid "Save"
 msgstr "Guardar"
 
@@ -555,12 +555,12 @@ msgstr ""
 "La utilidad «%s» no está instalada.\n"
 "Instálela."
 
-#: ../libanjuta/anjuta-utils.c:772
+#: ../libanjuta/anjuta-utils.c:785
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:776
+#: ../libanjuta/anjuta-utils.c:789
 #, c-format
 msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando %s (usando shell %s)\n"
@@ -2254,8 +2254,8 @@ msgstr "Archivo"
 
 #: ../plugins/debug-manager/stack_trace.c:631
 #: ../plugins/debug-manager/threads.c:440
-#: ../plugins/document-manager/plugin.c:925
-#: ../plugins/document-manager/plugin.c:939
+#: ../plugins/document-manager/plugin.c:931
+#: ../plugins/document-manager/plugin.c:945
 msgid "Line"
 msgstr "Línea"
 
@@ -2467,7 +2467,7 @@ msgstr "Ayuda"
 msgid "Help display"
 msgstr "Visor de ayuda"
 
-#: ../plugins/document-manager/action-callbacks.c:260
+#: ../plugins/document-manager/action-callbacks.c:279
 #, c-format
 msgid ""
 "Are you sure you want to reload '%s'?\n"
@@ -2476,7 +2476,7 @@ msgstr ""
 "¿Seguro que desea recargar «%s». ?\n"
 "Perderá todas las modificaciones sin guardar."
 
-#: ../plugins/document-manager/action-callbacks.c:269
+#: ../plugins/document-manager/action-callbacks.c:288
 #: ../plugins/editor/text_editor.c:341 ../plugins/sourceview/sourceview.c:200
 msgid "_Reload"
 msgstr "_Recargar"
@@ -2538,9 +2538,9 @@ msgid "Do not show tabs"
 msgstr "No mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1697
-#: ../plugins/document-manager/plugin.c:2076
-#: ../plugins/document-manager/plugin.c:2088
+#: ../plugins/document-manager/plugin.c:1703
+#: ../plugins/document-manager/plugin.c:2091
+#: ../plugins/document-manager/plugin.c:2103
 msgid "Documents"
 msgstr "Documentos"
 
@@ -2848,13 +2848,21 @@ msgstr "_Buscar"
 
 #: ../plugins/document-manager/plugin.c:272
 msgid "_Quick Search"
-msgstr "Búsqueda _rápida"
+msgstr "_Búsqueda rápida"
 
 #: ../plugins/document-manager/plugin.c:273
 msgid "Quick editor embedded search"
 msgstr "Búsqueda empotrada rápida del editor"
 
-#: ../plugins/document-manager/plugin.c:278 ../plugins/gtodo/interface.c:164
+#: ../plugins/document-manager/plugin.c:275
+msgid "Quick _ReSearch"
+msgstr "_Repetir búsqueda rápida"
+
+#: ../plugins/document-manager/plugin.c:276
+msgid "Repeat quick search"
+msgstr "Repetir la búsqueda rápida"
+
+#: ../plugins/document-manager/plugin.c:281 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
 #: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1443
@@ -2862,338 +2870,338 @@ msgid "_Edit"
 msgstr "_Editar"
 
 #. menu title
-#: ../plugins/document-manager/plugin.c:279
+#: ../plugins/document-manager/plugin.c:282
 msgid "_Editor"
 msgstr "_Editor"
 
-#: ../plugins/document-manager/plugin.c:286
+#: ../plugins/document-manager/plugin.c:289
 msgid "_Add Editor View"
 msgstr "_Añadir vista del editor"
 
-#: ../plugins/document-manager/plugin.c:287
+#: ../plugins/document-manager/plugin.c:290
 msgid "Add one more view of current document"
 msgstr "Añade una vista más del documento actual"
 
-#: ../plugins/document-manager/plugin.c:289
+#: ../plugins/document-manager/plugin.c:292
 msgid "_Remove Editor View"
 msgstr "_Quitar vista del editor"
 
-#: ../plugins/document-manager/plugin.c:290
+#: ../plugins/document-manager/plugin.c:293
 msgid "Remove current view of the document"
 msgstr "Quita la vista actual del documento"
 
-#: ../plugins/document-manager/plugin.c:292
+#: ../plugins/document-manager/plugin.c:295
 msgid "U_ndo"
 msgstr "Des_hacer"
 
-#: ../plugins/document-manager/plugin.c:293
+#: ../plugins/document-manager/plugin.c:296
 msgid "Undo the last action"
 msgstr "Deshace la última acción"
 
-#: ../plugins/document-manager/plugin.c:295
+#: ../plugins/document-manager/plugin.c:298
 msgid "_Redo"
 msgstr "_Rehacer"
 
-#: ../plugins/document-manager/plugin.c:296
+#: ../plugins/document-manager/plugin.c:299
 msgid "Redo the last undone action"
 msgstr "Rehace la última acción deshecha"
 
-#: ../plugins/document-manager/plugin.c:298
+#: ../plugins/document-manager/plugin.c:301
 msgid "C_ut"
 msgstr "C_ortar"
 
-#: ../plugins/document-manager/plugin.c:299
+#: ../plugins/document-manager/plugin.c:302
 msgid "Cut the selected text from the editor to the clipboard"
 msgstr "Corta el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:301
+#: ../plugins/document-manager/plugin.c:304
 #: ../plugins/valgrind/vgdefaultview.c:1153
 msgid "_Copy"
 msgstr "_Copiar"
 
-#: ../plugins/document-manager/plugin.c:302
+#: ../plugins/document-manager/plugin.c:305
 msgid "Copy the selected text to the clipboard"
 msgstr "Copia el texto seleccionado al portapapeles"
 
-#: ../plugins/document-manager/plugin.c:304
+#: ../plugins/document-manager/plugin.c:307
 #: ../plugins/valgrind/vgdefaultview.c:1154
 msgid "_Paste"
 msgstr "_Pegar"
 
-#: ../plugins/document-manager/plugin.c:305
+#: ../plugins/document-manager/plugin.c:308
 msgid "Paste the content of clipboard at the current position"
 msgstr "Pega el contenido del portapapeles a la posición actual"
 
-#: ../plugins/document-manager/plugin.c:313
+#: ../plugins/document-manager/plugin.c:316
 msgid "_Clear"
 msgstr "_Borrar"
 
-#: ../plugins/document-manager/plugin.c:314
+#: ../plugins/document-manager/plugin.c:317
 msgid "Delete the selected text from the editor"
 msgstr "Borra el texto seleccionado del editor"
 
-#: ../plugins/document-manager/plugin.c:319
+#: ../plugins/document-manager/plugin.c:322
 msgid "_Line Number Margin"
 msgstr "Margen de _números línea"
 
-#: ../plugins/document-manager/plugin.c:320
+#: ../plugins/document-manager/plugin.c:323
 msgid "Show/Hide line numbers"
 msgstr "Mostrar/Ocultar número de línea en el margen"
 
-#: ../plugins/document-manager/plugin.c:322
+#: ../plugins/document-manager/plugin.c:325
 msgid "_Marker Margin"
 msgstr "_Margen de marcadores"
 
-#: ../plugins/document-manager/plugin.c:323
+#: ../plugins/document-manager/plugin.c:326
 msgid "Show/Hide marker margin"
 msgstr "Mostrar/Ocultar marcadores de márgenes"
 
-#: ../plugins/document-manager/plugin.c:325
+#: ../plugins/document-manager/plugin.c:328
 msgid "_Code Fold Margin"
 msgstr "Margen de plegado del _código"
 
-#: ../plugins/document-manager/plugin.c:326
+#: ../plugins/document-manager/plugin.c:329
 msgid "Show/Hide code fold margin"
 msgstr "Mostrar/Ocultar margen de persiana de código"
 
-#: ../plugins/document-manager/plugin.c:328
+#: ../plugins/document-manager/plugin.c:331
 msgid "_Indentation Guides"
 msgstr "Guías de _sangría"
 
-#: ../plugins/document-manager/plugin.c:329
+#: ../plugins/document-manager/plugin.c:332
 msgid "Show/Hide indentation guides"
 msgstr "Mostrar/Ocultar las guías de sangría"
 
-#: ../plugins/document-manager/plugin.c:331
+#: ../plugins/document-manager/plugin.c:334
 msgid "_White Space"
 msgstr "_Espacios en blanco"
 
-#: ../plugins/document-manager/plugin.c:332
+#: ../plugins/document-manager/plugin.c:335
 msgid "Show/Hide white spaces"
 msgstr "Mostrar/Ocultar espacios en blanco"
 
-#: ../plugins/document-manager/plugin.c:334
+#: ../plugins/document-manager/plugin.c:337
 msgid "_Line End Characters"
 msgstr "Mostrar fin de _línea"
 
-#: ../plugins/document-manager/plugin.c:335
+#: ../plugins/document-manager/plugin.c:338
 msgid "Show/Hide line end characters"
 msgstr "Mostrar/ocultar los caracteres de fin de línea"
 
-#: ../plugins/document-manager/plugin.c:337
+#: ../plugins/document-manager/plugin.c:340
 msgid "Line _Wrapping"
 msgstr "_Ajuste de línea"
 
-#: ../plugins/document-manager/plugin.c:338
+#: ../plugins/document-manager/plugin.c:341
 msgid "Enable/disable line wrapping"
 msgstr "Activar/desactivar ajuste de línea"
 
-#: ../plugins/document-manager/plugin.c:343
+#: ../plugins/document-manager/plugin.c:346
 msgid "Zoom In"
 msgstr "Ampliar"
 
-#: ../plugins/document-manager/plugin.c:344
+#: ../plugins/document-manager/plugin.c:347
 msgid "Zoom in: Increase font size"
 msgstr "Ampliar: Incrementar el tamaño de la letra"
 
-#: ../plugins/document-manager/plugin.c:346
+#: ../plugins/document-manager/plugin.c:349
 msgid "Zoom Out"
 msgstr "_Reducir"
 
-#: ../plugins/document-manager/plugin.c:347
+#: ../plugins/document-manager/plugin.c:350
 msgid "Zoom out: Decrease font size"
 msgstr "Reducir: Reducir el tamaño de la letra"
 
-#: ../plugins/document-manager/plugin.c:352
+#: ../plugins/document-manager/plugin.c:355
 msgid "_Highlight Mode"
 msgstr "Modo de _resaltado"
 
-#: ../plugins/document-manager/plugin.c:356
+#: ../plugins/document-manager/plugin.c:359
 msgid "_Close All Folds"
 msgstr "_Cerrar todos los pliegues"
 
-#: ../plugins/document-manager/plugin.c:357
+#: ../plugins/document-manager/plugin.c:360
 msgid "Close all code folds in the editor"
 msgstr "Cierra todos los pliegues de código en el editor"
 
-#: ../plugins/document-manager/plugin.c:359
+#: ../plugins/document-manager/plugin.c:362
 msgid "_Open All Folds"
 msgstr "_Abrir todos los pliegues"
 
-#: ../plugins/document-manager/plugin.c:360
+#: ../plugins/document-manager/plugin.c:363
 msgid "Open all code folds in the editor"
 msgstr "Abrir todos los pliegues de código en el editor"
 
-#: ../plugins/document-manager/plugin.c:362
+#: ../plugins/document-manager/plugin.c:365
 msgid "_Toggle Current Fold"
 msgstr "_Cambiar pliegue actual"
 
-#: ../plugins/document-manager/plugin.c:363
+#: ../plugins/document-manager/plugin.c:366
 msgid "Toggle current code fold in the editor"
 msgstr "Cambiar pliegue actual del código en el editor"
 
-#: ../plugins/document-manager/plugin.c:368
+#: ../plugins/document-manager/plugin.c:371
 msgid "Bookmar_k"
 msgstr "_Marcar"
 
-#: ../plugins/document-manager/plugin.c:369
+#: ../plugins/document-manager/plugin.c:372
 msgid "_Toggle Bookmark"
 msgstr "Cambiar marcador"
 
-#: ../plugins/document-manager/plugin.c:370
+#: ../plugins/document-manager/plugin.c:373
 msgid "Toggle a bookmark at the current line position"
 msgstr "Activar un marcador en la posición de línea actual"
 
-#: ../plugins/document-manager/plugin.c:372
+#: ../plugins/document-manager/plugin.c:375
 msgid "_First Bookmark"
 msgstr "_Primer marcador"
 
-#: ../plugins/document-manager/plugin.c:373
+#: ../plugins/document-manager/plugin.c:376
 msgid "Jump to the first bookmark in the file"
 msgstr "Ir al primer marcador en este documento"
 
-#: ../plugins/document-manager/plugin.c:375
+#: ../plugins/document-manager/plugin.c:378
 msgid "_Previous Bookmark"
 msgstr "Marcador _anterior"
 
-#: ../plugins/document-manager/plugin.c:376
+#: ../plugins/document-manager/plugin.c:379
 msgid "Jump to the previous bookmark in the file"
 msgstr "Ir al marcador anterior en este documento"
 
-#: ../plugins/document-manager/plugin.c:378
+#: ../plugins/document-manager/plugin.c:381
 msgid "_Next Bookmark"
 msgstr "Marcador _siguiente"
 
-#: ../plugins/document-manager/plugin.c:379
+#: ../plugins/document-manager/plugin.c:382
 msgid "Jump to the next bookmark in the file"
 msgstr "Ir al siguiente marcador en este documento"
 
-#: ../plugins/document-manager/plugin.c:381
+#: ../plugins/document-manager/plugin.c:384
 msgid "_Last Bookmark"
 msgstr "Ú_ltimo marcador"
 
-#: ../plugins/document-manager/plugin.c:382
+#: ../plugins/document-manager/plugin.c:385
 msgid "Jump to the last bookmark in the file"
 msgstr "Ir al último marcador en el documento"
 
-#: ../plugins/document-manager/plugin.c:384
+#: ../plugins/document-manager/plugin.c:387
 msgid "_Clear All Bookmarks"
 msgstr "_Vacía todos los marcadores"
 
-#: ../plugins/document-manager/plugin.c:385
+#: ../plugins/document-manager/plugin.c:388
 msgid "Clear bookmarks"
 msgstr "Vaciar marcadores"
 
-#: ../plugins/document-manager/plugin.c:404
+#: ../plugins/document-manager/plugin.c:407
 msgid "Editor file operations"
 msgstr "Operaciones de edición de archivos"
 
-#: ../plugins/document-manager/plugin.c:405
+#: ../plugins/document-manager/plugin.c:408
 msgid "Editor print operations"
 msgstr "Operaciones de edición de impresión"
 
-#: ../plugins/document-manager/plugin.c:406
+#: ../plugins/document-manager/plugin.c:409
 msgid "Editor text transformation"
 msgstr "Transformación del editor de texto"
 
-#: ../plugins/document-manager/plugin.c:407
+#: ../plugins/document-manager/plugin.c:410
 msgid "Editor text selection"
 msgstr "Selección de texto del editor"
 
 #. { actions_insert, G_N_ELEMENTS (actions_insert), "ActionGroupEditorInsert", N_("Editor text insertions") },
-#: ../plugins/document-manager/plugin.c:409
+#: ../plugins/document-manager/plugin.c:412
 msgid "Editor code commenting"
 msgstr "Comentado de código del editor"
 
-#: ../plugins/document-manager/plugin.c:410
+#: ../plugins/document-manager/plugin.c:413
 msgid "Editor navigations"
 msgstr "Navegación con el editor"
 
-#: ../plugins/document-manager/plugin.c:411
+#: ../plugins/document-manager/plugin.c:414
 msgid "Editor edit operations"
 msgstr "Operaciones de edición del editor"
 
-#: ../plugins/document-manager/plugin.c:412
+#: ../plugins/document-manager/plugin.c:415
 msgid "Editor zoom operations"
 msgstr "Operaciones de ampliación del editor"
 
-#: ../plugins/document-manager/plugin.c:413
+#: ../plugins/document-manager/plugin.c:416
 msgid "Editor syntax highlighting styles"
 msgstr "Estilos de resaltado de sintaxis del editor"
 
-#: ../plugins/document-manager/plugin.c:414
+#: ../plugins/document-manager/plugin.c:417
 msgid "Editor text formating"
 msgstr "Formateado del texto del editor"
 
-#: ../plugins/document-manager/plugin.c:415
+#: ../plugins/document-manager/plugin.c:418
 msgid "Editor bookmarks"
 msgstr "Marcadores del editor"
 
-#: ../plugins/document-manager/plugin.c:416
+#: ../plugins/document-manager/plugin.c:419
 msgid "Simple searching"
 msgstr "Busqueda simple"
 
-#: ../plugins/document-manager/plugin.c:420
+#: ../plugins/document-manager/plugin.c:423
 msgid "Editor view settings"
 msgstr "Configuración de la vista del editor"
 
-#: ../plugins/document-manager/plugin.c:576
+#: ../plugins/document-manager/plugin.c:579
 #: ../plugins/file-loader/plugin.c:1127
 msgid "New"
 msgstr "Nuevo"
 
-#: ../plugins/document-manager/plugin.c:584
+#: ../plugins/document-manager/plugin.c:587
 msgid "Reload"
 msgstr "Recargar"
 
-#: ../plugins/document-manager/plugin.c:590
+#: ../plugins/document-manager/plugin.c:593
 msgid "Goto"
 msgstr "Ir a"
 
-#: ../plugins/document-manager/plugin.c:918
+#: ../plugins/document-manager/plugin.c:924
 msgid "OVR"
 msgstr "SOB"
 
-#: ../plugins/document-manager/plugin.c:922
+#: ../plugins/document-manager/plugin.c:928
 msgid "INS"
 msgstr "INS"
 
-#: ../plugins/document-manager/plugin.c:924
-#: ../plugins/document-manager/plugin.c:938
+#: ../plugins/document-manager/plugin.c:930
+#: ../plugins/document-manager/plugin.c:944
 msgid "Zoom"
 msgstr "Ampliación"
 
-#: ../plugins/document-manager/plugin.c:926
-#: ../plugins/document-manager/plugin.c:940
+#: ../plugins/document-manager/plugin.c:932
+#: ../plugins/document-manager/plugin.c:946
 msgid "Col"
 msgstr "Col"
 
-#: ../plugins/document-manager/plugin.c:927
-#: ../plugins/document-manager/plugin.c:941
+#: ../plugins/document-manager/plugin.c:933
+#: ../plugins/document-manager/plugin.c:947
 msgid "Mode"
 msgstr "Modo"
 
 #. Automatic highlight menu
-#: ../plugins/document-manager/plugin.c:1008
+#: ../plugins/document-manager/plugin.c:1014
 msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1512
+#: ../plugins/document-manager/plugin.c:1518
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para %s"
 
-#: ../plugins/document-manager/plugin.c:1526
+#: ../plugins/document-manager/plugin.c:1532
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
-#: ../plugins/document-manager/search-box.c:378
+#: ../plugins/document-manager/search-box.c:379
 #, c-format
 msgid "Search for \"%s\" reached end and was continued on top!"
 msgstr "La búsqueda de «%s» llegó al final y continuó por el principio"
 
-#: ../plugins/document-manager/search-box.c:384
+#: ../plugins/document-manager/search-box.c:385
 #, c-format
 msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
@@ -3202,7 +3210,7 @@ msgstr ""
 "La búsqueda de «%s» llegó al final y continuó por el principio pero no se "
 "encontró ninguna ocurrencia más"
 
-#: ../plugins/document-manager/search-box.c:441
+#: ../plugins/document-manager/search-box.c:442
 msgid "Case sensitive"
 msgstr "Coincidir con capitalización"
 
@@ -4282,8 +4290,8 @@ msgid "Category:"
 msgstr "Categoría:"
 
 #: ../plugins/gtodo/add_edit_item.c:184 ../plugins/gtodo/add_edit_item.c:467
-#: ../plugins/gtodo/mcategory.c:20 ../plugins/gtodo/todo_db.c:67
-#: ../plugins/gtodo/todo_db.c:68
+#: ../plugins/gtodo/mcategory.c:20 ../plugins/gtodo/todo_db.c:70
+#: ../plugins/gtodo/todo_db.c:71
 msgid "Edit Categories"
 msgstr "Editar categoría"
 
@@ -4303,18 +4311,18 @@ msgid "Priority:"
 msgstr "Prioridad:"
 
 #: ../plugins/gtodo/add_edit_item.c:239 ../plugins/gtodo/list_tooltip.c:77
-#: ../plugins/gtodo/todo_db.c:124
+#: ../plugins/gtodo/todo_db.c:132
 msgid "High"
 msgstr "Alta"
 
 #: ../plugins/gtodo/add_edit_item.c:241 ../plugins/gtodo/list_tooltip.c:71
-#: ../plugins/gtodo/todo_db.c:123
+#: ../plugins/gtodo/todo_db.c:131
 msgid "Medium"
 msgstr "Media"
 
 #. create a priority string
 #: ../plugins/gtodo/add_edit_item.c:243 ../plugins/gtodo/list_tooltip.c:65
-#: ../plugins/gtodo/todo_db.c:122
+#: ../plugins/gtodo/todo_db.c:130
 msgid "Low"
 msgstr "Baja"
 
@@ -4582,7 +4590,7 @@ msgid "%02d:%02d"
 msgstr "%02d:%02d"
 
 #: ../plugins/gtodo/egg-datetime.c:1244 ../plugins/gtodo/egg-datetime.c:1296
-#: ../plugins/gtodo/todo_db.c:157
+#: ../plugins/gtodo/todo_db.c:165
 msgid "No Date"
 msgstr "Sin fecha"
 
@@ -5762,22 +5770,26 @@ msgstr "Parcheararchivos/directorios"
 msgid "Function Name"
 msgstr "Nombre de la función"
 
-#: ../plugins/profiler/gprof-call-graph-view.c:356
-#: ../plugins/profiler/gprof-call-graph-view.c:366
-#: ../plugins/profiler/gprof-call-graph-view.c:376
+#. Total amount of time spent in this function, excluding those it calla.
+#. * This is the same as the "Seconds" field in the flat profile.
+#. Time spent in a subroutine of a function.
+#. Time spent in this function when it was called by its caller
+#: ../plugins/profiler/gprof-call-graph-view.c:359
+#: ../plugins/profiler/gprof-call-graph-view.c:371
+#: ../plugins/profiler/gprof-call-graph-view.c:383
 msgid "Self"
 msgstr "Propio"
 
-#: ../plugins/profiler/gprof-call-graph-view.c:387
-#: ../plugins/profiler/gprof-call-graph-view.c:397
-#: ../plugins/profiler/gprof-call-graph-view.c:407
+#: ../plugins/profiler/gprof-call-graph-view.c:394
+#: ../plugins/profiler/gprof-call-graph-view.c:404
+#: ../plugins/profiler/gprof-call-graph-view.c:414
 msgid "Children"
 msgstr "Hijos"
 
-#: ../plugins/profiler/gprof-call-graph-view.c:418
-#: ../plugins/profiler/gprof-call-graph-view.c:428
-#: ../plugins/profiler/gprof-call-graph-view.c:438
-#: ../plugins/profiler/gprof-flat-profile-view.c:101
+#: ../plugins/profiler/gprof-call-graph-view.c:425
+#: ../plugins/profiler/gprof-call-graph-view.c:435
+#: ../plugins/profiler/gprof-call-graph-view.c:445
+#: ../plugins/profiler/gprof-flat-profile-view.c:104
 msgid "Calls"
 msgstr "Llamadas"
 
@@ -5789,15 +5801,20 @@ msgstr "% Tiempo"
 msgid "Cumulative Seconds"
 msgstr "Segundos acumulativos"
 
-#: ../plugins/profiler/gprof-flat-profile-view.c:90
+#. The number of seconds that this function, excluding other functions it
+#. * calls, takes to execute.
+#: ../plugins/profiler/gprof-flat-profile-view.c:93
 msgid "Self Seconds"
 msgstr "Segundos propios"
 
-#: ../plugins/profiler/gprof-flat-profile-view.c:112
+#. The average number of milliseconds spent in a function, excluding
+#. * the functions that it calls.
+#: ../plugins/profiler/gprof-flat-profile-view.c:118
 msgid "Self ms/call"
 msgstr "ms/llamada propio"
 
-#: ../plugins/profiler/gprof-flat-profile-view.c:123
+#. Same as self ms/call, but includes called functions.
+#: ../plugins/profiler/gprof-flat-profile-view.c:131
 msgid "Total ms/call"
 msgstr "ms/llamada totales"
 
@@ -6310,7 +6327,7 @@ msgstr ""
 "cambiar algunos valores más tarde."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
-#: ../plugins/project-wizard/templates/translatable-strings.h:68
+#: ../plugins/project-wizard/templates/translatable-strings.h:70
 msgid "Version:"
 msgstr "Versión:"
 
@@ -6664,28 +6681,36 @@ msgid "Shell values to watch"
 msgstr "Valores del Shell a vigilar"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:65
+msgid "Use libglade for the UI"
+msgstr "Usar libglade para el IU"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Use pkg-config to add library supports from other packages"
 msgstr "Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:66
+#: ../plugins/project-wizard/templates/translatable-strings.h:67
+msgid "Use the libglade-2.0 library to load .glade at runtime"
+msgstr "Usar la biblioteca libglade-2.0 para cargar .glade al ejecutar"
+
+#: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Value Name:"
 msgstr "Nombre del valor:"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:67
+#: ../plugins/project-wizard/templates/translatable-strings.h:69
 msgid "Values to watch"
 msgstr "Valores a vigilar"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:69
+#: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Whether the plugin has menus or toolbars"
 msgstr "Indica si el complemento tiene menús o barras de herramientas"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:70
+#: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
 msgstr ""
 "gtk-doc se usa para compilar la documentación de la API para las clases "
 "basadas en GObject"
 
-#: ../plugins/project-wizard/templates/translatable-strings.h:71
+#: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "project name"
 msgstr "nombre del proyecto"
 
