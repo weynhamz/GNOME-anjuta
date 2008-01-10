@@ -728,6 +728,7 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	{
 		IAnjutaIterable *cursor_iter =
 			ianjuta_editor_get_cell_iter (te, cur_pos, NULL);
+		ianjuta_iterable_next (iter, NULL);
 		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
 									  iter, cursor_iter, NULL);
 		ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
@@ -739,7 +740,8 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	{
 		ianjuta_editor_insert (te, cur_pos, assistance->str, -1, NULL);
 	}
-	
+	g_object_unref (iter);
+
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (te), NULL);
 	
 	ianjuta_editor_assist_hide_suggestions (assist->priv->iassist, NULL);
@@ -748,7 +750,6 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	if (add_brace_after_func)
 		cpp_java_assist_check (assist, FALSE, TRUE);
 	
-	g_object_unref (iter);
 	g_string_free (assistance, TRUE);
 }
 

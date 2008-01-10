@@ -1,5 +1,13 @@
 2008-01-10  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(on_assist_chosen):
+	
+	Fixed #508424 – Auto complete: previous char was removed when 
+	pre TAB to auto complete.
+
+2008-01-10  Johannes Schmid <jhs@gnome.org>
+
 	Patch from: James Ligett:
 
 	* plugins/profiler/gprof-call-graph-view.c:
