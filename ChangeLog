@@ -1,3 +1,8 @@
+2008-01-10  Naba Kumar  <naba@gnome.org>
+
+	* po/POTFILES.skip: Added plugins/macro/macros.xml because there is
+	nothing to translate in it.
+
 2008-01-10  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/project-wizard/templates/gnome.wiz:
