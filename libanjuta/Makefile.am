@@ -70,7 +70,10 @@ libanjuta_la_SOURCES= \
 
 if HAVE_PLUGIN_GLADE
 
-gladeanjutadir = @GLADE_PLUGINS_PATH@
+# For now install in our own prefix
+# gladeanjutadir = @GLADE_PLUGINS_PATH@
+
+gladeanjutadir = $(libdir)/glade3/modules
 
 gladeanjuta_LTLIBRARIES = libgladeanjuta.la
 libgladeanjuta_la_DEPENDENCIES = libanjuta.la
@@ -79,8 +82,10 @@ libgladeanjuta_la_LDFLAGS = $(ANJUTA_LDFLAGS) -module -avoid-version
 libgladeanjuta_la_LIBADD = $(top_builddir)/libanjuta/libanjuta.la \
 						   $(GLADE_LIBS)
 
-catalogdir = @GLADE_CATALOG_PATH@
+# For now install in our own prefix
+# catalogdir = @GLADE_CATALOG_PATH@
 
+catalogdir = $(datadir)/glade3/catalogs
 catalog_DATA = anjuta-glade.xml
 
 endif

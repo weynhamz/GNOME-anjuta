@@ -1,3 +1,13 @@
+2008-01-11  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/Makefile.am: Install glade3 files in own prefix to
+	prevent install errors when not installed as root (then the files
+	are only useful when glade-3 is installed in the same prefix, but it
+	doesn't harm anjuta runtime).
+
+	* plugins/sourceview/sourceview.c: Commented use of a file
+	not currently distributed.
+
 2008-01-10  Naba Kumar  <naba@gnome.org>
 
 	* po/POTFILES.skip: Added plugins/macro/macros.xml because there is

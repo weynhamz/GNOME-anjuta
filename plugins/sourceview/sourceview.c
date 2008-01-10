@@ -60,7 +60,7 @@
 #include "sourceview.h"
 #include "sourceview-private.h"
 #include "sourceview-prefs.h"
-#include "sourceview-print.h"
+/* #include "sourceview-print.h" */
 #include "sourceview-cell.h"
 #include "plugin.h"
 
