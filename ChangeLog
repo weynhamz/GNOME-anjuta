@@ -1,3 +1,12 @@
+2008-01-11  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	Reverted accidently commited change
+	
+	* plugins/document-manager/anjuta-document-manager.glade:
+	Fix Gtk-Critical because of broken glade file
+
 2008-01-11  Naba Kumar  <naba@gnome.org>
 
 	* plugins/glade/plugin.c: (on_document_destroy),
