@@ -64,7 +64,7 @@ enum
 	CLEAR_REVIEW,
 	CLEAR_FINAL
 };
-	
+
 struct _AttachProcess
 {
     GtkWidget*  dialog;
@@ -110,6 +110,8 @@ struct _DmaStart
 	gchar* program_args;
 	gboolean run_in_terminal;
 	gboolean stop_at_beginning;
+
+ 	GList *source_dirs;
 };
 
 /* Widgets found in glade file
@@ -121,6 +123,10 @@ struct _DmaStart
 #define PARAMETER_COMBO "parameter_combo"
 #define TARGET_COMBO "target_combo"
 #define TARGET_SELECT_SIGNAL "on_select_target_clicked"
+
+#define ADD_SOURCE_DIALOG "source_paths_dialog"
+#define SOURCE_ENTRY "src_entry"
+#define SOURCE_LIST "src_clist"
 
 #define ANJUTA_RESPONSE_SELECT_TARGET 0
 
@@ -141,7 +147,7 @@ get_source_directories (AnjutaPlugin *plugin)
 	GList *slibs_dirs = NULL;
 	GList *libs_dirs = NULL;
 	GValue value = {0,};
-	
+
 	return NULL;
 	cwd = g_get_current_dir();
 	search_dirs = g_list_prepend (search_dirs, gnome_vfs_get_uri_from_local_path(cwd));
@@ -227,6 +233,10 @@ on_session_save (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *se
 	}
 	anjuta_session_set_int (session, "Execution", "Run in terminal", this->run_in_terminal + 1);
 	anjuta_session_set_int (session, "Execution", "Stop at beginning", this->stop_at_beginning + 1);
+ 	if (this->source_dirs)
+ 	{
+ 		anjuta_session_set_string_list (session, "Debugger", "Source directories", this->source_dirs);
+ 	}
 }
 
 static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, AnjutaSession *session, DmaStart *this)
@@ -262,17 +272,24 @@ static void on_session_load (AnjutaShell *shell, AnjutaSessionPhase phase, Anjut
     }
 	
 	/* The flag is store as 1 == FALSE, 2 == TRUE */
-    run_in_terminal = anjuta_session_get_int (session, "Execution", "Run in terminal");
-    if (run_in_terminal == 0)
+	run_in_terminal = anjuta_session_get_int (session, "Execution", "Run in terminal");
+	if (run_in_terminal == 0)
 		this->run_in_terminal = TRUE;	/* Default value */
 	else
 		this->run_in_terminal = run_in_terminal - 1;
 	
-    stop_at_beginning = anjuta_session_get_int (session, "Execution", "Stop at beginning");
-    if (stop_at_beginning == 0)
+	stop_at_beginning = anjuta_session_get_int (session, "Execution", "Stop at beginning");
+	if (stop_at_beginning == 0)
 		this->stop_at_beginning = TRUE;	/* Default value */
 	else
 		this->stop_at_beginning = stop_at_beginning - 1;
+	/* Initialize source_dirs */
+ 	if (this->source_dirs != NULL)
+ 	{		
+ 		g_list_foreach (this->source_dirs, (GFunc)g_free, NULL);
+ 		g_list_free (this->source_dirs);
+ 	}
+ 	this->source_dirs = anjuta_session_get_string_list (session, "Debugger", "Source directories");
 }
 
 /* Attach to process private functions
@@ -840,7 +857,7 @@ dma_start_load_uri (DmaStart *this)
 		mime_type = gnome_vfs_get_mime_type (this->target_uri);
 	        filename = gnome_vfs_uri_get_path (vfs_uri);
 
-		dma_queue_load (this->debugger, filename, mime_type, search_dirs);
+		dma_queue_load (this->debugger, filename, mime_type, this->source_dirs);
 		
 		g_free (mime_type);
 		gnome_vfs_uri_unref (vfs_uri);
@@ -1044,6 +1061,117 @@ dma_set_parameters (DmaStart *this)
 	return response == GTK_RESPONSE_OK;
 }
 
+static gboolean
+on_add_source_in_list (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer user_data)
+{
+	GList** list = (GList **)user_data;
+	gchar* dir;
+	gchar* uri;
+
+	gtk_tree_model_get (model, iter, 0, &dir, -1);
+	uri =  gnome_vfs_get_uri_from_local_path (dir);
+	*list = g_list_prepend (*list, uri);
+	g_free (dir);
+	
+	return FALSE;
+}
+
+static void
+on_add_source_in_model (gpointer data, gpointer user_data)
+{
+	GtkListStore* model = (GtkListStore *)user_data;
+	GtkTreeIter iter;
+	gchar *local;
+	
+	local = gnome_vfs_get_local_path_from_uri ((const char *)data);
+	gtk_list_store_append (model, &iter);
+	gtk_list_store_set (model, &iter, 0, local, -1);
+	g_free (local);
+}
+
+static void
+add_source_show (DmaStart *this)
+{
+	GtkWindow *parent;
+	GladeXML *gxml;
+	GtkWidget *dlg;
+	GtkTreeView *tree;
+	GtkEntry *entry;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	gint response;
+	GtkListStore* model;
+	GtkTreeIter iter;
+	GtkTreeSelection* sel;
+	const gchar *path;
+	
+	parent = GTK_WINDOW (this->plugin->shell);
+	gxml = glade_xml_new (GLADE_FILE, ADD_SOURCE_DIALOG, NULL);
+	if (gxml == NULL)
+	{
+		anjuta_util_dialog_error(parent, _("Missing file %s"), GLADE_FILE);
+		return;
+	}
+		
+	dlg = glade_xml_get_widget (gxml, ADD_SOURCE_DIALOG);
+	tree = GTK_TREE_VIEW (glade_xml_get_widget (gxml, SOURCE_LIST));
+	entry = GTK_ENTRY (glade_xml_get_widget (gxml, SOURCE_ENTRY));
+	g_object_unref (gxml);
+
+	renderer = gtk_cell_renderer_text_new ();
+	column = gtk_tree_view_column_new_with_attributes (_("Path"), renderer, "text", 0, NULL);
+	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+	gtk_tree_view_append_column (tree, column);
+	gtk_tree_view_set_expander_column(tree, column);
+	
+	model = gtk_list_store_new (1, GTK_TYPE_STRING);
+	gtk_tree_view_set_model (tree, GTK_TREE_MODEL (model));
+	
+	gtk_window_set_transient_for (GTK_WINDOW (dlg), parent);
+
+	/* Initialize source path list */
+	g_list_foreach (this->source_dirs, on_add_source_in_model, model);
+	
+	/* Run dialog */
+	for (;;)
+	{
+		response = gtk_dialog_run (GTK_DIALOG (dlg));
+		
+		switch (response)
+		{
+		case GTK_RESPONSE_OK:
+			path = gtk_entry_get_text (entry);
+			if ((path != NULL) && (*path != '\0'))
+			{
+				gtk_list_store_append (model, &iter);
+				gtk_list_store_set (model, &iter, 0, path, -1);
+			}
+			continue;
+		case GTK_RESPONSE_CANCEL:
+			sel = gtk_tree_view_get_selection (tree);
+			if (gtk_tree_selection_get_selected (sel, NULL, &iter))
+        	{
+				gtk_list_store_remove (model, &iter);
+			}
+			continue;
+		case GTK_RESPONSE_REJECT:
+			gtk_list_store_clear (model);
+			continue;
+		case GTK_RESPONSE_APPLY:
+			g_list_foreach (this->source_dirs, (GFunc)g_free, NULL);
+			g_list_free (this->source_dirs);
+			this->source_dirs = NULL;
+			gtk_tree_model_foreach (GTK_TREE_MODEL (model), on_add_source_in_list, &this->source_dirs);
+			this->source_dirs = g_list_reverse (this->source_dirs);
+			break;
+		default:
+			break;
+		}
+		break;
+	}
+	gtk_widget_destroy (dlg);
+}
+
 /* Public functions
  *---------------------------------------------------------------------------*/
 
@@ -1062,6 +1190,12 @@ dma_quit_debugger (DmaStart* this)
 	dma_queue_quit (this->debugger);
 
 	return TRUE;
+}
+
+void
+dma_add_source_path (DmaStart *self)
+{
+	add_source_show (self);	
 }
 
 void
@@ -1084,7 +1218,7 @@ dma_attach_to_process (DmaStart* this)
 		
 		search_dirs = get_source_directories (this->plugin);
 		
-		dma_queue_attach (this->debugger, lpid, search_dirs);
+		dma_queue_attach (this->debugger, lpid, this->source_dirs);
 		free_source_directories (search_dirs);
 	}
 	attach_process_destroy(attach_process);
@@ -1125,6 +1259,7 @@ dma_start_new (DebugManagerPlugin *plugin)
 
 	self->plugin = ANJUTA_PLUGIN (plugin);
 	self->debugger = dma_debug_manager_get_queue (plugin);
+	self->source_dirs = NULL;
 	
 	g_signal_connect (self->plugin->shell, "save-session",
 					  G_CALLBACK (on_session_save), self);
@@ -1139,6 +1274,11 @@ dma_start_free (DmaStart *this)
 {
 	g_signal_handlers_disconnect_by_func (this->plugin->shell, G_CALLBACK (on_session_save), this);
     g_signal_handlers_disconnect_by_func (this->plugin->shell, G_CALLBACK (on_session_load), this);
+	if (this->source_dirs != NULL)
+	{
+		g_list_foreach (this->source_dirs, (GFunc)g_free, NULL);
+		g_list_free (this->source_dirs);
+	}
 	if (this->program_args != NULL) g_free (this->program_args);
 	if (this->target_uri != NULL) g_free (this->target_uri);
 	g_free (this);

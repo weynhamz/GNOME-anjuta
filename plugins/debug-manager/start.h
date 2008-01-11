@@ -30,6 +30,7 @@ typedef struct _DmaStart DmaStart;
 DmaStart *dma_start_new (DebugManagerPlugin *plugin);
 void dma_start_free (DmaStart *this);
 
+void dma_add_source_path (DmaStart *self);
 void dma_attach_to_process (DmaStart *this);
 gboolean dma_run_target (DmaStart *this);
 gboolean dma_rerun_target (DmaStart *this);

@@ -1,3 +1,11 @@
+2008-01-11  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/anjuta-debug-manager.ui,
+	plugins/debug-manager/plugin.c,
+	plugins/debug-manager/start.h,
+	plugins/debug-manager/start.c:
+	New menu item to add extra source directories for debugger
+
 === anjuta 2.3.2 ===
 
 2008-01-11  Naba Kumar  <naba@gnome.org>

@@ -610,6 +610,12 @@ on_debugger_stop_activate (GtkAction* action, DebugManagerPlugin* plugin)
 	}
 }
 
+static void
+on_add_source_activate (GtkAction* action, DebugManagerPlugin* this)
+{
+	dma_add_source_path (this->start);
+}
+
 /* Execute call back
  *---------------------------------------------------------------------------*/
 
@@ -865,6 +871,14 @@ static GtkActionEntry actions_start[] =
 		N_("Say goodbye to the debugger"),
 		G_CALLBACK (on_debugger_stop_activate)
 	},
+	{
+		"ActionDebuggerAddSource",
+		NULL,
+		N_("Add source paths..."), 
+		NULL,
+		N_("Add additional source paths"),
+		G_CALLBACK (on_add_source_activate)
+	}
 };
 
 static GtkActionEntry actions_loaded[] =
