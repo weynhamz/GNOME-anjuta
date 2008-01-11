@@ -1,3 +1,81 @@
+Anjuta 2.3.2 (11 Jan 2008) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+* Document manager cleanups.
+* Use GtkSourceView 2.1.x for sourceview plugin.
+* Debugger improvements and cleanups.
+* Use hover interface to display variable inspect values.
+* Added (basic) support for vim modelines (#504331)
+* Added basic Vala support
+* Add a menu item to repeat the quick search
+
+Bugfixes:
+=========
+* Fixed bug #501469: Crash if mime_type is unknown
+* Fixed a bug remove all breakpoints was not working due to latest changes
+* Setting breakpoints is disabled when program is running
+* Fixed bug #481366: Do not stop at the beginning of the program
+* Fixed removing condition on breakpoint 
+* Fixed bug #488732: Breakpoint on delete lines
+* Breakpoints are now linked to their position in editor
+* Fixed a crash when a stack command is cancelled
+* Do not save temporary breakpoints
+* Fixed bug #502533: Implement assembler step
+* Present correct widget with anjuta_shell_present_widget(). This got wrong
+  when the new search bar was introduced.
+* Save glade files correctly in session
+* Use new tooltip API if available in glade plugin.
+* Sort notebook pages when session is restored (needs work)
+* Gtk 2.12 Tooltip API is used if available in document manager.
+* Fixed some issues with session handling and several memory leaks in docman.
+* Remove address, condition and pass breakpoint column if not supported
+* Fixed clear all remove_all to avoid an endless loop if a breakpoint
+  cannot be removed
+* Fixed bugs #497878 crash when double clicking on gtk-foobar.glade in PM.
+* Fixed #503719 Opening and closing .glade files plays badly with docman.
+* Fixed next/previous message
+* Fixed bug #491301: Inspecting a variable opens a bad focus dialog
+* Fixed bug #504818 Some signals/timeouts should be disconnected when dialogs are closed
+* Fixed bug #505237 Sort list of modified files
+* Shorten down the title bar if the current path is inside the opened project
+* Fixed #505315 anjuta hangs when going from editing a glade file to
+  editing a c source file
+* Fixed #498986 Anjuta-2.3.0 fails to build
+* Fixed #506266 – Attempting to build the scintilla plugin, even when
+  explicitly disabled
+* Fixed GtkFileChooserButton preferences to also work when only the combo
+  changes without a dialog being open.
+* Only install glade catalog files if glade-3 is available
+  (Fixes #506269 and #500296)
+* Fixed #506740 – ianjuta_editor_get_text crash if request text
+  past the buffer length
+* Unregister preferences for custom preferences when the widget is
+  destroyed.
+* Fixed #486724 and #488615
+* Removed stock icon open/save from
+  menus to avoid conflict with file open/save. Fixes bug #507455
+* Fixed #507441: Disable all breakpoints doesn't work
+* Fixed #507444: Enable Breakpoint menu item doesn't change name
+* Fixed #348854 invisible cursor in certain themes
+* Added disable_password_check for stream where it does not make sense 
+  (e.g symbol-db) and lots of DEBUG_PRINTS to better scope launcher errors
+  that sometimes occur in symbol-db plugin
+* Made all of the columns resizable and reorderable.
+* API in AnjutaDescription for translatable properties. Fixes bug #496833
+  comment #18.
+* Fix bug #505205
+* Fixed a crash when creating a new file
+* Fixed editor popup menu (Cut, Copy, Paste)
+* Fixed a memory corruption reported in bug #507491.
+* Fixed #460390 Changing categories while edinting something
+* Fixed translation issues (#496833)
+* Fixed #508424 Auto complete: previous char was removed when
+  pre TAB to auto complete.
+* Fixed #508497 and added a new chooser to select whether to use
+  libglade or not.
+
 Anjuta 2.3.1 (02 Dec 2007) -- Naba Kumar
 -----------------------------------------
 
