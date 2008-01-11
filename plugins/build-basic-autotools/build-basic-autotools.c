@@ -55,7 +55,7 @@
 
 #define DEFAULT_COMMAND_COMPILE "make"
 #define DEFAULT_COMMAND_BUILD "make"
-#define DEFAULT_COMMAND_BUILD_TARBALL "make tarball"
+#define DEFAULT_COMMAND_BUILD_TARBALL "make dist"
 #define DEFAULT_COMMAND_INSTALL "make install"
 #define DEFAULT_COMMAND_CONFIGURE "./configure"
 #define DEFAULT_COMMAND_GENERATE "./autogen.sh"

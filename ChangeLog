@@ -2,6 +2,8 @@
 
 	* configure.in: Bumped version to 2.3.2
 	* NEWS: Updated for anjuta 2.3.2 release
+	* plugins/build-basic-autotools/build-basic-autotools.c: It's 'make dist'
+	not 'make tarball'
 
 2008-01-11  Johannes Schmid <jhs@gnome.org>
 
