@@ -1,5 +1,13 @@
 2008-01-11  Naba Kumar  <naba@gnome.org>
 
+	* plugins/glade/plugin.c: (on_document_destroy),
+	(glade_plugin_add_project): Fixed a bug where when more than one
+	glade document is open and one is closed, it closes all the glade
+	documents. Also it might have fixed the bug where sometimes closing
+	the glade document leaves glade widget tree unclosed.
+
+2008-01-11  Naba Kumar  <naba@gnome.org>
+
 	* libanjuta/Makefile.am: Install glade3 files in own prefix to
 	prevent install errors when not installed as root (then the files
 	are only useful when glade-3 is installed in the same prefix, but it

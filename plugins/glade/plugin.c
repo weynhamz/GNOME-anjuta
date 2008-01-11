@@ -174,7 +174,7 @@ glade_do_close (GladePlugin *plugin, GladeProject *project)
 }
 
 static void
-on_close_activated (GtkWidget* document, GladePlugin *plugin)
+on_document_destroy (GtkWidget* document, GladePlugin *plugin)
 {
 	GladeProject *project;
 	GtkTreeModel *model;
@@ -217,22 +217,6 @@ on_close_activated (GtkWidget* document, GladePlugin *plugin)
 
 	if (gtk_tree_model_iter_n_children (model, NULL) <= 0)
 		anjuta_plugin_deactivate (ANJUTA_PLUGIN (plugin));
-
-	/* Close any docman pages */
-	docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(plugin)->shell,
-										 IAnjutaDocumentManager, NULL);
-	docwids = ianjuta_document_manager_get_doc_widgets (docman, NULL);
-	if (docwids)
-	{
-		for (node = docwids; node != NULL; node = g_list_next (node))
-		{
-			if (ANJUTA_IS_DESIGN_DOCUMENT (node->data))
-				ianjuta_document_manager_remove_document (docman,
-														  IANJUTA_DOCUMENT (node->data),
-														  TRUE, NULL);
-		}
-		g_list_free (docwids);
-	}
 }
 
 static void
@@ -240,7 +224,7 @@ on_shell_destroy (AnjutaShell* shell, GladePlugin *glade_plugin)
 {
 	glade_plugin->priv->destroying = TRUE;
 }
-	
+
 static void
 on_glade_project_changed (GtkComboBox *combo, GladePlugin *plugin)
 {
@@ -391,7 +375,8 @@ glade_plugin_add_project (GladePlugin *glade_plugin, GladeProject *project)
  	
 	priv = glade_plugin->priv;
  	view = anjuta_design_document_new(glade_plugin, project);
-	g_signal_connect(G_OBJECT(view), "destroy", G_CALLBACK(on_close_activated), glade_plugin);
+	g_signal_connect (G_OBJECT(view), "destroy",
+					  G_CALLBACK (on_document_destroy), glade_plugin);
 	gtk_widget_show (view);
 	g_object_set_data (G_OBJECT (project), "design_view", view);
 	/* add document before adding project, cuz that changes the document */
