@@ -630,8 +630,8 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	GtkTreeIter iter;
 	gchar *filename;
 	IAnjutaDocumentManager* docman;
-	GList* docwids;
-	GList* node;
+	GList* docwids, *node;
+	const GList *glade_obj_node;
 	
 	g_return_if_fail (uri != NULL);
 	
@@ -696,6 +696,17 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 						PROJECT_COL, project, -1);
 #endif
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (ifile), project);
+
+	/* Select the first window in the project */
+	for (glade_obj_node = glade_project_get_objects (project);
+		 glade_obj_node != NULL;
+		 glade_obj_node = g_list_next (glade_obj_node))
+	{
+		GObject *glade_obj = G_OBJECT (glade_obj_node->data);
+		if (GTK_IS_WINDOW (glade_obj))
+			glade_widget_show (glade_widget_get_from_gobject (glade_obj));
+		break;
+	}
 	anjuta_shell_present_widget (ANJUTA_PLUGIN (ifile)->shell, priv->view_box, NULL);
 }
 
