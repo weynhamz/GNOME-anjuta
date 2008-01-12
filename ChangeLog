@@ -1,3 +1,10 @@
+2008-01-12  Bolesław Kulbabiński <bolekk@gmail.com>
+
+  Reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/gtodo/callback.c: (remove_todo_item):
+	Fix #507304 – crash in Anjuta IDE while removing done tasks
+
 2008-01-11  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/anjuta-debug-manager.ui,

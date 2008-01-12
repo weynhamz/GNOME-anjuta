@@ -1,3 +1,9 @@
+2008-01-12  Johannes Schmid <jhs@gnome.org>
+
+	* POTFILES.in:
+	* POTFILES.skip: Removed another bunch of egg-* files
+	which just introduce stupid properties.
+
 2008-01-12  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
 	* es.po: Updated Spanish translation

@@ -6,6 +6,11 @@ void remove_todo_item(GtkWidget *fake, gboolean internall){
 	GtkTreeIter iter;
 	GtkTreeModel *model = mw.sortmodel;
 	gint value;
+
+	/* testing blocking the file changed */
+	/* it seems to work.. so I keep it here */
+	gtodo_client_block_changed_callback(cl);
+
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(mw.treeview));	
 	if(!gtk_tree_selection_get_selected(selection, &model, &iter))
 	{
@@ -19,18 +24,12 @@ void remove_todo_item(GtkWidget *fake, gboolean internall){
 
 	gtk_tree_model_get(model,&iter, ID, &value,  -1);
 
-
-
-
-	/* testing blocking the file changed */
-	/* it seems to work.. so I keep it here */
-	gtodo_client_block_changed_callback(cl);
 	gtodo_client_delete_todo_by_id(cl,value);
 	gtk_list_store_clear(mw.list);
 	load_category();
-	gtodo_client_unblock_changed_callback(cl);    
-	/* end test */
 
+	/* end test */
+	gtodo_client_unblock_changed_callback(cl);
 }
 
 /* this is the function called if the user switches to another category.. */
