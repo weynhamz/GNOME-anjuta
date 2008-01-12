@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-10 13:44+0000\n"
-"PO-Revision-Date: 2008-01-10 17:58+0100\n"
+"POT-Creation-Date: 2008-01-11 20:43+0000\n"
+"PO-Revision-Date: 2008-01-12 09:24+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -596,52 +596,40 @@ msgid "<b>Build</b>"
 msgstr "<b>Construcción</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
-msgid "<b>Make options</b>"
-msgstr "<b>Opciones de make</b>"
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
 msgid "<b>Program execution:</b>"
 msgstr "<b>Ejecución del programa:</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
 msgid "<b>Scratchbox Options</b>"
 msgstr "<b>Opciones del Scratchbox</b>"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
 msgid "Arguments: "
 msgstr "Argumentos: "
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 msgid "Highlight build message locations in editor"
 msgstr "Resalta las ubicaciones del mensaje de construcción en el editor"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
 msgid "Install as root:"
 msgstr "Instalar como root:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
-msgid "Keep going when some targets can't be made"
-msgstr "Seguir adelante cuando algunos objetivos no se puedan crear"
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
-msgid "Number of job to allow: "
-msgstr "Número de trabajos que permitir: "
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
 #: ../plugins/document-manager/anjuta-docman.c:314
 msgid "Path:"
 msgstr "Ruta:"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:11
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
 #: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
 msgstr "Ejecutar en un terminal"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:12
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
 msgid "Select execution program and args"
 msgstr "Seleccione el programa a ejecutar y los args"
 
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:13
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
 msgid "Use scratchbox"
 msgstr "Usar Scratchbox"
 
@@ -1053,7 +1041,7 @@ msgid "Member Functions/Variables"
 msgstr "Funciones/Variables del miembro"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
-#: ../plugins/glade/plugin.c:519
+#: ../plugins/glade/plugin.c:504
 msgid "Properties"
 msgstr "Propiedades"
 
@@ -1383,7 +1371,7 @@ msgstr "Hay un comando CVS en ejecución - por favor, espere hasta que termine."
 
 #: ../plugins/cvs-plugin/cvs-execute.c:231
 #: ../plugins/cvs-plugin/cvs-execute.c:235 ../plugins/cvs-plugin/plugin.c:489
-#: ../plugins/cvs-plugin/plugin.c:496 ../plugins/macro/macros.xml.h:9
+#: ../plugins/cvs-plugin/plugin.c:496
 msgid "CVS"
 msgstr "CVS"
 
@@ -1586,8 +1574,8 @@ msgid "Inspect/Evaluate"
 msgstr "Inspeccionar/Evaluar"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:19
-#: ../plugins/debug-manager/plugin.c:931
-#: ../plugins/debug-manager/plugin.c:1031 ../plugins/gdb/anjuta-gdb.glade.h:16
+#: ../plugins/debug-manager/plugin.c:945
+#: ../plugins/debug-manager/plugin.c:1045 ../plugins/gdb/anjuta-gdb.glade.h:16
 msgid "Kernel Signals"
 msgstr "Señales del núcleo"
 
@@ -1894,7 +1882,6 @@ msgstr "Información"
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:47
 #: ../plugins/editor/print.c:1040
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:20
-#: ../plugins/sourceview/sourceview-print.c:100
 msgid "Lines"
 msgstr "Líneas"
 
@@ -1946,187 +1933,196 @@ msgstr "El programa ha recibido la señal: %s\n"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:823 ../plugins/valgrind/plugin.c:437
+#: ../plugins/debug-manager/plugin.c:829 ../plugins/valgrind/plugin.c:437
 msgid "_Debug"
 msgstr "_Depurar"
 
-#: ../plugins/debug-manager/plugin.c:831
+#: ../plugins/debug-manager/plugin.c:837
 msgid "_Start Debugger"
 msgstr "_Iniciar depurador"
 
-#: ../plugins/debug-manager/plugin.c:839
+#: ../plugins/debug-manager/plugin.c:845
 msgid "Run Target..."
 msgstr "Ejecutar objetivo…"
 
-#: ../plugins/debug-manager/plugin.c:841
+#: ../plugins/debug-manager/plugin.c:847
 msgid "load and start the target for debugging"
 msgstr "carga e inicia el objetivo para depuración"
 
-#: ../plugins/debug-manager/plugin.c:847
+#: ../plugins/debug-manager/plugin.c:853
 msgid "Restart Target"
 msgstr "Reiniciar objetivo"
 
-#: ../plugins/debug-manager/plugin.c:849
+#: ../plugins/debug-manager/plugin.c:855
 msgid "restart the same target for debugging"
 msgstr "reinicia el mismo objetivo para depuración"
 
-#: ../plugins/debug-manager/plugin.c:855
+#: ../plugins/debug-manager/plugin.c:861
 msgid "_Attach to Process..."
 msgstr "_Adjuntar al proceso…"
 
-#: ../plugins/debug-manager/plugin.c:857
+#: ../plugins/debug-manager/plugin.c:863
 msgid "Attach to a running program"
 msgstr "Adjuntar a un proceso ejecutándose"
 
-#: ../plugins/debug-manager/plugin.c:863
+#: ../plugins/debug-manager/plugin.c:869
 msgid "Stop Debugger"
 msgstr "Detener depurador"
 
-#: ../plugins/debug-manager/plugin.c:865
+#: ../plugins/debug-manager/plugin.c:871
 msgid "Say goodbye to the debugger"
 msgstr "Despídete del depurador"
 
+#: ../plugins/debug-manager/plugin.c:877
+msgid "Add source paths..."
+msgstr "Añadir rutas de fuentes…"
+
+#: ../plugins/debug-manager/plugin.c:879
+msgid "Add additional source paths"
+msgstr "Añadir rutas de fuentes adicionales"
+
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:875 ../plugins/debug-manager/plugin.c:983
+#: ../plugins/debug-manager/plugin.c:889 ../plugins/debug-manager/plugin.c:997
 msgid "Debugger Command..."
 msgstr "Comando de depuración…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:877 ../plugins/debug-manager/plugin.c:985
+#: ../plugins/debug-manager/plugin.c:891 ../plugins/debug-manager/plugin.c:999
 msgid "Custom debugger command"
 msgstr "Comando personalizado de depuración"
 
-#: ../plugins/debug-manager/plugin.c:883 ../plugins/debug-manager/plugin.c:991
+#: ../plugins/debug-manager/plugin.c:897
+#: ../plugins/debug-manager/plugin.c:1005
 msgid "_Info"
 msgstr "_Info"
 
-#: ../plugins/debug-manager/plugin.c:891
+#: ../plugins/debug-manager/plugin.c:905
 msgid "Info _Target Files"
 msgstr "Información de archivos _objetivo"
 
-#: ../plugins/debug-manager/plugin.c:893
+#: ../plugins/debug-manager/plugin.c:907
 msgid "Display information on the files the debugger is active with"
 msgstr "Mostrar información de los archivos con los que el depurador está trabajando"
 
-#: ../plugins/debug-manager/plugin.c:899
+#: ../plugins/debug-manager/plugin.c:913
 msgid "Info _Program"
 msgstr "Info del _programa"
 
-#: ../plugins/debug-manager/plugin.c:901
+#: ../plugins/debug-manager/plugin.c:915
 msgid "Display information on the execution status of the program"
 msgstr "Obtener información sobre el estado de la ejecución del programa"
 
-#: ../plugins/debug-manager/plugin.c:907
+#: ../plugins/debug-manager/plugin.c:921
 msgid "Info _Kernel User Struct"
 msgstr "Información del user struct del _núcleo"
 
-#: ../plugins/debug-manager/plugin.c:909
+#: ../plugins/debug-manager/plugin.c:923
 msgid "Display the contents of kernel 'struct user' for current child"
 msgstr ""
 "Mostrar el contenido de la estructura de usuario del núcleo para el hijo "
 "actual"
 
-#: ../plugins/debug-manager/plugin.c:923
-#: ../plugins/debug-manager/plugin.c:1023
+#: ../plugins/debug-manager/plugin.c:937
+#: ../plugins/debug-manager/plugin.c:1037
 msgid "Shared Libraries"
 msgstr "Bibliotecas compartidas"
 
-#: ../plugins/debug-manager/plugin.c:925
-#: ../plugins/debug-manager/plugin.c:1025
+#: ../plugins/debug-manager/plugin.c:939
+#: ../plugins/debug-manager/plugin.c:1039
 msgid "Show shared libraries mappings"
 msgstr "Mostrar mapas de bibliotecas compartidas"
 
-#: ../plugins/debug-manager/plugin.c:933
-#: ../plugins/debug-manager/plugin.c:1033
+#: ../plugins/debug-manager/plugin.c:947
+#: ../plugins/debug-manager/plugin.c:1047
 msgid "Show kernel signals"
 msgstr "Mostrar señales del núcleo"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:943
+#: ../plugins/debug-manager/plugin.c:957
 msgid "Run/_Continue"
 msgstr "Eje_cutar/Seguir"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:945
+#: ../plugins/debug-manager/plugin.c:959
 msgid "Continue the execution of the program"
 msgstr "Continuar la ejecución del programa"
 
-#: ../plugins/debug-manager/plugin.c:951
+#: ../plugins/debug-manager/plugin.c:965
 msgid "Step _In"
 msgstr "Avan_zar"
 
-#: ../plugins/debug-manager/plugin.c:953
+#: ../plugins/debug-manager/plugin.c:967
 msgid "Single step into function"
 msgstr "Avanzar un paso en la función"
 
-#: ../plugins/debug-manager/plugin.c:959
+#: ../plugins/debug-manager/plugin.c:973
 msgid "Step O_ver"
 msgstr "A_vanzar sobre"
 
-#: ../plugins/debug-manager/plugin.c:961
+#: ../plugins/debug-manager/plugin.c:975
 msgid "Single step over function"
 msgstr "Avanzar hasta llamada a función"
 
-#: ../plugins/debug-manager/plugin.c:967
+#: ../plugins/debug-manager/plugin.c:981
 msgid "Step _Out"
 msgstr "Avanzar al fina_l"
 
-#: ../plugins/debug-manager/plugin.c:969
+#: ../plugins/debug-manager/plugin.c:983
 msgid "Single step out of the function"
 msgstr "Avanzar hasta el final de la función actual"
 
-#: ../plugins/debug-manager/plugin.c:975
+#: ../plugins/debug-manager/plugin.c:989
 msgid "_Run to Cursor"
 msgstr "_Ejecutar hasta cursor"
 
-#: ../plugins/debug-manager/plugin.c:977
+#: ../plugins/debug-manager/plugin.c:991
 msgid "Run to the cursor"
 msgstr "Ejecutar hasta el cursor"
 
-#: ../plugins/debug-manager/plugin.c:999
+#: ../plugins/debug-manager/plugin.c:1013
 msgid "Info _Global Variables"
 msgstr "Info variables _globales"
 
-#: ../plugins/debug-manager/plugin.c:1001
+#: ../plugins/debug-manager/plugin.c:1015
 msgid "Display all global and static variables of the program"
 msgstr "Todas las variables globales y estáticas del programa"
 
-#: ../plugins/debug-manager/plugin.c:1007
+#: ../plugins/debug-manager/plugin.c:1021
 msgid "Info _Current Frame"
 msgstr "Mar_co actual"
 
-#: ../plugins/debug-manager/plugin.c:1009
+#: ../plugins/debug-manager/plugin.c:1023
 msgid "Display information about the current frame of execution"
 msgstr "Mostrar la información sobre el marco actual de ejecución"
 
-#: ../plugins/debug-manager/plugin.c:1015
+#: ../plugins/debug-manager/plugin.c:1029
 msgid "Info Function _Arguments"
 msgstr "_Argumento de función"
 
-#: ../plugins/debug-manager/plugin.c:1017
+#: ../plugins/debug-manager/plugin.c:1031
 msgid "Display function arguments of the current frame"
 msgstr "Argumentos de la función del marco actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/plugin.c:1043
+#: ../plugins/debug-manager/plugin.c:1057
 msgid "Pa_use Program"
 msgstr "Pa_usar el programa"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/plugin.c:1045
+#: ../plugins/debug-manager/plugin.c:1059
 msgid "Pauses the execution of the program"
 msgstr "Pausa la ejecución del programa"
 
-#: ../plugins/debug-manager/plugin.c:1086
-#: ../plugins/debug-manager/plugin.c:1092
-#: ../plugins/debug-manager/plugin.c:1098
-#: ../plugins/debug-manager/plugin.c:1104
+#: ../plugins/debug-manager/plugin.c:1100
+#: ../plugins/debug-manager/plugin.c:1106
+#: ../plugins/debug-manager/plugin.c:1112
+#: ../plugins/debug-manager/plugin.c:1118
 msgid "Debugger operations"
 msgstr "Operaciones de depuración"
 
@@ -2189,7 +2185,6 @@ msgid "Stop"
 msgstr "Detener"
 
 #: ../plugins/debug-manager/signals.c:340 ../plugins/editor/print.c:1031
-#: ../plugins/sourceview/sourceview-print.c:90
 msgid "Print"
 msgstr "Imprimir"
 
@@ -2294,30 +2289,34 @@ msgstr "Tiempo"
 msgid "Command"
 msgstr "Comando"
 
-#: ../plugins/debug-manager/start.c:607
+#: ../plugins/debug-manager/start.c:624
 #, c-format
 msgid "Unable to execute: %s."
 msgstr "No se puede ejecutar: %s."
 
-#: ../plugins/debug-manager/start.c:621
+#: ../plugins/debug-manager/start.c:638
 #, c-format
 msgid "Unable to open the file: %s\n"
 msgstr "No se puede abrir el archivo: %s\n"
 
-#: ../plugins/debug-manager/start.c:872
+#: ../plugins/debug-manager/start.c:889 ../plugins/debug-manager/start.c:1112
 #, c-format
 msgid "Missing file %s"
 msgstr "Falta el archivo %s"
 
-#: ../plugins/debug-manager/start.c:993
+#: ../plugins/debug-manager/start.c:1010
 msgid "Load Target to debug"
 msgstr "Cargar objetivo a depurar"
 
-#: ../plugins/debug-manager/start.c:1001 ../plugins/file-loader/plugin.c:413
+#: ../plugins/debug-manager/start.c:1018 ../plugins/file-loader/plugin.c:413
 msgid "All files"
 msgstr "Todos los archivos"
 
-#: ../plugins/debug-manager/start.c:1055 ../plugins/gdb/debugger.c:1576
+#: ../plugins/debug-manager/start.c:1122
+msgid "Path"
+msgstr "Ruta"
+
+#: ../plugins/debug-manager/start.c:1183 ../plugins/gdb/debugger.c:1576
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -4231,25 +4230,25 @@ msgstr ""
 msgid "Cannot start terminal for debugging."
 msgstr "No se pudo iniciar el terminal para depurar."
 
-#: ../plugins/glade/plugin.c:509
+#: ../plugins/glade/plugin.c:494
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:514
+#: ../plugins/glade/plugin.c:499
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:659
+#: ../plugins/glade/plugin.c:644
 #, c-format
 msgid "Not local file: %s"
 msgstr "Archivo no local: %s."
 
-#: ../plugins/glade/plugin.c:701
+#: ../plugins/glade/plugin.c:686
 #, c-format
 msgid "Could not open %s"
 msgstr "No se pudo abrir: %s"
 
-#: ../plugins/glade/plugin.c:760
+#: ../plugins/glade/plugin.c:745
 msgid "Could not create a new glade project."
 msgstr "No se puede crear un proyecto nuevo de glade."
 
@@ -4917,456 +4916,6 @@ msgstr "Lista de pendientes"
 msgid "Todo List Manager"
 msgstr "Administrador de lista de pendientes"
 
-#: ../plugins/indent/indent-dialog.c:418 ../plugins/indent/indent-dialog.c:445
-msgid "indent parameter not known !"
-msgstr "parámetro de indent no conocido"
-
-#: ../plugins/indent/indent-dialog.c:483
-msgid "A Style has already this name !"
-msgstr "Ya hay un estilo con ese nombre."
-
-#: ../plugins/indent/indent-dialog.c:512 ../plugins/indent/indent-dialog.c:543
-msgid "This Style is not modifiable !"
-msgstr "Este estilo no es modificable"
-
-#: ../plugins/indent/indent.glade.h:1
-msgid "#Else #Endif "
-msgstr "#Else #Endif "
-
-#: ../plugins/indent/indent.glade.h:2
-msgid "<b>'indent' arguments</b>"
-msgstr "<b>«sangrar» argumentos</b>"
-
-#: ../plugins/indent/indent.glade.h:3
-msgid "<b>Autoformat style</b>"
-msgstr "<b>Estilo de autoformato</b>"
-
-#: ../plugins/indent/indent.glade.h:4
-msgid "<b>Blank lines</b>"
-msgstr "<b>Líneas en blanco</b>"
-
-#: ../plugins/indent/indent.glade.h:5
-msgid "<b>Breaking long lines</b>"
-msgstr "<b>Romper líneas largas</b>"
-
-#: ../plugins/indent/indent.glade.h:6
-msgid "<b>Comments</b>"
-msgstr "<b>Comentarios</b>"
-
-#: ../plugins/indent/indent.glade.h:7
-msgid "<b>Declarations</b>"
-msgstr "<b>Declaraciones</b>"
-
-#: ../plugins/indent/indent.glade.h:8
-msgid "<b>Indentation</b>"
-msgstr "<b>Sangría</b>"
-
-#: ../plugins/indent/indent.glade.h:9
-msgid "<b>Statements</b>"
-msgstr "<b>Sentencias</b>"
-
-#: ../plugins/indent/indent.glade.h:10
-msgid "After Declarations"
-msgstr "Después de las declaraciones"
-
-#: ../plugins/indent/indent.glade.h:11
-msgid "After Procedures"
-msgstr "Después de los procedimientos"
-
-#: ../plugins/indent/indent.glade.h:12
-msgid "All Comments"
-msgstr "Todos los comentarios"
-
-#: ../plugins/indent/indent.glade.h:13
-msgid ""
-"Arguments associated with the selected autoformat style. \n"
-"Select the 'Indent Setting' button to manage the autoformat styles.\n"
-"Read the info page for 'indent' for more details"
-msgstr ""
-"El argumento asociado con el estilo seleccionado de autoformato. \n"
-"Seleccione el botón «Configurar sangría» para gestionar los estilos de "
-"autoformato.\n"
-"Lea la página info de «indent» para más detalles"
-
-#: ../plugins/indent/indent.glade.h:16
-msgid "Brace"
-msgstr "Llave"
-
-#: ../plugins/indent/indent.glade.h:17
-msgid "Braces after IF Line"
-msgstr "Llaves después de línea IF"
-
-#: ../plugins/indent/indent.glade.h:18
-msgid "Braces after Struct"
-msgstr "Llaves después de struct"
-
-#: ../plugins/indent/indent.glade.h:19
-msgid "Braces on IF line"
-msgstr "Llaves en línea IF"
-
-#: ../plugins/indent/indent.glade.h:20
-msgid "Braces on Struct"
-msgstr "Llaves en Struct"
-
-#: ../plugins/indent/indent.glade.h:21
-msgid "Break before Boolean"
-msgstr "Romper antes de boolean"
-
-#: ../plugins/indent/indent.glade.h:22
-msgid "Case"
-msgstr "Capitalización"
-
-#: ../plugins/indent/indent.glade.h:23
-msgid "Continuation"
-msgstr "Continuación"
-
-#: ../plugins/indent/indent.glade.h:24
-msgid "Continue at Parenth."
-msgstr "Continuar en la pareja"
-
-#: ../plugins/indent/indent.glade.h:25
-msgid ""
-"Create a new style with name defined in \"New Style\" entry (\"-gnu\" "
-"parameters by default)."
-msgstr ""
-"Crear un estilo nuevo definido en la entrada «Estilo nuevo» («-gnu» por "
-"omisión)."
-
-#: ../plugins/indent/indent.glade.h:26
-msgid "Cuddle Else"
-msgstr "Arrimar Else"
-
-#: ../plugins/indent/indent.glade.h:27
-msgid "Cuddle up to the immediately preceding '}' in an if-then-else construct."
-msgstr "Arrimarse al «}» inmediatamente precedente en una construcción if-then-else."
-
-#: ../plugins/indent/indent.glade.h:28
-msgid "Declaration  "
-msgstr "Declaración"
-
-#: ../plugins/indent/indent.glade.h:29
-msgid "Declarations  "
-msgstr "Declaraciones"
-
-#: ../plugins/indent/indent.glade.h:30
-msgid "Delete the style selected in the combo style selector."
-msgstr "Borra el estilo seleccionado en el selector de estilos"
-
-#: ../plugins/indent/indent.glade.h:31
-msgid "Delimiters on BL"
-msgstr "Delimitadores en BL"
-
-#: ../plugins/indent/indent.glade.h:32
-msgid "Display the indent output according the selected parameters."
-msgstr "Muestra la salida de indent de acuerdo con los parámetros seleccionados."
-
-#: ../plugins/indent/indent.glade.h:33
-msgid "First Column"
-msgstr "Primera columna"
-
-#: ../plugins/indent/indent.glade.h:34
-msgid "Force a blank line after every block of declarations."
-msgstr "Fuerza una línea en blanco después de cada bloque de declaraciones."
-
-#: ../plugins/indent/indent.glade.h:35
-msgid "Force a blank line after every procedure body."
-msgstr "Fuerza una línea en blanco después de cada cuerpo de procedimiento."
-
-#: ../plugins/indent/indent.glade.h:36
-msgid "Force a newline after each comma in a declaration."
-msgstr "Fuerza una línea en blanco después de cada coma en una declaración"
-
-#: ../plugins/indent/indent.glade.h:37
-msgid "Force a space between a 'for' and the following parenthesis (default)."
-msgstr "Fuerza un espacio entre un «for» y el siguiente paréntesis (predeterminado)."
-
-#: ../plugins/indent/indent.glade.h:38
-msgid "Force a space between a 'while' and the following parenthesis (default)."
-msgstr "Forzar un espacio entre un «while» y el siguiente paréntesis (predeterminado)"
-
-#: ../plugins/indent/indent.glade.h:39
-msgid "Force a space between an 'if' and the following parenthesis (default)."
-msgstr "Forzar un espacio entre un «if» y los siguientes paréntesis (predet.)"
-
-#: ../plugins/indent/indent.glade.h:40
-msgid "Format comments which begin after the first column."
-msgstr "Formatear comentarios que comienzan después de la primera columna."
-
-#: ../plugins/indent/indent.glade.h:41
-msgid "Format comments which begin in column one."
-msgstr "Formatear comentarios que empiezan en la columna uno."
-
-#: ../plugins/indent/indent.glade.h:42
-msgid "Honour Newlines"
-msgstr "Respetar en líneas nuevas"
-
-#: ../plugins/indent/indent.glade.h:43
-msgid "Honour newlines by giving them the highest possible priority."
-msgstr "Respetar las líneas nuevas dándoles la máxima prioridad posible."
-
-#: ../plugins/indent/indent.glade.h:44
-msgid "Indent"
-msgstr "Sangría"
-
-#: ../plugins/indent/indent.glade.h:45
-msgid "Indent Preferences"
-msgstr "Preferencias de sangría"
-
-#: ../plugins/indent/indent.glade.h:46
-msgid "Indent Setting"
-msgstr "Ajuste de sangría"
-
-#: ../plugins/indent/indent.glade.h:47
-msgid "Insert a line before a Box comment."
-msgstr "Insertar una línea antes de un comentario de caja."
-
-#: ../plugins/indent/indent.glade.h:48
-msgid "Length       "
-msgstr "Longitud        "
-
-#: ../plugins/indent/indent.glade.h:49
-msgid "Level              "
-msgstr "Nivel              "
-
-#: ../plugins/indent/indent.glade.h:50
-msgid "Line Indent   "
-msgstr "Sangría de línea"
-
-#: ../plugins/indent/indent.glade.h:51
-msgid "Line after Commas"
-msgstr "Línea después de comas"
-
-#: ../plugins/indent/indent.glade.h:52
-msgid "Line before Box "
-msgstr "Línea antes de caja"
-
-#: ../plugins/indent/indent.glade.h:53
-msgid ""
-"Line up continuation line to start at the character position just after the "
-"left parenthesis if a line has a left parenthesis which is not closed on "
-"that line."
-msgstr ""
-"Alinear la línea de continuación para empezar en la posición del caracter "
-"justo después del paréntesis izquierdo si una línea tiene un paréntesis "
-"izquierdo que no está cerrado en esa línea."
-
-#: ../plugins/indent/indent.glade.h:54
-msgid ""
-"New\n"
-"Style"
-msgstr ""
-"Estilo\n"
-"Nuevo"
-
-#: ../plugins/indent/indent.glade.h:56
-msgid "Parameter     "
-msgstr "Parámetro"
-
-#: ../plugins/indent/indent.glade.h:57
-msgid "Place a space after a cast operator."
-msgstr "Colocar un espacio después de un operador cast."
-
-#: ../plugins/indent/indent.glade.h:58
-msgid "Place a space between the name of the procedure being called and the '('."
-msgstr "Coloca un espacio entre el nombre del procedimiento que se llama y el «(»."
-
-#: ../plugins/indent/indent.glade.h:59
-msgid "Place stars at the beginning of multi-line comments."
-msgstr "Colocar estrellas al comienzo de comentarios multilínea."
-
-#: ../plugins/indent/indent.glade.h:60
-msgid "Place the '{' following a 'struct' declaration on the next line."
-msgstr "Colocar el «{» siguiendo una declaración «struct» en la siguiente línea."
-
-#: ../plugins/indent/indent.glade.h:61
-msgid "Place the '{' following a 'struct' declaration on the same line."
-msgstr "Colocar el «{» siguiendo una declaración «struct» en la misma línea."
-
-#: ../plugins/indent/indent.glade.h:62
-msgid "Place the brace on the line following the if test."
-msgstr "Colocar la llave en la línea siguiente al test if."
-
-#: ../plugins/indent/indent.glade.h:63
-msgid "Place the brace on the line of the if test."
-msgstr "Colocar la llave en la línea del test if."
-
-#: ../plugins/indent/indent.glade.h:64
-msgid "Place the comment delimiters on blank lines."
-msgstr "Colocar los delimitadores de comentario en líneas en blanco."
-
-#: ../plugins/indent/indent.glade.h:65
-msgid "Place the type of a procedure beeing defined on the previous line."
-msgstr "Colocar el tipo del procedimiento siendo definido en la línea anterior."
-
-#: ../plugins/indent/indent.glade.h:66
-msgid "Prefer to break long lines before the boolean operators '&&' and '||'."
-msgstr "Preferir romper líneas largas antes de los operadores booleanos «&&» y «||»."
-
-#: ../plugins/indent/indent.glade.h:67 ../plugins/valgrind/preferences.c:162
-msgid "Preview"
-msgstr "Vista previa"
-
-#: ../plugins/indent/indent.glade.h:68
-msgid "Procnames start lines"
-msgstr "Líneas de comienzo de los nombres de procedimiento"
-
-#: ../plugins/indent/indent.glade.h:69
-msgid "Save the selected Style with the modified parameters."
-msgstr "Guarda el estilo actual con los parámetros modificados."
-
-#: ../plugins/indent/indent.glade.h:70
-msgid "Space after Cast"
-msgstr "Espacio después de cast"
-
-#: ../plugins/indent/indent.glade.h:71
-msgid "Space after FOR"
-msgstr "Espacio después de for"
-
-#: ../plugins/indent/indent.glade.h:72
-msgid "Space after IF"
-msgstr "Espacio después de if"
-
-#: ../plugins/indent/indent.glade.h:73
-msgid "Space after Proc Call"
-msgstr "Espacio después de llamada a procedimiento"
-
-#: ../plugins/indent/indent.glade.h:74
-msgid "Space after WHILE"
-msgstr "Espacio después de while"
-
-#: ../plugins/indent/indent.glade.h:75
-msgid "Specify an amount by which comments are moved to the left."
-msgstr "Especificar una cantidad por la que los comentario se mueven a la izquierda."
-
-#: ../plugins/indent/indent.glade.h:76
-msgid "Specify how many spaces to indent type declarations."
-msgstr "Especificar cuántos espacios sangrar las declaraciones de tipo."
-
-#: ../plugins/indent/indent.glade.h:77
-msgid "Specify the column for comments following code."
-msgstr "Especifique la columna para los comentarios siguiendo el código."
-
-#: ../plugins/indent/indent.glade.h:78
-msgid "Specify the column for comments following declarations."
-msgstr "Especificar la columna para los comentarios siguiendo declaraciones."
-
-#: ../plugins/indent/indent.glade.h:79
-msgid "Specify the column for comments following preprocessor directives."
-msgstr ""
-"Especificar la columna para los comentarios siguiendo directivas de "
-"preprocesador."
-
-#: ../plugins/indent/indent.glade.h:80
-msgid "Specify the column of identifiers."
-msgstr "Especificar la columna de los identificadores."
-
-#: ../plugins/indent/indent.glade.h:81
-msgid ""
-"Specify the indentation level when a statement is broken across two lines "
-"(default 0)."
-msgstr ""
-"Especificar el nivel de sangría cuando una sentencia se rompe a través de "
-"dos líneas (predet 0)."
-
-#: ../plugins/indent/indent.glade.h:82
-msgid ""
-"Specify the maximum length of a line of C code, not including possible "
-"comments that follow it."
-msgstr ""
-"Especifique la longitud máxima de una línea de código C, no incluyendo los "
-"comentarios posibles que la sigan."
-
-#: ../plugins/indent/indent.glade.h:83
-msgid "Specify the number o spaces for a TAB (default 8)."
-msgstr "Especificar el número de espacios para un TAB (8 por omisión)."
-
-#: ../plugins/indent/indent.glade.h:84
-msgid "Specify the number of spaces by which braces are indented."
-msgstr "Especificar el número de espacios que las llaves se sangran."
-
-#: ../plugins/indent/indent.glade.h:85
-msgid ""
-"Specify the number of spaces that 'case' labels should be indented to the "
-"right of the containing 'switch' statement."
-msgstr ""
-"Especifique el número de espacios que las etiquetas «case» deberían ser "
-"sangradas a la derecha de la sentencia «switch» que las contiene."
-
-#: ../plugins/indent/indent.glade.h:86
-msgid "Specify the value of indentation for each level."
-msgstr "Especifique el valor de sangría para cada nivel."
-
-#: ../plugins/indent/indent.glade.h:87
-msgid "Star Left Side"
-msgstr "Estrella en el lado izquierdo"
-
-#: ../plugins/indent/indent.glade.h:88
-msgid "Swallow Optional"
-msgstr "Consumir opcionales"
-
-#: ../plugins/indent/indent.glade.h:89
-msgid "Swallow optional blank lines."
-msgstr "Consumir las líneas en blanco opcionales."
-
-#: ../plugins/indent/indent.glade.h:90
-msgid "Tab Size      "
-msgstr "Tamaño de tabulador"
-
-#: ../plugins/indent/indent.glade.h:91
-msgid "Update Style"
-msgstr "Actualizar estilo"
-
-#: ../plugins/indent/indent.glade.h:92
-msgid ""
-"You can modify the parameters either by \n"
-"using the above buttons or by editing them \n"
-"directly (See indent manual)."
-msgstr ""
-"Puede modificar los parámetros o usando\n"
-"los botones de encima o editandolos\n"
-"directamente (vea el manual de indent)"
-
-#: ../plugins/indent/plugin.c:65
-#, c-format
-msgid "Indent command failed with error code: %d"
-msgstr "El comando de sangrado falló con el código de error: %d"
-
-#: ../plugins/indent/plugin.c:126
-#, c-format
-msgid "Anjuta does not know %s!"
-msgstr "Anjuta no sabe %s"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/indent/plugin.c:168 ../plugins/patch/plugin.c:55
-#: ../plugins/tools/plugin.c:135
-msgid "_Tools"
-msgstr "_Herramientas"
-
-#. Action name
-#. Stock icon, if any
-#: ../plugins/indent/plugin.c:176
-msgid "_Format Code with \"indent\""
-msgstr "_Formatear código con «sangrar»"
-
-#. Display label
-#. short-cut
-#: ../plugins/indent/plugin.c:178
-msgid "Format code with the \"indent\" command line utility"
-msgstr "Formatear el código con el comando «sangrar»"
-
-#: ../plugins/indent/plugin.c:254
-msgid "Autoformat operations"
-msgstr "Operaciones de autoformato"
-
-#: ../plugins/indent/plugin.c:333
-msgid "Indent Utility"
-msgstr "Utilidad de sangrado"
-
-#: ../plugins/indent/plugin.c:352
-msgid "Indent utility"
-msgstr "Utilidad de sangrado"
-
 #: ../plugins/macro/anjuta-macro.glade.h:2
 msgid "<b>Macro details:</b>"
 msgstr "<b>Detalles de macro:</b>"
@@ -5424,142 +4973,6 @@ msgstr "%Y-%m-%d"
 #: ../plugins/macro/macro-util.c:74
 msgid "%Y"
 msgstr "%Y"
-
-#: ../plugins/macro/macros.xml.h:1
-msgid "# GPL"
-msgstr "# GPL"
-
-#: ../plugins/macro/macros.xml.h:2
-msgid "# LGPL"
-msgstr "# LGPL"
-
-#: ../plugins/macro/macros.xml.h:3
-msgid "/* GPL */"
-msgstr "/* GPL */"
-
-#: ../plugins/macro/macros.xml.h:4
-msgid "/* LGPL */"
-msgstr "/* LGPL */"
-
-#: ../plugins/macro/macros.xml.h:5
-msgid "// GPL"
-msgstr "// GPL"
-
-#: ../plugins/macro/macros.xml.h:6
-msgid "// LGPL"
-msgstr "// LGPL"
-
-#: ../plugins/macro/macros.xml.h:7
-msgid "Basic"
-msgstr "Basic"
-
-#: ../plugins/macro/macros.xml.h:8
-msgid "C"
-msgstr "C"
-
-#: ../plugins/macro/macros.xml.h:10
-msgid "C_Custom_Indent"
-msgstr "Sangría personalizada _C"
-
-#: ../plugins/macro/macros.xml.h:11
-msgid "Changelog"
-msgstr "Entrada ChangeLog"
-
-#: ../plugins/macro/macros.xml.h:12
-msgid "Copyright"
-msgstr "Copyright"
-
-#: ../plugins/macro/macros.xml.h:13
-msgid "Date_Time"
-msgstr "Fecha_Hora"
-
-#: ../plugins/macro/macros.xml.h:14
-msgid "Ext."
-msgstr "Ext."
-
-#: ../plugins/macro/macros.xml.h:15
-msgid "Header_c"
-msgstr "Cabecera _c"
-
-#: ../plugins/macro/macros.xml.h:16
-msgid "Header_cpp"
-msgstr "Cabecera _cpp"
-
-#: ../plugins/macro/macros.xml.h:17
-msgid "Header_csharp"
-msgstr "Cabecera _csharp"
-
-#: ../plugins/macro/macros.xml.h:18
-msgid "Header_h"
-msgstr "Cabecera _h"
-
-#: ../plugins/macro/macros.xml.h:19
-msgid "Header_perl"
-msgstr "Cabecera _perl"
-
-#: ../plugins/macro/macros.xml.h:20
-msgid "Header_shell"
-msgstr "Cabecera _shell"
-
-#: ../plugins/macro/macros.xml.h:21
-msgid "Licenses"
-msgstr "Licencias"
-
-#: ../plugins/macro/macros.xml.h:22
-msgid "UserName"
-msgstr "Usuario:"
-
-#: ../plugins/macro/macros.xml.h:23
-msgid "cvs_author"
-msgstr "cvs_author"
-
-#: ../plugins/macro/macros.xml.h:24
-msgid "cvs_date"
-msgstr "cvs_date"
-
-#: ../plugins/macro/macros.xml.h:25
-msgid "cvs_header"
-msgstr "cvs_header"
-
-#: ../plugins/macro/macros.xml.h:26
-msgid "cvs_id"
-msgstr "cvs_id"
-
-#: ../plugins/macro/macros.xml.h:27
-msgid "cvs_log"
-msgstr "cvs_log"
-
-#: ../plugins/macro/macros.xml.h:28
-msgid "cvs_name"
-msgstr "cvs_name"
-
-#: ../plugins/macro/macros.xml.h:29
-msgid "cvs_revision"
-msgstr "cvs_revision"
-
-#: ../plugins/macro/macros.xml.h:30
-msgid "cvs_source"
-msgstr "cvs_source"
-
-#: ../plugins/macro/macros.xml.h:31
-msgid "do_while"
-msgstr "do_while"
-
-#: ../plugins/macro/macros.xml.h:32
-msgid "for"
-msgstr "for"
-
-#: ../plugins/macro/macros.xml.h:33
-msgid "if...else"
-msgstr "if…else"
-
-#: ../plugins/macro/macros.xml.h:34
-msgid "switch"
-msgstr "switch"
-
-#: ../plugins/macro/macros.xml.h:35
-msgid "while"
-msgstr "while"
 
 #: ../plugins/macro/plugin.c:34
 msgid "Macros"
@@ -5751,6 +5164,12 @@ msgstr ""
 #: ../plugins/subversion/anjuta-subversion.glade.h:29
 msgid "Dry run"
 msgstr "Ejecución en seco"
+
+#. Action name
+#. Stock icon, if any
+#: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:135
+msgid "_Tools"
+msgstr "_Herramientas"
 
 #. Action name
 #. Stock icon, if any
@@ -7196,10 +6615,6 @@ msgstr "Usar colores del tema"
 msgid "Use theme font"
 msgstr "Usar tipografía del tema"
 
-#: ../plugins/sourceview/sourceview-print.c:145
-msgid "Print preview"
-msgstr "Vista previa de la impresión"
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Branch/Tag URL:</b>"
 msgstr "<b>URL de la rama/etiqueta:</b>"
@@ -8219,6 +7634,10 @@ msgstr "Ruta al binario Valgrind:"
 #: ../plugins/valgrind/preferences.c:143
 msgid "Choose Valgrind Binary File Path..."
 msgstr "Elia la ruta al archivo binario Valgrind…"
+
+#: ../plugins/valgrind/preferences.c:162
+msgid "Preview"
+msgstr "Vista previa"
 
 #: ../plugins/valgrind/preferences.c:175
 msgid "lines above and below the target line."
