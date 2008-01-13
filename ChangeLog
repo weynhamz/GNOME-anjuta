@@ -1,3 +1,8 @@
+2008-01-13  Andre Klapper  <a9016009@gmx.de>
+
+	* manuals/anjuta-manual/Makefile.am: add forgotten Swedish entry
+	to DOC_LINGUAS.
+
 2008-01-13  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/document-manager/anjuta-docman.c:
