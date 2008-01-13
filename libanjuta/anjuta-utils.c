@@ -596,8 +596,8 @@ anjuta_util_get_real_path (const gchar *path)
 {
 	if (path != NULL)
 	{
-#ifdef PATH_MAX
 		gchar *result;
+#ifdef PATH_MAX
 		gchar buf[PATH_MAX+1];
 
 		result = realpath (path, buf);
@@ -607,9 +607,16 @@ anjuta_util_get_real_path (const gchar *path)
 			return g_strdup (buf);
 		}
 #else
-		/* strictly, the string returned from this should be cleaned with
+		char *buf;
+		/* the string returned by realpath should be cleaned with
 		   free(), not g_free() */
-		return (realpath (path, NULL));
+		buf = realpath (path, NULL);
+		if (buf != NULL)
+		{
+			result = g_strdup (buf);
+			free (buf);
+			return result;
+		}
 #endif
 	}
 	return NULL;

@@ -1,3 +1,9 @@
+2008-01-13  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* libanjuta/anjuta-utils.c:
+	anjuta_util_get_real_path return a string that need to be freed
+	with g_free even if PATH_MAX is not defined
+
 2008-01-13  Andre Klapper  <a9016009@gmx.de>
 
 	* manuals/anjuta-manual/Makefile.am: add forgotten Swedish entry
