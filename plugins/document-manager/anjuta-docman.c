@@ -1108,8 +1108,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 
 	g_return_val_if_fail (fname, NULL);
 	
-	/* FIXME: */
-	/* filename = anjuta_docman_get_full_filename (docman, fname); */
 	vfs_uri = gnome_vfs_uri_new (fname);
 	
 	/* Extract linenum which comes as fragment identifier */
@@ -1122,16 +1120,12 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	/* Restore URI without fragment identifier (linenum) */
 	uri = gnome_vfs_uri_to_string (vfs_uri,
 								   GNOME_VFS_URI_HIDE_FRAGMENT_IDENTIFIER);
+	gnome_vfs_uri_unref (vfs_uri);
 	
 	/* Get the normalized file path for comparision */
-	is_local_uri = gnome_vfs_uri_is_local (vfs_uri);
-	if (is_local_uri)
-		normalized_path = realpath (gnome_vfs_uri_get_path (vfs_uri), NULL);
+	normalized_path = anjuta_util_get_real_path (gnome_vfs_get_local_path_from_uri (uri));
 	if (normalized_path == NULL)
 		normalized_path = g_strdup (uri);
-	
-	gnome_vfs_uri_unref (vfs_uri);
-	/* g_free(filename); */
 
 	g_return_val_if_fail (uri != NULL, NULL);
 	
@@ -1153,14 +1147,9 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 			gchar *te_normalized_path;
 		
 			/* Get the normalized file path for comparision */
-			vfs_uri = gnome_vfs_uri_new (te_uri);
-			te_is_local_uri = gnome_vfs_uri_is_local (vfs_uri);
-			if (te_is_local_uri)
-				te_normalized_path = realpath (gnome_vfs_uri_get_path (vfs_uri),
-											   NULL);
-			else
+			te_normalized_path = anjuta_util_get_real_path (gnome_vfs_get_local_path_from_uri (te_uri));
+			if (te_normalized_path == NULL)
 				te_normalized_path = g_strdup (te_uri);
-			gnome_vfs_uri_unref (vfs_uri);
 
 			if (normalized_path && te_normalized_path)
 			{

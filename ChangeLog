@@ -1,3 +1,8 @@
+2008-01-13  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/anjuta-docman.c:
+	Do not reopen file having escaped character (+,...) in path name
+
 2008-01-13  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:
