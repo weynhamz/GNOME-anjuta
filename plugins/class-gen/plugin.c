@@ -198,17 +198,13 @@ cg_plugin_add_to_project (AnjutaClassGenPlugin *plugin,
 
 	if (dirname != NULL && strcmp (dirname, ".") != 0)
 	{
-		added_files = ianjuta_project_manager_add_source_multi (manager,
-		                                                        filenames,
-		                                                        dirname,
-		                                                        NULL);
+		added_files = ianjuta_project_manager_add_sources (manager, filenames,
+														   dirname, NULL);
 	}
 	else
 	{
-		added_files = ianjuta_project_manager_add_source_multi (manager,
-		                                                        filenames,
-		                                                        curdir,
-		                                                        NULL);
+		added_files = ianjuta_project_manager_add_sources (manager, filenames,
+														   curdir, NULL);
 	}
 
 	if (g_list_length (added_files) != 2)

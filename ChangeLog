@@ -1,4 +1,16 @@
-2008-01-13  Naba Kumar  <naba.kumar@gnome.org>
+2008-01-13  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* plugins/class-gen/plugin.c: (cg_plugin_add_to_project):
+	* plugins/project-manager/plugin.c: (iproject_manager_iface_init):
+	Renamed IAnjutaProjectManager::add_source_multi() to more appropriate
+	IAnjutaProjectManager::add_sources().
+
+	* plugins/glade/plugin.c: (on_glade_resource_removed),
+	(on_glade_resource_updated), (ifile_open), (iwizard_activate): Added
+	stubs for handing resources in glade file.
+
+2008-01-13  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/anjuta-launcher.c: (is_password_prompt): Use const.
 

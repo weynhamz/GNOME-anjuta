@@ -397,6 +397,17 @@ inspector_item_activated_cb (GladeInspector     *inspector,
 	
 	g_list_free (item);
 }
+
+static void
+on_glade_resource_removed (GladeProject *project, GladePlugin *plugin)
+{
+}
+
+static void
+on_glade_resource_updated (GladeProject *project, GladePlugin *plugin)
+{
+}
+
 #endif
 
 static gboolean
@@ -676,6 +687,15 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	
 #if (GLADEUI_VERSION >= 330)
 	project = glade_project_load (filename);
+	if (project)
+	{
+		g_signal_connect (project, "resource-removed",
+						  G_CALLBACK (on_glade_resource_removed),
+						  ANJUTA_PLUGIN_GLADE (ifile));
+		g_signal_connect (project, "resource-updated",
+						  G_CALLBACK (on_glade_resource_updated),
+						  ANJUTA_PLUGIN_GLADE (ifile));
+	}
 #else
 	project = glade_project_open (filename);
 #endif
@@ -747,6 +767,13 @@ iwizard_activate (IAnjutaWizard *iwizard, GError **err)
 
 #if (GLADEUI_VERSION >= 330)
 	project = glade_project_new ();
+	
+	g_signal_connect (project, "resource-removed",
+					  G_CALLBACK (on_glade_resource_removed),
+					  ANJUTA_PLUGIN_GLADE (iwizard));
+	g_signal_connect (project, "resource-updated",
+					  G_CALLBACK (on_glade_resource_updated),
+					  ANJUTA_PLUGIN_GLADE (iwizard));
 #else
 	project = glade_project_new (TRUE);
 #endif

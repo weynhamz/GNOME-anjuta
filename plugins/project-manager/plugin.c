@@ -2226,7 +2226,7 @@ iproject_manager_iface_init(IAnjutaProjectManagerIface *iface)
 	iface->get_selected = iproject_manager_get_selected;
 	iface->get_capabilities = iproject_manager_get_capabilities;
 	iface->add_source = iproject_manager_add_source;
-	iface->add_source_multi = iproject_manager_add_source_multi;
+	iface->add_sources = iproject_manager_add_source_multi;
 	iface->add_target = iproject_manager_add_target;
 	iface->add_group = iproject_manager_add_group;
 	iface->is_open = iproject_manager_is_open;

@@ -2709,7 +2709,7 @@ interface IAnjutaProjectManager
 	gchar* add_source (const gchar *source_uri_to_add, const gchar *default_location_uri);
 	
 	/**
-	* ianjuta_project_manager_add_source_multi:
+	* ianjuta_project_manager_add_sources:
 	* @obj: Self
 	* @source_uris_to_add: fixme
 	* @default_location_uri: fixme
@@ -2720,7 +2720,7 @@ interface IAnjutaProjectManager
 	*
 	* Returns: element URIs. Must be freed when no longer required.
 	*/
-	List<const gchar*> add_source_multi (List<const gchar*> source_uri_to_add, const gchar *default_location_uri);
+	List<const gchar*> add_sources (List<const gchar*> source_uri_to_add, const gchar *default_location_uri);
 	
 	/**
 	* ianjuta_project_manager_add_target:
