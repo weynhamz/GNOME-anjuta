@@ -1,3 +1,11 @@
+2008-01-13  Naba Kumar  <naba@gnome.org>
+
+	Patch from: Ritesh Khadgaray
+	* plugins/project-wizard/templates/gnome/src/Makefile.am.tpl:
+	* plugins/project-wizard/templates/gtk/src/Makefile.am.tpl:
+	Adds export-dynamic option to LDFLAGS to project template for libglade
+	to work for autoconnect signals.
+
 2008-01-13  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* libanjuta/anjuta-utils.c:
@@ -50,6 +58,11 @@
 	New menu item to add extra source directories for debugger
 
 === anjuta 2.3.2 ===
+
+2008-01-11  Bolesław Kulbabiński <bolekk@gmail.com>
+
+	* plugins/gtodo/callback.c: (remove_todo_item):
+	Fix #507304 – crash in Anjuta IDE while removing done tasks
 
 2008-01-11  Naba Kumar  <naba@gnome.org>
 

@@ -25,7 +25,8 @@ bin_PROGRAMS = [+NameLower+]
 	callbacks.h \
 	main.c
 
-[+NameCLower+]_LDFLAGS = 
+[+NameCLower+]_LDFLAGS = \
+	-Wl,--export-dynamic
 
 [+NameCLower+]_LDADD = $([+NameCUpper+]_LIBS)
 
