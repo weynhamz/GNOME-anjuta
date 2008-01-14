@@ -446,10 +446,6 @@ assist_window_move(AssistWindow* assist_win, int offset)
 	int x,y;
 	get_coordinates(ANJUTA_VIEW(assist_win->priv->text_view), offset, &x, &y);	
 	gtk_window_move(GTK_WINDOW(assist_win), x, y);
-	/* Make it slightly transparent */
-#if (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
-	gtk_window_set_opacity (GTK_WINDOW (assist_win), 0.90);
-#endif
 }
 
  

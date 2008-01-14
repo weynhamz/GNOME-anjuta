@@ -1,3 +1,10 @@
+2008-01-14  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/assist-tip.c: (assist_tip_move):
+	* plugins/sourceview/assist-window.c: (assist_window_move):
+	
+	Do not use opacity
+
 2008-01-14  Rob Bradford  <rob@openedhand.com>
 
 	* global-tags/Makefile.am:

@@ -158,10 +158,6 @@ assist_tip_move(AssistTip* assist_tip, GtkTextView* text_view, int offset)
 	int x,y;
 	assist_tip_get_coordinates(GTK_WIDGET(text_view), offset, &x, &y, assist_tip->label);	
 	gtk_window_move(GTK_WINDOW(assist_tip), x, y);
-	/* Make it slightly transparent */
-#if (GTK_MAJOR_VERSION > 2 || (GTK_MAJOR_VERSION == 2 && GTK_MINOR_VERSION >= 12))
-	gtk_window_set_opacity (GTK_WINDOW (assist_tip), 0.85);
-#endif
 
 }
 
@@ -195,6 +191,6 @@ assist_tip_new (GtkTextView* view, GList* tips)
 	
 	/* Position is off by one for '(' brace */
 	assist_tip->position--;
-	
+										
 	return GTK_WIDGET(object);
 }
