@@ -1102,6 +1102,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	gint lineno;
 	gboolean is_local_uri;
 	gchar *normalized_path = NULL;
+	gchar *local_path;
 	
 	IAnjutaDocument *doc;
 	IAnjutaEditor *te;
@@ -1121,14 +1122,14 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	uri = gnome_vfs_uri_to_string (vfs_uri,
 								   GNOME_VFS_URI_HIDE_FRAGMENT_IDENTIFIER);
 	gnome_vfs_uri_unref (vfs_uri);
-	
-	/* Get the normalized file path for comparision */
-	normalized_path = anjuta_util_get_real_path (gnome_vfs_get_local_path_from_uri (uri));
-	if (normalized_path == NULL)
-		normalized_path = g_strdup (uri);
-
 	g_return_val_if_fail (uri != NULL, NULL);
 	
+	/* Get the normalized file path for comparision */
+	local_path = gnome_vfs_get_local_path_from_uri (uri);
+	normalized_path = anjuta_util_get_real_path (local_path);
+	if (normalized_path == NULL)
+		normalized_path = g_strdup (uri);
+	g_free (local_path);
 	
 	/* first, try to use a document that's already open */
 	for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
@@ -1147,9 +1148,11 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 			gchar *te_normalized_path;
 		
 			/* Get the normalized file path for comparision */
-			te_normalized_path = anjuta_util_get_real_path (gnome_vfs_get_local_path_from_uri (te_uri));
+			local_path = gnome_vfs_get_local_path_from_uri (te_uri);
+			te_normalized_path = anjuta_util_get_real_path (local_path);
 			if (te_normalized_path == NULL)
 				te_normalized_path = g_strdup (te_uri);
+			g_free (local_path);
 
 			if (normalized_path && te_normalized_path)
 			{

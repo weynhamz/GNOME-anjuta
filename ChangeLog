@@ -1,3 +1,10 @@
+2007-01-14 Tom <tpgww@onepost.net>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/anjuta-docman.c:
+	Fix two memory leaks added by the previous patch
+
 2008-01-14  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/assist-tip.c: (assist_tip_move):
