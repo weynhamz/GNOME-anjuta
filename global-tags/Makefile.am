@@ -4,8 +4,10 @@
 ## If you don't want it to overwrite it,
 ## 	Please disable it in the Anjuta project configuration
 
-bindir = $(anjuta_data_dir)/scripts
-dist_bin_SCRIPTS = create_global_tags.sh
+bindir = $(pkglibdir)
+scriptdir = $(anjuta_data_dir)/scripts
+
+script_SCRIPTS = create_global_tags.sh
 
 AM_CPPFLAGS = -I$(top_srcdir)/tagmanager/include $(GLIB_CFLAGS)
 
@@ -17,11 +19,11 @@ anjuta_tags_LDADD = $(top_builddir)/tagmanager/libanjuta-ctags.la
 anjuta_tags_LDFLAGS = $(GLIB_LIBS)
 
 edit = sed \
-	-e 's,@scriptdir\@,$(bindir),g'
+	-e 's,\@bindir\@,$(bindir),g'
 
 create_global_tags.sh: Makefile create_global_tags.sh.in
 	rm -f create_global_tags.sh
 	$(edit) $(srcdir)/create_global_tags.sh.in > create_global_tags.sh
 	chmod +x create_global_tags.sh
 
-EXTRA_DIST = $(dist_bin_SCRIPTS) create_global_tags.sh.in
+EXTRA_DIST = create_global_tags.sh.in

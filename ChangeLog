@@ -1,3 +1,10 @@
+2008-01-14  Rob Bradford  <rob@openedhand.com>
+
+	* global-tags/Makefile.am:
+	* global-tags/create_global_tags.sh.in:
+	Install anjuta-tags binary into FHS policy compliant directory and
+	update references. (Fixes bug: 509346.)
+
 2008-01-13  Naba Kumar  <naba@gnome.org>
 
 	Patch from: Ritesh Khadgaray

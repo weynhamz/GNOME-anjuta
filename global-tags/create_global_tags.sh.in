@@ -6,7 +6,7 @@ function anjuta_tags {
     BASEDIR=`pwd`
     PROGDIR=. # `dirname $0`
     CFLAGS=""
-    ANJUTA_TAGS_BIN="@scriptdir@/anjuta-tags"
+    ANJUTA_TAGS_BIN="@bindir@/anjuta-tags"
     OUTPUT_FILE=$1
     shift
     
