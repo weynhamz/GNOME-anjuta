@@ -238,7 +238,7 @@ anjuta_profile_class_init (AnjutaProfileClass *klass)
 	                                 PROP_SYNC_URI,
 	                                 g_param_spec_string ("sync-uri",
 											  _("Synchronization URI"),
-											  _("URI to sync the proflie xml"),
+											  _("URI to sync the profile xml"),
 											  NULL,
 											  G_PARAM_READABLE |
 											  G_PARAM_WRITABLE));
@@ -578,7 +578,7 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 	{
 		g_set_error (error, ANJUTA_PROFILE_ERROR,
 					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
-					 _("Failed to read '%s': XML parse error."
+					 _("Failed to read '%s': XML parse error. "
 					   "Invalid or corrupted anjuta plugins profile."),
 					 profile_xml_uri);
 		xmlFreeDoc(xml_doc);
@@ -729,7 +729,7 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 		
 		g_set_error (error, ANJUTA_PROFILE_ERROR,
 					 ANJUTA_PROFILE_ERROR_URI_READ_FAILED,
-					 _("Failed to read '%s': XML parse error."
+					 _("Failed to read '%s': XML parse error. "
 					   "Invalid or corrupted anjuta plugins profile."),
 					 profile_xml_uri);
 		xmlFreeDoc(xml_doc);
@@ -751,6 +751,7 @@ anjuta_profile_add_plugins_from_xml (AnjutaProfile *profile,
 		node_url = not_found_urls;
 		while (node_name)
 		{
+			/* <Pluginname>: Install it from <some location on the web> */
 			g_string_append_printf (mesg, _("%s: Install it from '%s'\n"),
 											(char *)node_name->data,
 											(char*)node_url->data);

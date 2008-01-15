@@ -60,7 +60,7 @@
 #include "sourceview.h"
 #include "sourceview-private.h"
 #include "sourceview-prefs.h"
-/* #include "sourceview-print.h" */
+#include "sourceview-print.h"
 #include "sourceview-cell.h"
 #include "plugin.h"
 
@@ -1759,19 +1759,18 @@ ibookmark_iface_init(IAnjutaBookmarkIface* iface)
 	iface->clear_all = ibookmark_clear_all;
 }
 
-#if 0 /* FIXME: add printing support */
 static void
 iprint_print(IAnjutaPrint* print, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(print);
-	//sourceview_print(sv);
+	sourceview_print(sv);
 }
 
 static void
 iprint_print_preview(IAnjutaPrint* print, GError** e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(print);
-	//sourceview_print_preview(sv);
+	sourceview_print_preview(sv);
 }
 
 static void
@@ -1780,7 +1779,7 @@ iprint_iface_init(IAnjutaPrintIface* iface)
 	iface->print = iprint_print;
 	iface->print_preview = iprint_print_preview;
 }
-#endif
+
 
 static const GList*
 ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
@@ -2198,7 +2197,7 @@ ANJUTA_TYPE_ADD_INTERFACE(iselect, IANJUTA_TYPE_EDITOR_SELECTION);
 ANJUTA_TYPE_ADD_INTERFACE(iassist, IANJUTA_TYPE_EDITOR_ASSIST);
 ANJUTA_TYPE_ADD_INTERFACE(iconvert, IANJUTA_TYPE_EDITOR_CONVERT);
 ANJUTA_TYPE_ADD_INTERFACE(ibookmark, IANJUTA_TYPE_BOOKMARK);
-//ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
+ANJUTA_TYPE_ADD_INTERFACE(iprint, IANJUTA_TYPE_PRINT);
 ANJUTA_TYPE_ADD_INTERFACE(ilanguage, IANJUTA_TYPE_EDITOR_LANGUAGE);
 ANJUTA_TYPE_ADD_INTERFACE(isearch, IANJUTA_TYPE_EDITOR_SEARCH);
 #if HAVE_TOOLTIP_API

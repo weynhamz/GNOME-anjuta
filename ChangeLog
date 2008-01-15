@@ -1,3 +1,23 @@
+2008-01-15  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-profile.c: (anjuta_profile_class_init),
+	(anjuta_profile_add_plugins_from_xml):
+	* plugins/file-manager/file-manager.glade:
+	Some string fixes
+	
+	* libanjuta/interfaces/libanjuta.idl:
+	Fixed docs
+		
+	* plugins/sourceview/Makefile.am:
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	* plugins/sourceview/sourceview-print.c: (paginate), (draw_page),
+	(end_print), (print_setup), (sourceview_print),
+	(sourceview_print_preview):
+	* plugins/sourceview/sourceview.c: (iprint_print),
+	(iprint_print_preview):
+	
+	Added printing support to GtkSourceView editor
+
 2007-01-14 Tom <tpgww@onepost.net>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>

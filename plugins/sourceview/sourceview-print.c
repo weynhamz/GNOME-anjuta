@@ -1,152 +1,172 @@
 /*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Library General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- */
- 
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+* 
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Library General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+*/
+
 #include "sourceview-print.h"
 #include "sourceview-private.h"
-
-#include <libanjuta/anjuta-debug.h>
-
-#include <libgnomeprintui/gnome-print-job-preview.h>
-#include <libgnomeprintui/gnome-print-dialog.h>
-
-#include <gtksourceview/gtksourceview.h>
-#include <gtksourceview/gtksourcelanguage.h>
-#include <gtksourceview/gtksourcelanguagesmanager.h>
-#include <gtksourceview/gtksourceprintjob.h>
-
-#include <libanjuta/interfaces/ianjuta-editor.h>
+#include <gtksourceview/gtksourceprintcompositor.h>
 #include <libanjuta/interfaces/ianjuta-document.h>
 
-static GtkSourcePrintJob*
-create_print_job(Sourceview* sv)
+#define PRINT_LINEWRAP "print.linewrap"
+#define PRINT_HEADER "print.header"
+#define PRINT_FOOTER "print.footer"
+#define PRINT_HIGHLIGHT "print.highlight"
+#define PRINT_LINENUMBERS "print.linenumbers"
+
+typedef struct _SourceviewPrinting SourceviewPrinting;
+
+struct _SourceviewPrinting
 {
-	GtkSourcePrintJob *job;
-	GtkSourceView *view;
-	GtkSourceBuffer *buffer;
-	const gchar *filename;
+	Sourceview* sv;
+	GtkSourcePrintCompositor *compositor;
+	AnjutaStatus* status;
+};
 
-	g_return_val_if_fail (sv != NULL, NULL);
-	
-	view = GTK_SOURCE_VIEW(sv->priv->view);
-	buffer = GTK_SOURCE_BUFFER (sv->priv->document);
-	
-	job = gtk_source_print_job_new (NULL);
-	gtk_source_print_job_setup_from_view (job, view);
-	gtk_source_print_job_set_wrap_mode (job, GTK_WRAP_CHAR);
-	gtk_source_print_job_set_highlight (job, TRUE);
-	gtk_source_print_job_set_print_numbers (job, 1);
 
-	gtk_source_print_job_set_header_format (job,
-						"Printed on %A",
-						NULL,
-						"%F",
-						TRUE);
+static gboolean
+paginate (GtkPrintOperation        *operation, 
+					GtkPrintContext          *context,
+					SourceviewPrinting* printing)
+{
+	if (gtk_source_print_compositor_paginate (printing->compositor, context))
+	{
+		gint n_pages;	
+		anjuta_status_progress_tick (printing->status, NULL,
+																 _("Preparing pages for printing"));
+		n_pages = gtk_source_print_compositor_get_n_pages (printing->compositor);
+		gtk_print_operation_set_n_pages (operation, n_pages);
 
-	filename = ianjuta_document_get_filename(IANJUTA_DOCUMENT(sv), NULL);
-	
-	gtk_source_print_job_set_footer_format (job,
-						"%T",
-						filename,
-						"Page %N/%Q",
-						TRUE);
-
-	gtk_source_print_job_set_print_header (job, TRUE);
-	gtk_source_print_job_set_print_footer (job, TRUE);
-	
-	return job;
+		return TRUE;
+	}
+     
+	return FALSE;
 }
 
-static GtkWidget *
-sourceview_print_dialog_new (GtkSourcePrintJob *job, GtkSourceBuffer* buffer)
+
+static void
+draw_page (GtkPrintOperation        *operation,
+					 GtkPrintContext          *context,
+					 gint                      page_nr,
+					 SourceviewPrinting* printing)
 {
-	GtkWidget *dialog;
-	gint selection_flag;
-	gint lines;
-	GnomePrintConfig *config;
+	gtk_source_print_compositor_draw_page (printing->compositor, context, page_nr);
+}
 
-	if (!gtk_text_buffer_get_selection_bounds (GTK_TEXT_BUFFER (buffer), NULL, NULL))
-		selection_flag = GNOME_PRINT_RANGE_SELECTION_UNSENSITIVE;
+static void
+end_print (GtkPrintOperation        *operation, 
+					 GtkPrintContext          *context,
+					 SourceviewPrinting* printing)
+{
+	g_object_unref (printing->compositor);
+	g_slice_free (SourceviewPrinting, printing);
+}
+
+static GtkPrintOperation*
+print_setup (Sourceview* sv)
+{
+	GtkSourceView *view = GTK_SOURCE_VIEW (sv->priv->view);
+	GtkSourcePrintCompositor *compositor;
+	GtkPrintOperation *operation;
+	SourceviewPrinting* printing = g_slice_new0(SourceviewPrinting);
+	const gchar *filename;
+	gchar *basename;
+	
+	filename = ianjuta_document_get_filename (IANJUTA_DOCUMENT (sv), NULL);
+	basename = g_filename_display_basename (filename);
+	
+	compositor = gtk_source_print_compositor_new_from_view (view);
+	
+	if (anjuta_preferences_get_int (sv->priv->prefs, PRINT_LINEWRAP))
+	{
+		gtk_source_print_compositor_set_wrap_mode (compositor,
+																							 GTK_WRAP_WORD_CHAR);
+	}
 	else
-		selection_flag = GNOME_PRINT_RANGE_SELECTION;
-
-	config = gtk_source_print_job_get_config (GTK_SOURCE_PRINT_JOB (job));
-
-	dialog = g_object_new (GNOME_TYPE_PRINT_DIALOG, "print_config", config, NULL);
-
-	gnome_print_dialog_construct (GNOME_PRINT_DIALOG (dialog), 
-				      (const unsigned char *)_("Print"),
-			              GNOME_PRINT_DIALOG_RANGE | GNOME_PRINT_DIALOG_COPIES);
-
-	lines = gtk_text_buffer_get_line_count (GTK_TEXT_BUFFER (buffer));
-
-	gnome_print_dialog_construct_range_page (GNOME_PRINT_DIALOG (dialog),
-						 GNOME_PRINT_RANGE_ALL |
-						 GNOME_PRINT_RANGE_RANGE |
-						 selection_flag,
-						 1, lines, (const unsigned char *)"A",
-						 (const unsigned char *)_("Lines"));
-
-	return dialog;
+		gtk_source_print_compositor_set_wrap_mode (compositor,
+																						 GTK_WRAP_NONE);
+	
+	gtk_source_print_compositor_set_print_line_numbers (compositor,
+																											anjuta_preferences_get_int (sv->priv->prefs,
+																																									PRINT_LINENUMBERS));
+	
+	gtk_source_print_compositor_set_header_format (compositor,
+																								 TRUE,
+																								 "%x",
+																								 basename,
+																								 "Page %N/%Q");
+	
+	gtk_source_print_compositor_set_footer_format (compositor,
+																								 TRUE,
+																								 "%T",
+																								 basename,
+																								 "Page %N/%Q");
+	
+	gtk_source_print_compositor_set_print_header (compositor,
+																								anjuta_preferences_get_int (sv->priv->prefs,
+																																						PRINT_HEADER));
+	gtk_source_print_compositor_set_print_footer (compositor,
+																								anjuta_preferences_get_int (sv->priv->prefs,
+																																						PRINT_HEADER));
+	
+	
+	gtk_source_print_compositor_set_highlight_syntax (compositor,
+																										anjuta_preferences_get_int (sv->priv->prefs,
+																																								PRINT_HIGHLIGHT)),
+	
+	operation = gtk_print_operation_new ();
+	
+	gtk_print_operation_set_job_name (operation, basename);
+	
+	gtk_print_operation_set_show_progress (operation, TRUE);
+	
+	printing->compositor = compositor;
+	printing->sv = sv;
+	printing->status = anjuta_shell_get_status (sv->priv->plugin->shell, NULL);
+	
+	g_signal_connect (G_OBJECT (operation), "paginate", 
+			  G_CALLBACK (paginate), printing);
+	g_signal_connect (G_OBJECT (operation), "draw-page", 
+										G_CALLBACK (draw_page), printing);
+	g_signal_connect (G_OBJECT (operation), "end-print", 
+										G_CALLBACK (end_print), printing);
+	
+	anjuta_status_progress_reset (printing->status);
+	anjuta_status_progress_add_ticks (printing->status, 100);
+	g_free (basename);
+	
+	return operation;
 }
 
 void 
 sourceview_print(Sourceview* sv)
 {
-	GtkSourcePrintJob* job = create_print_job(sv);
-	GtkWidget* print= sourceview_print_dialog_new(job, 
-		GTK_SOURCE_BUFFER(sv->priv->document));
-	GnomePrintButtons result = gtk_dialog_run(GTK_DIALOG(print));
-	
-	switch (result)
-	{
-		case GNOME_PRINT_DIALOG_RESPONSE_PREVIEW:
-			sourceview_print_preview(sv);
-			break;
-		case GNOME_PRINT_DIALOG_RESPONSE_PRINT:
-		{
-			GnomePrintJob* gjob = gtk_source_print_job_print (job);
-			gnome_print_job_print(gjob);
-			g_object_unref(gjob);
-			break;
-		}
-		case GNOME_PRINT_DIALOG_RESPONSE_CANCEL:
-			break;
-		default:
-			DEBUG_PRINT("Unknown print response");
-	}
-	gtk_widget_destroy(print);
-	g_object_unref(job);
+	GtkPrintOperation* operation = print_setup (sv);
+	gtk_print_operation_run (operation, 
+													 GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
+													 NULL, NULL);
+	g_object_unref (operation);	
 }
+
 
 void
 sourceview_print_preview(Sourceview* sv)
 {
-	GtkSourcePrintJob* job;
-	GnomePrintJob* gjob;
-	GtkWidget *preview;
-	
-	job = create_print_job(sv);
-
-	gjob = gtk_source_print_job_print (job);
-	preview = gnome_print_job_preview_new (gjob,
-		(const guchar *)_("Print preview"));
- 	
- 	gtk_widget_show(preview);
-	
-	g_object_unref(job);
-	g_object_unref(gjob);
+	GtkPrintOperation* operation = print_setup (sv);
+	gtk_print_operation_run (operation, 
+													 GTK_PRINT_OPERATION_ACTION_PREVIEW,
+													 NULL, NULL);
+	g_object_unref (operation);	
 }
 

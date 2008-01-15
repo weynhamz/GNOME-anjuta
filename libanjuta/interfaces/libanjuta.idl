@@ -1294,7 +1294,7 @@ interface IAnjutaEditor
 		gchar* get ();
 		
 		/**
-		 * ianjuta_editor_selection_set_iter:
+		 * ianjuta_editor_selection_set:
 		 * @obj: Self
 		 * @start: Begin of selection
 		 * @end: End of selection
