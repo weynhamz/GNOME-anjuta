@@ -1,3 +1,13 @@
+2008-01-15  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/text_editor.c: (isavable_save_as): Correctly highlight
+	newfile saved. Fixes bug #502322 - Highlight doesn't work on new
+	file saved
+
+	* plugins/symbol-browser/an_symbol_view.c:
+	(anjuta_symbol_view_workspace_update_file): Refresh the symbols for
+	new file saved.
+
 2008-01-15  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-profile.c: (anjuta_profile_class_init),

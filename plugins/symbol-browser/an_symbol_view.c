@@ -1319,7 +1319,7 @@ anjuta_symbol_view_workspace_update_file (AnjutaSymbolView * sv,
 	g_return_if_fail (new_file_uri != NULL);
 	if (old_file_uri)
 		anjuta_symbol_view_workspace_remove_file (sv, old_file_uri);
-	anjuta_symbol_view_workspace_add_file (sv, old_file_uri);
+	anjuta_symbol_view_workspace_add_file (sv, new_file_uri);
 #if 0
 	const gchar *uri;
 	TMWorkObject *tm_file;

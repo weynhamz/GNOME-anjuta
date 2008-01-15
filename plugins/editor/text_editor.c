@@ -2725,11 +2725,30 @@ isaveable_save (IAnjutaFileSavable* editor, GError** e)
 static void
 isavable_save_as (IAnjutaFileSavable* editor, const gchar* filename, GError** e)
 {
+	const gchar *past_language;
+	const gchar *curr_language;
 	TextEditor *text_editor = TEXT_EDITOR(editor);
-	text_editor->uri = g_strdup(filename);
+	
+	past_language =
+		ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (text_editor),
+											  NULL);
+	
+	text_editor->uri = g_strdup (filename);
 	/* Remove path */
-	text_editor->filename = g_strdup(strrchr(filename, '/') + 1);
-	text_editor_save_file(text_editor, FALSE);
+	text_editor->filename = g_path_get_basename (filename);
+	text_editor_save_file (text_editor, FALSE);
+	text_editor_set_hilite_type (text_editor, NULL);
+	text_editor_hilite (text_editor, FALSE);
+	
+	/* We have to take care of 'language-change' signal ourself because
+	 * text_editor_set_hilite_type() only emits it for forced hilite type
+	 */
+	curr_language =
+		ianjuta_editor_language_get_language (IANJUTA_EDITOR_LANGUAGE (text_editor),
+											  NULL);
+	if (past_language != curr_language)
+		g_signal_emit_by_name (text_editor, "language-changed", curr_language);
+	
 }
 
 static gboolean
