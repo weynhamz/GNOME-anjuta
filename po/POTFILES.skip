@@ -21,7 +21,6 @@ plugins/project-wizard/templates/gnome/src/main.c
 plugins/project-wizard/templates/gnome/src/project.glade
 plugins/project-wizard/templates/gtk/src/project.glade
 plugins/project-wizard/templates/gtkmm/src/project.glade
-plugins/sourceview/sourceview-print.c
 libegg/egg-combo-action.c
 libegg/egg-entry-action.c
 libegg/eggcellrendererkeys.c

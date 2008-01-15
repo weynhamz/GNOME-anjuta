@@ -154,6 +154,7 @@ plugins/sourceview/anjuta-document-saver.c
 plugins/sourceview/anjuta-document.c
 plugins/sourceview/anjuta-encodings.c
 plugins/sourceview/sourceview.c
+plugins/sourceview/sourceview-print.c
 plugins/sourceview/anjuta-editor-sourceview.glade
 plugins/subversion/anjuta-subversion.glade
 plugins/subversion/plugin.c
