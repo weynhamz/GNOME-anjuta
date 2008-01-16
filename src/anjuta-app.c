@@ -626,7 +626,7 @@ anjuta_app_instance_init (AnjutaApp *app)
 										G_N_ELEMENTS (menu_entries_view),
 										GETTEXT_PACKAGE, TRUE, app);
 	anjuta_ui_add_toggle_action_group_entries (app->ui, "ActionGroupToggleView",
-										_("Toggle View"),
+										_("View"),
 										menu_entries_toggle_view,
 										G_N_ELEMENTS (menu_entries_toggle_view),
 										GETTEXT_PACKAGE, TRUE, app);

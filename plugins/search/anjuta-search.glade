@@ -799,7 +799,7 @@
 				  <child>
 				    <widget class="GtkComboBoxEntry" id="file.filter.match.combo">
 				      <property name="visible">True</property>
-				      <property name="items" translatable="yes">*\.*
+				      <property name="items" translatable="no">*\.*
 *.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp
 *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4</property>
 				      <property name="add_tearoffs">False</property>
@@ -818,7 +818,7 @@
 				  <child>
 				    <widget class="GtkComboBoxEntry" id="file.filter.unmatch.combo">
 				      <property name="visible">True</property>
-				      <property name="items" translatable="yes">*.so *.o *.a *.la
+				      <property name="items" translatable="no">*.so *.o *.a *.la
 </property>
 				      <property name="add_tearoffs">False</property>
 				      <property name="has_frame">True</property>
@@ -852,7 +852,7 @@
 				  <child>
 				    <widget class="GtkComboBoxEntry" id="dir.filter.unmatch.combo">
 				      <property name="visible">True</property>
-				      <property name="items" translatable="yes">
+				      <property name="items" translatable="no">
 CVS
 CVS intl po </property>
 				      <property name="add_tearoffs">False</property>
@@ -911,7 +911,7 @@ CVS intl po </property>
 			      <child>
 				<widget class="GtkComboBoxEntry" id="search.var.combo">
 				  <property name="visible">True</property>
-				  <property name="items" translatable="yes">
+				  <property name="items" translatable="no">
 $(module.source.files) $(module.include.files)</property>
 				  <property name="add_tearoffs">False</property>
 				  <property name="has_frame">True</property>

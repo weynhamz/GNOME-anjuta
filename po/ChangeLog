@@ -1,3 +1,7 @@
+2008-01-16  Johannes Schmid  <jhs@gnome.org>
+
+	* de.po: Updated german translation
+
 2008-01-15  Naba Kumar  <naba@gnome.org>
 
 	* POTFILES.in, POTFILES.skip: Moved sourceview-print.c from

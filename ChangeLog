@@ -1,3 +1,15 @@
+2008-01-16  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/gtodo/preferences.c: (pref_gconf_set_notifications):
+	Removed unused gconf_notifications
+	
+	* plugins/search/anjuta-search.glade:
+	* plugins/subversion/anjuta-subversion.glade:
+	* plugins/tools/anjuta-tools.glade:
+	* src/anjuta-app.c: (anjuta_app_instance_init):
+	
+	Fixed various strings
+
 2008-01-15  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/text_editor.c: (isavable_save_as): Correctly highlight

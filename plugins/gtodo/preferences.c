@@ -375,46 +375,7 @@ static void  pref_gconf_changed_auto_purge_days(GConfClient *client)
 {
 	settings.purge_days = gconf_client_get_int(client, "/apps/gtodo/prefs/auto-purge-days",NULL);
 }    
-#endif
-static void  pref_gconf_changed_sort_type(GConfClient *client)
-{
-	settings.sorttype = gconf_client_get_int(client, "/apps/gtodo/prefs/sort-type",NULL);
-	// FIXME: set_sorting_menu_item();
-}    
-static void  pref_gconf_changed_sort_order(GConfClient *client)
-{
-	settings.sortorder = gconf_client_get_int(client, "/apps/gtodo/prefs/sort-order",NULL);
-	if(settings.sortorder == 0)gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Sorting/Sort Ascending"))), TRUE);		
-	else gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Sorting/Sort Descending"))), TRUE);		
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (mw.sortmodel),0 , settings.sortorder);
-}    
-
-static void  pref_gconf_changed_hide_done(GConfClient *client)
-{
-	settings.hide_done = gconf_client_get_bool(client, "/apps/gtodo/prefs/hide-done",NULL);
-	/*	//    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Completed Items"))),settings.hide_done);
-	*/
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Hide Completed Items"))),settings.hide_done);
-	category_changed();
-}    
-
-static void  pref_gconf_changed_hide_due(GConfClient *client)
-{
-	settings.hide_due = gconf_client_get_bool(client, /* "/schemas*/"/apps/gtodo/prefs/hide-due",NULL);
-	/*//    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items that are past due"))),settings.hide_due);
-	*/
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Hide Items that Are Past Due Date"))),settings.hide_due);
-	category_changed();
-}
-
-static void  pref_gconf_changed_hide_nodate(GConfClient *client)
-{
-	settings.hide_nodate = gconf_client_get_bool(client, /* "/schemas*/"/apps/gtodo/prefs/hide-nodate",NULL);
-	/*//    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items without an end date"))), settings.hide_nodate);
-	*/
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, N_("/View/Hide Items Without an End Date"))), settings.hide_nodate);
-	category_changed();
-}    
+#endif 
 
 static void  pref_gconf_changed_hl_today(GConfClient *client)
 {
@@ -484,28 +445,7 @@ void pref_gconf_set_notifications(GConfClient *client)
 			(GConfClientNotifyFunc) pref_gconf_changed_auto_purge,
 			NULL,
 			NULL, NULL);
-	gconf_client_notify_add(client,"/apps/gtodo/prefs/hide-done",
-			(GConfClientNotifyFunc) pref_gconf_changed_hide_done,
-			NULL,
-			NULL, NULL);
-	gconf_client_notify_add(client,"/apps/gtodo/prefs/hide-nodate",
-			(GConfClientNotifyFunc) pref_gconf_changed_hide_nodate,
-			NULL,
-			NULL, NULL);
-	gconf_client_notify_add(client,"/apps/gtodo/prefs/hide-due",
-			(GConfClientNotifyFunc) pref_gconf_changed_hide_due,
-			NULL,
-			NULL, NULL);
-	gconf_client_notify_add(client,"/apps/gtodo/prefs/sort-type",
-			(GConfClientNotifyFunc) pref_gconf_changed_sort_type,
-			NULL,
-			NULL, NULL);
-
-	gconf_client_notify_add(client,"/apps/gtodo/prefs/sort-order",
-			(GConfClientNotifyFunc) pref_gconf_changed_sort_order,
-			NULL,
-			NULL, NULL);	
-
+	
 	gconf_client_notify_add(client,"/apps/gtodo/prefs/hl-today",
 			(GConfClientNotifyFunc) pref_gconf_changed_hl_today,
 			NULL,

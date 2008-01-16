@@ -237,7 +237,7 @@
                   <widget class="GtkCheckButton" id="script_checkbox">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="tooltip" translatable="yes">Edit command in Anjuta on close</property>
+                    <property name="tooltip" translatable="yes">Edit command is script in Anjuta on close</property>
                     <property name="label" translatable="yes">Edit as script</property>
                     <property name="use_underline">True</property>
                     <property name="response_id">0</property>
