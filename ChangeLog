@@ -19,10 +19,13 @@
 	* plugins/subversion/subversion-update-dialog.c:
 	(on_subversion_update_response):
 
-	If the user doesn't enter any data for path or revision fields in certain SVN
-	plugin dialogs, libsvn throws assertion failures and kills Anjuta. To avoid
-	this, the validity of path and revision input data are checked before the
-	command gets executed.
+	If the user doesn't enter any data for path or revision fields in
+	certain SVN plugin dialogs, libsvn throws assertion failures and
+	kills Anjuta. To avoid this, the validity of path and revision
+	input data are checked before the command gets executed.
+
+	Fixes Bug #509510 - Check input of some dialogs to avoid termination
+	if user gives bad or no input
 
 2008-01-16  Sébastien Granjoux  <seb.sfo@free.fr>
 
