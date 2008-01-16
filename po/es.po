@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-11 20:43+0000\n"
-"PO-Revision-Date: 2008-01-12 09:24+0100\n"
+"POT-Creation-Date: 2008-01-16 13:57+0000\n"
+"PO-Revision-Date: 2008-01-16 17:28+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -401,7 +401,7 @@ msgid "Synchronization URI"
 msgstr "URI de sincronización"
 
 #: ../libanjuta/anjuta-profile.c:241
-msgid "URI to sync the proflie xml"
+msgid "URI to sync the profile xml"
 msgstr "URI para sincronizar el perfil xml"
 
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
@@ -423,18 +423,19 @@ msgstr "Fallo al leer «%s»: Error de análisis XML"
 #: ../libanjuta/anjuta-profile.c:581 ../libanjuta/anjuta-profile.c:732
 #, c-format
 msgid ""
-"Failed to read '%s': XML parse error.Invalid or corrupted anjuta plugins "
+"Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins "
 "profile."
 msgstr ""
 "Falló al leer «%s»: error de análisis XML. Perfil de complementos de Anjuta "
 "inválido o corrupto."
 
-#: ../libanjuta/anjuta-profile.c:754
+#. <Pluginname>: Install it from <some location on the web>
+#: ../libanjuta/anjuta-profile.c:755
 #, c-format
 msgid "%s: Install it from '%s'\n"
 msgstr "%s: Instálelo de «%s»\n"
 
-#: ../libanjuta/anjuta-profile.c:762
+#: ../libanjuta/anjuta-profile.c:763
 #, c-format
 msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
@@ -555,12 +556,12 @@ msgstr ""
 "La utilidad «%s» no está instalada.\n"
 "Instálela."
 
-#: ../libanjuta/anjuta-utils.c:785
+#: ../libanjuta/anjuta-utils.c:792
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando: %s (usando shell %s)\n"
 
-#: ../libanjuta/anjuta-utils.c:789
+#: ../libanjuta/anjuta-utils.c:796
 #, c-format
 msgid "Cannot execute command %s (using shell %s)\n"
 msgstr "No se puede ejecutar el comando %s (usando shell %s)\n"
@@ -996,7 +997,7 @@ msgid "Class Options:"
 msgstr "Opciones de clase:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:5
 msgid "Create"
 msgstr "Crear"
 
@@ -1041,7 +1042,7 @@ msgid "Member Functions/Variables"
 msgstr "Funciones/Variables del miembro"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
-#: ../plugins/glade/plugin.c:504
+#: ../plugins/glade/plugin.c:515
 msgid "Properties"
 msgstr "Propiedades"
 
@@ -1085,7 +1086,7 @@ msgstr ""
 "No se pudo encontrar autogen versión 5, por favor instale el paquete "
 "autogen. Puede obtenerlo de http://autogen.sourceforge.net"
 
-#: ../plugins/class-gen/plugin.c:263 ../plugins/class-gen/plugin.c:417
+#: ../plugins/class-gen/plugin.c:259 ../plugins/class-gen/plugin.c:413
 #, c-format
 msgid "Failed to execute autogen: %s"
 msgstr "Fallo al ejecutar autogen: %s"
@@ -1108,7 +1109,7 @@ msgid "<b>Options:</b>"
 msgstr "<b>Opciones:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
-#: ../plugins/search/anjuta-search.glade.h:13
+#: ../plugins/search/anjuta-search.glade.h:3
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:4
 #: ../plugins/subversion/anjuta-subversion.glade.h:9
 msgid "<b>Options</b>"
@@ -1223,7 +1224,7 @@ msgid "Delete empty directories"
 msgstr "Borrar directorios vacíos"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
-#: ../plugins/subversion/anjuta-subversion.glade.h:28
+#: ../plugins/subversion/anjuta-subversion.glade.h:30
 msgid "Do not act recursively"
 msgstr "No actuar recursivamente"
 
@@ -1290,7 +1291,7 @@ msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-#: ../plugins/subversion/anjuta-subversion.glade.h:57
+#: ../plugins/subversion/anjuta-subversion.glade.h:56
 msgid "Use revision/tag: "
 msgstr "Usar revisión/etiqueta"
 
@@ -1299,7 +1300,7 @@ msgid "Use revision: "
 msgstr "Usar revisión: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:58
+#: ../plugins/subversion/anjuta-subversion.glade.h:57
 msgid "Username: "
 msgstr "Usuario: "
 
@@ -1308,7 +1309,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta del fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:62
+#: ../plugins/subversion/anjuta-subversion.glade.h:61
 msgid "Whole project"
 msgstr "Proyecto completo"
 
@@ -1881,7 +1882,6 @@ msgstr "Información"
 #: ../plugins/debug-manager/info.c:127
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:47
 #: ../plugins/editor/print.c:1040
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:20
 msgid "Lines"
 msgstr "Líneas"
 
@@ -2280,7 +2280,7 @@ msgstr "Pid"
 msgid "User"
 msgstr "Usuario"
 
-#: ../plugins/debug-manager/start.c:94 ../plugins/gtodo/egg-datetime.c:2293
+#: ../plugins/debug-manager/start.c:94
 #: ../plugins/profiler/gprof-call-graph-view.c:344
 msgid "Time"
 msgstr "Tiempo"
@@ -3243,12 +3243,10 @@ msgid "<b>Print options</b>"
 msgstr "<b>Opciones de impresión</b>"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:8
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:7
 msgid "Add line number every:"
 msgstr "Añadir número de línea cada:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:9
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:8
 msgid "Add page header"
 msgstr "Añadir cabecera de página"
 
@@ -3302,7 +3300,6 @@ msgid "Colors & Fonts"
 msgstr "Colores y tipografías"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:22
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:10
 msgid "Colour"
 msgstr "Color"
 
@@ -3323,7 +3320,7 @@ msgid "Edge column"
 msgstr "Columna del borde"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:27
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:11
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:8
 msgid "Editor"
 msgstr "Editor"
 
@@ -3352,7 +3349,6 @@ msgid "Enable comments folding"
 msgstr "Activar pliegue de comentarios"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:34
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:13
 msgid "Enable line wrap"
 msgstr "Activar ajuste de líneas"
 
@@ -3393,7 +3389,7 @@ msgid "Indent opening braces"
 msgstr "Sangrar llaves de apertura"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:44
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:19
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:15
 msgid "Indentation size in spaces:"
 msgstr "Tamaño de sangría en espacios:"
 
@@ -3422,12 +3418,10 @@ msgid "Margin Marker visible"
 msgstr "Marcador de márgenes visible"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:52
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:21
 msgid "Mode:"
 msgstr "Modo:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:53
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:22
 msgid "Monochrome"
 msgstr "Monocromo"
 
@@ -3440,7 +3434,7 @@ msgid "Pressing tab inserts indentation"
 msgstr "Sangrar al pulsar el tabulador"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:56
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:23
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:19
 msgid "Printing"
 msgstr "Impresión"
 
@@ -3461,7 +3455,7 @@ msgid "Strip trailling spaces on file save"
 msgstr "Eliminar espacios finales al guardar"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:61
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:30
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:26
 msgid "Tab size in spaces:"
 msgstr "Tamaño del tabulador en espacios:"
 
@@ -3474,7 +3468,7 @@ msgid "Use default"
 msgstr "Usar predeterminado"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:64
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:32
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:28
 msgid "Use tabs for indentation"
 msgstr "Usar tabulador para sangrar"
 
@@ -3622,7 +3616,7 @@ msgid "Back"
 msgstr "Atrás"
 
 #: ../plugins/editor/text_editor_menu.c:85
-#: ../plugins/search/anjuta-search.glade.h:24
+#: ../plugins/search/anjuta-search.glade.h:14
 #: ../plugins/search/search-replace.c:93
 msgid "Forward"
 msgstr "Adelante"
@@ -3927,8 +3921,8 @@ msgid "Do not show hidden files"
 msgstr "No mostrar los archivos ocultos"
 
 #: ../plugins/file-manager/file-manager.glade.h:7
-msgid "Root directory if no project is open: "
-msgstr "Directorio raíz si no hay ningún proyecto abierto: "
+msgid "Root directory if no project is open:"
+msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 
 #: ../plugins/file-manager/file-model.c:148
 #: ../plugins/symbol-browser/an_symbol_view.c:869
@@ -4009,7 +4003,7 @@ msgstr ""
 "La extensión será añadida de acuerdo con el tipo."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
 msgstr "Nombre:"
@@ -4230,25 +4224,25 @@ msgstr ""
 msgid "Cannot start terminal for debugging."
 msgstr "No se pudo iniciar el terminal para depurar."
 
-#: ../plugins/glade/plugin.c:494
+#: ../plugins/glade/plugin.c:505
 msgid "Widgets"
 msgstr "Widgets"
 
-#: ../plugins/glade/plugin.c:499
+#: ../plugins/glade/plugin.c:510
 msgid "Palette"
 msgstr "Paleta"
 
-#: ../plugins/glade/plugin.c:644
+#: ../plugins/glade/plugin.c:655
 #, c-format
 msgid "Not local file: %s"
 msgstr "Archivo no local: %s."
 
-#: ../plugins/glade/plugin.c:686
+#: ../plugins/glade/plugin.c:706
 #, c-format
 msgid "Could not open %s"
 msgstr "No se pudo abrir: %s"
 
-#: ../plugins/glade/plugin.c:745
+#: ../plugins/glade/plugin.c:783
 msgid "Could not create a new glade project."
 msgstr "No se puede crear un proyecto nuevo de glade."
 
@@ -4349,23 +4343,23 @@ msgstr "n/d"
 msgid "stopped:"
 msgstr "detenido:"
 
-#: ../plugins/gtodo/callback.c:12
+#: ../plugins/gtodo/callback.c:17
 msgid "You need to select a todo item before you can remove it"
 msgstr "Necesita seleccionar un elemento pendiente antes de que pueda eliminarlo"
 
-#: ../plugins/gtodo/callback.c:15
+#: ../plugins/gtodo/callback.c:20
 msgid "Are you sure you want to remove the selected todo item?"
 msgstr "¿Seguro que quiere eliminar el elemento pendiente seleccionado?"
 
-#: ../plugins/gtodo/callback.c:15 ../plugins/gtodo/callback.c:101
+#: ../plugins/gtodo/callback.c:20 ../plugins/gtodo/callback.c:100
 msgid "Remove"
 msgstr "Eliminar"
 
-#: ../plugins/gtodo/callback.c:98
+#: ../plugins/gtodo/callback.c:97
 msgid "Are you sure you want to remove all the completed todo items?"
 msgstr "¿Seguro que quiere eliminar todos los elementos pendientes completados?"
 
-#: ../plugins/gtodo/callback.c:99
+#: ../plugins/gtodo/callback.c:98
 #, c-format
 msgid ""
 "Are you sure you want to remove all the completed todo items in the category "
@@ -4373,250 +4367,6 @@ msgid ""
 msgstr ""
 "¿Seguro que desea eliminar todos los elementos pendientes completados en la  "
 "categoría «%s» del proyecto?"
-
-#: ../plugins/gtodo/egg-datetime.c:296
-msgid "Display flags"
-msgstr "Mostrar flags"
-
-#: ../plugins/gtodo/egg-datetime.c:297
-msgid "Displayed date and/or time properties"
-msgstr "Fecha mostrada y/o propiedades del tiempo"
-
-#: ../plugins/gtodo/egg-datetime.c:302
-msgid "Lazy mode"
-msgstr "Modo perezoso"
-
-#: ../plugins/gtodo/egg-datetime.c:303
-msgid "Lazy mode doesn't normalize entered date and time values"
-msgstr "El modo perezoso no normaliza la fecha entrada y los valores de tiempo"
-
-#: ../plugins/gtodo/egg-datetime.c:308
-msgid "Year"
-msgstr "Año"
-
-#: ../plugins/gtodo/egg-datetime.c:309
-msgid "Displayed year"
-msgstr "Año mostrado"
-
-#: ../plugins/gtodo/egg-datetime.c:314
-msgid "Month"
-msgstr "Mes"
-
-#: ../plugins/gtodo/egg-datetime.c:315
-msgid "Displayed month"
-msgstr "Mes mostrado"
-
-#: ../plugins/gtodo/egg-datetime.c:320
-msgid "Day"
-msgstr "Día"
-
-#: ../plugins/gtodo/egg-datetime.c:321
-msgid "Displayed day of month"
-msgstr "Día del mes mostrado"
-
-#: ../plugins/gtodo/egg-datetime.c:326
-msgid "Hour"
-msgstr "Hora"
-
-#: ../plugins/gtodo/egg-datetime.c:327
-msgid "Displayed hour"
-msgstr "Hora mostrada"
-
-#: ../plugins/gtodo/egg-datetime.c:332
-msgid "Minute"
-msgstr "Minuto"
-
-#: ../plugins/gtodo/egg-datetime.c:333
-msgid "Displayed minute"
-msgstr "Minuto mostrado"
-
-#: ../plugins/gtodo/egg-datetime.c:339
-msgid "Second"
-msgstr "Segundo"
-
-#: ../plugins/gtodo/egg-datetime.c:340
-msgid "Displayed second"
-msgstr "Segundo mostrado"
-
-#: ../plugins/gtodo/egg-datetime.c:345
-msgid "Lower limit year"
-msgstr "Límite inferior del año"
-
-#: ../plugins/gtodo/egg-datetime.c:346
-msgid "Year part of the lower date limit"
-msgstr "Parte del año del límite inferior de la fecha"
-
-#: ../plugins/gtodo/egg-datetime.c:351
-msgid "Upper limit year"
-msgstr "Límite superior del año"
-
-#: ../plugins/gtodo/egg-datetime.c:352
-msgid "Year part of the upper date limit"
-msgstr "Parte del año del límite superior de la fecha"
-
-#: ../plugins/gtodo/egg-datetime.c:357
-msgid "Lower limit month"
-msgstr "Límite inferior del mes"
-
-#: ../plugins/gtodo/egg-datetime.c:358
-msgid "Month part of the lower date limit"
-msgstr "Parte del mes del límite inferior de la fecha"
-
-#: ../plugins/gtodo/egg-datetime.c:363
-msgid "Upper limit month"
-msgstr "Límite superior para el mes"
-
-#: ../plugins/gtodo/egg-datetime.c:364
-msgid "Month part of the upper date limit"
-msgstr "Parte del mes del límite de fecha superior"
-
-#: ../plugins/gtodo/egg-datetime.c:369
-msgid "Lower limit day"
-msgstr "Límite inferior del día"
-
-#: ../plugins/gtodo/egg-datetime.c:370
-msgid "Day of month part of the lower date limit"
-msgstr "Parte del día del mes del límite inferior de la fecha"
-
-#: ../plugins/gtodo/egg-datetime.c:375
-msgid "Upper limit day"
-msgstr "Límite superior del día"
-
-#: ../plugins/gtodo/egg-datetime.c:376
-msgid "Day of month part of the upper date limit"
-msgstr "Parte del día del mes del límite superior de la fecha"
-
-#: ../plugins/gtodo/egg-datetime.c:381
-msgid "Lower limit hour"
-msgstr "Límite inferior de la hora"
-
-#: ../plugins/gtodo/egg-datetime.c:382
-msgid "Hour part of the lower time limit"
-msgstr "Parte de la hora del límite inferior de tiempo"
-
-#: ../plugins/gtodo/egg-datetime.c:387
-msgid "Upper limit hour"
-msgstr "Límite superior de la hora"
-
-#: ../plugins/gtodo/egg-datetime.c:388
-msgid "Hour part of the upper time limit"
-msgstr "Parte de la hora del límite superior de la hora"
-
-#: ../plugins/gtodo/egg-datetime.c:393
-msgid "Lower limit minute"
-msgstr "Límite inferior del minuto"
-
-#: ../plugins/gtodo/egg-datetime.c:394
-msgid "Minute part of the lower time limit"
-msgstr "Parte del minuto del límite inferior de la hora"
-
-#: ../plugins/gtodo/egg-datetime.c:399
-msgid "Upper limit minute"
-msgstr "Límite superior del minuto"
-
-#: ../plugins/gtodo/egg-datetime.c:400
-msgid "Minute part of the upper time limit"
-msgstr "Parte del minuto del límite superior de la hora"
-
-#: ../plugins/gtodo/egg-datetime.c:405
-msgid "Lower limit second"
-msgstr "Límite inferior del segundo"
-
-#: ../plugins/gtodo/egg-datetime.c:406
-msgid "Second part of the lower time limit"
-msgstr "Parte del segundo de límite inferior de la hora"
-
-#: ../plugins/gtodo/egg-datetime.c:411
-msgid "Upper limit second"
-msgstr "Límite superior del segundo"
-
-#: ../plugins/gtodo/egg-datetime.c:412
-msgid "Second part of the upper time limit"
-msgstr "Segunda parte del límite superior de la hora"
-
-#. Translators: Change this if you want to start weeks at mondays.
-#: ../plugins/gtodo/egg-datetime.c:448
-msgid "week-starts-monday: yes"
-msgstr "week-starts-monday: no"
-
-#: ../plugins/gtodo/egg-datetime.c:546
-msgid "_Today"
-msgstr "_Hoy"
-
-#: ../plugins/gtodo/egg-datetime.c:547
-msgid "_No Date"
-msgstr "_Sin fecha"
-
-#. Translators: set this to anything else if you want to use a
-#. * 24 hour clock.
-#.
-#: ../plugins/gtodo/egg-datetime.c:793
-msgid "24hr: no"
-msgstr "24hr: yes"
-
-#: ../plugins/gtodo/egg-datetime.c:797 ../plugins/gtodo/egg-datetime.c:1341
-#: ../plugins/gtodo/egg-datetime.c:1345
-msgid "AM"
-msgstr "AM"
-
-#: ../plugins/gtodo/egg-datetime.c:799 ../plugins/gtodo/egg-datetime.c:1342
-#: ../plugins/gtodo/egg-datetime.c:1349
-msgid "PM"
-msgstr "PM"
-
-#. Translators: This is hh:mm:ss AM/PM.
-#: ../plugins/gtodo/egg-datetime.c:807
-#, c-format
-msgid "%02d:%02d:%02d %s"
-msgstr "%02d:%02d:%02d %s"
-
-#. Translators: This is hh:mm AM/PM.
-#: ../plugins/gtodo/egg-datetime.c:810
-#, c-format
-msgid "%02d:%02d %s"
-msgstr "%02d:%02d %s"
-
-#. Translators: This is hh:mm:ss.
-#: ../plugins/gtodo/egg-datetime.c:814
-#, c-format
-msgid "%02d:%02d:%02d"
-msgstr "%02d:%02d:%02d"
-
-#. Translators: This is hh:mm.
-#: ../plugins/gtodo/egg-datetime.c:817
-#, c-format
-msgid "%02d:%02d"
-msgstr "%02d:%02d"
-
-#: ../plugins/gtodo/egg-datetime.c:1244 ../plugins/gtodo/egg-datetime.c:1296
-#: ../plugins/gtodo/todo_db.c:165
-msgid "No Date"
-msgstr "Sin fecha"
-
-#. TODO: should handle other display modes as well...
-#. Translators: This is yyyy-mm-dd.
-#: ../plugins/gtodo/egg-datetime.c:1256
-#, c-format
-msgid "%04d-%02d-%02d"
-msgstr "%04d-%02d-%02d"
-
-#: ../plugins/gtodo/egg-datetime.c:1280 ../plugins/gtodo/egg-datetime.c:2324
-msgid "no end time"
-msgstr "sin fecha de finalización"
-
-#. Translators: This is hh:mm:ss AM/PM.
-#: ../plugins/gtodo/egg-datetime.c:1322
-#, c-format
-msgid "%u:%u:%u"
-msgstr "%u:%u:%u"
-
-#: ../plugins/gtodo/eggtrayicon.c:117
-msgid "Orientation"
-msgstr "Orientación"
-
-#: ../plugins/gtodo/eggtrayicon.c:118
-msgid "The orientation of the tray."
-msgstr "La orientación del panel de notificación."
 
 #: ../plugins/gtodo/export.c:21
 msgid "Export to"
@@ -4855,34 +4605,6 @@ msgstr ""
 "cabeceras de columna desactivadas.\n"
 "Espero que esto se arregle pronto"
 
-#: ../plugins/gtodo/preferences.c:387
-msgid "/View/Sorting/Sort Ascending"
-msgstr "/Ver/Ordenar/Ordenar ascendentemente"
-
-#: ../plugins/gtodo/preferences.c:388
-msgid "/View/Sorting/Sort Descending"
-msgstr "/Ver/Ordenar/Ordenar descendentemente"
-
-#. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Completed Items"))),settings.hide_done);
-#.
-#: ../plugins/gtodo/preferences.c:397
-msgid "/View/Hide Completed Items"
-msgstr "/Ver/Ocultar elementos completados"
-
-#. "/schemas
-#. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items that are past due"))),settings.hide_due);
-#.
-#: ../plugins/gtodo/preferences.c:406
-msgid "/View/Hide Items that Are Past Due Date"
-msgstr "/Ver/Ocultar elementos que son posteriores a su fecha de vencimiento"
-
-#. "/schemas
-#. //    gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(mw.item_factory, _("/View/Todo List/Hide Items without an end date"))), settings.hide_nodate);
-#.
-#: ../plugins/gtodo/preferences.c:415
-msgid "/View/Hide Items Without an End Date"
-msgstr "/Var/Ocultar elementos sin una fecha de finalización"
-
 #: ../plugins/gtodo/tasklists.c:9
 msgid "Open a Task List"
 msgstr "Abrir una lista de tareas"
@@ -4890,6 +4612,10 @@ msgstr "Abrir una lista de tareas"
 #: ../plugins/gtodo/tasklists.c:30
 msgid "Create a Task List"
 msgstr "Crear una lista de tareas"
+
+#: ../plugins/gtodo/todo_db.c:165
+msgid "No Date"
+msgstr "Sin fecha"
 
 #: ../plugins/gtodo/tray-icon.c:22
 msgid "/_New"
@@ -5161,7 +4887,7 @@ msgstr ""
 "Examine y quite cualquier archivo rechazado.\n"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
-#: ../plugins/subversion/anjuta-subversion.glade.h:29
+#: ../plugins/subversion/anjuta-subversion.glade.h:31
 msgid "Dry run"
 msgstr "Ejecución en seco"
 
@@ -5715,7 +5441,7 @@ msgstr "Información básica"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:7
 #: ../plugins/project-wizard/templates/translatable-strings.h:16
-#: ../plugins/subversion/anjuta-subversion.glade.h:25
+#: ../plugins/subversion/anjuta-subversion.glade.h:26
 msgid "Destination:"
 msgstr "Destino:"
 
@@ -6154,184 +5880,150 @@ msgid "SamplePlugin"
 msgstr "Complemento de ejemplo"
 
 #: ../plugins/search/anjuta-search.glade.h:1
-msgid ""
-"\n"
-"$(module.source.files) $(module.include.files)"
-msgstr ""
-"\n"
-"$(module.source.files) $(module.include.files)"
-
-#: ../plugins/search/anjuta-search.glade.h:3
-msgid ""
-"\n"
-"CVS\n"
-"CVS intl po "
-msgstr ""
-"\n"
-"CVS\n"
-"CVS intl po "
-
-#: ../plugins/search/anjuta-search.glade.h:6
-msgid "*.so *.o *.a *.la\n"
-msgstr "*.so *.o *.a *.la\n"
-
-#: ../plugins/search/anjuta-search.glade.h:8
-msgid ""
-"*\\.*\n"
-"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp\n"
-"*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README "
-"AUTHORS ChangeLog *.m4"
-msgstr ""
-"*\\.*\n"
-"*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp\n"
-"*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README "
-"AUTHORS ChangeLog *.m4"
-
-#: ../plugins/search/anjuta-search.glade.h:11
 msgid "<b>Actions</b>"
 msgstr "<b>Acciones</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:12
+#: ../plugins/search/anjuta-search.glade.h:2
 msgid "<b>File Filter</b>"
 msgstr "<b>Filtro de archivos</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:14
+#: ../plugins/search/anjuta-search.glade.h:4
 msgid "<b>Parameters</b>"
 msgstr "<b>Parámetros</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:15
+#: ../plugins/search/anjuta-search.glade.h:5
 msgid "<b>Scope</b>"
 msgstr "<b>Ámbito</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:16
+#: ../plugins/search/anjuta-search.glade.h:6
 msgid "<b>Search Variable</b>"
 msgstr "<b>Buscar variable</b>"
 
-#: ../plugins/search/anjuta-search.glade.h:17
+#: ../plugins/search/anjuta-search.glade.h:7
 #: ../plugins/search/search-replace.c:94
 msgid "Backward"
 msgstr "Atrás"
 
-#: ../plugins/search/anjuta-search.glade.h:18
+#: ../plugins/search/anjuta-search.glade.h:8
 msgid "Basic Search & Replace"
 msgstr "Búsqueda y reemplazo básico"
 
-#: ../plugins/search/anjuta-search.glade.h:19
+#: ../plugins/search/anjuta-search.glade.h:9
 msgid "Case insensitive"
 msgstr "No distinguir capitalización"
 
-#: ../plugins/search/anjuta-search.glade.h:20
+#: ../plugins/search/anjuta-search.glade.h:10
 msgid "Choose Directories:"
 msgstr "Elija directorios:"
 
-#: ../plugins/search/anjuta-search.glade.h:21
+#: ../plugins/search/anjuta-search.glade.h:11
 msgid "Choose Files:"
 msgstr "Elija archivos:"
 
-#: ../plugins/search/anjuta-search.glade.h:22
+#: ../plugins/search/anjuta-search.glade.h:12
 msgid "Expand regex back references"
 msgstr "Expandir referencias hacia atrás en expr. reg."
 
-#: ../plugins/search/anjuta-search.glade.h:23
+#: ../plugins/search/anjuta-search.glade.h:13
 msgid "Find & Replace"
 msgstr "Buscar y reemplazar"
 
 #. the order of these matters - it must match the order of the corresponding
 #. radio buttons on another page
-#: ../plugins/search/anjuta-search.glade.h:25
+#: ../plugins/search/anjuta-search.glade.h:15
 #: ../plugins/search/search-replace.c:92
 msgid "Full Buffer"
 msgstr "Llenar búfer"
 
-#: ../plugins/search/anjuta-search.glade.h:26
+#: ../plugins/search/anjuta-search.glade.h:16
 msgid "Greedy matching"
 msgstr "Coincidencia voraz"
 
-#: ../plugins/search/anjuta-search.glade.h:27
+#: ../plugins/search/anjuta-search.glade.h:17
 msgid "Ignore Binary Files"
 msgstr "Ignorar archivos binarios"
 
-#: ../plugins/search/anjuta-search.glade.h:28
+#: ../plugins/search/anjuta-search.glade.h:18
 msgid "Ignore Directories:"
 msgstr "Ignorar directorios:"
 
-#: ../plugins/search/anjuta-search.glade.h:29
+#: ../plugins/search/anjuta-search.glade.h:19
 msgid "Ignore Files:"
 msgstr "Ignorar archivos:"
 
-#: ../plugins/search/anjuta-search.glade.h:30
+#: ../plugins/search/anjuta-search.glade.h:20
 msgid "Ignore Hidden Directories"
 msgstr "Ignorar directorios ocultos"
 
-#: ../plugins/search/anjuta-search.glade.h:31
+#: ../plugins/search/anjuta-search.glade.h:21
 msgid "Ignore Hidden Files"
 msgstr "Ignorar archivos ocultos"
 
-#: ../plugins/search/anjuta-search.glade.h:32
+#: ../plugins/search/anjuta-search.glade.h:22
 msgid "Match at start of word"
 msgstr "Coincide el inicio de palabra"
 
-#: ../plugins/search/anjuta-search.glade.h:33
+#: ../plugins/search/anjuta-search.glade.h:23
 msgid "Match complete lines"
 msgstr "Coincide con líneas completas"
 
-#: ../plugins/search/anjuta-search.glade.h:34
+#: ../plugins/search/anjuta-search.glade.h:24
 msgid "Match complete words"
 msgstr "Coincide con palabras completas"
 
-#: ../plugins/search/anjuta-search.glade.h:35
+#: ../plugins/search/anjuta-search.glade.h:25
 msgid "Max. Actions"
 msgstr "Acciones máximas"
 
-#: ../plugins/search/anjuta-search.glade.h:36
+#: ../plugins/search/anjuta-search.glade.h:26
 msgid "Modify"
 msgstr "Modificar"
 
-#: ../plugins/search/anjuta-search.glade.h:37
+#: ../plugins/search/anjuta-search.glade.h:27
 msgid "New Name:"
 msgstr "Nombre nuevo:"
 
-#: ../plugins/search/anjuta-search.glade.h:38
+#: ../plugins/search/anjuta-search.glade.h:28
 msgid "No Limit"
 msgstr "Sin límite"
 
-#: ../plugins/search/anjuta-search.glade.h:39
+#: ../plugins/search/anjuta-search.glade.h:29
 msgid "Regular Expression"
 msgstr "Expresión regular"
 
-#: ../plugins/search/anjuta-search.glade.h:40
+#: ../plugins/search/anjuta-search.glade.h:30
 msgid "Replace With:"
 msgstr "Reemplazar por:"
 
-#: ../plugins/search/anjuta-search.glade.h:41
+#: ../plugins/search/anjuta-search.glade.h:31
 msgid "Search Action:"
 msgstr "Acción de búsqueda:"
 
-#: ../plugins/search/anjuta-search.glade.h:42
+#: ../plugins/search/anjuta-search.glade.h:32
 msgid "Search Direction:"
 msgstr "Dirección de búsqueda:"
 
-#: ../plugins/search/anjuta-search.glade.h:43
+#: ../plugins/search/anjuta-search.glade.h:33
 msgid "Search Expression"
 msgstr "Expresión de búsqueda"
 
-#: ../plugins/search/anjuta-search.glade.h:44
+#: ../plugins/search/anjuta-search.glade.h:34
 msgid "Search Expression:"
 msgstr "Expresión de búsqueda:"
 
-#: ../plugins/search/anjuta-search.glade.h:45
+#: ../plugins/search/anjuta-search.glade.h:35
 msgid "Search In:"
 msgstr "Buscar en:"
 
-#: ../plugins/search/anjuta-search.glade.h:46
+#: ../plugins/search/anjuta-search.glade.h:36
 msgid "Search Recursively"
 msgstr "Buscar recursivamente"
 
-#: ../plugins/search/anjuta-search.glade.h:47
+#: ../plugins/search/anjuta-search.glade.h:37
 msgid "Search Target"
 msgstr "Buscar objetivo"
 
-#: ../plugins/search/anjuta-search.glade.h:48
+#: ../plugins/search/anjuta-search.glade.h:38
 msgid "Setting"
 msgstr "Configuración"
 
@@ -6535,6 +6227,10 @@ msgstr "Guardando…"
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr "Otra aplicación modificó el archivo %s. ¿Guardarlo de todas formas?"
 
+#: ../plugins/sourceview/sourceview-print.c:47
+msgid "Preparing pages for printing"
+msgstr "Preparando páginas para imprimir"
+
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:1
 msgid "<b>Colors:</b>"
 msgstr "<b>Colores:</b>"
@@ -6551,69 +6247,85 @@ msgstr "<b>Opciones de sangría y autoformato</b>"
 msgid "<b>View</b>"
 msgstr "<b>Ver</b>"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:9
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:7
 msgid "Background:"
 msgstr "Fondo:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:12
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:9
 msgid "Enable VFS file monitoring"
 msgstr "Activar monitorización de archivos VFS"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:14
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:10
 msgid "Font "
 msgstr "Tipografía "
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:15
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:11
 msgid "Font: "
 msgstr "Tipografía: "
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:16
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:12
 msgid "Highlight current line"
 msgstr "Resaltar línea actual"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:17
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:13
 msgid "Highlight matching brackets"
 msgstr "Resaltar corchetes coincidentes"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:18
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:14
 msgid "Highlight syntax"
 msgstr "Resaltar sintaxis"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:16
+msgid "Print Linenumbers"
+msgstr "Imprimir números de línea"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:17
+msgid "Print page footer"
+msgstr "Imprimir pie de página"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:18
+msgid "Print page header"
+msgstr "Imprimir cabeceras de página"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:20
 msgid "Right margin position in characters"
 msgstr "Posición del margen derecho en caracteres"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:21
 msgid "Selected text: "
 msgstr "Texto seleccionado: "
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:26
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:22
 msgid "Selection:"
 msgstr "Selección:"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:27
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:23
 msgid "Show line numbers"
 msgstr "Mostrar números de línea"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:28
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:24
 msgid "Show marks"
 msgstr "Mostrar las marcas"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:29
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:25
 msgid "Show right margin"
 msgstr "Mostrar el margen derecho"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:31
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:27
 msgid "Text: "
 msgstr "Texto: "
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:33
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:29
 msgid "Use theme colors"
 msgstr "Usar colores del tema"
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:34
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:30
 msgid "Use theme font"
 msgstr "Usar tipografía del tema"
+
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:31
+msgid "Wrap long lines to fit on paper"
+msgstr "Ajustar las líneas largas para que quepan en el papel"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Branch/Tag URL:</b>"
@@ -6691,139 +6403,135 @@ msgstr "Añadir archivo/directorio"
 msgid "Commit Changes"
 msgstr "Efectuar cambios"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:26
+#: ../plugins/subversion/anjuta-subversion.glade.h:25
+msgid "Copy files/folders"
+msgstr "Copiar archivos/carpetas"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:27
 msgid "Diff Selected Revisions"
 msgstr "Diff de las revisiones seleccionadas"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:27
+#: ../plugins/subversion/anjuta-subversion.glade.h:28
+msgid "Diff file/directory"
+msgstr "Diferencias del archivo/directorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:29
 msgid "Diff to Previous"
 msgstr "Diff con la anterior"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:30
+#: ../plugins/subversion/anjuta-subversion.glade.h:32
 msgid "Force"
 msgstr "Forzar"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:31
+#: ../plugins/subversion/anjuta-subversion.glade.h:33
 msgid "Ignore ancestry"
 msgstr "Ignorar ancestros"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:32
+#: ../plugins/subversion/anjuta-subversion.glade.h:34
+msgid "Merge changes into working copy"
+msgstr "Mezclar los cambios en la copia de trabajo"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:35
 msgid "Other Revision:"
 msgstr "Otra revisión:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:33
+#: ../plugins/subversion/anjuta-subversion.glade.h:36
 msgid "Password:"
 msgstr "Contraseña:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:34
+#: ../plugins/subversion/anjuta-subversion.glade.h:37
 msgid "Realm:"
 msgstr "Reino:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:35
+#: ../plugins/subversion/anjuta-subversion.glade.h:38
 msgid "Realm: "
 msgstr "Reino:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:36
+#: ../plugins/subversion/anjuta-subversion.glade.h:39
 msgid "Recurse"
 msgstr "Recursivo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:37
+#: ../plugins/subversion/anjuta-subversion.glade.h:40
 msgid "Remember Password"
 msgstr "Recordar contraseña"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:38
+#: ../plugins/subversion/anjuta-subversion.glade.h:41
 msgid "Remember this decision"
 msgstr "Recordar esta decisión"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:39
+#: ../plugins/subversion/anjuta-subversion.glade.h:42
+msgid "Remove file/directory"
+msgstr "Eliminar archivo/directorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:43
 msgid "Repository Head"
 msgstr "Repositorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:40
+#: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Repository authorization"
 msgstr "Autorización del repositorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:41
+#: ../plugins/subversion/anjuta-subversion.glade.h:45
 msgid "Retrieving status..."
 msgstr "Obteniendo el estado…"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:42
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
+msgid "Revert Changes"
+msgstr "Revertir cambios"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:47
 msgid "Revision:"
 msgstr "Revisión:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:43
+#: ../plugins/subversion/anjuta-subversion.glade.h:48
 msgid "Save open files before diffing"
 msgstr "Guardar los archivos abiertos antes de hacer el diff"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:44
+#: ../plugins/subversion/anjuta-subversion.glade.h:49
 msgid "Set Conflicts as Resolved"
 msgstr "Establecer conflictos como resueltos"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:45
+#: ../plugins/subversion/anjuta-subversion.glade.h:50
 msgid "Source:"
 msgstr "Orígen:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
+#: ../plugins/subversion/anjuta-subversion.glade.h:51
 msgid "Subversion Preferences"
 msgstr "Preferencias de Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:47
-msgid "Subversion: Copy files/folders"
-msgstr "Subversion: Copiar archivos/carpetas"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:48
-msgid "Subversion: Diff file/directory"
-msgstr "Subversion: Diff de archivo/directorio"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:49
-msgid "Subversion: Merge changes into working copy"
-msgstr "Subversion: Mezclar cambios en la copia de trabajo"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:50
-msgid "Subversion: Remove file/directory"
-msgstr "Subversion: Eliminar archivo/directorio"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:51
-msgid "Subversion: Revert Changes"
-msgstr "Subversion: Revertir cambios"
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:52
-msgid "Subversion: Switch to branch/tag"
-msgstr "Subversion: Cambiar a la rama/etiqueta"
+msgid "Switch to branch/tag"
+msgstr "Cambiar a una rama/etiqueta"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:53
-msgid "Subversion: Update file/directory"
-msgstr "Subversion: Actualizar archivo/directorio"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:54
-msgid "TODO!"
-msgstr "¡Por hacer!"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Trust server"
 msgstr "Confiar en el servidor"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:56
+#: ../plugins/subversion/anjuta-subversion.glade.h:54
+msgid "Update file/directory"
+msgstr "Actualizar archivo/directorio"
+
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Use first path"
 msgstr "Usar la primera ruta"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:59
+#: ../plugins/subversion/anjuta-subversion.glade.h:58
 msgid "View Log"
 msgstr "Ver el registro"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:60
+#: ../plugins/subversion/anjuta-subversion.glade.h:59
 msgid "View Selected Revision"
 msgstr "Ver la revisión seleccionada"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:61
+#: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole Project"
 msgstr "Proyecto completo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:63
+#: ../plugins/subversion/anjuta-subversion.glade.h:62
 msgid "Working Copy"
 msgstr "Copia de trabajo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:64
+#: ../plugins/subversion/anjuta-subversion.glade.h:63
 msgid "realm"
 msgstr "reino"
 
@@ -7194,23 +6902,19 @@ msgid "<b>Create API tags:</b>"
 msgstr "<b>Crear etiquetas del API:</b>"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
+msgid "Add Directory"
+msgstr "Añadir directorio"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
 msgid "Add directories in the list to scan:"
 msgstr "Añadir directorios en la lista para escrutar:"
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
-msgid "Add directory"
-msgstr "Añadir directorio"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:5
-msgid "Crea_te"
-msgstr "_Crear"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
 msgid "Create API tags"
 msgstr "Crear etiquetas del API"
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
-msgid "Update globale tags"
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
+msgid "Update Global Tags"
 msgstr "Actualizar etiquetas globales"
 
 #: ../plugins/symbol-browser/plugin.c:273
@@ -7322,8 +7026,8 @@ msgid "Edit as script"
 msgstr "Editar como script"
 
 #: ../plugins/tools/anjuta-tools.glade.h:3
-msgid "Edit command in Anjuta on close"
-msgstr "Comando de edición en Anjuta al cerrar"
+msgid "Edit command is script in Anjuta on close"
+msgstr "Editar comando en script de Anjuta al cerrar"
 
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Menu Items:"
@@ -7909,12 +7613,12 @@ msgid "<b>Appearance</b>"
 msgstr "<b>Apariencia</b>"
 
 #: ../src/anjuta.glade.h:2
-msgid "<b>General Information:</b>"
-msgstr "<b>Información general:</b>"
+msgid "<b>General Information</b>"
+msgstr "<b>Información general</b>"
 
 #: ../src/anjuta.glade.h:3
-msgid "<b>Session:</b>"
-msgstr "<b>Sesión:</b>"
+msgid "<b>Session</b>"
+msgstr "<b>Sesión</b>"
 
 #: ../src/anjuta.glade.h:4
 msgid "Default project directory"
@@ -8086,13 +7790,9 @@ msgstr "Acerca de los complementos de terceros"
 msgid "Edit"
 msgstr "Editar"
 
-#: ../src/anjuta-app.c:624
+#: ../src/anjuta-app.c:624 ../src/anjuta-app.c:629
 msgid "View"
 msgstr "Vista"
-
-#: ../src/anjuta-app.c:629
-msgid "Toggle View"
-msgstr "Cambiar vista"
 
 #: ../src/anjuta-app.c:828
 msgid "Installed plugins"
