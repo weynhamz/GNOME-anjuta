@@ -1,5 +1,14 @@
 2008-01-16  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/anjuta-document-manager.glade:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
+
+	Fixed #509865 – Incorrect padding in the Documents settings tabs
+	Fixed #509867 – Create button contents is mis-aligned
+	Fixed #509869 – "Add Directory" button is not HIG complient
+
+2008-01-16  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-preferences-dialog.c:
 	(anjuta_preferences_dialog_add_page):
 	
