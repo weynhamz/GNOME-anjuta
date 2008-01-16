@@ -261,7 +261,9 @@ anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
 									GtkWidget *page)
 {
 	GtkTreeIter iter;
-
+	GtkTreeSelection* selection =
+		gtk_tree_view_get_selection (GTK_TREE_VIEW (dlg->priv->treeview));
+	GtkTreeIter first;	  
 	gtk_widget_show (page);
 	
 	gtk_notebook_append_page (GTK_NOTEBOOK (dlg->priv->notebook), page, NULL);
@@ -274,6 +276,10 @@ anjuta_preferences_dialog_add_page (AnjutaPreferencesDialog *dlg,
 			    COL_PIXBUF, icon,
 			    COL_WIDGET, page,
 			    -1);
+	
+		gtk_tree_model_get_iter_first (GTK_TREE_MODEL (dlg->priv->store),
+									   &first);
+		gtk_tree_selection_select_iter (selection, &first);
 }
 
 /**

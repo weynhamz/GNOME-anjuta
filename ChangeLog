@@ -1,5 +1,12 @@
 2008-01-16  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/anjuta-preferences-dialog.c:
+	(anjuta_preferences_dialog_add_page):
+	
+	Fix #509864 – No initial section selected when opening the Preferences dialog
+
+2008-01-16  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/gtodo/preferences.c: (pref_gconf_set_notifications):
 	Removed unused gconf_notifications
 	
