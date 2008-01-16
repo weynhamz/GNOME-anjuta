@@ -1,5 +1,17 @@
 2008-01-16  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
+	* src/anjuta.glade:
+	
+	Fixed #509875 – The "Update globale tags" button wording is incorrect
+	Fixed #509873 – Build Autotools Preferences has excessive padding
+	Fixed #509872 – General Information labels are incorrectly aligned
+	Fixed #509871 – General preferences has incorrect use of colons
+	
+2008-01-16  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/document-manager/anjuta-document-manager.glade:
 	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
 
