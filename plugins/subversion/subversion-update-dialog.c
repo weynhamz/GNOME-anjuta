@@ -62,8 +62,11 @@ on_subversion_update_response(GtkDialog* dialog, gint response, SubversionData* 
 			revisionentry = glade_xml_get_widget(data->gxml, "subversion_revision");
 			revision = gtk_entry_get_text(GTK_ENTRY(revisionentry));
 			
-			if (!check_filename(dialog, filename))
-				break;	
+			if (!check_input (GTK_WIDGET (dialog), 
+							  fileentry, _("Please enter a path.")))
+			{
+				break;
+			}
 			
 			update_command = svn_update_command_new ((gchar *) filename, 
 													 (gchar *) revision, 

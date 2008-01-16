@@ -89,6 +89,24 @@ on_subversion_merge_response (GtkDialog *dialog, gint response,
 		merge_dry_run_check = glade_xml_get_widget (data->gxml,
 													"merge_dry_run_check");
 		
+		if (!check_input (GTK_WIDGET (dialog), merge_first_path_entry,
+						  _("Please enter the first path.")))
+		{
+			return;
+		}
+		
+		if (!check_input (GTK_WIDGET (dialog), merge_second_path_entry,
+						  _("Please enter the second path.")))
+		{
+			return;
+		}
+		
+		if (!check_input (GTK_WIDGET (dialog), merge_working_copy_path_entry,
+						  _("Please enter a working copy path.")))
+		{
+			return;
+		}
+		
 		first_path = gtk_entry_get_text (GTK_ENTRY (merge_first_path_entry));
 		second_path = gtk_entry_get_text (GTK_ENTRY (merge_second_path_entry));
 		working_copy_path = gtk_entry_get_text (GTK_ENTRY (merge_working_copy_path_entry));
@@ -96,6 +114,13 @@ on_subversion_merge_response (GtkDialog *dialog, gint response,
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (merge_start_revision_radio)))
 		{
 			start_revision_text = gtk_entry_get_text (GTK_ENTRY (merge_start_revision_entry));
+			
+			if (!check_input (GTK_WIDGET (dialog), merge_start_revision_entry,
+						  	  _("Please enter the start revision.")))
+			{
+				return;
+			}
+			
 			start_revision = atol (start_revision_text);
 		}
 		else
@@ -104,6 +129,13 @@ on_subversion_merge_response (GtkDialog *dialog, gint response,
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (merge_end_revision_radio)))
 		{
 			end_revision_text = gtk_entry_get_text (GTK_ENTRY (merge_end_revision_entry));
+			
+			if (!check_input (GTK_WIDGET (dialog), merge_end_revision_entry,
+						  	  _("Please enter the end revision.")))
+			{
+				return;
+			}
+			
 			end_revision = atol (end_revision_text);
 		}
 		else

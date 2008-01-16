@@ -77,18 +77,35 @@ create_message_view(Subversion* plugin)
 }
 
 gboolean 
-check_filename(GtkDialog* dialog, const gchar* filename)
+check_input (GtkWidget *parent, GtkWidget *entry, const gchar *error_message)
 {
-	if (!strlen(filename))
+	gchar *input;
+	gboolean ret;
+	GtkWidget *dialog;
+	
+	input = gtk_editable_get_chars (GTK_EDITABLE (entry), 0, -1);
+	
+	if (strlen (input) > 0)
+		ret = TRUE;
+	else
 	{
-		GtkWidget* dlg = gtk_message_dialog_new(GTK_WINDOW(dialog), 
-			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
-			GTK_BUTTONS_CLOSE, _("Please enter a filename!"));
-		gtk_dialog_run(GTK_DIALOG(dlg));
-		gtk_widget_destroy(dlg);
-		return FALSE;
+		dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+										 GTK_DIALOG_DESTROY_WITH_PARENT,
+										 GTK_MESSAGE_WARNING,
+										 GTK_BUTTONS_OK,
+										 error_message);
+		
+		gtk_dialog_run (GTK_DIALOG (dialog));
+		gtk_widget_destroy (dialog);
+		
+		gtk_window_set_focus (GTK_WINDOW (parent), entry);
+		
+		ret = FALSE;
 	}
-	return TRUE;
+	
+	g_free (input);
+	
+	return ret;
 }
 
 gchar * 

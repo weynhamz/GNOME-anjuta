@@ -180,6 +180,18 @@ on_subversion_copy_response (GtkDialog *dialog, gint response,
 		dest_path = gtk_editable_get_chars (GTK_EDITABLE (copy_dest_entry),
 											0, -1);
 		
+		if (!check_input (GTK_WIDGET (dialog), copy_source_entry,
+						  _("Please enter a source path.")))
+		{
+			return;
+		}
+		
+		if (!check_input (GTK_WIDGET (dialog), copy_dest_entry,
+						  _("Please enter a destination path.")))
+		{
+			return;
+		}
+		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (copy_working_copy_radio)))
 			revision = SVN_COPY_REVISION_WORKING;
 		
@@ -190,6 +202,13 @@ on_subversion_copy_response (GtkDialog *dialog, gint response,
 		{
 			copy_revision_entry = glade_xml_get_widget (data->gxml, 
 														"copy_revision_entry");
+			
+			if (!check_input (GTK_WIDGET (dialog), copy_revision_entry,
+						  	  _("Please enter a revision.")))
+			{
+				return;
+			}
+			
 			revision_text = gtk_editable_get_chars (GTK_EDITABLE (copy_revision_entry),
 													0, -1);
 			revision = atol (revision_text);
@@ -200,9 +219,6 @@ on_subversion_copy_response (GtkDialog *dialog, gint response,
 		log = get_log_from_textview (copy_log_view);
 		
 		create_message_view (data->plugin);
-		
-		g_print ("Source path: %s\n", source_path);
-		g_print ("Destination path: %s\n", dest_path);
 		
 		copy_command = svn_copy_command_new (source_path, revision, dest_path,
 											 log);

@@ -60,8 +60,11 @@ on_subversion_diff_response(GtkDialog* dialog, gint response, SubversionData* da
 			revision_text = gtk_entry_get_text (GTK_ENTRY (diff_revision_entry));
 			revision = atol (revision_text);
 			
-			if (!check_filename(dialog, path))
-				break;	
+			if (!check_input (GTK_WIDGET (dialog), diff_path_entry, 
+							  _("Please enter a path.")))
+			{
+				break;
+			}
 				
 			docman = anjuta_shell_get_interface (ANJUTA_PLUGIN (data->plugin)->shell,
 	                                     IAnjutaDocumentManager, NULL);

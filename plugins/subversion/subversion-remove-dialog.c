@@ -94,8 +94,11 @@ on_subversion_remove_response(GtkDialog* dialog, gint response,
 													"remove_log_view");
 			log = get_log_from_textview (remove_log_view);
 			
-			if (!check_filename(dialog, filename))
+			if (!check_input (GTK_WIDGET (dialog), 
+							  fileentry, _("Please enter a path.")))
+			{
 				break;
+			}
 			
 			
 			remove_command = svn_remove_command_new ((gchar *) filename, log,

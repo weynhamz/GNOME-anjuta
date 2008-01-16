@@ -96,6 +96,18 @@ on_subversion_switch_response (GtkDialog *dialog, gint response,
 		branch_url = gtk_editable_get_chars (GTK_EDITABLE (switch_url_entry),
 											 0, -1);
 		
+		if (!check_input (GTK_WIDGET (dialog), switch_working_copy_entry,
+						  _("Please enter a working copy path.")))
+		{
+			return;
+		}
+		
+		if (!check_input (GTK_WIDGET (dialog), switch_url_entry,
+						  _("Please enter a branch/tag URL.")))
+		{
+			return;
+		}
+		
 		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (switch_head_revision_radio)))
 			revision = SVN_SWITCH_REVISION_HEAD;
 		
@@ -103,6 +115,13 @@ on_subversion_switch_response (GtkDialog *dialog, gint response,
 		{
 			switch_revision_entry = glade_xml_get_widget (data->gxml, 
 														  "switch_revision_entry");
+			
+			if (!check_input (GTK_WIDGET (dialog), switch_revision_entry,
+						  	  _("Please enter a revision.")))
+			{
+				return;
+			}
+			
 			revision_text = gtk_editable_get_chars (GTK_EDITABLE (switch_revision_entry),
 													0, -1);
 			revision = atol (revision_text);

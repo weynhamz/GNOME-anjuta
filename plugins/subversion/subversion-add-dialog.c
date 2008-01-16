@@ -59,8 +59,11 @@ on_subversion_add_response(GtkDialog* dialog, gint response, SubversionData* dat
 			const gchar* filename = gtk_entry_get_text(GTK_ENTRY(fileentry));
 			SvnAddCommand *add_command;
 			
-			if (!check_filename(dialog, filename))
+			if (!check_input (GTK_WIDGET (dialog), 
+							  fileentry, _("Please enter a path.")))
+			{
 				break;
+			}
 			
 			add_command = svn_add_command_new ((gchar *) filename,
 											   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(force)),

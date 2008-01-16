@@ -44,7 +44,8 @@ typedef struct
 SubversionData* subversion_data_new (Subversion* plugin, GladeXML* gxml);
 void subversion_data_free (SubversionData* data);
 void create_message_view (Subversion* plugin);
-gboolean check_filename (GtkDialog* dialog, const gchar* filename);
+gboolean check_input (GtkWidget *parent, GtkWidget *entry, 
+					  const gchar *error_message);
 gchar *get_log_from_textview (GtkWidget* textview);
 guint status_bar_progress_pulse (Subversion *plugin, gchar *text);
 void clear_status_bar_progress_pulse (guint timer_id);
