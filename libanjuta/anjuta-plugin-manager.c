@@ -39,6 +39,7 @@
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/anjuta-c-plugin-factory.h>
 #include <libanjuta/interfaces/ianjuta-plugin-factory.h>
+#include <libanjuta/interfaces/ianjuta-preferences.h>
 
 
 enum
@@ -791,6 +792,7 @@ plugin_toggled (GtkCellRendererToggle *cell, char *path_str, gpointer data)
 	AnjutaPluginHandle *plugin;
 	gboolean enabled;
 	GHashTable *activated_plugins;
+	AnjutaPlugin* plugin_object;
 	
 	path = gtk_tree_path_new_from_string (path_str);
 	
@@ -803,9 +805,34 @@ plugin_toggled (GtkCellRendererToggle *cell, char *path_str, gpointer data)
 			    COL_PLUGIN, &plugin,
 			    -1);
 	
+	if (enabled)
+	{
+		plugin_object = g_hash_table_lookup (priv->activated_plugins, plugin);
+		if (plugin_object &&
+			IANJUTA_IS_PREFERENCES(plugin_object))
+		{
+			ianjuta_preferences_unmerge (IANJUTA_PREFERENCES (plugin_object),
+									   anjuta_shell_get_preferences (ANJUTA_SHELL (priv->shell), NULL),
+									   NULL);
+		}
+	}
 	enabled = !enabled;
 
 	activated_plugins = plugin_set_update (plugin_manager, plugin, enabled);
+	plugin_object = g_hash_table_lookup (priv->activated_plugins, plugin);
+	
+	/* Make sure that it appears in the preferences. This method
+		can only be called when the preferences dialog is active so
+		it should be save
+	*/
+	if (plugin_object &&
+		IANJUTA_IS_PREFERENCES(plugin_object))
+	{
+		ianjuta_preferences_merge (IANJUTA_PREFERENCES (plugin_object),
+								   anjuta_shell_get_preferences (ANJUTA_SHELL (priv->shell), NULL),
+								   NULL);
+	}
+	
 	update_enabled (GTK_TREE_MODEL (store), activated_plugins);
 	gtk_tree_path_free (path);
 }

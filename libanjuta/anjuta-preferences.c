@@ -522,6 +522,8 @@ get_object_type_from_string (const gchar* object_type)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_FONT;
 	else if (strcmp (object_type, "file") == 0)
 		return ANJUTA_PROPERTY_OBJECT_TYPE_FILE;
+	else if (strcmp (object_type, "folder") == 0)
+		return ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER;
 	else
 		return (AnjutaPropertyObjectType)(-1);
 }
@@ -616,12 +618,12 @@ get_property_value_as_string (AnjutaProperty *prop)
 			text_value = g_strdup (font);
 		}
 		break;
+	case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
+		text_value = gtk_file_chooser_get_current_folder (
+				GTK_FILE_CHOOSER (prop->object));
+		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
-		{
-			const gchar *filename;
-			filename = gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (prop->object));
-			text_value = g_strdup (filename);
-		}
+		text_value = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (prop->object));
 		break;
 	}
 	if (text_value && (strlen (text_value) == 0))
@@ -767,13 +769,15 @@ set_property_value_as_string (AnjutaProperty *prop, const gchar *value)
 		}*/
 		break;
 		
+	case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
+		if (value)
+			gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (prop->object), value);
+		break;
 	case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
-		{	
-			if (value)
-			{
-				gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (prop->object),
-																 value);
-			}
+		if (value)
+		{
+			gtk_file_chooser_set_filename (GTK_FILE_CHOOSER (prop->object),
+															 value);
 		}
 		break;
 	}
@@ -980,6 +984,10 @@ register_callbacks (AnjutaPreferences *pr, AnjutaProperty *p)
 							  G_CALLBACK (update_property_on_change_color), p);
 			break;
 		case ANJUTA_PROPERTY_OBJECT_TYPE_FILE:
+			g_signal_connect (G_OBJECT(p->object), "file-set",
+							  G_CALLBACK (update_property_on_change_str), p);
+			break;
+		case ANJUTA_PROPERTY_OBJECT_TYPE_FOLDER:
 			g_signal_connect (G_OBJECT(p->object), "current-folder-changed",
 							  G_CALLBACK (update_property_on_change_str), p);
 			break;

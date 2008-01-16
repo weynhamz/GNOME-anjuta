@@ -1,5 +1,25 @@
 2008-01-16  Johannes Schmid <jhs@gnome.org>
 
+	* libanjuta/anjuta-plugin-manager.c:
+	Fixed #508399 – When you enable a plugin, preferences don't show up
+
+2008-01-16  Rob Bradford  <rob@openedhand.com>
+
+	Reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-preferences.c: (get_object_type_from_string),
+	(get_property_value_as_string), (set_property_value_as_string),
+	(register_callbacks):
+	* libanjuta/anjuta-preferences.h:
+	Add support for both file and folder preferences (originally only
+	folder choosers were supported. (Fixes bug: #508805.)
+
+	* plugins/file-manager/file-manager.glade:
+	Update the only in-tree use of the ANJUTA_PROPERTY_OBJECT_TYPE_FILE
+	type of property.
+
+2008-01-16  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
 	.glade:
 	* plugins/symbol-browser/anjuta-symbol-browser-plugin.glade:
