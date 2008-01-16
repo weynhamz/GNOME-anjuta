@@ -1100,7 +1100,6 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	GList *node;
 	const gchar *linenum;
 	gint lineno;
-	gboolean is_local_uri;
 	gchar *normalized_path = NULL;
 	gchar *local_path;
 	
@@ -1127,9 +1126,9 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 	/* Get the normalized file path for comparision */
 	local_path = gnome_vfs_get_local_path_from_uri (uri);
 	normalized_path = anjuta_util_get_real_path (local_path);
+	g_free (local_path);
 	if (normalized_path == NULL)
 		normalized_path = g_strdup (uri);
-	g_free (local_path);
 	
 	/* first, try to use a document that's already open */
 	for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
@@ -1144,15 +1143,14 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
 		te_uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
 		if (te_uri)
 		{
-			gboolean te_is_local_uri;
 			gchar *te_normalized_path;
 		
 			/* Get the normalized file path for comparision */
 			local_path = gnome_vfs_get_local_path_from_uri (te_uri);
 			te_normalized_path = anjuta_util_get_real_path (local_path);
+			g_free (local_path);
 			if (te_normalized_path == NULL)
 				te_normalized_path = g_strdup (te_uri);
-			g_free (local_path);
 
 			if (normalized_path && te_normalized_path)
 			{
@@ -1279,14 +1277,14 @@ anjuta_docman_present_notebook_page (AnjutaDocman *docman, IAnjutaDocument *doc)
 		{
 			gint curindx;
 			curindx = gtk_notebook_page_num (GTK_NOTEBOOK (docman), page->widget);
-			if (!(curindx == -1 || curindx == gtk_notebook_get_current_page (GTK_NOTEBOOK (docman))))
-				gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), curindx);
-/* this is done by the page-switch cb
-			if (!page->is_current)
+			if (curindx != -1)
 			{
-				anjuta_docman_set_current_document (docman, doc);
+				if (curindx != gtk_notebook_get_current_page (GTK_NOTEBOOK (docman)))
+					gtk_notebook_set_current_page (GTK_NOTEBOOK (docman), curindx);
+				else
+					/* Make sure current page is visible */
+					anjuta_docman_grab_text_focus (docman);
 			}
-*/
 			break;
 		}
 		node = g_list_next (node);

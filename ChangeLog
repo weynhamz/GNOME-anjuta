@@ -1,3 +1,9 @@
+2008-01-16  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/anjuta-docman.c:
+	Fix #507627 memory tab stay active on debugger stop
+	Remove two unused variables due to the previous patch
+
 2008-01-16  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-plugin-manager.c:
