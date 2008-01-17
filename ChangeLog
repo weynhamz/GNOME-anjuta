@@ -1,3 +1,26 @@
+2008-01-17  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/action-callbacks.c:
+	(on_editor_command_select_all_activate),
+	(on_editor_command_cut_activate),
+	(on_editor_command_paste_activate),
+	(on_editor_command_copy_activate),
+	(on_editor_command_clear_activate):
+  Resupport cut/copy/paste/clear on GtkEditables when those
+  have focus. (Important for shortcuts to work).
+
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	* plugins/document-manager/search-box.c: (on_search_activated):
+	* plugins/gdb/plugin.c: (gdb_plugin_start_terminal):
+	* plugins/patch/patch-plugin.c: (on_ok_clicked):
+	* plugins/profiler/plugin.c: (profiler_get_data):
+	* plugins/project-wizard/druid.c: (npw_druid_new):
+	* plugins/project-wizard/install.c: (on_install_end_install_file):
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	* plugins/subversion/anjuta-subversion.glade:
+	* plugins/tools/anjuta-tools.glade:
+	Various string fixes
+
 2008-01-17  Naba Kumar  <naba@gnome.org>
 
 	Patch from James Liggett:

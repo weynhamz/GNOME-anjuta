@@ -177,7 +177,7 @@ profiler_get_data (Profiler *profiler)
 									  _("Could not get profiling data."
 										"\n\n"
 										"Please check the path to "
-										"this target's profiling data file"));
+										"this target's profiling data file."));
 		}
 											 
 		option_strings = (gchar **) g_ptr_array_free (options, FALSE);

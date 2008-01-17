@@ -384,14 +384,14 @@ on_install_end_install_file (NPWAutogen* gen, gpointer data)
 			{
 				npw_plugin_print_view (this->plugin,
 					IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-					 _("New project has been created successfully"),
+					 _("New project has been created successfully."),
 					 "");
 			}
 			else
 			{
 				npw_plugin_print_view (this->plugin,
 					IANJUTA_MESSAGE_VIEW_TYPE_ERROR,
-					 _("New project creation has failed"),
+					 _("New project creation has failed."),
 					 "");
 			}
 			on_install_end_action (this);

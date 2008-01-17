@@ -91,7 +91,7 @@ on_subversion_commit_response(GtkDialog* dialog, gint response,
 		
 			pulse_timer_id = status_bar_progress_pulse (data->plugin,
 														_("Subversion: " 
-														  "Committing changes  "
+														  "Committing changes "
 														  "to the "
 														  "repository..."));
 			

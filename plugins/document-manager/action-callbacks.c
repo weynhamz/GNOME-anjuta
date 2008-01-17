@@ -413,20 +413,22 @@ on_editor_command_select_all_activate (GtkAction *action, gpointer user_data)
 	
 	widget = get_current_focus_widget (user_data);
 
-/*	if (widget && GTK_IS_EDITABLE (widget))
+	if (widget && GTK_IS_EDITABLE (widget))
 	{
 		gtk_editable_select_region (GTK_EDITABLE (widget), 0, -1);
 	}
-	else */
-	if (widget /* editor text is focused */
-		|| get_current_popup_active (user_data))
+	else
 	{
-		IAnjutaDocument *doc;
-
-		doc = get_current_document (user_data);
-		if (doc)
-			ianjuta_editor_selection_select_all
+		if (widget /* editor text is focused */
+			|| get_current_popup_active (user_data))
+		{
+			IAnjutaDocument *doc;
+			
+			doc = get_current_document (user_data);
+			if (doc)
+				ianjuta_editor_selection_select_all
 				(IANJUTA_EDITOR_SELECTION (doc), NULL);
+	}
 	}
 }
 
@@ -487,19 +489,21 @@ on_editor_command_cut_activate (GtkAction *action, gpointer user_data)
 
 	widget = get_current_focus_widget (user_data);
 
-/*	if (widget && GTK_IS_EDITABLE (widget))
+	if (widget && GTK_IS_EDITABLE (widget))
 	{
 		gtk_editable_cut_clipboard (GTK_EDITABLE (widget));
 	}
-	else */
-	if (widget /* editor text is focused */
-		|| get_current_popup_active (user_data))
+	else
 	{
-		IAnjutaDocument *doc;
-
-		doc = get_current_document (user_data);
-		if (doc)
-			ianjuta_document_cut (doc, NULL);
+		if (widget /* editor text is focused */
+			|| get_current_popup_active (user_data))
+		{
+			IAnjutaDocument *doc;
+			
+			doc = get_current_document (user_data);
+			if (doc)
+				ianjuta_document_cut (doc, NULL);
+		}
 	}
 }
 
@@ -510,19 +514,20 @@ on_editor_command_paste_activate (GtkAction *action, gpointer user_data)
 
 	widget = get_current_focus_widget (user_data);
 
-/*	if (widget && GTK_IS_EDITABLE (widget))
+	if (widget && GTK_IS_EDITABLE (widget))
 	{
 		gtk_editable_paste_clipboard (GTK_EDITABLE (widget));
 	}
-	else */
-	if (widget	/* editor text is focused */
-		|| get_current_popup_active (user_data))
 	{
-		IAnjutaDocument *doc;
-
-		doc = get_current_document (user_data);
-		if (doc)
-			ianjuta_document_paste (doc, NULL);
+		if (widget	/* editor text is focused */
+			|| get_current_popup_active (user_data))
+		{
+			IAnjutaDocument *doc;
+			
+			doc = get_current_document (user_data);
+			if (doc)
+				ianjuta_document_paste (doc, NULL);
+		}
 	}
 }
 
@@ -533,19 +538,21 @@ on_editor_command_copy_activate (GtkAction *action, gpointer user_data)
 
 	widget = get_current_focus_widget (user_data);
 
-/*	if (widget && GTK_IS_EDITABLE (widget))
+	if (widget && GTK_IS_EDITABLE (widget))
 	{
 		gtk_editable_copy_clipboard (GTK_EDITABLE (widget));
 	}
-	else */
-	if (widget /* editor text is focused */
-		|| get_current_popup_active (user_data))
+	else
 	{
-		IAnjutaDocument *doc;
-
-		doc = get_current_document (user_data);
-		if (doc)
-			ianjuta_document_copy (doc, NULL);
+		if (widget /* editor text is focused */
+			|| get_current_popup_active (user_data))
+		{
+			IAnjutaDocument *doc;
+			
+			doc = get_current_document (user_data);
+			if (doc)
+				ianjuta_document_copy (doc, NULL);
+		}
 	}
 }
 
@@ -556,7 +563,7 @@ on_editor_command_clear_activate (GtkAction *action, gpointer user_data)
 
 	widget = get_current_focus_widget (user_data);
 
-/*	if (widget && GTK_IS_EDITABLE (widget))
+	if (widget && GTK_IS_EDITABLE (widget))
 	{
 		gint start, end;
 		if (!gtk_editable_get_selection_bounds (GTK_EDITABLE (widget), &start, &end))
@@ -566,8 +573,7 @@ on_editor_command_clear_activate (GtkAction *action, gpointer user_data)
 		}
 		gtk_editable_delete_text (GTK_EDITABLE (widget), start, end);
 	}
-	else */
-	if (widget	/* editor text is focused */
+	else if (widget	/* editor text is focused */
 		|| get_current_popup_active (user_data))
 	{
 		IAnjutaDocument *doc;

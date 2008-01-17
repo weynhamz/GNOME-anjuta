@@ -165,7 +165,7 @@ on_ok_clicked (GtkButton *button, PatchPlugin* p_plugin)
 	}
 	else
 		anjuta_util_dialog_error(GTK_WINDOW(p_plugin->dialog),
-			_("There are unfinished jobs, please wait until they are finished"));
+			_("There are unfinished jobs, please wait until they are finished."));
 	g_string_free(command, TRUE);
 }
 

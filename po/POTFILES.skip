@@ -30,4 +30,4 @@ libegg/layout.glade
 libegg/test-actions.c
 src/anjuta_cbs.c
 src/utilities.c
-
+src/shell.c
