@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-16 13:57+0000\n"
-"PO-Revision-Date: 2008-01-16 17:28+0100\n"
+"POT-Creation-Date: 2008-01-16 22:18+0000\n"
+"PO-Revision-Date: 2008-01-17 14:59+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -254,7 +254,7 @@ msgstr "No se puede ejecutar el comando: \"%s\""
 msgid "execvp failed"
 msgstr "ha fallado execvp"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2188
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2215
 msgid "Anjuta Shell"
 msgstr "Shell de Anjuta"
 
@@ -262,7 +262,7 @@ msgstr "Shell de Anjuta"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "El shell de Anjuta que contendrá el complemento"
 
-#: ../libanjuta/anjuta-plugin-manager.c:764
+#: ../libanjuta/anjuta-plugin-manager.c:765
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -275,25 +275,25 @@ msgstr ""
 "error que ha llevado a esto es:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:863
+#: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:781
 msgid "Load"
 msgstr "Carga"
 
-#: ../libanjuta/anjuta-plugin-manager.c:885
-#: ../libanjuta/anjuta-plugin-manager.c:1823
+#: ../libanjuta/anjuta-plugin-manager.c:912
+#: ../libanjuta/anjuta-plugin-manager.c:1850
 msgid "Available Plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:998 ../src/anjuta-app.c:830
+#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:830
 msgid "Preferred plugins"
 msgstr "Complementos preferidos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1112
+#: ../libanjuta/anjuta-plugin-manager.c:1139
 msgid "Only show user activatable plugins"
 msgstr "Mostrar sólo los complementos activables por el usuario"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1159
+#: ../libanjuta/anjuta-plugin-manager.c:1186
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -304,71 +304,71 @@ msgstr ""
 "preferido hará que Anjuta le pregunte de nuevo para elegir un complemento "
 "diferente."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1319
-#: ../libanjuta/anjuta-plugin-manager.c:1421
+#: ../libanjuta/anjuta-plugin-manager.c:1346
+#: ../libanjuta/anjuta-plugin-manager.c:1448
 #: ../plugins/debug-manager/queue.c:550
 msgid "Select a plugin"
 msgstr "Seleccione un complemento"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1320
-#: ../libanjuta/anjuta-plugin-manager.c:1422
+#: ../libanjuta/anjuta-plugin-manager.c:1347
+#: ../libanjuta/anjuta-plugin-manager.c:1449
 #: ../plugins/debug-manager/queue.c:551
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un complemento para activar"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1334
+#: ../libanjuta/anjuta-plugin-manager.c:1361
 #, c-format
 msgid "No plugin able to load other plugins in %s"
 msgstr "No existe un complemento capaz de cargar otros complementos en %s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1842
+#: ../libanjuta/anjuta-plugin-manager.c:1869
 msgid "Remember this selection"
 msgstr "Recordar esta decisión"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2169
+#: ../libanjuta/anjuta-plugin-manager.c:2196
 msgid "Profiles"
 msgstr "Perfiles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2170
+#: ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Current stack of profiles"
 msgstr "Pila de perfiles actual"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2175
+#: ../libanjuta/anjuta-plugin-manager.c:2202
 msgid "Available plugins"
 msgstr "Complementos disponibles"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2176
+#: ../libanjuta/anjuta-plugin-manager.c:2203
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
 "Complementos actualmente disponibles encontrados en las rutas de los "
 "complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2182
+#: ../libanjuta/anjuta-plugin-manager.c:2209
 msgid "Activated plugins"
 msgstr "Complementos activados"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2183
+#: ../libanjuta/anjuta-plugin-manager.c:2210
 msgid "Currently activated plugins"
 msgstr "Complementos activados actualmente"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2189
+#: ../libanjuta/anjuta-plugin-manager.c:2216
 msgid "Anjuta shell for which the plugins are"
 msgstr "El shell de Anjuta para el que son los complementos"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2197
+#: ../libanjuta/anjuta-plugin-manager.c:2224
 msgid "Anjuta Status"
 msgstr "Estado de Anjuta"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2198
+#: ../libanjuta/anjuta-plugin-manager.c:2225
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2357
+#: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Loaded: "
 msgstr "Cargado:"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2357
+#: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "..."
 msgstr "…"
 
@@ -444,7 +444,7 @@ msgstr ""
 "Falló al leer «%s»: Faltan los siguientes complementos obligatorios:\n"
 "%s"
 
-#: ../libanjuta/anjuta-preferences.c:1424
+#: ../libanjuta/anjuta-preferences.c:1432
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -452,7 +452,7 @@ msgstr ""
 "¿Está seguro que desea reiniciar las preferencias\n"
 "a sus valores originales?"
 
-#: ../libanjuta/anjuta-preferences.c:1428
+#: ../libanjuta/anjuta-preferences.c:1436
 msgid "_Reset"
 msgstr "_Restablecer"
 
@@ -1314,18 +1314,17 @@ msgid "Whole project"
 msgstr "Proyecto completo"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
-#: ../plugins/subversion/subversion-ui-utils.c:86
 msgid "Please enter a filename!"
-msgstr "Por favor, introduzca el nombre de archivo."
+msgstr "Introduzca un nombre de archivo."
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:61
 #, c-format
 msgid "Please fill field: %s"
-msgstr "Por favor rellene el valor: %s"
+msgstr "Rellene el valor: %s"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:81
 msgid "CVS command is running! Please wait until it is finished!"
-msgstr "Hay un comando CVS en ejecución - por favor, espere hasta que termine."
+msgstr "Hay un comando CVS en ejecución ; espere hasta que termine."
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:153
 msgid "Unable to delete file"
@@ -1368,7 +1367,7 @@ msgstr "Comando CVS exitoso. - Tiempo empleado: %ld segundos."
 
 #: ../plugins/cvs-plugin/cvs-execute.c:223
 msgid "CVS command is running - please wait until it finishes!"
-msgstr "Hay un comando CVS en ejecución - por favor, espere hasta que termine."
+msgstr "Hay un comando CVS en ejecución; espere hasta que termine."
 
 #: ../plugins/cvs-plugin/cvs-execute.c:231
 #: ../plugins/cvs-plugin/cvs-execute.c:235 ../plugins/cvs-plugin/plugin.c:489
@@ -5500,7 +5499,7 @@ msgstr "No se puede encontrar ninguna plantilla de proyecto en %s"
 #: ../plugins/project-wizard/druid.c:479
 #, c-format
 msgid "Field \"%s\" is mandatory. Please enter it."
-msgstr "El campo «%s» es obligatorio. Por favor introdúzcalo."
+msgstr "El campo «%s» es obligatorio. Introdúzcalo."
 
 #: ../plugins/project-wizard/druid.c:512
 #, c-format
@@ -6701,6 +6700,13 @@ msgstr "Registro de Subversion"
 msgid "Subversion: File will be added on next commit."
 msgstr "Subversion: El archivo se añadirá en la siguiente operación."
 
+#: ../plugins/subversion/subversion-add-dialog.c:63
+#: ../plugins/subversion/subversion-diff-dialog.c:64
+#: ../plugins/subversion/subversion-remove-dialog.c:98
+#: ../plugins/subversion/subversion-update-dialog.c:66
+msgid "Please enter a path."
+msgstr "Introduzca una ruta."
+
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
 msgstr "Subversion: Carga completada."
@@ -6713,7 +6719,20 @@ msgstr "Subversion: Efectuando los cambios sobre el repositorio…"
 msgid "Subversion: Copy complete."
 msgstr "Subversion: Copia completada."
 
-#: ../plugins/subversion/subversion-diff-dialog.c:83
+#: ../plugins/subversion/subversion-copy-dialog.c:184
+msgid "Please enter a source path."
+msgstr "Introduzca una ruta de origen."
+
+#: ../plugins/subversion/subversion-copy-dialog.c:190
+msgid "Please enter a destination path."
+msgstr "Introduzca una ruta de destino."
+
+#: ../plugins/subversion/subversion-copy-dialog.c:207
+#: ../plugins/subversion/subversion-switch-dialog.c:120
+msgid "Please enter a revision."
+msgstr "Introduzca una revisión."
+
+#: ../plugins/subversion/subversion-diff-dialog.c:86
 #: ../plugins/subversion/subversion-log-dialog.c:417
 #: ../plugins/subversion/subversion-log-dialog.c:481
 msgid "Subversion: Retrieving diff..."
@@ -6735,6 +6754,27 @@ msgstr "Subversion: Obteniendo archivo…"
 msgid "Subversion: Merge complete."
 msgstr "Subversion: Mezcla completada."
 
+#: ../plugins/subversion/subversion-merge-dialog.c:93
+msgid "Please enter the first path."
+msgstr "Introduzca la primera ruta."
+
+#: ../plugins/subversion/subversion-merge-dialog.c:99
+msgid "Please enter the second path."
+msgstr "Introduzca la segunda ruta."
+
+#: ../plugins/subversion/subversion-merge-dialog.c:105
+#: ../plugins/subversion/subversion-switch-dialog.c:100
+msgid "Please enter a working copy path."
+msgstr "Introduzca una ruta de la copia de trabajo."
+
+#: ../plugins/subversion/subversion-merge-dialog.c:119
+msgid "Please enter the start revision."
+msgstr "Introduzca la revisión inicial."
+
+#: ../plugins/subversion/subversion-merge-dialog.c:134
+msgid "Please enter the end revision."
+msgstr "Introduzca la revisión final."
+
 #: ../plugins/subversion/subversion-remove-dialog.c:39
 msgid "Subversion: File will be removed on next commit."
 msgstr "Subversion: El archivo se eliminará en la siguiente operación."
@@ -6751,13 +6791,17 @@ msgstr "Subversion: Reversión completada."
 msgid "Subversion: Switch complete."
 msgstr "Subversion: Cambio completado."
 
+#: ../plugins/subversion/subversion-switch-dialog.c:106
+msgid "Please enter a branch/tag URL."
+msgstr "Introduzca una URL de rama/etiqueta."
+
 #: ../plugins/subversion/subversion-ui-utils.c:64
 #: ../plugins/subversion/subversion-ui-utils.c:69
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:2
 msgid "Subversion"
 msgstr "Subversión"
 
-#: ../plugins/subversion/subversion-ui-utils.c:325
+#: ../plugins/subversion/subversion-ui-utils.c:342
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Diff completado."
 
