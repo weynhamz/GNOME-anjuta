@@ -1,12 +1,16 @@
 2008-01-18  Johannes Schmid <jhs@gnome.org>
 
-  Patch from: kilork@yandex.ru
+	* AUTHORS: Added Alexander
+
+2008-01-18  Johannes Schmid <jhs@gnome.org>
+
+  Patch from: Alexander Korolyov <kilork@yandex.ru>
 
 	* plugins/editor/text_editor.c: (load_from_file),
 	(text_editor_save_file):
 	
 	Fixed symlinks (#510238) and file permission (#405321)
-	handling for scintilla editor.   
+	handling for scintilla editor. 
   
 2008-01-17  Johannes Schmid <jhs@gnome.org>
 
