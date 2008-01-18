@@ -156,7 +156,7 @@ on_threads_source_activate (GtkAction *action, gpointer user_data)
 	gchar *uri;
 	guint line;
 	gchar *adr;
-	guint address;
+	gulong address;
 	DmaThreads* self = (DmaThreads*) user_data;		
 
 	view = self->list;
@@ -217,7 +217,7 @@ on_info_thread (const IAnjutaDebuggerFrame* frame, gpointer user_data)
 	
 	if (frame == NULL) return;
 	
-	adr = g_strdup_printf ("0x%x", frame->address);
+	adr = g_strdup_printf ("0x%lx", frame->address);
 	
 	if (frame->file)
 	{
@@ -289,7 +289,7 @@ on_list_thread (const GList *threads, gpointer user_data)
 		else
 			pic = NULL;
 
-		if ((dma_debugger_queue_is_supported (self->debugger, HAS_CPU) && (frame->address == 0))
+		if ((dma_debugger_queue_is_supported (self->debugger, HAS_MEMORY) && (frame->address == 0))
 			|| (frame->function == NULL))
 		{
 			/* Missing frame address, request more information */
@@ -312,7 +312,7 @@ on_list_thread (const GList *threads, gpointer user_data)
 		}
 		else
 		{
-			adr = g_strdup_printf ("0x%x", frame->address);
+			adr = g_strdup_printf ("0x%lx", frame->address);
 			if (frame->file)
 			{
 				uri = gnome_vfs_get_uri_from_local_path(frame->file);
@@ -449,7 +449,7 @@ dma_threads_create_gui(DmaThreads *self)
 	gtk_tree_view_column_set_title (column, _("Function"));
 	gtk_tree_view_append_column (self->list, column);
 	
-	if (dma_debugger_queue_is_supported (self->debugger, HAS_CPU))
+	if (dma_debugger_queue_is_supported (self->debugger, HAS_MEMORY))
 	{
 		/* Display address only if debugger has such concept */
 		column = gtk_tree_view_column_new ();

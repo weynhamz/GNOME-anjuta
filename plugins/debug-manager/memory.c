@@ -56,7 +56,7 @@ struct _DmaMemory
  *---------------------------------------------------------------------------*/
 
 static void
-on_memory_block_read (const IAnjutaDebuggerMemory *block, DmaMemory *mem, GError *err)
+on_memory_block_read (const IAnjutaDebuggerMemoryBlock *block, DmaMemory *mem, GError *err)
 {
 	const gchar* tag;
 	
@@ -68,7 +68,7 @@ on_memory_block_read (const IAnjutaDebuggerMemory *block, DmaMemory *mem, GError
 	
 	guint length = block->length;
 	gchar *data = block->data;
-	guint address = block->address;
+	gulong address = block->address;
 	
 	tag = data + length;
 	while (length != 0)
@@ -105,7 +105,7 @@ read_memory_block (gulong address, gulong length, gpointer user_data)
 	{	
 		dma_queue_inspect_memory (
 				mem->debugger,
-				(guint)address,
+				address,
 				(guint)length,
 				(IAnjutaDebuggerCallback)on_memory_block_read,
 				mem);
@@ -189,7 +189,7 @@ on_debugger_started (DmaMemory *mem)
 	 * unloading a program in the debugger */
 	if (mem->window) return;
 	
-	if (!dma_debugger_queue_is_supported (mem->debugger, HAS_CPU)) return;
+	if (!dma_debugger_queue_is_supported (mem->debugger, HAS_MEMORY)) return;
 
 	if (!create_memory_gui (mem)) return;
 

@@ -30,7 +30,9 @@
 /*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-message-manager.h>
-#include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-register.h>
+#include <libanjuta/interfaces/ianjuta-debugger-memory.h>
+#include <libanjuta/interfaces/ianjuta-debugger-instruction.h>
 #include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
 #include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 
@@ -563,8 +565,12 @@ dma_debugger_activate_plugin (DmaDebuggerQueue* self, const gchar *mime_type)
 		self->debugger = (IAnjutaDebugger *)anjuta_plugin_manager_get_plugin_by_id (plugin_manager, value);
 
 		self->support = 0;
-		/* Check if cpu interface is available */
-		self->support |= IANJUTA_IS_CPU_DEBUGGER(self->debugger) ? HAS_CPU : 0;
+		/* Check if register interface is available */
+		self->support |= IANJUTA_IS_DEBUGGER_REGISTER(self->debugger) ? HAS_REGISTER : 0;
+		/* Check if memory interface is available */
+		self->support |= IANJUTA_IS_DEBUGGER_MEMORY(self->debugger) ? HAS_MEMORY : 0;
+		/* Check if instruction interface is available */
+		self->support |= IANJUTA_IS_DEBUGGER_INSTRUCTION(self->debugger) ? HAS_INSTRUCTION : 0;
 		/* Check if breakpoint interface is available */
 		self->support |= IANJUTA_IS_DEBUGGER_BREAKPOINT(self->debugger) ? HAS_BREAKPOINT : 0;
 		if (IANJUTA_IS_DEBUGGER_BREAKPOINT (self->debugger))
@@ -646,7 +652,7 @@ on_dma_program_exited (DmaDebuggerQueue *self)
 }
 
 static void
-on_dma_program_moved (DmaDebuggerQueue *self, guint pid, gint tid, guint address, const gchar* src_path, guint line)
+on_dma_program_moved (DmaDebuggerQueue *self, guint pid, gint tid, gulong address, const gchar* src_path, guint line)
 {
 	DEBUG_PRINT ("From debugger: program moved");
 	self->prepend_command++;

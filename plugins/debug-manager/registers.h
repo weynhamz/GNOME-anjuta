@@ -25,7 +25,7 @@
 
 #include <libanjuta/anjuta-plugin.h>
 #include <libanjuta/interfaces/ianjuta-debugger.h>
-#include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-register.h>
 
 #include <gnome.h>
 

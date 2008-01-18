@@ -31,7 +31,9 @@
 /*#define DEBUG*/
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
-#include <libanjuta/interfaces/ianjuta-cpu-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-register.h>
+#include <libanjuta/interfaces/ianjuta-debugger-memory.h>
+#include <libanjuta/interfaces/ianjuta-debugger-instruction.h>
 #include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 
 #include <stdarg.h>
@@ -298,7 +300,7 @@ struct _DmaQueueCommand
 		struct {
 			gchar *file;
 			guint line;
-			guint address;
+			gulong address;
 			gchar *function;
 		} pos;
 		struct {
@@ -331,7 +333,7 @@ struct _DmaQueueCommand
 			guint frame;
 		} frame;
 		struct {
-			guint address;
+			gulong address;
 			guint length;
 		} mem;
 		struct {
@@ -350,7 +352,7 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 {
 	DmaQueueCommand* cmd;
 	DmaDebuggerCommandType type = cmd_type & COMMAND_MASK;
-	IAnjutaDebuggerRegister* reg;
+	IAnjutaDebuggerRegisterData* reg;
 	va_list args;
 	GList *list;
 	
@@ -449,7 +451,7 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->user_data = va_arg (args, gpointer);
 		break;
 	case BREAK_ADDRESS_COMMAND:
-		cmd->data.pos.address = va_arg (args, guint);
+		cmd->data.pos.address = va_arg (args, gulong);
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
 		break;
@@ -542,19 +544,19 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->user_data = va_arg (args, gpointer);
 		break;
 	case WRITE_REGISTER_COMMAND:
-		reg = va_arg (args, IAnjutaDebuggerRegister *);
+		reg = va_arg (args, IAnjutaDebuggerRegisterData *);
 		cmd->data.watch.id = reg->num;
 	    cmd->data.watch.name = g_strdup (reg->name);
 	    cmd->data.watch.value = g_strdup (reg->value);
 		break;
 	case INSPECT_MEMORY_COMMAND:
-		cmd->data.mem.address = va_arg (args, guint);
+		cmd->data.mem.address = va_arg (args, gulong);
 	    cmd->data.mem.length = va_arg (args, guint);
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
 		break;
 	case DISASSEMBLE_COMMAND:
-		cmd->data.mem.address = va_arg (args, guint);
+		cmd->data.mem.address = va_arg (args, gulong);
 	    cmd->data.mem.length = va_arg (args, guint);
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
@@ -690,7 +692,7 @@ dma_queue_stepi_over (DmaDebuggerQueue *self)
 }
 
 gboolean
-dma_queue_run_to_address (DmaDebuggerQueue *self, guint address)
+dma_queue_run_to_address (DmaDebuggerQueue *self, gulong address)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_RUN_TO_ADDRESS_COMMAND, address));
 }
@@ -846,7 +848,7 @@ dma_queue_add_breakpoint_at_function (DmaDebuggerQueue *self, const gchar* file,
 }
 
 gboolean
-dma_queue_add_breakpoint_at_address (DmaDebuggerQueue *self, guint address, IAnjutaDebuggerCallback callback, gpointer user_data)
+dma_queue_add_breakpoint_at_address (DmaDebuggerQueue *self, gulong address, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_BREAK_ADDRESS_COMMAND, address, callback, user_data));
 }
@@ -894,19 +896,19 @@ dma_queue_update_register (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callb
 }
 
 gboolean
-dma_queue_write_register (DmaDebuggerQueue *self, IAnjutaDebuggerRegister *value)
+dma_queue_write_register (DmaDebuggerQueue *self, IAnjutaDebuggerRegisterData *value)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_WRITE_REGISTER_COMMAND, value));
 }
 
 gboolean
-dma_queue_inspect_memory (DmaDebuggerQueue *self, guint address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data)
+dma_queue_inspect_memory (DmaDebuggerQueue *self, gulong address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_INSPECT_MEMORY_COMMAND, address, length, callback, user_data));
 }
 
 gboolean
-dma_queue_disassemble (DmaDebuggerQueue *self, guint address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data)
+dma_queue_disassemble (DmaDebuggerQueue *self, gulong address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data)
 {
 	return dma_debugger_queue_append (self, dma_command_new (DMA_DISASSEMBLE_COMMAND, address, length, callback, user_data));
 }
@@ -1067,7 +1069,7 @@ gboolean
 dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 				 DmaDebuggerQueue *queue, GError **err)
 {
-	IAnjutaDebuggerRegister reg;
+	IAnjutaDebuggerRegisterData reg;
 	gboolean ret = FALSE;
 	DmaDebuggerCommandType type = cmd->type & COMMAND_MASK;
 	IAnjutaDebuggerCallback callback = cmd->callback == NULL ? NULL : dma_debugger_queue_command_callback;
@@ -1114,13 +1116,13 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_step_out (debugger, err);	
 		break;
 	case RUN_TO_ADDRESS_COMMAND:
-		ret = ianjuta_cpu_debugger_run_to_address (IANJUTA_CPU_DEBUGGER (debugger), cmd->data.pos.address, err);	
+		ret = ianjuta_debugger_instruction_run_to_address (IANJUTA_DEBUGGER_INSTRUCTION (debugger), cmd->data.pos.address, err);	
 		break;
 	case STEPI_IN_COMMAND:
-		ret = ianjuta_cpu_debugger_stepi_in (IANJUTA_CPU_DEBUGGER (debugger), err);	
+		ret = ianjuta_debugger_instruction_step_in (IANJUTA_DEBUGGER_INSTRUCTION (debugger), err);	
 		break;
 	case STEPI_OVER_COMMAND:
-		ret = ianjuta_cpu_debugger_stepi_over (IANJUTA_CPU_DEBUGGER (debugger), err);	
+		ret = ianjuta_debugger_instruction_step_over (IANJUTA_DEBUGGER_INSTRUCTION (debugger), err);	
 		break;
 	case EXIT_COMMAND:
 		ret = ianjuta_debugger_exit (debugger, err);	
@@ -1204,22 +1206,22 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_list_frame (debugger, callback, queue, err);	
 		break;
 	case LIST_REGISTER_COMMAND:
-		ret = ianjuta_cpu_debugger_list_register (IANJUTA_CPU_DEBUGGER (debugger), callback, queue, err);	
+		ret = ianjuta_debugger_register_list (IANJUTA_DEBUGGER_REGISTER (debugger), callback, queue, err);	
 		break;
 	case UPDATE_REGISTER_COMMAND:
-		ret = ianjuta_cpu_debugger_update_register (IANJUTA_CPU_DEBUGGER (debugger), callback, queue, err);	
+		ret = ianjuta_debugger_register_update (IANJUTA_DEBUGGER_REGISTER (debugger), callback, queue, err);	
 		break;
 	case WRITE_REGISTER_COMMAND:
 		reg.num = cmd->data.watch.id;
 	    reg.name = cmd->data.watch.name;
 	    reg.value = cmd->data.watch.value;
-		ret = ianjuta_cpu_debugger_write_register (IANJUTA_CPU_DEBUGGER (debugger), &reg, err);	
+		ret = ianjuta_debugger_register_write (IANJUTA_DEBUGGER_REGISTER (debugger), &reg, err);	
 		break;
 	case INSPECT_MEMORY_COMMAND:
-		ret = ianjuta_cpu_debugger_inspect_memory (IANJUTA_CPU_DEBUGGER (debugger), cmd->data.mem.address, cmd->data.mem.length, callback, queue, err);	
+		ret = ianjuta_debugger_memory_inspect (IANJUTA_DEBUGGER_MEMORY (debugger), cmd->data.mem.address, cmd->data.mem.length, callback, queue, err);	
 		break;
 	case DISASSEMBLE_COMMAND:
-		ret = ianjuta_cpu_debugger_disassemble (IANJUTA_CPU_DEBUGGER (debugger), cmd->data.mem.address, cmd->data.mem.length, callback, queue, err);	
+		ret = ianjuta_debugger_instruction_disassemble (IANJUTA_DEBUGGER_INSTRUCTION (debugger), cmd->data.mem.address, cmd->data.mem.length, callback, queue, err);	
 		break;
 	case USER_COMMAND:
 		ret = ianjuta_debugger_send_command (debugger, cmd->data.user.cmd, err);	

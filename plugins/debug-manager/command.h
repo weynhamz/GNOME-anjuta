@@ -26,6 +26,7 @@
 #include "plugin.h"
 
 #include <libanjuta/interfaces/ianjuta-debugger.h>
+#include <libanjuta/interfaces/ianjuta-debugger-register.h>
 
 #include <glib.h>
 
@@ -68,7 +69,7 @@ gboolean dma_queue_step_over (DmaDebuggerQueue *self);
 gboolean dma_queue_run_to (DmaDebuggerQueue *self, const gchar *file, gint line);
 gboolean dma_queue_stepi_in (DmaDebuggerQueue *self);
 gboolean dma_queue_stepi_over (DmaDebuggerQueue *self);
-gboolean dma_queue_run_to_address (DmaDebuggerQueue *self, guint address);
+gboolean dma_queue_run_to_address (DmaDebuggerQueue *self, gulong address);
 gboolean dma_queue_step_out (DmaDebuggerQueue *self);
 gboolean dma_queue_exit (DmaDebuggerQueue *self);
 gboolean dma_queue_interrupt (DmaDebuggerQueue *self);
@@ -98,7 +99,7 @@ void dma_queue_enable_log (DmaDebuggerQueue *self, IAnjutaMessageView *log);
 void dma_queue_disable_log (DmaDebuggerQueue *self);
 gboolean dma_queue_add_breakpoint_at_line (DmaDebuggerQueue *self, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_add_breakpoint_at_function (DmaDebuggerQueue *self, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
-gboolean dma_queue_add_breakpoint_at_address (DmaDebuggerQueue *self, guint address, IAnjutaDebuggerCallback callback, gpointer user_data);
+gboolean dma_queue_add_breakpoint_at_address (DmaDebuggerQueue *self, gulong address, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_enable_breakpoint (DmaDebuggerQueue *self, guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_ignore_breakpoint (DmaDebuggerQueue *self, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_condition_breakpoint (DmaDebuggerQueue *self, guint id, const gchar *condition, IAnjutaDebuggerCallback callback, gpointer user_data);
@@ -106,9 +107,9 @@ gboolean dma_queue_remove_breakpoint (DmaDebuggerQueue *self, guint id, IAnjutaD
 gboolean dma_queue_list_breakpoint (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_list_register (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_update_register (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
-gboolean dma_queue_write_register (DmaDebuggerQueue *self, IAnjutaDebuggerRegister *value);
-gboolean dma_queue_inspect_memory (DmaDebuggerQueue *self, guint address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data);
-gboolean dma_queue_disassemble (DmaDebuggerQueue *self, guint address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data);
+gboolean dma_queue_write_register (DmaDebuggerQueue *self, IAnjutaDebuggerRegisterData *value);
+gboolean dma_queue_inspect_memory (DmaDebuggerQueue *self, gulong address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data);
+gboolean dma_queue_disassemble (DmaDebuggerQueue *self, gulong address, guint length, IAnjutaDebuggerCallback callback , gpointer user_data);
 gboolean dma_queue_delete_variable (DmaDebuggerQueue *self, const gchar *name);
 gboolean dma_queue_evaluate_variable (DmaDebuggerQueue *self, const gchar *name, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_assign_variable (DmaDebuggerQueue *self, const gchar *name, const gchar *value);

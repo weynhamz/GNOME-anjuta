@@ -85,7 +85,7 @@ struct _DebugManagerPlugin
 	guint editor_watch_id;
 	IAnjutaEditor *pc_editor;
 	guint pc_line;
-	guint pc_address;
+	gulong pc_address;
 	gboolean busy;
 	
 	/* Debugger components */
@@ -185,7 +185,7 @@ hide_program_counter_in_editor(DebugManagerPlugin *self)
 }
 
 static void
-set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, guint address)
+set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gulong address)
 {
 	IAnjutaDocumentManager *docman = NULL;
 	gchar *file_uri;
@@ -456,9 +456,9 @@ dma_plugin_program_stopped (DebugManagerPlugin *this)
 /* Called when the program postion change */
 
 static void
-dma_plugin_program_moved (DebugManagerPlugin *this, guint pid, guint tid, guint address, const gchar* file, guint line)
+dma_plugin_program_moved (DebugManagerPlugin *this, guint pid, guint tid, gulong address, const gchar* file, guint line)
 {
-	DEBUG_PRINT ("DMA: dma_plugin_program_moved %s %d %x", file, line, address);
+	DEBUG_PRINT ("DMA: dma_plugin_program_moved %s %d %lx", file, line, address);
 
 	set_program_counter (this, file, line, address);
 }
@@ -556,7 +556,7 @@ dma_plugin_signal_received (DebugManagerPlugin *self, const gchar *name, const g
 /* Called when the user want to go to another location */
 
 static void
-dma_plugin_location_changed (DebugManagerPlugin *self, guint address, const gchar* uri, guint line)
+dma_plugin_location_changed (DebugManagerPlugin *self, gulong address, const gchar* uri, guint line)
 {
 	/* Go to location in editor */
 	if (uri != NULL)
@@ -672,7 +672,7 @@ on_run_to_cursor_action_activate (GtkAction* action, DebugManagerPlugin* plugin)
 	{
 		if ((plugin->disassemble != NULL) && (dma_disassemble_is_focus (plugin->disassemble)))
 		{
-			guint address;
+			gulong address;
 			
 			address = dma_disassemble_get_current_address (plugin->disassemble);
 			dma_queue_run_to_address (plugin->queue, address);

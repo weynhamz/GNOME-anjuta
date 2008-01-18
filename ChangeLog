@@ -1,3 +1,32 @@
+2008-01-18  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/disassemble.c,
+	plugins/debug-manager/disassemble.h,
+	plugins/debug-manager/registers.c,
+	plugins/debug-manager/registers.h,
+	plugins/debug-manager/memory.c,
+	plugins/debug-manager/memory.h,
+	plugins/debug-manager/command.c,
+	plugins/debug-manager/command.h,
+	plugins/debug-manager/queue.c,
+	plugins/debug-manager/queue.h,
+	plugins/debug-manager/breakpoints.c,
+	plugins/debug-manager/stack_trace.c,
+	plugins/debug-manager/threads.c,
+	plugins/debug-manager/plugin.c,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c,
+	plugins/gdb/debugger.h,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	manuals/reference/libanjuta/libanjuta.types,
+	libanjuta/interfaces/libanjuta.idl:
+	Use gulong instead of guint for addresses
+	Split IAnjutaCpuDebugger interface in IAnjutaDebuggerRegister,
+	IAnjutaDebuggerMemory and IAnjutaDebuggerInstruction
+
+	* plugins/gdb/anjuta-gdb.plugin.in:
+	Remove reference to IAnjutaCpuDebugger (useless)
+
 2008-01-18  Johannes Schmid <jhs@gnome.org>
 
 	* AUTHORS: Added Alexander

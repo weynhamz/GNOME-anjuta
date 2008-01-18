@@ -398,7 +398,7 @@ breakpoints_dbase_update_in_treeview (BreakpointsDBase *bd, BreakpointItem *bi)
 	const gchar *filename;
 	const gchar *format;
 
-	adr = g_strdup_printf ("0x%x", bi->bp.address);
+	adr = g_strdup_printf ("0x%lx", bi->bp.address);
 	if (bi->bp.file != NULL)
 	{
 		filename = strrchr(bi->bp.file, G_DIR_SEPARATOR);
@@ -1472,7 +1472,7 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 	else if (bi->bp.address != 0)
 	{
 		// address
-		location = g_strdup_printf ("*%x", bi->bp.address);
+		location = g_strdup_printf ("*%lx", bi->bp.address);
 	}
 
 	if (GTK_WIDGET_VISIBLE(location_entry))
@@ -1832,7 +1832,7 @@ on_breakpoints_button_press (GtkWidget * widget, GdkEventButton * bevent, Breakp
 	
 			gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 			action = gtk_action_group_get_action (bd->debugger_group, "ActionDmaEnableDisableBreakpoint");
-			g_return_if_fail (action != NULL);
+			g_return_val_if_fail (action != NULL, FALSE);
 			if (bi->bp.enable)
 			{
 				label =	N_("Disable Breakpoint");

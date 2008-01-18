@@ -2867,13 +2867,6 @@ interface IAnjutaDebugger
 		PROGRAM_RUNNING
 	}
 
-	struct Register
-	{
-		guint num;
-		gchar *name;
-		gchar *value;
-	}
-
 	struct Frame
 	{
 		gint thread;
@@ -2883,36 +2876,15 @@ interface IAnjutaDebugger
 		guint line;
 		gchar *function;
 		gchar *library;
-		guint address;
+		gulong address;
 	}
-
-	struct Memory
-	{
-		guint address;
-		guint length;
-		gchar *data;
-	}
-
-
-	struct ALine
-	{
-		guint address;
-		const gchar *label;
-		const gchar *text;
-	}
-
-	struct Disassembly
-	{
-		guint size;
-		ALine data[];	
-	}	
 
 	/* Call back functions */
 	typedef void (*Callback) (const gpointer data, gpointer user_data, GError* err);
 	typedef void (*GListCallback) (const GList* list, gpointer user_data, GError* err);
 	typedef void (*GCharCallback) (const gchar *value, gpointer user_data, GError* err);
 	typedef void (*OutputCallback) (OutputType type, const gchar *output, gpointer user_data);
-	typedef void (*MemoryCallback) (const gchar* address, guint length, const gchar *data, gpointer user_data, GError *err);
+	typedef void (*MemoryCallback) (gulong address, guint length, const gchar *data, gpointer user_data, GError *err);
 
 	/* Signals */
 
@@ -2986,7 +2958,7 @@ interface IAnjutaDebugger
 	* location. Most of the time, after the program has stopped but it
 	* could happen even if it is still running.
 	*/
-	void ::program_moved (gint pid, gint tid, guint address, const gchar* file, guint line);
+	void ::program_moved (gint pid, gint tid, gulong address, const gchar* file, guint line);
 
 	/**
 	* IAnjutaDebugger::frame_changed:
@@ -3538,7 +3510,7 @@ interface IAnjutaDebugger
 			gchar *file;
 			guint line;
 			gchar *function;
-			guint address;
+			gulong address;
 			gboolean enable;
 			guint ignore;
 			guint times;
@@ -3598,7 +3570,7 @@ interface IAnjutaDebugger
 		* Returns: TRUE if the request succeed and the callback is called. If 
 		* FALSE, the callback will not be called.
 		*/
-		gboolean set_at_address (guint address, IAnjutaDebuggerCallback callback, gpointer user_data);
+		gboolean set_at_address (gulong address, IAnjutaDebuggerCallback callback, gpointer user_data);
 	
 		/**
 		* ianjuta_debugger_breakpoint_set_at_function:
@@ -3715,10 +3687,6 @@ interface IAnjutaDebugger
 	*/
 	interface IAnjutaDebuggerVariable
 	{
-		#include "ianjuta-debug-manager.h"
-		#include "ianjuta-debugger.h"
-		#include <sys/types.h>
-
 		struct Object
 		{
 			gchar *name;
@@ -3819,130 +3787,187 @@ interface IAnjutaDebugger
 		*/
 		gboolean destroy (const gchar *name);
 	}
-}
-
-/**
- * SECTION:ianjuta-cpu-debugger
- * @title: IAnjutaCpuDebugger
- * @short_description: CPU specific debugger interface
- * @see_also: 
- * @stability: Unstable
- * @include: libanjuta/interfaces/ianjuta-cpu-debugger.h
- * 
- */
-interface IAnjutaCpuDebugger
-{
-	#include "ianjuta-debug-manager.h"
-	#include "ianjuta-debugger.h"
-	#include "ianjuta-message-view.h"
-	#include <sys/types.h>
-
-	/**
-	* ianjuta_debugger_list_register:
-	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean list_register (IAnjutaDebuggerCallback callback, gpointer user_data);
-
-	/**
-	* ianjuta_debugger_update_register:
-	* @obj: Self
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean update_register (IAnjutaDebuggerCallback callback, gpointer user_data);
-
-	/**
-	* ianjuta_debugger_write_register:
-	* @obj: Self
-	* @value: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean write_register (IAnjutaDebuggerRegister *value);
-
-	/**
-	* ianjuta_debugger_inspect_memory:
-	* @obj: Self
-	* @address: fixme
-	* @length: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	*
-	* Returns: fixme
-	*/
-	gboolean inspect_memory (guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
-
-	/**
-	* ianjuta_debugger_disassemble:
-	* @obj: Self
-	* @address: fixme
-	* @length: fixme
-	* @callback: fixme
-	* @user_data: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* Disassemble a part of the memory
-	*
-	* Returns: TRUE if sucessful else FALSE and check err to get more
-	*          detail.
-	*/
-	gboolean disassemble (guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
-
-	/**
-	* ianjuta_debugger_stepi_in:
-	* @obj: Self
-	* @err: Error propagation and reporting.
-	* 
-	* Execute one assembler instruction in the program.
-	*
-	* Returns: TRUE if the request succeed and the callback is called. If 
-	* FALSE, the callback will not be called.
-	*/
-	gboolean stepi_in ();
 	
 	/**
-	* ianjuta_debugger_stepi_over:
-	* @obj: Self
-	* @err: Error propagation and reporting.
+	* SECTION:ianjuta-debugger-register
+	* @title: IAnjutaDebuggerRegister
+	* @short_description: Register interface for debuggers
+	* @see_also: 
+	* @stability: Unstable
+	* @include: libanjuta/interfaces/ianjuta-debugger-register.h
 	* 
-	* Execute one assembler instruction in the program, if the instruction
-	* is a function call, continues until the function returns.
-	*
-	* Returns: TRUE if the request succeed and the callback is called. If 
-	* FALSE, the callback will not be called.
+ 	* This interface is used to examine and change values of CPU registers.
 	*/
-	gboolean stepi_over ();
+	interface IAnjutaDebuggerRegister
+	{
+
+		struct Data
+		{
+			guint num;
+			gchar *name;
+			gchar *value;
+		}
+
+		/**
+		* ianjuta_debugger_register_list:
+		* @obj: Self
+		* @callback: Callback to call with the register list
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* List all registers of the target. This function can be called without
+		* a program loaded, the value field of register structure is not filled.
+		*
+		* Returns: TRUE if the request succeed and the callback is
+		* called. If FALSE, the callback will not be called.
+		*/
+		gboolean list (IAnjutaDebuggerCallback callback, gpointer user_data);
+
+		/**
+		* ianjuta_debugger_register_update:
+		* @obj: Self
+		* @callback: Callback call with the list of all modified registers
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* Return all modified registers since the last call. Only the num and
+		* value field are used.
+		*
+		* Returns: TRUE if the request succeed and the callback is
+		* called. If FALSE, the callback will not be called.
+		*/
+		gboolean update (IAnjutaDebuggerCallback callback, gpointer user_data);
+
+		/**
+		* ianjuta_debugger_register_write:
+		* @obj: Self
+		* @value: Modified register with a new value
+		* @err: Error propagation and reporting.
+		* 
+		* Change the value of one register. Only the num and value field are used.
+		*
+		* Returns: TRUE if the request succeed.
+		*/
+		gboolean write (Data *value);
+	}
 	
 	/**
-	* ianjuta_debugger_run_to_address:
-	* @obj: Self
-	* @address: Run to this addresss
-	* @err: Error propagation and reporting.
+	* SECTION:ianjuta-debugger-memory
+	* @title: IAnjutaDebuggerMemory
+	* @short_description: Memory interface for debuggers
+	* @see_also: 
+	* @stability: Unstable
+	* @include: libanjuta/interfaces/ianjuta-debugger-memory.h
 	* 
-	* Start the program until it reachs the address address
-	*
-	* Returns: TRUE if the request succeed and the callback is called. If 
-	* FALSE, the callback will not be called.
+ 	* This interface is used to examine the target memory.
 	*/
-	gboolean run_to_address (guint address);
+	interface IAnjutaDebuggerMemory
+	{
+		struct Block
+		{
+			gulong address;
+			guint length;
+			gchar *data;
+		}
+
+		/**
+		* ianjuta_debugger_memory_inspect:
+		* @obj: Self
+		* @address: Start address of the memory block
+		* @length: Length of memory block
+		* @callback: Call back with a IAnjutaDebuggerMemoryBlock as argument
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* Read a block of the target memory.
+		*
+		* Returns: TRUE if the request succeed and the callback is
+		* called. If FALSE, the callback will not be called.
+		*/
+		gboolean inspect (gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
+	}
+
+	/**
+	* SECTION:ianjuta-debugger-instruction
+	* @title: IAnjutaDebuggerInstruction
+	* @short_description: Debugger interface for machine instruction
+	* @see_also: 
+	* @stability: Unstable
+	* @include: libanjuta/interfaces/ianjuta-debugger-instruction.h
+	* 
+ 	* This interface is used to debuger as machine instruction level.
+	*/
+	interface IAnjutaDebuggerInstruction
+	{
+	
+		struct ALine
+		{
+			gulong address;
+			const gchar *label;
+			const gchar *text;
+		}
+
+		struct Disassembly
+		{
+			guint size;
+			ALine data[];	
+		}	
+
+		/**
+		* ianjuta_debugger_instruction_disassemble:
+		* @obj: Self
+		* @address: Start address of the memory block
+		* @length: Length of memory block
+		* @callback: Call back with a IAnjutaDebuggerInstructionDisassembly as argument
+		* @user_data: User data that is passed back to the callback
+		* @err: Error propagation and reporting.
+		* 
+		* Disassemble a part of the memory
+		*
+		* Returns: TRUE if the request succeed and the callback is
+		* called. If FALSE, the callback will not be called.
+		*/
+		gboolean disassemble (gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data);
+
+		/**
+		* ianjuta_debugger_instruction_step_in:
+		* @obj: Self
+		* @err: Error propagation and reporting.
+		* 
+		* Execute one assembler instruction in the program.
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean step_in ();
+	
+		/**
+		* ianjuta_debugger_instruction_step_over:
+		* @obj: Self
+		* @err: Error propagation and reporting.
+		* 
+		* Execute one assembler instruction in the program, if the instruction
+		* is a function call, continues until the function returns.
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean step_over ();
+	
+		/**
+		* ianjuta_debugger_instruction_run_to_address:
+		* @obj: Self
+		* @address: Run to this addresss
+		* @err: Error propagation and reporting.
+		* 
+		* Start the program until it reachs the address address
+		*
+		* Returns: TRUE if the request succeed and the callback is called. If 
+		* FALSE, the callback will not be called.
+		*/
+		gboolean run_to_address (gulong address);
+	}
+		
 }
 
 interface IAnjutaDebugManager
@@ -4049,7 +4074,7 @@ interface IAnjutaDebugManager
 	* location. Most of the time, after the program has stopped but it
 	* could happen even if it is still running.
 	*/
-	void ::program_moved (gint pid, gint tid, guint address, const gchar* file, guint line);
+	void ::program_moved (gint pid, gint tid, gulong address, const gchar* file, guint line);
 
 	/**
 	* IAnjutaDebugManager::frame_changed:
@@ -4076,7 +4101,7 @@ interface IAnjutaDebugManager
 	* equal to the program location when the program stops but can be
 	* changed afterward by the user.
 	*/
-	void ::location_changed (guint address, const gchar* uri, guint line);	
+	void ::location_changed (gulong address, const gchar* uri, guint line);	
 
 	/**
 	* IAnjutaDebugManager::signal_received:

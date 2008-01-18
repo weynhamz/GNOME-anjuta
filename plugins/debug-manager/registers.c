@@ -137,7 +137,7 @@ on_cpu_registers_updated (const GList *registers, gpointer user_data, GError *er
 	
 	for(node = registers;node != NULL; node = g_list_next (node))
 	{
-		IAnjutaDebuggerRegister *reg = (IAnjutaDebuggerRegister *)node->data;
+		IAnjutaDebuggerRegisterData *reg = (IAnjutaDebuggerRegisterData *)node->data;
 		guint id;
 		gchar *value;
 		
@@ -350,7 +350,7 @@ on_cpu_registers_changed (GtkCellRendererText *cell,
 
 	if (gtk_tree_model_get_iter_from_string (self->current->model, &iter, path_string))
 	{
-		IAnjutaDebuggerRegister reg;
+		IAnjutaDebuggerRegisterData reg;
 		gchar *name;
 		
 		gtk_tree_model_get (self->current->model, &iter, NUMBER_COLUMN, &reg.num, NAME_COLUMN, &name, -1);
@@ -491,7 +491,7 @@ create_cpu_registers_gui (CpuRegisters *self)
 static void
 on_program_started (CpuRegisters *self)
 {
-	if (!dma_debugger_queue_is_supported (self->debugger, HAS_CPU)) return;
+	if (!dma_debugger_queue_is_supported (self->debugger, HAS_REGISTER)) return;
 
 	/* If current debugger support access to cpu hardware */
 	if (!create_cpu_registers_gui (self)) return;

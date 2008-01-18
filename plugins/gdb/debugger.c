@@ -39,6 +39,10 @@
 #include <libanjuta/anjuta-launcher.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/anjuta-marshal.h>
+#include <libanjuta/interfaces/ianjuta-debugger-breakpoint.h>
+#include <libanjuta/interfaces/ianjuta-debugger-register.h>
+#include <libanjuta/interfaces/ianjuta-debugger-memory.h>
+#include <libanjuta/interfaces/ianjuta-debugger-instruction.h>
 #include <libanjuta/interfaces/ianjuta-debugger-variable.h>
 
 #include "debugger.h"
@@ -1676,7 +1680,7 @@ debugger_set_output_callback (Debugger *debugger, IAnjutaDebuggerOutputCallback 
 
 void
 debugger_program_moved (Debugger *debugger, const gchar *file,
-						  gint line, guint address)
+						  gint line, gulong address)
 {
 	gchar *src_path;
 	
@@ -2039,7 +2043,7 @@ debugger_run_to_position (Debugger *debugger, const gchar *file, guint line)
 }
 
 void
-debugger_run_to_address (Debugger *debugger, guint address)
+debugger_run_to_address (Debugger *debugger, gulong address)
 {
 	gchar *buff;
 
@@ -2048,7 +2052,7 @@ debugger_run_to_address (Debugger *debugger, guint address)
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
 	
-	buff = g_strdup_printf ("-break-insert -t *0x%x", address);
+	buff = g_strdup_printf ("-break-insert -t *0x%lx", address);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, NULL, NULL, NULL);
 	g_free (buff);
 	debugger_queue_command (debugger, "-exec-continue", FALSE, FALSE, NULL, NULL, NULL);
@@ -2192,7 +2196,7 @@ debugger_add_breakpoint_at_function (Debugger *debugger, const gchar *file, cons
 }
 
 void
-debugger_add_breakpoint_at_address (Debugger *debugger, guint address, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_add_breakpoint_at_address (Debugger *debugger, gulong address, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
 
@@ -2200,7 +2204,7 @@ debugger_add_breakpoint_at_address (Debugger *debugger, guint address, IAnjutaDe
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("-break-insert *0x%x", address);
+	buff = g_strdup_printf ("-break-insert *0x%lx", address);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, debugger_add_breakpoint_finish, callback, user_data);
 	g_free (buff);
 }
@@ -2652,12 +2656,12 @@ debugger_read_memory_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 	const gchar *value;
 	gchar *data;
 	gchar *ptr;
-	guint address;
+	gulong address;
 	guint len;
 	guint i;
 	IAnjutaDebuggerCallback callback = debugger->priv->current_cmd.callback;
 	gpointer user_data = debugger->priv->current_cmd.user_data;
-	IAnjutaDebuggerMemory read = {0,};
+	IAnjutaDebuggerMemoryBlock read = {0,};
 
 	literal = gdbmi_value_hash_lookup (mi_results, "total-bytes");
 	if (literal)
@@ -2718,7 +2722,7 @@ debugger_read_memory_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 }
 
 void
-debugger_inspect_memory (Debugger *debugger, guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_inspect_memory (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
 	
@@ -2726,7 +2730,7 @@ debugger_inspect_memory (Debugger *debugger, guint address, guint length, IAnjut
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("-data-read-memory 0x%x x 1 1 %d", address, length);
+	buff = g_strdup_printf ("-data-read-memory 0x%lx x 1 1 %d", address, length);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, debugger_read_memory_finish, callback, user_data);
 	g_free (buff);
 }
@@ -2742,7 +2746,7 @@ debugger_disassemble_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 	guint i;
 	IAnjutaDebuggerCallback callback = debugger->priv->current_cmd.callback;
 	gpointer user_data = debugger->priv->current_cmd.user_data;
-	IAnjutaDebuggerDisassembly *read = NULL;
+	IAnjutaDebuggerInstructionDisassembly *read = NULL;
 
 	if (error != NULL)
 	{
@@ -2759,7 +2763,7 @@ debugger_disassemble_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 		guint size;
 	
 		size = gdbmi_value_get_size (mem);
-		read = (IAnjutaDebuggerDisassembly *)g_malloc0(sizeof (IAnjutaDebuggerDisassembly) + sizeof(IAnjutaDebuggerALine) * size);
+		read = (IAnjutaDebuggerInstructionDisassembly *)g_malloc0(sizeof (IAnjutaDebuggerInstructionDisassembly) + sizeof(IAnjutaDebuggerInstructionALine) * size);
 		read->size = size;
 
 		for (i = 0; i < size; i++)
@@ -2815,9 +2819,10 @@ debugger_disassemble_finish (Debugger *debugger, const GDBMIValue *mi_results, c
 }
 
 void
-debugger_disassemble (Debugger *debugger, guint address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data)
+debugger_disassemble (Debugger *debugger, gulong address, guint length, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
+	gulong end;
 	
 	DEBUG_PRINT ("In function: debugger_disassemble()");
 
@@ -2825,8 +2830,8 @@ debugger_disassemble (Debugger *debugger, guint address, guint length, IAnjutaDe
 
 
 	/* Handle overflow */
-	if (address + length < address) length = G_MAXUINT - address;
-	buff = g_strdup_printf ("-data-disassemble -s 0x%x -e 0x%x  -- 0", address, address + length);
+	end = (address + length < address) ? G_MAXULONG : address + length;
+	buff = g_strdup_printf ("-data-disassemble -s 0x%lx -e 0x%lx  -- 0", address, end);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, debugger_disassemble_finish, callback, user_data);
 	g_free (buff);
 }
@@ -3188,13 +3193,13 @@ debugger_info_thread (Debugger *debugger, gint thread, IAnjutaDebuggerCallback c
 static void
 add_register_name (const GDBMIValue *reg_literal, GList** list)
 {
-	IAnjutaDebuggerRegister* reg;
+	IAnjutaDebuggerRegisterData* reg;
 	GList *prev = *list;
 	
-	reg = g_new0 (IAnjutaDebuggerRegister, 1);
+	reg = g_new0 (IAnjutaDebuggerRegisterData, 1);
 	*list = g_list_prepend (prev, reg);
 	reg->name = (gchar *)gdbmi_value_literal_get (reg_literal);
-	reg->num = prev == NULL ? 0 : ((IAnjutaDebuggerRegister *)prev->data)->num + 1;
+	reg->num = prev == NULL ? 0 : ((IAnjutaDebuggerRegisterData *)prev->data)->num + 1;
 }
 
 static void
@@ -3202,7 +3207,7 @@ add_register_value (const GDBMIValue *reg_hash, GList** list)
 {
 	const GDBMIValue *literal;
 	const gchar *val;
-	IAnjutaDebuggerRegister* reg;
+	IAnjutaDebuggerRegisterData* reg;
 	guint num;
 	GList* prev = *list;
 		
@@ -3216,7 +3221,7 @@ add_register_value (const GDBMIValue *reg_hash, GList** list)
 	if (!literal)
 		return;
 	
-	reg = g_new0 (IAnjutaDebuggerRegister, 1);
+	reg = g_new0 (IAnjutaDebuggerRegisterData, 1);
 	*list = g_list_prepend (prev, reg);
 	reg->num = num;
 	reg->value = (gchar *)gdbmi_value_literal_get (literal);

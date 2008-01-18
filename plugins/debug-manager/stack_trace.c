@@ -225,7 +225,7 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 			/* Check if it's the same stack frame */
 			gchar *adr;
 			gchar *args;
-			guint address;
+			gulong address;
 			guint line;
 			gboolean same;
 			
@@ -287,7 +287,7 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 					
 		gtk_list_store_prepend (model, &iter);
 
-		adr = g_strdup_printf ("0x%x", frame->address);
+		adr = g_strdup_printf ("0x%lx", frame->address);
 		if (frame->file)
 		{
 			uri = gnome_vfs_get_uri_from_local_path(frame->file);
@@ -481,7 +481,7 @@ on_stack_view_source_activate (GtkAction *action, gpointer user_data)
 	gchar *uri;
 	guint line;
 	gchar *adr;
-	guint address;
+	gulong address;
 	
 	StackTrace* st = (StackTrace*) user_data;		
 
@@ -642,7 +642,7 @@ create_stack_trace_gui(StackTrace *st)
 	gtk_tree_view_column_set_title (column, _("Function"));
 	gtk_tree_view_append_column (st->treeview, column);
 	
-	if (dma_debugger_queue_is_supported (st->debugger, HAS_CPU))
+	if (dma_debugger_queue_is_supported (st->debugger, HAS_MEMORY))
 	{
 		/* Display address only if debugger has such concept */
 		column = gtk_tree_view_column_new ();

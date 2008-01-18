@@ -95,7 +95,7 @@ struct _DmaDisassemblyBufferClass
 
 struct _DmaDisassemblyLine
 {
-	guint address;
+	gulong address;
 	gchar* text;
 };
 
@@ -388,7 +388,7 @@ dma_disassembly_iter_round (DmaSparseIter *iter, gboolean round_up)
 }
 
 static void
-on_disassemble (const IAnjutaDebuggerDisassembly *block, DmaSparseBufferTransport *trans, GError *err)
+on_disassemble (const IAnjutaDebuggerInstructionDisassembly *block, DmaSparseBufferTransport *trans, GError *err)
 {
 	DmaDisassemblyBufferNode *node;
 	DmaDisassemblyBuffer *buffer = (DmaDisassemblyBuffer *)trans->buffer;
@@ -790,7 +790,7 @@ on_program_running (DmaDisassemble *self)
 }
 
 static void
-on_program_moved (DmaDisassemble *self, guint pid, guint tid, guint address, const gchar* file, guint line)
+on_program_moved (DmaDisassemble *self, guint pid, guint tid, gulong address, const gchar* file, guint line)
 {
 	dma_sparse_view_delete_all_markers (self->view, IANJUTA_MARKABLE_PROGRAM_COUNTER);	
 	
@@ -802,7 +802,7 @@ on_program_moved (DmaDisassemble *self, guint pid, guint tid, guint address, con
 }
 
 static void
-on_location_changed (DmaDisassemble *self, guint address, const gchar* uri, guint line)
+on_location_changed (DmaDisassemble *self, gulong address, const gchar* uri, guint line)
 {
 	dma_sparse_view_goto (self->view, address);
 }
@@ -859,7 +859,7 @@ create_disassemble_gui (DmaDisassemble *self)
 static void
 on_program_loaded (DmaDisassemble *self)
 {
-	if (!dma_debugger_queue_is_supported (self->debugger, HAS_CPU)) return;
+	if (!dma_debugger_queue_is_supported (self->debugger, HAS_INSTRUCTION)) return;
 
 	if (!create_disassemble_gui (self)) return;
 
