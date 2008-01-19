@@ -1,3 +1,11 @@
+2008-01-19  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/editor/text_editor.c: (text_editor_save_file):
+	* plugins/macro/anjuta-macro.glade:
+	* plugins/subversion/anjuta-subversion.glade:
+
+	Fixed even more strings
+
 2008-01-19  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c:

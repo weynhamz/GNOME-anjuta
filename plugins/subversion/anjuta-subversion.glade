@@ -955,7 +955,7 @@
                 <child>
                   <widget class="GtkLabel" id="label43">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Realm: </property>
+                    <property name="label" translatable="yes">Realm:</property>
                   </widget>
                   <packing>
                     <property name="expand">False</property>

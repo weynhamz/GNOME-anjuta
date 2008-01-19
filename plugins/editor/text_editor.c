@@ -1626,7 +1626,7 @@ text_editor_save_file (TextEditor * te, gboolean update)
 		
 		text_editor_thaw (te);
 		anjuta_util_dialog_error (parent,
-								  _("Could not save intermediate file %s: %s."),
+								  _("Could not save intermediate file %s: %s"),
 								  save_uri,
 								  gnome_vfs_result_to_string (result));
 		

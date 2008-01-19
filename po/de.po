@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-16 14:05+0100\n"
+"POT-Creation-Date: 2008-01-19 16:18+0100\n"
 "PO-Revision-Date: 2007-11-29 20:57+0100\n"
 "Last-Translator: Andre Klapper <ak-47@gmx.net>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -264,7 +264,7 @@ msgstr "%s kann nicht ausgeführt werden"
 msgid "execvp failed"
 msgstr "execvp fehlgeschlagen"
 
-#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2188
+#: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2215
 msgid "Anjuta Shell"
 msgstr "Anjuta-Shell"
 
@@ -272,7 +272,7 @@ msgstr "Anjuta-Shell"
 msgid "Anjuta shell that will contain the plugin"
 msgstr "Die Anjuta-Shell, die die Komponente enthalten wird"
 
-#: ../libanjuta/anjuta-plugin-manager.c:764
+#: ../libanjuta/anjuta-plugin-manager.c:765
 #, c-format
 msgid ""
 "Could not load %s\n"
@@ -285,25 +285,25 @@ msgstr ""
 "Fehlermeldung hierzu lautete:\n"
 "%s"
 
-#: ../libanjuta/anjuta-plugin-manager.c:863
+#: ../libanjuta/anjuta-plugin-manager.c:890
 #: ../plugins/symbol-browser/an_symbol_prefs.c:781
 msgid "Load"
 msgstr "Laden"
 
-#: ../libanjuta/anjuta-plugin-manager.c:885
-#: ../libanjuta/anjuta-plugin-manager.c:1823
+#: ../libanjuta/anjuta-plugin-manager.c:912
+#: ../libanjuta/anjuta-plugin-manager.c:1850
 msgid "Available Plugins"
 msgstr "Verfügbare Komponenten"
 
-#: ../libanjuta/anjuta-plugin-manager.c:998 ../src/anjuta-app.c:830
+#: ../libanjuta/anjuta-plugin-manager.c:1025 ../src/anjuta-app.c:830
 msgid "Preferred plugins"
 msgstr "Bevorzugte Komponente"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1112
+#: ../libanjuta/anjuta-plugin-manager.c:1139
 msgid "Only show user activatable plugins"
 msgstr "Nur Komponenten zeigen, die vom Benutzer aktiviert werden können"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1159
+#: ../libanjuta/anjuta-plugin-manager.c:1186
 msgid ""
 "These are the plugins selected by you when Anjuta prompted to choose one of "
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
@@ -313,70 +313,70 @@ msgstr ""
 "eine bestimmte Aufgabe ausgewählt hat. Wird hier eine Komponente entfernt "
 "wird Anjuta das nächste Mal wieder einen Auswahldialog anzeigen."
 
-#: ../libanjuta/anjuta-plugin-manager.c:1319
-#: ../libanjuta/anjuta-plugin-manager.c:1421
+#: ../libanjuta/anjuta-plugin-manager.c:1346
+#: ../libanjuta/anjuta-plugin-manager.c:1448
 #: ../plugins/debug-manager/queue.c:550
 msgid "Select a plugin"
 msgstr "Komponente auswählen"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1320
-#: ../libanjuta/anjuta-plugin-manager.c:1422
+#: ../libanjuta/anjuta-plugin-manager.c:1347
+#: ../libanjuta/anjuta-plugin-manager.c:1449
 #: ../plugins/debug-manager/queue.c:551
 msgid "Please select a plugin to activate"
 msgstr "Die zu aktivierende Komponente auswählen"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1334
+#: ../libanjuta/anjuta-plugin-manager.c:1361
 #, c-format
 msgid "No plugin able to load other plugins in %s"
 msgstr "Keine Komponente kann andere Komponenten in %s laden"
 
-#: ../libanjuta/anjuta-plugin-manager.c:1842
+#: ../libanjuta/anjuta-plugin-manager.c:1869
 msgid "Remember this selection"
 msgstr "Diese Auswahl merken"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2169
+#: ../libanjuta/anjuta-plugin-manager.c:2196
 msgid "Profiles"
 msgstr "Profile"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2170
+#: ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Current stack of profiles"
 msgstr "Aktueller Profil-Stapel"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2175
+#: ../libanjuta/anjuta-plugin-manager.c:2202
 msgid "Available plugins"
 msgstr "Verfügbare Komponenten"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2176
+#: ../libanjuta/anjuta-plugin-manager.c:2203
 msgid "Currently available plugins found in plugin paths"
 msgstr ""
 "Verfügbare Komponenten, die im Komponenten-Verzeichnis gefunden wurden."
 
-#: ../libanjuta/anjuta-plugin-manager.c:2182
+#: ../libanjuta/anjuta-plugin-manager.c:2209
 msgid "Activated plugins"
 msgstr "Komponenten geladen"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2183
+#: ../libanjuta/anjuta-plugin-manager.c:2210
 msgid "Currently activated plugins"
 msgstr "Geladene Komponenten"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2189
+#: ../libanjuta/anjuta-plugin-manager.c:2216
 msgid "Anjuta shell for which the plugins are"
 msgstr "Die Anjuta-Shell für welche die Komponenten geladen sind"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2197
+#: ../libanjuta/anjuta-plugin-manager.c:2224
 msgid "Anjuta Status"
 msgstr "Anjuta Status"
 
-#: ../libanjuta/anjuta-plugin-manager.c:2198
+#: ../libanjuta/anjuta-plugin-manager.c:2225
 msgid "Anjuta status to use in loading and unloading of plugins"
 msgstr "Anjuta Status, das zum laden und entladen der Komponenten benutzt wird"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
-#: ../libanjuta/anjuta-plugin-manager.c:2357
+#: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Loaded: "
 msgstr "Geladen: "
 
-#: ../libanjuta/anjuta-plugin-manager.c:2357
+#: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "..."
 msgstr "…"
 
@@ -454,7 +454,7 @@ msgstr ""
 "fehlen:\n"
 " %s"
 
-#: ../libanjuta/anjuta-preferences.c:1424
+#: ../libanjuta/anjuta-preferences.c:1432
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
@@ -462,7 +462,7 @@ msgstr ""
 "Sollen die Vorlieben wirklich zu ihren\n"
 "Vorgabewerten zurückgesetzt werden?"
 
-#: ../libanjuta/anjuta-preferences.c:1428
+#: ../libanjuta/anjuta-preferences.c:1436
 msgid "_Reset"
 msgstr "_Zurücksetzen"
 
@@ -1019,7 +1019,7 @@ msgid "Class Options:"
 msgstr "Klassenoptionen:"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:5
 msgid "Create"
 msgstr "Erzeugen"
 
@@ -1287,7 +1287,8 @@ msgid "Module name:"
 msgstr "Name des Eintrags:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-msgid "Password: "
+#: ../plugins/subversion/anjuta-subversion.glade.h:36
+msgid "Password:"
 msgstr "Passwort:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
@@ -1324,7 +1325,7 @@ msgid "Unified format instead of context format"
 msgstr "Unified Format anstatt Kontext Format verwenden"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-#: ../plugins/subversion/anjuta-subversion.glade.h:56
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Use revision/tag: "
 msgstr "Revision/Tag benutzen: "
 
@@ -1333,8 +1334,9 @@ msgid "Use revision: "
 msgstr "Revision benutzen: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:57
-msgid "Username: "
+#: ../plugins/subversion/anjuta-subversion.glade.h:56
+#, fuzzy
+msgid "Username:"
 msgstr "Benutzername: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
@@ -1342,12 +1344,11 @@ msgid "Vendor tag:"
 msgstr "Hersteller Tag:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:61
+#: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole project"
 msgstr "Gesamtes Projekt"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:48
-#: ../plugins/subversion/subversion-ui-utils.c:86
 msgid "Please enter a filename!"
 msgstr "Bitte einen Dateinamen eingeben!"
 
@@ -2950,7 +2951,7 @@ msgstr "_Schnelle Suche"
 #: ../plugins/document-manager/plugin.c:281 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1443
+#: ../plugins/language-support-cpp-java/plugin.c:1443
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
@@ -3316,14 +3317,14 @@ msgstr "_AutoVervollständigung"
 
 #: ../plugins/document-manager/search-box.c:379
 #, c-format
-msgid "Search for \"%s\" reached end and was continued on top!"
+msgid "Search for \"%s\" reached end and was continued on top."
 msgstr ""
 
 #: ../plugins/document-manager/search-box.c:385
 #, c-format
 msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
-"found!"
+"found."
 msgstr ""
 
 #: ../plugins/document-manager/search-box.c:442
@@ -3502,6 +3503,7 @@ msgid "Fold style:"
 msgstr "Formatierungsstil"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:39
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:11
 msgid "Font:"
 msgstr "Schrift:"
 
@@ -3680,25 +3682,25 @@ msgstr ""
 "der aktuelle Puffer.\n"
 "Soll die Datei neu geladen werden?"
 
-#: ../plugins/editor/text_editor.c:1331
+#: ../plugins/editor/text_editor.c:1334
 #, fuzzy
 msgid "Could not get file info"
 msgstr "Datei %s konnte nicht gespeichert werden."
 
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
-#: ../plugins/editor/text_editor.c:1338
+#: ../plugins/editor/text_editor.c:1341
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Datei ist zu groß. Anfordern von Speicherplatz nicht möglich."
 
-#: ../plugins/editor/text_editor.c:1345
+#: ../plugins/editor/text_editor.c:1348
 msgid "Could not open file"
 msgstr "Datei konnte nicht geöffnet werden"
 
-#: ../plugins/editor/text_editor.c:1353
+#: ../plugins/editor/text_editor.c:1356
 msgid "Error while reading from file"
 msgstr "Fehler beim Lesen aus Datei"
 
-#: ../plugins/editor/text_editor.c:1399
+#: ../plugins/editor/text_editor.c:1402
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -3709,11 +3711,11 @@ msgstr ""
 "Kodierungen enthalten ist, anderenfalls fügen Sie diese in den Einstellungen "
 "hinzu."
 
-#: ../plugins/editor/text_editor.c:1564
+#: ../plugins/editor/text_editor.c:1567
 msgid "Loading file..."
 msgstr "Datei wird geladen …"
 
-#: ../plugins/editor/text_editor.c:1573
+#: ../plugins/editor/text_editor.c:1576
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -3724,29 +3726,39 @@ msgstr ""
 "\n"
 "Details: %s"
 
-#: ../plugins/editor/text_editor.c:1593
+#: ../plugins/editor/text_editor.c:1596
 msgid "File loaded successfully"
 msgstr "Datei erfolgreich geladen"
 
-#: ../plugins/editor/text_editor.c:1614
+#: ../plugins/editor/text_editor.c:1617
 msgid "Saving file..."
 msgstr "Datei wird gespeichert …"
 
-#: ../plugins/editor/text_editor.c:1626
+#: ../plugins/editor/text_editor.c:1629
 #, fuzzy, c-format
-msgid "Could not save intermediate file %s: %s."
+msgid "Could not save intermediate file %s: %s"
 msgstr "Datei %s konnte nicht gespeichert werden."
 
-#: ../plugins/editor/text_editor.c:1658
+#: ../plugins/editor/text_editor.c:1657
+#, fuzzy, c-format
+msgid "Couldn't get file info %s : %s"
+msgstr "Datei %s konnte nicht gespeichert werden."
+
+#: ../plugins/editor/text_editor.c:1681
 #, c-format
 msgid "Could not save file %s: %s."
 msgstr "Datei %s konnte nicht gespeichert werden: %s"
 
-#: ../plugins/editor/text_editor.c:1667
+#: ../plugins/editor/text_editor.c:1692
+#, fuzzy, c-format
+msgid "Could not set file permissions %s: %s."
+msgstr "Datei %s konnte nicht gespeichert werden: %s"
+
+#: ../plugins/editor/text_editor.c:1701
 msgid "File saved successfully"
 msgstr "Datei erfolgreich gespeichert"
 
-#: ../plugins/editor/text_editor.c:2032
+#: ../plugins/editor/text_editor.c:2068
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4126,7 +4138,7 @@ msgid "File Manager"
 msgstr "Dateiverwaltung"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
-#: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
+#: ../plugins/gdb/anjuta-gdb.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "*"
@@ -4166,7 +4178,8 @@ msgstr ""
 "Die Erweiterung wird passend zum Typ angefügt."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
+#: ../plugins/macro/anjuta-macro.glade.h:6
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
 msgstr "Name:"
@@ -4389,7 +4402,8 @@ msgstr ""
 #: ../plugins/gdb/plugin.c:115
 #, c-format
 msgid ""
-"Fail to create fifo file named %s. The program will be run without a terminal"
+"Fail to create fifo file named %s. The program will be run without a "
+"terminal."
 msgstr ""
 
 #: ../plugins/gdb/plugin.c:150
@@ -4450,7 +4464,7 @@ msgstr "Zusammenfassung:"
 
 #. option menu label
 #: ../plugins/gtodo/add_edit_item.c:162
-#: ../plugins/macro/anjuta-macro.glade.h:5
+#: ../plugins/macro/anjuta-macro.glade.h:4
 msgid "Category:"
 msgstr "Kategorie:"
 
@@ -4551,7 +4565,6 @@ msgid "Export to"
 msgstr "Exportieren nach"
 
 #: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
-#: ../src/shell.c:88
 msgid "_View"
 msgstr "_Ansicht"
 
@@ -4833,30 +4846,25 @@ msgstr "Editor"
 msgid "Todo List Manager"
 msgstr ""
 
-#: ../plugins/macro/anjuta-macro.glade.h:2
+#: ../plugins/macro/anjuta-macro.glade.h:1
 msgid "<b>Macro details:</b>"
 msgstr ""
 
-#: ../plugins/macro/anjuta-macro.glade.h:3
+#: ../plugins/macro/anjuta-macro.glade.h:2
 msgid "<b>Macro text:</b>"
 msgstr ""
 
-#: ../plugins/macro/anjuta-macro.glade.h:4
+#: ../plugins/macro/anjuta-macro.glade.h:3
 #, fuzzy
 msgid "<b>Macros:</b>"
 msgstr "Makros"
 
-#: ../plugins/macro/anjuta-macro.glade.h:6
+#: ../plugins/macro/anjuta-macro.glade.h:5
 #, fuzzy
 msgid "Edit..."
 msgstr "Bearbeiten"
 
 #: ../plugins/macro/anjuta-macro.glade.h:7
-#, fuzzy
-msgid "Name: "
-msgstr "Klassenname:"
-
-#: ../plugins/macro/anjuta-macro.glade.h:8
 msgid "Shortcut:"
 msgstr "Kurzwahltaste"
 
@@ -5076,8 +5084,9 @@ msgid "Patching...\n"
 msgstr ""
 
 #: ../plugins/patch/patch-plugin.c:168
-msgid "There are unfinished jobs, please wait until they are finished"
-msgstr ""
+#, fuzzy
+msgid "There are unfinished jobs, please wait until they are finished."
+msgstr "CVS Kommand läuft - Bitte warten bis es fertig gestellt wurde!"
 
 #: ../plugins/patch/patch-plugin.c:210
 msgid ""
@@ -5169,7 +5178,7 @@ msgstr ""
 msgid ""
 "Could not get profiling data.\n"
 "\n"
-"Please check the path to this target's profiling data file"
+"Please check the path to this target's profiling data file."
 msgstr ""
 
 #: ../plugins/profiler/plugin.c:284
@@ -5377,7 +5386,7 @@ msgstr ""
 
 #: ../plugins/project-import/project-import.c:329
 #, fuzzy, c-format
-msgid "A file named \"%s\" already exists.  Do you want to replace it?"
+msgid "A file named \"%s\" already exists. Do you want to replace it?"
 msgstr "Die Datei »%s« existiert bereits.  Soll sie überschrieben werden?"
 
 #: ../plugins/project-import/project-import.c:353
@@ -5710,15 +5719,17 @@ msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "Die Datei \"%s\" existiert bereits. Soll sie überschrieben werden?"
 
 #: ../plugins/project-wizard/druid.c:836
-msgid "Unable to build project wizard user interface"
-msgstr ""
+#, fuzzy
+msgid "Unable to build project wizard user interface."
+msgstr "Konnte Benutzerschnittstelle für »Neue Datei"
 
 #: ../plugins/project-wizard/install.c:387
-msgid "New project has been created successfully"
+#, fuzzy
+msgid "New project has been created successfully."
 msgstr "Neues Projekt wurde erfolgreich erstellt"
 
 #: ../plugins/project-wizard/install.c:394
-msgid "New project creation has failed"
+msgid "New project creation has failed."
 msgstr ""
 
 #: ../plugins/project-wizard/install.c:440
@@ -6471,10 +6482,6 @@ msgstr "Profiling einschalten"
 msgid "Font "
 msgstr "Schrift "
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:11
-msgid "Font: "
-msgstr "Schrift: "
-
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:12
 #, fuzzy
 msgid "Highlight current line"
@@ -6532,7 +6539,8 @@ msgid "Show right margin"
 msgstr "Markierungsrand zeigen/verbergen"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:27
-msgid "Text: "
+#, fuzzy
+msgid "Text:"
 msgstr "Text: "
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:29
@@ -6667,110 +6675,101 @@ msgstr "Änderungen mit Ihrer Arbeitskopie zusammenführen"
 msgid "Other Revision:"
 msgstr "Andere Revision:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:36
-msgid "Password:"
-msgstr "Passwort:"
-
 #: ../plugins/subversion/anjuta-subversion.glade.h:37
 msgid "Realm:"
 msgstr ""
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:38
-#, fuzzy
-msgid "Realm: "
-msgstr "Frame"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:39
 msgid "Recurse"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:40
+#: ../plugins/subversion/anjuta-subversion.glade.h:39
 msgid "Remember Password"
 msgstr "Passwort speichern"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:41
+#: ../plugins/subversion/anjuta-subversion.glade.h:40
 msgid "Remember this decision"
 msgstr "Diese Entscheidung merken"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:42
+#: ../plugins/subversion/anjuta-subversion.glade.h:41
 #, fuzzy
 msgid "Remove file/directory"
 msgstr "Bis zur Klammer auswählen"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:43
+#: ../plugins/subversion/anjuta-subversion.glade.h:42
 #, fuzzy
 msgid "Repository Head"
 msgstr "<b>Archiv: </b>"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:44
+#: ../plugins/subversion/anjuta-subversion.glade.h:43
 msgid "Repository authorization"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:45
+#: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Retrieving status..."
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
+#: ../plugins/subversion/anjuta-subversion.glade.h:45
 #, fuzzy
 msgid "Revert Changes"
 msgstr "Subvesion: Änderungen rückgängig machen"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:47
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
 msgid "Revision:"
 msgstr "Revision:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:48
+#: ../plugins/subversion/anjuta-subversion.glade.h:47
 msgid "Save open files before diffing"
 msgstr "Geöffnete Dateien vorm Vergleich speichern"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:49
+#: ../plugins/subversion/anjuta-subversion.glade.h:48
 msgid "Set Conflicts as Resolved"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:50
+#: ../plugins/subversion/anjuta-subversion.glade.h:49
 msgid "Source:"
 msgstr "Quelle:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:51
+#: ../plugins/subversion/anjuta-subversion.glade.h:50
 msgid "Subversion Preferences"
 msgstr "Subversion-Einstellungen"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:52
+#: ../plugins/subversion/anjuta-subversion.glade.h:51
 #, fuzzy
 msgid "Switch to branch/tag"
 msgstr "Zu einem Zweig/Tag wechseln …"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:53
+#: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "Trust server"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:54
+#: ../plugins/subversion/anjuta-subversion.glade.h:53
 #, fuzzy
 msgid "Update file/directory"
 msgstr "Bis zur Klammer auswählen"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:55
+#: ../plugins/subversion/anjuta-subversion.glade.h:54
 msgid "Use first path"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:58
+#: ../plugins/subversion/anjuta-subversion.glade.h:57
 #, fuzzy
 msgid "View Log"
 msgstr "Ansicht"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:59
+#: ../plugins/subversion/anjuta-subversion.glade.h:58
 msgid "View Selected Revision"
 msgstr ""
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:60
+#: ../plugins/subversion/anjuta-subversion.glade.h:59
 msgid "Whole Project"
 msgstr "Gesamtes Projekt"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:62
+#: ../plugins/subversion/anjuta-subversion.glade.h:61
 msgid "Working Copy"
 msgstr "Arbeitskopie"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:63
+#: ../plugins/subversion/anjuta-subversion.glade.h:62
 #, fuzzy
 msgid "realm"
 msgstr "Frame"
@@ -6942,19 +6941,44 @@ msgstr "Subversion-Log"
 msgid "Subversion: File will be added on next commit."
 msgstr "Subversion: Datei wird beim nächsten Einchecken hinzugefügt"
 
+#: ../plugins/subversion/subversion-add-dialog.c:63
+#: ../plugins/subversion/subversion-diff-dialog.c:64
+#: ../plugins/subversion/subversion-remove-dialog.c:98
+#: ../plugins/subversion/subversion-update-dialog.c:66
+#, fuzzy
+msgid "Please enter a path."
+msgstr "Bitte einen Dateinamen eingeben!"
+
 #: ../plugins/subversion/subversion-commit-dialog.c:39
 msgid "Subversion: Commit complete."
 msgstr "Subversion: Einchecken "
 
 #: ../plugins/subversion/subversion-commit-dialog.c:93
-msgid "Subversion: Committing changes  to the repository..."
-msgstr ""
+#, fuzzy
+msgid "Subversion: Committing changes to the repository..."
+msgstr "Subversion: Änderungen in die Arbeitskopie einpflegen"
 
 #: ../plugins/subversion/subversion-copy-dialog.c:138
 msgid "Subversion: Copy complete."
 msgstr "Subversion: Kopieren erfolgreich."
 
-#: ../plugins/subversion/subversion-diff-dialog.c:83
+#: ../plugins/subversion/subversion-copy-dialog.c:184
+#, fuzzy
+msgid "Please enter a source path."
+msgstr "Bitte einen Dateinamen eingeben!"
+
+#: ../plugins/subversion/subversion-copy-dialog.c:190
+#, fuzzy
+msgid "Please enter a destination path."
+msgstr "Bitte einen Dateinamen eingeben!"
+
+#: ../plugins/subversion/subversion-copy-dialog.c:207
+#: ../plugins/subversion/subversion-switch-dialog.c:120
+#, fuzzy
+msgid "Please enter a revision."
+msgstr "Bitte einen Dateinamen eingeben!"
+
+#: ../plugins/subversion/subversion-diff-dialog.c:86
 #: ../plugins/subversion/subversion-log-dialog.c:417
 #: ../plugins/subversion/subversion-log-dialog.c:481
 msgid "Subversion: Retrieving diff..."
@@ -6976,6 +7000,32 @@ msgstr "Subversion: Abrufen der Datei …"
 msgid "Subversion: Merge complete."
 msgstr "Subversion: Zusammenführen abgeschlossen."
 
+#: ../plugins/subversion/subversion-merge-dialog.c:93
+#, fuzzy
+msgid "Please enter the first path."
+msgstr "Bitte einen Dateinamen eingeben!"
+
+#: ../plugins/subversion/subversion-merge-dialog.c:99
+#, fuzzy
+msgid "Please enter the second path."
+msgstr "Bitte einen Dateinamen eingeben!"
+
+#: ../plugins/subversion/subversion-merge-dialog.c:105
+#: ../plugins/subversion/subversion-switch-dialog.c:100
+#, fuzzy
+msgid "Please enter a working copy path."
+msgstr "Bitte einen Dateinamen eingeben!"
+
+#: ../plugins/subversion/subversion-merge-dialog.c:119
+#, fuzzy
+msgid "Please enter the start revision."
+msgstr "Bitte einen Dateinamen eingeben!"
+
+#: ../plugins/subversion/subversion-merge-dialog.c:134
+#, fuzzy
+msgid "Please enter the end revision."
+msgstr "Bitte einen Dateinamen eingeben!"
+
 #: ../plugins/subversion/subversion-remove-dialog.c:39
 msgid "Subversion: File will be removed on next commit."
 msgstr "Subversion: Datei wird beim nächsten Commit entfernt."
@@ -6993,13 +7043,18 @@ msgstr "Subversion: Rückgängig-Machen abgeschlossen."
 msgid "Subversion: Switch complete."
 msgstr "Anjuta: Keine Datei"
 
+#: ../plugins/subversion/subversion-switch-dialog.c:106
+#, fuzzy
+msgid "Please enter a branch/tag URL."
+msgstr "Bitte einen Dateinamen eingeben!"
+
 #: ../plugins/subversion/subversion-ui-utils.c:64
 #: ../plugins/subversion/subversion-ui-utils.c:69
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:2
 msgid "Subversion"
 msgstr "Subversion"
 
-#: ../plugins/subversion/subversion-ui-utils.c:325
+#: ../plugins/subversion/subversion-ui-utils.c:342
 msgid "Subversion: Diff complete."
 msgstr "Subversion: Erhalten der Unterschiede abgeschlossen."
 
@@ -7148,25 +7203,21 @@ msgid "<b>Create API tags:</b>"
 msgstr "<b>API-Tags erstellen:</b>"
 
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:3
+#, fuzzy
+msgid "Add Directory"
+msgstr "Verzeichnis hinzufügen"
+
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
 msgid "Add directories in the list to scan:"
 msgstr ""
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:4
-msgid "Add directory"
-msgstr "Verzeichnis hinzufügen"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:5
-#, fuzzy
-msgid "Crea_te"
-msgstr "Berei_nigen"
-
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
 msgid "Create API tags"
 msgstr "API-Tags erstellen"
 
-#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:9
+#: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:8
 #, fuzzy
-msgid "Update globale tags"
+msgid "Update Global Tags"
 msgstr "Erneuerung der Tags abgeschlossen"
 
 #: ../plugins/symbol-browser/plugin.c:273
@@ -7282,7 +7333,7 @@ msgid "Edit as script"
 msgstr "Als Skript bearbeiten"
 
 #: ../plugins/tools/anjuta-tools.glade.h:3
-msgid "Edit command is script in Anjuta on close"
+msgid "Edit command as script in Anjuta on close"
 msgstr ""
 
 #: ../plugins/tools/anjuta-tools.glade.h:5
@@ -7882,11 +7933,13 @@ msgid "<b>Appearance</b>"
 msgstr "Optionen"
 
 #: ../src/anjuta.glade.h:2
-msgid "<b>General Information:</b>"
+#, fuzzy
+msgid "<b>General Information</b>"
 msgstr "<b>Allgemeine Informationen:</b>"
 
 #: ../src/anjuta.glade.h:3
-msgid "<b>Session:</b>"
+#, fuzzy
+msgid "<b>Session</b>"
 msgstr "<b>Sitzung:</b>"
 
 #: ../src/anjuta.glade.h:4
@@ -7923,11 +7976,11 @@ msgstr "E-Mail-Adresse des Benutzers"
 msgid "User name"
 msgstr "Benutzername"
 
-#: ../src/anjuta-actions.h:23 ../src/shell.c:86
+#: ../src/anjuta-actions.h:23
 msgid "_File"
 msgstr "_Datei"
 
-#: ../src/anjuta-actions.h:24 ../src/shell.c:94
+#: ../src/anjuta-actions.h:24
 msgid "_Quit"
 msgstr "_Beenden"
 
@@ -7972,7 +8025,7 @@ msgstr "Layout _einfrieren"
 msgid "Lock the current dock layout so that widgets cannot be moved"
 msgstr ""
 
-#: ../src/anjuta-actions.h:58 ../src/shell.c:90
+#: ../src/anjuta-actions.h:58
 msgid "_Help"
 msgstr "_Hilfe"
 
@@ -8067,7 +8120,7 @@ msgstr "Ungültige Komponente: %s"
 msgid "Shortcuts"
 msgstr "Abkürzung"
 
-#: ../src/anjuta-app.c:904 ../src/shell.c:232
+#: ../src/anjuta-app.c:904
 #, c-format
 msgid "Value doesn't exist"
 msgstr "Wert existiert nicht"
@@ -8124,44 +8177,6 @@ msgstr "- Integrierte Entwicklungsumgebung"
 #: ../src/main.c:379
 msgid "Anjuta"
 msgstr "Anjuta"
-
-#: ../src/shell.c:76
-#, fuzzy
-msgid "Anjuta Plugins"
-msgstr "Anjuta: %s"
-
-#: ../src/shell.c:89
-msgid "_Settings"
-msgstr "Ein_stellungen"
-
-#: ../src/shell.c:96
-msgid "Quit Anjuta Test Shell"
-msgstr ""
-
-#: ../src/shell.c:102
-msgid "_Preferences..."
-msgstr "_Einstellungen …"
-
-#: ../src/shell.c:104
-msgid "Preferences"
-msgstr "Einstellungen"
-
-#: ../src/shell.c:110
-msgid "C_ustomize shortcuts"
-msgstr ""
-
-#: ../src/shell.c:112
-msgid "Customize shortcuts associated with menu items"
-msgstr ""
-
-#: ../src/shell.c:183
-msgid "Test shell action group"
-msgstr ""
-
-#: ../src/shell.c:442
-#, fuzzy
-msgid "Anjuta test shell"
-msgstr "Anjuta im Internet"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
 #, fuzzy
@@ -8498,6 +8513,41 @@ msgstr "Dateilader zum Laden verschiedener Dateien"
 msgid "Debug Manager plugin."
 msgstr "Komponente zur Debug-Verwaltung."
 
+#~ msgid "Password: "
+#~ msgstr "Passwort:"
+
+#, fuzzy
+#~ msgid "Name: "
+#~ msgstr "Klassenname:"
+
+#~ msgid "Font: "
+#~ msgstr "Schrift: "
+
+#, fuzzy
+#~ msgid "Realm: "
+#~ msgstr "Frame"
+
+#, fuzzy
+#~ msgid "Crea_te"
+#~ msgstr "Berei_nigen"
+
+#, fuzzy
+#~ msgid "Anjuta Plugins"
+#~ msgstr "Anjuta: %s"
+
+#~ msgid "_Settings"
+#~ msgstr "Ein_stellungen"
+
+#~ msgid "_Preferences..."
+#~ msgstr "_Einstellungen …"
+
+#~ msgid "Preferences"
+#~ msgstr "Einstellungen"
+
+#, fuzzy
+#~ msgid "Anjuta test shell"
+#~ msgstr "Anjuta im Internet"
+
 #~ msgid "launcher.c: Error while reading child pty\n"
 #~ msgstr "launcher.c: Fehler beim Lesen der Kind pty\n"
 
@@ -8789,9 +8839,6 @@ msgstr "Komponente zur Debug-Verwaltung."
 #, fuzzy
 #~ msgid "Subversion: Diff file/directory"
 #~ msgstr "Bis zur Klammer auswählen"
-
-#~ msgid "Subversion: Merge changes into working copy"
-#~ msgstr "Subversion: Änderungen in die Arbeitskopie einpflegen"
 
 #~ msgid "Subversion: Remove file/directory"
 #~ msgstr "Subversion: Datei/Verzeichnis entfernen"
