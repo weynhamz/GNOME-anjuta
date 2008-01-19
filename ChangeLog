@@ -1,3 +1,8 @@
+2008-01-19  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/project-wizard/templates/cpp/src/main.cc:
+	Fix #498734, typing error in c++ project template
+
 2008-01-19  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/editor/text_editor.c: (text_editor_save_file):
