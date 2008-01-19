@@ -526,7 +526,7 @@ vg_rule_editor_save (VgRuleEditor *editor, const char *filename)
 	if ((fd = open (filename, O_WRONLY | O_APPEND, 0666)) == -1) {
 		dialog = gtk_message_dialog_new (parent, GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 						 GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-						 _("Error saving to suppression file `%s': %s"),
+						 _("Error saving to suppression file '%s': %s"),
 						 filename, g_strerror (errno));
 		gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (dialog);
@@ -541,7 +541,7 @@ vg_rule_editor_save (VgRuleEditor *editor, const char *filename)
 	if (vg_suppressions_file_append_rule (fd, rule) == -1 || fsync (fd) == -1) {
 		dialog = gtk_message_dialog_new (parent, GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 						 GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-						 _("Error saving to suppression file `%s': %s"),
+						 _("Error saving to suppression file '%s': %s"),
 						 filename, g_strerror (errno));
 		gtk_dialog_run (GTK_DIALOG (dialog));
 		gtk_widget_destroy (dialog);

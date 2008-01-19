@@ -1,3 +1,10 @@
+2008-01-19  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	* plugins/valgrind/vgrule-editor.c: (vg_rule_editor_save):
+	
+	And even more strings...
+
 2008-01-19  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/project-wizard/templates/cpp/src/main.cc:
