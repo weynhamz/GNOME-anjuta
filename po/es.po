@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-19 15:20+0000\n"
-"PO-Revision-Date: 2008-01-19 17:12+0100\n"
+"POT-Creation-Date: 2008-01-19 17:43+0000\n"
+"PO-Revision-Date: 2008-01-19 18:59+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -6260,8 +6260,8 @@ msgid "Enable VFS file monitoring"
 msgstr "Activar monitorización de archivos VFS"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:10
-msgid "Font "
-msgstr "Tipografía "
+msgid "Font"
+msgstr "Tipografía"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:12
 msgid "Highlight current line"
@@ -6292,8 +6292,8 @@ msgid "Right margin position in characters"
 msgstr "Posición del margen derecho en caracteres"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:21
-msgid "Selected text: "
-msgstr "Texto seleccionado: "
+msgid "Selected text:"
+msgstr "Texto seleccionado:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:22
 msgid "Selection:"
@@ -7609,8 +7609,8 @@ msgstr "Cadena de llamadas:"
 #: ../plugins/valgrind/vgrule-editor.c:529
 #: ../plugins/valgrind/vgrule-editor.c:544
 #, c-format
-msgid "Error saving to suppression file `%s': %s"
-msgstr "Error al guardar en el archivo de supresión %s: %s"
+msgid "Error saving to suppression file '%s': %s"
+msgstr "Error al guardar en el archivo de supresión «%s»: %s"
 
 #: ../plugins/valgrind/vgrule-list.c:176 ../plugins/valgrind/vgrule-list.c:245
 msgid "You have forgotten to name your suppression rule."
