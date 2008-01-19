@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-16 22:18+0000\n"
-"PO-Revision-Date: 2008-01-17 14:59+0100\n"
+"POT-Creation-Date: 2008-01-19 09:39+0000\n"
+"PO-Revision-Date: 2008-01-19 13:18+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -306,13 +306,13 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1448
-#: ../plugins/debug-manager/queue.c:550
+#: ../plugins/debug-manager/queue.c:552
 msgid "Select a plugin"
 msgstr "Seleccione un complemento"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1347
 #: ../libanjuta/anjuta-plugin-manager.c:1449
-#: ../plugins/debug-manager/queue.c:551
+#: ../plugins/debug-manager/queue.c:553
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un complemento para activar"
 
@@ -1255,7 +1255,8 @@ msgid "Module name:"
 msgstr "Nombre del módulo:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:40
-msgid "Password: "
+#: ../plugins/subversion/anjuta-subversion.glade.h:36
+msgid "Password:"
 msgstr "Contraseña:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:41
@@ -1301,8 +1302,8 @@ msgstr "Usar revisión: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
 #: ../plugins/subversion/anjuta-subversion.glade.h:57
-msgid "Username: "
-msgstr "Usuario: "
+msgid "Username:"
+msgstr "Usuario:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:52
 msgid "Vendor tag:"
@@ -2125,7 +2126,7 @@ msgstr "Pausa la ejecución del programa"
 msgid "Debugger operations"
 msgstr "Operaciones de depuración"
 
-#: ../plugins/debug-manager/queue.c:537
+#: ../plugins/debug-manager/queue.c:539
 #, c-format
 msgid "Unable to find one debugger plugin acception %s mime type"
 msgstr "Imposible encontrar un tipo MIME %s de acepción de complemento de depuración"
@@ -2315,7 +2316,7 @@ msgstr "Todos los archivos"
 msgid "Path"
 msgstr "Ruta"
 
-#: ../plugins/debug-manager/start.c:1183 ../plugins/gdb/debugger.c:1576
+#: ../plugins/debug-manager/start.c:1183 ../plugins/gdb/debugger.c:1580
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -2863,7 +2864,7 @@ msgstr "Repetir la búsqueda rápida"
 #: ../plugins/document-manager/plugin.c:281 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../src/shell.c:87 ../plugins/language-support-cpp-java/plugin.c:1443
+#: ../plugins/language-support-cpp-java/plugin.c:1443
 msgid "_Edit"
 msgstr "_Editar"
 
@@ -3196,17 +3197,17 @@ msgstr "Completado el autoguardado"
 
 #: ../plugins/document-manager/search-box.c:379
 #, c-format
-msgid "Search for \"%s\" reached end and was continued on top!"
-msgstr "La búsqueda de «%s» llegó al final y continuó por el principio"
+msgid "Search for \"%s\" reached end and was continued on top."
+msgstr "La búsqueda de «%s» llegó al final y continuó por el principio."
 
 #: ../plugins/document-manager/search-box.c:385
 #, c-format
 msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
-"found!"
+"found."
 msgstr ""
 "La búsqueda de «%s» llegó al final y continuó por el principio pero no se "
-"encontró ninguna ocurrencia más"
+"encontró ninguna ocurrencia más."
 
 #: ../plugins/document-manager/search-box.c:442
 msgid "Case sensitive"
@@ -3368,6 +3369,7 @@ msgid "Fold style:"
 msgstr "Estilo de pliegue:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:39
+#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:11
 msgid "Font:"
 msgstr "Tipografía:"
 
@@ -3532,24 +3534,24 @@ msgstr ""
 "que el búfer actual.\n"
 "¿Desea recargarlo?"
 
-#: ../plugins/editor/text_editor.c:1331
+#: ../plugins/editor/text_editor.c:1334
 msgid "Could not get file info"
 msgstr "No se pudo obtener la información del archivo"
 
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
-#: ../plugins/editor/text_editor.c:1338
+#: ../plugins/editor/text_editor.c:1341
 msgid "This file is too big. Unable to allocate memory."
 msgstr "Este archivo es demasiado grande. No se puede reservar suficiente memoria."
 
-#: ../plugins/editor/text_editor.c:1345
+#: ../plugins/editor/text_editor.c:1348
 msgid "Could not open file"
 msgstr "No se pudo abrir el archivo"
 
-#: ../plugins/editor/text_editor.c:1353
+#: ../plugins/editor/text_editor.c:1356
 msgid "Error while reading from file"
 msgstr "Error al leer desde el archivo"
 
-#: ../plugins/editor/text_editor.c:1399
+#: ../plugins/editor/text_editor.c:1402
 msgid ""
 "The file does not look like a text file or the file encoding is not "
 "supported. Please check if the encoding of file is in the supported "
@@ -3559,11 +3561,11 @@ msgstr ""
 "no está soportada. Verifique que la codificación del archivo esté soportada  "
 "por la lista de codificaciones. Si no, añádala desde las preferencias."
 
-#: ../plugins/editor/text_editor.c:1564
+#: ../plugins/editor/text_editor.c:1567
 msgid "Loading file..."
 msgstr "Cargando archivo…"
 
-#: ../plugins/editor/text_editor.c:1573
+#: ../plugins/editor/text_editor.c:1576
 #, c-format
 msgid ""
 "Could not load file: %s\n"
@@ -3574,29 +3576,34 @@ msgstr ""
 "\n"
 "Detalles: %s"
 
-#: ../plugins/editor/text_editor.c:1593
+#: ../plugins/editor/text_editor.c:1596
 msgid "File loaded successfully"
 msgstr "Archivo cargado correctamente"
 
-#: ../plugins/editor/text_editor.c:1614
+#: ../plugins/editor/text_editor.c:1617
 msgid "Saving file..."
 msgstr "Guardando archivo…"
 
-#: ../plugins/editor/text_editor.c:1626
+#: ../plugins/editor/text_editor.c:1629
 #, c-format
 msgid "Could not save intermediate file %s: %s."
 msgstr "No se puede guardar el archivo intermedio %s: %s."
 
-#: ../plugins/editor/text_editor.c:1658
+#: ../plugins/editor/text_editor.c:1677
 #, c-format
 msgid "Could not save file %s: %s."
 msgstr "No se puede guardar el archivo %s: %s."
 
-#: ../plugins/editor/text_editor.c:1667
+#: ../plugins/editor/text_editor.c:1690
+#, c-format
+msgid "Could not set file permissions %s: %s."
+msgstr "No se pudieron establecer los permisos del archivo %s: %s"
+
+#: ../plugins/editor/text_editor.c:1698
 msgid "File saved successfully"
 msgstr "Archivo guardado correctamente"
 
-#: ../plugins/editor/text_editor.c:2032
+#: ../plugins/editor/text_editor.c:2063
 #, c-format
 msgid ""
 "Cannot load Global defaults and configuration files:\n"
@@ -4085,15 +4092,15 @@ msgstr "Ejecutar en un terminal"
 msgid "_Pass:"
 msgstr "_Pasada:"
 
-#: ../plugins/gdb/debugger.c:636 ../plugins/gdb/debugger.c:834
+#: ../plugins/gdb/debugger.c:640 ../plugins/gdb/debugger.c:838
 msgid "Loading Executable: "
 msgstr "Cargando ejecutable:"
 
-#: ../plugins/gdb/debugger.c:666
+#: ../plugins/gdb/debugger.c:670
 msgid "Loading Core: "
 msgstr "Cargando core:"
 
-#: ../plugins/gdb/debugger.c:703
+#: ../plugins/gdb/debugger.c:707
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4104,53 +4111,53 @@ msgstr ""
 "No es posible inicializar el depurador.\n"
 "Asegúrese de que Anjuta está instalado correctamente."
 
-#: ../plugins/gdb/debugger.c:828
+#: ../plugins/gdb/debugger.c:832
 msgid "Getting ready to start debugging session...\n"
 msgstr "Preparándose para iniciar la sesión de depuración…\n"
 
-#: ../plugins/gdb/debugger.c:843
+#: ../plugins/gdb/debugger.c:847
 msgid "No executable specified.\n"
 msgstr "No hay ningún ejecutable especificado.\n"
 
-#: ../plugins/gdb/debugger.c:846
+#: ../plugins/gdb/debugger.c:850
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
 
-#: ../plugins/gdb/debugger.c:855
+#: ../plugins/gdb/debugger.c:859
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Hubo un error al lanzar el depurador.\n"
 
-#: ../plugins/gdb/debugger.c:859
+#: ../plugins/gdb/debugger.c:863
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de que «gdb» está instalado en el sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1150
+#: ../plugins/gdb/debugger.c:1154
 msgid "Program exited normally\n"
 msgstr "El programa salió normalmente\n"
 
-#: ../plugins/gdb/debugger.c:1161
+#: ../plugins/gdb/debugger.c:1165
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "El programa salió con el código de error %s\n"
 
-#: ../plugins/gdb/debugger.c:1176
+#: ../plugins/gdb/debugger.c:1180
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Se llegó al punto de parada %s\n"
 
-#: ../plugins/gdb/debugger.c:1185
+#: ../plugins/gdb/debugger.c:1189
 msgid "Function finished\n"
 msgstr "Función terminada\n"
 
-#: ../plugins/gdb/debugger.c:1191
+#: ../plugins/gdb/debugger.c:1195
 msgid "Stepping finished\n"
 msgstr "Paso terminado\n"
 
-#: ../plugins/gdb/debugger.c:1197
+#: ../plugins/gdb/debugger.c:1201
 msgid "Location reached\n"
 msgstr "Ubicación alcanzada\n"
 
-#: ../plugins/gdb/debugger.c:1573
+#: ../plugins/gdb/debugger.c:1577
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4158,16 +4165,16 @@ msgstr ""
 "El programa está adjuntado.\n"
 "¿Aún quiere parar el depurador?"
 
-#: ../plugins/gdb/debugger.c:1762
+#: ../plugins/gdb/debugger.c:1766
 msgid "Program attached\n"
 msgstr "Programa acoplado\n"
 
-#: ../plugins/gdb/debugger.c:1779
+#: ../plugins/gdb/debugger.c:1783
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Acoplándose al proceso: %d…\n"
 
-#: ../plugins/gdb/debugger.c:1805
+#: ../plugins/gdb/debugger.c:1809
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4175,36 +4182,36 @@ msgstr ""
 "Ya se está ejecutando un proceso.\n"
 "¿Quiere terminarlo y acoplarse al proceso nuevo?"
 
-#: ../plugins/gdb/debugger.c:1822
+#: ../plugins/gdb/debugger.c:1826
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede acoplarse a sí mismo."
 
-#: ../plugins/gdb/debugger.c:1870
+#: ../plugins/gdb/debugger.c:1874
 msgid "Program terminated\n"
 msgstr "Programa terminado\n"
 
-#: ../plugins/gdb/debugger.c:1885
+#: ../plugins/gdb/debugger.c:1889
 msgid "Program detached\n"
 msgstr "Programa desacoplado\n"
 
-#: ../plugins/gdb/debugger.c:1904
+#: ../plugins/gdb/debugger.c:1908
 msgid "Detaching the process...\n"
 msgstr "Desacoplando el proceso…\n"
 
-#: ../plugins/gdb/debugger.c:1926
+#: ../plugins/gdb/debugger.c:1930
 msgid "Interrupting the process\n"
 msgstr "Interrumpiendo el proceso\n"
 
-#: ../plugins/gdb/debugger.c:3677
+#: ../plugins/gdb/debugger.c:3682
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviar la señal %s al proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3703
+#: ../plugins/gdb/debugger.c:3708
 msgid "Error whilst signaling the process."
 msgstr "Error al mandar señales al proceso."
 
-#: ../plugins/gdb/plugin.c:100
+#: ../plugins/gdb/plugin.c:102
 msgid ""
 "Anjuta terminal plugin is not installed. The program will be run without a "
 "terminal."
@@ -4212,14 +4219,16 @@ msgstr ""
 "El complemento del terminal de Anjuta no está instalado. El programa se "
 "ejecutará sin una terminal."
 
-#: ../plugins/gdb/plugin.c:115
+#: ../plugins/gdb/plugin.c:117
 #, c-format
-msgid "Fail to create fifo file named %s. The program will be run without a terminal"
+msgid ""
+"Fail to create fifo file named %s. The program will be run without a "
+"terminal."
 msgstr ""
-"Falló al crear el archivo FIFO de nombre %s. El programa se ejecutará sin "
+"Falló al crear el archivo FIFO con nombre %s. El programa se ejecutará sin "
 "una terminal."
 
-#: ../plugins/gdb/plugin.c:150
+#: ../plugins/gdb/plugin.c:152
 msgid "Cannot start terminal for debugging."
 msgstr "No se pudo iniciar el terminal para depurar."
 
@@ -4372,7 +4381,6 @@ msgid "Export to"
 msgstr "Exportar a"
 
 #: ../plugins/gtodo/interface.c:34 ../src/anjuta-actions.h:38
-#: ../src/shell.c:88
 msgid "_View"
 msgstr "_Ver"
 
@@ -4872,8 +4880,8 @@ msgid "Patching...\n"
 msgstr "Parcheando…\n"
 
 #: ../plugins/patch/patch-plugin.c:168
-msgid "There are unfinished jobs, please wait until they are finished"
-msgstr "Hay trabajos no finalizados, espere hasta que estén terminados"
+msgid "There are unfinished jobs, please wait until they are finished."
+msgstr "Hay trabajos no finalizados, espere hasta que estén terminados."
 
 #: ../plugins/patch/patch-plugin.c:210
 msgid ""
@@ -4966,11 +4974,11 @@ msgstr "ms/llamada totales"
 msgid ""
 "Could not get profiling data.\n"
 "\n"
-"Please check the path to this target's profiling data file"
+"Please check the path to this target's profiling data file."
 msgstr ""
 "No se pudo obtener los datos del perfilado.\n"
 "\n"
-"Compruebe la ruta a este archivo de datos del perfilado."
+"Compruebe la ruta a este archivo de datos del perfilado destino."
 
 #: ../plugins/profiler/plugin.c:284
 msgid ""
@@ -5516,16 +5524,16 @@ msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "El archivo «%s» ya existe. ¿Quiere sobreescribirlo?"
 
 #: ../plugins/project-wizard/druid.c:836
-msgid "Unable to build project wizard user interface"
-msgstr "No se pudo compilar el interfaz de usuario del asistente de proyectos"
+msgid "Unable to build project wizard user interface."
+msgstr "No se pudo construir la interfaz de usuario del asistente de proyectos."
 
 #: ../plugins/project-wizard/install.c:387
-msgid "New project has been created successfully"
-msgstr "El proyecto nuevo se ha creado correctamente"
+msgid "New project has been created successfully."
+msgstr "El proyecto nuevo se ha creado correctamente."
 
 #: ../plugins/project-wizard/install.c:394
-msgid "New project creation has failed"
-msgstr "La creación del proyecto nuevo ha fallado"
+msgid "New project creation has failed."
+msgstr "La creación del proyecto nuevo ha fallado."
 
 #: ../plugins/project-wizard/install.c:440
 #, c-format
@@ -6258,10 +6266,6 @@ msgstr "Activar monitorización de archivos VFS"
 msgid "Font "
 msgstr "Tipografía "
 
-#: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:11
-msgid "Font: "
-msgstr "Tipografía: "
-
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:12
 msgid "Highlight current line"
 msgstr "Resaltar línea actual"
@@ -6311,8 +6315,8 @@ msgid "Show right margin"
 msgstr "Mostrar el margen derecho"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:27
-msgid "Text: "
-msgstr "Texto: "
+msgid "Text:"
+msgstr "Texto:"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:29
 msgid "Use theme colors"
@@ -6433,10 +6437,6 @@ msgstr "Mezclar los cambios en la copia de trabajo"
 #: ../plugins/subversion/anjuta-subversion.glade.h:35
 msgid "Other Revision:"
 msgstr "Otra revisión:"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:36
-msgid "Password:"
-msgstr "Contraseña:"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:37
 msgid "Realm:"
@@ -6712,7 +6712,7 @@ msgid "Subversion: Commit complete."
 msgstr "Subversion: Carga completada."
 
 #: ../plugins/subversion/subversion-commit-dialog.c:93
-msgid "Subversion: Committing changes  to the repository..."
+msgid "Subversion: Committing changes to the repository..."
 msgstr "Subversion: Efectuando los cambios sobre el repositorio…"
 
 #: ../plugins/subversion/subversion-copy-dialog.c:138
@@ -7070,8 +7070,8 @@ msgid "Edit as script"
 msgstr "Editar como script"
 
 #: ../plugins/tools/anjuta-tools.glade.h:3
-msgid "Edit command is script in Anjuta on close"
-msgstr "Editar comando en script de Anjuta al cerrar"
+msgid "Edit command as script in Anjuta on close"
+msgstr "Editar comando como script de Anjuta al cerrar"
 
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Menu Items:"
@@ -7702,11 +7702,11 @@ msgstr "Correo-e del usuario"
 msgid "User name"
 msgstr "Usuario"
 
-#: ../src/anjuta-actions.h:23 ../src/shell.c:86
+#: ../src/anjuta-actions.h:23
 msgid "_File"
 msgstr "_Archivo"
 
-#: ../src/anjuta-actions.h:24 ../src/shell.c:94
+#: ../src/anjuta-actions.h:24
 msgid "_Quit"
 msgstr "_Salir"
 
@@ -7752,7 +7752,7 @@ msgstr ""
 "Bloquea la distribución del empotrable actual de manera que los widgets no "
 "se puedan mover"
 
-#: ../src/anjuta-actions.h:58 ../src/shell.c:90
+#: ../src/anjuta-actions.h:58
 msgid "_Help"
 msgstr "Ay_uda"
 
@@ -7846,7 +7846,7 @@ msgstr "Complementos instalados"
 msgid "Shortcuts"
 msgstr "Combinaciones de teclas"
 
-#: ../src/anjuta-app.c:904 ../src/shell.c:232
+#: ../src/anjuta-app.c:904
 msgid "Value doesn't exist"
 msgstr "El valor no existe"
 
@@ -7900,42 +7900,6 @@ msgstr "- Entorno Integrado de Desarrollo"
 #: ../src/main.c:379
 msgid "Anjuta"
 msgstr "Anjuta"
-
-#: ../src/shell.c:76
-msgid "Anjuta Plugins"
-msgstr "Complementos de Anjuta"
-
-#: ../src/shell.c:89
-msgid "_Settings"
-msgstr "_Opciones"
-
-#: ../src/shell.c:96
-msgid "Quit Anjuta Test Shell"
-msgstr "Salir de la shell de pruebas de Anjuta"
-
-#: ../src/shell.c:102
-msgid "_Preferences..."
-msgstr "_Preferencias…"
-
-#: ../src/shell.c:104
-msgid "Preferences"
-msgstr "Preferencias"
-
-#: ../src/shell.c:110
-msgid "C_ustomize shortcuts"
-msgstr "_Personalizar teclas rápidas"
-
-#: ../src/shell.c:112
-msgid "Customize shortcuts associated with menu items"
-msgstr "Personalizar las teclas rápidas asociadas con elementos del menú"
-
-#: ../src/shell.c:183
-msgid "Test shell action group"
-msgstr "Grupo de acción de la shell de pruebas"
-
-#: ../src/shell.c:442
-msgid "Anjuta test shell"
-msgstr "Shell de pruebas de Anjuta"
 
 #: ../plugins/language-support-cpp-java/anjuta-language-cpp-java.glade.h:1
 msgid "<b>Autocompletion (C/C++/Java only)</b>"
