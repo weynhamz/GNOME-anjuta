@@ -331,8 +331,8 @@ cpp_java_assist_show_autocomplete (CppJavaAssist *assist,
 {
 	gint position, max_completions, length;
 	GList *completion_list;
-	
-	g_return_val_if_fail (assist->priv->completion_cache != NULL, FALSE);
+
+	if (assist->priv->completion_cache == NULL) return FALSE;	
 	
 	if (pre_word)
 		g_completion_complete (assist->priv->completion_cache, pre_word, NULL);

@@ -1,5 +1,11 @@
 2008-01-19  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	Fix bug #488519, remove critical warning (completion_cache == NULL
+	is valid)
+
+2008-01-19  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/gdb/debugger.c:
 	Enable logging of gdb communication with an environment variable
 
