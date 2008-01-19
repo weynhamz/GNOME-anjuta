@@ -492,11 +492,8 @@ static gboolean
 iiter_next (IAnjutaIterable* iter, GError** e)
 {
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
-	gint length;
 	gint old_position;
 	
-	length = ianjuta_editor_get_length (IANJUTA_EDITOR (cell->priv->editor),
-										NULL);
 	old_position = cell->priv->position;
 	cell->priv->position = scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
 												   SCI_POSITIONAFTER, old_position,
@@ -562,68 +559,68 @@ iiter_foreach (IAnjutaIterable* iter, GFunc callback, gpointer data, GError** e)
 static gboolean
 iiter_set_position (IAnjutaIterable* iter, gint position, GError** e)
 {
-	gint i, saved_position;
-	gboolean out_of_range = FALSE;
-	
+	gint i;
+	gint old_byte_position, new_byte_position;
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
 	
+	if (position < 0)
+		return FALSE;
+	
 	/* FIXME: Find more optimal solution */
-	saved_position = cell->priv->position;
-	
-	cell->priv->position = 0;
-	
-	/* Iterate untill the we reach given position */
+	/* Iterate untill the we reach given character position */
+	old_byte_position = 0;
 	for (i = 0; i < position; i++)
 	{
-		if (!ianjuta_iterable_next (iter, NULL))
+		new_byte_position =
+			scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
+									SCI_POSITIONAFTER, old_byte_position, 0);	
+		if (old_byte_position == new_byte_position)
 		{
-			out_of_range = TRUE;
-			break;
+			/* Out of range. Don't set anything */
+			return FALSE;
 		}
 	}
-	
-	if (out_of_range)
-	{
-		/* out of range. Restore previous position */
-		cell->priv->position = saved_position;
-		return FALSE;
-	}
+	cell->priv->position = new_byte_position;
 	return TRUE;
 }
 
 static gint
-iiter_get_position(IAnjutaIterable* iter, GError** e)
+iiter_get_position (IAnjutaIterable* iter, GError** e)
 {
-	gchar *text;
 	gint char_position = 0;
 	
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
 	
+	/* FIXME: Find a more optimal solution */
 	if (cell->priv->position > 0)
 	{
-		/* FIXME: Find a more optimal solution */
-		text = ianjuta_editor_get_text (IANJUTA_EDITOR (cell->priv->editor), 0,
-										cell->priv->position,
-										NULL);
-		char_position = g_utf8_strlen (text, -1);
-		g_free (text);
+		gchar *data =
+			(gchar *) aneditor_command (TEXT_EDITOR
+										(cell->priv->editor)->editor_id,
+										ANE_GETTEXTRANGE, 0,
+										cell->priv->position);
+		char_position = g_utf8_strlen (data, -1);
+		g_free (data);
 	}
 	return char_position;
 }
 
 static gint
-iiter_get_length(IAnjutaIterable* iter, GError** e)
+iiter_get_length (IAnjutaIterable* iter, GError** e)
 {
-	gchar *text;
+	gchar *data;
 	gint length;
 	
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
 	
 	/* FIXME: Find a more optimal solution */
-	text = ianjuta_editor_get_text (IANJUTA_EDITOR (cell->priv->editor), 0, -1,
-									NULL);
-	length = g_utf8_strlen (text, -1);
-	g_free (text);
+	data =
+		(gchar *) aneditor_command (TEXT_EDITOR
+									(cell->priv->editor)->editor_id,
+									ANE_GETTEXTRANGE, 0,
+									-1);
+	length = g_utf8_strlen (data, -1);
+	g_free (data);
 	return length;
 }
 

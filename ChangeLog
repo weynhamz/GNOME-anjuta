@@ -1,3 +1,9 @@
+2008-01-19  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/text-editor-iterable.c: (iiter_next),
+	(iiter_set_position), (iiter_get_position), (iiter_get_length): Use
+	editor native funtions to avoid round trips.
+
 2008-01-19  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/editor/text_editor.c:
