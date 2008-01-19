@@ -1,3 +1,10 @@
+2008-01-19  Naba Kumar  <naba@gnome.org>
+
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(cpp_java_assist_get_scope_context),
+	(cpp_java_assist_get_pre_word): Usef ianjuta_editer_get_text_iter()
+	instead.
+
 2008-01-19  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/anjuta-editor-sourceview.glade:

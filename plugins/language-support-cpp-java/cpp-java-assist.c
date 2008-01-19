@@ -173,51 +173,69 @@ cpp_java_assist_get_scope_context (IAnjutaEditor* editor,
 								   const gchar *scope_operator,
 								   IAnjutaIterable *iter)
 {
-	gint end;
-	gint begin;
-	gchar ch;
+	IAnjutaIterable* end;
+	gchar ch, *scope_chars = NULL;
+	gboolean out_of_range = FALSE;
+	gboolean scope_chars_found = FALSE;
 	
-	end = ianjuta_iterable_get_position (iter, NULL) + 1;
-	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);		
+	end = ianjuta_iterable_clone (iter, NULL);
+	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
+	
 	while (ch && is_scope_context_character (ch))
 	{
+		scope_chars_found = TRUE;
 		if (!ianjuta_iterable_previous (iter, NULL))
+		{
+			out_of_range = TRUE;
 			break;
-		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);		
+		}
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
 	}
-	
-	begin = ianjuta_iterable_get_position (iter, NULL) + 1;
-	if (end > begin)	
-		return ianjuta_editor_get_text (editor, begin, end - begin, NULL);
-	else
-		return NULL;
+	if (scope_chars_found)
+	{
+		IAnjutaIterable* begin;
+		begin = ianjuta_iterable_clone (iter, NULL);
+		if (!out_of_range)
+			ianjuta_iterable_next (begin, NULL);
+		scope_chars = ianjuta_editor_get_text_iter (editor, begin, end, NULL);
+		g_object_unref (begin);
+	}
+	g_object_unref (end);
+	return scope_chars;
 }
 
 static gchar*
 cpp_java_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter)
 {
-	gint end;
-	gint begin;
-	gchar ch;
+	IAnjutaIterable *end;
+	gchar ch, *preword_chars = NULL;
+	gboolean out_of_range = FALSE;
+	gboolean preword_found = TRUE;
 	
-	end = ianjuta_iterable_get_position (iter, NULL) + 1;
+	end = ianjuta_iterable_clone (iter, NULL);
 	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
-	
-	DEBUG_PRINT ("Looking for preword from pos: %d", end - 1);
 	
 	while (ch && is_word_character (ch))
 	{
+		preword_found = TRUE;
 		if (!ianjuta_iterable_previous (iter, NULL))
+		{
+			out_of_range = TRUE;
 			break;
-		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);		
+		}
+		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
 	}
 	
-	begin = ianjuta_iterable_get_position (iter, NULL) + 1;
-	
-	if (end > begin)	
-		return ianjuta_editor_get_text (editor, begin, end - begin, NULL);
-	else
-		return NULL;
+	if (preword_found)
+	{
+		IAnjutaIterable *begin = ianjuta_iterable_clone (iter, NULL);
+		if (!out_of_range)
+			ianjuta_iterable_next (begin, NULL);
+		preword_chars = ianjuta_editor_get_text_iter (editor, begin, end, NULL);
+		g_object_unref (begin);
+	}
+	g_object_unref (end);
+	return preword_chars;
 }
 
 static gchar*
