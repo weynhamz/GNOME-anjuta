@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-19 09:39+0000\n"
-"PO-Revision-Date: 2008-01-19 13:18+0100\n"
+"POT-Creation-Date: 2008-01-19 15:20+0000\n"
+"PO-Revision-Date: 2008-01-19 17:12+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1292,7 +1292,7 @@ msgid "Unified format instead of context format"
 msgstr "Formato unificado en vez de formato contextual"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
-#: ../plugins/subversion/anjuta-subversion.glade.h:56
+#: ../plugins/subversion/anjuta-subversion.glade.h:55
 msgid "Use revision/tag: "
 msgstr "Usar revisión/etiqueta"
 
@@ -1301,7 +1301,7 @@ msgid "Use revision: "
 msgstr "Usar revisión: "
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:51
-#: ../plugins/subversion/anjuta-subversion.glade.h:57
+#: ../plugins/subversion/anjuta-subversion.glade.h:56
 msgid "Username:"
 msgstr "Usuario:"
 
@@ -1310,7 +1310,7 @@ msgid "Vendor tag:"
 msgstr "Etiqueta del fabricante:"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:53
-#: ../plugins/subversion/anjuta-subversion.glade.h:61
+#: ../plugins/subversion/anjuta-subversion.glade.h:60
 msgid "Whole project"
 msgstr "Proyecto completo"
 
@@ -2316,7 +2316,7 @@ msgstr "Todos los archivos"
 msgid "Path"
 msgstr "Ruta"
 
-#: ../plugins/debug-manager/start.c:1183 ../plugins/gdb/debugger.c:1580
+#: ../plugins/debug-manager/start.c:1183 ../plugins/gdb/debugger.c:1597
 msgid ""
 "The program is running.\n"
 "Do you still want to stop the debugger?"
@@ -3586,8 +3586,8 @@ msgstr "Guardando archivo…"
 
 #: ../plugins/editor/text_editor.c:1629
 #, c-format
-msgid "Could not save intermediate file %s: %s."
-msgstr "No se puede guardar el archivo intermedio %s: %s."
+msgid "Could not save intermediate file %s: %s"
+msgstr "No se puede guardar el archivo intermedio %s: %s"
 
 #: ../plugins/editor/text_editor.c:1677
 #, c-format
@@ -3970,7 +3970,7 @@ msgid "File Manager"
 msgstr "Gestor de archivos"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:1
-#: ../plugins/gdb/anjuta-gdb.glade.h:1 ../plugins/macro/anjuta-macro.glade.h:1
+#: ../plugins/gdb/anjuta-gdb.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
 #: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "*"
@@ -4009,6 +4009,7 @@ msgstr ""
 "La extensión será añadida de acuerdo con el tipo."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.glade.h:11
+#: ../plugins/macro/anjuta-macro.glade.h:6
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:7
 #: ../plugins/tools/anjuta-tools.glade.h:6
 msgid "Name:"
@@ -4092,15 +4093,15 @@ msgstr "Ejecutar en un terminal"
 msgid "_Pass:"
 msgstr "_Pasada:"
 
-#: ../plugins/gdb/debugger.c:640 ../plugins/gdb/debugger.c:838
+#: ../plugins/gdb/debugger.c:653 ../plugins/gdb/debugger.c:851
 msgid "Loading Executable: "
 msgstr "Cargando ejecutable:"
 
-#: ../plugins/gdb/debugger.c:670
+#: ../plugins/gdb/debugger.c:683
 msgid "Loading Core: "
 msgstr "Cargando core:"
 
-#: ../plugins/gdb/debugger.c:707
+#: ../plugins/gdb/debugger.c:720
 #, c-format
 msgid ""
 "Unable to find: %s.\n"
@@ -4111,53 +4112,53 @@ msgstr ""
 "No es posible inicializar el depurador.\n"
 "Asegúrese de que Anjuta está instalado correctamente."
 
-#: ../plugins/gdb/debugger.c:832
+#: ../plugins/gdb/debugger.c:845
 msgid "Getting ready to start debugging session...\n"
 msgstr "Preparándose para iniciar la sesión de depuración…\n"
 
-#: ../plugins/gdb/debugger.c:847
+#: ../plugins/gdb/debugger.c:860
 msgid "No executable specified.\n"
 msgstr "No hay ningún ejecutable especificado.\n"
 
-#: ../plugins/gdb/debugger.c:850
+#: ../plugins/gdb/debugger.c:863
 msgid "Open an executable or attach to a process to start debugging.\n"
 msgstr "Abre un ejecutable o se acopla a un proceso para iniciar la depuración.\n"
 
-#: ../plugins/gdb/debugger.c:859
+#: ../plugins/gdb/debugger.c:872
 msgid "There was an error whilst launching the debugger.\n"
 msgstr "Hubo un error al lanzar el depurador.\n"
 
-#: ../plugins/gdb/debugger.c:863
+#: ../plugins/gdb/debugger.c:876
 msgid "Make sure 'gdb' is installed on the system.\n"
 msgstr "Asegúrese de que «gdb» está instalado en el sistema.\n"
 
-#: ../plugins/gdb/debugger.c:1154
+#: ../plugins/gdb/debugger.c:1167
 msgid "Program exited normally\n"
 msgstr "El programa salió normalmente\n"
 
-#: ../plugins/gdb/debugger.c:1165
+#: ../plugins/gdb/debugger.c:1178
 #, c-format
 msgid "Program exited with error code %s\n"
 msgstr "El programa salió con el código de error %s\n"
 
-#: ../plugins/gdb/debugger.c:1180
+#: ../plugins/gdb/debugger.c:1193
 #, c-format
 msgid "Breakpoint number %s hit\n"
 msgstr "Se llegó al punto de parada %s\n"
 
-#: ../plugins/gdb/debugger.c:1189
+#: ../plugins/gdb/debugger.c:1202
 msgid "Function finished\n"
 msgstr "Función terminada\n"
 
-#: ../plugins/gdb/debugger.c:1195
+#: ../plugins/gdb/debugger.c:1208
 msgid "Stepping finished\n"
 msgstr "Paso terminado\n"
 
-#: ../plugins/gdb/debugger.c:1201
+#: ../plugins/gdb/debugger.c:1214
 msgid "Location reached\n"
 msgstr "Ubicación alcanzada\n"
 
-#: ../plugins/gdb/debugger.c:1577
+#: ../plugins/gdb/debugger.c:1594
 msgid ""
 "The program is attached.\n"
 "Do you still want to stop the debugger?"
@@ -4165,16 +4166,16 @@ msgstr ""
 "El programa está adjuntado.\n"
 "¿Aún quiere parar el depurador?"
 
-#: ../plugins/gdb/debugger.c:1766
+#: ../plugins/gdb/debugger.c:1783
 msgid "Program attached\n"
 msgstr "Programa acoplado\n"
 
-#: ../plugins/gdb/debugger.c:1783
+#: ../plugins/gdb/debugger.c:1800
 #, c-format
 msgid "Attaching to process: %d...\n"
 msgstr "Acoplándose al proceso: %d…\n"
 
-#: ../plugins/gdb/debugger.c:1809
+#: ../plugins/gdb/debugger.c:1826
 msgid ""
 "A process is already running.\n"
 "Would you like to terminate it and attach the new process?"
@@ -4182,32 +4183,32 @@ msgstr ""
 "Ya se está ejecutando un proceso.\n"
 "¿Quiere terminarlo y acoplarse al proceso nuevo?"
 
-#: ../plugins/gdb/debugger.c:1826
+#: ../plugins/gdb/debugger.c:1843
 msgid "Anjuta is unable to attach to itself."
 msgstr "Anjuta no puede acoplarse a sí mismo."
 
-#: ../plugins/gdb/debugger.c:1874
+#: ../plugins/gdb/debugger.c:1891
 msgid "Program terminated\n"
 msgstr "Programa terminado\n"
 
-#: ../plugins/gdb/debugger.c:1889
+#: ../plugins/gdb/debugger.c:1906
 msgid "Program detached\n"
 msgstr "Programa desacoplado\n"
 
-#: ../plugins/gdb/debugger.c:1908
+#: ../plugins/gdb/debugger.c:1925
 msgid "Detaching the process...\n"
 msgstr "Desacoplando el proceso…\n"
 
-#: ../plugins/gdb/debugger.c:1930
+#: ../plugins/gdb/debugger.c:1947
 msgid "Interrupting the process\n"
 msgstr "Interrumpiendo el proceso\n"
 
-#: ../plugins/gdb/debugger.c:3682
+#: ../plugins/gdb/debugger.c:3699
 #, c-format
 msgid "Sending signal %s to the process: %d"
 msgstr "Enviar la señal %s al proceso: %d"
 
-#: ../plugins/gdb/debugger.c:3708
+#: ../plugins/gdb/debugger.c:3725
 msgid "Error whilst signaling the process."
 msgstr "Error al mandar señales al proceso."
 
@@ -4286,7 +4287,7 @@ msgstr "Resumen:"
 
 #. option menu label
 #: ../plugins/gtodo/add_edit_item.c:162
-#: ../plugins/macro/anjuta-macro.glade.h:5
+#: ../plugins/macro/anjuta-macro.glade.h:4
 msgid "Category:"
 msgstr "Categoría:"
 
@@ -4649,27 +4650,23 @@ msgstr "Lista de pendientes"
 msgid "Todo List Manager"
 msgstr "Administrador de lista de pendientes"
 
-#: ../plugins/macro/anjuta-macro.glade.h:2
+#: ../plugins/macro/anjuta-macro.glade.h:1
 msgid "<b>Macro details:</b>"
 msgstr "<b>Detalles de macro:</b>"
 
-#: ../plugins/macro/anjuta-macro.glade.h:3
+#: ../plugins/macro/anjuta-macro.glade.h:2
 msgid "<b>Macro text:</b>"
 msgstr "<b>Texto de la macro:</b>"
 
-#: ../plugins/macro/anjuta-macro.glade.h:4
+#: ../plugins/macro/anjuta-macro.glade.h:3
 msgid "<b>Macros:</b>"
 msgstr "<b>Macros:</b>"
 
-#: ../plugins/macro/anjuta-macro.glade.h:6
+#: ../plugins/macro/anjuta-macro.glade.h:5
 msgid "Edit..."
 msgstr "Editar…"
 
 #: ../plugins/macro/anjuta-macro.glade.h:7
-msgid "Name: "
-msgstr "Nombre: "
-
-#: ../plugins/macro/anjuta-macro.glade.h:8
 msgid "Shortcut:"
 msgstr "Tecla rápida:"
 
@@ -5194,8 +5191,8 @@ msgstr ""
 
 #: ../plugins/project-import/project-import.c:329
 #, c-format
-msgid "A file named \"%s\" already exists.  Do you want to replace it?"
-msgstr "Ya existe un archivo con nombre «%s». ¿Quiere reemplazarlo?"
+msgid "A file named \"%s\" already exists. Do you want to replace it?"
+msgstr "Ya existe un archivo llamado «%s». ¿Quiere reemplazarlo?"
 
 #: ../plugins/project-import/project-import.c:353
 #, c-format
@@ -6443,94 +6440,90 @@ msgid "Realm:"
 msgstr "Reino:"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:38
-msgid "Realm: "
-msgstr "Reino:"
-
-#: ../plugins/subversion/anjuta-subversion.glade.h:39
 msgid "Recurse"
 msgstr "Recursivo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:40
+#: ../plugins/subversion/anjuta-subversion.glade.h:39
 msgid "Remember Password"
 msgstr "Recordar contraseña"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:41
+#: ../plugins/subversion/anjuta-subversion.glade.h:40
 msgid "Remember this decision"
 msgstr "Recordar esta decisión"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:42
+#: ../plugins/subversion/anjuta-subversion.glade.h:41
 msgid "Remove file/directory"
 msgstr "Eliminar archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:43
+#: ../plugins/subversion/anjuta-subversion.glade.h:42
 msgid "Repository Head"
 msgstr "Repositorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:44
+#: ../plugins/subversion/anjuta-subversion.glade.h:43
 msgid "Repository authorization"
 msgstr "Autorización del repositorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:45
+#: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Retrieving status..."
 msgstr "Obteniendo el estado…"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:46
+#: ../plugins/subversion/anjuta-subversion.glade.h:45
 msgid "Revert Changes"
 msgstr "Revertir cambios"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:47
+#: ../plugins/subversion/anjuta-subversion.glade.h:46
 msgid "Revision:"
 msgstr "Revisión:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:48
+#: ../plugins/subversion/anjuta-subversion.glade.h:47
 msgid "Save open files before diffing"
 msgstr "Guardar los archivos abiertos antes de hacer el diff"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:49
+#: ../plugins/subversion/anjuta-subversion.glade.h:48
 msgid "Set Conflicts as Resolved"
 msgstr "Establecer conflictos como resueltos"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:50
+#: ../plugins/subversion/anjuta-subversion.glade.h:49
 msgid "Source:"
 msgstr "Orígen:"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:51
+#: ../plugins/subversion/anjuta-subversion.glade.h:50
 msgid "Subversion Preferences"
 msgstr "Preferencias de Subversion"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:52
+#: ../plugins/subversion/anjuta-subversion.glade.h:51
 msgid "Switch to branch/tag"
 msgstr "Cambiar a una rama/etiqueta"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:53
+#: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "Trust server"
 msgstr "Confiar en el servidor"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:54
+#: ../plugins/subversion/anjuta-subversion.glade.h:53
 msgid "Update file/directory"
 msgstr "Actualizar archivo/directorio"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:55
+#: ../plugins/subversion/anjuta-subversion.glade.h:54
 msgid "Use first path"
 msgstr "Usar la primera ruta"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:58
+#: ../plugins/subversion/anjuta-subversion.glade.h:57
 msgid "View Log"
 msgstr "Ver el registro"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:59
+#: ../plugins/subversion/anjuta-subversion.glade.h:58
 msgid "View Selected Revision"
 msgstr "Ver la revisión seleccionada"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:60
+#: ../plugins/subversion/anjuta-subversion.glade.h:59
 msgid "Whole Project"
 msgstr "Proyecto completo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:62
+#: ../plugins/subversion/anjuta-subversion.glade.h:61
 msgid "Working Copy"
 msgstr "Copia de trabajo"
 
-#: ../plugins/subversion/anjuta-subversion.glade.h:63
+#: ../plugins/subversion/anjuta-subversion.glade.h:62
 msgid "realm"
 msgstr "reino"
 
