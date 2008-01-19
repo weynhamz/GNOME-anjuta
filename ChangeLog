@@ -1,3 +1,9 @@
+2008-01-19  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/editor/text_editor.c:
+	Fix a bug due to the previous patch: Unable to save new file in 
+	Scintilla
+
 2008-01-18  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/disassemble.c,

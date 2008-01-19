@@ -1643,22 +1643,17 @@ text_editor_save_file (TextEditor * te, gboolean update)
 		GnomeVFSURI *src_uri;
 		GnomeVFSURI *dest_uri;
 		GnomeVFSFileInfo info;
+		gboolean have_info;
 		
 		src_uri = gnome_vfs_uri_new (save_uri);
 		dest_uri = gnome_vfs_uri_new (te->uri);
-		
-		result = gnome_vfs_get_file_info_uri (dest_uri,
+	
+		/* have_info is FALSE on newly created file */	
+		have_info = gnome_vfs_get_file_info_uri (dest_uri,
 											  &info,
 											  GNOME_VFS_FILE_INFO_DEFAULT |
-											  GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-		if (result != GNOME_VFS_OK)
-		{
-			anjuta_util_dialog_error (parent,
-									  _("Couldn't get file info %s : %s"),
-									  te->uri,
-									  gnome_vfs_result_to_string (result));
-		}
-		else
+											  GNOME_VFS_FILE_INFO_FOLLOW_LINKS) == GNOME_VFS_OK;
+		if (have_info)
 		{
 			if (info.flags & GNOME_VFS_FILE_FLAGS_SYMLINK &&
 				info.valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SYMLINK_NAME)
@@ -1666,42 +1661,42 @@ text_editor_save_file (TextEditor * te, gboolean update)
 				gnome_vfs_uri_unref (dest_uri);
 				dest_uri = gnome_vfs_uri_new (info.symlink_name);
 			}
-			/* Move 'file~' to 'file' */
-			result = gnome_vfs_xfer_uri (src_uri, dest_uri,
-										 GNOME_VFS_XFER_DELETE_ITEMS |
-										 GNOME_VFS_XFER_REMOVESOURCE,
-										 GNOME_VFS_XFER_ERROR_MODE_ABORT,
-										 GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
-										 NULL, NULL);
-			/* we need to update UI with the call to scintilla */
-			text_editor_thaw (te);
-			if (result != GNOME_VFS_OK)
-			{
-				anjuta_util_dialog_error (parent,
-					_("Could not save file %s: %s."),
-					te->uri,
-					gnome_vfs_result_to_string (result));
-			}
-			else
+		}
+		/* Move 'file~' to 'file' */
+		result = gnome_vfs_xfer_uri (src_uri, dest_uri,
+									 GNOME_VFS_XFER_DELETE_ITEMS |
+									 GNOME_VFS_XFER_REMOVESOURCE,
+									 GNOME_VFS_XFER_ERROR_MODE_ABORT,
+									 GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,
+									 NULL, NULL);
+		/* we need to update UI with the call to scintilla */
+		text_editor_thaw (te);
+		if (result != GNOME_VFS_OK)
+		{
+			anjuta_util_dialog_error (parent,
+				_("Could not save file %s: %s."),
+				te->uri,
+				gnome_vfs_result_to_string (result));
+		}
+		else
+		{
+			if (have_info)
 			{
 				result = gnome_vfs_set_file_info_uri (dest_uri, &info,
 					GNOME_VFS_SET_FILE_INFO_PERMISSIONS);
 				if (result != GNOME_VFS_OK)
 				{
-					anjuta_util_dialog_error (parent,
+					anjuta_util_dialog_warning (parent,
 						_("Could not set file permissions %s: %s."),
 						te->uri,
 						gnome_vfs_result_to_string (result));
 				}
-				else
-				{
-					scintilla_send_message (SCINTILLA (te->scintilla),
-											SCI_SETSAVEPOINT, 0, 0);
-					g_signal_emit_by_name (G_OBJECT (te), "saved", te->uri);
-					anjuta_status (te->status, _("File saved successfully"), 5);
-					ret = TRUE;
-				}
 			}
+			scintilla_send_message (SCINTILLA (te->scintilla),
+									SCI_SETSAVEPOINT, 0, 0);
+			g_signal_emit_by_name (G_OBJECT (te), "saved", te->uri);
+			anjuta_status (te->status, _("File saved successfully"), 5);
+			ret = TRUE;
 		}
 		gnome_vfs_uri_unref (src_uri);
 		gnome_vfs_uri_unref (dest_uri);
