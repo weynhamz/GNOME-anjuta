@@ -1,3 +1,8 @@
+2008-01-19  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gdb/debugger.c:
+	Enable logging of gdb communication with an environment variable
+
 2008-01-19  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/text-editor-iterable.c: (iiter_next),

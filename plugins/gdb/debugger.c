@@ -48,6 +48,9 @@
 #include "debugger.h"
 #include "utilities.h"
 
+#define ANJUTA_LOG_ENV "ANJUTA_LOG"
+#define DEBUGGER_LOG_LEVEL 1
+
 #define GDB_PROMPT  "(gdb)"
 #define FILE_BUFFER_SIZE 1024
 #define GDB_PATH "gdb"
@@ -117,6 +120,7 @@ struct _DebuggerPriv
 	GObject* instance;
 
 	IAnjutaMessageView *log;
+	gboolean gdb_log;
 };
 
 static gpointer parent_class;
@@ -212,6 +216,8 @@ debugger_message_view_append (Debugger *debugger, IAnjutaMessageViewType type, c
 static void
 debugger_initialize (Debugger *debugger)
 {
+	const gchar* anjuta_log;
+	
 	DEBUG_PRINT ("In function: debugger_init()");
 
 	debugger->priv = g_new0 (DebuggerPriv, 1);
@@ -244,6 +250,9 @@ debugger_initialize (Debugger *debugger)
 	g_string_assign (debugger->priv->stde_line, "");
 	
 	debugger->priv->post_execution_flag = DEBUGGER_NONE;
+	
+	anjuta_log = g_getenv (ANJUTA_LOG_ENV);
+	debugger->priv->gdb_log = anjuta_log && (atoi(anjuta_log) > DEBUGGER_LOG_LEVEL);
 }
 
 static void
@@ -317,7 +326,11 @@ debugger_log_command (Debugger *debugger, const gchar *command)
 		if (str[len - 1] == '\n') str[len - 1] = '\0';
 
 		/* Log only MI command as other are echo */
-		DEBUG_PRINT ("Cmd: %s", str);
+		#ifdef DEBUG
+			DEBUG_PRINT ("GDB:> %s", str);
+		#else
+			if (debugger->priv->gdb_log) g_message ("GDB:> %s", str);
+		#endif
 		debugger_message_view_append (debugger, IANJUTA_MESSAGE_VIEW_TYPE_NORMAL, str);
 		g_free (str);
 	}
@@ -1369,7 +1382,11 @@ debugger_stdo_flush (Debugger *debugger)
 
 	line = debugger->priv->stdo_line->str;
 
-	DEBUG_PRINT ("Log: %s\n", line);
+	#ifdef DEBUG
+		DEBUG_PRINT ("GDB:< %s", line);
+	#else
+		if (debugger->priv->gdb_log) g_message ("GDB:< %s", line);
+	#endif
 	debugger_log_output (debugger, line);	
 	if (strlen (line) == 0)
 	{
