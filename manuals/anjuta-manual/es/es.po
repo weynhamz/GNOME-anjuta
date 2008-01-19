@@ -1,10 +1,10 @@
 # translation of anjuta.help.HEAD.po to Español
-# Jorge González <jorgegonz@svn.gnome.org>, 2007.
+# Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2007-12-16 12:55+0000\n"
-"PO-Revision-Date: 2007-12-30 01:43+0100\n"
+"PO-Revision-Date: 2008-01-19 18:56+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <<gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -902,10 +902,17 @@ msgid ""
 "the menu <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</"
 "guisubmenu><guisubmenu> Highlight Mode</guisubmenu></menuchoice>."
 msgstr ""
+"<application>Anjuta</application> puede resaltar muchos lenguajes diferentes. "
+"Esto generalemente se hace automáticamente determinando el tipo del archivo desde "
+"la extensión de archivo. Si <application>Anjuta</application> no puede determinar "
+"el tipo del archivo, entonces no habrá resaltado de sintaxis. Puede "
+"forzar un estilo de resaltado particular seleccionándolo del menú "
+"<menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</"
+"guisubmenu><guisubmenu>Modo de resaltado</guisubmenu></menuchoice>."
 
 #: C/anjuta-manual.xml:359(title)
 msgid "Code folding"
-msgstr ""
+msgstr "Plegado de código"
 
 #: C/anjuta-manual.xml:360(para)
 msgid ""
@@ -917,6 +924,13 @@ msgid ""
 "arrow). These fold points automatically appear for source files which use "
 "code blocks."
 msgstr ""
+"Los archivos fuente que tienen un bloque de propiedades de código (tales como C, C++, Pascal, "
+"Java, etc.) tienen la ventaja de trabajar con <emphasis>plegados de código</emphasis>. "
+"Todos los bloques de código en el archivo fuente se pueden plegar o "
+"desplegar pulsando en los puntos de plegado en el margen de plegado de la "
+"<interface>ventana del editor</interface> (generalmente un símbolo +/- o unas "
+"flechas arriba/abajo). Estos puntos de plegado aparecen automáticamente para archivos "
+"fuente que usan bloques de código."
 
 #: C/anjuta-manual.xml:368(para)
 msgid ""
@@ -924,12 +938,17 @@ msgid ""
 "thousands of lines. Once the folds are closed, the document appears to "
 "become smaller, facilitating easy browsing and editing of the file."
 msgstr ""
+"El plegado de código es especialmente útil al editar archivos fuente grandes que se "
+"extienden varios miles de líneas. Una vez que se cierran los pliegues, el documento parece "
+"más pequeño, facilitando la examinación y el editado del archivo."
 
 #: C/anjuta-manual.xml:374(para)
 msgid ""
 "Please note that code folding and editor guides are only avalible in the "
 "scintilla based editor."
 msgstr ""
+"Note que el plegado del código y las guías del editor sólo están disponibles en el "
+"editor basado en Scintilla."
 
 #: C/anjuta-manual.xml:381(title)
 msgid "Auto-formatting source code"
@@ -946,6 +965,14 @@ msgid ""
 "menubar. Change the style of formatting by customizing the choices in the "
 "preferences."
 msgstr ""
+"Si el archivo actual es un archvo fuente o de cabeceras de C o C++, entonces es posible "
+"sangrarlo automáticamente (autoformatearlo). Proporciona al código un aspecto "
+"limpio, aumentando su legibilidad, reduce la probabilidad de errores de sintaxis y, "
+"por encima de todo, ahorra tiempo. Esto se puede realizar eligiendo "
+"<menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</"
+"guisubmenu><guimenuitem>Autoformato</guimenuitem></menuchoice> en la "
+"barra de menú. Cambie el estilo del formateo personalizando las opciones en las "
+"preferencias."
 
 #: C/anjuta-manual.xml:392(title)
 msgid "indent"
@@ -975,6 +1002,12 @@ msgid ""
 "except when refering to Tags browser and Symbol browser, which two different "
 "interfaces."
 msgstr ""
+"Todos los archivos fuente y de cabeceras C y C++ se pueden examinar usando las etiquetas en "
+"los archivos. Todos los archivos C y C++ fuente y de cabeceras abiertos son analizados para "
+"sus etiquetas disponibles (una «etiqueta» se refiere a una definición de función, estructura, macro, "
+"etc.). Note que en este manual se usa «etiqueta» y «símbolo» como sinónimos, "
+"excepto al referirse al Examinador de etiquetas y al Examinador de símbolos, que tienen "
+"dos interfaces distintos."
 
 #: C/anjuta-manual.xml:421(title) C/anjuta-manual.xml:444(title)
 msgid "Tags toolbar"
@@ -991,6 +1024,10 @@ msgid ""
 "usually comes before the definition, so they are likely to have smaller line "
 "numbers."
 msgstr ""
+"Las definiciones de función y los prototipos, si están presentes en el mismo archivo, se pueden "
+"distinguir de los correspondientes números de línea. Los prototipos "
+"generalmente están antes de la definición, de tal forma que suelen tener números de "
+"línea más pequeños."
 
 #: C/anjuta-manual.xml:414(para)
 msgid ""
@@ -1028,10 +1065,13 @@ msgid ""
 "database. <application>Anjuta</application> will take care of everything. "
 "You just have to decide which tag you want to go to!"
 msgstr ""
+"No tiene que preocuparse sobre la sincronización y actualización de la base de "
+"datos de las etiquetas. <application>Anjuta</application> se encargará de todo. "
+"Sólo tiene que decidir a qué etiqueta quiere ir."
 
 #: C/anjuta-manual.xml:466(title)
 msgid "Searching for and Replacing text in files"
-msgstr ""
+msgstr "Buscar y reemplazar texto en los archivos"
 
 #: C/anjuta-manual.xml:468(title)
 msgid "Searching"
