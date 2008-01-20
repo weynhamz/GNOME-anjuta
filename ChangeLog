@@ -1,3 +1,11 @@
+2008-01-20  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/sparse_buffer.c:
+	Fix a crash when scrolling in the diassembly window
+
+	* plugins/debug-manager/sparse_view.c:
+	Small limit change using the same "unit" for both number
+
 2008-01-19  Naba Kumar  <naba@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c:

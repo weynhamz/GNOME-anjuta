@@ -546,11 +546,11 @@ dma_sparse_view_synchronize_iter (DmaSparseView *view, DmaSparseIter *iter)
 
 	if (dist != 0)
 	{
-		gint count = (gint)(dist / view->priv->vadjustment->step_increment);
-		
-		if ((count < 2.0 * (view->priv->vadjustment->page_size))
-			 && (count > -2.0 * (view->priv->vadjustment->page_size)))
+		if ((dist < 4.0 * (view->priv->vadjustment->page_size))
+			 && (dist > -4.0 * (view->priv->vadjustment->page_size)))
         {
+			gint count = (gint)(dist / view->priv->vadjustment->step_increment);
+			
         	dma_sparse_iter_forward_lines (iter, count);
         }
         else

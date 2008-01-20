@@ -195,7 +195,7 @@ dma_sparse_buffer_insert (DmaSparseBuffer *buffer, DmaSparseBufferNode *node)
 	/* New node should have been allocated by caller with g_new */
 	DmaSparseBufferNode *prev;
 
-	DEBUG_PRINT ("insert block %x %x", node->lower, node->upper);
+	DEBUG_PRINT ("insert block %p %x %x", node, node->lower, node->upper);
 	/* Look for previous node */
 	prev = dma_sparse_buffer_find (buffer, node->lower);
 	while ((prev != NULL) && (node->lower <= prev->upper))
@@ -222,16 +222,16 @@ dma_sparse_buffer_insert (DmaSparseBuffer *buffer, DmaSparseBufferNode *node)
 		node->prev = prev;
 		node->next = prev->next;
 		prev->next = node;
-		if (node->next != NULL)
-		{
-			node->next->prev = node;
-		}
+	}
+	if (node->next != NULL)
+	{
+		node->next->prev = node;
 	}
 
 	/* Check if new node overlap next one */
 	while ((node->next != NULL) && (node->upper >= node->next->lower))
 	{
-		DEBUG_PRINT ("remove next block %x %x", node->next->lower, node->next->upper);
+		DEBUG_PRINT ("remove next block %p %x %x", node->next, node->next->lower, node->next->upper);
 		/* node overlap, remove it */
 		dma_sparse_buffer_remove (buffer, node->next);
 	}
@@ -280,7 +280,7 @@ dma_sparse_buffer_remove (DmaSparseBuffer *buffer, DmaSparseBufferNode *node)
 	{
 		buffer->cache.tail = node->cache.prev;
 	}
-	
+
 	g_free (node);
 	
 	buffer->stamp++;
