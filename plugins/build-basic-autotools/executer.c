@@ -393,6 +393,21 @@ execute_program (BasicAutotoolsPlugin* plugin, const gchar *pre_select_uri)
 										   IAnjutaTerminal, NULL);
 		if (term)
 		{
+			gchar* prog_path = g_find_program_in_path("anjuta_launcher");
+			
+			if (prog_path != NULL)
+			{
+				gchar* oldcmd = cmd;
+			
+				cmd = g_strconcat ("anjuta_launcher ", oldcmd, NULL);
+				g_free (oldcmd);
+				g_free (prog_path);
+			}
+			else
+			{
+				DEBUG_PRINT("Missing anjuta_launcher");
+			}
+				
 			ianjuta_terminal_execute_command (term, dir, cmd, NULL);
 		}
 		else

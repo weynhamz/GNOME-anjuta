@@ -89,7 +89,6 @@ struct _TerminalPlugin{
 	GtkWidget *pref_profile_combo;
 	GtkWidget *pref_default_button;
 	GList *gconf_notify_ids;
-	gboolean child_initizlized;
 #if OLD_VTE == 1
 	gboolean first_time_realization;
 #endif
@@ -424,13 +423,9 @@ static gboolean
 terminal_focus_cb (GtkWidget *widget, GdkEvent  *event,
 				   TerminalPlugin *term) 
 {
-	if (term->child_pid > 0)
-		term->child_initizlized = TRUE;
-	
-	if (term->child_initizlized == FALSE)
+	if (term->child_pid == 0)
 	{
 		terminal_init_cb (widget, term);
-		term->child_initizlized = TRUE;
 	}
 	gtk_widget_grab_focus (widget);
 	return FALSE;
@@ -563,6 +558,8 @@ terminal_create (TerminalPlugin *term_plugin)
 	term_plugin->scrollbar = sb;
 	term_plugin->frame = frame;
 	term_plugin->hbox = hbox;
+
+	terminal_init_cb (GTK_WIDGET (term_plugin->term), term_plugin);
 }
 
 static void
@@ -637,7 +634,7 @@ deactivate_plugin (AnjutaPlugin *plugin)
 	term_plugin->term = NULL;
 	term_plugin->scrollbar = NULL;
 	term_plugin->hbox = NULL;
-	term_plugin->child_initizlized = FALSE;
+	term_plugin->child_pid = 0;
 #if OLD_VTE == 1
 	term_plugin->first_time_realization = TRUE;
 #endif
@@ -663,7 +660,7 @@ terminal_plugin_instance_init (GObject *obj)
 {
 	TerminalPlugin *plugin = ANJUTA_PLUGIN_TERMINAL (obj);
 	plugin->gconf_notify_ids = NULL;
-	plugin->child_initizlized = FALSE;
+	plugin->child_pid = 0;
 	plugin->pref_profile_combo = NULL;
 #if OLD_VTE == 1
 	plugin->first_time_realization = TRUE;

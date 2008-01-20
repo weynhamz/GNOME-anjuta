@@ -1,5 +1,14 @@
 2008-01-20  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/build-basic-autotools/executer.c:
+	Fix #502508, use anjuta_launcher to keep program output
+
+	* plugins/terminal/terminal.c:
+	Remove unused child_initizlized member
+	Start the shell on plugin activation
+
+2008-01-20  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/sparse_buffer.c:
 	Fix a crash when scrolling in the diassembly window
 
