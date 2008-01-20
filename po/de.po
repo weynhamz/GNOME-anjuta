@@ -6745,7 +6745,7 @@ msgstr "Subversion-Popup-Operationen"
 
 #: ../plugins/subversion/plugin.c:473
 msgid "Subversion Log"
-msgstr "Subversion-Log"
+msgstr "Subversion-Protokoll"
 
 #: ../plugins/subversion/subversion-add-dialog.c:39
 msgid "Subversion: File will be added on next commit."
