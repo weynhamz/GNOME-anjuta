@@ -1524,7 +1524,7 @@ msgstr "Haltepunkt-Eigenschaften"
 #: ../plugins/debug-manager/breakpoints.c:1942
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
-msgstr "Haltepunkts"
+msgstr "Haltepunkte"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:6
 #: ../plugins/gdb/anjuta-gdb.glade.h:5
