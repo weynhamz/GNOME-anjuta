@@ -1,3 +1,9 @@
+2008-01-20  Rob Bradford  <rob@openedhand.com>
+
+	* libanjuta/anjuta-utils.c: (anjuta_util_parse_args_from_string):
+	Fix parsing with quotes in the command line. Kudos to Jorn Baayen for
+	coming up with the solution. (Bug: #510390.)
+
 2008-01-20  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/build-basic-autotools/executer.c:

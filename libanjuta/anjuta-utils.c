@@ -855,7 +855,7 @@ anjuta_util_parse_args_from_string (const gchar* string)
 		} else if (*s == '\\') {
 			/* Current char is an escape */
 			escaped = TRUE;
-		} else if (*s == quote) {
+		} else if (is_quote && *s == quote) {
 			/* Current char ends a quotation */
 			is_quote = FALSE;
 			if (!isspace(*(s+1)) && (*(s+1) != '\0')) {
