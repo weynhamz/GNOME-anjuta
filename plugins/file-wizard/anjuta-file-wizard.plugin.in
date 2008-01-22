@@ -1,6 +1,6 @@
 [Anjuta Plugin]
-_Name=File Wizard
-_Description=Anjuta File Wizard Plugin
+_Name=File Assistent
+_Description=Anjuta File Assistent Plugin
 Location=anjuta-file-wizard:AnjutaFileWizardPlugin
 Icon=anjuta-file-wizard-plugin.png
 Interfaces=IAnjutaWizard

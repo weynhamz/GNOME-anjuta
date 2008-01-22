@@ -33,7 +33,7 @@
 	  <property name="visible">True</property>
 	  <property name="position">GNOME_EDGE_START</property>
 	  <property name="title" translatable="yes">Import Project</property>
-	  <property name="text" translatable="yes">This wizard will import an existing project into Anjuta.</property>
+	  <property name="text" translatable="yes">This assistent will import an existing project into Anjuta.</property>
 	</widget>
       </child>
 

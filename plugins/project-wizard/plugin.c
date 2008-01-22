@@ -147,7 +147,7 @@ npw_plugin_create_view (NPWPlugin* this)
 		man = anjuta_shell_get_interface (ANJUTA_PLUGIN (this)->shell,
 										  IAnjutaMessageManager, NULL);
 		this->view =
-			ianjuta_message_manager_add_view (man, _("New Project Wizard"),
+			ianjuta_message_manager_add_view (man, _("New Project Assistent"),
 											  ICON_FILE, NULL);
 		if (this->view != NULL)
 		{

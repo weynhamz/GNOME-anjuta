@@ -1,3 +1,15 @@
+2008-01-22  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/file-wizard/anjuta-file-wizard.plugin.in:
+	* plugins/project-import/anjuta-project-import.glade:
+	* plugins/project-import/anjuta-project-import.plugin.in:
+	* plugins/project-wizard/anjuta-project-wizard.glade:
+	* plugins/project-wizard/anjuta-project-wizard.plugin.in:
+	* plugins/project-wizard/druid.c: (npw_druid_new):
+	* plugins/project-wizard/plugin.c: (npw_plugin_create_view):
+	
+	Fixed #465084 – wizard instead of assistant (only string changes...)
+
 2008-01-20  Rob Bradford  <rob@openedhand.com>
 
 	* libanjuta/anjuta-utils.c: (anjuta_util_parse_args_from_string):

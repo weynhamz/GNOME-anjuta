@@ -6,7 +6,7 @@
 
 <widget class="GtkWindow" id="druid_window">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">Application Wizard</property>
+  <property name="title" translatable="yes">Application Assistent</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
@@ -32,8 +32,8 @@
 	<widget class="GnomeDruidPageEdge" id="start_page">
 	  <property name="visible">True</property>
 	  <property name="position">GNOME_EDGE_START</property>
-	  <property name="title" translatable="yes">Application Wizard</property>
-	  <property name="text" translatable="yes">The Application Wizard will generate a basic skeleton for a project, including all of the build files. It will ask for details of the initial structure for the application. Please answer the questions carefully, as it may not be possible to change some of the settings later.</property>
+	  <property name="title" translatable="yes">Application Assistent</property>
+	  <property name="text" translatable="yes">The Application Assistent will generate a basic skeleton for a project, including all of the build files. It will ask for details of the initial structure for the application. Please answer the questions carefully, as it may not be possible to change some of the settings later.</property>
 	  <property name="background_color">#3d3d8281b7b7</property>
 	  <property name="logo_background_color">#3d3d8280b7b7</property>
 	  <property name="textbox_color">#ffffffffffff</property>

@@ -1,6 +1,6 @@
 [Anjuta Plugin]
-_Name=Project Wizard
-_Description=Project Wizard
+_Name=Project Assistent
+_Description=Project Assistent
 Location=anjuta-project-wizard:NPWPlugin
 Icon=anjuta-project-wizard-plugin-48.png
 Interfaces=IAnjutaWizard
