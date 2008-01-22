@@ -22,14 +22,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-19 18:42+0100\n"
-"PO-Revision-Date: 2008-01-19 18:39+0100\n"
+"POT-Creation-Date: 2008-01-22 15:00+0100\n"
+"PO-Revision-Date: 2008-01-22 15:02+0100\n"
 "Last-Translator: Johannes Schmid <jhs@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -5195,7 +5195,7 @@ msgid "Import Project"
 msgstr "Projekt importieren"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
-msgid "This wizard will import an existing project into Anjuta."
+msgid "This assistent will import an existing project into Anjuta."
 msgstr ""
 "Dieser Assistent importiert ein bereits existierendes Projekt in Anjuta."
 
@@ -5478,8 +5478,8 @@ msgid "<b>Select the type of application to be developed</b>"
 msgstr "<b>Art der Anwendung, die entwickelt werden soll, auswählen</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
-msgid "Application Wizard"
-msgstr "Anwendungsdruide"
+msgid "Application Assistent"
+msgstr "Anwendungs-Assistent"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:5
 #: ../plugins/project-wizard/templates/translatable-strings.h:8
@@ -5511,12 +5511,12 @@ msgstr "Projekttyp"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid ""
-"The Application Wizard will generate a basic skeleton for a project, "
+"The Application Assistent will generate a basic skeleton for a project, "
 "including all of the build files. It will ask for details of the initial "
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
 msgstr ""
-"Der Anwendungsdruide generiert ein Skelett für Ihre Anwendung, inklusive "
+"Der Anwendungs-Assistent generiert ein Skelett für Ihre Anwendung, inklusive "
 "aller zu einem Übersetzungsvorgang benötigten Dateien. Sie werden nach der "
 "grundlegenden Struktur der Anwendung, die Sie entwickeln möchten, gefragt. "
 "Bitte beantworten Sie die Fragen sorgfältig, da es später nicht mehr möglich "
@@ -5569,7 +5569,7 @@ msgid "File \"%s\" already exists. Do you want to overwrite it?"
 msgstr "Die Datei »%s« existiert bereits. Soll sie überschrieben werden?"
 
 #: ../plugins/project-wizard/druid.c:836
-msgid "Unable to build project wizard user interface."
+msgid "Unable to build project assistent user interface."
 msgstr "Oberfläche des Projekt-Assistenten konnte nicht geladen werden."
 
 #: ../plugins/project-wizard/install.c:387
@@ -5605,7 +5605,7 @@ msgid "Executing: "
 msgstr "Ausgeführt: "
 
 #: ../plugins/project-wizard/plugin.c:150
-msgid "New Project Wizard"
+msgid "New Project Assistent"
 msgstr "Assistent für neue Projekte"
 
 #: ../plugins/project-wizard/property.c:248
@@ -7106,8 +7106,8 @@ msgstr "GNOME-Terminalprofil verwenden:"
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Das momentan verwendete GNOME-Terminalprofil verwenden"
 
-#: ../plugins/terminal/terminal.c:606 ../plugins/terminal/terminal.c:717
-#: ../plugins/terminal/terminal.c:733
+#: ../plugins/terminal/terminal.c:603 ../plugins/terminal/terminal.c:714
+#: ../plugins/terminal/terminal.c:730
 #: ../plugins/terminal/anjuta-terminal.plugin.in.h:1
 msgid "Terminal"
 msgstr "Terminal"
@@ -8070,11 +8070,11 @@ msgid "Provides document management capabilities."
 msgstr "Stellt Dokumentenverwaltungsfunktionen zur Verfügung"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
-msgid "Anjuta File Wizard Plugin"
+msgid "Anjuta File Assistent Plugin"
 msgstr "Anjuta-Datei-Assistent-Komponente"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
-msgid "File Wizard"
+msgid "File Assistent"
 msgstr "Datei-Assistent"
 
 #: ../plugins/subversion/anjuta-subversion.plugin.in.h:1
@@ -8174,7 +8174,7 @@ msgid "Project From Existing Sources"
 msgstr "Projekt aus vorhadenen Quellen"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:3
-msgid "Project Import Wizard"
+msgid "Project Import Assistent"
 msgstr "Projekt-Import-Assistent"
 
 #: ../plugins/sourceview/sourceview.plugin.in.h:1
@@ -8200,7 +8200,7 @@ msgstr ""
 "automatisches Einrücken, etc."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:2
-msgid "Project Wizard"
+msgid "Project Assistent"
 msgstr "Projekt-Assistent"
 
 #: ../plugins/profiler/profiler.plugin.in.h:1
@@ -8266,6 +8266,12 @@ msgstr "Dateilader zum Laden verschiedener Dateien"
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
 msgstr "Komponente zur Debug-Verwaltung."
+
+#~ msgid "File Wizard"
+#~ msgstr "Datei-Assistent"
+
+#~ msgid "Project Wizard"
+#~ msgstr "Projekt-Assistent"
 
 #~ msgid "Couldn't get file info %s : %s"
 #~ msgstr "Konnte Datei-Informationen für %s nicht abrufen: %s"
