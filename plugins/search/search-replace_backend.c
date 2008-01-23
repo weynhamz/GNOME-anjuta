@@ -179,8 +179,8 @@ file_buffer_new_from_te (IAnjutaEditor *te)
 		g_free (uri);
 	}
 	fb->len = ianjuta_editor_get_length(te, NULL);
-	fb->buf = ianjuta_editor_get_text(fb->te, 0, fb->len, NULL);
-	fb->pos = ianjuta_editor_get_position(fb->te, NULL);
+	fb->buf = ianjuta_editor_get_text_all (fb->te, NULL);
+	fb->pos = ianjuta_editor_get_offset(fb->te, NULL);
 	fb->line = ianjuta_editor_get_lineno(fb->te, NULL);
 	
 	return fb;
@@ -301,7 +301,11 @@ file_buffer_line_from_pos(FileBuffer *fb, int pos)
 	}
 	else if (FB_EDITOR == fb->type)
 	{
-		return ianjuta_editor_get_line_from_position(fb->te, pos, NULL);
+		IAnjutaIterable *position;
+		position = ianjuta_editor_get_position_from_offset (fb->te, pos, NULL);
+		lineno = ianjuta_editor_get_line_from_position (fb->te, position, NULL);
+		g_object_unref (position);
+		return lineno;
 	}
 	else
 		return -1;
@@ -638,7 +642,7 @@ create_search_entries (Search *s)
 					}
 					else
 					{
-						se->start_pos = ianjuta_editor_get_position (se->te, NULL);
+						se->start_pos = ianjuta_editor_get_offset (se->te, NULL);
 					}
 					se->end_pos = -1;	/* not actually used when backward searching */
 				}
@@ -703,8 +707,8 @@ create_search_entries (Search *s)
 				if (s->range.type != SR_SELECTION)
 				{
 					IAnjutaIterable *start, *end;
-					start = ianjuta_editor_get_cell_iter (se->te, selstart, NULL);
-					end = ianjuta_editor_get_cell_iter (se->te, selend, NULL);
+					start = ianjuta_editor_get_position_from_offset (se->te, selstart, NULL);
+					end = ianjuta_editor_get_position_from_offset (se->te, selend, NULL);
 					ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (se->te), 
 				                                 start, end, NULL);	
 					g_object_unref (start);

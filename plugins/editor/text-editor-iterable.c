@@ -391,12 +391,12 @@ icell_get_char (IAnjutaEditorCell* icell, gint index, GError** e)
 }
 
 static IAnjutaEditorAttribute
-icell_get_attribute (IAnjutaEditorCell *cell, GError **e)
+icell_get_attribute (IAnjutaEditorCell *icell, GError **e)
 {
+	TextEditorCell* cell = TEXT_EDITOR_CELL(icell);
 	IAnjutaEditorAttribute attrib = IANJUTA_EDITOR_TEXT;
 	TextEditorAttrib text_attrib =
-		text_editor_get_attribute (TEXT_EDITOR_CELL (cell)->priv->editor,
-								   TEXT_EDITOR_CELL (cell)->priv->position);
+		text_editor_get_attribute (cell->priv->editor, cell->priv->position);
 	switch (text_attrib)
 	{
 		case TEXT_EDITOR_ATTRIB_TEXT:
@@ -530,11 +530,9 @@ static gboolean
 iiter_last (IAnjutaIterable* iter, GError** e)
 {
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
-	gint length;
-	
-	length = ianjuta_editor_get_length (IANJUTA_EDITOR (cell->priv->editor),
-										NULL);
-	text_editor_cell_set_position (TEXT_EDITOR_CELL (iter), length);
+	cell->priv->position =
+		scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
+								SCI_GETLENGTH, 0, 0);
 	return TRUE;
 }
 
@@ -560,11 +558,18 @@ static gboolean
 iiter_set_position (IAnjutaIterable* iter, gint position, GError** e)
 {
 	gint i;
-	gint old_byte_position, new_byte_position;
+	gboolean within_range = TRUE;
+	gint old_byte_position = 0, new_byte_position = 0;
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
 	
 	if (position < 0)
-		return FALSE;
+	{
+		/* Set to end-iter (length of the doc) */
+		cell->priv->position =
+			scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
+									SCI_GETLENGTH, 0, 0);
+		return within_range;
+	}
 	
 	/* FIXME: Find more optimal solution */
 	/* Iterate untill the we reach given character position */
@@ -576,12 +581,16 @@ iiter_set_position (IAnjutaIterable* iter, gint position, GError** e)
 									SCI_POSITIONAFTER, old_byte_position, 0);	
 		if (old_byte_position == new_byte_position)
 		{
-			/* Out of range. Don't set anything */
-			return FALSE;
+			/* Out of range. set to end-iter */
+			DEBUG_PRINT ("Out of range: setting pos at %d", new_byte_position);
+			within_range = FALSE;
+			break;
 		}
+		old_byte_position = new_byte_position;
 	}
 	cell->priv->position = new_byte_position;
-	return TRUE;
+	DEBUG_PRINT ("Editor byte position set at: %d", cell->priv->position);
+	return within_range;
 }
 
 static gint
@@ -602,6 +611,8 @@ iiter_get_position (IAnjutaIterable* iter, GError** e)
 		char_position = g_utf8_strlen (data, -1);
 		g_free (data);
 	}
+	DEBUG_PRINT ("Byte pos = %d, char position = %d", cell->priv->position,
+				 char_position);
 	return char_position;
 }
 
@@ -614,11 +625,9 @@ iiter_get_length (IAnjutaIterable* iter, GError** e)
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
 	
 	/* FIXME: Find a more optimal solution */
-	data =
-		(gchar *) aneditor_command (TEXT_EDITOR
-									(cell->priv->editor)->editor_id,
-									ANE_GETTEXTRANGE, 0,
-									-1);
+	data = (gchar *) aneditor_command (TEXT_EDITOR
+									   (cell->priv->editor)->editor_id,
+									   ANE_GETTEXTRANGE, 0, -1);
 	length = g_utf8_strlen (data, -1);
 	g_free (data);
 	return length;
@@ -642,6 +651,55 @@ iiter_assign (IAnjutaIterable *iter, IAnjutaIterable *src_iter, GError **e)
 	cell->priv->position = src->priv->position;
 }
 
+static gint
+iiter_compare (IAnjutaIterable *iter, IAnjutaIterable *iter2, GError **e)
+{
+	gint delta;
+	TextEditorCell *cell = TEXT_EDITOR_CELL (iter);
+	TextEditorCell *cell2 = TEXT_EDITOR_CELL (iter2);
+	delta = cell->priv->position - cell2->priv->position;
+	return (delta == 0)? 0 : ((delta > 0)? 1 : -1);
+}
+
+static gint
+iiter_diff (IAnjutaIterable *iter, IAnjutaIterable *iter2, GError **e)
+{
+	gint diff = 0;
+	TextEditorCell *cell = TEXT_EDITOR_CELL (iter);
+	TextEditorCell *cell2 = TEXT_EDITOR_CELL (iter2);
+	
+	if (cell->priv->position == cell2->priv->position)
+	{
+		return 0;
+	}
+	
+	/* FIXME: Find more optimal solution */
+	/* Iterate until we reach larger iter position */
+	if (cell->priv->position > cell2->priv->position)
+	{
+		gint byte_position = cell2->priv->position;
+		while (byte_position < cell->priv->position)
+		{
+			byte_position =
+				scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
+										SCI_POSITIONAFTER, byte_position, 0);
+			diff--;
+		}
+	}
+	else
+	{
+		gint byte_position = cell->priv->position;
+		while (byte_position < cell2->priv->position)
+		{
+			byte_position =
+				scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
+										SCI_POSITIONAFTER, byte_position, 0);
+			diff++;
+		}
+	}
+	return diff;
+}
+
 static void
 iiter_iface_init(IAnjutaIterableIface* iface)
 {
@@ -655,6 +713,8 @@ iiter_iface_init(IAnjutaIterableIface* iface)
 	iface->get_length = iiter_get_length;
 	iface->clone = iiter_clone;
 	iface->assign = iiter_assign;
+	iface->compare = iiter_compare;
+	iface->diff = iiter_diff;
 }
 
 ANJUTA_TYPE_BEGIN(TextEditorCell, text_editor_cell, G_TYPE_OBJECT);

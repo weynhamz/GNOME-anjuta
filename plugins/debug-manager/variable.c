@@ -77,16 +77,12 @@ get_hovered_word (IAnjutaEditor* editor, IAnjutaIterable* iter)
 	/* Get selected characters if possible */
 	if (IANJUTA_IS_EDITOR_SELECTION (editor))
 	{
-		gint pos = ianjuta_iterable_get_position (iter, NULL);
-
 		/* Check if hover on selection */
 		start = ianjuta_editor_selection_get_start (IANJUTA_EDITOR_SELECTION (editor), NULL);
-		if (start && (ianjuta_iterable_get_position (start, NULL) 
-						   < pos))
+		if (start && (ianjuta_iterable_compare (start, iter, NULL) <= 0))
 		{
 			end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor), NULL);
-			if (end && (ianjuta_iterable_get_position (end, NULL) 
-							 >= pos))
+			if (end && (ianjuta_iterable_compare (end, iter, NULL) > 0))
 			{
 				/* Hover on selection, get selected characters */
 			    g_object_unref (end);
@@ -121,13 +117,10 @@ get_hovered_word (IAnjutaEditor* editor, IAnjutaIterable* iter)
 	for (end = ianjuta_iterable_clone (iter, NULL); ianjuta_iterable_next (end, NULL);)
 	{
 		if (!is_name (ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (end), 0, NULL)))
-		{
-			ianjuta_iterable_previous (end, NULL);
 			break;
-		}
 	}
 
-	buf = ianjuta_editor_get_text_iter (editor, start, end, NULL);
+	buf = ianjuta_editor_get_text (editor, start, end, NULL);
 	DEBUG_PRINT("get name %s", buf == NULL ? "(null)" : buf);
 	g_object_unref (start);
 	g_object_unref (end);

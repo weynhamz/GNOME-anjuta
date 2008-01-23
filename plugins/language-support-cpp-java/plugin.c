@@ -135,7 +135,7 @@ skip_iter_to_newline_tail (IAnjutaIterable *iter, gchar ch)
 static gint
 get_line_indentation (IAnjutaEditor *editor, gint line_num)
 {
-	gint line_begin, line_end;
+	IAnjutaIterable *line_begin, *line_end;
 	gchar *line_string, *idx;
 	gint line_indent = 0;
 	
@@ -145,11 +145,18 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 	DEBUG_PRINT ("%s: line begin = %d, line end = %d", __FUNCTION__,
 				 line_begin, line_end);
 	*/
-	if (line_begin == line_end)
+	if (ianjuta_iterable_compare (line_begin, line_end, NULL) == 0)
+	{
+		g_object_unref (line_begin);
+		g_object_unref (line_end);
 		return 0;
+	}
 	
-	line_string = ianjuta_editor_get_text (editor, line_begin,
-										   line_end - line_begin, NULL);
+	line_string = ianjuta_editor_get_text (editor, line_begin, line_end,
+												NULL);
+	g_object_unref (line_begin);
+	g_object_unref (line_end);
+	
 	/* DEBUG_PRINT ("line_string = '%s'", line_string); */
 	
 	if (!line_string)
@@ -165,7 +172,7 @@ get_line_indentation (IAnjutaEditor *editor, gint line_num)
 		else
 			line_indent++;
 		idx++; /* Since we are looking for first non-space char, simple
-	            * increment of the chars would do */
+	            * increment of the utf8 chars would do */
 	}
 	g_free (line_string);
 	return line_indent;
@@ -274,9 +281,7 @@ skip_iter_to_previous_logical_line (IAnjutaEditor *editor,
 	{
 		/*
 		DEBUG_PRINT ("Line %d is continuation line .. Skipping",
-					 ianjuta_editor_get_line_from_position
-						(editor, ianjuta_iterable_get_position (iter, NULL),
-						 NULL));
+					 ianjuta_editor_get_line_from_position (editor, iter, NULL));
 		*/
 		found = skip_iter_to_previous_line (editor, iter);
 		if (!found)
@@ -284,17 +289,13 @@ skip_iter_to_previous_logical_line (IAnjutaEditor *editor,
 	}
 	/*
 	DEBUG_PRINT ("Line %d is *not* continuation line .. Breaking",
-				 ianjuta_editor_get_line_from_position
-					(editor, ianjuta_iterable_get_position (iter, NULL),
-					 NULL));
+				 ianjuta_editor_get_line_from_position (editor, iter, NULL));
 	*/
 	if (found)
 		found = skip_iter_to_previous_line (editor, iter);
 	/*
 	DEBUG_PRINT ("Line %d is next logical line",
-				 ianjuta_editor_get_line_from_position
-					(editor, ianjuta_iterable_get_position (iter, NULL),
-					 NULL));
+				 ianjuta_editor_get_line_from_position (editor, iter, NULL));
 	*/
 	return found;
 }
@@ -372,8 +373,7 @@ skip_preprocessor_lines (IAnjutaEditor *editor, IAnjutaIterable *iter)
 				/*
 				DEBUG_PRINT ("Line %d is preprocessor line .. Skipping",
 							 ianjuta_editor_get_line_from_position
-								(editor, ianjuta_iterable_get_position (new_iter, NULL),
-								 NULL));
+							 (editor, new_iter, NULL));
 				*/
 				break;
 			}
@@ -396,8 +396,7 @@ skip_preprocessor_lines (IAnjutaEditor *editor, IAnjutaIterable *iter)
 			/*
 			DEBUG_PRINT ("Line %d is *not* preprocessor line .. Breaking",
 						 ianjuta_editor_get_line_from_position
-							(editor, ianjuta_iterable_get_position (new_iter, NULL),
-							 NULL));
+							(editor, new_iter, NULL));
 			*/
 			break;
 		}
@@ -542,10 +541,10 @@ extract_mode_line (const gchar *comment_text, gboolean* vim)
 		begin_modeline += 3;
 		end_modeline = strstr (begin_modeline, "-*-");
 		if (end_modeline)
-    {
-      *vim = FALSE;
-			return g_strndup (begin_modeline, end_modeline - begin_modeline);
-    }
+		{
+		  *vim = FALSE;
+				return g_strndup (begin_modeline, end_modeline - begin_modeline);
+		}
 	}
 	/* Search for vim-like modelines */
 	begin_modeline = strstr (comment_text, "vim:set");
@@ -592,8 +591,8 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 	
 	/* Find the first comment text in the buffer */
 	comment_text = g_string_new (NULL);
-	iter = ianjuta_editor_get_cell_iter (IANJUTA_EDITOR (plugin->current_editor),
-										 0, NULL);
+	iter = ianjuta_editor_get_start_position (IANJUTA_EDITOR (plugin->current_editor),
+											  NULL);
 	do
 	{
 		gboolean shift_buffer = TRUE;
@@ -672,14 +671,12 @@ initialize_indentation_params (CppJavaPlugin *plugin)
 static gint
 set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 {
-	gint line_begin, line_end, indent_position;
-	gint current_pos;
-	gchar *line_string, *idx;
-	gint nchars = 0, nchars_removed = 0;
+	IAnjutaIterable *line_begin, *line_end, *indent_position;
+	IAnjutaIterable *current_pos;
+	gint carat_offset, nchars = 0, nchars_removed = 0;
 	gchar *old_indent_string = NULL, *indent_string = NULL;
 	
 	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
-	current_pos = ianjuta_editor_get_position (editor, NULL);
 	line_begin = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 	line_end = ianjuta_editor_get_line_end_position (editor, line_num, NULL);
 	
@@ -687,45 +684,54 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 	DEBUG_PRINT ("line begin = %d, line end = %d, current_pos = %d",
 				 line_begin, line_end, current_pos);
 	*/
-	indent_position = line_begin;
+	indent_position = ianjuta_iterable_clone (line_begin, NULL);
 	
-	if (line_end > line_begin)
+	if (ianjuta_iterable_compare (line_end, line_begin, NULL) > 0)
 	{
-		line_string = ianjuta_editor_get_text (editor, line_begin,
-											   line_end - line_begin,
-											   NULL);
+		gchar *idx;
+		gchar *line_string = ianjuta_editor_get_text (editor, line_begin,
+														   line_end, NULL);
 		
-		/* DEBUG_PRINT ("line_string = '%s'", line_string); */
+		DEBUG_PRINT ("line_string = '%s'", line_string);
 		if (line_string)
 		{
 			idx = line_string;
 			
 			/* Find first non-white space */
 			while (*idx != '\0' && isspace (*idx))
-				idx++; /* Since we are looking for first non-space char, simple
-						* increment of the chars would do */
-			indent_position = line_begin + (idx - line_string);
+			{
+				idx = g_utf8_find_next_char (idx, NULL);
+				ianjuta_iterable_next (indent_position, NULL);
+			}
 			g_free (line_string);
 		}
 	}
+	/* Indent iter defined at this point, Identify how much is current
+	 * position is beyound this point. We need to restore it later after
+	 * indentation
+	*/
+	current_pos = ianjuta_editor_get_position (editor, NULL);
+	carat_offset = ianjuta_iterable_diff (indent_position, current_pos, NULL);
+	DEBUG_PRINT ("carat offset is = %d", carat_offset);
 	
 	/* Set new indentation */
 	if (indentation > 0)
 	{
-		indent_string = get_line_indentation_string (editor,
-													 indentation);
-		nchars = strlen (indent_string);
+		indent_string = get_line_indentation_string (editor, indentation);
+		nchars = g_utf8_strlen (indent_string, -1);
 		
 		/* Only indent if there is something to indent with */
 		if (indent_string)
 		{
 			/* Get existing indentation */
-			if (indent_position > line_begin)
+			if (ianjuta_iterable_compare (indent_position, line_begin, NULL) > 0)
 			{
-				old_indent_string = ianjuta_editor_get_text (editor, line_begin,
-															 indent_position - line_begin,
-															 NULL);
-				nchars_removed = strlen (old_indent_string);
+				old_indent_string =
+					ianjuta_editor_get_text (editor, line_begin,
+												  indent_position, NULL);
+				
+				DEBUG_PRINT ("old_indent_string = '%s'", old_indent_string);
+				nchars_removed = g_utf8_strlen (old_indent_string, -1);
 			}
 			
 			/* Only indent if there was no indentation before or old
@@ -737,7 +743,7 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 				/* Remove the old indentation string, if there is any */
 				if (old_indent_string)
 					ianjuta_editor_erase (editor, line_begin,
-										  indent_position - line_begin, NULL);
+										  indent_position, NULL);
 				
 				/* Insert the new indentation string */
 				ianjuta_editor_insert (editor, line_begin,
@@ -752,41 +758,48 @@ set_line_indentation (IAnjutaEditor *editor, gint line_num, gint indentation)
 	if (indentation == 0)
 	{
 		/* Get existing indentation */
-		if (indent_position > line_begin)
+		if (ianjuta_iterable_compare (indent_position, line_begin, NULL) > 0)
 		{
-			old_indent_string = ianjuta_editor_get_text (editor, line_begin,
-														 indent_position - line_begin,
-														 NULL);
-			nchars_removed = strlen (old_indent_string);
+			old_indent_string =
+				ianjuta_editor_get_text (editor, line_begin,
+											  indent_position, NULL);
+			nchars_removed = g_utf8_strlen (old_indent_string, -1);
 		}
 		if (old_indent_string)
-			ianjuta_editor_erase (editor, line_begin,
-								  indent_position - line_begin, NULL);
-				
+			ianjuta_editor_erase (editor, line_begin, indent_position, NULL);
 	}
 	
 	/* Restore current position */
-	if (current_pos >= indent_position)
+	if (carat_offset >= 0)
 	{
 		/* If the cursor was not before the first non-space character in
 		 * the line, restore it's position after indentation.
 		 */
-		gint delta_position = nchars - nchars_removed;
-		ianjuta_editor_goto_position (editor, current_pos + delta_position,
-									  NULL);
-		/*
-		DEBUG_PRINT ("Restored position to %d", current_pos + delta_position);
-		*/
+		gint i;
+		IAnjutaIterable *pos = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
+		for (i = 0; i < nchars + carat_offset; i++)
+			ianjuta_iterable_next (pos, NULL);
+		ianjuta_editor_goto_position (editor, pos, NULL);
+		g_object_unref (pos);
 	}
-	else if (current_pos >= line_begin)
+	else /* cursor_offset < 0 */
 	{
 		/* If the cursor was somewhere in the old indentation spaces,
 		 * home the cursor to first non-space character in the line (or
 		 * end of line if there is no non-space characters in the line.
 		 */
-		ianjuta_editor_goto_position (editor, current_pos + nchars,
-									  NULL);
+		gint i;
+		IAnjutaIterable *pos = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
+		for (i = 0; i < nchars; i++)
+			ianjuta_iterable_next (pos, NULL);
+		ianjuta_editor_goto_position (editor, pos, NULL);
+		g_object_unref (pos);
 	}
+
+	g_object_unref (current_pos);
+	g_object_unref (indent_position);
+	g_object_unref (line_begin);
+	g_object_unref (line_end);
 	
 	g_free (old_indent_string);
 	g_free (indent_string);
@@ -806,7 +819,6 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 {
 	IAnjutaIterable *iter;
 	gchar point_ch;
-	gint position;
 	gint line_indent = 0;
 	gboolean looking_at_just_next_line = TRUE;
 	gboolean current_line_is_preprocessor = FALSE;
@@ -819,9 +831,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	
 	/* DEBUG_PRINT ("In %s()", __FUNCTION__); */
 	
-	position = ianjuta_editor_get_line_begin_position (editor, line_num,
-													   NULL);
-	iter = ianjuta_editor_get_cell_iter (editor, position, NULL);
+	iter = ianjuta_editor_get_line_begin_position (editor, line_num, NULL);
 	
 	current_line_is_preprocessor = line_is_preprocessor (editor, iter);
 	current_line_is_continuation = line_is_continuation (editor, iter);
@@ -862,9 +872,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 		{
 			gint line_saved;
 			
-			line_saved = ianjuta_editor_get_line_from_position (editor,
-								ianjuta_iterable_get_position (iter, NULL),
-																	NULL);
+			line_saved = ianjuta_editor_get_line_from_position (editor, iter,
+																NULL);
 			
 			/* If we encounter a block-end before anything else, the
 			 * statement could hardly be incomplte.
@@ -890,9 +899,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 		}
 		else if (point_ch == '{')
 		{
-			gint line_for_indent = ianjuta_editor_get_line_from_position (editor,
-								ianjuta_iterable_get_position (iter, NULL),
-								NULL);
+			gint line_for_indent =
+				ianjuta_editor_get_line_from_position (editor, iter, NULL);
 			line_indent = get_line_indentation (editor, line_for_indent);
 			/* Increase line indentation */
 			line_indent += INDENT_SIZE;
@@ -952,8 +960,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 				looking_at_just_next_line)
 			{
 				/*
-				gint line = ianjuta_editor_get_line_from_position
-					(editor, ianjuta_iterable_get_position (iter, NULL), NULL);
+				gint line = ianjuta_editor_get_line_from_position (editor, iter, NULL);
 				line_indent = get_line_indentation (editor, line);
 				*/
 			}
@@ -1021,13 +1028,14 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 {
 	IAnjutaIterable *iter;
 	gint line_indent = 0;
-	gint line_begin;
 	gint incomplete_statement = -1;
 	
-	g_return_val_if_fail (line > 1, 0);
+	g_return_val_if_fail (line > 0, 0);
 	
-	line_begin = ianjuta_editor_get_line_begin_position (editor, line, NULL);
-	iter = ianjuta_editor_get_cell_iter (editor, line_begin, NULL);
+	if (line == 1) /* First line */
+		return 0;
+	
+	iter = ianjuta_editor_get_line_begin_position (editor, line, NULL);
 	
 	if (is_iter_inside_comment_or_string (iter))
 	{
@@ -1083,9 +1091,8 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 			ianjuta_iterable_previous (iter, NULL);
 			if (cpp_java_util_jump_to_matching_brace (iter, ch, -1))
 			{
-				gint position = ianjuta_iterable_get_position (iter, NULL);
 				gint line = ianjuta_editor_get_line_from_position (editor,
-																   position,
+																   iter,
 																   NULL);
 				line_indent = get_line_indentation (editor, line);
 			}
@@ -1110,7 +1117,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 
 static void
 on_editor_char_inserted_cpp (IAnjutaEditor *editor,
-							 gint insert_pos,
+							 IAnjutaIterable *insert_pos,
 							 gchar ch,
 							 CppJavaPlugin *plugin)
 {
@@ -1124,7 +1131,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	
 	/* DEBUG_PRINT ("Char added at position %d: '%c'", insert_pos, ch); */
 	
-	iter = ianjuta_editor_get_cell_iter (editor, insert_pos, NULL);
+	iter = ianjuta_iterable_clone (insert_pos, NULL);
 	
 	if (iter_is_newline (iter, ch))
 	{
@@ -1171,26 +1178,6 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 			}
 		}
 	}
-#if 0
-	else if (ch == '\t' &&
-			 anjuta_preferences_get_int (plugin->prefs,
-										 PREF_INDENT_TAB_INDENTS))
-	{
-		/* Indent on tab enabled */
-		/* Don't bother if we are inside comment or string */
-		attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter),
-													NULL);
-		if (attrib != IANJUTA_EDITOR_COMMENT &&
-			attrib != IANJUTA_EDITOR_STRING)
-		{
-			
-			/* Ensure that we remove the inserted tab */
-			ianjuta_editor_erase (editor, insert_pos, 1, NULL);
-			
-			should_auto_indent = TRUE;
-		}
-	}
-#endif
 	if (should_auto_indent)
 	{
 		gint insert_line;
@@ -1208,7 +1195,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 
 static void
 on_editor_char_inserted_java (IAnjutaEditor *editor,
-							  gint insert_pos,
+							  IAnjutaIterable *insert_pos,
 							  gchar ch,
 							  CppJavaPlugin *plugin)
 {
@@ -1405,8 +1392,8 @@ on_auto_indent (GtkAction *action, gpointer data)
 														NULL);
 		sel_end = ianjuta_editor_selection_get_end (IANJUTA_EDITOR_SELECTION (editor),
 													NULL);
-		line_start = ianjuta_editor_cell_get_line (IANJUTA_EDITOR_CELL (sel_start), NULL);
-		line_end = ianjuta_editor_cell_get_line (IANJUTA_EDITOR_CELL (sel_end), NULL);
+		line_start = ianjuta_editor_get_line_from_position (editor, sel_start, NULL);
+		line_end = ianjuta_editor_get_line_from_position (editor, sel_end, NULL);
 		g_object_unref (sel_start);
 		g_object_unref (sel_end);
 	}

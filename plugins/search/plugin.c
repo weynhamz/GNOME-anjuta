@@ -68,8 +68,8 @@ static gboolean find_incremental(IAnjutaEditor* te, gchar* expression,
 	if (info != NULL)
 	{
 		IAnjutaIterable *start, *end;
-		start = ianjuta_editor_get_cell_iter (te, info->pos, NULL);
-		end = ianjuta_editor_get_cell_iter (te, info->pos + info->len, NULL);
+		start = ianjuta_editor_get_position_from_offset (te, info->pos, NULL);
+		end = ianjuta_editor_get_position_from_offset (te, info->pos + info->len, NULL);
 		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
 									  start, end, NULL);
 		g_object_unref (start);

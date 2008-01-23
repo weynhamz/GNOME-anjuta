@@ -65,7 +65,7 @@ static void update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin);
 
 static void on_editor_update_ui (IAnjutaEditor *editor,
 								 SymbolBrowserPlugin *sv_plugin);
-static void on_char_added (IAnjutaEditor *editor, gint position, gchar ch,
+static void on_char_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar ch,
 						   SymbolBrowserPlugin *sv_plugin);
 
 static void
@@ -793,7 +793,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		ed = IANJUTA_EDITOR (sv_plugin->current_editor);
 		
 		buffer_size = ianjuta_editor_get_length (ed, NULL);
-		current_buffer = ianjuta_editor_get_text (ed, 0, -1, NULL);
+		current_buffer = ianjuta_editor_get_text_all (ed, NULL);
 				
 		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), NULL);
 		
@@ -871,15 +871,15 @@ on_editor_update_ui (IAnjutaEditor *editor, SymbolBrowserPlugin *sv_plugin)
 }
 
 static void
-on_char_added (IAnjutaEditor *editor, gint position, gchar ch,
+on_char_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar ch,
 			   SymbolBrowserPlugin *sv_plugin)
 {
-	DEBUG_PRINT ("char added @ %d : %c [int %d]", position, ch, ch);
+	DEBUG_PRINT ("char added: %c [int %d]", ch, ch);
 	
 	/* try to force the update if a "." or a "->" is pressed */
 	if ((ch == '.') || (prev_char_added == '-' && ch == '>'))
 		on_editor_buffer_symbols_update_timeout (sv_plugin);
-		
+	
 	need_symbols_update = TRUE;
 	
 	prev_char_added = ch;
@@ -1280,107 +1280,12 @@ isymbol_manager_get_parents (IAnjutaSymbolManager *sm,
 	return NULL;
 }
 
-static IAnjutaIterable*
-isymbol_manager_get_completions_at_position (IAnjutaSymbolManager *sm,
-											const gchar *file_uri,
-							 				const gchar *text_buffer, 
-											gint text_length, 
-											gint text_pos,
-							 				GError **err)
-{
-	SymbolBrowserPlugin *sv_plugin;
-	const TMTag *func_scope_tag;
-	TMSourceFile *tm_file;
-	IAnjutaEditor *ed;
-	AnjutaSymbolView *symbol_view;
-	gulong line;
-	gulong scope_position;
-	gchar *needed_text = NULL;
-	gint access_method;
-	GPtrArray * completable_tags_array;
-	AnjutaSymbolIter *iter = NULL;
-	
-	sv_plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (sm);
-	ed = IANJUTA_EDITOR (sv_plugin->current_editor);	
-	symbol_view = ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree);
-	
-	line = ianjuta_editor_get_line_from_position (ed, text_pos, NULL);
-	
-	/* get the function scope */
-	tm_file = anjuta_symbol_view_get_tm_file (symbol_view, file_uri);
-	
-	/* check whether the current file_uri is listed in the tm_workspace or not... */	
-	if (tm_file == NULL)
-		return 	NULL;
-		
-
-	// FIXME: remove DEBUG_PRINT	
-/*/
-	DEBUG_PRINT ("tags in file &s\n");
-	if (tm_file->work_object.tags_array != NULL) {
-		int i;
-		for (i=0; i < tm_file->work_object.tags_array->len; i++) {
-			TMTag *cur_tag;
-		
-			cur_tag = (TMTag*)g_ptr_array_index (tm_file->work_object.tags_array, i);
-			tm_tag_print (cur_tag, stdout);
-		}
-	}
-/*/
-
-	func_scope_tag = tm_get_current_function (tm_file->work_object.tags_array, line);
-		
-	if (func_scope_tag == NULL) {
-		DEBUG_PRINT ("func_scope_tag is NULL, seems like it's a completion on a global scope");
-		return NULL;
-	}
-	
-	DEBUG_PRINT ("current expression scope: %s", func_scope_tag->name);
-	
-	
-	scope_position = ianjuta_editor_get_line_begin_position (ed, func_scope_tag->atts.entry.line, NULL);
-	needed_text = ianjuta_editor_get_text (ed, scope_position,
-										   text_pos - scope_position, NULL);
-
-	if (needed_text == NULL)
-		DEBUG_PRINT ("needed_text is null");
-	DEBUG_PRINT ("text needed is %s", needed_text );
-	
-
-	/* we'll pass only the text of the current scope: i.e. only the current function
-	 * in which we request the completion. */
-	TMTag * found_type = anjuta_symbol_view_get_type_of_expression (symbol_view, 
-				needed_text, text_pos - scope_position, func_scope_tag, &access_method);
-
-				
-	if (found_type == NULL) {
-		DEBUG_PRINT ("type not found.");
-		return NULL;	
-	}
-	
-	/* get the completable memebers. If the access is COMPLETION_ACCESS_STATIC we don't
-	 * want to know the parents members of the class.
-	 */
-	if (access_method == COMPLETION_ACCESS_STATIC)
-		completable_tags_array = anjuta_symbol_view_get_completable_members (found_type, FALSE);
-	else
-		completable_tags_array = anjuta_symbol_view_get_completable_members (found_type, TRUE);
-	
-	if (completable_tags_array && completable_tags_array->len)
-	{
-		iter = anjuta_symbol_iter_new (completable_tags_array);
-		return IANJUTA_ITERABLE (iter);
-	}
-	return NULL;
-}
-
 static void
 isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
 	iface->search = isymbol_manager_search;
 	iface->get_members = isymbol_manager_get_members;
 	iface->get_parents = isymbol_manager_get_parents;
-	iface->get_completions_at_position = isymbol_manager_get_completions_at_position;
 }
 
 static void

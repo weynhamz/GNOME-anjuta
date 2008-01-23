@@ -1,3 +1,101 @@
+2008-01-23  Naba Kumar  <naba@gnome.org>
+
+	* libanjuta/interfaces/libanjuta.idl:
+	* manuals/reference/libanjuta/libanjuta-sections.txt:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(build_indicator_location_set), (on_editor_changed):
+	* plugins/debug-manager/plugin.c: (show_program_counter_in_editor):
+	* plugins/debug-manager/variable.c: (get_hovered_word):
+	* plugins/document-manager/action-callbacks.c:
+	(on_editor_command_upper_case_activate),
+	(on_editor_command_lower_case_activate):
+	* plugins/document-manager/search-box.c: (on_incremental_search),
+	(on_search_activated):
+	* plugins/editor/text-editor-iterable.c: (icell_get_attribute),
+	(iiter_last), (iiter_set_position), (iiter_get_position),
+	(iiter_get_length), (iiter_compare), (iiter_diff),
+	(iiter_iface_init):
+	* plugins/editor/text_editor.c: (text_editor_get_position_lineno),
+	(text_editor_goto_point), (itext_editor_goto_start),
+	(itext_editor_goto_end), (itext_editor_goto_position),
+	(itext_editor_get_text_all), (itext_editor_get_text),
+	(itext_editor_get_position), (itext_editor_get_offset),
+	(itext_editor_get_length), (itext_editor_insert),
+	(itext_editor_erase), (itext_editor_erase_all),
+	(itext_editor_get_column), (itext_editor_get_overwrite),
+	(itext_editor_set_popup_menu),
+	(itext_editor_get_line_from_position),
+	(itext_editor_get_line_begin_position),
+	(itext_editor_get_line_end_position),
+	(itext_editor_get_position_from_offset),
+	(itext_editor_get_start_position), (itext_editor_get_end_position),
+	(itext_editor_iface_init), (iconvert_to_upper),
+	(iconvert_to_lower), (iassist_suggest), (iassist_show_tips),
+	(iindicable_set):
+	* plugins/editor/text_editor.h:
+	* plugins/editor/text_editor_cbs.c:
+	(on_text_editor_scintilla_notify):
+	* plugins/indent/plugin.c: (on_indent_action_activate):
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(cpp_java_assist_get_scope_context),
+	(cpp_java_assist_get_pre_word),
+	(cpp_java_assist_show_autocomplete),
+	(cpp_java_assist_show_calltip), (cpp_java_assist_check),
+	(on_editor_char_added), (on_assist_chosen):
+	* plugins/language-support-cpp-java/plugin.c:
+	(get_line_indentation), (skip_iter_to_previous_logical_line),
+	(skip_preprocessor_lines), (initialize_indentation_params),
+	(set_line_indentation), (get_line_indentation_base),
+	(get_line_auto_indentation), (on_editor_char_inserted_cpp),
+	(on_editor_char_inserted_java), (on_auto_indent):
+	* plugins/macro/macro-actions.c: (match_shortcut):
+	* plugins/macro/macro-dialog.c: (on_ok_clicked):
+	* plugins/macro/plugin.c: (match_keyword):
+	* plugins/search/plugin.c: (find_incremental):
+	* plugins/search/search-replace.c: (search_and_replace),
+	(search_start_over):
+	* plugins/search/search-replace_backend.c:
+	(file_buffer_new_from_te), (file_buffer_line_from_pos),
+	(create_search_entries):
+	* plugins/symbol-browser/plugin.c:
+	(on_editor_buffer_symbols_update_timeout), (on_char_added),
+	(isymbol_manager_iface_init):
+	* plugins/symbol-db/plugin.c:
+	(on_editor_buffer_symbols_update_timeout), (on_char_added),
+	(isymbol_manager_iface_init):
+	* plugins/tools/execute.c: (atp_output_context_construct),
+	(atp_output_context_destroy), (atp_user_tool_execute):
+
+	Update IAnjutaEditor and IAnjutaIndicable interfaces to take
+	iterators instead of integer offsets.
+	- Renamed original ianjuta_editor_get_position(int) to 
+	ianjuta_editor_get_offset(). It is deprecated.
+	- Renamed original ianjuta_editor_get_position_iter() to
+	ianjuta_editor_get_position().
+	- Renamed ianjuta_editor_get_cell_iter() to
+	ianjuta_editor_get_position_from_offset()
+	- Renamed ianjuta_editor_get_text_iter() to ianjuta_editor_get_text()
+	- Added new methods:
+	ianjuta_editor_get_start_position(), ianjuta_editor_get_end_position()
+	ianjuta_editor_get_text_all(), ianjuta_editor_goto_start(),
+	ianjuta_editor_goto_end().
+	- All relevent signals and methods converted to use iterators.
+	- All relevent plugins fixed to use new API.
+	- Removed ianjuta_editor_cell_get_line() because it is provided by
+	ianjuta_editor_get_line_from_position().
+	- Removed ianjuta_symbol_manager_get_completions_at_position()
+	because it not used anywhere and is not right to be there.
+	- Updated IAnjutaEditable documentation.
+
+	Updated IAnjutaIterable interface:
+	- ianjuta_iterable_compare() and ianjuta_iterable_diff()
+	- Introduced 'end-iter' to point at the end of the list.
+	- Updated IAnjutaIterable documentation.
+
+	* plugins/Makefile.am:
+	(Disabled sourceview plugin for now. Jhs is coming up with a patch
+	for it soon).
+
 2008-01-22  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/file-wizard/anjuta-file-wizard.plugin.in:

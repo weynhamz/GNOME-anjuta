@@ -26,7 +26,6 @@ SUBDIRS = . \
 	document-manager \
 	search \
 	valgrind \
-	sourceview \
 	language-support-cpp-java \
 	glade \
 	devhelp \
@@ -34,6 +33,7 @@ SUBDIRS = . \
 	language-manager \
 	symbol-db
 # indent
+# sourceview
 
 ## This a temporary measure to insure anjuta does not crash due to old plugin.
 ## Make sure there are no old plugins left

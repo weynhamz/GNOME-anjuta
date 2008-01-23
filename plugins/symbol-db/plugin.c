@@ -118,7 +118,7 @@ on_editor_buffer_symbols_update_timeout (gpointer user_data)
 		ed = IANJUTA_EDITOR (sdb_plugin->current_editor);
 		
 		buffer_size = ianjuta_editor_get_length (ed, NULL);
-		current_buffer = ianjuta_editor_get_text (ed, 0, -1, NULL);
+		current_buffer = ianjuta_editor_get_text_all (ed, NULL);
 				
 		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), NULL);		
 	} 
@@ -228,10 +228,10 @@ on_editor_update_ui (IAnjutaEditor *editor, SymbolDBPlugin *sdb_plugin)
 }
 
 static void
-on_char_added (IAnjutaEditor *editor, gint position, gchar ch,
+on_char_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar ch,
 			   SymbolDBPlugin *sdb_plugin)
 {
-	DEBUG_PRINT ("char added @ %d : %c [int %d]", position, ch, ch);
+	DEBUG_PRINT ("char added: %c [int %d]", ch, ch);
 	
 	if (timer == NULL)
 	{
@@ -1262,27 +1262,12 @@ isymbol_manager_get_parents (IAnjutaSymbolManager *sm,
 	return NULL;
 }
 
-static IAnjutaIterable*
-isymbol_manager_get_completions_at_position (IAnjutaSymbolManager *sm,
-											const gchar *file_uri,
-							 				const gchar *text_buffer, 
-											gint text_length, 
-											gint text_pos,
-							 				GError **err)
-{
-	/* TODO */
-	DEBUG_PRINT ("TODO: isymbol_manager_get_completions_at_position ()");
-	return NULL;
-}
-
-
 static void
 isymbol_manager_iface_init (IAnjutaSymbolManagerIface *iface)
 {
 	iface->search = isymbol_manager_search;
 	iface->get_members = isymbol_manager_get_members;
 	iface->get_parents = isymbol_manager_get_parents;
-	iface->get_completions_at_position = isymbol_manager_get_completions_at_position;
 }
 
 ANJUTA_PLUGIN_BEGIN (SymbolDBPlugin, symbol_db);

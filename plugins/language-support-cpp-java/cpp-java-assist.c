@@ -179,6 +179,8 @@ cpp_java_assist_get_scope_context (IAnjutaEditor* editor,
 	gboolean scope_chars_found = FALSE;
 	
 	end = ianjuta_iterable_clone (iter, NULL);
+	ianjuta_iterable_next (end, NULL);
+	
 	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
 	
 	while (ch && is_scope_context_character (ch))
@@ -197,7 +199,7 @@ cpp_java_assist_get_scope_context (IAnjutaEditor* editor,
 		begin = ianjuta_iterable_clone (iter, NULL);
 		if (!out_of_range)
 			ianjuta_iterable_next (begin, NULL);
-		scope_chars = ianjuta_editor_get_text_iter (editor, begin, end, NULL);
+		scope_chars = ianjuta_editor_get_text (editor, begin, end, NULL);
 		g_object_unref (begin);
 	}
 	g_object_unref (end);
@@ -213,6 +215,8 @@ cpp_java_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter)
 	gboolean preword_found = TRUE;
 	
 	end = ianjuta_iterable_clone (iter, NULL);
+	ianjuta_iterable_next (end, NULL);
+
 	ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0, NULL);
 	
 	while (ch && is_word_character (ch))
@@ -231,7 +235,7 @@ cpp_java_assist_get_pre_word (IAnjutaEditor* editor, IAnjutaIterable *iter)
 		IAnjutaIterable *begin = ianjuta_iterable_clone (iter, NULL);
 		if (!out_of_range)
 			ianjuta_iterable_next (begin, NULL);
-		preword_chars = ianjuta_editor_get_text_iter (editor, begin, end, NULL);
+		preword_chars = ianjuta_editor_get_text (editor, begin, end, NULL);
 		g_object_unref (begin);
 	}
 	g_object_unref (end);
@@ -347,7 +351,8 @@ static gboolean
 cpp_java_assist_show_autocomplete (CppJavaAssist *assist,
 								   const gchar *pre_word)
 {
-	gint position, max_completions, length;
+	IAnjutaIterable *position;
+	gint max_completions, length;
 	GList *completion_list;
 
 	if (assist->priv->completion_cache == NULL) return FALSE;	
@@ -417,6 +422,7 @@ cpp_java_assist_show_autocomplete (CppJavaAssist *assist,
 			return TRUE;
 		}
 	}
+	g_object_unref (position);
 	return FALSE;
 }
 
@@ -529,7 +535,6 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 		if (tips)
 		{
 			/* Calculate calltip offset from context offset */
-			gint position = ianjuta_iterable_get_position (position_iter, NULL);
 			gint char_alignment =
 				get_iter_column (assist, position_iter)- context_offset;
 			
@@ -537,7 +542,7 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 				char_alignment = context_offset;
 			
 			ianjuta_editor_assist_show_tips (assist->priv->iassist, tips,
-											 position + 1, char_alignment,
+											 position_iter, char_alignment,
 											 NULL);
 			g_list_foreach (tips, (GFunc) g_free, NULL);
 			g_list_free (tips);
@@ -551,7 +556,6 @@ gboolean
 cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 					   gboolean calltips)
 {
-	gint position;
 	gboolean shown = FALSE;
 	IAnjutaEditor *editor;
 	IAnjutaIterable *iter, *iter_save;
@@ -569,8 +573,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 	
 	editor = IANJUTA_EDITOR (assist->priv->iassist);
 	
-	position = ianjuta_editor_get_position (editor, NULL);
-	iter = ianjuta_editor_get_cell_iter (editor, position, NULL);
+	iter = ianjuta_editor_get_position (editor, NULL);
 	ianjuta_iterable_previous (iter, NULL);
 	iter_save = ianjuta_iterable_clone (iter, NULL);
 	
@@ -676,8 +679,8 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 }
 
 static void
-on_editor_char_added (IAnjutaEditor *editor, gint insert_pos, gchar ch,
-					  CppJavaAssist *assist)
+on_editor_char_added (IAnjutaEditor *editor, IAnjutaIterable *insert_pos,
+					  gchar ch, CppJavaAssist *assist)
 {
 	gboolean enable_complete =
 		anjuta_preferences_get_int_with_default (assist->priv->preferences,
@@ -696,7 +699,7 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 				  CppJavaAssist* assist)
 {
 	CppJavaAssistTag *tag;
-	gint cur_pos;
+	IAnjutaIterable *cur_pos;
 	GString *assistance;
 	IAnjutaEditor *te;
 	IAnjutaIterable *iter;
@@ -734,7 +737,7 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	
 	te = IANJUTA_EDITOR (assist->priv->iassist);
 	cur_pos = ianjuta_editor_get_position (te, NULL);
-	iter = ianjuta_editor_get_cell_iter (te, cur_pos, NULL);
+	iter = ianjuta_iterable_clone (cur_pos, NULL);
 	
 	if (ianjuta_iterable_previous (iter, NULL))
 	{
@@ -744,14 +747,11 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	ianjuta_document_begin_undo_action (IANJUTA_DOCUMENT (te), NULL);
 	if (pre_word)
 	{
-		IAnjutaIterable *cursor_iter =
-			ianjuta_editor_get_cell_iter (te, cur_pos, NULL);
 		ianjuta_iterable_next (iter, NULL);
 		ianjuta_editor_selection_set (IANJUTA_EDITOR_SELECTION (te),
-									  iter, cursor_iter, NULL);
+									  iter, cur_pos, NULL);
 		ianjuta_editor_selection_replace (IANJUTA_EDITOR_SELECTION (te),
 										  assistance->str, -1, NULL);
-		g_object_unref (cursor_iter);
 		g_free (pre_word);
 	}
 	else
@@ -759,6 +759,7 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 		ianjuta_editor_insert (te, cur_pos, assistance->str, -1, NULL);
 	}
 	g_object_unref (iter);
+	g_object_unref (cur_pos);
 
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT (te), NULL);
 	

@@ -67,7 +67,7 @@ typedef struct
 	gboolean created;
 	GString* buffer;
 	IAnjutaEditor* editor;
-	guint position;
+	IAnjutaIterable *position;
 } ATPOutputContext;
 
 /* Execute information
@@ -669,7 +669,8 @@ atp_output_context_construct (ATPOutputContext *this,
 	this->execution = execution;
 	this->view = NULL;
 	this->buffer = NULL;
-
+	this->position = NULL;
+	
 	return atp_output_context_initialize (this, execution, type);
 }
 
@@ -688,6 +689,10 @@ atp_output_context_destroy (ATPOutputContext *this)
 	if (this->buffer)
 	{
 		g_string_free (this->buffer, TRUE);
+	}
+	if (this->position)
+	{
+		g_object_unref (this->position);
 	}
 }
 
@@ -984,7 +989,7 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 			ed = get_current_editor(docman);
 			if (ed != NULL)
 			{
-				input = ianjuta_editor_get_text (ed, 0, -1, NULL);
+				input = ianjuta_editor_get_text_all (ed, NULL);
 			}
 			break;
 		case ATP_TIN_SELECTION:

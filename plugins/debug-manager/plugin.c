@@ -157,11 +157,15 @@ show_program_counter_in_editor(DebugManagerPlugin *self)
 		}
 		if (IANJUTA_IS_INDICABLE(editor))
 		{
-			gint begin = ianjuta_editor_get_line_begin_position(editor, self->pc_line, NULL);
-			gint end = ianjuta_editor_get_line_end_position(editor, self->pc_line, NULL);
+			IAnjutaIterable *begin =
+				ianjuta_editor_get_line_begin_position(editor, self->pc_line, NULL);
+			IAnjutaIterable *end =
+				ianjuta_editor_get_line_end_position(editor, self->pc_line, NULL);
 			
-			ianjuta_indicable_set(IANJUTA_INDICABLE(editor), begin, end, IANJUTA_INDICABLE_IMPORTANT,
-				NULL);
+			ianjuta_indicable_set(IANJUTA_INDICABLE(editor), begin, end,
+								  IANJUTA_INDICABLE_IMPORTANT, NULL);
+			g_object_unref (begin);
+			g_object_unref (end);
 		}		
 	}
 }

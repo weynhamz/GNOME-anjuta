@@ -284,6 +284,7 @@ interface IAnjutaMarkable
  */
 interface IAnjutaIndicable
 {
+	#include <libanjuta/interfaces/ianjuta-iterable.h>
 	enum Indicator
 	{
 		NONE,
@@ -292,7 +293,7 @@ interface IAnjutaIndicable
 		CRITICAL
 	}
 	
-	void set (gint begin_location, gint end_location, Indicator indicator);
+	void set (IAnjutaIterable *begin_location, IAnjutaIterable *end_location, Indicator indicator);
 	void clear ();
 }
 
@@ -314,6 +315,7 @@ interface IAnjutaIterable
 	*
 	* Set iter to first element position. Returns FALSE if
 	* there is no element in the iterable (hence does not have first).
+	* The iter points to the first valid item.
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
@@ -324,10 +326,13 @@ interface IAnjutaIterable
 	* @obj: Self
 	* @err: Error propagation and reporting
 	*
-	* Set the iter position to next element position. Returns FALSE if there
-	* is no next element and the iter remains pointed to the last element.
+	* Set the iter position to next element position. Iter can go until one
+	* item past the last item and lands in end-iter. end-iter does not point
+	* to any valid item and signifies end of the list. Returns FALSE if iter
+	* was already at end-iter (iter can not go past it) and remains pointed
+	* to the end-iter.
 	*
-	* Returns: TRUE if sucessful, other FALSE..
+	* Returns: TRUE if sucessful, otherwise FALSE if already at end-iter.
 	*/
 	gboolean next ();
 	
@@ -349,8 +354,9 @@ interface IAnjutaIterable
 	* @obj: Self
 	* @err: Error propagation and reporting
 	* 
-	* Set iter position to last element position. Returns FALSE if
-	* there is no element in the iterable (hence does not have last).
+	* Set iter position to end-iter (one past last element) position.
+	* Returns FALSE if there is no element in the iterable (already
+	* at end-iter).
 	*
 	* Returns: TRUE if sucessful, other FALSE.
 	*/
@@ -377,12 +383,14 @@ interface IAnjutaIterable
 	* @err: Error propagation and reporting
 	* 
 	* Sets the current position of the iter to @position. The given @position
-	* must be from 0 to length - 1 (ianjuta_iter_get_length()), otherwise
-	* FLASE will be returned. If invalid iter @position is given, the current
-	* iter position is not altered.
+	* must be from 0 to length - 1 (#ianjuta_iter_get_length()) to point to
+	* a valid element. Passing @position < 0 will set it to end-iter. It
+	* returns TRUE for the above cases. FLASE will be returned, if
+	* out-of-range @position is passed (@position > length - 1) and iter is
+	* set to end-iter.
 	*
-	* Returns: TRUE if successfully set (i.e. @position is within the range).
-	* otherwise returns FALSE (i.e. @position is out of data range).
+	* Returns: TRUE if successfully set (i.e. @position is within the range or
+	* end-iter). otherwise returns FALSE (i.e. @position is out of data range).
 	*/
 	gboolean set_position (gint position);
 	
@@ -392,9 +400,10 @@ interface IAnjutaIterable
 	* @err: Error propagation and reporting
 	*
 	* Index of the current iter in the iterable. It will be
-	* from 0 to length - 1 (ianjuta_iter_get_length())
+	* from 0 to length - 1 (ianjuta_iter_get_length()) if iter is pointed
+	* at valid element. It will return -1 if iter is pointed at end-iter.
 	*
-	* Returns: integer index.
+	* Returns: integer index, or -1 for end-iter.
 	*/
 	gint get_position ();
 
@@ -403,7 +412,7 @@ interface IAnjutaIterable
 	* @obj: Self
 	* @err: Error propagation and reporting
 	* 
-	* Length of the iterable
+	* Length of the iterable (number of elements indexable by it).
 	*
 	* Returns: total length of the list.
 	*/
@@ -432,6 +441,38 @@ interface IAnjutaIterable
 	*/
 	void assign (IAnjutaIterable *src_iter);
 
+	/**
+	* ianjuta_iterable_compare:
+	* @obj: Self
+	* @iter2: Second iter to compare.
+	* @err: Error propagation and reporting
+	* 
+	* Compares the position of @iter2 with this @obj. Returns -1
+	* value if this @obj is smaller than @iter2. Returns +1 value
+	* if this @obj is larger than @iter2. And returns 0 if both are equal.
+	* If you want difference of the iter positions, use
+	* #ianjuta_iterable_diff(). This method is meant for fast comparision.
+	* 
+	* Returns: 0 if equal, -1 if @obj is smaller than @iter2
+	* or +1 if @obj is larger than @iter2.
+	*
+	*/
+	gint compare (IAnjutaIterable *iter2);
+	
+	/**
+	* ianjuta_iterable_diff:
+	* @obj: Self
+	* @iter2: Second iter to differenciate.
+	* @err: Error propagation and reporting
+	* 
+	* Compares the position of @iter2 with this @obj and returns difference
+	* in position of the two (@obj - @iter2).
+	* 
+	* Returns: The position difference of @obj - @iter2
+	*
+	*/
+	gint diff (IAnjutaIterable *iter2);
+	
 	/**
 	 * SECTION:ianjuta-iterable-tree
 	 * @title: IAnjutaIterableTree
@@ -919,18 +960,18 @@ interface IAnjutaEditor
 	
 	/**
 	 * IAnjutaEditor::char_added:
-	 * @position: The position where @ch is added.
+	 * @position: The iter position where @ch is added.
 	 * @ch: The character that has been added.
 	 * @obj: Self
 	 * 
 	 * This signal is emitted when any character is added inside the editor.
 	 * The newly added character is @ch which has been inserted at @position.
 	 */
-	void   ::char_added (gint position, gchar ch);
+	void   ::char_added (GObject *position, gchar ch);
 	
 	/**
 	 * IAnjutaEditor::changed:
-	 * @position: The position where change happend.
+	 * @position: The iter position where change happend.
 	 * @added: TRUE if added, FALSE if deleted.
 	 * @length: Length of the text changed.
 	 * @lines: Number of lines added or removed.
@@ -942,7 +983,7 @@ interface IAnjutaEditor
 	 * terminated. Use @length to read the text. @lines represent the
 	 * number of line breaks in the added or removed text.
 	 */
-	void   ::changed (gint position, gboolean added, gint length, gint lines, const gchar *text);
+	void   ::changed (GObject *position, gboolean added, gint length, gint lines, const gchar *text);
 	
 	/**
 	 * ianjuta_editor_get_tabsize:
@@ -995,27 +1036,34 @@ interface IAnjutaEditor
 	 * custom auto-indent can set this to false and override the preferences
 	 * setting
 	 */
-	void set_auto_indent(gboolean auto_indent);
+	void set_auto_indent (gboolean auto_indent);
 	
 	/**
-	 * ianjuta_editor_erase:
+	 * ianjuta_editor_erase_range:
 	 * @obj: Self
-	 * @position: Start position of chars to erase. Must be 0 or more.
-	 * @length: number of chars to erase. -1 means till the end of document.
+	 * @position_start: Start position of chars to erase.
+	 * @position_end: End position of chars to erase.
 	 * @err: Error propagation and reporting
 	 *
-	 * Erases the @length number of chars starting from @position. If length
-	 * is 0, nothing happens.
+	 * Erases the chars between positions pointed by @position_start and
+	 * @position_end. The character pointed by @position_start is included,
+	 * while pointed by @position_end is not include in the range. After
+	 * the erase operation, all active iters, except these two, are no
+	 * longer guranteed to be valid. At the end the operation, these two
+	 * iters point to the same position which is the position where erase
+	 * happend (usually the original @position_start position).
 	 */
-	void   erase (gint position, gint length);
+	void   erase (IAnjutaIterable *position_start, IAnjutaIterable *position_end);
 	
-	/**
+ 	/**
 	 * ianjuta_editor_erase_all:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
+ 	 * @obj: Self
+ 	 * @err: Error propagation and reporting
+ 	 *
 	 * Empties the whole editor buffer. There will be zero characters.
-	 */
+	 * After the erase operation, none of the active iters are guranteed
+	 * to be valid. 
+ 	 */
 	void   erase_all ();
 	
 	/**
@@ -1029,7 +1077,7 @@ interface IAnjutaEditor
 	 * Inserts @length characters from @text buffer at given @position of
 	 * editor buffer. If @length is -1, the whole @text is used.
 	 */
-	void   insert (int position, const gchar *text, gint length);
+	void   insert (IAnjutaIterable *position, const gchar *text, gint length);
 	
 	/**
 	 * ianjuta_editor_append:
@@ -1039,7 +1087,7 @@ interface IAnjutaEditor
 	 * @err: Error propagation and reporting
 	 *
 	 * Appends @length characters from @text buffer at the end of editor
-	 * buffer. If @length is -1, the whole @text is used.
+	 * buffer. If @length is -1, the whole @text is used. @length is in bytes.
 	 */
 	void   append (const gchar *text, gint length);
 	
@@ -1055,6 +1103,26 @@ interface IAnjutaEditor
 	void   goto_line (gint lineno);
 	
 	/**
+	 * ianjuta_editor_goto_start:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Carat is moved to the begining of editor and text view is scrolled to
+	 * bring it in viewable area of the editor.
+	 */
+	void   goto_start ();
+	
+	/**
+	 * ianjuta_editor_goto_end:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Carat is moved to the end of editor and text view is scrolled to
+	 * bring it in viewable area of the editor.
+	 */
+	void   goto_end ();
+	
+	/**
 	 * ianjuta_editor_goto_position:
 	 * @obj: Self
 	 * @position: Character position where carat will be moved.
@@ -1063,64 +1131,39 @@ interface IAnjutaEditor
 	 * Carat is moved to the given @position and text view is scrolled to
 	 * bring @position in viewable area of the editor.
 	 */
-	void goto_position (gint position);
+	void goto_position (IAnjutaIterable *position);
 	
 	/**
 	 * ianjuta_editor_get_text:
-	 * @obj: Self
-	 * @position: Begining position. Must be greater than or equal to 0.
-	 * @length: length of the text. -1 means till the end of document.
-	 * @err: Error propagation and reporting
-	 *
-	 * Gets @length text characters beginning from @position
-	 * (including char pointed by @position). If @length is less then
-	 * 0 or exceeds document length, text till the end of the document is
-	 * returned. @start must be 0 or greater then 0. If @start is beyond
-	 * document length, NULL is returned. If @length is 0, NULL is returned.
-	 * The characters returned are utf-8 encoded.
-	 *
-	 * Returns: A buffer of utf-8 characters.
-	 * The returned buffer must be freed when no longer required.
-	 */
-	gchar* get_text (gint position, gint length);
-
-	/**
-	 * ianjuta_editor_get_text_iter:
 	 * @obj: Self
 	 * @begin: Begining iterator
 	 * @end: End iterator
 	 * @err: Error propagation and reporting
 	 *
-	 * Gets text characters beginning from @begin
-	 * (including char pointed by @begin) and ending with @end
-	 * The characters returned are utf-8 encoded.
+	 * Gets text characters beginning from @begin (including char
+	 * pointed by @begin) and ending with @end (excluding character
+	 * pointed by @end). The characters returned are utf-8 encoded.
+	 * The iterators @begin and @end could be in either order. The returned
+	 * text, however, is in right order. If both @begin and @end points
+	 * to the same position, NULL is returned.
 	 *
 	 * Returns: A buffer of utf-8 characters.
 	 * The returned buffer must be freed when no longer required.
 	 */
-	gchar* get_text_iter (IAnjutaIterable* begin, IAnjutaIterable* end);
+	gchar* get_text (IAnjutaIterable *begin, IAnjutaIterable *end);
 
-	/*
-	 * ianjuta_editor_get_position:
+	/**
+	 * ianjuta_editor_get_text_all:
 	 * @obj: Self
 	 * @err: Error propagation and reporting
 	 *
-	 * Get current caret position
+	 * Gets all text characters in the editor.
+	 * The characters returned are utf-8 encoded.
 	 *
-	 * Returns: Current character position since the begining of file.
+	 * Returns: A buffer of utf-8 characters containing all text from editor.
+	 * The returned buffer must be freed when no longer required.
 	 */
-	gint   get_position ();
-	
-	/*
-	 * ianjuta_editor_get_position_iter:
-	 * @obj: Self
-	 * @err: Error propagation and reporting
-	 *
-	 * Get current caret position
-	 *
-	 * Returns: Iterator that points to the current position
-	 */
-	IAnjutaIterable*   get_position_iter ();
+	gchar* get_text_all ();
 	
 	/**
 	 * ianjuta_editor_line_from_position:
@@ -1132,7 +1175,7 @@ interface IAnjutaEditor
 	 * Returns: Line which corresponds to @position
 	 *
 	 */
-	int get_line_from_position (int position);
+	int get_line_from_position (IAnjutaIterable *position);
 	
 	/**
 	 * ianjuta_editor_get_lineno:
@@ -1189,7 +1232,7 @@ interface IAnjutaEditor
 	*
 	* Returns: fixme
 	*/
-	gint get_line_begin_position (gint line);
+	IAnjutaIterable* get_line_begin_position (gint line);
 	
 	/**
 	* ianjuta_editor_get_line_end_position:
@@ -1201,7 +1244,7 @@ interface IAnjutaEditor
 	* 
 	* Returns: fixme
 	*/
-	gint get_line_end_position (gint line);
+	IAnjutaIterable *get_line_end_position (gint line);
 	
 	/**
 	 * ianjuta_editor_get_overwrite:
@@ -1227,33 +1270,75 @@ interface IAnjutaEditor
 	 */
 	void set_popup_menu (GtkWidget *menu);
 	
-	/**
-	 * ianjuta_editor_get_cell_iter:
+	/*
+	 * ianjuta_editor_get_offset:
 	 * @obj: Self
-	 * @position: Byte position where the iter will be set
+	 * @err: Error propagation and reporting
+	 *
+	 * Get current caret position in integer character offset. Deprecated.
+	 * Use ianjuta_editor_get_position() instead.
+	 *
+	 * Returns: Current character position since the begining of file.
+	 */
+	gint   get_offset ();
+	
+	/*
+	 * ianjuta_editor_get_position:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Get current caret position.
+	 *
+	 * Returns: Iterator that points to the current position.
+	 */
+	IAnjutaIterable*   get_position ();
+	
+	/**
+	 * ianjuta_editor_get_position_from_offset:
+	 * @obj: Self
+	 * @offset: Character offset position where the iter will be set
 	 * @err: Error propagation and reporting
 	 *
 	 * Creates and returns an iter for editor cells. The iter is
-	 * placed at the unicode character position where the given byte
-     * @position happens to fall (means given @position does not necessarily
-	 * is the current position of the iter). The returned iter
-	 * is cell (character) iter and not byte iter, so all iter operations
+	 * placed at the unicode character position where the given offset
+     * @offset happens to fall. The returned iter is cell (character)
+	 * iter and not byte iter, so all iter operations
 	 * on it are character (not byte) iteration, including all position
-     * and index references in the iter. However, the @position paramter
-     * passed to this function is byte position (because all editor
- 	 * Aoperations are based on byte positions). @position could happen
-     * to be in the middle of a unicode character and that is a vaild
-     * situation.
+     * and index references in the iter.
      *
-     * The iter must be
-     * unreferrenced by the caller when done. The iter navigates
-     * (next/previous) in step of unicode characters (one unicode
- 	 * character == one cell).
+     * The iter must be unreferrenced by the caller when done.
+	 * The iter navigates (next/previous) in step of unicode
+	 * characters (one unicode character == one cell).
 	 * 
-	 * Retruns: a newly created iter of IAnjutaEditorCell placed at the
-	 * given position.
+	 * Retrun value: a newly created iter of IAnjutaEditorCell placed at the
+	 * given @offset position.
 	 */
-	IAnjutaIterable* get_cell_iter (gint position);
+	IAnjutaIterable* get_position_from_offset (gint offset);
+	
+	/**
+	 * ianjuta_editor_get_start_position:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Gets the iter positioned at the start of the editor buffer.
+	 *
+	 * Retrun value: Cell iter set to the begining of the editor.
+	 */
+	IAnjutaIterable* get_start_position ();
+	
+	/**
+	 * ianjuta_editor_get_end_position:
+	 * @obj: Self
+	 * @err: Error propagation and reporting
+	 *
+	 * Gets the iter positioned at the end of the editor buffer. The
+	 * returned iter is the end-iter which does not point to any valid
+	 * character in the buffer (it is pointed one step beyond the last
+	 * valid character).
+	 * 
+	 * Retrun value: Cell iter set to the end of the editor (end-iter).
+	 */
+	IAnjutaIterable* get_end_position ();
 
 	/**
 	 * SECTION:ianjuta-editor-selection
@@ -1452,7 +1537,7 @@ interface IAnjutaEditor
 		 * change characters from start position to end position to uppercase.
 		 *
 		 */
-		void to_upper (gint start_position, gint end_position);
+		void to_upper (IAnjutaIterable *start_position, IAnjutaIterable *end_position);
 		
 		/**
 		 * ianjuta_editor_convert_to_lower:
@@ -1464,7 +1549,7 @@ interface IAnjutaEditor
 		 * change characters from start position to end position to lowercase
 		 *
 		 */
-		void to_lower (gint start_position, gint end_position);
+		void to_lower (IAnjutaIterable *start_position, IAnjutaIterable *end_position);
 	}
 	
 	/**
@@ -1542,6 +1627,7 @@ interface IAnjutaEditor
 	{
 		/* IAnjutaEdiotrAssist::assist_chosen:
 		 * @obj: self
+		 * @selection: The selection index
 		 *
 		 * User's selection from the choices. It is the index of the choice
 		 * presented with ianjuta_editor_assist_suggest().
@@ -1561,7 +1647,7 @@ interface IAnjutaEditor
 		 * will occur
 		 *
 		 */
-		void suggest (List<const gchar*> choices, int position, int char_alignment);
+		void suggest (List<const gchar*> choices, IAnjutaIterable *position, int char_alignment);
 		
 		/** ianjuta_editor_assist_hide_suggestions
 		 * @obj: Self
@@ -1587,7 +1673,7 @@ interface IAnjutaEditor
 		 * position when the choices are displayed.
 		 *
 		 */
-		void show_tips (List<const gchar*> tips, gint position, gint char_alignment);
+		void show_tips (List<const gchar*> tips, IAnjutaIterable *position, gint char_alignment);
 		
 		/**
 		 * ianjuta_editor_assist_cancel_tip:
@@ -1941,17 +2027,6 @@ interface IAnjutaEditorCell
 	 */
 	gint get_length ();
 
-	/**
-	 * ianjuta_editor_cell_get_line:
-	 * @obj: self
-	 * @err: Error propagation and reporting.
-	 *
-	 * Get the line of the cell
-	 * 
-	 * Returns: Line of the cell
-	 */
-	gint get_line();
-	
 	/**
 	 * ianjuta_editor_cell_get_char:
 	 * @obj: Self
@@ -4339,18 +4414,6 @@ interface IAnjutaSymbolManager
 	* Returns: fixme
 	*/
 	IAnjutaIterable* get_parents (const gchar *symbol_name);
-	
-	/**
-	* ianjuta_symbol_manager_get_completions_at_position:
-	* @obj: Self
-	* @symbol_name: fixme
-	* @err: Error propagation and reporting.
-	* 
-	* fixme
-	* 
-	* Returns: fixme
-	*/
-	IAnjutaIterable* get_completions_at_position (const gchar* file_uri, const gchar *text_buffer, const gint text_length, const gint text_pos);
 }
 
 /**

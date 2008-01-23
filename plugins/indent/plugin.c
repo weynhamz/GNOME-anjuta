@@ -143,7 +143,7 @@ on_indent_action_activate (GtkAction *action, IndentPlugin *plugin)
 		DEBUG_PRINT ("Could not execute: %s", cmd);
 	}
 	
-	text = ianjuta_editor_get_text(plugin->current_editor, 0, -1, NULL);
+	text = ianjuta_editor_get_text_all (plugin->current_editor, NULL);
 	anjuta_launcher_set_terminal_echo (launcher, TRUE);
 	anjuta_launcher_send_stdin (launcher, text);
 	anjuta_launcher_send_stdin_eof (launcher);

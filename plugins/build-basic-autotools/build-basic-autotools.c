@@ -154,7 +154,7 @@ build_indicator_location_set (BuildIndicatorLocation *loc,
 							  IAnjutaEditor *editor,
 							  const gchar *editor_filename)
 {
-	gint line_start, line_end;
+	IAnjutaIterable *line_start, *line_end;
 	
 	if (editor && editor_filename &&
 		IANJUTA_IS_INDICABLE (editor) &&
@@ -162,14 +162,18 @@ build_indicator_location_set (BuildIndicatorLocation *loc,
 		strcmp (editor_filename, loc->filename) == 0)
 	{
 		DEBUG_PRINT ("loc line: %d", loc->line);
-	
+		
 		line_start = ianjuta_editor_get_line_begin_position (editor,
 															 loc->line, NULL);
+		
 		line_end = ianjuta_editor_get_line_end_position (editor,
 														 loc->line, NULL);
 		ianjuta_indicable_set (IANJUTA_INDICABLE (editor),
 							   line_start, line_end, loc->indicator,
 							   NULL);
+		
+		g_object_unref (line_start);
+		g_object_unref (line_end);
 	}
 }
 
@@ -1894,11 +1898,12 @@ on_editor_destroy (IAnjutaEditor *editor, BasicAutotoolsPlugin *ba_plugin)
 }
 
 static void
-on_editor_changed (IAnjutaEditor *editor, gint position, gboolean added,
-				   gint length, gint lines, const gchar *text,
+on_editor_changed (IAnjutaEditor *editor, IAnjutaIterable *position,
+				   gboolean added, gint length, gint lines, const gchar *text,
 				   BasicAutotoolsPlugin *ba_plugin)
 {
-	gint line, begin_pos, end_pos;
+	gint line;
+	IAnjutaIterable *begin_pos, *end_pos;
 	if (g_hash_table_lookup (ba_plugin->editors_created,
 							 editor) == NULL)
 		return;
@@ -1911,9 +1916,11 @@ on_editor_changed (IAnjutaEditor *editor, gint position, gboolean added,
 		ianjuta_indicable_set (IANJUTA_INDICABLE (editor), begin_pos,
 							   end_pos, IANJUTA_INDICABLE_NONE, NULL);
 	}
-	DEBUG_PRINT ("Editor changed: position = %d, added = %d,"
+	DEBUG_PRINT ("Editor changed: line = %d, added = %d,"
 				 " length = %d, lines = %d, text = \'%s\'",
-				 position, added, length, lines, text);
+				 line, added, length, lines, text);
+	g_object_unref (begin_pos);
+	g_object_unref (end_pos);
 }
 
 static void

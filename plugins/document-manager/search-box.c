@@ -250,13 +250,12 @@ on_incremental_search (GtkWidget* widget, SearchBox* search_box)
 	else
 	{
 		search_start = 
-			IANJUTA_EDITOR_CELL (ianjuta_editor_get_position_iter (private->current_editor, 
-																   NULL));
+			IANJUTA_EDITOR_CELL (ianjuta_editor_get_position (private->current_editor, 
+															  NULL));
 	}
 	
-	search_end = 
-		IANJUTA_EDITOR_CELL (ianjuta_iterable_clone (IANJUTA_ITERABLE (search_start), NULL));
-	ianjuta_iterable_last (IANJUTA_ITERABLE (search_end), NULL);
+	search_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_end_position (private->current_editor, 
+																		NULL));
 	
 	if (ianjuta_editor_search_forward (IANJUTA_EDITOR_SEARCH (private->current_editor),
 									   search_text, case_sensitive,
@@ -306,14 +305,13 @@ on_search_activated (GtkWidget* widget, SearchBox* search_box)
 		return;
 	
 	search_start = 
-		IANJUTA_EDITOR_CELL (ianjuta_editor_get_position_iter (private->current_editor, 
-															   NULL));
+		IANJUTA_EDITOR_CELL (ianjuta_editor_get_position (private->current_editor, 
+														  NULL));
 	real_start =
 			ianjuta_iterable_clone (IANJUTA_ITERABLE (search_start), NULL);
 	
-	search_end = 
-		IANJUTA_EDITOR_CELL (ianjuta_iterable_clone (IANJUTA_ITERABLE (search_start), NULL));
-	ianjuta_iterable_last (IANJUTA_ITERABLE (search_end), NULL);
+	search_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_end_position (private->current_editor, 
+																	   NULL));
 	
 	selection = IANJUTA_EDITOR_SELECTION (private->current_editor);
 	
@@ -325,8 +323,8 @@ on_search_activated (GtkWidget* widget, SearchBox* search_box)
 	{
 		IAnjutaIterable* selection_start = 
 			ianjuta_editor_selection_get_start (selection, NULL);
-		if (ianjuta_iterable_get_position (IANJUTA_ITERABLE (search_start), NULL) ==
-			ianjuta_iterable_get_position (selection_start, NULL))
+		if (ianjuta_iterable_compare (IANJUTA_ITERABLE (search_start),
+									  selection_start, NULL) == 0)
 		{
 			gchar* selected_text =
 				ianjuta_editor_selection_get (selection, NULL);
@@ -371,8 +369,8 @@ on_search_activated (GtkWidget* widget, SearchBox* search_box)
 										   &result_start,
 										   &result_end, NULL))
 		{
-			if (ianjuta_iterable_get_position (IANJUTA_ITERABLE (result_start), NULL)
-				!= ianjuta_iterable_get_position (real_start, NULL))
+			if (ianjuta_iterable_compare (IANJUTA_ITERABLE (result_start),
+										  real_start, NULL) != 0)
 			{
 				found = TRUE;
 				anjuta_status_push (private->status, 

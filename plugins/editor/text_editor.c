@@ -1,4 +1,4 @@
- /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /*
  * text_editor.c
  * Copyright (C) 2000 - 2004  Naba Kumar
@@ -798,6 +798,17 @@ text_editor_get_current_lineno (TextEditor * te)
 }
 
 guint
+text_editor_get_position_lineno (TextEditor * te, gint position)
+{
+	guint count;
+	g_return_val_if_fail (te != NULL, 0);
+
+	count =	scintilla_send_message (SCINTILLA (te->scintilla),
+					SCI_LINEFROMPOSITION, position, 0);
+	return linenum_scintilla_to_text_editor(count);
+}
+
+guint
 text_editor_get_current_column (TextEditor * te)
 {
 	g_return_val_if_fail (te != NULL, 0);
@@ -844,8 +855,7 @@ text_editor_goto_point (TextEditor * te, glong point)
 	g_return_val_if_fail (te != NULL, FALSE);
 	g_return_val_if_fail(IS_SCINTILLA (te->scintilla) == TRUE, FALSE);
 
-	scintilla_send_message (SCINTILLA (te->scintilla), SCI_GOTOPOS,
-				point, 0);
+	scintilla_send_message (SCINTILLA (te->scintilla), SCI_GOTOPOS, point, 0);
 	return TRUE;
 }
 
@@ -2231,72 +2241,62 @@ itext_editor_goto_line (IAnjutaEditor *editor, gint lineno, GError **e)
 }
 
 static void
-itext_editor_goto_position (IAnjutaEditor *editor, gint position, GError **e)
+itext_editor_goto_start (IAnjutaEditor *editor, GError **e)
 {
-	text_editor_goto_point (TEXT_EDITOR (editor), position);
+	text_editor_goto_point (TEXT_EDITOR (editor), 0);
 }
 
-static gchar*
-itext_editor_get_text (IAnjutaEditor *editor, gint position, gint length,
-					   GError **e)
+static void
+itext_editor_goto_end (IAnjutaEditor *editor, GError **e)
 {
-	gchar *data;
-	gint end;
-	TextEditor *te = TEXT_EDITOR (editor);
-
-	g_return_val_if_fail (position >= 0, NULL);
-	if (length == 0)
-		return NULL;
-
-	if (length < 0)
-		end = scintilla_send_message (SCINTILLA (te->scintilla),
-									  SCI_GETLENGTH, 0, 0);
-	else
-		end = position + length;
-	
-	/* Silently correct length like stated in the docs #506740 */
-	if (end > ianjuta_editor_get_length (editor, NULL))
-		end = -1;
-
-	data =	(gchar *) aneditor_command (te->editor_id,
-										ANE_GETTEXTRANGE, position, end);
-	return data;
+	text_editor_goto_point (TEXT_EDITOR (editor), -1);
 }
 
-static gchar*
-itext_editor_get_text_iter (IAnjutaEditor *editor, 
-							IAnjutaIterable* begin,
-							IAnjutaIterable* end,
+static void
+itext_editor_goto_position (IAnjutaEditor *editor, IAnjutaIterable *position,
 							GError **e)
+{
+	text_editor_goto_point (TEXT_EDITOR (editor),
+							text_editor_cell_get_position (TEXT_EDITOR_CELL
+														   (position)));
+}
+
+static gchar*
+itext_editor_get_text_all (IAnjutaEditor *editor, GError **e)
+{
+	TextEditor *te = TEXT_EDITOR (editor);
+	return (gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE, 0, -1);
+}
+
+static gchar*
+itext_editor_get_text (IAnjutaEditor *editor, IAnjutaIterable* begin,
+					   IAnjutaIterable* end, GError **e)
 {
 	gchar *data;
 	gint start_pos = text_editor_cell_get_position (TEXT_EDITOR_CELL (begin));
 	gint end_pos = text_editor_cell_get_position (TEXT_EDITOR_CELL (end));
-	gint after_end_pos; 
 	TextEditor *te = TEXT_EDITOR (editor);
-
-	/* get_text_iter includes the character at end in the range while 
-	 * ANE_GETTEXTRANGE excludes it. look for the character following end */
-	after_end_pos = scintilla_send_message (SCINTILLA ( te->scintilla), SCI_POSITIONAFTER, end_pos, 0);
-	if (after_end_pos == end_pos)
-	       	after_end_pos = -1; /* Reach end of buffer, Get all remain */
-
-	data =	(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE, start_pos, after_end_pos);
+	data =	(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE, start_pos, end_pos);
 	return data;
 }
 
-static gint
-itext_editor_get_position (IAnjutaEditor *editor, GError **e)
+static IAnjutaIterable*
+itext_editor_get_position (IAnjutaEditor* editor, GError **e)
 {
-	return text_editor_get_current_position (TEXT_EDITOR(editor));
+	TextEditor *te = TEXT_EDITOR (editor);
+	gint position = text_editor_get_current_position (te);
+	TextEditorCell *position_iter = text_editor_cell_new (te, position);
+	return IANJUTA_ITERABLE (position_iter);
 }
 
-static IAnjutaIterable*
-itext_editor_get_position_iter (IAnjutaEditor* editor, GError **e)
+static gint
+itext_editor_get_offset (IAnjutaEditor *editor, GError **e)
 {
-	TextEditor* te = TEXT_EDITOR (editor);
-	return IANJUTA_ITERABLE (text_editor_cell_new (te,
-												   text_editor_get_current_position (te)));
+	gint pos;
+	IAnjutaIterable *iter = itext_editor_get_position (editor, NULL);
+	pos = ianjuta_iterable_get_position (iter, NULL);
+	g_object_unref (iter);
+	return pos;
 }
 
 static gint
@@ -2308,8 +2308,15 @@ itext_editor_get_lineno (IAnjutaEditor *editor, GError **e)
 static gint
 itext_editor_get_length (IAnjutaEditor *editor, GError **e)
 {
-	return aneditor_command (TEXT_EDITOR (editor)->editor_id,
-							 ANE_GETLENGTH, 0, 0);
+	/* FIXME: Find a more optimal solution */
+	gint char_position;
+	gchar *data =
+		(gchar *) aneditor_command (TEXT_EDITOR (editor)->editor_id,
+									ANE_GETTEXTRANGE, 0,
+									-1);
+	char_position = g_utf8_strlen (data, -1);
+	g_free (data);
+	return char_position;
 }
 
 static gchar*
@@ -2326,8 +2333,8 @@ itext_editor_get_current_word (IAnjutaEditor *editor, GError **e)
 }
 
 static void
-itext_editor_insert (IAnjutaEditor *editor, gint pos, const gchar *txt,
-					 gint length, GError **e)
+itext_editor_insert (IAnjutaEditor *editor, IAnjutaIterable *position,
+					 const gchar *txt, gint length, GError **e)
 {
 	gchar *text_to_insert;
 	if (length >= 0)
@@ -2336,7 +2343,9 @@ itext_editor_insert (IAnjutaEditor *editor, gint pos, const gchar *txt,
 		text_to_insert = g_strdup (txt);
 	
 	aneditor_command (TEXT_EDITOR(editor)->editor_id, ANE_INSERTTEXT,
-					  pos, (long)text_to_insert);
+					  text_editor_cell_get_position
+					  (TEXT_EDITOR_CELL (position)),
+					  (long)text_to_insert);
 	g_free (text_to_insert);
 }
 
@@ -2357,87 +2366,128 @@ itext_editor_append (IAnjutaEditor *editor, const gchar *txt,
 }
 
 static void
-itext_editor_erase (IAnjutaEditor *editor, gint position, gint length,
-					GError **e)
+itext_editor_erase (IAnjutaEditor *editor,
+					IAnjutaIterable *position_start,
+					IAnjutaIterable *position_end, GError **e)
 {
-	gint end;
-
-	g_return_if_fail (position >= 0);
-	if (length == 0)
+	gint start, end;
+	
+	/* If both positions are NULL, erase all */
+	if (position_start == NULL && position_end == NULL)
+	{
+		scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla), 
+								SCI_CLEARALL,
+								0, 0);
 		return;
-
-	if (length < 0)
+	}
+	
+	/* Determine correct start and end byte positions */
+	if (position_start)
+		start = text_editor_cell_get_position (TEXT_EDITOR_CELL (position_start));
+	else
+		start = 0;
+	
+	if (position_end)
+		end = text_editor_cell_get_position (TEXT_EDITOR_CELL (position_end));
+	else
 		end = scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
 									  SCI_GETLENGTH, 0, 0);
-	else
-		end = position + length;
-
-	scintilla_send_message (SCINTILLA(TEXT_EDITOR (editor)->scintilla),
-						    SCI_SETSEL, position, end);
-	text_editor_replace_selection (TEXT_EDITOR (editor), "");
+	if (start != end)
+	{
+		scintilla_send_message (SCINTILLA(TEXT_EDITOR (editor)->scintilla),
+								SCI_SETSEL, start, end);
+		text_editor_replace_selection (TEXT_EDITOR (editor), "");
+	}
 }
 
 static void
 itext_editor_erase_all (IAnjutaEditor *editor, GError **e)
 {
-	scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla), SCI_CLEARALL,
+	scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla), 
+							SCI_CLEARALL,
 							0, 0);
 }
 
 static int
-itext_editor_get_column(IAnjutaEditor *editor, GError **e)
+itext_editor_get_column (IAnjutaEditor *editor, GError **e)
 {
-	return text_editor_get_current_column(TEXT_EDITOR(editor));
+	return text_editor_get_current_column (TEXT_EDITOR(editor));
 }
 
 static gboolean
-itext_editor_get_overwrite(IAnjutaEditor *editor, GError **e)
+itext_editor_get_overwrite (IAnjutaEditor *editor, GError **e)
 {
-	return text_editor_get_overwrite(TEXT_EDITOR(editor));
+	return text_editor_get_overwrite (TEXT_EDITOR (editor));
 }
 
 static void
-itext_editor_set_popup_menu(IAnjutaEditor *editor, GtkWidget* menu, GError **e)
+itext_editor_set_popup_menu (IAnjutaEditor *editor, GtkWidget* menu, GError **e)
 {
-	text_editor_set_popup_menu(TEXT_EDITOR(editor), menu);
+	text_editor_set_popup_menu (TEXT_EDITOR (editor), menu);
 }
 
 static gint
-itext_editor_get_line_from_position (IAnjutaEditor *editor, gint pos, GError **e)
+itext_editor_get_line_from_position (IAnjutaEditor *editor,
+									 IAnjutaIterable *position, GError **e)
 {
-	return text_editor_get_line_from_position (TEXT_EDITOR (editor), pos);
-}
-
-static gint
-itext_editor_get_line_begin_position (IAnjutaEditor *editor, gint line,
-									  GError **e)
-{
-	gint ln;
-	
-	g_return_val_if_fail (line > 0, -1);
-	
-	ln = linenum_text_editor_to_scintilla (line);
-	return scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
-								   SCI_POSITIONFROMLINE, ln, 0);
-}
-
-static gint
-itext_editor_get_line_end_position (IAnjutaEditor *editor, gint line,
-									  GError **e)
-{
-	gint ln;
-	
-	g_return_val_if_fail (line > 0, -1);
-	
-	ln = linenum_text_editor_to_scintilla (line);
-	return scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
-								   SCI_GETLINEENDPOSITION, ln, 0);
+	return text_editor_get_line_from_position (TEXT_EDITOR (editor),
+				text_editor_cell_get_position (TEXT_EDITOR_CELL (position)));
 }
 
 static IAnjutaIterable*
-itext_editor_get_cell_iter (IAnjutaEditor *editor, gint position, GError **e)
+itext_editor_get_line_begin_position (IAnjutaEditor *editor, gint line,
+									  GError **e)
 {
-	TextEditorCell *editor_cell = text_editor_cell_new (TEXT_EDITOR (editor), position);
+	gint ln, byte_pos;
+	TextEditor *te;
+	
+	g_return_val_if_fail (line > 0, NULL);
+	te = TEXT_EDITOR (editor);
+	ln = linenum_text_editor_to_scintilla (line);
+	byte_pos = scintilla_send_message (SCINTILLA (te->scintilla),
+								   SCI_POSITIONFROMLINE, ln, 0);
+	return IANJUTA_ITERABLE (text_editor_cell_new (te, byte_pos));
+}
+
+static IAnjutaIterable*
+itext_editor_get_line_end_position (IAnjutaEditor *editor, gint line,
+									  GError **e)
+{
+	gint ln, byte_pos;
+	TextEditor *te;
+	
+	g_return_val_if_fail (line > 0, NULL);
+	te = TEXT_EDITOR (editor);
+	
+	ln = linenum_text_editor_to_scintilla (line);
+	byte_pos = scintilla_send_message (SCINTILLA (te->scintilla),
+								   SCI_GETLINEENDPOSITION, ln, 0);
+	return IANJUTA_ITERABLE (text_editor_cell_new (te, byte_pos));
+}
+
+static IAnjutaIterable*
+itext_editor_get_position_from_offset (IAnjutaEditor *editor, gint offset, GError **e)
+{
+	TextEditorCell *editor_cell = text_editor_cell_new (TEXT_EDITOR (editor), 0);
+	/* Set to the right utf8 character offset */
+	ianjuta_iterable_set_position (IANJUTA_ITERABLE (editor_cell), offset, NULL);
+	return IANJUTA_ITERABLE (editor_cell);
+}
+
+static IAnjutaIterable*
+itext_editor_get_start_position (IAnjutaEditor *editor, GError **e)
+{
+	TextEditorCell *editor_cell = text_editor_cell_new (TEXT_EDITOR (editor), 0);
+	return IANJUTA_ITERABLE (editor_cell);
+}
+
+static IAnjutaIterable*
+itext_editor_get_end_position (IAnjutaEditor *editor, GError **e)
+{
+	gint length = scintilla_send_message (SCINTILLA (TEXT_EDITOR (editor)->scintilla),
+										  SCI_GETLENGTH, 0, 0);
+	TextEditorCell *editor_cell = text_editor_cell_new (TEXT_EDITOR (editor),
+														length);
 	return IANJUTA_ITERABLE (editor_cell);
 }
 
@@ -2450,11 +2500,13 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->set_use_spaces = itext_editor_set_use_spaces;
 	iface->set_auto_indent = itext_editor_set_auto_indent;	
 	iface->goto_line = itext_editor_goto_line;
+	iface->goto_start = itext_editor_goto_start;
+	iface->goto_end = itext_editor_goto_end;
 	iface->goto_position = itext_editor_goto_position;
+	iface->get_text_all = itext_editor_get_text_all;
 	iface->get_text = itext_editor_get_text;
-	iface->get_text_iter = itext_editor_get_text_iter;	
+	iface->get_offset = itext_editor_get_offset;
 	iface->get_position = itext_editor_get_position;
-	iface->get_position_iter = itext_editor_get_position_iter;
 	iface->get_lineno = itext_editor_get_lineno;
 	iface->get_length = itext_editor_get_length;
 	iface->get_current_word = itext_editor_get_current_word;
@@ -2468,7 +2520,9 @@ itext_editor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_line_from_position = itext_editor_get_line_from_position;
 	iface->get_line_begin_position = itext_editor_get_line_begin_position;
 	iface->get_line_end_position = itext_editor_get_line_end_position;
-	iface->get_cell_iter = itext_editor_get_cell_iter;
+	iface->get_position_from_offset = itext_editor_get_position_from_offset;
+	iface->get_start_position = itext_editor_get_start_position;
+	iface->get_end_position = itext_editor_get_end_position;
 }
 
 static const gchar *
@@ -2913,21 +2967,27 @@ itext_editor_factory_iface_init (IAnjutaEditorFactoryIface *iface)
 /* IAnjutaEditorConvert implementation */
 
 static void
-iconvert_to_upper(IAnjutaEditorConvert* te, gint start_position,
-				  gint end_position, GError** ee)
+iconvert_to_upper (IAnjutaEditorConvert* te, IAnjutaIterable *start_position,
+				   IAnjutaIterable *end_position, GError** ee)
 {
+	gint start, end;
+	start = text_editor_cell_get_position (TEXT_EDITOR_CELL (start_position));
+	end = text_editor_cell_get_position (TEXT_EDITOR_CELL (end_position));
 	scintilla_send_message (SCINTILLA (TEXT_EDITOR(te)->scintilla),
-						   SCI_SETSEL, start_position, end_position);
+							SCI_SETSEL, start, end);
 	text_editor_command (TEXT_EDITOR(te), ANE_UPRCASE, 0, 0);
 }
 
 static void
-iconvert_to_lower(IAnjutaEditorConvert* te, gint start_position,
-				  gint end_position, GError** ee)
+iconvert_to_lower(IAnjutaEditorConvert* te, IAnjutaIterable *start_position,
+				  IAnjutaIterable *end_position, GError** ee)
 {
+	gint start, end;
+	start = text_editor_cell_get_position (TEXT_EDITOR_CELL (start_position));
+	end = text_editor_cell_get_position (TEXT_EDITOR_CELL (end_position));
 	scintilla_send_message (SCINTILLA (TEXT_EDITOR(te)->scintilla),
-						   SCI_SETSEL, start_position, end_position);
-	text_editor_command (TEXT_EDITOR(te), ANE_LWRCASE, 0, 0);	
+							SCI_SETSEL, start, end);
+	text_editor_command (TEXT_EDITOR (te), ANE_LWRCASE, 0, 0);	
 }
 
 static void
@@ -3040,7 +3100,7 @@ ilinemode_iface_init (IAnjutaEditorLineModeIface *iface)
 
 static void
 iassist_suggest (IAnjutaEditorAssist *iassist, GList* choices,
-				 gint position, int char_alignment, GError **err)
+				 IAnjutaIterable *position, int char_alignment, GError **err)
 {
 	GString *words;
 	GList *choice;
@@ -3100,7 +3160,7 @@ iassist_get_suggestions (IAnjutaEditorAssist *iassist, const gchar *context, GEr
 
 static void 
 iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips,
-				   gint position, gint char_alignment, GError **err)
+				   IAnjutaIterable *position, gint char_alignment, GError **err)
 {
 	gint lineno, cur_pos, cur_col, real_pos, real_col;
 	GString *calltip;
@@ -3287,31 +3347,29 @@ ibookmark_iface_init(IAnjutaBookmarkIface* iface)
 }
 
 static void
-iindicable_set (IAnjutaIndicable *te, gint begin_location, gint end_location,
+iindicable_set (IAnjutaIndicable *te, IAnjutaIterable *begin_location,
+				IAnjutaIterable *end_location,
 				IAnjutaIndicableIndicator indicator, GError **err)
 {
+	gint begin = text_editor_cell_get_position (TEXT_EDITOR_CELL (begin_location));
+	gint end = text_editor_cell_get_position (TEXT_EDITOR_CELL (end_location));
 	switch (indicator)
 	{
 		case IANJUTA_INDICABLE_NONE:
-			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
-									   end_location, -1);
+			text_editor_set_indicator (TEXT_EDITOR (te), begin, end, -1);
 		break;
 		case IANJUTA_INDICABLE_IMPORTANT:
-			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
-									   end_location, 0);
+			text_editor_set_indicator (TEXT_EDITOR (te), begin, end, 0);
 		break;
 		case IANJUTA_INDICABLE_WARNING:
-			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
-									   end_location, 1);
+			text_editor_set_indicator (TEXT_EDITOR (te),  begin, end, 1);
 		break;
 		case IANJUTA_INDICABLE_CRITICAL:
-			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
-									   end_location, 2);
+			text_editor_set_indicator (TEXT_EDITOR (te),  begin, end, 2);
 		break;
 		default:
 			g_warning ("Unsupported indicator %d", indicator);
-			text_editor_set_indicator (TEXT_EDITOR (te), begin_location,
-									   end_location, -1);
+			text_editor_set_indicator (TEXT_EDITOR (te),  begin, end, -1);
 		break;
 	}
 }

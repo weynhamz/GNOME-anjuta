@@ -408,10 +408,17 @@ search_and_replace (void)
 									(sr->docman, NULL));
 
 						if (IANJUTA_INDICABLE (fb->te))
-					/* end-location is correct for sourceview, 1-too-big for scintilla */
-						ianjuta_indicable_set (IANJUTA_INDICABLE(fb->te),  
-						                       mi->pos, mi->pos + mi->len,  
-					            					IANJUTA_INDICABLE_IMPORTANT, NULL);
+						{
+							IAnjutaIterable *start_pos, *end_pos;
+							/* end-location is correct for sourceview, 1-too-big for scintilla */
+							start_pos = ianjuta_editor_get_position_from_offset (fb->te, mi->pos, NULL);
+							end_pos = ianjuta_editor_get_position_from_offset (fb->te, mi->pos + mi->len, NULL);
+							ianjuta_indicable_set (IANJUTA_INDICABLE(fb->te),
+												   start_pos, end_pos,
+												   IANJUTA_INDICABLE_IMPORTANT, NULL);
+							g_object_unref (start_pos);
+							g_object_unref (end_pos);
+						}
 						break;
 
 					case SA_BOOKMARK:
@@ -448,8 +455,8 @@ search_and_replace (void)
 							found_line = mi->line;
 						}
 						{
-							IAnjutaIterable* start = ianjuta_editor_get_cell_iter (fb->te, mi->pos, NULL);
-							IAnjutaIterable* end = ianjuta_editor_get_cell_iter (fb->te, mi->pos + mi->len, NULL);
+							IAnjutaIterable* start = ianjuta_editor_get_position_from_offset (fb->te, mi->pos, NULL);
+							IAnjutaIterable* end = ianjuta_editor_get_position_from_offset (fb->te, mi->pos + mi->len, NULL);
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), 
 														 start,
 														 end,
@@ -476,8 +483,8 @@ search_and_replace (void)
 
 						if (!interactive)
 						{
-							IAnjutaIterable* start = ianjuta_editor_get_cell_iter (fb->te, mi->pos - offset, NULL);
-							IAnjutaIterable* end = ianjuta_editor_get_cell_iter (fb->te, mi->pos - offset + mi->len, NULL);
+							IAnjutaIterable* start = ianjuta_editor_get_position_from_offset (fb->te, mi->pos - offset, NULL);
+							IAnjutaIterable* end = ianjuta_editor_get_position_from_offset (fb->te, mi->pos - offset + mi->len, NULL);
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te), 
 														 start,
 														 end,
@@ -505,8 +512,8 @@ search_and_replace (void)
 								ch = NULL;
 						}
 							{
-								IAnjutaIterable* start = ianjuta_editor_get_cell_iter (fb->te, mi->pos - os, NULL);
-								IAnjutaIterable* end = ianjuta_editor_get_cell_iter (fb->te, mi->pos + mi->len - os, NULL);
+								IAnjutaIterable* start = ianjuta_editor_get_position_from_offset (fb->te, mi->pos - os, NULL);
+								IAnjutaIterable* end = ianjuta_editor_get_position_from_offset (fb->te, mi->pos + mi->len - os, NULL);
 								ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  
 															 start,														 
 															 end,
@@ -540,8 +547,8 @@ search_and_replace (void)
 						}
 						else
 						{
-							IAnjutaIterable* start = ianjuta_editor_get_cell_iter (fb->te, mi->pos - offset, NULL);
-							IAnjutaIterable* end = ianjuta_editor_get_cell_iter (fb->te, mi->pos + mi->len - offset, NULL);
+							IAnjutaIterable* start = ianjuta_editor_get_position_from_offset (fb->te, mi->pos - offset, NULL);
+							IAnjutaIterable* end = ianjuta_editor_get_position_from_offset (fb->te, mi->pos + mi->len - offset, NULL);
 							ianjuta_editor_selection_set(IANJUTA_EDITOR_SELECTION (fb->te),  
 														 start,
 														 end,
@@ -1011,18 +1018,15 @@ search_start_over (SearchDirection direction)
 	IAnjutaEditor *te = NULL;
 	if (IANJUTA_IS_EDITOR(doc))
 		te = IANJUTA_EDITOR(doc);
-	long length;
 	
 	if (te)
 	{
-		length = ianjuta_editor_get_length(te, NULL);;
-	
 		if (direction != SD_BACKWARD)
 			/* search from doc start */
-			ianjuta_editor_goto_position(te, 0, NULL);
+			ianjuta_editor_goto_start (te, NULL);
 		else
 			/* search from doc end */
-			ianjuta_editor_goto_position (te, length, NULL);
+			ianjuta_editor_goto_end (te, NULL);
 	}
 }
 

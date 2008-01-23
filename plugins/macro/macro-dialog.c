@@ -49,7 +49,6 @@ on_ok_clicked (MacroPlugin * plugin)
 	GtkTreeIter iter;
 	gchar* text;
 	gint offset = 0;
-	gint pos;
 	
 	g_return_if_fail (plugin != NULL);
 	g_return_if_fail (model != NULL);
@@ -61,13 +60,17 @@ on_ok_clicked (MacroPlugin * plugin)
 	{
 		if (plugin->current_editor != NULL)
 		{
+			gint i;
+			IAnjutaIterable *pos;
 			pos = ianjuta_editor_get_position (IANJUTA_EDITOR(plugin->current_editor),
-			                                   NULL);
+											   NULL);
 			ianjuta_editor_insert (IANJUTA_EDITOR(plugin->current_editor),
 			                       pos, text, -1, NULL);
+			for (i = 0; i < offset; i++)
+				ianjuta_iterable_next (pos, NULL);
 			ianjuta_editor_goto_position (IANJUTA_EDITOR(plugin->current_editor), 
-			                              pos + offset, 
-			                              NULL);
+			                              pos, NULL);
+			g_object_unref (pos);
 		}
 		g_free(text);
 		gtk_widget_hide (plugin->macro_dialog);

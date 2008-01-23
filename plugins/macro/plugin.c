@@ -186,7 +186,6 @@ match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, const gchar *keyword)
 {
 	gchar *name;
 	gint offset = 0;
-	gint pos;
 	
 	gtk_tree_model_get(macro_db_get_model(plugin->macro_db), iter,
 		MACRO_NAME, &name, -1);
@@ -195,14 +194,18 @@ match_keyword (MacroPlugin * plugin, GtkTreeIter * iter, const gchar *keyword)
 		gchar* text = macro_db_get_macro(plugin, plugin->macro_db, iter, &offset);
 		if (plugin->current_editor != NULL && text != NULL)
 		{
-			pos = ianjuta_editor_get_position (IANJUTA_EDITOR(plugin->current_editor),
-			                                   NULL);
+			gint i;
+			IAnjutaIterable *pos =
+				ianjuta_editor_get_position (IANJUTA_EDITOR(plugin->current_editor),
+											 NULL);
 			ianjuta_editor_insert (IANJUTA_EDITOR (plugin->current_editor),
 			                       pos, text, -1, NULL);
+			for (i = 0; i < offset; i++)
+				ianjuta_iterable_next (pos, NULL);
 			ianjuta_editor_goto_position (IANJUTA_EDITOR(plugin->current_editor), 
-			                              pos + offset, 
-			                              NULL);
+			                              pos, NULL);
 			g_free(text);
+			g_object_unref (pos);
 		}
 		return TRUE;
 	}

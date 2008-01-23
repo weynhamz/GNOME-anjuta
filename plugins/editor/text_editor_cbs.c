@@ -173,11 +173,14 @@ on_text_editor_scintilla_notify (GtkWidget * sci, gint wParam, gpointer lParam,
 		return;
 		
 	case SCN_CHARADDED:
-		te->current_line = text_editor_get_current_lineno (te);
-		position = text_editor_get_current_position (te) - 1;
-		g_signal_emit_by_name(G_OBJECT (te), "char_added", position,
-							  (gchar)nt->ch);
-		
+		{
+			position = text_editor_get_current_position (te) - 1;
+			TextEditorCell *position_iter = text_editor_cell_new (te, position);
+			te->current_line = text_editor_get_current_lineno (te);
+			g_signal_emit_by_name(G_OBJECT (te), "char-added", position_iter,
+								  (gchar)nt->ch);
+			g_object_unref (position_iter);
+		}
 		return;
 	case SCN_AUTOCSELECTION:
 	case SCN_USERLISTSELECTION:
@@ -191,10 +194,13 @@ on_text_editor_scintilla_notify (GtkWidget * sci, gint wParam, gpointer lParam,
 	case SCN_MODIFIED:
 		if (nt->modificationType & (SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT))
 		{
+			TextEditorCell *position_iter =
+					text_editor_cell_new (te, nt->position);
 			gboolean added = nt->modificationType & SC_MOD_INSERTTEXT;
-			g_signal_emit_by_name (G_OBJECT (te), "changed", nt->position,
+			g_signal_emit_by_name (G_OBJECT (te), "changed", position_iter,
 								   added, nt->length, nt->linesAdded,
 								   nt->text);
+			g_object_unref (position_iter);
 		}
 		return;
 	case SCN_MARGINCLICK:
