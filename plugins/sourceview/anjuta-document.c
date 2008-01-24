@@ -107,7 +107,6 @@ enum {
 	LOADED,
 	SAVING,
 	SAVED,
-	CHAR_ADDED,
 	LAST_SIGNAL
 };
 

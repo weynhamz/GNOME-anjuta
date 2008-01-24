@@ -1,3 +1,27 @@
+2008-01-24  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/Makefile.am:
+	* plugins/sourceview/anjuta-document.c:
+	* plugins/sourceview/anjuta-marshal.list:
+	* plugins/sourceview/anjuta-view.c: (anjuta_view_class_init),
+	(anjuta_view_key_press_event):
+	* plugins/sourceview/sourceview-cell.c: (icell_iface_init),
+	(iiter_next), (iiter_previous), (iiter_last), (iiter_compare),
+	(iiter_diff), (iiter_iface_init):
+	* plugins/sourceview/sourceview.c: (on_document_char_added),
+	(ieditor_goto_position), (ieditor_get_text),
+	(ieditor_get_text_all), (ieditor_get_position), (ieditor_insert),
+	(ieditor_erase), (ieditor_get_line_from_position),
+	(ieditor_get_line_begin_position), (ieditor_get_line_end_position),
+	(ieditor_get_position_from_offset), (ieditor_get_start_position),
+	(ieditor_get_end_position), (ieditor_goto_start),
+	(ieditor_goto_end), (ieditor_iface_init), (iconvert_to_upper),
+	(iconvert_to_lower), (iindic_set), (iassist_suggest),
+	(iassist_show_tips):
+	
+	Implemented new iterators interface in sourceview editor and
+	re-enabled it.
+
 2008-01-23  Naba Kumar  <naba@gnome.org>
 
 	* libanjuta/interfaces/libanjuta.idl:

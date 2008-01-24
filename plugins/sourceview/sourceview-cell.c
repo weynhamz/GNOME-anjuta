@@ -113,13 +113,6 @@ icell_get_length(IAnjutaEditorCell* icell, GError** e)
 	return g_unichar_to_utf8(gtk_text_iter_get_char(cell->priv->iter), NULL);
 }
 
-static gint
-icell_get_line (IAnjutaEditorCell* icell, GError** e)
-{
-  SourceviewCell* cell = SOURCEVIEW_CELL(icell);
-  return gtk_text_iter_get_line (cell->priv->iter);
-}
-
 static gchar
 icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 {
@@ -175,7 +168,6 @@ icell_iface_init(IAnjutaEditorCellIface* iface)
 	iface->get_char = icell_get_char;
 	iface->get_length = icell_get_length;
 	iface->get_attribute = icell_get_attribute;
-  iface->get_line = icell_get_line;
 }
 
 static
@@ -243,12 +235,7 @@ iiter_next(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
 
-	if (gtk_text_iter_forward_char(cell->priv->iter))
-	{
-		return TRUE;
-	}
-	else
-		return FALSE;
+	return gtk_text_iter_forward_char(cell->priv->iter);
 }
 
 static gboolean
@@ -256,12 +243,7 @@ iiter_previous(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
 	
-	if (gtk_text_iter_backward_char(cell->priv->iter))
-	{
-		return TRUE;
-	}
-	else
-		return FALSE;
+	return gtk_text_iter_backward_char(cell->priv->iter);
 }
 
 static gboolean
@@ -270,7 +252,6 @@ iiter_last(IAnjutaIterable* iter, GError** e)
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
 
 	gtk_text_iter_forward_to_end(cell->priv->iter);
-	iiter_previous (iter, NULL);
 	return TRUE;
 }
 
@@ -332,6 +313,24 @@ iiter_assign (IAnjutaIterable *iter, IAnjutaIterable *src_iter, GError **e)
 	cell->priv->iter = gtk_text_iter_copy (src_cell->priv->iter);
 }
 
+static gint
+iiter_compare (IAnjutaIterable *iter, IAnjutaIterable *other_iter, GError **e)
+{
+	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
+	SourceviewCell* other_cell = SOURCEVIEW_CELL(other_iter);
+	
+  return gtk_text_iter_compare (cell->priv->iter, other_cell->priv->iter);
+}
+
+static gint
+iiter_diff (IAnjutaIterable *iter, IAnjutaIterable *other_iter, GError **e)
+{
+	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
+	SourceviewCell* other_cell = SOURCEVIEW_CELL(other_iter);
+	return (gtk_text_iter_get_offset (cell->priv->iter) 
+					- gtk_text_iter_get_offset (other_cell->priv->iter));
+}
+
 static void
 iiter_iface_init(IAnjutaIterableIface* iface)
 {
@@ -345,6 +344,8 @@ iiter_iface_init(IAnjutaIterableIface* iface)
 	iface->get_length = iiter_get_length;
 	iface->assign = iiter_assign;
 	iface->clone = iiter_clone;
+	iface->diff = iiter_diff;
+	iface->compare = iiter_compare;
 }
 
 

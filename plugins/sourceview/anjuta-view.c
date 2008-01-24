@@ -221,7 +221,7 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (AnjutaViewClass, char_added),
 			      NULL, NULL,
-			      anjuta_marshal_VOID__INT_CHAR,
+			      anjuta_marshal_VOID__OBJECT_CHAR,
 			      G_TYPE_NONE,
 			      2,
 				  G_TYPE_INT,
@@ -758,16 +758,12 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 {
 	GtkTextBuffer *buffer;
 	AnjutaView* view = ANJUTA_VIEW(widget);
-	gint pos;
 	GtkTextIter iter;
 	AssistWindow* assist_win;
 	AssistTip* assist_tip;
+	SourceviewCell* cell;
 	
 	buffer  = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
-	gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
-									 gtk_text_buffer_get_insert(buffer));
-
-	pos = gtk_text_iter_get_offset(&iter);
 
 	assist_win = view->priv->sv->priv->assist_win;
 	assist_tip = view->priv->sv->priv->assist_tip;
@@ -790,22 +786,24 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 		default:
 		 {
 			gboolean retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
-			
+			gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
+									 gtk_text_buffer_get_insert(buffer));
+			cell = sourceview_cell_new (&iter, GTK_TEXT_VIEW (view));
 			/* Handle char_added signal here */
 			if (event->keyval == GDK_Return)
 			{
 				g_signal_emit_by_name (G_OBJECT(view), "char_added",
-									   pos, '\n');
+									   cell, '\n');
 			}
 			else if (event->keyval == GDK_Tab)
 			{
 				g_signal_emit_by_name (G_OBJECT(view), "char_added",
-									   pos, '\t');
+									   cell, '\t');
 			}
 			else if (event->keyval == GDK_BackSpace)
 			{
 				g_signal_emit_by_name(G_OBJECT(view), "char_added", 
-									  pos, '\0');
+									  cell, '\0');
 			}
 			else if (event->keyval == GDK_Escape || 
 							 event->keyval == GDK_Up ||
@@ -814,6 +812,7 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 				if (assist_tip)
         {
 					gtk_widget_destroy (GTK_WIDGET(assist_tip));
+					g_object_unref (cell);
           return retval;
         }
 			}
@@ -823,6 +822,7 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 							 event->keyval == GDK_Begin || event->keyval == GDK_End)
 			{
 				/* Ignore those for char_added */
+				g_object_unref (cell);
 				return retval;
 			}
 							 
@@ -838,7 +838,11 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 					if (string != NULL && read == 1 && written == 1)
 					{
 						g_signal_emit_by_name (G_OBJECT(view), "char_added",
-											   pos, string[0]);
+											   cell, string[0]);
+					}
+					else
+					{
+						g_object_unref (cell);
 					}
 					g_free(string);
 				}
