@@ -2265,7 +2265,13 @@ static gchar*
 itext_editor_get_text_all (IAnjutaEditor *editor, GError **e)
 {
 	TextEditor *te = TEXT_EDITOR (editor);
-	return (gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE, 0, -1);
+	gint length = scintilla_send_message (SCINTILLA (te->scintilla),
+										  SCI_GETLENGTH, 0, 0);
+	if (length > 0)
+		return (gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE,
+										   0, length);
+	else
+		return NULL;
 }
 
 static gchar*
@@ -2276,7 +2282,8 @@ itext_editor_get_text (IAnjutaEditor *editor, IAnjutaIterable* begin,
 	gint start_pos = text_editor_cell_get_position (TEXT_EDITOR_CELL (begin));
 	gint end_pos = text_editor_cell_get_position (TEXT_EDITOR_CELL (end));
 	TextEditor *te = TEXT_EDITOR (editor);
-	data =	(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE, start_pos, end_pos);
+	data =	(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE,
+										  start_pos, end_pos);
 	return data;
 }
 
@@ -2308,15 +2315,22 @@ itext_editor_get_lineno (IAnjutaEditor *editor, GError **e)
 static gint
 itext_editor_get_length (IAnjutaEditor *editor, GError **e)
 {
+	TextEditor *te = TEXT_EDITOR (editor);
+	
 	/* FIXME: Find a more optimal solution */
-	gint char_position;
-	gchar *data =
-		(gchar *) aneditor_command (TEXT_EDITOR (editor)->editor_id,
-									ANE_GETTEXTRANGE, 0,
-									-1);
-	char_position = g_utf8_strlen (data, -1);
-	g_free (data);
-	return char_position;
+	gint length = scintilla_send_message (SCINTILLA (te->scintilla),
+										  SCI_GETLENGTH, 0, 0);
+	if (length > 0)
+	{
+		gint char_position;
+		gchar *data =
+			(gchar *) aneditor_command (te->editor_id, ANE_GETTEXTRANGE, 0,
+										length);
+		char_position = g_utf8_strlen (data, -1);
+		g_free (data);
+		return char_position;
+	}
+	return 0;
 }
 
 static gchar*

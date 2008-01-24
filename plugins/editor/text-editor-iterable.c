@@ -619,18 +619,26 @@ iiter_get_position (IAnjutaIterable* iter, GError** e)
 static gint
 iiter_get_length (IAnjutaIterable* iter, GError** e)
 {
-	gchar *data;
-	gint length;
+	gint byte_length;
 	
 	TextEditorCell* cell = TEXT_EDITOR_CELL(iter);
 	
 	/* FIXME: Find a more optimal solution */
-	data = (gchar *) aneditor_command (TEXT_EDITOR
-									   (cell->priv->editor)->editor_id,
-									   ANE_GETTEXTRANGE, 0, -1);
-	length = g_utf8_strlen (data, -1);
-	g_free (data);
-	return length;
+	byte_length = scintilla_send_message (SCINTILLA (cell->priv->editor->scintilla),
+										  SCI_GETLENGTH, 0, 0);
+	if (byte_length > 0)
+	{
+		gchar *data;
+		gint char_length;
+		
+		data = (gchar *) aneditor_command (TEXT_EDITOR
+										   (cell->priv->editor)->editor_id,
+										   ANE_GETTEXTRANGE, 0, byte_length);
+		char_length = g_utf8_strlen (data, -1);
+		g_free (data);
+		return char_length;
+	}
+	return 0;
 }
 
 static IAnjutaIterable *

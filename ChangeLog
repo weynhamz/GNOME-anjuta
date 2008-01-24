@@ -1,3 +1,12 @@
+2008-01-24  Naba Kumar  <naba@gnome.org>
+
+	* plugins/editor/text-editor-iterable.c: (iiter_get_length):
+	* plugins/editor/text_editor.c: (itext_editor_get_text_all),
+	(itext_editor_get_text), (itext_editor_get_length): Fixes implementations
+	of ianjuta_editor_get_length(), ianjuta_iterable_get_length() and
+	ianjuta_editor_get_text_all(). Current Search-replace and symbol-db
+	should work now.
+
 2008-01-24  Johannes Schmid <jhs@gnome.org>
 
 	Patch from: Luca Ferretti <ella.uca@libero.it>:
