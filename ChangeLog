@@ -1,5 +1,16 @@
 2008-01-24  Johannes Schmid <jhs@gnome.org>
 
+	Patch from: Luca Ferretti <ella.uca@libero.it>:
+
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_page_init), (anjuta_docman_class_init):
+	* plugins/message-view/anjuta-msgman.c: (anjuta_msgman_page_new):
+	
+	Fix #511757 – Close icon in tabs cut off (Patch was only for
+	document-manager, also adapted it for message-manager)
+
+2008-01-24  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/Makefile.am:
 	* plugins/sourceview/anjuta-document.c:
 	* plugins/sourceview/anjuta-marshal.list:

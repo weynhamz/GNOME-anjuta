@@ -107,7 +107,6 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 {
 	AnjutaMsgmanPage *page;
 	int h, w;
-	GtkRcStyle *rcstyle;
 	
 	g_return_val_if_fail (view != NULL, NULL);
 
@@ -142,10 +141,10 @@ anjuta_msgman_page_new (GtkWidget * view, const gchar * name,
 	gtk_widget_set_size_request (page->button, w, h);	
 	gtk_button_set_focus_on_click (GTK_BUTTON (page->button), FALSE);
 	gtk_button_set_relief(GTK_BUTTON(page->button), GTK_RELIEF_NONE);
-	rcstyle = gtk_rc_style_new ();
-	rcstyle->xthickness = rcstyle->ythickness = 0;
-	gtk_widget_modify_style (page->button, rcstyle);
-	gtk_rc_style_unref (rcstyle);
+	/* This style is created int the document-manager which we simply
+	 * assume is loaded before this plugin
+     */
+	gtk_widget_set_name (page->button, "anjuta-tab-close-button");
 	
 	gtk_box_pack_start (GTK_BOX (page->box), page->button, FALSE, FALSE, 0);
 	

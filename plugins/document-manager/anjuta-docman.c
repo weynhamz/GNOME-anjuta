@@ -218,7 +218,6 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 {
 	GtkWidget *close_button;
 	GtkWidget *close_pixmap;
-	GtkRcStyle *rcstyle;
 	GtkWidget *label, *menu_label;
 	GtkWidget *box;
 	GtkWidget *event_hbox;
@@ -243,10 +242,8 @@ anjuta_docman_page_init (AnjutaDocman *docman, IAnjutaDocument *doc,
 	gtk_button_set_focus_on_click (GTK_BUTTON (close_button), FALSE);
 	gtk_container_add(GTK_CONTAINER(close_button), close_pixmap);
 	gtk_button_set_relief(GTK_BUTTON(close_button), GTK_RELIEF_NONE);
-	rcstyle = gtk_rc_style_new ();
-	rcstyle->xthickness = rcstyle->ythickness = 0;
-	gtk_widget_modify_style (close_button, rcstyle);
-	g_object_unref (G_OBJECT (rcstyle));
+
+	gtk_widget_set_name (close_button, "anjuta-tab-close-button");
 	
 	gtk_widget_set_size_request (close_button, w, h);
 #if GTK_CHECK_VERSION (2,12,0)
@@ -693,6 +690,15 @@ anjuta_docman_class_init (AnjutaDocmanClass *klass)
 			G_TYPE_OBJECT);
 			
 	}
+
+	gtk_rc_parse_string ("style \"anjuta-tab-close-button-style\"\n"
+						 "{\n"
+						 "GtkWidget::focus-padding = 0\n"
+						 "GtkWidget::focus-line-width = 0\n"
+						 "xthickness = 0\n"
+						 "ythickness = 0\n"
+						 "}\n"
+						 "widget \"*.anjuta-tab-close-button\" style \"anjuta-tab-close-button-style\"");
 }
 
 GtkWidget*
