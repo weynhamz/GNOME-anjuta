@@ -33,6 +33,8 @@
 
 #include "queue.h"
 
+/*#define DEBUG*/
+#include <libanjuta/anjuta-debug.h>
 #include <libanjuta/resources.h>
 #include <libanjuta/interfaces/ianjuta-project-manager.h>
 #include <libanjuta/anjuta-utils.h>
@@ -55,6 +57,7 @@
  *---------------------------------------------------------------------------*/
 
 typedef struct _AttachProcess AttachProcess;
+typedef struct _AddSourceDialog AddSourceDialog;
 typedef struct _LoadFileCallBack LoadFileCallBack;
 	
 enum
@@ -94,6 +97,13 @@ static char *column_names[COLUMNS_NB] = {
 	N_("Pid"), N_("User"), N_("Time"), N_("Command")
 };
 
+struct _AddSourceDialog
+{
+	GtkTreeView *tree;
+	GtkFileChooser *entry;
+	GtkListStore *model;
+};
+
 struct _LoadFileCallBack
 {
 	AnjutaPlugin *plugin;
@@ -127,6 +137,10 @@ struct _DmaStart
 #define ADD_SOURCE_DIALOG "source_paths_dialog"
 #define SOURCE_ENTRY "src_entry"
 #define SOURCE_LIST "src_clist"
+#define ADD_BUTTON "add_button"
+#define REMOVE_BUTTON "remove_button"
+#define UP_BUTTON "up_button"
+#define DOWN_BUTTON "down_button"
 
 #define ANJUTA_RESPONSE_SELECT_TARGET 0
 
@@ -1061,6 +1075,9 @@ dma_set_parameters (DmaStart *this)
 	return response == GTK_RESPONSE_OK;
 }
 
+/* Add source dialog
+ *---------------------------------------------------------------------------*/
+
 static gboolean
 on_add_source_in_list (GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer user_data)
 {
@@ -1090,20 +1107,82 @@ on_add_source_in_model (gpointer data, gpointer user_data)
 }
 
 static void
-add_source_show (DmaStart *this)
+on_source_add_button (GtkButton *button, AddSourceDialog *dlg)
 {
-	GtkWindow *parent;
-	GladeXML *gxml;
-	GtkWidget *dlg;
-	GtkTreeView *tree;
-	GtkEntry *entry;
-	GtkCellRenderer *renderer;
-	GtkTreeViewColumn *column;
-	gint response;
-	GtkListStore* model;
+	GtkTreeIter iter;
+	const gchar *path;
+	
+	path = gtk_file_chooser_get_filename (dlg->entry);
+	if ((path != NULL) && (*path != '\0'))
+	{
+		gtk_list_store_append (dlg->model, &iter);
+		gtk_list_store_set (dlg->model, &iter, 0, path, -1);
+	}
+}
+
+static void
+on_source_remove_button (GtkButton *button, AddSourceDialog *dlg)
+{
 	GtkTreeIter iter;
 	GtkTreeSelection* sel;
-	const gchar *path;
+
+	sel = gtk_tree_view_get_selection (dlg->tree);
+	if (gtk_tree_selection_get_selected (sel, NULL, &iter))
+	{
+		gtk_list_store_remove (dlg->model, &iter);
+	}
+}
+
+static void
+on_source_up_button (GtkButton *button, AddSourceDialog *dlg)
+{
+	GtkTreeIter iter;
+	GtkTreeSelection* sel;
+
+	sel = gtk_tree_view_get_selection (dlg->tree);
+	if (gtk_tree_selection_get_selected (sel, NULL, &iter))
+	{
+		GtkTreePath *path;
+		
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL (dlg->model), &iter);
+		if (gtk_tree_path_prev(path))
+		{
+			GtkTreeIter pos;
+			
+        	gtk_tree_model_get_iter(GTK_TREE_MODEL (dlg->model), &pos, path);
+			gtk_list_store_move_before (dlg->model, &iter, &pos);
+		}
+	}
+}
+
+static void
+on_source_down_button (GtkButton *button, AddSourceDialog *dlg)
+{
+	GtkTreeIter iter;
+	GtkTreeSelection* sel;
+	
+	sel = gtk_tree_view_get_selection (dlg->tree);
+	if (gtk_tree_selection_get_selected (sel, NULL, &iter))
+	{
+		GtkTreeIter pos = iter;
+				
+		if (gtk_tree_model_iter_next (GTK_TREE_MODEL (dlg->model), &pos))
+		{
+			gtk_list_store_move_after (dlg->model, &iter, &pos);
+		}
+	}
+}
+
+static void
+add_source_show (DmaStart *this)
+{
+	AddSourceDialog dlg;
+	GladeXML *gxml;
+	GtkWidget *widget;
+	GtkWindow *parent;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	GObject *button;
 	
 	parent = GTK_WINDOW (this->plugin->shell);
 	gxml = glade_xml_new (GLADE_FILE, ADD_SOURCE_DIALOG, NULL);
@@ -1113,63 +1192,61 @@ add_source_show (DmaStart *this)
 		return;
 	}
 		
-	dlg = glade_xml_get_widget (gxml, ADD_SOURCE_DIALOG);
-	tree = GTK_TREE_VIEW (glade_xml_get_widget (gxml, SOURCE_LIST));
-	entry = GTK_ENTRY (glade_xml_get_widget (gxml, SOURCE_ENTRY));
+	widget = glade_xml_get_widget (gxml, ADD_SOURCE_DIALOG);
+	dlg.tree = GTK_TREE_VIEW (glade_xml_get_widget (gxml, SOURCE_LIST));
+	dlg.entry = GTK_FILE_CHOOSER (glade_xml_get_widget (gxml, SOURCE_ENTRY));
+	
+	/* Connect signals */	
+	button = G_OBJECT (glade_xml_get_widget (gxml, ADD_BUTTON));
+	g_signal_connect (button, "clicked", G_CALLBACK (on_source_add_button), &dlg);
+	button = G_OBJECT (glade_xml_get_widget (gxml, REMOVE_BUTTON));
+	g_signal_connect (button, "clicked", G_CALLBACK (on_source_remove_button), &dlg);
+	button = G_OBJECT (glade_xml_get_widget (gxml, UP_BUTTON));
+	g_signal_connect (button, "clicked", G_CALLBACK (on_source_up_button), &dlg);
+	button = G_OBJECT (glade_xml_get_widget (gxml, DOWN_BUTTON));
+	g_signal_connect (button, "clicked", G_CALLBACK (on_source_down_button), &dlg);
+	
 	g_object_unref (gxml);
 
 	renderer = gtk_cell_renderer_text_new ();
 	column = gtk_tree_view_column_new_with_attributes (_("Path"), renderer, "text", 0, NULL);
 	gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
-	gtk_tree_view_append_column (tree, column);
-	gtk_tree_view_set_expander_column(tree, column);
+	gtk_tree_view_append_column (dlg.tree, column);
+	gtk_tree_view_set_expander_column(dlg.tree, column);
 	
-	model = gtk_list_store_new (1, GTK_TYPE_STRING);
-	gtk_tree_view_set_model (tree, GTK_TREE_MODEL (model));
+	dlg.model = gtk_list_store_new (1, GTK_TYPE_STRING);
+	gtk_tree_view_set_model (dlg.tree, GTK_TREE_MODEL (dlg.model));
 	
-	gtk_window_set_transient_for (GTK_WINDOW (dlg), parent);
+	gtk_window_set_transient_for (GTK_WINDOW (widget), parent);
 
 	/* Initialize source path list */
-	g_list_foreach (this->source_dirs, on_add_source_in_model, model);
+	g_list_foreach (this->source_dirs, on_add_source_in_model, dlg.model);
 	
 	/* Run dialog */
 	for (;;)
 	{
-		response = gtk_dialog_run (GTK_DIALOG (dlg));
+		gint response = gtk_dialog_run (GTK_DIALOG (widget));
 		
 		switch (response)
 		{
-		case GTK_RESPONSE_OK:
-			path = gtk_entry_get_text (entry);
-			if ((path != NULL) && (*path != '\0'))
-			{
-				gtk_list_store_append (model, &iter);
-				gtk_list_store_set (model, &iter, 0, path, -1);
-			}
-			continue;
-		case GTK_RESPONSE_CANCEL:
-			sel = gtk_tree_view_get_selection (tree);
-			if (gtk_tree_selection_get_selected (sel, NULL, &iter))
-        	{
-				gtk_list_store_remove (model, &iter);
-			}
-			continue;
-		case GTK_RESPONSE_REJECT:
-			gtk_list_store_clear (model);
-			continue;
-		case GTK_RESPONSE_APPLY:
+		case GTK_RESPONSE_DELETE_EVENT:
+		case GTK_RESPONSE_CLOSE:
 			g_list_foreach (this->source_dirs, (GFunc)g_free, NULL);
 			g_list_free (this->source_dirs);
 			this->source_dirs = NULL;
-			gtk_tree_model_foreach (GTK_TREE_MODEL (model), on_add_source_in_list, &this->source_dirs);
+			gtk_tree_model_foreach (GTK_TREE_MODEL (dlg.model), on_add_source_in_list, &this->source_dirs);
 			this->source_dirs = g_list_reverse (this->source_dirs);
 			break;
+		case GTK_RESPONSE_CANCEL:
+			gtk_list_store_clear (dlg.model);
+			g_list_foreach (this->source_dirs, on_add_source_in_model, dlg.model);
+			continue;
 		default:
 			break;
 		}
 		break;
 	}
-	gtk_widget_destroy (dlg);
+	gtk_widget_destroy (widget);
 }
 
 /* Public functions

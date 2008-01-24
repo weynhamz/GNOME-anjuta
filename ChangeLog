@@ -1,3 +1,9 @@
+2008-01-24  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/anjuta-debug-manager.glade,
+	plugins/debug-manager/start.c:
+	Fix #511049: Change UI of add source directories dialog
+
 2008-01-24  Naba Kumar  <naba@gnome.org>
 
 	* plugins/editor/text-editor-iterable.c: (iiter_get_length):
