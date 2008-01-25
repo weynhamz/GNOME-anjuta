@@ -1,4 +1,10 @@
-2007-01-25 Tom <tpgww@onepost.net>
+2008-01-25  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/stack_trace.c:
+	Probably fix #510028: crash debugger when having a relative filename
+	in stack trace
+
+2008-01-25 Tom <tpgww@onepost.net>
 
 	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
 

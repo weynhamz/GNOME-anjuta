@@ -290,8 +290,16 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 		adr = g_strdup_printf ("0x%lx", frame->address);
 		if (frame->file)
 		{
-			uri = gnome_vfs_get_uri_from_local_path(frame->file);
-			file = strrchr(uri, '/') + 1;
+			if (g_path_is_absolute (frame->file))
+			{					
+				uri = gnome_vfs_get_uri_from_local_path(frame->file);
+				file = strrchr(uri, '/') + 1;
+			}
+			else
+			{
+				uri = NULL;
+				file = frame->file;
+			}
 		}
 		else
 		{
