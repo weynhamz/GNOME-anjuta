@@ -40,13 +40,13 @@ static void an_file_history_init()
 	s_history->current = NULL;
 }
 
-AnHistFile *an_hist_file_new (const gchar *name, gint line)
+AnHistFile *an_hist_file_new (const gchar *uri, gint line)
 {
 	AnHistFile *h_file;
 
-	g_return_val_if_fail(name, NULL);
+	g_return_val_if_fail(uri, NULL);
 	h_file= g_new(AnHistFile, 1);
-	h_file->file = g_strdup(name);
+	h_file->uri = g_strdup(uri);
 	h_file->line = line;
 	return h_file;
 }
@@ -54,7 +54,7 @@ AnHistFile *an_hist_file_new (const gchar *name, gint line)
 void an_hist_file_free(AnHistFile *h_file)
 {
 	g_return_if_fail(h_file);
-	g_free(h_file->file);
+	g_free(h_file->uri);
 	g_free(h_file);
 }
 
@@ -77,18 +77,18 @@ void an_file_history_reset(void)
 	s_history->current = NULL;
 }
 
-void an_file_history_push (const gchar *filename, gint line)
+void an_file_history_push (const gchar *uri, gint line)
 {
 	AnHistFile *h_file;
 
-	g_return_if_fail(filename);
+	g_return_if_fail (uri);
 	if (!s_history)
 		an_file_history_init();
 	if (s_history->current)
 	{
 		AnHistFile *current = (AnHistFile *) s_history->current->data;
-		if ((0 == strcmp(filename, current->file)) &&
-			((current->line < 1) || (line == current->line)))
+		if (strcmp(uri, current->uri) == 0 &&
+			(current->line < 1 || line == current->line))
 		{
 			current->line = line;
 			return;
@@ -111,7 +111,7 @@ void an_file_history_push (const gchar *filename, gint line)
 			tmp->next = NULL;
 		}
 	}
-	h_file = an_hist_file_new(filename, line);
+	h_file = an_hist_file_new(uri, line);
 	s_history->items = g_list_prepend(s_history->items, h_file);
 	s_history->current = s_history->items;
 }
@@ -125,7 +125,7 @@ void an_file_history_back(AnjutaDocman *docman)
 
 	s_history->current = s_history->current->next;
 	h_file = (AnHistFile *) s_history->current->data;
-	anjuta_docman_goto_file_line_mark (docman, h_file->file,
+	anjuta_docman_goto_file_line_mark (docman, h_file->uri,
 									   h_file->line, FALSE);
 }
 
@@ -138,7 +138,7 @@ void an_file_history_forward(AnjutaDocman *docman)
 	
 	s_history->current = s_history->current->prev;
 	h_file = (AnHistFile *) s_history->current->data;
-	anjuta_docman_goto_file_line_mark(docman, h_file->file,
+	anjuta_docman_goto_file_line_mark(docman, h_file->uri,
 									  h_file->line, FALSE);
 }
 
@@ -152,7 +152,7 @@ void an_file_history_dump(void)
 	for (tmp = s_history->items; tmp; tmp = g_list_next(tmp))
 	{
 		h_file = (AnHistFile *) tmp->data;
-		fprintf(stderr, "%s:%d", h_file->file, h_file->line);
+		fprintf(stderr, "%s:%d", h_file->uri, h_file->line);
 		if (tmp == s_history->current)
 			fprintf(stderr, " (*)");
 		fprintf(stderr, "\n");

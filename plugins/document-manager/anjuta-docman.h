@@ -66,8 +66,8 @@ void anjuta_docman_add_document (AnjutaDocman *docman, IAnjutaDocument *doc,
 void anjuta_docman_remove_document (AnjutaDocman *docman, IAnjutaDocument *doc);
 
 IAnjutaDocument *anjuta_docman_get_current_document (AnjutaDocman *docman);
-IAnjutaDocument *anjuta_docman_get_document_for_path (AnjutaDocman *docman,
-													  const gchar *full_path);
+IAnjutaDocument *anjuta_docman_get_document_for_uri (AnjutaDocman *docman,
+													  const gchar *file_uri);
 
 GtkWidget *anjuta_docman_get_current_focus_widget (AnjutaDocman *docman);
 
@@ -76,10 +76,10 @@ GtkWidget *anjuta_docman_get_current_popup (AnjutaDocman *docman);
 void anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc);
 
 IAnjutaEditor *anjuta_docman_goto_file_line (AnjutaDocman *docman,
-											const gchar *fname,
+											const gchar *uri,
 											gint lineno);
 IAnjutaEditor *anjuta_docman_goto_file_line_mark (AnjutaDocman *docman,
-												const gchar *fname,
+												const gchar *uri,
 												gint lineno,
 												gboolean mark);
 void anjuta_docman_present_notebook_page (AnjutaDocman *docman, IAnjutaDocument *doc);
@@ -88,8 +88,8 @@ void anjuta_docman_delete_all_markers (AnjutaDocman *docman, gint marker);
 void anjuta_docman_delete_all_indicators (AnjutaDocman *docman);
 
 void anjuta_docman_save_file_if_modified (AnjutaDocman *docman,
-										  const gchar *szFullPath);
-void anjuta_docman_reload_file (AnjutaDocman *docman, const gchar *szFullPath);
+										  const gchar *uri);
+void anjuta_docman_reload_file (AnjutaDocman *docman, const gchar *uri);
 
 gboolean anjuta_docman_set_editor_properties (AnjutaDocman *docman);
 

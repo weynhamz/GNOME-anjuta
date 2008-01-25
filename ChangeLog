@@ -1,3 +1,15 @@
+2007-01-25 Tom <tpgww@onepost.net>
+
+	reviewed by: Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/document-manager/plugin.c,
+	plugins/document-manager/file_history.c,
+	plugins/document-manager/file_history.h,
+	plugins/document-manager/anjuta-docman.c,
+	plugins/document-manager/anjuta-docman.h:
+	Rename filename argument to uri when an uri is expected
+	anjuta_docman_get_document_for_uri will remove symlinks 
+
 2008-01-25  Naba Kumar  <naba@gnome.org>
 
 	* plugins/terminal/terminal.c: (terminal_execute),

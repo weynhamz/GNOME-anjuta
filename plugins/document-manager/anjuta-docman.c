@@ -1092,125 +1092,123 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 }
 
 IAnjutaEditor *
-anjuta_docman_goto_file_line (AnjutaDocman *docman, const gchar *fname, gint lineno)
+anjuta_docman_goto_file_line (AnjutaDocman *docman, const gchar *uri, gint lineno)
 {
-	return anjuta_docman_goto_file_line_mark (docman, fname, lineno, FALSE);
+	return anjuta_docman_goto_file_line_mark (docman, uri, lineno, FALSE);
 }
 
+/* file_uri must be an escaped URI string such as returned by
+	gnome_vfs_get_uri_from_local_path() */
 IAnjutaEditor *
-anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *fname,
+anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *file_uri,
 								   gint line, gboolean mark)
 {
-	gchar *uri, *te_uri;
 	GnomeVFSURI* vfs_uri;
-	GList *node;
-	const gchar *linenum;
+	gchar *uri;
+	const gchar *fragment;
 	gint lineno;
-	gchar *normalized_path = NULL;
-	gchar *local_path;
 	
 	IAnjutaDocument *doc;
 	IAnjutaEditor *te;
 
-	g_return_val_if_fail (fname, NULL);
+	g_return_val_if_fail (file_uri != NULL, NULL);
 	
-	vfs_uri = gnome_vfs_uri_new (fname);
+	vfs_uri = gnome_vfs_uri_new (file_uri);
+	g_return_val_if_fail (vfs_uri != NULL, NULL);
 	
-	/* Extract linenum which comes as fragment identifier */
-	linenum = gnome_vfs_uri_get_fragment_identifier (vfs_uri);
-	if (linenum)
-		lineno = atoi (linenum);
-	else
-		lineno = line;
+	/* Extract linenum which sometimes comes as an appended uri fragment
+		e.g. when loading a file at session start or later */
+	fragment = gnome_vfs_uri_get_fragment_identifier (vfs_uri);
+	if (fragment)
+	{
+		const gchar *numstart;
+	 	gchar *numend;
+		gulong converted;
+
+		DEBUG_PRINT ("uri fragment provided for %s line %d", file_uri, line);
+		/* the real uri may have fragment(s) for vfs as well as for line-number */
+		numstart = strrchr (fragment, '#');
+		if (numstart == NULL)
+			numstart = fragment;
+		else
+			numstart++;
+		converted = strtoul (numstart, &numend, 10);
+		if (*numstart == '\0' || numend == numstart || *numend != '\0')
+		{			
+			lineno = line;
+			uri = g_strdup (file_uri);
+		}
+		else /* the number is valid */
+		{
+			lineno = (gint) converted;			
 	
-	/* Restore URI without fragment identifier (linenum) */
-	uri = gnome_vfs_uri_to_string (vfs_uri,
+			/* Restore URI without fragment identifier (linenum) */
+			uri = gnome_vfs_uri_to_string (vfs_uri,
 								   GNOME_VFS_URI_HIDE_FRAGMENT_IDENTIFIER);
+			if (uri != NULL && numstart != fragment)
+			{
+				gchar *freeme, *freeme2;				
+				freeme = uri;
+				freeme2 = g_strndup (fragment, numstart-fragment);
+				uri = g_strconcat (uri, "#", freeme2, NULL);
+				g_free (freeme);
+				g_free (freeme2);
+			}
+		}
+	}
+	else
+	{
+		lineno = line;
+		uri = g_strdup (file_uri);
+	}		
+	
 	gnome_vfs_uri_unref (vfs_uri);
 	g_return_val_if_fail (uri != NULL, NULL);
-	
-	/* Get the normalized file path for comparision */
-	local_path = gnome_vfs_get_local_path_from_uri (uri);
-	normalized_path = anjuta_util_get_real_path (local_path);
-	g_free (local_path);
-	if (normalized_path == NULL)
-		normalized_path = g_strdup (uri);
-	
-	/* first, try to use a document that's already open */
-	for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
+
+	DEBUG_PRINT("get document %s", uri);
+	/* if possible, use a document that's already open */
+	doc = anjuta_docman_get_document_for_uri (docman, uri);
+	if (doc == NULL)
 	{
-		AnjutaDocmanPage *page;
-		
-		page = (AnjutaDocmanPage *) node->data;
-		doc = IANJUTA_DOCUMENT (page->widget);
-		if (!IANJUTA_IS_EDITOR (doc))
-			continue;
-
-		te_uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
-		if (te_uri)
-		{
-			gchar *te_normalized_path;
-		
-			/* Get the normalized file path for comparision */
-			local_path = gnome_vfs_get_local_path_from_uri (te_uri);
-			te_normalized_path = anjuta_util_get_real_path (local_path);
-			g_free (local_path);
-			if (te_normalized_path == NULL)
-				te_normalized_path = g_strdup (te_uri);
-
-			if (normalized_path && te_normalized_path)
-			{
-				if (strcmp (normalized_path, te_normalized_path) == 0)
-				{
-					if (lineno >= 0)
-					{
-						ianjuta_editor_goto_line (IANJUTA_EDITOR (doc), lineno, NULL);
-						if (mark)
-						{
-							ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (doc),
-																IANJUTA_MARKABLE_LINEMARKER,
-																NULL);
-							ianjuta_markable_mark (IANJUTA_MARKABLE (doc), lineno,
-												  IANJUTA_MARKABLE_LINEMARKER, NULL);
-						}
-					}
-					anjuta_docman_present_notebook_page (docman, doc);
-					an_file_history_push (te_uri, lineno);
-					g_free (te_uri);
-					g_free (te_normalized_path);
-					g_free (uri);
-					g_free (normalized_path);
-					return IANJUTA_EDITOR (doc);
-				}
-			}
-			else
-			{
-				DEBUG_PRINT ("Unexpected NULL path");
-			}
-			g_free (te_uri);
-			g_free (te_normalized_path);
-		}
+		DEBUG_PRINT("open new");
+		/* no deal, open a new document */
+		te = anjuta_docman_add_editor (docman, uri, NULL); /* CHECKME NULL if not IANJUTA_IS_EDITOR () ? */
+		doc = IANJUTA_DOCUMENT (te);
 	}
-	/* no deal, open a new document */
-	te = anjuta_docman_add_editor (docman, uri, NULL);
-	if (te)
+	else if (IANJUTA_IS_EDITOR (doc))
 	{
-		te_uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
-		an_file_history_push (te_uri, lineno);
-		g_free (te_uri);
-		if (lineno >= 0) 
-		{
-			ianjuta_editor_goto_line(te, lineno, NULL);
-            if (mark)
-  	        {
-  	        	ianjuta_markable_mark(IANJUTA_MARKABLE(te), lineno,
-  	            					IANJUTA_MARKABLE_LINEMARKER, NULL);
-			}
-		}
+		DEBUG_PRINT("get te");
+		te = IANJUTA_EDITOR (doc);
+	}
+	else
+	{
+		doc = NULL;
+		te = NULL;
 	}
 	g_free (uri);
-	g_free (normalized_path);
-	return te ;
+
+	if (te != NULL)	
+	{
+		gchar *te_uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
+		an_file_history_push (te_uri, lineno);
+		g_free (te_uri);
+
+		if (lineno >= 0)
+		{
+			ianjuta_editor_goto_line (te, lineno, NULL);
+			if (mark && IANJUTA_IS_MARKABLE (doc))
+			{
+				ianjuta_markable_delete_all_markers (IANJUTA_MARKABLE (doc),
+													IANJUTA_MARKABLE_LINEMARKER,
+													NULL);
+				ianjuta_markable_mark (IANJUTA_MARKABLE (doc), lineno,
+									  IANJUTA_MARKABLE_LINEMARKER, NULL);
+			}
+		}
+		anjuta_docman_present_notebook_page (docman, doc);
+	}
+
+	return te;
 }
 
 gchar *
@@ -1397,14 +1395,15 @@ anjuta_docman_delete_all_indicators (AnjutaDocman *docman)
 }
 
 /* Saves a file to keep it synchronized with external programs */
+/* CHECKME unused */
 void 
-anjuta_docman_save_file_if_modified (AnjutaDocman *docman, const gchar *szFullPath)
+anjuta_docman_save_file_if_modified (AnjutaDocman *docman, const gchar *uri)
 {
 	IAnjutaDocument *doc;
 
-	g_return_if_fail (szFullPath != NULL);
+	g_return_if_fail (uri != NULL);
 
-	doc = anjuta_docman_get_document_for_path (docman, szFullPath);
+	doc = anjuta_docman_get_document_for_uri (docman, uri);
 	if (doc)
 	{
 		if(ianjuta_file_savable_is_dirty (IANJUTA_FILE_SAVABLE (doc), NULL))
@@ -1415,20 +1414,21 @@ anjuta_docman_save_file_if_modified (AnjutaDocman *docman, const gchar *szFullPa
 }
 
 /* If an external program changed the file, we must reload it */
+/* CHECKME unused */
 void 
-anjuta_docman_reload_file (AnjutaDocman *docman, const gchar *szFullPath)
+anjuta_docman_reload_file (AnjutaDocman *docman, const gchar *uri)
 {
 	IAnjutaDocument *doc;
 
-	g_return_if_fail (szFullPath != NULL);
+	g_return_if_fail (uri != NULL);
 
-	doc = anjuta_docman_get_document_for_path (docman, szFullPath);
+	doc = anjuta_docman_get_document_for_uri (docman, uri);
 	if (doc && IANJUTA_IS_EDITOR (doc))
 	{
 		IAnjutaEditor *te;
 		te = IANJUTA_EDITOR (doc);
 		glong nNowPos = ianjuta_editor_get_lineno (te, NULL);
-		ianjuta_file_open (IANJUTA_FILE (doc), szFullPath, NULL);
+		ianjuta_file_open (IANJUTA_FILE (doc), uri, NULL);
 		ianjuta_editor_goto_line (te, nNowPos, NULL);
 	}
 }
@@ -1518,32 +1518,85 @@ anjuta_docman_set_editor_properties (AnjutaDocman *docman)
 }
 
 IAnjutaDocument *
-anjuta_docman_get_document_for_path (AnjutaDocman *docman, const gchar *file_path)
+anjuta_docman_get_document_for_uri (AnjutaDocman *docman, const gchar *file_uri)
 {
+	gchar *local_path;
+	gchar *normalized_path;
 	GList *node;
 	
-	g_return_val_if_fail (file_path != NULL, NULL);
-		
-	for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
+	g_return_val_if_fail (file_uri != NULL, NULL);
+
+	local_path = gnome_vfs_get_local_path_from_uri (file_uri);
+	/* grab a normalized file path for effective comparision */
+	normalized_path = anjuta_util_get_real_path (local_path);
+	g_free (local_path);
+
+	if (normalized_path != NULL)
 	{
-		AnjutaDocmanPage *page;
-		page = (AnjutaDocmanPage *) node->data;
-
-		if (page && page->widget && IANJUTA_IS_DOCUMENT (page->widget))
+		for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
 		{
-			IAnjutaDocument *doc;
-			gchar *uri;
+			AnjutaDocmanPage *page;
+			page = (AnjutaDocmanPage *) node->data;
 
-			doc = IANJUTA_DOCUMENT (page->widget);
-			uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
-			if (uri)
+			if (page && page->widget && IANJUTA_IS_DOCUMENT (page->widget))
 			{
-				if (0 == strcmp (file_path, uri))
+				IAnjutaDocument *doc;
+				gchar *te_uri;
+
+				doc = IANJUTA_DOCUMENT (page->widget);
+				te_uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
+				if (te_uri)
 				{
-					g_free (uri);
-					return doc;
+					gchar *te_path;
+
+					te_path = gnome_vfs_get_local_path_from_uri (te_uri);
+					if (te_path)
+					{
+						/* editor uri is local too */
+						gchar *normalized_te_path;
+
+						normalized_te_path = anjuta_util_get_real_path (te_path);
+						g_free (te_path);
+						if ((normalized_te_path != NULL) &&
+							strcmp (normalized_te_path, normalized_path) == 0)
+						{
+							g_free (normalized_path);
+							g_free (te_uri);
+							g_free (normalized_te_path);
+							return doc;
+						}
+						g_free (normalized_te_path);
+					}
+					g_free (te_uri);
 				}
-				g_free (uri);
+			}
+		}
+		g_free (normalized_path);
+	}
+	else
+	{
+		/* not a local uri, too bad about any links etc */
+		for (node = docman->priv->pages; node != NULL; node = g_list_next (node))
+		{
+			AnjutaDocmanPage *page;
+			page = (AnjutaDocmanPage *) node->data;
+
+			if (page && page->widget && IANJUTA_IS_DOCUMENT (page->widget))
+			{
+				IAnjutaDocument *doc;
+				gchar *te_uri;
+
+				doc = IANJUTA_DOCUMENT (page->widget);
+				te_uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
+				if (te_uri)
+				{
+					if (strcmp (te_uri, file_uri) == 0)
+					{
+						g_free (te_uri);
+						return doc;
+					}
+					g_free (te_uri);
+				}
 			}
 		}
 	}

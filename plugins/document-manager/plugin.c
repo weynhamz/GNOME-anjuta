@@ -1838,12 +1838,12 @@ ianjuta_docman_get_full_filename (IAnjutaDocumentManager *plugin,
 }
 
 static IAnjutaDocument*
-ianjuta_docman_get_document_with_path (IAnjutaDocumentManager *plugin,
-		const gchar *file_path, GError **e)
+ianjuta_docman_get_document_for_uri (IAnjutaDocumentManager *plugin,
+		const gchar *file_uri, GError **e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	return anjuta_docman_get_document_for_path (docman, file_path);
+	return anjuta_docman_get_document_for_uri (docman, file_uri);
 }
 
 static IAnjutaDocument*
@@ -1957,7 +1957,7 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 {
 	iface->add_buffer = ianjuta_docman_add_buffer;
 	iface->add_document = ianjuta_docman_add_document;
-	iface->find_document_with_path = ianjuta_docman_get_document_with_path;
+	iface->find_document_with_path = ianjuta_docman_get_document_for_uri;
 	iface->get_current_document = ianjuta_docman_get_current_document;
 	iface->get_doc_widgets = ianjuta_docman_get_doc_widgets;
 	iface->get_full_filename = ianjuta_docman_get_full_filename;
