@@ -1,3 +1,9 @@
+2008-01-25  Naba Kumar  <naba@gnome.org>
+
+	* plugins/terminal/terminal.c: (terminal_execute),
+	(activate_plugin):
+	* plugins/tools/execute.c: Fixed couple of gtk+ critical warnings.
+
 2008-01-24  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/anjuta-debug-manager.glade,

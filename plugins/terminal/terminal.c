@@ -88,6 +88,7 @@ struct _TerminalPlugin{
 	GtkWidget *scrollbar;
 	GtkWidget *pref_profile_combo;
 	GtkWidget *pref_default_button;
+	gboolean   widget_added_to_shell;
 	GList *gconf_notify_ids;
 #if OLD_VTE == 1
 	gboolean first_time_realization;
@@ -395,8 +396,9 @@ terminal_execute (TerminalPlugin *term_plugin, const gchar *directory,
 	
 	preferences_changed (term_plugin->prefs, term_plugin);
 	
-	anjuta_shell_present_widget (ANJUTA_PLUGIN (term_plugin)->shell,
-								 term_plugin->frame, NULL);
+	if (term_plugin->widget_added_to_shell)
+		anjuta_shell_present_widget (ANJUTA_PLUGIN (term_plugin)->shell,
+									 term_plugin->frame, NULL);
 	
 	return term_plugin->child_pid;
 }
@@ -587,7 +589,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	term_plugin = ANJUTA_PLUGIN_TERMINAL (plugin);
 	term_plugin->ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	term_plugin->prefs = anjuta_shell_get_preferences (plugin->shell, NULL);
-	
+	term_plugin->widget_added_to_shell = FALSE;
 	terminal_create (term_plugin);
 	
 	if (!initialized)
@@ -604,7 +606,7 @@ activate_plugin (AnjutaPlugin *plugin)
 							 "terminal-plugin-icon",
 							 ANJUTA_SHELL_PLACEMENT_BOTTOM, NULL);
 	/* terminal_focus_cb (term_plugin->term, NULL, term_plugin); */
-	
+	term_plugin->widget_added_to_shell = TRUE;
 	initialized = TRUE;
 	return TRUE;
 }

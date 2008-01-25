@@ -42,7 +42,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-#define ICON_FILE "anjuta-tools-plugin.png"
+#define ICON_FILE "anjuta-tools-plugin-48.png"
 #define MAX_TOOL_PANES 4
 
 /* Widget and signal name found in glade file
