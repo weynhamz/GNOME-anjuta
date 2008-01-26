@@ -1,5 +1,10 @@
 2008-01-26  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/anjuta-debug-manager.glade:
+	Fix #512224: Use a string in english
+
+2008-01-26  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/build-basic-autotools/build-basic-autotools.c:
 	ianjuta_document_manager_goto_file_line_mark needs an uri and
 	not a file path
