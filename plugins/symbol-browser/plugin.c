@@ -87,16 +87,16 @@ static void
 goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 {
 	gchar *uri;
-	IAnjutaFileLoader *loader;
+	IAnjutaDocumentManager *docman;
 	
 	g_return_if_fail (filename != NULL);
 		
 	/* Go to file and line number */
-	loader = anjuta_shell_get_interface (plugin->shell, IAnjutaFileLoader,
+	docman = anjuta_shell_get_interface (plugin->shell, IAnjutaDocumentManager,
 										 NULL);
 		
-	uri = g_strdup_printf ("file:///%s#%d", filename, lineno);
-	ianjuta_file_loader_load (loader, uri, FALSE, NULL);
+	uri = gnome_vfs_get_uri_from_local_path (filename);
+	ianjuta_document_manager_goto_file_line (docman, uri, lineno, NULL);
 	g_free (uri);
 }
 

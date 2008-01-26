@@ -1237,17 +1237,15 @@ void
 anjuta_symbol_view_workspace_add_file (AnjutaSymbolView * sv,
 									   const gchar * file_uri)
 {
-	const gchar *uri;
+	gchar *uri;
 	TMWorkObject *tm_file;
 	GtkTreeModel *store = NULL;
 
 	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
 	g_return_if_fail (file_uri != NULL);
 
-	if (strncmp (file_uri, "file://", 7) == 0)
-		uri = &file_uri[7];
-	else
-		return;
+	uri = gnome_vfs_get_local_path_from_uri (file_uri);
+	if (uri == NULL) return;	/* Not a local path */
 	
 	store = g_hash_table_lookup (sv->priv->tm_files, uri);
 	if (!store)
@@ -1286,6 +1284,7 @@ anjuta_symbol_view_workspace_add_file (AnjutaSymbolView * sv,
 								 g_strdup (uri), store);
 		}
 	}
+	g_free (uri);
 	sv->priv->file_symbol_model = store;
 }
 
@@ -1293,19 +1292,18 @@ void
 anjuta_symbol_view_workspace_remove_file (AnjutaSymbolView * sv,
 										  const gchar * file_uri)
 {
-	const gchar *uri;
+	gchar *uri;
 
 	g_return_if_fail (ANJUTA_IS_SYMBOL_VIEW (sv));
 	g_return_if_fail (file_uri != NULL);
 
 	DEBUG_PRINT ("Removing Symbol URI: %s", file_uri);
-	if (strncmp (file_uri, "file://", 7) == 0)
-		uri = &file_uri[7];
-	else
-		uri = file_uri;
+	uri = gnome_vfs_get_local_path_from_uri (file_uri);
+	if (uri == NULL) return;	/* Not a local path */
 	
 	if (g_hash_table_lookup (sv->priv->tm_files, uri))
 		g_hash_table_remove (sv->priv->tm_files, uri);
+	g_free (uri);
 }
 
 
