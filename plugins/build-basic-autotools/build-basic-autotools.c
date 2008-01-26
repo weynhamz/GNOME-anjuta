@@ -719,6 +719,7 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 	if (parse_error_line (line, &filename, &lineno))
 	{
 		IAnjutaDocumentManager *docman;
+		gchar *uri;
 		
 		/* Go to file and line number */
 		docman = anjuta_shell_get_interface (context->plugin->shell,
@@ -726,8 +727,13 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 											 NULL);
 		
 		/* Full path is detected from parse_error_line() */
-		ianjuta_document_manager_goto_file_line_mark(docman, filename, lineno, TRUE, NULL);
+		uri = gnome_vfs_get_uri_from_local_path(filename);
 		g_free(filename);
+		if (uri)
+		{
+			ianjuta_document_manager_goto_file_line_mark(docman, uri, lineno, TRUE, NULL);
+			g_free(uri);
+		}
 	}
 }
 

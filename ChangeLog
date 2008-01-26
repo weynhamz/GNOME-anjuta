@@ -1,5 +1,11 @@
 2008-01-26  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	ianjuta_document_manager_goto_file_line_mark needs an uri and
+	not a file path
+
+2008-01-26  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/symbol-browser/plugin.c,
 	plugins/symbol-browser/an_symbol_view.c:
 	use gnome_vfs_get_uri_from_local_path to get local path from uri
