@@ -1,3 +1,70 @@
+Anjuta 2.3.3 (27 Jan 2008) -- Naba Kumar
+-----------------------------------------
+
+Changes:
+========
+New menu item to add extra source directories for debugger
+Select the first window in the glade project when it is first opened. 
+
+Bugfixes:
+=========
+* Fix #507304 – crash in Anjuta IDE while removing done tasks
+* Do not reopen file having escaped character (+,...) in path name
+* Add forgotten Swedish entry to DOC_LINGUAS.
+* Adds export-dynamic option to LDFLAGS to project template for libglade
+  to work for autoconnect signals.
+* Install anjuta-tags binary into FHS policy compliant directory and
+  update references. (Fixes bug: 509346.)
+* Do not use opacity in assist window in sourceview editor.
+* Fix memory leaks
+* Added printing support to GtkSourceView editor
+* Fixed API docs
+* Many string fixes
+* Refresh the symbols for new file saved.
+* Fixed bug #502322 - Highlight doesn't work on new file saved
+* Removed unused gconf_notifications in task manager plugin.
+* Fixed bug #509864 - No initial section selected when opening the Preferences dialog
+* Fixed bug #509865 - Incorrect padding in the Documents settings tabs
+* Fixed bug #509867 - Create button contents is mis-aligned
+* Fixed bug #509869 - "Add Directory" button is not HIG complient
+* Fixed bug #509875 - The "Update globale tags" button wording is incorrect
+* Fixed bug #509873 - Build Autotools Preferences has excessive padding
+* Fixed bug #509872 - General Information labels are incorrectly aligned
+* Fixed bug #509871 - General preferences has incorrect use of colons
+* Fixes bug #508805 - Add support for both file and folder preferences.
+* Fixed bug #508399 - When you enable a plugin, preferences don't show up
+* Fixed bug #507627 memory tab stay active on debugger stop Remove two unused
+  variables due to the previous patch
+* Fixes Bug #509510 - Check input of some dialogs to avoid termination
+  if user gives bad or no input
+* Resupport cut/copy/paste/clear on GtkEditables when those have focus.
+* Fixed symlinks (#510238) and file permission (#405321) handling
+  for scintilla editor.
+* Remove reference to IAnjutaCpuDebugger (useless)
+* Use gulong instead of guint for addresses
+* Split IAnjutaCpuDebugger interface in IAnjutaDebuggerRegister,
+  IAnjutaDebuggerMemory and IAnjutaDebuggerInstruction
+* Use editor native funtions to avoid round trips.
+* Enable logging of gdb communication with an environment variable
+* Fix bug #488519, remove critical warning (completion_cache == NULL is valid)
+* Fix #498734, typing error in c++ project template
+* Fix a crash when scrolling in the diassembly window
+* Start the terminal shell on plugin activation
+* Fix #502508, use anjuta_launcher to keep program output
+* Fix parsing with quotes in the command line. 
+* Fixed #465084 – wizard instead of assistant (only string changes...).
+* Update IAnjutaEditor and IAnjutaIndicable interfaces to take iterators
+* Fix #511757 – Close icon in tabs cut off.
+* Fix #511049: Change UI of add source directories dialog
+* Fixed some of gtk+ critical warnings.
+* Rename filename argument to uri when an uri is expected
+  anjuta_docman_get_document_for_uri will remove symlinks 
+* Probably fix #510028: crash debugger when having a relative filename
+  in stack trace
+* use gnome_vfs_get_uri_from_local_path to get local path from uri
+  This takes care of escaping some characters
+* Fix #512224: Use a string in english
+
 Anjuta 2.3.2 (11 Jan 2008) -- Naba Kumar
 -----------------------------------------
 
