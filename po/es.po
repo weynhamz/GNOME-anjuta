@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-26 16:46+0000\n"
-"PO-Revision-Date: 2008-01-26 18:05+0100\n"
+"POT-Creation-Date: 2008-01-27 09:56+0000\n"
+"PO-Revision-Date: 2008-01-27 14:06+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3457,73 +3457,85 @@ msgid "Monochrome"
 msgstr "Monocromo"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:54
+msgid ""
+"Plus/Minus\n"
+"Arrows\n"
+"Circular\n"
+"Squares"
+msgstr ""
+"Más/Menos\n"
+"Flechas\n"
+"Circular\n"
+"Cuadrados"
+
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:58
 msgid "Pressing backspace un-indents"
 msgstr "Reducir sangría al pulsar borrado"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:55
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:59
 msgid "Pressing tab inserts indentation"
 msgstr "Sangrar al pulsar el tabulador"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:56
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:60
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:19
 msgid "Printing"
 msgstr "Impresión"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:57
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:61
 msgid "Select highlight style to edit:"
 msgstr "Selecciona el estilo de resaltado para editar:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:58
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:62
 msgid "Selection background:"
 msgstr "Fondo de la selección:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:59
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:63
 msgid "Selection foreground:"
 msgstr "Primer plano para selección:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:60
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:64
 msgid "Strip trailling spaces on file save"
 msgstr "Eliminar espacios finales al guardar"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:61
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:65
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:26
 msgid "Tab size in spaces:"
 msgstr "Tamaño del tabulador en espacios:"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:62
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:66
 msgid "Underlined"
 msgstr "Subrayado"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:63
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:67
 msgid "Use default"
 msgstr "Usar predeterminado"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:64
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:68
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:28
 msgid "Use tabs for indentation"
 msgstr "Usar tabulador para sangrar"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:65
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:69
 msgid "View EOL chars"
 msgstr "Ver caracteres de fin de línea"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:66
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:70
 msgid "View Indentation Guides"
 msgstr "Ver guías de sangría"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:67
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:71
 msgid "View Line Wrap"
 msgstr "Ver ajuste de líneas"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:68
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:72
 msgid "View Whitespaces"
 msgstr "Ver espacios en blanco"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:69
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:73
 msgid "View indentation whitespaces"
 msgstr "Ver espacios en blanco de la sangría"
 
-#: ../plugins/editor/anjuta-editor-scintilla.glade.h:70
+#: ../plugins/editor/anjuta-editor-scintilla.glade.h:74
 msgid "Wrap bookmarks search around"
 msgstr "Búsqueda circular de marcadores"
 
