@@ -176,6 +176,8 @@ anjuta_save_prompt_init(AnjutaSavePrompt *obj)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow),
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow),
+										 GTK_SHADOW_IN);
 	gtk_box_pack_start (GTK_BOX (vbox), scrolledwindow, TRUE, TRUE, 0);
 	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow), 10);
 	gtk_widget_show (scrolledwindow);

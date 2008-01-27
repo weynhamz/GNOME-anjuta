@@ -89,11 +89,6 @@ number of progressbar should be acceptable. All of them
 should be shown side-by-side in status bar.</comment>
     </item>
     <item>
-      <attribute id="1098255692" priority="1" done="0" start_date="731874" enddate="99999999" notify="0" endtime="-60" last_edited="1159483377"/>
-      <summary>Move encodings source files</summary>
-      <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c) by CVS surgery into editor plugin.</comment>
-    </item>
-    <item>
       <attribute id="1107255619" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1159483386"/>
       <summary>Plugins reference counting</summary>
       <comment>Implement plugins reference counting. Loading a plugin gets 1 ref and when ref count reaches 0, plugin is deactivated.</comment>
@@ -123,6 +118,11 @@ Currently, preferences are registered at plugins activation time. This has a rea
 It should be fixed such that gconf schema files are automatically generated from the dialogs by grepping for the preferences keys schemas defined in the widget names (in the glade files) during build time and installed correctly during install time.
 
 Then AnjutaPreferences class should be fixed not to preemptively create the dialog widgets on plugin activations, but rather do it at IAnjutaPreferences::merge() and IAnjutaPreferences::unmerge() implementations in plugins. The plugins would still need to setup notifications in IAnjutaPreferences::init() implementation. To accomplish all this, it might involve substantial changes in AnjutaPreferences class.</comment>
+    </item>
+    <item>
+      <attribute id="1098255692" priority="1" done="1" start_date="731874" completed_date="733068" notify="0" last_edited="1201438779"/>
+      <summary>Move encodings source files</summary>
+      <comment>Move encodings source files (anjuta-encodings.h and anjuta-encodings.c) by CVS surgery into editor plugin.</comment>
     </item>
   </category>
   <category title="Plugin: Editor" place="5">
@@ -407,11 +407,6 @@ Test and fix all project wizard templates and set reasonable version numbers for
   </category>
   <category title="anjuta" place="1">
     <item>
-      <attribute id="1107253737" priority="1" done="0" start_date="731978" enddate="99999999" notify="0" endtime="-60" last_edited="1107253737"/>
-      <summary>Save and load user sessions</summary>
-      <comment>Save and load user sessions</comment>
-    </item>
-    <item>
       <attribute id="1107253772" priority="1" done="1" start_date="731978" completed_date="732405" notify="0" last_edited="1144149839"/>
       <summary>Show toolbars</summary>
       <comment>Show toolbars that were shown in last session.</comment>
@@ -440,6 +435,11 @@ Example: (DocmanPlugin*)plugin -&gt; DOCMAN_PLUGIN (plugin)</comment>
       <comment>[Skill: Medium, Work: 40hrs, Bounty: $300, Status: Completed, Bug: #457477]
 
 Implement missing features of CVS and subversion in their respective plugins. Basic features are already implemented, but we are missing many advanced yet powerful features of these version control systems.</comment>
+    </item>
+    <item>
+      <attribute id="1107253737" priority="1" done="1" start_date="731978" completed_date="733068" notify="0" last_edited="1201438867"/>
+      <summary>Save and load user sessions</summary>
+      <comment>Save and load user sessions</comment>
     </item>
   </category>
   <category title="Plugin: Macros" place="13">
@@ -495,12 +495,6 @@ releases. Use gdb's MI interface to communicate with it.</comment>
       <comment>Complete debugger UI in gdb plugin. Complete porting of debugger.</comment>
     </item>
     <item>
-      <attribute id="1159648703" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648703"/>
-      <summary>Multi-thread support</summary>
-      <comment>[Skill: medium, Work: 30h, Bounty: $150]
-Displaying all threads and selecting one should be rather easy. But this might have some impact on the display of local variables.</comment>
-    </item>
-    <item>
       <attribute id="1159648774" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648774"/>
       <summary>Remote debugging support</summary>
       <comment>[Skill: medium, Work: 40h]
@@ -514,18 +508,24 @@ Remote debugging support in Anjuta debugger.</comment>
 Currently, this dialog use the same debug tree widget used by the local  variables and watch display. I think we should keep the same widget for all this but we need perhaps to add a few options (local variables cannot be removed by example).</comment>
     </item>
     <item>
-      <attribute id="1159648879" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159648975"/>
-      <summary>Add a disassembly window</summary>
-      <comment>[Skill: Medium, Work: 40hrs]
-
-The same widget that it already used for the memory view can possibly used for this view with a few improvements. It's a text widget allocating memory only for displayed text. This widget should be improved too, as currently it doesn't free any memory.</comment>
-    </item>
-    <item>
       <attribute id="1159649070" priority="1" done="0" start_date="732584" enddate="99999999" notify="0" endtime="-60" last_edited="1159649070"/>
       <summary>Cleaning the debugger plugin code</summary>
       <comment>[Skill: Basic, Work: 10hrs, Bounty: $20]
 There are some warning when compiling the gdb plugin code and some useless code that should be removed.
 </comment>
+    </item>
+    <item>
+      <attribute id="1159648703" priority="1" done="1" start_date="732584" completed_date="733068" notify="0" last_edited="1201438882"/>
+      <summary>Multi-thread support</summary>
+      <comment>[Skill: medium, Work: 30h, Bounty: $150]
+Displaying all threads and selecting one should be rather easy. But this might have some impact on the display of local variables.</comment>
+    </item>
+    <item>
+      <attribute id="1159648879" priority="1" done="1" start_date="732584" completed_date="733068" notify="0" last_edited="1201438903"/>
+      <summary>Add a disassembly window</summary>
+      <comment>[Skill: Medium, Work: 40hrs]
+
+The same widget that it already used for the memory view can possibly used for this view with a few improvements. It's a text widget allocating memory only for displayed text. This widget should be improved too, as currently it doesn't free any memory.</comment>
     </item>
   </category>
   <category title="Plugin: Terminal" place="16">

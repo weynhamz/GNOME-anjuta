@@ -1,10 +1,18 @@
 2008-01-27  Naba Kumar  <naba@gnome.org>
 
+	* TODO.tasks: Updated.
+
+	* libanjuta/anjuta-save-prompt.c: (anjuta_save_prompt_init): Added
+	scrollwindow shadow in.
+
+	* plugins/editor/anjuta-editor-scintilla.glade:
+	* plugins/editor/style-editor.c: (create_style_editor_gui):
+	Set style window transient and cetered for preferences window.
+	Fixed Bug #365490 - problems displaying Scintilla Colors & Fonts dialog
+
 	* plugins/editor/anjuta-editor-scintilla.glade:
 	Fixes Bug #427108 - Scintilla plugin configuration folding-style
 	setting not working
-
-2008-01-27  Naba Kumar  <naba@gnome.org>
 
 	* configure.in, NEWS: Updated for release 2.3.3
 

@@ -877,6 +877,7 @@ static void
 create_style_editor_gui (StyleEditor * se)
 {
 	GladeXML *gxml;
+	GtkWidget *pref_dialog;
 	GList *list = NULL;
 	gint i;
 
@@ -911,8 +912,9 @@ create_style_editor_gui (StyleEditor * se)
 	gtk_combo_set_popdown_strings (GTK_COMBO (se->priv->hilite_item_combo), list);
 	g_list_free (list);
 	
+	pref_dialog = anjuta_preferences_get_dialog (se->prefs);
 	gtk_window_set_transient_for (GTK_WINDOW (se->priv->dialog),
-								  GTK_WINDOW (se->prefs));
+								  GTK_WINDOW (pref_dialog));
 	
 	g_signal_connect (G_OBJECT (GTK_COMBO(se->priv->hilite_item_combo)->entry),
 					  "changed", G_CALLBACK (on_hilite_style_entry_changed),
