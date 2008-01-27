@@ -52,9 +52,9 @@ Bugfixes:
 * Start the terminal shell on plugin activation
 * Fix #502508, use anjuta_launcher to keep program output
 * Fix parsing with quotes in the command line. 
-* Fixed #465084 – wizard instead of assistant (only string changes...).
+* Fixed #465084 - wizard instead of assistant (only string changes...).
 * Update IAnjutaEditor and IAnjutaIndicable interfaces to take iterators
-* Fix #511757 – Close icon in tabs cut off.
+* Fix #511757 - Close icon in tabs cut off.
 * Fix #511049: Change UI of add source directories dialog
 * Fixed some of gtk+ critical warnings.
 * Rename filename argument to uri when an uri is expected
@@ -64,6 +64,11 @@ Bugfixes:
 * use gnome_vfs_get_uri_from_local_path to get local path from uri
   This takes care of escaping some characters
 * Fix #512224: Use a string in english
+* Fixes Bug #427108 - Scintilla plugin configuration folding-style
+  setting not working
+* Fixed Bug #365490 - problems displaying Scintilla Colors & Fonts dialog
+* Added scrollwindow shadow in save dialog.
+* Removed unmaintained rpm spec file.
 
 Anjuta 2.3.2 (11 Jan 2008) -- Naba Kumar
 -----------------------------------------
