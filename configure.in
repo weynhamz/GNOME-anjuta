@@ -1105,7 +1105,6 @@ libegg/util/Makefile
 libegg/treeviewutils/Makefile
 libegg/menu/Makefile
 libegg/recent-files/Makefile
-anjuta.spec
 libanjuta/Makefile
 libanjuta/libanjuta-1.0.pc
 libanjuta/interfaces/Makefile

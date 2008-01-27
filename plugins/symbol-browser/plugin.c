@@ -50,9 +50,6 @@
 #define TIMEOUT_INTERVAL_SYMBOLS_UPDATE		10000
 
 static gpointer parent_class = NULL;
-static gboolean need_symbols_update;
-static gint timeout_id;
-static gchar prev_char_added = ' ';
 
 /* these will block signals on treeview and treesearch callbacks functions */
 static void trees_signals_block (SymbolBrowserPlugin *sv_plugin);
@@ -65,9 +62,6 @@ static void update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin);
 
 static void on_editor_update_ui (IAnjutaEditor *editor,
 								 SymbolBrowserPlugin *sv_plugin);
-static void on_char_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar ch,
-						   SymbolBrowserPlugin *sv_plugin);
-
 static void
 register_stock_icons (AnjutaPlugin *plugin)
 {
@@ -695,9 +689,6 @@ on_editor_foreach_disconnect (gpointer key, gpointer value, gpointer user_data)
 	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
 										  G_CALLBACK (on_editor_update_ui),
 										  user_data);
-	g_signal_handlers_disconnect_by_func (G_OBJECT(key),
-										  G_CALLBACK (on_char_added),
-										  user_data);
 	g_object_weak_unref (G_OBJECT(key),
 						 (GWeakNotify) (on_editor_destroy),
 						 user_data);
@@ -771,54 +762,6 @@ update_editor_symbol_model (SymbolBrowserPlugin *sv_plugin)
 }
 
 static gboolean
-on_editor_buffer_symbols_update_timeout (gpointer user_data)
-{
-	SymbolBrowserPlugin *sv_plugin;
-	IAnjutaEditor *ed;
-	gchar *current_buffer = NULL;
-	gint buffer_size = 0;
-	gchar *uri = NULL;
-
-	sv_plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (user_data);
-	
-	if (sv_plugin->current_editor == NULL)
-		return FALSE;
-	 
-	 /* we won't proceed with the updating of the symbols if we didn't type in 
-	 	anything */
-	 if (!need_symbols_update)
-	 	return TRUE;
-	
-	if (sv_plugin->current_editor) {
-		ed = IANJUTA_EDITOR (sv_plugin->current_editor);
-		
-		buffer_size = ianjuta_editor_get_length (ed, NULL);
-		current_buffer = ianjuta_editor_get_text_all (ed, NULL);
-				
-		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), NULL);
-		
-	} 
-	else
-		return FALSE;
-	
-	if (uri) {
-		/* FIXME: Only uncomment after investigating bug 395362 */
-		/*
-		anjuta_symbol_view_update_source_from_buffer (ANJUTA_SYMBOL_VIEW (sv_plugin->sv_tree), 
-				uri, current_buffer, buffer_size);
-		*/
-		g_free (uri);
-	}
-	
-	if (current_buffer)
-		g_free (current_buffer);  
-
-	need_symbols_update = FALSE;
-
-	return TRUE;
-}
-
-static gboolean
 iter_matches (SymbolBrowserPlugin *sv_plugin, GtkTreeIter* iter, 
 			  GtkTreeModel* model, gint lineno)
 {
@@ -871,21 +814,6 @@ on_editor_update_ui (IAnjutaEditor *editor, SymbolBrowserPlugin *sv_plugin)
 }
 
 static void
-on_char_added (IAnjutaEditor *editor, IAnjutaIterable *position, gchar ch,
-			   SymbolBrowserPlugin *sv_plugin)
-{
-	DEBUG_PRINT ("char added: %c [int %d]", ch, ch);
-	
-	/* try to force the update if a "." or a "->" is pressed */
-	if ((ch == '.') || (prev_char_added == '-' && ch == '>'))
-		on_editor_buffer_symbols_update_timeout (sv_plugin);
-	
-	need_symbols_update = TRUE;
-	
-	prev_char_added = ch;
-}
-
-static void
 value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 							const GValue *value, gpointer data)
 {
@@ -929,21 +857,10 @@ value_added_current_editor (AnjutaPlugin *plugin, const char *name,
 		g_signal_connect (G_OBJECT (editor), "saved",
 						  G_CALLBACK (on_editor_saved),
 						  sv_plugin);
-						  
-		g_signal_connect (G_OBJECT (editor), "char-added",
-						  G_CALLBACK (on_char_added),
-						  sv_plugin);
 		g_signal_connect (G_OBJECT(editor), "update_ui",
 						  G_CALLBACK (on_editor_update_ui),
 						  sv_plugin);
 	}
-	
-	/* add a default timeout to the updating of buffer symbols */	
-	timeout_id = g_timeout_add (TIMEOUT_INTERVAL_SYMBOLS_UPDATE,
-								on_editor_buffer_symbols_update_timeout,
-								plugin);
-	need_symbols_update = FALSE;
-	
 }
 
 static void
@@ -955,8 +872,6 @@ value_removed_current_editor (AnjutaPlugin *plugin,
 	GtkAction *action;
 
 	/* let's remove the timeout for symbols refresh */
-	g_source_remove (timeout_id);
-	need_symbols_update = FALSE;
 	
 	sv_plugin = ANJUTA_PLUGIN_SYMBOL_BROWSER (plugin);
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);

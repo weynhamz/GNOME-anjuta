@@ -1,5 +1,12 @@
 2008-01-27  Naba Kumar  <naba@gnome.org>
 
+	* Makefile.am, anjuta.spec.in, configure.in: Removed unmaintained
+	rpm spec file.
+
+	* plugins/symbol-browser/plugin.c: (on_editor_foreach_disconnect),
+	(value_added_current_editor), (value_removed_current_editor):
+	Removed dead code.
+
 	* TODO.tasks: Updated.
 
 	* libanjuta/anjuta-save-prompt.c: (anjuta_save_prompt_init): Added
