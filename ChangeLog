@@ -1,5 +1,11 @@
 2008-01-27  Naba Kumar  <naba@gnome.org>
 
+	* plugins/editor/anjuta-editor-scintilla.glade:
+	Fixes Bug #427108 - Scintilla plugin configuration folding-style
+	setting not working
+
+2008-01-27  Naba Kumar  <naba@gnome.org>
+
 	* configure.in, NEWS: Updated for release 2.3.3
 
 2008-01-26  Sébastien Granjoux  <seb.sfo@free.fr>
