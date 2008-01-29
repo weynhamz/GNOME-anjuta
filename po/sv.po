@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-01-29 19:06+0100\n"
-"PO-Revision-Date: 2008-01-29 19:41+0100\n"
+"PO-Revision-Date: 2008-01-29 20:18+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -1292,7 +1292,7 @@ msgid ""
 "Patch-Style diff"
 msgstr ""
 "Standard diff\n"
-"Patch-Style diff"
+"Patch-liknande diff"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:48
 msgid "Unified format instead of context format"
@@ -5035,7 +5035,7 @@ msgstr "Installera _patch..."
 
 #: ../plugins/patch/plugin.c:94
 msgid "Patch files/directories"
-msgstr "Installera patch för filer och kataloger"
+msgstr "Installera patchar för filer och kataloger"
 
 #: ../plugins/profiler/gprof-call-graph-view.c:312
 #: ../plugins/profiler/gprof-call-graph-view.c:322
@@ -5141,9 +5141,8 @@ msgstr ""
 
 # Osäker på sammanhang
 #: ../plugins/profiler/plugin.c:822
-#, fuzzy
 msgid "Flat Profile"
-msgstr "Patchfil"
+msgstr "Flat profil"
 
 #: ../plugins/profiler/plugin.c:827
 #: ../plugins/profiler/profiler.glade.h:7
@@ -8117,9 +8116,8 @@ msgid "Provides document management capabilities."
 msgstr ""
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
-#, fuzzy
 msgid "Anjuta File Assistent Plugin"
-msgstr "Anjuta-insticksmodul"
+msgstr "Instick för Anjutas filguide"
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:3
 msgid "File Assistent"
@@ -8166,14 +8164,12 @@ msgid "Macro Plugin"
 msgstr "Instick för makron"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:1
-#, fuzzy
 msgid "Patch Plugin"
-msgstr "Anjuta-insticksmodul"
+msgstr "Instick för patch"
 
 #: ../plugins/patch/anjuta-patch.plugin.in.h:2
-#, fuzzy
 msgid "Patches files and directories."
-msgstr "Installera patch för filer och kataloger"
+msgstr "Installerar patchar för filer och kataloger."
 
 #: ../plugins/tools/anjuta-tools.plugin.in.h:1
 msgid "Tools"
