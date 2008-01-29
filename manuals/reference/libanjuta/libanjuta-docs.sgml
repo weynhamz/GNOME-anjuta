@@ -84,10 +84,13 @@
   <chapter id="plugin-interfaces">
     <title>Plugin interfaces</title>
 	<xi:include href="xml/ianjuta-bookmark.xml"/>
-	<xi:include href="xml/ianjuta-breakpoint-debugger.xml"/>
 	<xi:include href="xml/ianjuta-buildable.xml"/>
-	<xi:include href="xml/ianjuta-cpu-debugger.xml"/>
 	<xi:include href="xml/ianjuta-debugger.xml"/>
+	<xi:include href="xml/ianjuta-debugger-breakpoint.xml"/>
+	<xi:include href="xml/ianjuta-debugger-instruction.xml"/>
+	<xi:include href="xml/ianjuta-debugger-memory.xml"/>
+	<xi:include href="xml/ianjuta-debugger-register.xml"/>
+	<xi:include href="xml/ianjuta-debugger-variable.xml"/>
 	<xi:include href="xml/ianjuta-debug-manager.xml"/>
 	<xi:include href="xml/ianjuta-document.xml"/>
 	<xi:include href="xml/ianjuta-document-manager.xml"/>

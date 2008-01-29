@@ -1804,27 +1804,6 @@ IANJUTA_DEBUGGER_BREAKPOINT_GET_IFACE
 </SECTION>
 
 <SECTION>
-<FILE>ianjutai-debugger-variable</FILE>
-IAnjutaiDebuggerVariableObject
-IANJUTAI_DEBUGGER_VARIABLE_ERROR
-IAnjutaiDebuggerVariable
-IAnjutaiDebuggerVariableIface
-ianjutai_debugger_variable_error_quark
-ianjutai_debugger_variable_assign
-ianjutai_debugger_variable_create
-ianjutai_debugger_variable_destroy
-ianjutai_debugger_variable_evaluate
-ianjutai_debugger_variable_list_children
-ianjutai_debugger_variable_update
-<SUBSECTION Standard>
-IANJUTAI_DEBUGGER_VARIABLE
-IANJUTAI_IS_DEBUGGER_VARIABLE
-IANJUTAI_TYPE_DEBUGGER_VARIABLE
-ianjutai_debugger_variable_get_type
-IANJUTAI_DEBUGGER_VARIABLE_GET_IFACE
-</SECTION>
-
-<SECTION>
 <FILE>ianjuta-debugger-register</FILE>
 IAnjutaDebuggerRegisterData
 IANJUTA_DEBUGGER_REGISTER_ERROR
@@ -1833,7 +1812,7 @@ IAnjutaDebuggerRegisterIface
 ianjuta_debugger_register_error_quark
 ianjuta_debugger_register_list
 ianjuta_debugger_register_update
-ianjuta_debugger_register_write_register
+ianjuta_debugger_register_write
 <SUBSECTION Standard>
 IANJUTA_DEBUGGER_REGISTER
 IANJUTA_IS_DEBUGGER_REGISTER

@@ -1,3 +1,10 @@
+2008-01-29  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* manuals/reference/libanjuta/libanjuta-docs.sgml,
+	manuals/reference/libanjuta/libanjuta-sections.txt,
+	libanjuta/interfaces/libanjuta.idl:
+	Documentation fixes for IAnjutaDebugger* interfaces
+
 === anjuta 2.3.3 ===
 
 2008-01-27  Naba Kumar  <naba@gnome.org>

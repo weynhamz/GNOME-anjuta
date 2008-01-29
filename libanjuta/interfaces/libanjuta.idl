@@ -4045,6 +4045,18 @@ interface IAnjutaDebugger
 		
 }
 
+/**
+* SECTION:ianjuta-debug-manager
+* @title: IAnjutaDebugManager
+* @short_description: Common graphical interface to all debugger
+* @see_also: 
+* @stability: Unstable
+* @include: libanjuta/interfaces/ianjuta-debug-manager.h
+* 
+* This interface wrap the real debugger plugin and provide a 
+* common graphical user interface.
+*/
+
 interface IAnjutaDebugManager
 {
 	#include "ianjuta-debugger.h"
