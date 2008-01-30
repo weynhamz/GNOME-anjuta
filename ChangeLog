@@ -1,5 +1,13 @@
 2008-01-30  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/data_view.c,
+	plugins/debug-manager/sparse_view.c,
+	manuals/anjuta-manual/C/debugger.xml:
+	Fix #513130, #513131 #513135: Wrong menu item names and errors
+	in the documentation
+
+2008-01-30  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/tools/editor.c:
  	ianjuta_document_manager_find_document_with_path expect an uri not
 	a path

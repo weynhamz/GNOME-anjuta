@@ -625,7 +625,7 @@
 	has been selected as the current thread). Alternatively, open the 
 	<interface>Operation menu</interface> by right-clicking on the 
 	<interface>Thread list window</interface>, and choose the menu item 
-	<guimenuitem>Set thread</guimenuitem> to set the thread.
+	<guimenuitem>Set current thread</guimenuitem> to set the thread.
    </para>
    <para>
     Changing the thread will change the value of CPU registers and the current
@@ -677,10 +677,9 @@
   <sect2 id="cpu-disassembly">
    <title>Disassembly window</title>
    <para>
-    Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Disassembly 
+    Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Disassembly
 	</guimenuitem></menuchoice>, to open the <interface>disassembly window</interface>
     for the program being debugged.
-	registers.
    </para>
    <para>
     The first column is the address in hexadecimal. In the second column, you can
