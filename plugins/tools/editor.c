@@ -781,6 +781,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 		{
 			IAnjutaDocumentManager *docman;
 			IAnjutaDocument *doc;
+			gchar *uri;
 
 			/* Check that default script directory exist */
 			data = g_build_filename (g_get_home_dir(), LOCAL_ANJUTA_SCRIPT_DIRECTORY, NULL);
@@ -817,26 +818,25 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 				return;
 			}
 
+			uri = gnome_vfs_get_uri_from_local_path(data);
+			g_free (data);
 			doc =
 				ianjuta_document_manager_find_document_with_path 
-							   (docman, data, NULL);
+							   (docman, uri, NULL);
 			if (doc == NULL)
 			{
 				IAnjutaFileLoader* loader;
-				gchar *uri;
 
 				/* Not found, load file */
 				loader = IANJUTA_FILE_LOADER (anjuta_shell_get_interface (ANJUTA_PLUGIN (this->parent->plugin)->shell, IAnjutaFileLoader, NULL));
-				uri = gnome_vfs_get_uri_from_local_path(data);
 				ianjuta_file_loader_load (loader, uri, FALSE, NULL);
-				g_free (uri);
 			}
 			else
 			{
 				/* Set as current */
 				ianjuta_document_manager_set_current_document (docman, doc, NULL);
 			}
-			g_free (data);
+			g_free (uri);
 		}
 	}
 	
