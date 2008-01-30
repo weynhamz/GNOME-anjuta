@@ -4,9 +4,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-01-19 17:58+0000\n"
-"PO-Revision-Date: 2008-01-21 18:30+0100\n"
+"PO-Revision-Date: 2008-01-30 15:22+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
-"Language-Team: Español <<gnome-es-list@gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3196,7 +3196,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:589(title)
 msgid "Setting the current frame"
-msgstr ""
+msgstr "Establecer el marco actual"
 
 #: C/anjuta-manual.xml:590(para)
 msgid ""
@@ -3218,7 +3218,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:606(title)
 msgid "Thread Window"
-msgstr ""
+msgstr "Ventana de hilos"
 
 #: C/anjuta-manual.xml:607(para)
 msgid ""
@@ -3238,7 +3238,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:621(title)
 msgid "Setting the current thread"
-msgstr ""
+msgstr "Establecer el hilo actual"
 
 #: C/anjuta-manual.xml:622(para)
 msgid ""
@@ -3249,6 +3249,12 @@ msgid ""
 "<interface>Thread list window</interface>, and choose the menu item "
 "<guimenuitem>Set thread</guimenuitem> to set the thread."
 msgstr ""
+"Al pulsar dos veces sobre cualquier hilo en la lista de hilos se establecerá ese hilo como "
+"el hilo actualmente seleccionado (la flecha apuntará al hilo, indicando "
+"que se ha seleccionado como el hilo actual). Alternativamente, abra el "
+"<interface>menú de operaciones</interface> pulsando con el botón derecho "
+"sobre la <interface>ventana de la lista de hilos</interface> y elija el elemento del menú "
+"<guimenuitem>Establecer hilo</guimenuitem> para establecer el hilo."
 
 #: C/anjuta-manual.xml:630(para)
 msgid ""
@@ -3256,6 +3262,9 @@ msgid ""
 "stack frame, so the <interface>Locals list window</interface> will change "
 "too."
 msgstr ""
+"Al cambiar el hilo también cambiará el valor de los registros de la CPU y el "
+"marco actual de la pila, de tal forma que la <interface>ventana de lista de locales</interface> "
+"también cambiará."
 
 #: C/anjuta-manual.xml:639(title)
 msgid "CPU"
@@ -3323,10 +3332,15 @@ msgid ""
 "select <menuchoice><guimenuitem>Goto address</guimenuitem></menuchoice> to "
 "get a small edit box where you can enter an address in hexadecimal."
 msgstr ""
+"Hasta el espacio de direccionamiento de un microprocesador de 32 bits es bastante grande (4 Gigabytes) "
+"de tal forma que es bastante difícil ir a una dirección en particular con la "
+"barra de desplazamiento. Pero puede pulsar con el botón derecho del ratón, obtener un nuevo menú y "
+"seleccionar <menuchoice><guimenuitem>Ir a la dirección</guimenuitem></menuchoice> para "
+"obtener una pequeña caja de texto editable donde puede introducir una dirección en hexadecimal."
 
 #: C/anjuta-manual.xml:678(title)
 msgid "Disassembly window"
-msgstr ""
+msgstr "Ventaba de desensamblado"
 
 #: C/anjuta-manual.xml:679(para)
 msgid ""
@@ -3335,6 +3349,9 @@ msgid ""
 "<interface>disassembly window</interface> for the program being debugged. "
 "registers."
 msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Ver</"
+"guisubmenu><guimenuitem>Desensamblado</guimenuitem></menuchoice> para abrir la "
+"<interface>ventana de desensamblado</interface> para el programa que se está depurando."
 
 #: C/anjuta-manual.xml:685(para)
 msgid ""
@@ -3342,6 +3359,9 @@ msgid ""
 "can have a label starting at the beginning of the line and ended with a "
 "colon or a assembler instruction starting after 4 space characters."
 msgstr ""
+"La primera columna es la dirección en hexadecimal. En la segunda columna puede "
+"tener una etiqueta al comienzo de la línea que termina con un punto y coma, o "
+"una instrucción en ensamblador que comienza tras 4 caracteres espacio."
 
 #: C/anjuta-manual.xml:690(para)
 msgid ""
@@ -3352,6 +3372,12 @@ msgid ""
 "in the disassembly window will be changed to the program counter value when "
 "the program is stopped."
 msgstr ""
+"De nuevo, ya que el espacio de direccionamiento es muy grande, la barra de desplazamiento es bastante inútil. "
+"Puede pulsar con el botón derecho del ratón, obtener un nuevo menú y seleccionar "
+"<menuchoice><guimenuitem>Ir a la dirección</guimenuitem></menuchoice> para obtener "
+"una pequeña caja de texto editable donde puede introducir una dirección en hexadecimal. La posición "
+"en la ventana de desensamblado se cambiará al valor del contador del programa cuando "
+"se pare el programa."
 
 #: C/anjuta-manual.xml:703(title)
 msgid "Others"
