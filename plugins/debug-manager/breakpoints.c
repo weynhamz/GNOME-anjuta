@@ -1418,15 +1418,18 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 	pass_entry = glade_xml_get_widget (gxml, "breakpoint_pass_entry");
 	pass_label = glade_xml_get_widget (gxml, "breakpoint_pass_label");
 
-	if (!dma_debugger_queue_is_supported(bd->debugger, HAS_IGNORE_BREAKPOINT))
+	if (bd->debugger != NULL)
 	{
-		gtk_widget_hide (pass_entry);
-		gtk_widget_hide (pass_label);
-	}
-	if (!dma_debugger_queue_is_supported(bd->debugger, HAS_CONDITION_BREAKPOINT))
-	{
-		gtk_widget_hide (condition_entry);
-		gtk_widget_hide (condition_label);
+		if (!dma_debugger_queue_is_supported(bd->debugger, HAS_IGNORE_BREAKPOINT))
+		{	
+			gtk_widget_hide (pass_entry);
+			gtk_widget_hide (pass_label);
+		}
+		if (!dma_debugger_queue_is_supported(bd->debugger, HAS_CONDITION_BREAKPOINT))
+		{
+			gtk_widget_hide (condition_entry);
+			gtk_widget_hide (condition_label);
+		}
 	}
 	
 	if (bi == NULL)
@@ -1445,7 +1448,7 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 			uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
 			line = ianjuta_editor_get_lineno (te, NULL);
 		}
-		//NULL uri ia ok here
+		//NULL uri is ok here
 		bi = breakpoint_item_new_from_uri (bd, uri, line, TRUE);
 		new_break = TRUE;
 	}
@@ -1595,7 +1598,7 @@ on_toggle_breakpoint_activate (GtkAction * action, BreakpointsDBase *bd)
 	uri = ianjuta_file_get_uri (IANJUTA_FILE (te), NULL);
 	if (uri == NULL) return;     /* File not saved yet, it's not possible to put a breakpoint in it */
 	line = ianjuta_editor_get_lineno (te, NULL);
-	
+
 	/* Find corresponding breakpoint
 	 * Try to find right mark (it could have moved) first */
 	bi = breakpoints_dbase_find_breakpoint_from_mark (bd, te, line);

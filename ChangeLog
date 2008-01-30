@@ -1,5 +1,13 @@
 2008-01-30  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/breakpoints.c:
+	Fix #512901: Crash when adding a breakpoint
+
+	* plugins/debug-manager/queue.c:
+	Remove a possible memory leak
+
+2008-01-30  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/data_view.c,
 	plugins/debug-manager/sparse_view.c,
 	manuals/anjuta-manual/C/debugger.xml:

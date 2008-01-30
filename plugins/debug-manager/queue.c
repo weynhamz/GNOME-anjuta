@@ -884,7 +884,9 @@ dma_debugger_queue_dispose (GObject *obj)
 static void
 dma_debugger_queue_finalize (GObject *obj)
 {
-	/*DmaDebuggerQueue *self = DMA_DEBUGGER_QUEUE (obj);*/
+	DmaDebuggerQueue *self = DMA_DEBUGGER_QUEUE (obj);
+
+	g_queue_free (self->queue);
 
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
