@@ -449,8 +449,6 @@ sourceview_finalize(GObject *object)
 	Sourceview *cobj;
 	cobj = ANJUTA_SOURCEVIEW(object);
 	
-	DEBUG_PRINT("=========== finalise =============");
-	
 	sourceview_remove_monitor(cobj);
 	sourceview_prefs_destroy(cobj);
 	
@@ -458,6 +456,7 @@ sourceview_finalize(GObject *object)
 	
 	g_slice_free(SourceviewPrivate, cobj->priv);
 	G_OBJECT_CLASS(parent_class)->finalize(object);
+	DEBUG_PRINT("=========== finalise =============");
 }
 
 /* Sync with IANJUTA_MARKABLE_MARKER  */

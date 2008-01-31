@@ -35,8 +35,8 @@ static AnjutaPreferences* prefs = NULL;
 #define TAB_SIZE                   "tabsize"
 #define INDENT_SIZE                "indent.size"
 
-#define VIEW_LINENUMBERS           "sourceview.linenumbers.visible"
-#define VIEW_MARKS                 "sourceview.marks.visible"
+#define VIEW_LINENUMBERS           "margin.linenumber.visible"
+#define VIEW_MARKS                 "margin.marker.visible"
 #define VIEW_RIGHTMARGIN           "sourceview.rightmargin.visible"
 #define RIGHTMARGIN_POSITION       "sourceview.rightmargin.position"
 
