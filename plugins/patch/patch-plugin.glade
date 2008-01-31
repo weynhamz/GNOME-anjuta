@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!-- Generated with glade3
+<!--Generated with glade3 3.4.0 on Thu Jan 31 19:51:34 2008 
 	Version: 2.91.3
 	Date: Sat Jul 29 21:16:15 2006
 	User: jhs
@@ -26,16 +26,51 @@
               <placeholder/>
             </child>
             <child>
-              <widget class="GtkCheckButton" id="dryrun">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">Dry run</property>
-                <property name="draw_indicator">True</property>
+              <widget class="GtkHScale" id="patch_level_scale">
+                <property name="adjustment">0 0 0 0 10 0</property>
+                <property name="digits">0</property>
               </widget>
               <packing>
+                <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
-                <property name="top_attach">3</property>
-                <property name="bottom_attach">4</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
               </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label3">
+                <property name="xalign">0</property>
+                <property name="yalign">0</property>
+                <property name="xpad">5</property>
+                <property name="ypad">5</property>
+                <property name="label">Patch level:</property>
+              </widget>
+              <packing>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label2">
+                <property name="xalign">0</property>
+                <property name="yalign">0</property>
+                <property name="xpad">5</property>
+                <property name="ypad">5</property>
+                <property name="label">Patch file:</property>
+              </widget>
+              <packing>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label1">
+                <property name="xalign">0</property>
+                <property name="yalign">0</property>
+                <property name="xpad">5</property>
+                <property name="ypad">5</property>
+                <property name="label">File/Directory to patch:</property>
+              </widget>
             </child>
             <child>
               <widget class="GtkLabel" id="output">
@@ -48,50 +83,16 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label1">
-                <property name="xalign">0,000000</property>
-                <property name="yalign">0,000000</property>
-                <property name="xpad">5</property>
-                <property name="ypad">5</property>
-                <property name="label">File/Directory to patch:</property>
-              </widget>
-            </child>
-            <child>
-              <widget class="GtkLabel" id="label2">
-                <property name="xalign">0,000000</property>
-                <property name="yalign">0,000000</property>
-                <property name="xpad">5</property>
-                <property name="ypad">5</property>
-                <property name="label">Patch file:</property>
+              <widget class="GtkCheckButton" id="dryrun">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Dry run</property>
+                <property name="response_id">0</property>
+                <property name="draw_indicator">True</property>
               </widget>
               <packing>
-                <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkLabel" id="label3">
-                <property name="xalign">0,000000</property>
-                <property name="yalign">0,000000</property>
-                <property name="xpad">5</property>
-                <property name="ypad">5</property>
-                <property name="label">Patch level:</property>
-              </widget>
-              <packing>
-                <property name="top_attach">2</property>
-                <property name="bottom_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkHScale" id="patch_level_scale">
-                <property name="adjustment">1,000000 0,000000 10,000000 1,000000 0,000000 0,000000</property>
-                <property name="digits">0</property>
-              </widget>
-              <packing>
-                <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
-                <property name="top_attach">2</property>
-                <property name="bottom_attach">3</property>
+                <property name="top_attach">3</property>
+                <property name="bottom_attach">4</property>
               </packing>
             </child>
           </widget>
@@ -117,48 +118,11 @@
               <widget class="GtkButton" id="patch_button">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <child>
-                  <widget class="GtkAlignment" id="alignment2">
-                    <property name="visible">True</property>
-                    <property name="xalign">0,000000</property>
-                    <property name="yalign">0,000000</property>
-                    <property name="xscale">0,000000</property>
-                    <property name="yscale">0,000000</property>
-                    <child>
-                      <widget class="GtkHBox" id="hbox2">
-                        <property name="visible">True</property>
-                        <property name="spacing">2</property>
-                        <child>
-                          <widget class="GtkImage" id="image2">
-                            <property name="visible">True</property>
-                            <property name="xalign">0,000000</property>
-                            <property name="yalign">0,000000</property>
-                            <property name="stock">gtk-apply</property>
-                          </widget>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <widget class="GtkLabel" id="label5">
-                            <property name="visible">True</property>
-                            <property name="xalign">0,000000</property>
-                            <property name="yalign">0,000000</property>
-                            <property name="label" translatable="yes">Patch</property>
-                            <property name="use_underline">True</property>
-                          </widget>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </widget>
-                    </child>
-                  </widget>
-                </child>
+                <property name="receives_default">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="label" translatable="yes">gtk-apply</property>
+                <property name="use_stock">True</property>
+                <property name="response_id">0</property>
               </widget>
               <packing>
                 <property name="position">1</property>

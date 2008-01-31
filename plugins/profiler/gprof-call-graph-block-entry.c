@@ -94,9 +94,9 @@ gprof_call_graph_block_primary_entry_new (gchar **fields)
 	
 	entry = g_object_new (GPROF_CALL_GRAPH_BLOCK_ENTRY_TYPE, NULL);
 	
-	entry->priv->time_perc = atof (fields[0]);
-	entry->priv->self_sec = atof (fields[1]);
-	entry->priv->child_sec = atof (fields[2]);
+	entry->priv->time_perc = g_ascii_strtod (fields[0], NULL);
+	entry->priv->self_sec = g_ascii_strtod (fields[1], NULL);
+	entry->priv->child_sec = g_ascii_strtod (fields[2], NULL);
 	entry->priv->calls = g_strdup (fields[3]);
 	entry->priv->name = g_strdup (fields[4]);
 
@@ -111,8 +111,8 @@ gprof_call_graph_block_secondary_entry_new (gchar **fields)
 	entry = g_object_new (GPROF_CALL_GRAPH_BLOCK_ENTRY_TYPE, NULL);
 	
 	entry->priv->time_perc = 0.0f;
-	entry->priv->self_sec = atof (fields[0]);
-	entry->priv->child_sec = atof (fields[1]);
+	entry->priv->self_sec = g_ascii_strtod (fields[0], NULL);
+	entry->priv->child_sec = g_ascii_strtod (fields[1], NULL);
 	entry->priv->calls = g_strdup (fields[2]);
 	entry->priv->name = g_strdup (fields[3]);
 

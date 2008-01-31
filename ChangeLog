@@ -1,5 +1,19 @@
 2008-01-31  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/patch/patch-plugin.glade:
+	Fixed button ui problem...
+	
+	Patch from James Liggett:
+	* plugins/profiler/gprof-call-graph-block-entry.c:
+	(gprof_call_graph_block_primary_entry_new),
+	(gprof_call_graph_block_secondary_entry_new):
+	* plugins/profiler/gprof-flat-profile-entry.c:
+	(gprof_flat_profile_entry_new):
+	
+	Fix #507831 - Wrong Profiler values for some locales
+
+2008-01-31  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/sourceview/anjuta-editor-sourceview.glade:
 	* plugins/sourceview/sourceview-prefs.c:
 	* plugins/sourceview/sourceview.c: (sourceview_finalize):

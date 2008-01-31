@@ -95,12 +95,12 @@ gprof_flat_profile_entry_new (gchar **fields)
 	
 	entry = g_object_new (GPROF_FLAT_PROFILE_ENTRY_TYPE, NULL);
 	
-	entry->priv->time_perc = atof (fields[0]);
-	entry->priv->cum_sec = atof (fields[1]);
-	entry->priv->self_sec = atof (fields[2]);
+	entry->priv->time_perc = g_ascii_strtod (fields[0], NULL);
+	entry->priv->cum_sec = g_ascii_strtod (fields[1], NULL);
+	entry->priv->self_sec = g_ascii_strtod (fields[2], NULL);
 	entry->priv->calls = (unsigned) atoi (fields[3]);
-	entry->priv->avg_ms = atof (fields [4]);
-	entry->priv->total_ms = atof (fields[5]);
+	entry->priv->avg_ms = g_ascii_strtod (fields[4], NULL);
+	entry->priv->total_ms = g_ascii_strtod (fields[5], NULL);
 	entry->priv->name = g_strdup (fields[6]);
 
 	return entry;	
