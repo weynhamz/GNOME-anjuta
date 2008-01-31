@@ -1,5 +1,11 @@
 2008-01-31  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/language-manager/languages.xml:
+	Added a pretty ugly string for C++ headers. Maybe we should rely
+	on mime-types instead...
+
+2008-01-31  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/language-support-cpp-java/cpp-java-assist.c:
 	(get_iter_column), (cpp_java_assist_get_calltip_context),
 	(cpp_java_assist_show_calltip), (cpp_java_assist_check),
