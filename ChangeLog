@@ -1,3 +1,16 @@
+2008-01-31  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/threads.c,
+	plugins/debug-manager/stack_trace.c:
+	Avoid crash when getting relative path from debugger (same fix
+	than for #510028)
+
+	* plugins/debug-manager/queue.c:
+	Emit all state changes notification
+
+	* plugins/debug-manager/start.c:
+	Fix #511586: Project path with "+" not working in debugger
+
 2008-01-31  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/patch/patch-plugin.glade:

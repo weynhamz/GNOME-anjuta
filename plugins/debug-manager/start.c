@@ -853,8 +853,7 @@ dma_start_load_uri (DmaStart *this)
 	GList *search_dirs;
 	GnomeVFSURI *vfs_uri;
 	gchar *mime_type;
-	const gchar *filename;
-	// GList *node;
+	gchar *filename;
 
 	if (!dma_quit_debugger (this)) return;
 	
@@ -869,10 +868,11 @@ dma_start_load_uri (DmaStart *this)
 		search_dirs = get_source_directories (this->plugin);
 		
 		mime_type = gnome_vfs_get_mime_type (this->target_uri);
-	        filename = gnome_vfs_uri_get_path (vfs_uri);
+	    filename = gnome_vfs_get_local_path_from_uri (this->target_uri);
 
 		dma_queue_load (this->debugger, filename, mime_type, this->source_dirs);
 		
+		g_free (filename);
 		g_free (mime_type);
 		gnome_vfs_uri_unref (vfs_uri);
 		free_source_directories (search_dirs);

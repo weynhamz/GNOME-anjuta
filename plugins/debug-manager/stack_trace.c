@@ -293,7 +293,7 @@ on_stack_trace_updated (const GList *stack, gpointer user_data, GError *error)
 			if (g_path_is_absolute (frame->file))
 			{					
 				uri = gnome_vfs_get_uri_from_local_path(frame->file);
-				file = strrchr(uri, '/') + 1;
+				file = strrchr(frame->file, G_DIR_SEPARATOR) + 1;
 			}
 			else
 			{

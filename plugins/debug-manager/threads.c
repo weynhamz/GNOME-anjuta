@@ -221,8 +221,16 @@ on_info_thread (const IAnjutaDebuggerFrame* frame, gpointer user_data)
 	
 	if (frame->file)
 	{
-		uri = gnome_vfs_get_uri_from_local_path(frame->file);
-		file = strrchr(uri, '/') + 1;
+		if (g_path_is_absolute (frame->file))
+		{					
+			uri = gnome_vfs_get_uri_from_local_path(frame->file);
+			file = strrchr(frame->file, G_DIR_SEPARATOR) + 1;
+		}
+		else
+		{
+			uri = NULL;
+			file = frame->file;
+		}
 	}
 	else	
 	{
@@ -315,8 +323,16 @@ on_list_thread (const GList *threads, gpointer user_data)
 			adr = g_strdup_printf ("0x%lx", frame->address);
 			if (frame->file)
 			{
-				uri = gnome_vfs_get_uri_from_local_path(frame->file);
-				file = strrchr(uri, '/') + 1;
+				if (g_path_is_absolute (frame->file))
+				{					
+					uri = gnome_vfs_get_uri_from_local_path(frame->file);
+					file = strrchr(frame->file, G_DIR_SEPARATOR) + 1;
+				}
+				else
+				{
+					uri = NULL;
+					file = frame->file;
+				}
 			}
 			else	
 			{
