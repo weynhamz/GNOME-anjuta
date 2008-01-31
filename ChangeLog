@@ -1,5 +1,10 @@
 2008-01-31  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/anjuta-debug-manager.glade:
+	Fix #513485: wrong strings maked as translatable
+
+2008-01-31  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/threads.c,
 	plugins/debug-manager/stack_trace.c:
 	Avoid crash when getting relative path from debugger (same fix
