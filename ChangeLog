@@ -1,5 +1,21 @@
 2008-01-31  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/cpp-java-assist.c:
+	(get_iter_column), (cpp_java_assist_get_calltip_context),
+	(cpp_java_assist_show_calltip), (cpp_java_assist_check),
+	(on_assist_chosen), (cpp_java_assist_install):
+	* plugins/language-support-cpp-java/plugin.c:
+	(on_editor_char_inserted_cpp):
+	Removed annoying DEBUG_PRINTs
+	
+	* plugins/sourceview/anjuta-view.c: (anjuta_view_key_press_event):
+	* plugins/sourceview/sourceview-cell.c: (icell_get_attribute):
+	* plugins/sourceview/sourceview.c: (iassist_show_tips):
+	
+	Fixed "jumping" tooltips, fixed indentation of brances
+
+2008-01-31  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/document-manager/plugin.c: (on_document_changed):
 	Fixed crash when closing anjuta after all document tabs have been closed
 

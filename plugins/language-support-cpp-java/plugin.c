@@ -1161,7 +1161,7 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 				ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
 												   0, NULL);
 				
-				/* DEBUG_PRINT ("Looking at char '%c'", ch); */
+				//DEBUG_PRINT ("Looking at char '%c'", ch);
 				
 				/* Break on begining of line (== end of previous line) */
 				if (iter_is_newline (iter, ch))

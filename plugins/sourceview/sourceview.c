@@ -1992,7 +1992,13 @@ iassist_show_tips (IAnjutaEditorAssist *iassist, GList* tips, IAnjutaIterable* i
 				   gint char_alignment, GError **err)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(iassist);
-	int tip_position = ianjuta_iterable_get_position (ipos, NULL) - char_alignment;
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER (sv->priv->document);
+	GtkTextIter iter;
+	gint tip_position;
+	gtk_text_buffer_get_iter_at_mark (buffer, &iter,
+									  gtk_text_buffer_get_insert (buffer));
+	
+	tip_position = gtk_text_iter_get_offset (&iter) - char_alignment;
 	
 	if (tips == NULL)
 		return;

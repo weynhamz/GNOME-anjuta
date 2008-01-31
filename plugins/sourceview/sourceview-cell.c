@@ -129,35 +129,6 @@ icell_get_attribute (IAnjutaEditorCell* icell, GError **e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
 	IAnjutaEditorAttribute attrib = IANJUTA_EDITOR_TEXT;
-	GSList* tags;
-	/* This is a kind of ugly hack. GtkSourceview does not really expose an
-		API to get the type of tag but the id holds the important stuff */
-	/*for (tags = gtk_text_iter_get_tags(cell->priv->iter); tags != NULL; tags = tags->next)
-	{
-		if (GTK_IS_SOURCE_TAG(tags->data))
-		{
-			gchar* id;
-			g_object_get(G_OBJECT(tags->data), "id", &id, NULL);
-			if (g_str_has_prefix(id, "Keyword") || g_str_has_suffix(id, "Keyword"))
-			{
-				attrib = IANJUTA_EDITOR_KEYWORD;
-				break;
-			}
-			if (g_str_has_prefix(id, "Comment") || g_str_has_suffix(id, "Comment"))
-			{
-				attrib = IANJUTA_EDITOR_COMMENT;
-				break;
-			}
-			if (g_str_has_prefix(id, "String") || g_str_has_suffix(id, "String") ||
-					g_str_equal (id, "Character Constant"))
-			{
-				attrib = IANJUTA_EDITOR_STRING;
-				break;
-			}
-			//DEBUG_PRINT("GtkSourceTag tag_style = %s", id);
-		}
-	}
-	g_slist_free(tags);*/
 	return attrib;
 }
 

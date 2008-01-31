@@ -103,7 +103,7 @@ get_iter_column (CppJavaAssist *assist, IAnjutaIterable *iter)
 		ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter),
 										   0, NULL);
 	}
-	DEBUG_PRINT ("Iter column: %d", offset);
+	//DEBUG_PRINT ("Iter column: %d", offset);
 	return offset;
 }
 
@@ -445,14 +445,14 @@ cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
 			return NULL;
 		if (!ianjuta_iterable_previous (iter, NULL))
 			return NULL;
-		DEBUG_PRINT ("calltip ')' brace: %f", g_timer_elapsed (timer, NULL));
+		//DEBUG_PRINT ("calltip ')' brace: %f", g_timer_elapsed (timer, NULL));
 	}
 	if (ch != '(')
 	{
 		if (!cpp_java_util_jump_to_matching_brace (iter, ')',
 												   BRACE_SEARCH_LIMIT))
 			return NULL;
-		DEBUG_PRINT ("calltip ')' brace: %f", g_timer_elapsed (timer, NULL));
+		//DEBUG_PRINT ("calltip ')' brace: %f", g_timer_elapsed (timer, NULL));
 	}
 	
 	/* Skip white spaces */
@@ -460,17 +460,17 @@ cpp_java_assist_get_calltip_context (CppJavaAssist *assist,
 		&& g_ascii_isspace (ianjuta_editor_cell_get_char
 								(IANJUTA_EDITOR_CELL (iter), 0, NULL)));
 
-	DEBUG_PRINT ("calltip skip whitespace: %f", g_timer_elapsed (timer, NULL));
+	//DEBUG_PRINT ("calltip skip whitespace: %f", g_timer_elapsed (timer, NULL));
 	
 	context = cpp_java_assist_get_scope_context
 		(IANJUTA_EDITOR (assist->priv->iassist), "(", iter);
 	
-	DEBUG_PRINT ("calltip get scope context: %f", g_timer_elapsed (timer, NULL));
+	//DEBUG_PRINT ("calltip get scope context: %f", g_timer_elapsed (timer, NULL));
 	
 	if (context_offset)
 	{
 		*context_offset = get_iter_column (assist, iter);
-		DEBUG_PRINT ("calltip get iter column: %f", g_timer_elapsed (timer, NULL));
+		//DEBUG_PRINT ("calltip get iter column: %f", g_timer_elapsed (timer, NULL));
 	}
 
 #ifdef DEBUG
@@ -508,7 +508,7 @@ cpp_java_assist_show_calltip (CppJavaAssist *assist, gchar *call_context,
 				gchar* white_name = g_strnfill (strlen(name) + 1, ' ');
 				
 				separator = g_strjoin (NULL, ", \n", white_name, NULL);
-				DEBUG_PRINT ("Separator: \n%s", separator);
+				//DEBUG_PRINT ("Separator: \n%s", separator);
 				
 				gchar** argv;
 				if (!args)
@@ -565,8 +565,8 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 	GTimer* timer = g_timer_new();
 #endif
 	
-	DEBUG_PRINT ("Autocomplete enable is: %d", autocomplete);
-	DEBUG_PRINT ("Calltips enable is: %d", calltips);
+	//DEBUG_PRINT ("Autocomplete enable is: %d", autocomplete);
+	//DEBUG_PRINT ("Calltips enable is: %d", calltips);
 	
 	if (!autocomplete && !calltips)
 		return FALSE; /* Nothing to do */
@@ -589,18 +589,18 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 	}
 	*/
 	
-	DEBUG_PRINT ("assist init: %f", g_timer_elapsed (timer, NULL));
+	//DEBUG_PRINT ("assist init: %f", g_timer_elapsed (timer, NULL));
 	
 	if (autocomplete)
 	{
 		pre_word = cpp_java_assist_get_pre_word (editor, iter);
-		DEBUG_PRINT ("assist pre word: %f", g_timer_elapsed (timer, NULL));
+		//DEBUG_PRINT ("assist pre word: %f", g_timer_elapsed (timer, NULL));
 		
 		scope_operator = cpp_java_assist_get_scope_operator (editor, iter);
-		DEBUG_PRINT ("assist scope operator: %f", g_timer_elapsed (timer, NULL));
+		//DEBUG_PRINT ("assist scope operator: %f", g_timer_elapsed (timer, NULL));
 		
-		DEBUG_PRINT ("Pre word: %s", pre_word);
-		DEBUG_PRINT ("Scope op: %s", scope_operator);
+		//DEBUG_PRINT ("Pre word: %s", pre_word);
+		//DEBUG_PRINT ("Scope op: %s", scope_operator);
 		
 		if (scope_operator)
 		{
@@ -641,7 +641,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			ianjuta_editor_assist_hide_suggestions (assist->priv->iassist,
 													NULL);
 		}
-		DEBUG_PRINT ("assist autocomplete: %f", g_timer_elapsed (timer, NULL));
+		//DEBUG_PRINT ("assist autocomplete: %f", g_timer_elapsed (timer, NULL));
 	}
 #ifdef DEBUG
 	g_timer_reset (timer);
@@ -653,7 +653,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			gint offset;
 			gchar *call_context =
 				cpp_java_assist_get_calltip_context (assist, iter, &offset);
-			DEBUG_PRINT ("get calltip context: %f", g_timer_elapsed (timer, NULL));
+			//DEBUG_PRINT ("get calltip context: %f", g_timer_elapsed (timer, NULL));
 			if (call_context)
 			{
 				shown = cpp_java_assist_show_calltip (assist, call_context,
@@ -665,7 +665,7 @@ cpp_java_assist_check (CppJavaAssist *assist, gboolean autocomplete,
 			}
 			g_free (call_context);
 		}
-		DEBUG_PRINT ("assist calltip: %f", g_timer_elapsed (timer, NULL));
+		//DEBUG_PRINT ("assist calltip: %f", g_timer_elapsed (timer, NULL));
 	}
 	g_object_unref (iter);
 	g_object_unref (iter_save);
@@ -707,7 +707,7 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 	gboolean add_space_after_func = FALSE;
 	gboolean add_brace_after_func = FALSE;
 	
-	DEBUG_PRINT ("assist-chosen: %d", selection);
+	//DEBUG_PRINT ("assist-chosen: %d", selection);
 	
 	if (assist->priv->completion_cache->cache)
 		tag = g_list_nth_data (assist->priv->completion_cache->cache,
@@ -775,7 +775,6 @@ on_assist_chosen (IAnjutaEditorAssist* iassist, gint selection,
 static void
 cpp_java_assist_install (CppJavaAssist *assist, IAnjutaEditorAssist *iassist)
 {
-	DEBUG_PRINT(__FUNCTION__);
 	g_return_if_fail (assist->priv->iassist == NULL);
 	
 	assist->priv->iassist = iassist;
