@@ -1140,14 +1140,22 @@ on_document_changed (AnjutaDocman *docman, IAnjutaDocument *doc,
 					 AnjutaPlugin *plugin)
 {
 	update_document_ui (plugin, doc);
-
-	GValue value = {0, };
-	g_value_init (&value, G_TYPE_OBJECT);
-	g_value_set_object (&value, doc);
-	anjuta_shell_add_value (plugin->shell,
-							"document_manager_current_editor",
-							&value, NULL);
-	g_value_unset(&value);
+	
+	if (doc)
+	{
+		GValue value = {0, };
+		g_value_init (&value, G_TYPE_OBJECT);
+		g_value_set_object (&value, doc);
+		anjuta_shell_add_value (plugin->shell,
+								"document_manager_current_editor",
+								&value, NULL);
+		g_value_unset(&value);
+	}
+	else
+	{
+		anjuta_shell_remove_value (plugin->shell, "document_manager_current_editor",
+								   NULL);
+	}
 
 	if (doc && IANJUTA_IS_EDITOR (doc))
 	{
