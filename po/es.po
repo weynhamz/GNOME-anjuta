@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-27 09:56+0000\n"
-"PO-Revision-Date: 2008-01-27 14:06+0100\n"
+"POT-Creation-Date: 2008-01-27 13:07+0000\n"
+"PO-Revision-Date: 2008-02-01 14:37+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1084,7 +1084,7 @@ msgid ""
 "can get it from http://autogen.sourceforge.net"
 msgstr ""
 "No se pudo encontrar autogen versión 5, por favor instale el paquete "
-"autogen. Puede obtenerlo de http://autogen.sourceforge.net"
+"autogen. Puede obtenerlo en http://autogen.sourceforge.net"
 
 #: ../plugins/class-gen/plugin.c:259 ../plugins/class-gen/plugin.c:413
 #, c-format
@@ -6170,7 +6170,7 @@ msgstr "Todos los búferes abiertos"
 
 #: ../plugins/search/search-replace.c:104
 msgid "All Project Files"
-msgstr "Todos los archivos de proyecto"
+msgstr "Todos los archivos del proyecto"
 
 #. {SR_VARIABLE, N_("Specify File List")},
 #: ../plugins/search/search-replace.c:106
