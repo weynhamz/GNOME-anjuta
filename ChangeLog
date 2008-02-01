@@ -1,5 +1,10 @@
 2008-02-01  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/sourceview-prefs.c: (sourceview_prefs_init):
+	Fixed tabsize preference
+
+2008-02-01  Johannes Schmid <jhs@gnome.org>
+
 	* manuals/anjuta-manual/C/fileoperations.xml:
 	* manuals/anjuta-manual/C/interface.xml:
 	Updated manual

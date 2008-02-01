@@ -342,8 +342,8 @@ sourceview_prefs_init(Sourceview* sv)
 	init_colors_and_fonts(sv);
 	
 	/* Register gconf notifications */
-		REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
-	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_indent_size);	
+	REGISTER_NOTIFY (TAB_SIZE, on_gconf_notify_tab_size);
+	REGISTER_NOTIFY (INDENT_SIZE, on_gconf_notify_indent_size);	
 	REGISTER_NOTIFY (USE_TABS, on_gconf_notify_use_tab_for_indentation);
 	REGISTER_NOTIFY (HIGHLIGHT_SYNTAX, on_gconf_notify_disable_hilite);
 	REGISTER_NOTIFY (HIGHLIGHT_CURRENT_LINE, on_gconf_notify_highlight_current_line);
