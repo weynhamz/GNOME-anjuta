@@ -1,5 +1,16 @@
 2008-02-01  Johannes Schmid <jhs@gnome.org>
 
+	* manuals/anjuta-manual/C/fileoperations.xml:
+	* manuals/anjuta-manual/C/interface.xml:
+	Updated manual
+	
+	* manuals/anjuta-manual/Makefile.am:
+	* manuals/anjuta-manual/C/figures/*:
+	
+	Updated figures to be in clearlooks theme, removed old figures
+
+2008-02-01  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/patch/patch-plugin.glade:
 	* plugins/patch/plugin.c: (patch_plugin_activate):
 	Another UI issue with the patch plugin and silenced a compiler

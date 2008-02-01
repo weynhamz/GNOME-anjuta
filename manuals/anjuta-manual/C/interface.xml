@@ -78,8 +78,9 @@
    <tip>
    <title>Customize shortcuts</title>
    <para>
-   You can change the default shortcuts by using  <menuchoice><guisubmenu>Settings</guisubmenu>
-	   <guimenuitem>Customize shortcuts</guimenuitem></menuchoice>.
+   You can change the default shortcuts by using  <menuchoice><guisubmenu>Edit</guisubmenu>
+	   <guimenuitem>Preferences</guimenuitem></menuchoice> and selecting the <interface>
+	   Shortcuts</interface> tab.
    </para>
    </tip>
    </para>

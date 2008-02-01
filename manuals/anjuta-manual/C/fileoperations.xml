@@ -384,18 +384,10 @@
       automatically indent (auto-format) the file. This gives a clean look to
       the source code, increases legibility, reduces the likelihood of syntax errors,
       and above all it saves time. This can be performed by choosing 
-      <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Auto-format
+      <menuchoice><guimenu>Edit</guimenu><guimenuitem>Auto Indent
       </guimenuitem></menuchoice> on the menubar. Change the style of formatting by customizing the 
       choices in the preferences.
     </para>
-    <note>
-	<title>indent</title>
-     <para>
-      You will need to have the <application>indent</application> utility installed 
-	  in order to use this feature. Read the <ulink type="info" url="info:indent">info page 
-	  for <application>indent</application></ulink> for further details.
-     </para>
-    </note>
    </sect2>
   </sect1>
 
@@ -482,7 +474,7 @@
       <para>
        If the search is successful, the matched text in the document will be highlighted, marked...
        (according to the search action choice). If the search is not successful, 
-       a <emphasis>match not found</emphasis> message will be displayed.
+       a <emphasis>The match "search text" was not found</emphasis> message will be displayed.
       </para>
       <para>
        If you want to search again, click on the <guibutton>Search</guibutton> button on the main 
@@ -495,7 +487,7 @@
       <figure id="search-expr">
       <title>Search Text dialog</title>
         <screenshot>
-        <graphic fileref="figures/search_expr.png" format="PNG" srccredit="jnoel"></graphic>
+        <graphic fileref="figures/search_expr.png" format="PNG" srccredit="jhs"></graphic>
         </screenshot>
       </figure>
 	  <para>
@@ -508,7 +500,7 @@
       <figure id="search-expr-basic">
       <title>Basic Search Text dialog</title>
         <screenshot>
-        <graphic fileref="figures/search_expr_basic.png" format="PNG" srccredit="jnoel"></graphic>
+        <graphic fileref="figures/search_expr_basic.png" format="PNG" srccredit="jhs"></graphic>
         </screenshot>
       </figure>
     </sect2>
@@ -524,7 +516,7 @@
       <figure id="search-target">
       <title>Search Target dialog</title>
         <screenshot>
-        <graphic fileref="figures/search_target.png" format="PNG" srccredit="jnoel"></graphic>
+        <graphic fileref="figures/search_target.png" format="PNG" srccredit="jhs"></graphic>
         </screenshot>
       </figure>
       <para>
@@ -533,7 +525,7 @@
       <figure id="search-target-in">
       <title>Search Target In choice</title>
        <screenshot>
-       <graphic fileref="figures/search_target_in.png" format="PNG" srccredit="jnoel"></graphic>
+       <graphic fileref="figures/search_target_in.png" format="PNG" srccredit="jhs"></graphic>
        </screenshot>
       </figure>
       <sect3 id="search-file">
@@ -552,36 +544,10 @@
 	     Specifying File List</guimenu></menuchoice>. Define the Search variables.  
          Click <guibutton>Search</guibutton> to start searching.		 
        </para>	 
-
-       <figure id="search-file-list">
-       <title>Search File List</title>
-        <screenshot>
-        <graphic fileref="figures/search_file_list.png" format="PNG" srccredit="jnoel"></graphic>
-        </screenshot>
-       </figure>
-
-      </sect3>	
-      <sect3 id="search-pattern">
-      <title>Specifying File Patterns</title>
-       <para>
-         To find in files and/or folders, select "search in" <menuchoice><guimenu>
-	     Specify File Patterns</guimenu></menuchoice>, choose 
-	     the file types and/or folders you want to search.
-       </para>
-       <para>
-         Remember, directories are searched recursively. All of the files under 
-         the directory, and the files under all the subdirectories, and the files under all 
-	     of the sub-subdirectories (and so on) are all included in the search.
-       </para>
-       <para>
-         Enter the text you want to search and specify search options (case-sensitive,
-	     complete words ...).
-         Click <guibutton>Search</guibutton> to start searching.
-       </para>	 
          <figure id="search-file-pattern">
          <title>Search File Pattern</title>
           <screenshot>
-          <graphic fileref="figures/search_file_pattern.png" format="PNG" srccredit="jnoel"></graphic>
+          <graphic fileref="figures/search_file_pattern.png" format="PNG" srccredit="jhs"></graphic>
           </screenshot>
        </figure>
 
@@ -600,7 +566,7 @@
       <figure id="search-target-action">
       <title>Search Target Action choice</title>
        <screenshot>
-       <graphic fileref="figures/search_target_action.png" format="PNG" srccredit="jnoel"></graphic>
+       <graphic fileref="figures/search_target_action.png" format="PNG" srccredit="jhs"></graphic>
        </screenshot>
       </figure>
   
@@ -609,14 +575,14 @@
     <title>Replacing</title>
       <para>
        Search and replace is similar to just finding text, except that you 
-       also specify the replace text in the <guilabel>Replace Text</guilabel> text box, 
+       also specify the replace text in the <guilabel>Replace With:</guilabel> text box, 
        and whether or not you want to be prompted before the replace takes place
 	   (Replace First Match or Replace All Matches).
       </para>
       <figure id="replace">
       <title>Replacing</title>
         <screenshot>
-        <graphic fileref="figures/search_replace.png" format="PNG" srccredit="jnoel"></graphic>
+        <graphic fileref="figures/search_replace.png" format="PNG" srccredit="jhs"></graphic>
         </screenshot>
       </figure>
 	  <para>
@@ -637,7 +603,7 @@
       <figure id="search-setting-fig">
       <title>Search Setting dialog</title>
         <screenshot>
-        <graphic fileref="figures/search_setting.png" format="PNG" srccredit="jnoel"></graphic>
+        <graphic fileref="figures/search_setting.png" format="PNG" srccredit="jhs"></graphic>
         </screenshot>
        </figure>
     </sect2>
@@ -659,7 +625,7 @@
        <title>Print preview of a C file</title>
        <screenshot>
        <screeninfo>Print preview</screeninfo>
-        <graphic fileref="figures/print_preview.png" format="PNG" srccredit="jnoel"></graphic>
+        <graphic fileref="figures/print_preview.png" format="PNG" srccredit="jhs"></graphic>
        </screenshot>
      </figure>
 	</para> 
@@ -668,7 +634,7 @@
        <title>Print Preferences</title>
        <screenshot>
 	   <screeninfo>Print preferences</screeninfo>
-        <graphic fileref="figures/prefs_print.png" format="PNG" srccredit="jnoel"></graphic>
+        <graphic fileref="figures/prefs_print.png" format="PNG" srccredit="jhs"></graphic>
        </screenshot>
      </figure>
 	</para>
@@ -683,13 +649,15 @@
 	Landscaped or portrait page layout, paper size, page orientation
 	and paper type could also be set. Remember to set them up properly according to your printer,
 	otherwise printing may not come up properly.
-	  <figure>
+	</para>
+	<para>
+	 <figure>
        <title>Print Dialog</title>
        <screenshot>
-	   <screeninfo>Print dialog</screeninfo>
-        <graphic fileref="figures/print_dlg.png" format="PNG" srccredit="jnoel"></graphic>
+	   <screeninfo>Print Dialog</screeninfo>
+        <graphic fileref="figures/print_dlg.png" format="PNG" srccredit="jhs"></graphic>
        </screenshot>
-      </figure>
+     </figure>
 	</para>
    </sect1>
  </chapter>
