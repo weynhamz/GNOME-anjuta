@@ -70,7 +70,10 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_TIME_PERC);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (COL_TIME_PERC),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);	
 	
@@ -81,7 +84,10 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_CUM_SEC);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (COL_CUM_SEC),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);	
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
@@ -95,7 +101,10 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_SELF_SEC);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (COL_SELF_SEC),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
@@ -120,7 +129,10 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_AVG_MS);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (COL_AVG_MS),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
@@ -133,7 +145,10 @@ gprof_flat_profile_view_create_columns (GProfFlatProfileView *self)
 	
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", COL_TOTAL_MS);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (COL_TOTAL_MS),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 	

@@ -1,5 +1,22 @@
 2008-02-01  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/patch/patch-plugin.glade:
+	* plugins/patch/plugin.c: (patch_plugin_activate):
+	Another UI issue with the patch plugin and silenced a compiler
+	warning
+	
+	Patch from James Liggett:
+	* plugins/profiler/gprof-call-graph-view.c:
+	(gprof_call_graph_view_create_columns):
+	* plugins/profiler/gprof-flat-profile-view.c:
+	(gprof_flat_profile_view_create_columns):
+	* plugins/profiler/gprof-view.c: (gprof_view_format_float):
+	* plugins/profiler/gprof-view.h:
+	
+	Use two decimal places for float values in profiler views (#507831)
+
+2008-02-01  Johannes Schmid <jhs@gnome.org>
+
 	* configure.in:
 	* plugins/editor/Makefile.am:
 	

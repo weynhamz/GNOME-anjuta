@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.0 on Thu Jan 31 19:51:34 2008 
+<!--Generated with glade3 3.4.0 on Fri Feb  1 11:57:23 2008 
 	Version: 2.91.3
 	Date: Sat Jul 29 21:16:15 2006
 	User: jhs
@@ -26,15 +26,48 @@
               <placeholder/>
             </child>
             <child>
-              <widget class="GtkHScale" id="patch_level_scale">
-                <property name="adjustment">0 0 0 0 10 0</property>
-                <property name="digits">0</property>
+              <widget class="GtkCheckButton" id="dryrun">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Dry run</property>
+                <property name="response_id">0</property>
+                <property name="draw_indicator">True</property>
               </widget>
               <packing>
-                <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
-                <property name="top_attach">2</property>
-                <property name="bottom_attach">3</property>
+                <property name="top_attach">3</property>
+                <property name="bottom_attach">4</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="output">
+                <property name="visible">True</property>
+              </widget>
+              <packing>
+                <property name="right_attach">2</property>
+                <property name="top_attach">4</property>
+                <property name="bottom_attach">5</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label1">
+                <property name="xalign">0</property>
+                <property name="yalign">0</property>
+                <property name="xpad">5</property>
+                <property name="ypad">5</property>
+                <property name="label">File/Directory to patch:</property>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label2">
+                <property name="xalign">0</property>
+                <property name="yalign">0</property>
+                <property name="xpad">5</property>
+                <property name="ypad">5</property>
+                <property name="label">Patch file:</property>
+              </widget>
+              <packing>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
               </packing>
             </child>
             <child>
@@ -51,48 +84,15 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label2">
-                <property name="xalign">0</property>
-                <property name="yalign">0</property>
-                <property name="xpad">5</property>
-                <property name="ypad">5</property>
-                <property name="label">Patch file:</property>
+              <widget class="GtkHScale" id="patch_level_scale">
+                <property name="adjustment">0 0 10 0 10 0</property>
+                <property name="digits">0</property>
               </widget>
               <packing>
-                <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkLabel" id="label1">
-                <property name="xalign">0</property>
-                <property name="yalign">0</property>
-                <property name="xpad">5</property>
-                <property name="ypad">5</property>
-                <property name="label">File/Directory to patch:</property>
-              </widget>
-            </child>
-            <child>
-              <widget class="GtkLabel" id="output">
-                <property name="visible">True</property>
-              </widget>
-              <packing>
+                <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
-                <property name="top_attach">4</property>
-                <property name="bottom_attach">5</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="GtkCheckButton" id="dryrun">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes">Dry run</property>
-                <property name="response_id">0</property>
-                <property name="draw_indicator">True</property>
-              </widget>
-              <packing>
-                <property name="right_attach">2</property>
-                <property name="top_attach">3</property>
-                <property name="bottom_attach">4</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
               </packing>
             </child>
           </widget>

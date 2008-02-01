@@ -346,8 +346,10 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", 
-										FUNCTIONS_COL_TIME);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (FUNCTIONS_COL_TIME),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 										
@@ -360,8 +362,10 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (functions_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", 
-										FUNCTIONS_COL_SELF);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (FUNCTIONS_COL_SELF),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
@@ -372,8 +376,10 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", 
-										CALLED_COL_SELF);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (CALLED_COL_SELF),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
@@ -384,8 +390,10 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_by_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", 
-										CALLED_COL_SELF);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (CALLED_COL_SELF),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 										
@@ -395,8 +403,10 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (functions_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", 
-										FUNCTIONS_COL_CHILDREN);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (FUNCTIONS_COL_CHILDREN),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
@@ -405,8 +415,10 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", 
-										CALLED_COL_CHILDREN);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (CALLED_COL_CHILDREN),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 	
@@ -415,8 +427,10 @@ gprof_call_graph_view_create_columns (GProfCallGraphView *self)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (called_by_list_view), col);
 	renderer = gtk_cell_renderer_text_new ();
 	gtk_tree_view_column_pack_start (col, renderer, TRUE);
-	gtk_tree_view_column_add_attribute (col, renderer, "text", 
-										CALLED_COL_CHILDREN);
+	gtk_tree_view_column_set_cell_data_func (col, renderer, 
+											 gprof_view_format_float,
+											 GINT_TO_POINTER (CALLED_COL_CHILDREN),
+											 NULL);
 	gtk_tree_view_column_set_resizable (col, TRUE);
 	gtk_tree_view_column_set_reorderable (col, TRUE);
 										

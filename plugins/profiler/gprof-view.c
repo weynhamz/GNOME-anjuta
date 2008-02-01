@@ -158,3 +158,21 @@ gprof_view_get_widget (GProfView *self)
 {
 	return GPROF_VIEW_GET_CLASS (self)->get_widget (self);
 }
+
+void 
+gprof_view_format_float (GtkTreeViewColumn *col,  GtkCellRenderer *renderer,
+						 GtkTreeModel *model, GtkTreeIter *iter,
+					     gpointer column_number)
+{
+	gfloat number;
+	gchar *formatted_number;
+	
+	gtk_tree_model_get (model, iter, GPOINTER_TO_INT (column_number), &number,
+						-1);
+	
+	formatted_number = g_strdup_printf ("%0.2f", number);
+	g_object_set (renderer, "text", formatted_number, NULL);
+	
+	g_free (formatted_number);
+}
+

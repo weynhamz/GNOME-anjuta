@@ -74,6 +74,13 @@ GProfProfileData *gprof_view_get_data (GProfView *self);
 void gprof_view_refresh (GProfView *self);
 GtkWidget *gprof_view_get_widget (GProfView *self);
 
+/* Static methods */
+void gprof_view_format_float (GtkTreeViewColumn *col, 
+							  GtkCellRenderer *renderer,
+							  GtkTreeModel *model,
+							  GtkTreeIter *iter,
+							  gpointer column_number);
+
 G_END_DECLS
 
 #endif
