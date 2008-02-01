@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-27 13:07+0000\n"
-"PO-Revision-Date: 2008-02-01 14:37+0100\n"
+"POT-Creation-Date: 2008-02-01 15:10+0000\n"
+"PO-Revision-Date: 2008-02-01 16:13+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -306,13 +306,13 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1448
-#: ../plugins/debug-manager/queue.c:552
+#: ../plugins/debug-manager/queue.c:548
 msgid "Select a plugin"
 msgstr "Seleccione un complemento"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1347
 #: ../libanjuta/anjuta-plugin-manager.c:1449
-#: ../plugins/debug-manager/queue.c:553
+#: ../plugins/debug-manager/queue.c:549
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un complemento para activar"
 
@@ -478,31 +478,31 @@ msgstr "Preferencias de Anjuta"
 msgid "Select the items to save:"
 msgstr "Seleccione los elementos para guardar:"
 
-#: ../libanjuta/anjuta-save-prompt.c:188
+#: ../libanjuta/anjuta-save-prompt.c:190
 msgid "If you do not save, all your changes will be lost."
 msgstr "Si no guarda, se perderán todos sus cambios."
 
-#: ../libanjuta/anjuta-save-prompt.c:195
+#: ../libanjuta/anjuta-save-prompt.c:197
 #: ../plugins/document-manager/plugin.c:583
 msgid "Save"
 msgstr "Guardar"
 
-#: ../libanjuta/anjuta-save-prompt.c:202
+#: ../libanjuta/anjuta-save-prompt.c:204
 msgid "Item"
 msgstr "Elemento"
 
-#: ../libanjuta/anjuta-save-prompt.c:208
+#: ../libanjuta/anjuta-save-prompt.c:210
 msgid "_Discard changes"
 msgstr "_Descartar los cambios"
 
-#: ../libanjuta/anjuta-save-prompt.c:303
+#: ../libanjuta/anjuta-save-prompt.c:305
 #, c-format
 msgid "There are %d items with unsaved changes. Save changes before closing?"
 msgstr ""
 "Hay %d elementos con cambios sin guardar. ¿Desea guardar los cambios antes "
 "de cerrar?"
 
-#: ../libanjuta/anjuta-save-prompt.c:310
+#: ../libanjuta/anjuta-save-prompt.c:312
 msgid "There is an item with unsaved changes. Save changes before closing?"
 msgstr ""
 "Hay un elemento con cambios sin guardar. ¿Desea guardar los cambios antes de "
@@ -1507,7 +1507,7 @@ msgid "Breakpoint properties"
 msgstr "Propiedades de los puntos de parada"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1942
+#: ../plugins/debug-manager/breakpoints.c:1945
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Puntos de parada"
@@ -1581,7 +1581,7 @@ msgid "Kernel Signals"
 msgstr "Señales del núcleo"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1872
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Ubicación"
@@ -1717,178 +1717,160 @@ msgstr "Elimina_r todo"
 msgid "_Value:"
 msgstr "_Valor:"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:50
-msgid "gtk-add"
-msgstr "gtk-add"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:51
-msgid "gtk-close"
-msgstr "gtk-close"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:52
-msgid "gtk-go-down"
-msgstr "gtk-go-down"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:53
-msgid "gtk-go-up"
-msgstr "gtk-go-up"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:54
-msgid "gtk-redo"
-msgstr "gtk-redo"
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:55
-msgid "gtk-remove"
-msgstr "gtk-remove"
-
-#: ../plugins/debug-manager/breakpoints.c:1635
+#: ../plugins/debug-manager/breakpoints.c:1638
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "¿Está seguro de querer borrar todos los puntos de parada?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1732
+#: ../plugins/debug-manager/breakpoints.c:1735
 msgid "_Breakpoints"
 msgstr "_Puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1740
+#: ../plugins/debug-manager/breakpoints.c:1743
 msgid "Toggle Breakpoint"
 msgstr "Conmutar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1742
+#: ../plugins/debug-manager/breakpoints.c:1745
 msgid "Toggle breakpoint at the current location"
 msgstr "Activar un punto de parada en la posición actual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1748
+#: ../plugins/debug-manager/breakpoints.c:1751
 msgid "Add Breakpoint..."
 msgstr "Añadir punto de parada…"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1750
+#: ../plugins/debug-manager/breakpoints.c:1753
 msgid "Add a breakpoint"
 msgstr "Añadir un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1756
+#: ../plugins/debug-manager/breakpoints.c:1759
 msgid "Remove Breakpoint"
 msgstr "Quitar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1758
+#: ../plugins/debug-manager/breakpoints.c:1761
 msgid "Remove a breakpoint"
 msgstr "Quitar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1764
+#: ../plugins/debug-manager/breakpoints.c:1767
 msgid "Edit Breakpoint"
 msgstr "Editar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1766
+#: ../plugins/debug-manager/breakpoints.c:1769
 msgid "Edit breakpoint properties"
 msgstr "Editar las propiedades de un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1772
-#: ../plugins/debug-manager/breakpoints.c:1843
+#: ../plugins/debug-manager/breakpoints.c:1775
+#: ../plugins/debug-manager/breakpoints.c:1846
 msgid "Enable Breakpoint"
 msgstr "Activar punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1774
-#: ../plugins/debug-manager/breakpoints.c:1844
+#: ../plugins/debug-manager/breakpoints.c:1777
+#: ../plugins/debug-manager/breakpoints.c:1847
 msgid "Enable a breakpoint"
 msgstr "Activar un punto de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1780
+#: ../plugins/debug-manager/breakpoints.c:1783
 msgid "Disable All Breakpoints"
 msgstr "Desactivar todos los puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1782
+#: ../plugins/debug-manager/breakpoints.c:1785
 msgid "Deactivate all breakpoints"
 msgstr "Desactivar todos los puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1788
+#: ../plugins/debug-manager/breakpoints.c:1791
 msgid "C_lear All Breakpoints"
 msgstr "_Limpiar todos los puntos de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1790
+#: ../plugins/debug-manager/breakpoints.c:1793
 msgid "Delete all breakpoints"
 msgstr "Quitar todos los puntos de parada"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1799
+#: ../plugins/debug-manager/breakpoints.c:1802
 msgid "Jump to Breakpoint"
 msgstr "Saltar a punto de parada"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1801
+#: ../plugins/debug-manager/breakpoints.c:1804
 msgid "Jump to breakpoint location"
 msgstr "Saltar a la ubicación de un punto de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1838
+#: ../plugins/debug-manager/breakpoints.c:1841
 msgid "Disable Breakpoint"
 msgstr "Desactivar el punto de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1839
+#: ../plugins/debug-manager/breakpoints.c:1842
 msgid "Disable a breakpoint"
 msgstr "Desactivar un punto de parada"
 
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1872
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "Activado"
 
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1872
 #: ../plugins/debug-manager/stack_trace.c:664
-#: ../plugins/debug-manager/threads.c:461
+#: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "Dirección"
 
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1872
 #: ../plugins/debug-manager/debug_tree.c:124
 msgid "Type"
 msgstr "Tipo"
 
-#: ../plugins/debug-manager/breakpoints.c:1870
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Condition"
 msgstr "Condición"
 
-#: ../plugins/debug-manager/breakpoints.c:1870
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Pass count"
 msgstr "Conteo de pasadas"
 
-#: ../plugins/debug-manager/breakpoints.c:1870
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "State"
 msgstr "Estado"
 
-#: ../plugins/debug-manager/breakpoints.c:1919
-#: ../plugins/debug-manager/breakpoints.c:1925
+#: ../plugins/debug-manager/breakpoints.c:1922
+#: ../plugins/debug-manager/breakpoints.c:1928
 msgid "Breakpoint operations"
 msgstr "Operaciones de los puntos de parada"
+
+#. create goto menu_item.
+#: ../plugins/debug-manager/data_view.c:383
+#: ../plugins/debug-manager/sparse_view.c:491
+msgid "_Goto address"
+msgstr "_Ir a la dirección"
 
 #: ../plugins/debug-manager/debug_tree.c:124 ../plugins/tools/editor.c:457
 msgid "Variable"
@@ -2156,7 +2138,7 @@ msgstr "Pausa la ejecución del programa"
 msgid "Debugger operations"
 msgstr "Operaciones de depuración"
 
-#: ../plugins/debug-manager/queue.c:539
+#: ../plugins/debug-manager/queue.c:535
 #, c-format
 msgid "Unable to find one debugger plugin acception %s mime type"
 msgstr "Imposible encontrar un tipo MIME %s de acepción de complemento de depuración"
@@ -2257,12 +2239,12 @@ msgid "Set current frame"
 msgstr "Establecer el marco actual"
 
 #: ../plugins/debug-manager/stack_trace.c:559
-#: ../plugins/debug-manager/threads.c:370
+#: ../plugins/debug-manager/threads.c:386
 msgid "View Source"
 msgstr "Ver fuente"
 
 #: ../plugins/debug-manager/stack_trace.c:597
-#: ../plugins/debug-manager/threads.c:406
+#: ../plugins/debug-manager/threads.c:422
 msgid "Active"
 msgstr "Activar"
 
@@ -2272,20 +2254,20 @@ msgstr "Marco"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:628
-#: ../plugins/debug-manager/threads.c:431 ../src/anjuta-app.c:616
+#: ../plugins/debug-manager/threads.c:447 ../src/anjuta-app.c:616
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Archivo"
 
 #: ../plugins/debug-manager/stack_trace.c:639
-#: ../plugins/debug-manager/threads.c:440
+#: ../plugins/debug-manager/threads.c:456
 #: ../plugins/document-manager/plugin.c:931
 #: ../plugins/document-manager/plugin.c:945
 msgid "Line"
 msgstr "Línea"
 
 #: ../plugins/debug-manager/stack_trace.c:650
-#: ../plugins/debug-manager/threads.c:449
+#: ../plugins/debug-manager/threads.c:465
 #: ../plugins/valgrind/vgrule-editor.c:133
 msgid "Function"
 msgstr "Función"
@@ -2356,19 +2338,19 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/threads.c:362
+#: ../plugins/debug-manager/threads.c:378
 msgid "Set current thread"
 msgstr "Establecer el hilo actual"
 
-#: ../plugins/debug-manager/threads.c:416
+#: ../plugins/debug-manager/threads.c:432
 msgid "Id"
 msgstr "Id"
 
-#: ../plugins/debug-manager/threads.c:486
+#: ../plugins/debug-manager/threads.c:502
 msgid "Thread"
 msgstr "Hilo"
 
-#: ../plugins/debug-manager/threads.c:596
+#: ../plugins/debug-manager/threads.c:612
 msgid "Thread operations"
 msgstr "Operaciones con los hilos"
 
@@ -2427,7 +2409,7 @@ msgid "Search Help:"
 msgstr "Buscar en la ayuda:"
 
 #: ../plugins/devhelp/plugin.c:230 ../plugins/document-manager/plugin.c:249
-#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:269
+#: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:263
 msgid "_Goto"
 msgstr "_Ir a"
 
@@ -2484,7 +2466,7 @@ msgstr "Libros"
 #: ../plugins/search/search-replace.c:1692
 #: ../plugins/search/search-replace.c:1704
 #: ../plugins/search/search-replace.c:2018
-#: ../plugins/symbol-browser/plugin.c:1036 ../plugins/symbol-db/plugin.c:1069
+#: ../plugins/symbol-browser/plugin.c:951 ../plugins/symbol-db/plugin.c:1069
 msgid "Search"
 msgstr "Buscar"
 
@@ -2567,9 +2549,9 @@ msgid "Do not show tabs"
 msgstr "No mostrar tabuladores"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1703
-#: ../plugins/document-manager/plugin.c:2091
-#: ../plugins/document-manager/plugin.c:2103
+#: ../plugins/document-manager/plugin.c:1711
+#: ../plugins/document-manager/plugin.c:2099
+#: ../plugins/document-manager/plugin.c:2111
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3216,12 +3198,12 @@ msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1518
+#: ../plugins/document-manager/plugin.c:1526
 #, c-format
 msgid "Autosave failed for %s"
 msgstr "Falló el autoguardado para %s"
 
-#: ../plugins/document-manager/plugin.c:1532
+#: ../plugins/document-manager/plugin.c:1540
 msgid "Autosave completed"
 msgstr "Completado el autoguardado"
 
@@ -3991,7 +3973,7 @@ msgid "Uri of the top-most path displayed"
 msgstr "URI de la ruta superior mostrada"
 
 #: ../plugins/file-manager/plugin.c:72 ../plugins/project-manager/plugin.c:750
-#: ../plugins/symbol-browser/plugin.c:317
+#: ../plugins/symbol-browser/plugin.c:311
 msgid "_Refresh"
 msgstr "_Refrescar"
 
@@ -4901,7 +4883,7 @@ msgstr "Archivo/Directorio para parchear"
 msgid "Patch file"
 msgstr "Archivo parche"
 
-#: ../plugins/patch/patch-plugin.c:118 ../plugins/patch/patch-plugin.glade.h:2
+#: ../plugins/patch/patch-plugin.c:118
 msgid "Patch"
 msgstr "Parchear"
 
@@ -4937,6 +4919,10 @@ msgstr ""
 msgid "Dry run"
 msgstr "Ejecución en seco"
 
+#: ../plugins/patch/patch-plugin.glade.h:2
+msgid "gtk-apply"
+msgstr "gtk-apply"
+
 #. Action name
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:55 ../plugins/tools/plugin.c:135
@@ -4965,22 +4951,22 @@ msgstr "Nombre de la función"
 #. * This is the same as the "Seconds" field in the flat profile.
 #. Time spent in a subroutine of a function.
 #. Time spent in this function when it was called by its caller
-#: ../plugins/profiler/gprof-call-graph-view.c:359
-#: ../plugins/profiler/gprof-call-graph-view.c:371
-#: ../plugins/profiler/gprof-call-graph-view.c:383
+#: ../plugins/profiler/gprof-call-graph-view.c:361
+#: ../plugins/profiler/gprof-call-graph-view.c:375
+#: ../plugins/profiler/gprof-call-graph-view.c:389
 msgid "Self"
 msgstr "Propio"
 
-#: ../plugins/profiler/gprof-call-graph-view.c:394
-#: ../plugins/profiler/gprof-call-graph-view.c:404
+#: ../plugins/profiler/gprof-call-graph-view.c:402
 #: ../plugins/profiler/gprof-call-graph-view.c:414
+#: ../plugins/profiler/gprof-call-graph-view.c:426
 msgid "Children"
 msgstr "Hijos"
 
-#: ../plugins/profiler/gprof-call-graph-view.c:425
-#: ../plugins/profiler/gprof-call-graph-view.c:435
-#: ../plugins/profiler/gprof-call-graph-view.c:445
-#: ../plugins/profiler/gprof-flat-profile-view.c:104
+#: ../plugins/profiler/gprof-call-graph-view.c:439
+#: ../plugins/profiler/gprof-call-graph-view.c:449
+#: ../plugins/profiler/gprof-call-graph-view.c:459
+#: ../plugins/profiler/gprof-flat-profile-view.c:113
 msgid "Calls"
 msgstr "Llamadas"
 
@@ -4988,24 +4974,24 @@ msgstr "Llamadas"
 msgid "% Time"
 msgstr "% Tiempo"
 
-#: ../plugins/profiler/gprof-flat-profile-view.c:79
+#: ../plugins/profiler/gprof-flat-profile-view.c:82
 msgid "Cumulative Seconds"
 msgstr "Segundos acumulativos"
 
 #. The number of seconds that this function, excluding other functions it
 #. * calls, takes to execute.
-#: ../plugins/profiler/gprof-flat-profile-view.c:93
+#: ../plugins/profiler/gprof-flat-profile-view.c:99
 msgid "Self Seconds"
 msgstr "Segundos propios"
 
 #. The average number of milliseconds spent in a function, excluding
 #. * the functions that it calls.
-#: ../plugins/profiler/gprof-flat-profile-view.c:118
+#: ../plugins/profiler/gprof-flat-profile-view.c:127
 msgid "Self ms/call"
 msgstr "ms/llamada propio"
 
 #. Same as self ms/call, but includes called functions.
-#: ../plugins/profiler/gprof-flat-profile-view.c:131
+#: ../plugins/profiler/gprof-flat-profile-view.c:143
 msgid "Total ms/call"
 msgstr "ms/llamada totales"
 
@@ -6994,77 +6980,77 @@ msgstr "Crear etiquetas del API"
 msgid "Update Global Tags"
 msgstr "Actualizar etiquetas globales"
 
-#: ../plugins/symbol-browser/plugin.c:273
+#: ../plugins/symbol-browser/plugin.c:267
 msgid "Tag _Definition"
 msgstr "_Definición de etiqueta"
 
-#: ../plugins/symbol-browser/plugin.c:275
-#: ../plugins/symbol-browser/plugin.c:295
+#: ../plugins/symbol-browser/plugin.c:269
+#: ../plugins/symbol-browser/plugin.c:289
 msgid "Goto symbol definition"
 msgstr "Ir a definición del símbolo"
 
-#: ../plugins/symbol-browser/plugin.c:281
+#: ../plugins/symbol-browser/plugin.c:275
 msgid "Tag De_claration"
 msgstr "Declaración de _etiqueta"
 
-#: ../plugins/symbol-browser/plugin.c:283
-#: ../plugins/symbol-browser/plugin.c:303
+#: ../plugins/symbol-browser/plugin.c:277
+#: ../plugins/symbol-browser/plugin.c:297
 msgid "Goto symbol declaration"
 msgstr "Ir a declaración del símbolo"
 
-#: ../plugins/symbol-browser/plugin.c:293
+#: ../plugins/symbol-browser/plugin.c:287
 msgid "Goto _Definition"
 msgstr "_Definición goto"
 
-#: ../plugins/symbol-browser/plugin.c:301
+#: ../plugins/symbol-browser/plugin.c:295
 msgid "Goto De_claration"
 msgstr "_Declaración goto"
 
-#: ../plugins/symbol-browser/plugin.c:309
+#: ../plugins/symbol-browser/plugin.c:303
 msgid "_Find Usage"
 msgstr "_Buscar uso"
 
-#: ../plugins/symbol-browser/plugin.c:311
+#: ../plugins/symbol-browser/plugin.c:305
 msgid "Find usage of symbol in project"
 msgstr "Buscar uso del símbolo en el proyecto"
 
-#: ../plugins/symbol-browser/plugin.c:319
+#: ../plugins/symbol-browser/plugin.c:313
 msgid "Refresh symbol browser tree"
 msgstr "Refrescar el árbol del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:388
+#: ../plugins/symbol-browser/plugin.c:382
 msgid "Created symbols..."
 msgstr "Símbolos creados…"
 
-#: ../plugins/symbol-browser/plugin.c:995 ../plugins/symbol-db/plugin.c:1020
+#: ../plugins/symbol-browser/plugin.c:910 ../plugins/symbol-db/plugin.c:1020
 msgid "Local"
 msgstr "Local"
 
-#: ../plugins/symbol-browser/plugin.c:1015 ../plugins/symbol-db/plugin.c:1045
+#: ../plugins/symbol-browser/plugin.c:930 ../plugins/symbol-db/plugin.c:1045
 msgid "Global"
 msgstr "Global"
 
-#: ../plugins/symbol-browser/plugin.c:1059
+#: ../plugins/symbol-browser/plugin.c:974
 msgid "Symbol browser actions"
 msgstr "Acciones del explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1066
+#: ../plugins/symbol-browser/plugin.c:981
 msgid "Symbol browser popup actions"
 msgstr "Acciones emergentes el explorador de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1075
+#: ../plugins/symbol-browser/plugin.c:990
 msgid "Goto symbol"
 msgstr "Ir a símbolo"
 
-#: ../plugins/symbol-browser/plugin.c:1076
+#: ../plugins/symbol-browser/plugin.c:991
 msgid "Select the symbol to go"
 msgstr "Seleccione el símbolo al que quiere ir"
 
-#: ../plugins/symbol-browser/plugin.c:1085
+#: ../plugins/symbol-browser/plugin.c:1000
 msgid "Symbol navigations"
 msgstr "Navegación de símbolos"
 
-#: ../plugins/symbol-browser/plugin.c:1094 ../plugins/symbol-db/plugin.c:1102
+#: ../plugins/symbol-browser/plugin.c:1009 ../plugins/symbol-db/plugin.c:1102
 msgid "Symbols"
 msgstr "Símbolos"
 
@@ -7214,7 +7200,7 @@ msgstr ""
 "El atajo ya se usa en otro componenete de Anjuta. ¿Quiere conservarlo de "
 "todas formas?"
 
-#: ../plugins/tools/editor.c:816
+#: ../plugins/tools/editor.c:817
 msgid "Unable to edit script"
 msgstr "No se puede editar el script"
 
