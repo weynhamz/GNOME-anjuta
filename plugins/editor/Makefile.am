@@ -26,6 +26,7 @@ AM_CPPFLAGS = \
 	$(GNOME_PRINT_UI_CFLAGS) \
 	$(GNOME_VFS_CFLAGS) \
 	$(LIBANJUTA_CFLAGS) \
+	$(PLUGIN_SCINTILLA_CFLAGS) \
 	-I$(srcdir)/scintilla/include \
 	-I$(top_srcdir)/tagmanager/include
 
@@ -36,6 +37,7 @@ libanjuta_editor_la_LIBADD = \
 	$(GNOME_PRINT_UI_LIBS) \
 	$(GNOME_VFS_LIBS) \
 	$(LIBANJUTA_LIBS) \
+	$(PLUGIN_SCINTILLA_LIBS) \
 	$(GLADE_LIBS) \
 	scintilla/libanjuta-scintilla.la \
 	$(top_builddir)/tagmanager/libanjuta-ctags.la
