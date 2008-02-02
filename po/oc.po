@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-29 20:34+0100\n"
-"PO-Revision-Date: 2008-01-29 21:22+0100\n"
+"POT-Creation-Date: 2008-02-02 21:09+0100\n"
+"PO-Revision-Date: 2008-02-02 21:10+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -293,13 +293,13 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1448
-#: ../plugins/debug-manager/queue.c:552
+#: ../plugins/debug-manager/queue.c:548
 msgid "Select a plugin"
 msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1347
 #: ../libanjuta/anjuta-plugin-manager.c:1449
-#: ../plugins/debug-manager/queue.c:553
+#: ../plugins/debug-manager/queue.c:549
 msgid "Please select a plugin to activate"
 msgstr ""
 
@@ -444,7 +444,7 @@ msgstr "Categoria"
 #: ../libanjuta/anjuta-preferences-dialog.c:144
 #: ../libanjuta/anjuta-preferences-dialog.c:147
 #: ../plugins/profiler/profiler.glade.h:15
-#: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:8
+#: ../plugins/valgrind/vggeneralprefs.c:172 ../src/anjuta.glade.h:10
 #: ../src/anjuta-app.c:817
 msgid "General"
 msgstr "General"
@@ -568,16 +568,16 @@ msgid "<b>Build</b>"
 msgstr ""
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
-msgid "<b>Program execution:</b>"
-msgstr ""
-
-#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
 msgid "<b>Scratchbox Options</b>"
 msgstr ""
 
+#: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
+msgid "<b>Select Program to run:</b>"
+msgstr ""
+
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
-msgid "Arguments: "
-msgstr "Arguments : "
+msgid "Arguments:"
+msgstr "Arguments :"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 msgid "Highlight build message locations in editor"
@@ -626,240 +626,240 @@ msgstr ""
 msgid "make: Entering directory `%s'"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:577
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:581
 #, c-format
 msgid "Entering: %s"
 msgstr ""
 
 #. Translation for the following should match that of 'make' program
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:585
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:589
 #, c-format
 msgid "make[%d]: Leaving directory '%s'"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:586
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:590
 #, c-format
 msgid "make: Leaving directory '%s'"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:587
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:591
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:588
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:592
 #, c-format
 msgid "make: Leaving directory `%s'"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:599
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:608
 #, c-format
 msgid "Leaving: %s"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:631
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:640
 #: ../plugins/tools/execute.c:328
 msgid "warning:"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:753
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:762
 #, c-format
 msgid "Total time taken: %lu secs\n"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:758
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:767
 msgid "Completed unsuccessful\n"
 msgstr ""
 
 #
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:763
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:772
 #: ../plugins/tools/execute.c:513
 msgid "Completed successful\n"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:815
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:824
 #, c-format
 msgid "Build %d: %s"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1016
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1025
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1056
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1085
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1065
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1094
 msgid "Configure Parameters:"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1293
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1367
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1377
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1395
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1405
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1571
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1302
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1376
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1386
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1404
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1414
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1580
 msgid "_Build"
 msgstr "_Construction"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1297
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1306
 msgid "_Build Project"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1298
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1307
 msgid "Build whole project"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1303
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1312
 msgid "_Install Project"
 msgstr "_Installar un projècte"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1304
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1313
 msgid "Install whole project"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1309
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1318
 msgid "_Clean Project"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1310
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1319
 msgid "Clean whole project"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1315
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1324
 msgid "Run C_onfigure..."
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1316
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1325
 msgid "Configure project"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1321
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1330
 msgid "Run _Autogenerate..."
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1322
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1331
 msgid "Autogenerate project files"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1327
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1336
 msgid "Build _Tarball"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1328
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1337
 msgid "Build project tarball distribution"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1333
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1342
 msgid "_Execute Program..."
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1334
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1343
 msgid "Execute program"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1339
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1348
 msgid "_Build Module"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1340
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1349
 msgid "Build module associated with current file"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1345
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1354
 msgid "_Install Module"
 msgstr "_Installar un modul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1346
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1355
 msgid "Install module associated with current file"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1351
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1360
 msgid "_Clean Module"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1352
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1361
 msgid "Clean module associated with current file"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1357
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1366
 msgid "Co_mpile File"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1358
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1367
 msgid "Compile current editor file"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1371
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1399
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1380
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1408
 msgid "_Compile"
 msgstr "_Compilar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1372
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1400
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1381
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1409
 msgid "Compile file"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1378
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1406
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1387
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1415
 msgid "Build module"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1383
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1411
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1575
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1392
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1420
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1584
 msgid "_Install"
 msgstr "_Installar"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1384
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1412
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1393
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1421
 msgid "Install module"
 msgstr "Installar un modul"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1389
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1417
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1579
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1398
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1426
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1588
 msgid "_Clean"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1390
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1418
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1399
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1427
 msgid "Clean module"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1583
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1592
 msgid "Co_mpile"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1592
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1601
 #, c-format
 msgid "_Build (%s)"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1599
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1608
 #, c-format
 msgid "_Install (%s)"
 msgstr "_Installar (%s)"
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1606
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1615
 #, c-format
 msgid "_Clean (%s)"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:1613
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:1622
 #, c-format
 msgid "Co_mpile (%s)"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2020
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2029
 msgid "Build commands"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2027
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2036
 msgid "Build popup commands"
 msgstr ""
 
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2329
-#: ../plugins/build-basic-autotools/build-basic-autotools.c:2349
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2338
+#: ../plugins/build-basic-autotools/build-basic-autotools.c:2358
 msgid "Build Autotools"
 msgstr ""
 
@@ -1465,7 +1465,7 @@ msgid "Breakpoint properties"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1942
+#: ../plugins/debug-manager/breakpoints.c:1945
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr ""
@@ -1539,7 +1539,7 @@ msgid "Kernel Signals"
 msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1872
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Emplaçament"
@@ -1675,177 +1675,159 @@ msgstr ""
 msgid "_Value:"
 msgstr "_Valor :"
 
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:50
-msgid "gtk-add"
-msgstr ""
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:51
-msgid "gtk-close"
-msgstr ""
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:52
-msgid "gtk-go-down"
-msgstr ""
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:53
-msgid "gtk-go-up"
-msgstr ""
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:54
-msgid "gtk-redo"
-msgstr ""
-
-#: ../plugins/debug-manager/anjuta-debug-manager.glade.h:55
-msgid "gtk-remove"
-msgstr "gtk-remove"
-
-#: ../plugins/debug-manager/breakpoints.c:1635
+#: ../plugins/debug-manager/breakpoints.c:1638
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1732
+#: ../plugins/debug-manager/breakpoints.c:1735
 msgid "_Breakpoints"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1740
+#: ../plugins/debug-manager/breakpoints.c:1743
 msgid "Toggle Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1742
+#: ../plugins/debug-manager/breakpoints.c:1745
 msgid "Toggle breakpoint at the current location"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1748
+#: ../plugins/debug-manager/breakpoints.c:1751
 msgid "Add Breakpoint..."
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1750
+#: ../plugins/debug-manager/breakpoints.c:1753
 msgid "Add a breakpoint"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1756
+#: ../plugins/debug-manager/breakpoints.c:1759
 msgid "Remove Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1758
+#: ../plugins/debug-manager/breakpoints.c:1761
 msgid "Remove a breakpoint"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1764
+#: ../plugins/debug-manager/breakpoints.c:1767
 msgid "Edit Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1766
+#: ../plugins/debug-manager/breakpoints.c:1769
 msgid "Edit breakpoint properties"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1772
-#: ../plugins/debug-manager/breakpoints.c:1843
+#: ../plugins/debug-manager/breakpoints.c:1775
+#: ../plugins/debug-manager/breakpoints.c:1846
 msgid "Enable Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1774
-#: ../plugins/debug-manager/breakpoints.c:1844
+#: ../plugins/debug-manager/breakpoints.c:1777
+#: ../plugins/debug-manager/breakpoints.c:1847
 msgid "Enable a breakpoint"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1780
+#: ../plugins/debug-manager/breakpoints.c:1783
 msgid "Disable All Breakpoints"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1782
+#: ../plugins/debug-manager/breakpoints.c:1785
 msgid "Deactivate all breakpoints"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1788
+#: ../plugins/debug-manager/breakpoints.c:1791
 msgid "C_lear All Breakpoints"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1790
+#: ../plugins/debug-manager/breakpoints.c:1793
 msgid "Delete all breakpoints"
 msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1799
+#: ../plugins/debug-manager/breakpoints.c:1802
 msgid "Jump to Breakpoint"
 msgstr ""
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1801
+#: ../plugins/debug-manager/breakpoints.c:1804
 msgid "Jump to breakpoint location"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1838
+#: ../plugins/debug-manager/breakpoints.c:1841
 msgid "Disable Breakpoint"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1839
+#: ../plugins/debug-manager/breakpoints.c:1842
 msgid "Disable a breakpoint"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1872
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "Activat"
 
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1872
 #: ../plugins/debug-manager/stack_trace.c:664
-#: ../plugins/debug-manager/threads.c:461
+#: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "Adreça"
 
-#: ../plugins/debug-manager/breakpoints.c:1869
+#: ../plugins/debug-manager/breakpoints.c:1872
 #: ../plugins/debug-manager/debug_tree.c:124
 msgid "Type"
 msgstr "Tipe"
 
-#: ../plugins/debug-manager/breakpoints.c:1870
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Condition"
 msgstr "Condicion"
 
-#: ../plugins/debug-manager/breakpoints.c:1870
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "Pass count"
 msgstr ""
 
-#: ../plugins/debug-manager/breakpoints.c:1870
+#: ../plugins/debug-manager/breakpoints.c:1873
 msgid "State"
 msgstr "Estat"
 
-#: ../plugins/debug-manager/breakpoints.c:1919
-#: ../plugins/debug-manager/breakpoints.c:1925
+#: ../plugins/debug-manager/breakpoints.c:1922
+#: ../plugins/debug-manager/breakpoints.c:1928
 msgid "Breakpoint operations"
+msgstr ""
+
+#. create goto menu_item.
+#: ../plugins/debug-manager/data_view.c:383
+#: ../plugins/debug-manager/sparse_view.c:491
+msgid "_Goto address"
 msgstr ""
 
 #: ../plugins/debug-manager/debug_tree.c:124 ../plugins/tools/editor.c:457
@@ -2113,7 +2095,7 @@ msgstr ""
 msgid "Debugger operations"
 msgstr ""
 
-#: ../plugins/debug-manager/queue.c:539
+#: ../plugins/debug-manager/queue.c:535
 #, c-format
 msgid "Unable to find one debugger plugin acception %s mime type"
 msgstr ""
@@ -2214,12 +2196,12 @@ msgid "Set current frame"
 msgstr ""
 
 #: ../plugins/debug-manager/stack_trace.c:559
-#: ../plugins/debug-manager/threads.c:370
+#: ../plugins/debug-manager/threads.c:386
 msgid "View Source"
 msgstr ""
 
 #: ../plugins/debug-manager/stack_trace.c:597
-#: ../plugins/debug-manager/threads.c:406
+#: ../plugins/debug-manager/threads.c:422
 msgid "Active"
 msgstr "Actiu"
 
@@ -2229,20 +2211,20 @@ msgstr "Encastre"
 
 #. Register actions
 #: ../plugins/debug-manager/stack_trace.c:628
-#: ../plugins/debug-manager/threads.c:431 ../src/anjuta-app.c:616
+#: ../plugins/debug-manager/threads.c:447 ../src/anjuta-app.c:616
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:2
 msgid "File"
 msgstr "Fichièr"
 
 #: ../plugins/debug-manager/stack_trace.c:639
-#: ../plugins/debug-manager/threads.c:440
+#: ../plugins/debug-manager/threads.c:456
 #: ../plugins/document-manager/plugin.c:931
 #: ../plugins/document-manager/plugin.c:945
 msgid "Line"
 msgstr "Linha"
 
 #: ../plugins/debug-manager/stack_trace.c:650
-#: ../plugins/debug-manager/threads.c:449
+#: ../plugins/debug-manager/threads.c:465
 #: ../plugins/valgrind/vgrule-editor.c:133
 msgid "Function"
 msgstr "Foncion"
@@ -2312,19 +2294,19 @@ msgstr ""
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/threads.c:362
+#: ../plugins/debug-manager/threads.c:378
 msgid "Set current thread"
 msgstr ""
 
-#: ../plugins/debug-manager/threads.c:416
+#: ../plugins/debug-manager/threads.c:432
 msgid "Id"
 msgstr ""
 
-#: ../plugins/debug-manager/threads.c:486
+#: ../plugins/debug-manager/threads.c:502
 msgid "Thread"
 msgstr ""
 
-#: ../plugins/debug-manager/threads.c:596
+#: ../plugins/debug-manager/threads.c:612
 msgid "Thread operations"
 msgstr ""
 
@@ -2435,11 +2417,11 @@ msgstr ""
 msgid "Books"
 msgstr "Libres"
 
-#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1004
-#: ../plugins/search/search-replace.c:1685
-#: ../plugins/search/search-replace.c:1692
-#: ../plugins/search/search-replace.c:1704
-#: ../plugins/search/search-replace.c:2018
+#: ../plugins/devhelp/plugin.c:378 ../plugins/search/search-replace.c:1008
+#: ../plugins/search/search-replace.c:1689
+#: ../plugins/search/search-replace.c:1696
+#: ../plugins/search/search-replace.c:1708
+#: ../plugins/search/search-replace.c:2022
 #: ../plugins/symbol-browser/plugin.c:951 ../plugins/symbol-db/plugin.c:1069
 msgid "Search"
 msgstr "Recercar"
@@ -2521,9 +2503,9 @@ msgid "Do not show tabs"
 msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1703
-#: ../plugins/document-manager/plugin.c:2091
-#: ../plugins/document-manager/plugin.c:2103
+#: ../plugins/document-manager/plugin.c:1713
+#: ../plugins/document-manager/plugin.c:2101
+#: ../plugins/document-manager/plugin.c:2112
 msgid "Documents"
 msgstr "Documents"
 
@@ -3167,12 +3149,12 @@ msgid "Automatic"
 msgstr "Automatic"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1518
+#: ../plugins/document-manager/plugin.c:1528
 #, c-format
 msgid "Autosave failed for %s"
 msgstr ""
 
-#: ../plugins/document-manager/plugin.c:1532
+#: ../plugins/document-manager/plugin.c:1542
 msgid "Autosave completed"
 msgstr ""
 
@@ -3596,7 +3578,7 @@ msgstr "Precedent"
 
 #: ../plugins/editor/text_editor_menu.c:85
 #: ../plugins/search/anjuta-search.glade.h:14
-#: ../plugins/search/search-replace.c:93
+#: ../plugins/search/search-replace.c:94
 msgid "Forward"
 msgstr "Endavant"
 
@@ -4809,7 +4791,7 @@ msgstr ""
 msgid "Patch file"
 msgstr ""
 
-#: ../plugins/patch/patch-plugin.c:118 ../plugins/patch/patch-plugin.glade.h:2
+#: ../plugins/patch/patch-plugin.c:118
 msgid "Patch"
 msgstr ""
 
@@ -4870,22 +4852,22 @@ msgstr "Foncion"
 #. * This is the same as the "Seconds" field in the flat profile.
 #. Time spent in a subroutine of a function.
 #. Time spent in this function when it was called by its caller
-#: ../plugins/profiler/gprof-call-graph-view.c:359
-#: ../plugins/profiler/gprof-call-graph-view.c:371
-#: ../plugins/profiler/gprof-call-graph-view.c:383
+#: ../plugins/profiler/gprof-call-graph-view.c:361
+#: ../plugins/profiler/gprof-call-graph-view.c:375
+#: ../plugins/profiler/gprof-call-graph-view.c:389
 msgid "Self"
 msgstr ""
 
-#: ../plugins/profiler/gprof-call-graph-view.c:394
-#: ../plugins/profiler/gprof-call-graph-view.c:404
+#: ../plugins/profiler/gprof-call-graph-view.c:402
 #: ../plugins/profiler/gprof-call-graph-view.c:414
+#: ../plugins/profiler/gprof-call-graph-view.c:426
 msgid "Children"
 msgstr "Enfant"
 
-#: ../plugins/profiler/gprof-call-graph-view.c:425
-#: ../plugins/profiler/gprof-call-graph-view.c:435
-#: ../plugins/profiler/gprof-call-graph-view.c:445
-#: ../plugins/profiler/gprof-flat-profile-view.c:104
+#: ../plugins/profiler/gprof-call-graph-view.c:439
+#: ../plugins/profiler/gprof-call-graph-view.c:449
+#: ../plugins/profiler/gprof-call-graph-view.c:459
+#: ../plugins/profiler/gprof-flat-profile-view.c:113
 msgid "Calls"
 msgstr ""
 
@@ -4893,24 +4875,24 @@ msgstr ""
 msgid "% Time"
 msgstr ""
 
-#: ../plugins/profiler/gprof-flat-profile-view.c:79
+#: ../plugins/profiler/gprof-flat-profile-view.c:82
 msgid "Cumulative Seconds"
 msgstr ""
 
 #. The number of seconds that this function, excluding other functions it
 #. * calls, takes to execute.
-#: ../plugins/profiler/gprof-flat-profile-view.c:93
+#: ../plugins/profiler/gprof-flat-profile-view.c:99
 msgid "Self Seconds"
 msgstr ""
 
 #. The average number of milliseconds spent in a function, excluding
 #. * the functions that it calls.
-#: ../plugins/profiler/gprof-flat-profile-view.c:118
+#: ../plugins/profiler/gprof-flat-profile-view.c:127
 msgid "Self ms/call"
 msgstr ""
 
 #. Same as self ms/call, but includes called functions.
-#: ../plugins/profiler/gprof-flat-profile-view.c:131
+#: ../plugins/profiler/gprof-flat-profile-view.c:143
 msgid "Total ms/call"
 msgstr ""
 
@@ -5791,7 +5773,7 @@ msgid "<b>Search Variable</b>"
 msgstr ""
 
 #: ../plugins/search/anjuta-search.glade.h:7
-#: ../plugins/search/search-replace.c:94
+#: ../plugins/search/search-replace.c:95
 msgid "Backward"
 msgstr ""
 
@@ -5822,7 +5804,7 @@ msgstr "Recercar e remplaçar"
 #. the order of these matters - it must match the order of the corresponding
 #. radio buttons on another page
 #: ../plugins/search/anjuta-search.glade.h:15
-#: ../plugins/search/search-replace.c:92
+#: ../plugins/search/search-replace.c:93
 msgid "Full Buffer"
 msgstr ""
 
@@ -5996,96 +5978,96 @@ msgstr "Defaut"
 msgid "Name"
 msgstr "Nom"
 
-#: ../plugins/search/search-replace.c:99
+#: ../plugins/search/search-replace.c:100
 msgid "Current Buffer"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:100
+#: ../plugins/search/search-replace.c:101
 msgid "Current Selection"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:101
+#: ../plugins/search/search-replace.c:102
 msgid "Current Block"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:102
+#: ../plugins/search/search-replace.c:103
 msgid "Current Function"
 msgstr "Foncion actuala"
 
-#: ../plugins/search/search-replace.c:103
+#: ../plugins/search/search-replace.c:104
 msgid "All Open Buffers"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:104
+#: ../plugins/search/search-replace.c:105
 msgid "All Project Files"
 msgstr "Totes los fichièrs de projèctes"
 
 #. {SR_VARIABLE, N_("Specify File List")},
-#: ../plugins/search/search-replace.c:106
+#: ../plugins/search/search-replace.c:107
 msgid "Specify File Patterns"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:111
+#: ../plugins/search/search-replace.c:112
 msgid "Select next match"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:112
+#: ../plugins/search/search-replace.c:113
 msgid "Bookmark all matched lines"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:113
+#: ../plugins/search/search-replace.c:114
 msgid "Mark all matches"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:114
+#: ../plugins/search/search-replace.c:115
 msgid "List matches in find pane"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:115
+#: ../plugins/search/search-replace.c:116
 msgid "Replace next match"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:116
+#: ../plugins/search/search-replace.c:117
 msgid "Replace all matches"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:320
+#: ../plugins/search/search-replace.c:321
 msgid "Find: "
 msgstr "Recercar : "
 
-#: ../plugins/search/search-replace.c:496
+#: ../plugins/search/search-replace.c:497
 msgid "Replace"
 msgstr "Remplaçar"
 
-#: ../plugins/search/search-replace.c:630
+#: ../plugins/search/search-replace.c:631
 msgid "Search complete"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:1007
-#: ../plugins/search/search-replace.c:1699
+#: ../plugins/search/search-replace.c:1011
+#: ../plugins/search/search-replace.c:1703
 msgid "Replace All"
 msgstr "Tot remplaçar"
 
-#: ../plugins/search/search-replace.c:1046
+#: ../plugins/search/search-replace.c:1050
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
 msgstr ""
 
-#: ../plugins/search/search-replace.c:1066
+#: ../plugins/search/search-replace.c:1070
 #, c-format
 msgid "The match \"%s\" was not found."
 msgstr ""
 
-#: ../plugins/search/search-replace.c:1081
+#: ../plugins/search/search-replace.c:1085
 msgid "The maximum number of results has been reached."
 msgstr ""
 
-#: ../plugins/search/search-replace.c:1094
+#: ../plugins/search/search-replace.c:1098
 #, c-format
 msgid "%d matches have been replaced."
 msgstr ""
 
-#: ../plugins/search/search-replace.c:1259
+#: ../plugins/search/search-replace.c:1263
 msgid "Unable to build user interface for Search And Replace"
 msgstr ""
 
@@ -6728,13 +6710,13 @@ msgid "DER certificate: "
 msgstr ""
 
 #: ../plugins/subversion/svn-command.c:325
-#: ../plugins/subversion/svn-command.c:340
+#: ../plugins/subversion/svn-command.c:341
 #, c-format
 msgid "Deleted: %s"
 msgstr ""
 
 #: ../plugins/subversion/svn-command.c:328
-#: ../plugins/subversion/svn-command.c:346
+#: ../plugins/subversion/svn-command.c:347
 #, c-format
 msgid "Added: %s"
 msgstr ""
@@ -6744,37 +6726,37 @@ msgstr ""
 msgid "Resolved: %s"
 msgstr ""
 
-#: ../plugins/subversion/svn-command.c:343
+#: ../plugins/subversion/svn-command.c:344
 #, c-format
 msgid "Updated: %s"
 msgstr ""
 
-#: ../plugins/subversion/svn-command.c:349
+#: ../plugins/subversion/svn-command.c:350
 #, c-format
 msgid "Externally Updated: %s"
 msgstr ""
 
-#: ../plugins/subversion/svn-command.c:383
+#: ../plugins/subversion/svn-command.c:384
 #, c-format
 msgid "Modified: %s"
 msgstr ""
 
-#: ../plugins/subversion/svn-command.c:386
+#: ../plugins/subversion/svn-command.c:387
 #, c-format
 msgid "Merged: %s"
 msgstr ""
 
-#: ../plugins/subversion/svn-command.c:389
+#: ../plugins/subversion/svn-command.c:390
 #, c-format
 msgid "Conflicted: %s"
 msgstr ""
 
-#: ../plugins/subversion/svn-command.c:393
+#: ../plugins/subversion/svn-command.c:394
 #, c-format
 msgid "Missing: %s"
 msgstr ""
 
-#: ../plugins/subversion/svn-command.c:396
+#: ../plugins/subversion/svn-command.c:397
 #, c-format
 msgid "Obstructed: %s"
 msgstr ""
@@ -7070,7 +7052,7 @@ msgid ""
 "keep it anyway ?"
 msgstr ""
 
-#: ../plugins/tools/editor.c:816
+#: ../plugins/tools/editor.c:817
 msgid "Unable to edit script"
 msgstr ""
 
@@ -7532,7 +7514,7 @@ msgid "<b>Appearance</b>"
 msgstr "<b>Aparéncia</b>"
 
 #: ../src/anjuta.glade.h:2
-msgid "<b>General Information</b>"
+msgid "<b>Project Defaults</b>"
 msgstr ""
 
 #
@@ -7541,22 +7523,30 @@ msgid "<b>Session</b>"
 msgstr "<b>Sesilha</b>"
 
 #: ../src/anjuta.glade.h:4
-msgid "Default project directory"
+msgid "Default project directory:"
 msgstr ""
 
 #: ../src/anjuta.glade.h:5
-msgid "Do not load last project and files on startup"
+msgid "Developer email address:"
 msgstr ""
 
 #: ../src/anjuta.glade.h:6
-msgid "Do not load last session on startup"
+msgid "Developer name:"
 msgstr ""
 
 #: ../src/anjuta.glade.h:7
-msgid "Dock switcher style: "
+msgid "Do not load last project and files on startup"
+msgstr ""
+
+#: ../src/anjuta.glade.h:8
+msgid "Do not load last session on startup"
 msgstr ""
 
 #: ../src/anjuta.glade.h:9
+msgid "Dock switcher style: "
+msgstr ""
+
+#: ../src/anjuta.glade.h:11
 msgid ""
 "Text\n"
 "Icons\n"
@@ -7564,14 +7554,6 @@ msgid ""
 "Gnome toolbar setting\n"
 "Tabs"
 msgstr ""
-
-#: ../src/anjuta.glade.h:14
-msgid "User email address"
-msgstr ""
-
-#: ../src/anjuta.glade.h:15
-msgid "User name"
-msgstr "Nom d'utilizaire"
 
 #: ../src/anjuta-actions.h:23
 msgid "_File"
