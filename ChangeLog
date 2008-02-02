@@ -1,5 +1,10 @@
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/macro/macros.xml:
+	#495511 – Header_h macro correction
+
+2008-02-02  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/patch/patch-plugin.glade:
 	gtk-apply is not translatable...
 

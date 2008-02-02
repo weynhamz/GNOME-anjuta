@@ -14,7 +14,7 @@
 
 |]]></macro>
 <macro _name="Header_h" _category="C" _shortcut=""><![CDATA[#ifndef _@FILE_NAME_UP_PREFIX@_H
-#define _@FILE_NAME_UP_PREFIX@_H
+#define @FILE_NAME_UP_PREFIX@_H
 
 #include <glib.h>
 
@@ -24,7 +24,7 @@ G_BEGIN_DECLS
 
 G_END_DECLS
 
-#endif /* _@FILE_NAME_UP_PREFIX@_H */
+#endif /* @FILE_NAME_UP_PREFIX@_H */
 
 |]]></macro>
 <macro _name="switch" _category="C" _shortcut=""><![CDATA[switch (|)
