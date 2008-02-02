@@ -1468,7 +1468,7 @@ static gboolean mark_real (gpointer data)
 	name = CREATE_MARK_NAME (marker_count);
 	
 	
-	source_mark = gtk_source_buffer_create_mark(GTK_SOURCE_BUFFER(sv->priv->document), 
+	source_mark = gtk_source_buffer_create_source_mark(GTK_SOURCE_BUFFER(sv->priv->document), 
 												name, category, &iter);
 	
 	g_source_remove (svmark->source);
@@ -1513,7 +1513,7 @@ imark_unmark(IAnjutaMarkable* mark, gint location, IAnjutaMarkableMarker marker,
 	gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &begin, LOCATION_TO_LINE (location));
 	gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &end, LOCATION_TO_LINE (location));
 	
-	gtk_source_buffer_remove_marks (buffer, &begin, &end, marker_types[marker]);
+	gtk_source_buffer_remove_source_marks (buffer, &begin, &end, marker_types[marker]);
 	
 }
 
@@ -1526,7 +1526,7 @@ imark_is_marker_set(IAnjutaMarkable* mark, gint location,
 	GSList* markers;
 	gboolean retval;
 	
-	markers = gtk_source_buffer_get_marks_at_line (buffer, 
+	markers = gtk_source_buffer_get_source_marks_at_line (buffer, 
 												   LOCATION_TO_LINE (location), 
 												   marker_types[marker]);	
 	
@@ -1572,7 +1572,7 @@ imark_delete_all_markers(IAnjutaMarkable* imark, IAnjutaMarkableMarker marker,
 	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &begin, 0);
 	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &end, -1);
 	
-	gtk_source_buffer_remove_marks (buffer, &begin, &end, marker_types[marker]);
+	gtk_source_buffer_remove_source_marks (buffer, &begin, &end, marker_types[marker]);
 }
 
 static void
@@ -1651,7 +1651,7 @@ ibookmark_toggle(IAnjutaBookmark* bmark, gint location, gboolean ensure_visible,
 	
 	GSList* markers;
 	
-	markers = gtk_source_buffer_get_marks_at_line (buffer, LOCATION_TO_LINE (location),
+	markers = gtk_source_buffer_get_source_marks_at_line (buffer, LOCATION_TO_LINE (location),
 												   marker_types[IANJUTA_MARKABLE_BOOKMARK]);
 	if (markers != NULL)
 	{
@@ -1661,7 +1661,7 @@ ibookmark_toggle(IAnjutaBookmark* bmark, gint location, gboolean ensure_visible,
 		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &begin, LOCATION_TO_LINE (location));
 		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER (buffer), &end, LOCATION_TO_LINE (location));
 		
-		gtk_source_buffer_remove_marks (buffer, &begin, &end, 
+		gtk_source_buffer_remove_source_marks (buffer, &begin, &end, 
 										marker_types[IANJUTA_MARKABLE_BOOKMARK]);
 	}
 	else
@@ -1672,7 +1672,7 @@ ibookmark_toggle(IAnjutaBookmark* bmark, gint location, gboolean ensure_visible,
 															 &line, LOCATION_TO_LINE (location));
 		
 		bookmark = 
-			gtk_source_buffer_create_mark (buffer, NULL,
+			gtk_source_buffer_create_source_mark (buffer, NULL,
 											 marker_types [IANJUTA_MARKABLE_BOOKMARK],
 											 &line);
 	}
@@ -1685,10 +1685,10 @@ goto_bookmark (Sourceview* sv, GtkTextIter* iter, gboolean backward)
 	gboolean found = FALSE;
 	
 	if (backward)
-		found = gtk_source_buffer_backward_iter_to_mark (buffer, iter, 
+		found = gtk_source_buffer_backward_iter_to_source_mark (buffer, iter, 
 														 marker_types[IANJUTA_MARKABLE_BOOKMARK]);
 	else
-		found = gtk_source_buffer_forward_iter_to_mark (buffer, iter, 
+		found = gtk_source_buffer_forward_iter_to_source_mark (buffer, iter, 
 														marker_types[IANJUTA_MARKABLE_BOOKMARK]);
 	if (found)
 	{
@@ -1762,7 +1762,7 @@ ibookmark_clear_all(IAnjutaBookmark* bmark, GError** e)
 	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &begin, 0);
 	gtk_text_buffer_get_iter_at_offset (GTK_TEXT_BUFFER (buffer), &end, -1);
 	
-	gtk_source_buffer_remove_marks (buffer, &begin, &end, marker_types[IANJUTA_MARKABLE_BOOKMARK]);
+	gtk_source_buffer_remove_source_marks (buffer, &begin, &end, marker_types[IANJUTA_MARKABLE_BOOKMARK]);
 }
 
 static void

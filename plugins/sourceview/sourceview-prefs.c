@@ -299,11 +299,10 @@ init_colors_and_fonts(Sourceview* sv)
 		g_free (desktop_fixed_font);
 		g_object_unref (gclient);
 	}
-	
-	if (!color_theme)
-	{
-		on_gconf_notify_color(NULL, 0, NULL, sv);
-	}
+ 	if (!color_theme)
+  		on_gconf_notify_color (NULL, 0, NULL, sv);
+	else
+		anjuta_view_set_colors(sv->priv->view, TRUE, NULL, NULL, NULL, NULL);
 }
 
 static int
@@ -320,7 +319,7 @@ sourceview_prefs_init(Sourceview* sv)
 	prefs = sv->priv->prefs;
 	
 	/* Init */
-		gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document), get_key(sv, HIGHLIGHT_SYNTAX));
+  gtk_source_buffer_set_highlight_syntax(GTK_SOURCE_BUFFER(sv->priv->document), get_key(sv, HIGHLIGHT_SYNTAX));
 	gtk_source_view_set_highlight_current_line(GTK_SOURCE_VIEW(sv->priv->view),
 																						 get_key(sv, HIGHLIGHT_CURRENT_LINE));
 	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view), get_key(sv, TAB_SIZE));

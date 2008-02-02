@@ -1,3 +1,13 @@
+2008-02-02  Johannes Schmid <jhs@gnome.org>
+
+	* configure.in: Require GtkSourceView 2.1.2
+	* plugins/sourceview/sourceview-prefs.c: (init_colors_and_fonts):
+	* plugins/sourceview/sourceview.c: (mark_real), (imark_unmark),
+	(imark_is_marker_set), (imark_delete_all_markers),
+	(ibookmark_toggle), (goto_bookmark), (ibookmark_clear_all):
+	
+	Adapted to API changes in GtkSourceView
+
 2008-02-01  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview-prefs.c: (sourceview_prefs_init):
