@@ -197,19 +197,29 @@ dma_queue_emit_debugger_state_change (DmaDebuggerQueue *self, IAnjutaDebuggerSta
 		self->debugger_state = state;
 		break;
 	case IANJUTA_DEBUGGER_PROGRAM_STOPPED:
+		if (self->debugger_state < IANJUTA_DEBUGGER_PROGRAM_STOPPED)
+		{
+			signal = PROGRAM_STARTED_SIGNAL;
+			/* Emit a debugger stopped after program started */
+			self->debugger_state = IANJUTA_DEBUGGER_PROGRAM_RUNNING;
+			break;
+		}
 		if (!self->stop_on_sharedlib)
 		{
 			signal = PROGRAM_STOPPED_SIGNAL;			
-		}
-		else if (self->debugger_state < IANJUTA_DEBUGGER_PROGRAM_STOPPED)
-		{
-			signal = PROGRAM_STARTED_SIGNAL;
 		}
 		self->debugger_state = state;
 		break;
 	case IANJUTA_DEBUGGER_PROGRAM_RUNNING:
 		self->stop_on_sharedlib = FALSE;
-		signal = PROGRAM_RUNNING_SIGNAL;			
+		if (self->debugger_state < IANJUTA_DEBUGGER_PROGRAM_STOPPED)
+		{
+			signal = PROGRAM_STARTED_SIGNAL;
+			/* Emit a debugger stopped after program started */
+			self->debugger_state = IANJUTA_DEBUGGER_PROGRAM_STOPPED;
+			break;
+		}
+		signal = PROGRAM_RUNNING_SIGNAL;
 		self->debugger_state = state;
 		break;
 	}

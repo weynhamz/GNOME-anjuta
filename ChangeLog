@@ -1,3 +1,9 @@
+2008-02-02  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/queue.c:
+	Debugger Local, Stack and Thread windows were missing due to
+	the previous change.
+
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 
 	* manuals/anjuta-manual/Makefile.am:
