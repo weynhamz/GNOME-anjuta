@@ -494,7 +494,7 @@
 	    To stop a long research, choose <guibutton>Stop</guibutton> button.
 	  </para>
 	  <para>
-	    If the "Basic Search and Replace" option is selected in the Setting window,
+	    If the "Basic Search" option is selected in the Setting window,
 		the search direction can be choosen from the Expression window.
 	  </para>
       <figure id="search-expr-basic">

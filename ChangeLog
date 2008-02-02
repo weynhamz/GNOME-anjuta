@@ -1,5 +1,10 @@
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 
+	* manuals/anjuta-manual/C/fileoperations.xml:
+	Fixed #513730 – Option not present in the GUI po file
+
+2008-02-02  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/sourceview/anjuta-editor-sourceview.glade:
 	Adjust preferences default values
 
