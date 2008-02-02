@@ -1,5 +1,10 @@
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/patch/patch-plugin.glade:
+	gtk-apply is not translatable...
+
+2008-02-02  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/build-basic-autotools/build-basic-autotools.c:
 	(on_build_mesg_format):
 	
