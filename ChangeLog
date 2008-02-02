@@ -1,5 +1,20 @@
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(on_build_mesg_format):
+	
+	Also check for untranslated messages from make. Should fix 
+	#511981 – Error parsing make output
+
+2008-02-02  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	
+	Fixed #511010 – [UI] Execute program utility window
+
+2008-02-02  Johannes Schmid <jhs@gnome.org>
+
 	* src/anjuta.glade:
 	Fixed #509908 – [UI] Problems with the General settings tab
 

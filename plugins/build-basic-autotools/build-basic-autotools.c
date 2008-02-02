@@ -563,7 +563,11 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	if ((sscanf (one_line, _("make[%d]: Entering directory '%s'"), &dummy_int, dir) == 2) ||
 		(sscanf (one_line, _("make: Entering directory '%s'"), dir) == 1) ||
 		(sscanf (one_line, _("make[%d]: Entering directory `%s'"), &dummy_int, dir) == 2) ||
-		(sscanf (one_line, _("make: Entering directory `%s'"), dir) == 1))
+		(sscanf (one_line, _("make: Entering directory `%s'"), dir) == 1) ||
+		(sscanf (one_line, "make[%d]: Entering directory '%s'", &dummy_int, dir) == 2) ||
+		(sscanf (one_line, "make: Entering directory '%s'", dir) == 1) ||
+		(sscanf (one_line, "make[%d]: Entering directory `%s'", &dummy_int, dir) == 2) ||
+		(sscanf (one_line, "make: Entering directory `%s'", dir) == 1))
 	{
 		gchar* summary;
 		/* FIXME: Hack to remove the last ' */
@@ -585,7 +589,12 @@ on_build_mesg_format (IAnjutaMessageView *view, const gchar *one_line,
 	if ((sscanf (one_line, _("make[%d]: Leaving directory '%s'"), &dummy_int, dir) == 2) ||
 		(sscanf (one_line, _("make: Leaving directory '%s'"), dir) == 1) ||
 		(sscanf (one_line, _("make[%d]: Leaving directory `%s'"), &dummy_int, dir) == 2) ||
-		(sscanf (one_line, _("make: Leaving directory `%s'"), dir) == 1))
+		(sscanf (one_line, _("make: Leaving directory `%s'"), dir) == 1) ||
+		(sscanf (one_line, "make[%d]: Leaving directory '%s'", &dummy_int, dir) == 2) ||
+		(sscanf (one_line, "make: Leaving directory '%s'", dir) == 1) ||
+		(sscanf (one_line, "make[%d]: Leaving directory `%s'", &dummy_int, dir) == 2) ||
+		(sscanf (one_line, "make: Leaving directory `%s'", dir) == 1))
+
 	{
 		gchar* summary;
 		/* FIXME: Hack to remove the last ' */
