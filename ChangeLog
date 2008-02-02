@@ -1,5 +1,10 @@
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/anjuta-editor-sourceview.glade:
+	Adjust preferences default values
+
+2008-02-02  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/document-manager/plugin.c: (docman_plugin_set_tab_pos):
   Fixed #512535 – Open files tabs' position is correctly remembered 
   but not applied at startup
