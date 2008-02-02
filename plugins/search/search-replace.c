@@ -23,6 +23,7 @@
 
 #include <gnome.h>
 #include <glade/glade.h>
+#include <libgnomevfs/gnome-vfs.h>
 
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-plugin.h>
@@ -687,6 +688,7 @@ on_message_clicked (GObject* object, gchar* message, gpointer data)
 {
 	gchar *ptr, *ptr2;
 	gchar *path, *nline;
+	gchar *uri;
 	gint line;
 		
 	if (!(ptr = g_strstr_len(message, strlen(message), ":")) )
@@ -698,8 +700,10 @@ on_message_clicked (GObject* object, gchar* message, gpointer data)
 		return FALSE;
 	nline = g_strndup(ptr, ptr2 - ptr);
 	line = atoi(nline);
-							
-	ianjuta_document_manager_goto_file_line_mark (sr->docman, path, line, TRUE, NULL);  
+	
+	uri = gnome_vfs_get_uri_from_local_path (path);  
+	ianjuta_document_manager_goto_file_line_mark (sr->docman, uri, line, TRUE, NULL);
+	g_free(uri);
 	g_free(path);
 	g_free(nline);
 	return FALSE;

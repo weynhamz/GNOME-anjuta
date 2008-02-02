@@ -1,3 +1,9 @@
+2008-02-02  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/search/search-replace.c: (on_message_clicked):
+	Pass and uri ianjuta_document_manager_goto_file_line_mark() to
+	fix clicking on search result messages
+
 2008-02-01  James Liggett <jrliggett@cox.net>
  
   * plugins/subversion/svn-command.c: (on_svn_notify):
