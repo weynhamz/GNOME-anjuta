@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-02 10:05+0000\n"
-"PO-Revision-Date: 2008-02-02 13:08+0100\n"
+"PO-Revision-Date: 2008-02-02 16:20+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3057,7 +3057,7 @@ msgstr "_Marcar"
 
 #: ../plugins/document-manager/plugin.c:372
 msgid "_Toggle Bookmark"
-msgstr "Cambiar marcador"
+msgstr "Cam_biar marcador"
 
 #: ../plugins/document-manager/plugin.c:373
 msgid "Toggle a bookmark at the current line position"
