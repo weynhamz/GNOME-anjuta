@@ -336,6 +336,7 @@ on_svn_notify (gpointer baton,
 			break;
 		case svn_wc_notify_resolved:
 			action_message = g_strdup_printf (_("Resolved: %s"), notify->path);
+			break;
 		case svn_wc_notify_update_delete:
 			action_message = g_strdup_printf (_("Deleted: %s"), notify->path);
 			break;
