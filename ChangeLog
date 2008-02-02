@@ -1,5 +1,11 @@
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 
+	* manuals/anjuta-manual/Makefile.am:
+	Fixed #513888 – Trailing '\' in anjuta-manual/Makefile.am 
+	causes make install to fail
+
+2008-02-02  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/macro/macros.xml:
 	#495511 – Header_h macro correction
 

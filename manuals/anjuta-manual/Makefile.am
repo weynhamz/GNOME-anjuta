@@ -45,5 +45,5 @@ DOC_FIGURES = figures/add_edit_macro.png \
               figures/signals.png\
               figures/stack.png\
               figures/symbol_browser.png\
-              figures/tool-editor.png\
+              figures/tool-editor.png
 DOC_LINGUAS = es oc sv
