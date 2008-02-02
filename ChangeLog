@@ -1,5 +1,11 @@
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/plugin.c: (docman_plugin_set_tab_pos):
+  Fixed #512535 – Open files tabs' position is correctly remembered 
+  but not applied at startup
+
+2008-02-02  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/search/search-replace.c: (on_message_clicked):
 	Pass and uri ianjuta_document_manager_goto_file_line_mark() to
 	fix clicking on search result messages

@@ -1455,7 +1455,9 @@ docman_plugin_set_tab_pos (DocmanPlugin *ep)
 		pos = GTK_POS_TOP;
 		if (tab_pos)
 		{
-			if (strcasecmp (tab_pos, "left") == 0)
+			if (strcasecmp (tab_pos, "top") == 0)
+				pos = GTK_POS_TOP;
+			else if (strcasecmp (tab_pos, "left") == 0)
 				pos = GTK_POS_LEFT;
 			else if (strcasecmp (tab_pos, "right") == 0)
 				pos = GTK_POS_RIGHT;
@@ -1743,6 +1745,7 @@ activate_plugin (AnjutaPlugin *plugin)
 								 value_removed_project_root_uri, NULL);
 	dplugin->project_name = NULL;
 	
+	prefs_init(ANJUTA_PLUGIN_DOCMAN (plugin));		
 	initialized = TRUE;
 	
 	return TRUE;
@@ -2089,8 +2092,7 @@ isavable_iface_init (IAnjutaFileSavableIface *iface)
 static void
 ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
-	GladeXML* gxml;		
-	AnjutaPlugin *plugin = ANJUTA_PLUGIN (ipref);
+	GladeXML* gxml;
 	
 	/* Add preferences */
 	gxml = glade_xml_new (PREFS_GLADE, "preferences_dialog", NULL);
@@ -2099,7 +2101,6 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 									gxml, "Documents", _("Documents"),  ICON_FILE);
 	anjuta_encodings_init (prefs, gxml);
 				
-	prefs_init(ANJUTA_PLUGIN_DOCMAN (plugin));		
 	g_object_unref (G_OBJECT (gxml));
 }
 
