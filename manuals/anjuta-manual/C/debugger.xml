@@ -694,8 +694,8 @@
     called) and grows higher as the function nesting become deeper.
    </para>
    <para>
-    Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Program 
-	Stack</guimenuitem></menuchoice>, to open the stack trace for the program 
+	   Choose the menu item <menuchoice><guisubmenu>View
+	   </guisubmenu><guimenuitem>Stack</guimenuitem></menuchoice>, to open the stack trace for the program 
 	being debugged.
    </para>
    <para>
@@ -724,7 +724,7 @@
 	has been selected as the current frame). Alternatively, open the 
 	<interface>Operation menu</interface> by right-clicking on the 
 	<interface>Stack trace window</interface>, and choose the menu item 
-	<guimenuitem>Set frame</guimenuitem> to set the frame.
+	<guimenuitem>Set current frame</guimenuitem> to set the frame.
    </para>
    <para>
     Changing the stack frame changes the <interface>Locals list window</interface>

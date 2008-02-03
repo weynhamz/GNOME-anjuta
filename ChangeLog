@@ -1,5 +1,10 @@
 2008-02-03  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* manuals/anjuta-manual/C/debugger.xml:
+	Fix bug #514124 and bug #514138: Wrong menu item name
+
+2008-02-03  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/profiler/gprof-view.c,
 	plugins/symbol-browser/plugin.c,
 	plugins/class-inheritance/class-callbacks.c,
