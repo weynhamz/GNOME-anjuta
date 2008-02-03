@@ -1,3 +1,7 @@
+2008-02-04  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/search/anjuta-search.glade: Fixed typo
+
 2008-02-03  Johannes Schmid <jhs@gnome.org>
 
 	* libanjuta/anjuta-save-prompt.c: (anjuta_save_prompt_add_item):
