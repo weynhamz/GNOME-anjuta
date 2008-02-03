@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-02 10:05+0000\n"
-"PO-Revision-Date: 2008-02-02 16:20+0100\n"
+"POT-Creation-Date: 2008-02-03 10:01+0000\n"
+"PO-Revision-Date: 2008-02-03 18:35+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,12 +37,12 @@ msgstr "Entorno Integrado de Desarrollo"
 #: ../libanjuta/anjuta-c-module.c:203
 #, c-format
 msgid "Unable to find plugin module %s"
-msgstr "Imposible encontrar se encuentra el módulo %s del complemento"
+msgstr "No se puede encontrar se encuentra el módulo %s del complemento"
 
 #: ../libanjuta/anjuta-c-module.c:213
 #, c-format
 msgid "Unable to find plugin registration function %s in module %s"
-msgstr "Imposible encontrar la función de registro %s del complemento en el módulo %s"
+msgstr "No se puede encontrar la función de registro %s del complemento en el módulo %s"
 
 #: ../libanjuta/anjuta-c-module.c:219
 #, c-format
@@ -306,13 +306,13 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1448
-#: ../plugins/debug-manager/queue.c:548
+#: ../plugins/debug-manager/queue.c:558
 msgid "Select a plugin"
 msgstr "Seleccione un complemento"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1347
 #: ../libanjuta/anjuta-plugin-manager.c:1449
-#: ../plugins/debug-manager/queue.c:549
+#: ../plugins/debug-manager/queue.c:559
 msgid "Please select a plugin to activate"
 msgstr "Seleccione un complemento para activar"
 
@@ -367,10 +367,6 @@ msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 #: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Loaded: "
 msgstr "Cargado:"
-
-#: ../libanjuta/anjuta-plugin-manager.c:2384
-msgid "..."
-msgstr "…"
 
 #: ../libanjuta/anjuta-profile.c:214
 msgid "Plugin Manager"
@@ -1555,9 +1551,8 @@ msgid "Enable _all"
 msgstr "Activar _todos"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:15
-#: ../plugins/gdb/anjuta-gdb.glade.h:12
-msgid "Enter a Hexa adress or select one in the data"
-msgstr "Introduzca una dirección hex. o seleccione una en los datos"
+msgid "Enter an address in hexadecimal or select one in the data"
+msgstr "Introduzca una dirección hexadecimal o seleccione una en los datos"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
 #: ../plugins/gdb/anjuta-gdb.glade.h:14
@@ -2138,10 +2133,10 @@ msgstr "Pausa la ejecución del programa"
 msgid "Debugger operations"
 msgstr "Operaciones de depuración"
 
-#: ../plugins/debug-manager/queue.c:535
+#: ../plugins/debug-manager/queue.c:545
 #, c-format
-msgid "Unable to find one debugger plugin acception %s mime type"
-msgstr "Imposible encontrar un tipo MIME %s de acepción de complemento de depuración"
+msgid "Unable to find one debugger plugin supporting a target with %s mime type"
+msgstr "No se puede encontrar un complemento de depuración que soporte un objetivo con un tipo MIME %s"
 
 #: ../plugins/debug-manager/registers.c:457
 msgid "Register"
@@ -2152,8 +2147,9 @@ msgid "Registers"
 msgstr "Registros"
 
 #: ../plugins/debug-manager/sharedlib.c:183
-msgid "  Shared Object  "
-msgstr "   Objeto compartido   "
+#: ../plugins/valgrind/vgrule-editor.c:138
+msgid "Shared Object"
+msgstr "Objeto compartido"
 
 #: ../plugins/debug-manager/sharedlib.c:187
 msgid "From"
@@ -3596,7 +3592,7 @@ msgid ""
 "\n"
 "Details: %s"
 msgstr ""
-"No se puede cargar archivo: %s\n"
+"No se puede cargar el archivo: %s\n"
 "\n"
 "Detalles: %s"
 
@@ -4105,6 +4101,10 @@ msgstr "No se pudo construir el interfaz de usuario para «Archivo nuevo»"
 msgid "Command Line Parameters"
 msgstr "Parámetros de la línea de comandos"
 
+#: ../plugins/gdb/anjuta-gdb.glade.h:12
+msgid "Enter a Hexa adress or select one in the data"
+msgstr "Introduzca una dirección hex. o seleccione una en los datos"
+
 #: ../plugins/gdb/anjuta-gdb.glade.h:13
 msgid "Execute Program"
 msgstr "Ejecutar el programa"
@@ -4165,6 +4165,7 @@ msgstr "El programa salió normalmente\n"
 msgid "Program exited with error code %s\n"
 msgstr "El programa salió con el código de error %s\n"
 
+#. The program has reached one breakpoint and will stop
 #: ../plugins/gdb/debugger.c:1193
 #, c-format
 msgid "Breakpoint number %s hit\n"
@@ -4246,12 +4247,8 @@ msgstr ""
 
 #: ../plugins/gdb/plugin.c:117
 #, c-format
-msgid ""
-"Fail to create fifo file named %s. The program will be run without a "
-"terminal."
-msgstr ""
-"Falló al crear el archivo FIFO con nombre %s. El programa se ejecutará sin "
-"una terminal."
+msgid "Failed to create fifo file named %s. The program will run without a terminal."
+msgstr "Falló al crear el archivo FIFO con nombre %s. El programa se ejecutará sin una terminal."
 
 #: ../plugins/gdb/plugin.c:152
 msgid "Cannot start terminal for debugging."
@@ -5611,18 +5608,18 @@ msgid "Add shared library support:"
 msgstr "Añadir soporte para bibliotecas compartidas:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:5
-msgid "Adds c++ support to the project so that c++ source files can be built"
+msgid "Adds C++ support to the project so that C++ source files can be built"
 msgstr ""
 "Añade soporte para C++ al proyecto de tal forma que se pueden construir "
 "archivos fuente C++"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:6
-msgid "Adds supports for building shared libraries in your project"
+msgid "Adds support for building shared libraries in your project"
 msgstr "Añade soporte para construir bibliotecas compartidas en su proyecto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:7
 msgid ""
-"Adds supports for internationalization so that your project can have "
+"Adds support for internationalization so that your project can have "
 "translations in different languages"
 msgstr ""
 "Añade soporte para internacionalización de tal forma que su proyecto puede "
@@ -5856,12 +5853,12 @@ msgid "Use libglade for the UI"
 msgstr "Usar libglade para el IU"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:66
-msgid "Use pkg-config to add library supports from other packages"
+msgid "Use pkg-config to add library support from other packages"
 msgstr "Usar pkg-config para añadir soporte para bibliotecas desde otros paquetes"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
-msgid "Use the libglade-2.0 library to load .glade at runtime"
-msgstr "Usar la biblioteca libglade-2.0 para cargar .glade al ejecutar"
+msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
+msgstr "Usar la biblioteca libglade-2.0 para cargar el archivo de interfaz glade al ejecutar"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Value Name:"
@@ -7139,10 +7136,6 @@ msgstr "Directorio de trabajo:"
 msgid "_Variable..."
 msgstr "_Variable…"
 
-#: ../plugins/tools/anjuta-tools.glade.h:23
-msgid "toggle"
-msgstr "cambiar"
-
 #: ../plugins/tools/dialog.c:177
 #, c-format
 msgid "Are you sure you want to delete the '%s' tool?"
@@ -7191,9 +7184,9 @@ msgstr "Ya existe una herramienta con el mismo nombre."
 #: ../plugins/tools/editor.c:731
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
-"keep it anyway ?"
+"keep it anyway?"
 msgstr ""
-"El atajo ya se usa en otro componenete de Anjuta. ¿Quiere conservarlo de "
+"La combinación ya se usa en otro componente de Anjuta. ¿Quiere conservarlo de "
 "todas formas?"
 
 #: ../plugins/tools/editor.c:817
@@ -7239,20 +7232,20 @@ msgstr "Comando en ejecución:"
 
 #: ../plugins/tools/execute.c:506
 #, c-format
-msgid "Completed unsuccessful with %d\n"
-msgstr "Completado incorrectamente con %d\n"
+msgid "Completed unsuccessful with status code %d\n"
+msgstr "Completado incorrectamente con el código de estado %d\n"
 
 #: ../plugins/tools/execute.c:626
 msgid "Unable to create a buffer, command aborted"
-msgstr "No puedo crear un búfer, comando abortado"
+msgstr "No se puede crear un búfer, comando abortado"
 
 #: ../plugins/tools/execute.c:638
 msgid "No document currently open, command aborted"
-msgstr "No hay ningún documento abierto actualmente, orden abortada"
+msgstr "Actualmente no hay ningún documento abierto, comando abortado"
 
 #: ../plugins/tools/execute.c:1016
 #, c-format
-msgid "Unable to open input file %s, Command aborted"
+msgid "Unable to open input file %s, command aborted"
 msgstr "No se puede abrir el archivo de entrada %s, comando abortado"
 
 #: ../plugins/tools/fileop.c:248
@@ -7595,10 +7588,6 @@ msgstr "bytes en la cola después de aplicarles free()"
 #: ../plugins/valgrind/vgmemcheckprefs.c:255
 msgid "Work around bugs generated by gcc 2.96"
 msgstr "Solucionar bugs producidos por gcc 2.96"
-
-#: ../plugins/valgrind/vgrule-editor.c:138
-msgid "Shared Object"
-msgstr "Objeto compartido"
 
 #: ../plugins/valgrind/vgrule-editor.c:197
 msgid "Grow"
