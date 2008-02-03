@@ -1284,7 +1284,7 @@
         <child>
           <widget class="GtkLabel" id="memory_label">
             <property name="visible">True</property>
-            <property name="label" translatable="yes">Enter a Hexa adress or select one in the data</property>
+            <property name="label" translatable="yes">Enter an address in hexadecimal or select one in the data</property>
           </widget>
           <packing>
             <property name="expand">False</property>

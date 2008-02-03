@@ -180,7 +180,7 @@ create_sharedlibs_gui (Sharedlibs *sl)
 	gtk_clist_column_titles_show (GTK_CLIST (clist4));
 	gtk_clist_set_column_auto_resize (GTK_CLIST(clist4), 0, TRUE);
 	
-	label6 = gtk_label_new (_("  Shared Object  "));
+	label6 = gtk_label_new (_("Shared Object"));
 	gtk_widget_show (label6);
 	gtk_clist_set_column_widget (GTK_CLIST (clist4), 0, label6);
 	

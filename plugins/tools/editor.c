@@ -728,7 +728,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 			group = anjuta_ui_get_accel_group(ui);
 			if (gtk_accel_group_query (group, accel_key, accel_mods, NULL) != NULL)
 			{
-				if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (this->dialog), _("The shortcut is already used by another component in Anjuta. Do you want to keep it anyway ?")))
+				if (!anjuta_util_dialog_boolean_question (GTK_WINDOW (this->dialog), _("The shortcut is already used by another component in Anjuta. Do you want to keep it anyway?")))
 				{
 					return;
 				}

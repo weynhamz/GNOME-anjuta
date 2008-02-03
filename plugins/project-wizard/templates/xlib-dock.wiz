@@ -26,10 +26,10 @@
 		<item name="BSD" _label="Berkeley Software Distribution License (BSD)"/>
 		<item name="None" _label="No license"/>
 	</property>
-	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
-	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
-	<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds supports for building shared libraries in your project" default="1"/>
-	<property type="boolean" name="HavePackageExtra" _label="Configure external packages:" _description="Use pkg-config to add library supports from other packages" default="0"/>
+	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds C++ support to the project so that C++ source files can be built" default="0"/>
+	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="1"/>
+	<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds support for building shared libraries in your project" default="1"/>
+	<property type="boolean" name="HavePackageExtra" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
 </page>
 
 [+IF (=(get "HavePackageExtra") "1")+]

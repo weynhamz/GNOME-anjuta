@@ -542,7 +542,7 @@ dma_debugger_activate_plugin (DmaDebuggerQueue* self, const gchar *mime_type)
 	{
 		/* No plugin found */
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (self->plugin)->shell),
-				_("Unable to find one debugger plugin acception %s mime type"), mime_type);
+				_("Unable to find one debugger plugin supporting a target with %s mime type"), mime_type);
 			
 		return FALSE;
 	}

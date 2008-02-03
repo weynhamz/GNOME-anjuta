@@ -24,9 +24,9 @@
 	<property type="hidden" name="NameLower" default="[+(string-downcase (get "Name"))+]"/>
 	<property type="hidden" name="NameCUpper" default="[+(string->c-name! (string-upcase (get "Name")))+]"/>
 	<property type="hidden" name="NameCLower" default="[+(string->c-name! (string-downcase (get "Name")))+]"/>
-	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
-	<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds supports for building shared libraries in your project" default="0"/>
-	<property type="boolean" name="HavePackage" _label="Configure external packages:" _description="Use pkg-config to add library supports from other packages" default="0"/>
+	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds C++ support to the project so that C++ source files can be built" default="0"/>
+	<property type="boolean" name="HaveSharedlib" _label="Add shared library support:" _description="Adds support for building shared libraries in your project" default="0"/>
+	<property type="boolean" name="HavePackage" _label="Configure external packages:" _description="Use pkg-config to add library support from other packages" default="0"/>
 </page>
 
 [+IF (=(get "HavePackage") "1")+]

@@ -503,7 +503,7 @@ atp_output_context_print_result (ATPOutputContext *this, gint error)
 		{
 			if (error)
 			{
-				buffer = g_strdup_printf (_("Completed unsuccessful with %d\n"),
+				buffer = g_strdup_printf (_("Completed unsuccessful with status code %d\n"),
 										  error);
 				ok = atp_output_context_print (this, buffer);
 				g_free (buffer);
@@ -1013,7 +1013,7 @@ atp_user_tool_execute (GtkMenuItem *item, ATPUserTool* this)
 			if ((val == NULL) || (!g_file_get_contents (val, &input, NULL, NULL)))
 			{
 				anjuta_util_dialog_error (atp_plugin_get_app_window (plugin),
-										  _("Unable to open input file %s, Command aborted"), val == NULL ? "(null)" : val);		
+										  _("Unable to open input file %s, command aborted"), val == NULL ? "(null)" : val);		
 				if (val != NULL) g_free (val);
 				if (dir != NULL) g_free (dir);
 				if (cmd != NULL) g_free (cmd);

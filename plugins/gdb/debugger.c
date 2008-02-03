@@ -1189,7 +1189,7 @@ debugger_parse_stopped (Debugger *debugger)
 			
 					bkptno = gdbmi_value_hash_lookup (val, "bkptno");
 					bkptno_str = gdbmi_value_literal_get (bkptno);
-		
+					/* The program has reached one breakpoint and will stop */	
 					msg = g_strdup_printf (_("Breakpoint number %s hit\n"),
 									   bkptno_str);
 					debugger->priv->output_callback (IANJUTA_DEBUGGER_OUTPUT,

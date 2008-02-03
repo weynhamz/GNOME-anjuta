@@ -24,8 +24,8 @@
 		<item name="BSD" _label="Berkeley Software Distribution License (BSD)"/>
 		<item name="None" _label="No license"/>
 	</property>
-	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds c++ support to the project so that c++ source files can be built" default="0"/>
-	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds supports for internationalization so that your project can have translations in different languages" default="1"/>
+	<property type="boolean" name="HaveLangCPP" _label="Add C++ support:" _description="Adds C++ support to the project so that C++ source files can be built" default="0"/>
+	<property type="boolean" name="HaveI18n" _label="Add internationalization:" _description="Adds support for internationalization so that your project can have translations in different languages" default="1"/>
 	<property type="string" name="SDL_Version" _label="Require SDL version:" _description="Mininum SDL version required" default="1.2.0"/>
 	<property type="boolean" name="HaveSDL_image" _label="Require SDL_image:" _description="Require SDL_image library" default="0"/>
 	<property type="boolean" name="HaveSDL_gfx" _label="Require SDL_gfx:" _description="Require SDL_gfx library" default="0"/>

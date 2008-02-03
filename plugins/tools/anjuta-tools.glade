@@ -429,7 +429,7 @@
               <widget class="GtkToggleButton" id="shortcut_bt">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes">toggle</property>
+                <property name="label"></property>
                 <property name="use_underline">True</property>
                 <property name="focus_on_click">False</property>
                 <property name="response_id">0</property>

@@ -2381,7 +2381,7 @@ anjuta_plugin_manager_activate_plugins (AnjutaPluginManager *plugin_manager,
 			icon_path = g_strconcat (PACKAGE_PIXMAPS_DIR"/",
 									 icon_filename, NULL);
 			/* DEBUG_PRINT ("Icon: %s", icon_path); */
-			label = g_strconcat (_("Loaded: "), title, _("..."), NULL);
+			label = g_strconcat (_("Loaded: "), title, "...", NULL);
 			icon_pixbuf = gdk_pixbuf_new_from_file (icon_path, NULL);
 			if (!icon_pixbuf)
 				g_warning ("Plugin does not define Icon: No such file %s",

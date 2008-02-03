@@ -1,3 +1,31 @@
+2008-02-03  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/sharedlib.c,
+	plugins/debug-manager/anjuta-debug-manager.glade,
+	plugins/debug-manager/queue.c,
+	plugins/tools/execute.c,
+	plugins/tools/anjuta-tools.glade,
+	plugins/tools/editor.c,
+	plugins/project-wizard/templates/terminal.wiz,
+	plugins/project-wizard/templates/xlib-dock.wiz,
+	plugins/project-wizard/templates/wxwin.wiz,
+	plugins/project-wizard/templates/java.wiz,
+	plugins/project-wizard/templates/gnome.wiz,
+	plugins/project-wizard/templates/anjuta-plugin.wiz,
+	plugins/project-wizard/templates/gtkmm.wiz,
+	plugins/project-wizard/templates/python.wiz,
+	plugins/project-wizard/templates/cpp.wiz,
+	plugins/project-wizard/templates/sdl.wiz,
+	plugins/project-wizard/templates/gtk.wiz,
+	plugins/project-wizard/templates/minimal.wiz,
+	plugins/project-wizard/templates/xlib.wiz,
+	plugins/project-wizard/templates/gcj.wiz,
+	plugins/gdb/plugin.c,
+	plugins/gdb/debugger.c,
+	libanjuta/anjuta-plugin-manager.c:
+	Partial fix of #507921: translation issues in debug-manager, tools,
+	project-wizard, gdb and anjuta-plugin-manager.
+
 2008-02-02  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/queue.c:

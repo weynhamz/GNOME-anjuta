@@ -114,7 +114,7 @@ gdb_plugin_start_terminal (GdbPlugin* plugin)
 	if (mkfifo (file, 0664) < 0)
 	{
 		anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-					  _("Fail to create fifo file named %s. The program will be run without a terminal."), file);
+					  _("Failed to create fifo file named %s. The program will run without a terminal."), file);
 		g_free (file);
 
 		return NULL;
