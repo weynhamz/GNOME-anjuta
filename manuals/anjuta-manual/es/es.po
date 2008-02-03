@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2008-02-02 10:09+0000\n"
-"PO-Revision-Date: 2008-02-02 16:20+0100\n"
+"POT-Creation-Date: 2008-02-03 14:54+0000\n"
+"PO-Revision-Date: 2008-02-03 19:42+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -332,9 +332,10 @@ msgid ""
 "guisubmenu><guimenuitem>Preferences</guimenuitem></menuchoice> and selecting "
 "the <interface> Shortcuts</interface> tab."
 msgstr ""
-"Puede cambiar las combinaciones de teclas predeterminadas usando <menuchoice><guisubmenu>Editar</"
-"guisubmenu><guimenuitem>Preferencias</guimenuitem></menuchoice> y seleccionando la solapa "
-"<interface>Combinaciones de teclas</interface>."
+"Puede cambiar las combinaciones de teclas predeterminadas usando "
+"<menuchoice><guisubmenu>Editar</guisubmenu><guimenuitem>Preferencias</"
+"guimenuitem></menuchoice> y seleccionando la solapa <interface>Combinaciones "
+"de teclas</interface>."
 
 #: C/anjuta-manual.xml:91(title)
 msgid "Main Window"
@@ -766,12 +767,13 @@ msgid ""
 "(for which the file selection was being done) will be performed for all the "
 "selected files. <placeholder-1/>"
 msgstr ""
-"Para seleccionar múltiples archivos a la vez, seleccione un archivo en el diálogo y pulse "
-"Ctrl una vez. Esto cambiará el diálogo de selección al modo de selección múltiple "
-"y se podrán seleccionar varios archivos de la lista. El modo de selección múltiple de "
-"archivos es similar al modo de selección única, excepto que la operación sobre archivos "
-"(para la que se está realizando la selección de archivos) se realizará sobre todos los "
-"archivos seleccionados. <placeholder-1/>"
+"Para seleccionar múltiples archivos a la vez, seleccione un archivo en el "
+"diálogo y pulse Ctrl una vez. Esto cambiará el diálogo de selección al modo "
+"de selección múltiple y se podrán seleccionar varios archivos de la lista. "
+"El modo de selección múltiple de archivos es similar al modo de selección "
+"única, excepto que la operación sobre archivos (para la que se está "
+"realizando la selección de archivos) se realizará sobre todos los archivos "
+"seleccionados. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:179(para)
 msgid ""
@@ -799,12 +801,13 @@ msgid ""
 "supplied. <placeholder-1/>"
 msgstr ""
 "<emphasis>Guardar un archivo:</emphasis>. Para guardar un archivo elija "
-"<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Guardar</guimenuitem></"
-"menuchoice> de la barra de menú, pulse el botón <guibutton>Guardar</guibutton> "
-"en la barra de herramientas, o pulse <keycombo><keycap>Ctrl</keycap><keycap>S</"
-"keycap></keycombo>. Esto guardará el archivo. Si el archivo es nuevo aparecerá "
-"un diálogo <interface>Guardar como</interface>. Introduzca un nombre de archivo y "
-"pulse <guibutton>Guardar</guibutton> para guardar el archivo nuevo con el nombre "
+"<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Guardar</"
+"guimenuitem></menuchoice> de la barra de menú, pulse el botón "
+"<guibutton>Guardar</guibutton> en la barra de herramientas, o pulse "
+"<keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. Esto guardará "
+"el archivo. Si el archivo es nuevo aparecerá un diálogo <interface>Guardar "
+"como</interface>. Introduzca un nombre de archivo y pulse "
+"<guibutton>Guardar</guibutton> para guardar el archivo nuevo con el nombre "
 "proporcionado. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:204(title)
@@ -819,11 +822,12 @@ msgid ""
 "first manually. <emphasis>You must save a file manually before auto-save or "
 "<guimenuitem>Save All</guimenuitem> will work with it.</emphasis>"
 msgstr ""
-"Si ha habilitado el autoguardado, no guardará ningún archivo nuevo. Primero debe "
-"guardarlos manualmente. Lo mismo se aplica a la opción <guimenuitem>Guardar todos</"
-"guimenuitem>: no guardará ningún archivo nuevo si no los ha guardado antes "
-"manualmente. <emphasis>Debe guardar un archivo manualmente para que el autoguardado o "
-"<guimenuitem>Guardar todos</guimenuitem> funcionen con ellos.</emphasis>"
+"Si ha habilitado el autoguardado, no guardará ningún archivo nuevo. Primero "
+"debe guardarlos manualmente. Lo mismo se aplica a la opción "
+"<guimenuitem>Guardar todos</guimenuitem>: no guardará ningún archivo nuevo "
+"si no los ha guardado antes manualmente. <emphasis>Debe guardar un archivo "
+"manualmente para que el autoguardado o <guimenuitem>Guardar todos</"
+"guimenuitem> funcionen con ellos.</emphasis>"
 
 #: C/anjuta-manual.xml:216(para)
 msgid ""
@@ -834,12 +838,12 @@ msgid ""
 "appear prompting you to enter the new filename. Enter the name and click "
 "<guibutton>Save</guibutton>."
 msgstr ""
-"<emphasis>Guardar un archivo con un nombre diferente:</emphasis> Puede guardar "
-"un archivo con un nombre nuevo explícitamente. Para hacerlo, elija "
-"<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Guardar como</guimenuitem></"
-"menuchoice> de la barra de menú. Aparecerá un diálogo <interface>Guardar como</interface> "
-"preguntándole por el nombre de archivo nuevo. Introduzca el nombre y pulse "
-"<guibutton>Guardar</guibutton>."
+"<emphasis>Guardar un archivo con un nombre diferente:</emphasis> Puede "
+"guardar un archivo con un nombre nuevo explícitamente. Para hacerlo, elija "
+"<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Guardar como</"
+"guimenuitem></menuchoice> de la barra de menú. Aparecerá un diálogo "
+"<interface>Guardar como</interface> preguntándole por el nombre de archivo "
+"nuevo. Introduzca el nombre y pulse <guibutton>Guardar</guibutton>."
 
 #: C/anjuta-manual.xml:224(title)
 msgid "File save as overwrite"
@@ -853,11 +857,12 @@ msgid ""
 "ensure that you want to overwrite it. Clicking <guibutton>Yes</guibutton> "
 "will overwrite the file with the file you are saving."
 msgstr ""
-"Cuando use <guimenuitem>Guardar como</guimenuitem> sobre un archivo ya existente, el "
-"original no se borra. Se deja sin cambiar desde la última vez que se guardó. Si un archivo "
-"con el nombre de archivo nuevo ya existe, aparecerá un diálogo de confirmación, para "
-"asegurar que quiere sobreescribirlo. Pulsar <guibutton>Sí</guibutton> "
-"sobreescribirá el archivo con el archivo que está guardando."
+"Cuando use <guimenuitem>Guardar como</guimenuitem> sobre un archivo ya "
+"existente, el original no se borra. Se deja sin cambiar desde la última vez "
+"que se guardó. Si un archivo con el nombre de archivo nuevo ya existe, "
+"aparecerá un diálogo de confirmación, para asegurar que quiere "
+"sobreescribirlo. Pulsar <guibutton>Sí</guibutton> sobreescribirá el archivo "
+"con el archivo que está guardando."
 
 #: C/anjuta-manual.xml:237(para)
 msgid ""
@@ -871,13 +876,13 @@ msgid ""
 "closing it."
 msgstr ""
 "<emphasis>Cerrar un archivo:</emphasis> para cerrar un archivo, elija "
-"<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Cerrar</guimenuitem></"
-"menuchoice> de la barra de menú, o pulse el botón <guibutton>Cerrar</guibutton> "
-"de la barra de herramientas. El archivo también se puede cerrar pulsando sobre la "
-"<guibutton>cruz</guibutton> en la solapa del nombre del archivo. Esto cerrará el "
-"archivo actual. Si el archivo no está guardado o es un archivo nuevo, entonces "
-"<application>Anjuta</application> le preguntará si quiere salvar el archivo antes "
-"de cerrarlo."
+"<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Cerrar</"
+"guimenuitem></menuchoice> de la barra de menú, o pulse el botón "
+"<guibutton>Cerrar</guibutton> de la barra de herramientas. El archivo "
+"también se puede cerrar pulsando sobre la <guibutton>cruz</guibutton> en la "
+"solapa del nombre del archivo. Esto cerrará el archivo actual. Si el archivo "
+"no está guardado o es un archivo nuevo, entonces <application>Anjuta</"
+"application> le preguntará si quiere salvar el archivo antes de cerrarlo."
 
 #: C/anjuta-manual.xml:254(title)
 msgid "Editing Files"
@@ -915,13 +920,15 @@ msgid ""
 "<menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu></"
 "menuchoice>. <placeholder-1/>"
 msgstr ""
-"<emphasis>Márgenes del editor:</emphasis> los márgenes del editor son las pequeñas áreas en "
-"la parte izquierda del editor que sirven para algunos propósitos especiales. Existen tres márgenes "
-"de editor disponibles y puede que no todos estén disponibles al iniciar "
-"<application>Anjuta</application>. Son el Margen del número de línea, el Margen de "
-"marcadores y el Margen de plegado del código. De forma predeterminada (esto es, cuando inicia "
-"<application>Anjuta</application> por primera vez) sólo el margen de plegado del "
-"código será visible. El resto se puede hacer visible desde el menú <menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</guisubmenu></"
+"<emphasis>Márgenes del editor:</emphasis> los márgenes del editor son las "
+"pequeñas áreas en la parte izquierda del editor que sirven para algunos "
+"propósitos especiales. Existen tres márgenes de editor disponibles y puede "
+"que no todos estén disponibles al iniciar <application>Anjuta</application>. "
+"Son el Margen del número de línea, el Margen de marcadores y el Margen de "
+"plegado del código. De forma predeterminada (esto es, cuando inicia "
+"<application>Anjuta</application> por primera vez) sólo el margen de plegado "
+"del código será visible. El resto se puede hacer visible desde el menú "
+"<menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</guisubmenu></"
 "menuchoice>. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:277(para)
@@ -935,14 +942,15 @@ msgid ""
 "the last newline, if present). You can set the font properties for line "
 "number margin in the preferences."
 msgstr ""
-"El <emphasis>Margen de números de línea</emphasis> es el más grande de los tres "
-"márgenes (y ligeramente más oscuro que el resto) y muestra los números de línea "
-"del documento. El <emphasis>Margen de números de línea</emphasis> puede hacerse visible "
-"o invisible conmutando <menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</"
-"guisubmenu><guimenuitem>Margen de números de línea</guimenuitem></menuchoice>. "
-"Una simple pulsación en este margen seleccionará la línea entera (incluyendo. "
-"si está presente, la última línea nueva). Puede establecer las propiedades de la tipografía para "
-"el margen de los números de línea en las preferencias."
+"El <emphasis>Margen de números de línea</emphasis> es el más grande de los "
+"tres márgenes (y ligeramente más oscuro que el resto) y muestra los números "
+"de línea del documento. El <emphasis>Margen de números de línea</emphasis> "
+"puede hacerse visible o invisible conmutando <menuchoice><guimenu>Ver</"
+"guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Margen de números de "
+"línea</guimenuitem></menuchoice>. Una simple pulsación en este margen "
+"seleccionará la línea entera (incluyendo. si está presente, la última línea "
+"nueva). Puede establecer las propiedades de la tipografía para el margen de "
+"los números de línea en las preferencias."
 
 #: C/anjuta-manual.xml:286(para)
 msgid ""
@@ -962,20 +970,22 @@ msgid ""
 "jump from another part, for example when navigating the bookmarks and during "
 "single stepping in debugger."
 msgstr ""
-"El <emphasis>Margen de marcadores<emphasis> es el siguiente margen que se puede hacer "
-"visible o invisible seleccionando </emphasis><menuchoice>Ver<"
-"guimenu></guimenu>Editor<guisubmenu></guisubmenu>Margen de marcadores<"
-"guimenuitem></guimenuitem></menuchoice>. Este margen muestra iconos gráficos para marcar la "
-"línea dada. Los marcadores que se mostrarán en éste margen son los Marcadores "
-"(icono rectangular azul), los Puntos de parada (círculo rojo) y los Indicadores de línea (flecha "
-"amarilla). Los Marcadores se usan para indicar líneas marcadas que se pueden cambiar "
-"desde <menuchoice><guimenu>Ir a</guimenu><guisubmenu>Marcador</"
-"guisubmenu><guimenuitem>Cambiar marcador</guimenuitem></menuchoice> con el cursor "
-"sobre esa línea. Los marcadores de puntos de parada se usan en la depuración para "
-"marcar la línea con puntos de para de la depuración (vea la sección de depuración para "
-"obtener más detalles). Los marcadores de indicadores se usan para indicar una línea cuando "
-"se salta de una parte a otra, por ejemplo, cuando se navega entre los marcadores y durante "
-"la depuración paso a paso."
+"El <emphasis>Margen de marcadores<emphasis> es el siguiente margen que se "
+"puede hacer visible o invisible seleccionando </"
+"emphasis><menuchoice>Ver<guimenu></guimenu>Editor<guisubmenu></"
+"guisubmenu>Margen de marcadores<guimenuitem></guimenuitem></menuchoice>. "
+"Este margen muestra iconos gráficos para marcar la línea dada. Los "
+"marcadores que se mostrarán en éste margen son los Marcadores (icono "
+"rectangular azul), los Puntos de parada (círculo rojo) y los Indicadores de "
+"línea (flecha amarilla). Los Marcadores se usan para indicar líneas marcadas "
+"que se pueden cambiar desde <menuchoice><guimenu>Ir a</"
+"guimenu><guisubmenu>Marcador</guisubmenu><guimenuitem>Cambiar marcador</"
+"guimenuitem></menuchoice> con el cursor sobre esa línea. Los marcadores de "
+"puntos de parada se usan en la depuración para marcar la línea con puntos de "
+"para de la depuración (vea la sección de depuración para obtener más "
+"detalles). Los marcadores de indicadores se usan para indicar una línea "
+"cuando se salta de una parte a otra, por ejemplo, cuando se navega entre los "
+"marcadores y durante la depuración paso a paso."
 
 #: C/anjuta-manual.xml:299(para)
 msgid ""
@@ -1109,13 +1119,14 @@ msgid ""
 "menuchoice> on the menubar. Change the style of formatting by customizing "
 "the choices in the preferences."
 msgstr ""
-"Si el archivo actual es un archivo fuente o de cabeceras de C o C++, entonces "
-"es posible sangrarlo automáticamente (autoformatearlo). Proporciona al "
-"código un aspecto limpio, aumentando su legibilidad, reduce la probabilidad "
-"de errores de sintaxis y, por encima de todo, ahorra tiempo. Esto se puede "
-"realizar eligiendo <menuchoice><guimenu>Editar</guimenu><guimenuitem>Sangría automática</guimenuitem></"
-"menuchoice> en la barra de menú. Cambie el estilo del formateo personalizando las opciones en las "
-"preferencias."
+"Si el archivo actual es un archivo fuente o de cabeceras de C o C++, "
+"entonces es posible sangrarlo automáticamente (autoformatearlo). Proporciona "
+"al código un aspecto limpio, aumentando su legibilidad, reduce la "
+"probabilidad de errores de sintaxis y, por encima de todo, ahorra tiempo. "
+"Esto se puede realizar eligiendo <menuchoice><guimenu>Editar</"
+"guimenu><guimenuitem>Sangría automática</guimenuitem></menuchoice> en la "
+"barra de menú. Cambie el estilo del formateo personalizando las opciones en "
+"las preferencias."
 
 #: C/anjuta-manual.xml:396(title)
 msgid "Symbol browser and Browsing Files"
@@ -1251,7 +1262,8 @@ msgstr ""
 "Si la búsqueda tiene éxito, se resaltará el texto coincidente en el "
 "documento, marcado... (en concordancia con la elección de la acción de "
 "búsqueda). Si la búsqueda no tiene éxito, se mostrará el diálogo "
-"<emphasis>No se ha encontrado ninguna coincidencia con «el texto buscado»</emphasis>."
+"<emphasis>No se ha encontrado ninguna coincidencia con «el texto buscado»</"
+"emphasis>."
 
 #: C/anjuta-manual.xml:479(para)
 msgid ""
@@ -1287,8 +1299,8 @@ msgid ""
 "If the \"Basic Search\" option is selected in the Setting window, the search "
 "direction can be choosen from the Expression window."
 msgstr ""
-"Si la opción «Búsqueda básica» está seleccionada en la ventana Ajustes, la dirección "
-"de búsqueda se puede elegir desde la ventana Expresión."
+"Si la opción «Búsqueda básica» está seleccionada en la ventana Ajustes, la "
+"dirección de búsqueda se puede elegir desde la ventana Expresión."
 
 #: C/anjuta-manual.xml:501(title)
 msgid "Basic Search Text dialog"
@@ -2633,7 +2645,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:976(title)
 msgid "Dependencies"
-msgstr ""
+msgstr "Dependencias"
 
 #: C/anjuta-manual.xml:977(para)
 msgid ""
@@ -2645,11 +2657,11 @@ msgstr ""
 
 #: C/anjuta-manual.xml:987(title)
 msgid "Choose executable and set program parameters"
-msgstr ""
+msgstr "Elija el ejecutable y establezca los parámetros del programa"
 
 #: C/anjuta-manual.xml:989(screeninfo)
 msgid "Setting program parameters"
-msgstr ""
+msgstr "Establecer los parámetros del programa"
 
 #: C/anjuta-manual.xml:3(title)
 msgid "Debugging"
@@ -2657,7 +2669,7 @@ msgstr "Depurar"
 
 #: C/anjuta-manual.xml:5(emphasis)
 msgid "To debug is human. To fix it is divine..."
-msgstr ""
+msgstr "Depurar es de humanos, reparar es divino..."
 
 #: C/anjuta-manual.xml:7(para)
 msgid ""
@@ -2695,7 +2707,7 @@ msgstr ""
 #: C/anjuta-manual.xml:33(para)
 msgid ""
 "The debugger has been heavily changed since anjuta 2.0.2. Some features have "
-"been dropped but will be reenabled, a few have been added."
+"been dropped but will be re enabled, a few have been added."
 msgstr ""
 
 #: C/anjuta-manual.xml:42(title)
@@ -2711,73 +2723,107 @@ msgid "Attaching to a process"
 msgstr ""
 
 #: C/anjuta-manual.xml:44(para)
-msgid "There are two ways to start the debugger: <placeholder-1/>"
+msgid ""
+"The debugger is always started with a program loaded. There are two ways to "
+"do this: <placeholder-1/>"
+msgstr ""
+
+#: C/anjuta-manual.xml:59(listitem)
+msgid "The program that you want to debug"
+msgstr ""
+
+#: C/anjuta-manual.xml:60(listitem)
+msgid "The command line parameters"
+msgstr ""
+
+#: C/anjuta-manual.xml:61(listitem)
+msgid "If you want a terminal or not (the Anjuta terminal plugin is used)"
+msgstr ""
+
+#: C/anjuta-manual.xml:62(listitem)
+msgid "If you want to stop the program at the beginning or not"
 msgstr ""
 
 #: C/anjuta-manual.xml:54(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Debug</"
 "guisubmenu><guimenuitem>Run Target…</guimenuitem></menuchoice> to display a "
-"dialog box where you can select the executable that you want to debug, the "
-"command line parameters and if you want a terminal or not. The popup menu of "
-"the target combo box is already filled with all executables of the current "
-"project, so you can easily select one of them. But it is not mandatory, you "
-"can select any other executable. The debugger accepts libtool executable, I "
-"mean script wrapping the real executable generated by libtool. When you have "
-"set everything you can click on <guibutton>Execute</guibutton> to start the "
-"debugger, load your program and stop at its beginning."
+"dialog box where you can select: <placeholder-1/>"
 msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
+"guisubmenu><guimenuitem>Ejecutar objetivo…</guimenuitem></menuchoice> para mostrar "
+"la una caja de diálogo donde puede seleccionar: <placeholder-1/>"
 
-#: C/anjuta-manual.xml:68(para)
+#: C/anjuta-manual.xml:65(para)
 msgid ""
-"In order to better user the debugger, it is recommended to debug program "
-"with debugging information (-g for gcc) and no optimization (-O0 for gcc)."
+"The drop-down menu of the target drop-down combination box is already filled "
+"with all executables of the current project. But you can select another "
+"executable not part of the project. The debugger accepts libtool executable, "
+"it means script,generated by libtool, wrapping the real executable. Note "
+"that an URI is expected here, not a file path even if the debugger currently "
+"supports only local files."
 msgstr ""
 
-#: C/anjuta-manual.xml:76(title)
+#: C/anjuta-manual.xml:73(para)
+msgid ""
+"When you have set everything you can click on <guibutton>Execute</guibutton> "
+"to start the debugger, load your program and stop at its beginning if "
+"requested."
+msgstr ""
+
+#: C/anjuta-manual.xml:78(para)
+msgid ""
+"In order to better user the debugger, it is strongly recommended to debug "
+"program with debugging information (-g for gcc) and no optimization (-O0 for "
+"gcc)."
+msgstr ""
+
+#: C/anjuta-manual.xml:86(title)
 msgid "Attaching to a Process"
 msgstr ""
 
-#: C/anjuta-manual.xml:77(para)
+#: C/anjuta-manual.xml:87(para)
 msgid ""
-"It is also possible to attach to a running process for debugging. Choose the "
-"menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Attach to "
-"Process …</guimenuitem></menuchoice>. A list of all the process running on "
-"the system will appear."
+"It is also possible to attach to a running process and debugging it by "
+"choosing the menu item <menuchoice><guisubmenu>Debug</"
+"guisubmenu><guimenuitem>Attach to Process …</guimenuitem></menuchoice>. A "
+"list of all the process running on the system will appear."
 msgstr ""
 
-#: C/anjuta-manual.xml:84(title) C/anjuta-manual.xml:86(screeninfo)
+#: C/anjuta-manual.xml:94(title) C/anjuta-manual.xml:96(screeninfo)
 msgid "Attach to Process dialog"
 msgstr ""
 
-#: C/anjuta-manual.xml:90(para)
-msgid "Select the process to attach to and click <guibutton>OK</guibutton>."
-msgstr ""
-
-#: C/anjuta-manual.xml:94(para)
+#: C/anjuta-manual.xml:100(para)
 msgid ""
-"It is currently not possible to load symbol information for the attached "
-"process."
+"Select the process to attach to and click <guibutton>OK</guibutton> to start "
+"the debugger, attach to the selected process and stop it."
 msgstr ""
 
-#: C/anjuta-manual.xml:102(title)
-msgid "Restarting an executable"
-msgstr ""
-
-#: C/anjuta-manual.xml:103(para)
+#: C/anjuta-manual.xml:105(para)
 msgid ""
-"After running a executable at least one time, you can choose the menu item "
-"<menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Restart Target</"
-"guimenuitem></menuchoice> to restart your program. It is just a shortcut "
-"that will stop the debugger if it is currently running and restart it with "
-"the last executable."
+"It is currently not possible to load symbol informations for the attached "
+"process. They should be included in the process."
 msgstr ""
 
 #: C/anjuta-manual.xml:113(title)
-msgid "Stopping the Debugger"
+msgid "Restarting an executable"
 msgstr ""
 
 #: C/anjuta-manual.xml:114(para)
+msgid ""
+"After running an executable at least one time, you can choose the menu item "
+"<menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Restart Target</"
+"guimenuitem></menuchoice> to restart your program. It is just a shortcut "
+"that will stop the debugger if it is currently running and restart it with "
+"the last executable without displaying the start dialog."
+msgstr ""
+
+#: C/anjuta-manual.xml:124(title)
+msgid "Stopping the Debugger"
+msgstr ""
+
+#: C/anjuta-manual.xml:125(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Debug</"
 "guisubmenu><guimenuitem>Stop Debugger</guimenuitem></menuchoice> to stop the "
@@ -2787,31 +2833,66 @@ msgid ""
 "currently attached or running."
 msgstr ""
 
-#: C/anjuta-manual.xml:128(title)
-msgid "Execution"
-msgstr ""
-
-#: C/anjuta-manual.xml:129(para)
-msgid ""
-"Execution of a program in the debugger can be finely controlled. The program "
-"can be executed in single steps, or allowed to continue until it encounters "
-"a breakpoint. Executing like this is essential for tracking program "
-"behaviour. Like a video editing session, the program can be executed in "
-"<emphasis>slow motion</emphasis> with the ability to go forward, pause, "
-"stop, and so on."
+#: C/anjuta-manual.xml:135(title)
+msgid "Adding source directories"
 msgstr ""
 
 #: C/anjuta-manual.xml:136(para)
 msgid ""
-"The methods that can be used to execute a program in the debugger are "
-"described in the next few sections."
+"Choose the menu item <menuchoice><guisubmenu>Debug</"
+"guisubmenu><guimenuitem>Add source paths…</guimenuitem></menuchoice> to "
+"display a dialog box allowing you to add and remove source directories."
+msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
+"guisubmenu><guimenuitem>Añadir rutas de fuentes…</guimenuitem></menuchoice> para "
+"mostrar una caja de diálogo que le permitirá añadir y quitar directorios de fuentes."
+
+#: C/anjuta-manual.xml:141(para)
+msgid ""
+"Most executables include full file paths, so defining the directories where "
+"are the source files is not useful. But some executables include only file "
+"names without paths, in this case, the source files will be searched in all "
+"these directories by the debugger. The directories order can be important if "
+"several files have the same name, so you can change it using the "
+"<guibutton>Up</guibutton> and <guibutton>Down</guibutton> buttons. The "
+"directories list is send to the debugger when it is started. After changing "
+"it, you need to restart the debugger to take it in account."
 msgstr ""
 
-#: C/anjuta-manual.xml:142(title)
+#: C/anjuta-manual.xml:157(title)
+msgid "Execution"
+msgstr ""
+
+#: C/anjuta-manual.xml:158(para)
+msgid ""
+"Execution of a program in the debugger can be finely controlled. The program "
+"can be executed in single steps, or allowed to continue until it encounters "
+"a breakpoint. Executing like this is essential for tracking program "
+"behavior. Like a video editing session, the program can be executed in "
+"<emphasis>slow motion</emphasis> with the ability to go forward, pause, "
+"stop, and so on. You cannot go backward yet though."
+msgstr ""
+
+#: C/anjuta-manual.xml:165(para)
+msgid ""
+"The methods those can be used to execute a program in the debugger are "
+"described in the next sections. These commands are available only when the "
+"program is already started."
+msgstr ""
+
+#: C/anjuta-manual.xml:172(title)
 msgid "Single stepping (step in)"
 msgstr ""
 
-#: C/anjuta-manual.xml:143(para)
+#: C/anjuta-manual.xml:173(para)
+msgid ""
+"Choose the menu item <menuchoice><guisubmenu>Debug</"
+"guisubmenu><guimenuitem>Step In</guimenuitem></menuchoice> or click on the "
+"<guibutton>Step In</guibutton> icon in the <interface>Debug toolbar</"
+"interface> to step into a program."
+msgstr ""
+
+#: C/anjuta-manual.xml:179(para)
 msgid ""
 "Single stepping executes only one statement of the program (from the place "
 "where it has stopped) and then returns control. If the statement that is "
@@ -2821,30 +2902,17 @@ msgid ""
 "study the various program parameters."
 msgstr ""
 
-#: C/anjuta-manual.xml:150(para)
-msgid "If the program need to been started to use single stepping."
-msgstr ""
-
-#: C/anjuta-manual.xml:153(para)
+#: C/anjuta-manual.xml:186(para)
 msgid ""
-"Choose the menu item <menuchoice><guisubmenu>Debug</"
-"guisubmenu><guimenuitem>Step In</guimenuitem></menuchoice> or click on the "
-"<guibutton>Step In</guibutton> icon in the <interface>Debug toolbar</"
-"interface> to step into a program."
+"If the <interface>Disassembly window</interface> has the focus when this "
+"command is selected, it executes only one assembler instruction."
 msgstr ""
 
-#: C/anjuta-manual.xml:162(title)
+#: C/anjuta-manual.xml:193(title)
 msgid "Single stepping (step over)"
 msgstr ""
 
-#: C/anjuta-manual.xml:163(para)
-msgid ""
-"<emphasis>Step over</emphasis> is similar to <emphasis>step in</emphasis>, "
-"except that it does not step inside any function in the statement being "
-"executed. The statement will be executed in one go."
-msgstr ""
-
-#: C/anjuta-manual.xml:168(para)
+#: C/anjuta-manual.xml:194(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Debug</"
 "guisubmenu><guimenuitem>Step Over</guimenuitem></menuchoice> or click on the "
@@ -2852,18 +2920,40 @@ msgid ""
 "interface> to step over statements in a program."
 msgstr ""
 
-#: C/anjuta-manual.xml:175(para)
+#: C/anjuta-manual.xml:200(para)
+msgid ""
+"<emphasis>Step over</emphasis> is similar to <emphasis>step in</emphasis>, "
+"except that it does not step inside any function in the statement being "
+"executed. The statement will be executed in one go."
+msgstr ""
+
+#: C/anjuta-manual.xml:205(para)
+msgid ""
+"If the <interface>Disassembly window</interface> has the focus when this "
+"command is selected, it executes one assembler instruction but does not stop "
+"inside if this instruction is a call to a subroutine."
+msgstr ""
+
+#: C/anjuta-manual.xml:211(para)
 msgid ""
 "If a dynamic library is loaded during the step, the program will not stop at "
 "the end of the step. But it will run until it finds a breakpoint or you stop "
 "it."
 msgstr ""
 
-#: C/anjuta-manual.xml:184(title)
+#: C/anjuta-manual.xml:220(title)
 msgid "Single stepping (step out)"
 msgstr ""
 
-#: C/anjuta-manual.xml:185(para)
+#: C/anjuta-manual.xml:221(para)
+msgid ""
+"Choose the menu item <menuchoice><guisubmenu>Debug</"
+"guisubmenu><guimenuitem>Step Out</guimenuitem></menuchoice> or click on the "
+"<guibutton>Step Out</guibutton> icon in the <interface>Debug toolbar</"
+"interface> to step out in a program."
+msgstr ""
+
+#: C/anjuta-manual.xml:227(para)
 msgid ""
 "<emphasis>Step out</emphasis> will execute the current function until it "
 "returns. The program will be stopped once it exits from the function. Step "
@@ -2872,25 +2962,11 @@ msgid ""
 "the calling function."
 msgstr ""
 
-#: C/anjuta-manual.xml:192(para)
-msgid ""
-"Choose the menu item <menuchoice><guisubmenu>Debug</"
-"guisubmenu><guimenuitem>Step Out</guimenuitem></menuchoice> or click on the "
-"<guibutton>Step Out</guibutton> icon in the <interface>Debug toolbar</"
-"interface> to step out in a program."
-msgstr ""
-
-#: C/anjuta-manual.xml:201(title)
+#: C/anjuta-manual.xml:237(title)
 msgid "Run/Continue"
 msgstr "Ejecutar/Seguir"
 
-#: C/anjuta-manual.xml:202(para)
-msgid ""
-"This option will continue the execution of the program until a breakpoint is "
-"encountered, or the program exits."
-msgstr ""
-
-#: C/anjuta-manual.xml:206(para)
+#: C/anjuta-manual.xml:238(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Debug</"
 "guisubmenu><guimenuitem>Run/Continue</guimenuitem></menuchoice> or click on "
@@ -2898,17 +2974,17 @@ msgid ""
 "toolbar</interface> to continue the execution of a program."
 msgstr ""
 
-#: C/anjuta-manual.xml:215(title)
+#: C/anjuta-manual.xml:244(para)
+msgid ""
+"This option continues the execution of the program until a breakpoint is "
+"encountered, or the program exits."
+msgstr ""
+
+#: C/anjuta-manual.xml:251(title)
 msgid "Run To"
 msgstr ""
 
-#: C/anjuta-manual.xml:216(para)
-msgid ""
-"This option will continue the execution of the program until the line where "
-"cursor is is reached."
-msgstr ""
-
-#: C/anjuta-manual.xml:220(para)
+#: C/anjuta-manual.xml:252(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Debug</"
 "guisubmenu><guimenuitem>Run to Cursor</guimenuitem></menuchoice> or click on "
@@ -2916,11 +2992,18 @@ msgid ""
 "toolbar</interface> to run until the line at cursor is reached."
 msgstr ""
 
-#: C/anjuta-manual.xml:229(title)
+#: C/anjuta-manual.xml:258(para)
+msgid ""
+"This option continues the execution of the program until the line or the "
+"address (if the <interface>Disassembly window</interface> has the focus) "
+"where the cursor is is reached."
+msgstr ""
+
+#: C/anjuta-manual.xml:266(title)
 msgid "Stop Program"
 msgstr ""
 
-#: C/anjuta-manual.xml:230(para)
+#: C/anjuta-manual.xml:267(para)
 msgid ""
 "While the program is running and has control, no debugging tasks can be "
 "performed. To obtain control while the program is running, choose the menu "
@@ -2930,56 +3013,166 @@ msgid ""
 "interrupt the program and return control to the debugger."
 msgstr ""
 
-#: C/anjuta-manual.xml:245(title)
+#: C/anjuta-manual.xml:282(title)
 msgid "Breakpoints"
 msgstr "Puntos de parada"
 
-#: C/anjuta-manual.xml:246(para)
+#: C/anjuta-manual.xml:283(para)
 msgid ""
 "When debugging a program, it is useful to be able to stop the execution of "
 "the program at a particular point, so that the state of the program can be "
 "examined at that location. Breakpoints enable this to happen. Breakpoints "
-"can be set at different locations in a source file, and then the program is "
+"can be set at different locations in a source file and then the program is "
 "allowed to run. When a breakpoint is encountered, the execution of the "
 "program is suspended, enabling expressions to be evaluated, variables to be "
 "inspected, the stack trace to be studied, and so on."
 msgstr ""
 
-#: C/anjuta-manual.xml:256(title)
+#: C/anjuta-manual.xml:293(title)
 msgid "Listing Breakpoints"
-msgstr ""
+msgstr "Listar los puntos de parada"
 
-#: C/anjuta-manual.xml:257(para)
+#: C/anjuta-manual.xml:294(para)
 msgid ""
 "The <interface>Breakpoint list window</interface> can be opened by choosing "
 "<menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Breakpoints</"
 "guimenuitem></menuchoice>"
 msgstr ""
 
-#: C/anjuta-manual.xml:264(title) C/anjuta-manual.xml:266(screeninfo)
+#: C/anjuta-manual.xml:301(title) C/anjuta-manual.xml:303(screeninfo)
 msgid "Breakpoint view"
-msgstr ""
+msgstr "Vista del punto de parada"
 
-#: C/anjuta-manual.xml:271(para)
+#: C/anjuta-manual.xml:312(term) C/anjuta-manual.xml:408(term)
+msgid "Location"
+msgstr "Ubicación"
+
+#: C/anjuta-manual.xml:314(para)
 msgid ""
-"<emphasis>Location</emphasis>, refers to the location of the code in the "
-"source file. <emphasis>Location</emphasis> can be specified in any of the "
-"following formats:"
+"This is the position of the breakpoint in the source file. When the "
+"breakpoint is set by the debugger, you can get additional information like "
+"the function where is the breakpoint."
+msgstr ""
+"Esta es la posición del punto de parada en el archivo fuente. Cuando el "
+"punto de parada lo establece el depurador, puede obtener información adicional tal como "
+"la función donde está el punto de parada."
+
+#: C/anjuta-manual.xml:322(term)
+msgid "Address"
+msgstr "Dirección"
+
+#: C/anjuta-manual.xml:324(para)
+msgid ""
+"This field is filled with the address of the breakpoint when it is set by "
+"the debugger."
+msgstr ""
+"Este campo está rellenado con la dirección del punto de parada cuando el depurador "
+"lo establece."
+
+#: C/anjuta-manual.xml:331(term)
+msgid "Type"
+msgstr "Tipo"
+
+#: C/anjuta-manual.xml:333(para)
+msgid ""
+"This displays always \"breakpoint\". It will be used in a next version "
+"supporting different kind of breakpoints."
+msgstr ""
+"Esto siempre muestra «punto de parada». Se usará en una versión posterior "
+"soportando diferentes tipos de puntos de parada."
+
+#: C/anjuta-manual.xml:340(term) C/anjuta-manual.xml:435(term)
+msgid "Condition"
+msgstr "Condición"
+
+#: C/anjuta-manual.xml:342(para)
+msgid "This is the breakpoint condition, it is empty if no condition is defined."
+msgstr "Esta es la condición del punto de parada, está vacía si no se define ninguna condición."
+
+#: C/anjuta-manual.xml:348(term)
+msgid "Pass count"
+msgstr "Conteo de pasadas"
+
+#: C/anjuta-manual.xml:350(para)
+msgid ""
+"When the debugger is not running, this column displays the pass count of the "
+"breakpoint, zero if it is not defined."
 msgstr ""
 
-#: C/anjuta-manual.xml:278(para)
+#: C/anjuta-manual.xml:354(para)
+msgid ""
+"When the debugger is running, if pass count is zero, this column displays "
+"the number of time this breakpoint has been triggered. If pass count is not "
+"zero, both numbers are displayed. The pass count is the second number."
+msgstr ""
+
+#: C/anjuta-manual.xml:362(term)
+msgid "State"
+msgstr "Estado"
+
+#: C/anjuta-manual.xml:367(para)
+msgid "Pending: breakpoint is not set in your program."
+msgstr ""
+
+#: C/anjuta-manual.xml:368(para)
+msgid "Permanent: breakpoint is set (id number in given inside the parenthesis)."
+msgstr ""
+
+#: C/anjuta-manual.xml:369(para)
+msgid "Temporary: breakpoint is set but will be deleted if reached."
+msgstr ""
+
+#: C/anjuta-manual.xml:364(para)
+msgid "This is the state of the breakpoint. You could have. <placeholder-1/>"
+msgstr "Éste es el estado del punto de parada. Puede tener: <placeholder-1/>"
+
+#: C/anjuta-manual.xml:308(para)
+msgid "The view has the following columns: <placeholder-1/>"
+msgstr ""
+
+#: C/anjuta-manual.xml:377(para)
+msgid ""
+"All breakpoints are kept across anjuta session even if they correspond to a "
+"non existing place. In this case their state are set as pending.The "
+"interface try to set them each time the program is started or a new dynamic "
+"library is loaded."
+msgstr ""
+
+#: C/anjuta-manual.xml:386(title)
+msgid "Adding or Setting Breakpoints"
+msgstr "Añadir o establecer puntos de parada"
+
+#: C/anjuta-manual.xml:387(para)
+msgid ""
+"Choose the menu item <menuchoice><guisubmenu>Debug</"
+"guisubmenu><guimenuitem>Add Breakpoint…</guimenuitem></menuchoice> or "
+"<menuchoice><guimenuitem>Add Breakpoint…</guimenuitem></menuchoice> in the "
+"breakpoint list popup menu to open the add breakpoint dialog."
+msgstr ""
+
+#: C/anjuta-manual.xml:395(title) C/anjuta-manual.xml:397(screeninfo)
+msgid "Breakpoint add dialog"
+msgstr "Diálogo de adición de punto de parada"
+
+#: C/anjuta-manual.xml:415(para)
 msgid "File_name:Line_number"
 msgstr ""
 
-#: C/anjuta-manual.xml:279(para)
+#: C/anjuta-manual.xml:416(para)
 msgid "Function_name"
 msgstr ""
 
-#: C/anjuta-manual.xml:280(para)
+#: C/anjuta-manual.xml:417(para)
 msgid "File:Function_name"
 msgstr ""
 
-#: C/anjuta-manual.xml:283(para)
+#: C/anjuta-manual.xml:410(para)
+msgid ""
+"Enter the location at which to set the breakpoint. It has to be specified in "
+"one of the following formats: <placeholder-1/>"
+msgstr ""
+
+#: C/anjuta-manual.xml:421(para)
 msgid ""
 "The first one is obvious — The location refers to the line number "
 "<emphasis>Line_number</emphasis> in the source file <emphasis>File</"
@@ -2992,28 +3185,16 @@ msgid ""
 "the file <emphasis>File</emphasis>."
 msgstr ""
 
-#: C/anjuta-manual.xml:297(para)
-msgid "Break condition"
-msgstr "Condición de parada"
-
-#: C/anjuta-manual.xml:298(para)
-msgid "Pass count"
-msgstr "Conteo de pasadas"
-
-#: C/anjuta-manual.xml:294(para)
-msgid "Two parameters can be associated with each breakpoint: <placeholder-1/>"
-msgstr "Se pueden asociar dos parámetros con cada punto de parada: <placeholder-1/>"
-
-#: C/anjuta-manual.xml:301(para)
+#: C/anjuta-manual.xml:437(para)
 msgid ""
-"The <emphasis>Break condition</emphasis> is a valid C expression which "
-"should evaluate to a Boolean value — that is, the evaluation of the "
-"expression should result in either TRUE(1) or FALSE(0). If the final "
-"evaluation value is not a Boolean value, then it will be appropriately type "
-"casted to a Boolean."
+"The <emphasis>Condition</emphasis> parameter displays a associated "
+"expression which should evaluate to a Boolean value — that is, the "
+"evaluation of the expression should result in either TRUE(1) or FALSE(0). If "
+"the final evaluation value is not a Boolean value, then it will be "
+"appropriately type casted to a Boolean."
 msgstr ""
 
-#: C/anjuta-manual.xml:308(para)
+#: C/anjuta-manual.xml:444(para)
 msgid ""
 "Every time the breakpoint is encountered during the execution, the break "
 "condition will be evaluated. The debugger will break the execution only if "
@@ -3021,16 +3202,21 @@ msgid ""
 "execution as though there had been no breakpoint."
 msgstr ""
 
-#: C/anjuta-manual.xml:314(para)
+#: C/anjuta-manual.xml:450(para)
 msgid ""
-"The default value of <emphasis>Break condition</emphasis> is always TRUE. "
-"The debugger will break the execution at the breakpoint location."
+"The default value, if you left this field blank, of <emphasis>Break "
+"condition</emphasis> is TRUE. The debugger will always break the execution "
+"at the breakpoint location."
 msgstr ""
-"El valor predeterminado de la <emphasis>Condición de parada</emphasis> es "
+"El valor predeterminado, si dejó el campo vacío, de la <emphasis>Condición de parada</emphasis> es "
 "siempre TRUE. El depurador parará la ejecución en la posición del punto de "
 "parada."
 
-#: C/anjuta-manual.xml:318(para)
+#: C/anjuta-manual.xml:457(term)
+msgid "Pass Count"
+msgstr "Conteo de pasadas"
+
+#: C/anjuta-manual.xml:459(para)
 msgid ""
 "The <emphasis>Pass count</emphasis> is an integer (unsigned) value which "
 "tells the debugger to skip the breakpoint that number of times before it is "
@@ -3042,75 +3228,50 @@ msgid ""
 "count</emphasis> counts down to zero."
 msgstr ""
 
-#: C/anjuta-manual.xml:328(para)
+#: C/anjuta-manual.xml:469(para)
 msgid ""
-"The default value of the <emphasis>Pass count</emphasis> is zero. The "
-"breakpoint will be considered when it is first encountered."
+"The default value, if you left this field blank, of the <emphasis>Pass "
+"count</emphasis> is zero. The breakpoint will be considered when it is first "
+"encountered."
 msgstr ""
-"El valor predeterminado del <emphasis>Conteo de pasadas<emphasis> es cero. "
+"El valor predeterminado, si dejó el campo vacío, del <emphasis>Conteo de pasadas<emphasis> es cero. "
 "El punto de parada se considerará cuando se encuentre por primera vez."
 
-#: C/anjuta-manual.xml:333(para)
+#: C/anjuta-manual.xml:402(para)
 msgid ""
-"All breakpoints are kept across anjuta session even if they correspond to a "
-"non existing place. The interface try to set them each time the program is "
-"started or a new dynamic library is loaded."
+"You need to enter the location and optionally, the break condition and the "
+"pass count then click <guibutton>OK</guibutton> to set the breakpoint. "
+"<placeholder-1/>"
 msgstr ""
 
-#: C/anjuta-manual.xml:342(title)
-msgid "Adding or Setting Breakpoints"
-msgstr "Añadir o establecer puntos de parada"
-
-#: C/anjuta-manual.xml:343(para)
+#: C/anjuta-manual.xml:477(para)
 msgid ""
-"Choose the menu item <menuchoice><guisubmenu>Debug</"
-"guisubmenu><guimenuitem>Add Breakpoint…</guimenuitem></menuchoice> or "
-"<menuchoice><guimenuitem>Add Breakpoint…</guimenuitem></menuchoice> in the "
-"breakpoint list popup menu to open the add breakpoint dialog."
-msgstr ""
-
-#: C/anjuta-manual.xml:351(title) C/anjuta-manual.xml:353(screeninfo)
-msgid "Breakpoint add dialog"
-msgstr "Diálogo de adición de punto de parada"
-
-#: C/anjuta-manual.xml:358(para)
-msgid ""
-"Enter the location at which to set the breakpoint. Optionally, enter the "
-"<emphasis>Break condition</emphasis> and the <emphasis>Pass count</emphasis> "
-"in the appropriate entry boxes. Click <guibutton>OK</guibutton> to set the "
-"breakpoint."
-msgstr ""
-
-#: C/anjuta-manual.xml:364(para)
-msgid ""
-"A breakpoint may also be by selecting a line in the editor and choosing the "
-"menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Toggle "
-"Breakpoint</guimenuitem></menuchoice>, the editor popup menu item "
-"<menuchoice><guimenuitem>Toggle Breakpoint</guimenuitem></menuchoice> or the "
+"A breakpoint may also be set by selecting a line in the editor and choosing "
+"the menu item <menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Toggle "
+"Breakpoint</guimenuitem></menuchoice> in the editor popup menu item or the "
 "<guibutton>Toggle Breakpoint</guibutton> icon in the <interface>Debug "
 "toolbar</interface>."
 msgstr ""
 
-#: C/anjuta-manual.xml:374(para)
+#: C/anjuta-manual.xml:486(para)
 msgid ""
 "Breakpoints can be added even if the debugger is not started or in dynamic "
 "library not loaded yet. But they cannot be added while a program is running "
 "under control of the debugger."
 msgstr ""
 
-#: C/anjuta-manual.xml:383(title)
+#: C/anjuta-manual.xml:495(title)
 msgid "Editing Breakpoints"
 msgstr "Editar puntos de parada"
 
-#: C/anjuta-manual.xml:384(para)
+#: C/anjuta-manual.xml:496(para)
 msgid ""
-"It is possible to change the condition of a breakpoint of the pass count by "
-"selecting the breakpoint to edit in the breakpoint list and click in the "
-"popup menu item <menuchoice><guimenuitem>Edit Breakpoint</guimenuitem></"
-"menuchoice>."
+"It is possible to change the condition and the pass count by selecting the "
+"breakpoint in the breakpoint list and click in the popup menu item "
+"<menuchoice><guimenuitem>Edit Breakpoint</guimenuitem></menuchoice>."
 msgstr ""
 
-#: C/anjuta-manual.xml:389(para)
+#: C/anjuta-manual.xml:501(para)
 msgid ""
 "Edit the entries as required and click on <guibutton>OK</guibutton> to "
 "commit the changes."
@@ -3118,17 +3279,18 @@ msgstr ""
 "Edite las entradas como se requiere y pulse <guibutton>Aceptar</guibutton> "
 "para efectuar los cambios."
 
-#: C/anjuta-manual.xml:396(title)
+#: C/anjuta-manual.xml:508(title)
 msgid "Deleting Breakpoints"
 msgstr "Borrar puntos de parada"
 
-#: C/anjuta-manual.xml:397(para)
+#: C/anjuta-manual.xml:509(para)
 msgid ""
-"Select the breakpoint to delete in the breakpoint list view and click on "
-"<menuchoice><guimenuitem>Remove Breakpoint</guimenuitem></menuchoice>."
+"Select the breakpoint in the breakpoint list view and click on "
+"<menuchoice><guimenuitem>Remove Breakpoint</guimenuitem></menuchoice> to "
+"delete it."
 msgstr ""
 
-#: C/anjuta-manual.xml:401(para)
+#: C/anjuta-manual.xml:513(para)
 msgid ""
 "A existing breakpoint may also be deleted by selecting the line in the "
 "editor and choosing the menu item <menuchoice><guisubmenu>Debug</"
@@ -3138,19 +3300,31 @@ msgid ""
 "icon in the <interface>Debug toolbar</interface>."
 msgstr ""
 
-#: C/anjuta-manual.xml:413(title)
+#: C/anjuta-manual.xml:522(para)
+msgid ""
+"It is possible to remove all breakpoints by clicking on "
+"<menuchoice><guisubmenu>Debug</guisubmenu><guimenuitem>Remove All "
+"Breakpoints</guimenuitem></menuchoice> or on <menuchoice><guimenuitem>Remove "
+"All Breakpoints</guimenuitem></menuchoice> in the breakpoint list popup menu."
+msgstr ""
+"Es posible quitar todos los puntos de parada pulsando en "
+"<menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Quitar todos los puntos de parada</"
+"guimenuitem></menuchoice> o en <menuchoice><guimenuitem>Quitar "
+"todos los puntos de parada</guimenuitem></menuchoice> en el menú emergente de lista de puntos de parada."
+
+#: C/anjuta-manual.xml:531(title)
 msgid "Enabling or Disabling Breakpoints"
 msgstr ""
 
-#: C/anjuta-manual.xml:414(para)
+#: C/anjuta-manual.xml:532(para)
 msgid ""
 "Click on the Enable column of the <interface>Breakpoint list window</"
 "interface> or in the menu item <menuchoice><guimenuitem>Enable Breakpoint</"
 "guimenuitem></menuchoice> to enable or disable the selected breakpoint. The "
-"breakpoint will be enabled or disabled, depending on the current state."
+"breakpoint will be enabled or disabled, depending on its current state."
 msgstr ""
 
-#: C/anjuta-manual.xml:420(para)
+#: C/anjuta-manual.xml:538(para)
 msgid ""
 "To disable all breakpoints, click on <menuchoice><guisubmenu>Debug</"
 "guisubmenu><guimenuitem>Disable All Breakpoints</guimenuitem></menuchoice> "
@@ -3158,15 +3332,15 @@ msgid ""
 "menuchoice> in the breakpoint list popup menu."
 msgstr ""
 
-#: C/anjuta-manual.xml:431(title)
+#: C/anjuta-manual.xml:549(title)
 msgid "Expressions"
 msgstr ""
 
-#: C/anjuta-manual.xml:434(title)
+#: C/anjuta-manual.xml:552(title)
 msgid "Listing local variable"
 msgstr ""
 
-#: C/anjuta-manual.xml:435(para)
+#: C/anjuta-manual.xml:553(para)
 msgid ""
 "When a program is running under the control of the debugger, the "
 "<interface>Locals list window</interface> can be opened by choosing "
@@ -3174,57 +3348,57 @@ msgid ""
 "menuchoice>"
 msgstr ""
 
-#: C/anjuta-manual.xml:449(title) C/anjuta-manual.xml:451(screeninfo)
+#: C/anjuta-manual.xml:567(title) C/anjuta-manual.xml:569(screeninfo)
 msgid "Local variables"
 msgstr ""
 
-#: C/anjuta-manual.xml:441(para)
+#: C/anjuta-manual.xml:559(para)
 msgid ""
-"Local variables of the current frame (the current funtion in which the "
+"Local variables of the current frame (the current function in which the "
 "program control is present) are displayed in the <interface>Locals list "
 "window</interface>. During execution of the program (eg. during single "
-"stepping), local variables will be updated. If any varialble value was "
+"stepping), local variables will be updated. If any variable value was "
 "changed in the last debugging step, its value will be highlight in red. The "
 "variables are presented in a tree form for easy view. <placeholder-1/>"
 msgstr ""
 
-#: C/anjuta-manual.xml:456(para)
+#: C/anjuta-manual.xml:574(para)
 msgid ""
 "The value of a local variable can be modified by selecting it and clicking "
 "in the value column."
 msgstr ""
 
-#: C/anjuta-manual.xml:461(para)
+#: C/anjuta-manual.xml:579(para)
 msgid ""
 "Gdb is more and more often used as a back end for a graphical front end. It "
-"has been improved recently in this area. It is recommanded to use the latest "
+"has been improved recently in this area. It is recommended to use the latest "
 "version (6.6) of gdb. On older version, gdb can crash when the front end ask "
 "for an pointer with an invalid (but not used) value."
 msgstr ""
 
-#: C/anjuta-manual.xml:471(title)
+#: C/anjuta-manual.xml:589(title)
 msgid "Listing watched expressions"
 msgstr ""
 
-#: C/anjuta-manual.xml:472(para)
+#: C/anjuta-manual.xml:590(para)
 msgid ""
 "Inspecting or evaluating an expression provides the result only once. To "
 "continuously monitor some variables or expressions, use <emphasis>expression "
 "watch</emphasis>."
 msgstr ""
 
-#: C/anjuta-manual.xml:476(para)
+#: C/anjuta-manual.xml:594(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>View</"
 "guisubmenu><guimenuitem>Watch Window</guimenuitem></menuchoice> to display "
 "the <interface>expression watch window</interface>."
 msgstr ""
 
-#: C/anjuta-manual.xml:483(title)
+#: C/anjuta-manual.xml:601(title)
 msgid "Adding an expression to watch"
 msgstr ""
 
-#: C/anjuta-manual.xml:484(para)
+#: C/anjuta-manual.xml:602(para)
 msgid ""
 "Right-click on the <interface>expression watch window</interface> to open "
 "the <interface>Operation menu</interface>. Choose the menu item "
@@ -3234,7 +3408,7 @@ msgid ""
 "Enter the expression and click <guibutton>OK</guibutton>."
 msgstr ""
 
-#: C/anjuta-manual.xml:493(para)
+#: C/anjuta-manual.xml:611(para)
 msgid ""
 "By default watch expression are updated automatically each time the program "
 "is stopped. This can be changed in the add watch dialog or later using the "
@@ -3244,7 +3418,7 @@ msgid ""
 "guimenuitem> or <guimenuitem>Update All</guimenuitem> in the previous menu."
 msgstr ""
 
-#: C/anjuta-manual.xml:502(para)
+#: C/anjuta-manual.xml:620(para)
 msgid ""
 "It is not necessary to have the debugger running to add a new watch "
 "expression. If the debugger is not running or the corresponding expression "
@@ -3252,11 +3426,11 @@ msgid ""
 "time the program is stopped."
 msgstr ""
 
-#: C/anjuta-manual.xml:511(title)
+#: C/anjuta-manual.xml:629(title)
 msgid "Removing an expression from watch"
-msgstr ""
+msgstr "Quitar una expresión de la vigilancia"
 
-#: C/anjuta-manual.xml:512(para)
+#: C/anjuta-manual.xml:630(para)
 msgid ""
 "Select the watch expression that you want to remove in the "
 "<interface>expression watch window</interface>, then open the "
@@ -3264,17 +3438,17 @@ msgid ""
 "and choose the menu item <guimenuitem>Remove</guimenuitem> to remove it."
 msgstr ""
 
-#: C/anjuta-manual.xml:518(para)
+#: C/anjuta-manual.xml:636(para)
 msgid ""
 "All watch can be removed by choosing <guimenuitem>Remove All</guimenuitem> "
 "in the popup menu of the <interface>expression watch window</interface>."
 msgstr ""
 
-#: C/anjuta-manual.xml:525(title)
+#: C/anjuta-manual.xml:643(title)
 msgid "Evaluating expressions"
-msgstr ""
+msgstr "Evaluar expresiones"
 
-#: C/anjuta-manual.xml:526(para)
+#: C/anjuta-manual.xml:644(para)
 msgid ""
 "When control is returned from a program — possibly at a breakpoint — it is "
 "possible to evaluate expressions or inspect the values of variables in the "
@@ -3285,32 +3459,52 @@ msgid ""
 "button on the <interface>Debug Toolbar</interface>."
 msgstr ""
 
-#: C/anjuta-manual.xml:535(para)
+#: C/anjuta-manual.xml:653(para)
 msgid "A window will appear showing the result of the evaluation."
 msgstr ""
 
-#: C/anjuta-manual.xml:538(para)
+#: C/anjuta-manual.xml:656(para)
 msgid ""
 "If an expression is highlighted in the editor, it is already displayed else "
 "the window is empty. In both cases, you an select a new expression by "
 "clicking on the name column and writing the new expression."
 msgstr ""
 
-#: C/anjuta-manual.xml:543(para)
+#: C/anjuta-manual.xml:661(para)
 msgid ""
 "The expression can be added directly in the list of watched expressions by "
 "clicking on <guibutton>Add</guibutton> button."
 msgstr ""
 
-#: C/anjuta-manual.xml:553(title)
-msgid "Stack Trace and Thread"
+#: C/anjuta-manual.xml:668(title)
+msgid "Inspecting expressions in editor window"
 msgstr ""
 
-#: C/anjuta-manual.xml:556(title)
+#: C/anjuta-manual.xml:669(para)
+msgid ""
+"When the debugger is active with the program stopped, you can get the value "
+"of an expression just by putting the pointer over it and stay here for a few "
+"time. If the expression is already present in the local or watch window, its "
+"value is displayed in a tool tips window."
+msgstr ""
+
+#: C/anjuta-manual.xml:675(para)
+msgid ""
+"It is currently working only for simple variable, not for structures or "
+"arrays."
+msgstr ""
+"Actualmente sólo funciona para una variable simple, no para estructuras o "
+"vectores («array»)."
+
+#: C/anjuta-manual.xml:684(title)
+msgid "Stack Trace"
+msgstr "Traza de la pila"
+
+#: C/anjuta-manual.xml:687(title)
 msgid "Stack Window"
 msgstr "Ventana de pila"
 
-#: C/anjuta-manual.xml:557(para)
+#: C/anjuta-manual.xml:688(para)
 msgid ""
 "The <interface>Stack trace window</interface> shows the contents of the "
 "program stack. It lists all of the functions and their arguments in the "
@@ -3320,18 +3514,21 @@ msgid ""
 "called) and grows higher as the function nesting become deeper."
 msgstr ""
 
-#: C/anjuta-manual.xml:565(para)
+#: C/anjuta-manual.xml:696(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>View</"
 "guisubmenu><guimenuitem>Program Stack</guimenuitem></menuchoice>, to open "
 "the stack trace for the program being debugged."
 msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Ver</"
+"guisubmenu><guimenuitem>Pila del programa</guimenuitem></menuchoice> para "
+"abrir la traza de la pila para el programa que se está depurando."
 
-#: C/anjuta-manual.xml:572(title) C/anjuta-manual.xml:574(screeninfo)
+#: C/anjuta-manual.xml:703(title) C/anjuta-manual.xml:705(screeninfo)
 msgid "Stack trace window"
-msgstr ""
+msgstr "Ventana de la traza de la pila"
 
-#: C/anjuta-manual.xml:579(para)
+#: C/anjuta-manual.xml:710(para)
 msgid ""
 "A small arrow points to the currently selected frame in the stack trace. By "
 "default, this will be frame 0, the last function called. All of the "
@@ -3340,54 +3537,80 @@ msgid ""
 "evaluated will be limited to the selected frame only. The same applies for "
 "new expressions only in the watch."
 msgstr ""
+"Una pequeña flecha apunta al marco seleccionado actualmente en la traza de la pila. "
+"De forma predeterminada, éste será el marco 0, la última función llamada. Toda "
+"la evaluación e inspección de expresiones o variables se referenciará "
+"a este marco. El rango de las variables o expresiones evaluadas "
+"se limitará a las del marco seleccionado. Lo mismo se aplica para "
+"expresiones nuevas sólo en la vigilancia."
 
-#: C/anjuta-manual.xml:589(title)
+#: C/anjuta-manual.xml:720(title)
 msgid "Setting the current frame"
 msgstr "Establecer el marco actual"
 
-#: C/anjuta-manual.xml:590(para)
+#: C/anjuta-manual.xml:721(para)
 msgid ""
-"Double-clicking on any frame in the stack trace will set that frame as the "
+"Double-clicking on any frame in the stack trace set that frame as the "
 "currently selected frame (the arrow will point to the frame, indicating that "
 "it has been selected as the current frame). Alternatively, open the "
 "<interface>Operation menu</interface> by right-clicking on the "
 "<interface>Stack trace window</interface>, and choose the menu item "
 "<guimenuitem>Set frame</guimenuitem> to set the frame."
 msgstr ""
+"Al pulsar dos veces sobre cualquier marco de traza la pila se establecerá "
+"ese marco como el marco actualmente seleccionado (la flecha apuntará al marco, "
+"indicando que se ha seleccionado como el marco actual). Alternativamente, "
+"abra el <interface>menú de operaciones</interface> pulsando con el botón "
+"derecho sobre la <interface>ventana de traza de la pila</interface> y elija "
+"el elemento del menú <guimenuitem>Establecer marco</guimenuitem> para "
+"establecer el marco."
 
-#: C/anjuta-manual.xml:598(para)
+#: C/anjuta-manual.xml:729(para)
 msgid ""
-"Changing the stack frame will change the <interface>Locals list window</"
+"Changing the stack frame changes the <interface>Locals list window</"
 "interface> content, but not the <interface>expression watch window</"
 "interface> as each expression is evaluated in the frame used when it was "
 "defined."
 msgstr ""
+"Cambiar el marco de la pila cambia el contenido de la <interface>ventana de lista de locales</"
+"interface> pero no la <interface>ventana de vigilancia de expresión</interface> "
+"ya que cada expresión se evalúa en el marco usado cuando se definió."
 
-#: C/anjuta-manual.xml:606(title)
+#: C/anjuta-manual.xml:739(title)
+msgid "Thread"
+msgstr "Hilos"
+
+#: C/anjuta-manual.xml:742(title)
 msgid "Thread Window"
 msgstr "Ventana de hilos"
 
-#: C/anjuta-manual.xml:607(para)
+#: C/anjuta-manual.xml:743(para)
 msgid ""
 "The <interface>Thread window</interface> show all threads used by the "
 "program and display the current thread. Choose the menu item "
 "<menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Thread</guimenuitem></"
 "menuchoice>, to open this window."
 msgstr ""
+"La <interface>ventana de hilos</interface> muestra todos los hilos usados por "
+"el programa y muestra el hilo actual. Para abrir esta ventana elija el elemento del menú "
+"<menuchoice><guisubmenu>Ver</guisubmenu><guimenuitem>Hilo</guimenuitem></"
+"menuchoice>."
 
-#: C/anjuta-manual.xml:612(para)
+#: C/anjuta-manual.xml:748(para)
 msgid ""
-"A small arrow points to the current thread. When the programm is stopped, it "
+"A small arrow points to the current thread. When the program is stopped, it "
 "correspond to the thread which has been interrupted. Each thread has its own "
-"stack frame,so changing the current thread will change the current stack "
-"frame."
+"stack frame,so changing the current thread change the current stack frame."
 msgstr ""
+"Una pequeña flecha apunta al hilo actual. Cuando el programa se para, corresponde "
+"al hilo en el que se ha interrumpido. Cada hilo tiene su propio marco "
+"de la pila, de tal forma que cambiar el hilo actual cambia el marco de la pila actual."
 
-#: C/anjuta-manual.xml:621(title)
+#: C/anjuta-manual.xml:757(title)
 msgid "Setting the current thread"
 msgstr "Establecer el hilo actual"
 
-#: C/anjuta-manual.xml:622(para)
+#: C/anjuta-manual.xml:758(para)
 msgid ""
 "Double-clicking on any thread in the thread list will set that thread as the "
 "currently selected thread (the arrow will point to the thread, indicating "
@@ -3404,25 +3627,24 @@ msgstr ""
 "el elemento del menú <guimenuitem>Establecer hilo</guimenuitem> para "
 "establecer el hilo."
 
-#: C/anjuta-manual.xml:630(para)
+#: C/anjuta-manual.xml:766(para)
 msgid ""
-"Changing the thread will change the value of CPU registers and the current "
-"stack frame, so the <interface>Locals list window</interface> will change "
-"too."
+"Changing the thread changes the value of CPU registers and the current stack "
+"frame, so the <interface>Locals list window</interface> change too."
 msgstr ""
 "Al cambiar el hilo también cambiará el valor de los registros de la CPU y el "
 "marco actual de la pila, de tal forma que la <interface>ventana de lista de "
 "locales</interface> también cambiará."
 
-#: C/anjuta-manual.xml:639(title)
+#: C/anjuta-manual.xml:775(title)
 msgid "CPU"
 msgstr "CPU"
 
-#: C/anjuta-manual.xml:642(title)
+#: C/anjuta-manual.xml:778(title)
 msgid "Register window"
 msgstr "Ventana de registros"
 
-#: C/anjuta-manual.xml:643(para)
+#: C/anjuta-manual.xml:779(para)
 msgid ""
 "It is possible to examine the contents of the internal registers of the CPU "
 "(microprocessor). Choose the menu item <menuchoice><guisubmenu>View</"
@@ -3436,7 +3658,7 @@ msgstr ""
 "ventana listando todos los registros disponibles en el microprocesador y su "
 "correspondiente contenido."
 
-#: C/anjuta-manual.xml:650(para)
+#: C/anjuta-manual.xml:786(para)
 msgid ""
 "If any register value was changed in the last debugging step, its value will "
 "be highlight in red. It is possible to change one register value by "
@@ -3446,11 +3668,11 @@ msgstr ""
 "su valor se resaltará en rojo. Es posible cambiar el valor de un registro "
 "seleccionándolo y pulsando en la columna de valor."
 
-#: C/anjuta-manual.xml:658(title)
+#: C/anjuta-manual.xml:794(title)
 msgid "Memory window"
 msgstr "Ventana de memoria"
 
-#: C/anjuta-manual.xml:659(para)
+#: C/anjuta-manual.xml:795(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>View</"
 "guisubmenu><guimenuitem>Memory </guimenuitem></menuchoice>, to open the "
@@ -3462,17 +3684,17 @@ msgstr ""
 "<interface>ventana de memoria</interface> para el programa que se está "
 "depurando. Esta ventana muestra el contenido de toda la memoria."
 
-#: C/anjuta-manual.xml:664(para)
+#: C/anjuta-manual.xml:800(para)
 msgid ""
 "The first is the memory address in hexadecimal, the second is the memory "
 "content in hexadecimal too and the last column is the memory content in "
-"ascii."
+"ASCII."
 msgstr ""
 "Lo primero son las direcciones de memoria en hexadecimal, lo segundo es el "
 "contenido de la memoria en hexadecimal y la última columna es el contenido "
 "de la memoria en ASCII."
 
-#: C/anjuta-manual.xml:668(para)
+#: C/anjuta-manual.xml:804(para)
 msgid ""
 "The addressing space of even a 32 bits microprocessor is quite big(4 Giga "
 "bytes), so it is very difficult to go to a particular address with the "
@@ -3488,11 +3710,11 @@ msgstr ""
 "obtener una pequeña caja de texto editable donde puede introducir una "
 "dirección en hexadecimal."
 
-#: C/anjuta-manual.xml:678(title)
+#: C/anjuta-manual.xml:814(title)
 msgid "Disassembly window"
 msgstr "Ventaba de desensamblado"
 
-#: C/anjuta-manual.xml:679(para)
+#: C/anjuta-manual.xml:815(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>View</"
 "guisubmenu><guimenuitem>Disassembly </guimenuitem></menuchoice>, to open the "
@@ -3503,7 +3725,7 @@ msgstr ""
 "la <interface>ventana de desensamblado</interface> para el programa que se "
 "está depurando."
 
-#: C/anjuta-manual.xml:684(para)
+#: C/anjuta-manual.xml:820(para)
 msgid ""
 "The first column is the address in hexadecimal. In the second column, you "
 "can have a label starting at the beginning of the line and ended with a "
@@ -3514,7 +3736,7 @@ msgstr ""
 "coma, o una instrucción en ensamblador que comienza tras 4 caracteres "
 "espacio."
 
-#: C/anjuta-manual.xml:689(para)
+#: C/anjuta-manual.xml:825(para)
 msgid ""
 "Again, as the addressing space is very big, the scrollbar is quite useless. "
 "You can click on the right mouse button, get a new menu and select "
@@ -3531,11 +3753,11 @@ msgstr ""
 "la ventana de desensamblado se cambiará al valor del contador del programa "
 "cuando se pare el programa."
 
-#: C/anjuta-manual.xml:702(title)
+#: C/anjuta-manual.xml:838(title)
 msgid "Others"
 msgstr "Otros"
 
-#: C/anjuta-manual.xml:704(para)
+#: C/anjuta-manual.xml:840(para)
 msgid ""
 "There are a number of other debugger features used less frequently and not "
 "very well integrated in the new front end but which are still working."
@@ -3544,11 +3766,11 @@ msgstr ""
 "frecuentemente y no están muy bien integradas en el nuevo front-end pero se "
 "está trabajando en ello."
 
-#: C/anjuta-manual.xml:710(title)
+#: C/anjuta-manual.xml:846(title)
 msgid "Dynamically loaded Libraries"
 msgstr "Bibliotecas cargadas dinámicamente"
 
-#: C/anjuta-manual.xml:711(para)
+#: C/anjuta-manual.xml:847(para)
 msgid ""
 "To obtain a list of the dynamic libraries used by the program, choose the "
 "menu item <menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Info</"
@@ -3565,15 +3787,15 @@ msgstr ""
 "ubicaciones en la memoria. También muestra si la tabla de símbolos se ha "
 "cargado o no (Sí/No)."
 
-#: C/anjuta-manual.xml:721(title) C/anjuta-manual.xml:723(screeninfo)
+#: C/anjuta-manual.xml:857(title) C/anjuta-manual.xml:859(screeninfo)
 msgid "Shared Libraries window"
 msgstr "Ventana de bibliotecas compartidas."
 
-#: C/anjuta-manual.xml:731(title)
+#: C/anjuta-manual.xml:867(title)
 msgid "Kernel Signals"
 msgstr "Señales del núcleo"
 
-#: C/anjuta-manual.xml:732(para)
+#: C/anjuta-manual.xml:868(para)
 msgid ""
 "Kernel signals are a way of signaling between processes in Linux. The list "
 "of signals available for a program can be displayed by choosing the menu "
@@ -3590,15 +3812,15 @@ msgstr ""
 "señales disponibles en el sistema junto con una breve descripción de cada "
 "señal."
 
-#: C/anjuta-manual.xml:741(title) C/anjuta-manual.xml:743(screeninfo)
+#: C/anjuta-manual.xml:877(title) C/anjuta-manual.xml:879(screeninfo)
 msgid "Kernel Signals window"
 msgstr "Ventana de señales del núcleo"
 
-#: C/anjuta-manual.xml:748(para)
+#: C/anjuta-manual.xml:884(para)
 msgid "There are three columns which specify what to do when the signal is received:"
 msgstr "Existen tres columnas que especifican qué hacer cuando se recibe una señal:"
 
-#: C/anjuta-manual.xml:754(para)
+#: C/anjuta-manual.xml:890(para)
 msgid ""
 "<emphasis>Stop</emphasis> — this tells the debugger whether to stop the "
 "program execution (and return control) when the program receives this signal."
@@ -3607,7 +3829,7 @@ msgstr ""
 "ejecución del programa (y devolver el control) cuando el programa recibe "
 "esta señal."
 
-#: C/anjuta-manual.xml:760(para)
+#: C/anjuta-manual.xml:896(para)
 msgid ""
 "<emphasis>Print</emphasis> — this tells the debugger whether to display the "
 "received signal."
@@ -3615,7 +3837,7 @@ msgstr ""
 "<emphasis>Imprimir</emphasis>; esto de dice al depurador si debe mostrar la "
 "señal recibida."
 
-#: C/anjuta-manual.xml:765(para)
+#: C/anjuta-manual.xml:901(para)
 msgid ""
 "<emphasis>Pass</emphasis> — this tells the debugger whether to pass the "
 "signal to the program."
@@ -3623,7 +3845,7 @@ msgstr ""
 "<emphasis>Pasar</emphasis>; esto le dice al depurador si debe pasar la señal "
 "al programa."
 
-#: C/anjuta-manual.xml:771(para)
+#: C/anjuta-manual.xml:907(para)
 msgid ""
 "The popup menu that is displayed when you click on the right mouse button "
 "has all its item disabled because the corresponding functions are not "
@@ -3633,11 +3855,11 @@ msgstr ""
 "tiene todos sus elementos desactivados porque las funciones correspondientes "
 "no están aún implementadas."
 
-#: C/anjuta-manual.xml:780(title)
+#: C/anjuta-manual.xml:916(title)
 msgid "Information about used files"
 msgstr "Información acerca de archivos usados"
 
-#: C/anjuta-manual.xml:781(para)
+#: C/anjuta-manual.xml:917(para)
 msgid ""
 "It is possible to get some information about the files used by the debugged "
 "program. by choosing the menu item <menuchoice><guisubmenu>Debug</"
@@ -3650,11 +3872,11 @@ msgstr ""
 "guisubmenu><guimenuitem>Información de archivos objetivo</guimenuitem></"
 "menuchoice>. Se abrirá una ventana mostrando toda la información."
 
-#: C/anjuta-manual.xml:790(title)
+#: C/anjuta-manual.xml:926(title)
 msgid "Information about debugged program"
 msgstr "Información acerca del programa depurado"
 
-#: C/anjuta-manual.xml:791(para)
+#: C/anjuta-manual.xml:927(para)
 msgid ""
 "It is possible to get some information about the debugged program by "
 "choosing the menu item <menuchoice><guisubmenu>Debug</"
@@ -3667,11 +3889,11 @@ msgstr ""
 "guimenuitem></menuchoice>. Se abrirá una ventana mostrando toda la "
 "información."
 
-#: C/anjuta-manual.xml:800(title)
+#: C/anjuta-manual.xml:936(title)
 msgid "Information about kernel structure"
 msgstr "Información acerca de la estructura del núcleo"
 
-#: C/anjuta-manual.xml:801(para)
+#: C/anjuta-manual.xml:937(para)
 msgid ""
 "It is possible to get some information kernel data on the current process by "
 "choosing the menu item <menuchoice><guisubmenu>Debug</"
@@ -3686,11 +3908,11 @@ msgstr ""
 "guimenuitem></menuchoice>. Se abrirá una ventana mostrando toda la "
 "información."
 
-#: C/anjuta-manual.xml:810(title)
+#: C/anjuta-manual.xml:946(title)
 msgid "Information about global variables"
 msgstr "Información acerca de las variables globales"
 
-#: C/anjuta-manual.xml:811(para)
+#: C/anjuta-manual.xml:947(para)
 msgid ""
 "It is possible to list all global variables by choosing the menu item "
 "<menuchoice><guisubmenu>Debug</guisubmenu><guisubmenu>Information</"
@@ -3702,11 +3924,11 @@ msgstr ""
 "guisubmenu><guimenuitem>Info variables globales</guimenuitem></menuchoice>. "
 "Se abrirá una ventana listando todas las variables globales."
 
-#: C/anjuta-manual.xml:820(title)
+#: C/anjuta-manual.xml:956(title)
 msgid "Information about the current frame"
 msgstr "Información acerca del marco actual"
 
-#: C/anjuta-manual.xml:821(para)
+#: C/anjuta-manual.xml:957(para)
 msgid ""
 "It is possible to obtain information about the currently selected frame by "
 "choosing the menu item <menuchoice><guisubmenu>Debug</"
@@ -3720,11 +3942,11 @@ msgstr ""
 "guimenuitem></menuchoice>. Se abrirá una ventana describiendo el marco "
 "actual."
 
-#: C/anjuta-manual.xml:830(title)
+#: C/anjuta-manual.xml:966(title)
 msgid "Information about the current function arguments"
 msgstr "Información acerca de los argumentos actuales de la función"
 
-#: C/anjuta-manual.xml:831(para)
+#: C/anjuta-manual.xml:967(para)
 msgid ""
 "It is possible to obtain information about the arguments of the current "
 "function by choosing the menu item <menuchoice><guisubmenu>Debug</"
@@ -3736,11 +3958,11 @@ msgstr ""
 "guisubmenu><guisubmenu>Información</guisubmenu><guimenuitem>Argumentos</"
 "guimenuitem></menuchoice>. Se abrirá una ventana describiendo los argumentos."
 
-#: C/anjuta-manual.xml:840(title)
+#: C/anjuta-manual.xml:976(title)
 msgid "User command"
 msgstr "Comando de usuario"
 
-#: C/anjuta-manual.xml:841(para)
+#: C/anjuta-manual.xml:977(para)
 msgid ""
 "To send directly a command to the back end choose the menu item "
 "<menuchoice><guimenu>Debug</guimenu><guimenuitem>Debugger command</"
@@ -3754,7 +3976,7 @@ msgstr ""
 "introducir los comandos que se enviarán al depurador cuando pulse "
 "<keycap>Intro</keycap>."
 
-#: C/anjuta-manual.xml:849(para)
+#: C/anjuta-manual.xml:985(para)
 msgid ""
 "The front end sends this command directly to the back end without doing any "
 "check. By example if you set a breakpoint like this, it will not appear in "
@@ -3997,5 +4219,5 @@ msgstr ""
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
 #: C/anjuta-manual.xml:0(None)
 msgid "translator-credits"
-msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2007"
+msgstr "Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008"
 
