@@ -382,6 +382,7 @@ devhelp_activate (AnjutaPlugin *plugin)
 	anjuta_shell_add_widget (plugin->shell, devhelp->control_notebook,
 								 "AnjutaDevhelpIndex", _("Help"), ANJUTA_STOCK_DEVHELP,
 								 ANJUTA_SHELL_PLACEMENT_LEFT, NULL);
+	/* This is the window that show the html help text */
 	anjuta_shell_add_widget (plugin->shell, devhelp->htmlview,
 								 "AnjutaDevhelpDisplay", _("Help display"),
 								 ANJUTA_STOCK_DEVHELP,

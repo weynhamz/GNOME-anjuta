@@ -125,13 +125,14 @@ on_cvs_terminated (AnjutaLauncher *launcher, gint child_pid, gint status,
 	{
 		ianjuta_message_view_append (plugin->mesg_view,
 									 IANJUTA_MESSAGE_VIEW_TYPE_INFO,
-			_("CVS command failed! - See above for details"), "", NULL);
+			_("CVS command failed - See above for details"), "", NULL);
 	}
 	else
 	{
 		gchar *mesg;
-		mesg = g_strdup_printf (_("CVS command successful! - Time taken %ld secs."),
-								time_taken);
+		mesg = g_strdup_printf (ngettext("CVS command successful! - Time taken: %ld second",
+										 "CVS command successful! - Time taken: %ld seconds",
+										 time_taken), time_taken);
 		ianjuta_message_view_append (plugin->mesg_view,
 									 IANJUTA_MESSAGE_VIEW_TYPE_INFO,
 									 mesg, "", NULL);

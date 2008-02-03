@@ -1,3 +1,44 @@
+2008-02-03  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-save-prompt.c: (anjuta_save_prompt_add_item):
+	* libanjuta/anjuta-utils.c: (anjuta_util_execute_shell):
+	* plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin
+	.glade:
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(build_get_context), (build_configure_project):
+	* plugins/class-gen/anjuta-class-gen-plugin.glade:
+	* plugins/cvs-plugin/anjuta-cvs-plugin.glade:
+	* plugins/cvs-plugin/cvs-callbacks.c: (on_cvs_commit_response):
+	* plugins/cvs-plugin/cvs-execute.c: (on_cvs_terminated):
+	* plugins/devhelp/plugin.c: (devhelp_activate):
+	* plugins/editor/Makefile.am:
+	* plugins/editor/anjuta-editor-scintilla.glade:
+	* plugins/editor/text_editor.c:
+	* plugins/editor/text_editor.h:
+	* plugins/editor/text_editor_menu.c (removed):
+	* plugins/editor/text_editor_menu.h (removed):
+	* plugins/file-wizard/anjuta-file-wizard.glade:
+	* plugins/gtodo/notification.c: (create_notification_window):
+	* plugins/gtodo/preferences.c: (preferences_widget):
+	* plugins/language-support-cpp-java/plugin.c:
+	(cpp_java_plugin_activate_plugin):
+	* plugins/message-view/anjuta-message-manager-plugin.glade:
+	* plugins/message-view/plugin.c: (activate_plugin):
+	* plugins/project-manager/plugin.c: (confirm_removal):
+	* plugins/search/anjuta-search.glade:
+	* plugins/search/plugin.c:
+	* plugins/search/search-replace.c: (nb_results_alert):
+	* plugins/subversion/subversion-commit-dialog.c:
+	(on_subversion_commit_response):
+	* plugins/symbol-browser/plugin.c: (activate_plugin):
+	* plugins/valgrind/plugin.c: (on_menu_run_activate):
+	* plugins/valgrind/vgcachegrindprefs.c: (cache_settings_new):
+	* plugins/valgrind/vggeneralprefs.c: (vg_general_prefs_init):
+	* src/anjuta.glade:
+	
+	Fixed translation bugs from #507921.
+	Removed unused files in scintilla plugin
+
 2008-02-03  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* manuals/anjuta-manual/C/debugger.xml:

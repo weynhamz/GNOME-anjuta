@@ -62,10 +62,12 @@ void create_notification_window(GTodoItem *item)
 	}
 	if(gtodo_todo_item_check_due(item) == 0 && gtodo_todo_item_check_due_time_minutes_left(item) > 0 )
 	{
+    int minutes = gtodo_todo_item_check_due_time_minutes_left(item);
 		tempstr = g_strdup_printf("<span weight=\"bold\" size=\"larger\">%s</span>\n\"%s\"",
-			_("The following item is due in %i minutes:"), gtodo_todo_item_get_summary(item));
-		buffer = g_strdup_printf(tempstr,
-			gtodo_todo_item_check_due_time_minutes_left(item));
+			ngettext("The following item is due in %i minute:",
+               "The following item is due in %i minutes:", minutes),
+      gtodo_todo_item_get_summary(item));
+		buffer = g_strdup_printf(tempstr, minutes);
 		g_free(tempstr);
 	}
 	else 

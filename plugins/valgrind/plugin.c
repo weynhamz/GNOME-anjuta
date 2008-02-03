@@ -329,7 +329,7 @@ on_menu_run_activate (GtkAction *action, AnjutaValgrindPlugin *plugin)
 		else {
 			if ( response == GTK_RESPONSE_OK ) {
 				anjuta_util_dialog_error (GTK_WINDOW (ANJUTA_PLUGIN (plugin)->shell),
-						_("No executable target selected for debugging with Valgrind."
+						_("No executable target selected for debugging with Valgrind. "
 						"Please select one."));
 			}
 		}

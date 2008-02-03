@@ -154,7 +154,9 @@ GtkWidget *preferences_widget()
 	g_signal_connect(G_OBJECT(cb_hl_due), "toggled",G_CALLBACK( preferences_cb_toggle_hl_due), NULL);	
 
 	/* tb for highlighting in x days */
-	tmp = g_strdup_printf(_("Items that are due in the next %i days"), settings.due_days);
+	tmp = g_strdup_printf(ngettext("Items that are due in the next %i day",
+                                 "Items that are due in the next %i days", settings.due_days),
+                                 settings.due_days);
 	cb_hl_indays = gtk_check_button_new_with_label(tmp);
 	g_free(tmp);
 	gtk_box_pack_start(GTK_BOX(vbox),cb_hl_indays, FALSE, TRUE, 6); 	
@@ -214,7 +216,10 @@ GtkWidget *preferences_widget()
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 
 	gtk_box_pack_start(GTK_BOX(vbox2), frame, FALSE, FALSE, 0);
-	tmp = g_strdup_printf(_("Allow to do items to notifiy me when they are due in %i minutes"), gconf_client_get_int(client, "/apps/gtodo/prefs/notify_in_minutes",NULL));
+	tmp = g_strdup_printf(ngettext("Allow todo items to notifiy me when they are due in %i minute",
+                                 "Allow todo items to notifiy me when they are due in %i minutes",
+                                 gconf_client_get_int(client, "/apps/gtodo/prefs/notify_in_minutes",NULL)),
+                                 gconf_client_get_int(client, "/apps/gtodo/prefs/notify_in_minutes",NULL));
 	cb = gtk_check_button_new_with_label(tmp);
 	g_free(tmp);
 	gtk_box_pack_start(GTK_BOX(vbox),cb, FALSE, TRUE, 0); 	

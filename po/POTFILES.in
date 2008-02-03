@@ -76,7 +76,6 @@ plugins/editor/print.c
 plugins/editor/plugin.c
 plugins/editor/text_editor.c
 plugins/editor/text_editor_cbs.c
-plugins/editor/text_editor_menu.c
 plugins/file-loader/plugin.c
 plugins/file-manager/file-manager.glade
 plugins/file-manager/file-model.c
@@ -178,10 +177,6 @@ plugins/symbol-browser/an_symbol_search.c
 plugins/symbol-browser/an_symbol_view.c
 plugins/symbol-browser/anjuta-symbol-browser-plugin.glade
 plugins/symbol-browser/plugin.c
-plugins/symbol-db/plugin.c
-plugins/symbol-db/symbol-db-view-locals.c
-plugins/symbol-db/symbol-db-view.c
-plugins/symbol-db/symbol-db.glade
 plugins/terminal/anjuta-terminal-plugin.glade
 plugins/terminal/terminal.c
 plugins/tools/anjuta-tools.glade

@@ -300,11 +300,10 @@ anjuta_save_prompt_add_item (AnjutaSavePrompt *save_prompt,
 	
 	if (items_count > 1)
 	{
-		gchar *string; 
-		string = g_strdup_printf("<b>%s</b>", 
-			_("There are %d items with unsaved changes. Save changes before closing?"));
-		label = g_strdup_printf (string, items_count);
-		g_free(string);
+		label = g_strdup_printf( 
+			ngettext ("<b>There is %d item with unsaved changes. Save changes before closing?</b>",
+					  "<b>There are %d items with unsaved changes. Save changes before closing?</b>",
+					  items_count), items_count);
 	}
 	else
 	{
@@ -314,5 +313,5 @@ anjuta_save_prompt_add_item (AnjutaSavePrompt *save_prompt,
 	
 	gtk_label_set_markup (GTK_LABEL (GTK_MESSAGE_DIALOG (save_prompt)->label),
 						  label);
-	
+	g_free (label);  
 }

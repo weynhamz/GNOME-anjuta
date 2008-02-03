@@ -578,29 +578,32 @@ confirm_removal (ProjectManagerPlugin *plugin, GbfTreeData *data)
 	gboolean answer;
 	gchar *mesg;
 	gchar* question;
+	gchar* full_mesg;
 
 	switch (data->type)
 	{
 		case GBF_TREE_NODE_GROUP:
 			question = _("Are you sure you want to remove the following group from project?\n\n");
-			mesg = _("%sGroup: %s\n\nThe group will not be deleted from file system.");
+			mesg = _("Group: %s\n\nThe group will not be deleted from file system.");
 			break;
 		case GBF_TREE_NODE_TARGET:
 			question = _("Are you sure you want to remove the following target from project?\n\n");
-			mesg = _("%sTarget: %s");
+			mesg = _("Target: %s");
 			break;
 		case GBF_TREE_NODE_TARGET_SOURCE:
 			question = _("Are you sure you want to remove the following source file from project?\n\n");
-			mesg = _("%sSource: %s\n\nThe source file will not be deleted from file system.");
+			mesg = _("Source: %s\n\nThe source file will not be deleted from file system.");
 			break;
 		default:
 			g_warning ("Unknown node");
 			return FALSE;
 	}
+	full_mesg = g_strconcat (question, mesg, NULL);
 	answer =
 		anjuta_util_dialog_boolean_question (get_plugin_parent_window (plugin),
-											 mesg, question,
+											 full_mesg, question,
 											 data->name);
+	g_free (full_mesg);
 	return answer;
 }
 

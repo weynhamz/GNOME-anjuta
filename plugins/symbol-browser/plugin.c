@@ -906,7 +906,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv_plugin->sl),
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
-	
+	/* Local symbols of the file */
 	sv_plugin->sl_tab_label = gtk_label_new (_("Local" ));
 	sv_plugin->sl_tree = anjuta_symbol_locals_new ();
 	g_object_add_weak_pointer (G_OBJECT (sv_plugin->sl_tree),
@@ -926,7 +926,7 @@ activate_plugin (AnjutaPlugin *plugin)
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (sv_plugin->sv),
 									GTK_POLICY_AUTOMATIC,
 									GTK_POLICY_AUTOMATIC);
-	
+	/* Global project-wide symbols */
 	sv_plugin->sv_tab_label = gtk_label_new (_("Global" ));
 	sv_plugin->sv_tree = anjuta_symbol_view_new ();
 	symbol_browser_load_global_tags (plugin);

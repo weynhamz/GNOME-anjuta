@@ -175,7 +175,8 @@ vg_general_prefs_init (VgGeneralPrefs *prefs)
 	gtk_box_set_spacing (GTK_BOX (vbox), 6);
 	
 	bool = gconf_client_get_bool (gconf, DEMANGLE_KEY, NULL);
-	widget = gtk_check_button_new_with_label (_("Demangle c++ symbol names"));
+	/* demangle = decode C++ name encoding */
+	widget = gtk_check_button_new_with_label (_("Demangle C++ symbol names"));
 	g_signal_connect (widget, "toggled", G_CALLBACK (toggle_button_toggled), DEMANGLE_KEY);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), bool);
 	prefs->demangle = GTK_TOGGLE_BUTTON (widget);

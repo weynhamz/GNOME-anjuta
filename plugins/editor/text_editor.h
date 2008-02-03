@@ -26,7 +26,6 @@
 #include <libanjuta/anjuta-preferences.h>
 #include <libgnomevfs/gnome-vfs-monitor.h>
 
-#include "text_editor_menu.h"
 #include "aneditor.h"
 
 #include "tm_tagmanager.h"

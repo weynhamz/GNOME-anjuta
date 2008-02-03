@@ -241,6 +241,8 @@ cache_settings_new (VgCachegrindPrefs *prefs, const char *name, int index,
 	hbox = gtk_hbox_new (FALSE, 6);
 	g_object_set_data (G_OBJECT (prefs->cache[index].override), "hbox", hbox);
 	
+	/* This is the format of the preference, simply translate the words
+	 * inside the <> */
 	label = gtk_label_new (_("Enter <size>,<assoc>,<line_size>:"));
 	gtk_widget_show (label);
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);

@@ -56,8 +56,6 @@ libanjuta_editor_la_SOURCES= \
 	text_editor_prefs.h \
 	text_editor.c \
 	text_editor.h \
-	text_editor_menu.c \
-	text_editor_menu.h \
 	text_editor_cbs.c \
 	text_editor_cbs.h \
 	text-editor-iterable.c \

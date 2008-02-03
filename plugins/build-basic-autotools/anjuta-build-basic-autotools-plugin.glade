@@ -3,7 +3,7 @@
 <!--*- mode: xml -*-->
 <glade-interface>
   <widget class="GtkDialog" id="execute_dialog">
-    <property name="title" translatable="yes">Select execution program and args</property>
+    <property name="title" translatable="yes">Select Program</property>
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="default_width">400</property>
     <property name="default_height">300</property>
@@ -244,16 +244,15 @@
                                 <property name="column_spacing">12</property>
                                 <property name="row_spacing">12</property>
                                 <child>
-                                  <widget class="GtkLabel" id="label2">
+                                  <widget class="GtkCheckButton" id="preferences_toggle:bool:0:0:build.use_scratchbox">
                                     <property name="visible">True</property>
-                                    <property name="xpad">5</property>
-                                    <property name="label" translatable="yes">Path:</property>
+                                    <property name="label" translatable="yes">Use scratchbox</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="response_id">0</property>
+                                    <property name="draw_indicator">True</property>
                                   </widget>
                                   <packing>
-                                    <property name="top_attach">1</property>
-                                    <property name="bottom_attach">2</property>
-                                    <property name="x_options"></property>
-                                    <property name="y_options"></property>
+                                    <property name="right_attach">2</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -269,15 +268,16 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <widget class="GtkCheckButton" id="preferences_toggle:bool:0:0:build.use_scratchbox">
+                                  <widget class="GtkLabel" id="label2">
                                     <property name="visible">True</property>
-                                    <property name="label" translatable="yes">Use scratchbox</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="response_id">0</property>
-                                    <property name="draw_indicator">True</property>
+                                    <property name="xpad">5</property>
+                                    <property name="label" translatable="yes">Path:</property>
                                   </widget>
                                   <packing>
-                                    <property name="right_attach">2</property>
+                                    <property name="top_attach">1</property>
+                                    <property name="bottom_attach">2</property>
+                                    <property name="x_options"></property>
+                                    <property name="y_options"></property>
                                   </packing>
                                 </child>
                               </widget>

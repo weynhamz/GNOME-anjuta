@@ -821,6 +821,8 @@ build_get_context (BasicAutotoolsPlugin *plugin, const gchar *dir,
 	build_regex_init();
 
 	subdir = g_path_get_basename (dir);
+	/* Translators: the first number is the number of the build attemp,
+	   the string is the directory where the build takes place */
 	snprintf (mname, 128, _("Build %d: %s"), ++message_pane_count, subdir);
 	g_free (subdir);
 	
@@ -1062,6 +1064,7 @@ build_configure_project (GtkAction *action, BasicAutotoolsPlugin *plugin)
 	gchar *input = NULL;
 	
 	parent = GTK_WINDOW (ANJUTA_PLUGIN(plugin)->shell);
+	/* Configure = ./configure script */
 	response = anjuta_util_dialog_input (parent, _("Configure Parameters:"),
 										 plugin->configure_args, &input);
 	if (response)

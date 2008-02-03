@@ -241,7 +241,7 @@ on_cvs_commit_response(GtkDialog* dialog, gint response, CVSData* data)
 			GtkWidget* dlg = gtk_message_dialog_new(GTK_WINDOW(dialog), 
 				GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO,
 				GTK_BUTTONS_YES_NO, 
-				_("Are you sure that you do not want a log message?"));
+				_("Are you sure that you want to pass an empty log message?"));
 			result = gtk_dialog_run(GTK_DIALOG(dlg));
 			if (result == GTK_RESPONSE_NO)
 			{

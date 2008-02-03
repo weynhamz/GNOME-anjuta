@@ -1483,7 +1483,7 @@ cpp_java_plugin_activate_plugin (AnjutaPlugin *plugin)
 	ui = anjuta_shell_get_ui (plugin->shell, NULL);
 	lang_plugin->action_group = 
 		anjuta_ui_add_action_group_entries (ui, "ActionGroupCppJavaAssist",
-											_("Cpp/Java Assistance"),
+											_("C++/Java Assistance"),
 											actions,
 											G_N_ELEMENTS (actions),
 											GETTEXT_PACKAGE, TRUE,

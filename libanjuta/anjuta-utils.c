@@ -793,7 +793,7 @@ anjuta_util_execute_shell (const gchar *dir, const gchar *command)
 		_exit(1);
 	}
 	if (pid < 0)
-		g_warning (_("Cannot execute command %s (using shell %s)\n"), command, shell);
+		g_warning (_("Cannot execute command: %s (using shell %s)\n"), command, shell);
 	g_free (shell);
 	// Anjuta will take care of child exit automatically.
 	return pid;

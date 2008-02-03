@@ -59,7 +59,6 @@
 #include "properties.h"
 #include "text_editor.h"
 #include "text_editor_cbs.h"
-#include "text_editor_menu.h"
 #include "text-editor-iterable.h"
 #include "print.h"
 

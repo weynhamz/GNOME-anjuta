@@ -1095,7 +1095,8 @@ nb_results_alert(gint nb)
 {
 	GtkWidget *dialog = gtk_message_dialog_new(GTK_WINDOW (sg->dialog),
 				GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
-		        	_("%d matches have been replaced."), nb);
+		        	ngettext("%d match has been replaced.",
+							 "%d matches have been replaced.", nb), nb);
 	g_signal_connect(G_OBJECT(dialog), "key-press-event",
 			G_CALLBACK(on_search_dialog_key_press_event), NULL);
 	gtk_dialog_run(GTK_DIALOG(dialog));
