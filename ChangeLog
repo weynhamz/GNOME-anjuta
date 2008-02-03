@@ -1,5 +1,11 @@
 2008-02-03  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/breakpoints.c:
+	Fix bug #514118: Rename Clear All Breakpoints to Remove
+	All Breakpoints
+
+2008-02-03  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* manuals/anjuta-manual/C/debugger.xml:
 	Update debugger documentation
 

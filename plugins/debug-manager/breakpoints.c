@@ -1788,9 +1788,9 @@ static GtkActionEntry actions_debugger_breakpoints[] = {
 	{
 		"ActionDmaClearAllBreakpoints",           /* Action name */
 		ANJUTA_STOCK_BREAKPOINT_CLEAR,            /* Stock icon, if any */
-		N_("C_lear All Breakpoints"),             /* Display label */
+		N_("R_emove All Breakpoints"),             /* Display label */
 		NULL,                                     /* short-cut */
-		N_("Delete all breakpoints"),             /* Tooltip */
+		N_("Remove all breakpoints"),             /* Tooltip */
 		G_CALLBACK (on_clear_all_breakpoints_activate)/* action callback */
 	},
 };		
