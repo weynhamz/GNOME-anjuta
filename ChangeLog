@@ -1,5 +1,10 @@
 2008-02-03  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* manuals/anjuta-manual/C/debugger.xml:
+	Update debugger documentation
+
+2008-02-03  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/sharedlib.c,
 	plugins/debug-manager/anjuta-debug-manager.glade,
 	plugins/debug-manager/queue.c,
