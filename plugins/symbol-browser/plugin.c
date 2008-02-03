@@ -90,7 +90,7 @@ goto_file_line (AnjutaPlugin *plugin, const gchar *filename, gint lineno)
 										 NULL);
 		
 	uri = gnome_vfs_get_uri_from_local_path (filename);
-	ianjuta_document_manager_goto_file_line (docman, uri, lineno, NULL);
+	ianjuta_document_manager_goto_uri_line (docman, uri, lineno, NULL);
 	g_free (uri);
 }
 

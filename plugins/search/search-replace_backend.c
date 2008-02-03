@@ -152,6 +152,8 @@ file_buffer_free (FileBuffer *fb)
 	{
 		if (fb->path)
 			g_free(fb->path);
+		if (fb->uri)
+			g_free (fb->uri);
 		if (fb->buf)
 			g_free(fb->buf);
 		if (fb->lines)
@@ -166,6 +168,7 @@ file_buffer_new_from_te (IAnjutaEditor *te)
 {
 	FileBuffer *fb;
 	gchar* uri;
+	gchar* path;
 	
 	g_return_val_if_fail(te, NULL);
 	fb = g_new0(FileBuffer, 1);
@@ -173,11 +176,13 @@ file_buffer_new_from_te (IAnjutaEditor *te)
 	fb->te = te;
 	
 	uri = ianjuta_file_get_uri(IANJUTA_FILE(te), NULL);
-	if (uri)
+	path = gnome_vfs_get_local_path_from_uri(uri);
+	if (path)
 	{
-		fb->path = tm_get_real_path(uri);
-		g_free (uri);
+		fb->path = tm_get_real_path(path);
+		g_free (path);
 	}
+	fb->uri = uri;
 	fb->len = ianjuta_editor_get_length(te, NULL);
 	fb->buf = ianjuta_editor_get_text_all (fb->te, NULL);
 	fb->pos = ianjuta_editor_get_offset(fb->te, NULL);
@@ -193,6 +198,7 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 	IAnjutaEditor *te;
 	IAnjutaDocument* doc;
 	char *real_path;
+	char *uri;
 	int i;
 	int lineno;
 
@@ -200,8 +206,10 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 	real_path = tm_get_real_path(path);
 	
 	/* There might be an already open TextEditor with this path */
-	doc = ianjuta_document_manager_find_document_with_path (sr->docman,
-														 real_path, NULL);
+	uri = gnome_vfs_get_uri_from_local_path (real_path);
+	doc = ianjuta_document_manager_find_document_with_uri (sr->docman,
+														 uri, NULL);
+
 	if (doc && IANJUTA_IS_EDITOR (doc))
 	{
 		te = IANJUTA_EDITOR (doc);
@@ -211,6 +219,7 @@ file_buffer_new_from_path (const char *path, const char *buf, int len, int pos)
 	fb = g_new0(FileBuffer, 1);
 	fb->type = FB_FILE;
 	fb->path = real_path;
+	fb->uri = uri;
 	fb->name = strrchr(path, '/');
 	if (fb->name)
 		++ fb->name;

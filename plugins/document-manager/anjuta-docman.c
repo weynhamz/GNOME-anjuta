@@ -405,7 +405,7 @@ on_open_filesel_response (GtkDialog* dialog, gint id, AnjutaDocman *docman)
 			uri = g_slist_nth_data (list, i);
 			if (uri)
 			{
-				anjuta_docman_goto_file_line (docman, uri, -1);
+				anjuta_docman_goto_uri_line (docman, uri, -1);
 				g_free (uri);
 			}
 		}
@@ -1092,15 +1092,15 @@ anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc)
 }
 
 IAnjutaEditor *
-anjuta_docman_goto_file_line (AnjutaDocman *docman, const gchar *uri, gint lineno)
+anjuta_docman_goto_uri_line (AnjutaDocman *docman, const gchar *uri, gint lineno)
 {
-	return anjuta_docman_goto_file_line_mark (docman, uri, lineno, FALSE);
+	return anjuta_docman_goto_uri_line_mark (docman, uri, lineno, FALSE);
 }
 
 /* file_uri must be an escaped URI string such as returned by
 	gnome_vfs_get_uri_from_local_path() */
 IAnjutaEditor *
-anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *file_uri,
+anjuta_docman_goto_uri_line_mark (AnjutaDocman *docman, const gchar *file_uri,
 								   gint line, gboolean mark)
 {
 	GnomeVFSURI* vfs_uri;
@@ -1170,7 +1170,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *file_uri,
 	doc = anjuta_docman_get_document_for_uri (docman, uri);
 	if (doc == NULL)
 	{
-		DEBUG_PRINT("open new");
+		DEBUG_PRINT("open new %s", uri);
 		/* no deal, open a new document */
 		te = anjuta_docman_add_editor (docman, uri, NULL); /* CHECKME NULL if not IANJUTA_IS_EDITOR () ? */
 		doc = IANJUTA_DOCUMENT (te);
@@ -1212,7 +1212,7 @@ anjuta_docman_goto_file_line_mark (AnjutaDocman *docman, const gchar *file_uri,
 }
 
 gchar *
-anjuta_docman_get_full_filename (AnjutaDocman *docman, const gchar *fn)
+anjuta_docman_get_uri (AnjutaDocman *docman, const gchar *fn)
 {
 	IAnjutaDocument *doc;
 	GList *node;
@@ -1226,12 +1226,24 @@ anjuta_docman_get_full_filename (AnjutaDocman *docman, const gchar *fn)
 	go further, even if the file is not found*/
 	if (fn[0] == '/')
 	{
-		return real_path;
+		gchar *uri;
+		
+		uri = gnome_vfs_get_uri_from_local_path(real_path);
+		g_free (real_path);
+		
+		return uri;
 	}
 	
 	/* First, check if we can get the file straightaway */
 	if (g_file_test (real_path, G_FILE_TEST_IS_REGULAR))
-		return real_path;
+	{
+		gchar *uri;
+		
+		uri = gnome_vfs_get_uri_from_local_path(real_path);
+		g_free (real_path);
+		
+		return uri;
+	}
 	g_free(real_path);
 
 	/* Get the name part of the file */

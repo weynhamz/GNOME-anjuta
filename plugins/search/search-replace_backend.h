@@ -157,6 +157,7 @@ typedef struct _FileBuffer
 	/* The following are valid only for files loaded from disk */
 	gchar *name; /* Name of the file */
 	gchar *path; /* Full path to the file */
+	gchar *uri;  /* URI to the file */
 	gchar *buf; /* Contents of the file */
 	gint len; /* Length of the buffer */
 	gint pos; /* Current position */

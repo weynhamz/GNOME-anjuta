@@ -1840,12 +1840,12 @@ docman_plugin_class_init (GObjectClass *klass)
 
 /* Implement IAnjutaDocumentManager interfaces */
 static gchar*
-ianjuta_docman_get_full_filename (IAnjutaDocumentManager *plugin,
-		const gchar *file, GError **e)
+ianjuta_docman_get_uri (IAnjutaDocumentManager *plugin,
+		const gchar *filename, GError **e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	return anjuta_docman_get_full_filename (docman, file);
+	return anjuta_docman_get_uri (docman, filename);
 }
 
 static IAnjutaDocument*
@@ -1883,21 +1883,21 @@ ianjuta_docman_get_doc_widgets (IAnjutaDocumentManager *plugin, GError **e)
 }
 
 static IAnjutaEditor*
-ianjuta_docman_goto_file_line (IAnjutaDocumentManager *plugin,
+ianjuta_docman_goto_uri_line (IAnjutaDocumentManager *plugin,
 							   const gchar *uri, gint linenum, GError **e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	return anjuta_docman_goto_file_line (docman, uri, linenum);
+	return anjuta_docman_goto_uri_line (docman, uri, linenum);
 }
 
 static IAnjutaEditor*
-ianjuta_docman_goto_file_line_mark (IAnjutaDocumentManager *plugin,
+ianjuta_docman_goto_uri_line_mark (IAnjutaDocumentManager *plugin,
 		const gchar *uri, gint linenum, gboolean mark, GError **e)
 {
 	AnjutaDocman *docman;
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	return anjuta_docman_goto_file_line_mark (docman, uri, linenum, mark);
+	return anjuta_docman_goto_uri_line_mark (docman, uri, linenum, mark);
 }
 
 /**
@@ -1968,12 +1968,12 @@ ianjuta_document_manager_iface_init (IAnjutaDocumentManagerIface *iface)
 {
 	iface->add_buffer = ianjuta_docman_add_buffer;
 	iface->add_document = ianjuta_docman_add_document;
-	iface->find_document_with_path = ianjuta_docman_get_document_for_uri;
+	iface->find_document_with_uri = ianjuta_docman_get_document_for_uri;
 	iface->get_current_document = ianjuta_docman_get_current_document;
 	iface->get_doc_widgets = ianjuta_docman_get_doc_widgets;
-	iface->get_full_filename = ianjuta_docman_get_full_filename;
-	iface->goto_file_line = ianjuta_docman_goto_file_line;
-	iface->goto_file_line_mark = ianjuta_docman_goto_file_line_mark;
+	iface->get_uri = ianjuta_docman_get_uri;
+	iface->goto_uri_line = ianjuta_docman_goto_uri_line;
+	iface->goto_uri_line_mark = ianjuta_docman_goto_uri_line_mark;
 	iface->remove_document = ianjuta_docman_remove_document;
 	iface->set_current_document = ianjuta_docman_set_current_document;
 }
@@ -1985,7 +1985,7 @@ ifile_open (IAnjutaFile* plugin, const gchar* uri, GError** e)
 	AnjutaDocman *docman;
 	
 	docman = ANJUTA_DOCMAN ((ANJUTA_PLUGIN_DOCMAN (plugin)->docman));
-	anjuta_docman_goto_file_line_mark (docman, uri, -1, FALSE);
+	anjuta_docman_goto_uri_line_mark (docman, uri, -1, FALSE);
 }
 
 static gchar*

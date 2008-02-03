@@ -211,7 +211,7 @@ set_program_counter(DebugManagerPlugin *self, const gchar* file, guint line, gul
 		{
 			IAnjutaEditor* editor;
 		
-			editor = ianjuta_document_manager_goto_file_line(docman, file_uri, line, NULL);
+			editor = ianjuta_document_manager_goto_uri_line(docman, file_uri, line, NULL);
 		
 			if (editor != NULL)
 			{
@@ -570,7 +570,7 @@ dma_plugin_location_changed (DebugManagerPlugin *self, gulong address, const gch
         docman = anjuta_shell_get_interface (ANJUTA_PLUGIN(self)->shell, IAnjutaDocumentManager, NULL);
         if (docman)
         {
-			ianjuta_document_manager_goto_file_line (docman, uri, line, NULL);
+			ianjuta_document_manager_goto_uri_line (docman, uri, line, NULL);
         }
 	}
 }

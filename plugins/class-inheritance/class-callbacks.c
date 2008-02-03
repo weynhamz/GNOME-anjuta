@@ -107,7 +107,7 @@ on_member_menuitem_clicked (GtkMenuItem *menuitem, gpointer data)
 										 IAnjutaDocumentManager, NULL);
 		if (dm)
 		{
-			ianjuta_document_manager_goto_file_line (dm, file, line, NULL);
+			ianjuta_document_manager_goto_uri_line (dm, file, line, NULL);
 		}
 	}
 }
@@ -155,7 +155,7 @@ on_nodedata_expanded_event (GnomeCanvasItem *item, GdkEvent *event, gpointer dat
 					dm = anjuta_shell_get_interface (ANJUTA_PLUGIN (plugin)->shell,
 											 	IAnjutaDocumentManager, NULL);
 					if (dm) {
-						ianjuta_document_manager_goto_file_line (dm, file, line, NULL);
+						ianjuta_document_manager_goto_uri_line (dm, file, line, NULL);
 					}
 				}
 			}

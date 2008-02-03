@@ -451,8 +451,8 @@ search_and_replace (void)
 							if (fb->te)
 								ianjuta_editor_goto_line (fb->te, mi->line, NULL);
 							else
-								fb->te = ianjuta_document_manager_goto_file_line_mark
-									(sr->docman, fb->path, mi->line, FALSE, NULL);
+								fb->te = ianjuta_document_manager_goto_uri_line_mark
+									(sr->docman, fb->uri, mi->line, FALSE, NULL);
 							found_line = mi->line;
 						}
 						{
@@ -477,8 +477,8 @@ search_and_replace (void)
 							if (fb->te)
 								ianjuta_editor_goto_line (fb->te, mi->line, NULL);
 							else
-								fb->te = ianjuta_document_manager_goto_file_line_mark
-									(sr->docman, fb->path, mi->line, FALSE, NULL);
+								fb->te = ianjuta_document_manager_goto_uri_line_mark
+									(sr->docman, fb->uri, mi->line, FALSE, NULL);
 							found_line = mi->line;
 							}
 
@@ -702,7 +702,7 @@ on_message_clicked (GObject* object, gchar* message, gpointer data)
 	line = atoi(nline);
 	
 	uri = gnome_vfs_get_uri_from_local_path (path);  
-	ianjuta_document_manager_goto_file_line_mark (sr->docman, uri, line, TRUE, NULL);
+	ianjuta_document_manager_goto_uri_line_mark (sr->docman, uri, line, TRUE, NULL);
 	g_free(uri);
 	g_free(path);
 	g_free(nline);

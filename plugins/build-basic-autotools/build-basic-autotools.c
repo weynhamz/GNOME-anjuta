@@ -740,7 +740,7 @@ on_build_mesg_parse (IAnjutaMessageView *view, const gchar *line,
 		g_free(filename);
 		if (uri)
 		{
-			ianjuta_document_manager_goto_file_line_mark(docman, uri, lineno, TRUE, NULL);
+			ianjuta_document_manager_goto_uri_line_mark(docman, uri, lineno, TRUE, NULL);
 			g_free(uri);
 		}
 	}

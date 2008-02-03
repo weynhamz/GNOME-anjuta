@@ -1009,7 +1009,7 @@ on_swap_activate (GtkAction *action, gpointer user_data)
 			g_free (uri);
 			if (newfname)
 			{
-				anjuta_docman_goto_file_line (docman, newfname, -1);
+				anjuta_docman_goto_uri_line (docman, newfname, -1);
 				g_free (newfname);
 			}
 		}

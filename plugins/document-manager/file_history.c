@@ -125,7 +125,7 @@ void an_file_history_back(AnjutaDocman *docman)
 
 	s_history->current = s_history->current->next;
 	h_file = (AnHistFile *) s_history->current->data;
-	anjuta_docman_goto_file_line_mark (docman, h_file->uri,
+	anjuta_docman_goto_uri_line_mark (docman, h_file->uri,
 									   h_file->line, FALSE);
 }
 
@@ -138,7 +138,7 @@ void an_file_history_forward(AnjutaDocman *docman)
 	
 	s_history->current = s_history->current->prev;
 	h_file = (AnHistFile *) s_history->current->data;
-	anjuta_docman_goto_file_line_mark(docman, h_file->uri,
+	anjuta_docman_goto_uri_line_mark(docman, h_file->uri,
 									  h_file->line, FALSE);
 }
 

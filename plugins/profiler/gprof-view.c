@@ -137,7 +137,7 @@ gprof_view_show_symbol_in_editor (GProfView *self,
 			file = ianjuta_symbol_file (symbol, NULL);
 			line = ianjuta_symbol_line (symbol, NULL);
 			
-			ianjuta_document_manager_goto_file_line (self->priv->document_manager, 
+			ianjuta_document_manager_goto_uri_line (self->priv->document_manager, 
 													 file, line, NULL);
 			
 			g_object_unref (symbol_iter);

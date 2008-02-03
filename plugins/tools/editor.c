@@ -821,7 +821,7 @@ on_editor_response (GtkDialog *dialog, gint response, gpointer user_data)
 			uri = gnome_vfs_get_uri_from_local_path(data);
 			g_free (data);
 			doc =
-				ianjuta_document_manager_find_document_with_path 
+				ianjuta_document_manager_find_document_with_uri 
 							   (docman, uri, NULL);
 			if (doc == NULL)
 			{

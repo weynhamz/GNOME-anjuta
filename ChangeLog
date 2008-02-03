@@ -1,5 +1,30 @@
 2008-02-03  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/profiler/gprof-view.c,
+	plugins/symbol-browser/plugin.c,
+	plugins/class-inheritance/class-callbacks.c,
+	plugins/debug-manager/plugin.c,
+	plugins/tools/editor.c,
+	plugins/search/search-replace.c,
+	plugins/search/search-replace_backend.c,
+	plugins/search/search-replace_backend.h,
+	plugins/build-basic-autotools/build-basic-autotools.c,
+	plugins/document-manager/plugin.c,
+	plugins/document-manager/file_history.c,
+	plugins/document-manager/anjuta-docman.c,
+	plugins/document-manager/anjuta-docman.h,
+	plugins/document-manager/action-callbacks.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Rename IAnjutaDocumentManager functions:
+	find_document_with_path, goto_file_line, goto_file_line_mark
+	and get_full_filename into
+	find_document_with_uri, goto_uri_line, goto_uri_line_mark
+	and get_uri
+	Fix search plugin to use an URI instead of a file path
+	Fix anjuta_docman_get_uri to always return an URI
+
+2008-02-03  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/breakpoints.c:
 	Fix bug #514118: Rename Clear All Breakpoints to Remove
 	All Breakpoints

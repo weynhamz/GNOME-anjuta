@@ -2185,37 +2185,37 @@ interface IAnjutaDocumentManager
 	}
 
 	/**
-	* ianjuta_document_manager_get_full_filename:
+	* ianjuta_document_manager_get_uri:
 	* @obj: Self
 	* @file: short filename
 	* @err: Error propagation and reporting.
 	* 
-	* Given the short filename, finds the full path of the file, if the
+	* Given the short filename, finds the URI of the file, if the
 	* editor that has it loaded is found. If there is no editor that has
 	* this file opened, returns NULL.
 	* 
-	* Return value: the full path of the file, if an editor is found for it.
+	* Return value: the URI of the file, if an editor is found for it.
 	*/
-	gchar* get_full_filename (const gchar *file);
+	gchar* get_uri (const gchar *file);
 	
 	/**
-	* ianjuta_document_manager_find_document_with_path:
+	* ianjuta_document_manager_find_document_with_uri:
 	* @obj: Self
-	* @file_path: the file path.
+	* @uri: the file uri.
 	* @err: Error propagation and reporting.
 	* 
-	* Finds the document that has the file with path @file_path loaded. Only
-	* the editor that matches the file path will be searched.
+	* Finds the document that has the file with URI @uri loaded. Only
+	* the editor that matches the URI will be searched.
 	* 
-	* Return value: the document that corresponds to given file path. NULL if
-	* there is no editor loaded with this file path.
+	* Return value: the document that corresponds to given URI. NULL if
+	* there is no editor loaded with this URI.
 	*/
-	IAnjutaDocument* find_document_with_path (const gchar *file_path);
+	IAnjutaDocument* find_document_with_uri (const gchar *uri);
 	
 	/**
-	* ianjuta_document_manager_goto_file_line:
+	* ianjuta_document_manager_goto_uri_line:
 	* @obj: Self
-	* @file: the file to go to.
+	* @uri: URI of the file to go to.
 	* @lineno: the line number in the file to go to.
 	* @err: Error propagation and reporting.
 	* 
@@ -2224,12 +2224,12 @@ interface IAnjutaDocumentManager
 	* 
 	* Return value: the editor where the mark has been put. NULL if none.
 	*/
-	IAnjutaEditor* goto_file_line (const gchar *file, gint lineno);
+	IAnjutaEditor* goto_uri_line (const gchar *uri, gint lineno);
 	
 	/** 
-	* ianjuta_document_manager_goto_file_line_mark:
+	* ianjuta_document_manager_goto_uri_line_mark:
 	* @obj: Self
-	* @file: the file to go to.
+	* @uri: URI of the file to go to.
 	* @lineno: the line number in the file to go to.
 	* @mark: TRUE if the line should be marked with a marker.
 	* @err: Error propagation and reporting
@@ -2240,7 +2240,7 @@ interface IAnjutaDocumentManager
 	* 
 	* Return value: the editor where the mark has been put. NULL if none.
 	*/
-	IAnjutaEditor* goto_file_line_mark (const gchar *file, gint lineno, gboolean mark);
+	IAnjutaEditor* goto_uri_line_mark (const gchar *uri, gint lineno, gboolean mark);
 	
 	/**
 	* ianjuta_document_manager_get_current_document:

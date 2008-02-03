@@ -75,10 +75,10 @@ GtkWidget *anjuta_docman_get_current_popup (AnjutaDocman *docman);
 
 void anjuta_docman_set_current_document (AnjutaDocman *docman, IAnjutaDocument *doc);
 
-IAnjutaEditor *anjuta_docman_goto_file_line (AnjutaDocman *docman,
+IAnjutaEditor *anjuta_docman_goto_uri_line (AnjutaDocman *docman,
 											const gchar *uri,
 											gint lineno);
-IAnjutaEditor *anjuta_docman_goto_file_line_mark (AnjutaDocman *docman,
+IAnjutaEditor *anjuta_docman_goto_uri_line_mark (AnjutaDocman *docman,
 												const gchar *uri,
 												gint lineno,
 												gboolean mark);
@@ -93,7 +93,7 @@ void anjuta_docman_reload_file (AnjutaDocman *docman, const gchar *uri);
 
 gboolean anjuta_docman_set_editor_properties (AnjutaDocman *docman);
 
-gchar *anjuta_docman_get_full_filename (AnjutaDocman *docman, const gchar *fn);
+gchar *anjuta_docman_get_uri (AnjutaDocman *docman, const gchar *filename);
 
 GList *anjuta_docman_get_all_doc_widgets (AnjutaDocman *docman);
 
