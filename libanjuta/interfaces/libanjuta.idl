@@ -4366,7 +4366,7 @@ interface IAnjutaSymbol
 	const gchar *var_type ();    // Variable type (maps to struct for typedefs)
 	const gchar *access ();      // Access type (public/protected/private/etc.)
 	const gchar *impl ();        // Implementation (e.g. virtual)
-	const gchar *file ();   	 // File in which the symbol occurs
+	const gchar *uri ();   	     // URI in which the symbol occurs
 	gulong line ();              // Line number of the symbol
 	gboolean is_local ();        // Is the symbol of local scope
 	

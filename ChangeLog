@@ -1,3 +1,13 @@
+2008-02-04  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/profiler/gprof-view.c,
+	plugins/class-inheritance/class-callbacks.c,
+	plugins/class-inheritance/class-inherit.c,
+	plugins/symbol-browser/an_symbol.c,
+	plugins/symbol-db/symbol-db-engine-iterator-node.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Change ianjuta_symbol_file function to ianjuta_symbol_uri
+
 2008-02-04  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/search/anjuta-search.glade: Fixed typo

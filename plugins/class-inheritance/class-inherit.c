@@ -94,13 +94,13 @@ class_inheritance_show_dynamic_class_popup_menu (GdkEvent *event,
 				IAnjutaSymbol *symbol = IANJUTA_SYMBOL (iter);
 				do
 				{
-					const gchar *name, *file;
+					const gchar *name, *uri;
 					GdkPixbuf *pixbuf;
 					gint line;
 					
 					name = ianjuta_symbol_name (symbol, NULL);
 					pixbuf = ianjuta_symbol_icon (symbol, NULL);
-					file = ianjuta_symbol_file (symbol, NULL);
+					uri = ianjuta_symbol_uri (symbol, NULL);
 					line = ianjuta_symbol_line (symbol, NULL);
 					
 					item = gtk_image_menu_item_new_with_label (name);
@@ -108,10 +108,10 @@ class_inheritance_show_dynamic_class_popup_menu (GdkEvent *event,
 					gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM
 												   (item), image);
 					
-					if (file)
+					if (uri)
 					{
-						g_object_set_data_full (G_OBJECT (item), "__file",
-												g_strdup (file), g_free);
+						g_object_set_data_full (G_OBJECT (item), "__uri",
+												g_strdup (uri), g_free);
 						g_object_set_data (G_OBJECT (item), "__line",
 										   GINT_TO_POINTER (line));
 					}
@@ -449,7 +449,7 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 								   &plugin->canvas->style->base[GTK_STATE_ACTIVE],
 								   NULL);
 									
-			/* add to the nodelist: we'll set the __file and __line properites later
+			/* add to the nodelist: we'll set the __uri and __line properites later
 			 * on this loop, when we'll parse symbols. */			
 			plugin->node_list = g_list_prepend (plugin->node_list, node_data);
 
@@ -506,11 +506,11 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 			/* go on with the icons */
 			if (symbol_iter && ianjuta_iterable_get_length (symbol_iter, NULL) > 0) {
 				GdkPixbuf *pixbuf;
-				const gchar* file;
+				const gchar* uri;
 				gint line;
 				IAnjutaSymbol *symbol = IANJUTA_SYMBOL (symbol_iter);
 
-				file = ianjuta_symbol_file (symbol, NULL);
+				uri = ianjuta_symbol_uri (symbol, NULL);
 				line = ianjuta_symbol_line (symbol, NULL);
 				pixbuf = ianjuta_symbol_icon (symbol, NULL);
 				
@@ -528,9 +528,9 @@ cls_inherit_draw_expanded_node (AnjutaClassInheritance *plugin, Agnode_t *node,
 
 				/* set now the object properties on node_data. We still have a 
 				 * reference to it so we can access its canvas_item */
-				if (file) {
-					g_object_set_data_full (G_OBJECT (node_data->canvas_item), "__file",
-											g_strdup (file), g_free);
+				if (uri) {
+					g_object_set_data_full (G_OBJECT (node_data->canvas_item), "__uri",
+											g_strdup (uri), g_free);
 					g_object_set_data (G_OBJECT (node_data->canvas_item), "__line",
 									   GINT_TO_POINTER (line));
 				}

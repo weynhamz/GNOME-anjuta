@@ -34,6 +34,7 @@ struct _SymbolDBEngineIteratorNodePriv
 {
 	GdaDataModelIter *data_iter;	
 	const GHashTable *sym_type_conversion_hash;
+	gchar *uri;
 };
 
 static GObjectClass* parent_class = NULL;
@@ -46,6 +47,7 @@ symbol_db_engine_iterator_node_new (const GdaDataModelIter *data)
 	SymbolDBEngineIteratorNode *s;
 	s = g_object_new (SYMBOL_TYPE_DB_ENGINE_ITERATOR_NODE, NULL);
 	s->priv->data_iter = (GdaDataModelIter *)data;
+	s->priv->uri = NULL;
 	
 	return s;
 }
@@ -60,6 +62,7 @@ sdb_engine_iterator_node_instance_init (SymbolDBEngineIteratorNode *object)
 	
 	sdbin->priv = g_new0 (SymbolDBEngineIteratorNodePriv, 1);
 	sdbin->priv->sym_type_conversion_hash = NULL;
+	sdbin->priv->uri = NULL;
 }
 
 static void
@@ -73,6 +76,8 @@ sdb_engine_iterator_node_finalize (GObject *object)
 	
 	dbin = SYMBOL_DB_ENGINE_ITERATOR_NODE (object);	
 	priv = dbin->priv;
+	if (priv->uri)
+		g_free (priv->uri);
 
 	g_free (priv);
 
@@ -303,6 +308,11 @@ symbol_db_engine_iterator_node_set_data (SymbolDBEngineIteratorNode *dbin,
 	
 	priv = dbin->priv;
 	priv->data_iter = GDA_DATA_MODEL_ITER (data);
+	if (priv->uri != NULL)
+	{
+		g_free (priv->uri);
+		priv->uri = NULL;
+	}
 }
 
 
@@ -431,14 +441,20 @@ isymbol_impl (IAnjutaSymbol *isymbol, GError **err)
 }
 
 static const gchar*
-isymbol_file (IAnjutaSymbol *isymbol, GError **err)
+isymbol_uri (IAnjutaSymbol *isymbol, GError **err)
 {
 	SymbolDBEngineIteratorNode *s;
 
 	g_return_val_if_fail (SYMBOL_IS_DB_ENGINE_ITERATOR (isymbol),  NULL);
 	s = SYMBOL_DB_ENGINE_ITERATOR_NODE (isymbol);
-	return symbol_db_engine_iterator_node_get_symbol_extra_string (s, 
+	if (s->priv->uri == NULL)
+	{
+		const cgchar* file_path;
+		file_path = symbol_db_engine_iterator_node_get_symbol_extra_string (s, 
 													SYMINFO_FILE_PATH);
+		s->priv->uri = gnome_vfs_get_uri_from_local_path (file_path);
+	}
+	return s->priv->uri;
 }
 
 static gulong
@@ -488,7 +504,7 @@ isymbol_iface_init (IAnjutaSymbolIface *iface)
 	iface->inheritance = isymbol_inheritance;	
 	iface->access = isymbol_access;
 	iface->impl = isymbol_impl;
-	iface->file = isymbol_file;
+	iface->uri = isymbol_uri;
 	iface->line = isymbol_line;
 	iface->is_local = isymbol_is_local;
 	iface->icon = isymbol_icon;

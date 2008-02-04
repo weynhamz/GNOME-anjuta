@@ -28,6 +28,7 @@
 struct _AnjutaSymbolPriv
 {
 	const TMTag *tm_tag;
+	gchar* uri;
 };
 
 static gpointer parent_class;
@@ -39,6 +40,8 @@ anjuta_symbol_finalize (GObject * obj)
 {
 	AnjutaSymbol *s = ANJUTA_SYMBOL (obj);
 	
+	if (s->priv->uri)
+		g_free (s->priv->uri);
 	g_free (s->priv);
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, finalize, (obj));
 }
@@ -75,6 +78,7 @@ anjuta_symbol_new (const TMTag *tm_tag)
 	
 	s = g_object_new (ANJUTA_TYPE_SYMBOL, NULL);
 	s->priv->tm_tag = tm_tag;
+	s->priv->uri = NULL;
 	return s;
 }
 
@@ -83,6 +87,11 @@ anjuta_symbol_set_tag (AnjutaSymbol *symbol, const TMTag *tm_tag)
 {
 	g_return_if_fail (ANJUTA_IS_SYMBOL (symbol));
 	symbol->priv->tm_tag = NULL;
+	if (symbol->priv->uri)
+	{
+		g_free(symbol->priv->uri);
+		symbol->priv->uri = NULL;
+	}
 	if (tm_tag != NULL)
 	{
 		g_return_if_fail (tm_tag->type < tm_tag_max_t);
@@ -197,7 +206,7 @@ isymbol_impl (IAnjutaSymbol *isymbol, GError **err)
 }
 
 static const gchar*
-isymbol_file (IAnjutaSymbol *isymbol, GError **err)
+isymbol_uri (IAnjutaSymbol *isymbol, GError **err)
 {
 	AnjutaSymbol *s;
 
@@ -206,7 +215,13 @@ isymbol_file (IAnjutaSymbol *isymbol, GError **err)
 	g_return_val_if_fail (s->priv->tm_tag != NULL, NULL);
 	if (s->priv->tm_tag->atts.entry.file == NULL)
 		return NULL;
-	return s->priv->tm_tag->atts.entry.file->work_object.file_name;
+	if (s->priv->uri == NULL)
+	{
+		const gchar *file_path;
+		file_path = s->priv->tm_tag->atts.entry.file->work_object.file_name;
+		s->priv->uri = gnome_vfs_get_uri_from_local_path (file_path);
+	}
+	return s->priv->uri;
 }
 
 static gulong
@@ -256,7 +271,7 @@ isymbol_iface_init (IAnjutaSymbolIface *iface)
 	iface->inheritance = isymbol_inheritance;	
 	iface->access = isymbol_access;
 	iface->impl = isymbol_impl;
-	iface->file = isymbol_file;
+	iface->uri = isymbol_uri;
 	iface->line = isymbol_line;
 	iface->is_local = isymbol_is_local;
 	iface->icon = isymbol_icon;
