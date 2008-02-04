@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-03 22:56+0000\n"
-"PO-Revision-Date: 2008-02-04 00:17+0100\n"
+"POT-Creation-Date: 2008-02-03 23:18+0000\n"
+"PO-Revision-Date: 2008-02-04 10:51+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -498,11 +498,11 @@ msgstr "_Descartar los cambios"
 msgid "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
 msgid_plural "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
 msgstr[0] ""
-"<b>Hay %d elemento con cambios sin guardar. ¿Desea guardar los cambios antes de "
-"cerrar?</b>"
+"<b>Hay %d elemento con cambios sin guardar. ¿Desea guardar los cambios antes "
+"de cerrar?</b>"
 msgstr[1] ""
-"<b>Hay %d elementos con cambios sin guardar. ¿Desea guardar los cambios antes de "
-"cerrar?</b>"
+"<b>Hay %d elementos con cambios sin guardar. ¿Desea guardar los cambios "
+"antes de cerrar?</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:311
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -5876,7 +5876,7 @@ msgid "Match complete words"
 msgstr "Coincide con palabras completas"
 
 #: ../plugins/search/anjuta-search.glade.h:26
-msgid "Maximim Actions"
+msgid "Maximum Actions"
 msgstr "Acciones máximas"
 
 #: ../plugins/search/anjuta-search.glade.h:27
@@ -7194,7 +7194,9 @@ msgstr "Valgrind"
 
 #: ../plugins/valgrind/plugin.c:332
 msgid "No executable target selected for debugging with Valgrind. Please select one."
-msgstr "No se ha seleccionado un objetivo ejecutable para depurar con Valgrind. Seleccione uno."
+msgstr ""
+"No se ha seleccionado un objetivo ejecutable para depurar con Valgrind. "
+"Seleccione uno."
 
 #: ../plugins/valgrind/plugin.c:341
 msgid ""
