@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-02-03 21:50+0000\n"
-"PO-Revision-Date: 2008-02-05 01:38+0100\n"
+"PO-Revision-Date: 2008-02-05 12:09+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3002,7 +3002,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:266(title)
 msgid "Stop Program"
-msgstr ""
+msgstr "Parar el programa"
 
 #: C/anjuta-manual.xml:267(para)
 msgid ""
@@ -3039,6 +3039,9 @@ msgid ""
 "<menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Breakpoints</"
 "guimenuitem></menuchoice>"
 msgstr ""
+"La <interface>ventana lista de puntos de parada</interface> se puede abrir eligiendo "
+"<menuchoice><guisubmenu>Ver</guisubmenu><guimenuitem>Puntos de parada</"
+"guimenuitem></menuchoice>."
 
 #: C/anjuta-manual.xml:301(title) C/anjuta-manual.xml:303(screeninfo)
 msgid "Breakpoint view"
@@ -3101,6 +3104,8 @@ msgid ""
 "When the debugger is not running, this column displays the pass count of the "
 "breakpoint, zero if it is not defined."
 msgstr ""
+"Cuando el depurador no se está ejecutando, ésta columna muestra el conteo de pasadas del "
+"punto de parada, será cero si no se ha definido."
 
 #: C/anjuta-manual.xml:354(para)
 msgid ""
@@ -3108,6 +3113,9 @@ msgid ""
 "the number of time this breakpoint has been triggered. If pass count is not "
 "zero, both numbers are displayed. The pass count is the second number."
 msgstr ""
+"Cuando el depurador se está ejecutando, si el conteo de pasadas es cero, esta columna muestra "
+"el número de veces que este punto de parada se ha disparado. Si el conteo de pasadas no es "
+"cero, entonces se muestran ambos números. El conteo de pasadas es el segundo número."
 
 #: C/anjuta-manual.xml:362(term)
 msgid "State"
@@ -3115,15 +3123,15 @@ msgstr "Estado"
 
 #: C/anjuta-manual.xml:367(para)
 msgid "Pending: breakpoint is not set in your program."
-msgstr ""
+msgstr "Pendiente: el punto de parada no está establecido en su programa."
 
 #: C/anjuta-manual.xml:368(para)
 msgid "Permanent: breakpoint is set (id number in given inside the parenthesis)."
-msgstr ""
+msgstr "Permanente: el punto de parada está establecido (el número de ID entre los paréntesis)."
 
 #: C/anjuta-manual.xml:369(para)
 msgid "Temporary: breakpoint is set but will be deleted if reached."
-msgstr ""
+msgstr "Temporal: el punto de parada está establecido peor se borrará al alcanzarse."
 
 #: C/anjuta-manual.xml:364(para)
 msgid "This is the state of the breakpoint. You could have. <placeholder-1/>"
@@ -3131,7 +3139,7 @@ msgstr "Éste es el estado del punto de parada. Puede tener: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:308(para)
 msgid "The view has the following columns: <placeholder-1/>"
-msgstr ""
+msgstr "La vista tiene las siguientes columnas: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:377(para)
 msgid ""
@@ -3140,6 +3148,10 @@ msgid ""
 "interface try to set them each time the program is started or a new dynamic "
 "library is loaded."
 msgstr ""
+"Todos los puntos de parada se mantienen entre las sesiones de Anjuta incluso si corresponden con "
+"ubicaciones no existentes. En este caso su estado pasa a ser pendiente. El "
+"interfaz trata de establecerlos cada vez que el programa se inicia o se carga una "
+"nueva biblioteca dinámica."
 
 #: C/anjuta-manual.xml:386(title)
 msgid "Adding or Setting Breakpoints"
@@ -3152,6 +3164,10 @@ msgid ""
 "<menuchoice><guimenuitem>Add Breakpoint…</guimenuitem></menuchoice> in the "
 "breakpoint list popup menu to open the add breakpoint dialog."
 msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
+"guisubmenu><guimenuitem>Añadir punto de parada…</guimenuitem></menuchoice> o "
+"<menuchoice><guimenuitem>Añadir punto de parada…</guimenuitem></menuchoice> en el "
+"menú emergente de la lista de puntos de parada para abrir el diálogo añadir nuevo punto de parada."
 
 #: C/anjuta-manual.xml:395(title) C/anjuta-manual.xml:397(screeninfo)
 msgid "Breakpoint add dialog"
@@ -3247,6 +3263,9 @@ msgid ""
 "pass count then click <guibutton>OK</guibutton> to set the breakpoint. "
 "<placeholder-1/>"
 msgstr ""
+"Debe introducir la ubicación y opcionalmente, la condición de parada y el "
+"conteo de pasadas, después pulse <guibutton>Aceptar</guibutton> para establecer el punto de parada. "
+"<placeholder-1/>"
 
 #: C/anjuta-manual.xml:477(para)
 msgid ""
@@ -3274,6 +3293,10 @@ msgid ""
 "breakpoint in the breakpoint list and click in the popup menu item "
 "<menuchoice><guimenuitem>Edit Breakpoint</guimenuitem></menuchoice>."
 msgstr ""
+"Se puede cambiar la condición y el conteo de pasadas seleccionando el "
+"punto de parada en la lista de puntos de parada y pulsando en el elemento "
+"<menuchoice><guimenuitem>Editar punto de parada</guimenuitem></menuchoice> del "
+"menú emergente."
 
 #: C/anjuta-manual.xml:501(para)
 msgid ""
@@ -3293,6 +3316,9 @@ msgid ""
 "<menuchoice><guimenuitem>Remove Breakpoint</guimenuitem></menuchoice> to "
 "delete it."
 msgstr ""
+"Seleccione el pinto de parada en la vista de la lista de puntos de parada y pulse "
+"<menuchoice><guimenuitem>Quitar punto de parada</guimenuitem></menuchoice> para "
+"borrarlo."
 
 #: C/anjuta-manual.xml:513(para)
 msgid ""
@@ -3303,6 +3329,12 @@ msgid ""
 "guimenuitem></menuchoice> or the <guibutton>Toggle Breakpoint</guibutton> "
 "icon in the <interface>Debug toolbar</interface>."
 msgstr ""
+"Un punto de parada existente también se puede borrar seleccionando la línea en el "
+"editor y eligiendo el elemento del menú <menuchoice><guisubmenu>Depurar</"
+"guisubmenu>Conmutar punto de parada</guimenuitem></menuchoice>, el "
+"elemento del menú emergente <menuchoice><guimenuitem>Conmutar punto "
+"de parada</guimenuitem></menuchoice> o el icono <guibutton>Conmutar punto "
+"de parada</guibutton> en la <interface>barra de herramientas del depurador</interface>."
 
 #: C/anjuta-manual.xml:522(para)
 msgid ""
@@ -3319,7 +3351,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:531(title)
 msgid "Enabling or Disabling Breakpoints"
-msgstr ""
+msgstr "Activar o desactivar puntos de parada"
 
 #: C/anjuta-manual.xml:532(para)
 msgid ""
@@ -3328,6 +3360,10 @@ msgid ""
 "guimenuitem></menuchoice> to enable or disable the selected breakpoint. The "
 "breakpoint will be enabled or disabled, depending on its current state."
 msgstr ""
+"Pulse en la columna Activar de la <interface>ventana de lista de puntos de parada</"
+"interface> o en el elemento del menú <menuchoice><guimenuitem>Editar punto de "
+"parada</guimenuitem></menuchoice> para activar o desactivar el punto de parada seleccionado. El "
+"punto de parada se activará o desactivará, dependiendo de su estado actual."
 
 #: C/anjuta-manual.xml:538(para)
 msgid ""
@@ -3336,14 +3372,18 @@ msgid ""
 "or on <menuchoice><guimenuitem>Disable All Breakpoints</guimenuitem></"
 "menuchoice> in the breakpoint list popup menu."
 msgstr ""
+"Para desactivar todos los puntos de parada pulse en <menuchoice><guisubmenu>Depurar</"
+"guisubmenu><guimenuitem>Desactivar todos los puntos de parada</guimenuitem></menuchoice> "
+"o pulse <menuchoice><guimenuitem>Desactivar todos los puntos de parada</guimenuitem></"
+"menuchoice> en el menú emergente de la lista de puntos de parada."
 
 #: C/anjuta-manual.xml:549(title)
 msgid "Expressions"
-msgstr ""
+msgstr "Expresiones"
 
 #: C/anjuta-manual.xml:552(title)
 msgid "Listing local variable"
-msgstr ""
+msgstr "Listar una variable local"
 
 #: C/anjuta-manual.xml:553(para)
 msgid ""
@@ -3352,10 +3392,13 @@ msgid ""
 "<menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Locals</guimenuitem></"
 "menuchoice>"
 msgstr ""
+"Cuando un programa se está ejecutando bajo el control del depurador, la "
+"<interface>ventanta lista de locales</interface> se puede abrir eligiendo "
+"<menuchoice><guisubmenu>Ver</guisubmenu><guimenuitem>Locales</guimenuitem></menuchoice>."
 
 #: C/anjuta-manual.xml:567(title) C/anjuta-manual.xml:569(screeninfo)
 msgid "Local variables"
-msgstr ""
+msgstr "Variables locales"
 
 #: C/anjuta-manual.xml:559(para)
 msgid ""
@@ -3366,12 +3409,20 @@ msgid ""
 "changed in the last debugging step, its value will be highlight in red. The "
 "variables are presented in a tree form for easy view. <placeholder-1/>"
 msgstr ""
+"Las variables locales del marco actual (la función actual en la que el "
+"control de programa está presente) se muestran en la <interface>ventana "
+"lista de locales</interface>. Durante la ejecución del programa (ej. durante la "
+"ejecución paso a paso) se actualizarán las variables locales. Si el valor de alguna variable "
+"cambió en el último paso de depuración, su valor se resaltará en rojo. Las "
+"variables se presentan en una forma de árbol fácil de ver: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:574(para)
 msgid ""
 "The value of a local variable can be modified by selecting it and clicking "
 "in the value column."
 msgstr ""
+"El valor de una variable local se puede modificar seleccionándola y pulsando "
+"en la columna valor."
 
 #: C/anjuta-manual.xml:579(para)
 msgid ""
@@ -3380,10 +3431,14 @@ msgid ""
 "version (6.6) of gdb. On older version, gdb can crash when the front end ask "
 "for an pointer with an invalid (but not used) value."
 msgstr ""
+"Glib cada vez se usa más y más como «backend» para un «frontend» gráfico. Se "
+"ha mejorado recientemente en ésta área. Se recomienda usar la última "
+"versión (6.6) de gdb. En versiones anteriores gdb se puede colgar cuando el "
+"«frontend» pregunta por un puntero con un valor no válido (pero no usado)."
 
 #: C/anjuta-manual.xml:589(title)
 msgid "Listing watched expressions"
-msgstr ""
+msgstr "Listar las expresiones vigiladas"
 
 #: C/anjuta-manual.xml:590(para)
 msgid ""
@@ -3391,6 +3446,9 @@ msgid ""
 "continuously monitor some variables or expressions, use <emphasis>expression "
 "watch</emphasis>."
 msgstr ""
+"Inspeccionar o evaluar una expresión proporciona el resultado sólo una vez. Para "
+"monitorizar continuamente algunas variables o expresiones, use la "
+"<emphasis>vigilancia de expresiones</emphasis>."
 
 #: C/anjuta-manual.xml:594(para)
 msgid ""
@@ -3398,6 +3456,9 @@ msgid ""
 "guisubmenu><guimenuitem>Watch Window</guimenuitem></menuchoice> to display "
 "the <interface>expression watch window</interface>."
 msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Ver</"
+"guisubmenu><guimenuitem>Ventana de vigilancia</guimenuitem></menuchoice> para mostrar "
+"la <interface>ventana de vigilancia de expresiones</interface>."
 
 #: C/anjuta-manual.xml:601(title)
 msgid "Adding an expression to watch"
@@ -3412,6 +3473,12 @@ msgid ""
 "guimenuitem></menuchoice> A dialog prompting for the expression will appear. "
 "Enter the expression and click <guibutton>OK</guibutton>."
 msgstr ""
+"Pulse con el botón derecho del ratón en la <interface>ventana de vigilancia de expresiones</interface> para abrir "
+"el <interface>menú de operación</interface>. Elija el elemento del menú "
+"<guimenuitem>Añadir vigilancia…</guimenuitem>. Alternativamente  puede usar "
+"<menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Añadir vigilancia…</"
+"guimenuitem></menuchoice>. Aparecerá un diálogo preguntando por la expresión. "
+"Introduzca la expresión y pulse <guibutton>Aceptar</guibutton>."
 
 #: C/anjuta-manual.xml:611(para)
 msgid ""
@@ -3422,6 +3489,12 @@ msgid ""
 "expression can be update manually by choosing <guimenuitem>Update Watch</"
 "guimenuitem> or <guimenuitem>Update All</guimenuitem> in the previous menu."
 msgstr ""
+"De forma predeterminada las expresiones vigiladas se actualizan automáticamente cada vez que el "
+"programa se para. Esto se puede cambiar en el diálogo añadir vigilancia o posteriormente usando el "
+"elemento del menú <guimenuitem>Autoactualizar</guimenuitem> en el menú emergente "
+"de la <interface>ventana de vigilancia de expresiones</interface>. Una expresión "
+"vigilada se puede actualzar manualmente eligiendo <guimenuitem>Actualizar vigilancia</"
+"guimenuitem> o <guimenuitem>Actualizar todo</guimenuitem> en el menú anterior."
 
 #: C/anjuta-manual.xml:620(para)
 msgid ""
@@ -3430,6 +3503,10 @@ msgid ""
 "cannot be found, the front end will try to create the watch expression, each "
 "time the program is stopped."
 msgstr ""
+"No es necesario que el depurador se esté ejecutando para añadir una nueva expresión "
+"a la vigilancia. Si el depurador no se está ejecutando o la expresión correspondiente "
+"no se puede encontrar, el «frontend» tratará de crear la vigilancia de la expresión cada "
+"vez que el programa se pare."
 
 #: C/anjuta-manual.xml:629(title)
 msgid "Removing an expression from watch"
