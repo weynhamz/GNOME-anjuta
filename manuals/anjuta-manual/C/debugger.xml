@@ -592,8 +592,8 @@
 	monitor some variables or expressions, use <emphasis>expression watch</emphasis>.
    </para>
    <para>
-     Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Watch
-	 Window</guimenuitem></menuchoice> to display the <interface>expression watch window</interface>.
+	   Choose the menu item <menuchoice><guisubmenu>View</guisubmenu><guimenuitem>Watches</guimenuitem>
+	   </menuchoice> to display the <interface>expression watch window</interface>.
    </para>
   </sect2>
 
@@ -651,12 +651,10 @@
 	the <guibutton>Inspect</guibutton> button on the <interface>Debug Toolbar</interface>. 
    </para>
    <para>
-    A window will appear showing the result of the evaluation.
-   </para>
-   <para>
-    If an expression is highlighted in the editor, it is already displayed else
-    the window is empty. In both cases, you an select a new expression by clicking
-    on the name column and writing the new expression.
+	   A window will appear showing the evaluation of the expression
+	   highlighted in the editor.
+	   You can evaluate a new expression by clicking on the name column
+	   and entering the new one.
    </para>
    <para>
     The expression can be added directly in the list of watched expressions by 

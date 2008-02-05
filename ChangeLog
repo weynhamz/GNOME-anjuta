@@ -1,3 +1,8 @@
+2008-02-05  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* manuals/anjuta-manual/C/debugger.xml:
+	Fix translation bug #514494 and bug #514440
+
 2008-02-05  Massimo Cora'  <maxcvs@email.it>
 
 	* plugins/symbol-db/symbol-db-engine-iterator-node.c:
