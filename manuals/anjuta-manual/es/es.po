@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-02-03 21:50+0000\n"
-"PO-Revision-Date: 2008-02-04 00:16+0100\n"
+"PO-Revision-Date: 2008-02-05 01:38+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3401,7 +3401,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:601(title)
 msgid "Adding an expression to watch"
-msgstr ""
+msgstr "Añadir una expresión para vigilar"
 
 #: C/anjuta-manual.xml:602(para)
 msgid ""
@@ -3442,12 +3442,18 @@ msgid ""
 "<interface>Operation menu</interface>, clicking with the right mouse button, "
 "and choose the menu item <guimenuitem>Remove</guimenuitem> to remove it."
 msgstr ""
+"Seleccione la expresión para vigilar que quiere quitar en la "
+"<interface>ventana de vigilancia de expresiones</interface>, después abra el "
+"<interface>menú de operación</interface> pulsando con el botón derecho del ratón y "
+"elija el elemento del menú <guimenuitem>Eliminar</guimenuitem>."
 
 #: C/anjuta-manual.xml:636(para)
 msgid ""
 "All watch can be removed by choosing <guimenuitem>Remove All</guimenuitem> "
 "in the popup menu of the <interface>expression watch window</interface>."
 msgstr ""
+"Se puede quitar toda vigilancia eligiendo <guimenuitem>Eliminar todo</guimenuitem> "
+"en el menú emergente de la <interface>ventana de vigilancia de expresiones</interface>."
 
 #: C/anjuta-manual.xml:643(title)
 msgid "Evaluating expressions"
@@ -3463,10 +3469,17 @@ msgid ""
 "the popup menu of the editor or click the <guibutton>Inspect</guibutton> "
 "button on the <interface>Debug Toolbar</interface>."
 msgstr ""
+"Cuando un programa devuelve el control —posiblemente en un punto de parada— es posible "
+"evaluar expresiones o inspeccionar los valores de las variables en el "
+"programa. Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
+"guisubmenu><guimenuitem>Inspeccionar/Evaluar...</guimenuitem></menuchoice>, "
+"<menuchoice><guimenuitem>Inspeccionar/Evaluar...</guimenuitem></menuchoice> en "
+"el menú emergente del editor o pulse el botón <guibutton>Inspeccionar</guibutton> "
+"en la <interface>barra de herramientas de depuración</interface>."
 
 #: C/anjuta-manual.xml:653(para)
 msgid "A window will appear showing the result of the evaluation."
-msgstr ""
+msgstr "Aparecerá una ventana mostrando el resultado de la evaluación."
 
 #: C/anjuta-manual.xml:656(para)
 msgid ""
@@ -3474,16 +3487,21 @@ msgid ""
 "the window is empty. In both cases, you an select a new expression by "
 "clicking on the name column and writing the new expression."
 msgstr ""
+"Si una expresión está resaltada en el editor, ya se muestra en otro lugar "
+"donde la ventana esté vacía. En ambos casos puede seleccionar una nueva expresión "
+"pulsando en el nombre de la columna y escribiendo la nueva expresión."
 
 #: C/anjuta-manual.xml:661(para)
 msgid ""
 "The expression can be added directly in the list of watched expressions by "
 "clicking on <guibutton>Add</guibutton> button."
 msgstr ""
+"La expresión se puede añadir directamente en la lista de expresiones para vigilar pulsando "
+"el botón <guibutton>Añadir</guibutton>."
 
 #: C/anjuta-manual.xml:668(title)
 msgid "Inspecting expressions in editor window"
-msgstr ""
+msgstr "Inspeccionar expresiones en la ventana del editor"
 
 #: C/anjuta-manual.xml:669(para)
 msgid ""
@@ -3492,6 +3510,10 @@ msgid ""
 "time. If the expression is already present in the local or watch window, its "
 "value is displayed in a tool tips window."
 msgstr ""
+"Cuando la depuración está activada con el programa parado, puede obtener el valor "
+"de una expresión simplemente poniendo el puntero sobre ella y dejándolo un tiempo "
+"corto. Si la expresión ya está presente en la ventana local o la ventana de vigilancia "
+"su valor se mostrará en una ventana de consejo."
 
 #: C/anjuta-manual.xml:675(para)
 msgid ""
@@ -3518,6 +3540,12 @@ msgid ""
 "exists in a different frame. This starts from frame 0 (the last function "
 "called) and grows higher as the function nesting become deeper."
 msgstr ""
+"La <interface>ventana de la traza de la pila</interface> muestra el contenido de la "
+"pila del programa. Lista todas las funciones y sus argumentos en la secuencia "
+"en la que se llamaron. También hay un número que representa cada llamada. "
+"Este número se llama <emphasis>marco</emphasis>. Cada llamada en la traza "
+"existe en un marco diferente. Esto comienza desde el marco 0 (la última función "
+"llamada) y crece a medida que el anidamiento de funciones se haga mayor."
 
 #: C/anjuta-manual.xml:696(para)
 msgid ""
