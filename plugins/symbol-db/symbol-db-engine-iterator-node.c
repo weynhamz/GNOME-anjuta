@@ -449,7 +449,7 @@ isymbol_uri (IAnjutaSymbol *isymbol, GError **err)
 	s = SYMBOL_DB_ENGINE_ITERATOR_NODE (isymbol);
 	if (s->priv->uri == NULL)
 	{
-		const cgchar* file_path;
+		const gchar* file_path;
 		file_path = symbol_db_engine_iterator_node_get_symbol_extra_string (s, 
 													SYMINFO_FILE_PATH);
 		s->priv->uri = gnome_vfs_get_uri_from_local_path (file_path);

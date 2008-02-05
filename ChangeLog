@@ -1,3 +1,8 @@
+2008-02-05  Massimo Cora'  <maxcvs@email.it>
+
+	* plugins/symbol-db/symbol-db-engine-iterator-node.c:
+	Fix a compile error added in the previous patch
+ 
 2008-02-04  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/profiler/gprof-view.c,
