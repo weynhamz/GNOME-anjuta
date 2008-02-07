@@ -642,7 +642,7 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	gchar *filename;
 	IAnjutaDocumentManager* docman;
 	GList* docwids, *node;
-	const GList *glade_obj_node;
+	GList *glade_obj_node;
 	
 	g_return_if_fail (uri != NULL);
 	
@@ -718,7 +718,7 @@ ifile_open (IAnjutaFile *ifile, const gchar *uri, GError **err)
 	glade_plugin_add_project (ANJUTA_PLUGIN_GLADE (ifile), project);
 
 	/* Select the first window in the project */
-	for (glade_obj_node = glade_project_get_objects (project);
+	for (glade_obj_node = (GList *) glade_project_get_objects (project);
 		 glade_obj_node != NULL;
 		 glade_obj_node = g_list_next (glade_obj_node))
 	{

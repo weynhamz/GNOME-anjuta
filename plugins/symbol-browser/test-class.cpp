@@ -45,7 +45,7 @@ int main() {
 	First::Second::Second_1_class *sec_class;
 	sec_class->func_second_1_class_foo ();
 	
-	Third::Fourth::Fourth_1_class *fourth_class;
+	Third::Fourth::Fourth_1_class *fourth_class = new Third::Fourth::Fourth_1_class;
 	
 	fourth_class->func_fourth_1_class_foo ();
 //	yklass->

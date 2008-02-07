@@ -1,3 +1,14 @@
+2008-02-08  Johannes Schmid <jhs@gnome.org>
+
+  Patch from Rodrigo Moya <rodrigo@novell.com>
+
+	* plugins/glade/plugin.c: (ifile_open):
+	* plugins/symbol-browser/test-class.cpp:
+	* AUTHORS: Added Rodrigo
+	
+	514732 – 64 bit compliation error
+	514733 – Use of uninitialized variables
+
 2008-02-05  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* manuals/anjuta-manual/C/debugger.xml:
@@ -26348,3 +26359,11 @@ attached the fix for the menu
 1999-12-27 Naba kumar  <naba@gnome.org>
 
 	Anjuta project started.
+
+		TRANSLATION STATISTICS
+		Total messages: 0
+
+	Translation status given in percentage.
++----------------------------------------------------------------------------+
+|  Po file  |            Language  | Translated |   Fuzzy   |   Untranslated |
++----------------------------------------------------------------------------+
