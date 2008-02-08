@@ -52,7 +52,8 @@ typedef enum
 	NEED_PROGRAM_RUNNING = RUN_PROGRAM << (STATE_TO_NEED - STATE_TO_CHANGE),
 	CANCEL_IF_PROGRAM_RUNNING = 1 << 21,
 	CANCEL_ALL_COMMAND = 1 << 22,
-	ASYNCHRONOUS = 1 << 23
+	ASYNCHRONOUS = 1 << 23,
+	HIGH_PRIORITY = 1 << 24
 } DmaCommandFlag;
 
 /* Create a new command structure and append to command queue */

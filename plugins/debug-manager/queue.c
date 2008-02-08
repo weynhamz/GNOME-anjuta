@@ -470,9 +470,9 @@ dma_queue_check_state (DmaDebuggerQueue *self, DmaQueueCommand* cmd)
 	{
 		IAnjutaDebuggerState state;
 		
-		if (self->prepend_command)
+		if (self->prepend_command || dma_command_has_flag (cmd, HIGH_PRIORITY))
 		{
-			/* Prepend command use debugger state or current command state */
+			/* Prepend command and high priority command use debugger state or current command state */
 			if (self->last != NULL)
 			{
 				state = dma_command_is_going_to_state (self->last);
@@ -708,8 +708,11 @@ dma_debugger_queue_command_callback (const gpointer data, gpointer user_data, GE
 	g_return_if_fail (self->last != NULL);
 	
 	self->prepend_command++;
-	dma_command_callback (self->last, data, err);
-	self->prepend_command--;	
+	if (self->queue_state != IANJUTA_DEBUGGER_STOPPED)
+	{
+		dma_command_callback (self->last, data, err);
+	}
+	self->prepend_command--;
 }
 
 gboolean
@@ -736,9 +739,29 @@ dma_debugger_queue_append (DmaDebuggerQueue *self, DmaQueueCommand *cmd)
 			/* Append command at the beginning */
 			g_queue_push_head (self->queue, cmd);
 			
-			dma_debugger_queue_complete (self, self->debugger_state);
+			/* We must not interrupt command having callback, as the command
+			 * will be removed, the callback when emitted will be redirected to
+			 * the handler of the next command */
+			if ((state == IANJUTA_DEBUGGER_STOPPED) || (state == IANJUTA_DEBUGGER_PROGRAM_RUNNING))
+			{
+				dma_debugger_queue_complete (self, self->debugger_state);
+			}
 		}
-		else if (self->prepend_command == 0)
+		else if ((self->prepend_command > 0) || dma_command_has_flag (cmd, HIGH_PRIORITY))
+		{
+			IAnjutaDebuggerState state;
+			
+			state = dma_command_is_going_to_state (cmd);
+			if (state != IANJUTA_DEBUGGER_BUSY)
+			{
+				/* Command is changing debugger state */
+				dma_queue_cancel_unexpected (self, state);
+			}
+			
+			/* Prepend command at the beginning */
+			g_queue_push_head (self->queue, cmd);
+		}
+		else
 		{
 			/* Append command at the end (in the queue) */
 			IAnjutaDebuggerState state;
@@ -750,11 +773,6 @@ dma_debugger_queue_append (DmaDebuggerQueue *self, DmaQueueCommand *cmd)
 			{
 				self->queue_state = state;
 			}
-		}
-		else
-		{
-			/* Prepend command at the beginning */
-			g_queue_push_head (self->queue, cmd);
 		}
 	
 		dma_debugger_queue_execute(self);
