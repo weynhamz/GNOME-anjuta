@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-02-05 19:56+0000\n"
-"PO-Revision-Date: 2008-02-05 21:33+0100\n"
+"PO-Revision-Date: 2008-02-08 02:52+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1688,6 +1688,10 @@ msgid ""
 "project file (<filename>*.anjuta</filename>) in the dialog and click "
 "<guibutton>OK</guibutton>."
 msgstr ""
+"Para abrir un proyecto elija el elemento del menú <menuchoice><guisubmenu>Archivo</"
+"guisubmenu><guimenuitem>Abrir...</guimenuitem></menuchoice>. Seleccione el "
+"archivo de proyecto (<filename>*.anjuta</filename>) en el diálogo y pulse "
+"<guibutton>Aceptar</guibutton>."
 
 #: C/anjuta-manual.xml:123(para)
 msgid ""
@@ -1696,6 +1700,10 @@ msgid ""
 "guisubmenu></menuchoice>. Choose the project file from the list, and the "
 "project will be opened."
 msgstr ""
+"Si el proyecto se ha abierto recientemente, entonces lo encontrará listado en el "
+"menú <menuchoice><guisubmenu>Archivo</guisubmenu><guisubmenu>Recientes</"
+"guisubmenu></menuchoice>. Elija el archivo de proyecto de la lista y se "
+"abrirá el proyecto."
 
 #: C/anjuta-manual.xml:128(para)
 msgid ""
@@ -1709,26 +1717,39 @@ msgid ""
 "tree is visible. Right clicking on these files will pop up the file "
 "operation submenu."
 msgstr ""
+"Tan pronto como se abra el proyecto, <application>Anjuta</application> entrará en "
+"el <emphasis>modo proyecto</emphasis>. Hay tres paneles en la ventana de "
+"proyecto. La primera es el panel del proyecto y lista los archivos de proyecto orgranizados "
+"por tipos de archivo. La segunda es el examinador de símbolos, que ya se ha "
+"discutido en la sección <emphasis>Examinador de símbolos y Examinador de archivos</emphasis>. "
+"El tercer panel es la vista de archivo del proyecto y es más o menos similar "
+"a un gestor de archivos en miniatura. En la vista de archivo todos los archivos presentes en el árbol "
+"de proyecto son visibles. Al pulsar con el botón derecho del ratón sobre esos archivos "
+"aparecerá el submenú emergente de operación."
 
 #: C/anjuta-manual.xml:138(para)
 msgid ""
 "If the project is also a CVS tree, then corresponing file revision numbers "
 "are also listing on the right of file names in the file view pane."
 msgstr ""
+"Si el proyecto es un árbol CVS, entonces también se listarán los números de revisión "
+"de archivo correspondientes a la derecha de los nombres de archivo en el panel de vista de archivo."
 
 #: C/anjuta-manual.xml:144(title)
 msgid "Saving Projects"
-msgstr ""
+msgstr "Guardar proyectos"
 
 #: C/anjuta-manual.xml:145(para)
 msgid ""
 "The project is automatically saved when you close because all changes are "
 "made directly in the project structure."
 msgstr ""
+"El proyecto se guarda automáticamente al cerrar porque todos los cambios se "
+"realizan directamente en la estructura del proyecto."
 
 #: C/anjuta-manual.xml:153(title)
 msgid "Project structure"
-msgstr ""
+msgstr "Estructura del proyecto"
 
 #: C/anjuta-manual.xml:154(para)
 msgid ""
@@ -1745,6 +1766,18 @@ msgid ""
 "projects where the heirarchy could be deep and hard to navigate from the "
 "tree alone. Targets are, in turn, composed of source files."
 msgstr ""
+"La <interface>vista de proyecto</interface> lista el proyecto en una jerarquía "
+"estándar de <ulink type=\"info\" url=\"info:automake\"><application>automake</application></"
+"ulink> organizada en grupos de objetivos. Los <emphasis>grupos</"
+"emphasis> corresponden con los directorios de su proyecto y los <emphasis>objetivos</"
+"emphasis> corresponden con objetivos <application>automake</application> normales "
+"(no confundir con objetivos de make). La <interface>vista de proyecto</interface> "
+"tiene dos partes; una parte (la inferior) muestra la jerarquía completa del proyecto "
+"y la otra parte (la superior) lista directamente objetivos importantes. "
+"Los objetivos importantes los constituyen los archivos ejecutables y las bibliotecas objetivo; "
+"haciendolos muy accesibles desde la vista. Esto es particularmente útil en proyectos "
+"grandes donde la jerarquía puede ser muy profunda y difícil de navegar sólo desde "
+"el árbol. Los objetivos están compuestos de archivos de fuentes."
 
 #: C/anjuta-manual.xml:174(para)
 msgid ""
@@ -1753,6 +1786,10 @@ msgid ""
 "well as targets. In automake projects, groups are just sub-directories in "
 "the project. The top level group is called root and is always \"/\"."
 msgstr ""
+"Los <emphasis>grupos</emphasis> se usan para organizar lógicamente los objetivos. Un "
+"proyecto puede contener cualquier número de grupos. Cada grupo puede tener tanto subgrupos "
+"como objetivos. En proyectos automake, los grupos son sólo subdirectorios en "
+"el proyecto. El nivel superior del grupo se llama «raíz» y siempre es «/»."
 
 #: C/anjuta-manual.xml:182(para)
 msgid ""
@@ -1763,6 +1800,12 @@ msgid ""
 "target). Targets exist under groups. See <link linkend=\"adding-target\">"
 "\"Adding targets\"</link> for full list of available target types."
 msgstr ""
+"Los <emphasis>objetivos</emphasis> son los objetivos de construcción en el proyecto, tales como "
+"los programas (binarios ejecutables), scripts, bibliotecas, datos misceláneos, etc. "
+"No todos los tipos de objetivos se construyen desde los fuentes, pero existen  para organizar las "
+"fuentes y por ello puede que no existan físicamente (ej. un objetivo de datos "
+"misceláneos). Los objetivos existen bajo grupos. Consulte <link linkend=\"adding-target\">"
+"Añadir objetivos</link> para ver una lista completa de los tipos de objetivos disponibles."
 
 #: C/anjuta-manual.xml:193(para)
 msgid ""
@@ -1771,6 +1814,10 @@ msgid ""
 "expect certain type of source files (e.g. programs and libraries target "
 "types), but some can accept any file (e.g. Miscellaneous data target)."
 msgstr ""
+"Los <emphasis>archivos fuente</emphasis> son los archivos usados para construir los objetivos o "
+"sólo son parte de ellos. Sólo existen bajo los objetivos. Muchos tipos de objetivos "
+"esperan cierto tipo de archivos fuente (ej. tipos de objetivo de programas y "
+"bibliotecas), pero algunos pueden aceptar cualquier arachivo (ej. los objetivos de datos misceláneos)."
 
 #: C/anjuta-manual.xml:203(para)
 msgid ""
@@ -1779,12 +1826,19 @@ msgid ""
 "flags directly for each target, or set configure variables. Groups allow "
 "setting installation destinations for its targets."
 msgstr ""
+"Cada uno de los grupos de proyecto y objetivos es configurable de una forma "
+"<application>automake</application> estándar. Puede ajustar las opciones "
+"del compilador y del enlazador directamente para cada objetivo, o ajustar "
+"variables configurables. Los grupos permiten "
+"establecer destinos de instalación para sus objetivos."
 
 #: C/anjuta-manual.xml:210(para)
 msgid ""
 "Just like file manager, project manager view also has convenience actions "
 "(accessible from context menu) for the source files and targets."
 msgstr ""
+"Al igual que un gestor de archivos, la vista del gestor de proyectos también tiene "
+"acciones convenientes (accesibles desde el menú contextual) para los archivos de fuentes y objetivos."
 
 #: C/anjuta-manual.xml:215(para)
 msgid ""
@@ -1793,6 +1847,10 @@ msgid ""
 "application> tries to automate most of the common operations using plugins. "
 "However, you might occationally still need to do them manually."
 msgstr ""
+"Muchas herramientas de la línea de comandos están disponibles para mantener y gestioar un proyecto y "
+"cada herramienta tiene sus reglas y capacidades específicas. <application>Anjuta</"
+"application> intenta automatizar la mayoría de las operaciones comunes usando complementos. "
+"No obstante, puede que ocasionalmente deba realizar algunas de ellas manualmente."
 
 #: C/anjuta-manual.xml:223(para)
 msgid ""
@@ -1801,24 +1859,30 @@ msgid ""
 "<application>Anjuta</application> or not. <application>Anjuta</application> "
 "would update itself with any external changes made to project."
 msgstr ""
+"Es posible usar otras herramientas o editar los archivos de proyecto a "
+"mano simultáneamente. No importa si el proyecto está cargado en "
+"<application>Anjuta</application> o no, <application>Anjuta</application> "
+"se actualizará con cualquier cambio externo que se realice sobre el proyecto."
 
 #: C/anjuta-manual.xml:232(title)
 msgid "Groups and targets"
-msgstr ""
+msgstr "Grupos y objetivos"
 
 #: C/anjuta-manual.xml:235(title)
 msgid "Adding Groups"
-msgstr ""
+msgstr "Añadir grupos"
 
 #: C/anjuta-manual.xml:240(para)
 msgid ""
 "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Group</"
 "guimenuitem></menuchoice> and a dialog to add a new group would popup."
 msgstr ""
+"Seleccione <menuchoice><guisubmenu>Proyecto</guisubmenu><guimenuitem>Añadir grupo</"
+"guimenuitem></menuchoice> y aparecerá un diálogo para añadir un grupo nuevo."
 
 #: C/anjuta-manual.xml:247(para)
 msgid "Select the group under which to add new group."
-msgstr ""
+msgstr "Seleccione el grupo bajo el cuál quiere añadir el grupo nuevo."
 
 #: C/anjuta-manual.xml:250(para)
 msgid "Give a name of the new group and click Ok."
@@ -1862,7 +1926,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:285(title)
 msgid "Adding Targets"
-msgstr ""
+msgstr "Añadir objetivos"
 
 #: C/anjuta-manual.xml:290(para)
 msgid ""
