@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-02-05 19:56+0000\n"
-"PO-Revision-Date: 2008-02-08 02:52+0100\n"
+"PO-Revision-Date: 2008-02-08 15:03+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -279,6 +279,12 @@ msgid ""
 "them (not in anjuta, because they are fixed) if you want to avail these "
 "shortcuts."
 msgstr ""
+"<emphasis>Página del editor de selección:</emphasis> Ctrl+Tab (adelante) y Ctrl+Mayús+"
+"Tab (atrás). Las páginas también se pueden seleccionar pulsando con el botón derecho del ratón "
+"en las solapas de notas y seleccionando una solapa del editor (útil cuando no se pueden ver "
+"a la vez todas las solapas del editor). Algunas configuraciones del escritorio pueden haber "
+"asignado teclas de acceso rápido. En ese caso, deberá reconfigurarlas (no en Anjuta, porque son fijas) "
+"si quiere disponer de esas combinaciones de teclas."
 
 #: C/anjuta-manual.xml:55(para)
 msgid ""
@@ -784,6 +790,12 @@ msgid ""
 "appropiate file type filter in the dialog and the file list will be limited "
 "to the files of the selected type only."
 msgstr ""
+"Si la opción <emphasis>mostrar ocultos</emphasis> está seleccionada (pulse con el botón derecho), "
+"hará que los archivos ocultos (archivos cuyo nombre comienza por «.») sean visibles en la lista de archivos. "
+"Pulse de nuevo para ocultarlos. El diálogo de selección de archivo de <application>Anjuta</application> "
+"también tiene un filtro para tipos de archivo incluido. Seleccione el "
+"filtro de tipo de archivo apropiado en el diálogo y la lista de archivos se limitará a los "
+"archivos del tipo seleccionado."
 
 #: C/anjuta-manual.xml:199(screeninfo)
 msgid "The Save As File"
@@ -996,6 +1008,11 @@ msgid ""
 "details on code folding, see the section <emphasis>Code Folding</emphasis> "
 "below."
 msgstr ""
+"El <emphasis>Margen de plegado del código</emphasis> es donde el árbol de plegado es "
+"visible. Pulsando sobre esos nodos del árbol de plegado plegará o desplegará los bloques "
+"de código. Se dibujará un guión bajo debajo de la línea plegada para que "
+"sea más obvio que se ha plegado un bloque de código bajo la línea. Para obtener "
+"más detalles acerca del plegado de código, consulte la sección <emphasis>Plegado de código</emphasis>."
 
 #: C/anjuta-manual.xml:307(title)
 msgid "Invisible margin marker"
@@ -1202,6 +1219,13 @@ msgid ""
 "is found in (except in the case of function definitions). The symbol browser "
 "lists all the available symbols in the project. <placeholder-1/>"
 msgstr ""
+"<emphasis>Examinador de símbolos:</emphasis> si hay un proyecto abierto, "
+"<application>Anjuta</application> examinará las etiquetas en todos los fuentes "
+"y archivos de cabecera del proyecto. De esta forma es posible ir a cualquier "
+"definición de función, definición de estructura, definición de clase, etc. sin "
+"tener que operar manualmente el archivo. No necesita saber en qué archivo "
+"se encontró la etiqueta (excepto en el caso de las definiciones de funciones). El examinador de símbolos "
+"lista todos los símbolos disponibles en el proyecto. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:446(title)
 msgid "Tags synchronization"
@@ -1369,7 +1393,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:548(title)
 msgid "Search File Pattern"
-msgstr ""
+msgstr "Buscar patrones de archivo"
 
 #: C/anjuta-manual.xml:558(title)
 msgid "Specifying Search Action"
@@ -1391,7 +1415,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:567(title)
 msgid "Search Target Action choice"
-msgstr ""
+msgstr "Selección de búsqueda de acción de objetivo"
 
 #: C/anjuta-manual.xml:575(title) C/anjuta-manual.xml:583(title)
 msgid "Replacing"
@@ -1439,7 +1463,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:604(title)
 msgid "Search Setting dialog"
-msgstr ""
+msgstr "Diálogo de ajustes de búsqueda"
 
 #: C/anjuta-manual.xml:615(title)
 msgid "Printing a file"
@@ -1464,6 +1488,14 @@ msgid ""
 "from <menuchoice><guisubmenu>Settings</guisubmenu><guimenuitem>Preferences. "
 "</guimenuitem></menuchoice><placeholder-1/>"
 msgstr ""
+"La vista previa de impresión se puede obtener seleccionando <menuchoice><guisubmenu>Archivo</"
+"guisubmenu><guimenuitem>Vista previa de impresión</guimenuitem></menuchoice>. Renderizará "
+"el archivo actual y presentará una vista previa de la impresión. Los códigos fuente "
+"que estén resaltados en el editor también se resaltarán de forma similar en la "
+"impresión (o vista previa). Existen opciones adicionales para imprimir los números de línea, "
+"ajustar líneas y/o cabeceras en las preferencias de impresión del editor en "
+"<menuchoice><guisubmenu>Ajustes</guisubmenu><guimenuitem>Preferencias"
+"</guimenuitem></menuchoice> <placeholder-1/>"
 
 #: C/anjuta-manual.xml:634(title)
 msgid "Print Preferences"
@@ -1886,7 +1918,7 @@ msgstr "Seleccione el grupo bajo el cuál quiere añadir el grupo nuevo."
 
 #: C/anjuta-manual.xml:250(para)
 msgid "Give a name of the new group and click Ok."
-msgstr ""
+msgstr "Proporcione el nombre del grupo nuevo y pulse Aceptar."
 
 #: C/anjuta-manual.xml:236(para)
 msgid ""
@@ -1894,6 +1926,9 @@ msgid ""
 "> With automake projects, a new directory with the given name would be "
 "created under the parent group's directory."
 msgstr ""
+"Para añadir un grupo nuevo (un directorio en proyectos basados en automake): <placeholder-1/> "
+"Con proyectos en automake, se creará un directorio nuevo con el nombre proporcionado "
+"bajo el directorio padre del grupo."
 
 #: C/anjuta-manual.xml:257(para)
 msgid ""
@@ -1902,20 +1937,24 @@ msgid ""
 "guimenuitem>. First select the group under which to add the group in "
 "<interface>Project View</interface>."
 msgstr ""
+"El grupo nuevo también se puede añadir desde el menú <guimenu>Operación</guimenu> en "
+"la <interface>vista de proyecto</interface> seleccionando <guimenuitem>Añadir grupo</"
+"guimenuitem>. Primero seleccione el grupo bajo el cual quiere añadir el grupo en la "
+"<interface>vista de proyecto</interface>."
 
 #: C/anjuta-manual.xml:266(title)
 msgid "Removing Groups"
-msgstr ""
+msgstr "Quitar grupos"
 
 #: C/anjuta-manual.xml:271(para)
 msgid "Select the target in <interface>Project Manager view</interface>."
-msgstr ""
+msgstr "Seleccione el objetivo en la <interface>vista del gestor de proyecto</interface>."
 
 #: C/anjuta-manual.xml:274(para) C/anjuta-manual.xml:413(para)
 msgid ""
 "Select <guimenuitem>Remove</guimenuitem> from the <guimenu>Operation</"
 "guimenu> menu."
-msgstr ""
+msgstr "Seleccione <guimenuitem>Eliminar</guimenuitem> del menú <guimenu>Operación</guimenu>."
 
 #: C/anjuta-manual.xml:267(para)
 msgid ""
@@ -1923,6 +1962,8 @@ msgid ""
 "the group will also be removed from the project (they are not deleted from "
 "the file system, though. You can still add them later)."
 msgstr ""
+"Para eliminar un grupo: <placeholder-1/> también se eliminarán del proyecto el objetivo y los fuentes asociados con el "
+"grupo (no se borrar del sistema de archivos, aún podrá añadirlos posteriormente)."
 
 #: C/anjuta-manual.xml:285(title)
 msgid "Adding Targets"
@@ -1933,22 +1974,24 @@ msgid ""
 "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Target</"
 "guimenuitem></menuchoice> and a dialog to add a new target would popup."
 msgstr ""
+"Seleccione <menuchoice><guisubmenu>Proyecto</guisubmenu><guimenuitem>Añadir objetivo</"
+"guimenuitem></menuchoice> y aparecerá un diálogo para añadir un objetivo nuevo."
 
 #: C/anjuta-manual.xml:295(para)
 msgid "Select the group under which to add the target."
-msgstr ""
+msgstr "Seleccione el grupo bajo el cual quiere añadir el objetivo."
 
 #: C/anjuta-manual.xml:298(para)
 msgid "Select the target type."
-msgstr ""
+msgstr "Seleccione el tipo de objetivo."
 
 #: C/anjuta-manual.xml:301(para)
 msgid "Give a name of the new target and click Ok."
-msgstr ""
+msgstr "Proporcione un nombre para el objetivo nuevo y pulse Aceptar."
 
 #: C/anjuta-manual.xml:286(para)
 msgid "To add a new target: <placeholder-1/>"
-msgstr ""
+msgstr "Para añadir un objetivo nuevo: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:305(para)
 msgid ""
