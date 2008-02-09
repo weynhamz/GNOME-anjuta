@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-02-05 19:56+0000\n"
-"PO-Revision-Date: 2008-02-08 15:03+0100\n"
+"PO-Revision-Date: 2008-02-09 19:53+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3099,6 +3099,11 @@ msgid ""
 "the <guibutton>Run to Cursor</guibutton> icon in the <interface>Debug "
 "toolbar</interface> to run until the line at cursor is reached."
 msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
+"guisubmenu><guimenuitem>Ejecutar hasta cursor</guimenuitem></menuchoice> o pulse "
+"en el icono <guibutton>Ejecutar hasta cursor</guibutton> en la <interface>barra de "
+"herramientas del depurador</interface> para ejecutar hasta la línea en la que se encuentra "
+"el cursor."
 
 #: C/anjuta-manual.xml:258(para)
 msgid ""
@@ -3106,6 +3111,9 @@ msgid ""
 "address (if the <interface>Disassembly window</interface> has the focus) "
 "where the cursor is is reached."
 msgstr ""
+"Esta opción continua la ejecución del programa hasta la línea o la dirección "
+"(si la <interface>ventana de desensamblado</interface> tiene el foco) "
+"donde se alcanza al cursor."
 
 #: C/anjuta-manual.xml:266(title)
 msgid "Stop Program"
@@ -3120,6 +3128,12 @@ msgid ""
 "guibutton> icon in the <interface>Debug toolbar</interface>. This will "
 "interrupt the program and return control to the debugger."
 msgstr ""
+"Mientras el programa se está ejecutando y tiene el control no se puede realizar "
+"ninguna acción de depuración. Para obtener el control mientras el programa se está ejecutando elija "
+"el elemento del menú <menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Interrupción "
+"del programa</guimenuitem></menuchoice> o pulse en el icono <guibutton>Parar el programa</guibutton> "
+"en la <interface>barra de herramientas del depurador</interface>. Esto interrumpirá "
+"el programa y devolverá el control al depurador."
 
 #: C/anjuta-manual.xml:282(title)
 msgid "Breakpoints"
@@ -3135,6 +3149,13 @@ msgid ""
 "program is suspended, enabling expressions to be evaluated, variables to be "
 "inspected, the stack trace to be studied, and so on."
 msgstr ""
+"Al depurar un programa es útil poder parar la ejecución del programa "
+"en un punto en particular, de tal forma que se pueda examinar el estado "
+"del programa en esa ubicación. Los puntos de parada permiten que esto pase. Los puntos de parada "
+"se pueden establecer en diferentes ubicaciones en un archivo fuente para después hacer "
+"que el programa se ejecute. Cuando se encuentra un punto de parada se suspende la "
+"ejecución del programa, activando las expresiones para que se evalúen, que las variables "
+"se inspecciones, que se estudie la traza de la pila y demás."
 
 #: C/anjuta-manual.xml:293(title)
 msgid "Listing Breakpoints"
@@ -3286,21 +3307,23 @@ msgstr "Diálogo de adición de punto de parada"
 
 #: C/anjuta-manual.xml:415(para)
 msgid "File_name:Line_number"
-msgstr ""
+msgstr "Nombre_de_archivo:Número_de_línea"
 
 #: C/anjuta-manual.xml:416(para)
 msgid "Function_name"
-msgstr ""
+msgstr "Nombre_de_la_función"
 
 #: C/anjuta-manual.xml:417(para)
 msgid "File:Function_name"
-msgstr ""
+msgstr "Archivo:Nombre_de_la_función"
 
 #: C/anjuta-manual.xml:410(para)
 msgid ""
 "Enter the location at which to set the breakpoint. It has to be specified in "
 "one of the following formats: <placeholder-1/>"
 msgstr ""
+"Introduzca la ubicación en la que quiere establecer el punto de parada. Se debe especificar "
+"en uno de los siguientes formatos: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:421(para)
 msgid ""
@@ -3386,6 +3409,11 @@ msgid ""
 "<guibutton>Toggle Breakpoint</guibutton> icon in the <interface>Debug "
 "toolbar</interface>."
 msgstr ""
+"Un punto de parada también se puede establecer seleccionando una línea en el editor y eligiendo "
+"el elemento del menú <menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Conmutar "
+"punto de parada</guimenuitem></menuchoice> en el elemento del menú emergente o pulsando "
+"el icono <guibutton>Conmutar punto de parada</guibutton> en la <interface>barra de herramientas "
+"del depurador</interface>."
 
 #: C/anjuta-manual.xml:486(para)
 msgid ""
@@ -3393,6 +3421,9 @@ msgid ""
 "library not loaded yet. But they cannot be added while a program is running "
 "under control of the debugger."
 msgstr ""
+"Los puntos de parada se pueden añadir incluso si el depurador no se ha iniciado o la "
+"biblioteca dinámica no se ha cargado aún. Pero no se pueden añadir mientras un programa "
+"se está ejecutando bajo el control del depurador."
 
 #: C/anjuta-manual.xml:495(title)
 msgid "Editing Breakpoints"
