@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-09 21:02+0100\n"
-"PO-Revision-Date: 2008-02-09 21:57+0100\n"
+"PO-Revision-Date: 2008-02-09 23:44+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -431,9 +431,9 @@ msgstr "Misslyckades med att läsa \"%s\": XML-tolkningsfel"
 
 #: ../libanjuta/anjuta-profile.c:581
 #: ../libanjuta/anjuta-profile.c:732
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins profile."
-msgstr "Misslyckades med att läsa \"%s\": XML-tolkningsfel"
+msgstr "Misslyckades med att läsa \"%s\": XML-tolkningsfel. Ogiltig eller skadad profil för Anjuta-instick."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:755
@@ -504,16 +504,15 @@ msgid "_Discard changes"
 msgstr "_Förkasta ändringar"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
-#, fuzzy, c-format
+#, c-format
 msgid "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
 msgid_plural "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
-msgstr[0] "<b>Det finns ett objekt med osparade ändringar. Spara ändringar innan stängning?</b>"
-msgstr[1] "<b>Det finns ett objekt med osparade ändringar. Spara ändringar innan stängning?</b>"
+msgstr[0] "<b>Det finns %d objekt med osparade ändringar. Spara ändringar innan stängning?</b>"
+msgstr[1] "<b>Det finns %d objekt med osparade ändringar. Spara ändringar innan stängning?</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:311
-#, fuzzy
 msgid "There is an item with unsaved changes. Save changes before closing?"
-msgstr "<b>Det finns ett objekt med osparade ändringar. Spara ändringar innan stängning?</b>"
+msgstr "Det finns ett objekt med osparade ändringar. Spara ändringar innan stängning?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 #: ../libanjuta/anjuta-ui.c:891
@@ -1092,9 +1091,9 @@ msgid "File to which the processed template will be written"
 msgstr "Fil till vilken de behandlade mallen ska skrivas till"
 
 #: ../plugins/class-gen/generator.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to write autogen definition file"
-msgstr "Misslyckades med att skriva data till fil."
+msgstr "Misslyckades med att skriva definitionsfil för autogen"
 
 #: ../plugins/class-gen/plugin.c:99
 #: ../plugins/project-wizard/druid.c:828
@@ -1346,9 +1345,8 @@ msgstr "Kunde inte ta bort fil"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:244
 #: ../plugins/subversion/subversion-commit-dialog.c:70
-#, fuzzy
 msgid "Are you sure that you want to pass an empty log message?"
-msgstr "Är du säker på att du inte vill ha ett loggmeddelande?"
+msgstr "Är du säker på att du vill skicka ett tomt loggmeddelande?"
 
 #: ../plugins/cvs-plugin/cvs-callbacks.c:434
 msgid "CVSROOT"
@@ -1375,16 +1373,15 @@ msgid "Are you sure that you do not want a log message?"
 msgstr "Är du säker på att du inte vill ha ett loggmeddelande?"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:128
-#, fuzzy
 msgid "CVS command failed - See above for details"
-msgstr "CVS-kommandot misslyckades! - Se ovanför för detaljer"
+msgstr "CVS-kommandot misslyckades! - Se ovan för detaljer"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "CVS command successful! - Time taken: %ld second"
 msgid_plural "CVS command successful! - Time taken: %ld seconds"
-msgstr[0] "CVS-kommando lyckades! - Tog %ld sekunder."
-msgstr[1] "CVS-kommando lyckades! - Tog %ld sekunder."
+msgstr[0] "CVS-kommando lyckades! - Använd tid: %ld sekunder"
+msgstr[1] "CVS-kommando lyckades! - Använd tid: %ld sekund"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:224
 msgid "CVS command is running - please wait until it finishes!"
@@ -1588,9 +1585,8 @@ msgid "Enable _all"
 msgstr "Aktivera _alla"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:15
-#, fuzzy
 msgid "Enter an address in hexadecimal or select one in the data"
-msgstr "Ange en Hexa-adress eller välj en i data"
+msgstr "Ange en hexadecimal adress eller välj en i datat"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
 #: ../plugins/gdb/anjuta-gdb.glade.h:14
@@ -2405,9 +2401,8 @@ msgid "Thread"
 msgstr "Tråd"
 
 #: ../plugins/debug-manager/threads.c:612
-#, fuzzy
 msgid "Thread operations"
-msgstr "Glade-åtgärder"
+msgstr "Trådåtgärder"
 
 #. Action name
 #. Stock icon, if any
@@ -2755,9 +2750,8 @@ msgid "_Print Preview"
 msgstr "_Förhandsvisning"
 
 #: ../plugins/document-manager/plugin.c:190
-#, fuzzy
 msgid "Preview the current file in print-format"
-msgstr "Förhandsvisning av den aktuella filen"
+msgstr "Förhandsvisa den aktuella filen i utskriftsformat"
 
 #: ../plugins/document-manager/plugin.c:195
 msgid "_Transform"
@@ -2932,14 +2926,12 @@ msgid "Quick editor embedded search"
 msgstr ""
 
 #: ../plugins/document-manager/plugin.c:275
-#, fuzzy
 msgid "Quick _ReSearch"
-msgstr "S_nabbsökning"
+msgstr "Snabb _omsökning"
 
 #: ../plugins/document-manager/plugin.c:276
-#, fuzzy
 msgid "Repeat quick search"
-msgstr "S_nabbsökning"
+msgstr "Upprepa snabbsökning"
 
 #: ../plugins/document-manager/plugin.c:281
 #: ../plugins/gtodo/interface.c:164
@@ -3483,9 +3475,8 @@ msgstr "Bredd på radnummermarginal i bildpunkter"
 
 #. If the user presses enter, the indentation of the current line will automatically be added to the next line
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:50
-#, fuzzy
 msgid "Maintain past Indentation"
-msgstr "Aktivera automatisk indentering"
+msgstr "Behåll tidigare indentering"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:51
 msgid "Margin Fold visible"
@@ -3520,7 +3511,6 @@ msgid "Pressing backspace un-indents"
 msgstr "Tryck på bakåtsteg tar bort indentering"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:61
-#, fuzzy
 msgid "Pressing tab inserts indentation"
 msgstr "Tryck på tabulatortangenten indenterar"
 
@@ -3673,9 +3663,9 @@ msgid "Saving file..."
 msgstr "Sparar fil..."
 
 #: ../plugins/editor/text_editor.c:1638
-#, fuzzy, c-format
+#, c-format
 msgid "Could not save intermediate file %s: %s"
-msgstr "Kunde inte skapa temporära filen %s: %s."
+msgstr "Kunde inte spara tillfälliga filen %s: %s"
 
 #: ../plugins/editor/text_editor.c:1686
 #, c-format
@@ -4421,10 +4411,10 @@ msgid "<New category (%d)>"
 msgstr "<Ny kategori (%d)>"
 
 #: ../plugins/gtodo/notification.c:67
-#, fuzzy, c-format
+#, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
-msgstr[0] "Följande post ska vara klar om %i minuter:"
+msgstr[0] "Följande post ska vara klar om %i minut:"
 msgstr[1] "Följande post ska vara klar om %i minuter:"
 
 #: ../plugins/gtodo/notification.c:76
@@ -4517,23 +4507,21 @@ msgstr "Färgmarkera"
 
 #. tb for highlighting due today
 #: ../plugins/gtodo/preferences.c:145
-#, fuzzy
 msgid "Items that are due today"
-msgstr "poster som ska vara klara idag"
+msgstr "Poster som ska vara klara idag"
 
 #. tb for highlighting due
 #: ../plugins/gtodo/preferences.c:151
-#, fuzzy
 msgid "Items that are past due"
-msgstr "poster som har passerat slutdatum"
+msgstr "Poster som har passerat slutdatum"
 
 #. tb for highlighting in x days
 #: ../plugins/gtodo/preferences.c:157
-#, fuzzy, c-format
+#, c-format
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
-msgstr[0] "poster som ska vara klara inom %i dagar"
-msgstr[1] "poster som ska vara klara inom %i dagar"
+msgstr[0] "Poster som ska vara klara inom %i dag"
+msgstr[1] "Poster som ska vara klara inom %i dagar"
 
 #: ../plugins/gtodo/preferences.c:171
 msgid "Misc"
@@ -4562,11 +4550,11 @@ msgid "Notification"
 msgstr "Notifiering"
 
 #: ../plugins/gtodo/preferences.c:219
-#, fuzzy, c-format
+#, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
 msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
-msgstr[0] "Tillåt att Attgöra-poster notifierar mig när de ska vara klara om %i minuter"
-msgstr[1] "Tillåt att Attgöra-poster notifierar mig när de ska vara klara om %i minuter"
+msgstr[0] "Tillåt att Attgöra-poster notifierar mig när de ska vara klara inom %i minut"
+msgstr[1] "Tillåt att Attgöra-poster notifierar mig när de ska vara klara inom %i minuter"
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
@@ -5037,7 +5025,7 @@ msgstr "Bläddra..."
 
 #: ../plugins/profiler/profiler.glade.h:8
 msgid "Do not propagate time for these symbols:"
-msgstr ""
+msgstr "Propagera inte tid för dessa symboler:"
 
 #: ../plugins/profiler/profiler.glade.h:9
 msgid "Do not show static functions"
@@ -5066,7 +5054,7 @@ msgstr "Profileringsalternativ"
 
 #: ../plugins/profiler/profiler.glade.h:18
 msgid "Propagate time for all symbols"
-msgstr ""
+msgstr "Propagera tid för alla symboler"
 
 #: ../plugins/profiler/profiler.glade.h:19
 msgid "Propagate time for only these symbols:"
@@ -7961,11 +7949,11 @@ msgstr "Uppgiftshanterare"
 
 #: ../plugins/gtodo/anjuta-gtodo.plugin.in.h:2
 msgid "Todo Plugin for Anjuta."
-msgstr ""
+msgstr "Attgöra-instick för Anjuta."
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:1
 msgid "Insert predefined macros into Editor"
-msgstr ""
+msgstr "Infoga fördefinierade makron i redigeraren"
 
 #: ../plugins/macro/anjuta-macro.plugin.in.h:2
 msgid "Macro Plugin"
