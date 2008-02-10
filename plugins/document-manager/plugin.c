@@ -233,16 +233,24 @@ static GtkActionEntry actions_select[] = {
 };
 
 static GtkActionEntry actions_comment[] = {
-  { "ActionMenuEditComment", NULL, N_("Co_mment"), NULL, NULL, NULL}, /* menu title */
+  { "ActionMenuEditComment", NULL, N_("Co_mment"), NULL, NULL, NULL},
+	/* Block comment: Uses line-comment (comment that affects only single line
+	such as '//' or '#') and comments a block of lines. */
   { "ActionEditCommentBlock", NULL, N_("_Block Comment/Uncomment"), NULL,
 	N_("Block comment the selected text"),
     G_CALLBACK (on_comment_block)},
+	/* Box comment: Uses stream-comment to comment a block of lines, usually with
+	some decorations, to give an appearance of box. */
   { "ActionEditCommentBox", NULL, N_("Bo_x Comment/Uncomment"), NULL,
 	N_("Box comment the selected text"),
     G_CALLBACK (on_comment_box)},
+	/* Stream comment: Uses 'stream comment' (comment that affects a stream of
+	characters -- has start and end comment code) and comments any code from
+	arbitrary start position to arbitrary end position (can be in middle of
+	lines). */
   { "ActionEditCommentStream", NULL, N_("_Stream Comment/Uncomment"), NULL,
 	N_("Stream comment the selected text"),
-    G_CALLBACK (on_comment_block)},
+    G_CALLBACK (on_comment_stream)},
 };
 
 static GtkActionEntry actions_navigation[] = {

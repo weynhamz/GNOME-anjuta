@@ -1,3 +1,9 @@
+2008-02-10  Naba Kumar  <naba@gnome.org>
+
+	* plugins/document-manager/plugin.c: Fixed stream comment and added
+	translator's comment for 'block comment', 'box comment' and 'stream
+	comment'
+
 2008-02-10  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/command.c,
