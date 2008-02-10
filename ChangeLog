@@ -1,3 +1,7 @@
+2008-02-10  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated for release.
+
 2008-02-10  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-document-manager.plugin.in:
@@ -317,8 +321,8 @@
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/plugin.c: (docman_plugin_set_tab_pos):
-  Fixed #512535 – Open files tabs' position is correctly remembered 
-  but not applied at startup
+	Fixed #512535 – Open files tabs' position is correctly remembered 
+	but not applied at startup
 
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 
@@ -328,8 +332,8 @@
 
 2008-02-01  James Liggett <jrliggett@cox.net>
  
-  * plugins/subversion/svn-command.c: (on_svn_notify):
-  Fixed wrong status message output when resolving conflicts.
+	* plugins/subversion/svn-command.c: (on_svn_notify):
+	Fixed wrong status message output when resolving conflicts.
 
 2008-02-02  Johannes Schmid <jhs@gnome.org>
 

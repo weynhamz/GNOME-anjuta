@@ -1,3 +1,72 @@
+Anjuta 2.3.4 (11 Feb 2008) -- Naba Kumar
+-----------------------------------------
+
+Bugfixes:
+=========
+* Documentation fixes for IAnjutaDebugger* interfaces
+* ianjuta_document_manager_find_document_with_path expect an uri not a path.
+* Fix #513130, #513131 #513135: Wrong menu item names and errors in the
+  documentation
+* Remove a possible memory leak
+* Fix #512901: Crash when adding a breakpoint
+* Fixed Editor->View popup menu for those entries that are appropriate for
+  sourceview	
+* Fix #507831 - Wrong Profiler values for some locales
+* Fixed button ui problem...
+* Fix #511586: Project path with "+" not working in debugger
+* Emit all state changes notification
+* Avoid crash when getting relative path from debugger (same fix
+  than for #510028)
+* Fix #513485: wrong strings maked as translatable
+* Fixed crash when closing anjuta after all document tabs have been closed
+* Fixed "jumping" tooltips, fixed indentation of brances
+* Fixed #512751 - libgnomeprint unnecessary without scintilla
+* Use two decimal places for float values in profiler views (bug #507831)
+* Another UI issue with the patch plugin and silenced a compiler
+  warning
+* Updated manual figures to be in clearlooks theme, removed old figures
+* Updated manual
+* Fixed tabsize preference
+* Adapted to API changes in GtkSourceView
+* Fixed wrong status message output when resolving svn conflicts.
+* Pass an uri to ianjuta_document_manager_goto_file_line_mark() to fix
+  clicking on search result messages
+* Fixed #512535 - Open files tabs' position is correctly remembered 
+  but not applied at startup
+* Adjust preferences default values
+* Fixed #513730 - Option not present in the GUI po file
+* Fixed #509908 - [UI] Problems with the General settings tab
+* Fixed #511010 - [UI] Execute program utility window
+* Fixed #511981 - Error parsing make output
+* Fixed #495511 - Header_h macro correction
+* Fixed #513888 – Trailing '\' in anjuta-manual/Makefile.am 
+  causes make install to fail
+* Partial fix of #507921: translation issues in debug-manager, tools,
+  project-wizard, gdb and anjuta-plugin-manager.
+* Update debugger documentation
+* Fix bug #514118: Rename Clear All Breakpoints to Remove
+  All Breakpoints
+* Fix search plugin to use an URI instead of a file path
+* Fix anjuta_docman_get_uri to always return an URI
+* Fix bug #514124 and bug #514138: Wrong menu item name
+* Fixed translation bugs from #507921.
+* Removed unused files in scintilla plugin
+* Fix translation bug #514494 and bug #514440
+* Fixed #514732 – 64 bit compliation error
+* Fixed bug #514733 – Use of uninitialized variables
+* Fix crashes when trying to stop the debugger while it is busy
+* Fixes bug #515500 - Make sure that all paths are "canonical" by
+  libsvn rules so anjuta doesn't die if the user gives a path that
+  libsvn doesn't like. 
+* Removed (almost) empty files, fixes #515383 and #515388
+* Fix interrupt command, not working due to previous change
+* Fix #512531 - Parallel build fails
+* Fix translation bug #515459 and #515460
+* Fix bug #515463: Deattaching process kill it
+* Fixed stream comment
+* Fix spelling errors, including bug #515204, #515172, #515117 and #513892
+* Fixes bug #510183 - Tooltips claim to be broken.
+
 Anjuta 2.3.3 (27 Jan 2008) -- Naba Kumar
 -----------------------------------------
 
