@@ -26,7 +26,7 @@
     <sect2 id="file-wizard">
     <title>File Wizard</title>
      <para>
-      A wizard can also be used to create a new file.To create a new file, choose
+      A wizard can also be used to create a new file. To create a new file, choose
       <menuchoice><guisubmenu>File</guisubmenu><guisubmenu>New</guisubmenu> 
       <guimenuitem>File</guimenuitem></menuchoice> from the menubar.
       This will open the New File Wizard dialog. Select the file type. Enter the File name. 
@@ -43,7 +43,7 @@
       </figure>
      </para>
      <para>
-       <application>Anjuta</application> occatinally also creates new files during some
+       <application>Anjuta</application> occasionally also creates new files during some
         operations. For example, some CVS operations, such as diff, file log, file status
         etc, create new files and add the output there. These could be saved in real file
         just like normal new files.
@@ -165,7 +165,7 @@
 	   For selecting multiple files at once,
 	   select a file in the dialog and press CTRL once. This will bring the file selection
 	   dialog in multiple-select mode and multiple files could be selected from the list.
-	   Multiple file select mode is simlar to single file select mode, except that the file
+	   Multiple file select mode is similar to single file select mode, except that the file
 	   operation (for which the file selection was being done) will be performed for all
 	   the selected files.
 	   <figure id="open-file-multiple">
@@ -177,10 +177,10 @@
        </figure>
 	  </para>
 	  <para>
-	   The <emphasis>Show Hidden</emphasis>, if switched on (Click right), will make the hidden
+	   The <emphasis>Show Hidden Files</emphasis>, if switched on (Click right), will make the hidden
 	   files (files starting with "."; visible in the file list. Depress it to make
-	   them hide. <application>Anjuta</application> fileselection dialog also has inbuild
-	   file type filter. Select the appropiate file type filter in the dialog and the file
+	   them hide. <application>Anjuta</application> file selection dialog also has inbuilt
+	   file type filter. Select the appropriate file type filter in the dialog and the file
 	   list will be limited to the files of the selected type only.
 	  </para>
      </listitem>
@@ -264,7 +264,7 @@
 	   and all of them may not be available when you first start <application>anjuta</application>.
        They are Line numbers margin, Markers margin and Code fold margin.
        By default (that is, when you run <application>anjuta</application> for the first time) only
-       the code fold margin witll be visible. The rest could be made visible from
+       the code fold margin will be visible. The rest could be made visible from
        <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu></menuchoice>.
        <figure id="editor-margins">
         <title>Editor Margins</title>
@@ -288,7 +288,7 @@
 	   <guimenuitem>Markers Margin</guimenuitem></menuchoice>. This margin displays graphical icons
 	   to mark the given line. The markers which will be displayed in this margin are Bookmark marker
 	   (rectangular blue colored icon), Breakpoint marker (circular red colored) and Line indicator
-	   (pointed arrow yellow colored). Bookmark marker is used to indicate bookmaked lines which could
+	   (pointed arrow yellow colored). Bookmark marker is used to indicate bookmarked lines which could
 	   be toggled from <menuchoice><guimenu>Goto</guimenu><guisubmenu>Bookmark</guisubmenu><guimenuitem>
 	   Toggle Bookmark</guimenuitem></menuchoice>
 	   with the cursor placed in that line. The breakpoint marker is used in debugger to mark the
@@ -297,7 +297,7 @@
 	   navigating the bookmarks and during single stepping in debugger.
        </para>
        <para>
-        <emphasis>Code folding margin</emphasis> is where the folding tree is visisble. Clicking 
+        <emphasis>Code folding margin</emphasis> is where the folding tree is visible. Clicking 
         on these folding tree nodes will fold or unfold the code blocks. An underline will also
         be drawn below the folded line to make it more obvious that a block of code has been 
         folded below the line. For more details on code folding, see the section <emphasis>Code Folding</emphasis>
@@ -309,13 +309,13 @@
          If the marker margin is not visible, the markers will be displayed by changing the
          background color of the line. For example, if there a breakpoint marker is set in 
          a line and the marker margin is not visible, that line will be displayed with red
-         background. Similarly, for bookmark marker and line indicatior marker, the background
+         background. Similarly, for bookmark marker and line indication marker, the background
          color of the line will be sky blue and yellow, respectively. If you do not like this
          (perhaps due to some contrasting themes), enable the <emphasis>Markers Margins</emphasis>
          from <menuchoice><guimenu>View</guimenu><guisubmenu>Editor</guisubmenu>
          <guimenuitem>Markers Margin</guimenuitem></menuchoice>.
          <figure id="editor-markers">
-          <title>Editor markes when markers margin is invisible</title>
+          <title>Editor markers when markers margin is invisible</title>
           <screenshot>
            <screeninfo>The Tags toolbar</screeninfo>
            <graphic fileref="figures/editor_markers.png" format="PNG" srccredit="naba"></graphic>
@@ -332,7 +332,7 @@
       visible or invisible by toggling the menu items in <menuchoice><guimenu>View</guimenu>
       <guisubmenu>Editor</guisubmenu></menuchoice>. Indentation guides are the small dotted lines 
       drawn to connect the matching braces in the source code. When the cursor is over one such
-      maching braces, the dotted indentation guide is highlighted to give a visual region of the
+      matching braces, the dotted indentation guide is highlighted to give a visual region of the
       indentation.
       </para>
        <figure id="editor-guides">
@@ -372,7 +372,7 @@
     </para>
     <note>
      <para>
-	  Please note that code folding and editor guides are only avalible in
+	  Please note that code folding and editor guides are only available in
       the scintilla based editor.
 	 </para>
 	</note>
@@ -398,14 +398,14 @@
     All C and C++ source and header files can be browsed using the tags in the files. 
     All of the open C and C++ source and header files are scanned for available tags 
 	(a "tag" refers to a function definition, structure, macro, etc.). Please note that
-    Tag and Symbol is used synonymously in this manual, except when refering to Tags
+    Tag and Symbol is used synonymously in this manual, except when referring to Tags
     browser and Symbol browser, which two different interfaces.
    </para>
     <orderedlist>
      <listitem>
       <para><emphasis>Tags Browser:</emphasis> Tags browser is available on the 
       Browser toolbar. It shows a list of tags available in the currently active
-      file (souce file). If there is no tags (or sysmbols) available in the file,
+      file (source file). If there is no tags (or symbols) available in the file,
       the tags list will be invisible and a "No Tags" will be displayed instead. The tags
       in this list are shown along with the line numbers where they are found. If there are
       multiple symbols with the same name, they will be shown with different line numbers.
@@ -418,7 +418,7 @@
        </figure>
       <tip><title>Function symbols</title>
        <para>Function prototype and definition, if present in the same file, can be usually
-       distinguished from the corrosponding line numbers. Prototypes usually comes before the
+       distinguished from the corresponding line numbers. Prototypes usually comes before the
        definition, so they are likely to have smaller line numbers.
        </para>
       </tip>
@@ -495,7 +495,7 @@
 	  </para>
 	  <para>
 	    If the "Basic Search" option is selected in the Setting window,
-		the search direction can be choosen from the Expression window.
+		the search direction can be chosen from the Expression window.
 	  </para>
       <figure id="search-expr-basic">
       <title>Basic Search Text dialog</title>
@@ -561,7 +561,7 @@
       </para>
       <para>
         According to the previous selections (Search in, Search direction ...),
-		some actions coul be unavailable.
+		some actions could be unavailable.
       </para>
       <figure id="search-target-action">
       <title>Search Target Action choice</title>
@@ -597,7 +597,7 @@
         The user has the possibility of saving the setting of his search options.
       </para>
       <para>
-        Item highlighted in red is the active item. Item by defaultt is the search
+        Item highlighted in red is the active item. Item by default is the search
 		setting which is loaded at Anjuta launching.
       </para>
       <figure id="search-setting-fig">
@@ -617,10 +617,9 @@
      Print preview could be taken by selecting 
 	 <menuchoice><guisubmenu>File</guisubmenu><guimenuitem>Print Preview</guimenuitem></menuchoice>.
 	 It will render the current file and present a preview of the print. Source codes which
-	 are hilighted in the editor are also highlighted similarly in the print (or preview). Addtional
+	 are highlighted in the editor are also highlighted similarly in the print (or preview). Additional
 	 options are available to print with the line numbers, wrapped lines and/or headers in the
-	 Editor printing preferences from <menuchoice><guisubmenu>Settings</guisubmenu><guimenuitem>Preferences.
-	 </guimenuitem></menuchoice>
+	 <guilabel>Printing</guilabel> tab of your editor plugin preferences.
 	 <figure>
        <title>Print preview of a C file</title>
        <screenshot>

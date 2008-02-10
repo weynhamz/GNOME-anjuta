@@ -12,7 +12,7 @@
 
   <para>
   The neat thing is that it does not store any project information beyond what
-  is already available in project struture. That is, there is no separate
+  is already available in project structure. That is, there is no separate
   project data maintained by Anjuta and all project processing are done
   directly within the project structure. This allows the project to be
   maintained or developed outside Anjuta without having to so-called
@@ -54,7 +54,7 @@
    <para>
     On the next pages, enter all necessary
     details for your project. You can change these settings later also, but
-    it is advicable to put them right in first run to maintain the project's
+    it is advisable to put them right in first run to maintain the project's
     integrity.
     White spaces or any non-alphanumeric characters, except 
     underscore (_) and dash (-), are not allowed in many of the entry boxes 
@@ -92,7 +92,7 @@
     <title>Importing Projects</title>
     <para>
      The import project feature is used to import an already existing project and convert it into
-     <application>anjuta</application> projcect. Activate the import project wizard from
+     <application>anjuta</application> project. Activate the import project wizard from
      <menuchoice><guimenu>File</guimenu><guimenu>New</guimenu>
 	<guimenuitem>Project from existing sources</guimenuitem></menuchoice>
      and follow instructions dictated by the wizard. Once the project is imported, it could be
@@ -130,13 +130,13 @@
 	 <emphasis>Project mode</emphasis>. There are three panes in the project window. The
      first is the project pane and lists the project files organized in file types. The second
      is the symbol browser, which has already been discussed in section <emphasis>Symbol
-     Browser and tags Brwoser</emphasis>. The third pane is the file view of the project and
+     Browser and tags Browser</emphasis>. The third pane is the file view of the project and
      is more or less similar to a mini file-manager. In file view, all the files present
      in the project tree is visible. Right clicking on these files will pop up the file
      operation submenu.
     </para>
     <para>
-     If the project is also a CVS tree, then corresponing file revision numbers are also
+     If the project is also a CVS tree, then corresponding file revision numbers are also
      listing on the right of file names in the file view pane.
     </para>
    </sect2>
@@ -154,16 +154,16 @@
   <para>
   <interface>Project View</interface> lists the project in standard
   <ulink type="info" url="info:automake"><application>automake</application></ulink>
-  heirarchy organized
+  hierarchy organized
   into groups of targets. <emphasis>Groups</emphasis> correspond to
   directories in your project and <emphasis>targets</emphasis>
   correspond to normal <application>automake</application> targets (not to be confused
   with make targets). <interface>Project View</interface> actually
   has two parts; one part
-  (lower one) shows complete project heirarchy and the other part (upper one)
+  (lower one) shows complete project hierarchy and the other part (upper one)
   lists important targets directly. Important targets constitute executable
   and library targets -- making them very accessible in from the view.
-  This is particularly useful in big projects where the heirarchy
+  This is particularly useful in big projects where the hierarchy
   could be deep and hard to navigate from the tree alone. Targets are, in
   turn, composed of source files.
   </para>
@@ -216,13 +216,13 @@
    Many command-line tools are available to maintain and manage a project, 
    and each tool has its own specific rules and capabilities.
    <application>Anjuta</application> tries to automate most of the common
-   operations using plugins. However, you might occationally still need
+   operations using plugins. However, you might occasionally still need
    to do them manually.
   </para>
   
   <para>
    It is possible to make use of other tools or hand edit the project
-   files simulaneously. It doesn't matter if the project is loaded in
+   files simultaneously. It doesn't matter if the project is loaded in
    <application>Anjuta</application> or not. <application>Anjuta</application>
    would update itself with any external changes made to project.
   </para>
@@ -430,12 +430,12 @@
 	 <guimenuitem>Add Source File</guimenuitem></menuchoice>.
 	From the dialog, select the target to which the file should be added and
     the file itself. You can add multiple files at once. To do that, select
-    multiple files from the fileselection dialog using either SHIFT or CONTROL
+    multiple files from the file selection dialog using either SHIFT or CONTROL
     key. Then click <guibutton>Add</guibutton> button to finally add the
     files in project.
     </para>
     <para>
-    By default, current editor file would be preselected for addtion in the
+    By default, current editor file would be preselected for addition in the
     dialog. Other convenient way to add a file is to select it in
     <interface>File Manager</interface> and choosing
     <guimenuitem>Add to project</guimenuitem> from the
@@ -580,7 +580,7 @@
    </para>
    <para>
     External package dependencies are grouped into <emphasis>modules</emphasis>,
-    so that their combined build flags can be conviniently added to different
+    so that their combined build flags can be conveniently added to different
     targets. <emphasis>Modules</emphasis> are just arbitrary names given to
     group the packages and can be named anything (only alphanumeric and _ are
     allowed in module name). Usually, they follow the name of
@@ -646,7 +646,7 @@
          <emphasis>Group Properties</emphasis> set to a group applies to all
          the targets under it. So any compiler or linker flags set there would
          be automatically be part of all the targets in it (in addition the
-         targets individual properties). Folowing flags are available in group
+         targets individual properties). Following flags are available in group
          properties.
 
 		   <itemizedlist>
@@ -657,7 +657,7 @@
                 You need to provide the full include options of the compiler
                 here, e.g. -I/usr/include/blah. The include paths will be use
                 to find the include files in your source files. You can also
-                add other sort of compiler flags here, but they are prefered
+                add other sort of compiler flags here, but they are preferred
                 to be set in their respective compiler flags properties
                 (see below).
              </para>
@@ -708,7 +708,7 @@
          <emphasis>Target Properties</emphasis> set to a target applies to that
          target. So any compiler or linker flags set there would
          be just part of it (in addition the its group properties).
-         Folowing flags are available in target properties.
+         Following flags are available in target properties.
 
 		   <itemizedlist>
 		    <listitem>

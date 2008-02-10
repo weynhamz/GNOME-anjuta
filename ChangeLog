@@ -1,3 +1,13 @@
+2008-02-10  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* manuals/anjuta-manual/C/interface.xml,
+	manuals/anjuta-manual/C/introduction.xml,
+	manuals/anjuta-manual/C/preferences.xml,
+	manuals/anjuta-manual/C/fileoperations.xml,
+	manuals/anjuta-manual/C/projects.xml:
+	Fix spelling errors, including bug #515204, #515172, #515117
+	and #513892
+
 2008-02-10  Naba Kumar  <naba@gnome.org>
 
 	* plugins/document-manager/plugin.c: Fixed stream comment and added

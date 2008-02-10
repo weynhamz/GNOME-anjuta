@@ -14,7 +14,7 @@
       <emphasis>Project Directory</emphasis> is the path where you plan to put all your projects.
       Application wizard creates new projects in this directory only. The default project directory
       is ~/Projects and generally, this is just fine for most people. Also, when Open project is
-      activated, this is the base directory where the file selectior will start.
+      activated, this is the base directory where the file selection will start.
       </para>
      </listitem>
       <listitem><para>

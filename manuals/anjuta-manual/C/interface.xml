@@ -36,7 +36,7 @@
    <para>
     Shortcut keys are available for many of the menu options. All of the shortcut 
 	keys are shown alongside the corresponding menu items. A useful reference to 
-	the shortcut keys which are not directly attachted with the menu is also available
+	the shortcut keys which are not directly attached with the menu is also available
 	in the next section. Some useful shortcuts are listed here.
    </para>
 	
@@ -70,7 +70,7 @@
      </listitem>
      <listitem>
       <para>
-	  <emphasis>More shortcus:</emphasis> Look for the shortcut keys displayed on right side
+	  <emphasis>More shortcuts:</emphasis> Look for the shortcut keys displayed on right side
 	  of the menu item labels. They could also be changed as explained in the tip below.
       </para>
      </listitem>
@@ -121,13 +121,13 @@
        The <interface>Files window</interface> shows a file tree. If no project is open, the file
        tree usually points to the file system root but you can change it in the preferences. If a project is 
        open it shows all files inside the project. Double clicking opens a file in the appropriate application
-       as configured in the gnome mime preferences. Richt click opens a popup-menu which gives you
+       as configured in the gnome mime preferences. Right click opens a popup-menu which gives you
        choices how to open the file. 
       </para>
      </listitem>
       <listitem>
       <para>
-       The <interface>Symbols window</interface> shows shows a tree of availible symbols in the project
+       The <interface>Symbols window</interface> shows shows a tree of available symbols in the project
        generated from ctags parser. Double clicking opens an editor window with the corresponding file
        and line.
       </para>
