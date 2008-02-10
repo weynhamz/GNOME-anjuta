@@ -1,3 +1,8 @@
+2008-02-10  Naba Kumar  <naba@gnome.org>
+
+	* plugins/gtodo/preferences.c: (preferences_cb_do_tooltip): Removed
+	unnecessary warning. Fixes bug #510183 - Tooltips claim to be broken.
+
 2008-02-10  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* manuals/anjuta-manual/C/interface.xml,

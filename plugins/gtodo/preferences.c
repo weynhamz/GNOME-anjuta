@@ -306,16 +306,12 @@ static void preferences_cb_do_tooltip(GtkWidget *chbox)
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(chbox)))
 
 	{
-		message_box(_(	"Showing Tooltips in the todo list is still very alpha.\n"
-				"Because of some weird behaviour in gtk it only works with the column headers disabled.\n"
-				"I hope to get this fixed soon"),"", GTK_MESSAGE_INFO);
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(mw.treeview), FALSE);			
 	}
 	else		
 	{
-
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(mw.treeview), TRUE);
-	}		
+	}
 }
 
 static void preferences_cb_auto_purge(GtkWidget *cb, GtkWidget *hbox)
