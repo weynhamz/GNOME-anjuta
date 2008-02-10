@@ -54,9 +54,6 @@ libanjuta_document_manager_la_SOURCES= \
 prefs_glade_files = anjuta-document-manager.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
-libanjuta_document_manager_la_DEPENDENCIES = \
-	build-schema-files 
-
 EXTRA_DIST = \
 	$(document_manager_pixmaps_DATA) \
 	$(plugin_in_files) \

@@ -62,9 +62,6 @@ libanjuta_indent_la_LIBADD = \
 prefs_glade_files = indent.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
-libanjuta_indent_la_DEPENDENCIES = \
-	build-schema-files 
-
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(indent_plugin_DATA) \

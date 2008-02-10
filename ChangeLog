@@ -1,3 +1,23 @@
+2008-02-10  Johannes Schmid <jhs@gnome.org>
+
+  Patch from Rémi Cardona <remi@gentoo.org>
+
+	* plugins/build-basic-autotools/Makefile.am:
+	* plugins/cvs-plugin/Makefile.am:
+	* plugins/document-manager/Makefile.am:
+	* plugins/editor/Makefile.am:
+	* plugins/indent/Makefile.am:
+	* plugins/language-support-cpp-java/Makefile.am:
+	* plugins/message-view/Makefile.am:
+	* plugins/sourceview/Makefile.am:
+	* plugins/symbol-browser/Makefile.am:
+	* plugins/terminal/Makefile.am:
+	* scripts/build-schemas.mk:
+	* src/Makefile.am:
+  Fix #512531 – Parallel build fails
+  
+  * AUTHORS: Added Rémi
+
 2008-02-10  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/queue.c:

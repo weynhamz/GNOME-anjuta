@@ -76,9 +76,6 @@ libanjuta_editor_la_SOURCES= \
 prefs_glade_files = anjuta-editor-scintilla.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
-libanjuta_editor_la_DEPENDENCIES = \
-	build-schema-files
-
 endif
 
 EXTRA_DIST = \

@@ -97,9 +97,6 @@ libanjuta_sourceview_la_LIBADD = \
 prefs_glade_files = anjuta-editor-sourceview.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
-libanjuta_sourceview_la_DEPENDENCIES = \
-	build-schema-files
-
 endif
 
 EXTRA_DIST = \

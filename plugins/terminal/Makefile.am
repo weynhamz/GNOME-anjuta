@@ -43,9 +43,6 @@ libanjuta_terminal_la_LIBADD = \
 prefs_glade_files = anjuta-terminal-plugin.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
-libanjuta_terminal_la_DEPENDENCIES = \
-	build-schema-files
-
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(terminal_plugin_DATA) \

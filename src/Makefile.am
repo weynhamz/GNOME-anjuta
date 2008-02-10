@@ -55,9 +55,6 @@ anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
 prefs_glade_files = anjuta.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
-anjuta_DEPENDENCIES = \
-	build-schema-files
-
 anjuta_shell_SOURCES = shell.c shell.h
 anjuta_shell_LDADD =  \
 	$(top_builddir)/libanjuta/libanjuta.la

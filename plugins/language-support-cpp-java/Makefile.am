@@ -64,10 +64,6 @@ libanjuta_language_cpp_java_la_LIBADD = \
 prefs_glade_files = anjuta-language-cpp-java.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
-libanjuta_language_cpp_java_la_DEPENDENCIES = \
-	build-schema-files
-
-
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(cpp_java_plugin_DATA) \

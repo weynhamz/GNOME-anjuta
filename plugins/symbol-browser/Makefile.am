@@ -68,9 +68,6 @@ libanjuta_symbol_browser_la_LIBADD = \
 prefs_glade_files = anjuta-symbol-browser-plugin.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
-libanjuta_symbol_browser_la_DEPENDENCIES = \
-	build-schema-files
-
 EXTRA_DIST = \
 	$(plugin_in_files) \
 	$(symbol_browser_plugin_DATA) \
