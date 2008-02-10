@@ -38,8 +38,6 @@ anjuta_SOURCES = \
 	anjuta.h \
 	anjuta-app.c \
 	anjuta-app.h \
-	anjuta-callbacks.h \
-	anjuta-callbacks.c \
 	anjuta-actions.h \
 	action-callbacks.h \
 	action-callbacks.c \

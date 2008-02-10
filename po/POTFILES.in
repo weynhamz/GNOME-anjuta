@@ -204,7 +204,6 @@ src/anjuta.c
 src/anjuta.glade
 src/anjuta-actions.h
 src/anjuta-app.c
-src/anjuta-callbacks.c
 src/main.c
 libanjuta/anjuta-save-prompt.c
 plugins/debug-manager/breakpoints.c

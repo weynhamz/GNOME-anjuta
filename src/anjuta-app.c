@@ -44,7 +44,6 @@
 #include <libanjuta/anjuta-debug.h>
 
 #include "anjuta-app.h"
-#include "anjuta-callbacks.h"
 #include "anjuta-actions.h"
 #include "about.h"
 
