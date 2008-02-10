@@ -1,3 +1,7 @@
+2008-02-11  Naba Kumar  <naba@gnome.org>
+
+	* configure.in: Bumped version to 2.3.4
+
 2008-02-10  Naba Kumar  <naba@gnome.org>
 
 	* NEWS: Updated for release.
