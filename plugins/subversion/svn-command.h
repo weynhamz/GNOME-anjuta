@@ -65,6 +65,7 @@ svn_client_ctx_t *svn_command_get_client_context (SvnCommand *self);
 apr_pool_t *svn_command_get_pool (SvnCommand *self);
 void svn_command_lock_ui (SvnCommand *self);
 void svn_command_unlock_ui (SvnCommand *self);
+gchar *svn_command_make_canonical_path (SvnCommand *self, gchar *path);
 
 /* Static methods */
 svn_opt_revision_t *svn_command_get_revision (gchar *revision);

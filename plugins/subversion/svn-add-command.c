@@ -97,7 +97,8 @@ svn_add_command_new (gchar *path, gboolean force, gboolean recursive)
 	SvnAddCommand *self;
 	
 	self = g_object_new (SVN_TYPE_ADD_COMMAND, NULL);
-	self->priv->path = g_strdup (path);
+	self->priv->path = svn_command_make_canonical_path (SVN_COMMAND (self),
+														path);
 	self->priv->force = force;
 	self->priv->recursive = recursive;
 	

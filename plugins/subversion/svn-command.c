@@ -599,6 +599,16 @@ svn_command_unlock_ui (SvnCommand *self)
 	g_mutex_unlock (self->priv->ui_lock);
 }
 
+gchar *
+svn_command_make_canonical_path (SvnCommand *self, gchar *path)
+{
+	const gchar *canonical_path;
+	
+	canonical_path = svn_path_canonicalize (path, self->priv->pool);
+	
+	return g_strdup (canonical_path);
+}
+
 svn_opt_revision_t *
 svn_command_get_revision (gchar *revision)
 {

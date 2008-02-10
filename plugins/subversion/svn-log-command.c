@@ -175,8 +175,8 @@ svn_log_command_new (gchar *path)
 	SvnLogCommand *self;
 	
 	self = g_object_new (SVN_TYPE_LOG_COMMAND, NULL);
-	self->priv->path = g_strdup (path);
-	
+	self->priv->path = svn_command_make_canonical_path (SVN_COMMAND (self),
+														path);	
 	return self;
 }
 

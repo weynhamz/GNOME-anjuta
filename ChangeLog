@@ -1,3 +1,29 @@
+2008-02-09  James Liggett <jrliggett@cox.net>
+
+	Reviewed by Naba Kumar  <naba@gnome.org>:
+
+	* plugins/subversion/svn-add-command.c: (svn_add_command_new):
+	* plugins/subversion/svn-cat-command.c: (svn_cat_command_new):
+	* plugins/subversion/svn-command.c:
+	(svn_command_make_canonical_path):
+	* plugins/subversion/svn-command.h:
+	* plugins/subversion/svn-copy-command.c: (svn_copy_command_new):
+	* plugins/subversion/svn-diff-command.c: (svn_diff_command_new):
+	* plugins/subversion/svn-log-command.c: (svn_log_command_new):
+	* plugins/subversion/svn-merge-command.c: (svn_merge_command_new):
+	* plugins/subversion/svn-remove-command.c:
+	(svn_remove_command_new):
+	* plugins/subversion/svn-status-command.c:
+	(svn_status_command_new):
+	* plugins/subversion/svn-switch-command.c:
+	(svn_switch_command_new):
+	* plugins/subversion/svn-update-command.c:
+	(svn_update_command_new):
+	Make sure that all paths are "canonical" by libsvn rules so anjuta doesn't 
+	die if the user gives a path that libsvn doesn't like. 
+	
+	Fixes bug #515500
+
 2008-02-08  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/command.c,

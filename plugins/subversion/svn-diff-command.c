@@ -183,7 +183,8 @@ svn_diff_command_new (gchar *path, glong revision1, glong revision2,
 	SvnDiffCommand *self;
 	
 	self = g_object_new (SVN_TYPE_DIFF_COMMAND, NULL);
-	self->priv->path = g_strdup (path);
+	self->priv->path = svn_command_make_canonical_path (SVN_COMMAND (self),
+														path);
 	self->priv->revision1 = revision1;
 	self->priv->revision2 = revision2;
 	self->priv->recursive = recursive;

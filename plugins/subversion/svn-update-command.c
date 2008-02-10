@@ -119,7 +119,8 @@ svn_update_command_new (gchar *path, gchar *revision, gboolean recursive)
 	
 	self = g_object_new (SVN_TYPE_UPDATE_COMMAND, NULL);
 	
-	self->priv->path = g_strdup (path);
+	self->priv->path = svn_command_make_canonical_path (SVN_COMMAND (self),
+														path);
 	self->priv->revision = g_strdup (revision);
 	self->priv->recursive = recursive;
 	

@@ -149,9 +149,11 @@ svn_copy_command_new (gchar *source_path, glong source_revision,
 	
 	self = g_object_new (SVN_TYPE_COPY_COMMAND, NULL);
 	
-	self->priv->source_path = g_strdup (source_path);
+	self->priv->source_path = svn_command_make_canonical_path (SVN_COMMAND (self),
+															   source_path);
 	self->priv->source_revision = source_revision;
-	self->priv->dest_path = g_strdup (dest_path);
+	self->priv->dest_path = svn_command_make_canonical_path (SVN_COMMAND (self),
+															 dest_path);
 	self->priv->log_message = g_strdup (log_message);
 	
 	return self;

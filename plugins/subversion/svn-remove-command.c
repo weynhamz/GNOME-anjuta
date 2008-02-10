@@ -139,7 +139,8 @@ svn_remove_command_new (gchar *path, gchar *log_message, gboolean force)
 	SvnRemoveCommand *self;
 	
 	self = g_object_new (SVN_TYPE_REMOVE_COMMAND, NULL);
-	self->priv->path = g_strdup (path);
+	self->priv->path = svn_command_make_canonical_path (SVN_COMMAND (self),
+														path);
 	self->priv->log_message = g_strdup (log_message);
 	self->priv->force = force;
 	

@@ -148,7 +148,8 @@ svn_cat_command_new (gchar *path, glong revision)
 	SvnCatCommand *self;
 	
 	self = g_object_new (SVN_TYPE_CAT_COMMAND, NULL);
-	self->priv->path = g_strdup (path);
+	self->priv->path = svn_command_make_canonical_path (SVN_COMMAND (self),
+														path);
 	self->priv->revision = revision;
 	self->priv->output = g_queue_new ();
 	

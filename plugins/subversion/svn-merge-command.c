@@ -134,11 +134,14 @@ svn_merge_command_new (gchar *path1,
 	SvnMergeCommand *self;
 	
 	self = g_object_new (SVN_TYPE_MERGE_COMMAND, NULL);
-	self->priv->path1 = g_strdup (path1);
-	self->priv->path2 = g_strdup (path2);
+	self->priv->path1 = svn_command_make_canonical_path (SVN_COMMAND (self),
+														path1);
+	self->priv->path2 = svn_command_make_canonical_path (SVN_COMMAND (self),
+														 path2);
 	self->priv->start_revision = start_revision;
 	self->priv->end_revision = end_revision;
-	self->priv->target_path = g_strdup (target_path);
+	self->priv->target_path = svn_command_make_canonical_path (SVN_COMMAND (self),
+															   target_path);
 	self->priv->recursive = recursive;
 	self->priv->ignore_ancestry = ignore_ancestry;
 	self->priv->force = force;
