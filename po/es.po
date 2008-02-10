@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-03 23:18+0000\n"
-"PO-Revision-Date: 2008-02-04 10:51+0100\n"
+"PO-Revision-Date: 2008-02-10 13:49+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -1985,7 +1985,7 @@ msgstr "Adjuntar a un proceso ejecutándose"
 
 #: ../plugins/debug-manager/plugin.c:873
 msgid "Stop Debugger"
-msgstr "Detener depurador"
+msgstr "Detener el depurador"
 
 #: ../plugins/debug-manager/plugin.c:875
 msgid "Say goodbye to the debugger"
