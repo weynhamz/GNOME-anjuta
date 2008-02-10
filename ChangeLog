@@ -1,3 +1,8 @@
+2008-02-10  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* manuals/anjuta-manual/C/debugger.xml:
+	Fix translation bug #515459 and #515460
+
 2008-02-10  Johannes Schmid <jhs@gnome.org>
 
   Patch from Rémi Cardona <remi@gentoo.org>

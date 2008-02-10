@@ -258,7 +258,7 @@
    <para>
     This option continues the execution of the program until the line or the
     address (if the <interface>Disassembly window</interface> has the focus) where
-    the cursor is is reached. 
+    the cursor is reached. 
    </para>
   </sect2>
   
@@ -268,8 +268,8 @@
     While the program is running and has control, no debugging tasks can be 
 	performed. To obtain control while the program is running, choose the menu item
 	<menuchoice><guisubmenu>Debug</guisubmenu>
-	<guimenuitem>Interrupt Program</guimenuitem></menuchoice> or click on the
-    <guibutton>Stop Program</guibutton> icon in the <interface>Debug toolbar</interface>.
+	<guimenuitem>Pause Program</guimenuitem></menuchoice> or click on the
+    <guibutton>Pause Program</guibutton> icon in the <interface>Debug toolbar</interface>.
     This will interrupt the program and return control to the debugger.
    </para>
   </sect2>
