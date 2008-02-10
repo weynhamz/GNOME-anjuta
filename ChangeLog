@@ -1,3 +1,18 @@
+2008-02-10  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/anjuta-document-manager.plugin.in:
+	Added html, javascript and glade file types. This makes it possible to
+	edit a glade file by hand in anjuta (shows a dialog whether to use Glade or
+	document-manager (#514695 – Anjuta v2.2.3 can't open js files)
+	
+	* plugins/file-wizard/anjuta-file-wizard.glade:
+	* plugins/gdb/anjuta-gdb.glade:
+	* plugins/project-wizard/anjuta-project-wizard.glade:
+	* plugins/search/anjuta-search.glade:
+	* plugins/terminal/anjuta-terminal-plugin.glade:
+	
+	Fixed some other translation issues (#507921)
+
 2008-02-10  Naba Kumar  <naba@gnome.org>
 
 	* plugins/gtodo/preferences.c: (preferences_cb_do_tooltip): Removed
@@ -26463,11 +26478,3 @@ attached the fix for the menu
 1999-12-27 Naba kumar  <naba@gnome.org>
 
 	Anjuta project started.
-
-		TRANSLATION STATISTICS
-		Total messages: 0
-
-	Translation status given in percentage.
-+----------------------------------------------------------------------------+
-|  Po file  |            Language  | Translated |   Fuzzy   |   Untranslated |
-+----------------------------------------------------------------------------+

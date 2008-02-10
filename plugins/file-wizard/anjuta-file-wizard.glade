@@ -96,7 +96,6 @@ The extension will be added according to the type.</property>
                           <widget class="GtkEntry" id="new.file.entry">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">*</property>
                             <signal name="changed" handler="on_new_file_entry_changed"/>
                           </widget>
                           <packing>

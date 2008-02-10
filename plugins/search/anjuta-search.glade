@@ -37,130 +37,102 @@
                             <property name="column_spacing">10</property>
                             <property name="row_spacing">7</property>
                             <child>
-                              <widget class="GtkFrame" id="frame51">
+                              <widget class="GtkFrame" id="frame50">
                                 <property name="visible">True</property>
                                 <property name="label_xalign">0</property>
                                 <property name="shadow_type">GTK_SHADOW_NONE</property>
                                 <child>
-                                  <widget class="GtkTable" id="table31">
+                                  <widget class="GtkTable" id="table30">
                                     <property name="visible">True</property>
                                     <property name="border_width">5</property>
                                     <property name="n_rows">3</property>
-                                    <property name="n_columns">2</property>
+                                    <property name="n_columns">3</property>
+                                    <property name="row_spacing">5</property>
                                     <child>
-                                      <widget class="GtkCheckButton" id="search.regex">
+                                      <placeholder/>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkCheckButton" id="replace.regex">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Regular Expression</property>
+                                        <property name="label" translatable="yes">Expand regex back references</property>
                                         <property name="use_underline">True</property>
                                         <property name="response_id">0</property>
                                         <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_search_regex_toggled"/>
                                       </widget>
                                       <packing>
+                                        <property name="right_attach">2</property>
+                                        <property name="top_attach">2</property>
+                                        <property name="bottom_attach">3</property>
                                         <property name="x_options">GTK_FILL</property>
                                         <property name="y_options"></property>
-                                        <property name="x_padding">5</property>
+                                        <property name="x_padding">4</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <widget class="GtkCheckButton" id="search.ignore.case">
+                                      <widget class="GtkComboBoxEntry" id="replace.string.combo">
                                         <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Case insensitive</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
-                                        <property name="draw_indicator">True</property>
+                                        <child internal-child="entry">
+                                          <widget class="GtkEntry" id="comboboxentry-entry2">
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">3</property>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label.replace">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="xpad">5</property>
+                                        <property name="label" translatable="yes">Replace With:</property>
+                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
                                       </widget>
                                       <packing>
                                         <property name="top_attach">1</property>
                                         <property name="bottom_attach">2</property>
                                         <property name="x_options">GTK_FILL</property>
                                         <property name="y_options"></property>
-                                        <property name="x_padding">5</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <widget class="GtkCheckButton" id="search.match.whole.word">
+                                      <widget class="GtkComboBoxEntry" id="search.string.combo">
                                         <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Match complete words</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
-                                        <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_search_match_whole_word_toggled"/>
-                                      </widget>
-                                      <packing>
-                                        <property name="top_attach">2</property>
-                                        <property name="bottom_attach">3</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                        <property name="x_padding">5</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkCheckButton" id="search.greedy">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Greedy matching</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
-                                        <property name="draw_indicator">True</property>
+                                        <child internal-child="entry">
+                                          <widget class="GtkEntry" id="comboboxentry-entry1">
+                                          </widget>
+                                        </child>
                                       </widget>
                                       <packing>
                                         <property name="left_attach">1</property>
-                                        <property name="right_attach">2</property>
-                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="right_attach">3</property>
                                         <property name="y_options"></property>
-                                        <property name="x_padding">5</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <widget class="GtkCheckButton" id="search.match.whole.line">
+                                      <widget class="GtkLabel" id="label29">
                                         <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Match complete lines</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
-                                        <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_search_match_whole_line_toggled"/>
+                                        <property name="xalign">0</property>
+                                        <property name="xpad">5</property>
+                                        <property name="label" translatable="yes" comments="This is &quot;the search expression&quot; (noun)">Search Expression:</property>
+                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
                                       </widget>
                                       <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">2</property>
-                                        <property name="top_attach">2</property>
-                                        <property name="bottom_attach">3</property>
                                         <property name="x_options">GTK_FILL</property>
                                         <property name="y_options"></property>
-                                        <property name="x_padding">5</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkCheckButton" id="search.match.word.start">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Match at start of word</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
-                                        <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_search_match_word_start_toggled"/>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">2</property>
-                                        <property name="top_attach">1</property>
-                                        <property name="bottom_attach">2</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                        <property name="x_padding">5</property>
                                       </packing>
                                     </child>
                                   </widget>
                                 </child>
                                 <child>
-                                  <widget class="GtkLabel" id="label12355">
+                                  <widget class="GtkLabel" id="label12357">
                                     <property name="visible">True</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Options&lt;/b&gt;</property>
+                                    <property name="label" translatable="yes">&lt;b&gt;Parameters&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
                                   </widget>
                                   <packing>
@@ -169,8 +141,7 @@
                                 </child>
                               </widget>
                               <packing>
-                                <property name="top_attach">2</property>
-                                <property name="bottom_attach">3</property>
+                                <property name="x_options">GTK_FILL</property>
                                 <property name="y_options">GTK_FILL</property>
                               </packing>
                             </child>
@@ -253,102 +224,130 @@
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkFrame" id="frame50">
+                              <widget class="GtkFrame" id="frame51">
                                 <property name="visible">True</property>
                                 <property name="label_xalign">0</property>
                                 <property name="shadow_type">GTK_SHADOW_NONE</property>
                                 <child>
-                                  <widget class="GtkTable" id="table30">
+                                  <widget class="GtkTable" id="table31">
                                     <property name="visible">True</property>
                                     <property name="border_width">5</property>
                                     <property name="n_rows">3</property>
-                                    <property name="n_columns">3</property>
-                                    <property name="row_spacing">5</property>
+                                    <property name="n_columns">2</property>
                                     <child>
-                                      <placeholder/>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkLabel" id="label29">
-                                        <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="xpad">5</property>
-                                        <property name="label" translatable="yes">Search Expression:</property>
-                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkComboBoxEntry" id="search.string.combo">
-                                        <property name="visible">True</property>
-                                        <child internal-child="entry">
-                                          <widget class="GtkEntry" id="comboboxentry-entry1">
-                                          </widget>
-                                        </child>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">3</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkLabel" id="label.replace">
-                                        <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="xpad">5</property>
-                                        <property name="label" translatable="yes">Replace With:</property>
-                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="top_attach">1</property>
-                                        <property name="bottom_attach">2</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkComboBoxEntry" id="replace.string.combo">
-                                        <property name="visible">True</property>
-                                        <child internal-child="entry">
-                                          <widget class="GtkEntry" id="comboboxentry-entry2">
-                                          </widget>
-                                        </child>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">3</property>
-                                        <property name="top_attach">1</property>
-                                        <property name="bottom_attach">2</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkCheckButton" id="replace.regex">
+                                      <widget class="GtkCheckButton" id="search.match.word.start">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Expand regex back references</property>
+                                        <property name="label" translatable="yes">Match at start of word</property>
                                         <property name="use_underline">True</property>
                                         <property name="response_id">0</property>
                                         <property name="draw_indicator">True</property>
+                                        <signal name="toggled" handler="on_search_match_word_start_toggled"/>
                                       </widget>
                                       <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                        <property name="x_padding">5</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkCheckButton" id="search.match.whole.line">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label" translatable="yes">Match complete lines</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="response_id">0</property>
+                                        <property name="draw_indicator">True</property>
+                                        <signal name="toggled" handler="on_search_match_whole_line_toggled"/>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
                                         <property name="right_attach">2</property>
                                         <property name="top_attach">2</property>
                                         <property name="bottom_attach">3</property>
                                         <property name="x_options">GTK_FILL</property>
                                         <property name="y_options"></property>
-                                        <property name="x_padding">4</property>
+                                        <property name="x_padding">5</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkCheckButton" id="search.greedy">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label" translatable="yes">Greedy matching</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="response_id">0</property>
+                                        <property name="draw_indicator">True</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                        <property name="x_padding">5</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkCheckButton" id="search.match.whole.word">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label" translatable="yes">Match complete words</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="response_id">0</property>
+                                        <property name="draw_indicator">True</property>
+                                        <signal name="toggled" handler="on_search_match_whole_word_toggled"/>
+                                      </widget>
+                                      <packing>
+                                        <property name="top_attach">2</property>
+                                        <property name="bottom_attach">3</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                        <property name="x_padding">5</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkCheckButton" id="search.ignore.case">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label" translatable="yes">Case insensitive</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="response_id">0</property>
+                                        <property name="draw_indicator">True</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                        <property name="x_padding">5</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkCheckButton" id="search.regex">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label" translatable="yes">Regular Expression</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="response_id">0</property>
+                                        <property name="draw_indicator">True</property>
+                                        <signal name="toggled" handler="on_search_regex_toggled"/>
+                                      </widget>
+                                      <packing>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                        <property name="x_padding">5</property>
                                       </packing>
                                     </child>
                                   </widget>
                                 </child>
                                 <child>
-                                  <widget class="GtkLabel" id="label12357">
+                                  <widget class="GtkLabel" id="label12355">
                                     <property name="visible">True</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Parameters&lt;/b&gt;</property>
+                                    <property name="label" translatable="yes">&lt;b&gt;Options&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
                                   </widget>
                                   <packing>
@@ -357,7 +356,8 @@
                                 </child>
                               </widget>
                               <packing>
-                                <property name="x_options">GTK_FILL</property>
+                                <property name="top_attach">2</property>
+                                <property name="bottom_attach">3</property>
                                 <property name="y_options">GTK_FILL</property>
                               </packing>
                             </child>
@@ -368,7 +368,7 @@
                     <child>
                       <widget class="GtkLabel" id="search.expression.tab">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Search Expression</property>
+                        <property name="label" translatable="yes" comments="This is &quot;the search expression&quot; (noun)">Search Expression</property>
                         <property name="justify">GTK_JUSTIFY_CENTER</property>
                       </widget>
                       <packing>
@@ -388,34 +388,45 @@
                             <property name="n_rows">4</property>
                             <property name="n_columns">2</property>
                             <child>
-                              <widget class="GtkFrame" id="frame.file.filter">
+                              <widget class="GtkFrame" id="frame60">
+                                <property name="visible">True</property>
                                 <property name="label_xalign">0</property>
                                 <property name="shadow_type">GTK_SHADOW_NONE</property>
                                 <child>
-                                  <widget class="GtkTable" id="table5">
+                                  <widget class="GtkTable" id="table33">
                                     <property name="visible">True</property>
                                     <property name="border_width">5</property>
-                                    <property name="n_rows">6</property>
-                                    <property name="n_columns">3</property>
+                                    <property name="n_rows">2</property>
+                                    <property name="n_columns">2</property>
                                     <property name="column_spacing">5</property>
                                     <property name="row_spacing">5</property>
                                     <child>
-                                      <widget class="GtkLabel" id="label32">
+                                      <widget class="GtkComboBox" id="search.target.combo">
                                         <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Choose Files:</property>
-                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
                                       </widget>
                                       <packing>
-                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
                                         <property name="y_options"></property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <widget class="GtkLabel" id="label33">
+                                      <widget class="GtkComboBox" id="search.direction.combo">
+                                        <property name="visible">True</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label38">
                                         <property name="visible">True</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Ignore Files:</property>
+                                        <property name="label" translatable="yes">Search Direction:</property>
                                         <property name="justify">GTK_JUSTIFY_CENTER</property>
                                       </widget>
                                       <packing>
@@ -426,175 +437,23 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <widget class="GtkCheckButton" id="ignore.hidden.files">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Ignore Hidden Files</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
-                                        <property name="draw_indicator">True</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="top_attach">2</property>
-                                        <property name="bottom_attach">3</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkLabel" id="label34">
+                                      <widget class="GtkLabel" id="label30">
                                         <property name="visible">True</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Choose Directories:</property>
+                                        <property name="label" translatable="yes">Search In:</property>
                                         <property name="justify">GTK_JUSTIFY_CENTER</property>
                                       </widget>
                                       <packing>
-                                        <property name="top_attach">3</property>
-                                        <property name="bottom_attach">4</property>
                                         <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkLabel" id="label35">
-                                        <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Ignore Directories:</property>
-                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="top_attach">4</property>
-                                        <property name="bottom_attach">5</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkCheckButton" id="ignore.hidden.dirs">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Ignore Hidden Directories</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
-                                        <property name="draw_indicator">True</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="top_attach">5</property>
-                                        <property name="bottom_attach">6</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkCheckButton" id="search.dir.recursive">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Search Recursively</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
-                                        <property name="draw_indicator">True</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">3</property>
-                                        <property name="top_attach">5</property>
-                                        <property name="bottom_attach">6</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkCheckButton" id="ignore.binary.files">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Ignore Binary Files</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
-                                        <property name="draw_indicator">True</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">3</property>
-                                        <property name="top_attach">2</property>
-                                        <property name="bottom_attach">3</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkComboBoxEntry" id="file.filter.match.combo">
-                                        <property name="visible">True</property>
-                                        <property name="items">*\.*
-*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp
-*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4</property>
-                                        <child internal-child="entry">
-                                          <widget class="GtkEntry" id="comboboxentry-entry3">
-                                          </widget>
-                                        </child>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">3</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkComboBoxEntry" id="file.filter.unmatch.combo">
-                                        <property name="visible">True</property>
-                                        <property name="items">*.so *.o *.a *.la
-</property>
-                                        <child internal-child="entry">
-                                          <widget class="GtkEntry" id="comboboxentry-entry4">
-                                          </widget>
-                                        </child>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">3</property>
-                                        <property name="top_attach">1</property>
-                                        <property name="bottom_attach">2</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkComboBoxEntry" id="dir.filter.match.combo">
-                                        <property name="visible">True</property>
-                                        <child internal-child="entry">
-                                          <widget class="GtkEntry" id="comboboxentry-entry5">
-                                          </widget>
-                                        </child>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">3</property>
-                                        <property name="top_attach">3</property>
-                                        <property name="bottom_attach">4</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkComboBoxEntry" id="dir.filter.unmatch.combo">
-                                        <property name="visible">True</property>
-                                        <property name="items">
-CVS
-CVS intl po </property>
-                                        <child internal-child="entry">
-                                          <widget class="GtkEntry" id="comboboxentry-entry6">
-                                          </widget>
-                                        </child>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">3</property>
-                                        <property name="top_attach">4</property>
-                                        <property name="bottom_attach">5</property>
                                         <property name="y_options"></property>
                                       </packing>
                                     </child>
                                   </widget>
                                 </child>
                                 <child>
-                                  <widget class="GtkLabel" id="label40">
+                                  <widget class="GtkLabel" id="label12358">
                                     <property name="visible">True</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;File Filter&lt;/b&gt;</property>
+                                    <property name="label" translatable="yes">&lt;b&gt;Scope&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
                                   </widget>
                                   <packing>
@@ -604,41 +463,6 @@ CVS intl po </property>
                               </widget>
                               <packing>
                                 <property name="right_attach">2</property>
-                                <property name="top_attach">2</property>
-                                <property name="bottom_attach">3</property>
-                                <property name="x_options">GTK_FILL</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="GtkFrame" id="frame.search.var">
-                                <property name="label_xalign">0</property>
-                                <property name="shadow_type">GTK_SHADOW_NONE</property>
-                                <child>
-                                  <widget class="GtkComboBoxEntry" id="search.var.combo">
-                                    <property name="visible">True</property>
-                                    <property name="items">
-$(module.source.files) $(module.include.files)</property>
-                                    <child internal-child="entry">
-                                      <widget class="GtkEntry" id="comboboxentry-entry7">
-                                      </widget>
-                                    </child>
-                                  </widget>
-                                </child>
-                                <child>
-                                  <widget class="GtkLabel" id="label39">
-                                    <property name="visible">True</property>
-                                    <property name="label" translatable="yes" comments="User can select variables that contain lists of files, so this is a combined noun">&lt;b&gt;Search variable&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
-                                  </widget>
-                                  <packing>
-                                    <property name="type">label_item</property>
-                                  </packing>
-                                </child>
-                              </widget>
-                              <packing>
-                                <property name="right_attach">2</property>
-                                <property name="top_attach">1</property>
-                                <property name="bottom_attach">2</property>
                                 <property name="x_options">GTK_FILL</property>
                               </packing>
                             </child>
@@ -655,42 +479,6 @@ $(module.source.files) $(module.include.files)</property>
                                     <property name="n_columns">2</property>
                                     <property name="column_spacing">5</property>
                                     <property name="row_spacing">5</property>
-                                    <child>
-                                      <widget class="GtkLabel" id="label31">
-                                        <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Search Action:</property>
-                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkComboBox" id="search.action.combo">
-                                        <property name="visible">True</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">2</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkLabel" id="label39">
-                                        <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Maximum Actions</property>
-                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="top_attach">1</property>
-                                        <property name="bottom_attach">2</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
                                     <child>
                                       <widget class="GtkHBox" id="hbox1128">
                                         <property name="visible">True</property>
@@ -732,6 +520,42 @@ $(module.source.files) $(module.include.files)</property>
                                         <property name="y_options">GTK_FILL</property>
                                       </packing>
                                     </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label39">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Maximum Actions</property>
+                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkComboBox" id="search.action.combo">
+                                        <property name="visible">True</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label31">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Search Action:</property>
+                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
                                   </widget>
                                 </child>
                                 <child>
@@ -753,72 +577,24 @@ $(module.source.files) $(module.include.files)</property>
                               </packing>
                             </child>
                             <child>
-                              <widget class="GtkFrame" id="frame60">
-                                <property name="visible">True</property>
+                              <widget class="GtkFrame" id="frame.search.var">
                                 <property name="label_xalign">0</property>
                                 <property name="shadow_type">GTK_SHADOW_NONE</property>
                                 <child>
-                                  <widget class="GtkTable" id="table33">
+                                  <widget class="GtkComboBoxEntry" id="search.var.combo">
                                     <property name="visible">True</property>
-                                    <property name="border_width">5</property>
-                                    <property name="n_rows">2</property>
-                                    <property name="n_columns">2</property>
-                                    <property name="column_spacing">5</property>
-                                    <property name="row_spacing">5</property>
-                                    <child>
-                                      <widget class="GtkLabel" id="label30">
-                                        <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Search In:</property>
-                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
+                                    <property name="items">
+$(module.source.files) $(module.include.files)</property>
+                                    <child internal-child="entry">
+                                      <widget class="GtkEntry" id="comboboxentry-entry7">
                                       </widget>
-                                      <packing>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkLabel" id="label38">
-                                        <property name="visible">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Search Direction:</property>
-                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="top_attach">1</property>
-                                        <property name="bottom_attach">2</property>
-                                        <property name="x_options">GTK_FILL</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkComboBox" id="search.direction.combo">
-                                        <property name="visible">True</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">2</property>
-                                        <property name="top_attach">1</property>
-                                        <property name="bottom_attach">2</property>
-                                        <property name="y_options"></property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkComboBox" id="search.target.combo">
-                                        <property name="visible">True</property>
-                                      </widget>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="right_attach">2</property>
-                                        <property name="y_options"></property>
-                                      </packing>
                                     </child>
                                   </widget>
                                 </child>
                                 <child>
-                                  <widget class="GtkLabel" id="label12358">
+                                  <widget class="GtkLabel" id="label39">
                                     <property name="visible">True</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Scope&lt;/b&gt;</property>
+                                    <property name="label" translatable="yes" comments="User can select variables that contain lists of files, so this is a combined noun">&lt;b&gt;Search variable&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
                                   </widget>
                                   <packing>
@@ -828,6 +604,230 @@ $(module.source.files) $(module.include.files)</property>
                               </widget>
                               <packing>
                                 <property name="right_attach">2</property>
+                                <property name="top_attach">1</property>
+                                <property name="bottom_attach">2</property>
+                                <property name="x_options">GTK_FILL</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="GtkFrame" id="frame.file.filter">
+                                <property name="label_xalign">0</property>
+                                <property name="shadow_type">GTK_SHADOW_NONE</property>
+                                <child>
+                                  <widget class="GtkTable" id="table5">
+                                    <property name="visible">True</property>
+                                    <property name="border_width">5</property>
+                                    <property name="n_rows">6</property>
+                                    <property name="n_columns">3</property>
+                                    <property name="column_spacing">5</property>
+                                    <property name="row_spacing">5</property>
+                                    <child>
+                                      <widget class="GtkComboBoxEntry" id="dir.filter.unmatch.combo">
+                                        <property name="visible">True</property>
+                                        <property name="items">
+CVS
+CVS intl po </property>
+                                        <child internal-child="entry">
+                                          <widget class="GtkEntry" id="comboboxentry-entry6">
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">3</property>
+                                        <property name="top_attach">4</property>
+                                        <property name="bottom_attach">5</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkComboBoxEntry" id="dir.filter.match.combo">
+                                        <property name="visible">True</property>
+                                        <child internal-child="entry">
+                                          <widget class="GtkEntry" id="comboboxentry-entry5">
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">3</property>
+                                        <property name="top_attach">3</property>
+                                        <property name="bottom_attach">4</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkComboBoxEntry" id="file.filter.unmatch.combo">
+                                        <property name="visible">True</property>
+                                        <property name="items">*.so *.o *.a *.la
+</property>
+                                        <child internal-child="entry">
+                                          <widget class="GtkEntry" id="comboboxentry-entry4">
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">3</property>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkComboBoxEntry" id="file.filter.match.combo">
+                                        <property name="visible">True</property>
+                                        <property name="items">*\.*
+*.c *.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp
+*.cpp *.cxx *.cc *.C *.h *.H *.hh *.hxx *.hpp Makefile.am configure.* README AUTHORS ChangeLog *.m4</property>
+                                        <child internal-child="entry">
+                                          <widget class="GtkEntry" id="comboboxentry-entry3">
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">3</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkCheckButton" id="ignore.binary.files">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label" translatable="yes">Ignore Binary Files</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="response_id">0</property>
+                                        <property name="draw_indicator">True</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">3</property>
+                                        <property name="top_attach">2</property>
+                                        <property name="bottom_attach">3</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkCheckButton" id="search.dir.recursive">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label" translatable="yes">Search Recursively</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="response_id">0</property>
+                                        <property name="draw_indicator">True</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">3</property>
+                                        <property name="top_attach">5</property>
+                                        <property name="bottom_attach">6</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkCheckButton" id="ignore.hidden.dirs">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label" translatable="yes">Ignore Hidden Directories</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="response_id">0</property>
+                                        <property name="draw_indicator">True</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="top_attach">5</property>
+                                        <property name="bottom_attach">6</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label35">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Ignore Directories:</property>
+                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="top_attach">4</property>
+                                        <property name="bottom_attach">5</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label34">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Choose Directories:</property>
+                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="top_attach">3</property>
+                                        <property name="bottom_attach">4</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkCheckButton" id="ignore.hidden.files">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label" translatable="yes">Ignore Hidden Files</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="response_id">0</property>
+                                        <property name="draw_indicator">True</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="top_attach">2</property>
+                                        <property name="bottom_attach">3</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label33">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Ignore Files:</property>
+                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label32">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Choose Files:</property>
+                                        <property name="justify">GTK_JUSTIFY_CENTER</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options"></property>
+                                      </packing>
+                                    </child>
+                                  </widget>
+                                </child>
+                                <child>
+                                  <widget class="GtkLabel" id="label40">
+                                    <property name="visible">True</property>
+                                    <property name="label" translatable="yes">&lt;b&gt;File Filter&lt;/b&gt;</property>
+                                    <property name="use_markup">True</property>
+                                  </widget>
+                                  <packing>
+                                    <property name="type">label_item</property>
+                                  </packing>
+                                </child>
+                              </widget>
+                              <packing>
+                                <property name="right_attach">2</property>
+                                <property name="top_attach">2</property>
+                                <property name="bottom_attach">3</property>
                                 <property name="x_options">GTK_FILL</property>
                               </packing>
                             </child>
