@@ -98,9 +98,9 @@ gboolean dma_queue_list_register (DmaDebuggerQueue *self, IAnjutaDebuggerCallbac
 gboolean dma_queue_callback (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , gpointer user_data);
 void dma_queue_enable_log (DmaDebuggerQueue *self, IAnjutaMessageView *log);
 void dma_queue_disable_log (DmaDebuggerQueue *self);
-gboolean dma_queue_add_breakpoint_at_line (DmaDebuggerQueue *self, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
-gboolean dma_queue_add_breakpoint_at_function (DmaDebuggerQueue *self, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
-gboolean dma_queue_add_breakpoint_at_address (DmaDebuggerQueue *self, gulong address, IAnjutaDebuggerCallback callback, gpointer user_data);
+gboolean dma_queue_add_breakpoint_at_line (DmaDebuggerQueue *self, guint *id, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data);
+gboolean dma_queue_add_breakpoint_at_function (DmaDebuggerQueue *self, guint *id, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data);
+gboolean dma_queue_add_breakpoint_at_address (DmaDebuggerQueue *self, guint *id, gulong address, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_enable_breakpoint (DmaDebuggerQueue *self, guint id, gboolean enable, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_ignore_breakpoint (DmaDebuggerQueue *self, guint id, guint ignore, IAnjutaDebuggerCallback callback, gpointer user_data);
 gboolean dma_queue_condition_breakpoint (DmaDebuggerQueue *self, guint id, const gchar *condition, IAnjutaDebuggerCallback callback, gpointer user_data);

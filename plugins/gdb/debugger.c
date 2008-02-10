@@ -1573,7 +1573,9 @@ debugger_stop_real (Debugger *debugger)
 	
 	/* if program is attached - detach from it before quiting */
 	if (debugger->priv->prog_is_attached == TRUE)
-		debugger_queue_command (debugger, "detach", FALSE, FALSE, NULL, NULL, NULL);
+	{
+		debugger_detach_process(debugger);
+	}
 
 	debugger->priv->terminating = TRUE;
 	debugger_queue_command (debugger, "-gdb-exit", FALSE, FALSE, NULL, NULL, NULL);
@@ -1645,6 +1647,7 @@ debugger_abort (Debugger *debugger)
 	/* Emit signal, state of the debugger must be DEBUGGER_STOPPED */
 	debugger->priv->prog_is_running = FALSE;
 	debugger->priv->prog_is_attached = FALSE;
+	debugger->priv->inferior_pid = 0;
 	debugger->priv->prog_is_loaded = FALSE;
 	debugger->priv->debugger_is_busy = 0;
 	debugger->priv->debugger_is_started = FALSE;
@@ -1785,7 +1788,11 @@ debugger_attach_process_finish (Debugger *debugger, const GDBMIValue *mi_results
 	}
 	debugger->priv->prog_is_attached = TRUE;
 	debugger->priv->prog_is_running = TRUE;
-	//debugger_emit_status (debugger);
+	/* It is not really a shared lib event, but it allows to restart
+	 * the program after setting breakpoints. It is better to restart
+	 * it because we don't have the normal stop frame that tell where
+	 * the program is stopped */
+	debugger->priv->solib_event = TRUE;
 }
 
 static void
@@ -1876,7 +1883,9 @@ debugger_stop_program (Debugger *debugger)
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
 	
 	if (debugger->priv->prog_is_attached == TRUE)
-		debugger_queue_command (debugger, "detach", FALSE, FALSE, NULL, NULL, NULL);
+	{
+		debugger_detach_process (debugger);
+	}
 	else
 	{
 		/* FIXME: Why doesn't -exec-abort work??? */
@@ -1906,6 +1915,7 @@ debugger_detach_process_finish (Debugger *debugger, const GDBMIValue *mi_results
 									 _("Program detached\n"),
 									 debugger->priv->output_user_data);
 	}
+	debugger->priv->inferior_pid = 0;
 	debugger->priv->prog_is_attached = FALSE;
 	debugger->priv->prog_is_running = FALSE;
 	g_signal_emit_by_name (debugger->priv->instance, "program-exited");
@@ -1917,7 +1927,7 @@ debugger_detach_process (Debugger *debugger)
 	gchar *buff;
 
 	DEBUG_PRINT ("In function: debugger_detach_process()");
-	
+
 	g_return_if_fail (debugger->priv->prog_is_attached == TRUE);
 
 	if (debugger->priv->output_callback)
@@ -1930,7 +1940,6 @@ debugger_detach_process (Debugger *debugger)
 	
 	debugger_queue_command (debugger, "detach", FALSE, FALSE, 
 							debugger_detach_process_finish, NULL, NULL);
-	debugger->priv->prog_is_attached = FALSE;
 }
 
 void

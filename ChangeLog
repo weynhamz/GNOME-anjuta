@@ -1,5 +1,16 @@
 2008-02-10  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/debug-manager/command.c,
+	plugins/debug-manager/command.h,
+	plugins/debug-manager/breakpoints.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Avoid adding the same breakpoint several times
+
+	* plugins/gdb/debugger.c:
+	Fix bug #515463: Deattaching process kill it
+
+2008-02-10  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* manuals/anjuta-manual/C/debugger.xml:
 	Fix translation bug #515459 and #515460
 

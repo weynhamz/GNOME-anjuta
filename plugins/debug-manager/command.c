@@ -298,6 +298,7 @@ struct _DmaQueueCommand
 			GList *dirs;
 		} attach;
 		struct {
+			guint *id;
 			gchar *file;
 			guint line;
 			gulong address;
@@ -439,18 +440,21 @@ dma_command_new (DmaDebuggerCommand cmd_type,...)
 		cmd->user_data = va_arg (args, gpointer);
 		break;
 	case BREAK_LINE_COMMAND:
+		cmd->data.pos.id = va_arg (args, guint *);
 		cmd->data.pos.file = g_strdup (va_arg (args, gchar *));
 		cmd->data.pos.line = va_arg (args, guint);
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
 		break;
 	case BREAK_FUNCTION_COMMAND:
+		cmd->data.pos.id = va_arg (args, guint *);
 		cmd->data.pos.file = g_strdup (va_arg (args, gchar *));
 		cmd->data.pos.function = g_strdup (va_arg (args, gchar *));
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
 		break;
 	case BREAK_ADDRESS_COMMAND:
+		cmd->data.pos.id = va_arg (args, guint *);
 		cmd->data.pos.address = va_arg (args, gulong);
 		cmd->callback = va_arg (args, IAnjutaDebuggerCallback);
 		cmd->user_data = va_arg (args, gpointer);
@@ -836,21 +840,21 @@ dma_queue_callback (DmaDebuggerQueue *self, IAnjutaDebuggerCallback callback , g
 }
 
 gboolean
-dma_queue_add_breakpoint_at_line (DmaDebuggerQueue *self, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data)
+dma_queue_add_breakpoint_at_line (DmaDebuggerQueue *self, guint *id, const gchar* file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	return dma_debugger_queue_append (self, dma_command_new (DMA_BREAK_LINE_COMMAND, file, line, callback, user_data));
+	return dma_debugger_queue_append (self, dma_command_new (DMA_BREAK_LINE_COMMAND, id, file, line, callback, user_data));
 }
 
 gboolean
-dma_queue_add_breakpoint_at_function (DmaDebuggerQueue *self, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data)
+dma_queue_add_breakpoint_at_function (DmaDebuggerQueue *self, guint *id, const gchar* file, const gchar* function, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	return dma_debugger_queue_append (self, dma_command_new (DMA_BREAK_FUNCTION_COMMAND, file, function, callback, user_data));
+	return dma_debugger_queue_append (self, dma_command_new (DMA_BREAK_FUNCTION_COMMAND, id, file, function, callback, user_data));
 }
 
 gboolean
-dma_queue_add_breakpoint_at_address (DmaDebuggerQueue *self, gulong address, IAnjutaDebuggerCallback callback, gpointer user_data)
+dma_queue_add_breakpoint_at_address (DmaDebuggerQueue *self, guint *id, gulong address, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
-	return dma_debugger_queue_append (self, dma_command_new (DMA_BREAK_ADDRESS_COMMAND, address, callback, user_data));
+	return dma_debugger_queue_append (self, dma_command_new (DMA_BREAK_ADDRESS_COMMAND, id, address, callback, user_data));
 }
 
 gboolean
@@ -1065,6 +1069,28 @@ dma_command_cancel (DmaQueueCommand *cmd)
 	dma_command_free (cmd);
 }
 
+/* It is possible that the queue contains several add breakpoint command
+ * for the same one. Just before sending the command to the debugger check
+ * that the breakpoint is still not set */
+
+static gboolean
+dma_command_is_breakpoint_pending (DmaQueueCommand *cmd)
+{
+	GError *err;
+	
+	if (*cmd->data.pos.id == 0) return TRUE;		/* Breakpoint is not set, can add it */
+	
+	err	= g_error_new (IANJUTA_DEBUGGER_ERROR , IANJUTA_DEBUGGER_ALREADY_DONE, "Breakpoint is already set with id %d", *cmd->data.pos.id);
+
+	if (cmd->callback != NULL)
+	{
+		cmd->callback (NULL, cmd->user_data, err);
+	}
+	g_error_free (err);
+	
+	return FALSE;
+}
+
 gboolean
 dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 				 DmaDebuggerQueue *queue, GError **err)
@@ -1140,13 +1166,34 @@ dma_command_run (DmaQueueCommand *cmd, IAnjutaDebugger *debugger,
 		ret = ianjuta_debugger_breakpoint_clear (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, callback, queue, err);	
 		break;
 	case BREAK_LINE_COMMAND:
-		ret = ianjuta_debugger_breakpoint_set_at_line (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.file, cmd->data.pos.line, callback, queue, err);	
+		if (dma_command_is_breakpoint_pending (cmd))
+		{	
+			ret = ianjuta_debugger_breakpoint_set_at_line (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.file, cmd->data.pos.line, callback, queue, err);	
+		}
+		else
+		{
+			ret = FALSE;
+		}
 		break;
 	case BREAK_FUNCTION_COMMAND:
-		ret = ianjuta_debugger_breakpoint_set_at_function (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.file, cmd->data.pos.function, callback, queue, err);	
+		if (dma_command_is_breakpoint_pending (cmd))
+		{	
+			ret = ianjuta_debugger_breakpoint_set_at_function (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.file, cmd->data.pos.function, callback, queue, err);	
+		}
+		else
+		{
+			ret = FALSE;
+		}
 		break;
 	case BREAK_ADDRESS_COMMAND:
-		ret = ianjuta_debugger_breakpoint_set_at_address (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.address, callback, queue, err);	
+		if (dma_command_is_breakpoint_pending (cmd))
+		{	
+			ret = ianjuta_debugger_breakpoint_set_at_address (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.pos.address, callback, queue, err);	
+		}
+		else
+		{
+			ret = FALSE;
+		}
 		break;
 	case CONDITION_BREAK_COMMAND:
 		ret = ianjuta_debugger_breakpoint_condition (IANJUTA_DEBUGGER_BREAKPOINT (debugger), cmd->data.brk.id, cmd->data.brk.condition, callback, queue, err);	

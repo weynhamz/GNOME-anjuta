@@ -746,6 +746,7 @@ breakpoints_dbase_add_in_debugger (BreakpointsDBase *bd, BreakpointItem *bi)
 		breakpoint_item_ref (bi);
 		ok = dma_queue_add_breakpoint_at_line (
 					bd->debugger,
+					&(bi->bp.id),											   
 					bi->bp.file,
 					bi->bp.line,
 					on_breakpoint_callback,
@@ -756,6 +757,7 @@ breakpoints_dbase_add_in_debugger (BreakpointsDBase *bd, BreakpointItem *bi)
 		breakpoint_item_ref (bi);
 		ok = dma_queue_add_breakpoint_at_function (
 					bd->debugger,
+					&(bi->bp.id),											   
 					bi->bp.file == NULL ? "" : bi->bp.file,
 					bi->bp.function,
 					on_breakpoint_callback,
@@ -767,6 +769,7 @@ breakpoints_dbase_add_in_debugger (BreakpointsDBase *bd, BreakpointItem *bi)
 		breakpoint_item_ref (bi);
 		ok = dma_queue_add_breakpoint_at_address (
 					bd->debugger,
+					&(bi->bp.id),											   
 					bi->bp.address,
 					on_breakpoint_callback,
 					bi);
