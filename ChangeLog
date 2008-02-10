@@ -1,3 +1,8 @@
+2008-02-10  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/queue.c:
+	Fix interrupt command, not working due to previous change
+
 2008-02-10  Johannes Schmid <jhs@gnome.org>
 
 	* src/Makefile.am:

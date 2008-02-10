@@ -742,7 +742,7 @@ dma_debugger_queue_append (DmaDebuggerQueue *self, DmaQueueCommand *cmd)
 			/* We must not interrupt command having callback, as the command
 			 * will be removed, the callback when emitted will be redirected to
 			 * the handler of the next command */
-			if ((state == IANJUTA_DEBUGGER_STOPPED) || (state == IANJUTA_DEBUGGER_PROGRAM_RUNNING))
+			if ((state == IANJUTA_DEBUGGER_STOPPED) || (self->debugger_state == IANJUTA_DEBUGGER_PROGRAM_RUNNING))
 			{
 				dma_debugger_queue_complete (self, self->debugger_state);
 			}
