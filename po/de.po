@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.1.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-10 20:07+0100\n"
+"POT-Creation-Date: 2008-02-10 20:33+0100\n"
 "PO-Revision-Date: 2008-02-10 20:07+0100\n"
 "Last-Translator: Johannes Schmid <jhs@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -501,7 +501,7 @@ msgid "_Discard changes"
 msgstr "Änderungen _verwerfen"
 
 #: ../libanjuta/anjuta-save-prompt.c:304
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
 msgid_plural ""
@@ -509,7 +509,8 @@ msgid_plural ""
 msgstr[0] ""
 "Es gibt %d geändertes Objekt. Soll es vor dem Schließen gespeichert werden?"
 msgstr[1] ""
-"Es gibt %d geänderte Objekte. Sollen sie vor dem Schließen gespeichert werden?"
+"Es gibt %d geänderte Objekte. Sollen sie vor dem Schließen gespeichert "
+"werden?"
 
 #: ../libanjuta/anjuta-save-prompt.c:311
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -3982,7 +3983,6 @@ msgstr "Konnte Benutzerschnittstelle für »Neue Datei"
 
 #: ../plugins/gdb/anjuta-gdb.glade.h:1
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:1
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "*"
 msgstr "*"
 
@@ -5961,27 +5961,29 @@ msgstr "Such-Aktion:"
 msgid "Search Direction:"
 msgstr "Suchrichtung:"
 
-#: ../plugins/search/anjuta-search.glade.h:34
+#. This is "the search expression" (noun)
+#: ../plugins/search/anjuta-search.glade.h:35
 msgid "Search Expression"
 msgstr "Suchausdruck"
 
-#: ../plugins/search/anjuta-search.glade.h:35
+#. This is "the search expression" (noun)
+#: ../plugins/search/anjuta-search.glade.h:37
 msgid "Search Expression:"
 msgstr "Suchausdruck:"
 
-#: ../plugins/search/anjuta-search.glade.h:36
+#: ../plugins/search/anjuta-search.glade.h:38
 msgid "Search In:"
 msgstr "Suche in:"
 
-#: ../plugins/search/anjuta-search.glade.h:37
+#: ../plugins/search/anjuta-search.glade.h:39
 msgid "Search Recursively"
 msgstr "Rekursiv suchen"
 
-#: ../plugins/search/anjuta-search.glade.h:38
+#: ../plugins/search/anjuta-search.glade.h:40
 msgid "Search Target"
 msgstr "Suchziel"
 
-#: ../plugins/search/anjuta-search.glade.h:39
+#: ../plugins/search/anjuta-search.glade.h:41
 msgid "Setting"
 msgstr "Einstellung"
 
@@ -6053,7 +6055,7 @@ msgid "Basic Search"
 msgstr "Einfache Suche"
 
 #: ../plugins/search/search_preferences.c:523
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
 msgid "Default"
 msgstr "Vorgabe"
 
@@ -6984,15 +6986,15 @@ msgstr "Symbol-Navigation"
 msgid "Symbols"
 msgstr "Symbole"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:2
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:1
 msgid "<b>Terminal options</b>"
 msgstr "<b>Terminal-Optionen</b>"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:4
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:3
 msgid "Use GNOME terminal profile:"
 msgstr "GNOME-Terminalprofil verwenden:"
 
-#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:5
+#: ../plugins/terminal/anjuta-terminal-plugin.glade.h:4
 msgid "Use currently selected profile in GNOME terminal"
 msgstr "Das momentan verwendete GNOME-Terminalprofil verwenden"
 
