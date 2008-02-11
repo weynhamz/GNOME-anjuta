@@ -1,5 +1,10 @@
 2008-02-11  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/file-manager/file-model.c: (file_model_expand_idle):
+	#515867 – Anjuta dies on startup
+
+2008-02-11  Johannes Schmid <jhs@gnome.org>
+
 	* TODO.tasks: Marked subversion task as completed
 
 === anjuta 2.3.4 ===

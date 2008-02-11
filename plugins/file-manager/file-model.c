@@ -165,7 +165,7 @@ file_model_expand_idle (gpointer data)
 		GList* file = expand->files;
 		GnomeVFSFileInfo* info = (GnomeVFSFileInfo*) file->data;
 		GtkTreeIter new_iter;
-		GdkPixbuf* pixbuf;
+		GdkPixbuf* pixbuf = NULL;
 		gboolean directory = FALSE;
 		
 		/* Set pointer to the next element */
@@ -181,11 +181,12 @@ file_model_expand_idle (gpointer data)
 		const gchar* mime_type = gnome_vfs_file_info_get_mime_type (info);
 		gchar* uri = g_build_filename (expand->uri, info->name, NULL);
 		
-		pixbuf = gdl_icons_get_mime_icon (priv->icons, mime_type);
+		if (pixbuf)
+		  pixbuf = gdl_icons_get_mime_icon (priv->icons, mime_type);
 		
 		gtk_tree_store_append (store, &new_iter, &parent);
 		
-		if (g_str_equal (mime_type, DIRECTORY_MIME_TYPE))
+		if (mime_type && g_str_equal (mime_type, DIRECTORY_MIME_TYPE))
 		{
 			file_model_add_dummy (model, &new_iter);
 			directory = TRUE;
