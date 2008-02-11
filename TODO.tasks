@@ -557,7 +557,7 @@ are the system default plugins.</comment>
   </category>
   <category title="Plugin: Subversion" place="18">
     <item>
-      <attribute id="1114163071" priority="1" done="0" start_date="732058" enddate="99999999" notify="0" endtime="-60" last_edited="1114163071"/>
+      <attribute id="1114163071" priority="1" done="1" start_date="732058" completed_date="733083" enddate="99999999" notify="0" endtime="-60" last_edited="1202735826"/>
       <summary>Completed the remaining subversion operations</summary>
       <comment>Completed the remaining subversion operations.</comment>
     </item>
