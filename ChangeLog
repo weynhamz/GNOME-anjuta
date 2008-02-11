@@ -1,6 +1,11 @@
 2008-02-11  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/file-manager/file-model.c: (file_model_expand_idle):
+  515868 – File browser only shows icons when activated
+  
+2008-02-11  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/file-manager/file-model.c: (file_model_expand_idle):
 	#515867 – Anjuta dies on startup
 
 2008-02-11  Johannes Schmid <jhs@gnome.org>

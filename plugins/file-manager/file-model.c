@@ -181,7 +181,7 @@ file_model_expand_idle (gpointer data)
 		const gchar* mime_type = gnome_vfs_file_info_get_mime_type (info);
 		gchar* uri = g_build_filename (expand->uri, info->name, NULL);
 		
-		if (pixbuf)
+		if (mime_type)
 		  pixbuf = gdl_icons_get_mime_icon (priv->icons, mime_type);
 		
 		gtk_tree_store_append (store, &new_iter, &parent);
@@ -189,6 +189,8 @@ file_model_expand_idle (gpointer data)
 		if (mime_type && g_str_equal (mime_type, DIRECTORY_MIME_TYPE))
 		{
 			file_model_add_dummy (model, &new_iter);
+			if (!pixbuf)
+			  pixbuf = gdl_icons_get_mime_icon (priv->icons, DIRECTORY_MIME_TYPE);
 			directory = TRUE;
 		}
 		
