@@ -1,3 +1,19 @@
+2008-02-12  Johannes Schmid <jhs@gnome.org>
+
+  Patch from Gennaro Bellizio <genbell@tiscali.it>:
+	* global-tags/Makefile.am:
+	* AUTHORS
+	#515954 – create_global_tags.sh: wrong anjuta-tags path
+	
+	* libanjuta/anjuta-launcher.c: (anjuta_launcher_initialize),
+	(anjuta_launcher_dispose), (anjuta_launcher_check_password_real),
+	(anjuta_launcher_scan_output), (anjuta_launcher_scan_error),
+	(anjuta_launcher_scan_pty), (anjuta_launcher_set_encoding),
+	(anjuta_launcher_fork):
+	* libanjuta/anjuta-launcher.h:
+	Fix anjuta_launcher_set_encoding() and cleaned-up. Mostly backported
+	from symbol-db branch
+
 2008-02-11  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/file-manager/file-model.c: (file_model_expand_idle):

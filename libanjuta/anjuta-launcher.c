@@ -110,9 +110,6 @@ struct _AnjutaLauncherPriv
 	/* Terminal echo */
 	gboolean terminal_echo_on;
 	
-	/* Check for passwords in input */
-	gboolean disable_password_check;
-	
 	/* The child */
 	pid_t child_pid;
 	guint source;
@@ -140,6 +137,10 @@ struct _AnjutaLauncherPriv
 	
 	/* Callback data */
 	gpointer callback_data;
+	
+	/* Encondig */
+	gboolean custom_encoding;
+	gchar* encoding;
 };
 
 enum
@@ -185,7 +186,6 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	obj->priv->pty_output_buffer = NULL;
 	
 	obj->priv->terminal_echo_on = TRUE;
-	obj->priv->disable_password_check = FALSE;
 	
 	/* The child */
 	obj->priv->child_pid = 0;
@@ -208,6 +208,10 @@ anjuta_launcher_initialize (AnjutaLauncher *obj)
 	/* Output callback */
 	obj->priv->output_callback = NULL;
 	obj->priv->callback_data = NULL;
+	
+	/* Encoding */
+	obj->priv->custom_encoding = FALSE;
+	obj->priv->encoding = NULL;
 }
 
 GType
@@ -252,6 +256,9 @@ anjuta_launcher_dispose (GObject *obj)
 		 */
 		kill (child_pid_save, SIGTERM);
 		launcher->priv->busy = FALSE;
+		
+		if (launcher->priv->custom_encoding && launcher->priv->encoding)
+			g_free (launcher->priv->encoding);
 	}
 	GNOME_CALL_PARENT (G_OBJECT_CLASS, dispose, (obj));
 }
@@ -578,9 +585,6 @@ anjuta_launcher_check_password_real (AnjutaLauncher *launcher,
 	if (anjuta_launcher_is_busy (launcher) == FALSE) 
 		return;
 	
-	if (launcher->priv->disable_password_check)
-		return;
-	
 	if (last_line) {
 
 		/* DEBUG_PRINT ("(In password) Last line = %s", last_line); */
@@ -746,7 +750,7 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 		do
 		{
 			g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
-			if (n > 0 && !err) /* There is output */
+			if (n > 0) /* There is output */
 			{
 				gchar *utf8_chars;
 				buffer[n] = '\0';
@@ -757,9 +761,9 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 				g_free (utf8_chars);
 			}
 			/* Ignore illegal characters */
-			else if (err && err->domain == G_CONVERT_ERROR)
+			if (err && err->domain == G_CONVERT_ERROR)
 			{
-				DEBUG_PRINT ("stdout: %s", err->message);
+				g_warning ("stdout: %s", err->message);
 				g_error_free (err);
 				err = NULL;
 			}
@@ -767,7 +771,7 @@ anjuta_launcher_scan_output (GIOChannel *channel, GIOCondition condition,
 			/* if not related to non blocking read or interrupted syscall */
 			else if (err && errno != EAGAIN && errno != EINTR)
 			{
-				DEBUG_PRINT ("stdout: %s", err->message);
+				g_warning ("stdout: %s", err->message);
 				launcher->priv->stdout_is_done = TRUE;
 				anjuta_launcher_synchronize (launcher);
 				ret = FALSE;
@@ -802,7 +806,7 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 		do
 		{
 			g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
-			if (n > 0 && !err) /* There is stderr output */
+			if (n > 0) /* There is stderr output */
 			{
 				gchar *utf8_chars;
 				buffer[n] = '\0';
@@ -813,9 +817,9 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 				g_free (utf8_chars);
 			}
 			/* Ignore illegal characters */
-			else if (err && err->domain == G_CONVERT_ERROR)
+			if (err && err->domain == G_CONVERT_ERROR)
 			{
-				DEBUG_PRINT ("stderr: %s", err->message);
+				g_warning ("stderr: %s", err->message);
 				g_error_free (err);
 				err = NULL;
 			}
@@ -823,7 +827,7 @@ anjuta_launcher_scan_error (GIOChannel *channel, GIOCondition condition,
 			/* if not related to non blocking read or interrupted syscall */
 			else if (err && errno != EAGAIN && errno != EINTR)
 			{
-				DEBUG_PRINT ("stderr: %s", err->message);
+				g_warning ("stderr: %s", err->message);
 				
 				launcher->priv->stderr_is_done = TRUE;
 				anjuta_launcher_synchronize (launcher);
@@ -859,7 +863,7 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 		do
 		{
 			g_io_channel_read_chars (channel, buffer, FILE_BUFFER_SIZE-1, &n, &err);
-			if (n > 0 && !err) /* There is stderr output */
+			if (n > 0) /* There is stderr output */
 			{
 				gchar *utf8_chars;
 				gchar *old_str = launcher->priv->pty_output_buffer;
@@ -876,9 +880,9 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 				g_free (utf8_chars);
 			}
 			/* Ignore illegal characters */
-			else if (err && err->domain == G_CONVERT_ERROR)
+			if (err && err->domain == G_CONVERT_ERROR)
 			{
-				DEBUG_PRINT ("pty: %s", err->message);
+				g_warning ("pty: %s", err->message);
 				g_error_free (err);
 				err = NULL;
 			}
@@ -886,7 +890,7 @@ anjuta_launcher_scan_pty (GIOChannel *channel, GIOCondition condition,
 			/* if not related to non blocking read or interrupted syscall */
 			else if (err && errno != EAGAIN && errno != EINTR)
 			{
-				DEBUG_PRINT ("pty: %s", err->message);
+				g_warning ("pty: %s", err->message);
 				ret = FALSE;
 			}
 		/* Read next chars if buffer was too small
@@ -1051,6 +1055,12 @@ anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
 	g_return_val_if_fail (launcher != NULL, FALSE);
 	// charset can be NULL
 
+	launcher->priv->custom_encoding = TRUE;
+	if (charset)
+	  launcher->priv->encoding = g_strdup(charset);
+	else
+	  launcher->priv->encoding = NULL;
+		
 	s = g_io_channel_set_encoding (launcher->priv->stderr_channel, charset, NULL);
 	if (s != G_IO_STATUS_NORMAL) r = FALSE;
 	s = g_io_channel_set_encoding (launcher->priv->stdout_channel, charset, NULL);
@@ -1073,7 +1083,6 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	int stdout_pipe[2], stderr_pipe[2];
 	pid_t child_pid;
 	struct termios termios_flags;
-	const gchar *charset;
 	
 	working_dir = g_get_current_dir ();
 	
@@ -1143,11 +1152,11 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 	launcher->priv->pty_channel = g_io_channel_unix_new (pty_master_fd);
 
 	g_io_channel_set_buffer_size (launcher->priv->pty_channel, FILE_INPUT_BUFFER_SIZE);
-	
-		
-	g_get_charset (&charset);
-	anjuta_launcher_set_encoding (launcher, charset);
 
+	if (!launcher->priv->custom_encoding)
+	  g_get_charset ((const gchar**)&launcher->priv->encoding);
+	anjuta_launcher_set_encoding (launcher, launcher->priv->encoding);
+	
 	tcgetattr(pty_master_fd, &termios_flags);
 	termios_flags.c_iflag &= ~(IGNPAR | INPCK | INLCR | IGNCR | ICRNL | IXON |
 					IXOFF | ISTRIP);
@@ -1347,22 +1356,6 @@ anjuta_launcher_set_terminate_on_exit (AnjutaLauncher *launcher,
 	gboolean past_value = launcher->priv->terminate_on_exit;
 	launcher->priv->terminate_on_exit = terminate_on_exit;
 	return past_value;
-}
-
-/**
- * anjuta_launcher_disable_password_check:
- * @launcher: IAnjutaLauncher object
- * @disable: TRUE disables password check
- * 
- * Do not check for password prompts in input
- *
- * Return value: a new instance of #AnjutaLancher class.
- */
-
-void anjuta_launcher_disable_password_check (AnjutaLauncher* launcher,
-                                                 gboolean disable)
-{
-	launcher->priv->disable_password_check = disable;  
 }
 
 /**

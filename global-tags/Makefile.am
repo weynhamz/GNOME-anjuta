@@ -19,7 +19,7 @@ anjuta_tags_LDADD = $(top_builddir)/tagmanager/libanjuta-ctags.la
 anjuta_tags_LDFLAGS = $(GLIB_LIBS)
 
 edit = sed \
-	-e 's,\@bindir\@,$(bindir),g'
+	-e 's,\@bindir\@,$(scriptdir),g'
 
 create_global_tags.sh: Makefile create_global_tags.sh.in
 	rm -f create_global_tags.sh
