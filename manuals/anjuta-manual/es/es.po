@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-02-10 15:47+0000\n"
-"PO-Revision-Date: 2008-02-12 13:02+0100\n"
+"PO-Revision-Date: 2008-02-12 20:36+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -755,6 +755,16 @@ msgid ""
 "click <guibutton>Cancel</guibutton> to dismiss the dialog without opening "
 "the file."
 msgstr ""
+"<emphasis>Abrir un archivo:</emphasis> para abrir un archivo existente elija "
+"<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Abrir</guimenuitem></"
+"menuchoice> de la barra de menú, pulse el botón <guibutton>Abrir</guibutton> de la "
+"barra de herramientas o pulse <keycombo><keycap>Ctrl</keycap><keycap>O</"
+"keycap></keycombo>. Esto mostrará el diálogo <interface>Abrir archivo</interface>. "
+"<placeholder-1/> Seleccione o introduzca el archivo que quiere abrir, después pulse "
+"<guibutton>Abrir</guibutton>. Para abrir más de un archivo a la vez, "
+"seleccione múltiples archivos pulsando primero la tecla Ctrl y pulsando sobre "
+"los archivos en la lista y pulse <guibutton>Abrir</guibutton>. Si cambia de opinión, "
+"pulse <guibutton>Cancelar</guibutton> para cerrar el diálogo sin abrir el archivo."
 
 #: C/anjuta-manual.xml:172(title)
 msgid "Open Multiple File dialog"
@@ -2517,6 +2527,10 @@ msgid ""
 "<menuchoice><guimenu>Operation menu</guimenu><guimenuitem>Properties</"
 "guimenuitem></menuchoice>"
 msgstr ""
+"Para establecer propiedades de grupo selecciónelas en la <interface>vista de proyecto</"
+"interface> y actívelo. También puede acceder al menú seleccionando "
+"<menuchoice><guimenu>Menú de operación</guimenu><guimenuitem>Propiedades</"
+"guimenuitem></menuchoice>."
 
 #: C/anjuta-manual.xml:654(para)
 msgid ""
@@ -2575,6 +2589,10 @@ msgid ""
 "<menuchoice><guimenu>Operation menu</guimenu><guimenuitem>Properties</"
 "guimenuitem></menuchoice>"
 msgstr ""
+"Para establecer las propiedades del objetivo, selecciónelo en la <interface>Vista de proyecto</"
+"interface> y actívelo. También puede acceder al menú seleccionando el"
+"<menuchoice><guimenu>Menú de operación</guimenu><guimenuitem>Propiedades</"
+"guimenuitem></menuchoice>"
 
 #: C/anjuta-manual.xml:725(para)
 msgid ""
@@ -2602,7 +2620,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:748(title)
 msgid "Compiling and Building"
-msgstr ""
+msgstr "Compilar y construir"
 
 #: C/anjuta-manual.xml:750(title)
 msgid "Overview"
@@ -2610,11 +2628,11 @@ msgstr "Vista general"
 
 #: C/anjuta-manual.xml:751(para)
 msgid "An executable for a project is generated in two steps:"
-msgstr ""
+msgstr "Para un proyecto un ejecutable se genera en dos pasos:"
 
 #: C/anjuta-manual.xml:756(para)
 msgid "Compiling"
-msgstr ""
+msgstr "Compilar"
 
 #: C/anjuta-manual.xml:757(para)
 msgid "Linking"
@@ -2626,6 +2644,9 @@ msgid ""
 "other steps may also be involved in the build process, but for the sake of "
 "simplicity, we will only look at these two steps."
 msgstr ""
+"Estos pases se conocen en conjunto como la <emphasis>construcción</emphasis>. Puede que "
+"algunos otros pasos estén involucrados en el proceso, pero para hacerlo más sencillo "
+"sólo se revisarán éstos dos."
 
 #: C/anjuta-manual.xml:765(para)
 msgid ""
@@ -2665,6 +2686,9 @@ msgid ""
 "guisubmenu><guimenuitem>Compile</guimenuitem></menuchoice> or press "
 "<keycap>F11</keycap>. This will compile the active file."
 msgstr ""
+"Para compilar un archivo elija el elemento del menú <menuchoice><guisubmenu>Construcción</"
+"guisubmenu><guimenuitem>Compilar</guimenuitem></menuchoice> o pulse "
+"<keycap>F11</keycap>. Esto compilará el archivo activo."
 
 #: C/anjuta-manual.xml:795(title)
 msgid "Building an executable"
@@ -3580,6 +3604,10 @@ msgid ""
 "the evaluation results in a TRUE value, otherwise it will continue the "
 "execution as though there had been no breakpoint."
 msgstr ""
+"Cada vez que se encuentre el punto de parada durante la ejecución "
+"se evaluará la condición. El depurador parará la ejecución sólo si "
+"la evaluación devuelve un valor «TRUE», de otra forma continuará "
+"con la ejecución como si no hubiese habido un punto de parada."
 
 #: C/anjuta-manual.xml:450(para)
 msgid ""
@@ -3606,6 +3634,14 @@ msgid ""
 "condition, the debugger will break the execution once the <emphasis>Pass "
 "count</emphasis> counts down to zero."
 msgstr ""
+"El <emphasis>conteo de pasadas</emphasis> es un valor entero (sin signo) que "
+"le dice al depurador que salte el punto de parada ése número de veces antes de "
+"considerarlo. El <emphasis>conteo de pasadas</emphasis> tiene una prioridad más "
+"alta que la <emphasis>condición de parada</emphasis>. Sólo cuando el "
+"<emphasis>conteo de pasadas</emphasis> llega a cero el depurador evaluará "
+"la <emphasis>condición de parada</emphasis> (si hay alguna condición establecida). Si no "
+"hay ninguna condición establecida, el depurador parará la ejecución una vez "
+"que el <emphasis>conteo de pasadas</emphasis> llegue a cero."
 
 #: C/anjuta-manual.xml:469(para)
 msgid ""
