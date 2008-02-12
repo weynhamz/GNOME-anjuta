@@ -1,15 +1,16 @@
-# translation of anjuta.si.po to Sinhala
+# translation of si.po to Sinhala
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Danishka Navin <snavin@redhat.com>, 2007.
+# Danishka Navin <danishka@gmail.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: anjuta.si\n"
+"Project-Id-Version: si\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-06 03:17+0000\n"
-"PO-Revision-Date: 2007-12-06 16:28+0530\n"
-"Last-Translator: Danishka Navin <snavin@redhat.com>\n"
+"PO-Revision-Date: 2008-02-12 14:32+0530\n"
+"Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,15 +20,15 @@ msgstr ""
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
-msgstr ""
+msgstr "අන්ජුටා IDE"
 
 #: ../anjuta.desktop.in.in.h:2
 msgid "Develop software in an integrated development environment"
-msgstr ""
+msgstr "සංගෘහිත පරිසරයක් තුල මෘදුකාංග නිමවයි"
 
 #: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:339
 msgid "Integrated Development Environment"
-msgstr ""
+msgstr "සංගෘහිත නිමැවුම් පරිසරය"
 
 #: ../libanjuta/anjuta-c-module.c:203
 #, c-format
@@ -37,27 +38,27 @@ msgstr ""
 #: ../libanjuta/anjuta-c-module.c:213
 #, c-format
 msgid "Unable to find plugin registration function %s in module %s"
-msgstr ""
+msgstr "plugin එක ලියාපදිංචි කරන %s ශ්‍රිතය %s මොඩුලය තුලින් සෙවිය නොහැක"
 
 #: ../libanjuta/anjuta-c-module.c:219
 #, c-format
 msgid "Unknown error in module %s"
-msgstr ""
+msgstr "%s මොඩුලය තුල නොදන්නා වරදකි"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:108
 #, c-format
 msgid "Missing location of plugin %s"
-msgstr ""
+msgstr "%s plugin එකෙහි ස්ථානය හමු නොවේ"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:141
 #, c-format
 msgid "Missing type defined by plugin %s"
-msgstr ""
+msgstr "%s plugin එකෙන් අර්ථදැක්වෙන type එක හමු නොවේ"
 
 #: ../libanjuta/anjuta-c-plugin-factory.c:149
 #, c-format
 msgid "plugin %s fails to register type %s"
-msgstr ""
+msgstr "%s plugin එක මගින් %s type එක ලියාපදිංචිය අසාර්ථකයි"
 
 #: ../libanjuta/anjuta-encodings.c:140 ../libanjuta/anjuta-encodings.c:166
 #: ../libanjuta/anjuta-encodings.c:207 ../libanjuta/anjuta-encodings.c:248
@@ -236,30 +237,30 @@ msgstr ""
 
 #: ../libanjuta/anjuta-encodings.c:791
 msgid "Supported Encodings"
-msgstr ""
+msgstr "සහාය දක්වන අක්ෂර කේතන"
 
 #: ../libanjuta/anjuta-launcher.c:859
 msgid "launcher.c: Error while reading child pty\n"
-msgstr ""
+msgstr "launcher.c: child pty කියවීමේදී වරදකි\n"
 
 #: ../libanjuta/anjuta-launcher.c:1080 ../libanjuta/resources.c:264
 #: ../libanjuta/resources.c:273 ../plugins/devhelp/plugin.c:544
 #: ../plugins/devhelp/plugin.c:553 ../plugins/gdb/utilities.c:280
 #, c-format
 msgid "Cannot execute command: \"%s\""
-msgstr ""
+msgstr "\"%s\" විධානය ක්‍රියාත්මක කල නොහැක"
 
 #: ../libanjuta/anjuta-launcher.c:1081
 msgid "execvp failed"
-msgstr ""
+msgstr "execvp අසාර්ථකයි"
 
 #: ../libanjuta/anjuta-plugin.c:327 ../libanjuta/anjuta-plugin-manager.c:2188
 msgid "Anjuta Shell"
-msgstr ""
+msgstr "අන්ජුටා කවචය (shell)"
 
 #: ../libanjuta/anjuta-plugin.c:328
 msgid "Anjuta shell that will contain the plugin"
-msgstr ""
+msgstr "plugin එක අන්තර්ගත අන්ජුටා කවචය(shell)"
 
 #: ../libanjuta/anjuta-plugin-manager.c:764
 #, c-format
@@ -269,6 +270,9 @@ msgid ""
 "leading to this was:\n"
 "%s"
 msgstr ""
+"%s පූරණය අසාර්ථකයි\n"
+"බොහෝ විට මෙයින් අදහස් වන්නේ ඔබේ ස්ථාපනයට හානි සිදුවී ඇති බවයි. මෙම වරද දැක්වූ පණිවිඩය වූයේ\n"
+"%s"
 
 #: ../libanjuta/anjuta-plugin-manager.c:863
 #: ../plugins/symbol-browser/an_symbol_prefs.c:781
@@ -282,11 +286,11 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:998 ../src/anjuta-app.c:830
 msgid "Preferred plugins"
-msgstr ""
+msgstr "වඩා ප්‍රියකරණ plugins"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1112
 msgid "Only show user activatable plugins"
-msgstr ""
+msgstr "පරිශීලකයාට සක්‍රීය කළ හැකි ප්ලගින පමණක් දර්ශනය කරනු"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1159
 msgid ""
@@ -294,27 +298,29 @@ msgid ""
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
 "you again to choose different plugin."
 msgstr ""
+"අන්ජුටා, සුදුසු ප්ලගින සමූහයක් අතුරින් එකක් තෝරාගන්නා ලෙස දැක්වූ විට ඔබ තොරාගන්නේ මෙම ප්ලගිනයි."
+"වඩා ප්‍රියකරණ ප්ලගිනය ඉවත් කල විට වෙනත් ප්ලගිනයක් තොරාගැනීමට අන්ජුටා ඉඩ දෙනු ඇත"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1319
 #: ../libanjuta/anjuta-plugin-manager.c:1421
 #: ../plugins/debug-manager/queue.c:545
 msgid "Select a plugin"
-msgstr ""
+msgstr "ප්ලගිනයක් තෝරාගන්න"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1320
 #: ../libanjuta/anjuta-plugin-manager.c:1422
 #: ../plugins/debug-manager/queue.c:546
 msgid "Please select a plugin to activate"
-msgstr ""
+msgstr "කරුණාකර සක්‍රීය කරනු පිණිස ප්ලගිනයක් තෝරාගන්න"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1334
 #, c-format
 msgid "No plugin able to load other plugins in %s"
-msgstr ""
+msgstr "%s හි ඇති අනෙකුත් ප්ලගින පූරණය කිරීමට කිසිදු ප්ලගිනයක් සමත් නොවිණි"
 
 #: ../libanjuta/anjuta-plugin-manager.c:1842
 msgid "Remember this selection"
-msgstr ""
+msgstr "මේ තෝරාගැනීම මතක තබා ගන්න"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2169
 msgid "Profiles"
@@ -330,32 +336,32 @@ msgstr ""
 
 #: ../libanjuta/anjuta-plugin-manager.c:2176
 msgid "Currently available plugins found in plugin paths"
-msgstr ""
+msgstr "ප්ලගින පෙත්(path) තුල දැනට ඇති ප්ලගින"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2182
 msgid "Activated plugins"
-msgstr ""
+msgstr "සක්‍රීය කර ඇති ප්ලගින"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2183
 msgid "Currently activated plugins"
-msgstr ""
+msgstr "දැනට සක්‍රීය කර ඇති ප්ලගින"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2189
 msgid "Anjuta shell for which the plugins are"
-msgstr ""
+msgstr "ප්ලගින සඳහා වූ අන්ජුටා කවචය (shell)"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2197
 msgid "Anjuta Status"
-msgstr ""
+msgstr "අන්ජුටාහි තත්ත්වය"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2198
 msgid "Anjuta status to use in loading and unloading of plugins"
-msgstr ""
+msgstr "ප්ලගින පූරණයේදී සහ වැරීමේදී භාවිතා කල යුතු අන්ජුටාහි තත්ත්වය"
 
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #: ../libanjuta/anjuta-plugin-manager.c:2355
 msgid "Loaded: "
-msgstr ""
+msgstr "පූරණය කර ඇත්තේ: "
 
 #: ../libanjuta/anjuta-plugin-manager.c:2355
 msgid "..."
@@ -363,63 +369,63 @@ msgstr "..."
 
 #: ../libanjuta/anjuta-profile.c:214
 msgid "Plugin Manager"
-msgstr ""
+msgstr "ප්ලගින කළමනාකරු"
 
 #: ../libanjuta/anjuta-profile.c:215
 msgid "The plugin manager to use for resolving plugins"
-msgstr ""
+msgstr "ප්ලගින නිරාකරණයේදී භාවිතා කල යුතු ප්ලගින කළමනාකරු"
 
 #: ../libanjuta/anjuta-profile.c:223
 msgid "Profile Name"
-msgstr ""
+msgstr "පැතිකඩෙහි නම"
 
 #: ../libanjuta/anjuta-profile.c:224
 msgid "Name of the plugin profile"
-msgstr ""
+msgstr "ප්ලගින පැතිකඩෙහි නම"
 
 #: ../libanjuta/anjuta-profile.c:232
 msgid "Profile Plugins"
-msgstr ""
+msgstr "පැතිකඩ ප්ලගින"
 
 #: ../libanjuta/anjuta-profile.c:233
 msgid "List of plugins for this profile"
-msgstr ""
+msgstr "මේ පැතිකඩ සඳ්හා වූ ප්ලගින ලැයිස්තුව"
 
 #: ../libanjuta/anjuta-profile.c:240
 msgid "Synchronization URI"
-msgstr ""
+msgstr "සමමුහුර්ථකරණ URI එක"
 
 #: ../libanjuta/anjuta-profile.c:241
 msgid "URI to sync the proflie xml"
-msgstr ""
+msgstr "පැතිකඩ xml එක සමමුහුර්ථ කළ යුතු URI එක"
 
 #: ../libanjuta/anjuta-profile.c:512 ../libanjuta/anjuta-profile.c:535
 #: ../libanjuta/anjuta-profile.c:548
 #, c-format
 msgid "Failed to read '%s': %s"
-msgstr ""
+msgstr "'%s' කියවිම අසාර්ථකයි: %s"
 
 #: ../libanjuta/anjuta-profile.c:526
 #, c-format
 msgid "No read permission for: %s"
-msgstr ""
+msgstr "%s කියවීමට අවසර නැත"
 
 #: ../libanjuta/anjuta-profile.c:560 ../libanjuta/anjuta-profile.c:570
 #, c-format
 msgid "Failed to read '%s': XML parse error"
-msgstr ""
+msgstr "'%s' කියවිම අසාර්ථකයි: XML විග්‍රහයේ දෝෂයකි"
 
 #: ../libanjuta/anjuta-profile.c:581 ../libanjuta/anjuta-profile.c:732
 #, c-format
 msgid ""
 "Failed to read '%s': XML parse error.Invalid or corrupted anjuta plugins "
 "profile."
-msgstr ""
+msgstr "'%s' කියවිම අසාර්ථකයි: XML විග්‍රහයේ දෝෂයකි. වලංගු නොවන හෝ දෝෂ සහිත අන්ජුටා ප්ලගින"
 
 #: ../libanjuta/anjuta-profile.c:754
 #, c-format
 msgid "%s: Install it from '%s'\n"
-msgstr ""
+msgstr "%s: එය '%s' සිට ස්ථාපනය කරන්න\n"
 
 #: ../libanjuta/anjuta-profile.c:762
 #, c-format
@@ -427,12 +433,14 @@ msgid ""
 "Failed to read '%s': Following mandatory plugins are missing:\n"
 "%s"
 msgstr ""
+"'%s' කියවිම අසාර්ථකයි: පහත දැක්වෙන අත්‍යාවශ්‍ය ප්ලගින හමු නොවිණි"
+"%s"
 
 #: ../libanjuta/anjuta-preferences.c:1420
 msgid ""
 "Are you sure you want to reset the preferences to\n"
 "their default settings?"
-msgstr ""
+msgstr "ඔබේ තොරාගැනීම් ඒවායේ පෙරනිමි වලට නැවත හැරවීමට ඔබට අවශ්‍යයද?"
 
 #: ../libanjuta/anjuta-preferences.c:1424
 msgid "_Reset"
@@ -454,15 +462,15 @@ msgstr "සාමාන්‍ය"
 
 #: ../libanjuta/anjuta-preferences-dialog.c:242
 msgid "Anjuta Preferences"
-msgstr ""
+msgstr "අන්ජුටා තෝරාගැනීම්"
 
 #: ../libanjuta/anjuta-save-prompt.c:165
 msgid "Select the items to save:"
-msgstr ""
+msgstr "සුරැකීම සඳහා අවශ්‍ය අයිතම තොරාගන්න"
 
 #: ../libanjuta/anjuta-save-prompt.c:188
 msgid "If you do not save, all your changes will be lost."
-msgstr ""
+msgstr "ඔබ මෙය සුරැකුවේ නැත්නම්, ඔබ සිදුකළ සියළු වෙනස් කිරීම් අහෝසි වේ"
 
 #: ../libanjuta/anjuta-save-prompt.c:195
 #: ../plugins/document-manager/plugin.c:559
@@ -475,16 +483,16 @@ msgstr "අයිතමය"
 
 #: ../libanjuta/anjuta-save-prompt.c:208
 msgid "_Discard changes"
-msgstr ""
+msgstr "වෙනස් කිරීම් ඉවත දමන්න"
 
 #: ../libanjuta/anjuta-save-prompt.c:303
 #, c-format
 msgid "There are %d items with unsaved changes. Save changes before closing?"
-msgstr ""
+msgstr "වෙනස්කිරීම් සුරැකීම කර නැති අයිතම %d ක් ඇත. වැසීමට පෙර සුරකින්නද?"
 
 #: ../libanjuta/anjuta-save-prompt.c:310
 msgid "There is an item with unsaved changes. Save changes before closing?"
-msgstr ""
+msgstr "වෙනස්කිරීම් සුරැකීම කර නැති අයිතමක් ඇත. වැසීමට පෙර සුරකින්නද?"
 
 #. gtk_tree_view_column_set_sizing (column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
 #: ../libanjuta/anjuta-ui.c:891
@@ -506,39 +514,42 @@ msgstr "කෙටි මාර්‍ගය"
 #: ../libanjuta/anjuta-utils.c:75
 #, c-format
 msgid "Unable to read file: %s."
-msgstr ""
+msgstr "%s ගොනුව කියවිය නොහැක"
 
 #: ../libanjuta/anjuta-utils.c:85
 #, c-format
 msgid "Unable to create file: %s."
-msgstr ""
+msgstr "%s ගොනුව බිහිකළ නොහැක"
 
 #: ../libanjuta/anjuta-utils.c:121
 msgid "Unable to complete file copy"
-msgstr ""
+msgstr "ගොනු පිටපත් කිරීම අසම්පූර්ණයි"
 
 #: ../libanjuta/anjuta-utils.c:334
 msgid ""
 "\n"
 "System: "
 msgstr ""
+"\n"
+"පද්ධතිය: "
 
 #: ../libanjuta/anjuta-utils.c:472
 #, c-format
 msgid ""
 "The \"%s\" utility is not installed.\n"
 "Please install it."
-msgstr ""
+msgstr "\"%s\" සේවාව ස්ථාපිත කර නැත.\n" 
+"කරුණාකර එය ස්ථාපනය කරන්න."
 
 #: ../libanjuta/anjuta-utils.c:772
 #, c-format
 msgid "Cannot execute command: %s (using shell %s)\n"
-msgstr ""
+msgstr "%s විධානය ක්‍රියාත්මක කල නොහැක. (භාවිතා කරන්නේ %s කවචයයි)\n"
 
 #: ../libanjuta/anjuta-utils.c:776
 #, c-format
 msgid "Cannot execute command %s (using shell %s)\n"
-msgstr ""
+msgstr "%s විධානය ක්‍රියාත්මක කල නොහැක. (භාවිතා කරන්නේ %s කවචයයි)\n"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:219
 msgid "Text"
@@ -554,25 +565,25 @@ msgstr "Pixbuf වස්තුව"
 
 #: ../libanjuta/cell-renderer-captioned-image.c:227
 msgid "The pixbuf to render."
-msgstr ""
+msgstr "විදැහවිය යුතු Pixbuf එක"
 
 #: ../libanjuta/resources.c:60
 #, c-format
 msgid "Widget not found: %s"
-msgstr ""
+msgstr "%s ආයිත්තම හමු නොවි"
 
 #: ../libanjuta/resources.c:76 ../libanjuta/resources.c:98
 #, c-format
 msgid "Could not find application pixmap file: %s"
-msgstr ""
+msgstr "%s යෙදුම් pixmap ගොනුව හමු නොවිණි"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
 msgid "<b>Build</b>"
-msgstr ""
+msgstr "<b>නිමවන්න</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
 msgid "<b>Program execution:</b>"
-msgstr ""
+msgstr "ක්‍රමලේඛය දිවැවීම"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:3
 msgid "<b>Scratchbox Options</b>"
@@ -580,15 +591,15 @@ msgstr ""
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:4
 msgid "Arguments: "
-msgstr ""
+msgstr "විස්තාරක"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 msgid "Highlight build message locations in editor"
-msgstr ""
+msgstr "නිමැවුම් පණිවිඩයේ ස්ථාන, පෙල සකසුවේ උද්දීපනය කරන්න"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
 msgid "Install as root:"
-msgstr ""
+msgstr "root ලෙස ස්ථාපනය කරන්න"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:7
 #: ../plugins/document-manager/anjuta-docman.c:749
@@ -598,11 +609,11 @@ msgstr "මාර්‍ගය:"
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:8
 #: ../plugins/tools/anjuta-tools.glade.h:8
 msgid "Run in terminal"
-msgstr ""
+msgstr "අග්‍රයේ දිවවන්න"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:9
 msgid "Select execution program and args"
-msgstr ""
+msgstr "දිවැයිය යුතු යෙදුම හා විස්තාරක තෝරාගන්න"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:10
 msgid "Use scratchbox"
@@ -612,86 +623,86 @@ msgstr ""
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:559
 #, c-format
 msgid "make[%d]: Entering directory '%s'"
-msgstr ""
+msgstr "[%d] නිමවන්න (Make): පිවිසුම් ඩිරෙක්ටරිය '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:560
 #, c-format
 msgid "make: Entering directory '%s'"
-msgstr ""
+msgstr "නිමවන්න (Make): පිවිසුම් ඩිරෙක්ටරිය '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:561
 #, c-format
 msgid "make[%d]: Entering directory `%s'"
-msgstr ""
+msgstr "[%d] නිමවන්න (Make): පිවිසුම් ඩිරෙක්ටරිය '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:562
 #, c-format
 msgid "make: Entering directory `%s'"
-msgstr ""
+msgstr "නිමවන්න (Make): පිවිසුම් ඩිරෙක්ටරිය '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:573
 #, c-format
 msgid "Entering: %s"
-msgstr ""
+msgstr "පිවිසෙන්නේ : %s වෙතයි"
 
 #. Translation for the following should match that of 'make' program
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:581
 #, c-format
 msgid "make[%d]: Leaving directory '%s'"
-msgstr ""
+msgstr "[%d] නිමවන්න (Make): පිටවුම් ඩිරෙක්ටරිය '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:582
 #, c-format
 msgid "make: Leaving directory '%s'"
-msgstr ""
+msgstr "නිමවන්න (Make): පිටවුම් ඩිරෙක්ටරිය '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:583
 #, c-format
 msgid "make[%d]: Leaving directory `%s'"
-msgstr ""
+msgstr "make[%d]: නිමවන්න (Make): පිටවුම් ඩිරෙක්ටරිය '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:584
 #, c-format
 msgid "make: Leaving directory `%s'"
-msgstr ""
+msgstr "නිමවන්න (Make): පිටවුම් ඩිරෙක්ටරිය '%s'"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:595
 #, c-format
 msgid "Leaving: %s"
-msgstr ""
+msgstr "පිටවන්නේ %s වලිනුයි"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:627
 #: ../plugins/tools/execute.c:328
 msgid "warning:"
-msgstr ""
+msgstr "අවවාදයයි:"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:743
 #, c-format
 msgid "Total time taken: %lu secs\n"
-msgstr ""
+msgstr "ගතවූ සම්පූර්ණ කාලය: තත්පර %lu\n"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:748
 msgid "Completed... unsuccessful\n"
-msgstr ""
+msgstr "සම්පූර්ණයි... නමුත් අසාර්ථකයි\n"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:753
 msgid "Completed... successful\n"
-msgstr ""
+msgstr "සම්පූර්ණයි... සාර්ථකයි\n"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:805
 #, c-format
 msgid "Build %d: %s"
-msgstr ""
+msgstr "%d නිමවන්න: %s"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1006
 #, c-format
 msgid "Can not compile \"%s\": No compile rule defined for this file type."
-msgstr ""
+msgstr "\"%s\" කම්පයිල් කල නොහැක: මෙම ගොනු වර්ගය සඳහා කම්පයිල් රීතියක් අර්ථ දක්වා නොමැත"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1046
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1075
 msgid "Configure Parameters:"
-msgstr ""
+msgstr "වින්‍යාසකරන පරාමිතීන්"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1283
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1357
@@ -700,110 +711,110 @@ msgstr ""
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1395
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1561
 msgid "_Build"
-msgstr ""
+msgstr "නිමවන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1287
 msgid "_Build Project"
-msgstr ""
+msgstr "ව්‍යාපෘතිය නිමවන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1288
 msgid "Build whole project"
-msgstr ""
+msgstr "සම්පූර්ණ ව්‍යාපෘතියම නිමවන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1293
 msgid "_Install Project"
-msgstr ""
+msgstr "ව්‍යාපෘතිය පිහිටුවන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1294
 msgid "Install whole project"
-msgstr ""
+msgstr "සම්පූර්ණ ව්‍යාපෘතියම ස්ථාපනය කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1299
 msgid "_Clean Project"
-msgstr ""
+msgstr "ව්‍යාපෘතිය පිරිසිදු කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1300
 msgid "Clean whole project"
-msgstr ""
+msgstr "සම්පූර්ණ ව්‍යාපෘතියම පිරිසිදු කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1305
 msgid "Run C_onfigure..."
-msgstr ""
+msgstr "C_onfigure...ධාවනය කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1306
 msgid "Configure project"
-msgstr ""
+msgstr "ව්‍යාපෘතිය වින්‍යාසකරණය කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1311
 msgid "Run _Autogenerate..."
-msgstr ""
+msgstr "ස්වයංජනකය ධාවනය කරන්න "
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1312
 msgid "Autogenerate project files"
-msgstr ""
+msgstr "ව්‍යාපෘති ගොනු ස්වයංජනනය කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1317
 msgid "Build _Tarball"
-msgstr ""
+msgstr "ටාබෝලය නිමවන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1318
 msgid "Build project tarball distribution"
-msgstr ""
+msgstr "ව්‍යාපෘතියේ ටාබෝල බෙදාහැරීම නිමවන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1323
 msgid "_Execute Program..."
-msgstr ""
+msgstr "යෙදුම ධාවනය කරන්න (_E)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1324
 msgid "Execute program"
-msgstr ""
+msgstr "යෙදුම ධාවනය කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1329
 msgid "_Build Module"
-msgstr ""
+msgstr "මොඩියුලය නිමවන්න (_B)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1330
 msgid "Build module associated with current file"
-msgstr ""
+msgstr "වර්තමාන ගොනුවට අදාල නිමැවුම් මොඩියුලය"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1335
 msgid "_Install Module"
-msgstr ""
+msgstr "මොඩියුලය ස්ථාපනය කරන්න (_I)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1336
 msgid "Install module associated with current file"
-msgstr ""
+msgstr "වර්තමාන ගොනුවට අදාල මොඩියුලය ස්ථාපනය කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1341
 msgid "_Clean Module"
-msgstr ""
+msgstr "මොඩියුලය පිරිසිදු කරන්න (_C)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1342
 msgid "Clean module associated with current file"
-msgstr ""
+msgstr "වර්තමාන ගොනුවට අදාල මොඩියුලය පිරිසිදු කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1347
 msgid "Co_mpile File"
-msgstr ""
+msgstr "ගොනුව කම්පයිල් කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1348
 msgid "Compile current editor file"
-msgstr ""
+msgstr "වර්තමාන පෙල සකසුම් ගොනුව කම්පයිල් කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1361
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1389
 msgid "_Compile"
-msgstr ""
+msgstr "කම්පයිල් (_C)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1362
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1390
 msgid "Compile file"
-msgstr ""
+msgstr "ගොනුව කම්පයිල් කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1368
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1396
 msgid "Build module"
-msgstr ""
+msgstr "මොඩියුලය නිමවන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1373
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1401
@@ -814,59 +825,59 @@ msgstr "ස්තාපනය (_I)"
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1374
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1402
 msgid "Install module"
-msgstr ""
+msgstr "මොඩියුලය ස්ථාපනය කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1379
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1407
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1569
 msgid "_Clean"
-msgstr ""
+msgstr "පිරිසිදු කරන්න (_C)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1380
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1408
 msgid "Clean module"
-msgstr ""
+msgstr "මොඩියුලය පිරිසිදු කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1573
 msgid "Co_mpile"
-msgstr ""
+msgstr "කම්පයිල් කරන්න (_C)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1582
 #, c-format
 msgid "_Build (%s)"
-msgstr ""
+msgstr "(%s) නිමවන්න (_B)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1589
 #, c-format
 msgid "_Install (%s)"
-msgstr ""
+msgstr "(%s) ස්ථාපනය කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1596
 #, c-format
 msgid "_Clean (%s)"
-msgstr ""
+msgstr "(%s) පිරිසිදු කරන්න"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1603
 #, c-format
 msgid "Co_mpile (%s)"
-msgstr ""
+msgstr "(%s) කම්පයිල් කරන්න (_m)"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2007
 msgid "Build commands"
-msgstr ""
+msgstr "නිමැවුම් විධාන"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2014
 msgid "Build popup commands"
-msgstr ""
+msgstr "උත්පතන නිමැවුම් විධාන"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2316
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:2336
 msgid "Build Autotools"
-msgstr ""
+msgstr "ස්වයං නිමැවුම් මෙවලම්"
 
 #: ../plugins/build-basic-autotools/executer.c:76
 msgid "No executables in this project!"
-msgstr ""
+msgstr "ධාවනය කළ හැකි ගොනු මේ ව්‍යාපෘතියේ නැත!"
 
 #: ../plugins/build-basic-autotools/executer.c:154
 msgid "Program"
@@ -874,31 +885,31 @@ msgstr "ක්‍රමලේඛය"
 
 #: ../plugins/build-basic-autotools/executer.c:255
 msgid "No file or Project opened."
-msgstr ""
+msgstr "ව්‍යාපෘතියක් හෝ ගොනුවක් විවෘත කර නැත"
 
 #: ../plugins/build-basic-autotools/executer.c:295
 #, c-format
 msgid "Program '%s' is not a local file"
-msgstr ""
+msgstr "'%s' ක්‍රමලේඛය පෙදෙසි ගොනුවක් නොවේ"
 
 #: ../plugins/build-basic-autotools/executer.c:310
 #, c-format
 msgid "Program '%s' does not exists"
-msgstr ""
+msgstr "'%s' ක්‍රමලේඛය නොපවතියි"
 
 #: ../plugins/build-basic-autotools/executer.c:318
 #, c-format
 msgid "Program '%s' does not have execution permission"
-msgstr ""
+msgstr "'%s' ක්‍රමලේඛයට ධාවන අයිතීන් නොමැත"
 
 #: ../plugins/build-basic-autotools/executer.c:350
 msgid "No executable for this file."
-msgstr ""
+msgstr "මෙම ගොනුව සඳහා ධාවකයක් නොමැත"
 
 #: ../plugins/build-basic-autotools/executer.c:356
 #, c-format
 msgid "Executable '%s' is not up-to-date."
-msgstr ""
+msgstr "'%s' හි ධාවක ගොනුව යාවත්කාලීන නැත"
 
 #. create the check menuitem
 #: ../plugins/class-inheritance/class-inherit.c:132
@@ -913,15 +924,15 @@ msgstr "යාවත් කාළීන:"
 
 #: ../plugins/class-inheritance/class-inherit.c:915
 msgid "Update the graph"
-msgstr ""
+msgstr "ප්‍රස්තාරය යාවත්කාලීන කරන්න"
 
 #: ../plugins/class-inheritance/plugin.c:115
 msgid "Inheritance Graph"
-msgstr ""
+msgstr "ආවේණි ප්‍රස්තාරය"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:1
 msgid "<b>Class Elements</b>"
-msgstr ""
+msgstr "<b>Class Elements</b>"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:2
 msgid "<b>General Class Properties</b>"
@@ -929,31 +940,31 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:3
 msgid "Add to Project"
-msgstr ""
+msgstr "ව්‍යාපෘතියට එක් කරන්න"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:4
 msgid "Add to Repository"
-msgstr ""
+msgstr "රිපොසිටරියට එක් කරන්න"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:5
 msgid "Author Email:"
-msgstr ""
+msgstr "සම්පාදකගේ විද්‍යුත් තැපෑල"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:6
 msgid "Author Name:"
-msgstr ""
+msgstr "සම්පදකගේ නම"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:7
 msgid "Author/Date-Time"
-msgstr ""
+msgstr "සම්පාදක/දිනය-වේලාව"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:8
 msgid "Base Class Inheritance:"
-msgstr ""
+msgstr "මූලික පන්තියේ ආවේණිය"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:9
 msgid "Base Class:"
-msgstr ""
+msgstr "මූලික පන්තිය"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:10
 msgid "Class Function Prefix:"
@@ -961,11 +972,11 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:11
 msgid "Class Name:"
-msgstr ""
+msgstr "පන්ති නාමය"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:12
 msgid "Class Options:"
-msgstr ""
+msgstr "පන්ති විකල්ප"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:13
 #: ../plugins/symbol-browser/anjuta-symbol-browser-plugin.glade.h:6
@@ -1007,7 +1018,7 @@ msgstr ""
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:23
 msgid "Member Functions/Variables"
-msgstr ""
+msgstr "සාමාජික ශ්‍රිත/විචල්‍ය"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:24
 #: ../plugins/glade/plugin.c:457
@@ -1016,19 +1027,19 @@ msgstr "වත්කම්"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:25
 msgid "Signals"
-msgstr ""
+msgstr "සංඥා"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:26
 msgid "Source File:"
-msgstr ""
+msgstr "මූල ගොනු"
 
 #: ../plugins/class-gen/anjuta-class-gen-plugin.glade.h:27
 msgid "Source/Header Headings:"
-msgstr ""
+msgstr "මූල සිරස්තලය/සිරස්තල"
 
 #: ../plugins/class-gen/generator.c:132
 msgid "Header or source file has not been created"
-msgstr ""
+msgstr "සිරස් ගොනුව හෝ මූල ගොනුව බිහිකර නැත"
 
 #: ../plugins/class-gen/generator.c:294
 msgid "Autogen template used for the header file"
@@ -1051,28 +1062,30 @@ msgid ""
 "Could not find autogen version 5, please install the autogen package. You "
 "can get it from http://autogen.sourceforge.net"
 msgstr ""
+"autogen වෙලුම 5 හමුනොවුනි. කරුණාකර http://autogen.sourceforge.net වලින්"
+"autogen පැකේජය ස්ථාපනය කරගන්න"
 
 #: ../plugins/class-gen/plugin.c:263 ../plugins/class-gen/plugin.c:417
 #, c-format
 msgid "Failed to execute autogen: %s"
-msgstr ""
+msgstr "autogen ධාවනය කල නොහැකියි: %s"
 
 #: ../plugins/class-gen/window.c:816
 msgid "XML description of the user interface"
-msgstr ""
+msgstr "පරිශීලක අතුරුමුහුණතේ XML විස්තරය"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:1
 msgid "<b>CVS Options</b>"
-msgstr ""
+msgstr "<b>CVS විකල්ප</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:2
 msgid "<b>Module Details:</b>"
-msgstr ""
+msgstr "<b>මොඩියුල විස්තර:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:3
 #: ../plugins/subversion/anjuta-subversion.glade.h:8
 msgid "<b>Options:</b>"
-msgstr ""
+msgstr "<b>විකල්ප:</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:4
 #: ../plugins/search/anjuta-search.glade.h:13
@@ -1089,6 +1102,11 @@ msgid ""
 "won't be removed from CVS before you use CVS Commit. <b>You have been warned!"
 "</b>"
 msgstr ""
+"<b>නිවේදනය: </b>\n"
+"\n"
+"OK බොත්තම එබීමෙන් CVS එකෙන් සහ දෘඩ තැටියෙන් ගොනුව මැකෙනු ඇත. කෙසේ වුවත් ඔබ "
+"CVS Commit විධානය දෙන තෙක් ගොනුව ඉවත් නොවේ. <b>මේ ඔබට කෙරෙන අනතුරු හැඟවීමයි!"
+"</b>"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:8
 msgid "<b>Repository: </b>"
@@ -1145,44 +1163,44 @@ msgstr ""
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:21
 #: ../plugins/subversion/anjuta-subversion.glade.h:21
 msgid "Choose file or directory to add:"
-msgstr ""
+msgstr "add: කලයුතු ගොනුව හෝ ඩිරෙක්ටරිය තෝරාගන්න"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:22
 msgid "Choose file or directory to commit:"
-msgstr ""
+msgstr "commit: කලයුතු ගොනුව හෝ ඩිරෙක්ටරිය තෝරාගන්න"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:23
 msgid "Choose file or directory to diff:"
-msgstr ""
+msgstr "diff: කලයුතු ගොනුව හෝ ඩිරෙක්ටරිය තෝරාගන්න"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:24
 msgid "Choose file or directory to get log:"
-msgstr ""
+msgstr "සටහන් ලබාගත යුතු ගොනුව හෝ ඩිරෙක්ටරිය තෝරාගන්න"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:25
 msgid "Choose file or directory to get the status from:"
-msgstr ""
+msgstr "තත්ත්ව වාර්තාව ලබාගත යුතු ගොනුව හෝ ඩිරෙක්ටරිය තෝරාගන්න"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:26
 msgid "Choose file or directory to remove:"
-msgstr ""
+msgstr "ඉවත් කල යුතු ගොනුව හෝ ඩිරෙක්ටරිය තෝරාගන්න"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:27
 #: ../plugins/subversion/anjuta-subversion.glade.h:22
 msgid "Choose file or directory to update:"
-msgstr ""
+msgstr "යාවත් කල යුතු ගොනුව හෝ ඩිරෙක්ටරිය තෝරාගන්න"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:28
 msgid "Compression Level (0=off, 10=max):"
-msgstr ""
+msgstr "සම්පීඩන මට්ටම (0=off, 10=max):"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:29
 msgid "Create new directories"
-msgstr ""
+msgstr "නව ඩිරෙක්ටරි බිහිකරන්න"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:30
 msgid "Delete empty directories"
-msgstr ""
+msgstr "හිස් ඩිරෙක්ටරි මකන්න"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:31
 #: ../plugins/subversion/anjuta-subversion.glade.h:26
@@ -1191,7 +1209,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:32
 msgid "File is binary"
-msgstr ""
+msgstr "ගොනුව ද්විමයි"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:33
 msgid "Ignore .cvsrc file (recommend)"
@@ -1454,7 +1472,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:1
 msgid "<b>Debugger:</b>"
-msgstr ""
+msgstr "<b>නිදොසකය:</b>"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:2
 msgid "Add Watch"
@@ -1487,21 +1505,21 @@ msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:8
 msgid "Command Line Parameters:"
-msgstr ""
+msgstr "විධාන පෙල පරාමිතීන්"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:9
 msgid "Debugger Target:"
-msgstr ""
+msgstr "නිදොසකයේ එල්ලය"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:10
 #: ../plugins/gdb/anjuta-gdb.glade.h:7
 msgid "Debugger command"
-msgstr ""
+msgstr "නිදොසක විධානය"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:11
 #: ../plugins/gdb/anjuta-gdb.glade.h:8
 msgid "Debugger command:"
-msgstr ""
+msgstr "නිදොසක විධානය"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:12
 #: ../plugins/gdb/anjuta-gdb.glade.h:9
@@ -1516,7 +1534,7 @@ msgstr ""
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:14
 #: ../plugins/gdb/anjuta-gdb.glade.h:11
 msgid "Enable _all"
-msgstr ""
+msgstr "සියල්ලම සක්‍රීය කරන්න (_a)"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:15
 #: ../plugins/gdb/anjuta-gdb.glade.h:12
@@ -1532,7 +1550,7 @@ msgstr ""
 #: ../plugins/editor/text_editor_menu.c:175
 #: ../plugins/gdb/anjuta-gdb.glade.h:15
 msgid "Inspect"
-msgstr ""
+msgstr "නිරීක්ෂණය"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:18
 msgid "Inspect/Evaluate"
@@ -1576,7 +1594,7 @@ msgstr ""
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:26
 msgid "Run In Terminal"
-msgstr ""
+msgstr "අග්‍රයේ දිවවන්න"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:27
 #: ../plugins/gdb/anjuta-gdb.glade.h:23
@@ -2325,7 +2343,7 @@ msgstr ""
 
 #: ../plugins/devhelp/plugin.c:216
 msgid "Search Help:"
-msgstr ""
+msgstr "උදව් සොයන්න"
 
 #: ../plugins/devhelp/plugin.c:237 ../plugins/document-manager/plugin.c:249
 #: ../plugins/message-view/plugin.c:68 ../plugins/symbol-browser/plugin.c:269
@@ -2334,19 +2352,19 @@ msgstr ""
 
 #: ../plugins/devhelp/plugin.c:245
 msgid "Previous Help"
-msgstr ""
+msgstr "ඉහත උදව්ව"
 
 #: ../plugins/devhelp/plugin.c:247
 msgid "Go to previous help page"
-msgstr ""
+msgstr "ඉහත උදව් පිටුවට යන්න"
 
 #: ../plugins/devhelp/plugin.c:253
 msgid "Next Help"
-msgstr ""
+msgstr "ඊලඟ උදව්ව"
 
 #: ../plugins/devhelp/plugin.c:255
 msgid "Go to next help page"
-msgstr ""
+msgstr "ඊලඟ උදව් පිටුවට යන්න"
 
 #: ../plugins/devhelp/plugin.c:262
 msgid "_API Reference"
@@ -2411,7 +2429,7 @@ msgstr "ප්‍රතිපුරණය (_R)"
 
 #: ../plugins/document-manager/anjuta-docman.c:181
 msgid "Close file"
-msgstr ""
+msgstr "ගොනුව වසන්න"
 
 #: ../plugins/document-manager/anjuta-docman.c:313
 #: ../plugins/file-loader/plugin.c:505 ../plugins/file-loader/plugin.c:768
@@ -2430,7 +2448,7 @@ msgstr "ගොනුව සුරකින අයුර"
 msgid ""
 "The file '%s' already exists.\n"
 "Do you want to replace it with the one you are saving?"
-msgstr ""
+msgstr "'%s' ගොනුව දැනටමත් පවතියි. ඔබට එය දැන් සුරකින ගොනුවෙන් ආදේශ කිරීමට අවශ්‍යයද?"
 
 #: ../plugins/document-manager/anjuta-docman.c:412
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
@@ -2440,7 +2458,7 @@ msgstr "ආදේශය (_R)"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:1
 msgid "<b>Autosave</b>"
-msgstr ""
+msgstr "<b>ස්වයං සුරැකීම</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:2
 msgid "<b>Editor tabs</b>"
@@ -2448,15 +2466,15 @@ msgstr ""
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:3
 msgid "<b>Encoding to use when saving files</b>"
-msgstr ""
+msgstr "<b>ගොනු සුරැකීමේදී භාවිතා කල යුතු කේතනය</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:4
 msgid "<b>Supported Encodings</b>"
-msgstr ""
+msgstr "<b>සහාය දක්වන කේතන</b>"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:5
 msgid "Always save in UTF-8 encoding (faster)"
-msgstr ""
+msgstr "UTF-8 කේතනයෙන් සැමවිටම සුරකින්න (වේගවත්)"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:6
 msgid "Do not show tabs"
@@ -2471,35 +2489,35 @@ msgstr "ලේඛන"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:8
 msgid "Enable files autosave"
-msgstr ""
+msgstr "ගොනු ස්වයං සුරැකීම ක්‍රියාත්මක කරන්න"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:9
 msgid "Encodings"
-msgstr ""
+msgstr "කේතන"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:10
 msgid "Position:"
-msgstr ""
+msgstr "පිහිටුම"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:11
 msgid "Save files interval in minutes"
-msgstr ""
+msgstr "ගොනු සුරකින කාලාන්තරය විනාඩි වලින්"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:12
 msgid "Save session interval in minutes"
-msgstr ""
+msgstr "සැසි සුරකින කාලාන්තරය විනාඩි වලින්"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:13
 msgid "Sorted by most recent use"
-msgstr ""
+msgstr "නවතම භාවිතය පදනම් කොට අනුපිලිවෙලට සකසන්න"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:14
 msgid "Sorted in alphabetical order"
-msgstr ""
+msgstr "අකාරාදී පිලිවෙලට අනුපිලිවෙලට සකසන්න"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:15
 msgid "Sorted in opening order"
-msgstr ""
+msgstr "විවෘත කල පිලිවෙලට අනුපිලිවෙලට සකසන්න"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:16
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:10
@@ -2509,14 +2527,18 @@ msgid ""
 "Left\n"
 "Right"
 msgstr ""
+"උඩ\n"
+"පහත\n"
+"වම\n"
+"දකුණ"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:20
 msgid "Try to save in current locale's encoding"
-msgstr ""
+msgstr "වර්තමාන පෙදෙසියේ කේතනයෙන් සුරැකීමට උත්සාහ කරන්න"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:21
 msgid "Try to save in original encoding"
-msgstr ""
+msgstr "පලමු කේතනයෙන්ම සුරැකීමට උත්සාහ කරන්න"
 
 #: ../plugins/document-manager/plugin.c:154
 msgid "_New"
@@ -2524,7 +2546,7 @@ msgstr "නව (_N)"
 
 #: ../plugins/document-manager/plugin.c:155
 msgid "New empty file"
-msgstr ""
+msgstr "නව හිස් ගොනුවක්"
 
 #: ../plugins/document-manager/plugin.c:157
 msgid "_Save"
@@ -2532,7 +2554,7 @@ msgstr "සුරකින්න (_S)"
 
 #: ../plugins/document-manager/plugin.c:158
 msgid "Save current file"
-msgstr ""
+msgstr "වර්තමාන ගොනුව සුරකින්න"
 
 #: ../plugins/document-manager/plugin.c:159
 msgid "Save _As..."
@@ -2544,15 +2566,15 @@ msgstr "දැනට භාවිතාවන ගොනුව වෙනස් �
 
 #: ../plugins/document-manager/plugin.c:162
 msgid "Save A_ll"
-msgstr ""
+msgstr "සියළුම ගොනු සුරකින්න"
 
 #: ../plugins/document-manager/plugin.c:163
 msgid "Save all currently open files, except new files"
-msgstr ""
+msgstr "නව ගොනු හැර සියළුම දැනට විවෘතව ඇති ගොනු සුරකින්න"
 
 #: ../plugins/document-manager/plugin.c:165
 msgid "_Close File"
-msgstr ""
+msgstr "ගොනුව වසන්න (_C)"
 
 #: ../plugins/document-manager/plugin.c:166
 msgid "Close current file"
@@ -2564,29 +2586,29 @@ msgstr "සියල්ල වසන්න"
 
 #: ../plugins/document-manager/plugin.c:169
 msgid "Close all files"
-msgstr ""
+msgstr "සියළුම ගොනු වසන්න"
 
 #: ../plugins/document-manager/plugin.c:171
 msgid "Reload F_ile"
-msgstr ""
+msgstr "ගොනුව නැවත පූරණය කරන්න"
 
 #: ../plugins/document-manager/plugin.c:172
 msgid "Reload current file"
-msgstr ""
+msgstr "වර්තමාන ගොනුව නැවත පූරණය කරන්න"
 
 #. 8
 #: ../plugins/document-manager/plugin.c:174
 #: ../plugins/editor/text_editor_menu.c:292
 msgid "Swap .h/.c"
-msgstr ""
+msgstr ".h/.c මාරුකරන්න"
 
 #: ../plugins/document-manager/plugin.c:175
 msgid "Swap c header and source files"
-msgstr ""
+msgstr "c header සහ source ගොනු මාරුකරන්න"
 
 #: ../plugins/document-manager/plugin.c:177
 msgid "Recent _Files"
-msgstr ""
+msgstr "ලඟදී විවර කල ගොනු"
 
 #: ../plugins/document-manager/plugin.c:181
 msgid "_Print..."
@@ -2594,15 +2616,15 @@ msgstr "මුද්‍රණය... (_P)"
 
 #: ../plugins/document-manager/plugin.c:182
 msgid "Print the current file"
-msgstr ""
+msgstr "වර්තමාන ගොනුව මුද්‍රණය කරන්න"
 
 #: ../plugins/document-manager/plugin.c:189
 msgid "_Print Preview"
-msgstr ""
+msgstr "මුද්‍රිත පෙරදැක්ම"
 
 #: ../plugins/document-manager/plugin.c:190
 msgid "Preview the current file in print-format"
-msgstr ""
+msgstr "වර්තමාන ගොනුව මුද්‍රිතාකාරයෙන් පෙරදකින්න"
 
 #: ../plugins/document-manager/plugin.c:195
 msgid "_Transform"
@@ -2627,31 +2649,31 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:202
 msgid "Convert EOL to CRLF"
-msgstr ""
+msgstr "EOL, CRLF වලට හරවන්න"
 
 #: ../plugins/document-manager/plugin.c:203
 msgid "Convert End Of Line characters to DOS EOL (CRLF)"
-msgstr ""
+msgstr "පෙල අග (EOL) අක්ෂර  DOS EOL (CRLF) වලට හරවන්න"
 
 #: ../plugins/document-manager/plugin.c:205
 msgid "Convert EOL to LF"
-msgstr ""
+msgstr "EOL, LF වලට හරවන්න"
 
 #: ../plugins/document-manager/plugin.c:206
 msgid "Convert End Of Line characters to Unix EOL (LF)"
-msgstr ""
+msgstr "පෙල අග (EOL) අක්ෂර  Unix EOL (LF) වලට හරවන්න"
 
 #: ../plugins/document-manager/plugin.c:208
 msgid "Convert EOL to CR"
-msgstr ""
+msgstr "EOL, CR වලට හරවන්න"
 
 #: ../plugins/document-manager/plugin.c:209
 msgid "Convert End Of Line characters to Mac OS EOL (CR)"
-msgstr ""
+msgstr "පෙල අග (EOL) අක්ෂර  Mac OS EOL (CR) වලට හරවන්න"
 
 #: ../plugins/document-manager/plugin.c:211
 msgid "Convert EOL to Majority EOL"
-msgstr ""
+msgstr "EOL, බහුතර EOL වලට හරවන්න"
 
 #: ../plugins/document-manager/plugin.c:212
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
@@ -2667,7 +2689,7 @@ msgstr "සියල්ල තෝරන්න (_A)"
 
 #: ../plugins/document-manager/plugin.c:225
 msgid "Select all text in the editor"
-msgstr ""
+msgstr "පෙල සකසුවේ සියලුම පෙල තෝරාගන්න"
 
 #: ../plugins/document-manager/plugin.c:227
 msgid "Select to _Brace"
@@ -2675,7 +2697,7 @@ msgstr ""
 
 #: ../plugins/document-manager/plugin.c:228
 msgid "Select the text in the matching braces"
-msgstr ""
+msgstr "ගැලපෙන වරහන් තුල ඇති පෙල තෝරාගන්න"
 
 #: ../plugins/document-manager/plugin.c:230
 msgid "Select _Code Block"
@@ -2769,7 +2791,7 @@ msgstr "සොයන්න (_S)"
 
 #: ../plugins/document-manager/plugin.c:272
 msgid "_Quick Search"
-msgstr ""
+msgstr "ඉක්මන් සෙවුම"
 
 #: ../plugins/document-manager/plugin.c:273
 msgid "Quick editor embedded search"
@@ -5762,7 +5784,7 @@ msgstr ""
 #: ../plugins/profiler/profiler.glade.h:6
 #: ../plugins/subversion/anjuta-subversion.glade.h:20
 msgid "Browse..."
-msgstr ""
+msgstr "සැරිසරන්න..."
 
 #: ../plugins/profiler/profiler.glade.h:8
 msgid "Do not propagate time for these symbols:"
@@ -5951,7 +5973,7 @@ msgstr ""
 
 #: ../plugins/project-manager/plugin.c:738
 msgid "_Project"
-msgstr ""
+msgstr "ව්‍යාපෘතිය (_P)"
 
 #: ../plugins/project-manager/plugin.c:742
 #: ../plugins/project-manager/plugin.c:776
@@ -6047,7 +6069,7 @@ msgstr ""
 #: ../plugins/project-manager/plugin.c:1438
 #: ../plugins/project-wizard/anjuta-project-wizard.plugin.in.h:1
 msgid "Project"
-msgstr ""
+msgstr "ව්‍යාපෘතිය"
 
 #: ../plugins/project-manager/plugin.c:1354
 #, c-format
@@ -7455,7 +7477,7 @@ msgstr ""
 #: ../plugins/symbol-db/symbol-db-view-locals.c:132
 #: ../plugins/symbol-db/symbol-db-view.c:994
 msgid "Symbol"
-msgstr ""
+msgstr "සංකේතය"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:326
 #: ../plugins/symbol-browser/an_symbol_prefs.c:522
@@ -7629,7 +7651,7 @@ msgstr "ශ්‍රිත"
 
 #: ../plugins/symbol-db/symbol-db-view.c:1402
 msgid "Variables"
-msgstr ""
+msgstr "විචල්‍ය"
 
 #: ../plugins/symbol-db/symbol-db-view.c:1432
 msgid "Typedefs"
@@ -7663,7 +7685,7 @@ msgstr "අග්‍රය"
 
 #: ../plugins/tools/anjuta-tools.glade.h:1
 msgid "Command:"
-msgstr ""
+msgstr "විධානය:"
 
 #: ../plugins/tools/anjuta-tools.glade.h:2
 msgid "Edit as script"
@@ -8162,11 +8184,11 @@ msgstr ""
 
 #: ../plugins/valgrind/vgrule-editor.c:197
 msgid "Grow"
-msgstr ""
+msgstr "වැඩි කරනවා"
 
 #: ../plugins/valgrind/vgrule-editor.c:201
 msgid "Shrink"
-msgstr ""
+msgstr "හැකිලෙනවා "
 
 #: ../plugins/valgrind/vgrule-editor.c:227
 msgid "Rule name:"
