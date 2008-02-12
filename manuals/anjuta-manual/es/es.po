@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-02-10 15:47+0000\n"
-"PO-Revision-Date: 2008-02-12 00:12+0100\n"
+"PO-Revision-Date: 2008-02-12 13:02+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2411,7 +2411,7 @@ msgstr ""
 
 #: C/anjuta-manual.xml:574(title) C/anjuta-manual.xml:576(screeninfo)
 msgid "Project properties dialog"
-msgstr ""
+msgstr "Diálogo Propiedades del proyecto"
 
 #: C/anjuta-manual.xml:566(para)
 msgid ""
@@ -2420,6 +2420,10 @@ msgid ""
 "\">pkg-config</ulink> can be added from this interface. For others, the "
 "configure.ac file can be edited manually. <placeholder-1/>"
 msgstr ""
+"Las dependencias son paquetes externos que usa el proyecto y que son necesarios "
+"para construirlo. Sólo los paquetes instalados usando <ulink url=\"info:pkg-config\">pkg-config</ulink> "
+"se pueden añadir desde esta interfaz. Se puede editar manualmente el archivo "
+"configure.ac para los demás. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:581(para)
 msgid ""
@@ -2431,6 +2435,13 @@ msgid ""
 "be use in. Consequently, for small projects with single targets, just one "
 "module to hold all dependencies is enough."
 msgstr ""
+"Las dependencias de paquetes externos se agrupan en <emphasis>módulos</emphasis>, "
+"de tal forma que sus opciones de construcción combinadas se pueden añadir convenientemente a "
+"diferentes objetivos. Los <emphasis>módulos</emphasis> simplemente son nombres arbitrarios dados "
+"a los grupos de paquetes y se pueden llamar de cualquier forma (sólo se permiten caracteres alfanuméricos y "
+"guión bajo «_» en el nombre del módulo). Generalmente siguen el nombre de los objetivos en los "
+"que se usarán. Consecuentemente, para proyectos pequeños con un solo objetivo solamente un "
+"módulo es suficiente para mantener todas las dependencias."
 
 #: C/anjuta-manual.xml:590(para)
 msgid ""
@@ -2442,16 +2453,24 @@ msgid ""
 "properties</link> and <link linkend=\"target-properties\">Target properties</"
 "link>."
 msgstr ""
+"Cada paquete exporta un conjunto de <emphasis>opciones de compilación</emphasis> y "
+"<emphasis>bibliotecas</emphasis>. Se añaden todas juntas para todos los "
+"paquetes bajo un módulo y se definen las variables de configuración <emphasis>$(module_CFLAGS)</"
+"emphasis> y <emphasis>$(module_LIBS)</emphasis>. Éstas variables se pueden "
+"usar en las <link linkend=\"group-properties\">Propiedades del grupo</link> y las "
+"<link linkend=\"target-properties\">Propiedades del objetivo</link>."
 
 #: C/anjuta-manual.xml:603(para)
 msgid ""
 "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Properties</"
 "guimenuitem></menuchoice> to bring up project properties dialog."
 msgstr ""
+"Seleccione <menuchoice><guisubmenu>Proyecto</guisubmenu><guimenuitem>Propiedades</"
+"guimenuitem></menuchoice> para mostrar el diálogo de propiedades del proyecto."
 
 #: C/anjuta-manual.xml:610(para)
 msgid "Select the tab <guibutton>Packages</guibutton> to bring up packages page."
-msgstr ""
+msgstr "Seleccione la solapa <guibutton>Paquetes</guibutton> para mostrar la página de los paquetes."
 
 #: C/anjuta-manual.xml:614(para)
 msgid ""
@@ -2462,16 +2481,22 @@ msgid ""
 "alphanumeric and '_' characters) and press <keycap>Enter</keycap> to create "
 "it."
 msgstr ""
+"Seleccione el <emphasis>módulo</emphasis> para añadir al paquete. Si no hay ningún "
+"módulo creado o no hay un módulo apropiado, cree uno pulsando "
+"<guibutton>Añadir módulo</guibutton>.  Proporcione un nombre al módulo, "
+"preferiblemente en LETRAS MAYÚSCULAS (se distinguen mayúsculas y minúsculas) para "
+"que coincida con el resto de las variables de configuración (use caracteres alfanuméricos "
+"y el guión bajo «_» exclusivamente) y pulse <keycap>Intro</keycap> para crearlo."
 
 #: C/anjuta-manual.xml:624(para)
 msgid ""
 "Click <guibutton>Add package</guibutton> to bring up package selection "
 "dialog."
-msgstr ""
+msgstr "Pulse <guibutton>Añadir paquete</guibutton> para mostrar el diálogo de selección de paquetes."
 
 #: C/anjuta-manual.xml:627(para)
 msgid "Select the package to add and click <guibutton>Add</guibutton>."
-msgstr ""
+msgstr "Seleccione el paquete para añadir y pulse <guibutton>Añadir</guibutton>."
 
 #: C/anjuta-manual.xml:630(para)
 msgid "Click <guibutton>Close</guibutton> to close the properties dialog."
@@ -2479,7 +2504,7 @@ msgstr "Pulse <guibutton>Cerrar</guibutton> para cerrar el diálogo de propiedad
 
 #: C/anjuta-manual.xml:599(para)
 msgid "To add a package dependency: <placeholder-1/>"
-msgstr ""
+msgstr "Para añadir una dependencia de un paquete: <placeholder-1/>"
 
 #: C/anjuta-manual.xml:637(title)
 msgid "Group properties"
@@ -4613,7 +4638,7 @@ msgid ""
 msgstr ""
 "Para obtener más información acerca de <application>Anjuta</application>, "
 "visite la página web del proyecto en <ulink type=\"http\" url=\"http://"
-"anjuta.org/\">http://anjuta.org</link>. Los informes de error se "
+"anjuta.org/\">http://anjuta.org</ulink>. Los informes de error se "
 "deben rellenar usando Bug Tracker en la página web de desarrollo del "
 "proyecto en <ulink type=\"http\" url=\"http://www.sourceforge.net/projects/"
 "anjuta\"> http://www.sourceforge.net/projects/anjuta</ulink>."
