@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-03 23:18+0000\n"
-"PO-Revision-Date: 2008-02-10 13:49+0100\n"
+"PO-Revision-Date: 2008-02-12 13:01+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -5108,7 +5108,7 @@ msgstr "Sin propiedades disponibles para este destino"
 
 #: ../plugins/project-manager/plugin.c:458
 msgid "Target properties"
-msgstr "Propiedades del destino"
+msgstr "Propiedades del objetivo"
 
 #: ../plugins/project-manager/plugin.c:487
 msgid "Group properties"
