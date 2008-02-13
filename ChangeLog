@@ -8,13 +8,6 @@
 	* plugins/sourceview/sourceview-cell.c: (iiter_diff):
 	Diff with correct sign (also fixes some issues with language-support)
 
-2008-02-13  Johannes Schmid,,,  <jhs@idefix>
-
-	reviewed by: <delete if not using a buddy>
-
-	* plugins/language-support-cpp-java/plugin.c:
-	(is_iter_inside_string), (get_line_auto_indentation):
-
 2008-02-13  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c:
