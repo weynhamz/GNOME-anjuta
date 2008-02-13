@@ -298,8 +298,8 @@ iiter_diff (IAnjutaIterable *iter, IAnjutaIterable *other_iter, GError **e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
 	SourceviewCell* other_cell = SOURCEVIEW_CELL(other_iter);
-	return (gtk_text_iter_get_offset (cell->priv->iter) 
-					- gtk_text_iter_get_offset (other_cell->priv->iter));
+	return (gtk_text_iter_get_offset (other_cell->priv->iter) 
+					- gtk_text_iter_get_offset (cell->priv->iter));
 }
 
 static void

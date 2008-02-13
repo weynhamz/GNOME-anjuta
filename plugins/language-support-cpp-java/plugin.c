@@ -916,7 +916,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			 * statement could hardly be incomplte.
 			 */
 			if (point_ch == '}' && *incomplete_statement == -1)
-			  *incomplete_statement = 0;
+				*incomplete_statement = 0;
 			
 			/* If at level 0 indentation, encoutered a
 			 * block end, don't bother going further
@@ -1110,42 +1110,40 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	return line_indent;
 }
 
-/* Check if iter is inside comment or string. Begining of comment or string
+/* Check if iter is inside string. Begining of string
  * is not counted as inside.
  */
 static gboolean
-is_iter_inside_comment_or_string (IAnjutaIterable *iter)
+is_iter_inside_string (IAnjutaIterable *iter)
 {
 	IAnjutaEditorAttribute attrib;
 	
 	attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter),
 												NULL);
-	/* Check if we are *inside* comment or string. Begining of comment
-	 * or string does not count as inside.
+	/* Check if we are *inside* string. Begining
+	 * of string does not count as inside.
 	 */
-	if (attrib == IANJUTA_EDITOR_COMMENT || attrib == IANJUTA_EDITOR_STRING)
+	if (attrib == IANJUTA_EDITOR_STRING)
 	{
 		/* Peek previous attrib and see what it was */
 		if (ianjuta_iterable_previous (iter, NULL))
 		{
 			attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL
 														(iter),	NULL);
-			if (attrib == IANJUTA_EDITOR_COMMENT ||
-				attrib == IANJUTA_EDITOR_STRING)
+			if (attrib == IANJUTA_EDITOR_STRING)
 			{
-				/* We are inside comment or string */
+				/* We are inside string */
 				return TRUE;
 			}
 			else
 			{
-				/* The comment or string just began, not inside.
+				/* The string just began, not inside.
 				 * Restore iter from the peek
 				 */
 				ianjuta_iterable_next (iter, NULL);
 			}
 		}
-		/* else, there is no previous and so we can't be inside comment
-		 * or string
+		/* else, there is no previous and so we can't be inside string
 		 */
 	}
 	return FALSE;
@@ -1166,7 +1164,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	
 	iter = ianjuta_editor_get_line_begin_position (editor, line, NULL);
 	
-	if (is_iter_inside_comment_or_string (iter))
+	if (is_iter_inside_string (iter))
 	{
 		line_indent = get_line_indentation (editor, line - 1);
 	}
@@ -1184,7 +1182,7 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 		 * or string does not count as inside. If inside, just align with
 		 * previous indentation.
 		 */
-		if (is_iter_inside_comment_or_string (iter))
+		if (is_iter_inside_string (iter))
 		{
 			line_indent = get_line_indentation (editor, line - 1);
 			break;
