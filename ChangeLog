@@ -1,5 +1,11 @@
 2008-02-13  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/sourceview.c: (ieditor_set_tab_size):
+	Also set indentation size correctly, when tab size is set
+	by language support plugin
+
+2008-02-13  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/language-support-cpp-java/plugin.c:
 	(get_line_indentation_base):
 	

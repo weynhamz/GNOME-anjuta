@@ -166,7 +166,7 @@ sourceview_remove_monitor(Sourceview* sv)
 {
 	gboolean monitor_enabled = anjuta_preferences_get_int (sv->priv->prefs, MONITOR_KEY);
 
-	if (monitor_enabled && sv->priv->monitor != NULL) 
+	if (monitor_enabled && sv->priv->monitor != NULL)
 	{
 		DEBUG_PRINT ("Monitor removed for %s", anjuta_document_get_uri(sv->priv->document));
 		gnome_vfs_monitor_cancel(sv->priv->monitor);
@@ -731,6 +731,7 @@ ieditor_set_tab_size (IAnjutaEditor *editor, gint tabsize, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
 	gtk_source_view_set_tab_width(GTK_SOURCE_VIEW(sv->priv->view), tabsize);
+	gtk_source_view_set_indent_width (GTK_SOURCE_VIEW (sv->priv->view), tabsize);
 }
 
 static gboolean
