@@ -1037,29 +1037,15 @@ anjuta_launcher_child_terminated (GPid pid, gint status, gpointer data)
 	anjuta_launcher_synchronize (launcher);
 }
 
-/**
- * anjuta_launcher_set_encoding:
- * @launcher: a #AnjutaLancher object.
- * @charset: Character set to use for Input/Output with the process.
- * 
- * Sets the character set to use for Input/Output with the process.
- *
- * Return value: TRUE if successful, otherwise FALSE.
- */
-gboolean
-anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
+
+static gboolean
+anjuta_launcher_set_encoding_real (AnjutaLauncher *launcher, const gchar *charset)
 {
 	GIOStatus s;
 	gboolean r = TRUE;
 
 	g_return_val_if_fail (launcher != NULL, FALSE);
 	// charset can be NULL
-
-	launcher->priv->custom_encoding = TRUE;
-	if (charset)
-	  launcher->priv->encoding = g_strdup(charset);
-	else
-	  launcher->priv->encoding = NULL;
 		
 	s = g_io_channel_set_encoding (launcher->priv->stderr_channel, charset, NULL);
 	if (s != G_IO_STATUS_NORMAL) r = FALSE;
@@ -1073,6 +1059,28 @@ anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
 		g_warning ("launcher.c: Failed to set channel encoding!");
 	}
 	return r;
+}
+
+
+/**
+ * anjuta_launcher_set_encoding:
+ * @launcher: a #AnjutaLancher object.
+ * @charset: Character set to use for Input/Output with the process.
+ * 
+ * Sets the character set to use for Input/Output with the process.
+ *
+ */
+void
+anjuta_launcher_set_encoding (AnjutaLauncher *launcher, const gchar *charset)
+{
+	if (launcher->priv->custom_encoding)
+		g_free (launcher->priv->encoding);
+	
+	launcher->priv->custom_encoding = (charset != NULL);
+	if (charset)
+	  launcher->priv->encoding = g_strdup(charset);
+	else
+	  launcher->priv->encoding = NULL;		
 }
 
 static pid_t
@@ -1155,7 +1163,7 @@ anjuta_launcher_fork (AnjutaLauncher *launcher, gchar *const args[])
 
 	if (!launcher->priv->custom_encoding)
 	  g_get_charset ((const gchar**)&launcher->priv->encoding);
-	anjuta_launcher_set_encoding (launcher, launcher->priv->encoding);
+	anjuta_launcher_set_encoding_real (launcher, launcher->priv->encoding);
 	
 	tcgetattr(pty_master_fd, &termios_flags);
 	termios_flags.c_iflag &= ~(IGNPAR | INPCK | INLCR | IGNCR | ICRNL | IXON |

@@ -4,7 +4,7 @@ anjuta_gladedir = $(anjuta_glade_dir)
 anjuta_glade_DATA = anjuta.glade
 
 anjuta_uidir = $(anjuta_ui_dir)
-anjuta_ui_DATA = anjuta.ui anjuta-shell.ui
+anjuta_ui_DATA = anjuta.ui
 
 anjuta_layoutdir = $(anjuta_data_dir)
 anjuta_layout_DATA = layout.xml
@@ -29,7 +29,7 @@ AM_CPPFLAGS = \
 
 include $(top_srcdir)/plugins/editor/scintilla/lexers.make
 
-bin_PROGRAMS = anjuta anjuta-shell
+bin_PROGRAMS = anjuta
 
 anjuta_SOURCES = \
 	about.c \
@@ -55,12 +55,15 @@ anjuta_LDFLAGS = $(ANJUTA_LDFLAGS)
 prefs_glade_files = anjuta.glade
 include $(top_srcdir)/scripts/build-schemas.mk
 
+noinst_PROGRAMS =  anjuta-shell
+
 anjuta_shell_SOURCES = shell.c shell.h
 anjuta_shell_LDADD =  \
 	$(top_builddir)/libanjuta/libanjuta.la
 
 EXTRA_DIST = \
 	$(anjuta_ui_DATA) \
+	anjuta-shell.ui \
 	$(anjuta_layout_DATA) \
 	$(anjuta_glade_DATA) \
 	$(anjuta_pixmaps_DATA)

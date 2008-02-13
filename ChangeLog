@@ -1,3 +1,13 @@
+2008-02-13  Johannes Schmid <jhs@gnome.org>
+
+	* libanjuta/anjuta-launcher.c: (anjuta_launcher_set_encoding_real),
+	(anjuta_launcher_set_encoding), (anjuta_launcher_fork):
+	* libanjuta/anjuta-launcher.h:
+	Some more fixes from symbol-db-branch
+	
+	* src/Makefile.am:
+	Move anjuta-shell to noinst_PROGRAMS as it is just a test
+
 2008-02-12  Johannes Schmid <jhs@gnome.org>
 
   Patch from Gennaro Bellizio <genbell@tiscali.it>:
