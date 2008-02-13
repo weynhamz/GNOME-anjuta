@@ -815,7 +815,8 @@ static gint
 get_line_indentation_base (CppJavaPlugin *plugin,
 						   IAnjutaEditor *editor,
 						   gint line_num,
-						   gint *incomplete_statement)
+						   gint *incomplete_statement,
+						   gboolean *colon_indent)
 {
 	IAnjutaIterable *iter;
 	gchar point_ch;
@@ -867,6 +868,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 		
 		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
 												 NULL);
+
 		/* DEBUG_PRINT("point_ch = %c", point_ch); */
 		/* Check if line ends with a comment */
 		if (point_ch == '/')
@@ -878,8 +880,6 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			if (point_ch == '*')
 			{
 				/* Skip all characters until the beginning of the comment */
-				
-				DEBUG_PRINT ("Found comment");
 				while (ianjuta_iterable_previous (iter, NULL))
 				{
 					point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
@@ -891,7 +891,6 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 																 NULL);
 						if (point_ch == '/')
 						{
-							DEBUG_PRINT("Found comment end");
 							break;
 						}
 					}
@@ -988,8 +987,38 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			if (*incomplete_statement == -1)
 				*incomplete_statement = 0;
 		}
-		/* No "else if" because the iter might have moved to newline */
-		if (iter_is_newline (iter, point_ch))
+		else if (point_ch == ':' && *colon_indent == FALSE)
+		{
+			/* This is a forward reference, all lines below should have
+			 * increased indentation until the next statement has
+			 * a ':'
+			 */
+			IAnjutaIterable* new_iter = ianjuta_iterable_clone (iter, NULL);
+			gboolean indent = FALSE;		
+			
+			/* Is the last non-whitespace in line */
+			while (ianjuta_iterable_next (new_iter, NULL))
+			{
+				gchar c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter),
+													   0, NULL);
+				if (!isspace(c))
+					break;
+				if (iter_is_newline (new_iter, c))
+				{
+					indent = TRUE;
+					break;
+				}
+			}
+			g_object_unref (new_iter);
+			if (indent)
+			{
+				*colon_indent = TRUE;
+				extra_indent += INDENT_SIZE;
+				if (*incomplete_statement == -1)
+					*incomplete_statement = 0;
+			}
+		}	
+		else if (iter_is_newline (iter, point_ch))
 		{
 			skip_iter_to_newline_head (iter, point_ch);
 			
@@ -1154,8 +1183,10 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 						   gint line)
 {
 	IAnjutaIterable *iter;
+	IAnjutaIterable *end_iter;
 	gint line_indent = 0;
 	gint incomplete_statement = -1;
+	gboolean colon_indent = FALSE;
 	
 	g_return_val_if_fail (line > 0, 0);
 	
@@ -1171,7 +1202,29 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 	else
 	{
 		line_indent = get_line_indentation_base (plugin, editor, line,
-												 &incomplete_statement);
+												 &incomplete_statement, &colon_indent);
+	}
+	
+	if (colon_indent)
+	{
+		/* If the last non-whitespace character in the line is ":" then
+		 * we remove the extra colon_indent
+		 */
+		end_iter = ianjuta_editor_get_line_end_position (editor, line, NULL);
+		gchar ch;
+		do
+		{
+			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (end_iter),
+											   0, NULL);
+			DEBUG_PRINT ("line-end: %c", ch);
+			if (ch == ':')
+			{
+				line_indent -= INDENT_SIZE;
+				break;
+			}
+		}
+		while (isspace(ch) && ianjuta_iterable_previous (end_iter, NULL));
+		g_object_unref (end_iter);
 	}
 	
 	/* Determine what the first non-white char in the line is */
@@ -1210,6 +1263,9 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 							 line_indent + BRACE_INDENT);
 				*/
 				line_indent += BRACE_INDENT;
+				/* It looks ugly to add extra indent after case: so remove that */
+				if (colon_indent)
+					line_indent -= INDENT_SIZE;
 			}
 			break;
 		}
@@ -1270,11 +1326,10 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 	{
 		/* Indent only when it's the first non-white space char in the line */
 		
-		/* Don't bother if we are inside comment or string */
+		/* Don't bother if we are inside string */
 		attrib = ianjuta_editor_cell_get_attribute (IANJUTA_EDITOR_CELL (iter),
 													NULL);
-		if (attrib != IANJUTA_EDITOR_COMMENT &&
-			attrib != IANJUTA_EDITOR_STRING)
+		if (attrib != IANJUTA_EDITOR_STRING)
 		{
 			/* Iterate backwards till the begining of the line and disable
 			 * indenting if any non-white space char is encountered
@@ -1304,6 +1359,10 @@ on_editor_char_inserted_cpp (IAnjutaEditor *editor,
 				}
 			}
 		}
+	}
+	else if (ch == ':')
+	{
+		should_auto_indent = TRUE;
 	}
 	if (should_auto_indent)
 	{

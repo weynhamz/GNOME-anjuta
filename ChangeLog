@@ -1,3 +1,10 @@
+2008-02-14  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c:
+	(get_line_indentation_base), (get_line_auto_indentation),
+	(on_editor_char_inserted_cpp):
+	504905 – Ctrl-I (Auto Indent) doesn't indent properly after C++ public: and private:
+
 2008-02-13  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c:
