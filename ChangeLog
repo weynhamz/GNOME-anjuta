@@ -1,5 +1,12 @@
 2008-02-13  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/plugin.c:
+	(get_line_indentation_base):
+	
+	Indent lines after comments correctly
+
+2008-02-13  Johannes Schmid <jhs@gnome.org>
+
 	* libanjuta/anjuta-launcher.c: (anjuta_launcher_set_encoding_real),
 	(anjuta_launcher_set_encoding), (anjuta_launcher_fork):
 	* libanjuta/anjuta-launcher.h:

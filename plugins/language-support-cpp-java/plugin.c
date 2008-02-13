@@ -866,8 +866,44 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 		
 		point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
 												 NULL);
-
-		/* DEBUG_PRINT("point_ch = %c", point_ch); */
+		DEBUG_PRINT("point_ch = %c", point_ch);
+		/* Check if line ends with a comment */
+		if (point_ch == '/')
+		{
+			ianjuta_iterable_previous(iter, NULL);
+			point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
+													 NULL);
+			/* This is the end of a comment */
+			if (point_ch == '*')
+			{
+				/* Skip all characters until the beginning of the comment */
+				
+				DEBUG_PRINT ("Found comment");
+				while (ianjuta_iterable_previous (iter, NULL))
+				{
+					point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
+															 NULL);
+					if (point_ch == '*')
+					{
+						ianjuta_iterable_previous(iter, NULL);
+						point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
+																 NULL);
+						if (point_ch == '/')
+						{
+							DEBUG_PRINT("Found comment end");
+							break;
+						}
+					}
+				}
+				continue;
+			}
+			else
+			{
+				ianjuta_iterable_next (iter, NULL);
+				point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
+														 NULL);
+			}
+		}
 		if (point_ch == ')' || point_ch == ']' || point_ch == '}')
 		{
 			gint line_saved;
@@ -879,7 +915,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			 * statement could hardly be incomplte.
 			 */
 			if (point_ch == '}' && *incomplete_statement == -1)
-				*incomplete_statement = 0;
+			  *incomplete_statement = 0;
 			
 			/* If at level 0 indentation, encoutered a
 			 * block end, don't bother going further
@@ -896,7 +932,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 				line_indent = get_line_indentation (editor, line_saved);
 				break;
 			}
-		}
+			}
 		else if (point_ch == '{')
 		{
 			gint line_for_indent =
@@ -948,7 +984,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			if (*incomplete_statement == -1)
 				*incomplete_statement = 0;
 		}
-		else if (iter_is_newline (iter, point_ch))
+		/* No "else if" because the iter might have moved to newline */
+		if (iter_is_newline (iter, point_ch))
 		{
 			skip_iter_to_newline_head (iter, point_ch);
 			
@@ -965,9 +1002,43 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 				*/
 			}
 			looking_at_just_next_line = FALSE;
-		}
+		}		 
 		else if (!isspace (point_ch))
 		{
+			/* Check for line comment */
+			gboolean comment = FALSE;
+			IAnjutaIterable* new_iter = ianjuta_iterable_clone (iter, NULL);
+			do
+			{
+				gchar c;
+				c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
+											  NULL);
+				if (iter_is_newline (iter, c))
+					break;
+				if (c == '/')
+				{
+					ianjuta_iterable_previous (iter, NULL);
+					c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
+													  NULL);
+					if (c == '/')
+					{
+						/* is a comment, skip until begin of comment */
+						comment = TRUE;
+						break;
+					}
+				}				
+			}
+			while (ianjuta_iterable_previous (new_iter, NULL));
+			if (comment)
+			{
+				ianjuta_iterable_set_position (iter,
+											   ianjuta_iterable_get_position (new_iter, NULL), 
+											   NULL);
+				g_object_unref (new_iter);
+				continue;
+			}
+			g_object_unref (new_iter);
+			
 			/* If we encounter any non-whitespace char before any of the
 			 * statement-complete indicators, the statement is basically
 			 * incomplete
