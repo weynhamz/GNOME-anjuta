@@ -151,7 +151,17 @@ svn_diff_command_run (AnjutaCommand *command)
 		if (strlen (line))
 		{
 			anjuta_async_command_lock (ANJUTA_ASYNC_COMMAND (command));
-			g_queue_push_tail (self->priv->output, g_strdup (line));
+			
+			/* Make sure that we only output UTF-8. We could have done this by
+			 * passing in "UTF-8" for header encoding to the diff API, but there
+			 * is the possiblity that an external diff program could be used, in
+			 * which case that arguement wouldn't do anything. As a workaround,
+			 * have the internal diff system return things in the system 
+			 * charset, and make the (hopefully safe) assumption that any 
+			 * external diff program also outputs in the current locale. */
+			g_queue_push_tail (self->priv->output, 
+							   g_locale_to_utf8 (line, read_size, NULL, NULL,
+												 NULL));
 			anjuta_async_command_unlock (ANJUTA_ASYNC_COMMAND (command));
 			
 			g_free (line);
