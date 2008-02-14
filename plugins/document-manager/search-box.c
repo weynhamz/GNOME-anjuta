@@ -304,16 +304,24 @@ on_search_activated (GtkWidget* widget, SearchBox* search_box)
 	if (!private->current_editor || !search_text || !strlen (search_text))
 		return;
 	
-	search_start = 
-		IANJUTA_EDITOR_CELL (ianjuta_editor_get_position (private->current_editor, 
+	selection = IANJUTA_EDITOR_SELECTION (private->current_editor);
+	
+	if (ianjuta_editor_selection_has_selection (selection, NULL))
+	{
+		search_start = 
+			IANJUTA_EDITOR_CELL (ianjuta_editor_selection_get_start (selection, NULL));
+	}
+	else
+	{
+		search_start = 
+			IANJUTA_EDITOR_CELL (ianjuta_editor_get_position (private->current_editor, 
 														  NULL));
+	}
 	real_start =
 			ianjuta_iterable_clone (IANJUTA_ITERABLE (search_start), NULL);
 	
 	search_end = IANJUTA_EDITOR_CELL (ianjuta_editor_get_end_position (private->current_editor, 
 																	   NULL));
-	
-	selection = IANJUTA_EDITOR_SELECTION (private->current_editor);
 	
 	/* If a search_result is already selected, move the search start
 	 * forward by one

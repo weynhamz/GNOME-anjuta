@@ -1,3 +1,9 @@
+2008-02-14  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/document-manager/search-box.c: (on_search_activated):
+	516377 – Status bar does not change its status of 'Search for .. continued at top'
+	(caused by differences between scintilla and sourceview)
+
 2008-02-13  James Liggett <jrliggett@cox.net>
 
 	* plugins/subversion/svn-diff-command.c: (svn_diff_command_run):
