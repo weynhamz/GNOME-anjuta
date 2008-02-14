@@ -1,5 +1,15 @@
 2008-02-14  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/macro/macro-db.c: (save_macro), (macro_db_get_macro):
+	* plugins/macro/macro-dialog.c: (on_macro_selection_changed):
+	* plugins/symbol-browser/an_symbol.c:
+	* plugins/symbol-browser/an_symbol_view.c:
+	(on_symbol_view_row_expanded):
+	Fixed some memory leaks (Remember to all free/unref everything that comes
+	from gtk_tree_model_get())
+
+2008-02-14  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/document-manager/search-box.c: (on_search_activated):
 	516377 – Status bar does not change its status of 'Search for .. continued at top'
 	(caused by differences between scintilla and sourceview)

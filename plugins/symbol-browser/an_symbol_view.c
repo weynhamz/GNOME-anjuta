@@ -455,7 +455,10 @@ on_symbol_view_row_expanded (GtkTreeView * view,
 							SYMBOL_NODE, &sym, -1);
 		/* Symbol has been created, no need to create them again */
 		if (sym)
+		{
+			g_object_unref (sym);
 			return;
+		}
 	}
 	else 
 	{
@@ -486,6 +489,7 @@ on_symbol_view_row_expanded (GtkTreeView * view,
 	if (sym)
 	{
 		anjuta_symbol_view_add_children (sv, sym, store, iter);
+		g_object_unref (sym);
 	}
 
 	/* Delete the referenced rows */

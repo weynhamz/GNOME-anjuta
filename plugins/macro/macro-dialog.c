@@ -154,6 +154,7 @@ on_macro_selection_changed (GtkTreeSelection * selection,
 
 				gtk_widget_set_sensitive (edit, !predefined);
 				gtk_widget_set_sensitive (remove, !predefined);
+				g_free (text);
 				return;
 			}
 		}

@@ -204,6 +204,9 @@ save_macro (GtkTreeModel * model, GtkTreeIter * iter, GnomeVFSHandle * handle)
 	bytes = strlen (output);
 	result = gnome_vfs_write (handle, output,
 				  strlen (output), &bytes_written);
+	g_free (name);
+	g_free (category);
+	g_free (text);
 	if (result != GNOME_VFS_OK)
 		return;
 }
@@ -427,6 +430,7 @@ gchar* macro_db_get_macro(MacroPlugin * plugin, MacroDB * db, GtkTreeIter* iter,
 	else
 	{
 		gchar* buffer = expand_macro(plugin, text, offset);
+		g_free (text);
 		return buffer;
 	}
 }

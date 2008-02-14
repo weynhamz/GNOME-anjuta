@@ -19,6 +19,7 @@
  */
 
 #include <libgnome/gnome-macros.h>
+#include <libgnomevfs/gnome-vfs-utils.h>
 #include <libanjuta/anjuta-utils.h>
 #include <libanjuta/anjuta-debug.h>
 #include <libanjuta/interfaces/ianjuta-symbol.h>
