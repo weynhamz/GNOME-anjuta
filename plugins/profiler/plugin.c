@@ -955,6 +955,16 @@ ifile_open (IAnjutaFile *manager, const gchar *uri,
 	
 	profiler_set_target (profiler, uri);
 	
+	/* Respect user settings for this target if they exist. Otherwise, don't
+	 * create an entry for this target to avoid having the settings file 
+	 * balloon with the settings for a bunch of targets, espcially if this 
+	 * is a one-time operation. If previous settings don't exist, just use
+	 * the defaults. */
+	if (gprof_options_has_target (profiler->options,  (gchar *) uri))
+		gprof_options_set_target (profiler->options, (gchar *) uri);
+	else
+		gprof_options_set_target (profiler->options, NULL);
+	
 	if (profiler_get_data (profiler))
 		gprof_view_manager_refresh_views (profiler->view_manager);
 	

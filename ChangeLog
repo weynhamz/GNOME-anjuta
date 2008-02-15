@@ -1,3 +1,14 @@
+2008-02-15  James Liggett <jrliggett@cox.net>
+
+	reviewed by: Johannes Schmid <jhs@gnome.org>
+
+	* plugins/profiler/gprof-options.c: (setup_widgets),
+	(gprof_options_set_target), (gprof_options_has_target),
+	(gprof_options_get_string):
+	* plugins/profiler/gprof-options.h:
+	* plugins/profiler/plugin.c: (ifile_open):
+	516128 – crash in Anjuta IDE: selected profiler as the...
+
 2008-02-14  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/macro/macro-db.c: (save_macro), (macro_db_get_macro):

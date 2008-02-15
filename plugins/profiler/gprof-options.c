@@ -208,7 +208,6 @@ static void
 setup_widgets (gchar *key_name, Key *key, GladeXML *gxml)
 {
 	GtkWidget *widget;
-//	GtkWidget *file_chooser_dialog;
 	GtkTextBuffer *buffer;
 	gchar *string;
 	
@@ -293,21 +292,34 @@ gprof_options_set_target (GProfOptions *self, gchar *target)
 {
 	GHashTable *new_table;
 	
-	/* First, the target must have an entry in the target table. If we don't
-	 * have one, set one up and copy the defaults into it. */
-	
-	if (!g_hash_table_lookup_extended (self->priv->targets, target,
-									   NULL, NULL))
+	if (target)
 	{
-		new_table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, 
-										   g_free);
-		g_hash_table_foreach (self->priv->default_options, (GHFunc) copy_default_key,
-							  new_table);
-		g_hash_table_insert (self->priv->targets, g_strdup (target), new_table);
+		/* First, the target must have an entry in the target table. If we don't
+		 * have one, set one up and copy the defaults into it. */
+		
+		if (!g_hash_table_lookup_extended (self->priv->targets, target,
+										   NULL, NULL))
+		{
+			new_table = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, 
+											   g_free);
+			g_hash_table_foreach (self->priv->default_options, 
+								  (GHFunc) copy_default_key, new_table);
+			g_hash_table_insert (self->priv->targets, g_strdup (target), 
+								 new_table);
+		}
+		
+		self->priv->current_target = g_hash_table_lookup (self->priv->targets, 
+														  target);
 	}
-	
-	self->priv->current_target = g_hash_table_lookup (self->priv->targets, 
-													  target);
+	else
+		self->priv->current_target = NULL;
+}
+
+gboolean
+gprof_options_has_target (GProfOptions *self, gchar *target)
+{
+	return g_hash_table_lookup_extended (self->priv->targets, target,
+										 NULL, NULL);
 }
 
 /* Free returned string */
@@ -321,8 +333,8 @@ gprof_options_get_string (GProfOptions *self, const gchar *key)
 	}
 	else
 	{
-		g_warning ("GProfOptions: Trying to get option value with "
-				   "no target.\n");
+		return g_strdup (g_hash_table_lookup (self->priv->default_options,
+											  key));
 	}
 	
 	return NULL;

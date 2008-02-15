@@ -70,6 +70,7 @@ GProfOptions *gprof_options_new (void);
 void gprof_options_destroy (GProfOptions *self);
 
 void gprof_options_set_target (GProfOptions *self, gchar *target);
+gboolean gprof_options_has_target (GProfOptions *self, gchar *target);
 
 gchar *gprof_options_get_string (GProfOptions *self, const gchar *key);
 gint gprof_options_get_int (GProfOptions *self, const gchar *key);
