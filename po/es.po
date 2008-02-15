@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-03 23:18+0000\n"
-"PO-Revision-Date: 2008-02-12 13:01+0100\n"
+"PO-Revision-Date: 2008-02-15 12:41+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2710,7 +2710,7 @@ msgstr "_Transformar"
 #. menu title
 #: ../plugins/document-manager/plugin.c:196
 msgid "_Make Selection Uppercase"
-msgstr "Convertir selección en _mayúsculas"
+msgstr "Convertir selección a _mayúsculas"
 
 #: ../plugins/document-manager/plugin.c:197
 msgid "Make the selected text uppercase"
@@ -2718,7 +2718,7 @@ msgstr "Convierte el texto seleccionado en mayúsculas"
 
 #: ../plugins/document-manager/plugin.c:199
 msgid "Make Selection Lowercase"
-msgstr "Convertir selección en minúsculas"
+msgstr "Convertir selección a minúsculas"
 
 #: ../plugins/document-manager/plugin.c:200
 msgid "Make the selected text lowercase"
