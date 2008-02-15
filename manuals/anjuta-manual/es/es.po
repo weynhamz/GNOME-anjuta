@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
 "POT-Creation-Date: 2008-02-10 15:47+0000\n"
-"PO-Revision-Date: 2008-02-15 13:50+0100\n"
+"PO-Revision-Date: 2008-02-15 21:02+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -2821,6 +2821,11 @@ msgid ""
 "filename>) and put it in the top level project directory. Copy the file to a "
 "safe place for distribution."
 msgstr ""
+"Para construir la distribución tarball del proyecto, elija "
+"<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Construir tarball</"
+"guimenuitem></menuchoice>. Esto creará el tarball (<filename>*.tar.gz</"
+"filename>) y lo pondrá en el nivel superior del directorio del proyecto. Copie el archivo "
+"a un lugar seguro para su distribución."
 
 #: C/anjuta-manual.xml:837(title)
 msgid "Install"
@@ -2832,10 +2837,13 @@ msgid ""
 "guisubmenu><guimenuitem>Install</guimenuitem></menuchoice> will install the "
 "generated application on your system."
 msgstr ""
+"Eligiendo el elemento del menú <menuchoice><guisubmenu>Construir</"
+"guisubmenu><guimenuitem>Instalar</guimenuitem></menuchoice> instalará la "
+"aplicación generada en su sistema."
 
 #: C/anjuta-manual.xml:844(title)
 msgid "System wide installation"
-msgstr ""
+msgstr "Instalación amplia en el sistema"
 
 #: C/anjuta-manual.xml:845(para)
 msgid ""
@@ -2846,6 +2854,12 @@ msgid ""
 "You can configure anjuta to use <command>sudo</command> or <command>su</"
 "command> before installing the project in the build preferences."
 msgstr ""
+"Debe haber iniciado sesión como «root» para realizar una instalación amplia en el sistema. También "
+"node que para que una aplicación de GNOME use los pixmaps en el proyecto, debe estar "
+"instalado como una aplicación amplia en el sistema. De otra forma, cuando la aplicación "
+"se ejecute en su proyecto, habrá muchos errores \"pixmap no encontrado\". "
+"Puede configurar Anjuta para que use <command>sudo</command> o <command>su</"
+"command> antes de instalar el proyecto, en las preferencias de construcción."
 
 #: C/anjuta-manual.xml:855(title)
 msgid "Configure"
@@ -2861,16 +2875,23 @@ msgid ""
 "<filename>config.h</filename>). This is necessary because the application "
 "may depend on specific configuration of some of these options."
 msgstr ""
+"Para ejecutar el script <filename>configure</filename> ubicado en el nivel superior "
+"del directorio del proyecto, elija el elemento del menú <menuchoice><guisubmenu>Construir</"
+"guisubmenu><guimenuitem>Configurar</guimenuitem></menuchoice>. El script "
+"determinará la configuración del sistema y creará algunos de los archivos "
+"necesarios para realizar una construcción (tales como el <filename>makefile</filename> y "
+"<filename>config.h</filename>). Esto es necesario porque la aplicación "
+"puede depender de una configuración específica de algunas de esas opciones."
 
 #: C/anjuta-manual.xml:865(title)
 msgid "When to configure"
-msgstr ""
+msgstr "Cuando configurar"
 
 #: C/anjuta-manual.xml:866(para)
 msgid ""
 "Until you run <filename>configure</filename>, you cannot start building the "
 "project."
-msgstr ""
+msgstr "Hasta que no ejecute <filename>configure</filename> no podrá iniciar la construcción del proyecto."
 
 #: C/anjuta-manual.xml:871(para)
 msgid ""
@@ -2890,10 +2911,13 @@ msgid ""
 "choosing the <guimenuitem>Configure</guimenuitem> menu item, a dialog will "
 "appear to prompt for additional options."
 msgstr ""
+"También puede proporcionar opciones adicionales al script de configuración. Después "
+"de elegir el elemento del menú <guimenuitem>Configurar</guimenuitem> se mostrará "
+"un diálogo preguntándole opciones adicionales."
 
 #: C/anjuta-manual.xml:885(title) C/anjuta-manual.xml:887(screeninfo)
 msgid "Configure options dialog"
-msgstr ""
+msgstr "Diálogo de opciones de configuración"
 
 #: C/anjuta-manual.xml:891(para)
 msgid ""
@@ -2903,6 +2927,11 @@ msgid ""
 "in the option entry box and click <guibutton>OK</guibutton>. The options "
 "will be displayed in the <interface>Message window</interface>."
 msgstr ""
+"Introduzca cualquier opción (o déjelo vacío para aceptar las predeterminadas) y pulse "
+"<guibutton>Aceptar</guibutton>. Para encontrar las opciones disponibles para el "
+"script <filename>configure</filename>, introduzca <userinput>--help</userinput> "
+"en la caja de texto de entrada y pulse <guibutton>Aceptar</guibutton>. Se mostrarán "
+"las opciones en la <interface>ventana de mensaje</interface>."
 
 #: C/anjuta-manual.xml:898(para)
 msgid ""
@@ -2912,10 +2941,15 @@ msgid ""
 "file in the top level directory is changed, running <filename>configure</"
 "filename> again will not overwrite it."
 msgstr ""
+"No existe ningún requerimiento para ejecutar <filename>configure</filename> una sola vez. "
+"Se puede ejecutar en cualquier momento, generalmente cuando se necesitan cambiar las "
+"opciones de configuración. Algo que notar es que si el archivo <filename>config.h</filename> "
+"del directorio del nivel superior se cambia, ejecutar <filename>configure</filename> "
+"de nuevo no lo sobreescribirá."
 
 #: C/anjuta-manual.xml:906(title)
 msgid "Auto generate"
-msgstr ""
+msgstr "Autogenerar"
 
 #: C/anjuta-manual.xml:907(para)
 msgid ""
@@ -2928,6 +2962,14 @@ msgid ""
 "configure the project (such as lots of errors reported due to mis-"
 "synchronization after modifying lots of build files)."
 msgstr ""
+"La autogeneración consiste en dos pasos: ejecutar <application>automake</"
+"application> y después ejecutar <application>autoconf</application>. Si se encuentra "
+"un script ejecutable </filename>autogen.sh</filename> en el nivel superior "
+"del directorio del proyecto, entonces se ejecutará este archivo en lugar de realizar los "
+"dos pasos. Al igual que la <emphasis>configuración</emphasis>, la autogeneración se "
+"gestiona automáticamente por el proceso de construcción. También se puede ejecutar en casos "
+"donde es difícil configurar el proyecto (tales como montones de errores debidos "
+"a una falta de sincronización después de modificar muchos archivos de construcción)."
 
 #: C/anjuta-manual.xml:918(title)
 msgid "When to autogen.sh"
@@ -2939,6 +2981,9 @@ msgid ""
 "fact, it does not need to be run at all! The option is available because it "
 "can be handy in some circumstances."
 msgstr ""
+"A diferencia de la configuración la autogeneración no necesita ejecutarse ni siquiera una vez; "
+"de hecho, no es necesario ejecutarla. La opción está disponible porque "
+"puede ser útil en algunas circunstancias."
 
 #: C/anjuta-manual.xml:925(para)
 msgid ""
@@ -2946,6 +2991,9 @@ msgid ""
 "guisubmenu><guimenuitem>Auto generate</guimenuitem></menuchoice> to auto "
 "generate the project."
 msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Construir</"
+"guisubmenu><guimenuitem>Autogenerar</guimenuitem></menuchoice> para "
+"autogenerar el proyecto."
 
 #: C/anjuta-manual.xml:929(para)
 msgid ""
@@ -2954,6 +3002,10 @@ msgid ""
 "\"info:autoconf\"><application>autoconf</application></ulink> for more "
 "details on how these tools work."
 msgstr ""
+"Para obtener más detalles acerca de cómo funcionan éstas herramientas, "
+"lea las páginas de información acerca de <ulink type=\"info\" url=\"info:automake\">"
+"<application>automake</application></ulink> y <ulink type=\"info\" url=\"info:autoconf\">"
+"<application>autoconf</application></ulink>."
 
 #: C/anjuta-manual.xml:936(title)
 msgid "Clean"
@@ -2967,6 +3019,11 @@ msgid ""
 "(<filename>*.o</filename> files) and the executable(s) in the <filename "
 "class=\"directory\">src</filename> directory (and other directories)."
 msgstr ""
+"Esta opción limpia el proyecto y lo deja en el estado que requiere "
+"<guimenuitem>Construir</guimenuitem> para que se pueda realizar. Borra todos los "
+"archivos generados por el proceso de construcción, incluyendo los archivos objeto "
+"(archivos <filename>*.o</filename>) y los ejecutables en el "
+"directorio <filename class=\"directory\">src</filename> (y otros directorios)."
 
 #: C/anjuta-manual.xml:944(para)
 msgid ""
@@ -2974,10 +3031,13 @@ msgid ""
 "guisubmenu><guimenuitem>Clean</guimenuitem></menuchoice> to clean the "
 "project."
 msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Construir</"
+"guisubmenu><guimenuitem>Limpiar</guimenuitem></menuchoice> para limpiar "
+"el proyecto."
 
 #: C/anjuta-manual.xml:950(title)
 msgid "Clean All"
-msgstr ""
+msgstr "Limpiar todo"
 
 #: C/anjuta-manual.xml:951(para)
 msgid ""
@@ -2998,6 +3058,9 @@ msgid ""
 "guisubmenu><guimenuitem>Clean All</guimenuitem></menuchoice> to completely "
 "clean the project."
 msgstr ""
+"Elija el elemento del menú <menuchoice><guisubmenu>Construir</"
+"guisubmenu><guimenuitem>Limpiar todo</guimenuitem></menuchoice> para limpiar "
+"completamente el proyecto."
 
 #: C/anjuta-manual.xml:968(title)
 msgid "Executing program"
