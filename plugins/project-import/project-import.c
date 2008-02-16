@@ -338,6 +338,23 @@ project_import_generate_file(ProjectImport* pi, const gchar* prjfile)
 					NULL);
 		}
 	}
+	
+	/* Update file time if possible */
+	if (error == GNOME_VFS_OK)
+	{
+		GnomeVFSFileInfo *file_info;
+
+		file_info = gnome_vfs_file_info_new ();
+		file_info->ctime = time (NULL);
+		file_info->mtime = file_info->ctime;
+		file_info->atime = file_info->ctime;
+
+		gnome_vfs_set_file_info_uri (dest_uri,
+					     file_info,
+				   	     GNOME_VFS_SET_FILE_INFO_TIME);
+
+		gnome_vfs_file_info_unref (file_info);
+	}
 
 	gnome_vfs_uri_unref (source_uri);
 	gnome_vfs_uri_unref (dest_uri);

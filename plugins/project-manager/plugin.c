@@ -2254,7 +2254,9 @@ ifile_open (IAnjutaFile *ifile, const gchar* uri, GError **e)
 	/* If there is already a project loaded, load in separate anjuta window */
 	if (plugin->project_root_uri)
 	{
-		gchar *cmd = g_strconcat ("anjuta --no-splash --no-client ", uri, NULL);
+		gchar *quoted_uri = g_shell_quote (uri);
+		gchar *cmd = g_strconcat ("anjuta --no-splash --no-client ", quoted_uri, NULL);
+		g_free (quoted_uri);
 		anjuta_util_execute_shell (NULL, cmd);
 		g_free (cmd);
 		return;

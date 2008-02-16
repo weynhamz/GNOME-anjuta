@@ -1,5 +1,13 @@
 2008-02-16  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* plugins/project-import/project-import.c:
+	Fix #516743: Import project keeps an old date on project file
+
+	* plugins/project-manager/plugin.c:
+	Fix #516737: Import project doesn't load project with space in name
+
+2008-02-16  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* plugins/debug-manager/command.c:
 	Destroy local variables on each step
 
