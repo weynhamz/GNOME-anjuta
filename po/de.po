@@ -2703,7 +2703,7 @@ msgstr "C-Header- und Quelledatei vertauschen"
 
 #: ../plugins/document-manager/plugin.c:177
 msgid "Recent _Files"
-msgstr "Zuletzt geöffnete Dateien"
+msgstr "Z_uletzt geöffnete Dateien"
 
 #: ../plugins/document-manager/plugin.c:181
 msgid "_Print..."
