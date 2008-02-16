@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.help.HEAD\n"
-"POT-Creation-Date: 2008-02-10 15:47+0000\n"
-"PO-Revision-Date: 2008-02-16 14:36+0100\n"
+"POT-Creation-Date: 2008-02-16 15:14+0000\n"
+"PO-Revision-Date: 2008-02-16 16:34+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -437,12 +437,12 @@ msgid ""
 msgstr ""
 "La <interface>ventana de mensajes</interface> listará todos los mensajes "
 "(salidas tanto <filename>stdout</filename> como <filename>stderr</filename>) "
-"cuando se ejecute un comando externo. La <interface>ventana de "
-"mensajes</interface> generalmente está oculta, pero aparece tan pronto como "
-"se ejecuta un comando externo, ya sea durante la compilación del archivo o "
-"proyecto, las sesiones de depuración, las búsquedas o muchas otras "
-"operaciones. <application>Anjuta</application> también añade suspropios "
-"mensajes cuando es necesario."
+"cuando se ejecute un comando externo. La <interface>ventana de mensajes</"
+"interface> generalmente está oculta, pero aparece tan pronto como se ejecuta "
+"un comando externo, ya sea durante la compilación del archivo o proyecto, "
+"las sesiones de depuración, las búsquedas o muchas otras operaciones. "
+"<application>Anjuta</application> también añade suspropios mensajes cuando "
+"es necesario."
 
 #: C/anjuta-manual.xml:148(para)
 msgid ""
@@ -756,15 +756,16 @@ msgid ""
 "the file."
 msgstr ""
 "<emphasis>Abrir un archivo:</emphasis> para abrir un archivo existente elija "
-"<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Abrir</guimenuitem></"
-"menuchoice> de la barra de menú, pulse el botón <guibutton>Abrir</guibutton> de la "
-"barra de herramientas o pulse <keycombo><keycap>Ctrl</keycap><keycap>O</"
-"keycap></keycombo>. Esto mostrará el diálogo <interface>Abrir archivo</interface>. "
-"<placeholder-1/> Seleccione o introduzca el archivo que quiere abrir, después pulse "
-"<guibutton>Abrir</guibutton>. Para abrir más de un archivo a la vez, "
-"seleccione múltiples archivos pulsando primero la tecla Ctrl y pulsando sobre "
-"los archivos en la lista y pulse <guibutton>Abrir</guibutton>. Si cambia de opinión, "
-"pulse <guibutton>Cancelar</guibutton> para cerrar el diálogo sin abrir el archivo."
+"<menuchoice><guisubmenu>Archivo</guisubmenu><guimenuitem>Abrir</"
+"guimenuitem></menuchoice> de la barra de menú, pulse el botón "
+"<guibutton>Abrir</guibutton> de la barra de herramientas o pulse "
+"<keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>. Esto mostrará "
+"el diálogo <interface>Abrir archivo</interface>. <placeholder-1/> Seleccione "
+"o introduzca el archivo que quiere abrir, después pulse <guibutton>Abrir</"
+"guibutton>. Para abrir más de un archivo a la vez, seleccione múltiples "
+"archivos pulsando primero la tecla Ctrl y pulsando sobre los archivos en la "
+"lista y pulse <guibutton>Abrir</guibutton>. Si cambia de opinión, pulse "
+"<guibutton>Cancelar</guibutton> para cerrar el diálogo sin abrir el archivo."
 
 #: C/anjuta-manual.xml:172(title)
 msgid "Open Multiple File dialog"
@@ -800,13 +801,14 @@ msgid ""
 "file type filter in the dialog and the file list will be limited to the "
 "files of the selected type only."
 msgstr ""
-"Si la opción <emphasis>mostrar archivos ocultos</emphasis> está seleccionada (pulse "
-"con el botón derecho), hará que los archivos ocultos (archivos cuyo nombre "
-"comienza por «.») sean visibles en la lista de archivos. Pulse de nuevo para "
-"ocultarlos. El diálogo de selección de archivo de <application>Anjuta</"
-"application> también tiene un filtro para tipos de archivo incluido. "
-"Seleccione el filtro de tipo de archivo apropiado en el diálogo y la lista "
-"de archivos se limitará a los archivos del tipo seleccionado."
+"Si la opción <emphasis>mostrar archivos ocultos</emphasis> está seleccionada "
+"(pulse con el botón derecho), hará que los archivos ocultos (archivos cuyo "
+"nombre comienza por «.») sean visibles en la lista de archivos. Pulse de "
+"nuevo para ocultarlos. El diálogo de selección de archivo de "
+"<application>Anjuta</application> también tiene un filtro para tipos de "
+"archivo incluido. Seleccione el filtro de tipo de archivo apropiado en el "
+"diálogo y la lista de archivos se limitará a los archivos del tipo "
+"seleccionado."
 
 #: C/anjuta-manual.xml:199(screeninfo)
 msgid "The Save As File"
@@ -994,14 +996,14 @@ msgid ""
 "single stepping in debugger."
 msgstr ""
 "El <emphasis>Margen de marcadores</emphasis> es el siguiente margen que se "
-"puede hacer visible o invisible seleccionando <menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</"
-"guisubmenu><guimenuitem>Margen de marcadores</guimenuitem></menuchoice>. "
-"Este margen muestra iconos gráficos para marcar la línea dada. Los "
-"marcadores que se mostrarán en éste margen son los Marcadores (icono "
-"rectangular azul), los Puntos de parada (círculo rojo) y los Indicadores de "
-"línea (flecha amarilla). Los Marcadores se usan para indicar líneas marcadas "
-"que se pueden cambiar desde <menuchoice><guimenu>Ir a</"
-"guimenu><guisubmenu>Marcador</guisubmenu><guimenuitem>Cambiar marcador</"
+"puede hacer visible o invisible seleccionando <menuchoice><guimenu>Ver</"
+"guimenu><guisubmenu>Editor</guisubmenu><guimenuitem>Margen de marcadores</"
+"guimenuitem></menuchoice>. Este margen muestra iconos gráficos para marcar "
+"la línea dada. Los marcadores que se mostrarán en éste margen son los "
+"Marcadores (icono rectangular azul), los Puntos de parada (círculo rojo) y "
+"los Indicadores de línea (flecha amarilla). Los Marcadores se usan para "
+"indicar líneas marcadas que se pueden cambiar desde <menuchoice><guimenu>Ir "
+"a</guimenu><guisubmenu>Marcador</guisubmenu><guimenuitem>Cambiar marcador</"
 "guimenuitem></menuchoice> con el cursor sobre esa línea. Los marcadores de "
 "puntos de parada se usan en la depuración para marcar la línea con puntos de "
 "para de la depuración (vea la sección de depuración para obtener más "
@@ -1046,13 +1048,13 @@ msgid ""
 "guisubmenu><guimenuitem>Markers Margin</guimenuitem></menuchoice>. "
 "<placeholder-1/>"
 msgstr ""
-"Si no se ve el margen del marcador, los marcadores se mostrarán cambiando "
-"el color del fondo de la línea. Por ejemplo, si hay un marcador de punto "
-"de parada en una línea y el margen del marcador no se ve, "
-"esa línea se mostrará en un fondo rojo. De forma similar, para los marcadores "
-"y los marcadores indicadores de línea el color de fondo de la línea "
-"será azul cielo y amarillo respectivamente. Si no le gustan estos colores (quizá "
-"por el contraste entre ellos), active el <emphasis>Margen de marcadores</emphasis> "
+"Si no se ve el margen del marcador, los marcadores se mostrarán cambiando el "
+"color del fondo de la línea. Por ejemplo, si hay un marcador de punto de "
+"parada en una línea y el margen del marcador no se ve, esa línea se mostrará "
+"en un fondo rojo. De forma similar, para los marcadores y los marcadores "
+"indicadores de línea el color de fondo de la línea será azul cielo y "
+"amarillo respectivamente. Si no le gustan estos colores (quizá por el "
+"contraste entre ellos), active el <emphasis>Margen de marcadores</emphasis> "
 "desde <menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</"
 "guisubmenu><guimenuitem>Margen de marcadores</guimenuitem></menuchoice>. "
 "<placeholder-1/>"
@@ -1073,15 +1075,17 @@ msgid ""
 "code. When the cursor is over one such matching braces, the dotted "
 "indentation guide is highlighted to give a visual region of the indentation."
 msgstr ""
-"Se puede hacer que el editor cree cierta información del documento, que "
-"de otra manera no sería visible. Las <emphasis>Guías de sangría, espacios en blanco "
-"y los caracteres de fin de línea</emphasis> son ese tipo de información que se "
-"puede hacer visible para un confort visual. Se pueden hacer visibles o invisibles "
-"conmutando los elementos del menú en <menuchoice><guimenu>Ver</"
-"guimenu><guisubmenu>Editor</guisubmenu></menuchoice>. Las guías de sangría son "
-"las pequeñas líneas punteadas dibujadas para conectar las llaves coincidentes "
-"en el código fuente. Cuando el cursor está encima de uno de esas llaves coincidentes, las "
-"guías de sangría punteadas se resaltan para proporcionar una región visual del sangrado."
+"Se puede hacer que el editor cree cierta información del documento, que de "
+"otra manera no sería visible. Las <emphasis>Guías de sangría, espacios en "
+"blanco y los caracteres de fin de línea</emphasis> son ese tipo de "
+"información que se puede hacer visible para un confort visual. Se pueden "
+"hacer visibles o invisibles conmutando los elementos del menú en "
+"<menuchoice><guimenu>Ver</guimenu><guisubmenu>Editor</guisubmenu></"
+"menuchoice>. Las guías de sangría son las pequeñas líneas punteadas "
+"dibujadas para conectar las llaves coincidentes en el código fuente. Cuando "
+"el cursor está encima de uno de esas llaves coincidentes, las guías de "
+"sangría punteadas se resaltan para proporcionar una región visual del "
+"sangrado."
 
 #: C/anjuta-manual.xml:339(title) C/anjuta-manual.xml:341(screeninfo)
 msgid "Editor with guides"
@@ -1525,9 +1529,8 @@ msgstr ""
 "resaltados en el editor también se resaltarán de forma similar en la "
 "impresión (o vista previa). Existen opciones adicionales para imprimir los "
 "números de línea, ajustar líneas y/o cabeceras en las preferencias de "
-"impresión del editor en la solapa <guilabel>Impresión</guilabel> de "
-"las preferencias del complemento del editor. <placeholder-"
-"1/>"
+"impresión del editor en la solapa <guilabel>Impresión</guilabel> de las "
+"preferencias del complemento del editor. <placeholder-1/>"
 
 #: C/anjuta-manual.xml:633(title)
 msgid "Print Preferences"
@@ -1686,17 +1689,19 @@ msgid ""
 "Depending on the project type that is being created, there would be other "
 "information requested."
 msgstr ""
-"También puede especificar si su proyecto tendrá <emphasis>soporte "
-"de internacionalización</emphasis> usando "
-"<application>gettext</application> (para obtener más detalles lea la "
-"<ulink type=\"info\" url=\"info:gettext\">página de información de gettext</ulink>). Esto le "
-"dará a su proyecto soporte multi-idioma para diferentes idiomas regionales tales como "
-"el español, el inglés, el francés, etc. El resto de las opciones son para ajustar si "
-"la nota de derechos de autor de GNU debe aparecer en los comentarios en la parte superior "
-"de cada archivo, y permitir la información de menú del escritorio GNOME si es necesario. "
-"El soporte de bibliotecas compartidas permite añadir módulos de bibliotecas compartidas en "
-"el proyecto posteriormente, Si está pensando tener bibliotecas en su proyecto, sería buena "
-"idea activarlo. Dependiendo del tipo de proyecto que se esté creando, se podría pedir otra información."
+"También puede especificar si su proyecto tendrá <emphasis>soporte de "
+"internacionalización</emphasis> usando <application>gettext</application> "
+"(para obtener más detalles lea la <ulink type=\"info\" url=\"info:gettext"
+"\">página de información de gettext</ulink>). Esto le dará a su proyecto "
+"soporte multi-idioma para diferentes idiomas regionales tales como el "
+"español, el inglés, el francés, etc. El resto de las opciones son para "
+"ajustar si la nota de derechos de autor de GNU debe aparecer en los "
+"comentarios en la parte superior de cada archivo, y permitir la información "
+"de menú del escritorio GNOME si es necesario. El soporte de bibliotecas "
+"compartidas permite añadir módulos de bibliotecas compartidas en el proyecto "
+"posteriormente, Si está pensando tener bibliotecas en su proyecto, sería "
+"buena idea activarlo. Dependiendo del tipo de proyecto que se esté creando, "
+"se podría pedir otra información."
 
 #: C/anjuta-manual.xml:81(para)
 msgid ""
@@ -1790,19 +1795,19 @@ msgid ""
 "The third pane is the file view of the project and is more or less similar "
 "to a mini file-manager. In file view, all the files present in the project "
 "tree is visible. Right clicking on these files will pop up the file "
-"operation submenu."
+"<guimenu>Operation menu</guimenu>."
 msgstr ""
 "Tan pronto como se abra el proyecto, <application>Anjuta</application> "
 "entrará en el <emphasis>modo proyecto</emphasis>. Hay tres paneles en la "
 "ventana de proyecto. La primera es el panel del proyecto y lista los "
-"archivos de proyecto orgranizados por tipos de archivo. La segunda es el "
+"archivos de proyecto organizados por tipos de archivo. La segunda es el "
 "examinador de símbolos, que ya se ha discutido en la sección "
 "<emphasis>Examinador de símbolos y Examinador de archivos</emphasis>. El "
 "tercer panel es la vista de archivo del proyecto y es más o menos similar a "
 "un gestor de archivos en miniatura. En la vista de archivo todos los "
 "archivos presentes en el árbol de proyecto son visibles. Al pulsar con el "
-"botón derecho del ratón sobre esos archivos aparecerá el submenú emergente "
-"de operación."
+"botón derecho del ratón sobre esos archivos aparecerá la ventana emergente "
+"del <application>menú de operación</application>."
 
 #: C/anjuta-manual.xml:138(para)
 msgid ""
@@ -1829,28 +1834,46 @@ msgstr ""
 msgid "Project structure"
 msgstr "Estructura del proyecto"
 
+#: C/anjuta-manual.xml:159(title)
+msgid "Project window"
+msgstr "Ventana de proyecto"
+
+#: C/anjuta-manual.xml:161(screeninfo)
+msgid "The Project window"
+msgstr "La ventana de proyecto"
+
 #: C/anjuta-manual.xml:154(para)
 msgid ""
-"<interface>Project View</interface> lists the project in standard <ulink "
+"Here is the <interface>Project window</interface> with the the "
+"<guimenu>Operation menu</guimenu> (accessible by clicking on the right mouse "
+"button). <placeholder-1/>"
+msgstr ""
+"Aquí está la <interface>ventana de proyecto</interface> con el "
+"<guimenu>menú de operación</guimenu> (accesible pulsando con el botón "
+"derecho del ratón). <placeholder-1/>"
+
+#: C/anjuta-manual.xml:166(para)
+msgid ""
+"<interface>Project window</interface> lists the project in standard <ulink "
 "type=\"info\" url=\"info:automake\"><application>automake</application></"
 "ulink> hierarchy organized into groups of targets. <emphasis>Groups</"
 "emphasis> correspond to directories in your project and <emphasis>targets</"
 "emphasis> correspond to normal <application>automake</application> targets "
-"(not to be confused with make targets). <interface>Project View</interface> "
-"actually has two parts; one part (lower one) shows complete project "
-"hierarchy and the other part (upper one) lists important targets directly. "
-"Important targets constitute executable and library targets -- making them "
-"very accessible in from the view. This is particularly useful in big "
-"projects where the hierarchy could be deep and hard to navigate from the "
+"(not to be confused with make targets). <interface>Project window</"
+"interface> actually has two parts; one part (lower one) shows complete "
+"project hierarchy and the other part (upper one) lists important targets "
+"directly. Important targets constitute executable and library targets -- "
+"making them very accessible in from the view. This is particularly useful in "
+"big projects where the hierarchy could be deep and hard to navigate from the "
 "tree alone. Targets are, in turn, composed of source files."
 msgstr ""
-"La <interface>vista de proyecto</interface> lista el proyecto en una "
+"La <interface>ventana de proyecto</interface> lista el proyecto en una "
 "jerarquía estándar de <ulink type=\"info\" url=\"info:automake"
 "\"><application>automake</application></ulink> organizada en grupos de "
 "objetivos. Los <emphasis>grupos</emphasis> corresponden con los directorios "
 "de su proyecto y los <emphasis>objetivos</emphasis> corresponden con "
 "objetivos <application>automake</application> normales (no confundir con "
-"objetivos de make). La <interface>vista de proyecto</interface> tiene dos "
+"objetivos de make). La <interface>ventana de proyecto</interface> tiene dos "
 "partes; una parte (la inferior) muestra la jerarquía completa del proyecto y "
 "la otra parte (la superior) lista directamente objetivos importantes. Los "
 "objetivos importantes los constituyen los archivos ejecutables y las "
@@ -1859,7 +1882,7 @@ msgstr ""
 "profunda y difícil de navegar sólo desde el árbol. Los objetivos están "
 "compuestos de archivos de fuentes."
 
-#: C/anjuta-manual.xml:174(para)
+#: C/anjuta-manual.xml:186(para)
 msgid ""
 "<emphasis>Groups</emphasis> are used to logically organize targets. A "
 "project can contain any number of groups. Each group can have sub-groups as "
@@ -1872,7 +1895,7 @@ msgstr ""
 "grupos son sólo subdirectorios en el proyecto. El nivel superior del grupo "
 "se llama «raíz» y siempre es «/»."
 
-#: C/anjuta-manual.xml:182(para)
+#: C/anjuta-manual.xml:194(para)
 msgid ""
 "<emphasis>Targets</emphasis> are the build targets in project, such as "
 "programs (executable binaries), scripts, libraries, miscellaneous data etc. "
@@ -1890,7 +1913,7 @@ msgstr ""
 "\"adding-target\">Añadir objetivos</link> para ver una lista completa de los "
 "tipos de objetivos disponibles."
 
-#: C/anjuta-manual.xml:193(para)
+#: C/anjuta-manual.xml:205(para)
 msgid ""
 "<emphasis>Source files</emphasis> are the files used to build the targets or "
 "just to be part of it. They exist only under targets. Many target types "
@@ -1903,7 +1926,7 @@ msgstr ""
 "(ej. tipos de objetivo de programas y bibliotecas), pero algunos pueden "
 "aceptar cualquier arachivo (ej. los objetivos de datos misceláneos)."
 
-#: C/anjuta-manual.xml:203(para)
+#: C/anjuta-manual.xml:215(para)
 msgid ""
 "Each of the project groups and targets is configurable in standard "
 "<application>automake</application> way. You can set complier and linker "
@@ -1916,16 +1939,17 @@ msgstr ""
 "variables de configuración. Los grupos permiten establecer destinos de "
 "instalación para sus objetivos."
 
-#: C/anjuta-manual.xml:210(para)
+#: C/anjuta-manual.xml:222(para)
 msgid ""
 "Just like file manager, project manager view also has convenience actions "
-"(accessible from context menu) for the source files and targets."
+"(accessible from the <guimenu>Operation menu</guimenu>) for the source files "
+"and targets."
 msgstr ""
 "Al igual que un gestor de archivos, la vista del gestor de proyecto también "
-"tiene acciones convenientes (accesibles desde el menú contextual) para los "
+"tiene acciones convenientes (accesibles desde el <guimenu>menú de operación</guimenu>) para los "
 "archivos de fuentes y objetivos."
 
-#: C/anjuta-manual.xml:215(para)
+#: C/anjuta-manual.xml:228(para)
 msgid ""
 "Many command-line tools are available to maintain and manage a project, and "
 "each tool has its own specific rules and capabilities. <application>Anjuta</"
@@ -1938,7 +1962,7 @@ msgstr ""
 "mayoría de las operaciones comunes usando complementos. No obstante, puede "
 "que ocasionalmente deba realizar algunas de ellas manualmente."
 
-#: C/anjuta-manual.xml:223(para)
+#: C/anjuta-manual.xml:236(para)
 msgid ""
 "It is possible to make use of other tools or hand edit the project files "
 "simultaneously. It doesn't matter if the project is loaded in "
@@ -1950,15 +1974,15 @@ msgstr ""
 "<application>Anjuta</application> o no, <application>Anjuta</application> se "
 "actualizará con cualquier cambio externo que se realice sobre el proyecto."
 
-#: C/anjuta-manual.xml:232(title)
+#: C/anjuta-manual.xml:245(title)
 msgid "Groups and targets"
 msgstr "Grupos y objetivos"
 
-#: C/anjuta-manual.xml:235(title)
+#: C/anjuta-manual.xml:248(title)
 msgid "Adding Groups"
 msgstr "Añadir grupos"
 
-#: C/anjuta-manual.xml:240(para)
+#: C/anjuta-manual.xml:253(para)
 msgid ""
 "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Group</"
 "guimenuitem></menuchoice> and a dialog to add a new group would popup."
@@ -1967,15 +1991,15 @@ msgstr ""
 "grupo</guimenuitem></menuchoice> y aparecerá un diálogo para añadir un grupo "
 "nuevo."
 
-#: C/anjuta-manual.xml:247(para)
+#: C/anjuta-manual.xml:260(para)
 msgid "Select the group under which to add new group."
 msgstr "Seleccione el grupo bajo el cuál quiere añadir el grupo nuevo."
 
-#: C/anjuta-manual.xml:250(para)
+#: C/anjuta-manual.xml:263(para)
 msgid "Give a name of the new group and click Ok."
 msgstr "Proporcione el nombre del grupo nuevo y pulse Aceptar."
 
-#: C/anjuta-manual.xml:236(para)
+#: C/anjuta-manual.xml:249(para)
 msgid ""
 "To add a new group (a directory in automake based projects): <placeholder-1/"
 "> With automake projects, a new directory with the given name would be "
@@ -1985,37 +2009,37 @@ msgstr ""
 "<placeholder-1/> Con proyectos en automake, se creará un directorio nuevo "
 "con el nombre proporcionado bajo el directorio padre del grupo."
 
-#: C/anjuta-manual.xml:257(para)
+#: C/anjuta-manual.xml:270(para)
 msgid ""
-"New group can also be added from the <guimenu>Operation</guimenu> menu in "
-"<interface>Project View</interface> by selecting <guimenuitem>Add Group</"
+"New group can also be added from the <guimenu>Operation menu</guimenu> in "
+"<interface>Project window</interface> by selecting <guimenuitem>Add Group</"
 "guimenuitem>. First select the group under which to add the group in "
-"<interface>Project View</interface>."
+"<interface>Project window</interface>."
 msgstr ""
-"El grupo nuevo también se puede añadir desde el menú <guimenu>Operación</"
-"guimenu> en la <interface>vista de proyecto</interface> seleccionando "
+"El grupo nuevo también se puede añadir desde el <guimenu>menú de operación</"
+"guimenu> en la <interface>ventana de proyecto</interface> seleccionando "
 "<guimenuitem>Añadir grupo</guimenuitem>. Primero seleccione el grupo bajo el "
-"cual quiere añadir el grupo en la <interface>vista de proyecto</interface>."
+"cual quiere añadir el grupo en la <interface>ventana de proyecto</interface>."
 
-#: C/anjuta-manual.xml:266(title)
+#: C/anjuta-manual.xml:279(title)
 msgid "Removing Groups"
 msgstr "Quitar grupos"
 
-#: C/anjuta-manual.xml:271(para)
+#: C/anjuta-manual.xml:284(para)
 msgid "Select the target in <interface>Project Manager view</interface>."
 msgstr ""
 "Seleccione el objetivo en la <interface>vista del gestor de proyecto</"
 "interface>."
 
-#: C/anjuta-manual.xml:274(para) C/anjuta-manual.xml:413(para)
+#: C/anjuta-manual.xml:287(para) C/anjuta-manual.xml:426(para)
 msgid ""
-"Select <guimenuitem>Remove</guimenuitem> from the <guimenu>Operation</"
-"guimenu> menu."
+"Select <guimenuitem>Remove</guimenuitem> from the <guimenu>Operation menu</"
+"guimenu>."
 msgstr ""
-"Seleccione <guimenuitem>Eliminar</guimenuitem> del menú <guimenu>Operación</"
+"Seleccione <guimenuitem>Eliminar</guimenuitem> del <guimenu>menú de operación</"
 "guimenu>."
 
-#: C/anjuta-manual.xml:267(para)
+#: C/anjuta-manual.xml:280(para)
 msgid ""
 "To remove a group: <placeholder-1/> The target and sources associated with "
 "the group will also be removed from the project (they are not deleted from "
@@ -2025,11 +2049,11 @@ msgstr ""
 "el objetivo y los fuentes asociados con el grupo (no se borrar del sistema "
 "de archivos, aún podrá añadirlos posteriormente)."
 
-#: C/anjuta-manual.xml:285(title)
+#: C/anjuta-manual.xml:298(title)
 msgid "Adding Targets"
 msgstr "Añadir objetivos"
 
-#: C/anjuta-manual.xml:290(para)
+#: C/anjuta-manual.xml:303(para)
 msgid ""
 "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Add Target</"
 "guimenuitem></menuchoice> and a dialog to add a new target would popup."
@@ -2038,45 +2062,46 @@ msgstr ""
 "objetivo</guimenuitem></menuchoice> y aparecerá un diálogo para añadir un "
 "objetivo nuevo."
 
-#: C/anjuta-manual.xml:295(para)
+#: C/anjuta-manual.xml:308(para)
 msgid "Select the group under which to add the target."
 msgstr "Seleccione el grupo bajo el cual quiere añadir el objetivo."
 
-#: C/anjuta-manual.xml:298(para)
+#: C/anjuta-manual.xml:311(para)
 msgid "Select the target type."
 msgstr "Seleccione el tipo de objetivo."
 
-#: C/anjuta-manual.xml:301(para)
+#: C/anjuta-manual.xml:314(para)
 msgid "Give a name of the new target and click Ok."
 msgstr "Proporcione un nombre para el objetivo nuevo y pulse Aceptar."
 
-#: C/anjuta-manual.xml:286(para)
+#: C/anjuta-manual.xml:299(para)
 msgid "To add a new target: <placeholder-1/>"
 msgstr "Para añadir un objetivo nuevo: <placeholder-1/>"
 
-#: C/anjuta-manual.xml:305(para)
+#: C/anjuta-manual.xml:318(para)
 msgid ""
-"New target can also be added from the <guimenu>Operation</guimenu> menu in "
-"<interface>Project View</interface> by selecting <guimenuitem>Add target</"
+"New target can also be added from the <guimenu>Operation menu</guimenu> in "
+"<interface>Project window</interface> by selecting <guimenuitem>Add target</"
 "guimenuitem>. First select the group under which to add the target in "
-"<interface>Project View</interface>."
+"<interface>Project window</interface>."
 msgstr ""
-"El nuevo objetivo también se puede añadir desde el menú de <guimenu>operación</guimenu> en "
-"la <interface>vista de proyecto</interface> seleccionando <guimenuitem>Añadir objetivo</"
-"guimenuitem>. Primero seleccione el grupo bajo el cual quiere añadir el objetivo en "
-"la <interface>vista de proyecto</interface>."
+"El nuevo objetivo también se puede añadir desde el menú de "
+"<guimenu>operación</guimenu> en la <interface>ventana de proyecto</interface> "
+"seleccionando <guimenuitem>Añadir objetivo</guimenuitem>. Primero seleccione "
+"el grupo bajo el cual quiere añadir el objetivo en la <interface>ventana de "
+"proyecto</interface>."
 
-#: C/anjuta-manual.xml:311(para)
+#: C/anjuta-manual.xml:324(para)
 msgid ""
 "Target names usually require some standard prefix and suffix, depending on "
 "the type of target. Anjuta would warn if the name is not valid and may give "
 "an example of a name."
 msgstr ""
-"El nombre del objetivo generalmente requiere algunos prefijos y sufijos estándar, dependiendo del "
-"tipo de objetivo. Anjuta le advertirá si el nombre no es válido y puede proporcionarle "
-"un ejemplo de nombre."
+"El nombre del objetivo generalmente requiere algunos prefijos y sufijos "
+"estándar, dependiendo del tipo de objetivo. Anjuta le advertirá si el nombre "
+"no es válido y puede proporcionarle un ejemplo de nombre."
 
-#: C/anjuta-manual.xml:320(para)
+#: C/anjuta-manual.xml:333(para)
 msgid ""
 "<emphasis>Program</emphasis> target type is for executable binaries. Select "
 "this if you want to add an executable to the project. By default, all "
@@ -2084,13 +2109,14 @@ msgid ""
 "usr/bin or /usr/local/bin. You can override it by specifying a different "
 "installation directory in its group properties."
 msgstr ""
-"El tipo de objetivo <emphasis>programa</emphasis> es para binarios ejecutables. Seleccione "
-"esto si quiere añadir un ejecutable al proyecto. De forma predeterminada todos "
-"los objetivos programa se instalarán en el directorio estándar para los ejecutables, ej. "
-"/usr/bin o /üsr/local/bin. Puede evitarlo especificando un directorio de instalación "
-"diferente en las propiedades del grupo."
+"El tipo de objetivo <emphasis>programa</emphasis> es para binarios "
+"ejecutables. Seleccione esto si quiere añadir un ejecutable al proyecto. De "
+"forma predeterminada todos los objetivos programa se instalarán en el "
+"directorio estándar para los ejecutables, ej. /usr/bin o /üsr/local/bin. "
+"Puede evitarlo especificando un directorio de instalación diferente en las "
+"propiedades del grupo."
 
-#: C/anjuta-manual.xml:329(para)
+#: C/anjuta-manual.xml:342(para)
 msgid ""
 "<emphasis>Shared Library</emphasis> target type is for shared or dynamic "
 "libraries. Select this if you are adding a shared library to the project. By "
@@ -2098,13 +2124,15 @@ msgid ""
 "e.g. /usr/lib or /usr/local/lib. You can override it by specifying a "
 "different installation directory in its group properties."
 msgstr ""
-"El tipo de objetivo <emphasis>biblioteca compartida</emphasis> es para bibliotecas dinámicas "
-"o compartidas. Seleccione esto si está añadiendo una biblioteca compartida al proyecto. De "
-"forma predeterminada todas las bibliotecas compartidas se instalan en el directorio estándar para las bibliotecas compartidas, "
-"ej. /usr/lib o /usr/local/lib. Puede evitarlo especificando un directorio de instalación diferente "
-"en las propiedades del grupo."
+"El tipo de objetivo <emphasis>biblioteca compartida</emphasis> es para "
+"bibliotecas dinámicas o compartidas. Seleccione esto si está añadiendo una "
+"biblioteca compartida al proyecto. De forma predeterminada todas las "
+"bibliotecas compartidas se instalan en el directorio estándar para las "
+"bibliotecas compartidas, ej. /usr/lib o /usr/local/lib. Puede evitarlo "
+"especificando un directorio de instalación diferente en las propiedades del "
+"grupo."
 
-#: C/anjuta-manual.xml:338(para)
+#: C/anjuta-manual.xml:351(para)
 msgid ""
 "<emphasis>Static Library</emphasis> target type is for static library. "
 "Select this if you are adding a static library to the project. By default, "
@@ -2112,13 +2140,14 @@ msgid ""
 "usr/lib or /usr/local/lib. You can override it by specifying a different "
 "installation directory in its group properties."
 msgstr ""
-"El tipo de objetivo <emphasis>biblioteca estática</emphasis> es para bibliotecas estáticas. "
-"Seleccione esto si está añadiendo una biblioteca estática al proyecto. De forma predeterminada "
-"todas las bibliotecas estáticas se instalan en el directorio estándar para bibliotecas estáticas, ej. "
-"/usr/lib o /usr/lib/local. Puede evitarlo especificando un directorio de instalación diferente "
-"en las propiedades del grupo."
+"El tipo de objetivo <emphasis>biblioteca estática</emphasis> es para "
+"bibliotecas estáticas. Seleccione esto si está añadiendo una biblioteca "
+"estática al proyecto. De forma predeterminada todas las bibliotecas "
+"estáticas se instalan en el directorio estándar para bibliotecas estáticas, "
+"ej. /usr/lib o /usr/lib/local. Puede evitarlo especificando un directorio de "
+"instalación diferente en las propiedades del grupo."
 
-#: C/anjuta-manual.xml:347(para)
+#: C/anjuta-manual.xml:360(para)
 msgid ""
 "<emphasis>Java module</emphasis> target type is for java module. Select this "
 "if you are grouping java sources into a module. You need to provide an "
@@ -2126,21 +2155,22 @@ msgid ""
 "installed. It can be set in group properties of the group where this target "
 "belongs."
 msgstr ""
-"El tipo de objetivo <emphasis>módulo de Java</emphasis> es para el módulo de Java. Seleccione esto "
-"si está agrupando los fuentes de Java en un módulo. Debe proporcionar un "
-"directorio de instalación para este objetivo donde se instalarán los archivos "
-".class. Se puede establecer en las propiedades de grupo del grupo al que pertenece "
-"este objetivo."
+"El tipo de objetivo <emphasis>módulo de Java</emphasis> es para el módulo de "
+"Java. Seleccione esto si está agrupando los fuentes de Java en un módulo. "
+"Debe proporcionar un directorio de instalación para este objetivo donde se "
+"instalarán los archivos .class. Se puede establecer en las propiedades de "
+"grupo del grupo al que pertenece este objetivo."
 
-#: C/anjuta-manual.xml:355(para)
+#: C/anjuta-manual.xml:368(para)
 msgid ""
 "There can really be only one java module in a group. This is a restriction "
 "put by automake. Please read automake info page for more details."
 msgstr ""
-"Sólo puede haber un módulo de Java en un grupo. Esta es una restricción "
-"de automake. Para obtener más detalles, lea las páginas de información de automake."
+"Sólo puede haber un módulo de Java en un grupo. Esta es una restricción de "
+"automake. Para obtener más detalles, lea las páginas de información de "
+"automake."
 
-#: C/anjuta-manual.xml:363(para)
+#: C/anjuta-manual.xml:376(para)
 msgid ""
 "<emphasis>Python module</emphasis> target type is for python module. Select "
 "this if you are grouping python sources into a module. You need to provide "
@@ -2148,30 +2178,31 @@ msgid ""
 "installed. It can be set in group properties of the group where this target "
 "belongs."
 msgstr ""
-"El tipo de objetivo <emphasis>módulo de Python</emphasis> es para el módulo de Python. Seleccione "
-"esto si está agrupando los fuentes de Python en un módulo. Debe proporcionar un "
-"directorio de instalación para este objetivo donde se instalarán los archivos "
-"de fuentes. Se puede establecer en las propiedades de grupo del grupo al que pertenece "
-"este objetivo."
+"El tipo de objetivo <emphasis>módulo de Python</emphasis> es para el módulo "
+"de Python. Seleccione esto si está agrupando los fuentes de Python en un "
+"módulo. Debe proporcionar un directorio de instalación para este objetivo "
+"donde se instalarán los archivos de fuentes. Se puede establecer en las "
+"propiedades de grupo del grupo al que pertenece este objetivo."
 
-#: C/anjuta-manual.xml:372(para)
+#: C/anjuta-manual.xml:385(para)
 msgid ""
 "<emphasis>Scripts</emphasis> target is to group scripts. They will be "
 "installed in standard executable directory."
 msgstr ""
-"El objetivo <emphasis>scripts</emphasis> es para agrupar scripts. Se instalarán "
-"en el directorio estándar de los ejecutables."
+"El objetivo <emphasis>scripts</emphasis> es para agrupar scripts. Se "
+"instalarán en el directorio estándar de los ejecutables."
 
-#: C/anjuta-manual.xml:378(para)
+#: C/anjuta-manual.xml:391(para)
 msgid ""
 "<emphasis>Miscellaneous Data</emphasis> target type is to group simple files "
 "in the project. An installation directory needs to be specified in its group "
 "properties."
 msgstr ""
-"El tipo de objetivo <emphasis>datos misceláneos</emphasis> es para agrupar archivos simples "
-"en el proyecto. Se debe especificar un directorio de instalación en las propiedades del grupo."
+"El tipo de objetivo <emphasis>datos misceláneos</emphasis> es para agrupar "
+"archivos simples en el proyecto. Se debe especificar un directorio de "
+"instalación en las propiedades del grupo."
 
-#: C/anjuta-manual.xml:385(para)
+#: C/anjuta-manual.xml:398(para)
 msgid ""
 "<emphasis>Header Files</emphasis> target type is to group C/C++ header files "
 "that need to be installed in system (for example as part of library API). "
@@ -2180,56 +2211,63 @@ msgid ""
 "include directory unless installation path is specified in its group "
 "properties."
 msgstr ""
-"El tipo de objetivo <emphasis>archivos de cabecera</emphasis> es para agrupar los archivos de cabecera C/C++ "
-"que deben ser instalados en el sistema (por ejemplo como parte del API de una biblioteca). "
-"Para los archivos de cabeceras que no necesitan instalarse, hágalos parte del "
+"El tipo de objetivo <emphasis>archivos de cabecera</emphasis> es para "
+"agrupar los archivos de cabecera C/C++ que deben ser instalados en el "
+"sistema (por ejemplo como parte del API de una biblioteca). Para los "
+"archivos de cabeceras que no necesitan instalarse, hágalos parte del "
 "objetivo Programa junto con los fuentes. Se instalarán en el directorio "
-"«inlcude» estándar a no ser que la ruta de instalación esté especificada en sus propiedades "
-"de grupo."
+"«inlcude» estándar a no ser que la ruta de instalación esté especificada en "
+"sus propiedades de grupo."
 
-#: C/anjuta-manual.xml:395(para)
+#: C/anjuta-manual.xml:408(para)
 msgid ""
 "<emphasis>Man documentation</emphasis> and <emphasis>Info documentation</"
 "emphasis> target types are for grouping man and info documentation "
 "respectively. By default, they will be installed in standard installation "
 "directories."
 msgstr ""
-"Los tipos de objetivo <emphasis>documentación de man</emphasis> y <emphasis>información de documentación</emphasis> "
-"son para agrupar la documentación de man y de la información respectivamente. De forma predeterminada "
-"se instalarán en los directorios estándar de instalación."
+"Los tipos de objetivo <emphasis>documentación de man</emphasis> y "
+"<emphasis>información de documentación</emphasis> son para agrupar la "
+"documentación de man y de la información respectivamente. De forma "
+"predeterminada se instalarán en los directorios estándar de instalación."
 
-#: C/anjuta-manual.xml:316(para)
+#: C/anjuta-manual.xml:329(para)
 msgid ""
 "There are several target types for automake project. They are: <placeholder-"
 "1/>"
-msgstr "Existen varios tipos de objetivos para un proyecto automake. Éstos son: <placeholder-1/>"
+msgstr ""
+"Existen varios tipos de objetivos para un proyecto automake. Éstos son: "
+"<placeholder-1/>"
 
-#: C/anjuta-manual.xml:405(title)
+#: C/anjuta-manual.xml:418(title)
 msgid "Removing Targets"
 msgstr "Eliminar objetivos"
 
-#: C/anjuta-manual.xml:410(para)
+#: C/anjuta-manual.xml:423(para)
 msgid "Select the target in <interface>Project Manager view</interface>"
-msgstr "Seleccione el objetivo en la <interface>vista del gestor de proyecto</interface>"
+msgstr ""
+"Seleccione el objetivo en la <interface>vista del gestor de proyecto</"
+"interface>"
 
-#: C/anjuta-manual.xml:406(para)
+#: C/anjuta-manual.xml:419(para)
 msgid ""
 "To remove a target: <placeholder-1/> The sources associated with the targets "
 "will also be removed from the project (they are not deleted from the file "
 "system, though)."
 msgstr ""
-"Para eliminar un objetivo: <placeholder-1/> También se eliminarán del proyecto "
-"los fuentes asociados con los objetivos (no se borran del sistema de archivos)."
+"Para eliminar un objetivo: <placeholder-1/> También se eliminarán del "
+"proyecto los fuentes asociados con los objetivos (no se borran del sistema "
+"de archivos)."
 
-#: C/anjuta-manual.xml:425(title)
+#: C/anjuta-manual.xml:438(title)
 msgid "Adding and Removing Files"
 msgstr "Añadir y quitar archivos"
 
-#: C/anjuta-manual.xml:427(title)
+#: C/anjuta-manual.xml:440(title)
 msgid "Adding Source Files"
 msgstr "Añadir archivos de fuentes"
 
-#: C/anjuta-manual.xml:428(para)
+#: C/anjuta-manual.xml:441(para)
 msgid ""
 "Select menu item <menuchoice><guisubmenu>Project</"
 "guisubmenu><guimenuitem>Add Source File</guimenuitem></menuchoice>. From the "
@@ -2239,25 +2277,27 @@ msgid ""
 "click <guibutton>Add</guibutton> button to finally add the files in project."
 msgstr ""
 "Seleccione el elemento del menú <menuchoice><guisubmenu>Proyecto</"
-"guisubmenu><guimenuitem>Añadir archivo fuente</guimenuitem></menuchoice>. En el "
-"diálogo seleccione el objetivo al que se debería añadir el archivo y el archivo propiamente dicho. "
-"Puede añadir varios archivos de una vez. Para ello, seleccione múltiples "
-"archivos en el diálogo de selección usando la tecla Mayús o Ctrl. Después "
-"pulse el botón <guibutton>Añadir</guibutton> para añadir los archivos al proyecto."
+"guisubmenu><guimenuitem>Añadir archivo fuente</guimenuitem></menuchoice>. En "
+"el diálogo seleccione el objetivo al que se debería añadir el archivo y el "
+"archivo propiamente dicho. Puede añadir varios archivos de una vez. Para "
+"ello, seleccione múltiples archivos en el diálogo de selección usando la "
+"tecla Mayús o Ctrl. Después pulse el botón <guibutton>Añadir</guibutton> "
+"para añadir los archivos al proyecto."
 
-#: C/anjuta-manual.xml:437(para)
+#: C/anjuta-manual.xml:450(para)
 msgid ""
 "By default, current editor file would be preselected for addition in the "
 "dialog. Other convenient way to add a file is to select it in "
 "<interface>File Manager</interface> and choosing <guimenuitem>Add to "
-"project</guimenuitem> from the <guimenu>Operation</guimenu> popup menu."
+"project</guimenuitem> from the <guimenu>Operation menu</guimenu>."
 msgstr ""
-"De forma predeterminada el editor de archivos estará preseleccionado para la adición en "
-"el diálogo. Otra forma conveniente de añadir un archivo es seleccionarlo "
-"en el <interface>gestor de archivos</interface> y elegir <guimenuitem>Añadir al "
-"proyecto</guimenuitem> desde el menú emergente de <guimenu>operación</guimenu>."
+"De forma predeterminada el editor de archivos estará preseleccionado para la "
+"adición en el diálogo. Otra forma conveniente de añadir un archivo es "
+"seleccionarlo en el <interface>gestor de archivos</interface> y elegir "
+"<guimenuitem>Añadir al proyecto</guimenuitem> desde la ventana emergente del "
+"<guimenu>menú de operación</guimenu>."
 
-#: C/anjuta-manual.xml:444(para)
+#: C/anjuta-manual.xml:457(para)
 msgid ""
 "If the file you choose has already been added to the project, then "
 "<application>Anjuta</application> will not add it again. It will also give "
@@ -2267,44 +2307,45 @@ msgstr ""
 "<application>Anjuta</application> no lo añadirá de nuevo. También le "
 "advertirá que el archivo ya se ha añadido."
 
-#: C/anjuta-manual.xml:449(para)
+#: C/anjuta-manual.xml:462(para)
 msgid ""
 "If the file you choose is not in the project directory, you will be asked to "
 "confirm that you wish to copy the file into the target's directory. "
 "<application>Anjuta</application> cannot add files which are outside of "
 "target's directory."
 msgstr ""
-"Si el archivo que ha elegido no está en el directorio del proyecto, se le pedirá "
-"una confirmación para copiar el archivo en el directorio del objetivo. "
-"<application>Anjuta</application> no puede añadir archivos que están fuera "
-"del directorio del objetivo."
+"Si el archivo que ha elegido no está en el directorio del proyecto, se le "
+"pedirá una confirmación para copiar el archivo en el directorio del "
+"objetivo. <application>Anjuta</application> no puede añadir archivos que "
+"están fuera del directorio del objetivo."
 
-#: C/anjuta-manual.xml:457(title)
+#: C/anjuta-manual.xml:470(title)
 msgid "Removing Source Files"
 msgstr "Eliminar archivos de fuentes"
 
-#: C/anjuta-manual.xml:458(para)
+#: C/anjuta-manual.xml:471(para)
 msgid ""
 "To remove a file from the project, select the file you want to remove from "
-"the <interface>Project View</interface>, right-click to open the "
-"<guimenu>Operation</guimenu> popup menu and choose <guimenuitem>Remove</"
+"the <interface>Project window</interface>, right-click to open the "
+"<guimenu>Operation menu</guimenu> and choose <guimenuitem>Remove</"
 "guimenuitem>."
 msgstr ""
-"Para eliminar un archivo del proyecto seleccione el archivo que quiere eliminar "
-"desde la <interface>vista de proyecto</interface>, pulse con el botón derecho del ratón "
-"para abrir el menú emergente de <guimenu>operación</guimenu> y elija <guimenuitem>Eliminar</guimenuitem>."
+"Para eliminar un archivo del proyecto seleccione el archivo que quiere "
+"eliminar desde la <interface>ventana de proyecto</interface>, pulse con el "
+"botón derecho del ratón para abrir la ventana emergente del <guimenu>menú de operación</"
+"guimenu> y elija <guimenuitem>Eliminar</guimenuitem>."
 
-#: C/anjuta-manual.xml:464(para)
+#: C/anjuta-manual.xml:477(para)
 msgid ""
 "A confirmation dialog will appear, and the file will be removed from the "
 "project."
 msgstr "Aparecerá un diálogo de confirmación y se eliminará el archivo del proyecto."
 
-#: C/anjuta-manual.xml:469(title)
+#: C/anjuta-manual.xml:482(title)
 msgid "The file is not deleted!"
 msgstr "El archivo no se borra."
 
-#: C/anjuta-manual.xml:470(para)
+#: C/anjuta-manual.xml:483(para)
 msgid ""
 "The file is not deleted from the filesystem. It still exists, and you can "
 "add it back again later if you so wish. The file is only removed from the "
@@ -2312,24 +2353,25 @@ msgid ""
 "such as compiling, building, distribution etc.."
 msgstr ""
 "El archivo no se borra del sistema de archivos. Sigue existiendo y puede "
-"añadirlo de nuevo posteriormente. El archivo sólo se elimina de la lista "
-"del proyecto y no se tendrá en cuenta para ninguna de las operaciones "
-"del proyecto tales como la compilación, construcción, distribución, etc."
+"añadirlo de nuevo posteriormente. El archivo sólo se elimina de la lista del "
+"proyecto y no se tendrá en cuenta para ninguna de las operaciones del "
+"proyecto tales como la compilación, construcción, distribución, etc."
 
-#: C/anjuta-manual.xml:481(title)
+#: C/anjuta-manual.xml:494(title)
 msgid "Project Configuration"
 msgstr "Configurar un proyecto"
 
-#: C/anjuta-manual.xml:482(para)
+#: C/anjuta-manual.xml:495(para)
 msgid ""
 "Project configuration involves setting the correct build flags for targets, "
 "groups and project itself. You can set these flags in their respective "
 "properties dialog."
 msgstr ""
-"La configuración de un proyecto incluye ajustar las opciones de compilación correctas para los objetivos, "
-"grupos y para el proyecto en si. Puede establecer estas opciones en sus respectivos diálogos de propiedades."
+"La configuración de un proyecto incluye ajustar las opciones de compilación "
+"correctas para los objetivos, grupos y para el proyecto en si. Puede "
+"establecer estas opciones en sus respectivos diálogos de propiedades."
 
-#: C/anjuta-manual.xml:488(para)
+#: C/anjuta-manual.xml:501(para)
 msgid ""
 "You can freely use autoconf and automake variables that are automatically "
 "set for the project during configuration. Apart from these automatically set "
@@ -2339,43 +2381,45 @@ msgid ""
 "is used in several targets."
 msgstr ""
 "Puede usar libremente las variables de autoconf y automake que se ajustan "
-"automáticamente para el proyecto durante la configuración. Aparte de las variables "
-"ajustadas automáticamente, también puede definir sus propias variables en las "
-"<link linkend=\"project-properties\">Propiedades del proyecto</link>. "
-"Esto hará más sencilla la actualización de las opciones posteriormente, especialmente cuando "
-"la variable se usa en diversos objetivos."
+"automáticamente para el proyecto durante la configuración. Aparte de las "
+"variables ajustadas automáticamente, también puede definir sus propias "
+"variables en las <link linkend=\"project-properties\">Propiedades del "
+"proyecto</link>. Esto hará más sencilla la actualización de las opciones "
+"posteriormente, especialmente cuando la variable se usa en diversos "
+"objetivos."
 
-#: C/anjuta-manual.xml:503(para)
+#: C/anjuta-manual.xml:516(para)
 msgid ""
 "<emphasis>$(prefix)</emphasis>: The installation prefix. The project is "
 "installed under various sub-directories under this prefix. By default it is /"
 "usr/local."
 msgstr ""
-"<emphasis>$(prefix)</emphasis>: El prefijo de instalación. El proyecto "
-"se instala en varios subdirectorios bajo este prefijo. De forma predeterminada "
+"<emphasis>$(prefix)</emphasis>: El prefijo de instalación. El proyecto se "
+"instala en varios subdirectorios bajo este prefijo. De forma predeterminada "
 "es /usr/local."
 
-#: C/anjuta-manual.xml:510(para)
+#: C/anjuta-manual.xml:523(para)
 msgid ""
 "<emphasis>$(bindir)</emphasis>: The installation directory for executable "
 "binaries. All your executable and scripts targets would be installed in this "
 "directory. By default, it is $(prefix)/bin."
 msgstr ""
 "<emphasis>($bindir)</emphasis>: El directorio de instalación de los binarios "
-"ejecutables. Todos sus objetivos ejecutables y los scripts se instarán en este directorio. "
-"De forma predeterminada es $(prefix)/bin."
+"ejecutables. Todos sus objetivos ejecutables y los scripts se instarán en "
+"este directorio. De forma predeterminada es $(prefix)/bin."
 
-#: C/anjuta-manual.xml:517(para)
+#: C/anjuta-manual.xml:530(para)
 msgid ""
 "<emphasis>$(libdir)</emphasis>: The installation directory for libraries. "
 "All your library targets (both shared and static) would be installed in this "
 "directory or a subdirectory below it. By default, it is $(prefix)/lib."
 msgstr ""
-"<emphasis>$(libdir)</emphasis>: El directorio de instalación para las bibliotecas. "
-"Todas las bibliotecas de sus destimos (las compartidas y las estáticas) se instalarán en este "
-"directorio o un subdirectorio bajo él. De forma predeterminada es $(prefix)/lib."
+"<emphasis>$(libdir)</emphasis>: El directorio de instalación para las "
+"bibliotecas. Todas las bibliotecas de sus destimos (las compartidas y las "
+"estáticas) se instalarán en este directorio o un subdirectorio bajo él. De "
+"forma predeterminada es $(prefix)/lib."
 
-#: C/anjuta-manual.xml:525(para)
+#: C/anjuta-manual.xml:538(para)
 msgid ""
 "<emphasis>$(module_CFLAGS)</emphasis> and $(module_LIBS): These flags are "
 "set by configure for the packages that your project depends on. The packages "
@@ -2384,52 +2428,54 @@ msgid ""
 "properties."
 msgstr ""
 "<emphasis>$(module_CFLAGS)</emphasis> y $(module_LIBS): Estas opciones se "
-"establecen por configuración para los paquetes de los que su proyecto depende. Los paquetes "
-"que usa el proyecto se establecen en las <link linkend=\"project-properties\">Propiedades del "
-"proyecto</link>. «module» es grupo de paquetes que proporciona en las propiedades "
-"del proyecto."
+"establecen por configuración para los paquetes de los que su proyecto "
+"depende. Los paquetes que usa el proyecto se establecen en las <link linkend="
+"\"project-properties\">Propiedades del proyecto</link>. «module» es grupo de "
+"paquetes que proporciona en las propiedades del proyecto."
 
-#: C/anjuta-manual.xml:497(para)
+#: C/anjuta-manual.xml:510(para)
 msgid ""
 "Some of the many common variables are listed here. For full list of them see "
 "<ulink url=\"info:automake\">automake info documentation</ulink>. "
 "<placeholder-1/>"
 msgstr ""
-"Algunas de las variables más comunes están listadas aquí. Para ver la lista completa "
-"consulte <ulink url=\"info:automake\">documentación de información de automake</ulink>. "
-"<placeholder-1/>"
+"Algunas de las variables más comunes están listadas aquí. Para ver la lista "
+"completa consulte <ulink url=\"info:automake\">documentación de información "
+"de automake</ulink>. <placeholder-1/>"
 
-#: C/anjuta-manual.xml:539(title)
+#: C/anjuta-manual.xml:552(title)
 msgid "Project properties"
 msgstr "Propiedades del proyecto"
 
-#: C/anjuta-manual.xml:546(para)
+#: C/anjuta-manual.xml:559(para)
 msgid ""
 "Set project name, version and URL in <guibutton>General</guibutton> page. "
 "Configure variables can also be use in these fields. The URL is the bug "
 "report URL for the project."
 msgstr ""
-"Establezca el nombre del proyecto, la versión y el URL en la página <guibutton>General</guibutton>. "
-"Las variables de configuración también se pueden usar en estos campos. El URL es la página "
-"donde se han de enviar los informes de error del proyecto."
+"Establezca el nombre del proyecto, la versión y el URL en la página "
+"<guibutton>General</guibutton>. Las variables de configuración también se "
+"pueden usar en estos campos. El URL es la página donde se han de enviar los "
+"informes de error del proyecto."
 
-#: C/anjuta-manual.xml:553(para)
+#: C/anjuta-manual.xml:566(para)
 msgid ""
 "Add and remove dependencies for your project in <guibutton>Packages</"
 "guibutton> page. See below for details."
 msgstr ""
-"Añada y elimine dependencias para su proyecto en la página <guibutton>Paquetes</guibutton>. "
-"Consulte más abajo para obtener más detalles."
+"Añada y elimine dependencias para su proyecto en la página "
+"<guibutton>Paquetes</guibutton>. Consulte más abajo para obtener más "
+"detalles."
 
-#: C/anjuta-manual.xml:559(para)
+#: C/anjuta-manual.xml:572(para)
 msgid ""
 "Create more configure variables in <guibutton>Variables</guibutton> page to "
 "use in group and target properties."
 msgstr ""
-"Cree más variables de configuración en la página <guibutton>Variables</guibutton> "
-"para usarlas en las propiedades de grupo y objetivo."
+"Cree más variables de configuración en la página <guibutton>Variables</"
+"guibutton> para usarlas en las propiedades de grupo y objetivo."
 
-#: C/anjuta-manual.xml:540(para)
+#: C/anjuta-manual.xml:553(para)
 msgid ""
 "Project properties dialog can be only brought by choosing "
 "<menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Properties</"
@@ -2439,23 +2485,24 @@ msgstr ""
 "<menuchoice><guisubmenu>Proyecto</guisubmenu><guimenuitem>Propiedades</"
 "guimenuitem></menuchoice>. Puede: <placeholder-1/>"
 
-#: C/anjuta-manual.xml:574(title) C/anjuta-manual.xml:576(screeninfo)
+#: C/anjuta-manual.xml:587(title) C/anjuta-manual.xml:589(screeninfo)
 msgid "Project properties dialog"
 msgstr "Diálogo Propiedades del proyecto"
 
-#: C/anjuta-manual.xml:566(para)
+#: C/anjuta-manual.xml:579(para)
 msgid ""
 "Dependencies are external packages that the project uses and hence required "
 "to build it. Only packages installed using <ulink url=\"info:pkg-config"
 "\">pkg-config</ulink> can be added from this interface. For others, the "
 "configure.ac file can be edited manually. <placeholder-1/>"
 msgstr ""
-"Las dependencias son paquetes externos que usa el proyecto y que son necesarios "
-"para construirlo. Sólo los paquetes instalados usando <ulink url=\"info:pkg-config\">pkg-config</ulink> "
-"se pueden añadir desde esta interfaz. Se puede editar manualmente el archivo "
-"configure.ac para los demás. <placeholder-1/>"
+"Las dependencias son paquetes externos que usa el proyecto y que son "
+"necesarios para construirlo. Sólo los paquetes instalados usando <ulink url="
+"\"info:pkg-config\">pkg-config</ulink> se pueden añadir desde esta interfaz. "
+"Se puede editar manualmente el archivo configure.ac para los demás. "
+"<placeholder-1/>"
 
-#: C/anjuta-manual.xml:581(para)
+#: C/anjuta-manual.xml:594(para)
 msgid ""
 "External package dependencies are grouped into <emphasis>modules</emphasis>, "
 "so that their combined build flags can be conveniently added to different "
@@ -2465,15 +2512,17 @@ msgid ""
 "be use in. Consequently, for small projects with single targets, just one "
 "module to hold all dependencies is enough."
 msgstr ""
-"Las dependencias de paquetes externos se agrupan en <emphasis>módulos</emphasis>, "
-"de tal forma que sus opciones de construcción combinadas se pueden añadir convenientemente a "
-"diferentes objetivos. Los <emphasis>módulos</emphasis> simplemente son nombres arbitrarios dados "
-"a los grupos de paquetes y se pueden llamar de cualquier forma (sólo se permiten caracteres alfanuméricos y "
-"guión bajo «_» en el nombre del módulo). Generalmente siguen el nombre de los objetivos en los "
-"que se usarán. Consecuentemente, para proyectos pequeños con un solo objetivo solamente un "
+"Las dependencias de paquetes externos se agrupan en <emphasis>módulos</"
+"emphasis>, de tal forma que sus opciones de construcción combinadas se "
+"pueden añadir convenientemente a diferentes objetivos. Los "
+"<emphasis>módulos</emphasis> simplemente son nombres arbitrarios dados a los "
+"grupos de paquetes y se pueden llamar de cualquier forma (sólo se permiten "
+"caracteres alfanuméricos y guión bajo «_» en el nombre del módulo). "
+"Generalmente siguen el nombre de los objetivos en los que se usarán. "
+"Consecuentemente, para proyectos pequeños con un solo objetivo solamente un "
 "módulo es suficiente para mantener todas las dependencias."
 
-#: C/anjuta-manual.xml:590(para)
+#: C/anjuta-manual.xml:603(para)
 msgid ""
 "Each package exports a set of <emphasis>compiler flags</emphasis> and "
 "<emphasis>libraries</emphasis>. They are aggregated together for all "
@@ -2483,26 +2532,30 @@ msgid ""
 "properties</link> and <link linkend=\"target-properties\">Target properties</"
 "link>."
 msgstr ""
-"Cada paquete exporta un conjunto de <emphasis>opciones de compilación</emphasis> y "
-"<emphasis>bibliotecas</emphasis>. Se añaden todas juntas para todos los "
-"paquetes bajo un módulo y se definen las variables de configuración <emphasis>$(module_CFLAGS)</"
-"emphasis> y <emphasis>$(module_LIBS)</emphasis>. Éstas variables se pueden "
-"usar en las <link linkend=\"group-properties\">Propiedades del grupo</link> y las "
-"<link linkend=\"target-properties\">Propiedades del objetivo</link>."
+"Cada paquete exporta un conjunto de <emphasis>opciones de compilación</"
+"emphasis> y <emphasis>bibliotecas</emphasis>. Se añaden todas juntas para "
+"todos los paquetes bajo un módulo y se definen las variables de "
+"configuración <emphasis>$(module_CFLAGS)</emphasis> y <emphasis>"
+"$(module_LIBS)</emphasis>. Éstas variables se pueden usar en las <link "
+"linkend=\"group-properties\">Propiedades del grupo</link> y las <link "
+"linkend=\"target-properties\">Propiedades del objetivo</link>."
 
-#: C/anjuta-manual.xml:603(para)
+#: C/anjuta-manual.xml:616(para)
 msgid ""
 "Select <menuchoice><guisubmenu>Project</guisubmenu><guimenuitem>Properties</"
 "guimenuitem></menuchoice> to bring up project properties dialog."
 msgstr ""
-"Seleccione <menuchoice><guisubmenu>Proyecto</guisubmenu><guimenuitem>Propiedades</"
-"guimenuitem></menuchoice> para mostrar el diálogo de propiedades del proyecto."
+"Seleccione <menuchoice><guisubmenu>Proyecto</"
+"guisubmenu><guimenuitem>Propiedades</guimenuitem></menuchoice> para mostrar "
+"el diálogo de propiedades del proyecto."
 
-#: C/anjuta-manual.xml:610(para)
+#: C/anjuta-manual.xml:623(para)
 msgid "Select the tab <guibutton>Packages</guibutton> to bring up packages page."
-msgstr "Seleccione la solapa <guibutton>Paquetes</guibutton> para mostrar la página de los paquetes."
+msgstr ""
+"Seleccione la solapa <guibutton>Paquetes</guibutton> para mostrar la página "
+"de los paquetes."
 
-#: C/anjuta-manual.xml:614(para)
+#: C/anjuta-manual.xml:627(para)
 msgid ""
 "Select the <emphasis>module</emphasis> to add the package to. If there is no "
 "module created yet or there is no appropriate module, create one by clicking "
@@ -2511,48 +2564,51 @@ msgid ""
 "alphanumeric and '_' characters) and press <keycap>Enter</keycap> to create "
 "it."
 msgstr ""
-"Seleccione el <emphasis>módulo</emphasis> para añadir al paquete. Si no hay ningún "
-"módulo creado o no hay un módulo apropiado, cree uno pulsando "
+"Seleccione el <emphasis>módulo</emphasis> para añadir al paquete. Si no hay "
+"ningún módulo creado o no hay un módulo apropiado, cree uno pulsando "
 "<guibutton>Añadir módulo</guibutton>.  Proporcione un nombre al módulo, "
-"preferiblemente en LETRAS MAYÚSCULAS (se distinguen mayúsculas y minúsculas) para "
-"que coincida con el resto de las variables de configuración (use caracteres alfanuméricos "
-"y el guión bajo «_» exclusivamente) y pulse <keycap>Intro</keycap> para crearlo."
+"preferiblemente en LETRAS MAYÚSCULAS (se distinguen mayúsculas y minúsculas) "
+"para que coincida con el resto de las variables de configuración (use "
+"caracteres alfanuméricos y el guión bajo «_» exclusivamente) y pulse "
+"<keycap>Intro</keycap> para crearlo."
 
-#: C/anjuta-manual.xml:624(para)
+#: C/anjuta-manual.xml:637(para)
 msgid ""
 "Click <guibutton>Add package</guibutton> to bring up package selection "
 "dialog."
-msgstr "Pulse <guibutton>Añadir paquete</guibutton> para mostrar el diálogo de selección de paquetes."
+msgstr ""
+"Pulse <guibutton>Añadir paquete</guibutton> para mostrar el diálogo de "
+"selección de paquetes."
 
-#: C/anjuta-manual.xml:627(para)
+#: C/anjuta-manual.xml:640(para)
 msgid "Select the package to add and click <guibutton>Add</guibutton>."
 msgstr "Seleccione el paquete para añadir y pulse <guibutton>Añadir</guibutton>."
 
-#: C/anjuta-manual.xml:630(para)
+#: C/anjuta-manual.xml:643(para)
 msgid "Click <guibutton>Close</guibutton> to close the properties dialog."
 msgstr "Pulse <guibutton>Cerrar</guibutton> para cerrar el diálogo de propiedades."
 
-#: C/anjuta-manual.xml:599(para)
+#: C/anjuta-manual.xml:612(para)
 msgid "To add a package dependency: <placeholder-1/>"
 msgstr "Para añadir una dependencia de un paquete: <placeholder-1/>"
 
-#: C/anjuta-manual.xml:637(title)
+#: C/anjuta-manual.xml:650(title)
 msgid "Group properties"
 msgstr "Propiedades del grupo"
 
-#: C/anjuta-manual.xml:638(para)
+#: C/anjuta-manual.xml:651(para)
 msgid ""
-"To set group properties, select it in the <interface>Project View</"
+"To set group properties, select it in the <interface>Project window</"
 "interface> and active it. You can also bring it by selecting "
 "<menuchoice><guimenu>Operation menu</guimenu><guimenuitem>Properties</"
 "guimenuitem></menuchoice>"
 msgstr ""
-"Para establecer propiedades del grupo selecciónelas en la <interface>vista de proyecto</"
-"interface> y actívelo. También puede acceder al menú seleccionando "
-"<menuchoice><guimenu>Menú de operación</guimenu><guimenuitem>Propiedades</"
-"guimenuitem></menuchoice>."
+"Para establecer propiedades del grupo selecciónelas en la <interface>ventana "
+"de proyecto</interface> y actívelo. También puede acceder al menú "
+"seleccionando <menuchoice><guimenu>Menú de operación</"
+"guimenu><guimenuitem>Propiedades</guimenuitem></menuchoice>."
 
-#: C/anjuta-manual.xml:654(para)
+#: C/anjuta-manual.xml:667(para)
 msgid ""
 "<emphasis>Includes</emphasis>: Set your $(module_CFLAGS) variables and other "
 "include directories for your c and c++ targets. You need to provide the full "
@@ -2561,14 +2617,15 @@ msgid ""
 "also add other sort of compiler flags here, but they are preferred to be set "
 "in their respective compiler flags properties (see below)."
 msgstr ""
-"<emphasis>Inclusiones</emphasis>: establezca sus variables $(modulo_CFLAGS) y "
-"otros directorios de inclusión para sus objetivos C y C++. Aquí debe proporcionar las "
-"opciones completas de inclusión del compilador, ej. -I/usr/include/blah. Las rutas de "
-"inclusión se usarán para buscar los archivos de inclusión en sus archivos de fuentes. Aquí también "
-"puede añadir otras opciones del compilador, pero es preferible establecerlas en sus "
-"respectivas propiedades de opciones del compilador (ver más abajo)."
+"<emphasis>Inclusiones</emphasis>: establezca sus variables $(modulo_CFLAGS) "
+"y otros directorios de inclusión para sus objetivos C y C++. Aquí debe "
+"proporcionar las opciones completas de inclusión del compilador, ej. -I/usr/"
+"include/blah. Las rutas de inclusión se usarán para buscar los archivos de "
+"inclusión en sus archivos de fuentes. Aquí también puede añadir otras "
+"opciones del compilador, pero es preferible establecerlas en sus respectivas "
+"propiedades de opciones del compilador (ver más abajo)."
 
-#: C/anjuta-manual.xml:664(para)
+#: C/anjuta-manual.xml:677(para)
 msgid ""
 "Usually your configure script would also make some automatically determined "
 "compiler flags. The variables usually end with _CFLAGS, e.g "
@@ -2576,13 +2633,13 @@ msgid ""
 "\"project-properties\">Project properties</link> for more details on these "
 "variables."
 msgstr ""
-"Generalmente su script de configuración también creará algunas opciones "
-"de compilación determinadas automáticamente. Las variables generalmente terminan con "
-"_CFLAGS, ej. $(PAQUETE_CFLAGS). También están establecidas aquí. Para obtener más "
-"detalles acerca de estas variables consulte las <link linkend=\"project-properties\">Propiedades "
-"del proyecto</link>."
+"Generalmente su script de configuración también creará algunas opciones de "
+"compilación determinadas automáticamente. Las variables generalmente "
+"terminan con _CFLAGS, ej. $(PAQUETE_CFLAGS). También están establecidas "
+"aquí. Para obtener más detalles acerca de estas variables consulte las <link "
+"linkend=\"project-properties\">Propiedades del proyecto</link>."
 
-#: C/anjuta-manual.xml:674(para) C/anjuta-manual.xml:715(para)
+#: C/anjuta-manual.xml:687(para) C/anjuta-manual.xml:728(para)
 msgid ""
 "<emphasis>Compiler settings</emphasis>: Set your compiler specific flags "
 "here. There are different fields for different compiler categories. Flags "
@@ -2591,12 +2648,13 @@ msgid ""
 "\"info:gcc\">gcc info documentation</ulink> for more details."
 msgstr ""
 "<emphasis>Ajustes del compilador</emphasis>: establezca aquí las opciones "
-"específicas del compilador. Existen campos diferentes para las distintas categorías del compilador. "
-"Las opciones que se pueden establecer dependen del compilador usado actualmente. El compilador "
-"predeterminado para C/C++ es gcc/g++ (el compilador GNU de C). Para obtener más "
-"detalles consulte la <ulink url=\"info:gcc\">información de documentación de gcc</ulink>."
+"específicas del compilador. Existen campos diferentes para las distintas "
+"categorías del compilador. Las opciones que se pueden establecer dependen "
+"del compilador usado actualmente. El compilador predeterminado para C/C++ es "
+"gcc/g++ (el compilador GNU de C). Para obtener más detalles consulte la "
+"<ulink url=\"info:gcc\">información de documentación de gcc</ulink>."
 
-#: C/anjuta-manual.xml:684(para)
+#: C/anjuta-manual.xml:697(para)
 msgid ""
 "<emphasis>Install directories</emphasis>: Targets in the group that require "
 "installation directories would each get a field to enter the installation "
@@ -2604,13 +2662,13 @@ msgid ""
 "automake directory variables, such as $(prefix), $(bindir), $(libdir), "
 "$(datadir) etc."
 msgstr ""
-"<emphasis>Directorios de instalación</emphasis>: los objetivos del grupo que requieren "
-"directorios de instalación obtendrán un campo para introducir el directorio de "
-"instalación. De tal forma que sus directorios de instalación son relativos a una de las muchas "
-"variables de directorio de automake, tales como $(prefix), $(bindir), $(libdir), "
-"$(datadir), etc."
+"<emphasis>Directorios de instalación</emphasis>: los objetivos del grupo que "
+"requieren directorios de instalación obtendrán un campo para introducir el "
+"directorio de instalación. De tal forma que sus directorios de instalación "
+"son relativos a una de las muchas variables de directorio de automake, tales "
+"como $(prefix), $(bindir), $(libdir), $(datadir), etc."
 
-#: C/anjuta-manual.xml:645(para)
+#: C/anjuta-manual.xml:658(para)
 msgid ""
 "<emphasis>Group Properties</emphasis> set to a group applies to all the "
 "targets under it. So any compiler or linker flags set there would be "
@@ -2618,94 +2676,97 @@ msgid ""
 "individual properties). Following flags are available in group properties. "
 "<placeholder-1/>"
 msgstr ""
-"Las <emphasis>Propiedades del grupo</emphasis> establecidas para un grupo, se aplican "
-"a todos los objetivos bajo él. De tal forma que cualquier opción del compilador o enlazador aquí "
-"establecidas serán automáticamente parte de todos los objetivos en él (además de las propiedades "
-"individuales del objetivo). Las siguientes opciones están disponibles en las propiedades de grupo. "
-"<placeholder-1/>"
+"Las <emphasis>Propiedades del grupo</emphasis> establecidas para un grupo, "
+"se aplican a todos los objetivos bajo él. De tal forma que cualquier opción "
+"del compilador o enlazador aquí establecidas serán automáticamente parte de "
+"todos los objetivos en él (además de las propiedades individuales del "
+"objetivo). Las siguientes opciones están disponibles en las propiedades de "
+"grupo. <placeholder-1/>"
 
-#: C/anjuta-manual.xml:699(title)
+#: C/anjuta-manual.xml:712(title)
 msgid "Target properties"
 msgstr "Propiedades del destino"
 
-#: C/anjuta-manual.xml:700(para)
+#: C/anjuta-manual.xml:713(para)
 msgid ""
-"To set target properties, select it in the <interface>Project View</"
+"To set target properties, select it in the <interface>Project window</"
 "interface> and active it. You can also bring it by selecting "
 "<menuchoice><guimenu>Operation menu</guimenu><guimenuitem>Properties</"
 "guimenuitem></menuchoice>"
 msgstr ""
-"Para establecer las propiedades del objetivo, selecciónelo en la <interface>Vista de proyecto</"
-"interface> y actívelo. También puede acceder al menú seleccionando el"
-"<menuchoice><guimenu>Menú de operación</guimenu><guimenuitem>Propiedades</"
-"guimenuitem></menuchoice>"
+"Para establecer las propiedades del objetivo, selecciónelo en la "
+"<interface>ventana de proyecto</interface> y actívelo. También puede acceder "
+"al menú seleccionando el<menuchoice><guimenu>Menú de operación</"
+"guimenu><guimenuitem>Propiedades</guimenuitem></menuchoice>"
 
-#: C/anjuta-manual.xml:725(para)
+#: C/anjuta-manual.xml:738(para)
 msgid ""
 "<emphasis>Linker flags</emphasis>: Set linker flags that should be used when "
 "linking the target. It applies only to Program and library targets. See "
 "<ulink url=\"info:ld\">ld info documentation</ulink> for available linker "
 "options."
 msgstr ""
-"<emphasis>Opciones del enlazador:</emphasis> Establezca las opciones del enlazador que se usarán "
-"al enlazar el objetivo. Se aplica sólo a objetivos tipo programa y biblioteca. Consulte "
-"<ulink url=\"info:ld\">documentación de ld</ulink> para ver las opciones disponibles del enlazador."
+"<emphasis>Opciones del enlazador:</emphasis> Establezca las opciones del "
+"enlazador que se usarán al enlazar el objetivo. Se aplica sólo a objetivos "
+"tipo programa y biblioteca. Consulte <ulink url=\"info:ld\">documentación de "
+"ld</ulink> para ver las opciones disponibles del enlazador."
 
-#: C/anjuta-manual.xml:733(para)
+#: C/anjuta-manual.xml:746(para)
 msgid ""
 "<emphasis>Libraries</emphasis>: Set the libraries that the target depends "
 "on. Usually they are the $(module_LIBS) configure variables. See setting "
 "<link linkend=\"project-properties\">Project properties</link> for more "
 "details on these variables."
 msgstr ""
-"<emphasis>Bibliotecas:</emphasis> Establezca las bibliotecas de las que depende "
-"el objetivo. Generalmente son las variables de configuración. Para obtener más detalles "
-"acerca de estas variables, consulte los ajustes de las <link linkend=\"project-properties\">Propiedades "
-"del proyecto</link>."
+"<emphasis>Bibliotecas:</emphasis> Establezca las bibliotecas de las que "
+"depende el objetivo. Generalmente son las variables de configuración. Para "
+"obtener más detalles acerca de estas variables, consulte los ajustes de las "
+"<link linkend=\"project-properties\">Propiedades del proyecto</link>."
 
-#: C/anjuta-manual.xml:707(para)
+#: C/anjuta-manual.xml:720(para)
 msgid ""
 "<emphasis>Target Properties</emphasis> set to a target applies to that "
 "target. So any compiler or linker flags set there would be just part of it "
 "(in addition the its group properties). Following flags are available in "
 "target properties. <placeholder-1/>"
 msgstr ""
-"Las <emphasis>Propiedades del objetivo</emphasis> se establecen para un objetivo. "
-"De tal forma que cualquier opción del compilador o enlazador establecidas aquí serán simplemente "
-"parte de él (además de sus propiedades de grupo). Las siguientes opciones están disponibles "
-"en las propiedades del objetivo. <placeholder-1/>"
+"Las <emphasis>Propiedades del objetivo</emphasis> se establecen para un "
+"objetivo. De tal forma que cualquier opción del compilador o enlazador "
+"establecidas aquí serán simplemente parte de él (además de sus propiedades "
+"de grupo). Las siguientes opciones están disponibles en las propiedades del "
+"objetivo. <placeholder-1/>"
 
-#: C/anjuta-manual.xml:748(title)
+#: C/anjuta-manual.xml:761(title)
 msgid "Compiling and Building"
 msgstr "Compilar y construir"
 
-#: C/anjuta-manual.xml:750(title)
+#: C/anjuta-manual.xml:763(title)
 msgid "Overview"
 msgstr "Vista general"
 
-#: C/anjuta-manual.xml:751(para)
+#: C/anjuta-manual.xml:764(para)
 msgid "An executable for a project is generated in two steps:"
 msgstr "Para un proyecto un ejecutable se genera en dos pasos:"
 
-#: C/anjuta-manual.xml:756(para)
+#: C/anjuta-manual.xml:769(para)
 msgid "Compiling"
 msgstr "Compilar"
 
-#: C/anjuta-manual.xml:757(para)
+#: C/anjuta-manual.xml:770(para)
 msgid "Linking"
 msgstr "Enlazar"
 
-#: C/anjuta-manual.xml:760(para)
+#: C/anjuta-manual.xml:773(para)
 msgid ""
 "These steps are collectively known as <emphasis>Building</emphasis>. Some "
 "other steps may also be involved in the build process, but for the sake of "
 "simplicity, we will only look at these two steps."
 msgstr ""
-"Estos pases se conocen en conjunto como la <emphasis>construcción</emphasis>. Puede que "
-"algunos otros pasos estén involucrados en el proceso, pero para hacerlo más sencillo "
-"sólo se revisarán éstos dos."
+"Estos pases se conocen en conjunto como la <emphasis>construcción</"
+"emphasis>. Puede que algunos otros pasos estén involucrados en el proceso, "
+"pero para hacerlo más sencillo sólo se revisarán éstos dos."
 
-#: C/anjuta-manual.xml:765(para)
+#: C/anjuta-manual.xml:778(para)
 msgid ""
 "<emphasis>Compiling</emphasis> is the step in which object files are "
 "generated from their corresponding source files. For instance, a source file "
@@ -2715,27 +2776,27 @@ msgid ""
 "executable."
 msgstr ""
 "<emphasis>Compilar</emphasis> es el paso en el que se generan los archivos "
-"objeto desde sus correspondientes archivos fuente. Por ejemplo, un archivo fuente "
-"<filename>hola.c</filename> generará <filename>hola.o</filename> "
-"tras su compilación. Generalmente no necesita preocuparse acerca de esos archivos "
-"objeto; simplemente piense en ellos como archivos intermedios involucrados en la "
-"creación del ejecutable final.>"
+"objeto desde sus correspondientes archivos fuente. Por ejemplo, un archivo "
+"fuente <filename>hola.c</filename> generará <filename>hola.o</filename> tras "
+"su compilación. Generalmente no necesita preocuparse acerca de esos archivos "
+"objeto; simplemente piense en ellos como archivos intermedios involucrados "
+"en la creación del ejecutable final.>"
 
-#: C/anjuta-manual.xml:772(para)
+#: C/anjuta-manual.xml:785(para)
 msgid ""
 "Once the object files (<filename>*.o</filename> files) are ready, they are "
 "all linked together (along with any libraries) to generate the final "
 "executable. This step is called <emphasis>Linking</emphasis>."
 msgstr ""
-"Uva vez que los archivos objeto (<filename>*.o</filename>) están listos, se enlazan "
-"todos juntos (junto con cualquier biblioteca) para generar el ejecutable final. "
-"Este paso se llama <emphasis>enlazado</emphasis>."
+"Uva vez que los archivos objeto (<filename>*.o</filename>) están listos, se "
+"enlazan todos juntos (junto con cualquier biblioteca) para generar el "
+"ejecutable final. Este paso se llama <emphasis>enlazado</emphasis>."
 
-#: C/anjuta-manual.xml:779(title)
+#: C/anjuta-manual.xml:792(title)
 msgid "Compiling the source"
 msgstr "Compilar los fuentes"
 
-#: C/anjuta-manual.xml:780(para)
+#: C/anjuta-manual.xml:793(para)
 msgid ""
 "In a project, the individual source files can be compiled separately into "
 "objects (<filename>*.o</filename> files). Although you do not have to worry "
@@ -2745,29 +2806,31 @@ msgid ""
 "applications. Therefore, you will probably go through a series of edit-"
 "compile-edit-compile-.... loops while a developing the project."
 msgstr ""
-"En un proyecto los archivos fuente individuales se pueden compilar separadamente en "
-"objetos (archivos <filename>*.o</filename>). Aunque no debe preocuparse por "
-"esos archivos objeto, a veces es útil compilar un archivo primero (por "
-"ejemplo, para asegurarse de que no hay errores de sintaxis). Compilar un proyecto "
-"entero puede llevar mucho tiempo, especialmente en el caso de aplicaciones grandes "
-"y complejas. Por ello probablemente pasará por series de bucles edición-compilación-edición-"
-"compilación... mientras esté desarrollando el proyecto."
+"En un proyecto los archivos fuente individuales se pueden compilar "
+"separadamente en objetos (archivos <filename>*.o</filename>). Aunque no debe "
+"preocuparse por esos archivos objeto, a veces es útil compilar un archivo "
+"primero (por ejemplo, para asegurarse de que no hay errores de sintaxis). "
+"Compilar un proyecto entero puede llevar mucho tiempo, especialmente en el "
+"caso de aplicaciones grandes y complejas. Por ello probablemente pasará por "
+"series de bucles edición-compilación-edición-compilación... mientras esté "
+"desarrollando el proyecto."
 
-#: C/anjuta-manual.xml:788(para)
+#: C/anjuta-manual.xml:801(para)
 msgid ""
 "To compile a file, choose the menu item <menuchoice><guisubmenu>Build</"
 "guisubmenu><guimenuitem>Compile</guimenuitem></menuchoice> or press "
 "<keycap>F11</keycap>. This will compile the active file."
 msgstr ""
-"Para compilar un archivo elija el elemento del menú <menuchoice><guisubmenu>Construcción</"
-"guisubmenu><guimenuitem>Compilar</guimenuitem></menuchoice> o pulse "
-"<keycap>F11</keycap>. Esto compilará el archivo activo."
+"Para compilar un archivo elija el elemento del menú "
+"<menuchoice><guisubmenu>Construcción</guisubmenu><guimenuitem>Compilar</"
+"guimenuitem></menuchoice> o pulse <keycap>F11</keycap>. Esto compilará el "
+"archivo activo."
 
-#: C/anjuta-manual.xml:795(title)
+#: C/anjuta-manual.xml:808(title)
 msgid "Building an executable"
 msgstr "Construir un ejecutable"
 
-#: C/anjuta-manual.xml:796(para)
+#: C/anjuta-manual.xml:809(para)
 msgid ""
 "<application>Anjuta</application> has no separate link command, simply "
 "because it is not necessary. The build process will compile all the source "
@@ -2778,16 +2841,17 @@ msgid ""
 "the link. If you have already built the project and no dependent file has "
 "been modified, even the link stage will be skipped."
 msgstr ""
-"<application>Anjuta</application> no tiene línea de comandos separada, simplemente "
-"porque no es necesario. El proceso de construcción compilará todos los archivos "
-"fuente y los enlazará junto a las bibliotecas. El comando de construcción "
-"no recompilará aquellos archivos que ya están actualizados (esto es la "
-"<emphasis>comprobación de dependencias</emphasis>). Si ya ha compilado todos "
-"los archivos individualmente, entonces la única tarea que el proceso de construcción "
-"realizará es el enlazado. Si ya ha construido el proyecto y no se ha modificado "
-"ningún archivo dependiente, también se evitará el proceso de enlazado."
+"<application>Anjuta</application> no tiene línea de comandos separada, "
+"simplemente porque no es necesario. El proceso de construcción compilará "
+"todos los archivos fuente y los enlazará junto a las bibliotecas. El comando "
+"de construcción no recompilará aquellos archivos que ya están actualizados "
+"(esto es la <emphasis>comprobación de dependencias</emphasis>). Si ya ha "
+"compilado todos los archivos individualmente, entonces la única tarea que el "
+"proceso de construcción realizará es el enlazado. Si ya ha construido el "
+"proyecto y no se ha modificado ningún archivo dependiente, también se "
+"evitará el proceso de enlazado."
 
-#: C/anjuta-manual.xml:805(para)
+#: C/anjuta-manual.xml:818(para)
 msgid ""
 "So how exactly does the dependency check influence the project development? "
 "If you have modified a file, then all of the source files that depend on the "
@@ -2796,26 +2860,27 @@ msgid ""
 "build process. If it is found that a particular file is dependent on some "
 "other file which has been modified, then that file will be re-generated."
 msgstr ""
-"¿Entonces cómo influye la comprobación de las dependencias en el desarrollo del proyecto? "
-"Si ha modificado un archivo, entonces todos los archivos de fuentes que dependen del "
-"archivo modificado se recompilan. Durante el proceso de construcción se comprueban "
-"todos los archivos (no sólo los archivos objeto y el ejecutable) para estas dependencias. "
-"Si se encuentra que un archivo en particular depende de algún otro "
-"archivo que se ha modificado, entonces ese archivo se regenerará."
+"¿Entonces cómo influye la comprobación de las dependencias en el desarrollo "
+"del proyecto? Si ha modificado un archivo, entonces todos los archivos de "
+"fuentes que dependen del archivo modificado se recompilan. Durante el "
+"proceso de construcción se comprueban todos los archivos (no sólo los "
+"archivos objeto y el ejecutable) para estas dependencias. Si se encuentra "
+"que un archivo en particular depende de algún otro archivo que se ha "
+"modificado, entonces ese archivo se regenerará."
 
-#: C/anjuta-manual.xml:813(para)
+#: C/anjuta-manual.xml:826(para)
 msgid ""
 "Since you have now got a rough understanding of the value of the dependency "
 "check, can you imagine how your life (as a programmer) would be if it had "
 "not been there? If you cannot answer just yet, then will find out when you "
 "start developing big projects!"
 msgstr ""
-"Ya que ahora ha entendido el valor de las comprobaciones de las dependencias, "
-"¿puede imaginarse cómo sería su vida (de programador) si no estuviese allí? "
-"Si aún no puede responder, entonces lo descubrirá cuando "
+"Ya que ahora ha entendido el valor de las comprobaciones de las "
+"dependencias, ¿puede imaginarse cómo sería su vida (de programador) si no "
+"estuviese allí? Si aún no puede responder, entonces lo descubrirá cuando "
 "comience a desarrollar proyectos."
 
-#: C/anjuta-manual.xml:818(para)
+#: C/anjuta-manual.xml:831(para)
 msgid ""
 "<menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Build</guimenuitem></"
 "menuchoice> will build all of the files in the <filename class=\"directory"
@@ -2825,18 +2890,19 @@ msgid ""
 "subdirectories (including <filename class=\"directory\">src</filename>), are "
 "built recursively."
 msgstr ""
-"<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Construir</guimenuitem></"
-"menuchoice> construirá todos los archivos en el directorio <filename class=\"directory\">src</filename> "
-"y generará el ejecutable. "
+"<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Construir</"
+"guimenuitem></menuchoice> construirá todos los archivos en el directorio "
+"<filename class=\"directory\">src</filename> y generará el ejecutable. "
 "<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Construir todo</"
 "guimenuitem></menuchoice> construirá el proyecto entero; se construyen "
-"recursivamente todos los subdirectorios (incluyendo <filename class=\"directory\">src</filename>)."
+"recursivamente todos los subdirectorios (incluyendo <filename class="
+"\"directory\">src</filename>)."
 
-#: C/anjuta-manual.xml:828(title)
+#: C/anjuta-manual.xml:841(title)
 msgid "Creating a distribution package"
 msgstr "Crear un paquete de distribución"
 
-#: C/anjuta-manual.xml:829(para)
+#: C/anjuta-manual.xml:842(para)
 msgid ""
 "To build the tarball distribution of the project choose "
 "<menuchoice><guisubmenu>Build</guisubmenu><guimenuitem>Build Tarball</"
@@ -2845,16 +2911,16 @@ msgid ""
 "safe place for distribution."
 msgstr ""
 "Para construir la distribución tarball del proyecto, elija "
-"<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Construir tarball</"
-"guimenuitem></menuchoice>. Esto creará el tarball (<filename>*.tar.gz</"
-"filename>) y lo pondrá en el nivel superior del directorio del proyecto. Copie el archivo "
-"a un lugar seguro para su distribución."
+"<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Construir "
+"tarball</guimenuitem></menuchoice>. Esto creará el tarball (<filename>*.tar."
+"gz</filename>) y lo pondrá en el nivel superior del directorio del proyecto. "
+"Copie el archivo a un lugar seguro para su distribución."
 
-#: C/anjuta-manual.xml:837(title)
+#: C/anjuta-manual.xml:850(title)
 msgid "Install"
 msgstr "Instalación"
 
-#: C/anjuta-manual.xml:838(para)
+#: C/anjuta-manual.xml:851(para)
 msgid ""
 "Choosing the menu item <menuchoice><guisubmenu>Build</"
 "guisubmenu><guimenuitem>Install</guimenuitem></menuchoice> will install the "
@@ -2864,11 +2930,11 @@ msgstr ""
 "guisubmenu><guimenuitem>Instalar</guimenuitem></menuchoice> instalará la "
 "aplicación generada en su sistema."
 
-#: C/anjuta-manual.xml:844(title)
+#: C/anjuta-manual.xml:857(title)
 msgid "System wide installation"
 msgstr "Instalación amplia en el sistema"
 
-#: C/anjuta-manual.xml:845(para)
+#: C/anjuta-manual.xml:858(para)
 msgid ""
 "You must be logged in as root to perform a system-wide install. Also note "
 "that for a GNOME application to use the pixmaps in the project, it must be "
@@ -2877,18 +2943,19 @@ msgid ""
 "You can configure anjuta to use <command>sudo</command> or <command>su</"
 "command> before installing the project in the build preferences."
 msgstr ""
-"Debe haber iniciado sesión como «root» para realizar una instalación amplia en el sistema. También "
-"node que para que una aplicación de GNOME use los pixmaps en el proyecto, debe estar "
-"instalado como una aplicación amplia en el sistema. De otra forma, cuando la aplicación "
-"se ejecute en su proyecto, habrá muchos errores \"pixmap no encontrado\". "
-"Puede configurar Anjuta para que use <command>sudo</command> o <command>su</"
-"command> antes de instalar el proyecto, en las preferencias de construcción."
+"Debe haber iniciado sesión como «root» para realizar una instalación amplia "
+"en el sistema. También node que para que una aplicación de GNOME use los "
+"pixmaps en el proyecto, debe estar instalado como una aplicación amplia en "
+"el sistema. De otra forma, cuando la aplicación se ejecute en su proyecto, "
+"habrá muchos errores \"pixmap no encontrado\". Puede configurar Anjuta para "
+"que use <command>sudo</command> o <command>su</command> antes de instalar el "
+"proyecto, en las preferencias de construcción."
 
-#: C/anjuta-manual.xml:855(title)
+#: C/anjuta-manual.xml:868(title)
 msgid "Configure"
 msgstr "Configurar"
 
-#: C/anjuta-manual.xml:856(para)
+#: C/anjuta-manual.xml:869(para)
 msgid ""
 "To run the <filename>configure</filename> script found in the top level "
 "project directory, choose the menu item <menuchoice><guisubmenu>Build</"
@@ -2898,25 +2965,28 @@ msgid ""
 "<filename>config.h</filename>). This is necessary because the application "
 "may depend on specific configuration of some of these options."
 msgstr ""
-"Para ejecutar el script <filename>configure</filename> ubicado en el nivel superior "
-"del directorio del proyecto, elija el elemento del menú <menuchoice><guisubmenu>Construir</"
-"guisubmenu><guimenuitem>Configurar</guimenuitem></menuchoice>. El script "
-"determinará la configuración del sistema y creará algunos de los archivos "
-"necesarios para realizar una construcción (tales como el <filename>makefile</filename> y "
-"<filename>config.h</filename>). Esto es necesario porque la aplicación "
-"puede depender de una configuración específica de algunas de esas opciones."
+"Para ejecutar el script <filename>configure</filename> ubicado en el nivel "
+"superior del directorio del proyecto, elija el elemento del menú "
+"<menuchoice><guisubmenu>Construir</guisubmenu><guimenuitem>Configurar</"
+"guimenuitem></menuchoice>. El script determinará la configuración del "
+"sistema y creará algunos de los archivos necesarios para realizar una "
+"construcción (tales como el <filename>makefile</filename> y <filename>config."
+"h</filename>). Esto es necesario porque la aplicación puede depender de una "
+"configuración específica de algunas de esas opciones."
 
-#: C/anjuta-manual.xml:865(title)
+#: C/anjuta-manual.xml:878(title)
 msgid "When to configure"
 msgstr "Cuando configurar"
 
-#: C/anjuta-manual.xml:866(para)
+#: C/anjuta-manual.xml:879(para)
 msgid ""
 "Until you run <filename>configure</filename>, you cannot start building the "
 "project."
-msgstr "Hasta que no ejecute <filename>configure</filename> no podrá iniciar la construcción del proyecto."
+msgstr ""
+"Hasta que no ejecute <filename>configure</filename> no podrá iniciar la "
+"construcción del proyecto."
 
-#: C/anjuta-manual.xml:871(para)
+#: C/anjuta-manual.xml:884(para)
 msgid ""
 "The <filename>configure</filename> script is (usually) run only once at the "
 "beginning of the first build process — for example, just after you have "
@@ -2927,30 +2997,30 @@ msgid ""
 "separately: the wizard will run it as a part of the project generation "
 "process."
 msgstr ""
-"El script <filename>configure</filename> generalmente se ejecuta una sola vez al "
-"comienzo del proceso de construcción; por ejemplo, cuando ha "
-"extraído los fuentes de un archivador de la distribución de un proyecto. Después de eso, "
-"la configuración se gestiona automáticamente por los procesos de construcción subsecuentes. Si "
-"ha usado el <emphasis>Asistente de configuración</emphasis> para crear la "
-"aplicación, entonces no necesitará ejecutar <filename>configure</filename> "
-"de forma separada: el asistente lo ejecutará como parte del proceso de "
-"generación del proyecto."
+"El script <filename>configure</filename> generalmente se ejecuta una sola "
+"vez al comienzo del proceso de construcción; por ejemplo, cuando ha extraído "
+"los fuentes de un archivador de la distribución de un proyecto. Después de "
+"eso, la configuración se gestiona automáticamente por los procesos de "
+"construcción subsecuentes. Si ha usado el <emphasis>Asistente de "
+"configuración</emphasis> para crear la aplicación, entonces no necesitará "
+"ejecutar <filename>configure</filename> de forma separada: el asistente lo "
+"ejecutará como parte del proceso de generación del proyecto."
 
-#: C/anjuta-manual.xml:879(para)
+#: C/anjuta-manual.xml:892(para)
 msgid ""
 "You can also supply additional options to the configuration script. After "
 "choosing the <guimenuitem>Configure</guimenuitem> menu item, a dialog will "
 "appear to prompt for additional options."
 msgstr ""
-"También puede proporcionar opciones adicionales al script de configuración. Después "
-"de elegir el elemento del menú <guimenuitem>Configurar</guimenuitem> se mostrará "
-"un diálogo preguntándole opciones adicionales."
+"También puede proporcionar opciones adicionales al script de configuración. "
+"Después de elegir el elemento del menú <guimenuitem>Configurar</guimenuitem> "
+"se mostrará un diálogo preguntándole opciones adicionales."
 
-#: C/anjuta-manual.xml:885(title) C/anjuta-manual.xml:887(screeninfo)
+#: C/anjuta-manual.xml:898(title) C/anjuta-manual.xml:900(screeninfo)
 msgid "Configure options dialog"
 msgstr "Diálogo de opciones de configuración"
 
-#: C/anjuta-manual.xml:891(para)
+#: C/anjuta-manual.xml:904(para)
 msgid ""
 "Enter any options (or leave it blank to accept the defaults) and click "
 "<guibutton>OK</guibutton>. To find out the options available to the "
@@ -2958,13 +3028,14 @@ msgid ""
 "in the option entry box and click <guibutton>OK</guibutton>. The options "
 "will be displayed in the <interface>Message window</interface>."
 msgstr ""
-"Introduzca cualquier opción (o déjelo vacío para aceptar las predeterminadas) y pulse "
-"<guibutton>Aceptar</guibutton>. Para encontrar las opciones disponibles para el "
-"script <filename>configure</filename>, introduzca <userinput>--help</userinput> "
-"en la caja de texto de entrada y pulse <guibutton>Aceptar</guibutton>. Se mostrarán "
-"las opciones en la <interface>ventana de mensaje</interface>."
+"Introduzca cualquier opción (o déjelo vacío para aceptar las "
+"predeterminadas) y pulse <guibutton>Aceptar</guibutton>. Para encontrar las "
+"opciones disponibles para el script <filename>configure</filename>, "
+"introduzca <userinput>--help</userinput> en la caja de texto de entrada y "
+"pulse <guibutton>Aceptar</guibutton>. Se mostrarán las opciones en la "
+"<interface>ventana de mensaje</interface>."
 
-#: C/anjuta-manual.xml:898(para)
+#: C/anjuta-manual.xml:911(para)
 msgid ""
 "There is no requirement to run <filename>configure</filename> only once. It "
 "can be run at any time, usually when the configuration options need to be "
@@ -2972,17 +3043,18 @@ msgid ""
 "file in the top level directory is changed, running <filename>configure</"
 "filename> again will not overwrite it."
 msgstr ""
-"No existe ningún requerimiento para ejecutar <filename>configure</filename> una sola vez. "
-"Se puede ejecutar en cualquier momento, generalmente cuando se necesitan cambiar las "
-"opciones de configuración. Algo que notar es que si el archivo <filename>config.h</filename> "
-"del directorio del nivel superior se cambia, ejecutar <filename>configure</filename> "
-"de nuevo no lo sobreescribirá."
+"No existe ningún requerimiento para ejecutar <filename>configure</filename> "
+"una sola vez. Se puede ejecutar en cualquier momento, generalmente cuando se "
+"necesitan cambiar las opciones de configuración. Algo que notar es que si el "
+"archivo <filename>config.h</filename> del directorio del nivel superior se "
+"cambia, ejecutar <filename>configure</filename> de nuevo no lo "
+"sobreescribirá."
 
-#: C/anjuta-manual.xml:906(title)
+#: C/anjuta-manual.xml:919(title)
 msgid "Auto generate"
 msgstr "Autogenerar"
 
-#: C/anjuta-manual.xml:907(para)
+#: C/anjuta-manual.xml:920(para)
 msgid ""
 "Auto generation consists of two steps: running <application>automake</"
 "application> and then running <application>autoconf</application>. If an "
@@ -2994,29 +3066,30 @@ msgid ""
 "synchronization after modifying lots of build files)."
 msgstr ""
 "La autogeneración consiste en dos pasos: ejecutar <application>automake</"
-"application> y después ejecutar <application>autoconf</application>. Si se encuentra "
-"un script ejecutable <filename>autogen.sh</filename> en el nivel superior "
-"del directorio del proyecto, entonces se ejecutará este archivo en lugar de realizar los "
-"dos pasos. Al igual que la <emphasis>configuración</emphasis>, la autogeneración se "
-"gestiona automáticamente por el proceso de construcción. También se puede ejecutar en casos "
-"donde es difícil configurar el proyecto (tales como montones de errores debidos "
-"a una falta de sincronización después de modificar muchos archivos de construcción)."
+"application> y después ejecutar <application>autoconf</application>. Si se "
+"encuentra un script ejecutable <filename>autogen.sh</filename> en el nivel "
+"superior del directorio del proyecto, entonces se ejecutará este archivo en "
+"lugar de realizar los dos pasos. Al igual que la <emphasis>configuración</"
+"emphasis>, la autogeneración se gestiona automáticamente por el proceso de "
+"construcción. También se puede ejecutar en casos donde es difícil configurar "
+"el proyecto (tales como montones de errores debidos a una falta de "
+"sincronización después de modificar muchos archivos de construcción)."
 
-#: C/anjuta-manual.xml:918(title)
+#: C/anjuta-manual.xml:931(title)
 msgid "When to autogen.sh"
 msgstr "Cuando ejecutar autogen.sh"
 
-#: C/anjuta-manual.xml:919(para)
+#: C/anjuta-manual.xml:932(para)
 msgid ""
 "Unlike configuration, auto generation does not need to be run even once — in "
 "fact, it does not need to be run at all! The option is available because it "
 "can be handy in some circumstances."
 msgstr ""
-"A diferencia de la configuración la autogeneración no necesita ejecutarse ni siquiera una vez; "
-"de hecho, no es necesario ejecutarla. La opción está disponible porque "
-"puede ser útil en algunas circunstancias."
+"A diferencia de la configuración la autogeneración no necesita ejecutarse ni "
+"siquiera una vez; de hecho, no es necesario ejecutarla. La opción está "
+"disponible porque puede ser útil en algunas circunstancias."
 
-#: C/anjuta-manual.xml:925(para)
+#: C/anjuta-manual.xml:938(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Build</"
 "guisubmenu><guimenuitem>Auto generate</guimenuitem></menuchoice> to auto "
@@ -3026,23 +3099,23 @@ msgstr ""
 "guisubmenu><guimenuitem>Autogenerar</guimenuitem></menuchoice> para "
 "autogenerar el proyecto."
 
-#: C/anjuta-manual.xml:929(para)
+#: C/anjuta-manual.xml:942(para)
 msgid ""
 "Read the info pages of <ulink type=\"info\" url=\"info:automake"
 "\"><application>automake</application></ulink> and <ulink type=\"info\" url="
 "\"info:autoconf\"><application>autoconf</application></ulink> for more "
 "details on how these tools work."
 msgstr ""
-"Para obtener más detalles acerca de cómo funcionan éstas herramientas, "
-"lea las páginas de información acerca de <ulink type=\"info\" url=\"info:automake\">"
-"<application>automake</application></ulink> y <ulink type=\"info\" url=\"info:autoconf\">"
-"<application>autoconf</application></ulink>."
+"Para obtener más detalles acerca de cómo funcionan éstas herramientas, lea "
+"las páginas de información acerca de <ulink type=\"info\" url=\"info:automake"
+"\"><application>automake</application></ulink> y <ulink type=\"info\" url="
+"\"info:autoconf\"><application>autoconf</application></ulink>."
 
-#: C/anjuta-manual.xml:936(title)
+#: C/anjuta-manual.xml:949(title)
 msgid "Clean"
 msgstr "Limpiar"
 
-#: C/anjuta-manual.xml:937(para)
+#: C/anjuta-manual.xml:950(para)
 msgid ""
 "This option cleans the project and leaves it in a state that requires "
 "<guimenuitem>Build All</guimenuitem> to be performed. It deletes all of the "
@@ -3051,26 +3124,27 @@ msgid ""
 "class=\"directory\">src</filename> directory (and other directories)."
 msgstr ""
 "Esta opción limpia el proyecto y lo deja en el estado que requiere "
-"<guimenuitem>Construir</guimenuitem> para que se pueda realizar. Borra todos los "
-"archivos generados por el proceso de construcción, incluyendo los archivos objeto "
-"(archivos <filename>*.o</filename>) y los ejecutables en el "
-"directorio <filename class=\"directory\">src</filename> (y otros directorios)."
+"<guimenuitem>Construir</guimenuitem> para que se pueda realizar. Borra todos "
+"los archivos generados por el proceso de construcción, incluyendo los "
+"archivos objeto (archivos <filename>*.o</filename>) y los ejecutables en el "
+"directorio <filename class=\"directory\">src</filename> (y otros "
+"directorios)."
 
-#: C/anjuta-manual.xml:944(para)
+#: C/anjuta-manual.xml:957(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Build</"
 "guisubmenu><guimenuitem>Clean</guimenuitem></menuchoice> to clean the "
 "project."
 msgstr ""
 "Elija el elemento del menú <menuchoice><guisubmenu>Construir</"
-"guisubmenu><guimenuitem>Limpiar</guimenuitem></menuchoice> para limpiar "
-"el proyecto."
+"guisubmenu><guimenuitem>Limpiar</guimenuitem></menuchoice> para limpiar el "
+"proyecto."
 
-#: C/anjuta-manual.xml:950(title)
+#: C/anjuta-manual.xml:963(title)
 msgid "Clean All"
 msgstr "Limpiar todo"
 
-#: C/anjuta-manual.xml:951(para)
+#: C/anjuta-manual.xml:964(para)
 msgid ""
 "There is not a great deal to say about <guimenuitem>Clean All</guimenuitem> "
 "(which might also be called <emphasis>Clean distribution</emphasis>, or "
@@ -3084,14 +3158,15 @@ msgid ""
 msgstr ""
 "No hay mucho que decir acerca de <guimenuitem>Limpiar todo</guimenuitem> "
 "(también se puede llamar <emphasis>Limpiar distribución</emphasis> o "
-"<emphasis>limpiar dist</emphasis>). Limpia el proyecto y lo deja "
-"en el estado que requieren <guimenuitem>Configurar</guimenuitem> y "
-"<guimenuitem>Construir todo</guimenuitem> para llevarse a cabo. Borra todos los "
-"archivos generados por el proceso de construcción, incluyendo todos los archivos "
-"objeto (archivos<filename>*.o</filename>), ejecutables y Makefile. En otras palabras, "
-"deja el proyecto como si se acabase de extraer de un paquete de distribución."
+"<emphasis>limpiar dist</emphasis>). Limpia el proyecto y lo deja en el "
+"estado que requieren <guimenuitem>Configurar</guimenuitem> y "
+"<guimenuitem>Construir todo</guimenuitem> para llevarse a cabo. Borra todos "
+"los archivos generados por el proceso de construcción, incluyendo todos los "
+"archivos objeto (archivos<filename>*.o</filename>), ejecutables y Makefile. "
+"En otras palabras, deja el proyecto como si se acabase de extraer de un "
+"paquete de distribución."
 
-#: C/anjuta-manual.xml:961(para)
+#: C/anjuta-manual.xml:974(para)
 msgid ""
 "Choose the menu item <menuchoice><guisubmenu>Build</"
 "guisubmenu><guimenuitem>Clean All</guimenuitem></menuchoice> to completely "
@@ -3101,11 +3176,11 @@ msgstr ""
 "guisubmenu><guimenuitem>Limpiar todo</guimenuitem></menuchoice> para limpiar "
 "completamente el proyecto."
 
-#: C/anjuta-manual.xml:968(title)
+#: C/anjuta-manual.xml:981(title)
 msgid "Executing program"
 msgstr "Ejecutar un programa"
 
-#: C/anjuta-manual.xml:969(para)
+#: C/anjuta-manual.xml:982(para)
 msgid ""
 "Once an executable is ready after the build, you can execute it by choosing "
 "the menu item <menuchoice><guisubmenu>Build</"
@@ -3120,11 +3195,11 @@ msgstr ""
 "qué ejecutable quiere usar en el caso de que su proyecto proporcione más de "
 "uno, así como especificar argumentos para la línea de comandos."
 
-#: C/anjuta-manual.xml:976(title)
+#: C/anjuta-manual.xml:989(title)
 msgid "Dependencies"
 msgstr "Dependencias"
 
-#: C/anjuta-manual.xml:977(para)
+#: C/anjuta-manual.xml:990(para)
 msgid ""
 "Unlike the build stage, execution doesn't check for dependencies (at least "
 "for the time being). In other words, it does not check if the executable is "
@@ -3136,11 +3211,11 @@ msgstr ""
 "ejecutable está actualizado antes de ejecutar el programa. De tal forma que "
 "<emphasis>debe hacerlo usted mismo</emphasis>."
 
-#: C/anjuta-manual.xml:987(title)
+#: C/anjuta-manual.xml:1000(title)
 msgid "Choose executable and set program parameters"
 msgstr "Elija el ejecutable y establezca los parámetros del programa"
 
-#: C/anjuta-manual.xml:989(screeninfo)
+#: C/anjuta-manual.xml:1002(screeninfo)
 msgid "Setting program parameters"
 msgstr "Establecer los parámetros del programa"
 
@@ -3169,12 +3244,12 @@ msgid ""
 "<emphasis>bugs</emphasis> are errors that happen during the execution of the "
 "program and they can be hard (sometimes very hard!) to detect."
 msgstr ""
-"Cuando un programa no se comporta de la forma que se supone que debería, se dice "
-"que el programa tiene errores o «bugs». Esto no se refiere a errores de compilación —"
-"esos son simplemente errores y son relativamente fáciles de eliminar, porque el "
-"compilador proporciona información acerca de dónde están. Por otra parte, "
-"los <emphasis>bugs</emphasis> son errores que suceden durante la ejecución del "
-"programa y que pueden ser muy difíciles de detectar."
+"Cuando un programa no se comporta de la forma que se supone que debería, se "
+"dice que el programa tiene errores o «bugs». Esto no se refiere a errores de "
+"compilación —esos son simplemente errores y son relativamente fáciles de "
+"eliminar, porque el compilador proporciona información acerca de dónde "
+"están. Por otra parte, los <emphasis>bugs</emphasis> son errores que suceden "
+"durante la ejecución del programa y que pueden ser muy difíciles de detectar."
 
 #: C/anjuta-manual.xml:19(para)
 msgid ""
@@ -3186,20 +3261,21 @@ msgid ""
 "debugging environment (actually, a GUI wrapper over <application>gdb</"
 "application>, a powerful command line debugging tool and standard on Linux)."
 msgstr ""
-"Cualquier programa que piense que no tiene errores realmente nunca está libre de ellos. Todo "
-"lo que se puede hacer es tratar de reducir los errores al mínimo. El proceso de "
-"eliminar errores se conoce como <emphasis>depuración</emphasis>. "
-"<emphasis>Anjuta</emphasis> proporciona un entorno de depuración muy "
-"potente y amigable (realmente es un envoltorio IGU sobre <application>gdb</application>, "
-"una herramienta de la línea de comandos para depurar que es estándar en GNU/Linux)."
+"Cualquier programa que piense que no tiene errores realmente nunca está "
+"libre de ellos. Todo lo que se puede hacer es tratar de reducir los errores "
+"al mínimo. El proceso de eliminar errores se conoce como "
+"<emphasis>depuración</emphasis>. <emphasis>Anjuta</emphasis> proporciona un "
+"entorno de depuración muy potente y amigable (realmente es un envoltorio IGU "
+"sobre <application>gdb</application>, una herramienta de la línea de "
+"comandos para depurar que es estándar en GNU/Linux)."
 
 #: C/anjuta-manual.xml:27(para)
 msgid ""
 "A debugger tracks and traces the execution of the program and provides "
 "various views of information needed to study the execution of the program."
 msgstr ""
-"El depurador sigue y traza la ejecución de un programa y proporciona "
-"varias vistas de información necesarias para estudiar la ejecución del programa."
+"El depurador sigue y traza la ejecución de un programa y proporciona varias "
+"vistas de información necesarias para estudiar la ejecución del programa."
 
 #: C/anjuta-manual.xml:33(para)
 msgid ""
@@ -3207,7 +3283,8 @@ msgid ""
 "been dropped but will be re enabled, a few have been added."
 msgstr ""
 "El depurador se ha cambiado mucho desde Anjuta 2.0.2. Se han eliminado "
-"algunas características pero se volverán a introducir, y se han añadido otras pocas."
+"algunas características pero se volverán a introducir, y se han añadido "
+"otras pocas."
 
 #: C/anjuta-manual.xml:42(title)
 msgid "Start and stop"
@@ -3413,12 +3490,12 @@ msgid ""
 "<emphasis>slow motion</emphasis> with the ability to go forward, pause, "
 "stop, and so on. You cannot go backward yet though."
 msgstr ""
-"Se puede controlar al detalle la ejecución de un programa en el depurador. El programa "
-"se puede ejecutar paso a paso o permitir que continúe hasta que encuentre "
-"un punto de parada. Esta ejecución es esencial para seguir el comportamiento "
-"del programa. Como la edición de vídeo, el programa se puede ejecutar a "
-"<emphasis>cámara lenta</emphasis> con la capacidad de ir hacia atrás, pausar, "
-"parar y demás. Aunque aún no se puede ir hacia atrás."
+"Se puede controlar al detalle la ejecución de un programa en el depurador. "
+"El programa se puede ejecutar paso a paso o permitir que continúe hasta que "
+"encuentre un punto de parada. Esta ejecución es esencial para seguir el "
+"comportamiento del programa. Como la edición de vídeo, el programa se puede "
+"ejecutar a <emphasis>cámara lenta</emphasis> con la capacidad de ir hacia "
+"atrás, pausar, parar y demás. Aunque aún no se puede ir hacia atrás."
 
 #: C/anjuta-manual.xml:165(para)
 msgid ""
@@ -3427,8 +3504,8 @@ msgid ""
 "program is already started."
 msgstr ""
 "Los métodos que se pueden ejecutar en el programa mientras se está depurando "
-"se describen en las siguientes secciones. Esos comandos están disponibles sólo "
-"cuando el programa ya se ha iniciado."
+"se describen en las siguientes secciones. Esos comandos están disponibles "
+"sólo cuando el programa ya se ha iniciado."
 
 #: C/anjuta-manual.xml:172(title)
 msgid "Single stepping (step in)"
@@ -3442,8 +3519,8 @@ msgid ""
 "interface> to step into a program."
 msgstr ""
 "Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
-"guisubmenu><guimenuitem>Avanzar</guimenuitem></menuchoice> o pulse el "
-"icono <guibutton>Avanzar</guibutton> en la <interface>barra de herramientas del "
+"guisubmenu><guimenuitem>Avanzar</guimenuitem></menuchoice> o pulse el icono "
+"<guibutton>Avanzar</guibutton> en la <interface>barra de herramientas del "
 "depurador</interface> para avanzar un paso en un programa."
 
 #: C/anjuta-manual.xml:179(para)
@@ -3455,20 +3532,20 @@ msgid ""
 "the statement is executed and control is passed back, it is possible to "
 "study the various program parameters."
 msgstr ""
-"La ejecución paso a paso ejecuta sólo una sentencia del programa (desde el lugar "
-"donde se ha parado) y después devuelve el control. Si la sentencia que se está ejecutando "
-"contiene una o más funciones, el depurador trata de entrar en las funciones "
-"y ejecutarlas paso a paso (en la secuencia en la que las funciones se ejecutan). Una "
-"vez que la sentencia se ha ejecutado y se ha devuelto el control, es posible "
-"estudiar varios parámetros del programa."
+"La ejecución paso a paso ejecuta sólo una sentencia del programa (desde el "
+"lugar donde se ha parado) y después devuelve el control. Si la sentencia que "
+"se está ejecutando contiene una o más funciones, el depurador trata de "
+"entrar en las funciones y ejecutarlas paso a paso (en la secuencia en la que "
+"las funciones se ejecutan). Una vez que la sentencia se ha ejecutado y se ha "
+"devuelto el control, es posible estudiar varios parámetros del programa."
 
 #: C/anjuta-manual.xml:186(para)
 msgid ""
 "If the <interface>Disassembly window</interface> has the focus when this "
 "command is selected, it executes only one assembler instruction."
 msgstr ""
-"Si la <interface>ventana de desensamblado</interface> tiene el foco cuando se "
-"selecciona este comando, ejecuta sólo una instrucción del ensamblador."
+"Si la <interface>ventana de desensamblado</interface> tiene el foco cuando "
+"se selecciona este comando, ejecuta sólo una instrucción del ensamblador."
 
 #: C/anjuta-manual.xml:193(title)
 msgid "Single stepping (step over)"
@@ -3483,8 +3560,9 @@ msgid ""
 msgstr ""
 "Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
 "guisubmenu><guimenuitem>Avanzar sobre</guimenuitem></menuchoice> o pulse el "
-"icono <guibutton>Avanzar sobre</guibutton> en la <interface>barra de herramientas "
-"del depurador</interface> para avanzar sobre sentencias en un programa."
+"icono <guibutton>Avanzar sobre</guibutton> en la <interface>barra de "
+"herramientas del depurador</interface> para avanzar sobre sentencias en un "
+"programa."
 
 #: C/anjuta-manual.xml:200(para)
 msgid ""
@@ -3492,9 +3570,9 @@ msgid ""
 "except that it does not step inside any function in the statement being "
 "executed. The statement will be executed in one go."
 msgstr ""
-"<emphasis>Avanzar sobre</emphasis> es similar a <emphasis>avanzar</emphasis>, "
-"excepto que no ejecuta paso a paso ninguna función de la sentencia. La sentencia "
-"se ejecutará de una pasada."
+"<emphasis>Avanzar sobre</emphasis> es similar a <emphasis>avanzar</"
+"emphasis>, excepto que no ejecuta paso a paso ninguna función de la "
+"sentencia. La sentencia se ejecutará de una pasada."
 
 #: C/anjuta-manual.xml:205(para)
 msgid ""
@@ -3502,9 +3580,9 @@ msgid ""
 "command is selected, it executes one assembler instruction but does not stop "
 "inside if this instruction is a call to a subroutine."
 msgstr ""
-"Si la <interface>ventana de desensamblado</interface> tiene el foco cuando se "
-"selecciona este comando, entonces ejecuta una instrucción de ensamblador pero no "
-"para dentro si esta instrucción llama a una subrutina."
+"Si la <interface>ventana de desensamblado</interface> tiene el foco cuando "
+"se selecciona este comando, entonces ejecuta una instrucción de ensamblador "
+"pero no para dentro si esta instrucción llama a una subrutina."
 
 #: C/anjuta-manual.xml:211(para)
 msgid ""
@@ -3512,9 +3590,9 @@ msgid ""
 "the end of the step. But it will run until it finds a breakpoint or you stop "
 "it."
 msgstr ""
-"Si se carga una biblioteca dinámica durante el paso, el programa no se parará "
-"al final del paso. Se ejecutará hasta que encuentre un punto de parada o lo "
-"pare manualmente."
+"Si se carga una biblioteca dinámica durante el paso, el programa no se "
+"parará al final del paso. Se ejecutará hasta que encuentre un punto de "
+"parada o lo pare manualmente."
 
 #: C/anjuta-manual.xml:220(title)
 msgid "Single stepping (step out)"
@@ -3528,9 +3606,9 @@ msgid ""
 "interface> to step out in a program."
 msgstr ""
 "Elija el elemento del menú <menuchoice><guisubmenu>Depurar</"
-"guisubmenu><guimenuitem>Avanzar al final</guimenuitem></menuchoice> o pulse el icono "
-"<guibutton>Avanzar al final</guibutton> en la <interface>barra de herramientas del depurador</"
-"interface> para avanzar al final en un programa."
+"guisubmenu><guimenuitem>Avanzar al final</guimenuitem></menuchoice> o pulse "
+"el icono <guibutton>Avanzar al final</guibutton> en la <interface>barra de "
+"herramientas del depurador</interface> para avanzar al final en un programa."
 
 #: C/anjuta-manual.xml:227(para)
 msgid ""
@@ -3542,9 +3620,9 @@ msgid ""
 msgstr ""
 "<emphasis>Avanzar al final</emphasis> ejecutará la función actual hasta que "
 "salga. El programa se parará una vez que salga de la función. Avanzar al "
-"final no es realmente una ejecución paso a paso porque no sólo ejecuta "
-"una sentencia, ejecuta la función entera hasta que la función vuelve a "
-"la función que la llamó."
+"final no es realmente una ejecución paso a paso porque no sólo ejecuta una "
+"sentencia, ejecuta la función entera hasta que la función vuelve a la "
+"función que la llamó."
 
 #: C/anjuta-manual.xml:237(title)
 msgid "Run/Continue"
@@ -3825,12 +3903,13 @@ msgstr ""
 "El primero es obvio; la ubicación se refiere al número de línea "
 "<emphasis>Número_de_línea</emphasis> en el archivo fuente <emphasis>Archivo</"
 "emphasis>. La segunda se refiere a la primera línea de la función "
-"<emphasis>Nombre_de_la_función</emphasis>. La tercera es similar a la segunda, "
-"excepto que esta notación se usa donde existe más de una función con el nombre "
-"<emphasis>Nombre_de_la_función</emphasis> en el programa. Es posible "
-"diferenciarlas proporcionando el <emphasis>Archivo</emphasis>, de tal forma "
-"que la notación se refiere a la función <emphasis>Nombre_de_la_función</emphasis> en "
-"el archivo <emphasis>Archivo</emphasis>."
+"<emphasis>Nombre_de_la_función</emphasis>. La tercera es similar a la "
+"segunda, excepto que esta notación se usa donde existe más de una función "
+"con el nombre <emphasis>Nombre_de_la_función</emphasis> en el programa. Es "
+"posible diferenciarlas proporcionando el <emphasis>Archivo</emphasis>, de "
+"tal forma que la notación se refiere a la función "
+"<emphasis>Nombre_de_la_función</emphasis> en el archivo <emphasis>Archivo</"
+"emphasis>."
 
 #: C/anjuta-manual.xml:437(para)
 msgid ""
@@ -3841,10 +3920,10 @@ msgid ""
 "appropriately type casted to a Boolean."
 msgstr ""
 "El parámetro <emphasis>condición</emphasis> muestra una expresión asociada "
-"que se debería evaluar con un balor booleano; esto es, la "
-"evaluación de la expresión debe resultar en «TRUE(1)» o «FALSE(0)». Si "
-"la evaluación final no es un valor booleano, entonces se hará un "
-"cambio de tipo («typecast») a booleano."
+"que se debería evaluar con un balor booleano; esto es, la evaluación de la "
+"expresión debe resultar en «TRUE(1)» o «FALSE(0)». Si la evaluación final no "
+"es un valor booleano, entonces se hará un cambio de tipo («typecast») a "
+"booleano."
 
 #: C/anjuta-manual.xml:444(para)
 msgid ""
@@ -3853,10 +3932,10 @@ msgid ""
 "the evaluation results in a TRUE value, otherwise it will continue the "
 "execution as though there had been no breakpoint."
 msgstr ""
-"Cada vez que se encuentre el punto de parada durante la ejecución "
-"se evaluará la condición. El depurador parará la ejecución sólo si "
-"la evaluación devuelve un valor «TRUE», de otra forma continuará "
-"con la ejecución como si no hubiese habido un punto de parada."
+"Cada vez que se encuentre el punto de parada durante la ejecución se "
+"evaluará la condición. El depurador parará la ejecución sólo si la "
+"evaluación devuelve un valor «TRUE», de otra forma continuará con la "
+"ejecución como si no hubiese habido un punto de parada."
 
 #: C/anjuta-manual.xml:450(para)
 msgid ""
@@ -3884,13 +3963,14 @@ msgid ""
 "count</emphasis> counts down to zero."
 msgstr ""
 "El <emphasis>conteo de pasadas</emphasis> es un valor entero (sin signo) que "
-"le dice al depurador que salte el punto de parada ése número de veces antes de "
-"considerarlo. El <emphasis>conteo de pasadas</emphasis> tiene una prioridad más "
-"alta que la <emphasis>condición de parada</emphasis>. Sólo cuando el "
-"<emphasis>conteo de pasadas</emphasis> llega a cero el depurador evaluará "
-"la <emphasis>condición de parada</emphasis> (si hay alguna condición establecida). Si no "
-"hay ninguna condición establecida, el depurador parará la ejecución una vez "
-"que el <emphasis>conteo de pasadas</emphasis> llegue a cero."
+"le dice al depurador que salte el punto de parada ése número de veces antes "
+"de considerarlo. El <emphasis>conteo de pasadas</emphasis> tiene una "
+"prioridad más alta que la <emphasis>condición de parada</emphasis>. Sólo "
+"cuando el <emphasis>conteo de pasadas</emphasis> llega a cero el depurador "
+"evaluará la <emphasis>condición de parada</emphasis> (si hay alguna "
+"condición establecida). Si no hay ninguna condición establecida, el "
+"depurador parará la ejecución una vez que el <emphasis>conteo de pasadas</"
+"emphasis> llegue a cero."
 
 #: C/anjuta-manual.xml:469(para)
 msgid ""
@@ -3985,8 +4065,8 @@ msgid ""
 msgstr ""
 "Un punto de parada existente también se puede borrar seleccionando la línea "
 "en el editor y eligiendo el elemento del menú "
-"<menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Conmutar punto de parada</"
-"guimenuitem></menuchoice>, el elemento del menú emergente "
+"<menuchoice><guisubmenu>Depurar</guisubmenu><guimenuitem>Conmutar punto de "
+"parada</guimenuitem></menuchoice>, el elemento del menú emergente "
 "<menuchoice><guimenuitem>Conmutar punto de parada</guimenuitem></menuchoice> "
 "o el icono <guibutton>Conmutar punto de parada</guibutton> en la "
 "<interface>barra de herramientas del depurador</interface>."
@@ -4923,10 +5003,10 @@ msgid ""
 msgstr ""
 "Para obtener más información acerca de <application>Anjuta</application>, "
 "visite la página web del proyecto en <ulink type=\"http\" url=\"http://"
-"anjuta.org/\">http://anjuta.org</ulink>. Los informes de error se "
-"deben rellenar usando Bug Tracker en la página web de desarrollo del "
-"proyecto en <ulink type=\"http\" url=\"http://www.sourceforge.net/projects/"
-"anjuta\"> http://www.sourceforge.net/projects/anjuta</ulink>."
+"anjuta.org/\">http://anjuta.org</ulink>. Los informes de error se deben "
+"rellenar usando Bug Tracker en la página web de desarrollo del proyecto en "
+"<ulink type=\"http\" url=\"http://www.sourceforge.net/projects/anjuta\"> "
+"http://www.sourceforge.net/projects/anjuta</ulink>."
 
 #: C/anjuta-manual.xml:18(para)
 msgid ""
