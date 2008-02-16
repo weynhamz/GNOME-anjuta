@@ -1,3 +1,15 @@
+2008-02-16  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/command.c:
+	Destroy local variables on each step
+
+	* plugins/debug-manager/debug_tree.c,
+	plugins/debug-manager/watch.c,
+	plugins/debug-manager/locals.c,
+	plugins/gdb/debugger.c,
+	libanjuta/interfaces/libanjuta.idl:
+	Parse local variables scope (not used yet)
+
 2008-02-15  James Liggett <jrliggett@cox.net>
 
 	reviewed by: Johannes Schmid <jhs@gnome.org>

@@ -3569,21 +3569,45 @@ gdb_var_update (Debugger *debugger,
 
 	changed_count = gdbmi_value_get_size (gdbmi_changelist);
 	for(; idx<changed_count; ++idx)
-    	{
+    {
 		const GDBMIValue *const gdbmi_change = 
                          gdbmi_value_list_get_nth (gdbmi_changelist, idx);
-		const GDBMIValue *gdbmi_val = 
-                         gdbmi_value_hash_lookup (gdbmi_change, "in_scope");
-		IAnjutaDebuggerVariableObject *var;
-              
-		if(0 != strcmp(gdbmi_value_literal_get(gdbmi_val), "false"))
-	    	{
-			gdbmi_val = gdbmi_value_hash_lookup (gdbmi_change, "name");
-			var = g_new0 (IAnjutaDebuggerVariableObject, 1);
-			var->changed = TRUE;
-			var->name = (gchar *)gdbmi_value_literal_get(gdbmi_val);
+		const GDBMIValue * value;
 			
+			
+		value = gdbmi_value_hash_lookup (gdbmi_change, "name");
+		if (value)
+		{
+			IAnjutaDebuggerVariableObject *var = g_new0 (IAnjutaDebuggerVariableObject, 1);
+			var->changed = TRUE;
+			var->name = (gchar *)gdbmi_value_literal_get(value);
 			list = g_list_prepend (list, var);
+			
+			value = gdbmi_value_hash_lookup (gdbmi_change, "type_changed");
+			if (value != NULL)
+			{
+				const gchar *type_changed = gdbmi_value_literal_get (value);
+				
+				if (strcmp (type_changed, "true"))
+				{
+					var->deleted = TRUE;
+				}
+			}
+
+			value = gdbmi_value_hash_lookup (gdbmi_change, "in_scope");
+			if (value != NULL)
+			{
+				const gchar *in_scope = gdbmi_value_literal_get(value);
+
+				if (strcmp (in_scope, "false") == 0)
+				{
+					var->exited = TRUE;
+				}
+				else if (strcmp (in_scope, "invalid") == 0)
+				{
+					var->deleted = TRUE;
+				}
+			}
 		}
 	}
 	list = g_list_reverse (list);

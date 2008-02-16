@@ -70,6 +70,7 @@ locals_updated (const gpointer data, gpointer user_data, GError *error)
 	if (g_list_length ((GList*)list) < 1)
 		return;
 
+	debug_tree_update_all(self->debug_tree);
 	debug_tree_replace_list (self->debug_tree, list);
 	debug_tree_update_all(self->debug_tree);
 }
