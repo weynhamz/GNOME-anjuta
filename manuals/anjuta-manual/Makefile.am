@@ -30,7 +30,7 @@ DOC_FIGURES = figures/add_edit_macro.png \
               figures/print_dlg.png\
               figures/print_preview.png\
               figures/project_info.png\
-              figures/project_win.png\
+              figures/project-window.png\
               figures/registers.png\
               figures/save_as_file.png\
               figures/search_expr.png\

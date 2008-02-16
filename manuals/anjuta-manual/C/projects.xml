@@ -133,7 +133,7 @@
      Browser and tags Browser</emphasis>. The third pane is the file view of the project and
      is more or less similar to a mini file-manager. In file view, all the files present
      in the project tree is visible. Right clicking on these files will pop up the file
-     operation submenu.
+     <guimenu>Operation menu</guimenu>.
     </para>
     <para>
      If the project is also a CVS tree, then corresponding file revision numbers are also
@@ -152,13 +152,25 @@
   <sect1 id="projects-structure">
   <title>Project structure</title>
   <para>
-  <interface>Project View</interface> lists the project in standard
+   Here is the <interface>Project window</interface> with the  
+   the <guimenu>Operation menu</guimenu>
+   (accessible by clicking on the right mouse button). 
+   <figure id="project-window">
+    <title>Project window</title>
+    <screenshot>
+     <screeninfo>The Project window</screeninfo>
+     <graphic fileref="figures/project-window.png" format="PNG" srccredit="jhs"></graphic>
+    </screenshot>
+   </figure>
+  </para>
+  <para>
+  <interface>Project window</interface> lists the project in standard
   <ulink type="info" url="info:automake"><application>automake</application></ulink>
   hierarchy organized
   into groups of targets. <emphasis>Groups</emphasis> correspond to
   directories in your project and <emphasis>targets</emphasis>
   correspond to normal <application>automake</application> targets (not to be confused
-  with make targets). <interface>Project View</interface> actually
+  with make targets). <interface>Project window</interface> actually
   has two parts; one part
   (lower one) shows complete project hierarchy and the other part (upper one)
   lists important targets directly. Important targets constitute executable
@@ -209,7 +221,8 @@
 
   <para>
   Just like file manager, project manager view also has convenience actions
-  (accessible from context menu) for the source files and targets. 
+  (accessible from the <guimenu>Operation menu</guimenu>) for the source
+  files and targets.
   </para>
 
   <para>
@@ -255,10 +268,10 @@
      group's directory.
     </para>
     <para>
-     New group can also be added from the <guimenu>Operation</guimenu> menu
-     in <interface>Project View</interface> by
+     New group can also be added from the <guimenu>Operation menu</guimenu>
+     in <interface>Project window</interface> by
      selecting <guimenuitem>Add Group</guimenuitem>. First select the group
-     under which to add the group in <interface>Project View</interface>.
+     under which to add the group in <interface>Project window</interface>.
     </para>
    </sect2>
 
@@ -272,7 +285,7 @@
      </listitem>
      <listitem>
        <para>Select <guimenuitem>Remove</guimenuitem> from the
-       <guimenu>Operation</guimenu> menu.</para>
+       <guimenu>Operation menu</guimenu>.</para>
      </listitem>
     </itemizedlist>
       The target and sources associated
@@ -303,10 +316,10 @@
     </itemizedlist>
     </para>
     <para>
-     New target can also be added from the <guimenu>Operation</guimenu> menu
-     in <interface>Project View</interface> by
+     New target can also be added from the <guimenu>Operation menu</guimenu>
+     in <interface>Project window</interface> by
      selecting <guimenuitem>Add target</guimenuitem>. First select the group
-     under which to add the target in <interface>Project View</interface>.
+     under which to add the target in <interface>Project window</interface>.
     </para>
     <para>
      Target names usually require some standard prefix and suffix, depending
@@ -411,7 +424,7 @@
        </listitem>
        <listitem>
         <para>Select <guimenuitem>Remove</guimenuitem> from the
-        <guimenu>Operation</guimenu> menu.</para>
+        <guimenu>Operation menu</guimenu>.</para>
        </listitem>
       </itemizedlist>
       The sources associated with the targets
@@ -439,7 +452,7 @@
     dialog. Other convenient way to add a file is to select it in
     <interface>File Manager</interface> and choosing
     <guimenuitem>Add to project</guimenuitem> from the
-    <guimenu>Operation</guimenu> popup menu.	
+    <guimenu>Operation menu</guimenu>.	
     </para>
     <para>
      If the file you choose has already been added to the project, then
@@ -457,8 +470,8 @@
     <title>Removing Source Files</title>
     <para>
      To remove a file from the project, select the file you want to remove
-     from the <interface>Project View</interface>, right-click to open the 
-	 <guimenu>Operation</guimenu> popup menu and choose 
+     from the <interface>Project window</interface>, right-click to open the 
+	 <guimenu>Operation menu</guimenu> and choose 
 	 <guimenuitem>Remove</guimenuitem>.
     </para>
     <para>
@@ -637,7 +650,7 @@
     <title>Group properties</title>
     <para>
     To set group properties, select
-    it in the <interface>Project View</interface> and active it. You can also
+    it in the <interface>Project window</interface> and active it. You can also
     bring it by selecting <menuchoice><guimenu>Operation menu</guimenu>
     <guimenuitem>Properties</guimenuitem></menuchoice>
     </para>
@@ -699,7 +712,7 @@
     <title>Target properties</title>
     <para>
     To set target properties, select
-    it in the <interface>Project View</interface> and active it. You can also
+    it in the <interface>Project window</interface> and active it. You can also
     bring it by selecting <menuchoice><guimenu>Operation menu</guimenu>
     <guimenuitem>Properties</guimenuitem></menuchoice>
     </para>
