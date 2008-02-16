@@ -1,3 +1,12 @@
+2008-02-15  James Liggett  <jrliggett@cox.net>
+
+	* plugins/profiler/plugin.c:
+	(on_select_other_target_button_clicked):
+	Select the new custom target in the list so that the user sees it.
+
+	Bug 516630 – Selection custom binary in profiler is not
+	user-friendly.
+
 2008-02-16  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* manuals/anjuta-manual/C/projects.xml:

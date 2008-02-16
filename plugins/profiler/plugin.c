@@ -423,10 +423,12 @@ on_select_other_target_button_clicked (GtkButton *button,
 									   GtkTreeView *targets_list_view)
 {
 	GtkTreeModel *model;
+	GtkWidget *target_chooser_dialog;
 	GtkTreeIter iter;
 	gchar *selected_target_path;
 	gchar *selected_target_uri;
-	GtkWidget *target_chooser_dialog;
+	GtkTreeSelection *selection;
+	GtkTreePath *new_target_path;
 	
 	model = gtk_tree_view_get_model (targets_list_view);
 	target_chooser_dialog = gtk_file_chooser_dialog_new ("Select Target",
@@ -442,14 +444,21 @@ on_select_other_target_button_clicked (GtkButton *button,
 	{
 		selected_target_path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (target_chooser_dialog));
 		selected_target_uri = gnome_vfs_get_uri_from_local_path (selected_target_path);
+		selection = gtk_tree_view_get_selection (targets_list_view);
 		
 		gtk_list_store_append (GTK_LIST_STORE (model), &iter);
 		gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, 
 							selected_target_path, 1,
 							selected_target_uri, -1);
 		
+		gtk_tree_selection_select_iter (selection, &iter);
+		new_target_path = gtk_tree_model_get_path (model, &iter);
+		gtk_tree_view_scroll_to_cell (targets_list_view, new_target_path, NULL,
+									  TRUE, 0.5, 0.0);
+		
 		g_free (selected_target_path);
 		g_free (selected_target_uri);
+		gtk_tree_path_free (new_target_path);
 	}
 	
 	gtk_widget_destroy (target_chooser_dialog);
