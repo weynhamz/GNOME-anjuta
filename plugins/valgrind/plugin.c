@@ -574,6 +574,10 @@ valgrind_activate (AnjutaPlugin *plugin)
 	valgrind_set_busy_status (valgrind, FALSE);
 	valgrind_update_ui (valgrind);
 
+	/* Create prefs */
+	valgrind->general_prefs = valgrind_plugin_prefs_get_anj_prefs ();
+	valgrind->val_prefs = valgrind_plugin_prefs_new ();
+	
 	initialized = TRUE;
 	return TRUE;
 }
@@ -650,12 +654,9 @@ ipreferences_merge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError**
 	GdkPixbuf* pixbuf;
 	AnjutaValgrindPlugin* valgrind = ANJUTA_PLUGIN_VALGRIND (ipref);
 
-	valgrind->general_prefs = valgrind_plugin_prefs_get_anj_prefs ();
-	valgrind->val_prefs = valgrind_plugin_prefs_new ();
-
 	pixbuf = gdk_pixbuf_new_from_file (PACKAGE_PIXMAPS_DIR"/"ICON_FILE, NULL);
 
-	g_object_ref(valgrind->general_prefs);
+	gtk_widget_show (valgrind->general_prefs);
 	anjuta_preferences_dialog_add_page (ANJUTA_PREFERENCES_DIALOG (anjuta_preferences_get_dialog (prefs)),
 						"Valgrind", _("Valgrind"), pixbuf, valgrind->general_prefs);
 	g_object_unref (pixbuf);
@@ -665,15 +666,10 @@ static void
 ipreferences_unmerge(IAnjutaPreferences* ipref, AnjutaPreferences* prefs, GError** e)
 {
 	AnjutaValgrindPlugin* valgrind = ANJUTA_PLUGIN_VALGRIND (ipref);
-
 	anjuta_preferences_dialog_remove_page(ANJUTA_PREFERENCES_DIALOG (anjuta_preferences_get_dialog (prefs)), 
 		_("Valgrind"));
-
-	g_object_unref (valgrind->general_prefs);
-	g_object_unref (valgrind->val_prefs);
-	
-	valgrind->general_prefs = NULL;
-	valgrind->val_prefs = NULL;
+	/* Recreate object as it gets destroyed in the remove_page method */
+	valgrind->general_prefs = valgrind_plugin_prefs_get_anj_prefs ();
 }
 
 static void

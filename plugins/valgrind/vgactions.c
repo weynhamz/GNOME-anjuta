@@ -276,6 +276,7 @@ vg_actions_run (VgActions *actions, gchar* prg_to_debug, gchar* tool, GError **e
 	g_ptr_array_free (args, TRUE);
 	close (logfd[1]);
 	
+	vg_tool_view_clear(VG_TOOL_VIEW (priv->view));
 	vg_tool_view_connect (VG_TOOL_VIEW (priv->view), logfd[0]);
 
 	priv->gio = g_io_channel_unix_new (logfd[0]);

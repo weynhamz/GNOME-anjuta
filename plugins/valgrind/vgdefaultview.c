@@ -674,6 +674,7 @@ valgrind_view_load_log (VgToolView *tool, VgActions *actions, gchar* uri)
 	if ((fd = open (filename, O_RDONLY)) != -1) {
 		vg_tool_view_connect (tool, fd);
 	}
+	valgrind_view_clear(tool);
 	
 	vg_actions_set_pid (actions, (pid_t)-1);
 	

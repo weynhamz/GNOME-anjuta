@@ -1,3 +1,13 @@
+2008-02-16  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/valgrind/plugin.c: (valgrind_activate),
+	(ipreferences_merge), (ipreferences_unmerge):
+	* plugins/valgrind/vgactions.c: (vg_actions_run):
+	* plugins/valgrind/vgdefaultview.c: (valgrind_view_load_log):
+	
+	Fixed crasher when starting valgrind because of strange prefs handling and
+	#516641 – Valgrind: Load Log does not clear list
+
 2008-02-15  James Liggett  <jrliggett@cox.net>
 
 	* plugins/profiler/plugin.c:
