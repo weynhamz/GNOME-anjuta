@@ -1,5 +1,15 @@
 2008-02-16  Sébastien Granjoux  <seb.sfo@free.fr>
 
+	* manuals/anjuta-manual/C/projects.xml:
+	Fix #515993: "Add package" button is "Add Package" in code
+	Fix #516727: "Build All" is "Build Project" in code
+	Fix #516728: "Clean All" is "Clean Project" in code
+	Fix #516728: "Autogenerate" is "Run Autogenerate..." in code
+	Fix #516730: Fix note title 
+	"Configure" is "Run Configure..." in code
+
+2008-02-16  Sébastien Granjoux  <seb.sfo@free.fr>
+
 	* (added) manuals/anjuta-manual/C/figures/project-window.png,
 	(removed) manuals/anjuta-manual/C/figures/project_win.png,
 	manuals/anjuta-manual/C/projects.xml,
