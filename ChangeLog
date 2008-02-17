@@ -1,3 +1,8 @@
+2008-02-17  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gdb/debugger.c:
+	Set breakpoint in file with uncommon characters in path name
+
 2008-02-17  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/anjuta-view.c: (anjuta_view_key_press_event):

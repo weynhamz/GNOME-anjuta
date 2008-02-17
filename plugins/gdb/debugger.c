@@ -151,6 +151,42 @@ typedef struct _GdbGListPacket
 /* Useful functions
  *---------------------------------------------------------------------------*/
 
+static gchar * gdb_quote (const gchar *unquoted_string)
+{
+	const char *p;
+	g_return_val_if_fail (unquoted_string != NULL, NULL);
+
+
+	p = strpbrk (unquoted_string, "\"\\");
+	if (p == NULL)       
+	{
+		/* No need to quote anything */
+		return g_strdup (unquoted_string);
+	}
+	else
+	{
+		GString *dest;
+
+		dest = g_string_new_len (unquoted_string, p - unquoted_string);
+		for (;;)
+		{
+			g_string_append_c (dest, '\\');
+			unquoted_string = p;
+			p = strpbrk (unquoted_string + 1, "\"\\");
+			if (p == NULL)
+			{
+				g_string_append (dest, unquoted_string);
+				break;
+			}
+			else
+			{
+				g_string_append_len (dest, unquoted_string, p - unquoted_string);
+			}
+		}
+		return g_string_free (dest, FALSE);
+	}
+}
+
 typedef struct _GdbMessageCode GdbMessageCode;
 
 struct _GdbMessageCode
@@ -733,8 +769,8 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	
 	if (exec_dir)
 	{
-		gchar *quoted_exec_dir = g_shell_quote (exec_dir);
-		dir = g_strconcat (" -directory=", quoted_exec_dir, NULL);
+		gchar *quoted_exec_dir = gdb_quote (exec_dir);
+		dir = g_strconcat (" -directory=\"", quoted_exec_dir, "\"", NULL);
 		g_free (quoted_exec_dir);
 		dir_list = g_list_prepend (dir_list, exec_dir);
 	}
@@ -784,20 +820,20 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	
 	if (prog && strlen(prog) > 0)
 	{
-		gchar *quoted_prog = g_shell_quote (prog);
+		gchar *quoted_prog = gdb_quote (prog);
 		if (exec_dir)
 			chdir (exec_dir);
 		if (is_libtool_prog == FALSE)
 		{
 			command_str = g_strdup_printf (GDB_PATH " -f -n -i=mi2 %s %s "
-										   "-x %s/gdb.init %s", dir, term == NULL ? "" : term,
+										   "-x %s/gdb.init \"%s\"", dir, term == NULL ? "" : term,
 										   PACKAGE_DATA_DIR, quoted_prog);
 		}
 		else
 		{
 			command_str = g_strdup_printf ("libtool --mode=execute " GDB_PATH
 										   " -f -n -i=mi2 %s %s "
-										   "-x %s/gdb.init %s", dir, term == NULL ? "" : term,
+										   "-x %s/gdb.init \"%s\"", dir, term == NULL ? "" : term,
 										   PACKAGE_DATA_DIR, quoted_prog);
 		}
 		g_free (quoted_prog);
@@ -2060,13 +2096,16 @@ void
 debugger_run_to_position (Debugger *debugger, const gchar *file, guint line)
 {
 	gchar *buff;
+	gchar *quoted_file;
 
 	DEBUG_PRINT ("In function: debugger_run_to_position()");
 	
 	g_return_if_fail (IS_DEBUGGER (debugger));
 	g_return_if_fail (debugger->priv->prog_is_running == TRUE);
-	
-	buff = g_strdup_printf ("-break-insert -t %s:%d", file, line);
+
+	quoted_file = gdb_quote (file);	
+	buff = g_strdup_printf ("-break-insert -t \"\\\"%s\\\":%u\"", quoted_file, line);
+	g_free (quoted_file);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, NULL, NULL, NULL);
 	g_free (buff);
 	debugger_queue_command (debugger, "-exec-continue", FALSE, FALSE, NULL, NULL, NULL);
@@ -2201,12 +2240,16 @@ void
 debugger_add_breakpoint_at_line (Debugger *debugger, const gchar *file, guint line, IAnjutaDebuggerCallback callback, gpointer user_data)
 {
 	gchar *buff;
+	gchar *quoted_file;
 
 	DEBUG_PRINT ("In function: debugger_add_breakpoint()");
 
 	g_return_if_fail (IS_DEBUGGER (debugger));
 
-	buff = g_strdup_printf ("-break-insert %s:%u", file, line);
+	quoted_file = gdb_quote (file);
+
+	buff = g_strdup_printf ("-break-insert \"\\\"%s\\\":%u\"", quoted_file, line);
+	g_free (quoted_file);
 	debugger_queue_command (debugger, buff, FALSE, FALSE, debugger_add_breakpoint_finish, callback, user_data);
 	g_free (buff);
 }
