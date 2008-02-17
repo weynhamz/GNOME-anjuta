@@ -733,7 +733,9 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	
 	if (exec_dir)
 	{
-		dir = g_strconcat (" -directory=", exec_dir, NULL);
+		gchar *quoted_exec_dir = g_shell_quote (exec_dir);
+		dir = g_strconcat (" -directory=", quoted_exec_dir, NULL);
+		g_free (quoted_exec_dir);
 		dir_list = g_list_prepend (dir_list, exec_dir);
 	}
 	else
@@ -782,21 +784,23 @@ debugger_start (Debugger *debugger, const GList *search_dirs,
 	
 	if (prog && strlen(prog) > 0)
 	{
+		gchar *quoted_prog = g_shell_quote (prog);
 		if (exec_dir)
 			chdir (exec_dir);
 		if (is_libtool_prog == FALSE)
 		{
 			command_str = g_strdup_printf (GDB_PATH " -f -n -i=mi2 %s %s "
 										   "-x %s/gdb.init %s", dir, term == NULL ? "" : term,
-										   PACKAGE_DATA_DIR, prog);
+										   PACKAGE_DATA_DIR, quoted_prog);
 		}
 		else
 		{
 			command_str = g_strdup_printf ("libtool --mode=execute " GDB_PATH
 										   " -f -n -i=mi2 %s %s "
 										   "-x %s/gdb.init %s", dir, term == NULL ? "" : term,
-										   PACKAGE_DATA_DIR, prog);
+										   PACKAGE_DATA_DIR, quoted_prog);
 		}
+		g_free (quoted_prog);
 	}
 	else
 	{

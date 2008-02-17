@@ -1,3 +1,8 @@
+2008-02-17  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/gdb/debugger.c:
+	Load executable in gdb with space in path name 
+
 2008-02-17  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/plugin.c:
