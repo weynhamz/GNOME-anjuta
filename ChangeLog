@@ -1,3 +1,22 @@
+2008-02-17  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/language-support-cpp-java/plugin.c:
+	(get_line_indentation_base), (get_line_auto_indentation),
+	(on_auto_indent):
+	Some bugfixes and clean-ups in comment indentation code
+	
+	* plugins/sourceview/anjuta-view.c: (anjuta_view_class_init),
+	(anjuta_view_finalize), (anjuta_view_key_press_event):
+	* plugins/sourceview/sourceview.c: (on_insert_text),
+	(sourceview_create_highligth_indic), (sourceview_new):
+	Cleaned implementation of char-added signal by using "insert-text" signal
+	instead of filtering "key-press-event"
+	* plugins/sourceview/sourceview-cell.c: (icell_get_character),
+	(icell_get_length), (icell_get_char), (iiter_first), (iiter_last),
+	(iiter_diff):
+	Fixed implementation of get_character and return value of iiter_first() and
+	iiter_last();
+
 2008-02-16  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/valgrind/plugin.c: (valgrind_activate),

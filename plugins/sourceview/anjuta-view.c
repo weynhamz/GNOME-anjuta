@@ -54,20 +54,6 @@
 
 #define ANJUTA_VIEW_GET_PRIVATE(object)(G_TYPE_INSTANCE_GET_PRIVATE ((object), ANJUTA_TYPE_VIEW, AnjutaViewPrivate))
 
-enum {
-	CHAR_ADDED,
-	LAST_SIGNAL
-};
-
-static guint view_signals[LAST_SIGNAL] = { 0 };
-
-enum
-{
-	TAG = 0,
-	AUTOCOMPLETE,
-	SCOPE,
-};
-
 enum
 {
 	ANJUTA_VIEW_POPUP = 1
@@ -75,7 +61,6 @@ enum
 
 struct _AnjutaViewPrivate
 {
-	GtkTooltips *tooltips;
 	GtkWidget* popup;
 	guint scroll_idle;
   Sourceview* sv;
@@ -215,18 +200,6 @@ anjuta_view_class_init (AnjutaViewClass *klass)
 					 ANJUTA_VIEW_POPUP,
 					 anjuta_view_spec_popup);
 	
-		view_signals[CHAR_ADDED] =
-   		g_signal_new ("char_added",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (AnjutaViewClass, char_added),
-			      NULL, NULL,
-			      anjuta_marshal_VOID__OBJECT_CHAR,
-			      G_TYPE_NONE,
-			      2,
-				  G_TYPE_INT,
-			      G_TYPE_CHAR);
-	
 	binding_set = gtk_binding_set_by_class (klass);	
 }
 
@@ -363,9 +336,6 @@ anjuta_view_finalize (GObject *object)
 	AnjutaView *view;
 
 	view = ANJUTA_VIEW (object);
-	
-	if (view->priv->tooltips != NULL)
-		g_object_unref (view->priv->tooltips);
 
 	if (view->priv->popup != NULL) 
 	{
@@ -758,15 +728,11 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 {
 	GtkTextBuffer *buffer;
 	AnjutaView* view = ANJUTA_VIEW(widget);
-	GtkTextIter iter;
 	AssistWindow* assist_win;
-	AssistTip* assist_tip;
-	SourceviewCell* cell;
 	
 	buffer  = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
 	
 	assist_win = view->priv->sv->priv->assist_win;
-	assist_tip = view->priv->sv->priv->assist_tip;
 	if (assist_win)
 	{
 		if (assist_window_filter_keypress(assist_win, event->keyval))
@@ -775,83 +741,7 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 			return TRUE;
 		}
 	}
-	
-	switch (event->keyval)
-	{
-		case GDK_Shift_L:
-		case GDK_Shift_R:
-		{
-			return TRUE;
-		}
-		default:
-		{
-			gboolean retval = (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
-			gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
-											 gtk_text_buffer_get_insert(buffer));
-			/* Iter is at the position after the newly added character... */
-				gtk_text_iter_backward_char (&iter);
-			cell = sourceview_cell_new (&iter, GTK_TEXT_VIEW (view));
-			/* Handle char_added signal here */
-				if (event->keyval == GDK_Return)
-			{
-				g_signal_emit_by_name (G_OBJECT(view), "char_added",
-									   cell, '\n');
-			}
-			else if (event->keyval == GDK_Tab)
-			{
-				g_signal_emit_by_name (G_OBJECT(view), "char_added",
-									   cell, '\t');
-			}
-			else if (event->keyval == GDK_BackSpace)
-			{
-				g_signal_emit_by_name(G_OBJECT(view), "char_added", 
-									  cell, '\0');
-			}
-			else if (event->keyval == GDK_Escape || 
-					 event->keyval == GDK_Up ||
-					 event->keyval == GDK_Down)
-			{
-				if (assist_tip)
-				{
-					gtk_widget_destroy (GTK_WIDGET(assist_tip));
-					g_object_unref (cell);
-					return retval;
-				}
-			}
-			else if (event->keyval == GDK_Left || event->keyval == GDK_Right ||
-					 event->keyval == GDK_Up || event->keyval == GDK_Down ||
-					 event->keyval == GDK_Page_Up || event->keyval == GDK_Page_Down ||
-					 event->keyval == GDK_Begin || event->keyval == GDK_End)
-			{
-				/* Ignore those for char_added */
-				g_object_unref (cell);
-				return retval;
-			}
-			else
-			{
-				gchar* unistring = g_new0(gchar, 6);
-				gunichar uc = gdk_keyval_to_unicode(event->keyval);
-				if (g_unichar_to_utf8(uc, unistring) >= 1)
-				{
-					guint read, written;
-					gchar* string = g_locale_from_utf8(unistring, 1, &read,
-													   &written, NULL);
-					if (string != NULL && read == 1 && written == 1)
-					{
-						g_signal_emit_by_name (G_OBJECT(view), "char_added",
-											   cell, string[0]);
-					}
-					else
-					{
-						g_object_unref (cell);
-					}
-					g_free(string);
-				}
-				g_free(unistring);
-			}
-			return retval;
-		}				
-	}
+	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);
 }
 
 static gboolean	

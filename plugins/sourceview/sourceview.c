@@ -118,13 +118,21 @@ on_assist_cancel(AssistWindow* assist_win, Sourceview* sv)
 	}
 }
 
-/* Called when a character is added */
-static void on_document_char_added(AnjutaView* view, IAnjutaIterable* pos,
-								   gchar ch,
-								   Sourceview* sv)
+static void on_insert_text (GtkTextBuffer* buffer, 
+							GtkTextIter* location,
+							char* text,
+							gint len,
+							Sourceview* sv)
 {
-	if (ch != '\0')
-		g_signal_emit_by_name(G_OBJECT(sv), "char_added", pos, ch);
+	/* We only want ascii characters */
+	if (len > 1)
+		return;
+	else
+	{
+		SourceviewCell* cell = sourceview_cell_new (location, 
+													GTK_TEXT_VIEW(sv->priv->view));
+		g_signal_emit_by_name(G_OBJECT(sv), "char_added", cell, text[0]);
+	}
 }
 
 /* Called whenever the document is changed */
@@ -541,16 +549,17 @@ static void sourceview_create_highligth_indic(Sourceview* sv)
 {	
 	sv->priv->important_indic = 
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
-		IMPORTANT_INDIC,
-		"background", "#FFFF00", NULL);  
+									IMPORTANT_INDIC,
+									"background", "#FFFF00", NULL);  
 	sv->priv->warning_indic = 
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
-		WARNING_INDIC,
-		"foreground", "#00FF00", NULL); 
+									WARNING_INDIC,
+									"foreground", "#00FF00", NULL); 
 	sv->priv->critical_indic = 
 		gtk_text_buffer_create_tag (GTK_TEXT_BUFFER(sv->priv->document),
-		CRITICAL_INDIC,
-		"foreground", "#FF0000", "underline", PANGO_UNDERLINE_ERROR, NULL);
+									CRITICAL_INDIC,
+									"foreground", "#FF0000", "underline", 
+									PANGO_UNDERLINE_ERROR, NULL);
 }
 
 
@@ -578,11 +587,11 @@ sourceview_new(const gchar* uri, const gchar* filename, AnjutaPlugin* plugin)
 					 G_CALLBACK(on_document_saved), sv);
 	g_signal_connect(G_OBJECT(sv->priv->document), "saving", 
 					 G_CALLBACK(on_document_saving), sv);
+	g_signal_connect_after (G_OBJECT(sv->priv->document), "insert-text",
+					  G_CALLBACK(on_insert_text), sv);
 					 
 	/* Create View instance */
 	sv->priv->view = ANJUTA_VIEW(anjuta_view_new(sv));
-	g_signal_connect_after(G_OBJECT(sv->priv->view), "char_added",
-					G_CALLBACK(on_document_char_added), sv);
 #if HAVE_TOOLTIP_API
 	g_signal_connect (G_OBJECT(sv->priv->view), "query-tooltip",
 					  G_CALLBACK (on_sourceview_hover_over), sv);

@@ -825,6 +825,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 	gboolean looking_at_just_next_line = TRUE;
 	gboolean current_line_is_preprocessor = FALSE;
 	gboolean current_line_is_continuation = FALSE;
+	gboolean line_checked_for_comment = FALSE;
 	
 	*incomplete_statement = -1;
 	
@@ -923,6 +924,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			if (point_ch == '}' && get_line_indentation (editor, line_saved) <= 0)
 			{
 				line_indent = 0;
+				line_indent += extra_indent;
 				break;
 			}
 			
@@ -1035,96 +1037,89 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 				*/
 			}
 			looking_at_just_next_line = FALSE;
+			line_checked_for_comment = FALSE;
 		}		 
 		else if (!isspace (point_ch))
 		{
 			/* Check for line starting comment */
-			gboolean comment = FALSE;
-			IAnjutaIterable* new_iter = ianjuta_iterable_clone (iter, NULL);
-			do
+			if (!line_checked_for_comment)
 			{
-				gchar c;
-				c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
-											  NULL);
-				if (iter_is_newline (new_iter, c))
-					break;
-				if (c == '/')
+				gboolean comment = FALSE;
+				IAnjutaIterable* new_iter = ianjuta_iterable_clone (iter, NULL);
+				do
 				{
-					ianjuta_iterable_previous (iter, NULL);
+					gchar c;
 					c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
 													  NULL);
-					if (c == '/')
+					if (iter_is_newline (new_iter, c))
 					{
-						/* is a line comment, skip until begin of comment */
-						comment = TRUE;
+						line_checked_for_comment = TRUE;
 						break;
 					}
-				}
-				if (c == '*')
-				{
-					IAnjutaIterable* prev = ianjuta_iterable_clone (new_iter, NULL);					
-					ianjuta_iterable_previous (prev, NULL);
-					c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (prev), 0,
-											  NULL);
 					if (c == '/')
 					{
-						/* starts comment */
-						comment = TRUE;
-						extra_indent++;
-						g_object_unref (prev);
-						break;
-					}
-					/* Possibly continued comment */
-					else if (isspace(c))
-					{						
-						do
+						ianjuta_iterable_previous (new_iter, NULL);
+						c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
+														  NULL);
+						if (c == '/')
 						{
-							ianjuta_iterable_previous (prev, NULL);
-							c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (prev), 0,
-															  NULL);
-							if (iter_is_newline (prev, c))
+							/* is a line comment, skip until begin of comment */
+							comment = TRUE;
+							break;
+						}
+					}
+					if (c == '*')
+					{
+						IAnjutaIterable* prev = ianjuta_iterable_clone (new_iter, NULL);
+						ianjuta_iterable_previous (prev, NULL);
+						c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (prev), 0,
+														  NULL);
+						if (c == '/')
+						{
+							/* starts comment */
+							comment = TRUE;
+							extra_indent++;
+							g_object_unref (prev);
+							break;
+						}
+						/* Possibly continued comment */
+						else if (isspace(c))
+						{
+							gboolean possible_comment = FALSE;
+							while (ianjuta_iterable_previous (prev, NULL))
 							{
-								/* Add a space to ensure correct comment indentation */
+								c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (prev), 0,
+																  NULL);
+								if (!isspace(c))
+									break;
+								if (iter_is_newline (prev, c))
+								{
+									possible_comment = TRUE;
+									break;
+								}
+							}
+							if (possible_comment)
+							{
+								ianjuta_iterable_set_position (new_iter, 
+															   ianjuta_iterable_get_position (prev, NULL),
+															   NULL);
+								g_object_unref (prev);
 								continue;
 							}
 						}
-						while (isspace(c));
-						ianjuta_iterable_set_position (new_iter, 
-													   ianjuta_iterable_get_position (prev, NULL),
-													   NULL);
 						g_object_unref (prev);
-						DEBUG_PRINT ("Continues comment");
-						continue;
 					}
-					else
-					{
-						IAnjutaIterable* next = ianjuta_iterable_clone (new_iter, NULL);
-						ianjuta_iterable_next (next, NULL);
-
-						/* Could also be the end of a comment in which case we
-						 * will simply bail out
-						 */
-						c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (next), 0, NULL);
-						if (c == '/')
-						{
-							g_object_unref (next);
-							break;
-						}
-						g_object_unref (next);
-					}
+				} while (ianjuta_iterable_previous (new_iter, NULL));
+				if (comment)
+				{
+					ianjuta_iterable_set_position (iter,
+												   ianjuta_iterable_get_position (new_iter, NULL) - 1, 
+												   NULL);
+					g_object_unref (new_iter);
+					continue;
 				}
-			}
-			while (ianjuta_iterable_previous (new_iter, NULL));
-			if (comment)
-			{
-				DEBUG_PRINT ("Found comment");
-				ianjuta_iterable_set_position (iter,
-											   ianjuta_iterable_get_position (new_iter, NULL) - 1, 
-											   NULL);
 				g_object_unref (new_iter);
-				continue;
 			}
-			g_object_unref (new_iter);
 			
 			/* If we encounter any non-whitespace char before any of the
 			 * statement-complete indicators, the statement is basically
@@ -1134,6 +1129,8 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 				*incomplete_statement = 1;
 		}
 	}
+	if (ianjuta_iterable_first (iter, NULL))
+		line_indent += extra_indent;
 	g_object_unref (iter);
 	
 	return line_indent;
@@ -1216,7 +1213,6 @@ get_line_auto_indentation (CppJavaPlugin *plugin, IAnjutaEditor *editor,
 		{
 			ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (end_iter),
 											   0, NULL);
-			DEBUG_PRINT ("line-end: %c", ch);
 			if (ch == ':')
 			{
 				line_indent -= INDENT_SIZE;
@@ -1595,7 +1591,7 @@ on_auto_indent (GtkAction *action, gpointer data)
 	{
 		line_indent = get_line_auto_indentation (lang_plugin, editor,
 												 insert_line);
-		DEBUG_PRINT ("Line indent for line %d = %d", insert_line, line_indent);
+		/* DEBUG_PRINT ("Line indent for line %d = %d", insert_line, line_indent); */
 		set_line_indentation (editor, insert_line, line_indent);
 	}
 	ianjuta_document_end_undo_action (IANJUTA_DOCUMENT(editor), NULL);

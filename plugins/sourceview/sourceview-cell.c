@@ -32,7 +32,7 @@
 
 #include <gtk/gtktextview.h>
 #include <string.h>
- 
+
 static void sourceview_cell_class_init(SourceviewCellClass *klass);
 static void sourceview_cell_instance_init(SourceviewCell *sp);
 static void sourceview_cell_finalize(GObject *object);
@@ -50,8 +50,8 @@ sourceview_cell_class_init(SourceviewCellClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	sourceview_cell_parent_class = g_type_class_peek_parent(klass);
-
-
+	
+	
 	object_class->finalize = sourceview_cell_finalize;
 }
 
@@ -69,7 +69,7 @@ sourceview_cell_finalize(GObject *object)
 	SourceviewCell *cobj;
 	cobj = SOURCEVIEW_CELL(object);
 	
-  gtk_text_iter_free(cobj->priv->iter);
+	gtk_text_iter_free(cobj->priv->iter);
 	
 	g_slice_free(SourceviewCellPrivate, cobj->priv);
 	G_OBJECT_CLASS(sourceview_cell_parent_class)->finalize(object);
@@ -89,7 +89,7 @@ sourceview_cell_new(GtkTextIter* iter, GtkTextView* view)
 	return obj;
 }
 
-GtkTextIter* 
+GtkTextIter*
 sourceview_cell_get_iter (SourceviewCell* cell)
 {
 	return cell->priv->iter;
@@ -99,18 +99,22 @@ static gchar*
 icell_get_character(IAnjutaEditorCell* icell, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
-	gchar outbuf[7];
-	int length;	
-	length = g_unichar_to_utf8(gtk_text_iter_get_char(cell->priv->iter), outbuf);
-	outbuf[length] = '\0';
-	return g_strdup(outbuf);
+	GtkTextIter* clone = gtk_text_iter_copy (cell->priv->iter);
+	gchar* text = NULL;
+	if (gtk_text_iter_forward_char (clone))
+		text = gtk_text_iter_get_text (cell->priv->iter, clone);
+	return text;
 }
 
 static gint 
 icell_get_length(IAnjutaEditorCell* icell, GError** e)
 {
-	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
-	return g_unichar_to_utf8(gtk_text_iter_get_char(cell->priv->iter), NULL);
+	gchar* text = icell_get_character(icell, e);
+	gint retval = 0;
+	if (text)
+		retval = g_utf8_strlen (text, -1);
+	g_free(text);
+	return retval;
 }
 
 static gchar
@@ -118,7 +122,7 @@ icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 {
 	gchar ch = '\0';
 	gchar* utf8 = icell_get_character(icell, NULL);
-	if (strlen (utf8) > index)
+	if (utf8 && (index == 0 || (strlen (utf8) > index)))
 		ch = utf8[index];	
 	g_free(utf8);
 	return ch;
@@ -144,9 +148,9 @@ icell_iface_init(IAnjutaEditorCellIface* iface)
 static
 GtkTextAttributes* get_attributes(GtkTextIter* iter, GtkTextView* view)
 {
-  GtkTextAttributes* atts = gtk_text_view_get_default_attributes(view);
-  gtk_text_iter_get_attributes(iter, atts);
-  return atts;
+	GtkTextAttributes* atts = gtk_text_view_get_default_attributes(view);
+	gtk_text_iter_get_attributes(iter, atts);
+	return atts;
 }
 
 static gchar*
@@ -155,7 +159,7 @@ icell_style_get_font_description(IAnjutaEditorCellStyle* icell_style, GError ** 
 	const gchar* font;
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell_style);
 	GtkTextAttributes* atts = get_attributes(cell->priv->iter, 
-											 cell->priv->view);
+																					 cell->priv->view);
 	font = pango_font_description_to_string(atts->font);
 	g_free(atts);
 	return g_strdup(font);
@@ -168,7 +172,7 @@ icell_style_get_color(IAnjutaEditorCellStyle* icell_style, GError ** e)
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell_style);
 	GtkTextAttributes* atts = get_attributes(cell->priv->iter, cell->priv->view);
 	color = anjuta_util_string_from_color(atts->appearance.fg_color.red,
-		atts->appearance.fg_color.green, atts->appearance.fg_color.blue);
+																				atts->appearance.fg_color.green, atts->appearance.fg_color.blue);
 	g_free(atts);
 	return color;
 }
@@ -180,7 +184,7 @@ icell_style_get_background_color(IAnjutaEditorCellStyle* icell_style, GError ** 
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell_style);
 	GtkTextAttributes* atts = get_attributes(cell->priv->iter, cell->priv->view);
 	color = anjuta_util_string_from_color(atts->appearance.bg_color.red,
-		atts->appearance.bg_color.green, atts->appearance.bg_color.blue);
+																				atts->appearance.bg_color.green, atts->appearance.bg_color.blue);
 	g_free(atts);
 	return color;
 }
@@ -197,15 +201,17 @@ static gboolean
 iiter_first(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-	gtk_text_iter_set_offset(cell->priv->iter, 0);
-	return TRUE;
+	gboolean retval = gtk_text_iter_is_start (cell->priv->iter);
+	if (!retval)
+		gtk_text_iter_set_offset (cell->priv->iter, 0);
+	return retval;
 }
 
 static gboolean
 iiter_next(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-
+	
 	return gtk_text_iter_forward_char(cell->priv->iter);
 }
 
@@ -221,9 +227,10 @@ static gboolean
 iiter_last(IAnjutaIterable* iter, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-
-	gtk_text_iter_forward_to_end(cell->priv->iter);
-	return TRUE;
+	gboolean retval = gtk_text_iter_is_end (cell->priv->iter);
+	if (retval)
+		gtk_text_iter_forward_to_end(cell->priv->iter);
+	return retval;
 }
 
 static void
@@ -246,7 +253,7 @@ static gboolean
 iiter_set_position (IAnjutaIterable* iter, gint position, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
-
+	
 	gtk_text_iter_set_offset (cell->priv->iter, position);
 	return TRUE;
 }
@@ -290,7 +297,7 @@ iiter_compare (IAnjutaIterable *iter, IAnjutaIterable *other_iter, GError **e)
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
 	SourceviewCell* other_cell = SOURCEVIEW_CELL(other_iter);
 	
-  return gtk_text_iter_compare (cell->priv->iter, other_cell->priv->iter);
+	return gtk_text_iter_compare (cell->priv->iter, other_cell->priv->iter);
 }
 
 static gint
@@ -298,6 +305,7 @@ iiter_diff (IAnjutaIterable *iter, IAnjutaIterable *other_iter, GError **e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(iter);
 	SourceviewCell* other_cell = SOURCEVIEW_CELL(other_iter);
+	
 	return (gtk_text_iter_get_offset (other_cell->priv->iter) 
 					- gtk_text_iter_get_offset (cell->priv->iter));
 }
