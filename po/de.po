@@ -742,7 +742,7 @@ msgstr "_Erstellen"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1309
 msgid "_Build Project"
-msgstr "Projekt übersetzen"
+msgstr "Projekt _übersetzen"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1310
 msgid "Build whole project"
@@ -750,7 +750,7 @@ msgstr "Übersetzt das gesamte Projekt"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1315
 msgid "_Install Project"
-msgstr "Projekt installieren"
+msgstr "Projekt _installieren"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1316
 msgid "Install whole project"
@@ -758,7 +758,7 @@ msgstr "Projekt installieren"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1321
 msgid "_Clean Project"
-msgstr "Projekt bereinigen"
+msgstr "Projekt _bereinigen"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1322
 msgid "Clean whole project"
@@ -782,7 +782,7 @@ msgstr "Projektdateien autogenerieren"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1339
 msgid "Build _Tarball"
-msgstr "Archiv erstellen"
+msgstr "A_rchiv erstellen"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1340
 msgid "Build project tarball distribution"
@@ -790,7 +790,7 @@ msgstr "Distributionspaket erstellen"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1345
 msgid "_Execute Program..."
-msgstr "Programm ausführen …"
+msgstr "Programm _ausführen …"
 
 #: ../plugins/build-basic-autotools/build-basic-autotools.c:1346
 msgid "Execute program"
@@ -1569,7 +1569,7 @@ msgstr "Beschreibung:"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:13
 #: ../plugins/gdb/anjuta-gdb.glade.h:10
 msgid "Display process _tree"
-msgstr "Prozessbaum anzeigen"
+msgstr "_Prozessbaum anzeigen"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:14
 #: ../plugins/gdb/anjuta-gdb.glade.h:11
@@ -1583,7 +1583,7 @@ msgstr "Ein Hexadezimal-Adresse eingeben oder eine in den Daten auswählen"
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
 #: ../plugins/gdb/anjuta-gdb.glade.h:14
 msgid "Hide process para_meters"
-msgstr "Prozess-Parameter verstecken"
+msgstr "Prozess-Para_meter verstecken"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:17
 #: ../plugins/gdb/anjuta-gdb.glade.h:15
@@ -1827,7 +1827,7 @@ msgstr "Alle Haltepunkte deaktivieren"
 #. Stock icon, if any
 #: ../plugins/debug-manager/breakpoints.c:1794
 msgid "R_emove All Breakpoints"
-msgstr "Alle Haltepunkte entfernen"
+msgstr "Alle Haltepunkte _entfernen"
 
 #. Display label
 #. short-cut
@@ -2078,7 +2078,7 @@ msgstr "Kernelsignale anzeigen"
 #. Stock icon, if any
 #: ../plugins/debug-manager/plugin.c:961
 msgid "Run/_Continue"
-msgstr "Ausführen/Fortsetzen"
+msgstr "Ausführen/_Fortsetzen"
 
 #. Display label
 #. short-cut
@@ -2096,7 +2096,7 @@ msgstr "Einzelner Schritt in die Funktion"
 
 #: ../plugins/debug-manager/plugin.c:977
 msgid "Step O_ver"
-msgstr "Überspringen"
+msgstr "_Überspringen"
 
 #: ../plugins/debug-manager/plugin.c:979
 msgid "Single step over function"
@@ -2104,7 +2104,7 @@ msgstr "Einzelner Schritt über die Funktion"
 
 #: ../plugins/debug-manager/plugin.c:985
 msgid "Step _Out"
-msgstr "Herausspringen"
+msgstr "_Herausspringen"
 
 #: ../plugins/debug-manager/plugin.c:987
 msgid "Single step out of the function"
@@ -2128,11 +2128,11 @@ msgstr "Alle globalen und statischen Variablen des Programmes anzeigen"
 
 #: ../plugins/debug-manager/plugin.c:1025
 msgid "Info _Current Frame"
-msgstr "Info aktueller Rahmen"
+msgstr "Info _aktueller Frame"
 
 #: ../plugins/debug-manager/plugin.c:1027
 msgid "Display information about the current frame of execution"
-msgstr "Informationen über den aktuellen Ausführungsrahmen anzeigen"
+msgstr "Informationen über den aktuellen Ausführungs-Frame anzeigen"
 
 #: ../plugins/debug-manager/plugin.c:1033
 msgid "Info Function _Arguments"
@@ -2140,7 +2140,7 @@ msgstr "Info Funktions_argumente"
 
 #: ../plugins/debug-manager/plugin.c:1035
 msgid "Display function arguments of the current frame"
-msgstr "Die Funktionsargumente des aktuellen Rahmens anzeigen"
+msgstr "Die Funktionsargumente des aktuellen Frames anzeigen"
 
 #. Action name
 #. Stock icon, if any
@@ -2687,7 +2687,7 @@ msgstr "Alle Dateien schließen"
 
 #: ../plugins/document-manager/plugin.c:171
 msgid "Reload F_ile"
-msgstr "Neu laden"
+msgstr "Neu _laden"
 
 #: ../plugins/document-manager/plugin.c:172
 msgid "Reload current file"
@@ -2707,7 +2707,7 @@ msgstr "Z_uletzt geöffnete Dateien"
 
 #: ../plugins/document-manager/plugin.c:181
 msgid "_Print..."
-msgstr "Drucken …"
+msgstr "_Drucken …"
 
 #: ../plugins/document-manager/plugin.c:182
 msgid "Print the current file"
@@ -2723,12 +2723,12 @@ msgstr "Druckvorschau für die aktuelle Datei anzeigen"
 
 #: ../plugins/document-manager/plugin.c:195
 msgid "_Transform"
-msgstr "Verändern"
+msgstr "_Verändern"
 
 #. menu title
 #: ../plugins/document-manager/plugin.c:196
 msgid "_Make Selection Uppercase"
-msgstr "Auswahl zu Großbuchstaben"
+msgstr "Auswahl zu _Großbuchstaben"
 
 #: ../plugins/document-manager/plugin.c:197
 msgid "Make the selected text uppercase"
@@ -2788,7 +2788,7 @@ msgstr "Den ganzen Text im Editor auswählen"
 
 #: ../plugins/document-manager/plugin.c:227
 msgid "Select to _Brace"
-msgstr "Bis zur Klammer auswählen"
+msgstr "Bis zur _Klammer auswählen"
 
 #: ../plugins/document-manager/plugin.c:228
 msgid "Select the text in the matching braces"
@@ -2820,7 +2820,7 @@ msgstr "Den ausgewählten Text als Block auskommentieren"
 #. some decorations, to give an appearance of box.
 #: ../plugins/document-manager/plugin.c:244
 msgid "Bo_x Comment/Uncomment"
-msgstr "Box-Kommentar an/aus"
+msgstr "Bo_x-Kommentar an/aus"
 
 #: ../plugins/document-manager/plugin.c:245
 msgid "Box comment the selected text"
@@ -2851,7 +2851,7 @@ msgstr "Zu einer bestimmten Zeile im Editor springen"
 
 #: ../plugins/document-manager/plugin.c:261
 msgid "Matching _Brace"
-msgstr "Dazugehörige Klammer"
+msgstr "Dazugehörige _Klammer"
 
 #: ../plugins/document-manager/plugin.c:262
 msgid "Go to the matching brace in the editor"
@@ -2875,7 +2875,7 @@ msgstr "An das Ende des aktuellen Blocks springen"
 
 #: ../plugins/document-manager/plugin.c:270
 msgid "Previous _History"
-msgstr "_Vorheriger Eintrag in der Chronik"
+msgstr "V_orheriger Eintrag in der Chronik"
 
 #: ../plugins/document-manager/plugin.c:271
 msgid "Goto previous history"
@@ -2883,7 +2883,7 @@ msgstr "Zum vorherigen Eintrag in der Chronik springen"
 
 #: ../plugins/document-manager/plugin.c:273
 msgid "Next Histor_y"
-msgstr "Nächster Eintrag in der Chronik"
+msgstr "N_ächster Eintrag in der Chronik"
 
 #: ../plugins/document-manager/plugin.c:274
 msgid "Goto next history"
@@ -2933,7 +2933,7 @@ msgstr "Neue Ansicht für aktuelle Datei hinzufügen"
 
 #: ../plugins/document-manager/plugin.c:300
 msgid "_Remove Editor View"
-msgstr "Textansicht entfernen"
+msgstr "Textansicht _entfernen"
 
 #: ../plugins/document-manager/plugin.c:301
 msgid "Remove current view of the document"
@@ -3075,7 +3075,7 @@ msgstr "Alle Textfaltungen im Editor schließen"
 
 #: ../plugins/document-manager/plugin.c:370
 msgid "_Open All Folds"
-msgstr "Alle Textfaltungen öffnen"
+msgstr "Alle Textfaltungen _öffnen"
 
 #: ../plugins/document-manager/plugin.c:371
 msgid "Open all code folds in the editor"
@@ -5306,7 +5306,7 @@ msgstr "_Ziel hinzufügen"
 
 #: ../plugins/project-manager/plugin.c:802
 msgid "Add _Source File"
-msgstr "Quelldatei hinzufügen"
+msgstr "_Quelldatei hinzufügen"
 
 #: ../plugins/project-manager/plugin.c:807
 msgid "Re_move"
@@ -6032,7 +6032,7 @@ msgstr "Eine Zeichenkette in mehreren Dateien oder Verzeichnissen suchen"
 
 #: ../plugins/search/plugin.c:215
 msgid "Ne_xt Occurrence"
-msgstr "Nächstem Auftreten"
+msgstr "Nä_chstem Auftreten"
 
 #: ../plugins/search/plugin.c:216
 msgid "Find the next occurrence of current word"
@@ -6040,7 +6040,7 @@ msgstr "Nächstes Auftreten des aktuellen Wortes finden"
 
 #: ../plugins/search/plugin.c:219
 msgid "Pre_vious Occurrence"
-msgstr "Letztem Auftreten"
+msgstr "Le_tztem Auftreten"
 
 #: ../plugins/search/plugin.c:220
 msgid "Find the previous occurrence of current word"
@@ -6603,7 +6603,7 @@ msgstr "Änderungen mit Ihrer Arbeitskopie zusammenführen"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:132 ../plugins/subversion/plugin.c:183
 msgid "_View Log..."
-msgstr "Protokoll anzeigen …"
+msgstr "Protokoll _anzeigen …"
 
 #. Display label
 #. short-cut
@@ -6615,7 +6615,7 @@ msgstr "Versionsgeschichte der Datei anzeigen"
 #. Stock icon, if any
 #: ../plugins/subversion/plugin.c:140
 msgid "_Diff..."
-msgstr "Unterschiede anzeigen …"
+msgstr "_Unterschiede anzeigen …"
 
 #. Display label
 #. short-cut
@@ -6912,16 +6912,16 @@ msgstr "Globale Symbole aktualisieren"
 
 #: ../plugins/symbol-browser/plugin.c:267
 msgid "Tag _Definition"
-msgstr "Symboldefinitionen"
+msgstr "Symbol_definition"
 
 #: ../plugins/symbol-browser/plugin.c:269
 #: ../plugins/symbol-browser/plugin.c:289
 msgid "Goto symbol definition"
-msgstr "Gehe zu Symboldefinitionen"
+msgstr "Gehe zu Symboldefinition"
 
 #: ../plugins/symbol-browser/plugin.c:275
 msgid "Tag De_claration"
-msgstr "Symboldeklarationen"
+msgstr "Symbolde_klaration"
 
 #: ../plugins/symbol-browser/plugin.c:277
 #: ../plugins/symbol-browser/plugin.c:297
@@ -6930,7 +6930,7 @@ msgstr "Gehe zu Symboldeklaration"
 
 #: ../plugins/symbol-browser/plugin.c:287
 msgid "Goto _Definition"
-msgstr "Gehe zu Symboldefinition"
+msgstr "Gehe zu Symbol_definition"
 
 #: ../plugins/symbol-browser/plugin.c:295
 msgid "Goto De_claration"
@@ -7706,7 +7706,7 @@ msgstr "_Hilfe"
 
 #: ../src/anjuta-actions.h:60
 msgid "_User's Manual"
-msgstr "Anleitung"
+msgstr "_Anleitung"
 
 #: ../src/anjuta-actions.h:61
 msgid "Anjuta user's manual"
@@ -7746,7 +7746,7 @@ msgstr "Online-Dokumentation und Ressourcen"
 
 #: ../src/anjuta-actions.h:80
 msgid "Report _Bugs/Patches/Requests"
-msgstr "Fehler/Wünsche/Patches senden"
+msgstr "_Fehler/Wünsche/Patches senden"
 
 #: ../src/anjuta-actions.h:81
 msgid "Submit a bug report, patch or feature request for Anjuta"
