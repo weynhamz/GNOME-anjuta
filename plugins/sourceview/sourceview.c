@@ -129,6 +129,7 @@ static void on_insert_text (GtkTextBuffer* buffer,
 		return;
 	else
 	{
+		gtk_text_iter_backward_char (location);
 		SourceviewCell* cell = sourceview_cell_new (location, 
 													GTK_TEXT_VIEW(sv->priv->view));
 		g_signal_emit_by_name(G_OBJECT(sv), "char_added", cell, text[0]);

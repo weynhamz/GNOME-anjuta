@@ -1,3 +1,11 @@
+2008-02-17  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/anjuta-view.c: (anjuta_view_key_press_event):
+	* plugins/sourceview/sourceview-cell.c: (icell_get_character),
+	(icell_get_char):
+	* plugins/sourceview/sourceview.c: (on_insert_text):	
+	Fix "char-added" signal to pass the correct iterator
+
 2008-02-17  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/gdb/debugger.c:

@@ -729,6 +729,7 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 	GtkTextBuffer *buffer;
 	AnjutaView* view = ANJUTA_VIEW(widget);
 	AssistWindow* assist_win;
+	AssistTip* assist_tip;
 	
 	buffer  = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
 	
@@ -738,6 +739,15 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 		if (assist_window_filter_keypress(assist_win, event->keyval))
 		{
 			DEBUG_PRINT("key filtered: %d", event->keyval);
+			return TRUE;
+		}
+	}
+	assist_tip = view->priv->sv->priv->assist_tip;
+	if (assist_tip)
+	{
+		if (event->keyval == GDK_Escape)
+		{
+			gtk_widget_destroy (GTK_WIDGET(view->priv->sv->priv->assist_tip));
 			return TRUE;
 		}
 	}

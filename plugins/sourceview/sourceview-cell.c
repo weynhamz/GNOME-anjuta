@@ -99,11 +99,10 @@ static gchar*
 icell_get_character(IAnjutaEditorCell* icell, GError** e)
 {
 	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
-	GtkTextIter* clone = gtk_text_iter_copy (cell->priv->iter);
-	gchar* text = NULL;
-	if (gtk_text_iter_forward_char (clone))
-		text = gtk_text_iter_get_text (cell->priv->iter, clone);
-	return text;
+	gunichar c = gtk_text_iter_get_char (cell->priv->iter);
+	gchar* outbuf = g_new0(gchar, 6);
+	g_unichar_to_utf8 (c, outbuf);
+	return outbuf;
 }
 
 static gint 
@@ -120,12 +119,17 @@ icell_get_length(IAnjutaEditorCell* icell, GError** e)
 static gchar
 icell_get_char(IAnjutaEditorCell* icell, gint index, GError** e)
 {
-	gchar ch = '\0';
-	gchar* utf8 = icell_get_character(icell, NULL);
-	if (utf8 && (index == 0 || (strlen (utf8) > index)))
-		ch = utf8[index];	
-	g_free(utf8);
-	return ch;
+	SourceviewCell* cell = SOURCEVIEW_CELL(icell);
+	gunichar c = gtk_text_iter_get_char (cell->priv->iter);
+	gchar* outbuf = g_new0(gchar, 6);
+	gint len = g_unichar_to_utf8 (c, outbuf);
+	gchar retval;
+	if (index < len)
+		retval = outbuf[index];
+	else
+		retval = 0;
+	g_free (outbuf);
+	return retval;
 }
 
 static IAnjutaEditorAttribute
