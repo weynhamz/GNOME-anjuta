@@ -930,7 +930,7 @@ dma_set_parameters (DmaStart *this)
 	gtk_combo_box_entry_set_text_column( GTK_COMBO_BOX_ENTRY(target), 0);
 
     anjuta_shell_get_value (this->plugin->shell, "project_root_uri", &value, NULL);
-    project_root_uri = g_value_get_string (&value);
+	project_root_uri = G_VALUE_HOLDS_STRING (&value) ? g_value_get_string (&value) : NULL;
 	if (project_root_uri != NULL)
 	{
 		/* One project loaded, get all executable target */
