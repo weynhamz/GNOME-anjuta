@@ -29,13 +29,6 @@
    views of information needed to study the execution of the program.
   </para>
 
-  <tip>
-   <para>
-    The debugger has been heavily changed since anjuta 2.0.2. Some features have
-    been dropped but will be re enabled, a few have been added.
-   </para>
-  </tip>
-
  <!-- Debugger: Start and stop -->
 
  <sect1 id="debugger-session">
