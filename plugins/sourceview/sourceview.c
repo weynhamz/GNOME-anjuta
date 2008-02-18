@@ -129,9 +129,9 @@ static void on_insert_text (GtkTextBuffer* buffer,
 		return;
 	else
 	{
-		gtk_text_iter_backward_char (location);
 		SourceviewCell* cell = sourceview_cell_new (location, 
 													GTK_TEXT_VIEW(sv->priv->view));
+		ianjuta_iterable_previous (IANJUTA_ITERABLE (cell), NULL);
 		g_signal_emit_by_name(G_OBJECT(sv), "char_added", cell, text[0]);
 	}
 }
@@ -2163,8 +2163,6 @@ on_sourceview_hover_leave(gpointer data, GObject* where_the_data_was)
 	{
 		g_signal_emit_by_name (G_OBJECT (sv), "hover-leave", sv->priv->tooltip_cell);
 		g_object_unref (sv->priv->tooltip_cell);
-		sv->priv->tooltip_cell = NULL;
-		g_free (sv->priv->tooltip_cell);
 		sv->priv->tooltip_cell = NULL;
 	}
 }

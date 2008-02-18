@@ -1,3 +1,11 @@
+2008-02-18  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c: (on_insert_text):
+	Do not change the iterator in the "insert-text" handler because
+	it has some strange side-effects when copying text
+	Fix useless free'ing in hover-leave that might have led to random
+	crashes
+
 2008-02-18  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/start.c:
