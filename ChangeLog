@@ -1,3 +1,9 @@
+2008-02-20  Johannes Schmid <jhs@gnome.org>
+
+  Patch from James Liggett:
+	* plugins/profiler/profiler.glade:
+	Fix width options dialog. Translations are not longer cut off. (#516630)
+
 2008-02-18  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c: (on_insert_text):
