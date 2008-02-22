@@ -133,6 +133,9 @@ static void on_insert_text (GtkTextBuffer* buffer,
 													GTK_TEXT_VIEW(sv->priv->view));
 		ianjuta_iterable_previous (IANJUTA_ITERABLE (cell), NULL);
 		g_signal_emit_by_name(G_OBJECT(sv), "char_added", cell, text[0]);
+		// Reset iterator
+		gtk_text_buffer_get_iter_at_mark (buffer, location,
+										  gtk_text_buffer_get_insert(buffer));
 	}
 }
 

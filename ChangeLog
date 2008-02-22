@@ -1,3 +1,8 @@
+2008-02-22  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/sourceview.c: (on_insert_text):
+	Fixed #517919 – Crash on pasting docblock
+
 2008-02-20  Johannes Schmid <jhs@gnome.org>
 
   Patch from James Liggett:
