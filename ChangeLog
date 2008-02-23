@@ -1,5 +1,10 @@
 2008-02-23  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/sourceview/sourceview.c: (ieditor_insert):
+	Block insert_text signal when inserting manually.
+
+2008-02-23  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/sourceview/sourceview.c: (on_insert_text):
 	Fixed a problem with the "insert-text" signal that broke
 	copy&paste sometimes
