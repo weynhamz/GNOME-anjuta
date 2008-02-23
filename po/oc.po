@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-19 20:15+0100\n"
-"PO-Revision-Date: 2008-02-13 11:27+0100\n"
+"PO-Revision-Date: 2008-02-20 00:10+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #: ../anjuta.desktop.in.in.h:1
 msgid "Anjuta IDE"
@@ -474,10 +474,8 @@ msgstr "_Ignorar las modificacions"
 #, c-format
 msgid ""
 "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
-msgid_plural ""
 "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../libanjuta/anjuta-save-prompt.c:311
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -1328,9 +1326,7 @@ msgstr ""
 #: ../plugins/cvs-plugin/cvs-execute.c:133
 #, c-format
 msgid "CVS command successful! - Time taken: %ld second"
-msgid_plural "CVS command successful! - Time taken: %ld seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../plugins/cvs-plugin/cvs-execute.c:224
 msgid "CVS command is running - please wait until it finishes!"
@@ -3395,7 +3391,7 @@ msgstr ""
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:54
 msgid "Mode:"
-msgstr ""
+msgstr "Mòde :"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:55
 msgid "Monochrome"
@@ -3677,7 +3673,7 @@ msgstr "_Dobrir"
 
 #: ../plugins/file-loader/plugin.c:786 ../plugins/file-loader/plugin.c:799
 msgid "Open _With"
-msgstr ""
+msgstr "Dobrir amb"
 
 #: ../plugins/file-loader/plugin.c:787 ../plugins/file-loader/plugin.c:800
 msgid "Open with"
@@ -3756,7 +3752,7 @@ msgstr ""
 #: ../plugins/file-manager/plugin.c:72 ../plugins/project-manager/plugin.c:753
 #: ../plugins/symbol-browser/plugin.c:311
 msgid "_Refresh"
-msgstr "_Actualisar"
+msgstr "_Actualizar"
 
 #: ../plugins/file-manager/plugin.c:72
 msgid "Refresh file manager tree"
@@ -4268,9 +4264,7 @@ msgstr ""
 #: ../plugins/gtodo/notification.c:67
 #, c-format
 msgid "The following item is due in %i minute:"
-msgid_plural "The following item is due in %i minutes:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../plugins/gtodo/notification.c:76
 msgid "The following item is due:"
@@ -4371,9 +4365,7 @@ msgstr ""
 #: ../plugins/gtodo/preferences.c:157
 #, c-format
 msgid "Items that are due in the next %i day"
-msgid_plural "Items that are due in the next %i days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../plugins/gtodo/preferences.c:171
 msgid "Misc"
@@ -4402,9 +4394,7 @@ msgstr "Notificacion"
 #: ../plugins/gtodo/preferences.c:219
 #, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
-msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
@@ -5310,7 +5300,7 @@ msgstr ""
 
 #: ../plugins/project-wizard/property.c:248
 msgid "Choose directory"
-msgstr ""
+msgstr "Causissètz un repertòri"
 
 #: ../plugins/project-wizard/property.c:258
 msgid "Choose file"
@@ -5935,9 +5925,7 @@ msgstr ""
 #: ../plugins/search/search-replace.c:1098
 #, c-format
 msgid "%d match has been replaced."
-msgid_plural "%d matches have been replaced."
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
 
 #: ../plugins/search/search-replace.c:1264
 msgid "Unable to build user interface for Search And Replace"
@@ -6888,7 +6876,7 @@ msgstr ""
 
 #: ../plugins/tools/editor.c:460
 msgid "Meaning"
-msgstr ""
+msgstr "Significacion"
 
 #: ../plugins/tools/editor.c:535
 msgid "Disabled"
