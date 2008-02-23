@@ -129,13 +129,16 @@ static void on_insert_text (GtkTextBuffer* buffer,
 		return;
 	else
 	{
+		int offset = gtk_text_iter_get_offset (location);
 		SourceviewCell* cell = sourceview_cell_new (location, 
 													GTK_TEXT_VIEW(sv->priv->view));
 		ianjuta_iterable_previous (IANJUTA_ITERABLE (cell), NULL);
+		g_signal_handlers_block_by_func (buffer, on_insert_text, sv);
 		g_signal_emit_by_name(G_OBJECT(sv), "char_added", cell, text[0]);
-		// Reset iterator
-		gtk_text_buffer_get_iter_at_mark (buffer, location,
-										  gtk_text_buffer_get_insert(buffer));
+		g_signal_handlers_unblock_by_func (buffer, on_insert_text, sv);
+		/* Reset iterator */
+		gtk_text_buffer_get_iter_at_offset (buffer, location,
+											offset);
 	}
 }
 
