@@ -871,39 +871,103 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 												 NULL);
 
 		/* DEBUG_PRINT("point_ch = %c", point_ch); */
-		/* Check if line ends with a comment */
-		if (point_ch == '/')
+		/* Check if we are inside a comment */
+		if (!line_checked_for_comment && !isspace(point_ch))
 		{
-			ianjuta_iterable_previous(iter, NULL);
-			point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
-													 NULL);
-			/* This is the end of a comment */
-			if (point_ch == '*')
+			gboolean comment = FALSE;
+			gboolean comment_end = FALSE;
+			IAnjutaIterable* new_iter = ianjuta_iterable_clone (iter, NULL);
+			do
 			{
-				/* Skip all characters until the beginning of the comment */
-				while (ianjuta_iterable_previous (iter, NULL))
+				gchar c;
+				c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
+												  NULL);
+				if (!comment_end && iter_is_newline (new_iter, c))
 				{
-					point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
-															 NULL);
-					if (point_ch == '*')
+					line_checked_for_comment = TRUE;
+					break;
+				}
+				if (c == '/')
+				{
+					ianjuta_iterable_previous (new_iter, NULL);
+					c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
+													  NULL);
+					if (c == '/')
 					{
-						ianjuta_iterable_previous(iter, NULL);
-						point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
-																 NULL);
-						if (point_ch == '/')
-						{
-							break;
-						}
+						/* is a line comment, skip until begin of comment */
+						comment = TRUE;
+						break;
 					}
 				}
+				if (c == '*')
+				{
+					IAnjutaIterable* prev = ianjuta_iterable_clone (new_iter, NULL);
+					IAnjutaIterable* next = ianjuta_iterable_clone (new_iter, NULL);					
+					ianjuta_iterable_previous (prev, NULL);
+					ianjuta_iterable_next (next, NULL);
+					gchar prev_c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (prev), 0,
+													  NULL);
+					gchar next_c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (next), 0,
+													  NULL);					
+					if (prev_c == '/')
+					{
+						/* starts comment */
+						comment = TRUE;
+						DEBUG_PRINT ("Starts comment");
+						if (!comment_end)
+							extra_indent++;
+						g_object_unref (prev);
+						g_object_unref (next);
+						break;
+					}
+					else if (next_c == '/')
+					{
+						/* ends comment */
+						DEBUG_PRINT ("Ends comment");
+						comment_end = TRUE;
+						g_object_unref (prev);
+						g_object_unref (next);
+						continue;
+					}
+					/* Possibly continued comment */
+					else if (isspace(prev_c))
+					{
+						gboolean possible_comment = FALSE;
+						while (ianjuta_iterable_previous (prev, NULL))
+						{
+							prev_c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (prev), 0,
+															  NULL);
+							if (!isspace(prev_c))
+								break;
+							if (iter_is_newline (prev, prev_c))
+							{
+								possible_comment = TRUE;
+								break;
+							}
+						}
+						if (possible_comment)
+						{
+							ianjuta_iterable_set_position (new_iter, 
+														   ianjuta_iterable_get_position (prev, NULL),
+														   NULL);
+							g_object_unref (prev);
+							g_object_unref (next);
+							continue;
+						}
+					}
+					g_object_unref (prev);
+					g_object_unref (next);
+				}
+			} while (ianjuta_iterable_previous (new_iter, NULL));
+			if (comment)
+			{
+				ianjuta_iterable_set_position (iter,
+											   ianjuta_iterable_get_position (new_iter, NULL) - 1, 
+											   NULL);
+				g_object_unref (new_iter);
 				continue;
 			}
-			else
-			{
-				ianjuta_iterable_next (iter, NULL);
-				point_ch = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (iter), 0,
-														 NULL);
-			}
+			g_object_unref (new_iter);
 		}
 		if (point_ch == ')' || point_ch == ']' || point_ch == '}')
 		{
@@ -1040,87 +1104,7 @@ get_line_indentation_base (CppJavaPlugin *plugin,
 			line_checked_for_comment = FALSE;
 		}		 
 		else if (!isspace (point_ch))
-		{
-			/* Check for line starting comment */
-			if (!line_checked_for_comment)
-			{
-				gboolean comment = FALSE;
-				IAnjutaIterable* new_iter = ianjuta_iterable_clone (iter, NULL);
-				do
-				{
-					gchar c;
-					c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
-													  NULL);
-					if (iter_is_newline (new_iter, c))
-					{
-						line_checked_for_comment = TRUE;
-						break;
-					}
-					if (c == '/')
-					{
-						ianjuta_iterable_previous (new_iter, NULL);
-						c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (new_iter), 0,
-														  NULL);
-						if (c == '/')
-						{
-							/* is a line comment, skip until begin of comment */
-							comment = TRUE;
-							break;
-						}
-					}
-					if (c == '*')
-					{
-						IAnjutaIterable* prev = ianjuta_iterable_clone (new_iter, NULL);
-						ianjuta_iterable_previous (prev, NULL);
-						c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (prev), 0,
-														  NULL);
-						if (c == '/')
-						{
-							/* starts comment */
-							comment = TRUE;
-							extra_indent++;
-							g_object_unref (prev);
-							break;
-						}
-						/* Possibly continued comment */
-						else if (isspace(c))
-						{
-							gboolean possible_comment = FALSE;
-							while (ianjuta_iterable_previous (prev, NULL))
-							{
-								c = ianjuta_editor_cell_get_char (IANJUTA_EDITOR_CELL (prev), 0,
-																  NULL);
-								if (!isspace(c))
-									break;
-								if (iter_is_newline (prev, c))
-								{
-									possible_comment = TRUE;
-									break;
-								}
-							}
-							if (possible_comment)
-							{
-								ianjuta_iterable_set_position (new_iter, 
-															   ianjuta_iterable_get_position (prev, NULL),
-															   NULL);
-								g_object_unref (prev);
-								continue;
-							}
-						}
-						g_object_unref (prev);
-					}
-				} while (ianjuta_iterable_previous (new_iter, NULL));
-				if (comment)
-				{
-					ianjuta_iterable_set_position (iter,
-												   ianjuta_iterable_get_position (new_iter, NULL) - 1, 
-												   NULL);
-					g_object_unref (new_iter);
-					continue;
-				}
-				g_object_unref (new_iter);
-			}
-			
+		{			
 			/* If we encounter any non-whitespace char before any of the
 			 * statement-complete indicators, the statement is basically
 			 * incomplete
