@@ -4465,7 +4465,7 @@ msgstr[1] "Seuraavien %i päivän kuluessa erääntyvät tehtävät"
 
 #: ../plugins/gtodo/preferences.c:171
 msgid "Misc"
-msgstr ""
+msgstr "Lisäasetukset"
 
 #: ../plugins/gtodo/preferences.c:174
 msgid "Auto purge completed items"
@@ -4491,8 +4491,8 @@ msgstr "Huomautus"
 #, c-format
 msgid "Allow todo items to notifiy me when they are due in %i minute"
 msgid_plural "Allow todo items to notifiy me when they are due in %i minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Salli tehtävähuomautukset, kun niihin on alle %i minuutti aikaa"
+msgstr[1] "Salli tehtävähuomautukset, kun niihin on alle %i minuuttia aikaa"
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
@@ -4670,6 +4670,11 @@ msgid ""
 "Diagonal\n"
 "Strike-Out"
 msgstr ""
+"Aleviivaus-pelkkä\n"
+"Alleviivaus-aaltoviiva\n"
+"Alleviivaus-TT\n"
+"Vinoviiva\n"
+"Yliviivaus"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:21
 msgid "Warning message indicator style:"
@@ -6320,7 +6325,7 @@ msgstr "Muu revisio:"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:37
 msgid "Realm:"
-msgstr ""
+msgstr "Alue:"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:38
 msgid "Recurse"
@@ -6408,7 +6413,7 @@ msgstr "Työkopio"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:62
 msgid "realm"
-msgstr ""
+msgstr "alue"
 
 #. Action name
 #. Stock icon, if any
@@ -7366,7 +7371,7 @@ msgstr "Muokkaa omassa muokkaimessa"
 #. demangle = decode C++ name encoding
 #: ../plugins/valgrind/vggeneralprefs.c:179
 msgid "Demangle C++ symbol names"
-msgstr ""
+msgstr "Palauta C++-symbolien nimet"
 
 #: ../plugins/valgrind/vggeneralprefs.c:187
 msgid "Show"
@@ -7632,19 +7637,19 @@ msgstr "Anjutan käyttöohje"
 
 #: ../src/anjuta-actions.h:64
 msgid "Kick start _tutorial"
-msgstr ""
+msgstr "_Aloitusohjeita"
 
 #: ../src/anjuta-actions.h:65
 msgid "Anjuta Kick start tutorial"
-msgstr ""
+msgstr "Ohjeita anjutan käytön aloittamiseen"
 
 #: ../src/anjuta-actions.h:68
 msgid "_Advanced tutorial"
-msgstr ""
+msgstr "Ohjeita _kokeneille"
 
 #: ../src/anjuta-actions.h:69
 msgid "Anjuta advanced tutorial"
-msgstr ""
+msgstr "Ohjeita anjutan käytöstä kokeneille käyttöjille"
 
 #: ../src/anjuta-actions.h:72
 msgid "_Frequently Asked Questions"
