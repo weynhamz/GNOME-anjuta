@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-24 05:23+0300\n"
+"POT-Creation-Date: 2008-02-24 06:19+0300\n"
 "PO-Revision-Date: 2006-11-01 06:40+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -1287,7 +1287,7 @@ msgstr ""
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:48
 msgid "Unified format instead of context format"
-msgstr ""
+msgstr "Yhtenäistetty muoto kontekstimuodon sijasta"
 
 #: ../plugins/cvs-plugin/anjuta-cvs-plugin.glade.h:49
 #: ../plugins/subversion/anjuta-subversion.glade.h:55
@@ -2435,11 +2435,11 @@ msgstr "Siirry ohjeen seuraavalle sivulle"
 
 #: ../plugins/devhelp/plugin.c:255
 msgid "_API Reference"
-msgstr ""
+msgstr "_API-referenssi"
 
 #: ../plugins/devhelp/plugin.c:257
 msgid "Browse API Pages"
-msgstr ""
+msgstr "Selaa API-sivuja"
 
 #: ../plugins/devhelp/plugin.c:267
 msgid "_Context Help"
@@ -3594,9 +3594,9 @@ msgid ""
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
 msgstr ""
-"Tiedosto ei vaikuta olevan tekstitiedosto tai sen merkistökoodaus "
-"ei ole tuettu. Tarkista, että tiedoston merkistökoodaus on tuettujen "
-"koodausten luettelossa. Jos sitä ei löydy, voit lisätä sen asetuksista."
+"Tiedosto ei vaikuta olevan tekstitiedosto tai sen merkistökoodaus ei ole "
+"tuettu. Tarkista, että tiedoston merkistökoodaus on tuettujen koodausten "
+"luettelossa. Jos sitä ei löydy, voit lisätä sen asetuksista."
 
 #: ../plugins/editor/text_editor.c:1576
 msgid "Loading file..."
@@ -3648,6 +3648,10 @@ msgid ""
 "This may result in improper behaviour or instabilities.\n"
 "Anjuta will fall back to built in (limited) settings"
 msgstr ""
+"Ei voitu ladata yhteisiä oletuksia ja asetustiedostoja:\n"
+"%s.\n"
+"Tämä saattaa aiheuttaa virheellisiä toimintoja ja epävakautta.\n"
+"Anjuta palaa käyttämään sisäänrakennettuja rajoitettuja asetuksia"
 
 #: ../plugins/file-loader/plugin.c:144
 #, c-format
@@ -3661,6 +3665,14 @@ msgid ""
 "\n"
 "You may choose to try opening it with the following plugins or applications."
 msgstr ""
+"<b>Tiedostoa \"%s\" ei voi avata.</b>\n"
+"\n"
+"Liitännäistä, toimintoa tai ohjelmaa tämän tiedostotyypin avaamiseksi "
+"ei ole määritelty.\n"
+"\n"
+"MIME-tyyppi: %s.\n"
+"\n"
+"Voit yrittää avata sen seuraavilla liitännäisillä tai ohjelmilla."
 
 #: ../plugins/file-loader/plugin.c:164
 msgid "Open with:"
@@ -3706,7 +3718,7 @@ msgstr "Python-lähdekooditiedostot"
 
 #: ../plugins/file-loader/plugin.c:471
 msgid "Hyper text markup files"
-msgstr ""
+msgstr "Hypertekstin merkintätiedostot"
 
 #: ../plugins/file-loader/plugin.c:480
 msgid "Shell scripts files"
@@ -3752,7 +3764,7 @@ msgstr "Tiedoston lataaja"
 
 #: ../plugins/file-loader/plugin.c:1128
 msgid "New file, project and project components."
-msgstr ""
+msgstr "Uusi tiedosto, projekti ja projektin osat."
 
 #: ../plugins/file-loader/plugin.c:1137
 msgid "Open"
@@ -3764,11 +3776,11 @@ msgstr "Avaa ä_skettäinen"
 
 #: ../plugins/file-loader/plugin.c:1144
 msgid "Open recent file"
-msgstr ""
+msgstr "Avaa äskettäinen tiedosto"
 
 #: ../plugins/file-loader/plugin.c:1154
 msgid "Open recent files"
-msgstr "Avaa äskettäisiä tiedostoja"
+msgstr "Avaa äskettäin avattuja tiedostoja"
 
 #: ../plugins/file-manager/file-manager.glade.h:1
 msgid "<b>Filter</b>"
@@ -3988,11 +4000,12 @@ msgstr "Suoritustiedostoja ei annettu.\n"
 
 #: ../plugins/gdb/debugger.c:903
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr ""
+msgstr "Aloita vianetsintä avaamalla suoritustiedosto tai liittymällä "
+"prosessiin.\n"
 
 #: ../plugins/gdb/debugger.c:912
 msgid "There was an error whilst launching the debugger.\n"
-msgstr ""
+msgstr "Tapahtui virhe käynnistettäessä vianetsintätyökalua.\n"
 
 #: ../plugins/gdb/debugger.c:916
 msgid "Make sure 'gdb' is installed on the system.\n"
@@ -4085,16 +4098,19 @@ msgid ""
 "Anjuta terminal plugin is not installed. The program will be run without a "
 "terminal."
 msgstr ""
+"Anjuta pääteliitännäistä ei ole asennettu. Ohjelma suoritetaan ilman "
+"päätettä."
 
 #: ../plugins/gdb/plugin.c:117
 #, c-format
 msgid ""
 "Failed to create fifo file named %s. The program will run without a terminal."
 msgstr ""
+"FIF-tiedostoa %s ei voitu luoda. Ohjelma suoritetaan ilman päätettä."
 
 #: ../plugins/gdb/plugin.c:152
 msgid "Cannot start terminal for debugging."
-msgstr ""
+msgstr "Päätettä ei voi käynnistää vianetsintää varten."
 
 #. Action name
 #. Stock icon, if any
@@ -4237,7 +4253,7 @@ msgstr "Poista"
 #: ../plugins/gtodo/callback.c:97
 #, c-format
 msgid "Are you sure you want to remove all the completed todo items?"
-msgstr ""
+msgstr "Haluatko varmasti poistaa kaikki valmistuneet TODO-tehtävät?"
 
 #: ../plugins/gtodo/callback.c:98
 #, c-format
@@ -4245,6 +4261,8 @@ msgid ""
 "Are you sure you want to remove all the completed todo items in the category "
 "\"%s\"?"
 msgstr ""
+"Haluatko varmasti poistaa kaikki valmistuneet TODO-tehtävät luokasta "
+"\"%s\"?"
 
 #: ../plugins/gtodo/export.c:21
 msgid "Export to"
@@ -4301,7 +4319,7 @@ msgstr "Luokittelematon"
 #: ../plugins/gtodo/libgtodo.c:759
 #, c-format
 msgid "No Gtodo Client to save."
-msgstr ""
+msgstr "Tallennettavaa Gtodo-asiakasta ei ole."
 
 #: ../plugins/gtodo/libgtodo.c:778
 #, c-format
@@ -4341,12 +4359,12 @@ msgstr "<Uusi luokka (%d)>"
 #, c-format
 msgid "The following item is due in %i minute:"
 msgid_plural "The following item is due in %i minutes:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Seuraava tehtävä erääntyy %i minuutin kuluttua:"
+msgstr[1] "Seuraava tehtävä erääntyy %i minuutin kuluttua:"
 
 #: ../plugins/gtodo/notification.c:76
 msgid "The following item is due:"
-msgstr ""
+msgstr "Seuraava tehtävä erääntyy:"
 
 #. gtk_container_set_border_width(GTK_CONTAINER(hbox), 9);
 #: ../plugins/gtodo/notification.c:116
@@ -4432,20 +4450,20 @@ msgstr "Korosta"
 #. tb for highlighting due today
 #: ../plugins/gtodo/preferences.c:145
 msgid "Items that are due today"
-msgstr ""
+msgstr "Tänään erääntyvät tehtävät"
 
 #. tb for highlighting due
 #: ../plugins/gtodo/preferences.c:151
 msgid "Items that are past due"
-msgstr ""
+msgstr "Jo aiemmin erääntyneet tehtävät"
 
 #. tb for highlighting in x days
 #: ../plugins/gtodo/preferences.c:157
 #, c-format
 msgid "Items that are due in the next %i day"
 msgid_plural "Items that are due in the next %i days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Seuraavan %i päivän kuluessa erääntyvät tehtävät"
+msgstr[1] "Seuraavien %i päivän kuluessa erääntyvät tehtävät"
 
 #: ../plugins/gtodo/preferences.c:171
 msgid "Misc"
@@ -4453,7 +4471,7 @@ msgstr ""
 
 #: ../plugins/gtodo/preferences.c:174
 msgid "Auto purge completed items"
-msgstr ""
+msgstr "Tyhjennä valmistuneet automaattisesti"
 
 #: ../plugins/gtodo/preferences.c:179
 msgid "Purge items after"
@@ -4465,7 +4483,7 @@ msgstr "päivän kuluttua."
 
 #: ../plugins/gtodo/preferences.c:196 ../plugins/gtodo/preferences.c:198
 msgid "Auto Purge"
-msgstr ""
+msgstr "Automaattityhjennys"
 
 #: ../plugins/gtodo/preferences.c:210 ../plugins/gtodo/preferences.c:212
 msgid "Notification"
@@ -4480,7 +4498,7 @@ msgstr[1] ""
 
 #: ../plugins/gtodo/preferences.c:229
 msgid "Show Notification Tray Icon"
-msgstr ""
+msgstr "Näytä ilmoitusalueen kuvake"
 
 #: ../plugins/gtodo/tasklists.c:9
 msgid "Open a Task List"
@@ -4631,15 +4649,15 @@ msgstr "Tavallisten viestien ilmaisimen tyyli:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:7
 msgid "Number of first characters to show:"
-msgstr ""
+msgstr "Näytettävien ensimmäisten merkkien lukumäärä:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:8
 msgid "Number of last characters to show:"
-msgstr ""
+msgstr "Näytettävien viimeisten merkkien lukumäärä:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:9
 msgid "Tabs position:"
-msgstr ""
+msgstr "Sarkainten sijainti:"
 
 #: ../plugins/message-view/anjuta-message-manager-plugin.glade.h:14
 msgid "Truncate long messages"
@@ -4730,7 +4748,7 @@ msgstr "Paikka"
 
 #: ../plugins/patch/patch-plugin.c:133
 msgid "Please select the directory where the patch should be applied"
-msgstr ""
+msgstr "Valitse kansio, johon paikka toteutetaan"
 
 #: ../plugins/patch/patch-plugin.c:144
 #, c-format
@@ -4751,6 +4769,9 @@ msgid ""
 "Please review the failure messages.\n"
 "Examine and remove any rejected files.\n"
 msgstr ""
+"Paikkaus epäonnistui.\n"
+"Tarkista syntyneet virheviestit,\n"
+"tutki ja poista hylätyt tiedostot.\n"
 
 #: ../plugins/patch/patch-plugin.glade.h:1
 #: ../plugins/subversion/anjuta-subversion.glade.h:31
@@ -4767,11 +4788,11 @@ msgstr "_Työkalut"
 #. Stock icon, if any
 #: ../plugins/patch/plugin.c:63
 msgid "_Patch..."
-msgstr ""
+msgstr "_Paikkaus..."
 
 #: ../plugins/patch/plugin.c:94
 msgid "Patch files/directories"
-msgstr ""
+msgstr "Paikkaa tiedostoja tai kansioita"
 
 #: ../plugins/profiler/gprof-call-graph-view.c:312
 #: ../plugins/profiler/gprof-call-graph-view.c:322
@@ -4810,7 +4831,7 @@ msgstr "% ajasta"
 
 #: ../plugins/profiler/gprof-flat-profile-view.c:82
 msgid "Cumulative Seconds"
-msgstr ""
+msgstr "Kertyneet sekunnit"
 
 #. The number of seconds that this function, excluding other functions it
 #. * calls, takes to execute.
@@ -4827,7 +4848,7 @@ msgstr "omia ms/kutsu"
 #. Same as self ms/call, but includes called functions.
 #: ../plugins/profiler/gprof-flat-profile-view.c:143
 msgid "Total ms/call"
-msgstr ""
+msgstr "Kaikkiaan ms/kutsu"
 
 #: ../plugins/profiler/plugin.c:177
 msgid ""
@@ -4835,6 +4856,9 @@ msgid ""
 "\n"
 "Please check the path to this target's profiling data file."
 msgstr ""
+"Profilointitietoja ei saatu.\n"
+"\n"
+"Tarkista polku kohteen profilointitietojen tiedostoon."
 
 #: ../plugins/profiler/plugin.c:284
 msgid ""
@@ -4843,6 +4867,10 @@ msgid ""
 "Please ensure that the target is complied with profiling support and that it "
 "is run at least once."
 msgstr ""
+"Tällä kohteella ei ole profilointitietoja.\n"
+"\n"
+"Tarkista, että kohde on käännetty profilointituen kanssa ja että se on "
+"suoritettu ainakin kerran."
 
 #. Action name
 #. Stock icon, if any
@@ -4871,11 +4899,11 @@ msgstr "Poista tiedot"
 
 #: ../plugins/profiler/plugin.c:809
 msgid "Application Performance Profiler"
-msgstr ""
+msgstr "Ohjelman suorituskyvyn profilointi"
 
 #: ../plugins/profiler/plugin.c:831
 msgid "Flat Profile"
-msgstr ""
+msgstr "Tasainen profiili"
 
 #: ../plugins/profiler/plugin.c:836 ../plugins/profiler/profiler.glade.h:7
 msgid "Call Graph"
@@ -4919,7 +4947,7 @@ msgstr "<b>Ajan edistyminen</b>"
 
 #: ../plugins/profiler/profiler.glade.h:5
 msgid "Automatically refresh profile data display"
-msgstr ""
+msgstr "Päivitä profilointitietojen näyttö automaattisesti"
 
 #: ../plugins/profiler/profiler.glade.h:6
 #: ../plugins/subversion/anjuta-subversion.glade.h:21
@@ -4928,7 +4956,7 @@ msgstr "Selaa..."
 
 #: ../plugins/profiler/profiler.glade.h:8
 msgid "Do not propagate time for these symbols:"
-msgstr ""
+msgstr "Älä kasvata aikaa seuraaville symboleille:"
 
 #: ../plugins/profiler/profiler.glade.h:9
 msgid "Do not show static functions"
@@ -4945,6 +4973,10 @@ msgid ""
 "For information on symbol specifications, see section \n"
 "4.5 of the gprof info page. "
 msgstr ""
+"Syötä kullekin riville yhden symbolin määrittely.\n"
+"\n"
+"Lue lisätietoja symbolien määrittelyistä gprof-infosivun\n"
+"kappaleesta 4.5."
 
 #: ../plugins/profiler/profiler.glade.h:16
 #: ../plugins/valgrind/anjuta-valgrind.glade.h:6
@@ -4957,11 +4989,11 @@ msgstr "Profiloinnin valinnat"
 
 #: ../plugins/profiler/profiler.glade.h:18
 msgid "Propagate time for all symbols"
-msgstr ""
+msgstr "Kasvata kaikkien symbolien aikaa"
 
 #: ../plugins/profiler/profiler.glade.h:19
 msgid "Propagate time for only these symbols:"
-msgstr ""
+msgstr "Kasvata aikaa vain näille symboleille:"
 
 #: ../plugins/profiler/profiler.glade.h:20
 msgid "Select Other Target..."
@@ -4977,35 +5009,35 @@ msgstr "Näytä kaikki symbolit"
 
 #: ../plugins/profiler/profiler.glade.h:23
 msgid "Show functions that could have been called but never were"
-msgstr ""
+msgstr "Näytä funktioit, joita olisi voitu kutsua mutta ei kutsuttu"
 
 #: ../plugins/profiler/profiler.glade.h:24
 msgid "Show only these symbols:"
-msgstr ""
+msgstr "Näytä vain seuraavat symbolit:"
 
 #: ../plugins/profiler/profiler.glade.h:25
 msgid "Show uncalled functions"
-msgstr ""
+msgstr "Näytä kutsumattomat funktiot"
 
 #: ../plugins/profiler/profiler.glade.h:26
 msgid "Use this profiling data file:"
-msgstr ""
+msgstr "Käytä seuraavaa profilointitietojen tiedostoa:"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:1
 msgid "<b>Enter the base path of your project:</b>"
-msgstr ""
+msgstr "<b>Anna projektisi juuripolku:</b>"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:2
 msgid "<b>Enter the project name:</b>"
-msgstr ""
+msgstr "<b>Anna projektisi nimi:</b>"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:3
 msgid "Import Project"
-msgstr ""
+msgstr "Tuo projekti"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
 msgid "This assistent will import an existing project into Anjuta."
-msgstr ""
+msgstr "Tämä apulainen tuo aikaisemman projektin anjutaan."
 
 #: ../plugins/project-import/project-import.c:98
 #, c-format
@@ -5014,6 +5046,9 @@ msgid ""
 "select a different directory, or try upgrading to a newer version of the "
 "Gnome Build Framework."
 msgstr ""
+"Annetulle kansiolle (%s) ei löytynyt kelvollista projektin "
+"taustajärjestelmää. Valitse muu kansio, tai yritä päivittää Gnomen "
+"käännösympäristön uusimpaan versioon."
 
 #: ../plugins/project-import/project-import.c:120
 #, c-format
@@ -5022,12 +5057,17 @@ msgid ""
 "Project type: %s\n"
 "Project path: %s\n"
 msgstr ""
+"Projektin nimi: %s\n"
+"Projektin tyyppi: %s\n"
+"Projektin polku: %s\n"
 
 #: ../plugins/project-import/project-import.c:306
 msgid ""
 "Generation of project file failed. Cannot find an appropriate project "
 "template to use. Please make sure your version of Anjuta is up to date."
 msgstr ""
+"Projektitiedostoa ei voitu luoda. Sopivaa projektin mallia ei löydy. "
+"Tarkista, että anjutan versiosi on ajan tasalla."
 
 #: ../plugins/project-import/project-import.c:329
 #, c-format
@@ -5040,11 +5080,13 @@ msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
 "to the project directory."
 msgstr ""
+"Tiedostoa \"%s\" ei voi kirjoittaa: %s. Tarkista kirjoitusoikeutesi "
+"projektikansioon."
 
 #: ../plugins/project-manager/plugin.c:343
 #, c-format
 msgid "Failed to refresh project: %s"
-msgstr ""
+msgstr "Projektia ei voitu päivittää: %s"
 
 #: ../plugins/project-manager/plugin.c:366
 #: ../plugins/project-manager/plugin.c:748
@@ -5054,7 +5096,7 @@ msgstr "Projektin ominaisuudet"
 #: ../plugins/project-manager/plugin.c:381
 #: ../plugins/project-manager/plugin.c:473
 msgid "No properties available for this target"
-msgstr ""
+msgstr "Tälle kohteelle ei ole saatavilla ominaisuuksia"
 
 #: ../plugins/project-manager/plugin.c:458
 msgid "Target properties"
@@ -5070,7 +5112,7 @@ msgstr "Sulje"
 
 #: ../plugins/project-manager/plugin.c:502
 msgid "No properties available for this group"
-msgstr ""
+msgstr "Tälle ryhmälle ei ole saatavilla ominaisuuksia"
 
 #: ../plugins/project-manager/plugin.c:586
 msgid ""
@@ -5119,6 +5161,9 @@ msgid ""
 "\n"
 "The source file will not be deleted from file system."
 msgstr ""
+"Lähde: %s\n"
+"\n"
+"Lähetiedostoa ei poisteta tiedostojärjestelmästä."
 
 #: ../plugins/project-manager/plugin.c:651
 #, c-format
@@ -5126,15 +5171,17 @@ msgid ""
 "Failed to remove '%s':\n"
 "%s"
 msgstr ""
+"Kohdetta \"%s\" ei voitu poistaa:\n"
+"%s"
 
 #: ../plugins/project-manager/plugin.c:707
 msgid "The file you selected is a link and can't be added to the project"
-msgstr ""
+msgstr "Valitsemasi tiedosto on linkki eikä sitä voi lisätä projektiin"
 
 #: ../plugins/project-manager/plugin.c:709
 #, c-format
 msgid "Failed to retrieve URI info of %s: %s"
-msgstr ""
+msgstr "Kohteen %s URI-tietoja ei voitu hakea: %s"
 
 #: ../plugins/project-manager/plugin.c:744
 msgid "_Project"
@@ -5147,7 +5194,7 @@ msgstr "_Ominaisuudet"
 
 #: ../plugins/project-manager/plugin.c:753
 msgid "Refresh project manager tree"
-msgstr ""
+msgstr "Päivitä projektinhallinnan puu"
 
 #: ../plugins/project-manager/plugin.c:758
 msgid "Add _Group..."
@@ -5187,7 +5234,7 @@ msgstr "Sulje projekti"
 
 #: ../plugins/project-manager/plugin.c:782
 msgid "Properties of group/target/source"
-msgstr ""
+msgstr "Ryhmän, kohteen tai lähteen ominaisuudet"
 
 #: ../plugins/project-manager/plugin.c:787
 msgid "_Add To Project"
@@ -7119,7 +7166,8 @@ msgstr "Valgrind"
 msgid ""
 "No executable target selected for debugging with Valgrind. Please select one."
 msgstr ""
-"Suoritettavaa kohdetta ei ole valittu valgrind-vianetsintää varten. Valitse joku."
+"Suoritettavaa kohdetta ei ole valittu valgrind-vianetsintää varten. Valitse "
+"joku."
 
 #: ../plugins/valgrind/plugin.c:341
 msgid ""
@@ -7209,7 +7257,8 @@ msgstr "Lapsiprosessia \"%s\" ei voi luoda: %s"
 
 #: ../plugins/valgrind/vgactions.c:168
 msgid "Reached the end of the input file or error in parsing valgrind output."
-msgstr "Syötetiedosto loppui kesken tai valgrindin tulostetta ei voitu tulkita."
+msgstr ""
+"Syötetiedosto loppui kesken tai valgrindin tulostetta ei voitu tulkita."
 
 #: ../plugins/valgrind/vgactions.c:177
 msgid "Process exited."
@@ -7225,8 +7274,8 @@ msgid ""
 "Valgrind binary [%s] does not exist. Please check the preferences or install "
 "Valgrind package."
 msgstr ""
-"Ohjelmaa valgrind (%s) ei löydy. Tarkista asetukset tai asenna "
-"valgrind-paketti."
+"Ohjelmaa valgrind (%s) ei löydy. Tarkista asetukset tai asenna valgrind-"
+"paketti."
 
 #: ../plugins/valgrind/vgactions.c:241 ../plugins/valgrind/vgactions.c:248
 msgid "Could not get the right pipe for the process."
@@ -7448,8 +7497,8 @@ msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 msgstr ""
-"Ohjetta ei voi näyttää. Tarkista, että anjutan dokumentaatiopaketti "
-"on asennettu. Voi noutaa sen osoitteesta http://anjuta.org"
+"Ohjetta ei voi näyttää. Tarkista, että anjutan dokumentaatiopaketti on "
+"asennettu. Voi noutaa sen osoitteesta http://anjuta.org"
 
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
@@ -7679,8 +7728,8 @@ msgstr "Älä lataa viimeisintä projektia ja tiedostoja käynnistettäessä"
 
 #: ../src/main.c:102
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr "Sammuttaa anjutan kokonaan, vapauttaen kaikki resurssit "
-"(vianetsintää varten)"
+msgstr ""
+"Sammuttaa anjutan kokonaan, vapauttaen kaikki resurssit (vianetsintää varten)"
 
 #: ../src/main.c:314
 msgid "- Integrated Development Environment"
