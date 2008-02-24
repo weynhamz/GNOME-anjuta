@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-24 06:19+0300\n"
+"POT-Creation-Date: 2008-02-24 11:30+0300\n"
 "PO-Revision-Date: 2006-11-01 06:40+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -583,7 +583,7 @@ msgstr "Sovelluksen pixmap-tiedostoa ei löydy: %s"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:1
 msgid "<b>Build</b>"
-msgstr "<b>Kooste</b>"
+msgstr "<b>Koosta</b>"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:2
 msgid "<b>Scratchbox Options</b>"
@@ -599,7 +599,7 @@ msgstr "Argumentit:"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:5
 msgid "Highlight build message locations in editor"
-msgstr "Korosta koosteviestien kohdat muokkaimessa"
+msgstr "Korosta koostamisviestien kohdat muokkaimessa"
 
 #: ../plugins/build-basic-autotools/anjuta-build-basic-autotools-plugin.glade.h:6
 msgid "Install as root:"
@@ -2817,7 +2817,7 @@ msgstr "Kommentoi valittu teksti virtana"
 #. menu title
 #: ../plugins/document-manager/plugin.c:258
 msgid "_Line Number..."
-msgstr "_Rivinumero..."
+msgstr "_Riville..."
 
 #: ../plugins/document-manager/plugin.c:259
 msgid "Go to a particular line in the editor"
@@ -3667,8 +3667,8 @@ msgid ""
 msgstr ""
 "<b>Tiedostoa \"%s\" ei voi avata.</b>\n"
 "\n"
-"Liitännäistä, toimintoa tai ohjelmaa tämän tiedostotyypin avaamiseksi "
-"ei ole määritelty.\n"
+"Liitännäistä, toimintoa tai ohjelmaa tämän tiedostotyypin avaamiseksi ei ole "
+"määritelty.\n"
 "\n"
 "MIME-tyyppi: %s.\n"
 "\n"
@@ -3772,7 +3772,7 @@ msgstr "Avaa"
 
 #: ../plugins/file-loader/plugin.c:1143
 msgid "Open _Recent"
-msgstr "Avaa ä_skettäinen"
+msgstr "Avaa _viimeisimmät"
 
 #: ../plugins/file-loader/plugin.c:1144
 msgid "Open recent file"
@@ -4000,8 +4000,8 @@ msgstr "Suoritustiedostoja ei annettu.\n"
 
 #: ../plugins/gdb/debugger.c:903
 msgid "Open an executable or attach to a process to start debugging.\n"
-msgstr "Aloita vianetsintä avaamalla suoritustiedosto tai liittymällä "
-"prosessiin.\n"
+msgstr ""
+"Aloita vianetsintä avaamalla suoritustiedosto tai liittymällä prosessiin.\n"
 
 #: ../plugins/gdb/debugger.c:912
 msgid "There was an error whilst launching the debugger.\n"
@@ -4105,8 +4105,7 @@ msgstr ""
 #, c-format
 msgid ""
 "Failed to create fifo file named %s. The program will run without a terminal."
-msgstr ""
-"FIF-tiedostoa %s ei voitu luoda. Ohjelma suoritetaan ilman päätettä."
+msgstr "FIF-tiedostoa %s ei voitu luoda. Ohjelma suoritetaan ilman päätettä."
 
 #: ../plugins/gdb/plugin.c:152
 msgid "Cannot start terminal for debugging."
@@ -4261,8 +4260,7 @@ msgid ""
 "Are you sure you want to remove all the completed todo items in the category "
 "\"%s\"?"
 msgstr ""
-"Haluatko varmasti poistaa kaikki valmistuneet TODO-tehtävät luokasta "
-"\"%s\"?"
+"Haluatko varmasti poistaa kaikki valmistuneet TODO-tehtävät luokasta \"%s\"?"
 
 #: ../plugins/gtodo/export.c:21
 msgid "Export to"
@@ -5275,6 +5273,8 @@ msgid ""
 "Failed to parse project (the project is opened, but there will be no project "
 "view) %s: %s\n"
 msgstr ""
+"Projektia %s ei voitu lukea (projekti on avattu, mutta projekti ei tule "
+"näkymään): %s\n"
 
 #: ../plugins/project-manager/plugin.c:1196
 #: ../plugins/project-manager/plugin.c:1271
@@ -5290,11 +5290,11 @@ msgstr "Virhe suljettaessa porjektia: %s"
 
 #: ../plugins/project-manager/plugin.c:1422
 msgid "Project manager actions"
-msgstr ""
+msgstr "Projektinhallinan toiminnot"
 
 #: ../plugins/project-manager/plugin.c:1430
 msgid "Project manager popup actions"
-msgstr ""
+msgstr "Projektinhallinnan ponnahdusikkunan toiminnot"
 
 #: ../plugins/project-manager/plugin.c:2351
 msgid "Loaded Project... Initializing"
@@ -5310,7 +5310,7 @@ msgstr "<b>Projektin kuvaus:</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:3
 msgid "<b>Select the type of application to be developed</b>"
-msgstr ""
+msgstr "<b>Valitse, minkä tyyppistä sovellusta kehitetään</b>"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:4
 msgid "Application Assistent"
@@ -5351,6 +5351,10 @@ msgid ""
 "structure for the application. Please answer the questions carefully, as it "
 "may not be possible to change some of the settings later."
 msgstr ""
+"Sovellusapulainen luo projektille yksinkertaisen rungon, joka sisältää "
+"tarvittavat käännöstiedostot. Apulainen kysyy projektin alustavan "
+"rakenteen yksityiskohtia. Vastaa kysymyksiin huolellisesti, koska joitain "
+"asetuksista ei voi muuttaa jälkikäteen."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 #: ../plugins/project-wizard/templates/translatable-strings.h:70
@@ -5359,7 +5363,7 @@ msgstr "Versio:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:15
 msgid "label"
-msgstr ""
+msgstr "otsikko"
 
 #: ../plugins/project-wizard/druid.c:177
 msgid ""
@@ -5376,7 +5380,7 @@ msgstr "Projektin tyyppi: "
 #: ../plugins/project-wizard/druid.c:303
 #, c-format
 msgid "Unable to find any project template in %s"
-msgstr ""
+msgstr "Projektimalleja ei löytynyt kohteesta %s"
 
 #: ../plugins/project-wizard/druid.c:479
 #, c-format
@@ -5389,6 +5393,8 @@ msgid ""
 "Directory \"%s\" is not empty. Project creation could fail if some files "
 "cannot be written. Do you want to continue?"
 msgstr ""
+"Kansi \"%s\" ei ole tyhjä. Projektin luonti voi epäonnistua, jos joitain "
+"tiedostoja ei voi kirjoittaa. Haluatko silti jatkaa?"
 
 #: ../plugins/project-wizard/druid.c:514
 #, c-format
@@ -5397,15 +5403,15 @@ msgstr "Tiedosto \"%s\" on jo olemassa. Haluatko korvata sen?"
 
 #: ../plugins/project-wizard/druid.c:836
 msgid "Unable to build project assistent user interface."
-msgstr ""
+msgstr "Projektinapulaisen käyttöliittymää ei voi luoda."
 
 #: ../plugins/project-wizard/install.c:387
 msgid "New project has been created successfully."
-msgstr ""
+msgstr "Uusi projekti luotiin onnistuneesti."
 
 #: ../plugins/project-wizard/install.c:394
 msgid "New project creation has failed."
-msgstr ""
+msgstr "Uuden projektin luonti epäonnistui."
 
 #: ../plugins/project-wizard/install.c:440
 #, c-format
@@ -5415,12 +5421,12 @@ msgstr "Ohitetaan %s: tiedosto on jo olemassa"
 #: ../plugins/project-wizard/install.c:481
 #, c-format
 msgid "Creating %s ... Fail to create directory"
-msgstr ""
+msgstr "Luodaan %s ... kansiota ei voitu luoda"
 
 #: ../plugins/project-wizard/install.c:497
 #, c-format
 msgid "Creating %s (using AutoGen)... %s"
-msgstr ""
+msgstr "Luodaan %s (käyttäen autogen:iä)... %s"
 
 #: ../plugins/project-wizard/install.c:502
 #, c-format
@@ -5484,13 +5490,16 @@ msgstr "Perustiedot"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:10
 msgid "Berkeley Software Distribution License (BSD)"
-msgstr ""
+msgstr "Berkeley Software Distribution License (BSD)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:11
 msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
 msgstr ""
+"Pilkulla erotettu luettelo liitännäisistä, jotka tämä liitännäinen "
+"vaatii. Luettelo voi olla joko käyttöliittymän ensisijainen nimi tai "
+"liitännäisen sijainti (kirjasto:luokka)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "Configure external packages"
@@ -5526,7 +5535,7 @@ msgstr "Sähköpostiosoite:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:21
 msgid "GCJ needs to know which class contains the main() function"
-msgstr ""
+msgstr "GCJ:n täytyy tietää mikä luokka sisältää main()-funktion"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:22
 msgid "General Project Information"
@@ -5538,6 +5547,8 @@ msgid ""
 "the required version of the package. For example, 'libgnomeui-2.0' or "
 "'libgnomeui-2.0 >= 2.2.0'"
 msgstr ""
+"Anna projektisi vaatiman paketin nimi. Voit myös kertoa vaaditun paketin "
+"version, esimerkiksi \"libgnomeui-2.0\" tai \"libgnomeui-2.0 >= 2.2.0\"."
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:25
 msgid "Icon File:"
@@ -5573,11 +5584,11 @@ msgstr "Pääluokka"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:34
 msgid "Mininum SDL version required"
-msgstr ""
+msgstr "Pienin vaadittu SDL-versio"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:35
 msgid "Name of the value to watch"
-msgstr ""
+msgstr "Tarkkailtavan arvon nimi"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:36
 msgid "No license"
@@ -5585,7 +5596,7 @@ msgstr "Ei lisenssiä"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:37
 msgid "Options for project build system"
-msgstr ""
+msgstr "Projektin rakennusjärjestelmän valitsimet"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:38
 msgid "Plugin Class Name:"
@@ -5609,15 +5620,15 @@ msgstr "Liitännäisluokan nimi:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:43
 msgid "Plugin has menus or/and toolbars"
-msgstr ""
+msgstr "Liitännäisellä on valikoita tai työkalupalkkeja"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:44
 msgid "Plugin interfaces to implement"
-msgstr ""
+msgstr "Toteutettavat liitännäisen liitynnät"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:46
 msgid "Project directory, output file etc."
-msgstr ""
+msgstr "Projektihakemisto, tulostiedosto jne."
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:47
 msgid "Project directory:"
@@ -5628,6 +5639,8 @@ msgid ""
 "Project name must not contain spaces, because it will be the name of the "
 "project build target (executable, library etc.)"
 msgstr ""
+"Projektin nimi ei saa sisältää välilyöntejä, koska siitä muodostetaan "
+"projektin koontikohteen nimi (suoritettava ohjelma, kirjasto jne.)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:49
 msgid "Project name:"
@@ -5639,51 +5652,51 @@ msgstr "Projektin valinnat"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:51
 msgid "Require Package:"
-msgstr ""
+msgstr "Vaadi paketti:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:52
 msgid "Require SDL version:"
-msgstr ""
+msgstr "Vaadi SDL-versio:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Require SDL_gfx library"
-msgstr ""
+msgstr "Vaadi SDL_gfx-kirjasto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Require SDL_gfx:"
-msgstr ""
+msgstr "Vaadi SDL-gfx:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Require SDL_image library"
-msgstr ""
+msgstr "Vaadi SDL_image-kirjasto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "Require SDL_image:"
-msgstr ""
+msgstr "Vaadi SDL_image:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Require SDL_mixer library"
-msgstr ""
+msgstr "Vaadi SDL_mixer-kirjasto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Require SDL_mixer:"
-msgstr ""
+msgstr "Vaadi SDL_mixer:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:59
 msgid "Require SDL_net library"
-msgstr ""
+msgstr "Vaadi SDL_net-kirjasto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Require SDL_net:"
-msgstr ""
+msgstr "Vaadi SDL_net:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Require SDL_ttf library"
-msgstr ""
+msgstr "Vaadi SDL_ttf-kirjasto"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Require SDL_ttf:"
-msgstr ""
+msgstr "Vaadi SDL_ttf:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:63
 msgid "Select code license"
@@ -5695,16 +5708,17 @@ msgstr "Tarkkailtavat ympäristömuuttujat"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:65
 msgid "Use libglade for the UI"
-msgstr ""
+msgstr "Käytä libglade:a käyttöliittymälle"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Use pkg-config to add library support from other packages"
-msgstr ""
+msgstr "Käytä pkg-config:iaa muiden pakettien kirjastojen lisäämiseen"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid ""
 "Use the libglade-2.0 library to load the glade interface file at runtime"
 msgstr ""
+"Käytä libglade-2.0-kirjastoa lataamaan glade-käyttöliittymä suoritettaessa"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Value Name:"
@@ -5716,11 +5730,11 @@ msgstr "Tarkkailtavat arvot"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:71
 msgid "Whether the plugin has menus or toolbars"
-msgstr ""
+msgstr "Onko liitännäisellä valikoita tai työkalupalkkeja"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
-msgstr ""
+msgstr "GObject-pohjaisten luokkien API-dokumentaatio luodaan gtk-doc:in avulla"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "project name"
@@ -5730,131 +5744,131 @@ msgstr "projektin nimi"
 #. Stock icon, if any
 #: ../plugins/sample1/plugin.c:56
 msgid "_Sample action"
-msgstr ""
+msgstr "_Esimerkkitoiminto"
 
 #. Display label
 #. short-cut
 #: ../plugins/sample1/plugin.c:58
 msgid "Sample action"
-msgstr ""
+msgstr "Esimerkkitoiminto"
 
 #: ../plugins/sample1/plugin.c:79
 msgid "Sample file operations"
-msgstr ""
+msgstr "Esimerkki tiedostotoiminnoista"
 
 #: ../plugins/sample1/plugin.c:85
 msgid "SamplePlugin"
-msgstr ""
+msgstr "EsimerkkiLiitännäinen"
 
 #: ../plugins/search/anjuta-search.glade.h:1
 msgid "<b>Actions</b>"
-msgstr ""
+msgstr "<b>Toiminnot</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:2
 msgid "<b>File Filter</b>"
-msgstr ""
+msgstr "<b>Tiedostosuodatin</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:4
 msgid "<b>Parameters</b>"
-msgstr ""
+msgstr "<b>Parametrit</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:5
 msgid "<b>Scope</b>"
-msgstr ""
+msgstr "<b>Alue</b>"
 
 #. User can select variables that contain lists of files, so this is a combined noun
 #: ../plugins/search/anjuta-search.glade.h:7
 msgid "<b>Search variable</b>"
-msgstr ""
+msgstr "<b>Hakumuuttuja</b>"
 
 #: ../plugins/search/anjuta-search.glade.h:8
 #: ../plugins/search/search-replace.c:95
 msgid "Backward"
-msgstr ""
+msgstr "Taaksepäin"
 
 #: ../plugins/search/anjuta-search.glade.h:9
 msgid "Basic Search & Replace"
-msgstr ""
+msgstr "Tavallinen haku ja korvaus"
 
 #: ../plugins/search/anjuta-search.glade.h:10
 msgid "Case insensitive"
-msgstr ""
+msgstr "Huomioi kirjainkoko"
 
 #: ../plugins/search/anjuta-search.glade.h:11
 msgid "Choose Directories:"
-msgstr ""
+msgstr "Valitse kansiot:"
 
 #: ../plugins/search/anjuta-search.glade.h:12
 msgid "Choose Files:"
-msgstr ""
+msgstr "Valitse tiedostot:"
 
 #: ../plugins/search/anjuta-search.glade.h:13
 msgid "Expand regex back references"
-msgstr ""
+msgstr "Laajenna säännöllisen lausekkeen taakseviittaukset"
 
 #: ../plugins/search/anjuta-search.glade.h:14
 msgid "Find & Replace"
-msgstr ""
+msgstr "Etsi ja korvaa"
 
 #: ../plugins/search/anjuta-search.glade.h:15
 #: ../plugins/search/search-replace.c:94
 msgid "Forward"
-msgstr ""
+msgstr "Eteenpäin"
 
 #. the order of these matters - it must match the order of the corresponding
 #. radio buttons on another page
 #: ../plugins/search/anjuta-search.glade.h:16
 #: ../plugins/search/search-replace.c:93
 msgid "Full Buffer"
-msgstr ""
+msgstr "Täysi puskuri"
 
 #: ../plugins/search/anjuta-search.glade.h:17
 msgid "Greedy matching"
-msgstr ""
+msgstr "Ahne täsmäys"
 
 #: ../plugins/search/anjuta-search.glade.h:18
 msgid "Ignore Binary Files"
-msgstr ""
+msgstr "Älä huomioi binääritiedostoja"
 
 #: ../plugins/search/anjuta-search.glade.h:19
 msgid "Ignore Directories:"
-msgstr ""
+msgstr "Jätä kansiot huomioimatta:"
 
 #: ../plugins/search/anjuta-search.glade.h:20
 msgid "Ignore Files:"
-msgstr ""
+msgstr "Jätä tiedostot huomioimatta:"
 
 #: ../plugins/search/anjuta-search.glade.h:21
 msgid "Ignore Hidden Directories"
-msgstr ""
+msgstr "Älä huomioi piilokansioita"
 
 #: ../plugins/search/anjuta-search.glade.h:22
 msgid "Ignore Hidden Files"
-msgstr ""
+msgstr "Älä huomioi piilotiedostoja"
 
 #: ../plugins/search/anjuta-search.glade.h:23
 msgid "Match at start of word"
-msgstr ""
+msgstr "Täsmää sanan alusta"
 
 #: ../plugins/search/anjuta-search.glade.h:24
 msgid "Match complete lines"
-msgstr ""
+msgstr "Täsmää kokonaisia rivejä"
 
 #: ../plugins/search/anjuta-search.glade.h:25
 msgid "Match complete words"
-msgstr ""
+msgstr "Täsmää kokonaiset sanat"
 
 #: ../plugins/search/anjuta-search.glade.h:26
 msgid "Maximum Actions"
-msgstr ""
+msgstr "Toimintojen enimmäismäärä"
 
 #: ../plugins/search/anjuta-search.glade.h:27
 msgid "Modify"
-msgstr ""
+msgstr "Muokkaa"
 
 #: ../plugins/search/anjuta-search.glade.h:28
 msgid "New Name:"
-msgstr ""
+msgstr "Uusi nimi:"
 
 #: ../plugins/search/anjuta-search.glade.h:29
 msgid "No Limit"
@@ -5862,45 +5876,45 @@ msgstr "Ei rajaa"
 
 #: ../plugins/search/anjuta-search.glade.h:30
 msgid "Regular Expression"
-msgstr ""
+msgstr "Säännöllinen lauseke"
 
 #: ../plugins/search/anjuta-search.glade.h:31
 msgid "Replace With:"
-msgstr ""
+msgstr "Korvaa arvolla:"
 
 #: ../plugins/search/anjuta-search.glade.h:32
 msgid "Search Action:"
-msgstr ""
+msgstr "Etsinnän toiminto:"
 
 #: ../plugins/search/anjuta-search.glade.h:33
 msgid "Search Direction:"
-msgstr ""
+msgstr "Etsinnän suunta"
 
 #. This is "the search expression" (noun)
 #: ../plugins/search/anjuta-search.glade.h:35
 msgid "Search Expression"
-msgstr ""
+msgstr "Etsittävä lauseke"
 
 #. This is "the search expression" (noun)
 #: ../plugins/search/anjuta-search.glade.h:37
 msgid "Search Expression:"
-msgstr ""
+msgstr "Etsittävä lauseke:"
 
 #: ../plugins/search/anjuta-search.glade.h:38
 msgid "Search In:"
-msgstr ""
+msgstr "Etsi sijainnista:"
 
 #: ../plugins/search/anjuta-search.glade.h:39
 msgid "Search Recursively"
-msgstr ""
+msgstr "Etsi rekursiivisesti"
 
 #: ../plugins/search/anjuta-search.glade.h:40
 msgid "Search Target"
-msgstr ""
+msgstr "Etsinnän kohde"
 
 #: ../plugins/search/anjuta-search.glade.h:41
 msgid "Setting"
-msgstr ""
+msgstr "Asetus"
 
 #: ../plugins/search/plugin.c:194
 msgid "_Find..."
@@ -5908,7 +5922,7 @@ msgstr "_Haku..."
 
 #: ../plugins/search/plugin.c:195
 msgid "Search for a string or regular expression in the editor"
-msgstr ""
+msgstr "Etsi merkkijonoa tai säännöllistä lauseketta muokkaimessa"
 
 #: ../plugins/search/plugin.c:197
 msgid "Find _Next"
@@ -5930,6 +5944,7 @@ msgstr "Etsi ja _korvaa..."
 msgid ""
 "Search for and replace a string or regular expression with another string"
 msgstr ""
+"Etsi ja korvaa merkkijono tai säännöllinen lauseke toisella merkkijonolla"
 
 #: ../plugins/search/plugin.c:208 ../plugins/search/plugin.c:209
 msgid "Search and Replace"
