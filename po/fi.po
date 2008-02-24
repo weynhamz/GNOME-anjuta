@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-22 17:41+0300\n"
+"POT-Creation-Date: 2008-02-24 05:23+0300\n"
 "PO-Revision-Date: 2006-11-01 06:40+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -292,9 +292,9 @@ msgid ""
 "many suitable plugins. Removing the preferred plugin will let Anjuta prompt "
 "you again to choose different plugin."
 msgstr ""
-"Nämä ovat liitännäiset, jotka valittiin anjutan kysyessä valitsemaan "
-"yhden useista sopivista liitännäisistä. Oletusliitännisen poisto "
-"sallii anjutan kysyä oletusliitännäistä uudestaan."
+"Nämä ovat liitännäiset, jotka valittiin anjutan kysyessä valitsemaan yhden "
+"useista sopivista liitännäisistä. Oletusliitännisen poisto sallii anjutan "
+"kysyä oletusliitännäistä uudestaan."
 
 #: ../libanjuta/anjuta-plugin-manager.c:1346
 #: ../libanjuta/anjuta-plugin-manager.c:1448
@@ -331,8 +331,8 @@ msgstr "Saatavilla olevat liitännäiset"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2203
 msgid "Currently available plugins found in plugin paths"
-msgstr "Saatavilla olevat liitännäiset, jotka löytyivät liitännäisten "
-"hakupoluilta"
+msgstr ""
+"Saatavilla olevat liitännäiset, jotka löytyivät liitännäisten hakupoluilta"
 
 #: ../libanjuta/anjuta-plugin-manager.c:2209
 msgid "Activated plugins"
@@ -2034,8 +2034,8 @@ msgstr "Tietoja _ytimen käyttäjärakenteesta"
 
 #: ../plugins/debug-manager/plugin.c:927
 msgid "Display the contents of kernel 'struct user' for current child"
-msgstr "Näytä nykyisen lapsiprosessin \"struct user\"-rakenteen "
-"sisältö ytimessä"
+msgstr ""
+"Näytä nykyisen lapsiprosessin \"struct user\"-rakenteen sisältö ytimessä"
 
 #: ../plugins/debug-manager/plugin.c:941
 #: ../plugins/debug-manager/plugin.c:1041
@@ -2455,7 +2455,7 @@ msgstr "_Etsi ohjeesta"
 
 #: ../plugins/devhelp/plugin.c:277
 msgid "Search for a term in help"
-msgstr ""
+msgstr "Etsi käsitettä ohjeesta"
 
 #: ../plugins/devhelp/plugin.c:341
 msgid "Help operations"
@@ -2492,7 +2492,7 @@ msgstr ""
 "Kaikki siihen tehdyt muutokset hukataan."
 
 #: ../plugins/document-manager/action-callbacks.c:288
-#: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:212
+#: ../plugins/editor/text_editor.c:340 ../plugins/sourceview/sourceview.c:215
 msgid "_Reload"
 msgstr "Lataa _uudestaan"
 
@@ -2746,7 +2746,8 @@ msgstr "Muuta rivinvaihtomerkit yleisimmäksi"
 
 #: ../plugins/document-manager/plugin.c:212
 msgid "Convert End Of Line characters to majority of the EOL found in the file"
-msgstr "Muuta rivinvaihtomerkit yleisimmäksi tiedostosta löytyväksi "
+msgstr ""
+"Muuta rivinvaihtomerkit yleisimmäksi tiedostosta löytyväksi "
 "rivinvaihtomerkiksi"
 
 #: ../plugins/document-manager/plugin.c:217
@@ -2885,7 +2886,7 @@ msgstr "Toista pikahaku"
 #: ../plugins/document-manager/plugin.c:289 ../plugins/gtodo/interface.c:164
 #: ../plugins/tools/anjuta-tools.glade.h:21
 #: ../plugins/valgrind/vgrule-list.c:405 ../src/anjuta-actions.h:30
-#: ../plugins/language-support-cpp-java/plugin.c:1612
+#: ../plugins/language-support-cpp-java/plugin.c:1596
 msgid "_Edit"
 msgstr "_Muokkaa"
 
@@ -3010,11 +3011,11 @@ msgstr "näytä tai piilota rivin loppumerkit"
 
 #: ../plugins/document-manager/plugin.c:348
 msgid "Line _Wrapping"
-msgstr ""
+msgstr "_Rivitys"
 
 #: ../plugins/document-manager/plugin.c:349
 msgid "Enable/disable line wrapping"
-msgstr ""
+msgstr "Käytetäänkö rivitystä"
 
 #: ../plugins/document-manager/plugin.c:354
 msgid "Zoom In"
@@ -3066,11 +3067,11 @@ msgstr "_Kirjanmerkki"
 
 #: ../plugins/document-manager/plugin.c:380
 msgid "_Toggle Bookmark"
-msgstr ""
+msgstr "_Kirjanmerkki rivillä"
 
 #: ../plugins/document-manager/plugin.c:381
 msgid "Toggle a bookmark at the current line position"
-msgstr ""
+msgstr "Valitse, onko tämänhetkisellä rivillä kirjanmerkki"
 
 #: ../plugins/document-manager/plugin.c:383
 msgid "_First Bookmark"
@@ -3135,7 +3136,7 @@ msgstr "Muokkaimen koodin kommentointi"
 
 #: ../plugins/document-manager/plugin.c:421
 msgid "Editor navigations"
-msgstr ""
+msgstr "Muokkaimen navigointitoiminnot"
 
 #: ../plugins/document-manager/plugin.c:422
 msgid "Editor edit operations"
@@ -3219,7 +3220,7 @@ msgstr "Automaattitallennus valmistui"
 #: ../plugins/document-manager/search-box.c:385
 #, c-format
 msgid "Search for \"%s\" reached end and was continued on top."
-msgstr ""
+msgstr "Tekstiä \"%s\" haettiin loppuun asti ja jatkettiin alusta."
 
 #: ../plugins/document-manager/search-box.c:391
 #, c-format
@@ -3227,6 +3228,8 @@ msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
 "found."
 msgstr ""
+"Tekstiä \"%s\" haettiin loppuun asti ja jatkettiin alusta, mutta yhtään "
+"uutta osumaa ei löytynyt."
 
 #: ../plugins/document-manager/search-box.c:448
 msgid "Case sensitive"
@@ -3263,7 +3266,7 @@ msgstr "<b>Tulostusvalinnat</b>"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:8
 msgid "Add line number every:"
-msgstr ""
+msgstr "Lisää rivinumerot joka:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:9
 msgid "Add page header"
@@ -3296,23 +3299,23 @@ msgstr "Korostettu"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:16
 msgid "Calltip background:"
-msgstr ""
+msgstr "Kutsuvihjeen tausta:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:17
 msgid "Caret (cursor) color:"
-msgstr ""
+msgstr "Kursorin väri:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:18
 msgid "Caret blink period in ms"
-msgstr ""
+msgstr "Kursorin vilkuntaväli (ms)"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:19
 msgid "Choose autocomplete for single match"
-msgstr ""
+msgstr "Valitse yhden osuman automaattitäydennys"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:20
 msgid "Collapse all code folds on file open"
-msgstr ""
+msgstr "Pienennä kaikki koodin laskostukset avattaessa tiedosto"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:21
 msgid "Colors & Fonts"
@@ -3324,20 +3327,20 @@ msgstr "Väri"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:23
 msgid "Compact folding"
-msgstr ""
+msgstr "Tiivis laskostus"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:24
 msgid "Disable syntax highlighting"
-msgstr ""
+msgstr "Älä käytä syntaksiväritystä"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:25
 msgid "Draw line below folded lines"
-msgstr ""
+msgstr "Piirrä viiva laskostettujen rivien alle"
 
 #. Column where a vertical line will be drawn to indicate that lines should not be longer
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:27
 msgid "Edge column"
-msgstr ""
+msgstr "Reunasarake"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:28
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:8
@@ -3346,7 +3349,7 @@ msgstr "Muokkain"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:29
 msgid "Editor caret (cursor) width in pixels"
-msgstr ""
+msgstr "Muokkaimen kursorin leveys pikseleinä"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:30
 msgid "Enable HTML tags folding"
@@ -3370,7 +3373,7 @@ msgstr "Käytä kommenttien laskostusta"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:35
 msgid "Enable line wrap"
-msgstr ""
+msgstr "Käytä rivitystä"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:36
 msgid "Enable python comments folding"
@@ -3429,15 +3432,15 @@ msgstr "Säilytä aiempi sisennys"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:51
 msgid "Margin Fold visible"
-msgstr ""
+msgstr "Laskostus näkyy marginaalissa"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:52
 msgid "Margin Linenum visible"
-msgstr ""
+msgstr "Rivinumero näkyy marginaalissa"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:53
 msgid "Margin Marker visible"
-msgstr ""
+msgstr "Merkinnät näkyvät marginaalissa"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:54
 msgid "Mode:"
@@ -3461,83 +3464,83 @@ msgstr ""
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:60
 msgid "Pressing backspace un-indents"
-msgstr ""
+msgstr "Askelpalautin pienentää sisennystä"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:61
 msgid "Pressing tab inserts indentation"
-msgstr ""
+msgstr "Sarkain kasvattaa sisennystä"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:62
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:19
 msgid "Printing"
-msgstr ""
+msgstr "Tulostus"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:63
 msgid "Select highlight style to edit:"
-msgstr ""
+msgstr "Valitse muokattava korostustyyli:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:64
 msgid "Selection background:"
-msgstr ""
+msgstr "Valinnan tausta:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:65
 msgid "Selection foreground:"
-msgstr ""
+msgstr "Valinnan edusta:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:66
 msgid "Strip trailling spaces on file save"
-msgstr ""
+msgstr "Poista tyhjeet lopusta tallennettaessa"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:67
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:26
 msgid "Tab size in spaces:"
-msgstr ""
+msgstr "Sarkaimen koko välilyönteinä:"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:68
 msgid "Underlined"
-msgstr ""
+msgstr "Alleviivattu"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:69
 msgid "Use default"
-msgstr ""
+msgstr "Käytä oletusta"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:70
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:28
 msgid "Use tabs for indentation"
-msgstr ""
+msgstr "Sisennä sarkainmerkeillä"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:71
 msgid "View EOL chars"
-msgstr ""
+msgstr "Näytä rivinvaihtomerkit"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:72
 msgid "View Indentation Guides"
-msgstr ""
+msgstr "Näytä sisennysohjaimet"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:73
 msgid "View Line Wrap"
-msgstr ""
+msgstr "Näytä rivitys"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:74
 msgid "View Whitespaces"
-msgstr ""
+msgstr "Näytä tyhjeet"
 
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:75
 msgid "View indentation whitespaces"
-msgstr ""
+msgstr "Näytä sisennyksen tyhjeet"
 
 #. Next bookmark at the end of the file will jump to the first bookmark from the beginning
 #: ../plugins/editor/anjuta-editor-scintilla.glade.h:77
 msgid "Wrap bookmarks search around"
-msgstr ""
+msgstr "Jatka viimeisestä ensimmäiseen kirjanmerkkiin"
 
 #: ../plugins/editor/print.c:482
 msgid "No file to print!"
-msgstr ""
+msgstr "Ei tulostettavaa tiedostoa!"
 
 #: ../plugins/editor/print.c:505
 msgid "Unable to get text buffer for printing"
-msgstr ""
+msgstr "Tulostettavaa tekstipuskuria ei saatu"
 
 #: ../plugins/editor/print.c:759
 #, c-format
@@ -3557,7 +3560,7 @@ msgstr "Tulostuksen esikatselu"
 msgid "Scintilla Editor"
 msgstr "Scintilla-muokkain"
 
-#: ../plugins/editor/text_editor.c:326 ../plugins/sourceview/sourceview.c:198
+#: ../plugins/editor/text_editor.c:326 ../plugins/sourceview/sourceview.c:201
 #, c-format
 msgid ""
 "The file '%s' on the disk is more recent than\n"
@@ -3570,7 +3573,7 @@ msgstr ""
 
 #: ../plugins/editor/text_editor.c:1343
 msgid "Could not get file info"
-msgstr ""
+msgstr "Tietoja tiedostosta ei saatu"
 
 #. DEBUG_PRINT ("This file is too big. Unable to allocate memory.");
 #: ../plugins/editor/text_editor.c:1350
@@ -3583,7 +3586,7 @@ msgstr "Tiedostoa ei voitu avata"
 
 #: ../plugins/editor/text_editor.c:1365
 msgid "Error while reading from file"
-msgstr ""
+msgstr "Virhe luettaessa tiedostosta"
 
 #: ../plugins/editor/text_editor.c:1411
 msgid ""
@@ -3591,6 +3594,9 @@ msgid ""
 "supported. Please check if the encoding of file is in the supported "
 "encodings list. If not, add it from the preferences."
 msgstr ""
+"Tiedosto ei vaikuta olevan tekstitiedosto tai sen merkistökoodaus "
+"ei ole tuettu. Tarkista, että tiedoston merkistökoodaus on tuettujen "
+"koodausten luettelossa. Jos sitä ei löydy, voit lisätä sen asetuksista."
 
 #: ../plugins/editor/text_editor.c:1576
 msgid "Loading file..."
@@ -5888,23 +5894,23 @@ msgstr "Etsi tiedostoista..."
 
 #: ../plugins/search/plugin.c:212
 msgid "Search for a string in multiple files or directories"
-msgstr ""
+msgstr "Etsi merkkijonoa useista tiedostoista tai kansioista"
 
 #: ../plugins/search/plugin.c:215
 msgid "Ne_xt Occurrence"
-msgstr "_Seuraava osuma"
+msgstr "_Seuraava sijainti"
 
 #: ../plugins/search/plugin.c:216
 msgid "Find the next occurrence of current word"
-msgstr ""
+msgstr "Etsi tämänhetkisen sanan seuraava sijainti"
 
 #: ../plugins/search/plugin.c:219
 msgid "Pre_vious Occurrence"
-msgstr "_Edellinen osuma"
+msgstr "_Edellinen sijainti"
 
 #: ../plugins/search/plugin.c:220
 msgid "Find the previous occurrence of current word"
-msgstr ""
+msgstr "Etsi tämänhetkisen sanan edellinen sijainti"
 
 #: ../plugins/search/plugin.c:247
 msgid "Searching..."
@@ -5958,7 +5964,7 @@ msgstr "Valittu seuraava osuma "
 
 #: ../plugins/search/search-replace.c:113
 msgid "Bookmark all matched lines"
-msgstr ""
+msgstr "Lisää kirjanmerkki täsmääviin riveihin"
 
 #: ../plugins/search/search-replace.c:114
 msgid "Mark all matches"
@@ -5996,32 +6002,32 @@ msgstr "_Korvaa kaikki"
 #: ../plugins/search/search-replace.c:1050
 #, c-format
 msgid "The match \"%s\" was not found. Wrap search around the document?"
-msgstr ""
+msgstr "Osumaa haulle \"%s\" ei löytynyt. Jatketaanko tiedoston alusta?"
 
 #: ../plugins/search/search-replace.c:1070
 #, c-format
 msgid "The match \"%s\" was not found."
-msgstr ""
+msgstr "Osumaa haulle \"%s\" ei löytynyt."
 
 #: ../plugins/search/search-replace.c:1085
 msgid "The maximum number of results has been reached."
-msgstr ""
+msgstr "Tuloksia löytyi suurin mahdollinen määrä."
 
 #: ../plugins/search/search-replace.c:1098
 #, c-format
 msgid "%d match has been replaced."
 msgid_plural "%d matches have been replaced."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "korvattiin %d osuma."
+msgstr[1] "korvattiin %d osumaa."
 
 #: ../plugins/search/search-replace.c:1264
 msgid "Unable to build user interface for Search And Replace"
-msgstr ""
+msgstr "Haun ja korvauksen käyttöliittymää ei voitu luoda"
 
 #. bad bad luck...
 #: ../plugins/sourceview/anjuta-document-saver.c:521
 msgid "Could not obtain backup filename"
-msgstr ""
+msgstr "Varmuuskopion tiedostonimeä ei voitu selvittää"
 
 #: ../plugins/sourceview/anjuta-document.c:486
 #: ../plugins/sourceview/anjuta-document.c:567
@@ -6033,22 +6039,22 @@ msgstr "Tallentamaton tiedosto %d"
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: ../plugins/sourceview/sourceview.c:326
+#: ../plugins/sourceview/sourceview.c:329
 msgid "Loading"
 msgstr "Ladataan"
 
-#: ../plugins/sourceview/sourceview.c:349
+#: ../plugins/sourceview/sourceview.c:352
 msgid "Saving..."
 msgstr "Tallennetaan..."
 
-#: ../plugins/sourceview/sourceview.c:356
+#: ../plugins/sourceview/sourceview.c:359
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
-msgstr ""
+msgstr "Tiedostoa %s on muokattu muusta ohjelmasta. Tallennetaanko silti?"
 
 #: ../plugins/sourceview/sourceview-print.c:47
 msgid "Preparing pages for printing"
-msgstr ""
+msgstr "Valmistellaan sivua tulostusta varten"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:1
 msgid "<b>Colors:</b>"
@@ -6060,7 +6066,7 @@ msgstr "<b>Kirjasin:</b>"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:3
 msgid "<b>Indentation and auto-format options</b>"
-msgstr ""
+msgstr "<b>Sisennyksen ja automaattimuotoilun valinnat</b>"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:6
 msgid "<b>View</b>"
@@ -6140,7 +6146,7 @@ msgstr "Käytä teeman kirjasinta"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:31
 msgid "Wrap long lines to fit on paper"
-msgstr ""
+msgstr "Rivitä pitkät rivit paperille"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:1
 msgid "<b>Branch/Tag URL:</b>"
@@ -6204,7 +6210,7 @@ msgstr "<b>Subversionin valitsimet</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:18
 msgid "<b>View the Log for File/Folder:</b>"
-msgstr ""
+msgstr "<b>Näytä tiedoston tai kansion loki:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:19
 msgid "<b>Working Copy Path:</b>"
@@ -6240,7 +6246,7 @@ msgstr "Pakota"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:33
 msgid "Ignore ancestry"
-msgstr ""
+msgstr "Jätä vanhat versiot huomiotta"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:34
 msgid "Merge changes into working copy"
@@ -6276,7 +6282,7 @@ msgstr "Versiovarasto päähaara"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:43
 msgid "Repository authorization"
-msgstr ""
+msgstr "Versiovaraston tunnistautuminen"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:44
 msgid "Retrieving status..."
@@ -6312,7 +6318,7 @@ msgstr "Siirry haaraan tai tagiin"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:52
 msgid "Trust server"
-msgstr ""
+msgstr "Luota palvelimeen"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:53
 msgid "Update file/directory"
@@ -6871,7 +6877,7 @@ msgstr "Muokkaa skriptiä"
 
 #: ../plugins/tools/anjuta-tools.glade.h:3
 msgid "Edit command as script in Anjuta on close"
-msgstr ""
+msgstr "Muokkaa komentoa skriptinä anjutassa suljettaessa"
 
 #: ../plugins/tools/anjuta-tools.glade.h:5
 msgid "Menu Items:"
@@ -6983,7 +6989,7 @@ msgstr "Skriptiä ei voi muotata"
 
 #: ../plugins/tools/editor.c:953
 msgid "New accelerator..."
-msgstr ""
+msgstr "Uusi pikanäppäin..."
 
 #: ../plugins/tools/editor.c:978
 msgid "Unable to build user interface for tool editor"
@@ -7021,7 +7027,7 @@ msgstr "Suoritettava komento: "
 #: ../plugins/tools/execute.c:506
 #, c-format
 msgid "Completed unsuccessful with status code %d\n"
-msgstr ""
+msgstr "Suoritus valmistui epäonnistuen tilakoodilla %d\n"
 
 #: ../plugins/tools/execute.c:626
 msgid "Unable to create a buffer, command aborted"
@@ -7113,12 +7119,15 @@ msgstr "Valgrind"
 msgid ""
 "No executable target selected for debugging with Valgrind. Please select one."
 msgstr ""
+"Suoritettavaa kohdetta ei ole valittu valgrind-vianetsintää varten. Valitse joku."
 
 #: ../plugins/valgrind/plugin.c:341
 msgid ""
 "There aren't any available executable targets for this project.\n"
 "Please create one first."
 msgstr ""
+"Tälle projektille ei löydy yhtäkään suoritettavaa kohdetta.\n"
+"Luo ensin suoritettava kohde."
 
 #: ../plugins/valgrind/plugin.c:353
 msgid "Choose file where to save Valgrind log"
@@ -7166,19 +7175,19 @@ msgstr "Muokkaa sääntöjä"
 
 #: ../plugins/valgrind/plugin.c:550
 msgid "Use Valgrind debug tool"
-msgstr ""
+msgstr "Käytä valgrind-vianetsintätyökalua"
 
 #: ../plugins/valgrind/preferences.c:123
 msgid "<b>Valgrind general preferences</b>"
-msgstr ""
+msgstr "<b>Valgrindin yleisasetukset</b>"
 
 #: ../plugins/valgrind/preferences.c:129
 msgid "Valgrind binary file path:"
-msgstr ""
+msgstr "Valgrind-ohjelman tiedostopolku:"
 
 #: ../plugins/valgrind/preferences.c:143
 msgid "Choose Valgrind Binary File Path..."
-msgstr ""
+msgstr "Valitse valgrind-ohjelman tiedostopolku..."
 
 #: ../plugins/valgrind/preferences.c:162
 msgid "Preview"
@@ -7200,7 +7209,7 @@ msgstr "Lapsiprosessia \"%s\" ei voi luoda: %s"
 
 #: ../plugins/valgrind/vgactions.c:168
 msgid "Reached the end of the input file or error in parsing valgrind output."
-msgstr ""
+msgstr "Syötetiedosto loppui kesken tai valgrindin tulostetta ei voitu tulkita."
 
 #: ../plugins/valgrind/vgactions.c:177
 msgid "Process exited."
@@ -7208,7 +7217,7 @@ msgstr "Prosessi sulkeutui."
 
 #: ../plugins/valgrind/vgactions.c:197
 msgid "Could not get the right valgrind-binary gconf key:"
-msgstr ""
+msgstr "Oikeaa valgrind-binary gconf-avainta ei löytynyt:"
 
 #: ../plugins/valgrind/vgactions.c:205
 #, c-format
@@ -7216,10 +7225,12 @@ msgid ""
 "Valgrind binary [%s] does not exist. Please check the preferences or install "
 "Valgrind package."
 msgstr ""
+"Ohjelmaa valgrind (%s) ei löydy. Tarkista asetukset tai asenna "
+"valgrind-paketti."
 
 #: ../plugins/valgrind/vgactions.c:241 ../plugins/valgrind/vgactions.c:248
 msgid "Could not get the right pipe for the process."
-msgstr ""
+msgstr "Oikeaa putkea prosessille ei löytynyt."
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:197
 #, c-format
@@ -7227,6 +7238,8 @@ msgid ""
 "Invalid syntax in settings '%s'.\n"
 "Please enter a value of the form \"<integer>,<integer>,<integer>\"."
 msgstr ""
+"Virheellinen syntaksi asetuksessa \"%s\":\n"
+"Syötä arvo muodossa \"<kokonaisluku>,<kokonaisluku>,<kokonaisluku>\"."
 
 #: ../plugins/valgrind/vgcachegrindprefs.c:234
 msgid "Override default settings"
@@ -7297,19 +7310,19 @@ msgstr "Näytä"
 
 #: ../plugins/valgrind/vggeneralprefs.c:199
 msgid "callers in stack trace"
-msgstr ""
+msgstr "kutsujat pinon jäljityksessä"
 
 #: ../plugins/valgrind/vggeneralprefs.c:206
 msgid "Stop showing errors if there are too many"
-msgstr ""
+msgstr "Lopeta virheiden näyttäminen, jos niitä on liikaa"
 
 #: ../plugins/valgrind/vggeneralprefs.c:214
 msgid "Round malloc sizes to next word"
-msgstr ""
+msgstr "Pyöristä muistivarausten koko seuraavaan sanaan"
 
 #: ../plugins/valgrind/vggeneralprefs.c:222
 msgid "Trace any child processes forked off by the program being debugged"
-msgstr ""
+msgstr "Jäljitä lapsiprosessit, jotka tutkittava ohjelma on luonut"
 
 #: ../plugins/valgrind/vggeneralprefs.c:230
 msgid "Track open file descriptors"
@@ -7321,7 +7334,7 @@ msgstr "Lisää aikaleimat lokiviesteihin"
 
 #: ../plugins/valgrind/vggeneralprefs.c:246
 msgid "Call __libc_freeres() at exit before checking for memory leaks"
-msgstr ""
+msgstr "Kutsu __libc_freeres() suljettaessa ennen muistivuotojen tarkistusta"
 
 #: ../plugins/valgrind/vggeneralprefs.c:254
 msgid "Suppressions File:"
@@ -7337,11 +7350,11 @@ msgstr "Helgrind"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:170
 msgid "Assume thread stacks are used privately"
-msgstr ""
+msgstr "Oleta että säiepinoja käytetään yksityisesti"
 
 #: ../plugins/valgrind/vghelgrindprefs.c:179
 msgid "Show location of last word access on error:"
-msgstr ""
+msgstr "Näytä viimeisen sanan haun sijainti virheen tapahtuessa:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:189
 msgid "Memcheck"
@@ -7357,7 +7370,7 @@ msgstr "Vuotojen tarkistus:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:210
 msgid "Show reachable blocks in leak check"
-msgstr ""
+msgstr "Näytä vuototarkastuksessa saavutettavissa olevat lohkot"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:218
 msgid "Leak resolution:"
@@ -7365,15 +7378,15 @@ msgstr "Vuodon selvitys:"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:236
 msgid "Keep up to"
-msgstr ""
+msgstr "Säilytä enintään"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:248
 msgid "bytes in the queue after being free()'d"
-msgstr ""
+msgstr "tavuja jonossa free()-kutsun jälkeen"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:255
 msgid "Work around bugs generated by gcc 2.96"
-msgstr ""
+msgstr "Kierrä gcc-2.96-kääntäjän aiheuttamat virheet"
 
 #: ../plugins/valgrind/vgrule-editor.c:197
 msgid "Grow"
@@ -7435,6 +7448,8 @@ msgid ""
 "Unable to display help. Please make sure Anjuta documentation package is "
 "install. It can be downloaded from http://anjuta.org"
 msgstr ""
+"Ohjetta ei voi näyttää. Tarkista, että anjutan dokumentaatiopaketti "
+"on asennettu. Voi noutaa sen osoitteesta http://anjuta.org"
 
 #: ../src/anjuta.c:495
 msgid "Loaded Session..."
@@ -7475,7 +7490,7 @@ msgstr "Älä lataa viimeisintä istuntoa käynnistettäessä"
 #. Style of the buttons/tabs used to select docked windows in anjuta
 #: ../src/anjuta.glade.h:10
 msgid "Dock switcher style: "
-msgstr ""
+msgstr "Telakan vaihtimen tyyli:"
 
 #: ../src/anjuta.glade.h:12
 msgid ""
@@ -7581,7 +7596,7 @@ msgstr "Anjutan _kotisivu"
 
 #: ../src/anjuta-actions.h:77
 msgid "Online documentation and resources"
-msgstr ""
+msgstr "Dokumentaatio ja muut resurssit verkossa"
 
 #: ../src/anjuta-actions.h:80
 msgid "Report _Bugs/Patches/Requests"
@@ -7664,7 +7679,8 @@ msgstr "Älä lataa viimeisintä projektia ja tiedostoja käynnistettäessä"
 
 #: ../src/main.c:102
 msgid "Shutdown anjuta properly releasing all resources (for debugging)"
-msgstr ""
+msgstr "Sammuttaa anjutan kokonaan, vapauttaen kaikki resurssit "
+"(vianetsintää varten)"
 
 #: ../src/main.c:314
 msgid "- Integrated Development Environment"
@@ -7734,30 +7750,30 @@ msgstr "Älykäs sisennys"
 msgid "Statement indentation size in spaces:"
 msgstr "Lausekkeen sisennyksen koko välilyönteinä:"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1618
+#: ../plugins/language-support-cpp-java/plugin.c:1602
 msgid "_AutoComplete"
 msgstr "_Automaattitäydennys"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1619
+#: ../plugins/language-support-cpp-java/plugin.c:1603
 msgid "AutoComplete the current word"
 msgstr "Täydennä tämänhetkinen sana automaattisesti"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1625
+#: ../plugins/language-support-cpp-java/plugin.c:1609
 msgid "Auto Indent"
 msgstr "Automaattisisennys"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1626
+#: ../plugins/language-support-cpp-java/plugin.c:1610
 msgid "Auto indent current line or selection based on indentation settings"
 msgstr ""
 "Sisennä tämänhetkinen rivi tai valinta automaattisesti sisennysasetuksetn "
 "mukaisesti"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1668
+#: ../plugins/language-support-cpp-java/plugin.c:1652
 msgid "C++/Java Assistance"
 msgstr "C++- ja java-apulainen"
 
-#: ../plugins/language-support-cpp-java/plugin.c:1756
-#: ../plugins/language-support-cpp-java/plugin.c:1765
+#: ../plugins/language-support-cpp-java/plugin.c:1740
+#: ../plugins/language-support-cpp-java/plugin.c:1749
 msgid "C/C++/Java/Vala"
 msgstr "C/C++/Java/Vala"
 
@@ -7783,7 +7799,7 @@ msgstr "Anjutan devhelp-liitännäinen."
 
 #: ../plugins/document-manager/anjuta-document-manager.plugin.in.h:2
 msgid "Provides document management capabilities."
-msgstr ""
+msgstr "Tarjoaa dokumenttien hallintaominaisuudet."
 
 #: ../plugins/file-wizard/anjuta-file-wizard.plugin.in.h:1
 msgid "Anjuta File Assistent Plugin"
@@ -7981,4 +7997,3 @@ msgstr "Erilaisten tiedostojen lataaja"
 #: ../plugins/debug-manager/anjuta-debug-manager.plugin.in.h:1
 msgid "Debug Manager plugin."
 msgstr "Vianetsinnän hallintaliitännäinen."
-
