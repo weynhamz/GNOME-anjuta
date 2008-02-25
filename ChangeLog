@@ -1,3 +1,8 @@
+2008-02-25  Sébastien Granjoux  <seb.sfo@free.fr>
+
+	* plugins/debug-manager/breakpoints.c:
+	Fix #518329: Crash when adding breakpoint and other similar bugs
+
 2008-02-25  Johannes Schmid <jhs@gnome.org>
 
 	* tagmanager/entry.c: (updateSortedFlag), (isCtagsLine),

@@ -253,14 +253,15 @@ breakpoint_item_new_from_uri (BreakpointsDBase *bd, const gchar* uri, guint line
 {
 	BreakpointItem *bi;
 	
-	g_return_val_if_fail (uri != NULL, NULL);
-
 	bi = breakpoint_item_new (bd);
 	
-	bi->uri = g_strdup (uri);
 	bi->bp.type = IANJUTA_DEBUGGER_BREAKPOINT_ON_LINE | IANJUTA_DEBUGGER_BREAKPOINT_WITH_ENABLE;
-	bi->bp.file = gnome_vfs_get_local_path_from_uri (uri);
-	bi->bp.line = line;
+	if (uri != NULL)
+	{
+		bi->uri = g_strdup (uri);
+		bi->bp.file = gnome_vfs_get_local_path_from_uri (uri);
+		bi->bp.line = line;
+	}
 	bi->bp.enable = enable;
 	
 	return bi;
@@ -318,7 +319,10 @@ breakpoint_item_new_from_string (BreakpointsDBase *bd, const gchar* string, cons
 				bi->bp.type = IANJUTA_DEBUGGER_BREAKPOINT_ON_FUNCTION;
 			}
 			bi->bp.file = g_strndup (string, ptr - string);
-			bi->uri = gnome_vfs_get_uri_from_local_path (bi->bp.file);
+			if (g_path_is_absolute (bi->bp.file))
+			{
+				bi->uri = gnome_vfs_get_uri_from_local_path (bi->bp.file);
+			}
 		}
 	}
 	
@@ -579,7 +583,7 @@ breakpoints_dbase_set_all_in_editor (BreakpointsDBase* bd, IAnjutaEditor* te)
 		
 			gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 
-			if ((bi->editor == NULL) && (strcmp (uri, bi->uri) == 0))
+			if ((bi->editor == NULL) && (bi->uri != NULL) && (strcmp (uri, bi->uri) == 0))
 			{
 				bi->editor = te;
 				bi->handle = -1;
@@ -1007,7 +1011,7 @@ breakpoints_dbase_add_breakpoint (BreakpointsDBase *bd,  BreakpointItem *bi)
 		gchar *uri;
 		
 		uri = ianjuta_file_get_uri (IANJUTA_FILE (ed), NULL);
-		if ((uri != NULL) && (strcmp (uri, bi->uri) == 0))
+		if ((uri != NULL) && (bi->uri != NULL) && (strcmp (uri, bi->uri) == 0))
 		{
 			bi->editor = ed;
 			bi->handle = -1;
@@ -1171,7 +1175,7 @@ breakpoints_dbase_find_breakpoint_from_line (BreakpointsDBase *bd, const gchar* 
 		
 			gtk_tree_model_get (model, &iter, DATA_COLUMN, &bi, -1);
 			
-			if ((line == bi->bp.line) && (strcmp (uri, bi->uri) == 0)) return bi;
+			if ((line == bi->bp.line) && (bi->uri != NULL) && (strcmp (uri, bi->uri) == 0)) return bi;
 		} while (gtk_tree_model_iter_next (model, &iter));
 	}
 	
@@ -1461,23 +1465,20 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 		gtk_widget_hide (location_entry);
 		gtk_widget_show (location_label);
 	}
-		
-	if (bi->uri != NULL)
+	
+	if (bi->bp.type & IANJUTA_DEBUGGER_BREAKPOINT_ON_LINE)
 	{
-		if (bi->bp.line != 0)
-		{
-			// file and line
-			location = g_strdup_printf ("%s:%d", bi->bp.file, bi->bp.line);
-		}
-		else
-		{
-			// file and function
-			location = g_strdup_printf ("%s:%s", bi->bp.file, bi->bp.function);
-		}
-	}	
-	else if (bi->bp.address != 0)
+		/* file and line */
+		location = g_strdup_printf ("%s:%d", bi->bp.file, bi->bp.line);
+	}
+	else if (bi->bp.type & IANJUTA_DEBUGGER_BREAKPOINT_ON_FUNCTION)
 	{
-		// address
+		/* file and function */
+		location = g_strdup_printf ("%s:%s", bi->bp.file, bi->bp.function);
+	}
+	else if (bi->bp.type & IANJUTA_DEBUGGER_BREAKPOINT_ON_ADDRESS)
+	{
+		/* address */
 		location = g_strdup_printf ("*%lx", bi->bp.address);
 	}
 
@@ -1521,7 +1522,7 @@ breakpoints_dbase_edit_breakpoint (BreakpointsDBase *bd, BreakpointItem *bi)
 				
 				if (*new_location != '\0')
 				{
-					bi = breakpoint_item_new_from_string (bd, new_location, uri);
+					bi = breakpoint_item_new_from_string (bd, new_location, NULL);
 				}
 			}
 		}
