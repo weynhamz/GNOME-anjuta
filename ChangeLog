@@ -1,3 +1,16 @@
+=== anjuta 2.3.5 ===
+
+2008-02-25  Naba Kumar  <naba@gnome.org>
+
+	* NEWS: Updated for release 2.3.5
+	* configure.in: Bumped version to 2.3.5
+
+	* plugins/build-basic-autotools/build-basic-autotools.c:
+	(on_editor_changed): Avoid accessing text which is greater than
+	valid range.
+
+	* plugins/editor/text_editor_cbs.[c,h]: Removed dead code.
+
 2008-02-25  Sébastien Granjoux  <seb.sfo@free.fr>
 
 	* plugins/debug-manager/breakpoints.c:

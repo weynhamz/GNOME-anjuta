@@ -25,19 +25,10 @@
 gboolean
 on_text_editor_scintilla_focus_in (GtkWidget* scintilla, GdkEvent *event,
 								   TextEditor *te);
-void
-on_text_editor_text_changed            (GtkEditable     *editable,
-                                        gpointer         user_data);
-
 gboolean
 on_text_editor_text_event              (GtkWidget       *widget,
                                         GdkEvent        *event,
                                         gpointer         user_data);
-
-void
-on_text_editor_insert_text (GtkEditable * text,
-							const gchar * insertion_text,
-							gint length, gint * pos, TextEditor * te);
 
 gboolean
 on_text_editor_text_buttonpress_event  (GtkWidget       *widget,

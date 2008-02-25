@@ -1934,9 +1934,9 @@ on_editor_changed (IAnjutaEditor *editor, IAnjutaIterable *position,
 		ianjuta_indicable_set (IANJUTA_INDICABLE (editor), begin_pos,
 							   end_pos, IANJUTA_INDICABLE_NONE, NULL);
 	}
-	DEBUG_PRINT ("Editor changed: line = %d, added = %d,"
-				 " length = %d, lines = %d, text = \'%s\'",
-				 line, added, length, lines, text);
+	DEBUG_PRINT ("Editor changed: line number = %d, added = %d,"
+				 " text length = %d, number of lines = %d",
+				 line, added, length, lines);
 	g_object_unref (begin_pos);
 	g_object_unref (end_pos);
 }

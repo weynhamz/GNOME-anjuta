@@ -86,27 +86,6 @@ on_text_editor_text_event (GtkWidget * widget,
 	return TRUE;
 }
 
-void
-on_text_editor_text_changed (GtkEditable * editable, gpointer user_data)
-{
-	TextEditor *te = TEXT_EDITOR (user_data);
-	if (text_editor_is_saved (te))
-	{
-		//FIXME:
-		// anjuta_update_title ();
-		// update_main_menubar ();
-		text_editor_update_controls (te);
-	}
-}
-
-void
-on_text_editor_insert_text (GtkEditable * text,
-			    const gchar * insertion_text,
-			    gint length, gint * pos, TextEditor * te)
-{
-}
-
-
 static void 
 scintilla_uri_dropped (TextEditor *te, const char *uri)
 {

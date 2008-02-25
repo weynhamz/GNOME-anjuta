@@ -1,3 +1,50 @@
+Anjuta 2.3.5 (25 Feb 2008) -- Naba Kumar
+-----------------------------------------
+
+Updates:
+========
+Translation updates: si, es, oc, ne, kn, de, en_GB, fi, be and pt_BR
+
+Bugfixes:
+=========
+* Fixed #515867 - Anjuta dies on startup
+* Fixed #515868 - File browser only shows icons when activated
+* Fix anjuta_launcher_set_encoding() and cleaned-up. Mostly backported
+  from symbol-db branch
+* Fixed #515954 - create_global_tags.sh: wrong anjuta-tags path
+* Move anjuta-shell to noinst_PROGRAMS as it is just a test
+* Indent lines after comments correctly
+* Set indentation size correctly in sourceview plugin, when tab size is
+  set by language support plugin
+* Indent /* */ comments correctly for multilines.
+* Fixed #504905 - Ctrl-I (Auto Indent) doesn't indent properly after
+  C++ public: and private:
+* Fixed #516014 - Output in UTF-8 format to avoid hangs with the editor.
+* Fixed #516377 - Status bar does not change its status of 'Search for
+  .. continued at top'
+* Fixed some memory leaks 
+* Fixed #516128 - crash in Anjuta IDE: selected profiler as the...
+* Fixed #516737: Import project doesn't load project with space in name
+* Fixed #516743: Import project keeps an old date on project file
+* Fixed #515207: Add a new project window screenshoot
+* Fixed #515993: "Add package" button is "Add Package" in code
+* Fixed #516727: "Build All" is "Build Project" in code
+* Fixed #516728: "Clean All" is "Clean Project" in code
+* Fixed #516728: "Autogenerate" is "Run Autogenerate..." in code
+* Fixed #516730: Fix note title 
+* Fixed #516630 - Selection custom binary in profiler is not user-friendly.
+* Fixed #516641 - Valgrind: Load Log does not clear list
+* Fixed implementation of get_character and return value of iiter_first()
+  and iiter_last();
+* Cleaned implementation of char-added signal by using "insert-text" signal
+  instead of filtering "key-press-event"
+* Some bugfixes and clean-ups in comment indentation code
+* Load executable in gdb with space in path name 
+* Fixed "char-added" signal to pass the correct iterator
+* Set breakpoint in file with uncommon characters in path name
+* Avoid a glib warning if no project is loaded
+* Fixed #518329: Crash when adding breakpoint and other similar bugs
+
 Anjuta 2.3.4 (11 Feb 2008) -- Naba Kumar
 -----------------------------------------
 
