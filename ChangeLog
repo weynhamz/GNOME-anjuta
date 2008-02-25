@@ -1,3 +1,10 @@
+2008-02-25  Johannes Schmid <jhs@gnome.org>
+
+	* tagmanager/entry.c: (updateSortedFlag), (isCtagsLine),
+	(copyBytes), (copyFile), (openTagFile), (makeTagEntry):
+	Never call error() which calls exit()
+	#517646 – Anjuta exists with code 2 when i try to import gedit
+
 2008-02-23  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/sourceview/sourceview.c: (ieditor_insert):

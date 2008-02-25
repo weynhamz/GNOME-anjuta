@@ -180,7 +180,8 @@ static void updateSortedFlag (
 			fpos_t nextLine;
 
 			if (fgetpos (fp, &nextLine) == -1 || fsetpos (fp, &startOfLine) == -1)
-				error (WARNING, "Failed to update 'sorted' pseudo-tag");
+				/*error (WARNING, "Failed to update 'sorted' pseudo-tag");*/
+				return;
 			else
 			{
 				fpos_t flagLocation;
@@ -276,7 +277,8 @@ static boolean isCtagsLine (const char *const line)
 	char *const fields = xMalloc (NUM_FIELDS * fieldLength, char);
 
 	if (fields == NULL)
-		error (FATAL, "Cannot analyze tag file");
+		/* error (FATAL, "Cannot analyze tag file");*/
+		return FALSE;
 	else
 	{
 #define field(x)		(fields + ((size_t) (x) * fieldLength))
@@ -348,7 +350,8 @@ extern void copyBytes (FILE* const fromFp, FILE* const toFp, const long size)
 					remaining : (long) BufferSize;
 		numRead = fread (buffer, (size_t) 1, (size_t) toRead, fromFp);
 		if (fwrite (buffer, (size_t)1, (size_t)numRead, toFp) < (size_t)numRead)
-			error (FATAL | PERROR, "cannot complete write");
+			/* error (FATAL | PERROR, "cannot complete write");*/
+			return;
 		if (remaining > 0)
 			remaining -= numRead;
 	} while (numRead == toRead  &&  remaining != 0);
@@ -359,12 +362,14 @@ extern void copyFile (const char *const from, const char *const to, const long s
 {
 	FILE* const fromFp = fopen (from, "rb");
 	if (fromFp == NULL)
-		error (FATAL | PERROR, "cannot open file to copy");
+		/*error (FATAL | PERROR, "cannot open file to copy");*/
+		return;
 	else
 	{
 		FILE* const toFp = fopen (to, "wb");
 		if (toFp == NULL)
-			error (FATAL | PERROR, "cannot open copy destination");
+			/*error (FATAL | PERROR, "cannot open copy destination");*/
+			return;
 		else
 		{
 			copyBytes (fromFp, toFp, size);
@@ -394,9 +399,10 @@ extern void openTagFile (void)
 		TagFile.name = eStrdup (Option.tagFileName);
 		fileExists = doesFileExist (TagFile.name);
 		if (fileExists  &&  ! isTagFile (TagFile.name))
-			error (FATAL,
+			/*error (FATAL,
 			  "\"%s\" doesn't look like a tag file; I refuse to overwrite it.",
-				  TagFile.name);
+				  TagFile.name);*/
+		return;
 
 		if (Option.etags)
 		{
@@ -426,8 +432,8 @@ extern void openTagFile (void)
 		}
 		if (TagFile.fp == NULL)
 		{
-			error (FATAL | PERROR, "cannot open tag file");
-			exit (1);
+			/* error (FATAL | PERROR, "cannot open tag file");*/
+			return;
 		}
 	}
 	if (TagsToStdout)
@@ -817,7 +823,8 @@ extern void makeTagEntry (const tagEntryInfo *const tag)
 {
 	Assert (tag->name != NULL);
 	if (tag->name [0] == '\0')
-		error (WARNING, "ignoring null tag in %s", vStringValue (File.name));
+		/*error (WARNING, "ignoring null tag in %s", vStringValue (File.name));*/
+		return;
 	else
 	{
 		int length = 0;
