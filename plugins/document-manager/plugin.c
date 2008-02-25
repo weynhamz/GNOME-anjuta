@@ -1489,7 +1489,6 @@ static gboolean
 on_docman_auto_save (gpointer data)
 {
 	gboolean retval;
-	const gchar *mesg;
 	AnjutaPreferences* prefs;
 	DocmanPlugin *plugin;
 	AnjutaDocman *docman;
@@ -1521,24 +1520,23 @@ on_docman_auto_save (gpointer data)
 			if (ianjuta_file_savable_is_dirty (IANJUTA_FILE_SAVABLE (doc), NULL))
 			{
 				gchar *uri;
-				GError *err;
 				uri = ianjuta_file_get_uri (IANJUTA_FILE (doc), NULL);
 				if (uri)
 				{
+					GError *err = NULL;
+
 					g_free (uri);
-					err = NULL;
 					ianjuta_file_savable_save (IANJUTA_FILE_SAVABLE (doc), &err);
-				}
-				if (!uri || err)
-				{
-					gchar *fullmsg;
-					mesg = ianjuta_document_get_filename (doc, NULL);	/* this may fail, too */
-					fullmsg = g_strdup_printf (_("Autosave failed for %s"), mesg);
-					anjuta_status (status, fullmsg, 3);
-					g_free (fullmsg);
 					if (err)
+					{
+						gchar *fullmsg;
+						const gchar *filename = ianjuta_document_get_filename (doc, NULL); /* this may fail, too */
+						fullmsg = g_strdup_printf (_("Autosave failed for file %s: %s"), filename, err->message);
+						anjuta_status (status, fullmsg, 3);
+						g_free (fullmsg);
 						g_error_free (err);
-					retval = FALSE;
+						retval = FALSE;
+					}
 				}
 			}
 		}

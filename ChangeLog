@@ -1,5 +1,12 @@
 === anjuta 2.3.5 ===
 
+2008-02-26  Naba Kumar  <naba@gnome.org>
+
+	* plugins/document-manager/plugin.c: (on_docman_auto_save): Fixed a
+	crash when there is a modified new file open, a non-modified exiting
+	file open and autosave happen. Simplified error checking logic and
+	avoided memory corruption. Fixes bug #Bug 518716.
+
 2008-02-25  Naba Kumar  <naba@gnome.org>
 
 	* NEWS: Updated for release 2.3.5
