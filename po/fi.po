@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-24 11:30+0300\n"
+"POT-Creation-Date: 2008-02-26 11:12+0300\n"
 "PO-Revision-Date: 2006-11-01 06:40+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -1511,7 +1511,7 @@ msgid "Breakpoint properties"
 msgstr "Keskeytyspisteen ominaisuudet"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1948
+#: ../plugins/debug-manager/breakpoints.c:1949
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Keskeytyspisteet"
@@ -1583,7 +1583,7 @@ msgid "Kernel Signals"
 msgstr "Ytimen signaalit"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
-#: ../plugins/debug-manager/breakpoints.c:1875
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Sijainti"
@@ -1719,152 +1719,152 @@ msgstr "_Poista kaikki"
 msgid "_Value:"
 msgstr "_Arvo:"
 
-#: ../plugins/debug-manager/breakpoints.c:1641
+#: ../plugins/debug-manager/breakpoints.c:1642
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Haluatko varmasti poistaa kaikki keskeytyspisteet?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1738
+#: ../plugins/debug-manager/breakpoints.c:1739
 msgid "_Breakpoints"
 msgstr "_Keskeytyspisteet"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1746
+#: ../plugins/debug-manager/breakpoints.c:1747
 msgid "Toggle Breakpoint"
 msgstr "Käytetäänkö keskeytyspistettä"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1748
+#: ../plugins/debug-manager/breakpoints.c:1749
 msgid "Toggle breakpoint at the current location"
 msgstr "Valitse käytetäänkö tätä keskeytyspistettä"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1754
+#: ../plugins/debug-manager/breakpoints.c:1755
 msgid "Add Breakpoint..."
 msgstr "_Lisää keskeytyspiste..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1756
+#: ../plugins/debug-manager/breakpoints.c:1757
 msgid "Add a breakpoint"
 msgstr "Lisää keskeytyspiste"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1762
+#: ../plugins/debug-manager/breakpoints.c:1763
 msgid "Remove Breakpoint"
 msgstr "Poista keskeytyspiste"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1764
+#: ../plugins/debug-manager/breakpoints.c:1765
 msgid "Remove a breakpoint"
 msgstr "Poista keskeytyspiste"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1770
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Edit Breakpoint"
 msgstr "Muokkaa keskeytyspistettä"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1772
+#: ../plugins/debug-manager/breakpoints.c:1773
 msgid "Edit breakpoint properties"
 msgstr "Muokkaa keskeytyspisteen ominaisuuksia"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1778
-#: ../plugins/debug-manager/breakpoints.c:1849
+#: ../plugins/debug-manager/breakpoints.c:1779
+#: ../plugins/debug-manager/breakpoints.c:1850
 msgid "Enable Breakpoint"
 msgstr "Ota keskeytyspiste käyttöön"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1780
-#: ../plugins/debug-manager/breakpoints.c:1850
+#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1851
 msgid "Enable a breakpoint"
 msgstr "Ota keskeytyspiste käyttöön"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1786
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Disable All Breakpoints"
 msgstr "Poista kaikki keskeytyspisteet käytöstä"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1788
+#: ../plugins/debug-manager/breakpoints.c:1789
 msgid "Deactivate all breakpoints"
 msgstr "Poista kaikki keskeytyspisteet käytöstä"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1794
+#: ../plugins/debug-manager/breakpoints.c:1795
 msgid "R_emove All Breakpoints"
 msgstr "Poista k_aikki keskeytyspisteet"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1796
+#: ../plugins/debug-manager/breakpoints.c:1797
 msgid "Remove all breakpoints"
 msgstr "Poista kaikki keskeytyspisteet"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1805
+#: ../plugins/debug-manager/breakpoints.c:1806
 msgid "Jump to Breakpoint"
 msgstr "Siirry keskeytyspisteeseen"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1807
+#: ../plugins/debug-manager/breakpoints.c:1808
 msgid "Jump to breakpoint location"
 msgstr "Siirry keskeytyspisteen sijaintiin"
 
-#: ../plugins/debug-manager/breakpoints.c:1844
+#: ../plugins/debug-manager/breakpoints.c:1845
 msgid "Disable Breakpoint"
 msgstr "Poista keskeytyspiste käytöstä"
 
-#: ../plugins/debug-manager/breakpoints.c:1845
+#: ../plugins/debug-manager/breakpoints.c:1846
 msgid "Disable a breakpoint"
 msgstr "Poista keskeytyspiste käytöstä"
 
-#: ../plugins/debug-manager/breakpoints.c:1875
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "Käytössä"
 
-#: ../plugins/debug-manager/breakpoints.c:1875
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "Osoite"
 
-#: ../plugins/debug-manager/breakpoints.c:1875
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "Tyyppi"
 
-#: ../plugins/debug-manager/breakpoints.c:1876
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Condition"
 msgstr "Ehto"
 
-#: ../plugins/debug-manager/breakpoints.c:1876
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Pass count"
 msgstr "Ohituskerrat"
 
-#: ../plugins/debug-manager/breakpoints.c:1876
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "State"
 msgstr "Tila"
 
-#: ../plugins/debug-manager/breakpoints.c:1925
-#: ../plugins/debug-manager/breakpoints.c:1931
+#: ../plugins/debug-manager/breakpoints.c:1926
+#: ../plugins/debug-manager/breakpoints.c:1932
 msgid "Breakpoint operations"
 msgstr "Keskeytyspisteiden toiminnot"
 
@@ -2552,9 +2552,9 @@ msgid "Do not show tabs"
 msgstr "Älä näytä sarkaimia"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1721
-#: ../plugins/document-manager/plugin.c:2109
-#: ../plugins/document-manager/plugin.c:2120
+#: ../plugins/document-manager/plugin.c:1719
+#: ../plugins/document-manager/plugin.c:2107
+#: ../plugins/document-manager/plugin.c:2118
 msgid "Documents"
 msgstr "Asiakirjat"
 
@@ -3208,12 +3208,12 @@ msgid "Automatic"
 msgstr "Automaattinen"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1536
+#: ../plugins/document-manager/plugin.c:1534
 #, c-format
-msgid "Autosave failed for %s"
-msgstr "Automaattitallennus epäonnistui kohteelle %s"
+msgid "Autosave failed for file %s: %s"
+msgstr "Tiedoston \"%s\" automaattitallennus epäonnistui: %s"
 
-#: ../plugins/document-manager/plugin.c:1550
+#: ../plugins/document-manager/plugin.c:1548
 msgid "Autosave completed"
 msgstr "Automaattitallennus valmistui"
 
@@ -5357,9 +5357,9 @@ msgid ""
 "may not be possible to change some of the settings later."
 msgstr ""
 "Sovellusapulainen luo projektille yksinkertaisen rungon, joka sisältää "
-"tarvittavat käännöstiedostot. Apulainen kysyy projektin alustavan "
-"rakenteen yksityiskohtia. Vastaa kysymyksiin huolellisesti, koska joitain "
-"asetuksista ei voi muuttaa jälkikäteen."
+"tarvittavat käännöstiedostot. Apulainen kysyy projektin alustavan rakenteen "
+"yksityiskohtia. Vastaa kysymyksiin huolellisesti, koska joitain asetuksista "
+"ei voi muuttaa jälkikäteen."
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:14
 #: ../plugins/project-wizard/templates/translatable-strings.h:70
@@ -5502,9 +5502,9 @@ msgid ""
 "Comma separated, other plugins that this plugin depends on. It could be "
 "either primary interface name or plugin location (library:class)"
 msgstr ""
-"Pilkulla erotettu luettelo liitännäisistä, jotka tämä liitännäinen "
-"vaatii. Luettelo voi olla joko käyttöliittymän ensisijainen nimi tai "
-"liitännäisen sijainti (kirjasto:luokka)"
+"Pilkulla erotettu luettelo liitännäisistä, jotka tämä liitännäinen vaatii. "
+"Luettelo voi olla joko käyttöliittymän ensisijainen nimi tai liitännäisen "
+"sijainti (kirjasto:luokka)"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:12
 msgid "Configure external packages"
@@ -5739,7 +5739,8 @@ msgstr "Onko liitännäisellä valikoita tai työkalupalkkeja"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:72
 msgid "gtk-doc is used to compile API documentations for GObject based classes"
-msgstr "GObject-pohjaisten luokkien API-dokumentaatio luodaan gtk-doc:in avulla"
+msgstr ""
+"GObject-pohjaisten luokkien API-dokumentaatio luodaan gtk-doc:in avulla"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:73
 msgid "project name"
