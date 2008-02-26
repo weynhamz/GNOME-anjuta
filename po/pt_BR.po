@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta 2.3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-23 12:49-0300\n"
+"POT-Creation-Date: 2008-02-26 19:00-0300\n"
 "PO-Revision-Date: 2008-02-23 12:13-0300\n"
 "Last-Translator: Jonh Wendell <wendell@bani.com.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
@@ -1513,7 +1513,7 @@ msgid "Breakpoint properties"
 msgstr "Propriedades dos pontos de interrupção"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:5
-#: ../plugins/debug-manager/breakpoints.c:1948
+#: ../plugins/debug-manager/breakpoints.c:1949
 #: ../plugins/gdb/anjuta-gdb.glade.h:4
 msgid "Breakpoints"
 msgstr "Pontos de Interrupção"
@@ -1585,7 +1585,7 @@ msgid "Kernel Signals"
 msgstr "Sinais do Kernel"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:20
-#: ../plugins/debug-manager/breakpoints.c:1875
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/gdb/anjuta-gdb.glade.h:17
 msgid "Location"
 msgstr "Local"
@@ -1721,152 +1721,152 @@ msgstr "_Remover todos"
 msgid "_Value:"
 msgstr "_Valor:"
 
-#: ../plugins/debug-manager/breakpoints.c:1641
+#: ../plugins/debug-manager/breakpoints.c:1642
 msgid "Are you sure you want to delete all the breakpoints?"
 msgstr "Você tem certeza de que deseja excluir todos os pontos de interrupção?"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1738
+#: ../plugins/debug-manager/breakpoints.c:1739
 msgid "_Breakpoints"
 msgstr "_Pontos de Interrupção"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1746
+#: ../plugins/debug-manager/breakpoints.c:1747
 msgid "Toggle Breakpoint"
 msgstr "Alternar ponto de interrupção"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1748
+#: ../plugins/debug-manager/breakpoints.c:1749
 msgid "Toggle breakpoint at the current location"
 msgstr "Alterna o ponto de interrupção na localização atual"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1754
+#: ../plugins/debug-manager/breakpoints.c:1755
 msgid "Add Breakpoint..."
 msgstr "Adicionar Ponto de Interrupção..."
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1756
+#: ../plugins/debug-manager/breakpoints.c:1757
 msgid "Add a breakpoint"
 msgstr "Adiciona um ponto de interrupção"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1762
+#: ../plugins/debug-manager/breakpoints.c:1763
 msgid "Remove Breakpoint"
 msgstr "Remove Ponto de Interrupção"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1764
+#: ../plugins/debug-manager/breakpoints.c:1765
 msgid "Remove a breakpoint"
 msgstr "Remove um ponto de interrupção"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1770
+#: ../plugins/debug-manager/breakpoints.c:1771
 msgid "Edit Breakpoint"
 msgstr "Edita pontos de Interrupção"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1772
+#: ../plugins/debug-manager/breakpoints.c:1773
 msgid "Edit breakpoint properties"
 msgstr "Editar Propriedades dos pontos de interrupção"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1778
-#: ../plugins/debug-manager/breakpoints.c:1849
+#: ../plugins/debug-manager/breakpoints.c:1779
+#: ../plugins/debug-manager/breakpoints.c:1850
 msgid "Enable Breakpoint"
 msgstr "Habilita os Pontos de Interrupção"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1780
-#: ../plugins/debug-manager/breakpoints.c:1850
+#: ../plugins/debug-manager/breakpoints.c:1781
+#: ../plugins/debug-manager/breakpoints.c:1851
 msgid "Enable a breakpoint"
 msgstr "Habilita um ponto de interrupção"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1786
+#: ../plugins/debug-manager/breakpoints.c:1787
 msgid "Disable All Breakpoints"
 msgstr "Desabilita todos os Pontos de Interrupção"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1788
+#: ../plugins/debug-manager/breakpoints.c:1789
 msgid "Deactivate all breakpoints"
 msgstr "Desativa todos os pontos de interrupção"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1794
+#: ../plugins/debug-manager/breakpoints.c:1795
 msgid "R_emove All Breakpoints"
 msgstr "R_emover todos os ponto de interrupção"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1796
+#: ../plugins/debug-manager/breakpoints.c:1797
 msgid "Remove all breakpoints"
 msgstr "Remove todos os pontos de interrupção"
 
 #. Action name
 #. Stock icon, if any
-#: ../plugins/debug-manager/breakpoints.c:1805
+#: ../plugins/debug-manager/breakpoints.c:1806
 msgid "Jump to Breakpoint"
 msgstr "Ir para um Ponto de Interrupção"
 
 #. Display label
 #. short-cut
-#: ../plugins/debug-manager/breakpoints.c:1807
+#: ../plugins/debug-manager/breakpoints.c:1808
 msgid "Jump to breakpoint location"
 msgstr "Vai para o ponto de interrupção"
 
-#: ../plugins/debug-manager/breakpoints.c:1844
+#: ../plugins/debug-manager/breakpoints.c:1845
 msgid "Disable Breakpoint"
 msgstr "Desabilitar ponto de interrupção"
 
-#: ../plugins/debug-manager/breakpoints.c:1845
+#: ../plugins/debug-manager/breakpoints.c:1846
 msgid "Disable a breakpoint"
 msgstr "Desabilita um ponto de interrupção"
 
-#: ../plugins/debug-manager/breakpoints.c:1875
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/tools/anjuta-tools.glade.h:4
 msgid "Enabled"
 msgstr "Habilitado"
 
-#: ../plugins/debug-manager/breakpoints.c:1875
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/debug-manager/stack_trace.c:664
 #: ../plugins/debug-manager/threads.c:477
 msgid "Address"
 msgstr "Endereço"
 
-#: ../plugins/debug-manager/breakpoints.c:1875
+#: ../plugins/debug-manager/breakpoints.c:1876
 #: ../plugins/debug-manager/debug_tree.c:126
 msgid "Type"
 msgstr "Tipo"
 
-#: ../plugins/debug-manager/breakpoints.c:1876
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Condition"
 msgstr "Condição"
 
-#: ../plugins/debug-manager/breakpoints.c:1876
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "Pass count"
 msgstr "Contador de passos"
 
-#: ../plugins/debug-manager/breakpoints.c:1876
+#: ../plugins/debug-manager/breakpoints.c:1877
 msgid "State"
 msgstr "Estado"
 
-#: ../plugins/debug-manager/breakpoints.c:1925
-#: ../plugins/debug-manager/breakpoints.c:1931
+#: ../plugins/debug-manager/breakpoints.c:1926
+#: ../plugins/debug-manager/breakpoints.c:1932
 msgid "Breakpoint operations"
 msgstr "Operações com os pontos de interrupção"
 
@@ -2554,9 +2554,9 @@ msgid "Do not show tabs"
 msgstr "Não mostrar tabulações"
 
 #: ../plugins/document-manager/anjuta-document-manager.glade.h:7
-#: ../plugins/document-manager/plugin.c:1721
-#: ../plugins/document-manager/plugin.c:2109
-#: ../plugins/document-manager/plugin.c:2120
+#: ../plugins/document-manager/plugin.c:1719
+#: ../plugins/document-manager/plugin.c:2107
+#: ../plugins/document-manager/plugin.c:2118
 msgid "Documents"
 msgstr "Documentos"
 
@@ -3210,12 +3210,12 @@ msgid "Automatic"
 msgstr "Automático"
 
 #. this may fail, too
-#: ../plugins/document-manager/plugin.c:1536
+#: ../plugins/document-manager/plugin.c:1534
 #, c-format
-msgid "Autosave failed for %s"
-msgstr "Salvamento automático falhou para %s"
+msgid "Autosave failed for file %s: %s"
+msgstr "Salvamento automático falhou para %s: %s"
 
-#: ../plugins/document-manager/plugin.c:1550
+#: ../plugins/document-manager/plugin.c:1548
 msgid "Autosave completed"
 msgstr "Salvar automático completo"
 
