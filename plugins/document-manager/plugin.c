@@ -1531,7 +1531,7 @@ on_docman_auto_save (gpointer data)
 					{
 						gchar *fullmsg;
 						const gchar *filename = ianjuta_document_get_filename (doc, NULL); /* this may fail, too */
-						fullmsg = g_strdup_printf (_("Autosave failed for file %s: %s"), filename, err->message);
+						fullmsg = g_strdup_printf (_("Autosave failed for %s"), filename);
 						anjuta_status (status, fullmsg, 3);
 						g_free (fullmsg);
 						g_error_free (err);

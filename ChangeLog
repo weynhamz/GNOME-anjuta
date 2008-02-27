@@ -1,3 +1,8 @@
+2008-02-27  Naba Kumar  <naba@gnome.org>
+
+	* plugins/document-manager/plugin.c: (on_docman_auto_save): Reverted
+	string break. That was a mistake doing at this point.
+
 === anjuta 2.3.5 ===
 
 2008-02-26  Naba Kumar  <naba@gnome.org>
