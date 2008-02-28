@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 15:58+0100\n"
-"PO-Revision-Date: 2008-02-27 15:58+0100\n"
+"POT-Creation-Date: 2008-02-28 12:07+0100\n"
+"PO-Revision-Date: 2008-02-28 12:08+0100\n"
 "Last-Translator: Joan Duran <jodufi@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -2504,18 +2504,18 @@ msgstr "_Torna a carregar"
 msgid "Close file"
 msgstr "Tanca el fitxer"
 
-#: ../plugins/document-manager/anjuta-docman.c:427
+#: ../plugins/document-manager/anjuta-docman.c:422
 #: ../plugins/file-loader/plugin.c:507 ../plugins/file-loader/plugin.c:770
 #: ../plugins/file-loader/plugin.c:780 ../plugins/file-loader/plugin.c:793
 msgid "Open file"
 msgstr "Obre un fitxer"
 
-#: ../plugins/document-manager/anjuta-docman.c:446
+#: ../plugins/document-manager/anjuta-docman.c:441
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Anomena i desa"
 
-#: ../plugins/document-manager/anjuta-docman.c:525
+#: ../plugins/document-manager/anjuta-docman.c:520
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
@@ -2525,7 +2525,7 @@ msgstr ""
 "Ja existeix el fitxer «%s».\n"
 "Voleu reemplaçar-lo amb el que esteu desant?"
 
-#: ../plugins/document-manager/anjuta-docman.c:533
+#: ../plugins/document-manager/anjuta-docman.c:528
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Reemplaça"
@@ -3212,8 +3212,8 @@ msgstr "Automàtic"
 #. this may fail, too
 #: ../plugins/document-manager/plugin.c:1534
 #, c-format
-msgid "Autosave failed for file %s: %s"
-msgstr "No s'ha pogut desar automàticament el fitxer %s: %s"
+msgid "Autosave failed for %s"
+msgstr "No s'ha pogut desar automàticament el %s"
 
 #: ../plugins/document-manager/plugin.c:1548
 msgid "Autosave completed"
@@ -3818,15 +3818,15 @@ msgstr "Directori arrel si no hi ha cap projecte obert:"
 msgid "Loading..."
 msgstr "S'està carregant..."
 
-#: ../plugins/file-manager/file-view.c:313
+#: ../plugins/file-manager/file-view.c:314
 msgid "Filename"
 msgstr "Nom del fitxer"
 
-#: ../plugins/file-manager/file-view.c:399
+#: ../plugins/file-manager/file-view.c:400
 msgid "Base uri"
 msgstr "URI bàsic"
 
-#: ../plugins/file-manager/file-view.c:400
+#: ../plugins/file-manager/file-view.c:401
 msgid "Uri of the top-most path displayed"
 msgstr "URI del camí que s'ha mostrat més"
 
@@ -6132,15 +6132,15 @@ msgstr "Document sense desar %d"
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: ../plugins/sourceview/sourceview.c:329
+#: ../plugins/sourceview/sourceview.c:332
 msgid "Loading"
 msgstr "S'està carregant"
 
-#: ../plugins/sourceview/sourceview.c:352
+#: ../plugins/sourceview/sourceview.c:355
 msgid "Saving..."
 msgstr "S'està desant..."
 
-#: ../plugins/sourceview/sourceview.c:359
+#: ../plugins/sourceview/sourceview.c:362
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr ""
