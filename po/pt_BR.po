@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anjuta 2.3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-26 19:00-0300\n"
-"PO-Revision-Date: 2008-02-23 12:13-0300\n"
+"POT-Creation-Date: 2008-02-27 22:37-0300\n"
+"PO-Revision-Date: 2008-02-27 22:38-0300\n"
 "Last-Translator: Jonh Wendell <wendell@bani.com.br>\n"
 "Language-Team: Portuguese/Brazil <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
@@ -3212,8 +3212,8 @@ msgstr "Automático"
 #. this may fail, too
 #: ../plugins/document-manager/plugin.c:1534
 #, c-format
-msgid "Autosave failed for file %s: %s"
-msgstr "Salvamento automático falhou para %s: %s"
+msgid "Autosave failed for %s"
+msgstr "Salvamento automático falhou para %s"
 
 #: ../plugins/document-manager/plugin.c:1548
 msgid "Autosave completed"
