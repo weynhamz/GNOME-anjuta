@@ -745,10 +745,15 @@ anjuta_view_key_press_event		(GtkWidget *widget, GdkEventKey       *event)
 	assist_tip = view->priv->sv->priv->assist_tip;
 	if (assist_tip)
 	{
-		if (event->keyval == GDK_Escape)
-		{
-			gtk_widget_destroy (GTK_WIDGET(view->priv->sv->priv->assist_tip));
-			return TRUE;
+    switch (event->keyval)
+    {
+      case GDK_Escape:
+      case GDK_Up:
+      case GDK_Down:
+      case GDK_Page_Up:
+      case GDK_Page_Down:
+        gtk_widget_destroy (GTK_WIDGET(view->priv->sv->priv->assist_tip));
+        break;
 		}
 	}
 	return (* GTK_WIDGET_CLASS (anjuta_view_parent_class)->key_press_event)(widget, event);

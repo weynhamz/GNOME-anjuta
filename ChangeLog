@@ -1,3 +1,8 @@
+2008-02-28  Johannes Schmid <jhs@gnome.org>
+
+	* plugins/sourceview/anjuta-view.c: (anjuta_view_key_press_event):
+	Hide tooltip when Up, Down, Page_Up or Page_Down is pressed
+
 2008-02-27  Naba Kumar  <naba@gnome.org>
 
 	* plugins/document-manager/plugin.c: (on_docman_auto_save): Reverted
