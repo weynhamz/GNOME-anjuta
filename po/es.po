@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-25 22:31+0000\n"
-"PO-Revision-Date: 2008-02-27 19:12+0100\n"
+"POT-Creation-Date: 2008-02-27 20:07+0000\n"
+"PO-Revision-Date: 2008-02-28 23:12+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -3217,8 +3217,8 @@ msgstr "Automático"
 #. this may fail, too
 #: ../plugins/document-manager/plugin.c:1534
 #, c-format
-msgid "Autosave failed for file %s: %s"
-msgstr "Falló el autoguardado para el archivo %s:%s"
+msgid "Autosave failed for %s"
+msgstr "Falló el autoguardado para el archivo %s"
 
 #: ../plugins/document-manager/plugin.c:1548
 msgid "Autosave completed"
