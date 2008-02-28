@@ -370,15 +370,10 @@ anjuta_docman_page_new (void)
 static void
 anjuta_docman_page_destroy (AnjutaDocmanPage *page)
 {
-	if (page)
-	{
-		if (page->widget && GTK_IS_WIDGET (page->widget))
-		/* CHECKME just unref in case other plugins hold ref on the page or its contents ? */
-			gtk_widget_destroy (page->widget);
-		if (page->box && GTK_IS_WIDGET (page->box))
-			gtk_widget_destroy (page->box);	/* the tab-label parent-widget */
-		g_free (page);
-	}
+	/* Notebook holds a reference on the widget of page and destroys
+	 * them properly
+	 */
+	g_free (page);
 }
 
 static void

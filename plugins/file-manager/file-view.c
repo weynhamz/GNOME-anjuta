@@ -147,6 +147,7 @@ file_view_refresh (AnjutaFileView* view, gboolean remember_open)
 	
 	tree_path = gtk_tree_path_new_first ();
 	gtk_tree_view_expand_row (GTK_TREE_VIEW (view), tree_path, FALSE);
+	gtk_tree_path_free (tree_path);
 	if (remember_open)
 	{
 		priv->refresh_idle_id = g_idle_add (file_view_expand_row_idle, view);

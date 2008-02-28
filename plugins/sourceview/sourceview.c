@@ -264,11 +264,14 @@ sourceview_add_monitor(Sourceview* sv)
 
 	if (monitor_enabled)
 	{
+		gchar* uri;
 		g_return_val_if_fail(sv->priv->monitor == NULL, FALSE);
-		DEBUG_PRINT ("Monitor added for %s", anjuta_document_get_uri(sv->priv->document)); 	
-		gnome_vfs_monitor_add(&sv->priv->monitor, anjuta_document_get_uri(sv->priv->document),
+		DEBUG_PRINT ("Monitor added for %s", anjuta_document_get_uri(sv->priv->document));
+		uri = anjuta_document_get_uri(sv->priv->document);
+		gnome_vfs_monitor_add(&sv->priv->monitor, uri,
 							  GNOME_VFS_MONITOR_FILE,
-						  on_sourceview_uri_changed, sv);
+							  on_sourceview_uri_changed, sv);
+		g_free (uri);
 	}
 	return FALSE; /* for g_idle_add */
 }
@@ -848,6 +851,19 @@ ieditor_get_position (IAnjutaEditor* editor, GError **e)
 	return IANJUTA_ITERABLE (cell);
 }
 
+static gint
+ieditor_get_offset (IAnjutaEditor* editor, GError **e)
+{
+	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
+	GtkTextBuffer* buffer = GTK_TEXT_BUFFER(sv->priv->document);
+	GtkTextIter iter;
+	
+	gtk_text_buffer_get_iter_at_mark(buffer, &iter, 
+									 gtk_text_buffer_get_insert(buffer));
+	
+	return gtk_text_iter_get_offset (&iter);
+}
+
 /* Return line of cursor */
 static gint ieditor_get_lineno(IAnjutaEditor *editor, GError **e)
 {
@@ -1082,6 +1098,7 @@ ieditor_iface_init (IAnjutaEditorIface *iface)
 	iface->get_text = ieditor_get_text;
 	iface->get_text_all = ieditor_get_text_all;
 	iface->get_position = ieditor_get_position;
+	iface->get_offset = ieditor_get_offset;
 	iface->get_lineno = ieditor_get_lineno;
 	iface->get_length = ieditor_get_length;
 	iface->get_current_word = ieditor_get_current_word;
@@ -1160,10 +1177,9 @@ static void idocument_grab_focus (IAnjutaDocument *editor, GError **e)
 static const gchar* idocument_get_filename(IAnjutaDocument *editor, GError **e)
 {
 	Sourceview* sv = ANJUTA_SOURCEVIEW(editor);
-	if (sv->priv->filename != NULL)
-		return sv->priv->filename;
-	else
-		return anjuta_document_get_short_name_for_display(sv->priv->document);
+	if (sv->priv->filename == NULL)
+		sv->priv->filename = anjuta_document_get_short_name_for_display(sv->priv->document);
+	return sv->priv->filename;
 }
 
 static void 
@@ -1825,17 +1841,20 @@ static const GList*
 ilanguage_get_supported_languages (IAnjutaEditorLanguage *ilanguage,
 								   GError **err)
 {
-	GStrv langs;
-	GStrv lang;
-	GList* list = NULL;
-	g_object_get (gtk_source_language_manager_get_default(), "language-ids", &langs, NULL);
-	
-	for (lang = langs; *lang != NULL; lang++)
+	/* Cache the list */
+	static GList* languages = NULL;
+	if (!languages)
 	{
-		list = g_list_append (list, *lang);
-	}
-	
-	return list;
+		GStrv langs;
+		GStrv lang;
+		g_object_get (gtk_source_language_manager_get_default(), "language-ids", &langs, NULL);
+		
+		for (lang = langs; *lang != NULL; lang++)
+		{
+			languages = g_list_append (languages, *lang);
+		}
+	}		
+	return languages;
 }
 
 static const gchar*
@@ -1881,9 +1900,11 @@ autodetect_language (Sourceview* sv)
 				g_signal_emit_by_name (G_OBJECT(sv), "language-changed", 
 									   detected_language);
 				gtk_source_buffer_set_language (GTK_SOURCE_BUFFER (sv->priv->document), language);
+				g_strfreev (mime_types);
 				goto out;
 			}
 		}
+		g_strfreev (mime_types);
 	}
 	out:
 		g_strfreev(languages);

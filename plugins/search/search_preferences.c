@@ -583,4 +583,5 @@ search_preferences_init(void)
 	}
 	
 	search_preferences_activate_default(default_pref);
+	g_free(default_pref);
 }

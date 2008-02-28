@@ -1,5 +1,23 @@
 2008-02-28  Johannes Schmid <jhs@gnome.org>
 
+	* plugins/document-manager/anjuta-docman.c:
+	(anjuta_docman_page_destroy):
+	Do not unref widget because the GtkNotebook will unref them
+	
+	* plugins/file-manager/file-view.c: (file_view_refresh):
+	* plugins/search/search_preferences.c: (search_preferences_init):
+	Fixed a memory leaks
+	
+	* plugins/sourceview/sourceview.c: (sourceview_add_monitor),
+	(ieditor_get_offset), (ieditor_iface_init),
+	(idocument_get_filename), (ilanguage_get_supported_languages),
+	(autodetect_language):
+	
+	Fixed memory leaks and implemented ianjuta_editor_get_offset() which
+	was missing.
+
+2008-02-28  Johannes Schmid <jhs@gnome.org>
+
 	* plugins/sourceview/anjuta-view.c: (anjuta_view_key_press_event):
 	Hide tooltip when Up, Down, Page_Up or Page_Down is pressed
 
