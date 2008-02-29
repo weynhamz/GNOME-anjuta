@@ -98,7 +98,7 @@ assist_tip_set_tips (AssistTip* tip, GList* tips)
 		g_free(text);
 		text = new_text;
 	}
-	tip_text = g_strdup_printf("<tt>%s</tt>", text);
+	tip_text = g_markup_printf_escaped ("<tt>%s</tt>", text);
 	gtk_label_set_markup(GTK_LABEL(tip->label), tip_text);
 	gtk_widget_show (tip->label);
 	g_free(text);

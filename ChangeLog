@@ -1,5 +1,14 @@
 2008-02-29  Johannes Schmid  <jhs@gnome.org>
 
+	* plugins/language-support-cpp-java/cpp-java-assist.c
+	(cpp_java_assist_get_calltip_context), (cpp_java_assist_check):
+	Removed some debug code
+	
+	* plugins/sourceview/assist-tip.c (assist_tip_set_tips):
+	Escape tooltip text to avoid broken markup
+
+2008-02-29  Johannes Schmid  <jhs@gnome.org>
+
 	* libanjuta/Makefile.am:
 	Fixed a build error when building with -j X
 	
