@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 20:07+0000\n"
-"PO-Revision-Date: 2008-02-28 23:12+0100\n"
+"POT-Creation-Date: 2008-02-28 22:34+0000\n"
+"PO-Revision-Date: 2008-02-29 19:30+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -368,7 +368,7 @@ msgstr "El estado de anjuta a usar al cargar y descargar los complementos"
 #. DEBUG_PRINT ("Icon: %s", icon_path);
 #: ../libanjuta/anjuta-plugin-manager.c:2384
 msgid "Loaded: "
-msgstr "Cargado:"
+msgstr "Cargado: "
 
 #: ../libanjuta/anjuta-profile.c:214
 msgid "Plugin Manager"
@@ -411,7 +411,7 @@ msgstr "Falló al leer «%s»: %s"
 #: ../libanjuta/anjuta-profile.c:526
 #, c-format
 msgid "No read permission for: %s"
-msgstr "No hay permiso de lectuara para: %s"
+msgstr "No hay permiso de lectura para: %s"
 
 #: ../libanjuta/anjuta-profile.c:560 ../libanjuta/anjuta-profile.c:570
 #, c-format
@@ -535,7 +535,7 @@ msgstr "No se puede leer el archivo: %s."
 #: ../libanjuta/anjuta-utils.c:85
 #, c-format
 msgid "Unable to create file: %s."
-msgstr "No se puede crear el archivo: %s"
+msgstr "No se puede crear el archivo: %s."
 
 #: ../libanjuta/anjuta-utils.c:121
 msgid "Unable to complete file copy"
@@ -1375,8 +1375,8 @@ msgstr "El comando CVS ha fallado. Mire arriba para los detalles"
 #, c-format
 msgid "CVS command successful! - Time taken: %ld second"
 msgid_plural "CVS command successful! - Time taken: %ld seconds"
-msgstr[0] "Comando CVS exitoso; Tiempo empleado: %ld segundo."
-msgstr[1] "Comando CVS exitoso; Tiempo empleado: %ld segundos."
+msgstr[0] "Comando CVS exitoso; Tiempo empleado: %ld segundo"
+msgstr[1] "Comando CVS exitoso; Tiempo empleado: %ld segundos"
 
 #: ../plugins/cvs-plugin/cvs-execute.c:224
 msgid "CVS command is running - please wait until it finishes!"
@@ -1991,7 +1991,7 @@ msgstr "Detener el depurador"
 
 #: ../plugins/debug-manager/plugin.c:875
 msgid "Say goodbye to the debugger"
-msgstr "Despídete del depurador"
+msgstr "Despídase del depurador"
 
 #: ../plugins/debug-manager/plugin.c:881
 msgid "Add source paths..."
@@ -2510,18 +2510,18 @@ msgstr "_Recargar"
 msgid "Close file"
 msgstr "Cerrar archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:427
+#: ../plugins/document-manager/anjuta-docman.c:422
 #: ../plugins/file-loader/plugin.c:507 ../plugins/file-loader/plugin.c:770
 #: ../plugins/file-loader/plugin.c:780 ../plugins/file-loader/plugin.c:793
 msgid "Open file"
 msgstr "Abre un archivo"
 
-#: ../plugins/document-manager/anjuta-docman.c:446
+#: ../plugins/document-manager/anjuta-docman.c:441
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Guardar archivo como"
 
-#: ../plugins/document-manager/anjuta-docman.c:525
+#: ../plugins/document-manager/anjuta-docman.c:520
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
@@ -2531,7 +2531,7 @@ msgstr ""
 "El archivo «%s» ya existe.\n"
 "¿Desea sobreescribirlo con el que está intentando guardar?"
 
-#: ../plugins/document-manager/anjuta-docman.c:533
+#: ../plugins/document-manager/anjuta-docman.c:528
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Reemplazar"
@@ -3034,7 +3034,7 @@ msgstr "Ampliar: Incrementar el tamaño de la letra"
 
 #: ../plugins/document-manager/plugin.c:357
 msgid "Zoom Out"
-msgstr "_Reducir"
+msgstr "Reducir"
 
 #: ../plugins/document-manager/plugin.c:358
 msgid "Zoom out: Decrease font size"
@@ -3641,7 +3641,7 @@ msgstr "No se puede guardar el archivo %s: %s."
 #: ../plugins/editor/text_editor.c:1699
 #, c-format
 msgid "Could not set file permissions %s: %s."
-msgstr "No se pudieron establecer los permisos del archivo %s: %s"
+msgstr "No se pudieron establecer los permisos del archivo %s: %s."
 
 #: ../plugins/editor/text_editor.c:1707
 msgid "File saved successfully"
@@ -3823,15 +3823,15 @@ msgstr "Directorio raíz si no hay ningún proyecto abierto:"
 msgid "Loading..."
 msgstr "Cargando…"
 
-#: ../plugins/file-manager/file-view.c:313
+#: ../plugins/file-manager/file-view.c:314
 msgid "Filename"
 msgstr "Nombre de archivo"
 
-#: ../plugins/file-manager/file-view.c:399
+#: ../plugins/file-manager/file-view.c:400
 msgid "Base uri"
 msgstr "URI base"
 
-#: ../plugins/file-manager/file-view.c:400
+#: ../plugins/file-manager/file-view.c:401
 msgid "Uri of the top-most path displayed"
 msgstr "URI de la ruta superior mostrada"
 
@@ -3980,11 +3980,11 @@ msgstr "_Pasada:"
 
 #: ../plugins/gdb/debugger.c:689 ../plugins/gdb/debugger.c:891
 msgid "Loading Executable: "
-msgstr "Cargando ejecutable:"
+msgstr "Cargando ejecutable: "
 
 #: ../plugins/gdb/debugger.c:719
 msgid "Loading Core: "
-msgstr "Cargando core:"
+msgstr "Cargando core: "
 
 #: ../plugins/gdb/debugger.c:756
 #, c-format
@@ -4135,7 +4135,7 @@ msgstr "Paleta"
 #: ../plugins/glade/plugin.c:655
 #, c-format
 msgid "Not local file: %s"
-msgstr "Archivo no local: %s."
+msgstr "Archivo no local: %s"
 
 #: ../plugins/glade/plugin.c:706
 #, c-format
@@ -4399,7 +4399,7 @@ msgstr "Ocultar elementos que tengan una fecha de vencimiento pasada"
 
 #: ../plugins/gtodo/plugin.c:91
 msgid "Hide Items Without _End Date"
-msgstr "Ocultar elementos sin una fecha de finalización"
+msgstr "Ocultar elementos sin una fecha de finali_zación"
 
 #: ../plugins/gtodo/plugin.c:93
 msgid "Hide items without an end date"
@@ -5356,7 +5356,7 @@ msgstr "Nombre del proyecto:"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:11
 msgid "Project Type"
-msgstr "Tipo de proyecto:"
+msgstr "Tipo de proyecto"
 
 #: ../plugins/project-wizard/anjuta-project-wizard.glade.h:13
 msgid ""
@@ -5450,7 +5450,7 @@ msgstr "Creando %s … %s"
 
 #: ../plugins/project-wizard/install.c:544
 msgid "Executing: "
-msgstr "Ejecutando:"
+msgstr "Ejecutando: "
 
 #: ../plugins/project-wizard/plugin.c:150
 msgid "New Project Assistent"
@@ -5679,7 +5679,7 @@ msgstr "Requiere la versión de SDL:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:53
 msgid "Require SDL_gfx library"
-msgstr "Requiere la versión de la biblioteca SDL_gfx:"
+msgstr "Requiere la versión de la biblioteca SDL_gfx"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:54
 msgid "Require SDL_gfx:"
@@ -5687,7 +5687,7 @@ msgstr "Requiere la versión de SDL_gfx:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:55
 msgid "Require SDL_image library"
-msgstr "Requiere la versión de la biblioteca SDL_image:"
+msgstr "Requiere la versión de la biblioteca SDL_image"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:56
 msgid "Require SDL_image:"
@@ -5695,7 +5695,7 @@ msgstr "Requiere la versión de SDL_image:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:57
 msgid "Require SDL_mixer library"
-msgstr "Requiere la versión de la biblioteca SDL_mixer:"
+msgstr "Requiere la versión de la biblioteca SDL_mixer"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:58
 msgid "Require SDL_mixer:"
@@ -5703,7 +5703,7 @@ msgstr "Requiere la versión de SDL_mixer:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:59
 msgid "Require SDL_net library"
-msgstr "Requiere la versión de la biblioteca SDL_net:"
+msgstr "Requiere la versión de la biblioteca SDL_net"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:60
 msgid "Require SDL_net:"
@@ -5711,7 +5711,7 @@ msgstr "Requiere la versión de SDL_net:"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:61
 msgid "Require SDL_ttf library"
-msgstr "Requiere la versión de la biblioteca SDL_ttf:"
+msgstr "Requiere la versión de la biblioteca SDL_ttf"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:62
 msgid "Require SDL_ttf:"
@@ -6065,7 +6065,7 @@ msgstr "Reemplazar todas las coincidencias"
 
 #: ../plugins/search/search-replace.c:321
 msgid "Find: "
-msgstr "Buscar:"
+msgstr "Buscar: "
 
 #: ../plugins/search/search-replace.c:497
 msgid "Replace"
@@ -6122,15 +6122,15 @@ msgstr "Documento no guardado %d"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: ../plugins/sourceview/sourceview.c:329
+#: ../plugins/sourceview/sourceview.c:332
 msgid "Loading"
 msgstr "Cargando"
 
-#: ../plugins/sourceview/sourceview.c:352
+#: ../plugins/sourceview/sourceview.c:355
 msgid "Saving..."
 msgstr "Guardando…"
 
-#: ../plugins/sourceview/sourceview.c:359
+#: ../plugins/sourceview/sourceview.c:362
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr "Otra aplicación modificó el archivo %s. ¿Guardarlo de todas formas?"
@@ -6281,7 +6281,7 @@ msgstr "<b>Seleccione archivos para marcar como resueltos:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:15
 msgid "<b>Source/Destination Paths:</b>"
-msgstr "<b>Rutas de orígen/destino:</b>"
+msgstr "<b>Rutas de origen/destino:</b>"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:16
 msgid "<b>Start Revision:</b>"
@@ -6389,7 +6389,7 @@ msgstr "Establecer conflictos como resueltos"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:49
 msgid "Source:"
-msgstr "Orígen:"
+msgstr "Origen:"
 
 #: ../plugins/subversion/anjuta-subversion.glade.h:50
 msgid "Subversion Preferences"
@@ -6717,23 +6717,23 @@ msgstr "Servidor: "
 
 #: ../plugins/subversion/svn-command.c:174
 msgid "Fingerprint: "
-msgstr "Huella:"
+msgstr "Huella: "
 
 #: ../plugins/subversion/svn-command.c:175
 msgid "Valid from: "
-msgstr "Válido desde:"
+msgstr "Válido desde: "
 
 #: ../plugins/subversion/svn-command.c:176
 msgid "Valid until: "
-msgstr "Válido hasta:"
+msgstr "Válido hasta: "
 
 #: ../plugins/subversion/svn-command.c:177
 msgid "Issuer DN: "
-msgstr "ND del emisor:"
+msgstr "ND del emisor: "
 
 #: ../plugins/subversion/svn-command.c:178
 msgid "DER certificate: "
-msgstr "Certificado DER:"
+msgstr "Certificado DER: "
 
 #: ../plugins/subversion/svn-command.c:325
 #: ../plugins/subversion/svn-command.c:341
@@ -6803,7 +6803,7 @@ msgstr "Directorios que escrutar"
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:431
 msgid "Please enter a name and at least one directory."
-msgstr "Selecione un nombre y al menos un directorio."
+msgstr "Seleccione un nombre y al menos un directorio."
 
 #: ../plugins/symbol-browser/an_symbol_prefs.c:531
 msgid "Anjuta tags files"
@@ -7105,7 +7105,7 @@ msgstr "(error)"
 
 #: ../plugins/tools/execute.c:466
 msgid "Running command: "
-msgstr "Comando en ejecución:"
+msgstr "Comando en ejecución: "
 
 #: ../plugins/tools/execute.c:506
 #, c-format
@@ -7270,7 +7270,7 @@ msgstr "Ruta al binario Valgrind:"
 
 #: ../plugins/valgrind/preferences.c:143
 msgid "Choose Valgrind Binary File Path..."
-msgstr "Elia la ruta al archivo binario Valgrind…"
+msgstr "Elija la ruta al archivo binario Valgrind…"
 
 #: ../plugins/valgrind/preferences.c:162
 msgid "Preview"
@@ -7471,7 +7471,7 @@ msgstr "bytes en la cola después de aplicarles free()"
 
 #: ../plugins/valgrind/vgmemcheckprefs.c:255
 msgid "Work around bugs generated by gcc 2.96"
-msgstr "Solucionar bugs producidos por gcc 2.96"
+msgstr "Solucionar errores producidos por gcc 2.96"
 
 #: ../plugins/valgrind/vgrule-editor.c:197
 msgid "Grow"
@@ -7487,7 +7487,7 @@ msgstr "Nombre de la regla:"
 
 #: ../plugins/valgrind/vgrule-editor.c:237
 msgid "Suppress messages of type:"
-msgstr "Suprimir mensajes del tipo"
+msgstr "Suprimir mensajes del tipo:"
 
 #: ../plugins/valgrind/vgrule-editor.c:247
 msgid "Suppress when using:"
@@ -7609,7 +7609,7 @@ msgstr "Prefere_ncias"
 
 #: ../src/anjuta-actions.h:33
 msgid "Do you prefer coffee to tea? Check it out."
-msgstr "¿Prefieres té o café? Descúbrelo."
+msgstr "¿Prefieres té o café? Descúbralo."
 
 #: ../src/anjuta-actions.h:40
 msgid "_Reset Dock Layout"
@@ -7701,7 +7701,7 @@ msgstr "_Preguntar"
 
 #: ../src/anjuta-actions.h:85
 msgid "Submit a question for FAQs"
-msgstr "Enviar preguntas para las FAQs (Preguntas de uso frecuente)"
+msgstr "Enviar preguntas para las P+F (Preguntas más frecuentes)"
 
 #: ../src/anjuta-actions.h:88
 msgid "_About"
@@ -7987,7 +7987,7 @@ msgstr "Complemento CVS"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:1
 msgid "Import an existing autotools project to anjuta"
-msgstr "Importar un proyecto de autotools existente en Anjuta."
+msgstr "Importar un proyecto de autotools existente en Anjuta"
 
 #: ../plugins/project-import/anjuta-project-import.plugin.in.h:2
 msgid "Project From Existing Sources"
