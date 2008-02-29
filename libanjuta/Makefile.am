@@ -132,11 +132,11 @@ anjuta-marshal.h: anjuta-marshal.list
 	&& rm -f xgen-gmc
 
 anjuta-marshal.c: anjuta-marshal.h anjuta-marshal.list
-	echo "#include \"anjuta-marshal.h\"" > xgen-gmc \
+	echo "#include \"anjuta-marshal.h\"" > xgenc-gmc \
 	&& @GLIB_GENMARSHAL@ \
-	        --prefix=anjuta_cclosure_marshal $(srcdir)/anjuta-marshal.list --body >> xgen-gmc \
-	&& cp xgen-gmc $(@F) \
-	&& rm -f xgen-gmc
+	        --prefix=anjuta_cclosure_marshal $(srcdir)/anjuta-marshal.list --body >> xgenc-gmc \
+	&& cp xgenc-gmc $(@F) \
+	&& rm -f xgenc-gmc
 
 anjuta-enum-types.h: stamp-anjuta-enum-types.h
 	@true

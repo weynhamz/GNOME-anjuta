@@ -1,3 +1,11 @@
+2008-02-29  Johannes Schmid  <jhs@gnome.org>
+
+	* libanjuta/Makefile.am:
+	Fixed a build error when building with -j X
+	
+	* plugins/tools/scripts/prepare-changelog.pl:
+	Updated to latest script version in gnome svn
+
 2008-02-28  Johannes Schmid <jhs@gnome.org>
 
 	* plugins/document-manager/anjuta-docman.c:
