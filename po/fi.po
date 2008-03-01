@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-26 11:12+0300\n"
+"POT-Creation-Date: 2008-03-01 06:52+0300\n"
 "PO-Revision-Date: 2006-11-01 06:40+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: GFTT <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -2501,18 +2501,18 @@ msgstr "Lataa _uudestaan"
 msgid "Close file"
 msgstr "Sulje tiedosto"
 
-#: ../plugins/document-manager/anjuta-docman.c:427
+#: ../plugins/document-manager/anjuta-docman.c:422
 #: ../plugins/file-loader/plugin.c:507 ../plugins/file-loader/plugin.c:770
 #: ../plugins/file-loader/plugin.c:780 ../plugins/file-loader/plugin.c:793
 msgid "Open file"
 msgstr "Avaa tiedosto"
 
-#: ../plugins/document-manager/anjuta-docman.c:446
+#: ../plugins/document-manager/anjuta-docman.c:441
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Tallenna tiedosto nimellä"
 
-#: ../plugins/document-manager/anjuta-docman.c:525
+#: ../plugins/document-manager/anjuta-docman.c:520
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
@@ -2522,7 +2522,7 @@ msgstr ""
 "Tiedosto \"%s\" on jo olemassa.\n"
 "Haluatko korvata sen nyt tallennettavalla tiedostolla?"
 
-#: ../plugins/document-manager/anjuta-docman.c:533
+#: ../plugins/document-manager/anjuta-docman.c:528
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Korvaa"
@@ -3210,8 +3210,8 @@ msgstr "Automaattinen"
 #. this may fail, too
 #: ../plugins/document-manager/plugin.c:1534
 #, c-format
-msgid "Autosave failed for file %s: %s"
-msgstr "Tiedoston \"%s\" automaattitallennus epäonnistui: %s"
+msgid "Autosave failed for %s"
+msgstr "Tiedoston \"%s\" automaattitallennus epäonnistui"
 
 #: ../plugins/document-manager/plugin.c:1548
 msgid "Autosave completed"
@@ -3816,15 +3816,15 @@ msgstr "Juurikansio, jos projektia ei ole avattu:"
 msgid "Loading..."
 msgstr "Ladataan..."
 
-#: ../plugins/file-manager/file-view.c:313
+#: ../plugins/file-manager/file-view.c:314
 msgid "Filename"
 msgstr "Tiedostonimi"
 
-#: ../plugins/file-manager/file-view.c:399
+#: ../plugins/file-manager/file-view.c:400
 msgid "Base uri"
 msgstr "Perus-URI"
 
-#: ../plugins/file-manager/file-view.c:400
+#: ../plugins/file-manager/file-view.c:401
 msgid "Uri of the top-most path displayed"
 msgstr "Ylimmän näytetyn polun URI"
 
@@ -6107,15 +6107,15 @@ msgstr "Tallentamaton tiedosto %d"
 msgid "Unknown"
 msgstr "Tuntematon"
 
-#: ../plugins/sourceview/sourceview.c:329
+#: ../plugins/sourceview/sourceview.c:332
 msgid "Loading"
 msgstr "Ladataan"
 
-#: ../plugins/sourceview/sourceview.c:352
+#: ../plugins/sourceview/sourceview.c:355
 msgid "Saving..."
 msgstr "Tallennetaan..."
 
-#: ../plugins/sourceview/sourceview.c:359
+#: ../plugins/sourceview/sourceview.c:362
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr "Tiedostoa %s on muokattu muusta ohjelmasta. Tallennetaanko silti?"
