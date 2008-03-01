@@ -29,6 +29,7 @@
 #include <svn_client.h>
 #include <svn_pools.h>
 #include <svn_config.h>
+#include <svn_path.h>
 #include "plugin.h"
 #include <libanjuta/anjuta-async-command.h>
 

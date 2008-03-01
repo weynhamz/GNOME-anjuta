@@ -90,8 +90,9 @@ svn_diff_command_run (AnjutaCommand *command)
 	switch (self->priv->revision1)
 	{
 		case SVN_DIFF_REVISION_NONE:
-			/* Treat this as a diff between working copy and head */
-			revision1.kind = svn_opt_revision_head;
+			/* Treat this as a diff between working copy and base 
+			 * (show only mods made to the revision of this working copy.) */
+			revision1.kind = svn_opt_revision_base;
 			revision2.kind = svn_opt_revision_working;
 			break;
 		case SVN_DIFF_REVISION_PREVIOUS:

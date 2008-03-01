@@ -1,3 +1,10 @@
+2008-03-01  Johannes Schmid  <jhs@gnome.org>
+
+	Patch by James Liggett:
+	* plugins/subversion/svn-command.h:
+	* plugins/subversion/svn-diff-command.c (svn_diff_command_run):
+	Fixed #519275 – Subversion should allow offline diffs	
+
 2008-02-29  Johannes Schmid  <jhs@gnome.org>
 
 	* plugins/language-support-cpp-java/cpp-java-assist.c
