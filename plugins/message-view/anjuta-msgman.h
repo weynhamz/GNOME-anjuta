@@ -49,7 +49,7 @@ struct _AnjutaMsgmanClass
 };
 
 GType anjuta_msgman_get_type (void);
-GtkWidget *anjuta_msgman_new (AnjutaPreference * pref, GtkWidget* popup_menu);
+GtkWidget *anjuta_msgman_new (AnjutaPreferences * pref, GtkWidget* popup_menu);
 
 MessageView *anjuta_msgman_add_view (AnjutaMsgman * msgman,
 									 const gchar * name,
