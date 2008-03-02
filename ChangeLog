@@ -1,3 +1,14 @@
+2008-03-02  Johannes Schmid  <jhs@gnome.org>
+
+	* plugins/message-view/anjuta-msgman.c
+	(anjuta_msgman_instance_init), (anjuta_msgman_append_view),
+	(anjuta_msgman_get_current_view), (anjuta_msgman_set_current_view):
+	* plugins/message-view/anjuta-msgman.h:
+	
+	Fixed anjuta_msgman_get_current_view() to access the notebook directly and
+	get rid of the cached current_view member.
+	Fixes #518469 – Save message buffer not working good
+
 2008-03-01  Johannes Schmid  <jhs@gnome.org>
 
 	Patch by James Liggett:

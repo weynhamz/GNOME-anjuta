@@ -29,7 +29,6 @@ struct _AnjutaMsgmanPriv
 	AnjutaPreferences *preferences;
 	GtkWidget* popup_menu;
 	GtkWidget* tab_popup;
-	MessageView *current_view;
 	GList *views;
 };
 
@@ -207,7 +206,6 @@ anjuta_msgman_instance_init (AnjutaMsgman * msgman)
 	gtk_notebook_set_scrollable (GTK_NOTEBOOK (msgman), TRUE);
 	msgman->priv = g_new0(AnjutaMsgmanPriv, 1);
 	msgman->priv->views = NULL;
-	msgman->priv->current_view = NULL;
 	msgman->priv->tab_popup = create_tab_popup_menu(msgman);
 	g_signal_connect(GTK_OBJECT(msgman), "popup-menu", 
                        G_CALLBACK(on_msgman_popup_menu), msgman);
@@ -357,7 +355,6 @@ anjuta_msgman_append_view (AnjutaMsgman * msgman, GtkWidget *mv,
 	g_signal_handlers_block_by_func (GTK_OBJECT (msgman),
 									 GTK_SIGNAL_FUNC
 									 (on_notebook_switch_page), msgman);
-	msgman->priv->current_view = MESSAGE_VIEW (mv);
 	msgman->priv->views =
 		g_list_prepend (msgman->priv->views, (gpointer) page);
 
@@ -440,7 +437,9 @@ anjuta_msgman_remove_all_views (AnjutaMsgman * msgman)
 MessageView *
 anjuta_msgman_get_current_view (AnjutaMsgman * msgman)
 {
-	return msgman->priv->current_view;
+	gint current_page = gtk_notebook_get_current_page (GTK_NOTEBOOK(msgman));
+	return MESSAGE_VIEW (gtk_notebook_get_nth_page (GTK_NOTEBOOK(msgman),
+													current_page));
 }
 
 MessageView *
@@ -474,20 +473,7 @@ anjuta_msgman_set_current_view (AnjutaMsgman * msgman, MessageView * mv)
 	AnjutaMsgmanPage *page;
 	gint page_num;
 
-	if (mv == NULL)
-	{
-		if (gtk_notebook_get_n_pages(GTK_NOTEBOOK(msgman)) == 0)
-		{
-			msgman->priv->current_view = NULL;
-		}
-		else
-		{
-			msgman->priv->current_view = 
-				MESSAGE_VIEW(gtk_notebook_get_nth_page(GTK_NOTEBOOK(msgman),
-													   gtk_notebook_get_current_page(GTK_NOTEBOOK(msgman))));
-		}
-	}
-	else
+	if (mv)
 	{
 		page = anjuta_msgman_page_from_widget (msgman, mv);
 		page_num =
