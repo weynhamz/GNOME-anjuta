@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta.HEAD.hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-27 20:07+0000\n"
-"PO-Revision-Date: 2008-03-04 10:08+0100\n"
+"POT-Creation-Date: 2008-03-04 09:10+0000\n"
+"PO-Revision-Date: 2008-03-04 13:03+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@fsf.hu>\n"
 "MIME-Version: 1.0\n"
@@ -416,8 +416,8 @@ msgid ""
 "Failed to read '%s': XML parse error. Invalid or corrupted anjuta plugins "
 "profile."
 msgstr ""
-"„%s” nem olvasható be: XML értelmezési hiba. Érvénytelen vagy sérült "
-"Anjuta bővítményprofil."
+"„%s” nem olvasható be: XML értelmezési hiba. Érvénytelen vagy sérült Anjuta "
+"bővítményprofil."
 
 #. <Pluginname>: Install it from <some location on the web>
 #: ../libanjuta/anjuta-profile.c:755
@@ -489,8 +489,12 @@ msgstr "_Változtatások eldobása"
 #, c-format
 msgid "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
 msgid_plural "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
-msgstr[0] "<b>%d elemben mentetlen módosítások vannak. Bezárás előtt menti a módosításokat?</b>"
-msgstr[1] "<b>%d elemben mentetlen módosítások vannak. Bezárás előtt menti a módosításokat?</b>"
+msgstr[0] ""
+"<b>%d elemben mentetlen módosítások vannak. Bezárás előtt menti a "
+"módosításokat?</b>"
+msgstr[1] ""
+"<b>%d elemben mentetlen módosítások vannak. Bezárás előtt menti a "
+"módosításokat?</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:311
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -2494,18 +2498,18 @@ msgstr "_Újratöltés"
 msgid "Close file"
 msgstr "Fájl bezárása"
 
-#: ../plugins/document-manager/anjuta-docman.c:427
+#: ../plugins/document-manager/anjuta-docman.c:422
 #: ../plugins/file-loader/plugin.c:507 ../plugins/file-loader/plugin.c:770
 #: ../plugins/file-loader/plugin.c:780 ../plugins/file-loader/plugin.c:793
 msgid "Open file"
 msgstr "Fájl megnyitása"
 
-#: ../plugins/document-manager/anjuta-docman.c:446
+#: ../plugins/document-manager/anjuta-docman.c:441
 #: ../plugins/message-view/message-view.c:94
 msgid "Save file as"
 msgstr "Fájl mentése másként"
 
-#: ../plugins/document-manager/anjuta-docman.c:525
+#: ../plugins/document-manager/anjuta-docman.c:520
 #: ../plugins/file-wizard/file.c:240 ../plugins/valgrind/plugin.c:375
 #, c-format
 msgid ""
@@ -2515,7 +2519,7 @@ msgstr ""
 "A(z) '%s' fájl már létezik.\n"
 "Le akarja cserélni azzal, amit épp menteni készül?"
 
-#: ../plugins/document-manager/anjuta-docman.c:533
+#: ../plugins/document-manager/anjuta-docman.c:528
 #: ../plugins/file-wizard/file.c:248 ../plugins/valgrind/plugin.c:383
 msgid "_Replace"
 msgstr "_Csere"
@@ -3220,7 +3224,9 @@ msgstr "„%s” keresése elérte a fájl végét, folytatva az elejétől."
 msgid ""
 "Search for \"%s\" reached end and was continued on top but no new match was "
 "found."
-msgstr "„%s” keresése elérte a fájl végét, folytatva az elejétől, de nincs új találat."
+msgstr ""
+"„%s” keresése elérte a fájl végét, folytatva az elejétől, de nincs új "
+"találat."
 
 #: ../plugins/document-manager/search-box.c:448
 msgid "Case sensitive"
@@ -3805,15 +3811,15 @@ msgstr "Gyökérkönyvtár, ha nincs megnyitva projekt:"
 msgid "Loading..."
 msgstr "Betöltés..."
 
-#: ../plugins/file-manager/file-view.c:313
+#: ../plugins/file-manager/file-view.c:314
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: ../plugins/file-manager/file-view.c:399
+#: ../plugins/file-manager/file-view.c:400
 msgid "Base uri"
 msgstr "Alap URI"
 
-#: ../plugins/file-manager/file-view.c:400
+#: ../plugins/file-manager/file-view.c:401
 msgid "Uri of the top-most path displayed"
 msgstr "A legfelső megjelenített könyvtár URI címe"
 
@@ -4094,7 +4100,9 @@ msgstr ""
 #: ../plugins/gdb/plugin.c:117
 #, c-format
 msgid "Failed to create fifo file named %s. The program will run without a terminal."
-msgstr "A(z) %s nevű fifo fájl létrehozása meghiúsult. A program terminál nélkül fog futni."
+msgstr ""
+"A(z) %s nevű fifo fájl létrehozása meghiúsult. A program terminál nélkül fog "
+"futni."
 
 #: ../plugins/gdb/plugin.c:152
 msgid "Cannot start terminal for debugging."
@@ -4674,7 +4682,7 @@ msgstr "Figyelmeztető üzenetek megjelenési stílusa:"
 msgid "Warnings:"
 msgstr "Figyelmeztetések:"
 
-#: ../plugins/message-view/anjuta-msgman.c:72
+#: ../plugins/message-view/anjuta-msgman.c:71
 msgid "Close all message tabs"
 msgstr "Az összes üzenetlap bezárása"
 
@@ -5032,7 +5040,9 @@ msgstr "Projekt importálása"
 
 #: ../plugins/project-import/anjuta-project-import.glade.h:4
 msgid "This assistent will import an existing project into Anjuta."
-msgstr "Ez az asszisztens segítségére lesz egy létező projekt Anjuta-ba importálásában."
+msgstr ""
+"Ez az asszisztens segítségére lesz egy létező projekt Anjuta-ba "
+"importálásában."
 
 #: ../plugins/project-import/project-import.c:98
 #, c-format
@@ -5075,8 +5085,8 @@ msgid ""
 "A file named \"%s\" cannot be written: %s.  Check if you have write access "
 "to the project directory."
 msgstr ""
-"A(z) „%s” fájl nem írható: %s. Ellenőrizze, hogy van-e írási joga a "
-"projekt könyvtárára."
+"A(z) „%s” fájl nem írható: %s. Ellenőrizze, hogy van-e írási joga a projekt "
+"könyvtárára."
 
 #: ../plugins/project-manager/plugin.c:343
 #, c-format
@@ -5478,7 +5488,9 @@ msgstr "Támogatást ad megosztott programkönyvtárak felépítéséhez a proje
 msgid ""
 "Adds support for internationalization so that your project can have "
 "translations in different languages"
-msgstr "Támogatást ad a nemzetköziséghez, így a projekt lefordítható különböző nyelvekre"
+msgstr ""
+"Támogatást ad a nemzetköziséghez, így a projekt lefordítható különböző "
+"nyelvekre"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:9
 msgid "Basic information"
@@ -5709,11 +5721,15 @@ msgstr "A libglade használata a felhasználói felülethez"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:66
 msgid "Use pkg-config to add library support from other packages"
-msgstr "A pkg-config segítségével más csomagokból származó támogató programkönyvtárakat vehet fel"
+msgstr ""
+"A pkg-config segítségével más csomagokból származó támogató "
+"programkönyvtárakat vehet fel"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:67
 msgid "Use the libglade-2.0 library to load the glade interface file at runtime"
-msgstr "A libglade-2.0 programkönyvtár használata a Glade felületfájl futás közbeni betöltésére"
+msgstr ""
+"A libglade-2.0 programkönyvtár használata a Glade felületfájl futás közbeni "
+"betöltésére"
 
 #: ../plugins/project-wizard/templates/translatable-strings.h:68
 msgid "Value Name:"
@@ -6098,15 +6114,15 @@ msgstr "%d. mentetlen dokumentum"
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: ../plugins/sourceview/sourceview.c:329
+#: ../plugins/sourceview/sourceview.c:332
 msgid "Loading"
 msgstr "Betöltés"
 
-#: ../plugins/sourceview/sourceview.c:352
+#: ../plugins/sourceview/sourceview.c:355
 msgid "Saving..."
 msgstr "Mentés..."
 
-#: ../plugins/sourceview/sourceview.c:359
+#: ../plugins/sourceview/sourceview.c:362
 #, c-format
 msgid "The file %s was modified by another application. Save it anyway?"
 msgstr "A(z) %s fájlt egy másik alkalmazás módosított. Mindenképp menti?"
@@ -6761,7 +6777,7 @@ msgstr "Hiányzik: %s"
 #: ../plugins/subversion/svn-command.c:397
 #, c-format
 msgid "Obstructed: %s"
-msgstr ""
+msgstr "Elakadt: %s"
 
 #: ../plugins/symbol-browser/anjuta-symbol-locals.c:62
 #: ../plugins/symbol-browser/an_symbol_view.c:569
@@ -7038,7 +7054,9 @@ msgstr "Már létezik ugyanilyen nevű eszköz!"
 msgid ""
 "The shortcut is already used by another component in Anjuta. Do you want to "
 "keep it anyway?"
-msgstr "A gyorsbillentyűt már használja egy másik Anjuta összetevő. Mindenképpen meg akarja tartani?"
+msgstr ""
+"A gyorsbillentyűt már használja egy másik Anjuta összetevő. Mindenképpen meg "
+"akarja tartani?"
 
 #: ../plugins/tools/editor.c:817
 msgid "Unable to edit script"
