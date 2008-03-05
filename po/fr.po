@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anjuta 2.4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-02 22:08+0100\n"
-"PO-Revision-Date: 2008-03-02 22:26+0100\n"
+"POT-Creation-Date: 2008-03-05 21:02+0100\n"
+"PO-Revision-Date: 2008-03-05 18:35+0100\n"
 "Last-Translator: Stéphane Raimbault <stephane.raimbault@gmail.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,9 +31,7 @@ msgstr "EDI Anjuta"
 
 #: ../anjuta.desktop.in.in.h:2
 msgid "Develop software in an integrated development environment"
-msgstr ""
-"Permet de développer du logiciel dans un environnement de développement "
-"intégré"
+msgstr "Développer des applications dans un environnement intégré"
 
 #: ../anjuta.desktop.in.in.h:3 ../src/about.c:187 ../src/main.c:341
 msgid "Integrated Development Environment"
@@ -505,8 +503,12 @@ msgid ""
 "<b>There is %d item with unsaved changes. Save changes before closing?</b>"
 msgid_plural ""
 "<b>There are %d items with unsaved changes. Save changes before closing?</b>"
-msgstr[0] "<b>Il y a %d élément avec des modifications non enregistrées. Voulez-vous enregistrer les modifications avant de fermer ?</b>"
-msgstr[1] "<b>Il y a %d éléments avec des modifications non enregistrées. Voulez-vous enregistrer les modifications avant de fermer ?</b>"
+msgstr[0] ""
+"<b>Il y a %d élément avec des modifications non enregistrées. Voulez-vous "
+"enregistrer les modifications avant de fermer ?</b>"
+msgstr[1] ""
+"<b>Il y a %d éléments avec des modifications non enregistrées. Voulez-vous "
+"enregistrer les modifications avant de fermer ?</b>"
 
 #: ../libanjuta/anjuta-save-prompt.c:311
 msgid "There is an item with unsaved changes. Save changes before closing?"
@@ -1576,7 +1578,8 @@ msgstr "_Tout activer"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:15
 msgid "Enter an address in hexadecimal or select one in the data"
-msgstr "Saisissez une adresse hexadécimale ou choisissez-en une parmi les données"
+msgstr ""
+"Saisissez une adresse hexadécimale ou choisissez-en une parmi les données"
 
 #: ../plugins/debug-manager/anjuta-debug-manager.glade.h:16
 #: ../plugins/gdb/anjuta-gdb.glade.h:14
@@ -4708,7 +4711,7 @@ msgstr "Style des indicateurs des message d'avertissement :"
 msgid "Warnings:"
 msgstr "Avertissements :"
 
-#: ../plugins/message-view/anjuta-msgman.c:72
+#: ../plugins/message-view/anjuta-msgman.c:71
 msgid "Close all message tabs"
 msgstr "Fermer tous les onglets des messages"
 
