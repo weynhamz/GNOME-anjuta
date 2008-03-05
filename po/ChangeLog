@@ -1,3 +1,7 @@
+2008-03-05  Wouter Bolsterlee  <wbolster@svn.gnome.org>
+
+	* nl.po: Updated Dutch translation by Tino Meinen.
+
 2008-03-04  Gabor Kelemen  <kelemeng@gnome.hu>
 
 	* hu.po: Translation updated
@@ -45,7 +49,7 @@
 
 2008-02-27  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-	* es.po: Updated Spanish translation   
+	* es.po: Updated Spanish translation
 
 2008-02-27  Luca Ferretti  <elle.uca@libero.it>
 
@@ -209,7 +213,7 @@
 2008-02-02  Yannig Marchegay <yannig@marchegay.org>
 
 	* oc.po: Updated Occitan translation.
-2008-02-02  Jorge Gonzalez  <jorgegonz@svn.gnome.org>           
+2008-02-02  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
 	* es.po: Updated Spanish translation.
 
@@ -340,7 +344,7 @@
 
 	* es.po: Updated Spanish translation.
 
-2008-01-09  Jorge Gonzalez  <jorgegonz@svn.gnome.org>                          
+2008-01-09  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
 	* es.po: Updated Spanish translation.
 
@@ -384,11 +388,11 @@
 
 2007-12-13  Jorge Gonzalez  <jorgegonz@svn.gnome.org>  
 
-        * es.po: Updated Spanish translation.   
+	* es.po: Updated Spanish translation.
 
 2007-12-11  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation.
+	* es.po: Updated Spanish translation.
 
 2007-12-10  Mohammad DAMT  <mdamt@gnome.org>
 
@@ -398,7 +402,7 @@
 
 2007-12-06  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation.
+	* es.po: Updated Spanish translation.
 
 2007-11-13  Danishka Navin <danishka@gmail.com>
 
@@ -411,11 +415,11 @@
 
 2007-11-30  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation.
+	* es.po: Updated Spanish translation.
 
 2007-11-28  Jorge Gonzalez <jorgegonz@svn.gnome.org>  
 
-        * es.po: Updated Spanish translation.
+	* es.po: Updated Spanish translation.
 
 2007-11-28  Changwoo Ryu  <cwryu@debian.org>
 
@@ -431,11 +435,11 @@
 
 2007-11-20  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation
+	* es.po: Updated Spanish translation
 
 2007-11-18  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation
+	* es.po: Updated Spanish translation
 
 2007-11-18  Takeshi AIHANA <takeshi.aihana@gmail.com>
 
@@ -461,7 +465,7 @@
 
 2007-11-14  Jorge Gonzalez  <jorgegonz@svn.gnome.org> 
 
-        * es.po: Updated Spanish translation
+	* es.po: Updated Spanish translation
 
 2007-11-13  Matej Urbančič <mateju@svn.gnome.org>
 
@@ -470,7 +474,7 @@
 
 2007-11-12  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation
+	* es.po: Updated Spanish translation
 
 2007-11-11  Daniel Nylander  <po@danielnylander.se>
 
@@ -483,11 +487,11 @@
 
 2007-11-08  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation
+	* es.po: Updated Spanish translation
 
 2007-11-07  Jorge Gonzalez  <jorgegonz@svn.gnome.org>  
 
-        * es.po: Updated Spanish translation
+	* es.po: Updated Spanish translation
 
 2007-11-05  Alessio Frusciante  <algol@firenze.linux.it>
 
@@ -518,7 +522,7 @@
 
 2007-11-01  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation
+	* es.po: Updated Spanish translation
 
 2007-11-1  Djihed Afifi <djihed@gmail.com> 
 
@@ -535,7 +539,7 @@
 
 2007-10-25  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation.
+	* es.po: Updated Spanish translation.
 
 2007-10-23  Djihed Afifi <djihed@gmail.com> 
 
@@ -543,7 +547,7 @@
 
 2007-10-22  Jorge Gonzalez  <jorgegonz@svn.gnome.org>  
 
-        * es.po: Updated Spanish translation.
+	* es.po: Updated Spanish translation.
 
 2007-10-22  Gil Forcada  <gforcada@svn.gnome.org>
 
@@ -555,9 +559,9 @@
 
 2007-10-19  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation
+	* es.po: Updated Spanish translation
 
-2007-10-17  Ignacio Casal Quinteiro   <nacho.resa@gmail.com>
+2007-10-17  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
 	* gl.po: Updated Galician Translation.
 	* POTFILES.in: Updated.
@@ -568,7 +572,7 @@
 
 2007-10-14  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation.
+	* es.po: Updated Spanish translation.
 
 2007-10-12  Leonardo Ferreira Fontenelle  <leonardof@svn.gnome.org>
 
@@ -581,7 +585,7 @@
 
 2007-10-07  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
 
-        * es.po: Updated Spanish translation.
+	* es.po: Updated Spanish translation.
 
 2007-10-01  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
 
@@ -1781,7 +1785,7 @@
 
 	* cs.po: Updated Czech translation.
 
-2003-11-28   Vincent van Adrighem  <adrighem@gnome.org>
+2003-11-28  Vincent van Adrighem  <adrighem@gnome.org>
 
 	* az.po, mk.po: Mark wrong entry as fuzzy (msgfmt check failed).
 
@@ -1878,7 +1882,7 @@
 	* POTFILES.in: Sync with source tree.
 	* az.po: Fix header (msgfmt check failed).
 	* da.po, de.po, el.po, it.po, no.po, pl.po, ta.po, tr.po,
-	  uk.po, zh_TW.po: converted to UTF-8.
+	uk.po, zh_TW.po: converted to UTF-8.
 
 2003-05-11  Takeshi AIHANA <aihana@gnome.gr.jp>
 
@@ -2034,7 +2038,7 @@
 2002-12-03 Stephane Demurget <demurgets@free.fr>
 
 	* fr.po: Updated French tranlation from
-	  Pierre Sarrazin <sarrazip@sympatico.ca>
+	Pierre Sarrazin <sarrazip@sympatico.ca>
 
 2002-08-25  Duarte Loreto <happyguy_pt@hotmail.com>
 
@@ -2136,7 +2140,7 @@
 2002-03-24  Javier Conde Rueda  <f3285740@est.fib.upc.es>
 
 	* es.po: updated Spanish translation according to the
-	  0.1.9 release.
+	0.1.9 release.
 
 2002-03-14  Stanislav Visnovsky  <visnovsky@nenya.ms.mff.cuni.cz>
 
@@ -2184,7 +2188,7 @@
 
 2002-02-04 Duarte Loreto <happyguy_pt@hotmail.com>
 
-        * pt.po: Updated portuguese translation.
+	* pt.po: Updated portuguese translation.
 
 2002-02-04  Takeshi Aihana <aihana@gnome.gr.jp>
 
@@ -2244,11 +2248,11 @@
 2002-01-26  Naba Kumar <kh_naba@users.sourceforge.net>
 
 	* po/*.po: They seem to have updated (merged with
-	  anjuta.pot) automatically when I did "make dist".
-	  
-	  Do you guys think it's normal? Or have I done
-	  something wrong?
-	  
+	anjuta.pot) automatically when I did "make dist".
+
+	Do you guys think it's normal? Or have I done
+	something wrong?
+
 2002-01-23  Duarte Loreto <happyguy_pt@hotmail.com>
 
 	* pt.po: Updated Portuguese translation.
@@ -2410,13 +2414,13 @@
 2001-11-09  Abel Cheung  <maddog@linux.org.hk>
 
 	* zh_TW.po: Updated traditional Chinese translation from
-	  Joe Man <trmetal@yahoo.com.hk>
+	Joe Man <trmetal@yahoo.com.hk>
 
 2001-11-05  Andy Piper  <andy.piper@freeuk.com>
 
-	* status.pl: another tweak to the format (changed country 
-	 attribute to language) and now populates application 
-	 element.
+	* status.pl: another tweak to the format (changed
+	country attribute to language) and now populates
+	application element.
 
 2001-11-01 Naba kumar <kh_naba@users.sourceforge.net>
 
@@ -2431,8 +2435,8 @@
 2001-11-05  Andy Piper  <andy.piper@freeuk.com>
 
 	* status.pl: altered the XML format output by the script. It
-	  is now well-formed XML (although no DTD or Schema exists).
-	  Added new countries to the hash table and corrected typos.
+	is now well-formed XML (although no DTD or Schema exists).
+	Added new countries to the hash table and corrected typos.
 
 2001-11-04  Christian Rose  <menthos@menthos.com>
 
@@ -2449,10 +2453,10 @@
 2001-11-01 Naba kumar <kh_naba@users.sourceforge.net>
 
 	* status.pl: Fixed the bug "swapping translaged and untranslated".
-	  It now shows correct figures for all translations.
-	  It now also generate "translations.xml" data file
-	  to be used in website to show the translation statistics.
-	  
+	It now shows correct figures for all translations.
+	It now also generate "translations.xml" data file
+	to be used in website to show the translation statistics.
+
 2001-10-30  Zbigniew Chyla  <cyba@gnome.pl>
 
 	* pl.po: Updated Polish translation by
@@ -2478,23 +2482,23 @@
 2001-10-24  Abel Cheung <maddog@linux.org.hk>
 
 	* nl.po: Modified line 1138 and line 4763, file fails in
-	  "msgfmt -c" check. Argument format error. Last-translator
-	  contacted.
+	"msgfmt -c" check. Argument format error. Last-translator
+	contacted.
 
 	* de.po: Fails check too. Marked line 5150/5163 as fuzzy.
-	  Added missing PO-Revision-Date. Last-translator contacted.
+	Added missing PO-Revision-Date. Last-translator contacted.
 
 	* zh_CN.po: New simplified Chinese translation from
-	  Conner Mo <connermo@hotmail.com>.
+	Conner Mo <connermo@hotmail.com>.
 
 	* zh_TW.po: Updated traditional Chinese translation from
-	  Joe Man <trmetal@yahoo.com.hk>. This po file is checked
-	  using gettext 0.10.35 too, so hopefully no more problem.
+	Joe Man <trmetal@yahoo.com.hk>. This po file is checked
+	using gettext 0.10.35 too, so hopefully no more problem.
 
 2001-10-21  Abel Cheung <maddog@linux.org.hk>
 
 	* zh_TW.po: New traditional Chinese translation from
-	  Joe Man <trmetal@yahoo.com.hk>
+	Joe Man <trmetal@yahoo.com.hk>
 
 2001-10-19  Naba kumar <kh_naba@users.sourceforge.net>
 
@@ -2553,11 +2557,11 @@
 2001-09-19  Naba Kumar <kh_naba@sourceforge.net>
 
 	* status.pl (new): Wrote a perl script to display the
-	  translation statistics.
-	  
-	  I hope you people will find it useful. Just run
-	  the script and you get statistics.
-	  
+	translation statistics.
+
+	I hope you people will find it useful. Just run
+	the script and you get statistics.
+
 2001-09-15  Carlos Perelló Marín <carlos@gnome-db.org>
 
 	* de.po: Header fixed.
@@ -2600,7 +2604,7 @@
 2001-08-12  Naba Kumar <kh_naba@sourceforge.net>
 
 	* es.po: Update the full translation from
-	   Javier Conde Rueda <f3285740@est.fib.upc.es>
+	Javier Conde Rueda <f3285740@est.fib.upc.es>
 
 2001-08-12  Zbigniew Chyla  <cyba@gnome.pl>
 
