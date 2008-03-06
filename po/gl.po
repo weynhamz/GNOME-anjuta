@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-28 13:24+0100\n"
+"POT-Creation-Date: 2008-03-06 19:21+0100\n"
 "PO-Revision-Date: 2008-02-04 11:57+0100\n"
 "Last-Translator: Ignacio Casal Quinteiro <icq@svn.gnome.org>\n"
 "Language-Team: Galego <proxecto@trasno.net>\n"
@@ -4694,7 +4694,7 @@ msgstr "Estilo de indicador de mensaxe de aviso:"
 msgid "Warnings:"
 msgstr "Avisos:"
 
-#: ../plugins/message-view/anjuta-msgman.c:72
+#: ../plugins/message-view/anjuta-msgman.c:71
 msgid "Close all message tabs"
 msgstr "Pechar todos os separadores de mensaxes"
 
@@ -6162,7 +6162,7 @@ msgstr "<b>Opcións de sangrado e auto-formato</b>"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:6
 msgid "<b>View</b>"
-msgstr "<b>Ver<b>"
+msgstr "<b>Ver</b>"
 
 #: ../plugins/sourceview/anjuta-editor-sourceview.glade.h:7
 msgid "Background:"
